@@ -25,6 +25,14 @@
 |---|---|
 | [schema/SCHEMA_OVERVIEW.md](schema/SCHEMA_OVERVIEW.md) | `data/emperors.json` のスキーマ参照ガイド（詳細は [data/schema/](../data/schema/) を参照） |
 
+## site-design/ — サイトレイアウト設計（実装はデータ確定後）
+
+データ調査完了後に着手する Next.js サイトのレイアウト・メニュー構成・グラフ案を先行検討したメモです。
+
+| ファイル | 内容 |
+|---|---|
+| [site-design/LAYOUT.md](site-design/LAYOUT.md) | 左メニュー構成・スマホ対応方針・カテゴリ別のグラフ/表の具体案 |
+
 ## 関連
 
 - データ本体・詳細スキーマ定義は [data/README.md](../data/README.md) を参照
