@@ -21,6 +21,9 @@ CACHE_DIR = ROOT / "_corpus_cache"
 
 MING_DIR = CHINA_HISTORY / "明史" / "本纪"
 QING_FILE = DAIZHI / "清史稿.txt"
+DAIZHI_MINGSHI_FILE = DAIZHI / "明史.txt"
+DAIZHI_ZHUANJI = ROOT / "daizhigev20" / "史藏" / "传记"
+XIAODIAN_ZHUANZHUAN_FILE = DAIZHI_ZHUANJI / "小腆纪传.txt"
 HAN_DIR = CHINA_HISTORY / "汉书" / "纪"
 HOUHAN_DIR = CHINA_HISTORY / "后汉书" / "本纪"
 WUDAI_HOULIANG_DIR = CHINA_HISTORY / "旧五代史" / "后梁"
@@ -607,6 +610,38 @@ def build_yuanmo():
     return out
 
 
+def build_mingqing_zhuanti():
+    """明清交替期の残存政権・群雄9名（南明4・順・西・呉周2）。中華帝国（袁世凱）は
+    正史範囲外のため対象外（二次資料のみで調査、キャッシュ生成不要）。"""
+    out = {}
+
+    # 南明4名: 小腆纪传（daizhigev20/史藏/传记）の紀第一〜第六が各紀に対応。
+    # 弘光(紀一・二)=安宗、隆武(紀三前半)=紹宗、紹武(紀三後半、隆武紀に「附」として
+    # 同居)=紹武帝、永历(紀四〜六)=昭宗。行番号はdocs/process/CORPUS_NOTES.mdに記録。
+    xiaodian_lines = XIAODIAN_ZHUANZHUAN_FILE.read_text(encoding="utf-8").splitlines()
+    out["nanming-anzong"] = "\n".join(xiaodian_lines[371:835]).strip()  # 紀一・二 弘光（行372-835）
+    juan3 = "\n".join(xiaodian_lines[835:1007]).strip()  # 紀三 隆武（附紹武）（行836-1007）
+    zongzong_part, shaowudi_part = split_at(juan3, "绍武讳聿")
+    out["nanming-zongzong"] = zongzong_part
+    out["nanming-shaowudi"] = shaowudi_part
+    out["nanming-zhaozong"] = "\n".join(xiaodian_lines[1007:1639]).strip()  # 紀四〜六 永历（行1008-1639）
+
+    # 順（李自成）・西（張献忠）: 明史（daizhigev20/史藏/正史、china-historyには列伝が
+    # 収録されていないため daizhi 版を使用）列传第一百九十七「流贼」（行22982-23049）を共有。
+    mingshi_lines = DAIZHI_MINGSHI_FILE.read_text(encoding="utf-8").splitlines()
+    liuzei = "\n".join(mingshi_lines[22981:23049]).strip()
+    out["shun-lichengzheng"] = liuzei
+    out["xi-zhangxianzhong"] = liuzei
+
+    # 呉周2名（呉三桂・呉世璠）: 清史稿 列传二百六十一（呉三桂・耿精忠・尚之信・
+    # 孙延龄合伝、行23380-23441）を共有。呉世璠は三桂没後の後継として同伝内に記述。
+    qing_lines = QING_FILE.read_text(encoding="utf-8").splitlines()
+    wuzhou = "\n".join(qing_lines[23379:23441]).strip()
+    out["wuzhou-wusangui"] = wuzhou
+    out["wuzhou-wushifan"] = wuzhou
+    return out
+
+
 def main():
     CACHE_DIR.mkdir(exist_ok=True)
     results = {}
@@ -623,6 +658,7 @@ def main():
     results.update(build_xixia())
     results.update(build_yuan())
     results.update(build_yuanmo())
+    results.update(build_mingqing_zhuanti())
     for emperor_id, text in results.items():
         (CACHE_DIR / f"{emperor_id}.txt").write_text(text, encoding="utf-8")
         print(f"{emperor_id}: {len(text)} chars")
