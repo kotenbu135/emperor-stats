@@ -16,6 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 CHINA_HISTORY = ROOT / "china-history"
 DAIZHI = ROOT / "daizhigev20" / "史藏" / "正史"
+DAIZHI_BIESHI = ROOT / "daizhigev20" / "史藏" / "别史"
 CACHE_DIR = ROOT / "_corpus_cache"
 
 MING_DIR = CHINA_HISTORY / "明史" / "本纪"
@@ -29,6 +30,15 @@ WUDAI_HOUHAN_DIR = CHINA_HISTORY / "旧五代史" / "后汉"
 WUDAI_HOUZHOU_DIR = CHINA_HISTORY / "旧五代史" / "后周"
 XIN_WUDAI_SHIJIA_DIR = CHINA_HISTORY / "新五代史" / "世家"
 XIN_WUDAI_LIEZHUAN_DIR = CHINA_HISTORY / "新五代史" / "列传"
+SONG_DIR = CHINA_HISTORY / "宋史" / "本纪"
+SONG_LIEZHUAN_DIR = CHINA_HISTORY / "宋史" / "列传"
+LIAO_DIR = CHINA_HISTORY / "辽史" / "本纪"
+JIN_DIR = CHINA_HISTORY / "金史" / "本纪"
+JIN_LIEZHUAN_DIR = CHINA_HISTORY / "金史" / "列传"
+XIXIA_FILE = DAIZHI_BIESHI / "西夏书事.txt"
+YUAN_DIR = CHINA_HISTORY / "元史" / "本纪"
+MING_LIEZHUAN_DIR = CHINA_HISTORY / "明史" / "列传"
+XINYUANSHI_FILE = DAIZHI / "新元史.txt"
 
 
 NAV_LINE_PATTERNS = [
@@ -359,6 +369,244 @@ def build_shiguo():
     return out
 
 
+# 宋史本紀（北宋9名・南宋6名。瀛国公・端宗・衛王は卷四十七を3分割）
+SONG_JUAN_MAP = {
+    "beisong-taizu": (1, 3),
+    "beisong-taizong": (4, 5),
+    "beisong-zhenzong": (6, 8),
+    "beisong-renzong": (9, 12),
+    "beisong-yingzong": (13, 13),
+    "beisong-shenzong": (14, 16),
+    "beisong-zhezong": (17, 18),
+    "beisong-huizong": (19, 22),
+    "beisong-qinzong": (23, 23),
+    "nansong-gaozong": (24, 32),
+    "nansong-xiaozong": (33, 35),
+    "nansong-guangzong": (36, 36),
+    "nansong-ningzong": (37, 40),
+    "nansong-lizong": (41, 45),
+    "nansong-duzong": (46, 46),
+    # nansong-gongdi/duanzong/weiwang は卷四十七を分割（下記参照）
+}
+
+
+def build_song():
+    out = {}
+    for emperor_id, (start, end) in SONG_JUAN_MAP.items():
+        out[emperor_id] = read_juan_range(SONG_DIR, start, end)
+
+    # 卷四十七: 瀛国公(恭帝)の記述に続き、逃亡した二王(昰・昺)の記述が埋め込まれる。
+    # 「賈似道等入宮議所立」以降が二王の事跡(端宗即位の経緯)、
+    # 「庚午，衆又立衞王昺為主」以降が衛王(帝昺)の事跡。
+    juan47 = read_juan_range(SONG_DIR, 47, 47)
+    gongdi_part, rest = split_at(juan47, "賈似道等入宮議所立")
+    duanzong_part, weiwang_part = split_at(rest, "庚午，衆又立衞王昺為主")
+    out["nansong-gongdi"] = gongdi_part
+    out["nansong-duanzong"] = duanzong_part
+    out["nansong-weiwang"] = weiwang_part
+    return out
+
+
+def build_beisongmo():
+    """北宋末の傀儡政権2名（張邦昌=楚、劉豫=齊）。本紀を持たず列伝のみ。
+    宋史列伝の絶対巻475は本紀47+志162+表32=241を差し引いた相対巻234
+    （china-history のファイル名は相対巻数で統一されている）。
+    """
+    out = {}
+    liezhuan = read_html(SONG_LIEZHUAN_DIR / "第二百三十四章-卷二百三十四-原文.html")
+    zhangbangchang_part, rest = split_at(liezhuan, "劉豫字彥游，景州阜城人也。")
+    liuyu_part, _ = split_at(rest, "苗傅，上黨人。")
+    out["beisongmo-zhangbangchang"] = zhangbangchang_part
+
+    # 劉豫は金史列伝にも独立した記述がある（金史の絶対巻77は本紀19+志39+表4=62を
+    # 差し引いた相対巻15）。宋史の記述を補う参考として末尾に追記する。
+    jin_liezhuan = read_html(JIN_LIEZHUAN_DIR / "第十五章-卷十五-原文.html")
+    _, from_liuyu = split_at(jin_liezhuan, "刘豫，字彦游，景州阜城人。")
+    liuyu_jin_part, _ = split_at(from_liuyu, "昌，本名挞懒，穆宗子。")
+    out["beisongmo-liuyu"] = liuyu_part + "\n\n" + liuyu_jin_part
+    return out
+
+
+# 遼史本紀（遼9名。天祚皇帝紀四(卷三十)の末尾に西遼3名が付録として埋め込まれる）
+LIAO_JUAN_MAP = {
+    "liao-taizu": (1, 2),
+    "liao-taizong": (3, 4),
+    "liao-shizong": (5, 5),
+    "liao-muzong": (6, 7),
+    "liao-jingzong": (8, 9),
+    "liao-shengzong": (10, 17),
+    "liao-xingzong": (18, 20),
+    "liao-daozong": (21, 26),
+    "liao-tianzuodi": (27, 30),
+}
+
+
+def build_liao():
+    out = {}
+    for emperor_id, (start, end) in LIAO_JUAN_MAP.items():
+        out[emperor_id] = read_juan_range(LIAO_DIR, start, end)
+
+    # 卷三十末尾: 耶律大石(徳宗)→塔不烟(感天皇后、摂政)→夷列(仁宗)→
+    # 普速完(承天太后、摂政)→直魯古(末主)の順で記述される。摂政2名は対象外だが
+    # 前後の摂政記述は文脈として各皇帝側に残す（重複許容）。
+    juan30 = read_juan_range(LIAO_DIR, 30, 30)
+    start = juan30.index("耶律大石者，世号为西辽。")
+    idx_renzong = juan30.index("子夷列年幼，遣命皇后权国。")
+    idx_tianxi = juan30.index("子幼，遗诏以妹普速完权国")
+    end = juan30.index("直鲁古死，辽绝。") + len("直鲁古死，辽绝。")
+    out["xiliao-dezong"] = juan30[start:idx_renzong].strip()
+    out["xiliao-renzong"] = juan30[idx_renzong:idx_tianxi].strip()
+    out["xiliao-tianxi"] = juan30[idx_tianxi:end].strip()
+    return out
+
+
+# 金史本紀（金10名。卷一世紀・卷十九世紀補は追尊祖先のため対象外）
+JIN_JUAN_MAP = {
+    "jin-taizu": (2, 2),
+    "jin-taizong": (3, 3),
+    "jin-xizong": (4, 4),
+    "jin-hailingwang": (5, 5),
+    "jin-shizong": (6, 8),
+    "jin-zhangzong": (9, 12),
+    "jin-weishaowang": (13, 13),
+    "jin-xuanzong": (14, 16),
+    "jin-aizong": (17, 18),
+    # jin-modi(完顔承麟)は独立した紀を持たず卷十八(哀宗紀下)末尾に埋め込み
+}
+
+
+def build_jin():
+    out = {}
+    for emperor_id, (start, end) in JIN_JUAN_MAP.items():
+        out[emperor_id] = read_juan_range(JIN_DIR, start, end)
+
+    juan18 = read_juan_range(JIN_DIR, 18, 18)
+    start = juan18.index("戊申，夜，上集百官，传位于东面元帅承麟")
+    end = juan18.index("末帝为乱兵所害，金亡。") + len("末帝为乱兵所害，金亡。")
+    out["jin-modi"] = juan18[start:end].strip()
+    return out
+
+
+# 西夏書事（daizhigev20、china-history非収録のため唯一の一次コーパス）。
+# 編年体のため皇帝ごとの独立巻を持たず、行番号で範囲を切り出す（1-indexed, inclusive）。
+# 前後の皇帝と重複する区間を意図的に含む（摂政・譲位等の記述が隣接するため）。
+XIXIA_RANGES = {
+    "xixia-jingzong": (1890, 2791),    # 元昊(景宗)。徳明卒〜嗣立・称帝〜元昊死(巻十八)
+    "xixia-yizong": (2752, 3292),      # 諒祚(毅宗)。没蔵訛龐による擁立〜死(巻二十一)
+    "xixia-huizong": (3286, 4230),     # 秉常(恵宗)。嗣立〜死(巻二十七手前)
+    "xixia-chongzong": (4201, 5789),   # 乾順(崇宗)。嗣立(3歳)〜死(巻三十五)
+    "xixia-renzong": (5617, 6735),     # 仁孝(仁宗)。嗣立〜死(巻三十八)
+    "xixia-huanzong": (6701, 7016),    # 純祐(桓宗)。嗣立〜安全による廃位(巻三十九)
+    "xixia-xiangzong": (6949, 7247),   # 安全(襄宗)。簒奪〜死(明記なし、遵頊即位直前まで)
+    "xixia-shenzong": (7067, 7573),    # 遵頊(神宗)。嗣立〜徳旺への譲位〜太上皇として死
+    "xixia-xianzong": (7465, 7573),    # 徳旺(献宗)。父帝からの譲位〜死(遵頊と区間重複)
+    "xixia-mozhu": (7569, 7647),       # 睍(末主)。嗣立〜モンゴルに降伏・殺害・夏滅亡(巻末まで)
+}
+
+
+def build_xixia():
+    lines = XIXIA_FILE.read_text(encoding="utf-8").splitlines()
+    out = {}
+    for emperor_id, (start, end) in XIXIA_RANGES.items():
+        chunk = lines[start - 1:end]
+        out[emperor_id] = "\n".join(chunk).strip()
+    return out
+
+
+# 元史本紀（元本朝9名分をここで一括処理。英宗・泰定帝・寧宗・恵宗はそれぞれ
+# 単独の巻範囲で足りる。明宗・天順帝・北元昭宗は複雑な交代劇のため build_yuan() 内で個別処理）
+# 元史の本紀ディレクトリはファイル名の巻数が絶対巻数と一致する（元史は本紀のみ47巻で完結する例外）。
+YUAN_JUAN_MAP = {
+    "yuan-shizu": (4, 17),       # 世祖一〜十四
+    "yuan-chengzong": (18, 21),  # 成宗一〜四
+    "yuan-wuzong": (22, 23),     # 武宗一〜二
+    "yuan-renzong": (24, 26),    # 仁宗一〜三
+    "yuan-yingzong": (27, 28),   # 英宗一〜二
+    "yuan-taidingdi": (29, 30),  # 泰定帝一〜二（末尾に天順帝擁立の1文が付随、下記で天順帝側にも複製）
+    "yuan-wenzong": (32, 36),    # 文宗一〜五（天暦の即位→明宗への譲位→明宗急死後の復位まで全て文宗紀）
+    "yuan-ningzong": (37, 37),   # 寧宗
+    "yuan-huizong": (38, 47),    # 順帝一〜十
+}
+
+# 新元史（daizhigev20）。元史に本紀を持たない天順帝の顛末・北元昭宗を補うために使用。
+# 行番号は実地確認済み（2026-07-17、grep -nで卷十九・卷二十六の実際の内容開始行を特定）。
+# 新元史のTOC（行3〜261）と実内容（行262〜）は別物であることに注意（罠、下記メモ参照）。
+XINYUANSHI_TIANSHUNDI_RANGE = (2955, 2993)  # 卷十九(泰定帝紀)末尾: 泰定帝崩御〜天順帝擁立〜上都陥落「少帝不知所終」〜史臣曰
+XINYUANSHI_ZHAOZONG_RANGE = (4070, 4101)    # 卷二十六(惠宗四・昭宗): 惠宗崩御の接続部〜昭宗本紀〜史臣曰
+
+
+def read_xinyuanshi_range(start: int, end: int) -> str:
+    lines = XINYUANSHI_FILE.read_text(encoding="utf-8").splitlines()
+    return "\n".join(lines[start - 1:end]).strip()
+
+
+def build_yuan():
+    out = {}
+    for emperor_id, (start, end) in YUAN_JUAN_MAP.items():
+        out[emperor_id] = read_juan_range(YUAN_DIR, start, end)
+
+    # 明宗(コシラ): 独立紀は卷三十一のみだが記述が薄いため、文宗紀二(卷三十三)冒頭に
+    # 埋め込まれた明宗の上都到着・宴席・急死の記述と、順帝紀三(卷四十)の後至元六年の
+    # 詔（文宗による毒殺を示唆する内容、順帝自身の言葉で明宗の死の経緯を語る）を補足する。
+    mingzong_main = read_juan_range(YUAN_DIR, 31, 31)
+    wenzong_er = read_html(index_juan_dir(YUAN_DIR)[33])
+    mingzong_death_excerpt = slice_between(
+        wenzong_er, "八月乙酉朔，明宗次于王忽察都。",
+        "燕铁木儿以明宗后之命，奉皇帝宝授于帝，遂还。")
+    shundi_san = read_html(index_juan_dir(YUAN_DIR)[40])
+    mingzong_edict_excerpt = slice_between(
+        shundi_san, "昔我皇祖武宗皇帝升遐之后",
+        "其以明里董阿等明正典刑。")
+    out["yuan-mingzong"] = "\n\n".join(
+        [mingzong_main, mingzong_death_excerpt, mingzong_edict_excerpt])
+
+    # 天順帝(アリギバ/阿速吉八): 元史に独立紀を持たず、泰定帝紀二(卷三十)末尾の
+    # 「九月，倒剌沙立皇太子为皇帝，改元天顺，诏天下。」の1文のみ（yuan-taidingdiと重複許容）。
+    # 新元史 卷十九(泰定帝紀)末尾には泰定帝崩御〜天順帝擁立〜上都陥落〜
+    # 「少帝不知所终」までのやや詳しい記述があるため併記する。
+    tianshundi_yuanshi = read_juan_range(YUAN_DIR, 30, 30)
+    tianshundi_xinyuanshi = read_xinyuanshi_range(*XINYUANSHI_TIANSHUNDI_RANGE)
+    out["yuan-tianshundi"] = tianshundi_yuanshi + "\n\n" + tianshundi_xinyuanshi
+
+    # 北元 昭宗(アユルシリダラ): 元史(明が編纂)は恵宗(順帝)の崩御までしか記さないため
+    # 対象外。新元史 卷二十六(惠宗四・昭宗)が唯一の一次史料。
+    out["beiyuan-zhaozong"] = read_xinyuanshi_range(*XINYUANSHI_ZHAOZONG_RANGE)
+    return out
+
+
+def build_yuanmo():
+    """元末群雄6名。明史列伝のみに記述があり本紀を持たない（明史は元末群雄を
+    「僭偽」として列伝に格下げしているため）。第十章(絶対巻122)・第十一章(絶対巻123)の
+    2ファイルでほぼ全員をカバーする。"""
+    out = {}
+
+    # 韓林児(宋・小明王): 第十章、郭子興との合伝の後半部分
+    juan10 = read_html(MING_LIEZHUAN_DIR / "第十章-卷十-原文.html")
+    hanlin_er = slice_from(juan10, "韩林儿，栾城人")
+    # 死去(廖永忠による溺死事件)の詳細は第十七章(絶対巻129、廖永忠伝)を補足
+    juan17 = read_html(MING_LIEZHUAN_DIR / "第十七章-卷十七-原文.html")
+    liaoyongzhong_excerpt = slice_between(
+        juan17, "初，韩林儿在滁州，太祖遣永忠迎归应天，至瓜步覆其舟死",
+        "赐死，年五十三。")
+    out["yuanmo-hanlin-er"] = hanlin_er + "\n\n" + liaoyongzhong_excerpt
+
+    # 徐寿輝(天完)・陳友諒(陳漢)・陳理: 第十一章冒頭、陳友諒伝に徐寿輝の記述が
+    # 埋め込まれているため徐寿輝・陳友諒は同一区間を共有（重複許容）。
+    juan11 = read_html(MING_LIEZHUAN_DIR / "第十一章-卷十一-原文.html")
+    chen_part, chenli_rest = split_at(juan11, "子理既还武昌")
+    out["yuanmo-xushouhui"] = chen_part
+    out["yuanmo-chenyouliang"] = chen_part
+    chenli_part, _ = split_at(chenli_rest, "熊天瑞者")
+    out["yuanmo-chenli"] = chenli_part
+
+    # 明玉珍(夏)・明昇: 同じく第十一章内、陳友諒伝の後に続く
+    mingyuzhen_onward = slice_from(juan11, "明玉珍，随州人。")
+    mingyuzhen_part = mingyuzhen_onward[:mingyuzhen_onward.index("子升嗣")].strip()
+    out["yuanmo-mingyuzhen"] = mingyuzhen_part
+    out["yuanmo-mingsheng"] = slice_from(juan11, "子升嗣")
+    return out
+
+
 def main():
     CACHE_DIR.mkdir(exist_ok=True)
     results = {}
@@ -368,6 +616,13 @@ def main():
     results.update(build_houhan())
     results.update(build_wudai())
     results.update(build_shiguo())
+    results.update(build_song())
+    results.update(build_beisongmo())
+    results.update(build_liao())
+    results.update(build_jin())
+    results.update(build_xixia())
+    results.update(build_yuan())
+    results.update(build_yuanmo())
     for emperor_id, text in results.items():
         (CACHE_DIR / f"{emperor_id}.txt").write_text(text, encoding="utf-8")
         print(f"{emperor_id}: {len(text)} chars")
