@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 中国皇帝データセット（`data/emperors.json`）構築プロジェクト。始皇帝から溥儀までの在位年数・死因・即位経路などを統計化し、最終的に Next.js + GitHub Pages でグラフ化します。
 
-**現在**: データ収集・検証フェーズ（在位データ・死因・即位経路・改元・大赦・立后・皇太子廃立・遷都は調査完了、親征・反乱鎮圧・被反乱・即位時年齢/没年齢を調査中。進捗詳細は `data/emperors.json` の `meta.status.phases` および [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) 参照）
+**現在**: データ収集・検証フェーズ完了（2026-07-18、在位データ・死因・即位経路・改元・大赦・立后・皇太子廃立・遷都・親征・反乱鎮圧・被反乱・即位時年齢/没年齢の全12項目を364人全員分確定。`meta.status.overall` は `"completed"`）。次フェーズはサイト実装（Next.js + GitHub Pages）だが本稿執筆時点では未着手。進捗詳細は `data/emperors.json` の `meta.status.phases` および [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) 参照）
 
 **このリポジトリにはビルド・lint・テストの類は存在しません**（`package.json` なし）。作業は `data/emperors.json` への手動データ入力・検証と、その周辺ドキュメント（`docs/`・`data/schema/`）の更新が中心です。Next.js サイトのコード自体はまだ存在しません（後述）。
 
@@ -16,7 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **`data/images/portraits/`** — 肖像画アセット（ライセンス確認済み・`manifest.json`で出典管理）。サイトのカードUI用に将来使用。
 - **`china-history/`・`daizhigev20/`** — 正史原文のローカルコーパス（`.gitignore`対象・リポジトリには含まれない、事前に `git clone --depth 1` 済み）。判定の一次情報源として最優先で参照する（詳細: [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md)）。
 - **`_corpus_cache/`** — 上記コーパスから人物ごとに抽出・整形済みの本紀原文キャッシュ（`.gitignore`対象、`scripts/build_corpus_cache.py` で再生成可能）。あるブロックの人物に着手する際、該当 `id` のキャッシュが無ければ先にこのスクリプトへ書名・巻・行範囲のマッピングを追記して生成してから調査に入る（詳細: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「皇帝ごとの原文キャッシュ」節）。
-- **`docs/site-design/`** — Next.js サイトのレイアウト・デザイン方針の先行検討メモ（モックアップ含む）。**実装自体はデータ確定後**（`meta.status.overall` が `in-progress` でなくなってから）に着手する。
+- **`docs/site-design/`** — Next.js サイトのレイアウト・デザイン方針の先行検討メモ（モックアップ含む）。**実装自体はデータ確定後**（`meta.status.overall` が `in-progress` でなくなってから）に着手する方針だった。2026-07-18にデータ確定（`meta.status.overall: "completed"`）したため着手可能な状態だが、本稿執筆時点では未着手。
 
 ## 重要な参考文書
 

@@ -1,6 +1,6 @@
 # サイトレイアウト方針
 
-Next.js + GitHub Pages で構築する統計可視化サイトのレイアウト設計メモ。**サイト実装自体はデータ確定後（`meta.status.overall` が `in-progress` でなくなってから）に着手する**（[CLAUDE.md](../../CLAUDE.md)・[PROJECT_STATUS.md](../PROJECT_STATUS.md) 参照）。このドキュメントは実装開始時の出発点として先行して検討したもの。
+Next.js + GitHub Pages で構築する統計可視化サイトのレイアウト設計メモ。**サイト実装自体はデータ確定後（`meta.status.overall` が `in-progress` でなくなってから）に着手する**（[CLAUDE.md](../../CLAUDE.md)・[PROJECT_STATUS.md](../PROJECT_STATUS.md) 参照）。2026-07-18にデータ確定（`meta.status.overall: "completed"`）し着手可能な状態になったが、本稿執筆時点ではまだ着手していない。このドキュメントは実装開始時の出発点として先行して検討したもの。
 
 ## 基本レイアウト（2026-07-16 合意）
 

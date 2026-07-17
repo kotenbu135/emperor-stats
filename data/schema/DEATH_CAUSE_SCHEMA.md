@@ -3,7 +3,7 @@
 `data/emperors.json` の各人物レコードに追加する死因フィールドの設計ドキュメント。
 在位データ（`meta.status.phases.reignData`）完了後の追加調査項目のうち、優先度1位（`meta.status.phases.deathCause`）に対応する。
 
-調査は進行中（`meta.status.phases.deathCause.status` は `"in-progress"`）。完了ブロックは `meta.deathCauseCompletedBlocks` を参照。
+調査は完了済み（`meta.status.phases.deathCause.status` は `"completed"`、364人全員分確定、2026-07-16）。完了ブロックは `meta.deathCauseCompletedBlocks` を参照。
 
 ## 情報源（原典優先）
 

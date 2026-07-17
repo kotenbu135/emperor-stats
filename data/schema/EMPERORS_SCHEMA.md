@@ -42,7 +42,7 @@
 }
 ```
 
-- `overall`: `"in-progress"` の間はデータ未確定。サイト実装には着手しない（CLAUDE.md 参照）。
+- `overall`: `"in-progress"` の間はデータ未確定。サイト実装には着手しない（CLAUDE.md 参照）。2026-07-18に全12フェーズが364人全員完了し `"completed"` に更新済み。
 - 各 `phases.<key>.status`: `"not-started"` / `"in-progress"` / `"completed"` / `"deferred"`（見送り）。
 - `deferred` の場合のみ `note` で見送り理由を記録する（例: `ages` は生年不明な人物が多く悉皆調査に向かないため見送り）。
 
