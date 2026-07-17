@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国皇帝統計サイト デザイン世界観案 3パターン</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 16px 96px;
+    background: #ececec;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  h1.page-title {
+    text-align: center;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  p.page-sub {
+    text-align: center;
+    color: #777;
+    font-size: 13px;
+    margin-top: 0;
+    margin-bottom: 40px;
+  }
+  .direction-wrap {
+    max-width: 720px;
+    margin: 0 auto 56px;
+  }
+  .direction-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;
+    margin-bottom: 10px;
+    padding-left: 4px;
+  }
+  .mock {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+  }
+
+  /* ===== Header bar ===== */
+  .mock-header {
+    padding: 22px 24px 20px;
+  }
+  .mock-header .title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .mock-header .sub {
+    font-size: 12px;
+    margin-top: 4px;
+    opacity: 0.85;
+  }
+
+  /* ===== Body layout ===== */
+  .mock-body {
+    display: flex;
+    gap: 0;
+  }
+  .mock-sidebar {
+    width: 130px;
+    padding: 18px 12px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .mock-sidebar .nav-item {
+    padding: 8px 10px;
+    border-radius: 8px;
+    margin-bottom: 4px;
+  }
+  .mock-main {
+    flex: 1;
+    padding: 20px 24px 24px;
+  }
+  .mock-main .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .rank-row {
+    display: flex;
+    align-items: center;
+    padding: 9px 10px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .rank-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .rank-name { flex: 1; }
+  .rank-years { font-weight: 700; font-size: 12px; }
+
+  .swatch-strip {
+    display: flex;
+    gap: 4px;
+    padding: 12px 24px 20px;
+  }
+  .swatch {
+    flex: 1;
+    height: 34px;
+    border-radius: 6px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 9px;
+    padding-bottom: 3px;
+    color: rgba(0,0,0,0.55);
+    font-family: monospace;
+  }
+
+  /* ================= STYLE A: 朱金・紫禁城 ================= */
+  .style-a .mock-header { background: linear-gradient(135deg, #B7410E, #8f3009); color: #FAF6EF; }
+  .style-a .mock-body { background: #FAF6EF; color: #2B2621; }
+  .style-a .mock-sidebar { background: #F3E9D8; border-right: 1px solid #E4D9C7; }
+  .style-a .mock-sidebar .nav-item { color: #6b5f4f; }
+  .style-a .mock-sidebar .nav-item.active { background: #B7410E; color: #FAF6EF; font-weight: 700; }
+  .style-a .rank-row:nth-child(odd) { background: #F3E9D8; }
+  .style-a .rank-row.gold .rank-num { background: #C9A227; color: #3a2e05; }
+  .style-a .rank-row.gold { background: #FBF0D2; border: 1px solid #E8CE7E; }
+  .style-a .rank-num { background: #E4D9C7; color: #6b5f4f; }
+  .style-a .rank-years { color: #B7410E; }
+  .style-a .swatch-strip { background: #FAF6EF; }
+
+  /* ================= STYLE B: 水墨文人 ================= */
+  .style-b .mock-header { background: #3A3530; color: #F5F1E8; }
+  .style-b .mock-header .title::before { content: "印 "; color: #A6321C; }
+  .style-b .mock-body { background: #F5F1E8; color: #3A3530; }
+  .style-b .mock-sidebar { background: #EDE7D8; border-right: 1px solid #DDD5C7; }
+  .style-b .mock-sidebar .nav-item { color: #6b6255; }
+  .style-b .mock-sidebar .nav-item.active { background: #4A4038; color: #F5F1E8; font-weight: 700; }
+  .style-b .rank-row:nth-child(odd) { background: #EDE7D8; }
+  .style-b .rank-row.gold { background: #F1E6DD; border: 1px solid #DBC7B4; }
+  .style-b .rank-row.gold .rank-num { background: #A6321C; color: #fff; }
+  .style-b .rank-num { background: #DDD5C7; color: #6b6255; }
+  .style-b .rank-years { color: #4A4038; }
+  .style-b .swatch-strip { background: #F5F1E8; }
+
+  /* ================= STYLE C: 青花瓷・モダン ================= */
+  .style-c .mock-header { background: #2A4B7C; color: #ffffff; }
+  .style-c .mock-body { background: #FFFFFF; color: #1F2937; }
+  .style-c .mock-sidebar { background: #F7FAFC; border-right: 1px solid #E2E8F0; }
+  .style-c .mock-sidebar .nav-item { color: #4b5563; }
+  .style-c .mock-sidebar .nav-item.active { background: #2A4B7C; color: #fff; font-weight: 700; }
+  .style-c .rank-row:nth-child(odd) { background: #F7FAFC; }
+  .style-c .rank-row.gold { background: #EAF3EF; border: 1px solid #B9D8CB; }
+  .style-c .rank-row.gold .rank-num { background: #6C9A8B; color: #fff; }
+  .style-c .rank-num { background: #E2E8F0; color: #4b5563; }
+  .style-c .rank-years { color: #2A4B7C; }
+  .style-c .swatch-strip { background: #FFFFFF; }
+
+  .caption {
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<h1 class="page-title">中国皇帝統計サイト — デザイン世界観 3案</h1>
+<p class="page-sub">同じレイアウト・同じダミーデータで配色/書体だけを差し替えています。ブラウザでこのファイルを開いて見比べてください。</p>
+
+<!-- STYLE A -->
+<div class="direction-wrap style-a">
+  <div class="direction-label">案A：朱金・紫禁城スタイル</div>
+  <div class="mock">
+    <div class="mock-header">
+      <div class="title">中国皇帝統計</div>
+      <div class="sub">始皇帝 〜 溥儀 364名のデータベース</div>
+    </div>
+    <div class="mock-body">
+      <div class="mock-sidebar">
+        <div class="nav-item active">概要</div>
+        <div class="nav-item">在位データ</div>
+        <div class="nav-item">死因・即位</div>
+        <div class="nav-item">宮廷イベント</div>
+        <div class="nav-item">軍事</div>
+        <div class="nav-item">王朝で見る</div>
+      </div>
+      <div class="mock-main">
+        <div class="section-title">在位年数ランキング</div>
+        <div class="rank-row gold"><div class="rank-num">1</div><div class="rank-name">康熙帝（清）</div><div class="rank-years">61年</div></div>
+        <div class="rank-row"><div class="rank-num">2</div><div class="rank-name">乾隆帝（清）</div><div class="rank-years">60年</div></div>
+        <div class="rank-row"><div class="rank-num">3</div><div class="rank-name">漢武帝（前漢）</div><div class="rank-years">54年</div></div>
+      </div>
+    </div>
+    <div class="swatch-strip">
+      <div class="swatch" style="background:#FAF6EF; color:#333">#FAF6EF</div>
+      <div class="swatch" style="background:#2B2621; color:#fff">#2B2621</div>
+      <div class="swatch" style="background:#B7410E; color:#fff">#B7410E</div>
+      <div class="swatch" style="background:#C9A227; color:#3a2e05">#C9A227</div>
+      <div class="swatch" style="background:#E4D9C7; color:#333">#E4D9C7</div>
+    </div>
+  </div>
+  <p class="caption">見出し: Noto Serif JP（明朝体系） / 本文: Noto Sans JP　｜　朱色の見出し帯＋金のランキング1位バッジ</p>
+</div>
+
+<!-- STYLE B -->
+<div class="direction-wrap style-b">
+  <div class="direction-label">案B：水墨文人スタイル</div>
+  <div class="mock">
+    <div class="mock-header">
+      <div class="title">中国皇帝統計</div>
+      <div class="sub">始皇帝 〜 溥儀 364名のデータベース</div>
+    </div>
+    <div class="mock-body">
+      <div class="mock-sidebar">
+        <div class="nav-item active">概要</div>
+        <div class="nav-item">在位データ</div>
+        <div class="nav-item">死因・即位</div>
+        <div class="nav-item">宮廷イベント</div>
+        <div class="nav-item">軍事</div>
+        <div class="nav-item">王朝で見る</div>
+      </div>
+      <div class="mock-main">
+        <div class="section-title">在位年数ランキング</div>
+        <div class="rank-row gold"><div class="rank-num">1</div><div class="rank-name">康熙帝（清）</div><div class="rank-years">61年</div></div>
+        <div class="rank-row"><div class="rank-num">2</div><div class="rank-name">乾隆帝（清）</div><div class="rank-years">60年</div></div>
+        <div class="rank-row"><div class="rank-num">3</div><div class="rank-name">漢武帝（前漢）</div><div class="rank-years">54年</div></div>
+      </div>
+    </div>
+    <div class="swatch-strip">
+      <div class="swatch" style="background:#F5F1E8; color:#333">#F5F1E8</div>
+      <div class="swatch" style="background:#3A3530; color:#fff">#3A3530</div>
+      <div class="swatch" style="background:#4A4038; color:#fff">#4A4038</div>
+      <div class="swatch" style="background:#A6321C; color:#fff">#A6321C</div>
+      <div class="swatch" style="background:#DDD5C7; color:#333">#DDD5C7</div>
+    </div>
+  </div>
+  <p class="caption">見出し: Noto Serif JP（明朝体系） / 本文: Noto Sans JP　｜　朱色は「印」の一点のみに限定、全体は墨色の濃淡</p>
+</div>
+
+<!-- STYLE C -->
+<div class="direction-wrap style-c">
+  <div class="direction-label">案C：青花瓷・モダンエディトリアルスタイル</div>
+  <div class="mock">
+    <div class="mock-header">
+      <div class="title">中国皇帝統計</div>
+      <div class="sub">始皇帝 〜 溥儀 364名のデータベース</div>
+    </div>
+    <div class="mock-body">
+      <div class="mock-sidebar">
+        <div class="nav-item active">概要</div>
+        <div class="nav-item">在位データ</div>
+        <div class="nav-item">死因・即位</div>
+        <div class="nav-item">宮廷イベント</div>
+        <div class="nav-item">軍事</div>
+        <div class="nav-item">王朝で見る</div>
+      </div>
+      <div class="mock-main">
+        <div class="section-title">在位年数ランキング</div>
+        <div class="rank-row gold"><div class="rank-num">1</div><div class="rank-name">康熙帝（清）</div><div class="rank-years">61年</div></div>
+        <div class="rank-row"><div class="rank-num">2</div><div class="rank-name">乾隆帝（清）</div><div class="rank-years">60年</div></div>
+        <div class="rank-row"><div class="rank-num">3</div><div class="rank-name">漢武帝（前漢）</div><div class="rank-years">54年</div></div>
+      </div>
+    </div>
+    <div class="swatch-strip">
+      <div class="swatch" style="background:#FFFFFF; color:#333; border:1px solid #eee">#FFFFFF</div>
+      <div class="swatch" style="background:#1F2937; color:#fff">#1F2937</div>
+      <div class="swatch" style="background:#2A4B7C; color:#fff">#2A4B7C</div>
+      <div class="swatch" style="background:#6C9A8B; color:#fff">#6C9A8B</div>
+      <div class="swatch" style="background:#E2E8F0; color:#333">#E2E8F0</div>
+    </div>
+  </div>
+  <p class="caption">見出し/本文とも: Noto Sans JP（ゴシック体系） / 藍色の見出し帯＋青磁色のサブ強調</p>
+</div>
+
+</body>
+</html>

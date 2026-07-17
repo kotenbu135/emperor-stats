@@ -1,0 +1,1314 @@
+{
+  "method": "Wikimedia zhwiki data dump (page.sql / page_props.sql / redirect.sql, 2026-07-06/08 snapshot) matched offline against candidate names generated from data/emperors.json, with Japanese shinjitai -> Chinese traditional/simplified kanji normalization",
+  "generatedNote": "page_image_free indicates the article has a freely-licensed lead image per MediaWiki PageImages extension; actual license type (PD/CC-BY/CC-BY-SA etc.) must be individually verified on the Commons file page before use. 2026-07-17: manual visual review found 13 confirmed matches were not actual portraits (landscape/monument/statue photos); moved to noImageIds and recorded in excludedNonPortrait. 追記(2026-07-17): CC BY-SA 4.0ライセンスの2件を方針により除外、confirmedは155→153件に。",
+  "confirmedCount": 153,
+  "noImageCount": 211,
+  "confirmed": [
+    {
+      "id": "beiqi-wenxuandi",
+      "commonName": "文宣帝",
+      "dynasty": "北斉",
+      "matchedTitle": "文宣帝",
+      "image": "帝鉴图说_高清_(page_131_高洋).jpg"
+    },
+    {
+      "id": "beisong-huizong",
+      "commonName": "徽宗",
+      "dynasty": "北宋",
+      "matchedTitle": "宋徽宗",
+      "image": "HuizongHui.jpg"
+    },
+    {
+      "id": "beisong-qinzong",
+      "commonName": "欽宗",
+      "dynasty": "北宋",
+      "matchedTitle": "宋钦宗",
+      "image": "Songqinzong_Chinghong.jpg"
+    },
+    {
+      "id": "beisong-renzong",
+      "commonName": "仁宗",
+      "dynasty": "北宋",
+      "matchedTitle": "宋仁宗",
+      "image": "Song_Renzong.jpg"
+    },
+    {
+      "id": "beisong-shenzong",
+      "commonName": "神宗",
+      "dynasty": "北宋",
+      "matchedTitle": "宋神宗",
+      "image": "Shenzong.jpg"
+    },
+    {
+      "id": "beisong-taizong",
+      "commonName": "太宗",
+      "dynasty": "北宋",
+      "matchedTitle": "宋太宗",
+      "image": "Taizong_of_Song.jpg"
+    },
+    {
+      "id": "beisong-taizu",
+      "commonName": "太祖",
+      "dynasty": "北宋",
+      "matchedTitle": "赵匡胤",
+      "image": "Song_Taizu.jpg"
+    },
+    {
+      "id": "beisong-yingzong",
+      "commonName": "英宗",
+      "dynasty": "北宋",
+      "matchedTitle": "宋英宗",
+      "image": "Song_Yingzong_1.jpg"
+    },
+    {
+      "id": "beisong-zhenzong",
+      "commonName": "真宗",
+      "dynasty": "北宋",
+      "matchedTitle": "宋真宗",
+      "image": "Portrait_assis_de_l\\'empereur_Song_Zhenzong.jpg"
+    },
+    {
+      "id": "beisong-zhezong",
+      "commonName": "哲宗",
+      "dynasty": "北宋",
+      "matchedTitle": "宋哲宗",
+      "image": "Zhezong.jpg"
+    },
+    {
+      "id": "beiwei-xiaozhuangdi",
+      "commonName": "孝荘帝",
+      "dynasty": "北魏",
+      "matchedTitle": "元子攸",
+      "image": "魏孝莊帝（北史演義）.jpg"
+    },
+    {
+      "id": "beizhou-wudi",
+      "commonName": "武帝",
+      "dynasty": "北周",
+      "matchedTitle": "北周武帝",
+      "image": "Zhou_Wu_Tang.jpg"
+    },
+    {
+      "id": "chen-feidi",
+      "commonName": "廃帝（臨海王）",
+      "dynasty": "陳",
+      "matchedTitle": "陳廢帝",
+      "image": "Chen_Feidi_Tang.jpg"
+    },
+    {
+      "id": "chen-houzhu",
+      "commonName": "後主",
+      "dynasty": "陳",
+      "matchedTitle": "陈后主",
+      "image": "Chen_Shubao.jpg"
+    },
+    {
+      "id": "chen-wendi",
+      "commonName": "文帝",
+      "dynasty": "陳",
+      "matchedTitle": "陈文帝",
+      "image": "Chen_Wendi_Tang.jpg"
+    },
+    {
+      "id": "chen-wudi",
+      "commonName": "武帝",
+      "dynasty": "陳",
+      "matchedTitle": "陈霸先",
+      "image": "Emperor_Wu_of_Chen2.jpg"
+    },
+    {
+      "id": "chen-xuandi",
+      "commonName": "宣帝",
+      "dynasty": "陳",
+      "matchedTitle": "陈宣帝",
+      "image": "Chen_Xuandi_Tang.jpg"
+    },
+    {
+      "id": "chenghan-lixiong",
+      "commonName": "武帝",
+      "dynasty": "成漢",
+      "matchedTitle": "成汉武帝",
+      "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(蜀主李雄).jpg"
+    },
+    {
+      "id": "dongjin-aidi",
+      "commonName": "哀帝",
+      "dynasty": "東晋",
+      "matchedTitle": "司马丕",
+      "image": "晉哀帝_司馬丕.png"
+    },
+    {
+      "id": "dongjin-andi",
+      "commonName": "安帝",
+      "dynasty": "東晋",
+      "matchedTitle": "晋安帝",
+      "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(晉安帝).jpg"
+    },
+    {
+      "id": "dongjin-mingdi",
+      "commonName": "明帝",
+      "dynasty": "東晋",
+      "matchedTitle": "晋明帝",
+      "image": "Sima_Shao_(Emperor_Ming_of_Jin).png"
+    },
+    {
+      "id": "dongjin-yuandi",
+      "commonName": "元帝",
+      "dynasty": "東晋",
+      "matchedTitle": "司马睿",
+      "image": "Sima_Rui_(Jin_Yuandi).jpg"
+    },
+    {
+      "id": "gengshi-di",
+      "commonName": "更始帝",
+      "dynasty": "玄漢（更始）",
+      "matchedTitle": "更始帝",
+      "image": "更始韓夫人_(更始).png"
+    },
+    {
+      "id": "han-aidi",
+      "commonName": "哀帝",
+      "dynasty": "前漢",
+      "matchedTitle": "汉哀帝",
+      "image": "Dong_Xian.jpg"
+    },
+    {
+      "id": "han-chengdi",
+      "commonName": "成帝",
+      "dynasty": "前漢",
+      "matchedTitle": "汉成帝",
+      "image": "折檻圖_(漢成帝cropped).jpg"
+    },
+    {
+      "id": "han-gaozu",
+      "commonName": "高帝",
+      "dynasty": "前漢",
+      "matchedTitle": "刘邦",
+      "image": "Liu_Bang_(Emperor_Gaozu_of_Han).png"
+    },
+    {
+      "id": "han-jingdi",
+      "commonName": "景帝",
+      "dynasty": "前漢",
+      "matchedTitle": "汉景帝",
+      "image": "SancaiJingdiHan.jpg"
+    },
+    {
+      "id": "han-wendi",
+      "commonName": "文帝",
+      "dynasty": "前漢",
+      "matchedTitle": "汉文帝",
+      "image": "SancaiWendiiHan.jpg"
+    },
+    {
+      "id": "han-wudi",
+      "commonName": "武帝",
+      "dynasty": "前漢",
+      "matchedTitle": "汉武帝",
+      "image": "三才圖會_漢武帝劉徹相.jpg"
+    },
+    {
+      "id": "han-xuandi",
+      "commonName": "宣帝",
+      "dynasty": "前漢",
+      "matchedTitle": "汉宣帝",
+      "image": "HanXuanDi.jpg"
+    },
+    {
+      "id": "han-yuandi",
+      "commonName": "元帝",
+      "dynasty": "前漢",
+      "matchedTitle": "汉元帝",
+      "image": "Emperor_Yuan_of_Han2.jpg"
+    },
+    {
+      "id": "han-zhaodi",
+      "commonName": "昭帝",
+      "dynasty": "前漢",
+      "matchedTitle": "汉昭帝",
+      "image": "HanZhaoDiLiuFuling.jpg"
+    },
+    {
+      "id": "hou-han-guangwudi",
+      "commonName": "光武帝",
+      "dynasty": "後漢",
+      "matchedTitle": "汉光武帝",
+      "image": "Han_Guangwu_Di.jpg"
+    },
+    {
+      "id": "hou-han-mingdi",
+      "commonName": "明帝",
+      "dynasty": "後漢",
+      "matchedTitle": "汉明帝",
+      "image": "Liu_Zhuang_(Emperor_Ming_of_Han).png"
+    },
+    {
+      "id": "hou-han-xiandi",
+      "commonName": "献帝",
+      "dynasty": "後漢",
+      "matchedTitle": "汉献帝",
+      "image": "Emperor_Xian_Qing_illustration.jpg"
+    },
+    {
+      "id": "hou-han-zhangdi",
+      "commonName": "章帝",
+      "dynasty": "後漢",
+      "matchedTitle": "汉章帝",
+      "image": "刘炟.jpg"
+    },
+    {
+      "id": "houqin-yaochang",
+      "commonName": "武昭帝",
+      "dynasty": "後秦",
+      "matchedTitle": "姚苌",
+      "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(姚萇).jpg"
+    },
+    {
+      "id": "houyan-murongchui",
+      "commonName": "成武帝",
+      "dynasty": "後燕",
+      "matchedTitle": "成武帝",
+      "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(蜀主李雄).jpg"
+    },
+    {
+      "id": "houzhao-shile",
+      "commonName": "明帝",
+      "dynasty": "後趙",
+      "matchedTitle": "石勒",
+      "image": "Shi_Le_(Emperor_Ming_of_Later_Zhao).jpg"
+    },
+    {
+      "id": "jin-huaidi",
+      "commonName": "懐帝",
+      "dynasty": "西晋",
+      "matchedTitle": "司馬熾",
+      "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(晉懷帝).jpg"
+    },
+    {
+      "id": "jin-huidi",
+      "commonName": "恵帝",
+      "dynasty": "西晋",
+      "matchedTitle": "晋惠帝",
+      "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(晉惠帝).jpg"
+    },
+    {
+      "id": "jin-mindi",
+      "commonName": "愍帝",
+      "dynasty": "西晋",
+      "matchedTitle": "晋愍帝",
+      "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(晉愍帝).jpg"
+    },
+    {
+      "id": "jin-shizong",
+      "commonName": "世宗",
+      "dynasty": "金",
+      "matchedTitle": "金世宗",
+      "image": "聖帝明王善端錄（宋元明）_冊_金世宗_K2A003132N000000011PAB_(cropped).png"
+    },
+    {
+      "id": "jin-simalun",
+      "commonName": "司馬倫",
+      "dynasty": "西晋",
+      "matchedTitle": "司马伦",
+      "image": "繡像三國演義續編_趙王司馬倫.jpg"
+    },
+    {
+      "id": "jin-taizu",
+      "commonName": "太祖",
+      "dynasty": "金",
+      "matchedTitle": "完颜阿骨打",
+      "image": "Wanggiyan_Aguda.jpg"
+    },
+    {
+      "id": "jin-wudi",
+      "commonName": "武帝",
+      "dynasty": "西晋",
+      "matchedTitle": "司馬炎",
+      "image": "Jin_Wu_Di.jpg"
+    },
+    {
+      "id": "liang-houjing",
+      "commonName": "漢",
+      "dynasty": "梁（簒奪・漢）",
+      "matchedTitle": "侯景",
+      "image": "侯景（南史演義）.jpg"
+    },
+    {
+      "id": "liang-wudi",
+      "commonName": "武帝",
+      "dynasty": "梁",
+      "matchedTitle": "梁武帝",
+      "image": "Liang_Wudi.jpg"
+    },
+    {
+      "id": "liu-song-houfeidi",
+      "commonName": "後廃帝",
+      "dynasty": "宋",
+      "matchedTitle": "劉昱",
+      "image": "宋後廢帝.jpg"
+    },
+    {
+      "id": "liu-song-mingdi",
+      "commonName": "明帝",
+      "dynasty": "宋",
+      "matchedTitle": "宋太宗",
+      "image": "Taizong_of_Song.jpg"
+    },
+    {
+      "id": "liu-song-wendi",
+      "commonName": "文帝",
+      "dynasty": "宋",
+      "matchedTitle": "宋文帝",
+      "image": "Liu_Yilong_(Emperor_Wen_of_Liu_Song).jpg"
+    },
+    {
+      "id": "liu-song-wudi",
+      "commonName": "武帝",
+      "dynasty": "宋",
+      "matchedTitle": "宋武帝",
+      "image": "Liu_Yu_(Song_Wudi).jpg"
+    },
+    {
+      "id": "liu-song-xiaowudi",
+      "commonName": "孝武帝",
+      "dynasty": "宋",
+      "matchedTitle": "宋孝武帝",
+      "image": "帝鉴图说_高清_(page_95_宋主刘骏_crop).jpg"
+    },
+    {
+      "id": "ming-daizong",
+      "commonName": "代宗（景泰帝）",
+      "dynasty": "明",
+      "matchedTitle": "景泰帝",
+      "image": "Jingtai.jpg"
+    },
+    {
+      "id": "ming-guangzong",
+      "commonName": "光宗（泰昌帝）",
+      "dynasty": "明",
+      "matchedTitle": "明光宗",
+      "image": "MingGuangzong1.jpg"
+    },
+    {
+      "id": "ming-huizong",
+      "commonName": "恵宗（建文帝）",
+      "dynasty": "明",
+      "matchedTitle": "建文帝",
+      "image": "Jianwen_Emperor.jpg"
+    },
+    {
+      "id": "ming-muzong",
+      "commonName": "穆宗（隆慶帝）",
+      "dynasty": "明",
+      "matchedTitle": "明穆宗",
+      "image": "MingMuzong1.jpg"
+    },
+    {
+      "id": "ming-renzong",
+      "commonName": "仁宗（洪熙帝）",
+      "dynasty": "明",
+      "matchedTitle": "明仁宗",
+      "image": "Portrait_assis_de_l\\'empereur_Ming_Renzong.jpg"
+    },
+    {
+      "id": "ming-shenzong",
+      "commonName": "神宗（万暦帝）",
+      "dynasty": "明",
+      "matchedTitle": "明神宗",
+      "image": "MingShenzong1.jpg"
+    },
+    {
+      "id": "ming-shizong",
+      "commonName": "世宗（嘉靖帝）",
+      "dynasty": "明",
+      "matchedTitle": "明世宗",
+      "image": "Portrait_officiel_de_l\\'empereur_Jiajing.jpg"
+    },
+    {
+      "id": "ming-taizong",
+      "commonName": "太宗/成祖（永楽帝）",
+      "dynasty": "明",
+      "matchedTitle": "永乐帝",
+      "image": "Portrait_assis_de_l\\'empereur_Ming_Chengzu.jpg"
+    },
+    {
+      "id": "ming-taizu",
+      "commonName": "太祖（洪武帝）",
+      "dynasty": "明",
+      "matchedTitle": "朱元璋",
+      "image": "Portrait_assis_de_l\\'empereur_Ming_Taizu.jpg"
+    },
+    {
+      "id": "ming-wuzong",
+      "commonName": "武宗（正徳帝）",
+      "dynasty": "明",
+      "matchedTitle": "明武宗",
+      "image": "Ming_Wuzong.jpg"
+    },
+    {
+      "id": "ming-xianzong",
+      "commonName": "憲宗（成化帝）",
+      "dynasty": "明",
+      "matchedTitle": "明宪宗",
+      "image": "MingXianzong1.jpg"
+    },
+    {
+      "id": "ming-xiaozong",
+      "commonName": "孝宗（弘治帝）",
+      "dynasty": "明",
+      "matchedTitle": "明孝宗",
+      "image": "Hongzhi1.jpg"
+    },
+    {
+      "id": "ming-xizong",
+      "commonName": "熹宗（天啓帝）",
+      "dynasty": "明",
+      "matchedTitle": "明熹宗",
+      "image": "Portrait_assis_de_l\\'empereur_Tianqi.jpg"
+    },
+    {
+      "id": "ming-xuanzong",
+      "commonName": "宣宗（宣徳帝）",
+      "dynasty": "明",
+      "matchedTitle": "明宣宗",
+      "image": "Ming_Xuanzong.jpg"
+    },
+    {
+      "id": "ming-yingzong",
+      "commonName": "英宗（正統帝/天順帝）",
+      "dynasty": "明",
+      "matchedTitle": "明英宗",
+      "image": "Ming_Yingzong_(1).jpg"
+    },
+    {
+      "id": "nanming-anzong",
+      "commonName": "安宗（弘光帝）",
+      "dynasty": "南明",
+      "matchedTitle": "弘光帝",
+      "image": "弘光帝.jpg"
+    },
+    {
+      "id": "nanming-zongzong",
+      "commonName": "紹宗（隆武帝）",
+      "dynasty": "南明",
+      "matchedTitle": "隆武帝",
+      "image": "Long-wu.jpg"
+    },
+    {
+      "id": "nansong-duzong",
+      "commonName": "度宗",
+      "dynasty": "南宋",
+      "matchedTitle": "宋度宗",
+      "image": "Duzong.jpg"
+    },
+    {
+      "id": "nansong-gaozong",
+      "commonName": "高宗",
+      "dynasty": "南宋",
+      "matchedTitle": "宋高宗",
+      "image": "Song_Gaozong.png"
+    },
+    {
+      "id": "nansong-guangzong",
+      "commonName": "光宗",
+      "dynasty": "南宋",
+      "matchedTitle": "宋光宗",
+      "image": "Guangzong.jpg"
+    },
+    {
+      "id": "nansong-lizong",
+      "commonName": "理宗",
+      "dynasty": "南宋",
+      "matchedTitle": "宋理宗",
+      "image": "Song_Lizong.jpg"
+    },
+    {
+      "id": "nansong-ningzong",
+      "commonName": "寧宗",
+      "dynasty": "南宋",
+      "matchedTitle": "宋宁宗",
+      "image": "Song_Ningzong.jpg"
+    },
+    {
+      "id": "nansong-xiaozong",
+      "commonName": "孝宗",
+      "dynasty": "南宋",
+      "matchedTitle": "宋孝宗",
+      "image": "Xiaozong.jpg"
+    },
+    {
+      "id": "nanyan-murongde",
+      "commonName": "献武帝",
+      "dynasty": "南燕",
+      "matchedTitle": "南燕獻武帝",
+      "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(慕容德).jpg"
+    },
+    {
+      "id": "qi-gaodi",
+      "commonName": "高帝",
+      "dynasty": "斉",
+      "matchedTitle": "蕭道成",
+      "image": "Xiao_Daocheng_(Qi_Gaodi).jpg"
+    },
+    {
+      "id": "qianzhao-liucong",
+      "commonName": "昭武帝",
+      "dynasty": "前趙（漢趙）",
+      "matchedTitle": "前赵昭武帝",
+      "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(劉聰).jpg"
+    },
+    {
+      "id": "qianzhao-liuyuan",
+      "commonName": "光文帝",
+      "dynasty": "前趙（漢趙）",
+      "matchedTitle": "劉淵",
+      "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(劉淵).jpg"
+    },
+    {
+      "id": "qin-shi-huang",
+      "commonName": "始皇帝",
+      "dynasty": "秦",
+      "matchedTitle": "秦始皇",
+      "image": "Qinshihuang.jpg"
+    },
+    {
+      "id": "qing-dezong",
+      "commonName": "徳宗（光緒帝）",
+      "dynasty": "清",
+      "matchedTitle": "光绪帝",
+      "image": "Emperor_Guangxu.jpg"
+    },
+    {
+      "id": "qing-gaozong",
+      "commonName": "高宗（乾隆帝）",
+      "dynasty": "清",
+      "matchedTitle": "乾隆帝",
+      "image": "乾隆皇帝老年肖像.jpg"
+    },
+    {
+      "id": "qing-muzong",
+      "commonName": "穆宗（同治帝）",
+      "dynasty": "清",
+      "matchedTitle": "同治帝",
+      "image": "清_佚名_《清穆宗同治皇帝朝服像》.jpg"
+    },
+    {
+      "id": "qing-renzong",
+      "commonName": "仁宗（嘉慶帝）",
+      "dynasty": "清",
+      "matchedTitle": "嘉庆帝",
+      "image": "清_佚名_《清仁宗嘉庆皇帝朝服像》.jpg"
+    },
+    {
+      "id": "qing-shengzu",
+      "commonName": "聖祖（康熙帝）",
+      "dynasty": "清",
+      "matchedTitle": "康熙帝",
+      "image": "清_佚名_《清圣祖康熙皇帝朝服像》.jpg"
+    },
+    {
+      "id": "qing-shizong",
+      "commonName": "世宗（雍正帝）",
+      "dynasty": "清",
+      "matchedTitle": "雍正帝",
+      "image": "Portrait_of_the_Yongzheng_Emperor_in_Court_Dress.jpg"
+    },
+    {
+      "id": "qing-shizu",
+      "commonName": "世祖（順治帝）",
+      "dynasty": "清",
+      "matchedTitle": "顺治帝",
+      "image": "清_佚名_《清世祖顺治皇帝朝服像》.jpg"
+    },
+    {
+      "id": "qing-taizong",
+      "commonName": "太宗（崇徳帝）",
+      "dynasty": "清",
+      "matchedTitle": "清太宗",
+      "image": "清_佚名_《清太宗崇德皇帝朝服像》.jpg"
+    },
+    {
+      "id": "qing-wenzong",
+      "commonName": "文宗（咸豊帝）",
+      "dynasty": "清",
+      "matchedTitle": "咸丰帝",
+      "image": "《咸丰皇帝朝服像》.jpg"
+    },
+    {
+      "id": "qing-xuantong",
+      "commonName": "恭宗（宣統帝）",
+      "dynasty": "清",
+      "matchedTitle": "愛新覺羅溥儀",
+      "image": "溥仪.jpg"
+    },
+    {
+      "id": "qing-xuanzong",
+      "commonName": "宣宗（道光帝）",
+      "dynasty": "清",
+      "matchedTitle": "道光帝",
+      "image": "清_佚名_《清宣宗道光皇帝朝服像》.jpg"
+    },
+    {
+      "id": "shiguo-beihan-liujun",
+      "commonName": "睿宗（劉鈞）",
+      "dynasty": "北漢",
+      "matchedTitle": "北汉睿宗",
+      "image": "Harvard_drs_49807296_繡像南北宋志傳_v.1_(page_14_北漢主屏逐忠臣crop).jpg"
+    },
+    {
+      "id": "shiguo-min-wangyanzheng",
+      "commonName": "殷帝（王延政）",
+      "dynasty": "閩",
+      "matchedTitle": "王延政",
+      "image": "Wang_Yanzheng.jpg"
+    },
+    {
+      "id": "shiguo-nantang-lijing",
+      "commonName": "元宗（李璟）",
+      "dynasty": "南唐",
+      "matchedTitle": "李璟",
+      "image": "Li_Jing_of_Southern_Tang.jpg"
+    },
+    {
+      "id": "shuhan-liushan",
+      "commonName": "懐帝",
+      "dynasty": "蜀漢",
+      "matchedTitle": "刘禅",
+      "image": "Liu_Shan.jpg"
+    },
+    {
+      "id": "shuhan-zhaoliedi",
+      "commonName": "昭烈帝",
+      "dynasty": "蜀漢",
+      "matchedTitle": "刘备",
+      "image": "Liu_Bei_Tang.jpg"
+    },
+    {
+      "id": "sui-wendi",
+      "commonName": "文帝",
+      "dynasty": "隋",
+      "matchedTitle": "隋文帝",
+      "image": "Sui_Wendi_Tang.jpg"
+    },
+    {
+      "id": "sui-yangdi",
+      "commonName": "煬帝",
+      "dynasty": "隋",
+      "matchedTitle": "隋炀帝",
+      "image": "Sui_Yangdi_Tang.jpg"
+    },
+    {
+      "id": "suimo-liuwuzhou",
+      "commonName": "劉武周",
+      "dynasty": "定楊",
+      "matchedTitle": "刘武周",
+      "image": "劉武周（說唐演義全傳）.jpg"
+    },
+    {
+      "id": "suimo-wangshichong",
+      "commonName": "王世充",
+      "dynasty": "鄭",
+      "matchedTitle": "王世充",
+      "image": "王世充（說唐演義全傳）.jpg"
+    },
+    {
+      "id": "suimo-yuwenhuaji",
+      "commonName": "宇文化及",
+      "dynasty": "許",
+      "matchedTitle": "宇文化及",
+      "image": "宇文化及（說唐演義全傳）.jpg"
+    },
+    {
+      "id": "suimo-zhucan",
+      "commonName": "朱粲",
+      "dynasty": "楚",
+      "matchedTitle": "朱粲",
+      "image": "朱燦（說唐演義全傳）.jpg"
+    },
+    {
+      "id": "tang-daizong",
+      "commonName": "代宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐代宗",
+      "image": "Tang_Daizong.jpg"
+    },
+    {
+      "id": "tang-dezong",
+      "commonName": "徳宗",
+      "dynasty": "唐",
+      "matchedTitle": "李适",
+      "image": "Tang_Dezong.jpg"
+    },
+    {
+      "id": "tang-gaozu",
+      "commonName": "高祖",
+      "dynasty": "唐",
+      "matchedTitle": "李渊",
+      "image": "TangGaozu.jpg"
+    },
+    {
+      "id": "tang-jingzong",
+      "commonName": "敬宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐敬宗",
+      "image": "帝鉴图说.Recueil_Historique_des_Principaux_Traits_de_la_Vie_des_Empereurs_Chinois.95帧图.彩绘册页.约18世纪_(唐敬宗)_(cropped).jpg"
+    },
+    {
+      "id": "tang-muzong",
+      "commonName": "穆宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐穆宗",
+      "image": "Muzong.jpg"
+    },
+    {
+      "id": "tang-ruizong",
+      "commonName": "睿宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐睿宗",
+      "image": "Tang_Ruizong(HD_version).png"
+    },
+    {
+      "id": "tang-suzong",
+      "commonName": "粛宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐肅宗",
+      "image": "TangSuzong.jpg"
+    },
+    {
+      "id": "tang-taizong",
+      "commonName": "太宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐太宗",
+      "image": "TangTaizong.jpg"
+    },
+    {
+      "id": "tang-wenzong",
+      "commonName": "文宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐文宗",
+      "image": "TangWenzongAlt.jpg"
+    },
+    {
+      "id": "tang-wuzetian",
+      "commonName": "則天大聖皇帝（武則天）",
+      "dynasty": "周",
+      "matchedTitle": "武则天",
+      "image": "唐后行從圖_(局部)_-_武則天.png"
+    },
+    {
+      "id": "tang-wuzong",
+      "commonName": "武宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐武宗",
+      "image": "Tang_Wuzong.jpg"
+    },
+    {
+      "id": "tang-xianzong",
+      "commonName": "憲宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐宪宗",
+      "image": "TangXianzong.jpg"
+    },
+    {
+      "id": "tang-xizong",
+      "commonName": "僖宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐僖宗",
+      "image": "唐僖宗帝（殘唐五代史演義傳）.jpg"
+    },
+    {
+      "id": "tang-xuanzong",
+      "commonName": "玄宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐玄宗",
+      "image": "Xuanzong_(emperor_of_the_Tang_dynasty).png"
+    },
+    {
+      "id": "tang-xuanzong-2",
+      "commonName": "宣宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐宣宗",
+      "image": "Tangxuanzong(HD_version).jpg"
+    },
+    {
+      "id": "tang-yizong",
+      "commonName": "懿宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐懿宗",
+      "image": "TangYizong.jpg"
+    },
+    {
+      "id": "tang-zhaozong",
+      "commonName": "昭宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐昭宗",
+      "image": "Zhaozong.jpg"
+    },
+    {
+      "id": "tang-zhongzong",
+      "commonName": "中宗",
+      "dynasty": "唐",
+      "matchedTitle": "唐中宗",
+      "image": "Tang_Zhongzong.png"
+    },
+    {
+      "id": "tangmo-anlushan",
+      "commonName": "雄武皇帝安禄山",
+      "dynasty": "燕",
+      "matchedTitle": "安禄山",
+      "image": "帝鉴图说.Recueil_Historique_des_Principaux_Traits_de_la_Vie_des_Empereurs_Chinois.95帧图.彩绘册页.约18世纪_(page_19_宠幸番将)_(安禄山)_(cropped).jpg"
+    },
+    {
+      "id": "tangmo-huangchao",
+      "commonName": "承天応運啓聖睿文宣武皇帝黄巣",
+      "dynasty": "斉",
+      "matchedTitle": "黄巢",
+      "image": "黃巢（殘唐五代史演義傳）.jpg"
+    },
+    {
+      "id": "wang-mang",
+      "commonName": "王莽",
+      "dynasty": "新",
+      "matchedTitle": "王莽",
+      "image": "WUL-he21_01467_新鐫繪像東西漢全傳_01_(王莽).jpg"
+    },
+    {
+      "id": "wei-caofang",
+      "commonName": "曹芳",
+      "dynasty": "魏",
+      "matchedTitle": "曹芳",
+      "image": "曹芳.png"
+    },
+    {
+      "id": "wei-caomao",
+      "commonName": "曹髦",
+      "dynasty": "魏",
+      "matchedTitle": "曹髦",
+      "image": "曹髦.png"
+    },
+    {
+      "id": "wei-mingdi",
+      "commonName": "明帝",
+      "dynasty": "魏",
+      "matchedTitle": "曹叡",
+      "image": "魏明帝.png"
+    },
+    {
+      "id": "wei-wendi",
+      "commonName": "文帝",
+      "dynasty": "魏",
+      "matchedTitle": "曹丕",
+      "image": "Cao_Pi_Tang.jpg"
+    },
+    {
+      "id": "wu-dadi",
+      "commonName": "大帝",
+      "dynasty": "呉",
+      "matchedTitle": "孙权",
+      "image": "Sun_Quan_Tang.jpg"
+    },
+    {
+      "id": "wu-modi",
+      "commonName": "末帝",
+      "dynasty": "呉",
+      "matchedTitle": "吳末帝",
+      "image": "Sun_Hao_Qing_portrait.jpg"
+    },
+    {
+      "id": "wu-sunliang",
+      "commonName": "孫亮",
+      "dynasty": "呉",
+      "matchedTitle": "孫亮",
+      "image": "吳會稽王亮公像.jpg"
+    },
+    {
+      "id": "wudai-houhan-gaozu",
+      "commonName": "高祖（劉知遠）",
+      "dynasty": "後漢",
+      "matchedTitle": "劉知遠",
+      "image": "Liu_Zhiyuan_(Han_Gaozu).jpg"
+    },
+    {
+      "id": "wudai-houjin-gaozu",
+      "commonName": "高祖（石敬瑭）",
+      "dynasty": "後晋",
+      "matchedTitle": "石敬瑭",
+      "image": "Shi_Jingtang_(Jin_Gaozu).jpg"
+    },
+    {
+      "id": "wudai-houliang-taizu",
+      "commonName": "太祖（朱全忠）",
+      "dynasty": "後梁",
+      "matchedTitle": "後梁太祖",
+      "image": "Zhu_Wen_(Liang_Taizu).jpg"
+    },
+    {
+      "id": "wudai-houtang-mingzong",
+      "commonName": "明宗（李嗣源）",
+      "dynasty": "後唐",
+      "matchedTitle": "李嗣源",
+      "image": "唐明宗.jpg"
+    },
+    {
+      "id": "wudai-houtang-zhuangzong",
+      "commonName": "荘宗（李存勗）",
+      "dynasty": "後唐",
+      "matchedTitle": "李存勗",
+      "image": "Zhuangzong_of_Later_Tang.jpg"
+    },
+    {
+      "id": "wudai-houzhou-shizong",
+      "commonName": "世宗（柴栄）",
+      "dynasty": "後周",
+      "matchedTitle": "後周世宗",
+      "image": "Chai_Rong_(Zhou_Shizong).jpg"
+    },
+    {
+      "id": "wudai-houzhou-taizu",
+      "commonName": "太祖（郭威）",
+      "dynasty": "後周",
+      "matchedTitle": "郭威",
+      "image": "Guo_Wei_(Zhou_Taizu).jpg"
+    },
+    {
+      "id": "wuzhou-wusangui",
+      "commonName": "太祖昭武帝（呉三桂）",
+      "dynasty": "呉周",
+      "matchedTitle": "吴三桂",
+      "image": "Wu_Sangui.jpg"
+    },
+    {
+      "id": "xi-zhangxianzhong",
+      "commonName": "大順帝（張献忠）",
+      "dynasty": "西",
+      "matchedTitle": "张献忠",
+      "image": "張獻忠.jpg"
+    },
+    {
+      "id": "yuan-chengzong",
+      "commonName": "成宗",
+      "dynasty": "元",
+      "matchedTitle": "元成宗",
+      "image": "YuanEmperorAlbumTemurOljeituPortrait.jpg"
+    },
+    {
+      "id": "yuan-huizong",
+      "commonName": "恵宗（順帝）",
+      "dynasty": "元",
+      "matchedTitle": "元順帝",
+      "image": "元順帝妥歡帖木兒_Emperor_Shun_of_Yuan_Toghon_Temür.png"
+    },
+    {
+      "id": "yuan-mingzong",
+      "commonName": "明宗",
+      "dynasty": "元",
+      "matchedTitle": "元明宗",
+      "image": "YuanEmperor_Kusala.jpg"
+    },
+    {
+      "id": "yuan-ningzong",
+      "commonName": "寧宗",
+      "dynasty": "元",
+      "matchedTitle": "元宁宗",
+      "image": "YuanEmperorAlbumIrinchinbalPortrait.jpg"
+    },
+    {
+      "id": "yuan-renzong",
+      "commonName": "仁宗",
+      "dynasty": "元",
+      "matchedTitle": "元仁宗",
+      "image": "YuanEmperorAlbumAyurbarvadaBuyantuPortrait.jpg"
+    },
+    {
+      "id": "yuan-shizu",
+      "commonName": "世祖",
+      "dynasty": "元",
+      "matchedTitle": "元世祖",
+      "image": "YuanEmperorAlbumKhubilaiPortrait.jpg"
+    },
+    {
+      "id": "yuan-shu",
+      "commonName": "袁術",
+      "dynasty": "仲家",
+      "matchedTitle": "袁术",
+      "image": "Yuan_Shu_Qing_portrait.jpg"
+    },
+    {
+      "id": "yuan-taidingdi",
+      "commonName": "泰定帝（通称）",
+      "dynasty": "元",
+      "matchedTitle": "泰定帝",
+      "image": "Yesün_Temür.png"
+    },
+    {
+      "id": "yuan-tianshundi",
+      "commonName": "天順帝（通称）",
+      "dynasty": "元",
+      "matchedTitle": "元天顺帝",
+      "image": "Ragibagh_Khan.png"
+    },
+    {
+      "id": "yuan-wenzong",
+      "commonName": "文宗",
+      "dynasty": "元",
+      "matchedTitle": "元文宗",
+      "image": "YuanEmperorAlbumTughTemurPortrait.jpg"
+    },
+    {
+      "id": "yuan-wuzong",
+      "commonName": "武宗",
+      "dynasty": "元",
+      "matchedTitle": "元武宗",
+      "image": "YuanEmperorAlbumQaishanKulugPortrait.jpg"
+    },
+    {
+      "id": "yuan-yingzong",
+      "commonName": "英宗",
+      "dynasty": "元",
+      "matchedTitle": "元英宗",
+      "image": "Gegeen_Khan.png"
+    },
+    {
+      "id": "zhonghuadiguo-yuanshikai",
+      "commonName": "洪憲帝（袁世凱）",
+      "dynasty": "中華帝国",
+      "matchedTitle": "袁世凯",
+      "image": "YuanShikaiPresidente1915.jpg"
+    }
+  ],
+  "noImageIds": [
+    "beiqi-andewang-gaoyanzong",
+    "beiqi-feidi-gaoyin",
+    "beiqi-gaoxie",
+    "beiqi-houzhu",
+    "beiqi-wuchengdi",
+    "beiqi-xiaozhaodi",
+    "beiqi-youzhu-gaoheng",
+    "beisongmo-liuyu",
+    "beisongmo-zhangbangchang",
+    "beiwei-daowudi",
+    "beiwei-houfeidi-yuanlang",
+    "beiwei-jiemindi",
+    "beiwei-mingyuandi",
+    "beiwei-taiwudi",
+    "beiwei-tuobayu",
+    "beiwei-wenchengdi",
+    "beiwei-xiandi",
+    "beiwei-xiaomingdi",
+    "beiwei-xiaowendi",
+    "beiwei-xiaowudi",
+    "beiwei-xuanwudi",
+    "beiwei-youzhu-yuanzhao",
+    "beiwei-yuanfasheng",
+    "beiwei-yuanhao",
+    "beiwei-yuanye",
+    "beiwei-yuanyu",
+    "beiyuan-zhaozong",
+    "beizhou-jingdi",
+    "beizhou-mingdi",
+    "beizhou-xuandi",
+    "chenghan-liban",
+    "chenghan-liqi",
+    "chenghan-lishi",
+    "chenghan-lishou",
+    "dongjin-chengdi",
+    "dongjin-feidi",
+    "dongjin-gongdi",
+    "dongjin-jianwendi",
+    "dongjin-kangdi",
+    "dongjin-mudi",
+    "dongjin-xiaowudi",
+    "dongwei-xiaojingdi",
+    "gongsun-shu",
+    "han-houshaodi",
+    "han-huidi",
+    "han-liuhe",
+    "han-pingdi",
+    "han-qianshaodi",
+    "hou-han-andi",
+    "hou-han-chongdi",
+    "hou-han-hedi",
+    "hou-han-huandi",
+    "hou-han-lingdi",
+    "hou-han-shangdi",
+    "hou-han-shaodi-bian",
+    "hou-han-shaodi-yi",
+    "hou-han-shundi",
+    "hou-han-zhidi",
+    "houliang-houzhu",
+    "houliang-mingdi",
+    "houliang-xuandi",
+    "houqin-yaohong",
+    "houqin-yaoxing",
+    "houyan-murongbao",
+    "houyan-muronglin",
+    "houyan-murongsheng",
+    "houyan-murongxi",
+    "houyan-murongxiang",
+    "houzhao-shihong",
+    "houzhao-shihu",
+    "houzhao-shijian",
+    "houzhao-shishi",
+    "houzhao-shizhi",
+    "houzhao-shizun",
+    "huan-xuan",
+    "jin-aizong",
+    "jin-hailingwang",
+    "jin-modi",
+    "jin-taizong",
+    "jin-weishaowang",
+    "jin-xizong",
+    "jin-xuanzong",
+    "jin-zhangzong",
+    "liang-jianwendi",
+    "liang-jingdi",
+    "liang-xiaoji",
+    "liang-xiaoyuanming",
+    "liang-xiaozhengde",
+    "liang-xiaozhuang",
+    "liang-yuandi",
+    "liang-yuzhangwang",
+    "liao-daozong",
+    "liao-jingzong",
+    "liao-muzong",
+    "liao-shengzong",
+    "liao-shizong",
+    "liao-taizong",
+    "liao-taizu",
+    "liao-tianzuodi",
+    "liao-xingzong",
+    "liu-penzi",
+    "liu-song-liushao",
+    "liu-song-liuzixun",
+    "liu-song-qianfeidi",
+    "liu-song-shaodi",
+    "liu-song-shundi",
+    "liu-yong-liang",
+    "ming-yizong",
+    "nanming-shaowudi",
+    "nanming-zhaozong",
+    "nansong-duanzong",
+    "nansong-gongdi",
+    "nansong-weiwang",
+    "nanyan-murongchao",
+    "qi-donghunhou",
+    "qi-hailingwang",
+    "qi-hedi",
+    "qi-mingdi",
+    "qi-wudi",
+    "qi-yulinwang",
+    "qianliang-zhangzuo",
+    "qianqin-fuchong",
+    "qianqin-fudeng",
+    "qianqin-fujian",
+    "qianqin-fupi",
+    "qianqin-fusheng",
+    "qianyan-murongjun",
+    "qianyan-murongwei",
+    "qianzhao-liucan",
+    "qianzhao-liuhe",
+    "qianzhao-liuyao",
+    "qin-er-shi",
+    "shiguo-beihan-liuchong",
+    "shiguo-beihan-liujien",
+    "shiguo-beihan-liujiyuan",
+    "shiguo-houshu-mengchang",
+    "shiguo-houshu-mengzhixiang",
+    "shiguo-jieyan-liushouguang",
+    "shiguo-min-wangjipeng",
+    "shiguo-min-wangyanjun",
+    "shiguo-min-wangyanxi",
+    "shiguo-nanhan-liubin",
+    "shiguo-nanhan-liuchang",
+    "shiguo-nanhan-liusheng",
+    "shiguo-nanhan-liuyan",
+    "shiguo-nantang-libian",
+    "shiguo-qianshu-wangjian",
+    "shiguo-qianshu-wangyan",
+    "shiguo-wu-yangpu",
+    "shun-lichengzheng",
+    "sui-gongdi-tong",
+    "sui-gongdi-you",
+    "sui-yanghao",
+    "suimo-fugongshi",
+    "suimo-liangshidu",
+    "suimo-linshihong",
+    "suimo-liqui",
+    "suimo-lizitong",
+    "suimo-xiaoxian",
+    "suimo-xueju",
+    "suimo-xuerengao",
+    "tang-gaozong",
+    "tang-lige",
+    "tang-shangdi",
+    "tang-shunzong",
+    "tangmo-anqingxu",
+    "tangmo-li-chenghong",
+    "tangmo-li-yun",
+    "tangmo-lixilie",
+    "tangmo-shichaoyi",
+    "tangmo-shisiming",
+    "tangmo-zhuci",
+    "wei-yuandi",
+    "wu-jingdi",
+    "wudai-houhan-yindi",
+    "wudai-houjin-shaodi",
+    "wudai-houliang-modi",
+    "wudai-houliang-zhuyougui",
+    "wudai-houtang-mindi",
+    "wudai-houtang-modi2",
+    "wudai-houzhou-gongdi",
+    "wuzhou-wushifan",
+    "xia-heliading",
+    "xia-helianbobo",
+    "xia-helianchang",
+    "xiliao-dezong",
+    "xiliao-renzong",
+    "xiliao-tianxi",
+    "xiwei-feidi-yuanqin",
+    "xiwei-gongdi",
+    "xiwei-wendi",
+    "xixia-chongzong",
+    "xixia-huanzong",
+    "xixia-huizong",
+    "xixia-jingzong",
+    "xixia-mozhu",
+    "xixia-renzong",
+    "xixia-shenzong",
+    "xixia-xiangzong",
+    "xixia-xianzong",
+    "xixia-yizong",
+    "xiyan-murongchong",
+    "xiyan-murongyao",
+    "xiyan-murongyong",
+    "xiyan-murongzhong",
+    "yuanmo-chenli",
+    "yuanmo-chenyouliang",
+    "yuanmo-hanlin-er",
+    "yuanmo-mingsheng",
+    "yuanmo-mingyuzhen",
+    "yuanmo-xushouhui"
+  ],
+  "excludedNonPortrait": [
+    "beiwei-houfeidi-yuanlang",
+    "beiwei-mingyuandi",
+    "beiwei-wenchengdi",
+    "beiwei-xiandi",
+    "beiwei-xiaowendi",
+    "han-liuhe",
+    "houzhao-shihu",
+    "jin-taizong",
+    "liang-xiaoji",
+    "liang-xiaozhuang",
+    "liao-taizu",
+    "shun-lichengzheng",
+    "xiliao-dezong"
+  ],
+  "excludedLicense": {
+    "reason": "CC BY-SA 4.0（要クレジット表記）ライセンスは使用しない方針のため除外（2026-07-17）",
+    "ids": [
+      "beiwei-daowudi",
+      "shiguo-qianshu-wangjian"
+    ]
+  }
+}
