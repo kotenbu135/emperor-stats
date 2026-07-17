@@ -38,3 +38,6 @@ next-env.d.ts
 # external reference corpus (large, not part of this repo's dataset)
 /china-history
 /daizhigev20
+
+# generated per-emperor source text cache (regenerate with scripts/build_corpus_cache.py)
+/_corpus_cache

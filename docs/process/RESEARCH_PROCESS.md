@@ -31,6 +31,17 @@ WebSearch の返り値は AI による要約であり、原典の直接引用か
 
 両コーパスとも詳細は各ディレクトリの `CACHE_INFO.md` を参照してください。ファイル名の巻数の罠・行番号インデックス等の実務的な注意点は [CORPUS_NOTES.md](CORPUS_NOTES.md) にまとめています。
 
+##### 皇帝ごとの原文キャッシュ（`_corpus_cache/`）を優先参照する
+
+改元・親征・遷都・年齢など調査グループは今後も追加される見込みで、同じ人物の同じ原文をグループごとに何度も読み直すことになります。そのため、**あるブロックの人物に着手する際、`_corpus_cache/<id>.txt` が無ければ先に作ってから調査に入ります**（対象を一部のブロックに絞らず、全ブロックが対象）。
+
+1. `_corpus_cache/<id>.txt` の有無を確認する（未生成ならこのディレクトリ自体が存在しないか、該当idのファイルがない）。
+2. 無ければ `scripts/build_corpus_cache.py` に該当書名・巻・行範囲のマッピングを追記し、`python3 scripts/build_corpus_cache.py` を実行してキャッシュを生成する（書名・巻の同定は既存の調査結果や本ドキュメント記載の罠を踏まえて行う、機械的な範囲指定のみで判定は伴わない）。
+3. マッピング表は [CORPUS_NOTES.md](CORPUS_NOTES.md) の「皇帝ごとの原文キャッシュ」節に追記する。
+4. 以降の調査（Workflow の `sourceFiles`）はこのキャッシュファイルを優先的に読ませる。
+
+`_corpus_cache/` は `.gitignore` 対象（`china-history`/`daizhigev20` から決定論的に再生成可能なため）だが、生成スクリプトとマッピング表はリポジトリに追跡させる。
+
 **重要**: これらはOCR/転記由来の誤字を含む可能性があるコピーです。ここから直接引用する場合も、可能な範囲で文脈（前後の記述）と照合し、不自然な文字は誤字を疑ってください。
 
 ##### `daizhigev20/` 大容量ファイルの行番号インデックス化（コンテキスト効率）
@@ -116,6 +127,36 @@ Workflow の結果（JSON）を一時ファイルに保存し、Python スクリ
 ### ユーザーへの提示
 
 ブロック完了報告は追加分の要約（人物名・値・特筆事項）で行い、`data/emperors.json` 全体や大きな範囲の cat/Read は避けます。差分確認が必要な場合は `git diff -- data/emperors.json` を使います。
+
+## 旧暦→新暦・干支変換の計算補助（`sxtwl`ライブラリ）
+
+原文の日付は旧暦（農暦）の年月日や干支で書かれていることが多く、在位期間との照合や `datePrecision` の判定に新暦換算・干支換算が必要になる場面があります。過去の調査（五代十国ブロック）でエージェントごとに `sxtwl` の API を `dir()` で毎回手探りしており、トークン消費の大きな要因になっていました（要実測: [claude-code-log](https://github.com/daaain/claude-code-log) でのセッション分析）。以下は判定そのものではなく機械的な日付換算の補助（[CONSTRAINTS.md](CONSTRAINTS.md) の「日数計算等の機械的な計算補助はOK」の範囲内）なので、これを使い回して探索コストを省きます。
+
+```python
+import sxtwl
+
+TG = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸']
+DZ = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥']
+
+def gz_str(gz):
+    return TG[gz.tg] + DZ[gz.dz]
+
+# 旧暦→新暦: fromLunar(年, 月, 日, 閏月フラグ)
+d = sxtwl.fromLunar(923, 4, 1, False)
+d.getSolarYear(), d.getSolarMonth(), d.getSolarDay()   # -> 923, 4, 19
+d.getLunarYear(), d.getLunarMonth(), d.getLunarDay()   # 入力の旧暦をそのまま返す
+gz_str(d.getDayGZ())                                    # その日の日干支（例: '己巳'）
+
+# 新暦→旧暦: fromSolar(年, 月, 日)
+d2 = sxtwl.fromSolar(926, 5, 15)
+gz_str(d2.getDayGZ())                                   # 日干支
+d2.getLunarYear(), d2.getLunarMonth(), d2.getLunarDay(), d2.isLunarLeap()  # 旧暦換算・閏月か
+```
+
+- `sxtwl.fromLunar`/`fromSolar` は `Day` オブジェクトを返す。日付そのものは `getSolarYear/Month/Day()` と `getLunarYear/Month/Day()` で両方向に取得できる。
+- 日干支は `d.getDayGZ()` が返す `GZ` オブジェクトの `.tg`（天干インデックス0-9）・`.dz`（地支インデックス0-11）を上記 `TG`/`DZ` 配列で文字化する。月干支・年干支は `getMonthGZ()`/`getYearGZ()` で同様に取得可能。
+- 「◯年◯月の干支が××の日」を逆引きする場合は、対象の年月について `fromLunar(year, month, day, leap)` を `day=1..30` で回し、`getLunarMonth()`/`getLunarYear()` が一致する範囲でフィルタしつつ `gz_str()` が一致する日を探す（月によって日数が変わるため例外握りつぶしで空振りを許容する）。
+- `sxtwl` は既にインストール済みの環境が多いが、無ければ `pip install sxtwl` で導入する（`pip show sxtwl` で先に確認してから）。
 
 ## Workflow エージェントの id を固定する（結果マージの手戻り防止）
 
