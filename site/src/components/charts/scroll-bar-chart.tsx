@@ -8,7 +8,14 @@
 // - Nivo標準ツールチップはチャートSVG基準のabsolute配置でスクロール枠にクリップ
 //   されるため、fixed配置の自前ツールチップ（FixedTooltip）を使う。
 
-import { useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import type { BarDatum, BarCustomLayerProps } from "@nivo/bar";
 
 export const ROW_HEIGHT = 24;
@@ -201,7 +208,10 @@ export function useChartWidth(): {
   return { chartAreaRef, chartWidth };
 }
 
-/** カーソル位置に追従するfixed配置ツールチップ。画面下部ではカーソルの上側に反転する。 */
+/** カーソル位置に追従するfixed配置ツールチップ。画面下部ではカーソルの上側に反転する。
+ *  位置はleft/topでなくtransformで動かす。left/topの書き換えはfixed要素でも
+ *  layout-shiftとして計上され、バー間をホバーするだけでCLSが積み上がる
+ *  （実機Lighthouse timespanで確認。transformはlayout-shiftの対象外）。 */
 export function FixedTooltip({
   x,
   y,
@@ -212,16 +222,87 @@ export function FixedTooltip({
   children: ReactNode;
 }) {
   const flip = y > window.innerHeight * 0.6;
+  const left = Math.min(x + 14, window.innerWidth - 254);
+  const top = flip ? y - 12 : y + 14;
   return (
     <div
-      className="pointer-events-none fixed z-50"
+      className="pointer-events-none fixed left-0 top-0 z-50"
       style={{
-        left: Math.min(x + 14, window.innerWidth - 254),
-        top: flip ? y - 12 : y + 14,
-        transform: flip ? "translateY(-100%)" : undefined,
+        transform: `translate(${left}px, ${top}px)${flip ? " translateY(-100%)" : ""}`,
       }}
     >
       {children}
     </div>
+  );
+}
+
+/**
+ * ホバーツールチップの状態をチャート本体から分離するフック。
+ * hoverTipをチャートコンポーネントのstateに持つと、バーやセグメントを通過する
+ * たびにNivoチャート全体（数百SVGノード）が再レンダリングされ、実機Lighthouse
+ * timespanでTBTが秒単位に積み上がる。状態はTipOutlet（ツールチップだけを描く
+ * 小さな子コンポーネント）が持ち、チャート側は安定参照のsetTipを呼ぶだけにする。
+ */
+export function useTipOutlet<T>(): {
+  /** ツールチップの表示/更新/非表示。チャート側のイベントハンドラから呼ぶ。 */
+  setTip: (tip: T | null) => void;
+  /** ツールチップの描画位置に置くコンポーネント。renderにはtip非nullのときだけ呼ばれる描画関数を渡す。 */
+  TipOutlet: (props: { render: (tip: T) => ReactNode }) => ReactNode;
+} {
+  const setterRef = useRef<((tip: T | null) => void) | null>(null);
+  const setTip = useCallback((tip: T | null) => {
+    setterRef.current?.(tip);
+  }, []);
+  const TipOutlet = useCallback(
+    ({ render }: { render: (tip: T) => ReactNode }) => (
+      <TipOutletInner setterRef={setterRef} render={render} />
+    ),
+    [],
+  );
+  return { setTip, TipOutlet };
+}
+
+function TipOutletInner<T>({
+  setterRef,
+  render,
+}: {
+  setterRef: RefObject<((tip: T | null) => void) | null>;
+  render: (tip: T) => ReactNode;
+}) {
+  const [tip, setTip] = useState<T | null>(null);
+  useEffect(() => {
+    setterRef.current = setTip;
+    return () => {
+      setterRef.current = null;
+    };
+  }, [setterRef]);
+  if (tip === null) return null;
+  return <>{render(tip)}</>;
+}
+
+/**
+ * 「表で見る」の開閉状態を自前で持つdetails枠。開閉のたびに親チャート
+ * （Nivo含む）が再レンダリングされるのを避ける。childrenは開いている間だけ
+ * 呼ばれる描画関数（閉じているときのテーブル構築コストもゼロ）。
+ */
+export function TableDetails({
+  summary,
+  children,
+}: {
+  summary: ReactNode;
+  children: () => ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <details
+      className="mt-3"
+      open={open}
+      onToggle={(e) => setOpen((e.target as HTMLDetailsElement).open)}
+    >
+      <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
+        {summary}
+      </summary>
+      {open && children()}
+    </details>
   );
 }

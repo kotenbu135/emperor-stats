@@ -13,7 +13,9 @@ import {
   MARGIN_RIGHT,
   ROW_HEIGHT,
   SCROLL_MAX_HEIGHT,
+  TableDetails,
   useChartWidth,
+  useTipOutlet,
   useWindowedRows,
 } from "@/components/charts/scroll-bar-chart";
 import {
@@ -47,8 +49,8 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
   const [unit, setUnit] = useState<GroupUnit>("dynasty");
   const [categoryValue, setCategoryValue] = useState<DynastyCategory | "all">("all");
   const [sort, setSort] = useState<GroupSort>("desc");
-  const [tableOpen, setTableOpen] = useState(false);
-  const [hoverTip, setHoverTip] = useState<SegmentTip | null>(null);
+  // ホバー状態はチャート本体に持たない（セグメント通過ごとの全体再レンダリング防止）。
+  const { setTip, TipOutlet } = useTipOutlet<SegmentTip>();
 
   const { chartAreaRef, chartWidth } = useChartWidth();
 
@@ -141,7 +143,7 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
           className="overflow-y-auto overscroll-contain"
           style={{ maxHeight: SCROLL_MAX_HEIGHT }}
           onScroll={() => {
-            setHoverTip(null);
+            setTip(null);
             handleScroll();
           }}
         >
@@ -194,7 +196,7 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
                 if (!hoverAllowed()) return;
                 const row = rowByKey.get(String(datum.indexValue));
                 if (!row) return;
-                setHoverTip({
+                setTip({
                   rowLabel: row.label,
                   category: datum.id as DeathCauseCategory,
                   count: datum.value ?? 0,
@@ -203,40 +205,35 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
                   y: event.clientY,
                 });
               }}
-              onMouseLeave={() => setHoverTip(null)}
+              onMouseLeave={() => setTip(null)}
               animate={false}
             />
             </div>
           </div>
         </div>
       </div>
-      {hoverTip && (
-        <FixedTooltip x={hoverTip.x} y={hoverTip.y}>
-          <div
-            className="rounded-md border border-border bg-background p-3 text-xs text-foreground shadow-md"
-            style={{ width: "max-content", maxWidth: 240 }}
-          >
-            <div className="font-medium">{hoverTip.rowLabel}</div>
-            <div className="mt-1 flex items-center gap-1.5">
-              <span
-                className="inline-block size-2.5 rounded-[3px]"
-                style={{ backgroundColor: colors[hoverTip.category] }}
-              />
-              {hoverTip.category}：{hoverTip.count}名（
-              {Math.round((hoverTip.count / hoverTip.total) * 100)}%）
+      <TipOutlet
+        render={(tip) => (
+          <FixedTooltip x={tip.x} y={tip.y}>
+            <div
+              className="rounded-md border border-border bg-background p-3 text-xs text-foreground shadow-md"
+              style={{ width: "max-content", maxWidth: 240 }}
+            >
+              <div className="font-medium">{tip.rowLabel}</div>
+              <div className="mt-1 flex items-center gap-1.5">
+                <span
+                  className="inline-block size-2.5 rounded-[3px]"
+                  style={{ backgroundColor: colors[tip.category] }}
+                />
+                {tip.category}：{tip.count}名（
+                {Math.round((tip.count / tip.total) * 100)}%）
+              </div>
             </div>
-          </div>
-        </FixedTooltip>
-      )}
-      <details
-        className="mt-3"
-        open={tableOpen}
-        onToggle={(e) => setTableOpen((e.target as HTMLDetailsElement).open)}
-      >
-        <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
-          表で見る（全{sorted.length}件）
-        </summary>
-        {tableOpen && (
+          </FixedTooltip>
+        )}
+      />
+      <TableDetails summary={<>表で見る（全{sorted.length}件）</>}>
+        {() => (
           <div className="mt-2 max-h-[480px] overflow-x-auto overflow-y-auto rounded-md border border-border">
             <table className="w-full text-sm">
               <thead className="sticky top-0 bg-secondary text-left">
@@ -273,7 +270,7 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
             </table>
           </div>
         )}
-      </details>
+      </TableDetails>
     </div>
   );
 }

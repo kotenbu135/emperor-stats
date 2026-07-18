@@ -4,7 +4,7 @@
 // カード枠は3:4固定・肖像はcover+topで顔を切らずにフィット、画像なしは姓一文字の
 // モノグラムをプレースホルダー表示する。カードを押すと詳細ダイアログを開く。
 
-import { useState } from "react";
+import { memo, useCallback, useDeferredValue, useMemo, useState } from "react";
 import Image from "next/image";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -83,6 +83,43 @@ function Portrait({
     />
   );
 }
+
+/** 一覧のカード1枚。フィルタ・検索のたびに364枚を再レンダリングしないようmemo化
+ *  （実機Lighthouse timespanで操作ごとの再レンダリングがTBT・遅延レイアウトシフトの
+ *  一因だったため）。 */
+const EmperorCard = memo(function EmperorCard({
+  record,
+  priority,
+  onSelect,
+}: {
+  record: EmperorRecord;
+  priority: boolean;
+  onSelect: (record: EmperorRecord) => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => onSelect(record)}
+      className="group overflow-hidden rounded-md border border-border bg-background text-left transition-colors hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring"
+    >
+      <div className="relative aspect-[3/4] w-full overflow-hidden">
+        <Portrait
+          record={record}
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+          priority={priority}
+        />
+      </div>
+      <div className="px-2.5 py-2">
+        <div className="truncate text-sm font-medium text-foreground group-hover:text-seal">
+          {record.name}
+        </div>
+        <div className="truncate text-xs text-muted-foreground">
+          {record.dynastyLabel}
+        </div>
+      </div>
+    </button>
+  );
+});
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
@@ -189,15 +226,21 @@ export function EmperorGrid({
   const [dynastyValue, setDynastyValue] = useState("all");
   const [categoryValue, setCategoryValue] = useState<DynastyCategory | "all">("all");
   const [selected, setSelected] = useState<EmperorRecord | null>(null);
+  const onSelect = useCallback((record: EmperorRecord) => setSelected(record), []);
+  // 入力欄の反応を優先し、グリッドの絞り込み再レンダリングは低優先度で追従させる
+  // （1文字ごとに364カードの再レンダリングがキー入力をブロックしないように）。
+  const deferredQuery = useDeferredValue(query);
 
   // 検索は空白区切りの全語がヒットした皇帝のみ表示（名称・別名・王朝名・時代が対象）。
-  const tokens = query.trim().split(/\s+/).filter(Boolean);
-  const filtered = records.filter(
-    (r) =>
-      (dynastyValue === "all" || r.dynastyKey === dynastyValue) &&
-      (categoryValue === "all" || r.dynastyCategory === categoryValue) &&
-      tokens.every((t) => r.searchText.includes(t)),
-  );
+  const filtered = useMemo(() => {
+    const tokens = deferredQuery.trim().split(/\s+/).filter(Boolean);
+    return records.filter(
+      (r) =>
+        (dynastyValue === "all" || r.dynastyKey === dynastyValue) &&
+        (categoryValue === "all" || r.dynastyCategory === categoryValue) &&
+        tokens.every((t) => r.searchText.includes(t)),
+    );
+  }, [records, deferredQuery, dynastyValue, categoryValue]);
 
   return (
     <div>
@@ -265,29 +308,13 @@ export function EmperorGrid({
       ) : (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
           {filtered.map((r, i) => (
-            <button
+            <EmperorCard
               key={r.id}
-              type="button"
-              onClick={() => setSelected(r)}
-              className="group overflow-hidden rounded-md border border-border bg-background text-left transition-colors hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring"
-            >
-              <div className="relative aspect-[3/4] w-full overflow-hidden">
-                <Portrait
-                  record={r}
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
-                  // ファーストビュー相当（最大6カラム×2行）だけ先行読み込みする。
-                  priority={i < 12}
-                />
-              </div>
-              <div className="px-2.5 py-2">
-                <div className="truncate text-sm font-medium text-foreground group-hover:text-seal">
-                  {r.name}
-                </div>
-                <div className="truncate text-xs text-muted-foreground">
-                  {r.dynastyLabel}
-                </div>
-              </div>
-            </button>
+              record={r}
+              // ファーストビュー相当（最大6カラム×2行）だけ先行読み込みする。
+              priority={i < 12}
+              onSelect={onSelect}
+            />
           ))}
         </div>
       )}

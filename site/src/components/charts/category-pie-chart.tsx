@@ -11,6 +11,7 @@ import {
   ChartFilterControls,
   type SortDirection,
 } from "@/components/charts/chart-filter-controls";
+import { TableDetails } from "@/components/charts/scroll-bar-chart";
 import {
   HoverCard,
   HoverCardContent,
@@ -51,7 +52,6 @@ export function CategoryPieChart({
   const [categoryValue, setCategoryValue] = useState<DynastyCategory | "all">("all");
   // "asc" = カテゴリ順（既定・固定順で識別性を保つ）, "desc" = 件数の多い順
   const [order, setOrder] = useState<SortDirection>("asc");
-  const [tableOpen, setTableOpen] = useState(false);
 
   const filtered = records.filter(
     (r) =>
@@ -193,15 +193,8 @@ export function CategoryPieChart({
           </HoverCard>
         ))}
       </div>
-      <details
-        className="mt-3"
-        open={tableOpen}
-        onToggle={(e) => setTableOpen((e.target as HTMLDetailsElement).open)}
-      >
-        <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
-          表で見る
-        </summary>
-        {tableOpen && (
+      <TableDetails summary="表で見る">
+        {() => (
           <div className="mt-2 rounded-md border border-border">
             <table className="w-full text-sm">
               <thead className="bg-secondary text-left">
@@ -235,7 +228,7 @@ export function CategoryPieChart({
             </table>
           </div>
         )}
-      </details>
+      </TableDetails>
     </div>
   );
 }

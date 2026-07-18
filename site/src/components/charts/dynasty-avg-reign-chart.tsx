@@ -14,7 +14,9 @@ import {
   OutsideValueLabels,
   ROW_HEIGHT,
   SCROLL_MAX_HEIGHT,
+  TableDetails,
   useChartWidth,
+  useTipOutlet,
   useWindowedRows,
 } from "@/components/charts/scroll-bar-chart";
 import {
@@ -33,12 +35,12 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
   const [unit, setUnit] = useState<GroupUnit>("dynasty");
   const [categoryValue, setCategoryValue] = useState<DynastyCategory | "all">("all");
   const [sort, setSort] = useState<GroupSort>("desc");
-  const [tableOpen, setTableOpen] = useState(false);
-  const [hoverTip, setHoverTip] = useState<{
+  // ホバー状態はチャート本体に持たない（バー通過ごとの全体再レンダリング防止）。
+  const { setTip, TipOutlet } = useTipOutlet<{
     row: GroupAggRow;
     x: number;
     y: number;
-  } | null>(null);
+  }>();
 
   const { chartAreaRef, chartWidth } = useChartWidth();
 
@@ -126,7 +128,7 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
           className="overflow-y-auto overscroll-contain"
           style={{ maxHeight: SCROLL_MAX_HEIGHT }}
           onScroll={() => {
-            setHoverTip(null);
+            setTip(null);
             handleScroll();
           }}
         >
@@ -173,43 +175,38 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
               onMouseEnter={(datum, event) => {
                 if (!hoverAllowed()) return;
                 const row = (datum.data as unknown as { row: GroupAggRow }).row;
-                setHoverTip({ row, x: event.clientX, y: event.clientY });
+                setTip({ row, x: event.clientX, y: event.clientY });
               }}
-              onMouseLeave={() => setHoverTip(null)}
+              onMouseLeave={() => setTip(null)}
               animate={false}
             />
             </div>
           </div>
         </div>
       </div>
-      {hoverTip && (
-        <FixedTooltip x={hoverTip.x} y={hoverTip.y}>
-          <div
-            className="rounded-md border border-border bg-background p-3 text-xs text-foreground shadow-md"
-            style={{ width: "max-content", maxWidth: 240 }}
-          >
-            <div className="font-medium">{hoverTip.row.label}</div>
-            {unit === "dynasty" && (
-              <div className="text-muted-foreground">{hoverTip.row.era}</div>
-            )}
-            <div className="mt-1">
-              皇帝{hoverTip.row.emperorCount}名・平均在位{avgLabel(hoverTip.row)}
+      <TipOutlet
+        render={(tip) => (
+          <FixedTooltip x={tip.x} y={tip.y}>
+            <div
+              className="rounded-md border border-border bg-background p-3 text-xs text-foreground shadow-md"
+              style={{ width: "max-content", maxWidth: 240 }}
+            >
+              <div className="font-medium">{tip.row.label}</div>
+              {unit === "dynasty" && (
+                <div className="text-muted-foreground">{tip.row.era}</div>
+              )}
+              <div className="mt-1">
+                皇帝{tip.row.emperorCount}名・平均在位{avgLabel(tip.row)}
+              </div>
+              <div className="text-muted-foreground">
+                最長：{tip.row.longest.name}（{tip.row.longest.durationLabel}）
+              </div>
             </div>
-            <div className="text-muted-foreground">
-              最長：{hoverTip.row.longest.name}（{hoverTip.row.longest.durationLabel}）
-            </div>
-          </div>
-        </FixedTooltip>
-      )}
-      <details
-        className="mt-3"
-        open={tableOpen}
-        onToggle={(e) => setTableOpen((e.target as HTMLDetailsElement).open)}
-      >
-        <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
-          表で見る（全{sorted.length}件）
-        </summary>
-        {tableOpen && (
+          </FixedTooltip>
+        )}
+      />
+      <TableDetails summary={<>表で見る（全{sorted.length}件）</>}>
+        {() => (
           <div className="mt-2 max-h-[480px] overflow-y-auto rounded-md border border-border">
             <table className="w-full text-sm">
               <thead className="sticky top-0 bg-secondary text-left">
@@ -245,7 +242,7 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
             </table>
           </div>
         )}
-      </details>
+      </TableDetails>
     </div>
   );
 }

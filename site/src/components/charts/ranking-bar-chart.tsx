@@ -17,7 +17,9 @@ import {
   OutsideValueLabels,
   ROW_HEIGHT,
   SCROLL_MAX_HEIGHT,
+  TableDetails,
   useChartWidth,
+  useTipOutlet,
   useWindowedRows,
 } from "@/components/charts/scroll-bar-chart";
 import { EmperorTooltip } from "@/components/charts/emperor-tooltip";
@@ -91,12 +93,12 @@ export function RankingBarChart({
   const [dynastyValue, setDynastyValue] = useState("all");
   const [categoryValue, setCategoryValue] = useState<DynastyCategory | "all">("all");
   const [sortDirection, setSortDirection] = useState<SortDirection>(defaultSort);
-  const [tableOpen, setTableOpen] = useState(false);
-  const [hoverTip, setHoverTip] = useState<{
+  // ホバー状態はチャート本体に持たない（バー通過ごとの全体再レンダリング防止）。
+  const { setTip, TipOutlet } = useTipOutlet<{
     record: EmperorRecord;
     x: number;
     y: number;
-  } | null>(null);
+  }>();
 
   const { chartAreaRef, chartWidth } = useChartWidth();
 
@@ -211,7 +213,7 @@ export function RankingBarChart({
           className="overflow-y-auto overscroll-contain"
           style={{ maxHeight: SCROLL_MAX_HEIGHT }}
           onScroll={() => {
-            setHoverTip(null);
+            setTip(null);
             handleScroll();
           }}
         >
@@ -266,9 +268,9 @@ export function RankingBarChart({
                 if (!hoverAllowed()) return;
                 const record = (datum.data as unknown as { record: EmperorRecord })
                   .record;
-                setHoverTip({ record, x: event.clientX, y: event.clientY });
+                setTip({ record, x: event.clientX, y: event.clientY });
               }}
-              onMouseLeave={() => setHoverTip(null)}
+              onMouseLeave={() => setTip(null)}
               // バーだけがスプリングで伸び、独自レイヤーの数値ラベルが先に最終位置へ
               // 描かれて浮いて見えるため、アニメーションは使わない。
               animate={false}
@@ -277,24 +279,19 @@ export function RankingBarChart({
           </div>
         </div>
       </div>
-      {hoverTip && (
-        <FixedTooltip x={hoverTip.x} y={hoverTip.y}>
-          <EmperorTooltip
-            record={hoverTip.record}
-            valueLabel={valueLabel}
-            formattedValue={formatOf(hoverTip.record, metricKey)}
-          />
-        </FixedTooltip>
-      )}
-      <details
-        className="mt-3"
-        open={tableOpen}
-        onToggle={(e) => setTableOpen((e.target as HTMLDetailsElement).open)}
-      >
-        <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
-          表で見る（全{sorted.length}件）
-        </summary>
-        {tableOpen && (
+      <TipOutlet
+        render={(tip) => (
+          <FixedTooltip x={tip.x} y={tip.y}>
+            <EmperorTooltip
+              record={tip.record}
+              valueLabel={valueLabel}
+              formattedValue={formatOf(tip.record, metricKey)}
+            />
+          </FixedTooltip>
+        )}
+      />
+      <TableDetails summary={<>表で見る（全{sorted.length}件）</>}>
+        {() => (
           <div className="mt-2 max-h-[480px] overflow-y-auto rounded-md border border-border">
             <table className="w-full text-sm">
               <thead className="sticky top-0 bg-secondary text-left">
@@ -324,7 +321,7 @@ export function RankingBarChart({
             </table>
           </div>
         )}
-      </details>
+      </TableDetails>
     </div>
   );
 }
