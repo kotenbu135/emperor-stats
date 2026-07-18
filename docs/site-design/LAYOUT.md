@@ -30,19 +30,17 @@ Next.js + GitHub Pages で構築する統計可視化サイトのレイアウト
    ├ 死因別分布（病死/暗殺/処刑/戦死/自尽/事故死/不詳/諸説あり）
    └ 即位経路別分布（世襲/簒奪/禅譲/擁立/復位/建国/不詳/諸説あり）
 
-宮廷イベント（改元・大赦・立后・皇太子廃立）
+宮廷イベント（改元・大赦・立后・皇太子廃立・遷都）
    ├ 改元回数ランキング
    ├ 大赦回数ランキング
    ├ 立后回数ランキング
-   └ 皇太子廃立回数ランキング
+   ├ 皇太子廃立回数ランキング
+   └ 遷都回数ランキング（当初は独立項目だったが2026-07-18に統合。下記「メニュー・配色改善」参照）
 
 軍事（親征・反乱鎮圧・被反乱）
    ├ 親征回数ランキング
    ├ 反乱鎮圧回数ランキング
    └ 被反乱回数ランキング
-
-遷都回数
-   （グループ4・調査未着手のため後日追加）
 
 年齢
    （生年判明分のみ・グループ5 deferred、後日追加）
@@ -150,9 +148,121 @@ Next.js + GitHub Pages で構築する統計可視化サイトのレイアウト
 - **UI/CSSライブラリ**: Tailwind CSS + [shadcn/ui](https://ui.shadcn.com/)。Radixベースでアクセシブル、Accordion/Drawer（左メニュー・スマホ用オフキャンバス）もコピペで導入できるコンポーネントとして提供される。静的書き出し（GitHub Pages）との相性も良い。
 - **アイコンライブラリ**: [Lucide](https://lucide.dev/)。shadcn/ui標準のアイコンセットでストロークが統一されており種類も豊富。
 
-### 未確定事項（実装着手時に検討）
+## 実装着手時の技術判断（2026-07-18）
 
-- 各メニュー・チャートの実装優先順位（データが揃っている在位・死因・即位経路・宮廷イベントから着手が自然）
+- **リポジトリ構成**: 別リポジトリを新規作成せず、**同一リポジトリ（emperor-stats）内**に配置する（例: `site/` ディレクトリ配下にNext.jsプロジェクトを作成）。`data/emperors.json`をビルド時に直接参照でき、データ更新とサイト実装が同じPR/コミット履歴で追跡できるため。
+- **GitHub Pages公開形態**: プロジェクトページ（`https://<username>.github.io/emperor-stats/`）。Next.jsの`next.config.js`で`basePath`/`assetPrefix`の設定が必要になる点に注意。
+- **実装の進め方**: 全メニュー一括ではなく**MVP優先で段階的に実装**する。データが早期に揃っていた在位年数・死因・即位経路・宮廷イベント（改元/大赦/立后/皇太子廃立）のページから着手し、動くサイトを早期に確認しながら軍事・遷都・年齢・王朝横断ビューへ広げる。
+- **パッケージマネージャ／Node.jsバージョン**: npm + 既存のnvm（v26.4.0）を使用する（[[node-runtime-wsl]]参照）。追加ツールのセットアップ不要。
+
+## 雛形作成（2026-07-18）
+
+`site/`ディレクトリに`create-next-app`（TypeScript・Tailwind CSS v4・App Router・`src/`構成）でNext.js 16プロジェクトを作成。
+
+- **静的書き出し設定**: `next.config.ts`で`output: 'export'`・`basePath: '/emperor-stats'`・`images.unoptimized: true`を設定済み（GitHub Pagesプロジェクトページ向け）。`npm run build`で`out/`にbasePath付きのアセットパスが出力されることを確認済み。
+- **shadcn/ui**: `npx shadcn@latest init`（`nova`プリセット＝Lucideアイコン、Radixベース）で初期化し、`Accordion`/`Sheet`（オフキャンバス代わり）/`Card`/`Table`/`Button`/`Badge`/`Separator`を導入済み。
+- **フォント**: `next/font/google`で見出し=`Noto_Serif_JP`、本文/UI=`Noto_Sans_JP`を設定（`--font-heading`/`--font-sans`）。中国語繁体字/簡体字表記はサイト上で使わない方針のためSCフォントは導入せず。
+- **配色**: `src/app/globals.css`の`:root`に水墨文人パレット（background `#F5F1E8`・foreground `#3A3530`・primary `#4A4038`・border `#DDD5C7`）を反映し、朱印アクセント用に`--seal`/`--color-seal`トークンを独自追加（`#A6321C`、`bg-seal text-seal-foreground`で使用）。ダークモードは方針通り未実装（`.dark`定義なし）。`--chart-1`〜`5`（王朝別カテゴリカルパレット）は未確定のため暫定グレースケールのまま — 実チャート実装時に必ずdataviz skillで確定させること。
+- **Nivo**: `@nivo/core`・`bar`・`pie`・`line`・`scatterplot`をインストール済み（LAYOUT.md記載のグラフ種に対応）。
+- **Stitch MCP不使用の経緯**: 当初`google-labs-code/stitch-skills`（Google Stitch AIデザイン生成）の利用を検討したが、Stitch MCPサーバー側のツールスキーマ不具合（`can't resolve reference #/$defs/ScreenInstance`）で接続不可のため、手動での`create-next-app`+shadcn/uiによる雛形作成に切り替えた。`stitch-build:shadcn-ui`スキル（MCP不要）はセットアップ手順のガイダンスとして活用。MCP不具合が解消すれば`stitch::generate-design`等でのデザイン生成を後日試す余地あり。
+
+## MVPページ実装（2026-07-18）
+
+在位データ・死因・即位経路・宮廷イベントの3ページを実装し、メニュー・グラフ・データ連携までMVP範囲が動作する状態になった。
+
+- **データ連携**: `site/src/lib/emperors.ts`が`fs.readFileSync(path.join(process.cwd(), "..", "data", "emperors.json"))`でビルド時に`data/emperors.json`を読み込み、在位年数ランキング・死因/即位経路の分布・宮廷イベント4種のランキングを集計する関数群を提供する。**Turbopackは`site/`の外側のファイルを静的import（`import x from "../../../data/emperors.json"`）で解決できずビルドエラーになるため、`fs`経由の読み込みに統一した**（次にビルドエラーになったら真っ先にこの制約を疑うこと）。
+- **メニュー**: `site/src/lib/nav-data.ts`にLAYOUT.mdのメニュー構成をそのままデータ化。実装済み（在位データ/死因・即位/宮廷イベント）は有効リンク、未実装項目（皇帝一覧/軍事/遷都/年齢/王朝横断）は「準備中」バッジ付きで無効表示。`site/src/components/layout/site-shell.tsx`がPC固定サイドバー（`md:`以上で表示）とスマホ用Sheetオフキャンバス（ハンバーガーボタン）を切り替える。
+- **グラフ**: dataviz skillの手順に従い、既定の検証済み8色カテゴリカルパレット（`references/palette.md`のデフォルト）をsurface `#F5F1E8`に対し`validate_palette.js`で検証（全項目PASS、4スロットはコントラストWARNのため凡例+直接ラベル表示で緩和）。`globals.css`に`--series-1`〜`8`として追加（王朝別横断ビュー用の`--chart-1`〜`5`とは別トークン、用途が異なるため混在させない）。ランキング棒グラフ（在位年数・宮廷イベント4種）は単一エンティティのnominal categoricalとして単色（`--series-1`固定、凡例なし）、死因・即位経路の円グラフは8色カテゴリカルパレット＋凡例＋直接ラベルで実装。
+- **ハマった点**: Nivo Barの`labelPosition="end"` + 負の`labelOffset`でラベルをバー外側に出そうとしたところ、`labelTextColor`が背景色と同系統だったためバー外にはみ出た部分の文字が背景に溶けて見えなくなるバグを作り込んだ（ビルドは通るが視覚的に壊れる典型例）。`labelPosition`/`labelOffset`を指定せずデフォルト（`middle`・バー内側中央）に戻して解決。**Nivoのグラフはビルド成功だけでは検証にならず、実際にブラウザで見た目を確認する必要がある**（このバグはbuild/lint両方通過した状態で発生していた）。また、Nivo横棒グラフはデータ配列の先頭要素を下端に描画するため、降順ランキングをそのまま渡すと1位が最下段に来てしまう。`RankingBarChart`内で表示直前に配列を反転させて対応。
+- **未実施**: 皇帝一覧・軍事・遷都・年齢・王朝横断ビューのページ、Storybook/Chromaticの導入。
+
+## MVPページの機能拡充（2026-07-18・同日追加分）
+
+MVP実装直後にユーザーから追加要望を受け、在位データ・死因即位・宮廷イベントの3ページを以下の点で拡充した。
+
+- **スキーマ名の非表示**: ページ説明文からJSONフィールドパス（例: `deathCause.category`）を除去し、訪問者向けの自然文に統一。
+- **全件表示化**: ランキング棒グラフをトップ20固定から**364名全員表示**に変更（`RankingBarChart`）。宮廷イベント4種も0回の皇帝を含め全員表示するよう変更（旧実装は`count>0`でフィルタしていたが「全員見れるように」の要望で撤廃）。
+- **王朝・正統性フィルタ＋ソート（全グラフ共通）**: `site/src/components/charts/chart-filter-controls.tsx`が王朝（`dynasty.name`+`section`複合キー、87件、データ初出順）・正統性（`dynasty.category`の3値）・ソート方向（多い順/少ない順、またはカテゴリ順/件数順）の3コントロールを提供し、ランキング棒グラフ・円グラフ・復位者一覧テーブルすべてに適用。
+- **肖像画ポップアップ**: `docs/site-design/mockups/card-preview/`の153件webpを`site/scripts/sync-portraits.mjs`で`site/public/portraits/`に同期（`predev`/`prebuild`で自動実行、git管理は同期元のみ）。ランキング棒グラフのツールチップ（`EmperorTooltip`）で該当皇帝の肖像があれば`next/image`で表示。
+- **在位年数の表示形式変更**: 小数年（例: `61.91`）から「○年○日」形式（`formatReignDuration`、`reignApproxDays`基準）に変更。データ変更は不要（既存の`approxDays`から算出）。
+- **死因・即位経路カテゴリの凡例説明**: 円グラフ下部にカスタム凡例を実装し、shadcnの`HoverCard`でカテゴリ定義（DEATH_CAUSE_SCHEMA.md/ADDITIONAL_SCHEMA.mdの定義文を短縮転記）をホバー表示。
+- **復位者一覧のデフォルトソート**: 即位回数の多い順をデフォルトに変更。
+
+### ハマった点・教訓（同日追加分）
+
+- **サーバー→クライアントの関数props禁止に複数回引っかかった**: `getDynastyOptions()`等のfs依存関数や、`valueOf`/`categoryOf`等のアロー関数をServer ComponentからClient Componentへpropsで渡そうとすると、それぞれ別種のビルドエラー（`node:fs`をクライアントバンドルに含められない／関数を渡せない）になる。**対策として型・定数だけを`site/src/lib/emperor-types.ts`（fs非依存）に分離し、fs依存のデータ取得は`site/src/lib/emperors.ts`のServer Component専用関数に閉じ込め、Client Componentへは文字列キー（`metricKey`等）と配列・オブジェクトなどシリアライズ可能な値のみを渡す設計に統一した。** 今後Client Componentを追加する際もこの分離を踏襲すること。
+- **同名同王朝の衝突でNivoの棒が1本消える**: `name.commonName`が`null`の皇帝が2名（赫連昌・赫連定、共に「夏」）存在し、表示ラベルが両方「null（夏）」になって`indexBy="label"`が衝突、364件のはずが363本しか描画されずグラフの一部が空白になるバグが発生した。**`indexBy`は表示ラベルでなく一意な`id`を使い、軸ラベルは`axisLeft.format`で`id→label`のMapを引く方式に変更して恒久対策**。`commonName`のnullは表示名フォールバック（`personalName`等）で吸収しつつ、データ側の是正は[PROJECT_STATUS.md「サイト実装で見つかったデータ品質の申し送り事項」](../PROJECT_STATUS.md)に記録した。
+- **`next/image`は`images.unoptimized:true`のとき`basePath`を自動付与しない**: `images.unoptimized`（静的書き出しに必須）が有効だと、Next.js内部のデフォルトローダーを経由しないため`basePath`プレフィックスが一切付かず、`<Image src="/portraits/x.webp">`が本番相当の`/emperor-stats/`配下で404になる。`site/src/lib/base-path.ts`に`BASE_PATH`定数を新設し、`next.config.ts`と`portraitUrl`生成の両方で同じ値を参照する形にして解消。**publicディレクトリのアセットをnext/imageで参照する箇所は必ずこの定数を使うこと。**
+- **スクロール用`overflow-y-auto`コンテナがNivoツールチップを切り抜いてしまう**: Nivoのツールチップは`position:absolute`で描画されるため、全件表示のために追加した内側スクロールコンテナ（`overflow-y-auto`）の外にはみ出す形（一覧の上端付近）で表示しようとすると見えなくなる。**内側スクロールをやめ、チャート自体をページの通常フローに置いてページ全体でスクロールさせる方式に変更**（364件×行高でセクションが縦に長くなるが、「スクロールして全員見れる」という要望どおりの挙動になり、ツールチップも問題なく表示される）。
+- **Nivoのマウントアニメーション中はグラフが一時的に空白/歪んで見える**: スクリーンショットのタイミング次第でチャートが真っ白・数値ラベルが位置ずれして見えることがあったが、実際にはマウント/データ更新アニメーションの途中を捉えただけで、1〜2秒待てば正しい表示に収束する（実装バグではない）。目視確認時はアニメーション完了を待ってから判断すること。
+
+## 全統計ページ実装（2026-07-18・MVP後の追加分）
+
+MVPで「準備中」だった5項目をすべて実装し、メニュー構成案の全項目が稼働する状態になった。あわせてスクロールバーのデザインを水墨文人パレットに統一した。
+
+- **皇帝一覧**（`/emperors`）: 「キャラ図鑑」グリッド（3:4固定枠・`object-fit: cover` + `object-position: top`、画像なし211名は姓一文字モノグラム）。検索（`name.*`各種名称+aliases+王朝名+時代の連結文字列に対する空白区切りAND部分一致）・王朝・区分フィルタ付き。**個人詳細は別ページでなくダイアログ（shadcn Dialog）で表示**（364ルート生成を避けつつ全12項目+名称類を表示できる）。王朝と時代の表示は「明（明）」「呉・三国（三国）」のような重複を避けるため、`dynastyLabel`と`eraLabel`が相互に含まれる場合は時代を省略する。
+- **軍事**（`/military`）: 親征・反乱鎮圧・被反乱の3ランキング。LAYOUT.md提案の「鎮圧vs被反乱散布図」「親征勝敗円グラフ」は未実装（勝敗円グラフは`outcome`自然文の機械分類が必要でデータ正確性の原則と相容れないため見送り。散布図は将来検討）。
+- **遷都回数**（`/capital`）・**年齢**（`/ages`）: `RankingBarChart`を指標拡張して実装。年齢はnull（生年不詳）を除外して件数注記する`missingNoteLabel`と、「少ない方が1位」を固定する`rankDirection`プロパティを追加（即位時年齢は若い順デフォルト・1位=最年少）。
+- **王朝・時代で見る**（`/dynasties`）: 平均在位年数（単一系列・朱色、皇帝数をラベル併記）と死因の内訳（検証済み8色死因パレットの積み上げ横棒、セグメント間はsurface色`borderWidth:1`で区切り、`enableTotals`で合計表示）。**集計単位トグル（王朝別/時代別）**と時代順ソートを装備。未確定だった`--chart-1〜5`王朝パレットは、単一系列+死因パレット再利用の構成にしたため今回も不要（王朝タイムライン実装時に要確定）。
+- **共通部品化**: グラフ内スクロール型チャートの共有部品（AxisHeader・OutsideValueLabels・FixedTooltip・useChartWidth・定数）を`charts/scroll-bar-chart.tsx`に抽出し、皇帝ランキング・王朝別2チャートで共用。
+- **スクロールバー**: `globals.css`で標準`scrollbar-width: thin`+`scrollbar-color: #c9bda8 transparent`（Safari向けに`::-webkit-scrollbar`フォールバック併記）。OS既定の灰色バーが宣紙色背景から浮く問題を解消。
+- ナビの「今後追加予定」ブロックは撤去し全項目を有効リンク化。トップページに8セクションカード、aboutに親征/反乱/遷都/年齢の数え方説明を追記。
+
+## メニュー・配色改善（2026-07-18・全統計ページ実装の直後）
+
+### 遷都回数の宮廷イベントへの統合
+
+単独ページ`/capital`（1セクションのみ）を廃止し、`/court-events#capital`のセクションとして統合した。メニューのトップレベル項目が1つ減り、「回数もの」の宮廷・朝廷イベントが1ページに揃う。ナビ・トップページカード・LAYOUT.mdメニュー構成案も同期済み（aboutの数え方説明は元の位置のまま）。
+
+### メニュー挙動（`nav-menu.tsx`）
+
+- **カテゴリはデフォルトで閉じる**。現在表示中のページが属するカテゴリだけ自動で開く（初期表示・ページ遷移後とも）。
+- **カテゴリ見出し自体もリンク**（`NavCategory.href`を必須化し配下ページ先頭へ遷移）。開閉は右端のシェブロン（`AccordionTrigger`をアイコンのみで使用、`aria-label`付与）で行い、見出しクリック＝遷移、シェブロンクリック＝開閉と役割を分離。
+- **手動の開閉はページ遷移をまたいで維持**する。実装は「最後に操作したときのpathname＋開いていた値」を1つのstateに持ち表示時に導出するderived state方式（`useEffect`での`setState`はeslint `react-hooks/set-state-in-effect`違反になるため不可）。
+- 現在ページのカテゴリ見出し・表示中セクションのサブ項目は朱色で強調、`aria-current="page"`付与。shadcn Accordion既定の`[&_a]:underline`はナビでは打ち消す。
+
+### 配色の補強（水墨文人の雰囲気は維持）
+
+「全体的に色味が足りない」というフィードバックへの対応。地色・墨色はそのまま、以下を追加：
+
+- **サイドバー・モバイルヘッダー・Sheetを生成り（`--sidebar` #ede7d8）に**して本文の宣紙色と面で区別
+- **印章風ロゴ**: サイトタイトル横に朱地に白抜き「帝」の角印（`SiteMark`、`aria-hidden`）
+- **見出しアクセント**: PageHeaderのh1・Sectionのh2・aboutのH2に朱の縦バー（印泥をイメージ、`rounded-full bg-seal`）
+- **StatTile**: 数値を朱色化＋上辺に`border-t-seal/70`
+- トップのセクションカードに`hover:border-seal/50`、フッターを`bg-secondary/60`の帯に
+
+## ワイド画面の中央寄せとLighthouse計測（2026-07-18・メニュー・配色改善の直後）
+
+16:9モニタ最大化時に右側の余白が目立つという指摘への対応と、品質計測の初回実施。
+
+### 記事型ページの中央寄せ
+
+- **トップ（概要ダッシュボード）**: コンテンツ列（`max-w-4xl`）を`mx-auto`で中央寄せ
+- **/about**: 本文列を`mx-auto max-w-2xl`で中央寄せ。`PageHeader`に`contained`プロップを追加し、見出しも本文と同じ列幅・同じ中心に揃える（統計ページの見出しは従来どおり左寄せ・全幅）
+- **フッター**: 内側の`max-w-2xl`を`mx-auto`で中央寄せ（全ページ共通）
+- グラフ中心の統計ページは全幅を使うため対象外
+
+### フッターの圧縮とGitHub誘導（同日追加）
+
+- フッターの縦幅が広すぎる指摘→短い句を`flex-wrap`で「・」区切りに並べる1行構成（`py-3`）に圧縮。ワイド画面では1行に収まり、狭い画面では句単位で折り返す
+- **データの誤りのご指摘・お問い合わせはGitHubのIssue（kotenbu135/emperor-stats/issues）に誘導**する文言とリンクをフッターに追加（外部リンクは`target="_blank"`。当初PR誘導で実装したがIssue誘導に訂正）
+
+### 免責事項の追加（同日）
+
+/aboutの末尾に`免責事項`セクション（`#disclaimer`）を追加。内容：①AI（大規模言語モデル）を活用して調査・構築しており制作者は歴史学の専門家ではない②史料解釈の誤りや現代の通説と異なる整理がありうる（優しい目で・指摘はGitHubのIssueへ）③正確性・完全性の不保証と利用による不利益・損害の免責④正史原文の確認に利用したGitHub公開コーパス2種（hunterhug/china-history・garychowcmu/daizhigev20＝殆知閣古代文献）への謝辞。PageHeaderとmetadataのdescriptionにも「免責事項」を追記。
+
+### basePathの廃止（同日・ユーザーによる変更）
+
+- カスタムドメイン `emperorstats.com`（ルート直下配信）を使うことになったため、`src/lib/base-path.ts` の `BASE_PATH` を `""` に変更（next.config.tsの`basePath`と肖像画URLの単一情報源）。ローカルは `http://localhost:3000/`（`/emperor-stats`プレフィックスなし）
+- **教訓**: basePath変更後は旧`.next`キャッシュが残っているとdevサーバーでReactのハイドレーションが静かに失敗する（コンソールエラーなしで画像404・フィルタ無反応）。`rm -rf .next`してからdevサーバーを再起動すること
+
+### 品質計測の結果（初回ベースライン）
+
+- **コンソール**: 全9ページ＋詳細ダイアログ操作でエラー・警告0件（dev mode）
+- **Lighthouse**（本番ビルドをdesktop presetで計測）: Best Practices全ページ100
+  - トップ 99（mobile 98）／ /emperors 76（LCP 6.0s＝遅延読み込み画像がLCP要素）／ /reign 67（TBT 4.2s）／ /court-events 62（TBT 10.0s）
+  - **既知の課題（未対応）**: ①ランキング系ページはNivoが364本×セクション数のSVGを初回に全描画するためTBTが大きい（対策候補: 画面外チャートの遅延マウント等）②/emperorsは最初の数枚を`loading="eager"`にするとLCP改善見込み ③a11y: shadcn `SelectTrigger`にアクセシブルネームなし（button-name）、Nivoの`role="img"`なSVGにアクセシブルネームなし（svg-img-alt）
+  - 計測方法: `out/`を`/tmp/lhroot/emperor-stats`シンボリックリンク経由で`npx serve`し、WSL内Chrome（`CHROME_PATH=/usr/bin/google-chrome`、`--headless=new`）で`npx lighthouse`
 
 ## 品質担保の方針（2026-07-17）
 

@@ -4,7 +4,7 @@ import { getPortraitCredits, getOverviewStats } from "@/lib/emperors";
 export const metadata = {
   title: "このサイトについて | 中国皇帝統計",
   description:
-    "中国皇帝統計の収録基準・各統計項目の数え方・典拠とした史料・肖像画の出典について説明します。",
+    "中国皇帝統計の収録基準・各統計項目の数え方・典拠とした史料・肖像画の出典・免責事項について説明します。",
 };
 
 function Prose({ children }: { children: React.ReactNode }) {
@@ -45,7 +45,7 @@ export default function AboutPage() {
     <>
       <PageHeader
         title="このサイトについて"
-        description="収録基準・各統計項目の数え方・典拠とした史料・肖像画の出典について説明します。"
+        description="収録基準・各統計項目の数え方・典拠とした史料・肖像画の出典・免責事項について説明します。"
         contained
       />
       {/* 記事型ページのためワイド画面では本文列を中央寄せにする（PageHeaderのcontainedと同じ列幅） */}
@@ -58,7 +58,7 @@ export default function AboutPage() {
             の在位期間・死因・即位の経緯などを集計・可視化したものです。
           </p>
           <p>
-            集計にあたっては、Wikipediaなどの二次資料の要約をそのまま採用するのではなく、可能な限り『史記』『漢書』『旧唐書』『宋史』などの正史原典に立ち返って確認しています。史料によって記述が食い違う場合や、原典に手がかりが見当たらない場合は、無理に一つの答えを決めず「諸説あり」「不詳」として扱っています。
+            集計にあたっては、可能な限り『史記』『漢書』『旧唐書』『宋史』などの正史原典に立ち返って確認しています。史料によって記述が食い違う場合や、原典に手がかりが見当たらない場合は、無理に一つの答えを決めず「諸説あり」「不詳」として扱っています。
           </p>
         </Prose>
 
@@ -182,6 +182,43 @@ export default function AboutPage() {
             </table>
           </div>
         </details>
+
+        <H2 id="disclaimer">免責事項</H2>
+        <Prose>
+          <p>
+            本サイトは、AI（大規模言語モデル）を活用して調査・集計・構築しています。また、制作者は歴史学の専門家ではありません。正史の原典に1件ずつあたる方針でできる限り丁寧に作成していますが、史料の解釈を誤っている場合や、現代の歴史学の通説と異なる整理をしている場合があります。個人が楽しみながら作った統計サイトとして、どうか優しい目でご覧いただければ幸いです。お気づきの点は
+            <a
+              href="https://github.com/kotenbu135/emperor-stats/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              GitHubのIssue</a>
+            で教えていただけると助かります。
+          </p>
+          <p>
+            本サイトの内容の正確性・完全性を保証するものではなく、本サイトの利用によって生じたいかなる不利益・損害についても、制作者は責任を負いかねます。レポートや記事等で数値を利用される際は、必ず原典をご確認ください。
+          </p>
+          <p>
+            正史原文の確認にあたっては、GitHubで公開されている二十四史コーパス
+            <a
+              href="https://github.com/hunterhug/china-history"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              china-history</a>
+            および古代文献コーパス
+            <a
+              href="https://github.com/garychowcmu/daizhigev20"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              daizhigev20</a>
+            （殆知閣古代文献）を利用させていただきました。両プロジェクトの公開に感謝します。
+          </p>
+        </Prose>
         </div>
       </div>
     </>

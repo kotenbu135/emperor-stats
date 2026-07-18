@@ -4,19 +4,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## プロジェクト概要
 
-中国皇帝データセット（`data/emperors.json`）構築プロジェクト。始皇帝から溥儀までの在位年数・死因・即位経路などを統計化し、最終的に Next.js + GitHub Pages でグラフ化します。
+中国皇帝統計プロジェクト。始皇帝から溥儀まで、実際に「皇帝」を名乗った364人の在位年数・死因・即位経路など全12項目を正史原典から調査したデータセット（`data/emperors.json`）と、それを可視化する Next.js 静的サイト（`site/`、カスタムドメイン emperorstats.com で公開）で構成されます。
 
-**現在**: データ収集・検証フェーズ完了（2026-07-18、在位データ・死因・即位経路・改元・大赦・立后・皇太子廃立・遷都・親征・反乱鎮圧・被反乱・即位時年齢/没年齢の全12項目を364人全員分確定。`meta.status.overall` は `"completed"`）。次フェーズはサイト実装（Next.js + GitHub Pages）だが本稿執筆時点では未着手。進捗詳細は `data/emperors.json` の `meta.status.phases` および [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) 参照）
+**現在**: データ収集・検証フェーズ（全12項目×364人、`meta.status.overall: "completed"`）とサイト実装（概要ダッシュボード〜全統計ページ・このサイトについて・免責事項）の両方が 2026-07-18 に完了。以後の作業は、データ誤りの訂正（GitHub Issue 起点を想定）とサイトの改善・保守が中心です。
 
-**このリポジトリにはビルド・lint・テストの類は存在しません**（`package.json` なし）。作業は `data/emperors.json` への手動データ入力・検証と、その周辺ドキュメント（`docs/`・`data/schema/`）の更新が中心です。Next.js サイトのコード自体はまだ存在しません（後述）。
+## コマンド
+
+ビルド・lint が存在するのは `site/` のみ（リポジトリルートに `package.json` はありません。テストはありません）。Node は nvm の v26.4.0 を使います：
+
+```bash
+source ~/.nvm/nvm.sh && nvm use 26.4.0
+cd site
+npm run dev        # 開発サーバー http://localhost:3000/
+npm run build      # 静的書き出し → out/（predev/prebuild で肖像画同期 sync-portraits が走る）
+npm run lint       # ESLint
+npx tsc --noEmit   # 型チェック
+```
+
+サイト側の詳細（アーキテクチャ・ハマりどころ）は [site/AGENTS.md](site/AGENTS.md) を参照。
 
 ## リポジトリ構成
 
-- **`data/emperors.json`** — メインデータセット本体（`meta` + `emperors` 配列）。トップレベル構造・各フィールドの詳細は下記スキーマドキュメントを参照。**メイン会話でこのファイル全体を Read しない**（2.9MB超）。対象人物の抽出・Workflow結果のマージは `jq`/`python3` を Bash 経由で行う（詳細: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「コンテキスト効率」節）。
-- **`data/images/portraits/`** — 肖像画アセット（ライセンス確認済み・`manifest.json`で出典管理）。サイトのカードUI用に将来使用。
-- **`china-history/`・`daizhigev20/`** — 正史原文のローカルコーパス（`.gitignore`対象・リポジトリには含まれない、事前に `git clone --depth 1` 済み）。判定の一次情報源として最優先で参照する（詳細: [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md)）。
-- **`_corpus_cache/`** — 上記コーパスから人物ごとに抽出・整形済みの本紀原文キャッシュ（`.gitignore`対象、`scripts/build_corpus_cache.py` で再生成可能）。あるブロックの人物に着手する際、該当 `id` のキャッシュが無ければ先にこのスクリプトへ書名・巻・行範囲のマッピングを追記して生成してから調査に入る（詳細: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「皇帝ごとの原文キャッシュ」節）。
-- **`docs/site-design/`** — Next.js サイトのレイアウト・デザイン方針の先行検討メモ（モックアップ含む）。**実装自体はデータ確定後**（`meta.status.overall` が `in-progress` でなくなってから）に着手する方針だった。2026-07-18にデータ確定（`meta.status.overall: "completed"`）したため着手可能な状態だが、本稿執筆時点では未着手。
+- **`data/emperors.json`** — メインデータセット本体（`meta` + `emperors` 配列）。サイトがビルド時に直接読み込む。**メイン会話でこのファイル全体を Read しない**（2.9MB超）。対象人物の抽出・訂正結果のマージは `jq`/`python3` を Bash 経由で行う（詳細: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「コンテキスト効率」節）。
+- **`site/`** — Next.js サイト（静的書き出し・emperorstats.com で公開）。詳細は [site/AGENTS.md](site/AGENTS.md)。
+- **`data/images/portraits/`** — 肖像画アセット（PD/CC0 のみ・`manifest.json` で出典管理）。サイトの皇帝一覧カード・出典一覧で使用中。
+- **`china-history/`・`daizhigev20/`** — 正史原文のローカルコーパス（`.gitignore` 対象・リポジトリには含まれない、事前に `git clone --depth 1` 済み）。データ訂正時の一次情報源として最優先で参照する（詳細: [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md)）。
+- **`_corpus_cache/`** — 上記コーパスから人物ごとに抽出・整形済みの本紀原文キャッシュ（`.gitignore` 対象、`scripts/build_corpus_cache.py` で再生成可能）。キャッシュが無い人物を調査する際は、先にこのスクリプトへ書名・巻・行範囲のマッピングを追記して生成してから調査に入る（詳細: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「皇帝ごとの原文キャッシュ」節）。
+- **`docs/site-design/`** — サイトのレイアウト設計メモ兼実装記録（[LAYOUT.md](docs/site-design/LAYOUT.md)）。実装済みの決定事項・教訓が時系列で追記されている。
 
 ## 重要な参考文書
 
@@ -25,18 +39,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 内容 | ファイル |
 |------|--------|
 | **ディレクトリ全体の案内** | [docs/README.md](docs/README.md) / [data/README.md](data/README.md) |
-| **プロジェクト現状・進捗・追加スキーマTODO** | [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) |
-| **データ調査の進め方（手順書）** | [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) |
+| **プロジェクト現状・データ品質の申し送り** | [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) |
+| **データ調査の進め方（訂正時もこの手順）** | [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) |
 | **ローカルコーパス利用メモ（巻数の罠・行番号インデックス）** | [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) |
 | **絶対に守るべき制約** | [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md) |
+| **AI調査の知見集（設計指針・失敗事例）** | [docs/process/AI_RESEARCH_LESSONS.md](docs/process/AI_RESEARCH_LESSONS.md) |
 | **JSON スキーマ参照** | [docs/schema/SCHEMA_OVERVIEW.md](docs/schema/SCHEMA_OVERVIEW.md) |
+| **サイトの設計判断・実装記録** | [docs/site-design/LAYOUT.md](docs/site-design/LAYOUT.md) |
 
 ## 最重要ルール（抜粋）
 
 - **原典（正史の本紀・列伝）を第一情報源とします** — WebSearch の要約だけでは判定しません
-- **スクリプトの自動生成は禁止** — 人物ごと個別調査・判定が必須（日数計算等の機械的な計算補助や、既に確定した調査結果の構造チェックはOK）
-- **データ正確性が最優先** — 誤りのないデータが完成するまでサイト実装には着手しません
-- **ブロック調査が1件完了するたびに** `data/emperors.json` の該当データ・`meta.completedBlocks`（または該当フェーズの `*CompletedBlocks`）・`docs/PROJECT_STATUS.md` のチェックボックスを**同じタイミングで**更新する
+- **スクリプトによるデータの自動生成は禁止** — 人物ごと個別調査・判定が必須（日数計算等の機械的な計算補助や、確定済み調査結果の構造チェックはOK）
+- **データ正確性が最優先** — データに誤りが見つかった場合は個別調査で訂正するのが原則で、サイト側での場当たり的な補正はしません（表示破綻の回避のみ許容。既知の例は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) の申し送り事項を参照）
+- **データを訂正したら** `data/emperors.json` の該当データと関連する `meta` 情報・ドキュメントを**同じタイミングで**更新する
 
 詳細は [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md) を参照。
 
