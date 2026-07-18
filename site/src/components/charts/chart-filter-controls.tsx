@@ -117,7 +117,9 @@ export function ChartFilterControls({
     <div className="mb-4 flex flex-wrap items-end gap-4">
       <FilterField label="王朝">
         <Select value={dynastyValue} onValueChange={onDynastyChange}>
-          <SelectTrigger className="w-[200px]">
+          {/* role=comboboxのボタンは中身のテキストがアクセシブルネームにならないため
+              aria-labelを明示する（Lighthouse button-name対応）。 */}
+          <SelectTrigger className="w-[200px]" aria-label="王朝で絞り込み">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -138,7 +140,7 @@ export function ChartFilterControls({
 
       <FilterField label="王朝の区分" hint={<DynastyCategoryHint />}>
         <Select value={categoryValue} onValueChange={onCategoryChange}>
-          <SelectTrigger className="w-[170px]">
+          <SelectTrigger className="w-[170px]" aria-label="王朝の区分で絞り込み">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -155,7 +157,9 @@ export function ChartFilterControls({
       {sortDirection && onSortDirectionChange && (
         <FilterField label="並び順">
           <Select value={sortDirection} onValueChange={onSortDirectionChange}>
-            <SelectTrigger>
+            {/* 幅を固定する（自動幅だとWebフォント読み込みで幅が変わり、フィルタ行の
+                折り返し位置がずれてレイアウトシフトになる。LAYOUT.mdのCLS計測記録）。 */}
+            <SelectTrigger className="w-[180px]" aria-label="並び順">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

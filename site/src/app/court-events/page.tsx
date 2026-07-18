@@ -1,4 +1,5 @@
 import { PageHeader, Section } from "@/components/layout/page-header";
+import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
 import {
   getAllEmperorRecords,
@@ -70,13 +71,15 @@ export default function CourtEventsPage() {
       />
       {sections.map(({ id, key, title, description }) => (
         <Section key={id} id={id} title={title} description={description}>
-          <RankingBarChart
-            records={records}
-            dynastyOptions={dynastyOptions}
-            metricKey={key}
-            axisLabel="回"
-            valueLabel={valueLabels[id]}
-          />
+          <LazyMount estimatedHeight={680}>
+            <RankingBarChart
+              records={records}
+              dynastyOptions={dynastyOptions}
+              metricKey={key}
+              axisLabel="回"
+              valueLabel={valueLabels[id]}
+            />
+          </LazyMount>
         </Section>
       ))}
     </>

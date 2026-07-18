@@ -157,13 +157,11 @@
 
 - **公開形態**: `output: "export"` の静的書き出しを GitHub Pages + カスタムドメイン emperorstats.com（ルート直下、basePath なし）で配信
 - **実装済みページ**: 概要ダッシュボード（`/`）・皇帝一覧（`/emperors`）・在位データ（`/reign`）・死因・即位（`/death-accession`）・宮廷イベント＝改元/大赦/立后/皇太子廃立/遷都（`/court-events`）・軍事（`/military`）・年齢（`/ages`）・王朝横断（`/dynasties`）・このサイトについて＋免責事項（`/about`）
-- **品質確認済み**: 全ページのコンソールエラー0件、`tsc`・ESLint・本番ビルド通過、Lighthouse 初回ベースライン計測済み（LAYOUT.md「品質計測の結果」節）
+- **品質確認済み**: 全ページのコンソールエラー0件、`tsc`・ESLint・本番ビルド通過、Lighthouse 全9ページ計測・改善実装済み（LAYOUT.md「Lighthouse改善の実装」節）
 
-### サイト側の既知バックログ（未対応・着手はユーザー指示があってから）
+### サイト側の既知バックログ
 
-- Nivo チャートの一括レンダリングによる TBT（`/court-events` で最大10秒） — 画面外チャートの遅延マウントが対策候補
-- `/emperors` ファーストビュー肖像画の lazy 読み込みによる LCP 遅延
-- a11y 2件: shadcn SelectTrigger と Nivo SVG（`role="img"`）にアクセシブルネームがない
+2026-07-18 の Lighthouse 改善（チャートの遅延マウント+行ウィンドウイング・`/emperors` 先頭肖像画の priority 化・Select 幅固定と scrollbar-gutter による CLS 解消・アクセシブルネーム付与）により、初回計測時のバックログ（TBT・LCP・a11y 2件・CLS）はすべて解消済み。Lighthouse は accessibility 全9ページ 100、performance 66〜100（低スコア側は WSL2 計測環境の TBT 増幅を含み、実ブラウザの Long Task 実測では全ページ合計約100ms）。現時点で未対応バックログなし。
 
 ## サイト実装で見つかったデータ品質の申し送り事項
 

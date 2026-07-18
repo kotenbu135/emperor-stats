@@ -1,4 +1,5 @@
 import { PageHeader, Section } from "@/components/layout/page-header";
+import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
 import { getAllEmperorRecords, getDynastyOptions } from "@/lib/emperors";
 
@@ -23,32 +24,36 @@ export default function AgesPage() {
         title="即位時年齢ランキング"
         description={`皇帝として即位した時点の年齢です（生年が判明している${accessionKnown}名分）。幼くして即位した皇帝から順に表示します。`}
       >
-        <RankingBarChart
-          records={records}
-          dynastyOptions={dynastyOptions}
-          metricKey="accessionAge"
-          axisLabel="歳"
-          valueLabel="即位時年齢"
-          defaultSort="asc"
-          rankDirection="asc"
-          sortLabel={{ desc: "年長順", asc: "若い順" }}
-          missingNoteLabel="生年不詳などで年齢不明"
-        />
+        <LazyMount estimatedHeight={680}>
+          <RankingBarChart
+            records={records}
+            dynastyOptions={dynastyOptions}
+            metricKey="accessionAge"
+            axisLabel="歳"
+            valueLabel="即位時年齢"
+            defaultSort="asc"
+            rankDirection="asc"
+            sortLabel={{ desc: "年長順", asc: "若い順" }}
+            missingNoteLabel="生年不詳などで年齢不明"
+          />
+        </LazyMount>
       </Section>
       <Section
         id="death-age"
         title="没年齢ランキング"
         description={`崩御・死去した時点の年齢です（享年が判明している${deathKnown}名分）。長寿の皇帝から順に表示します。`}
       >
-        <RankingBarChart
-          records={records}
-          dynastyOptions={dynastyOptions}
-          metricKey="deathAge"
-          axisLabel="歳"
-          valueLabel="没年齢"
-          sortLabel={{ desc: "長寿順", asc: "若い順" }}
-          missingNoteLabel="享年不詳などで年齢不明"
-        />
+        <LazyMount estimatedHeight={680}>
+          <RankingBarChart
+            records={records}
+            dynastyOptions={dynastyOptions}
+            metricKey="deathAge"
+            axisLabel="歳"
+            valueLabel="没年齢"
+            sortLabel={{ desc: "長寿順", asc: "若い順" }}
+            missingNoteLabel="享年不詳などで年齢不明"
+          />
+        </LazyMount>
       </Section>
     </>
   );

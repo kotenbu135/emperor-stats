@@ -1,4 +1,5 @@
 import { PageHeader } from "@/components/layout/page-header";
+import { LazyMount } from "@/components/lazy-mount";
 import { CategoryPieChart } from "@/components/charts/category-pie-chart";
 import {
   accessionRouteCategoryOrder,
@@ -28,13 +29,16 @@ export default function DeathAccessionPage() {
             死因別分布
           </h2>
           <div className="mt-6">
-            <CategoryPieChart
-              records={records}
-              dynastyOptions={dynastyOptions}
-              metricKey="deathCauseCategory"
-              categoryOrder={deathCauseCategoryOrder}
-              categoryDescriptions={deathCauseDescriptions}
-            />
+            <LazyMount estimatedHeight={580}>
+              <CategoryPieChart
+                records={records}
+                dynastyOptions={dynastyOptions}
+                metricKey="deathCauseCategory"
+                categoryOrder={deathCauseCategoryOrder}
+                categoryDescriptions={deathCauseDescriptions}
+                chartLabel="死因別分布"
+              />
+            </LazyMount>
           </div>
         </section>
         <section id="accession" className="scroll-mt-20">
@@ -42,13 +46,16 @@ export default function DeathAccessionPage() {
             即位経路別分布
           </h2>
           <div className="mt-6">
-            <CategoryPieChart
-              records={records}
-              dynastyOptions={dynastyOptions}
-              metricKey="accessionRouteCategory"
-              categoryOrder={accessionRouteCategoryOrder}
-              categoryDescriptions={accessionRouteDescriptions}
-            />
+            <LazyMount estimatedHeight={580}>
+              <CategoryPieChart
+                records={records}
+                dynastyOptions={dynastyOptions}
+                metricKey="accessionRouteCategory"
+                categoryOrder={accessionRouteCategoryOrder}
+                categoryDescriptions={accessionRouteDescriptions}
+                chartLabel="即位経路別分布"
+              />
+            </LazyMount>
           </div>
         </section>
       </div>

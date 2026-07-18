@@ -45,7 +45,9 @@ export function GroupFilterControls({
     <div className="mb-4 flex flex-wrap items-end gap-4">
       <FilterField label="集計単位">
         <Select value={unit} onValueChange={onUnitChange}>
-          <SelectTrigger className="w-[130px]">
+          {/* aria-label: role=comboboxのボタンは中身のテキストがアクセシブルネームに
+              ならない（chart-filter-controls.tsxと同じ対応）。 */}
+          <SelectTrigger className="w-[130px]" aria-label="集計単位">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -57,7 +59,7 @@ export function GroupFilterControls({
 
       <FilterField label="王朝の区分">
         <Select value={categoryValue} onValueChange={onCategoryChange}>
-          <SelectTrigger className="w-[170px]">
+          <SelectTrigger className="w-[170px]" aria-label="王朝の区分で絞り込み">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -73,7 +75,8 @@ export function GroupFilterControls({
 
       <FilterField label="並び順">
         <Select value={sort} onValueChange={onSortChange}>
-          <SelectTrigger>
+          {/* 幅固定: 自動幅だとWebフォント読み込みで折り返し位置がずれCLSになる。 */}
+          <SelectTrigger className="w-[180px]" aria-label="並び順">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>

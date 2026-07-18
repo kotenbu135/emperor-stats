@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ResponsiveBar,
   type BarDatum,
@@ -18,6 +18,7 @@ import {
   ROW_HEIGHT,
   SCROLL_MAX_HEIGHT,
   useChartWidth,
+  useWindowedRows,
 } from "@/components/charts/scroll-bar-chart";
 import { EmperorTooltip } from "@/components/charts/emperor-tooltip";
 import {
@@ -99,12 +100,6 @@ export function RankingBarChart({
 
   const { chartAreaRef, chartWidth } = useChartWidth();
 
-  // フィルタ・並び順を変えたらスクロール位置を先頭（1位側）に戻す。
-  const scrollRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    scrollRef.current?.scrollTo({ top: 0 });
-  }, [dynastyValue, categoryValue, sortDirection]);
-
   const filtered = records.filter(
     (r) =>
       (dynastyValue === "all" || r.dynastyKey === dynastyValue) &&
@@ -164,6 +159,19 @@ export function RankingBarChart({
   const idToLabel = new Map(displayData.map((d) => [d.id, d.label]));
   const chartHeight = Math.max(chartData.length * ROW_HEIGHT + 12, 96);
 
+  // 行ウィンドウイング。displayDataは反転済み（先頭＝最下行）なので、
+  // 上からstart..end行は配列末尾側のスライスに対応する。
+  const rowCount = chartData.length;
+  const { scrollRef, start, end, handleScroll } = useWindowedRows(rowCount);
+  const windowData = displayData.slice(rowCount - end, rowCount - start);
+  // 全行が範囲内のときは従来と同じ全高レンダリング（少件数時の見た目を変えない）。
+  const isFullRange = start === 0 && end === rowCount;
+
+  // フィルタ・並び順を変えたらスクロール位置を先頭（1位側）に戻す。
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0 });
+  }, [scrollRef, dynastyValue, categoryValue, sortDirection]);
+
   const countNotes = [
     zeroCount > 0 ? `調査済み・0${axisLabel}が${zeroCount}名` : null,
     missingCount > 0 ? `${missingNoteLabel ?? "値不明"}が${missingCount}名` : null,
@@ -201,15 +209,29 @@ export function RankingBarChart({
           ref={scrollRef}
           className="overflow-y-auto overscroll-contain"
           style={{ maxHeight: SCROLL_MAX_HEIGHT }}
-          onScroll={() => setHoverTip(null)}
+          onScroll={() => {
+            setHoverTip(null);
+            handleScroll();
+          }}
         >
-          <div ref={chartAreaRef} style={{ height: chartHeight }}>
+          <div ref={chartAreaRef} className="relative" style={{ height: chartHeight }}>
+            <div
+              className="absolute inset-x-0"
+              style={{
+                top: isFullRange ? 0 : start * ROW_HEIGHT,
+                height: isFullRange
+                  ? chartHeight
+                  : (end - start) * ROW_HEIGHT + 12,
+              }}
+            >
             <ResponsiveBar
-              data={displayData as unknown as BarDatum[]}
+              data={windowData as unknown as BarDatum[]}
               keys={["value"]}
               indexBy="id"
               layout="horizontal"
               theme={nivoTheme}
+              // role="img"のSVGに必要なアクセシブルネーム（Lighthouse svg-img-alt対応）。
+              ariaLabel={`皇帝別${valueLabel}の横棒グラフ`}
               colors={[rankingSeriesColor]}
               margin={{ top: 6, right: MARGIN_RIGHT, bottom: 6, left: marginLeft }}
               padding={0.35}
@@ -244,6 +266,7 @@ export function RankingBarChart({
               // 描かれて浮いて見えるため、アニメーションは使わない。
               animate={false}
             />
+            </div>
           </div>
         </div>
       </div>

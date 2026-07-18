@@ -1,4 +1,5 @@
 import { PageHeader, Section } from "@/components/layout/page-header";
+import { LazyMount } from "@/components/lazy-mount";
 import { DynastyAvgReignChart } from "@/components/charts/dynasty-avg-reign-chart";
 import { DynastyDeathCauseChart } from "@/components/charts/dynasty-death-cause-chart";
 import { getAllEmperorRecords } from "@/lib/emperors";
@@ -21,14 +22,18 @@ export default function DynastiesPage() {
         title="平均在位年数"
         description="王朝ごとの皇帝1人あたりの平均在位年数です。皇帝が少ない王朝ほど個人の影響が大きく出る点にご注意ください（各行に皇帝数を併記しています）。"
       >
-        <DynastyAvgReignChart records={records} />
+        <LazyMount estimatedHeight={680}>
+          <DynastyAvgReignChart records={records} />
+        </LazyMount>
       </Section>
       <Section
         id="death-cause"
         title="死因の内訳"
         description="王朝ごとの死因の内訳です。帯の長さは皇帝数を表し、色は死因の分類を表します。"
       >
-        <DynastyDeathCauseChart records={records} />
+        <LazyMount estimatedHeight={710}>
+          <DynastyDeathCauseChart records={records} />
+        </LazyMount>
       </Section>
     </>
   );

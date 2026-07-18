@@ -61,10 +61,15 @@ function Portrait({
   record,
   sizes,
   large = false,
+  priority = false,
 }: {
   record: EmperorRecord;
   sizes: string;
   large?: boolean;
+  /** ファーストビューのカードで指定する。既定のloading="lazy"だと先頭カードの
+   *  肖像がLCP要素なのに読み込みが後回しになりLCPが大幅に悪化する
+   *  （LAYOUT.mdのLighthouse計測記録）。 */
+  priority?: boolean;
 }) {
   if (!record.portraitUrl) return <Monogram char={monogramChar(record)} large={large} />;
   return (
@@ -73,6 +78,7 @@ function Portrait({
       alt={`${record.name}の肖像`}
       fill
       sizes={sizes}
+      priority={priority}
       className="object-cover object-top"
     />
   );
@@ -209,7 +215,9 @@ export function EmperorGrid({
         </FilterField>
         <FilterField label="王朝">
           <Select value={dynastyValue} onValueChange={setDynastyValue}>
-            <SelectTrigger className="w-[200px]">
+            {/* aria-label: role=comboboxのボタンは中身のテキストがアクセシブルネームに
+                ならない（chart-filter-controls.tsxと同じ対応）。 */}
+            <SelectTrigger className="w-[200px]" aria-label="王朝で絞り込み">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -232,7 +240,7 @@ export function EmperorGrid({
             value={categoryValue}
             onValueChange={(v) => setCategoryValue(v as DynastyCategory | "all")}
           >
-            <SelectTrigger className="w-[170px]">
+            <SelectTrigger className="w-[170px]" aria-label="王朝の区分で絞り込み">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -256,7 +264,7 @@ export function EmperorGrid({
         </p>
       ) : (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-          {filtered.map((r) => (
+          {filtered.map((r, i) => (
             <button
               key={r.id}
               type="button"
@@ -267,6 +275,8 @@ export function EmperorGrid({
                 <Portrait
                   record={r}
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+                  // ファーストビュー相当（最大6カラム×2行）だけ先行読み込みする。
+                  priority={i < 12}
                 />
               </div>
               <div className="px-2.5 py-2">

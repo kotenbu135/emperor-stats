@@ -1,4 +1,5 @@
 import { PageHeader, Section } from "@/components/layout/page-header";
+import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
 import {
   getAllEmperorRecords,
@@ -46,13 +47,15 @@ export default function MilitaryPage() {
           title={`${militaryEventLabels[key]}ランキング`}
           description={description}
         >
-          <RankingBarChart
-            records={records}
-            dynastyOptions={dynastyOptions}
-            metricKey={key}
-            axisLabel="回"
-            valueLabel={militaryEventLabels[key]}
-          />
+          <LazyMount estimatedHeight={680}>
+            <RankingBarChart
+              records={records}
+              dynastyOptions={dynastyOptions}
+              metricKey={key}
+              axisLabel="回"
+              valueLabel={militaryEventLabels[key]}
+            />
+          </LazyMount>
         </Section>
       ))}
     </>

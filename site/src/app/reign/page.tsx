@@ -1,4 +1,5 @@
 import { PageHeader, Section } from "@/components/layout/page-header";
+import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
 import { RestorationTable } from "@/components/tables/restoration-table";
 import {
@@ -25,13 +26,15 @@ export default function ReignPage() {
         title="在位年数ランキング"
         description="在位期間のランキングです。複数回即位した皇帝は、在位期間の合計で集計しています。"
       >
-        <RankingBarChart
-          records={records}
-          dynastyOptions={dynastyOptions}
-          metricKey="reignYears"
-          axisLabel="年"
-          valueLabel="在位期間"
-        />
+        <LazyMount estimatedHeight={680}>
+          <RankingBarChart
+            records={records}
+            dynastyOptions={dynastyOptions}
+            metricKey="reignYears"
+            axisLabel="年"
+            valueLabel="在位期間"
+          />
+        </LazyMount>
       </Section>
       <Section
         id="restoration"

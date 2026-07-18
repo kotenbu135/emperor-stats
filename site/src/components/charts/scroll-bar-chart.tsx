@@ -80,6 +80,57 @@ export function AxisHeader({
   );
 }
 
+// ウィンドウイングのオーバースキャン行数（速いスクロールでも白抜けしにくい余裕）。
+const OVERSCAN_ROWS = 12;
+
+/**
+ * グラフ内スクロールの行ウィンドウイング。364行を全件SVGレンダリングすると
+ * マウントだけで秒単位のCPUを食うため（LAYOUT.mdのTBT計測記録）、可視範囲
+ * ±オーバースキャンの行だけをNivoに渡す。行ピッチはROW_HEIGHT固定なので、
+ * スライスをtop = start×ROW_HEIGHTに絶対配置すれば全件描画と目盛り・行位置が
+ * ピクセル単位で一致する。
+ */
+export function useWindowedRows(rowCount: number): {
+  scrollRef: RefObject<HTMLDivElement | null>;
+  /** 表示範囲の先頭行（チャート上端から数えた0始まり）。 */
+  start: number;
+  /** 表示範囲の終端行（exclusive）。 */
+  end: number;
+  /** スクロールコンテナのonScrollに（既存処理と並べて）渡す。 */
+  handleScroll: () => void;
+} {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [scrollTop, setScrollTop] = useState(0);
+  // 初期値はSCROLL_MAX_HEIGHTの上限。マウント後に実測値へ置き換わる。
+  const [viewportHeight, setViewportHeight] = useState(520);
+  const rafRef = useRef(0);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(() => setViewportHeight(el.clientHeight));
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  const handleScroll = () => {
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      setScrollTop(scrollRef.current?.scrollTop ?? 0);
+    });
+  };
+
+  const start = Math.max(0, Math.floor(scrollTop / ROW_HEIGHT) - OVERSCAN_ROWS);
+  const end = Math.min(
+    rowCount,
+    Math.ceil((scrollTop + viewportHeight) / ROW_HEIGHT) + OVERSCAN_ROWS,
+  );
+  return { scrollRef, start, end, handleScroll };
+}
+
 /**
  * スクロール領域内側の幅を測るフック。スマホ対応と、スクロールバーの分だけ
  * 外枠より狭くなる分を軸ヘッダー幅に反映するために使う。

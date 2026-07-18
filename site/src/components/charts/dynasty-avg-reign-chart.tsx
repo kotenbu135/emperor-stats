@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ResponsiveBar, type BarDatum } from "@nivo/bar";
 import {
   integerTickValues,
@@ -15,6 +15,7 @@ import {
   ROW_HEIGHT,
   SCROLL_MAX_HEIGHT,
   useChartWidth,
+  useWindowedRows,
 } from "@/components/charts/scroll-bar-chart";
 import {
   aggregateByGroup,
@@ -40,10 +41,6 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
   } | null>(null);
 
   const { chartAreaRef, chartWidth } = useChartWidth();
-  const scrollRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    scrollRef.current?.scrollTo({ top: 0 });
-  }, [unit, categoryValue, sort]);
 
   const chronological = aggregateByGroup(records, unit, categoryValue);
   const sorted =
@@ -88,6 +85,16 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
   const idToLabel = new Map(displayData.map((d) => [d.id, d.label]));
   const chartHeight = Math.max(chartData.length * ROW_HEIGHT + 12, 96);
 
+  // 行ウィンドウイング（ranking-bar-chart.tsxと同じ方式）。
+  const rowCount = chartData.length;
+  const { scrollRef, start, end, handleScroll } = useWindowedRows(rowCount);
+  const windowData = displayData.slice(rowCount - end, rowCount - start);
+  const isFullRange = start === 0 && end === rowCount;
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0 });
+  }, [scrollRef, unit, categoryValue, sort]);
+
   return (
     <div>
       <GroupFilterControls
@@ -117,15 +124,29 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
           ref={scrollRef}
           className="overflow-y-auto overscroll-contain"
           style={{ maxHeight: SCROLL_MAX_HEIGHT }}
-          onScroll={() => setHoverTip(null)}
+          onScroll={() => {
+            setHoverTip(null);
+            handleScroll();
+          }}
         >
-          <div ref={chartAreaRef} style={{ height: chartHeight }}>
+          <div ref={chartAreaRef} className="relative" style={{ height: chartHeight }}>
+            <div
+              className="absolute inset-x-0"
+              style={{
+                top: isFullRange ? 0 : start * ROW_HEIGHT,
+                height: isFullRange
+                  ? chartHeight
+                  : (end - start) * ROW_HEIGHT + 12,
+              }}
+            >
             <ResponsiveBar
-              data={displayData as unknown as BarDatum[]}
+              data={windowData as unknown as BarDatum[]}
               keys={["value"]}
               indexBy="id"
               layout="horizontal"
               theme={nivoTheme}
+              // role="img"のSVGに必要なアクセシブルネーム（Lighthouse svg-img-alt対応）。
+              ariaLabel={`${unit === "dynasty" ? "王朝" : "時代"}別の平均在位年数の横棒グラフ`}
               colors={[rankingSeriesColor]}
               margin={{ top: 6, right: MARGIN_RIGHT, bottom: 6, left: marginLeft }}
               padding={0.35}
@@ -150,6 +171,7 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
               onMouseLeave={() => setHoverTip(null)}
               animate={false}
             />
+            </div>
           </div>
         </div>
       </div>

@@ -121,6 +121,9 @@
   }
   html {
     @apply font-sans;
+    /* 読み込み途中で縦スクロールバーが出現するとコンテンツ全体が横に
+       ずれてCLSになるため、ガター分を最初から確保しておく。 */
+    scrollbar-gutter: stable;
   }
 
   /*

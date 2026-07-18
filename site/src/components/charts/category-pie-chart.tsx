@@ -35,6 +35,7 @@ export function CategoryPieChart({
   metricKey,
   categoryOrder,
   categoryDescriptions,
+  chartLabel,
   height = 420,
 }: {
   records: EmperorRecord[];
@@ -42,6 +43,8 @@ export function CategoryPieChart({
   metricKey: CategoryMetricKey;
   categoryOrder: string[];
   categoryDescriptions: Record<string, string>;
+  /** チャートのアクセシブルネーム（例: "死因別分布"）。 */
+  chartLabel: string;
   height?: number;
 }) {
   const [dynastyValue, setDynastyValue] = useState("all");
@@ -123,9 +126,13 @@ export function CategoryPieChart({
         resultCount={totalCount}
         resultUnit="人"
       />
-      <div style={{ height }}>
+      {/* @nivo/pieはSVGへのariaLabel指定に未対応のため、コンテナ側にrole="img"と
+          アクセシブルネームを付け、SVG自体はrole="presentation"にする
+          （Lighthouse svg-img-alt対応）。 */}
+      <div style={{ height }} role="img" aria-label={`${chartLabel}の円グラフ`}>
         <ResponsivePie
           data={pieData}
+          role="presentation"
           theme={nivoTheme}
           colors={(d) => colorMap[d.id as string] ?? fallbackColor}
           margin={{ top: 28, right: 32, bottom: 28, left: 32 }}
