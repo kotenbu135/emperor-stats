@@ -1,0 +1,152 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading: var(--font-serif);
+  --color-seal: var(--seal);
+  --color-seal-foreground: var(--seal-foreground);
+  --color-series-1: var(--series-1);
+  --color-series-2: var(--series-2);
+  --color-series-3: var(--series-3);
+  --color-series-4: var(--series-4);
+  --color-series-5: var(--series-5);
+  --color-series-6: var(--series-6);
+  --color-series-7: var(--series-7);
+  --color-series-8: var(--series-8);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/*
+ * 水墨文人パレット（docs/site-design/LAYOUT.md「デザイン世界観決定」参照）。
+ * ダークモードは実装しない方針のため .dark は未定義。
+ * --series-1〜8 は死因/即位経路等のenumカテゴリ用パレット。dataviz skillの
+ * デフォルト8色をsurface #F5F1E8に対しvalidate_palette.jsで検証済み（全項目PASS、
+ * 4スロットはコントラストWARNのため直接ラベル表示で緩和）。
+ * --chart-1〜5 は王朝別カテゴリカルパレット（横断ビュー用、未確定）のため暫定グレースケールのまま。
+ */
+:root {
+  --background: #f5f1e8;
+  --foreground: #3a3530;
+  --card: #f5f1e8;
+  --card-foreground: #3a3530;
+  --popover: #f5f1e8;
+  --popover-foreground: #3a3530;
+  --primary: #4a4038;
+  --primary-foreground: #f5f1e8;
+  --secondary: #ede7d8;
+  --secondary-foreground: #3a3530;
+  --muted: #ede7d8;
+  --muted-foreground: #6b6258;
+  --accent: #ddd5c7;
+  --accent-foreground: #3a3530;
+  --seal: #a6321c;
+  --seal-foreground: #f5f1e8;
+  --destructive: #a6321c;
+  /* dataviz skillで検証済みのカテゴリカルパレット（8色、CVD安全、surface #F5F1E8で検証） */
+  --series-1: #2a78d6;
+  --series-2: #008300;
+  --series-3: #e87ba4;
+  --series-4: #eda100;
+  --series-5: #1baf7a;
+  --series-6: #eb6834;
+  --series-7: #4a3aa7;
+  --series-8: #e34948;
+  --border: #ddd5c7;
+  --input: #ddd5c7;
+  --ring: #4a4038;
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.5rem;
+  --sidebar: #ede7d8;
+  --sidebar-foreground: #3a3530;
+  --sidebar-primary: #4a4038;
+  --sidebar-primary-foreground: #f5f1e8;
+  --sidebar-accent: #ddd5c7;
+  --sidebar-accent-foreground: #3a3530;
+  --sidebar-border: #ddd5c7;
+  --sidebar-ring: #4a4038;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+
+  /*
+   * スクロールバーを水墨文人パレットに調和させる（OS既定の灰色バーは宣紙色の
+   * 背景から浮くため）。淡墨色のつまみ＋透明トラックの細身デザインで統一する。
+   * Chrome/Edge/Firefoxは標準のscrollbar-*プロパティを解釈し、その場合
+   * ::-webkit-scrollbar系は無視される。::-webkit-*はSafari用のフォールバック。
+   */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #c9bda8 transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #c9bda8;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: #a89a80;
+  }
+}
