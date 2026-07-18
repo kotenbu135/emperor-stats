@@ -82,13 +82,33 @@ export function AxisHeader({
 
 // ウィンドウイングのオーバースキャン行数（速いスクロールでも白抜けしにくい余裕）。
 const OVERSCAN_ROWS = 12;
+// ウィンドウ更新の粒度（行）。startをこの倍数に量子化することで、境界をまたいだ
+// ときだけ再レンダリングが起きる（量子化なしだと24pxごとにNivoチャート全体が
+// 再描画され、スクロール中のTBTが秒単位になる。実測はLighthouse timespanの記録）。
+const STEP_ROWS = 8;
+
+function computeRange(
+  scrollTop: number,
+  viewportHeight: number,
+  rowCount: number,
+): { start: number; end: number } {
+  const rawStart = Math.floor(scrollTop / ROW_HEIGHT) - OVERSCAN_ROWS;
+  const start = Math.max(0, Math.floor(rawStart / STEP_ROWS) * STEP_ROWS);
+  const rawEnd =
+    Math.ceil((scrollTop + viewportHeight) / ROW_HEIGHT) + OVERSCAN_ROWS;
+  const end = Math.min(rowCount, Math.ceil(rawEnd / STEP_ROWS) * STEP_ROWS);
+  return { start, end };
+}
 
 /**
  * グラフ内スクロールの行ウィンドウイング。364行を全件SVGレンダリングすると
  * マウントだけで秒単位のCPUを食うため（LAYOUT.mdのTBT計測記録）、可視範囲
  * ±オーバースキャンの行だけをNivoに渡す。行ピッチはROW_HEIGHT固定なので、
- * スライスをtop = start×ROW_HEIGHTに絶対配置すれば全件描画と目盛り・行位置が
- * ピクセル単位で一致する。
+ * スライスをtop = start×ROW_HEIGHTに絶対配置すれば全件描画と行位置が一致する。
+ *
+ * stateに持つのはスクロール量そのものではなく量子化済みの行範囲。スクロールで
+ * 変わるのは範囲がSTEP_ROWS境界をまたいだときだけなので、呼び出し側コンポーネント
+ * （Nivoチャート含む）の再レンダリングもそのときしか起きない。
  */
 export function useWindowedRows(rowCount: number): {
   scrollRef: RefObject<HTMLDivElement | null>;
@@ -98,17 +118,37 @@ export function useWindowedRows(rowCount: number): {
   end: number;
   /** スクロールコンテナのonScrollに（既存処理と並べて）渡す。 */
   handleScroll: () => void;
+  /** ホバーツールチップを表示してよいか。スクロール中はバーがカーソル下を
+   *  次々通過してmouseenterが連発し、その都度チャート全体が再レンダリングされて
+   *  TBTの主因になるため、スクロール直後の一定時間はホバーを無視する。 */
+  hoverAllowed: () => boolean;
 } {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [scrollTop, setScrollTop] = useState(0);
-  // 初期値はSCROLL_MAX_HEIGHTの上限。マウント後に実測値へ置き換わる。
-  const [viewportHeight, setViewportHeight] = useState(520);
+  // 初期の高さはSCROLL_MAX_HEIGHTの上限。マウント後に実測値へ置き換わる。
+  const viewportHeightRef = useRef(520);
+  const rowCountRef = useRef(rowCount);
   const rafRef = useRef(0);
+  const [range, setRange] = useState(() => computeRange(0, 520, rowCount));
+
+  const updateRange = () => {
+    const el = scrollRef.current;
+    const next = computeRange(
+      el?.scrollTop ?? 0,
+      viewportHeightRef.current,
+      rowCountRef.current,
+    );
+    setRange((prev) =>
+      prev.start === next.start && prev.end === next.end ? prev : next,
+    );
+  };
 
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const observer = new ResizeObserver(() => setViewportHeight(el.clientHeight));
+    const observer = new ResizeObserver(() => {
+      viewportHeightRef.current = el.clientHeight;
+      updateRange();
+    });
     observer.observe(el);
     return () => {
       observer.disconnect();
@@ -116,19 +156,26 @@ export function useWindowedRows(rowCount: number): {
     };
   }, []);
 
-  const handleScroll = () => {
-    cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(() => {
-      setScrollTop(scrollRef.current?.scrollTop ?? 0);
-    });
-  };
+  // フィルタ変更などで行数が変わったら範囲を計算し直す（stale rangeのままだと
+  // 呼び出し側のsliceが範囲外になる）。
+  useEffect(() => {
+    rowCountRef.current = rowCount;
+    updateRange();
+  }, [rowCount]);
 
-  const start = Math.max(0, Math.floor(scrollTop / ROW_HEIGHT) - OVERSCAN_ROWS);
-  const end = Math.min(
-    rowCount,
-    Math.ceil((scrollTop + viewportHeight) / ROW_HEIGHT) + OVERSCAN_ROWS,
-  );
-  return { scrollRef, start, end, handleScroll };
+  const lastScrollAtRef = useRef(-Infinity);
+  const handleScroll = () => {
+    lastScrollAtRef.current = performance.now();
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(updateRange);
+  };
+  const hoverAllowed = () => performance.now() - lastScrollAtRef.current > 150;
+
+  // 行数が減った直後のレンダリングでは効果が範囲を再計算するまでの間
+  // stateが古い可能性があるため、常にrowCountでクランプして返す。
+  const end = Math.min(range.end, rowCount);
+  const start = Math.min(range.start, end);
+  return { scrollRef, start, end, handleScroll, hoverAllowed };
 }
 
 /**

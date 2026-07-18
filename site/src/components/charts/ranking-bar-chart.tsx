@@ -162,7 +162,8 @@ export function RankingBarChart({
   // 行ウィンドウイング。displayDataは反転済み（先頭＝最下行）なので、
   // 上からstart..end行は配列末尾側のスライスに対応する。
   const rowCount = chartData.length;
-  const { scrollRef, start, end, handleScroll } = useWindowedRows(rowCount);
+  const { scrollRef, start, end, handleScroll, hoverAllowed } =
+    useWindowedRows(rowCount);
   const windowData = displayData.slice(rowCount - end, rowCount - start);
   // 全行が範囲内のときは従来と同じ全高レンダリング（少件数時の見た目を変えない）。
   const isFullRange = start === 0 && end === rowCount;
@@ -216,9 +217,14 @@ export function RankingBarChart({
         >
           <div ref={chartAreaRef} className="relative" style={{ height: chartHeight }}>
             <div
-              className="absolute inset-x-0"
+              className="absolute inset-x-0 top-0"
+              // スライスの縦位置はtopでなくtransformで動かす。topの書き換えは
+              // レイアウトシフトとして計上され、グラフ内スクロールだけでCLSが
+              // 秒単位に悪化する（transformはlayout-shiftの対象外）。
               style={{
-                top: isFullRange ? 0 : start * ROW_HEIGHT,
+                transform: isFullRange
+                  ? undefined
+                  : `translateY(${start * ROW_HEIGHT}px)`,
                 height: isFullRange
                   ? chartHeight
                   : (end - start) * ROW_HEIGHT + 12,
@@ -257,6 +263,7 @@ export function RankingBarChart({
               layers={["grid", "axes", "bars", OutsideValueLabels]}
               tooltip={() => null}
               onMouseEnter={(datum, event) => {
+                if (!hoverAllowed()) return;
                 const record = (datum.data as unknown as { record: EmperorRecord })
                   .record;
                 setHoverTip({ record, x: event.clientX, y: event.clientY });

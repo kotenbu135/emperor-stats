@@ -89,7 +89,8 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
 
   // 行ウィンドウイング（ranking-bar-chart.tsxと同じ方式）。
   const rowCount = chartData.length;
-  const { scrollRef, start, end, handleScroll } = useWindowedRows(rowCount);
+  const { scrollRef, start, end, handleScroll, hoverAllowed } =
+    useWindowedRows(rowCount);
   const windowData = displayData.slice(rowCount - end, rowCount - start);
   const isFullRange = start === 0 && end === rowCount;
 
@@ -146,9 +147,14 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
         >
           <div ref={chartAreaRef} className="relative" style={{ height: chartHeight }}>
             <div
-              className="absolute inset-x-0"
+              className="absolute inset-x-0 top-0"
+              // スライスの縦位置はtopでなくtransformで動かす。topの書き換えは
+              // レイアウトシフトとして計上され、グラフ内スクロールだけでCLSが
+              // 秒単位に悪化する（transformはlayout-shiftの対象外）。
               style={{
-                top: isFullRange ? 0 : start * ROW_HEIGHT,
+                transform: isFullRange
+                  ? undefined
+                  : `translateY(${start * ROW_HEIGHT}px)`,
                 height: isFullRange
                   ? chartHeight
                   : (end - start) * ROW_HEIGHT + 12,
@@ -185,6 +191,7 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
               layers={["grid", "axes", "bars", "totals"]}
               tooltip={() => null}
               onMouseEnter={(datum, event) => {
+                if (!hoverAllowed()) return;
                 const row = rowByKey.get(String(datum.indexValue));
                 if (!row) return;
                 setHoverTip({
