@@ -5,12 +5,14 @@ import {
   getAllEmperorRecords,
   getTimelineData,
 } from "@/lib/emperors";
+import { BreadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "通史年表 | 中国皇帝統計",
+export const metadata = buildMetadata({
+  path: "/timeline",
+  title: "通史年表",
   description:
     "始皇帝から溥儀まで、皇帝を名乗った365人の在位期間を1本の年表に。並立王朝の分裂期と統一期、皇帝不在の期間まで一望できます。",
-};
+});
 
 export default function TimelinePage() {
   const records = getAllEmperorRecords();
@@ -18,6 +20,7 @@ export default function TimelinePage() {
 
   return (
     <>
+      <BreadcrumbJsonLd label="通史年表" path="/timeline" />
       <PageHeader
         title="通史年表"
         description="始皇帝の即位（前221年）から溥儀の退位（1945年）まで、皇帝を名乗った365人の在位期間を1本の横軸に並べた年表です。王朝が縦に積み重なる時代＝複数の皇帝が並び立った分裂期、1本に収束する時代＝統一期として、時代の流れを一望できます。"

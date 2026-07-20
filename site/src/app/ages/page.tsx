@@ -2,10 +2,13 @@ import { PageHeader, Section } from "@/components/layout/page-header";
 import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
 import { getAllEmperorRecords, getDynastyOptions } from "@/lib/emperors";
+import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
 
-export const metadata = {
-  title: "年齢 | 中国皇帝統計",
-};
+export const metadata = buildMetadata({
+  path: "/ages",
+  title: "年齢",
+  description: sectionDescription("/ages"),
+});
 
 export default function AgesPage() {
   const records = getAllEmperorRecords();
@@ -15,6 +18,7 @@ export default function AgesPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd label="年齢" path="/ages" />
       <PageHeader
         title="年齢"
         description="年齢はすべて数え年（生まれた年を1歳とする中国伝統の数え方）です。正史に生年や享年の記載がない皇帝も多く、算出できた皇帝のみを表示しています。"

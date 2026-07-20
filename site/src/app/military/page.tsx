@@ -7,10 +7,13 @@ import {
   militaryEventLabels,
   type MilitaryEventKey,
 } from "@/lib/emperors";
+import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
 
-export const metadata = {
-  title: "軍事 | 中国皇帝統計",
-};
+export const metadata = buildMetadata({
+  path: "/military",
+  title: "軍事",
+  description: sectionDescription("/military"),
+});
 
 const sections: { id: string; key: MilitaryEventKey; description: string }[] = [
   {
@@ -39,6 +42,7 @@ export default function MilitaryPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd label="軍事" path="/military" />
       <PageHeader title="軍事" />
       {sections.map(({ id, key, description }) => (
         <Section

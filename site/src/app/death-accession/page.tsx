@@ -9,10 +9,13 @@ import {
   getAllEmperorRecords,
   getDynastyOptions,
 } from "@/lib/emperors";
+import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
 
-export const metadata = {
-  title: "死因・即位 | 中国皇帝統計",
-};
+export const metadata = buildMetadata({
+  path: "/death-accession",
+  title: "死因・即位",
+  description: sectionDescription("/death-accession"),
+});
 
 export default function DeathAccessionPage() {
   const records = getAllEmperorRecords();
@@ -20,6 +23,7 @@ export default function DeathAccessionPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd label="死因・即位" path="/death-accession" />
       <PageHeader
         title="死因・即位"
       />

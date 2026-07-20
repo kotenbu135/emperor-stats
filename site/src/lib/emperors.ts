@@ -14,6 +14,7 @@ import {
   type EmperorEventRow,
   type EmperorNarrative,
   type EmperorRecord,
+  type EmperorStructuredDates,
   type EmperorVideo,
   type MetricRank,
   type NarrativeSection,
@@ -140,6 +141,10 @@ interface RawEmperor {
   rebellionSufferedCount?: RawCount;
   capitalRelocationCount?: RawCount;
   ages?: {
+    birthDate?: string | null;
+    birthDatePrecision?: string | null;
+    deathDate?: string | null;
+    deathDatePrecision?: string | null;
     accessionAge: number | null;
     deathAge: number | null;
     note?: string | null;
@@ -155,6 +160,7 @@ interface EmperorsData {
 const data = rawData as unknown as EmperorsData;
 
 export const emperorCount = data.meta.count;
+export const datasetGeneratedAt = data.meta.generatedAt;
 
 /**
  * 王朝名・皇帝名は元データの時点で全角括弧を含むことがある
@@ -524,6 +530,46 @@ export function getEmperorNarrative(id: string): EmperorNarrative {
     memos: memoEntries
       .filter((entry): entry is [string, string] => !!entry[1])
       .map(([label, note]): ResearchMemo => ({ label, note })),
+  };
+}
+
+/** clampToPrecision後の年月日をISO 8601形式の文字列に整形する（負の年＝紀元前）。 */
+function isoDateOf(parts: {
+  year: number;
+  month: number | null;
+  day: number | null;
+}): string {
+  const yStr = String(Math.abs(parts.year)).padStart(4, "0");
+  let out = `${parts.year < 0 ? "-" : ""}${yStr}`;
+  if (parts.month !== null) out += `-${String(parts.month).padStart(2, "0")}`;
+  if (parts.month !== null && parts.day !== null) {
+    out += `-${String(parts.day).padStart(2, "0")}`;
+  }
+  return out;
+}
+
+/**
+ * Person構造化データ用の日付整形。ages.birthDate/deathDateがISO風の解析可能な
+ * 値の場合のみ返す（"unknown"等の自由記述・null・not_foundはnullを返し捏造しない）。
+ * 丸めはイベント日付と同じparseEventDate/normalizeDatePrecision/clampToPrecisionを流用する。
+ */
+function structuredDateOf(
+  raw: string | null | undefined,
+  precisionRaw: string | null | undefined,
+): string | null {
+  if (!raw) return null;
+  const parsed = parseEventDate(raw);
+  if (!parsed) return null;
+  return isoDateOf(clampToPrecision(parsed, normalizeDatePrecision(precisionRaw)));
+}
+
+/** 個別ページの構造化データ（Person JSON-LD）用の生年月日・没年月日。idは収録済み前提。 */
+export function getEmperorStructuredDates(id: string): EmperorStructuredDates {
+  const e = rawEmperorById.get(id);
+  if (!e) throw new Error(`未収録の皇帝idです: ${id}`);
+  return {
+    birthDate: structuredDateOf(e.ages?.birthDate, e.ages?.birthDatePrecision),
+    deathDate: structuredDateOf(e.ages?.deathDate, e.ages?.deathDatePrecision),
   };
 }
 

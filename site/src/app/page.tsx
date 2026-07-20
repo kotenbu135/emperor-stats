@@ -8,49 +8,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { getOverviewStats } from "@/lib/emperors";
+import { buildMetadata, JsonLd, SITE_SECTIONS, websiteJsonLd } from "@/lib/seo";
 
-const sections = [
-  {
-    href: "/timeline",
-    label: "通史年表",
-    description: "始皇帝から溥儀まで、全皇帝の在位を1本の年表で一望",
-  },
-  {
-    href: "/emperors",
-    label: "皇帝一覧",
-    description: "全皇帝の図鑑。名前・王朝で検索し、詳細を表示",
-  },
-  {
-    href: "/reign",
-    label: "在位データ",
-    description: "在位年数ランキングと復位者（複数回即位）の一覧",
-  },
-  {
-    href: "/death-accession",
-    label: "死因・即位",
-    description: "死因別・即位経路別の内訳",
-  },
-  {
-    href: "/court-events",
-    label: "宮廷イベント",
-    description: "改元・大赦・立后・皇太子廃立・遷都の回数ランキング",
-  },
-  {
-    href: "/military",
-    label: "軍事",
-    description: "親征・反乱鎮圧・被反乱の回数ランキング",
-  },
-  {
-    href: "/ages",
-    label: "年齢",
-    description: "即位時年齢・没年齢のランキング（数え年）",
-  },
-  {
-    href: "/dynasties",
-    label: "王朝・時代で見る",
-    description: "平均在位年数・死因の内訳を王朝単位で横断比較",
-  },
-];
+export const metadata = buildMetadata({ path: "/" });
+
+const sections = SITE_SECTIONS;
 
 function StatTile({
   label,
@@ -79,6 +41,7 @@ export default function Home() {
 
   return (
     <div className="bg-background px-6 py-10 md:px-10 md:py-12">
+      <JsonLd data={websiteJsonLd()} />
       {/* ワイド画面では左寄せだと右側の余白が目立つため中央寄せにする */}
       <div className="mx-auto max-w-4xl">
         <div className="flex items-center gap-3">

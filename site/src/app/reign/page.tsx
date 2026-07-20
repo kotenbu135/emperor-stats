@@ -7,10 +7,13 @@ import {
   getDynastyOptions,
   getRestorationRows,
 } from "@/lib/emperors";
+import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
 
-export const metadata = {
-  title: "在位データ | 中国皇帝統計",
-};
+export const metadata = buildMetadata({
+  path: "/reign",
+  title: "在位データ",
+  description: sectionDescription("/reign"),
+});
 
 export default function ReignPage() {
   const records = getAllEmperorRecords();
@@ -18,6 +21,7 @@ export default function ReignPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd label="在位データ" path="/reign" />
       <PageHeader
         title="在位データ"
       />

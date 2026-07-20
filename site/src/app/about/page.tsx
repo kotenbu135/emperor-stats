@@ -1,12 +1,18 @@
 import { PageHeader } from "@/components/layout/page-header";
-import { getPortraitCredits, getOverviewStats } from "@/lib/emperors";
+import {
+  datasetGeneratedAt,
+  getPortraitCredits,
+  getOverviewStats,
+} from "@/lib/emperors";
 import { VIDEO_CHANNEL } from "@/lib/video-channel";
+import { buildMetadata, datasetJsonLd, JsonLd } from "@/lib/seo";
 
-export const metadata = {
-  title: "このサイトについて | 中国皇帝統計",
+export const metadata = buildMetadata({
+  path: "/about",
+  title: "このサイトについて",
   description:
     "中国皇帝統計の収録基準・各統計項目の数え方・典拠とした史料・肖像画の出典・免責事項について説明します。",
-};
+});
 
 function Prose({ children }: { children: React.ReactNode }) {
   return (
@@ -44,6 +50,14 @@ export default function AboutPage() {
 
   return (
     <>
+      <JsonLd
+        data={datasetJsonLd({
+          description:
+            "始皇帝から溥儀まで、中国史上で実際に「皇帝」を名乗った人物の在位期間・死因・即位経路など全12項目を正史原典から個別調査したデータセット。",
+          dateModified: datasetGeneratedAt,
+          emperorCount: stats.emperorCount,
+        })}
+      />
       <PageHeader
         title="このサイトについて"
         description="収録基準・各統計項目の数え方・典拠とした史料・肖像画の出典・免責事項について説明します。"
@@ -204,7 +218,7 @@ export default function AboutPage() {
         <H2 id="disclaimer">免責事項</H2>
         <Prose>
           <p>
-            本サイトは、AI（大規模言語モデル）を活用して調査・集計・構築しています。また、制作者は歴史学の専門家ではありません。正史の原典に1件ずつあたる方針でできる限り丁寧に作成していますが、史料の解釈を誤っている場合や、現代の歴史学の通説と異なる整理をしている場合があります。個人が楽しみながら作った統計サイトとして、どうか優しい目でご覧いただければ幸いです。お気づきの点は
+            本サイトは、AI（大規模言語モデル）を活用して調査・集計・構築しています。また、制作者は歴史学の専門家ではありません。正史の原典に1件ずつあたる方針でできる限り丁寧に作成していますが、史料の解釈を誤っている場合や、現代の歴史学の通説と異なる整理をしている場合があります。歴史の素人が作った統計サイトとして、どうか優しい目でご覧いただければ幸いです。お気づきの点は
             <a
               href="https://github.com/kotenbu135/emperor-stats/issues"
               target="_blank"

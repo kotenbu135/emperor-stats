@@ -3,16 +3,20 @@ import { LazyMount } from "@/components/lazy-mount";
 import { DynastyAvgReignChart } from "@/components/charts/dynasty-avg-reign-chart";
 import { DynastyDeathCauseChart } from "@/components/charts/dynasty-death-cause-chart";
 import { getAllEmperorRecords } from "@/lib/emperors";
+import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
 
-export const metadata = {
-  title: "王朝・時代で見る | 中国皇帝統計",
-};
+export const metadata = buildMetadata({
+  path: "/dynasties",
+  title: "王朝・時代で見る",
+  description: sectionDescription("/dynasties"),
+});
 
 export default function DynastiesPage() {
   const records = getAllEmperorRecords();
 
   return (
     <>
+      <BreadcrumbJsonLd label="王朝・時代で見る" path="/dynasties" />
       <PageHeader
         title="王朝・時代で見る"
         description="皇帝個人の統計を王朝（または時代）単位に集計した横断ビューです。"

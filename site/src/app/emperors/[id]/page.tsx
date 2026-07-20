@@ -15,7 +15,15 @@ import {
   getAllEmperorRecords,
   getEmperorEvents,
   getEmperorNarrative,
+  getEmperorStructuredDates,
 } from "@/lib/emperors";
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  buildMetadata,
+  JsonLd,
+  personJsonLd,
+} from "@/lib/seo";
 
 // output: "export"では全パスをビルド時に列挙する（365ページ）。列挙外のidは404。
 export const dynamicParams = false;
@@ -31,10 +39,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const record = getAllEmperorRecords().find((r) => r.id === id)!;
-  return {
-    title: `${record.name}（${dynastyContextLabel(record)}） | 中国皇帝統計`,
+  return buildMetadata({
+    path: `/emperors/${id}`,
+    title: `${record.name}（${dynastyContextLabel(record)}）`,
     description: `${dynastyContextLabel(record)}の皇帝 ${record.name} の調査結果。在位${record.periodsLabel}（${record.reignDurationLabel}）、死因・即位経路・改元回数など全12項目と全皇帝中の順位を掲載しています。`,
-  };
+  });
 }
 
 export default async function EmperorPage({
@@ -50,9 +59,27 @@ export default async function EmperorPage({
   // 収録順（おおむね時代順）の前後の皇帝。端では表示しない。
   const prev = index > 0 ? records[index - 1] : null;
   const next = index < records.length - 1 ? records[index + 1] : null;
+  const structuredDates = getEmperorStructuredDates(id);
 
   return (
     <>
+      <JsonLd
+        data={personJsonLd({
+          name: record.name,
+          url: absoluteUrl(`/emperors/${id}`),
+          description: `${dynastyContextLabel(record)}の皇帝。在位${record.periodsLabel}（${record.reignDurationLabel}）。`,
+          image: record.portraitUrl ? absoluteUrl(record.portraitUrl) : undefined,
+          birthDate: structuredDates.birthDate ?? undefined,
+          deathDate: structuredDates.deathDate ?? undefined,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "中国皇帝統計", url: absoluteUrl("/") },
+          { name: "皇帝一覧", url: absoluteUrl("/emperors") },
+          { name: record.name, url: absoluteUrl(`/emperors/${id}`) },
+        ])}
+      />
       <PageHeader
         contained
         containedWidth="max-w-4xl"

@@ -6,10 +6,13 @@ import {
   getDynastyOptions,
   type RankingMetricKey,
 } from "@/lib/emperors";
+import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
 
-export const metadata = {
-  title: "宮廷イベント | 中国皇帝統計",
-};
+export const metadata = buildMetadata({
+  path: "/court-events",
+  title: "宮廷イベント",
+  description: sectionDescription("/court-events"),
+});
 
 const sections: {
   id: string;
@@ -65,6 +68,7 @@ export default function CourtEventsPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd label="宮廷イベント" path="/court-events" />
       <PageHeader
         title="宮廷イベント"
         description="改元・大赦・立后・皇太子廃立・遷都という、在位中に朝廷で起きた出来事の回数を集計しています。"

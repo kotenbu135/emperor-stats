@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
 import { SiteShell } from "@/components/layout/site-shell";
+import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
@@ -16,9 +17,26 @@ const notoSerifJP = Noto_Serif_JP({
 });
 
 export const metadata: Metadata = {
-  title: "中国皇帝統計",
-  description:
-    "始皇帝から溥儀まで、中国史上の皇帝365名の在位期間・死因・即位経路などを集計・可視化したサイト",
+  metadataBase: new URL(SITE_URL),
+  title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
+  description: DEFAULT_DESCRIPTION,
+  robots: { index: true, follow: true },
+  // Bing は public/BingSiteAuth.xml（サイト直下配信）で確認済み。Google は
+  // DNS TXTレコードでの確認手続き中（未反映）のため、即時反映するmetaタグ方式も併用する。
+  verification: { google: "Aabu8mRhf--Ct1Z9hHnypRFqL1PqHuIndBvoKSd32-k" },
+  openGraph: {
+    title: SITE_NAME,
+    description: DEFAULT_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: "ja_JP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: DEFAULT_DESCRIPTION,
+  },
 };
 
 export default function RootLayout({

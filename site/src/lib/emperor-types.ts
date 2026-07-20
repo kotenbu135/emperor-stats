@@ -124,6 +124,16 @@ export interface ResearchMemo {
 }
 
 /**
+ * 構造化データ（Person JSON-LD）用の生年月日・没年月日。ages.birthDate/deathDateが
+ * ISO風の解析可能な値かつ実際に日付を示す場合のみ値が入る（不明・推定不能はnull）。
+ * precisionに応じて年/年月/年月日に丸めてある。
+ */
+export interface EmperorStructuredDates {
+  birthDate: string | null;
+  deathDate: string | null;
+}
+
+/**
  * 皇帝個別ページ専用の経緯・調査メモ（lib/emperors.tsのgetEmperorNarrativeが返す）。
  * note全文は総量が大きいため、全統計ページのクライアントpropsに埋め込まれる
  * EmperorRecordには含めず、個別ページ（Server Component静的書き出し）だけが使う。
