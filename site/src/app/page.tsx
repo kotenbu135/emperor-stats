@@ -11,6 +11,11 @@ import { getOverviewStats } from "@/lib/emperors";
 
 const sections = [
   {
+    href: "/timeline",
+    label: "通史年表",
+    description: "始皇帝から溥儀まで、全皇帝の在位を1本の年表で一望",
+  },
+  {
     href: "/emperors",
     label: "皇帝一覧",
     description: "全皇帝の図鑑。名前・王朝で検索し、詳細を表示",

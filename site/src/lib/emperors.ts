@@ -2,8 +2,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { BASE_PATH } from "@/lib/base-path";
 import {
+  astroYear,
   eraOrder,
   formatReignDuration,
+  formatYear,
   type AccessionRouteCategory,
   type DeathCauseCategory,
   type DynastyCategory,
@@ -12,6 +14,11 @@ import {
   type MetricRank,
   type RankingMetricKey,
   type RestorationRow,
+  type TimelineData,
+  type TimelineDynastyBand,
+  type TimelineEraBand,
+  type TimelineSegment,
+  type TimelineVacancy,
 } from "@/lib/emperor-types";
 
 export * from "@/lib/emperor-types";
@@ -341,10 +348,6 @@ interface RawReign {
   note: string | null;
 }
 
-function formatYear(year: number): string {
-  return year < 0 ? `前${-year}` : `${year}`;
-}
-
 function formatPeriod(reign: RawReign): string {
   return reign.startYear === reign.endYear
     ? `${formatYear(reign.startYear)}年`
@@ -441,6 +444,282 @@ export function getOverviewStats(): OverviewStats {
     restorationCount: records.filter((r) => r.reignCount >= 2).length,
     portraitCount: records.filter((r) => r.hasPortrait).length,
   };
+}
+
+// ---------------------------------------------------------------------------
+// 通史年表（/timeline）用のデータ。設計は docs/site-design/TIMELINE.md。
+// 帯・空位・並立数はすべて収録皇帝のreigns[]の純粋な写像としてビルド時に計算する
+// （王朝の建国〜滅亡年を別途調査して持ち込まない）。
+
+/** ミニマップ・狭い時代帯用の短縮ラベル。 */
+const ERA_SHORT_LABELS: Record<string, string> = {
+  "新〜後漢初": "新",
+  五胡十六国: "五胡",
+  五代十国: "五代",
+  "宋・遼・西夏・金": "宋・遼・金",
+};
+
+/**
+ * 皇帝不在期間の説明文言。期間はデータから機械的に検出し、ここは表示文言だけを
+ * 与える（キーが一致しない=データが変わった場合は汎用文言にフォールバック）。
+ * 文言は収録基準（INCLUSION_CRITERIA.md）の範囲内の説明に留める。
+ */
+const VACANCY_LABELS: Record<string, string> = {
+  "-206:-203": "楚漢戦争期（項羽は皇帝を称さず）",
+  "7:7": "王莽の居摂期",
+  "1913:1914": "中華民国（清帝退位後）",
+  "1918:1933": "中華民国（張勲復辟の失敗後）",
+};
+
+/** 在位区間を年単位で合併する。隣接年（endの翌年がstart）は連続とみなす。 */
+function mergeYearSpans(
+  intervals: { startYear: number; endYear: number }[],
+): { startYear: number; endYear: number }[] {
+  const sorted = [...intervals].sort(
+    (a, b) => a.startYear - b.startYear || a.endYear - b.endYear,
+  );
+  const merged: { startYear: number; endYear: number }[] = [];
+  for (const iv of sorted) {
+    const last = merged[merged.length - 1];
+    if (last && astroYear(iv.startYear) <= astroYear(last.endYear) + 1) {
+      last.endYear = Math.max(last.endYear, iv.endYear);
+    } else {
+      merged.push({ ...iv });
+    }
+  }
+  return merged;
+}
+
+/** 帯の見た目を代表する区分。複数区分が混在する王朝（唐・北魏など）は正統を優先する。 */
+function bandCategory(categories: Set<DynastyCategory>): DynastyCategory {
+  if (categories.has("正統")) return "正統";
+  if (categories.has("十六国")) return "十六国";
+  return "正統（反乱・自称）";
+}
+
+let timelineCache: TimelineData | null = null;
+
+export function getTimelineData(): TimelineData {
+  if (timelineCache) return timelineCache;
+
+  // --- 王朝帯: name+section複合キーごとに在位区間とセグメントを収集 ---
+  const byKey = new Map<
+    string,
+    {
+      key: string;
+      label: string;
+      era: string;
+      categories: Set<DynastyCategory>;
+      intervals: { startYear: number; endYear: number }[];
+      segments: TimelineSegment[];
+      emperorIds: Set<string>;
+    }
+  >();
+  for (const e of data.emperors) {
+    const key = dynastyKey(e.dynasty);
+    let entry = byKey.get(key);
+    if (!entry) {
+      entry = {
+        key,
+        label: dynastyLabel(e.dynasty),
+        era: eraLabelOf(e.dynasty),
+        categories: new Set(),
+        intervals: [],
+        segments: [],
+        emperorIds: new Set(),
+      };
+      byKey.set(key, entry);
+    }
+    entry.categories.add(e.dynasty.category);
+    entry.emperorIds.add(e.id);
+    for (const r of e.reigns) {
+      entry.intervals.push({ startYear: r.startYear, endYear: r.endYear });
+      entry.segments.push({
+        emperorId: e.id,
+        startYear: r.startYear,
+        endYear: r.endYear,
+        isRestoration: r.isRestoration,
+      });
+    }
+  }
+
+  const categoryPriority: Record<DynastyCategory, number> = {
+    正統: 0,
+    "正統（反乱・自称）": 1,
+    十六国: 1,
+  };
+  const bands: TimelineDynastyBand[] = [...byKey.values()]
+    .map((w) => {
+      const spans = mergeYearSpans(w.intervals);
+      return {
+        key: w.key,
+        label: w.label,
+        era: w.era,
+        category: bandCategory(w.categories),
+        lane: 0,
+        colorSlot: 1,
+        startYear: spans[0].startYear,
+        endYear: spans[spans.length - 1].endYear,
+        spans,
+        segments: [...w.segments].sort(
+          (a, b) => a.startYear - b.startYear || a.endYear - b.endYear,
+        ),
+        emperorCount: w.emperorIds.size,
+      };
+    })
+    .sort(
+      (a, b) =>
+        a.startYear - b.startYear ||
+        categoryPriority[a.category] - categoryPriority[b.category] ||
+        b.endYear - b.startYear - (a.endYear - a.startYear),
+    );
+
+  // レーン割当（interval partitioning・開始年順の貪欲法）。正統王朝と
+  // 並立・反乱政権を別ブロックに分けて詰めることで、上ブロックのlane 0に
+  // 「秦→前漢→…→明」の本流がほぼ一列に連なる（初学者が本流を追える）。
+  // 同年の禅譲交代（後漢→魏の220年など）は同一レーンを許容する。
+  // 帯内ギャップ中もレーンは他王朝に貸さない（外接期間で占有。点線コネクタが
+  // 他王朝の帯に横切られないようにするため）。
+  const packBands = (group: TimelineDynastyBand[], laneOffset: number): number => {
+    const laneEnds: number[] = [];
+    for (const band of group) {
+      const lane = laneEnds.findIndex(
+        (end) => astroYear(band.startYear) >= astroYear(end),
+      );
+      if (lane === -1) {
+        band.lane = laneOffset + laneEnds.length;
+        laneEnds.push(band.endYear);
+      } else {
+        band.lane = laneOffset + lane;
+        laneEnds[lane] = band.endYear;
+      }
+    }
+    return laneEnds.length;
+  };
+  const mainLaneCount = packBands(
+    bands.filter((b) => b.category === "正統"),
+    0,
+  );
+  const otherLaneCount = packBands(
+    bands.filter((b) => b.category !== "正統"),
+    mainLaneCount,
+  );
+
+  // 配色スロット割当: 同時期に重なる帯・同一レーンで直前に隣接する帯と同じ
+  // スロットを避けて先着順に選ぶ（本流が延々と同色にならないように）。
+  // 同時並立が8色を超える期間（最大9）は同色が生じうるが、帯の太さ・濃淡
+  // （正統/並立）の差で区別できる。
+  const lastSlotInLane = new Map<number, number>();
+  for (let i = 0; i < bands.length; i++) {
+    const used = new Set<number>();
+    for (let j = 0; j < i; j++) {
+      if (
+        bands[j].endYear >= bands[i].startYear &&
+        bands[j].startYear <= bands[i].endYear
+      ) {
+        used.add(bands[j].colorSlot);
+      }
+    }
+    const prevInLane = lastSlotInLane.get(bands[i].lane);
+    if (prevInLane !== undefined) used.add(prevInLane);
+    let slot = (bands[i].lane % 8) + 1;
+    for (let s = 1; s <= 8; s++) {
+      if (!used.has(s)) {
+        slot = s;
+        break;
+      }
+    }
+    bands[i].colorSlot = slot;
+    lastSlotInLane.set(bands[i].lane, slot);
+  }
+
+  // --- 時代帯: 時代区分ラベルごとの外接期間。重なる時代はレーンを分ける ---
+  const eraSpanByLabel = new Map<string, { startYear: number; endYear: number }>();
+  for (const e of data.emperors) {
+    const era = eraLabelOf(e.dynasty);
+    for (const r of e.reigns) {
+      const span = eraSpanByLabel.get(era);
+      if (!span) {
+        eraSpanByLabel.set(era, { startYear: r.startYear, endYear: r.endYear });
+      } else {
+        span.startYear = Math.min(span.startYear, r.startYear);
+        span.endYear = Math.max(span.endYear, r.endYear);
+      }
+    }
+  }
+  const eras: TimelineEraBand[] = [...eraSpanByLabel.entries()]
+    .map(([label, span]) => ({
+      label,
+      shortLabel: ERA_SHORT_LABELS[label] ?? label,
+      startYear: span.startYear,
+      endYear: span.endYear,
+      lane: 0,
+    }))
+    .sort((a, b) => a.startYear - b.startYear || a.endYear - b.endYear);
+  // 時代帯のレーンは通史の本流（eraOrderのうち移行期・並立期でないもの）を
+  // 優先して上の段から詰める。開始年順の貪欲法だと隋末と隋に挟まれた唐などの
+  // 主要時代が3段目に落ちてしまうため、優先順に区間の空きへ差し込む方式にする。
+  const parallelEras = new Set(["新〜後漢初", "五胡十六国", "隋末"]);
+  const eraPriority = [
+    ...eras.filter((e) => !parallelEras.has(e.label)),
+    ...eras.filter((e) => parallelEras.has(e.label)),
+  ];
+  const eraLanes: { start: number; end: number }[][] = [];
+  for (const era of eraPriority) {
+    const s = astroYear(era.startYear);
+    const e = astroYear(era.endYear);
+    let lane = eraLanes.findIndex((intervals) =>
+      intervals.every((iv) => e <= iv.start || s >= iv.end),
+    );
+    if (lane === -1) {
+      lane = eraLanes.length;
+      eraLanes.push([]);
+    }
+    eraLanes[lane].push({ start: s, end: e });
+    era.lane = lane;
+  }
+
+  // --- 並立数カーブと空位期間: astro年ごとの同時在位皇帝数 ---
+  const startYear = Math.min(...bands.map((b) => b.startYear));
+  const endYear = Math.max(...bands.map((b) => b.endYear));
+  const t0 = astroYear(startYear);
+  const concurrency = new Array<number>(astroYear(endYear) - t0 + 1).fill(0);
+  for (const e of data.emperors) {
+    for (const r of e.reigns) {
+      for (let t = astroYear(r.startYear); t <= astroYear(r.endYear); t++) {
+        concurrency[t - t0] += 1;
+      }
+    }
+  }
+  const fromAstro = (t: number) => (t <= 0 ? t - 1 : t);
+  const vacancies: TimelineVacancy[] = [];
+  for (let i = 0; i < concurrency.length; i++) {
+    if (concurrency[i] > 0) continue;
+    let j = i;
+    while (j + 1 < concurrency.length && concurrency[j + 1] === 0) j++;
+    const s = fromAstro(t0 + i);
+    const e = fromAstro(t0 + j);
+    vacancies.push({
+      startYear: s,
+      endYear: e,
+      label: VACANCY_LABELS[`${s}:${e}`] ?? "皇帝不在",
+    });
+    i = j;
+  }
+
+  timelineCache = {
+    startYear,
+    endYear,
+    eras,
+    eraLaneCount: eraLanes.length,
+    bands,
+    laneCount: mainLaneCount + otherLaneCount,
+    mainLaneCount,
+    vacancies,
+    concurrency,
+    maxConcurrency: Math.max(...concurrency),
+  };
+  return timelineCache;
 }
 
 export interface PortraitCredit {

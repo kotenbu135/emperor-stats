@@ -122,6 +122,82 @@ export type RankingMetricKey =
 
 export type CategoryMetricKey = "deathCauseCategory" | "accessionRouteCategory";
 
+/** 「前221」「618」のような年表示。 */
+export function formatYear(year: number): string {
+  return year < 0 ? `前${-year}` : `${year}`;
+}
+
+/**
+ * 年を連続座標（天文学的紀年）へ変換する。データの年は「前221年 = -221」で
+ * 0年が暦に存在しないため、-1年と1年をそのまま引き算すると2年分になってしまう。
+ * 負の年に+1して連続化し、位置・幅の計算はすべてこの座標系で行う。
+ */
+export function astroYear(year: number): number {
+  return year < 0 ? year + 1 : year;
+}
+
+/** 通史年表の時代帯（訪問者向け時代区分ラベルの期間）。 */
+export interface TimelineEraBand {
+  label: string;
+  /** ミニマップ・狭い帯で使う短縮ラベル。 */
+  shortLabel: string;
+  startYear: number;
+  endYear: number;
+  /** 時代帯どうしが重なる期間（東晋と五胡十六国など）はレーンを分けて描く。 */
+  lane: number;
+}
+
+/** 通史年表の1在位セグメント（皇帝×在位期間。復位者は複数持つ）。 */
+export interface TimelineSegment {
+  emperorId: string;
+  startYear: number;
+  endYear: number;
+  isRestoration: boolean;
+}
+
+/** 通史年表の王朝帯。帯は収録皇帝の在位年カバレッジの合併（建国〜滅亡年ではない）。 */
+export interface TimelineDynastyBand {
+  key: string;
+  label: string;
+  era: string;
+  category: DynastyCategory;
+  /** 縦のレーン番号（0が最上段）。並立王朝はレーンを分ける。 */
+  lane: number;
+  /** 配色スロット（--series-1〜8）。同時期に重なる帯とは別スロットを割り当てる。 */
+  colorSlot: number;
+  /** 帯全体の外接期間（レーン占有・ヒット判定に使う）。 */
+  startYear: number;
+  endYear: number;
+  /** 皇帝が実在位した連続期間。2区間以上ある王朝は帯の内部にギャップがある
+   *  （唐の武周中断・前秦の苻堅天王期など）。 */
+  spans: { startYear: number; endYear: number }[];
+  segments: TimelineSegment[];
+  emperorCount: number;
+}
+
+/** 全王朝共通の皇帝不在期間（楚漢戦争期・王莽居摂期・民国期）。 */
+export interface TimelineVacancy {
+  startYear: number;
+  endYear: number;
+  label: string;
+}
+
+export interface TimelineData {
+  startYear: number;
+  endYear: number;
+  eras: TimelineEraBand[];
+  eraLaneCount: number;
+  bands: TimelineDynastyBand[];
+  laneCount: number;
+  /** 正統王朝ブロックのレーン数。このレーン以降は並立・反乱政権ブロック
+   *  （描画時に間隔を空けて上下2ブロックに分ける）。 */
+  mainLaneCount: number;
+  vacancies: TimelineVacancy[];
+  /** astroYear(startYear)起点の各年の同時在位皇帝数（ミニマップの並立数カーブ用）。 */
+  concurrency: number[];
+  maxConcurrency: number;
+}
+
 /** 概算日数(365/30/7/1換算の共通尺度)を「○年○日」表記に変換する。 */
 export function formatReignDuration(approxDays: number): string {
   // 金の末帝（完顔承麟）など即日退位・戦死のケース。「0日」では欠測に見えるため明示する。

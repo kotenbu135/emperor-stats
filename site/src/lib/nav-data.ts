@@ -12,6 +12,7 @@ export interface NavCategory {
 
 export const navCategories: NavCategory[] = [
   { label: "概要ダッシュボード", href: "/" },
+  { label: "通史年表", href: "/timeline" },
   { label: "皇帝一覧", href: "/emperors" },
   {
     label: "在位データ",

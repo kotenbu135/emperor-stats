@@ -18,7 +18,7 @@ const notoSerifJP = Noto_Serif_JP({
 export const metadata: Metadata = {
   title: "中国皇帝統計",
   description:
-    "始皇帝から溥儀まで、中国史上の皇帝364名の在位期間・死因・即位経路などを集計・可視化したサイト",
+    "始皇帝から溥儀まで、中国史上の皇帝365名の在位期間・死因・即位経路などを集計・可視化したサイト",
 };
 
 export default function RootLayout({
