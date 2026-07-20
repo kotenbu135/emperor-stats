@@ -4,15 +4,18 @@ export function PageHeader({
   title,
   description,
   contained = false,
+  containedWidth = "max-w-2xl",
 }: {
   title: string;
   description?: string;
   /** 本文を中央寄せにする記事型ページ（/about等）で、見出しも本文と同じ列に揃える */
   contained?: boolean;
+  /** contained時の列幅クラス。ページ本文の列幅と必ず揃えること。 */
+  containedWidth?: string;
 }) {
   return (
     <div className="border-b border-border bg-background px-6 py-8 md:px-10">
-      <div className={cn(contained && "mx-auto w-full max-w-2xl")}>
+      <div className={cn(contained && cn("mx-auto w-full", containedWidth))}>
         <div className="flex items-center gap-3">
           {/* 印章の朱をイメージしたアクセントバー（水墨基調に差す一点の色味） */}
           <span aria-hidden className="h-7 w-1 shrink-0 rounded-full bg-seal" />

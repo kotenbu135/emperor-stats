@@ -126,6 +126,16 @@
     scrollbar-gutter: stable;
   }
 
+  /* Radix系ポップアップ（Dialog/Select等）のスクロールロック（react-remove-scroll）は
+     bodyにmargin-right補正を足してスクロールバー消失分を埋めるが、上の
+     scrollbar-gutter: stableで既にガターを確保しているため二重補正になり、
+     開閉のたびにコンテンツが横にずれる。属性セレクタを重ねて詳細度で
+     ライブラリ注入スタイル（同じく!important）に勝たせ、補正を打ち消す。 */
+  body[data-scroll-locked][data-scroll-locked] {
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+  }
+
   /*
    * スクロールバーを水墨文人パレットに調和させる（OS既定の灰色バーは宣紙色の
    * 背景から浮くため）。淡墨色のつまみ＋透明トラックの細身デザインで統一する。

@@ -48,21 +48,63 @@ export default async function EmperorPage({
     <>
       <PageHeader
         contained
+        containedWidth="max-w-4xl"
         title={record.name}
         description={`${dynastyContextLabel(record)}｜在位 ${record.periodsLabel}`}
       />
       <div className="px-6 py-8 md:px-10">
-        <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
-          <p className="text-sm">
-            <Link
-              href="/emperors"
-              className="inline-flex items-center gap-1 text-muted-foreground hover:text-seal"
-            >
-              <ArrowLeft aria-hidden className="size-3.5" />
-              皇帝一覧へ戻る
-            </Link>
-          </p>
-          <EmperorDetailBody record={record} />
+        <div className="mx-auto flex w-full max-w-4xl flex-col gap-4">
+          {/* ページ送りは本文の長さに左右されない先頭右端の固定サイズボタンに
+              置く（ページごとに位置がずれると連続で押せない）。皇帝名付きの
+              リンクは本文末尾のnavに残す。 */}
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-sm">
+              <Link
+                href="/emperors"
+                className="inline-flex items-center gap-1 text-muted-foreground hover:text-seal"
+              >
+                <ArrowLeft aria-hidden className="size-3.5" />
+                皇帝一覧へ戻る
+              </Link>
+            </p>
+            <nav aria-label="前後の皇帝（ページ送り）" className="flex items-center gap-1.5">
+              {prev ? (
+                <Link
+                  href={`/emperors/${prev.id}`}
+                  title={`前の皇帝: ${prev.name}（${prev.dynastyLabel}）`}
+                  aria-label={`前の皇帝: ${prev.name}`}
+                  className="inline-flex size-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-seal/50 hover:text-seal"
+                >
+                  <ChevronLeft aria-hidden className="size-4" />
+                </Link>
+              ) : (
+                <span
+                  aria-hidden
+                  className="inline-flex size-8 items-center justify-center rounded-md border border-border/40 text-border"
+                >
+                  <ChevronLeft className="size-4" />
+                </span>
+              )}
+              {next ? (
+                <Link
+                  href={`/emperors/${next.id}`}
+                  title={`次の皇帝: ${next.name}（${next.dynastyLabel}）`}
+                  aria-label={`次の皇帝: ${next.name}`}
+                  className="inline-flex size-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-seal/50 hover:text-seal"
+                >
+                  <ChevronRight aria-hidden className="size-4" />
+                </Link>
+              ) : (
+                <span
+                  aria-hidden
+                  className="inline-flex size-8 items-center justify-center rounded-md border border-border/40 text-border"
+                >
+                  <ChevronRight className="size-4" />
+                </span>
+              )}
+            </nav>
+          </div>
+          <EmperorDetailBody record={record} wide />
           <nav
             aria-label="前後の皇帝"
             className="mt-2 flex justify-between gap-4 border-t border-border pt-4 text-sm"

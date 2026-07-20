@@ -11,6 +11,7 @@ import {
   type DynastyCategory,
   type DynastyOption,
   type EmperorRecord,
+  type EmperorVideo,
   type MetricRank,
   type RankingMetricKey,
   type RestorationRow,
@@ -25,6 +26,39 @@ export * from "@/lib/emperor-types";
 
 const dataPath = path.join(process.cwd(), "..", "data", "emperors.json");
 const rawData = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+
+const videoMatchesPath = path.join(
+  process.cwd(),
+  "..",
+  "data",
+  "emperor-videos.json",
+);
+const playlistPath = path.join(process.cwd(), "..", "data", "youtube-playlist.json");
+const videoMatches = JSON.parse(fs.readFileSync(videoMatchesPath, "utf-8")) as {
+  emperorVideos: Record<string, string[]>;
+};
+const playlist = JSON.parse(fs.readFileSync(playlistPath, "utf-8")) as {
+  videos: { videoId: string; title: string; thumbnailUrl: string }[];
+};
+const videoById = new Map(playlist.videos.map((v) => [v.videoId, v]));
+/** 表示用タイトル: 全動画に共通の定型プレフィックス「【ゆっくり解説】」は
+ *  リスト表示では冗長なため削る（チャンネル名は別途表記する）。 */
+function videoDisplayTitle(title: string): string {
+  return title.replace(/^【ゆっくり解説】\s*/, "");
+}
+const videosByEmperorId = new Map<string, EmperorVideo[]>(
+  Object.entries(videoMatches.emperorVideos).map(([emperorId, videoIds]) => [
+    emperorId,
+    videoIds.map((id) => {
+      const v = videoById.get(id)!;
+      return {
+        videoId: v.videoId,
+        title: videoDisplayTitle(v.title),
+        thumbnailUrl: v.thumbnailUrl,
+      };
+    }),
+  ]),
+);
 
 const portraitsDir = path.join(process.cwd(), "public", "portraits");
 const portraitIds = new Set(
@@ -308,6 +342,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     searchText: searchTextOf(e, dynastyLabel(e.dynasty), eraLabelOf(e.dynasty)),
     hasPortrait: portraitIds.has(e.id),
     portraitUrl: portraitIds.has(e.id) ? `${BASE_PATH}/portraits/${e.id}.webp` : null,
+    videos: videosByEmperorId.get(e.id) ?? [],
   }));
   const ranksById = computeRanks(baseRecords);
   allRecordsCache = baseRecords.map((r) => ({

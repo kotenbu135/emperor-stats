@@ -46,6 +46,13 @@ export interface MetricRank {
   tied: boolean;
 }
 
+/** 皇帝を扱うYouTube動画（data/emperor-videos.jsonの目視確認済みマッチのみ）。 */
+export interface EmperorVideo {
+  videoId: string;
+  title: string;
+  thumbnailUrl: string;
+}
+
 export interface EmperorRecord {
   id: string;
   name: string;
@@ -86,6 +93,8 @@ export interface EmperorRecord {
   searchText: string;
   hasPortrait: boolean;
   portraitUrl: string | null;
+  /** この皇帝を扱うYouTube動画（無ければ空配列）。 */
+  videos: EmperorVideo[];
   /** 各指標の全皇帝中の順位（詳細ダイアログ用）。回数系の0回・年齢不明は対象外でnull。 */
   ranks: Record<RankingMetricKey, MetricRank | null>;
 }

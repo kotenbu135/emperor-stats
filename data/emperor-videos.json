@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "source": "youtube-playlist.json",
+    "playlistId": "PLN11cF3ncaJUTCnBdcwF4hJgLZt4BQlTu",
+    "channel": {
+      "name": "鳥人間 中国史三昧",
+      "url": "https://www.youtube.com/@c-history",
+      "note": "全動画がこの単一チャンネルの公開プレイリスト由来。チャンネル名・URLはYouTube oEmbed APIで確認(2026-07-20)。サイト側の表示定数は site/src/lib/video-channel.ts。"
+    },
+    "matchedAt": "2026-07-20",
+    "method": "動画タイトルと皇帝の諱・廟号・諡号・別名の文字列マッチで候補抽出後、各候補の動画タイトルを目視確認して採否を判定。動画の主役が皇帝本人である場合のみ採用し、家臣・妻・暗殺者・王朝史概説など皇帝本人が主題でない動画は除外した。",
+    "matchedEmperorCount": 39
+  },
+  "emperorVideos": {
+    "hou-han-guangwudi": [
+      "tccRG3csNHk",
+      "AudvpgrzTrE",
+      "lmgLB6_QvMQ"
+    ],
+    "wang-mang": [
+      "Q78144Zr_lg",
+      "lV5SQWYyHcI"
+    ],
+    "ming-taizu": [
+      "lG83TbD973U",
+      "jsvFFr2Upto",
+      "VTFk4nm-F-Q"
+    ],
+    "wudai-houzhou-taizu": [
+      "4KUr1JHR0YY"
+    ],
+    "beisong-taizu": [
+      "7zrRT7aQ7tc",
+      "JsFB-9_6568",
+      "grXXIy7Dnww"
+    ],
+    "houzhao-shihu": [
+      "9Pw-91fjqaQ",
+      "uDgJhUvQmD0"
+    ],
+    "suimo-wangshichong": [
+      "kZlBAbJOq98"
+    ],
+    "qin-shi-huang": [
+      "kjyOa3hQMas",
+      "q1IWcgqYb58",
+      "JsFB-9_6568"
+    ],
+    "liu-song-wudi": [
+      "zfh_mH-JPC0",
+      "jHp22cRa_Vg"
+    ],
+    "beiwei-daowudi": [
+      "JaM4fWlbxCs"
+    ],
+    "xia-helianbobo": [
+      "zP-niSTIQd4"
+    ],
+    "jin-hailingwang": [
+      "zfPHfAY8jKw"
+    ],
+    "dongjin-yuandi": [
+      "SJocJa_aG2I"
+    ],
+    "qianzhao-liuyuan": [
+      "G3L5LwuyhdU"
+    ],
+    "houyan-murongchui": [
+      "XUIvY1kp0Fw"
+    ],
+    "jin-wudi": [
+      "N8eNCMSq0e0"
+    ],
+    "wudai-houliang-taizu": [
+      "WRT_t-ci28o",
+      "QSdP5NjYV5w"
+    ],
+    "jin-taizu": [
+      "g_2HDmZLQZE"
+    ],
+    "han-gaozu": [
+      "g_EWuJNIIcc",
+      "0fh-EvSZUNc",
+      "UtcYG4J0YtI",
+      "k_l1CY_nIG0",
+      "JpwXRFA4qJo"
+    ],
+    "zhonghuadiguo-yuanshikai": [
+      "cA0xV-yfSmU"
+    ],
+    "qin-er-shi": [
+      "2EIqxTtQ8x4"
+    ],
+    "houzhao-shile": [
+      "o7uOb0RhzYg"
+    ],
+    "wudai-houzhou-shizong": [
+      "WUfDeTdF8zI",
+      "L-YV1VsapfA"
+    ],
+    "wudai-houtang-zhuangzong": [
+      "InmExEo6U3c"
+    ],
+    "liao-taizu": [
+      "2Q2tHptde10"
+    ],
+    "sui-wendi": [
+      "tvwbVmrWyDc"
+    ],
+    "beisong-huizong": [
+      "H13ZtWtmDXQ"
+    ],
+    "tang-taizong": [
+      "cqSL-FAN4EM",
+      "UXtAnd6Vp48",
+      "aMHbCnnCl7I",
+      "0uRj9QFj14Q"
+    ],
+    "liang-wudi": [
+      "xmQaQnhWdII"
+    ],
+    "liang-houjing": [
+      "Gv_PBZhMUHs"
+    ],
+    "xi-zhangxianzhong": [
+      "LLsuTw_YXOw"
+    ],
+    "tangmo-anlushan": [
+      "8MPxYlxbvA0"
+    ],
+    "wuzhou-wusangui": [
+      "l2bxrhtA9Vo"
+    ],
+    "tangmo-huangchao": [
+      "sIyigdMgInw"
+    ],
+    "tang-xuanzong": [
+      "jWziPa5kvW0"
+    ],
+    "sui-yangdi": [
+      "5ZBUec5X1bE"
+    ],
+    "han-wudi": [
+      "HG6SF06JyJU"
+    ],
+    "shun-lichengzheng": [
+      "i8WpU1qpmWM"
+    ],
+    "shuhan-zhaoliedi": [
+      "hwF6u2I7KMo"
+    ],
+    "wu-dadi": [
+      "hwF6u2I7KMo"
+    ]
+  }
+}

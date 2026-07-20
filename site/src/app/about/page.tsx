@@ -1,5 +1,6 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { getPortraitCredits, getOverviewStats } from "@/lib/emperors";
+import { VIDEO_CHANNEL } from "@/lib/video-channel";
 
 export const metadata = {
   title: "このサイトについて | 中国皇帝統計",
@@ -182,6 +183,23 @@ export default function AboutPage() {
             </table>
           </div>
         </details>
+
+        <H2 id="videos">関連動画について</H2>
+        <Prose>
+          <p>
+            一部の皇帝ページには、その皇帝を主題とした解説動画（YouTube埋め込み）を掲載しています。これらの動画は、
+            <strong>当サイトとは無関係の</strong>YouTubeチャンネル「
+            <a
+              href={VIDEO_CHANNEL.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              {VIDEO_CHANNEL.name}
+            </a>
+            」様が制作・公開されているものです。動画の内容は当サイトの集計・調査とは独立しており、当サイトが内容の正確性を保証するものではありません。埋め込みにはYouTubeの公式埋め込み機能を利用しています。
+          </p>
+        </Prose>
 
         <H2 id="disclaimer">免責事項</H2>
         <Prose>
