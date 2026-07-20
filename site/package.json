@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "sync-portraits": "node scripts/sync-portraits.mjs",
-    "predev": "npm run sync-portraits",
-    "prebuild": "npm run sync-portraits",
+    "build-emperor-notes": "node scripts/build-emperor-notes.mjs",
+    "predev": "npm run sync-portraits && npm run build-emperor-notes",
+    "prebuild": "npm run sync-portraits && npm run build-emperor-notes",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

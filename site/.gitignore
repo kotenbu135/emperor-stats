@@ -20,6 +20,9 @@
 # docs/site-design/mockups/card-preview から sync-portraits で同期される生成物（git管理はソース側のみ）
 /public/portraits/
 
+# data/emperors.json から build-emperor-notes で生成される経緯JSON（git管理はソース側のみ）
+/public/emperor-notes/
+
 # production
 /build
 

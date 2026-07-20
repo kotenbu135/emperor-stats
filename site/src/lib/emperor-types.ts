@@ -99,6 +99,91 @@ export interface EmperorRecord {
   ranks: Record<RankingMetricKey, MetricRank | null>;
 }
 
+/** 経緯1節分（即位の経緯・死因の経緯）。noteは調査時の原文ママ。 */
+export interface NarrativeSection {
+  note: string;
+  /** 出典の表示ラベル。原則は正史巻名（例: "旧唐書 巻二（太宗上）"）。初期調査分
+   *  28件のみWikipedia記事名のため "Wikipedia日本語版「恵帝 (漢)」" 形式になる
+   *  （正史出典への差し替え予定はtask.md第4弾）。 */
+  sourceLabel: string;
+  /** 出典側の補足note（異説の所在・出典帰属の修正経緯など。無ければnull）。 */
+  sourceNote: string | null;
+}
+
+/** 復位1回分の経緯（reigns[].noteの原文ママ）。 */
+export interface RestorationNarrative {
+  /** 復位後の在位期間（例: "705–710年"）。 */
+  periodLabel: string;
+  note: string;
+}
+
+/** 調査メモ1項目分（回数系指標のcount.note・年齢のages.note）。 */
+export interface ResearchMemo {
+  label: string;
+  note: string;
+}
+
+/**
+ * 皇帝個別ページ専用の経緯・調査メモ（lib/emperors.tsのgetEmperorNarrativeが返す）。
+ * note全文は総量が大きいため、全統計ページのクライアントpropsに埋め込まれる
+ * EmperorRecordには含めず、個別ページ（Server Component静的書き出し）だけが使う。
+ */
+export interface EmperorNarrative {
+  accession: NarrativeSection | null;
+  death: NarrativeSection | null;
+  restorations: RestorationNarrative[];
+  memos: ResearchMemo[];
+}
+
+/**
+ * 詳細ダイアログがlazy fetchする経緯JSON（public/emperor-notes/{id}.json）。
+ * EmperorNarrativeから経緯2節だけを抜き出したもの（memos・restorationsは個別ページ限定）。
+ * ダイアログはEmperorRecordにnoteを載せない方針のため、開いた時だけこれを取得する。
+ */
+export interface EmperorNarrativeNotes {
+  accession: NarrativeSection | null;
+  death: NarrativeSection | null;
+}
+
+/** 在位中の出来事年表（個別ページ）の種別キー。8指標のevents[]に対応する。 */
+export type EmperorEventKind =
+  | "eraChange"
+  | "amnesty"
+  | "empressInstallation"
+  | "crownPrinceDeposition"
+  | "personalCampaign"
+  | "rebellionSuppression"
+  | "rebellionSuffered"
+  | "capitalRelocation";
+
+export const emperorEventKindLabels: Record<EmperorEventKind, string> = {
+  eraChange: "改元",
+  amnesty: "大赦",
+  empressInstallation: "立后",
+  crownPrinceDeposition: "皇太子廃立",
+  personalCampaign: "親征",
+  rebellionSuppression: "反乱鎮圧",
+  rebellionSuffered: "被反乱",
+  capitalRelocation: "遷都",
+};
+
+/** 在位中の出来事1件分（lib/emperors.tsのgetEmperorEventsが日付順に整列して返す）。 */
+export interface EmperorEventRow {
+  kind: EmperorEventKind;
+  /** 表示用日付。datePrecisionに応じ年/月/日で丸め済み（例: "前202年7月〜前202年9月"）。
+   *  西暦に換算されていないもの（元号+旧暦表記）は原文ママ。不明はnull。 */
+  dateLabel: string | null;
+  /** 1行要約。構造化フィールド優先（親征=対象、反乱=事件名、遷都=旧都→新都、
+   *  その他=noteの先頭一文）。 */
+  summary: string;
+  /** 対象・首謀者・結果など構造化フィールドの内訳（折りたたみ内に表示）。 */
+  facts: { label: string; text: string }[];
+  /** note全文（要約と同一の場合はnull）。 */
+  note: string | null;
+  /** 出典表示ラベル（events[].sourceがあるもののみ）。 */
+  sourceLabel: string | null;
+}
+
 export interface DynastyOption {
   value: string;
   label: string;

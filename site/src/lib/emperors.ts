@@ -10,9 +10,14 @@ import {
   type DeathCauseCategory,
   type DynastyCategory,
   type DynastyOption,
+  type EmperorEventKind,
+  type EmperorEventRow,
+  type EmperorNarrative,
   type EmperorRecord,
   type EmperorVideo,
   type MetricRank,
+  type NarrativeSection,
+  type ResearchMemo,
   type RankingMetricKey,
   type RestorationRow,
   type TimelineData,
@@ -68,6 +73,44 @@ const portraitIds = new Set(
     .map((f) => f.replace(/\.webp$/, "")),
 );
 
+interface RawSource {
+  page: string;
+  lang: string;
+  note?: string | null;
+}
+
+/** 経緯note＋出典を持つフィールド（deathCause・accessionRoute）。 */
+interface RawNarrativeField {
+  note?: string | null;
+  source?: RawSource | null;
+}
+
+/** 8指標のevents[]の1要素。指標により持つフィールドが異なる（すべてoptional扱い）。 */
+interface RawEvent {
+  date?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  datePrecision?: string | null;
+  note?: string | null;
+  source?: RawSource | null;
+  /** 親征のみ。 */
+  target?: string | null;
+  /** 親征・反乱鎮圧・被反乱。 */
+  outcome?: string | null;
+  /** 反乱鎮圧・被反乱のみ。 */
+  name?: string | null;
+  leader?: string | null;
+  /** 遷都のみ。 */
+  from?: string | null;
+  to?: string | null;
+}
+
+interface RawCount {
+  count: number;
+  note?: string | null;
+  events?: RawEvent[];
+}
+
 interface RawEmperor {
   id: string;
   name: {
@@ -86,17 +129,21 @@ interface RawEmperor {
     };
     reignCount: number;
   };
-  deathCause?: { category: DeathCauseCategory };
-  accessionRoute?: { category: AccessionRouteCategory };
-  eraChangeCount?: { count: number };
-  amnestyCount?: { count: number };
-  empressInstallationCount?: { count: number };
-  crownPrinceDepositionCount?: { count: number };
-  personalCampaignCount?: { count: number };
-  rebellionSuppressionCount?: { count: number };
-  rebellionSufferedCount?: { count: number };
-  capitalRelocationCount?: { count: number };
-  ages?: { accessionAge: number | null; deathAge: number | null };
+  deathCause?: { category: DeathCauseCategory } & RawNarrativeField;
+  accessionRoute?: { category: AccessionRouteCategory } & RawNarrativeField;
+  eraChangeCount?: RawCount;
+  amnestyCount?: RawCount;
+  empressInstallationCount?: RawCount;
+  crownPrinceDepositionCount?: RawCount;
+  personalCampaignCount?: RawCount;
+  rebellionSuppressionCount?: RawCount;
+  rebellionSufferedCount?: RawCount;
+  capitalRelocationCount?: RawCount;
+  ages?: {
+    accessionAge: number | null;
+    deathAge: number | null;
+    note?: string | null;
+  };
   reigns: RawReign[];
 }
 
@@ -420,6 +467,224 @@ export function getRestorationRows(): RestorationRow[] {
     });
   }
   return rows;
+}
+
+// ---------------------------------------------------------------------------
+// 皇帝個別ページ専用の経緯・調査メモ（getEmperorNarrative）。
+// note全文は総量が大きいため、EmperorRecord（全統計ページのクライアントpropsに
+// 埋め込まれる）には含めない。ダイアログへの反映はtask.md第3弾（lazy fetch）。
+
+/**
+ * 正史巻名でなくWikipedia記事名が入っている出典の判別（前漢初期など初期調査分の
+ * deathCause.source 28件。例: "恵帝 (漢)"）。巻・紀・伝などの字を含まないpageを
+ * 記事名とみなす。task.md第4弾で正史出典へ差し替えるまでの暫定表示。
+ */
+const HISTORY_SOURCE_PATTERN = /[巻卷紀伝傳志史書]/;
+
+function sourceLabelOf(source: RawSource): string {
+  if (HISTORY_SOURCE_PATTERN.test(source.page)) return source.page;
+  const edition = source.lang === "ja" ? "日本語版" : "中国語版";
+  return `Wikipedia${edition}記事「${source.page}」`;
+}
+
+function narrativeSectionOf(
+  field: RawNarrativeField | undefined,
+): NarrativeSection | null {
+  if (!field?.note || !field.source) return null;
+  return {
+    note: field.note,
+    sourceLabel: sourceLabelOf(field.source),
+    sourceNote: field.source.note ?? null,
+  };
+}
+
+const rawEmperorById = new Map(data.emperors.map((e) => [e.id, e]));
+
+/** 個別ページ用に、経緯note全文・出典・調査メモを返す。idは収録済み前提。 */
+export function getEmperorNarrative(id: string): EmperorNarrative {
+  const e = rawEmperorById.get(id);
+  if (!e) throw new Error(`未収録の皇帝idです: ${id}`);
+  const memoEntries: [string, string | null | undefined][] = [
+    ["改元回数", e.eraChangeCount?.note],
+    ["大赦回数", e.amnestyCount?.note],
+    ["立后回数", e.empressInstallationCount?.note],
+    ["皇太子廃立回数", e.crownPrinceDepositionCount?.note],
+    ["親征回数", e.personalCampaignCount?.note],
+    ["反乱鎮圧回数", e.rebellionSuppressionCount?.note],
+    ["被反乱回数", e.rebellionSufferedCount?.note],
+    ["遷都回数", e.capitalRelocationCount?.note],
+    ["即位時年齢・没年齢", e.ages?.note],
+  ];
+  return {
+    accession: narrativeSectionOf(e.accessionRoute),
+    death: narrativeSectionOf(e.deathCause),
+    restorations: e.reigns
+      .filter((r) => r.isRestoration && r.note)
+      .map((r) => ({ periodLabel: formatPeriod(r), note: r.note! })),
+    memos: memoEntries
+      .filter((entry): entry is [string, string] => !!entry[1])
+      .map(([label, note]): ResearchMemo => ({ label, note })),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// 在位中の出来事年表（個別ページ）。8指標のevents[]を日付順にマージする。
+
+type DatePrecision = "year" | "month" | "day";
+
+/**
+ * datePrecisionの正規化。実データは "day"/"month"/"year" のほかに
+ * "day（干支のみ：…、グレゴリオ暦未換算）"・"lunar-month（…）"・"月まで特定" 等の
+ * 自由記述が混在するため、接頭辞で判別する。判別できないもの（unknown・和文注記）は
+ * 年精度に落とす（date値の月日が01埋めのことがあり、実日付と誤表示しないため）。
+ */
+function normalizeDatePrecision(p: string | null | undefined): DatePrecision {
+  if (!p) return "year";
+  if (/^(day|lunar-day|sexagenary-day|year-month-day)/.test(p)) return "day";
+  if (/^(year-month|month|lunar-month)/.test(p)) return "month";
+  return "year";
+}
+
+/** "-0202-07-01"・"-0143"・"0627-01" 形式のみ受け付ける（元号表記等はnull）。 */
+const ISO_LIKE_DATE = /^(-?\d{1,4})(?:-(\d{2}))?(?:-(\d{2}))?$/;
+
+interface EventDateParts {
+  year: number;
+  month: number | null;
+  day: number | null;
+}
+
+function parseEventDate(s: string): EventDateParts | null {
+  const m = ISO_LIKE_DATE.exec(s);
+  if (!m) return null;
+  return {
+    year: Number(m[1]),
+    month: m[2] ? Number(m[2]) : null,
+    day: m[3] ? Number(m[3]) : null,
+  };
+}
+
+/** datePrecisionを超える細かさを捨てる（月精度なら日を表示しない）。 */
+function clampToPrecision(
+  parts: EventDateParts,
+  precision: DatePrecision,
+): EventDateParts {
+  return {
+    year: parts.year,
+    month: precision === "year" ? null : parts.month,
+    day: precision !== "day" ? null : parts.day,
+  };
+}
+
+function formatEventDate(parts: EventDateParts): string {
+  let label = `${formatYear(parts.year)}年`;
+  if (parts.month !== null) label += `${parts.month}月`;
+  if (parts.month !== null && parts.day !== null) label += `${parts.day}日`;
+  return label;
+}
+
+/** 表示用日付とソートキー。西暦換算されていない日付（元号表記）は原文ママ・ソート不能。 */
+function eventDateOf(ev: RawEvent): {
+  label: string | null;
+  sortKey: number | null;
+} {
+  const startRaw = ev.date ?? ev.startDate ?? null;
+  if (!startRaw) return { label: null, sortKey: null };
+  const start = parseEventDate(startRaw);
+  if (!start) return { label: startRaw, sortKey: null };
+  const precision = normalizeDatePrecision(ev.datePrecision);
+  const s = clampToPrecision(start, precision);
+  let label = formatEventDate(s);
+  const end = ev.endDate ? parseEventDate(ev.endDate) : null;
+  if (end) {
+    const endLabel = formatEventDate(clampToPrecision(end, precision));
+    if (endLabel !== label) label = `${label}〜${endLabel}`;
+  }
+  return {
+    label,
+    // 0年なし対策の連続年（astroYear）ベースで 年*10000 + 月*100 + 日。
+    sortKey: astroYear(s.year) * 10000 + (s.month ?? 0) * 100 + (s.day ?? 0),
+  };
+}
+
+/** 8指標→出来事種別の対応（表示上の基本順序を兼ねる）。 */
+const EVENT_METRICS: {
+  kind: EmperorEventKind;
+  pick: (e: RawEmperor) => RawCount | undefined;
+}[] = [
+  { kind: "eraChange", pick: (e) => e.eraChangeCount },
+  { kind: "amnesty", pick: (e) => e.amnestyCount },
+  { kind: "empressInstallation", pick: (e) => e.empressInstallationCount },
+  { kind: "crownPrinceDeposition", pick: (e) => e.crownPrinceDepositionCount },
+  { kind: "personalCampaign", pick: (e) => e.personalCampaignCount },
+  { kind: "rebellionSuppression", pick: (e) => e.rebellionSuppressionCount },
+  { kind: "rebellionSuffered", pick: (e) => e.rebellionSufferedCount },
+  { kind: "capitalRelocation", pick: (e) => e.capitalRelocationCount },
+];
+
+/** 種別ごとの1行要約と構造化フィールドの内訳。 */
+function eventSummaryOf(
+  kind: EmperorEventKind,
+  ev: RawEvent,
+): { summary: string; facts: { label: string; text: string }[] } {
+  const facts: { label: string; text: string }[] = [];
+  switch (kind) {
+    case "personalCampaign":
+      if (ev.target) facts.push({ label: "対象", text: ev.target });
+      if (ev.outcome) facts.push({ label: "結果", text: ev.outcome });
+      return { summary: ev.target ?? "親征", facts };
+    case "rebellionSuppression":
+    case "rebellionSuffered":
+      if (ev.leader) facts.push({ label: "首謀者", text: ev.leader });
+      if (ev.outcome) facts.push({ label: "結果", text: ev.outcome });
+      return {
+        summary: ev.name ?? (ev.leader ? `${ev.leader}の反乱` : "反乱"),
+        facts,
+      };
+    case "capitalRelocation":
+      return { summary: `${ev.from ?? "?"} → ${ev.to ?? "?"}`, facts };
+    default:
+      // 改元・大赦・立后・皇太子廃立はnoteの先頭一文を要約に使う。
+      return { summary: firstSentence(ev.note ?? null) ?? "（記録なし）", facts };
+  }
+}
+
+/**
+ * 個別ページ用に、8指標のevents[]を日付順にマージして返す。西暦換算されていない
+ * 日付（元号表記）・日付不明の出来事はソートできないため、種別順・原文順のまま
+ * 末尾にまとめる（sortは安定ソート）。
+ */
+export function getEmperorEvents(id: string): EmperorEventRow[] {
+  const e = rawEmperorById.get(id);
+  if (!e) throw new Error(`未収録の皇帝idです: ${id}`);
+  const rows: (EmperorEventRow & { sortKey: number | null })[] = [];
+  for (const { kind, pick } of EVENT_METRICS) {
+    for (const ev of pick(e)?.events ?? []) {
+      const { label, sortKey } = eventDateOf(ev);
+      const { summary, facts } = eventSummaryOf(kind, ev);
+      rows.push({
+        kind,
+        dateLabel: label,
+        summary,
+        facts,
+        note: ev.note && ev.note !== summary ? ev.note : null,
+        sourceLabel: ev.source ? sourceLabelOf(ev.source) : null,
+        sortKey,
+      });
+    }
+  }
+  rows.sort((a, b) => {
+    if (a.sortKey === null || b.sortKey === null) {
+      return (a.sortKey === null ? 1 : 0) - (b.sortKey === null ? 1 : 0);
+    }
+    return a.sortKey - b.sortKey;
+  });
+  // クライアントpropsに不要なsortKeyを落として返す。
+  return rows.map((row) => {
+    const { sortKey, ...rest } = row;
+    void sortKey;
+    return rest;
+  });
 }
 
 export interface OverviewStats {

@@ -9,7 +9,13 @@ import {
   EmperorDetailBody,
   dynastyContextLabel,
 } from "@/components/emperors/emperor-detail-body";
-import { getAllEmperorRecords } from "@/lib/emperors";
+import { EmperorNarrativeSections } from "@/components/emperors/emperor-narrative";
+import { EmperorEventTimeline } from "@/components/emperors/emperor-event-timeline";
+import {
+  getAllEmperorRecords,
+  getEmperorEvents,
+  getEmperorNarrative,
+} from "@/lib/emperors";
 
 // output: "export"では全パスをビルド時に列挙する（365ページ）。列挙外のidは404。
 export const dynamicParams = false;
@@ -37,6 +43,7 @@ export default async function EmperorPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const events = getEmperorEvents(id);
   const records = getAllEmperorRecords();
   const index = records.findIndex((r) => r.id === id);
   const record = records[index];
@@ -105,6 +112,20 @@ export default async function EmperorPage({
             </nav>
           </div>
           <EmperorDetailBody record={record} wide />
+          {/* 経緯・調査メモは個別ページ限定（詳細ダイアログには出さない）。
+              静的書き出しなのでnote全文を載せてもクライアント負荷はない。 */}
+          <EmperorNarrativeSections narrative={getEmperorNarrative(id)} />
+          {events.length > 0 && (
+            <section className="mt-2 space-y-2 border-t border-border pt-5">
+              <h3 className="font-heading text-sm font-semibold text-foreground">
+                在位中の出来事（{events.length}件）
+              </h3>
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                改元・大赦・立后・皇太子廃立・親征・反乱鎮圧・被反乱・遷都の8項目で確認した出来事を日付順に並べています。日付は史料の記述の細かさに応じて年・月・日で表示し、西暦に換算できていないもの（元号表記のまま）と日付不詳のものは末尾にまとめています。行を開くと調査時の記録と出典が読めます。
+              </p>
+              <EmperorEventTimeline rows={events} />
+            </section>
+          )}
           <nav
             aria-label="前後の皇帝"
             className="mt-2 flex justify-between gap-4 border-t border-border pt-4 text-sm"

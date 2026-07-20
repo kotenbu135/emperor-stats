@@ -25,6 +25,7 @@ import {
   EmperorDetailBody,
   dynastyContextLabel,
 } from "@/components/emperors/emperor-detail-body";
+import { EmperorNarrativeDialogSection } from "@/components/emperors/emperor-narrative-dialog";
 import type { EmperorRecord } from "@/lib/emperor-types";
 
 export function EmperorDetailDialog({
@@ -48,6 +49,9 @@ export function EmperorDetailDialog({
               </DialogDescription>
             </DialogHeader>
             <EmperorDetailBody record={record} />
+            {/* 経緯2節はダイアログを開いた時だけJSONをlazy fetchして表示する
+                （EmperorRecordにnoteを載せないため）。取得失敗時は非表示。 */}
+            <EmperorNarrativeDialogSection id={record.id} />
             {/* deep-link: この内容を固定URLで共有できる個別ページへの導線 */}
             <p className="text-xs">
               <Link
@@ -56,7 +60,7 @@ export function EmperorDetailDialog({
                 className="inline-flex items-center gap-1 text-muted-foreground underline underline-offset-2 hover:text-seal"
               >
                 <ExternalLink aria-hidden className="size-3" />
-                この皇帝の個別ページを開く（リンク共有用）
+                この皇帝の個別ページを開く
               </Link>
             </p>
           </>

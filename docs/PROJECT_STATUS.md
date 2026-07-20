@@ -171,6 +171,13 @@
 
 - **`name.commonName` が `null` のレコードが2件存在する**: `xia-helianchang`（赫連昌）・`xia-heliading`（赫連定）、いずれも五胡十六国「夏（赫連夏）」。[EMPERORS_SCHEMA.md](../data/schema/EMPERORS_SCHEMA.md) 上は `commonName` は `string`（非null）のはずだが、実データではこの2件が未設定（`personalName` のみ設定）。サイト側では `commonName ?? personalName ?? templeName ?? posthumousName` のフォールバックで表示自体は破綻しないようにしたが、本来は `commonName` に何らかの値（例: 諱をそのまま使うなど）を設定するのが望ましい。2026-07-18発見。
 
+### 対応済みの訂正（2026-07-20、note のサイト表示化に伴う）
+
+皇帝個別ページで `deathCause.note`・`accessionRoute.note` を原文ママ表示するようになったのを機に全365人分を走査し、以下を訂正した（判定カテゴリ・調査結論はすべて不変）:
+
+- **経緯系 note の内部用語除去（16件）**: 訪問者向けに表示される経緯 note に `reigns[].note`・`accessionRoute`・`reignData`・`CLAUDE.md`・「ユーザー承認済み」等の内部フィールド名・作業用語が残っていたものを、意味を変えずに平文へ言い換え（対象: qin-er-shi・wang-mang・liu-yong-liang・liang-wudi・chen-wendi・chen-feidi・beiqi-andewang-gaoyanzong・beiqi-youzhu-gaoheng・xiwei-gongdi・sui-yangdi・wudai-houliang-modi・nansong-gaozong・xiliao-tianxi・yuan-wenzong・yuanmo-mingyuzhen・qing-dezong・qing-xuantong〔2件〕）
+- **訂正漏れの整合修正（2件)**: `beiqi-youzhu-gaoheng` の `reigns[0].endYear` 578→577（処刑年を577年10月に訂正済みなのに endYear のみ旧値。`endDate: 0577-11-01`・`reignSummary.lastEndYear: 577` と矛盾していた）／ `yuanmo-mingyuzhen` の `reigns[0].note` 享年38→36（ages 調査で明史・新元史一致の「年三十六」を採用済み。`ages.deathAge: 36` と矛盾していた）
+
 ## 重要なファイル
 
 - `data/emperors.json` — メインデータセット
