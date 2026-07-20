@@ -14,8 +14,10 @@ import {
   AxisHeader,
   FixedTooltip,
   MARGIN_RIGHT,
+  MARGIN_TOP,
   OutsideValueLabels,
   ROW_HEIGHT,
+  RowOverlay,
   SCROLL_MAX_HEIGHT,
   TableDetails,
   useChartWidth,
@@ -23,6 +25,7 @@ import {
   useWindowedRows,
 } from "@/components/charts/scroll-bar-chart";
 import { EmperorTooltip } from "@/components/charts/emperor-tooltip";
+import { useDetailOutlet } from "@/components/emperors/emperor-detail-dialog";
 import {
   ChartFilterControls,
   type SortDirection,
@@ -55,6 +58,23 @@ function collapsesZeros(metricKey: RankingMetricKey): boolean {
     metricKey !== "accessionAge" &&
     metricKey !== "deathAge"
   );
+}
+
+/** ホバーツールチップに添える補足項目。いま見ている指標と重複するものは省く。 */
+function tooltipDetails(
+  r: EmperorRecord,
+  metricKey: RankingMetricKey,
+): { label: string; value: string }[] {
+  const details: { label: string; value: string }[] = [];
+  if (metricKey !== "reignYears") {
+    details.push({ label: "在位期間", value: r.reignDurationLabel });
+  }
+  details.push({ label: "死因", value: r.deathCauseCategory });
+  details.push({ label: "即位経路", value: r.accessionRouteCategory });
+  if (metricKey !== "deathAge" && r.deathAge !== null) {
+    details.push({ label: "没年齢", value: `${r.deathAge}歳` });
+  }
+  return details;
 }
 
 interface RankedDatum {
@@ -99,6 +119,8 @@ export function RankingBarChart({
     x: number;
     y: number;
   }>();
+  // 詳細ダイアログの開閉状態も同様にチャート本体から分離する。
+  const { openDetail, DetailOutlet } = useDetailOutlet();
 
   const { chartAreaRef, chartWidth } = useChartWidth();
 
@@ -122,16 +144,26 @@ export function RankingBarChart({
   );
 
   // 順位は並び順を切り替えても変わらない「rankDirection側から数えた順位」で表示する。
-  const rankOf = (i: number) =>
-    sortDirection === rankDirection ? i + 1 : sorted.length - i;
+  // 同値は同順位（competition ranking、1, 2, 2, 4, …）とし、詳細ダイアログの
+  // 全体順位と数え方を揃える（フィルタなしのとき両者は一致する）。
+  const rankByValue = new Map<number, number>();
+  {
+    const values = sorted.map((r) => rawValueOf(r, metricKey) as number);
+    if (sortDirection !== rankDirection) values.reverse();
+    values.forEach((v, i) => {
+      if (!rankByValue.has(v)) rankByValue.set(v, i + 1);
+    });
+  }
+  const rankOf = (r: EmperorRecord) =>
+    rankByValue.get(rawValueOf(r, metricKey) as number) ?? 0;
 
   // 単一王朝で絞り込んでいる間は王朝名の繰り返しを省く。
   const withDynasty = dynastyValue === "all";
-  const chartData: RankedDatum[] = sorted.map((r, i) => ({
+  const chartData: RankedDatum[] = sorted.map((r) => ({
     id: r.id,
     label: withDynasty
-      ? `${rankOf(i)}. ${r.name}（${r.dynastyLabel}）`
-      : `${rankOf(i)}. ${r.name}`,
+      ? `${rankOf(r)}. ${r.name}（${r.dynastyLabel}）`
+      : `${rankOf(r)}. ${r.name}`,
     value: rawValueOf(r, metricKey) as number,
     formatted: formatOf(r, metricKey),
     record: r,
@@ -241,7 +273,7 @@ export function RankingBarChart({
               // role="img"のSVGに必要なアクセシブルネーム（Lighthouse svg-img-alt対応）。
               ariaLabel={`皇帝別${valueLabel}の横棒グラフ`}
               colors={[rankingSeriesColor]}
-              margin={{ top: 6, right: MARGIN_RIGHT, bottom: 6, left: marginLeft }}
+              margin={{ top: MARGIN_TOP, right: MARGIN_RIGHT, bottom: 6, left: marginLeft }}
               padding={0.35}
               borderRadius={3}
               // niceを切ってドメイン上限を固定する（既定のnice:trueだと62→70等に丸められ、
@@ -264,16 +296,24 @@ export function RankingBarChart({
               enableLabel={false}
               layers={["grid", "axes", "bars", OutsideValueLabels]}
               tooltip={() => null}
-              onMouseEnter={(datum, event) => {
-                if (!hoverAllowed()) return;
-                const record = (datum.data as unknown as { record: EmperorRecord })
-                  .record;
-                setTip({ record, x: event.clientX, y: event.clientY });
-              }}
-              onMouseLeave={() => setTip(null)}
               // バーだけがスプリングで伸び、独自レイヤーの数値ラベルが先に最終位置へ
               // 描かれて浮いて見えるため、アニメーションは使わない。
               animate={false}
+            />
+            {/* ホバー・クリックは行全体を覆うオーバーレイで受ける（バー矩形だけだと
+                値が小さい皇帝は当たり判定が数pxしかない）。chartData.slice(start, end)は
+                windowDataと同じ範囲の上から順の並び。 */}
+            <RowOverlay
+              rows={chartData.slice(start, end)}
+              hoverAllowed={hoverAllowed}
+              onHover={(d, event) =>
+                setTip({ record: d.record, x: event.clientX, y: event.clientY })
+              }
+              onLeave={() => setTip(null)}
+              onSelect={(d) => openDetail(d.record)}
+              selectLabelOf={(d) =>
+                `${d.label}（${valueLabel}：${d.formatted}）の詳細を表示`
+              }
             />
             </div>
           </div>
@@ -286,10 +326,13 @@ export function RankingBarChart({
               record={tip.record}
               valueLabel={valueLabel}
               formattedValue={formatOf(tip.record, metricKey)}
+              details={tooltipDetails(tip.record, metricKey)}
+              hint="クリックで全項目を表示"
             />
           </FixedTooltip>
         )}
       />
+      <DetailOutlet />
       <TableDetails summary={<>表で見る（全{sorted.length}件）</>}>
         {() => (
           <div className="mt-2 max-h-[480px] overflow-y-auto rounded-md border border-border">
@@ -303,12 +346,20 @@ export function RankingBarChart({
                 </tr>
               </thead>
               <tbody>
-                {sorted.map((r, i) => (
+                {sorted.map((r) => (
                   <tr key={r.id} className="border-t border-border">
                     <td className="px-3 py-1.5 tabular-nums text-muted-foreground">
-                      {rankOf(i)}
+                      {rankOf(r)}
                     </td>
-                    <td className="px-3 py-1.5">{r.name}</td>
+                    <td className="px-3 py-1.5">
+                      <button
+                        type="button"
+                        className="cursor-pointer underline-offset-2 hover:text-seal hover:underline focus-visible:outline-2 focus-visible:outline-ring"
+                        onClick={() => openDetail(r)}
+                      >
+                        {r.name}
+                      </button>
+                    </td>
                     <td className="px-3 py-1.5 text-muted-foreground">
                       {r.dynastyLabel}
                     </td>

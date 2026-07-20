@@ -11,8 +11,10 @@ import {
   AxisHeader,
   FixedTooltip,
   MARGIN_RIGHT,
+  MARGIN_TOP,
   OutsideValueLabels,
   ROW_HEIGHT,
+  RowOverlay,
   SCROLL_MAX_HEIGHT,
   TableDetails,
   useChartWidth,
@@ -156,7 +158,7 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
               // role="img"のSVGに必要なアクセシブルネーム（Lighthouse svg-img-alt対応）。
               ariaLabel={`${unit === "dynasty" ? "王朝" : "時代"}別の平均在位年数の横棒グラフ`}
               colors={[rankingSeriesColor]}
-              margin={{ top: 6, right: MARGIN_RIGHT, bottom: 6, left: marginLeft }}
+              margin={{ top: MARGIN_TOP, right: MARGIN_RIGHT, bottom: 6, left: marginLeft }}
               padding={0.35}
               borderRadius={3}
               valueScale={{ type: "linear", min: 0, max: domainMax, nice: false }}
@@ -172,13 +174,17 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
               enableLabel={false}
               layers={["grid", "axes", "bars", OutsideValueLabels]}
               tooltip={() => null}
-              onMouseEnter={(datum, event) => {
-                if (!hoverAllowed()) return;
-                const row = (datum.data as unknown as { row: GroupAggRow }).row;
-                setTip({ row, x: event.clientX, y: event.clientY });
-              }}
-              onMouseLeave={() => setTip(null)}
               animate={false}
+            />
+            {/* ホバーは行全体を覆うオーバーレイで受ける（平均在位が短い政権はバーが
+                数pxしかなく狙えないため）。ranking-bar-chart.tsxと同じ方式。 */}
+            <RowOverlay
+              rows={chartData.slice(start, end)}
+              hoverAllowed={hoverAllowed}
+              onHover={(d, event) =>
+                setTip({ row: d.row, x: event.clientX, y: event.clientY })
+              }
+              onLeave={() => setTip(null)}
             />
             </div>
           </div>

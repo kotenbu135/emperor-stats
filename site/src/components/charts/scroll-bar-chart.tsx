@@ -13,6 +13,7 @@ import {
   useEffect,
   useRef,
   useState,
+  type MouseEvent as ReactMouseEvent,
   type ReactNode,
   type RefObject,
 } from "react";
@@ -21,6 +22,8 @@ import type { BarDatum, BarCustomLayerProps } from "@nivo/bar";
 export const ROW_HEIGHT = 24;
 // バー右外側の数値ラベル領域。
 export const MARGIN_RIGHT = 76;
+// Nivoチャートの上マージン。RowOverlayの行位置計算と共有するため定数化する。
+export const MARGIN_TOP = 6;
 // グラフ内スクロールのビューポート高さ。説明・フィルタ込みで1画面に収まる高さに抑える。
 export const SCROLL_MAX_HEIGHT = "min(60vh, 520px)";
 
@@ -41,6 +44,72 @@ export function OutsideValueLabels({ bars }: BarCustomLayerProps<BarDatum>) {
         </text>
       ))}
     </g>
+  );
+}
+
+/**
+ * 行全体（ラベル＋グラフ領域）を覆う透明のヒット領域。バー矩形だけをホバー対象に
+ * すると値が小さい行は当たり判定が数pxしかなく狙えないため、SVGの上に行単位の
+ * 要素を重ねて「行のどこでもホバー・クリックできる」ようにする。
+ * - ウィンドウイング中のスライス（transformで動く親）の中に置く前提。keyは行idで
+ *   なくウィンドウ内indexを使う（ウィンドウがずれてもDOMノードのtopが変わらず、
+ *   位置の書き換えが起きない）。
+ * - onSelectを渡すとbutton要素になり、クリック（タップ・キーボード）で詳細を開ける。
+ *   省略時はホバー専用の装飾要素（aria-hidden）を描く。
+ */
+export function RowOverlay<T>({
+  rows,
+  hoverAllowed,
+  onHover,
+  onLeave,
+  onSelect,
+  selectLabelOf,
+}: {
+  /** ウィンドウ内に表示中の行（上から順）。 */
+  rows: T[];
+  /** スクロール直後のホバー抑制（useWindowedRowsのhoverAllowed）。 */
+  hoverAllowed: () => boolean;
+  onHover: (row: T, event: ReactMouseEvent<HTMLElement>) => void;
+  onLeave: () => void;
+  /** 行クリック時の動作（詳細ダイアログを開くなど）。 */
+  onSelect?: (row: T) => void;
+  /** onSelect時に必須。行buttonのアクセシブルネーム。 */
+  selectLabelOf?: (row: T) => string;
+}) {
+  return (
+    <>
+      {rows.map((row, i) => {
+        const style = { top: MARGIN_TOP + i * ROW_HEIGHT, height: ROW_HEIGHT };
+        const handlers = {
+          onMouseEnter: (event: ReactMouseEvent<HTMLElement>) => {
+            if (hoverAllowed()) onHover(row, event);
+          },
+          onMouseLeave: onLeave,
+        };
+        return onSelect ? (
+          <button
+            key={i}
+            type="button"
+            className="absolute inset-x-0 cursor-pointer hover:bg-seal/5 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+            style={style}
+            aria-label={selectLabelOf?.(row)}
+            onClick={() => {
+              onLeave();
+              onSelect(row);
+            }}
+            {...handlers}
+          />
+        ) : (
+          <div
+            key={i}
+            aria-hidden
+            className="absolute inset-x-0 hover:bg-seal/5"
+            style={style}
+            {...handlers}
+          />
+        );
+      })}
+    </>
   );
 }
 

@@ -5,16 +5,8 @@
 // モノグラムをプレースホルダー表示する。カードを押すと詳細ダイアログを開く。
 
 import { memo, useCallback, useDeferredValue, useMemo, useState } from "react";
-import Image from "next/image";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -36,53 +28,8 @@ import type {
 import {
   dynastyCategoryOptions,
 } from "@/lib/emperor-types";
-
-/** モノグラムに使う一文字。姓（諱の頭文字）を優先し、なければ通称の頭文字を使う。 */
-function monogramChar(record: EmperorRecord): string {
-  return (record.personalName ?? record.name).charAt(0);
-}
-
-/** 肖像がない皇帝のプレースホルダー（姓一文字を大きく淡く表示）。 */
-function Monogram({ char, large = false }: { char: string; large?: boolean }) {
-  return (
-    <div className="flex h-full w-full items-center justify-center bg-secondary">
-      <span
-        className={`select-none font-heading font-semibold text-muted-foreground/50 ${
-          large ? "text-6xl" : "text-4xl"
-        }`}
-      >
-        {char}
-      </span>
-    </div>
-  );
-}
-
-function Portrait({
-  record,
-  sizes,
-  large = false,
-  priority = false,
-}: {
-  record: EmperorRecord;
-  sizes: string;
-  large?: boolean;
-  /** ファーストビューのカードで指定する。既定のloading="lazy"だと先頭カードの
-   *  肖像がLCP要素なのに読み込みが後回しになりLCPが大幅に悪化する
-   *  （LAYOUT.mdのLighthouse計測記録）。 */
-  priority?: boolean;
-}) {
-  if (!record.portraitUrl) return <Monogram char={monogramChar(record)} large={large} />;
-  return (
-    <Image
-      src={record.portraitUrl}
-      alt={`${record.name}の肖像`}
-      fill
-      sizes={sizes}
-      priority={priority}
-      className="object-cover object-top"
-    />
-  );
-}
+import { Portrait } from "@/components/emperors/portrait";
+import { EmperorDetailDialog } from "@/components/emperors/emperor-detail-dialog";
 
 /** 一覧のカード1枚。フィルタ・検索のたびに364枚を再レンダリングしないようmemo化
  *  （実機Lighthouse timespanで操作ごとの再レンダリングがTBT・遅延レイアウトシフトの
@@ -120,100 +67,6 @@ const EmperorCard = memo(function EmperorCard({
     </button>
   );
 });
-
-function DetailRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex justify-between gap-3 border-b border-border/60 py-1.5 last:border-b-0">
-      <dt className="shrink-0 text-muted-foreground">{label}</dt>
-      <dd className="text-right">{value}</dd>
-    </div>
-  );
-}
-
-function ageText(age: number | null): string {
-  return age === null ? "不詳" : `${age}歳（数え年）`;
-}
-
-function EmperorDetailDialog({
-  record,
-  onClose,
-}: {
-  record: EmperorRecord | null;
-  onClose: () => void;
-}) {
-  return (
-    <Dialog open={record !== null} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
-        {record && (
-          <>
-            <DialogHeader className="text-left">
-              <DialogTitle className="font-heading text-xl">
-                {record.name}
-              </DialogTitle>
-              <DialogDescription>
-                {/* 「明（明）」「呉・三国（三国）」のような重複を避け、
-                    王朝名から時代が読み取れない場合だけ時代を付す。 */}
-                {record.dynastyLabel.includes(record.eraLabel) ||
-                record.eraLabel.includes(record.dynastyName)
-                  ? record.dynastyLabel
-                  : `${record.dynastyLabel}（${record.eraLabel}）`}
-              </DialogDescription>
-            </DialogHeader>
-            <div className="flex gap-4">
-              <div className="relative w-28 shrink-0 self-start overflow-hidden rounded-md border border-border aspect-[3/4]">
-                <Portrait record={record} sizes="112px" large />
-              </div>
-              <dl className="min-w-0 flex-1 text-sm">
-                {record.personalName && (
-                  <DetailRow label="諱（本名）" value={record.personalName} />
-                )}
-                {record.templeName && (
-                  <DetailRow label="廟号" value={record.templeName} />
-                )}
-                <DetailRow label="在位" value={record.periodsLabel} />
-                <DetailRow label="在位期間" value={record.reignDurationLabel} />
-                <DetailRow
-                  label="即位経路"
-                  value={record.accessionRouteCategory}
-                />
-                <DetailRow label="死因" value={record.deathCauseCategory} />
-                <DetailRow label="即位時年齢" value={ageText(record.accessionAge)} />
-                <DetailRow label="没年齢" value={ageText(record.deathAge)} />
-              </dl>
-            </div>
-            <dl className="grid grid-cols-2 gap-x-6 text-sm sm:grid-cols-4">
-              {(
-                [
-                  ["改元", record.eraChangeCount],
-                  ["大赦", record.amnestyCount],
-                  ["立后", record.empressInstallationCount],
-                  ["皇太子廃立", record.crownPrinceDepositionCount],
-                  ["親征", record.personalCampaignCount],
-                  ["反乱鎮圧", record.rebellionSuppressionCount],
-                  ["被反乱", record.rebellionSufferedCount],
-                  ["遷都", record.capitalRelocationCount],
-                ] as const
-              ).map(([label, count]) => (
-                <div
-                  key={label}
-                  className="flex justify-between gap-2 border-b border-border/60 py-1.5"
-                >
-                  <dt className="text-muted-foreground">{label}</dt>
-                  <dd className="tabular-nums">{count}回</dd>
-                </div>
-              ))}
-            </dl>
-            {record.posthumousName && (
-              <p className="text-xs text-muted-foreground">
-                諡号：{record.posthumousName}
-              </p>
-            )}
-          </>
-        )}
-      </DialogContent>
-    </Dialog>
-  );
-}
 
 export function EmperorGrid({
   records,

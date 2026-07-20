@@ -36,6 +36,16 @@ export type AgeKey = "accessionAge" | "deathAge";
 
 export type DynastyCategory = "正統" | "十六国" | "正統（反乱・自称）";
 
+/** ある指標での全皇帝中の順位（lib/emperors.tsがビルド時に計算する）。 */
+export interface MetricRank {
+  /** 同値は同順位とするcompetition ranking（1, 2, 2, 4, …）。 */
+  rank: number;
+  /** 順位対象の人数。回数系は1回以上、年齢は判明している皇帝のみが対象。 */
+  total: number;
+  /** 同順位の皇帝が他にもいるか（表示で「タイ」を付す）。 */
+  tied: boolean;
+}
+
 export interface EmperorRecord {
   id: string;
   name: string;
@@ -76,6 +86,8 @@ export interface EmperorRecord {
   searchText: string;
   hasPortrait: boolean;
   portraitUrl: string | null;
+  /** 各指標の全皇帝中の順位（詳細ダイアログ用）。回数系の0回・年齢不明は対象外でnull。 */
+  ranks: Record<RankingMetricKey, MetricRank | null>;
 }
 
 export interface DynastyOption {

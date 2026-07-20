@@ -9,6 +9,8 @@ import {
   type DynastyCategory,
   type DynastyOption,
   type EmperorRecord,
+  type MetricRank,
+  type RankingMetricKey,
   type RestorationRow,
 } from "@/lib/emperor-types";
 
@@ -192,9 +194,79 @@ function searchTextOf(e: RawEmperor, dynastyLabelText: string, era: string): str
 
 let allRecordsCache: EmperorRecord[] | null = null;
 
+/** ranks計算前のレコード（ranksは全レコード出揃ってからでないと計算できない）。 */
+type BaseRecord = Omit<EmperorRecord, "ranks">;
+
+/** 各指標の順位方向。ランキングチャート（各ページのrankDirection指定）と揃える。 */
+const RANK_DIRECTIONS: Record<RankingMetricKey, "asc" | "desc"> = {
+  reignYears: "desc",
+  eraChangeCount: "desc",
+  amnestyCount: "desc",
+  empressInstallationCount: "desc",
+  crownPrinceDepositionCount: "desc",
+  personalCampaignCount: "desc",
+  rebellionSuppressionCount: "desc",
+  rebellionSufferedCount: "desc",
+  capitalRelocationCount: "desc",
+  accessionAge: "asc", // 若い順が1位（幼帝ランキング）
+  deathAge: "desc", // 長寿順
+};
+
+function rankValueOf(r: BaseRecord, key: RankingMetricKey): number | null {
+  // 在位期間はreignYears（浮動小数）でなくapproxDaysで順位付けする
+  // （同値判定を整数で行うため。単調変換なので順位は同じ）。
+  if (key === "reignYears") return r.reignApproxDays;
+  return r[key];
+}
+
+/** 順位対象か。回数系の0回はランキングチャートの0回省略と同じ基準で対象外にする。 */
+function isRanked(key: RankingMetricKey, value: number | null): value is number {
+  if (value === null) return false;
+  if (key === "reignYears" || key === "accessionAge" || key === "deathAge") {
+    return true;
+  }
+  return value > 0;
+}
+
+/** 全皇帝を対象に各指標の順位を計算する。同値は同順位（competition ranking）。 */
+function computeRanks(records: BaseRecord[]): Map<string, EmperorRecord["ranks"]> {
+  const ranksById = new Map(
+    records.map((r) => [
+      r.id,
+      {} as Partial<Record<RankingMetricKey, MetricRank | null>>,
+    ]),
+  );
+  for (const key of Object.keys(RANK_DIRECTIONS) as RankingMetricKey[]) {
+    const direction = RANK_DIRECTIONS[key];
+    const eligible = records
+      .map((r) => ({ id: r.id, value: rankValueOf(r, key) }))
+      .filter((e): e is { id: string; value: number } => isRanked(key, e.value))
+      .sort((a, b) =>
+        direction === "desc" ? b.value - a.value : a.value - b.value,
+      );
+    const rankByValue = new Map<number, number>();
+    const countByValue = new Map<number, number>();
+    eligible.forEach(({ value }, i) => {
+      if (!rankByValue.has(value)) rankByValue.set(value, i + 1);
+      countByValue.set(value, (countByValue.get(value) ?? 0) + 1);
+    });
+    for (const r of records) {
+      const value = rankValueOf(r, key);
+      ranksById.get(r.id)![key] = isRanked(key, value)
+        ? {
+            rank: rankByValue.get(value)!,
+            total: eligible.length,
+            tied: countByValue.get(value)! > 1,
+          }
+        : null;
+    }
+  }
+  return ranksById as Map<string, EmperorRecord["ranks"]>;
+}
+
 export function getAllEmperorRecords(): EmperorRecord[] {
   if (allRecordsCache) return allRecordsCache;
-  allRecordsCache = data.emperors.map((e) => ({
+  const baseRecords: BaseRecord[] = data.emperors.map((e) => ({
     id: e.id,
     name: displayName(e.name),
     dynastyName: e.dynasty.name,
@@ -229,6 +301,11 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     searchText: searchTextOf(e, dynastyLabel(e.dynasty), eraLabelOf(e.dynasty)),
     hasPortrait: portraitIds.has(e.id),
     portraitUrl: portraitIds.has(e.id) ? `${BASE_PATH}/portraits/${e.id}.webp` : null,
+  }));
+  const ranksById = computeRanks(baseRecords);
+  allRecordsCache = baseRecords.map((r) => ({
+    ...r,
+    ranks: ranksById.get(r.id)!,
   }));
   return allRecordsCache;
 }
