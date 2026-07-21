@@ -1,8 +1,8 @@
 {
   "method": "Wikimedia zhwiki data dump (page.sql / page_props.sql / redirect.sql, 2026-07-06/08 snapshot) matched offline against candidate names generated from data/emperors.json, with Japanese shinjitai -> Chinese traditional/simplified kanji normalization",
-  "generatedNote": "page_image_free indicates the article has a freely-licensed lead image per MediaWiki PageImages extension; actual license type (PD/CC-BY/CC-BY-SA etc.) must be individually verified on the Commons file page before use. 2026-07-17: manual visual review found 13 confirmed matches were not actual portraits (landscape/monument/statue photos); moved to noImageIds and recorded in excludedNonPortrait. 追記(2026-07-17): CC BY-SA 4.0ライセンスの2件を方針により除外、confirmedは155→153件に。",
-  "confirmedCount": 153,
-  "noImageCount": 211,
+  "generatedNote": "page_image_free indicates the article has a freely-licensed lead image per MediaWiki PageImages extension; actual license type (PD/CC-BY/CC-BY-SA etc.) must be individually verified on the Commons file page before use. 2026-07-17: manual visual review found 13 confirmed matches were not actual portraits (landscape/monument/statue photos); moved to noImageIds and recorded in excludedNonPortrait. 追記(2026-07-17): CC BY-SA 4.0ライセンスの2件を方針により除外、confirmedは155→153件に。 追記(2026-07-21): 全153件の目視QAにより、別人肖像1件(liu-song-mingdi)と場面図切り出し2件(han-aidi/tang-jingzong)をnoImageIdsへ移動、houyan-murongchuiは同シリーズの正しい図に差し替え。confirmedは153→150件に。",
+  "confirmedCount": 150,
+  "noImageCount": 214,
   "confirmed": [
     {
       "id": "beiqi-wenxuandi",
@@ -166,13 +166,6 @@
       "image": "更始韓夫人_(更始).png"
     },
     {
-      "id": "han-aidi",
-      "commonName": "哀帝",
-      "dynasty": "前漢",
-      "matchedTitle": "汉哀帝",
-      "image": "Dong_Xian.jpg"
-    },
-    {
       "id": "han-chengdi",
       "commonName": "成帝",
       "dynasty": "前漢",
@@ -267,8 +260,8 @@
       "id": "houyan-murongchui",
       "commonName": "成武帝",
       "dynasty": "後燕",
-      "matchedTitle": "成武帝",
-      "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(蜀主李雄).jpg"
+      "matchedTitle": "慕容垂",
+      "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(慕容垂).jpg"
     },
     {
       "id": "houzhao-shile",
@@ -346,13 +339,6 @@
       "dynasty": "宋",
       "matchedTitle": "劉昱",
       "image": "宋後廢帝.jpg"
-    },
-    {
-      "id": "liu-song-mingdi",
-      "commonName": "明帝",
-      "dynasty": "宋",
-      "matchedTitle": "宋太宗",
-      "image": "Taizong_of_Song.jpg"
     },
     {
       "id": "liu-song-wendi",
@@ -747,13 +733,6 @@
       "image": "TangGaozu.jpg"
     },
     {
-      "id": "tang-jingzong",
-      "commonName": "敬宗",
-      "dynasty": "唐",
-      "matchedTitle": "唐敬宗",
-      "image": "帝鉴图说.Recueil_Historique_des_Principaux_Traits_de_la_Vie_des_Empereurs_Chinois.95帧图.彩绘册页.约18世纪_(唐敬宗)_(cropped).jpg"
-    },
-    {
       "id": "tang-muzong",
       "commonName": "穆宗",
       "dynasty": "唐",
@@ -1120,6 +1099,7 @@
     "dongjin-xiaowudi",
     "dongwei-xiaojingdi",
     "gongsun-shu",
+    "han-aidi",
     "han-houshaodi",
     "han-huidi",
     "han-liuhe",
@@ -1180,6 +1160,7 @@
     "liu-penzi",
     "liu-song-liushao",
     "liu-song-liuzixun",
+    "liu-song-mingdi",
     "liu-song-qianfeidi",
     "liu-song-shaodi",
     "liu-song-shundi",
@@ -1239,6 +1220,7 @@
     "suimo-xueju",
     "suimo-xuerengao",
     "tang-gaozong",
+    "tang-jingzong",
     "tang-lige",
     "tang-shangdi",
     "tang-shunzong",
@@ -1310,5 +1292,27 @@
       "beiwei-daowudi",
       "shiguo-qianshu-wangjian"
     ]
+  },
+  "excludedQa2026_07_21": {
+    "reason": "全153件の目視QA（2026-07-21）による除外。詳細は PORTRAITS.md「肖像マッピングQA（2026-07-21）」節",
+    "wrongPerson": {
+      "reason": "別人の肖像と判明。PD/CC0の代替画像がCommonsに見つからないため肖像なしへ",
+      "ids": [
+        "liu-song-mingdi"
+      ]
+    },
+    "sceneCrop": {
+      "reason": "肖像画ではなく物語場面図からの切り出しのため除外",
+      "ids": [
+        "han-aidi",
+        "tang-jingzong"
+      ]
+    },
+    "corrected": {
+      "reason": "別人（成漢武帝 李雄）の画像が割り当てられていたため、同シリーズの正しい図（題字「慕容垂」）へ差し替え",
+      "ids": [
+        "houyan-murongchui"
+      ]
+    }
   }
 }

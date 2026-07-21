@@ -392,6 +392,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     personalName: e.name.personalName,
     templeName: e.name.templeName,
     posthumousName: e.name.posthumousName,
+    aliases: e.name.aliases ?? [],
     searchText: searchTextOf(e, dynastyLabel(e.dynasty), eraLabelOf(e.dynasty)),
     hasPortrait: portraitIds.has(e.id),
     portraitUrl: portraitIds.has(e.id) ? `${BASE_PATH}/portraits/${e.id}.webp` : null,
@@ -1076,7 +1077,7 @@ export interface PortraitCredit {
   commonsPageUrl: string;
 }
 
-/** このサイトについてページ用：肖像画の出典クレジット一覧（サイトで実際に使う153件）。 */
+/** このサイトについてページ用：肖像画の出典クレジット一覧（サイトで実際に使う150件）。 */
 export function getPortraitCredits(): PortraitCredit[] {
   const manifestPath = path.join(
     process.cwd(),
