@@ -1,4 +1,4 @@
-# `data/emperors.json` スキーマ（現行 v1.1.0）
+# `data/emperors.json` スキーマ（現行 v2.0.0）
 
 `data/emperors.json` の現行構造のリファレンス。現行 `schemaVersion` は `"2.0.0"`（2026-07-21、未使用の `sources.wikitextLines` を削除）。死因スキーマなど今後追加予定のフィールドは [DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md) を参照。
 
