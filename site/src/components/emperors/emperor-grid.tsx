@@ -19,16 +19,12 @@ import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  FilterField,
-  groupByEra,
-} from "@/components/charts/chart-filter-controls";
+import { FilterField } from "@/components/charts/chart-filter-controls";
+import { DynastyCombobox } from "@/components/charts/dynasty-combobox";
 import type {
   DynastyCategory,
   DynastyOption,
@@ -194,26 +190,11 @@ export function EmperorGrid({
           </div>
         </FilterField>
         <FilterField label="王朝">
-          <Select value={dynastyValue} onValueChange={setDynastyValue}>
-            {/* aria-label: role=comboboxのボタンは中身のテキストがアクセシブルネームに
-                ならない（chart-filter-controls.tsxと同じ対応）。 */}
-            <SelectTrigger className="w-[200px]" aria-label="王朝で絞り込み">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">すべての王朝</SelectItem>
-              {groupByEra(dynastyOptions).map(([era, options]) => (
-                <SelectGroup key={era}>
-                  <SelectLabel>{era}</SelectLabel>
-                  {options.map((o) => (
-                    <SelectItem key={o.value} value={o.value}>
-                      {o.label}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              ))}
-            </SelectContent>
-          </Select>
+          <DynastyCombobox
+            options={dynastyOptions}
+            value={dynastyValue}
+            onChange={setDynastyValue}
+          />
         </FilterField>
         <FilterField label="王朝の区分">
           <Select

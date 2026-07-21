@@ -5,9 +5,7 @@ import { Info } from "lucide-react";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -16,6 +14,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { DynastyCombobox } from "@/components/charts/dynasty-combobox";
 import {
   dynastyCategoryDescriptions,
   dynastyCategoryOptions,
@@ -24,20 +23,6 @@ import {
 } from "@/lib/emperor-types";
 
 export type SortDirection = "desc" | "asc";
-
-/** 王朝の選択肢を時代グループごとにまとめる（受け取った並び順を保持）。 */
-export function groupByEra(options: DynastyOption[]): [string, DynastyOption[]][] {
-  const groups: [string, DynastyOption[]][] = [];
-  for (const o of options) {
-    const last = groups[groups.length - 1];
-    if (last && last[0] === o.era) {
-      last[1].push(o);
-    } else {
-      groups.push([o.era, [o]]);
-    }
-  }
-  return groups;
-}
 
 export function FilterField({
   label,
@@ -116,26 +101,11 @@ export function ChartFilterControls({
   return (
     <div className="mb-4 flex flex-wrap items-end gap-4">
       <FilterField label="王朝">
-        <Select value={dynastyValue} onValueChange={onDynastyChange}>
-          {/* role=comboboxのボタンは中身のテキストがアクセシブルネームにならないため
-              aria-labelを明示する（Lighthouse button-name対応）。 */}
-          <SelectTrigger className="w-[200px]" aria-label="王朝で絞り込み">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">すべての王朝</SelectItem>
-            {groupByEra(dynastyOptions).map(([era, options]) => (
-              <SelectGroup key={era}>
-                <SelectLabel>{era}</SelectLabel>
-                {options.map((o) => (
-                  <SelectItem key={o.value} value={o.value}>
-                    {o.label}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            ))}
-          </SelectContent>
-        </Select>
+        <DynastyCombobox
+          options={dynastyOptions}
+          value={dynastyValue}
+          onChange={onDynastyChange}
+        />
       </FilterField>
 
       <FilterField label="王朝の区分" hint={<DynastyCategoryHint />}>
