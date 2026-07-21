@@ -90,7 +90,9 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 | `duration.approxDays` | number | 年=365/月=30/週=7/日=1 換算の概算共通尺度（グラフ用主軸、常に算出） |
 | `duration.exactDays` | number \| null | 両端が `day` 精度のときのみ算出。それ以外は `null` |
 | `duration.needsPreciseDays` | boolean | `exactDays` が未確定なら `true` |
-| `duration.source.page` / `.lang` / `.note` | string | 参照ページ・言語・注記 |
+| `duration.source.page` / `.lang` / `.note` | string | 参照ページ（正史の巻名）・言語・注記 |
+| `duration.source.quote` | string | 即位・退位の日付根拠になった正史原文の直接引用（即位／退位を `／` で区切る）。task.md 3-1 フェーズBで新設 |
+| `duration.source.conversion` | string | 旧暦（干支日）→西暦の換算典拠と、既存日付との照合結果。正史に日次記述がない場合はその旨を書く。task.md 3-1 フェーズBで新設 |
 
 ### `reignSummary`
 全 `reigns` の合算値。
