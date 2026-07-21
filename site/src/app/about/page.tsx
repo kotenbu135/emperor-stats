@@ -1,9 +1,12 @@
 import { PageHeader } from "@/components/layout/page-header";
 import {
   datasetGeneratedAt,
+  datasetTemporalCoverage,
+  datasetVersion,
   getPortraitCredits,
   getOverviewStats,
 } from "@/lib/emperors";
+import { BASE_PATH } from "@/lib/base-path";
 import { VIDEO_CHANNEL } from "@/lib/video-channel";
 import { buildMetadata, datasetJsonLd, JsonLd } from "@/lib/seo";
 
@@ -11,7 +14,7 @@ export const metadata = buildMetadata({
   path: "/about",
   title: "このサイトについて",
   description:
-    "中国皇帝統計の収録基準・各統計項目の数え方・典拠とした史料・肖像画の出典・免責事項について説明します。",
+    "中国皇帝統計の収録基準・各統計項目の数え方・典拠とした史料・データセットのダウンロード（CC BY 4.0）・肖像画の出典・免責事項について説明します。",
 });
 
 function Prose({ children }: { children: React.ReactNode }) {
@@ -56,11 +59,13 @@ export default function AboutPage() {
             "始皇帝から溥儀まで、中国史上で実際に「皇帝」を名乗った人物の在位期間・死因・即位経路など全12項目を正史原典から個別調査したデータセット。",
           dateModified: datasetGeneratedAt,
           emperorCount: stats.emperorCount,
+          version: datasetVersion,
+          temporalCoverage: datasetTemporalCoverage,
         })}
       />
       <PageHeader
         title="このサイトについて"
-        description="収録基準・各統計項目の数え方・典拠とした史料・肖像画の出典・免責事項について説明します。"
+        description="収録基準・各統計項目の数え方・典拠とした史料・データセットのダウンロード・肖像画の出典・免責事項について説明します。"
         contained
       />
       {/* 記事型ページのためワイド画面では本文列を中央寄せにする（PageHeaderのcontainedと同じ列幅） */}
@@ -163,6 +168,118 @@ export default function AboutPage() {
         <Prose>
           <p>
             『史記』『漢書』『後漢書』『三国志』『晋書』『宋書』『南斉書』『梁書』『陳書』『魏書』『北斉書』『周書』『隋書』『南史』『北史』『旧唐書』『新唐書』『旧五代史』『新五代史』『宋史』『遼史』『金史』『元史』『新元史』『明史』『清史稿』などの正史（本紀・列伝）を第一の典拠としています。西夏など正史に本紀がない政権は『西夏書事』等の編年史料、南明・明清交替期の諸政権は『小腆紀伝』等で補っています。
+          </p>
+        </Prose>
+
+        <H2 id="dataset">データセットのダウンロードとライセンス</H2>
+        <Prose>
+          <p>
+            本サイトの元データ（{stats.emperorCount}名 × 全12項目・調査メモと出典を含む完全版）を、機械可読な形式で公開しています。現在のデータ版は
+            <strong> {datasetVersion} </strong>
+            です。
+          </p>
+          <ul className="list-disc space-y-1 pl-5">
+            <li>
+              <a
+                href={`${BASE_PATH}/data/emperors.json`}
+                className="underline underline-offset-2 hover:text-seal"
+              >
+                emperors.json
+              </a>
+              （完全版・約6.9MB、gzip配信のため実転送は約1MB）
+            </li>
+            <li>
+              <a
+                href={`${BASE_PATH}/data/emperors.csv`}
+                className="underline underline-offset-2 hover:text-seal"
+              >
+                emperors.csv
+              </a>
+              （1行1皇帝に平坦化した40列・約120KB。UTF-8 BOM付きで表計算ソフトでそのまま開けます）
+            </li>
+            <li>
+              <a
+                href={`${BASE_PATH}/data/emperors.schema.json`}
+                className="underline underline-offset-2 hover:text-seal"
+              >
+                emperors.schema.json
+              </a>
+              （JSONの構造定義・JSON Schema）
+            </li>
+          </ul>
+          <p>
+            いずれも認証不要・CORS許可済みのため、プログラムから直接取得できます。JSONの構造の説明（フィールド定義・分類の意味）は上記スキーマと
+            <a
+              href="https://github.com/kotenbu135/emperor-stats/tree/main/data/schema"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              GitHub のスキーマ文書
+            </a>
+            を参照してください。
+          </p>
+          <p>
+            <strong>ライセンス</strong>: データおよび調査メモの文章は
+            <a
+              href="https://creativecommons.org/licenses/by/4.0/deed.ja"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              CC BY 4.0
+            </a>
+            で提供します。出典を明記すれば、商用を含め自由に複製・再配布・改変できます。帰属表示の例:「出典: 中国皇帝統計 (emperorstats.com), CC BY 4.0」。サイトのソースコードは
+            <a
+              href="https://github.com/kotenbu135/emperor-stats/blob/main/LICENSE"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              MITライセンス
+            </a>
+            です。
+          </p>
+          <p>
+            データ内容の変更履歴は
+            <a
+              href="https://github.com/kotenbu135/emperor-stats/blob/main/CHANGELOG.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              CHANGELOG
+            </a>
+            に記録しています。
+          </p>
+        </Prose>
+
+        <H2 id="errata">正誤表</H2>
+        <Prose>
+          <p>
+            公開後に判明した誤りは、原典を再調査したうえで訂正し、ここに記録します。
+          </p>
+          <ul className="list-disc space-y-1 pl-5">
+            <li>
+              <strong>2026-07-21</strong>:
+              在位期間の出典を全皇帝分、正史原典（書名・巻・原文引用つき）へ差し替える再調査を実施。この過程で旧暦→西暦の換算誤り等の在位日付の訂正を約90件行いました（詳細はCHANGELOGと配布データ内の調査記録）。
+            </li>
+            <li>
+              <strong>2026-07-20</strong>:
+              収録漏れが判明した唐哀帝を追加し、収録数を364名から365名に改めました。
+            </li>
+          </ul>
+          <p>
+            誤りにお気づきの際は
+            <a
+              href="https://github.com/kotenbu135/emperor-stats/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              GitHubのIssue
+            </a>
+            からお知らせください。
           </p>
         </Prose>
 

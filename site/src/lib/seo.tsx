@@ -168,10 +168,14 @@ export function datasetJsonLd({
   description,
   dateModified,
   emperorCount,
+  version,
+  temporalCoverage,
 }: {
   description: string;
   dateModified: string;
   emperorCount: number;
+  version: string;
+  temporalCoverage: string;
 }): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
@@ -180,8 +184,24 @@ export function datasetJsonLd({
     description,
     url: SITE_URL,
     dateModified,
+    version,
+    temporalCoverage,
     inLanguage: "ja",
+    license: "https://creativecommons.org/licenses/by/4.0/",
+    isAccessibleForFree: true,
     creator: { "@type": "Organization", name: SITE_NAME },
+    distribution: [
+      {
+        "@type": "DataDownload",
+        encodingFormat: "application/json",
+        contentUrl: absoluteUrl("/data/emperors.json"),
+      },
+      {
+        "@type": "DataDownload",
+        encodingFormat: "text/csv",
+        contentUrl: absoluteUrl("/data/emperors.csv"),
+      },
+    ],
     variableMeasured: [
       "在位年数",
       "死因",

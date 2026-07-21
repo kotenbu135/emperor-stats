@@ -158,7 +158,7 @@ interface RawEmperor {
 }
 
 interface EmperorsData {
-  meta: { count: number; generatedAt: string };
+  meta: { count: number; generatedAt: string; version: string };
   emperors: RawEmperor[];
 }
 
@@ -166,6 +166,22 @@ const data = rawData as unknown as EmperorsData;
 
 export const emperorCount = data.meta.count;
 export const datasetGeneratedAt = data.meta.generatedAt;
+export const datasetVersion = data.meta.version;
+
+/** データが扱う年代範囲（天文年・ISO 8601区間）。Dataset JSON-LD の temporalCoverage 用。 */
+export const datasetTemporalCoverage = (() => {
+  let min = Infinity;
+  let max = -Infinity;
+  for (const e of data.emperors) {
+    for (const r of e.reigns) {
+      if (typeof r.startYear === "number" && r.startYear < min) min = r.startYear;
+      if (typeof r.endYear === "number" && r.endYear > max) max = r.endYear;
+    }
+  }
+  const iso = (y: number) =>
+    y < 0 ? `-${String(-y).padStart(4, "0")}` : String(y).padStart(4, "0");
+  return `${iso(min)}/${iso(max)}`;
+})();
 
 /**
  * 王朝名・皇帝名は元データの時点で全角括弧を含むことがある
