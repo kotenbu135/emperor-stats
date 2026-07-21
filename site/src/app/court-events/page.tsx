@@ -2,6 +2,7 @@ import { PageHeader, Section } from "@/components/layout/page-header";
 import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
 import { ChartTakeaway } from "@/components/charts/chart-takeaway";
+import { TopRankedTable } from "@/components/tables/top-ranked-table";
 import {
   getAllEmperorRecords,
   getChartTakeaway,
@@ -90,6 +91,11 @@ export default function CourtEventsPage() {
               valueLabel={valueLabels[id]}
             />
           </LazyMount>
+          <TopRankedTable
+            records={records}
+            metricKey={key}
+            title={`${valueLabels[id]}の上位10名`}
+          />
         </Section>
       ))}
     </>

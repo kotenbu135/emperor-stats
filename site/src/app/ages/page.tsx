@@ -2,6 +2,7 @@ import { PageHeader, Section } from "@/components/layout/page-header";
 import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
 import { ChartTakeaway } from "@/components/charts/chart-takeaway";
+import { TopRankedTable } from "@/components/tables/top-ranked-table";
 import {
   getAllEmperorRecords,
   getChartTakeaway,
@@ -47,6 +48,12 @@ export default function AgesPage() {
             missingNoteLabel="生年不詳などで年齢不明"
           />
         </LazyMount>
+        {/* 即位時年齢の順位は「若い順」（rankDirection="asc"）。 */}
+        <TopRankedTable
+          records={records}
+          metricKey="accessionAge"
+          title="即位時年齢の若い順10名"
+        />
       </Section>
       <Section
         id="death-age"
@@ -64,6 +71,11 @@ export default function AgesPage() {
             missingNoteLabel="享年不詳などで年齢不明"
           />
         </LazyMount>
+        <TopRankedTable
+          records={records}
+          metricKey="deathAge"
+          title="没年齢の長寿順10名"
+        />
       </Section>
     </>
   );

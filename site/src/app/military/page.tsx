@@ -2,6 +2,7 @@ import { PageHeader, Section } from "@/components/layout/page-header";
 import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
 import { ChartTakeaway } from "@/components/charts/chart-takeaway";
+import { TopRankedTable } from "@/components/tables/top-ranked-table";
 import {
   getAllEmperorRecords,
   getChartTakeaway,
@@ -66,6 +67,11 @@ export default function MilitaryPage() {
               valueLabel={militaryEventLabels[key]}
             />
           </LazyMount>
+          <TopRankedTable
+            records={records}
+            metricKey={key}
+            title={`${militaryEventLabels[key]}の上位10名`}
+          />
         </Section>
       ))}
     </>

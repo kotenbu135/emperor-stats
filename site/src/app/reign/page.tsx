@@ -3,6 +3,7 @@ import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
 import { ChartTakeaway } from "@/components/charts/chart-takeaway";
 import { RestorationTable } from "@/components/tables/restoration-table";
+import { TopRankedTable } from "@/components/tables/top-ranked-table";
 import {
   getAllEmperorRecords,
   getChartTakeaway,
@@ -42,6 +43,11 @@ export default function ReignPage() {
             valueLabel="在位期間"
           />
         </LazyMount>
+        <TopRankedTable
+          records={records}
+          metricKey="reignYears"
+          title="在位期間の上位10名"
+        />
       </Section>
       <Section
         id="restoration"

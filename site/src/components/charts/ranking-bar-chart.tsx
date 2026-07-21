@@ -38,28 +38,13 @@ import type {
   RankingMetricKey,
 } from "@/lib/emperor-types";
 
-/** 指標の値。年齢は生年不詳などで算出できない皇帝がいるためnullを返しうる。 */
-function rawValueOf(r: EmperorRecord, metricKey: RankingMetricKey): number | null {
-  if (metricKey === "reignYears") return r.reignYears;
-  return r[metricKey];
-}
-
-function formatOf(r: EmperorRecord, metricKey: RankingMetricKey): string {
-  if (metricKey === "reignYears") return r.reignDurationLabel;
-  const value = r[metricKey];
-  if (metricKey === "accessionAge" || metricKey === "deathAge") return `${value}歳`;
-  return `${value}回`;
-}
-
-/** 0回の皇帝をグラフから省略する指標（回数系のみ）。在位期間の0日（1日未満）や
- *  年齢は歴史的事実としてそのままランキングに含める。 */
-function collapsesZeros(metricKey: RankingMetricKey): boolean {
-  return (
-    metricKey !== "reignYears" &&
-    metricKey !== "accessionAge" &&
-    metricKey !== "deathAge"
-  );
-}
+// 指標の値取得・フォーマットはサーバー側の上位10名テーブルと共用の
+// lib/ranking-metrics.ts に置く（表示のブレ防止）。
+import {
+  formatMetricValue as formatOf,
+  metricCollapsesZeros as collapsesZeros,
+  rawMetricValue as rawValueOf,
+} from "@/lib/ranking-metrics";
 
 /** ホバーツールチップに添える補足項目。いま見ている指標と重複するものは省く。 */
 function tooltipDetails(
