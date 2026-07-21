@@ -21,10 +21,10 @@
     （退位後死去の deathDate > endDate は正当なので警告どまり。task.md 3-3 の2段階方式）
   - reignSummary の reignCount / firstStartYear / lastEndYear と reigns の整合
   - confidence 値（high/medium/low/null 以外・空文字はエラー）
-  - 出典禁止語: deathCause/accessionRoute/events/reigns[].duration の source が
-    Wikipedia/百度等のままならエラー（判定は scripts/detect_wikipedia_sources.py の
-    is_wiki_like を共用。reigns[].duration はフェーズB完了〔2026-07-21・残数0件〕を受けて
-    警告からエラーに格上げ済み）
+  - 出典禁止語: emperor レコードを再帰走査し、キー名 `source` の出典すべてが対象
+    （deathCause/accessionRoute/events/reigns[].duration ほか将来の新設フィールドも自動的に
+    掛かる。判定は scripts/detect_wikipedia_sources.py の is_wiki_like を共用。
+    reigns[].duration はフェーズB完了〔2026-07-21・残数0件〕を受けて警告からエラーに格上げ済み）
   - 肖像画 manifest: id 実在・ファイル 1:1 対応・各キー重複・画像 MD5 重複
 
 警告（CI は通す・出力で可視化）:
@@ -377,28 +377,30 @@ def check_confidence(data):
 
 
 def check_forbidden_sources(data):
-    reign_wiki = 0
+    """emperor レコード全体を再帰走査し、キー名 `source` の出典をすべて判定する。
+
+    かつてはパス列挙方式（deathCause/accessionRoute/events/reigns[].duration）だったが、
+    将来 source フィールドを持つ項目が増えたときに検査から漏れるため走査方式に変更した
+    （現データの実在パスは列挙時代の対象と完全一致＝挙動は不変）。
+    トップレベル `sources`（wikidata QID・wikitext 行番号）はキー名が異なるため対象外。
+    """
+
+    def walk(node, path, eid):
+        if isinstance(node, dict):
+            for k, v in node.items():
+                p = f"{path}.{k}" if path else k
+                if k == "source" and v is not None:
+                    if not isinstance(v, dict):
+                        err(f"[source] {eid}.{p}: source が object でない: {type(v).__name__}")
+                    elif is_wiki_like(v):
+                        err(f"[source] {eid}.{p}: Wikipedia/百度等の出典が残存: {v.get('page')!r}")
+                walk(v, p, eid)
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                walk(v, f"{path}[{i}]", eid)
+
     for e in data["emperors"]:
-        eid = e["id"]
-        for f in ("deathCause", "accessionRoute"):
-            s = (e.get(f) or {}).get("source")
-            if s and is_wiki_like(s):
-                err(f"[source] {eid}.{f}: Wikipedia/百度等の出典が残存: {s.get('page')!r}")
-        for g in COUNT_GROUPS:
-            o = e.get(g)
-            if not isinstance(o, dict):
-                continue
-            for i, ev in enumerate(o.get("events") or []):
-                s = ev.get("source")
-                if s and is_wiki_like(s):
-                    err(f"[source] {eid}.{g}.events[{i}]: Wikipedia/百度等の出典が残存: {s.get('page')!r}")
-        for j, r in enumerate(e.get("reigns", [])):
-            s = (r.get("duration") or {}).get("source")
-            if s and is_wiki_like(s):
-                reign_wiki += 1
-                err(f"[source] {eid}.reigns[{j}].duration: Wikipedia/百度等の出典が残存: {s.get('page')!r}")
-    if reign_wiki:
-        err(f"[source] reigns[].duration.source の Wikipedia 出典計: {reign_wiki} 件（フェーズB完了済みのため 0 件必須）")
+        walk(e, "", e["id"])
 
 
 def check_portraits(data):

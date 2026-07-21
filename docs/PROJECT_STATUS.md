@@ -223,11 +223,11 @@
 
 ## データ QA の CI 恒久化（2026-07-21、task.md 3-3）
 
-`scripts/validate_emperors.py` と GitHub Actions ワークフロー `.github/workflows/validate-data.yml` を新設し、`data/` または QA スクリプトを触る push / PR で自動検証が走る体制にした。チェック内容・エラー/警告の区分はスクリプト冒頭の docstring が正（スキーマ適合＝寛容版＋additionalProperties:false 機械付与の厳格版・日付整合・精度と形式の整合・count==events長・QID 形式/一意性・出典禁止語・肖像 manifest 整合/MD5 重複など）。新設時は現データで 0 エラー・警告4種（フェーズB進行中の既知事項）の緑スタート。フェーズB完了（2026-07-21）後の格上げを経て現在は 0 エラー・警告3種。
+`scripts/validate_emperors.py` と GitHub Actions ワークフロー `.github/workflows/validate-data.yml` を新設し、`data/` または QA スクリプトを触る push / PR で自動検証が走る体制にした。チェック内容・エラー/警告の区分はスクリプト冒頭の docstring が正（スキーマ適合＝寛容版＋additionalProperties:false 機械付与の厳格版・日付整合・精度と形式の整合・count==events長・QID 形式/一意性・出典禁止語・肖像 manifest 整合/MD5 重複など）。新設時は現データで 0 エラー・警告4種（フェーズB進行中の既知事項）の緑スタート。フェーズB完了（2026-07-21）後の格上げ、ages 日付 ISO 正規化（同日、下記の節）による非 ISO 警告の解消を経て、現在は 0 エラー・警告2種（deathDate > endDate の退位後死去件数表示・datePrecision 非標準トークン）。
 
 **運用ルール**:
 - **`KNOWN_ISSUES`（スクリプト内の許容リスト）は「容認」ではなく「個別調査待ち」の明示**。データ側を訂正したら該当エントリを削除する。削除し忘れは「陳腐化エントリ」警告で検出される（訂正済みならエントリが残っていても CI は落ちない＝フェーズB進行中の別セッションのコミットを妨げない設計）。
-- `reigns[].duration.source` の Wikipedia 出典チェックは、2026-07-21ブロック12完了（残存数0件到達）を受けて**警告からエラーに格上げ済み**（同日実施）。以後 Wikipedia/百度等の出典が `reigns[].duration.source` に混入すると CI が落ちる（該当 reign ごとの個別エラー＋総数エラー）。
+- `reigns[].duration.source` の Wikipedia 出典チェックは、2026-07-21ブロック12完了（残存数0件到達）を受けて**警告からエラーに格上げ済み**（同日実施）。さらに同日、出典禁止語チェック全体をパス列挙方式から **emperor レコード全体の再帰走査方式**に変更した — キー名 `source` を持つ出典はどのフィールド（将来の新設含む）でも自動的に検査対象になり、Wikipedia/百度等の混入・source が object でない構造異常は CI が落ちる（JSON パス付きの個別エラー）。
 - 新フィールドを正式追加する際は `data/schema/emperors.schema.json`（配布用）と `EMPERORS_SCHEMA.md` を先に更新する。厳格版チェックが未記載キーを構造ドリフトとして検出する。
 
 **CI 構築時に見つかった未解決のデータ問題（許容リスト登録済み・フェーズB等で個別調査を要する）**:
@@ -239,6 +239,21 @@
 **同時に直した既存 QA 資産の不備**:
 - `scripts/detect_wikipedia_sources.py` のグループ名誤り（`empressEstablishCount`/`crownPrinceDeposalCount` → 実データは `empressInstallationCount`/`crownPrinceDepositionCount`。立后・廃立の events が全件スキップされていた。修正後も検出0件でフェーズAの結論は不変）と、`zhonghuadiguo-yuanshikai` の accessionRoute 意図的表記「近現代の学術的に信頼できる複数情報源」の許容リスト追加
 - `data/schema/emperors.schema.json` にフェーズB新設の `source.quote`/`source.conversion` が未反映だった点と、`meta` の patternProperties が `completedBlocks`/`reignDurationSourceBlocks` を取りこぼしていた点（`Blocks$` に修正）
+
+## ages 生没年日付の ISO 正規化（2026-07-21、CI 非 ISO 警告62件の解消）
+
+`ages.birthDate/deathDate` に残っていた非 ISO 表記 62 フィールド（42 人）を、1 件ずつ個別判定のうえ ISO 形式（太陽暦）へ正規化した。内訳: ゼロ埋め不足のみ 8 件・元号の年のみ表記 2 件・旧暦月番号の転記 9 件（太陽暦多数月へ補正）・旧暦日/干支の転記 41 件（sxtwl 換算で日精度確定）・判断を要した 2 件（下記）。検証は (1) 日番号と干支が両方ある日付は sxtwl 換算で両者一致を確認 (2) 在位中崩御 17 件はフェーズB検証済み `reigns[].endDate` と完全一致を機械 assert (3) 適用スクリプトに旧値一致ガードを内蔵、で行った。従来値の原文表記はすべて `ages.note` 末尾の正規化追記に保全し、触れたフィールドの `datePrecision` は標準トークン（year/month/day）へ揃えた。
+
+**特筆事項**:
+- **南漢劉龑の崩御月**: 十国春秋の按語は三月説（「今从通鉴死于三月非四月也」）だが、資治通鑑原文は四月条に「丁丑，高祖殂」を置き（`reigns[0].duration.conversion` で検証済み）、endDate 0942-06-10 と一致するため四月説を採用（942-03 → 0942-06-10、月→日精度）。
+- **姚興・石遵（4世紀）**: 原文の干支（義熙十二年二月丁未・永和五年十一月丙辰）が sxtwl 暦表の当該旧暦月内に存在しない（東晋官暦〔平朔〕と sxtwl〔定朔〕の朔差または史料の誤記）。日精度をでっち上げず月精度とし太陽暦多数月を採用（姚興は day→month へ格下げ）。
+- **後唐荘宗**: 生日の原文干支「癸亥」は sxtwl では 22 日=癸酉と不一致（癸亥なら 10 月 12 日相当）。日番号を優先し 0885-12-02（通説と一致）。崩御の従来転記「四月一日丁丑」の丁丑も誤記とみられ（四月朔は丁亥）、endDate 一致で 0926-05-15 に確定。
+- **太陽暦年が繰り上がった 3 件**: 宋哲宗の生年（熙寧九年十二月七日 → 1077-01-04）・劉継元の没年（淳化二年十二月癸未 → 0992-01-25）は旧暦 12 月の年またぎによるもの。数え年（年号年ラベル基準）の `accessionAge`/`deathAge` には影響しない。
+- 正規化により `deathDate > endDate` 警告が 40→47 件に増えたのは、新たに機械比較可能になった退位後死去（唐睿宗・後周恭帝・劉鋹・劉継元・孟昶・夏襄宗ら）が正しく可視化されたもので想定どおり。
+
+**申し送り（今回のスコープ外と決めた残警告）**:
+- **datePrecision 非標準トークン（警告、115 件 77 種）**: ages/events の precision 自由記述の正規化は語彙標準の方針確定が先のため未実施（ユーザー判断 2026-07-21）。今回触れた ages フィールド分のみ標準トークン化済み。着手時は `normalizeDatePrecision`（site 側の接頭辞判別）が吸収している実態を壊さないよう、site 表示と検証の両方を確認すること。
+- **deathDate > endDate（警告、47 件）**: 在位終了事由フィールドが無く退位後死去と真の誤りを機械判別できないため見送り（ユーザー判断 2026-07-21）。解消するなら終了事由の新フィールド設計が前提。
 
 ## 重要なファイル
 
