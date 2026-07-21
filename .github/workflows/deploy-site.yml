@@ -5,6 +5,8 @@ on:
     branches: ["main"]
     paths:
       - "site/**"
+      - "data/**"
+      - "docs/site-design/mockups/card-preview/**"
       - ".github/workflows/deploy-site.yml"
   workflow_dispatch:
 
