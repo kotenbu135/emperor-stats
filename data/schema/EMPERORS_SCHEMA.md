@@ -1,6 +1,6 @@
 # `data/emperors.json` スキーマ（現行 v1.1.0）
 
-`data/emperors.json` の現行構造のリファレンス。在位データ（即位日・崩御日・在位期間）調査完了時点（`schemaVersion: "1.1.0"`）のスキーマを記録する。死因スキーマなど今後追加予定のフィールドは [DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md) を参照。
+`data/emperors.json` の現行構造のリファレンス。現行 `schemaVersion` は `"2.0.0"`（2026-07-21、未使用の `sources.wikitextLines` を削除）。死因スキーマなど今後追加予定のフィールドは [DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md) を参照。
 
 トップレベルは `meta`（データセット全体のメタ情報）と `emperors`（人物レコードの配列）の2キー。
 
@@ -117,7 +117,6 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 ### `sources`
 | フィールド | 型 | 内容 |
 |---|---|---|
-| `wikitextLines` | number[] | `中国帝王一覧.wikitext` 内での該当行番号 |
 | `wikidata` | string \| null | Wikidata QID（`Q` + 数字）。365人全員に付与済み（2026-07-21・SPARQL/jawiki記事名逆引き＋目視確認の3パス方式、詳細は docs/PROJECT_STATUS.md） |
 | `cbdb` | null | 将来の CBDB（中国歴代人物伝記データベース）連携用。現状未使用 |
 

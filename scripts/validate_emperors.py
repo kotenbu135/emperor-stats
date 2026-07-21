@@ -382,7 +382,7 @@ def check_forbidden_sources(data):
     かつてはパス列挙方式（deathCause/accessionRoute/events/reigns[].duration）だったが、
     将来 source フィールドを持つ項目が増えたときに検査から漏れるため走査方式に変更した
     （現データの実在パスは列挙時代の対象と完全一致＝挙動は不変）。
-    トップレベル `sources`（wikidata QID・wikitext 行番号）はキー名が異なるため対象外。
+    トップレベル `sources`（wikidata QID）はキー名が異なるため対象外。
     """
 
     def walk(node, path, eid):

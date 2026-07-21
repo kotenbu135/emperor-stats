@@ -87,7 +87,6 @@
 
 ### 出典: `sources`
 
-- `wikitextLines`: 一覧 wikitext 内の行番号
 - `wikidata`: Wikidata へのリンク
 - `cbdb`: 将来の外部データベース連携用（現状は未使用で `null`）
 

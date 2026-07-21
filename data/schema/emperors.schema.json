@@ -304,13 +304,8 @@
 
     "externalSources": {
       "type": "object",
-      "description": "外部識別子・元リスト上の位置。",
+      "description": "外部識別子。",
       "properties": {
-        "wikitextLines": {
-          "type": ["array", "null"],
-          "description": "収録人物リスト構築時に参照した元記事の行番号（内部管理用）。",
-          "items": { "type": "integer" }
-        },
         "wikidata": { "type": ["string", "null"], "pattern": "^Q[0-9]+$", "description": "Wikidata QID。365人全員に付与済み（2026-07-21）。" },
         "cbdb": { "type": ["string", "integer", "null"], "description": "CBDB ID（未紐付け）。" }
       }
