@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import {
   ChartFilterControls,
@@ -67,7 +68,14 @@ export function RestorationTable({
           <TableBody>
             {sorted.map((r) => (
               <TableRow key={r.id}>
-                <TableCell className="align-top">{r.name}</TableCell>
+                <TableCell className="align-top">
+                  <Link
+                    href={`/emperors/${r.id}`}
+                    className="underline-offset-2 hover:text-seal hover:underline focus-visible:outline-2 focus-visible:outline-ring"
+                  >
+                    {r.name}
+                  </Link>
+                </TableCell>
                 <TableCell className="align-top text-muted-foreground">
                   {r.dynastyLabel}
                 </TableCell>
