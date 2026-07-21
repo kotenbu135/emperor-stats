@@ -124,6 +124,7 @@
 - [x] スキーマ拡張の設計確定: `source` に `quote`（日付根拠の正史原文）と `conversion`（旧暦→西暦の換算典拠・既存日付との照合結果）を追加。旧 Wikipedia 出典は `secondary` に降格せず削除する。`startDateRaw`/`endDateRaw` は原典で確定できた分すべて埋める。`data/schema/EMPERORS_SCHEMA.md`・`docs/schema/SCHEMA_OVERVIEW.md` に反映済み
 - [x] 検出スクリプトの判定ロジックを修正: `lang` による推定をやめ `page` のみで判定（複合 lang `ja/zh` や `baike` を取りこぼし、完了判定が実態より甘くなっていた）。真の残件数 288→350 に是正。「正史範囲外」明示表記と、個別確認済みの非正史学術典拠4件は許容リストで除外
 - [x] **ブロック1（秦・前漢・新・玄漢・後漢／34件）完了**。正史の干支日を採取し `sxtwl` で換算・突合。この過程で西暦日付の誤り8件を訂正し `exactDays` 4件を再計算（内訳は `meta.reignDurationSourceBlocks` と `docs/PROJECT_STATUS.md`「出典 QA」節）
+- [x] **ブロック1フォローアップ（2026-07-21）**: `endDate` 訂正時に `ages.deathDate` の同期漏れ4件（始皇帝・二世皇帝・武帝・宣帝、personJsonLd の `deathDate` に旧値が出ていた）＋始皇帝のみ `ages.birthDate` が歴史年表記だった件を訂正（詳細 `meta.reignDurationSourceBlocks[0].agesSyncCorrections`）。**以後のブロックで日付を訂正する際は `ages.*`・note 内の日付引用の同時更新をチェックリストに含める**
 - [ ] `_corpus_cache` 未生成の150人分を先行生成（三国以降のブロックに必要）
 - [ ] ブロック2以降（三国11・両晋十六国・南朝34・北朝28・隋唐34・五代十国33・宋遼西夏金50・元18・明21・清15・明清交替期ほか）の原典突合。既存の`startDate`/`endDate`は原則変更せず、正史の干支と食い違う場合は個別に提示して承認を得る
 - [ ] B-4: `site/src/lib/emperors.ts` の `sourceLabelOf` の暫定コメント削除・`quote`/`conversion` の表示検討、`/about` の方法論記述に暦変換の説明を追加（フェーズB完了後）
@@ -142,6 +143,7 @@
 
 ### 3-3. QA の恒久化（CI）
 - [ ] `data/emperors.json` へのバリデーションを GitHub Actions CI に: スキーマ適合・日付整合（即位≦退位≦崩御）・精度フラグと日付形式の一致・画像 URL 重複・出典フィールドの禁止語（Wikipedia 記事名パターン）・slug 一意性・前後ナビの連結整合
+- [ ] **`ages.deathDate` と最終 `reigns[].endDate` の整合チェック**（ブロック1フォローアップで実在した同期漏れの再発防止。退位後に死去した皇帝は `deathDate > endDate` が正当なので「`deathDate < endDate` はエラー、在位中崩御（最終 reign が退位でない）なのに不一致は警告」の2段階が現実的）
 - [ ] **スキーマ適合チェックの素材は 2-1 で用意済み**: `data/schema/emperors.schema.json`＋`jsonschema` ライブラリ（検証コードは数行）。現状エラー0。ただし**このスキーマが検出するのは値の妥当性（enum・型・精度フラグ）だけ**で、キーの改名・欠落・typo は素通りする（配布用として意図的に寛容にしてある＝`additionalProperties: false` なし・大半が optional。厳しくすると実データを弾く）。**構造ドリフトを CI で捕まえるには、CI 専用に `additionalProperties: false` 版を別途用意する必要がある** — この行を根拠に構造崩れを見逃さないこと
 - [ ] **`confidence: ""`（空文字）4件の検出・確定**（2-1 のスキーマ検証で判明。`yuan-shizu` の親征、`yuanmo-xushouhui` の親征・鎮圧・被反乱）。`high`/`medium`/`low` への確定は調査判断が必要。CI 側は「confidence が空文字でない」チェックを入れる
 - [ ] **`ages`・`events[]` の `datePrecision` 表記ゆれ**（`unknown`・`none`・`lunar-day`・`conflicting`・括弧注記つき `day（…）` が混在。`reigns[]` は3値に統一済み）。正規化するか、先頭トークン＋注記の2フィールドに分けるかは要方針判断。当面は CI で「先頭トークンが day/month/year/unknown のいずれか」を検査する程度に留めるのが現実的
