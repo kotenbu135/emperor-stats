@@ -5,6 +5,7 @@
 // チャート本体から分離する。
 
 import { Fragment, type ReactNode } from "react";
+import Link from "next/link";
 import { TableDetails } from "@/components/charts/scroll-bar-chart";
 import {
   Table,
@@ -93,13 +94,18 @@ export function TimelineTable({
                             {i > 0 && (
                               <span className="text-muted-foreground">・</span>
                             )}
-                            <button
-                              type="button"
+                            <Link
+                              href={`/emperors/${record.id}`}
                               className="cursor-pointer underline decoration-border underline-offset-2 hover:text-seal"
-                              onClick={() => openDetail(record)}
+                              onClick={(e) => {
+                                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0)
+                                  return;
+                                e.preventDefault();
+                                openDetail(record);
+                              }}
                             >
                               {record.name}
-                            </button>
+                            </Link>
                           </Fragment>
                         );
                       })}

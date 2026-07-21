@@ -5,6 +5,7 @@
 // モノグラムをプレースホルダー表示する。カードを押すと詳細ダイアログを開く。
 
 import { memo, useCallback, useDeferredValue, useMemo, useState } from "react";
+import Link from "next/link";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
@@ -44,10 +45,17 @@ const EmperorCard = memo(function EmperorCard({
   onSelect: (record: EmperorRecord) => void;
 }) {
   return (
-    <button
-      type="button"
-      onClick={() => onSelect(record)}
-      className="group overflow-hidden rounded-md border border-border bg-background text-left transition-colors hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring"
+    // クローラが一覧→個別365ページを辿れるよう実DOMに<a href>を出す。素の左クリックは
+    // preventDefaultして従来どおり詳細ダイアログを開き、修飾クリック（新規タブ等）は
+    // ブラウザに委ねて個別ページへ遷移させる（progressive enhancement）。
+    <Link
+      href={`/emperors/${record.id}`}
+      onClick={(e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+        e.preventDefault();
+        onSelect(record);
+      }}
+      className="group block overflow-hidden rounded-md border border-border bg-background text-left transition-colors hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring"
     >
       <div className="relative aspect-[3/4] w-full overflow-hidden">
         <Portrait
@@ -64,7 +72,7 @@ const EmperorCard = memo(function EmperorCard({
           {record.dynastyLabel}
         </div>
       </div>
-    </button>
+    </Link>
   );
 });
 
