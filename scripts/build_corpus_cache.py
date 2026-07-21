@@ -49,6 +49,15 @@ HANSHU_ZHUAN_DIR = CHINA_HISTORY / "汉书" / "传"
 HOUHAN_LIEZHUAN_DIR = CHINA_HISTORY / "后汉书" / "列传"
 JIN_BENJI_DIR = CHINA_HISTORY / "晋书" / "帝纪"
 
+# 三国志（魏・蜀漢・呉）
+SANGUO_WEI_DIR = CHINA_HISTORY / "三国志" / "魏书"
+SANGUO_SHU_DIR = CHINA_HISTORY / "三国志" / "蜀书"
+SANGUO_WU_DIR = CHINA_HISTORY / "三国志" / "吴书"
+
+# 両晋帝紀（西晋・東晋）
+JIN_BENJI_DIR2 = CHINA_HISTORY / "晋书" / "帝纪"
+DAIZHI_WEISHU_FILE = DAIZHI / "魏书.txt"
+
 # 五胡十六国（daizhigev20の晋書載記・十六国春秋・資治通鑑を使用）
 DAIZHI_JINSHU_FILE = DAIZHI / "晋书.txt"
 SHILIUGUO_CHUNQIU_FILE = ROOT / "daizhigev20" / "史藏" / "载记" / "十六国春秋.txt"
@@ -70,6 +79,12 @@ DAIZHI_LIANGSHU_FILE = DAIZHI / "梁书.txt"
 DAIZHI_BEIQISHU_FILE = DAIZHI / "北齐书.txt"
 DAIZHI_BEISHI_FILE = DAIZHI / "北史.txt"
 DAIZHI_SUISHU_FILE = DAIZHI / "隋书.txt"
+QI_BENJI_DIR = CHINA_HISTORY / "南齐书" / "本纪"
+DAIZHI_ZHOUSHU_FILE = DAIZHI / "周书.txt"
+SUI_BENJI_DIR = CHINA_HISTORY / "隋书" / "帝纪"
+JIUTANGSHU_LIEZHUAN_DIR = CHINA_HISTORY / "旧唐书" / "列传"
+TANGSHU_BENJI_DIR = CHINA_HISTORY / "旧唐书" / "本纪"
+DAIZHI_XINTANGSHU_FILE = DAIZHI / "新唐书.txt"
 
 _JUAN_NUMERALS = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十",
                    "十一", "十二"]
@@ -648,6 +663,82 @@ def build_yuanmo():
     return out
 
 
+def build_sanguo():
+    """三国志（魏5・蜀漢2・呉4名）。china-history/三国志/{魏書,蜀書,呉書}を使用。
+    魏書四(三少帝紀)・呉書三(三嗣主傳)はマーカー文字列で3分割する。"""
+    out = {}
+
+    out["wei-wendi"] = read_html(SANGUO_WEI_DIR / "第二章-文帝纪-原文.html")
+    out["wei-mingdi"] = read_html(SANGUO_WEI_DIR / "第三章-明帝纪-原文.html")
+
+    sanshaodi = read_html(SANGUO_WEI_DIR / "第四章-少帝纪-原文.html")
+    caofang_part, rest = split_at(sanshaodi, "高贵乡公讳髦")
+    caomao_part, yuandi_part = split_at(
+        rest, "使使持节行中护军中垒将军司马炎北迎常道乡公")
+    out["wei-caofang"] = caofang_part
+    out["wei-caomao"] = caomao_part
+    out["wei-yuandi"] = yuandi_part
+
+    out["shuhan-zhaoliedi"] = read_html(SANGUO_SHU_DIR / "第二章-先主传-原文.html")
+    out["shuhan-liushan"] = read_html(SANGUO_SHU_DIR / "第三章-后主传-原文.html")
+
+    out["wu-dadi"] = read_html(SANGUO_WU_DIR / "第二章-吴主传-原文.html")
+
+    sansizhu = read_html(SANGUO_WU_DIR / "第三章-三嗣主传-原文.html")
+    sunliang_part, rest2 = split_at(sansizhu, "孙休字子烈")
+    jingdi_part, modi_part = split_at(rest2, "孙皓字元宗")
+    out["wu-sunliang"] = sunliang_part
+    out["wu-jingdi"] = jingdi_part
+    out["wu-modi"] = modi_part
+
+    return out
+
+
+def build_liangjin():
+    """西晋4名・東晋11名。china-history/晋书/帝纪(第三〜九章)を使用。
+    第十章(安帝・恭帝)は白話訳のため daizhi晋书.txt 帝紀第十(行397〜428)を使う
+    （2026-07-21実地確認、CORPUS_NOTES.mdの既知の罠）。"""
+    out = {}
+
+    out["jin-wudi"] = read_html(JIN_BENJI_DIR2 / "第三章--原文.html")
+    out["jin-huidi"] = read_html(JIN_BENJI_DIR2 / "第四章--原文.html")
+
+    juan5 = read_html(JIN_BENJI_DIR2 / "第五章--原文.html")
+    out["jin-huaidi"], out["jin-mindi"] = split_at(juan5, "孝愍皇帝讳鄴")
+
+    juan6 = read_html(JIN_BENJI_DIR2 / "第六章--原文.html")
+    out["dongjin-yuandi"], out["dongjin-mingdi"] = split_at(juan6, "明皇帝讳绍")
+
+    juan7 = read_html(JIN_BENJI_DIR2 / "第七章--原文.html")
+    out["dongjin-chengdi"], out["dongjin-kangdi"] = split_at(juan7, "康皇帝讳岳")
+
+    juan8 = read_html(JIN_BENJI_DIR2 / "第八章--原文.html")
+    mudi_part, rest8 = split_at(juan8, "哀皇帝讳丕")
+    aidi_part, feidi_part = split_at(rest8, "废帝讳奕")
+    out["dongjin-mudi"] = mudi_part
+    out["dongjin-aidi"] = aidi_part
+    out["dongjin-feidi"] = feidi_part
+
+    juan9 = read_html(JIN_BENJI_DIR2 / "第九章--原文.html")
+    out["dongjin-jianwendi"], out["dongjin-xiaowudi"] = split_at(juan9, "孝武皇帝讳曜")
+
+    jinshu = DAIZHI_JINSHU_FILE.read_text(encoding="utf-8")
+    jinshu_lines = jinshu.splitlines()
+    juan10 = "\n".join(jinshu_lines[396:428]).strip()  # 帝紀第十、行397〜428(1-indexed)
+    out["dongjin-andi"], out["dongjin-gongdi"] = split_at(juan10, "恭帝讳德文")
+
+    return out
+
+
+def build_huanxuan():
+    """楚（桓楚） 桓玄。晋書 列伝第六十九（daizhi晋书.txt、行7426〜7461、
+    自身の伝のみ。附伝の卞範之・殷仲文は対象外）。"""
+    jinshu = DAIZHI_JINSHU_FILE.read_text(encoding="utf-8")
+    return {
+        "huan-xuan": slice_between(jinshu, "桓玄，字敬道", "桓氏遂灭。"),
+    }
+
+
 def build_qin_xinmo_gengshi_jin():
     """秦2名・新末群雄5名・玄漢(更始)1名・西晋(趙王倫)1名の計9名。
     史記・漢書・後漢書列伝・晋書帝紀から抽出する。"""
@@ -787,6 +878,364 @@ def build_wuhu_shiliuguo():
     out["qianqin-fuchong"] = slgcq_lines[598].strip()  # 巻四十 前秦録九、行599(1-indexed)
     out["xia-helianchang"] = "\n".join(slgcq_lines[1186:1190]).strip()  # 巻六十七 夏録二、行1187-1190
     out["xia-heliading"] = "\n".join(slgcq_lines[1193:1197]).strip()  # 巻六十八 夏録三、行1194-1197
+
+    return out
+
+
+def build_shiliuguo_extra():
+    """十六国追加21名（前燕2・成漢4・後趙3・前秦3・後燕4・南燕2・後秦3）。
+    daizhigev20 晋书.txt 載記を使用（build_wuhu_shiliuguo()と同じ一次史料）。
+    2026-07-21実地確認。慕容暐の名は原文中PUA文字(U+E449)のため、マーカー
+    文字列からは慕容暐本人の名を除いて回避した（既存の南漢劉龑と同じ回避策）。"""
+    out = {}
+    jinshu = DAIZHI_JINSHU_FILE.read_text(encoding="utf-8")
+
+    # 前燕 慕容儁（載記十）
+    out["qianyan-murongjun"] = slice_between(
+        jinshu, "慕容俊，字宣英，皝之第二子也。", "载记第十一")[:-len("载记第十一")].strip()
+
+    # 前燕 慕容暐（載記十一。恪の摂政・慕輿根の乱等、暐の在位期間の記述を含む）
+    out["qianyan-murongwei"] = slice_between(
+        jinshu, "字景茂，俊第三子也。", "阳骛，字士秋，右北平无终人也。")
+
+    # 成漢 李雄・李班・李期・李壽（載記二十一、既存chenghan-lishiと同載記）
+    out["chenghan-lixiong"] = slice_between(
+        jinshu, "李雄，字仲俊，特第三子也。", "班字世文。")
+    out["chenghan-liban"] = slice_between(
+        jinshu, "班字世文。", "期字世运，雄第四子也。")
+    out["chenghan-liqi"] = slice_between(
+        jinshu, "期字世运，雄第四子也。", "寿字武考，骧之子也。")
+    out["chenghan-lishou"] = slice_between(
+        jinshu, "寿字武考，骧之子也。", "势字子仁，寿之长子也")
+
+    # 後趙 石勒（載記四〜五）・石弘（載記五末尾に埋め込み）・石世（載記六末尾に埋め込み）
+    out["houzhao-shile"] = slice_between(
+        jinshu, "石勒字世龙", "弘字大雅，勒之第二子也。")
+    out["houzhao-shihong"] = slice_between(
+        jinshu, "弘字大雅，勒之第二子也。", "在位二年，时年二十二。")
+    out["houzhao-shishi"] = slice_between(
+        jinshu, "于是世即伪位", "世凡立三十三日。")
+
+    # 前秦 苻健（載記十二）・苻生（載記十二）・苻登（載記十五）
+    out["qianqin-fujian"] = slice_between(
+        jinshu, "苻健，字建业，洪第三子也。", "生字长生，健第三子也。")
+    out["qianqin-fusheng"] = slice_between(
+        jinshu, "生字长生，健第三子也。",
+        "生临死犹饮酒数斗，昏醉无所知矣。时年二十三，在位二年，伪谥厉王。")
+    out["qianqin-fudeng"] = slice_between(
+        jinshu, "登字文高，坚之族孙也。",
+        "始，健以穆帝永和七年僭立，至登五世，凡四十有四岁，以孝武帝太元十九年灭。")
+
+    # 後燕 慕容垂・慕容宝・慕容盛・慕容熙（載記二十三〜二十四）
+    out["houyan-murongchui"] = slice_between(
+        jinshu, "慕容垂，字道明，皝之第五子也。", "慕容宝，字道祐，垂之第四子也。")
+    out["houyan-murongbao"] = slice_between(
+        jinshu, "慕容宝，字道祐，垂之第四子也。", "盛字道运，宝之庶长子也。")
+    out["houyan-murongsheng"] = slice_between(
+        jinshu, "盛字道运，宝之庶长子也。", "熙字道文，垂之少子也。")
+    out["houyan-murongxi"] = slice_between(
+        jinshu, "熙字道文，垂之少子也。", "云葬之于苻氏墓，伪谥昭文皇帝。")
+
+    # 南燕 慕容徳・慕容超（載記二十七〜二十八）
+    out["nanyan-murongde"] = slice_between(
+        jinshu, "慕容德，字玄明，皝之少子也", "慕容超字祖明")
+    out["nanyan-murongchao"] = slice_between(
+        jinshu, "慕容超字祖明", "载记第二十九")[:-len("载记第二十九")].strip()
+
+    # 後秦 姚萇（載記十六）・姚興（載記十七〜十八）・姚泓（載記十九）
+    out["houqin-yaochang"] = slice_between(
+        jinshu, "苌字景茂，弋仲第二十四子也。",
+        "以太元十八年死，时年六十四，在位八年。伪谥武昭皇帝，庙号太祖，墓称原陵。")
+    out["houqin-yaoxing"] = slice_between(
+        jinshu, "姚兴，字子略，苌之长子也。", "姚泓，字元子，兴之长子也。")
+    out["houqin-yaohong"] = slice_between(
+        jinshu, "姚泓，字元子，兴之长子也。", "载记第二十")[:-len("载记第二十")].strip()
+
+    return out
+
+
+def build_liusong_qi():
+    """劉宋10名（義嘉政権を含む）・南齊7名。china-history/宋书/本纪(巻1-10)・
+    南齐书/本纪(巻1-8)を使用。義嘉政権(劉子勛)は本紀を持たず宋書列伝80
+    （daizhi宋书.txt、2026-07-21実地確認）。"""
+    out = {}
+
+    out["liu-song-wudi"] = read_juan_range(SONGSHU_BENJI_DIR, 1, 3)
+    out["liu-song-shaodi"] = read_juan_range(SONGSHU_BENJI_DIR, 4, 4)
+    out["liu-song-wendi"] = read_juan_range(SONGSHU_BENJI_DIR, 5, 5)
+    out["liu-song-xiaowudi"] = read_juan_range(SONGSHU_BENJI_DIR, 6, 6)
+    out["liu-song-qianfeidi"] = read_juan_range(SONGSHU_BENJI_DIR, 7, 7)
+    out["liu-song-mingdi"] = read_juan_range(SONGSHU_BENJI_DIR, 8, 8)
+    out["liu-song-houfeidi"] = read_juan_range(SONGSHU_BENJI_DIR, 9, 9)
+    out["liu-song-shundi"] = read_juan_range(SONGSHU_BENJI_DIR, 10, 10)
+
+    songshu = DAIZHI_SONGSHU_FILE.read_text(encoding="utf-8")
+    out["liu-song-liuzixun"] = slice_between(
+        songshu, "晋安王子勋，字孝德", "子勋死时，年十一，即葬寻阳庐山。")
+
+    out["qi-gaodi"] = read_juan_range(QI_BENJI_DIR, 1, 2)
+    out["qi-wudi"] = read_juan_range(QI_BENJI_DIR, 3, 3)
+    out["qi-yulinwang"] = read_juan_range(QI_BENJI_DIR, 4, 4)
+    out["qi-hailingwang"] = read_juan_range(QI_BENJI_DIR, 5, 5)
+    out["qi-mingdi"] = read_juan_range(QI_BENJI_DIR, 6, 6)
+    out["qi-donghunhou"] = read_juan_range(QI_BENJI_DIR, 7, 7)
+    out["qi-hedi"] = read_juan_range(QI_BENJI_DIR, 8, 8)
+
+    return out
+
+
+def build_liang_chen_houliang():
+    """梁5名（益州政権含む）・陳4名・後梁（西梁）2名。china-history/梁书/原文版梁书
+    (巻1-6)・陈书/原文版陈书(巻1-6)を使用。益州政権(蕭紀)は梁書列伝55
+    （daizhi梁书.txt）、後梁2名は周書巻48列傳40（daizhi周书.txt、蕭詧は
+    「萧察」表記、2026-07-21実地確認）。"""
+    out = {}
+
+    out["liang-wudi"] = read_kanji_juan_file(LIANGSHU_DIR, 1) + "\n\n" + \
+        read_kanji_juan_file(LIANGSHU_DIR, 2) + "\n\n" + read_kanji_juan_file(LIANGSHU_DIR, 3)
+    out["liang-jianwendi"] = read_kanji_juan_file(LIANGSHU_DIR, 4)
+    out["liang-yuandi"] = read_kanji_juan_file(LIANGSHU_DIR, 5)
+    out["liang-jingdi"] = read_kanji_juan_file(LIANGSHU_DIR, 6)
+
+    liangshu = DAIZHI_LIANGSHU_FILE.read_text(encoding="utf-8")
+    out["liang-xiaoji"] = slice_between(
+        liangshu, "武陵王纪，字世询", "临贺王正德，字公和")[:-len("临贺王正德，字公和")].strip()
+
+    out["chen-wudi"] = read_kanji_juan_file(CHENSHU_DIR, 2)
+    out["chen-feidi"] = read_kanji_juan_file(CHENSHU_DIR, 4)
+    out["chen-xuandi"] = read_kanji_juan_file(CHENSHU_DIR, 5)
+    out["chen-houzhu"] = read_kanji_juan_file(CHENSHU_DIR, 6)
+
+    zhoushu = DAIZHI_ZHOUSHU_FILE.read_text(encoding="utf-8")
+    out["houliang-xuandi"] = slice_between(
+        zhoushu, "萧察字理孙，兰陵人也", "岿字仁远，察之第三子也。")
+    out["houliang-mingdi"] = slice_between(
+        zhoushu, "岿字仁远，察之第三子也。",
+        "岿在位二十三载，年四十四，五年五月薨。其群臣葬之于显陵，谥曰孝（文）〔明〕皇帝，庙号世宗。")
+
+    return out
+
+
+def build_beiwei_dongwei():
+    """北魏14名・東魏1名。china-history/魏书/帝纪(巻1-12、ファイル名の巻数＝絶対巻数、
+    2026-07-21実地確認)を使用。列傳(元愉・元法僧)はchina-historyの相対番号が
+    未確認のため daizhi魏书.txt を使用。"""
+    out = {}
+
+    out["beiwei-daowudi"] = read_juan_range(WEISHU_BENJI_DIR, 2, 2)
+    out["beiwei-mingyuandi"] = read_juan_range(WEISHU_BENJI_DIR, 3, 3)
+    out["beiwei-taiwudi"] = read_juan_range(WEISHU_BENJI_DIR, 4, 4)
+    out["beiwei-wenchengdi"] = read_juan_range(WEISHU_BENJI_DIR, 5, 5)
+    out["beiwei-xiandi"] = read_juan_range(WEISHU_BENJI_DIR, 6, 6)
+    out["beiwei-xiaowendi"] = read_juan_range(WEISHU_BENJI_DIR, 7, 7)
+    out["beiwei-xuanwudi"] = read_juan_range(WEISHU_BENJI_DIR, 8, 8)
+    out["beiwei-xiaomingdi"] = read_juan_range(WEISHU_BENJI_DIR, 9, 9)
+    out["beiwei-xiaozhuangdi"] = read_juan_range(WEISHU_BENJI_DIR, 10, 10)
+
+    juan11 = read_juan_range(WEISHU_BENJI_DIR, 11, 11)
+    jiemindi_part, rest11 = split_at(juan11, "后废帝，讳朗")
+    houfeidi_part, xiaowudi_part = split_at(rest11, "出帝，讳修")
+    out["beiwei-jiemindi"] = jiemindi_part
+    out["beiwei-houfeidi-yuanlang"] = houfeidi_part
+    out["beiwei-xiaowudi"] = xiaowudi_part
+
+    out["dongwei-xiaojingdi"] = read_juan_range(WEISHU_BENJI_DIR, 12, 12)
+
+    # 元愉(京兆王): 魏書 列傳第十章(孝文五王)
+    juan10_liezhuan = read_html(WEISHU_LIEZHUAN_DIR / "第十章-卷十-原文.html")
+    out["beiwei-yuanyu"] = slice_between(
+        juan10_liezhuan, "京兆王愉，字宣德。", "乃改葬父母，追服三年。")
+
+    # 元法僧(道武七王・江陽王附傳): china-historyの魏書列傳ディレクトリは
+    # ファイル名の巻数が絶対巻数と一致しない相対番号の疑いがあり(2026-07-21、
+    # 「第十六章」＝「和跋等列傳」で「道武七王」ではないことを確認)、
+    # 該当ファイルを未特定のため daizhi魏书.txt を使用。
+    weishu_daizhi = DAIZHI_WEISHU_FILE.read_text(encoding="utf-8")
+    out["beiwei-yuanfasheng"] = slice_between(
+        weishu_daizhi, "法寿弟法僧，", "法僧携诸子，拥掠城内及文武，南奔萧衍。")
+
+    return out
+
+
+def build_beiqi_xiwei_beizhou():
+    """北斉5名・西魏1名・北周4名。china-history/北齐书/原文版北齐书(巻4-8)・
+    周书/原文版周书(巻4-8)を使用。西魏文帝は既存BEISHI_DIR巻5(北史・魏本紀)を
+    再利用（西魏の本紀は魏書に立てられないため北史を使う運用ルール）。"""
+    out = {}
+
+    out["beiqi-wenxuandi"] = read_kanji_juan_file(BEIQISHU_DIR, 4)
+    out["beiqi-feidi-gaoyin"] = read_kanji_juan_file(BEIQISHU_DIR, 5)
+    out["beiqi-xiaozhaodi"] = read_kanji_juan_file(BEIQISHU_DIR, 6)
+    out["beiqi-wuchengdi"] = read_kanji_juan_file(BEIQISHU_DIR, 7)
+
+    juan8 = read_kanji_juan_file(BEIQISHU_DIR, 8)
+    out["beiqi-youzhu-gaoheng"] = slice_from(juan8, "幼主名恒，帝之长子也。")
+
+    beishi5 = read_kanji_juan_file(BEISHI_DIR, 5)
+    out["xiwei-wendi"] = slice_between(beishi5, "文皇帝讳宝炬", "废帝讳钦，文皇帝之长子也。")
+
+    out["beizhou-mingdi"] = read_kanji_juan_file(ZHOUSHU_DIR, 4)
+    out["beizhou-wudi"] = read_kanji_juan_file(ZHOUSHU_DIR, 5) + "\n\n" + \
+        read_kanji_juan_file(ZHOUSHU_DIR, 6)
+    out["beizhou-xuandi"] = read_kanji_juan_file(ZHOUSHU_DIR, 7)
+    out["beizhou-jingdi"] = read_kanji_juan_file(ZHOUSHU_DIR, 8)
+
+    return out
+
+
+def build_sui():
+    """隋5名。china-history/隋书/帝纪(巻1-5)を使用。恭帝侗(越王侗)・秦王楊浩は
+    china-history隋书に列傳ディレクトリがないため daizhi隋书.txt を使用。"""
+    out = {}
+
+    out["sui-wendi"] = read_juan_range(SUI_BENJI_DIR, 1, 2)
+    out["sui-yangdi"] = read_juan_range(SUI_BENJI_DIR, 3, 4)
+    out["sui-gongdi-you"] = read_juan_range(SUI_BENJI_DIR, 5, 5)
+
+    suishu = DAIZHI_SUISHU_FILE.read_text(encoding="utf-8")
+    out["sui-gongdi-tong"] = slice_between(
+        suishu, "越王侗字仁谨", "世充伪谥为恭皇帝。")
+    out["sui-yanghao"] = slice_between(
+        suishu, "炀帝即位，立浩为秦王，以奉孝王嗣。", "亦为化及所害。")
+
+    return out
+
+
+def build_suimo():
+    """隋末群雄12名。旧唐書列傳（china-history/旧唐书/列传）を使用。
+    china-historyのファイル名は相対番号（絶対巻数-50、本紀20+志30の分を差し引いた
+    もの）であることを2026-07-21実地確認（例: 第四章＝絶対巻五十四＝王世充傳）。
+    宇文化及のみ旧唐書に独立伝がなく隋書（daizhi）を使用。"""
+    out = {}
+
+    suishu = DAIZHI_SUISHU_FILE.read_text(encoding="utf-8")
+    out["suimo-yuwenhuaji"] = slice_between(
+        suishu, "宇文化及，左翊卫大将军述之子也。", "○王世充　段达")
+
+    juan_rel4 = read_html(JIUTANGSHU_LIEZHUAN_DIR / "第四章-卷四-原文.html")
+    out["suimo-wangshichong"] = slice_between(
+        juan_rel4, "王世充，字行满", "窦建德，贝州漳南人也")
+
+    juan_rel5 = read_html(JIUTANGSHU_LIEZHUAN_DIR / "第五章-卷五-原文.html")
+    out["suimo-xueju"] = slice_between(
+        juan_rel5, "薛举，河东汾阴人也", "举死，仁杲立于折墌城")
+    out["suimo-xuerengao"] = slice_between(
+        juan_rel5, "举死，仁杲立于折墌城", "李轨，字处则")
+    out["suimo-liqui"] = slice_between(
+        juan_rel5, "李轨，字处则", "刘武周，河间景城人。")
+    out["suimo-liuwuzhou"] = slice_between(
+        juan_rel5, "刘武周，河间景城人。", "高开道，沧州阳信人也。")
+
+    juan_rel6 = read_html(JIUTANGSHU_LIEZHUAN_DIR / "第六章-卷六-原文.html")
+    out["suimo-xiaoxian"] = slice_between(
+        juan_rel6, "萧铣，后梁宣帝曾孙也", "铣自初起")
+    out["suimo-fugongshi"] = slice_between(
+        juan_rel6, "辅公祏，齐州临济人。", "公祏与伏威同起，至灭凡十三载，江东悉平。")
+    out["suimo-lizitong"] = slice_between(
+        juan_rel6, "李子通，东海丞人也", "与伯通俱伏诛。")
+    out["suimo-zhucan"] = slice_between(
+        juan_rel6, "硃粲者，亳州城父人也。", "林士弘者，饶州鄱阳人也。")
+    out["suimo-linshihong"] = slice_between(
+        juan_rel6, "林士弘者，饶州鄱阳人也。", "张善安者，兗州方与人也。")
+    out["suimo-liangshidu"] = slice_between(
+        juan_rel6, "梁师都，夏州朔方人也。", "师都自起至灭")
+
+    return out
+
+
+def build_tang_benji():
+    """唐本紀24名+則天武后+殤帝+徳王裕+李承宏。china-history/旧唐书/本纪(巻1-20)
+    を使用。複数皇帝が同居する巻(7・14・17・18・19・20)はマーカーで分割。
+    殤帝(重茂)は帝紀に独立記述がなく列傳(相対巻36＝絶対巻86)を使用。
+    徳王裕・李承宏は旧唐書に独立伝がなく新唐書(daizhi)を使用。"""
+    out = {}
+
+    out["tang-gaozu"] = read_juan_range(TANGSHU_BENJI_DIR, 1, 1)
+    out["tang-taizong"] = read_juan_range(TANGSHU_BENJI_DIR, 2, 3)
+    out["tang-gaozong"] = read_juan_range(TANGSHU_BENJI_DIR, 4, 5)
+    out["tang-wuzetian"] = read_juan_range(TANGSHU_BENJI_DIR, 6, 6)
+
+    juan7 = read_juan_range(TANGSHU_BENJI_DIR, 7, 7)
+    zhongzong_part, ruizong_part = split_at(juan7, "睿宗玄真大圣大兴孝皇帝")
+    out["tang-zhongzong"] = zhongzong_part
+    out["tang-ruizong"] = ruizong_part
+
+    out["tang-xuanzong"] = read_juan_range(TANGSHU_BENJI_DIR, 8, 9)
+    out["tang-suzong"] = read_juan_range(TANGSHU_BENJI_DIR, 10, 10)
+    out["tang-daizong"] = read_juan_range(TANGSHU_BENJI_DIR, 11, 11)
+    out["tang-dezong"] = read_juan_range(TANGSHU_BENJI_DIR, 12, 13)
+
+    juan14 = read_juan_range(TANGSHU_BENJI_DIR, 14, 14)
+    shunzong_part, xianzong_part14 = split_at(juan14, "宪宗圣神章武孝皇帝讳纯")
+    out["tang-shunzong"] = shunzong_part
+    out["tang-xianzong"] = xianzong_part14 + "\n\n" + read_juan_range(TANGSHU_BENJI_DIR, 15, 15)
+
+    out["tang-muzong"] = read_juan_range(TANGSHU_BENJI_DIR, 16, 16)
+
+    juan17 = read_juan_range(TANGSHU_BENJI_DIR, 17, 17)
+    jingzong_part, wenzong_part = split_at(juan17, "文宗元圣昭献孝皇帝讳昂")
+    out["tang-jingzong"] = jingzong_part
+    out["tang-wenzong"] = wenzong_part
+
+    juan18 = read_juan_range(TANGSHU_BENJI_DIR, 18, 18)
+    wuzong_part, xuanzong2_part = split_at(juan18, "宣宗圣武献文孝皇帝讳忱")
+    out["tang-wuzong"] = wuzong_part
+    out["tang-xuanzong-2"] = xuanzong2_part
+
+    juan19 = read_juan_range(TANGSHU_BENJI_DIR, 19, 19)
+    yizong_part, xizong_part = split_at(juan19, "僖宗惠圣恭定孝皇帝讳儇")
+    out["tang-yizong"] = yizong_part
+    out["tang-xizong"] = xizong_part
+
+    juan20 = read_juan_range(TANGSHU_BENJI_DIR, 20, 20)
+    zhaozong_part, aidi_part = split_at(juan20, "哀皇帝讳柷")
+    out["tang-zhaozong"] = zhaozong_part
+    out["tang-aidi"] = aidi_part
+
+    # 殤帝(重茂): 帝紀第七章(中宗睿宗紀)には独立記述がなく、列傳(相対巻三十六＝
+    # 絶対巻八十六、高宗中宗諸子)にのみ独立伝がある(2026-07-21実地確認)。
+    juan_rel36 = read_html(JIUTANGSHU_LIEZHUAN_DIR / "第三十六章-卷三十六-原文.html")
+    out["tang-shangdi"] = slice_from(juan_rel36, "殇皇帝重茂，中宗第四子也。")
+
+    # 徳王裕(李裕)・李承宏: 旧唐書に独立伝がなく、新唐書(daizhi)を使用。
+    xintangshu = DAIZHI_XINTANGSHU_FILE.read_text(encoding="utf-8")
+    out["tang-lige"] = slice_between(
+        xintangshu, "德王裕，大顺二年始王。", "皆杀之，投尸水中。")
+    out["tangmo-li-chenghong"] = slice_between(
+        xintangshu, "承宏，爵广武王", "诏放承宏于华州，死。")
+
+    # 襄王李熅: 新唐書「十一宗諸子」に独立伝が見当たらない(2026-07-21実地確認、
+    # 巻82は憲宗〜僖宗の実子の列伝で、皇族傍系の熅は対象外の可能性)。
+    # 僖宗紀(daizhi新唐書)の該当期間の記述で代替する（他の事件記事が混在、限界として記録）。
+    out["tangmo-li-yun"] = slice_between(
+        xintangshu, "硃玫以嗣襄王煴入于京师", "丁巳。煴伏诛。")
+
+    return out
+
+
+def build_tangmo_nichen():
+    """唐反乱政権7名（安禄山・安慶緒・史思明・史朝義・朱泚・李希烈・黄巣）。
+    旧唐書列傳（相対巻150＝絶対巻200上「逆臣上」・相対巻95＝絶対巻145）を使用。
+    安慶緒・史朝義は独立した伝を持たず父の伝に埋め込まれるため重複許容。"""
+    out = {}
+
+    juan_rel150 = read_html(JIUTANGSHU_LIEZHUAN_DIR / "第一百五十章-卷一百五十-原文.html")
+    out["tangmo-anlushan"] = slice_between(
+        juan_rel150, "安禄山，营州柳城杂种胡人也", "禄山父子僭逆三年而灭。")
+    out["tangmo-anqingxu"] = slice_between(
+        juan_rel150, "立庆绪于户外", "禄山父子僭逆三年而灭。")
+    out["tangmo-shisiming"] = slice_between(
+        juan_rel150, "史思明，本名窣干。", "思明乾元二年僭号，至朝义宝应元年灭，凡四年。")
+    out["tangmo-shichaoyi"] = slice_between(
+        juan_rel150, "朝义，思明孽子也。", "思明乾元二年僭号，至朝义宝应元年灭，凡四年。")
+    out["tangmo-zhuci"] = slice_between(
+        juan_rel150, "硃泚，幽州昌平人。", "姚令言自有传。")
+    out["tangmo-huangchao"] = slice_between(
+        juan_rel150, "黄巢，曹州冤句人，本以贩盐为事。", "秦宗权者，许州人")
+
+    juan_rel95 = read_html(JIUTANGSHU_LIEZHUAN_DIR / "第九十五章-卷九十五-原文.html")
+    out["tangmo-lixilie"] = slice_between(
+        juan_rel95, "李希烈，辽西人。", "陈仙奇者，起于行间")
 
     return out
 
@@ -939,6 +1388,18 @@ def main():
     results.update(build_qin_xinmo_gengshi_jin())
     results.update(build_wuhu_shiliuguo())
     results.update(build_nanbeichao())
+    results.update(build_sanguo())
+    results.update(build_liangjin())
+    results.update(build_huanxuan())
+    results.update(build_shiliuguo_extra())
+    results.update(build_liusong_qi())
+    results.update(build_liang_chen_houliang())
+    results.update(build_beiwei_dongwei())
+    results.update(build_beiqi_xiwei_beizhou())
+    results.update(build_sui())
+    results.update(build_suimo())
+    results.update(build_tang_benji())
+    results.update(build_tangmo_nichen())
     for emperor_id, text in results.items():
         (CACHE_DIR / f"{emperor_id}.txt").write_text(text, encoding="utf-8")
         print(f"{emperor_id}: {len(text)} chars")

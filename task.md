@@ -127,7 +127,7 @@
 - [x] 検出スクリプトの判定ロジックを修正: `lang` による推定をやめ `page` のみで判定（複合 lang `ja/zh` や `baike` を取りこぼし、完了判定が実態より甘くなっていた）。真の残件数 288→350 に是正。「正史範囲外」明示表記と、個別確認済みの非正史学術典拠4件は許容リストで除外
 - [x] **ブロック1（秦・前漢・新・玄漢・後漢／34件）完了**。正史の干支日を採取し `sxtwl` で換算・突合。この過程で西暦日付の誤り8件を訂正し `exactDays` 4件を再計算（内訳は `meta.reignDurationSourceBlocks` と `docs/PROJECT_STATUS.md`「出典 QA」節）
 - [x] **ブロック1フォローアップ（2026-07-21）**: `endDate` 訂正時に `ages.deathDate` の同期漏れ4件（始皇帝・二世皇帝・武帝・宣帝、personJsonLd の `deathDate` に旧値が出ていた）＋始皇帝のみ `ages.birthDate` が歴史年表記だった件を訂正（詳細 `meta.reignDurationSourceBlocks[0].agesSyncCorrections`）。**以後のブロックで日付を訂正する際は `ages.*`・note 内の日付引用の同時更新をチェックリストに含める**
-- [ ] `_corpus_cache` 未生成の150人分を先行生成（三国以降のブロックに必要）
+- [x] **B-2: `_corpus_cache` 未生成150人分（149人＋正史範囲外1人）を生成完了（2026-07-21）**。三国・両晋帝紀・十六国追加・南朝・北朝・隋・隋末群雄・唐（本紀＋反乱政権）の8ブロック。書名・巻の同定は既存`accessionRoute`/`deathCause.source`から、マーカーは全件メイン会話で実地content-grep確認。旧唐書列傳の相対番号（絶対巻数－50）・晋書帝紀第十章の白話訳・魏書列傳の相対番号疑い・慕容暐名のPUA文字欠落など新出の罠は`docs/process/CORPUS_NOTES.md`に記録。364人全員分（`zhonghuadiguo-yuanshikai`除く）のキャッシュが揃い、ブロック2以降に着手可能
 - [ ] ブロック2以降（三国11・両晋十六国・南朝34・北朝28・隋唐34・五代十国33・宋遼西夏金50・元18・明21・清15・明清交替期ほか）の原典突合。既存の`startDate`/`endDate`は原則変更せず、正史の干支と食い違う場合は個別に提示して承認を得る
 - [ ] B-4: `site/src/lib/emperors.ts` の `sourceLabelOf` の暫定コメント削除・`quote`/`conversion` の表示検討、`/about` の方法論記述に暦変換の説明を追加（フェーズB完了後）
 
