@@ -2,19 +2,7 @@
 
 戦略の骨子: 個別ページの質は既に標準を名乗れる水準にある。当面の課題はそれを「発見可能」「引用可能」「検証可能」にすること。項目 1〜4 が基盤、5 が市場拡大、6 が差別化の再加速。
 
-2026-07-21 更新。外部 AI（emperorstats.com のみを閲覧）からの改善提案を、リポジトリの実装現状と突き合わせて再構成した。
-
-## 実装済み前提（着手前に把握しておくこと）
-
-新ロードマップの一部は既に実装済み。二重着手しないよう整理する。
-
-- **JSON-LD は部分実装済み**（`src/lib/seo.tsx`）: `BreadcrumbJsonLd`（全セクションページ）・`personJsonLd`（`JsonLdPerson`）・`Dataset`（`@type: Dataset`）の生成関数がある。→ 項目 4-2 は「個別ページで `personJsonLd` を実際に出しているか」「`sameAs` に Wikidata を入れているか」の確認と穴埋めが主。
-- **sitemap / robots 実装済み**: `app/sitemap.ts`・`app/robots.ts`。→ 項目 1 の「sitemap の検出URL数確認」は既存生成物の検証。
-- **`deathCause.source`・`accessionRoute.source`・`events[].source` のWikipedia出典は2026-07-21のフェーズAで一掃済み**（詳細下記3-1）。残るのは `reigns[].duration.source`（350件、Wikipedia infobox由来の即位/崩御日付）で、こちらはフェーズBとして進行中（2026-07-21にブロック1＝秦漢34件・ブロック2＝三国11件・ブロック3＝両晋十六国61件・ブロック4＝南朝34件・ブロック5＝隋唐36件(reign単位39件)・ブロック6＝北朝28件・ブロック7＝五代十国34件・ブロック8＝宋遼西夏金49名(50 reign区間)・ブロック9＝元/北元/元末群雄18名(19 reign区間)・ブロック10＝明本朝16名＋南明4名(21 reign区間)・ブロック11＝清9名＋宣統帝3reign＋明清交替期4名(17 reign区間)・ブロック12＝劉永・袁術2名＋隋末群雄12名(14 reign区間)完了。**フェーズB全365人完了、`scripts/detect_wikipedia_sources.py`の残存検出数0件**）。
-- **note・出典のサイト表示（旧 task.md 第1〜3弾）は 2026-07-20 完了済み**: 個別ページの「即位/死因/復位の経緯」節・「調査メモ」折りたたみ・「在位中の出来事」年表・詳細ダイアログの lazy fetch（`public/emperor-notes/{id}.json`）。設計判断は `docs/site-design/LAYOUT.md` 参照。
-- **配布物は 2026-07-21 に実装済み**（2-1）: `/data/emperors.json`・`/data/emperors.csv`・`/data/emperors.schema.json` を `site/scripts/build-data-distribution.mjs` が prebuild で生成。JSON Schema は `data/schema/emperors.schema.json` に手書きで置く（実データ365件の検証エラー0）。サイト内リンクは 2026-07-21 に `/about` データセット節として設置済み（2-2 完了と同時）。
-- **`sources.wikidata`（QID）は 2026-07-21 に365人全員付与済み**（2-5 完了）。→ 4-2 の `sameAs`・項目5の `nameEn` 取得が着手可能に。
-- **未実装**: `nameEn` フィールド（全365件で0）、`CITATION.cff`/`CHANGELOG.md`/Zenodo DOI、i18n（`[locale]`）。
+2026-07-21 更新。外部 AI（emperorstats.com のみを閲覧）からの改善提案を、リポジトリの実装現状と突き合わせて再構成した。**同日、完了済み項目の詳細記述は削除して圧縮した** — 完了内容の詳細は `CHANGELOG.md`・`docs/PROJECT_STATUS.md`（出典 QA／Wikidata QID／CI 恒久化／ライセンス・データ公開基盤の各節）・`docs/site-design/LAYOUT.md`・`data/emperors.json` の `meta.*Blocks` を参照。
 
 ---
 
@@ -22,20 +10,13 @@
 
 **目的**: クローラが一覧→個別を辿れるようにし、内部リンク経由で PageRank を365ページに流す。
 
-**現状（確認済み・2026-07-21）**: 一覧カードは `emperor-grid.tsx` で `<button onClick={() => onSelect(record)}>`、ランキング行は `ranking-bar-chart.tsx` で `onClick={() => openDetail(r)}`。**どちらも DOM 上に `<a href="/emperors/[id]">` を生成していない** = クローラからは個別365ページへの内部リンクが存在しないのと同じ。これが最優先の栓抜き。
+**実装は完了（2026-07-21）**: 一覧カード・ランキング行・各表を progressive-enhancement 型 `<a>` でリンク化し、静的 HTML に365リンク出力を実証済み。統計ページの「上位10名」静的テーブル・個別ページの王朝リンクも新設済み（詳細: `docs/site-design/LAYOUT.md`・`site/AGENTS.md`。SEO リンクは LazyMount 外必須・受け入れテストは `out/**.html` を grep）。Intercepting Routes は SEO 利得ゼロのため**却下済み**（再提案しない）。
 
-**実装済み（2026-07-21）**: progressive-enhancement 型 `<a>`（素の左クリックは `preventDefault`＋モーダル、修飾クリックは個別ページ遷移）で一覧カード・ランキング行・各表をリンク化。ビルド成果物の受け入れテスト（`grep -o 'href="/emperors/[^"]*"' out/emperors.html | sort -u | wc -l`）で **365リンクを実証**。
-**重要な発見**: 静的HTML（クローラが受け取る `out/**.html`）で個別365リンクが実際に出るのは **`/emperors` 一覧のみ**。ランキング系は `LazyMount`（画面外は空div）＋行ウィンドウイングで0件、各「表で見る」は `TableDetails` が `{open && children()}`＝閉状態でDOM非生成のため0件（Googlebot は `<details>` を開かない）。→ PageRank の栓抜き本体は一覧カードの `<a>` 化1点で達成。ランキング/表のリンク化は UX・「新規タブで開く」・JS実行時クロールのための補強。
+残タスク（**ユーザー主導・デプロイ後2〜6週**）:
 
-- [x] 一覧カード（`emperor-grid.tsx`）を `next/link` の `<Link href="/emperors/[slug]">` に置換（SEO本体・静的HTMLに365リンク）
-- [x] ランキング行（`ranking-bar-chart.tsx` の `RowOverlay` に `hrefOf`＋「表で見る」表）を個別ページへリンク化。/reign, /ages, /court-events, /military は共通 `RankingBarChart` で一括適用
-- [x] 年表（`timeline-table.tsx`）の「表で見る」内の皇帝名もリンク化
-- [ ] ~~Intercepting Routes（`(.)emperors/[slug]`）＋ Parallel Routes~~ **却下**: 追加で得られるのは「モーダル時のURL変化」だけで SEO目的（クロール可能リンク）には不要。モーダルは progressive-enhancement で既に維持済み。0.5〜1日をSEO利得ゼロに投じる形になるため見送り
-- [ ] Search Console:「インデックス作成 > ページ」で個別365ページの内訳（検出-未登録／クロール済-未登録／登録済）を確認 → `<a>` 化前後で比較（**ユーザー主導・デプロイ後2〜6週**）
-- [ ] Search Console: URL 検査で代表ページ（qin-shi-huang 等）のライブテスト、レンダリング後 HTML に本文（調査メモまで）が含まれるか確認（**ユーザー主導**。個別ページは `EmperorDetailBody`＋`EmperorNarrativeSections` を完全SSR済み・`personJsonLd`/`breadcrumbJsonLd` 出力済みなので本文は含まれるはず）
-- [ ] Search Console: sitemap の「検出された URL」数が 365＋固定ページ数と一致するか確認（**ユーザー主導**）
-
-**工数目安**: `<a>` 化のみ数時間、Intercepting Routes 併用で1〜2日。効果観測はインデックス反映込みで2〜6週間。
+- [ ] Search Console:「インデックス作成 > ページ」で個別365ページの内訳（検出-未登録／クロール済-未登録／登録済）を確認 → `<a>` 化前後で比較
+- [ ] Search Console: URL 検査で代表ページ（qin-shi-huang 等）のライブテスト、レンダリング後 HTML に本文（調査メモまで）が含まれるか確認（個別ページは完全SSR済みなので本文は含まれるはず）
+- [ ] Search Console: sitemap の「検出された URL」数が 365＋固定ページ数と一致するか確認
 
 ---
 
@@ -43,65 +24,12 @@
 
 **目的**:「emperorstats のデータに依拠した」と書かれる状態を作る。標準はビューではなくデータセットに宿る。
 
-**検討済み（2026-07-21・リポジトリ現状と実配信の突き合わせ）**:
-- **CORS は既に達成済み・作業ゼロ**: emperorstats.com 実測で GitHub Pages が全ファイルに `access-control-allow-origin: *`＋gzip を自動付与（`/emper​or-notes/*.json` で確認）。そもそも GitHub Pages はカスタムヘッダ設定不可＝「配置すれば自動的に満たされる」
-- **CC BY 4.0 宣言（2-2）は 3-1（Wikipedia出典一掃）完了後に行う**: `meta.source.primary` が Wikipedia「中国帝王一覧」・`deathCause.source` 約28件が Wikipedia 記事名の現状で、調査メモ文章に Wikipedia 派生があれば CC BY-SA 継承義務と矛盾する。「CC BY 公開後に BY-SA 由来と判明」が最悪パターンのため順序を固定。JSON/CSV 静的配置（2-1）自体はライセンス表記「準備中」で先行可
-- **QID 紐付け（2-5）は SPARQL 一発では網羅できない**: Q268218（Emperor of China）は実在確認済みだが存在期間 前221〜1912 の歴史的職位で、Wikidata には王朝別「Emperor of the Han dynasty」等の個別項目が多数。十六国・五代十国・太平天国・明清交替期群雄などは P39=Q268218 を持たない可能性が高い → 3パス方式（下記）に変更
-- `data/emperors.json` は現在 **6.4MB**（CLAUDE.md 記載の2.9MBから倍増。gzip 配信で実転送は約1MB前後）
-- 現 `LICENSE` は MIT 単独（(c) 2026 kotenbu）。コード用としてはそのまま維持で良い
-- ~~`datasetJsonLd()` に `license`・`distribution`・`temporalCoverage`・`version` は未設定~~ → **2026-07-21 に全て設定済み**（4-2 の Dataset 拡張として完了）
-
-### 2-1. 配布物 — **完了（2026-07-21）**
-
-`/data/emperors.json`・`/data/emperors.csv`・`/data/emperors.schema.json` の3点を配信。生成は `site/scripts/build-data-distribution.mjs`（`predev`/`prebuild` 組み込み・出力先 `site/public/data/` は portraits/emperor-notes と同じく gitignore、ソースのみ git 管理）。
-
-- [x] `emperors.json` を**バイト単位でそのままコピー**（`copyFileSync`。再シリアライズすると整形差分が出るため。乖離ゼロ・`meta.*CompletedBlocks` 等の内部フィールドも含む「完全版」）
-- [x] `emperors.csv`: 41列・1行1皇帝（365行＋ヘッダ）。UTF-8 BOM 付き・CRLF・RFC 4180 エスケープ。列は id・url・wikidataId（2026-07-21 追加・2-5 後続(c)）・名称4種・王朝3種・代数・在位（開始/終了年・回数・近似日数・正確日数・精度フラグ2種）・死因3種・即位経路3種・回数系8項目・生没日と精度・即位時/没年齢・flags3種
-- [x] **CSV はサイトの表示ロジックを複製せず raw フィールドの純射影**（`displayName`/`dynastyLabel`/`ERA_BY_SECTION` を `.mjs` に3つ目のコピーとして持ち込まない。値の推論・補完・再計算もしない）。`commonName` は全角括弧も含め原値のまま、null の2件は空欄にし `personalName` 列で補える形にした
-- [x] **精度フラグを必ず同梱**: `reignApproxDays` の隣に `reignExactDays`・`reignIsExact`・`reignNeedsPreciseDays` を置き、近似値が正確値と誤認されないようにした
-- [x] JSON Schema（`data/schema/emperors.schema.json`・**手書きの著作物として git 管理**しビルドでコピー）。死因8分類・即位経路8分類の enum は `jq unique`（＝観測値）でなく `DEATH_CAUSE_SCHEMA.md`/`ADDITIONAL_SCHEMA.md` から取得 — 実データに未出現の正当値 `不詳`（即位経路）を自スキーマで弾かないため
-- [x] 受け入れテスト: `out/data/` の3ファイル生成・JSON がソースとバイト一致・CSV 366行/40列/id一意/BOM有・**実データ365件を JSON Schema で検証しエラー0**
-- [x] ~~`/data/` に CORS 許可ヘッダ~~ **作業不要**: GitHub Pages が自動付与（実測確認済み・2026-07-21）
-- [x] 公開前スキャン: メールアドレス・ローカルパス・TODO・APIキー等の混入なし（「後で」7件は「背後で」「後で位を返す」等の史文で誤検出）
-
-**スキーマ作成で判明したデータ実態（訂正ではなくスキーマ側を現実に合わせた）**:
-- `reigns[].datePrecision` は `day`/`month`/`year` の3値に統一済みだが、**`ages` と `events[]` の精度フィールドは自由記述**（`unknown`・`none`・`lunar-day`・`conflicting`、および `day（干支紀日、西暦換算は概算）` のような括弧注記つき）。旧暦・干支の換算状況を失わずに記録する運用の結果。スキーマでは `datePrecisionAnnotated` として別定義し「機械処理は先頭の基本値トークンを取る」と明記
-- **`confidence` が空文字列 `""` のレコードが4件**（`yuan-shizu` の親征、`yuanmo-xushouhui` の親征・鎮圧・被反乱）。`high`/`medium`/`low` でも null でもない欠損。スキーマは `anyOf` で既知の欠損として許容したが、**3-3 の CI チェック項目候補**（値の確定は調査判断が要るため未着手）
-
-**⚠ コミット時の注意（未コミット・2026-07-21 時点）**: 以下4ファイルは**必ず同一コミットに入れる**。`package.json`（prebuild が新スクリプトを呼ぶ）と `.gitignore` だけ先に入り、スクリプト本体とスキーマが取り残されると、clean checkout / CI のビルドが `copyFileSync` の ENOENT で落ちる（ローカルはディスク上にあるため気づけない）。他セッションと作業ツリーを共有しているため部分コミットで割れるリスクが現にある。
-- `data/schema/emperors.schema.json`（新規・`build-data-distribution.mjs` が読む）
-- `site/scripts/build-data-distribution.mjs`（新規・prebuild が呼ぶ）
-- `site/package.json`（predev/prebuild に追加）
-- `site/.gitignore`（`/public/data/` 追加）
-
-~~**未了（2-2 完了後に実施）**~~ **完了（2026-07-21）**: `/about` に「データセットのダウンロードとライセンス」節（`id="dataset"`）を新設し、JSON/CSV/スキーマの3リンク＋CC BY 4.0 の条件・帰属例・スキーマ文書へのポインタ・CHANGELOG リンクを設置。
-
-### 2-2. ライセンス — **完了（2026-07-21）**
-- [x] データ・調査メモ文章: CC BY 4.0。`data/LICENSE` に公式 legalcode 全文を配置。**宣言前の CC BY-SA 混入スクリーニングを実施**（全365人の note 約126万字を機械マーカー走査＋jawiki 記事本文と n-gram 突合。近似一致3名4箇所を原典準拠表現に書き換え済み=7f962d4。判定記録はメモリ ccbysa-screening-2026-07-21）
-- [x] サイトコード: 現 `LICENSE`（MIT）を維持し、README と `meta.license`（機械可読・data/code の2エントリ）に二重ライセンス構成を明記
-- [x] あわせて `meta.source` を再定義: primary＝正史原典（official-histories）、Wikipedia「中国帝王一覧」は `inclusionListSeed`（収録候補リストの初期洗い出し用・データ値の典拠ではない）に降格。配布スキーマ・EMPERORS_SCHEMA.md 同時更新
-
-### 2-3. バージョニングと変更履歴 — **ほぼ完了（2026-07-21・Releases のみ残）**
-- [x] `meta` に `version: "2026.07"`（CalVer）を追加。既存 `schemaVersion`（構造の版）と分離し「データ内容の版」として運用（配布スキーマに pattern 付きで定義）
-- [x] `CHANGELOG.md` をルートに新設。遡及初項として唐哀帝追加（2026-07-20、364→365人）・フェーズB出典差し替え・ライセンス宣言等を記録
-- [x] 正誤表（errata）は `/about` 内の一節（`id="errata"`）として開始。初項2件（唐哀帝追加・フェーズB日付訂正約90件）
-- [ ] GitHub Releases でタグを切る（**push 後にユーザー主導**。`v2026.07` を推奨。2-4 Zenodo 連携を先に ON にすると初回 Release で DOI が発行されるため、Zenodo をやるなら順序は連携ON→Release）
-
-### 2-4. Zenodo DOI — **中止（2026-07-21 ユーザー決定）**
-- ~~Zenodo 連携・DOI 発行~~ **やらないことに確定**（2026-07-21）。DOI なしでも引用基盤は CC BY 4.0＋CalVer＋CHANGELOG＋Dataset JSON-LD で成立している。`CITATION.cff` の配置（GitHub「Cite this repository」ボタン）だけは DOI 不要の独立項目として将来やってもよいが、現時点では見送り
-
-### 2-5. Wikidata QID 紐付け — **完了（2026-07-21）**
-- [x] 365人全員の `sources.wikidata`（既存フィールド・従来全件 null）に QID を付与。**3パス方式**で実施:
-  1. SPARQL `P39/P279* → Q268218` でプール357人回収 → 名前×王朝×生没年のローカル照合で298件自動確定（名前完全一致＋年整合＋次点との明確差の3条件）
-  2. jawiki 記事名 → `wbgetentities` 逆引きで67件を候補化し全件目視確定
-  3. 残り7件（避諱字ゆれ「孫皓」・jawiki 記事なし等）を `wbsearchentities`/zhwiki で個別解決
-- [x] レート制限順守: 計約12リクエスト・直列・maxlag=5・専用 User-Agent・429ゼロ（[[bulk-external-api-caution]]）
-- [x] 検証: 365件一意・スキーマ検証エラー0・著名皇帝サンプル検算。方式詳細と留意点は `docs/PROJECT_STATUS.md`「Wikidata QID 紐付け」節
-- [ ] 後続（別項目で実施）: (a) ~~JSON-LD `sameAs`（4-2）~~ **完了（2026-07-21）** (b) `nameEn` 初期値の enwiki サイトリンク取得（項目5）(c) ~~CSV 配布物への `wikidataId` 列追加~~ **完了（2026-07-21・41列化）** (d) ~~3-3 CI に QID 形式・一意性チェック追加~~ **完了（2026-07-21・3-3 実装に同梱）**
-
-**推奨実行順序**: ① 2-1 技術部分（約1日）→ ② 2-5 QID 紐付け（1〜2日）→ ③ 3-1 → 2-2 → 2-3 → 2-4（直列・計2〜3日＋ユーザー操作）。①②は独立で並行可。
-
-**工数目安**: 2-1〜2-4 で2〜3日、QID 紐付けはスクリプト込み1〜2日。
+- **2-1. 配布物 — 完了（2026-07-21）**: `/data/emperors.json`（バイト一致コピー）・`/data/emperors.csv`（41列・raw フィールドの純射影・精度フラグ同梱）・`/data/emperors.schema.json`（手書き・git 管理）を `site/scripts/build-data-distribution.mjs` が prebuild で生成。`/about` にダウンロード節設置済み
+- **2-2. ライセンス — 完了（2026-07-21）**: データ=CC BY 4.0／コード=MIT の二重ライセンス。宣言前に CC BY-SA 混入スクリーニング実施済み
+- **2-3. バージョニング — ほぼ完了（2026-07-21）**: `meta.version`（CalVer）・`CHANGELOG.md`・`/about` 正誤表節を新設済み
+  - [ ] GitHub Releases でタグを切る（**push 後にユーザー主導**。`v2026.07` 推奨。Zenodo 中止により順序制約はなく、いつ切ってもよい）
+- **2-4. Zenodo DOI — 中止（2026-07-21 ユーザー決定・再提案しない）**: DOI なしでも引用基盤は CC BY 4.0＋CalVer＋CHANGELOG＋Dataset JSON-LD で成立。`CITATION.cff` の配置（GitHub「Cite this repository」ボタン・DOI 不要）だけは将来の独立項目として余地あり、現時点では見送り
+- **2-5. Wikidata QID 紐付け — 完了（2026-07-21）**: 365人全員の `sources.wikidata` に付与（3パス方式、詳細: `docs/PROJECT_STATUS.md`「Wikidata QID 紐付け」節）。後続の `sameAs`・CSV 列・CI チェックも完了済み。残る後続は `nameEn` 初期値の enwiki サイトリンク取得のみ（項目5で実施）
 
 ---
 
@@ -109,66 +37,13 @@
 
 **目的**:「正史を1件ずつ原典確認」の看板に例外がない状態にする。※訂正は `docs/process/RESEARCH_PROCESS.md` の手順（原典調査・スクリプト自動生成禁止）に従い、`meta.status` とドキュメントを同時更新。
 
-### 3-1. Wikipedia 出典の一掃（旧第4弾・優先度高）
-
-**フェーズA（deathCause 28件＋events 1件）: 完了（2026-07-21）**
-
-- [x] `deathCause.source.page` が Wikipedia 記事名のもの（28件、秦2・前漢14・玄漢1・後漢11）を正史本紀の巻名出典へ差し替え。該当人物の本紀を個別確認（`_corpus_cache/`・ローカルコーパス原文で崩御記事を直接確認、引用原文を記録）
-- [x] 死因・即位経緯のような**解釈を含む項目**を優先実施。回数系（改元・大赦等）はもともと正史直読み確定済みで対象外だった
-- [x] `eraChangeCount.events[]` の残存Wikipedia出典1件（`zhonghuadiguo-yuanshikai`）を「正史範囲外」明示表記に差し替え
-- [x] 検出スクリプト `scripts/detect_wikipedia_sources.py` を作成・保存（3-3 CI禁止語チェックの種）。deathCause/accessionRoute/events系の残件0件を確認
-- [x] 法的注意への対応: 上記28件はnote本文がWikipedia記述の直訳ではなく自前の分析文であることを確認済み（書き直し不要）。詳細・引用原文・判定内容の変更点は `docs/PROJECT_STATUS.md`「出典 QA」節および `meta.deathCauseCompletedBlocks` 参照
-
-**フェーズB（reigns[].duration 350件）: 完了（2026-07-21）— `scripts/detect_wikipedia_sources.py`の残存検出数0件。350件ベースのカウントと実際の完了件数（`nanming-anzong`・`shun-lichengzheng`が検出スクリプトの部分一致判定で旧page値が誤って正史扱いされカウント対象から漏れていた分、`suimo-liuwuzhou`・`suimo-xueju`が同型の理由で漏れていた分を含む）は完全には一致しないが、365人全員のduration.sourceが正史原典で裏付けられている状態を確認済み。詳細下記ブロック10・11・12注記**
-
-- [x] スキーマ拡張の設計確定: `source` に `quote`（日付根拠の正史原文）と `conversion`（旧暦→西暦の換算典拠・既存日付との照合結果）を追加。旧 Wikipedia 出典は `secondary` に降格せず削除する。`startDateRaw`/`endDateRaw` は原典で確定できた分すべて埋める。`data/schema/EMPERORS_SCHEMA.md`・`docs/schema/SCHEMA_OVERVIEW.md` に反映済み
-- [x] 検出スクリプトの判定ロジックを修正: `lang` による推定をやめ `page` のみで判定（複合 lang `ja/zh` や `baike` を取りこぼし、完了判定が実態より甘くなっていた）。真の残件数 288→350 に是正。「正史範囲外」明示表記と、個別確認済みの非正史学術典拠4件は許容リストで除外
-- [x] **ブロック1（秦・前漢・新・玄漢・後漢／34件）完了**。正史の干支日を採取し `sxtwl` で換算・突合。この過程で西暦日付の誤り8件を訂正し `exactDays` 4件を再計算（内訳は `meta.reignDurationSourceBlocks` と `docs/PROJECT_STATUS.md`「出典 QA」節）
-- [x] **ブロック1フォローアップ（2026-07-21）**: `endDate` 訂正時に `ages.deathDate` の同期漏れ4件（始皇帝・二世皇帝・武帝・宣帝、personJsonLd の `deathDate` に旧値が出ていた）＋始皇帝のみ `ages.birthDate` が歴史年表記だった件を訂正（詳細 `meta.reignDurationSourceBlocks[0].agesSyncCorrections`）。**以後のブロックで日付を訂正する際は `ages.*`・note 内の日付引用の同時更新をチェックリストに含める**
-- [x] **B-2: `_corpus_cache` 未生成150人分（149人＋正史範囲外1人）を生成完了（2026-07-21）**。三国・両晋帝紀・十六国追加・南朝・北朝・隋・隋末群雄・唐（本紀＋反乱政権）の8ブロック。書名・巻の同定は既存`accessionRoute`/`deathCause.source`から、マーカーは全件メイン会話で実地content-grep確認。旧唐書列傳の相対番号（絶対巻数－50）・晋書帝紀第十章の白話訳・魏書列傳の相対番号疑い・慕容暐名のPUA文字欠落など新出の罠は`docs/process/CORPUS_NOTES.md`に記録。364人全員分（`zhonghuadiguo-yuanshikai`除く）のキャッシュが揃い、ブロック2以降に着手可能
-- [x] **ブロック2（三国／11件）完了（2026-07-21）**。西暦日付の訂正3件（wei-wendi・wei-caomao startDate、shuhan-zhaoliedi endDate）、日次記述なしによる月精度への格下げ1件（shuhan-liushan）、出典のみ差し替え7件。Wikipedia脚注が典拠として明記していた諸葛恪傳（呉書十九）から孫権崩御・孫亮即位の日を発見的中（wu-dadi・wu-sunliang）。資治通鑑・華陽国志も突合に使用。詳細は `meta.reignDurationSourceBlocks[1]` と `docs/PROJECT_STATUS.md`「出典 QA」節参照
-- [x] **ブロック3（両晋十六国／61件）完了（2026-07-21）**。西暦日付の訂正9件（jin-wudi・jin-huidi・jin-simalun・jin-huaidi・dongjin-yuandi・dongjin-mudi・qianzhao-liuyuan・qianzhao-liuhe・houzhao-shile の各startDate/endDate、houqin-yaochangのendYear）。西晋・前趙で「旧暦の日番号を西暦の日番号としてそのまま転記した」という同型の変換バグを複数件発見（jin-huidi/jin-simalun、qianzhao-liuyuan/liuhe）。dongjin-mudiのendDateが次代dongjin-aidiのstartDateと同値になっていたコピー誤りも発見・訂正。houzhao-shishi/houzhao-shijianは原文明記の在位日数（33日/103日）をexactDaysとして採用する新パターンを適用。chenghan-libanは月精度へ格下げ、chenghan-liqiはages.deathDateを晋書成帝紀・華陽国志に基づき同期。付随してjin-simalunのages.deathDate（旧endDate依存の低確度値）が訂正後の時系列と矛盾したためyear精度へ格下げ、reignSummaryの再計算漏れ（houqin-yaochang等）・KNOWN_REIGN_SUMMARYの陳腐化エントリも解消。詳細は `meta.reignDurationSourceBlocks[2]` と `docs/PROJECT_STATUS.md`「出典 QA」節参照
-- [x] **ブロック4（南朝／34件）完了（2026-07-21）**。宋9＋二凶劭・義嘉政権2・斉7・梁4＋豫章王/侯景/益州/北斉擁立2政権5・後梁3・陳5。宋書・南斉書・梁書・陳書（china-history）＋周書巻四十八蕭詧伝・隋書帝紀（daizhi、後梁の最終期）を主典拠に34件全件の即位・在位終了記事の干支を照合、corpus_cacheのみで確定できない分は資治通鑑・南史・北史を追加参照。**日付または精度の補正13件**: qi-yulinwang（endDate、南斉書原文の日数表記「二十二日」ではなく干支「壬辰」を優先、資治通鑑と整合）、qi-mingdi（startDate、17日ずれ）、liang-wudi（startDate、1日ずれ）、liang-jianwendi（endDateの精度をmonth→dayへ格上げ、値は不変）、liang-yuzhangwang（start/endDateとも「旧暦の月番号をそのまま西暦月に転記した」誤りを補正、month→day精度）、liang-jingdi（startDate、即位記事の干支「丙午」を優先し2日補正）、houliang-houzhu（startDateをyearプレースホルダからday精度の実日付へ、隋書帝紀で確認）、chen-houzhu（startDate、先帝崩御日と本人即位日の干支を取り違えていた誤りを補正）、liu-song-liuzixun（startDate、「正月七日」を西暦1月7日と誤変換していたのを旧暦→新暦換算で2月7日に補正）、liang-houjing（startDate、旧暦月番号の転記誤りをWikipedia由来値から補正）、liang-xiaoji（endDate、梁書列傳（底本）と本紀・資治通鑑の日付不一致を本紀/通鑑優先で解消）、liang-xiaoyuanming（start/endDateとも、即位記事と廃位記事の干支を取り違えていた誤りを補正）、liang-xiaozhuang（start/endDateとも旧暦月番号の転記誤りを補正、startDateは日次不詳のためmonth精度）。ages.deathDate同期1件（qi-yulinwang）。`reigns[].startYear/endYear`と`reignSummary`（firstStartYear/lastEndYear/approxDays/displayYears/isExact/needsPreciseDays）の再計算漏れ13件も解消（`scripts/validate_emperors.py`でエラー0を確認）。詳細は `meta.reignDurationSourceBlocks[3]` と `docs/PROJECT_STATUS.md`「出典 QA」節参照。**なお本ブロックの変更は、並行セッションが実施したブロック3（両晋十六国）のコミット（作業ツリー共有のため）に同梱される形で先に確定済み**
-- [x] **ブロック5（隋唐／36人・reign単位39件）完了（2026-07-21）**。隋5＋唐本紀24（うち中宗・睿宗・昭宗は在位2回のためreign単位で個別調査）＋唐末反乱政権7。隋書帝紀・旧唐書本紀/列傳・新唐書・資治通鑑を主典拠に39件全件の即位・在位終了記事の干支を照合。**日付または精度の補正19件(reign単位)**: tang-gaozu/tang-taizong（高祖の伝位詔「八月癸亥」と翌日の太宗即位「八月甲子」を取り違えていた1日ずれを連動訂正）、tang-jingzong/tang-wuzong/tang-xuanzong-2/tang-zhaozong(2期とも)/tang-lige/tang-wuzetian/tangmo-li-chenghong/tangmo-li-yun/tangmo-anlushan/tangmo-anqingxu/tangmo-shisiming/tangmo-shichaoyi/tangmo-zhuci/tangmo-lixilie で日付・精度補正。**南朝ブロックと同型の「旧暦月番号をそのまま西暦月に転記した誤り」をtangmo-shisiming（startDate）でも発見**（担当エージェントは現行値0759-04-01を踏襲したが、メイン会話側でsxtwl検算し0759-05-01へ追加補正）。ages.deathDate同期2件（tangmo-anlushan・tangmo-shisiming）。殤帝(tang-shangdi)・徳王裕(tang-lige)・李承宏(tangmo-li-chenghong)・李熅(tangmo-li-yun)の4人は帝紀に独立記述がない（`docs/process/CORPUS_NOTES.md`記載の既知の罠）ため列傳・フォールバック調査の妥当性をメイン会話側で個別レビュー済み（李熅は新唐書にも独立伝がなく僖宗紀代替、既知の限界としてフォローアップ課題）。武則天の傳位（甲辰）と中宗の正式復位（丙午、2日後）が別記事である史実を反映し隣接reign間に2日の間隔が残る（エラーではなく史実、両エージェントが独立に確認）。`reigns[].startYear/endYear`と`reignSummary`は36人全員分再計算・`scripts/validate_emperors.py`でエラー0を確認。詳細は `meta.reignDurationSourceBlocks[4]` と `docs/PROJECT_STATUS.md`「出典 QA」節参照
-- [x] **ブロック6（北朝／28件）完了（2026-07-21）**。北魏17（前期6・中期3・末期混乱期8）＋東魏1＋北斉6＋西魏3＋北周1。魏書帝紀・北齊書・周書（西魏のみ北史巻五で補完、魏書に西魏本紀なし）を主典拠に、5つの王朝グループ単位で並列調査しメイン会話がsxtwlで独立に再検算・一部はWeb検索でも交差確認した上で反映。**日付または精度の補正10件**: beiwei-daowudi（startDate、中国暦年+旧暦日のハイブリッド表記による53日ズレ）、beiwei-houfeidi-yuanlang（startDateの1日ズレ、endDateを死去日から廃位日へ）、beiwei-yuanyu（startDateの2日ズレ、endDateの時系列矛盾解消）、beiwei-yuanfasheng（既知の逆転バグ解消、startDateを庚申の換算で訂正・endDateはnull/月精度化）、xiwei-feidi-yuanqin（startDate、父・文帝と同日即位を資治通鑑で確認）、xiwei-gongdi（endDate、西暦年の取り違えを訂正しmonth→day精度化）、xiwei-wendi（startDate、先帝崩御日ではなく本人の即位記事日、wei-wendi/jin-wudi型と同型）、beiqi-gaoxie（endDate、month→day精度化）、beiwei-yuanye・beiwei-jiemindi（endDateを死去日から廃位/禅譲日へ）。**本ブロックで確立した慣行**: 廃位・禅譲された皇帝のendDateは「帝号を失った日」とし、後年の死去日は含めない（dongwei-xiaojingdi・beiqi-houzhu・beiwei-xiandiで確認、これに反していた元曄・元恭・元朗の3件を統一）。**人物比定の誤りを発見・訂正**: `beiqi-gaoxie`はIDが「高恒」を想定した命名だが実体は文宣帝の第三子・高紹義（幼主高恒は別id `beiqi-youzhu-gaoheng` で既確認済み）、reigns[0].noteの元号表記「武平九年」も同レコード内eraChangeCount.noteの検証済み理解（「称武平元年」）に合わせ訂正。`reigns[].startYear/endYear`と`reignSummary`は訂正対象10レコード分を再計算、`scripts/validate_emperors.py`のKNOWN_REIGN_ORDER陳腐化エントリ（beiwei-yuanfasheng）も解消し、エラー0を確認。詳細は `meta.reignDurationSourceBlocks[5]` と `docs/PROJECT_STATUS.md`「出典 QA」節参照
-- [x] **ブロック7（五代十国／34件）完了（2026-07-21）**。五代本朝14（旧五代史）＋十国19＋桀燕1（新五代史）。旧五代史（china-history）・新五代史（china-history）を主典拠に、corpus_cacheだけで日次まで確定できない分は資治通鑑・十国春秋・陸游『南唐書』・続資治通鑑（長編）・宋史・遼史を追加参照した。34名をWorkflowで並列調査し、メイン会話が該当8件の干支換算をsxtwlで独立に再検算して一致を確認。**日付または精度の補正8件**: wudai-houliang-zhuyougui（startDate、丁丑朔起点の干支勘定で6日ズレを訂正）、shiguo-wu-yangpu（startDate、旧暦の日番号3日目をそのまま西暦11月の日番号に転記していた誤りを訂正）、shiguo-houshu-mengzhixiang（start/endDateとも、応順元年の閏正月を見落として旧暦月番号をそのまま西暦転記していた誤りを訂正、ages.deathDateと完全一致）、shiguo-nantang-libian（start/endDateとも、旧暦月番号の転記誤り・崩御記事の日数の誤変換を訂正、endDateはages.deathDateと完全一致し内部不整合を解消）、shiguo-beihan-liujien（endDate、十国春秋の弑逆記事の干支から確定、原文の「六十余日」と日数が一致）、shiguo-nantang-lijing（start/endDateとも、即位記事の日精度確定・帝号廃止記事の年精度を月精度へ格上げ）、shiguo-beihan-liujiyuan（startDate、旧暦9月が西暦では大半10月に相当することを見落とした誤りを訂正）。**精度格上げ1件**: shiguo-min-wangyanjun（datePrecision.start、year→month、値は不変）。task.md記載の33件（is_wiki_like判定対象）に加え、判定対象外だったshiguo-beihan-liujien（宋史巻482主体でzh版Wikipediaを併記）も同時に是正し34件全件処理。**残存する史料間の対立は日付を変更せず既存値を維持し警告として記録**: wudai-houliang-taizuの即位日（旧五代史「戊辰」vs資治通鑑・新五代史「甲子」の4日差、多数説を維持）、shiguo-jieyan-liushouguangの処刑日（資治通鑑「丙辰」vs旧五代史荘宗紀「壬子」の4日差）、shiguo-beihan-liuchongの崩御年（954年説vs955年説の対立）。`reigns[].startYear/endYear`は全件不変（訂正はいずれも同一年内の月日補正）、`reignSummary`は訂正対象8レコード分を再計算し`scripts/validate_emperors.py`でエラー0を確認。詳細は `meta.reignDurationSourceBlocks[6]` と `docs/PROJECT_STATUS.md`「出典 QA」節参照
-- [x] **ブロック8（宋遼西夏金／北宋8＋北宋末2＋南宋9(高宗2期間)＋遼9＋西遼3＋金8＋西夏10・49名50 reign区間）完了（2026-07-21）**。北宋・南宋は宋史本紀、遼・西遼は遼史本紀（西遼3名は天祚皇帝紀四付録に埋め込み）、金は金史本紀、北宋末の張邦昌・劉豫2名は宋史列傳「叛臣上」（劉豫は金史列傳も補足参照）、西夏10名は西夏書事（準正史・編年体）を主典拠に並行セッションがWorkflowで並列調査・sxtwl再検算のうえ2件の訂正（nansong-ningzong startDate 2日ズレ、xixia-jingzong/xixia-yizong 崩御/即位日14日ズレ＋年号ラベル誤記）を適用、5件は既存値維持（原文の限界・別史料依拠・内部矛盾を出典注記に反映）。詳細は `meta.reignDurationSourceBlocks[7]` 参照
-- [x] **ブロック9（元/北元/元末群雄／元本朝11＋北元1＋元末群雄6・18名19 reign区間）完了（2026-07-21）**。元本朝11名は元史本紀（巻4-47）、北元1名(昭宗)・天順帝の顛末補足は新元史、元末群雄6名(韓林児・徐寿輝・陳友諒・陳理・明玉珍・明昇)は明史列伝（本紀を持たないため）を主典拠に19 reign区間をWorkflowで並列調査、メイン会話がsxtwl（一部は中央研究院公式換算ツールでも交差検証）で独立に再検算。**日付・精度の補正4件**: yuanmo-hanlin-er（start/endDateとも旧暦月番号をそのまま西暦月に転記していた誤りを訂正、終了年1366→1367に変更）、yuanmo-xushouhui（startDate、原文「九月」なのに既存値が「十月」相当だった1か月ズレを訂正）、yuanmo-mingyuzhen（startDate、明史「至正22年春」即位＋「凡立五年」の内部証拠により1363→1362年へ訂正、day→year精度に格下げ）。**Web再調査（同日追加実施）**で大明太祖高皇帝実録巻八「闰五月丙辰朔……戊午，陈友谅弑其主徐寿辉于采石……僣位其中，国号汉」を発見し、yuanmo-xushouhuiのendDateを1360-07-29→1360-06-16へ追加訂正（陳友諒の即位日=yuanmo-chenyouliang startDateと同日と確定、ages.deathDateも同期）。**既存値を維持し出典注記のみ更新した2件**: yuanmo-chenyouliang（原文に確定日の記載なく「未幾」のみだったが、上記実録によりstartDate 1360-06-16が正しかったと裏付け確認）、beiyuan-zhaozong（新元史は月までしか特定できないが、Web再調査で複数の独立した二次資料が既存の日精度値と一致することを確認、確度を中程度に引き上げ）。天順帝(yuan-tianshundi)のdeathCause.source.page巻数不一致（既知・CORPUS_NOTES記載）はduration調査の対象外として今回は訂正していない。詳細は `meta.reignDurationSourceBlocks[8]` 参照
-- [x] **ブロック10（明本朝16名17reign＋南明4名4reign／21 reign区間）完了（2026-07-21）**。明本朝16名（太祖〜毅宗、英宗は正統期・天順期の2reign）は明史本紀（china-history、光宗のみ独立巻を持たず本紀二十一末尾に同居）、南明4名（弘光帝・隆武帝・紹武帝・永暦帝）は明清交替期の準正史『小腆紀傳』（daizhigev20）を主典拠に、既存の`_corpus_cache/`（20名分、2026-07-16/17生成済み）を使い7エージェントで並列調査、メイン会話が結果をマージ前に確認。**日付訂正: 0件**（21 reign全件で既存startDate/endDateが正史/準正史原文の干支とsxtwl独立検算で完全一致、過去ブロックで頻発した旧暦月日の転記誤りは今回検出されず）。出典をWikipedia記事名からduration.source.page（正史/準正史書名・巻）・quote（原文引用）・conversionへ差し替え。**副次的に見つかったnote文言の論点2件をユーザー承認の上で訂正**: (1) `ming-huizong`（建文帝）既存noteが「南京占領」と「永楽帝即位」を同日の出来事として記述していたが、明史本紀では別日（南京陥落・建文帝失踪＝建文4年6月13日、永楽帝正式即位＝同月17日）であることが判明、採用値（6月13日）自体は正しい上で記述を分離。(2) `nanming-zongzong`（隆武帝）既存noteの崩御地「福州」を、小腆紀傳原文が明記する「汀州府大堂」に訂正（日付・在位日数には影響なし）。あわせて`ming-yizong`（崇禎帝）は明史本紀が崩御を「帝崩于万岁山」とのみ記し「自縊」の語を本紀本文に含まないため、note文言を通説による旨に調整（日付は不変）。`nanming-anzong`（弘光帝）の処刑日は小腆紀傳corpus_cacheに日次記載がなく、既存source.noteが引用していた銭海岳『南明史』の記述で補完。**検出スクリプトの既知の盲点を発見**: `nanming-anzong`の旧page値「朱由崧(zh)/南明史」は`is_wiki_like`判定が書名の部分一致（「南明史」∋「明史」）で誤って正史扱いしており、task.mdの350件カウントにも計上されていなかった（実害はないが`scripts/detect_wikipedia_sources.py`のHISTORY_KEYWORDS部分一致方式の既知の限界としてフォローアップ課題）。詳細は `meta.reignDurationSourceBlocks[9]` 参照
-- [x] **ブロック11（清朝本紀9名9reign＋宣統帝3reign＋明清交替期4名4reign／17 reign区間）完了（2026-07-21）**。清朝9名（太宗〜徳宗）と宣統帝清朝期(1908-1912)は清史稿本紀二〜二十五（daizhigev20）、宣統帝の張勲復辟期(1917)・満洲国期(1934-1945)は清史稿の記述範囲外のため学術文献（川島真『近代国家への模索』岩波新書）・JACAR一次資料・満洲国政府公報をWeb調査、明清交替期4名（順・李自成、西・張献忠、呉周・呉三桂/呉世璠）は明史「流賊」列伝・清史稿「呉三桂伝」（daizhigev20）を主典拠に、中華帝国・袁世凱（正史範囲外）は近現代の学術的に信頼できる複数情報源をWeb調査。4エージェント並列調査、メイン会話がsxtwlで独立に再検算。**日付訂正2件（ユーザー承認済み）**: `shun-lichengzheng`（李自成、startDate 1644-05-24→1644-06-03＝明史「四月二十九日丙戌」僭帝号と原文干支が10日ズレていた誤りを訂正、endDate 1645-10-01→1645-10-19＝明史「秋九月」の旧暦9月range外だった既存値を月初日の正しい換算値へ訂正）、`wuzhou-wusangui`（呉三桂、startDate 1678-03-01(month精度)→1678-03-23(day精度)＝清史稿「三月朔」を西暦3/1にそのまま転記した典型バグを訂正、endDate 1678-10-10→1678-10-02＝干支「乙酉」との8日ズレを訂正）。いずれも複数の独立したWeb情報源でも裏付けを確認。李自成の崩御月は明史「秋九月」説・清実録「閏六月」説（信頼性に疑義）・現代学術の「五月」説（原典未確認）が対立するため、原典優先の方針で明史を採用しduration.source.noteに対立を記録。清朝9名・宣統帝清朝期・張献忠・呉世璠は既存値が原文干支・複数独立情報源と完全一致し訂正不要だった（`qing-renzong`・`qing-dezong`では清史稿本文自体の本紀間の干支異同を発見したがデータ変更なし）。副次的に`zhonghuadiguo-yuanshikai`のnote「在位83日間」を実際のexactDays=101日に合わせて訂正。**検出スクリプトのバグ2件を修正**: (1) `scripts/detect_wikipedia_sources.py`のHISTORY_KEYWORDSに「晋書」（JP漢字表記）「十六国春秋」「十六國春秋」を追加し、既に正史調査済みだった4件（`dongjin-feidi`・`qianqin-fuchong`・`xia-helianchang`・`xia-heliading`）の誤検出（false positive）を解消（データ自体は変更なし）。(2) `shun-lichengzheng`の旧page値「明史/李自成(ja/zh)」もnanming-anzongと同型の部分一致による見落とし（ブロック10で発覚した既知の限界）だったことを確認。詳細は `meta.reignDurationSourceBlocks[10]` 参照
-- [x] **ブロック12（劉永・袁術2名＋隋末群雄12名／14 reign区間）完了（2026-07-21）**。劉永・袁術は後漢書列傳（王劉張李彭盧列傳・劉焉袁術呂布列傳、china-history）、隋末群雄12名は旧唐書列傳巻五十四〜五十六（china-history／daizhigev20）・新唐書巻八十七・資治通鑑（daizhigev20）を主典拠に5エージェント並列調査、メイン会話がsxtwlで全項目独立再検算し一致を確認。**日付・精度の訂正14件（ユーザー承認済み、2グループに分けてAskUserQuestionで確認）**: `liu-yong-liang`（startDate null→0026-01-07、光武帝紀上「十一月甲午」の換算で西暦年が25→26に繰り上がりstartYearも訂正）、`yuan-shu`（startDate null→0197-01-01月精度、endDate日部分をプレースホルダ規約へ統一）、`suimo-yuwenhuaji`（endDate 3日ズレを訂正）、`suimo-wangshichong`（endDateをmonth→day精度へ格上げ）、`suimo-liangshidu`（startYear 618→617の年ズレ＋endDateの旧暦月日転記誤りを訂正、ages.deathDate同期）、`suimo-xiaoxian`（start/endDateとも精度格上げ・旧暦月日転記誤りを訂正）、`suimo-lizitong`（start/endDateとも精度格上げ・月の転記誤りを訂正）、`suimo-linshihong`（startDateをyear→day精度へ格上げ、endDateは月境をまたぐため年精度維持）、`suimo-fugongshi`（startDateの月転記誤りを訂正、endDateは都城陥落日と本人処刑日の混同を保守的に月精度へ格下げ）、`suimo-zhucan`（startDateの月転記誤りを訂正）、`suimo-xuerengao`（start/endDateともday精度へ格上げ）、`suimo-xueju`（endDateをday精度へ格上げ、旧唐書「壬午」vs資治通鑑「辛巳」の1日対立を原典優先で解決、ages.deathDate同期）、`suimo-liuwuzhou`（endDateをday精度へ格上げ、既存622年説を維持しつつ旧唐書本紀の内部矛盾＝同一記事が620年条にも誤配置されている点を発見）、`suimo-liqui`（start/endDateとも精度格上げ、旧唐書vs資治通鑑の1ヶ月対立を原典優先で解決）。task.md記載の10名（suimo-*）に加え、検出スクリプトの部分一致による見落とし（block10/11で確立した既知パターン）に該当していた`suimo-liuwuzhou`・`suimo-xueju`も同時処理し隋末群雄12名全員を完了。**本ブロック完了により`scripts/detect_wikipedia_sources.py`の残存検出数が0件となり、フェーズB（365人全員）が完了**。詳細は `meta.reignDurationSourceBlocks[11]` 参照
-- [x] **B-4 完了（2026-07-21）**: (1) `sourceLabelOf` のWikipedia判別ヒューリスティック（暫定コメント含む）を `emperors.ts`・`build-emperor-notes.mjs` から撤去し `source.page` 直表示に（簡体字巻名「晋书帝纪第三」等24件・JACAR資料・袁世凱の学術典拠が「Wikipedia◯◯版記事」と誤表示されていた実害も同時解消。`out/` 全HTMLで旧ラベル0件を確認）。(2) `quote`/`conversion` は個別ページに折りたたみ「在位日付の典拠（正史原文と暦換算）」節として表示実装（`getEmperorNarrative` に `reignSources` 追加。ダイアログのlazy fetch JSONには含めない）。(3) `/about` に「日付の暦と西暦への換算」節を追加（旧暦干支日→sxtwl換算・1582年10月改暦前はユリウス暦・天文年表記・史料対立時は正史優先）。詳細は `docs/site-design/LAYOUT.md`「在位日付の典拠表示とWikipediaラベル撤去」節
-- [x] **B-5 完了（2026-07-21）**: B-4作業中に発見した `duration.source` の `quote`/`conversion` 未付与12件（うち9件はpageにWikipedia記事名が正史書名と混在＝`detect_wikipedia_sources.py` のHISTORY_KEYWORDS部分一致による検出漏れ）を、4エージェント並列の原典調査＋メイン会話sxtwl独立再検算で全件正史出典へ整備。**日付訂正5名（AskUserQuestion承認済み）**: `jin-aizong`（endDate 1日訂正=伝位成立日己酉へ、末帝と同日接続）、`liang-xiaozhengde`（start月直記是正＋endDateを帝号喪失日=大司馬降格日へ、ages.deathDate充当）、`beiqi-andewang-gaoyanzong`（旧暦十二月直記是正で577年1月のday精度へ、在位365→3日）、`beiqi-youzhu-gaoheng`（endDateを禅位日へ、在位270→20日）、`beizhou-jingdi`（endDateを隋への禅譲日へ、830→703日）。後3者は「endDate=帝号喪失日」慣行（ブロック6確立）への統一。訂正不要7名は原文干支と完全一致を確認（qing-shengzuはpage巻数誤りのみ訂正）。11名のstartDateRaw/endDateRawも充填。`validate_emperors.py` エラー0・検出スクリプト残0件・site再ビルド確認済み。詳細は `meta.reignDurationSourceBlocks[12]`・`docs/PROJECT_STATUS.md`「出典 QA」節
-
-### 3-2. 肖像マッピング QA — **完了（2026-07-21）**
-
-153件を全数目視確認し、1件差し替え・3件除外で **153→150件**。経緯・残存リスク・反映手順は [docs/site-design/PORTRAITS.md](docs/site-design/PORTRAITS.md)「肖像マッピングQA（2026-07-21）」節。
-
-- [x] 後燕・成武帝（慕容垂）: 題字「蜀主李雄」の図＝成漢武帝の絵だった → 同シリーズの題字「慕容垂」の図（PD）に差し替え
-- [x] 劉宋・明帝（劉彧）: 展脚幞頭＋白袍の宋代様式で北宋太宗の肖像と確認 → PD/CC0 の代替が Commons に無いため肖像なしへ
-- [x] 前漢・哀帝: Dong_Xian.jpg は『博古葉子』断袖故事図で哀帝も画中にいるが、札の主題は董賢で本人を特定できない → 場面図のため除外
-- [x] 唐・敬宗（全数確認で新たに判明）: 『帝鑑図説』撃鞠場面の切り抜き → 同じく場面図のため除外
-- [x] 機械検出: sourceFilename/commonsPageUrl 重複・画像 MD5 重複・ファイル名の他皇帝諱・matchedWikiTitle の他皇帝一致・王朝接頭辞不一致 の5種を実施。**修正後は重複0件**
-- [x] about の153件テーブルは既に manifest からの自動生成済み（`emperors.ts` の `getPortraitCredits()`）
-- [ ] **残存リスク**: 単独人物・正しい時代の服飾・題字なしで「同時代の別人」というケースは目視では原理的に拾えない。潰すには外部の正解データ（Wikidata P18 / Wikipedia リード画像）との突き合わせが必要 → 項目 2-5 に合流させる
-
-### 3-3. QA の恒久化（CI）— **完了（2026-07-21）**
-
-`scripts/validate_emperors.py`＋`.github/workflows/validate-data.yml` を新設（`data/**`・QA スクリプトの push/PR で発火）。現データで 0 エラー・警告4種の緑スタート。詳細・運用ルール（KNOWN_ISSUES 許容リスト＝個別調査待ちの明示・訂正時に削除・陳腐化は警告検出）は `docs/PROJECT_STATUS.md`「データ QA の CI 恒久化」節とスクリプト docstring 参照。
-
-- [x] `data/emperors.json` へのバリデーションを GitHub Actions CI に: スキーマ適合・日付整合（reign start≦end・複数在位の順序・birth≦death・歴史年/天文年の対応）・精度フラグと日付形式の一致・画像 MD5/manifest キー重複・出典フィールドの禁止語・slug 一意性・QID 形式/一意性・count==events長・reignSummary 整合・duration フラグ排他。前後ナビはビルド時に配列順から導出されるため slug 一意性チェックで担保
-- [x] **`ages.deathDate` と最終 `reigns[].endDate` の整合チェック**を2段階で実装: 精度を揃えた比較で `deathDate < endDate` はエラー（既存9件は KNOWN_DEATH_BEFORE_END に登録しフェーズBで解消）、`deathDate > endDate`（退位後死去等）は件数警告。「最終 reign が退位か」の機械判定はデータに終了事由フィールドが無く不可のため、全不一致を警告表示する方式に緩めた
-- [x] **構造ドリフト検出**: 配布スキーマに `additionalProperties: false` を機械付与した厳格版で二重検証（別ファイル保守でなく実行時生成）。この過程で配布スキーマ側の穴2件（フェーズB新設 `source.quote`/`conversion` 未反映・`meta` の patternProperties 取りこぼし）を修正
-- [x] **`confidence: ""` 4件**: CI は「空文字・high/medium/low 以外はエラー」を実装、既知4件は許容リスト登録（値の確定＝調査判断は未着手のまま別途）
-- [x] **`datePrecision` 表記ゆれ**: reigns は year/month/day の3値をエラーで強制。ages/events は先頭トークン照合の警告のみ（実測120件80種で正規化方針が未確定のため。方針確定は別途）
-- [x] 以後の訂正 PR が自動チェックを通る体制（PR トリガーで発火・許容リスト方式によりフェーズB進行中も緑を維持）
-- [x] フェーズB完了後: `reigns[].duration.source` の Wikipedia 出典チェックを警告→エラーに格上げ（2026-07-21実施。`check_forbidden_sources` で件数警告を廃止し個別エラーに変更、さらに同日パス列挙方式→emperor レコード全体の再帰走査方式に変更し将来の source 新設フィールドも自動検査対象化。現データ 0 エラーで緑を確認）
-- [x] **`ages.birthDate/deathDate` の非 ISO 日付 62 件（42人）を ISO 正規化**（2026-07-21実施、CI 警告解消）。1件ずつ個別判定し、旧暦転記は sxtwl 換算（干支・日番号の二重検証＋在位中崩御17件は `reigns[].endDate` 突合）で太陽暦へ訂正。詳細・特筆事項（劉龑の崩御月の史料対立、4世紀の平朔/定朔差による月精度格下げ2件等）は `docs/PROJECT_STATUS.md`「ages 生没年日付の ISO 正規化」節参照
-- [ ] ~~`datePrecision` 非標準トークン（115件77種）の正規化~~ **申し送り**（2026-07-21ユーザー判断: 語彙標準の方針確定が先。今回触れた ages フィールド分のみ標準トークン化済み）
-- [ ] ~~`deathDate > endDate` 警告（47件）の解消~~ **見送り**（2026-07-21ユーザー判断: 在位終了事由フィールドが無く退位後死去と真の誤りを機械判別できないため。解消するなら終了事由フィールドの新設が前提）
-- [ ] 別途（調査判断が必要な残件）: `confidence: ""` 4件の値確定、CI 構築時に新発見の `beiwei-yuanfasheng` 在位日付逆転・`qianzhao-liuyuan` reignSummary 不整合（詳細は PROJECT_STATUS）
-
-**工数目安**: Wikipedia 出典棚卸しは件数次第（列挙1時間・書き直し1件10〜30分）。肖像 QA と CI で1〜2日。
+- **3-1. Wikipedia 出典の一掃 — 完了（2026-07-21・全365人）**: フェーズA（deathCause 28件＋events 1件）・フェーズB（`reigns[].duration.source` 全365人・12ブロック＋B-4 サイト表示・B-5 検出漏れ12名整備）とも完了。`scripts/detect_wikipedia_sources.py` の残存検出数0件。過程で日付訂正約90件超を実施。詳細は `meta.deathCauseCompletedBlocks`・`meta.reignDurationSourceBlocks[0..12]`・`docs/PROJECT_STATUS.md`「出典 QA」節
+- **3-2. 肖像マッピング QA — 完了（2026-07-21）**: 153件全数目視で1件差し替え・3件除外 → 150件。経緯は `docs/site-design/PORTRAITS.md`「肖像マッピングQA」節
+  - [ ] **残存リスク**: 単独人物・正しい時代の服飾・題字なしの「同時代の別人」は目視では原理的に拾えない。潰すには外部の正解データ（Wikidata P18 / Wikipedia リード画像）との突き合わせが必要（QID は付与済みで前提は揃っている）
+- **3-3. QA の恒久化（CI）— 完了（2026-07-21）**: `scripts/validate_emperors.py`＋`.github/workflows/validate-data.yml`。運用ルールは `docs/PROJECT_STATUS.md`「データ QA の CI 恒久化」節
+  - [ ] ~~`datePrecision` 非標準トークン（115件77種）の正規化~~ **申し送り**（2026-07-21ユーザー判断: 語彙標準の方針確定が先。ages フィールド分のみ標準トークン化済み）
+  - [ ] ~~`deathDate > endDate` 警告（47件）の解消~~ **見送り**（2026-07-21ユーザー判断: 在位終了事由フィールドが無く機械判別不能。解消するなら終了事由フィールドの新設が前提）
+  - [ ] 別途（調査判断が必要な残件）: `confidence: ""` 4件の値確定
 
 ### 3-4. events[].source の穴埋め（旧第4弾・規模大／要方針判断）
 確認済み欠落数（source フィールドを持つ / 全件）:
@@ -179,45 +54,21 @@
 - **欠落391件の正体は「記録様式の世代差」**: 欠落は46人（秦・前漢・新〜後漢・明＝グループ2の初期ブロック）に完全集中し、全員が「配列内全件欠落」（source あり/なし混在の皇帝はゼロ）。per-event source を記録し始める前に調査されたブロックで、データ信頼性の問題ではなく記録粒度の問題。回数系はもともと正史直読み確定済みなので、正しい source はほぼ全件「当該皇帝の本紀巻名」（漢書・後漢書・明史）に帰着する見込み
 - **46人全員の `_corpus_cache` が生成済み**: イベントごとに元号名・大赦記事・立后記事をキャッシュ原文で照合→確認できたものだけ source を付す「個別確認つき補完」が低コストで可能（自動一括付与はしない・CONSTRAINTS 準拠）。明の立后など本紀に無く后妃伝由来の可能性があるものは、照合不成立分だけ列伝確認または要調査として報告させる
 - **G2側（約3,700件）は note 書名言及率が指標で大きく違う**: 遷都 57/58・親征 113/291・鎮圧 374/1494・被反乱 226/1853。鎮圧・被反乱は出典が本紀でなく列伝・載記（反乱者側の伝）に分散し1件あたりの個別確認コストが大きい一方、サイトは count.note の書名表示で既に出典を見せておりユーザー可視の増分が小さい
-- **推奨**: ①優先度中の391件は46皇帝単位の Workflow（jq 自己取得・キャッシュ照合・マージ機械検証）で半日〜1日、着手可 ②遷都58件のみ G2 から格上げ候補（note 書名ほぼ完備・件数最小・+2〜3時間） ③親征・鎮圧・被反乱の約3,640件は**見送り継続**（現行 count.note 表示で足りる、費用対効果が合わない） ④完了時に 3-3 CI へ「改元/大赦/立后/廃立イベントの source 必須」チェックを追加可能になる
 
-- [ ] 優先度中: 改元105件・大赦228件・立后51件・廃立7件の欠落分補完（46皇帝・キャッシュ照合方式・上記推奨①）
-- [ ] オプション: 遷都58件への source フィールド追加（推奨②・note 書名の転記は個別確認つき）
-- [ ] ~~親征・鎮圧・被反乱の events[] への source 追加~~ **見送り**（推奨③・指標レベル `count.note` の書名表示で代替済み。将来外部から出典照会が来た指標だけ個別に格上げ）
+- [ ] 優先度中: 改元105件・大赦228件・立后51件・廃立7件の欠落分補完（46皇帝・キャッシュ照合方式・Workflow で半日〜1日）
+- [ ] オプション: 遷都58件への source フィールド追加（note 書名ほぼ完備・件数最小・+2〜3時間。転記は個別確認つき）
+- [ ] ~~親征・鎮圧・被反乱の events[] への source 追加~~ **見送り**（指標レベル `count.note` の書名表示で代替済み。将来外部から出典照会が来た指標だけ個別に格上げ）
 - [ ] スキーマ文書（`data/schema/`）へ events[].source 正式化の追記（補完完了と同時）
+- [ ] 完了時に 3-3 CI へ「改元/大赦/立后/廃立イベントの source 必須」チェックを追加
 
 ---
 
-## 4. グラフページの SSR テキスト＋JSON-LD 補完
+## 4. グラフページの SSR テキスト＋JSON-LD 補完 — **完了（2026-07-21）**
 
-**目的**: クローラと未訪問ユーザーに「このページに何が書いてあるか」を言語化。
+- **4-1. SSR テキスト**: 6グラフページの代表 Section 直下（LazyMount の外＝常時 DOM）に `getChartTakeaway` の総括文を配置済み。チャートと同一の単一情報源（`getOverviewStats`／`record.ranks`）から導出し構造的にずれない設計
+- **4-2. JSON-LD**: `personJsonLd`（`alternateName`・`sameAs`=Wikidata 込み）・`breadcrumbJsonLd`・`Dataset`（license/distribution/temporalCoverage/version）・`WebSite` すべて出力実証済み。Google Dataset Search の発火条件が揃った
 
-**節タイトルの範囲注意（2026-07-21 検討で判明）**: 4-2 の作業対象は**グラフページではない** — `personJsonLd` は個別ページ、`Dataset`/`WebSite` はトップ／about に載る。グラフページの JSON-LD はパンくずのみで既に完備。グラフページの話は 4-1（SSR テキスト）だけ。
-
-**現状確認（2026-07-21・ビルド出力 `out/**.html` を grep して実証）**:
-- `personJsonLd` は個別ページで**出力済み**（`out/emperors/qin-shi-huang.html` で確認）。現状フィールドは `name`/`url`/`description`/`image`/`birthDate`/`deathDate`。**紀元前 ISO 8601 は `birthDate:"-0259-01"`・`deathDate:"-0210-09-10"` の4桁ゼロ埋めで正しく出ており、`-0258` 形式要件はクリア済み**。
-- `breadcrumbJsonLd`（個別ページ・ホーム›皇帝一覧›皇帝名）出力済み。グラフ各ページの `BreadcrumbList`（2階層）も `out/dynasties.html` で出力実証。about の `Dataset`・トップの `WebSite` も出力済み。
-- → 4-2 の穴埋めは `alternateName`（2026-07-21）・`sameAs`（同日・2-5 完了を受けて）まで完了。**残るは `Dataset` 拡張のみ**（項目 2-1/2-2 依存で後回し）。
-
-### 4-1. SSR テキスト — **完了（2026-07-21）**
-
-`ChartTakeaway`（`src/components/charts/chart-takeaway.tsx`・server 部品）＋ `getChartTakeaway(page)`（`src/lib/emperors.ts`）を実装し、6グラフページの代表 Section 直下（`LazyMount` の外＝常時 DOM）に総括文を1本ずつ配置。ビルド出力 `out/*.html` で **6ページとも総括文が静的 HTML に存在し、同 HTML のチャート領域は空（`min-height:680px` プレースホルダのみ・バー行0）** を実証＝クローラへの純増を確認。
-
-- [x] /dynasties, /reign, /death-accession, /court-events, /military, /ages の各グラフ直上に、**そのグラフから読み取れる結論を1〜2文**、ビルド時にデータから自動生成してサーバーレンダリング。**LazyMount の外＝常時 DOM**（`Section` children の先頭・LazyMount の兄弟）。`Section` の description（＝「何のグラフか」）とは別の「読み取れること」ブロックとして分離（朱アクセントバー付きの淡いカラム）
-- [x] 自動生成（手書き固定文の drift を回避）。`getChartTakeaway` が数値をデータ注入・文型テンプレ。表示用の機械集計で CONSTRAINTS の自動生成禁止には非抵触
-- [x] **チャートとの整合**: 手書き .filter を一切挟まず、チャート行と同一の単一情報源から導出 —（a）/reign・/death-accession は `getOverviewStats`（円グラフ/棒グラフと同じ集計）、（b）回数系・年齢は `record.ranks[key]`（チャート行と同じ `computeRanks` 由来）。1位＝`ranks[key].rank===1`（＝チャート最上段）・母集団＝`ranks[key].total`（＝0回除外・年齢判明者のみの対象人数）。`isRanked`/`RANK_DIRECTIONS` を将来変えても本文が構造的にずれない
-- [x] **同順位ガード**: `ranks[key].tied`（rank1が複数）を `leaderLabel` で処理し「○○と△△の2名」「○○ら3名」と表記。区切りは「と」を使う（名前自体が「聖祖・康熙帝」のように「・」を含むため「・」で繋ぐと人数が判別不能になる）。実出力例: /ages「殤帝と毅宗の2名（1歳）」、/court-events「高宗と則天大聖皇帝・武則天の2名（14回）」
-- [x] **最上級主張の人数しきい値ガード**: /dynasties は `DYNASTY_MIN_EMPERORS=5` 未満の王朝を最長平均の比較から除外し、**除外している旨を本文に明記**（1人王朝アーティファクト回避）。実出力「皇帝が5名以上いる王朝では…最も長いのは清で約26.1年（11名）」
-- [x] 粒度は**各ページ1本の総括文（代表 Section 直下）**に絞った（複数 Section には付けない）。代表 Section = /reign:在位年数・/ages:即位時年齢・/court-events:改元・/military:親征・/dynasties:平均在位年数。/death-accession のみ対等な2円グラフのためグリッド上に1本置き死因＋即位経路の両方に言及
-
-### 4-2. JSON-LD 補完（確認は完了・残りは穴埋め）
-- [x] 個別ページの `personJsonLd` 出力を確認（ビルド出力で実証済み・上記「現状確認」参照）
-- [x] 個別ページの `BreadcrumbList` 出力を確認（実証済み）
-- [x] **`alternateName`（諱/廟号/諡号＋別名）を `personJsonLd` に追加**（2026-07-21 完了）。`JsonLdPerson.alternateName?: string[]`＋`personJsonLd` で `name` と重複・空値を除外し、1件なら文字列・複数なら配列で出力。`EmperorRecord` に `aliases: string[]` を追加（emperor-types.ts＋emperors.ts構築）、個別ページで諱/廟号/諡号/別名を Set で畳んで渡す。ビルド出力で実証（始皇帝＝`["嬴政","秦始皇","趙政"]`／太宗＝`"李世民"`／別名なしは省略）。**365中309ページで出力・新データ調査ゼロ**
-- [x] **`sameAs` を `personJsonLd` に追加**（2026-07-21 完了）。`EmperorRecord.wikidataId`（`sources.wikidata` をビルド時読み込み）から `https://www.wikidata.org/wiki/{QID}` を生成し個別ページで出力。ビルド出力で **365ページ全てに `sameAs` 出力・URL も365通り一意**を実証（例: 始皇帝=Q7192・宣統帝=Q185152）。URL 形式は concept URI（`www.wikidata.org/entity/`）でなく人間可読の `wiki/` ページを採用（Google のガイド例が参照ページ URL 主体・リダイレクトで同一エンティティに解決）。jawiki/enwiki URL の併記は保留 — サイトリンク取得は項目5の `nameEn` 取得と同一 API 作業なのでそちらに同乗させる。※`ja.wikipedia.org/wiki/{commonName}` の機械生成案は却下済み（曖昧回避サフィックスで不安定・誤 `sameAs` は無いより悪い）
-- [x] `Dataset`（about の既存 `@type:Dataset`）拡張 — **完了（2026-07-21・2-2 と同時実施）**: `license`（CC BY 4.0 URL）・`distribution`（JSON/CSV の DataDownload 2件）・`temporalCoverage`（データから導出 "-0221/1945"）・`version`（`meta.version` 連動）・`isAccessibleForFree` を追加。ビルド出力 `out/about.html` で全フィールド出力を実証済み。Google Dataset Search の発火条件（distribution+license）が揃った
-
-**工数目安（2026-07-21 再見積り）**: 4-2 の独立着手分（`alternateName`）・4-1（SSR テキスト）・`sameAs`（2-5 完了を受け同日実装）はいずれも完了。`record.ranks` 再利用でチャート整合を構造的に担保したため、当初見積り1〜2日より短縮。**項目4で残るのは `Dataset` 拡張（`distribution`/`license`＝項目 2-1/2-2 待ち）のみ**で、項目2に統合済み。
+詳細は `docs/site-design/LAYOUT.md`・`docs/PROJECT_STATUS.md`「ライセンス確定・データ公開基盤」節。
 
 ---
 
@@ -251,7 +102,7 @@
 - [ ] Phase 2: 調査メモを LLM 翻訳＋「機械翻訳です」表記で追加、指摘が来たら直す
 - [ ] Phase 3: 反応を見て繁体字。正統/僭称・満洲国の扱い等センシティブな判定は方法論ページ（要英訳・中訳）が盾になる
 
-**工数目安（2026-07-21 再見積り）**: Phase 1 で **4〜6日**（Route Group 再構成＋locale 貫通 1〜2日・英訳テーブル＋固定文言 1〜2日・テンプレート英語実装 1日・nameEn 整備 0.5〜1日・OGP/about/検証 1日）。当初 3〜5日からの増分は、実測で判明した文章テンプレート群の言語別実装と about 書き下ろしを織り込んだもの。**前提依存は項目 2-5（QID→nameEn）のみ**で、項目 3・4 の残件とは技術的に独立。
+**工数目安（2026-07-21 再見積り）**: Phase 1 で **4〜6日**（Route Group 再構成＋locale 貫通 1〜2日・英訳テーブル＋固定文言 1〜2日・テンプレート英語実装 1日・nameEn 整備 0.5〜1日・OGP/about/検証 1日）。**前提依存は項目 2-5（QID→nameEn）のみ**（完了済み）で、項目 3 の残件とは技術的に独立。
 
 ---
 
@@ -280,17 +131,13 @@
 
 ---
 
-## 実行順序まとめ
+## 残作業まとめ（2026-07-21 圧縮時点）
 
-| 順 | 項目 | 工数目安 | 効果の性質 |
-|---|---|---|---|
-| 1 | `<a>` 化＋Search Console | 数時間〜2日 | 流入の栓を抜く |
-| 2 | データ公開＋DOI＋QID | 3〜5日 | 引用される基盤 |
-| 3 | 出典 QA＋肖像 QA＋CI | 2〜4日 | 信頼性の穴埋め |
-| 4 | SSR テキスト＋JSON-LD 補完 | 2〜4日 | 検索評価の底上げ |
-| 5 | 英語版 Phase 1 | 4〜6日 | 市場拡大 |
-| 6 | クロス分析→比較→元号→系図 | 各数日〜数週 | 差別化・拡散 |
-
-- 1 と 3 は並行可。2 の QID 紐付けは 5 の前提なので先行させる。**2-2（CC BY 宣言）は 3-1（Wikipedia出典一掃）完了が前提**（CC BY-SA 継承リスク回避・詳細は項目2の検討済み欄）。2-1・2-5 は独立で先行可。
-- 6-1（クロス分析）は軽いので基盤作業の合間に1本ずつ出すのが現実的。
-- JSON-LD（4-2）は確認完了（2026-07-21）。独立着手できる残りは `alternateName` 追加のみ。`sameAs`・`Dataset` 拡張（`distribution`/`license`）は項目2に統合して実施する。sitemap/robots は生成関数が実装済み。
+| 項目 | 内容 | 主導 |
+|---|---|---|
+| 1 残 | Search Console 観測3件（デプロイ後2〜6週） | ユーザー |
+| 2-3 残 | GitHub Releases タグ `v2026.07` | ユーザー（push 後） |
+| 3-2 残 | 肖像の外部照合（Wikidata P18 突き合わせ） | 任意 |
+| 3-4 | events[].source 補完（優先度中391件＋遷都58件） | 要着手判断 |
+| 5 | 英語版 Phase 1（4〜6日） | 要着手判断 |
+| 6 | クロス分析→比較→元号→系図 | 各独立・軽い 6-1 から |

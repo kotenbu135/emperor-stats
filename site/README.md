@@ -1,6 +1,6 @@
 # 中国皇帝統計サイト（site/）
 
-`../data/emperors.json`（始皇帝から溥儀まで364人・全12項目）を可視化する統計サイトです。
+`../data/emperors.json`（始皇帝から溥儀まで365人・全12項目）を可視化する統計サイトです。
 Next.js 16（App Router）+ Tailwind v4 + shadcn/ui + Nivo で構築し、`output: "export"` による静的書き出しを GitHub Pages + カスタムドメイン [emperorstats.com](https://emperorstats.com) で配信します。
 
 ## 開発

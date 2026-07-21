@@ -262,10 +262,10 @@
 
 - **ライセンス（2-2）**: データ・調査メモ文章＝CC BY 4.0（全文 `data/LICENSE`）／コード＝MIT（ルート `LICENSE`）。`meta.license` に機械可読で記載し、README に帰属表示例つきで明記。宣言前に全 note 約126万字の CC BY-SA 混入スクリーニングを実施（機械マーカー68件の全数分類＋jawiki 記事本文との n-gram 全数突合。近似一致3名4箇所を原典準拠表現に書き換え=7f962d4。判定の詳細はセッションメモリ ccbysa-screening-2026-07-21）
 - **`meta.source` 再定義（2-2 同時）**: primary を `official-histories`（正史原典）へ変更し、Wikipedia「中国帝王一覧」は `inclusionListSeed`（収録候補リストの初期洗い出し用・データ値の典拠ではない）に降格。配布スキーマ（`$defs.meta`）・EMPERORS_SCHEMA.md を同時更新
-- **バージョニング（2-3）**: `meta.version: "2026.07"`（CalVer・データ内容の版。構造の版 `schemaVersion` とは別軸）を新設し、ルートに `CHANGELOG.md` を新設（唐哀帝追加等を遡及記録）。**GitHub Releases のタグ（`v2026.07` 推奨）のみ未実施**（push 後にユーザー主導。Zenodo 連携〔2-4・保留中〕を先に ON にすると初回 Release で DOI が発行される順序に注意）
+- **バージョニング（2-3）**: `meta.version: "2026.07"`（CalVer・データ内容の版。構造の版 `schemaVersion` とは別軸）を新設し、ルートに `CHANGELOG.md` を新設（唐哀帝追加等を遡及記録）。**GitHub Releases のタグ（`v2026.07` 推奨）のみ未実施**（push 後にユーザー主導。Zenodo は 2026-07-21 に中止が確定したため順序制約はなく、いつ切ってもよい）
 - **サイト側（2-1残・4-2）**: `/about` に「データセットのダウンロードとライセンス」節（JSON/CSV/スキーマの3リンク＋利用条件）と「正誤表」節を新設。Dataset JSON-LD に `license`/`distribution`/`temporalCoverage`/`version`/`isAccessibleForFree` を追加し、Google Dataset Search の掲載条件（distribution+license）が揃った。`temporalCoverage` はデータから導出（`datasetTemporalCoverage`）
 
-**残タスク（データ公開系）**: GitHub Releases タグ（ユーザー主導）・2-4 Zenodo DOI（ユーザー保留中、再開時は本節の順序注意を参照）・CSV への `wikidataId` 列追加（2-5 後続 (c)・列仕様改定として要判断のまま未着手）。
+**残タスク（データ公開系）**: GitHub Releases タグ（ユーザー主導）のみ。2-4 Zenodo DOI は **2026-07-21 にユーザー決定で中止**（再提案しない。引用基盤は CC BY 4.0＋CalVer＋CHANGELOG＋Dataset JSON-LD で成立済み。DOI 不要の `CITATION.cff` 配置だけは将来の独立提案の余地あり）。CSV への `wikidataId` 列追加は 2026-07-21 に完了（40→41列・1593d33）。
 
 ## 重要なファイル
 

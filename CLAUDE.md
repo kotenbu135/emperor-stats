@@ -31,7 +31,7 @@ python3 scripts/validate_emperors.py   # スキーマ・日付整合性・reignS
 
 ## リポジトリ構成
 
-- **`data/emperors.json`** — メインデータセット本体（`meta` + `emperors` 配列）。サイトがビルド時に直接読み込む。**メイン会話でこのファイル全体を Read しない**（2.9MB超）。対象人物の抽出・訂正結果のマージは `jq`/`python3` を Bash 経由で行う（詳細: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「コンテキスト効率」節）。
+- **`data/emperors.json`** — メインデータセット本体（`meta` + `emperors` 配列）。サイトがビルド時に直接読み込む。**メイン会話でこのファイル全体を Read しない**（約7MB）。対象人物の抽出・訂正結果のマージは `jq`/`python3` を Bash 経由で行う（詳細: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「コンテキスト効率」節）。
 - **`site/`** — Next.js サイト（静的書き出し・emperorstats.com で公開）。詳細は [site/AGENTS.md](site/AGENTS.md)。
 - **`data/images/portraits/`** — 肖像画アセット（PD/CC0 のみ・`manifest.json` で出典管理）。サイトの皇帝一覧カード・出典一覧で使用中。
 - **`china-history/`・`daizhigev20/`** — 正史原文のローカルコーパス（`.gitignore` 対象・リポジトリには含まれない、事前に `git clone --depth 1` 済み）。データ訂正時の一次情報源として最優先で参照する（詳細: [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md)）。

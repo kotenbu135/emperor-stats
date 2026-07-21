@@ -4,7 +4,7 @@
 
 対応する `meta.status.phases` のキー：`accessionRoute` / `eraChangeCount` / `amnestyCount` / `empressInstallationCount` / `crownPrinceDepositionCount` / `capitalRelocationCount` / `personalCampaignCount` / `rebellionSuppressionCount` / `rebellionSufferedCount` / `ages`。
 
-**進捗は `meta.status.phases` を参照（このファイル自体はフィールド構造・カテゴリ・数え方の基準を定義するドキュメント）。2026-07-18時点で1〜10節（即位経路・改元・大赦・立后・皇太子廃立・遷都・親征・反乱鎮圧・被反乱・年齢）すべて364人全員完了。**
+**進捗は `meta.status.phases` を参照（このファイル自体はフィールド構造・カテゴリ・数え方の基準を定義するドキュメント）。1〜10節（即位経路・改元・大赦・立后・皇太子廃立・遷都・親征・反乱鎮圧・被反乱・年齢）すべて365人全員完了（2026-07-18 に当時の364人で完了、2026-07-20 追加の唐哀帝も全項目調査済み）。**
 
 ## 情報源・調査方針（共通）
 

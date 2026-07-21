@@ -65,8 +65,8 @@
   - `exactDays`: 両端が `day` 精度のときのみ算出、それ以外は `null`
   - `needsPreciseDays`: `exactDays` が未確定なら `true`
   - `source`: 参照ページ（正史の巻名）・言語・注記に加え、`quote`（日付根拠の正史原文）と
-    `conversion`（旧暦→西暦の換算典拠・既存日付との照合結果）を持つ（task.md 3-1 フェーズBで新設。
-    移行途中のため、未移行のレコードは `page`/`lang`/`note` のみ）
+    `conversion`（旧暦→西暦の換算典拠・既存日付との照合結果）を持つ（task.md 3-1 フェーズBで新設し、
+    2026-07-21 に全365人への付与が完了）
 
 - **`isRestoration`**: boolean
   - 復位（廃位後の再即位）かどうか
