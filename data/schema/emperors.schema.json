@@ -36,7 +36,46 @@
         },
         "source": {
           "type": "object",
-          "description": "収録人物リストの初期構築に用いた情報源。個々の項目の判定根拠は各フィールドの source を参照（正史原典が第一情報源）。"
+          "description": "情報源の全体方針。primary は正史原典（個々の判定根拠は各レコードの source フィールド）、inclusionListSeed は収録候補リストの初期洗い出しに使った参照でデータ値の典拠ではない。",
+          "properties": {
+            "primary": {
+              "type": "object",
+              "required": ["type"],
+              "properties": {
+                "type": { "type": "string" },
+                "note": { "type": "string" }
+              }
+            },
+            "inclusionListSeed": {
+              "type": "object",
+              "required": ["type"],
+              "properties": {
+                "type": { "type": "string" },
+                "page": { "type": "string" },
+                "url": { "type": "string" },
+                "retrieved": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+                "note": { "type": "string" }
+              }
+            },
+            "supplementary": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "license": {
+          "type": "object",
+          "description": "二重ライセンス構成。data＝データセットと調査メモ文章（CC BY 4.0）、code＝リポジトリのコード（MIT）。",
+          "required": ["data", "code"],
+          "properties": {
+            "data": { "$ref": "#/$defs/licenseEntry" },
+            "code": { "$ref": "#/$defs/licenseEntry" }
+          }
+        },
+        "version": {
+          "type": "string",
+          "description": "データ内容の版（CalVer: YYYY.MM）。構造の版 schemaVersion とは別軸で、データの訂正・追加で上がる。",
+          "pattern": "^\\d{4}\\.\\d{2}$"
         },
         "inclusionCriteria": { "type": ["object", "string", "array"] },
         "reignDaysPolicy": { "type": ["object", "string", "array"] },
@@ -53,6 +92,22 @@
         "Blocks$": {
           "type": ["array", "object"],
           "description": "調査ブロック単位の記録（内部運用フィールド）。completedBlocks・*CompletedBlocks・reignDurationSourceBlocks が該当。"
+        }
+      }
+    },
+
+    "licenseEntry": {
+      "type": "object",
+      "required": ["name", "spdx", "scope"],
+      "properties": {
+        "name": { "type": "string" },
+        "spdx": { "type": "string" },
+        "url": { "type": "string" },
+        "scope": { "type": "string" },
+        "attribution": { "type": "string" },
+        "fullText": {
+          "type": "string",
+          "description": "ライセンス全文ファイルのリポジトリ相対パス。"
         }
       }
     },

@@ -256,6 +256,17 @@
 - **datePrecision 非標準トークン（警告、115 件 77 種）**: ages/events の precision 自由記述の正規化は語彙標準の方針確定が先のため未実施（ユーザー判断 2026-07-21）。今回触れた ages フィールド分のみ標準トークン化済み。着手時は `normalizeDatePrecision`（site 側の接頭辞判別）が吸収している実態を壊さないよう、site 表示と検証の両方を確認すること。
 - **deathDate > endDate（警告、47 件）**: 在位終了事由フィールドが無く退位後死去と真の誤りを機械判別できないため見送り（ユーザー判断 2026-07-21）。解消するなら終了事由の新フィールド設計が前提。
 
+## ライセンス確定・データ公開基盤（2026-07-21、task.md 2-2/2-3/2-1残/4-2）
+
+二重ライセンス構成を宣言し、データ公開の基盤一式を完了した。
+
+- **ライセンス（2-2）**: データ・調査メモ文章＝CC BY 4.0（全文 `data/LICENSE`）／コード＝MIT（ルート `LICENSE`）。`meta.license` に機械可読で記載し、README に帰属表示例つきで明記。宣言前に全 note 約126万字の CC BY-SA 混入スクリーニングを実施（機械マーカー68件の全数分類＋jawiki 記事本文との n-gram 全数突合。近似一致3名4箇所を原典準拠表現に書き換え=7f962d4。判定の詳細はセッションメモリ ccbysa-screening-2026-07-21）
+- **`meta.source` 再定義（2-2 同時）**: primary を `official-histories`（正史原典）へ変更し、Wikipedia「中国帝王一覧」は `inclusionListSeed`（収録候補リストの初期洗い出し用・データ値の典拠ではない）に降格。配布スキーマ（`$defs.meta`）・EMPERORS_SCHEMA.md を同時更新
+- **バージョニング（2-3）**: `meta.version: "2026.07"`（CalVer・データ内容の版。構造の版 `schemaVersion` とは別軸）を新設し、ルートに `CHANGELOG.md` を新設（唐哀帝追加等を遡及記録）。**GitHub Releases のタグ（`v2026.07` 推奨）のみ未実施**（push 後にユーザー主導。Zenodo 連携〔2-4・保留中〕を先に ON にすると初回 Release で DOI が発行される順序に注意）
+- **サイト側（2-1残・4-2）**: `/about` に「データセットのダウンロードとライセンス」節（JSON/CSV/スキーマの3リンク＋利用条件）と「正誤表」節を新設。Dataset JSON-LD に `license`/`distribution`/`temporalCoverage`/`version`/`isAccessibleForFree` を追加し、Google Dataset Search の掲載条件（distribution+license）が揃った。`temporalCoverage` はデータから導出（`datasetTemporalCoverage`）
+
+**残タスク（データ公開系）**: GitHub Releases タグ（ユーザー主導）・2-4 Zenodo DOI（ユーザー保留中、再開時は本節の順序注意を参照）・CSV への `wikidataId` 列追加（2-5 後続 (c)・列仕様改定として要判断のまま未着手）。
+
 ## 重要なファイル
 
 - `data/emperors.json` — メインデータセット

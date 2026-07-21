@@ -12,7 +12,7 @@
 - **sitemap / robots 実装済み**: `app/sitemap.ts`・`app/robots.ts`。→ 項目 1 の「sitemap の検出URL数確認」は既存生成物の検証。
 - **`deathCause.source`・`accessionRoute.source`・`events[].source` のWikipedia出典は2026-07-21のフェーズAで一掃済み**（詳細下記3-1）。残るのは `reigns[].duration.source`（350件、Wikipedia infobox由来の即位/崩御日付）で、こちらはフェーズBとして進行中（2026-07-21にブロック1＝秦漢34件・ブロック2＝三国11件・ブロック3＝両晋十六国61件・ブロック4＝南朝34件・ブロック5＝隋唐36件(reign単位39件)・ブロック6＝北朝28件・ブロック7＝五代十国34件・ブロック8＝宋遼西夏金49名(50 reign区間)・ブロック9＝元/北元/元末群雄18名(19 reign区間)・ブロック10＝明本朝16名＋南明4名(21 reign区間)・ブロック11＝清9名＋宣統帝3reign＋明清交替期4名(17 reign区間)・ブロック12＝劉永・袁術2名＋隋末群雄12名(14 reign区間)完了。**フェーズB全365人完了、`scripts/detect_wikipedia_sources.py`の残存検出数0件**）。
 - **note・出典のサイト表示（旧 task.md 第1〜3弾）は 2026-07-20 完了済み**: 個別ページの「即位/死因/復位の経緯」節・「調査メモ」折りたたみ・「在位中の出来事」年表・詳細ダイアログの lazy fetch（`public/emperor-notes/{id}.json`）。設計判断は `docs/site-design/LAYOUT.md` 参照。
-- **配布物は 2026-07-21 に実装済み**（2-1）: `/data/emperors.json`・`/data/emperors.csv`・`/data/emperors.schema.json` を `site/scripts/build-data-distribution.mjs` が prebuild で生成。JSON Schema は `data/schema/emperors.schema.json` に手書きで置く（実データ365件の検証エラー0）。サイト内リンクはライセンス確定（2-2）待ちで未設置。
+- **配布物は 2026-07-21 に実装済み**（2-1）: `/data/emperors.json`・`/data/emperors.csv`・`/data/emperors.schema.json` を `site/scripts/build-data-distribution.mjs` が prebuild で生成。JSON Schema は `data/schema/emperors.schema.json` に手書きで置く（実データ365件の検証エラー0）。サイト内リンクは 2026-07-21 に `/about` データセット節として設置済み（2-2 完了と同時）。
 - **`sources.wikidata`（QID）は 2026-07-21 に365人全員付与済み**（2-5 完了）。→ 4-2 の `sameAs`・項目5の `nameEn` 取得が着手可能に。
 - **未実装**: `nameEn` フィールド（全365件で0）、`CITATION.cff`/`CHANGELOG.md`/Zenodo DOI、i18n（`[locale]`）。
 
@@ -49,7 +49,7 @@
 - **QID 紐付け（2-5）は SPARQL 一発では網羅できない**: Q268218（Emperor of China）は実在確認済みだが存在期間 前221〜1912 の歴史的職位で、Wikidata には王朝別「Emperor of the Han dynasty」等の個別項目が多数。十六国・五代十国・太平天国・明清交替期群雄などは P39=Q268218 を持たない可能性が高い → 3パス方式（下記）に変更
 - `data/emperors.json` は現在 **6.4MB**（CLAUDE.md 記載の2.9MBから倍増。gzip 配信で実転送は約1MB前後）
 - 現 `LICENSE` は MIT 単独（(c) 2026 kotenbu）。コード用としてはそのまま維持で良い
-- `datasetJsonLd()`（`site/src/lib/seo.tsx:156`）に `license`・`distribution`・`temporalCoverage`・`version` はいずれも未設定（4-2 と連動、2-1〜2-3 完了後に機械的に追記可能）
+- ~~`datasetJsonLd()` に `license`・`distribution`・`temporalCoverage`・`version` は未設定~~ → **2026-07-21 に全て設定済み**（4-2 の Dataset 拡張として完了）
 
 ### 2-1. 配布物 — **完了（2026-07-21）**
 
@@ -74,17 +74,18 @@
 - `site/package.json`（predev/prebuild に追加）
 - `site/.gitignore`（`/public/data/` 追加）
 
-**未了（2-2 完了後に実施）**: サイト上に配布物へのリンク（`/about` のデータセット節等）。ライセンス未確定のまま導線を作ると「条件不明のダウンロード」になるため、2-2 とセットにする。現状ファイルは配信済みだがサイト内リンクは無い状態。同時に、配布 JSON からスキーマへのポインタ（about のデータセット節での言及等）も張る（取得者がスキーマを自力で探す状態のため）。
+~~**未了（2-2 完了後に実施）**~~ **完了（2026-07-21）**: `/about` に「データセットのダウンロードとライセンス」節（`id="dataset"`）を新設し、JSON/CSV/スキーマの3リンク＋CC BY 4.0 の条件・帰属例・スキーマ文書へのポインタ・CHANGELOG リンクを設置。
 
-### 2-2. ライセンス（**3-1 完了が前提**）
-- [ ] データ・調査メモ文章: CC BY 4.0（出典明記で商用含め自由＝引用実績を最速で稼ぐ。CC0 だと帰属義務がなく「emperorstats 発」認知が広がりにくい）。`data/LICENSE` に CC BY 4.0 全文を配置
-- [ ] サイトコード: 現 `LICENSE`（MIT）を維持し、README と `meta` に二重ライセンス構成（コード=MIT／データ=CC BY 4.0）を明記
+### 2-2. ライセンス — **完了（2026-07-21）**
+- [x] データ・調査メモ文章: CC BY 4.0。`data/LICENSE` に公式 legalcode 全文を配置。**宣言前の CC BY-SA 混入スクリーニングを実施**（全365人の note 約126万字を機械マーカー走査＋jawiki 記事本文と n-gram 突合。近似一致3名4箇所を原典準拠表現に書き換え済み=7f962d4。判定記録はメモリ ccbysa-screening-2026-07-21）
+- [x] サイトコード: 現 `LICENSE`（MIT）を維持し、README と `meta.license`（機械可読・data/code の2エントリ）に二重ライセンス構成を明記
+- [x] あわせて `meta.source` を再定義: primary＝正史原典（official-histories）、Wikipedia「中国帝王一覧」は `inclusionListSeed`（収録候補リストの初期洗い出し用・データ値の典拠ではない）に降格。配布スキーマ・EMPERORS_SCHEMA.md 同時更新
 
-### 2-3. バージョニングと変更履歴
-- [ ] `meta` に `version: "2026.07"`（CalVer）を追加。既存 `schemaVersion`（構造の版）と分離し「データ内容の版」として運用
-- [ ] `CHANGELOG.md` をルートに新設。遡及初項として唐哀帝追加（2026-07-20、364→365人）を記録
-- [ ] 正誤表（errata）は `/about` 内の一節として開始（独立ページは訂正が溜まってから）。「◯月◯日、△△帝の死因を暗殺→諸説ありに変更（理由・根拠）」を積む
-- [ ] GitHub Releases でタグを切る
+### 2-3. バージョニングと変更履歴 — **ほぼ完了（2026-07-21・Releases のみ残）**
+- [x] `meta` に `version: "2026.07"`（CalVer）を追加。既存 `schemaVersion`（構造の版）と分離し「データ内容の版」として運用（配布スキーマに pattern 付きで定義）
+- [x] `CHANGELOG.md` をルートに新設。遡及初項として唐哀帝追加（2026-07-20、364→365人）・フェーズB出典差し替え・ライセンス宣言等を記録
+- [x] 正誤表（errata）は `/about` 内の一節（`id="errata"`）として開始。初項2件（唐哀帝追加・フェーズB日付訂正約90件）
+- [ ] GitHub Releases でタグを切る（**push 後にユーザー主導**。`v2026.07` を推奨。2-4 Zenodo 連携を先に ON にすると初回 Release で DOI が発行されるため、Zenodo をやるなら順序は連携ON→Release）
 
 ### 2-4. Zenodo DOI（一部ユーザー主導）
 - [ ] `CITATION.cff` を配置（GitHub 上に「Cite this repository」ボタン）
@@ -217,7 +218,7 @@
 - [x] 個別ページの `BreadcrumbList` 出力を確認（実証済み）
 - [x] **`alternateName`（諱/廟号/諡号＋別名）を `personJsonLd` に追加**（2026-07-21 完了）。`JsonLdPerson.alternateName?: string[]`＋`personJsonLd` で `name` と重複・空値を除外し、1件なら文字列・複数なら配列で出力。`EmperorRecord` に `aliases: string[]` を追加（emperor-types.ts＋emperors.ts構築）、個別ページで諱/廟号/諡号/別名を Set で畳んで渡す。ビルド出力で実証（始皇帝＝`["嬴政","秦始皇","趙政"]`／太宗＝`"李世民"`／別名なしは省略）。**365中309ページで出力・新データ調査ゼロ**
 - [x] **`sameAs` を `personJsonLd` に追加**（2026-07-21 完了）。`EmperorRecord.wikidataId`（`sources.wikidata` をビルド時読み込み）から `https://www.wikidata.org/wiki/{QID}` を生成し個別ページで出力。ビルド出力で **365ページ全てに `sameAs` 出力・URL も365通り一意**を実証（例: 始皇帝=Q7192・宣統帝=Q185152）。URL 形式は concept URI（`www.wikidata.org/entity/`）でなく人間可読の `wiki/` ページを採用（Google のガイド例が参照ページ URL 主体・リダイレクトで同一エンティティに解決）。jawiki/enwiki URL の併記は保留 — サイトリンク取得は項目5の `nameEn` 取得と同一 API 作業なのでそちらに同乗させる。※`ja.wikipedia.org/wiki/{commonName}` の機械生成案は却下済み（曖昧回避サフィックスで不安定・誤 `sameAs` は無いより悪い）
-- [ ] `Dataset`（about の既存 `@type:Dataset`）拡張は**項目2とセットで実施**: `temporalCoverage`（-0221/1945）は単独追加も安いが飾りに留まる。**Google Dataset Search 掲載の本体は `distribution`（項目 2-1 の JSON/CSV URL）＋`license`（項目 2-2 のライセンス決定）**で、これが揃って初めて発火する
+- [x] `Dataset`（about の既存 `@type:Dataset`）拡張 — **完了（2026-07-21・2-2 と同時実施）**: `license`（CC BY 4.0 URL）・`distribution`（JSON/CSV の DataDownload 2件）・`temporalCoverage`（データから導出 "-0221/1945"）・`version`（`meta.version` 連動）・`isAccessibleForFree` を追加。ビルド出力 `out/about.html` で全フィールド出力を実証済み。Google Dataset Search の発火条件（distribution+license）が揃った
 
 **工数目安（2026-07-21 再見積り）**: 4-2 の独立着手分（`alternateName`）・4-1（SSR テキスト）・`sameAs`（2-5 完了を受け同日実装）はいずれも完了。`record.ranks` 再利用でチャート整合を構造的に担保したため、当初見積り1〜2日より短縮。**項目4で残るのは `Dataset` 拡張（`distribution`/`license`＝項目 2-1/2-2 待ち）のみ**で、項目2に統合済み。
 

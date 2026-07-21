@@ -10,13 +10,16 @@
 |---|---|---|
 | `title` | string | データセット名（例: `"中国皇帝統計データ"`） |
 | `description` | string | 収録基準の要約文（人間が読む説明文） |
-| `source.primary` | object | 主要典拠（`type`/`page`/`url`/`retrieved`）。現状 Wikipedia「中国帝王一覧」（候補洗い出し用。個別の事実確認は正史原文で行う。CLAUDE.md「データ調査の進め方」参照） |
-| `source.supplementary` | string[] | 補助的に参照したページ名の一覧 |
+| `source.primary` | object | 主要典拠（`type`/`note`）。`type: "official-histories"`＝二十四史等の正史原典。個々の判定根拠は各レコードの `source` フィールド（書名・巻名・原文引用）に個別記載 |
+| `source.inclusionListSeed` | object | 収録候補リストの初期洗い出しに使った参照（`type`/`page`/`url`/`retrieved`/`note`）。Wikipedia「中国帝王一覧」。データ値・調査メモ文章の典拠ではない |
+| `source.supplementary` | string[] | 初期構築時に補助参照したページの記録（現在は全出典を正史原典へ差し替え済み） |
+| `license` | object | 二重ライセンス構成。`license.data`＝データセットと調査メモ文章（CC BY 4.0、全文は `data/LICENSE`）、`license.code`＝リポジトリのコード（MIT、全文はルートの `LICENSE`）。各エントリは `name`/`spdx`/`url`/`scope`/`attribution`/`fullText` |
+| `version` | string | データ内容の版（CalVer: `YYYY.MM`）。データの訂正・追加で上がる。構造の版 `schemaVersion` とは別軸。変更履歴はルートの `CHANGELOG.md` |
 | `inclusionCriteria` | string[] | 収録基準の箇条書き（詳細な解説は [INCLUSION_CRITERIA.md](INCLUSION_CRITERIA.md)） |
 | `reignDaysPolicy` | string | 在位日数の算出方針（`approxDays`/`exactDays`の定義、暦系の扱いなど）を自然文で説明 |
 | `schemaVersion` | string | semver。スキーマに破壊的変更があれば上げる |
 | `generatedAt` | string (`YYYY-MM-DD`) | データ最終更新日 |
-| `count` | number | `emperors` 配列の件数（364件、手動同期） |
+| `count` | number | `emperors` 配列の件数（365件、手動同期） |
 | `status` | object | 調査フェーズの進捗管理（下記） |
 | `completedBlocks` | string[] | 在位データ調査が完了した王朝ブロック名の一覧（23ブロック。単純な文字列配列で、除外判断等の詳細は各人物レコードの `verification.notes` 側に記録） |
 
