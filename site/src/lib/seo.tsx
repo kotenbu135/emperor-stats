@@ -107,6 +107,8 @@ export function buildMetadata({
 
 export interface JsonLdPerson {
   name: string;
+  /** 諱・廟号・諡号・別名。nameと重複しない値のみ、呼び出し側で整形して渡す。 */
+  alternateName?: string[];
   url: string;
   description: string;
   image?: string;
@@ -115,10 +117,14 @@ export interface JsonLdPerson {
 }
 
 export function personJsonLd(p: JsonLdPerson): Record<string, unknown> {
+  const alternateName = p.alternateName?.filter((n) => n && n !== p.name);
   return {
     "@context": "https://schema.org",
     "@type": "Person",
     name: p.name,
+    ...(alternateName && alternateName.length
+      ? { alternateName: alternateName.length === 1 ? alternateName[0] : alternateName }
+      : {}),
     url: p.url,
     description: p.description,
     ...(p.image ? { image: p.image } : {}),

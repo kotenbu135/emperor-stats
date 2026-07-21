@@ -1,9 +1,11 @@
 import { PageHeader, Section } from "@/components/layout/page-header";
 import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
+import { ChartTakeaway } from "@/components/charts/chart-takeaway";
 import { RestorationTable } from "@/components/tables/restoration-table";
 import {
   getAllEmperorRecords,
+  getChartTakeaway,
   getDynastyOptions,
   getRestorationRows,
 } from "@/lib/emperors";
@@ -30,6 +32,7 @@ export default function ReignPage() {
         title="在位年数ランキング"
         description="在位期間のランキングです。複数回即位した皇帝は、在位期間の合計で集計しています。"
       >
+        <ChartTakeaway sentences={getChartTakeaway("reign")} />
         <LazyMount estimatedHeight={680}>
           <RankingBarChart
             records={records}

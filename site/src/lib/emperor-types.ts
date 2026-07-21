@@ -89,6 +89,8 @@ export interface EmperorRecord {
   personalName: string | null;
   templeName: string | null;
   posthumousName: string | null;
+  /** 別名（秦始皇・趙政など）。個別ページの Person JSON-LD の alternateName に使う。 */
+  aliases: string[];
   /** 皇帝一覧の検索対象文字列（各種名称・別名・王朝名・時代を連結したもの）。 */
   searchText: string;
   hasPortrait: boolean;

@@ -64,6 +64,7 @@ export function RowOverlay<T>({
   onLeave,
   onSelect,
   selectLabelOf,
+  hrefOf,
 }: {
   /** ウィンドウ内に表示中の行（上から順）。 */
   rows: T[];
@@ -75,6 +76,10 @@ export function RowOverlay<T>({
   onSelect?: (row: T) => void;
   /** onSelect時に必須。行buttonのアクセシブルネーム。 */
   selectLabelOf?: (row: T) => string;
+  /** 指定すると行を<a href>で描画し、素の左クリックはonSelect（モーダル）、
+   *  修飾クリック（新規タブ等）は個別ページ遷移に振り分ける（progressive enhancement）。
+   *  クローラ・「新規タブで開く」に実リンクを見せるためのもの。 */
+  hrefOf?: (row: T) => string;
 }) {
   return (
     <>
@@ -86,11 +91,35 @@ export function RowOverlay<T>({
           },
           onMouseLeave: onLeave,
         };
-        return onSelect ? (
+        const overlayClass =
+          "absolute inset-x-0 cursor-pointer hover:bg-seal/5 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring";
+        return onSelect && hrefOf ? (
+          <a
+            key={i}
+            href={hrefOf(row)}
+            className={overlayClass}
+            style={style}
+            aria-label={selectLabelOf?.(row)}
+            onClick={(event) => {
+              if (
+                event.metaKey ||
+                event.ctrlKey ||
+                event.shiftKey ||
+                event.altKey ||
+                event.button !== 0
+              )
+                return;
+              event.preventDefault();
+              onLeave();
+              onSelect(row);
+            }}
+            {...handlers}
+          />
+        ) : onSelect ? (
           <button
             key={i}
             type="button"
-            className="absolute inset-x-0 cursor-pointer hover:bg-seal/5 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+            className={overlayClass}
             style={style}
             aria-label={selectLabelOf?.(row)}
             onClick={() => {

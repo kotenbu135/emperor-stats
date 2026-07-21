@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   ResponsiveBar,
   type BarDatum,
@@ -311,6 +312,7 @@ export function RankingBarChart({
               }
               onLeave={() => setTip(null)}
               onSelect={(d) => openDetail(d.record)}
+              hrefOf={(d) => `/emperors/${d.record.id}`}
               selectLabelOf={(d) =>
                 `${d.label}（${valueLabel}：${d.formatted}）の詳細を表示`
               }
@@ -352,13 +354,18 @@ export function RankingBarChart({
                       {rankOf(r)}
                     </td>
                     <td className="px-3 py-1.5">
-                      <button
-                        type="button"
+                      <Link
+                        href={`/emperors/${r.id}`}
                         className="cursor-pointer underline-offset-2 hover:text-seal hover:underline focus-visible:outline-2 focus-visible:outline-ring"
-                        onClick={() => openDetail(r)}
+                        onClick={(e) => {
+                          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0)
+                            return;
+                          e.preventDefault();
+                          openDetail(r);
+                        }}
                       >
                         {r.name}
-                      </button>
+                      </Link>
                     </td>
                     <td className="px-3 py-1.5 text-muted-foreground">
                       {r.dynastyLabel}

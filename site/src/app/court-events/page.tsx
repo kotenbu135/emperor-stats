@@ -1,8 +1,10 @@
 import { PageHeader, Section } from "@/components/layout/page-header";
 import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
+import { ChartTakeaway } from "@/components/charts/chart-takeaway";
 import {
   getAllEmperorRecords,
+  getChartTakeaway,
   getDynastyOptions,
   type RankingMetricKey,
 } from "@/lib/emperors";
@@ -75,6 +77,10 @@ export default function CourtEventsPage() {
       />
       {sections.map(({ id, key, title, description }) => (
         <Section key={id} id={id} title={title} description={description}>
+          {/* 総括文は代表 Section（改元回数）1本のみに付ける（全 Section には付けない）。 */}
+          {id === "era" && (
+            <ChartTakeaway sentences={getChartTakeaway("court-events")} />
+          )}
           <LazyMount estimatedHeight={680}>
             <RankingBarChart
               records={records}

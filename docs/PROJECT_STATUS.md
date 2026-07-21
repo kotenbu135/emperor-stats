@@ -178,6 +178,19 @@
 - **経緯系 note の内部用語除去（16件）**: 訪問者向けに表示される経緯 note に `reigns[].note`・`accessionRoute`・`reignData`・`CLAUDE.md`・「ユーザー承認済み」等の内部フィールド名・作業用語が残っていたものを、意味を変えずに平文へ言い換え（対象: qin-er-shi・wang-mang・liu-yong-liang・liang-wudi・chen-wendi・chen-feidi・beiqi-andewang-gaoyanzong・beiqi-youzhu-gaoheng・xiwei-gongdi・sui-yangdi・wudai-houliang-modi・nansong-gaozong・xiliao-tianxi・yuan-wenzong・yuanmo-mingyuzhen・qing-dezong・qing-xuantong〔2件〕）
 - **訂正漏れの整合修正（2件)**: `beiqi-youzhu-gaoheng` の `reigns[0].endYear` 578→577（処刑年を577年10月に訂正済みなのに endYear のみ旧値。`endDate: 0577-11-01`・`reignSummary.lastEndYear: 577` と矛盾していた）／ `yuanmo-mingyuzhen` の `reigns[0].note` 享年38→36（ages 調査で明史・新元史一致の「年三十六」を採用済み。`ages.deathAge: 36` と矛盾していた）
 
+## 出典 QA（2026-07-21〜、task.md 3-1「Wikipedia 出典の一掃」）
+
+`data/emperors.json` の出典フィールド（`deathCause.source`／`accessionRoute.source`／`reigns[].duration.source`／`events[].source`）を棚卸ししたところ、判定内容自体は原典で検証済みなのに `source.page` が Wikipedia 記事名のまま残っている箇所が見つかった。検出は `scripts/detect_wikipedia_sources.py` で行う（史書名・本紀/列伝等のキーワードを含まない `source.page` を抽出。task.md 3-3 の CI 禁止語チェックの種として保持）。
+
+- **フェーズA（完了・2026-07-21）**: `deathCause.source` 28件（秦2・前漢14・玄漢1・後漢11）＋ `eraChangeCount.events[]` 1件（`zhonghuadiguo-yuanshikai`）を正史巻名（または「正史範囲外」の明示表記）へ差し替え。全件 `_corpus_cache/` またはローカルコーパス原文で崩御記事を直接再確認した。判定内容の変更は2件のみ：`hou-han-shaodi-yi`（引用元を本紀→『後漢書』皇后紀下・閻皇后傳に訂正）、`hou-han-lingdi`（本紀に死因記述が存在しないことを確認しnoteの表現を更新）。他26名は `category`/`confidence`/note本文とも変更なし。詳細は `meta.deathCauseCompletedBlocks` 末尾の追記を参照。
+- **フェーズB（進行中・2026-07-21着手）**: `reigns[].duration.source` 350件。スキーマは `source` に `quote`（日付根拠の正史原文）と `conversion`（旧暦→西暦の換算典拠・既存日付との照合結果）を追加する形で確定（旧 Wikipedia 出典は残さず削除。`startDateRaw`/`endDateRaw` は原典で確定できた分すべて埋める）。**ブロック1（秦・前漢・新・玄漢・後漢／34件）完了、残317件**。
+  - 手順: 正史本紀・列伝の即位／崩御記事から旧暦の干支日を採取 → `sxtwl`（寿星天文暦）で西暦に換算 → 既存 `startDate`/`endDate` と突合。検証用に唐哀帝の既知値を再現できることを確認済み。
+  - **想定外だった点**: 単なる出典差し替えでは終わらず、ブロック1だけで**西暦日付の誤り8件（人物ベースで7名）**が出た。内訳は「天文年表記との1年ずれ」（秦2件）、「旧暦十二月が翌ユリウス年に入ることの見落とし」（宣帝・元帝）、「約2ヶ月ずれ」（武帝2件・昭帝・更始帝）。訂正に伴い `exactDays` を4件再計算している。**以後のブロックでも同種の誤りが出る前提で進めること**（詳細は `meta.reignDurationSourceBlocks`）。
+  - **限界**: `sxtwl` は前漢初期の「後九月」（歳終置閏）に非対応で、平帝・更始帝など一部の年は朔が推算と合わない。該当分は学術的情報源で裏取りするか、`conversion` に「機械換算では再現できない」と明記して既存日付を維持している。
+  - 未着手: `_corpus_cache` 未生成150人分の先行生成、ブロック2以降（三国〜清）の突合。
+
+`accessionRoute.source` は棚卸しの結果 Wikipedia 出典が0件でクリーンだったため対象外。
+
 ## 重要なファイル
 
 - `data/emperors.json` — メインデータセット

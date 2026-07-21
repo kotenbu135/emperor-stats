@@ -345,21 +345,6 @@
     "credit": "<a rel=\"nofollow\" class=\"external free\" href=\"https://ctext.org/library.pl?if=gb&amp;file=83149&amp;page=29\">https://ctext.org/library.pl?if=gb&amp;file=83149&amp;page=29</a>"
   },
   {
-    "id": "han-aidi",
-    "commonName": "哀帝",
-    "dynasty": "前漢",
-    "localFile": "han-aidi.jpg",
-    "sourceFilename": "Dong_Xian.jpg",
-    "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:Dong_Xian.jpg",
-    "matchedWikiTitle": "汉哀帝",
-    "licenseVerified": true,
-    "license": "pd",
-    "licenseShortName": "Public domain",
-    "attributionRequired": "false",
-    "artist": "Chen, Hong Shou (陳洪綬)",
-    "credit": "a painting(name:博古葉子) created by Chen, Hong Shou (陳洪綬) in 1651 A.D. (screen shot)"
-  },
-  {
     "id": "han-chengdi",
     "commonName": "成帝",
     "dynasty": "前漢",
@@ -559,9 +544,9 @@
     "commonName": "成武帝",
     "dynasty": "後燕",
     "localFile": "houyan-murongchui.jpg",
-    "sourceFilename": "Harvard_drs_49802792_繡像三國演義續編_v.1_(蜀主李雄).jpg",
-    "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:Harvard_drs_49802792_%E7%B9%A1%E5%83%8F%E4%B8%89%E5%9C%8B%E6%BC%94%E7%BE%A9%E7%BA%8C%E7%B7%A8_v.1_%28%E8%9C%80%E4%B8%BB%E6%9D%8E%E9%9B%84%29.jpg",
-    "matchedWikiTitle": "成武帝",
+    "sourceFilename": "Harvard_drs_49802792_繡像三國演義續編_v.1_(慕容垂).jpg",
+    "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:Harvard_drs_49802792_%E7%B9%A1%E5%83%8F%E4%B8%89%E5%9C%8B%E6%BC%94%E7%BE%A9%E7%BA%8C%E7%B7%A8_v.1_%28%E6%85%95%E5%AE%B9%E5%9E%82%29.jpg",
+    "matchedWikiTitle": "慕容垂",
     "licenseVerified": true,
     "license": "pd",
     "licenseShortName": "Public domain",
@@ -733,21 +718,6 @@
     "attributionRequired": "false",
     "artist": "Unknown author<span style=\"display: none;\">Unknown author</span>",
     "credit": "Unknown source<span style=\"display: none;\">Unknown source</span>"
-  },
-  {
-    "id": "liu-song-mingdi",
-    "commonName": "明帝",
-    "dynasty": "宋",
-    "localFile": "liu-song-mingdi.jpg",
-    "sourceFilename": "Taizong_of_Song.jpg",
-    "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:Taizong_of_Song.jpg",
-    "matchedWikiTitle": "宋太宗",
-    "licenseVerified": true,
-    "license": "pd",
-    "licenseShortName": "Public domain",
-    "attributionRequired": "false",
-    "artist": "<div class=\"fn value\">\nUnknown artist<span style=\"display: none;\">Unknown artist</span></div>",
-    "credit": "Digitized by NPM; image is directly from <a rel=\"nofollow\" class=\"external text\" href=\"https://new.shuge.org/view/li_dai_di_hou_xiang_zhou/\">Shuge</a>"
   },
   {
     "id": "liu-song-wendi",
@@ -1588,21 +1558,6 @@
     "attributionRequired": "false",
     "artist": "<div class=\"fn value\">\nUnknown author<span style=\"display: none;\">Unknown author</span></div>",
     "credit": "Digitized by NPM; image is directly from <a rel=\"nofollow\" class=\"external text\" href=\"https://new.shuge.org/view/li_dai_di_hou_xiang_zhou/\">Shuge</a>"
-  },
-  {
-    "id": "tang-jingzong",
-    "commonName": "敬宗",
-    "dynasty": "唐",
-    "localFile": "tang-jingzong.jpg",
-    "sourceFilename": "帝鉴图说.Recueil_Historique_des_Principaux_Traits_de_la_Vie_des_Empereurs_Chinois.95帧图.彩绘册页.约18世纪_(唐敬宗)_(cropped).jpg",
-    "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:%E5%B8%9D%E9%89%B4%E5%9B%BE%E8%AF%B4.Recueil_Historique_des_Principaux_Traits_de_la_Vie_des_Empereurs_Chinois.95%E5%B8%A7%E5%9B%BE.%E5%BD%A9%E7%BB%98%E5%86%8C%E9%A1%B5.%E7%BA%A618%E4%B8%96%E7%BA%AA_%28%E5%94%90%E6%95%AC%E5%AE%97%29_%28cropped%29.jpg",
-    "matchedWikiTitle": "唐敬宗",
-    "licenseVerified": true,
-    "license": "cc0",
-    "licenseShortName": "CC0",
-    "attributionRequired": "false",
-    "artist": "<a href=\"//commons.wikimedia.org/wiki/User:Zeroiszen\" title=\"User:Zeroiszen\">书格</a>",
-    "credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>"
   },
   {
     "id": "tang-muzong",

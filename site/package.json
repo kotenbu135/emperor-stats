@@ -5,8 +5,9 @@
   "scripts": {
     "sync-portraits": "node scripts/sync-portraits.mjs",
     "build-emperor-notes": "node scripts/build-emperor-notes.mjs",
-    "predev": "npm run sync-portraits && npm run build-emperor-notes",
-    "prebuild": "npm run sync-portraits && npm run build-emperor-notes",
+    "build-data-distribution": "node scripts/build-data-distribution.mjs",
+    "predev": "npm run sync-portraits && npm run build-emperor-notes && npm run build-data-distribution",
+    "prebuild": "npm run sync-portraits && npm run build-emperor-notes && npm run build-data-distribution",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
