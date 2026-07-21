@@ -35,6 +35,7 @@ import {
   dynastyCategoryOptions,
 } from "@/lib/emperor-types";
 import { toHiragana } from "@/lib/kana";
+import { BASE_PATH } from "@/lib/base-path";
 import { Portrait } from "@/components/emperors/portrait";
 import { EmperorDetailDialog } from "@/components/emperors/emperor-detail-dialog";
 
@@ -94,6 +95,13 @@ export function EmperorGrid({
   const [categoryValue, setCategoryValue] = useState<DynastyCategory | "all">("all");
   const [selected, setSelected] = useState<EmperorRecord | null>(null);
   const onSelect = useCallback((record: EmperorRecord) => setSelected(record), []);
+  const onCloseDialog = useCallback(() => setSelected(null), []);
+  // ダイアログを開いている間はURLを個別ページに差し替える（共有・リロードで
+  // 個別ページ本体が開く）。useDialogHistoryのeffect依存になるため安定参照で渡す。
+  const dialogUrlFor = useCallback(
+    (record: EmperorRecord) => `${BASE_PATH}/emperors/${record.id}`,
+    [],
+  );
   // 入力欄の反応を優先し、グリッドの絞り込み再レンダリングは低優先度で追従させる
   // （1文字ごとに364カードの再レンダリングがキー入力をブロックしないように）。
   const deferredQuery = useDeferredValue(query);
@@ -119,13 +127,28 @@ export function EmperorGrid({
     if (category && dynastyCategoryOptions.some((o) => o.value === category)) {
       setCategoryValue(category as DynastyCategory);
     }
+    // ダイアログ内リンクで個別ページへ遷移→戻るで一覧へ帰ってきた場合、履歴
+    // エントリにはダイアログのmarkerが残ったままこのコンポーネントがマウント
+    // し直される（popstateはマウント前に発火済みで拾えない）。ここで復元して
+    // 「戻る＝ダイアログの開いた一覧」を再現する。
+    const dialogId = (
+      window.history.state as { emperorDialog?: string } | null
+    )?.emperorDialog;
+    if (dialogId) {
+      const record = records.find((r) => r.id === dialogId);
+      if (record) setSelected(record);
+    }
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [dynastyOptions]);
+  }, [dynastyOptions, records]);
   useEffect(() => {
     if (skipFirstUrlWriteRef.current) {
       skipFirstUrlWriteRef.current = false;
       return;
     }
+    // ダイアログが履歴同期でURLを個別ページに差し替えている間は書き込まない
+    // （検索入力のdeferred反映がダイアログを開いた直後に届く競合対策）。
+    const path = window.location.pathname;
+    if (!(path.endsWith("/emperors") || path.endsWith("/emperors/"))) return;
     const params = new URLSearchParams();
     if (deferredQuery.trim()) params.set("q", deferredQuery.trim());
     if (dynastyValue !== "all") params.set("dynasty", dynastyValue);
@@ -280,7 +303,9 @@ export function EmperorGrid({
 
       <EmperorDetailDialog
         record={selected}
-        onClose={() => setSelected(null)}
+        onClose={onCloseDialog}
+        onRestore={onSelect}
+        historyUrlFor={dialogUrlFor}
         prev={selectedIndex > 0 ? flatOrder[selectedIndex - 1] : null}
         next={
           selectedIndex >= 0 && selectedIndex < flatOrder.length - 1
