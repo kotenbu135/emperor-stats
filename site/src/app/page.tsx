@@ -53,7 +53,7 @@ export default function Home() {
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
           始皇帝から溥儀まで、中国史上で実際に「皇帝」を名乗った
           {stats.emperorCount}
-          の統計情報を可視化したサイトです。
+          名の統計情報を可視化したサイトです。
         </p>
 
         <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3">
