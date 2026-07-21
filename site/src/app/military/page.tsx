@@ -1,8 +1,10 @@
 import { PageHeader, Section } from "@/components/layout/page-header";
 import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
+import { ChartTakeaway } from "@/components/charts/chart-takeaway";
 import {
   getAllEmperorRecords,
+  getChartTakeaway,
   getDynastyOptions,
   militaryEventLabels,
   type MilitaryEventKey,
@@ -51,6 +53,10 @@ export default function MilitaryPage() {
           title={`${militaryEventLabels[key]}ランキング`}
           description={description}
         >
+          {/* 総括文は代表 Section（親征）1本のみに付ける。 */}
+          {id === "campaign" && (
+            <ChartTakeaway sentences={getChartTakeaway("military")} />
+          )}
           <LazyMount estimatedHeight={680}>
             <RankingBarChart
               records={records}

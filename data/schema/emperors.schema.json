@@ -1,0 +1,540 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://emperorstats.com/data/emperors.schema.json",
+  "title": "中国皇帝統計データセット（emperorstats.com）",
+  "description": "始皇帝から溥儀まで、実際に「皇帝」を名乗った365人の在位・死因・即位経路など全12項目を正史原典から個別調査したデータセット。人間可読な定義は data/schema/EMPERORS_SCHEMA.md・DEATH_CAUSE_SCHEMA.md・ADDITIONAL_SCHEMA.md・INCLUSION_CRITERIA.md を参照。",
+  "type": "object",
+  "required": ["meta", "emperors"],
+  "properties": {
+    "meta": { "$ref": "#/$defs/meta" },
+    "emperors": {
+      "type": "array",
+      "description": "皇帝レコードの配列。収録基準は INCLUSION_CRITERIA.md（皇帝号を実際に称した人物）。",
+      "items": { "$ref": "#/$defs/emperor" }
+    }
+  },
+  "$defs": {
+    "meta": {
+      "type": "object",
+      "description": "データセット全体のメタ情報。調査進捗の管理用フィールド（*CompletedBlocks・status）を含む。",
+      "required": ["title", "count", "schemaVersion", "generatedAt"],
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "count": {
+          "type": "integer",
+          "description": "収録皇帝数。emperors 配列の長さと一致する。"
+        },
+        "schemaVersion": {
+          "type": "string",
+          "description": "データ構造の版（セマンティックバージョン）。フィールドの追加・改名時に上がる。データ内容の版とは別軸。"
+        },
+        "generatedAt": {
+          "type": "string",
+          "description": "このファイルを最後に更新した日付（YYYY-MM-DD）。",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "source": {
+          "type": "object",
+          "description": "収録人物リストの初期構築に用いた情報源。個々の項目の判定根拠は各フィールドの source を参照（正史原典が第一情報源）。"
+        },
+        "inclusionCriteria": { "type": ["object", "string", "array"] },
+        "reignDaysPolicy": { "type": ["object", "string", "array"] },
+        "status": {
+          "type": "object",
+          "description": "調査フェーズの進捗管理（内部運用フィールド）。",
+          "properties": {
+            "overall": { "type": "string" },
+            "phases": { "type": "object" }
+          }
+        }
+      },
+      "patternProperties": {
+        "CompletedBlocks$": {
+          "type": ["array", "object"],
+          "description": "調査ブロック単位の完了記録（内部運用フィールド）。"
+        }
+      }
+    },
+
+    "emperor": {
+      "type": "object",
+      "required": ["id", "name", "dynasty", "reigns", "reignSummary", "flags"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "皇帝の一意識別子（slug）。emperorstats.com/emperors/{id} のURLに対応する。",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": { "$ref": "#/$defs/name" },
+        "dynasty": { "$ref": "#/$defs/dynasty" },
+        "reigns": {
+          "type": "array",
+          "description": "在位期間の配列。復位した皇帝は複数要素を持つ（8名）。",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/reign" }
+        },
+        "reignSummary": { "$ref": "#/$defs/reignSummary" },
+        "flags": { "$ref": "#/$defs/flags" },
+        "sources": { "$ref": "#/$defs/externalSources" },
+        "verification": { "$ref": "#/$defs/verification" },
+        "deathCause": { "$ref": "#/$defs/deathCause" },
+        "accessionRoute": { "$ref": "#/$defs/accessionRoute" },
+        "ages": { "$ref": "#/$defs/ages" },
+        "eraChangeCount": {
+          "description": "改元回数。events[] は改元1件ごとの記録。",
+          "$ref": "#/$defs/datedEventCount"
+        },
+        "amnestyCount": {
+          "description": "大赦回数。恩赦のうち原典が「大赦」と明記するものを数える。",
+          "$ref": "#/$defs/datedEventCount"
+        },
+        "empressInstallationCount": {
+          "description": "立后（皇后冊立）回数。",
+          "$ref": "#/$defs/datedEventCount"
+        },
+        "crownPrinceDepositionCount": {
+          "description": "皇太子廃立回数。",
+          "$ref": "#/$defs/datedEventCount"
+        },
+        "capitalRelocationCount": {
+          "description": "遷都回数。events[] は from/to（遷都元・遷都先）を持つ。",
+          "$ref": "#/$defs/capitalRelocationCountObject"
+        },
+        "personalCampaignCount": {
+          "description": "親征回数（皇帝自身が軍を率いた対外遠征）。events[] は target（遠征対象）を持つ。",
+          "$ref": "#/$defs/campaignCountObject"
+        },
+        "rebellionSuppressionCount": {
+          "description": "反乱鎮圧回数（自政権の支配下で起きた反乱を鎮圧した回数）。",
+          "$ref": "#/$defs/rebellionCountObject"
+        },
+        "rebellionSufferedCount": {
+          "description": "被反乱回数（自政権が反乱を起こされた回数）。判定基準は ADDITIONAL_SCHEMA.md 9節。",
+          "$ref": "#/$defs/rebellionCountObject"
+        }
+      }
+    },
+
+    "name": {
+      "type": "object",
+      "description": "各種名称。中国の皇帝は諱・廟号・諡号・通称が併存するため、用途別に保持する。",
+      "properties": {
+        "personalName": {
+          "type": ["string", "null"],
+          "description": "諱（本名）。"
+        },
+        "commonName": {
+          "type": ["string", "null"],
+          "description": "通称（最も一般的な呼称。例:「始皇帝」「聖祖（康熙帝）」）。2件のみ null（赫連夏の赫連昌・赫連定）で、その場合は personalName で代替する。"
+        },
+        "templeName": {
+          "type": ["string", "null"],
+          "description": "廟号（例:「太宗」）。廟号を持たない皇帝は null。"
+        },
+        "posthumousName": {
+          "type": ["string", "null"],
+          "description": "諡号（例:「文帝」）。"
+        },
+        "regnalTitle": {
+          "type": ["string", "null"],
+          "description": "称した君主号（原則「皇帝」。収録基準の根拠となる）。"
+        },
+        "aliases": {
+          "type": "array",
+          "description": "別名・異表記（検索用）。",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "dynasty": {
+      "type": "object",
+      "description": "所属王朝。同一国号の別政権が複数あるため、(name, section) の複合キーで政権単位に一意となる。",
+      "required": ["name", "category", "section"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "王朝名・国号（例:「秦」「宋」）。同名の別政権が存在するため単体では一意でない。"
+        },
+        "category": {
+          "type": "string",
+          "description": "政権の区分（例:「正統」「十六国」「正統（反乱・自称）」）。値は固定enumではない。"
+        },
+        "section": {
+          "type": "string",
+          "description": "調査ブロック名（例:「宋遼西夏金」「秦（始皇帝以降）」）。内部管理用の区分だが、同名王朝の識別キーとして機能する。時代区分ラベルとしてそのまま表示する用途は想定していない。"
+        }
+      }
+    },
+
+    "reign": {
+      "type": "object",
+      "description": "1回の在位期間。皇帝号を称していた期間のみを対象とする（即位前の王位期間等は含まない）。",
+      "properties": {
+        "startYear": {
+          "type": ["integer", "null"],
+          "description": "在位開始年（西暦・紀元前は負数。天文年方式ではなく歴史年方式で0年は存在しない）。"
+        },
+        "endYear": {
+          "type": ["integer", "null"],
+          "description": "在位終了年（西暦・紀元前は負数）。"
+        },
+        "startDate": {
+          "type": ["string", "null"],
+          "description": "在位開始日（ISO 8601 拡張形式。紀元前は4桁ゼロ埋めの負年で表す。例:「-0210-09-10」）。精度は datePrecision.start が示し、年精度なら「-0221」のように短い形になる。"
+        },
+        "endDate": {
+          "type": ["string", "null"],
+          "description": "在位終了日（形式は startDate と同じ）。"
+        },
+        "startDateRaw": {
+          "type": ["string", "null"],
+          "description": "原典の紀年表記そのまま（例:「始皇帝26年（前221年、天下統一・皇帝号採用）」）。"
+        },
+        "endDateRaw": {
+          "type": ["string", "null"],
+          "description": "原典の紀年表記そのまま（旧暦日付を含む）。"
+        },
+        "datePrecision": {
+          "type": "object",
+          "description": "startDate/endDate の精度。原典に日付記載がない場合は年・月止まりになる。",
+          "properties": {
+            "start": { "$ref": "#/$defs/datePrecisionValue" },
+            "end": { "$ref": "#/$defs/datePrecisionValue" }
+          }
+        },
+        "dynastyOrder": {
+          "type": ["integer", "null"],
+          "description": "王朝内の代数（初代=1）。"
+        },
+        "isRestoration": {
+          "type": "boolean",
+          "description": "この在位が復位（2回目以降の即位）かどうか。"
+        },
+        "duration": { "$ref": "#/$defs/duration" },
+        "durationRaw": {
+          "type": ["string", "null"],
+          "description": "在位期間の元表記（例:「11年」）。"
+        },
+        "raw": {
+          "type": ["string", "null"],
+          "description": "在位期間の元表記（例:「紀元前221年 - 紀元前210年」）。"
+        },
+        "note": {
+          "type": ["string", "null"],
+          "description": "この在位期間についての注記（起点の取り方など）。"
+        }
+      }
+    },
+
+    "duration": {
+      "type": "object",
+      "description": "在位期間の長さ。approxDays は近似値であり、exactDays が null の場合は日単位の正確さを保証しない。",
+      "properties": {
+        "value": { "type": ["number", "null"], "description": "durationRaw に対応する数値。" },
+        "unit": { "type": ["string", "null"], "description": "value の単位（例:「year」「day」）。" },
+        "approxDays": {
+          "type": ["integer", "null"],
+          "description": "在位日数の近似値。年精度の日付から換算した推定を含むため、統計・比較用の値として扱うこと。"
+        },
+        "exactDays": {
+          "type": ["integer", "null"],
+          "description": "即位日・退位日が日精度で確定している場合の正確な在位日数。null なら未確定。"
+        },
+        "needsPreciseDays": {
+          "type": "boolean",
+          "description": "true の場合、日精度の確定調査が未了で approxDays が推定値であることを示す精度フラグ。"
+        },
+        "source": { "$ref": "#/$defs/source" }
+      }
+    },
+
+    "reignSummary": {
+      "type": "object",
+      "description": "複数在位を合算した代表値。ランキング・統計はこの値を用いる。",
+      "properties": {
+        "firstStartYear": { "type": ["integer", "null"], "description": "最初の在位の開始年。" },
+        "lastEndYear": { "type": ["integer", "null"], "description": "最後の在位の終了年。" },
+        "reignCount": { "type": "integer", "description": "在位回数（reigns 配列の長さ）。" },
+        "totalReignDuration": {
+          "type": "object",
+          "description": "全在位期間の合算。",
+          "properties": {
+            "approxDays": {
+              "type": ["integer", "null"],
+              "description": "合算在位日数の近似値。isExact が false の場合は推定を含む。"
+            },
+            "exactDays": {
+              "type": ["integer", "null"],
+              "description": "全在位が日精度で確定している場合の正確な合算日数。"
+            },
+            "displayYears": {
+              "type": ["number", "null"],
+              "description": "表示用の在位年数。"
+            },
+            "isExact": {
+              "type": "boolean",
+              "description": "approxDays が正確値かどうかを示す精度フラグ。false なら近似値。"
+            },
+            "needsPreciseDays": {
+              "type": "boolean",
+              "description": "日精度の確定調査が未了であることを示す精度フラグ。"
+            }
+          }
+        }
+      }
+    },
+
+    "flags": {
+      "type": "object",
+      "properties": {
+        "isFemale": { "type": "boolean", "description": "女性の皇帝か（武則天）。" },
+        "selfProclaimed": {
+          "type": "boolean",
+          "description": "政権自体が自称・反乱由来か（人物個人の即位経路とは独立した軸。accessionRoute 参照）。"
+        },
+        "usedEmperorTitleFrom": {
+          "type": ["integer", "null"],
+          "description": "皇帝号を称し始めた年（西暦・紀元前は負数）。収録基準の根拠。"
+        }
+      }
+    },
+
+    "externalSources": {
+      "type": "object",
+      "description": "外部識別子・元リスト上の位置。",
+      "properties": {
+        "wikitextLines": {
+          "type": ["array", "null"],
+          "description": "収録人物リスト構築時に参照した元記事の行番号（内部管理用）。",
+          "items": { "type": "integer" }
+        },
+        "wikidata": { "type": ["string", "null"], "description": "Wikidata QID（未紐付け）。" },
+        "cbdb": { "type": ["string", "integer", "null"], "description": "CBDB ID（未紐付け）。" }
+      }
+    },
+
+    "verification": {
+      "type": "object",
+      "description": "収録可否の検証結果。",
+      "properties": {
+        "emperorTitleConfirmed": {
+          "type": "boolean",
+          "description": "皇帝号を称した事実を原典で確認済みか。"
+        },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "notes": { "type": ["string", "null"], "description": "検証の経緯・特記事項。" }
+      }
+    },
+
+    "deathCause": {
+      "type": "object",
+      "description": "死因。単一カテゴリで、複合的な経緯は note に自然文で記す。定義は DEATH_CAUSE_SCHEMA.md。",
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": "死因の分類（8種）。",
+          "enum": ["病死", "暗殺", "処刑", "戦死", "自尽", "事故死", "不詳", "諸説あり"]
+        },
+        "note": {
+          "type": ["string", "null"],
+          "description": "死の経緯。原典の引用と判定理由を含む。"
+        },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "source": { "$ref": "#/$defs/source" }
+      }
+    },
+
+    "accessionRoute": {
+      "type": "object",
+      "description": "即位経路。複数回即位した人物もレコード単位の単一値（初回即位の経路を主とし、復位がある場合は「復位」）。定義は ADDITIONAL_SCHEMA.md 1節。",
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": "即位経路の分類（8種）。",
+          "enum": ["世襲", "簒奪", "禅譲", "擁立", "復位", "建国", "不詳", "諸説あり"]
+        },
+        "note": {
+          "type": ["string", "null"],
+          "description": "即位の経緯。原典の引用と判定理由を含む。"
+        },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "source": { "$ref": "#/$defs/source" }
+      }
+    },
+
+    "ages": {
+      "type": "object",
+      "description": "即位時年齢・没年齢。中国史の慣行に合わせ全て数え年で統一する（生年を1歳とする）。原典に記載がなく確定できない場合は null。",
+      "properties": {
+        "birthDate": {
+          "type": ["string", "null"],
+          "description": "生年月日（ISO 8601 拡張形式。紀元前は4桁ゼロ埋めの負年）。精度は birthDatePrecision が示す。"
+        },
+        "birthDatePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
+        "deathDate": {
+          "type": ["string", "null"],
+          "description": "没年月日（形式は birthDate と同じ）。"
+        },
+        "deathDatePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
+        "accessionAge": {
+          "type": ["integer", "null"],
+          "description": "皇帝即位時の数え年。皇帝号採用時点で数える（先行する王位即位時ではない）。調査済みだが原典から確定できない場合は null。"
+        },
+        "deathAge": {
+          "type": ["integer", "null"],
+          "description": "没時の数え年。調査済みだが確定できない場合は null。"
+        },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "note": { "type": ["string", "null"], "description": "算出根拠・原典の年齢記載。" }
+      }
+    },
+
+    "datedEventCount": {
+      "type": "object",
+      "description": "回数系指標のうち、単一日付のイベントを列挙するもの（改元・大赦・立后・皇太子廃立）。",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "回数。原則 events 配列の長さと一致する（一致しない場合の理由は note に記す）。",
+          "minimum": 0
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": { "type": ["string", "null"], "description": "発生日（ISO 8601 拡張形式）。" },
+              "datePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
+              "note": { "type": ["string", "null"], "description": "内容・原典の記述。" },
+              "source": { "$ref": "#/$defs/source" }
+            }
+          }
+        },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "note": {
+          "type": ["string", "null"],
+          "description": "指標レベルの注記。典拠とした書名・巻や、数え方の判断を含む。"
+        }
+      }
+    },
+
+    "capitalRelocationCountObject": {
+      "type": "object",
+      "description": "遷都回数。数え方の基準は ADDITIONAL_SCHEMA.md 6節。",
+      "properties": {
+        "count": { "type": "integer", "minimum": 0 },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": { "type": ["string", "null"] },
+              "datePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
+              "from": { "type": ["string", "null"], "description": "遷都元の都城名。" },
+              "to": { "type": ["string", "null"], "description": "遷都先の都城名。" },
+              "note": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "note": { "type": ["string", "null"] }
+      }
+    },
+
+    "campaignCountObject": {
+      "type": "object",
+      "description": "親征回数。期間を持つイベントのため startDate/endDate の対で記録する。",
+      "properties": {
+        "count": { "type": "integer", "minimum": 0 },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "startDate": { "type": ["string", "null"] },
+              "endDate": { "type": ["string", "null"] },
+              "datePrecision": {
+                "type": ["object", "string", "null"],
+                "description": "日付精度。start/end の対、または単一値。"
+              },
+              "target": { "type": ["string", "null"], "description": "遠征対象（勢力名・地域名）。" },
+              "outcome": { "type": ["string", "null"], "description": "結果。" },
+              "note": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "note": { "type": ["string", "null"] }
+      }
+    },
+
+    "rebellionCountObject": {
+      "type": "object",
+      "description": "反乱鎮圧回数・被反乱回数。期間を持つイベントとして記録する。",
+      "properties": {
+        "count": { "type": "integer", "minimum": 0 },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "startDate": { "type": ["string", "null"] },
+              "endDate": { "type": ["string", "null"] },
+              "datePrecision": {
+                "type": ["object", "string", "null"],
+                "description": "日付精度。start/end の対、または単一値。"
+              },
+              "name": { "type": ["string", "null"], "description": "反乱の名称。" },
+              "leader": { "type": ["string", "null"], "description": "反乱の首謀者。" },
+              "outcome": { "type": ["string", "null"], "description": "結果。" },
+              "note": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "note": { "type": ["string", "null"] }
+      }
+    },
+
+    "source": {
+      "type": ["object", "null"],
+      "description": "判定根拠の出典。原則として正史の巻名（本紀・列伝）を指す。",
+      "properties": {
+        "page": {
+          "type": "string",
+          "description": "出典の書名・巻名（例:「史記・秦始皇本紀」）。"
+        },
+        "lang": {
+          "type": ["string", "null"],
+          "description": "出典の言語（例:「zh-classical」＝漢文原典、「ja」「zh」）。複数併記の自由記述もある。"
+        },
+        "note": {
+          "type": ["string", "null"],
+          "description": "出典に関する補足（該当箇所・引用原文など）。"
+        }
+      }
+    },
+
+    "datePrecisionValue": {
+      "type": ["string", "null"],
+      "description": "日付の精度。対応する日付文字列がどこまで確定しているかを示す。reigns[].datePrecision はこの3値に統一されている。",
+      "enum": ["day", "month", "year", null]
+    },
+
+    "datePrecisionAnnotated": {
+      "type": ["string", "null"],
+      "description": "日付の精度（注記つき自由記述）。ages と events[] の精度フィールドは、基本値（day / month / year）に加えて、判定できない場合の値（unknown / none / conflicting など）や、換算状況を括弧で補記した形（例:「day（干支紀日、西暦換算は概算）」「day(lunar, unconverted)」）を取る。これは旧暦・干支表記の西暦換算が未実施であることを失わずに記録するための運用で、機械処理する場合は先頭の基本値トークンを取り出すこと。reigns[].datePrecision（3値に統一済み）とは扱いが異なる。"
+    },
+
+    "confidence": {
+      "description": "判定の確信度。情報源間で不一致が残る場合は medium とし note に経緯を記す。空文字列は確信度が未設定であることを示す（回数系の4件に存在する既知の欠損）。",
+      "anyOf": [
+        { "enum": ["high", "medium", "low"] },
+        { "const": "", "description": "未設定（既知の欠損）。" },
+        { "type": "null" }
+      ]
+    }
+  }
+}

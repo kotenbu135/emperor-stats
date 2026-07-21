@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { BASE_PATH } from "@/lib/base-path";
+import { aggregateByGroup } from "@/components/charts/dynasty-aggregate";
 import {
   astroYear,
   eraOrder,
@@ -791,6 +792,136 @@ export function getOverviewStats(): OverviewStats {
     restorationCount: records.filter((r) => r.reignCount >= 2).length,
     portraitCount: records.filter((r) => r.hasPortrait).length,
   };
+}
+
+// ---------------------------------------------------------------------------
+// グラフページの「読み取れること」（SSR テキスト）。クローラと未訪問ユーザーに
+// 各グラフの結論を1〜2文で言語化する（グラフ本体は LazyMount で画面外未マウント＝
+// 数値が一切 DOM に出ないため、この結論文は実質ゼロからの純増になる）。
+//
+// 【整合性の要】数値・母集団・1位はすべてチャートと同じ単一情報源から導く：
+//   - /reign・/death-accession は getOverviewStats（チャートと同じ集計）
+//   - 回数系・年齢は record.ranks[key]（チャート行と同じ computeRanks 由来のマップ）
+//     を使い、1位＝ranks[key].rank===1（＝チャート最上段）、母集団＝ranks[key].total
+//     （＝0回除外・年齢判明者のみの対象人数）。手書きの .filter を挟まないので、
+//     isRanked/RANK_DIRECTIONS を将来変えても本文が勝手にずれない。
+
+export type TakeawayPage =
+  | "reign"
+  | "ages"
+  | "death-accession"
+  | "court-events"
+  | "military"
+  | "dynasties";
+
+/** 指標の生値（回数・年齢）。ranks と同じ RankingMetricKey を受け、reignYears は扱わない。 */
+function metricValueOf(r: EmperorRecord, key: RankingMetricKey): number | null {
+  return r[key] as number | null;
+}
+
+/** ある指標の1位（＝チャート最上段）の皇帝群と対象人数。0回除外・年齢判明者のみは
+ *  ranks[key] 側で確定済みなので、ここでは rank===1 を拾うだけ。 */
+function topRanked(
+  records: EmperorRecord[],
+  key: RankingMetricKey,
+): { leaders: EmperorRecord[]; total: number; value: number } | null {
+  const leaders = records.filter((r) => r.ranks[key]?.rank === 1);
+  if (leaders.length === 0) return null;
+  const total = leaders[0].ranks[key]!.total;
+  const value = metricValueOf(leaders[0], key)!;
+  return { leaders, total, value };
+}
+
+/** 1位が単独か同順位かで表記を分ける（「○○（王朝）」か「○○ら2名」）。 */
+function leaderLabel(leaders: EmperorRecord[]): string {
+  if (leaders.length === 1) {
+    return `${leaders[0].name}（${leaders[0].dynastyLabel}）`;
+  }
+  if (leaders.length === 2) {
+    // 区切りは「と」を使う（名前自体が「聖祖・康熙帝」のように「・」を含むため、
+    // 「・」で繋ぐと1人か2人か判別できなくなる）。
+    return `${leaders[0].name}と${leaders[1].name}の2名`;
+  }
+  return `${leaders[0].name}ら${leaders.length}名`;
+}
+
+/** 回数系ランキング（改元・親征など）の総括文。動詞・単位は呼び出し側から与える。 */
+function countTakeaway(
+  records: EmperorRecord[],
+  key: RankingMetricKey,
+  opts: { verb: string; unit: string; populationClause: string },
+): string[] {
+  const top = topRanked(records, key);
+  if (!top) return [];
+  return [
+    `${opts.verb}が最も多いのは${leaderLabel(top.leaders)}で、${top.value}${opts.unit}です。`,
+    `${opts.populationClause}は${top.total}名です。`,
+  ];
+}
+
+/** 王朝別平均在位の小標本しきい値。これ未満は1人の在位が平均を大きく動かすため、
+ *  最長平均の主張から除外する（除外することを本文にも明記する）。 */
+const DYNASTY_MIN_EMPERORS = 5;
+
+/**
+ * グラフページ1本ぶんの「読み取れること」総括文（各ページ代表 Section 直下に置く）。
+ * すべてビルド時にデータから導出する表示用の機械集計（自動生成禁止には非抵触）。
+ */
+export function getChartTakeaway(page: TakeawayPage): string[] {
+  const records = getAllEmperorRecords();
+  switch (page) {
+    case "reign": {
+      const s = getOverviewStats();
+      return [
+        `収録した${s.emperorCount}名の在位期間は、最長が${s.longestReign.name}（${s.longestReign.dynastyLabel}）の${s.longestReign.durationLabel}、最短が${s.shortestReign.name}（${s.shortestReign.dynastyLabel}）の${s.shortestReign.durationLabel}です。`,
+        `1人あたりの平均は${s.avgReignLabel}です。`,
+      ];
+    }
+    case "death-accession": {
+      const s = getOverviewStats();
+      return [
+        `${s.emperorCount}名の死因で最も多いのは「${s.topDeathCause.category}」で、${s.topDeathCause.count}名（${s.topDeathCause.percent}%）です。`,
+        `即位経路で最も多いのは「${s.topAccessionRoute.category}」で、${s.topAccessionRoute.count}名（${s.topAccessionRoute.percent}%）です。`,
+      ];
+    }
+    case "ages": {
+      const top = topRanked(records, "accessionAge"); // asc=若い順が1位
+      if (!top) return [];
+      return [
+        `即位時の年齢（数え年）が判明する${top.total}名のうち、最も若くして即位したのは${leaderLabel(top.leaders)}で、${top.value}歳です。`,
+        `生年が判明しない皇帝が多く、即位時年齢を算出できたのはこの${top.total}名にとどまります。`,
+      ];
+    }
+    case "court-events": {
+      return countTakeaway(records, "eraChangeCount", {
+        verb: "改元回数",
+        unit: "回",
+        populationClause: "即位時の建元を含め在位中に一度でも改元した皇帝",
+      });
+    }
+    case "military": {
+      return countTakeaway(records, "personalCampaignCount", {
+        verb: "親征（皇帝自身が軍を率いた出征）の回数",
+        unit: "回",
+        populationClause: "親征の記録がある皇帝",
+      });
+    }
+    case "dynasties": {
+      const rows = aggregateByGroup(records, "dynasty", "all");
+      const eligible = rows.filter(
+        (r) => r.emperorCount >= DYNASTY_MIN_EMPERORS,
+      );
+      if (eligible.length === 0) return [];
+      const top = eligible.reduce((a, b) =>
+        b.avgReignDays > a.avgReignDays ? b : a,
+      );
+      const years = (top.avgReignDays / 365).toFixed(1);
+      return [
+        `皇帝が${DYNASTY_MIN_EMPERORS}名以上いる王朝では、1人あたりの平均在位年数が最も長いのは${top.label}で、約${years}年（${top.emperorCount}名）です。`,
+        `皇帝が少ない王朝は1人の在位が平均を大きく動かすため、${DYNASTY_MIN_EMPERORS}名未満はこの比較から除いています。`,
+      ];
+    }
+  }
 }
 
 // ---------------------------------------------------------------------------

@@ -1,7 +1,12 @@
 import { PageHeader, Section } from "@/components/layout/page-header";
 import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
-import { getAllEmperorRecords, getDynastyOptions } from "@/lib/emperors";
+import { ChartTakeaway } from "@/components/charts/chart-takeaway";
+import {
+  getAllEmperorRecords,
+  getChartTakeaway,
+  getDynastyOptions,
+} from "@/lib/emperors";
 import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -28,6 +33,7 @@ export default function AgesPage() {
         title="即位時年齢ランキング"
         description={`皇帝として即位した時点の年齢です（生年が判明している${accessionKnown}名分）。幼くして即位した皇帝から順に表示します。`}
       >
+        <ChartTakeaway sentences={getChartTakeaway("ages")} />
         <LazyMount estimatedHeight={680}>
           <RankingBarChart
             records={records}

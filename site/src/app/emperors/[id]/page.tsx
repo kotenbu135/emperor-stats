@@ -60,12 +60,25 @@ export default async function EmperorPage({
   const prev = index > 0 ? records[index - 1] : null;
   const next = index < records.length - 1 ? records[index + 1] : null;
   const structuredDates = getEmperorStructuredDates(id);
+  // 諱・廟号・諡号・別名を alternateName に。record.name との重複と
+  // 空値は personJsonLd 側で除くが、別名同士の重複はここで畳む。
+  const alternateName = [
+    ...new Set(
+      [
+        record.personalName,
+        record.templeName,
+        record.posthumousName,
+        ...record.aliases,
+      ].filter((n): n is string => !!n),
+    ),
+  ];
 
   return (
     <>
       <JsonLd
         data={personJsonLd({
           name: record.name,
+          alternateName,
           url: absoluteUrl(`/emperors/${id}`),
           description: `${dynastyContextLabel(record)}の皇帝。在位${record.periodsLabel}（${record.reignDurationLabel}）。`,
           image: record.portraitUrl ? absoluteUrl(record.portraitUrl) : undefined,

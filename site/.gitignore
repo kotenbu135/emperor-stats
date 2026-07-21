@@ -23,6 +23,9 @@
 # data/emperors.json から build-emperor-notes で生成される経緯JSON（git管理はソース側のみ）
 /public/emperor-notes/
 
+# data/emperors.json・data/schema から build-data-distribution で生成される配布物（git管理はソース側のみ）
+/public/data/
+
 # production
 /build
 
