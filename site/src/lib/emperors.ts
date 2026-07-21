@@ -30,6 +30,7 @@ import {
 } from "@/lib/emperor-types";
 
 export * from "@/lib/emperor-types";
+import { buildRiverTimeline, type RiverTimelineData } from "@/lib/timeline-river";
 
 const dataPath = path.join(process.cwd(), "..", "data", "emperors.json");
 const rawData = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
@@ -1200,6 +1201,13 @@ export function getTimelineData(): TimelineData {
     maxConcurrency: Math.max(...concurrency),
   };
   return timelineCache;
+}
+
+// --- 通史年表v2「大河」ビュー（構築ロジックはtimeline-river.ts） ---
+let riverCache: RiverTimelineData | null = null;
+export function getRiverTimelineData(): RiverTimelineData {
+  riverCache ??= buildRiverTimeline(data.emperors);
+  return riverCache;
 }
 
 export interface PortraitCredit {
