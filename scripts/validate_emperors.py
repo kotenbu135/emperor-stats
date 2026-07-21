@@ -21,12 +21,13 @@
     （退位後死去の deathDate > endDate は正当なので警告どまり。task.md 3-3 の2段階方式）
   - reignSummary の reignCount / firstStartYear / lastEndYear と reigns の整合
   - confidence 値（high/medium/low/null 以外・空文字はエラー）
-  - 出典禁止語: deathCause/accessionRoute/events の source が Wikipedia/百度等のままならエラー
-    （判定は scripts/detect_wikipedia_sources.py の is_wiki_like を共用）
+  - 出典禁止語: deathCause/accessionRoute/events/reigns[].duration の source が
+    Wikipedia/百度等のままならエラー（判定は scripts/detect_wikipedia_sources.py の
+    is_wiki_like を共用。reigns[].duration はフェーズB完了〔2026-07-21・残数0件〕を受けて
+    警告からエラーに格上げ済み）
   - 肖像画 manifest: id 実在・ファイル 1:1 対応・各キー重複・画像 MD5 重複
 
 警告（CI は通す・出力で可視化）:
-  - reigns[].duration.source の Wikipedia 出典残数（task.md 3-1 フェーズB進行中の進捗計）
   - deathDate > endDate（退位・被廃後死去など。正当ケース多数のため件数と id のみ）
   - ages/events の datePrecision 非標準トークン（表記ゆれ。正規化方針は 3-3 で未確定）
   - ages の非 ISO 日付（元号・歴史年表記のまま。フェーズBの ages 同期で順次解消想定）
@@ -391,13 +392,13 @@ def check_forbidden_sources(data):
                 s = ev.get("source")
                 if s and is_wiki_like(s):
                     err(f"[source] {eid}.{g}.events[{i}]: Wikipedia/百度等の出典が残存: {s.get('page')!r}")
-        for r in e.get("reigns", []):
+        for j, r in enumerate(e.get("reigns", [])):
             s = (r.get("duration") or {}).get("source")
             if s and is_wiki_like(s):
                 reign_wiki += 1
+                err(f"[source] {eid}.reigns[{j}].duration: Wikipedia/百度等の出典が残存: {s.get('page')!r}")
     if reign_wiki:
-        # task.md 3-1 フェーズB進行中。完了（0 件到達）後はエラーに格上げする
-        warn(f"[source] reigns[].duration.source の Wikipedia 出典残: {reign_wiki} 件（フェーズB進行中）")
+        err(f"[source] reigns[].duration.source の Wikipedia 出典計: {reign_wiki} 件（フェーズB完了済みのため 0 件必須）")
 
 
 def check_portraits(data):

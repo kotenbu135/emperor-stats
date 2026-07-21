@@ -223,11 +223,11 @@
 
 ## データ QA の CI 恒久化（2026-07-21、task.md 3-3）
 
-`scripts/validate_emperors.py` と GitHub Actions ワークフロー `.github/workflows/validate-data.yml` を新設し、`data/` または QA スクリプトを触る push / PR で自動検証が走る体制にした。チェック内容・エラー/警告の区分はスクリプト冒頭の docstring が正（スキーマ適合＝寛容版＋additionalProperties:false 機械付与の厳格版・日付整合・精度と形式の整合・count==events長・QID 形式/一意性・出典禁止語・肖像 manifest 整合/MD5 重複など）。現データで 0 エラー・警告4種（フェーズB進行中の既知事項）で緑。
+`scripts/validate_emperors.py` と GitHub Actions ワークフロー `.github/workflows/validate-data.yml` を新設し、`data/` または QA スクリプトを触る push / PR で自動検証が走る体制にした。チェック内容・エラー/警告の区分はスクリプト冒頭の docstring が正（スキーマ適合＝寛容版＋additionalProperties:false 機械付与の厳格版・日付整合・精度と形式の整合・count==events長・QID 形式/一意性・出典禁止語・肖像 manifest 整合/MD5 重複など）。新設時は現データで 0 エラー・警告4種（フェーズB進行中の既知事項）の緑スタート。フェーズB完了（2026-07-21）後の格上げを経て現在は 0 エラー・警告3種。
 
 **運用ルール**:
 - **`KNOWN_ISSUES`（スクリプト内の許容リスト）は「容認」ではなく「個別調査待ち」の明示**。データ側を訂正したら該当エントリを削除する。削除し忘れは「陳腐化エントリ」警告で検出される（訂正済みならエントリが残っていても CI は落ちない＝フェーズB進行中の別セッションのコミットを妨げない設計）。
-- `reigns[].duration.source` の Wikipedia 出典残数は警告として件数表示のみ。**2026-07-21ブロック12完了で残存数0件に到達した。エラーへの格上げ自体（`check_forbidden_sources` 内のコメント参照）はtask.md 3-3の別タスクとして未着手。**
+- `reigns[].duration.source` の Wikipedia 出典チェックは、2026-07-21ブロック12完了（残存数0件到達）を受けて**警告からエラーに格上げ済み**（同日実施）。以後 Wikipedia/百度等の出典が `reigns[].duration.source` に混入すると CI が落ちる（該当 reign ごとの個別エラー＋総数エラー）。
 - 新フィールドを正式追加する際は `data/schema/emperors.schema.json`（配布用）と `EMPERORS_SCHEMA.md` を先に更新する。厳格版チェックが未記載キーを構造ドリフトとして検出する。
 
 **CI 構築時に見つかった未解決のデータ問題（許容リスト登録済み・フェーズB等で個別調査を要する）**:

@@ -163,7 +163,7 @@
 - [x] **`confidence: ""` 4件**: CI は「空文字・high/medium/low 以外はエラー」を実装、既知4件は許容リスト登録（値の確定＝調査判断は未着手のまま別途）
 - [x] **`datePrecision` 表記ゆれ**: reigns は year/month/day の3値をエラーで強制。ages/events は先頭トークン照合の警告のみ（実測120件80種で正規化方針が未確定のため。方針確定は別途）
 - [x] 以後の訂正 PR が自動チェックを通る体制（PR トリガーで発火・許容リスト方式によりフェーズB進行中も緑を維持）
-- [ ] フェーズB完了後: `reigns[].duration.source` の Wikipedia 出典チェックを警告→エラーに格上げ（`check_forbidden_sources` 内コメント参照）
+- [x] フェーズB完了後: `reigns[].duration.source` の Wikipedia 出典チェックを警告→エラーに格上げ（2026-07-21実施。`check_forbidden_sources` で件数警告を廃止し、該当 reign ごとの個別エラー＋総数エラーに変更。現データ 0 エラーで緑を確認）
 - [ ] 別途（調査判断が必要な残件）: `confidence: ""` 4件の値確定、CI 構築時に新発見の `beiwei-yuanfasheng` 在位日付逆転・`qianzhao-liuyuan` reignSummary 不整合（詳細は PROJECT_STATUS）
 
 **工数目安**: Wikipedia 出典棚卸しは件数次第（列挙1時間・書き直し1件10〜30分）。肖像 QA と CI で1〜2日。
