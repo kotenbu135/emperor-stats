@@ -23,6 +23,12 @@ npx tsc --noEmit   # 型チェック
 
 サイト側の詳細（アーキテクチャ・ハマりどころ）は [site/AGENTS.md](site/AGENTS.md) を参照。
 
+`data/emperors.json` を訂正した際は、コミット前に必ず構造検証を実行する（`.github/workflows/validate-data.yml` で push 時にも自動実行される）：
+
+```bash
+python3 scripts/validate_emperors.py   # スキーマ・日付整合性・reignSummary整合性・禁止出典などをチェック
+```
+
 ## リポジトリ構成
 
 - **`data/emperors.json`** — メインデータセット本体（`meta` + `emperors` 配列）。サイトがビルド時に直接読み込む。**メイン会話でこのファイル全体を Read しない**（2.9MB超）。対象人物の抽出・訂正結果のマージは `jq`/`python3` を Bash 経由で行う（詳細: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「コンテキスト効率」節）。
@@ -41,7 +47,7 @@ npx tsc --noEmit   # 型チェック
 | **ディレクトリ全体の案内** | [docs/README.md](docs/README.md) / [data/README.md](data/README.md) |
 | **プロジェクト現状・データ品質の申し送り** | [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) |
 | **データ調査の進め方（訂正時もこの手順）** | [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) |
-| **ローカルコーパス利用メモ（巻数の罠・行番号インデックス）** | [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) |
+| **ローカルコーパス利用メモ（巻数の罠・行番号インデックス、着手前必読）** | [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) |
 | **絶対に守るべき制約** | [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md) |
 | **AI調査の知見集（設計指針・失敗事例）** | [docs/process/AI_RESEARCH_LESSONS.md](docs/process/AI_RESEARCH_LESSONS.md) |
 | **JSON スキーマ参照** | [docs/schema/SCHEMA_OVERVIEW.md](docs/schema/SCHEMA_OVERVIEW.md) |
@@ -50,6 +56,7 @@ npx tsc --noEmit   # 型チェック
 ## 最重要ルール（抜粋）
 
 - **原典（正史の本紀・列伝）を第一情報源とします** — WebSearch の要約だけでは判定しません
+- **正史原典調査（データ訂正・新規ブロック着手）に入る前に、必ず [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) と [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) を読むこと**。「存在は知っている」「前回読んだ」では不十分で、対象王朝・書物ごとに調査着手のたびに読み直す。両ファイルには「china-history の相対巻数（絶対巻数－50）」「帝紀に独立記述のない人物は列伝で代替」など、読まずに進めると誤った巻・誤った日付を採用してしまう罠が書物・王朝別に記録されている。読まずに調査エージェント（Workflow等）を起動し、後から欠落に気づいて手戻りする事故が複数回発生している
 - **スクリプトによるデータの自動生成は禁止** — 人物ごと個別調査・判定が必須（日数計算等の機械的な計算補助や、確定済み調査結果の構造チェックはOK）
 - **データ正確性が最優先** — データに誤りが見つかった場合は個別調査で訂正するのが原則で、サイト側での場当たり的な補正はしません（表示破綻の回避のみ許容。既知の例は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) の申し送り事項を参照）
 - **データを訂正したら** `data/emperors.json` の該当データと関連する `meta` 情報・ドキュメントを**同じタイミングで**更新する
