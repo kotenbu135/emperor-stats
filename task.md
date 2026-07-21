@@ -10,7 +10,7 @@
 
 - **JSON-LD は部分実装済み**（`src/lib/seo.tsx`）: `BreadcrumbJsonLd`（全セクションページ）・`personJsonLd`（`JsonLdPerson`）・`Dataset`（`@type: Dataset`）の生成関数がある。→ 項目 4-2 は「個別ページで `personJsonLd` を実際に出しているか」「`sameAs` に Wikidata を入れているか」の確認と穴埋めが主。
 - **sitemap / robots 実装済み**: `app/sitemap.ts`・`app/robots.ts`。→ 項目 1 の「sitemap の検出URL数確認」は既存生成物の検証。
-- **`deathCause.source`・`accessionRoute.source`・`events[].source` のWikipedia出典は2026-07-21のフェーズAで一掃済み**（詳細下記3-1）。残るのは `reigns[].duration.source`（350件、Wikipedia infobox由来の即位/崩御日付）で、こちらはフェーズBとして進行中（2026-07-21にブロック1＝秦漢34件完了・残317件）。
+- **`deathCause.source`・`accessionRoute.source`・`events[].source` のWikipedia出典は2026-07-21のフェーズAで一掃済み**（詳細下記3-1）。残るのは `reigns[].duration.source`（350件、Wikipedia infobox由来の即位/崩御日付）で、こちらはフェーズBとして進行中（2026-07-21にブロック1＝秦漢34件・ブロック2＝三国11件完了・残306件）。
 - **note・出典のサイト表示（旧 task.md 第1〜3弾）は 2026-07-20 完了済み**: 個別ページの「即位/死因/復位の経緯」節・「調査メモ」折りたたみ・「在位中の出来事」年表・詳細ダイアログの lazy fetch（`public/emperor-notes/{id}.json`）。設計判断は `docs/site-design/LAYOUT.md` 参照。
 - **配布物は 2026-07-21 に実装済み**（2-1）: `/data/emperors.json`・`/data/emperors.csv`・`/data/emperors.schema.json` を `site/scripts/build-data-distribution.mjs` が prebuild で生成。JSON Schema は `data/schema/emperors.schema.json` に手書きで置く（実データ365件の検証エラー0）。サイト内リンクはライセンス確定（2-2）待ちで未設置。
 - **`sources.wikidata`（QID）は 2026-07-21 に365人全員付与済み**（2-5 完了）。→ 4-2 の `sameAs`・項目5の `nameEn` 取得が着手可能に。
@@ -121,14 +121,15 @@
 - [x] 検出スクリプト `scripts/detect_wikipedia_sources.py` を作成・保存（3-3 CI禁止語チェックの種）。deathCause/accessionRoute/events系の残件0件を確認
 - [x] 法的注意への対応: 上記28件はnote本文がWikipedia記述の直訳ではなく自前の分析文であることを確認済み（書き直し不要）。詳細・引用原文・判定内容の変更点は `docs/PROJECT_STATUS.md`「出典 QA」節および `meta.deathCauseCompletedBlocks` 参照
 
-**フェーズB（reigns[].duration 350件）: 進行中（2026-07-21着手）— 34/350件完了・残317件**
+**フェーズB（reigns[].duration 350件）: 進行中（2026-07-21着手）— 45/350件完了・残305件**
 
 - [x] スキーマ拡張の設計確定: `source` に `quote`（日付根拠の正史原文）と `conversion`（旧暦→西暦の換算典拠・既存日付との照合結果）を追加。旧 Wikipedia 出典は `secondary` に降格せず削除する。`startDateRaw`/`endDateRaw` は原典で確定できた分すべて埋める。`data/schema/EMPERORS_SCHEMA.md`・`docs/schema/SCHEMA_OVERVIEW.md` に反映済み
 - [x] 検出スクリプトの判定ロジックを修正: `lang` による推定をやめ `page` のみで判定（複合 lang `ja/zh` や `baike` を取りこぼし、完了判定が実態より甘くなっていた）。真の残件数 288→350 に是正。「正史範囲外」明示表記と、個別確認済みの非正史学術典拠4件は許容リストで除外
 - [x] **ブロック1（秦・前漢・新・玄漢・後漢／34件）完了**。正史の干支日を採取し `sxtwl` で換算・突合。この過程で西暦日付の誤り8件を訂正し `exactDays` 4件を再計算（内訳は `meta.reignDurationSourceBlocks` と `docs/PROJECT_STATUS.md`「出典 QA」節）
 - [x] **ブロック1フォローアップ（2026-07-21）**: `endDate` 訂正時に `ages.deathDate` の同期漏れ4件（始皇帝・二世皇帝・武帝・宣帝、personJsonLd の `deathDate` に旧値が出ていた）＋始皇帝のみ `ages.birthDate` が歴史年表記だった件を訂正（詳細 `meta.reignDurationSourceBlocks[0].agesSyncCorrections`）。**以後のブロックで日付を訂正する際は `ages.*`・note 内の日付引用の同時更新をチェックリストに含める**
 - [x] **B-2: `_corpus_cache` 未生成150人分（149人＋正史範囲外1人）を生成完了（2026-07-21）**。三国・両晋帝紀・十六国追加・南朝・北朝・隋・隋末群雄・唐（本紀＋反乱政権）の8ブロック。書名・巻の同定は既存`accessionRoute`/`deathCause.source`から、マーカーは全件メイン会話で実地content-grep確認。旧唐書列傳の相対番号（絶対巻数－50）・晋書帝紀第十章の白話訳・魏書列傳の相対番号疑い・慕容暐名のPUA文字欠落など新出の罠は`docs/process/CORPUS_NOTES.md`に記録。364人全員分（`zhonghuadiguo-yuanshikai`除く）のキャッシュが揃い、ブロック2以降に着手可能
-- [ ] ブロック2以降（三国11・両晋十六国・南朝34・北朝28・隋唐34・五代十国33・宋遼西夏金50・元18・明21・清15・明清交替期ほか）の原典突合。既存の`startDate`/`endDate`は原則変更せず、正史の干支と食い違う場合は個別に提示して承認を得る
+- [x] **ブロック2（三国／11件）完了（2026-07-21）**。西暦日付の訂正3件（wei-wendi・wei-caomao startDate、shuhan-zhaoliedi endDate）、日次記述なしによる月精度への格下げ1件（shuhan-liushan）、出典のみ差し替え7件。Wikipedia脚注が典拠として明記していた諸葛恪傳（呉書十九）から孫権崩御・孫亮即位の日を発見的中（wu-dadi・wu-sunliang）。資治通鑑・華陽国志も突合に使用。詳細は `meta.reignDurationSourceBlocks[1]` と `docs/PROJECT_STATUS.md`「出典 QA」節参照
+- [ ] ブロック3以降（両晋十六国・南朝34・北朝28・隋唐34・五代十国33・宋遼西夏金50・元18・明21・清15・明清交替期ほか）の原典突合。既存の`startDate`/`endDate`は原則変更せず、正史の干支と食い違う場合は個別に提示して承認を得る
 - [ ] B-4: `site/src/lib/emperors.ts` の `sourceLabelOf` の暫定コメント削除・`quote`/`conversion` の表示検討、`/about` の方法論記述に暦変換の説明を追加（フェーズB完了後）
 
 ### 3-2. 肖像マッピング QA — **完了（2026-07-21）**
