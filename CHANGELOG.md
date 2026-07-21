@@ -14,6 +14,7 @@
 - **CC BY-SA 混入スクリーニング**: 全 note 約126万字を jawiki 記事本文と突合し、近似一致の3名4箇所（西燕慕容永・更始帝・夏赫連昌）を原典準拠の表現に書き換え
 - **`ages` 生没日付の ISO 正規化**（62件のゼロ埋め・旧暦月転記の補正）
 - 構造変更: `schemaVersion` 2.0.0 — 未使用の `sources.wikitextLines` をフィールドごと削除、`reigns[].duration.source` に `quote`/`conversion` を正式追加
+- 配布 CSV に `wikidataId` 列を追加（40→41列。全365行に Wikidata QID を収録）
 
 ### 追加（2026-07-20）
 

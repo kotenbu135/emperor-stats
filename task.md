@@ -56,7 +56,7 @@
 `/data/emperors.json`・`/data/emperors.csv`・`/data/emperors.schema.json` の3点を配信。生成は `site/scripts/build-data-distribution.mjs`（`predev`/`prebuild` 組み込み・出力先 `site/public/data/` は portraits/emperor-notes と同じく gitignore、ソースのみ git 管理）。
 
 - [x] `emperors.json` を**バイト単位でそのままコピー**（`copyFileSync`。再シリアライズすると整形差分が出るため。乖離ゼロ・`meta.*CompletedBlocks` 等の内部フィールドも含む「完全版」）
-- [x] `emperors.csv`: 40列・1行1皇帝（365行＋ヘッダ）。UTF-8 BOM 付き・CRLF・RFC 4180 エスケープ。列は id・url・名称4種・王朝3種・代数・在位（開始/終了年・回数・近似日数・正確日数・精度フラグ2種）・死因3種・即位経路3種・回数系8項目・生没日と精度・即位時/没年齢・flags3種
+- [x] `emperors.csv`: 41列・1行1皇帝（365行＋ヘッダ）。UTF-8 BOM 付き・CRLF・RFC 4180 エスケープ。列は id・url・wikidataId（2026-07-21 追加・2-5 後続(c)）・名称4種・王朝3種・代数・在位（開始/終了年・回数・近似日数・正確日数・精度フラグ2種）・死因3種・即位経路3種・回数系8項目・生没日と精度・即位時/没年齢・flags3種
 - [x] **CSV はサイトの表示ロジックを複製せず raw フィールドの純射影**（`displayName`/`dynastyLabel`/`ERA_BY_SECTION` を `.mjs` に3つ目のコピーとして持ち込まない。値の推論・補完・再計算もしない）。`commonName` は全角括弧も含め原値のまま、null の2件は空欄にし `personalName` 列で補える形にした
 - [x] **精度フラグを必ず同梱**: `reignApproxDays` の隣に `reignExactDays`・`reignIsExact`・`reignNeedsPreciseDays` を置き、近似値が正確値と誤認されないようにした
 - [x] JSON Schema（`data/schema/emperors.schema.json`・**手書きの著作物として git 管理**しビルドでコピー）。死因8分類・即位経路8分類の enum は `jq unique`（＝観測値）でなく `DEATH_CAUSE_SCHEMA.md`/`ADDITIONAL_SCHEMA.md` から取得 — 実データに未出現の正当値 `不詳`（即位経路）を自スキーマで弾かないため
@@ -87,11 +87,8 @@
 - [x] 正誤表（errata）は `/about` 内の一節（`id="errata"`）として開始。初項2件（唐哀帝追加・フェーズB日付訂正約90件）
 - [ ] GitHub Releases でタグを切る（**push 後にユーザー主導**。`v2026.07` を推奨。2-4 Zenodo 連携を先に ON にすると初回 Release で DOI が発行されるため、Zenodo をやるなら順序は連携ON→Release）
 
-### 2-4. Zenodo DOI（一部ユーザー主導）
-- [ ] `CITATION.cff` を配置（GitHub 上に「Cite this repository」ボタン）
-- [ ] GitHub リポジトリを Zenodo 連携（**ユーザー主導**: Zenodo アカウント連携とリポジトリのスイッチONは Web UI 操作が必要）。リリースごとに自動 DOI 発行・全版束ねる concept DOI
-- [ ] 注意: 初回 DOI はスイッチON**後**の最初の Release で発行（ON前のリリースには付かない）。DOI 発行後に `CITATION.cff` と Dataset JSON-LD の `identifier` へ concept DOI を反映する二段階
-- [ ] 前提判断: ユーザーに Zenodo 連携の意思確認（アカウント作成が必要）
+### 2-4. Zenodo DOI — **中止（2026-07-21 ユーザー決定）**
+- ~~Zenodo 連携・DOI 発行~~ **やらないことに確定**（2026-07-21）。DOI なしでも引用基盤は CC BY 4.0＋CalVer＋CHANGELOG＋Dataset JSON-LD で成立している。`CITATION.cff` の配置（GitHub「Cite this repository」ボタン）だけは DOI 不要の独立項目として将来やってもよいが、現時点では見送り
 
 ### 2-5. Wikidata QID 紐付け — **完了（2026-07-21）**
 - [x] 365人全員の `sources.wikidata`（既存フィールド・従来全件 null）に QID を付与。**3パス方式**で実施:
@@ -100,7 +97,7 @@
   3. 残り7件（避諱字ゆれ「孫皓」・jawiki 記事なし等）を `wbsearchentities`/zhwiki で個別解決
 - [x] レート制限順守: 計約12リクエスト・直列・maxlag=5・専用 User-Agent・429ゼロ（[[bulk-external-api-caution]]）
 - [x] 検証: 365件一意・スキーマ検証エラー0・著名皇帝サンプル検算。方式詳細と留意点は `docs/PROJECT_STATUS.md`「Wikidata QID 紐付け」節
-- [ ] 後続（別項目で実施）: (a) ~~JSON-LD `sameAs`（4-2）~~ **完了（2026-07-21）** (b) `nameEn` 初期値の enwiki サイトリンク取得（項目5）(c) CSV 配布物への `wikidataId` 列追加は 2-1 の列仕様改定として要判断 (d) ~~3-3 CI に QID 形式・一意性チェック追加~~ **完了（2026-07-21・3-3 実装に同梱）**
+- [ ] 後続（別項目で実施）: (a) ~~JSON-LD `sameAs`（4-2）~~ **完了（2026-07-21）** (b) `nameEn` 初期値の enwiki サイトリンク取得（項目5）(c) ~~CSV 配布物への `wikidataId` 列追加~~ **完了（2026-07-21・41列化）** (d) ~~3-3 CI に QID 形式・一意性チェック追加~~ **完了（2026-07-21・3-3 実装に同梱）**
 
 **推奨実行順序**: ① 2-1 技術部分（約1日）→ ② 2-5 QID 紐付け（1〜2日）→ ③ 3-1 → 2-2 → 2-3 → 2-4（直列・計2〜3日＋ユーザー操作）。①②は独立で並行可。
 

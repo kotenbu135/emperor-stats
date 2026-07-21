@@ -26,6 +26,7 @@ const SITE_URL = "https://emperorstats.com";
 const COLUMNS = [
   ["id", (e) => e.id],
   ["url", (e) => `${SITE_URL}/emperors/${e.id}`],
+  ["wikidataId", (e) => e.sources?.wikidata],
   ["commonName", (e) => e.name?.commonName],
   ["personalName", (e) => e.name?.personalName],
   ["templeName", (e) => e.name?.templeName],

@@ -195,7 +195,7 @@ export default function AboutPage() {
               >
                 emperors.csv
               </a>
-              （1行1皇帝に平坦化した40列・約120KB。UTF-8 BOM付きで表計算ソフトでそのまま開けます）
+              （1行1皇帝に平坦化した41列・約120KB。UTF-8 BOM付きで表計算ソフトでそのまま開けます）
             </li>
             <li>
               <a

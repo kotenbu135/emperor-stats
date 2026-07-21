@@ -14,7 +14,7 @@
 ビルド済みの配布物をサイトから直接ダウンロードできます（すべて CORS 許可済み・gzip 配信）:
 
 - JSON（完全版）: <https://emperorstats.com/data/emperors.json>
-- CSV（1行1皇帝の平坦化版・40列）: <https://emperorstats.com/data/emperors.csv>
+- CSV（1行1皇帝の平坦化版・41列）: <https://emperorstats.com/data/emperors.csv>
 - JSON Schema: <https://emperorstats.com/data/emperors.schema.json>
 
 ## ライセンス
