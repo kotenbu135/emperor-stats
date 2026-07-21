@@ -9,22 +9,15 @@ import path from "node:path";
 const dataPath = path.join(process.cwd(), "..", "data", "emperors.json");
 const destDir = path.join(process.cwd(), "public", "emperor-notes");
 
-// 出典ラベルの整形。lib/emperors.ts の HISTORY_SOURCE_PATTERN / sourceLabelOf と
-// 同じロジックをここでも持つ（.mjs から TS を import できないため）。変更時は両方を直す。
-const HISTORY_SOURCE_PATTERN = /[巻卷紀伝傳志史書]/;
-
-function sourceLabelOf(source) {
-  if (HISTORY_SOURCE_PATTERN.test(source.page)) return source.page;
-  const edition = source.lang === "ja" ? "日本語版" : "中国語版";
-  return `Wikipedia${edition}記事「${source.page}」`;
-}
-
+// 出典ラベルは source.page をそのまま使う（Wikipedia記事名の出典は task.md 3-1 で
+// 一掃済み）。lib/emperors.ts の narrativeSectionOf と同じロジックをここでも持つ
+// （.mjs から TS を import できないため）。変更時は両方を直す。
 function narrativeSectionOf(field) {
   if (!field?.note || !field.source) return null;
   return {
     note: field.note,
-    sourceLabel: sourceLabelOf(field.source),
-    sourceNote: field.source.note ?? null,
+    sourceLabel: field.source.page,
+    sourceNote: field.source.note || null,
   };
 }
 

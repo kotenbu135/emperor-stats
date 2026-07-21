@@ -115,9 +115,8 @@ export interface EmperorListRecord extends EmperorRecord {
 /** 経緯1節分（即位の経緯・死因の経緯）。noteは調査時の原文ママ。 */
 export interface NarrativeSection {
   note: string;
-  /** 出典の表示ラベル。原則は正史巻名（例: "旧唐書 巻二（太宗上）"）。初期調査分
-   *  28件のみWikipedia記事名のため "Wikipedia日本語版「恵帝 (漢)」" 形式になる
-   *  （正史出典への差し替え予定はtask.md第4弾）。 */
+  /** 出典の表示ラベル（source.pageそのまま）。原則は正史巻名（例: "旧唐書 巻二（太宗上）"）。
+   *  Wikipedia記事名の出典はtask.md 3-1で一掃済み。 */
   sourceLabel: string;
   /** 出典側の補足note（異説の所在・出典帰属の修正経緯など。無ければnull）。 */
   sourceNote: string | null;
@@ -134,6 +133,23 @@ export interface RestorationNarrative {
 export interface ResearchMemo {
   label: string;
   note: string;
+}
+
+/**
+ * 在位日付の典拠1件分（reigns[].duration.source）。quote/conversionは
+ * task.md 3-1フェーズBで整備した正史原文引用・暦換算記録（一部の先行調査分は未付与でnull）。
+ */
+export interface ReignSourceNarrative {
+  /** 対象の在位期間（例: "前221–前210年"）。 */
+  periodLabel: string;
+  /** 出典（正史の書名・巻名）。 */
+  sourceLabel: string;
+  /** 即位・退位日付の根拠になった正史原文の直接引用（即位／退位を「／」で区切る）。 */
+  quote: string | null;
+  /** 旧暦（干支日）→西暦の換算典拠・既存日付との照合結果の調査記録。 */
+  conversion: string | null;
+  /** 出典側の補足note（異説の所在・採否判断など。無ければnull）。 */
+  note: string | null;
 }
 
 /**
@@ -156,6 +172,8 @@ export interface EmperorNarrative {
   death: NarrativeSection | null;
   restorations: RestorationNarrative[];
   memos: ResearchMemo[];
+  /** 在位日付の典拠（在位期間ごと。個別ページ限定表示）。 */
+  reignSources: ReignSourceNarrative[];
 }
 
 /**

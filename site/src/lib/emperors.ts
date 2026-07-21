@@ -480,11 +480,18 @@ export function getDynastyOptions(): DynastyOption[] {
     .map(({ o }) => o);
 }
 
+/** reigns[].duration.source。quote/conversionはtask.md 3-1フェーズBで整備（一部未付与）。 */
+interface RawDurationSource extends RawSource {
+  quote?: string | null;
+  conversion?: string | null;
+}
+
 interface RawReign {
   startYear: number;
   endYear: number;
   isRestoration: boolean;
   note: string | null;
+  duration?: { source?: RawDurationSource | null } | null;
 }
 
 function formatPeriod(reign: RawReign): string {
@@ -531,17 +538,13 @@ export function getRestorationRows(): RestorationRow[] {
 // note全文は総量が大きいため、EmperorRecord（全統計ページのクライアントpropsに
 // 埋め込まれる）には含めない。ダイアログへの反映はtask.md第3弾（lazy fetch）。
 
-/**
- * 正史巻名でなくWikipedia記事名が入っている出典の判別（前漢初期など初期調査分の
- * deathCause.source 28件。例: "恵帝 (漢)"）。巻・紀・伝などの字を含まないpageを
- * 記事名とみなす。task.md第4弾で正史出典へ差し替えるまでの暫定表示。
- */
-const HISTORY_SOURCE_PATTERN = /[巻卷紀伝傳志史書]/;
+// 出典ラベルはsource.pageをそのまま使う（Wikipedia記事名の残存はtask.md 3-1で
+// 一掃済み・CIの禁止出典チェックで担保。旧Wikipedia判別ヒューリスティックは
+// 簡体字巻名やJACAR等の非正史学術典拠を誤ってWikipedia表示していたため撤去）。
 
-function sourceLabelOf(source: RawSource): string {
-  if (HISTORY_SOURCE_PATTERN.test(source.page)) return source.page;
-  const edition = source.lang === "ja" ? "日本語版" : "中国語版";
-  return `Wikipedia${edition}記事「${source.page}」`;
+/** 空文字列の出典noteをnullに正規化する（一部レコードに `note: ""` が実在する）。 */
+function nonEmptyOrNull(s: string | null | undefined): string | null {
+  return s ? s : null;
 }
 
 function narrativeSectionOf(
@@ -550,8 +553,8 @@ function narrativeSectionOf(
   if (!field?.note || !field.source) return null;
   return {
     note: field.note,
-    sourceLabel: sourceLabelOf(field.source),
-    sourceNote: field.source.note ?? null,
+    sourceLabel: field.source.page,
+    sourceNote: nonEmptyOrNull(field.source.note),
   };
 }
 
@@ -578,6 +581,19 @@ export function getEmperorNarrative(id: string): EmperorNarrative {
     restorations: e.reigns
       .filter((r) => r.isRestoration && r.note)
       .map((r) => ({ periodLabel: formatPeriod(r), note: r.note! })),
+    reignSources: e.reigns.flatMap((r) => {
+      const source = r.duration?.source;
+      if (!source) return [];
+      return [
+        {
+          periodLabel: formatPeriod(r),
+          sourceLabel: source.page,
+          quote: nonEmptyOrNull(source.quote),
+          conversion: nonEmptyOrNull(source.conversion),
+          note: nonEmptyOrNull(source.note),
+        },
+      ];
+    }),
     memos: memoEntries
       .filter((entry): entry is [string, string] => !!entry[1])
       .map(([label, note]): ResearchMemo => ({ label, note })),
@@ -765,7 +781,7 @@ export function getEmperorEvents(id: string): EmperorEventRow[] {
         summary,
         facts,
         note: ev.note && ev.note !== summary ? ev.note : null,
-        sourceLabel: ev.source ? sourceLabelOf(ev.source) : null,
+        sourceLabel: ev.source?.page ?? null,
         sortKey,
       });
     }
