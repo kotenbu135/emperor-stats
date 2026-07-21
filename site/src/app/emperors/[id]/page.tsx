@@ -59,6 +59,11 @@ export default async function EmperorPage({
   // 収録順（おおむね時代順）の前後の皇帝。端では表示しない。
   const prev = index > 0 ? records[index - 1] : null;
   const next = index < records.length - 1 ? records[index + 1] : null;
+  // 同王朝の皇帝数。2名以上のときだけ王朝で絞った一覧への横リンクを出す
+  // （1名の王朝＝自分だけの一覧に飛ばしても回遊にならない）。
+  const dynastyPeerCount = records.filter(
+    (r) => r.dynastyKey === record.dynastyKey,
+  ).length;
   const structuredDates = getEmperorStructuredDates(id);
   // 諱・廟号・諡号・別名を alternateName に。record.name との重複と
   // 空値は personJsonLd 側で除くが、別名同士の重複はここで畳む。
@@ -110,7 +115,7 @@ export default async function EmperorPage({
               置く（ページごとに位置がずれると連続で押せない）。皇帝名付きの
               リンクは本文末尾のnavに残す。 */}
           <div className="flex items-center justify-between gap-4">
-            <p className="text-sm">
+            <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
               <Link
                 href="/emperors"
                 className="inline-flex items-center gap-1 text-muted-foreground hover:text-seal"
@@ -118,6 +123,16 @@ export default async function EmperorPage({
                 <ArrowLeft aria-hidden className="size-3.5" />
                 皇帝一覧へ戻る
               </Link>
+              {dynastyPeerCount >= 2 && (
+                // 一覧の王朝フィルタ（?dynasty=）は emperor-grid.tsx がマウント時に
+                // URLから復元するため、クエリ付きリンクだけで絞り込み状態を再現できる。
+                <Link
+                  href={`/emperors?dynasty=${encodeURIComponent(record.dynastyKey)}`}
+                  className="inline-flex items-center gap-1 text-muted-foreground underline underline-offset-2 hover:text-seal"
+                >
+                  {record.dynastyLabel}の皇帝一覧（{dynastyPeerCount}名）
+                </Link>
+              )}
             </p>
             <nav aria-label="前後の皇帝（ページ送り）" className="flex items-center gap-1.5">
               {prev ? (
