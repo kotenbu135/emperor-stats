@@ -99,7 +99,7 @@
   3. 残り7件（避諱字ゆれ「孫皓」・jawiki 記事なし等）を `wbsearchentities`/zhwiki で個別解決
 - [x] レート制限順守: 計約12リクエスト・直列・maxlag=5・専用 User-Agent・429ゼロ（[[bulk-external-api-caution]]）
 - [x] 検証: 365件一意・スキーマ検証エラー0・著名皇帝サンプル検算。方式詳細と留意点は `docs/PROJECT_STATUS.md`「Wikidata QID 紐付け」節
-- [ ] 後続（別項目で実施）: (a) JSON-LD `sameAs`（4-2）(b) `nameEn` 初期値の enwiki サイトリンク取得（項目5）(c) CSV 配布物への `wikidataId` 列追加は 2-1 の列仕様改定として要判断 (d) 3-3 CI に QID 形式・一意性チェック追加
+- [ ] 後続（別項目で実施）: (a) ~~JSON-LD `sameAs`（4-2）~~ **完了（2026-07-21）** (b) `nameEn` 初期値の enwiki サイトリンク取得（項目5）(c) CSV 配布物への `wikidataId` 列追加は 2-1 の列仕様改定として要判断 (d) 3-3 CI に QID 形式・一意性チェック追加
 
 **推奨実行順序**: ① 2-1 技術部分（約1日）→ ② 2-5 QID 紐付け（1〜2日）→ ③ 3-1 → 2-2 → 2-3 → 2-4（直列・計2〜3日＋ユーザー操作）。①②は独立で並行可。
 
@@ -180,7 +180,7 @@
 **現状確認（2026-07-21・ビルド出力 `out/**.html` を grep して実証）**:
 - `personJsonLd` は個別ページで**出力済み**（`out/emperors/qin-shi-huang.html` で確認）。現状フィールドは `name`/`url`/`description`/`image`/`birthDate`/`deathDate`。**紀元前 ISO 8601 は `birthDate:"-0259-01"`・`deathDate:"-0210-09-10"` の4桁ゼロ埋めで正しく出ており、`-0258` 形式要件はクリア済み**。
 - `breadcrumbJsonLd`（個別ページ・ホーム›皇帝一覧›皇帝名）出力済み。グラフ各ページの `BreadcrumbList`（2階層）も `out/dynasties.html` で出力実証。about の `Dataset`・トップの `WebSite` も出力済み。
-- → 4-2 で残る穴は下記の通り。**独立着手できて実利があるのは `alternateName` 追加の1点のみ**。`sameAs`・`Dataset` 拡張は項目2依存で後回し。
+- → 4-2 の穴埋めは `alternateName`（2026-07-21）・`sameAs`（同日・2-5 完了を受けて）まで完了。**残るは `Dataset` 拡張のみ**（項目 2-1/2-2 依存で後回し）。
 
 ### 4-1. SSR テキスト — **完了（2026-07-21）**
 
@@ -197,10 +197,10 @@
 - [x] 個別ページの `personJsonLd` 出力を確認（ビルド出力で実証済み・上記「現状確認」参照）
 - [x] 個別ページの `BreadcrumbList` 出力を確認（実証済み）
 - [x] **`alternateName`（諱/廟号/諡号＋別名）を `personJsonLd` に追加**（2026-07-21 完了）。`JsonLdPerson.alternateName?: string[]`＋`personJsonLd` で `name` と重複・空値を除外し、1件なら文字列・複数なら配列で出力。`EmperorRecord` に `aliases: string[]` を追加（emperor-types.ts＋emperors.ts構築）、個別ページで諱/廟号/諡号/別名を Set で畳んで渡す。ビルド出力で実証（始皇帝＝`["嬴政","秦始皇","趙政"]`／太宗＝`"李世民"`／別名なしは省略）。**365中309ページで出力・新データ調査ゼロ**
-- [ ] `sameAs` — **前提解消（2-5 完了・2026-07-21）、着手可能**。`sources.wikidata` から `https://www.wikidata.org/wiki/{QID}` を生成して `personJsonLd` に追加。※`ja.wikipedia.org/wiki/{commonName}` の機械生成案は却下済み（曖昧回避サフィックスで不安定・誤 `sameAs` は無いより悪い）
+- [x] **`sameAs` を `personJsonLd` に追加**（2026-07-21 完了）。`EmperorRecord.wikidataId`（`sources.wikidata` をビルド時読み込み）から `https://www.wikidata.org/wiki/{QID}` を生成し個別ページで出力。ビルド出力で **365ページ全てに `sameAs` 出力・URL も365通り一意**を実証（例: 始皇帝=Q7192・宣統帝=Q185152）。URL 形式は concept URI（`www.wikidata.org/entity/`）でなく人間可読の `wiki/` ページを採用（Google のガイド例が参照ページ URL 主体・リダイレクトで同一エンティティに解決）。jawiki/enwiki URL の併記は保留 — サイトリンク取得は項目5の `nameEn` 取得と同一 API 作業なのでそちらに同乗させる。※`ja.wikipedia.org/wiki/{commonName}` の機械生成案は却下済み（曖昧回避サフィックスで不安定・誤 `sameAs` は無いより悪い）
 - [ ] `Dataset`（about の既存 `@type:Dataset`）拡張は**項目2とセットで実施**: `temporalCoverage`（-0221/1945）は単独追加も安いが飾りに留まる。**Google Dataset Search 掲載の本体は `distribution`（項目 2-1 の JSON/CSV URL）＋`license`（項目 2-2 のライセンス決定）**で、これが揃って初めて発火する
 
-**工数目安（2026-07-21 再見積り）**: 4-2 の独立着手分（`alternateName`）・4-1（SSR テキスト）はいずれも完了。`record.ranks` 再利用でチャート整合を構造的に担保したため、当初見積り1〜2日より短縮。**項目4で残るのは `sameAs`（項目 2-5 の QID 待ち）・`Dataset` 拡張（`distribution`/`license`＝項目 2-1/2-2 待ち）のみ**で、いずれも項目2に統合済み。
+**工数目安（2026-07-21 再見積り）**: 4-2 の独立着手分（`alternateName`）・4-1（SSR テキスト）・`sameAs`（2-5 完了を受け同日実装）はいずれも完了。`record.ranks` 再利用でチャート整合を構造的に担保したため、当初見積り1〜2日より短縮。**項目4で残るのは `Dataset` 拡張（`distribution`/`license`＝項目 2-1/2-2 待ち）のみ**で、項目2に統合済み。
 
 ---
 

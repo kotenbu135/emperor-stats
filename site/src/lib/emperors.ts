@@ -150,6 +150,7 @@ interface RawEmperor {
     deathAge: number | null;
     note?: string | null;
   };
+  sources?: { wikidata?: string | null };
   reigns: RawReign[];
 }
 
@@ -394,6 +395,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     templeName: e.name.templeName,
     posthumousName: e.name.posthumousName,
     aliases: e.name.aliases ?? [],
+    wikidataId: e.sources?.wikidata ?? null,
     searchText: searchTextOf(e, dynastyLabel(e.dynasty), eraLabelOf(e.dynasty)),
     hasPortrait: portraitIds.has(e.id),
     portraitUrl: portraitIds.has(e.id) ? `${BASE_PATH}/portraits/${e.id}.webp` : null,

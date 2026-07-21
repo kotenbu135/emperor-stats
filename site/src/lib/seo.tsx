@@ -114,6 +114,8 @@ export interface JsonLdPerson {
   image?: string;
   birthDate?: string;
   deathDate?: string;
+  /** 同一人物を指す外部の権威あるURL（Wikidata等）。機械生成の推測URLは渡さないこと。 */
+  sameAs?: string[];
 }
 
 export function personJsonLd(p: JsonLdPerson): Record<string, unknown> {
@@ -130,6 +132,9 @@ export function personJsonLd(p: JsonLdPerson): Record<string, unknown> {
     ...(p.image ? { image: p.image } : {}),
     ...(p.birthDate ? { birthDate: p.birthDate } : {}),
     ...(p.deathDate ? { deathDate: p.deathDate } : {}),
+    ...(p.sameAs && p.sameAs.length
+      ? { sameAs: p.sameAs.length === 1 ? p.sameAs[0] : p.sameAs }
+      : {}),
   };
 }
 

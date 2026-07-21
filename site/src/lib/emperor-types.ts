@@ -91,6 +91,8 @@ export interface EmperorRecord {
   posthumousName: string | null;
   /** 別名（秦始皇・趙政など）。個別ページの Person JSON-LD の alternateName に使う。 */
   aliases: string[];
+  /** Wikidata QID（例: "Q7192"）。個別ページの Person JSON-LD の sameAs に使う。 */
+  wikidataId: string | null;
   /** 皇帝一覧の検索対象文字列（各種名称・別名・王朝名・時代を連結したもの）。 */
   searchText: string;
   hasPortrait: boolean;

@@ -84,6 +84,11 @@ export default async function EmperorPage({
           image: record.portraitUrl ? absoluteUrl(record.portraitUrl) : undefined,
           birthDate: structuredDates.birthDate ?? undefined,
           deathDate: structuredDates.deathDate ?? undefined,
+          // sameAsは目視確認済みQID由来のWikidata URLのみ。記事名からの
+          // 機械生成URL（jawiki等）は誤リンクの恐れがあるため渡さない。
+          sameAs: record.wikidataId
+            ? [`https://www.wikidata.org/wiki/${record.wikidataId}`]
+            : undefined,
         })}
       />
       <JsonLd
