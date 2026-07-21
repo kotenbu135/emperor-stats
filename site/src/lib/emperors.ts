@@ -13,6 +13,7 @@ import {
   type DynastyOption,
   type EmperorEventKind,
   type EmperorEventRow,
+  type EmperorListRecord,
   type EmperorNarrative,
   type EmperorRecord,
   type EmperorStructuredDates,
@@ -31,6 +32,7 @@ import {
 
 export * from "@/lib/emperor-types";
 import { buildRiverTimeline, type RiverTimelineData } from "@/lib/timeline-river";
+import { kanaExpansionsOf } from "@/lib/kana-readings";
 
 const dataPath = path.join(process.cwd(), "..", "data", "emperors.json");
 const rawData = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
@@ -289,6 +291,25 @@ function searchTextOf(e: RawEmperor, dynastyLabelText: string, era: string): str
     .join(" ");
 }
 
+/** かな検索用の読み文字列。名称群は読み揺れ込みで展開し、王朝名・時代は慣用読みのみ。 */
+function searchKanaOf(e: RawEmperor, dynastyLabelText: string, era: string): string {
+  const kana = new Set<string>();
+  const names = [
+    e.name.commonName,
+    e.name.personalName,
+    e.name.templeName,
+    e.name.posthumousName,
+    ...(e.name.aliases ?? []),
+  ].filter((s): s is string => !!s);
+  for (const name of names) {
+    for (const k of kanaExpansionsOf(name)) kana.add(k);
+  }
+  for (const label of [e.dynasty.name, dynastyLabelText, era]) {
+    for (const k of kanaExpansionsOf(label, { primaryOnly: true })) kana.add(k);
+  }
+  return [...kana].join(" ");
+}
+
 let allRecordsCache: EmperorRecord[] | null = null;
 
 /** ranks計算前のレコード（ranksは全レコード出揃ってからでないと計算できない）。 */
@@ -408,6 +429,25 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     ranks: ranksById.get(r.id)!,
   }));
   return allRecordsCache;
+}
+
+/**
+ * 皇帝一覧ページ（/emperors）専用のレコード。かな検索用のsearchKanaを付加する。
+ * EmperorRecord本体に持たせないのは、統計各ページがEmperorRecord[]をそのまま
+ * クライアントpropsに渡しており、一覧でしか使わない読みデータで全ページの
+ * ペイロードを太らせないため。
+ */
+export function getEmperorListRecords(): EmperorListRecord[] {
+  const kanaById = new Map(
+    data.emperors.map((e) => [
+      e.id,
+      searchKanaOf(e, dynastyLabel(e.dynasty), eraLabelOf(e.dynasty)),
+    ]),
+  );
+  return getAllEmperorRecords().map((r) => ({
+    ...r,
+    searchKana: kanaById.get(r.id)!,
+  }));
 }
 
 /** 王朝(name+section複合キー)の選択肢一覧。時代グループ順→データ内初出順で並べる。 */

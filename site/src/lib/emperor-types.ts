@@ -103,6 +103,15 @@ export interface EmperorRecord {
   ranks: Record<RankingMetricKey, MetricRank | null>;
 }
 
+/**
+ * 皇帝一覧ページ（/emperors）専用のレコード。かな検索用の読み文字列を付加する
+ * （他の統計ページのクライアントpropsを太らせないためEmperorRecord本体には持たせない）。
+ */
+export interface EmperorListRecord extends EmperorRecord {
+  /** かな検索用のひらがな読み（読み展開をスペース区切りで連結。表示には使わない）。 */
+  searchKana: string;
+}
+
 /** 経緯1節分（即位の経緯・死因の経緯）。noteは調査時の原文ママ。 */
 export interface NarrativeSection {
   note: string;

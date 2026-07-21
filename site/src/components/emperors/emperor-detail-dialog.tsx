@@ -9,11 +9,13 @@ import {
   useEffect,
   useRef,
   useState,
+  type KeyboardEvent,
   type ReactNode,
   type RefObject,
 } from "react";
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -31,24 +33,82 @@ import type { EmperorRecord } from "@/lib/emperor-types";
 export function EmperorDetailDialog({
   record,
   onClose,
+  prev = null,
+  next = null,
+  onNavigate,
 }: {
   record: EmperorRecord | null;
   onClose: () => void;
+  /** 前後の皇帝（一覧ダイアログの送りナビ用。省略時はナビ非表示＝チャートからの利用）。 */
+  prev?: EmperorRecord | null;
+  next?: EmperorRecord | null;
+  onNavigate?: (record: EmperorRecord) => void;
 }) {
+  // ←/→キーでも前後の皇帝へ送る（ダイアログ内に入力欄はないので素のまま拾ってよい）。
+  const onKeyDown = onNavigate
+    ? (e: KeyboardEvent) => {
+        if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+        if (e.key === "ArrowLeft" && prev) onNavigate(prev);
+        if (e.key === "ArrowRight" && next) onNavigate(next);
+      }
+    : undefined;
   return (
     <Dialog open={record !== null} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-lg">
+      <DialogContent
+        className="max-h-[85vh] overflow-y-auto sm:max-w-lg lg:max-w-3xl"
+        onKeyDown={onKeyDown}
+      >
         {record && (
           <>
             <DialogHeader className="text-left">
               <DialogTitle className="font-heading text-xl">
                 {record.name}
               </DialogTitle>
-              <DialogDescription>
-                {dynastyContextLabel(record)}
-              </DialogDescription>
+              {/* 個別ページへの導線はスクロールなしで見える位置（ヘッダー）に常設する。
+                  最下部のリンクは経緯を読み終えた後の導線として残している。 */}
+              <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+                <DialogDescription>
+                  {dynastyContextLabel(record)}
+                </DialogDescription>
+                <span className="flex items-center gap-1">
+                  <Link
+                    href={`/emperors/${record.id}`}
+                    onClick={onClose}
+                    className="inline-flex items-center gap-1 text-sm text-seal underline underline-offset-2 hover:text-seal/80"
+                  >
+                    <ExternalLink aria-hidden className="size-3.5" />
+                    個別ページへ
+                  </Link>
+                  {onNavigate && (
+                    <span className="ml-1 flex items-center">
+                      <Button
+                        variant="ghost"
+                        size="icon-sm"
+                        disabled={!prev}
+                        aria-label={prev ? `前の皇帝: ${prev.name}` : "前の皇帝なし"}
+                        title={prev ? `前の皇帝: ${prev.name}（←キー）` : undefined}
+                        onClick={() => prev && onNavigate(prev)}
+                      >
+                        <ChevronLeft />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon-sm"
+                        disabled={!next}
+                        aria-label={next ? `次の皇帝: ${next.name}` : "次の皇帝なし"}
+                        title={next ? `次の皇帝: ${next.name}（→キー）` : undefined}
+                        onClick={() => next && onNavigate(next)}
+                      >
+                        <ChevronRight />
+                      </Button>
+                    </span>
+                  )}
+                </span>
+              </div>
             </DialogHeader>
-            <EmperorDetailBody record={record} />
+            {/* lg以上ではダイアログを広幅にして個別ページと同じ2カラム表示を流用する
+                （動画は折りたたみのまま＝ダイアログ内スクロールを増やさない）。 */}
+            <EmperorDetailBody record={record} wide collapseVideos />
             {/* 経緯2節はダイアログを開いた時だけJSONをlazy fetchして表示する
                 （EmperorRecordにnoteを載せないため）。取得失敗時は非表示。 */}
             <EmperorNarrativeDialogSection id={record.id} />

@@ -58,12 +58,15 @@ function rankText(rank: MetricRank | null, directionLabel?: string): string | nu
 export function EmperorDetailBody({
   record,
   wide = false,
+  collapseVideos = !wide,
 }: {
   record: EmperorRecord;
   /** 個別ページ用の広幅表示。lg以上で基本情報と回数系を左右2カラムに並べて
-   *  縦スクロールを減らし、動画もグリッドで見せる。false（ダイアログ用）は
-   *  縦積みのまま、動画を折りたたみにしてダイアログ内スクロールを避ける。 */
+   *  縦スクロールを減らす。 */
   wide?: boolean;
+  /** 動画を折りたたみ（既定閉）にする。ダイアログではwide表示でも折りたたんで
+   *  ダイアログ内スクロールを抑える（既定はwideでないときのみ折りたたみ）。 */
+  collapseVideos?: boolean;
 }) {
   const videoNote = (
     <p className="text-xs leading-relaxed text-muted-foreground">
@@ -188,7 +191,7 @@ export function EmperorDetailBody({
         </dl>
       </div>
       {record.videos.length > 0 &&
-        (wide ? (
+        (!collapseVideos ? (
           <div className="space-y-2">
             <h3 className="font-heading text-sm font-semibold text-foreground">
               関連動画

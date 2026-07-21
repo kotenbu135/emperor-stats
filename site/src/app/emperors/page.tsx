@@ -1,6 +1,6 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { EmperorGrid } from "@/components/emperors/emperor-grid";
-import { getAllEmperorRecords, getDynastyOptions } from "@/lib/emperors";
+import { getDynastyOptions, getEmperorListRecords } from "@/lib/emperors";
 import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -10,7 +10,7 @@ export const metadata = buildMetadata({
 });
 
 export default function EmperorsPage() {
-  const records = getAllEmperorRecords();
+  const records = getEmperorListRecords();
   const dynastyOptions = getDynastyOptions();
 
   return (
