@@ -799,7 +799,7 @@ export function RiverTimeline({
             統一と分裂のリズム
           </text>
           <text x={PAD_X + 128} y={bcY + 9} fontSize={9.5} className="fill-muted-foreground">
-            在位する皇帝がただ一つの王朝のみ＝統一（金）／複数王朝が並立＝分裂（灰）／皇帝不在（斜線）
+            在位する皇帝がただ一つの王朝のみ＝統一（金）／並立など統一でない期間＝灰（1912年の帝制終焉後を含む）／皇帝不在（斜線）
           </text>
           {river.runs.map((r) => (
             <rect

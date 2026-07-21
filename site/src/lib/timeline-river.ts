@@ -7,8 +7,10 @@
 //   太さ(唯一在位)・皇帝セグメント・空位・統一/分裂の判定はすべて在位データの写像。
 // - row: 0=中央(天下統一の座)・負=北方・正=南方(縦軸に地理の意味を持たせる)。
 // - 「唯一在位(sole)」= その年に在位する皇帝がこのストリームの王朝にしかいない。
-//   歴史的な「全土統一」とは異なる機械的定義(東晋371-383・南宋1235-1259・
-//   満洲国1934-45も該当する)。ページ側の脚注で明示する。
+//   歴史的な「全土統一」とは異なる機械的定義(東晋371-383・南宋1235-1259も該当)。
+//   ただし1912(宣統帝退位・帝制終焉)より後は、単一王朝しか残っていなくても
+//   「統一」とみなさない(SOLE_END。洪憲・張勲復辟・満洲国は共和制下の帝政で
+//   あり天下統一ではないため)。ページ側の脚注で明示する。
 // - 本モジュール内の年はすべて天文年(astroYear済み。0年の無い暦との変換は
 //   fromAstroYear)。fsに依存しない純関数群(emperors.tsから呼ばれる)。
 
@@ -87,6 +89,10 @@ export function toAstroYear(year: number): number {
 export function fromAstroYear(a: number): number {
   return a > 0 ? a : a - 1;
 }
+
+// 帝制終焉の年(1912=宣統帝退位)。これより後の年は在位皇帝が単一王朝でも
+// 「唯一在位(統一)」に数えない(帯の太さ・統一/分裂バーコード共通)。
+const SOLE_END = toAstroYear(1912);
 
 // --- キュレーション: 集約・縦配置・配色系統 ---
 // colorSlot は意味ベース: 漢系=4(金)・晋系=7(紫)・北族=1(青)・宋=2(緑)・
@@ -351,7 +357,8 @@ export function buildRiverTimeline(emperors: RiverSourceEmperor[]): RiverTimelin
     let cur: RiverPiece | null = null;
     for (let y = a; y <= b; y++) {
       const ds = yearDyns.get(y);
-      const sole = !!ds && ds.size > 0 && [...ds].every((k) => keys.has(k));
+      const sole =
+        y <= SOLE_END && !!ds && ds.size > 0 && [...ds].every((k) => keys.has(k));
       if (cur && cur.sole === sole) cur.b = y;
       else {
         cur = { a: y, b: y, sole };
@@ -458,7 +465,8 @@ export function buildRiverTimeline(emperors: RiverSourceEmperor[]): RiverTimelin
   const runs: RiverTimelineData["runs"] = [];
   for (let y = a0; y <= b0; y++) {
     const n = yearDyns.get(y)?.size ?? 0;
-    const state = n === 1 ? "sole" : n === 0 ? "vacant" : "split";
+    const state =
+      n === 0 ? "vacant" : n === 1 && y <= SOLE_END ? "sole" : "split";
     const last = runs[runs.length - 1];
     if (last && last.state === state) last.b = y;
     else runs.push({ a: y, b: y, state });
