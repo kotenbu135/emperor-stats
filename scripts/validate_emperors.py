@@ -83,9 +83,9 @@ KNOWN_EMPTY_CONFIDENCE = {
     ("yuanmo-xushouhui", "rebellionSufferedCount"),
 }
 
-# reignSummary と reigns の不一致。
-# qianzhao-liuyuan: firstStartYear 309 vs reigns[0].startYear 308（どちらが正か要調査）
-KNOWN_REIGN_SUMMARY = {("qianzhao-liuyuan", "firstStartYear")}
+# reignSummary と reigns の不一致（現状該当なし。
+# qianzhao-liuyuanのfirstStartYear不一致はブロック3〈2026-07-21〉のreignSummary再計算で解消済み）。
+KNOWN_REIGN_SUMMARY = set()
 
 # ---------------------------------------------------------------------------
 
