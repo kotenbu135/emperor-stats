@@ -125,8 +125,9 @@
           "description": "諱（本名）。"
         },
         "commonName": {
-          "type": ["string", "null"],
-          "description": "通称（最も一般的な呼称。例:「始皇帝」「聖祖（康熙帝）」）。2件のみ null（赫連夏の赫連昌・赫連定）で、その場合は personalName で代替する。"
+          "type": "string",
+          "minLength": 1,
+          "description": "通称（最も一般的な呼称。例:「始皇帝」「聖祖（康熙帝）」）。廟号・諡号を持たない皇帝は諱をそのまま用いる（例:「曹芳」「赫連昌」）。"
         },
         "templeName": {
           "type": ["string", "null"],

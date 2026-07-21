@@ -265,9 +265,8 @@ function dynastyKey(dynasty: RawEmperor["dynasty"]): string {
 }
 
 /**
- * name.commonNameがnull（未設定）のレコードが2件存在する（赫連夏の赫連昌・赫連定）。
- * データ側は本来string型のはずだが実データにnullが混在しているため、表示名としては
- * personalName等にフォールバックする（[[handover]]参照、data/emperors.json自体は変更しない）。
+ * commonNameはスキーマ・validate_emperors.pyで非null必須（かつてnullが2件混在し
+ * 2026-07-21にデータ側で解消済み）。フォールバックは防御的に維持する。
  */
 function displayName(name: RawEmperor["name"]): string {
   const raw =

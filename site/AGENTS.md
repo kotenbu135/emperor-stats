@@ -36,7 +36,7 @@ npx tsc --noEmit   # 型チェック
 
 - **Radix系ポップアップのスクロールロックは `scrollbar-gutter: stable` と二重補正になり横ずれする** — react-remove-scroll が body に `margin-right` 補正を注入するため。`globals.css` の `body[data-scroll-locked][data-scroll-locked]` 上書きで打ち消し済み（属性セレクタ2連は `!important` 同士の詳細度勝負のため）。この上書きを消さないこと。
 - **`.next` キャッシュ残存でハイドレーションが静かに失敗する**（コンソールエラーなし・画像404・フィルタ無反応）。basePath 等の設定変更後は `rm -rf .next` してから dev サーバーを再起動する。
-- `name.commonName` が `null` のレコードが2件ある（データ側の申し送り事項）。表示は `emperors.ts` の `displayName()` フォールバックで回避済み。
+- `name.commonName` の `null` 混在は 2026-07-21 にデータ側で解消済み（スキーマ・`validate_emperors.py` で非null必須化）。`emperors.ts` の `displayName()` フォールバックは防御的に維持している。
 - 旧バックログ（Nivo チャートの TBT・`/emperors` の LCP・CLS・a11y 2件）は 2026-07-18 に解消済み（Lighthouse: a11y 全ページ 100・perf 66〜100）。WSL2 上の Lighthouse は TBT を実測比 10〜20 倍に増幅するので、絶対値でなく相対比較+Long Task 実測で評価する。詳細は `../docs/site-design/LAYOUT.md` の「Lighthouse改善の実装」節。
 
 # 設計記録

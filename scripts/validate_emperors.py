@@ -9,6 +9,8 @@
     キーの改名・typo・スキーマ未記載フィールドの追加を検出する。
     新フィールドを正式追加する際は配布スキーマと EMPERORS_SCHEMA.md を先に更新する）
   - id（slug）の形式・一意性、meta.count と配列長の一致
+  - name.commonName が非空文字列（表示名の必須フィールド。かつて null 2件が
+    サイト側フォールバックで凌がれていた経緯があり、再発をスキーマと二重に検出する）
   - sources.wikidata の QID 形式・非 null・一意性
   - 在位日付: ISO 形式・値域、start≦end（精度を揃えた比較）、複数在位の時系列順、
     datePrecision（year/month/day）と日付形式の整合（形式は精度以上の深さを持つ）、
@@ -187,6 +189,13 @@ def check_ids(data):
     n = data.get("meta", {}).get("count")
     if n != len(ids):
         err(f"[meta] meta.count={n} だが emperors 配列は {len(ids)} 件")
+
+
+def check_names(data):
+    for e in data["emperors"]:
+        cn = (e.get("name") or {}).get("commonName")
+        if not (isinstance(cn, str) and cn.strip()):
+            err(f"[name] {e['id']}: commonName が非空文字列でない: {cn!r}")
 
 
 def check_wikidata(data):
@@ -425,6 +434,7 @@ def main() -> int:
 
     check_schema(data, schema)
     check_ids(data)
+    check_names(data)
     check_wikidata(data)
     check_reigns(data)
     check_counts(data)

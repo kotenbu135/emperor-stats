@@ -167,9 +167,9 @@
 
 ## サイト実装で見つかったデータ品質の申し送り事項
 
-サイト実装（`site/`）を進める中で発見した、`data/emperors.json` 側の是正が望ましい点。**サイト側のコードでは表示上の問題が起きないよう回避済み**（`site/src/lib/emperors.ts` の `displayName()` を参照）だが、データ本体の是正はデータ調査の作業プロセス（個別調査）に委ねるためここに記録する。
+サイト実装（`site/`）を進める中で発見した、`data/emperors.json` 側の是正が望ましい点。現時点で未対応の申し送りはなし（以下は解消記録）。
 
-- **`name.commonName` が `null` のレコードが2件存在する**: `xia-helianchang`（赫連昌）・`xia-heliading`（赫連定）、いずれも五胡十六国「夏（赫連夏）」。[EMPERORS_SCHEMA.md](../data/schema/EMPERORS_SCHEMA.md) 上は `commonName` は `string`（非null）のはずだが、実データではこの2件が未設定（`personalName` のみ設定）。サイト側では `commonName ?? personalName ?? templeName ?? posthumousName` のフォールバックで表示自体は破綻しないようにしたが、本来は `commonName` に何らかの値（例: 諱をそのまま使うなど）を設定するのが望ましい。2026-07-18発見。
+- **【解消済み 2026-07-21】`name.commonName` が `null` のレコードが2件存在する**: `xia-helianchang`（赫連昌）・`xia-heliading`（赫連定）、いずれも五胡十六国「夏（赫連夏）」。[EMPERORS_SCHEMA.md](../data/schema/EMPERORS_SCHEMA.md) 上は `commonName` は `string`（非null）のはずだが、実データではこの2件が未設定だった（2026-07-18発見）。→ 2026-07-21、データセット内で確立済みの慣行（廟号・諡号を持たない皇帝は諱を通称に用いる。曹芳・孫亮・石世など約30件で既に採用）に合わせ、両件とも `commonName` に諱（赫連昌・赫連定）を設定して解消。同時に配布スキーマ（`data/schema/emperors.schema.json`）の `commonName` を非null必須（`type: "string"`・`minLength: 1`）へ厳格化し、`scripts/validate_emperors.py` にも非空文字列チェックを追加して再発を CI で検出できるようにした。サイト側の `displayName()` フォールバックは防御的に維持している。
 
 ### 対応済みの訂正（2026-07-20、note のサイト表示化に伴う）
 

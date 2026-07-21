@@ -57,7 +57,7 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 | フィールド | 型 | 内容 |
 |---|---|---|
 | `personalName` | string \| null | 諱（本名） |
-| `commonName` | string | 一般に知られる呼称（表示名として使用） |
+| `commonName` | string | 一般に知られる呼称（表示名として使用・非null必須）。廟号・諡号を持たない皇帝は諱をそのまま用いる（例: 曹芳・赫連昌） |
 | `aliases` | string[] | 別名・異表記 |
 | `posthumousName` | string \| null | 諡号 |
 | `templeName` | string \| null | 廟号 |
