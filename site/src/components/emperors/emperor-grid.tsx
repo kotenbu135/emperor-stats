@@ -139,10 +139,15 @@ export function EmperorGrid({
   }, [deferredQuery, dynastyValue, categoryValue]);
 
   // 検索は空白区切りの全語がヒットした皇帝のみ表示（名称・別名・王朝名・時代が対象）。
-  // かな入力はsearchKana（ビルド時生成の読み展開）に照合し、カタカナはひらがなに
-  // 正規化して両表記どちらでも引けるようにする。
+  // クエリはNFKC正規化（半角カナ→全角・全角英数→半角等）したうえで、かな入力は
+  // searchKana（ビルド時生成の読み展開）に照合し、カタカナはひらがなに正規化して
+  // 両表記どちらでも引けるようにする。
   const filtered = useMemo(() => {
-    const tokens = deferredQuery.trim().split(/\s+/).filter(Boolean);
+    const tokens = deferredQuery
+      .normalize("NFKC")
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
     return records.filter(
       (r) =>
         (dynastyValue === "all" || r.dynastyKey === dynastyValue) &&

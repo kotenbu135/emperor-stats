@@ -22,6 +22,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import type { DynastyOption } from "@/lib/emperor-types";
+import { toHiragana } from "@/lib/kana";
 
 /** 王朝の選択肢を時代グループごとにまとめる（受け取った並び順を保持）。 */
 export function groupByEra(
@@ -73,10 +74,12 @@ export function DynastyCombobox({
       <PopoverContent align="start" className="w-[200px] p-0">
         <Command
           // cmdk既定のあいまい一致は漢字1字でも飛び石マッチして候補が絞れないため、
-          // ラベル・時代名の部分一致のみ採用する。
+          // ラベル・時代名・読み（keywords経由）の部分一致のみ採用する。クエリは
+          // NFKC正規化（半角カナ→全角等）+ひらがな化して、かな・カナどちらでも引ける。
           filter={(itemValue, search, keywords) => {
             const target = `${itemValue} ${(keywords ?? []).join(" ")}`;
-            return target.includes(search.trim()) ? 1 : 0;
+            const q = search.normalize("NFKC").trim();
+            return target.includes(q) || target.includes(toHiragana(q)) ? 1 : 0;
           }}
         >
           <CommandInput placeholder="王朝名で検索" />
@@ -98,7 +101,7 @@ export function DynastyCombobox({
                   <CommandItem
                     key={o.value}
                     value={o.value}
-                    keywords={[o.label, o.era]}
+                    keywords={[o.label, o.era, ...o.kana]}
                     data-checked={value === o.value || undefined}
                     onSelect={() => select(o.value)}
                   >

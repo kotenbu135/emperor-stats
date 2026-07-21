@@ -456,10 +456,17 @@ export function getDynastyOptions(): DynastyOption[] {
   for (const record of getAllEmperorRecords()) {
     if (seen.has(record.dynastyKey)) continue;
     seen.add(record.dynastyKey);
+    // かな検索用の読み展開。王朝ラベルは読み揺れ込み（斉=せい/さい等）、
+    // 時代は慣用読みのみ（searchKanaOfのラベル扱いと同じ）。
+    const kana = new Set<string>([
+      ...kanaExpansionsOf(record.dynastyLabel),
+      ...kanaExpansionsOf(record.eraLabel, { primaryOnly: true }),
+    ]);
     options.push({
       value: record.dynastyKey,
       label: record.dynastyLabel,
       era: record.eraLabel,
+      kana: [...kana],
     });
   }
   const eraIndex = new Map(eraOrder.map((e, i) => [e, i]));
