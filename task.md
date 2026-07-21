@@ -13,7 +13,8 @@
 - **`deathCause.source`・`accessionRoute.source`・`events[].source` のWikipedia出典は2026-07-21のフェーズAで一掃済み**（詳細下記3-1）。残るのは `reigns[].duration.source`（350件、Wikipedia infobox由来の即位/崩御日付）で、こちらはフェーズBとして進行中（2026-07-21にブロック1＝秦漢34件完了・残317件）。
 - **note・出典のサイト表示（旧 task.md 第1〜3弾）は 2026-07-20 完了済み**: 個別ページの「即位/死因/復位の経緯」節・「調査メモ」折りたたみ・「在位中の出来事」年表・詳細ダイアログの lazy fetch（`public/emperor-notes/{id}.json`）。設計判断は `docs/site-design/LAYOUT.md` 参照。
 - **配布物は 2026-07-21 に実装済み**（2-1）: `/data/emperors.json`・`/data/emperors.csv`・`/data/emperors.schema.json` を `site/scripts/build-data-distribution.mjs` が prebuild で生成。JSON Schema は `data/schema/emperors.schema.json` に手書きで置く（実データ365件の検証エラー0）。サイト内リンクはライセンス確定（2-2）待ちで未設置。
-- **未実装**: `wikidataId`・`nameEn` フィールド（全365件で0）、`CITATION.cff`/`CHANGELOG.md`/Zenodo DOI、i18n（`[locale]`）。
+- **`sources.wikidata`（QID）は 2026-07-21 に365人全員付与済み**（2-5 完了）。→ 4-2 の `sameAs`・項目5の `nameEn` 取得が着手可能に。
+- **未実装**: `nameEn` フィールド（全365件で0）、`CITATION.cff`/`CHANGELOG.md`/Zenodo DOI、i18n（`[locale]`）。
 
 ---
 
@@ -91,13 +92,14 @@
 - [ ] 注意: 初回 DOI はスイッチON**後**の最初の Release で発行（ON前のリリースには付かない）。DOI 発行後に `CITATION.cff` と Dataset JSON-LD の `identifier` へ concept DOI を反映する二段階
 - [ ] 前提判断: ユーザーに Zenodo 連携の意思確認（アカウント作成が必要）
 
-### 2-5. Wikidata QID 紐付け（項目5の前提・先行させる・独立）
-- [ ] 各皇帝レコードに `wikidataId` を追加。**3パス方式**:
-  1. SPARQL `P39/P279* → Q268218`（サブクラス込み・1クエリ）で正統王朝分を回収
-  2. 日本語 Wikipedia 記事名 → `wbgetentities`（50件/バッチ、365件で約8リクエスト）でサイトリンク逆引き
-  3. 残りを手動確認
-- [ ] ※外部 API 一括リクエストは小規模検証→明示許可後に実行（[[bulk-external-api-caution]]）
-- [ ] 効用: (a) JSON-LD `sameAs` に使える (b) 英語名初期値を Wikidata ラベルから自動生成 (c) 将来 Wikidata 側に emperorstats を外部識別子として提案する道
+### 2-5. Wikidata QID 紐付け — **完了（2026-07-21）**
+- [x] 365人全員の `sources.wikidata`（既存フィールド・従来全件 null）に QID を付与。**3パス方式**で実施:
+  1. SPARQL `P39/P279* → Q268218` でプール357人回収 → 名前×王朝×生没年のローカル照合で298件自動確定（名前完全一致＋年整合＋次点との明確差の3条件）
+  2. jawiki 記事名 → `wbgetentities` 逆引きで67件を候補化し全件目視確定
+  3. 残り7件（避諱字ゆれ「孫皓」・jawiki 記事なし等）を `wbsearchentities`/zhwiki で個別解決
+- [x] レート制限順守: 計約12リクエスト・直列・maxlag=5・専用 User-Agent・429ゼロ（[[bulk-external-api-caution]]）
+- [x] 検証: 365件一意・スキーマ検証エラー0・著名皇帝サンプル検算。方式詳細と留意点は `docs/PROJECT_STATUS.md`「Wikidata QID 紐付け」節
+- [ ] 後続（別項目で実施）: (a) JSON-LD `sameAs`（4-2）(b) `nameEn` 初期値の enwiki サイトリンク取得（項目5）(c) CSV 配布物への `wikidataId` 列追加は 2-1 の列仕様改定として要判断 (d) 3-3 CI に QID 形式・一意性チェック追加
 
 **推奨実行順序**: ① 2-1 技術部分（約1日）→ ② 2-5 QID 紐付け（1〜2日）→ ③ 3-1 → 2-2 → 2-3 → 2-4（直列・計2〜3日＋ユーザー操作）。①②は独立で並行可。
 
@@ -195,7 +197,7 @@
 - [x] 個別ページの `personJsonLd` 出力を確認（ビルド出力で実証済み・上記「現状確認」参照）
 - [x] 個別ページの `BreadcrumbList` 出力を確認（実証済み）
 - [x] **`alternateName`（諱/廟号/諡号＋別名）を `personJsonLd` に追加**（2026-07-21 完了）。`JsonLdPerson.alternateName?: string[]`＋`personJsonLd` で `name` と重複・空値を除外し、1件なら文字列・複数なら配列で出力。`EmperorRecord` に `aliases: string[]` を追加（emperor-types.ts＋emperors.ts構築）、個別ページで諱/廟号/諡号/別名を Set で畳んで渡す。ビルド出力で実証（始皇帝＝`["嬴政","秦始皇","趙政"]`／太宗＝`"李世民"`／別名なしは省略）。**365中309ページで出力・新データ調査ゼロ**
-- [ ] ~~`sameAs`~~ **項目 2-5（`wikidataId` 0/365）待ち**。※`ja.wikipedia.org/wiki/{commonName}` を今すぐ機械生成する案は**却下**：曖昧回避サフィックス・リダイレクトで名前→記事の対応が不安定、誤 `sameAs` は無いより悪い（原典主義に反する）。QID 確定後に回す
+- [ ] `sameAs` — **前提解消（2-5 完了・2026-07-21）、着手可能**。`sources.wikidata` から `https://www.wikidata.org/wiki/{QID}` を生成して `personJsonLd` に追加。※`ja.wikipedia.org/wiki/{commonName}` の機械生成案は却下済み（曖昧回避サフィックスで不安定・誤 `sameAs` は無いより悪い）
 - [ ] `Dataset`（about の既存 `@type:Dataset`）拡張は**項目2とセットで実施**: `temporalCoverage`（-0221/1945）は単独追加も安いが飾りに留まる。**Google Dataset Search 掲載の本体は `distribution`（項目 2-1 の JSON/CSV URL）＋`license`（項目 2-2 のライセンス決定）**で、これが揃って初めて発火する
 
 **工数目安（2026-07-21 再見積り）**: 4-2 の独立着手分（`alternateName`）・4-1（SSR テキスト）はいずれも完了。`record.ranks` 再利用でチャート整合を構造的に担保したため、当初見積り1〜2日より短縮。**項目4で残るのは `sameAs`（項目 2-5 の QID 待ち）・`Dataset` 拡張（`distribution`/`license`＝項目 2-1/2-2 待ち）のみ**で、いずれも項目2に統合済み。

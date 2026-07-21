@@ -118,7 +118,7 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 | フィールド | 型 | 内容 |
 |---|---|---|
 | `wikitextLines` | number[] | `中国帝王一覧.wikitext` 内での該当行番号 |
-| `wikidata` | string \| null | Wikidata ID（現状未使用） |
+| `wikidata` | string \| null | Wikidata QID（`Q` + 数字）。365人全員に付与済み（2026-07-21・SPARQL/jawiki記事名逆引き＋目視確認の3パス方式、詳細は docs/PROJECT_STATUS.md） |
 | `cbdb` | null | 将来の CBDB（中国歴代人物伝記データベース）連携用。現状未使用 |
 
 ### `verification`
