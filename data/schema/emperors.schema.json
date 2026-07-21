@@ -50,9 +50,9 @@
         }
       },
       "patternProperties": {
-        "CompletedBlocks$": {
+        "Blocks$": {
           "type": ["array", "object"],
-          "description": "調査ブロック単位の完了記録（内部運用フィールド）。"
+          "description": "調査ブロック単位の記録（内部運用フィールド）。completedBlocks・*CompletedBlocks・reignDurationSourceBlocks が該当。"
         }
       }
     },
@@ -513,6 +513,14 @@
         "note": {
           "type": ["string", "null"],
           "description": "出典に関する補足（該当箇所・引用原文など）。"
+        },
+        "quote": {
+          "type": ["string", "null"],
+          "description": "日付根拠になった正史原文の直接引用（即位／退位を「／」で区切る）。reigns[].duration.source で使用（task.md 3-1 フェーズBで新設）。"
+        },
+        "conversion": {
+          "type": ["string", "null"],
+          "description": "旧暦（干支日）→西暦の換算典拠と既存日付との照合結果。正史に日次記述がない場合はその旨を記す。reigns[].duration.source で使用（task.md 3-1 フェーズBで新設）。"
         }
       }
     },

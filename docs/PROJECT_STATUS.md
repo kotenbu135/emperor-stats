@@ -210,6 +210,25 @@
 - `beiwei-yuanyu`（元愉）= Q11104386 は CBDB 由来のスタブで説明文が「Western Wei person」と不正確だが、zhwiki 記事（京兆王元愉・508年称帝）で同定確認済み。
 - 照合過程の中間成果物（SPARQL 結果・候補レポート）はセッション作業領域のみで、リポジトリには残していない。QID 自体が検証可能な外部参照になっている。
 
+## データ QA の CI 恒久化（2026-07-21、task.md 3-3）
+
+`scripts/validate_emperors.py` と GitHub Actions ワークフロー `.github/workflows/validate-data.yml` を新設し、`data/` または QA スクリプトを触る push / PR で自動検証が走る体制にした。チェック内容・エラー/警告の区分はスクリプト冒頭の docstring が正（スキーマ適合＝寛容版＋additionalProperties:false 機械付与の厳格版・日付整合・精度と形式の整合・count==events長・QID 形式/一意性・出典禁止語・肖像 manifest 整合/MD5 重複など）。現データで 0 エラー・警告4種（フェーズB進行中の既知事項）で緑。
+
+**運用ルール**:
+- **`KNOWN_ISSUES`（スクリプト内の許容リスト）は「容認」ではなく「個別調査待ち」の明示**。データ側を訂正したら該当エントリを削除する。削除し忘れは「陳腐化エントリ」警告で検出される（訂正済みならエントリが残っていても CI は落ちない＝フェーズB進行中の別セッションのコミットを妨げない設計）。
+- `reigns[].duration.source` の Wikipedia 出典残数は警告として件数表示のみ（フェーズB進行中のため）。**フェーズB完了＝0件到達後にエラーへ格上げすること**（`check_forbidden_sources` 内にコメントあり）。
+- 新フィールドを正式追加する際は `data/schema/emperors.schema.json`（配布用）と `EMPERORS_SCHEMA.md` を先に更新する。厳格版チェックが未記載キーを構造ドリフトとして検出する。
+
+**CI 構築時に見つかった未解決のデータ問題（許容リスト登録済み・フェーズB等で個別調査を要する）**:
+- `beiwei-yuanfasheng` reigns[0]: startDate 0525-02-08 > endDate 0525-02-01（逆転。北朝ブロックで確認を）
+- `qianzhao-liuyuan`: reignSummary.firstStartYear=309 vs reigns[0].startYear=308（どちらが正か要調査）
+- `ages.deathDate` が最終 `endDate` より前（精度を揃えた比較で9件）: chen-wendi・beiwei-tuobayu・shiguo-qianshu-wangjian・shiguo-nanhan-liusheng・liao-jingzong・liao-daozong・xixia-huizong・xixia-chongzong・shun-lichengzheng。旧暦月表記と西暦換算日の混在が主因とみられ、各ブロックの ages 同期時に解消するのが自然
+- `confidence: ""` 4件（既知・task.md 3-3 に記載のとおり値の確定は調査判断待ち）
+
+**同時に直した既存 QA 資産の不備**:
+- `scripts/detect_wikipedia_sources.py` のグループ名誤り（`empressEstablishCount`/`crownPrinceDeposalCount` → 実データは `empressInstallationCount`/`crownPrinceDepositionCount`。立后・廃立の events が全件スキップされていた。修正後も検出0件でフェーズAの結論は不変）と、`zhonghuadiguo-yuanshikai` の accessionRoute 意図的表記「近現代の学術的に信頼できる複数情報源」の許容リスト追加
+- `data/schema/emperors.schema.json` にフェーズB新設の `source.quote`/`source.conversion` が未反映だった点と、`meta` の patternProperties が `completedBlocks`/`reignDurationSourceBlocks` を取りこぼしていた点（`Blocks$` に修正）
+
 ## 重要なファイル
 
 - `data/emperors.json` — メインデータセット

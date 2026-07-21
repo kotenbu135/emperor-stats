@@ -99,7 +99,7 @@
   3. 残り7件（避諱字ゆれ「孫皓」・jawiki 記事なし等）を `wbsearchentities`/zhwiki で個別解決
 - [x] レート制限順守: 計約12リクエスト・直列・maxlag=5・専用 User-Agent・429ゼロ（[[bulk-external-api-caution]]）
 - [x] 検証: 365件一意・スキーマ検証エラー0・著名皇帝サンプル検算。方式詳細と留意点は `docs/PROJECT_STATUS.md`「Wikidata QID 紐付け」節
-- [ ] 後続（別項目で実施）: (a) ~~JSON-LD `sameAs`（4-2）~~ **完了（2026-07-21）** (b) `nameEn` 初期値の enwiki サイトリンク取得（項目5）(c) CSV 配布物への `wikidataId` 列追加は 2-1 の列仕様改定として要判断 (d) 3-3 CI に QID 形式・一意性チェック追加
+- [ ] 後続（別項目で実施）: (a) ~~JSON-LD `sameAs`（4-2）~~ **完了（2026-07-21）** (b) `nameEn` 初期値の enwiki サイトリンク取得（項目5）(c) CSV 配布物への `wikidataId` 列追加は 2-1 の列仕様改定として要判断 (d) ~~3-3 CI に QID 形式・一意性チェック追加~~ **完了（2026-07-21・3-3 実装に同梱）**
 
 **推奨実行順序**: ① 2-1 技術部分（約1日）→ ② 2-5 QID 紐付け（1〜2日）→ ③ 3-1 → 2-2 → 2-3 → 2-4（直列・計2〜3日＋ユーザー操作）。①②は独立で並行可。
 
@@ -143,13 +143,18 @@
 - [x] about の153件テーブルは既に manifest からの自動生成済み（`emperors.ts` の `getPortraitCredits()`）
 - [ ] **残存リスク**: 単独人物・正しい時代の服飾・題字なしで「同時代の別人」というケースは目視では原理的に拾えない。潰すには外部の正解データ（Wikidata P18 / Wikipedia リード画像）との突き合わせが必要 → 項目 2-5 に合流させる
 
-### 3-3. QA の恒久化（CI）
-- [ ] `data/emperors.json` へのバリデーションを GitHub Actions CI に: スキーマ適合・日付整合（即位≦退位≦崩御）・精度フラグと日付形式の一致・画像 URL 重複・出典フィールドの禁止語（Wikipedia 記事名パターン）・slug 一意性・前後ナビの連結整合
-- [ ] **`ages.deathDate` と最終 `reigns[].endDate` の整合チェック**（ブロック1フォローアップで実在した同期漏れの再発防止。退位後に死去した皇帝は `deathDate > endDate` が正当なので「`deathDate < endDate` はエラー、在位中崩御（最終 reign が退位でない）なのに不一致は警告」の2段階が現実的）
-- [ ] **スキーマ適合チェックの素材は 2-1 で用意済み**: `data/schema/emperors.schema.json`＋`jsonschema` ライブラリ（検証コードは数行）。現状エラー0。ただし**このスキーマが検出するのは値の妥当性（enum・型・精度フラグ）だけ**で、キーの改名・欠落・typo は素通りする（配布用として意図的に寛容にしてある＝`additionalProperties: false` なし・大半が optional。厳しくすると実データを弾く）。**構造ドリフトを CI で捕まえるには、CI 専用に `additionalProperties: false` 版を別途用意する必要がある** — この行を根拠に構造崩れを見逃さないこと
-- [ ] **`confidence: ""`（空文字）4件の検出・確定**（2-1 のスキーマ検証で判明。`yuan-shizu` の親征、`yuanmo-xushouhui` の親征・鎮圧・被反乱）。`high`/`medium`/`low` への確定は調査判断が必要。CI 側は「confidence が空文字でない」チェックを入れる
-- [ ] **`ages`・`events[]` の `datePrecision` 表記ゆれ**（`unknown`・`none`・`lunar-day`・`conflicting`・括弧注記つき `day（…）` が混在。`reigns[]` は3値に統一済み）。正規化するか、先頭トークン＋注記の2フィールドに分けるかは要方針判断。当面は CI で「先頭トークンが day/month/year/unknown のいずれか」を検査する程度に留めるのが現実的
-- [ ] 以後の訂正 PR が自動チェックを通る体制（外部指摘→修正ループを回しやすく）
+### 3-3. QA の恒久化（CI）— **完了（2026-07-21）**
+
+`scripts/validate_emperors.py`＋`.github/workflows/validate-data.yml` を新設（`data/**`・QA スクリプトの push/PR で発火）。現データで 0 エラー・警告4種の緑スタート。詳細・運用ルール（KNOWN_ISSUES 許容リスト＝個別調査待ちの明示・訂正時に削除・陳腐化は警告検出）は `docs/PROJECT_STATUS.md`「データ QA の CI 恒久化」節とスクリプト docstring 参照。
+
+- [x] `data/emperors.json` へのバリデーションを GitHub Actions CI に: スキーマ適合・日付整合（reign start≦end・複数在位の順序・birth≦death・歴史年/天文年の対応）・精度フラグと日付形式の一致・画像 MD5/manifest キー重複・出典フィールドの禁止語・slug 一意性・QID 形式/一意性・count==events長・reignSummary 整合・duration フラグ排他。前後ナビはビルド時に配列順から導出されるため slug 一意性チェックで担保
+- [x] **`ages.deathDate` と最終 `reigns[].endDate` の整合チェック**を2段階で実装: 精度を揃えた比較で `deathDate < endDate` はエラー（既存9件は KNOWN_DEATH_BEFORE_END に登録しフェーズBで解消）、`deathDate > endDate`（退位後死去等）は件数警告。「最終 reign が退位か」の機械判定はデータに終了事由フィールドが無く不可のため、全不一致を警告表示する方式に緩めた
+- [x] **構造ドリフト検出**: 配布スキーマに `additionalProperties: false` を機械付与した厳格版で二重検証（別ファイル保守でなく実行時生成）。この過程で配布スキーマ側の穴2件（フェーズB新設 `source.quote`/`conversion` 未反映・`meta` の patternProperties 取りこぼし）を修正
+- [x] **`confidence: ""` 4件**: CI は「空文字・high/medium/low 以外はエラー」を実装、既知4件は許容リスト登録（値の確定＝調査判断は未着手のまま別途）
+- [x] **`datePrecision` 表記ゆれ**: reigns は year/month/day の3値をエラーで強制。ages/events は先頭トークン照合の警告のみ（実測120件80種で正規化方針が未確定のため。方針確定は別途）
+- [x] 以後の訂正 PR が自動チェックを通る体制（PR トリガーで発火・許容リスト方式によりフェーズB進行中も緑を維持）
+- [ ] フェーズB完了後: `reigns[].duration.source` の Wikipedia 出典チェックを警告→エラーに格上げ（`check_forbidden_sources` 内コメント参照）
+- [ ] 別途（調査判断が必要な残件）: `confidence: ""` 4件の値確定、CI 構築時に新発見の `beiwei-yuanfasheng` 在位日付逆転・`qianzhao-liuyuan` reignSummary 不整合（詳細は PROJECT_STATUS）
 
 **工数目安**: Wikipedia 出典棚卸しは件数次第（列挙1時間・書き直し1件10〜30分）。肖像 QA と CI で1〜2日。
 

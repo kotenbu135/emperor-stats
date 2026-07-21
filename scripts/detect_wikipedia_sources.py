@@ -50,6 +50,8 @@ ALLOWLIST_PAGES = {
     # 満洲国期（正史範囲外）。一次史料である政府公報・詔書に拠る
     "満洲国皇帝即位詔書（1934年3月1日発布、石印本）／『満洲国政府公報日訳』康徳元年三月分（JACAR Ref.A06031010800）",
     "『満洲国政府公報日訳』康徳元年三月分（第1号～第22号）JACAR Ref.A06031010800",
+    # 中華帝国・袁世凱（正史範囲外の近現代人物）。accessionRoute の意図的表記
+    "近現代の学術的に信頼できる複数情報源",
 }
 
 
@@ -92,7 +94,9 @@ def collect_hits(data: dict):
             src = r.get("duration", {}).get("source")
             if src and is_wiki_like(src):
                 hits.append((f"reigns[{i}].duration", eid, src))
-        for group_key in ("eraChangeCount", "amnestyCount", "empressEstablishCount", "crownPrinceDeposalCount"):
+        # 注意: 実データのキー名は empressInstallationCount / crownPrinceDepositionCount
+        # （旧名 empressEstablishCount / crownPrinceDeposalCount は存在せず全件スキップされていた）
+        for group_key in ("eraChangeCount", "amnestyCount", "empressInstallationCount", "crownPrinceDepositionCount"):
             group = e.get(group_key)
             if not group:
                 continue

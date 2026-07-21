@@ -1,0 +1,38 @@
+# data/emperors.json の恒久 QA（task.md 3-3）。
+# チェック内容・エラー/警告の区分は scripts/validate_emperors.py の docstring を参照。
+name: Validate emperors data
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "data/**"
+      - "scripts/validate_emperors.py"
+      - "scripts/detect_wikipedia_sources.py"
+      - ".github/workflows/validate-data.yml"
+  pull_request:
+    paths:
+      - "data/**"
+      - "scripts/validate_emperors.py"
+      - "scripts/detect_wikipedia_sources.py"
+      - ".github/workflows/validate-data.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install jsonschema
+
+      - name: Validate emperors.json
+        run: python3 scripts/validate_emperors.py
