@@ -58,8 +58,8 @@ from detect_wikipedia_sources import is_wiki_like  # noqa: E402
 # ---------------------------------------------------------------------------
 
 # reigns[i] の startDate > endDate。
-# beiwei-yuanfasheng: 0525-02-08 > 0525-02-01。フェーズB北朝ブロックで原典突合予定
-KNOWN_REIGN_ORDER = {("beiwei-yuanfasheng", 0)}
+# beiwei-yuanfasheng の逆転はブロック6〈2026-07-21〉の北朝ブロックで解消済み（現状該当なし）。
+KNOWN_REIGN_ORDER = set()
 
 # ages.deathDate が最終 reign の endDate より前（精度を揃えた比較）。
 # 旧暦月表記と西暦換算日の混在が主因とみられ、フェーズBの ages 同期で個別解消予定
