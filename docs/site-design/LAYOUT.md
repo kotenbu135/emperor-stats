@@ -622,6 +622,15 @@ task.md 3-1 フェーズB完了（`reigns[].duration.source` への正史原文 
 - **/about に「日付の暦と西暦への換算」節を追加**: 旧暦（元号年・月・干支日）→ sxtwl（寿星天文暦、リンクは pip の Home-page https://github.com/yuangu/sxtwl_cpp ）換算・1582年10月改暦前はユリウス暦・旧暦年末が西暦翌年に入る非対応・史料対立時は正史優先・紀元前の内部表現は天文年表記（前210年＝-209年）という方法論を明文化。
 - **フォローアップ（データQA）→ 同日 B-5 として解消**: `duration.source` 374件中12件が `quote`/`conversion` 未付与で、うち9件は page にWikipedia記事名が正史書名と混在したまま残っていた（`detect_wikipedia_sources.py` の HISTORY_KEYWORDS 部分一致で3-1の検出から漏れた既知の限界パターン）。同日中に原典調査で全件正史出典へ整備し、日付訂正5名（ユーザー承認済み）も反映（task.md B-5・`docs/PROJECT_STATUS.md`「出典 QA」節・`meta.reignDurationSourceBlocks[12]` 参照）。個別ページの「在位日付の典拠」節は現在365人全員が正史出典表示になっている。
 
+## /emperors のRSCペイロード軽量化と肖像srcset（2026-07-21）
+
+/emperors 一覧が 365件×フル `EmperorRecord`（searchText・ranks12項目・videos込み）をそのままクライアントpropsに渡していた構造の解消と、`images.unoptimized` で srcset が効いていなかった肖像画の2サイズ出し分け。
+
+- **一覧propsを軽量レコード化**: `EmperorListRecord` を「`EmperorRecord` 拡張」から**カード表示・検索・絞り込みに必要な10フィールドだけの独立型**へ再定義（id・name・personalName・dynastyLabel・eraLabel・dynastyKey・dynastyCategory・portraitUrl・searchText・searchKana）。実測で `out/emperors.html` 942KB→485KB（gzip 76KB→42KB）、RSCペイロード `emperors.txt` 592KB→172KB（gzip 60KB→26KB）。
+- **フルレコードはダイアログ開時に lazy fetch**: Route Handler `app/emperor-records/[id]/route.ts`（`force-static`・`generateStaticParams`）が `out/emperor-records/{id}`（拡張子なし・1人約2KB）へ静的書き出しし、グリッドはカードクリック時に fetch → `Map` キャッシュ → ダイアログ表示する（経緯noteの `public/emperor-notes/{id}.json` と同じ方式。ロジックは `lib/emperors.ts` を直接 import できるため .mjs 複製が不要な Route Handler を採った）。連打・閉直後の古い fetch 解決には `wantedIdRef` の一致確認で対処、fetch 失敗時は個別ページへ遷移するフォールバック。前後送り・←→キーは `EmperorNavTarget`（id+name）だけで動くよう `EmperorDetailDialog` の props 型を緩めた。マウント時のダイアログ復元（履歴marker）も同じ fetch 経路。
+- **肖像画の2サイズ出し分け**: `sync-portraits.mjs` が sharp で 320px幅サムネ（quality 65・mtime比較で差分再生成）を `public/portraits/thumb/` に生成し、`Portrait` を `next/image` から素の `<img srcset="thumb 320w, full 360w">` に変更（unoptimized の next/image は srcset を出せない。`fill` 相当は `absolute inset-0` で再現、priority は `loading="eager"`+`fetchpriority="high"`）。**元画像がそもそも 360×480・quality65 のサムネ相当のため削減幅は限定的**: サムネ合計 2.2MB vs 元 2.9MB（−35%）で、恩恵は 1x ディスプレイの一覧と、ダイアログ・個別ページの 112〜144px 表示（DPR2 でも 288px≦320w でサムネが選ばれる）。DPR2 の一覧カード（要求 300〜490px）は従来どおり 360w フルが選ばれ劣化なし。チャートホバーの `EmperorTooltip`（44px表示）もサムネ参照に変更。
+- 検証（out を serve・Chrome実機）: カードクリック→fetch→全項目ダイアログ（順位・経緯・動画）／←→送り・戻るで閉・進むで再入・別ページ→戻るのダイアログ復元／かな検索`?q=`復元／チャート行クリックのダイアログ（従来経路）すべて動作。`tsc`・`eslint`・`next build` 通過。
+
 ## 関連ドキュメント
 
 - [TIMELINE.md](./TIMELINE.md) — 通史年表（`/timeline`）の設計

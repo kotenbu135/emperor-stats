@@ -1,5 +1,5 @@
-import Image from "next/image";
 import type { EmperorRecord } from "@/lib/emperor-types";
+import { portraitThumbUrl } from "@/components/emperors/portrait";
 
 export function EmperorTooltip({
   record,
@@ -26,11 +26,16 @@ export function EmperorTooltip({
     >
       <div className="flex items-center gap-3">
         {record.portraitUrl && (
-          <Image
-            src={record.portraitUrl}
+          // 44px表示に360pxフルは過剰なため、unoptimizedのnext/imageでなく
+          // 320pxサムネを素の<img>で出す。
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={portraitThumbUrl(record.portraitUrl)}
             alt={`${record.name}の肖像`}
             width={44}
             height={58}
+            loading="lazy"
+            decoding="async"
             className="shrink-0 rounded object-cover"
             style={{ objectPosition: "top" }}
           />

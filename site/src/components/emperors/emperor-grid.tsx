@@ -47,9 +47,9 @@ const EmperorCard = memo(function EmperorCard({
   priority,
   onSelect,
 }: {
-  record: EmperorRecord;
+  record: EmperorListRecord;
   priority: boolean;
-  onSelect: (record: EmperorRecord) => void;
+  onSelect: (record: EmperorListRecord) => void;
 }) {
   return (
     // クローラが一覧→個別365ページを辿れるよう実DOMに<a href>を出す。素の左クリックは
@@ -93,9 +93,44 @@ export function EmperorGrid({
   const [query, setQuery] = useState("");
   const [dynastyValue, setDynastyValue] = useState("all");
   const [categoryValue, setCategoryValue] = useState<DynastyCategory | "all">("all");
+  // 一覧のpropsは軽量レコードのみ。ダイアログに出すフルEmperorRecordは、開く時に
+  // /emperor-records/{id}（Route Handlerの静的書き出し）をfetchして取得する。
   const [selected, setSelected] = useState<EmperorRecord | null>(null);
-  const onSelect = useCallback((record: EmperorRecord) => setSelected(record), []);
-  const onCloseDialog = useCallback(() => setSelected(null), []);
+  const fullRecordsRef = useRef(new Map<string, EmperorRecord>());
+  // 最後に開こうとしたid。連打・閉じた直後に古いfetchが解決してダイアログを
+  // 開き直さないよう、解決時に一致確認する。
+  const wantedIdRef = useRef<string | null>(null);
+  const onSelect = useCallback(({ id }: { id: string }) => {
+    wantedIdRef.current = id;
+    const cached = fullRecordsRef.current.get(id);
+    if (cached) {
+      setSelected(cached);
+      return;
+    }
+    fetch(`${BASE_PATH}/emperor-records/${id}`)
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`${res.status}`))))
+      .then((record: EmperorRecord) => {
+        fullRecordsRef.current.set(id, record);
+        if (wantedIdRef.current === id) setSelected(record);
+      })
+      .catch(() => {
+        // 取得できない環境ではダイアログを諦めて個別ページ本体へ遷移する
+        // （カードの<a href>と同じ遷移先。内容の表示を最優先にする）。
+        if (wantedIdRef.current === id) {
+          window.location.assign(`${BASE_PATH}/emperors/${id}`);
+        }
+      });
+  }, []);
+  const onCloseDialog = useCallback(() => {
+    wantedIdRef.current = null;
+    setSelected(null);
+  }, []);
+  // 進む（popstate）での再入はダイアログが覚えているフルレコードで開き直す。
+  const onRestoreDialog = useCallback((record: EmperorRecord) => {
+    wantedIdRef.current = record.id;
+    fullRecordsRef.current.set(record.id, record);
+    setSelected(record);
+  }, []);
   // ダイアログを開いている間はURLを個別ページに差し替える（共有・リロードで
   // 個別ページ本体が開く）。useDialogHistoryのeffect依存になるため安定参照で渡す。
   const dialogUrlFor = useCallback(
@@ -136,10 +171,10 @@ export function EmperorGrid({
     )?.emperorDialog;
     if (dialogId) {
       const record = records.find((r) => r.id === dialogId);
-      if (record) setSelected(record);
+      if (record) onSelect(record); // フルレコードをfetchして開き直す
     }
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [dynastyOptions, records]);
+  }, [dynastyOptions, records, onSelect]);
   useEffect(() => {
     if (skipFirstUrlWriteRef.current) {
       skipFirstUrlWriteRef.current = false;
@@ -304,7 +339,7 @@ export function EmperorGrid({
       <EmperorDetailDialog
         record={selected}
         onClose={onCloseDialog}
-        onRestore={onSelect}
+        onRestore={onRestoreDialog}
         historyUrlFor={dialogUrlFor}
         prev={selectedIndex > 0 ? flatOrder[selectedIndex - 1] : null}
         next={

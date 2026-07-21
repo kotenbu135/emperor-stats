@@ -28,7 +28,7 @@ import {
   dynastyContextLabel,
 } from "@/components/emperors/emperor-detail-body";
 import { EmperorNarrativeDialogSection } from "@/components/emperors/emperor-narrative-dialog";
-import type { EmperorRecord } from "@/lib/emperor-types";
+import type { EmperorNavTarget, EmperorRecord } from "@/lib/emperor-types";
 
 /** ダイアログが積む履歴エントリのstate。Next.jsのpushStateパッチが内部キー
  *  （__NA・__PRIVATE_NEXTJS_INTERNALS_TREE）を同じオブジェクトへ合成するため、
@@ -121,10 +121,11 @@ export function EmperorDetailDialog({
 }: {
   record: EmperorRecord | null;
   onClose: () => void;
-  /** 前後の皇帝（一覧ダイアログの送りナビ用。省略時はナビ非表示＝チャートからの利用）。 */
-  prev?: EmperorRecord | null;
-  next?: EmperorRecord | null;
-  onNavigate?: (record: EmperorRecord) => void;
+  /** 前後の皇帝（一覧ダイアログの送りナビ用。省略時はナビ非表示＝チャートからの利用）。
+   *  一覧グリッドは軽量レコードしか持たないため、必要最小のid+nameで受ける。 */
+  prev?: EmperorNavTarget | null;
+  next?: EmperorNavTarget | null;
+  onNavigate?: (target: EmperorNavTarget) => void;
   /** 進む（popstate）での再入時に開き直すコールバック（useDialogHistory参照）。 */
   onRestore?: (record: EmperorRecord) => void;
   /** 開いている間のURL（useDialogHistory参照）。安定参照（useCallback等）で渡すこと。 */

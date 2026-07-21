@@ -104,12 +104,31 @@ export interface EmperorRecord {
 }
 
 /**
- * 皇帝一覧ページ（/emperors）専用のレコード。かな検索用の読み文字列を付加する
- * （他の統計ページのクライアントpropsを太らせないためEmperorRecord本体には持たせない）。
+ * 皇帝一覧ページ（/emperors）専用の軽量レコード。カード表示・検索・絞り込みに
+ * 必要な最小フィールドだけを持つ（365件×EmperorRecordフルをRSCペイロードに
+ * 埋め込むと/emperorsのHTML・payloadが数百KB太るため）。全項目は詳細ダイアログを
+ * 開いた時だけ /emperor-records/{id} をfetchして取得する。
  */
-export interface EmperorListRecord extends EmperorRecord {
+export interface EmperorListRecord {
+  id: string;
+  name: string;
+  /** 諱（本名）。肖像なしカードのモノグラム一文字に使う。 */
+  personalName: string | null;
+  dynastyLabel: string;
+  eraLabel: string;
+  dynastyKey: string;
+  dynastyCategory: DynastyCategory;
+  portraitUrl: string | null;
+  /** 皇帝一覧の検索対象文字列（各種名称・別名・王朝名・時代を連結したもの）。 */
+  searchText: string;
   /** かな検索用のひらがな読み（読み展開をスペース区切りで連結。表示には使わない）。 */
   searchKana: string;
+}
+
+/** 詳細ダイアログの前後送りナビに必要な最小情報（一覧グリッドは軽量レコードを渡す）。 */
+export interface EmperorNavTarget {
+  id: string;
+  name: string;
 }
 
 /** 経緯1節分（即位の経緯・死因の経緯）。noteは調査時の原文ママ。 */

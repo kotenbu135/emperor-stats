@@ -447,10 +447,10 @@ export function getAllEmperorRecords(): EmperorRecord[] {
 }
 
 /**
- * 皇帝一覧ページ（/emperors）専用のレコード。かな検索用のsearchKanaを付加する。
- * EmperorRecord本体に持たせないのは、統計各ページがEmperorRecord[]をそのまま
- * クライアントpropsに渡しており、一覧でしか使わない読みデータで全ページの
- * ペイロードを太らせないため。
+ * 皇帝一覧ページ（/emperors）専用の軽量レコード。カード表示・検索・絞り込みに
+ * 必要な最小フィールド＋かな検索用のsearchKanaだけを返す（フルのEmperorRecordを
+ * 365件クライアントpropsに埋め込むとRSCペイロードが数百KB太るため。全項目は
+ * ダイアログ開時に /emperor-records/{id} をfetchする）。
  */
 export function getEmperorListRecords(): EmperorListRecord[] {
   const kanaById = new Map(
@@ -460,7 +460,15 @@ export function getEmperorListRecords(): EmperorListRecord[] {
     ]),
   );
   return getAllEmperorRecords().map((r) => ({
-    ...r,
+    id: r.id,
+    name: r.name,
+    personalName: r.personalName,
+    dynastyLabel: r.dynastyLabel,
+    eraLabel: r.eraLabel,
+    dynastyKey: r.dynastyKey,
+    dynastyCategory: r.dynastyCategory,
+    portraitUrl: r.portraitUrl,
+    searchText: r.searchText,
     searchKana: kanaById.get(r.id)!,
   }));
 }
