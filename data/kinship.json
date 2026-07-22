@@ -148,6 +148,13 @@
         "emperors": 20,
         "edges": 15,
         "persons": 3
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック17（宋・北宋末傀儡）",
+        "emperors": 20,
+        "edges": 18,
+        "persons": 1
       }
     ]
   },
@@ -586,6 +593,31 @@
       "wikidata": "Q2109907",
       "source": {
         "page": "新五代史 巻六十八 閩世家第八",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhao-fu",
+      "name": "趙旉",
+      "kana": "ちょうふ",
+      "aliases": [
+        "元懿太子",
+        "魏國公"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": 1127,
+      "deathYear": 1129,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "南宋高宗の唯一の実子。母は潘賢妃。「元懿太子讳旉，高宗子也，母潘贤妃。建炎元年六月，生于南京。」（宋史 巻二百四十六 宗室三、簡体字コーパス daizhigev20 より）。高宗紀にも建炎元年6月辛未「辛未，以子旉生，大赦。」とあり生年1127で確定。建炎3年3月の苗劉の乱で3歳にして擁立され明受と改元（在位約26日）、乱平定による高宗復位後は皇太子に立てられた（「壬申，立子魏國公旉為皇太子。」）が、同年7月丁亥に夭折（「皇太子薨，謚元懿。」＝1129年没）。諡は元懿（太子諡）のみで皇帝号・廟号の追贈はないため kind=宗室（posthumous 該当なし）。Wikidata は1回の検索で QID を確信を持って特定できず null。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十六 宗室三 元懿太子",
         "lang": "zh-classical"
       }
     }
@@ -3831,6 +3863,276 @@
       "note": "劉継恩暗殺後、宰相郭無為に迎立された（「无为迎继元而立之」）。続柄は先代劉継恩の異父同母弟：母は劉旻の娘で、初め薛釗に嫁して継恩を生み、薛釗の死後に何氏へ再嫁して継元を生んだ（「继恩本姓薛氏，父钊为卒，旻以女妻之，生继恩。……旻女后适何氏，生子继元，而何氏及旻女皆卒。旻以其子承钧无子，乃以二子命承钧养为子」）。継元は本姓何。血縁上は異父弟、かつ両人とも劉承鈞（睿宗劉鈞）の養子であり、養家の続柄でも弟にあたる。",
       "source": {
         "page": "新五代史 巻七十 東漢世家第十",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wudai-houzhou-gongdi",
+      "to": "beisong-taizu",
+      "category": "禅譲",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "陳橋兵変で軍中に擁立され（「有以黃衣加太祖身，衆皆羅拜，呼萬歲」）、開封帰還後に後周恭帝の禅位制書を受けて即位。宋史巻一に「翰林承旨，陶榖出周恭帝，禪位制書于袖中，宣徽使引太祖就庭，北面拜受已，乃掖太祖升崇元殿，服袞冕，即皇帝位」とあり、恭帝からの受禅が明記される。趙匡胤は宣祖趙弘殷の子（「太祖，宣祖仲子也，母杜氏」）で、後周皇室柴氏との血縁はなく無血縁。emperors.json の accessionRoute.note が指摘するとおり形式は禅譲・実質は簒奪に近いが、category は規約どおり accessionRoute の「禅譲」をコピー。",
+      "source": {
+        "page": "宋史 巻一 太祖本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beisong-taizu",
+      "to": "beisong-taizong",
+      "category": "諸説あり",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "太宗は太祖の同母弟（宣祖第三子。太祖は宣祖第二子）。出自は宋史太宗紀冒頭「太宗神功聖德文武皇帝諱炅，初名匡乂，改賜光義，即位之二年，改今諱，宣祖第三子也，母曰昭憲皇后杜氏」、即位は同紀「開寶九年冬十月癸丑，太祖崩，帝遂即皇帝位」。太祖の崩御を受けて皇位を得た事実と弟という続柄は諸説共通で対立がないため verified とする。ただし継承の経緯・正当性には両論がある（accessionRoute.category=諸説あり）。(1)正常継承説（金匱の約・遺詔）: 宋史后妃伝（杜太后）に「汝百岁后当传位于汝弟。四海至广，万几至众，能立长君，社稷之福也」「命普于榻前为约誓书」「藏之金匮，命谨密宫人掌之」（daizhigev20 簡体コーパス）。ただし宋史趙普伝によれば誓書は太宗即位後・趙普の密奏を経て「并发金匮得誓书，遂大感悟」と事後的に発見された。(2)弑逆疑惑説: 続資治通鑑長編巻十七所引の司馬光『涑水記聞』は、太祖崩御の夜に宋皇后が太祖の子・徳芳を召そうとしたのを内侍王継恩が独断で晋王（太宗）を迎えたと記す：「时夜已四鼓，宋皇后使王继恩出，召贵州防御使德芳。继恩以太祖传国晋王之志素定，乃不诣德芳，径趋开封府召晋王」（daizhigev20 簡体コーパス）。同巻の注は『湘山野録』の燭影斧声の逸話も引く。宋史太宗紀の賛自身も「若夫太祖之崩不踰年而改元」「宋后之不成喪，則後世不能無議焉」と後世の議論を認める。",
+      "source": {
+        "page": "宋史 巻四 太宗本紀一／宋史 巻二百四十二 后妃伝上（杜太后）／続資治通鑑長編 巻十七",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beisong-taizong",
+      "to": "beisong-zhenzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "太宗第三子。至道元年八月に皇太子に立てられ（「至道元年八月，立為皇太子，改今諱，仍判府事」）、至道三年三月の太宗崩御に際し遺制により柩前で即位（「三年三月，太宗崩，奉遺制即皇帝位於柩前」）。出自は本紀冒頭「諱恒，太宗第三子也，母曰元德皇后李氏」。",
+      "source": {
+        "page": "宋史 巻六 真宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beisong-zhenzong",
+      "to": "beisong-renzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "仁宗趙禎は真宗の第六子（「諱禎，初名受益，真宗第六子，母李宸妃也」）。天禧二年に昇王に進封され九月丁卯に皇太子に冊立（「明年進封昇王，九月丁卯，冊為皇太子」）。乾興元年二月戊午、真宗崩御に伴い遺詔により即位（「乾興元年二月戊午，真宗崩，遺詔太子即皇帝位」）。典型的な父子間の世襲継承で正史本紀により裏付けられる。",
+      "source": {
+        "page": "宋史 巻九 仁宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beisong-renzong",
+      "to": "beisong-yingzong",
+      "category": "世襲",
+      "relationToPredecessor": "養子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "英宗は仁宗の実子ではなく濮安懿王允讓の第十三子（「諱曙，濮安懿王允讓第十三子」）。実子のない仁宗が4歳から宮中で養育し（「四歲，仁宗養於內」）、嘉祐7年に皇子に立てた（「戊寅，立為皇子」）。嘉祐8年の仁宗崩御に伴い皇后が伝えた遺詔により嗣位（「八年，仁宗崩。夏四月壬申朔，皇后傳遺詔，命帝嗣皇帝位」）。血統上は仁宗の従兄弟（濮王允讓は真宗の弟・商王元份の子）の子だが、皇子として立てられた養子継承のため続柄は養子とする。",
+      "source": {
+        "page": "宋史 巻十三 英宗本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beisong-yingzong",
+      "to": "beisong-shenzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史神宗紀冒頭に「諱頊，英宗長子，母曰宣仁聖烈皇后高氏」とあり英宗の長子。治平3年12月に「十二月壬寅，立為皇太子」と皇太子に立てられ、治平4年正月「四年正月丁巳，英廟崩，帝即皇帝位」と英宗崩御にともない正規の世襲で即位。",
+      "source": {
+        "page": "宋史 巻十四 本紀第十四 神宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beisong-shenzong",
+      "to": "beisong-zhezong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "哲宗趙煦は神宗の第六子。「諱煦，神宗第六子也，母曰欽聖皇后朱氏」。元豊8年2月、神宗の病重篤に際し宰相王珪の奏請により皇太子に立てられ（「遂奉制立為皇太子」）、3月戊戌の神宗崩御により柩前で即位した（「戊戌，神宗崩，太子即皇帝位」）。幼少のため太皇太后（宣仁太后高氏）が垂簾聴政したが、皇位継承自体は父からの正規の世襲。",
+      "source": {
+        "page": "宋史 巻十七 哲宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beisong-zhezong",
+      "to": "beisong-huizong",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "徽宗趙佶は神宗の第十一子で、哲宗（神宗第六子）の異母弟。「徽宗……諱佶，神宗第十一子也，母曰欽慈皇后陳氏」。元符3年正月、哲宗が実子なく急死し（「哲宗崩……家國不幸，大行皇帝無子」）、向太后（皇太后）が垂簾して後継を選定。宰相章惇は「以年則申王長，以禮律則同母之弟簡王當立」と反対したが、向太后は「先帝嘗言，端王有福壽，且仁孝，不同諸王」と端王（徽宗）を推し、「乃召端王入，即皇帝位，皇太后權同處分軍國事」と即位。emperors.json の accessionRoute.category=擁立 と一致。",
+      "source": {
+        "page": "宋史 巻十九 徽宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beisong-huizong",
+      "to": "beisong-qinzong",
+      "category": "内禅",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "徽宗の長子。金軍南下の軍事的危機下、徽宗が退位を強行して皇太子に譲位（内禅）。『宋史』欽宗本紀「欽宗恭文順德仁孝皇帝，諱桓，徽宗皇帝長子」「庚申，徽宗詔皇太子嗣位，自稱曰道君皇帝，趣太子入禁中，被以御服。泣涕固辭，因得疾。又固辭，不許。辛酉，即皇帝位，御垂拱殿見羣臣」。本人は固辞したが許されず即位。",
+      "source": {
+        "page": "宋史 巻二十三 欽宗本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-zhao-fu",
+      "to": "nansong-gaozong",
+      "category": "復位",
+      "relationToPredecessor": "父",
+      "isRestoration": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "苗劉の乱（建炎3年3月）で高宗は皇子魏国公趙旉（3歳）への遜位を強要され（「傅等迫帝遜位于皇子魏國公，請隆祐太后垂簾同聽政」「己丑，改元明受。」）、乱平定後、隆祐太后（元祐皇后孟氏）の詔により趙旉から皇位を回復した（「夏四月戊申朔，太后下詔還政，皇帝復大位。」）。趙旉伝にも「逼帝禅位于旉，改元明受。既而傅等伏诛，帝复位，乃以旉为皇太子」（宋史 巻二百四十六 宗室三、簡体字コーパス daizhigev20 より）とある。明受在位は約26日。新帝（高宗）は先代（趙旉）の父。復位時に皇位を得た相手＝明受帝趙旉のためブリッジ人物 p-zhao-fu を from に置く。",
+      "source": {
+        "page": "宋史 巻二十五 高宗本紀二",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "nansong-gaozong",
+      "to": "nansong-xiaozong",
+      "category": "内禅",
+      "relationToPredecessor": "養子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝宗は太祖七世孫（秀王趙子偁の子）で、実子を失った高宗により太祖の後裔から選抜されて養育され、紹興30年に「立為皇子，更名瑋」と皇子（養子）に立てられ、紹興32年5月「立為皇太子，改名眘」で皇太子となった。同年6月、高宗の内禅（生前譲位）により即位:「乙亥，內降御札：「皇太子可即皇帝位。朕稱太上皇帝，退處德壽宮，皇后稱太上皇后。」」。高宗は太上皇帝として徳寿宮に退いた。よって新帝（孝宗）は先代（高宗）の養子。",
+      "source": {
+        "page": "宋史 巻三十三 本紀第三十三 孝宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "nansong-xiaozong",
+      "to": "nansong-guangzong",
+      "category": "内禅",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "光宗趙惇は孝宗の第三子。「諱惇，孝宗第三子也」（宋史 巻三十六 光宗本紀）。乾道7年に皇太子に立てられ（「二月癸丑，乃立帝為皇太子」）、淳熙16年2月壬戌、孝宗が紫宸殿で内禅の礼を行い皇位を譲った。「二月壬戌，孝宗吉服御紫宸殿，行內禪禮，應奉官以次稱賀」（同）。",
+      "source": {
+        "page": "宋史 巻三十六 光宗本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "nansong-guangzong",
+      "to": "nansong-ningzong",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史寧宗紀に「諱擴，光宗第二子也，母曰慈懿皇后李氏」と明記され、光宗の第二子。紹熙5年、孝宗崩御後に光宗が病で喪を執れなかったため、知樞密院事趙汝愚が韓侂冑を介して太皇太后呉氏の允諾を得、「皇帝以疾，未能執喪，曾有御筆，欲自退閑，皇子嘉王擴可即皇帝位。尊皇帝為太上皇，皇后為太上皇后」の指揮により光宗を太上皇として嘉王擴を擁立した（紹熙内禅）。皇位は父光宗から得ており from=nansong-guangzong。",
+      "source": {
+        "page": "宋史 巻三十七 寧宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "nansong-ningzong",
+      "to": "nansong-lizong",
+      "category": "擁立",
+      "relationToPredecessor": "養子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "寧宗危篤時、権臣史彌遠が正式の皇子済王竑を排し、遠縁の趙貴誠（理宗）を皇子に立てて擁立した。宋史本紀は「壬辰，疾篤，彌遠稱詔以貴誠為皇子，改賜名昀，授武泰軍節度使，封成國公」と皇子擁立を、寧宗崩御後は「彌遠使楊谷、楊石入白楊皇后，稱遺旨以皇子竑開府儀同三司…命子昀嗣皇帝位」と「子」としての嗣位を明記しており、形式上は寧宗の養子（皇子）として皇位を継いだためrelationToPredecessorは養子とする。血縁上は「諱昀，太祖十世孫。父希瓐」とあるとおり寧宗の遠縁（太祖十世孫、寧宗は太宗系）で、先に寧宗弟沂靖惠王の嗣「而以帝嗣沂王」を経ている。「稱詔」「稱遺旨」の語が示すとおり詔・遺旨は史彌遠の矯詔とされ正統性に疑義があるが、寧宗からの継承自体は宋史で裏付けられるためveracityはverified。",
+      "source": {
+        "page": "宋史 巻四十一 理宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "nansong-lizong",
+      "to": "nansong-duzong",
+      "category": "世襲",
+      "relationToPredecessor": "養子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "度宗趙禥は太祖十一世孫で、父は理宗の同母弟・嗣栄王趙与芮（「度宗端文明武景孝皇帝，諱禥，太祖十一世孫。父嗣榮王與芮，理宗母弟也」）。血統上は理宗の甥だが、理宗に実子がなく（「及在位歲久，無子，乃屬意託神器焉」）、宝祐元年に皇子に立てられ（「寶祐元年正月庚辰，詔立為皇子，改賜今名」）、景定元年に皇太子となり（「景定元年六月壬寅，立為皇太子」）、景定五年十月の理宗崩御に伴い遺詔により即位した（「五年十月丁卯，理宗崩。受遺詔，太子即皇帝位」）。皇子冊立を経た養子としての世襲継承。",
+      "source": {
+        "page": "宋史 巻四十六 度宗本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "nansong-duzong",
+      "to": "nansong-gongdi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史本紀に「瀛國公名〈濕，去氵〉，度宗皇帝子也，母曰全皇后」とあり、恭帝（趙㬎）は度宗の子（母は全皇后＝嫡出）。度宗崩御に伴い「十年七月癸未，度宗崩，奉遺詔即皇帝位于柩前，年四歲，謝太后臨朝稱詔」と遺詔により柩前で即位した通常の父子継承。emperors.json の accessionRoute.category=世襲 と整合。",
+      "source": {
+        "page": "宋史 巻四十七 本紀第四十七 瀛国公二王附",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "nansong-gongdi",
+      "to": "nansong-duanzong",
+      "category": "擁立",
+      "relationToPredecessor": "兄",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "端宗趙昰は度宗の庶長子で恭帝（㬎）の庶兄（「二王者，度宗庶子也。長建國公昰，母淑妃楊氏」「衆以為昰長當立，似道主立嫡，乃立〈濕，去氵〉」）。徳祐二年（1276）の臨安開城・恭帝入元後、楊亮節らに奉じられて温州へ逃れ「奉昰為天下兵馬都元帥」、次いで陳宜中・張世傑・陸秀夫らが福州で擁立（「五月乙未朔，宜中等乃立昰于福州，以為宋主，改元景炎」）。恭帝本人からの禅譲・璽綬授受はないが、「以為宋主」と南宋皇統の継続として即位しており、政権内継承として from=恭帝とする（新政権の自立建国ではない）。",
+      "source": {
+        "page": "宋史 巻四十七 瀛国公二王附",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "nansong-duanzong",
+      "to": "nansong-weiwang",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "端宗（趙昰）が碙洲で崩御した後、張世傑・陸秀夫ら遺臣により擁立されて即位。宋史本紀四十七「四月戊辰，昰殂于碙洲，其臣號之曰端宗。」「庚午，衆又立衞王昺為主，以陸秀夫為左丞相。」。昺は端宗の弟（同巻冒頭「二王者，度宗庶子也。長建國公昰，母淑妃楊氏；季永國公昺，母修容俞氏。」— ともに度宗の庶子で、昰が長・昺が季、異母弟）。",
+      "source": {
+        "page": "宋史 巻四十七 瀛國公二王附",
         "lang": "zh-classical"
       }
     }
