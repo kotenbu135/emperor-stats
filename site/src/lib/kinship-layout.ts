@@ -151,14 +151,13 @@ const M_TOP = 72;
 const M_BOTTOM = 40;
 const PX_PER_YEAR = 3;
 const MIN_H = 26; // カプセル最小高(短在位もホバー・ラベルが成立する高さ)
-const NODE_GAP = 8; // 同一レーン内の押し下げ間隔(矢印の視認用)
+const NODE_GAP = 8; // 連続するノード間の間隔(矢印の視認用。年境界から上下4pxずつ内側に描いて作る)
 const EMPEROR_W = 104;
 const PERSON_W = 130;
 const PERSON_H = 30;
 
 interface PlacedNode extends KinshipNodeOut {
-  section: string;
-  nominalTop: number;
+  lane: number;
   cx: number;
 }
 
@@ -189,17 +188,6 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
       );
   }
 
-  // 年→px(線形)。ドメインはノードの実配置から算出する。
-  const minYear = Math.min(
-    ...src.emperors.map((e) => e.reigns[0].a),
-    ...src.persons.map((p) => (p.birthYear + p.deathYear) / 2 - PERSON_H / 2 / PX_PER_YEAR),
-  );
-  const maxYear = Math.max(
-    ...src.emperors.map((e) => e.reigns[0].b),
-    ...src.persons.map((p) => (p.birthYear + p.deathYear) / 2 + PERSON_H / 2 / PX_PER_YEAR),
-  );
-  const yOf = (astro: number) => M_TOP + (astro - minYear) * PX_PER_YEAR;
-
   const laneX = (i: number) => AXIS_X + 16 + i * (LANE_W + LANE_GAP);
   const incoming = new Set(src.edges.map((e) => e.to));
 
@@ -209,78 +197,157 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
     return fa === fb ? `${fa}年` : `${fa}–${fb}年`;
   };
 
-  // --- ノードの名目配置 ---
-  const placed: PlacedNode[] = [];
+  // --- ステップ1: レーンごとに時系列順へ並べ、各ノードに「実効年区間」を割り当てる ---
+  // 当初は「線形スケール+同一レーン内の押し下げ」だったが、押し下げは密集帯で
+  // ノードが左軸の年目盛りから系統的にずれる(最大で十数年分)ため廃止し、
+  // 「年→pxの単調な区分線形写像を、最小高が守れない密集期間だけ局所的に引き伸ばす」
+  // 方式に変更した。ノードと目盛りが同じ写像を共有するので位置と年は常に一致する
+  // (引き伸ばした期間は目盛り間隔が広がることで視覚的に分かる)。
+  // 同一年内の連続即位(在位が年単位で0年の劉賀・少帝懿・少帝弁など)だけは
+  // 0.5年の小数年オフセットで順序を保証する(1年未満の誤差は年単位の軸では表現不能)。
+  interface Block {
+    id: string;
+    kind: "emperor" | "person";
+    lane: number;
+    effStart: number;
+    effEnd: number;
+    /** この区間が確保すべき最小px(ノード高+間隔)。 */
+    minPx: number;
+    node: Omit<KinshipNodeOut, "x" | "y" | "h"> & { cx: number; w: number };
+  }
+
+  // ブリッジ人物が実効区間として占有する年幅(片側)。基準スケールで
+  // PERSON_H+NODE_GAP をほぼ満たす幅にし、通常は引き伸ばしを発生させない。
+  const PERSON_HALF_SPAN = (PERSON_H + NODE_GAP) / 2 / PX_PER_YEAR;
+
+  const seedsByLane = new Map<number, Block[]>();
+  const pushSeed = (b: Block) => {
+    const arr = seedsByLane.get(b.lane) ?? [];
+    arr.push(b);
+    seedsByLane.set(b.lane, arr);
+  };
   for (const e of src.emperors) {
     // 試作範囲に複数在位者はいない(呼び出し側でassert済み)。reigns[0]のみ描画する。
     const r = e.reigns[0];
     const lane = laneBySection.get(e.section)!;
     const cx = laneX(lane) + LANE_W / 2;
-    const nominalH = (r.b - r.a) * PX_PER_YEAR;
-    const h = Math.max(nominalH, MIN_H);
-    placed.push({
+    pushSeed({
       id: e.id,
       kind: "emperor",
-      section: e.section,
-      nominalTop: yOf(r.a),
-      cx,
-      x: cx - EMPEROR_W / 2,
-      y: 0,
-      w: EMPEROR_W,
-      h,
-      label: e.name,
-      labelOutside: nominalH < MIN_H,
-      colorSlot: KINSHIP_COLOR_BY_DYNKEY[e.dynastyKey],
-      rootBadge: incoming.has(e.id) ? null : `◆${e.accessionRouteCategory}`,
-      tip: {
-        title: e.name,
-        subtitle: e.dynastyLabel,
-        period: `在位 ${fmtPeriod(r.a, r.b)}`,
+      lane,
+      effStart: r.a,
+      effEnd: r.b,
+      minPx: MIN_H + NODE_GAP,
+      node: {
+        id: e.id,
+        kind: "emperor",
+        cx,
+        w: EMPEROR_W,
+        label: e.name,
+        labelOutside: (r.b - r.a) * PX_PER_YEAR < MIN_H,
+        colorSlot: KINSHIP_COLOR_BY_DYNKEY[e.dynastyKey],
+        rootBadge: incoming.has(e.id) ? null : `◆${e.accessionRouteCategory}`,
+        tip: {
+          title: e.name,
+          subtitle: e.dynastyLabel,
+          period: `在位 ${fmtPeriod(r.a, r.b)}`,
+        },
       },
     });
   }
   for (const p of src.persons) {
     const lane = laneBySection.get(p.section)!;
     const cx = laneX(lane) + LANE_W / 2;
-    const mid = yOf((p.birthYear + p.deathYear) / 2);
-    placed.push({
+    const mid = (p.birthYear + p.deathYear) / 2;
+    pushSeed({
       id: p.id,
       kind: "person",
-      section: p.section,
-      nominalTop: mid - PERSON_H / 2,
-      cx,
-      x: cx - PERSON_W / 2,
-      y: 0,
-      w: PERSON_W,
-      h: PERSON_H,
-      label: p.name,
-      labelOutside: false,
-      colorSlot: 0,
-      rootBadge: null,
-      tip: {
-        title: p.name,
-        subtitle: `非皇帝（${p.kind}）`,
-        period: `${p.yearsApproximate ? "生没年推定 " : ""}${fmtPeriod(p.birthYear, p.deathYear)}`,
+      lane,
+      effStart: mid - PERSON_HALF_SPAN,
+      effEnd: mid + PERSON_HALF_SPAN,
+      minPx: PERSON_H + NODE_GAP,
+      node: {
+        id: p.id,
+        kind: "person",
+        cx,
+        w: PERSON_W,
+        label: p.name,
+        labelOutside: false,
+        colorSlot: 0,
+        rootBadge: null,
+        tip: {
+          title: p.name,
+          subtitle: `非皇帝（${p.kind}）`,
+          period: `${p.yearsApproximate ? "生没年推定 " : ""}${fmtPeriod(p.birthYear, p.deathYear)}`,
+        },
       },
     });
   }
-
-  // --- 同一レーン内の衝突押し下げ(短在位の最小高で重なる分を下へ。時間軸は近似線形になる) ---
-  const byLane = new Map<number, PlacedNode[]>();
-  for (const n of placed) {
-    const lane = laneBySection.get(n.section)!;
-    const arr = byLane.get(lane) ?? [];
-    arr.push(n);
-    byLane.set(lane, arr);
-  }
-  for (const arr of byLane.values()) {
-    arr.sort((p, q) => p.nominalTop - q.nominalTop);
-    let bottom = -Infinity;
-    for (const n of arr) {
-      n.y = Math.max(n.nominalTop, bottom + NODE_GAP);
-      bottom = n.y + n.h;
+  const blocks: Block[] = [];
+  for (const arr of seedsByLane.values()) {
+    arr.sort((p, q) => p.effStart - q.effStart || p.effEnd - q.effEnd);
+    let cursor = -Infinity;
+    for (const b of arr) {
+      b.effStart = Math.max(b.effStart, cursor);
+      // 同一年内の連続即位(0年区間)は0.5年ずらして順序を保証する。
+      if (b.effEnd <= b.effStart) b.effEnd = b.effStart + 0.5;
+      cursor = b.effEnd;
+      blocks.push(b);
     }
   }
+
+  // --- ステップ2: 年→pxの単調な区分線形写像を構築する ---
+  // 実効区間の端点をブレークポイントとし、基準スケール(PX_PER_YEAR)で初期化した
+  // 区間長へ、最小pxを満たさないブロックの不足分を右端の区間に加算していく
+  // (右端点の昇順に処理するため、加算が処理済みブロックを壊すことはない)。
+  const bps = [...new Set(blocks.flatMap((b) => [b.effStart, b.effEnd]))].sort(
+    (p, q) => p - q,
+  );
+  const bpIndex = new Map(bps.map((y, i) => [y, i]));
+  const segLen = bps.slice(1).map((y, i) => (y - bps[i]) * PX_PER_YEAR);
+  const posOf = () => {
+    const pos = [0];
+    for (const len of segLen) pos.push(pos[pos.length - 1] + len);
+    return pos;
+  };
+  for (const b of [...blocks].sort((p, q) => p.effEnd - q.effEnd)) {
+    const pos = posOf();
+    const deficit =
+      b.minPx - (pos[bpIndex.get(b.effEnd)!] - pos[bpIndex.get(b.effStart)!]);
+    if (deficit > 0) segLen[bpIndex.get(b.effEnd)! - 1] += deficit;
+  }
+  const pos = posOf();
+  // 写像本体: ブレークポイント間は線形補間。範囲外は基準スケールで外挿。
+  const yOf = (astro: number): number => {
+    if (astro <= bps[0]) return M_TOP + (astro - bps[0]) * PX_PER_YEAR;
+    if (astro >= bps[bps.length - 1])
+      return M_TOP + pos[pos.length - 1] + (astro - bps[bps.length - 1]) * PX_PER_YEAR;
+    let lo = 0;
+    let hi = bps.length - 1;
+    while (hi - lo > 1) {
+      const mid = (lo + hi) >> 1;
+      if (bps[mid] <= astro) lo = mid;
+      else hi = mid;
+    }
+    const t = (astro - bps[lo]) / (bps[hi] - bps[lo]);
+    return M_TOP + pos[lo] + t * (pos[hi] - pos[lo]);
+  };
+  const minYear = bps[0];
+  const maxYear = bps[bps.length - 1];
+
+  // --- ステップ3: ノード配置(実効区間の写像そのまま。上下NODE_GAP/2ずつ内側に
+  //     描くことで、年境界を接して連続する即位でも矢印の描画余地を確保する) ---
+  const placed: PlacedNode[] = blocks.map((b) => {
+    const top = yOf(b.effStart) + NODE_GAP / 2;
+    const bottom = yOf(b.effEnd) - NODE_GAP / 2;
+    return {
+      ...b.node,
+      lane: b.lane,
+      x: b.node.cx - b.node.w / 2,
+      y: top,
+      h: bottom - top,
+    };
+  });
 
   const nodeById = new Map(placed.map((n) => [n.id, n]));
 
@@ -349,8 +416,7 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
 
   // --- レーン見出し・目盛り ---
   const lanes: KinshipLaneOut[] = KINSHIP_LANE_DEFS.map((def, i) => {
-    const members = byLane.get(i) ?? [];
-    const firstTop = Math.min(...members.map((n) => n.y));
+    const firstTop = Math.min(...placed.filter((n) => n.lane === i).map((n) => n.y));
     return { label: def.label, x: laneX(i), width: LANE_W, labelY: firstTop - 14 };
   });
 
