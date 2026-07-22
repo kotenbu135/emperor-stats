@@ -99,6 +99,13 @@
         "emperors": 11,
         "edges": 9,
         "persons": 2
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック10（北朝①: 北魏・東魏）",
+        "emperors": 19,
+        "edges": 14,
+        "persons": 0
       }
     ]
   },
@@ -2257,6 +2264,216 @@
       "note": "赫連定は赫連勃勃の第五子で、先帝赫連昌（勃勃の第三子）の弟。「赫连定小字直獖勃勃之第五子也」（十六国春秋 夏録三）・「赫连昌字还国一名折勃勃之第三子也」（同 夏録二）。昌が北魏に敗れて捕らえられた後、定は残衆を収めて平涼に拠り自ら皇帝位に即いた。「昌为魏所败定遂收其余众数万还据平凉遂僣即皇帝位大赦境内殊死已下改承光四年为胜光元年」。禅譲・璽綬等の正式な授受はないが、夏という同一王朝内での皇位継続として emperors.json は世襲と分類しており、捕囚中の先帝昌からの承継として from=xia-helianchang とする。",
       "source": {
         "page": "十六国春秋 巻六十八 夏録三 赫連定",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-daowudi",
+      "to": "beiwei-mingyuandi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "太宗明元帝（諱嗣）は太祖道武帝の長子。「太宗明元皇帝，讳嗣，太祖长子也」（魏書太宗紀冒頭）。天賜六年冬十月、清河王紹（明元帝の異母弟）が道武帝を弑殺したが、紹は即位せず皇帝として承認されていない（収録皇帝でもない）。明元帝は「帝入诛绍。壬申，即皇帝位」と紹を誅殺してから即位しており、皇位は父・道武帝から世襲したものと判定（from=紹・弟ではなく from=道武帝・子）。「天赐六年冬十月，清河王绍作逆，太祖崩。帝入诛绍。壬申，即皇帝位，大赦，改年为永兴元年」。",
+      "source": {
+        "page": "魏書 巻三 太宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-mingyuandi",
+      "to": "beiwei-taiwudi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書世祖紀に「世祖太武皇帝，讳焘，太宗明元皇帝之长子也」とあり、太宗（明元帝）の長子。泰常七年に泰平王に封じられ監国となり、泰常八年十一月壬申、父の崩御に伴い即位（「八年十一月壬申，即皇帝位，大赦天下」）。",
+      "source": {
+        "page": "魏書 巻四上 世祖紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-taiwudi",
+      "to": "beiwei-tuobayu",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "太武帝が宦官・宗愛に弑殺された当日、宗愛が皇后令を矯めて東平王翰を殺し、南安王余（拓跋余）を迎え入れて擁立した。帝紀に「中常侍宗爱矫皇后令，杀东平王翰，迎南安王余入而立之，大赦，改元为永平」とある。余が太武帝の子であることは太武五王列傳の「太武皇帝十一男。……闾左昭仪生南安王余。」で裏付けられる（各断片は原文に連続して存在）。列傳にも「南安王余，真君三年封吴王，后改封南安王。世祖暴崩，中常侍宗爱矫皇太后令，迎余而立之，然后发丧。」とあり、先代太武帝（世祖）の崩御を受けた宗愛によるクーデター擁立が正史で明確に確認できる。",
+      "source": {
+        "page": "魏書 巻四下 世祖紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-tuobayu",
+      "to": "beiwei-wenchengdi",
+      "category": "擁立",
+      "relationToPredecessor": "甥",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "中常侍宗愛が南安王余を弑逆した後、殿中尚書長孫渇侯・尚書陸麗らの重臣が皇孫濬（景穆太子晃の長子・世嫡皇孫）を迎立した。魏書 世祖紀下「冬十月丙午朔，余为宗爱所贼。殿中尚书长孙渴侯与尚书陆丽迎立皇孙，是为高宗焉。」文成帝は恭宗景穆皇帝（晃）の長子（高宗紀「恭宗景穆皇帝之长子也」）で、余は太武帝の子＝晃の弟にあたるため、新帝は先代・余の甥。同一政権内で直前在位の余から皇位を承継したものとして from=拓跋余 とする。category は emperors.json の accessionRoute「擁立」をそのまま採用。",
+      "source": {
+        "page": "魏書 巻四下 世祖紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-wenchengdi",
+      "to": "beiwei-xiandi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "文成帝の長子。魏書顕祖紀に「显祖献文皇帝，讳弘，高宗文成皇帝之长子也」とあり、太安2年（456年）2月に皇太子となり（「太安二年二月，立为皇太子」）、和平6年（465年）5月甲辰、父文成帝の崩御に伴い即位（「和平六年夏五月甲辰，即皇帝位，大赦天下」）。",
+      "source": {
+        "page": "魏書 巻六 顕祖紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-xiandi",
+      "to": "beiwei-xiaowendi",
+      "category": "内禅",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝文帝は献文帝の長子（「高祖孝文皇帝，讳宏，显祖献文皇帝之长子」）。皇興3年に皇太子となり（「三年夏六月辛未，立为皇太子」）、皇興5年（471年）8月丙午、父・献文帝の生前譲位により即位（「五年秋八月丙午，即皇帝位于太华前殿，大赦，改元延兴元年」）。譲位後の献文帝は太上皇帝として親征・南巡等の国政を続けており（高祖紀上に「太上皇帝亲将南讨」等）、王朝交代を伴わない同一王朝内の父子間内禅。",
+      "source": {
+        "page": "魏書 巻七上 高祖紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-xiaowendi",
+      "to": "beiwei-xuanwudi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝文帝の第二子。魏書世宗紀冒頭に「世宗宣武皇帝，讳恪，高祖孝文皇帝第二子」、太和21年に「二十一年正月甲午，立为皇太子」と皇太子冊立が記され、太和23年（499年）「二十三年夏四月丁巳，即皇帝位于鲁阳」と父孝文帝の南征中の崩御を受けて魯陽で即位した。皇太子からの世襲継承。",
+      "source": {
+        "page": "魏書 巻八 世宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-xuanwudi",
+      "to": "beiwei-xiaomingdi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書肅宗紀に「肃宗孝明皇帝，讳诩，世宗宣武皇帝之第二子。母曰胡充华」とあり、世宗宣武帝の第二子。延昌4年（515年）正月、父宣武帝の崩御に伴い「四年春正月丁巳夜，即皇帝位」と夜のうちに即位した。幼少のため高陽王雍・任城王澄が輔政し、後に生母胡太后が臨朝称制した。",
+      "source": {
+        "page": "魏書 巻九 肅宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-xiaomingdi",
+      "to": "beiwei-youzhu-yuanzhao",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝明帝急逝（武泰元年二月癸丑）の翌日、胡太后の詔により当時3歳の元釗が擁立され即位（「乙卯，幼主即位」魏書 巻九 肅宗紀）。詔に「皇曾孙故临洮王宝晖世子钊，体自高祖」とあり、元釗は孝文帝（高祖）の曾孫（孝文帝→京兆王元愉〔正光四年追封臨洮王、魏書巻九「追封……京兆王愉为临洮王」〕→臨洮王元宝暉→元釗）。孝明帝は孝文帝の孫（宣武帝の子）であり、元釗は孝明帝の従兄弟・元宝暉の子＝従姪（従兄弟の子）にあたるため enum 外で「その他」とした。擁立の実態は資治通鑑巻152「钊始生三岁，太后欲久专政，故贪其幼而立之」、魏書皇后列伝「遂立临洮王子钊为主，年始三岁，天下愕然」が裏付ける。",
+      "source": {
+        "page": "魏書 巻九 肅宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-xiaomingdi",
+      "to": "beiwei-xiaozhuangdi",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "新帝（孝荘帝元子攸）は先代孝明帝の従叔父（父の従兄弟。enum に「従叔父」がないため「その他」）。「孝庄皇帝，讳子攸，彭城王勰之第三子。母曰李妃。」（魏書 巻十 孝荘紀）で父は彭城王元勰。勰は献文帝の子（「献文皇帝七男。李思皇后生孝文皇帝。」「潘贵人生彭城武宣王勰。」魏書 巻二十一上 献文六王伝）で孝文帝の弟。一方、孝明帝は「肃宗孝明皇帝，讳诩，世宗宣武皇帝之第二子。」（巻九）、宣武帝は「世宗宣武皇帝，讳恪，高祖孝文皇帝第二子。」（巻八）で、子攸と宣武帝はともに献文帝の孫＝従兄弟同士。よって子攸は孝明帝の従叔父にあたる。孝明帝毒殺後、爾朱栄が挙兵し「大都督尔朱荣将向京师，谋欲废立。以帝家有忠勋，且兼民望，阴与帝通，荣乃率众来赴。」、武泰元年4月「丁酉，会荣于河阳。戊戌，南济河，即帝位。」と爾朱栄に擁立されて即位した。直前在位の幼主元釗からではなく孝明帝からの継承とした理由は flags 参照。",
+      "source": {
+        "page": "魏書 巻十 孝荘紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-xiaozhuangdi",
+      "to": "beiwei-yuanye",
+      "category": "擁立",
+      "relationToPredecessor": "同族（遠縁）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "爾朱栄誅殺後、爾朱世隆・爾朱兆らが長広王元曄を建興で推戴し（魏書巻十孝荘紀「壬申，尔朱世隆停建兴之高都，尔朱兆自晋阳来会之，共推太原太守、行并州刺史长广王晔为主，大赦所部，号年建明」）、建明元年十二月甲辰に洛陽を陥として孝荘帝を捕え（後に晋陽で殺害）、元曄が北魏の帝位に就いた。魏政権は元曄を経て節閔帝への禅譲まで断絶なく続いており（emperors.json の在位開始 0530-12-05 も洛陽陥落＝孝荘帝失位の日を採る）、同一政権内で孝荘帝から帝位を奪取・承継したものとして from=beiwei-xiaozhuangdi とする。続柄: 元曄は景穆帝の曾孫（景穆帝→南安惠王楨→怡→曄。魏書巻十九下「英弟怡……超赠骠骑大将军、太尉公、雍州刺史、扶风王」「晔字华兴，小字盆子」）、孝荘帝元子攸は景穆帝の玄孫（景穆帝→文成帝→献文帝→彭城王勰→子攸）で、元曄は孝荘帝の父勰の再従兄弟にあたる一世代上の遠縁宗室のため「同族（遠縁）」とする。",
+      "source": {
+        "page": "魏書 巻十九下 景穆十二王伝下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-yuanye",
+      "to": "beiwei-jiemindi",
+      "category": "擁立",
+      "relationToPredecessor": "同族（遠縁）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝荘帝の死後、爾朱世隆らは爾朱兆の立てた元曄が「疏远（皇統から遠く）」人望もないとして廃立を謀り、広陵恵王元羽の子・元恭（孝文帝の甥）を選んで、建明2年2月己巳に元曄からの禅譲の礼を行わせ、爾朱度律が璽綬を奉進して即位させた。「及庄帝崩，尔朱世隆等以元晔疏远，又非人望所推，以王潜默晦身，有过人之量，将谋废立。」「春二月己巳，晔进至邙南，世隆等奉王东郭之外，行禅让之礼。」「太尉公尔朱度律奉进玺绶哀冕之服。」形式上は禅譲だが実質は爾朱氏による擁立（category は accessionRoute のまま擁立）。続柄: 元恭は景穆帝→文成帝→献文帝→元羽の系、元曄は景穆帝→南安王楨→元怡の系で、共通祖先は景穆帝に遡る遠縁の同族（魏書も元曄を「疏远」と記す）。",
+      "source": {
+        "page": "魏書 巻十一 前廢帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-houfeidi-yuanlang",
+      "to": "beiwei-xiaowudi",
+      "category": "擁立",
+      "relationToPredecessor": "同族（遠縁）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "高歓（齐献武王）が洛陽制圧後、自派の擁立帝であった安定王元朗（後廃帝）が血統疎遠を理由に遜位を請い、高歓と百僚の会議で「高祖（孝文帝）に後嗣なかるべからず」として孝文帝の孫・平陽王脩が推戴され即位した。「安定王自以疏远，未允四海之心，请逊大位。齐献武王与百僚会议，佥谓高祖不可无后，乃共奉王。戊子，即帝位于东郭之外」（魏書 出帝紀）。皇位の直接授受は元朗の遜位による。元脩は「广平武穆王怀之第三子」（孝文帝の孫）、元朗は「章武王融第三子」（景穆帝の玄孫・章武王系）で、共通祖先は景穆帝まで遡る遠縁のため同族（遠縁）とした。",
+      "source": {
+        "page": "魏書 巻十一 出帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-xiaowudi",
+      "to": "dongwei-xiaojingdi",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝武帝（出帝）が534年に宇文泰のもとへ西走した後、高歓（斉献武王）が孝武帝を迎え戻せず、百僚と会議して11歳の元善見を擁立した。「出帝既入关，齐献武王奉迎不克，乃与百僚会议，推帝以奉肃宗之后，时年十一」「冬十月丙寅，即位于城东北，大赦天下，改永熙三年为天平元年」（魏書 孝靜紀）。続柄は「従姪（従兄弟の子）」相当で enum に無いため「その他」とする: 善見は清河文宣王元亶の世子（「孝静皇帝，讳善见，清河文宣王亶之世子也」魏書 孝靜紀）、亶は清河文献王元懌の子（「怿子亶」魏書 汝南王悦伝）、懌と孝武帝の父・広平王元懐はともに孝文帝の子（「孝文皇帝七男。……文昭皇后生宣武皇帝、广平文穆王怀。……罗夫人生清河文献王怿」魏書 巻二十二）。すなわち善見は孝武帝の従兄弟（元亶）の子。",
+      "source": {
+        "page": "魏書 巻十二 孝靜紀",
         "lang": "zh-classical"
       }
     }
