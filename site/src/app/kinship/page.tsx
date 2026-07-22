@@ -1,7 +1,9 @@
 // 系譜・即位経路グラフの試作ページ(検証用・非公開導線)。
-// - 目的: フェーズ1調査済み範囲(秦〜後漢36人・継承エッジ29本)で方式③(縦時間軸グラフ)が
-//   正しく描画できるかの検証。データ完了後の本実装まで nav-data.ts / SITE_SECTIONS には
-//   登録しない(ナビ・トップカード・sitemapから自動的に除外される)。robotsもnoindex。
+// - 目的: フェーズ1調査済み範囲で方式③(縦時間軸グラフ)が正しく描画できるかの検証。
+//   描画スコープは秦〜後漢36人に固定(調査がブロック3以降へ進んでもローダー側で
+//   スコープ外を除外する。emperors.tsのKINSHIP_SECTIONS参照)。データ完了後の本実装まで
+//   nav-data.ts / SITE_SECTIONS には登録しない(ナビ・トップカード・sitemapから自動的に
+//   除外される)。robotsもnoindex。
 // - レイアウトはビルド時計算(getKinshipGraphData → kinship-layout.ts)。
 
 import { PageHeader, Section } from "@/components/layout/page-header";
@@ -14,7 +16,7 @@ export const metadata = {
     path: "/kinship",
     title: "系譜・即位経路グラフ（試作）",
     description:
-      "皇帝間の継承関係(世襲・簒奪・禅譲など)を縦時間軸のグラフで描く試作ページです。現在は調査済みの秦〜後漢36人のみを表示しています。",
+      "皇帝間の継承関係(世襲・簒奪・禅譲など)を縦時間軸のグラフで描く試作ページです。表示範囲は秦〜後漢36人に固定しています(継承データの調査は三国以降へ継続中)。",
   }),
   robots: { index: false },
 };
@@ -48,7 +50,7 @@ export default function KinshipPage() {
     <>
       <PageHeader
         title="系譜・即位経路グラフ（試作）"
-        description={`皇帝間の継承関係と血縁を「縦＝時間（上が古い）・横＝王朝レーン」のグラフで描く試作ページです。現在はデータ調査が完了している秦〜後漢の${emperorCountShown}人・継承エッジ${succCount}本と、血縁エッジ${kinCount}本（光武帝と前漢を結ぶ景帝からの父子チェーン）を表示しています（血縁・婚姻の全面調査は今後の段階で追加予定）。`}
+        description={`皇帝間の継承関係と血縁を「縦＝時間（上が古い）・横＝王朝レーン」のグラフで描く試作ページです。表示範囲は秦〜後漢の${emperorCountShown}人・継承エッジ${succCount}本と、血縁エッジ${kinCount}本（光武帝と前漢を結ぶ景帝からの父子チェーン）に固定しています（継承データの調査は三国以降へ継続中。血縁・婚姻の全面調査は今後の段階で追加予定）。`}
       />
       <Section
         id="chart"

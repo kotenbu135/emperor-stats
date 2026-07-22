@@ -1342,12 +1342,15 @@ export function getRiverTimelineData(): RiverTimelineData {
 
 // --- 系譜・即位経路グラフ(/kinship・試作。構築ロジックはkinship-layout.ts) ---
 //
-// データはdata/kinship.json(フェーズ1 succession進行中)。現在の調査済み範囲は
-// ブロック1・2(秦〜後漢36人・継承エッジ29本)のみで、このローダーもその範囲だけを
-// 描画対象にする(範囲拡大時はKINSHIP_SECTIONS/KINSHIP_EXTRA_IDSとkinship-layout.tsの
-// キュレーション表へ追記する)。
+// データはdata/kinship.json(フェーズ1 succession進行中)。調査はブロック3(三国)以降も
+// 継続するが、試作ページの描画スコープは意図的に秦〜後漢36人へ固定する。スコープ外の
+// persons・エッジ(端点の一方でもスコープ外のもの)はここで除外し、ビルドは調査の進行に
+// 影響されない。グラフ全体の整合性検証はscripts/validate_kinship.pyの責務で、この
+// ローダーはスコープ内の整合性のみをassertする。描画範囲を広げるときは
+// KINSHIP_SECTIONS/KINSHIP_EXTRA_IDS/KINSHIP_SCOPE_COUNTとkinship-layout.tsの
+// キュレーション表を同時に更新する。
 
-/** 調査済みブロック1・2のsection。劉永(梁)はsectionが南朝梁と共有のためid個別指定。 */
+/** 描画スコープ(秦〜後漢)のsection。劉永(梁)はsectionが南朝梁と共有のためid個別指定。 */
 const KINSHIP_SECTIONS = new Set([
   "秦（始皇帝以降）",
   "新",
@@ -1357,11 +1360,10 @@ const KINSHIP_SECTIONS = new Set([
   "仲家",
 ]);
 const KINSHIP_EXTRA_IDS = new Set(["liu-yong-liang"]);
+/** 描画スコープの皇帝数(固定)。sectionフィルタの結果がこれとズレたら語彙変更等の事故。 */
+const KINSHIP_SCOPE_COUNT = 36;
 
 interface RawKinship {
-  meta: {
-    completedBlocks: { phase: string; emperors: number }[];
-  };
   persons: {
     id: string;
     name: string;
@@ -1402,14 +1404,11 @@ export function getKinshipGraphData(): KinshipLayout {
   const covered = data.emperors.filter(
     (e) => KINSHIP_SECTIONS.has(e.dynasty.section) || KINSHIP_EXTRA_IDS.has(e.id),
   );
-  // フィルタ結果が調査済みブロックの人数(meta.completedBlocksのsuccession合計)と
-  // 一致することをビルド時に強制する(ブロック追加時の更新漏れ検出)。
-  const expectedCount = kin.meta.completedBlocks
-    .filter((b) => b.phase === "succession")
-    .reduce((n, b) => n + b.emperors, 0);
-  if (covered.length !== expectedCount) {
+  // 描画スコープの人数は固定(調査済み人数との一致assertは調査がスコープ外へ進んだ
+  // 時点で意味を失うため廃止)。ズレたらemperors.json側のsection語彙変更等の事故。
+  if (covered.length !== KINSHIP_SCOPE_COUNT) {
     throw new Error(
-      `kinship: 対象皇帝のフィルタ結果(${covered.length}人)がkinship.jsonの調査済み人数(${expectedCount}人)と一致しません(KINSHIP_SECTIONS/KINSHIP_EXTRA_IDSの更新漏れ?)`,
+      `kinship: 対象皇帝のフィルタ結果(${covered.length}人)が描画スコープ(${KINSHIP_SCOPE_COUNT}人)と一致しません(KINSHIP_SECTIONS/KINSHIP_EXTRA_IDSかsection語彙の変更?)`,
     );
   }
 
@@ -1440,45 +1439,48 @@ export function getKinshipGraphData(): KinshipLayout {
     };
   });
 
-  const persons: KinshipSourcePerson[] = kin.persons.map((p) => ({
-    id: p.id,
-    name: p.name,
-    kind: p.kind,
-    section: p.section,
-    // kinship.jsonの年は既に天文年(KINSHIP_SCHEMA.md)。astroYear()を重ねないこと。
-    // null(不明)はそのまま渡し、配置はkinship-layout.tsが系譜エッジから推定する。
-    birthYear: p.birthYear,
-    deathYear: p.deathYear,
-    yearsApproximate: p.yearsApproximate,
-  }));
+  // ブリッジ人物もスコープ内sectionのみ描画(スコープ外ブロックの調査が進んでも無視)。
+  const persons: KinshipSourcePerson[] = kin.persons
+    .filter((p) => KINSHIP_SECTIONS.has(p.section))
+    .map((p) => ({
+      id: p.id,
+      name: p.name,
+      kind: p.kind,
+      section: p.section,
+      // kinship.jsonの年は既に天文年(KINSHIP_SCHEMA.md)。astroYear()を重ねないこと。
+      // null(不明)はそのまま渡し、配置はkinship-layout.tsが系譜エッジから推定する。
+      birthYear: p.birthYear,
+      deathYear: p.deathYear,
+      yearsApproximate: p.yearsApproximate,
+    }));
 
   const knownIds = new Set([
     ...emperors.map((e) => e.id),
     ...persons.map((p) => p.id),
   ]);
-  const edges: KinshipSourceEdge[] = kin.edges.map((e) => {
-    if (e.type !== "succession" && e.type !== "kinship") {
-      // marriage等のエッジ描画は未実装。データが増えた時点で対応する。
-      throw new Error(`kinship: 未対応のエッジtypeです: "${e.type}"`);
-    }
-    if (!knownIds.has(e.from) || !knownIds.has(e.to)) {
-      throw new Error(
-        `kinship: エッジの端点が対象範囲に解決できません: ${e.from} → ${e.to}`,
-      );
-    }
-    return {
-      type: e.type,
-      from: e.from,
-      to: e.to,
-      category: e.category,
-      relationToPredecessor: e.relationToPredecessor,
-      relation: e.relation,
-      veracity: e.veracity,
-      confidence: e.confidence,
-      noteExcerpt: truncateNote(e.note),
-      sourcePage: e.source.page,
-    };
-  });
+  const edges: KinshipSourceEdge[] = kin.edges
+    // 端点の一方でもスコープ外のエッジは描画対象外(例: 献帝→魏文帝の禅譲は三国
+    // ブロック調査後もスコープを広げるまで描かない)。スコープ内で端点が解決しない
+    // 事故はvalidate_kinship.py(グラフ全体の参照整合)が検出する。
+    .filter((e) => knownIds.has(e.from) && knownIds.has(e.to))
+    .map((e) => {
+      if (e.type !== "succession" && e.type !== "kinship") {
+        // marriage等のエッジ描画は未実装。データが増えた時点で対応する。
+        throw new Error(`kinship: 未対応のエッジtypeです: "${e.type}"`);
+      }
+      return {
+        type: e.type,
+        from: e.from,
+        to: e.to,
+        category: e.category,
+        relationToPredecessor: e.relationToPredecessor,
+        relation: e.relation,
+        veracity: e.veracity,
+        confidence: e.confidence,
+        noteExcerpt: truncateNote(e.note),
+        sourcePage: e.source.page,
+      };
+    });
 
   kinshipCache = buildKinshipLayout({ emperors, persons, edges });
   return kinshipCache;
