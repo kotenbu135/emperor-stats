@@ -32,6 +32,13 @@ import {
 
 export * from "@/lib/emperor-types";
 import { buildRiverTimeline, type RiverTimelineData } from "@/lib/timeline-river";
+import {
+  buildKinshipLayout,
+  type KinshipLayout,
+  type KinshipSourceEdge,
+  type KinshipSourceEmperor,
+  type KinshipSourcePerson,
+} from "@/lib/kinship-layout";
 import { kanaExpansionsOf } from "@/lib/kana-readings";
 import { CARD_SUBTITLE_OVERRIDES, cardSubtitleOf } from "@/lib/card-subtitle";
 
@@ -1331,6 +1338,151 @@ let riverCache: RiverTimelineData | null = null;
 export function getRiverTimelineData(): RiverTimelineData {
   riverCache ??= buildRiverTimeline(data.emperors);
   return riverCache;
+}
+
+// --- 系譜・即位経路グラフ(/kinship・試作。構築ロジックはkinship-layout.ts) ---
+//
+// データはdata/kinship.json(フェーズ1 succession進行中)。現在の調査済み範囲は
+// ブロック1・2(秦〜後漢36人・継承エッジ29本)のみで、このローダーもその範囲だけを
+// 描画対象にする(範囲拡大時はKINSHIP_SECTIONS/KINSHIP_EXTRA_IDSとkinship-layout.tsの
+// キュレーション表へ追記する)。
+
+/** 調査済みブロック1・2のsection。劉永(梁)はsectionが南朝梁と共有のためid個別指定。 */
+const KINSHIP_SECTIONS = new Set([
+  "秦（始皇帝以降）",
+  "新",
+  "漢（赤眉軍）",
+  "成家",
+  "後漢",
+  "仲家",
+]);
+const KINSHIP_EXTRA_IDS = new Set(["liu-yong-liang"]);
+
+interface RawKinship {
+  meta: {
+    completedBlocks: { phase: string; emperors: number }[];
+  };
+  persons: {
+    id: string;
+    name: string;
+    kind: string;
+    section: string;
+    birthYear: number | null;
+    deathYear: number | null;
+    yearsApproximate: boolean;
+  }[];
+  edges: {
+    type: string;
+    from: string;
+    to: string;
+    category: string;
+    relationToPredecessor: string;
+    isRestoration: boolean;
+    veracity: string;
+    confidence: string;
+    note: string;
+    source: { page: string };
+  }[];
+}
+
+/** エッジnoteは長文(〜1KB×29本)のためRSCペイロード対策で切り詰めて渡す。 */
+function truncateNote(note: string, max = 160): string {
+  return note.length <= max ? note : `${note.slice(0, max)}…`;
+}
+
+let kinshipCache: KinshipLayout | null = null;
+export function getKinshipGraphData(): KinshipLayout {
+  if (kinshipCache) return kinshipCache;
+  const kinshipPath = path.join(process.cwd(), "..", "data", "kinship.json");
+  const kin = JSON.parse(fs.readFileSync(kinshipPath, "utf-8")) as RawKinship;
+
+  const covered = data.emperors.filter(
+    (e) => KINSHIP_SECTIONS.has(e.dynasty.section) || KINSHIP_EXTRA_IDS.has(e.id),
+  );
+  // フィルタ結果が調査済みブロックの人数(meta.completedBlocksのsuccession合計)と
+  // 一致することをビルド時に強制する(ブロック追加時の更新漏れ検出)。
+  const expectedCount = kin.meta.completedBlocks
+    .filter((b) => b.phase === "succession")
+    .reduce((n, b) => n + b.emperors, 0);
+  if (covered.length !== expectedCount) {
+    throw new Error(
+      `kinship: 対象皇帝のフィルタ結果(${covered.length}人)がkinship.jsonの調査済み人数(${expectedCount}人)と一致しません(KINSHIP_SECTIONS/KINSHIP_EXTRA_IDSの更新漏れ?)`,
+    );
+  }
+
+  const emperors: KinshipSourceEmperor[] = covered.map((e) => {
+    for (const r of e.reigns) {
+      if (typeof r.startYear !== "number" || typeof r.endYear !== "number") {
+        throw new Error(`kinship: ${e.id} の在位年が数値ではありません`);
+      }
+    }
+    if (e.reigns.length !== 1) {
+      // 試作範囲に複数在位者はいない前提(kinship-layout.tsはreigns[0]のみ描画する)。
+      throw new Error(
+        `kinship: ${e.id} は複数在位(${e.reigns.length}期間)です。複数カプセル+コネクタ描画の実装が必要です`,
+      );
+    }
+    return {
+      id: e.id,
+      name: displayName(e.name),
+      dynastyLabel: dynastyLabel(e.dynasty),
+      dynastyKey: dynastyKey(e.dynasty),
+      section: e.dynasty.section,
+      accessionRouteCategory: e.accessionRoute?.category ?? "不詳",
+      reigns: e.reigns.map((r) => ({
+        a: astroYear(r.startYear),
+        b: astroYear(r.endYear),
+        isRestoration: r.isRestoration,
+      })),
+    };
+  });
+
+  const persons: KinshipSourcePerson[] = kin.persons.map((p) => {
+    if (typeof p.birthYear !== "number" || typeof p.deathYear !== "number") {
+      throw new Error(
+        `kinship: ブリッジ人物 ${p.id} の生没年がnullです(生没年不明の配置は未実装)`,
+      );
+    }
+    return {
+      id: p.id,
+      name: p.name,
+      kind: p.kind,
+      section: p.section,
+      // kinship.jsonの年は既に天文年(KINSHIP_SCHEMA.md)。astroYear()を重ねないこと。
+      birthYear: p.birthYear,
+      deathYear: p.deathYear,
+      yearsApproximate: p.yearsApproximate,
+    };
+  });
+
+  const knownIds = new Set([
+    ...emperors.map((e) => e.id),
+    ...persons.map((p) => p.id),
+  ]);
+  const edges: KinshipSourceEdge[] = kin.edges.map((e) => {
+    if (e.type !== "succession") {
+      // フェーズ2以降(kinship/marriage)のエッジ描画は未実装。データが増えた時点で対応する。
+      throw new Error(`kinship: 未対応のエッジtypeです: "${e.type}"`);
+    }
+    if (!knownIds.has(e.from) || !knownIds.has(e.to)) {
+      throw new Error(
+        `kinship: エッジの端点が対象範囲に解決できません: ${e.from} → ${e.to}`,
+      );
+    }
+    return {
+      from: e.from,
+      to: e.to,
+      category: e.category,
+      relationToPredecessor: e.relationToPredecessor,
+      veracity: e.veracity,
+      confidence: e.confidence,
+      noteExcerpt: truncateNote(e.note),
+      sourcePage: e.source.page,
+    };
+  });
+
+  kinshipCache = buildKinshipLayout({ emperors, persons, edges });
+  return kinshipCache;
 }
 
 export interface PortraitCredit {

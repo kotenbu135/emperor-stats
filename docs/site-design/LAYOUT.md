@@ -644,6 +644,19 @@ task.md 3-1 フェーズB完了（`reigns[].duration.source` への正史原文 
 
 新規調査プロジェクト「系譜・即位経路グラフ」（task.md 6-3、データは `data/kinship.json`）の可視化方式を、データ調査**開始前に**決定した（表示要件からスキーマの必須フィールドを逆算して凍結するため。捏造サンプルデータのモックで検証済み）。**方式③「全体1画面のインタラクティブグラフ」＋縦軸=時間（上→下に時代が下る）**。エンコーディング（皇帝=在位期間カプセル・ブリッジ人物=固定サイズ破線ノード・エッジ線種の使い分け）・モックで判明した必須処理（短在位カプセルの衝突押し下げ等）・実装バックログ（ズーム/パン・経路ハイライト・SEO テキスト等）の詳細は [../../data/schema/KINSHIP_SCHEMA.md](../../data/schema/KINSHIP_SCHEMA.md) の可視化節を参照。サイト実装着手時はこのファイルに設計記録を追記すること。
 
+## 系譜グラフ試作ページ /kinship（2026-07-22・調査済み36人での描画検証）
+
+フェーズ1調査の途中（ブロック1・2＝秦〜後漢36人・継承エッジ29本・ブリッジ人物2完了時点）で、**残り約330エッジの調査を続ける前に現データ・スキーマが方式③の描画に耐えるかを検証する**ための試作ページを実装した（描画範囲を調査済み36人に絞るのはユーザー決定。worktree ブランチ上のみ・main 未マージ）。検証結果は **go（スキーマ変更なしで調査続行可）**。
+
+- **構成は /timeline の3層パターン踏襲**: `lib/kinship-layout.ts`（fs非依存の純関数。レーン curation 表 `KINSHIP_LANE_DEFS`＋配色表 `KINSHIP_COLOR_BY_DYNKEY` の被覆をビルド時 assert）→ `lib/emperors.ts` の `getKinshipGraphData()`（kinship.json を fs 読み・36人フィルタ・件数/端点解決/在位年数値の assert）→ `app/kinship/page.tsx`（Server Component）→ `components/kinship/kinship-chart.tsx`（`"use client"`・SVG描画のみ）。timeline と違い **レイアウトは全てビルド時計算**（KINSHIP_SCHEMA.md の決定どおり）で、固定幅 SVG（約1,440×1,660px）を `overflow-x-auto` に置く。クライアント再計算が無いため `useChartWidth` 等は不要だった。
+- **試作ページの非公開運用**: `nav-data.ts`／`SITE_SECTIONS` に登録しない（ナビ・トップカード・sitemap から自動除外される）＋ `metadata` に `robots: {index:false}`。`buildMetadata` には description を直接渡す（`sectionDescription()` は未登録 href で throw するため使わない）。この組み合わせで「ビルドには載るが導線・検索に出ないページ」が成立する（前例のなかったパターン）。
+- **レイアウト実測**: 縦=3px/年・線形、レーン7本（=section）・幅160px。同一レーン内押し下げ（`top=max(名目, prevBottom+8px)`）で後漢106–146の幼帝密集帯（殤帝〜質帝の最小高26pxカプセル連鎖）も破綻なし。時間軸の近似線形のズレは目盛り1本分（〜50年帯の前半へ10–20px）程度で許容範囲。
+- **「上→下」規則が破れるエッジの側面アタッチ**: 孺子嬰→王莽（禅譲）は from（生没中点配置のブリッジ）の下辺が to の上辺より下に来る唯一のケース。`from.bottom ≥ to.top` かつ別レーンのときは**両ノードの側面どうしを水平ベジェで結ぶ**フォールバックを実装し、目視で違和感なしを確認。**ラベルは水平区間の中点上に置くと隣接レーンの縦エッジラベル列（レーン右外）と接近する**ので、本実装でエッジが増えたらラベル衝突回避の一般解（ずらし or リーダー線）が必要。
+- **ホバー/クリック**: `useTipOutlet`+`FixedTooltip`（サイト共通原則）でノード（名前/王朝/在位。ブリッジは「生没年推定」表示）・エッジ（カテゴリ/relationToPredecessor/確度/note抜粋160字/出典）のツールチップ。クリックは近傍強調（選択と隣接以外 opacity 0.16）・背景クリック解除。エッジ note はサーバ側で160字に切り詰め（RSC ペイロード対策）。EmperorDetailDialog 連携・キーボードナビ・凡例トグルは本実装へ deferred。
+- **SSRテキスト**: 「テキストで見る継承の流れ」（レーン別に `先代 →〔カテゴリ〕 新帝` を機械列挙）を client 外に配置（a11y 代替兼用）。
+- **検証で行使できたスキーマ機能**: succession 3カテゴリ（世襲/擁立/禅譲）・veracity disputed（呂后期3エッジの点線+?表示）・relationToPredecessor・ブリッジ人物2種・yearsApproximate・section=レーン語彙・根ノード（◆建国5・◆擁立2）・note/source。**未行使（フェーズ2以降のデータ待ち）**: kinship/marriage/genealogicalClaims・isRestoration・複数在位コネクタ（`getKinshipGraphData` は複数在位を検出したら throw する仕込み）。
+- **36人検証で言えないこと**: 365人時のレーン数爆発（レーン=section 1:1 はこの範囲でのみ成立。群雄クラスタ集約が必須）・縦2,200px超でのズーム/パン/ミニマップ・かな検索。これらは本実装バックログ（KINSHIP_SCHEMA.md 可視化節）のまま。
+
 ## 関連ドキュメント
 
 - [TIMELINE.md](./TIMELINE.md) — 通史年表（`/timeline`）の設計
