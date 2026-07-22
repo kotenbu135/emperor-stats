@@ -8970,6 +8970,16 @@
     "势悉众出战于成都之笮"
    ]
   },
+  "chenghan-lishi|personalCampaignCount[0].note|0c4e4e065c7a": {
+   "id": "chenghan-lishi",
+   "path": "personalCampaignCount[0].note",
+   "span": "势于是悉众与温战于笮桥",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/列传/第六十八章--原文.html",
+   "frags": [
+    "势于是悉众与温战于笮"
+   ]
+  },
   "chenghan-lishi|personalCampaignCount[0].note|aaeb6785269b": {
    "id": "chenghan-lishi",
    "path": "personalCampaignCount[0].note",
@@ -36266,17 +36276,15 @@
     "壁垒俊遣慕容恪率众讨"
    ]
   },
-  "qianyan-murongjun|rebellionSuppressionCount[2].note|8e58b7fe3e3d": {
+  "qianyan-murongjun|rebellionSuppressionCount[2].note|9b4c1f82e0e9": {
    "id": "qianyan-murongjun",
    "path": "rebellionSuppressionCount[2].note",
-   "span": "河間李黒聚義千餘、攻略州郡、殺棗強令衛顔、俊長楽太守傅顔討斬之。",
-   "status": "corpus",
-   "corpusFile": "daizhigev20/史藏/载记/十六国春秋.txt",
+   "span": "河间李黑聚众千余，攻略州郡，杀枣强令卫颜，俊长乐太守傅颜讨斩之。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianyan-murongjun.txt",
    "frags": [
-    "千余攻略州郡",
-    "略州郡杀枣强",
-    "俊长乐太守傅",
-    "太守傅颜讨斩"
+    "河间李黑聚众千余攻略",
+    "强令卫颜俊长乐太守傅"
    ]
   },
   "qianyan-murongjun|reigns[0].quote#0|2c8acf795e3a": {
