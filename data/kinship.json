@@ -141,6 +141,13 @@
         "emperors": 14,
         "edges": 12,
         "persons": 1
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック16（十国）",
+        "emperors": 20,
+        "edges": 15,
+        "persons": 3
       }
     ]
   },
@@ -507,6 +514,78 @@
       },
       "source": {
         "page": "旧五代史 巻二十五 唐書・武皇紀上／巻二十六 唐書・武皇紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yang-longyan",
+      "name": "楊隆演",
+      "kana": "ようりゅうえん",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "五代十国",
+      "birthYear": 897,
+      "deathYear": 920,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "追尊皇帝"
+      ],
+      "note": "呉の第3代君主（弘農郡王→呉国王。皇帝を称さず収録外）。楊行密の第二子（「高祖名隆演字鸿源太祖第二子也【一云第三子】」十国春秋 巻二 高祖世家）。武義2年（920年）没、「己丑王薨年二十四谥曰宣干贞元年尊为高祖宣皇帝」（同）により数え24歳没から897年生と換算。弟・楊溥の称帝時（乾貞元年=927年）に宣皇帝を追尊され、廟号は高祖:「追尊行密武皇帝，渥景皇帝，隆演宣皇帝」（新五代史 巻61 呉世家第一）、「宣王曰宣皇帝庙号高祖」（十国春秋 巻三 睿帝本紀）。",
+      "wikidata": null,
+      "posthumous": {
+        "dynasty": "呉",
+        "templeName": "高祖",
+        "posthumousName": "宣皇帝"
+      },
+      "source": {
+        "page": "十国春秋 巻二 高祖世家",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-yin",
+      "name": "劉隠",
+      "kana": "りゅういん",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "五代十国",
+      "birthYear": 874,
+      "deathYear": 911,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上",
+        "追尊皇帝"
+      ],
+      "posthumous": {
+        "dynasty": "南漢",
+        "templeName": "烈宗",
+        "posthumousName": "襄皇帝"
+      },
+      "note": "南漢高祖劉龑の兄（劉謙の長子。「谦三子曰隠台岩【岩未几改名陟】」）。唐末〜後梁初に清海軍節度使として嶺南を支配し、後梁から大彭王等に封ぜられたが皇帝を称さず。乾化元年（911、コーパス表記は「干化」）に38歳で薨去し（「三月王病亟表其弟清海静海节度副使陟权知留后丁亥薨」「时年三十八」）、弟劉龑が地位を継承。劉龑の称帝（乾亨元年=917）に伴い襄皇帝・廟号烈宗を追尊（「时年三十八谥曰襄干亨元年追尊曰襄皇帝庙号烈宗陵曰徳陵」十国春秋巻五十八烈宗世家。新五代史南漢世家も「追尊…隐襄皇帝，立三庙」と皇帝号追尊を記す）。皇帝号＋廟号の追贈があるため kind=追尊皇帝。生年874は享年三十八（数え）と没年911からの逆算で原文に生年の直接記載はない（yearsApproximate=true はこの逆算による。没年911自体は確実）。",
+      "wikidata": "Q708360",
+      "source": {
+        "page": "十国春秋 巻五十八 烈宗世家",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-wang-yanhan",
+      "name": "王延翰",
+      "kana": "おうえんかん",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "五代十国",
+      "birthYear": null,
+      "deathYear": 927,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "閩太祖王審知の長子で王延鈞（恵宗）の兄。「延翰字子逸，审知长子也。」（新五代史閩世家）。審知の死後に威武留后として跡を継ぎ、天成元年十月に「延翰建国称王，而犹禀唐正朔」と大閩国王を自称したが皇帝は称していないため収録外。天成元年十二月、弟延鈞・養弟延禀に攻められ殺害された：「十二月，延禀、延钧皆以兵入，执延翰杀之。」（新五代史）、資治通鑑「辛卯旦，延禀执之，暴其罪恶，且称延翰与妻崔氏共弑先王，告谕吏民，斩于紫宸门外。」天成元年十二月辛卯 = sxtwl.fromLunar(926,12,8) → 927-01-14 のため没年は927年。十国春秋では「嗣王」と呼ばれ（王延禀伝「将兵弑嗣王推惠宗而立之」）、皇帝号・廟号の追尊は新五代史・十国春秋のいずれにも確認できないため kind=宗室（王号どまり）。生年は記載が確認できず null。",
+      "wikidata": "Q2109907",
+      "source": {
+        "page": "新五代史 巻六十八 閩世家第八",
         "lang": "zh-classical"
       }
     }
@@ -3527,6 +3606,231 @@
       "note": "旧五代史 恭帝紀冒頭に「恭帝，讳宗训，世宗子也」とあり、世宗柴栄の実子。顕徳6年6月、「癸巳，世宗崩。甲午，内出遗制，命帝柩前即皇帝位。是日，群臣奉帝即位而退」と、世宗崩御の翌日に遺制により柩前で即位した。emperors.json の accessionRoute.category「世襲」と原文の読みは一致。",
       "source": {
         "page": "旧五代史 巻一百二十（周書・恭帝紀）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-yang-longyan",
+      "to": "shiguo-wu-yangpu",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "先代呉国王・楊隆演（皇帝を称さず収録外）の死後、実権者徐温が本来の序列上位の兄・廬江公楊濛を飛ばして楊溥を呉王に擁立し、溥はその君主位を継承したうえで順義7年（927年）11月に称帝した（非皇帝の先行君主からの君主位承継→称帝のブリッジ from パターン）。出自・継承:「溥，行密第四子也，隆演建国，封丹阳郡公。隆演卒，弟庐江公濛次当立，而徐氏秉政，不欲长君，乃立溥」（新五代史 呉世家）、「隆演卒，温越次立其弟溥」（新五代史 徐温伝、同巻）。称帝:「十一月庚戌，溥御文明殿即皇帝位，改元曰乾贞」。楊溥は楊行密の第四子で、楊隆演（行密第二子）の弟。",
+      "source": {
+        "page": "新五代史 巻61（呉世家第一）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shiguo-qianshu-wangjian",
+      "to": "shiguo-qianshu-wangyan",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "王衍（初名宗衍）は前蜀高祖・王建の末子（十一子の最幼）。「建十一子，…而郑王宗衍最幼，其母徐贤妃也，以母宠得立为皇太子」。兄の皇太子元膺の死後、徐賢妃の専寵と唐文扆・張格の後押しで太子に立てられ（「衍由是得为太子」）、父の崩御に伴い即位した（「建卒，衍立，谥建曰神武圣文孝德明惠皇帝，庙号高祖」）。父帝崩御に伴う立太子経由の正規世襲継承。",
+      "source": {
+        "page": "新五代史 巻六十三 前蜀世家",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-liu-yin",
+      "to": "shiguo-nanhan-liuyan",
+      "category": "建国",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "劉龑（初名岩、劉謙の第3子）は兄劉隠（清海軍節度使・南海王、皇帝を称さず）の死後にその地位を継承し（「隐卒，代立。」）、後梁末帝からも兄の官爵をすべて授けられ南海王を襲封（「末帝即位，悉以隐官爵授，袭封南海王。」）。この君主位を基盤に貞明3年（917）称帝（「贞明三年，即皇帝位，国号大越，改元曰乾亨。」）。非皇帝の先行君主からの君主位承継→称帝のためブリッジ from=p-liu-yin を置く（category は accessionRoute の「建国」のまま）。称帝時に劉隠へ襄皇帝を追尊（「追尊安仁文皇帝，谦圣武皇帝，隐襄皇帝，立三庙。」新五代史）、廟号烈宗は十国春秋「时年三十八谥曰襄干亨元年追尊曰襄皇帝庙号烈宗陵曰徳陵」による。続柄は十国春秋「谦三子曰隠台岩【岩未几改名陟】」（劉隠が長子・岩＝龑が第3子）により弟。引用中の読点直後等に本人の諱「龑」がPUA文字U+E863のまま含まれる（コーパス原字保持）。",
+      "source": {
+        "page": "新五代史 巻65 南漢世家第五",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shiguo-nanhan-liuyan",
+      "to": "shiguo-nanhan-liubin",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "劉玢（初名洪度・秦王）は高祖劉龑の第三子。正史の新五代史南漢世家に「玢，初名洪度，封秦王。子耀枢、龟图皆早死，玢次当立」「由是洪度卒得立。更名玢，改元曰光天」とあり、兄の邕王耀枢・康王龟图が早世したため継承順位に従い、父帝の崩御を受けて即位した父子間の世襲継承。十国春秋巻五十九も「名玢髙祖第三子也」「由是髙祖晏驾度即皇帝位更今名改大有十五年为光天元年」と明記。父帝は晩年に弟の越王洪昌を立てようとしたが萧益の諫言（「少者得立，长者争之，祸始此矣！」）で沙汰止みとなり、長幼の序どおり劉玢が即位した。",
+      "source": {
+        "page": "新五代史 巻六十五 南漢世家第五",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shiguo-nanhan-liubin",
+      "to": "shiguo-nanhan-liusheng",
+      "category": "簒奪",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "新五代史 南漢世家第五に「晟，初名洪熙，封晋王。既弑玢，遂自立，改元曰应乾」「晟既杀兄，立不顺，惧众不伏」とあり、晟（初名洪熙）が兄の殤帝劉玢を弑殺して自立した簒奪即位。高祖劉龑の諸子封王記事「封子耀枢邕王，龟图康王，洪度秦王，洪熙晋王」と「玢，初名洪度，封秦王」により、玢（洪度）・晟（洪熙）はともに劉龑の子で晟が弟であることが裏付けられる。十国春秋 巻五十九には「既令力士弑殇帝……越王昌乃帅诸弟临于寝殿迎熙即皇帝位更今名」とあり、弑殺後に諸弟が迎立する形式を踏んだことが記されるが、殺害の主体は晟自身であり emperors.json の category=簒奪 と整合する。",
+      "source": {
+        "page": "新五代史 巻六十五 南漢世家第五",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shiguo-nanhan-liusheng",
+      "to": "shiguo-nanhan-liuchang",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "劉鋹（初名継興・衛王）は中宗劉晟の長子。新五代史 南漢世家に「鋹，初名继兴，封卫王。晟卒，以长子立，改元曰大宝」、劉晟の条末尾に「是秋卒…庙号中宗，陵曰昭陵。子鋹立」とあり、父の崩御を受けて長子として正規に継承したことが裏付けられる。emperors.json の accessionRoute（世襲・中宗の嫡長子として正規に継承）と一致。",
+      "source": {
+        "page": "新五代史 巻六十五 南漢世家第五",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shiguo-houshu-mengzhixiang",
+      "to": "shiguo-houshu-mengchang",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孟昶は孟知祥の第三子（「昶，知祥第三子也」）。知祥の発病時に監国となり、知祥の死後、王処回・趙季良の主導で発喪前に嗣立された（「知祥病，昶监国。知祥已卒而秘未发」「处回遂与季良立昶，而后发丧」）。趙季良らの「立昶」は即位手続き上の主導であり、監国＝嗣君としての父子継承のため category は accessionRoute どおり世襲。",
+      "source": {
+        "page": "新五代史 巻六十四（後蜀世家第四）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shiguo-wu-yangpu",
+      "to": "shiguo-nantang-libian",
+      "category": "禅譲",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "呉睿帝楊溥からの受禅。天祚三年（937）十月「溥遣摄太尉杨璘传位于昪，国号齐，改元升元」。李昪は徐州の微賤の出で、幼少時に楊行密に一時養われたが（「杨行密攻濠州，得之，奇其状貌，养以为子。而杨氏诸子不能容，行密以乞徐温，乃冒姓徐氏，名知诰」）楊氏諸子に容れられず徐温の養子となっており、楊溥との血縁はない。なお楊溥の子・琏は李昪の娘を娶っており（「溥子琏为吴太子时，昪以女妻之」）姻戚関係はあるが、先代楊溥本人に対する続柄としては無血縁。受禅後に李姓へ復し唐宗室（憲宗子建王恪）の四世孫を自称して国号を唐と改めたが、これは自称であり本エッジの判定（呉からの禅譲）には影響しない。",
+      "source": {
+        "page": "新五代史 巻六十二 南唐世家第二",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shiguo-nantang-libian",
+      "to": "shiguo-nantang-lijing",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "新五代史巻六十二南唐世家に「景，初名景通，昪长子也」とあり、烈祖李昪の長子。「昪卒，嗣位，改元保大」と、父・烈祖の崩御を受けて嗣位した典型的な父子世襲。emperors.json の accessionRoute.category=世襲 と一致。",
+      "source": {
+        "page": "新五代史 巻六十二 南唐世家第二",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-wang-yanhan",
+      "to": "shiguo-min-wangyanjun",
+      "category": "簒奪",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "兄・王延翰（王審知長子。自称大閩国王で皇帝を称さず収録外のブリッジ人物）を養兄王延禀と共に武力で攻め殺し（「十二月，延禀、延钧皆以兵入，执延翰杀之。而延钧立，更名鏻。」）、延禀に推戴されて閩の君主位を承継（「延禀自以养子，推鏻而立之。」、資治通鑑では「推延钧为威武留后」）、後唐から閩王に冊封された後、長興4年（933年）に称帝した（「鏻乃即皇帝位，受册于宝皇……改元为龙启，国号闽。」）。非皇帝の先行君主からの君主位承継→称帝のブリッジ from パターン。続柄は弟：新五代史閩世家「鏻，审知次子也。」「延翰立，以其弟延钧为泉州刺史」。後唐による節度使任命・閩王冊封（「唐即拜鏻节度使，累加检校太师、中书令，封闽王。」）は冊封境界ルールにより from としない。category は emperors.json の accessionRoute.category「簒奪」をそのままコピー（原典の記述とも整合）。",
+      "source": {
+        "page": "新五代史 巻六十八 閩世家第八",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shiguo-min-wangyanjun",
+      "to": "shiguo-min-wangjipeng",
+      "category": "簒奪",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "王継鵬（即位後改名して昶）は恵宗王延鈞（鏻）の長子。「继鹏，鏻长子也。」父鏻の病中、弟継韜に殺害を謀られたのを機に皇城使李仿と共謀して宮中に乱入し父を殺害して即位した。「其次子继韬怒，谋杀继鹏，继鹏惧，与皇城使李仿图之。」「仿惧而出，与继鹏率皇城卫士而入。鏻闻鼓噪声，走匿九龙帐中，卫士刺之不殂，宫人不忍其苦，为绝之。」「鏻立十年见杀」。category は emperors.json の accessionRoute.category（簒奪）をそのままコピー。",
+      "source": {
+        "page": "新五代史 巻六十八 閩世家第八",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shiguo-min-wangjipeng",
+      "to": "shiguo-min-wangyanxi",
+      "category": "擁立",
+      "relationToPredecessor": "叔父",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "通文4年閏7月、控鶴都将・連重遇らが康宗昶（王継鵬）の宮を焼いて追放した際に延羲を迎立（「重遇迎延义立之」新五代史閩世家。コーパスは「延义」表記だが「延羲」の表記揺れ・破損疑い、flags参照）。昶はその後、延羲の命を受けた継業に捕殺され、延羲が「延义立，谥昶曰康宗」と先代を諡した。延羲は太祖王審知の少子（「延义，审知少子也」。十国春秋は「太祖第二十八子」）であり、康宗（審知次子・恵宗王延鈞の子）の叔父。十国春秋景宗本紀も「未防连重遇将兵来迎延羲……及康宗遇害延羲自称威武节度使闽国王更今名时通文四年闰七月壬午也」と迎立を裏付ける。即位当初は閩国王を自称し、941年10月に大閩皇帝へ改称したが、君主位の取得自体はこの擁立による。",
+      "source": {
+        "page": "新五代史 巻六十八 閩世家第八",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shiguo-beihan-liuchong",
+      "to": "shiguo-beihan-liujun",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "劉鈞（本紀の表記は改名前の「承鈞（承钧）」）は世祖劉旻（劉崇）の次子。新五代史東漢世家に「承钧，旻次子也」「旻自败于高平，已而被围，以忧得疾，明年十一月卒，年六十，子承钧立」とあり、父の死去に伴う世襲継承。契丹（述律=遼穆宗）が「呼承钧为兒，许其嗣位」と嗣位を承認しているが、外国君主による冊封・承認は冊封境界ルールにより from エッジとしない。",
+      "source": {
+        "page": "新五代史 巻七十 東漢世家第十",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shiguo-beihan-liujun",
+      "to": "shiguo-beihan-liujien",
+      "category": "世襲",
+      "relationToPredecessor": "養子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "劉継恩は本姓薛氏で、実父・薛釗が劉旻（世祖劉崇）の娘を娶って生まれた世祖の外孫。「旻以其子承钧无子，乃以二子命承钧养为子」により、実子のない劉鈞（睿宗）の養子となった（血縁上は劉鈞の甥にあたるが、継承上有効な続柄は養子）。劉鈞の死後「承钧卒，继恩告哀于契丹而后立」と嗣位。契丹への告哀は宗主国関係であり冊封境界ルールにより皇位継承には当たらない。",
+      "source": {
+        "page": "新五代史 巻七十 東漢世家第十",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shiguo-beihan-liujien",
+      "to": "shiguo-beihan-liujiyuan",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "劉継恩暗殺後、宰相郭無為に迎立された（「无为迎继元而立之」）。続柄は先代劉継恩の異父同母弟：母は劉旻の娘で、初め薛釗に嫁して継恩を生み、薛釗の死後に何氏へ再嫁して継元を生んだ（「继恩本姓薛氏，父钊为卒，旻以女妻之，生继恩。……旻女后适何氏，生子继元，而何氏及旻女皆卒。旻以其子承钧无子，乃以二子命承钧养为子」）。継元は本姓何。血縁上は異父弟、かつ両人とも劉承鈞（睿宗劉鈞）の養子であり、養家の続柄でも弟にあたる。",
+      "source": {
+        "page": "新五代史 巻七十 東漢世家第十",
         "lang": "zh-classical"
       }
     }
