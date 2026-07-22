@@ -78,6 +78,13 @@
         "emperors": 18,
         "edges": 14,
         "persons": 0
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック7（十六国①: 前涼・前趙・成漢・後趙）",
+        "emperors": 18,
+        "edges": 13,
+        "persons": 1
       }
     ]
   },
@@ -249,6 +256,26 @@
       "wikidata": null,
       "source": {
         "page": "後漢書 巻一上 光武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhang-yaoling",
+      "name": "張耀霊",
+      "kana": "ちょうようれい",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "前涼",
+      "birthYear": 344,
+      "deathYear": 355,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "前涼の君主（第6代）。字は元舒。張重華の子。晋書張軌伝「耀灵字元舒。年十岁嗣事，称大司马、校尉、刺史、西平公」。353年に父重華の死により10歳（数え）で嗣立したが、伯父の張祚に廃され（「命废耀灵为凉宁侯而立祚」）、のち殺害された（「祚寻使杨秋胡害耀灵于东苑，埋之于沙坑，私谥曰哀公」）。皇帝ではなく晋の藩国たる前涼の公位君主のため kind は宗室とする（私謚「哀公」は皇帝号追贈に当たらない）。生年344は「年十岁嗣事」（353年・数え10歳）からの逆算。没年は資治通鑑が永和十一年（355年）八月に殺害を繋年するのに従った（晋書帝紀は永和九年〔353年〕十月条に「是月，张祚弑耀灵」と繋けており不一致あり、flags 参照）。表記は資治通鑑では「曜灵」。",
+      "wikidata": "Q712760",
+      "source": {
+        "page": "晋書 巻八十六 列伝第五十六 張軌",
         "lang": "zh-classical"
       }
     }
@@ -1604,6 +1631,201 @@
       "note": "後主陳叔宝は宣帝（高宗）の嫡長子。「后主，讳叔宝，字元秀，小字黄奴，高宗嫡长子也」。太建元年に皇太子に立てられ（「太建元年正月甲午，立为皇太子」）、太建14年正月甲寅の高宗崩御を受け、始興王叔陵の反逆（即日誅殺）を経て丁巳に太極前殿で即位：「十四年正月甲寅，高宗崩。乙卯，始兴王叔陵作逆，伏诛。丁巳，太子即皇帝位于太极前殿」。父から子への正規の皇太子継承であり emperors.json の accessionRoute.category「世襲」と一致。",
       "source": {
         "page": "陳書 巻六 本紀第六 後主",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-zhang-yaoling",
+      "to": "qianliang-zhangzuo",
+      "category": "簒奪",
+      "relationToPredecessor": "伯父",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "張祚は前涼の先代君主・張耀霊（涼公。晋の藩国君主で皇帝ではない）を廃位して君主位を奪い、のち354年（永和十年）に称帝した。晋書張軌伝に「命废耀灵为凉宁侯而立祚」「祚寻使杨秋胡害耀灵于东苑」、続けて「永和十年。祚纳尉缉、赵长等议，僭称帝位，立宗庙，舞八佾，置百官」とあり、政権内の先行君主・張耀霊から君主位を実質的に奪取したうえでの称帝であるため、規約の「先行君主から君主位を実質的に継承したうえで称帝した場合」に該当し from を張耀霊（ブリッジ人物）とする。続柄は同伝に「伯父长宁侯祚性倾巧」、同伝冒頭系譜に「华子耀灵　灵伯父祚」とあり、新帝・張祚は先代・張耀霊の伯父（父張駿の子で張重華の兄）。宗主国晋帝への from は冊封境界ルールにより作らない。",
+      "source": {
+        "page": "晋書 巻八十六 列伝第五十六 張軌",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qianzhao-liuyuan",
+      "to": "qianzhao-liuhe",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "劉和は光文帝劉淵の子。劉淵の単皇后冊立と同時に皇太子に立てられ（「立其妻单氏为皇后，子和为皇太子」）、劉淵の死により嗣立した（「元海死，和嗣伪位」「子和立」）。即位6日後に弟の劉聡に殺害された。",
+      "source": {
+        "page": "晋書 巻百一 載記第一 劉元海（劉和）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qianzhao-liuhe",
+      "to": "qianzhao-liucong",
+      "category": "世襲",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "劉聡は光文帝劉淵の第四子（「元海第四子也」）で、先代・劉和（劉淵の嫡長子）の弟。劉和が即位後に弟たちの粛清を企て劉聡も討伐対象とされたが、逆に劉和を攻め殺し（「既杀其兄和，群臣劝即尊位」）、弟の北海王劉乂に一旦譲ったのち群臣の固請を受けて永嘉四年（310年）に即位した（「于是以永嘉四年僭即皇帝位，大赦境内，改元光兴」）。前政権内の直接の先代は劉和であるため from は劉和とする。",
+      "source": {
+        "page": "晋書 巻百二 載記第二 劉聡",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qianzhao-liucong",
+      "to": "qianzhao-liucan",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "劉粲は昭武帝劉聡の子。晋書載記第二に「封其子粲为河内王」とあり劉聡の子であることが明示され、皇太弟劉乂の廃殺後「立粲为皇太子，大赦殊死已下」と皇太子に立てられた。劉聡の死を受けて嗣位（晋書元帝紀「刘聪死，其子粲嗣伪位」、載記「既嗣伪位，尊聪后靳氏为皇太后」）。太子としての世襲継承で、emperors.json の accessionRoute「世襲」と一致。",
+      "source": {
+        "page": "晋書 巻百二 載記第二 劉聡（劉粲）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "chenghan-lixiong",
+      "to": "chenghan-liban",
+      "category": "世襲",
+      "relationToPredecessor": "養子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "李班は李雄の兄・李蕩の子（血縁上は甥）で、李雄に養われて太子に立てられ、雄の死により継承した。晋書載記（李雄条）に「其后将立荡子班为太子」、同（李班条）に「初署平南将军，后立为太子」「雄死，嗣伪位」とある。養子関係は華陽國志に「班字世文，荡第四子也。少见养于雄，年二十六，立为太子」「雄妻任无子，养琀弟班为子」と明示され、資治通鑑も「雄立其兄荡之子班为太子，使任后母之」（任皇后を母とさせた）と記す。遺詔による輔政体制は通鑑「雄召大将军建宁王寿受遗诏辅政。丁卯，雄卒，太子班即位」で裏付けられる。晋書本文は「以班非雄所生」と雄の実子でないことを明記しており、血縁は甥だが養育・立嗣の実態から養子と判定。",
+      "source": {
+        "page": "晋書 巻百二十一 載記第二十一 李班",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "chenghan-liban",
+      "to": "chenghan-liqi",
+      "category": "擁立",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "李班暗殺後、首謀者の李越が「既杀班，欲立越为主，越以期雄妻任氏所养，又多才艺，乃让位于期。于是僭即皇帝位」（晋書載記）と、任太后に養育され多才であった李期に位を譲る形で擁立し即位。李期は「期字世运，雄第四子也」（晋書載記）と武帝李雄の第四子。先代李班は「班字世文，荡第四子也。少见养于雄」（華陽国志）と李雄の兄李蕩の子（資治通鑑胡三省注にも「班字世文雄兄荡之子也」）であるため、新帝李期は先代李班の従兄弟（父同士が兄弟）。なお李班は幼少から李雄に養われ太子とされており（晋書載記に「以班非雄所生」）、礼制上は李雄の後嗣であった。",
+      "source": {
+        "page": "晋書 巻百二十一 載記第二十一 李期",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "chenghan-liqi",
+      "to": "chenghan-lishou",
+      "category": "簒奪",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "新帝李寿は先代李期の従叔父（父の従兄弟。enum に「従叔父」がないため「その他」）。李寿は「寿字武考，骧之子也」（晋書 巻百二十一 載記第二十一）で李骧の子、李骧は「流弟骧，字玄龙」（華陽国志）・「李骧字玄龙慕之少子特弟也」（十六国春秋）で李特の弟、李期は「期字世运，雄第四子也」（同載記）で李特の子・李雄の第四子。よって李寿は李雄の従弟＝李期の従叔父にあたる。継承の実態は同一政権内の武力簒奪：李寿は涪から挙兵し「乃率步骑一万，自涪向成都」「寿遂取其城」、太后任氏の令を偽って在位中の李期を廃位し「寿矫任氏令，废期为邛都县公，幽之别宫」、咸康四年（338年）に自ら即位して国号を成から漢に改めた「遂以咸康四年僭即伪位，赦其境内，改元为汉兴」。載記自身も「寿承雄宽俭，新行篡夺」と簒奪と明記しており category=簒奪 と整合。国号改号・「与期、越别族」の宗廟改立はあるが、在位中の皇帝を廃して同一の帝位を奪った直接継承であり from=chenghan-liqi とする。",
+      "source": {
+        "page": "晋書 巻百二十一 載記第二十一 李寿",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "chenghan-lishou",
+      "to": "chenghan-lishi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書載記に「势字子仁，寿之长子也」とあり、李勢は昭文帝李寿の長子。李寿の死により「寿死，势嗣伪位，赦其境内，改元曰太和」と嗣位した父子相続。",
+      "source": {
+        "page": "晋書 巻百二十一 載記第二十一 李勢",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "houzhao-shile",
+      "to": "houzhao-shihong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "石弘は石勒の第二子（「弘字大雅，勒之第二子也」）。石勒の太子として立てられ（「勒僭位，立为太子」）、石勒の死を受けて咸和七年（332/333年）に即位した（「及勒死…遂以咸和七年逼立之，改年曰延熙」）。ただし即位は中山王石虎（季龍）が主導した強制的な擁立で、石弘は当初「让位于季龙」と固辞したが、石虎が「君薨而世子立，臣安敢乱之」と形式上の世襲を主張して逼立した。実権は終始石虎にあった傀儡即位だが、皇位そのものは父・石勒から太子として承継したものであり世襲エッジとする。",
+      "source": {
+        "page": "晋書 巻百五 載記第五 石勒下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "houzhao-shihong",
+      "to": "houzhao-shihu",
+      "category": "簒奪",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "石勒崩御後に丞相・魏王として実権を握った石虎（石季龍）は、咸康元年（334年）に先代石弘を廃して「居摄赵天王」を称し（「咸康元年，季龙废勒子弘，群臣已下劝其称尊号。季龙下书曰：…且可称居摄赵天王，以副天人之望」）、349年に正式に皇帝位に即いた（「季龙时疾瘳，以永和五年僭即皇帝位于南郊」）。続柄は、石虎が石勒の従子（「石季龙，勒之从子也」）、石弘が石勒の子（「季龙废勒子弘」）であることから、先代石弘に対して同世代の従兄弟（従兄）。なお晋書は「勒父硃幼而子季龙，故或称勒弟焉」（石勒の父が幼少の石虎を子として養ったため石勒の弟とも称された）という異称も併記しており、この呼称に従えば石弘の叔父に当たるが、系譜上の主記述は「从子」であるため従兄弟を採用。また石虎の祖「[C111]邪」・父「寇觅」の名は石勒の系（祖耶奕于・父周曷朱）と異なり、厳密な親等（実の兄弟の子か族子か）は原文からは確定できない。",
+      "source": {
+        "page": "晋書 巻百六 載記第六 石季龍上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "houzhao-shihu",
+      "to": "houzhao-shishi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "石世は石虎（季龍）の末子。母は前趙劉曜の幼女（劉皇后）。「获刘曜幼女，年十二，有殊色，季龙得而嬖之，生子世，封齐公」。張豺の勧めもあり石虎は「遂立世为皇太子，刘氏为皇后」と皇太子に立て、石虎の死（「俄而季龙亦死」）を受けて「于是世即伪位，尊刘氏为皇太后，临朝」と即位した。父からの遺命に基づく世襲継承。",
+      "source": {
+        "page": "晋書 巻一百七 載記第七 石季龍下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "houzhao-shishi",
+      "to": "houzhao-shizun",
+      "category": "簒奪",
+      "relationToPredecessor": "兄",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "石遵は石虎（季龍）の子（彭城公）。石虎の死後、河内から挙兵して鄴を制し、幼帝石世（同じく石虎の子・在位33日）を廃位して即位した。晋書載記に「假刘氏令曰：“嗣子幼冲，先帝私恩所授，皇业至重，非所克堪。其以遵嗣位。”」「僭即尊位于太武前殿」「封世为谯王，邑万户待以不臣之礼，废刘氏为太妃，寻皆杀之。世凡立三十三日。」とあり、劉太后の令を仮託した武力による帝位奪取（category=簒奪のまま）。石遵・石世はともに石虎の子で（張挙の後嗣議論「燕公斌、彭城公遵并有武艺文德」と「生子世，封齐公」が同段、即位記事にも「天子兒来奔丧」）、石遵は成人（「殿下长而且贤」）・石世は幼少のため、新帝石遵は先代石世の兄。",
+      "source": {
+        "page": "晉書 巻百七 載記第七 石季龍下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "houzhao-shizun",
+      "to": "houzhao-shijian",
+      "category": "擁立",
+      "relationToPredecessor": "兄",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "石鑑は石虎の子（晋書載記第六「季龙子义阳公鉴时镇关中」）。先代石遵が冉閔誅殺を郑太后の前で謀議した際、石鑑自身がその情報を宦者を通じて冉閔に漏らし（晋書「鉴出，遣宦者杨环驰以告闵」）、冉閔・李農が石遵を琨華殿で殺害して石鑑を擁立した（晋書載記第七「成曰：“义阳王鉴当立。”遵曰：“我尚如是，汝等立鉴，复能几时！”乃杀之于琨华殿」「鉴乃僭位，大赦殊死已下」）。同一政権（後趙）内で石遵の皇位を承継。先代との続柄は十六国春秋に「石鉴字大朗[一作郎]遵之兄虎第三子也」、石遵は「石遵字大祗虎第九子也」とあり、石鑑（第三子）が石遵（第九子）の兄。父子関係・継承関係は正史（晋書載記）で裏付けられるが、兄弟排行の明記は十六国春秋（明代輯本）による。category=擁立は emperors.json の accessionRoute.category をコピー。",
+      "source": {
+        "page": "晋書 巻百七 載記第七 石季龍下",
         "lang": "zh-classical"
       }
     }
