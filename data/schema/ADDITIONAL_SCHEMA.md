@@ -1,6 +1,6 @@
 # 追加スキーマ設計（死因を除く9項目 + 遷都）
 
-`data/emperors.json` の各人物レコードに追加する、死因（[DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md)）以外の追加調査項目のスキーマ設計ドキュメント。CLAUDE.md の「追加スキーマTODO」優先度2〜11位に対応する。
+`data/emperors.json` の各人物レコードに追加する、死因（[DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md)）以外の追加調査項目のスキーマ設計ドキュメント（調査の経緯・完了記録は [docs/PROJECT_STATUS.md](../../docs/PROJECT_STATUS.md) と `meta.status.phases` を参照）。
 
 対応する `meta.status.phases` のキー：`accessionRoute` / `eraChangeCount` / `amnestyCount` / `empressInstallationCount` / `crownPrinceDepositionCount` / `capitalRelocationCount` / `personalCampaignCount` / `rebellionSuppressionCount` / `rebellionSufferedCount` / `ages`。
 
@@ -8,13 +8,13 @@
 
 ## 情報源・調査方針（共通）
 
-[DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md) と同じ方針に従う。原典（正史の本紀・列伝）を第一次情報源とし、WebSearchの要約のみを根拠に確定しない。CLAUDE.md「データ調査の進め方」を参照。
+[DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md) と同じ方針に従う。原典（正史の本紀・列伝）を第一次情報源とし、WebSearchの要約のみを根拠に確定しない。[docs/process/RESEARCH_PROCESS.md](../../docs/process/RESEARCH_PROCESS.md) を参照。
 
 - グループ1（即位経路）は在位データ調査で読んだ即位記事・崩御記事の再確認で済むことが多い。
 - グループ2（改元・大赦・立后・皇太子廃立）は本紀の通読で4項目同時に埋める。
 - グループ3（親征・反乱鎮圧・被反乱）は本紀の軍事記事を数える。**このドキュメントで定めた数え方の基準に従う**（下記参照）。
 - グループ4（遷都）は王朝単位の集計になりがちだが、本スキーマでは個人レコード単位（「自分の在位中に何回遷都したか」）で持たせる。
-- グループ5（即位時年齢・没年齢）は生年データ確保がネックのため `deferred` のまま。フィールド定義のみ確定。
+- グループ5（即位時年齢・没年齢）は当初生年データ確保がネックのため `deferred` としていたが、2026-07-17 に悉皆調査へ格上げし 2026-07-18 に全員完了済み。
 
 ## 1. 即位経路（`accessionRoute`）
 
@@ -60,7 +60,7 @@
 "eraChangeCount": {
   "count": 3,
   "events": [
-    { "date": "-0140-10-01", "datePrecision": "month", "note": "建元→元光に改元", "source": { "page": "...", "lang": "ja" } }
+    { "date": "-0133-01-01", "datePrecision": "year", "note": "建元→元光に改元（元光元年＝前134年）", "source": { "page": "...", "lang": "ja" } }
   ],
   "confidence": "high",
   "note": "総括コメント（不確実な件数がある場合など）"
@@ -69,6 +69,7 @@
 
 - `count`: `events` 配列の要素数と一致させる（一致しない場合は不確実な件数が別途あることを意味し、`note` で説明する）。
 - `events[].date` / `.datePrecision`: `reigns[].startDate`/`datePrecision` と同形式。日付が特定できない場合は `date: null`, `datePrecision` は省略可。
+  - **紀元前の年規約（2026-07-22 統一）**: `reigns` と同じ ISO 8601 天文年（前n年 → `-(n-1)`。例: 前134年 → `-0133`）で表記する。歴史年直記（前n年 → `-n`）は使わない。month/day precision では実際のユリウス暦時点が属する年を使う（漢初〈太初改暦・前104年より前〉は年始が冬十月のため、冬十月〜十二月・閏九月のイベントは紀年の対応年より1年前の ISO 年に落ちる。例: 文帝元年冬十月 → `-0179-10`）。year precision では紀年（元号の元年等）の対応年を使う。`scripts/validate_emperors.py` の `check_bce_event_years()` が在位 ISO 年範囲チェックと note の「前n年」明記との突合を行う。
 - `events[].note`: 自然文で事由を記す。
 - `confidence`: レコード全体（`count` の確からしさ）に対して `high`/`medium`/`low`。
 - 該当なし（0回）の場合も `count: 0`, `events: []` で明示する（フィールド自体を省略しない。調査未実施と0回を区別するため、未調査の人物は `phases` の `status` で管理し、フィールド自体を付与しない）。
@@ -129,7 +130,7 @@
 
 ## 7〜9. 軍事系カウント（親征・反乱鎮圧・被反乱）
 
-判定基準を先に確定してから調査に着手する（CLAUDE.md グループ3の指示）。基準は以下の通り確定：
+判定基準を先に確定してから調査に着手する方針で進めた（経緯は [docs/PROJECT_STATUS.md](../../docs/PROJECT_STATUS.md) グループ3の節を参照）。基準は以下の通り確定：
 
 ### 7. 親征回数（`personalCampaignCount`）
 

@@ -25,6 +25,17 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # デプロイゲート: validate-data.yml は並列に走るだけでデプロイを止めないため、
+      # build ジョブ冒頭でもデータ検証を実行し、検証エラー時は公開させない（task.md 0-2）
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate emperors.json (deploy gate)
+        run: |
+          pip install jsonschema
+          python3 scripts/validate_emperors.py
+
       - uses: actions/setup-node@v7
         with:
           node-version: "26.4.0"
@@ -34,6 +45,12 @@ jobs:
       - name: Install dependencies
         working-directory: site
         run: npm ci
+
+      - name: Lint & typecheck
+        working-directory: site
+        run: |
+          npm run lint
+          npx tsc --noEmit
 
       - name: Build
         working-directory: site

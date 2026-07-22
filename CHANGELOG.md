@@ -6,6 +6,14 @@
 
 データ内容の版管理を開始した初版です。以下は開始までの主要な変更の遡及記録を含みます。
 
+### 訂正（2026-07-22）
+
+- **BCE イベント日付の年規約統一 105件**（task.md 0-2）: 前漢の `events[].date`（改元・大赦・立后・皇太子廃立）に歴史年直記（前n年 → `-n`）が混在していたのを、`reigns` と同じ ISO 8601 天文年（前n年 → `-(n-1)`）に統一。レビュー時の見立て（8件）より実際の対象は大きく、BCE イベント全127件中105件を訂正（han-gaozu・han-chengdi の大半は入力時から天文年で正しかった＝混在の実態）。恵帝2件（惠帝四年＝前191年）・後少帝2件（高后六年＝前182年・八年＝前180年、呂后崩御は干支換算で 180BC-08-18 の日精度に確定）・成帝鴻嘉（鴻嘉元年＝前20年、3年ズレ）は原典キャッシュで個別確認のうえ訂正。漢初（太初改暦前）の冬十月〜十二月イベントは実ユリウス年側を採用（規約は `data/schema/ADDITIONAL_SCHEMA.md` に明文化）。成帝陽朔の改元は note で年が判明済みなのに `date: null` だったため `-0023` を付与
+- 再発防止として `scripts/validate_emperors.py` に `check_bce_event_years()` を追加（在位 ISO 年範囲チェック＋note「前n年」明記との突合。訂正前データで16件検出・訂正後0件を回帰確認済み）
+- **`flags.usedEmperorTitleFrom` の旧値残存3件を訂正**（task.md 0-2）: qianzhao-liuyuan 309→308（晋書載記「永嘉二年、僭即皇帝位」）・suimo-liangshidu 618→617（大業十三年称帝）・yuanmo-mingyuzhen 1363→1362（明史列伝「二十二年春僣即皇帝位」）。いずれもフェーズB在位訂正時の同期漏れで、原典キャッシュで個別確認のうえ訂正。あわせて同フィールドの規約を「歴史紀年ベース（旧暦年またぎの十二月称帝等では `reigns[0].startYear` より1小さくなる。該当4件は正当）」と確定し `data/schema/EMPERORS_SCHEMA.md` に明文化、`validate_emperors.py` に `check_used_emperor_title_from()` を追加（訂正前データで3件検出を回帰確認済み）
+- **`reignSummary.totalReignDuration` の同期漏れ9件を再計算**（task.md 0-1）: フェーズBの日付訂正時に `reigns[].duration` 側のみ更新され summary 側が旧値のまま残っていた han-wudi・han-zhaodi・han-xuandi・han-yuandi・wei-wendi・wei-caomao・shuhan-zhaoliedi・shuhan-liushan・nansong-ningzong の `approxDays`/`displayYears` を `reigns` の合計から再計算（最大 366 日のズレ）。shuhan-liushan は reigns 側の月精度格下げ済みに対し summary が `isExact: true` のままだった内部矛盾も解消（`isExact: false`・`needsPreciseDays: true` へ）
+- 再発防止として `scripts/validate_emperors.py` の `check_reign_summary()` に totalReignDuration 検証（approxDays 合計・isExact/needsPreciseDays・displayYears 年換算）を追加
+
 ### 追加・変更（2026-07-21）
 
 - **ライセンス確定**: データ・調査メモ文章を CC BY 4.0、コードを MIT の二重ライセンス構成として宣言（`meta.license` 新設・`data/LICENSE` 配置）

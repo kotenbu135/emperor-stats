@@ -231,15 +231,37 @@
 - `reigns[].duration.source` の Wikipedia 出典チェックは、2026-07-21ブロック12完了（残存数0件到達）を受けて**警告からエラーに格上げ済み**（同日実施）。さらに同日、出典禁止語チェック全体をパス列挙方式から **emperor レコード全体の再帰走査方式**に変更した — キー名 `source` を持つ出典はどのフィールド（将来の新設含む）でも自動的に検査対象になり、Wikipedia/百度等の混入・source が object でない構造異常は CI が落ちる（JSON パス付きの個別エラー）。
 - 新フィールドを正式追加する際は `data/schema/emperors.schema.json`（配布用）と `EMPERORS_SCHEMA.md` を先に更新する。厳格版チェックが未記載キーを構造ドリフトとして検出する。
 
-**CI 構築時に見つかった未解決のデータ問題（許容リスト登録済み・フェーズB等で個別調査を要する）**:
-- `beiwei-yuanfasheng` reigns[0]: startDate 0525-02-08 > endDate 0525-02-01（逆転。北朝ブロックで確認を）
-- `qianzhao-liuyuan`: reignSummary.firstStartYear=309 vs reigns[0].startYear=308（どちらが正か要調査）
-- `ages.deathDate` が最終 `endDate` より前（精度を揃えた比較で9件）: chen-wendi・beiwei-tuobayu・shiguo-qianshu-wangjian・shiguo-nanhan-liusheng・liao-jingzong・liao-daozong・xixia-huizong・xixia-chongzong・shun-lichengzheng。旧暦月表記と西暦換算日の混在が主因とみられ、各ブロックの ages 同期時に解消するのが自然
+**デプロイ CI（`.github/workflows/deploy-site.yml`）との関係**:
+- サイトのビルド・GitHub Pages への公開は `deploy-site.yml` が担う。トリガーの `paths` は `site/**` に加えて `data/**` と肖像画同期元を含む（データのみのコミットでデプロイが走らない構造問題があり 2026-07-20 に恒久対策済み。サイトはビルド時に `data/emperors.json` を直接読むため、データ訂正はデプロイを伴って初めて公開に反映される）。
+- 2026-07-22（task.md 0-2）、`validate-data.yml` が並列に走るだけでデプロイを止められない問題への対策として、`deploy-site.yml` の build ジョブ冒頭に `validate_emperors.py` の実行（デプロイゲート）と `npm run lint`・`npx tsc --noEmit` を追加した。検証エラー時はビルド前に失敗し公開されない。
+
+**CI 構築時に見つかった未解決のデータ問題（許容リスト登録済み・フェーズB等で個別調査を要する。2026-07-22 現況更新）**:
+- ~~`beiwei-yuanfasheng` reigns[0]: startDate > endDate の逆転~~ **解消済み**（2026-07-21 フェーズB北朝ブロックで訂正。`KNOWN_REIGN_ORDER` は空）
+- ~~`qianzhao-liuyuan`: reignSummary.firstStartYear=309 vs reigns[0].startYear=308~~ **解消済み**（2026-07-21 フェーズB ブロック3の reignSummary 再計算で 308 に統一。なお flags.usedEmperorTitleFrom の同種の旧値残存は 2026-07-22 の 0-2 で訂正済み）
+- `ages.deathDate` が最終 `endDate` より前（精度を揃えた比較で9件）: chen-wendi・beiwei-tuobayu・shiguo-qianshu-wangjian・shiguo-nanhan-liusheng・liao-jingzong・liao-daozong・xixia-huizong・xixia-chongzong・shun-lichengzheng。旧暦月表記と西暦換算日の混在が主因とみられ、個別調査での解消待ち（`KNOWN_DEATH_BEFORE_END` に登録済み）
 - `confidence: ""` 4件（既知・task.md 3-3 に記載のとおり値の確定は調査判断待ち）
 
 **同時に直した既存 QA 資産の不備**:
 - `scripts/detect_wikipedia_sources.py` のグループ名誤り（`empressEstablishCount`/`crownPrinceDeposalCount` → 実データは `empressInstallationCount`/`crownPrinceDepositionCount`。立后・廃立の events が全件スキップされていた。修正後も検出0件でフェーズAの結論は不変）と、`zhonghuadiguo-yuanshikai` の accessionRoute 意図的表記「近現代の学術的に信頼できる複数情報源」の許容リスト追加
 - `data/schema/emperors.schema.json` にフェーズB新設の `source.quote`/`source.conversion` が未反映だった点と、`meta` の patternProperties が `completedBlocks`/`reignDurationSourceBlocks` を取りこぼしていた点（`Blocks$` に修正）
+
+## reignSummary.totalReignDuration の同期漏れ訂正＋CI 検証追加（2026-07-22、task.md 0-1）
+
+2026-07-22 の多角的レビューで、`reignSummary.totalReignDuration.approxDays` が `sum(reigns[].duration.approxDays)` と不一致の9件を検出・訂正した（han-wudi・han-zhaodi・han-xuandi・han-yuandi・wei-wendi・wei-caomao・shuhan-zhaoliedi・shuhan-liushan・nansong-ningzong。最大 366 日のズレ）。フェーズB ブロック1・2（秦・前漢・三国）＋南宋寧宗の日付訂正時に summary 側の再計算が漏れたもの。`displayYears` は各レコード既存の小数桁数を維持して年=365 換算で再計算し、shuhan-liushan は summary の `isExact: true` / `needsPreciseDays: false` が reigns 側の月精度格下げと矛盾していた点も是正した。
+
+再発防止として `scripts/validate_emperors.py` の `check_reign_summary()` に totalReignDuration 検証を追加した（approxDays=合計の一致・isExact/needsPreciseDays と reigns の exactDays 確定状況の一致・displayYears が年換算〔÷365 または ÷365.25・小数0〜2桁丸め〕に一致、をすべてエラー扱い）。訂正前データに対して9件全員を検出することを確認済み。既知の例外は qin-er-shi の displayYears=2（切り捨て値・算出基準の統一は task.md 0-3 で個別判断待ち）のみで、`KNOWN_DISPLAY_YEARS` 許容リストに登録している。
+
+## BCE イベント日付の年規約統一（2026-07-22、task.md 0-2）
+
+前漢13人の `events[].date`（改元・大赦・立后・皇太子廃立、BCE イベント全127件）のうち105件が歴史年直記（前n年 → `-n`）で入力されており、`reigns` 側の ISO 8601 天文年（前n年 → `-(n-1)`）と規約が食い違っていたのを統一した。レビュー時の見立ては「8件」だったが、note に「前n年」の明記がないイベント（紀年のみ記載）が検出から漏れていたもので、実際は han-gaozu・han-chengdi の大半（入力時から天文年で正しい）を除くほぼ全件が対象だった。恵帝2件・後少帝2件・成帝鴻嘉1件（3〜4年ズレの不規則系）は `_corpus_cache` の原典で紀年を個別確認のうえ訂正。規約の定義（year precision は紀年の対応年・month/day precision は実ユリウス年、漢初の冬十月〜十二月の年またぎ扱い）は `data/schema/ADDITIONAL_SCHEMA.md` に明文化した。
+
+再発防止として `scripts/validate_emperors.py` に `check_bce_event_years()` を追加（BCE イベントの在位 ISO 年範囲チェック＋note「前n年」明記との突合をエラー扱い。訂正前データで16件検出・訂正後0件を回帰確認済み）。note に西暦の明記がない1年ズレは機械検出できないため、新規 BCE イベント追加時は note に「前n年」を併記することを推奨する。
+
+なお han-xuandi の立后3件は `datePrecision: "day"` なのに `date` が年のみという不整合が残っている（干支は note に記録済みだが、漢代太初暦の月境界を sxtwl が再現する保証がなく日付確定は個別調査が必要。task.md 0-3 扱い）。
+
+## flags.usedEmperorTitleFrom の規約確定＋旧値3件訂正（2026-07-22、task.md 0-2）
+
+`reigns[0].startYear` と乖離する7件のうち、qianzhao-liuyuan（309→308）・suimo-liangshidu（618→617）・yuanmo-mingyuzhen（1363→1362）の3件はフェーズB在位訂正時の旧値残存で、原典キャッシュで確認のうえ訂正した。残る4件（liu-yong-liang・liang-houjing・beiwei-daowudi・beiqi-andewang-gaoyanzong）は旧暦十二月称帝がユリウス暦で翌年1月に落ちる年またぎで、規約を「歴史紀年ベース」と確定したことで正当な -1 乖離として確定（`data/schema/EMPERORS_SCHEMA.md` に明文化・`validate_emperors.py` の `check_used_emperor_title_from()` で検証）。なおこのフィールドは現時点でサイト未使用。
 
 ## ages 生没年日付の ISO 正規化（2026-07-21、CI 非 ISO 警告62件の解消）
 
@@ -254,7 +276,7 @@
 
 **申し送り（今回のスコープ外と決めた残警告）**:
 - **datePrecision 非標準トークン（警告、115 件 77 種）**: ages/events の precision 自由記述の正規化は語彙標準の方針確定が先のため未実施（ユーザー判断 2026-07-21）。今回触れた ages フィールド分のみ標準トークン化済み。着手時は `normalizeDatePrecision`（site 側の接頭辞判別）が吸収している実態を壊さないよう、site 表示と検証の両方を確認すること。
-- **deathDate > endDate（警告、47 件）**: 在位終了事由フィールドが無く退位後死去と真の誤りを機械判別できないため見送り（ユーザー判断 2026-07-21）。解消するなら終了事由の新フィールド設計が前提。
+- **deathDate > endDate（警告、47 件→2026-07-22 実測 49 件）**: 在位終了事由フィールドが無く退位後死去と真の誤りを機械判別できないため見送り（ユーザー判断 2026-07-21）。解消するなら終了事由の新フィールド設計が前提。
 
 ## ライセンス確定・データ公開基盤（2026-07-21、task.md 2-2/2-3/2-1残/4-2）
 

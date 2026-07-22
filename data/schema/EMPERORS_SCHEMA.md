@@ -21,7 +21,7 @@
 | `generatedAt` | string (`YYYY-MM-DD`) | データ最終更新日 |
 | `count` | number | `emperors` 配列の件数（365件、手動同期） |
 | `status` | object | 調査フェーズの進捗管理（下記） |
-| `completedBlocks` | string[] | 在位データ調査が完了した王朝ブロック名の一覧（23ブロック。単純な文字列配列で、除外判断等の詳細は各人物レコードの `verification.notes` 側に記録） |
+| `completedBlocks` | string[] | 在位データ調査が完了した王朝ブロック名の一覧（24ブロック。単純な文字列配列で、除外判断等の詳細は各人物レコードの `verification.notes` 側に記録） |
 
 ### `meta.status`
 
@@ -115,7 +115,7 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 |---|---|---|
 | `isFemale` | boolean | 皇帝を称した女性（例: 武則天）を示す |
 | `selfProclaimed` | boolean | 自称・簒奪政権かどうか |
-| `usedEmperorTitleFrom` | number | 皇帝号を使用開始した西暦年 |
+| `usedEmperorTitleFrom` | number | 皇帝号を使用開始した年。**歴史紀年ベース**（称帝時点の旧暦年に対応する西暦年。2026-07-22 規約確定）。旧暦十二月の称帝などでユリウス暦上の実日付が翌年1月になる場合、`reigns[0].startYear`（実日付の年）より1小さくなる（該当4件: liu-yong-liang・liang-houjing・beiwei-daowudi・beiqi-andewang-gaoyanzong）。それ以外は `startYear` と一致する（`validate_emperors.py` の `check_used_emperor_title_from()` で検証） |
 
 ### `sources`
 | フィールド | 型 | 内容 |

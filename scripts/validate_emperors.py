@@ -17,9 +17,18 @@
     startYear/endYear（歴史年）と ISO 日付（天文年）の対応
   - duration: exactDays は両端 day 精度のときのみ・needsPreciseDays との排他
   - 回数系 8 指標: count == len(events)
+  - BCE イベント日付の年規約（reigns と同じ天文年〈前n年→-(n-1)〉。在位 ISO 年範囲チェック＋
+    note「前n年」明記との突合。2026-07-22 の前漢105件統一〔task.md 0-2〕の再発防止）
+  - flags.usedEmperorTitleFrom: reigns[0].startYear と一致、または旧暦年またぎの -1 のみ許容
+    （歴史紀年ベースの規約は EMPERORS_SCHEMA.md 参照。task.md 0-2）
   - ages: birthDate≦deathDate、deathDate が最終 reign endDate より前ならエラー
     （退位後死去の deathDate > endDate は正当なので警告どまり。task.md 3-3 の2段階方式）
   - reignSummary の reignCount / firstStartYear / lastEndYear と reigns の整合
+  - reignSummary.totalReignDuration: approxDays が reigns の合計と一致・
+    isExact / needsPreciseDays が reigns の exactDays 確定状況と一致・
+    displayYears が approxDays の年換算（÷365 または ÷365.25、小数 0〜2 桁丸め）と一致
+    （フェーズB の日付訂正時に summary 側の同期が漏れた9件が CI をすり抜けた事故〔task.md 0-1・
+    2026-07-22 訂正済み〕の再発防止）
   - confidence 値（high/medium/low/null 以外・空文字はエラー）
   - 出典禁止語: emperor レコードを再帰走査し、キー名 `source` の出典すべてが対象
     （deathCause/accessionRoute/events/reigns[].duration ほか将来の新設フィールドも自動的に
@@ -89,6 +98,10 @@ KNOWN_EMPTY_CONFIDENCE = {
 # reignSummary と reigns の不一致（現状該当なし。
 # qianzhao-liuyuanのfirstStartYear不一致はブロック3〈2026-07-21〉のreignSummary再計算で解消済み）。
 KNOWN_REIGN_SUMMARY = set()
+
+# displayYears が標準の年換算（÷365 / ÷365.25・0〜2桁丸め）に合わない既知例。
+# qin-er-shi は 1090日→2（丸めでなく切り捨て）。算出基準の統一は task.md 0-3 で個別判断待ち
+KNOWN_DISPLAY_YEARS = {"qin-er-shi"}
 
 # ---------------------------------------------------------------------------
 
@@ -284,6 +297,61 @@ def check_counts(data):
                 err(f"[counts] {e['id']}.{g}: count={count} だが events は {len(events)} 件")
 
 
+BCE_NOTE_YEAR = re.compile(r"前(\d{1,4})年")
+
+
+def check_bce_event_years(data):
+    """BCE イベント日付の年規約チェック（task.md 0-2、2026-07-22 統一）。
+
+    events[].date は reigns と同じ ISO 8601 天文年（前n年 → -(n-1)）で表記する。
+    - 在位範囲: BCE イベントの年は在位期間の ISO 年範囲内に収まるはず
+      （即位年の大赦・崩御年の遺詔大赦も同一 ISO 年に落ちることを全件で確認済み）
+    - 歴史年直記の検出: note に「前n年」の明記があるのに date の年がどの n とも
+      -(n-1) で一致せず、いずれかの n と -n で一致する場合は旧規約（歴史年直記）の疑い
+    """
+    for e in data["emperors"]:
+        reign_years = []
+        for r in e.get("reigns") or []:
+            for k in ("startDate", "endDate"):
+                t = parse_date(r.get(k))
+                if t:
+                    reign_years.append(t[0])
+        for g in COUNT_GROUPS:
+            o = e.get(g)
+            if not isinstance(o, dict):
+                continue
+            for i, ev in enumerate(o.get("events") or []):
+                t = parse_date(ev.get("date"))
+                if not t or t[0] > 0:
+                    continue
+                y = t[0]
+                if reign_years and not (min(reign_years) <= y <= max(reign_years)):
+                    err(f"[bce-events] {e['id']}.{g}[{i}]: date={ev['date']} が在位 ISO 年範囲 "
+                        f"[{min(reign_years)}, {max(reign_years)}] 外（年規約違反の疑い）")
+                note_years = [int(n) for n in BCE_NOTE_YEAR.findall(ev.get("note") or "")]
+                if note_years and not any(y == -(n - 1) for n in note_years):
+                    if any(y == -n for n in note_years):
+                        err(f"[bce-events] {e['id']}.{g}[{i}]: date={ev['date']} が note の"
+                            f"「前n年」{note_years} と歴史年直記（-n）で一致（天文年 -(n-1) に統一する）")
+
+
+def check_used_emperor_title_from(data):
+    """flags.usedEmperorTitleFrom の規約チェック（task.md 0-2、2026-07-22 確定）。
+
+    歴史紀年ベース（称帝時点の旧暦年に対応する西暦年）。旧暦年またぎ（十二月称帝等）で
+    reigns[0].startYear（実日付の年）より1小さくなるのは正当。それ以外の乖離はエラー。
+    """
+    for e in data["emperors"]:
+        f_ = (e.get("flags") or {}).get("usedEmperorTitleFrom")
+        reigns = e.get("reigns") or []
+        sy = reigns[0].get("startYear") if reigns else None
+        if not isinstance(f_, int) or not isinstance(sy, int):
+            continue
+        if f_ not in (sy, sy - 1):
+            err(f"[flags] {e['id']}: usedEmperorTitleFrom={f_} が reigns[0].startYear={sy} と"
+                f"乖離（許容は一致または旧暦年またぎの -1 のみ）")
+
+
 def check_ages(data):
     death_after_end = []
     non_iso = 0
@@ -334,6 +402,47 @@ def check_reign_summary(data):
                     KNOWN_REIGN_SUMMARY.discard((eid, field))
                 else:
                     err(f"[reignSummary] {eid}: {field}={got} だが reigns からは {want}")
+
+        # totalReignDuration と reigns[].duration の整合（フェーズB同期漏れ9件の再発防止）
+        t = rs.get("totalReignDuration")
+        if not (isinstance(t, dict) and reigns):
+            continue
+        durations = [r.get("duration") or {} for r in reigns]
+        if any(d.get("approxDays") is None for d in durations):
+            continue  # approxDays 欠落は check_reigns 側でエラーになる
+        total = sum(d["approxDays"] for d in durations)
+        if t.get("approxDays") != total:
+            err(
+                f"[reignSummary] {eid}: totalReignDuration.approxDays={t.get('approxDays')} "
+                f"だが reigns の合計は {total}"
+            )
+        exact_all = all(d.get("exactDays") is not None for d in durations)
+        if bool(t.get("isExact")) != exact_all:
+            err(
+                f"[reignSummary] {eid}: isExact={t.get('isExact')} だが "
+                f"全 reigns の exactDays 確定は {exact_all}"
+            )
+        if bool(t.get("needsPreciseDays")) == exact_all:
+            err(
+                f"[reignSummary] {eid}: needsPreciseDays={t.get('needsPreciseDays')} が "
+                f"reigns の exactDays 確定状況（全確定={exact_all}）と矛盾"
+            )
+        # displayYears: ÷365 または ÷365.25 を 0〜2 桁で丸めた値のいずれかに一致すること
+        dy = t.get("displayYears")
+        if isinstance(dy, (int, float)):
+            candidates = [
+                round(total / divisor, nd)
+                for divisor in (365, 365.25)
+                for nd in (0, 1, 2)
+            ]
+            if not any(abs(dy - c) < 1e-9 for c in candidates):
+                if eid in KNOWN_DISPLAY_YEARS:
+                    KNOWN_DISPLAY_YEARS.discard(eid)
+                else:
+                    err(
+                        f"[reignSummary] {eid}: displayYears={dy} が approxDays 合計 "
+                        f"{total} の年換算（÷365/÷365.25・0〜2桁丸め）と一致しない"
+                    )
 
 
 def check_confidence(data):
@@ -441,6 +550,8 @@ def main() -> int:
     check_wikidata(data)
     check_reigns(data)
     check_counts(data)
+    check_bce_event_years(data)
+    check_used_emperor_title_from(data)
     check_ages(data)
     check_reign_summary(data)
     check_confidence(data)
@@ -453,6 +564,7 @@ def main() -> int:
         ("KNOWN_DEATH_BEFORE_END", KNOWN_DEATH_BEFORE_END),
         ("KNOWN_EMPTY_CONFIDENCE", KNOWN_EMPTY_CONFIDENCE),
         ("KNOWN_REIGN_SUMMARY", KNOWN_REIGN_SUMMARY),
+        ("KNOWN_DISPLAY_YEARS", KNOWN_DISPLAY_YEARS),
     ):
         # 消費されなかった（=データ側が既に正しい）エントリが残っていれば陳腐化
         if left:

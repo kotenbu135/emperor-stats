@@ -86,7 +86,9 @@ export function buildMetadata({
 }): Metadata {
   const ogTitle = title ?? SITE_NAME;
   return {
-    title,
+    // title を undefined の明示キーとして含めると layout.tsx の title.default 継承が
+    // 打ち消され、トップページの <title> が空になる（2026-07-22 実測）。省略時はキー自体を出さない。
+    ...(title !== undefined ? { title } : {}),
     description,
     alternates: { canonical: path },
     openGraph: {
