@@ -54,6 +54,7 @@ export const categoryColorMaps: Record<string, Record<string, string>> = {
     世襲: "#2a78d6",
     簒奪: "#e34948",
     禅譲: "#4a3aa7",
+    内禅: "#12939a",
     擁立: "#eb6834",
     復位: "#1baf7a",
     建国: "#eda100",

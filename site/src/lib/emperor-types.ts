@@ -15,6 +15,7 @@ export type AccessionRouteCategory =
   | "世襲"
   | "簒奪"
   | "禅譲"
+  | "内禅"
   | "擁立"
   | "復位"
   | "建国"
@@ -442,6 +443,7 @@ export const accessionRouteCategoryOrder: AccessionRouteCategory[] = [
   "世襲",
   "簒奪",
   "禅譲",
+  "内禅",
   "擁立",
   "復位",
   "建国",
@@ -452,7 +454,8 @@ export const accessionRouteCategoryOrder: AccessionRouteCategory[] = [
 export const accessionRouteDescriptions: Record<AccessionRouteCategory, string> = {
   世襲: "先帝の子・兄弟など血縁者が、通常の手続き（遺詔・立太子からの継承等）で即位",
   簒奪: "臣下・軍閥・外戚などが実力・クーデターにより先帝から皇位を奪って即位",
-  禅譲: "先帝から形式上・儀礼上の「譲位」を受けて即位",
+  禅譲: "前王朝（別姓）の皇帝から譲位を受けて即位＝王朝交代を伴う受禅（例：曹丕・司馬炎）",
+  内禅: "同一王朝内で、先帝が在世のまま生前譲位して即位（例：唐玄宗・清仁宗・金末帝）",
   擁立: "臣下・軍閥・宦官・外戚等の主導により、本人の主体的な簒奪行為なしに即位",
   復位: "一度廃位・退位した後、再び即位した",
   建国: "王朝・政権を新規に樹立して自ら皇帝を称した",
