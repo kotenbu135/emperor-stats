@@ -705,10 +705,10 @@ def check_confidence(data):
 
 def check_event_date_format(data):
     """events の date/startDate/endDate は ISO 形式必須（2026-07-22 正規化完了に伴い恒久化・エラー）。
-    precision に対する日付深さ不足は、`date` キーは是正済みのためエラー、
-    startDate/endDate の混在精度（開始のみ日精度で終了が年精度等、単一トークンでは表現不能）は
-    既存データに大量に残る設計上の課題のため警告に留める（正規化方針が決まったら格上げ）。"""
-    shallow_range = 0
+    datePrecision は単一トークン（year/month/day/null）に加え、startDate/endDate で実確認精度が
+    異なるイベントに限り reigns[] と同形式の {"start": ..., "end": ...} オブジェクトを許可
+    （2026-07-23 混在精度44キー解消・ユーザー確定。語彙自体は check_confidence が検査）。
+    precision に対する日付深さ不足は全キーでエラー（旧実装の startDate/endDate 警告を格上げ）。"""
     for e in data["emperors"]:
         for g in COUNT_GROUPS:
             o = e.get(g)
@@ -718,6 +718,22 @@ def check_event_date_format(data):
                 if not isinstance(ev, dict):
                     continue
                 prec = ev.get("datePrecision")
+                if isinstance(prec, dict):
+                    if set(prec) != {"start", "end"}:
+                        err(
+                            f"[event-date] {e['id']}.{g}[{i}]: datePrecision オブジェクトは "
+                            f"start/end の両キー必須: {prec!r}"
+                        )
+                    elif prec.get("start") == prec.get("end"):
+                        err(
+                            f"[event-date] {e['id']}.{g}[{i}]: datePrecision の start と end が"
+                            f"同値（単一トークンで表現する）: {prec!r}"
+                        )
+                    if ev.get("date") is not None:
+                        err(
+                            f"[event-date] {e['id']}.{g}[{i}]: 単一日付 date にオブジェクト形式 "
+                            f"datePrecision は使えない"
+                        )
                 for k in ("date", "startDate", "endDate"):
                     v = ev.get(k)
                     if v is None:
@@ -725,20 +741,16 @@ def check_event_date_format(data):
                     if not isinstance(v, str) or not ISO_DATE.match(v):
                         err(f"[event-date] {e['id']}.{g}[{i}].{k}: 非ISO形式 {str(v)[:40]!r}")
                         continue
+                    if isinstance(prec, dict):
+                        tok = prec.get("end" if k == "endDate" else "start")
+                    else:
+                        tok = prec
                     depth = len(v.lstrip("-").split("-"))
-                    if isinstance(prec, str) and prec in PRECISION_DEPTH and depth < PRECISION_DEPTH[prec]:
-                        if k == "date":
-                            err(
-                                f"[event-date] {e['id']}.{g}[{i}].{k}: datePrecision={prec} に対し"
-                                f"日付 {v} の深さが不足"
-                            )
-                        else:
-                            shallow_range += 1
-    if shallow_range:
-        warn(
-            f"[event-date] startDate/endDate の深さが datePrecision より浅いイベント日付: "
-            f"{shallow_range} 件（混在精度の表現方法が未確定のため警告のみ）"
-        )
+                    if isinstance(tok, str) and tok in PRECISION_DEPTH and depth < PRECISION_DEPTH[tok]:
+                        err(
+                            f"[event-date] {e['id']}.{g}[{i}].{k}: datePrecision={tok} に対し"
+                            f"日付 {v} の深さが不足"
+                        )
 
 
 def check_forbidden_sources(data):

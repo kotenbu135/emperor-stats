@@ -34875,6 +34875,26 @@
     "德依燕元故事称元年"
    ]
   },
+  "nanyan-murongde|rebellionSufferedCount[2].note|daad1fb80326": {
+   "id": "nanyan-murongde",
+   "path": "rebellionSufferedCount[2].note",
+   "span": "夏，四月，癸巳朔",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴四库.txt",
+   "frags": [
+    "夏四月癸巳朔"
+   ]
+  },
+  "nanyan-murongde|rebellionSuppressionCount[2].note|daad1fb80326": {
+   "id": "nanyan-murongde",
+   "path": "rebellionSuppressionCount[2].note",
+   "span": "夏，四月，癸巳朔",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴四库.txt",
+   "frags": [
+    "夏四月癸巳朔"
+   ]
+  },
   "nanyan-murongde|rebellionSuppressionCount[2].note|f0e6bd7ae5db": {
    "id": "nanyan-murongde",
    "path": "rebellionSuppressionCount[2].note",
@@ -36210,6 +36230,28 @@
    "corpusFile": "_corpus_cache/qianqin-fujian.txt",
    "frags": [
     "健率步骑二万攻琚斩其"
+   ]
+  },
+  "qianqin-fujian|rebellionSufferedCount[5].note|f60e007a46bb": {
+   "id": "qianqin-fujian",
+   "path": "rebellionSufferedCount[5].note",
+   "span": "六月，丙子，秦主健寝疾。庚辰，平昌王菁勒兵入东宫，将杀太子生而自立。",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴四库.txt",
+   "frags": [
+    "六月丙子秦主健寝疾庚",
+    "菁勒兵入东宫将杀太子"
+   ]
+  },
+  "qianqin-fujian|rebellionSuppressionCount[5].note|f60e007a46bb": {
+   "id": "qianqin-fujian",
+   "path": "rebellionSuppressionCount[5].note",
+   "span": "六月，丙子，秦主健寝疾。庚辰，平昌王菁勒兵入东宫，将杀太子生而自立。",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴四库.txt",
+   "frags": [
+    "六月丙子秦主健寝疾庚",
+    "菁勒兵入东宫将杀太子"
    ]
   },
   "qianqin-fujian|reigns[0].quote#0|f4082c5c087e": {
@@ -41992,6 +42034,48 @@
     "建自将击之岐兵败解去"
    ]
   },
+  "shiguo-qianshu-wangjian|rebellionSufferedCount[0].note|20004e4544b9": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "rebellionSufferedCount[0].note",
+   "span": "戊申，徐瑶、常谦与怀胜军使严璘等各帅所部兵奉太子攻道袭",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴四库.txt",
+   "frags": [
+    "戊申徐瑶常谦与怀胜军",
+    "璘等各帅所部兵奉太子"
+   ]
+  },
+  "shiguo-qianshu-wangjian|rebellionSufferedCount[0].note|4f56ae589063": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "rebellionSufferedCount[0].note",
+   "span": "己酉旦，太子出就舟人丐食",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "己酉旦太子出就舟人丐"
+   ]
+  },
+  "shiguo-qianshu-wangjian|rebellionSufferedCount[0].note|54606390a947": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "rebellionSufferedCount[0].note",
+   "span": "比至，太子已为卫士所杀",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "比至太子已为卫士所杀"
+   ]
+  },
+  "shiguo-qianshu-wangjian|rebellionSufferedCount[0].note|56c24e901b65": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "rebellionSufferedCount[0].note",
+   "span": "太子初不为备，闻道袭召兵，乃以天武甲士自卫，捕潘峭、毛文锡至",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴四库.txt",
+   "frags": [
+    "太子初不为备闻道袭召",
+    "天武甲士自卫捕潘峭毛"
+   ]
+  },
   "shiguo-qianshu-wangjian|rebellionSufferedCount[0].note|6a6e46319114": {
    "id": "shiguo-qianshu-wangjian",
    "path": "rebellionSufferedCount[0].note",
@@ -42010,6 +42094,48 @@
    "corpusFile": "_corpus_cache/shiguo-qianshu-wangjian.txt",
    "frags": [
     "谋尽去建故将"
+   ]
+  },
+  "shiguo-qianshu-wangjian|rebellionSuppressionCount[0].note|20004e4544b9": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "rebellionSuppressionCount[0].note",
+   "span": "戊申，徐瑶、常谦与怀胜军使严璘等各帅所部兵奉太子攻道袭",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴四库.txt",
+   "frags": [
+    "戊申徐瑶常谦与怀胜军",
+    "璘等各帅所部兵奉太子"
+   ]
+  },
+  "shiguo-qianshu-wangjian|rebellionSuppressionCount[0].note|4f56ae589063": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "rebellionSuppressionCount[0].note",
+   "span": "己酉旦，太子出就舟人丐食",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "己酉旦太子出就舟人丐"
+   ]
+  },
+  "shiguo-qianshu-wangjian|rebellionSuppressionCount[0].note|54606390a947": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "rebellionSuppressionCount[0].note",
+   "span": "比至，太子已为卫士所杀",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "比至太子已为卫士所杀"
+   ]
+  },
+  "shiguo-qianshu-wangjian|rebellionSuppressionCount[0].note|56c24e901b65": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "rebellionSuppressionCount[0].note",
+   "span": "太子初不为备，闻道袭召兵，乃以天武甲士自卫，捕潘峭、毛文锡至",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴四库.txt",
+   "frags": [
+    "太子初不为备闻道袭召",
+    "天武甲士自卫捕潘峭毛"
    ]
   },
   "shiguo-qianshu-wangjian|reigns[0].conversion|01030aed6f0f": {

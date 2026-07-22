@@ -83,6 +83,8 @@
 
 - `count`: `events` 配列の要素数と一致させる（一致しない場合は不確実な件数が別途あることを意味し、`note` で説明する）。
 - `events[].date` / `.datePrecision`: `reigns[].startDate`/`datePrecision` と同形式。日付が特定できない場合は `date: null`, `datePrecision` は省略可。
+  - **`datePrecision` の語彙は `year`/`month`/`day`/`null` のみ**（2026-07-22 統一・CI で完全一致検査）。説明的文言・不確実性は `note` に書く。
+  - **期間イベント（`startDate`/`endDate`）で開始と終了の実確認精度が異なる場合**（2026-07-23 確定）は、`reigns[]` と同形式のオブジェクト `"datePrecision": {"start": "year", "end": "month"}` を使う。両端が同精度なら従来どおり単一トークン（オブジェクトで同値を書くのは CI エラー）。単一日付 `date` にオブジェクト形式は使えない。各日付は宣言精度以上の深さが必須（`scripts/validate_emperors.py` の `check_event_date_format()` がエラー検査）。
   - **紀元前の年規約（2026-07-22 統一）**: `reigns` と同じ ISO 8601 天文年（前n年 → `-(n-1)`。例: 前134年 → `-0133`）で表記する。歴史年直記（前n年 → `-n`）は使わない。month/day precision では実際のユリウス暦時点が属する年を使う（漢初〈太初改暦・前104年より前〉は年始が冬十月のため、冬十月〜十二月・閏九月のイベントは紀年の対応年より1年前の ISO 年に落ちる。例: 文帝元年冬十月 → `-0179-10`）。year precision では紀年（元号の元年等）の対応年を使う。`scripts/validate_emperors.py` の `check_bce_event_years()` が在位 ISO 年範囲チェックと note の「前n年」明記との突合を行う。
 - `events[].note`: 自然文で事由を記す。
 - `confidence`: レコード全体（`count` の確からしさ）に対して `high`/`medium`/`low`。
