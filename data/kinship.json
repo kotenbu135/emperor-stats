@@ -71,6 +71,13 @@
         "emperors": 17,
         "edges": 16,
         "persons": 0
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック6（梁・後梁・陳）",
+        "emperors": 18,
+        "edges": 14,
+        "persons": 0
       }
     ]
   },
@@ -1387,6 +1394,216 @@
       "note": "和帝蕭宝融は高宗明帝（蕭鸞）の第八子で、先代東昏侯（高宗第二子）の弟。「和帝讳宝融，字智昭，高宗第八子也」（南齊書 巻八 和帝紀）、「东昏侯宝卷，字智藏，高宗第二子也」（南齊書 巻七 東昏侯紀）。永元二年、荊州長史蕭穎冑が雍州刺史蕭衍（梁王）の挙兵に呼応して東昏侯打倒の義兵を挙げ南康王宝融を擁立、宣徳太后令「称宣德太后令：“西中郎将南康王宜纂承皇祚，光临亿兆」で斉の皇位継承者と宣言され、中興元年三月乙巳に江陵で「即皇帝位，大赦，改元」。即位時点では東昏侯がなお建康に在位して並立したが、同年十二月「建康城平」により斉朝内の皇位継承として確定した。引用は簡体字コーパス（china-history）の字体のまま。",
       "source": {
         "page": "南齊書 巻八 和帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qi-hedi",
+      "to": "liang-wudi",
+      "category": "建国",
+      "relationToPredecessor": "同族（遠縁）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "斉和帝（蕭寶融）からの禅譲により皇位を取得した梁の創始者。中興二年「丙辰，齐帝禅位于梁王」、和帝の詔に「今便敬禅于梁，即安姑孰，依唐虞、晋宋故事」（梁書 巻一）、策書に「敬禅神器，授帝位于尔躬」とあり、「天监元年夏四月丙寅，高祖即皇帝位于南郊」（梁書 巻二）。emperors.json の accessionRoute.category は「建国」（王朝創始者の禅譲受禅は建国のまま from に禅譲元を置く規約に従う）。血縁関係は、蕭衍の父について「道赐生皇考讳顺之，齐高帝族弟也」（梁書 巻一）とあり、父蕭順之が斉高帝蕭道成の族弟。和帝蕭寶融は斉明帝蕭鸞（高帝の甥）の子であり、両者は同じ蘭陵蕭氏だが直系の近親ではないため「同族（遠縁）」とする。",
+      "source": {
+        "page": "梁書 巻一 武帝紀上・巻二 武帝紀中",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liang-wudi",
+      "to": "liang-jianwendi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "武帝（高祖）の第三子で、昭明太子蕭統の同母弟。昭明太子薨去後の中大通三年に皇太子に立てられ（「晋安王纲……可立为皇太子」）、太清三年の武帝崩御を受けて皇太子として即位。「太清三年五月丙辰，高祖崩。辛巳，即皇帝位」。即位時点で建康は侯景の軍事支配下にあったが、皇位の取得自体は父武帝からの皇太子継承であり、侯景からの皇位移転ではない。",
+      "source": {
+        "page": "梁書 巻四 簡文帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liang-jianwendi",
+      "to": "liang-yuzhangwang",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "蕭棟は梁武帝の長子・昭明太子蕭統の嫡孫（豫章安王蕭歡の子）であり、簡文帝（昭明太子の母弟）から見て兄の孫＝姪孫にあたる（enumに「姪孫」がないため「その他」）。551年8月、侯景が簡文帝を廃して晋安王に落とした直後、「矫为太宗诏，禅于豫章嗣王栋，大赦改年」（梁書 巻四 簡文帝紀）と、簡文帝の偽詔（「矯」と明記）による禅譲の体裁で擁立された。南史も「栋字元吉。及简文见废，侯景奉以为主」「及即位，升武德殿」「于是年号天正」（南史 巻五十三 梁武帝諸子傳）と即位・改元の実態を記す。形式上は簡文帝からの禅譲だが実権は侯景にあり、accessionRoute.category「擁立」をそのまま使用。皇位は同一政権（梁）の直前皇帝・簡文帝から得たため from は liang-jianwendi。",
+      "source": {
+        "page": "梁書 巻四 簡文帝紀／南史 巻五十三 梁武帝諸子傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liang-jianwendi",
+      "to": "liang-yuandi",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "medium",
+      "note": "元帝蕭繹は武帝第七子（「世祖孝元皇帝，讳绎，字世诚，小字七符，高祖第七子也。」）で、武帝第三子の簡文帝の弟。太清三年（549年）に建康陥落後「太子舍人萧歆至江陵宣密诏，以世祖为侍中、假黄钺、大都督中外诸军事、司徒承制」と承制の権を得て梁の正統府を江陵に維持。簡文帝が侯景に弑されると（「是月，太宗崩。」）王僧辯らが「臣闻丧君有君，《春秋》之茂典」「非奉圣明，谁嗣下武」と勧進を開始したが、元帝は侯景平定（「三月，王僧辩等平侯景，传其首于江陵。」）まで固辞し、「是月，四方征镇，王公卿士复劝世祖即尊号，犹谦让未许。表三上，乃从之。」を経て「承圣元年冬十一月丙子，世祖即皇帝位于江陵。」（552年11月）。即位詔では「太宗简文皇帝地侔启、诵，方符文、景。羯寇凭陵，时难孔棘。朕大拯横流，克复宗社。」「朕虽云拨乱，且非创业」と、武帝・簡文帝の正統を継ぐ中興（非創業）と自己規定する。禅譲儀礼・璽綬の授受はなく、簡文帝の崩御で生じた帝位空位を宗室・群僚の推戴により継承したと判定。",
+      "source": {
+        "page": "梁書 巻五 元帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liang-xiaoyuanming",
+      "to": "liang-jingdi",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "敬帝蕭方智は元帝の第九子（「敬皇帝，讳方智，字慧相，小字法真，世祖第九子也」梁書 巻六 敬帝紀）。承聖三年（554年）十一月の江陵陥落で父元帝が殺害された後、王僧辯・陳霸先の合議により太宰・承制として建康へ迎えられたが（「太尉扬州刺史王僧辩、司空南徐州刺史陈霸先定议，以帝为太宰、承制，奉迎还京师」）、この時点では即位していない。翌年、北斉が送り込んだ貞陽侯蕭淵明（「三月，齐遣其上党王高涣送贞阳侯萧渊明来主梁嗣」）を王僧辯が受け入れて帝位に即け、方智はその皇太子とされた（「七月辛丑，王僧辩纳贞阳侯萧渊明，自采石济江。甲辰，入于京师，以帝为皇太子」）。同年九月、陳霸先が王僧辯を襲殺して蕭淵明を廃し、皇太子であった方智が即位した（「九月甲辰，司空陈霸先举义，袭杀王僧辩，黜萧渊明。丙午，帝即皇帝位」梁書 巻六。南史 巻八 梁本紀下も「司空陈霸先袭杀王僧辩，黜萧明而奉帝焉」とする）。皇位授受の直接の相手は、方智を皇太子に立てたうえで廃位された蕭淵明であるため、from は liang-xiaoyuanming とする（先行する劉賀→宣帝エッジと同型の判定）。category は emperors.json の accessionRoute「擁立」（陳霸先の実力行使による傀儡的擁立）をそのまま採用し、原典の読みとも一致する。続柄: 蕭淵明は長沙宣武王蕭懿（武帝の長兄）の子（南史 巻五十一 梁宗室上の懿一族伝中に「朗弟明字靖通，少被武帝亲爱，封贞阳侯」、梁書 巻四十五 王僧辯伝所載の北斉文宣帝書簡にも「彼贞阳侯，梁武犹子，长沙之胤」）であり、武帝の子である元帝とは従兄弟。よって新帝敬帝は先代蕭淵明の従兄弟の子＝従姪にあたる（enum に該当語彙がないため「その他」とし、ここに正確な続柄を記す）。",
+      "source": {
+        "page": "梁書 巻六 敬帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liang-yuzhangwang",
+      "to": "liang-houjing",
+      "category": "禅譲",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "侯景は簡文帝を廃した後、自ら豫章王蕭棟を擁立し（「景迎豫章王栋即皇帝位」）、その約2か月後に蕭棟の詔を偽って自身への禅位とし（「景又矫萧栋诏，禅位于己。于是南郊，柴燎于天，升坛受禅文物，并依旧仪」）、国号を漢、元号を太始と建てた。蕭棟は淮陰王に降封され幽閉（「封萧栋为淮阴王，幽于监省」）。形式は受禅だが矯詔による完全な簒奪であり、emperors.json の accessionRoute.note にもその旨記載済み。category は accessionRoute.category「禅譲」をそのままコピー。侯景は朔方（一説に雁門）出身の北鎮系武将で（「侯景，字万景，朔方人，或云雁门人」）、蕭棟と血縁関係はない。",
+      "source": {
+        "page": "梁書 巻五十六 侯景伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liang-yuandi",
+      "to": "liang-xiaoyuanming",
+      "category": "擁立",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "蕭淵明（南史では避諱で「明」）は長沙宣武王蕭懿の子。「朗弟明字靖通，少被武帝亲爱，封贞阳侯。」（南史 巻五十一）。懿は「长沙宣武王懿字元达，文帝长子也。」、また「文帝十男：张皇后生长沙宣武王懿、永阳昭王敷、武帝」（南史 巻五十一）とあり、懿は武帝蕭衍の同母兄。よって淵明は元帝（武帝第七子・蕭繹）の父方の従兄弟。元帝が西魏の江陵攻略で崩じた後、梁の皇位は空位（晋安王方智は太宰承制で未即位）となり、北斉文宣帝が「齐遣其上党王高涣送贞阳侯萧明来主梁嗣」（南史 巻八）として送還、王僧辯が納れて建康で即位した。「七月辛丑，僧辩纳贞阳侯萧明，自采石济江。甲辰，入建邺。丙午，即僞位。年号天成，以帝爲皇太子。」（南史 巻八 梁本紀下）。梁本流における元帝の後継（梁嗣）としての即位のため from は元帝。北斉は擁立の後ろ盾だが冊封境界ルールにより宗主国皇帝への from は作らない。",
+      "source": {
+        "page": "南史 巻八 梁本紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "houliang-xuandi",
+      "to": "houliang-mingdi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "蕭巋は宣帝蕭詧の第三子（「岿字仁远，察之第三子也」）。既に太子に立てられており、父蕭詧の憂憤による死（「遂以忧愤发背而殂」）を受けて嗣位した（「高祖又命其太子岿嗣位，年号天保」）。宗主国北周の高祖（武帝）による嗣位の命は冊封国への承認であり、皇位の実質的継承は父からの世襲。",
+      "source": {
+        "page": "周書 巻48 列傳第40 蕭詧",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "houliang-mingdi",
+      "to": "houliang-houzhu",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "琮は明帝蕭巋の太子で、巋の薨去を受けて嗣位。「梁主萧岿殂，其太子琮嗣立」（隋書帝紀）、「隋文帝又命其太子萧琮嗣位，年号广运」（周書卷48）。隋書卷79外戚伝の見出しに「萧岿子琮」とあり父子関係は明確。宗主国・隋文帝の承認（命）を伴うが、冊封境界ルールにより宗主への継承エッジは作らず、父明帝からの世襲継承とする。",
+      "source": {
+        "page": "隋書 巻一 帝紀第一 高祖上／周書 巻48 列傳第40 蕭詧伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liang-jingdi",
+      "to": "chen-wudi",
+      "category": "建国",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "陳霸先は梁敬帝（蕭方智）から禅譲を受けて陳を建国。陳書本紀に「梁帝高谢万邦，授以大宝，霸先自惟菲薄，让德不嗣，至于再三，辞弗获许」「敬简元辰，升坛受禅，告类上帝，用答民心，永保于我有陈」、即位詔に「梁氏以天禄永终，历数攸在，遵与能之典，集大命于朕躬」とあり、先代＝梁敬帝からの禅譲による皇位取得が明確。陳霸先は呉興長城の人で漢の太丘長陳寔の後裔（「高祖武皇帝，讳霸先，字兴国，小字法生，吴兴长城下若里人 ，汉太丘长陈实之后也」）であり、梁皇室蕭氏との血縁はない（無血縁）。accessionRoute.category は本プロジェクトの規約どおり王朝創始者として「建国」のままとし、禅譲元の梁敬帝を from に置く。",
+      "source": {
+        "page": "陳書 巻二 本紀第二 高祖下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "chen-wudi",
+      "to": "chen-wendi",
+      "category": "世襲",
+      "relationToPredecessor": "甥",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "世祖陳蒨は武帝陳霸先の兄・始興昭烈王（陳道譚）の長子で、武帝の甥。『陳書』世祖紀「世祖文皇帝，讳蒨，字子华，始兴昭烈王长子也」。武帝崩御後、公式記録では遺詔と章皇后令により継承：「永定三年六月丙午，高祖崩，遗诏征世祖入纂」、皇后令にも続柄を「体自景皇，属惟犹子」（景帝＝武帝父の孫にして武帝の猶子＝甥）と明記し、「其日即皇帝位于太极前殿」。一方『南史』巻六十六侯安都伝には「安都曰：“今四方未定，何暇及远。临川王有功天下，须共立之。今日之事，后应者斩。”便按剑上殿，白太后出玺，又手解文帝发，推就丧次。文帝即位」とあり、実態は侯安都主導の強制推戴の性格を持つ（emperors.json の accessionRoute.note と同旨）。ただし両伝とも武帝からの皇位継承という向き自体は一致し、エッジは verified。",
+      "source": {
+        "page": "陳書 巻三 本紀第三 世祖",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "chen-wendi",
+      "to": "chen-feidi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "廃帝陳伯宗は文帝（世祖）の嫡長子。「废帝，讳伯宗，字奉业，小字药王，世祖嫡长子也」。天嘉三年に皇太子となり（「三年，世祖嗣位，八月庚戌，立为皇太子」）、天康元年四月癸酉、父文帝の崩御と同日に即位した（「天康元年四月癸酉，世祖崩，其日，太子即皇帝位于太极前殿」）。通常の父子継承。",
+      "source": {
+        "page": "陳書 巻四 本紀第四 廃帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "chen-feidi",
+      "to": "chen-xuandi",
+      "category": "簒奪",
+      "relationToPredecessor": "叔父",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宣帝陳頊は「始兴昭烈王第二子也」（陳書巻五）で、世祖文帝（始興昭烈王長子）の弟。先代の廃帝陳伯宗は「世祖嫡长子也」（陳書巻四）であり、新帝は先代の叔父にあたる。皇位取得は「十一月甲寅，慈训太后令废帝为临海王，以高宗入纂」と皇太后令による廃立の形式を取るが、輔政の地位を利用した政敵粛清を経た実質的な権力奪取であり、emperors.json の accessionRoute.category=簒奪 に従う。太建元年正月「即皇帝位于太极前殿」。",
+      "source": {
+        "page": "陳書 巻五 本紀第五 宣帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "chen-xuandi",
+      "to": "chen-houzhu",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後主陳叔宝は宣帝（高宗）の嫡長子。「后主，讳叔宝，字元秀，小字黄奴，高宗嫡长子也」。太建元年に皇太子に立てられ（「太建元年正月甲午，立为皇太子」）、太建14年正月甲寅の高宗崩御を受け、始興王叔陵の反逆（即日誅殺）を経て丁巳に太極前殿で即位：「十四年正月甲寅，高宗崩。乙卯，始兴王叔陵作逆，伏诛。丁巳，太子即皇帝位于太极前殿」。父から子への正規の皇太子継承であり emperors.json の accessionRoute.category「世襲」と一致。",
+      "source": {
+        "page": "陳書 巻六 本紀第六 後主",
         "lang": "zh-classical"
       }
     }
