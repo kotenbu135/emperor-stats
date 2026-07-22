@@ -12,8 +12,8 @@
       "overall": "in-progress",
       "phases": {
         "succession": {
-          "status": "planned",
-          "label": "継承エッジ（先代→当人・accessionRoute 9分類）"
+          "status": "in-progress",
+          "label": "継承エッジ（先代の特定＋category＋relationToPredecessor）"
         },
         "parentage": {
           "status": "planned",
@@ -29,9 +29,513 @@
         }
       }
     },
-    "completedBlocks": []
+    "completedBlocks": [
+      {
+        "phase": "succession",
+        "block": "秦・前漢",
+        "emperors": 16,
+        "edges": 15,
+        "persons": 1
+      },
+      {
+        "phase": "succession",
+        "block": "新・新末群雄・後漢",
+        "emperors": 20,
+        "edges": 14,
+        "persons": 1
+      }
+    ]
   },
-  "persons": [],
-  "edges": [],
+  "persons": [
+    {
+      "id": "p-qin-zhuangxiangwang",
+      "name": "荘襄王",
+      "kana": "そうじょうおう",
+      "aliases": [
+        "子楚",
+        "異人",
+        "秦荘襄王",
+        "太上皇"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": -280,
+      "deathYear": -246,
+      "yearsApproximate": true,
+      "posthumous": {
+        "dynasty": "秦",
+        "templeName": null,
+        "posthumousName": "太上皇"
+      },
+      "inclusionReason": [
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "秦王（在位前250〜前247）。始皇帝の実父（「秦始皇帝者，秦庄襄王子也」）。趙に質子として滞在中に呂不韋の姬を得て政（始皇帝）が生まれた。在位3年で死去し、13歳の政が秦王位を継承（「年十三岁，庄襄王死，政代立为秦王」）。始皇帝の称帝時に「追尊庄襄王为太上皇」と太上皇を追尊された（太上皇追尊の史上初例）。ただし皇帝号＋廟号の追贈（司馬懿型）ではなく太上皇の尊号であり、王としての諡「荘襄」はそのまま保持されている。没年前247年は本紀（始皇13歳時に死去、始皇は前259年生）から確定。生年前281年は通説値（Wikidata等）で本紀キャッシュに直接記載がないため yearsApproximate=true。",
+      "wikidata": "Q1327607",
+      "source": {
+        "page": "史記 巻六 秦始皇本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-ruzi-ying",
+      "name": "劉嬰",
+      "kana": "りゅうえい",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": 5,
+      "deathYear": 25,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "前漢宣帝の玄孫（楚孝王劉囂の曾孫・広戚侯劉顕の子）。通称は孺子嬰。平帝崩御後の居摂元年（6年）3月、王莽により皇太子に立てられ「孺子」と号した（「三月己丑，立宣帝玄孙婴为皇太子，号曰孺子」漢書王莽伝上）。皇帝には即位しないまま、初始元年（8年）の王莽即真により定安公に降格され（「封尔为定安公，永为新室宾」）、新室の「賓」とされた。更始3年（25年）、平陵人の方望らに天子に擁立されたが更始帝の派遣軍に敗れて殺害された（後漢書 劉玄伝「平陵人方望……共立前定安公婴为天子……更始遣李松与讨难将军苏茂等会击破之，皆斩之」）。皇帝として在位していないため収録皇帝ではなく、王莽への禅譲エッジの経路上人物として収録。",
+      "wikidata": "Q7247",
+      "source": {
+        "page": "漢書 巻九十九上 王莽傳上",
+        "lang": "zh-classical"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "type": "succession",
+      "from": "p-qin-zhuangxiangwang",
+      "to": "qin-shi-huang",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "本紀冒頭「秦始皇帝者，秦庄襄王子也」、即位記事「年十三岁，庄襄王死，政代立为秦王」により、父・荘襄王の死去にともない数え13歳（前247年）で秦王位を世襲したことが裏付けられる。前221年の天下統一後、既に世襲で保持していた秦王位のまま「去『泰』，著『皇』，采上古『帝』位号，号曰『皇帝』」と称号のみを皇帝へ改めたもので、先行する皇帝政権からの継承・簒奪・禅譲ではない（emperors.json の accessionRoute=世襲 と一致）。称帝と同時に「追尊庄襄王为太上皇」と父を太上皇に追尊。なお本紀出自記事の「庄襄王为秦质子於赵，见吕不韦姬，悦而取之，生始皇」は実父呂不韋説（『史記』呂不韋列傳に異説）の種となる記述だが、争いは生物学的父子関係の真偽であり、荘襄王から秦王位を継承したこと自体はどの原典でも争いがないため本エッジは verified とする。実父関係の真偽は parentage フェーズの実父 kinship エッジ側で扱う。",
+      "source": {
+        "page": "史記 巻六 秦始皇本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qin-shi-huang",
+      "to": "qin-er-shi",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "胡亥は始皇帝の少子（「少子胡亥爱慕请从」「始皇享国三十七年……生二世皇帝」）。始皇帝が沙丘で崩御した際、趙高・李斯が長子扶蘇宛ての遺書（「与丧会咸阳而葬」）を破棄し、「更诈为丞相斯受始皇遗诏沙丘，立子胡亥为太子」と偽詔で胡亥を太子に立て、扶蘇・蒙恬に死を賜った。咸陽で発喪ののち「太子胡亥袭位，为二世皇帝」。皇位は先代始皇帝から直接継承しており、category は emperors.json の accessionRoute.category「擁立」（趙高・李斯主導の偽詔擁立と判定済み）をそのまま採用。",
+      "source": {
+        "page": "史記 巻六 秦始皇本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-gaozu",
+      "to": "han-huidi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "高祖の嫡長子・皇太子として父の崩御を受け通常の手続きで即位。『漢書』恵帝紀「孝惠皇帝，高祖太子也，母曰吕皇后」「十二年四月，高祖崩。五月丙寅，太子即皇帝位」。父子関係・太子冊立・即位の経緯とも本紀で明確に裏付けられる。",
+      "source": {
+        "page": "漢書 巻二 惠帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-huidi",
+      "to": "han-qianshaodi",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "disputed",
+      "confidence": "high",
+      "note": "恵帝の太子として恵帝崩御後に即位（『漢書』高后紀「惠帝崩，太子立為皇帝，年幼，太后臨朝稱制」）。続柄「子」は正史本文の主たる記述に基づく。『史記』呂太后本紀「宣平侯女為孝惠皇后時，無子，詳為有身，取美人子名之，殺其母，立所名子為太子。孝惠崩，太子立為帝」により、張皇后の実子ではなく恵帝後宮の美人（側室）の子＝恵帝の庶子を偽って嫡子としたもので、父が恵帝であること自体はこの記述では前提とされる。一方、呂氏誅滅後に大臣らが「少帝及梁、淮陽、常山王，皆非真孝惠子也。呂后以計詐名他人子，殺其母，養後宮，令孝惠子之，立以為後」（『史記』巻九 呂太后本紀）と主張しており、恵帝の子であること自体を否定する原典内の対立記述が存在する（この主張は文帝擁立を正当化する政治的口実とみる評価が一般的）。両説が原典内で対立するため veracity は disputed とする。即位の実態は呂太后の意向による擁立で、category「擁立」は emperors.json の値と原典の読みが一致する。",
+      "source": {
+        "page": "史記 巻九 呂太后本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-qianshaodi",
+      "to": "han-houshaodi",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "disputed",
+      "confidence": "high",
+      "note": "前少帝が呂后により廃位・幽殺された後、呂后の指名で常山王義（劉義）が擁立され、名を弘と改めて即位（史記・呂太后本紀「帝废位，太后幽杀之。五月丙辰，立常山王义为帝，更名曰弘。不称元年者，以太后制天下事也」）。実権は呂后が掌握。出自は「孝惠後宮子」の一人で、初め襄城侯山、兄の常山王不疑の死後に常山王となり義と改名（「太后欲王吕氏，先立孝惠後宫子彊为淮阳王，子不疑为常山王，子山为襄城侯……二年，常山王薨，以其弟襄城侯山为常山王，更名义」）。前少帝も名目上恵帝の子（皇后が「取美人子名之」）であるため、新帝は先代の弟にあたる。ただし呂后死後、大臣らは「少帝及梁、淮阳、常山王，皆非真孝惠子也。吕后以计诈名他人子，杀其母，养後宫，令孝惠子之」と断じており、恵帝の子であること（したがって前少帝との兄弟関係）自体に原典内で対立する主張が併記されているため veracity は disputed とする。文帝擁立に際し「有司分部诛灭梁、淮阳、常山王及少帝於邸」と誅殺された。",
+      "source": {
+        "page": "史記 巻九 呂太后本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-houshaodi",
+      "to": "han-wendi",
+      "category": "擁立",
+      "relationToPredecessor": "叔父",
+      "isRestoration": false,
+      "veracity": "disputed",
+      "confidence": "high",
+      "note": "呂氏誅滅後、丞相陳平・太尉周勃ら大臣が後少帝弘を廃して代王劉恒を迎立し、代王は三譲の後「遂即天子位」（漢書 文帝紀）。皇位を得た直接の先代は後少帝弘であり、継承の事実自体は正史で明確。続柄について: 文帝は高祖の子（「孝文皇帝，高祖中子也，母曰薄姬」）で恵帝の異母弟にあたり、後少帝弘が恵帝の実子であれば文帝はその叔父。しかし迎立を主導した群臣自身が「子弘等皆非孝惠皇帝子，不当奉宗庙」と弘の恵帝実子性を否認しており（漢書 文帝紀）、一方で史記 呂太后本紀・漢書 高后紀は弘を恵帝後宮の子として記す。この否認は擁立の正当化のための政治的主張とする見方も学術的に有力で、弘が恵帝の子か（＝文帝が叔父か無血縁か）は原典内・学説で対立するため veracity は disputed とした。弘が恵帝の子でない場合の続柄は無血縁ないし不明となる。",
+      "source": {
+        "page": "漢書 巻四 文帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-wendi",
+      "to": "han-jingdi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『漢書』景帝紀冒頭に「孝景皇帝，文帝太子也。母曰竇皇后」とあり、景帝は文帝の太子（実子）。文帝後七年六月の文帝崩御を受け「丁未，太子即皇帝位」と太子として即位しており、父から子への通常の世襲継承。emperors.json の accessionRoute.category「世襲」と一致。",
+      "source": {
+        "page": "漢書 巻五 景帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-jingdi",
+      "to": "han-wudi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『漢書』武帝紀冒頭「孝武皇帝，景帝中子也，母曰王美人。年四歳立為膠東王。七歳為皇太子」——武帝（劉徹）は景帝の中子で、膠東王を経て皇太子に立てられた。「十六歳，後三年正月，景帝崩。甲子，太子即皇帝位」——景帝崩御に伴い皇太子として即位。皇太子からの正規の父子継承であり、accessionRoute.category「世襲」と整合。",
+      "source": {
+        "page": "漢書 巻六 武帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-wudi",
+      "to": "han-zhaodi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『漢書』昭帝紀冒頭に「孝昭皇帝，武帝少子也。母曰趙婕妤」と武帝の末子であることを明記。後元二年二月、武帝の病篤に際し「遂立昭帝為太子，年八歲。以侍中奉車都尉霍光為大司馬大將軍，受遺詔輔少主。明日，武帝崩。戊辰，太子即皇帝位，謁高廟」とあり、皇太子として武帝から皇位を継承した（実権は顧命大臣の霍光にあったが、皇位の継承経路は武帝→昭帝の父子相続）。",
+      "source": {
+        "page": "漢書 巻七 昭帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-zhaodi",
+      "to": "han-liuhe",
+      "category": "擁立",
+      "relationToPredecessor": "甥",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "昭帝が嗣子なく崩御し、大将軍霍光が皇太后の詔を承けて昌邑王劉賀を迎立した。『漢書』霍光伝に「昭帝崩，亡嗣。……即日承皇太后诏，遣行大鸿胪事少府乐成、宗正德、光禄大夫吉、中郎将利汉迎昌邑王贺。贺者，武帝孙，昌邑哀王子也」とあり、劉賀は武帝の孫で昌邑哀王劉髆の子。武五子伝にも「昌邑哀王髆，天汉四年立，十一年薨，子贺嗣」とある。父・昌邑哀王髆と昭帝（劉弗陵）はともに武帝の子（兄弟）であるため、劉賀は昭帝の兄の子＝甥にあたる。即位27日で霍光が皇太后の詔により廃位（「癸已，光奏王贺淫乱，请废」）。",
+      "source": {
+        "page": "漢書 巻六十八 霍光金日磾傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-liuhe",
+      "to": "han-xuandi",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "従姪（従兄弟の子）。宣帝は「武帝曾孫，戾太子孫也。太子納史良娣，生史皇孫。皇孫納王夫人，生宣帝」（漢書 巻八 宣帝紀）で、父・史皇孫（劉進）は戾太子劉拠の子。先代の劉賀は昌邑哀王劉髆（武帝の子）の子で武帝の孫（「昌邑哀王髆天漢四年立…子賀嗣」漢書 巻六十三 武五子伝）。よって史皇孫と劉賀は従兄弟であり、新帝宣帝は先代劉賀の従兄弟の子＝従姪にあたる（enum に該当語彙がないため「その他」）。皇位取得の経緯は、昭帝崩御後に即位した劉賀が在位27日で霍光により廃され、霍光が「大宗毋嗣，擇支子孫賢者為嗣。孝武皇帝曾孫病已…可以嗣孝昭皇帝后」と奏議して掖庭養視中の皇曾孫病已（宣帝）を擁立、「已而群臣奉上璽、綬，即皇帝位」（元平元年秋七月庚申）。なお宗法上は廃帝劉賀ではなく「嗣孝昭皇帝后」として昭帝の後継に立てられたが、規約（政権内で直接皇位を得た直前皇帝）に従い from は han-liuhe とする。",
+      "source": {
+        "page": "漢書 巻八 宣帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-xuandi",
+      "to": "han-yuandi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『漢書』元帝紀冒頭に「孝元皇帝，宣帝太子也。母曰共哀許皇后」とあり、宣帝の実子（母は許皇后）。「八歲，立為太子」と8歳で皇太子に立てられ、「黄龍元年十二月，宣帝崩。癸巳，太子即皇帝位，謁高廟」と宣帝崩御を受けて皇太子として即位した素直な直系世襲継承。accessionRoute.category「世襲」と原文の読みは完全に一致する。",
+      "source": {
+        "page": "漢書 巻九 元帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-yuandi",
+      "to": "han-chengdi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "成帝劉驁は元帝の嫡長子（母は王皇后、後の太皇太后王政君）。『漢書』成帝紀に「孝成皇帝，元帝太子也。母曰王皇后。元帝在太子宫生甲观画堂，为世嫡皇孙」とあり、元帝即位とともに太子となり（「元帝即位，帝为太子」）、竟寧元年五月の元帝崩御を受けて六月己未に即位（「竟宁元年五月，元帝崩。六月已未，太子即皇帝位，谒高庙」）。典型的な嫡子直系の世襲継承。なお元帝が一時定陶恭王への交替を考えたが史丹らの擁護で廃されなかった経緯（「上以故常有意欲以恭王为嗣。赖侍中史丹护太子家……故得无废」）があるものの、継承自体には影響しない。",
+      "source": {
+        "page": "漢書 巻十 成帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-chengdi",
+      "to": "han-aidi",
+      "category": "世襲",
+      "relationToPredecessor": "甥",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "哀帝劉欣は「元帝庶孫，定陶恭王子也」（漢書 哀帝紀）、すなわち元帝の庶孫・定陶恭王劉康の子で、成帝の弟の子＝甥にあたる。成帝に実子がなく、綏和元年「使執金吾任宏守大鴻臚，持節徵定陶王，立為皇太子」と正式に皇太子に立てられ、綏和二年「三月，成帝崩。四月丙午，太子即皇帝位，謁高廟」により成帝から皇位を継承した。なお即位後「太皇太后詔尊定陶恭王為恭皇」と実父を尊号しており、成帝の子（養子）として継承したのではなく甥のまま立太子された（後の定陶恭皇尊号問題の原因）。傅太后が趙昭儀・王根に働きかけた擁立寄りの経緯は accessionRoute.note に記載の通りだが、正規の立太子手続きを経ており category=世襲 と整合する。",
+      "source": {
+        "page": "漢書 巻十一 哀帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "han-aidi",
+      "to": "han-pingdi",
+      "category": "擁立",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "平帝劉衎は元帝の庶孫・中山孝王劉興の子（「孝平皇帝，元帝庶孙，中山孝王子也」）。先代の哀帝は元帝の孫・定陶恭王劉康の子であり、両者は共に元帝の孫で父同士（劉康・劉興）が兄弟のため、新帝は先代の従弟（従兄弟）。哀帝が元寿2年6月に実子なく崩御すると、太皇太后（王政君）が王莽を大司馬に任じ、王莽主導で9歳の中山王を迎立した（「哀帝崩……新都侯王莽为大司马，领尚书事。秋七月，遣车骑将军王舜、大鸿胪左咸使持节迎中山王。……九月辛卯，中山王即皇帝位」「帝年九岁，太皇太后临朝，大司马莽秉政」）。なお宗法上は成帝の後嗣として立てられた（漢書王莽傳「使迎中山王奉成帝後，是為孝平皇帝」）が、皇位は哀帝崩御を受けて直前皇帝から得たものであるため from は han-aidi とする。",
+      "source": {
+        "page": "漢書 巻十二 平帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-ruzi-ying",
+      "to": "wang-mang",
+      "category": "禅譲",
+      "relationToPredecessor": "外戚（その他）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "王莽は孝元皇后（元帝皇后・王政君）の弟（王曼）の子で、漢帝室の外戚一族の出（「王莽字巨君，孝元皇后之弟子也」）。平帝崩御後、宣帝玄孫の劉嬰（孺子嬰）を皇太子に立てて自ら居摂・摂皇帝（仮皇帝）として実権を握り、居摂3年（初始元年・8年）戊辰、哀章が偽造した金匱の符命を口実に高廟で「金匱神嬗」を受けたと称して即真天子位に即き、国号を「新」と定めた（「戊辰，莽至高庙拜受金匮神嬗。……即真天子位，定有天下之号曰『新』」）。同時に策命で孺子嬰を定安公に降格した（「咨尔婴……封尔为定安公，永为新室宾」）。形式上の禅譲の体裁は、金匱の文面では高皇帝（劉邦）の霊からの伝国（「赤帝汉氏高皇帝之灵，承天命，传国金策之书」）とされたが、実際に皇位（皇位継承権）を明け渡した当事者は当時の漢の皇位継承者・孺子嬰であり、emperors.json の accessionRoute.note も「形式上は孺子嬰から皇帝位を『禅譲』される体裁」と判定済みのため、from は孺子嬰とする。孺子嬰は皇帝に即位しないまま（皇太子・「孺子」のまま）廃されたため収録皇帝ではなく、ブリッジ人物 p-ruzi-ying を置く。前漢最後の在位皇帝である平帝（han-pingdi）は8年時点で既に崩御しており（6年崩御）、平帝からの直接の皇位継承ではない。王莽と劉嬰に血縁はなく、王莽は漢帝室の外戚（後に王莽の孫娘が劉嬰に嫁ぐが即位時点では婚姻関係もない）。継承の事実（即真・孺子嬰廃位）は漢書王莽伝で裏付けられるため verified（禅譲の正統性主張自体は王莽側が偽造符命で演出したものである点は accessionRoute.note に判定済み）。",
+      "source": {
+        "page": "漢書 巻九十九上 王莽傳上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-guangwudi",
+      "to": "hou-han-mingdi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "光武帝の第四子（母は陰皇后）。建武十九年に皇太子に立てられ、中元二年（57年）二月戊戌、光武帝崩御を受けて即位。「显宗孝明皇帝讳庄，光武第四子也。母阴皇后。……十九年立为皇太子」「中元二年二月戊戌，即皇帝位，年三十」（後漢書 顕宗孝明帝紀）。",
+      "source": {
+        "page": "後漢書 巻二 顕宗孝明帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-mingdi",
+      "to": "hou-han-zhangdi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "章帝劉炟は明帝（顕宗）の第五子。永平3年に皇太子に立てられ、永平18年8月壬子、父明帝の崩御を受けて即位した。「肃宗孝章皇帝讳炟，显宗第五子也。母贾贵人。永平三年，立为皇太子。」「十八年八月壬子，即皇帝位，年十九。」",
+      "source": {
+        "page": "後漢書 巻三 粛宗孝章帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-zhangdi",
+      "to": "hou-han-hedi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『後漢書』巻四孝和孝殤帝紀に「孝和皇帝諱肇，肅宗第四子也」とあり、和帝は章帝（肅宗）の第四子。建初七年に皇太子となり（「建初七年，立為皇太子」）、章和二年二月壬辰に十歳で即位した（「章和二年二月壬辰，即皇帝位，年十歲」）。実母梁貴人は竇皇后の讒言で早世し竇皇后が養子としたが（「母梁貴人，為竇皇后所譖，憂卒，竇后養帝以為己子」）、これは皇后への養子であり先代章帝との血縁関係（実子）には影響しない。",
+      "source": {
+        "page": "後漢書 巻四 孝和孝殤帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-hedi",
+      "to": "hou-han-shangdi",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "殤帝劉隆は和帝の少子（末子）。「孝殇皇帝讳隆，和帝少子也」。和帝崩御の夜（元興元年十二月辛未夜）、生後百余日で鄧皇后（鄧太后）に選ばれて即位した（「元兴元年十二月辛未夜，即皇帝位，时诞育百余日。尊皇后曰皇太后，太后临朝」）。皇位は亡父和帝から直接継承しており、擁立（accessionRoute.category）は太后主導の即位機構を指す。",
+      "source": {
+        "page": "後漢書 巻四 孝和孝殤帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-shangdi",
+      "to": "hou-han-andi",
+      "category": "擁立",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "殤帝崩御後、鄧太后が兄の車騎将軍鄧騭と禁中で定策し、清河孝王慶の子劉祜を迎えて長安侯に拝し、即日即位させた（「八月，殤帝崩，太后與兄車騎將軍鄧騭定策禁中。其夜，使騭持節，以王青蓋車迎帝……讀策畢，太尉奉上璽綬，即皇帝位，年十三」）。安帝は章帝（肅宗）の孫・清河孝王慶の子（「恭宗孝安皇帝諱祜，肅宗孫也。父清河孝王慶」）で、和帝の子である殤帝とは共に章帝の孫、すなわち従兄弟にあたる。策命では「其以祜為孝和皇帝嗣」と和帝の後嗣（法制上の子）に立てられており、宗法上は殤帝の弟の扱いだが、血縁上の続柄は従兄弟。",
+      "source": {
+        "page": "後漢書 巻五 孝安帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-andi",
+      "to": "hou-han-shaodi-yi",
+      "category": "擁立",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "安帝が延光四年三月に崩御すると、閻太后が臨朝し、兄の大鴻臚閻顕を車騎将軍として禁中で定策し、章帝の孫・済北恵王劉寿の子である北郷侯劉懿を立てた（「太后临朝，以后兄大鸿胪阎显为车骑将军，定策禁中，立章帝孙济北惠王寿子北乡侯懿。……乙酉，北乡侯即皇帝位」）。劉懿は章帝の孫（済北恵王寿の子）、先代の安帝も章帝の孫（清河孝王慶の子）であり、新帝は先代の従兄弟にあたる。安帝の実子劉保（後の順帝）は廃太子となっていたため排除され、閻氏主導の傍系擁立。category は emperors.json の accessionRoute.category「擁立」をそのまま採用。",
+      "source": {
+        "page": "後漢書 巻五 孝安帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-shaodi-yi",
+      "to": "hou-han-shundi",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "従姪（従兄弟の子）。順帝劉保は安帝の実子（「孝順皇帝諱保，安帝之子也」後漢書 巻六 孝順帝紀）。先代の少帝懿（北郷侯劉懿）は「立章帝孫濟北惠王壽子北鄉侯懿」（後漢書 巻五 孝安帝紀）で章帝の孫、安帝も「肅宗孫也，父清河孝王慶」（後漢書 巻五 孝安帝紀）で章帝の孫であるため、安帝と劉懿は従兄弟。よって新帝順帝は先代少帝懿の従兄弟（安帝）の子＝従姪にあたる（enum に該当語彙がないため「その他」。han-liuhe→han-xuandi の従姪エッジと同一の処理）。皇位取得の経緯は、少帝懿の死（「及北鄉侯薨」）後、閻顕・江京らが「祕不發喪，而更徵立諸國王子」と別の王子を立てようとしたのに対し、中黄門孫程ら19人が宮中クーデターで江京らを斬り、廃太子として済陰王に落とされていた劉保を「迎濟陰王於德陽殿西鐘下，即皇帝位，年十一」（延光四年十一月丁巳）と擁立したもの。なお順帝は安帝の実子で、即位後に尚書令劉光らの奏で「陛下正統，當奉宗廟」と安帝の正統後継と位置づけられ、少帝懿は「葬少帝以諸王禮」と帝礼でなく諸王礼で葬られたが、規約（政権内で直接皇位を得た直前皇帝を from とする）に従い from は hou-han-shaodi-yi とする。",
+      "source": {
+        "page": "後漢書 巻六 孝順孝沖孝質帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-shundi",
+      "to": "hou-han-chongdi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "沖帝劉炳は順帝の子。「孝冲皇帝讳炳，顺帝之子也。母曰虞贵人。」建康元年に皇太子に立てられ、同年八月庚午（順帝崩御の日）に2歳で即位した（「建康元年立为皇太子，其年八月庚午，即皇帝位，年二岁」）。梁太后（順帝皇后）が皇太后として臨朝したが、皇位の取得源は父・順帝からの父子継承であり典型的な世襲。",
+      "source": {
+        "page": "後漢書 巻六 孝順孝沖孝質帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-chongdi",
+      "to": "hou-han-zhidi",
+      "category": "擁立",
+      "relationToPredecessor": "同族（遠縁）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "質帝劉纘は章帝（肅宗）の玄孫（章帝→千乗貞王伉→楽安夷王寵→勃海孝王鴻→纘）。先代の沖帝も章帝の玄孫（章帝→清河孝王慶→安帝→順帝→沖帝）であり、両者は高祖父章帝を共有する同世代の族兄弟（三従兄弟）で、直系の父子継承ではない。沖帝の病篤に際し大将軍梁冀が纘を洛陽都亭に召し、沖帝崩御後に梁太后と梁冀が禁中で定策して擁立した。原文「冲帝不豫，大将军梁冀征帝到洛阳都亭。及冲帝崩，皇太后与冀定策禁中……丁巳，封为建平侯，其日即皇帝位，年八岁」。",
+      "source": {
+        "page": "後漢書 巻六 孝順孝沖孝質帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-zhidi",
+      "to": "hou-han-huandi",
+      "category": "擁立",
+      "relationToPredecessor": "同族（遠縁）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "桓帝劉志は章帝（肅宗）の曾孫で、河間孝王開の孫・蠡吾侯翼の子（「孝桓皇帝讳志，肃宗曾孙也。祖父河间孝王开，父蠡吾侯翼」）。質帝崩御に際し、梁太后が兄の大将軍梁冀と宮中で定策して擁立し、閏六月庚寅に即位した（「会质帝崩，太后遂与兄大将军冀定策禁中，闰月庚寅，使冀持节，以王青盖车迎帝入南宫，其日即皇帝位，时年十五」）。先代質帝は章帝の玄孫（章帝→千乘貞王伉→樂安夷王寵→渤海孝王鴻→質帝）であり、桓帝（章帝の曾孫）は質帝より一世代上の傍系同族（族父）にあたる。直系の叔父ではないため「同族（遠縁）」とした。",
+      "source": {
+        "page": "後漢書 巻七 孝桓帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-huandi",
+      "to": "hou-han-lingdi",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "霊帝は章帝（肅宗）の玄孫で、桓帝の従兄弟（父・解瀆亭侯劉萇と桓帝はともに河間孝王開の孫で従兄弟同士）の子、すなわち桓帝の従姪にあたる（enumに該当項なしのため「その他」）。桓帝が子なく崩御したため、竇太后と父の城門校尉竇武が禁中で定策し、河間から迎立された。「孝灵皇帝讳宏，肃宗玄孙也。曾祖河间孝王开，祖淑，父苌。……桓帝崩，无子，皇太后与父城门校尉窦武定策禁中，使守光禄大夫刘儵持节，将左右羽林至河间奉迎」「庚子，即皇帝位，年十二」。なお桓帝の後嗣として皇位を継いだため、継承エッジは桓帝からとする。",
+      "source": {
+        "page": "後漢書 巻八 孝霊帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-lingdi",
+      "to": "hou-han-shaodi-bian",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "少帝弁（劉辯）は霊帝の長子（何皇后所生）。『後漢書』皇后紀下「灵思何皇后……生皇子辩，养于史道人家，号曰史侯」により霊帝と何皇后の子であることが確認でき、孝霊帝紀「戊午，皇子辩即皇帝位，年十七」により霊帝崩御直後に皇子として即位したことが確認できる。太子に正式冊立されないまま霊帝が急死し、外戚何進らのもとで即位したため accessionRoute は擁立（emperors.json の値をそのままコピー）。189年9月に董卓により廃されて弘農王とされた（「九月甲戌，董卓废帝为弘农王」）が、復位はないため復位エッジなし。",
+      "source": {
+        "page": "後漢書 巻八 孝霊帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-shaodi-bian",
+      "to": "hou-han-xiandi",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "献帝劉協は霊帝の中子（「孝献皇帝讳协，灵帝中子也。母王美人，为何皇后所害」）で、先代少帝弁（霊帝の長子・何皇后所生）の異母弟。中平六年（189年）四月に少帝弁が即位すると勃海王に封じられ、のち陳留王に徙封（「中平六年四月，少帝即位，封帝为勃海王，徙封陈留王」）。同年九月甲戌、董卓が実力で朝政を掌握したうえ少帝弁を廃して陳留王協を擁立し、9歳で即位した（「九月甲戌，即皇帝位，年九岁」）。皇位は同一政権（後漢）内で先代少帝弁の廃位により直接得たものであり、from は少帝弁とする。category は emperors.json の accessionRoute.category「擁立」（董卓の軍事力を背景とした廃立で本人の主体的簒奪ではないとの判定済み）をそのままコピー。",
+      "source": {
+        "page": "後漢書 巻九 孝献帝紀",
+        "lang": "zh-classical"
+      }
+    }
+  ],
   "genealogicalClaims": []
 }
