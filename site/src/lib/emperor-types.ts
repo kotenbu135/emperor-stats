@@ -115,6 +115,9 @@ export interface EmperorListRecord {
   name: string;
   /** 諱（本名）。肖像なしカードのモノグラム一文字に使う。 */
   personalName: string | null;
+  /** カード1行目に皇帝号と並べる補助名（諱・通用名）。不要な人物はnull。
+   *  導出規則・人物別上書きは lib/card-subtitle.ts を参照。 */
+  cardSubtitle: string | null;
   dynastyLabel: string;
   eraLabel: string;
   dynastyKey: string;

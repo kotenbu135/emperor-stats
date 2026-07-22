@@ -33,6 +33,7 @@ import {
 export * from "@/lib/emperor-types";
 import { buildRiverTimeline, type RiverTimelineData } from "@/lib/timeline-river";
 import { kanaExpansionsOf } from "@/lib/kana-readings";
+import { CARD_SUBTITLE_OVERRIDES, cardSubtitleOf } from "@/lib/card-subtitle";
 
 const dataPath = path.join(process.cwd(), "..", "data", "emperors.json");
 const rawData = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
@@ -464,10 +465,19 @@ export function getEmperorListRecords(): EmperorListRecord[] {
       searchKanaOf(e, dynastyLabel(e.dynasty), eraLabelOf(e.dynasty)),
     ]),
   );
-  return getAllEmperorRecords().map((r) => ({
+  // 上書きテーブルの打ち間違い・データ側のid変更に気づけるよう存在チェックする
+  // （timeline-river.ts の STREAM_DEFS 被覆assertと同じ方針）。
+  const idSet = new Set(data.emperors.map((e) => e.id));
+  for (const key of Object.keys(CARD_SUBTITLE_OVERRIDES)) {
+    if (!idSet.has(key)) {
+      throw new Error(`CARD_SUBTITLE_OVERRIDES に存在しない皇帝id: ${key}`);
+    }
+  }
+  const records = getAllEmperorRecords().map((r) => ({
     id: r.id,
     name: r.name,
     personalName: r.personalName,
+    cardSubtitle: cardSubtitleOf(r.id, r.personalName, r.name),
     dynastyLabel: r.dynastyLabel,
     eraLabel: r.eraLabel,
     dynastyKey: r.dynastyKey,
@@ -476,6 +486,17 @@ export function getEmperorListRecords(): EmperorListRecord[] {
     searchText: r.searchText,
     searchKana: kanaById.get(r.id)!,
   }));
+  // カードに見えている補助名は検索でも必ずヒットすること（見えた名前を検索窓に
+  // 打つのが自然な導線のため）。上書きテーブルに各名称フィールドのどれにも
+  // 含まれない呼称を入れると破れるので、ビルド時に不変条件として検査する。
+  for (const r of records) {
+    if (r.cardSubtitle && !r.searchText.includes(r.cardSubtitle)) {
+      throw new Error(
+        `cardSubtitle "${r.cardSubtitle}" が searchText に無く検索でヒットしない: ${r.id}`,
+      );
+    }
+  }
+  return records;
 }
 
 /** 王朝(name+section複合キー)の選択肢一覧。時代グループ順→データ内初出順で並べる。 */

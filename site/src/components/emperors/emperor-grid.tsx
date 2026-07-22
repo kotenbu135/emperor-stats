@@ -74,6 +74,13 @@ const EmperorCard = memo(function EmperorCard({
       <div className="px-2.5 py-2">
         <div className="truncate text-sm font-medium text-foreground group-hover:text-seal">
           {record.name}
+          {/* 皇帝号だけでは誰か分かりにくい人物向けの補助名（諱・通用名）。
+              導出規則・人物別上書きは lib/card-subtitle.ts。 */}
+          {record.cardSubtitle && (
+            <span className="ml-1.5 text-xs font-normal text-muted-foreground">
+              {record.cardSubtitle}
+            </span>
+          )}
         </div>
         <div className="truncate text-xs text-muted-foreground">
           {record.dynastyLabel}
