@@ -10,6 +10,9 @@ on:
       - "data/**"
       - "scripts/validate_emperors.py"
       - "scripts/validate_kinship.py"
+      - "scripts/verify_calendar.py"
+      - "scripts/verify_quotes.py"
+      - "scripts/hanzi_norm.py"
       - "scripts/detect_wikipedia_sources.py"
       - ".github/workflows/validate-data.yml"
   pull_request:
@@ -17,6 +20,9 @@ on:
       - "data/**"
       - "scripts/validate_emperors.py"
       - "scripts/validate_kinship.py"
+      - "scripts/verify_calendar.py"
+      - "scripts/verify_quotes.py"
+      - "scripts/hanzi_norm.py"
       - "scripts/detect_wikipedia_sources.py"
       - ".github/workflows/validate-data.yml"
   workflow_dispatch:
@@ -35,10 +41,19 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install jsonschema
+        run: pip install jsonschema sxtwl opencc-python-reimplemented
 
       - name: Validate emperors.json
         run: python3 scripts/validate_emperors.py
 
       - name: Validate kinship.json
         run: python3 scripts/validate_kinship.py
+
+      # 暦換算リプレイ・exactDays 実経過日数ゲート（2026-07-22 note 全件検証の恒久化）
+      - name: Verify calendar conversions
+        run: python3 scripts/verify_calendar.py
+
+      # 引用照合台帳カバレッジ（コーパス不要）。台帳 data/quote-refs.json を更新せずに
+      # 引用を追加・改変したコミットはここで確実に落ちる（規約: RESEARCH_PROCESS.md 引用の取り扱い規約）
+      - name: Verify quote ledger coverage
+        run: python3 scripts/verify_quotes.py --check-coverage

@@ -274,6 +274,12 @@
 
 **site 側の小修正**: `emperors.ts` の `videoById.get(id)!` を fail-fast 化・`eraOrder` 未登録時のサイレント末尾落ち（`?? 99`）を throw 化・存在しない `ERA_BY_SELF_SECTION` 参照コメントを削除、`sync-portraits.mjs` に同期元から消えた画像の削除追従を追加、ランキング系チャート3ファイルの定型（軸ドメイン・左マージン・行ウィンドウイング計算＋スクロール枠 JSX）を `scroll-bar-chart.tsx` の `useRankingChartLayout` / `WindowedChartFrame` に共通化、sitemap の個別365ページから一律 `datasetGeneratedAt` の lastmod を撤去（人物単位の更新日時を持たないため。統計ページ側は維持）、`timeline/page.tsx` の素の `<a href="/about">` を `Link` 化。
 
+## note 全件検証（引用実在・暦換算リプレイ）の検出分を一括訂正（2026-07-22）
+
+note/quote 内の漢文引用 6,504 件の実在検証＋暦換算の機械リプレイ（`docs/qa/note-verification-2026-07-22/REPORT.md`）と同日の包括的データチェックで検出した問題を、ユーザー指示により一括訂正した。内訳: **exactDays 系統誤差19件**（ユリウス暦ラベルへのグレゴリオ式算術によるユリウス閏世紀日の1日不足×18＋1582年改暦スキップ無視の10日過大×1、reignSummary 連動再計算）、**遼景宗の即位日1日ズレ**（0969-03-13→03-12）、**引用の誤字・圧縮改変・帰属誤り22件**（コーパスから逐語再取得・照合台帳 defect 全消化）、**換算記録の同期漏れ3件**、**ages.note「null とした」矛盾9件**（値は規定10節の逆算として立証し note 側を訂正）、**precision 不整合2件**（隋文帝生日・金世宗崩御日の日精度化）。詳細は `CHANGELOG.md` 2026-07-22 訂正節。
+
+再発防止は同時制定の「引用の取り扱い規約」＋機械ゲート（`verify_quotes.py` 照合台帳・`verify_calendar.py` 暦リプレイ、CI 組込済み）が担う（`docs/process/RESEARCH_PROCESS.md`）。各スクリプトの KNOWN_*_PENDING・KNOWN_NULL_SAID・台帳 defect は全件消化済みで現在は空。残る既知の限界はコーパス外資料65件・ming-huizong の lacuna 1件・解釈層（機械照合不能）のみ。
+
 ## 機械スクリーニング起点の追加訂正＋CI カバレッジ拡張（2026-07-22）
 
 既存 CI（`validate_emperors.py`）が 0 エラーの状態で、CI がカバーしていない観点を追加の機械スクリーニング（イベント日付の在位範囲整合・数え年の逆算整合・note 内年齢/年言及との突合・王朝内在位重複/空白・在位日数再計算）＋ Wikidata 生没年クロスチェック（SPARQL・365 人全員・API リクエスト2回のみ）で走らせ、サブエージェント3系統でトリアージした。**Wikidata 生没年照合は実質クリーン**（年レベル乖離5件はすべて note に根拠明記済み／推定 medium 明示済み／こちらの原典典拠の方が強い〔少帝弁・欽宗〕）。検出した実問題4件を原典で確認のうえ訂正（`validate_emperors.py` エラー0を確認、Wikidata API は CI には組み込まない方針）:
