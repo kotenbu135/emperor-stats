@@ -134,6 +134,13 @@
         "emperors": 19,
         "edges": 14,
         "persons": 0
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック15（五代本朝）",
+        "emperors": 14,
+        "edges": 12,
+        "persons": 1
       }
     ]
   },
@@ -473,6 +480,33 @@
       "posthumous": null,
       "source": {
         "page": "旧唐書 巻五十六 列伝第六 林士弘／資治通鑑 大業十二年条",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-li-keyong",
+      "name": "李克用",
+      "kana": "りこくよう",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "五代十国",
+      "birthYear": 856,
+      "deathYear": 908,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "後唐荘宗李存勗の父。唐末の河東節度使・晋王で、皇帝には即位せず天祐五年（908年）に晋陽で没した。出自は「太祖武皇帝，讳克用，本姓硃耶氏，其先陇右金城人也」「武皇即献祖之第三子也。母秦氏，以大中十年丙子岁九月二十二日，生于神武川之新城」（旧五代史 武皇紀上、大中十年=856年生）。没年は「天祐五年正月戊子朔，武皇疾革。辛卯，崩于晋阳，年五十三」（武皇紀下、908年・53歳は856年生と整合）。荘宗の称帝（923年）に伴い「庄宗即位，追谥武皇帝，庙号太祖，陵在雁门」（武皇紀下）、荘宗紀三にも「追尊皇考河东节度使、太师、中书令、晋王为武皇帝，庙号太祖」とあり、皇帝号（武皇帝）＋廟号（太祖）の追贈が確認できるため kind=追尊皇帝。section は追尊した王朝＝後唐の所属（五代十国）に合わせた。",
+      "wikidata": "Q714164",
+      "posthumous": {
+        "dynasty": "後唐",
+        "templeName": "太祖",
+        "posthumousName": "武皇帝"
+      },
+      "source": {
+        "page": "旧五代史 巻二十五 唐書・武皇紀上／巻二十六 唐書・武皇紀下",
         "lang": "zh-classical"
       }
     }
@@ -3313,6 +3347,186 @@
       "note": "史朝義は史思明の庶出の長子。新唐書逆臣上「朝义，孽长子」、旧唐書逆臣伝「朝义，思明孽子也」。上元2年（761年）、思明が朝義を処刑しようとした矢先、配下の駱悦らが思明を捕縛し柳泉で縊殺、直後に朝義が燕帝位を継承した。「次柳泉，悦畏众不厌，缢杀思明……朝义乃即位，建元显圣」（新唐書逆臣上）。資治通鑑にも「遂缢杀思明……朝义即皇帝位，改元显圣」とあり一致。category は emperors.json の accessionRoute.category（簒奪）をそのままコピー。",
       "source": {
         "page": "新唐書 巻二百二十五上 逆臣上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-aidi",
+      "to": "wudai-houliang-taizu",
+      "category": "禅譲",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "唐哀帝（昭宣帝）からの受禅。旧五代史 太祖紀三に「甲辰，天子遣御史大夫薛贻矩来传禅代之意」「四月，唐帝御札敕宰臣张文蔚等备法驾奉迎梁朝」「又，宰臣张文蔚正押传国宝、玉册、金宝及文武群官、诸司仪仗法物及金吾左右二军离郑州」「戊辰，即位」とあり、御札・伝国宝・玉冊による正式な禅譲手続きを経て即位した。朱温（朱全忠・朱晃）は宋州碭山の出身で唐宗室と血縁なし（無血縁）。",
+      "source": {
+        "page": "旧五代史 巻三 太祖紀三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wudai-houliang-taizu",
+      "to": "wudai-houliang-zhuyougui",
+      "category": "簒奪",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "太祖の実子（母は亳州の営妓。「次郢王友珪，其母亳州营倡也」。假子とされる友文と異なり実子）。乾化2年6月、病篤の太祖を弑殺し（「友珪仆夫冯廷谔刺帝腹，刃出于背」）、偽詔で博王友文に謀逆の罪を着せて誅殺させた上で「宣遗制，友珪即皇帝位」と遺制を偽って即位した簒奪。旧五代史巻八末帝紀上の本文にも「庶人友珪弑逆，矫太祖诏」「郢王以子弑父，是曰元凶」とあり、弑逆と父子関係は旧五代史固有の本文でも裏付けられる。なお太祖紀七末尾の弑逆・即位の詳細叙述は輯本に埋め込まれた《通鑑》引用部内のもの。",
+      "source": {
+        "page": "旧五代史 巻七 太祖紀七",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wudai-houliang-zhuyougui",
+      "to": "wudai-houliang-modi",
+      "category": "簒奪",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "末帝朱友貞は太祖朱温の第四子で、先帝朱友珪の弟。旧五代史 巻八 末帝紀上に「末帝，讳瑱，初名友贞，及即位，改名锽，贞明中又改今讳。太祖第四子也」とあり、兄弟の長幼は資治通鑑の「次郢王友珪……次均王友贞」（列挙順で友珪が兄）でも裏付けられる。即位経緯は末帝自身が趙巖・袁象先・楊師厚らに働きかけて主導したクーデターで、「十七日，象先引禁军千人突入宫城，遂诛友珪」の後、「事定，象先遣赵岩赍传国宝至东京，请帝即位于洛阳」と伝国宝を送られて推戴され、「是月，帝即位于东京，乃去凤历之号，称乾化三年」と即位した。兄（先帝友珪）を武力で打倒して皇位を得たため from=朱友珪・category=簒奪（emperors.json の accessionRoute.category をコピー。推戴儀礼の要素がある境界事例である旨は accessionRoute.note に記録済み）。",
+      "source": {
+        "page": "旧五代史 巻八 末帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-li-keyong",
+      "to": "wudai-houtang-zhuangzong",
+      "category": "建国",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "父の晋王李克用（非皇帝の先行君主）から晋王位を世襲し、後に称帝したブリッジ from の確立パターン（張祚・慕容儁型）。旧五代史 荘宗紀一に「庄宗光圣神闵孝皇帝，讳存勖，武皇帝之长子也」と長子であることが明記され、天祐五年（908年）の晋王位継承は「及武皇厌代，帝乃嗣王位于晋阳，时年二十有四」。同光元年（923年）四月に「帝升坛，祭告昊天上帝，遂即皇帝位」（荘宗紀三）と称帝。後梁からの禅譲・皇位授受はなく（後梁は称帝後の同光元年十月に武力で滅ぼした・荘宗紀四）、category は emperors.json の accessionRoute どおり「建国」。李克用は荘宗の称帝直後に「追尊皇考河东节度使、太师、中书令、晋王为武皇帝，庙号太祖」（荘宗紀三）と皇帝号・廟号を追尊されており kind=追尊皇帝としてブリッジ人物収録。",
+      "source": {
+        "page": "旧五代史 巻二十七 唐書・荘宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wudai-houtang-zhuangzong",
+      "to": "wudai-houtang-mingzong",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "李嗣源（明宗）は李克用（武皇）の養子で、荘宗李存勗の養兄弟に当たる（実父は李霓＝追尊孝成皇帝）。旧五代史明宗紀一に「世事武皇，及其锡姓也，遂编于属籍」、新五代史唐本紀に「太祖养以为子，赐名嗣源」とあり養子関係は両史で裏付けられる。皇位継承は、鄴都兵変後に入洛した李嗣源が荘宗崩御（興教門の変）を受けて群臣諸将の勧進を固辞したのち「壬辰，文武百僚三拜笺，请行监国之仪，以安宗社，答旨从之」と監国を受諾し、「天成元年夏四月丙午…乃于柩前即皇帝位」と荘宗の柩前で即位したもので、category は emperors.json の accessionRoute（擁立）をそのまま採用。relationToPredecessor は養兄弟関係が enum 外のため「その他」とした。年齢上は荘宗（885年生）より18歳年長の養兄だが、明宗自身の言葉は「兄亡弟绍，于义何嫌」（旧五代史明宗紀一）と兄弟相続として自らを弟に擬しており、長幼の位置づけが原文内で一義でないことも「その他」採用の理由。",
+      "source": {
+        "page": "旧五代史 巻三十五 明宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wudai-houtang-mingzong",
+      "to": "wudai-houtang-mindi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "閔帝李従厚は明宗李嗣源の実子。旧五代史閔帝紀冒頭「闵帝，讳从厚，小字菩萨奴，明宗第三子也。母昭懿皇后夏氏」。長興4年11月に秦王李従栄が誅殺され、明宗崩御（11月26日）後に鄴都から召還されて柩前即位「十二月癸卯朔，发丧于西宫，帝于柩前即位」（旧五代史）。新五代史も「愍皇帝，明宗第五子从厚也」と父子関係を裏付ける（排行は第三子/第五子で両書不一致）。",
+      "source": {
+        "page": "旧五代史 巻四十五 唐書 閔帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wudai-houtang-mindi",
+      "to": "wudai-houtang-modi2",
+      "category": "簒奪",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "李従珂は本姓王氏で、明宗が「帝时年十余岁，明宗养为己子」（旧五代史 巻四十六）と養子とした人物であり、先代閔帝（李従厚、明宗の実子）の養兄（義兄・血縁なし）に当たる。enum に「養兄」がないため「その他」とする。鳳翔で挙兵し、討伐軍が投降して朝廷軍が瓦解、洛陽入り後「癸酉，皇太后下令降闵帝为鄂王」と閔帝を鄂王に降格させ、太后令「须立长君，以绍丕构。皇长子潞王从珂……宜即皇帝位。」を経て「乙亥，监国赴西宫，柩前告奠即位」と即位した。閔帝を武力で廃して直接皇位を奪ったため from=wudai-houtang-mindi、category は emperors.json の accessionRoute.category（簒奪）をそのまま採用。",
+      "source": {
+        "page": "旧五代史 巻四十六 唐書・末帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wudai-houjin-gaozu",
+      "to": "wudai-houjin-shaodi",
+      "category": "擁立",
+      "relationToPredecessor": "養子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "血縁上は高祖の兄敬儒の子（従子＝甥）だが、旧五代史少帝紀に「少帝，名重贵，高祖之从子也。考讳敬儒……敬儒尝为后唐庄宗骑将，早薨，高祖以帝为子」、新五代史晋本紀に「出帝父敬儒，高祖兄也，为唐庄宗骑将，早卒，高祖以其子重贵为子」とあり、高祖が子として養った養子関係が両史に明記される。即位後は実父敬儒を「皇伯」として追封（旧五代史天福八年五月条「皇伯赠太傅敬儒赠太师，追封宋王」）しており、養子＝高祖の子としての立場が公式に貫かれたため「養子」を採用。即位は高祖崩御直後の「是岁六月十三日乙丑，高祖崩，承遗制命柩前即皇帝位」。擁立の経緯は新五代史に「高祖崩，晋大臣以国家多事，议立长君，而景延广已阴许立出帝，重睿遂不得立」とあり、高祖が実子重睿への継承を望んだのに対し大臣らが重貴を立てたことが裏付けられる。",
+      "source": {
+        "page": "旧五代史 巻八十一 少帝紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wudai-houhan-gaozu",
+      "to": "wudai-houhan-yindi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "隠帝劉承祐は高祖劉知遠の第二子。旧五代史隠帝紀上に「隐皇帝，讳承祐，高祖第二子也」と明記。乾祐元年正月に高祖が崩御し、大行皇帝遺制「周王承祐，可于柩前即皇帝位」により柩前で即位した父子相続。",
+      "source": {
+        "page": "旧五代史 巻一百一 隠帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wudai-houhan-yindi",
+      "to": "wudai-houzhou-taizu",
+      "category": "簒奪",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "郭威は後漢の枢密使で劉氏と血縁なし（父は郭簡「皇考讳简，汉赠太师，追尊为章肃皇帝，庙号庆祖」）。隠帝が「二十二日旦，郭允明弑汉隐帝于北郊」と弑逆された後、一旦は劉贇（湘陰公）擁立を奏請したが、澶州兵変で将兵に「或有裂黄旗以被帝体，以代赭袍，山呼震地」と推戴され、漢太后令「宜总万机，以允群议，可监国」で監国となり、広順元年正月丁卯の漢太后誥「今奉符宝授监国，可即皇帝位」により符宝を授かって「是日，帝自皋门入大内，御崇元殿，即皇帝位」と即位した。先代皇帝本人からの授受はないが、漢朝廷（太后誥＝符宝授与）からの形式的な皇位移転を経ているため、政権内継承として from=隠帝を置く。一旦嗣君に定められた劉贇は皇帝に即位しないまま廃された（後に「戊寅，湘阴公殂」）ため from 候補としない。category は emperors.json の accessionRoute（簒奪）をそのままコピー。",
+      "source": {
+        "page": "旧五代史 巻一百十 周書・太祖紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wudai-houzhou-taizu",
+      "to": "wudai-houzhou-shizong",
+      "category": "世襲",
+      "relationToPredecessor": "養子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "柴栄は郭威（太祖）の養子で、聖穆皇后（郭威の妻）の甥。旧五代史 世宗紀一の冒頭に「世宗睿武孝文皇帝，讳荣，太祖之养子，盖圣穆皇后之侄也。本姓柴氏，父守礼」とあり、養子となった経緯も「时太祖无子……太祖甚怜之，乃养为己子」と明記。顕徳元年正月、太祖の崩御に際し遺制「晋王荣可于柩前即位」により柩前で即位（「壬辰，太祖崩，秘不发丧。丙申，内出太祖遗制：“晋王荣可于柩前即位。”群臣奉帝即皇帝位」）。想定どおり続柄=養子（妻の甥からの養子）を原文で確認。",
+      "source": {
+        "page": "旧五代史 巻一百十四 周書・世宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wudai-houzhou-shizong",
+      "to": "wudai-houzhou-gongdi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧五代史 恭帝紀冒頭に「恭帝，讳宗训，世宗子也」とあり、世宗柴栄の実子。顕徳6年6月、「癸巳，世宗崩。甲午，内出遗制，命帝柩前即皇帝位。是日，群臣奉帝即位而退」と、世宗崩御の翌日に遺制により柩前で即位した。emperors.json の accessionRoute.category「世襲」と原文の読みは一致。",
+      "source": {
+        "page": "旧五代史 巻一百二十（周書・恭帝紀）",
         "lang": "zh-classical"
       }
     }
