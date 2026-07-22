@@ -190,6 +190,13 @@
         "emperors": 9,
         "edges": 5,
         "persons": 0
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック23（清）",
+        "emperors": 11,
+        "edges": 13,
+        "persons": 1
       }
     ]
   },
@@ -757,6 +764,33 @@
       "wikidata": "Q7521",
       "source": {
         "page": "元史 巻三 憲宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-nurhachi",
+      "name": "愛新覚羅努爾哈赤（ヌルハチ）",
+      "kana": "ぬるはち",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "清",
+      "birthYear": 1559,
+      "deathYear": 1626,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "清の太祖。建州女直を統一し天命元年（1616）に後金カンとして即位、皇帝には即位せず天命十一年（1626）に崩御した。太宗ホンタイジの父。出自は「太祖承天广运圣德神功肇纪立极仁孝睿武端毅钦安弘文定业高皇帝，姓爱新觉罗氏，讳努尔哈齐」（清史稿 太祖本紀）。生年は「是岁己未，明嘉靖三十八年也」（1559年）。崩御は「庚戌，至爱鸡堡，上崩，入宫发丧。在位十一年，年六十有八」（天命十一年=1626年、享年68は1559年生と整合）。「初谥武皇帝，庙号太祖，改谥高皇帝，累谥承天广运圣德神功肇纪立极仁孝睿武端毅钦安弘文定业高皇帝」とあり、皇帝号（武皇帝→高皇帝）＋廟号（太祖）の追贈が確認できるため kind=追尊皇帝。清史稿（daizhigev20 簡体コーパス）では諱は「努尔哈齐」表記。",
+      "wikidata": "Q311189",
+      "posthumous": {
+        "dynasty": "清",
+        "templeName": "太祖",
+        "posthumousName": "高皇帝"
+      },
+      "source": {
+        "page": "清史稿 巻一 太祖本紀",
         "lang": "zh-classical"
       }
     }
@@ -5277,6 +5311,171 @@
       "note": "呉三桂の孫（呉応熊の庶子）。清史稿呉三桂伝に「召其孙世璠於云南，未至，乙酉，三桂死」（三桂が病中に孫の世璠を雲南から呼び寄せたが到着前に死去）とあり、続けて「世璠，应熊庶子，留云南，奔三桂之丧，至贵阳，其下拥称帝，改号洪化」と、三桂の喪に赴いた貴陽で旧部下に擁立され称帝・洪化と改元した経緯が記される。同一政権（呉周）内で先代皇帝・呉三桂の死去を承けた継承であり from=wuzhou-wusangui。category は emperors.json の accessionRoute.category「擁立」をそのまま採用（原文「其下拥称帝」とも整合）。",
       "source": {
         "page": "清史稿 列伝二百六十一（呉三桂伝）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-nurhachi",
+      "to": "qing-taizong",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "太宗ホンタイジは太祖ヌルハチ（後金カン・追尊皇帝、収録外ブリッジ人物）の第八子。「讳皇太极，太祖第八子，母孝慈高皇后」（清史稿 太宗本紀一）。太祖崩御時に後継者未定のところ、大貝勒代善とその子岳託・薩哈廉が才徳を推し諸貝勒の合議で嗣位を要請、再三辞退の末に受諾した：「太祖崩，储嗣未定。代善与其子岳讬、萨哈廉以上才德冠世，与诸贝勒议请嗣位。上辞再三，久之乃许」「天命十一年丙寅九月庚午朔，即位于沈阳」。このエッジが表すのは天命十一年（1626）の後金カン位の継承（諸貝勒による推戴=擁立）であり、皇帝即位（称帝）は崇徳元年（1636）で emperors.json の reigns[0].startDate はこちらを起点とする（1626年の日付は在位開始と矛盾しない）。category は accessionRoute.category「擁立」をそのままコピー。from をヌルハチ（追尊皇帝・ブリッジ人物）に置くのはフェーズ0のスキーマ明記例に従う。",
+      "source": {
+        "page": "清史稿 巻二 太宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qing-taizong",
+      "to": "qing-shizu",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿世祖本紀一に「讳福临，太宗第九子」とあり太宗ホンタイジの第九子。崇徳8年（1643）8月に太宗が後継未定のまま急逝し、「八年秋八月庚午，太宗崩，储嗣未定。和硕礼亲王代善会诸王、贝勒、贝子、文武群臣定议，奉上嗣大位，誓告天地，以和硕郑亲王济尔哈朗、和硕睿亲王多尔衮辅政」と、礼親王代善が諸王・群臣を集めた定議により6歳の福臨が擁立され、鄭親王ジルガランと睿親王ドルゴンが輔政（摂政）となった。「丁亥，上即皇帝位于笃恭殿」と同月丁亥に篤恭殿で即位。ドルゴンとホーゲの帝位争いの妥協としての幼帝擁立であり、accessionRoute.category=擁立と整合。",
+      "source": {
+        "page": "清史稿 巻四 世祖本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qing-shizu",
+      "to": "qing-shengzu",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "聖祖康熙帝（諱玄燁）は世祖順治帝の第三子（「讳玄烨，世祖第三子也」）。順治18年正月丙辰、世祖の崩御に伴い遺詔により8歳で即位した（「顺治十八年正月丙辰，世祖崩，帝即位，年八岁，改元康熙。遗诏索尼、苏克萨哈、遏必隆、鰲拜四大臣辅政」）。四大臣は輔政（摂政）であり皇位授受の主体ではない。父から子への遺詔による世襲継承。",
+      "source": {
+        "page": "清史稿 巻六 聖祖本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qing-shengzu",
+      "to": "qing-shizong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿世宗本紀に「世宗……讳胤禛，圣祖第四子也。母孝恭仁皇后乌雅氏」とあり、聖祖（康熙帝）の第四子。康熙61年11月、「甲午，圣祖大渐，召于斋宫，宣诏嗣位。圣祖崩。辛丑，上即位，以明年为雍正元年」と、聖祖危篤時の宣詔により嗣位し崩御後に即位した遺詔による世襲継承。民間の遺詔改竄説（俗説）は継承者の意図をめぐる異説にとどまり、父子関係・世襲継承の事実自体は正史・学界とも一致して認めるため verified とする。",
+      "source": {
+        "page": "清史稿 本紀九 世宗本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qing-shizong",
+      "to": "qing-gaozong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿高宗本紀に「讳弘历，世宗第四子，母孝圣宪皇后」とあり、高宗（乾隆帝）は世宗（雍正帝）の第四子。雍正元年八月「世宗御乾清宫，密书上名，缄藏世祖所书正大光明扁额上」と秘密建儲され、雍正13年8月己丑の世宗崩御後「庄亲王允禄等启雍正元年立皇太子密封，宣诏即皇帝位」により即位した遺詔・秘密建儲による世襲継承。",
+      "source": {
+        "page": "清史稿 本紀十 高宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qing-gaozong",
+      "to": "qing-renzong",
+      "category": "内禅",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "仁宗顒琰は高宗（乾隆帝）の第十五子（「讳颙琰，高宗第十五子也」）。乾隆60年9月に皇太子に策立され（「六十年九月，策立为皇太子，高宗将传位焉，以明年为嘉庆元年」）、嘉慶元年正月戊辰朔に内禅を挙行、高宗が太和殿で璽を授け即位（「举行内禅……高宗御太和殿，授玺。上即位，尊高宗为太上皇帝，训政」）。父帝在世中の生前譲位で、高宗は太上皇帝として訓政を続け、嘉慶4年正月の太上皇帝崩御（「太上皇帝崩，上始亲政」）まで実権を保持した。",
+      "source": {
+        "page": "清史稿 巻十六 仁宗本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qing-renzong",
+      "to": "qing-xuanzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宣宗（道光帝）は仁宗（嘉慶帝）の次子。「讳旻宁，仁宗次子。母孝淑睿皇后」。嘉慶25年、仁宗が熱河で危篤となった際、御前大臣・軍機大臣らが鐍匣を開き嘉慶4年御筆の建儲書を宣示して皇太子と確定（「公启鐍匣，宣示嘉庆四年御书，立上为皇太子。仁宗崩」）、仁宗崩御後の庚戌日に太和殿で即位（「庚戌，上即皇帝位于太和殿」）。秘密建儲制度に基づく父から子への正規の世襲。",
+      "source": {
+        "page": "清史稿 巻十七 宣宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qing-xuanzong",
+      "to": "qing-wenzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿文宗本紀に「宣宗第四子也」とあり、宣宗（道光帝）の第四子。「三十年正月丁未，宣宗不豫，宣召大臣示硃笔，立为皇太子。宣宗崩，己未，上即位」— 道光30年正月、宣宗が崩御直前に硃筆で皇太子に立て、崩御後即日即位した通常の父子世襲継承。emperors.json の accessionRoute.category「世襲」と整合。",
+      "source": {
+        "page": "清史稿 巻二十 文宗本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qing-wenzong",
+      "to": "qing-muzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "文宗（咸豊帝）の長子。清史稿穆宗本紀一冒頭に「讳载淳，文宗长子，母孝钦显皇后那拉氏」とあり、咸豊11年7月、文宗臨終の際に「宣谕立为皇太子」と皇太子に立てられ、「癸卯，文宗崩」の後、十月甲子に「上御太和殿即皇帝位，受朝」と太和殿で即位した正規の父子世襲。accessionRoute.category「世襲」と一致。",
+      "source": {
+        "page": "清史稿 本紀二十一 穆宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qing-muzong",
+      "to": "qing-dezong",
+      "category": "擁立",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿徳宗本紀一冒頭に「讳载湉，文宗嗣子，穆宗从弟也。本生父醇贤亲王奕枻，宣宗第七子」とあり、載湉は醇親王奕譞（宣宗第七子）の実子で穆宗（同治帝）の従弟（いとこ）。同治13年12月「穆宗崩，无嗣。慈安皇太后、慈禧皇太后召……定议，传懿旨，以上继文宗为子，入承大统，为嗣皇帝。俟嗣皇帝有子，即承继大行皇帝」とあり、同治帝が嗣子なく崩御したため両宮皇太后が懿旨により載湉を文宗（咸豊帝）の嗣子として入承大統させた（皇太后による擁立）。名目上の宗法的地位は文宗の嗣子だが、皇位の直接の先代は穆宗であるため from=qing-muzong とする。relationToPredecessor は原文「穆宗从弟」（年少のいとこ）で、enum 語彙上は「従兄弟」を用いる。",
+      "source": {
+        "page": "清史稿 本紀二十三 徳宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qing-dezong",
+      "to": "qing-xuantong",
+      "category": "擁立",
+      "relationToPredecessor": "甥",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "主エッジ（1908年初回即位）。光緒34年10月、徳宗（光緒帝）が嗣子なく崩御し、太皇太后（西太后）の懿旨により醇親王載灃の子・溥儀（数え3歳）が迎立された：「癸酉，德宗崩，奉太皇太后懿旨，入承大统，为嗣皇帝，嗣穆宗，兼承大行皇帝之祧，时年三岁」。即位礼は同年11月辛卯：「辛卯，帝即位于太和殿，以明年为宣统元年」。続柄は本紀冒頭「宣统皇帝名溥仪，宣宗之曾孙，醇贤亲王奕枻之孙，监国摄政王载沣之子也，于德宗为本生弟子」により、溥儀は徳宗の実弟・載灃の子＝徳宗の甥（先例: 隋の楊浩=煬帝の弟の子を「甥」とした判定に整合）。なお宗法上は穆宗（同治帝）の嗣子とされ、あわせて徳宗の祭祀も兼承する両祧（「嗣穆宗，兼承大行皇帝之祧」）だが、皇位の空位を生じさせた直接の先代は徳宗であるため from=qing-dezong とする（兼祧は後続フェーズの kinship（養子）エッジで扱うべき次元）。",
+      "source": {
+        "page": "清史稿 本紀二十五 宣統皇帝本紀",
         "lang": "zh-classical"
       }
     }
