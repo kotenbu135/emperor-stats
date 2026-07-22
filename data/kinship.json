@@ -120,6 +120,13 @@
         "emperors": 17,
         "edges": 8,
         "persons": 1
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック13（唐前半・武周）",
+        "emperors": 13,
+        "edges": 15,
+        "persons": 0
       }
     ]
   },
@@ -2864,6 +2871,231 @@
       "note": "非皇帝の先行君主（自称元興王・操師乞）からの実質的な君主位承継と判定。林士弘は独自の挙兵基盤を持たず、「林士弘者，饶州鄱阳人也。大业十二年，与其乡人操师乞起为群盗」と操師乞とともに起ち、その大将軍となり（通鑑「鄱阳贼帅操师乞自称元兴王，建元始兴，攻陷豫章郡，以其乡人林士弘为大将军」）、師乞戦死後に「师乞中矢而死。士弘代董其众」（旧唐書）／「师乞中流矢死，士弘代统其众」（資治通鑑）と其の衆・地盤（豫章）をそのまま承継したうえで同年内に称帝した（通鑑「十二月，壬辰，士弘自称皇帝，国号楚，建元太平」）。帝位は操師乞の政権の承継に全面的に由来し、自立挙兵型の根ノードではない。両者は郷人（同郷）で血縁記事はなく無血縁。既存前例 p-fuhong→qianqin-fujian・p-murong-hong→xiyan-murongchong（王号どまりの先行君主の衆を継いで称帝、category=建国）と同型。",
       "source": {
         "page": "旧唐書 巻五十六 列伝第六 林士弘",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "sui-gongdi-you",
+      "to": "tang-gaozu",
+      "category": "禅譲",
+      "relationToPredecessor": "外戚（その他）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "隋恭帝侑からの受禅。「遣使持节、兼太保、邢部尚书、光禄大夫、梁郡公萧造，兼太尉、司农少卿裴之隐奉皇帝玺绶于高祖。高祖辞让，百僚上表劝进，至于再三，乃从之。隋帝逊于旧邸」「甲子，高祖即皇帝位于太极殿…改隋义宁二年为唐武德元年」。続柄: 原文「文帝独孤皇后，即高祖从母也，由是特见亲爱」により、李淵は隋文帝独孤皇后（煬帝の母）の姉妹の子＝煬帝の母方従兄弟。先代の恭帝侑は煬帝の孫にあたるため、侑本人との直接の続柄は「曾祖母（独孤皇后）の姉妹の子」という enum 外の遠い外戚関係であり「外戚（その他）」とした。なお恭帝侑はもともと李淵自身が擁立した皇帝（「癸亥，率百僚，备法驾，立代王侑为天子，遥尊炀帝为太上皇」）。",
+      "source": {
+        "page": "旧唐書 巻一 高祖紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-gaozu",
+      "to": "tang-taizong",
+      "category": "内禅",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書太宗紀に「太宗文武大圣大广孝皇帝讳世民，高祖第二子也」とあり高祖の第二子。武徳9年6月4日の玄武門の変で皇太子建成・斉王元吉を誅殺（「九年，皇太子建成、齐王元吉谋害太宗。六月四日，太宗率长孙无忌、尉迟敬德、房玄龄、杜如晦、宇文士及、高士廉、侯君集、程知节、秦叔宝、段志玄、屈突通、张士贵等于玄武门诛之。甲子，立为皇太子，庶政皆断决」）後に皇太子となり、同年8月「八月癸亥，高祖传位于皇太子，太宗即位于东宫显德殿」と高祖から生前譲位を受けて即位した。同一王朝内の生前譲位で category=内禅（emperors.json の accessionRoute と一致）。",
+      "source": {
+        "page": "旧唐書 巻二 太宗紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-taizong",
+      "to": "tang-gaozong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "高宗李治は太宗の第九子（「高宗天皇大圣大弘孝皇帝，讳治，太宗第九子也，母曰文德顺圣长孙皇后」）。貞観17年に皇太子承乾の廃位・魏王泰の黜免を受けて皇太子に立てられ（「十七年，皇太子承乾废，魏王泰亦以罪黜，太宗与长孙无忌、房玄龄、李勣等计议，立晋王为皇太子」）、貞観23年5月己巳の太宗崩御に伴い6月甲戌朔に即位（「二十三年五月己巳，太宗崩」「六月甲戌朔，皇太子即皇帝位，时年二十二」）。父から子への典型的な世襲継承。",
+      "source": {
+        "page": "旧唐書 巻四 高宗上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-gaozong",
+      "to": "tang-zhongzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "初回即位。旧唐書巻七中宗紀に「中宗大和圣昭孝皇帝讳显，高宗第七子，母曰则天顺圣皇后」とあり高宗の第七子。「永隆元年，章怀太子废，其年立为皇太子。弘道元年十二月，高宗崩，遗诏皇太子柩前即帝位」と、皇太子として高宗崩御後に遺詔により柩前で即位した世襲継承。category は accessionRoute.note 記録の初回即位経路（世襲）による（accessionRoute.category 自体は復位のためスキーマの復位皇帝例外を適用）。",
+      "source": {
+        "page": "旧唐書 巻七 中宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-wuzetian",
+      "to": "tang-zhongzong",
+      "category": "復位",
+      "relationToPredecessor": "子",
+      "isRestoration": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "復位エッジ。嗣聖元年に武則天により廃位（「元年二月，皇太后废帝为庐陵王」）された後、神龍元年正月の神龍革命（「凤阁侍郎张柬之、鸾台侍郎崔玄暐、左羽林将军敬晖、右羽林将军桓彦范、司刑少卿袁恕己等定策率羽林兵诛易之、昌宗，迎皇太子监国」）を経て、「乙巳，则天传位于皇太子。丙午，即皇帝位于通天宫，大赦天下」と武則天からの譲位により復位。続柄は「母曰则天顺圣皇后」により武則天の子。",
+      "source": {
+        "page": "旧唐書 巻七 中宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-zhongzong",
+      "to": "tang-ruizong",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "初回即位（嗣聖元年＝文明元年、684年）。武則天が中宗を廃位した翌日、豫王李旦（睿宗）を皇帝に擁立した（傀儡、武則天が臨朝称制）。「嗣圣元年，则天临朝，废中宗为庐陵王，立豫王为皇帝，仍临朝称制」。睿宗は高宗第八子で中宗の同母弟（「高宗第八子，中宗母弟」）。category は accessionRoute.note に記録された初回即位経路「擁立」（復位皇帝の主エッジ規定による）。載初元年（690年）に武則天への譲位を強制され皇嗣に降格された。",
+      "source": {
+        "page": "旧唐書 巻七 睿宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-shangdi",
+      "to": "tang-ruizong",
+      "category": "復位",
+      "relationToPredecessor": "叔父",
+      "isRestoration": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "景雲元年（景龍4年、710年）、李隆基（後の玄宗）らの唐隆政変で韋后一党が誅殺された後、王公百僚が「宜立长君」と上表し（「王公百僚上表，咸以国家多难，宜立长君，以帝众望所归，请即尊位」）、少帝（殤帝李重茂）が詔で「王室多难，义择长君……择今日，请叔父相王即皇帝位」と譲位、「于是少帝逊于别宫。是日即皇帝位，御承天门楼，大赦天下」により復位。睿宗は殤帝の叔父（殤帝の父・中宗の弟）で、殤帝の詔自体が「叔父相王」と呼んでいる。",
+      "source": {
+        "page": "旧唐書 巻七 睿宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-ruizong",
+      "to": "tang-wuzetian",
+      "category": "建国",
+      "relationToPredecessor": "母",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "天授元年9月9日、在位中の皇帝であった実子の睿宗（李旦）から「革命」の形式で皇位を奪い、国号を周と改めて自ら即位（睿宗は皇嗣に降格）。旧唐書則天皇后紀「九月九日壬午，革唐命，改国号为周。改元为天授……乙酉，加尊号曰圣神皇帝，降皇帝为皇嗣」。降格された「皇帝」が睿宗であることは旧唐書睿宗紀「及革命，改国号为周，降帝为皇嗣，令依旧名轮」で裏付けられる。category は accessionRoute の「建国」をコピー（先行皇帝から実質的に皇位を得た受禅建国型として from を置く）。続柄: 睿宗は武則天の実子（旧唐書睿宗紀「睿宗玄真大圣大兴孝皇帝，讳旦，高宗第八子，中宗母弟」、中宗の同母弟＝則天所生）で、新帝（武則天）は先代（睿宗）の母。",
+      "source": {
+        "page": "旧唐書 巻六 則天皇后紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-zhongzong",
+      "to": "tang-shangdi",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "中宗の第四子（旧唐書 巻八十六 列伝第三十六「殇皇帝重茂，中宗第四子也。」）。景龍4年（710年）中宗急死後、遺制により皇太子に立てられ（旧唐書 巻七 中宗紀「立温王重茂为皇太子」）、柩前で即位（同「丁亥，皇太子即帝位于柩前，时年十六。皇太后韦氏临朝称制」）。実権は韋后が握り臨朝称制した擁立即位で、category は emperors.json の accessionRoute（擁立）をそのまま採用。約1か月後の唐隆政変（李隆基のクーデター）で廃位され叔父の相王（睿宗）に譲位した。",
+      "source": {
+        "page": "旧唐書 巻七 中宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-ruizong",
+      "to": "tang-xuanzong",
+      "category": "内禅",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書巻八玄宗紀に「玄宗至道大圣大明孝皇帝讳隆基，睿宗第三子也」とあり、玄宗は睿宗の第三子。延和元年（712年）、睿宗は「睿宗曰：“传德避灾，吾意决矣。”七月壬午，制曰：」に続く制で「皇太子基有大功于天地，定阽危于社稷……历数在躬，宜陟元后。可令即皇帝位，有司择日授册」と皇太子隆基への譲位を命じ、玄宗が即位した正規の内禅。玄宗自身の即位後の制にも「旋承内禅，继体宸居」とある。",
+      "source": {
+        "page": "旧唐書 巻八 玄宗紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-xuanzong",
+      "to": "tang-suzong",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "粛宗李亨は玄宗の第三子（「肃宗文明武德大圣大宣孝皇帝讳亨，玄宗第三子，母曰元献皇后杨氏」）。安史の乱で玄宗が蜀へ逃れる中、裴冕・杜鴻漸ら朔方の将吏が六度上笺して勧進し（「冕等凡六上笺。辞情激切，上不获已，乃从」）、至徳元載七月甲子に霊武で即位（「是月甲子，上即皇帝位于灵武」）。即位と同日に上皇（玄宗）へ奏上し（「即日奏其事于上皇」）、在位中の玄宗を上皇天帝に遥尊（「上尊圣皇曰上皇天帝」）、玄宗は事後追認の形で冊命した。玄宗本人の事前の意思によらない擁立即位だが、父玄宗から唐帝室内の正統継承の形式で皇位を得ており（隋恭帝侑と同型）、from=tang-xuanzong とする。",
+      "source": {
+        "page": "旧唐書 巻十 粛宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-suzong",
+      "to": "tang-daizong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書代宗紀に「代宗睿文孝武皇帝讳豫，肃宗长子，母曰章敬皇太后吴氏」とあり粛宗の長子。乾元元年「四月庚寅，立为皇太子，改名豫」と皇太子に立てられ、宝応元年四月の粛宗崩御に際し、張皇后の廃立の企てを宦官李輔国・程元振が制圧して太子を保護・監国とした後「己巳，即皇帝位于柩前」と柩前即位した。擁立の面もあるが皇太子による正規の世襲（accessionRoute=世襲のまま）。新唐書巻六代宗紀「代宗睿文孝武皇帝讳豫，肃宗长子也」でも一致。",
+      "source": {
+        "page": "旧唐書 巻十一 代宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-daizong",
+      "to": "tang-dezong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書巻十二徳宗紀上の冒頭に「德宗神武孝文皇帝讳适，代宗长子，母曰睿真皇后沈氏」とあり、徳宗は代宗の長子。「广德二年二月，立为皇太子」と広徳2年に皇太子に立てられ、「大历十四年五月辛酉，代宗崩。癸亥，即位于太极殿」と代宗崩御の2日後に太極殿で即位した正規の世襲。emperors.json の accessionRoute.category「世襲」と一致。",
+      "source": {
+        "page": "旧唐書 巻十二 徳宗紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-dezong",
+      "to": "tang-shunzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書順宗紀に「德宗长子，母昭德皇后王氏」と明記。建中元年正月に皇太子に立てられ（「建中元年正月丁卯，立为皇太子」）、貞元21年正月癸巳の徳宗崩御を受け丙申に太極殿で即位（「德宗崩，丙申，即位于太极殿」）。新唐書本紀第七も「癸巳，德宗崩。丙申，即皇帝位于太极殿」と一致し、20年以上東宮にあった嫡長子の柩前即位＝世襲継承として裏付けが取れる。",
+      "source": {
+        "page": "旧唐書 巻十四 順宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-shunzong",
+      "to": "tang-xianzong",
+      "category": "内禅",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "順宗の長子（旧唐書憲宗紀「宪宗圣神章武孝皇帝讳纯，顺宗长子也，母曰庄宪王太后」）。順宗即位年の四月に皇太子に冊立され（「顺宗即位之年四月，册为皇太子」）、永貞元年八月に順宗からの内禅を受けて即位（「八月丁酉朔，受内禅。乙巳，即皇帝位于宣政殿」、永貞内禅）。この内禅は宦官俱文珍による王叔文一派排除の画策が背景にある（accessionRoute.note に記録済み）。",
+      "source": {
+        "page": "旧唐書 巻十四 憲宗紀上",
         "lang": "zh-classical"
       }
     }
