@@ -82,7 +82,6 @@ KNOWN_DEATH_BEFORE_END = {
     "shiguo-nanhan-liusheng",   # 0958-08-01 < 0958-09-18
     "liao-jingzong",          # 0982-09-24 < 0982-10-13
     "liao-daozong",           # 1101-01-13 < 1101-02-12
-    "xixia-huizong",          # 1086-07 < 1086-08-21
     "xixia-chongzong",        # 1139-06-04 < 1139-07-01
     "shun-lichengzheng",      # 1645-09 < 1645-10-01
 }
@@ -687,11 +686,12 @@ def check_confidence(data):
                     elif v is not None and v not in ("high", "medium", "low"):
                         err(f"[confidence] {eid}.{path}: 不正値 {v!r}")
                 if k.endswith("Precision") or k == "datePrecision":
+                    # 語彙標準は year/month/day/null（2026-07-22 ユーザー確定）。完全一致で検査する
+                    # （旧実装は先頭 ascii トークンのみ照合し「day（説明…）」形式を見逃していた）。
+                    # 装飾つき残存分（T2 ファミリー）の解消が完了したらエラーへ格上げする。
                     for val in (v.values() if isinstance(v, dict) else [v]):
-                        if isinstance(val, str):
-                            token = re.split(r"[^a-z-]", val, 1)[0]
-                            if token not in STANDARD_PRECISION_TOKENS:
-                                nonstandard_precision[val[:30]] += 1
+                        if val is not None and val not in STANDARD_PRECISION_TOKENS:
+                            nonstandard_precision[str(val)[:30]] += 1
                 walk_children(v, eid, path, k)
         elif isinstance(node, list):
             for i, x in enumerate(node):
@@ -705,9 +705,47 @@ def check_confidence(data):
         walk(e, e["id"], "")
     if nonstandard_precision:
         warn(
-            f"[precision] ages/events の datePrecision 非標準トークン: "
+            f"[precision] datePrecision の非標準トークン（完全一致検査）: "
             f"計 {sum(nonstandard_precision.values())} 件 "
-            f"{len(nonstandard_precision)} 種（表記ゆれ・task.md 3-3 で正規化方針未確定）"
+            f"{len(nonstandard_precision)} 種（語彙標準 year/month/day/null へ正規化中・完了後エラー化）"
+        )
+
+
+def check_event_date_format(data):
+    """events の date/startDate/endDate は ISO 形式必須（2026-07-22 正規化完了に伴い恒久化・エラー）。
+    precision に対する日付深さ不足は、`date` キーは是正済みのためエラー、
+    startDate/endDate の混在精度（開始のみ日精度で終了が年精度等、単一トークンでは表現不能）は
+    既存データに大量に残る設計上の課題のため警告に留める（正規化方針が決まったら格上げ）。"""
+    shallow_range = 0
+    for e in data["emperors"]:
+        for g in COUNT_GROUPS:
+            o = e.get(g)
+            if not isinstance(o, dict):
+                continue
+            for i, ev in enumerate(o.get("events") or []):
+                if not isinstance(ev, dict):
+                    continue
+                prec = ev.get("datePrecision")
+                for k in ("date", "startDate", "endDate"):
+                    v = ev.get(k)
+                    if v is None:
+                        continue
+                    if not isinstance(v, str) or not ISO_DATE.match(v):
+                        err(f"[event-date] {e['id']}.{g}[{i}].{k}: 非ISO形式 {str(v)[:40]!r}")
+                        continue
+                    depth = len(v.lstrip("-").split("-"))
+                    if isinstance(prec, str) and prec in PRECISION_DEPTH and depth < PRECISION_DEPTH[prec]:
+                        if k == "date":
+                            err(
+                                f"[event-date] {e['id']}.{g}[{i}].{k}: datePrecision={prec} に対し"
+                                f"日付 {v} の深さが不足"
+                            )
+                        else:
+                            shallow_range += 1
+    if shallow_range:
+        warn(
+            f"[event-date] startDate/endDate の深さが datePrecision より浅いイベント日付: "
+            f"{shallow_range} 件（混在精度の表現方法が未確定のため警告のみ）"
         )
 
 
@@ -785,6 +823,7 @@ def main() -> int:
     check_ages(data)
     check_reign_summary(data)
     check_confidence(data)
+    check_event_date_format(data)
     check_forbidden_sources(data)
     check_portraits(data)
 

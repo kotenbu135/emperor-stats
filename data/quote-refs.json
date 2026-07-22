@@ -1681,6 +1681,16 @@
     "河北山东盗起命内侍梁"
    ]
   },
+  "beisong-huizong|rebellionSuppressionCount[4].note|78f39fa67add": {
+   "id": "beisong-huizong",
+   "path": "rebellionSuppressionCount[4].note",
+   "span": "河北、山東盜起",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-huizong.txt",
+   "frags": [
+    "河北山东盗起"
+   ]
+  },
   "beisong-huizong|rebellionSuppressionCount[5].note|e1d11c71de0c": {
    "id": "beisong-huizong",
    "path": "rebellionSuppressionCount[5].note",
@@ -35478,6 +35488,17 @@
     "纳皇太子妃褚氏大赦"
    ]
   },
+  "qi-mingdi|amnestyCount[2].note|eb2bfce26d31": {
+   "id": "qi-mingdi",
+   "path": "amnestyCount[2].note",
+   "span": "建武四年春正月庚午",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十六国春秋.txt",
+   "frags": [
+    "建武四年春正",
+    "年春正月庚午"
+   ]
+  },
   "qi-mingdi|deathCause.note|5f060555a9c1": {
    "id": "qi-mingdi",
    "path": "deathCause.note",
@@ -42942,6 +42963,16 @@
    "frags": [
     "世充更使人谓侗曰今海",
     "义不违负侗不得已逊位"
+   ]
+  },
+  "sui-gongdi-you|ages.note|7945a388c56f": {
+   "id": "sui-gongdi-you",
+   "path": "ages.note",
+   "span": "武徳二年夏五月",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/sui-gongdi-you.txt",
+   "frags": [
+    "武德二年夏五月"
    ]
   },
   "sui-gongdi-you|deathCause.note|fd7f7452f65a": {
@@ -55624,6 +55655,16 @@
     "乙丑帝崩于保昌殿寿五"
    ]
   },
+  "wudai-houjin-shaodi|ages.note|a03f3981b4d8": {
+   "id": "wudai-houjin-shaodi",
+   "path": "ages.note",
+   "span": "少主初迁于黄龙府，后居于建州，凡十八年而卒",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/目录/郡斋读书志.txt",
+   "frags": [
+    "少主初迁于黄龙府后居"
+   ]
+  },
   "wudai-houjin-shaodi|amnestyCount[0].note|eef733155629": {
    "id": "wudai-houjin-shaodi",
    "path": "amnestyCount[0].note",
@@ -60655,6 +60696,16 @@
     "秋七月乙丑秉常殂时年"
    ]
   },
+  "xixia-huizong|ages.note|1bd7ff84d90b": {
+   "id": "xixia-huizong",
+   "path": "ages.note",
+   "span": "秋七月乙丑，秉常殂",
+   "status": "corpus",
+   "corpusFile": "china-history/宋史/列传/第二百四十五章-卷二百四十五-原文.html",
+   "frags": [
+    "秋七月乙丑秉常殂"
+   ]
+  },
   "xixia-huizong|ages.note|27d4e05cb003": {
    "id": "xixia-huizong",
    "path": "ages.note",
@@ -64463,6 +64514,66 @@
    "corpusFile": "_corpus_cache/yuan-renzong.txt",
    "frags": [
     "叛王脱火赤所掠"
+   ]
+  },
+  "yuan-renzong|rebellionSufferedCount[2].note|9c370233a7e7": {
+   "id": "yuan-renzong",
+   "path": "rebellionSufferedCount[2].note",
+   "span": "赏讨叛王脱火赤战功",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-renzong.txt",
+   "frags": [
+    "赏讨叛王脱火赤战功"
+   ]
+  },
+  "yuan-renzong|rebellionSufferedCount[2].note|f61ab8671171": {
+   "id": "yuan-renzong",
+   "path": "rebellionSufferedCount[2].note",
+   "span": "诸王部值脱火赤之乱",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-renzong.txt",
+   "frags": [
+    "诸王部值脱火赤之乱"
+   ]
+  },
+  "yuan-renzong|rebellionSufferedCount[4].note|8f3c821b0479": {
+   "id": "yuan-renzong",
+   "path": "rebellionSufferedCount[4].note",
+   "span": "延祐五年五月乙巳",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/地理/贵州通志.txt",
+   "frags": [
+    "延祐五年五月"
+   ]
+  },
+  "yuan-renzong|rebellionSufferedCount[4].note|a3406b81ee64": {
+   "id": "yuan-renzong",
+   "path": "rebellionSufferedCount[4].note",
+   "span": "西番土寇作乱，敕甘粛省調兵捕之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-renzong.txt",
+   "frags": [
+    "西番土寇作乱敕甘肃省"
+   ]
+  },
+  "yuan-renzong|rebellionSufferedCount[5].note|7956f774f214": {
+   "id": "yuan-renzong",
+   "path": "rebellionSufferedCount[5].note",
+   "span": "延祐五年三月辛酉",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/目录/四库全书总目提要.txt",
+   "frags": [
+    "延祐五年三月"
+   ]
+  },
+  "yuan-renzong|rebellionSufferedCount[5].note|8a13ade64151": {
+   "id": "yuan-renzong",
+   "path": "rebellionSufferedCount[5].note",
+   "span": "辛酉，斡端地有叛者入寇",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-renzong.txt",
+   "frags": [
+    "辛酉斡端地有叛者入寇"
    ]
   },
   "yuan-renzong|reigns[0].quote#0|0debc81028ff": {
