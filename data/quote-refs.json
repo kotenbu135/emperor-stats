@@ -5817,6 +5817,16 @@
     "尊皇后曰皇太后"
    ]
   },
+  "beiwei-xiandi|eraChangeCount[0].note|0e637b2a0665": {
+   "id": "beiwei-xiandi",
+   "path": "eraChangeCount[0].note",
+   "span": "天安元年春正月乙丑朔",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-xiandi.txt",
+   "frags": [
+    "天安元年春正月乙丑朔"
+   ]
+  },
   "beiwei-xiandi|eraChangeCount[0].note|3c3a4fcf69bf": {
    "id": "beiwei-xiandi",
    "path": "eraChangeCount[0].note",
@@ -7141,6 +7151,16 @@
    "frags": [
     "永安二年四月于梁国城",
     "南登坛燔燎号孝基元年"
+   ]
+  },
+  "beiwei-yuanhao|eraChangeCount[0].note|ab212ee8dff8": {
+   "id": "beiwei-yuanhao",
+   "path": "eraChangeCount[0].note",
+   "span": "永安二年四月",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-yuanhao.txt",
+   "frags": [
+    "永安二年四月"
    ]
   },
   "beiwei-yuanhao|eraChangeCount[1].note|314567718394": {
@@ -33276,6 +33296,16 @@
     "崩于福宁殿遗诏太子湿"
    ]
   },
+  "nansong-gaozong|ages.note|0c6b625a76ce": {
+   "id": "nansong-gaozong",
+   "path": "ages.note",
+   "span": "淳熙十四年十月乙亥",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/nansong-gaozong.txt",
+   "frags": [
+    "淳熙十四年十月乙亥"
+   ]
+  },
   "nansong-gaozong|ages.note|4c6244d5105c": {
    "id": "nansong-gaozong",
    "path": "ages.note",
@@ -33496,6 +33526,16 @@
    "corpusFile": "_corpus_cache/nansong-gongdi.txt",
    "frags": [
     "奉遗诏即皇帝位于柩前"
+   ]
+  },
+  "nansong-gongdi|ages.note|0a60ff0b381b": {
+   "id": "nansong-gongdi",
+   "path": "ages.note",
+   "span": "咸淳七年九月己丑",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴后编.txt",
+   "frags": [
+    "咸淳七年九月己丑"
    ]
   },
   "nansong-gongdi|ages.note|18a78756efc9": {
@@ -46564,6 +46604,16 @@
     "上崩于会宁殿享寿六十"
    ]
   },
+  "tang-dezong|ages.note|bd8bdb8818bd": {
+   "id": "tang-dezong",
+   "path": "ages.note",
+   "span": "天宝元年四月癸巳",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-dezong.txt",
+   "frags": [
+    "天宝元年四月癸巳"
+   ]
+  },
   "tang-dezong|amnestyCount.note|8dcc900e557b": {
    "id": "tang-dezong",
    "path": "amnestyCount.note",
@@ -47486,6 +47536,27 @@
    "corpusFile": "_corpus_cache/tang-gaozong.txt",
    "frags": [
     "百姓蒙赦无不感悦"
+   ]
+  },
+  "tang-gaozong|eraChangeCount[11].note|9a0b461735c7": {
+   "id": "tang-gaozong",
+   "path": "eraChangeCount[11].note",
+   "span": "冬十月丙寅朔…乙丑，改永隆二年為開耀元年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-gaozong.txt",
+   "frags": [
+    "冬十月丙寅朔",
+    "乙丑改永隆二年为开耀"
+   ]
+  },
+  "tang-gaozong|eraChangeCount[12].note|f6dbddf42f9d": {
+   "id": "tang-gaozong",
+   "path": "eraChangeCount[12].note",
+   "span": "二月癸未…大赦。改開耀二年為永淳元年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-gaozong.txt",
+   "frags": [
+    "大赦改开耀二年为永淳"
    ]
   },
   "tang-gaozong|personalCampaignCount.note|5062c906c954": {
@@ -49853,6 +49924,189 @@
    "corpusFile": "_corpus_cache/tang-xianzong.txt",
    "frags": [
     "御丹凤楼大赦天下改元"
+   ]
+  },
+  "tang-xianzong|rebellionSufferedCount[12].note|8ab6e3999281": {
+   "id": "tang-xianzong",
+   "path": "rebellionSufferedCount[12].note",
+   "span": "安南军乱、杀都护李象古并家属",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "安南军乱杀都护李象古"
+   ]
+  },
+  "tang-xianzong|rebellionSufferedCount[9].note|f12dee652977": {
+   "id": "tang-xianzong",
+   "path": "rebellionSufferedCount[9].note",
+   "span": "宥州军乱、逐刺史骆怡",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "宥州军乱逐刺史骆怡"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[0].note|2895f9de2db1": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[0].note",
+   "span": "戊子、斬刘辟并子超郎等九人于独柳树下",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "戊子斩刘辟并子超郎等"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[0].note|c1bb4679c5d5": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[0].note",
+   "span": "制削夺刘辟在身官爵",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "制削夺刘辟在身官爵"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[2].note|6e10bc6ed06b": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[2].note",
+   "span": "李锜据润州反",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "李锜据润州反"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[2].note|aa5dc41c9c7b": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[2].note",
+   "span": "斩李锜于独柳树下",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "斩李锜于独柳树下"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[3].note|a0ba39a32760": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[3].note",
+   "span": "诏昭洗王承宗、复其官爵",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "诏昭洗王承宗复其官爵"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[3].note|a8ae8a6f4fe6": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[3].note",
+   "span": "承宗以兵虏昌朝归镇州",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "承宗以兵虏昌朝归镇州"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[4].note|2c163c8bfc46": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[4].note",
+   "span": "振武军乱、逐其帅李进贤",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "振武军乱逐其帅李进贤"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[4].note|a3a1cd144f25": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[4].note",
+   "span": "张煦入单于都护府、诛作乱军士苏国珍等二百五十二人",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "张煦入单于都护府诛作",
+    "军士苏国珍等二百五十"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[5].note|9b916af9dc7f": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[5].note",
+   "span": "李愬率师入蔡州、执吴元济以献、淮西平",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/太平御览.txt",
+   "frags": [
+    "师入蔡州执吴",
+    "元济以献淮西"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[5].note|f0f539013fa5": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[5].note",
+   "span": "元济匿丧、自总兵柄、乃焚劫舞阳等四县",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "元济匿丧自总兵柄乃焚"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[6].note|43b710cd7845": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[6].note",
+   "span": "诏复王承宗官爵",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "诏复王承宗官爵"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[6].note|84cf3d0dbc11": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[6].note",
+   "span": "承宗盗夜伏于靖安坊、刺宰相武元衡、死之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "承宗盗夜伏于靖安坊刺"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[8].note|27a8fb83b32e": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[8].note",
+   "span": "诏削夺淄青节度使李师道在身官爵…分路进讨",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "诏削夺淄青节度使李师"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[8].note|da70876653c8": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[8].note",
+   "span": "刘悟斩李师道并男二人首请降、师道所管十二州平",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "刘悟斩李师道并男二人",
+    "首请降师道所管十二州"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[9].note|1548a95d11c5": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[9].note",
+   "span": "沂州军乱、杀节度使王遂",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "沂州军乱杀节度使王遂"
+   ]
+  },
+  "tang-xianzong|rebellionSuppressionCount[9].note|1c128f1668a2": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[9].note",
+   "span": "斩沂州乱首王弁于东市",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "斩沂州乱首王辩于东市"
    ]
   },
   "tang-xianzong|reigns[0].quote#0|057dcc457440": {
@@ -61758,6 +62012,16 @@
     "一谥曰英文皇帝庙号神"
    ]
   },
+  "xixia-shenzong|eraChangeCount[0].note|abda448d2c16": {
+   "id": "xixia-shenzong",
+   "path": "eraChangeCount[0].note",
+   "span": "（嘉定四年）七月三日立",
+   "status": "corpus",
+   "corpusFile": "china-history/宋史/列传/第二百四十五章-卷二百四十五-原文.html",
+   "frags": [
+    "嘉定四年七月三日立"
+   ]
+  },
   "xixia-shenzong|eraChangeCount[0].note|f6e79a538982": {
    "id": "xixia-shenzong",
    "path": "eraChangeCount[0].note",
@@ -64446,6 +64710,16 @@
     "至元二十二年三月丙子"
    ]
   },
+  "yuan-renzong|ages.note|61a5ed1be39f": {
+   "id": "yuan-renzong",
+   "path": "ages.note",
+   "span": "延祐七年正月辛丑",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/御定韵府拾遗.txt",
+   "frags": [
+    "延祐七年正月"
+   ]
+  },
   "yuan-renzong|ages.note|b6f95f1c5762": {
    "id": "yuan-renzong",
    "path": "ages.note",
@@ -64612,6 +64886,17 @@
     "四子母庄圣太后怯烈氏"
    ]
   },
+  "yuan-shizu|ages.note|ad24364a56d3": {
+   "id": "yuan-shizu",
+   "path": "ages.note",
+   "span": "三十一年春正月壬子朔…癸酉，帝崩于紫檀殿",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "三十一年春正月壬子朔",
+    "癸酉帝崩于紫檀殿"
+   ]
+  },
   "yuan-shizu|ages.note|b65d42de12a1": {
    "id": "yuan-shizu",
    "path": "ages.note",
@@ -64620,6 +64905,16 @@
    "corpusFile": "_corpus_cache/yuan-shizu.txt",
    "frags": [
     "帝崩于紫檀殿在位三十"
+   ]
+  },
+  "yuan-shizu|ages.note|db22bb80c85d": {
+   "id": "yuan-shizu",
+   "path": "ages.note",
+   "span": "乙亥岁八月乙卯",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "乙亥岁八月乙卯"
    ]
   },
   "yuan-shizu|amnestyCount[1].note|40323c66c196": {
@@ -64684,6 +64979,26 @@
     "纳皇后弘吉剌氏"
    ]
   },
+  "yuan-shizu|eraChangeCount[0].note|2636bfc6a282": {
+   "id": "yuan-shizu",
+   "path": "eraChangeCount[0].note",
+   "span": "可自庚申年五月十九日",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "可自庚申年五月十九日"
+   ]
+  },
+  "yuan-shizu|eraChangeCount[0].note|4f83b180e42d": {
+   "id": "yuan-shizu",
+   "path": "eraChangeCount[0].note",
+   "span": "五月戊辰朔…丙戌，建元中統",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "丙戌建元中统"
+   ]
+  },
   "yuan-shizu|eraChangeCount[0].note|7a1b266b920f": {
    "id": "yuan-shizu",
    "path": "eraChangeCount[0].note",
@@ -64693,6 +65008,16 @@
    "frags": [
     "建元中统诏曰",
     "可自庚申年五月十九日"
+   ]
+  },
+  "yuan-shizu|eraChangeCount[0].note|b383a50aeac7": {
+   "id": "yuan-shizu",
+   "path": "eraChangeCount[0].note",
+   "span": "庚申年五月十九日",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "庚申年五月十九日"
    ]
   },
   "yuan-shizu|eraChangeCount[1].note|e52ea43f1021": {
@@ -64727,6 +65052,16 @@
     "卫军由檀顺州驻潮河川"
    ]
   },
+  "yuan-shizu|personalCampaignCount[0].note|7eb9fcac132c": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount[0].note",
+   "span": "帝亲将诸万户汉军及武卫军",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "帝亲将诸万户汉军及武"
+   ]
+  },
   "yuan-shizu|personalCampaignCount[0].note|b609f2d5743d": {
    "id": "yuan-shizu",
    "path": "personalCampaignCount[0].note",
@@ -64745,6 +65080,16 @@
    "corpusFile": "_corpus_cache/yuan-shizu.txt",
    "frags": [
     "帝自将征乃颜发上都"
+   ]
+  },
+  "yuan-shizu|personalCampaignCount[1].note|d5b1ff60e534": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount[1].note",
+   "span": "车驾驻干大利斡鲁脱之地，获乃颜辎重千余",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "车驾驻干大利斡鲁脱之"
    ]
   },
   "yuan-shizu|personalCampaignCount[2].note|c7611a336559": {
@@ -65368,12 +65713,44 @@
     "诏赦天下除江淮创科包"
    ]
   },
+  "yuan-taidingdi|amnestyCount[1].note|444faed05233": {
+   "id": "yuan-taidingdi",
+   "path": "amnestyCount[1].note",
+   "span": "泰定二年閏正月壬子朔",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/元史纪事本末.txt",
+   "frags": [
+    "泰定二年闰正",
+    "年闰正月壬子"
+   ]
+  },
   "yuan-taidingdi|amnestyCount[2].note|a9371335e432": {
    "id": "yuan-taidingdi",
    "path": "amnestyCount[2].note",
    "span": "甲辰，係囚…以禳之",
    "status": "external",
    "note": "漢字連続4字未満の注記表現（引用ではない）"
+  },
+  "yuan-taidingdi|amnestyCount[2].note|ef2b89176991": {
+   "id": "yuan-taidingdi",
+   "path": "amnestyCount[2].note",
+   "span": "泰定三年十二月庚寅",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/地理/至顺镇江志.txt",
+   "frags": [
+    "泰定三年十二",
+    "年十二月庚寅"
+   ]
+  },
+  "yuan-taidingdi|amnestyCount[3].note|318ef4488d88": {
+   "id": "yuan-taidingdi",
+   "path": "amnestyCount[3].note",
+   "span": "泰定四年閏九月壬申",
+   "status": "corpus",
+   "corpusFile": "china-history/元史/志/第二十五章-卷二十五-原文.html",
+   "frags": [
+    "泰定四年闰九"
+   ]
   },
   "yuan-taidingdi|amnestyCount[3].note|63b7d8016dbb": {
    "id": "yuan-taidingdi",
@@ -65447,6 +65824,17 @@
     "皇后皇子阿速吉八为皇"
    ]
   },
+  "yuan-taidingdi|eraChangeCount[0].note|2fb5a3d169f1": {
+   "id": "yuan-taidingdi",
+   "path": "eraChangeCount[0].note",
+   "span": "至治三年十二月丁亥",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/地理/全辽志.txt",
+   "frags": [
+    "至治三年十二",
+    "年十二月丁亥"
+   ]
+  },
   "yuan-taidingdi|eraChangeCount[0].note|dddaeccf717d": {
    "id": "yuan-taidingdi",
    "path": "eraChangeCount[0].note",
@@ -65456,6 +65844,16 @@
    "frags": [
     "下诏改元诏曰朕荷天鸿",
     "稽诸典礼逾年改元可以"
+   ]
+  },
+  "yuan-taidingdi|eraChangeCount[1].note|159f86ba8ac2": {
+   "id": "yuan-taidingdi",
+   "path": "eraChangeCount[1].note",
+   "span": "泰定五年二月庚申",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/地理/南海志.txt",
+   "frags": [
+    "泰定五年二月"
    ]
   },
   "yuan-taidingdi|eraChangeCount[1].note|357b7ef121b1": {
@@ -65932,6 +66330,16 @@
     "乘舆一出民心必惊军旅"
    ]
   },
+  "yuan-wenzong|rebellionSufferedCount[4].note|8521c96ef8c5": {
+   "id": "yuan-wenzong",
+   "path": "rebellionSufferedCount[4].note",
+   "span": "海南黎贼作乱",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-wenzong.txt",
+   "frags": [
+    "海南黎贼作乱"
+   ]
+  },
   "yuan-wenzong|rebellionSuppressionCount.note|f95bbc15fec1": {
    "id": "yuan-wenzong",
    "path": "rebellionSuppressionCount.note",
@@ -66348,6 +66756,26 @@
    "corpusFile": "_corpus_cache/yuan-yingzong.txt",
    "frags": [
     "铁失赤斤铁木儿杀丞相"
+   ]
+  },
+  "yuan-yingzong|rebellionSuppressionCount[14].note|e5aa8072b200": {
+   "id": "yuan-yingzong",
+   "path": "rebellionSuppressionCount[14].note",
+   "span": "丁未，西番参卜郎諸族叛",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-yingzong.txt",
+   "frags": [
+    "丁未西番参卜郎诸族叛"
+   ]
+  },
+  "yuan-yingzong|rebellionSuppressionCount[14].note|f56801706ca9": {
+   "id": "yuan-yingzong",
+   "path": "rebellionSuppressionCount[14].note",
+   "span": "至治二年三月丁未",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/地理/陕西通志.txt",
+   "frags": [
+    "至治二年三月"
    ]
   },
   "yuan-yingzong|rebellionSuppressionCount[8].note|234a9c8bd7f7": {

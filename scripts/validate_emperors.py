@@ -82,7 +82,6 @@ KNOWN_DEATH_BEFORE_END = {
     "shiguo-nanhan-liusheng",   # 0958-08-01 < 0958-09-18
     "liao-jingzong",          # 0982-09-24 < 0982-10-13
     "liao-daozong",           # 1101-01-13 < 1101-02-12
-    "xixia-chongzong",        # 1139-06-04 < 1139-07-01
     "shun-lichengzheng",      # 1645-09 < 1645-10-01
 }
 
@@ -686,12 +685,11 @@ def check_confidence(data):
                     elif v is not None and v not in ("high", "medium", "low"):
                         err(f"[confidence] {eid}.{path}: 不正値 {v!r}")
                 if k.endswith("Precision") or k == "datePrecision":
-                    # 語彙標準は year/month/day/null（2026-07-22 ユーザー確定）。完全一致で検査する
-                    # （旧実装は先頭 ascii トークンのみ照合し「day（説明…）」形式を見逃していた）。
-                    # 装飾つき残存分（T2 ファミリー）の解消が完了したらエラーへ格上げする。
+                    # 語彙標準は year/month/day/null（2026-07-22 ユーザー確定・正規化完了）。
+                    # 完全一致で検査（旧実装は先頭 ascii トークンのみ照合し「day（説明…）」形式を見逃していた）。
                     for val in (v.values() if isinstance(v, dict) else [v]):
                         if val is not None and val not in STANDARD_PRECISION_TOKENS:
-                            nonstandard_precision[str(val)[:30]] += 1
+                            err(f"[precision] {eid}.{path}.{k}: 非標準トークン {str(val)[:40]!r}（year/month/day/null のみ許可）")
                 walk_children(v, eid, path, k)
         elif isinstance(node, list):
             for i, x in enumerate(node):
@@ -703,12 +701,6 @@ def check_confidence(data):
 
     for e in data["emperors"]:
         walk(e, e["id"], "")
-    if nonstandard_precision:
-        warn(
-            f"[precision] datePrecision の非標準トークン（完全一致検査）: "
-            f"計 {sum(nonstandard_precision.values())} 件 "
-            f"{len(nonstandard_precision)} 種（語彙標準 year/month/day/null へ正規化中・完了後エラー化）"
-        )
 
 
 def check_event_date_format(data):
