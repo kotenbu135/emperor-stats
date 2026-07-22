@@ -1,4 +1,15 @@
-# note 信頼性の全件検証レポート（2026-07-22・報告のみ、データ未修正）
+# note 信頼性の全件検証レポート（2026-07-22）
+
+> **訂正記録（2026-07-22 追記）**: 本レポート検出分＋同日の包括的データチェック検出分は、ユーザー指示により同日中に全件訂正済み。
+> 内訳 — exactDays 系統誤差19件（ユリウス閏世紀日+1日×18・1582年改暦-10日×1、`duration.value`/`approxDays`/`reignSummary` 連動再計算）、
+> 遼景宗 startDate 0969-03-13→03-12（+exactDays 4963）、F/P の引用 defect 22件（原文をコーパスから逐語再取得して差し替え、
+> 東晋元帝の実在しない引用は引用体裁を廃止、隋楊浩・陳後主の出典帰属を訂正、西夏景宗の人名はコーパス版本表記に統一）、
+> 換算記録の同期漏れ3件（梁蕭淵明 conversion 引数・史思明 ages.note 旧日付・蕭淵明「南史・梁書とも一致」の記述）、
+> ages.note「null とした」矛盾9件（7人。全件、規定10節の年号年ラベル差分逆算として立証し note 側を訂正・値は維持）、
+> precision 不整合2件（隋文帝 birthDate 0541-07-21・金世宗 deathDate 1189-01-20 に日精度化）。
+> 各スクリプトの KNOWN_*_PENDING / KNOWN_NULL_SAID / 台帳 defect エントリはすべて消化済み（現在は空）。
+> 4ゲート（validate_emperors / verify_calendar / verify_quotes --check / --check-coverage）合格を確認。
+> 未訂正で残る既知の限界は「残る限界」節（コーパス外資料・解釈層・版本差）と ming-huizong の lacuna 1件のみ。
 
 ユーザー要求「（note が合っている）完全な保証が欲しい」への対応。**「完全な保証」は原理的に不可能**（コーパス≠真実・一次史料同士の矛盾・解釈層は判断）であるため、**層ごとの全件検証（complete-in-scope）**として実施した。検証は `scripts/verify_quotes.py`（引用実在・照合台帳 `data/quote-refs.json`）と `scripts/verify_calendar.py`（暦換算リプレイ）として恒久化済み（再実行可能）。
 

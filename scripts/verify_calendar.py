@@ -34,17 +34,9 @@ FROMLUNAR = re.compile(r"fromLunar\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(T
 ARROW_DATE = re.compile(r"[→=]\s*(-?\d{3,4})[-年](\d{1,2})[-月](\d{1,2})日?")
 
 # ---------------------------------------------------------------------------
-# B-2: exactDays が実経過日数と食い違う既知19件（グレゴリオ式算術のユリウス閏世紀日・改暦スキップ
-# 取りこぼし。2026-07-22 検出・訂正待ち）。値は「正しい実経過日数」。訂正時はこの表を空にしていく。
-KNOWN_EXACTDAYS_PENDING = {
-    ("han-gaozu", 0): 2650, ("han-wudi", 0): 19743, ("hou-han-hedi", 0): 6519,
-    ("hou-han-xiandi", 0): 11397, ("jin-huidi", 0): 3916, ("qi-donghunhou", 0): 1217,
-    ("beiwei-xuanwudi", 0): 5760, ("sui-wendi", 0): 8563, ("tang-zhaozong", 0): 4605,
-    ("tang-wuzetian", 0): 5242, ("beisong-zhenzong", 0): 9085, ("beisong-huizong", 0): 9461,
-    ("liao-shengzong", 0): 17786, ("liao-daozong", 0): 16605, ("xixia-chongzong", 0): 19307,
-    ("yuan-chengzong", 0): 4659, ("ming-huizong", 0): 1474, ("ming-xiaozong", 0): 6469,
-    ("ming-shenzong", 0): 17552,
-}
+# B-2: exactDays が実経過日数と食い違う既知例（2026-07-22 検出の19件は同日訂正済み・現在は空）。
+# 値は「正しい実経過日数」。新規に検出・トリアージした訂正待ちをここに登録し、訂正時に空にしていく。
+KNOWN_EXACTDAYS_PENDING = {}
 
 # B-1: 朔日以外の fromLunar 呼び出しで結果が主張・保存値と一致しないが、文脈上正当と確認済みのもの
 KNOWN_FROMLUNAR_CONTEXT = {
@@ -55,10 +47,8 @@ KNOWN_FROMLUNAR_CONTEXT = {
     ("tangmo-li-yun", 0, (886, 12, 12)),     # 検算用の中間値
     ("tangmo-shisiming", 0, (761, 3, 9)),    # 旧値の検討記録（endDate は 04-22 に訂正済み）
 }
-# B-1: 誤りと確定・訂正待ち（conversion 本文の引数誤記。保存値は正しい）
-KNOWN_FROMLUNAR_PENDING = {
-    ("liang-xiaoyuanming", 0, (555, 9, 22)),  # 正: 九月甲辰=旧暦9/27→0555-10-27
-}
+# B-1: 誤りと確定・訂正待ち（conversion 本文の引数誤記等。2026-07-22 検出の1件は同日訂正済み）
+KNOWN_FROMLUNAR_PENDING = set()
 
 # B-3: 保存日付と±3日以内で食い違う conversion 主張のうち、別事象・検討過程と確認済みの正当例
 KNOWN_NEARMISS_CONTEXT = {
@@ -77,10 +67,8 @@ KNOWN_NEARMISS_CONTEXT = {
     ("jin-weishaowang", 0, "1213-09-10"), ("jin-aizong", 0, "1234-02-08"),
     ("ming-xuanzong", 0, "1435-01-29"), ("qing-shengzu", 0, "1661-02-04"),
 }
-# B-3: 誤りと確定・訂正待ち（conversion 自身が不一致と記録したまま）
-KNOWN_NEARMISS_PENDING = {
-    ("liao-jingzong", 0, "0969-03-12"),  # 原文の即位日は 03-12、保存 startDate は 03-13 のまま
-}
+# B-3: 誤りと確定・訂正待ち（2026-07-22 検出の遼景宗1件は同日 startDate を 03-12 に訂正済み）
+KNOWN_NEARMISS_PENDING = set()
 
 # B-4: ages.note の日付主張のうち、別事象（即位日等）の言及と確認済みの正当例
 KNOWN_AGES_CLAIM_CONTEXT = {
@@ -93,10 +81,8 @@ KNOWN_AGES_CLAIM_CONTEXT = {
     ("nanming-zongzong", "1645-08-18"), ("qing-renzong", "1796-02-09"),
     ("qing-xuantong", "1908-11-14"),
 }
-# B-4: 誤りと確定・訂正待ち（note 内の旧日付残存）
-KNOWN_AGES_CLAIM_PENDING = {
-    ("tangmo-shisiming", "0761-04-18"),  # deathDate/endDate は 0761-04-22 に訂正済み・note 未同期
-}
+# B-4: 誤りと確定・訂正待ち（2026-07-22 検出の史思明1件は同日 note を同期訂正済み）
+KNOWN_AGES_CLAIM_PENDING = set()
 
 errors: list[str] = []
 warnings: list[str] = []

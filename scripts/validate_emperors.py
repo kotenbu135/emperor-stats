@@ -157,17 +157,9 @@ KNOWN_COUNTING_AGE = {
 }
 
 # ages.note が「〜は null とした」と明記しているのにフィールドに値が入っている既知の矛盾
-# （後続パスで値を埋めた際の note 同期漏れ。2026-07-22 note 全件検証で検出・訂正待ち。
-#  値と note のどちらを正とするかは方針確認のうえ個別解消する。訂正されたら削除）
-KNOWN_NULL_SAID = {
-    ("beisong-shenzong", "accessionAge"),
-    ("beisong-zhezong", "accessionAge"), ("beisong-zhezong", "deathAge"),
-    ("nansong-duzong", "accessionAge"), ("nansong-duzong", "deathAge"),
-    ("liao-taizong", "accessionAge"),
-    ("jin-taizu", "accessionAge"),
-    ("jin-shizong", "accessionAge"),
-    ("yuan-wuzong", "accessionAge"),
-}
+# （後続パスで値を埋めた際の note 同期漏れ。2026-07-22 検出の9件は同日、値を規定10節の
+#  逆算値として立証したうえで note 側を訂正済み・現在は空。新規検出をここに登録する）
+KNOWN_NULL_SAID = set()
 
 # 在位重複判定に使う並立・対立政権系キーワード（レコード JSON 全体を対象に部分一致）。
 # これらのいずれも含まない同王朝内重複は継承同期バグの疑いとしてエラーにする。
