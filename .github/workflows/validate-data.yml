@@ -1,5 +1,6 @@
-# data/emperors.json の恒久 QA（task.md 3-3）。
-# チェック内容・エラー/警告の区分は scripts/validate_emperors.py の docstring を参照。
+# data/emperors.json・data/kinship.json の恒久 QA（task.md 3-3・6-3）。
+# チェック内容・エラー/警告の区分は scripts/validate_emperors.py /
+# scripts/validate_kinship.py の docstring を参照。
 name: Validate emperors data
 
 on:
@@ -8,12 +9,14 @@ on:
     paths:
       - "data/**"
       - "scripts/validate_emperors.py"
+      - "scripts/validate_kinship.py"
       - "scripts/detect_wikipedia_sources.py"
       - ".github/workflows/validate-data.yml"
   pull_request:
     paths:
       - "data/**"
       - "scripts/validate_emperors.py"
+      - "scripts/validate_kinship.py"
       - "scripts/detect_wikipedia_sources.py"
       - ".github/workflows/validate-data.yml"
   workflow_dispatch:
@@ -36,3 +39,6 @@ jobs:
 
       - name: Validate emperors.json
         run: python3 scripts/validate_emperors.py
+
+      - name: Validate kinship.json
+        run: python3 scripts/validate_kinship.py

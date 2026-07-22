@@ -320,10 +320,24 @@
 
 **残タスク（データ公開系）**: GitHub Releases タグ（ユーザー主導）のみ。2-4 Zenodo DOI は **2026-07-21 にユーザー決定で中止**（再提案しない。引用基盤は CC BY 4.0＋CalVer＋CHANGELOG＋Dataset JSON-LD で成立済み。DOI 不要の `CITATION.cff` 配置だけは将来の独立提案の余地あり）。CSV への `wikidataId` 列追加は 2026-07-21 に完了（40→41列・1593d33）。
 
+## 系譜・即位経路グラフ（2026-07-22 フェーズ0完了＋スキーマ凍結、task.md 6-3）
+
+全皇帝365人を親子・養子・婚姻・即位経路のエッジで結ぶ系譜グラフの新規調査プロジェクト。フェーズ0（スキーマ設計）を完了し、**可視化方式の決定とモック検証を経てスキーマを凍結した**（凍結後の変更は原則しない。ユーザー指示「最終的なアウトプットまで固まってから作業を開始する」に基づき、調査開始前に表示要件から必須フィールドを逆算して確定する手順を踏んだ）。
+
+- **確定した方針（ユーザー決定）**: データは別ファイル `data/kinship.json`（emperors.json は変更しない）／婚姻エッジを含める／ブリッジ人物（非皇帝ノード）の収録基準は「経路上・一親等〔父系。**実母は接続に寄与する場合のみ**〕・**実在追尊皇帝**・婚姻当事者」の4基準（伝説的・儀礼的遠祖はノード化せず `genealogicalClaims` に記録）。王朝は実質的建国者から表示できるようにする（例：西晋は司馬懿から）
+- **可視化（2026-07-22 決定）**: 方式③「全体1画面のインタラクティブグラフ」＋縦軸=時間（上→下に時代が下る）。エンコーディング・本番実装バックログは `KINSHIP_SCHEMA.md` の可視化節を参照
+- **凍結時の追加フィールド**: succession の `relationToPredecessor`・kinship の `childOrder`/`primaryLineage`・persons の `kana`/`section`/`yearsApproximate`（いずれも「調査時に同時取得しないと全員再訪問になる」表示要件由来の項目）
+- **スキーマ**: `data/schema/KINSHIP_SCHEMA.md`（エッジ3種 succession/kinship/marriage・veracity 区分 verified/claimed/disputed・復位/建国の規約・調査フェーズ計画を含む）
+- **CI**: `scripts/validate_kinship.py` を新設し `validate-data.yml` に組込済み。succession エッジの category は emperors.json の `accessionRoute.category` との整合を機械検証する
+- **進捗管理**: kinship.json 側の `meta.status.phases`（succession/parentage/interdynastic/crosscheck の4フェーズ・現在すべて planned）と `meta.completedBlocks` で行う。このドキュメント冒頭のフェーズ進捗表（emperors.json 対応）とは別管理
+- **コーパス下見（2026-07-22）**: 系譜「表」は china-history に無く daizhigev20 側にのみ存在（遼史皇族表・金史宗室表・明史諸王世表・元史/宋史の宗室世系表を確認済み）。新唐書宗室世系表は完全収録が未確認のため、着手時に書ごとに実在・可読性を確認すること
+
 ## 重要なファイル
 
 - `data/emperors.json` — メインデータセット
+- `data/kinship.json` — 系譜・即位経路グラフ（調査中・皇帝は emperors.json を id 参照）
 - `data/schema/EMPERORS_SCHEMA.md` — JSON スキーマ参照
 - `data/schema/INCLUSION_CRITERIA.md` — 収録基準（訪問者向け解説）
 - `data/schema/DEATH_CAUSE_SCHEMA.md` — 死因スキーマ
 - `data/schema/ADDITIONAL_SCHEMA.md` — その他のスキーマ
+- `data/schema/KINSHIP_SCHEMA.md` — 系譜・即位経路グラフのスキーマ・収録基準・調査計画

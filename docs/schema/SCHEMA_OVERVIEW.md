@@ -1,5 +1,9 @@
 # スキーマ参照ガイド
 
+## kinship.json（系譜・即位経路グラフ・調査中）
+
+全皇帝を親子・養子・婚姻・即位経路のエッジで結ぶグラフデータ（別ファイル `data/kinship.json`）。スキーマ・ブリッジ人物の収録基準・調査計画は **[data/schema/KINSHIP_SCHEMA.md](../../data/schema/KINSHIP_SCHEMA.md)** を参照。
+
 ## emperors.json のスキーマ
 
 詳細な型・値域・具体例は **[data/schema/EMPERORS_SCHEMA.md](../../data/schema/EMPERORS_SCHEMA.md)** を参照してください。

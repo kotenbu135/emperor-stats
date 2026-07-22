@@ -7,6 +7,7 @@
 | ファイル | 内容 |
 |---|---|
 | [emperors.json](emperors.json) | 始皇帝から溥儀までの皇帝データ本体（`meta` + `emperors` 配列） |
+| [kinship.json](kinship.json) | 系譜・即位経路グラフ（ブリッジ人物 `persons` + エッジ3種 + 系譜主張。皇帝ノードは emperors.json を id 参照。調査中） |
 
 データ・調査メモ文章のライセンスは **CC BY 4.0**（[LICENSE](LICENSE)、コードはルートの MIT と二重ライセンス構成・`meta.license` にも機械可読で記載）。変更履歴はルートの [CHANGELOG.md](../CHANGELOG.md) を参照してください。
 
@@ -20,6 +21,7 @@
 | [schema/DEATH_CAUSE_SCHEMA.md](schema/DEATH_CAUSE_SCHEMA.md) | 死因（`deathCause`）スキーマ設計 |
 | [schema/ADDITIONAL_SCHEMA.md](schema/ADDITIONAL_SCHEMA.md) | 死因以外の追加スキーマ設計（即位経路・改元・大赦・立后・皇太子廃立・遷都・親征・反乱鎮圧・被反乱・年齢） |
 | [schema/INCLUSION_CRITERIA.md](schema/INCLUSION_CRITERIA.md) | 収録基準（どの人物を収録・除外したか） |
+| [schema/KINSHIP_SCHEMA.md](schema/KINSHIP_SCHEMA.md) | 系譜・即位経路グラフ（`kinship.json`）のスキーマ・ブリッジ人物収録基準・調査計画 |
 
 ## 関連
 

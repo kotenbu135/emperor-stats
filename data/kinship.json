@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "title": "中国皇帝 系譜・即位経路グラフ",
+    "description": "data/emperors.json 収録の全皇帝365人を親子・兄弟・養子・婚姻・即位経路のエッジで結んだ系譜グラフ。皇帝ノードの実体は emperors.json 側にあり id で参照する。非皇帝のブリッジ人物（追尊皇帝・宗室・婚姻当事者等）のみ persons 配列に実体を持つ。スキーマ・収録基準・調査計画は data/schema/KINSHIP_SCHEMA.md を参照。",
+    "schemaVersion": "1.0.0",
+    "version": "2026.07",
+    "generatedAt": "2026-07-22",
+    "license": {
+      "note": "emperors.json と同じ二重ライセンス構成（データ=CC BY 4.0／コード=MIT）。機械可読の詳細は emperors.json の meta.license を参照"
+    },
+    "status": {
+      "overall": "in-progress",
+      "phases": {
+        "succession": {
+          "status": "planned",
+          "label": "継承エッジ（先代→当人・accessionRoute 9分類）"
+        },
+        "parentage": {
+          "status": "planned",
+          "label": "実父・実母・養父とブリッジ人物（追尊皇帝含む）"
+        },
+        "interdynastic": {
+          "status": "planned",
+          "label": "王朝間縁戚クラスタ（婚姻エッジ・系譜主張）"
+        },
+        "crosscheck": {
+          "status": "planned",
+          "label": "Wikidata P22/P25/P26/P1365 突合スクリーニング"
+        }
+      }
+    },
+    "completedBlocks": []
+  },
+  "persons": [],
+  "edges": [],
+  "genealogicalClaims": []
+}

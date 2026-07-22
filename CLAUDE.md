@@ -69,3 +69,4 @@ python3 scripts/validate_emperors.py   # スキーマ・日付整合性・reignS
 - **死因スキーマ**: [data/schema/DEATH_CAUSE_SCHEMA.md](data/schema/DEATH_CAUSE_SCHEMA.md)
 - **その他スキーマ** (即位経路・改元・大赦など): [data/schema/ADDITIONAL_SCHEMA.md](data/schema/ADDITIONAL_SCHEMA.md)
 - **収録基準**: [data/schema/INCLUSION_CRITERIA.md](data/schema/INCLUSION_CRITERIA.md)
+- **系譜・即位経路グラフ** (`data/kinship.json`・調査中): [data/schema/KINSHIP_SCHEMA.md](data/schema/KINSHIP_SCHEMA.md)。検証は `python3 scripts/validate_kinship.py`
