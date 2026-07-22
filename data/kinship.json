@@ -127,6 +127,13 @@
         "emperors": 13,
         "edges": 15,
         "persons": 0
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック14（唐後半・傀儡・反乱政権）",
+        "emperors": 19,
+        "edges": 14,
+        "persons": 0
       }
     ]
   },
@@ -3096,6 +3103,216 @@
       "note": "順宗の長子（旧唐書憲宗紀「宪宗圣神章武孝皇帝讳纯，顺宗长子也，母曰庄宪王太后」）。順宗即位年の四月に皇太子に冊立され（「顺宗即位之年四月，册为皇太子」）、永貞元年八月に順宗からの内禅を受けて即位（「八月丁酉朔，受内禅。乙巳，即皇帝位于宣政殿」、永貞内禅）。この内禅は宦官俱文珍による王叔文一派排除の画策が背景にある（accessionRoute.note に記録済み）。",
       "source": {
         "page": "旧唐書 巻十四 憲宗紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-xianzong",
+      "to": "tang-muzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "穆宗李恒は憲宗の第三子（「穆宗睿圣文惠孝皇帝讳恒，宪宗第三子，母曰懿安皇后郭氏」）。元和7年10月に皇太子に冊立され（旧唐書「七年十月，册为皇太了〔子の誤字とみられる〕，改今讳」、新唐書本紀第八「乃立遂王为皇太子」）、元和15年正月庚子の憲宗崩御を受けて丙午に太極殿東序で即位（「十五年正月庚子，宪宗崩。丙午，即皇帝位于太极殿东序」）。憲宗の急死には宦官弑逆説があり即位当日に穆宗擁立派宦官の政変的介入があった（accessionRoute.note）が、皇太子としての正規継承であり category は emperors.json の「世襲」をそのまま採用。父子関係・継承経緯とも新旧唐書本紀で一致し verified。",
+      "source": {
+        "page": "旧唐書 巻十六 穆宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-muzong",
+      "to": "tang-jingzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "敬宗李湛は穆宗の長子。長慶2年12月に皇太子に立てられ、長慶4年正月に穆宗が崩じると皇太子として柩前即位した（時に16歳）。『旧唐書』敬宗紀「敬宗睿武昭愍孝皇帝讳湛，穆宗长子」「二年十二月，立为皇太子。四年正月壬申，穆宗崩。癸酉，皇太子即位柩前，时年十六」。",
+      "source": {
+        "page": "旧唐書 巻十七上 敬宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-jingzong",
+      "to": "tang-wenzong",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "文宗李昂は穆宗の第二子で、敬宗（穆宗長子）の弟。旧唐書文宗紀に「文宗元圣昭献孝皇帝讳昂，穆宗第二子，母曰贞献皇后萧氏」とあり、敬宗紀に「敬宗睿武昭愍孝皇帝讳湛，穆宗长子」とあることから兄弟関係が確認できる。宝暦2年12月、敬宗が弑逆された後、賊の蘇佐明らが矯制により絳王李悟を「勾当軍国事」に立てたが、樞密使王守澄・中尉梁守謙が禁軍を率いて絳王を誅殺し、江邸から江王涵（文宗）を迎えて擁立した（「宝历二年十二月八日，敬宗遇害，贼苏佐明等矫制立绛王勾当军国事。枢密使王守澄、中尉梁守谦率禁军讨贼，诛绛王，迎上于江邸」）。絳王悟は監国的地位（勾当軍国事）にとどまり即位しておらず皇帝ではないため、皇位の直接の先代は敬宗であり from=tang-jingzong とする。",
+      "source": {
+        "page": "旧唐書 巻十七上 文宗紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-wenzong",
+      "to": "tang-wuzong",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "武宗は穆宗の第五子で、先代文宗（穆宗第二子）の弟。「武宗至道昭肃孝皇帝讳炎，穆宗第五子」。文宗重篤に際し、両軍中尉の宦官仇士良・魚弘志が矯詔で皇太子（陳王成美）を廃し潁王瀍を皇太弟に立てた。「两军中尉仇士良、鱼弘志矫诏迎颍王于十六宅」、矯詔にも「亲弟颍王瀍昔在籓邸……可立为皇太弟」と続柄が明記される。文宗崩御後に柩前即位。「四日，文宗崩，宣遗诏：皇太弟宜于柩前即皇帝位」「十四日，受册于正殿，时年二十七」。",
+      "source": {
+        "page": "旧唐書 巻十八上 武宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-wuzong",
+      "to": "tang-xuanzong-2",
+      "category": "擁立",
+      "relationToPredecessor": "叔父",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宣宗李忱は憲宗の第十三子（旧唐書「宣宗圣武献文孝皇帝讳忱，宪宗第十三子」）で、穆宗の弟にあたり、穆宗の子である武宗の叔父（旧唐書に「文宗、武宗幸十六宅宴集……谓之\"光叔\"」）。会昌6年3月、武宗危篤に際し左神策軍護軍中尉の宦官馬元贄が光王怡（宣宗）を皇太叔に立て（新唐書宣宗紀「会昌六年，武宗疾大渐，左神策军护军中尉马元贽立光王为皇太叔」）、武宗崩御の翌日に柩前で即位した（旧唐書「遗诏立为皇太叔，权勾当军国政事。翌日，柩前即帝位，改今名，时年三十七」）。武宗から皇太叔として皇位を継承したため from=tang-wuzong。category は emperors.json の accessionRoute.category「擁立」をそのまま採用（原典の馬元贄擁立記事と整合）。",
+      "source": {
+        "page": "旧唐書 巻十八下 宣宗紀・新唐書 本紀第八 宣宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-xuanzong-2",
+      "to": "tang-yizong",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書懿宗紀「懿宗昭圣恭惠孝皇帝漼，宣宗长子」と明記され、宣宗の長子（鄆王温）として宣宗崩御後に即位。ただし即位の実態は資治通鑑巻249（大中十三年八月条）が詳しく、「上密以夔王属枢密使王归长、马公儒、宣徽南院使王居方，使立之」と宣宗が第三子夔王滋の擁立を枢密使らに密託したのに対し、「独左军中尉王宗实素不同心……宗实叱归长等，责以矫诏，皆捧足乞命。乃遣宣徽北院使齐元简迎郓王。壬辰，下诏立郓王为皇太子」と左軍中尉王宗実が鄆王（懿宗）を迎立して謀反者を誅殺した経緯を記す。emperors.json の accessionRoute.category=擁立 と整合。",
+      "source": {
+        "page": "旧唐書 巻十九上 懿宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-yizong",
+      "to": "tang-xizong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "僖宗李儇は懿宗の第五子。旧唐書僖宗紀「僖宗惠圣恭定孝皇帝讳儇，懿宗第五子」。咸通14年7月、懿宗大漸に際し「宜立为皇太子，权勾当军国政事」の制で皇太子に立てられ、「是日，懿宗崩。二十日，即皇帝位于柩前，时年十二」と懿宗崩御後に柩前即位した父子間の世襲継承。",
+      "source": {
+        "page": "旧唐書 巻十九下 僖宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-xizong",
+      "to": "tang-zhaozong",
+      "category": "世襲",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "初回即位（文徳元年3月）。昭宗（寿王・李曄）は僖宗の同母弟：「帝于僖宗，母弟也」。僖宗大漸に際し、群臣は吉王を立てようとしたが軍容楊復恭が寿王を推し、遺詔により皇太弟に立てられ柩前即位：「及大渐之夕，而未知所立。群臣以吉王最贤，又在寿王之上，将立之，唯军容杨复恭请以寿王监国。三月六日，宣遗诏立为皇太弟。八日，柩前即位，时年二十二。」。accessionRoute.category は「復位」だが、スキーマの復位皇帝例外規定により主エッジには accessionRoute.note 記載の初回経路「世襲」を用いる。",
+      "source": {
+        "page": "旧唐書 巻二十上 昭宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-lige",
+      "to": "tang-zhaozong",
+      "category": "復位",
+      "relationToPredecessor": "父",
+      "isRestoration": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "光化3年11月、宦官の左右軍中尉劉季述・王仲先のクーデターで昭宗は東内問安宮に幽閉され太上皇とされ、皇太子裕（昭宗の子、tang-lige）が即位：「左右军中尉刘季述、王仲先废昭宗，幽于东内问安宫，请皇太子裕监国」「甲午，宣上皇制，太子登皇帝位」。天復元年正月、孫徳昭らの反クーデターにより昭宗が復位（反正）し、裕は徳王に降封：「天复元年春正月甲申朔，昭宗反正，登长乐门楼，受朝贺。」「制皇太子裕降为德王，改名祐。」。復位時に皇位を得た相手は在位中だった李裕であり from=tang-lige。新帝（昭宗）は先代（李裕）の父。",
+      "source": {
+        "page": "旧唐書 巻二十上 昭宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-zhaozong",
+      "to": "tang-aidi",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書哀帝紀冒頭に「哀皇帝讳柷，昭宗第九子，母曰积善太后何氏」とあり、昭宗の第九子であることが正史で裏付けられる。天祐元年八月十二日に父昭宗が朱全忠配下の蒋玄暉らに弑殺された翌日、「蒋玄晖矫宣遗诏」により「宜立为皇太子，仍改名柷，监军国事」と皇太子に立てられ、「丙午，大行皇帝大殓，皇太子柩前即皇帝位」と柩前で即位（帝時年十三）。父を弑逆した朱全忠一派による擁立即位であり、category は emperors.json の accessionRoute.category（擁立）をそのまま採用。",
+      "source": {
+        "page": "旧唐書 巻二十下 哀帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tang-zhaozong",
+      "to": "tang-lige",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "李裕は昭宗の子（積善皇后所生、哀帝李柷の同母兄。新唐書「昭宗十七子：积善皇后生裕及哀皇帝」）。乾寧4年に皇太子に冊立（新唐書徳王裕伝「因请立裕为皇太子，释言于四方，时乾宁四年也」）。光化3年11月、宦官の左右軍中尉劉季述・王仲先が昭宗を廃して東内に幽閉し（旧唐書昭宗紀「庚寅，左右军中尉刘季述、王仲先废昭宗，幽于东内问安宫，请皇太子裕监国」）、昭宗を上皇と称させたうえで上皇制の形式により皇太子裕を即位させた（同「是日，迎皇太子监国，矫宣昭宗命称上皇。甲午，宣上皇制，太子登皇帝位」）。宦官主導の傀儡的即位だが、太上皇とされた昭宗からの皇位授受の形式があるため from=昭宗。天復元年正月の反正で廃され徳王に降格（同「制皇太子裕降为德王，改名祐」）。",
+      "source": {
+        "page": "旧唐書 巻二十上 昭宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tangmo-anlushan",
+      "to": "tangmo-anqingxu",
+      "category": "簒奪",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "安慶緒は安禄山の第二子（「庆绪，禄山第二子也。母康氏，禄山糟糠之妻。」）。至徳2載正月、厳荘・李猪児らが安禄山を弑逆した直後、厳荘が「庄即宣言于外，言禄山传位于晋王庆绪，尊禄山为太上皇。」と禅譲・伝位の体裁で布告し慶緒が帝位に即いたが、実態は父殺しによる帝位奪取であり、後に史思明も「尔为人子，杀汝父」「吾为太上皇讨贼」と大逆として糾弾している。accessionRoute の category=簒奪 をそのままコピー。",
+      "source": {
+        "page": "旧唐書 巻二百上 逆臣上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tangmo-anqingxu",
+      "to": "tangmo-shisiming",
+      "category": "簒奪",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書史思明伝に、乾元2年正月に魏州で「僭称为大圣燕王」と自ら王を称した後、「三月，引众救相州，官军败而引退。思明召庆绪等杀之，并有其众。四月，僭称大号」とあり、安慶緒を殺してその軍勢を併呑した直後に帝号（大燕皇帝・応天皇帝）を僭称した。新唐書逆臣伝には「庆绪急，乃遣太清奉皇帝玺绶让思明」と安慶緒側から皇帝璽綬奉呈（帝位譲渡）の申し出があった経緯が記されるが、史思明は兄弟の盟約で誘い出したうえ「顾左右牵出斩之」「乃并四弟缢」と武力で殺害しており、禅譲の受諾ではなく実力による奪取。燕政権内で安慶緒の帝位・軍を直接奪って承継した外形が両書で一致するため from=tangmo-anqingxu（category=簒奪）は妥当。史思明は突厥雑種胡人で安氏と血縁なし（「史思明，本名窣干。营州宁夷州突厥杂种胡人也。……与安禄山同乡里」）のため続柄は無血縁。",
+      "source": {
+        "page": "旧唐書 巻二百上 史思明伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "tangmo-shisiming",
+      "to": "tangmo-shichaoyi",
+      "category": "簒奪",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "史朝義は史思明の庶出の長子。新唐書逆臣上「朝义，孽长子」、旧唐書逆臣伝「朝义，思明孽子也」。上元2年（761年）、思明が朝義を処刑しようとした矢先、配下の駱悦らが思明を捕縛し柳泉で縊殺、直後に朝義が燕帝位を継承した。「次柳泉，悦畏众不厌，缢杀思明……朝义乃即位，建元显圣」（新唐書逆臣上）。資治通鑑にも「遂缢杀思明……朝义即皇帝位，改元显圣」とあり一致。category は emperors.json の accessionRoute.category（簒奪）をそのままコピー。",
+      "source": {
+        "page": "新唐書 巻二百二十五上 逆臣上",
         "lang": "zh-classical"
       }
     }
