@@ -43,6 +43,8 @@
     "typescript": "^5"
   },
   "overrides": {
-    "postcss": "^8.5.10"
+    "postcss": "^8.5.10",
+    "sharp": "$sharp",
+    "@hono/node-server": "^2.0.5"
   }
 }
