@@ -176,6 +176,13 @@
         "emperors": 18,
         "edges": 15,
         "persons": 1
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック21（明本朝）",
+        "emperors": 16,
+        "edges": 16,
+        "persons": 0
       }
     ]
   },
@@ -4948,6 +4955,246 @@
       "note": "明史巻123（列伝第11）明玉珍伝附に「子升嗣，改元开熙，葬玉珍于江水之北，号永昌陵，庙号太祖。尊母彭氏为皇太后，同听政。升甫十岁」とあり、明昇は夏の太祖・明玉珍の実子として父の死を受けて即位した典型的な父子継承。即位時10歳のため母の皇太后彭氏が同聴政した。emperors.json の accessionRoute.category=世襲と一致。",
       "source": {
         "page": "明史 巻123 列伝第11（明玉珍伝）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-taizu",
+      "to": "ming-huizong",
+      "category": "世襲",
+      "relationToPredecessor": "孫",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史恭閔帝紀冒頭に「恭闵惠皇帝讳允炆。太祖孙，懿文太子第二子也」とあり、太祖の孫（父は懿文太子朱標、洪武25年に早世）。「洪武二十五年九月，立为皇太孙」として皇太孫に冊立され、「三十一年闰五月，太祖崩。辛卯，即皇帝位」と太祖崩御に伴い正規の手続きで即位した。先代=祖父太祖からの世襲継承（皇太孫経由）。",
+      "source": {
+        "page": "明史 巻四 恭閔帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-huizong",
+      "to": "ming-taizong",
+      "category": "簒奪",
+      "relationToPredecessor": "叔父",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "成祖朱棣は太祖第四子（「成祖启天弘道高明肇运圣武神功纯仁至孝文皇帝讳棣，太祖第四子也」）で、先代恵宗（建文帝）は太祖の皇太孫（「三十一年闰五月，太祖崩，皇太孙即位」）にあたるため、新帝は先代の叔父。建文元年に挙兵し（「书既发，遂举兵。自署官属，称其师曰「靖难」」）、建文4年6月に南京を陥として即位した（「乙丑，至金川门，谷王橞、李景隆等开门纳王，都城遂陷」「王升辇，诣奉天殿即皇帝位」）。甥の帝位を武力で奪取した簒奪。",
+      "source": {
+        "page": "明史 本紀第五 成祖一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-taizong",
+      "to": "ming-renzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "仁宗朱高熾は成祖（永楽帝）の長子。「仁宗敬天体道纯诚至德弘文钦武章圣达孝昭皇帝，讳高炽，成祖长子也」。洪武28年に燕世子、永楽2年に皇太子となり（「永乐二年二月，始召至京，立为皇太子」）、成祖の北征中はたびたび監国を務めた（「成祖数北征，命之监国，裁决庶政」）。永楽22年7月に成祖が榆木川で崩御し、遺詔を受けて8月丁巳に即位（「二十二年七月，成祖崩于榆木川。八月甲辰，遗诏至……丁巳，即皇帝位」）。父から子への正規の世襲継承。",
+      "source": {
+        "page": "明史 巻八 仁宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-renzong",
+      "to": "ming-xuanzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史本紀に「讳瞻基，仁宗长子也。母诚孝昭皇后」と仁宗の長子であることが明記され、永楽9年に皇太孫、「仁宗即位，立为皇太子」。洪熙元年5月に仁宗が不予となり璽書で召還され、「六月辛丑，还至良乡，受遗诏，入宫发丧。庚戌，即皇帝位」と遺詔を受けて即位した正規の父子世襲継承。",
+      "source": {
+        "page": "明史 本紀第九 宣宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-xuanzong",
+      "to": "ming-yingzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "初回即位（正統帝）。英宗前紀冒頭に「讳祁镇，宣宗长子也。母贵妃孙氏。生四月，立为皇太子」とあり、宣宗の長子として生後4か月で皇太子に冊立済み。「宣德十年春正月，宣宗崩，壬午，即皇帝位」と、宣宗崩御を受けた正規の世襲継承。category は accessionRoute.note に記録された初回即位経路「世襲」（復位皇帝の主エッジ例外規定による）。",
+      "source": {
+        "page": "明史 巻十 英宗前紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-daizong",
+      "to": "ming-yingzong",
+      "category": "復位",
+      "relationToPredecessor": "兄",
+      "isRestoration": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "天順元年正月の奪門の変による復位。英宗後紀「天顺元年春正月壬午，昧爽，武清侯石亨，都督张輗、张軏，左都御史杨善，副都御史徐有贞，太监曹吉祥以兵迎帝于南宫，御奉天门，朝百官」「日中，御奉天殿即位」。景泰帝（代宗・朱祁鈺）は英宗の弟（前紀「辛亥，封弟祁钰为郕王」）で、土木の変後「癸未，郕王即位，遥尊帝为太上皇帝」と即位していたため、復位時に皇位を得た相手は代宗。復位（正月壬午）は代宗の廃位（「二月乙未朔，废景泰帝为郕王」）より先で、約2週間両者が並存した（emperors.json reigns[1].note と整合）。",
+      "source": {
+        "page": "明史 巻十二 英宗後紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-yingzong",
+      "to": "ming-daizong",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "英宗が土木の変で瓦剌の捕虜となった（「英宗北狩」）後、皇太后（孫太后）の命で郕王が監国となり、正統十四年九月癸未に即位、英宗を太上皇帝に遥尊した。明史景帝紀「正统十四年秋八月，英宗北狩，皇太后命王监国」「九月癸未，王即皇帝位，遥尊皇帝为太上皇帝，以明年为景泰元年」。在位中皇帝の捕虜化に伴う政権内継承として from=英宗。続柄は同紀冒頭「恭仁康定景皇帝，讳祁钰，宣宗次子也」により宣宗の次子＝英宗（宣宗長子）の弟。擁立の主体である孫太后は皇位保持者ではないため from には置かない。",
+      "source": {
+        "page": "明史 本紀第十一 景帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-yingzong",
+      "to": "ming-xianzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "憲宗朱見深は英宗の長子。「宪宗继天凝道诚明仁敬崇文肃武宏德圣孝纯皇帝，讳见深，英宗长子也。母贵妃周氏。」土木の変で英宗が瓦剌に留められた際に皇太后の命で皇太子に立てられ、景泰3年に沂王に廃されたが天順元年に皇太子に復立。「英宗留瓦剌，皇太后命立为皇太子。景泰三年，废为沂王。天顺元年，复立为皇太子，改名见深。」天順8年正月の英宗崩御を受けて即位。「天顺八年正月，英宗崩。乙亥，即皇帝位。」",
+      "source": {
+        "page": "明史 巻十三 憲宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-xianzong",
+      "to": "ming-xiaozong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史孝宗紀に「宪宗第三子也」と明記。成化11年に「十一月，立为皇太子」として皇太子に立てられ、「二十三年八月，宪宗崩。九月壬寅，即皇帝位」と、憲宗の崩御を受けて皇太子として即位した典型的な世襲継承。",
+      "source": {
+        "page": "明史 巻十五 孝宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-xiaozong",
+      "to": "ming-wuzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史武宗紀に「讳厚照，孝宗长子也。母孝康敬皇后。弘治五年，立为皇太子」とあり、孝宗の長子として弘治5年に皇太子に立てられた。「十八年五月，孝宗崩。千寅，即皇帝位」とあり、孝宗崩御を受けて皇太子として即位した典型的な父子世襲。（「千寅」はコーパス共通の誤字疑い、flags 参照）",
+      "source": {
+        "page": "明史 巻十六 武宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-wuzong",
+      "to": "ming-shizong",
+      "category": "擁立",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "武宗が嗣子なく崩御したため、慈壽皇太后と大学士楊廷和が定策し、遺詔の形式で憲宗の孫（興献王祐杬の世子）朱厚熜を安陸の興邸から迎えて即位させた（大礼の議の発端）。「丙寅，武宗崩，无嗣，慈寿皇太后与大学士杨廷和定策，遣太监谷大用、韦彬、张锦，大学士梁储，定国公徐光祚，驸马都尉崔元，礼部尚书毛澄，以遗诏迎王于兴邸」「王顾长史袁宗皋曰：“遗诏以我嗣皇帝位，非皇子也。”」「出御奉天殿，即皇帝位」。新帝は先代武宗の従兄弟（武宗は孝宗の子、世宗は興献王祐杬の子で、孝宗・興献王はともに憲宗の子。「讳厚，宪宗孙也。父兴献王祐杬」）。皇太子として冊立されていたわけではなく皇太后・首輔主導の迎立のため category は accessionRoute の「擁立」をそのまま採用。",
+      "source": {
+        "page": "明史 巻十七 世宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-shizong",
+      "to": "ming-muzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史穆宗紀に「讳载垕，世宗第三子也。母杜康妃」とあり、世宗の第三子。兄の庄敬太子早薨後（「已而庄敬薨，世宗以王长且贤，继序已定」）、事実上の継嗣として裕王のまま処遇され、「四十五年十二月庚子，世宗崩。壬子，即皇帝位」と世宗崩御を受けて即位（遺詔による継承、「先朝政令不便者，皆以遗诏改之」）。父から子への世襲継承として確定。",
+      "source": {
+        "page": "明史 巻十九 穆宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-muzong",
+      "to": "ming-shenzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史神宗紀に「讳翊钧，穆宗第三子也。母贵妃李氏。隆庆二年，立为皇太子，时方六岁」とあり、穆宗の第三子として皇太子に冊立済み。隆慶6年5月の穆宗崩御を受け「六年五月，穆宗崩。……甲子，即皇帝位」と6月甲子に即位した父子間の世襲継承。emperors.json の accessionRoute.category=世襲と一致。",
+      "source": {
+        "page": "明史 巻二十 神宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-shenzong",
+      "to": "ming-guangzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史光宗本紀に「讳常洛，神宗长子也。母恭妃王氏」とあり神宗の長子。「二十九年十月，乃立为皇太子」で万暦29年に皇太子に立てられ、「四十八年七月，神宗崩」の後「太子遵遗诏发帑金百万犒边」と遺詔を奉じ、「八月丙午朔，即皇帝位」により父神宗から皇位を世襲した。",
+      "source": {
+        "page": "明史 巻二十一 神宗二・光宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-guangzong",
+      "to": "ming-xizong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史熹宗紀に「熹宗达天阐道敦孝笃友章文襄武靖穆庄勤悊皇帝，讳由校，光宗长子也」とあり光宗の長子。泰昌元年九月「九月乙亥，光宗崩，遗诏皇长子嗣皇帝位」「庚辰，即皇帝位」により、光宗の遺詔に基づき皇長子として即位。emperors.json の accessionRoute.category=世襲と一致。",
+      "source": {
+        "page": "明史 巻二十二 熹宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-xizong",
+      "to": "ming-yizong",
+      "category": "世襲",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "毅宗（崇禎帝）朱由検は光宗第五子で、熹宗（光宗長子）の異母弟。熹宗に実子がなく、その大漸に際して召され遺命を受けて即位した。明史本紀に「庄烈愍皇帝，讳由检，光宗第五子也」「明年八月，熹宗疾大渐，召王入，受遗命。丁巳，即皇帝位」とある。",
+      "source": {
+        "page": "明史 巻二十三 荘烈帝一",
         "lang": "zh-classical"
       }
     }
