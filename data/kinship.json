@@ -106,6 +106,13 @@
         "emperors": 19,
         "edges": 14,
         "persons": 0
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック11（北朝②: 北斉・西魏・北周）",
+        "emperors": 15,
+        "edges": 14,
+        "persons": 1
       }
     ]
   },
@@ -399,6 +406,31 @@
       "wikidata": "Q967998",
       "source": {
         "page": "晋書 巻百十四 載記第十四 苻堅下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuwen-jue",
+      "name": "宇文覚",
+      "kana": "うぶんかく",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": 542,
+      "deathYear": 557,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "北周初代君主（天王）。「孝闵皇帝讳觉，字陀罗尼，太祖第三子也。母曰元皇后。大统八年，生于同州官舍」（周書 巻三）。西魏恭帝から禅譲を受け周天王となったが皇帝は称さず（収録外）。宇文護誅殺を謀って発覚し「护又遣大司马贺兰祥逼帝逊位。遂幽于旧邸，月余日，以弒崩，时年十六」と廃位・弑殺された。建德元年（572年）、宇文護を誅した武帝が「追尊略阳公为孝闵皇帝」「上谥曰孝闵皇帝，陵曰静陵」と諡号「孝閔皇帝」を追贈したが、廟号の追贈は原文に記載がないため kind は追尊皇帝ではなく宗室とする。",
+      "wikidata": "Q1149222",
+      "posthumous": {
+        "dynasty": "北周",
+        "templeName": null,
+        "posthumousName": "孝閔皇帝"
+      },
+      "source": {
+        "page": "周書 巻三 孝閔帝紀",
         "lang": "zh-classical"
       }
     }
@@ -2474,6 +2506,216 @@
       "note": "孝武帝（出帝）が534年に宇文泰のもとへ西走した後、高歓（斉献武王）が孝武帝を迎え戻せず、百僚と会議して11歳の元善見を擁立した。「出帝既入关，齐献武王奉迎不克，乃与百僚会议，推帝以奉肃宗之后，时年十一」「冬十月丙寅，即位于城东北，大赦天下，改永熙三年为天平元年」（魏書 孝靜紀）。続柄は「従姪（従兄弟の子）」相当で enum に無いため「その他」とする: 善見は清河文宣王元亶の世子（「孝静皇帝，讳善见，清河文宣王亶之世子也」魏書 孝靜紀）、亶は清河文献王元懌の子（「怿子亶」魏書 汝南王悦伝）、懌と孝武帝の父・広平王元懐はともに孝文帝の子（「孝文皇帝七男。……文昭皇后生宣武皇帝、广平文穆王怀。……罗夫人生清河文献王怿」魏書 巻二十二）。すなわち善見は孝武帝の従兄弟（元亶）の子。",
       "source": {
         "page": "魏書 巻十二 孝靜紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongwei-xiaojingdi",
+      "to": "beiqi-wenxuandi",
+      "category": "建国",
+      "relationToPredecessor": "外戚（その他）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "東魏孝静帝から璽綬・禅譲を受けて即位した受禅建国（劉裕・蕭道成型）のため from を置く。北齊書文宣帝紀に「又致玺书于帝，遣兼太保彭城王韶、兼司空敬显俊奉皇帝玺绶，禅代之礼一依唐虞、汉魏故事」とあり、天保元年5月戊午に南郊で即位。続柄は、孝静帝の皇后高氏が高歓（斉神武）の第二女で、文宣帝高洋は高歓の第二子（本紀「高祖第二子」）であるため、新帝は先代の皇后の兄弟＝妻族の外戚（曹丕＝漢献帝と同型）。北史 巻十三 后妃伝上「孝静皇后高氏，齐神武之第二女也。天平四年，诏娉以为皇后」「齐受禅，降为中山王妃」。enum に「妻の兄弟」がないため外戚（その他）とする。",
+      "source": {
+        "page": "北齊書 巻四 文宣帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiqi-wenxuandi",
+      "to": "beiqi-feidi-gaoyin",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "北齊書廢帝紀に「废帝殷，字正道，文宣帝之长子也，母曰李皇后。天保元年，立为皇太子，时年六岁」とあり、文宣帝高洋の長子（嫡長子、母は李皇后）で天保元年に皇太子。「十年十月，文宣崩。癸卯，太子即帝位于晋阳宣德殿，大赦」と、天保10年10月の文宣帝崩御に伴い皇太子として即位した典型的な父子世襲継承。",
+      "source": {
+        "page": "北齊書 巻五 廢帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiqi-feidi-gaoyin",
+      "to": "beiqi-xiaozhaodi",
+      "category": "簒奪",
+      "relationToPredecessor": "叔父",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "高演は「神武皇帝第六子，文宣皇帝之母弟也」（北齊書 巻6 孝昭帝紀）で、先代の廃帝高殷（文宣帝の子）の叔父。乾明元年三月甲戌のクーデターで輔政の楊愔・燕子献・可朱浑天和・宋钦道・郑子默らを誅殺して実権を掌握（「执尚书令杨愔、右仆射燕子献、领军可朱浑天和、侍中宋钦道等于坐」「同斩于御府之内」）、のち「太皇太后寻下令废少主，命帝统大业」により甥を廃して皇位を得た。形式は太皇太后の令だが実態はクーデターによる奪権で、emperors.json の accessionRoute.category「簒奪」と整合。",
+      "source": {
+        "page": "北齊書 巻6 孝昭帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiqi-xiaozhaodi",
+      "to": "beiqi-wuchengdi",
+      "category": "世襲",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "武成帝高湛は神武帝高歓の第九子で、孝昭帝高演の同母弟（「世祖武成皇帝，讳湛，神武皇帝第九子，孝昭皇帝之母弟也」）。皇建2年（561年）に孝昭帝が崩じ、その遺詔により入朝して大位を継ぐよう指名され（「二年，孝昭崩，遗诏征帝入统大位」）、皇太后（婁太后）の令で遺詔が宣せられ、左丞相斛律金率いる百僚の三度の勧進を経て受諾し（「皇太后令所司宣遗诏，左丞相斛律金率百僚敦劝，三奏，乃许之」）、大寧元年11月癸丑に南宮で即位した（「大宁元年冬十一月癸丑，皇帝即位于南宫」）。兄からの遺詔による兄弟継承で、emperors.json の accessionRoute「世襲」と整合する。",
+      "source": {
+        "page": "北斉書 巻七 武成帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiqi-wuchengdi",
+      "to": "beiqi-houzhu",
+      "category": "内禅",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "北齊書後主紀冒頭に「后主讳纬，字仁纲，武成皇帝之长子也」とあり武成帝の長子。「河清四年，武成禅位于帝」「天统元年夏四月丙子，皇帝即位于晋阳宫，大赦，改河清四年为天统」と、武成帝の生前譲位（内禅）により即位。譲位後の武成帝は太上皇帝として引き続き実権を保持（紀中に「太上皇帝诏」の記事が頻出、天統4年12月「辛未，太上皇帝崩」まで）。accessionRoute.category「内禅」と原文の読みは完全に整合する。",
+      "source": {
+        "page": "北齊書 巻八 後主紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiqi-houzhu",
+      "to": "beiqi-andewang-gaoyanzong",
+      "category": "擁立",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋陽危急に際し、在位中の後主高緯が延宗を相国・并州刺史に任じ山西の兵事を委ね「并州阿兄自取，儿今去也」と告げて鄴へ奔った後、在并の将率の推挙により「延宗不得已，即皇帝位」（北齊書巻十一延宗伝）。皇帝位そのものの禅譲・璽綬授受はないが、在位中の後主から并州の統治・軍事権を明示的に委任された直後の軍中擁立であり、政権内の直接の先代は後主。延宗は文襄帝高澄の第五子（「安德王延宗，文襄第五子也」）、後主は武成帝高湛の子で、高澄・高湛は兄弟（ともに高歓の子）のため新帝は先代の従兄弟（後主も延宗を「阿兄」と呼ぶ）。",
+      "source": {
+        "page": "北齊書 巻十一 文襄六王・安徳王延宗伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiqi-houzhu",
+      "to": "beiqi-youzhu-gaoheng",
+      "category": "内禅",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "幼主高恒は後主高緯の長子。「幼主名恒，帝之长子也。母曰穆皇后，武平元年六月生于邺。其年十月，立为皇太子」。隆化二年（承光元年、577年）正月乙亥、父後主からの生前譲位により8歳で即位し、後主は太上皇帝となった。「隆化二年春正月乙亥，即皇帝位，时八岁，改元为承光元年，大赦，尊皇太后为太皇太后，帝为太上皇帝，后为太上皇后」。父からの生前譲位のため内禅（category は emperors.json の accessionRoute.category と一致）。",
+      "source": {
+        "page": "北齊書 巻8 幼主紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beiwei-xiaowudi",
+      "to": "xiwei-wendi",
+      "category": "擁立",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "元宝炬は孝文帝の孫・京兆王愉の子（「文皇帝讳宝炬，孝文皇帝之孙，京兆王愉之子也」）。先代の北魏孝武帝（出帝）元修は「出帝，讳修，字孝则，广平武穆王怀之第三子也」（魏本紀・beiwei-xiaowudi キャッシュ）とあり、広平王懐は孝文帝の子であるため、両者は共に孝文帝の孫にあたる従兄弟。孝武帝が高歓と対立して関中の宇文泰の下へ西奔した後、永熙3年閏12月に弑され、丞相宇文泰が群臣を率いて勧進し即位（「孝武崩，丞相、略阳公宇文泰率群公卿士奉表劝进，三让乃许焉」）。孝武帝の西遷により北魏の帝統（璽・朝廷機構）は関中に移っており、その崩御を受けた継承であるため from を孝武帝に置く。category は emperors.json の accessionRoute.category「擁立」をそのままコピー。",
+      "source": {
+        "page": "北史 巻五 魏本紀(西魏文帝)",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xiwei-wendi",
+      "to": "xiwei-feidi-yuanqin",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "文帝（元宝炬）の長子。「废帝讳钦，文皇帝之长子也。母曰乙皇后。大统元年正月乙卯，立为皇太子」（北史 巻五）。大統17年（551年）3月、父・文帝の崩御を受け皇太子として即位（「十七年三月，即皇帝位」）。実権は宇文泰にあったが、即位経路自体は嫡長子の通常の世襲継承。",
+      "source": {
+        "page": "北史 巻五 魏本紀(西魏廃帝)",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xiwei-feidi-yuanqin",
+      "to": "xiwei-gongdi",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "恭帝元廓（拓跋廓）は文帝元宝炬の第四子で、先代の廃帝元欽（文帝嫡長子）の弟。北史巻五に「恭皇帝讳廓，文皇之第四子也。大统十四年，封为齐王。废帝三年正月，即皇帝位，改元」とあり、周書巻二文帝紀下に「于是太祖与公卿定议，废帝，尊立齐王廓，是为恭帝」とある通り、宇文泰（太祖）が宇文泰暗殺を謀った廃帝元欽を廃位したうえで公卿との合議により擁立した。同一政権（西魏）内で兄の廃位を受けて帝位を継いだもので、皇位の授受は廃帝→恭帝。",
+      "source": {
+        "page": "周書 巻二 文帝紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-yuwen-jue",
+      "to": "beizhou-mingdi",
+      "category": "擁立",
+      "relationToPredecessor": "兄",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝閔帝宇文覚（北周天王・皇帝を称さず収録外）が権臣宇文護に廃されたのち、護が明帝を岐州から迎えて天王位に立てた（『周書』明帝紀「及孝闵帝废，晋公护遣使迎帝于岐州。秋九月癸亥，至京师，止于旧邸。甲子，群臣上表劝进，备法驾奉迎。帝固让，群臣固请，是日，即天王位，大赦天下」）。武成元年に「秋八月己亥，改天王称皇帝」と称帝。宇文覚から北周の君主位（天王位）を実質的に承継したうえでの称帝であり、非皇帝の先行君主からの君主位承継→称帝のブリッジ from パターン（張祚・慕容儁型）として from=宇文覚とする。続柄: 毓は太祖宇文泰の庶長子（「世宗明皇帝讳毓……太祖长子也。母曰姚夫人」）、覚は第三子ながら嫡子（「太祖第三子也。母曰元皇后」）で、毓は覚の庶兄。category は emperors.json の accessionRoute.category「擁立」をそのまま採用（決定権は宇文護にあった傀儡的擁立で原典の読みとも整合）。",
+      "source": {
+        "page": "周書 巻四 明帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beizhou-mingdi",
+      "to": "beizhou-wudi",
+      "category": "世襲",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "武帝宇文邕は太祖(宇文泰)の第四子で、太祖長子の明帝(世宗・宇文毓)の弟。「高祖武皇帝讳邕，字祢罗突，太祖第四子也」。明帝が毒殺され崩御した際、遺詔により弟の魯国公邕へ伝位した。「武成二年夏四月，世宗崩，遗诏传帝位于高祖。高祖固让，百官劝进，乃从之。壬寅，即皇帝位，大赦天下」。実権は宇文護が握っていたが、後継指名自体は先帝明帝の遺詔による。",
+      "source": {
+        "page": "周書 巻五 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beizhou-wudi",
+      "to": "beizhou-xuandi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宣帝宇文贇は武帝（高祖）の長子（「宣皇帝讳赟，字干伯，高祖长子也」）。建徳元年に皇太子に立てられ（「立为皇太子」）、宣政元年六月丁酉に武帝が崩御すると翌日戊戌に皇太子として即位した（「宣政元年六月丁酉，高祖崩。戊戌，皇太子即皇帝位」）。通常の父子世襲継承。",
+      "source": {
+        "page": "周書 巻七 宣帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "beizhou-xuandi",
+      "to": "beizhou-jingdi",
+      "category": "内禅",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "静帝宇文闡は宣帝の長子（「静皇帝讳衍，后改为阐，宣帝长子也。母曰朱皇后」）。大象元年正月に魯王に封じられ皇太子に立てられたのち、同年二月辛巳、実父・宣帝の生前譲位（内禅）により即位した（「二月辛巳，宣帝于邺宫传位授帝，居正阳宫」）。宣帝は譲位後も天元皇帝を自称して実権を保持し続けた。",
+      "source": {
+        "page": "周書 巻八 静帝紀",
         "lang": "zh-classical"
       }
     }
