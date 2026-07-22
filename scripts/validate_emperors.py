@@ -114,6 +114,15 @@ KNOWN_PREACCESSION_EVENTS = {
     ("qianzhao-liuyuan", "eraChangeCount", 0),            # 0304 漢王期の建元
     ("qianzhao-liuyuan", "capitalRelocationCount", 0),    # 0305 漢王期の遷都
     ("qianyan-murongjun", "capitalRelocationCount", 0),   # 0350 燕王期(即位前)の遷都。父・慕容皝の0341は2026-07-22に他者事績として削除済み
+    ("houzhao-shile", "eraChangeCount", 0),               # 0319 趙王期の建元（趙王元年）
+    ("houzhao-shile", "eraChangeCount", 1),               # 0328 趙王期の太和改元
+    ("houzhao-shile", "amnestyCount", 0),                 # 0328 趙王期の大赦
+    ("xia-helianbobo", "eraChangeCount", 0),              # 0407 天王・大単于期の龍昇建元
+    ("xia-helianbobo", "amnestyCount", 0),                # 0407 天王期の赦其境内
+    ("nanyan-murongde", "eraChangeCount", 0),             # 0398 燕王自立の称元
+    ("nanyan-murongde", "amnestyCount", 0),               # 0398 燕王期の大赦境内
+    ("houqin-yaochang", "eraChangeCount", 0),             # 0384 万年秦王期の白雀建元
+    ("houqin-yaochang", "amnestyCount", 0),               # 0384 万年秦王期の大赦境内
     ("houzhao-shihu", "eraChangeCount", 0),               # 0335 趙天王期
     ("houzhao-shihu", "amnestyCount", 0),                 # 0335 趙天王期
     ("houzhao-shihu", "amnestyCount", 1),                 # 0337 大趙天王期
