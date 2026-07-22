@@ -1864,6 +1864,17 @@
     "大赦除常赦所不原者"
    ]
   },
+  "beisong-renzong|amnestyCount[14].note|693f72e9a1f9": {
+   "id": "beisong-renzong",
+   "path": "amnestyCount[14].note",
+   "span": "冬十月…辛酉，祔章獻明肅皇后、章懿皇后神主于太廟，大赦",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "辛酉祔章献明肃皇后章",
+    "懿皇后神主于太庙大赦"
+   ]
+  },
   "beisong-renzong|amnestyCount[3].note|b9ca244022b6": {
    "id": "beisong-renzong",
    "path": "amnestyCount[3].note",
@@ -1972,6 +1983,129 @@
    "corpusFile": "_corpus_cache/beisong-renzong.txt",
    "frags": [
     "恭谢天地于大庆殿大赦"
+   ]
+  },
+  "beisong-renzong|rebellionSufferedCount[1].note|2a671b0d7435": {
+   "id": "beisong-renzong",
+   "path": "rebellionSufferedCount[1].note",
+   "span": "五月甲午，徭、獠寇雷、化州",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "五月甲午徭獠寇雷化州"
+   ]
+  },
+  "beisong-renzong|rebellionSuppressionCount[10].note|165cca101d88": {
+   "id": "beisong-renzong",
+   "path": "rebellionSuppressionCount[10].note",
+   "span": "辛酉，親從官顏秀等四人夜入禁中謀為變，宿衞兵捕殺之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "辛酉亲从官颜秀等四人",
+    "入禁中谋为变宿衞兵捕"
+   ]
+  },
+  "beisong-renzong|rebellionSuppressionCount[10].note|9a52872c9182": {
+   "id": "beisong-renzong",
+   "path": "rebellionSuppressionCount[10].note",
+   "span": "磔王則于都市",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "磔王则于都市"
+   ]
+  },
+  "beisong-renzong|rebellionSuppressionCount[11].note|76afae8dfc45": {
+   "id": "beisong-renzong",
+   "path": "rebellionSuppressionCount[11].note",
+   "span": "五年春正月壬寅朔…戊午，狄青敗智高于邕州",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "五年春正月壬寅朔",
+    "戊午狄青败智高于邕州"
+   ]
+  },
+  "beisong-renzong|rebellionSuppressionCount[14].note|330eec121d09": {
+   "id": "beisong-renzong",
+   "path": "rebellionSuppressionCount[14].note",
+   "span": "壬戌…澧州羅城洞蠻內寇，發兵擊走之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "澧州罗城洞蛮内寇发兵"
+   ]
+  },
+  "beisong-renzong|rebellionSuppressionCount[1].note|10bf6102c8d0": {
+   "id": "beisong-renzong",
+   "path": "rebellionSuppressionCount[1].note",
+   "span": "二月…甲午，安化蠻寇宜、融州",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "甲午安化蛮寇宜融州"
+   ]
+  },
+  "beisong-renzong|rebellionSuppressionCount[1].note|d5bbf3478cac": {
+   "id": "beisong-renzong",
+   "path": "rebellionSuppressionCount[1].note",
+   "span": "辛亥，安化蠻平",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "辛亥安化蛮平"
+   ]
+  },
+  "beisong-renzong|rebellionSuppressionCount[1].note|dab211154e8b": {
+   "id": "beisong-renzong",
+   "path": "rebellionSuppressionCount[1].note",
+   "span": "丙寅，鄜延路言趙元昊反",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "丙寅鄜延路言赵元昊反"
+   ]
+  },
+  "beisong-renzong|rebellionSuppressionCount[1].note|f192ef8e517f": {
+   "id": "beisong-renzong",
+   "path": "rebellionSuppressionCount[1].note",
+   "span": "三月戊戌朔…己亥，發邵、澧、潭三州駐泊兵討安化州蠻",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "己亥发邵澧潭三州驻泊"
+   ]
+  },
+  "beisong-renzong|rebellionSuppressionCount[6].note|6c590e9cb453": {
+   "id": "beisong-renzong",
+   "path": "rebellionSuppressionCount[6].note",
+   "span": "冬十月辛未，詔發兵討湖南徭賊",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "冬十月辛未诏发兵讨湖"
+   ]
+  },
+  "beisong-renzong|rebellionSuppressionCount[9].note|1074300b2753": {
+   "id": "beisong-renzong",
+   "path": "rebellionSuppressionCount[9].note",
+   "span": "戊戌，冬至，祀天地于圜丘，大赦。貝州宣毅卒王則據城反",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "戊戌冬至祀天地于圜丘",
+    "赦贝州宣毅卒王则据城"
+   ]
+  },
+  "beisong-renzong|rebellionSuppressionCount[9].note|ef87bc7a83ec": {
+   "id": "beisong-renzong",
+   "path": "rebellionSuppressionCount[9].note",
+   "span": "遣內侍以敕榜招安貝賊",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-renzong.txt",
+   "frags": [
+    "遣内侍以敕榜招安贝贼"
    ]
   },
   "beisong-renzong|reigns[0].conversion|8964834b8f5a": {
@@ -19951,6 +20085,26 @@
    "corpusFile": "_corpus_cache/jin-huidi.txt",
    "frags": [
     "赦诸州之遭地灾者"
+   ]
+  },
+  "jin-huidi|amnestyCount[18].note|4c887aa3c268": {
+   "id": "jin-huidi",
+   "path": "amnestyCount[18].note",
+   "span": "辛巳，大赦，赏从者各有差",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-huidi.txt",
+   "frags": [
+    "辛巳大赦赏从者各有差"
+   ]
+  },
+  "jin-huidi|amnestyCount[18].note|f50ca9750be1": {
+   "id": "jin-huidi",
+   "path": "amnestyCount[18].note",
+   "span": "冬十一月乙未",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-huidi.txt",
+   "frags": [
+    "冬十一月乙未"
    ]
   },
   "jin-huidi|amnestyCount[3].note|8b601d7e7c8d": {

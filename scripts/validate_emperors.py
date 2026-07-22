@@ -123,6 +123,7 @@ KNOWN_PREACCESSION_EVENTS = {
     ("nanyan-murongde", "amnestyCount", 0),               # 0398 燕王期の大赦境内
     ("houqin-yaochang", "eraChangeCount", 0),             # 0384 万年秦王期の白雀建元
     ("houqin-yaochang", "amnestyCount", 0),               # 0384 万年秦王期の大赦境内
+    ("houyan-murongchui", "eraChangeCount", 0),           # 0384 燕王自立の燕元建元
     ("houzhao-shihu", "eraChangeCount", 0),               # 0335 趙天王期
     ("houzhao-shihu", "amnestyCount", 0),                 # 0335 趙天王期
     ("houzhao-shihu", "amnestyCount", 1),                 # 0337 大趙天王期
