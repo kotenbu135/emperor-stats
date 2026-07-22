@@ -103,17 +103,17 @@ KNOWN_REIGN_SUMMARY = set()
 # 2026-07-22 の 0-3 対応（qin-shi-huang / qin-er-shi の算出基準統一）で全件解消済み
 KNOWN_DISPLAY_YEARS = set()
 
-# CE イベント日付が在位 ISO 年範囲外（min-1〜max+1）だが正当なもの＝称帝前（王号・僭称期）に
-# 発生したイベントを、後に皇帝となった同一人物の記録に計上したケース（各 note で説明済み）。
-# 収録基準（皇帝在位中のイベント）との整合は task.md 問題5 で方針判断待ち。
-# ここに載る＝容認ではなく「方針判断が済むまでの明示的な既知例」。方針確定後に一括見直しする。
+# CE イベント日付が在位 ISO 年範囲外（min-1〜max+1）だが正当なもの＝称帝前（王号・天王・僭号期）に
+# 本人が君主として行った行為で、ADDITIONAL_SCHEMA.md「回数系指標の計上期間（本人の実権掌握期）」
+# の方針により意図的に計上しているもの（各 note に【皇帝即位前】等を明示）。全件が本人自身の行為で
+# あることを 2026-07-22 に確認済み（他者＝父・慕容皝の行為だった qianyan-murongjun の 0341 龍城遷都は
+# 同日に計上から削除）。ここに載る＝在位範囲チェックの既知の正当例。
 # （BCE イベントの範囲チェックは check_bce_event_years が別途担当）
 KNOWN_PREACCESSION_EVENTS = {
     ("wu-dadi", "capitalRelocationCount", 0),             # 0221 呉王冊命前の遷都
     ("qianzhao-liuyuan", "eraChangeCount", 0),            # 0304 漢王期の建元
     ("qianzhao-liuyuan", "capitalRelocationCount", 0),    # 0305 漢王期の遷都
-    ("qianyan-murongjun", "capitalRelocationCount", 0),   # 0341 父・慕容皝(王号期)の遷都＝帰属要検討
-    ("qianyan-murongjun", "capitalRelocationCount", 1),   # 0350 燕王期(即位前)の遷都
+    ("qianyan-murongjun", "capitalRelocationCount", 0),   # 0350 燕王期(即位前)の遷都。父・慕容皝の0341は2026-07-22に他者事績として削除済み
     ("houzhao-shihu", "eraChangeCount", 0),               # 0335 趙天王期
     ("houzhao-shihu", "amnestyCount", 0),                 # 0335 趙天王期
     ("houzhao-shihu", "amnestyCount", 1),                 # 0337 大趙天王期
