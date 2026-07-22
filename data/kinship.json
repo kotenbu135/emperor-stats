@@ -183,6 +183,13 @@
         "emperors": 16,
         "edges": 16,
         "persons": 0
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック22（明清交替期群雄）",
+        "emperors": 9,
+        "edges": 5,
+        "persons": 0
       }
     ]
   },
@@ -5195,6 +5202,81 @@
       "note": "毅宗（崇禎帝）朱由検は光宗第五子で、熹宗（光宗長子）の異母弟。熹宗に実子がなく、その大漸に際して召され遺命を受けて即位した。明史本紀に「庄烈愍皇帝，讳由检，光宗第五子也」「明年八月，熹宗疾大渐，召王入，受遗命。丁巳，即皇帝位」とある。",
       "source": {
         "page": "明史 巻二十三 荘烈帝一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "ming-yizong",
+      "to": "nanming-anzong",
+      "category": "擁立",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "弘光帝朱由崧は神宗の孫・福恭王常洵の長子で、毅宗（崇禎帝・光宗の子で同じく神宗の孫）の従兄弟。「弘光帝，神宗之孙、福恭王之长子也。讳由崧，母邹妃」。崇禎自縊の凶問が南京に達した後（「四月己巳（十二日），凶问至南京」「诸大臣议立君，仓卒未有所属」）、鳳陽総督馬士英が江北の武将勢力と結んで福王擁立を主導し（「而凤阳总督马士英欲居拥戴功，结靖南伯黄得功暨高杰、刘泽清、刘良佐等移书诸大臣谓以序、以贤无如福王」）、監国を経て五月壬寅に即位（「壬寅（十五日），王即皇帝位，改元弘光」）。毅宗からの直接授受はないが、即位詔に「朕嗣守藩服，播迁江淮，群臣百姓共推继序」とあるとおり明朝の帝統継承として即位した政権内継承（南宋端宗の前例と同型）のため from=ming-yizong とする。",
+      "source": {
+        "page": "小腆紀傳 紀第一 弘光上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "nanming-anzong",
+      "to": "nanming-zongzong",
+      "category": "擁立",
+      "relationToPredecessor": "同族（遠縁）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "弘光帝が清軍に捕らわれ南都が陥落した後、鎮江総兵鄭鴻逵・鄭彩らが杭州で唐王朱聿鍵に会い「二人奇之」、閩に戻って「与巡抚张肯堂等议奉王监国」。福州で監国ののち「惟鸿逵曰：『不正位，无以厌众心以杜后起』！遂定议」により隆武元年閏6月27日「即皇帝位于南郊」。即位に際し「遥上弘光帝专号曰『圣安皇帝』」と先帝弘光帝に尊号を奉り、南明政権の継続としての帝位継承であることを明示。血縁は、隆武帝は「太祖九世孙也。讳聿键……其先唐定王桱，太祖第二十三子」（太祖第二十三子唐定王の系統）で、神宗の孫である弘光帝とは極めて遠縁の同族（遠縁）。",
+      "source": {
+        "page": "小腆紀傳 紀第三 隆武",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "nanming-zongzong",
+      "to": "nanming-shaowudi",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "紹武帝朱聿𨮁は隆武帝（紹宗）の第四弟。小腆紀傳に「绍武讳聿■〈金粤〉，隆武帝之第四弟也。隆武改元，封唐王以主唐祀」とあり、隆武帝の死後、広州で梁朝鍾・関捷先が「兄终弟及」の議を唱え、蘇観生が何吾騶らとともに隆武2年十一月癸卯朔に監国に擁立、丁未（初五日）に皇帝に立てた（「有番禺梁朝锺、南海关捷先倡「兄终弟及」议，观生遂与旧辅何吾驺、侍郎王应华、曾道唯、布政使顾元镜以十一月癸卯朔拥王监国。丁未（初五日），立为皇帝，称号绍武」）。兄終弟及の名分による同一政権（南明）内の兄からの継承であり、from=隆武帝。肇慶で先に監国となっていた永暦帝と正統を争い並立・交戦した。",
+      "source": {
+        "page": "小腆紀傳 紀第三 隆武（附紹武）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "nanming-zongzong",
+      "to": "nanming-zhaozong",
+      "category": "擁立",
+      "relationToPredecessor": "同族（遠縁）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "隆武帝（紹宗）の汀州陥落（清軍による捕縛）の報を受け、両広総督丁魁楚・巡撫瞿式耜ら文臣が「佥谓『王统系正，贤而当立』」として桂王由榔を推戴し、隆武2年十月十四日に肇慶で監国。紹武帝の広州称帝を受け「魁楚谓不即位无以厌人心而号召天下」により同年十一月十八日（庚申）皇帝に即位し、翌年を永暦元年とした。隆武帝は生前「又尝语群臣曰：『永明王，神宗嫡孙，统系最正；朕无子，后当属诸』」と後継を示唆しており、隆武帝の後継の名分による南明政権の継続として from=nanming-zongzong とする（並立・交戦した紹武帝からの継承ではない）。血縁は、永暦帝が神宗（万暦帝）の孫・桂端王常瀛の少子（「永历帝，神宗之孙、桂端王常瀛少子也」）であるのに対し、隆武帝は太祖九世孫の唐王系であり遠縁→同族（遠縁）。",
+      "source": {
+        "page": "小腆紀傳 紀第四 永暦上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wuzhou-wusangui",
+      "to": "wuzhou-wushifan",
+      "category": "擁立",
+      "relationToPredecessor": "孫",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "呉三桂の孫（呉応熊の庶子）。清史稿呉三桂伝に「召其孙世璠於云南，未至，乙酉，三桂死」（三桂が病中に孫の世璠を雲南から呼び寄せたが到着前に死去）とあり、続けて「世璠，应熊庶子，留云南，奔三桂之丧，至贵阳，其下拥称帝，改号洪化」と、三桂の喪に赴いた貴陽で旧部下に擁立され称帝・洪化と改元した経緯が記される。同一政権（呉周）内で先代皇帝・呉三桂の死去を承けた継承であり from=wuzhou-wusangui。category は emperors.json の accessionRoute.category「擁立」をそのまま採用（原文「其下拥称帝」とも整合）。",
+      "source": {
+        "page": "清史稿 列伝二百六十一（呉三桂伝）",
         "lang": "zh-classical"
       }
     }
