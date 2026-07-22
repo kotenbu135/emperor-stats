@@ -169,6 +169,13 @@
         "emperors": 10,
         "edges": 10,
         "persons": 1
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック20（元・北元・元末群雄）",
+        "emperors": 18,
+        "edges": 15,
+        "persons": 1
       }
     ]
   },
@@ -710,6 +717,32 @@
       "wikidata": "Q541665",
       "source": {
         "page": "宋史 巻485（夏国伝上）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-monke",
+      "name": "モンケ（蒙哥）",
+      "kana": "もんけ",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "元",
+      "birthYear": 1209,
+      "deathYear": 1259,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "追尊皇帝"
+      ],
+      "posthumous": {
+        "dynasty": "元",
+        "templeName": "憲宗",
+        "posthumousName": "桓粛皇帝"
+      },
+      "note": "モンゴル帝国第4代カアン（1251即位）。元史憲宗紀「宪宗桓肃皇帝，讳蒙哥，睿宗拖雷之长子也。母曰庄圣太后，怯烈氏，讳唆鲁禾帖尼。岁戊辰，十二月三日生帝。」（戊辰年=1208年だが十二月三日はユリウス暦1209年1月に当たるため birthYear=1209）。「癸亥，帝崩于钓鱼山，寿五十有二，在位九年。追谥桓肃皇帝，庙号宪宗。」により1259年、南宋攻めの陣中（合州釣魚山）で没。至元3年（1266）太廟の八室制定時に廟号・諡号が正式に定められた（元史 祭祀志「宪宗桓肃皇帝、贞节皇后第八室」）→皇帝号＋廟号の追贈があるため kind=追尊皇帝。クビライ（yuan-shizu）の同母兄で、クビライはその死後に君主位を継承して称帝した。",
+      "wikidata": "Q7521",
+      "source": {
+        "page": "元史 巻三 憲宗紀",
         "lang": "zh-classical"
       }
     }
@@ -4690,6 +4723,231 @@
       "note": "献宗徳旺の病死（1226年）を受け、国人が徳旺の弟・清平郡王の子である南平王見（睍）を擁立。西夏書事巻四十二「国主德旺卒，弟子见立」「国人立其弟清平郡王子南平王见，遣使报哀于金」。正史でも宋史巻486夏国伝下「清平郡王之子南平王见立，二年丁亥秋，为大元所取，国遂亡」と裏付けられる（金史夏国外紀は「嗣立者史失其名」と名を欠く）。見は献宗の弟の子＝献宗の甥。",
       "source": {
         "page": "西夏書事 巻42",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-monke",
+      "to": "yuan-shizu",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "クビライは兄の憲宗モンケ（モンゴル帝国第4代カアン・emperors.json 非収録）の死後、その君主位を継いで称帝した「非皇帝の先行君主からの君主位承継→称帝はブリッジ from」の型（ホンタイジ from=ヌルハチ・category=擁立のままの前例に同じ）。続柄は元史世祖紀「岁辛亥，六月，宪宗即位，同母弟惟帝最长且贤，故宪宗尽属以漠南汉地军国庶事」により同母弟（モンケ=睿宗長子、クビライ=睿宗第四子）。憲宗の死は「亲王穆哥自合州钓鱼山遣使以宪宗凶问来告，且请北归以系天下之望」と伝えられ、中統元年（1260）開平で「亲王合丹、阿只吉率西道诸王，塔察儿、也先哥、忽剌忽儿、爪都率东道诸王，皆来会，与诸大臣劝进。帝三让，诸王大臣固请。辛卯，帝即皇帝位」と諸王・大臣の勧進により即位（category=擁立と整合）。同時期に弟アリクブケ（「阿里不哥者，睿宗第七子，帝之弟也」）もカラコルム側で擁立されて帝位を争ったが、至元元年に降伏（「阿里不哥自昔木土之败，不复能军」…「来归」）。アリクブケは対抗的な後継者であって先行君主ではないため対立エッジは立てない。",
+      "source": {
+        "page": "元史 巻四 世祖紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuan-shizu",
+      "to": "yuan-chengzong",
+      "category": "世襲",
+      "relationToPredecessor": "孫",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "成宗鉄穆耳（テムル）は世祖クビライの孫（父は早世した皇太子裕宗真金、その第三子）。元史 成宗紀冒頭「成宗钦明广孝皇帝，讳铁穆耳，世祖之孙，裕宗真金第三子也」。世祖存命中の至元30年に皇太子宝を授けられ後継者として確立「三十年六月乙巳，受皇太子宝，抚军于北边」。至元31年正月の世祖崩御「三十一年春正月，世祖崩」を受け、上都で諸王会同のうえ即位「夏四月壬午，帝至上都，左右部诸王毕会」「甲午，既皇帝位，受诸王宗亲、文武百官朝于大安阁」（「既」はコーパスの誤字疑い、flags参照）。祖父からの世襲継承。",
+      "source": {
+        "page": "元史 巻十八 成宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuan-chengzong",
+      "to": "yuan-wuzong",
+      "category": "擁立",
+      "relationToPredecessor": "甥",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "武宗海山は「顺宗答剌麻八剌之长子也」（元史巻二十二冒頭）。答剌麻八剌（順宗は追尊廟号）は裕宗真金の子で、成宗（「裕宗真金第三子也」元史巻十八）の兄にあたるため、武宗は成宗の甥。成宗に実子なく崩御後、皇后卜魯罕・安西王アナンダの称制画策の政変が発生し、弟愛育黎抜力八達（後の仁宗）が粛清したうえで漠北にいた武宗を迎えて即位させた。即位詔に「间者奸臣乘隙，谋为不轨，赖祖宗之灵，母弟爱育黎拔力八达禀命太后，恭行天罚。内难既平……合辞劝进，诚意益坚。朕勉徇舆情，于五月二十一日即皇帝位」とあり、政変鎮圧後の推戴（擁立）による即位で、先代成宗からの皇位継承として確定できる。",
+      "source": {
+        "page": "元史 巻二十二 武宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuan-wuzong",
+      "to": "yuan-renzong",
+      "category": "世襲",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "仁宗アユルバルワダは武宗海山の同母弟（元史巻二十四「仁宗圣文钦孝皇帝，讳爱育黎拔力八达，顺宗次子，武宗之弟也」）。成宗崩後の大徳11年（1307）政変で左丞相阿忽台らを誅して兄武宗を迎立し（「怀宁王吾兄也，正位为宜」）、武宗即位直後に皇太子に冊立された（「六月癸巳，诏立帝为皇太子，受金宝」）。至大4年（1311）正月の武宗崩御（「四年春正月庚辰，武宗崩」）を受け、同年3月庚寅（3月18日）に大明殿で即位（「庚寅，即皇帝位于大明殿，受诸王百官朝贺」）。武宗生前に確立された継承順位（武仁授受）に基づく世襲的即位。",
+      "source": {
+        "page": "元史 巻二十四 仁宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuan-renzong",
+      "to": "yuan-yingzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "英宗シデバラは仁宗の嫡子。元史英宗紀に「英宗睿圣文孝皇帝，讳硕德八剌，仁宗嫡子也」とあり、延祐三年十二月丁亥に皇太子に立てられ（「延祐三年十二月丁亥，立为皇太子，授金宝」）、延祐七年正月辛丑の仁宗崩御（「辛丑，仁宗崩，帝哀毁过礼」）を受けて同年三月庚寅（3月11日）に大明殿で即位した（「庚寅，帝即位」「乃于三月十一日，即皇帝位于大明殿」）。皇太子として父から正常に帝位を継承した世襲。",
+      "source": {
+        "page": "元史 巻二十七 英宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuan-yingzong",
+      "to": "yuan-taidingdi",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南坡の変で英宗が弑逆された後、共謀した諸王が玉璽を奉じて漠北の晋王也孫鉄木児（泰定帝）を迎えて擁立した。元史巻二十九泰定帝紀「诸王按梯不花及也先铁木儿奉皇帝玺绶，北迎帝于镇所。九月癸巳，即皇帝位于龙居河，大赦天下」。続柄は、泰定帝が「显宗甘麻剌之长子，裕宗之嫡孙也」（同紀冒頭）で裕宗（真金）の孫、英宗は裕宗の曾孫（裕宗→順宗→仁宗→英宗）であるため、泰定帝は英宗の父仁宗の従兄弟＝英宗の従叔父にあたる（enum 外のため「その他」）。即位詔でも「扶立了两个哥哥曲律皇帝、普颜笃皇帝，侄硕德八剌皇帝」と武宗・仁宗を「哥哥」、英宗を「侄」と呼んでおり整合する。なお暗殺実行犯・鉄失が事前に擁立を打診した経緯があるが（「铁失密遣斡罗思来告曰：…事成，推立王为皇帝」）、emperors.json の accessionRoute どおり擁立と判定（黒幕説は accessionRoute.note 参照）。",
+      "source": {
+        "page": "元史 巻二十九 泰定帝一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuan-taidingdi",
+      "to": "yuan-tianshundi",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "天順帝阿速吉八は泰定帝の皇子で、泰定元年に皇太子に冊立された（元史 巻二十九「丙午，御大明殿，册八八罕氏为皇后，皇子阿速吉八为皇太子」）。致和元年七月に泰定帝が上都で崩御した後、同年九月、権臣倒剌沙が皇太子阿速吉八を上都で皇帝に擁立し天順と改元した（元史 巻三十「九月，倒剌沙立皇太子为皇帝，改元天顺，诏天下」、新元史 巻十九「九月，皇太子即皇帝位于上都，改元天顺」）。父泰定帝から皇太子として皇位を継承したもので、category は emperors.json の accessionRoute.category=擁立 をそのまま採用。",
+      "source": {
+        "page": "元史 巻三十 泰定帝紀二",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuan-mingzong",
+      "to": "yuan-wenzong",
+      "category": "復位",
+      "relationToPredecessor": "弟",
+      "isRestoration": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "天暦2年（1329）正月に兄明宗（コシラ）が漠北で即位すると文宗は皇太子に降り（「癸卯，明宗遣武宁王彻彻秃、中书平章政事哈八儿秃来锡命，立帝为皇太子」）、玉璽を奉じて北迎したが、8月に明宗が王忽察都で急死（毒殺説あり）。元史巻三十三文宗二に「庚寅，明宗崩，帝入临哭尽哀。燕铁木儿以明宗后之命，奉皇帝宝授于帝」とあり、明宗皇后の命により皇帝璽が文宗に授けられ、「己亥，帝复即位于上都大安阁，大赦天下」（天暦2年8月15日、詔に「乃以八月十五日即皇帝位于上都」）と上都大安閣で復位した。続柄は巻三十二文宗一冒頭「文宗圣明元孝皇帝，讳图帖睦尔，武宗之次子，明宗之弟也」により明宗の弟。",
+      "source": {
+        "page": "元史 巻三十三 文宗二",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuan-wenzong",
+      "to": "yuan-mingzong",
+      "category": "内禅",
+      "relationToPredecessor": "兄",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明宗和世㻋は武宗の長子（「明宗翼献景孝皇帝，讳和世〈王束〉，武宗长子也」）で、文宗図帖睦爾の兄（明宗紀に「帝弟图帖睦尔以怀王出居于建康」）。泰定帝崩後の政変で燕鉄木児がまず弟の懐王（文宗）を迎立したが、文宗は「九月壬申，怀王即位，是为文宗」の後も「谨俟大兄之至，以遂朕固让之心」と兄への譲位を宣言。天暦2年正月、漠北にいた明宗のもとへ文宗が使者を遣わし「乙酉，撒迪等至，入见帝于行幄，以文宗命劝进。丙戌，帝即位于和宁之北，扈行诸王、大臣咸入贺」と和寧の北で即位、三月には「辛酉，文宗遣右丞相燕铁木儿奉皇帝宝来上」と皇帝璽を受け、明宗は「遣武宁王彻彻秃及哈八儿秃立文宗为皇太子」と文宗を皇太子に立てた。弟から兄への譲位（実態は権臣燕鉄木児主導）による同一王朝内の帝位授受で、accessionRoute.category=内禅と整合。約半年後の八月「庚寅，帝暴崩」で急死し文宗が復位した（順帝の後至元6年詔は文宗による毒殺を示唆するが、これは死因の問題であり継承エッジの判定には影響しない）。",
+      "source": {
+        "page": "元史 巻三十一 明宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuan-wenzong",
+      "to": "yuan-ningzong",
+      "category": "擁立",
+      "relationToPredecessor": "甥",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "文宗崩御後、その遺詔（末命）「传位于明宗之子」により、文宗后（卜答失里）の意向のもと権臣燕鉄木児の奏請で明宗次子の寧宗が擁立された。元史寧宗紀に「至顺三年八月己酉，文宗崩于上都，皇后导扬末命，申固让初志，传位于明宗之子」「太师、太平王、右丞相燕铁木儿，请立帝以继大统」「十月庚子，帝即位于大明殿」とある。皇位の実質的授受は在位中の文宗の遺詔によるため from=yuan-wenzong。続柄は、寧宗が文宗の兄明宗の第二子であること（「宁宗冲圣嗣孝皇帝，讳懿璘质班，明宗第二子也」「初，武宗有子二人，长明宗，次文宗」）から、新帝は先代文宗の甥。",
+      "source": {
+        "page": "元史 巻三十七 寧宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuan-ningzong",
+      "to": "yuan-huizong",
+      "category": "擁立",
+      "relationToPredecessor": "兄",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "恵宗（順帝）妥懽帖睦爾は明宗の長子で、先代寧宗（明宗次子懿璘質班）の兄。元史巻三十八順帝紀一に「顺帝名妥欢帖睦尔，明宗之长子」「命立明宗次子懿璘只班，是为宁宗」とあり兄弟関係は明確。寧宗崩御後、権臣燕鉄木児は文宗子燕帖古思の擁立を求めたが文宗后（皇太后卜答失里）が「吾子尚幼，妥欢贴睦尔在广西，今年十三矣，且明宗之长子，礼当立之」と長子妥懽帖睦爾の迎立を命じ、燕鉄木児の猜疑で数ヶ月立てられなかったが「俄而燕铁木儿死，后乃与大臣定议立帝」、「诸王宗戚奉上玺绶劝进」を経て至順4年6月己巳に即位（「四年六月己巳，帝即位于上都」）。即位の可否・時期は皇太后・大臣主導で決せられたため category は emperors.json の accessionRoute どおり擁立。皇位は同一政権内で先代寧宗から得たものとして from=yuan-ningzong とする。",
+      "source": {
+        "page": "元史 巻三十八 順帝紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuan-huizong",
+      "to": "beiyuan-zhaozong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "新元史巻二十六に「昭宗皇帝，讳爱猷识理达腊，惠宗长子也。母曰完者都皇后。至正十三年，册立为皇太子」とあり恵宗の長子。「三十年夏四月，惠宗崩于应昌，皇太子即皇帝位」と、恵宗崩御を受け皇太子として応昌で即位した父子直系継承。",
+      "source": {
+        "page": "新元史 巻二十六 恵宗四・昭宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuanmo-xushouhui",
+      "to": "yuanmo-chenyouliang",
+      "category": "簒奪",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "陳友諒は天完皇帝・徐寿輝の部将（元は倪文俊の簿掾、後に漢王を自称して寿輝を傀儡化）であり、至正20年（1360）、采石にて壮士に鉄挝で寿輝の頭を撃砕させて殺害し、直後に采石の五通廟を行殿として皇帝に即位、国号を漢、改元して大義とした。明史 巻一百二十三 陳友諒伝に「进驻采石矶，遣部将阳白事寿辉前，戒壮士挟铁挝击碎其首。寿辉既死，以采石五通庙为行殿，即皇帝位，国号汉，改元大义」とあり、先代皇帝・徐寿輝から実力で皇位を奪った典型的簒奪。両者に血縁はない（陳友諒は沔陽の漁家出身で寿輝の配下として仕えたのみ）。",
+      "source": {
+        "page": "明史 巻一百二十三 陳友諒伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuanmo-chenyouliang",
+      "to": "yuanmo-chenli",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "陳理は陳友諒の次子。至正23年（1363年）、鄱陽湖の戦いで父・友諒が流矢に斃れた後、太尉・張定辺に奉じられて武昌に帰還し、帝位を嗣ぎ徳寿と改元した。明史 巻123 陳友諒伝に「太尉张定边夜挟友谅次子理，载其尸遁还武昌」「子理既还武昌，嗣伪位，改元德寿」とあり、父子間の世襲継承として裏付けられる。",
+      "source": {
+        "page": "明史 巻一百二十三 陳友諒伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "yuanmo-mingyuzhen",
+      "to": "yuanmo-mingsheng",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史巻123（列伝第11）明玉珍伝附に「子升嗣，改元开熙，葬玉珍于江水之北，号永昌陵，庙号太祖。尊母彭氏为皇太后，同听政。升甫十岁」とあり、明昇は夏の太祖・明玉珍の実子として父の死を受けて即位した典型的な父子継承。即位時10歳のため母の皇太后彭氏が同聴政した。emperors.json の accessionRoute.category=世襲と一致。",
+      "source": {
+        "page": "明史 巻123 列伝第11（明玉珍伝）",
         "lang": "zh-classical"
       }
     }
