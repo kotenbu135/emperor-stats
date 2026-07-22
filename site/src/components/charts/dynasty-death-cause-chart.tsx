@@ -4,19 +4,16 @@ import { useEffect, useState } from "react";
 import { ResponsiveBar, type BarDatum } from "@nivo/bar";
 import {
   categoryColorMaps,
-  integerTickValues,
   nivoTheme,
 } from "@/components/charts/nivo-theme";
 import {
-  AxisHeader,
   FixedTooltip,
   MARGIN_RIGHT,
-  ROW_HEIGHT,
-  SCROLL_MAX_HEIGHT,
   TableDetails,
   useChartWidth,
+  useRankingChartLayout,
   useTipOutlet,
-  useWindowedRows,
+  WindowedChartFrame,
 } from "@/components/charts/scroll-bar-chart";
 import {
   aggregateByGroup,
@@ -71,30 +68,23 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
     ...row.deathCauseCounts,
   }));
 
+  // 軸ドメイン・マージン・行ウィンドウイングの定型は共通フックにまとめている。
   const maxValue = Math.max(1, ...chartData.map((d) => d.total));
-  const domainMax = Math.ceil(maxValue);
-  const ticks = integerTickValues(maxValue);
-
-  const maxLabelLength = Math.max(0, ...chartData.map((d) => d.label.length));
-  const marginLeft = Math.min(
-    260,
-    Math.max(100, maxLabelLength * 11 + 24),
-    Math.max(90, Math.floor(chartWidth * 0.42)),
-  );
-  const charBudget = Math.max(4, Math.floor((marginLeft - 16) / 11));
-  const truncate = (label: string) =>
-    label.length <= charBudget ? label : `${label.slice(0, charBudget - 1)}…`;
-
-  const displayData = [...chartData].reverse();
-  const idToLabel = new Map(displayData.map((d) => [d.id, d.label]));
-  const chartHeight = Math.max(chartData.length * ROW_HEIGHT + 12, 96);
-
-  // 行ウィンドウイング（ranking-bar-chart.tsxと同じ方式）。
-  const rowCount = chartData.length;
-  const { scrollRef, start, end, handleScroll, hoverAllowed } =
-    useWindowedRows(rowCount);
-  const windowData = displayData.slice(rowCount - end, rowCount - start);
-  const isFullRange = start === 0 && end === rowCount;
+  const {
+    domainMax,
+    ticks,
+    marginLeft,
+    truncate,
+    idToLabel,
+    chartHeight,
+    windowData,
+    isFullRange,
+    scrollRef,
+    start,
+    end,
+    handleScroll,
+    hoverAllowed,
+  } = useRankingChartLayout(chartData, maxValue, chartWidth);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: 0 });
@@ -128,41 +118,24 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
           </span>
         ))}
       </div>
-      <div className="rounded-md border border-border">
-        <div className="border-b border-border">
-          <AxisHeader
-            width={chartWidth}
-            marginLeft={marginLeft}
-            domainMax={domainMax}
-            ticks={ticks}
-            label="人"
-          />
-        </div>
-        <div
-          ref={scrollRef}
-          className="overflow-y-auto overscroll-contain"
-          style={{ maxHeight: SCROLL_MAX_HEIGHT }}
-          onScroll={() => {
-            setTip(null);
-            handleScroll();
-          }}
-        >
-          <div ref={chartAreaRef} className="relative" style={{ height: chartHeight }}>
-            <div
-              className="absolute inset-x-0 top-0"
-              // スライスの縦位置はtopでなくtransformで動かす。topの書き換えは
-              // レイアウトシフトとして計上され、グラフ内スクロールだけでCLSが
-              // 秒単位に悪化する（transformはlayout-shiftの対象外）。
-              style={{
-                transform: isFullRange
-                  ? undefined
-                  : `translateY(${start * ROW_HEIGHT}px)`,
-                height: isFullRange
-                  ? chartHeight
-                  : (end - start) * ROW_HEIGHT + 12,
-              }}
-            >
-            <ResponsiveBar
+      <WindowedChartFrame
+        axisLabel="人"
+        chartWidth={chartWidth}
+        marginLeft={marginLeft}
+        domainMax={domainMax}
+        ticks={ticks}
+        scrollRef={scrollRef}
+        chartAreaRef={chartAreaRef}
+        chartHeight={chartHeight}
+        start={start}
+        end={end}
+        isFullRange={isFullRange}
+        onScroll={() => {
+          setTip(null);
+          handleScroll();
+        }}
+      >
+        <ResponsiveBar
               data={windowData as unknown as BarDatum[]}
               keys={deathCauseCategoryOrder}
               indexBy="id"
@@ -208,10 +181,7 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
               onMouseLeave={() => setTip(null)}
               animate={false}
             />
-            </div>
-          </div>
-        </div>
-      </div>
+      </WindowedChartFrame>
       <TipOutlet
         render={(tip) => (
           <FixedTooltip x={tip.x} y={tip.y}>

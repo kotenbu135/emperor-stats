@@ -7,23 +7,20 @@ import {
   type BarDatum,
 } from "@nivo/bar";
 import {
-  integerTickValues,
   nivoTheme,
   rankingSeriesColor,
 } from "@/components/charts/nivo-theme";
 import {
-  AxisHeader,
   FixedTooltip,
   MARGIN_RIGHT,
   MARGIN_TOP,
   OutsideValueLabels,
-  ROW_HEIGHT,
   RowOverlay,
-  SCROLL_MAX_HEIGHT,
   TableDetails,
   useChartWidth,
+  useRankingChartLayout,
   useTipOutlet,
-  useWindowedRows,
+  WindowedChartFrame,
 } from "@/components/charts/scroll-bar-chart";
 import { EmperorTooltip } from "@/components/charts/emperor-tooltip";
 import { useDetailOutlet } from "@/components/emperors/emperor-detail-dialog";
@@ -155,38 +152,23 @@ export function RankingBarChart({
     record: r,
   }));
 
+  // 軸ドメイン・マージン・行ウィンドウイングの定型は共通フックにまとめている。
   const maxValue = Math.max(1, ...chartData.map((d) => d.value));
-  // niceを切ってドメイン上限を固定し、軸ヘッダー（独自SVG）と目盛り位置を一致させる。
-  const domainMax = Math.ceil(maxValue);
-  const ticks = integerTickValues(maxValue);
-
-  // 左マージンはラベル長とコンテナ幅の両方で制限する（狭い画面で描画領域が消えないように）。
-  const maxLabelLength = Math.max(0, ...chartData.map((d) => d.label.length));
-  const marginLeft = Math.min(
-    260,
-    Math.max(100, maxLabelLength * 11 + 24),
-    Math.max(90, Math.floor(chartWidth * 0.42)),
-  );
-  // マージンに収まらないラベルは末尾を省略する。
-  const charBudget = Math.max(4, Math.floor((marginLeft - 16) / 11));
-  const truncate = (label: string) =>
-    label.length <= charBudget ? label : `${label.slice(0, charBudget - 1)}…`;
-
-  // Nivoの水平バーはデータ配列の先頭要素を下端に描画するため、表示直前に反転して
-  // 「多い順/少ない順」の並びどおり上から表示されるようにする。
-  const displayData = [...chartData].reverse();
-  // indexByは一意なidを使う（label＝氏名+王朝名は、同名同王朝が重複しうるため衝突対策）。
-  const idToLabel = new Map(displayData.map((d) => [d.id, d.label]));
-  const chartHeight = Math.max(chartData.length * ROW_HEIGHT + 12, 96);
-
-  // 行ウィンドウイング。displayDataは反転済み（先頭＝最下行）なので、
-  // 上からstart..end行は配列末尾側のスライスに対応する。
-  const rowCount = chartData.length;
-  const { scrollRef, start, end, handleScroll, hoverAllowed } =
-    useWindowedRows(rowCount);
-  const windowData = displayData.slice(rowCount - end, rowCount - start);
-  // 全行が範囲内のときは従来と同じ全高レンダリング（少件数時の見た目を変えない）。
-  const isFullRange = start === 0 && end === rowCount;
+  const {
+    domainMax,
+    ticks,
+    marginLeft,
+    truncate,
+    idToLabel,
+    chartHeight,
+    windowData,
+    isFullRange,
+    scrollRef,
+    start,
+    end,
+    handleScroll,
+    hoverAllowed,
+  } = useRankingChartLayout(chartData, maxValue, chartWidth);
 
   // フィルタ・並び順を変えたらスクロール位置を先頭（1位側）に戻す。
   useEffect(() => {
@@ -216,41 +198,24 @@ export function RankingBarChart({
             : `全${sorted.length}件を表示中`}
         </span>
       </ChartFilterControls>
-      <div className="rounded-md border border-border">
-        <div className="border-b border-border">
-          <AxisHeader
-            width={chartWidth}
-            marginLeft={marginLeft}
-            domainMax={domainMax}
-            ticks={ticks}
-            label={axisLabel}
-          />
-        </div>
-        <div
-          ref={scrollRef}
-          className="overflow-y-auto overscroll-contain"
-          style={{ maxHeight: SCROLL_MAX_HEIGHT }}
-          onScroll={() => {
-            setTip(null);
-            handleScroll();
-          }}
-        >
-          <div ref={chartAreaRef} className="relative" style={{ height: chartHeight }}>
-            <div
-              className="absolute inset-x-0 top-0"
-              // スライスの縦位置はtopでなくtransformで動かす。topの書き換えは
-              // レイアウトシフトとして計上され、グラフ内スクロールだけでCLSが
-              // 秒単位に悪化する（transformはlayout-shiftの対象外）。
-              style={{
-                transform: isFullRange
-                  ? undefined
-                  : `translateY(${start * ROW_HEIGHT}px)`,
-                height: isFullRange
-                  ? chartHeight
-                  : (end - start) * ROW_HEIGHT + 12,
-              }}
-            >
-            <ResponsiveBar
+      <WindowedChartFrame
+        axisLabel={axisLabel}
+        chartWidth={chartWidth}
+        marginLeft={marginLeft}
+        domainMax={domainMax}
+        ticks={ticks}
+        scrollRef={scrollRef}
+        chartAreaRef={chartAreaRef}
+        chartHeight={chartHeight}
+        start={start}
+        end={end}
+        isFullRange={isFullRange}
+        onScroll={() => {
+          setTip(null);
+          handleScroll();
+        }}
+      >
+        <ResponsiveBar
               data={windowData as unknown as BarDatum[]}
               keys={["value"]}
               indexBy="id"
@@ -302,10 +267,7 @@ export function RankingBarChart({
                 `${d.label}（${valueLabel}：${d.formatted}）の詳細を表示`
               }
             />
-            </div>
-          </div>
-        </div>
-      </div>
+      </WindowedChartFrame>
       <TipOutlet
         render={(tip) => (
           <FixedTooltip x={tip.x} y={tip.y}>

@@ -249,7 +249,7 @@
 
 2026-07-22 の多角的レビューで、`reignSummary.totalReignDuration.approxDays` が `sum(reigns[].duration.approxDays)` と不一致の9件を検出・訂正した（han-wudi・han-zhaodi・han-xuandi・han-yuandi・wei-wendi・wei-caomao・shuhan-zhaoliedi・shuhan-liushan・nansong-ningzong。最大 366 日のズレ）。フェーズB ブロック1・2（秦・前漢・三国）＋南宋寧宗の日付訂正時に summary 側の再計算が漏れたもの。`displayYears` は各レコード既存の小数桁数を維持して年=365 換算で再計算し、shuhan-liushan は summary の `isExact: true` / `needsPreciseDays: false` が reigns 側の月精度格下げと矛盾していた点も是正した。
 
-再発防止として `scripts/validate_emperors.py` の `check_reign_summary()` に totalReignDuration 検証を追加した（approxDays=合計の一致・isExact/needsPreciseDays と reigns の exactDays 確定状況の一致・displayYears が年換算〔÷365 または ÷365.25・小数0〜2桁丸め〕に一致、をすべてエラー扱い）。訂正前データに対して9件全員を検出することを確認済み。既知の例外は qin-er-shi の displayYears=2（切り捨て値・算出基準の統一は task.md 0-3 で個別判断待ち）のみで、`KNOWN_DISPLAY_YEARS` 許容リストに登録している。
+再発防止として `scripts/validate_emperors.py` の `check_reign_summary()` に totalReignDuration 検証を追加した（approxDays=合計の一致・isExact/needsPreciseDays と reigns の exactDays 確定状況の一致・displayYears が年換算〔÷365 または ÷365.25・小数0〜2桁丸め〕に一致、をすべてエラー扱い）。訂正前データに対して9件全員を検出することを確認済み。既知の例外だった qin-er-shi の displayYears=2（切り捨て値）は 2026-07-22 の task.md 0-3 で qin-shi-huang とともに標準換算（÷365.25・1桁丸め）へ統一し、`KNOWN_DISPLAY_YEARS` 許容リストは空になった。
 
 ## BCE イベント日付の年規約統一（2026-07-22、task.md 0-2）
 
@@ -257,7 +257,22 @@
 
 再発防止として `scripts/validate_emperors.py` に `check_bce_event_years()` を追加（BCE イベントの在位 ISO 年範囲チェック＋note「前n年」明記との突合をエラー扱い。訂正前データで16件検出・訂正後0件を回帰確認済み）。note に西暦の明記がない1年ズレは機械検出できないため、新規 BCE イベント追加時は note に「前n年」を併記することを推奨する。
 
-なお han-xuandi の立后3件は `datePrecision: "day"` なのに `date` が年のみという不整合が残っている（干支は note に記録済みだが、漢代太初暦の月境界を sxtwl が再現する保証がなく日付確定は個別調査が必要。task.md 0-3 扱い）。
+なお han-xuandi の立后3件にあった `datePrecision: "day"` なのに `date` が年のみという不整合は、2026-07-22 の task.md 0-3 で既存慣例トークン `day（干支のみ：〔紀年月干支〕、グレゴリオ暦未換算）` へ是正した（漢代太初暦の月境界を sxtwl が再現する保証がなく、西暦日付の確定自体は引き続き個別調査待ち）。
+
+## 0-3 Low 残件の解消（2026-07-22、task.md 0-3）
+
+2026-07-22 レビューの Low 項目（chen-feidi 原典確認・コード/データ/サイト小修正）を一括対応した。
+
+**chen-feidi（陳廃帝）の没年齢矛盾は「原典由来の矛盾」と確定**: 生年（梁承聖三年〔554年〕五月庚寅）と没年齢（太建二年〔570年〕四月薨「時年十九」＝554年生なら数え年17）の矛盾を原典で再確認した結果、『陳書』卷四・『南史』卷十・『建康実録』の3書ともまったく同じ両記載を併記しており、転記ミスではなく原典内部の矛盾。生年552年説は「時年十九」からの逆算にすぎず、552年を直接記す原典は確認できなかった。傍証として同母弟・始興王伯茂の「時年十八」（568年没、『陳書』卷二十八＝逆算551年頃生）は兄の554年生と両立せず年齢記載側を支持する。暦計算では554年・552年とも五月に庚寅の日が実在し判別不能（sxtwl 検算）。対応は「直接記載2値〔生年554・没年齢19〕をそのまま採録し、`ages.note` に矛盾の全容を明示・`confidence` を high→medium に変更」とした。
+
+**データ構造の不統一の解消**（判定を伴わない構造是正のみ、`scripts/validate_emperors.py` エラー0を確認）:
+- nanming-zongzong の大赦 events[1] に `date: "1646-07"` を補完（note 記載の隆武二年六月を sxtwl 換算。同ブロックの既存慣例〔旧暦月の開始日が属する西暦月・month 精度〕に一致）
+- 反乱系 events の `name` キー欠落28件（yuan-yingzong 23・wudai-houtang-modi2 4・shiguo-qianshu-wangjian 1）に `name: null` を付与（キー順も既存慣例に統一）
+- houzhao-shishi の `ages.confidence` 欠落に `medium` を補完（note の「即位とほぼ同時期の年齢情報として近似的に採用」に対応する値）
+- qin-shi-huang / qin-er-shi の `displayYears`（11・2＝歴史年数え）を全体慣例の approxDays÷365.25・1桁丸め（10.7・3.0）に統一し、`KNOWN_DISPLAY_YEARS` 許容リストを空にした
+- han-xuandi 立后3件の `datePrecision` を上記のとおり既存慣例トークンへ是正
+
+**site 側の小修正**: `emperors.ts` の `videoById.get(id)!` を fail-fast 化・`eraOrder` 未登録時のサイレント末尾落ち（`?? 99`）を throw 化・存在しない `ERA_BY_SELF_SECTION` 参照コメントを削除、`sync-portraits.mjs` に同期元から消えた画像の削除追従を追加、ランキング系チャート3ファイルの定型（軸ドメイン・左マージン・行ウィンドウイング計算＋スクロール枠 JSX）を `scroll-bar-chart.tsx` の `useRankingChartLayout` / `WindowedChartFrame` に共通化、sitemap の個別365ページから一律 `datasetGeneratedAt` の lastmod を撤去（人物単位の更新日時を持たないため。統計ページ側は維持）、`timeline/page.tsx` の素の `<a href="/about">` を `Link` 化。
 
 ## flags.usedEmperorTitleFrom の規約確定＋旧値3件訂正（2026-07-22、task.md 0-2）
 

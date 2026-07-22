@@ -18,6 +18,7 @@ import {
   type RefObject,
 } from "react";
 import type { BarDatum, BarCustomLayerProps } from "@nivo/bar";
+import { integerTickValues } from "@/components/charts/nivo-theme";
 
 export const ROW_HEIGHT = 24;
 // バー右外側の数値ラベル領域。
@@ -304,6 +305,150 @@ export function useChartWidth(): {
     return () => observer.disconnect();
   }, []);
   return { chartAreaRef, chartWidth };
+}
+
+/**
+ * ランキング系横棒グラフ3種（皇帝ランキング・王朝別平均在位・王朝別死因内訳）で
+ * 重複していた定型計算をまとめたフック。軸ドメイン・左マージン・ラベル省略・
+ * Nivo向けの表示順反転・行ウィンドウイングまでを一括で返す。
+ */
+export function useRankingChartLayout<T extends { id: string; label: string }>(
+  chartData: T[],
+  maxValue: number,
+  chartWidth: number,
+): {
+  domainMax: number;
+  ticks: number[];
+  marginLeft: number;
+  truncate: (label: string) => string;
+  idToLabel: Map<string, string>;
+  chartHeight: number;
+  /** ウィンドウ範囲の行（Nivoに渡す表示順反転済みスライス）。 */
+  windowData: T[];
+  isFullRange: boolean;
+  scrollRef: RefObject<HTMLDivElement | null>;
+  start: number;
+  end: number;
+  handleScroll: () => void;
+  hoverAllowed: () => boolean;
+} {
+  const domainMax = Math.ceil(maxValue);
+  const ticks = integerTickValues(maxValue);
+
+  // 左マージンはラベル長とコンテナ幅の両方で制限する（狭い画面で描画領域が消えないように）。
+  const maxLabelLength = Math.max(0, ...chartData.map((d) => d.label.length));
+  const marginLeft = Math.min(
+    260,
+    Math.max(100, maxLabelLength * 11 + 24),
+    Math.max(90, Math.floor(chartWidth * 0.42)),
+  );
+  // マージンに収まらないラベルは末尾を省略する。
+  const charBudget = Math.max(4, Math.floor((marginLeft - 16) / 11));
+  const truncate = (label: string) =>
+    label.length <= charBudget ? label : `${label.slice(0, charBudget - 1)}…`;
+
+  // Nivoの水平バーはデータ配列の先頭要素を下端に描画するため、表示直前に反転して
+  // 並び順どおり上から表示されるようにする。
+  const displayData = [...chartData].reverse();
+  // indexByは一意なidを使う（label＝氏名+王朝名は、同名同王朝が重複しうるため衝突対策）。
+  const idToLabel = new Map(displayData.map((d) => [d.id, d.label]));
+  const chartHeight = Math.max(chartData.length * ROW_HEIGHT + 12, 96);
+
+  // 行ウィンドウイング。displayDataは反転済み（先頭＝最下行）なので、
+  // 上からstart..end行は配列末尾側のスライスに対応する。
+  const rowCount = chartData.length;
+  const { scrollRef, start, end, handleScroll, hoverAllowed } =
+    useWindowedRows(rowCount);
+  const windowData = displayData.slice(rowCount - end, rowCount - start);
+  // 全行が範囲内のときは従来と同じ全高レンダリング（少件数時の見た目を変えない）。
+  const isFullRange = start === 0 && end === rowCount;
+
+  return {
+    domainMax,
+    ticks,
+    marginLeft,
+    truncate,
+    idToLabel,
+    chartHeight,
+    windowData,
+    isFullRange,
+    scrollRef,
+    start,
+    end,
+    handleScroll,
+    hoverAllowed,
+  };
+}
+
+/** 軸ヘッダー＋グラフ内スクロール＋transformスライスの外枠（ランキング系3チャート共通の定型）。 */
+export function WindowedChartFrame({
+  axisLabel,
+  chartWidth,
+  marginLeft,
+  domainMax,
+  ticks,
+  scrollRef,
+  chartAreaRef,
+  chartHeight,
+  start,
+  end,
+  isFullRange,
+  onScroll,
+  children,
+}: {
+  axisLabel: string;
+  chartWidth: number;
+  marginLeft: number;
+  domainMax: number;
+  ticks: number[];
+  scrollRef: RefObject<HTMLDivElement | null>;
+  chartAreaRef: RefObject<HTMLDivElement | null>;
+  chartHeight: number;
+  start: number;
+  end: number;
+  isFullRange: boolean;
+  /** スクロール時の処理（ツールチップ消去＋handleScrollを呼び出し側で束ねる）。 */
+  onScroll: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <div className="rounded-md border border-border">
+      <div className="border-b border-border">
+        <AxisHeader
+          width={chartWidth}
+          marginLeft={marginLeft}
+          domainMax={domainMax}
+          ticks={ticks}
+          label={axisLabel}
+        />
+      </div>
+      <div
+        ref={scrollRef}
+        className="overflow-y-auto overscroll-contain"
+        style={{ maxHeight: SCROLL_MAX_HEIGHT }}
+        onScroll={onScroll}
+      >
+        <div ref={chartAreaRef} className="relative" style={{ height: chartHeight }}>
+          <div
+            className="absolute inset-x-0 top-0"
+            // スライスの縦位置はtopでなくtransformで動かす。topの書き換えは
+            // レイアウトシフトとして計上され、グラフ内スクロールだけでCLSが
+            // 秒単位に悪化する（transformはlayout-shiftの対象外）。
+            style={{
+              transform: isFullRange
+                ? undefined
+                : `translateY(${start * ROW_HEIGHT}px)`,
+              height: isFullRange
+                ? chartHeight
+                : (end - start) * ROW_HEIGHT + 12,
+            }}
+          >
+            {children}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 /** カーソル位置に追従するfixed配置ツールチップ。画面下部ではカーソルの上側に反転する。

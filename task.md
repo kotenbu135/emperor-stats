@@ -23,12 +23,9 @@
 - **ドキュメント陳腐化の是正 — 完了**: PROJECT_STATUS 未解決問題リストの現況更新・deathDate>endDate 49件追記・deploy-site.yml の経緯ドキュメント化、ADDITIONAL_SCHEMA の deferred 矛盾・CLAUDE.md 消滅節参照5箇所の誘導し直し、METHODOLOGY/PORTRAITS 冒頭の現況化、completedBlocks 24・「10項目」・`note` キー・日本語破綻2箇所・簡体字・AGENTS.md 365行
 - **npm audit — 完了**: `fast-uri`(high) を `npm audit fix` で解消、`shadcn`・`sharp` を devDependencies へ移動。残5件は upstream 待ちのみ（production 視点 `--omit=dev` では next 内包 sharp の high 2件のみ、dev 側は shadcn→MCP SDK→hono の moderate 3件）。ビルド・lint・tsc 通過確認済み
 
-### 0-3. Low（次に該当箇所を触る際に併せて）
+### 0-3. Low — **完了（2026-07-22）**
 
-- [ ] chen-feidi の没年齢矛盾（birthDate 554・deathDate 570-04・deathAge 19 → 数え年17でズレ。原典記載同士の矛盾、生年552年説の有無を要原典確認）
-- [ ] コード小修正: `emperors.ts:63` `videoById.get(id)!` の fail-fast ガード化／`sync-portraits.mjs` の削除追従（ローカル限定の影響）／`eraOrder` 未登録時のサイレント末尾落ち（`?? 99`）の throw 化／`emperors.ts:204` の存在しない `ERA_BY_SELF_SECTION` 参照コメント削除／ランキング系チャート3ファイルの定型約30行の共通化
-- [ ] データ構造の小さな不統一: nanming-zongzong の date キー欠落イベント1件・反乱系 events の `name` 欠落28件・houzhao-shishi の `confidence` 欠落・qin-shi-huang/qin-er-shi の displayYears 算出基準揺れ（events の `source` 有無混在は 3-4 で対応）・han-xuandi 立后3件の `datePrecision: "day"` なのに date が年のみ（干支は note に記録済みだが漢代太初暦の月境界を sxtwl が再現する保証がなく、日付確定には個別調査が必要。0-2 の年訂正時に判明）
-- [ ] サイト小修正: sitemap の lastmod 一律 `datasetGeneratedAt`（データ更新で全365ページが「更新」扱い）／`timeline/page.tsx:79` のみ素の `<a href="/about">`
+chen-feidi の没年齢矛盾は原典再確認の結果「3書（陳書・南史・建康実録）共通の原典由来の矛盾」と確定（生年552年説は逆算のみで直接記載なし。直接記載2値を維持し note に明示・confidence を medium へ）。コード小修正5点（fail-fast 化・sync-portraits 削除追従・eraOrder throw 化・陳腐化コメント削除・チャート3ファイルの定型を `useRankingChartLayout`/`WindowedChartFrame` へ共通化）、データ構造不統一5点（nanming-zongzong date 補完・反乱系 name 欠落28件・houzhao-shishi confidence・qin displayYears 統一・han-xuandi datePrecision 是正。events の `source` 有無混在のみ 3-4 で対応）、サイト小修正2点（個別ページ sitemap lastmod 撤去・timeline の `<a>` → `Link`）を実施。詳細は `CHANGELOG.md` 2026-07-22 訂正・`docs/PROJECT_STATUS.md`「0-3 Low 残件の解消」節。
 
 ---
 
@@ -158,7 +155,7 @@
 |---|---|---|
 | 0-1 | ~~High: トップ title 欠落・reignSummary 9件＋CI 検証追加~~ **完了（2026-07-22）** | — |
 | 0-2 | ~~Medium: BCE 年規約105件・usedEmperorTitleFrom・デプロイ CI ゲート・ドキュメント陳腐化・npm audit~~ **完了（2026-07-22）**。OGP Content-Type の X/FB 公式バリデータ最終確認のみ残（簡易確認では実害なし） | ユーザー |
-| 0-3 | Low: chen-feidi 原典確認・コード/データ/サイト小修正 | 該当箇所を触る際に |
+| 0-3 | ~~Low: chen-feidi 原典確認・コード/データ/サイト小修正~~ **完了（2026-07-22）** | — |
 | 1 残 | Search Console 観測3件（デプロイ後2〜6週） | ユーザー |
 | 2-3 残 | GitHub Releases タグ `v2026.07` | ユーザー（push 後） |
 | 3-2 残 | 肖像の外部照合（Wikidata P18 突き合わせ） | 任意 |

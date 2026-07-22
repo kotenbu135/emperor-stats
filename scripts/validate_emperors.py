@@ -100,8 +100,8 @@ KNOWN_EMPTY_CONFIDENCE = {
 KNOWN_REIGN_SUMMARY = set()
 
 # displayYears が標準の年換算（÷365 / ÷365.25・0〜2桁丸め）に合わない既知例。
-# qin-er-shi は 1090日→2（丸めでなく切り捨て）。算出基準の統一は task.md 0-3 で個別判断待ち
-KNOWN_DISPLAY_YEARS = {"qin-er-shi"}
+# 2026-07-22 の 0-3 対応（qin-shi-huang / qin-er-shi の算出基準統一）で全件解消済み
+KNOWN_DISPLAY_YEARS = set()
 
 # ---------------------------------------------------------------------------
 

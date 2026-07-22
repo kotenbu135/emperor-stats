@@ -60,7 +60,12 @@ const videosByEmperorId = new Map<string, EmperorVideo[]>(
   Object.entries(videoMatches.emperorVideos).map(([emperorId, videoIds]) => [
     emperorId,
     videoIds.map((id) => {
-      const v = videoById.get(id)!;
+      const v = videoById.get(id);
+      if (!v) {
+        throw new Error(
+          `emperor-videos.json の videoId "${id}"（${emperorId}）が youtube-playlist.json に存在しません`,
+        );
+      }
       return {
         videoId: v.videoId,
         title: videoDisplayTitle(v.title),
@@ -200,8 +205,8 @@ function toNakaguro(text: string): string {
 /**
  * dynasty.section は調査時のブロック名（内部管理用語。例: "宋遼西夏金"・"秦（始皇帝以降）"）で、
  * そのまま画面に出すと訪問者には意味が通らない。ここで訪問者向けの時代区分ラベルへ変換する。
- * ここに無いsection（五胡十六国の各国・反乱政権など、section＝王朝名のブロック）は
- * ERA_BY_SELF_SECTION で個別に割り当てる。
+ * ここに無いsectionが現れた場合は eraLabelOf が throw してビルド時に検出される
+ * （皇帝を追加収録したらこの表への追記が必要）。
  */
 const ERA_BY_SECTION: Record<string, string> = {
   "秦（始皇帝以降）": "秦・前漢",
@@ -494,11 +499,22 @@ export function getDynastyOptions(): DynastyOption[] {
     });
   }
   const eraIndex = new Map(eraOrder.map((e, i) => [e, i]));
+  // eraOrder 未登録の時代はサイレントに末尾へ落とさず、ビルド時に検出する
+  // （時代グループ見出し・集計の並びが静かに崩れるのを防ぐ）。
+  const eraIndexOf = (era: string): number => {
+    const idx = eraIndex.get(era);
+    if (idx === undefined) {
+      throw new Error(
+        `eraOrder 未登録の時代ラベルです: "${era}"（emperor-types.ts の eraOrder に追加してください）`,
+      );
+    }
+    return idx;
+  };
   return options
     .map((o, i) => ({ o, i }))
     .sort((a, b) => {
-      const ea = eraIndex.get(a.o.era) ?? 99;
-      const eb = eraIndex.get(b.o.era) ?? 99;
+      const ea = eraIndexOf(a.o.era);
+      const eb = eraIndexOf(b.o.era);
       return ea !== eb ? ea - eb : a.i - b.i;
     })
     .map(({ o }) => o);

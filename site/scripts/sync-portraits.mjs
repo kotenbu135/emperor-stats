@@ -2,7 +2,14 @@
 // 一覧カード・ダイアログの小サイズ表示向けの320pxサムネを public/portraits/thumb/ に
 // 生成する（Portraitコンポーネントが srcset "thumb 320w, full 360w" で出し分ける）。
 // public配下は静的書き出し(next export)でそのまま配信されるため、ビルド前に毎回実行する。
-import { readdirSync, copyFileSync, mkdirSync, statSync, existsSync } from "node:fs";
+import {
+  readdirSync,
+  copyFileSync,
+  mkdirSync,
+  statSync,
+  existsSync,
+  unlinkSync,
+} from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 
@@ -18,6 +25,20 @@ mkdirSync(destDir, { recursive: true });
 mkdirSync(thumbDir, { recursive: true });
 
 const files = readdirSync(srcDir).filter((f) => f.endsWith(".webp"));
+
+// 同期元から消えた肖像画は public 側からも削除する（コピーだけだと削除が
+// 追従されず、取り下げたはずの画像が配信され続ける）。
+const wanted = new Set(files);
+let removed = 0;
+for (const dir of [destDir, thumbDir]) {
+  for (const f of readdirSync(dir).filter((f) => f.endsWith(".webp"))) {
+    if (!wanted.has(f)) {
+      unlinkSync(path.join(dir, f));
+      removed += 1;
+    }
+  }
+}
+
 let thumbs = 0;
 for (const file of files) {
   const src = path.join(srcDir, file);
@@ -35,5 +56,5 @@ for (const file of files) {
 }
 
 console.log(
-  `synced ${files.length} portraits to public/portraits/ (regenerated ${thumbs} thumbs)`,
+  `synced ${files.length} portraits to public/portraits/ (regenerated ${thumbs} thumbs, removed ${removed} stale)`,
 );

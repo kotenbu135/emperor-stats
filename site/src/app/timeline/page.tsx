@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PageHeader, Section } from "@/components/layout/page-header";
 import { RiverTimeline } from "@/components/timeline/river-timeline";
 import {
@@ -76,12 +77,12 @@ export default function TimelinePage() {
           </li>
           <li>
             王朝の「正統」「並立」「反乱・自称」の区分や収録基準の詳細は、
-            <a
+            <Link
               href="/about"
               className="underline underline-offset-2 hover:text-seal"
             >
               このサイトについて
-            </a>
+            </Link>
             をご覧ください。
           </li>
         </ul>
