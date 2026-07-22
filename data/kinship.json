@@ -162,6 +162,13 @@
         "emperors": 22,
         "edges": 21,
         "persons": 2
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック19（西夏）",
+        "emperors": 10,
+        "edges": 10,
+        "persons": 1
       }
     ]
   },
@@ -672,6 +679,37 @@
       },
       "source": {
         "page": "金史 巻一 世紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-li-deming",
+      "name": "李徳明",
+      "kana": "りとくめい",
+      "aliases": [
+        "趙徳明",
+        "夏太宗"
+      ],
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": 981,
+      "deathYear": 1032,
+      "yearsApproximate": true,
+      "posthumous": {
+        "dynasty": "西夏",
+        "templeName": "太宗",
+        "posthumousName": "光聖皇帝"
+      },
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "李継遷の子で、西夏景宗李元昊の父。1004年に父の死去で党項の首長位を継ぎ、宋から定難軍節度使・西平王に封じられ、約30年間宋・契丹と和平を保ちつつ河西へ勢力を拡大して西夏建国の基盤を築いた（西夏書事 巻十一・論「元昊虽雄，非藉德明燕翼，其遂夜郎自大乎」）。明道元年（1032）冬十月死去。宋史 巻485 夏国伝上に「九年十月，德明卒，时年五十一，追谥曰光圣皇帝，庙号太宗，墓号嘉陵」「子曩霄立」、西夏書事 巻十二にも元昊称帝直後の上諡号記事として「父德明曰光圣皇帝，庙号太宗」とあり、皇帝号＋廟号の追贈が確認できるため kind=追尊皇帝。皇帝には即位しておらず、元昊への succession エッジの from ノード（経路上）。生年は通説・Wikidata の981年を採用したが、宋史・西夏書事が一致して記す卒時「年五十一」（数え）から逆算すると982年となり1年の齟齬があるため yearsApproximate=true。没年1032は宋史 仁宗本紀（明道元年十一月壬辰「延州言夏王赵德明卒」）による。",
+      "wikidata": "Q541665",
+      "source": {
+        "page": "宋史 巻485（夏国伝上）",
         "lang": "zh-classical"
       }
     }
@@ -4502,6 +4540,156 @@
       "note": "蔡州陥落前夜、哀宗が百官を集めて東面元帥承麟に伝位。承麟は固辞したが詔を受け、翌己酉に即位・百官称賀という正式な生前譲位（内禅）の手続きを踏んだ。金史 巻十八 哀宗紀下「戊申，夜，上集百官，传位于东面元帅承麟，承麟固让」「己酉，承麟即皇帝位。百官称贺」。続柄は金史 巻百十三 列伝第五十一 白撒（承裔）伝に「内族白撒，名承裔，末帝承麟之兄也，系出世祖诸孙」とあり、承麟は兄承裔とともに世祖（劾里鉢）の諸孫の系統に出る宗室（哀宗紀でも「内族承麟」と表記）。哀宗の直系（太祖—世宗—宣宗系）とは世祖で分岐する傍系であり同族（遠縁）と判定。ただし世祖のどの孫の何世代後かは原文に明記がなく、正確な親等は不詳。",
       "source": {
         "page": "金史 巻十八 哀宗紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-li-deming",
+      "to": "xixia-jingzong",
+      "category": "建国",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "李元昊は明道元年（1032）冬十月に父・李徳明が死去すると夏の君主位を継承した。西夏書事 巻十一「冬十月，夏王赵德明卒。」「子元昊嗣。十一月，授定难军节度使、西平王。」、宋史 巻485 夏国伝上も「德明卒，即授特进、检校太师兼侍中、定难军节度、夏银绥宥静等州观察处置押蕃落使、西平王」と記す。そのうえで大慶2年（宝元元年・1038）冬十月に称帝した（西夏書事 巻十二「于是月十一日筑台兴庆府南，受册即皇帝位，改大庆二年曰天授礼法延祚元年」、宋史「遂筑坛受册，即皇帝位，时年三十」）。先行君主から君主位（西平王・定難軍節度使）を実質的に継承したうえでの称帝であり、スキーマ明記の李元昊型ブリッジとして from=p-li-deming（追尊皇帝・太宗）を置く。続柄は宋史「子曩霄立」・西夏書事「子元昊嗣」により子。宋朝からの節度使任命・西平王封や契丹の夏国王冊封（西夏書事 巻十一「契丹赐册为夏国王」）は冊封境界ルールにより継承エッジとしない。category は accessionRoute の「建国」をそのままコピー。",
+      "source": {
+        "page": "西夏書事 巻十一・巻十二",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xixia-jingzong",
+      "to": "xixia-yizong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "景宗（元昊）の長子。『宋史』巻485夏国伝上「谅祚，景宗长子也」「母曰宣穆惠文皇后没藏氏」。景宗の死（1048年正月）を受け、外戚の国相・没蔵訛龐が景宗の遺命（従弟委哥寧令の擁立）を退け、「夏自祖考以来，父死子及」「今没藏后有子，乃先王嫡嗣，立以为主」を理由に生後1年（数え2歳）の諒祚を立てた（『西夏書事』巻十八「没藏讹庞立谅祚，尊没藏氏为太后」「遂奉谅祚立之」）。同年四月に宋から夏国主に冊封されたが（「夏四月，谅祚受册为夏国主」）、冊封境界ルールにより宋皇帝へのエッジは作らない。",
+      "source": {
+        "page": "宋史 巻485 夏国伝上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xixia-yizong",
+      "to": "xixia-huizong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "毅宗諒祚の長子。宋史巻486に「秉常，毅宗之长子，母曰恭肃章宪皇后梁氏。治平四年冬即位，时年七岁，梁太后摄政。」とあり、毅宗の崩御を受けて7歳で即位、母の梁太后が摂政。西夏書事巻二十一にも「十二月，国主谅祚卒，子秉常立。」と一致。なお元豊四年（1081）に「梁氏幽其主秉常，复视国事。」（西夏書事巻二十五）と梁太后に幽閉され後に復位するが、間に別の皇帝が立てられておらず emperors.json も単一在位として収録しているため復位エッジは作らない。",
+      "source": {
+        "page": "宋史 巻486",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xixia-huizong",
+      "to": "xixia-chongzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "恵宗秉常の長子。恵宗の死（1086年）に伴い3歳で嗣立し、母梁氏（昭簡文穆皇太后）の摂政下に置かれた。西夏書事巻二十七「国主秉常卒，子乾顺立。」「长子乾顺立，方三岁。」、宋史巻486夏国伝にも「秉常殂……子乾顺立。」とあり一致。",
+      "source": {
+        "page": "西夏書事 巻二十七",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xixia-chongzong",
+      "to": "xixia-renzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "崇宗乾順の長子。崇宗の死去と同月（1139年6月）に16歳で即位した。『宋史』夏国伝下「仁孝，崇宗长子也。绍兴九年六月，崇宗殂，即位，时年十六。」、『西夏書事』「六月，国主乾顺卒，子仁孝立。」「长子仁孝立，时年十六。」がいずれも一致。金による夏国王冊封（1140年「金使册仁孝为夏国王」）は即位後の宗主国冊封であり、冊封境界ルールにより継承エッジとしない。",
+      "source": {
+        "page": "宋史 巻486 夏国伝下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xixia-renzong",
+      "to": "xixia-huanzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻486 夏国伝下「纯佑，仁宗长子也，母曰章献钦慈皇后罗氏。仁宗殂，即位，时年十七。」、同「绍熙四年九月二十日，仁孝殂……子纯佑嗣」。西夏書事 巻三十八も「国主仁孝卒，子纯佑立。」とし、仁宗（仁孝）の長子・純祐が父の崩御を受けて即位した世襲継承であることが二資料で一致。",
+      "source": {
+        "page": "宋史 巻486",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xixia-huanzong",
+      "to": "xixia-xiangzong",
+      "category": "簒奪",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "1206年正月、鎮夷郡王安全が桓宗純祐を廃して自立（西夏書事 巻三十九「镇夷郡王安全废其主纯佑自立，改元应天」「安全久专国政，是月二十日，与纯佑母罗氏废纯佑自立，改天庆十三年为应天元年」）。出自は『宋史』巻486夏国伝下「安全，崇宗之孙，越王仁友之子」、『金史』西夏伝「仁孝弟仁友子安全，废纯佑自立」で、仁友は崇宗の子＝仁宗仁孝の弟。よって安全は仁宗の子である桓宗純祐の従兄弟。西夏書事 巻三十九は「仁友，仁孝族弟」と記すが正史2書と食い違う（flags 参照）。同巻に「十二月，越王仁友卒，降封其子安全为镇夷郡王」「上表诵先世功，冀嗣爵。纯佑不许，封镇夷郡王，安全由是生怨」と簒奪の背景も記される。",
+      "source": {
+        "page": "宋史 巻四百八十六 夏国伝下／金史 巻百三十四 西夏伝／西夏書事 巻三十九",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xixia-xiangzong",
+      "to": "xixia-shenzong",
+      "category": "簒奪",
+      "relationToPredecessor": "同族（遠縁）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "medium",
+      "note": "金史 巻134 西夏伝「大安三年，安全薨，族子遵顼立。遵顼先以状元及第，充大都督府主，立在安全薨前一月，卫绍王无实录，不知其故」。宋史 巻486 夏国伝下「有子曰承祯。齐国忠武王彦宗之子大都督府主遵顼立」。西夏書事 巻40「秋七月，齐王遵顼立，改元光定」「史臣曰：“遵顼之立也，较安全卒前一月，安全有子承祯，不得嗣。金卫绍王无实录，莫得其故也。”」。遵頊は斉国忠武王彦宗の子で宗室の傍系、金史は襄宗安全の「族子」（同族の子の世代）とする＝同族（遠縁）。安全の実子・承禎を差し置いて立ち、即位が安全死去の約1ヶ月前という異常な時系列を三史とも記録し、襄宗を廃した簒奪（クーデター）を示唆するが、原典自身が経緯不詳と認めるため confidence は medium。継承相手が襄宗であること自体は三史一致で verified。",
+      "source": {
+        "page": "金史 巻134 西夏伝／宋史 巻486 夏国伝下／西夏書事 巻40",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xixia-shenzong",
+      "to": "xixia-xianzong",
+      "category": "内禅",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "父・神宗遵頊がモンゴルの圧力を懼れて次子・徳旺に譲位し太上皇を自号（内禅）。西夏書事 巻四十一「蒙古数遣使谯让。遵顼惧，逊位于次子德旺，自号上皇。」。宋史 巻四百八十六 夏国伝下「十六年，遵顼自号上皇，传位于其子德旺。」、金史 西夏外紀「是岁，遵顼传位于子德旺。」も一致し正史で裏付けられる。",
+      "source": {
+        "page": "西夏書事 巻四十一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xixia-xianzong",
+      "to": "xixia-mozhu",
+      "category": "擁立",
+      "relationToPredecessor": "甥",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "献宗徳旺の病死（1226年）を受け、国人が徳旺の弟・清平郡王の子である南平王見（睍）を擁立。西夏書事巻四十二「国主德旺卒，弟子见立」「国人立其弟清平郡王子南平王见，遣使报哀于金」。正史でも宋史巻486夏国伝下「清平郡王之子南平王见立，二年丁亥秋，为大元所取，国遂亡」と裏付けられる（金史夏国外紀は「嗣立者史失其名」と名を欠く）。見は献宗の弟の子＝献宗の甥。",
+      "source": {
+        "page": "西夏書事 巻42",
         "lang": "zh-classical"
       }
     }
