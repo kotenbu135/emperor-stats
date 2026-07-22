@@ -92,6 +92,13 @@
         "emperors": 14,
         "edges": 12,
         "persons": 2
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック9（十六国③: 前秦・後秦・夏）",
+        "emperors": 11,
+        "edges": 9,
+        "persons": 2
       }
     ]
   },
@@ -329,6 +336,60 @@
       ],
       "note": "前燕景昭帝慕容儁の子、幽帝慕容暐の弟、西燕威帝慕容沖の兄、西燕皇帝慕容忠の父。前燕で済北王、前秦では北地長史。384年（太元九年）に挙兵し「泓众遂盛，自称使持节、大都督陕西诸军事、大将军、雍州牧、济北王」（晋書載記）、捕囚中の暐から「汝可为大将军、领司徒，承制封拜。听吾死问，汝使即尊位」との密旨を受け「泓于是进向长安，改年曰燕兴」と西燕政権を創始。同年、謀臣高盖・宿勤崇らに殺害された（「乃杀泓，立冲为皇太弟」）。子の忠は後に西燕皇帝（「泓子忠为帝，改元建武」資治通鑑）。皇帝号の追尊はローカルコーパスから確認できず（済北王どまり）のため kind=宗室。晋書孝武帝紀は「慕容泓为其叔父冲所杀，冲自称皇太弟」と記すが、載記・通鑑・十六国春秋（高盖らによる殺害、沖は泓の弟）と矛盾し帝紀の誤りと判断。",
       "wikidata": null,
+      "source": {
+        "page": "晋書 巻百十四 載記第十四 苻堅下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-fuhong",
+      "name": "苻洪",
+      "kana": "ふこう",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "前秦",
+      "birthYear": 285,
+      "deathYear": 350,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "略陽臨渭の氐族首長（「苻洪，字广世，略阳临渭氐人也」、もと蒲氏、讖文「草付应王」により苻氏に改姓）。後趙石虎に仕えた後、350年に「自称大将军、大单于、三秦王」と自立したが、同年「既而秋因宴鸩洪，将并其众，世子健收而斩之」と部将麻秋に鴆殺された。「言终而死，年六十六。健僭位，伪谥惠武帝」（晋書）。廟号は十六国春秋に「健僣伪位追谥曰惠武皇帝庙号太祖」とあり、皇帝号（惠武皇帝）＋廟号（太祖）の追贈が確認できるため kind=追尊皇帝。生年285は没年350・享年66（数え）からの逆算（英語版Wikipediaは284とし1年ずれるため yearsApproximate: true）。Wikidata QID は WebSearch 1回で確認を試みたが特定できず null。",
+      "wikidata": null,
+      "posthumous": {
+        "dynasty": "前秦",
+        "templeName": "太祖",
+        "posthumousName": "惠武皇帝"
+      },
+      "source": {
+        "page": "晋書 巻百十二 載記第十二 苻洪",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-fu-jian",
+      "name": "苻堅",
+      "kana": "ふけん",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "前秦",
+      "birthYear": 338,
+      "deathYear": 385,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "前秦第3代君主（357-385在位）。皇帝を称さず「大秦天王」として君臨したため本データセット収録外（収録皇帝 qianqin-fujian=苻健とは別人）。出自は「苻坚，字永固，一名文玉，雄之子也」（晋書載記第十三）。淝水の戦い後の前秦崩壊の中、姚萇に捕らえられ殺害された：「苌乃缢坚于新平佛寺中，时年四十八。中山公诜及张夫人并自杀。是岁太元十年也」（晋書載記第十四）。没年太元十年（385年）・時年四十八（数え）より生年338年と逆算（英語圏二次資料には337年とするものがあるが原典逆算の338年を採用）。子の苻丕により皇帝号・廟号を追贈された：「丕僭号，伪追谥坚曰世祖宣昭皇帝」（晋書載記第十四）。",
+      "posthumous": {
+        "dynasty": "前秦",
+        "templeName": "世祖",
+        "posthumousName": "宣昭皇帝"
+      },
+      "wikidata": "Q967998",
       "source": {
         "page": "晋書 巻百十四 載記第十四 苻堅下",
         "lang": "zh-classical"
@@ -2061,6 +2122,141 @@
       "note": "慕容超は慕容徳の兄・北海王慕容納の子（「慕容超字祖明，德兄北海王纳之子」）。実子のなかった叔父・徳が超を後継者に定めて太子に立て（「德无子，欲以超为嗣」「顷之，立为太子」）、徳の死により義熙元年（405年）に帝位を継承し改元太上（「及德死，以义熙元年僭嗣伪位，大赦境内，改元曰太上」）。同一政権（南燕）内での太子からの直接継承で、正史載記に明記される。",
       "source": {
         "page": "晋書 巻百二十八 載記第二十八 慕容超",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-fuhong",
+      "to": "qianqin-fujian",
+      "category": "建国",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "苻健は苻洪の第三子（「苻健，字建业，洪第三子也」）で世子。苻洪は350年に「自称大将军、大单于、三秦王」と君主号を称した直後に麻秋に鴆殺され、「及洪死，健嗣位」と健が君主位・集団指導権を明確に嗣いだ。健は当初「去秦王之号，称晋爵」と王号を去り晋の藩を称したが、これは「健密图关中」「既而潜使讽玄硕等使上尊号」とある通り関中攻略までの偽装的帰順であり、軍・部衆・指導権の継承は連続している。351年「僭称天王、大单于…建元皇始」、352年「健僭即皇帝位于太极前殿」と称帝し、洪に惠武皇帝・廟号太祖を追尊した（十六国春秋「健僣伪位追谥曰惠武皇帝庙号太祖」）。よって父からの君主位の実質継承→称帝としてブリッジ from を置く（劉裕型）。category は emperors.json の accessionRoute.category「建国」をそのままコピー。",
+      "source": {
+        "page": "晋書 巻百十二 載記第十二 苻健",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qianqin-fujian",
+      "to": "qianqin-fusheng",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "苻生は前秦建国者・苻健（景明帝）の第三子。「生字长生，健第三子也」。太子であった兄・苻萇の戦没後、讖言「三羊五眼」により太子に立てられ、苻健の死により皇帝位を継承した。「苌既死，健以谶言三羊五眼应符，故立为太子。健卒，僭即皇帝位，大赦境内，改年寿光，时永和十二年也」（晋書 載記第十二 苻生）。",
+      "source": {
+        "page": "晋書 巻百十二 載記第十二 苻生",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-fu-jian",
+      "to": "qianqin-fupi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "苻丕は先行君主・苻堅（大秦天王、皇帝を称さず収録外）の庶長子。「苻丕，字永叔，坚之长庶子也」。苻堅死後の前秦崩壊の混乱中、晋陽で苻堅の死を知り（「入据晋阳，始知坚死问，举哀于晋阳，三军缟素」）、王永らの勧進により太元十年（385年）晋陽の南で皇帝に即位した（「劝称尊号，丕从之，乃以太元十年僭即皇帝位于晋阳南。立坚行庙」）。王永の檄文は「先帝元子」「奉公绍承大统」と称し、同一政権（前秦）内で先帝苻堅の君主位を子として継承したうえでの称帝であることが裏付けられる。",
+      "source": {
+        "page": "晋書 巻百十五 載記第十五 苻丕",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qianqin-fupi",
+      "to": "qianqin-fudeng",
+      "category": "世襲",
+      "relationToPredecessor": "同族（遠縁）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "苻登は苻堅の族孫（「登字文高，坚之族孙也」）。苻丕は苻堅の子であるため、苻登は苻丕の族子（一世代下の同族遠縁）にあたる。丕の敗死後、丕の子・渤海王懿を立てることを提案したが、衆議は「渤海王虽先帝之子，然年在幼冲，未堪多难。国乱而立长君，《春秋》之义也」として長君擁立を主張し、「登于是以太元十一年僭即皇帝位，大赦境内，改元曰太初」（386年）。丕のために発喪行服したうえでの同一政権（前秦）内の皇位継承。",
+      "source": {
+        "page": "晋書 巻百十五 載記第十五 苻登",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qianqin-fudeng",
+      "to": "qianqin-fuchong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "苻崇は高帝苻登の太子。太元十九年（394年）、父苻登が後秦の姚興に敗れ殺されると、湟中に奔って皇帝を称し延初と改元、父に高皇帝と諡した。十六国春秋 前秦録九「太子崇奔于湟中僭称尊号改元延初谥登曰高皇帝庙号太宗」。晋書帝紀（孝武帝紀・太元十九年）にも「苻登为姚兴所杀，登太子崇奔于湟中，僭称皇帝」と崇が登の太子であることが明記され、資治通鑑「秦太子崇奔湟中，即帝位，改元延初」とも一致する。",
+      "source": {
+        "page": "十六国春秋 巻四十 前秦録九",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "houqin-yaochang",
+      "to": "houqin-yaoxing",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "姚興は姚萇の長子（「姚兴，字子略，苌之长子也」）で、姚萇の生前に皇太子に立てられていた（「苌立为皇太子」）。姚萇の死後、喪を秘して大将軍を自称し苻登を撃破した後、太元19年（394年）に発喪して槐里で皇帝位を継承した（「苌死，兴秘不发丧」「兴乃发丧行服。太元十九年，僭即帝位于槐里，大赦境内，改元曰皇初」）。父から子への世襲。",
+      "source": {
+        "page": "晋書 巻百十七 載記第十七 姚興上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "houqin-yaoxing",
+      "to": "houqin-yaohong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "姚泓は姚興の長子（「姚泓，字元子，兴之长子也」）。皇太子として父の死を受けて義熙12年（416年）に帝位を継承した（「兴既死，秘不发丧。……泓发丧，以义熙十二年僭即帝位，大赦殊死已下，改元永和」）。父から子への正嫡世襲。",
+      "source": {
+        "page": "晋書 巻百十九 載記第十九 姚泓",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xia-helianbobo",
+      "to": "xia-helianchang",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "赫連昌は赫連勃勃の第三子（『十六国春秋』夏録二「勃勃之第三子也」）。勃勃末年の後継争いで太子・赫連璝を襲殺して太子に立てられ（「后率众袭杀太子璝遂立为太子」）、真興七年（425年）八月の勃勃の死を受けて永安殿で即位した（「真兴七年秋八月勃勃死昌即伪位于永安殿」）。『魏書』夏国伝の「始光二年，屈孑死，昌僭立」とも整合。",
+      "source": {
+        "page": "十六国春秋 巻六十七 夏録二 赫連昌",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xia-helianchang",
+      "to": "xia-heliading",
+      "category": "世襲",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "赫連定は赫連勃勃の第五子で、先帝赫連昌（勃勃の第三子）の弟。「赫连定小字直獖勃勃之第五子也」（十六国春秋 夏録三）・「赫连昌字还国一名折勃勃之第三子也」（同 夏録二）。昌が北魏に敗れて捕らえられた後、定は残衆を収めて平涼に拠り自ら皇帝位に即いた。「昌为魏所败定遂收其余众数万还据平凉遂僣即皇帝位大赦境内殊死已下改承光四年为胜光元年」。禅譲・璽綬等の正式な授受はないが、夏という同一王朝内での皇位継続として emperors.json は世襲と分類しており、捕囚中の先帝昌からの承継として from=xia-helianchang とする。",
+      "source": {
+        "page": "十六国春秋 巻六十八 夏録三 赫連定",
         "lang": "zh-classical"
       }
     }
