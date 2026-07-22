@@ -57,6 +57,13 @@
         "emperors": 11,
         "edges": 9,
         "persons": 0
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック4（晋）",
+        "emperors": 17,
+        "edges": 17,
+        "persons": 0
       }
     ]
   },
@@ -878,6 +885,261 @@
       "note": "孫晧は孫権の孫・廃太子孫和の子で、先代景帝孫休（孫和の弟）の甥にあたる（「孙皓字元宗，权孙，和子也」）。孫休の急死後、蜀滅亡・交阯離反の危機下で年長の君主が望まれ、左典軍万彧の推薦を受けた丞相濮陽興・左将軍張布が太后朱氏を説得して迎立した（「兴、布说休妃太后朱，欲以皓为嗣」「於是遂迎立皓，时年二十三」）。emperors.json の accessionRoute.category「擁立」と一致。",
       "source": {
         "page": "三国志 巻四十八 呉書 三嗣主伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wei-yuandi",
+      "to": "jin-wudi",
+      "category": "禅譲",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "司馬炎は司馬昭（晋王・相国、追尊文皇帝）の長子。咸熙2年8月に父の死により晋王位を継承（「咸熙二年五月，立为晋王太子。八月辛卯，文帝崩，太子嗣相国、晋王位」）、同年末に魏の元帝曹奐から禅譲を受けて即位した（「于是天子知历数有在，乃使太保郑冲奉策」「泰始元年冬十二月丙寅，设坛于南郊」「升坛受禅，告类上帝，永答众望」「封魏帝为陈留王」）。先代曹奐（魏元帝）とは血縁なし。形式は禅譲だが実質は司馬懿・司馬師・司馬昭三代にわたる権力集中の完成（accessionRoute.note のとおり）。",
+      "source": {
+        "page": "晋書 巻三 武帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-wudi",
+      "to": "jin-huidi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "武帝の第二子（嫡次子）。本紀冒頭に「孝惠皇帝讳衷，字正度，武帝第二子也。泰始三年，立为皇太子，时年九岁。」とあり、泰始三年に皇太子に立てられた。即位は武帝崩御の当日で「太熙元年四月己酉，武帝崩。是日，皇太子即皇帝位，大赦，改元为永熙。」と記される。皇太子からの世襲即位。",
+      "source": {
+        "page": "晋書 巻四 恵帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-simalun",
+      "to": "jin-huidi",
+      "category": "復位",
+      "relationToPredecessor": "その他",
+      "isRestoration": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "永寧元年に司馬倫が帝位を簒奪し恵帝を太上皇として金墉城に遷した：「永宁元年春正月乙丑，赵王伦篡帝位。丙寅，迁帝于金墉城，号曰太上皇，改金墉曰永昌宫。」。斉王冏らの挙兵の後、「辛酉，左卫将军王舆与尚书、淮陵王漼勒兵入宫，禽伦党孙秀、孙会、许超、士猗、骆休等，皆斩之。逐伦归第，即日乘舆反正。」とあり、司馬倫排斥の即日に恵帝が復位した。復位時に皇位を得た相手は簒奪者の司馬倫。relationToPredecessor が「その他」なのは、司馬倫は宣帝司馬懿の第九子（晋書 巻五十九 趙王倫伝「赵王伦，字子彝，宣帝第九子也，母曰柏夫人。」）で恵帝の祖父司馬昭の弟にあたり、恵帝は倫の姪孫（兄の孫）となるが、この続柄が enum に存在しないため。",
+      "source": {
+        "page": "晋書 巻四 恵帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-huidi",
+      "to": "jin-simalun",
+      "category": "簒奪",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "司馬倫は宣帝司馬懿の第九子（「赵王伦，字子彝，宣帝第九子也，母曰柏夫人」）で、恵帝司馬衷（武帝司馬炎の子、文帝司馬昭の孫）から見ると祖父司馬昭の弟＝叔祖父（大叔父）にあたる。enum に叔祖父がないため「その他」とした。永寧元年（301年）、孫秀らと謀って禅譲の詔を偽作し（「矫作禅让之诏……奉皇帝玺绶以禅位于伦」）、恵帝から璽綬を奪って（「义阳王威及骆休等逼夺天子玺绶」）皇帝に即位（「满奋、崔随、乐广进玺绶于伦，乃僭即帝位，大赦，改元建始」）、恵帝を金墉城に遷して太上皇に祭り上げた（惠帝紀「永宁元年春正月乙丑，赵王伦篡帝位。丙寅，迁帝于金墉城，号曰太上皇」）。先行皇帝恵帝から璽綬の強奪＝実質的な皇位取得であり from=jin-huidi。category は emperors.json の accessionRoute.category「簒奪」をそのまま採用（原典の強制禅譲の記述とも整合）。",
+      "source": {
+        "page": "晋書 巻五十九 列伝第二十九 趙王倫伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-huidi",
+      "to": "jin-huaidi",
+      "category": "世襲",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "懐帝司馬熾は武帝の第25子で恵帝の異母弟（「孝怀皇帝讳炽，字丰度，武帝第二十五子也」）。永興元年十二月丁亥に皇太弟に立てられ（「十二月丁亥，立为皇太弟」）、光熙元年十一月庚午の恵帝崩御を受けて癸酉に即位（「光熙元年十一月庚午，孝惠帝崩。……癸酉，即皇帝位」）。皇太弟としての法定継承であり、擁立の実権は東海王司馬越にあった（accessionRoute.note にも記載）が、皇位の直接の継承元は先代恵帝。",
+      "source": {
+        "page": "晋書 巻五 孝懐帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-huaidi",
+      "to": "jin-mindi",
+      "category": "世襲",
+      "relationToPredecessor": "甥",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "愍帝司馬鄴は武帝の孫・呉孝王司馬晏の子で、懐帝（武帝の子・司馬熾）の甥。本紀に「孝愍皇帝讳鄴，字彦旗，武帝孙，吴孝王晏之子也」。懐帝が漢（劉聡）に捕われた後の永嘉6年（312）に長安で皇太子に立てられ（「六年九月辛巳，奉秦王为皇太子，登坛告类，建宗庙社稷，大赦」）、建興元年（313）に懐帝崩御の報を受けて即位した（「建兴元年夏四月丙午，奉怀帝崩问，举哀成礼。壬申，即皇帝位，大赦，改元」）。なお本人は伯父の秦献王司馬柬の後を継いで秦王を襲封しているが（「出继后伯父秦献王柬，袭封秦王」）、皇位継承は懐帝からのもの。",
+      "source": {
+        "page": "晋書 巻五 孝愍帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongjin-yuandi",
+      "to": "dongjin-mingdi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "元帝の長子。「明皇帝讳绍，字道畿，元皇帝长子也」。元帝の下で晋王太子から皇太子に立てられ、永昌元年閏月の元帝崩御の翌日に皇太子として即位した。「永昌元年闰月己丑，元帝崩。庚寅，太子即皇帝位」",
+      "source": {
+        "page": "晋書 巻六 明帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongjin-mingdi",
+      "to": "dongjin-chengdi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書成帝紀に「成皇帝讳衍，字世根，明帝长子也。太宁三年三月戊辰，立为皇太子。闰月戊子，明帝崩。己丑，太子即皇帝位」とあり、明帝の長子として皇太子に立てられ、明帝崩御の翌日に太子として即位した典型的な父子世襲。5歳での即位のため皇太后庾氏が臨朝称制し王導・庾亮が輔政した。",
+      "source": {
+        "page": "晋書 巻七 成帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongjin-chengdi",
+      "to": "dongjin-kangdi",
+      "category": "世襲",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "康帝司馬岳は成帝の同母弟（「康皇帝讳岳，字世同，成帝母弟也」）。咸康八年六月、成帝の病が重くなると詔により琅邪王（岳）が嗣とされ、成帝崩御の翌日に即位した（「八年六月庚寅，成帝不豫，诏以琅邪王为嗣。癸巳，成帝崩。甲午，即皇帝位，大赦」）。背景として中書監庾冰が外戚の権勢維持のため成帝の子ではなく年長の弟を立てるよう働きかけた（「初，成帝有疾，中书令庾冰自以舅氏当朝，权侔人主，恐异世之后，戚属将疏，乃言国有强敌，宜立长君，遂以帝为嗣」）。",
+      "source": {
+        "page": "晋書 巻七 康帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongjin-kangdi",
+      "to": "dongjin-mudi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "本紀冒頭に「穆皇帝讳聃，字彭子，康帝子也」とあり康帝の子。建元二年九月に皇太子に立てられ、康帝崩御の翌日に即位:「建元二年九月丙申，立为皇太子。戊戌，康帝崩。己亥，太子即皇帝位，时年二岁」。2歳での即位のため褚太后が臨朝摂政（「壬寅，皇太后临朝摄政」）。",
+      "source": {
+        "page": "晋書 巻八 孝宗穆帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongjin-mudi",
+      "to": "dongjin-aidi",
+      "category": "世襲",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "哀帝司馬丕は成帝の長子（「哀皇帝讳丕，字千龄，成帝长子也」）。先代穆帝（康帝の子）が嗣子なく崩御したため（「帝奄不救疾，胤嗣未建」）、皇太后（褚太后）の令により琅邪王から迎立され即位（「其以王奉大统」「庚申，即皇帝位」）。成帝と康帝は兄弟であるため、哀帝は穆帝の従兄弟にあたる。即位後の同年十一月丙辰の詔で「宜上嗣显宗，以修本统」と、父成帝（顕宗）の統を継ぐことを宣明している。",
+      "source": {
+        "page": "晋書 巻八 哀帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongjin-aidi",
+      "to": "dongjin-feidi",
+      "category": "世襲",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "廃帝司馬奕は哀帝の同母弟（ともに成帝の子）。本紀に「废帝讳奕，字延龄，哀帝之母弟也」とあり、興寧三年に哀帝が嗣子なく崩じたため、皇太后の詔により琅邪王から皇帝位を継いだ。「兴宁三年二月丙申，哀帝崩，无嗣。丁酉，皇太后诏曰：…琅邪王奕，明德茂亲，属当储嗣，宜奉祖宗，纂承大统。…是日，即皇帝位」。後年の廃位詔にも「琅邪王奕亲则母弟，故以入纂大位」とあり母弟としての継承が明記される。太和六年に桓温により廃されて東海王（のち海西県公）に降格されたが復位はない。",
+      "source": {
+        "page": "晋書 帝紀第八 廃帝海西公",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongjin-feidi",
+      "to": "dongjin-jianwendi",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "新帝は先代（廃帝・海西公司馬奕）の従祖父（大叔父）。簡文帝は「简文皇帝讳昱，字道万，元帝之少子也」と元帝の末子で明帝の弟。一方、廃帝は「废帝讳奕，字延龄，哀帝之母弟也」（廃帝紀）で哀帝の同母弟＝成帝の子＝明帝の孫＝元帝の曾孫。よって新帝は先代の祖父（明帝）の弟にあたり、enum に該当値がないため「その他」とした。即位の経緯: 桓温が廃帝を廃した後、皇太后（崇徳太后褚氏）の詔「宜从天人之心，以统皇极」により、桓温が百官を率いて会稽邸から奉迎し「东向拜受玺绶」、咸安元年十一月己酉に即皇帝位。同一政権内で先代廃帝から璽綬を受けて皇位を得た桓温主導の擁立。",
+      "source": {
+        "page": "晋書 巻九 簡文帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongjin-jianwendi",
+      "to": "dongjin-xiaowudi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝武帝司馬曜は簡文帝の第三子。本紀に「孝武皇帝讳曜，字昌明，简文帝第三子也」とあり、咸安二年七月己未に皇太子に立てられ、同日の簡文帝崩御を受けて即日即位した（「咸安二年秋七月己未，立为皇太子。是日，简文帝崩，太子即皇帝位」）。父から子への典型的な世襲継承。",
+      "source": {
+        "page": "晋書 巻九 孝武帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongjin-xiaowudi",
+      "to": "dongjin-andi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書安帝紀に「安皇帝讳德宗，字德宗，孝武帝长子也」とあり、孝武帝の長子。太元12年に皇太子となり（「太元十二年八月辛巳，立为皇太子」）、太元21年の孝武帝崩御の翌日に即位（「二十一年九月庚申，孝武帝崩。辛酉，太子即皇帝位，大赦」）。在位中の元興2年（403年）末に桓玄に簒奪され平固王に降格（「十二月壬辰，玄篡位，以帝为平固王。辛亥，帝蒙尘于寻阳」）、元興3年（404年）劉裕らの挙兵で桓玄が敗死し（「壬午，督护冯迁斩桓玄于貊盘洲」）江陵で反正・復位した。emperors.json の reigns はこの中断を含む単一在位1件（isRestoration:true の在位なし）のため、規約により復位エッジは作らず本エッジの note に経緯を記す。",
+      "source": {
+        "page": "晋書 帝紀第十 安帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongjin-andi",
+      "to": "huan-xuan",
+      "category": "禅譲",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "安帝から璽綬を得て禅譲の形式で即位（実態は強制的簒奪）。晋書桓玄伝「又矫诏使王谧兼太保，领司徒，奉皇帝玺禅位于己」「玄乃于城南七里立郊，登坛篡位」。桓玄は父桓温が晋室と婚姻関係を結んだ家系（「先臣蒙国殊遇，姻娅皇极」＝桓温は明帝の娘南康公主を尚した）だが、玄自身は妾腹の子（「大司马温之孽子也」、母は馬氏）で司馬氏との血縁はなく、安帝との続柄は無血縁とした。",
+      "source": {
+        "page": "晋書 列伝第六十九 桓玄伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongjin-andi",
+      "to": "dongjin-gongdi",
+      "category": "世襲",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "恭帝司馬徳文は安帝の同母弟（「恭帝讳德文，字德文，安帝母弟也」）。義熙十四年十二月戊寅に安帝が崩御すると、劉裕が遺詔と偽称して（「刘裕矫称遗诏曰」）大司馬・琅邪王であった徳文を後継に指名し、即日皇帝に即位した（「是日，即帝位，大赦」）。兄から弟への晋皇室内の世襲継承だが、実質は劉裕の意向による傀儡的擁立で、翌々年劉裕に禅譲して東晋は滅亡した。",
+      "source": {
+        "page": "晋書 巻十 恭帝紀",
         "lang": "zh-classical"
       }
     }
