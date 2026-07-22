@@ -64,6 +64,13 @@
         "emperors": 17,
         "edges": 17,
         "persons": 0
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック5（南朝宋・斉）",
+        "emperors": 17,
+        "edges": 16,
+        "persons": 0
       }
     ]
   },
@@ -1140,6 +1147,246 @@
       "note": "恭帝司馬徳文は安帝の同母弟（「恭帝讳德文，字德文，安帝母弟也」）。義熙十四年十二月戊寅に安帝が崩御すると、劉裕が遺詔と偽称して（「刘裕矫称遗诏曰」）大司馬・琅邪王であった徳文を後継に指名し、即日皇帝に即位した（「是日，即帝位，大赦」）。兄から弟への晋皇室内の世襲継承だが、実質は劉裕の意向による傀儡的擁立で、翌々年劉裕に禅譲して東晋は滅亡した。",
       "source": {
         "page": "晋書 巻十 恭帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "dongjin-gongdi",
+      "to": "liu-song-wudi",
+      "category": "建国",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "東晋恭帝からの禅譲により宋を建国して即位。宋書武帝紀中に「二年四月，征王入辅。六月，至京师。晋帝禅位于王」とあり、この晋帝が恭帝であることは直前の「十二月，天子崩，大司马琅邪王即帝位。」（安帝崩御→琅邪王＝恭帝即位）で確認できる。武帝紀下に「永初元年夏六月丁卯，设坛于南郊，即皇帝位，柴燎告天。」。劉裕は彭城の劉氏（漢楚元王交の後裔と称する）で司馬氏とは無血縁。emperors.json の accessionRoute.category「建国」をそのまま採用（王朝創始者が禅譲を受けた場合も建国とする本プロジェクトの規約どおり）。",
+      "source": {
+        "page": "宋書 巻三 武帝紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liu-song-wudi",
+      "to": "liu-song-shaodi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "武帝（劉裕）の長子・皇太子として父の崩御と同日に即位した通常の父子継承。「少帝讳义符，小字车兵，武帝长子也」「武帝受禅，立为皇太子。永初三年五月癸亥，武帝崩，是日，太子即皇帝位」（宋書 巻四 少帝紀）。",
+      "source": {
+        "page": "宋書 巻四 少帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liu-song-shaodi",
+      "to": "liu-song-wendi",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "文帝劉義隆は武帝の第三子で、先代少帝（武帝の長子）の弟。徐羨之ら顧命大臣が少帝を廃した後、百官に迎えられて即位した。「太祖文皇帝讳义隆，小字车兒，武帝第三子也」「景平二年七月中，少帝废。百官备法驾奉迎，入奉皇统。行台至江陵，进玺绂」「八月丙申，车驾至京城。丁酉，谒初宁陵，还于中堂即皇帝位」（宋書 巻五 文帝紀）。",
+      "source": {
+        "page": "宋書 巻五 文帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liu-song-wendi",
+      "to": "liu-song-liushao",
+      "category": "簒奪",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "劉劭は文帝（太祖）の長子で皇太子。「元凶劭，字休远，文帝长子也」。元嘉三十年二月、腹心の張超之らを率いて宮中に乱入し実父文帝を弑逆（「超之手行弑逆」「劭进至合殿中阁，太祖已崩」）、当日に即位して太初と改元した（「劭即伪位」「改元嘉三十年为太初元年」）。宋書は「元凶」と呼び正統皇帝として扱わず本紀ではなく列伝（二凶伝）に置く。父帝弑逆による皇位奪取のため category は簒奪。",
+      "source": {
+        "page": "宋書 巻九十九 列伝第五十九 二凶（劉劭）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liu-song-liushao",
+      "to": "liu-song-xiaowudi",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "父文帝を弑逆した長兄劉劭（元凶劭）に対し、征南将軍として討伐軍を率いて挙兵。「会元凶弑逆，以上为征南将军，加散骑常侍。上率众入讨」。新亭到着の翌日、江夏王義恭らの奉表推戴を受けて即位した。「丁卯，大将军江夏王义恭来奔，奉表上尊号。戊辰，上至于新亭。己巳，即皇帝位，大赦天下」。即位（己巳＝453-05-20）は建康制圧・劭伏誅（「劭及始兴王浚诸同逆，并伏诛」）に先立つが、同一政権（宋）内で在位中の劭を武力で排除してその皇位を奪取した継承であるため from は劉劭とする。続柄は、劭が「元凶劭，字休远，文帝长子也」（宋書巻九十九 二凶伝）、駿が「文帝第三子也」で、新帝は先代の弟。",
+      "source": {
+        "page": "宋書 巻六 孝武帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liu-song-xiaowudi",
+      "to": "liu-song-qianfeidi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "前廃帝劉子業は孝武帝の長子。「前废帝讳子业，小字法师，孝武帝长子也」。孝武帝の即位後に皇太子に立てられ（「世祖践祚，立为皇太子」）、大明八年閏五月庚申に孝武帝が崩御した当日、皇太子として即位した。「八年闰王月庚申，世祖崩，其日，太子即皇帝位」（コーパスの「闰王月」は「閏五月」の破損とみられる。flags 参照）。通常の父子継承。",
+      "source": {
+        "page": "宋書 巻七 本紀第七 前廃帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liu-song-qianfeidi",
+      "to": "liu-song-mingdi",
+      "category": "簒奪",
+      "relationToPredecessor": "叔父",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明帝劉彧は「文帝第十一子也」（宋書明帝紀）で、前廃帝劉子業（孝武帝＝文帝第三子の長男）の叔父にあたる。前廃帝紀期の拘禁記事にも「疑畏诸父，并拘之殿内，遇上无礼」と諸父（おじ）として扱われたことが明記される。皇位取得は前廃帝暗殺による：「上先已与腹心阮佃夫、李道兒等密共合谋。」「佃夫、道兒因结寿寂之等殒废帝于后堂，十一月二十九日夜也。事定，上未知所为。建安王休仁便称臣奉引升西堂，登御坐，召见诸大臣。」ののち「泰始元年冬十二月丙寅，上即皇帝位。」暗殺直後に建安王休仁らに擁立される形式を取るが、accessionRoute.category は「簒奪」（自ら暗殺を主導）でありそのままコピーした。",
+      "source": {
+        "page": "宋書 巻八 明帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liu-song-mingdi",
+      "to": "liu-song-houfeidi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明帝の長子・皇太子として父の崩御翌日に即位。「废帝讳昱，字德融，小字慧震，明帝长子也」「泰始二年，立为皇太子」「泰豫元年四月己亥，太宗崩。庚子，太子即皇帝位，大赦天下」（宋書巻九・簡体字コーパス）。なお同紀は「先是民间讹言，谓太宗不男，陈太妃本李道兒妾，道路之言，或云道兒子也」と実父を李道兒とする巷説を記すが、宋書自身が「民间讹言」（巷間の流言）と位置づけており、皇位継承（皇太子としての父子継承）自体に争いはないため veracity は verified のまま。",
+      "source": {
+        "page": "宋書 巻九 後廃帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liu-song-houfeidi",
+      "to": "liu-song-shundi",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋書順帝紀に「顺皇帝讳准，字仲谋，小字智观，明帝第三子也」とあり、順帝は明帝第三子。先代の後廃帝劉昱は明帝長子であり、順帝はその弟。「元徽五年七月戊子夜，废帝殒，奉迎王入居朝堂。壬辰，即皇帝位」— 後廃帝が殺害された直後、蕭道成らにより安成王劉準が擁立され即位した（accessionRoute.category「擁立」と一致）。",
+      "source": {
+        "page": "宋書 巻十 順帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liu-song-shundi",
+      "to": "qi-gaodi",
+      "category": "建国",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋順帝（劉準）から禅譲を受けて即位し、斉王朝を開いた。南斉書高帝紀上に「辛卯，宋帝禅位，下诏曰」「便逊位别宫，敬禅于齐，一依唐虞、魏晋故事」、同紀下に「建元元年夏，四月，甲午，上即皇帝位于南郊，设坛柴燎告天」とあり、禅譲＝実質的な皇位取得のため from に禅譲元の順帝を置く（category は accessionRoute の「建国」のまま、劉裕と同型の扱い）。蕭道成は蘭陵蕭氏（「太祖高皇帝讳道成……汉相国萧何二十四世孙也」）で、劉宋皇室（彭城劉氏）と血縁はなく無血縁。",
+      "source": {
+        "page": "南齊書 巻一 高帝紀上・巻二 高帝紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qi-gaodi",
+      "to": "qi-wudi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "武帝蕭賾は高帝蕭道成の長子。「世祖武皇帝讳赜，字宣远，太祖长子也」。建元四年三月壬戌に高帝が崩御し即日即位した。「建元四年三月，壬戌，太祖崩，上即位，大赦」。嫡長子による正常な父子継承。",
+      "source": {
+        "page": "南斉書 巻三 武帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qi-wudi",
+      "to": "qi-yulinwang",
+      "category": "世襲",
+      "relationToPredecessor": "孫",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "文惠太子の長子＝武帝（世祖）の嫡孫。「郁林王昭业，字元尚，文惠太子长子也」。父の文惠太子が先に薨去したため皇太孫に立てられ、武帝崩御と同日に即位。「文惠太子薨，立昭业为皇太孙，居东宫。世祖崩，太孙即位。」",
+      "source": {
+        "page": "南齊書 巻四 鬱林王紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qi-yulinwang",
+      "to": "qi-hailingwang",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南齊書海陵王紀に「海陵恭王昭文，字季尚，文惠太子第二子也」とあり、先代鬱林王蕭昭業は同紀（巻四）に「郁林王昭业，字元尚，文惠太子长子也」とある文惠太子の長子。よって新帝昭文は先代鬱林王の同母弟ではなく異母を含む弟（第二子）。「其年，郁林王废，尚书令西昌侯鸾议立昭文为帝」「延兴元年秋，七月，丁酉，即皇帝位」の通り、蕭鸞が鬱林王を廃殺した直後に擁立した傀儡皇帝で、同一政権（南斉）内で鬱林王から皇位を承けた。",
+      "source": {
+        "page": "南齊書 巻五 海陵王紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qi-hailingwang",
+      "to": "qi-mingdi",
+      "category": "簒奪",
+      "relationToPredecessor": "同族（遠縁）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明帝蕭鸞は高帝蕭道成の兄・始安貞王蕭道生の子（「高宗明皇帝讳鸾，字景栖，始安贞王道生子也」）で、先代海陵王蕭昭文（高帝の曾孫・武帝の孫）から見ると祖父武帝の従弟＝族祖父にあたる（enum に該当語が無いため同族（遠縁）とし、ここに正確な続柄を記す）。鬱林王を廃して海陵王を立てた後（「郁林王废，海陵王立」）、皇太后令で海陵王を廃し、自らを太祖（高帝）の第三子に入継する形式を取って即位した（「太后令废海陵王，以上入纂太祖为第三子，群臣三请，乃受命」「建武元年冬，十月，癸亥，即皇帝位」）。自ら擁立した幼帝2人を相次いで廃殺した権力奪取であり category は簒奪。",
+      "source": {
+        "page": "南齊書 巻六 明帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qi-mingdi",
+      "to": "qi-donghunhou",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "東昏侯蕭宝巻は明帝（高宗）の第二子。「东昏侯宝卷，字智藏，高宗第二子也」。建武元年に皇太子に立てられ（「建武元年，立为皇太子」）、永泰元年七月己酉の高宗崩御と同日に皇太子として即位（「永泰元年七月，己酉，高宗崩，太子即位」）。正規の父子継承。",
+      "source": {
+        "page": "南齊書 巻七 東昏侯紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "qi-donghunhou",
+      "to": "qi-hedi",
+      "category": "擁立",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "和帝蕭宝融は高宗明帝（蕭鸞）の第八子で、先代東昏侯（高宗第二子）の弟。「和帝讳宝融，字智昭，高宗第八子也」（南齊書 巻八 和帝紀）、「东昏侯宝卷，字智藏，高宗第二子也」（南齊書 巻七 東昏侯紀）。永元二年、荊州長史蕭穎冑が雍州刺史蕭衍（梁王）の挙兵に呼応して東昏侯打倒の義兵を挙げ南康王宝融を擁立、宣徳太后令「称宣德太后令：“西中郎将南康王宜纂承皇祚，光临亿兆」で斉の皇位継承者と宣言され、中興元年三月乙巳に江陵で「即皇帝位，大赦，改元」。即位時点では東昏侯がなお建康に在位して並立したが、同年十二月「建康城平」により斉朝内の皇位継承として確定した。引用は簡体字コーパス（china-history）の字体のまま。",
+      "source": {
+        "page": "南齊書 巻八 和帝紀",
         "lang": "zh-classical"
       }
     }
