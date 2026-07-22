@@ -155,6 +155,13 @@
         "emperors": 20,
         "edges": 18,
         "persons": 1
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック18（遼・西遼・金）",
+        "emperors": 22,
+        "edges": 21,
+        "persons": 2
       }
     ]
   },
@@ -618,6 +625,53 @@
       "wikidata": null,
       "source": {
         "page": "宋史 巻二百四十六 宗室三 元懿太子",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-hendejin-kehan",
+      "name": "痕徳菫可汗",
+      "kana": "こんとくきんかがん",
+      "kind": "その他",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": null,
+      "deathYear": 906,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "契丹遥輦氏部落連盟の最後（第9代）の可汗。名は欽徳。遼史太祖紀「唐天复元年，岁辛酉，痕德堇可汗立，以太祖为本部夷离堇」「十二月，痕德堇可汗殂，群臣奉遗命请立太祖」。遺命により耶律阿保機（遼太祖）に可汗位が渡り、遥輦氏世選の時代が終わった。皇帝号・廟号の追尊はない。没年は唐天祐三年十二月で、西暦換算では907年初頭にかかる可能性があるため yearsApproximate とした。生年は原典に記載なし。",
+      "wikidata": null,
+      "posthumous": null,
+      "source": {
+        "page": "遼史 巻一 太祖紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-wanyan-wuyashu",
+      "name": "完顔烏雅束",
+      "kana": "かんがんうがそく",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": 1061,
+      "deathYear": 1113,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "追尊皇帝"
+      ],
+      "note": "金康宗。世祖劾里鉢の長子で、太祖阿骨打の同母兄。金史巻一世紀に「兄子康宗，讳乌雅束，字毛路完，世祖长子也。辽清宁七年辛丑岁生。」（遼清寧七年辛丑＝1061年生）、「乾统三年癸未，袭节度使，年四十三。」（1103年に穆宗盈歌から女真節度使位を承継）、「十一年癸巳，康宗卒，年五十三。天会十五年，追谥恭简皇帝。」（癸巳＝1113年没・数え53歳、生年1061と整合）とある。皇帝には即位していないが、金建国後の天会十五年（1137）に恭簡皇帝を追諡され、皇統五年（1145）「五年，增谥康宗献敏恭简皇帝。」と廟号康宗＋皇帝号の追贈が確認できるため kind=追尊皇帝。太祖はこの康宗から都勃極烈（女真完顔部の首長位）を承継したうえで称帝しており、succession エッジの from ノード（経路上）となる。section は追尊した王朝＝金の所属（宋遼西夏金）に合わせた。",
+      "wikidata": "Q1041784",
+      "posthumous": {
+        "dynasty": "金",
+        "templeName": "康宗",
+        "posthumousName": "献敏恭簡皇帝"
+      },
+      "source": {
+        "page": "金史 巻一 世紀",
         "lang": "zh-classical"
       }
     }
@@ -4133,6 +4187,321 @@
       "note": "端宗（趙昰）が碙洲で崩御した後、張世傑・陸秀夫ら遺臣により擁立されて即位。宋史本紀四十七「四月戊辰，昰殂于碙洲，其臣號之曰端宗。」「庚午，衆又立衞王昺為主，以陸秀夫為左丞相。」。昺は端宗の弟（同巻冒頭「二王者，度宗庶子也。長建國公昰，母淑妃楊氏；季永國公昺，母修容俞氏。」— ともに度宗の庶子で、昰が長・昺が季、異母弟）。",
       "source": {
         "page": "宋史 巻四十七 瀛國公二王附",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-hendejin-kehan",
+      "to": "liao-taizu",
+      "category": "建国",
+      "relationToPredecessor": "無血縁",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "痕徳菫可汗（遥輦氏）の死後、遺命により群臣が太祖の擁立を請い、太祖は契丹可汗位を継承（907年）、のち称帝した。遼史太祖紀「十二月，痕德堇可汗殂，群臣奉遗命请立太祖。曷鲁等劝进，太祖三让，从之。」。巻二末の賛も「而太祖受可汗之禅，遂建国。」と可汗位の授受を明記しており、非皇帝の先行君主からの君主位承継→称帝のブリッジ from パターン（張祚型）と判定。先代は遥輦氏・太祖は耶律氏（「姓耶律氏」「德祖皇帝长子」）で無血縁。",
+      "source": {
+        "page": "遼史 巻一 太祖紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liao-taizu",
+      "to": "liao-taizong",
+      "category": "擁立",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "太祖の第二子（「太宗孝武惠文皇帝，讳德光，字德谨，小字尧骨，太祖第二子」）。天顕元年七月の太祖崩御後は皇后（淳欽皇后・述律太后）が軍国事を摂し、天顕2年11月壬戌に兄の人皇王倍（皇太子）が群臣を率いて太后に「皇子大元帅勋望，中外攸属，宜承大统」と請い、太后がこれに従って即位（「后从之，是日即皇帝位」）。嫡長子の倍を差し置いた母后主導の擁立即位。",
+      "source": {
+        "page": "遼史 巻三 太宗紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liao-taizong",
+      "to": "liao-shizong",
+      "category": "簒奪",
+      "relationToPredecessor": "甥",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "世宗耶律阮（兀欲）は譲国皇帝耶律倍（人皇王、太祖長子で太宗の兄）の長子であり、太宗の甥。『遼史』世宗紀に「世宗孝和庄宪皇帝，讳阮，小字兀欲。让国皇帝长子，母柔贞皇后萧氏」。太宗の急死に際し柩前で即位した：「夏四月丁丑，太宗崩于栾城。戊寅，梓宫次镇阳，即皇帝位于柩前」。摂政的立場の述律太后はこれを認めず「太后闻帝即位，遣太弟李胡率兵拒之」と武力衝突・対峙（横渡の対陣）の末、耶律屋質の調停で帝位が確定した。emperors.json の accessionRoute.category=簒奪をそのままコピー（同 note が「擁立の見方も可能な境界事例」と明記する境界事例）。皇位は同一政権内で先代太宗から得たものであり from=liao-taizong とする。",
+      "source": {
+        "page": "遼史 巻五 世宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liao-shizong",
+      "to": "liao-muzong",
+      "category": "擁立",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "遼史 巻六 穆宗紀上に「天禄五年秋九月癸亥，世宗遇害。逆臣察割等伏诛。丁卯，即皇帝位，群臣上尊号曰天顺皇帝，改元应历」とあり、察割の乱で世宗が弑逆された直後、乱の鎮圧に加わっていた寿安王（穆宗）が群臣に推戴されて即位した（category=擁立）。続柄は同紀冒頭に「穆宗孝安敬正皇帝，讳璟，小字述律。太宗皇帝长子」とあり、穆宗は太宗の長子。世宗は義宗（東丹王倍、太宗の兄）の子であるため、穆宗は世宗の従兄弟にあたる。",
+      "source": {
+        "page": "遼史 巻六 穆宗紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liao-muzong",
+      "to": "liao-jingzong",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "穆宗の従姪（従兄弟の子）。景宗は「世宗皇帝第二子」（遼史 巻八 景宗紀上）であり、世宗（譲国皇帝耶律倍の子）と穆宗（太宗の子）は従兄弟同士のため、景宗は穆宗から見て従兄弟の子＝従姪にあたり enum に該当語がないため「その他」とした。即位経緯は「己巳，穆宗遇弑，帝率飞龙使女里、侍中萧思温、南院枢密使高勋率甲骑千人驰赴。黎明，至行在，哭之恸。群臣劝进，遂即皇帝位于柩前。」（同紀）。正式な立太子・遺詔なく穆宗暗殺後の柩前推戴で、category=擁立（emperors.json の accessionRoute.category と一致）。",
+      "source": {
+        "page": "遼史 巻八 景宗紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liao-jingzong",
+      "to": "liao-shengzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "聖宗（諱隆緒・小字文殊奴）は景宗の長子（「圣宗文武大孝宣皇帝，讳隆绪，小字文殊奴。景宗皇帝长子，母曰睿智皇后萧氏」）。乾亨4年9月、景宗崩御の翌日に柩前で即位し、皇后（承天皇太后）が遺詔を奉じて摂政となった（「四年秋九月壬子，景宗崩。癸丑，即皇帝位于柩前，时年十二。皇后奉遗诏摄政」）。父から遺詔による直系世襲。摂政は行政の代行であり皇位授受の相手ではないためエッジには影響しない。",
+      "source": {
+        "page": "遼史 巻十 聖宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liao-shengzong",
+      "to": "liao-xingzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "興宗は聖宗の長子。遼史興宗紀冒頭に「兴宗神圣孝章皇帝，讳宗真，字夷不堇，小字只骨。圣宗长子，母曰钦哀皇后萧氏」とあり、太平元年に皇太子に冊立（「太平元年，册为皇太子」）された上で、太平十一年六月己卯の聖宗崩御と同日に柩前で即位（「十一年夏六月己卯，圣宗崩，即皇帝位于柩前」）。典型的な父子世襲。",
+      "source": {
+        "page": "遼史 巻十八 興宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liao-xingzong",
+      "to": "liao-daozong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "道宗耶律洪基（小字査剌）は興宗の嫡長子。「兴宗皇帝长子，母曰仁懿皇后萧氏」。重熙24年8月己丑、興宗崩御と同日に柩前で即位した。「二十四年秋八月己丑，兴宗崩，即皇帝位于柩前」。遺詔による世襲継承。",
+      "source": {
+        "page": "遼史 巻二十一 道宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "liao-daozong",
+      "to": "liao-tianzuodi",
+      "category": "世襲",
+      "relationToPredecessor": "孫",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "遼史巻二十七冒頭に「天祚皇帝，讳延禧，字延宁，小字阿果。道宗之孙，父顺宗大孝顺圣皇帝，母贞顺皇后萧氏」とあり、天祚帝は道宗の孫（父は順宗＝昭懐太子濬の追尊号）。即位は「寿昌七年正月甲戌，道宗崩，奉遗诏即皇帝位于柩前」とあり、道宗の崩御に際し遺詔により柩前で即位した世襲継承。実父の昭懐太子濬は耶律乙辛の讒言で先に廃死しており（即位後の乾統元年十月に「上皇考昭怀太子谥曰大孝顺圣皇帝，庙号顺宗」と追尊）、嫡孫として祖父から直接皇位を継承した。",
+      "source": {
+        "page": "遼史 巻二十七 天祚皇帝紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xiliao-dezong",
+      "to": "xiliao-renzong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "仁宗夷列は徳宗耶律大石の子。遼史巻三十（耶律大石伝の付録記事）に「康国十年殁，在位二十年，庙号德宗。」「子夷列年幼，遗命皇后权国。」とあり、徳宗の死時に子の夷列が幼少だったため、遺命により皇后（感天皇后蕭塔不烟）が称制（摂政7年・収録外）した後、「子夷列即位，改元绍兴」と即位した。皇位は父・徳宗からの世襲であり、感天皇后は権国（称制）であって皇位に即いていないため from は徳宗とする。徳宗死（康国10年=1143年）から仁宗即位（1150年）まで7年の摂政期間を挟む点が特徴。",
+      "source": {
+        "page": "遼史 巻三十 天祚皇帝紀四（耶律大石伝付録）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "xiliao-renzong",
+      "to": "xiliao-tianxi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "遼史巻三十末尾の西遼付録に「仁宗次子直鲁古即位，改元天禧，在位三十四年」とあり、直魯古は仁宗（夷列）の次子として即位。仁宗死後は「子幼，遗诏以妹普速完权国，称制，改元崇福，号承天太后」とあるとおり、仁宗の妹・普速完（承天太后、収録外）が遺詔により称制（摂政、皇帝即位ではない）を14年間行い、クーデターで殺害された直後に直魯古が即位した。摂政期間を挟むが皇位の授受は父・仁宗からの世襲。",
+      "source": {
+        "page": "遼史 巻三十 天祚皇帝紀四（西遼付録）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "p-wanyan-wuyashu",
+      "to": "jin-taizu",
+      "category": "建国",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "金太祖完顔阿骨打は世祖劾里鉢の第二子で、康宗烏雅束（世祖長子）の同母弟。金史巻二太祖紀に「是月，康宗即世，太祖袭位为都勃极烈。」とあり、1113年に兄康宗の死去に伴い女真完顔部の首長位（都勃極烈）を承継し、その2年後「收国元年正月壬申朔，群臣奉上尊号。是日，即皇帝位。」「于是国号大金，改元收国。」（同紀）と称帝・建国した（収国元年＝1115）。賛にも「兄弟相授，传及康宗，遂及太祖」とあり兄からの君主位承継が明記される。非皇帝の先行君主から君主位を実質承継したうえでの称帝であり、スキーマ明記の李元昊型（父から西平王位継承→称帝で from を置く）に該当するため、ブリッジ人物 p-wanyan-wuyashu を from とする。なお遼からの節度使職の承継（太祖紀「二年甲午六月，太祖至江西，辽使使来致袭节度之命。」）は宗主国による冊封であり、冊封境界ルールにより from の根拠とはしない。category は emperors.json の accessionRoute.category（建国）をそのままコピー。",
+      "source": {
+        "page": "金史 巻二 太祖紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-taizu",
+      "to": "jin-taizong",
+      "category": "世襲",
+      "relationToPredecessor": "弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "太祖の同母弟。金史巻三太宗紀冒頭「讳晟，本讳吴乞买，世祖第四子，母曰翼简皇后拏懒氏，太祖母弟也」。収国元年十月に皇儲位たる諳班勃極烈に指定され（「收国元年十月，命为谙班勃极烈」）、天輔七年八月戊申の太祖崩御後、宗室・百官の推戴（三譲の作法）を経て九月丙辰に即位（「戊申，太祖崩」「国论勃极烈杲、郓王昂、宗峻、宗干率宗亲百宫请正帝位，不许，固请，亦不许。宗干率诸弟以赭袍被体，置玺怀中。丙辰，即皇帝位」）。指定継承による兄弟世襲。",
+      "source": {
+        "page": "金史 巻三 太宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-taizong",
+      "to": "jin-xizong",
+      "category": "世襲",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "新帝熙宗（完顔亶）は先代太宗（呉乞買）の従孫（姪孫、兄太祖の孫）。enum 外の続柄のため「その他」とする。金史巻四熙宗本紀に「讳亶，本讳合剌，太祖孙，景宣皇帝子」とあり、太祖（太宗の兄）の孫・景宣皇帝（追尊、完顔宗峻。同紀「追尊皇考丰王为景宣皇帝，庙号徽宗」）の子。太宗により儲嗣＝諳班勃極烈に指名され（詔「尔为太祖之嫡孙，故命尔为谙班勃极烈」）、太宗崩御を受けて即位（「十三年正月己巳，太宗崩。庚午，即皇帝位」）。正式指名による世襲継承。",
+      "source": {
+        "page": "金史 巻四 熙宗本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-xizong",
+      "to": "jin-hailingwang",
+      "category": "簒奪",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "皇統9年12月丁巳夜、寝殿に入って熙宗を弑し、その場で推戴されて即位（「遂弑熙宗。……乃奉海陵坐，皆拜，称万岁」金史巻五海陵紀）。海陵王（完顔亮）は遼王宗幹（太祖長子）の第二子（「废帝海陵庶人亮，字元功，本讳迪古乃，辽王宗干第二子也」）、熙宗は太祖嫡孫（宗峻の子）であり、両者は太祖の孫同士＝従兄弟（「初，熙宗以太祖嫡孙嗣位，亮意以为宗干太祖长子，而己亦太祖孙」同紀）。",
+      "source": {
+        "page": "金史 巻五 海陵紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-hailingwang",
+      "to": "jin-shizong",
+      "category": "簒奪",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "海陵王の南征中、東京遼陽府で官属諸軍に推戴されて自立即位した王朝内クーデター（金史 巻六 世宗紀上「丙午，庆云见，官属诸军劝进，固让良久，于是亲告天太祖庙，还御宣政殿，即皇帝位。……丁未，大赦，改元大定」）。即位の翌月に海陵王は陣中で弑された（同紀「乙未，完颜元宜等弑海陵于扬州」）。続柄は、世宗が「太祖孙，睿宗子也」（金史 巻六 世宗紀上）、海陵王が「辽王宗干第二子也」で自らも「己亦太祖孙」（金史 巻五 海陵紀）と、ともに太祖の孫であるため従兄弟。",
+      "source": {
+        "page": "金史 巻六 世宗紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-shizong",
+      "to": "jin-zhangzong",
+      "category": "世襲",
+      "relationToPredecessor": "孫",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "章宗完顔璟は世宗の嫡孫（父は顕宗＝宣孝太子允恭、大定25年に薨去）。「章宗宪天光运仁文义武神圣英孝皇帝，讳璟，小字麻达葛，显宗嫡子也」。父顕宗の死後、大定26年「十一月，诏立为皇太孙」と皇太孫に冊立され、大定29年「二十九年春正月癸巳，世宗崩，即皇帝位于柩前」と世宗崩御を受け柩前で即位した。",
+      "source": {
+        "page": "金史 巻九 章宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-zhangzong",
+      "to": "jin-weishaowang",
+      "category": "擁立",
+      "relationToPredecessor": "叔父",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "衛紹王完顔永済は「世宗第七子」（金史巻十三衛紹王紀）で、章宗（顕宗允恭の子＝世宗の孫）の叔父。冒頭記事の「章宗时避显宗讳，诏改“允”为“永”」も顕宗＝章宗の父であることを裏付ける。章宗に嗣子なく、「既无继嗣，而诸叔兄弟多在，章宗皆不肯立，惟欲立卫王」とあり、章宗危篤に際し「无何，章宗大渐，元妃李氏、黄门李新喜、平章政事完颜匡定策。章宗崩，匡等传遣诏，立卫王。卫王固让，乃承诏举哀，即皇帝位于柩前」と、元妃李氏・宦官李新喜・平章政事完顔匡の定策により章宗崩御後に柩前で即位した（category=擁立は accessionRoute.category のコピー。宮廷有力者による擁立の性格が強いという emperors.json の判定と原文は整合）。",
+      "source": {
+        "page": "金史 巻十三 衛紹王紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-weishaowang",
+      "to": "jin-xuanzong",
+      "category": "擁立",
+      "relationToPredecessor": "甥",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "胡沙虎（紇石烈執中）が衛紹王を弑殺した後の擁立。宣宗紀「至宁元年八月，卫绍王被弑，徒单铭等迎于彰德府。既至京，亲王、百官上表劝进。」「九月甲辰，既皇帝位于大安殿。以纥石烈胡沙虎为太师、尚书令兼都元帅，封泽王。」（迎えに赴いた徒単銘は徒単鎰の弟で別人。擁立の決定は徒単鎰伝「翼王，章宗之兄，显宗长子，众望所属，元帅决策立之，万世之功也。」胡沙虎默然而去，乃迎宣宗于彰德。とあり胡沙虎による）。続柄: 宣宗は「显宗长子」（宣宗紀）＝章宗の兄。衛紹王は「世宗第七子」（衛紹王紀）で顕宗允恭の弟（同紀「章宗时避显宗讳，诏改『允』为『永』」）。よって宣宗は衛紹王の兄（顕宗）の子＝甥。",
+      "source": {
+        "page": "金史 巻十四 宣宗紀上／巻十三 衛紹王紀／巻九十九 徒単鎰伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-xuanzong",
+      "to": "jin-aizong",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "哀宗完顔守緒は宣宗の第三子（「哀宗讳守绪，初讳守礼，又讳宁甲速，宣宗第三子」）。貞祐4年正月に皇太子に冊立され（「四年正月己卯，立守礼为皇太子」）、元光2年12月庚寅の宣宗崩御の翌日辛卯、遺詔を奉じて柩前で即位した（「元光二年十二月庚寅，宣宗崩。辛卯，奉遗诏即皇帝位于柩前」）。典型的な父子間の世襲継承。",
+      "source": {
+        "page": "金史 巻十七 哀宗紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "jin-aizong",
+      "to": "jin-modi",
+      "category": "内禅",
+      "relationToPredecessor": "同族（遠縁）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "蔡州陥落前夜、哀宗が百官を集めて東面元帥承麟に伝位。承麟は固辞したが詔を受け、翌己酉に即位・百官称賀という正式な生前譲位（内禅）の手続きを踏んだ。金史 巻十八 哀宗紀下「戊申，夜，上集百官，传位于东面元帅承麟，承麟固让」「己酉，承麟即皇帝位。百官称贺」。続柄は金史 巻百十三 列伝第五十一 白撒（承裔）伝に「内族白撒，名承裔，末帝承麟之兄也，系出世祖诸孙」とあり、承麟は兄承裔とともに世祖（劾里鉢）の諸孫の系統に出る宗室（哀宗紀でも「内族承麟」と表記）。哀宗の直系（太祖—世宗—宣宗系）とは世祖で分岐する傍系であり同族（遠縁）と判定。ただし世祖のどの孫の何世代後かは原文に明記がなく、正確な親等は不詳。",
+      "source": {
+        "page": "金史 巻十八 哀宗紀下",
         "lang": "zh-classical"
       }
     }
