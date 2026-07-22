@@ -103,6 +103,67 @@ KNOWN_REIGN_SUMMARY = set()
 # 2026-07-22 の 0-3 対応（qin-shi-huang / qin-er-shi の算出基準統一）で全件解消済み
 KNOWN_DISPLAY_YEARS = set()
 
+# CE イベント日付が在位 ISO 年範囲外（min-1〜max+1）だが正当なもの＝称帝前（王号・僭称期）に
+# 発生したイベントを、後に皇帝となった同一人物の記録に計上したケース（各 note で説明済み）。
+# 収録基準（皇帝在位中のイベント）との整合は task.md 問題5 で方針判断待ち。
+# ここに載る＝容認ではなく「方針判断が済むまでの明示的な既知例」。方針確定後に一括見直しする。
+# （BCE イベントの範囲チェックは check_bce_event_years が別途担当）
+KNOWN_PREACCESSION_EVENTS = {
+    ("wu-dadi", "capitalRelocationCount", 0),             # 0221 呉王冊命前の遷都
+    ("qianzhao-liuyuan", "eraChangeCount", 0),            # 0304 漢王期の建元
+    ("qianzhao-liuyuan", "capitalRelocationCount", 0),    # 0305 漢王期の遷都
+    ("qianyan-murongjun", "capitalRelocationCount", 0),   # 0341 父・慕容皝(王号期)の遷都＝帰属要検討
+    ("qianyan-murongjun", "capitalRelocationCount", 1),   # 0350 燕王期(即位前)の遷都
+    ("houzhao-shihu", "eraChangeCount", 0),               # 0335 趙天王期
+    ("houzhao-shihu", "amnestyCount", 0),                 # 0335 趙天王期
+    ("houzhao-shihu", "amnestyCount", 1),                 # 0337 大趙天王期
+    ("houzhao-shihu", "empressInstallationCount", 0),     # 0337 天王皇后
+    ("houzhao-shihu", "empressInstallationCount", 1),     # 0337 天王皇后
+    ("houzhao-shihu", "crownPrinceDepositionCount", 0),   # 0337 天王期
+    ("houzhao-shihu", "capitalRelocationCount", 0),       # 0335 趙天王期
+    ("tangmo-huangchao", "eraChangeCount", 0),            # 0878 王霸建元(称帝前)
+    ("shiguo-wu-yangpu", "eraChangeCount", 0),            # 0921 呉王期の改元
+    ("shiguo-wu-yangpu", "amnestyCount", 0),              # 0921 呉王期の大赦
+    ("shiguo-min-wangyanxi", "eraChangeCount", 0),        # 0939 閩国王期(称帝は941)
+    ("liao-taizu", "empressInstallationCount", 0),        # 0907 可汗即位期(公式在位は916-)
+    ("xixia-jingzong", "eraChangeCount", 0),              # 1033 西平王期
+    ("xixia-jingzong", "eraChangeCount", 1),              # 1034 西平王期
+    ("xixia-jingzong", "eraChangeCount", 2),              # 1035 西平王期
+    ("xixia-jingzong", "amnestyCount", 0),                # 1034 西平王期
+}
+
+# 同一王朝内で在位期間が重複するが正当なもの（並立・対立政権の非対称処理・母后称制の空位挟み・
+# 同名別政権・year/month 精度プレースホルダ由来の見かけの重複）で、重複する2在位の note/
+# duration.source（note・conversion）に並立系キーワードが現れない既知例。すべて 2026-07-22 の
+# 全31重複トリアージで正当（A/C 判定）と確認済み。内禅・禅譲の同期漏れ（前帝 endDate ≠ 次帝
+# startDate）を検出するのが check_reign_overlap の主目的で、光宗/寧宗の2日不一致（2026-07-22
+# 訂正済み）がこの型だった。ペアは (前在位, 次在位) の "id[reignIndex]" 表記。
+KNOWN_REIGN_OVERLAP = {
+    ("suimo-liangshidu[0]", "suimo-xiaoxian[0]"),      # 同名別政権(梁師都/蕭銑・隋末群雄「梁」)
+    ("beiwei-xuanwudi[0]", "beiwei-yuanyu[0]"),        # 元愉の冀州反乱称帝(建平)
+    ("beizhou-xuandi[0]", "beizhou-jingdi[0]"),        # 宣帝が内禅後も天元皇帝を自称し在位計上
+    ("shiguo-min-wangyanxi[0]", "shiguo-min-wangyanzheng[0]"),  # 王延政の建州称帝「殷」並立
+    ("yuan-tianshundi[0]", "yuan-wenzong[0]"),         # 両都の戦い(天暦の内乱)の並立
+    ("yuan-wenzong[0]", "yuan-mingzong[0]"),           # 明宗漠北即位→文宗譲位までの移行期並存
+    ("yuanmo-chenyouliang[0]", "yuanmo-chenli[0]"),    # 陳理は父戦死後継承・year精度プレースホルダの見かけ重複
+    ("nanming-anzong[0]", "nanming-zongzong[0]"),      # 弘光帝が処刑まで帝号保持 vs 隆武帝並存
+    ("nanming-shaowudi[0]", "nanming-zhaozong[0]"),    # 紹武/永暦の並立
+    ("wuzhou-wushifan[0]", "wuzhou-wusangui[0]"),      # 呉世璠は呉三桂崩御後継承・year精度プレースホルダの見かけ重複
+}
+
+# 数え年チェック（CE 生年限定）で「原典由来の矛盾を note に明示済み」等の既知の乖離。
+KNOWN_COUNTING_AGE = {
+    ("chen-feidi", "deathAge"),   # 生554 vs 時年19 の原典3書共通矛盾を note に明示済み(2026-07-22)
+}
+
+# 在位重複判定に使う並立・対立政権系キーワード（レコード JSON 全体を対象に部分一致）。
+# これらのいずれも含まない同王朝内重複は継承同期バグの疑いとしてエラーにする。
+COEXIST_KEYWORDS = (
+    "並立", "対立", "對立", "僭", "擁立", "拥立", "自立", "対抗", "対峙", "對峙",
+    "奪門", "復位", "两都", "兩都", "非対称", "傀儡", "别立", "別立", "分裂",
+    "反乱政権", "対立政権", "簒奪", "篡", "割拠", "割據", "自号", "自號",
+)
+
 # ---------------------------------------------------------------------------
 
 ISO_DATE = re.compile(r"^(-?\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$")
@@ -335,6 +396,124 @@ def check_bce_event_years(data):
                             f"「前n年」{note_years} と歴史年直記（-n）で一致（天文年 -(n-1) に統一する）")
 
 
+def check_event_reign_range(data):
+    """CE イベント日付が在位 ISO 年範囲（min-1〜max+1）に収まるか。
+
+    reigns の startDate/endDate（ISO）と startYear/endYear（歴史年→ISO換算）の双方から
+    在位 ISO 年範囲を取り、CE イベントがその外に出ていればエラー。称帝前イベントの既知例は
+    KNOWN_PREACCESSION_EVENTS で許容（task.md 問題5 の方針判断待ち）。旧暦月番号の無変換など
+    events[].date の誤変換（在位範囲外に飛ぶ型）を将来検出する。BCE は check_bce_event_years 担当。
+    """
+    for e in data["emperors"]:
+        years = []
+        for r in e.get("reigns") or []:
+            for k in ("startDate", "endDate"):
+                t = parse_date(r.get(k))
+                if t:
+                    years.append(t[0])
+            for yk in ("startYear", "endYear"):
+                y = r.get(yk)
+                if isinstance(y, int):
+                    years.append(y if y > 0 else y + 1)
+        if not years:
+            continue
+        lo, hi = min(years) - 1, max(years) + 1
+        for g in COUNT_GROUPS:
+            o = e.get(g)
+            if not isinstance(o, dict):
+                continue
+            for i, ev in enumerate(o.get("events") or []):
+                t = parse_date(ev.get("date"))
+                if not t or t[0] <= 0:
+                    continue
+                if not (lo <= t[0] <= hi):
+                    key = (e["id"], g, i)
+                    if key in KNOWN_PREACCESSION_EVENTS:
+                        KNOWN_PREACCESSION_EVENTS.discard(key)
+                    else:
+                        err(f"[event-range] {e['id']}.{g}[{i}]: date={ev['date']} が在位 ISO 年範囲 "
+                            f"[{lo+1}, {hi-1}] 外（誤変換または称帝前イベントの疑い）")
+
+
+def check_reign_overlap(data):
+    """同一王朝内で在位期間が重複していないか（並立・対立政権は正当なので除外）。
+
+    dynasty.name 単位で reigns を開始日順に並べ、次の reign の startDate が前の reign の endDate
+    より前なら重複。並立・対立政権（COEXIST_KEYWORDS のいずれかをレコード JSON に含む）は正当として
+    除外し、キーワードを一切含まない重複のみエラーにする（内禅・禅譲で前帝 endDate と次帝 startDate が
+    食い違う同期漏れ＝光宗/寧宗型を検出）。KNOWN_REIGN_OVERLAP で個別許容可。
+    """
+    from collections import defaultdict
+    def reign_kw(r):
+        # 並立キーワードは重複する在位オブジェクト自身の解釈欄に限定して探す
+        # （レコード全体を対象にすると、長期在位の反乱鎮圧 note 等に出る「僭」「擁立」で
+        #   継承同期漏れが誤って免除されてしまう＝光宗/寧宗の呉曦「僭號」で実証済み）。
+        s = (r.get("duration") or {}).get("source") or {}
+        text = (r.get("note") or "") + (s.get("note") or "") + (s.get("conversion") or "")
+        return any(k in text for k in COEXIST_KEYWORDS)
+
+    dyn = defaultdict(list)
+    for e in data["emperors"]:
+        for i, r in enumerate(e.get("reigns") or []):
+            st = parse_date(r.get("startDate"))
+            en = parse_date(r.get("endDate"))
+            if st:
+                name = (e.get("dynasty") or {}).get("name")
+                dyn[name].append((st, en, f"{e['id']}[{i}]", reign_kw(r)))
+    for name, lst in dyn.items():
+        lst.sort(key=lambda x: (x[0][0], x[0][1] or 0, x[0][2] or 0))
+        for (s1, e1, id1, kw1), (s2, e2, id2, kw2) in zip(lst, lst[1:]):
+            if e1 and cmp_truncated(s2, e1) < 0:
+                if kw1 or kw2:
+                    continue  # 並立・対立政権として重複在位の note で説明あり
+                pair = (id1, id2)
+                if pair in KNOWN_REIGN_OVERLAP:
+                    KNOWN_REIGN_OVERLAP.discard(pair)
+                else:
+                    err(f"[reign-overlap] {name}: {id1}(endDate {e1 and '-'.join(str(x) for x in e1 if x)}) "
+                        f"と {id2}(startDate {'-'.join(str(x) for x in s2 if x)}) が重複し並立系の記述なし"
+                        f"（内禅・禅譲の同期漏れの疑い）")
+
+
+def check_counting_age(data):
+    """数え年（虚歳）の逆算整合チェック（CE 生年限定・警告）。
+
+    ages.accessionAge/deathAge は数え年統一方針。CE 生年（BCE の天文年↔歴史年ずれを避ける）で、
+    accessionAge は reigns[0].startYear（歴史年）、deathAge は ages.deathDate の年（在位 endYear で
+    はない＝太上皇の退位後死去で誤検知しないため）を基準に「年ラベル差＋1」を計算し、記録値との差が
+    2 以上（旧暦年またぎ由来の ±1 は許容）の場合に警告として一覧化。満年齢の紛れ込み（袁世凱で実在→
+    2026-07-22 訂正、満年齢は数え比 -2 前後で顕在化）や粗い入力ミスを可視化する。原典由来の ±1 矛盾
+    （後唐荘宗・元成宗等・note 未記載）は許容内なので surface しない。KNOWN_COUNTING_AGE で
+    明示済みの既知乖離（差2以上でも note 説明済み）を除外。
+    """
+    hits = []
+    for e in data["emperors"]:
+        a = e.get("ages") or {}
+        bd = parse_date(a.get("birthDate"))
+        if not bd or bd[0] <= 0:
+            continue  # CE 生年のみ
+        by = bd[0]
+        reigns = e.get("reigns") or []
+        dd = parse_date(a.get("deathDate"))
+        bases = {
+            "accessionAge": reigns[0].get("startYear") if reigns else None,
+            "deathAge": dd[0] if dd else None,
+        }
+        for field, base in bases.items():
+            val = a.get(field)
+            if not isinstance(val, int) or not isinstance(base, int):
+                continue
+            calc = base - by + 1
+            if abs(val - calc) >= 2:  # ±1 は旧暦年またぎ許容
+                if (e["id"], field) in KNOWN_COUNTING_AGE:
+                    KNOWN_COUNTING_AGE.discard((e["id"], field))
+                else:
+                    hits.append(f"{e['id']}.{field}={val}(数え逆算{calc})")
+    if hits:
+        warn(f"[counting-age] 数え年逆算と2以上乖離（満年齢混入・入力ミスの疑い、要確認）: "
+             f"{len(hits)}件 {hits}")
+
+
 def check_used_emperor_title_from(data):
     """flags.usedEmperorTitleFrom の規約チェック（task.md 0-2、2026-07-22 確定）。
 
@@ -551,6 +730,9 @@ def main() -> int:
     check_reigns(data)
     check_counts(data)
     check_bce_event_years(data)
+    check_event_reign_range(data)
+    check_reign_overlap(data)
+    check_counting_age(data)
     check_used_emperor_title_from(data)
     check_ages(data)
     check_reign_summary(data)
@@ -565,6 +747,9 @@ def main() -> int:
         ("KNOWN_EMPTY_CONFIDENCE", KNOWN_EMPTY_CONFIDENCE),
         ("KNOWN_REIGN_SUMMARY", KNOWN_REIGN_SUMMARY),
         ("KNOWN_DISPLAY_YEARS", KNOWN_DISPLAY_YEARS),
+        ("KNOWN_PREACCESSION_EVENTS", KNOWN_PREACCESSION_EVENTS),
+        ("KNOWN_REIGN_OVERLAP", KNOWN_REIGN_OVERLAP),
+        ("KNOWN_COUNTING_AGE", KNOWN_COUNTING_AGE),
     ):
         # 消費されなかった（=データ側が既に正しい）エントリが残っていれば陳腐化
         if left:

@@ -274,6 +274,22 @@
 
 **site 側の小修正**: `emperors.ts` の `videoById.get(id)!` を fail-fast 化・`eraOrder` 未登録時のサイレント末尾落ち（`?? 99`）を throw 化・存在しない `ERA_BY_SELF_SECTION` 参照コメントを削除、`sync-portraits.mjs` に同期元から消えた画像の削除追従を追加、ランキング系チャート3ファイルの定型（軸ドメイン・左マージン・行ウィンドウイング計算＋スクロール枠 JSX）を `scroll-bar-chart.tsx` の `useRankingChartLayout` / `WindowedChartFrame` に共通化、sitemap の個別365ページから一律 `datasetGeneratedAt` の lastmod を撤去（人物単位の更新日時を持たないため。統計ページ側は維持）、`timeline/page.tsx` の素の `<a href="/about">` を `Link` 化。
 
+## 機械スクリーニング起点の追加訂正＋CI カバレッジ拡張（2026-07-22）
+
+既存 CI（`validate_emperors.py`）が 0 エラーの状態で、CI がカバーしていない観点を追加の機械スクリーニング（イベント日付の在位範囲整合・数え年の逆算整合・note 内年齢/年言及との突合・王朝内在位重複/空白・在位日数再計算）＋ Wikidata 生没年クロスチェック（SPARQL・365 人全員・API リクエスト2回のみ）で走らせ、サブエージェント3系統でトリアージした。**Wikidata 生没年照合は実質クリーン**（年レベル乖離5件はすべて note に根拠明記済み／推定 medium 明示済み／こちらの原典典拠の方が強い〔少帝弁・欽宗〕）。検出した実問題4件を原典で確認のうえ訂正（`validate_emperors.py` エラー0を確認、Wikidata API は CI には組み込まない方針）:
+
+- **nansong-ningzong（寧宗）即位日 1194-07-22→07-24**: 光宗 endDate（07-24＝甲子）と寧宗 startDate（07-22＝壬戌）が同一イベント（内禅）で2日食い違う内部矛盾だった。2026-07-21 フェーズBが寧宗本紀の「翌日禫祭」のみで 07-24→07-22 と暫定変更し（conversion に「光宗本紀・續資治通鑑での傍証確認が望ましい」と課題を明記）不整合が生じたもの。その傍証を確認し、**光宗本紀「甲子…命皇子嘉王即皇帝位」・續資治通鑑巻153「甲子，太皇太后詔嘉王擴成服即位」がともに甲子（07-24）を明記**、續の「兩日不獲命」が壬戌の禫祭→2日後甲子即位を裏づけたため甲子＝07-24 を採用。duration.exactDays 11015→11013・reignSummary.totalReignDuration.approxDays 11013・displayYears 30.17 を同期、quote に續資治通鑑を追記、conversion を調停記録へ改稿。
+- **xixia-yizong（西夏毅宗諒祚）ages 日付**: deathDate 1068-12→1068-01-27。西夏書事「治平四年、夏拱化五年……十二月，国主諒祚卒」より拱化五年＝治平四年＝1067年（拱化元年1063起算）の旧暦十二月崩御で、旧暦十二月一日＝太陽暦1068-01-08。旧値は年ラベル誤認（拱化五年を1068とする）＋旧暦月番号「十二月」の無変換の二重誤り。reigns[].endDate 1068-01-27（在位中死去）と一致させ day 精度化。birthDate 1047-02-06→1047-03-05（旧暦二月六日の sxtwl 換算、無変換を是正）。数え年 accessionAge/deathAge は年ラベル不変で 1/21 のまま（accessionAge=1 は幼帝満1歳基準の既存値で数え2相当の可能性あり＝要確認事項として note に保留）。
+- **beisongmo-liuyu（齊・劉豫）note 内年ラベル矛盾**: amnestyCount[0].note「建炎四年（1134年）四月、遷都汴京」は二重誤り（建炎四年＝1130、かつ遷都汴は 1132）。宋史列伝「（紹興）二年…四月丙寅，豫遷都汴」・金史「阜昌二年，豫迁都于汴」、劉豫自身の eraChangeCount note が阜昌元年＝1131 と確定していることから **紹興二年＝阜昌二年＝1132** で一致。amnesty note を「紹興二年（阜昌二年、1132年）」へ、capitalRelocationCount[0].note の「阜昌三年」も「阜昌二年」へ訂正（遷都 date 1132-04 は不変）。
+- **zhonghuadiguo-yuanshikai（袁世凱）年齢の満年齢混入是正**: 365人で唯一 ages が満年齢（accessionAge/deathAge とも56）だったのをデータセットの数え年統一方針へ揃え accessionAge=57・deathAge=58（生1859・称帝1915・没1916、年ラベルまたぎなし）。一般に流布する「享年56」は満年齢である旨を ages.note・deathCause.note の双方に明示。
+
+**CI カバレッジ拡張（`validate_emperors.py` に3チェック追加、いずれも現データでクリーン＝将来のリグレッション検出用ガード）**:
+- `check_event_reign_range()`（エラー）: CE イベント日付が在位 ISO 年範囲外なら検出。称帝前（王号・僭称期）イベントの既知21件は `KNOWN_PREACCESSION_EVENTS` で許容（収録基準との整合は下記「称帝前イベント」参照・方針判断待ち）。events[].date の旧暦無変換等の誤変換を将来捕捉する（reigns 側はフェーズBで是正済みだが events 側は未実施）。
+- `check_reign_overlap()`（エラー）: 同一王朝内の在位重複のうち、レコードに並立・対立政権系キーワード（`COEXIST_KEYWORDS`）を一切含まないものを検出（内禅・禅譲の前帝 endDate≠次帝 startDate 同期漏れ＝光宗/寧宗型）。並立政権31件は全件キーワードで説明済みのため 0 件でクリーン。
+- `check_counting_age()`（警告）: CE 生年に限り、数え年逆算（accessionAge は startYear、deathAge は ages.deathDate 基準＝太上皇の退位後死去で誤検知しない）と2以上乖離する ages を一覧化（満年齢混入・入力ミスを可視化。±1 の旧暦年またぎは許容）。chen-feidi の原典由来 ±2 矛盾は `KNOWN_COUNTING_AGE` で許容。
+
+**称帝前イベントの計上（方針判断・未着手）**: 上記スクリーニングで、収録基準「皇帝在位中のイベント」に対し、王号・僭称期のイベント（改元・大赦・立后・遷都等）を皇帝在位カウントに計上した既知21件（9人：石虎7・李元昊4・劉淵2・慕容儁2・楊溥2・王延羲1・孫権1・黄巣1・遼太祖1）を確認。全件 note で説明済みだが `eraChangeCount` 等の表示数値に影響する。特に **qianyan-murongjun（前燕）の遷都2件のうち341年龍城は本人でなく父・慕容皝（王号期）の事績**で帰属の見直し価値があるが、遷都はグループ4の王朝単位割当方式（建国期の都を建国皇帝に帰属）と絡むため単発判断が難しい。基準を「在位中のみ」に統一するか「即位前も含める」と明文化するかはユーザー方針判断待ち（`KNOWN_PREACCESSION_EVENTS` に登録し CI は通す）。
+
 ## flags.usedEmperorTitleFrom の規約確定＋旧値3件訂正（2026-07-22、task.md 0-2）
 
 `reigns[0].startYear` と乖離する7件のうち、qianzhao-liuyuan（309→308）・suimo-liangshidu（618→617）・yuanmo-mingyuzhen（1363→1362）の3件はフェーズB在位訂正時の旧値残存で、原典キャッシュで確認のうえ訂正した。残る4件（liu-yong-liang・liang-houjing・beiwei-daowudi・beiqi-andewang-gaoyanzong）は旧暦十二月称帝がユリウス暦で翌年1月に落ちる年またぎで、規約を「歴史紀年ベース」と確定したことで正当な -1 乖離として確定（`data/schema/EMPERORS_SCHEMA.md` に明文化・`validate_emperors.py` の `check_used_emperor_title_from()` で検証）。なおこのフィールドは現時点でサイト未使用。
