@@ -50,6 +50,13 @@
         "emperors": 1,
         "edges": 6,
         "persons": 5
+      },
+      {
+        "phase": "succession",
+        "block": "ブロック3（三国）",
+        "emperors": 11,
+        "edges": 9,
+        "persons": 0
       }
     ]
   },
@@ -736,6 +743,141 @@
       "note": "後漢書光武帝紀上「世祖光武皇帝讳秀，字文叔，南阳蔡阳人，高祖九世之孙也，出自景帝生长沙定王发」「钦生光武。光武年九岁而孤，养于叔父良」。前漢高祖の九世孫・景帝の来孫にあたる血統の到達点。",
       "source": {
         "page": "後漢書 巻一上 光武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "hou-han-xiandi",
+      "to": "wei-wendi",
+      "category": "禅譲",
+      "relationToPredecessor": "外戚（その他）",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "延康元年（220年）、後漢献帝が璽綬を奉じて禅位し、曹丕が繁陽の壇で升壇即阼して魏を建てた。三国志 巻二 魏書 文帝紀「汉帝以众望在魏，乃召群公卿士，告祠高庙。使兼御史大夫张音持节奉玺绶禅位」「乃为坛於繁阳。庚午，王升坛即阼，百官陪位。事讫，降坛，视燎成礼而反。改延康为黄初，大赦。」先代への続柄は、即位時点で妹の曹節が献帝の皇后であった外戚関係を採る：後漢書 皇后紀「献穆曹皇后讳节，魏公曹操之中女也。建安十八年，操进三女宪、节、华为夫人」「及伏皇后被弒，明年，立节为皇后」、同 孝献帝紀「二十年春正月甲子，立贵人曹氏为皇后」。なお献帝の二女が曹丕の嬪となった女婿関係もあるが、これは践阼後のことで嬪（側室）でもあるため続柄には採らない：三国志 巻五 魏書 后妃伝 文昭甄皇后「黄初元年十月帝践阼践阼之后山阳公奉二女以嫔于魏」（daizhigev20 の三国志テキストは句読点なし・原文ママ）。",
+      "source": {
+        "page": "三国志 巻二 魏書 文帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wei-wendi",
+      "to": "wei-mingdi",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明帝曹叡は文帝曹丕の実子（太子）。本紀冒頭に「明皇帝讳叡，字符仲，文帝太子也」とあり、黄初7年（226年）夏五月、文帝の病篤に際して「帝病笃，乃立为皇太子。丁巳，即皇帝位，大赦」と、立太子と同月の丁巳の日に即位した。父から子への典型的な世襲継承。",
+      "source": {
+        "page": "三国志 巻三 魏書 明帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wei-mingdi",
+      "to": "wei-caofang",
+      "category": "世襲",
+      "relationToPredecessor": "養子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "三少帝紀冒頭に「明帝无子，养王及秦王询；宫省事秘，莫有知其所由来者」とあり、明帝は実子がなく曹芳（斉王）と秦王曹詢を養子として養育した。曹芳の実の出自は正史編纂時点で既に不明。景初3年正月丁亥朔「帝甚病，乃立为皇太子。是日，即皇帝位」と、危篤の明帝により立太子された当日に践祚しており、形式上は父子（養子）間の通常継承＝世襲。よって新帝は先代明帝の養子。",
+      "source": {
+        "page": "三国志 巻四 魏書 三少帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wei-caofang",
+      "to": "wei-caomao",
+      "category": "擁立",
+      "relationToPredecessor": "従兄弟",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "斉王曹芳が大将軍司馬師の主導する廃立で廃された直後、公卿の合議により高貴郷公曹髦が迎立された。本紀に「齐王废，公卿议迎立公」とあり、玄武館に至った後「遂步至太极东堂，见于太后。其日即皇帝位於太极前殿」と即位が記される。曹髦は「文帝孙，东海定王霖子也」で、皇太后令にも「昔援立东海王子髦，以为明帝嗣」とあるとおり明帝の後嗣として立てられた。先代曹芳は「明帝无子，养王及秦王询；宫省事秘，莫有知其所由来者」（斉王紀）と明帝の養子であり実父母は正史非公開のため、続柄は法的系統（曹芳=明帝の養子、曹髦=明帝の弟曹霖の子）に基づき従兄弟と判定。魏氏春秋の説（曹芳=任城王曹楷の子）に従えば血縁上は再従兄弟にあたる。なお「明皇帝嗣」の指名は祭祀上の系統であり、皇位そのものは廃された曹芳の空位を直接継承したため from は wei-caofang とする。",
+      "source": {
+        "page": "三国志 巻四 魏書 三少帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wei-caomao",
+      "to": "wei-yuandi",
+      "category": "擁立",
+      "relationToPredecessor": "その他",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "本紀に「陈留王讳奂，字景明，武帝孙，燕王宇子也」とあり、曹奐は武帝曹操の孫・燕王曹宇の子。先代の高貴郷公曹髦は文帝曹丕の孫（東海定王曹霖の子）であるため、曹奐は曹髦の父曹霖の従兄弟、すなわち曹髦の従叔父（父の従兄弟）にあたる。enum に「従叔父」がないため「その他」とする。即位は「高贵乡公卒，公卿议迎立公。六月甲寅，入于洛阳，见皇太后，是日即皇帝位于太极前殿」とあり、曹髦弑逆後の公卿迎立（実質は大将軍司馬昭主導）による擁立。なお迎立時「使使持节行中护军中垒将军司马炎北迎常道乡公璜嗣明帝后」とあり、法統上は明帝（wei-mingdi）の後嗣として立てられた。",
+      "source": {
+        "page": "三国志 巻四 魏書 三少帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "shuhan-zhaoliedi",
+      "to": "shuhan-liushan",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後主劉禅は昭烈帝劉備の子。「后主讳禅，字公嗣，先主子也」。建安24年に漢中王太子、章武元年に皇太子に立てられ（「今以禅为皇太子，以承宗庙」）、章武3年夏4月に先主が永安宮で崩じると5月に成都で襲位した（「三年夏四月，先主殂于永安宫。五月，后主袭位於成都，时年十七」）。典型的な父子間の世襲。",
+      "source": {
+        "page": "三国志 巻三十三 蜀書三 後主伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wu-dadi",
+      "to": "wu-sunliang",
+      "category": "世襲",
+      "relationToPredecessor": "子",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孫亮は孫権の末子（「孙亮字子明，权少子也」）。赤烏13年に兄の皇太子孫和が廃されて太子に立てられ（「赤乌十三年，和废，权遂立亮为太子」）、太元2年（建興元年・252年）4月の孫権死去により皇太子として即位（「权薨，太子即尊号」）。父から子への通常の世襲継承。",
+      "source": {
+        "page": "三国志 巻四十八 呉書 三嗣主伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wu-sunliang",
+      "to": "wu-jingdi",
+      "category": "擁立",
+      "relationToPredecessor": "兄",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孫休は孫権の第六子（「孙休字子烈，权第六子」）。先代孫亮は孫休の弟（「权薨，休弟亮承统」）で、権臣孫綝が孫亮を廃位した後、「孙亮废，己未，孙綝使宗正孙楷与中书郎董朝迎休」と孫綝主導で迎立され、「丞相奉玺符。休三让，群臣三请。休曰：“将相诸侯咸推寡人，寡人敢不承受玺符。”」と璽符を受けて即位した。呉政権内で先代孫亮から皇位を継承したものであり、新帝は先代の兄にあたる。",
+      "source": {
+        "page": "三国志 巻四十八 呉書 三嗣主伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": "wu-jingdi",
+      "to": "wu-modi",
+      "category": "擁立",
+      "relationToPredecessor": "甥",
+      "isRestoration": false,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孫晧は孫権の孫・廃太子孫和の子で、先代景帝孫休（孫和の弟）の甥にあたる（「孙皓字元宗，权孙，和子也」）。孫休の急死後、蜀滅亡・交阯離反の危機下で年長の君主が望まれ、左典軍万彧の推薦を受けた丞相濮陽興・左将軍張布が太后朱氏を説得して迎立した（「兴、布说休妃太后朱，欲以皓为嗣」「於是遂迎立皓，时年二十三」）。emperors.json の accessionRoute.category「擁立」と一致。",
+      "source": {
+        "page": "三国志 巻四十八 呉書 三嗣主伝",
         "lang": "zh-classical"
       }
     }
