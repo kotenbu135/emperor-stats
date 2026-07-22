@@ -15341,6 +15341,26 @@
     "大赦天下其谋反大逆及"
    ]
   },
+  "hou-han-mingdi|amnestyCount[2].note|c9f553571b74": {
+   "id": "hou-han-mingdi",
+   "path": "amnestyCount[2].note",
+   "span": "乙巳，大赦天下",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-mingdi.txt",
+   "frags": [
+    "乙巳大赦天下"
+   ]
+  },
+  "hou-han-mingdi|amnestyCount[2].note|ed20faac4d8f": {
+   "id": "hou-han-mingdi",
+   "path": "amnestyCount[2].note",
+   "span": "夏四月庚子，车驾还宫",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-mingdi.txt",
+   "frags": [
+    "夏四月庚子车驾还宫"
+   ]
+  },
   "hou-han-mingdi|empressInstallationCount[0].note|fca828497944": {
    "id": "hou-han-mingdi",
    "path": "empressInstallationCount[0].note",
@@ -42996,6 +43016,26 @@
     "是日告庙大赦改元"
    ]
   },
+  "sui-wendi|amnestyCount[11].note|d78a18c2ac68": {
+   "id": "sui-wendi",
+   "path": "amnestyCount[11].note",
+   "span": "夏四月乙卯，上不豫",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/sui-wendi.txt",
+   "frags": [
+    "夏四月乙卯上不豫"
+   ]
+  },
+  "sui-wendi|amnestyCount[11].note|f0aec5b38824": {
+   "id": "sui-wendi",
+   "path": "amnestyCount[11].note",
+   "span": "丁未，崩于大宝殿",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/sui-wendi.txt",
+   "frags": [
+    "丁未崩于大宝殿"
+   ]
+  },
   "sui-wendi|amnestyCount[2].note|4ddedad456e0": {
    "id": "sui-wendi",
    "path": "amnestyCount[2].note",
@@ -43004,6 +43044,16 @@
    "corpusFile": "_corpus_cache/sui-wendi.txt",
    "frags": [
     "将入新都大赦天下"
+   ]
+  },
+  "sui-wendi|amnestyCount[5].note|6f42a3bae497": {
+   "id": "sui-wendi",
+   "path": "amnestyCount[5].note",
+   "span": "夏四月己亥，幸驪山",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/sui-wendi.txt",
+   "frags": [
+    "夏四月己亥幸骊山"
    ]
   },
   "sui-wendi|amnestyCount[6].note|a6812762097f": {
