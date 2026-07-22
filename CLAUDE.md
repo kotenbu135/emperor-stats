@@ -29,6 +29,13 @@ npx tsc --noEmit   # 型チェック
 python3 scripts/validate_emperors.py   # スキーマ・日付整合性・reignSummary整合性・禁止出典などをチェック
 ```
 
+さらに引用・日付を追加・変更した場合は、引用実在・暦換算ゲートも必須（規約: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「引用の取り扱い規約」）：
+
+```bash
+python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py --check  # 引用照合台帳（ローカル専用）
+python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実経過日数チェック
+```
+
 ## リポジトリ構成
 
 - **`data/emperors.json`** — メインデータセット本体（`meta` + `emperors` 配列）。サイトがビルド時に直接読み込む。**メイン会話でこのファイル全体を Read しない**（約7MB）。対象人物の抽出・訂正結果のマージは `jq`/`python3` を Bash 経由で行う（詳細: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「コンテキスト効率」節）。
@@ -60,6 +67,7 @@ python3 scripts/validate_emperors.py   # スキーマ・日付整合性・reignS
 - **スクリプトによるデータの自動生成は禁止** — 人物ごと個別調査・判定が必須（日数計算等の機械的な計算補助や、確定済み調査結果の構造チェックはOK）
 - **データ正確性が最優先** — データに誤りが見つかった場合は個別調査で訂正するのが原則で、サイト側での場当たり的な補正はしません（表示破綻の回避のみ許容。既知の例は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) の申し送り事項を参照）
 - **データを訂正したら** `data/emperors.json` の該当データと関連する `meta` 情報・ドキュメントを**同じタイミングで**更新する
+- **原文引用の手打ち禁止** — 引用は `scripts/quote_helper.py`／grep のツール出力からコピーし、字体変換・要約・語順変更をしない。引用・日付の変更時は `verify_quotes.py`・`verify_calendar.py` の合格がコミット条件（[docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md)「引用の取り扱い規約」）
 
 詳細は [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md) を参照。
 

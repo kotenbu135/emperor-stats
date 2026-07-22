@@ -156,6 +156,19 @@ KNOWN_COUNTING_AGE = {
     ("chen-feidi", "deathAge"),   # 生554 vs 時年19 の原典3書共通矛盾を note に明示済み(2026-07-22)
 }
 
+# ages.note が「〜は null とした」と明記しているのにフィールドに値が入っている既知の矛盾
+# （後続パスで値を埋めた際の note 同期漏れ。2026-07-22 note 全件検証で検出・訂正待ち。
+#  値と note のどちらを正とするかは方針確認のうえ個別解消する。訂正されたら削除）
+KNOWN_NULL_SAID = {
+    ("beisong-shenzong", "accessionAge"),
+    ("beisong-zhezong", "accessionAge"), ("beisong-zhezong", "deathAge"),
+    ("nansong-duzong", "accessionAge"), ("nansong-duzong", "deathAge"),
+    ("liao-taizong", "accessionAge"),
+    ("jin-taizu", "accessionAge"),
+    ("jin-shizong", "accessionAge"),
+    ("yuan-wuzong", "accessionAge"),
+}
+
 # 在位重複判定に使う並立・対立政権系キーワード（レコード JSON 全体を対象に部分一致）。
 # これらのいずれも含まない同王朝内重複は継承同期バグの疑いとしてエラーにする。
 COEXIST_KEYWORDS = (
@@ -514,6 +527,38 @@ def check_counting_age(data):
              f"{len(hits)}件 {hits}")
 
 
+def check_note_value_sync(data):
+    """ages.note の「〜は null とした」記述とフィールド値の矛盾検出（2026-07-22 note 全件検証の恒久化）。
+
+    調査 note が「原文明記なしのため null とした」と宣言しているのに後続パスが値を埋めると、
+    note と値が矛盾したまま残る（beisong-shenzong 等 7 レコード 9 件で実在）。null 直前 40 字以内に
+    現れるフィールド名を「null 宣言されたフィールド」とみなし、そのフィールドに値が入っていれば検出。
+    既知分は KNOWN_NULL_SAID（訂正待ち・警告で件数を出し続ける）。新規発生はエラー。
+    """
+    pending = 0
+    for e in data["emperors"]:
+        a = e.get("ages") or {}
+        note = a.get("note") or ""
+        claimed = set()
+        for m in re.finditer(r"null", note):
+            back = note[max(0, m.start() - 40):m.start()]
+            for f in ("accessionAge", "deathAge"):
+                if f in back:
+                    claimed.add(f)
+        for f in claimed:
+            if a.get(f) is None:
+                continue  # note どおり null → 矛盾なし
+            if (e["id"], f) in KNOWN_NULL_SAID:
+                KNOWN_NULL_SAID.discard((e["id"], f))
+                pending += 1
+            else:
+                err(f"[note-sync] {e['id']}.ages: note は {f}=null と明記しているが値 {a[f]} が入っている"
+                    f"（note と値を同時に更新すること）")
+    if pending:
+        warn(f"[note-sync] note「null とした」と値の矛盾（検出済み・訂正待ち）: {pending} 件"
+             f"（docs/qa/note-verification-2026-07-22/REPORT.md）")
+
+
 def check_used_emperor_title_from(data):
     """flags.usedEmperorTitleFrom の規約チェック（task.md 0-2、2026-07-22 確定）。
 
@@ -733,6 +778,7 @@ def main() -> int:
     check_event_reign_range(data)
     check_reign_overlap(data)
     check_counting_age(data)
+    check_note_value_sync(data)
     check_used_emperor_title_from(data)
     check_ages(data)
     check_reign_summary(data)
@@ -750,6 +796,7 @@ def main() -> int:
         ("KNOWN_PREACCESSION_EVENTS", KNOWN_PREACCESSION_EVENTS),
         ("KNOWN_REIGN_OVERLAP", KNOWN_REIGN_OVERLAP),
         ("KNOWN_COUNTING_AGE", KNOWN_COUNTING_AGE),
+        ("KNOWN_NULL_SAID", KNOWN_NULL_SAID),
     ):
         # 消費されなかった（=データ側が既に正しい）エントリが残っていれば陳腐化
         if left:
