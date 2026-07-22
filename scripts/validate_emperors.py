@@ -82,8 +82,6 @@ KNOWN_DEATH_BEFORE_END = {
     "shiguo-nanhan-liusheng",   # 0958-08-01 < 0958-09-18
     "liao-jingzong",          # 0982-09-24 < 0982-10-13
     "liao-daozong",           # 1101-01-13 < 1101-02-12
-    "xixia-huizong",          # 1086-07 < 1086-08-21
-    "xixia-chongzong",        # 1139-06-04 < 1139-07-01
     "shun-lichengzheng",      # 1645-09 < 1645-10-01
 }
 
@@ -114,6 +112,16 @@ KNOWN_PREACCESSION_EVENTS = {
     ("qianzhao-liuyuan", "eraChangeCount", 0),            # 0304 漢王期の建元
     ("qianzhao-liuyuan", "capitalRelocationCount", 0),    # 0305 漢王期の遷都
     ("qianyan-murongjun", "capitalRelocationCount", 0),   # 0350 燕王期(即位前)の遷都。父・慕容皝の0341は2026-07-22に他者事績として削除済み
+    ("houzhao-shile", "eraChangeCount", 0),               # 0319 趙王期の建元（趙王元年）
+    ("houzhao-shile", "eraChangeCount", 1),               # 0328 趙王期の太和改元
+    ("houzhao-shile", "amnestyCount", 0),                 # 0328 趙王期の大赦
+    ("xia-helianbobo", "eraChangeCount", 0),              # 0407 天王・大単于期の龍昇建元
+    ("xia-helianbobo", "amnestyCount", 0),                # 0407 天王期の赦其境内
+    ("nanyan-murongde", "eraChangeCount", 0),             # 0398 燕王自立の称元
+    ("nanyan-murongde", "amnestyCount", 0),               # 0398 燕王期の大赦境内
+    ("houqin-yaochang", "eraChangeCount", 0),             # 0384 万年秦王期の白雀建元
+    ("houqin-yaochang", "amnestyCount", 0),               # 0384 万年秦王期の大赦境内
+    ("houyan-murongchui", "eraChangeCount", 0),           # 0384 燕王自立の燕元建元
     ("houzhao-shihu", "eraChangeCount", 0),               # 0335 趙天王期
     ("houzhao-shihu", "amnestyCount", 0),                 # 0335 趙天王期
     ("houzhao-shihu", "amnestyCount", 1),                 # 0337 大趙天王期
@@ -677,11 +685,11 @@ def check_confidence(data):
                     elif v is not None and v not in ("high", "medium", "low"):
                         err(f"[confidence] {eid}.{path}: 不正値 {v!r}")
                 if k.endswith("Precision") or k == "datePrecision":
+                    # 語彙標準は year/month/day/null（2026-07-22 ユーザー確定・正規化完了）。
+                    # 完全一致で検査（旧実装は先頭 ascii トークンのみ照合し「day（説明…）」形式を見逃していた）。
                     for val in (v.values() if isinstance(v, dict) else [v]):
-                        if isinstance(val, str):
-                            token = re.split(r"[^a-z-]", val, 1)[0]
-                            if token not in STANDARD_PRECISION_TOKENS:
-                                nonstandard_precision[val[:30]] += 1
+                        if val is not None and val not in STANDARD_PRECISION_TOKENS:
+                            err(f"[precision] {eid}.{path}.{k}: 非標準トークン {str(val)[:40]!r}（year/month/day/null のみ許可）")
                 walk_children(v, eid, path, k)
         elif isinstance(node, list):
             for i, x in enumerate(node):
@@ -693,12 +701,56 @@ def check_confidence(data):
 
     for e in data["emperors"]:
         walk(e, e["id"], "")
-    if nonstandard_precision:
-        warn(
-            f"[precision] ages/events の datePrecision 非標準トークン: "
-            f"計 {sum(nonstandard_precision.values())} 件 "
-            f"{len(nonstandard_precision)} 種（表記ゆれ・task.md 3-3 で正規化方針未確定）"
-        )
+
+
+def check_event_date_format(data):
+    """events の date/startDate/endDate は ISO 形式必須（2026-07-22 正規化完了に伴い恒久化・エラー）。
+    datePrecision は単一トークン（year/month/day/null）に加え、startDate/endDate で実確認精度が
+    異なるイベントに限り reigns[] と同形式の {"start": ..., "end": ...} オブジェクトを許可
+    （2026-07-23 混在精度44キー解消・ユーザー確定。語彙自体は check_confidence が検査）。
+    precision に対する日付深さ不足は全キーでエラー（旧実装の startDate/endDate 警告を格上げ）。"""
+    for e in data["emperors"]:
+        for g in COUNT_GROUPS:
+            o = e.get(g)
+            if not isinstance(o, dict):
+                continue
+            for i, ev in enumerate(o.get("events") or []):
+                if not isinstance(ev, dict):
+                    continue
+                prec = ev.get("datePrecision")
+                if isinstance(prec, dict):
+                    if set(prec) != {"start", "end"}:
+                        err(
+                            f"[event-date] {e['id']}.{g}[{i}]: datePrecision オブジェクトは "
+                            f"start/end の両キー必須: {prec!r}"
+                        )
+                    elif prec.get("start") == prec.get("end"):
+                        err(
+                            f"[event-date] {e['id']}.{g}[{i}]: datePrecision の start と end が"
+                            f"同値（単一トークンで表現する）: {prec!r}"
+                        )
+                    if ev.get("date") is not None:
+                        err(
+                            f"[event-date] {e['id']}.{g}[{i}]: 単一日付 date にオブジェクト形式 "
+                            f"datePrecision は使えない"
+                        )
+                for k in ("date", "startDate", "endDate"):
+                    v = ev.get(k)
+                    if v is None:
+                        continue
+                    if not isinstance(v, str) or not ISO_DATE.match(v):
+                        err(f"[event-date] {e['id']}.{g}[{i}].{k}: 非ISO形式 {str(v)[:40]!r}")
+                        continue
+                    if isinstance(prec, dict):
+                        tok = prec.get("end" if k == "endDate" else "start")
+                    else:
+                        tok = prec
+                    depth = len(v.lstrip("-").split("-"))
+                    if isinstance(tok, str) and tok in PRECISION_DEPTH and depth < PRECISION_DEPTH[tok]:
+                        err(
+                            f"[event-date] {e['id']}.{g}[{i}].{k}: datePrecision={tok} に対し"
+                            f"日付 {v} の深さが不足"
+                        )
 
 
 def check_forbidden_sources(data):
@@ -775,6 +827,7 @@ def main() -> int:
     check_ages(data)
     check_reign_summary(data)
     check_confidence(data)
+    check_event_date_format(data)
     check_forbidden_sources(data)
     check_portraits(data)
 

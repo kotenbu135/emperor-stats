@@ -108,7 +108,8 @@ interface RawEvent {
   date?: string | null;
   startDate?: string | null;
   endDate?: string | null;
-  datePrecision?: string | null;
+  /** 単一トークン、または開始・終了で精度が異なる場合の {start, end} オブジェクト（reigns[] と同形式）。 */
+  datePrecision?: string | { start?: string | null; end?: string | null } | null;
   note?: string | null;
   source?: RawSource | null;
   /** 親征のみ。 */
@@ -726,6 +727,15 @@ function normalizeDatePrecision(p: string | null | undefined): DatePrecision {
   return "year";
 }
 
+/** 開始・終了で精度が異なるイベントの {start, end} オブジェクト形式に対応した側別の解決。 */
+function precisionOf(
+  p: RawEvent["datePrecision"],
+  side: "start" | "end",
+): DatePrecision {
+  if (p && typeof p === "object") return normalizeDatePrecision(p[side]);
+  return normalizeDatePrecision(p);
+}
+
 /** "-0202-07-01"・"-0143"・"0627-01" 形式のみ受け付ける（元号表記等はnull）。 */
 const ISO_LIKE_DATE = /^(-?\d{1,4})(?:-(\d{2}))?(?:-(\d{2}))?$/;
 
@@ -773,12 +783,13 @@ function eventDateOf(ev: RawEvent): {
   if (!startRaw) return { label: null, sortKey: null };
   const start = parseEventDate(startRaw);
   if (!start) return { label: startRaw, sortKey: null };
-  const precision = normalizeDatePrecision(ev.datePrecision);
-  const s = clampToPrecision(start, precision);
+  const s = clampToPrecision(start, precisionOf(ev.datePrecision, "start"));
   let label = formatEventDate(s);
   const end = ev.endDate ? parseEventDate(ev.endDate) : null;
   if (end) {
-    const endLabel = formatEventDate(clampToPrecision(end, precision));
+    const endLabel = formatEventDate(
+      clampToPrecision(end, precisionOf(ev.datePrecision, "end")),
+    );
     if (endLabel !== label) label = `${label}〜${endLabel}`;
   }
   return {
