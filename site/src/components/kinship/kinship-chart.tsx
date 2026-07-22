@@ -77,7 +77,7 @@ export function KinshipChart({ layout }: { layout: KinshipLayout }) {
     <div className="overflow-x-auto rounded-md border border-border bg-background">
       <svg
         role="img"
-        aria-label={`系譜・即位経路グラフ(試作)。縦が時間(上が古い)、横が王朝レーン。皇帝${layout.nodes.filter((n) => n.kind === "emperor").length}人と継承エッジ${layout.edges.length}本を表示`}
+        aria-label={`系譜・即位経路グラフ(試作)。縦が時間(上が古い)、横が王朝レーン。皇帝${layout.nodes.filter((n) => n.kind === "emperor").length}人・継承エッジ${layout.edges.filter((e) => e.edgeType === "succession").length}本・血縁エッジ${layout.edges.filter((e) => e.edgeType === "kinship").length}本を表示`}
         width={layout.width}
         height={layout.height}
         viewBox={`0 0 ${layout.width} ${layout.height}`}
@@ -149,32 +149,39 @@ export function KinshipChart({ layout }: { layout: KinshipLayout }) {
         <g>
           {layout.edges.map((e) => (
             <g
-              key={`${e.from}→${e.to}`}
+              key={`${e.edgeType}:${e.from}→${e.to}`}
               opacity={dimEdge(e) ? 0.16 : 1}
               className="transition-opacity"
             >
               <path
                 d={e.path}
                 fill="none"
-                stroke="var(--seal)"
+                stroke={
+                  e.edgeType === "kinship"
+                    ? "color-mix(in srgb, var(--foreground) 42%, var(--background))"
+                    : "var(--seal)"
+                }
                 strokeWidth={2}
                 strokeLinecap="round"
                 strokeDasharray={e.disputed ? "2 5" : undefined}
-                markerEnd="url(#kinship-arrow)"
+                markerEnd={e.edgeType === "kinship" ? undefined : "url(#kinship-arrow)"}
               />
-              <text
-                x={e.labelX}
-                y={e.labelY}
-                textAnchor={e.labelAnchor}
-                className="fill-seal text-[10px]"
-                style={{
-                  paintOrder: "stroke",
-                  stroke: "var(--background)",
-                  strokeWidth: 3,
-                }}
-              >
-                {e.label}
-              </text>
+              {/* 血縁エッジはラベルを描かない(密集回避。続柄はツールチップとテキスト版で示す) */}
+              {e.edgeType === "succession" && (
+                <text
+                  x={e.labelX}
+                  y={e.labelY}
+                  textAnchor={e.labelAnchor}
+                  className="fill-seal text-[10px]"
+                  style={{
+                    paintOrder: "stroke",
+                    stroke: "var(--background)",
+                    strokeWidth: 3,
+                  }}
+                >
+                  {e.label}
+                </text>
+              )}
               {/* 当たり判定(細線のホバーを取りやすくする透明の太線) */}
               <path
                 d={e.path}

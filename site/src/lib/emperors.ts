@@ -1372,12 +1372,15 @@ interface RawKinship {
     yearsApproximate: boolean;
   }[];
   edges: {
-    type: string;
+    type: "succession" | "kinship" | "marriage";
     from: string;
     to: string;
-    category: string;
-    relationToPredecessor: string;
-    isRestoration: boolean;
+    /** succession のみ。 */
+    category?: string;
+    relationToPredecessor?: string;
+    isRestoration?: boolean;
+    /** kinship のみ。 */
+    relation?: string;
     veracity: string;
     confidence: string;
     note: string;
@@ -1437,31 +1440,25 @@ export function getKinshipGraphData(): KinshipLayout {
     };
   });
 
-  const persons: KinshipSourcePerson[] = kin.persons.map((p) => {
-    if (typeof p.birthYear !== "number" || typeof p.deathYear !== "number") {
-      throw new Error(
-        `kinship: ブリッジ人物 ${p.id} の生没年がnullです(生没年不明の配置は未実装)`,
-      );
-    }
-    return {
-      id: p.id,
-      name: p.name,
-      kind: p.kind,
-      section: p.section,
-      // kinship.jsonの年は既に天文年(KINSHIP_SCHEMA.md)。astroYear()を重ねないこと。
-      birthYear: p.birthYear,
-      deathYear: p.deathYear,
-      yearsApproximate: p.yearsApproximate,
-    };
-  });
+  const persons: KinshipSourcePerson[] = kin.persons.map((p) => ({
+    id: p.id,
+    name: p.name,
+    kind: p.kind,
+    section: p.section,
+    // kinship.jsonの年は既に天文年(KINSHIP_SCHEMA.md)。astroYear()を重ねないこと。
+    // null(不明)はそのまま渡し、配置はkinship-layout.tsが系譜エッジから推定する。
+    birthYear: p.birthYear,
+    deathYear: p.deathYear,
+    yearsApproximate: p.yearsApproximate,
+  }));
 
   const knownIds = new Set([
     ...emperors.map((e) => e.id),
     ...persons.map((p) => p.id),
   ]);
   const edges: KinshipSourceEdge[] = kin.edges.map((e) => {
-    if (e.type !== "succession") {
-      // フェーズ2以降(kinship/marriage)のエッジ描画は未実装。データが増えた時点で対応する。
+    if (e.type !== "succession" && e.type !== "kinship") {
+      // marriage等のエッジ描画は未実装。データが増えた時点で対応する。
       throw new Error(`kinship: 未対応のエッジtypeです: "${e.type}"`);
     }
     if (!knownIds.has(e.from) || !knownIds.has(e.to)) {
@@ -1470,10 +1467,12 @@ export function getKinshipGraphData(): KinshipLayout {
       );
     }
     return {
+      type: e.type,
       from: e.from,
       to: e.to,
       category: e.category,
       relationToPredecessor: e.relationToPredecessor,
+      relation: e.relation,
       veracity: e.veracity,
       confidence: e.confidence,
       noteExcerpt: truncateNote(e.note),

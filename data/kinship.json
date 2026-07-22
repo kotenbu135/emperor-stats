@@ -16,7 +16,7 @@
           "label": "継承エッジ（先代の特定＋category＋relationToPredecessor）"
         },
         "parentage": {
-          "status": "planned",
+          "status": "in-progress",
           "label": "実父・実母・養父とブリッジ人物（追尊皇帝含む）"
         },
         "interdynastic": {
@@ -43,6 +43,13 @@
         "emperors": 20,
         "edges": 14,
         "persons": 1
+      },
+      {
+        "phase": "parentage",
+        "block": "光武帝-前漢接続（先行調査）",
+        "emperors": 1,
+        "edges": 6,
+        "persons": 5
       }
     ]
   },
@@ -96,6 +103,124 @@
       "wikidata": "Q7247",
       "source": {
         "page": "漢書 巻九十九上 王莽傳上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-fa",
+      "name": "劉発",
+      "kana": "りゅうはつ",
+      "aliases": [
+        "長沙定王",
+        "劉發"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": -127,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "前漢景帝の子・長沙定王。母は唐姫（「长沙定王发，母唐姬，故程姬侍者」）。「以孝景前二年立。以其母微无宠，故王卑湿贫国。二十八年薨」により孝景前2年（前155）に長沙王に立てられ、28年で薨去（前128頃、天文年-127。立年からの機械計算のため概数扱い）。生年は原典未確認。後漢書光武帝紀上「出自景帝生长沙定王发」のとおり、光武帝に至る後漢皇統の前漢側の起点（光武帝の5世祖）。",
+      "wikidata": "Q10900206",
+      "source": {
+        "page": "漢書 巻五三 景十三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-mai",
+      "name": "劉買",
+      "kana": "りゅうばい",
+      "aliases": [
+        "舂陵節侯",
+        "舂陵侯"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "長沙定王発の子・舂陵節侯（後漢書光武帝紀上「发生舂陵节侯买」）。光武帝の高祖父。生没年はローカルコーパス（後漢書本紀・漢書表）から確認できず（調査済みだが不明）。グラフ上の配置年は前後の系譜からの推定。",
+      "wikidata": null,
+      "source": {
+        "page": "後漢書 巻一上 光武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-wai",
+      "name": "劉外",
+      "kana": "りゅうがい",
+      "aliases": [
+        "鬱林太守"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "舂陵節侯買の子・鬱林太守（後漢書光武帝紀上「买生郁林太守外」）。光武帝の曾祖父。生没年は原典から確認できず（調査済みだが不明）。グラフ上の配置年は前後の系譜からの推定。",
+      "wikidata": null,
+      "source": {
+        "page": "後漢書 巻一上 光武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-hui",
+      "name": "劉回",
+      "kana": "りゅうかい",
+      "aliases": [
+        "鉅鹿都尉"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "鬱林太守外の子・鉅鹿都尉（後漢書光武帝紀上「外生巨鹿都尉回」）。光武帝の祖父。生没年は原典から確認できず（調査済みだが不明）。グラフ上の配置年は前後の系譜からの推定。",
+      "wikidata": null,
+      "source": {
+        "page": "後漢書 巻一上 光武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-qin",
+      "name": "劉欽",
+      "kana": "りゅうきん",
+      "aliases": [
+        "南頓令"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": 3,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "一親等",
+        "経路上"
+      ],
+      "note": "光武帝の実父・南頓令（後漢書光武帝紀上「回生南顿令钦，钦生光武」）。「光武年九岁而孤，养于叔父良」により、光武帝（建平元年〔前6〕十二月生・西暦では前5年1月）が数え9歳の年＝西暦3年頃に死去（数え年の機械計算のため概数扱い）。生年は原典未確認。",
+      "wikidata": null,
+      "source": {
+        "page": "後漢書 巻一上 光武帝紀上",
         "lang": "zh-classical"
       }
     }
@@ -533,6 +658,84 @@
       "note": "献帝劉協は霊帝の中子（「孝献皇帝讳协，灵帝中子也。母王美人，为何皇后所害」）で、先代少帝弁（霊帝の長子・何皇后所生）の異母弟。中平六年（189年）四月に少帝弁が即位すると勃海王に封じられ、のち陳留王に徙封（「中平六年四月，少帝即位，封帝为勃海王，徙封陈留王」）。同年九月甲戌、董卓が実力で朝政を掌握したうえ少帝弁を廃して陳留王協を擁立し、9歳で即位した（「九月甲戌，即皇帝位，年九岁」）。皇位は同一政権（後漢）内で先代少帝弁の廃位により直接得たものであり、from は少帝弁とする。category は emperors.json の accessionRoute.category「擁立」（董卓の軍事力を背景とした廃立で本人の主体的簒奪ではないとの判定済み）をそのままコピー。",
       "source": {
         "page": "後漢書 巻九 孝献帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "han-jingdi",
+      "to": "p-liu-fa",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書景十三王伝「长沙定王发，母唐姬，故程姬侍者」。景帝十四男の一人（「唐姬生长沙定王发」）。後漢書光武帝紀上も「出自景帝生长沙定王发」と一致。",
+      "source": {
+        "page": "漢書 巻五三 景十三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-fa",
+      "to": "p-liu-mai",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書光武帝紀上「发生舂陵节侯买」。",
+      "source": {
+        "page": "後漢書 巻一上 光武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-mai",
+      "to": "p-liu-wai",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書光武帝紀上「买生郁林太守外」。",
+      "source": {
+        "page": "後漢書 巻一上 光武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-wai",
+      "to": "p-liu-hui",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書光武帝紀上「外生巨鹿都尉回」。",
+      "source": {
+        "page": "後漢書 巻一上 光武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-hui",
+      "to": "p-liu-qin",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書光武帝紀上「回生南顿令钦」。",
+      "source": {
+        "page": "後漢書 巻一上 光武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-qin",
+      "to": "hou-han-guangwudi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書光武帝紀上「世祖光武皇帝讳秀，字文叔，南阳蔡阳人，高祖九世之孙也，出自景帝生长沙定王发」「钦生光武。光武年九岁而孤，养于叔父良」。前漢高祖の九世孫・景帝の来孫にあたる血統の到達点。",
+      "source": {
+        "page": "後漢書 巻一上 光武帝紀上",
         "lang": "zh-classical"
       }
     }
