@@ -337,6 +337,13 @@
         "emperors": 18,
         "edges": 20,
         "persons": 6
+      },
+      {
+        "phase": "parentage",
+        "block": "block21",
+        "emperors": 16,
+        "edges": 18,
+        "persons": 3
       }
     ],
     "confirmedRootless": [
@@ -4901,6 +4908,86 @@
       "wikidata": "Q48769489",
       "source": {
         "page": "明史 巻一百二十三 陳友諒伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-shizhen",
+      "name": "朱世珍",
+      "kana": "しゅせいちん",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "明",
+      "birthYear": null,
+      "deathYear": 1344,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "明太祖朱元璋の実父。「父世珍，始徙濠州之钟离。生四子，太祖其季也」（明史 太祖紀一）。至正四年（1344）に妻陳氏・長男とともに死去（「太祖时年十七，父母兄相继殁，贫不克葬。里人刘继祖与之地，乃克葬，即凤阳陵也」）。洪武元年正月、明建国に際し淳皇帝・廟号仁祖を追尊（「皇考曰淳皇帝，庙号仁祖」明史 太祖紀二）。妻陳氏も淳皇后を追尊（「皇考谥曰淳皇帝，庙号仁祖，皇妣陈氏曰淳皇后」明史 志第二十七 礼五）。生年は正史に記載がなく、二次資料は1281年（英語版Wikipedia）と1283年（中文系百科）で割れるため null とした。没年1344は明史本紀の至正四年条で確認済み。",
+      "wikidata": "Q6121440",
+      "posthumous": {
+        "dynasty": "明",
+        "templeName": "仁祖",
+        "posthumousName": "淳皇帝"
+      },
+      "source": {
+        "page": "明史 本紀第一 太祖一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-biao",
+      "name": "朱標",
+      "kana": "しゅひょう",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "明",
+      "birthYear": 1355,
+      "deathYear": 1392,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "明太祖の長子・懿文太子。明史 列伝第三「兴宗孝康皇帝标，太祖长子也。母高皇后。元至正十五年生于太平陈迪家」により生年は元至正十五年＝1355年（Wikidata Q1194876 の1355-10-10とも一致）。洪武二十四年八月の陝西巡撫（「二十四年八月，敕太子巡抚陕西」）から帰還後に病み「明年四月丙子薨」（明年＝洪武二十五年＝1392年）、「谥曰懿文」。建文帝により「建文元年追尊为孝康皇帝，庙号兴宗」と皇帝号・廟号を追贈されたが、成祖（燕王）即位後に帝号を廃格され「燕王即帝位，复称懿文皇太子」（ブロック18・完顔宗幹の廃格 note と同型の帝号廃格事例）。posthumous には建文元年追尊時の帝号を記録する。",
+      "wikidata": "Q1194876",
+      "posthumous": {
+        "dynasty": "明",
+        "templeName": "興宗",
+        "posthumousName": "孝康皇帝"
+      },
+      "source": {
+        "page": "明史 列伝第三 興宗孝康皇帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-youyuan",
+      "name": "朱祐杬",
+      "kana": "しゅゆうげん",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "明",
+      "birthYear": 1476,
+      "deathYear": 1519,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "posthumous": {
+        "dynasty": "明",
+        "templeName": "睿宗",
+        "posthumousName": "知天守道洪德渊仁宽穆纯圣恭俭敬文献皇帝"
+      },
+      "wikidata": "Q912267",
+      "note": "興献王。明史列伝第三「睿宗兴献皇帝祐杬，宪宗第四子。母邵贵妃。成化二十三年封兴王。」「正德十四年薨，谥曰献。」（没年1519）。世宗（嘉靖帝）の実父で、大礼の議を経て段階的に追尊された：正徳16年（1521）本紀「冬十月己卯朔，追尊父兴献王为兴献帝」→嘉靖3年（1524）「癸丑，追尊兴献帝为本生皇考恭穆献皇帝，大赦。」→嘉靖7年（1528）「恭穆献皇帝为恭睿渊仁宽穆纯圣献皇帝」→嘉靖17年（1538）本紀「辛巳，上太宗庙号成祖，献皇帝庙号睿宗。遂奉睿宗神主祔太庙，跻武宗上。」、列伝第三「九月，加上尊谥知天守道洪德渊仁宽穆纯圣恭俭敬文献皇帝，庙号睿宗，祔太庙，位次武宗上。」（daizhigev20版明史より）。皇帝号＋廟号（睿宗）の追贈が確認できるため kind=追尊皇帝。生年1476（成化十二年）は明史に直接記載がなく Wikidata Q912267・通説による（没年1519は明史「正德十四年薨」で確認済み）。",
+      "source": {
+        "page": "明史 巻百十五 列伝第三 睿宗興献皇帝",
         "lang": "zh-classical"
       }
     }
@@ -15440,6 +15527,253 @@
       "note": "明史巻123列伝第十一（明玉珍伝附）に、玉珍即位時「立妻彭氏为皇后，子升为太子」、玉珍死去時「子升嗣，改元开熙」とあり、明昇が明玉珍の実子（皇太子→継承）であることは明確。明史太祖本紀にも「明玉珍死，子升自立」。「第n子」の排行表記は明史コーパスに存在しないため childOrder は付さない（「太子」は儲位の指名であり排行表記ではない）。",
       "source": {
         "page": "明史 巻一百二十三 列伝第十一 明玉珍",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-shizhen",
+      "to": "ming-taizu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史太祖紀冒頭に「父世珍，始徙濠州之钟离。生四子，太祖其季也」とあり実父は朱世珍。「季」（四子の末子）は非数値の排行表記のため childOrder は設定しない。洪武元年正月の即位記事で「皇考曰淳皇帝，庙号仁祖」と皇帝号・廟号を追尊（高祖考=徳祖玄皇帝・曾祖考=懿祖恒皇帝・祖考=熙祖裕皇帝の四代追尊だが、徳祖・懿祖・熙祖は収録ノードに到達しないため慕容廆前例により世珍まででとめる）。世珍の没年は至正四年（1344）「至正四年，旱蝗，大饥疫。太祖时年十七，父母兄相继殁」による。",
+      "source": {
+        "page": "明史 本紀第一 太祖一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-taizu",
+      "to": "p-zhu-biao",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史 列伝第三（興宗孝康皇帝伝）冒頭「兴宗孝康皇帝标，太祖长子也。母高皇后。元至正十五年生于太平陈迪家」により、朱標の実父は太祖朱元璋。「长子」は非数値表記のため childOrder は付さず原文を note に残す。daizhigev20/史藏/正史/明史.txt 側でも同文を確認済み。",
+      "source": {
+        "page": "明史 列伝第三 興宗孝康皇帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-biao",
+      "to": "ming-huizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 2,
+      "note": "明史 本紀第四（恭閔帝紀）冒頭「恭闵惠皇帝讳允炆。太祖孙，懿文太子第二子也。母妃吕氏」により実父は懿文太子朱標・第二子（childOrder: 2）。列伝第三の「生子五：长雄英，次建文皇帝，次允熥，次允熞，次允熙」とも整合し、長兄雄英の早世により嫡孫として皇太孫に冊立された（フェーズ1 succession の「嫡孫として世襲」判定と一致・矛盾なし）。",
+      "source": {
+        "page": "明史 本紀第四 恭閔帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-taizu",
+      "to": "ming-taizong",
+      "childOrder": 4,
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "明史 本紀第五 成祖一 冒頭「成祖启天弘道高明肇运圣武神功纯仁至孝文皇帝讳棣，太祖第四子也。母孝慈高皇后。洪武三年，封燕王。」により実父は太祖朱元璋（ming-taizu）、「太祖第四子」の明記により childOrder=4。明実録（太宗実録巻一）も太祖高皇帝（諡は圣神文武钦明启运俊德成功统天大孝）の第四子とする記述で一致する（明実録はローカルコーパスに収録がなく当該字面は引用体裁では記さない）。フェーズ1（succession）判定（甥の恵宗からの簒奪＝太祖の子として恵宗の叔父）とも矛盾なし。",
+      "source": {
+        "page": "明史 本紀第五 成祖一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-taizong",
+      "to": "ming-renzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史 本紀第八 仁宗の出自記事に「仁宗敬天体道纯诚至德弘文钦武章圣达孝昭皇帝，讳高炽，成祖长子也」とあり、実父は成祖永楽帝朱棣（ming-taizong）。「长子」は非数値表記のため childOrder は付さない。",
+      "source": {
+        "page": "明史 本紀第八 仁宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-renzong",
+      "to": "ming-xuanzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "明史本紀第九の出自記事に「宣宗宪天崇道英明神圣钦文昭武宽仁纯孝章皇帝，讳瞻基，仁宗长子也。」とあり、実父は仁宗（洪熙帝朱高熾、ming-renzong）と明記される。「长子」の表記は非数値表記規約により childOrder には変換せず原文のまま記録。フェーズ1（succession）の判定（仁宗崩御に伴う遺詔による正規の世襲継承）とも整合。",
+      "source": {
+        "page": "明史 本紀第九 宣宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-xuanzong",
+      "to": "ming-yingzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史 英宗前紀（本紀第十）冒頭に「英宗法天立道仁明诚敬昭文宪武至德广孝睿皇帝，讳祁镇，宣宗长子也。母贵妃孙氏。生四月，立为皇太子，遂册贵妃为皇后。」とあり、実父は宣宗（ming-xuanzong）。「长子」は非数値表記のため childOrder は付さない。",
+      "source": {
+        "page": "明史 本紀第十 英宗前紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-xuanzong",
+      "to": "ming-daizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史 本紀第十一（景帝）冒頭の出自記事「恭仁康定景皇帝，讳祁钰，宣宗次子也。母贤妃吴氏。英宗即位，封郕王。」により実父は宣宗（宣徳帝朱瞻基）。「次子」は「第n子」形式の明記ではないため childOrder は付さない（規約準拠・原文はこの note と passages.parent に記録）。英宗の異母弟という続柄（英宗母は孝恭孫皇后、代宗母は賢妃呉氏）とも整合し、フェーズ1 succession 判定と矛盾なし。",
+      "source": {
+        "page": "明史 本紀第十一 景帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-yingzong",
+      "to": "ming-xianzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史 本紀第十三 憲宗一の出自記事に「宪宗继天凝道诚明仁敬崇文肃武宏德圣孝纯皇帝，讳见深，英宗长子也。」とあり、実父は英宗（朱祁鎮）。「长子」は非数値表記規約により childOrder には変換せず原文のまま記録。フェーズ1の accessionRoute.note「英宗の長子」とも整合。",
+      "source": {
+        "page": "明史 本紀第十三 憲宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-xianzong",
+      "to": "ming-xiaozong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 3,
+      "primaryLineage": true,
+      "note": "『明史』孝宗紀冒頭に「孝宗达天明道纯诚中正圣文神武至仁大德敬皇帝，讳祐堂，宪宗第三子也」とあり、憲宗の第三子と明記される。childOrder=3 は「第三子」の明記による。成化十一年に皇太子に立てられ（「十一月，立为皇太子」）、成化二十三年に即位（「二十三年八月，宪宗崩。九月壬寅，即皇帝位」）。憲宗紀にも「冬十一月癸丑，立皇子祐樘为皇太子，大赦」とあり整合。フェーズ1判定（世襲・憲宗第三子）とも一致。",
+      "source": {
+        "page": "明史 本紀第十五 孝宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-xiaozong",
+      "to": "ming-wuzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史本紀第十六の出自記事「武宗承天达道英肃睿哲昭德显功弘文思孝毅皇帝，讳厚照，孝宗长子也」により実父は孝宗（弘治帝朱祐樘）と確認。「长子」は非数値の排行表記のため childOrder は付与しない。",
+      "source": {
+        "page": "明史 本紀第十六 武宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-xianzong",
+      "to": "p-zhu-youyuan",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 4,
+      "note": "明史列伝第三（追尊皇帝合伝）「睿宗兴献皇帝祐杬，宪宗第四子。母邵贵妃。成化二十三年封兴王。弘治四年建邸德安。已，改安陆。」と、憲宗の第四子であることが明記される（childOrder: 4）。生母は邵貴妃（世宗即位後の追尊記事＝本紀第十七「追尊父兴献王为兴献帝，祖母宪宗贵妃邵氏为皇太后」とも整合）。",
+      "source": {
+        "page": "明史 巻百十五 列伝第三 睿宗興献皇帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-youyuan",
+      "to": "ming-shizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史本紀第十七（世宗一）冒頭「世宗钦天履道英毅神圣宣文广武洪仁大孝肃皇帝，讳厚，宪宗孙也。父兴献王祐杬，国安陆，正德十四年薨。帝年十有三，以世子理国事。」（コーパス2種とも諱の第三字〔熜〕が欠落・flags参照）。列伝第三も「王薨二年而武宗崩，召王世子入嗣大统，是为世宗。」と一致。「第n子」の数値明記は本紀・列伝ともになく childOrder は入れない（列伝第三に「献帝有长子厚熙，生五日而殇。嘉靖四年赠岳王，谥曰怀献。」とあり世宗は実質次子だが非数値のため規約どおり note 記録のみ）。大礼の議で礼臣の「考孝宗」（孝宗の後嗣＝為後とする）廷議を世宗が拒否し実父追尊を貫いたため、確立済み境界ルールどおり孝宗への養父エッジは立てない（本紀第十七「秋七月壬子，进士张璁言，继统不继嗣，请尊崇所生，立兴献王庙于京师。初，礼臣议考孝宗，改称兴献王皇叔父，援宋程颐议濮王礼以进，不允。」、嘉靖三年「九月丙寅，定称孝宗为皇伯考，昭圣皇太后为皇伯母，献皇帝为皇考，章圣皇太后为圣母。」）。",
+      "source": {
+        "page": "明史 巻十七 本紀第十七 世宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-shizong",
+      "to": "ming-muzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 3,
+      "primaryLineage": true,
+      "note": "明史 穆宗紀冒頭の出自記事に「穆宗契天隆道渊懿宽仁显文光武纯德弘孝庄皇帝，讳载垕，世宗第三子也」とあり、実父＝世宗（嘉靖帝、ming-shizong）・第三子と明記。フェーズ1の accessionRoute.note（世宗第三子・裕王冊封後に遺詔で即位）とも一致する。",
+      "source": {
+        "page": "明史 本紀第十九 穆宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-muzong",
+      "to": "ming-shenzong",
+      "childOrder": 3,
+      "primaryLineage": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史本紀第二十（神宗一）冒頭に「神宗范天合道哲肃敦简光文章武安仁止孝显皇帝，讳翊钧，穆宗第三子也」と明記。実父は穆宗隆慶帝朱載垕（ming-muzong）、第三子（childOrder=3）。フェーズ1のaccessionRoute.note「穆宗第三子。隆慶2年（6歳）に皇太子冊立」と一致。",
+      "source": {
+        "page": "明史 本紀第二十 神宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-shenzong",
+      "to": "ming-guangzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史光宗紀（巻二十一・神宗紀と合巻）冒頭に「光宗崇天契道英睿恭纯宪文景武渊仁懿孝贞皇帝，讳常洛，神宗长子也。母恭妃王氏。万历十年八月生」とあり、実父は神宗（万暦帝）朱翊鈞。「长子」の明記あり（非数値表記のため childOrder は付さない）。万暦二十九年十月に皇太子となり（「二十九年十月，乃立为皇太子」）、神宗の遺詔により即位した。",
+      "source": {
+        "page": "明史 本紀第二十一 光宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-guangzong",
+      "to": "ming-xizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史 本紀第二十二 熹宗 冒頭に「熹宗达天阐道敦孝笃友章文襄武靖穆庄勤悊皇帝，讳由校，光宗长子也。」とあり、実父が光宗（朱常洛）であることが本紀で明記される。「长子」は非数値表記のため childOrder は付さない。フェーズ1 succession の判定（光宗長子・遺詔により皇長子として即位「九月乙亥，光宗崩，遗诏皇长子嗣皇帝位」）とも整合。",
+      "source": {
+        "page": "明史 本紀第二十二 熹宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-guangzong",
+      "to": "ming-yizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 5,
+      "primaryLineage": true,
+      "note": "明史 本紀第二十三 荘烈帝一の冒頭に「庄烈愍皇帝，讳由检，光宗第五子也，万历三十八年十二月生」とあり、実父が光宗（泰昌帝朱常洛）・第五子であることが明記される。兄・熹宗（天啓帝）の後を兄終弟及で継いだが、兄弟姉妹エッジは両者の父エッジ（ming-guangzong→ming-xizong / ming-guangzong→ming-yizong）から導出されるため作成しない。",
+      "source": {
+        "page": "明史 本紀第二十三 荘烈帝一",
         "lang": "zh-classical"
       }
     }
