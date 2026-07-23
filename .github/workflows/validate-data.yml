@@ -1,5 +1,6 @@
-# data/emperors.json の恒久 QA（task.md 3-3）。
-# チェック内容・エラー/警告の区分は scripts/validate_emperors.py の docstring を参照。
+# data/emperors.json・data/kinship.json の恒久 QA（task.md 3-3・6-3）。
+# チェック内容・エラー/警告の区分は scripts/validate_emperors.py /
+# scripts/validate_kinship.py の docstring を参照。
 name: Validate emperors data
 
 on:
@@ -8,6 +9,7 @@ on:
     paths:
       - "data/**"
       - "scripts/validate_emperors.py"
+      - "scripts/validate_kinship.py"
       - "scripts/verify_calendar.py"
       - "scripts/verify_quotes.py"
       - "scripts/hanzi_norm.py"
@@ -17,6 +19,7 @@ on:
     paths:
       - "data/**"
       - "scripts/validate_emperors.py"
+      - "scripts/validate_kinship.py"
       - "scripts/verify_calendar.py"
       - "scripts/verify_quotes.py"
       - "scripts/hanzi_norm.py"
@@ -42,6 +45,9 @@ jobs:
 
       - name: Validate emperors.json
         run: python3 scripts/validate_emperors.py
+
+      - name: Validate kinship.json
+        run: python3 scripts/validate_kinship.py
 
       # 暦換算リプレイ・exactDays 実経過日数ゲート（2026-07-22 note 全件検証の恒久化）
       - name: Verify calendar conversions

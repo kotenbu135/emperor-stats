@@ -32,6 +32,13 @@ import {
 
 export * from "@/lib/emperor-types";
 import { buildRiverTimeline, type RiverTimelineData } from "@/lib/timeline-river";
+import {
+  buildKinshipLayout,
+  type KinshipLayout,
+  type KinshipSourceEdge,
+  type KinshipSourceEmperor,
+  type KinshipSourcePerson,
+} from "@/lib/kinship-layout";
 import { kanaExpansionsOf } from "@/lib/kana-readings";
 import { CARD_SUBTITLE_OVERRIDES, cardSubtitleOf } from "@/lib/card-subtitle";
 
@@ -1107,9 +1114,9 @@ function mergeYearSpans(
 
 /** 帯の見た目を代表する区分。複数区分が混在する王朝（唐・北魏など）は正統を優先する。 */
 function bandCategory(categories: Set<DynastyCategory>): DynastyCategory {
-  if (categories.has("正統")) return "正統";
-  if (categories.has("十六国")) return "十六国";
-  return "正統（反乱・自称）";
+  if (categories.has("正統王朝")) return "正統王朝";
+  if (categories.has("並立政権")) return "並立政権";
+  return "反乱・自称政権";
 }
 
 let timelineCache: TimelineData | null = null;
@@ -1159,9 +1166,9 @@ export function getTimelineData(): TimelineData {
   }
 
   const categoryPriority: Record<DynastyCategory, number> = {
-    正統: 0,
-    "正統（反乱・自称）": 1,
-    十六国: 1,
+    正統王朝: 0,
+    "反乱・自称政権": 1,
+    並立政権: 1,
   };
   const bands: TimelineDynastyBand[] = [...byKey.values()]
     .map((w) => {
@@ -1212,11 +1219,11 @@ export function getTimelineData(): TimelineData {
     return laneEnds.length;
   };
   const mainLaneCount = packBands(
-    bands.filter((b) => b.category === "正統"),
+    bands.filter((b) => b.category === "正統王朝"),
     0,
   );
   const otherLaneCount = packBands(
-    bands.filter((b) => b.category !== "正統"),
+    bands.filter((b) => b.category !== "正統王朝"),
     mainLaneCount,
   );
 
@@ -1342,6 +1349,152 @@ let riverCache: RiverTimelineData | null = null;
 export function getRiverTimelineData(): RiverTimelineData {
   riverCache ??= buildRiverTimeline(data.emperors);
   return riverCache;
+}
+
+// --- 系譜・即位経路グラフ(/kinship・試作。構築ロジックはkinship-layout.ts) ---
+//
+// データはdata/kinship.json(フェーズ1 succession進行中)。調査はブロック3(三国)以降も
+// 継続するが、試作ページの描画スコープは意図的に秦〜後漢36人へ固定する。スコープ外の
+// persons・エッジ(端点の一方でもスコープ外のもの)はここで除外し、ビルドは調査の進行に
+// 影響されない。グラフ全体の整合性検証はscripts/validate_kinship.pyの責務で、この
+// ローダーはスコープ内の整合性のみをassertする。描画範囲を広げるときは
+// KINSHIP_SECTIONS/KINSHIP_EXTRA_IDS/KINSHIP_SCOPE_COUNTとkinship-layout.tsの
+// キュレーション表を同時に更新する。
+
+/** 描画スコープ(秦〜後漢)のsection。劉永(梁)はsectionが南朝梁と共有のためid個別指定。 */
+const KINSHIP_SECTIONS = new Set([
+  "秦（始皇帝以降）",
+  "新",
+  "漢（赤眉軍）",
+  "成家",
+  "後漢",
+  "仲家",
+]);
+const KINSHIP_EXTRA_IDS = new Set(["liu-yong-liang"]);
+/** 描画スコープの皇帝数(固定)。sectionフィルタの結果がこれとズレたら語彙変更等の事故。 */
+const KINSHIP_SCOPE_COUNT = 36;
+
+interface RawKinship {
+  persons: {
+    id: string;
+    name: string;
+    kind: string;
+    section: string;
+    birthYear: number | null;
+    deathYear: number | null;
+    yearsApproximate: boolean;
+  }[];
+  edges: {
+    type: "succession" | "kinship" | "marriage";
+    from: string;
+    to: string;
+    /** succession のみ。 */
+    category?: string;
+    relationToPredecessor?: string;
+    isRestoration?: boolean;
+    /** kinship のみ。 */
+    relation?: string;
+    veracity: string;
+    confidence: string;
+    note: string;
+    source: { page: string };
+  }[];
+}
+
+/** エッジnoteは長文(〜1KB×29本)のためRSCペイロード対策で切り詰めて渡す。 */
+function truncateNote(note: string, max = 160): string {
+  return note.length <= max ? note : `${note.slice(0, max)}…`;
+}
+
+let kinshipCache: KinshipLayout | null = null;
+export function getKinshipGraphData(): KinshipLayout {
+  if (kinshipCache) return kinshipCache;
+  const kinshipPath = path.join(process.cwd(), "..", "data", "kinship.json");
+  const kin = JSON.parse(fs.readFileSync(kinshipPath, "utf-8")) as RawKinship;
+
+  const covered = data.emperors.filter(
+    (e) => KINSHIP_SECTIONS.has(e.dynasty.section) || KINSHIP_EXTRA_IDS.has(e.id),
+  );
+  // 描画スコープの人数は固定(調査済み人数との一致assertは調査がスコープ外へ進んだ
+  // 時点で意味を失うため廃止)。ズレたらemperors.json側のsection語彙変更等の事故。
+  if (covered.length !== KINSHIP_SCOPE_COUNT) {
+    throw new Error(
+      `kinship: 対象皇帝のフィルタ結果(${covered.length}人)が描画スコープ(${KINSHIP_SCOPE_COUNT}人)と一致しません(KINSHIP_SECTIONS/KINSHIP_EXTRA_IDSかsection語彙の変更?)`,
+    );
+  }
+
+  const emperors: KinshipSourceEmperor[] = covered.map((e) => {
+    for (const r of e.reigns) {
+      if (typeof r.startYear !== "number" || typeof r.endYear !== "number") {
+        throw new Error(`kinship: ${e.id} の在位年が数値ではありません`);
+      }
+    }
+    if (e.reigns.length !== 1) {
+      // 試作範囲に複数在位者はいない前提(kinship-layout.tsはreigns[0]のみ描画する)。
+      throw new Error(
+        `kinship: ${e.id} は複数在位(${e.reigns.length}期間)です。複数カプセル+コネクタ描画の実装が必要です`,
+      );
+    }
+    return {
+      id: e.id,
+      name: displayName(e.name),
+      dynastyLabel: dynastyLabel(e.dynasty),
+      dynastyKey: dynastyKey(e.dynasty),
+      section: e.dynasty.section,
+      accessionRouteCategory: e.accessionRoute?.category ?? "不詳",
+      reigns: e.reigns.map((r) => ({
+        a: astroYear(r.startYear),
+        b: astroYear(r.endYear),
+        isRestoration: r.isRestoration,
+      })),
+    };
+  });
+
+  // ブリッジ人物もスコープ内sectionのみ描画(スコープ外ブロックの調査が進んでも無視)。
+  const persons: KinshipSourcePerson[] = kin.persons
+    .filter((p) => KINSHIP_SECTIONS.has(p.section))
+    .map((p) => ({
+      id: p.id,
+      name: p.name,
+      kind: p.kind,
+      section: p.section,
+      // kinship.jsonの年は既に天文年(KINSHIP_SCHEMA.md)。astroYear()を重ねないこと。
+      // null(不明)はそのまま渡し、配置はkinship-layout.tsが系譜エッジから推定する。
+      birthYear: p.birthYear,
+      deathYear: p.deathYear,
+      yearsApproximate: p.yearsApproximate,
+    }));
+
+  const knownIds = new Set([
+    ...emperors.map((e) => e.id),
+    ...persons.map((p) => p.id),
+  ]);
+  const edges: KinshipSourceEdge[] = kin.edges
+    // 端点の一方でもスコープ外のエッジは描画対象外(例: 献帝→魏文帝の禅譲は三国
+    // ブロック調査後もスコープを広げるまで描かない)。スコープ内で端点が解決しない
+    // 事故はvalidate_kinship.py(グラフ全体の参照整合)が検出する。
+    .filter((e) => knownIds.has(e.from) && knownIds.has(e.to))
+    .map((e) => {
+      if (e.type !== "succession" && e.type !== "kinship") {
+        // marriage等のエッジ描画は未実装。データが増えた時点で対応する。
+        throw new Error(`kinship: 未対応のエッジtypeです: "${e.type}"`);
+      }
+      return {
+        type: e.type,
+        from: e.from,
+        to: e.to,
+        category: e.category,
+        relationToPredecessor: e.relationToPredecessor,
+        relation: e.relation,
+        veracity: e.veracity,
+        confidence: e.confidence,
+        noteExcerpt: truncateNote(e.note),
+        sourcePage: e.source.page,
+      };
+    });
+
+  kinshipCache = buildKinshipLayout({ emperors, persons, edges });
+  return kinshipCache;
 }
 
 export interface PortraitCredit {

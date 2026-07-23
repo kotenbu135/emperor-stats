@@ -12283,6 +12283,27 @@
    "status": "manual",
    "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
   },
+  "han-pingdi|ages.note|7b47f385967b": {
+   "id": "han-pingdi",
+   "path": "ages.note",
+   "span": "成帝时，中山孝王无子，上以卫氏吉祥，以子豪少女配孝王。元延四年，生平帝。",
+   "status": "corpus",
+   "corpusFile": "china-history/汉书/传/第七十三章-外戚传下-原文.html",
+   "frags": [
+    "成帝时中山孝王无子上",
+    "以子豪少女配孝王元延"
+   ]
+  },
+  "han-pingdi|ages.note|ae6aa3939c09": {
+   "id": "han-pingdi",
+   "path": "ages.note",
+   "span": "平帝年二岁，孝王薨，代为王",
+   "status": "corpus",
+   "corpusFile": "china-history/汉书/传/第七十三章-外戚传下-原文.html",
+   "frags": [
+    "平帝年二岁孝王薨代为"
+   ]
+  },
   "han-pingdi|ages.note|c5390548d0b8": {
    "id": "han-pingdi",
    "path": "ages.note",
@@ -12293,6 +12314,16 @@
     "歳太皇太后临",
     "太后临朝大司",
     "朝大司马莽秉"
+   ]
+  },
+  "han-pingdi|ages.note|d85081c8ed62": {
+   "id": "han-pingdi",
+   "path": "ages.note",
+   "span": "年三岁嗣立为王",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/han-pingdi.txt",
+   "frags": [
+    "年三岁嗣立为王"
    ]
   },
   "han-pingdi|amnestyCount.note|2f7781a80a34": {
@@ -18066,6 +18097,16 @@
    "status": "manual",
    "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
   },
+  "houyan-murongbao|accessionRoute.note|cebb212fecc1": {
+   "id": "houyan-murongbao",
+   "path": "accessionRoute.note",
+   "span": "垂死，其年宝嗣伪位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houyan-murongbao.txt",
+   "frags": [
+    "垂死其年宝嗣伪位"
+   ]
+  },
   "houyan-murongbao|ages.note|7750d2237b50": {
    "id": "houyan-murongbao",
    "path": "ages.note",
@@ -20823,6 +20864,16 @@
    "frags": [
     "二十九年正月壬辰朔上",
     "癸巳上崩于福安殿寿六"
+   ]
+  },
+  "jin-simalun|accessionRoute.note|55db5aa2299d": {
+   "id": "jin-simalun",
+   "path": "accessionRoute.note",
+   "span": "宣帝第九子也",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/地理/陕西通志.txt",
+   "frags": [
+    "宣帝第九子也"
    ]
   },
   "jin-simalun|amnestyCount.note|3656de7bfe39": {
@@ -52329,6 +52380,16 @@
     "绪又使射生将王甫入城"
    ]
   },
+  "tangmo-li-yun|ages.note|f2301aae207f": {
+   "id": "tangmo-li-yun",
+   "path": "ages.note",
+   "span": "嗣襄王煴，肃宗之玄孙也",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "嗣襄王煴肃宗之玄孙也"
+   ]
+  },
   "tangmo-li-yun|eraChangeCount.note|4976d18572d0": {
    "id": "tangmo-li-yun",
    "path": "eraChangeCount.note",
@@ -57289,6 +57350,26 @@
    "frags": [
     "凤历元年二月十七日象",
     "禁军千人突入宫城遂诛"
+   ]
+  },
+  "wudai-houtang-mindi|accessionRoute.note|1bebe084bd71": {
+   "id": "wudai-houtang-mindi",
+   "path": "accessionRoute.note",
+   "span": "明宗第三子也",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houtang-mindi.txt",
+   "frags": [
+    "明宗第三子也"
+   ]
+  },
+  "wudai-houtang-mindi|accessionRoute.note|9d7012e60bfb": {
+   "id": "wudai-houtang-mindi",
+   "path": "accessionRoute.note",
+   "span": "明宗第五子从厚也",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/皇极典登极部.txt",
+   "frags": [
+    "明宗第五子从厚也"
    ]
   },
   "wudai-houtang-mindi|ages.note|67e9e83a0654": {

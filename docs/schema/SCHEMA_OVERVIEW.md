@@ -1,5 +1,9 @@
 # スキーマ参照ガイド
 
+## kinship.json（系譜・即位経路グラフ・調査中）
+
+全皇帝を親子・養子・婚姻・即位経路のエッジで結ぶグラフデータ（別ファイル `data/kinship.json`）。スキーマ・ブリッジ人物の収録基準・調査計画は **[data/schema/KINSHIP_SCHEMA.md](../../data/schema/KINSHIP_SCHEMA.md)** を参照。
+
 ## emperors.json のスキーマ
 
 詳細な型・値域・具体例は **[data/schema/EMPERORS_SCHEMA.md](../../data/schema/EMPERORS_SCHEMA.md)** を参照してください。
@@ -40,7 +44,7 @@
   - `regnalTitle`: 常に `"皇帝"`
 - **`dynasty`**: 王朝情報
   - `name`: 王朝名
-  - `category`: `正統` / `十六国` / `正統（反乱・自称）` など
+  - `category`: `正統王朝` / `並立政権` / `反乱・自称政権` の3値（旧値 `正統`/`十六国`/`正統（反乱・自称）` を2026-07-23にサイト表示語彙へ統一）
   - `section`: wikitext 上の見出し
 
 ### 在位期間: `reigns` 配列
