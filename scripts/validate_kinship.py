@@ -27,7 +27,9 @@
     ため、Wikipedia 等の禁止出典だけでなく正史書名として認識できない表記不備も検出される）
 
 網羅性チェック（meta.status.phases の該当フェーズが completed のときのみ有効化・エラー）:
-  - succession 完了後: 全皇帝が主エッジを持つ、または accessionRoute=建国/不詳/諸説あり
+  - succession 完了後: 全皇帝が succession エッジを持つ（disputed 主エッジのみ・復位エッジ
+    のみでも可）、または accessionRoute=建国/不詳/諸説あり、または meta.confirmedRootless
+    （原典確認済みの並立根・傀儡根リスト。id 実在・reason 必須・陳腐化は常時検証）に記載
   - parentage 完了後: 実父エッジを持たない皇帝を警告で列挙（「調査済みだが不明」の確定は
     ブロック調査ノート側で担保するため、機械判定はエラーにしない）
 
@@ -142,11 +144,14 @@ def check_persons(persons, emperor_ids, sections) -> dict[str, str]:
     return seen
 
 
-def check_edges(edges, emperor_ids, gender_by_person, accession_by_id):
+def check_edges(edges, emperor_ids, gender_by_person, accession_by_id,
+                restoration_reigns_by_id):
     person_ids = set(gender_by_person)
     node_ids = emperor_ids | person_ids
     dedup = Counter()
     primary_by_emperor = Counter()
+    restoration_by_emperor = Counter()
+    succession_covered: set[str] = set()  # succession エッジ（disputed・復位含む）を持つ皇帝
     verified_father_by_child = Counter()
     primary_lineage_by_child = Counter()
     parent_edges: list[tuple[str, str]] = []  # (親, 子)
@@ -159,14 +164,18 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id):
         if et not in EDGE_TYPE_ENUM:
             err(f"[edges] {label}: type が不正: {et!r}")
             continue
+        # 先代不在型復位（KINSHIP_SCHEMA.md: 復位時に皇位を得た相手が存在しない場合。
+        # 例: 宣統帝の張勲復辟1917・満洲国1934）は復位エッジに限り from=null を許容する
+        rootless_restoration = (
+            et == "succession" and f is None and e.get("isRestoration") is True)
         bad_endpoint = False
         for end, v in (("from", f), ("to", t)):
-            if v not in node_ids:
+            if v not in node_ids and not (end == "from" and rootless_restoration):
                 err(f"[edges] {label}: {end} が実在ノードでない: {v!r}")
                 bad_endpoint = True
         if bad_endpoint:
             continue
-        referenced.update((f, t))
+        referenced.update(v for v in (f, t) if v is not None)
         if f == t:
             err(f"[edges] {label}: 自己ループ")
         if e.get("veracity") not in VERACITY_ENUM:
@@ -178,6 +187,8 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id):
         if et == "succession":
             if t not in emperor_ids:
                 err(f"[edges] {label}: succession の to が皇帝でない")
+            else:
+                succession_covered.add(t)
             cat = e.get("category")
             if cat not in CATEGORY_ENUM:
                 err(f"[edges] {label}: category が不正: {cat!r}")
@@ -203,7 +214,13 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id):
             else:
                 if cat != "復位":
                     err(f"[edges] {label}: isRestoration:true なのに category={cat!r}")
-            dedup[("succession", f, t, e.get("isRestoration"), disputed)] += 1
+                restoration_by_emperor[t] += 1
+            key = ("succession", f, t, e.get("isRestoration"), disputed)
+            if rootless_restoration:
+                # 先代不在型復位は from で区別できないため重複判定から除外する
+                # （本数は下の「復位在位数を超えない」チェックで上限を検査する）
+                key += (i,)
+            dedup[key] += 1
 
         elif et == "kinship":
             rel = e.get("relation")
@@ -245,6 +262,10 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id):
     for t, c in primary_by_emperor.items():
         if c > 1:
             err(f"[edges] 主継承エッジ（isRestoration:false）が複数 ×{c}: {t}")
+    for t, c in restoration_by_emperor.items():
+        allowed = restoration_reigns_by_id.get(t, 0)
+        if c > allowed:
+            err(f"[edges] 復位エッジ {c}本が emperors.json の復位在位数 {allowed} を超える: {t}")
     for t, c in verified_father_by_child.items():
         if c > 1:
             err(f"[edges] verified の実父エッジが複数 ×{c}: {t}")
@@ -283,7 +304,7 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id):
                 warn(f"[edges] 兄弟姉妹エッジ {e.get('from')}<->{e.get('to')} は共通親 "
                      f"{sorted(common)} から導出可能（明示エッジ不要の疑い）")
 
-    return referenced, primary_by_emperor, parents_of
+    return referenced, primary_by_emperor, succession_covered, parents_of
 
 
 def check_claims(claims, emperor_ids):
@@ -296,13 +317,30 @@ def check_claims(claims, emperor_ids):
         check_source(label, c.get("source"))
 
 
-def check_coverage(meta, emperors, primary_by_emperor, parents_of):
+def check_coverage(meta, emperors, emperor_ids, succession_covered, parents_of):
     phases = meta.get("status", {}).get("phases", {})
+    # confirmedRootless（原典確認済みの並立根・傀儡根）の構造検証は常時行う
+    confirmed: set[str] = set()
+    for i, c in enumerate(meta.get("confirmedRootless", [])):
+        cid = c.get("id")
+        label = f"confirmedRootless[{i}]({cid})"
+        if cid not in emperor_ids:
+            err(f"[coverage] {label}: id が emperors.json に存在しない")
+            continue
+        if not c.get("reason"):
+            err(f"[coverage] {label}: reason が空")
+        if cid in confirmed:
+            err(f"[coverage] {label}: id 重複")
+        if cid in succession_covered:
+            err(f"[coverage] {label}: succession エッジを持つ皇帝が登録されている"
+                "（陳腐化・エントリを削除すること）")
+        confirmed.add(cid)
     if phases.get("succession", {}).get("status") == "completed":
         for e in emperors:
             route = e["accessionRoute"]["category"]
-            if e["id"] not in primary_by_emperor and route not in ROOT_CATEGORIES:
-                err(f"[coverage] succession 完了済みだが主継承エッジがない: "
+            if (e["id"] not in succession_covered and route not in ROOT_CATEGORIES
+                    and e["id"] not in confirmed):
+                err(f"[coverage] succession 完了済みだが継承エッジがない: "
                     f"{e['id']} (accessionRoute={route})")
     # TODO(両フェーズ完了時に実装): relationToPredecessor と kinship グラフから導出した
     # 続柄の突合（KINSHIP_SCHEMA.md の網羅性チェック3項目め。succession/parentage の
@@ -332,13 +370,16 @@ def main() -> int:
 
     sections = {e["dynasty"]["section"] for e in emperors}
     gender_by_person = check_persons(kin.get("persons", []), emperor_ids, sections)
-    referenced, primary_by_emperor, parents_of = check_edges(
-        kin.get("edges", []), emperor_ids, gender_by_person, accession_by_id)
+    restoration_reigns_by_id = {
+        e["id"]: sum(1 for r in e["reigns"] if r.get("isRestoration")) for e in emperors}
+    referenced, primary_by_emperor, succession_covered, parents_of = check_edges(
+        kin.get("edges", []), emperor_ids, gender_by_person, accession_by_id,
+        restoration_reigns_by_id)
     orphan = set(gender_by_person) - referenced
     if orphan:
         err(f"[persons] 孤立ブリッジ（どのエッジからも参照されない）: {sorted(orphan)}")
     check_claims(kin.get("genealogicalClaims", []), emperor_ids)
-    check_coverage(kin.get("meta", {}), emperors, primary_by_emperor, parents_of)
+    check_coverage(kin.get("meta", {}), emperors, emperor_ids, succession_covered, parents_of)
 
     for w in warnings:
         print(f"WARN  {w}")

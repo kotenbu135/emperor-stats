@@ -4,7 +4,7 @@
     "description": "data/emperors.json 収録の全皇帝365人を親子・兄弟・養子・婚姻・即位経路のエッジで結んだ系譜グラフ。皇帝ノードの実体は emperors.json 側にあり id で参照する。非皇帝のブリッジ人物（追尊皇帝・宗室・婚姻当事者等）のみ persons 配列に実体を持つ。スキーマ・収録基準・調査計画は data/schema/KINSHIP_SCHEMA.md を参照。",
     "schemaVersion": "1.0.0",
     "version": "2026.07",
-    "generatedAt": "2026-07-22",
+    "generatedAt": "2026-07-23",
     "license": {
       "note": "emperors.json と同じ二重ライセンス構成（データ=CC BY 4.0／コード=MIT）。機械可読の詳細は emperors.json の meta.license を参照"
     },
@@ -12,7 +12,7 @@
       "overall": "in-progress",
       "phases": {
         "succession": {
-          "status": "in-progress",
+          "status": "completed",
           "label": "継承エッジ（先代の特定＋category＋relationToPredecessor）"
         },
         "parentage": {
@@ -197,6 +197,64 @@
         "emperors": 11,
         "edges": 13,
         "persons": 1
+      }
+    ],
+    "confirmedRootless": [
+      {
+        "id": "gengshi-di",
+        "reason": "緑林軍諸将による擁立。新末の並立政権で先行政権からの皇位授受なし（ブロック2で原文確認済み）"
+      },
+      {
+        "id": "liu-penzi",
+        "reason": "赤眉軍による擁立。先行政権からの皇位授受なし（ブロック2で原文確認済み）"
+      },
+      {
+        "id": "liu-song-liuzixun",
+        "reason": "義嘉の乱での奉戴により尋陽で称帝。宋明帝と並立し皇位授受なし（ブロック5で原文確認済み）"
+      },
+      {
+        "id": "liang-xiaozhengde",
+        "reason": "侯景による傀儡擁立。武帝在位中の並立で皇位授受なし（ブロック6で原文確認済み）"
+      },
+      {
+        "id": "liang-xiaoji",
+        "reason": "益州での自立称帝。元帝と並立し先行皇帝からの皇位授受なし（ブロック6で原文確認済み）"
+      },
+      {
+        "id": "liang-xiaozhuang",
+        "reason": "王琳による擁立。陳・後梁と並立し先行皇帝からの皇位授受なし（ブロック6で原文確認済み）"
+      },
+      {
+        "id": "beiwei-yuanhao",
+        "reason": "梁の支援下で入洛し称帝。孝荘帝と並立、梁の冊封・支援は冊封境界ルールで from 対象外（ブロック10で原文確認済み）"
+      },
+      {
+        "id": "beiwei-houfeidi-yuanlang",
+        "reason": "高歓による擁立。節閔帝と並立し皇位授受なし（ブロック10で原文確認済み）"
+      },
+      {
+        "id": "tangmo-li-chenghong",
+        "reason": "吐蕃による長安占領下の傀儡擁立。冊封境界ルールで from 対象外（ブロック14で原文確認済み）"
+      },
+      {
+        "id": "tangmo-li-yun",
+        "reason": "朱玫による擁立。僖宗と並立し皇位授受なし（ブロック14で原文確認済み）"
+      },
+      {
+        "id": "wudai-houjin-gaozu",
+        "reason": "契丹（遼太宗）の冊立による即位。外国君主への from は冊封境界ルールで禁止（ブロック15で原文確認済み）"
+      },
+      {
+        "id": "beisongmo-zhangbangchang",
+        "reason": "金による傀儡擁立（楚）。冊封境界ルールで from 対象外（ブロック17で原文確認済み）"
+      },
+      {
+        "id": "beisongmo-liuyu",
+        "reason": "金による傀儡擁立（斉）。冊封境界ルールで from 対象外（ブロック17で原文確認済み）"
+      },
+      {
+        "id": "yuanmo-hanlin-er",
+        "reason": "劉福通による擁立（宋政権）。先行政権からの継承なし（ブロック21で原文確認済み）"
       }
     ]
   },
@@ -5477,6 +5535,36 @@
       "source": {
         "page": "清史稿 本紀二十五 宣統皇帝本紀",
         "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "succession",
+      "from": null,
+      "to": "qing-xuantong",
+      "category": "復位",
+      "relationToPredecessor": "その他",
+      "isRestoration": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "復位エッジ（1917年張勲復辟、在位1917-07-01〜07-12）。該当原文は確認できず（正史範囲外。清史稿の記述は宣統3年12月（1912年2月）の遜位まで。1917年7月1日、張勲が北京で溥儀を擁して清朝復辟を宣言し溥儀は再び皇帝を称したが、段祺瑞率いる討逆軍に鎮圧され7月12日に退位した——川島真『近代国家への模索1894-1925』および同時代の新聞・『政府公報』による。emperors.json の当該在位 reigns の duration.source と同一典拠・同事象で検証済み）。復辟時の中華民国に皇帝は存在せず、復位時に皇位を得た相手が存在しないため from=null（先代不在型復位）。relationToPredecessor は先代不在のため「その他」とする。",
+      "source": {
+        "page": "正史範囲外（清史稿の記述は1908-1912年のみ）。川島真『近代国家への模索1894-1925』（岩波新書、2010年）および同時代の新聞（『新聞報』『北京日報』『時事新報』『神州日報』、1917年6-7月）・『政府公報』各号",
+        "lang": "ja/zh"
+      }
+    },
+    {
+      "type": "succession",
+      "from": null,
+      "to": "qing-xuantong",
+      "category": "復位",
+      "relationToPredecessor": "その他",
+      "isRestoration": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "復位エッジ（1934年満洲国皇帝即位、在位1934-03-01〜1945-08-18）。該当原文は確認できず（正史範囲外。1932年に満洲国執政に就任した溥儀は1934年3月1日に満洲国皇帝に即位し元号を康徳とした——JACAR収蔵『満洲国政府公報日訳』康徳元年三月分の即位詔書による。emperors.json の当該在位 reigns の duration.source と同一典拠・同事象で検証済み）。満洲国執政からの即位であり先行皇帝からの実質的な皇位授受はなく、日本（関東軍）による擁立支援は冊封境界ルールにより from 対象外のため from=null（先代不在型復位）。relationToPredecessor は先代不在のため「その他」とする。",
+      "source": {
+        "page": "『満洲国政府公報日訳』康徳元年三月分（第1号～第22号）JACAR Ref.A06031010800",
+        "lang": "ja"
       }
     }
   ],
