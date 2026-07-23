@@ -375,6 +375,22 @@
           "cl-beiyan-beiwei": "rejected",
           "cl-houyan-beiwei": "adopted"
         }
+      },
+      {
+        "phase": "interdynastic",
+        "block": "interdynastic ブロック2（隋唐6クラスタ）",
+        "clusters": 6,
+        "edges": 23,
+        "persons": 11,
+        "claims": 0,
+        "verdicts": {
+          "cl-houliang-sui": "adopted",
+          "cl-liang-chen": "adopted",
+          "cl-liang-houjing": "adopted",
+          "cl-guanlong": "adopted",
+          "cl-beizhou-sui": "adopted",
+          "cl-tang-wuzhou": "adopted"
+        }
       }
     ],
     "confirmedRootless": [
@@ -5564,6 +5580,253 @@
       "wikidata": null,
       "source": {
         "page": "魏書 巻十三 皇后列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-shi-yangdi",
+      "name": "蕭氏（煬帝愍皇后）",
+      "kana": "しょうし",
+      "kind": "后妃・公主",
+      "gender": "female",
+      "section": "隋",
+      "birthYear": null,
+      "deathYear": 647,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "婚姻当事者"
+      ],
+      "note": "隋煬帝の皇后・蕭氏（諡は愍皇后）。後梁明帝蕭巋の女。隋書巻三十六后妃伝に「炀帝萧皇后，梁明帝岿之女也。江南风俗，二月生子者不举。后以二月生，由是季父岌收而养之。」とあり（北史巻十四は「炀帝愍皇后萧氏，梁明帝岿之女也」）、二月生まれを忌む江南の風俗により季父蕭岌・次いで舅氏張軻の家で養育された。開皇二年（582）に晋王楊広の妃に選ばれ（周書巻四十八「开皇二年，隋文帝备礼纳岿女为晋王妃。」、隋書「岿迎后于舅氏，令使者占之，曰：“吉。”于是遂策为王妃。」）、煬帝即位後の大業元年（605）に立后（隋書帝紀第三「立妃萧氏为皇后」）。隋滅亡後は宇文化及の乱に従い聊城へ、化及の敗後は竇建徳のもとに置かれ、突厥の処羅可汗の可賀敦であった隋の義成公主（北史表記は义城公主）が使者を遣わして迎え突厥へ入り、唐の貞観4年（630）の突厥平定後に礼をもって京師へ帰還した（隋書「及宇文氏之乱，随军至聊城。化及败，没于窦建德。突厥处罗可汗遣使迎后于洺州，建德不敢留，遂入于虏庭。大唐贞观四年，破灭突厥，乃以礼致之，归于京师。」）。北史「二十一年，殂。诏以皇后礼于扬州合葬于炀帝陵，谥曰愍。」により貞観21年（647）没・煬帝陵に合葬。生年は正史に記載なし（生月「二月生」のみ。二次資料は566/567年頃とする）。元徳太子楊昭・斉王暕の生母（隋書巻五十九「炀帝三男，萧皇后生元德太子昭、齐王暕，萧嫔生赵王杲。」）。",
+      "wikidata": "Q1066885",
+      "source": {
+        "page": "隋書 巻三十六 列伝第一 后妃（煬帝蕭皇后）／北史 巻十四 列伝第二 后妃下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-yan-liang",
+      "name": "柳偃",
+      "kana": "りゅうえん",
+      "kind": "外戚",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": 550,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上",
+        "婚姻当事者"
+      ],
+      "note": "河東解の柳氏。斉の柳世隆の孫・梁の柳惲の少子（南史 巻三十八「少子偃字彦游，年十二，梁武帝引见」）。梁武帝の女長城公主を尚して駙馬都尉を拝し、大宝中（550〜551年）に鄱陽太守として卒官：「父偃，尚梁武帝女长城公主，拜驸马都尉，大宝中，为鄱阳太守，卒官」（陳書 巻七 皇后伝）。南史は「诏尚武帝女长城公主，拜驸马都尉、都亭侯，位鄱阳内史，卒」と官名を内史に作る。陳宣帝柳皇后（柳敬言 p-liu-jingyan）の実父。deathYear=550 は「大宝中」の概数（範囲550〜551）。生年不明。",
+      "wikidata": "Q26197838",
+      "source": {
+        "page": "陳書 巻七 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-shi-liu-yan",
+      "name": "長城公主",
+      "kana": "ちょうじょうこうしゅ",
+      "kind": "后妃・公主",
+      "gender": "female",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "婚姻当事者"
+      ],
+      "note": "梁武帝蕭衍の女（皇女）。諱・生母・排行・生没年は正史に見えず、判定指針に従い封号「長城公主」で立項。「父偃，尚梁武帝女长城公主，拜驸马都尉」（陳書 巻七 皇后伝）・「诏尚武帝女长城公主，拜驸马都尉、都亭侯」（南史 巻三十八 柳元景伝）により柳偃への降嫁が確認できる。女の柳敬言（陳宣帝柳皇后）が侯景の乱で江陵の梁元帝を頼った際、「元帝以长城公主之故，待遇甚厚」（陳書 巻七 皇后伝）と公主の縁故により厚遇された。梁帝室と陳帝室を結ぶ縁戚チェーンの結節点。",
+      "wikidata": null,
+      "source": {
+        "page": "陳書 巻七 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-jingyan",
+      "name": "柳敬言",
+      "kana": "りゅうけいげん",
+      "kind": "后妃・公主",
+      "gender": "female",
+      "section": "南朝",
+      "birthYear": 533,
+      "deathYear": 615,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "婚姻当事者"
+      ],
+      "note": "陳宣帝（高宗）の皇后・後主陳叔宝の生母。「高宗柳皇后，讳敬言，河东解人也」「曾祖世隆，齐侍中、司空、尚书令、贞阳忠武公。祖恽，有重名于梁代，官至秘书监，赠侍中、中护军。父偃，尚梁武帝女长城公主，拜驸马都尉」（陳書 巻七 皇后伝）。江陵で梁元帝により陳頊（後の宣帝）に配され、承聖2年（553年）に後主を生んだ：「及高宗赴江陵，元帝以后配焉。承圣二年，后生后主于江陵」。「天嘉二年，与后主还朝，后为安成王妃。高宗即位，立为皇后」。陳滅亡後は長安に入り、「陈亡入长安，大业十一年薨于东都，年八十三，葬洛阳之邙山」（陳書）により大業11年（615年）に数え83歳で薨去→生年533年。ただし南史 巻十二は「隋大业十二年，薨于东都，年八十三」（616年薨・生年534）と1年異なるため yearsApproximate=true。また陳書の「大宝中，为鄱阳太守，卒官。后时年九岁」は生年533と整合しない内部矛盾がある（flags 参照）。",
+      "wikidata": "Q712175",
+      "source": {
+        "page": "陳書 巻七 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-shi-houjing",
+      "name": "蕭氏",
+      "kana": "しょうし",
+      "kind": "后妃・公主",
+      "gender": "female",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "婚姻当事者"
+      ],
+      "note": "臨賀王蕭正徳の女・侯景の妻。諱は正史に記載なし。梁書巻五十六侯景伝「十一月，景立萧正德为帝，即伪位于仪贤堂，改年曰正平。初，童谣有“正平”之言，故立号以应之。景自为相国、天柱将军，正德以女妻之」（太清2年＝548年11月）。南史巻八十賊臣伝にも同文「正德以女妻之」あり。生没年は原典に記載なし。",
+      "wikidata": null,
+      "source": {
+        "page": "梁書 巻五十六 侯景伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liyang-gongzhu",
+      "name": "溧陽公主",
+      "kana": "りつようこうしゅ",
+      "kind": "后妃・公主",
+      "gender": "female",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "婚姻当事者"
+      ],
+      "note": "簡文帝蕭綱の女・侯景の妻。南史巻八梁本紀下「初，景纳帝女溧阳公主，公主有美色，景惑之，妨于政事」。生母は范淑妃（南史巻八十賊臣伝「溧阳主与其母范淑妃东向坐」）。侯景敗死後、市中で分食された侯景の肉を公主も食した（南史巻八十「百姓争取屠脍羹食皆尽，并溧阳主亦预食例」）。諱（俗に萧妙淽）・生年（俗説536年）は二次資料のみで原典に確認できず null。梁書には溧陽公主の呼称の記事が確認できない。",
+      "wikidata": null,
+      "source": {
+        "page": "南史 巻八 梁本紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-dugu-xin",
+      "name": "独孤信",
+      "kana": "どっこしん",
+      "kind": "外戚",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": 503,
+      "deathYear": 557,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "西魏・北周の柱国大将軍・大司馬・衛国公。「独孤信，云中人也，本名如愿。」（周書 巻十六 独孤信伝）。三人の娘がそれぞれ北周明帝皇后・唐追尊元貞皇后・隋文献皇后となった:「信长女，周明敬后；第四女，元贞皇后；第七女，隋文献后。周隋及皇家，三代皆为外戚，自古以来，未之有也。」。趙貴誅殺後に連座して免官され、宇文護に自尽を強いられた:「赵贵诛后，信以同谋坐免。居无几，晋公护又欲杀之，以其名望素重，不欲显其罪，逼令自尽于家。时年五十五。」。孝閔帝紀では孝閔帝元年（557年）三月「己酉，柱国、卫国公独孤信赐死」。生年503は557年没・时年五十五（数え年）からの逆算。隋文帝受禅後に太師・上柱国・趙国公を追贈され「谥曰景」（皇帝号ではないため posthumous は付さない）。父库者（領民酋長）以上の祖先は収録ノードに到達しないため遡及しない。北周⇄隋⇄唐の三王朝を娘たちの婚姻で結ぶ関隴集団ブリッジ。",
+      "wikidata": "Q6131181",
+      "source": {
+        "page": "周書 巻十六 独孤信伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-dugu-shi-mingjing",
+      "name": "明敬皇后独孤氏",
+      "kana": "めいけいこうごうどっこし",
+      "kind": "后妃・公主",
+      "gender": "female",
+      "section": "北朝",
+      "birthYear": null,
+      "deathYear": 558,
+      "yearsApproximate": false,
+      "posthumous": {
+        "dynasty": "北周",
+        "templeName": null,
+        "posthumousName": "明敬皇后"
+      },
+      "inclusionReason": [
+        "婚姻当事者"
+      ],
+      "note": "北周明帝（世宗宇文毓）の皇后。独孤信の長女。「明帝独孤皇后，太保、卫国公信之长女。帝之在藩也，纳为夫人。二年正月，立为王后。四月，崩，葬昭陵。武成初，追崇为皇后。世宗崩，与后合葬。」（周書 巻九 皇后伝）。明帝二年（558年）四月崩御、武成初に皇后を追崇。周書独孤信伝の「信长女，周明敬后」とも整合。生年は不明。",
+      "wikidata": "Q4207224",
+      "source": {
+        "page": "周書 巻九 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-dugu-shi-yuanzhen",
+      "name": "元貞皇后独孤氏",
+      "kana": "げんていこうごうどっこし",
+      "kind": "后妃・公主",
+      "gender": "female",
+      "section": "唐",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": true,
+      "posthumous": {
+        "dynasty": "唐",
+        "templeName": null,
+        "posthumousName": "元貞皇后"
+      },
+      "inclusionReason": [
+        "婚姻当事者",
+        "一親等"
+      ],
+      "note": "唐高祖李淵の生母・李昞（唐追尊世祖元皇帝）の妻。独孤信の第四女:「第四女，元贞皇后」（周書 巻十六 独孤信伝）。武徳元年六月己卯の追尊で元貞皇后:「皇考曰元皇帝，庙号世祖，妣独孤氏曰元贞皇后」（新唐書 巻一 高祖紀）。旧唐書高祖紀「文帝独孤皇后，即高祖从母也，由是特见亲爱」により隋文帝独孤皇后（伽羅）の姉妹であることが裏付けられる。生没年は不明（唐建国前に死去し追尊）。",
+      "wikidata": null,
+      "source": {
+        "page": "周書 巻十六 独孤信伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-dugu-qieluo",
+      "name": "独孤伽羅",
+      "kana": "どっこきゃら",
+      "aliases": [
+        "文献皇后",
+        "文献独孤皇后"
+      ],
+      "kind": "后妃・公主",
+      "gender": "female",
+      "section": "隋",
+      "birthYear": 544,
+      "deathYear": 602,
+      "yearsApproximate": true,
+      "posthumous": {
+        "dynasty": "隋",
+        "templeName": null,
+        "posthumousName": "文献皇后"
+      },
+      "inclusionReason": [
+        "婚姻当事者",
+        "一親等"
+      ],
+      "note": "隋文帝楊堅の皇后・煬帝の生母。独孤信の第七女:「第七女，隋文献后」（周書 巻十六 独孤信伝）。名は伽羅:「隋文献皇后独孤氏，讳伽罗，河南洛阳人，周大司马、卫公信之女也。」（北史 巻十四 后妃下）。14歳で楊堅に嫁いだ:「信见高祖有奇表，故以后妻焉，时年十四。」（隋書 巻三十六 后妃伝。同条冒頭は daizhi コーパスで「文献独狐皇后」と「孤」が「狐」に破損＝flags参照）。仁寿二年（602年）八月崩御:「其夜，后崩于永安宫，时年五十九，葬于太陵。」（北史。隋書は「时年五十」で不一致。婚姻時14歳〔独孤信没557年以前〕との整合から北史の五十九を採り生年544と逆算・yearsApproximate true）。煬帝の生母であることは隋書煬帝紀「母曰文献独孤皇后」で確認。",
+      "wikidata": "Q1066855",
+      "source": {
+        "page": "隋書 巻三十六 后妃伝 文献独孤皇后",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yang-lihua",
+      "name": "楊麗華",
+      "kana": "ようれいか",
+      "kind": "后妃・公主",
+      "gender": "female",
+      "section": "北朝",
+      "birthYear": 561,
+      "deathYear": 609,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "婚姻当事者",
+        "一親等"
+      ],
+      "note": "隋文帝楊堅の長女で北周宣帝の皇后。周書巻九皇后伝に「宣帝杨皇后名丽华，隋文帝长女。帝在东宫，高祖为帝纳后为皇太子妃。宣政元年闰六月，立为皇后」とあり、天元皇后・天元大皇后を経て五皇后の首位に立った。宣帝崩後は静帝の皇太后（「帝崩，静帝尊后为皇太后，居弘圣宫」）。静帝の生母は朱満月であり麗華は嫡母。父楊堅の受禅には「及行禅代，愤惋逾甚」と憤ったと伝わる。隋の開皇六年に樂平公主に封じられ（「开皇六年，封后为乐平公主」）、大業五年に煬帝の行幸に従い河西で死去（「大业五年，从炀帝幸张掖，殂于河西，年四十九」）。年四十九（数え）から生年は561年。",
+      "wikidata": "Q843600",
+      "source": {
+        "page": "周書 巻九 皇后伝",
         "lang": "zh-classical"
       }
     }
@@ -16973,6 +17236,296 @@
       "note": "魏書巻十三皇后列伝「道武皇后慕容氏，宝之季女也。」により後燕慕容宝の実の娘（季女＝末娘）と確認。「季女」は数値の「第n女」明記ではないため childOrder は付さない。",
       "source": {
         "page": "魏書 巻十三 皇后列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "houliang-mingdi",
+      "to": "p-xiao-shi-yangdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "隋書巻三十六后妃伝に「炀帝萧皇后，梁明帝岿之女也。」、北史巻十四后妃伝下に「炀帝愍皇后萧氏，梁明帝岿之女也。」と明記され、蕭氏は後梁明帝蕭巋（houliang-mingdi・収録皇帝）の女。周書巻四十八蕭詧伝附載の蕭巋条にも「开皇二年，隋文帝备礼纳岿女为晋王妃。」とあり、「岿女」として一致する。「第n女」の数値明記は正史になく childOrder は付さない（隋書に「高祖将为王选妃于梁，遍占诸女，诸女皆不吉。岿迎后于舅氏」とあり複数の女の一人）。",
+      "source": {
+        "page": "隋書 巻三十六 列伝第一 后妃（煬帝蕭皇后）／北史 巻十四 列伝第二 后妃下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "p-xiao-shi-yangdi",
+      "to": "sui-yangdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後梁⇄隋の王朝間婚姻。開皇二年（582）、隋文帝が後梁明帝蕭巋の女を晋王楊広（後の煬帝）の妃として納れた（周書巻四十八「开皇二年，隋文帝备礼纳岿女为晋王妃。」、隋書巻三十六「炀帝为晋王时，高祖将为王选妃于梁，遍占诸女，诸女皆不吉。岿迎后于舅氏，令使者占之，曰：“吉。”于是遂策为王妃。」）。煬帝即位後の大業元年（605）正月に立后（隋書帝紀第三「大业元年春正月壬辰朔，大赦，改元。立妃萧氏为皇后。」、后妃伝の詔「妃萧氏，夙禀成训，妇道克修，宜正位轩闱，式弘柔教，可立为皇后。」）。元徳太子昭・斉王暕の生母（隋書巻五十九「炀帝三男，萧皇后生元德太子昭、齐王暕」）。隋滅亡後は突厥へ流転し貞観4年に帰京（隋書「突厥处罗可汗遣使迎后于洺州…大唐贞观四年，破灭突厥，乃以礼致之，归于京师。」）。フェーズ2申し送り（houliang-mingdi キャッシュの王朝間縁戚情報）どおりの梁⇄後梁⇄隋接続の完成形。",
+      "source": {
+        "page": "隋書 巻三十六 列伝第一 后妃（煬帝蕭皇后）／隋書 帝紀第三 煬帝上／周書 巻四十八 列伝第四十 蕭詧伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liang-wudi",
+      "to": "p-xiao-shi-liu-yan",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "陳書 巻七 皇后伝「父偃，尚梁武帝女长城公主，拜驸马都尉」および南史 巻三十八 柳元景伝「诏尚武帝女长城公主，拜驸马都尉、都亭侯」により、長城公主は梁武帝蕭衍の女と確認。生母・排行の記載は見当たらないため childOrder は付さない。",
+      "source": {
+        "page": "陳書 巻七 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "p-liu-yan-liang",
+      "to": "p-xiao-shi-liu-yan",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "柳偃と梁武帝女長城公主の婚姻。「父偃，尚梁武帝女长城公主，拜驸马都尉，大宝中，为鄱阳太守，卒官」（陳書 巻七 皇后伝）・「诏尚武帝女长城公主，拜驸马都尉、都亭侯，位鄱阳内史，卒」（南史 巻三十八 柳元景伝）。両側の連結: 公主側は実父エッジで liang-wudi（収録皇帝）に直結、柳偃側は実父エッジで柳敬言（p-liu-jingyan）に至り、その婚姻・実母エッジで陳の収録皇帝（chen-xuandi・chen-houzhu）に到達する。",
+      "source": {
+        "page": "陳書 巻七 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-yan-liang",
+      "to": "p-liu-jingyan",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "陳書 巻七 皇后伝「高宗柳皇后，讳敬言，河东解人也」「曾祖世隆，齐侍中、司空、尚书令、贞阳忠武公。祖恽，有重名于梁代，官至秘书监，赠侍中、中护军。父偃，尚梁武帝女长城公主，拜驸马都尉」により実父は柳偃。南史 巻十二 后妃伝下「宣柳皇后讳敬言，河东解县人也。曾祖世隆，祖恽，父偃，并有传」とも一致。",
+      "source": {
+        "page": "陳書 巻七 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実母",
+      "from": "p-xiao-shi-liu-yan",
+      "to": "p-liu-jingyan",
+      "veracity": "verified",
+      "confidence": "medium",
+      "note": "長城公主が柳敬言の生母であることを明示する「生」の記載は陳書・南史に見当たらない。陳書 巻七 皇后伝「侯景之乱，后与弟盼往江陵依梁元帝，元帝以长城公主之故，待遇甚厚。及高宗赴江陵，元帝以后配焉」——梁元帝（長城公主の兄弟＝敬言の外叔にあたる）が公主の縁故を理由に敬言を厚遇し自ら陳頊に配した経緯から、公主所生と判断される（通説も同様）。明示記載を欠くため confidence=medium とする（詳細は flags）。",
+      "source": {
+        "page": "陳書 巻七 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "chen-xuandi",
+      "to": "p-liu-jingyan",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "陳宣帝（高宗）と柳敬言の婚姻。「及高宗赴江陵，元帝以后配焉。承圣二年，后生后主于江陵」「天嘉二年，与后主还朝，后为安成王妃。高宗即位，立为皇后」（陳書 巻七 皇后伝）。梁武帝の外孫女と陳帝室を結ぶ別家系間婚姻としてエッジ化。両側の連結: 宣帝側は収録皇帝本人、柳敬言側は実父エッジ（p-liu-yan-liang）→婚姻エッジ（p-xiao-shi-liu-yan）→実父エッジで liang-wudi に到達。",
+      "source": {
+        "page": "陳書 巻七 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実母",
+      "from": "p-liu-jingyan",
+      "to": "chen-houzhu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "「及高宗赴江陵，元帝以后配焉。承圣二年，后生后主于江陵」（陳書 巻七 皇后伝）・「高宗四十二男：柳皇后生后主」（陳書 巻二十八 高宗二十九王伝）により後主の生母は柳敬言。後主紀「后主，讳叔宝，字元秀，小字黄奴，高宗嫡长子也。梁承圣二年十一月戊寅生于江陵」（陳書 巻六 後主紀）とも整合。生母が別家系（梁帝室）への接続に寄与するため、フェーズ3規約の実母エッジ例外（王政君→成帝型）として作成。",
+      "source": {
+        "page": "陳書 巻七 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liang-xiaozhengde",
+      "to": "p-xiao-shi-houjing",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "梁書巻五十六侯景伝「景自为相国、天柱将军，正德以女妻之」——侯景が蕭正徳を傀儡皇帝に立てた太清2年（548）11月、正徳が自分の女を侯景に嫁がせた。南史巻八十賊臣伝にも同文「景自为相国、天柱将军，正德以女妻之」を確認。女の諱は正史に記載なし。",
+      "source": {
+        "page": "梁書 巻五十六 侯景伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "liang-houjing",
+      "to": "p-xiao-shi-houjing",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "梁書巻五十六侯景伝「正德以女妻之」。太清2年（548）11月、蕭正徳が傀儡皇帝（改元正平）として即位し侯景を相国・天柱将軍とした際の婚姻。梁皇族（臨賀王正徳の家系）と侯景（漢を僭称・別家系）を結ぶ王朝間婚姻。南史巻八十賊臣伝でも同文確認。",
+      "source": {
+        "page": "梁書 巻五十六 侯景伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liang-jianwendi",
+      "to": "p-liyang-gongzhu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南史巻八梁本紀下・簡文帝紀「初，景纳帝女溧阳公主」——帝＝簡文帝で、溧陽公主は簡文帝の女。生母は范淑妃（南史巻八十賊臣伝「溧阳主与其母范淑妃东向坐」）だが、生母は別家系接続に寄与しないためエッジ化せず記録のみ。",
+      "source": {
+        "page": "南史 巻八 梁本紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "liang-houjing",
+      "to": "p-liyang-gongzhu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南史巻八梁本紀下・簡文帝紀「初，景纳帝女溧阳公主，公主有美色，景惑之，妨于政事」。侯景が簡文帝擁立後（549年頃）にその女溧陽公主を納れた。梁書には溧陽公主の呼称が確認できず南史（本紀・賊臣伝）による。侯景死後、市中で屠られた侯景の肉を公主も食した（南史巻八十「并溧阳主亦预食例」）。",
+      "source": {
+        "page": "南史 巻八 梁本紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-dugu-xin",
+      "to": "p-dugu-shi-mingjing",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "周書独孤信伝「信长女，周明敬后」および周書皇后伝「明帝独孤皇后，太保、卫国公信之长女」により実父は独孤信。「長女」は数値表記でないため規約により childOrder は付さない。",
+      "source": {
+        "page": "周書 巻十六 独孤信伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-dugu-xin",
+      "to": "p-dugu-shi-yuanzhen",
+      "childOrder": 4,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "周書独孤信伝「第四女，元贞皇后」により実父は独孤信・第四女（childOrder 4）。",
+      "source": {
+        "page": "周書 巻十六 独孤信伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-dugu-xin",
+      "to": "p-dugu-qieluo",
+      "childOrder": 7,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "周書独孤信伝「第七女，隋文献后」により実父は独孤信・第七女（childOrder 7）。隋書后妃伝「周大司马、河内公信之女也」・北史巻十四「周大司马、卫公信之女也」でも裏付け。",
+      "source": {
+        "page": "周書 巻十六 独孤信伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "beizhou-mingdi",
+      "to": "p-dugu-shi-mingjing",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "北周明帝と独孤信長女（明敬皇后）の婚姻。「帝之在藩也，纳为夫人。二年正月，立为王后。四月，崩，葬昭陵。武成初，追崇为皇后。」（周書 巻九 皇后伝）。両側の連結: 明帝側は収録皇帝本人、独孤氏側は実父エッジ p-dugu-xin→p-dugu-shi-mingjing の鎖で、妹たち（p-dugu-shi-yuanzhen・p-dugu-qieluo）の婚姻を介し隋・唐の収録皇帝に到達。",
+      "source": {
+        "page": "周書 巻九 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "p-dugu-shi-yuanzhen",
+      "to": "p-li-bing",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "李昞（唐高祖実父・既存ブリッジ）と独孤信第四女（元貞皇后）の婚姻。新唐書高祖紀武徳元年六月己卯条「皇考曰元皇帝，庙号世祖，妣独孤氏曰元贞皇后」により高祖の皇考=李昞・妣=独孤氏（元貞皇后）が対で確認できる。旧唐書高祖紀「文帝独孤皇后，即高祖从母也」も傍証。両側の連結: 李昞側は既存実父エッジで tang-gaozu に、独孤氏側は実父エッジ p-dugu-xin 経由で姉妹の婚姻により北周・隋の収録皇帝に到達。",
+      "source": {
+        "page": "新唐書 巻一 高祖紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実母",
+      "from": "p-dugu-shi-yuanzhen",
+      "to": "tang-gaozu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "「皇考曰元皇帝，庙号世祖，妣独孤氏曰元贞皇后」（新唐書 巻一 高祖紀 武徳元年六月己卯条）により高祖の母は独孤氏（元貞皇后）。旧唐書高祖紀「文帝独孤皇后，即高祖从母也，由是特见亲爱」（文献皇后が高祖の従母=母の姉妹）により生母であることが裏付けられる。生母が別家系接続（北周・隋）に寄与する王政君型の実母エッジ例外として作成。",
+      "source": {
+        "page": "新唐書 巻一 高祖紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "p-dugu-qieluo",
+      "to": "sui-wendi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "隋文帝楊堅と独孤伽羅の婚姻。「信见高祖有奇表，故以后妻焉，时年十四。」および「高祖受禅，立为皇后。」（隋書 巻三十六 后妃伝）。北史巻十四「信见文帝有奇表，故以后妻焉。时年十四。」でも裏付け。両側の連結: 文帝側は収録皇帝本人、伽羅側は実父エッジ p-dugu-xin 経由で姉妹の婚姻により北周・唐の収録皇帝に到達。",
+      "source": {
+        "page": "隋書 巻三十六 后妃伝 文献独孤皇后",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "sui-wendi",
+      "to": "p-yang-lihua",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "周書巻九皇后伝に「宣帝杨皇后名丽华，隋文帝长女」とあり、実父は隋文帝楊堅（sui-wendi）。隋書天文志にも「杨后令其父隋公为大丞相」と父娘関係の傍証がある。排行の原文表記は「长女」（非数値表記のため childOrder は付与しない）。",
+      "source": {
+        "page": "周書 巻九 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "beizhou-xuandi",
+      "to": "p-yang-lihua",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "北周宣帝宇文贇と楊麗華の婚姻。周書巻九皇后伝に「帝在东宫，高祖为帝纳后为皇太子妃。宣政元年闰六月，立为皇后」とあり、武帝（高祖）が皇太子妃として娶らせ、宣帝即位後の宣政元年閏六月に皇后（のち天元皇后・天元大皇后）となった。宣帝崩後は「帝崩，静帝尊后为皇太后，居弘圣宫」と静帝の皇太后となる。ただし静帝の生母は朱満月（天大皇后。周書皇后伝「宣帝朱皇后名满月」「遂生静帝」）であり、麗華は静帝の嫡母（血縁上の外祖母子関係ではない）。この婚姻が隋文帝楊堅の「后父」（宗法上の外戚）としての輔政・受禅（フェーズ1 succession beizhou-jingdi→sui-wendi・relationToPredecessor=外戚（その他））を裏付ける別家系間の縁戚接続である。",
+      "source": {
+        "page": "周書 巻九 皇后伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "tang-taizong",
+      "to": "tang-wuzetian",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "【婚姻】武則天は14歳で唐太宗の後宮に才人（妃嬪）として入宮。旧唐書則天皇后本紀「初，则天年十四时，太宗闻其美容止，召入宫，立为才人。」。入宮年は資治通鑑巻一百九十五・貞観十一年（637年）十一月条「故荆州都督武士彟女，年十四，上闻其美，召入后宫，为才人。」による。太宗崩御後は尼となり感業寺に入り、後に高宗が再入宮させた——「及太宗崩，遂为尼，居感业寺。大帝于寺见之，复召入宫，拜昭仪。」（同本紀）。皇后・妃冊立ではない後宮妃嬪（才人）だが、収録皇帝同士を結ぶ婚姻当事者としてエッジ化（判定指針どおり）。",
+      "source": {
+        "page": "旧唐書 本紀第六 則天皇后",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "tang-gaozong",
+      "to": "tang-wuzetian",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "【婚姻】太宗崩御後に感業寺で尼となっていた武氏を高宗が再入宮させて昭儀とし、宸妃を経て永徽6年（655年）に皇后に冊立。旧唐書則天皇后本紀「大帝于寺见之，复召入宫，拜昭仪。」「永徽六年，废王皇后而立武宸妃为皇后。高宗称天皇，武后亦称天后。」。同書褚遂良伝「六年，高宗将废皇后王氏，立昭仪武氏为皇后」。高宗本紀（巻四）永徽6年冬10月条は「冬十月己酉，废皇后王氏为庶人，立仪武昭氏为皇后，大赦天下」とあるが、「立仪武昭氏」は両コーパス共通の字順乱れ（flags参照。事実関係に争いなし）。高宗崩御まで皇后——「弘道元年十二月丁巳，大帝崩，皇太子显即位，尊天后为皇太后。」（則天皇后本紀）。",
+      "source": {
+        "page": "旧唐書 本紀第六 則天皇后",
         "lang": "zh-classical"
       }
     }
