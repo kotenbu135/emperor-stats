@@ -1,10 +1,11 @@
 "use client";
 
-// 系譜・即位経路グラフ(/kinship・試作)のSVG描画。レイアウトはビルド時計算済みの
+// 系譜・即位経路グラフ(/kinship)のSVG描画。レイアウトはビルド時計算済みの
 // KinshipLayoutをそのまま描くだけで、このコンポーネントでは座標計算をしない
 // (KINSHIP_SCHEMA.md「レイアウトはビルド時計算」)。
 // ホバーツールチップの状態はuseTipOutletでチャート外に分離する(サイト共通原則)。
-// クリックは近傍強調(選択ノードと隣接エッジ・ノード以外をopacity 0.16)。
+// クリックは近傍強調(選択人物と隣接エッジ・ノード以外をopacity 0.16。複数在位の
+// カプセルは人物id単位でまとめて扱う)。
 
 import { useMemo, useState } from "react";
 import {
@@ -33,15 +34,13 @@ function nodeEdge(slot: number): string {
 }
 
 function nodeTip(n: KinshipNodeOut, x: number, y: number): KinshipTip {
-  return {
-    x,
-    y,
-    lines: [
-      { text: n.tip.title },
-      { text: n.tip.subtitle, muted: true },
-      { text: n.tip.period, muted: true },
-    ],
-  };
+  const lines: KinshipTip["lines"] = [
+    { text: n.tip.title },
+    { text: n.tip.subtitle, muted: true },
+    { text: n.tip.period, muted: true },
+  ];
+  if (n.tip.claim) lines.push({ text: n.tip.claim, muted: true });
+  return { x, y, lines };
 }
 
 function edgeTip(e: KinshipEdgeOut, x: number, y: number): KinshipTip {
@@ -54,11 +53,13 @@ function edgeTip(e: KinshipEdgeOut, x: number, y: number): KinshipTip {
   return { x, y, lines };
 }
 
+const KIN_STROKE = "color-mix(in srgb, var(--foreground) 42%, var(--background))";
+
 export function KinshipChart({ layout }: { layout: KinshipLayout }) {
   const { setTip, TipOutlet } = useTipOutlet<KinshipTip>();
   const [focusId, setFocusId] = useState<string | null>(null);
 
-  // 近傍集合(選択ノード+隣接エッジの両端)。エッジ29本の全走査で十分軽い。
+  // 近傍集合(選択人物+隣接エッジの両端)。人物id単位。
   const neighbor = useMemo(() => {
     if (!focusId) return null;
     const keep = new Set([focusId]);
@@ -73,11 +74,16 @@ export function KinshipChart({ layout }: { layout: KinshipLayout }) {
   const dimEdge = (e: KinshipEdgeOut) =>
     neighbor ? !(e.from === focusId || e.to === focusId) : false;
 
+  const emperorCount = useMemo(
+    () => new Set(layout.nodes.filter((n) => n.kind === "emperor").map((n) => n.id)).size,
+    [layout.nodes],
+  );
+
   return (
     <div className="overflow-x-auto rounded-md border border-border bg-background">
       <svg
         role="img"
-        aria-label={`系譜・即位経路グラフ(試作)。縦が時間(上が古い)、横が王朝レーン。皇帝${layout.nodes.filter((n) => n.kind === "emperor").length}人・継承エッジ${layout.edges.filter((e) => e.edgeType === "succession").length}本・血縁エッジ${layout.edges.filter((e) => e.edgeType === "kinship").length}本を表示`}
+        aria-label={`系譜・即位経路グラフ。縦が時間(上が古い)、横が王朝カラム。皇帝${emperorCount}人・継承エッジ${layout.edges.filter((e) => e.edgeType === "succession").length}本・血縁エッジ${layout.edges.filter((e) => e.edgeType === "kinship").length}本・婚姻${layout.edges.filter((e) => e.edgeType === "marriage").length}本を表示`}
         width={layout.width}
         height={layout.height}
         viewBox={`0 0 ${layout.width} ${layout.height}`}
@@ -130,18 +136,56 @@ export function KinshipChart({ layout }: { layout: KinshipLayout }) {
           ))}
         </g>
 
-        {/* レーン見出し */}
+        {/* 王朝見出し(各王朝の最初のカプセルの上) */}
         <g aria-hidden>
-          {layout.lanes.map((l) => (
+          {layout.dynastyHeads.map((h) => (
             <text
-              key={l.label}
-              x={l.x + l.width / 2}
-              y={l.labelY}
+              key={`${h.label}:${h.y}`}
+              x={h.x}
+              y={h.y}
               textAnchor="middle"
-              className="fill-foreground text-[13px] font-semibold"
+              className="fill-foreground text-[12px] font-semibold"
+              style={{
+                paintOrder: "stroke",
+                stroke: "var(--background)",
+                strokeWidth: 3,
+              }}
             >
-              {l.label}
+              {h.label}
             </text>
+          ))}
+        </g>
+
+        {/* 複数在位コネクタ(エッジより下層) */}
+        <g>
+          {layout.connectors.map((c, i) => (
+            <g
+              key={`conn:${c.personId}:${i}`}
+              opacity={neighbor && !neighbor.has(c.personId) ? 0.16 : 1}
+              className="transition-opacity"
+            >
+              <path
+                d={c.path}
+                fill="none"
+                stroke={KIN_STROKE}
+                strokeWidth={1.6}
+                strokeDasharray="3 4"
+              />
+              <path
+                d={c.path}
+                fill="none"
+                stroke="transparent"
+                strokeWidth={10}
+                onMouseMove={(ev) =>
+                  setTip({
+                    x: ev.clientX,
+                    y: ev.clientY,
+                    lines: [{ text: c.tipTitle }],
+                  })
+                }
+                onMouseLeave={() => setTip(null)}
+              />
+            </g>
           ))}
         </g>
 
@@ -153,20 +197,36 @@ export function KinshipChart({ layout }: { layout: KinshipLayout }) {
               opacity={dimEdge(e) ? 0.16 : 1}
               className="transition-opacity"
             >
-              <path
-                d={e.path}
-                fill="none"
-                stroke={
-                  e.edgeType === "kinship"
-                    ? "color-mix(in srgb, var(--foreground) 42%, var(--background))"
-                    : "var(--seal)"
-                }
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeDasharray={e.disputed ? "2 5" : undefined}
-                markerEnd={e.edgeType === "kinship" ? undefined : "url(#kinship-arrow)"}
-              />
-              {/* 血縁エッジはラベルを描かない(密集回避。続柄はツールチップとテキスト版で示す) */}
+              {e.edgeType === "marriage" ? (
+                <>
+                  {/* 婚姻=二重線(太線の上に背景色の細線を重ねる)・無向 */}
+                  <path
+                    d={e.path}
+                    fill="none"
+                    stroke={KIN_STROKE}
+                    strokeWidth={3.6}
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d={e.path}
+                    fill="none"
+                    stroke="var(--background)"
+                    strokeWidth={1.4}
+                    strokeLinecap="round"
+                  />
+                </>
+              ) : (
+                <path
+                  d={e.path}
+                  fill="none"
+                  stroke={e.edgeType === "kinship" ? KIN_STROKE : "var(--seal)"}
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeDasharray={e.disputed ? "2 5" : undefined}
+                  markerEnd={e.edgeType === "kinship" ? undefined : "url(#kinship-arrow)"}
+                />
+              )}
+              {/* 血縁・婚姻エッジはラベルを描かない(密集回避。詳細はツールチップとテキスト版で示す) */}
               {e.edgeType === "succession" && (
                 <text
                   x={e.labelX}
@@ -199,7 +259,7 @@ export function KinshipChart({ layout }: { layout: KinshipLayout }) {
         <g>
           {layout.nodes.map((n) => (
             <g
-              key={n.id}
+              key={n.key}
               opacity={dimNode(n) ? 0.16 : 1}
               className="cursor-pointer transition-opacity"
               onMouseMove={(ev) => setTip(nodeTip(n, ev.clientX, ev.clientY))}
@@ -246,6 +306,15 @@ export function KinshipChart({ layout }: { layout: KinshipLayout }) {
                   className="fill-muted-foreground text-[9.5px]"
                 >
                   {n.rootBadge}
+                </text>
+              )}
+              {n.claimBadge && (
+                <text
+                  x={n.x + n.w + 6}
+                  y={n.y + (n.rootBadge ? 23 : 11)}
+                  className="fill-muted-foreground text-[9.5px]"
+                >
+                  ◇遠祖
                 </text>
               )}
             </g>

@@ -214,6 +214,12 @@ const STREAM_DEFS: StreamDef[] = [
   { label: "袁世凱（中華帝国）", keys: ["中華帝国__清"], row: 0, colorSlot: 0, kind: "cluster", labelPos: "below" },
 ];
 
+// 系譜グラフ(/kinship)が同じ意味ベース配色を使うための dynastyKey→colorSlot 導出表。
+// STREAM_DEFS が全87 dynastyKey を被覆している(buildRiverTimelineのassert)前提。
+export const RIVER_COLOR_BY_DYNKEY: Record<string, number> = Object.fromEntries(
+  STREAM_DEFS.flatMap((d) => d.keys.map((k) => [k, d.colorSlot])),
+);
+
 // 主要な画期(注記フラグ)。年表上の注記テキストで、データ項目ではない
 // (出典判定を伴わない周知の画期のみ。levelは注記の段: 0=上段/1=下段)。
 const EVENT_DEFS: [number, string, 0 | 1][] = [
