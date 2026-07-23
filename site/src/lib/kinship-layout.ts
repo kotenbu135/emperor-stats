@@ -33,6 +33,7 @@ export interface KinshipSourcePerson {
   id: string;
   name: string;
   kind: string;
+  gender: "male" | "female";
   section: string;
   /** 天文年。不明はnull(配置は系譜エッジの隣接ノードから推定する)。 */
   birthYear: number | null;
@@ -85,8 +86,6 @@ export interface KinshipNodeOut {
   w: number;
   h: number;
   label: string;
-  /** 最小高に圧縮されたカプセルはラベルを左外に置く(密集対策)。 */
-  labelOutside: boolean;
   /** globals.cssの--series-N。0は灰(並立群雄)。 */
   colorSlot: number;
   /** 入エッジを持たない皇帝の「◆建国」「◆擁立」バッジ(先頭カプセルのみ)。 */
@@ -107,9 +106,15 @@ export interface KinshipEdgeOut {
   path: string;
   labelX: number;
   labelY: number;
-  labelAnchor: "start" | "middle";
-  /** 表示ラベル(succession=カテゴリ・disputedは「?」付き。kinship/marriageはグラフ内に描かずテキスト版でのみ使う)。 */
+  labelAnchor: "start" | "middle" | "end";
+  /** テキスト版の表示ラベル(succession=カテゴリ(続柄)・kinship=続柄。disputedは「?」付き)。 */
   label: string;
+  /**
+   * グラフ内に描くラベル(空文字は描かない)。successionはカテゴリ(続柄)、kinshipは
+   * 続柄の短縮形(父・母など)。同じ2人を結ぶ継承エッジがある血縁エッジは線が完全に
+   * 重なり続柄も継承側に含まれるため空にする。marriageは常に空(二重線が凡例)。
+   */
+  graphLabel: string;
   disputed: boolean;
   tip: {
     title: string;
@@ -307,6 +312,12 @@ const KINSHIP_COLUMN_ID_OVERRIDES: Record<string, number> = {
 
 /** カプセルが真の開始年からこれ以上押し出されたらカラム割当の事故として落とす。 */
 const MAX_PUSH_YEARS = 8;
+
+// 女性ノードはラベルに「♀」を付けて区別する(男女の見分けがつかないという
+// レビュー指摘への対応)。ブリッジ人物はkinship.jsonのgenderで判定できるが、
+// emperors.jsonに性別フィールドは無く、365人中女性は武則天ただ1人のため
+// 皇帝側はここで固定する(表示メタデータでありデータセットの値ではない)。
+const FEMALE_EMPEROR_IDS = new Set(["tang-wuzetian"]);
 
 // --- レイアウト定数 ---
 const AXIS_X = 64;
@@ -506,6 +517,12 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
     /** この区間が確保すべき最小px(ノード高+間隔)。 */
     minPx: number;
     node: Omit<KinshipNodeOut, "x" | "y" | "h"> & { cx: number; w: number };
+    /**
+     * 王朝見出し用の幻ブロック(ノードとしては描かない)。王朝の最初のカプセルの直前に
+     * HEAD_PX分の区間を予約し、見出しテキストが直前のカプセルに重ならないようにする
+     * (写像の局所引き伸ばしで空間を作るため、カプセルと年目盛りの対応は崩れない)。
+     */
+    phantomHead?: { label: string; anchorKey: string };
   }
 
   // ブリッジ人物が実効区間として占有する年幅(片側)。基準スケールで
@@ -532,8 +549,7 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
           kind: "emperor",
           cx: 0, // カラム幅確定後に割り当て
           w: EMPEROR_W,
-          label: shortLabel(e.name, 8),
-          labelOutside: (r.b - r.a) * PX_PER_YEAR < MIN_H,
+          label: `${FEMALE_EMPEROR_IDS.has(e.id) ? "♀" : ""}${shortLabel(e.name, FEMALE_EMPEROR_IDS.has(e.id) ? 7 : 8)}`,
           colorSlot: RIVER_COLOR_BY_DYNKEY[e.dynastyKey],
           rootBadge:
             i === 0 && !incoming.has(e.id) ? `◆${e.accessionRouteCategory}` : null,
@@ -625,8 +641,8 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
         kind: "person",
         cx: 0,
         w: overlaps ? SIDE_PERSON_W : PERSON_W,
-        label: shortLabel(p.name, overlaps ? 8 : 10),
-        labelOutside: false,
+        // ♀プレフィックスの分だけ短縮幅を1字詰める(ラベルの箱はみ出し防止)
+        label: `${p.gender === "female" ? "♀" : ""}${shortLabel(p.name, (overlaps ? 8 : 10) - (p.gender === "female" ? 1 : 0))}`,
         colorSlot: 0,
         rootBadge: null,
         claimBadge: claimByNode.has(p.id),
@@ -639,6 +655,39 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
         },
       },
     });
+  }
+
+  // --- 王朝見出しの幻ブロック ---
+  // 見出しテキストを各王朝の最初のカプセルの真上に置くため、直前にHEAD_PX分の区間を
+  // 予約する(見出しが直前のカプセルに重なっていたレビュー指摘への対応。写像の局所
+  // 引き伸ばしで空間を作るのでカプセルと年目盛りの対応は崩れない)。id上書きで別カラムへ
+  // 退避した同名別政権(蕭銑の梁など)にも見出しが付くよう(dynastyKey, カラム)の組ごとに置く。
+  const HEAD_PX = 18;
+  {
+    const firstByDynLane = new Map<string, Block>();
+    for (const s of seeds) {
+      if (s.kind !== "emperor") continue;
+      const emp = emperorById.get(s.id)!;
+      const key = `${emp.dynastyKey}:${s.lane}`;
+      const cur = firstByDynLane.get(key);
+      if (!cur || s.trueStart < cur.trueStart) firstByDynLane.set(key, s);
+    }
+    for (const [key, first] of firstByDynLane) {
+      const emp = emperorById.get(first.id)!;
+      seeds.push({
+        key: `head:${key}`,
+        id: first.id,
+        kind: "person", // MAX_PUSH検査(emperor限定)の対象外にする
+        lane: first.lane,
+        col: "main",
+        trueStart: first.trueStart - 0.4,
+        effStart: first.trueStart - 0.4,
+        effEnd: first.trueStart,
+        minPx: HEAD_PX,
+        node: first.node, // ダミー参照(ノードとしては描かない)
+        phantomHead: { label: emp.dynastyLabel, anchorKey: first.key },
+      });
+    }
   }
 
   // --- カラム幅とx割り当て(サブカラムを持つカラムだけ幅を広げる) ---
@@ -725,7 +774,9 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
 
   // --- ステップ3: ノード配置(実効区間の写像そのまま。上下NODE_GAP/2ずつ内側に
   //     描くことで、年境界を接して連続する即位でも矢印の描画余地を確保する) ---
-  const placed: PlacedNode[] = blocks.map((b) => {
+  const placed: PlacedNode[] = blocks
+    .filter((b) => !b.phantomHead)
+    .map((b) => {
     const top = yOf(b.effStart) + NODE_GAP / 2;
     const bottom = yOf(b.effEnd) - NODE_GAP / 2;
     if (b.kind === "person") {
@@ -783,18 +834,123 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
   };
 
   // --- エッジ ---
-  const edges: KinshipEdgeOut[] = src.edges.map((e) => {
+  // 経路は5種類。「矢印が短すぎて見えない」「無関係なカプセルを貫通する」という
+  // レビュー指摘に対応するため、同一カラムは側面の弓形、長距離のカラム間は
+  // カラム間の空き通路を通す。
+  //  vert     同一カラムで隣接(間に他カプセル無し・隙間が十分) → 縦ベジェ
+  //  arc      同一カラムで隙間が狭い/間に他カプセルを挟む → カラム側面の弓形
+  //  corridor カラム間で縦距離が長い → カラム間の通路を縦に降り、到達先の直上で水平に渡る
+  //  scurve   カラム間で縦距離が短い → S字ベジェ
+  //  side     婚姻と時間逆順のカラム間エッジ → 側面どうしの水平ベジェ
+  // 同じカプセルに複数のエッジが刺さる場合は接続点を横に散らして矢印の重なりを避ける。
+  interface RoutedEdge {
+    e: KinshipSourceEdge;
+    a: PlacedNode;
+    b: PlacedNode;
+    route: "vert" | "arc" | "corridor" | "scurve" | "side";
+    pairKey: string;
+  }
+  const isSideCol = (n: PlacedNode) =>
+    laneHasSide[n.lane] && n.cx < laneXs[n.lane] + SIDE_W;
+  const CORRIDOR_MIN_SPAN = 56;
+  const routed: RoutedEdge[] = src.edges.map((e) => {
     const [a, b] = pickCapsulePair(e.from, e.to);
+    const sameCol = a.cx === b.cx;
+    let route: RoutedEdge["route"];
+    if (e.type === "marriage" || (!sameCol && a.y + a.h >= b.y)) {
+      route = "side";
+    } else if (sameCol) {
+      const gap = b.y - (a.y + a.h);
+      const blocked = placed.some(
+        (c) =>
+          c.cx === a.cx &&
+          c.key !== a.key &&
+          c.key !== b.key &&
+          c.y + c.h > a.y + a.h + 1 &&
+          c.y < b.y - 1,
+      );
+      route = blocked || gap < 22 ? "arc" : "vert";
+    } else {
+      route = b.y - (a.y + a.h) >= CORRIDOR_MIN_SPAN ? "corridor" : "scurve";
+    }
+    return { e, a, b, route, pairKey: `${e.from}→${e.to}` };
+  });
+
+  // 接続点の散らし。同じ2人を結ぶ継承+血縁の重複エッジはpairKey単位で同じ接続点を
+  // 共有させ、線を完全に重ねて1本に見せる(血縁側はラベルも抑制する)。
+  const entryOff = new Map<string, number>();
+  const exitOff = new Map<string, number>();
+  {
+    const entryGroups = new Map<string, RoutedEdge[]>();
+    const exitGroups = new Map<string, RoutedEdge[]>();
+    for (const r of routed) {
+      if (r.route === "side" || r.route === "arc") continue;
+      entryGroups.set(r.b.key, [...(entryGroups.get(r.b.key) ?? []), r]);
+      if (r.route !== "corridor")
+        exitGroups.set(r.a.key, [...(exitGroups.get(r.a.key) ?? []), r]);
+    }
+    const assign = (
+      groups: Map<string, RoutedEdge[]>,
+      out: Map<string, number>,
+      node: (r: RoutedEdge) => PlacedNode,
+      other: (r: RoutedEdge) => PlacedNode,
+    ) => {
+      for (const rs of groups.values()) {
+        const pairs = [...new Map(rs.map((r) => [r.pairKey, r])).values()].sort(
+          (p, q) => other(p).cx - other(q).cx || (p.pairKey < q.pairKey ? -1 : 1),
+        );
+        const w = node(pairs[0]).w;
+        const step = Math.min(18, (w * 0.6) / Math.max(pairs.length - 1, 1));
+        pairs.forEach((r, i) => {
+          out.set(
+            `${node(r).key}:${r.pairKey}`,
+            (i - (pairs.length - 1) / 2) * step,
+          );
+        });
+      }
+    };
+    assign(
+      entryGroups,
+      entryOff,
+      (r) => r.b,
+      (r) => r.a,
+    );
+    assign(
+      exitGroups,
+      exitOff,
+      (r) => r.a,
+      (r) => r.b,
+    );
+  }
+
+  // 続柄の併記(「続柄を表示したい」への対応)。グラフ内は短縮形で描く。
+  const REL_SHORT: Record<string, string> = {
+    "同族（遠縁）": "遠縁",
+    "外戚（その他）": "外戚",
+  };
+  const KIN_SHORT: Record<string, string> = {
+    実父: "父",
+    実母: "母",
+    養父: "養父",
+    養母: "養母",
+    兄弟姉妹: "兄弟",
+  };
+  const successionPairs = new Set(
+    src.edges
+      .filter((e) => e.type === "succession")
+      .map((e) => `${e.from}→${e.to}`),
+  );
+
+  const edges: KinshipEdgeOut[] = routed.map(({ e, a, b, route, pairKey }) => {
     const disputed = e.veracity === "disputed" || e.veracity === "claimed";
-    const sameLane = a.cx === b.cx;
-    const isMarriage = e.type === "marriage";
+    const exit = a.cx + (exitOff.get(`${a.key}:${pairKey}`) ?? 0);
+    const entry = b.cx + (entryOff.get(`${b.key}:${pairKey}`) ?? 0);
     let path: string;
     let labelX: number;
     let labelY: number;
-    let labelAnchor: "start" | "middle";
-    if (isMarriage || (!sameLane && a.y + a.h >= b.y)) {
-      // 婚姻(同時代の2ノード)と「上→下(from.bottom→to.top)」規則が成り立たない
-      // レーン間エッジ(孺子嬰→王莽型)は、側面どうしを水平ベジェで結ぶ。
+    let labelAnchor: "start" | "middle" | "end";
+    if (route === "side") {
+      // 婚姻(同時代の2ノード)と時間逆順のカラム間エッジ(孺子嬰→王莽型)は側面どうし。
       const leftToRight = a.cx < b.cx;
       const x1 = leftToRight ? a.x + a.w : a.x;
       const x2 = leftToRight ? b.x : b.x + b.w;
@@ -805,23 +961,110 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
       labelX = mx;
       labelY = Math.min(y1, y2) - 6;
       labelAnchor = "middle";
+    } else if (route === "arc") {
+      // 同一カラムの側面を通る弓形。mainカラムは右側面、サブカラムは左側面に膨らむ。
+      const left = isSideCol(a);
+      const x1 = left ? a.x : a.x + a.w;
+      const x2 = left ? b.x : b.x + b.w;
+      const bx = left ? x1 - 22 : x1 + 22;
+      const sy = a.y + a.h - 8;
+      const ey = b.y + 8;
+      path = `M ${x1} ${sy} C ${bx} ${sy}, ${bx} ${ey}, ${x2} ${ey}`;
+      labelX = left ? x1 - 20 : x1 + 20;
+      labelY = (sy + ey) / 2 + 3;
+      labelAnchor = left ? "end" : "start";
+    } else if (route === "corridor") {
+      const sgn = b.cx > a.cx ? 1 : -1;
+      // 同一レーン内のmain⇄サブカラム間はその境界を、レーン間はレーンの外の通路を通す。
+      const gx =
+        a.lane === b.lane
+          ? laneXs[a.lane] + SIDE_W
+          : sgn > 0
+            ? laneXs[a.lane] + laneWidth(a.lane) + LANE_GAP / 2
+            : laneXs[a.lane] - LANE_GAP / 2;
+      const x0 = sgn > 0 ? a.x + a.w : a.x;
+      const y0 = a.y + a.h - 8;
+      // 到達先の直上で水平に渡る。渡る高さは他カプセルとの交差が最少の候補を選ぶ。
+      const spanLo = Math.min(gx, entry);
+      const spanHi = Math.max(gx, entry);
+      const crossings = (y: number) =>
+        placed.filter(
+          (c) =>
+            c.key !== a.key &&
+            c.key !== b.key &&
+            c.y < y &&
+            c.y + c.h > y &&
+            c.x < spanHi &&
+            c.x + c.w > spanLo,
+        ).length;
+      let yc = b.y - 12;
+      let bestC = crossings(yc);
+      for (const cand of [b.y - 22, b.y - 34, b.y - 46]) {
+        if (bestC === 0 || cand <= y0 + 16) break;
+        const c = crossings(cand);
+        if (c < bestC) {
+          bestC = c;
+          yc = cand;
+        }
+      }
+      const r = 12;
+      if (Math.abs(entry - gx) < 2 * r + 6 || yc - r <= y0 + r) {
+        // 通路を作る余地が無いときはS字にフォールバック。
+        const y1 = a.y + a.h;
+        const y2 = b.y;
+        const my = (y1 + y2) / 2;
+        path = `M ${exit} ${y1} C ${exit} ${my}, ${entry} ${my}, ${entry} ${y2}`;
+        labelX = (exit + entry) / 2;
+        labelY = my - 5;
+        labelAnchor = "middle";
+      } else {
+        path = [
+          `M ${x0} ${y0}`,
+          `Q ${gx} ${y0} ${gx} ${y0 + r}`,
+          `L ${gx} ${yc - r}`,
+          `Q ${gx} ${yc} ${gx + sgn * r} ${yc}`,
+          `L ${entry - sgn * r} ${yc}`,
+          `Q ${entry} ${yc} ${entry} ${b.y}`,
+        ].join(" ");
+        labelX = (gx + entry) / 2;
+        labelY = yc - 4;
+        labelAnchor = "middle";
+      }
     } else {
-      // 通常: fromの下辺中央→toの上辺中央(時間順)。
+      // vert / scurve: fromの下辺→toの上辺(時間順)。
       const y1 = a.y + a.h;
       const y2 = b.y;
       const my = (y1 + y2) / 2;
-      path = `M ${a.cx} ${y1} C ${a.cx} ${my}, ${b.cx} ${my}, ${b.cx} ${y2}`;
-      if (sameLane) {
+      path = `M ${exit} ${y1} C ${exit} ${my}, ${entry} ${my}, ${entry} ${y2}`;
+      if (route === "vert") {
         // 同一カラムの縦エッジはラベルをカラム右外へ(カプセル内テキストとの衝突回避)。
         labelX = laneXs[a.lane] + laneWidth(a.lane) + 6;
         labelY = my + 3;
         labelAnchor = "start";
       } else {
-        labelX = (a.cx + b.cx) / 2;
+        labelX = (exit + entry) / 2;
         labelY = my - 5;
         labelAnchor = "middle";
       }
     }
+    const relRaw = e.relationToPredecessor;
+    const rel =
+      relRaw && relRaw !== "その他" ? (REL_SHORT[relRaw] ?? relRaw) : null;
+    const kinShort = e.relation ? (KIN_SHORT[e.relation] ?? e.relation) : "血縁";
+    const label =
+      e.type === "marriage"
+        ? "婚姻"
+        : e.type === "kinship"
+          ? `${e.relation ?? "血縁"}${disputed ? "?" : ""}`
+          : `${e.category}${disputed ? "?" : ""}${rel ? `(${rel})` : ""}`;
+    const graphLabel =
+      e.type === "marriage"
+        ? ""
+        : e.type === "kinship"
+          ? successionPairs.has(pairKey)
+            ? ""
+            : `${kinShort}${disputed ? "?" : ""}`
+          : label;
     const tip =
       e.type === "succession"
         ? {
@@ -832,7 +1075,7 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
           }
         : e.type === "kinship"
           ? {
-              title: `血縁〔${e.relation}〕`,
+              title: `血縁〔${e.relation}〕${disputed ? "（諸説あり）" : ""}`,
               detail: `${a.label} → ${b.label}／確度: ${e.confidence}`,
               noteExcerpt: e.noteExcerpt,
               source: e.sourcePage,
@@ -853,19 +1096,15 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
       labelX,
       labelY,
       labelAnchor,
-      // kinship/marriageのラベルはグラフ内には描かない(チャート側でedgeTypeを見て
-      // 抑制)が、テキスト版の表示に使う。
-      label: isMarriage
-        ? "婚姻"
-        : e.type === "kinship"
-          ? (e.relation ?? "血縁")
-          : disputed
-            ? `${e.category}?`
-            : e.category!,
+      label,
+      graphLabel,
       disputed,
       tip,
     };
   });
+  // 継承+血縁が完全に重なる場合に朱の継承線が上に来るよう、描画順を血縁→婚姻→継承にする。
+  const EDGE_ORDER = { kinship: 0, marriage: 1, succession: 2 } as const;
+  edges.sort((p, q) => EDGE_ORDER[p.edgeType] - EDGE_ORDER[q.edgeType]);
 
   // --- 複数在位コネクタ(同一人物のカプセルをカラム左側面経由の点線でつなぐ) ---
   const connectors: KinshipConnectorOut[] = [];
@@ -886,28 +1125,19 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
     }
   }
 
-  // --- 王朝見出し(各王朝の最初のカプセルの上に置く) ---
-  const headByDynKey = new Map<string, { label: string; cx: number; top: number }>();
-  {
-    const capsuleSeedByKey = new Map(blocks.map((b) => [b.key, b]));
-    const emperorByIdMap = emperorById;
-    for (const n of placed) {
-      if (n.kind !== "emperor") continue;
-      const emp = emperorByIdMap.get(n.id)!;
-      const cur = headByDynKey.get(emp.dynastyKey);
-      if (!cur || n.y < cur.top) {
-        headByDynKey.set(emp.dynastyKey, {
-          label: emp.dynastyLabel,
-          cx: n.cx,
-          top: n.y,
-        });
-      }
-    }
-    void capsuleSeedByKey;
-  }
-  const dynastyHeads: KinshipDynastyHead[] = [...headByDynKey.values()]
-    .sort((p, q) => p.top - q.top)
-    .map((h) => ({ label: h.label, x: h.cx, y: h.top - 14 }));
+  // --- 王朝見出し(幻ブロックが予約した空間に置く。アンカーは各王朝の最初のカプセル) ---
+  const placedByKey = new Map(placed.map((n) => [n.key, n]));
+  const dynastyHeads: KinshipDynastyHead[] = blocks
+    .filter((b) => b.phantomHead)
+    .map((b) => {
+      const anchor = placedByKey.get(b.phantomHead!.anchorKey);
+      if (!anchor)
+        throw new Error(
+          `kinship-layout: 王朝見出しのアンカーが見つかりません: ${b.phantomHead!.anchorKey}`,
+        );
+      return { label: b.phantomHead!.label, x: anchor.cx, y: anchor.y - 7 };
+    })
+    .sort((p, q) => p.y - q.y);
 
   // --- テキスト版・SEO用の系譜主張一覧(時代順) ---
   const nodeAnchorY = (id: string) => capsulesById.get(id)?.[0]?.y ?? 0;
@@ -958,7 +1188,6 @@ export function buildKinshipLayout(src: KinshipSource): KinshipLayout {
       w: n.w,
       h: n.h,
       label: n.label,
-      labelOutside: n.labelOutside,
       colorSlot: n.colorSlot,
       rootBadge: n.rootBadge,
       claimBadge: n.claimBadge,

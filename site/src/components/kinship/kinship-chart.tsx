@@ -136,26 +136,6 @@ export function KinshipChart({ layout }: { layout: KinshipLayout }) {
           ))}
         </g>
 
-        {/* 王朝見出し(各王朝の最初のカプセルの上) */}
-        <g aria-hidden>
-          {layout.dynastyHeads.map((h) => (
-            <text
-              key={`${h.label}:${h.y}`}
-              x={h.x}
-              y={h.y}
-              textAnchor="middle"
-              className="fill-foreground text-[12px] font-semibold"
-              style={{
-                paintOrder: "stroke",
-                stroke: "var(--background)",
-                strokeWidth: 3,
-              }}
-            >
-              {h.label}
-            </text>
-          ))}
-        </g>
-
         {/* 複数在位コネクタ(エッジより下層) */}
         <g>
           {layout.connectors.map((c, i) => (
@@ -226,20 +206,25 @@ export function KinshipChart({ layout }: { layout: KinshipLayout }) {
                   markerEnd={e.edgeType === "kinship" ? undefined : "url(#kinship-arrow)"}
                 />
               )}
-              {/* 血縁・婚姻エッジはラベルを描かない(密集回避。詳細はツールチップとテキスト版で示す) */}
-              {e.edgeType === "succession" && (
+              {/* ラベル: 継承=朱(カテゴリ+続柄)・血縁=灰(続柄)。婚姻と継承に重なる血縁は
+                  graphLabelが空になり描かない(密集回避。全文はツールチップとテキスト版) */}
+              {e.graphLabel !== "" && (
                 <text
                   x={e.labelX}
                   y={e.labelY}
                   textAnchor={e.labelAnchor}
-                  className="fill-seal text-[10px]"
+                  className={
+                    e.edgeType === "succession"
+                      ? "fill-seal text-[10px]"
+                      : "fill-muted-foreground text-[9.5px]"
+                  }
                   style={{
                     paintOrder: "stroke",
                     stroke: "var(--background)",
                     strokeWidth: 3,
                   }}
                 >
-                  {e.label}
+                  {e.graphLabel}
                 </text>
               )}
               {/* 当たり判定(細線のホバーを取りやすくする透明の太線) */}
@@ -255,6 +240,27 @@ export function KinshipChart({ layout }: { layout: KinshipLayout }) {
           ))}
         </g>
 
+        {/* 王朝見出し(各王朝の最初のカプセルの上。エッジより上層に描き、ハローで
+            交差する線を隠して読めるようにする) */}
+        <g aria-hidden>
+          {layout.dynastyHeads.map((h) => (
+            <text
+              key={`${h.label}:${h.y}`}
+              x={h.x}
+              y={h.y}
+              textAnchor="middle"
+              className="fill-foreground text-[12px] font-semibold"
+              style={{
+                paintOrder: "stroke",
+                stroke: "var(--background)",
+                strokeWidth: 3,
+              }}
+            >
+              {h.label}
+            </text>
+          ))}
+        </g>
+
         {/* ノード */}
         <g>
           {layout.nodes.map((n) => (
@@ -266,6 +272,8 @@ export function KinshipChart({ layout }: { layout: KinshipLayout }) {
               onMouseLeave={() => setTip(null)}
               onClick={(ev) => {
                 ev.stopPropagation();
+                // ドラッグで名前を選択(コピー)した直後のclickでは強調表示を切り替えない。
+                if (window.getSelection()?.toString()) return;
                 setFocusId((cur) => (cur === n.id ? null : n.id));
               }}
             >
@@ -280,25 +288,16 @@ export function KinshipChart({ layout }: { layout: KinshipLayout }) {
                 strokeWidth={1.5}
                 strokeDasharray={n.kind === "person" ? "5 4" : undefined}
               />
-              {n.labelOutside ? (
-                <text
-                  x={n.x - 6}
-                  y={n.y + n.h / 2 + 4}
-                  textAnchor="end"
-                  className="fill-foreground text-[11px]"
-                >
-                  {n.label}
-                </text>
-              ) : (
-                <text
-                  x={n.x + n.w / 2}
-                  y={n.y + n.h / 2 + 4}
-                  textAnchor="middle"
-                  className="pointer-events-none fill-foreground text-[11px]"
-                >
-                  {n.label}
-                </text>
-              )}
+              {/* 名前はドラッグ選択してコピーできるようにする(pointer-events無効化をしない) */}
+              <text
+                x={n.x + n.w / 2}
+                y={n.y + n.h / 2 + 4}
+                textAnchor="middle"
+                className="fill-foreground text-[11px]"
+                style={{ userSelect: "text" }}
+              >
+                {n.label}
+              </text>
               {n.rootBadge && (
                 <text
                   x={n.x + n.w + 6}

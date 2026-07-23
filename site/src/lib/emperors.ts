@@ -1364,6 +1364,7 @@ interface RawKinship {
     id: string;
     name: string;
     kind: string;
+    gender: "male" | "female";
     section: string;
     birthYear: number | null;
     deathYear: number | null;
@@ -1393,9 +1394,15 @@ interface RawKinship {
   }[];
 }
 
-/** エッジnote・主張系譜は長文のためRSCペイロード対策で切り詰めて渡す。 */
+/**
+ * エッジnote・主張系譜は長文のためRSCペイロード対策で切り詰めて渡す。
+ * noteの長い原文引用(「…」内の漢文)はツールチップの説明文としては読めないため
+ * 「…」に置き換え、日本語の説明部分が切り詰め幅に収まるようにする
+ * (呂不韋実父異説のような「図の意味の説明」がnote先頭の引用に押し出されない)。
+ */
 function truncateNote(note: string, max = 120): string {
-  return note.length <= max ? note : `${note.slice(0, max)}…`;
+  const stripped = note.replace(/「[^」]{8,}」/g, "「…」");
+  return stripped.length <= max ? stripped : `${stripped.slice(0, max)}…`;
 }
 
 let kinshipCache: KinshipLayout | null = null;
@@ -1429,6 +1436,7 @@ export function getKinshipGraphData(): KinshipLayout {
     id: p.id,
     name: p.name,
     kind: p.kind,
+    gender: p.gender,
     section: p.section,
     // kinship.jsonの年は既に天文年(KINSHIP_SCHEMA.md)。astroYear()を重ねないこと。
     // null(不明)はそのまま渡し、配置はkinship-layout.tsが系譜エッジから推定する。
