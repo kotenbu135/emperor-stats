@@ -204,6 +204,13 @@
         "emperors": 16,
         "edges": 22,
         "persons": 7
+      },
+      {
+        "phase": "parentage",
+        "block": "新・新末群雄・後漢",
+        "emperors": 20,
+        "edges": 39,
+        "persons": 24
       }
     ],
     "confirmedRootless": [
@@ -1043,6 +1050,600 @@
       "wikidata": "Q10897158",
       "source": {
         "page": "漢書 巻八十 宣元六王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-wang-man",
+      "name": "王曼",
+      "kana": "おうまん",
+      "aliases": [
+        "新都哀侯",
+        "新都顯王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "posthumous": {
+        "dynasty": "新",
+        "templeName": null,
+        "posthumousName": "新都顯王"
+      },
+      "inclusionReason": [
+        "一親等"
+      ],
+      "note": "王莽の実父。陽平頃侯王禁の次男（字は元卿）で、元帝皇后王政君（元后）の弟。「翁孺生禁，字稚君」「禁有大志，不修廉隅，好酒色，多取傍妻，凡有四女八男；长女君侠，次即元后政君，次君力，次君弟；长男凤孝卿，次曼元卿，谭子元，崇少子，商子夏，立子叔，根稚卿，逢时委卿，唯凤、崇与元后政君同母。」（漢書 巻九十八 元后傳）。兄弟が元帝・成帝の世に相次いで封侯される中、早世して生前は侯に封じられなかった（「唯莽父曼蚤死，不侯。」王莽傳上、「太后同产唯曼蚤卒，余毕侯矣。」元后傳＝河平二年〔前27〕の五侯同日封の時点で既に死去）。後に成帝の詔で新都哀侯を追封され、子の王莽が爵を嗣いで新都侯となった（「上复下诏追封曼为新都哀侯，而子莽嗣爵为新都侯。」元后傳。王莽傳上「永始元年，封莽为新都侯，国南阳新野之都乡，千五百户。」の永始元年〔前16〕の封と同一の封と解される）。王莽即位後の九廟制定では「九曰新都显王戚祢穆庙」（王莽傳下）と新都顯王として戚祢廟に祀られ王号追尊を受けたが、皇帝号・廟号の追贈はないため追尊皇帝とせず、王朝創業者の父の前例（劉太公 kind=宗室）に従い kind=宗室 とした（漢代における本人の身分は外戚〔元后の弟〕）。生没年は原典に記載がなく不明（没年は前27年以前）。",
+      "wikidata": "Q2461598",
+      "source": {
+        "page": "漢書 巻九十八 元后傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-xiongqu",
+      "name": "劉熊渠",
+      "kana": "りゅうゆうきょ",
+      "aliases": [
+        "舂陵戴侯"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "舂陵節侯劉買の子・舂陵戴侯（2代舂陵侯）。後漢書巻一四本文「买卒，子戴侯熊渠嗣。熊渠卒，子考侯仁嗣」。更始帝側の系譜では李賢注引『帝王紀』「舂陵戴侯熊渠生蒼梧太守利」により更始帝の曾祖父。侯位の嫡流は子の考侯仁（→康侯敞→城陽恭王祉）が継いだ。生没年はローカルコーパス（後漢書・漢書・東観漢記）から確認できず（調査済みだが不明）。",
+      "wikidata": "Q10900133",
+      "source": {
+        "page": "後漢書 巻一四 宗室四王三侯列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-li",
+      "name": "劉利",
+      "kana": "りゅうり",
+      "aliases": [
+        "蒼梧太守"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "蒼梧太守。更始帝の祖父。後漢書巻一四本文（安成孝侯賜伝）「安成孝侯赐字子琴，光武族兄也。祖父利，苍梧太守」により実在・官職と孫の劉賜が本文で確認できる。戴侯熊渠の子・子張の父であることは後漢書巻一一李賢注引『帝王紀』「舂陵戴侯熊渠生蒼梧太守利，利生子張」による（注由来）。生没年は原典から確認できず（調査済みだが不明）。",
+      "wikidata": "Q10899464",
+      "source": {
+        "page": "後漢書 巻一四 宗室四王三侯列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-zizhang",
+      "name": "劉子張",
+      "kana": "りゅうしちょう",
+      "aliases": [],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "更始帝劉玄の父。後漢書巻一一本文「吏系圣公父子张。圣公诈死，使人持丧归舂陵，吏乃出子张」に本文で登場（王莽期に劉玄の件で吏に拘束され、劉玄の詐死により釈放された）。李賢注引『帝王紀』「利生子張，納平林何氏女，生更始」により蒼梧太守劉利の子で、平林の何氏の女を娶り更始帝を生んだ。生没年は原典から確認できず（調査済みだが不明）。",
+      "wikidata": "Q9465671",
+      "source": {
+        "page": "後漢書 巻一一 劉玄劉盆子列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-meng",
+      "name": "劉萌",
+      "kana": "りゅうほう",
+      "aliases": [
+        "式侯"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "note": "建世帝劉盆子の実父・式侯。「刘盆子者，太山式人，城阳景王章之后也。祖父宪，元帝时封为式侯，父萌嗣。王莽篡位，国除，因为式人焉。」（後漢書 劉玄劉盆子列伝）により、元帝期に式侯に封じられた父・劉憲から式侯を嗣ぎ、王莽の簒奪で国除となったことが裏付けられる。城陽景王劉章の後裔だが、章から憲に至る中間系譜は後漢書本文に記載がない。生没年は原典から確認できず（調査済みだが不明）。子は劉恭・劉茂・劉盆子（「初，赤眉过式，掠盆子及二兄恭、茂，皆在军中。」）。",
+      "wikidata": null,
+      "posthumous": null,
+      "source": {
+        "page": "後漢書 巻十一 劉玄劉盆子列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-gongsun-ren",
+      "name": "公孫仁",
+      "kana": "こうそんじん",
+      "aliases": [
+        "河南都尉"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "note": "成家皇帝公孫述の実父。後漢書隗囂公孫述列傳冒頭に「公孙述字子阳，扶风茂陵人也。哀帝时，以父任为郎，后父仁为河南都尉，而述补清水长」とあり、前漢哀帝の時に父の任（任子の制）で述が郎となった後、仁は河南都尉を務めた。「仁以述年少，遣门下掾随之官，月余，掾辞归，白仁曰：\"述非待教者也。\"」と、若年の述の清水長赴任に門下掾を随行させた逸話が残る。生没年は原典に記載なく不明。成家からの皇帝号・王号等の追尊記録は後漢書に見えないため kind=宗室（成家帝室の直系尊属）とする（建武十二年の成都陥落時に「尽灭公孙氏」と一族誅滅）。本人の活動期は前漢哀帝期のため section は p-liu-qin（同じく前漢期の官人で後漢光武帝の父）の先例に合わせ「秦（始皇帝以降）」。Wikidata QID は WebSearch 1回で確認を試みたが特定できず null。",
+      "wikidata": null,
+      "source": {
+        "page": "後漢書 巻十三 隗囂公孫述列傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-wu-liang",
+      "name": "劉武",
+      "kana": "りゅうぶ",
+      "aliases": [
+        "梁孝王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "梁",
+      "birthYear": null,
+      "deathYear": -143,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "前漢文帝の子・景帝の同母弟（母は竇太后）で、梁王家の初代・梁孝王。原文:「孝文皇帝四男：窦皇后生孝景帝、梁孝王武，诸姬生代孝王参、梁怀王揖」（漢書 文三王伝）。史記 梁孝王世家「梁孝王武者，孝文皇帝子也，而与孝景帝同母。母，窦太后也」でも一致。孝文2年（前178）に代王に立てられ後に梁王へ転封（「梁孝王武以孝文二年与太原王参、梁王揖同日立」）。「三十五年冬，复入朝」「六月中，病热，六日薨」により在位35年・景帝中元6年（前144、天文年-143）に病死（立年からの機械計算のため概数扱い）。生年は原典未確認。劉永（梁の自称天子）の梁王家の祖で、表示レーン「梁」の起点。",
+      "wikidata": "Q7583815",
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-mai-liang",
+      "name": "劉買",
+      "kana": "りゅうばい",
+      "aliases": [
+        "梁共王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "梁",
+      "birthYear": null,
+      "deathYear": -136,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "梁孝王武の太子・梁共王。原文:「梁孝王子五人为王。太子买为梁共王」「梁共王买立七年薨，子平王襄嗣」（漢書 文三王伝）。在位7年で薨去（前137頃、天文年-136。在位年数からの機械計算のため概数扱い）。生年は原典未確認。「太子」との表記のみで「第n子」の数値明記はないため childOrder は付さない。既存ブリッジ p-liu-mai（舂陵節侯劉買）とは同名別人。",
+      "wikidata": null,
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-xiang-liang",
+      "name": "劉襄",
+      "kana": "りゅうじょう",
+      "aliases": [
+        "梁平王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "梁",
+      "birthYear": null,
+      "deathYear": -96,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "梁共王買の子・梁平王。原文:「梁共王买立七年薨，子平王襄嗣」「襄立四十年薨，子顷王无伤嗣」（漢書 文三王伝）。母は陳太后（「平王襄，母曰陈太后」）。在位40年で薨去（前97頃、天文年-96。在位年数からの機械計算のため概数扱い）。生年は原典未確認。",
+      "wikidata": null,
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-wushang-liang",
+      "name": "劉無傷",
+      "kana": "りゅうむしょう",
+      "aliases": [
+        "梁頃王",
+        "刘无伤"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "梁",
+      "birthYear": null,
+      "deathYear": -85,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "梁平王襄の子・梁頃王。原文:「襄立四十年薨，子顷王无伤嗣。十一年薨，子敬王定国嗣」（漢書 文三王伝）。在位11年で薨去（前86頃、天文年-85。在位年数からの機械計算のため概数扱い）。生年は原典未確認。無傷以降の梁王家系譜はコーパスの史記 梁孝王世家には見えず、漢書 文三王伝（表記は「顷王无伤」）に拠る。",
+      "wikidata": null,
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-dingguo-liang",
+      "name": "劉定国",
+      "kana": "りゅうていこく",
+      "aliases": [
+        "梁敬王",
+        "劉定國"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "梁",
+      "birthYear": null,
+      "deathYear": -45,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "梁頃王無傷の子・梁敬王。原文:「十一年薨，子敬王定国嗣。四十年薨，子夷王遂嗣」（漢書 文三王伝）。在位40年で薨去（前46頃、天文年-45。在位年数からの機械計算のため概数扱い）。生年は原典未確認。",
+      "wikidata": null,
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-sui-liang",
+      "name": "劉遂",
+      "kana": "りゅうすい",
+      "aliases": [
+        "梁夷王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "梁",
+      "birthYear": null,
+      "deathYear": -39,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "梁敬王定国の子・梁夷王。原文:「四十年薨，子夷王遂嗣。六年薨，子荒王嘉嗣」（漢書 文三王伝）。在位6年で薨去（前40頃、天文年-39。在位年数からの機械計算のため概数扱い）。生年は原典未確認。",
+      "wikidata": null,
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-jia-liang",
+      "name": "劉嘉",
+      "kana": "りゅうか",
+      "aliases": [
+        "梁荒王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "梁",
+      "birthYear": null,
+      "deathYear": -24,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "梁夷王遂の子・梁荒王。原文:「六年薨，子荒王嘉嗣。十五年薨，子立嗣」（漢書 文三王伝）。在位15年で薨去（前25頃、天文年-24。在位年数からの機械計算のため概数扱い）。生年は原典未確認。",
+      "wikidata": null,
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-li-liang",
+      "name": "劉立",
+      "kana": "りゅうりつ",
+      "aliases": [
+        "梁王立"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "梁",
+      "birthYear": null,
+      "deathYear": 3,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "一親等",
+        "経路上"
+      ],
+      "note": "梁荒王嘉の子・前漢最後の梁王で、劉永（梁の自称天子）の実父。原文:「十五年薨，子立嗣」（漢書 文三王伝）。末路は「元始中，立坐与平帝外家中山卫氏交通，新都侯王莽奏废立为庶人，徙汉中。立自杀。二十七年，国除」（同）。在位27年からの機械計算で没年は西暦3年頃（元始3年の衛氏粛清と整合）・概数扱い。後漢書 王劉張李彭盧列傳は「元始中，立与平帝外家卫氏交通，为王莽所诛」と「誅」とするが、漢書は廃位・徙漢中後の自殺とし、死の態様の表現に異同がある（王莽による排除である点は一致）。生年は原典未確認。",
+      "wikidata": null,
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-feng",
+      "name": "袁逢",
+      "kana": "えんほう",
+      "kind": "その他",
+      "gender": "male",
+      "section": "後漢",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "note": "後漢の高官（司空・執金吾）。字は周陽。汝南汝陽の四世三公の名族・汝南袁氏の出で、袁安の曾孫、司徒・太尉袁湯の次子（後漢書 袁安伝「早卒，次子逢嗣。」「逢字周阳，以累世三公子，宽厚笃信，著称于时。」）。霊帝紀に光和元年（178年）「冬十月，屯骑校尉袁逢为司空」、光和二年（179年）「司空袁逢罢，太常张济为司空」とあり司空在任は光和元〜二年。「后为司空，卒于执金吾」（袁安伝）と執金吾在任中に没したが没年の明記はなく、生年も原典に記載がないため生没年とも null。没後は車騎将軍印綬を贈られ諡は宣文侯（侯爵諡であり皇帝号・太上皇号の追尊ではないため posthumous 対象外）。子に袁基（嗣子・太仆）・袁術。袁紹は「成子绍，逢子术，自有传。」の通り後漢書では兄袁成の子として記載される。仲家皇帝袁術の実父（一親等）としてブリッジ収録。",
+      "wikidata": "Q45461732",
+      "source": {
+        "page": "後漢書 巻四十五 袁張韓周列傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-qing",
+      "name": "劉慶",
+      "kana": "りゅうけい",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "後漢",
+      "birthYear": 78,
+      "deathYear": 107,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "清河孝王。章帝の子（生母は宋貴人）、安帝の実父。「建初三年，大贵人生庆，明年立为皇太子」と建初三年（78年）生まれで翌年皇太子に立てられたが、竇皇后の讒言により建初七年（82年）に廃されて清河王となった（「今废庆为清河王」）。延平元年に就国し、同年「庆立凡二十五年，乃归国。其年病笃」「遂薨，年二十九」（数え29歳）。没日は孝安帝紀「十二月甲子，清河王薨」で、延平元年十二月甲子はユリウス暦107年2月1日にあたるため deathYear は107とした。子の安帝即位後、121年に「追尊皇考清河孝王曰孝德皇」と孝德皇を追尊された（皇帝号・廟号ではないため kind は宗室）。",
+      "wikidata": "Q711657",
+      "posthumous": {
+        "dynasty": "後漢",
+        "templeName": null,
+        "posthumousName": "孝德皇"
+      },
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-shou",
+      "name": "劉寿",
+      "kana": "りゅうじゅ",
+      "aliases": [
+        "済北恵王",
+        "劉壽",
+        "济北惠王寿"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "後漢",
+      "birthYear": null,
+      "deathYear": 120,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "後漢章帝の子（母は申貴人）・少帝懿（北郷侯懿）の実父。章帝八王伝「济北惠王寿，母申贵人，颍川人也，世吏二千石。贵人年十三，入掖庭。寿以永元二年封，分太山郡为国」により永元二年（90）済北王に封建。「寿立三十一年薨」とあり、没年は安帝紀「永宁元年春正月甲辰，任城王安薨。三月丁酉，济北王寿薨」により永寧元年（120）三月丁酉と本紀レベルで確定（立年起算31年とも整合）。生年は原典未確認で null。嗣子は節王登（「子节王登嗣」）。王号（済北王・諡は恵王）どまりで皇帝号の追尊はないため kind=宗室。Wikidata は検索でQIDを確信を持って特定できず null（ヒットした Q10900466 は献帝の子の済北王劉苗で別人）。",
+      "wikidata": null,
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-kang-qiansheng",
+      "name": "劉伉",
+      "kana": "りゅうこう",
+      "aliases": [
+        "千乗貞王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "後漢",
+      "birthYear": null,
+      "deathYear": 93,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "後漢章帝の長子・千乘貞王。「千乘贞王伉，建初四年封。和帝即位，以伉长兄，甚见尊礼立十五年薨。」により建初四年（79）に千乘王に封じられ、封から15年目＝永元五年（93）頃に薨去（立年からの機械計算のため概数扱い）。母は「四王不载母氏」により不載。生年は原典未確認。質帝の曾祖父（質帝紀「曾祖父千乘贞王伉」）。id は既存 p-liu-kang（劉康・定陶恭王）との衝突回避のため封国名を付した。",
+      "wikidata": null,
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-chong",
+      "name": "劉寵",
+      "kana": "りゅうちょう",
+      "aliases": [
+        "楽安夷王",
+        "劉伏胡"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "後漢",
+      "birthYear": null,
+      "deathYear": 122,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "千乘貞王伉の子・楽安夷王。一名伏胡。「子宠嗣，一名伏胡。永元七年，改国名乐安。立二十八年薨，是为夷王。父子薨于京师，皆葬洛阳。」により父の薨後に嗣ぎ、永元七年（95）に国名を楽安と改めた。「立二十八年薨」は嗣立（93頃）起算なら120、楽安改称（95）起算なら122となり、子の鴻の「立二十六年薨」が質帝擁立（145）後の勃海改封をまたいで建和元年（147）頃に届くこととの整合から122を採用（機械計算・概数扱い）。生年は原典未確認。質帝の祖父（質帝紀「祖父乐安夷王宠」）。",
+      "wikidata": null,
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-hong",
+      "name": "劉鴻",
+      "kana": "りゅうこう",
+      "aliases": [
+        "勃海孝王",
+        "楽安王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "後漢",
+      "birthYear": null,
+      "deathYear": 147,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "楽安夷王寵の子・質帝の実父。「子鸿嗣，安帝崩，始就国。鸿生质帝，质帝立，梁太后下诏，以乐安国土卑湿，租委鲜薄，改封鸿勃海王。立二十六年薨，是为孝王。」により父の薨後に楽安王を嗣ぎ、質帝擁立（145）後に勃海王へ改封され、勃海孝王として薨去。「立二十六年薨」は嗣立を122（寵の没年の採用値）起算とすると建和元年（147）頃となり、勃海改封後の薨去という叙述とも整合するため147を採用（機械計算・概数扱い）。薨後は「无子，太后立桓帝弟蠡吾侯悝为勃海王，奉鸿祀」と嗣子がなかった（質帝は既に帝位にあり夭折）。皇帝号の追尊は原典に確認できず（王号・諡「孝」のみ）、kind=宗室。生年は原典未確認。",
+      "wikidata": null,
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-kai",
+      "name": "劉開",
+      "kana": "りゅうかい",
+      "aliases": [
+        "河間孝王",
+        "孝穆皇"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "後漢",
+      "birthYear": null,
+      "deathYear": 131,
+      "yearsApproximate": false,
+      "posthumous": {
+        "dynasty": "後漢",
+        "templeName": null,
+        "posthumousName": "孝穆皇"
+      },
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "後漢の河間孝王。章帝の子（章帝八王伝「孝章皇帝八子：宋贵人生清河孝王庆，梁贵人生和帝，申贵人生济北惠王寿、河间孝王开，四王不载母氏」、母は申貴人）。永元二年（90年）封（「河间孝王开，以永元二年封，分乐成、勃海、涿郡为国。延平元年就国。开奉遵法度，吏人敬之」）。桓帝の祖父・霊帝の曾祖父。没年は順帝紀の永建六年（131年）「六年春二月庚午，河间王开薨」で確定。孫の桓帝即位後の本初元年（146年）九月戊戌に「追尊皇祖河间孝王曰孝穆皇，夫人赵氏曰孝穆皇后」（桓帝紀）と「皇」号（皇帝号・廟号ではない）を追尊された。章帝八王伝には「庙曰清庙，陵曰乐成陵」とあるが清庙は廟の名称であり廟号ではないため templeName は null。",
+      "wikidata": "Q6852951",
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-yi",
+      "name": "劉翼",
+      "kana": "りゅうよく",
+      "aliases": [
+        "蠡吾侯",
+        "平原王",
+        "都郷侯",
+        "孝崇皇"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "後漢",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "posthumous": {
+        "dynasty": "後漢",
+        "templeName": null,
+        "posthumousName": "孝崇皇"
+      },
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "河間孝王劉開の子で桓帝の実父。元初六年（119年）に鄧太后が諸王子を召した際に容姿を評価され平原懐王勝の後嗣とされ（「蠡吾侯翼，元初六年邓太后征济北、河间王诸子诣京师，奇翼美仪容，故以为平原怀王后焉」）、永寧元年（120年）平原王に封じられた（「永宁元年，邓太后封开子翼为平原王，奉怀王胜祀」）。鄧太后崩後に讒言され都郷侯に貶され河間に帰され、永建五年（130年）父開の上書により蠡吾侯となった（「永建五年，父开上书，愿分蠡吾县以封翼，顺帝从之」）。没年は原典に明記なし（「翼卒，子志嗣」、146年の桓帝即位以前）。桓帝即位後の本初元年（146年）「皇考蠡吾侯曰孝崇皇」（桓帝紀）と「皇」号（皇帝号・廟号ではない）を追尊された。章帝八王伝には「庙曰列庙，陵曰博陵」とあるが列廟は廟の名称であり廟号ではないため templeName は null。",
+      "wikidata": "Q10897903",
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-shu",
+      "name": "劉淑",
+      "kana": "りゅうしゅく",
+      "aliases": [
+        "解瀆亭侯",
+        "孝元皇"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "後漢",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "河間孝王開の子・霊帝の祖父（後漢書孝霊帝紀冒頭「孝灵皇帝讳宏，肃宗玄孙也。曾祖河间孝王开，祖淑，父苌。世封解渎亭侯，帝袭侯爵」）。解瀆亭侯。章帝八王列伝に個名では現れないが「阳嘉元年，封政弟十三人皆为亭侯」（河間惠王政の弟13人の亭侯封）に対応するとみられる。霊帝即位後の建寧元年閏月に「闰月甲午，追尊皇祖为孝元皇，夫人夏氏为孝元皇后，考为孝仁皇，夫人董氏为慎园贵人」（孝霊帝紀）と皇号「孝元皇」を追尊された（皇帝号・廟号の追贈ではないため kind=宗室）。生没年は原典から確認できず。なお章帝の子にも同名の城陽懷王淑がいる（章帝八王列伝）が別人。Wikidata Q10900070 は実体を取得しラベル「劉淑 (解瀆亭侯)」・父=Liu Kai (Q6852951)・子=Liu Chang (Q10897926) を確認。",
+      "wikidata": "Q10900070",
+      "posthumous": {
+        "dynasty": "後漢",
+        "templeName": null,
+        "posthumousName": "孝元皇"
+      },
+      "source": {
+        "page": "後漢書 巻八 孝霊帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-chang",
+      "name": "劉萇",
+      "kana": "りゅうちょう",
+      "aliases": [
+        "解瀆亭侯",
+        "孝仁皇"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "後漢",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "劉淑の子・霊帝の実父（後漢書孝霊帝紀冒頭「孝灵皇帝讳宏，肃宗玄孙也。曾祖河间孝王开，祖淑，父苌。世封解渎亭侯，帝袭侯爵。母董夫人」）。解瀆亭侯（皇后紀下では「解犊亭侯」と表記、篇間の用字異同）。妻は董夫人（孝仁董皇后）：「孝仁董皇后讳某，河间人。为解犊亭侯苌夫人，生灵帝。建宁元年，帝即位，追尊苌为孝仁皇，陵曰慎陵，以后为慎园贵人」（皇后紀下）。霊帝が侯爵を継いだ（「帝袭侯爵」）ことから霊帝即位（168年）以前に死去したとみられるが、生没年は原典から確認できず。皇号「孝仁皇」の追尊は皇帝号・廟号の追贈ではないため kind=宗室。Wikidata Q10897926 は実体を取得しラベル「劉萇」・父=Liu Shu (Q10900070)・子=Emperor Ling of Han (Q7299) を確認。",
+      "wikidata": "Q10897926",
+      "posthumous": {
+        "dynasty": "後漢",
+        "templeName": null,
+        "posthumousName": "孝仁皇"
+      },
+      "source": {
+        "page": "後漢書 巻八 孝霊帝紀",
         "lang": "zh-classical"
       }
     }
@@ -6047,6 +6648,520 @@
       "note": "漢書平帝紀「孝平皇帝，元帝庶孙，中山孝王子也。母曰卫姬。」宣元六王伝「三十年，薨，子衎嗣。」外戚伝下「成帝时，中山孝王无子，上以卫氏吉祥，以子豪少女配孝王。元延四年，生平帝。」により中山孝王劉興の子。排行「第n子」の明記はないため childOrder は付さない（外戚伝下の記述からは劉興に他の男子の記載がない）。",
       "source": {
         "page": "漢書 巻十二 平帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-wang-man",
+      "to": "wang-mang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書王莽伝上冒頭「王莽字巨君，孝元皇后之弟子也。」「唯莽父曼蚤死，不侯。」により、王莽の実父は王曼（元帝皇后王政君の弟）。元后伝の王禁の子女列挙「长男凤孝卿，次曼元卿」、および王曼の新都哀侯追封と王莽の嗣爵を記す「上复下诏追封曼为新都哀侯，而子莽嗣爵为新都侯。」（元后伝）とも一致。王莽には早世した兄・王永がいる（「莽兄永为诸曹，蚤死」元后伝）ため長子ではないが、原典に「第n子」の数値明記はないため childOrder は付さない。",
+      "source": {
+        "page": "漢書 巻九十九上 王莽傳上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-mai",
+      "to": "p-liu-xiongqu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書巻一四本文（城陽恭王祉伝）「买卒，子戴侯熊渠嗣」により舂陵節侯劉買の子・戴侯熊渠が嗣いだことが本文で明記される。",
+      "source": {
+        "page": "後漢書 巻一四 宗室四王三侯列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-xiongqu",
+      "to": "p-liu-li",
+      "veracity": "verified",
+      "confidence": "medium",
+      "note": "後漢書巻一一劉玄伝の李賢注引『帝王紀』「舂陵戴侯熊渠生蒼梧太守利，利生子張，納平林何氏女，生更始」による。正史本文でなく唐代注引の系譜のため confidence=medium。劉利が蒼梧太守であること自体は後漢書巻一四本文（安成孝侯賜伝）「安成孝侯赐字子琴，光武族兄也。祖父利，苍梧太守」（劉賜は劉利の孫）で傍証される。",
+      "source": {
+        "page": "後漢書 巻一一 劉玄劉盆子列伝（李賢注引帝王紀）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-li",
+      "to": "p-liu-zizhang",
+      "veracity": "verified",
+      "confidence": "medium",
+      "note": "後漢書巻一一劉玄伝の李賢注引『帝王紀』「利生子張」による。正史本文でなく唐代注引の系譜のため confidence=medium。",
+      "source": {
+        "page": "後漢書 巻一一 劉玄劉盆子列伝（李賢注引帝王紀）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-zizhang",
+      "to": "gengshi-di",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書巻一一本文「吏系圣公父子张。圣公诈死，使人持丧归舂陵，吏乃出子张」により父が子張であることが本文で明記される。李賢注引『帝王紀』「利生子張，納平林何氏女，生更始」とも一致。",
+      "source": {
+        "page": "後漢書 巻一一 劉玄劉盆子列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-meng",
+      "to": "liu-penzi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『後漢書』劉玄劉盆子列伝の出自記事「刘盆子者，太山式人，城阳景王章之后也。祖父宪，元帝时封为式侯，父萌嗣。王莽篡位，国除，因为式人焉。」により、実父は式侯劉萌（祖父憲から式侯を嗣ぐ）と本文で明記される。また「初，赤眉过式，掠盆子及二兄恭、茂，皆在军中。」により盆子には二人の兄（劉恭・劉茂）がおり第三子にあたるが、「第n子」の数値明記はないため childOrder は付さない。",
+      "source": {
+        "page": "後漢書 巻十一 劉玄劉盆子列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-gongsun-ren",
+      "to": "gongsun-shu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書隗囂公孫述列傳冒頭「公孙述字子阳，扶风茂陵人也。哀帝时，以父任为郎，后父仁为河南都尉，而述补清水长。仁以述年少，遣门下掾随之官」により、述の父は仁（公孫仁・河南都尉）と確認できる。排行（第n子）の明記はなし。弟に恢・光がいる（「以其弟光为大司马，恢为大司空」）。",
+      "source": {
+        "page": "後漢書 巻十三 隗囂公孫述列傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-li-liang",
+      "to": "liu-yong-liang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書 王劉張李彭盧列傳「刘永者，梁郡睢阳人，梁孝王八世孙也。传国至父立。元始中，立与平帝外家卫氏交通，为王莽所诛」。父・劉立（前漢最後の梁王）から梁国を伝えられた。孝王からの世代数（買1・襄2・無傷3・定国4・遂5・嘉6・立7・永8）は「梁孝王八世孙」と整合。「第n子」の数値明記はないため childOrder は付さない。",
+      "source": {
+        "page": "後漢書 巻十二 王劉張李彭盧列傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "han-wendi",
+      "to": "p-liu-wu-liang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書 文三王伝冒頭「孝文皇帝四男：窦皇后生孝景帝、梁孝王武，诸姬生代孝王参、梁怀王揖」により梁孝王武は文帝の子・景帝の同母弟（母は竇太后）。史記 梁孝王世家「梁孝王武者，孝文皇帝子也，而与孝景帝同母。母，窦太后也」でも一致。史記に「次子武」とあるが「第n子」の数値明記ではないため childOrder は付さない。",
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-wu-liang",
+      "to": "p-liu-mai-liang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書 文三王伝「梁孝王子五人为王。太子买为梁共王，次子明为济川王，彭离为济东王，定为山阳王，不识为济阴王，皆以孝景中六年同日立」。買は孝王の太子として梁共王を嗣いだ（「太子」表記のみで「第n子」の数値明記なし）。",
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-mai-liang",
+      "to": "p-liu-xiang-liang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書 文三王伝「梁共王买立七年薨，子平王襄嗣。」母は陳太后（「平王襄，母曰陈太后」）。",
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-xiang-liang",
+      "to": "p-liu-wushang-liang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書 文三王伝「襄立四十年薨，子顷王无伤嗣。」",
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-wushang-liang",
+      "to": "p-liu-dingguo-liang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書 文三王伝「襄立四十年薨，子顷王无伤嗣。十一年薨，子敬王定国嗣。」（十一年薨の主語は頃王無傷）",
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-dingguo-liang",
+      "to": "p-liu-sui-liang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書 文三王伝「十一年薨，子敬王定国嗣。四十年薨，子夷王遂嗣。」（四十年薨の主語は敬王定国）",
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-sui-liang",
+      "to": "p-liu-jia-liang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書 文三王伝「四十年薨，子夷王遂嗣。六年薨，子荒王嘉嗣。」（六年薨の主語は夷王遂）",
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-jia-liang",
+      "to": "p-liu-li-liang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書 文三王伝「六年薨，子荒王嘉嗣。十五年薨，子立嗣。」（十五年薨の主語は荒王嘉）",
+      "source": {
+        "page": "漢書 巻四七 文三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-feng",
+      "to": "yuan-shu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "袁術の実父は袁逢（後漢の司空）。後漢書 劉焉袁術呂布列傳の出自記事「袁术字公路，汝南汝阳人，司空逢之子也。」で明記され、後漢書 袁安伝（袁張韓周列傳）の系譜記事「成子绍，逢子术，自有传。」、三国志 魏書 董二袁劉伝（daizhigev20版・句読点なし）「袁术字公路司空逢子绍之从弟也」の三箇所で相互に裏付けられる。排行「第n子」の明記はないため childOrder は付さない。",
+      "source": {
+        "page": "後漢書 巻七十五 劉焉袁術呂布列傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "hou-han-guangwudi",
+      "to": "hou-han-mingdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 4,
+      "primaryLineage": true,
+      "note": "『後漢書』顕宗孝明帝紀冒頭に「显宗孝明皇帝讳庄，光武第四子也」とあり、光武帝の第四子と明記される。建武十九年に皇太子に立てられ（「十九年立为皇太子」）、中元二年に即位。childOrder=4 は「第四子」の明記による。",
+      "source": {
+        "page": "後漢書 巻二 顕宗孝明帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "hou-han-mingdi",
+      "to": "hou-han-zhangdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "childOrder": 5,
+      "note": "後漢書粛宗孝章帝紀に「肃宗孝章皇帝讳炟，显宗第五子也。母贾贵人。」と明記（顕宗=明帝の廟号）。孝明八王列伝の「孝明皇帝九子：贾贵人生章帝」、皇后紀の「贾贵人，南阳人。建武末选入太子宫，中元二年生肃宗」でも相互裏付け。明帝の第五子として永平三年に皇太子となり世襲即位（フェーズ1判定と一致）。",
+      "source": {
+        "page": "後漢書 巻三 粛宗孝章帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "hou-han-zhangdi",
+      "to": "hou-han-hedi",
+      "childOrder": 4,
+      "primaryLineage": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『後漢書』巻四孝和孝殤帝紀の冒頭に「孝和皇帝讳肇，肃宗第四子也」と明記。肅宗は章帝（hou-han-zhangdi、劉炟）の廟号であり、和帝劉肇は章帝の第四子。建初七年に皇太子に立てられ（「建初七年，立为皇太子」）、章和二年に即位した。フェーズ1のaccessionRoute判定（章帝の第四子として世襲）と一致し矛盾なし。",
+      "source": {
+        "page": "後漢書 巻四 孝和孝殤帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "hou-han-hedi",
+      "to": "hou-han-shangdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "『後漢書』孝殤帝紀冒頭に「孝殇皇帝讳隆，和帝少子也。」とあり、和帝の末子であることが本紀で直接裏付けられる。「少子」は非数値の排行表記のため childOrder は付さない。",
+      "source": {
+        "page": "後漢書 巻四 孝殤帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "hou-han-zhangdi",
+      "to": "p-liu-qing",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "章帝八王伝「孝章皇帝八子：宋贵人生清河孝王庆，梁贵人生和帝，申贵人生济北惠王寿、河间孝王开，四王不载母氏。」「清河孝王庆，母宋贵人。」により劉慶は章帝（肃宗）の子で生母は宋貴人。「肃宗即位，并为贵人。建初三年，大贵人生庆，明年立为皇太子」と建初三年（78年）生・建初四年に皇太子に立てられたが、建初七年に廃されて清河王（「今废庆为清河王」）。八王伝の列挙順では8子中3番目だが「第n子」の明記はないため childOrder は付さない。",
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-qing",
+      "to": "hou-han-andi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝安帝紀冒頭「恭宗孝安皇帝讳祜，肃宗孙也。父清河孝王庆，母左姬。」により実父は清河孝王劉慶（章帝の子）。章帝八王伝「邓太后以殇帝襁抱，远虑不虞，留庆长子祐与嫡母耿姬居清河邸。至秋，帝崩，立祐为嗣，是为安帝。」とも一致し、安帝は劉慶の長子。「长子」は非数値表記のため childOrder は付さない。即位策命では「为人后者为之子，不以父命辞王父命」「其以祜为孝和皇帝嗣，奉承祖宗」「今以侯嗣孝和皇帝后」と礼制上は和帝の後嗣（為人後）とされたが、han-aidi（成帝後嗣）の前例に合わせ養父エッジは立てず記録にとどめる。鄧太后崩後の121年に「戊申，追尊皇考清河孝王曰孝德皇」と実父を追尊した。",
+      "source": {
+        "page": "後漢書 巻五 孝安帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "hou-han-zhangdi",
+      "to": "p-liu-shou",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書章帝八王伝の冒頭列挙「孝章皇帝八子：宋贵人生清河孝王庆，梁贵人生和帝，申贵人生济北惠王寿，河闲孝王开，四王不载母氏」および本条「济北惠王寿，母申贵人，颍川人也，世吏二千石」により、済北恵王劉寿は章帝の実子（母は申貴人）と正史列伝で明記。",
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-shou",
+      "to": "hou-han-shaodi-yi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書安帝紀末尾（延光四年三月）「太后临朝，以后兄大鸿胪阎显为车骑将军，定策禁中，立章帝孙济北惠王寿子北乡侯懿」により、北郷侯劉懿（少帝懿）は済北恵王寿の子・章帝の孫と本紀で明記。排行（第n子）の記載はなし。章帝八王伝の済北恵王寿条は嗣子節王登と「永宁元年，封登弟五人为乡侯，皆别食太山邑」を記すのみで懿の名を個別には挙げないが、安帝紀の明示記述により実父関係は verified。",
+      "source": {
+        "page": "後漢書 巻五 孝安帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "hou-han-andi",
+      "to": "hou-han-shundi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『後漢書』孝順帝紀冒頭に「孝順皇帝諱保，安帝之子也」と明記。安帝の実子（唯一の皇子）で、永寧元年に皇太子に立てられたのち延光3年に廃されて済陰王となり、安帝崩御・北郷侯（少帝懿）夭逝後に宦官孫程らのクーデターで擁立された。フェーズ1の accessionRoute 判定（安帝の実子・宦官主導の擁立）と整合。",
+      "source": {
+        "page": "後漢書 巻六 孝順帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "hou-han-shundi",
+      "to": "hou-han-chongdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書本紀第六（孝順孝沖孝質帝紀）出自記事「孝冲皇帝讳炳，顺帝之子也。母曰虞贵人。」により実父は順帝で確定。皇后紀下（順烈梁皇后）「建康元年，帝崩。后无子，美人虞氏子炳立，是为冲帝。」でも順帝崩御後に虞美人所生の炳（沖帝）が立てられたことを裏付ける。梁皇后に子がなく虞美人の子であることから順帝の唯一の男子。「第n子」の数値明記はないため childOrder は付さない。",
+      "source": {
+        "page": "後漢書 巻六 孝順孝沖孝質帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "hou-han-zhangdi",
+      "to": "p-liu-kang-qiansheng",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書章帝八王列伝の冒頭「孝章皇帝八子：宋贵人生清河孝王庆，梁贵人生和帝，申贵人生济北惠王寿、河间孝王开，四王不载母氏。」に続き「千乘贞王伉，建初四年封。和帝即位，以伉长兄，甚见尊礼立十五年薨。」と、伉が章帝八子の筆頭（和帝の長兄）であることが明記される。母は「四王不载母氏」により不載。「长兄」は非数値表記のため childOrder は付さない。",
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-kang-qiansheng",
+      "to": "p-liu-chong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書章帝八王列伝・千乘貞王伉条「子宠嗣，一名伏胡。永元七年，改国名乐安。立二十八年薨，是为夷王。父子薨于京师，皆葬洛阳。」により、寵は伉の子で王位を嗣いだ。",
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-chong",
+      "to": "p-liu-hong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書章帝八王列伝「子鸿嗣，安帝崩，始就国。鸿生质帝，质帝立，梁太后下诏，以乐安国土卑湿，租委鲜薄，改封鸿勃海王。立二十六年薨，是为孝王。」により、鴻は寵の子で王位を嗣いだ。",
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-hong",
+      "to": "hou-han-zhidi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書質帝紀冒頭「孝质皇帝讳缵，肃宗玄孙。曾祖父千乘贞王伉，祖父乐安夷王宠，父勃海孝王鸿，母陈夫人。」により実父は勃海孝王劉鴻。章帝八王列伝「鸿生质帝」とも一致。章帝（肅宗）→伉→寵→鴻→質帝で本紀の「玄孙」（4世孫）と代数が整合する。",
+      "source": {
+        "page": "後漢書 巻六 孝順孝沖孝質帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "hou-han-zhangdi",
+      "to": "p-liu-kai",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書章帝八王伝「孝章皇帝八子：宋贵人生清河孝王庆，梁贵人生和帝，申贵人生济北惠王寿、河间孝王开，四王不载母氏」。章帝八子の一人で母は申貴人。「河间孝王开，以永元二年封，分乐成、勃海、涿郡为国」。",
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-kai",
+      "to": "p-liu-yi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書章帝八王伝「永宁元年，邓太后封开子翼为平原王，奉怀王胜祀」（開の子と明記）、「永建五年，父开上书，愿分蠡吾县以封翼，顺帝从之」（父＝開）。桓帝紀の「祖父河间孝王开，父蠡吾侯翼」とも整合。",
+      "source": {
+        "page": "後漢書 巻五十五 章帝八王列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-yi",
+      "to": "hou-han-huandi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書孝桓帝紀冒頭「孝桓皇帝讳志，肃宗曾孙也。祖父河间孝王开，父蠡吾侯翼，母匽氏。翼卒，帝袭爵为侯」。章帝八王伝「翼卒，子志嗣，为大将军梁冀所立，是为桓帝」とも一致。即位後に「皇考蠡吾侯曰孝崇皇」と父を追尊。排行の「第n子」表記は原典になし。",
+      "source": {
+        "page": "後漢書 巻七 孝桓帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-kai",
+      "to": "p-liu-shu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書孝霊帝紀冒頭「孝灵皇帝讳宏，肃宗玄孙也。曾祖河间孝王开，祖淑，父苌。」により淑は河間孝王開の子（霊帝の祖父）。原典に排行「第n子」の記載はない。",
+      "source": {
+        "page": "後漢書 巻八 孝霊帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-shu",
+      "to": "p-liu-chang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書孝霊帝紀冒頭「孝灵皇帝讳宏，肃宗玄孙也。曾祖河间孝王开，祖淑，父苌。」により萇は淑の子（霊帝の父）。原典に排行「第n子」の記載はない。",
+      "source": {
+        "page": "後漢書 巻八 孝霊帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-chang",
+      "to": "hou-han-lingdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書孝霊帝紀冒頭「孝灵皇帝讳宏，肃宗玄孙也。曾祖河间孝王开，祖淑，父苌。世封解渎亭侯，帝袭侯爵。母董夫人。」および皇后紀下「为解犊亭侯苌夫人，生灵帝」により萇は霊帝の実父。原典に排行「第n子」の記載はなく childOrder は付さない。",
+      "source": {
+        "page": "後漢書 巻八 孝霊帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "hou-han-lingdi",
+      "to": "hou-han-shaodi-bian",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "実父は霊帝劉宏（収録皇帝 hou-han-lingdi）。『後漢書』皇后紀下・霊思何皇后に「灵思何皇后讳某，南阳宛人。家本屠者，以选入掖庭。长七尺一寸。生皇子辩」「光和三年，立为皇后」とあり、霊帝の皇后何氏が皇子辯を生んだことが明記される。『後漢書』竇何列伝（何進伝）にも「初，何皇后生皇子辩，王贵人生皇子协」とあり（この「帝」の段の主体は霊帝）、孝霊帝紀末尾の「戊午，皇子辩即皇帝位，年十七」（霊帝紀内の「皇子」＝霊帝の子）と併せて実父＝霊帝を確認。「第n子」の数値明記は確認できないため childOrder は入れない（孝献帝紀に弟協が「灵帝中子也」とあり、辯が兄であることと整合。accessionRoute.note の「長子」表記とも矛盾しない）。",
+      "source": {
+        "page": "後漢書 巻十下 皇后紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "hou-han-lingdi",
+      "to": "hou-han-xiandi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "後漢書孝献帝紀「孝献皇帝讳协，灵帝中子也。母王美人，为何皇后所害」により実父は霊帝。「中子」は非数値の排行表記のため childOrder は入れない。生後は祖母の董太后（孝仁董皇后）に養育され「董太后自养协，号曰董侯」（後漢書皇后紀下）とあるが、正式な養子縁組ではないため養母エッジは立てない。フェーズ1判定（霊帝の中子）と一致。",
+      "source": {
+        "page": "後漢書 巻九 孝献帝紀",
         "lang": "zh-classical"
       }
     }
