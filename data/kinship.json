@@ -16625,6 +16625,19 @@
         "page": "清史稿 本紀二十五 宣統皇帝本紀",
         "lang": "zh-classical"
       }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "nansong-gaozong",
+      "to": "p-zhao-fu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "趙旉は南宋高宗の唯一の実子。宋史 巻二百四十六 宗室三「元懿太子讳旉，高宗子也，母潘贤妃。建炎元年六月，生于南京。」により実父=高宗が確定（高宗紀の建炎元年六月辛未「以子旉生，大赦」とも整合）。フェーズ2完了時の crosscheck で succession エッジ p-zhao-fu→nansong-gaozong（苗劉の乱の遜位と復位・relationToPredecessor=父）が UNDERIVABLE と検出され、経路上ノード同士の接続として本エッジを補完した（劾里鉢→烏雅束・トルイ→モンケと同型の収録皇帝→ブリッジ実父エッジ・2026-07-23）。",
+      "source": {
+        "page": "宋史 巻二百四十六 宗室三 元懿太子",
+        "lang": "zh-classical"
+      }
     }
   ],
   "genealogicalClaims": []
