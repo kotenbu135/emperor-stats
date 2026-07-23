@@ -35,7 +35,7 @@ export type MilitaryEventKey =
 
 export type AgeKey = "accessionAge" | "deathAge";
 
-export type DynastyCategory = "正統" | "十六国" | "正統（反乱・自称）";
+export type DynastyCategory = "正統" | "並立政権" | "正統（反乱・自称）";
 
 /** ある指標での全皇帝中の順位（lib/emperors.tsがビルド時に計算する）。 */
 export interface MetricRank {
@@ -369,17 +369,17 @@ export function formatReignDuration(approxDays: number): string {
   return `${years}年${days}日`;
 }
 
-// value はデータ側のenum値（"十六国"は五代十国等も含む歴史的経緯のある内部値）。
-// 訪問者に見せる label は実態に合わせた名称にする。
+// value はデータ側のenum値。かつて内部値が"十六国"（出典wikitext由来の歴史的経緯）で
+// 表示ラベルだけ「並立政権」だったが、2026-07-23にデータ側の語彙も「並立政権」へ統一した。
 export const dynastyCategoryOptions: { value: DynastyCategory; label: string }[] = [
   { value: "正統", label: "正統王朝" },
-  { value: "十六国", label: "並立政権" },
+  { value: "並立政権", label: "並立政権" },
   { value: "正統（反乱・自称）", label: "反乱・自称政権" },
 ];
 
 export const dynastyCategoryDescriptions: Record<DynastyCategory, string> = {
   正統: "歴代王朝の本流として続いた系譜の皇帝（例：前漢・唐・宋・明・清など）",
-  十六国: "五胡十六国・五代十国など、複数の政権が同時に並び立った時代の各政権の皇帝",
+  並立政権: "五胡十六国・五代十国など、複数の政権が同時に並び立った時代の各政権の皇帝",
   "正統（反乱・自称）": "正統王朝の統治下で、反乱・簒奪・自称により皇帝を名乗った勢力の皇帝",
 };
 

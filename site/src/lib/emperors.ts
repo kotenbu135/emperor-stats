@@ -1115,7 +1115,7 @@ function mergeYearSpans(
 /** 帯の見た目を代表する区分。複数区分が混在する王朝（唐・北魏など）は正統を優先する。 */
 function bandCategory(categories: Set<DynastyCategory>): DynastyCategory {
   if (categories.has("正統")) return "正統";
-  if (categories.has("十六国")) return "十六国";
+  if (categories.has("並立政権")) return "並立政権";
   return "正統（反乱・自称）";
 }
 
@@ -1168,7 +1168,7 @@ export function getTimelineData(): TimelineData {
   const categoryPriority: Record<DynastyCategory, number> = {
     正統: 0,
     "正統（反乱・自称）": 1,
-    十六国: 1,
+    並立政権: 1,
   };
   const bands: TimelineDynastyBand[] = [...byKey.values()]
     .map((w) => {
