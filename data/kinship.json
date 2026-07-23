@@ -225,6 +225,13 @@
         "emperors": 17,
         "edges": 22,
         "persons": 7
+      },
+      {
+        "phase": "parentage",
+        "block": "南朝宋・斉",
+        "emperors": 17,
+        "edges": 21,
+        "persons": 5
       }
     ],
     "confirmedRootless": [
@@ -2039,6 +2046,133 @@
         "page": "晋書 巻九十八 桓温伝",
         "lang": "zh-classical"
       }
+    },
+    {
+      "id": "p-liu-qiao",
+      "name": "劉翹",
+      "kana": "りゅうぎょう",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "posthumous": {
+        "dynasty": "宋",
+        "templeName": null,
+        "posthumousName": "孝穆皇帝"
+      },
+      "wikidata": null,
+      "note": "宋武帝劉裕の実父。彭城郡の功曹（宋書武帝紀上「混生东安太守靖，靖生郡功曹翘，是为皇考」、南史宋本紀上「皇考翘，字显宗，郡功曹」）。父は東安太守劉靖。礼志三では劉裕の宋王時代の宗廟で「皇考处士府君」と称され、追尊記事も「追尊皇考处士为孝穆皇帝」と処士呼称を用いる（郡功曹の官歴との矛盾ではなく廟における称の違い）。生没年は正史に記載なし。妻の趙氏（諱安宗）が劉裕出産当日に産疾で死去した後、蕭文壽を継室に娶り劉道怜・劉道規を儲けた（后妃伝「孝穆后殂，孝皇帝娉后为继室，生长沙景王道怜、临川烈武王道规」）。永初元年（420年）、劉裕の即位に伴い孝穆皇帝と追尊（武帝紀下「追尊皇考为孝穆皇帝，皇妣为穆皇后」）。皇帝号の追尊はあるが廟号の追贈は礼志に確認できず（礼志三「永初初，追尊皇考处士为孝穆皇帝，皇妣赵氏为穆皇后」。武帝崩御後の廟制でも「虚太祖之位也」と太祖位は空位）、KINSHIP_SCHEMA の追尊皇帝要件（皇帝号＋廟号）を満たさないため kind は宗室（孫和 p-sun-he・桓温 p-huan-wen と同一の前例処理）。wikidata は WebSearch 1回で確認を試みたが同名別人（西晋の将・劉喬）のみヒットし QID を確定できず null。",
+      "source": {
+        "page": "宋書 巻一 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-xiufan",
+      "name": "劉休範",
+      "kana": "りゅうきゅうはん",
+      "aliases": [
+        "桂陽王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": 448,
+      "deathYear": 474,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等",
+        "経路上"
+      ],
+      "note": "南朝宋文帝の第十八子（「桂阳王休范，文帝第十八子也」）。生年は「孝建三年，年九岁，封顺阳王，食邑二千户」（孝建三年＝456年に数え九歳）から448年と確定。「大明元年，改封桂阳王」。明帝末年には太尉・江州刺史。明帝の兄弟粛清を生き延びた唯一の弟（「唯休范谨涩无才，不为物情所向，故得自保而常忧惧」南史巻十四）。後廃帝の元徽二年（474年）五月に尋陽で挙兵し建康に迫ったが敗死（後廃帝紀「五月壬午，太尉、江州刺史桂阳王休范举兵反」「越骑校尉张敬兒斩休范」、文五王伝「回与越骑校尉张敬兒直前斩休范首」）。宋書后妃伝が順帝の生物学的実父と断定する異説の当事者（disputed 実父エッジ参照。明帝晩年の痿疾により懐妊中の姬人が宮中に接収されたとする）。皇帝号等の追尊はなし（王号どまり、挙兵敗死）。wikidata は WebSearch で確認（https://www.wikidata.org/wiki/Q10621173 ）。",
+      "wikidata": "Q10621173",
+      "source": {
+        "page": "宋書 巻七十九 列伝第三十九 文五王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-chengzhi",
+      "name": "蕭承之",
+      "kana": "しょうしょうし",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": 384,
+      "deathYear": 447,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "南斉高帝蕭道成の実父で、劉宋の武将。「皇考讳承之，字嗣伯。少有大志，才力过人」（南齊書 巻一 高帝紀上）。済南太守として北魏軍を空城計で退け、漢中太守として氐帥楊難当の侵攻を破り「诏曰：“承之禀命先驱，蒙险深入，全军屡克，奋其忠果，可龙骧将军。”」と龍驤将軍に進み、「封晋兴县五等男」「迁右军将军。元嘉二十四年殂，年六十四」——没年447年（元嘉24年）・数え64歳から生年は384年（逆算）。「升明二年，赠散骑常侍、金紫光禄大夫」。建元元年（479年）、高帝が「丙寅，追尊皇考曰宣皇帝」と皇帝号「宣皇帝」を追尊したが、廟号の追贈は南齊書・南史とも記載がない（南齊書礼志の七廟列挙でも「宣皇帝、昭皇后为七庙」と諡号のみ）ため、kind は追尊皇帝ではなく宗室とする。子に道度（衡陽元王追封）・道生（始安貞王追封、明帝蕭鸞の父）・道成（高帝）。",
+      "wikidata": "Q4391801",
+      "posthumous": {
+        "dynasty": "斉",
+        "templeName": null,
+        "posthumousName": "宣皇帝"
+      },
+      "source": {
+        "page": "南齊書 巻一 高帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-zhangmao",
+      "name": "蕭長懋",
+      "kana": "しょうちょうぼう",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": 458,
+      "deathYear": 493,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "斉武帝蕭賾の長子で文恵太子。「文惠太子长懋，字云乔，世祖长子也。」（南斉書巻二十一）。永明11年（493年）正月に父武帝に先立ち薨去：「丙子，皇太子长懋薨。」（武帝紀）。文恵太子伝に「十一年春正月，太子有疾」「时年三十六」とあり、没時36歳（数え）から生年458年を逆算。子の鬱林王昭業の即位後に皇帝号・廟号を追贈：「辛酉，追尊文惠皇太子为世宗文皇帝。」（鬱林王紀）、「郁林立，追尊为文帝，庙称世宗。」（文恵太子伝）。明帝期の建武二年の礼制記事にも「世宗文皇帝」の称が見え（南斉書礼志）、帝号は維持されている。",
+      "wikidata": "Q259628",
+      "source": {
+        "page": "南齊書 巻二十一 文恵太子伝",
+        "lang": "zh-classical"
+      },
+      "posthumous": {
+        "dynasty": "斉",
+        "templeName": "世宗",
+        "posthumousName": "文皇帝"
+      }
+    },
+    {
+      "id": "p-xiao-daosheng",
+      "name": "蕭道生",
+      "kana": "しょうどうせい",
+      "aliases": [
+        "始安貞王",
+        "景皇"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "斉明帝蕭鸞の実父。高帝蕭道成の次兄で、宣帝蕭承之の庶子（南斉書皇后伝「嫁于宣帝，庶生衡阳元王道度、始安贞王道生，后生太祖」）。南斉書宗室伝「始安贞王道生，字孝伯，太祖次兄也。宋世为奉朝请，卒。建元元年，追封谥。建武元年，追尊为景皇，妃江氏为后。立寝庙于御道西，陵曰修安。生子凤、高宗、安陆昭王缅。」宋代に卒し（生没年は原典に記載なし）、建元元年に高帝が始安貞王を追封（高帝紀「追封谥上兄道度为衡阳元王，道生为始安贞王」）、明帝即位後の建武元年に「景皇」を追尊（明帝紀「乙酉，追尊始安贞王为景皇，妃为懿后」）。追尊は「景皇」どまりで帝号（皇帝）・廟号の追贈は南斉書（本紀・宗室伝）・南史のいずれからも確認できないため kind=宗室（posthumous はスキーマ規約「追尊皇帝のみ」により不付与）。wikidata は WebSearch 結果 wikidata.org/wiki/Q45427473（Xiao Daosheng）に基づく。",
+      "wikidata": "Q45427473",
+      "source": {
+        "page": "南齊書 巻四十五 宗室伝",
+        "lang": "zh-classical"
+      }
     }
   ],
   "edges": [
@@ -3106,7 +3240,7 @@
       "confidence": "high",
       "note": "武帝蕭賾は高帝蕭道成の長子。「世祖武皇帝讳赜，字宣远，太祖长子也」。建元四年三月壬戌に高帝が崩御し即日即位した。「建元四年三月，壬戌，太祖崩，上即位，大赦」。嫡長子による正常な父子継承。",
       "source": {
-        "page": "南斉書 巻三 武帝紀",
+        "page": "南齊書 巻三 武帝紀",
         "lang": "zh-classical"
       }
     },
@@ -8075,6 +8209,294 @@
       "note": "晋書桓玄伝冒頭「桓玄，字敬道，一名灵宝，大司马温之孽子也」。孽子（庶子。母は馬氏）だが桓温の臨終に嗣に指名され南郡公を襲爵（「临终，命以为嗣，袭爵南郡公」）。桓温伝の子女列挙「温六子：熙、济、歆、祎、伟、玄」の末尾（6人中6番目）だが「第n子」の数値明記はないため childOrder は付さない。桓玄は簒奪後に父温を宣武皇帝と追尊（「追尊其父温宣武皇帝，庙称太庙」）。",
       "source": {
         "page": "晋書 巻九十九 桓玄伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-qiao",
+      "to": "liu-song-wudi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋書武帝紀上の出自記事「混生东安太守靖，靖生郡功曹翘，是为皇考」により実父は郡功曹の劉翹。南史宋本紀上「皇考翘，字显宗，郡功曹」も一致。永初元年の追尊記事（武帝紀下「追尊皇考为孝穆皇帝」）でも裏付けられる。「第n子」の数値明記はないため childOrder は付さない（実母趙氏は劉裕出産当日に死去し、趙氏所生は劉裕のみ。継室蕭文壽が劉道怜・劉道規を生んだ）。",
+      "source": {
+        "page": "宋書 巻一 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liu-song-wudi",
+      "to": "liu-song-shaodi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋書少帝紀冒頭「少帝讳义符，小字车兵，武帝长子也，母曰张夫人」。武帝劉裕の長子（「长子」表記のみで「第n子」の数値明記なしのため childOrder は付さない）。「武帝晚无男，及帝生，甚悦」とあり武帝晩年に生まれた最初の男子。",
+      "source": {
+        "page": "宋書 巻四 少帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liu-song-wudi",
+      "to": "liu-song-wendi",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 3,
+      "primaryLineage": true,
+      "note": "宋書文帝紀冒頭に「太祖文皇帝讳义隆，小字车兒，武帝第三子也」と明記。実父は武帝劉裕（収録皇帝 liu-song-wudi）、第三子の数値明記により childOrder=3。宋書后妃伝「武帝胡婕妤，讳道安……义熙初，为高祖所纳，生文帝」とも整合。",
+      "source": {
+        "page": "宋書 巻五 文帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liu-song-wendi",
+      "to": "liu-song-liushao",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋書二凶伝「元凶劭，字休远，文帝长子也」。「长子」は非数値表記のため childOrder は付さない（指針どおり）。母は文帝の袁皇后（宋書后妃伝「生子劭、东阳献公主英娥」）で嫡出の長子。フェーズ1の accessionRoute（実父・文帝を弑逆して簒奪即位）とも整合。",
+      "source": {
+        "page": "宋書 巻九十九 二凶伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liu-song-wendi",
+      "to": "liu-song-xiaowudi",
+      "childOrder": 3,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋書孝武帝紀「世祖孝武皇帝讳骏，字休龙，小字道民，文帝第三子也。元嘉七年秋八月庚午生」。「第三子」の明記により childOrder=3。宋書文九王伝の序「文帝十九男：元皇后生劭，潘淑妃生浚，路淑媛生孝武帝」とも一致。",
+      "source": {
+        "page": "宋書 巻六 孝武帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liu-song-xiaowudi",
+      "to": "liu-song-qianfeidi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋書前廃帝紀の冒頭に「前废帝讳子业，小字法师，孝武帝长子也」とあり、実父は孝武帝劉駿（収録皇帝 liu-song-xiaowudi）。排行は「长子」（非数値表記のため childOrder は付さない）。宋書巻80 の諸子列挙「孝武帝二十八男：文穆皇后生废帝子业、豫章王子尚」でも裏付けられる。",
+      "source": {
+        "page": "宋書 巻七 前廃帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liu-song-xiaowudi",
+      "to": "liu-song-liuzixun",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 3,
+      "primaryLineage": true,
+      "note": "宋書巻八十孝武十四王伝に「晋安王子勋，字孝德，孝武帝第三子也」と明記。同伝の鄧琬関連記事「琬以子勋次第居三」も第三子であることを傍証する。",
+      "source": {
+        "page": "宋書 巻八十 孝武十四王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liu-song-wendi",
+      "to": "liu-song-mingdi",
+      "childOrder": 11,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋書明帝紀冒頭に「太宗明皇帝讳彧，字休炳，小字荣期，文帝第十一子也。元嘉十六年十月戊寅生」と実父=文帝・第十一子が明記。宋書后妃伝（列伝第一）の沈婕妤条「生明帝」とも整合。",
+      "source": {
+        "page": "宋書 巻八 明帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liu-song-mingdi",
+      "to": "liu-song-houfeidi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋書巻九後廃帝紀「废帝讳昱，字德融，小字慧震，明帝长子也」により実父=明帝（劉彧）。宋書巻九十明四王伝「明帝十二子：陈贵妃生后废帝」、南史巻三「后废帝讳昱，字德融，明帝长子也」でも一致。「长子」は非数値表記のため childOrder は付さない。李道児実父説は宋書自身が「民间讹言」「道路之言」と伝聞扱いしており flags 記録のみ（エッジ化せず）。",
+      "source": {
+        "page": "宋書 巻九 後廃帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liu-song-mingdi",
+      "to": "liu-song-shundi",
+      "veracity": "disputed",
+      "confidence": "medium",
+      "childOrder": 3,
+      "primaryLineage": true,
+      "note": "公式系譜上の実父。宋書順帝紀「顺皇帝讳准，字仲谋，小字智观，明帝第三子也」、宋書明四王伝「明帝十二子：陈贵妃生后废帝，谢修仪生皇子法良，陈昭华生顺帝」、南史宋本紀下「顺皇帝，讳准，字仲谟，小字知观，明帝第三子也」と一致して明帝第三子とする（childOrder=3）。しかし同じ宋書の后妃伝（巻四十一・明帝陳昭華条）は「太宗晚年，痿疾不能内御，诸弟姬人有怀孕者，辄取以入宫；及生男，皆杀其母，而以与六宫所爱者养之。顺帝，桂阳王休范子也，以昭华为母焉」と、生物学的実父を桂陽王劉休範と事実として断定し、公式記録（母子関係）が作為されたものであることを明言する。後廃帝の李道兒説（宋書自身が「民间讹言」と流言扱い→実父 verified 維持）や始皇帝の呂不韋説（列伝内部に矛盾・通説も否定的→公式実父 verified＋異説 disputed）と異なり、后妃伝の記述は流言の体裁でない事実叙述で内部矛盾もなく、本紀・明四王伝の記載は后妃伝が「以昭华为母焉」と作為を明言する当の公式記録そのものであって生物学的父子関係の独立の裏付けにならない。このため公式系譜側も verified とせず、対立両説とも disputed 併記とする（KINSHIP_SCHEMA の始皇帝型と扱いを変えた理由は上記）。皇統上の位置づけ（明帝第三子・後廃帝の弟）としては全原典で一貫しているため primaryLineage=true。",
+      "source": {
+        "page": "宋書 巻十 順帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-xiufan",
+      "to": "liu-song-shundi",
+      "veracity": "disputed",
+      "confidence": "medium",
+      "note": "宋書后妃伝（巻四十一・明帝陳昭華条）の実父異説。「明帝陈昭华，讳法容，丹阳建康人也。太宗晚年，痿疾不能内御，诸弟姬人有怀孕者，辄取以入宫；及生男，皆杀其母，而以与六宫所爱者养之。顺帝，桂阳王休范子也，以昭华为母焉」——明帝晩年の痿疾により諸弟の懐妊中の姬人を宮中に取り込んだという機序つきで、順帝を桂陽王休範の子と断定する。流言・伝聞（「讹言」「或云」等）の体裁ではない事実叙述で内部矛盾もない。ただしこの説を載せるのは宋書后妃伝の単一箇所で、南史本紀は「明帝第三子也」を踏襲するのみ（南史では「休范子」「痿疾」等の対応記述を確認できず）。宋書は沈約が斉・梁下で撰述しており宋末皇帝の正統性貶下の作為の可能性も否定できないため、disputed・confidence=medium とする（呂不韋説のような通説による否定は存在しないため low とはしない）。時系列上の矛盾はない（順帝は泰始五年〔469年〕七月生、休範の死は元徽二年〔474年〕五月）。",
+      "source": {
+        "page": "宋書 巻四十一 列伝第一 后妃",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liu-song-wendi",
+      "to": "p-liu-xiufan",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 18,
+      "note": "宋書文五王伝「桂阳王休范，文帝第十八子也。孝建三年，年九岁，封顺阳王，食邑二千户。大明元年，改封桂阳王」。南史巻十四も「桂阳王休范，文帝第十八子也」と一致し、休範自身の実父が文帝であることに争いはない（childOrder=18）。順帝の実父休範説（disputed エッジ）の系鎖として、休範の父が収録皇帝・文帝（liu-song-wendi）に到達するため祖先遡及ルールによりエッジ化。",
+      "source": {
+        "page": "宋書 巻七十九 列伝第三十九 文五王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-chengzhi",
+      "to": "qi-gaodi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南齊書高帝紀上「皇考讳承之，字嗣伯」。母の伝（南齊書皇后伝・宣孝陳皇后）にも「嫁于宣帝，庶生衡阳元王道度、始安贞王道生，后生太祖」とあり、承之と陳氏の子であることが一致。兄に道度・道生（庶生）がおり高帝は第3子に相当するが「第n子」の明記が原文にないため childOrder は付さない。建元元年に「丙寅，追尊皇考曰宣皇帝，皇妣为孝皇后，妃为昭皇后」と皇帝号を追尊。",
+      "source": {
+        "page": "南齊書 巻一 高帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qi-gaodi",
+      "to": "qi-wudi",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "南斉書武帝紀冒頭に「世祖武皇帝讳赜，字宣远，太祖长子也」とあり、実父は太祖高皇帝蕭道成（qi-gaodi）。高帝諸子伝（高帝十二王）にも「高帝十九男：昭皇后生武帝、豫章文献王嶷」とあり相互に裏付けられる。「长子」は非数値表記のため childOrder は付さない。",
+      "source": {
+        "page": "南齊書 巻三 武帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-zhangmao",
+      "to": "qi-yulinwang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南斉書鬱林王本紀の出自記事に「郁林王昭业，字元尚，文惠太子长子也。」と明記。父の文恵太子蕭長懋は鬱林王即位後に皇帝号を追贈された：「辛酉，追尊文惠皇太子为世宗文皇帝。」（同本紀）。長子の記述は「第n子」の数値表記ではないため childOrder は付さない。",
+      "source": {
+        "page": "南齊書 巻四 鬱林王紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qi-wudi",
+      "to": "p-xiao-zhangmao",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南斉書文恵太子伝の冒頭に「文惠太子长懋，字云乔，世祖长子也。」と明記（世祖＝武帝蕭賾）。「世祖年未弱冠而生太子，为太祖所爱。」ともあり武帝19歳（数え）時の子で整合。長子の記述は数値表記ではないため childOrder は付さない。",
+      "source": {
+        "page": "南齊書 巻二十一 文恵太子伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-zhangmao",
+      "to": "qi-hailingwang",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 2,
+      "note": "南齊書海陵王紀に「海陵恭王昭文，字季尚，文惠太子第二子也」。実父は文惠太子蕭長懋（鬱林王蕭昭業の実父と同一人物。鬱林王により文皇帝・廟号世宗を追尊）。「第二子」の明記により childOrder=2。即位を命じた皇太后令にも「中军将军新安王，体自文皇」とあり文惠太子（追尊文皇帝）の子であることが本紀内でも相互に裏付けられる。",
+      "source": {
+        "page": "南齊書 本紀第五 海陵王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-chengzhi",
+      "to": "p-xiao-daosheng",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南斉書宗室伝「始安贞王道生，字孝伯，太祖次兄也」により道生は高帝蕭道成の次兄＝宣帝蕭承之の子。南史斉宗室伝「始安贞王道生字孝伯，高帝次兄也」も一致。同書皇后伝（宣孝陳皇后）「嫁于宣帝，庶生衡阳元王道度、始安贞王道生，后生太祖」のとおり承之の庶子（生母は建武四年に追尊された王氏。明帝紀「追尊景皇所生王氏为恭太后」）。",
+      "source": {
+        "page": "南齊書 巻四十五 宗室伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-daosheng",
+      "to": "qi-mingdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南斉書明帝紀の出自記事「高宗明皇帝讳鸾，字景栖，始安贞王道生子也。小讳玄度。少孤，太祖抚育，恩过诸子。」宗室伝「生子凤、高宗、安陆昭王缅」。南史斉宗室伝「三子：长凤；次鸾，是为明帝；次沔，是为安陆昭王」により次子だが「第n子」の数値表記ではないため childOrder は付さない。即位時に「太后令废海陵王，以上入纂太祖为第三子，群臣三请，乃受命」（明帝紀）と高帝の第三子として入纂されたが、高帝没後・成人後の宗法上の為後のため養父エッジは立てない（スキーマ規約・フェーズ1「高帝の養子格で即位」と整合）。",
+      "source": {
+        "page": "南齊書 巻六 明帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qi-mingdi",
+      "to": "qi-donghunhou",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 2,
+      "primaryLineage": true,
+      "note": "南斉書東昏侯紀に「东昏侯宝卷，字智藏，高宗第二子也」と明記。高宗は明帝蕭鸞。列伝の明七王伝にも「明帝十一男：敬皇后生东昏侯宝卷」とあり一致。「第二子」の明記により childOrder=2。",
+      "source": {
+        "page": "南齊書 巻七 東昏侯紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qi-mingdi",
+      "to": "qi-hedi",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 8,
+      "primaryLineage": true,
+      "note": "「和帝讳宝融，字智昭，高宗第八子也」（南齊書卷8 和帝紀）。高宗は明帝蕭鸞（qi-mingdi）の廟号であり、実父=明帝・第八子と本紀冒頭に明記。南齊書卷50「明帝十一男：敬皇后生东昏侯宝卷，江夏王宝玄，鄱阳王宝夤，和帝」とも整合。",
+      "source": {
+        "page": "南齊書 卷八 和帝紀",
         "lang": "zh-classical"
       }
     }
