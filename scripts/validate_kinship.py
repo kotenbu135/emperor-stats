@@ -19,7 +19,7 @@
     非 disputed 主エッジの category が emperors.json の accessionRoute.category と整合
     （accessionRoute=復位 の皇帝は主エッジ category=初回経路＋isRestoration エッジを別途持つ規約）
   - kinship: 実父/養父の from は male・実母/養母の from は female（gender 判明時のみ）・
-    verified の実父エッジは子ごとに最大1本・親子エッジ（実父/実母/養父/養母）の循環なし・
+    verified の実父エッジ・実母エッジはそれぞれ子ごとに最大1本・親子エッジ（実父/実母/養父/養母）の循環なし・
     childOrder は 1 以上の整数・primaryLineage:true は子ごとに最大1本
   - 孤立ブリッジ（どのエッジからも参照されない persons）なし
   - genealogicalClaims: claimant の実在・source 必須
@@ -156,6 +156,7 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id,
     restoration_by_emperor = Counter()
     succession_covered: set[str] = set()  # succession エッジ（disputed・復位含む）を持つ皇帝
     verified_father_by_child = Counter()
+    verified_mother_by_child = Counter()
     primary_lineage_by_child = Counter()
     parent_edges: list[tuple[str, str]] = []  # (親, 子)
     father_covered: set[str] = set()  # 実父/養父エッジを持つ子（parentage 網羅性チェック用）
@@ -256,6 +257,8 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id,
                     mother_covered.add(t)
                 if rel == "実父" and e.get("veracity") == "verified":
                     verified_father_by_child[t] += 1
+                if rel == "実母" and e.get("veracity") == "verified":
+                    verified_mother_by_child[t] += 1
                 dedup[("kinship", rel, f, t)] += 1
             else:  # 兄弟姉妹は無向
                 dedup[("kinship", rel) + tuple(sorted((f, t)))] += 1
@@ -278,6 +281,11 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id,
     for t, c in verified_father_by_child.items():
         if c > 1:
             err(f"[edges] verified の実父エッジが複数 ×{c}: {t}")
+    # 実母版（2026-07-24 生母フェーズで追加）。別 id の同一人物を後続ブロックが
+    # 重複ノード化した場合の自動バックストップ（disputed の併記は許容）
+    for t, c in verified_mother_by_child.items():
+        if c > 1:
+            err(f"[edges] verified の実母エッジが複数 ×{c}: {t}")
     for t, c in primary_lineage_by_child.items():
         if c > 1:
             err(f"[edges] primaryLineage:true の親エッジが複数 ×{c}: {t}")

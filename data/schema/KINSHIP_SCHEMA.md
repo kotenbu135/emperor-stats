@@ -229,7 +229,7 @@ kinship.json は emperors.json を参照するため専用スクリプトで検�
   - **`meta.confirmedRootless`**（2026-07-23 ユーザー承認）: 先行政権・先行君主からの実質的継承がないことを原典確認済みの並立根・傀儡根の明示リスト（`[{id, reason}]`）。accessionRoute が建国/不詳/諸説あり以外なのに succession エッジを一切持たない皇帝（例：更始帝・張邦昌・韓林児等の擁立根）は、ここに登録して初めて網羅性チェックを通る。validator は id の実在・reason 必須・id 重複・陳腐化（succession エッジを持つ皇帝が登録されたまま）を常時検証する。判定根拠の原文は各ブロックの調査記録（flags）にあり、reason には要旨のみ記す
 - `parentage` 完了後: 全皇帝が実父または養父エッジを持つ、または `meta.confirmedFatherUnknown` に記載されている
 - `maternalLineage` 完了後: 全皇帝が実母または養母エッジを持つ、または **`meta.confirmedMotherUnknown`**（原典調査済みだが実母を特定できない皇帝の明示リスト `[{id, reason}]`。2026-07-24 ユーザー承認・`confirmedFatherUnknown` と同型で id 実在・reason 必須・重複・陳腐化を常時検証）に記載されている
-- `maternalLineage` 完了後の外部照合: フェーズ4（crosscheck）は母（P25）を対象外としていたため、**生母データ確定後に Wikidata P25 の突合を再実行する**（このフェーズの完了ゲート）
+- `maternalLineage` の外部照合: フェーズ4（crosscheck）は母（P25）を対象外としていたため、**Wikidata P25 の突合をこのフェーズで行う**。ブロックごとに `crosscheck_mothers_p25.py`（1ブロック1 SPARQL リクエスト）でスクリーニングし、フェーズ完了後に全域で再実行する（CI 非組込・情報源ではなく取り違え検出用）。**WD 側は嫡母・名目上の母を P25 に入れていることがある**（例: 前少帝・後少帝の P25 は孝惠張皇后＝名目上の母。我々は生母不詳と判定）ため、MISMATCH/OURS-NONE は原典に戻して裁定する
   - **`meta.confirmedFatherUnknown`**（2026-07-23 ユーザー承認）: 原典調査済みだが実父・養父を特定できない皇帝の明示リスト（`[{id, reason}]`）。validator は id の実在・reason 必須・id 重複・陳腐化（実父/養父エッジを持つ皇帝が登録されたまま）を常時検証する（confirmedRootless と同型）
 - 両フェーズ完了後: `relationToPredecessor` と kinship グラフから導出した続柄の突合（矛盾＝どちらかの調査ミスの機械検出。導出不能な続柄〔経路が noded されない遠縁など〕は対象外。進行中のブロック単位の前倒しスクリーニングは調査道具の `crosscheck_parentage.py` が担う）
 
