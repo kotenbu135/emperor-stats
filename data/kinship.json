@@ -295,6 +295,13 @@
         "emperors": 19,
         "edges": 17,
         "persons": 4
+      },
+      {
+        "phase": "parentage",
+        "block": "block15",
+        "emperors": 14,
+        "edges": 17,
+        "persons": 7
       }
     ],
     "confirmedRootless": [
@@ -3756,6 +3763,177 @@
       "wikidata": null,
       "source": {
         "page": "旧唐書 列伝第九十五 李希烈",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-cheng",
+      "name": "朱誠",
+      "kana": "しゅせい",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "五代十国",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "後梁太祖朱全忠（朱温）の実父。旧五代史巻一太祖紀一に「高祖黯，曾祖茂琳，祖信，父诚。帝即诚之第三子」。新五代史巻一に「其父诚，以《五经》教授乡里，生三子」「诚卒，三子贫，不能为生，与其母佣食萧县人刘崇家」とあり、郷里で五経を教えた士人で、三子（全昱・存・温）が成人する前に死去した。開平元年（907年）七月、太祖により追尊（旧五代史巻三太祖紀三「皇考文明王上谥曰文穆皇帝，庙号烈祖，第四室，陵号咸宁」、同巻一注引五代会要「烈祖文穆皇帝讳诚，昭武皇帝长子……开平元年七月，追尊文穆皇帝，庙号烈祖，葬咸宁陵」）。生没年は原典に明記なし。",
+      "wikidata": null,
+      "posthumous": {
+        "dynasty": "後梁",
+        "templeName": "烈祖",
+        "posthumousName": "文穆皇帝"
+      },
+      "source": {
+        "page": "旧五代史 巻一 梁書太祖紀第一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-li-ni",
+      "name": "李霓",
+      "kana": "りげい",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "五代十国",
+      "birthYear": null,
+      "deathYear": 879,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "後唐明宗李嗣源の実父。雁門の部将として唐献祖（李国昌）に仕えた。旧五代史 巻三十五 明宗紀一「皇考讳霓，皇赠汾州刺史，追尊为孝成皇帝，庙号德祖，陵曰庆陵」「初，孝成事唐献祖为爱将，献祖之失振武，为吐浑所攻，部下离散，孝成独奋忠义，解蔚州之围」。没年は同紀「武皇之镇雁门也，孝成厌代，帝年甫十三」から推定（明宗は咸通八年867年生・数え13歳＝879年頃没。原文に直接の没年記載はない推定値）。新五代史 巻六は「世本夷狄，无姓氏。父霓，为雁门部将，生子邈佶烈」とし、李姓は賜姓後の呼称。",
+      "wikidata": null,
+      "posthumous": {
+        "dynasty": "後唐",
+        "templeName": "德祖",
+        "posthumousName": "孝成皇帝"
+      },
+      "source": {
+        "page": "旧五代史 巻三十五 明宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-shi-shaoyong",
+      "name": "石紹雍",
+      "kana": "せきしょうよう",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "五代十国",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "後晋高祖石敬瑭の実父。番字（沙陀名）は臬捩鶏。旧五代史高祖紀一「皇考讳绍雍，番字臬捩鸡，善骑射，有经远大略，事后唐武皇及庄宗，累立战功，与周德威相亚，历平、洺二州刺史，薨于任，赠太傅，追尊为孝元皇帝，庙号宪祖，陵曰昌陵」。新五代史晋本紀第八は「其父臬捩鸡，本出于西夷，自硃邪归唐，从硃邪入居阴山」とし、天福二年の追尊記事では「考绍雍谥曰孝元，庙号献祖，妣何氏谥曰孝元懿」と廟号を「献祖」に作る（旧五代史「宪祖」との異同、flags 参照。本レコードは旧五代史に従い憲祖を採用）。李克用（p-li-keyong）・李存勗に仕え洺州刺史在任中に死去。生没年は両史とも記載なく不明。少帝側エージェントと共有する固定 id ブリッジ。",
+      "wikidata": null,
+      "posthumous": {
+        "dynasty": "後晋",
+        "templeName": "憲祖",
+        "posthumousName": "孝元皇帝"
+      },
+      "source": {
+        "page": "旧五代史 巻七十五 高祖紀一／新五代史 巻八 晋本紀第八",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-shi-jingru",
+      "name": "石敬儒",
+      "kana": "せきけいじゅ",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "五代十国",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "note": "後晋高祖石敬瑭の兄で、出帝（少帝）石重貴の実父。後唐荘宗の騎将となり早世した。「敬儒尝为后唐庄宗骑将，早薨，高祖以帝为子」（旧五代史 少帝紀一）。天福八年五月、出帝により宋王を追封「敬儒始以故金紫光禄大夫、检校尚书左仆射兼御史大夫、上柱国赠太傅，而独不得封。出帝天福八年五月，加赠三皇叔皆为太师，而皇伯敬儒始追封宋王，亦加赠太师」（新五代史 晋家人伝第五）。皇帝号の追尊はなく王号追封どまりのため kind は宗室。高祖との親疎（献祖石紹雍の実子か否か）は新五代史 晋家人伝第五が「敬儒、敬德、敬殷、重胤皆不知其于高祖为亲疏也」と不明と明記するため、紹雍への実父エッジは作成しない（flags 参照）。生没年は原典に記載なく不明。妻は安氏（出帝生母、後の皇太妃）。QID は wikidata.org の Q10439991 ページで石重貴の父・高祖の兄弟であることを確認（同項目は父として Q16076933 紹雍を掲げるが、Wikidata は判定根拠に用いていない）。",
+      "wikidata": "Q10439991",
+      "source": {
+        "page": "旧五代史 巻八十一 少帝紀一 / 新五代史 巻十七 晋家人伝第五",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-dian",
+      "name": "劉琠",
+      "kana": "りゅうてん",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "五代十国",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "後漢高祖劉知遠の実父。「皇考讳琠，事后唐武皇帝为列校，晋赠太师，追尊为章圣皇帝，庙号显祖，陵曰肃陵」（旧五代史 巻九十九 漢書・高祖紀上）——後唐武皇帝（李克用＝既存ブリッジ p-li-keyong）に列校として仕え、後晋から太師を追贈、劉知遠の称帝（947年）に伴い皇帝号（章聖皇帝）＋廟号（顕祖）を追尊されたため kind=追尊皇帝。生没年は原典に記載がなく不明。妻は「皇妣吴国太夫人安氏，追谥章懿皇后」（同紀）。北漢世祖劉崇（収録皇帝 shiguo-beihan-liuchong）は劉知遠の母弟（新五代史 東漢世家「刘旻，汉高祖母弟也。初名崇」）であり、劉琠はその実父でもある——北漢ブロック調査時はこの p-liu-dian を再利用すること。Wikidata Q10900175 は zhwiki サイトリンク「劉琠」と子（P40）2件を API で確認済み。",
+      "wikidata": "Q10900175",
+      "posthumous": {
+        "dynasty": "後漢",
+        "templeName": "顕祖",
+        "posthumousName": "章聖皇帝"
+      },
+      "source": {
+        "page": "旧五代史 巻九十九 漢書・高祖紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-guo-jian",
+      "name": "郭簡",
+      "kana": "かくかん",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "五代十国",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等",
+        "追尊皇帝"
+      ],
+      "posthumous": {
+        "dynasty": "後周",
+        "templeName": "慶祖",
+        "posthumousName": "章肅皇帝"
+      },
+      "wikidata": null,
+      "note": "後周太祖郭威の実父。旧五代史周書太祖紀一に「皇考讳简，汉赠太师，追尊为章肃皇帝，庙号庆祖，陵曰钦陵」、新五代史周本紀に「父简，事晋为顺州刺史。刘仁恭攻破顺州，简见杀」とあり、晋（河東李氏）に仕えて順州刺史となり燕軍（劉仁恭）に殺された。没年は旧五代史「帝生三岁，家徙太原。居无何，皇考为燕军所陷，殁于王事」から906年頃とも推定できるが、新五代史の劉仁恭による順州攻略との時期整合に疑義があるため生没年とも null とする（flags 参照）。広順元年（951年）に郭威が章肅皇帝・廟号慶祖を追尊。妻は王氏（追謚章德皇后）。",
+      "source": {
+        "page": "旧五代史 巻一百十 周書太祖紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-chai-shouli",
+      "name": "柴守礼",
+      "kana": "さいしゅれい",
+      "aliases": [],
+      "kind": "外戚",
+      "gender": "male",
+      "section": "五代十国",
+      "birthYear": 896,
+      "deathYear": 967,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "note": "後周世宗柴栄の実父。字は克譲（新五代史「守礼字克让」）。圣穆皇后柴氏（郭威の皇后）の兄（新五代史「柴氏女适太祖，是为圣穆皇后。后兄守礼子荣」）。世宗が郭威の養子として帝位を継いだため、朝廷では実父ではなく「元舅」（母方の伯父）として遇された（資治通鑑「帝既为太祖嗣，人无敢言守礼子者，但以元舅处之，优其俸给，未尝至大梁」）——kind を外戚とするのはこの公式待遇（新五代史「以后族拜银青光禄大夫」）による。洛陽に居住し「十阿父」の一人と称され、市中で人を殺したが世宗は不問とした（新五代史「尝杀人于市，有司有闻，世宗不问」）。没年967年（乾德五年）は続資治通鑑長編巻八「乙巳，太子少傅致仕柴守礼卒。命中使护其丧事」による（正史に卒年の紀年はなし）。生年896年は新五代史「守礼卒年七十二」（数え年）からの逆算のため yearsApproximate=true。最終官職は史料間で不一致（旧五代史世宗紀「太子少保致仕」・続資治通鑑長編/宋史「太子少傅」・新五代史「官至太傅」）。皇帝号・太上皇号等の追尊はない。",
+      "wikidata": "Q11110113",
+      "source": {
+        "page": "新五代史 巻二十 周家人伝 柴守礼",
         "lang": "zh-classical"
       }
     }
@@ -12507,6 +12685,239 @@
       "note": "旧唐書 巻百四十五（列伝第九十五）李希烈伝の冒頭出自記事に「李希烈，辽西人。父大定。」と実父の名が明記される。新唐書 巻二百二十五中 逆臣中 李希烈伝は「李希烈，燕州辽西人。」と籍貫のみで父名を記さない（省略であり矛盾ではない）。父・大定は収録皇帝・既存ブリッジ人物のいずれにも該当せず、新規ブリッジ人物 p-li-dading として提案。",
       "source": {
         "page": "旧唐書 列伝第九十五 李希烈",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-cheng",
+      "to": "wudai-houliang-taizu",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 3,
+      "note": "旧五代史巻一（梁書太祖紀第一）に「高祖黯，曾祖茂琳，祖信，父诚。帝即诚之第三子，母曰文惠王皇后」と実父・排行が明記。新五代史巻一（梁本紀第一）も「其父诚，以《五经》教授乡里，生三子」「诚卒，三子贫，不能为生，与其母佣食萧县人刘崇家」と一致（三子=全昱・存・温、温が第三子）。childOrder=3 は「第三子」の明記による。",
+      "source": {
+        "page": "旧五代史 巻一 梁書太祖紀第一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "wudai-houliang-taizu",
+      "to": "wudai-houliang-zhuyougui",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "実父は後梁太祖朱全忠。『旧五代史』梁書 列伝二 宗室（郢王友珪）に「友珪，小字遥喜，母失其姓，本亳州营妓也。唐光启中，帝徇地亳州，召而侍寝。月余，将舍之而去，以娠告。……及期，妓以生男来告，帝喜，故字之曰遥喜」（「帝」=太祖）とあり、『新五代史』梁家人伝第一にも「庶人友珪者，太祖初镇宣武，略地宋、亳间，与逆旅妇人野合而生也」と明記。排行は『新五代史』梁家人伝の「八子：长曰友裕，次曰友珪、友璋、友贞、友雍、友徽、友孜，其一养子曰友文」により実子中の第2位だが、「第n子」の数値明記はないため childOrder は付さない（非数値表記「次曰友珪」）。祖父朱誠は烈祖文穆皇帝に追尊されているが（新五代史梁本紀「考诚谥曰文穆，庙号烈祖」）、収録皇帝・既存ブリッジ人物のいずれでもないため祖先遡及ルールにより父まででとめる。",
+      "source": {
+        "page": "旧五代史 梁書 列伝二 宗室（郢王友珪）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "wudai-houliang-taizu",
+      "to": "wudai-houliang-modi",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 4,
+      "primaryLineage": true,
+      "note": "旧五代史 巻八（末帝紀上）冒頭に「末帝，讳瑱，初名友贞，及即位，改名锽，贞明中又改今讳。太祖第四子也。母曰元贞皇后张氏。」とあり、太祖朱全忠の実子であることが明記される。排行は旧五代史が「太祖第四子也」とする一方、新五代史 本紀では「末帝，太祖第三子友贞也。」と第三子とし食い違うが、新五代史 家人伝自身の兄弟列挙「八子：长曰友裕，次曰友珪、友璋、友贞、友雍、友徽、友孜，其一养子曰友文」では友貞は実子中4番目で旧五代史と整合するため、childOrder は旧五代史（五代本朝の第一史料）の 4 を採用（不一致は flags に記録）。父子関係自体は両正史一致で verified。",
+      "source": {
+        "page": "旧五代史 巻八 末帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-li-keyong",
+      "to": "wudai-houtang-zhuangzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "旧五代史 荘宗紀一の出自記事に「庄宗光圣神闵孝皇帝，讳存勖，武皇帝之长子也」とあり、実父は武皇帝（後唐追尊の武皇帝＝李克用。荘宗紀三「追尊皇考河东节度使、太师、中书令、晋王为武皇帝，庙号太祖」）。新五代史 唐本紀第四にも「存勖，克用长子也」と明記され、両正史で一致。排行は「长子」（非数値表記のため childOrder は付さない）。",
+      "source": {
+        "page": "旧五代史 巻二十七 唐書・荘宗紀一／新五代史 唐本紀第四 荘宗上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "養父",
+      "from": "p-li-keyong",
+      "to": "wudai-houtang-mingzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "李克用（後唐太祖・武皇）による生前の正式な養子縁組（五代義児の確定パターン）。新五代史 巻六 唐本紀第六に「以骑射事太祖，为人质厚寡言，执事恭谨，太祖养以为子，赐名嗣源」と明記。旧五代史 巻三十五 明宗紀一も「世事武皇，及其锡姓也，遂编于属籍」と賜姓・属籍編入を記す。明宗の帝位継承資格は李克用の養子であることに由来するため primaryLineage は養父エッジ側（規定: 継承元>養父>実父）。",
+      "source": {
+        "page": "新五代史 巻六 唐本紀第六 明宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-li-ni",
+      "to": "wudai-houtang-mingzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": false,
+      "note": "実父は霓（李霓・追尊 孝成皇帝・廟号德祖）。旧五代史 巻三十五 明宗紀一に「皇考讳霓，皇赠汾州刺史，追尊为孝成皇帝，庙号德祖，陵曰庆陵」「帝即孝成之元子也」、新五代史 巻六にも「父霓，为雁门部将，生子邈佶烈」（邈佶烈は嗣源の初名）と生物学的父子関係が両書一致で明記され verified。「元子」（長男）は非数値表記のため childOrder は付さない（規約どおり）。",
+      "source": {
+        "page": "旧五代史 巻三十五 明宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "wudai-houtang-mingzong",
+      "to": "wudai-houtang-mindi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧五代史閔帝紀「闵帝，讳从厚，小字菩萨奴，明宗第三子也」、新五代史唐本紀第七「愍皇帝，明宗第五子从厚也。为人形质丰厚，寡言好礼，明宗以其貌类己，特爱之」。両正史とも実父を明宗李嗣源とすることで一致（verified）。排行のみ旧五代史「第三子」vs 新五代史本紀「第五子」の出典異同があり、さらに新五代史唐明宗家人伝は「明宗四子，曰从璟、从荣、从厚、从益」と従厚を4子中3番目に列して同書本紀とも不整合のため、childOrder は付さず両論を記録する。",
+      "source": {
+        "page": "旧五代史 巻四十五 閔帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "養父",
+      "from": "wudai-houtang-mingzong",
+      "to": "wudai-houtang-modi2",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧五代史 巻四十六（唐書・末帝紀上）冒頭に「末帝，讳从珂，本姓王氏，镇州人也。」「景福中，明宗为武皇骑将，略地至平山，遇魏氏，掳之，帝时年十余岁，明宗养为己子。」とあり、末帝李従珂は本姓王氏（鎮州平山出身）で、10余歳の時に明宗が母魏氏とともに連れ帰り自らの子として養った五代義児型の養子。新五代史 唐廃帝家人伝にも「魏氏有子阿三，已十余岁，明宗养以为子，名曰从珂。」と一致して記される（廃帝本紀相当の記事）。生前の正式な養子縁組であり養父エッジとして成立。即位時の太后令には「皇长子潞王从珂」、新五代史には「王于诸子次最长」とあるが、いずれも養子を含む序列上の非数値表記のため childOrder は入れない。",
+      "source": {
+        "page": "旧五代史 巻四十六 唐書・末帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-shi-shaoyong",
+      "to": "wudai-houjin-gaozu",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 2,
+      "primaryLineage": true,
+      "note": "旧五代史高祖紀一の出自記事に「皇考讳绍雍，番字臬捩鸡，善骑射，有经远大略，事后唐武皇及庄宗，累立战功，与周德威相亚，历平、洺二州刺史，薨于任，赠太傅，追尊为孝元皇帝，庙号宪祖，陵曰昌陵」とあり、続けて「帝即孝元之第二子也，以唐景福元年二月二十八日生于太原汾阳里」と「第二子」の数値明記がある（childOrder:2）。新五代史晋本紀第八も「其父臬捩鸡，本出于西夷，自硃邪归唐，从硃邪入居阴山」「臬捩鸡生敬瑭，其姓石氏，不知其得姓之始也」と父子関係を一致して記す。実父単独のため primaryLineage は本エッジ（successionエッジのfromは耶律徳光擁立側で親エッジと不一致のため明示）。",
+      "source": {
+        "page": "旧五代史 巻七十五 高祖紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-shi-jingru",
+      "to": "wudai-houjin-shaodi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧五代史 少帝紀一「少帝，名重贵，高祖之从子也。考讳敬儒，母安氏，以唐天祐十一年六月二十七日生帝于太原汾阳里」。新五代史 晋本紀第九「出帝父敬儒，高祖兄也，为唐庄宗骑将，早卒，高祖以其子重贵为子」。両正史の本紀が一致して実父を敬儒とする。「第n子」の数値排行の記載はなく childOrder は付さない。",
+      "source": {
+        "page": "旧五代史 巻八十一 少帝紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "養父",
+      "from": "wudai-houjin-gaozu",
+      "to": "wudai-houjin-shaodi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧五代史 少帝紀一「敬儒尝为后唐庄宗骑将，早薨，高祖以帝为子」。実父敬儒の早世後、高祖が甥（従子）の重貴を生前に養子とした正式縁組であり、死後の為後指名ではない（新五代史 晋本紀第九「高祖以其子重贵为子」、同巻の論賛も「盖出帝于高祖，得为子而不得为后者，高祖自有子也」と「子となった」こと自体は認める）。フェーズ1 succession 判定（高祖の甥で養子・大臣らによる擁立）と整合。",
+      "source": {
+        "page": "旧五代史 巻八十一 少帝紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-dian",
+      "to": "wudai-houhan-gaozu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧五代史 巻九十九 漢書・高祖紀上の出自記事「皇考讳琠，事后唐武皇帝为列校，晋赠太师，追尊为章圣皇帝，庙号显祖，陵曰肃陵」により実父は劉琠。排行「第n子」の明記はないため childOrder は設定しない。新五代史 漢本紀（巻十）は「高祖睿文圣武昭肃孝皇帝，姓刘氏，初名知远，其先沙陀部人也，其后世居于太原」と出自のみで父の記載がなく、父の典拠は旧五代史のみ。フェーズ1の建国判定（先代との血縁継承なし）と矛盾しない。",
+      "source": {
+        "page": "旧五代史 巻九十九 漢書・高祖紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "wudai-houhan-gaozu",
+      "to": "wudai-houhan-yindi",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 2,
+      "primaryLineage": true,
+      "note": "旧五代史隠帝紀上の出自記事に「隐皇帝，讳承祐，高祖第二子也」と明記。高祖＝劉知遠（wudai-houhan-gaozu）の第二子で、「第二子」の数値排行明記により childOrder=2。フェーズ1の accessionRoute.note（高祖の第二子として柩前で即位）とも一致。",
+      "source": {
+        "page": "旧五代史 巻一百一 漢書・隠帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-guo-jian",
+      "to": "wudai-houzhou-taizu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "実父。旧五代史周書太祖紀一の出自記事に「皇考讳简，汉赠太师，追尊为章肃皇帝，庙号庆祖，陵曰钦陵」、新五代史周本紀にも「父简，事晋为顺州刺史。刘仁恭攻破顺州，简见杀」とあり両書一致。なお旧五代史は「或云本常氏之子，幼随母适郭氏，故冒其姓焉」という異説（本来は常氏の子で母の再嫁により郭姓を冒したとする伝聞）も併記するが、「或云」の伝聞で対立する父の名も特定されないため disputed エッジは立てず flags 記録にとどめる。排行「第n子」の記載はなく childOrder なし。",
+      "source": {
+        "page": "旧五代史 巻一百十 周書太祖紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-chai-shouli",
+      "to": "wudai-houzhou-shizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧五代史世宗紀冒頭「世宗睿武孝文皇帝，讳荣，太祖之养子，盖圣穆皇后之侄也。本姓柴氏，父守礼，太子少保致仕」と実父守礼を明記。新五代史周家人伝「周太祖圣穆皇后柴氏，无子，养后兄守礼之子以为子，是为世宗」も一致。排行（第n子）の明記は旧五代史・新五代史とも確認できず（childOrder なし）。",
+      "source": {
+        "page": "旧五代史 巻一百十四 周書 世宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "養父",
+      "from": "wudai-houzhou-taizu",
+      "to": "wudai-houzhou-shizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧五代史世宗紀「年未童冠，因侍圣穆皇后，在太祖左右。时太祖无子，家道沦落，然以帝谨厚，故以庶事委之。帝悉心经度，资用获济，太祖甚怜之，乃养为己子」——幼少時から郭威の家で養育され、生前に正式に養子とされた縁組（妻方の縁組: 世宗は圣穆皇后柴氏の甥）。新五代史周本紀「后兄守礼子荣，幼从姑长太祖家，以谨厚见爱，太祖遂以为子」も一致。即位後は実父守礼を「元舅」として遇し郭氏後継の立場を公式とした（資治通鑑巻二百九十三「帝既为太祖嗣，人无敢言守礼子者，但以元舅处之，优其俸给，未尝至大梁」）。フェーズ1判定（郭威の養子・遺制により柩前即位）と整合。",
+      "source": {
+        "page": "旧五代史 巻一百十四 周書 世宗紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "wudai-houzhou-shizong",
+      "to": "wudai-houzhou-gongdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "childOrder": 4,
+      "note": "旧五代史 恭帝紀冒頭「恭帝，讳宗训，世宗子也。广顺三年，岁在癸丑，八月四日，生于澶州之府第。」により世宗柴栄の実子であることが明記。排行は新五代史 周本紀第十二「恭皇帝，世宗第四子宗训也。」に「第四子」と明記されており childOrder=4。新五代史 周家人伝第八の世宗七子の列挙「世宗子七人：长曰宜哥，次二皆未名，次曰恭皇帝……」とも整合（長子宜哥と未名の2子の次＝第4子）。フェーズ1の accessionRoute.note「世宗の実子として、崩御時の遺制により柩前で即位」とも一致。",
+      "source": {
+        "page": "旧五代史 巻一百二十 恭帝紀・新五代史 巻十二 周本紀第十二",
         "lang": "zh-classical"
       }
     }
