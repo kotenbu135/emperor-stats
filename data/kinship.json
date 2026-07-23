@@ -232,6 +232,13 @@
         "emperors": 17,
         "edges": 21,
         "persons": 5
+      },
+      {
+        "phase": "parentage",
+        "block": "梁・後梁・陳",
+        "emperors": 18,
+        "edges": 31,
+        "persons": 15
       }
     ],
     "confirmedRootless": [
@@ -2171,6 +2178,339 @@
       "wikidata": "Q45427473",
       "source": {
         "page": "南齊書 巻四十五 宗室伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-shunzhi",
+      "name": "蕭順之",
+      "kana": "しょうじゅんし",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "梁武帝蕭衍の実父、字は文緯。斉高帝蕭道成の族弟（梁書武帝紀上「道赐生皇考讳顺之，齐高帝族弟也」、南史梁本紀上「于齐高帝为始族弟」）で、斉建国の佐命功臣：「参预佐命，封临湘县侯。历官侍中，卫尉，太子詹事，领军将军，丹阳尹，赠镇北将军。」（梁書武帝紀上）。南史梁本紀上によれば斉での諡は「諡曰懿」。永明八年（490年）の巴東王子響討伐の後「顺之惭惧，感病，遂以忧卒」（南史）と憂死したが、没年の明記は梁書・南史・南齊書に見当たらないため生没年とも null（490〜491年頃没と推定）。梁建国後の天監元年（502年）に「追尊皇考为文皇帝，庙曰太祖」（梁書武帝紀中）と皇帝号・廟号とも追贈されたため kind=追尊皇帝。蕭正徳（臨賀王）・蕭淵明（貞陽侯）の祖父にもあたる（両者の担当が参照する固定 id）。wikidata は WebSearch 結果（en.wikipedia Xiao Shunzhi → wikidata.org/wiki/Q15914389）に基づく。",
+      "wikidata": "Q15914389",
+      "posthumous": {
+        "dynasty": "梁",
+        "templeName": "太祖",
+        "posthumousName": "文皇帝"
+      },
+      "source": {
+        "page": "梁書 巻一 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-daoci",
+      "name": "蕭道賜",
+      "kana": "しょうどうし",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "蕭順之の父・梁武帝の祖父。「副子生南台治书道赐，道赐生皇考讳顺之」（梁書武帝紀上）、「副子生皇祖道赐，位南台治书侍御史」（南史梁本紀上）。南台治書侍御史。生没年は原典に記載なし。梁は皇帝号追尊を皇考順之のみに行った（「追尊皇考为文皇帝」）ため kind=宗室。Wikidata は WebSearch で確信の持てる項目を確認できず null。",
+      "wikidata": null,
+      "source": {
+        "page": "梁書 巻一 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-fuzi",
+      "name": "蕭副子",
+      "kana": "しょうふくし",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "蕭道賜の父・梁武帝の曽祖父。「辖生州治中副子，副子生南台治书道赐」（梁書武帝紀上）、「辖生皇曾祖副子，位州治中从事」（南史梁本紀上）。州治中従事。生没年は原典に記載なし。Wikidata は確信の持てる項目を確認できず null。",
+      "wikidata": null,
+      "source": {
+        "page": "梁書 巻一 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-xia",
+      "name": "蕭鎋",
+      "kana": "しょうかつ",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "蕭整の子・梁武帝の高祖父。「整生济阴太守辖，辖生州治中副子」（梁書武帝紀上・簡体コーパスでは「辖」、繁体は鎋）、「整生皇高祖辖，位济阴太守」（南史梁本紀上）。済陰太守。生没年は原典に記載なし。Wikidata は確信の持てる項目を確認できず null。",
+      "wikidata": null,
+      "source": {
+        "page": "梁書 巻一 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-zheng",
+      "name": "蕭整",
+      "kana": "しょうせい",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "字は公斉。晋の淮陰令。斉・梁両王朝の共通祖先で、本グラフにおける斉⇄梁の王朝間接続点。梁書武帝紀上「裔生淮阴令整，整生济阴太守辖」・南齊書高帝紀上「裔生淮阴令整，整生即丘令隽」の双方に現れ、南史梁本紀上は「与齐同承淮阴令整」と共通祖先であることを明記。永嘉の乱で江南に移住し南蘭陵蕭氏の祖となった：「中朝乱，淮阴令整字公齐，过江居晋陵武进县之东城里。」（南齊書高帝紀上）。生没年は原典に記載なし。Wikidata は WebSearch で ctext 項目のみ確認でき Wikidata 項目は確信が持てないため null。",
+      "wikidata": null,
+      "source": {
+        "page": "南齊書 巻一 高帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-jun",
+      "name": "蕭儁",
+      "kana": "しょうしゅん",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "蕭整の子・蕭承之の祖父（斉高帝蕭道成の曽祖父）。「整生即丘令隽，隽生辅国参军乐子」（南齊書高帝紀上・簡体コーパスでは「隽」、繁体は儁）。即丘令。生没年は原典に記載なし。Wikidata は確信の持てる項目を確認できず null。",
+      "wikidata": null,
+      "source": {
+        "page": "南齊書 巻一 高帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-lezi",
+      "name": "蕭樂子",
+      "kana": "しょうらくし",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "蕭承之の父・斉高帝蕭道成の祖父。「隽生辅国参军乐子，宋升明二年九月赠太常，生皇考」（南齊書高帝紀上。同紀の「皇考」は蕭承之）。輔国参軍。宋の昇明二年（478年）九月に太常を追贈されており没年はそれ以前だが、生没年の明記はないため null。Wikidata は確信の持てる項目を確認できず null。",
+      "wikidata": null,
+      "source": {
+        "page": "南齊書 巻一 高帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-huan",
+      "name": "蕭歓",
+      "kana": "しょうかん",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": 541,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "昭明太子蕭統の長子で、豫章王蕭棟の父。字は孟孫。「薨后，长子东中郎将南徐州刺史华容公欢封豫章郡王」（南史巻五十三）と、中大通三年（531年）の昭明太子薨後に華容公から豫章郡王に進封（梁書巻三「癸丑，立昭明太子子南徐州刺史华容公欢为豫章郡王」）。嫡孫として次期太子に擬されたが武帝は立てず晋安王綱（簡文帝）を皇太子とした（南史巻五十三「欢既嫡孙，次应嗣位，而迟疑未决」）。「欢字孟孙，位云麾将军、江州刺史。薨，諡安王。子栋嗣。」（南史巻五十三）。没日は梁書巻三武帝紀下・大同六年「十二月壬子，江州刺史豫章王欢薨。」で、sxtwl換算（fromLunar(540,12,9)）によりユリウス暦541年1月21日→deathYear=541。生年の記載はコーパスに見当たらず不明。子の蕭棟即位（天正）時に「安王为安皇帝」と帝号を追尊されたが、廟号の追贈は確認できないため kind は規約により宗室とした。",
+      "wikidata": "Q16259833",
+      "source": {
+        "page": "南史 巻五十三 梁武帝諸子傳",
+        "lang": "zh-classical"
+      },
+      "posthumous": {
+        "dynasty": "梁",
+        "templeName": null,
+        "posthumousName": "安皇帝"
+      }
+    },
+    {
+      "id": "p-xiao-hong",
+      "name": "蕭宏",
+      "kana": "しょうこう",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": 473,
+      "deathYear": 526,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "臨川靖惠王。字は宣達。梁の太祖文帝蕭順之（追尊）の第六子で武帝蕭衍の同母世代の弟（生母は陳太妃）。梁書巻22「临川靖惠王宏，字宣达，太祖第六子也。」「陈太妃生临川靖惠王宏，南平元襄王伟。」。天監四年の北伐で洛口から潰走した逸話で知られる。普通七年（526）四月薨、時年五十四（「七年三月，以疾累表自陈，诏许解扬州，余如故。四月，薨，时年五十四。」→生年473逆算）、諡は靖惠（「谥曰靖惠」）。七子あり（「宏有七子：正仁，正义，正德、正则，正立，正表，正信。」）、第三子の正德が臨賀王（収録皇帝 liang-xiaozhengde）。王号・諡号どまりで皇帝号の追尊はない。",
+      "wikidata": "Q11622054",
+      "source": {
+        "page": "梁書 巻二十二 太祖五王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-hou-biao",
+      "name": "侯標",
+      "kana": "こうひょう",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "posthumous": {
+        "dynasty": "漢（侯景）",
+        "templeName": null,
+        "posthumousName": "元皇帝"
+      },
+      "wikidata": null,
+      "note": "侯景（漢帝簒立）の実父。梁書 巻五十六 侯景伝の七廟制定記事に「景曰：“前世吾不复忆，惟阿爷名标。”」とあり、「于是追尊其祖周为大丞相，父标为元皇帝。」と太始元年（551）の侯景簒奪即位に伴い皇帝号「元皇帝」を追尊された。南史 巻八十 賊臣伝では「唯阿爷名摽，且在朔州」「父摽为元皇帝」と字が「摽」。皇帝号の追尊はあるが廟号の追贈は梁書・南史とも記載がないため、kind は追尊皇帝ではなく宗室とする（p-xiao-chengzhi 蕭承之と同一基準）。生没年は原典に記載なし。侯標の父（侯景の祖父）は侯周（南史では「乙羽周」）で大丞相追尊どまり。始祖侯霸・七世祖侯瑾以下の系譜は「自外悉是王伟制其名位」と王偉の創作であることが正史自身に明記されている。Wikidata QID は WebSearch で確認を試みたが侯標単独の項目を確認できず null。",
+      "source": {
+        "page": "梁書 巻五十六 侯景伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-yi",
+      "name": "蕭懿",
+      "kana": "しょうい",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": 500,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "長沙宣武王。梁武帝蕭衍の長兄で、貞陽侯蕭淵明（liang-xiaoyuanming）の実父。「长沙宣武王懿字元达，文帝长子也。」（南史 巻五十一 梁宗室上）。母は献皇后張尚柔:「后，宋元嘉中嫔于文帝，生长沙宣武王懿、永阳昭王敷，次生高祖。」（梁書 巻七 皇后伝）。斉に仕え崔慧景の乱を平定して尚書令に至るが、「永元二年，以长沙宣武王懿勋，除步兵校尉。是冬，宣武王遇害，景亦逃难。」（梁書 巻二十四 蕭景伝）のとおり斉永元二年（500年）冬に東昏侯により弟の融とともに殺害された。梁建国後は「中兴元年，追赠侍中、中书监、司徒。宣德太后临朝，改赠太傅。天监元年，追崇丞相，封长沙郡王，谥曰宣武。」（梁書 巻二十三 長沙嗣王業伝）と長沙郡王の王号追封・諡宣武にとどまり皇帝号の追尊はないため kind は宗室。生年は原典に記載なく不明。Wikidata Q10827258 は API 照会で「蕭順之の長男・追封長沙王・没年500」と一致確認済み。",
+      "wikidata": "Q10827258",
+      "source": {
+        "page": "南史 巻五十一 梁宗室上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-fangdeng",
+      "name": "蕭方等",
+      "kana": "しょうほうとう",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": 528,
+      "deathYear": 549,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "梁元帝蕭繹の長子・蕭荘の実父。梁書巻44「忠壮世子方等，字实相，世祖长子也。母曰徐妃。」。太清三年（549年）に元帝の命で河東王蕭誉討伐に赴き麻渓で敗死——「及至麻溪，河东王率军逆战，方等击之，军败，遂溺死，时年二十二。」（梁書巻44）。没年549年・数え22歳から生年528年と逆算（Wikidata の生没年528–549とも一致）。諡は初め「谥曰忠壮世子」（梁書巻44）、南史巻54「元帝即位，改諡武烈世子。」と元帝即位後に改諡。世子諡のみで皇帝号の追尊はないため宗室とする。范曄後漢書への注（未完）・「三十国春秋」の撰者でもある。引用は daizhigev20 簡体コーパスの字体のまま。",
+      "wikidata": "Q15924467",
+      "source": {
+        "page": "梁書 巻四十四 太宗十一王・世祖二子伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-tong",
+      "name": "蕭統",
+      "kana": "しょうとう",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": 501,
+      "deathYear": 531,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "梁武帝蕭衍の長子で皇太子（昭明太子）。『文選』編纂者として著名。梁書巻八昭明太子伝「昭明太子统，字德施，高祖长子也。母曰丁贵嫔。」「太子以齐中兴元年九月生于襄阳。」により斉中興元年（501年）生。中大通三年（531年）に父武帝に先立ち薨去：「四月乙巳薨，时年三十一。」「谥曰昭明。」（数え31歳、生年501年と整合）。第三子蕭詧（後梁宣帝）が江陵で皇帝を称した際に皇帝号・廟号を追贈：「追尊其父统为昭明皇帝，庙号高宗，统妃蔡氏为昭德皇后。」（周書巻四八蕭詧伝）。",
+      "wikidata": "Q1039198",
+      "source": {
+        "page": "梁書 巻八 昭明太子伝",
+        "lang": "zh-classical"
+      },
+      "posthumous": {
+        "dynasty": "後梁",
+        "templeName": "高宗",
+        "posthumousName": "昭明皇帝"
+      }
+    },
+    {
+      "id": "p-chen-wenzan",
+      "name": "陳文讃",
+      "kana": "ちんぶんさん",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等",
+        "追尊皇帝"
+      ],
+      "posthumous": {
+        "dynasty": "陳",
+        "templeName": "太祖",
+        "posthumousName": "景皇帝"
+      },
+      "note": "陳武帝陳霸先の実父。陳書高祖紀上「猛生太常卿道巨，道巨生皇考文赞。」。本人の官職・生没年は陳書に記載なし。永定元年十月辛巳、武帝により「追尊皇考曰景皇帝，庙号太祖」と皇帝号・廟号を追尊され、同年「戊子，迁景皇帝神主祔于太庙」と太廟に祔された。武帝の兄・陳道譚（追贈始興郡王。文帝蒨・宣帝頊の父）の父でもあり、文帝・宣帝側の系譜と接続する（道譚のブリッジ化は文帝担当の領域）。",
+      "wikidata": null,
+      "source": {
+        "page": "陳書 巻一 本紀第一 高祖上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-chen-daotan",
+      "name": "陳道譚",
+      "kana": "ちんどうたん",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "南朝",
+      "birthYear": null,
+      "deathYear": 549,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "陳武帝陳霸先の兄・文帝蒨と宣帝頊の実父。陳書巻28「初，高祖兄始兴昭烈王道谈仕于梁世，为东宫直阁将军，侯景之乱，领弩手二千援台，于城中中流矢卒。太平二年，追赠侍中、使持节、都督南兗州诸军事、南兗州刺史，封长城县公，谥曰昭烈。高祖受禅，重赠骠骑大将军、太傅、扬州牧，改封始兴郡王，邑二千户。王生世祖及高宗」。没年は原典に明記なく、侯景の台城包囲（548年11月〜549年3月）中の戦死として549年概算（維基百科は548年没とするが原文に年の明記なし）。追尊は始興郡王（諡昭烈）の王号＋贈官どまりで皇帝号・廟号の追尊はないことを陳書巻1・巻2・巻28で確認済み（よって kind=宗室）。維基百科(zh)に「陈道谭」項あり（https://zh.wikipedia.org/zh-cn/陈道谭）が Wikidata QID は確信を持って特定できず null。",
+      "wikidata": null,
+      "source": {
+        "page": "陳書 巻二八 世祖九王伝",
         "lang": "zh-classical"
       }
     }
@@ -8497,6 +8837,421 @@
       "note": "「和帝讳宝融，字智昭，高宗第八子也」（南齊書卷8 和帝紀）。高宗は明帝蕭鸞（qi-mingdi）の廟号であり、実父=明帝・第八子と本紀冒頭に明記。南齊書卷50「明帝十一男：敬皇后生东昏侯宝卷，江夏王宝玄，鄱阳王宝夤，和帝」とも整合。",
       "source": {
         "page": "南齊書 卷八 和帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-shunzhi",
+      "to": "liang-wudi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "梁書武帝紀上の世系記事「道赐生皇考讳顺之，齐高帝族弟也」（簡体コーパス）により実父は蕭順之。南史梁本紀上も「道赐生皇考，讳顺之，字文纬，于齐高帝为始族弟」と一致。梁建国後に「追尊皇考为文皇帝，庙曰太祖」（梁書武帝紀中・天監元年）。母は献皇后張氏で、梁書皇后伝「生长沙宣武王懿、永阳昭王敷，次生高祖」により兄懿・敷に次ぐ三男だが、「第三子」の数値明記は梁書・南史に見当たらないため childOrder は付さない。",
+      "source": {
+        "page": "梁書 巻一 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-daoci",
+      "to": "p-xiao-shunzhi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "梁書武帝紀上「副子生南台治书道赐，道赐生皇考讳顺之」。南史梁本紀上「副子生皇祖道赐，位南台治书侍御史。道赐生皇考，讳顺之」と一致。斉⇄梁王朝間接続チェーン（蕭整まで遡及し南齊書側世系と接続）の一環としてエッジ化。",
+      "source": {
+        "page": "梁書 巻一 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-fuzi",
+      "to": "p-xiao-daoci",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "梁書武帝紀上「辖生州治中副子，副子生南台治书道赐」。南史梁本紀上「辖生皇曾祖副子，位州治中从事。副子生皇祖道赐」と一致。",
+      "source": {
+        "page": "梁書 巻一 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-xia",
+      "to": "p-xiao-fuzi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "梁書武帝紀上「整生济阴太守辖，辖生州治中副子」。南史梁本紀上「整生皇高祖辖，位济阴太守。辖生皇曾祖副子」と一致。",
+      "source": {
+        "page": "梁書 巻一 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-zheng",
+      "to": "p-xiao-xia",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "梁書武帝紀上「裔生淮阴令整，整生济阴太守辖」。淮陰令蕭整は南齊書高帝紀上の斉世系「裔生淮阴令整，整生即丘令隽」にも現れる共通祖先で、南史梁本紀上「与齐同承淮阴令整」が両王朝共通の祖先であることを明記する。ここが斉⇄梁の王朝間接続点。",
+      "source": {
+        "page": "梁書 巻一 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-zheng",
+      "to": "p-xiao-jun",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南齊書高帝紀上「裔生淮阴令整，整生即丘令隽」（簡体コーパス。隽の繁体は儁）。斉側世系のチェーン化（蕭整→儁→樂子→承之→斉高帝）の一環。",
+      "source": {
+        "page": "南齊書 巻一 高帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-jun",
+      "to": "p-xiao-lezi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南齊書高帝紀上「整生即丘令隽，隽生辅国参军乐子」。",
+      "source": {
+        "page": "南齊書 巻一 高帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-lezi",
+      "to": "p-xiao-chengzhi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南齊書高帝紀上「隽生辅国参军乐子，宋升明二年九月赠太常，生皇考」——高帝紀の「皇考」は蕭承之（既存ブリッジ p-xiao-chengzhi）を指す。これにより梁側世系（蕭整→鎋→副子→道賜→順之→武帝）と斉側世系（蕭整→儁→樂子→承之→高帝）が共通祖先蕭整で全鎖接続。",
+      "source": {
+        "page": "南齊書 巻一 高帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liang-wudi",
+      "to": "liang-jianwendi",
+      "childOrder": 3,
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "梁書簡文帝紀「太宗简文皇帝，讳纲，字世缵，小字六通，高祖第三子，昭明太子母弟也」。南史梁本紀下も「武帝第三子，昭明太子母弟也」と一致。「第三子」明記により childOrder=3。フェーズ1の即位経路（太清三年、高祖崩後の皇太子継承＝世襲）とも整合。",
+      "source": {
+        "page": "梁書 巻四 簡文帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-tong",
+      "to": "p-xiao-huan",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "蕭歓は昭明太子蕭統の長子。梁書巻三武帝紀下・中大通三年「癸丑，立昭明太子子南徐州刺史华容公欢为豫章郡王」、南史巻五十三梁武帝諸子傳「薨后，长子东中郎将南徐州刺史华容公欢封豫章郡王，次子枝江公誉封河东郡王」。「长子」の非数値表記のため childOrder は付さない。",
+      "source": {
+        "page": "南史 巻五十三 梁武帝諸子傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-huan",
+      "to": "liang-yuzhangwang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南史巻五十三梁武帝諸子傳の蕭歓の記事「欢字孟孙，位云麾将军、江州刺史。薨，諡安王。子栋嗣。」に続けて「栋字元吉。及简文见废，侯景奉以为主。」とあり、蕭棟は蕭歓の子で豫章王位を嗣いだ。即位後「追尊昭明太子曰昭明皇帝，安王为安皇帝」と父安王（蕭歓）を安皇帝に追尊しており父子関係と整合。排行「第n子」の明記はないため childOrder は付さない。",
+      "source": {
+        "page": "南史 巻五十三 梁武帝諸子傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liang-wudi",
+      "to": "liang-yuandi",
+      "childOrder": 7,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "梁書 巻五 元帝紀冒頭に「世祖孝元皇帝，讳绎，字世诚，小字七符，高祖第七子也。天监七年八月丁巳生」とあり、実父は高祖武帝蕭衍（liang-wudi）で第七子と明記。梁書 巻二十九 高祖三王伝冒頭の「高祖八男：丁贵嫔生昭明太子统，太宗简文皇帝，庐陵威王续；阮修容生世祖孝元皇帝」とも整合。",
+      "source": {
+        "page": "梁書 巻五 元帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liang-yuandi",
+      "to": "liang-jingdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 9,
+      "primaryLineage": true,
+      "note": "梁書敬帝紀冒頭に「敬皇帝，讳方智，字慧相，小字法真，世祖第九子也」と明記。梁書の世祖は元帝蕭繹（liang-yuandi）の廟号であり、敬帝蕭方智は元帝の第九子。「第九子」の明記により childOrder=9。",
+      "source": {
+        "page": "梁書 巻六 敬帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-shunzhi",
+      "to": "p-xiao-hong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 6,
+      "note": "梁書巻22「临川靖惠王宏，字宣达，太祖第六子也。」太祖＝蕭順之（梁武帝即位後に太祖文帝と追尊）。生母は陳太妃（同巻「陈太妃生临川靖惠王宏，南平元襄王伟。」）。蕭宏は普通七年（526）四月薨・時年五十四（「四月，薨，时年五十四。」）、諡は靖惠（「谥曰靖惠」）。",
+      "source": {
+        "page": "梁書 巻二十二 太祖五王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-hong",
+      "to": "liang-xiaozhengde",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 3,
+      "note": "梁書巻55「临贺王正德，字公和，临川靖惠王第三子也。」臨川靖惠王＝蕭宏（武帝の六弟）。梁書巻22の七子列挙「宏有七子：正仁，正义，正德、正则，正立，正表，正信。」でも第三位に置かれ整合。南史巻51も正德を蕭宏の子（正義の弟）として立伝する（「正义弟正德。」「正德字公和」）。",
+      "source": {
+        "page": "梁書 巻五十五 臨賀王正德傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-hou-biao",
+      "to": "liang-houjing",
+      "veracity": "verified",
+      "confidence": "medium",
+      "note": "梁書 巻五十六 侯景伝の七廟制定記事「景曰：“前世吾不复忆，惟阿爷名标。”」および追尊記事「于是追尊其祖周为大丞相，父标为元皇帝。」により実父は侯標。南史 巻八十 賊臣伝も「于是推尊其祖周为大丞相，父摽为元皇帝。」と一致（字は「摽」）。父名の出所は侯景本人の発言（単一系統・魏書に独立伝なく傍証なし）だが、両正史列伝が追尊行為を事実として記載し父名自体への疑義は示していないため verified・confidence は medium。伝冒頭の出自記事（梁書「侯景，字万景，朔方人，或云雁门人」・南史「侯景字万景，魏之怀朔镇人也」）には父の記載がない。原典に「第n子」の排行記載なし。",
+      "source": {
+        "page": "梁書 巻五十六 侯景伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liang-wudi",
+      "to": "liang-xiaoji",
+      "childOrder": 8,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "「武陵王纪，字世询，高祖第八子也」（梁書 巻五十五 武陵王紀伝）。父は梁武帝蕭衍（収録皇帝 liang-wudi）。「第八子」の明記により childOrder=8。梁書 巻二十九 高祖三王伝の高祖八男列挙「葛修容生武陵王纪」とも整合。",
+      "source": {
+        "page": "梁書 巻五十五 武陵王紀伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-yi",
+      "to": "liang-xiaoyuanming",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南史 巻五十一 梁宗室上の長沙宣武王懿諸子の条に「朗弟明字靖通，少被武帝亲爱，封贞阳侯。」とあり、蕭淵明（南史は唐の避諱により「明」と表記）は長沙宣武王蕭懿の子。斉文宣帝の王僧辯宛書簡にも「彼贞阳侯，梁武犹子，长沙之胤，以年以望，堪保金陵」（梁書 巻四十五 王僧辯伝）とあり、武帝の猶子（兄の子）＝長沙宣武王の胤であることが別書でも裏付けられる。排行の「第n子」表記は確認できず childOrder は付さない。",
+      "source": {
+        "page": "南史 巻五十一 梁宗室上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-shunzhi",
+      "to": "p-xiao-yi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "「长沙宣武王懿字元达，文帝长子也。」「文帝十男：张皇后生长沙宣武王懿、永阳昭王敷、武帝、 衡阳宣王畅。」（南史 巻五十一 梁宗室上。文帝=蕭順之、梁武帝による追尊号）。梁書 巻二十三 長沙嗣王業伝にも「长沙嗣王业字静旷，高祖长兄懿之子也」とあり武帝の長兄であることが裏付けられる。「長子」の非数値表記のため規約により childOrder は入れない。祖先遡及ルール上、蕭順之は収録皇帝 liang-wudi の実父ブリッジ（追尊太祖文皇帝）に到達するため本エッジでチェーンを接続する。",
+      "source": {
+        "page": "南史 巻五十一 梁宗室上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liang-yuandi",
+      "to": "p-xiao-fangdeng",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "梁書巻44「忠壮世子方等，字实相，世祖长子也。母曰徐妃。」、南史巻54「武烈世子方等字实相，元帝长子也。」——蕭方等は梁元帝蕭繹（世祖）の長子。「长子」の非数値表記のため childOrder は設定しない。母は元帝徐妃（梁書巻7「世祖徐妃，讳昭佩，东海郯人也」「生世子方等、益昌公主含贞」）。",
+      "source": {
+        "page": "梁書 巻四十四 太宗十一王・世祖二子伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-fangdeng",
+      "to": "liang-xiaozhuang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "南史巻54 武烈世子方等伝「元帝即位，改諡武烈世子。封子庄为永嘉王。及魏克江陵，庄年甫七岁，为人家所匿。后王琳迎送建邺。及敬帝立，出质于齐。」——蕭荘（永嘉王）は方等の子として封じられ、後に王琳・北斉により梁主に擁立された。排行「第n子」の明記はなく childOrder は設定しない。江陵陥落（554年）時に数え7歳＝548年頃の生まれで、父方等の没年549年と整合する。",
+      "source": {
+        "page": "南史 巻五十四 列伝第四十四",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "liang-wudi",
+      "to": "p-xiao-tong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "梁書巻八昭明太子伝の冒頭「昭明太子统，字德施，高祖长子也。母曰丁贵嫔。」により梁武帝（高祖）の長子と確認。周書巻四八蕭詧伝の「梁武帝之孙，昭明太子统之第三子」とも整合。「长子」は非数値表記のため childOrder は付さない。",
+      "source": {
+        "page": "梁書 巻八 昭明太子伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-xiao-tong",
+      "to": "houliang-xuandi",
+      "childOrder": 3,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "周書巻四八蕭詧伝の冒頭「萧察字理孙，兰陵人也，梁武帝之孙，昭明太子统之第三子。」により昭明太子蕭統の第三子と確認（「第三子」明記により childOrder=3）。称帝後に「追尊其父统为昭明皇帝，庙号高宗」と父へ皇帝号・廟号を追贈している。",
+      "source": {
+        "page": "周書 巻四八 蕭詧伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "houliang-xuandi",
+      "to": "houliang-mingdi",
+      "childOrder": 3,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "周書巻四十八蕭詧伝の附載記事冒頭に「岿字仁远，察之第三子也。」と明記。父は宣帝蕭詧（houliang-xuandi・収録皇帝）で、蕭巋はその第三子。詧の薨去後「高祖又命其太子岿嗣位，年号天保。」とあり、太子として世襲継承（フェーズ1 succession 判定と整合）。",
+      "source": {
+        "page": "周書 巻四十八 列伝第四十 蕭詧伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "houliang-mingdi",
+      "to": "houliang-houzhu",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "隋書巻79外戚伝の蕭巋伝末尾に「岿在位二十三年，年四十四薨，梁之臣子谥曰孝明皇帝，庙号世宗。子琮嗣。」、同巻見出しに「萧岿子琮　琮弟瓛」とあり、蕭琮が明帝蕭巋の子であることが明記される。周書巻48蕭詧伝附載記事にも「隋文帝又命其太子萧琮嗣位，年号广运。」とあり、巋の太子としての世襲を裏付ける。排行の「第n子」表記はなく、「初封东阳王，寻立为梁太子。」（隋書巻79）とあるのみ。",
+      "source": {
+        "page": "隋書 巻79 列伝第44 外戚（蕭巋・蕭琮）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-chen-wenzan",
+      "to": "chen-wudi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "陳書高祖紀上に「猛生太常卿道巨，道巨生皇考文赞。」とあり、実父は陳文讃（文赞）。即位後の永定元年十月に「辛巳，追尊皇考曰景皇帝，庙号太祖」（陳書 巻二 本紀第二 高祖下）と皇帝号・廟号を追尊。排行（第n子）の明記はなし（兄に道譚〔追贈始興郡王〕、弟に休先〔追贈南康郡王〕がいる）。",
+      "source": {
+        "page": "陳書 巻一 本紀第一 高祖上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-chen-daotan",
+      "to": "chen-wendi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "陳書巻3世祖紀冒頭「世祖文皇帝，讳蒨，字子华，始兴昭烈王长子也」。始興昭烈王が陳道譚であることは陳書巻28「初，高祖兄始兴昭烈王道谈仕于梁世…王生世祖及高宗」で確認（南史巻9も「始兴昭烈王之长子也」と一致）。さらに永定三年の皇后令（陳書巻3）「侍中、安东将军、临川王蒨，体自景皇，属惟犹子」が文帝＝景皇帝（文賛）の孫・武帝の猶子（甥）であることを裏付け、文賛→道譚→文帝のチェーン全体と整合。排行は「长子」（非数値表記のため childOrder は付さず原文のみ記録）。",
+      "source": {
+        "page": "陳書 巻三 世祖紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-chen-wenzan",
+      "to": "p-chen-daotan",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "二段推論を明示: (1) 陳書巻1「道巨生皇考文赞」により武帝（霸先）の父は文賛。(2) 同巻1（太平二年正月）「丁未，诏赠高祖兄道谭散骑常侍、使持节、平北将军、南兗州刺史、长城县公，谥曰昭烈」により道譚は武帝の兄（「弟休先」と併記され従兄・族兄の限定なし）。よって道譚は文賛の子。陳書巻28「高祖兄始兴昭烈王道谈…王生世祖及高宗」も兄弟関係を再確認。",
+      "source": {
+        "page": "陳書 巻一 高祖紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "chen-wendi",
+      "to": "chen-feidi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『陳書』巻四廃帝紀の出自記事に「废帝，讳伯宗，字奉业，小字药王，世祖嫡长子也」とあり、世祖（文帝陳蒨）の嫡長子であることが明記される。「嫡长子」は非数値表記のため childOrder は付さない。『陳書』巻二十八世祖諸子伝の「世祖十三男：沈皇后生废帝、始兴王伯茂」も文帝の子であることを裏付ける。",
+      "source": {
+        "page": "陳書 巻四 廃帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-chen-daotan",
+      "to": "chen-xuandi",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 2,
+      "note": "陳書巻5宣帝紀の出自記事に「高宗孝宣皇帝讳顼，字绍世，小字师利，始兴昭烈王第二子也」とあり、始興昭烈王＝陳道譚（武帝陳霸先の兄）の第二子と明記（childOrder=2）。父子関係は陳書巻28世祖九王伝（始興王伯茂条）「初，高祖兄始兴昭烈王道谈仕于梁世，为东宫直阁将军，侯景之乱，领弩手二千援台，于城中中流矢卒」「王生世祖及高宗」、南史巻65「道谈生文帝及宣帝」でも裏付けられる。文帝（chen-wendi、昭烈王長子）とは同父兄弟。",
+      "source": {
+        "page": "陳書 巻五 宣帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "chen-xuandi",
+      "to": "chen-houzhu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "陳書後主紀に「后主，讳叔宝，字元秀，小字黄奴，高宗嫡长子也」とあり、実父は高宗（宣帝陳頊）で確定。陳書巻28高宗二十九王伝の「高宗四十二男：柳皇后生后主」でも母子・父子関係を裏書き。「嫡长子」は非数値表記のため childOrder は付さない。",
+      "source": {
+        "page": "陳書 巻六 後主紀",
         "lang": "zh-classical"
       }
     }
