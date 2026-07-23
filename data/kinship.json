@@ -260,6 +260,13 @@
         "emperors": 11,
         "edges": 11,
         "persons": 3
+      },
+      {
+        "phase": "parentage",
+        "block": "block10",
+        "emperors": 19,
+        "edges": 34,
+        "persons": 15
       }
     ],
     "confirmedRootless": [
@@ -2877,6 +2884,390 @@
       "note": "匈奴鉄弗部の首長で、夏の建国者赫連勃勃の実父。魏書巻95鉄弗劉虎伝に「卫辰，务桓之第三子也」とあり、苻堅から西単于に任ぜられ河西諸虜を督摂した（晋書載記三十「父卫辰入居塞内，苻坚以为西单于，督摄河西诸虏，屯于代来城」）。北魏道武帝の登国6年（391年）の征討で敗走し落命（魏書太祖紀「十有二月，获卫辰尸，斩以徇，遂灭之」、鉄弗伝「卫辰单骑遁走，为其部下所杀，传首行宫」。晋書載記三十は「魏人乘胜济河，克代来，执辰杀之」と経緯が異なるが没年391年は共通。登国6年12月は旧暦のためユリウス暦上392年初に食い込む可能性あり）。生年は諸原典に記載なく null。子の勃勃が真興2年（420年）に皇帝号＋廟号を追尊（晋書載記三十「父卫辰曰桓皇帝，庙号太祖」、十六国春秋夏録「父卫辰为桓皇帝庙号太祖」）したため kind=追尊皇帝。Wikidata QID は WebSearch 1回で Q10900392 を確認（wikidata.org/wiki/Q10900392、Tiefu chieftain・d.391 で一致）。",
       "source": {
         "page": "魏書 巻九十五 鉄弗劉虎伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-tuoba-shi",
+      "name": "拓跋寔",
+      "kana": "たくばつしょく",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": null,
+      "deathYear": 371,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "note": "代王什翼犍（追尊昭成皇帝）の子で太子。北史巻十五「昭成皇帝九子：庶长曰寔君，次曰献明帝，次曰秦王翰，次曰阏婆，次曰寿鸠，次曰纥根，次曰地干，次曰力真，次曰窟咄。」— 庶長子寔君に次ぐ嫡嗣。魏書巻一序紀「三十四年春，长孙斤谋反，伏诛。斤之反也，拔刃向御座，太子献明皇帝讳寔格之，伤胁。夏五月，薨，后追谥焉。」により建国三十四年（371年）五月薨去（長孫斤の反乱で負傷し死去）、生年は原典に記載なく null。道武帝即位時の魏書巻二太祖紀天興元年「追尊成帝已下及后号谥」で献明皇帝と追尊され、「冬十月，太庙成，迁神元、平文、昭成、献明皇帝神主于太庙。」と太廟に祔されたが、廟号の追贈記事は魏書・北史に確認できず皇帝号のみのため kind は宗室（判定指針どおり）。父什翼犍（昭成皇帝追尊）以遡は収録皇帝・既存ブリッジ人物に到達しないため遡及しない。かな読み「たくばつしょく」は寔の音読（ショク）による。Wikidata QID は WebSearch 1回で確定できず null（ja.wikipedia に拓跋寔の記事は存在するが QID 未確認）。",
+      "wikidata": null,
+      "posthumous": {
+        "dynasty": "北魏",
+        "templeName": null,
+        "posthumousName": "献明皇帝"
+      },
+      "source": {
+        "page": "魏書 巻一 序紀／巻二 太祖紀、北史 巻十五 魏諸宗室列伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-tuoba-huang",
+      "name": "拓跋晃",
+      "kana": "たくばつこう",
+      "aliases": [
+        "景穆太子",
+        "景穆帝",
+        "恭宗"
+      ],
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": 428,
+      "deathYear": 451,
+      "yearsApproximate": false,
+      "posthumous": {
+        "dynasty": "北魏",
+        "templeName": "恭宗",
+        "posthumousName": "景穆皇帝"
+      },
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "太武帝の長子で皇太子、文成帝の実父。「恭宗景穆皇帝讳晃，太武皇帝之长子也，母贺夫人。延和元年春正月丙午，立为皇太子，时年五岁。」（魏書 巻四下 世祖紀下附恭宗紀）。監国として国政を委ねられたが即位に至らず「正平元年六月戊辰，薨于东宫，时年二十四。」（同）と正平元年(451)六月に24歳（数え）で死去、諡「景穆」を贈られ景穆太子として金陵に葬られた（世祖紀「戊辰，皇太子薨。壬申，葬景穆太子于金陵。」）。子の文成帝即位後、興安元年(452)十一月壬寅に「追尊景穆太子为景穆皇帝」（魏書 巻五 高宗紀）、「高宗即位，追尊为景穆皇帝，庙号恭宗。」（恭宗紀）と皇帝号＋廟号を追尊されたため kind=追尊皇帝。生年428年は没時「时年二十四」（正平元年=451）からの数え年逆算で、立太子時「延和元年（432）…时年五岁」の逆算とも一致するため yearsApproximate=false。母は賀夫人（「母贺夫人」）。wikidata Q1018030（Wikidata「Tuoba Huang」項で確認、生没年428–451も一致）。",
+      "wikidata": "Q1018030",
+      "source": {
+        "page": "魏書 巻四下 世祖紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-baohui",
+      "name": "元宝暉",
+      "kana": "げんほうき",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "北魏の宗室。高祖孝文帝の孫、京兆王元愉（beiwei-yuanyu）の子で、幼主元釗の実父。臨洮王（正光四年に故京兆王愉へ追封された王爵「四年春二月壬辰，追封故咸阳王禧为敷城王，京兆王愉为临洮王」を家系内で継承）。魏書に独立の伝はなく、名は肅宗紀武泰元年の擁立詔「皇曾孙故临洮王宝晖世子钊，体自高祖」に見え、この時点で既に故人（「故临洮王」）。生没年は正史に記載なし（中文維基百科は503年生・元愉の次子・母楊氏とするが、正史原文では未確認の二次情報のため採用しない）。",
+      "wikidata": null,
+      "source": {
+        "page": "魏書 帝紀第九 肅宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-xie",
+      "name": "元勰",
+      "kana": "げんきょう",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": 476,
+      "deathYear": 508,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "posthumous": {
+        "dynasty": "北魏",
+        "templeName": "粛祖",
+        "posthumousName": "文穆皇帝"
+      },
+      "wikidata": "Q3275351",
+      "note": "彭城武宣王元勰、字彦和（「彭城王勰，字彦和。」魏書 巻二十一下）。北魏献文帝の子で孝文帝の弟、孝荘帝元子攸の実父。太和九年（485年）始平王に封じられ後に彭城王。孝文帝崩御時に遺詔を奉じて宣武帝を魯陽で践阼させた勲功があり、孝荘紀に「以勰有鲁阳翼卫之勋」とある。生年は「勰生而母潘氏卒，其年显祖崩。」（魏書 巻二十一下、北史巻十九も「其年献文崩」と一致）から献文帝崩年の476年と導出（数値の直接記載はないため yearsApproximate=true）。永平元年（508年）九月、高肇の讒構により宮中で毒殺された（魏書 巻八 世宗紀「戊戌，杀侍中、太师、彭城王勰。」、列伝「勰乃饮毒酒，武士就杀之。」）。諡は武宣王。子の孝荘帝即位後、永安二年（529年）に皇帝号・廟号を追尊（「甲午，尊皇考为文穆皇帝，庙号肃祖，皇妣为文穆皇后。」魏書 巻十 孝荘紀、列伝「及庄帝即位，追号文穆皇帝，妃李氏为文穆皇后，迁神主于太庙。称肃祖。」）されたため kind=追尊皇帝。ただし「前废帝时，去其神主。」（魏書 巻二十一下）と前廃帝（節閔帝）期に神主は撤去された。Wikidata Q3275351 は WebSearch 1回で確認（en.wikipedia「Yuan Xie」＝Prince Wuxuan of Pengcheng・son of Emperor Xianwen で一致）。",
+      "source": {
+        "page": "魏書 巻二十一下 献文六王伝 彭城王勰",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-zhen",
+      "name": "元楨",
+      "kana": "げんてい",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": null,
+      "deathYear": 496,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "景穆帝拓跋晃の子（母は劉椒房「刘椒房生南安惠王桢、城阳康王长寿。」）。「南安王桢，皇兴二年封」（468年封南安王）。没年は魏書帝紀（孝文帝紀）太和二十年（496年）八月「丁巳，南安王桢薨。」列伝は「是月疽发背，薨。谥曰惠，赠帛一千匹。」諡は恵王（王号どまりのため宗室）。生年は魏書・北史に記載なし（元楨墓誌に基づく447年説あり—維基百科による・原典未確認のため null）。daizhigev20 魏書列伝の「太和二十五年五月至鄴」は太和が23年までのため破損・異文疑い（flags 参照）。",
+      "wikidata": "Q11077204",
+      "posthumous": null,
+      "source": {
+        "page": "魏書 列伝第七下 景穆十二王下 南安王楨",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-yi",
+      "name": "元怡",
+      "kana": "げんい",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "南安恵王楨の子・中山王英の弟で、長広王元曄の実父。魏書巻十九下「英弟怡，起家步兵校尉，转城门校尉，迁鄯善镇将。所在贪暴，为有司所纠，逃窜得免。延昌中，卒。庄帝初，以尔朱荣妇兄，超赠骠骑大将军、太尉公、雍州刺史、扶风王。」没年は「延昌中」（512〜515年）のため年単位で確定できず null。扶風王は孝荘帝初（528年）の追贈で王号どまりのため宗室（元曄擁立後の皇帝号追尊の記録は魏書・北史に見当たらない）。Wikidata Q9398042 は P22（父）= Q11077204（元楨）で本判定と整合することを確認済み。",
+      "wikidata": "Q9398042",
+      "posthumous": null,
+      "source": {
+        "page": "魏書 列伝第七下 景穆十二王下 南安王楨",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-yi-qinghe",
+      "name": "元懌",
+      "kana": "げんえき",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": 487,
+      "deathYear": 520,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "清河文献王。孝文帝の子（羅夫人所生）で孝静帝の祖父。「清河王怿，字宣仁」「太和二十一年封」（魏書 列伝第十 孝文五王）。霊太后の下で朝政を委ねられたが、「正光元年七月，叉与刘腾逼肃宗于显阳殿」に続き「诬怿罪状，遂害之，时年三十四」と元叉・劉騰により殺害された。正光元年（520年）に数え34歳没であることから生年は487年。諡は文献王で皇帝号追尊はなく宗室とする。生没年は Wikidata Q10889689（487–520）とも一致。",
+      "wikidata": "Q10889689",
+      "source": {
+        "page": "魏書 列伝第十 孝文五王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-yu-guangling",
+      "name": "元羽",
+      "kana": "げんう",
+      "aliases": [
+        "広陵王",
+        "広陵惠王",
+        "拓跋羽"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": 470,
+      "deathYear": 501,
+      "yearsApproximate": false,
+      "posthumous": {
+        "dynasty": "北魏",
+        "templeName": null,
+        "posthumousName": "先帝"
+      },
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "北魏の宗室。献文帝の子（「献文皇帝七男。……孟椒房生广陵惠王羽。」母は孟椒房）で孝文帝の弟。字は叔翻（「广陵王羽，字叔翻。太和九年封」）。太和九年(485)広陵王に封じられ、断獄の才で知られ尚書左僕射・司州牧等を歴任。景明二年(501)五月壬子に薨去（世宗紀「夏五月壬子，广陵王羽薨。」、列伝「积日秘匿，薨于府，年三十二。」→数え32歳から生年470年を導出）。諡は惠（「谥曰惠。及葬，帝亲临送。子恭袭。语在《纪》。」）。子の元恭（節閔帝）が普泰元年(531)九月癸巳に「追尊皇考为先帝」と帝号を追尊したが、廟号の追贈はないため kind は宗室（太上皇尊号のみの荘襄王と同型の処理。posthumousName に追尊号「先帝」を記録）。",
+      "wikidata": "Q10889803",
+      "source": {
+        "page": "魏書 列伝第九上 献文六王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-bin",
+      "name": "元彬",
+      "aliases": [],
+      "kana": "げんひん",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": null,
+      "deathYear": 499,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "posthumous": null,
+      "note": "南安惠王楨の第二子。章武敬王太洛（皇興二年薨・無子）の後を継ぎ章武王を襲爵（「无子。高祖初，以南安惠王第二子彬为后。」「彬，字豹兒，袭爵。」）——死後の為後のため養父エッジは立てない。「太和二十三年卒。」（499年）。生年は魏書に記載なし。wikidata は没年499（太和二十三年卒と一致）・北魏の同名人物で同定。",
+      "wikidata": "Q10889677",
+      "source": {
+        "page": "魏書 巻十九下 列傳第七下 景穆十二王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-rong",
+      "name": "元融",
+      "aliases": [],
+      "kana": "げんゆう",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": null,
+      "deathYear": 526,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "posthumous": null,
+      "note": "彬の長子（「彬有五子。」「长子融，字永兴。」）、章武王。後廃帝元朗の実父。孝昌二年（526年）九月、葛榮軍に博野白牛逻で敗れ陣没（肅宗紀「九月辛亥，葛荣败都督广阳王渊、章武王融于博野白牛逻，融殁于阵。」、列伝「融苦战终日，更无外援，遂大奔败，于陈见杀。」）。「谥曰庄武。」。生年は魏書に記載なし。",
+      "wikidata": "Q11388049",
+      "source": {
+        "page": "魏書 巻十九下 列傳第七下 景穆十二王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-huai",
+      "name": "元懐",
+      "kana": "げんかい",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": null,
+      "deathYear": 517,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "北魏の広平王・孝武帝（出帝）の実父。孝文帝の子で文昭皇后高氏所生・宣武帝の同母弟（「孝文皇帝七男。林皇后生废太子恂。文昭皇后生宣武皇帝、广平文穆王怀。」魏書 巻二十二 孝文五王伝）。熙平二年（517年）薨（「丁亥，太保、领司徒、广平王怀薨。」魏書 巻九 粛宗紀）。魏書巻二十二の元懐伝は残缺（「广平王怀。囗有魏诸王。」）で、生年・没年齢は原典コーパスで確認できないため birthYear は null（通説の生年488年は元懐墓誌に基づくとされるがコーパス外）。永熙二年（533年）正月、子の孝武帝が「丁巳，追尊皇考为武穆帝，皇太妃冯氏为武穆后，皇妣李氏为皇太妃。」（魏書 巻十一 出帝紀。北史は「追尊皇考为武穆皇帝」）と皇帝号「武穆皇帝」を追尊したが、廟号追贈の記載は原文にないため kind は追尊皇帝ではなく宗室とする（p-yuwen-jue と同運用）。",
+      "wikidata": null,
+      "posthumous": {
+        "dynasty": "北魏",
+        "templeName": null,
+        "posthumousName": "武穆皇帝"
+      },
+      "source": {
+        "page": "魏書 巻二十二 孝文五王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-tuoba-xi",
+      "name": "拓跋熙",
+      "kana": "たくばつき",
+      "aliases": [
+        "陽平王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": 399,
+      "deathYear": 421,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "北魏道武帝の子・陽平王。母は大王夫人（「大王夫人生阳平王熙」）。「阳平王熙，天兴六年封。」により天興六年（403）封。明元帝期に「诏熙督十二军校阅，甚得军仪」と十二軍の校閲を督した。「泰常六年薨，时年二十三。」により泰常六年（421）に数え23歳で薨去、生年は399年と逆算。元法僧の曽祖父。",
+      "wikidata": null,
+      "source": {
+        "page": "魏書 巻十六 道武七王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-tuoba-tuo",
+      "name": "拓跋他",
+      "kana": "たくばつた",
+      "aliases": [
+        "拓跋佗",
+        "淮南王",
+        "臨淮王",
+        "淮南靖王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": 416,
+      "deathYear": 488,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "陽平王熙の長子（「长子他，袭爵。」）。「改封临淮王」「寻改封淮南王」と改封され、官は司徒に至った。「太和十二年薨，年七十三。」により太和十二年（488）に数え73歳で薨去、生年は416年と逆算。「谥曰靖王。」。北史 巻十六は「佗」と表記。元法僧の祖父。",
+      "wikidata": null,
+      "source": {
+        "page": "魏書 巻十六 道武七王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-tuoba-zhongkui",
+      "name": "拓跋鍾葵",
+      "kana": "たくばつしょうき",
+      "aliases": [
+        "元鍾葵"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "note": "拓跋他の子（他三子の一人。「世子吐万，早卒」「吐万弟钟葵，早卒。」）。早世し事績・生没年の記載なし。元法寿・元法僧の父（「长子法寿」「法寿弟法僧」）。父・他が孝文帝の元氏改姓（496）以前の488年に没しており本人も「早卒」のため拓跋姓で収録し、元鍾葵表記を alias に置く（姓表記は推定、flags 参照）。",
+      "wikidata": null,
+      "source": {
+        "page": "魏書 巻十六 道武七王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-xiang",
+      "name": "元詳",
+      "kana": "げんしょう",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": null,
+      "deathYear": 504,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "北海平王元詳、字は季豫。献文帝の子（「高椒房生北海平王详」）で孝文帝の弟（娉室詔に「季弟北海王详」）。「北海王详，字季豫。美姿容，善举止。太和九年封」（太和9年=485年に北海王に封じられる）。世宗（宣武帝）朝で太傅・録尚書事に至るが、世宗紀正始元年（504年）に「五月丁未朔，太傅、北海王详以罪废为庶人」とあり庶人に廃され、幽閉中に「详哭数声而暴死」（同年）。「停殡五载。永平元年十月」（508年）に王封を回復され「谥曰平王」（王号の追謚のみで皇帝号の追尊はないため kind=宗室・posthumous なし）。生年は魏書に享年・時年の記載がなく不明。子の顥（beiwei-yuanhao）が王爵を襲った。wikidata は WebSearch 1回では QID を確定できず null。",
+      "wikidata": null,
+      "source": {
+        "page": "魏書 列傳第九上 献文六王 北海王詳伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-dan",
+      "name": "元亶",
+      "kana": "げんたん",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": null,
+      "deathYear": 537,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等",
+        "経路上"
+      ],
+      "note": "清河文宣王。孝静帝（元善見）の実父、清河文献王懌の子。孝武帝の西走後は「推司徒公、清河王亶为大司马，承制总万几，居尚书省」（魏書 帝紀第十一 出帝紀）と大司馬承制として一時政務を総攬したが、高歓は亶ではなくその世子善見を擁立した（資治通鑑 梁紀十二「遂立清河王世子善见为帝」）。天平三年十二月壬申（ユリウス暦537年1月2日、sxtwl換算）に薨去（魏書 孝静紀「壬申大司马、清河王亶薨」）。諡は文宣王で、東魏による皇帝号追尊は孝静紀に記事がないため宗室とする（通鑑も「东魏清河文宣王亶卒」と王号で記す）。生年は原典に記載が確認できず不明。魏書巻二十二の付伝は両コーパスとも欠落（残欠巻）。",
+      "wikidata": "Q10889539",
+      "source": {
+        "page": "魏書 帝紀第十二 孝静紀",
         "lang": "zh-classical"
       }
     }
@@ -10297,6 +10688,458 @@
       "note": "『十六国春秋』夏録三の伝冒頭に「赫连定小字直獖勃勃之第五子也」とあり、赫連勃勃（収録皇帝 xia-helianbobo）の第五子と明記。『魏書』も「昌弟定，小字直獖。屈孑之第五子，凶暴无赖」と記し（屈孑=勃勃の別名表記）、昌の弟・第五子の続柄が両史料で一致する。",
       "source": {
         "page": "十六国春秋 夏録三 赫連定",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-tuoba-shi",
+      "to": "beiwei-daowudi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書巻二太祖紀「太祖道武皇帝，讳珪，昭成皇帝之嫡孙，献明皇帝之子也。母曰献明贺皇后。」により実父は拓跋寔（追尊献明皇帝）。魏書巻一序紀「太子献明皇帝讳寔格之，伤胁。夏五月，薨，后追谥焉。秋七月，皇孙珪生」— 父は建国三十四年（371年）五月に薨去し、道武帝は同年七月七日生まれの遺腹子。「第n子」の数値明記はないため childOrder は付さない（「嫡孙」の表記のみ）。",
+      "source": {
+        "page": "魏書 巻二 太祖紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-daowudi",
+      "to": "beiwei-mingyuandi",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "魏書太宗紀冒頭「太宗明元皇帝，讳嗣，太祖长子也，母曰刘贵人，登国七年生于云中宫」。太祖＝道武帝拓跋珪。排行は「长子」の非数値表記のみで「第n子」の明記はないため childOrder は付さない。",
+      "source": {
+        "page": "魏書 巻三 帝紀第三 太宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-mingyuandi",
+      "to": "beiwei-taiwudi",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "魏書世祖紀冒頭に「世祖太武皇帝，讳焘，太宗明元皇帝之长子也，母曰杜贵嫔」とあり、実父は太宗明元帝で確定。「长子」は非数値表記のため childOrder は付さない。フェーズ1の accessionRoute.note（太宗(明元帝)の長子・世襲）とも一致。",
+      "source": {
+        "page": "魏書 帝紀第四 世祖紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-taiwudi",
+      "to": "beiwei-tuobayu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書 巻十八 太武五王列傳の冒頭に「太武皇帝十一男。……闾左昭仪生南安王余。」とあり、南安王余（拓跋余）は太武帝の実子（母は閭左昭儀）であることが明記される。同伝に「南安王余，真君三年封吴王，后改封南安王。世祖暴崩，中常侍宗爱矫皇太后令，迎余而立之，然后发丧。」、魏書 巻四下 世祖紀下にも「中常侍宗爱矫皇后令，杀东平王翰，迎南安王余入而立之」とあり、太武帝（世祖）の子としての即位経緯とも整合する。列伝は十一男の生母別列挙であり「第n子」の序数表記はないため childOrder は付さない。フェーズ1 succession 判定（宗愛による擁立・太武帝の子）とも一致。",
+      "source": {
+        "page": "魏書 巻十八 太武五王列傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-tuoba-huang",
+      "to": "beiwei-wenchengdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "文成帝拓跋濬は景穆帝拓跋晃（恭宗）の長子。「高宗文成皇帝，讳浚，恭宗景穆皇帝之长子也。母曰闾氏。真君元年六月生于东宫。」（魏書 巻五 高宗紀）。「长子」の非数値表記のため childOrder は付さない。晃は太武帝の皇太子のまま正平元年(451)に死去し即位していないが、文成帝即位後の興安元年十一月「壬寅，追尊景穆太子为景穆皇帝」（魏書 巻五 高宗紀）、「高宗即位，追尊为景穆皇帝，庙号恭宗」（魏書 巻四下 世祖紀下）と皇帝号＋廟号を追尊された追尊皇帝（ブリッジ人物 p-tuoba-huang 新設）。",
+      "source": {
+        "page": "魏書 巻五 高宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-taiwudi",
+      "to": "p-tuoba-huang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "景穆帝拓跋晃は太武帝拓跋燾の長子。「恭宗景穆皇帝讳晃，太武皇帝之长子也，母贺夫人。延和元年春正月丙午，立为皇太子，时年五岁。」（魏書 巻四下 世祖紀下附恭宗紀）。「长子」の非数値表記のため childOrder は付さない。これにより 太武帝→拓跋晃→文成帝 のチェーンが収録皇帝間を接続する（祖先遡及ルール適用）。",
+      "source": {
+        "page": "魏書 巻四下 世祖紀下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-wenchengdi",
+      "to": "beiwei-xiandi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書顕祖紀の出自記事に「显祖献文皇帝，讳弘，高宗文成皇帝之长子也」とあり、文成帝（高宗）の長子と明記。皇后列伝の文成元皇后李氏伝にも「及生显祖，拜贵人」とあり母子・父子関係が独立に裏付けられる。「长子」は非数値表記のため childOrder は入れない。フェーズ1の accessionRoute.note「文成帝の長子」とも一致し矛盾なし。",
+      "source": {
+        "page": "魏書 帝紀第六 顕祖紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-xiandi",
+      "to": "beiwei-xiaowendi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書高祖紀冒頭に「高祖孝文皇帝，讳宏，显祖献文皇帝之长子。母曰李夫人」とあり、献文帝の長子と明記。魏書献文六王伝の総叙「献文皇帝七男。李思皇后生孝文皇帝」でも裏付けられる。「长子」は非数値表記のため childOrder は付さない。",
+      "source": {
+        "page": "魏書 帝紀第七上 高祖紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-xiaowendi",
+      "to": "beiwei-xuanwudi",
+      "childOrder": 2,
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "魏書世宗紀冒頭に「世宗宣武皇帝，讳恪，高祖孝文皇帝第二子。母曰高夫人」とあり、実父は孝文帝（高祖）、排行は第二子と明記。太和21年(497年)正月甲午に皇太子に立てられ（「二十一年正月甲午，立为皇太子」）、太和23年(499年)4月丁巳、父の崩御に伴い魯陽で即位（「二十三年夏四月丁巳，即皇帝位于鲁阳」）。フェーズ1の succession 判定（孝文帝の子・世襲）と一致。",
+      "source": {
+        "page": "魏書 帝紀第八 世宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-xuanwudi",
+      "to": "beiwei-xiaomingdi",
+      "childOrder": 2,
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "魏書粛宗紀冒頭に「肃宗孝明皇帝，讳诩，世宗宣武皇帝之第二子」とあり、世宗宣武帝（beiwei-xuanwudi）の第二子と明記。延昌元年十月乙亥に皇太子に立てられ（「延昌元年十月乙亥，立为皇太子」）、延昌4年（515年）正月に父の崩御を承けて即位した実子継承。フェーズ1の succession 判定（世宗の子・世襲）とも一致。",
+      "source": {
+        "page": "魏書 帝紀第九 粛宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-yuanyu",
+      "to": "p-yuan-baohui",
+      "veracity": "verified",
+      "confidence": "medium",
+      "note": "魏書巻二十二京兆王愉伝に「后灵太后令愉之四子皆附属籍，追封愉临洮王。子宝月袭。」とあり、臨洮王爵は元愉に追封され愉の四子の家系内で継承された。528年の擁立詔（魏書巻九肅宗紀）は宝晖を「故临洮王」と称し、その世子釗を「皇曾孙」「体自高祖」（高祖孝文帝の曾孫）とする。釗が孝文帝の曾孫である以上、父宝晖は孝文帝の孫であり、臨洮王爵を帯びる孝文帝の孫は愉（孝文帝の子）の子に限られるため、愉→宝晖の父子関係は演繹的に確定する。弟宝炬について北史巻五「文皇帝讳宝炬，孝文皇帝之孙，京兆王愉之子也」、魏書巻二十二「宝月弟宝炬」が家系の傍証。ただし愉の子として宝晖の名を直接挙げる単一の明示文は魏書・北史の現存テキストに見当たらないため confidence は medium とした。",
+      "source": {
+        "page": "魏書 巻二十二 孝文五王伝 京兆王愉",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-baohui",
+      "to": "beiwei-youzhu-yuanzhao",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書巻九肅宗紀の武泰元年皇太后詔に「皇曾孙故临洮王宝晖世子钊，体自高祖，天表卓异」、魏書巻十三皇后列伝（宣武霊皇后胡氏）に「遂立临洮王子钊为主，年始三岁，天下愕然。」、資治通鑑巻百五十二に「故临洮王宝晖世子钊，体自高祖，宜膺大宝。」とあり、元釗が故臨洮王元宝暉の世子（嫡子）であることは複数の正史で一致して直接記載される。「世子」は数値の排行表記ではないため childOrder は設定しない。",
+      "source": {
+        "page": "魏書 帝紀第九 肅宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-xiandi",
+      "to": "p-yuan-xie",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "「献文皇帝七男。」「潘贵人生彭城武宣王勰。」（魏書 巻二十一上 献文六王伝）により勰は献文帝の実子（生母は潘貴人）。列伝冒頭にも「勰生而母潘氏卒，其年显祖崩。」（魏書 巻二十一下 献文六王伝 彭城王勰、北史巻十九も「勰生而母潘氏卒，其年献文崩」と一致）。七男列挙の順では第6位に挙がるが「第n子」の数値明記はないため childOrder は入れない。",
+      "source": {
+        "page": "魏書 巻二十一上 献文六王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-xie",
+      "to": "beiwei-xiaozhuangdi",
+      "childOrder": 3,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "「孝庄皇帝，讳子攸，彭城王勰之第三子。母曰李妃。」（魏書 巻十 孝荘紀）。「第三子」の明記により childOrder=3。孝荘帝は即位後の永安二年（529年）二月に実父勰へ皇帝号・廟号を追尊した（「甲午，尊皇考为文穆皇帝，庙号肃祖，皇妣为文穆皇后。」同紀）。臨淮王彧の諫言（「陛下既纂洪绪，岂宜加伯考之名？」魏書 臨淮王彧伝）にも拘らず実父を皇考として太廟に祀っており、孝文帝系への入嗣・養子縁組の記事はない（実父エッジのみ）。",
+      "source": {
+        "page": "魏書 巻十 孝荘紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-tuoba-huang",
+      "to": "p-yuan-zhen",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書巻十九下（列伝第七下）景穆十二王下の冒頭列記「景穆皇帝十四男。」「刘椒房生南安惠王桢、城阳康王长寿。」により、南安恵王楨は景穆帝拓跋晃の子（母は劉椒房）。同伝「南安王桢，皇兴二年封」。十四男の列記に「第n子」の数値明記はないため childOrder は付さない（維基百科は墓誌に基づき第十一子とするが原典未確認）。",
+      "source": {
+        "page": "魏書 列伝第七下 景穆十二王下 南安王楨",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-zhen",
+      "to": "p-yuan-yi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書巻十九下 南安王楨伝は「有五子。」に続き「子英，字虎兒。」と長子英を挙げ、英の記事の後に「英弟怡，起家步兵校尉，转城门校尉，迁鄯善镇将。」と怡を英の弟＝楨の子として記す。資治通鑑も元曄を「晔，英之弟子也。」とし、怡が英の弟であることと整合。",
+      "source": {
+        "page": "魏書 列伝第七下 景穆十二王下 南安王楨",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-yi",
+      "to": "beiwei-yuanye",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書巻十九下 南安王楨伝内の怡の記事に続き、怡の子として「长子肃，起家员外散骑侍郎」「其弟晔僭立，拜肃侍中、太师、录尚书事」「晔字华兴，小字盆子」と元曄を粛の弟＝怡の子として記す。北史巻十七も「肃弟晔，字华兴，小字盆子。」、資治通鑑は「晔，英之弟子也。」（英の弟＝怡の子）で三書一致。粛が「长子」で曄自身に「第n子」の数値明記はないため childOrder は付さない。",
+      "source": {
+        "page": "魏書 列伝第七下 景穆十二王下 南安王楨",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-yu-guangling",
+      "to": "beiwei-jiemindi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書帝紀第十一に「前废帝，讳恭，字修业，广陵惠王羽之子也。」と明記。北史巻五魏本紀も「节闵皇帝讳恭，字修业，广陵惠王羽之子也。」と一致。列伝側からも魏書献文六王伝「子恭袭。语在《纪》。」・北史「子恭袭，是为节闵帝。」で相互裏付け。「第n子」の明記はなく（兄に元欣がいる—「恭兄欣，字庆乐」—ため長子ではない）childOrder は付さない。節閔帝は普泰元年九月癸巳に「追尊皇考为先帝」と父へ帝号を追尊した（廟号の追贈はなし）。",
+      "source": {
+        "page": "魏書 帝紀第十一 前廃帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-xiandi",
+      "to": "p-yuan-yu-guangling",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書列伝第九上（献文六王）冒頭に「献文皇帝七男。……孟椒房生广陵惠王羽。」と明記。元羽の母は孟椒房。七男の列挙は生母別の配列で「第n子」の明記はないため childOrder は付さない。父・元羽が収録皇帝（献文帝 beiwei-xiandi）に到達するため遡及ルールによりチェーン全体をエッジ化。",
+      "source": {
+        "page": "魏書 列伝第九上 献文六王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-rong",
+      "to": "beiwei-houfeidi-yuanlang",
+      "childOrder": 3,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "帝紀出自記事「后废帝，讳朗，字仲哲，章武王融第三子也。母曰程氏。」により実父は章武王元融、「第三子」明記。列伝側の傍証「景哲弟朗，即后废帝，语在《帝纪》。」（魏書 巻十九下 列傳第七下）とも一致。",
+      "source": {
+        "page": "魏書 巻十一 帝紀第十一 後廢帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-bin",
+      "to": "p-yuan-rong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "「彬有五子。」「长子融，字永兴。」により融は彬の長子。「長子」は非数値表記のため childOrder には変換しない（規約）。",
+      "source": {
+        "page": "魏書 巻十九下 列傳第七下 景穆十二王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-zhen",
+      "to": "p-yuan-bin",
+      "childOrder": 2,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "「无子。高祖初，以南安惠王第二子彬为后。」により彬の実父は南安惠王楨（第二子）。章武敬王太洛（無子で薨）への為後は死後の継嗣指名であり、確立済み境界ルールに従い養父エッジは立てない。傍証: 閹官伝「广有女孙配南安王桢，生章武王彬，即中山王英弟也」（魏書 列傳閹官第八十二）。",
+      "source": {
+        "page": "魏書 巻十九下 列傳第七下 景穆十二王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-huai",
+      "to": "beiwei-xiaowudi",
+      "childOrder": 3,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝武帝（出帝）元脩は広平武穆王元懐の第三子。「出帝，讳修，字孝则，广平武穆王怀之第三子也。母李氏。」（魏書 巻十一 出帝紀）。北史も「孝武皇帝讳修，字孝则，广平武穆王怀之第三子也。母曰李氏。」（北史 巻五 魏本紀）と一致。永熙二年正月、孝武帝は父を皇帝号で追尊：「丁巳，追尊皇考为武穆帝，皇太妃冯氏为武穆后，皇妣李氏为皇太妃。」（魏書 出帝紀。北史は「丁巳，追尊皇考为武穆皇帝，太妃冯氏为武穆皇后，皇妣李氏曰皇太妃。」）。「第三子」の明記により childOrder=3。",
+      "source": {
+        "page": "魏書 巻十一 出帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-xiaowendi",
+      "to": "p-yuan-huai",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "広平王元懐は孝文帝の子（文昭皇后高氏所生・宣武帝の同母弟）。「孝文皇帝七男。林皇后生废太子恂。文昭皇后生宣武皇帝、广平文穆王怀。」（魏書 巻二十二 孝文五王伝）。北史も「孝文七男：林废后生废太子恂；文昭皇后生宣武皇帝、广平武穆王怀；」（北史 巻十九）と一致するが、谥の字面が魏書巻二十二「文穆」/北史・両帝紀「武穆」で相違（flags 参照）。母の記述はあるが「第n子」の明記はないため childOrder は付さない。祖先遡及ルールにより収録皇帝・孝文帝に到達するため 孝文帝→懐→孝武帝 をチェーン化。",
+      "source": {
+        "page": "魏書 巻二十二 孝文五王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-xiaowendi",
+      "to": "beiwei-yuanyu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書 列传第十 孝文五王 冒頭に「孝文皇帝七男。林皇后生废太子恂。文昭皇后生宣武皇帝、广平文穆王怀。袁贵人生京兆王愉。罗夫人生清河文献王怿、汝南文宣王悦。郑充华生皇子恌，未封，早夭。」とあり、元愉は孝文帝の子で袁貴人所生と明記。北史も「孝文七男：……袁贵人生京兆王愉……」と一致。列伝本文「京兆王愉，字宣德。太和二十一年封。」。排行の数値明記（「第n子」）は魏書・北史・資治通鑑いずれにもなし（資治通鑑は「愉自以年长，而势位不及二弟」、魏書は「既势劣二弟」とするのみ）のため childOrder は付与しない。",
+      "source": {
+        "page": "魏書 列传第十 孝文五王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-daowudi",
+      "to": "p-tuoba-xi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書 巻十六 道武七王「道武皇帝十男。宣穆刘皇后生明元皇帝，贺夫人生清河王绍，大王夫人生阳平王熙」。北史 巻十六も「大王夫人生阳平王熙」と一致。母は大王夫人。",
+      "source": {
+        "page": "魏書 巻十六 道武七王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-tuoba-xi",
+      "to": "p-tuoba-tuo",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書 巻十六 道武七王「熙有七子。」「长子他，袭爵。」。北史 巻十六も「长子佗袭爵」と一致（北史は「佗」表記）。「长子」は非数値表記のため childOrder は付さない。",
+      "source": {
+        "page": "魏書 巻十六 道武七王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-tuoba-tuo",
+      "to": "p-tuoba-zhongkui",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書 巻十六 道武七王「他三子。」「世子吐万，早卒」「吐万弟钟葵，早卒。」。北史 巻十六も「吐万弟钟葵，早卒」と一致。鍾葵は他の三子の一人（吐万の弟）。",
+      "source": {
+        "page": "魏書 巻十六 道武七王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-tuoba-zhongkui",
+      "to": "beiwei-yuanfasheng",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書 巻十六 道武七王の列伝構造上、「吐万弟钟葵，早卒。」の直後に「长子法寿，侍御中散」（鍾葵の長子）「法寿弟法僧，自太尉行参军稍转通直郎」と続き、その後「钟葵弟笃，字阿成。」で他の兄弟列に戻るため、法寿・法僧は鍾葵の子のブロック内に位置する。北史 巻十六も「吐万弟钟葵，早卒。」「长子法寿，累迁安州刺史。」「法寿弟法僧，位益州刺史」と同一順序で一致。法僧は法寿の弟で「第n子」表記はないため childOrder は付さない。チェーン全体（道武帝→熙→他→鍾葵→法僧の4世代）はフェーズ1 accessionRoute.note の「道武帝の玄孫」と整合。",
+      "source": {
+        "page": "魏書 巻十六 道武七王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-xiandi",
+      "to": "p-yuan-xiang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書 献文六王伝冒頭「献文皇帝七男。李思皇后生孝文皇帝。封昭仪生咸阳王禧。韩贵人生赵郡灵王干、高阳文穆王雍。孟椒房生广陵惠王羽。潘贵人生彭城武宣王勰。高椒房生北海平王详。勰别有传。」により、北海平王詳は献文帝の子（母は高椒房＝高氏）。七男の一人だが「第n子」の数値明記はなく（孝文帝の娉室詔では「季弟北海王详」）、childOrder は付さない。",
+      "source": {
+        "page": "魏書 列傳第九上 献文六王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-xiang",
+      "to": "beiwei-yuanhao",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書 献文六王伝・北海王詳伝の末尾に「子颢，字子明，袭。少慷慨，有壮气。」とあり、顥は詳の子として北海王の爵を襲った。同伝は続けて「颢弟顼，字宝意。」と弟の顼も詳の子として記す。排行の「第n子」明記はないため childOrder は付さない。",
+      "source": {
+        "page": "魏書 列傳第九上 献文六王 北海王詳伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-dan",
+      "to": "dongwei-xiaojingdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書 帝紀第十二 孝静紀「孝静皇帝，讳善见，清河文宣王亶之世子也。母曰胡妃。」により実父は清河文宣王元亶。資治通鑑 梁紀十二「遂立清河王世子善见为帝」も傍証。「世子」表記のため childOrder は付さない。東魏側による亶への皇帝号追尊は孝静紀に記事がなく、薨去記事も「壬申大司马、清河王亶薨」と王号のまま（通鑑も「东魏清河文宣王亶卒」）で、追尊皇帝ではなく宗室と判定。",
+      "source": {
+        "page": "魏書 帝紀第十二 孝静紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-yi-qinghe",
+      "to": "p-yuan-dan",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書 列伝第十 汝南王悦伝（孝文五王同巻）「就怿子亶求怿服玩之物」により亶は清河文献王懌の子（懌の遺品を「怿子亶」に求めた記事）。懌が正光元年に殺害された後、亶が清河王位を嗣ぎ（北史「正光中，文宣王亶嗣位」）、孝静紀・通鑑とも亶を清河王として記す。魏書巻二十二（列伝第十）は残欠巻で亶の付伝を欠くため、複数記事の突合で確認した。",
+      "source": {
+        "page": "魏書 列伝第十 孝文五王（汝南王悦伝）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-xiaowendi",
+      "to": "p-yuan-yi-qinghe",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "魏書 列伝第十 孝文五王の冒頭「孝文皇帝七男。……罗夫人生清河文献王怿、汝南文宣王悦。」により清河文献王懌は孝文帝の子（羅夫人所生）。「第n子」の数値明記はないため childOrder は付さない。これにより 孝文帝（beiwei-xiaowendi）→懌→亶→孝静帝 のチェーンが原文で確認できたので祖先遡及ルールに従い全体をエッジ化。",
+      "source": {
+        "page": "魏書 列伝第十 孝文五王",
         "lang": "zh-classical"
       }
     }
