@@ -281,6 +281,13 @@
         "emperors": 17,
         "edges": 15,
         "persons": 9
+      },
+      {
+        "phase": "parentage",
+        "block": "block13",
+        "emperors": 13,
+        "edges": 15,
+        "persons": 2
       }
     ],
     "confirmedRootless": [
@@ -3586,6 +3593,64 @@
       "posthumous": null,
       "source": {
         "page": "旧唐書 巻五十六 蕭銑伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-li-bing",
+      "name": "李昞",
+      "kana": "りへい",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "唐",
+      "birthYear": null,
+      "deathYear": 572,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "唐高祖李淵の実父。北周の安州総管・柱国大将軍で、父李虎の唐国公を襲爵、諡は仁。「皇考讳昞，周安州总管、柱国大将军，袭唐国公，谥曰仁。武德初，追尊元皇帝，庙号世祖，陵曰兴宁。」（旧唐書 巻一 高祖紀）。武徳初に元皇帝を追尊・廟号世祖。周書帝紀に「封开府李昞为唐国公」「以大将军唐国公李昞、中山公训…并为柱国」（天和六年）の任官記事あり。没年572は旧唐書「高祖以周天和元年生于长安，七岁袭唐国公」（生年566・数え7歳襲爵）からの逆算で、周書・北史に薨去の直接記録は確認できず（yearsApproximate: true）。生年は不明。新唐書は名を「昺」（異体字）と表記。",
+      "wikidata": null,
+      "posthumous": {
+        "dynasty": "唐",
+        "templeName": "世祖",
+        "posthumousName": "元皇帝"
+      },
+      "source": {
+        "page": "旧唐書 巻一 高祖紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-wu-shiyue",
+      "name": "武士彠",
+      "kana": "ぶしかく",
+      "aliases": [
+        "武士彟",
+        "応国公",
+        "太原王",
+        "忠孝太皇"
+      ],
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "唐",
+      "birthYear": null,
+      "deathYear": 635,
+      "yearsApproximate": true,
+      "posthumous": {
+        "dynasty": "武周",
+        "templeName": "太祖",
+        "posthumousName": "無上孝明高皇帝"
+      },
+      "inclusionReason": [
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "武則天の実父。新唐書外戚伝「武士彟字信，世殖赀，喜交结。」。李淵挙兵に参加し唐で「累迁工部尚书，进封应国公，历利、荆二州都督。卒，赠礼部尚书，谥曰定。」。高宗期に「咸亨中，加赠太尉兼太子太师、太原郡王，配享高祖庙廷，列功臣上。」、則天臨朝期に「后监朝，尊为忠孝太皇，建崇先府，置官属，追王五世。」。武周革命（天授元年）で「后革命，更于东都立武氏七庙，追册为帝，诸妣皆随帝号曰皇后。」＝新唐書本紀四「忠孝太皇曰太祖孝明高皇帝，妣曰孝明高皇后。」と皇帝号＋廟号（太祖）を追尊されたため kind=追尊皇帝。天授二年にさらに「太祖孝明高皇帝曰无上孝明高皇帝」（新唐書本紀四。旧唐書禮儀志「后考应国公追尊为无上孝明高皇帝」同旨）へ加尊されたため posthumous は最終形（太祖・無上孝明高皇帝）を採用。唐復辟後の先天二年に「先天二年，制削士彟帝号，依旧追赠太原王，妻杨氏亦削后号，依旧为太原王妃。」（旧唐書外戚伝。玄宗紀「周孝明高皇帝依旧追赠太原王，宜去帝号」）と帝号は削除されたが、追尊の事実により kind 判定は維持。生没年は正史コーパスに直接記載なし（外戚伝は「卒」とのみ）。没年635年（貞観九年）は通説（攀龍台碑・冊府元龜由来）として採用し yearsApproximate: true、生年は559年説と577年説が対立するため null。前妻相里氏所生の武元慶・武元爽、後妻楊氏所生の三女（次女が武則天）の父。武士彠の父祖（祖・華＝周安成王等、武周で五代追王）は収録皇帝・既存ブリッジに到達しないため祖先遡及ルールにより彠で止める。section は emperors.json の実データ語彙に「武周」が存在しないため（武則天本人の dynasty.section も「唐」）、「唐」を採用。",
+      "wikidata": "Q708108",
+      "source": {
+        "page": "新唐書 列傳第一百三十一 外戚 武士彠",
         "lang": "zh-classical"
       }
     }
@@ -11890,6 +11955,215 @@
       "note": "旧唐書蕭銑伝「萧铣，后梁宣帝曾孙也。祖岩，隋开皇初叛隋降于陈，陈亡，为文帝所诛」および同伝の追諡記事「祖岩为河间忠烈王，父璇为文宪王」、新唐書蕭銑伝「祖岩河间忠烈王，父璿文宪王」により、蕭銑の実父は蕭璿（旧唐書は璇に作る）で確定。「第n子」の明記はないため childOrder は付さない。",
       "source": {
         "page": "旧唐書 巻五十六 蕭銑伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-li-bing",
+      "to": "tang-gaozu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書高祖紀の出自記事「皇考讳昞，周安州总管、柱国大将军，袭唐国公，谥曰仁。武德初，追尊元皇帝，庙号世祖，陵曰兴宁。」により実父は李昞（唐が元皇帝を追尊・廟号世祖）。新唐書高祖紀も「襄公生昺，袭封唐公，隋安州总管、柱国大将军，卒，谥曰仁。」「仁公生高祖于长安」と一致。祖父李虎（景皇帝追尊・廟号太祖）以遡は既存ノードに到達しないため遡及ルールにより昞まででとめる。排行は正史本文に「第n子」の明記が確認できないため childOrder は付さない。",
+      "source": {
+        "page": "旧唐書 巻一 高祖紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "tang-gaozu",
+      "to": "tang-taizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 2,
+      "primaryLineage": true,
+      "note": "旧唐書本紀第二冒頭に「太宗文武大圣大广孝皇帝讳世民，高祖第二子也。母曰太穆顺圣皇后窦氏。」と明記。新唐書本紀第二も「太宗文武大圣大广孝皇帝讳世民，高祖次子也。母曰太穆皇后窦氏。」と一致（「次子」は非数値表記のため childOrder は旧唐書の「第二子」に依拠）。フェーズ1の accessionRoute（父高祖からの内禅）とも整合。",
+      "source": {
+        "page": "旧唐書 本紀第二 太宗上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "tang-taizong",
+      "to": "tang-gaozong",
+      "childOrder": 9,
+      "primaryLineage": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書本紀第四に「高宗天皇大圣大弘孝皇帝，讳治，太宗第九子也，母曰文德顺圣长孙皇后」。新唐書本紀第三も「高宗天皇大圣大弘孝皇帝讳治，字为善，太宗第九子也」と一致。「第九子」の数値明記により childOrder: 9。",
+      "source": {
+        "page": "旧唐書 本紀第四 高宗上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "tang-gaozong",
+      "to": "tang-zhongzong",
+      "childOrder": 7,
+      "primaryLineage": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『旧唐書』本紀第七 中宗紀冒頭に「中宗大和圣昭孝皇帝讳显，高宗第七子，母曰则天顺圣皇后」とあり、実父は高宗李治（収録皇帝 tang-gaozong）、排行は第七子と明記。『新唐書』本紀第四も「中宗大和大圣大昭孝皇帝讳显，高宗第七子也」と一致。フェーズ1 succession 判定（弘道元年、高宗崩御に伴う世襲での初回即位）とも整合。",
+      "source": {
+        "page": "旧唐書 本紀第七 中宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実母",
+      "from": "tang-wuzetian",
+      "to": "tang-zhongzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『旧唐書』本紀第七 中宗紀冒頭に「母曰则天顺圣皇后」、『新唐書』本紀第四に「母曰则天顺圣皇后武氏」とあり、実母は則天順聖皇后武氏＝武則天（収録皇帝 tang-wuzetian）。実母が収録皇帝本人であるため実母エッジを立てる。childOrder の「第七子」は高宗（父）に対する排行であり、武則天所生の子の中では第3子（弘・賢・顕・旦の順）にあたるため、本エッジには childOrder を付さない。",
+      "source": {
+        "page": "新唐書 本紀第四 中宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "tang-gaozong",
+      "to": "tang-ruizong",
+      "childOrder": 8,
+      "primaryLineage": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書睿宗紀冒頭「睿宗玄真大圣大兴孝皇帝，讳旦，高宗第八子，中宗母弟。龙朔二年六月己未，生于长安。」により実父は高宗李治、第八子と明記。新唐書本紀第五も「睿宗玄真大圣大兴孝皇帝讳旦，高宗第八子也。」と一致。旧唐書巻八十六列伝第三十六の冒頭総括「高宗八男：则天顺圣皇后生中宗、睿宗及孝敬皇帝弘、章怀太子贤」でも高宗の子として裏付けられる。",
+      "source": {
+        "page": "旧唐書 本紀第七 睿宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実母",
+      "from": "tang-wuzetian",
+      "to": "tang-ruizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "実母は則天順聖皇后武氏（武則天、収録皇帝）。旧唐書巻八十六列伝第三十六「高宗八男：则天顺圣皇后生中宗、睿宗及孝敬皇帝弘、章怀太子贤，后宫刘氏生燕王忠，郑氏生原王孝，杨氏生泽王上金，萧淑妃生许王素节。」で直接明記。旧唐書睿宗紀「高宗第八子，中宗母弟」および新唐書中宗紀「中宗大和大圣大昭孝皇帝讳显，高宗第七子也。母曰则天顺圣皇后武氏。」（睿宗は中宗の同母弟）とも整合。母が収録皇帝であるため判定指針に従い実母エッジを立てる。",
+      "source": {
+        "page": "旧唐書 列伝第三十六 高宗中宗諸子",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "tang-zhongzong",
+      "to": "tang-shangdi",
+      "childOrder": 4,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書列伝に「殇皇帝重茂，中宗第四子也」と明記。殤帝重茂は帝紀に独立記述がなく旧唐書巻八十六列伝第三十六が典拠（既知事情）。新唐書巻八十一諸子伝の「中宗四子：韦庶人生重润，后宫生重福、重俊、殇帝」とも整合。第四子の明記により childOrder=4。",
+      "source": {
+        "page": "旧唐書 巻八十六 列伝第三十六 殤皇帝重茂",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "tang-ruizong",
+      "to": "tang-xuanzong",
+      "childOrder": 3,
+      "primaryLineage": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書本紀第八の出自記事「玄宗至道大圣大明孝皇帝讳隆基，睿宗第三子也，母曰昭成顺圣皇后窦氏。」により実父=睿宗（tang-ruizong）・第三子と明記。新唐書本紀第五も「玄宗至道大圣大明孝皇帝讳隆基，睿宗第三子也。母曰昭成皇后窦氏。」と一致。睿宗の譲位詔（旧唐書所収）でも「第三子平王基孝而克忠……可立为皇太子」と排行第三が再確認できる。フェーズ1判定（睿宗からの内禅）とも整合。",
+      "source": {
+        "page": "旧唐書 本紀第八 玄宗上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "tang-xuanzong",
+      "to": "tang-suzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 3,
+      "primaryLineage": true,
+      "note": "旧唐書粛宗本紀冒頭に「肃宗文明武德大圣大宣孝皇帝讳亨，玄宗第三子，母曰元献皇后杨氏。景云二年乙亥生。」とあり、実父が玄宗（李隆基）、第三子であることが明記されている。",
+      "source": {
+        "page": "旧唐書 本紀第十 粛宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "tang-suzong",
+      "to": "tang-daizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書本紀「代宗睿文孝武皇帝讳豫，肃宗长子，母曰章敬皇太后吴氏」。新唐書本紀も「代宗睿文孝武皇帝讳豫，肃宗长子也。母曰章敬皇后吴氏」と一致。「长子」の記載は非数値排行規約により childOrder に変換しない。",
+      "source": {
+        "page": "旧唐書 本紀第十一 代宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "tang-daizong",
+      "to": "tang-dezong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書本紀第十二の出自記事に「德宗神武孝文皇帝讳适，代宗长子」とあり、実父は代宗李豫。排行は「长子」の非数値表記のため childOrder は付与しない。広徳2年に皇太子に立てられ（「广德二年二月，立为皇太子」）、大暦14年の代宗崩御後に正規の世襲で即位（「大历十四年五月辛酉，代宗崩。癸亥，即位于太极殿」）しており、フェーズ1の succession 判定（世襲）とも整合。",
+      "source": {
+        "page": "旧唐書 本紀第十二 徳宗上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "tang-dezong",
+      "to": "tang-shunzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "旧唐書本紀第十四に「顺宗至德大圣大安孝丘帝讳诵，德宗长子，母昭德皇后王氏」（「孝丘帝」はコーパスのOCR破損で正しくは「孝皇帝」）、新唐書本紀第七に「顺宗至德弘道大圣大安孝皇帝讳诵，德宗长子也」とあり、両書とも徳宗の長子と明記。排行は「长子」の非数値表記のため childOrder は付さない。",
+      "source": {
+        "page": "旧唐書 本紀第十四 順宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "tang-shunzong",
+      "to": "tang-xianzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "旧唐書本紀第十四に「宪宗圣神章武孝皇帝讳纯，顺宗长子也，母曰庄宪王太后」、新唐書本紀第七に「宪宗昭文章武大圣至神孝皇帝讳纯，顺宗长子也。母曰庄宪皇太后王氏」とあり、両書一致で実父は順宗李誦。旧唐書列伝（順宗諸子）にも「顺宗二十三子：庄宪皇后王氏生宪宗皇帝」とあり整合。排行は「長子」と非数値表記のため childOrder は付さない。",
+      "source": {
+        "page": "旧唐書 本紀第十四 憲宗上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-wu-shiyue",
+      "to": "tang-wuzetian",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "武則天の実父は武士彠（士彟）。新唐書后妃伝「高宗则天顺圣皇后武氏，并州文水人。父士彟，见《外戚传》。」、旧唐書本紀「则天皇后武氏，讳曌，并州文水人也。父士，隋大业末为鹰扬府队正。」（「士」の直後の「彠」は旧唐書系コーパスで PUA 文字 U+E862 のため表示上欠字。字面同定は新唐書・資治通鑑の「彟」に拠る）。武周革命（天授元年）に「丙戌，初立武氏七庙于神都。追尊神皇父赠太尉、太原王士为孝明皇帝。」（旧唐書本紀・「士」の後は U+E862）、新唐書本紀「忠孝太皇曰太祖孝明高皇帝，妣曰孝明高皇后。」（資治通鑑同文「忠孝太皇曰太祖孝明高皇帝，妣皆如考谥，称皇后。」）と皇帝号＋廟号（太祖）を追尊されたため、父は追尊皇帝ブリッジ p-wu-shiyue として新設。楊氏所生3女の次女（新唐書外戚伝「仲即后」・資治通鑑「次皇后」。非数値表記のため childOrder は不採用）。",
+      "source": {
+        "page": "新唐書 列傳第一 后妃上 則天順聖皇后武氏",
         "lang": "zh-classical"
       }
     }
