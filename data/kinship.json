@@ -267,6 +267,13 @@
         "emperors": 19,
         "edges": 34,
         "persons": 15
+      },
+      {
+        "phase": "parentage",
+        "block": "block11",
+        "emperors": 15,
+        "edges": 17,
+        "persons": 3
       }
     ],
     "confirmedRootless": [
@@ -3268,6 +3275,86 @@
       "wikidata": "Q10889539",
       "source": {
         "page": "魏書 帝紀第十二 孝静紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-gao-huan",
+      "name": "高歓",
+      "kana": "こうかん",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": 496,
+      "deathYear": 547,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "東魏の実権者で北斉の実質的建国者。北齊書神武紀「齐高祖神武皇帝，姓高名欢，字贺六浑，渤海蓚人也」。東魏武定五年(547)正月に晋陽で没「是日，崩于晋阳，时年五十二，秘不发丧」→数え52歳から生年496年。没時は東魏の齊王・謚献武王で、北斉建国後の天保元年に文宣帝が追尊（文宣紀「皇考献武王为献武皇帝」）、当初は廟号太祖・献武皇帝、天統元年に改謚（神武紀「天保初，追崇为献武帝，庙号太祖，陵曰义平。天统元年，改谥神武皇帝，庙号高祖」、後主紀「太上皇帝诏改「太祖献武皇帝」为「神武皇帝」，庙号「高祖」」）。posthumous には最終形（高祖・神武皇帝）を採用。文宣帝（第二子）のほか文襄帝・孝昭帝・武成帝ら十五男の父（巻十「神武皇帝十五男」）。wikidata Q718249 は並行調査エージェント2人が独立に確認・報告した値をマージ時に補完。",
+      "wikidata": "Q718249",
+      "posthumous": {
+        "dynasty": "北斉",
+        "templeName": "高祖",
+        "posthumousName": "神武皇帝"
+      },
+      "source": {
+        "page": "北齊書 帝紀第二 神武下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-gao-cheng",
+      "name": "高澄",
+      "kana": "こうちょう",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": 521,
+      "deathYear": 549,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "東魏の権臣・渤海王世子。北齊書帝紀第三「世宗文襄皇帝，讳澄，字子惠，神武长子也，母曰娄太后。」。武定七年(549)に「王遇盗而殂，时年二十九。葬于峻成陵。齐受禅，追谥为文襄皇帝，庙号世宗。」— 厨人蘭京に殺害され、弟高洋の北斉受禅後に文襄皇帝・廟号世宗を追尊された追尊皇帝。生年521は没年549・「时年二十九」からの数え年逆算。収録皇帝 beiqi-andewang-gaoyanzong(第五子)・beiqi-houzhu 系統の父祖にあたり、高歓→高澄→延宗チェーンの中間人物。",
+      "wikidata": "Q712573",
+      "posthumous": {
+        "dynasty": "北斉",
+        "templeName": "世宗",
+        "posthumousName": "文襄皇帝"
+      },
+      "source": {
+        "page": "北齊書 帝紀第三 文襄",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuwen-tai",
+      "name": "宇文泰",
+      "kana": "うぶんたい",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "北朝",
+      "birthYear": 505,
+      "deathYear": 556,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "西魏の実権者・北周の実質的建国者。「太祖文皇帝姓宇文氏，讳泰，字黑獭，代武川人也」（周書 巻一 文帝紀上）。西魏恭帝三年（556年）没:「冬十月乙亥，崩于云阳宫，还长安发丧。时年五十二。甲申，葬于成陵，谥曰文公。孝闵帝受禅，追尊为文王，庙曰太祖。武成元年，追尊为文皇帝。」（周書 巻二 文帝紀下）。明帝紀にも武成元年（559年）「秋八月己亥，改天王称皇帝，追尊文王为帝，大赦改元」とあり、皇帝号（文皇帝）＋廟号（太祖）の追贈が確認できるため kind=追尊皇帝。生年505年は没年556年・「时年五十二」（数え52歳）からの逆算で通説と一致。泰の父祖（宇文肱ら）は収録ノード・既存ブリッジに到達しないため遡及せず泰まででとめる（祖先遡及ルール）。",
+      "wikidata": "Q1071587",
+      "posthumous": {
+        "dynasty": "北周",
+        "templeName": "太祖",
+        "posthumousName": "文皇帝"
+      },
+      "source": {
+        "page": "周書 巻一 文帝紀",
         "lang": "zh-classical"
       }
     }
@@ -11140,6 +11227,238 @@
       "note": "魏書 列伝第十 孝文五王の冒頭「孝文皇帝七男。……罗夫人生清河文献王怿、汝南文宣王悦。」により清河文献王懌は孝文帝の子（羅夫人所生）。「第n子」の数値明記はないため childOrder は付さない。これにより 孝文帝（beiwei-xiaowendi）→懌→亶→孝静帝 のチェーンが原文で確認できたので祖先遡及ルールに従い全体をエッジ化。",
       "source": {
         "page": "魏書 列伝第十 孝文五王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-gao-huan",
+      "to": "beiqi-wenxuandi",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 2,
+      "note": "北齊書帝紀第四文宣紀の出自記事「显祖文宣皇帝，讳洋，字子进，高祖第二子，世宗之母弟」により、実父は高祖（高歓）・第二子と明記。北齊書巻十高祖十一王伝冒頭「神武皇帝十五男：武明娄皇后生文襄皇帝、文宣皇帝、孝昭皇帝、襄城景王淯、武成皇帝、博陵文简王济」でも高歓の子（婁皇后所生）と裏付けられる。高歓は天保元年に文宣帝が追尊「皇考献武王为献武皇帝」（文宣紀）、天統元年に「神武皇帝」廟号「高祖」へ改められた追尊皇帝（神武紀「天保初，追崇为献武帝，庙号太祖，陵曰义平。天统元年，改谥神武皇帝，庙号高祖」）。高歓の父祖（皇考樹）は収録ノードに到達しないため祖先遡及はせず高歓でとめる。",
+      "source": {
+        "page": "北齊書 帝紀第四 文宣",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiqi-wenxuandi",
+      "to": "beiqi-feidi-gaoyin",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "北齊書廃帝紀の出自記事「废帝殷，字正道，文宣帝之长子也，母曰李皇后」により実父は文宣帝高洋。排行は「长子」の非数値表記のため childOrder は設定しない。",
+      "source": {
+        "page": "北齊書 帝紀第五 廃帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-gao-huan",
+      "to": "beiqi-xiaozhaodi",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 6,
+      "note": "北齊書 巻六 孝昭帝紀冒頭に「孝昭皇帝演，字延安，神武皇帝第六子，文宣皇帝之母弟也」とあり、実父は高歓（斉神武。東魏の実権者で、北斉建国後に追尊）。北齊書 巻十 高祖十一王伝の「神武皇帝十五男：武明娄皇后生文襄皇帝、文宣皇帝、孝昭皇帝、襄城景王淯、武成皇帝、博陵文简王济」でも高歓の子であること・文宣帝と同母（婁后所生）であることが相互裏付けされる。childOrder=6 は本紀「第六子」の明記による。",
+      "source": {
+        "page": "北齊書 巻六 孝昭帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-gao-huan",
+      "to": "beiqi-wuchengdi",
+      "childOrder": 9,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "北齊書 巻七 武成帝紀の出自記事「世祖武成皇帝，讳湛，神武皇帝第九子，孝昭皇帝之母弟也」により、実父は神武皇帝＝高歓で第九子（childOrder=9 の明記あり）。神武皇帝が高歓を指すことは北齊書 巻一 神武紀上「齐高祖神武皇帝，姓高名欢，字贺六浑，渤海蓚人也」で確認。孝昭帝高演（同じく「神武皇帝第六子」）の同母弟であり、フェーズ1 succession 判定（先代孝昭帝の弟・世襲）と整合、矛盾なし。",
+      "source": {
+        "page": "北齊書 巻七 武成帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiqi-wuchengdi",
+      "to": "beiqi-houzhu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『北齊書』巻八 後主紀冒頭に「后主讳纬，字仁纲，武成皇帝之长子也」と明記され、実父は武成帝高湛（beiqi-wuchengdi）。排行は「长子」（長子）の非数値表記のため childOrder は設定しない。また「帝少美容仪，武成特所爱宠，拜王世子。及武成入纂大业，大宁二年正月丙戌，立为皇太子。河清四年，武成禅位于帝」とあり、フェーズ1判定（内禅・実父からの生前譲位）と整合する。",
+      "source": {
+        "page": "北齊書 巻八 後主紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-gao-cheng",
+      "to": "beiqi-andewang-gaoyanzong",
+      "childOrder": 5,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "北齊書列傳第三(文襄六王)冒頭に「安德王延宗，文襄第五子也。母陈氏，广阳王妓也。」とあり、文襄帝高澄の第五子であることが明記される。なお同伝に「延宗幼为文宣所养」とあるが、これは叔父の文宣帝高洋による宮中養育の記事であり正式な養子縁組ではないため養父エッジは立てない（列伝も文襄六王伝に収録され一貫して文襄の子として扱われる）。",
+      "source": {
+        "page": "北齊書 列傳第三 文襄六王",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-gao-huan",
+      "to": "p-gao-cheng",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "北齊書帝紀第三(文襄紀)冒頭に「世宗文襄皇帝，讳澄，字子惠，神武长子也，母曰娄太后。」とあり、高澄は神武帝高歓の長子。「长子」は非数値表記のため childOrder は入れない（規約）。北齊書列傳第二にも「神武皇帝十五男：武明娄皇后生文襄皇帝、文宣皇帝、孝昭皇帝、襄城景王淯、武成皇帝、博陵文简王济」とあり婁皇后所生の長子であることが裏付けられる。",
+      "source": {
+        "page": "北齊書 帝紀第三 文襄",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiqi-houzhu",
+      "to": "beiqi-youzhu-gaoheng",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "北齊書幼主紀の冒頭に「幼主名恒，帝之长子也。母曰穆皇后，武平元年六月生于邺」とあり、幼主高恒は後主高緯の長子。列伝の後主諸子記事「后主五男：穆皇后生幼主」および后妃伝「武平元年六月，生皇子恒」（後主皇后穆氏の条）でも裏付けられる。「长子」は非数値表記の規約に従い childOrder は付与しない。フェーズ1判定（内禅・父後主より生前譲位）と整合。",
+      "source": {
+        "page": "北齊書 帝紀第八 幼主",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiqi-wenxuandi",
+      "to": "beiqi-gaoxie",
+      "childOrder": 3,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "北齊書巻一二文宣四王伝「范阳王绍义，文宣第三子也。初封广阳，后封范阳。」により実父は文宣帝高洋（収録皇帝 beiqi-wenxuandi）・第三子。同伝冒頭「文宣五男：李后生废帝及太原王绍德，冯世妇生范阳王绍义，裴嫔生西河王绍仁，颜嫔生陇西王绍廉。」とも整合。北史巻五二も「范阳王绍义，文宣第三子也」と一致。",
+      "source": {
+        "page": "北齊書 巻一二 文宣四王・范陽王紹義伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beiwei-yuanyu",
+      "to": "xiwei-wendi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "北史巻五（西魏文帝紀）冒頭に「文皇帝讳宝炬，孝文皇帝之孙，京兆王愉之子也」と明記。魏書孝荘紀にも「封安南将军、大鸿胪卿元宝炬为南阳王」等で同一人物の履歴が連続し、資治通鑑にも「宝炬，愉之子也」「泰乃奉太宰南阳王宝炬而立之」とあり三史料で一致。父元愉は収録皇帝（beiwei-yuanyu、永平元年に信都で僭号）で、文帝即位後の大統元年に「追尊皇考为文景皇帝」と追尊された。排行（第n子）の明記は魏書・北史・資治通鑑のいずれにも見当たらないため childOrder は付さない（魏書元愉伝には「愉之四子」とあり4子の一人であることのみ確認できる）。",
+      "source": {
+        "page": "北史 魏本紀第五",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "xiwei-wendi",
+      "to": "xiwei-feidi-yuanqin",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "北史巻五魏本紀（西魏廃帝紀）冒頭に「废帝讳钦，文皇帝之长子也。母曰乙皇后。」とあり、実父は西魏文帝元宝炬（収録皇帝 xiwei-wendi）。「长子」は非数値表記のため規約により childOrder は付さない。フェーズ1 succession 判定（accessionRoute「文帝の長子」・世襲）とも一致。",
+      "source": {
+        "page": "北史 巻五 魏本紀第五 西魏廃帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "xiwei-wendi",
+      "to": "xiwei-gongdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 4,
+      "primaryLineage": true,
+      "note": "北史巻五魏本紀第五の恭帝紀冒頭に「恭皇帝讳廓，文皇之第四子也。大统十四年，封为齐王。」とあり、西魏文帝（文皇帝元宝炬）の第四子と明記される。childOrder=4 は「第四子」の明記による。兄・廃帝（元欽）の廃位後、「于是太祖与公卿定议，废帝，尊立齐王廓，是为恭帝。」（周書 巻二 文帝紀下）により擁立され即位した。フェーズ1（succession）の判定（文帝の第4子・廃帝の弟として擁立）とも一致する。",
+      "source": {
+        "page": "北史 巻五 魏本紀第五",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuwen-tai",
+      "to": "beizhou-mingdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "周書明帝紀冒頭「世宗明皇帝讳毓，小名统万突，太祖长子也。母曰姚夫人」により実父は太祖＝宇文泰。太祖の同定は周書文帝紀「太祖文皇帝姓宇文氏，讳泰，字黑獭，代武川人也」（周書 巻一 文帝紀上）。排行は「长子」の非数値表記のため childOrder は入れない（規約どおり）。なお周書文帝紀に「魏帝封太祖第二子震为武邑公」（周書 巻二 文帝紀下）とあり、毓＝長子・震＝第二子・覚＝第三子で排行の内部整合を確認済み。emperors.json の accessionRoute.note「宇文泰の庶長子」とも整合（母姚夫人は夫人号で庶出）。",
+      "source": {
+        "page": "周書 巻四 明帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuwen-tai",
+      "to": "p-yuwen-jue",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 3,
+      "note": "周書孝閔帝紀冒頭「孝闵皇帝讳觉，字陀罗尼，太祖第三子也。母曰元皇后」により孝閔帝宇文覚（既存ブリッジ p-yuwen-jue）の実父も太祖宇文泰であることを原文確認。「第三子」の数値明記により childOrder: 3。同紀に「十月乙亥，太祖崩，丙子，嗣位太师、大冢宰」とあり泰の後継であることも整合。",
+      "source": {
+        "page": "周書 巻三 孝閔帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuwen-tai",
+      "to": "beizhou-wudi",
+      "childOrder": 4,
+      "primaryLineage": true,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "武帝宇文邕は太祖宇文泰の第四子。周書武帝紀冒頭に「高祖武皇帝讳邕，字祢罗突，太祖第四子也。母曰叱奴太后。大统九年，生于同州」と明記。周書の文帝十三子の列挙「文帝十三子。姚夫人生世宗，后宫生宋献公震，文元皇后生孝闵皇帝，文宣皇后叱奴氏生高祖、卫剌王直」でも太祖の子・叱奴氏所生であることが裏付けられ、列挙順（世宗・宋献公震・孝閔帝・高祖）も第四子の排行と整合する。フェーズ1 succession 判定（明帝=太祖長子の弟が遺詔継承）とも矛盾なし。",
+      "source": {
+        "page": "周書 巻五 武帝紀上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beizhou-wudi",
+      "to": "beizhou-xuandi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "周書帝紀第七に「宣皇帝讳赟，字干伯，高祖长子也」とあり、高祖＝武帝宇文邕の長子。北史后妃伝の武皇后李氏の条にも「周文以后赐武帝。后得亲幸，生宣帝」とあり相互に裏付けられる。排行は「长子」の非数値表記のため childOrder は付さない。",
+      "source": {
+        "page": "周書 巻七 帝紀第七 宣帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beizhou-xuandi",
+      "to": "beizhou-jingdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "周書帝紀第八の冒頭に「静皇帝讳衍，后改为阐，宣帝长子也。母曰朱皇后。建德二年六月，生于东宫。」とあり、実父は宣帝宇文贇（beizhou-xuandi）。排行の原文表記は「长子」（非数値表記のため childOrder は付与しない）。周書皇子伝にも「宣帝三子。朱皇后生静皇帝」とあり一致。フェーズ1の即位経路判定（実父・宣帝からの内禅）とも整合。",
+      "source": {
+        "page": "周書 帝紀第八 静帝",
         "lang": "zh-classical"
       }
     }
