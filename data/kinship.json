@@ -309,6 +309,13 @@
         "emperors": 20,
         "edges": 27,
         "persons": 9
+      },
+      {
+        "phase": "parentage",
+        "block": "block17",
+        "emperors": 20,
+        "edges": 31,
+        "persons": 11
       }
     ],
     "confirmedRootless": [
@@ -4168,6 +4175,269 @@
       "wikidata": "Q6653696",
       "source": {
         "page": "新五代史 雑伝第二十七 劉守光",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhao-hongyin",
+      "name": "趙弘殷",
+      "kana": "ちょうこういん",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": 899,
+      "deathYear": 956,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "北宋太祖趙匡胤・太宗趙光義の実父。五代の軍人。宋史本紀第一（太祖一）冒頭に「敬生弘殷，是為宣祖」「宣祖少驍勇，善騎射，事趙王王鎔」とあり、後唐〜後周に仕え「顯德三年，督軍平揚州，與世宗會壽春」ののち「卒，贈武清軍節度使、太尉」。建隆元年（960年）九月、太祖により皇帝号・廟号を追贈され宣祖となった。諡号は宋史礼志に「上尊谥曰昭武皇帝，庙号宣祖」、続資治通鑑長編建隆元年条に「皇考周龙捷左厢都指挥使、岳州防御使弘殷谥曰昭武，庙号宣祖，陵曰安陵」とあり「昭武皇帝」を採用（宋史本紀一のみ「皇考曰武昭皇帝，廟號宣祖」と字順が逆で、宋史内部の不一致→flags参照）。天禧元年に加諡され「宣祖曰昭武睿圣皇帝」（宋史礼志）。生年899年（唐光化二年）は通説だがローカルコーパスの一次史料（宋史・続資治通鑑長編・資治通鑑・旧五代史）では確認できず、没年956年も宋史本紀の顕徳三年記事直後に「卒」とあることからの推定（続資治通鑑長編建隆元年の追尊記事により960年時点で故人であることは確実）のため yearsApproximate: true。父の翼祖趙敬以上の祖先（僖祖・順祖・翼祖）も追尊されているが、収録ノードに到達しないため弘殷でとめる（祖先遡及ルール）。",
+      "wikidata": "Q7209784",
+      "posthumous": {
+        "dynasty": "北宋",
+        "templeName": "宣祖",
+        "posthumousName": "昭武皇帝"
+      },
+      "source": {
+        "page": "宋史 本紀第一 太祖一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhao-yunrang",
+      "name": "趙允譲",
+      "kana": "ちょういんじょう",
+      "aliases": [
+        "濮安懿王",
+        "汝南郡王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": 995,
+      "deathYear": 1059,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "北宋英宗の実父。宋史宗室伝「濮安懿王允让字益之，商王元份子也」。自身も幼時に「周王祐薨，真宗以绿车旄节迎养于禁中。仁宗生，用箫韶部乐送还邸」と真宗に宮中で迎養された経歴を持つ（仁宗誕生で濮邸に帰されており正式縁組ではないためエッジ化しない）。「庆历四年，封汝南郡王」「嘉祐四年薨，年六十五，赠太尉、中书令，追封濮王，谥安懿」。没年1059（嘉祐四年）、生年995は卒時「年六十五」（数え）からの逆算のため yearsApproximate=true。英宗即位後の濮議を経て治平三年正月、皇太后手書により「尊濮安懿王為皇，夫人為后」（宋史英宗本紀）と「皇」に尊されたが、皇帝号＋廟号の追贈ではないため kind=宗室 とする（追尊皇帝に該当しない）。",
+      "wikidata": "Q5367363",
+      "source": {
+        "page": "宋史 巻二四五 列伝第四 宗室二",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhao-yuanfen",
+      "name": "趙元份",
+      "kana": "ちょうげんふん",
+      "aliases": [
+        "商恭靖王",
+        "雍王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": 969,
+      "deathYear": 1005,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "太宗の子（宗室伝の列挙で第四子相当）・真宗の弟で、濮安懿王允譲の父（英宗の祖父）。宋史宗室伝「商恭靖王元份，初名德严」「薨年三十七，赠太师、尚书令、郓王。改陈王，又改润王。治平中，封鲁王」。真宗本紀の景德二年（1005年）条に「八月戊寅，雍王元份薨」とあり没年1005。生年969は卒時「年三十七」（数え）からの逆算のため yearsApproximate=true。王号の追贈（郓王→陈王→润王→鲁王）のみで皇帝号・廟号の追贈はないため kind=宗室。wikidata は1回の検索で確信の持てる QID を確認できず null。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二四五 列伝第四 宗室二",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhao-defang",
+      "name": "趙德芳",
+      "kana": "ちょうとくほう",
+      "aliases": [
+        "秦王",
+        "岐王",
+        "楚王",
+        "秦康惠王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": 959,
+      "deathYear": 981,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "北宋太祖の子（宗室伝「太祖四子：长滕王德秀，次燕懿王德昭，次舒王德林，次秦康惠王德芳。」・孝宗紀「太祖少子秦王德芳」）。南宋孝宗の六世祖。宗室伝「秦康惠王德芳，开宝九年出阁，授贵州防御使。太平兴国元年，授兴元尹、山南西道节度使、同平章事。三年冬，加检校太尉。六年三月，寝疾薨，年二十三。」により太平興国6年（981年）3月に23歳（数え）で薨去→生年959年。太宗紀（巻四）「三月己酉，兴元尹德芳薨，追封岐王。」。追贈は「赠中书令、岐王及谥。后加赠太师，改楚王。」、徽宗期に「徽宗即位，改封楚王为秦王。」と秦王へ改封。諡は康惠。王号追贈どまり（皇帝号・廟号の追贈なし）のため kind=宗室。子は「子三人：惟叙、惟宪、惟能。」。",
+      "wikidata": "Q697409",
+      "source": {
+        "page": "宋史 巻二百四十四 列伝第三 宗室一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhao-weixian",
+      "name": "趙惟憲",
+      "kana": "ちょういけん",
+      "aliases": [
+        "英國公"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": 979,
+      "deathYear": 1016,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "德芳の子（德芳伝「子三人：惟叙、惟宪、惟能。」）。南宋孝宗の五世祖。孝宗紀の系譜記事「太祖少子秦王德芳生英國公惟憲」。宗室伝「惟宪字有则，美丰仪，少颇纵肆，长修谨，善射，好吟咏，多读道书。端拱初，授左屯卫将军，累迁左羽林将军、领演州刺史，加左卫大将军、领贺州团练使，真拜资州团练使。大中祥符九年五月卒，年三十八。赠安德军节度使兼侍中、英国公。」により大中祥符9年（1016年）5月に38歳（数え）で卒→生年979年。真宗紀（巻八）「癸丑，幸南宫视惟宪疾。甲寅，惟宪卒。」。",
+      "wikidata": "Q15891731",
+      "source": {
+        "page": "宋史 巻二百四十四 列伝第三 宗室一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhao-congyu",
+      "name": "趙從郁",
+      "kana": "ちょうじゅういく",
+      "aliases": [
+        "新興侯"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "惟憲の子・新興侯。南宋孝宗の高祖父。孝宗紀の系譜記事「惟憲生新興侯從郁」・安僖秀王伝「康惠生英国公惟宪，惟宪生新兴侯从郁」に明記。宋史に独立の伝はなく系譜記事のみで、生没年の記載は確認できず null（続資治通鑑長編にも卒記事は grep で確認できず）。",
+      "wikidata": "Q15891403",
+      "source": {
+        "page": "宋史 巻三十三 本紀第三十三 孝宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhao-shijiang",
+      "name": "趙世將",
+      "kana": "ちょうせいしょう",
+      "aliases": [
+        "華陰侯"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "從郁の子・華陰侯。南宋孝宗の曽祖父。孝宗紀の系譜記事「從郁生華陰侯世將」・安僖秀王伝「从郁生华阴侯世将」に明記。宋史に独立の伝はなく系譜記事のみで、生没年の記載は確認できず null。",
+      "wikidata": "Q17060125",
+      "source": {
+        "page": "宋史 巻三十三 本紀第三十三 孝宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhao-linghua",
+      "name": "趙令譮",
+      "kana": "ちょうれいかい",
+      "aliases": [
+        "慶國公"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "世將の子。南宋孝宗の祖父。孝宗紀の系譜記事「世將生慶國公令譮」。安僖秀王伝（daizhigev20側）では「世将生东头供奉官令侩」と官が東頭供奉官で、「慶國公」は後年の追封とみられるが追封記事そのものは未確認（爵位表記差・字面差「令侩」とも flags 参照）。宋史に独立の伝はなく生没年の記載は確認できず null。",
+      "wikidata": "Q17041124",
+      "source": {
+        "page": "宋史 巻三十三 本紀第三十三 孝宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhao-zicheng",
+      "name": "趙子偁",
+      "kana": "ちょうししょう",
+      "aliases": [
+        "秀王",
+        "秀安僖王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": null,
+      "deathYear": 1143,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "南宋孝宗の実父。令譮の子（孝宗紀「令譮生子偁，是為秀王」）。高宗の族兄（安僖秀王伝「安僖秀王子侢，秦康惠王之后，高宗族兄也。」）。宣和元年に舍試合格し嘉興丞（「宣和元年，舍试合格，调嘉兴丞。」）。紹興13年（1143年）9月に秀州で死去（高宗紀（巻三十・紹興十三年条）「九月丁巳，宗室子偁卒于秀州。」・孝宗紀「十三年九月，秀王歿于秀州。」）。ただし安僖秀王伝は「绍兴十三年秋致仕，明年春，卒于秀州。」と翌1144年春没とし両本紀と不一致（本紀2箇所の一致を採り deathYear=1143。flags 参照）。孝宗の立太子後に「既为太子，加赠太师、中书令，封秀王，谥安僖。」と太師・中書令追贈・秀王追封・諡安僖。王号追封どまり（皇帝号・廟号の追贈なし）のため kind=宗室。配は張氏（「配张氏，封王夫人。」）＝孝宗の実母。生年は宋史に記載なく null。",
+      "wikidata": "Q7218748",
+      "source": {
+        "page": "宋史 巻二百四十四 列伝第三 宗室一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhao-xilu",
+      "name": "趙希瓐",
+      "kana": "ちょうきろ",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等",
+        "経路上"
+      ],
+      "note": "南宋理宗の実父。宋史 本紀第四十一 理宗一「父希瓐，追封榮王，家于紹興府山陰縣，母全氏」。理宗即位時には既に没しており榮王を追封（續資治通鑑〔清代編纂・daizhige簡体〕「帝追封所生父希瓐为荣王，生母全氏为国夫人，而以弟与芮嗣之」）。端平元年に三代追封「曾祖子奭贈太師、吳國公，祖伯旿贈太師、益國公，父師意贈太師、越國公」（宋史 理宗紀）。榮王への王号追封どまりで皇帝号追尊はないため kind=宗室。生没年は宋史・續資治通鑑の grep 探索では確認できず null。度宗の実父与芮（理宗の同母弟）の父でもあり、理宗系と度宗系を接続するブリッジ（id は度宗側エージェントと共有の固定 id p-zhao-xilu）。wikidata は WebSearch で1回確認を試みたが QID を確信を持って特定できず null（zh.wikipedia に記事の存在は確認）。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 本紀第四十一 理宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhao-yurui",
+      "name": "趙与芮",
+      "kana": "ちょうよぜい",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "宋遼西夏金",
+      "birthYear": 1207,
+      "deathYear": 1287,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "南宋度宗の実父。趙希瓐（理宗実父・追封榮王）の子で理宗の同母弟（「父嗣榮王與芮，理宗母弟也」宋史度宗紀）。理宗により追封榮王位を嗣ぎ嗣榮王（続資治通鑑「而以弟与芮嗣之。」）、咸淳三年に「太師、武康寧江軍節度使、判大宗正事嗣榮王與芮進封福王，主榮王祀事」。臨安開城後は元に赴き、元史に「授宋福王赵与芮金紫光禄大夫、检校大司农、平原郡公。」とある。生年は原典に直接記載を確認できず二次資料でも1207/1208年と揺れがあるため概算1207年、没年は元史至元二十四年（1287）二月「以赵与芮子孟桂袭平原郡公。」の襲爵記事からの概算1287年（前年末没の可能性あり）。皇帝号の追尊はなく王号（榮王→福王、元代に平原郡公へ降封）どまりのため宗室。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 本紀第四十六 度宗",
         "lang": "zh-classical"
       }
     }
@@ -13512,6 +13782,430 @@
       "note": "新五代史 雑伝第二十七 劉守光の出自記事「刘守光，深州乐寿人也。其父仁恭，事幽州李可举」で実父＝劉仁恭を確認。資治通鑑 後梁紀一 開平元年条「仁恭有爱妾罗氏，其子守光通焉。仁恭杖守光而斥之，不以为子数」でも父子関係一致（羅氏との私通で一時勘当された記事）。「第n子」の明記はなし。兄に守文（新五代史「其兄守文闻父且囚」）、弟に守奇（資治通鑑「守光弟守奇奔契丹」）がおり長子ではないが、排行数値の原典明記がないため childOrder は入れない。",
       "source": {
         "page": "新五代史 雑伝第二十七 劉守光",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-hongyin",
+      "to": "beisong-taizu",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "宋史本紀第一（太祖一）冒頭の出自記事に「太祖，宣祖仲子也，母杜氏」とあり、同じく系譜記事に「敬生弘殷，是為宣祖」とあることから、実父は趙弘殷（追尊宣祖）と確定。資治通鑑（顕徳三年・滁州の役）にも「太祖皇帝曰：“父子虽至亲，城门王事也，不敢奉命！”」の父子逸話があり（宋代避諱により太祖=太祖皇帝・弘殷=宣祖皇帝と表記、胡三省注「宣祖讳弘殷」）、独立史料で父子関係を傍証。排行は「仲子」で非数値表記のため childOrder は付さない（宋史后妃伝の杜太后記事「生邕王光济、太祖、太宗、秦王廷美、夔王光赞」の列挙順では邕王光済に次ぐ2番目だが「第n子」の明記ではない）。",
+      "source": {
+        "page": "宋史 本紀第一 太祖一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-hongyin",
+      "to": "beisong-taizong",
+      "childOrder": 3,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史太宗紀冒頭に「太宗神功聖德文武皇帝諱炅，初名匡乂，改賜光義，即位之二年，改今諱，宣祖第三子也，母曰昭憲皇后杜氏」とあり、実父は宣祖（趙弘殷）、排行は「第三子」と数値で明記される（childOrder:3）。宣祖=趙弘殷の同定は宋史太祖紀冒頭「敬生弘殷，是為宣祖」による。太祖（宣祖仲子・母杜氏）と同父同母の兄弟であり、フェーズ1 succession エッジの判定（太祖の同母弟）とも一致する。",
+      "source": {
+        "page": "宋史 巻四 太宗本紀一／宋史 巻一 太祖本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beisong-taizong",
+      "to": "beisong-zhenzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 3,
+      "primaryLineage": true,
+      "note": "宋史本紀六冒頭に「真宗應符稽古神功讓德文明武定章聖元孝皇帝，諱恒，太宗第三子也，母曰元德皇后李氏」と実父＝太宗・第三子が明記。至道元年に立太子（「至道元年八月，立為皇太子，改今諱」）、太宗崩御時に柩前即位（「三年三月，太宗崩，奉遺制即皇帝位於柩前」）。幼時に太祖が宮中で養育した記事（「太祖愛之，育於宮中」）があるが、宮中養育であって正式な養子縁組ではないため養父エッジは立てない（確立済み境界ルール）。",
+      "source": {
+        "page": "宋史 本紀第六 真宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beisong-zhenzong",
+      "to": "beisong-renzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 6,
+      "primaryLineage": true,
+      "note": "宋史本紀第九（仁宗一）冒頭に「仁宗體天法道極功全德神文聖武睿哲明孝皇帝，諱禎，初名受益，真宗第六子，母李宸妃也」と明記。真宗の第六子（childOrder=6 は「第六子」の数値明記による）。天禧二年に皇太子に冊立され（「明年進封昇王，九月丁卯，冊為皇太子」）、乾興元年の真宗崩御に伴い遺詔で即位（「乾興元年二月戊午，真宗崩，遺詔太子即皇帝位」）。フェーズ1 succession 判定（世襲・真宗第六子）と一致。",
+      "source": {
+        "page": "宋史 本紀第九 仁宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-yunrang",
+      "to": "beisong-yingzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 13,
+      "note": "宋史英宗本紀の出自記事に「諱曙，濮安懿王允讓第十三子，母曰仙遊縣君任氏」と明記。宗室伝（允譲伝）も「仁宗在位久无子，乃以王第十三子宗实为皇子。仁宗崩，皇子即位，是为英宗」と一致。「第十三子」の数値明記により childOrder=13。フェーズ1の accessionRoute.note（濮安懿王允譲第十三子）とも整合。",
+      "source": {
+        "page": "宋史 巻十三 本紀第十三 英宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "養父",
+      "from": "beisong-renzong",
+      "to": "beisong-yingzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋英宗型の個別判定（スキーマ確定事項）。幼時の宮中養育は「四歲，仁宗養於內。寶元二年，豫王生，乃歸濮邸」とあり、豫王誕生で濮邸に帰されて一旦解消されており、これ単体では宮中養育にとどまる。しかし嘉祐七年（1062年）八月、仁宗の生前に「戊寅，立為皇子。癸未，改今名」と正式に皇子に立てられた（仁宗の崩御は翌嘉祐八年四月）。宗室伝も「仁宗在位久无子，乃以王第十三子宗实为皇子」と明記。生前の正式な縁組（立為皇子）が原文で確認できるため養父エッジを立てる。死後の為後指名ではない。",
+      "source": {
+        "page": "宋史 巻十三 本紀第十三 英宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-yuanfen",
+      "to": "p-zhao-yunrang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史宗室伝に「濮安懿王允让字益之，商王元份子也」と明記。元份伝にも「元份子三人：长允宁，次允怀，改允中，早卒；次则濮王允让也」とあり第三子相当だが「第n子」の数値明記はないため childOrder は付さない。",
+      "source": {
+        "page": "宋史 巻二四五 列伝第四 宗室二",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beisong-taizong",
+      "to": "p-zhao-yuanfen",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史宗室伝の冒頭に「太宗九子：长楚王元佐，次昭成太子元僖，次真宗，次商恭靖王元份，次越文惠王元杰，次镇恭懿王元偓，次楚恭惠王元侢，次周恭肃王元俨，次崇王元亿」とあり、元份は太宗の子（列挙順では第四子相当だが「第n子」の数値明記はないため childOrder は付さない）。真宗（beisong-zhenzong）の同母弟等の記載はこの列挙にはない。これにより 太宗→元份→允譲→英宗 のチェーンが収録皇帝間を接続する。",
+      "source": {
+        "page": "宋史 巻二四五 列伝第四 宗室二",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beisong-yingzong",
+      "to": "beisong-shenzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 本紀第十四（神宗一）冒頭の出自記事に「神宗紹天法古運德建功英文烈武欽仁聖孝皇帝，諱頊，英宗長子，母曰宣仁聖烈皇后高氏」とあり、実父が英宗であることが明記される。「英宗長子」は非数値表記のため childOrder は付与しない（規約により「長子」を childOrder:1 に変換しない）。治平3年12月壬寅に皇太子に立てられ（「十二月壬寅，立為皇太子」）、治平4年正月丁巳の英宗崩御により即位（「四年正月丁巳，英廟崩，帝即皇帝位」）。フェーズ1 succession 判定（英宗長子・世襲）と整合。",
+      "source": {
+        "page": "宋史 本紀第十四 神宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beisong-shenzong",
+      "to": "beisong-zhezong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 6,
+      "primaryLineage": true,
+      "note": "宋史本紀第十七冒頭に「哲宗憲元繼道顯德定功欽文睿武齊聖昭孝皇帝，諱煦，神宗第六子也，母曰欽聖皇后朱氏」とあり、実父が神宗（beisong-shenzong）・排行第六子であることが明記されている。daizhigev20側の宋史（簡体）でも「讳煦，神宗第六子也」と一致。フェーズ1のaccessionRoute.note（神宗第六子・皇太子册立→即位）とも整合。",
+      "source": {
+        "page": "宋史 本紀第十七 哲宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beisong-shenzong",
+      "to": "beisong-huizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 11,
+      "primaryLineage": true,
+      "note": "宋史本紀第十九冒頭に「諱佶，神宗第十一子也，母曰欽慈皇后陳氏」と明記。実父は神宗（beisong-shenzong）、排行は「第十一子」。即位記事でも向太后が「皆神宗子」と述べ、神宗の子であることが繰り返し確認できる。",
+      "source": {
+        "page": "宋史 本紀第十九 徽宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beisong-huizong",
+      "to": "beisong-qinzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『宋史』本紀第二十三 欽宗の冒頭出自記事「欽宗恭文順德仁孝皇帝，諱桓，徽宗皇帝長子，母曰恭顯皇后王氏」により徽宗の長子と明記。排行は「長子」の非数値表記のため childOrder は付さない。daizhigev20 側『宋史』簡体テキストでも「钦宗恭文顺德仁孝皇帝，讳桓，徽宗皇帝长子」と一致。",
+      "source": {
+        "page": "宋史 本紀第二十三 欽宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beisong-huizong",
+      "to": "nansong-gaozong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 9,
+      "note": "宋史 巻二十四 高宗本紀一の出自記事に「高宗受命中興全功至德聖神武文昭仁憲孝皇帝，諱構，字德基，徽宗第九子，母曰顯仁皇后韋氏」とあり、徽宗の第九子と明記。childOrder=9 は「第九子」の原文表記による。",
+      "source": {
+        "page": "宋史 巻二十四 高宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "beisong-taizu",
+      "to": "p-zhao-defang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史宗室伝「太祖四子：长滕王德秀，次燕懿王德昭，次舒王德林，次秦康惠王德芳。德秀、德林皆早亡，徽宗时，追赐名及王封。」と太祖の四人の子の末に德芳を列挙。孝宗紀の系譜記事も「太祖少子秦王德芳」と太祖の少子とする。列挙順・「少子」とも「第n子」の数値明記ではないため childOrder は入れない。",
+      "source": {
+        "page": "宋史 巻二百四十四 列伝第三 宗室一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-defang",
+      "to": "p-zhao-weixian",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宗室伝の德芳伝末尾「子三人：惟叙、惟宪、惟能。」に惟憲を明記。孝宗紀の系譜記事「太祖少子秦王德芳生英國公惟憲」・安僖秀王伝「康惠生英国公惟宪」とも一致。",
+      "source": {
+        "page": "宋史 巻二百四十四 列伝第三 宗室一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-weixian",
+      "to": "p-zhao-congyu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝宗紀の系譜記事「惟憲生新興侯從郁」。安僖秀王伝「惟宪生新兴侯从郁」も一致。",
+      "source": {
+        "page": "宋史 巻三十三 本紀第三十三 孝宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-congyu",
+      "to": "p-zhao-shijiang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝宗紀の系譜記事「從郁生華陰侯世將」。安僖秀王伝「从郁生华阴侯世将」も一致。",
+      "source": {
+        "page": "宋史 巻三十三 本紀第三十三 孝宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-shijiang",
+      "to": "p-zhao-linghua",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝宗紀の系譜記事「世將生慶國公令譮」。安僖秀王伝「世将生东头供奉官令侩」も同旨（daizhigev20 側の字面「令侩」は字体/OCR差とみられる。爵位表記差とあわせて flags 参照）。",
+      "source": {
+        "page": "宋史 巻三十三 本紀第三十三 孝宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-linghua",
+      "to": "p-zhao-zicheng",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝宗紀の系譜記事「令譮生子偁，是為秀王」。安僖秀王伝「令侩生子侢」も同旨（字面差は flags 参照）。",
+      "source": {
+        "page": "宋史 巻三十三 本紀第三十三 孝宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-zicheng",
+      "to": "nansong-xiaozong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝宗紀冒頭の系譜記事「令譮生子偁，是為秀王。王夫人張氏夢人擁一羊遺之曰：「以此為識。」已而有娠，以建炎元年十月戊寅生帝于秀州青杉牐之官舍」「少長，命名伯琮」。高宗紀（紹興2年5月）「辛未，选宗室子偁之子伯琮育于禁中。」と「子偁之子伯琮」を明記。安僖秀王伝「是年，子伯琮生，后被选入宫，是为孝宗。」。同伝の嗣秀王伯圭条「嗣秀王伯圭字禹锡，孝宗同母兄也。」から同母兄伯圭がおり孝宗は第二子とみられるが、「第n子」の数値明記はないため childOrder は入れない。",
+      "source": {
+        "page": "宋史 巻三十三 本紀第三十三 孝宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "養父",
+      "from": "nansong-gaozong",
+      "to": "nansong-xiaozong",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "高宗は実子（元懿太子）を失い太祖後裔から選抜。孝宗紀「紹興二年五月，選帝育于禁中。」（高宗紀「辛未，选宗室子偁之子伯琮育于禁中。」）で宮中養育に入り、「三十年二月癸酉，立為皇子，更名瑋。」と正式に皇子（養子）に立てられ、「三十二年五月甲子，立為皇太子，改名眘。」を経て内禅で即位（「乙亥，內降御札：「皇太子可即皇帝位。朕稱太上皇帝，退處德壽宮，皇后稱太上皇后。」」）。生前の正式な縁組（立為皇子）を経た養子継承のため養父エッジとする（南宋孝宗型のスキーマ明記例。単なる宮中養育にとどまらず立為皇子の正式縁組がある）。帝位継承資格は高宗の養子であることに由来するため primaryLineage は養父エッジ側。実父エッジ（p-zhao-zicheng）を併記。フェーズ1 succession（relationToPredecessor=養子・内禅）と整合。",
+      "source": {
+        "page": "宋史 巻三十三 本紀第三十三 孝宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "nansong-xiaozong",
+      "to": "nansong-guangzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 3,
+      "primaryLineage": true,
+      "note": "宋史本紀に「光宗循道憲仁明功茂德溫文順武聖哲慈孝皇帝，諱惇，孝宗第三子也」と明記。実父は孝宗（nansong-xiaozong）、第三子の明記あり（childOrder: 3）。フェーズ1の内禅即位判定（孝宗より内禅）とも整合。",
+      "source": {
+        "page": "宋史 巻三十六 光宗本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "nansong-guangzong",
+      "to": "nansong-ningzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 2,
+      "note": "宋史本紀第三十七（寧宗一）冒頭に「寧宗法天備道純德茂功仁文哲武聖睿恭孝皇帝，諱擴，光宗第二子也，母曰慈懿皇后李氏」と明記。光宗の第二子。",
+      "source": {
+        "page": "宋史 本紀第三十七 寧宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-xilu",
+      "to": "nansong-lizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": false,
+      "note": "宋史 本紀第四十一 理宗一 冒頭「理宗建道備德大功復興烈文仁武聖明安孝皇帝，諱昀，太祖十世孫。父希瓐，追封榮王，家于紹興府山陰縣，母全氏」により実父は趙希瓐（追封榮王）。「太祖十世孫」の中間世代は端平元年の三代追封記事「曾祖子奭贈太師、吳國公，祖伯旿贈太師、益國公，父師意贈太師、越國公」で希瓐の三代（子奭・伯旿・師意）まで原文確認できるが、子奭から太祖に至る世代は宋史本文で確認できないため祖先遡及ルールにより希瓐でとめる（詳細は flags）。帝位継承資格は寧宗への養子入り（皇子册立）に由来するため primaryLineage は養父エッジ側（規定: 継承元>養父>実父）。",
+      "source": {
+        "page": "宋史 本紀第四十一 理宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "養父",
+      "from": "nansong-ningzong",
+      "to": "nansong-lizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "宋史 理宗紀「十七年八月丙戌，寧宗違豫，自是不視朝。壬辰，疾篤，彌遠稱詔以貴誠為皇子，改賜名昀，授武泰軍節度使，封成國公」— 寧宗崩御（同年閏八月丁酉）の前月、寧宗生前に皇子に册立されており、生前の正式な縁組と判定して養父エッジとする。ただし「稱詔」とあるとおり史彌遠による矯詔の疑いが強い册立で正統性には疑義がある（縁組・皇子册立の事実自体は正史本紀の記載で verified。疑義は flags にも記録）。なお嘉定十四年の「而以帝嗣沂王」は「寧宗弟沂靖惠王薨，無嗣」の後の為後（死後の後継指名）のためエッジ化しない（確立済み境界ルール）。フェーズ1の擁立判定（史彌遠の矯詔による擁立）と整合し矛盾なし。",
+      "source": {
+        "page": "宋史 本紀第四十一 理宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-yurui",
+      "to": "nansong-duzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "宋史度宗本紀冒頭「度宗端文明武景孝皇帝，諱禥，太祖十一世孫。父嗣榮王與芮，理宗母弟也。嘉熙四年四月九日生于紹興府榮邸」。実父は嗣榮王趙与芮（理宗の同母弟）。本紀に度宗自身の「第n子」表記はないため childOrder は付さない（咸淳元年十一月に「兄少保、保寧軍節度使致仕乃裕薨」とあり長子でないことは確認できる）。",
+      "source": {
+        "page": "宋史 本紀第四十六 度宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "養父",
+      "from": "nansong-lizong",
+      "to": "nansong-duzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "理宗に実子なく「及在位歲久，無子，乃屬意託神器焉」、理宗生前の宝祐元年（1253）に「寶祐元年正月庚辰，詔立為皇子，改賜今名」と正式に皇子に立てられ（生前の正式な養子縁組に該当）、「景定元年六月壬寅，立為皇太子」を経て理宗崩御後に「受遺詔，太子即皇帝位」。単なる宮中養育・死後の為後ではなく詔による立皇子のため養父エッジを立てる。実父与芮のエッジと併記。",
+      "source": {
+        "page": "宋史 本紀第四十六 度宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhao-xilu",
+      "to": "p-zhao-yurui",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "度宗紀に「父嗣榮王與芮，理宗母弟也」とあり、理宗紀冒頭に「理宗……諱昀，太祖十世孫。父希瓐，追封榮王，家于紹興府山陰縣，母全氏」とあることから、与芮の父は趙希瓐（理宗と同父同母）。続資治通鑑にも「帝追封所生父希瓐为荣王，生母全氏为国夫人，而以弟与芮嗣之。」（簡体コーパスのまま）と、与芮が希瓐追封の榮王位を嗣いだことが明記される。p-zhao-xilu は理宗側エージェント定義の共有ブリッジを参照。",
+      "source": {
+        "page": "宋史 本紀第四十一 理宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "nansong-duzong",
+      "to": "nansong-gongdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "『宋史』本紀第四十七（瀛國公）冒頭に「瀛國公名〈濕，去氵〉，度宗皇帝子也，母曰全皇后」とあり、度宗の実子であることが明記される。「第n子」の数値表記は本紀・列伝とも確認できず（childOrder は入れない）。即位直後の記事「甲申，兄昰保康軍節度使…進封吉王…；弟昺保寧軍節度使…進封信王」により兄=昰（端宗）・弟=昺（衛王）の3兄弟の中間、また『宋史』瀛国公二王附（daizhigev20 簡体）「二王者，度宗庶子也。…众以为昰长当立，似道主立嫡」により嫡子（母は全皇后）であることが裏付けられる。フェーズ1判定（度宗の子・嫡出）と整合。",
+      "source": {
+        "page": "宋史 本紀第四十七 瀛國公",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "nansong-duzong",
+      "to": "nansong-duanzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "宋史巻47瀛国公紀（二王附）出自記事「二王者，度宗庶子也。長建國公昰，母淑妃楊氏」により実父=度宗（nansong-duzong）と明記。排行の原文表記は「庶子」「長建國公昰」（二王＝昰・昺のうちの長）および「衆以為昰長當立，似道主立嫡」で、「第n子」の数値表記はないため childOrder は付さない（規約により「長」は childOrder:1 に変換しない）。生誕は度宗本紀（宋史巻46）咸淳四年六月甲申条「皇子昰生」でも裏付けられる。",
+      "source": {
+        "page": "宋史 卷四十七 瀛國公（二王附）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "nansong-duzong",
+      "to": "nansong-weiwang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史本紀第四十七（瀛國公二王附）出自記事「二王者，度宗庶子也。長建國公昰，母淑妃楊氏；季永國公昺，母修容俞氏」により実父は度宗。排行は「季」（末子の意・非数値表記）のため childOrder は付さない。度宗本紀（宋史巻四六、daizhigev20 簡体コーパス）咸淳八年正月条「辛未，子昺生」も出生を裏付ける。",
+      "source": {
+        "page": "宋史 本紀第四十七 瀛國公二王附",
         "lang": "zh-classical"
       }
     }
