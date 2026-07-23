@@ -344,6 +344,13 @@
         "emperors": 16,
         "edges": 18,
         "persons": 3
+      },
+      {
+        "phase": "parentage",
+        "block": "block22",
+        "emperors": 9,
+        "edges": 20,
+        "persons": 15
       }
     ],
     "confirmedRootless": [
@@ -488,6 +495,10 @@
       {
         "id": "yuanmo-mingyuzhen",
         "reason": "明史巻123明玉珍伝「明玉珍，随州人。身长八尺余，目重瞳子。」・新元史巻226「明玉珍，隋州沔阳人，农家子也。」とも農家出身の記述のみで父名・実母の記載がない。明氏の本姓「旻」説（明氏実録・玄宮之碑系）はコーパス内で確認できずコーパス外史料のため採用しない（2026-07-23 フェーズ2ブロック20調査）。"
+      },
+      {
+        "id": "xi-zhangxianzhong",
+        "reason": "明史巻309流賊伝（列传第一百九十七）張献忠伝の出自記事は「张献忠者，延安卫柳树涧人也，与李自成同岁生」と籍貫のみで父名・母名の記載がない。同じ流賊伝で李自成には「父守忠」と父名が明記されており、張献忠の父名欠落はコーパスの脱落ではなく原典自体の無記載と判断（_corpus_cache と daizhigev20 明史.txt の両方で突合済み・2026-07-23 フェーズ2ブロック22調査）。"
       }
     ]
   },
@@ -4989,6 +5000,348 @@
       "source": {
         "page": "明史 巻百十五 列伝第三 睿宗興献皇帝",
         "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-changxun",
+      "name": "朱常洵",
+      "kana": "しゅじょうじゅん",
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "明",
+      "birthYear": 1586,
+      "deathYear": 1641,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "posthumous": {
+        "dynasty": "南明",
+        "templeName": "恭宗",
+        "posthumousName": "孝皇帝"
+      },
+      "wikidata": "Q11093947",
+      "note": "明神宗（万暦帝）の第三子・福王で、南明安宗弘光帝（朱由崧）の実父。明史巻120諸王五「福恭王常洵，神宗第三子。初，王皇后无子，王妃生长子，是为光宗。常洵次之，母郑贵妃最幸。」「二十九年始立光宗为太子，而封常洵福王」「至四十二年，始令就籓」。生年は万暦十四年＝1586年（明史申時行伝「十四年正月，光宗年五岁，而郑贵妃有宠，生皇三子常洵」。Wikidata Q11093947 の1586-02-22とも一致）。崇禎十四年（1641）正月、李自成軍の洛陽陥落時に殺害された（明史荘烈帝本紀「丙申，李自成陷河南，福王常洵遇害」、諸王五「常洵缒城出，匿迎恩寺。翌日，贼迹而执之，遂遇害。」）。弘光帝即位後に皇帝号を追尊（小腆紀伝紀第一「追尊皇考福恭王曰「贞纯肃哲、圣敬仁懿恭皇帝」」→のち更謚「更恭皇帝谥曰「孝皇帝」」・帝陵号「称恭皇帝陵曰「熙陵」」）。廟号「恭宗」はローカルコーパスに記載がなく、維基文庫所収の南明史稿巻26の「昭宗即位，加上尊谥曰恭宗慕天敷道贞纯肃哲修文显武圣敬仁毅孝皇帝」による（弘光帝ではなく昭宗永暦帝による追上。posthumousName にはコーパスで grep 確認できる「孝皇帝」のみを採用し、WebFetch 経由の南明史稿全謚は転記リスクを考慮して note 記載にとどめた）。kind=追尊皇帝 の判定根拠はコーパスで確認できる皇帝号追尊＋帝陵号「熙陵」。",
+      "source": {
+        "page": "明史 巻百二十 列伝第八 諸王五 福恭王常洵",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-jing",
+      "name": "朱桱",
+      "kana": "しゅけい",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "明",
+      "birthYear": null,
+      "deathYear": 1415,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "唐定王。明史唐藩伝「唐定王桱，太祖第二十三子。洪武二十四年封。永乐六年就籓南阳。十三年薨。」（「籓」はコーパス字面のまま。永楽十三年=1415没）。小腆紀伝紀第三も「其先唐定王桱，太祖第二十三子；封南阳。」と一致。生年は原文に記載なく null。隆武帝（太祖九世孫）の八世祖にあたる唐藩の初代。",
+      "wikidata": null,
+      "posthumous": null,
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-qiongda",
+      "name": "朱瓊炟",
+      "kana": "しゅけいたつ",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "明",
+      "birthYear": null,
+      "deathYear": 1475,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "唐憲王。明史唐藩伝「子靖王琼烃嗣。」「无子，弟宪王琼炟嗣，成化十一年薨。」— 靖王瓊烃（桱の子）の弟として唐王を継いだ＝桱の子。成化十一年=1475没。生年は原文に記載なく null。",
+      "wikidata": null,
+      "posthumous": null,
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-zhizhi",
+      "name": "朱芝址",
+      "kana": "しゅしし",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "明",
+      "birthYear": null,
+      "deathYear": 1485,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "唐荘王。明史唐藩伝「子庄王芝址嗣」「二十一年，芝址薨。子成王弥鍗嗣。」— 没年の「二十一年」は文脈から成化二十一年（1485）と推定（直前の記事が成化十一年、直後の弥鍗の記事が弘治中のため。flags 参照）。生年は原文に記載なく null。",
+      "wikidata": null,
+      "posthumous": null,
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-miqian",
+      "name": "朱弥鉗",
+      "kana": "しゅびかん",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "明",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "文城王。明史唐藩伝「弟文城王弥钳有学行，孝友笃至。」— 唐成王弥鍗（芝址の子）の弟＝芝址の子。自身は唐王位に即かず、弥鍗が無子で没した後「无子，弥钳子敬王宇温嗣。」と子の宇温が唐王を継いだ。生没年は明史唐藩伝に記載なく null。",
+      "wikidata": null,
+      "posthumous": null,
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-yuwen",
+      "name": "朱宇温",
+      "kana": "しゅうおん",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "明",
+      "birthYear": null,
+      "deathYear": 1560,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "唐敬王。明史唐藩伝「无子，弥钳子敬王宇温嗣。」「三十九年，宇温薨。」— 嘉靖三十九年=1560没。生年は原文に記載なく null。",
+      "wikidata": null,
+      "posthumous": null,
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-zhouyong",
+      "name": "朱宙栐",
+      "kana": "しゅちゅうえい",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "明",
+      "birthYear": null,
+      "deathYear": 1564,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "唐順王。明史唐藩伝「子顺王宙栐嗣，四十三年薨。」— 嘉靖四十三年=1564没。生年は原文に記載なく null。",
+      "wikidata": null,
+      "posthumous": null,
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-shuohuang",
+      "name": "朱碩熿",
+      "kana": "しゅせきこう",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "明",
+      "birthYear": null,
+      "deathYear": 1632,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "唐端王。隆武帝の祖父。明史唐藩伝「子端王硕熿嗣。惑于嬖人，囚世子器墭及其子聿键于承奉司，器墭中毒死。」「崇祯五年，硕熿薨，聿键嗣。」小腆紀伝紀第三も「崇祯五年（壬申、一六三二），端王薨，王嗣位；年三十一矣。」と一致し、崇禎五年=1632没（Web上のWikipedia由来情報は1630年没とするが、正史・小腆紀伝の崇禎五年を採用。flags 参照）。生年は原文に記載なく null。",
+      "wikidata": null,
+      "posthumous": null,
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-qisheng",
+      "name": "朱器墭",
+      "kana": "しゅきせい",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "明",
+      "birthYear": null,
+      "deathYear": 1629,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "唐世子（唐端王碩熿の世子）。隆武帝・紹武帝の実父。小腆紀伝紀第三「父器墭，唐世子；母毛氏。」「世子为其弟毒死，端王讳之。」、明史唐藩伝「惑于嬖人，囚世子器墭及其子聿键于承奉司，器墭中毒死。」により毒殺されて世子のまま没した。没年は原文に明記がなく、小腆紀伝の聿键年齢記事「年二十有八，尚未请名。世子为其弟毒死」（聿键生年1602の数え28歳＝1629年頃）からの推定で 1629（yearsApproximate: true）。隆武帝即位時（1645）に「追尊皇考为皇帝、妣为皇后」と皇帝号を追尊されたが、諡号・廟号はローカルコーパスで確認できないため posthumousName・templeName は null とし、廟号追贈が未確認のため kind は規約により宗室とする（Wikipedia系情報源には「宣皇帝」とあるが判定根拠にしない。flags 参照）。毒殺の主体は小腆紀伝紀第三が「其弟」、同列伝の陳奇瑜伝が「唐王硕熿杀其世子」とし記述が揺れる（flags 参照）。",
+      "wikidata": null,
+      "posthumous": {
+        "dynasty": "南明",
+        "templeName": null,
+        "posthumousName": null
+      },
+      "source": {
+        "page": "小腆紀傳 紀第三 隆武帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhu-changying",
+      "name": "朱常瀛",
+      "kana": "しゅじょうえい",
+      "aliases": [
+        "桂端王",
+        "桂王",
+        "端皇帝",
+        "礼宗"
+      ],
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "明",
+      "birthYear": 1597,
+      "deathYear": 1645,
+      "yearsApproximate": true,
+      "posthumous": {
+        "dynasty": "南明",
+        "templeName": "礼宗",
+        "posthumousName": "端皇帝"
+      },
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "note": "明神宗万暦帝の第七子（明史巻120「桂端王常瀛，神宗第七子」）、生母は李貴妃（「李贵妃生惠王常润、桂王常瀛」）。万暦29年（1601）桂王に封ぜられ（明史神宗本紀「封诸子常洵福王，常浩瑞王，常润惠王，常瀛桂王」）、天啓7年（1627）衡州に之藩（「天启七年之籓衡州」）。張献忠の衡州攻略で広西に逃れ梧州に居り、順治2年（1645）蒼梧で薨去（「大清顺治二年…是年，薨于苍梧」）。子の永暦帝の即位時（1646）に「追尊皇考桂端王曰端皇帝」と皇帝号を追尊され、永暦11年（1657）に「皇考端皇帝谥曰「礼宗端皇帝」」と廟号礼宗を追贈された（皇帝号＋廟号の追贈があるため kind=追尊皇帝）。没年1645は明史（顺治二年）で裏付け。生年1597はコーパスに記載がなく通説値（Wikidata Q5973261 https://www.wikidata.org/wiki/Q5973261 等）のため yearsApproximate=true。",
+      "wikidata": "Q5973261",
+      "source": {
+        "page": "明史 巻一二〇 列伝第八 諸王五",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-li-shouzhong",
+      "name": "李守忠",
+      "kana": "りしゅちゅう",
+      "kind": "その他",
+      "gender": "male",
+      "section": "明",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "note": "李自成（順・永昌帝）の実父。明史流賊伝に「父守忠，无子，祷于华山，梦神告曰：“以破军星为若子。”已，生自成。」とある陝西米脂の人。生没年は明史に記載なく不明。李自成の順政権樹立後、「追尊其曾祖以下，加谥号，以李继迁为太祖」（西安称王時）・「追尊七代皆为帝后」（北京武英殿での僭帝号時）の集合的追尊の対象に含まれ諡号・帝号を受けたとみられるが、守忠個別の廟号・諡号・帝号は明史に記録されていないため、追尊皇帝（皇帝号＋廟号の個別追贈が確認できる人物のみ）とせず kind=その他 とする。",
+      "wikidata": null,
+      "posthumous": {
+        "dynasty": "順",
+        "templeName": null,
+        "posthumousName": null
+      },
+      "source": {
+        "page": "明史 巻三百九 列伝第一百九十七 流賊",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-wu-xiang",
+      "name": "呉襄",
+      "kana": "ごじょう",
+      "kind": "その他",
+      "gender": "male",
+      "section": "清",
+      "birthYear": null,
+      "deathYear": 1644,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "note": "呉周太祖昭武帝呉三桂の実父。明の武将で崇禎初年に錦州総兵（「父襄，明崇祯初官锦州总兵」清史稿）。明滅亡時（1644年・順治元年）に李自成に人質として拘束され（「执襄置军中」）、山海関の戦いで李自成が敗走した際に永平で殺害された（「自成至永平，杀襄，走还明都，屠襄家」清史稿。明史流賊伝にも「三桂先驱至永平，自成杀吴襄」）。呉周政権（呉三桂・呉世璠）による呉襄への皇帝号追尊は清史稿呉三桂伝・呉世璠関連記事（追尊・庙号・谥の各語で確認）に記事がなく確認できないため、kind は追尊皇帝でなく「その他」とした（明の武将であり宗室・外戚にも該当しない）。生年は二次資料（事典類）が1592年とするが正史に記載がないため null とした。没年1644年は李自成による殺害記事（順治元年）から確定。",
+      "wikidata": null,
+      "source": {
+        "page": "清史稿 列伝二百六十一 呉三桂",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-wu-yingxiong",
+      "name": "呉応熊",
+      "kana": "ごおうゆう",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "清",
+      "birthYear": null,
+      "deathYear": 1674,
+      "yearsApproximate": false,
+      "posthumous": null,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "呉三桂の子・呉世璠の実父（「子应熊尚主，为和硕额驸」「世璠，应熊庶子」）。清の公主を尚して和硕額駙となり（「子应熊尚主，为和硕额驸，授三等精奇尼哈番，加少保兼太子太保。」）、事実上の人質として北京に置かれた。康熙6年には「寻进应熊少傅兼太子太傅」と加官。三桂挙兵後の康熙12年末に「王大臣等请逮应熊治罪，命暂行拘禁。」と拘禁され、康熙13年（1674年）「上命诛应熊及其子世霖，诸幼子贷死入官。」と子の世霖とともに誅殺された。生年は清史稿呉三桂伝に記載がなく null。皇帝号追諡（孝恭皇帝説）は二次資料由来で原典未確認のため kind は宗室・posthumous は null とした（flags 参照）。",
+      "wikidata": null,
+      "source": {
+        "page": "清史稿 列伝二百六十一 呉三桂",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yuan-baozhong",
+      "name": "袁保中",
+      "kana": "えんほちゅう",
+      "kind": "その他",
+      "gender": "male",
+      "section": "清",
+      "birthYear": 1823,
+      "deathYear": 1874,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "note": "袁世凱の実父。河南項城の人、字は受臣。附貢生となり捐納で同知の官銜を得たが他地に出仕せず、郷里項城で袁家の家政と団練を主宰した在地郷紳。子は六人（世昌・世敦・世廉・世凱・世輔・世彤）で袁世凱は第四子、袁世凱の生母は妾の劉氏。父は袁樹三（澍三とも表記。Wikidata Q16260698）で、弟が袁世凱の嗣父となった袁保慶。清史稿に伝はなく、袁甲三伝が挙げる甲三の子は保恒・保齢のみで兄樹三の子である保中への言及もないため、以上は BYU World War I Document Archive の袁世凱伝記記事（fourth of six sons）・Wikidata（Q16260274、生年1823、子 P40 に袁世凱 Q210329 が登録）・中文圏人物資料（周口日報の人物記事・項城市清代人物専題等）による。生没年1823-1874は Wikidata（生年）と中文圏人物資料で一致。皇帝号等の追尊はない（袁世凱の帝制は1916年3月に取り消され、祖先追尊は行われていない）。",
+      "wikidata": "Q16260274",
+      "posthumous": null,
+      "source": {
+        "page": "正史範囲外。BYU World War I Document Archive（袁世凱伝記記事）・Wikidata Q16260274・中文圏人物資料（周口日報・項城市清代人物専題等）",
+        "lang": "ja/zh"
+      }
+    },
+    {
+      "id": "p-yuan-baoqing",
+      "name": "袁保慶",
+      "kana": "えんほけい",
+      "kind": "その他",
+      "gender": "male",
+      "section": "清",
+      "birthYear": 1825,
+      "deathYear": 1873,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "note": "袁世凱の嗣父（過継による養父）。河南項城の人、字は篤臣。袁樹三の次子で袁保中の実弟＝袁世凱の叔父。咸豊八年（1858年）挙人。叔父袁甲三に従って捻軍鎮圧に従軍して功を挙げ、官は江寧塩法道に至った。実子に恵まれず、兄袁保中の第四子袁世凱を生前に嗣子として正式に過継で迎えた（BYU World War I Document Archive は1866年、中文圏資料には1864年とするものもある）。同治十二年（1873年）江寧の任所で病没。ハーバード大学中國歷代人物傳記資料庫（CBDB）person 85868 に没年同治十二年（1873年）・郷貢挙人・江南地方での任官・呉長慶との交友（友）が記録され、袁保慶没後の1881年に袁世凱が呉長慶の慶軍に投じた経緯と整合する。生年は CBDB では未詳とされ中文圏人物資料の1825年（「終年48」とする記述との間に数え方の幅がある）に依拠するため yearsApproximate とした。清史稿の袁甲三伝に保慶への言及はない。",
+      "wikidata": "Q45693180",
+      "posthumous": null,
+      "source": {
+        "page": "正史範囲外。CBDB person 85868・BYU World War I Document Archive（袁世凱伝記記事）・Wikidata Q45693180・中文圏人物資料（周口日報・項城市清代人物専題等）",
+        "lang": "ja/zh"
       }
     }
   ],
@@ -15775,6 +16128,269 @@
       "source": {
         "page": "明史 本紀第二十三 荘烈帝一",
         "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-shenzong",
+      "to": "p-zhu-changxun",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 3,
+      "note": "明史巻120諸王五「福恭王常洵，神宗第三子。初，王皇后无子，王妃生长子，是为光宗。常洵次之，母郑贵妃最幸。」。china-history版（明史/列传/第八章-卷八）と daizhigev20版明史で同文を突合確認。母は鄭貴妃。万暦二十九年封福王（明史神宗本紀「冬十月己卯，立皇长子常洛为皇太子，封诸子常洵福王」）。",
+      "source": {
+        "page": "明史 巻百二十 列伝第八 諸王五 福恭王常洵",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-changxun",
+      "to": "nanming-anzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "小腆紀伝紀第一「弘光帝，神宗之孙、福恭王之长子也。讳由崧，母邹妃。初封德昌王，进封世子。」。明史巻120諸王五「王妃邹氏及世子由崧走怀庆」とも一致。「长子」は非数値表記のため childOrder は入れない（規約どおり）。弘光帝は即位後に父を追尊：「追尊皇考福恭王曰「贞纯肃哲、圣敬仁懿恭皇帝」」（小腆紀伝紀第一）。",
+      "source": {
+        "page": "小腆紀傳 紀第一 弘光",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-taizu",
+      "to": "p-zhu-jing",
+      "childOrder": 23,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史唐藩伝「唐定王桱，太祖第二十三子。洪武二十四年封。永乐六年就籓南阳。」（「籓」はコーパス字面のまま）。小腆紀伝紀第三も「其先唐定王桱，太祖第二十三子；封南阳。」と一致。「第二十三子」の数値明記により childOrder=23。",
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-jing",
+      "to": "p-zhu-qiongda",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史唐藩伝「十三年薨。子靖王琼烃嗣。」…「无子，弟宪王琼炟嗣，成化十一年薨。」— 瓊炟は桱の子である靖王瓊烃の弟（＝桱の子）として唐王を継承。",
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-qiongda",
+      "to": "p-zhu-zhizhi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史唐藩伝「无子，弟宪王琼炟嗣，成化十一年薨。子庄王芝址嗣」— 荘王芝址は憲王瓊炟の子。",
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-zhizhi",
+      "to": "p-zhu-miqian",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史唐藩伝「二十一年，芝址薨。子成王弥鍗嗣。」…「弟文城王弥钳有学行，孝友笃至。」— 文城王弥鉗は芝址の子である成王弥鍗の弟（＝芝址の子）。",
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-miqian",
+      "to": "p-zhu-yuwen",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史唐藩伝「嘉靖二年，弥鍗薨。无子，弥钳子敬王宇温嗣。」— 敬王宇温は弥鉗の子として唐王を継承。",
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-yuwen",
+      "to": "p-zhu-zhouyong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史唐藩伝「三十九年，宇温薨。子顺王宙栐嗣」— 順王宙栐は敬王宇温の子。",
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-zhouyong",
+      "to": "p-zhu-shuohuang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史唐藩伝「子顺王宙栐嗣，四十三年薨。子端王硕熿嗣。」— 端王碩熿は順王宙栐の子。",
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-shuohuang",
+      "to": "p-zhu-qisheng",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史唐藩伝「子端王硕熿嗣。惑于嬖人，囚世子器墭及其子聿键于承奉司，器墭中毒死。」— 器墭は端王碩熿の世子。小腆紀伝紀第三も「父器墭，唐世子；母毛氏。祖端王硕熿惑于嬖妾，欲立其爱子，囚世子于承奉司。」と祖父＝碩熿・父＝器墭で一致。",
+      "source": {
+        "page": "明史 巻百十八 列伝第六 諸王三",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-qisheng",
+      "to": "nanming-zongzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "小腆紀伝紀第三の出自記事「隆武帝，太祖九世孙也。讳聿键，小字长寿。其先唐定王桱，太祖第二十三子；封南阳。父器墭，唐世子；母毛氏。」により実父は唐世子朱器墭。明史唐藩伝「囚世子器墭及其子聿键于承奉司，器墭中毒死。」「崇祯五年，硕熿薨，聿键嗣。」とも一致。排行の「第n子」数値明記はなく childOrder は付さない。即位時に「追尊皇考为皇帝、妣为皇后」と父を皇帝に追尊（諡号・廟号はコーパスで未確認）。フェーズ1判定（鄭芝龍・鄭鴻逵による擁立）と矛盾なし。",
+      "source": {
+        "page": "小腆紀傳 紀第三 隆武帝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-qisheng",
+      "to": "nanming-shaowudi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "小腆紀傳紀第三「绍武讳聿■〈金粤〉，隆武帝之第四弟也」。隆武帝（nanming-zongzong）の出自記事に「父器墭，唐世子；母毛氏」（小腆紀傳・行842）とあり、紹武帝は隆武帝の弟として実父=朱器墭（唐世子、追封唐裕王）と判定。明史巻120「唐王弟聿钅粤自闽浮海至粤」・巻118「囚世子器墭及其子聿键于承奉司，器墭中毒死」でも兄弟関係・父の身元とも正史側で裏付けられる。「第四弟」は隆武帝から数えた弟の排行であり「第n子」の明記ではないため childOrder は付さない。",
+      "source": {
+        "page": "小腆紀傳 紀第三 紹武",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "ming-shenzong",
+      "to": "p-zhu-changying",
+      "childOrder": 7,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史巻120諸王五「桂端王常瀛，神宗第七子。天启七年之籓衡州。崇祯十六年，衡州陷，与吉、惠二王同走广西，居梧州。」（daizhigev20版。china-history版は「之藩衡州」で内容一致）。万暦29年の封王記事は明史神宗本紀「冬十月己卯，立皇长子常洛为皇太子，封诸子常洵福王，常浩瑞王，常润惠王，常瀛桂王」。生母は「李贵妃生惠王常润、桂王常瀛」。",
+      "source": {
+        "page": "明史 巻一二〇 列伝第八 諸王五",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhu-changying",
+      "to": "nanming-zhaozong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史巻120諸王五の桂端王常瀛条「世子已先卒，次子安仁王由〈木爱〉亦未几卒。次由榔，崇祯时，封永明王。」。小腆紀伝紀第四はより明示的に「永历帝，神宗之孙、桂端王常瀛少子也；讳由榔」。「少子」「次」いずれも非数値表記のため childOrder は入れない。永暦帝は即位時（1646）に「追尊皇考桂端王曰端皇帝」（小腆紀伝紀第四）、永暦11年（1657）に「皇考端皇帝谥曰「礼宗端皇帝」」と廟号礼宗を追贈（小腆紀伝紀第五）。隆武帝による桂王襲封（「安仁王薨，隆武帝以王袭封」）は王位継承であり養子縁組ではない。",
+      "source": {
+        "page": "明史 巻一二〇 列伝第八 諸王五",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-li-shouzhong",
+      "to": "shun-lichengzheng",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "明史流賊伝の出自記事に「李自成，米脂人，世居怀远堡李继迁寨。父守忠，无子，祷于华山，梦神告曰：“以破军星为若子。”已，生自成。」とあり、実父は李守忠。守忠に先に子が無く（「无子」）華山に祈って自成が生まれたと記すが「第n子」の明記はないため childOrder は付さない。順政権樹立後は「追尊其曾祖以下，加谥号，以李继迁为太祖」「二十九日丙戌僭帝号于武英殿，追尊七代皆为帝后」（明史 巻三百九）とあり、守忠も曾祖以下・七代の追尊対象に含まれるが、守忠個別の廟号・諡号は明史に記載がない。",
+      "source": {
+        "page": "明史 巻三百九 列伝第一百九十七 流賊",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-wu-xiang",
+      "to": "wuzhou-wusangui",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿呉三桂伝の冒頭に「吴三桂，字长伯，江南高邮人，籍辽东。父襄，明崇祯初官锦州总兵。三桂以武举承父廕，初授都督指挥。」とあり、実父は呉襄。「承父廕」（父の廕により武職を得た）とあることから実子関係。明史側でも「故总兵吴襄、襄子三桂等」（朱大典関連記事）と父子関係が裏付けられる。排行の「第n子」表記は正史に見当たらないため childOrder は付さない（弟の三辅の存在が「又以父襄、母祖氏、弟三辅并为自成所杀」から確認できる）。",
+      "source": {
+        "page": "清史稿 列伝二百六十一 呉三桂",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-wu-yingxiong",
+      "to": "wuzhou-wushifan",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿 呉三桂伝「世璠，应熊庶子，留云南，奔三桂之丧，至贵阳，其下拥称帝，改号洪化」。世璠は呉応熊の庶子で雲南に残っており、三桂死後に旧部下に擁立されて帝を称した。庶子とあるのみで排行「第n子」の明記はないため childOrder は付さない。",
+      "source": {
+        "page": "清史稿 列伝二百六十一 呉三桂",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "wuzhou-wusangui",
+      "to": "p-wu-yingxiong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿 呉三桂伝「子应熊尚主，为和硕额驸，授三等精奇尼哈番，加少保兼太子太保。」により応熊は三桂の子。三桂挙兵後は北京で「王大臣等请逮应熊治罪，命暂行拘禁。」ののち康熙13年（1674年）「上命诛应熊及其子世霖，诸幼子贷死入官。」と子の世霖とともに誅殺された。排行の明記はないため childOrder は付さない。",
+      "source": {
+        "page": "清史稿 列伝二百六十一 呉三桂",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yuan-baozhong",
+      "to": "zhonghuadiguo-yuanshikai",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "実父は袁保中（1823-1874）。河南項城の在地郷紳で、附貢生から捐納で同知の官銜を得たが出仕せず郷里で家政・団練を主宰した。袁世凱は六子中の第四子（BYU World War I Document Archive の袁世凱伝記記事が The fourth of six sons と記し、中文圏人物資料も袁保中第四子と一致）だが、正史原典の「第n子」表記が存在しないため childOrder は付さず note 記載にとどめる。生母は袁保中の妾の劉氏。正史範囲外のため規約4に従い漢文引用体裁は用いず、判定は BYU World War I Document Archive・Wikidata の構造データ（袁保中 Q16260274 の子 P40 に袁世凱 Q210329 が登録）・中文圏人物資料（周口日報・項城市清代人物専題等）の一致による。veracity=verified は正史範囲外エッジの既存運用（qing-xuantong 復位エッジ）に従い、学術的に争いのない事実に適用した。",
+      "source": {
+        "page": "正史範囲外。BYU World War I Document Archive（袁世凱伝記記事）・Wikidata Q16260274・中文圏人物資料（周口日報・項城市清代人物専題等）",
+        "lang": "ja/zh"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "養父",
+      "from": "p-yuan-baoqing",
+      "to": "zhonghuadiguo-yuanshikai",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "嗣父（過継による養父）は袁保慶（1825?-1873）。実父袁保中の実弟＝袁世凱の叔父で、咸豊八年（1858年）挙人、袁甲三に従い捻軍鎮圧で功を挙げ官は江寧塩法道に至った。実子に恵まれなかったため、生前に兄袁保中の第四子袁世凱を嗣子として正式に過継で迎えた。BYU World War I Document Archive の袁世凱伝記記事に he was adopted by his father's younger brother in 1866 とあり（中文圏資料には1864年とするものもあるが、いずれも袁保慶の生前）、縁組後の袁世凱は嗣母牛氏（袁保慶の妻）に養育され、袁保慶の任地（済南・揚州・江寧）に随行した（中文圏人物資料による）。死後の為後や単なる養育ではなく生前の正式な嗣子縁組（過継）であり、確立済み境界ルールにより養父エッジが成立する。実父袁保中も判明しているため実父エッジを併記。CBDB person 85868 が袁保慶の没年1873・呉長慶との交友を記録し、保慶没後に袁世凱が呉長慶の慶軍に投じた学術的通説と整合する。",
+      "source": {
+        "page": "正史範囲外。BYU World War I Document Archive（袁世凱伝記記事）・CBDB person 85868・中文圏人物資料（周口日報・項城市清代人物専題等）",
+        "lang": "ja/zh"
       }
     }
   ],
