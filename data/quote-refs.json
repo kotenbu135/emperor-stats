@@ -57291,6 +57291,26 @@
     "禁军千人突入宫城遂诛"
    ]
   },
+  "wudai-houtang-mindi|accessionRoute.note|1bebe084bd71": {
+   "id": "wudai-houtang-mindi",
+   "path": "accessionRoute.note",
+   "span": "明宗第三子也",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houtang-mindi.txt",
+   "frags": [
+    "明宗第三子也"
+   ]
+  },
+  "wudai-houtang-mindi|accessionRoute.note|9d7012e60bfb": {
+   "id": "wudai-houtang-mindi",
+   "path": "accessionRoute.note",
+   "span": "明宗第五子从厚也",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/皇极典登极部.txt",
+   "frags": [
+    "明宗第五子从厚也"
+   ]
+  },
   "wudai-houtang-mindi|ages.note|67e9e83a0654": {
    "id": "wudai-houtang-mindi",
    "path": "ages.note",
