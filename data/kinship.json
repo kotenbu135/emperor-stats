@@ -246,6 +246,13 @@
     "emperors": 18,
     "edges": 25,
     "persons": 10
+   },
+   {
+    "phase": "parentage",
+    "block": "block8",
+    "emperors": 14,
+    "edges": 14,
+    "persons": 1
    }
   ],
   "confirmedRootless": [
@@ -310,6 +317,14 @@
    {
     "id": "qianzhao-liuyao",
     "reason": "全史料（晋書載記第三・十六国春秋前趙録・資治通鑑・魏書序紀）が劉淵の「族子」とするのみで実父の名の記載がない。劉曜自身の追尊記事も晋書「僭尊高祖父亮为景皇帝，曾祖父广为献皇帝，祖防懿皇帝，考曰宣成皇帝。」と父（考）のみ名を欠き、十六国春秋は同記事で「考[阙]为宣成皇帝」と欠字を明示——史料側で名が失われていることを二重に確認（2026-07-23 フェーズ2ブロック7調査）。劉淵による養育「少孤，见养于元海。」は正式な養子縁組でなく養父エッジも立てない（確立済み境界ルール）。"
+   },
+   {
+    "id": "houyan-murongxiang",
+    "reason": "晋書載記第二十四・晋書帝紀第十・十六国春秋後燕録・資治通鑑巻百八〜百九・魏書太祖紀のいずれにも慕容詳の父の名の記載なし（独立伝がなく地位記事のみ）。十六国春秋の割注「详皝之曾孙也」により曾祖父=慕容皝（既存ブリッジ p-murong-huang）だが、中間2世代（祖父・父）の名がどの史料にもなく中間ブリッジを立てられないため遡及エッジ化不能（2026-07-23 フェーズ2ブロック8調査。資治通鑑「详，珪之曾孙也」の「珪」は年代的に成立不可能で「皝」の転写混入と判断）。"
+   },
+   {
+    "id": "xiyan-murongyong",
+    "reason": "十六国春秋「慕容永字叔明廆弟运之孙也」・資治通鑑「永，廆弟运之孙」・魏書巻九十五「廆弟运，运孙永。」の三史料一致で祖父=慕容運（慕容廆の弟）だが、実父の名はいずれの史料にも記載なし（魏書も父の代を省いて祖父運から孫永に直接繋ぐ）。晋書には慕容永の独立載記・出自記事自体がない。中間（父）の名が確認できないため遡及チェーン化不能（2026-07-23 フェーズ2ブロック8調査）。"
    }
   ]
  },
@@ -2757,6 +2772,32 @@
    "wikidata": "Q5374563",
    "source": {
     "page": "晋書 巻一百七 載記第七 石季龍下",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "id": "p-murong-na",
+   "name": "慕容納",
+   "kana": "ぼようのう",
+   "kind": "宗室",
+   "gender": "male",
+   "section": "南燕",
+   "birthYear": null,
+   "deathYear": 384,
+   "yearsApproximate": true,
+   "inclusionReason": [
+    "経路上",
+    "一親等"
+   ],
+   "note": "前燕の宗室。慕容皝の子・慕容德の同母兄（母は公孫氏）で、前燕時代に北海王に封じられた（十六国春秋「追尊父北海穆王纳」）。前秦の鄴攻略後に広武太守となり、退官後は張掖に居住（「苻坚破鄴，以纳为广武太守，数岁去官，家于张掖」）。慕容垂挙兵（384年）に際し張掖太守苻昌に德の諸子とともに誅殺された（「及垂起兵山东，苻昌收纳及德诸子，皆诛之」）。妊娠中だった妻段氏が生んだ遺腹子が南燕2代慕容超。超の即位後、义熙三年（407年）に穆皇帝を追尊された（「追尊其父为穆皇帝」）。廟号の記載は晋書・十六国春秋ともになし。没年384は慕容垂挙兵（384年）と超の生年385年（410年没・時年二十六の逆算）からの推定。十六国春秋に「[纳一作汭]」の異表記注記あり。QIDはzh.wikipedia「慕容納」経由で確認。",
+   "wikidata": "Q11074110",
+   "posthumous": {
+    "dynasty": "南燕",
+    "templeName": null,
+    "posthumousName": "穆皇帝"
+   },
+   "source": {
+    "page": "晋書 載記第二十八 慕容超",
     "lang": "zh-classical"
    }
   }
@@ -9834,6 +9875,197 @@
    "note": "『資治通鑑』巻九十八に「新兴王祗，虎之子也，时镇襄国」とあり、石虎（石季龍）の子であることが明記される。『晋書』巻八帝紀第八（穆帝紀・永和六年）の「鉴弟祗僭帝号于襄国」（石鑑の弟）とも整合し、石鑑は石虎の子であるから傍証となる。なお『晋書』載記第七石季龍下の石祗記事（石祗闻鉴死，僭称尊号于襄国）には続柄の直接明記がない。排行「第n子」の記載はどの史料にもないため childOrder は付さない。フェーズ1判定（accessionRoute.note「石虎の子」）とも一致。",
    "source": {
     "page": "資治通鑑 巻九十八",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "p-murong-huang",
+   "to": "qianyan-murongjun",
+   "veracity": "verified",
+   "confidence": "high",
+   "childOrder": 2,
+   "primaryLineage": true,
+   "note": "晋書載記第十に「慕容俊，字宣英，皝之第二子也」と明記。十六国春秋前燕録も「慕容儁字宣英小字贺赖跋皝之第二子也」で一致し、排行「第二子」の明記により childOrder=2。皝の燕王時代に「拜俊假节、安北将军、东夷校尉、左贤王、燕王世子」と世子に立てられ、「皝死，永和五年，僭即燕王位」と父の死後に燕王位を継承した（フェーズ1の世襲判定と整合）。",
+   "source": {
+    "page": "晋書 巻百十 載記第十 慕容儁",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "qianyan-murongjun",
+   "to": "qianyan-murongwei",
+   "childOrder": 3,
+   "primaryLineage": true,
+   "veracity": "verified",
+   "confidence": "high",
+   "note": "晋書載記第十一に「字景茂，俊第三子也。初封中山王，寻立为太子。」とあり、景昭帝慕容儁の第三子として皇太子に立てられ即位したことが明記される（daizhigev20 晋书.txt では冒頭の「暐」の名が PUA 文字化けで欠落し「慕容，字景茂」となる破損あり）。十六国春秋巻二十八前燕録六「慕容暐字景茂儁之第三子也元玺元年封为中山王寻立为皇太子」で名・排行とも突合確認済み。",
+   "source": {
+    "page": "晋書 載記第十一 慕容暐",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "p-murong-huang",
+   "to": "houyan-murongchui",
+   "veracity": "verified",
+   "confidence": "high",
+   "childOrder": 5,
+   "primaryLineage": true,
+   "note": "晋書載記第二十三の慕容垂伝冒頭に「慕容垂，字道明，皝之第五子也」とあり、前燕文明帝慕容皝（既存ブリッジ p-murong-huang）の第五子と明記される。皝の寵愛を受け「恩遇逾于世子俊」と兄慕容儁（前燕景昭帝）を超える待遇であったことも同伝に記される。フェーズ1判定（慕容儁の弟・皝の子）と整合。",
+   "source": {
+    "page": "晋書 載記第二十三 慕容垂",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "houyan-murongchui",
+   "to": "houyan-murongbao",
+   "veracity": "verified",
+   "confidence": "high",
+   "childOrder": 4,
+   "primaryLineage": true,
+   "note": "『晋書』載記第二十四の冒頭に「慕容宝，字道祐，垂之第四子也。」とあり、後燕の建国者慕容垂の第四子であることが明記される。即位記事も「垂死，其年宝嗣伪位，大赦境内，改元为永康。」とし、フェーズ1（succession）の世襲判定（垂死後の太子継承）と整合する。なお emperors.json 旧記載の引用は、原文に無い後字を含み字体変換もされた圧縮引用だったため、本調査を機にコーパス逐語「垂死，其年宝嗣伪位」へ訂正済み（2026-07-23 フェーズ2相互検証）。",
+   "source": {
+    "page": "晋書 載記第二十四 慕容宝",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "houyan-murongchui",
+   "to": "houyan-muronglin",
+   "veracity": "verified",
+   "confidence": "high",
+   "primaryLineage": true,
+   "note": "慕容麟は慕容垂の庶子。資治通鑑に「初，燕主垂先段后生子令、宝，后段后生子朗、鉴，爱诸姬子麟、农、隆、柔、熙。」（巻一百八 晋紀三十）とあり、麟は諸姬（側室）所生の子と明記。封王記事「燕主垂封其子农为辽西王，麟为赵王，隆为高阳王。」（巻一百六 晋紀二十八）でも垂の子として列挙される。晋書側は麟に独立の伝がなく直接の出自記事はないが、慕容徳載記「德兄子麟自义台奔鄴」（晋書 巻百二十七 載記第二十七）が徳の兄の子＝垂の子であることを傍証する。数値排行の明記はない（慕容宝は「垂之第四子也」と明記されるのと対照的）。369年時点の記事に「至邯郸，少子麟，素不为垂所爱，逃还告状」（資治通鑑 巻一百二 晋紀二十四）と「少子」の非数値表記あり（末子の意ではなく当時の幼い息子の意。慕容熙(385年生)らは未誕生のため childOrder には変換しない）。",
+   "source": {
+    "page": "資治通鑑 巻一百八 晋紀三十",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "houyan-murongbao",
+   "to": "houyan-murongsheng",
+   "veracity": "verified",
+   "confidence": "high",
+   "note": "晋書載記第二十四（巻124）慕容盛載記冒頭に「盛字道运，宝之庶长子也」と明記。十六国春秋も「慕容盛字道运宝之庶长子也秦建元中生于长安」と一致。慕容宝載記にも「宝庶长子长乐公盛自以同生年长，耻会先之」とあり庶長子であることが繰り返し確認できる。「庶長子」は非数値表記のため childOrder には入れない（確立ルール）。",
+   "source": {
+    "page": "晋書 載記第二十四 慕容盛",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "houyan-murongchui",
+   "to": "houyan-murongxi",
+   "veracity": "verified",
+   "confidence": "high",
+   "note": "晋書載記の出自記事に「熙字道文，垂之少子也。初封河间王。」とあり、慕容垂の少子（末子）と明記。十六国春秋後燕録にも「慕容熙字道文小字长生垂之少子也」とあり一致する。「少子」は非数値の排行表記のため childOrder は付さない（判定指針どおり）。",
+   "source": {
+    "page": "晋書 載記第二十四 慕容熙",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "qianyan-murongjun",
+   "to": "xiyan-murongchong",
+   "veracity": "verified",
+   "confidence": "high",
+   "note": "西燕威帝慕容沖は前燕景昭帝慕容儁の子。晋書載記第十（慕容儁）に「封其子泓为济北王，冲为中山王。」とあり、泓（済北王）・沖（中山王）がともに儁の子であることを明記。資治通鑑も升平三年（359年）二月条に「燕主俊立子泓为济北王，冲为中山王。」と同内容を記す。魏書序紀の「慕容暐弟冲僭立。」（暐は儁の第三子）、十六国春秋の「燕故大司马中山王冲时为平阳太守其兄故济北王泓时为北地长史」（沖は泓の弟）とも整合。晋書載記第十四（苻堅下）の「初，坚之灭燕，冲姊为清河公主」（清河公主は儁の娘）も傍証。排行「第n子」の明記は確認できず childOrder は付さない。",
+   "source": {
+    "page": "晋書 載記第十 慕容儁",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "qianyan-murongjun",
+   "to": "p-murong-hong",
+   "veracity": "verified",
+   "confidence": "high",
+   "note": "西燕政権創始者・慕容泓（既存ブリッジ人物 p-murong-hong。persons は再定義しない）は前燕景昭帝慕容儁の子。晋書載記第十（慕容儁）「封其子泓为济北王，冲为中山王。」・資治通鑑升平三年（359年）二月条「燕主俊立子泓为济北王，冲为中山王。」が直接根拠。泓自身も挙兵時に前秦への使者を通じ捕囚中の兄・幽帝慕容暐を「可速资备大驾，奉送家兄皇帝」と「家兄皇帝」と呼んでおり（晋書載記第十四 苻堅下）、儁の子（暐の弟）であることと整合。祖先遡及ルールに基づき、収録皇帝 qianyan-murongjun への到達チェーン（儁→泓→［succession で沖へ接続済み］）を成立させるエッジ。排行の明記なし。",
+   "source": {
+    "page": "晋書 載記第十 慕容儁",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "xiyan-murongchong",
+   "to": "xiyan-murongyao",
+   "veracity": "verified",
+   "confidence": "high",
+   "note": "資治通鑑晋紀二十八「恒立西燕主冲之子瑶为帝，改元建平，谥冲曰威皇帝」。十六国春秋（慕容永伝付載）も「恒立冲之子瑶[一作望]为帝改元建平谥冲曰威皇帝」と一致。晋書に慕容瑤の独立した紀・伝はなく（西燕は独立載記なし）、編年体の資治通鑑と十六国春秋の両典拠が独立に「冲之子」と記すことをもって verified とした。第n子の数値表記はなく childOrder は付さない。",
+   "source": {
+    "page": "資治通鑑 晋紀二十八",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "p-murong-hong",
+   "to": "xiyan-murongzhong",
+   "veracity": "verified",
+   "confidence": "high",
+   "note": "資治通鑑（巻百六 晋紀二十八）に「立慕容泓子忠为帝，改元建武」とあり、慕容忠は慕容泓の子と明記される。十六国春秋（慕容永の条）にも「立泓子忠为帝改元建武」とあり独立に裏付けられる。慕容忠には晋書に独立の載記・伝がない。排行（第n子）の記載はなし。父泓は既存ブリッジ人物 p-murong-hong（前燕慕容儁の子・慕容沖の兄）。",
+   "source": {
+    "page": "資治通鑑 巻百六 晋紀二十八",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "p-murong-huang",
+   "to": "nanyan-murongde",
+   "veracity": "verified",
+   "confidence": "high",
+   "note": "晋書載記第二十七に「慕容德，字玄明，皝之少子也」とあり、父は前燕文明帝慕容皝（既存ブリッジ p-murong-huang）。「少子」は非数値の排行表記のため childOrder は付さない。なお同載記の「德兄垂甚壮之」により兄慕容垂（houyan-murongchui）も皝の子であることが相互に確認できる（兄弟姉妹エッジは親エッジから導出可能のため作成しない）。",
+   "source": {
+    "page": "晋書 載記第二十七 慕容徳",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "p-murong-huang",
+   "to": "p-murong-na",
+   "veracity": "verified",
+   "confidence": "high",
+   "note": "納を「皝之子」と直接明記する単文はないが、晋書載記二十七「慕容德，字玄明，皝之少子也，母公孙氏」＋載記二十八「慕容超字祖明，德兄北海王纳之子」「纳母公孙氏以耄获免」＋十六国春秋南燕録「与母公孙氏就弟备德家于张掖」の3記事の組合せで、納は德の同母兄（母はともに公孫氏＝皝の側室）であり皝の子であることが確定する。",
+   "source": {
+    "page": "晋書 載記第二十八 慕容超",
+    "lang": "zh-classical"
+   }
+  },
+  {
+   "type": "kinship",
+   "relation": "実父",
+   "from": "p-murong-na",
+   "to": "nanyan-murongchao",
+   "veracity": "verified",
+   "confidence": "high",
+   "note": "晋書載記二十八冒頭「慕容超字祖明，德兄北海王纳之子」。納が苻昌に誅殺された時に妻段氏が妊娠中で、羌中への逃亡後に超が生まれた遺腹子（「纳妻段氏方娠，未决，囚之于郡狱」「至是，将公孙及段氏逃于羌中，而生超焉」）。即位後の义熙三年に「追尊其父为穆皇帝」。「第n子」表記はなく childOrder は付さない。",
+   "source": {
+    "page": "晋書 載記第二十八 慕容超",
     "lang": "zh-classical"
    }
   }

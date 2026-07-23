@@ -18097,6 +18097,16 @@
    "status": "manual",
    "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
   },
+  "houyan-murongbao|accessionRoute.note|cebb212fecc1": {
+   "id": "houyan-murongbao",
+   "path": "accessionRoute.note",
+   "span": "垂死，其年宝嗣伪位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houyan-murongbao.txt",
+   "frags": [
+    "垂死其年宝嗣伪位"
+   ]
+  },
   "houyan-murongbao|ages.note|7750d2237b50": {
    "id": "houyan-murongbao",
    "path": "ages.note",
