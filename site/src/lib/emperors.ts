@@ -34,11 +34,17 @@ export * from "@/lib/emperor-types";
 import { buildRiverTimeline, type RiverTimelineData } from "@/lib/timeline-river";
 import {
   buildKinshipLayout,
-  type KinshipLayout,
+  type KinshipChapterLayout,
+  type KinshipSourceClaim,
   type KinshipSourceEdge,
   type KinshipSourceEmperor,
   type KinshipSourcePerson,
-} from "@/lib/kinship-layout";
+} from "@/lib/kinship/layout";
+import {
+  FEMALE_EMPEROR_IDS,
+  KINSHIP_CHAPTER_DEFS,
+  KINSHIP_ENABLED_CHAPTER_IDS,
+} from "@/lib/kinship/chapters";
 import { kanaExpansionsOf } from "@/lib/kana-readings";
 import { CARD_SUBTITLE_OVERRIDES, cardSubtitleOf } from "@/lib/card-subtitle";
 
@@ -558,6 +564,9 @@ interface RawDurationSource extends RawSource {
 interface RawReign {
   startYear: number;
   endYear: number;
+  startDate?: string | null;
+  /** 王朝内での即位順(通し番号・復位も別カウント)。未付与の王朝あり。 */
+  dynastyOrder?: number | null;
   isRestoration: boolean;
   note: string | null;
   duration?: { source?: RawDurationSource | null } | null;
@@ -1351,76 +1360,108 @@ export function getRiverTimelineData(): RiverTimelineData {
   return riverCache;
 }
 
-// --- 系譜・即位経路グラフ(/kinship・試作。構築ロジックはkinship-layout.ts) ---
+// --- 系譜・即位経路グラフ(/kinship。構築ロジックはsrc/lib/kinship/) ---
 //
-// データはdata/kinship.json(フェーズ1 succession進行中)。調査はブロック3(三国)以降も
-// 継続するが、試作ページの描画スコープは意図的に秦〜後漢36人へ固定する。スコープ外の
-// persons・エッジ(端点の一方でもスコープ外のもの)はここで除外し、ビルドは調査の進行に
-// 影響されない。グラフ全体の整合性検証はscripts/validate_kinship.pyの責務で、この
-// ローダーはスコープ内の整合性のみをassertする。描画範囲を広げるときは
-// KINSHIP_SECTIONS/KINSHIP_EXTRA_IDS/KINSHIP_SCOPE_COUNTとkinship-layout.tsの
-// キュレーション表を同時に更新する。
+// データはdata/kinship.json(succession/parentage/interdynastic/crosscheck完了+
+// 生母フェーズmaternalLineage進行中)。描画スコープはKINSHIP_ENABLED_CHAPTER_IDSの
+// 章のバンドが覆うdynastyKeyで決まり、スコープ外のpersons・エッジはここで除外する
+// (生母調査の進行はビルドに影響しない)。グラフ全体の整合性検証は
+// scripts/validate_kinship.pyの責務で、このローダーはスコープ内の整合性のみを扱う。
+// 章を増やすときはchapters.tsのバンド定義・配色表を更新する(被覆はassertされる)。
 
-/** 描画スコープ(秦〜後漢)のsection。劉永(梁)はsectionが南朝梁と共有のためid個別指定。 */
-const KINSHIP_SECTIONS = new Set([
-  "秦（始皇帝以降）",
-  "新",
-  "漢（赤眉軍）",
-  "成家",
-  "後漢",
-  "仲家",
-]);
-const KINSHIP_EXTRA_IDS = new Set(["liu-yong-liang"]);
-/** 描画スコープの皇帝数(固定)。sectionフィルタの結果がこれとズレたら語彙変更等の事故。 */
-const KINSHIP_SCOPE_COUNT = 36;
+interface RawKinshipEdge {
+  type: "succession" | "kinship" | "marriage";
+  from: string;
+  to: string;
+  /** succession のみ。 */
+  category?: string;
+  relationToPredecessor?: string;
+  isRestoration?: boolean;
+  /** kinship のみ。 */
+  relation?: string;
+  childOrder?: number | null;
+  veracity: string;
+  confidence: string;
+  note: string;
+  source: { page: string };
+}
 
 interface RawKinship {
   persons: {
     id: string;
     name: string;
     kind: string;
+    gender: string;
     section: string;
     birthYear: number | null;
     deathYear: number | null;
     yearsApproximate: boolean;
   }[];
-  edges: {
-    type: "succession" | "kinship" | "marriage";
-    from: string;
-    to: string;
-    /** succession のみ。 */
-    category?: string;
-    relationToPredecessor?: string;
-    isRestoration?: boolean;
-    /** kinship のみ。 */
-    relation?: string;
-    veracity: string;
-    confidence: string;
+  edges: RawKinshipEdge[];
+  genealogicalClaims: {
+    claimant: string;
+    claimedAncestry: string;
     note: string;
     source: { page: string };
   }[];
 }
 
-/** エッジnoteは長文(〜1KB×29本)のためRSCペイロード対策で切り詰めて渡す。 */
+/** エッジnoteは長文のためRSCペイロード対策で切り詰めて渡す。 */
 function truncateNote(note: string, max = 160): string {
   return note.length <= max ? note : `${note.slice(0, max)}…`;
 }
 
-let kinshipCache: KinshipLayout | null = null;
-export function getKinshipGraphData(): KinshipLayout {
+let kinshipCache: KinshipChapterLayout[] | null = null;
+export function getKinshipGraphData(): KinshipChapterLayout[] {
   if (kinshipCache) return kinshipCache;
   const kinshipPath = path.join(process.cwd(), "..", "data", "kinship.json");
   const kin = JSON.parse(fs.readFileSync(kinshipPath, "utf-8")) as RawKinship;
 
-  const covered = data.emperors.filter(
-    (e) => KINSHIP_SECTIONS.has(e.dynasty.section) || KINSHIP_EXTRA_IDS.has(e.id),
+  const enabledDefs = KINSHIP_CHAPTER_DEFS.filter((c) =>
+    KINSHIP_ENABLED_CHAPTER_IDS.includes(c.id),
   );
-  // 描画スコープの人数は固定(調査済み人数との一致assertは調査がスコープ外へ進んだ
-  // 時点で意味を失うため廃止)。ズレたらemperors.json側のsection語彙変更等の事故。
-  if (covered.length !== KINSHIP_SCOPE_COUNT) {
-    throw new Error(
-      `kinship: 対象皇帝のフィルタ結果(${covered.length}人)が描画スコープ(${KINSHIP_SCOPE_COUNT}人)と一致しません(KINSHIP_SECTIONS/KINSHIP_EXTRA_IDSかsection語彙の変更?)`,
-    );
+  const scopeDynKeys = new Set(
+    enabledDefs.flatMap((c) => c.bands.flatMap((b) => b.dynastyKeys)),
+  );
+  const covered = data.emperors.filter((e) => scopeDynKeys.has(dynastyKey(e.dynasty)));
+
+  // 「第N代」: reigns[].dynastyOrderがあれば採用し、無い王朝は在位開始順から導出する
+  // (両方あるケースは一致をassert。表示用の機械的導出で、調査データの自動生成には
+  // 当たらない。dynastyOrderは374在位中238件がnull)。
+  const ordinalsById = new Map<string, number[]>();
+  {
+    const byDynKey = new Map<
+      string,
+      { id: string; idx: number; year: number; date: string }[]
+    >();
+    for (const e of covered) {
+      const key = dynastyKey(e.dynasty);
+      e.reigns.forEach((r, idx) => {
+        byDynKey.set(key, [
+          ...(byDynKey.get(key) ?? []),
+          { id: e.id, idx, year: r.startYear, date: r.startDate ?? "" },
+        ]);
+      });
+    }
+    for (const arr of byDynKey.values()) {
+      arr.sort((p, q) => p.year - q.year || p.date.localeCompare(q.date));
+      arr.forEach((r, i) => {
+        const list = ordinalsById.get(r.id) ?? [];
+        list[r.idx] = i + 1;
+        ordinalsById.set(r.id, list);
+      });
+    }
+    for (const e of covered) {
+      e.reigns.forEach((r, idx) => {
+        if (typeof r.dynastyOrder === "number") {
+          const derived = ordinalsById.get(e.id)![idx];
+          if (r.dynastyOrder !== derived)
+            throw new Error(
+              `kinship: ${e.id} の第N代導出(${derived})がdynastyOrder(${r.dynastyOrder})と一致しません。即位順の個別確認が必要です`,
+            );
+        }
+      });
+    }
   }
 
   const emperors: KinshipSourceEmperor[] = covered.map((e) => {
@@ -1429,19 +1470,14 @@ export function getKinshipGraphData(): KinshipLayout {
         throw new Error(`kinship: ${e.id} の在位年が数値ではありません`);
       }
     }
-    if (e.reigns.length !== 1) {
-      // 試作範囲に複数在位者はいない前提(kinship-layout.tsはreigns[0]のみ描画する)。
-      throw new Error(
-        `kinship: ${e.id} は複数在位(${e.reigns.length}期間)です。複数カプセル+コネクタ描画の実装が必要です`,
-      );
-    }
     return {
       id: e.id,
       name: displayName(e.name),
       dynastyLabel: dynastyLabel(e.dynasty),
       dynastyKey: dynastyKey(e.dynasty),
-      section: e.dynasty.section,
-      accessionRouteCategory: e.accessionRoute?.category ?? "不詳",
+      female: FEMALE_EMPEROR_IDS.has(e.id),
+      routeCategory: e.accessionRoute?.category ?? "不詳",
+      ordinals: ordinalsById.get(e.id)!,
       reigns: e.reigns.map((r) => ({
         a: astroYear(r.startYear),
         b: astroYear(r.endYear),
@@ -1450,50 +1486,67 @@ export function getKinshipGraphData(): KinshipLayout {
     };
   });
 
-  // ブリッジ人物もスコープ内sectionのみ描画(スコープ外ブロックの調査が進んでも無視)。
+  // スコープの皇帝から「人物ノードを介して」連結する範囲だけを取り込む。章スコープ外の
+  // 王朝にしか繋がらない人物を持ち込むと、生没年不明者の配置推定(隣接からの緩和)が
+  // 年の判明したノードへ到達できずビルドが落ちるため。皇帝は通過点にしない
+  // (スコープ外皇帝の家系が芋づる式に入るのを防ぐ)。
+  const personIds = new Set(kin.persons.map((p) => p.id));
+  const included = new Set<string>(emperors.map((e) => e.id));
+  for (let grew = true; grew; ) {
+    grew = false;
+    for (const e of kin.edges) {
+      for (const [a, b] of [
+        [e.from, e.to],
+        [e.to, e.from],
+      ] as const) {
+        if (included.has(a) && personIds.has(b) && !included.has(b)) {
+          included.add(b);
+          grew = true;
+        }
+      }
+    }
+  }
+
   const persons: KinshipSourcePerson[] = kin.persons
-    .filter((p) => KINSHIP_SECTIONS.has(p.section))
+    .filter((p) => included.has(p.id))
     .map((p) => ({
       id: p.id,
       name: p.name,
       kind: p.kind,
-      section: p.section,
+      female: p.gender === "female",
       // kinship.jsonの年は既に天文年(KINSHIP_SCHEMA.md)。astroYear()を重ねないこと。
-      // null(不明)はそのまま渡し、配置はkinship-layout.tsが系譜エッジから推定する。
+      // null(不明)はそのまま渡し、配置はlayout側が系譜エッジから推定する。
       birthYear: p.birthYear,
       deathYear: p.deathYear,
       yearsApproximate: p.yearsApproximate,
     }));
 
-  const knownIds = new Set([
-    ...emperors.map((e) => e.id),
-    ...persons.map((p) => p.id),
-  ]);
   const edges: KinshipSourceEdge[] = kin.edges
-    // 端点の一方でもスコープ外のエッジは描画対象外(例: 献帝→魏文帝の禅譲は三国
-    // ブロック調査後もスコープを広げるまで描かない)。スコープ内で端点が解決しない
-    // 事故はvalidate_kinship.py(グラフ全体の参照整合)が検出する。
-    .filter((e) => knownIds.has(e.from) && knownIds.has(e.to))
-    .map((e) => {
-      if (e.type !== "succession" && e.type !== "kinship") {
-        // marriage等のエッジ描画は未実装。データが増えた時点で対応する。
-        throw new Error(`kinship: 未対応のエッジtypeです: "${e.type}"`);
-      }
-      return {
-        type: e.type,
-        from: e.from,
-        to: e.to,
-        category: e.category,
-        relationToPredecessor: e.relationToPredecessor,
-        relation: e.relation,
-        veracity: e.veracity,
-        confidence: e.confidence,
-        noteExcerpt: truncateNote(e.note),
-        sourcePage: e.source.page,
-      };
-    });
+    .filter((e) => included.has(e.from) && included.has(e.to))
+    .map((e) => ({
+      type: e.type,
+      from: e.from,
+      to: e.to,
+      category: e.category,
+      relationToPredecessor: e.relationToPredecessor,
+      relation: e.relation,
+      childOrder: e.childOrder ?? undefined,
+      veracity: e.veracity,
+      confidence: e.confidence,
+      noteExcerpt: truncateNote(e.note),
+      sourcePage: e.source.page,
+    }));
 
-  kinshipCache = buildKinshipLayout({ emperors, persons, edges });
+  const claims: KinshipSourceClaim[] = (kin.genealogicalClaims ?? [])
+    .filter((c) => included.has(c.claimant))
+    .map((c) => ({
+      claimant: c.claimant,
+      claimedAncestry: c.claimedAncestry,
+      noteExcerpt: truncateNote(c.note),
+      sourcePage: c.source.page,
+    }));
+
+  kinshipCache = buildKinshipLayout({ emperors, persons, edges, claims });
   return kinshipCache;
 }
 

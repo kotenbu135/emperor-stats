@@ -1,10 +1,11 @@
-// 系譜・即位経路グラフの試作ページ(検証用・非公開導線)。
-// - 目的: フェーズ1調査済み範囲で方式③(縦時間軸グラフ)が正しく描画できるかの検証。
-//   描画スコープは秦〜後漢36人に固定(調査がブロック3以降へ進んでもローダー側で
-//   スコープ外を除外する。emperors.tsのKINSHIP_SECTIONS参照)。データ完了後の本実装まで
-//   nav-data.ts / SITE_SECTIONS には登録しない(ナビ・トップカード・sitemapから自動的に
-//   除外される)。robotsもnoindex。
-// - レイアウトはビルド時計算(getKinshipGraphData → kinship-layout.ts)。
+// 系譜・即位経路グラフ(全面再設計版・段階公開中)。
+// - 構成: 時代チャプター縦積み(章を縦に積み、時間は下へ連続)。章内は王朝バンドを
+//   横に並べ、バンド内は家系図(兄弟横並び・夫婦連結・母別の垂下線)。
+// - 王朝内の継承は矢印にせず、カプセル内の「第N代・即位経路」表記で示す。
+//   矢印は王朝間の交代(禅譲・簒奪など)のみ。
+// - 現在は第1章(秦・漢)のパイロット。全章実装まで nav-data.ts / SITE_SECTIONS には
+//   登録せず、robotsもnoindex。
+// - レイアウトはビルド時計算(getKinshipGraphData → src/lib/kinship/)。
 
 import { PageHeader, Section } from "@/components/layout/page-header";
 import { KinshipChart } from "@/components/kinship/kinship-chart";
@@ -14,89 +15,101 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata = {
   ...buildMetadata({
     path: "/kinship",
-    title: "系譜・即位経路グラフ（試作）",
+    title: "系譜・家系図",
     description:
-      "皇帝間の継承関係(世襲・簒奪・禅譲など)を縦時間軸のグラフで描く試作ページです。表示範囲は秦〜後漢36人に固定しています(継承データの調査は三国以降へ継続中)。",
+      "中国皇帝の系譜を、時代ごとの章に分けた家系図で描くページです。兄弟・夫婦・生母の関係と、禅譲・簒奪など王朝間の交代の系譜関係を示します（段階公開中・現在は秦・漢の章のみ）。",
   }),
   robots: { index: false },
 };
 
-export default function KinshipPage() {
-  const layout = getKinshipGraphData();
-  const emperorCountShown = layout.nodes.filter((n) => n.kind === "emperor").length;
-  const succCount = layout.edges.filter((e) => e.edgeType === "succession").length;
-  const kinCount = layout.edges.filter((e) => e.edgeType === "kinship").length;
+const LEGEND =
+  "凡例: 色付きカプセル＝皇帝（高さが在位期間・2行目は「第N代・即位経路」）／破線枠＝皇帝でないつなぎの人物（生没年または系譜からの推定で配置）／丸枠＝后妃など配偶者（位置は夫の在位に整列。生没年はツールチップ）／二重線＝皇后との夫婦、細線＝妃嬪等の生母／灰の縦横線＝親子（夫婦の連結点から子へ降りる線。母ごとに分かれ、誰と誰の間の子かを示す）／朱の矢印＝王朝間の交代（禅譲・簒奪など。ラベルは経路と先代との続柄）／点線＋?＝史書間で記述が対立するもの（諸説あり）／◇遠祖＝伝説的な遠祖の系譜主張（ツールチップと下の一覧）。短い在位が密集する期間は時間軸を局所的に引き伸ばしています（左の年目盛りの間隔が広がっている箇所。ノードの位置と年目盛りは常に対応します）。";
 
-  // 「テキストで見る」用: エッジをレーンごとに時系列で列挙(クロール可能テキストは
-  // client外に置く原則・a11y代替を兼ねる簡易版)。継承と血縁は別リストに分ける。
-  const nodeById = new Map(layout.nodes.map((n) => [n.id, n]));
-  const chainsByLane = layout.lanes.map((lane) => {
-    const edges = layout.edges
-      .filter((e) => {
-        const to = nodeById.get(e.to);
-        if (!to) return false;
-        const cx = to.x + to.w / 2;
-        return cx >= lane.x && cx <= lane.x + lane.width;
-      })
-      .sort((p, q) => (nodeById.get(p.to)?.y ?? 0) - (nodeById.get(q.to)?.y ?? 0));
-    return {
-      label: lane.label,
-      succession: edges.filter((e) => e.edgeType === "succession"),
-      kinship: edges.filter((e) => e.edgeType === "kinship"),
-    };
-  });
+export default function KinshipPage() {
+  const chapters = getKinshipGraphData();
 
   return (
     <>
       <PageHeader
-        title="系譜・即位経路グラフ（試作）"
-        description={`皇帝間の継承関係と血縁を「縦＝時間（上が古い）・横＝王朝レーン」のグラフで描く試作ページです。表示範囲は秦〜後漢の${emperorCountShown}人・継承エッジ${succCount}本と、血縁エッジ${kinCount}本（光武帝と前漢を結ぶ景帝からの父子チェーン）に固定しています（継承データの調査は三国以降へ継続中。血縁・婚姻の全面調査は今後の段階で追加予定）。`}
+        title="系譜・家系図"
+        description="皇帝間の血縁（実父・実母・養親）・婚姻と、王朝間の交代（禅譲・簒奪など）の系譜関係を、時代ごとの章に分けた家系図で描きます。縦が時間（上が古い）、横が王朝です。王朝内の継承は矢印ではなくカプセル内の「第N代・即位経路」で示し、矢印は王朝間の交代だけに使います。現在は第1章（秦・漢）を先行公開しています（生母データの調査進行にあわせて章を追加予定）。"
       />
-      <Section
-        id="chart"
-        title="継承グラフ（秦〜後漢）"
-        description="カプセルは皇帝の在位期間（色は王朝、灰色は並立政権）、破線枠は皇帝でないつなぎの人物（生没年または系譜からの推定で配置）。朱色の矢印が継承で、ラベルは即位経路の分類、点線＋?は史書間・史書内で記述が対立するもの（諸説あり）。灰色の実線は血縁（親→子）。◆は先代を持たないグラフの根（建国など）。ノードにマウスを載せると詳細、クリックで前後のつながりを強調表示します（もう一度クリックか背景クリックで解除）。"
-      >
-        <KinshipChart layout={layout} />
-        <p className="mt-3 max-w-3xl text-xs leading-relaxed text-muted-foreground">
-          凡例: 朱の実線矢印＝正史で裏付けられた継承／朱の点線矢印＋?＝諸説あり／灰の実線＝血縁（親→子）／枠線カプセル＝皇帝（高さが在位期間）／破線枠＝非皇帝（追尊皇帝・宗室など）／◆建国・◆擁立＝先代を持たない政権の起点。短い在位が密集する期間は時間軸を局所的に引き伸ばして描いています（左の年目盛りの間隔が広がっている箇所。ノードの位置と年目盛りは常に対応します）。
-        </p>
-      </Section>
+      {chapters.map((c, i) => (
+        <Section
+          key={c.id}
+          id={c.id}
+          title={`第${i + 1}章 ${c.title}（${c.period}）`}
+          description="ノードにマウスを載せると詳細、クリックで家族（親子・夫婦）と関係エッジを強調表示します（もう一度クリックか背景クリックで解除）。名前はドラッグで選択してコピーできます。"
+        >
+          <KinshipChart layout={c} />
+          <p className="mt-3 max-w-3xl text-xs leading-relaxed text-muted-foreground">
+            {LEGEND}
+          </p>
+        </Section>
+      ))}
       <Section
         id="text"
-        title="テキストで見る継承の流れ"
-        description="グラフと同じ内容を、レーン（王朝）ごとに先代→新帝の順で列挙したものです。血縁は親→子の順です。"
+        title="テキストで見る系譜"
+        description="グラフと同じ内容を、王朝ごとに歴代順で列挙したものです（即位経路・父・母・先代との続柄）。"
       >
-        <div className="grid max-w-4xl gap-6 md:grid-cols-2">
-          {chainsByLane
-            .filter((c) => c.succession.length + c.kinship.length > 0)
-            .map((c) => (
-              <div key={c.label}>
-                <h3 className="mb-2 text-sm font-semibold text-foreground">{c.label}</h3>
+        {chapters.map((c) => (
+          <div key={c.id} className="mb-8">
+            <h3 className="mb-3 text-base font-semibold text-foreground">
+              {c.title}（{c.period}）
+            </h3>
+            <div className="grid max-w-5xl gap-6 md:grid-cols-2">
+              {c.textDynasties.map((d) => (
+                <div key={d.label}>
+                  <h4 className="mb-2 text-sm font-semibold text-foreground">
+                    {d.label}
+                  </h4>
+                  <ul className="space-y-1 text-sm text-foreground/90">
+                    {d.emperors.map((e) => (
+                      <li key={e.id}>
+                        {e.label}〔{e.sub}〕
+                        {e.detail && (
+                          <span className="text-muted-foreground">
+                            {" "}
+                            — {e.detail}
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            {c.textTransitions.length > 0 && (
+              <div className="mt-4">
+                <h4 className="mb-2 text-sm font-semibold text-foreground">
+                  王朝間の交代
+                </h4>
                 <ul className="space-y-1 text-sm text-foreground/90">
-                  {c.succession.map((e) => (
-                    <li key={`${e.from}→${e.to}`}>
-                      {e.fromLabel} →〔{e.label}〕 {e.toLabel}
+                  {c.textTransitions.map((t) => (
+                    <li key={t}>{t}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {c.claims.length > 0 && (
+              <div className="mt-4">
+                <h4 className="mb-2 text-sm font-semibold text-foreground">
+                  遠祖の系譜主張（史実未確認・主張として記録）
+                </h4>
+                <ul className="max-w-4xl space-y-1 text-sm text-foreground/90">
+                  {c.claims.map((cl) => (
+                    <li key={`${cl.claimant}:${cl.ancestry}`}>
+                      {cl.claimant} — {cl.ancestry}
+                      <span className="text-muted-foreground">
+                        （出典: {cl.source}）
+                      </span>
                     </li>
                   ))}
                 </ul>
-                {c.kinship.length > 0 && (
-                  <>
-                    <h4 className="mb-1 mt-3 text-xs font-semibold text-muted-foreground">
-                      血縁（親→子）
-                    </h4>
-                    <ul className="space-y-1 text-sm text-foreground/90">
-                      {c.kinship.map((e) => (
-                        <li key={`${e.from}→${e.to}`}>
-                          {e.fromLabel} →〔{e.label}〕 {e.toLabel}
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
               </div>
-            ))}
-        </div>
+            )}
+          </div>
+        ))}
       </Section>
     </>
   );
