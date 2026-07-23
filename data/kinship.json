@@ -218,6 +218,13 @@
         "emperors": 11,
         "edges": 17,
         "persons": 8
+      },
+      {
+        "phase": "parentage",
+        "block": "晋",
+        "emperors": 17,
+        "edges": 22,
+        "persons": 7
       }
     ],
     "confirmedRootless": [
@@ -1849,6 +1856,187 @@
       "note": "孫権の子（呉主五子伝「孙和字子孝，虑弟也」、孫慮の弟。通説の第三子は原典に数値明記なし）。赤烏五年（242年）に皇太子に立てられ（「赤乌五年，立为太子，时年十九」→数え19歳から生年224年）、二宮の変で廃されて南陽王とされ、諸葛恪誅殺後の253年に孫峻により賜死（「及恪被诛，孙峻因此夺和玺绶，徙新都，又遣使者赐死」）。子の孫晧が即位した264年に文皇帝と追諡（呉主五子伝「休薨，皓即阼，其年追谥父和曰文皇帝，改葬明陵」）。廟号の追贈はなく、宝鼎二年（267年）設立の「清庙」は寝堂の号であって廟号ではない（「宜立庙京邑。宝鼎二年七月，使守大匠薛珝营立寝堂，号曰清庙」）。皇帝号のみで廟号を欠くため kind は追尊皇帝ではなく宗室（KINSHIP_SCHEMA の追尊皇帝要件＝皇帝号＋廟号）。なお妃嫔伝には「皓即位，尊和为昭献皇帝」と諡号の異伝がある（flags 参照）。wikidata は WebSearch 1回で QID を確定できず null。",
       "source": {
         "page": "三国志 巻五十九 呉書十四 呉主五子伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-sima-yi",
+      "name": "司馬懿",
+      "kana": "しばい",
+      "aliases": [
+        "仲達",
+        "晋宣帝",
+        "宣王"
+      ],
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "晋",
+      "birthYear": 179,
+      "deathYear": 251,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "追尊皇帝"
+      ],
+      "posthumous": {
+        "dynasty": "西晋",
+        "templeName": "高祖",
+        "posthumousName": "宣皇帝"
+      },
+      "note": "魏の太傅・晋王朝の実質的創業者。晋武帝司馬炎の祖父。出自は「宣皇帝讳懿，字仲达，河内温县孝敬里人，姓司马氏。」「帝即防之第二子也。」（晋書 宣帝紀。父は京兆尹司馬防だが収録皇帝・既存ブリッジ人物に到達しないため祖先遡及ルールによりエッジ化せず懿で止める）。嘉平三年（251年）「秋八月戊寅，崩于京师，时年七十三。」により数え73歳没から179年生。追尊は「晋国初建，追尊曰宣王。武帝受禅，上尊号曰宣皇帝，陵曰高原，庙称高祖。」（宣帝紀）と皇帝号（宣皇帝）＋廟号（高祖）の追贈が確認できるため kind=追尊皇帝。なお武帝紀の編年では廟号追贈は咸寧元年（275年）「十二月丁亥，追尊宣帝庙曰高祖，景帝曰世宗，文帝曰太祖。」と受禅の10年後に記録される（flags 参照）。",
+      "wikidata": "Q353698",
+      "source": {
+        "page": "晋書 巻一 宣帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-sima-shi",
+      "name": "司馬師",
+      "kana": "しばし",
+      "aliases": [
+        "子元",
+        "晋景帝",
+        "景王"
+      ],
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "晋",
+      "birthYear": 208,
+      "deathYear": 255,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "追尊皇帝"
+      ],
+      "posthumous": {
+        "dynasty": "西晋",
+        "templeName": "世宗",
+        "posthumousName": "景皇帝"
+      },
+      "note": "司馬懿の長子で魏の大将軍として父の実権を継承。出自は「景皇帝讳师，字子元，宣帝长子也。」（晋書 景帝紀。「长子」は非数値表記のため childOrder は付さない）。正元二年（255年）「辛亥，崩于许昌，时年四十八。」により数え48歳没から208年生。追尊は「晋国既建，追尊曰景王。武帝受禅，上尊号曰景皇帝，陵曰峻平，庙称世宗。」（景帝紀）と皇帝号（景皇帝）＋廟号（世宗）の追贈が確認できるため kind=追尊皇帝。武帝への直接血統経路上にはないが実在追尊皇帝の収録基準（KINSHIP_SCHEMA 明記例）により収録し、懿からの実父エッジで接続する。嗣子なく武帝紀に「文帝以景帝既宣帝之嫡，早世无后，以帝弟攸为嗣」とあり武帝の弟司馬攸が嗣とされたが、攸は収録皇帝・既存ブリッジ人物でないため養子エッジは作らない。",
+      "wikidata": "Q707808",
+      "source": {
+        "page": "晋書 巻二 景帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-sima-zhao",
+      "name": "司馬昭",
+      "kana": "しばしょう",
+      "aliases": [
+        "子上",
+        "晋文帝",
+        "文王",
+        "晋王"
+      ],
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "晋",
+      "birthYear": 211,
+      "deathYear": 265,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等",
+        "追尊皇帝"
+      ],
+      "posthumous": {
+        "dynasty": "西晋",
+        "templeName": "太祖",
+        "posthumousName": "文皇帝"
+      },
+      "note": "司馬懿の子（景帝司馬師の同母弟）・晋王。晋武帝司馬炎の実父。出自は「文皇帝讳昭，字子上，景帝之母弟也。」（晋書 文帝紀）。咸熙二年（265年）「秋八月辛卯，帝崩于露寝，时年五十五。」により数え55歳没から211年生。追尊は「九月癸酉，葬崇阳陵，谥曰文王。武帝受禅，追尊号曰文皇帝，庙称太祖。」（文帝紀）と皇帝号（文皇帝）＋廟号（太祖）の追贈が確認できるため kind=追尊皇帝。",
+      "wikidata": "Q532884",
+      "source": {
+        "page": "晋書 巻二 文帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-sima-yan-wu",
+      "name": "司馬晏",
+      "kana": "しばあん",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "晋",
+      "birthYear": 281,
+      "deathYear": 311,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "wikidata": null,
+      "note": "西晋武帝の子（李夫人所生。武十三王伝「李夫人生淮南忠壮王允、吴孝王晏」）で愍帝の実父。太康10年（289）呉王に封ぜられ（「吴敬王晏，字平度，太康十年受封，食丹阳、吴兴并吴三郡，历射声校尉、后军将军」）、永嘉5年（311）の洛陽陥落時に殺害された。「及洛京倾覆，晏亦遇害，时年三十一」から数え31歳没→生年281年（孝懐帝紀の永嘉五年六月条「吴王晏、竟陵王楙、尚书左仆射和郁、右仆射曹馥、尚书闾丘冲、袁粲、王绲、河南尹刘默等皆遇害」とも整合）。愍帝即位後に太保を追贈（「愍帝即位，追赠太保」）。諡は王号諡のみ（帝紀・武十三王伝冒頭の母列で「吴孝王」、伝の見出しでは「吴敬王」と版本異同あり・flags 参照）で皇帝号・廟号の追贈はないため kind は宗室、posthumous は付さない。wikidata は WebSearch 1回で QID を確定できず null。",
+      "source": {
+        "page": "晋書 巻六四 武十三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-sima-zhou",
+      "name": "司馬伷",
+      "kana": "しばちゅう",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "晋",
+      "birthYear": 227,
+      "deathYear": 283,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "琅邪武王。司馬懿（宣帝）の子で母は伏夫人（「伏夫人生汝南文成王亮、琅邪武王伷、清惠亭侯京、扶风武王骏」）。武帝践祚で東莞郡王、のち「改封琅邪王，以东莞益其国」。平呉の役では「孙皓奉笺送玺绶，诣伷请降」と孫皓の降伏を受けた。「太康四年薨，时年五十七」（晋書 巻三十八 宣五王伝）より没283年、生年は数え57からの逆算で227年。皇帝号の追尊はなく王号どまりのため宗室。Wikidata は父=Q353698（司馬懿）の照合済み。",
+      "wikidata": "Q1142166",
+      "source": {
+        "page": "晋書 巻三十八 宣五王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-sima-jin",
+      "name": "司馬覲",
+      "kana": "しばきん",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "晋",
+      "birthYear": 256,
+      "deathYear": 290,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "琅邪恭王。琅邪武王司馬伷の嗣子で東晋元帝の実父。「觐字思祖，拜冗从仆射。太熙元年薨，时年三十五。子睿立，是为元帝。」（晋書 巻三十八 宣五王伝）より没290年、生年は数え35からの逆算で256年。東晋成立後も皇帝号の追尊はなく琅邪恭王のまま（元帝紀・宣五王伝に追尊記事なし）のため宗室。Wikidata は父=Q1142166（司馬伷）・子=Q7392（司馬睿）の照合済み。",
+      "wikidata": "Q10916665",
+      "source": {
+        "page": "晋書 巻三十八 宣五王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-huan-wen",
+      "name": "桓温",
+      "kana": "かんおん",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "楚",
+      "birthYear": 312,
+      "deathYear": 373,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "一親等"
+      ],
+      "posthumous": {
+        "dynasty": "楚",
+        "templeName": null,
+        "posthumousName": "宣武皇帝"
+      },
+      "wikidata": "Q2496512",
+      "note": "東晋の大司馬・南郡公。宣城太守桓彝の子（桓温伝「桓温，字元子，宣城太守彝之子也」。桓彝は収録皇帝・既存ブリッジのいずれでもないため遡及はここで停止）。明帝の女婿（「选尚南康长公主，拜驸马都尉」）。成漢を滅ぼし三度北伐、簡文帝を擁立して晋室を圧倒したが受禅に至らず寧康元年（373年）没（「锡文未及成而薨，时年六十二」→数え62歳から生年312年。孝武帝紀寧康元年「秋七月己亥……南郡公桓温薨」）。晋朝からの諡は宣武（会稽王道子伝に「故宣武公」）。子の桓玄が404年に簒奪して楚を建て「追尊其父温宣武皇帝，庙称太庙，南康公主为宣皇后」、墓を永崇陵と号した（「号温墓曰永崇陵」）。簒奪前の九錫受領時には「矫诏赠父温为楚王」。皇帝号（宣武皇帝）の追尊はあるが廟号（太祖等）の追贈は晋書に確認できないため、KINSHIP_SCHEMA の追尊皇帝要件（皇帝号＋廟号）を満たさず kind は宗室（孫和 p-sun-he と同一の前例処理。詳細は flags 参照）。",
+      "source": {
+        "page": "晋書 巻九十八 桓温伝",
         "lang": "zh-classical"
       }
     }
@@ -7593,6 +7781,300 @@
       "note": "三嗣主伝の出自記事「孙皓字元宗，权孙，和子也，一名彭祖，字皓宗」。妃嫔伝（孫和何姬伝）の「（孫権が何姬を）以赐子和。生男，权喜，名之曰彭祖，即皓也」とも一致。孫晧は即位後に父を追諡した（三嗣主伝「追谥父和曰文皇帝，尊母何为太后」）。原典に孫晧の排行の数値明記（「第n子」）はないため childOrder は付さない（何姬伝「遂拊育皓，及其三弟」から長子と推測されるにとどまる）。",
       "source": {
         "page": "三国志 巻四十八 呉書三 三嗣主伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-sima-yi",
+      "to": "p-sima-shi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書 景帝紀冒頭「景皇帝讳师，字子元，宣帝长子也。」により司馬懿（宣帝）の長子と明記。「长子」は非数値表記のため childOrder は付さない。母は宣穆張皇后張春華で、后妃伝上「宣穆张皇后，讳春华，河内平皋人也。父汪，魏粟邑令。」「生景帝、文帝、平原王干、南阳公主」により裏付けられる。",
+      "source": {
+        "page": "晋書 巻二 景帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-sima-yi",
+      "to": "p-sima-zhao",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書 文帝紀冒頭「文皇帝讳昭，字子上，景帝之母弟也。」により景帝（宣帝長子）の同母弟＝宣帝司馬懿の子と明記。后妃伝上の宣穆張皇后条「生景帝、文帝、平原王干、南阳公主」により、懿の正室張春華所生であることが直接裏付けられる。「第n子」の明記はないため childOrder は付さない。",
+      "source": {
+        "page": "晋書 巻二 文帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-sima-zhao",
+      "to": "jin-wudi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書 武帝紀冒頭「武皇帝讳炎，字安世，文帝长子也。」により文帝司馬昭の長子と明記。「长子」は非数値表記のため childOrder は付さない。列伝第八の序「文帝九男，文明王皇后生武帝、齐献王攸、城阳哀王兆、辽东悼惠王定国、广汉殇王广德」でも文帝の子であることが相互裏付けされる。「咸熙二年五月，立为晋王太子。八月辛卯，文帝崩，太子嗣相国、晋王位」と晋王位を世襲したのち泰始元年（265年）十二月に魏元帝曹奐から受禅しており、フェーズ1判定（accessionRoute=禅譲・祖父懿→伯父師→父昭の権力継承）と整合する。",
+      "source": {
+        "page": "晋書 巻三 武帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "jin-wudi",
+      "to": "jin-huidi",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 2,
+      "note": "晋書巻四恵帝紀冒頭に「孝惠皇帝讳衷，字正度，武帝第二子也」とあり、実父は武帝司馬炎。「第二子」の数値明記により childOrder=2。",
+      "source": {
+        "page": "晋書 巻四 恵帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-sima-yi",
+      "to": "jin-simalun",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 9,
+      "note": "晋書 列伝第二十九 趙王倫伝の冒頭に「赵王伦，字子彝，宣帝第九子也，母曰柏夫人」とあり、司馬倫は宣帝（司馬懿）の第九子。「第九子」の明記により childOrder=9。",
+      "source": {
+        "page": "晋書 巻五十九 列伝第二十九 趙王倫伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "jin-wudi",
+      "to": "jin-huaidi",
+      "childOrder": 25,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書懐帝紀冒頭に「孝怀皇帝讳炽，字丰度，武帝第二十五子也。太熙元年，封豫章郡王。」と明記。晋書武十三王伝の序にも「王才人生孝怀帝」とあり、武帝の子であることが二重に裏付けられる。",
+      "source": {
+        "page": "晋書 巻五 孝懐帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "jin-wudi",
+      "to": "p-sima-yan-wu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "司馬晏は武帝二十六男の一人で李夫人所生（晋書武十三王伝「武帝二十六男：杨元后生毗陵悼王轨、惠帝、秦献王柬。……李夫人生淮南忠壮王允、吴孝王晏」）。孝愍帝紀の「武帝孙，吴孝王晏之子也」とも整合。",
+      "source": {
+        "page": "晋書 巻六四 武十三王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-sima-yan-wu",
+      "to": "jin-mindi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "孝愍帝紀「孝愍皇帝讳鄴，字彦旗，武帝孙，吴孝王晏之子也」。武十三王伝の司馬晏条も「余四子：祥、鄴、固、衍。……鄴即愍帝」と一致。なお愍帝は伯父の秦献王司馬柬に出継して秦王を襲封しており（帝紀「出继后伯父秦献王柬，袭封秦王」、秦献王柬伝「又以吴王晏子鄴嗣」）、養父エッジ候補だが皇位継承経路ではなく系譜接続にも寄与しないためエッジ化せず flags に記録。childOrder は「五子，长子不显名，与晏同没。余四子：祥、鄴、固、衍」と第n子の数値明記がないため入れない。",
+      "source": {
+        "page": "晋書 巻五 孝愍帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-sima-yi",
+      "to": "p-sima-zhou",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "司馬伷（琅邪武王）は宣帝司馬懿の子で母は伏夫人。「宣帝九男，穆张皇后生景帝、文帝、平原王干，伏夫人生汝南文成王亮、琅邪武王伷、清惠亭侯京、扶风武王骏」（晋書 巻三十八 宣五王伝）。魏書 巻九十六「初晋宣帝生大将军、琅邪武王伷」とも一致。p-sima-yi の persons レコードは jin-wudi（武帝）担当が正・本エッジは参照のみ。",
+      "source": {
+        "page": "晋書 巻三十八 宣五王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-sima-zhou",
+      "to": "p-sima-jin",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "司馬覲（琅邪恭王）は琅邪武王司馬伷の嗣子。伷の伝末に「太康四年薨，时年五十七。临终表求葬母太妃陵次，并乞分国封四子，帝许之。子恭王觐立。」、続けて「觐字思祖，拜冗从仆射。太熙元年薨，时年三十五。子睿立，是为元帝。」（晋書 巻三十八 宣五王伝）。魏書 巻九十六「伷生冗从仆射、琅邪恭王觐」とも一致。",
+      "source": {
+        "page": "晋書 巻三十八 宣五王伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-sima-jin",
+      "to": "dongjin-yuandi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "元帝紀冒頭「元皇帝讳睿，字景文，宣帝曾孙，琅邪恭王觐之子也。咸宁二年生于洛阳」（晋書 巻六 元帝紀）。宣五王伝「子睿立，是为元帝」とも一致。父の死後「年十五，嗣位琅邪王」。実父を牛氏とする牛継馬後の異伝（晋書 元帝紀末・魏書 巻九十六）は確度低と判断し disputed エッジ化せず flags に記録。",
+      "source": {
+        "page": "晋書 巻六 元帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "dongjin-yuandi",
+      "to": "dongjin-mingdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "晋書明帝紀冒頭に「明皇帝讳绍，字道畿，元皇帝长子也」と明記。元四王伝の「元帝六男：宫人荀氏生明帝及琅邪孝王裒」も一致。「长子」は非数値表記のため childOrder は設定しない。",
+      "source": {
+        "page": "晋書 巻六 明帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "dongjin-mingdi",
+      "to": "dongjin-chengdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書成帝紀「成皇帝讳衍，字世根，明帝长子也」。明帝の長子（「长子」は非数値表記のため childOrder は付さない）。太寧三年三月に皇太子に立てられ、明帝崩御の翌日に5歳で即位。",
+      "source": {
+        "page": "晋書 巻七 成帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "dongjin-mingdi",
+      "to": "dongjin-kangdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "晋書康帝紀に「康皇帝讳岳，字世同，成帝母弟也」とあり、成帝の同母弟。成帝紀に「成皇帝讳衍，字世根，明帝长子也」とあり、成帝は明帝の長子。母弟（同母弟）は父母を共にする弟であるため、二段の連鎖により康帝の実父は明帝と確定。康帝紀自体には父名の直接記載はなく、成帝紀との組み合わせで確認した。排行「第n子」の明記はないため childOrder は付さない。",
+      "source": {
+        "page": "晋書 巻七 康帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "dongjin-kangdi",
+      "to": "dongjin-mudi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書穆帝紀冒頭「穆皇帝讳聃，字彭子，康帝子也」。康帝紀にも「丙申，立皇子聃为皇太子。戊戌，帝崩于式乾殿」（晋書 巻七 康帝紀）とあり、康帝自身の紀で皇子聃の立太子が確認できる。排行（第n子）の明記はなし。",
+      "source": {
+        "page": "晋書 巻八 穆帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "dongjin-chengdi",
+      "to": "dongjin-aidi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書哀帝紀冒頭に「哀皇帝讳丕，字千龄，成帝长子也」とあり、成帝（司馬衍）の長子であることが本紀で直接確認できる。「长子」は非数値表記のため childOrder は設定しない。",
+      "source": {
+        "page": "晋書 巻八 哀帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "dongjin-chengdi",
+      "to": "dongjin-feidi",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "廃帝紀に「废帝讳奕，字延龄，哀帝之母弟也」とあり哀帝の同母弟。哀帝紀に「哀皇帝讳丕，字千龄，成帝长子也」、さらに后妃伝下に「章太妃周氏以选入成帝宫，有宠，生哀帝及海西公」とあり、周氏が成帝の宮で哀帝と海西公（司馬奕）を生んだことが明記される。よって実父は成帝司馬衍。「第n子」の数値明記はなし（哀帝が長子、奕はその母弟）。",
+      "source": {
+        "page": "晋書 巻八 帝紀第八 海西公紀・巻三十二 后妃伝下 章太妃周氏",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "dongjin-yuandi",
+      "to": "dongjin-jianwendi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書簡文帝紀冒頭に「简文皇帝讳昱，字道万，元帝之少子也」とあり、実父は元帝（司馬睿）。「少子」は非数値表記のため childOrder は設定しない。フェーズ1の accessionRoute.note（「元帝の末子」）とも一致。永昌元年の元帝詔「先公武王、先考恭王君临琅邪。继世相承，国嗣未立……其封昱为琅邪王」は琅邪国の封嗣（祭祀継承のための封建）であり養子縁組ではないため、養父エッジは立てない（「先考恭王」は元帝の父・琅邪恭王司馬覲＝簡文帝の祖父を指す）。",
+      "source": {
+        "page": "晋書 巻九 帝紀第九 簡文帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "dongjin-jianwendi",
+      "to": "dongjin-xiaowudi",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 3,
+      "note": "晋書帝紀に「孝武皇帝讳曜，字昌明，简文帝第三子也」と明記。列伝（簡文三子）にも「李夫人生孝武帝、会稽文孝王道子」とあり、簡文帝の実子であることは帝紀・列伝で一致。childOrder=3 は帝紀の「第三子」の明記による（列伝の七子列挙順とは食い違いあり、flags 参照）。",
+      "source": {
+        "page": "晋書 巻九 孝武帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "dongjin-xiaowudi",
+      "to": "dongjin-andi",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "晋書帝紀第十「安皇帝讳德宗，字德宗，孝武帝长子也」。「长子」は非数値表記のため childOrder は付さない。太元十二年に皇太子に立てられ、孝武帝崩御の翌日に即位（「太元十二年八月辛巳，立为皇太子。二十一年九月庚申，孝武帝崩。辛酉，太子即皇帝位」）。",
+      "source": {
+        "page": "晋書 巻十 安帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "dongjin-xiaowudi",
+      "to": "dongjin-gongdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書帝紀第十に「恭帝讳德文，字德文，安帝母弟也」とあり、同帝紀の安帝出自記事「安皇帝讳德宗，字德宗，孝武帝长子也」により兄安帝の父は孝武帝。さらに后妃伝に「安德陈太后，讳归女……入宫为淑媛，生安、恭二帝」とあり、孝武帝の淑媛陳帰女が安帝・恭帝の両帝を生んだことが明記され、実父＝孝武帝が直接裏付けられる。「第n子」の数値明記はなし（安帝母弟とのみ記載）。",
+      "source": {
+        "page": "晋書 巻十 帝紀第十 恭帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-huan-wen",
+      "to": "huan-xuan",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "晋書桓玄伝冒頭「桓玄，字敬道，一名灵宝，大司马温之孽子也」。孽子（庶子。母は馬氏）だが桓温の臨終に嗣に指名され南郡公を襲爵（「临终，命以为嗣，袭爵南郡公」）。桓温伝の子女列挙「温六子：熙、济、歆、祎、伟、玄」の末尾（6人中6番目）だが「第n子」の数値明記はないため childOrder は付さない。桓玄は簒奪後に父温を宣武皇帝と追尊（「追尊其父温宣武皇帝，庙称太庙」）。",
+      "source": {
+        "page": "晋書 巻九十九 桓玄伝",
         "lang": "zh-classical"
       }
     }
