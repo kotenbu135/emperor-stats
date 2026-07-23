@@ -19,6 +19,10 @@
           "status": "completed",
           "label": "実父・実母・養父とブリッジ人物（追尊皇帝含む）"
         },
+        "maternalLineage": {
+          "status": "in-progress",
+          "label": "生母（実母）の全域収録＋母ノード・皇后の婚姻エッジ"
+        },
         "interdynastic": {
           "status": "completed",
           "label": "王朝間縁戚クラスタ（婚姻エッジ・系譜主張）"
@@ -674,7 +678,8 @@
         "id": "xi-zhangxianzhong",
         "reason": "明史巻309流賊伝（列传第一百九十七）張献忠伝の出自記事は「张献忠者，延安卫柳树涧人也，与李自成同岁生」と籍貫のみで父名・母名の記載がない。同じ流賊伝で李自成には「父守忠」と父名が明記されており、張献忠の父名欠落はコーパスの脱落ではなく原典自体の無記載と判断（_corpus_cache と daizhigev20 明史.txt の両方で突合済み・2026-07-23 フェーズ2ブロック22調査）。"
       }
-    ]
+    ],
+    "confirmedMotherUnknown": []
   },
   "persons": [
     {

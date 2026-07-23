@@ -33,6 +33,8 @@
   - parentage 完了後: 実父/養父エッジを持たず meta.confirmedFatherUnknown にも未登録の
     皇帝をエラーで列挙（confirmedFatherUnknown の構造検証は常時。「調査済みだが不明」の確定は
     ブロック調査ノート側で担保するため、機械判定はエラーにしない）
+  - maternalLineage 完了後: 実母/養母エッジを持たず meta.confirmedMotherUnknown にも未登録の
+    皇帝をエラーで列挙（confirmedMotherUnknown の構造検証は常時・confirmedFatherUnknown と同型）
 
 警告（CI は通す・出力で可視化）:
   - marriage エッジの from/to が辞書順でない（無向の正規化推奨）
@@ -157,6 +159,7 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id,
     primary_lineage_by_child = Counter()
     parent_edges: list[tuple[str, str]] = []  # (親, 子)
     father_covered: set[str] = set()  # 実父/養父エッジを持つ子（parentage 網羅性チェック用）
+    mother_covered: set[str] = set()  # 実母/養母エッジを持つ子（maternalLineage 網羅性チェック用）
     referenced: set[str] = set()
 
     for i, e in enumerate(edges):
@@ -249,6 +252,8 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id,
                 parent_edges.append((f, t))
                 if rel in MALE_RELATIONS:
                     father_covered.add(t)
+                if rel in FEMALE_RELATIONS:
+                    mother_covered.add(t)
                 if rel == "実父" and e.get("veracity") == "verified":
                     verified_father_by_child[t] += 1
                 dedup[("kinship", rel, f, t)] += 1
@@ -308,7 +313,8 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id,
                 warn(f"[edges] 兄弟姉妹エッジ {e.get('from')}<->{e.get('to')} は共通親 "
                      f"{sorted(common)} から導出可能（明示エッジ不要の疑い）")
 
-    return referenced, primary_by_emperor, succession_covered, parents_of, father_covered
+    return (referenced, primary_by_emperor, succession_covered, parents_of,
+            father_covered, mother_covered)
 
 
 def check_claims(claims, emperor_ids):
@@ -321,7 +327,8 @@ def check_claims(claims, emperor_ids):
         check_source(label, c.get("source"))
 
 
-def check_coverage(meta, emperors, emperor_ids, succession_covered, parents_of, father_covered):
+def check_coverage(meta, emperors, emperor_ids, succession_covered, parents_of, father_covered,
+                   mother_covered):
     phases = meta.get("status", {}).get("phases", {})
     # confirmedRootless（原典確認済みの並立根・傀儡根）の構造検証は常時行う
     confirmed: set[str] = set()
@@ -372,6 +379,28 @@ def check_coverage(meta, emperors, emperor_ids, succession_covered, parents_of, 
             if e["id"] not in father_covered and e["id"] not in father_unknown:
                 err(f"[coverage] parentage 完了済みだが実父/養父エッジがなく "
                     f"confirmedFatherUnknown にも未登録: {e['id']}")
+    # confirmedMotherUnknown（原典調査済みだが実母・養母を特定できない皇帝の明示リスト。
+    # 2026-07-24 ユーザー承認・生母全域収録フェーズ maternalLineage 用。confirmedFatherUnknown と同型）
+    mother_unknown: set[str] = set()
+    for i, c in enumerate(meta.get("confirmedMotherUnknown", [])):
+        cid = c.get("id")
+        label = f"confirmedMotherUnknown[{i}]({cid})"
+        if cid not in emperor_ids:
+            err(f"[coverage] {label}: id が emperors.json に存在しない")
+            continue
+        if not c.get("reason"):
+            err(f"[coverage] {label}: reason が空")
+        if cid in mother_unknown:
+            err(f"[coverage] {label}: id 重複")
+        if cid in mother_covered:
+            err(f"[coverage] {label}: 実母/養母エッジを持つ皇帝が登録されている"
+                "（陳腐化・エントリを削除すること）")
+        mother_unknown.add(cid)
+    if phases.get("maternalLineage", {}).get("status") == "completed":
+        for e in emperors:
+            if e["id"] not in mother_covered and e["id"] not in mother_unknown:
+                err(f"[coverage] maternalLineage 完了済みだが実母/養母エッジがなく "
+                    f"confirmedMotherUnknown にも未登録: {e['id']}")
 
 
 def main() -> int:
@@ -385,7 +414,7 @@ def main() -> int:
         if key not in kin:
             err(f"[structure] トップレベルに {key} がない")
     phases = kin.get("meta", {}).get("status", {}).get("phases", {})
-    for ph in ("succession", "parentage", "interdynastic", "crosscheck"):
+    for ph in ("succession", "parentage", "maternalLineage", "interdynastic", "crosscheck"):
         if ph not in phases:
             err(f"[structure] meta.status.phases に {ph} がない")
 
@@ -393,7 +422,8 @@ def main() -> int:
     gender_by_person = check_persons(kin.get("persons", []), emperor_ids, sections)
     restoration_reigns_by_id = {
         e["id"]: sum(1 for r in e["reigns"] if r.get("isRestoration")) for e in emperors}
-    referenced, primary_by_emperor, succession_covered, parents_of, father_covered = check_edges(
+    (referenced, primary_by_emperor, succession_covered, parents_of, father_covered,
+     mother_covered) = check_edges(
         kin.get("edges", []), emperor_ids, gender_by_person, accession_by_id,
         restoration_reigns_by_id)
     orphan = set(gender_by_person) - referenced
@@ -401,7 +431,7 @@ def main() -> int:
         err(f"[persons] 孤立ブリッジ（どのエッジからも参照されない）: {sorted(orphan)}")
     check_claims(kin.get("genealogicalClaims", []), emperor_ids)
     check_coverage(kin.get("meta", {}), emperors, emperor_ids, succession_covered, parents_of,
-                   father_covered)
+                   father_covered, mother_covered)
 
     for w in warnings:
         print(f"WARN  {w}")
