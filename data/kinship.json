@@ -16,7 +16,7 @@
           "label": "継承エッジ（先代の特定＋category＋relationToPredecessor）"
         },
         "parentage": {
-          "status": "in-progress",
+          "status": "completed",
           "label": "実父・実母・養父とブリッジ人物（追尊皇帝含む）"
         },
         "interdynastic": {
@@ -351,6 +351,13 @@
         "emperors": 9,
         "edges": 20,
         "persons": 15
+      },
+      {
+        "phase": "parentage",
+        "block": "block23",
+        "emperors": 11,
+        "edges": 13,
+        "persons": 2
       }
     ],
     "confirmedRootless": [
@@ -5342,6 +5349,48 @@
       "source": {
         "page": "正史範囲外。CBDB person 85868・BYU World War I Document Archive（袁世凱伝記記事）・Wikidata Q45693180・中文圏人物資料（周口日報・項城市清代人物専題等）",
         "lang": "ja/zh"
+      }
+    },
+    {
+      "id": "p-yixuan",
+      "name": "醇賢親王奕譞",
+      "kana": "じゅんけんしんのうえきせん",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "清",
+      "birthYear": 1840,
+      "deathYear": 1891,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "宣宗（道光帝）第七子・徳宗（光緒帝）本生父・醇親王初代。清史稿 諸王七「醇贤亲王奕枻，宣宗第七子。文宗即位，封为醇郡王。」、同治11年進封醇親王（「十一年，进封醇亲王」）。光緒10年以降は軍機と重要事件商辦・海軍衙門総理（「十一年九月，设海军衙门，命王总理，节制沿海水师」）。光緒16年11月丁亥薨「十一月，王疾作，上亲诣视疾。丁亥，王薨，年五十一。」——丁亥＝西暦1891-01-01（干支検算一致）、数え51歳から生年は道光20年（1840年）。称号は「定称号曰皇帝本生考」・「谥曰贤，配享太庙」、宣統帝即位後は「定称号曰皇帝本生祖考」で、皇帝号・廟号の追尊はないため宗室。第五子載灃は監国摂政王・宣統帝の実父（「载沣，袭醇亲王，宣统皇帝即位，命为监国摄政王」）で、本ノードは宣統帝側の系譜（qing-xuanzong→奕譞→載灃→溥儀）と共有。名の表記: daizhigev20 コーパスでは全箇所「奕枻」と破損しており、正字 奕譞 は維基文庫 清史稿/卷23 で確認。",
+      "wikidata": "Q2982450",
+      "source": {
+        "page": "清史稿 巻二百二十一 諸王七",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zaifeng",
+      "name": "載灃",
+      "kana": "さいほう",
+      "kind": "宗室",
+      "gender": "male",
+      "section": "清",
+      "birthYear": 1883,
+      "deathYear": 1951,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上",
+        "一親等"
+      ],
+      "note": "第2代醇親王・監国摂政王。醇賢親王奕譞の子（清史稿 列伝八「子七：德宗，其第二子也；载洸，初封不入八分辅国公，进镇国公；载沣，袭醇亲王，宣统皇帝即位，命为监国摄政王」）で、光緒16年の奕譞薨去に際し「命王子镇国公载沣即日袭王爵」（徳宗本紀一）と醇親王を襲爵。宣統帝溥儀の実父。光緒34年10月壬申「懿旨，醇亲王载沣之子溥仪在宫中教养，复命载沣监国为摄政王」（徳宗本紀二）により監国摂政王となり宣統朝の政務を統べ、宣統3年10月「监国摄政王载沣奏皇太后，缴监国摄政王章，退归籓邸」（宣統皇帝本紀）で退任。生没年1883-1951は清史稿の記載範囲外のため近現代の学術的通説（WebSearch で確認、英語版 Wikipedia 等: 1883-02-12生・1951-02-03没）による。",
+      "wikidata": "Q144348",
+      "source": {
+        "page": "清史稿 本紀二十五 宣統皇帝本紀",
+        "lang": "zh-classical"
       }
     }
   ],
@@ -16391,6 +16440,190 @@
       "source": {
         "page": "正史範囲外。BYU World War I Document Archive（袁世凱伝記記事）・CBDB person 85868・中文圏人物資料（周口日報・項城市清代人物専題等）",
         "lang": "ja/zh"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-nurhachi",
+      "to": "qing-taizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "childOrder": 8,
+      "note": "清史稿 太宗本紀一 冒頭（daizhigev20 行103）に「太宗应天兴国弘德彰武宽温仁圣睿孝敬敏昭定隆道显功文皇帝，讳皇太极，太祖第八子，母孝慈高皇后。」とあり、太祖ヌルハチの第八子と明記。后妃伝（行13905）「岁壬辰冬十月，太宗生。」、皇子表（行14098）「太祖十六子：孝慈高皇后生太宗」でも一致して裏付けられる。ヌルハチの父・顕祖タクシ等の追尊父祖は収録ノードに到達しないため遡及せずヌルハチでとめる。",
+      "source": {
+        "page": "清史稿 本紀二 太宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qing-taizong",
+      "to": "qing-shizu",
+      "childOrder": 9,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿 巻四 世祖本紀一冒頭「世祖体天隆运定统建极英睿钦文显武大德弘功至仁纯孝章皇帝，讳福临，太宗第九子」により実父は太宗ホンタイジ（qing-taizong）、第九子と明記（childOrder: 9）。daizhigev20/史藏/正史/清史稿.txt 行318で確認（簡体字コーパスのため引用は簡体のまま）。",
+      "source": {
+        "page": "清史稿 巻四 世祖本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qing-shizu",
+      "to": "qing-shengzu",
+      "childOrder": 3,
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "清史稿 聖祖本紀冒頭「圣祖……讳玄烨，世祖第三子也」により世祖（順治帝）の第三子と明記。養子縁組の記述はなく実子。「第三子」の明記により childOrder=3。",
+      "source": {
+        "page": "清史稿 本紀六 聖祖本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qing-shengzu",
+      "to": "qing-shizong",
+      "childOrder": 4,
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "清史稿 世宗本紀冒頭に「世宗敬天昌运建中表正文武英明宽仁信毅睿圣大孝至诚宪皇帝讳胤禛，圣祖第四子也」と明記。実父は聖祖康熙帝（qing-shengzu）、「第四子」の明記により childOrder=4。フェーズ1の即位経路判定（康熙61年11月「宣诏嗣位」による世襲継承）とも整合する。",
+      "source": {
+        "page": "清史稿 本紀九 世宗本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qing-shizong",
+      "to": "qing-gaozong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 4,
+      "primaryLineage": true,
+      "note": "清史稿高宗本紀冒頭に「高宗法天隆运至诚先觉体元立极敷文奋武钦明孝慈神圣纯皇帝，讳弘历，世宗第四子，母孝圣宪皇后，康熙五十年八月十三日生于雍亲王府邸」とあり、実父は世宗（雍正帝）、第四子と明記される。フェーズ1の secret建儲による世襲継承の判定とも整合。",
+      "source": {
+        "page": "清史稿 本紀十 高宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qing-gaozong",
+      "to": "qing-renzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 15,
+      "primaryLineage": true,
+      "note": "清史稿 仁宗本紀冒頭に「讳颙琰，高宗第十五子也。母魏佳氏，追尊孝仪皇后。乾隆二十五年十月初六日生」と明記。高宗（乾隆帝）の第十五子。乾隆60年9月に皇太子に策立され、嘉慶元年正月に高宗在世中の内禅で即位（「六十年九月，策立为皇太子，高宗将传位焉，以明年为嘉庆元年」）。フェーズ1 succession 判定（内禅・先代=高宗）と整合。",
+      "source": {
+        "page": "清史稿 本紀十六 仁宗本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qing-renzong",
+      "to": "qing-xuanzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿 本紀十七 宣宗本紀一の冒頭に「宣宗效天符运立中体正至文圣武智勇仁慈俭勤孝敏宽定成皇帝，讳旻宁，仁宗次子。母孝淑睿皇后，乾隆四十七年八月初十日，生上于撷芳殿。」とあり、実父は仁宗（嘉慶帝）。列传八 诸王七「仁宗五子：孝淑睿皇后生宣宗，孝和睿皇后生惇恪亲王绵恺、瑞怀亲王绵忻，恭顺皇贵妃钮祜禄氏生惠端亲王绵愉，和裕皇贵妃刘氏生穆郡王。」、后妃伝「子一，宣宗。」でも裏付けられる。排行の原文表記は「次子」であり「第n子」形式の明記ではないため childOrder は付さない（諸王伝の「穆郡王，未命名，仁宗第一子。」「惇恪亲王绵恺，仁宗第三子。」から第二子であることは間接的に裏付けられる）。",
+      "source": {
+        "page": "清史稿 本紀十七 宣宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qing-xuanzong",
+      "to": "qing-wenzong",
+      "childOrder": 4,
+      "veracity": "verified",
+      "confidence": "high",
+      "primaryLineage": true,
+      "note": "清史稿文宗本紀冒頭「文宗协天翊运执中垂谟懋德振武圣孝渊恭端仁宽敏显皇帝，讳奕蟭，宣宗第四子也，母孝全成皇后钮祜禄氏，道光十一年六月初九日生」。宣宗（道光帝）の第四子（childOrder=4）。即位記事「三十年正月丁未，宣宗不豫，宣召大臣示硃笔，立为皇太子。宣宗崩，己未，上即位」とも整合し、フェーズ1の世襲（父子継承）判定と一致。",
+      "source": {
+        "page": "清史稿 本紀二十 文宗本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qing-wenzong",
+      "to": "qing-muzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿 穆宗本紀一冒頭に「穆宗继天开运受中居正保大定功圣智诚孝信敏恭宽毅皇帝，讳载淳，文宗长子，母孝钦显皇后那拉氏，咸丰六年三月二十三日，生于储秀宫」とあり、文宗（咸豊帝）の長子と明記。「长子」は非数値表記のため childOrder は付与しない。",
+      "source": {
+        "page": "清史稿 本紀二十一 穆宗本紀一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "qing-xuanzong",
+      "to": "p-yixuan",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 7,
+      "note": "清史稿 諸王七の奕譞伝冒頭「醇贤亲王奕枻，宣宗第七子。文宗即位，封为醇郡王。」により奕譞は宣宗（道光帝）の第七子と明記（childOrder=7）。徳宗本紀一冒頭「本生父醇贤亲王奕枻，宣宗第七子。」でも一致。生母は庄順皇貴妃烏雅氏（「庄顺皇贵妃生醇贤亲王奕枻、锺端郡王奕硉、孚敬郡王奕譓」）。※「奕枻」は daizhigev20 清史稿の系統的破損字形で、正字は奕譞（維基文庫 清史稿/卷23「本生父醇賢親王奕譞，宣宗第七子」と突合済・flags 参照）。",
+      "source": {
+        "page": "清史稿 巻二百二十一 諸王七",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yixuan",
+      "to": "qing-dezong",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 2,
+      "note": "清史稿 徳宗本紀一冒頭「德宗同天崇运大中至正经文纬武仁孝睿智端俭宽勤景皇帝，讳载湉，文宗嗣子，穆宗从弟也。本生父醇贤亲王奕枻，宣宗第七子。」により実父（本生父）は醇賢親王奕譞。諸王七 奕譞伝「子七：德宗，其第二子也」により奕譞の第二子（childOrder=2）。なお「文宗嗣子」は穆宗崩御後の懿旨による為後（「传懿旨，以上继文宗为子，入承大统，为嗣皇帝。俟嗣皇帝有子，即承继大行皇帝。」）で、文宗（1861崩御）の生前の養子縁組ではないため確立済み境界ルールどおり養父エッジは立てない。※「奕枻」は daizhigev20 の破損字形（正字: 奕譞、維基文庫突合済）。",
+      "source": {
+        "page": "清史稿 本紀二十三 徳宗本紀一／巻二百二十一 諸王七",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-yixuan",
+      "to": "p-zaifeng",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿 列伝八 諸王七の醇賢親王奕譞（コーパス表記「奕枻」・維基文庫突合で正字「奕譞」を確認）伝末尾に「子七：德宗，其第二子也；载洸，初封不入八分辅国公，进镇国公；载沣，袭醇亲王，宣统皇帝即位，命为监国摄政王」と七子の一人として載灃を挙げる。徳宗本紀一の光緒16年11月条「醇亲王薨……命王子镇国公载沣即日袭王爵」も王子としての襲爵を記す。宣統皇帝本紀冒頭「醇贤亲王奕枻之孙，监国摄政王载沣之子也」とも整合。通説では奕譞の第五子だが清史稿に「第五子」の明記はなく（「子七」の列挙のみ）childOrder は付さない。",
+      "source": {
+        "page": "清史稿 列伝八 諸王七 醇賢親王奕譞",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zaifeng",
+      "to": "qing-xuantong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "清史稿 宣統皇帝本紀冒頭「宣统皇帝名溥仪，宣宗之曾孙，醇贤亲王奕枻之孙，监国摄政王载沣之子也，于德宗为本生弟子。母摄政王嫡福晋苏完瓜尔佳氏」。徳宗本紀二の光緒34年10月条にも「懿旨，醇亲王载沣之子溥仪在宫中教养」「遗诏摄政王载沣子溥仪入承大统，为嗣皇帝」と一致。排行の明記なし（通説では載灃の長子）のため childOrder は付さない。",
+      "source": {
+        "page": "清史稿 本紀二十五 宣統皇帝本紀",
+        "lang": "zh-classical"
       }
     }
   ],
