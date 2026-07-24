@@ -39,7 +39,7 @@ export default function KinshipPage() {
           key={c.id}
           id={c.id}
           title={`第${i + 1}章 ${c.title}（${c.period}）`}
-          description="ノードにマウスを載せると詳細、クリックで家族（親子・夫婦）と関係エッジを強調表示します（もう一度クリックか背景クリックで解除）。名前はドラッグで選択してコピーできます。"
+          description="皇帝にマウスを載せると概要、クリックで全項目（在位・死因・順位などの詳細ダイアログ。他の統計ページと共通）を表示します。名前はドラッグで選択してコピーできます。"
         >
           <KinshipChart layout={c} />
           <p className="mt-3 max-w-3xl text-xs leading-relaxed text-muted-foreground">

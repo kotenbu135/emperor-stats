@@ -236,17 +236,29 @@ export function packBand(g: BandGraph): PackedBand {
    * (layoutSubtree)の前後でitems/junctionsのindexを控え、シフトを伝播する。
    * 戻り値は各ルートの確定x。
    */
+  interface PlacedRoot {
+    id: string;
+    x: number;
+    /** このルートのサブツリーが占めるitems/junctions/ties/baseRectsの開始index
+     *  (後からグループ単位でxシフトするための範囲記録)。 */
+    itemFrom: number;
+    juncFrom: number;
+    tieFrom: number;
+    rectFrom: number;
+  }
+
   const packSequence = (
     rootIds: string[],
     baseRects: Rect[],
     corridor?: (id: string, rootX: number) => Rect | null,
-  ): { id: string; x: number }[] => {
-    const rootXs: { id: string; x: number }[] = [];
+  ): PlacedRoot[] => {
+    const rootXs: PlacedRoot[] = [];
     let prevRootX = Number.NEGATIVE_INFINITY;
     for (const rootId of rootIds) {
       const itemFrom = items.length;
       const juncFrom = junctions.length;
       const tieFrom = ties.length;
+      const rectFrom = baseRects.length;
       const sub = layoutSubtree(rootId);
       // 左端0起点に寄せてから、衝突がなくなる最小シフトを探す
       // (押す量は単調に増えるだけなので反復は収束する)。
@@ -278,7 +290,7 @@ export function packBand(g: BandGraph): PackedBand {
       // 線の経路に割り込まないようにする(兄弟バー・長い降下線がノードを横切る事故の防止)。
       const cor = corridor?.(rootId, rootX);
       if (cor) baseRects.push(cor);
-      rootXs.push({ id: rootId, x: rootX });
+      rootXs.push({ id: rootId, x: rootX, itemFrom, juncFrom, tieFrom, rectFrom });
       prevRootX = rootX;
     }
     return rootXs;
@@ -298,6 +310,14 @@ export function packBand(g: BandGraph): PackedBand {
       if (childTop <= span.end + PAD_Y) return null;
       return { x0: childRootX - 2, x1: childRootX + 2, y0: span.end, y1: childTop };
     });
+    // 子サブツリー群の占有範囲の終端(このあと押すのは自ノード・配偶者なので、
+    // グループ単位シフトの対象をここまでに限定する)。
+    const childEnd = {
+      item: items.length,
+      junc: junctions.length,
+      tie: ties.length,
+      rect: rects.length,
+    };
     for (const { parent, child } of childRoots.map((c) => ({ parent: id, child: c.id })))
       treeEdges.push({ parent, child });
 
@@ -351,6 +371,43 @@ export function packBand(g: BandGraph): PackedBand {
     items.push(item);
     itemById.set(id, item);
 
+    // 垂下点のクランプ(下記)で子グループの真上から外れる場合に、子サブツリー側を
+    // 外向きに一括シフトして揃える(バーの水平ジョグ=線の曲がりを作らない)。
+    // R側は「そのグループとそれより右」を右へ、L側は「そのグループとそれより左」を
+    // 左へ動かす。外向きの一括移動なので兄弟間の衝突は生まれず、サブツリー全体の
+    // 衝突は親側のpackSequenceが解決する。父の真下グループ(母不明)が範囲に
+    // 含まれる場合だけは動かせない(父との整列が壊れる)ので何もしない
+    // (残るジョグはlayout.tsの品質ゲートが検出してビルドを落とす)。
+    const shiftKidsToJunction = (kids: string[], dx: number, side: "L" | "R"): void => {
+      const kidSet = new Set(kids);
+      const idxs = childRoots.flatMap((r, i) => (kidSet.has(r.id) ? [i] : []));
+      const lo = Math.min(...idxs);
+      const hi = Math.max(...idxs);
+      const from = side === "R" ? lo : 0;
+      const to = side === "R" ? childRoots.length : hi + 1;
+      for (let i = from; i < to; i++)
+        if (nullKids !== undefined && nullKids.includes(childRoots[i].id)) return;
+      const first = childRoots[from];
+      const itemTo = to < childRoots.length ? childRoots[to].itemFrom : childEnd.item;
+      const juncTo = to < childRoots.length ? childRoots[to].juncFrom : childEnd.junc;
+      const tieTo = to < childRoots.length ? childRoots[to].tieFrom : childEnd.tie;
+      const rectTo = to < childRoots.length ? childRoots[to].rectFrom : childEnd.rect;
+      for (let i = first.itemFrom; i < itemTo; i++) items[i].cx += dx;
+      for (let i = first.juncFrom; i < juncTo; i++) junctions[i].x += dx;
+      for (let i = first.tieFrom; i < tieTo; i++) {
+        ties[i].x1 += dx;
+        ties[i].x2 += dx;
+      }
+      for (let i = first.rectFrom; i < rectTo; i++) {
+        rects[i].x0 += dx;
+        rects[i].x1 += dx;
+      }
+      for (let i = from; i < to; i++) {
+        childRoots[i].x += dx;
+        childXById.set(childRoots[i].id, childRoots[i].x);
+      }
+    };
+
     // 配偶者: 産んだ子のいる側(いなければ右)。同じ側では子持ちを内側に置く
     // (連結線が他の妃をまたがない)。
     interface SpousePlan {
@@ -383,11 +440,14 @@ export function packBand(g: BandGraph): PackedBand {
         if (pl.hasKids) {
           // 垂下点 = 自分の子グループの平均x(連結線上にクランプ)。妃はその
           // すぐ外側(+12px)に置く。連結線を対称に伸ばす必要はない。
-          const target = meanXOf(groupsHere.get(pl.sp.id)!);
+          const kids = groupsHere.get(pl.sp.id)!;
+          const target = meanXOf(kids);
           const jx =
             side === "L"
               ? Math.min(target, edge - TIE_LEN / 2)
               : Math.max(target, edge + TIE_LEN / 2);
+          // クランプが効いた(=垂下点が子の真上に届かない)場合は子側を動かして揃える。
+          if (Math.abs(jx - target) > 0.01) shiftKidsToJunction(kids, jx - target, side);
           junctionOf.set(pl.sp.id, jx);
           innerX =
             side === "L"

@@ -2,28 +2,33 @@
 
 // 系譜・即位経路グラフ(/kinship)のSVG描画(1章=1SVG)。レイアウトはビルド時計算済みの
 // KinshipChapterLayoutをそのまま描くだけで、このコンポーネントでは座標計算をしない。
-// - ホバーツールチップの状態はuseTipOutletでチャート外に分離する(サイト共通原則)。
-// - クリックは近傍強調(選択人物と、その家族(垂下線・夫婦線)・補助エッジ・矢印の
-//   相手以外をopacity 0.16)。名前はドラッグ選択でコピーできる。
+// - ホバー・詳細ダイアログの状態はチャートに持たない(useTipOutlet/useDetailOutlet。
+//   サイト共通原則)。
+// - 皇帝カプセルは統計ページ共通のEmperorTooltip、クリックで全項目ダイアログ
+//   (EmperorDetailDialog)。フルレコードは/emperor-records/{id}をlazy fetchする
+//   (/emperors一覧グリッドと同じ方式)。名前はドラッグ選択でコピーできる。
 // - 親子は垂下線(junction)の構造で示し、線に続柄ラベルは付けない。
 //   矢印は王朝間の交代のみ。
 
-import { useMemo, useState } from "react";
+import { useCallback, useRef } from "react";
 import {
   FixedTooltip,
   useTipOutlet,
 } from "@/components/charts/scroll-bar-chart";
+import { EmperorTooltip } from "@/components/charts/emperor-tooltip";
+import { useDetailOutlet } from "@/components/emperors/emperor-detail-dialog";
+import { BASE_PATH } from "@/lib/base-path";
+import type { EmperorRecord } from "@/lib/emperor-types";
 import type {
   KinshipChapterLayout,
+  KinshipEmperorTip,
   KinshipNodeOut,
   TipLine,
 } from "@/lib/kinship/layout";
 
-interface KinshipTip {
-  x: number;
-  y: number;
-  lines: TipLine[];
-}
+type KinshipTip =
+  | { x: number; y: number; kind: "lines"; lines: TipLine[] }
+  | { x: number; y: number; kind: "emperor"; emp: KinshipEmperorTip };
 
 const KIN_STROKE = "color-mix(in srgb, var(--foreground) 42%, var(--background))";
 const STRUCT_STROKE = "color-mix(in srgb, var(--foreground) 52%, var(--background))";
@@ -45,32 +50,43 @@ function nodeEdge(n: KinshipNodeOut): string {
 
 export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
   const { setTip, TipOutlet } = useTipOutlet<KinshipTip>();
-  const [focusId, setFocusId] = useState<string | null>(null);
+  const { openDetail, DetailOutlet } = useDetailOutlet();
 
-  // 近傍集合(選択人物+家族線・補助エッジ・矢印で繋がる相手)。
-  const neighbor = useMemo(() => {
-    if (!focusId) return null;
-    const keep = new Set([focusId]);
-    for (const d of layout.drops) {
-      if (d.ids.includes(focusId)) for (const id of d.ids) keep.add(id);
-    }
-    for (const t of layout.ties) {
-      if (t.husbandId === focusId) keep.add(t.spouseId);
-      if (t.spouseId === focusId) keep.add(t.husbandId);
-    }
-    for (const e of [...layout.auxEdges, ...layout.arrows]) {
-      if (e.fromId === focusId) keep.add(e.toId);
-      if (e.toId === focusId) keep.add(e.fromId);
-    }
-    return keep;
-  }, [focusId, layout]);
+  // ダイアログに出すフルEmperorRecordは開く時に/emperor-records/{id}(静的書き出し)を
+  // fetchして取得する(emperor-grid.tsxと同じ方式・Mapキャッシュ+最新要求id確認つき)。
+  const fullRecordsRef = useRef(new Map<string, EmperorRecord>());
+  const wantedIdRef = useRef<string | null>(null);
+  const openEmperor = useCallback(
+    (id: string) => {
+      wantedIdRef.current = id;
+      const cached = fullRecordsRef.current.get(id);
+      if (cached) {
+        openDetail(cached);
+        return;
+      }
+      fetch(`${BASE_PATH}/emperor-records/${id}`)
+        .then((res) =>
+          res.ok ? res.json() : Promise.reject(new Error(`${res.status}`)),
+        )
+        .then((record: EmperorRecord) => {
+          fullRecordsRef.current.set(id, record);
+          if (wantedIdRef.current === id) openDetail(record);
+        })
+        .catch(() => {
+          // 取得できない環境ではダイアログを諦めて個別ページ本体へ遷移する。
+          if (wantedIdRef.current === id) {
+            window.location.assign(`${BASE_PATH}/emperors/${id}`);
+          }
+        });
+    },
+    [openDetail],
+  );
 
-  const dim = (related: boolean) => (neighbor && !related ? 0.16 : 1);
   const emperorCount = layout.nodes.filter((n) => n.kind === "emperor").length;
   const markerId = `kinship-arrow-${layout.id}`;
 
   const showTip = (lines: TipLine[]) => (ev: React.MouseEvent) =>
-    setTip({ x: ev.clientX, y: ev.clientY, lines });
+    setTip({ x: ev.clientX, y: ev.clientY, kind: "lines", lines });
   const hideTip = () => setTip(null);
 
   return (
@@ -110,7 +126,6 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
         height={layout.height}
         viewBox={`0 0 ${layout.width} ${layout.height}`}
         className="block"
-        onClick={() => setFocusId(null)}
       >
         <defs>
           <marker
@@ -150,12 +165,12 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
           ))}
         </g>
 
-        {/* バンド見出し */}
+        {/* バンド見出し(最上部ノード群の中央) */}
         <g aria-hidden>
           {layout.bands.map((b) => (
             <text
               key={b.label}
-              x={b.x + b.width / 2}
+              x={b.labelX}
               y={b.labelY}
               textAnchor="middle"
               className="fill-foreground text-[13px] font-semibold"
@@ -175,8 +190,6 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
               stroke={STRUCT_STROKE}
               strokeWidth={1.6}
               strokeDasharray={d.dashed ? "2 4" : undefined}
-              opacity={dim(d.ids.some((id) => neighbor?.has(id) ?? false))}
-              className="transition-opacity"
             />
           ))}
         </g>
@@ -184,14 +197,7 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
         {/* 夫婦の連結線(皇后=二重線・妃嬪等=細単線) */}
         <g>
           {layout.ties.map((t, i) => (
-            <g
-              key={`tie:${i}`}
-              opacity={dim(
-                (neighbor?.has(t.husbandId) ?? false) ||
-                  (neighbor?.has(t.spouseId) ?? false),
-              )}
-              className="transition-opacity"
-            >
+            <g key={`tie:${i}`}>
               {t.double ? (
                 <>
                   <line x1={t.x1} y1={t.y - 1.7} x2={t.x2} y2={t.y - 1.7} stroke={STRUCT_STROKE} strokeWidth={1.4} />
@@ -207,11 +213,7 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
         {/* 補助エッジ(バンドをまたぐ血縁・養母・異説の親など) */}
         <g>
           {layout.auxEdges.map((e) => (
-            <g
-              key={e.key}
-              opacity={dim(e.fromId === focusId || e.toId === focusId)}
-              className="transition-opacity"
-            >
+            <g key={e.key}>
               {e.marriage ? (
                 <>
                   <path d={e.path} fill="none" stroke={KIN_STROKE} strokeWidth={3.4} strokeLinecap="round" />
@@ -242,11 +244,7 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
         {/* 王朝間の交代(禅譲・簒奪など)の矢印 */}
         <g>
           {layout.arrows.map((a) => (
-            <g
-              key={a.key}
-              opacity={dim(a.fromId === focusId || a.toId === focusId)}
-              className="transition-opacity"
-            >
+            <g key={a.key}>
               <path
                 d={a.path}
                 fill="none"
@@ -306,16 +304,24 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
           {layout.nodes.map((n) => (
             <g
               key={n.key}
-              opacity={dim(neighbor?.has(n.id) ?? false)}
-              className="cursor-pointer transition-opacity"
-              onMouseMove={showTip(n.tipLines)}
+              className={n.kind === "emperor" ? "cursor-pointer" : undefined}
+              onMouseMove={(ev) =>
+                setTip(
+                  n.empTip !== null
+                    ? { x: ev.clientX, y: ev.clientY, kind: "emperor", emp: n.empTip }
+                    : { x: ev.clientX, y: ev.clientY, kind: "lines", lines: n.tipLines },
+                )
+              }
               onMouseLeave={hideTip}
-              onClick={(ev) => {
-                ev.stopPropagation();
-                // ドラッグで名前を選択(コピー)した直後のclickでは強調を切り替えない。
-                if (window.getSelection()?.toString()) return;
-                setFocusId((cur) => (cur === n.id ? null : n.id));
-              }}
+              onClick={
+                n.kind === "emperor"
+                  ? () => {
+                      // ドラッグで名前を選択(コピー)した直後のclickでは開かない。
+                      if (window.getSelection()?.toString()) return;
+                      openEmperor(n.id);
+                    }
+                  : undefined
+              }
             >
               <rect
                 x={n.x}
@@ -363,21 +369,36 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
       <TipOutlet
         render={(tip) => (
           <FixedTooltip x={tip.x} y={tip.y}>
-            <div className="max-w-[320px] rounded-md border border-border bg-background px-2.5 py-2 text-xs leading-relaxed shadow-md">
-              {tip.lines.map((line, i) => (
-                <div
-                  key={i}
-                  className={
-                    line.muted ? "text-muted-foreground" : "font-semibold text-foreground"
-                  }
-                >
-                  {line.text}
-                </div>
-              ))}
-            </div>
+            {tip.kind === "emperor" ? (
+              <EmperorTooltip
+                record={{
+                  name: tip.emp.name,
+                  dynastyLabel: tip.emp.dynastyLabel,
+                  portraitUrl: tip.emp.portraitUrl,
+                }}
+                valueLabel="在位"
+                formattedValue={tip.emp.reignLabel}
+                details={tip.emp.details}
+                hint="クリックで全項目を表示"
+              />
+            ) : (
+              <div className="max-w-[320px] rounded-md border border-border bg-background px-2.5 py-2 text-xs leading-relaxed shadow-md">
+                {tip.lines.map((line, i) => (
+                  <div
+                    key={i}
+                    className={
+                      line.muted ? "text-muted-foreground" : "font-semibold text-foreground"
+                    }
+                  >
+                    {line.text}
+                  </div>
+                ))}
+              </div>
+            )}
           </FixedTooltip>
         )}
       />
+      <DetailOutlet />
     </div>
   );
 }

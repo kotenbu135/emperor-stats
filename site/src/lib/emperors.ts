@@ -1474,6 +1474,7 @@ export function getKinshipGraphData(): KinshipChapterLayout[] {
       id: e.id,
       name: displayName(e.name),
       dynastyLabel: dynastyLabel(e.dynasty),
+      portraitUrl: portraitIds.has(e.id) ? `${BASE_PATH}/portraits/${e.id}.webp` : null,
       dynastyKey: dynastyKey(e.dynasty),
       female: FEMALE_EMPEROR_IDS.has(e.id),
       routeCategory: e.accessionRoute?.category ?? "不詳",

@@ -36,6 +36,7 @@ export interface KinshipSourceEmperor {
   id: string;
   name: string;
   dynastyLabel: string;
+  portraitUrl: string | null;
   /** `name__section`(emperors.tsのdynastyKeyと同一)。 */
   dynastyKey: string;
   female: boolean;
@@ -91,6 +92,16 @@ export interface TipLine {
   muted?: boolean;
 }
 
+/** 皇帝ノードのツールチップ(統計ページ共通のEmperorTooltipに渡す)。 */
+export interface KinshipEmperorTip {
+  name: string;
+  dynastyLabel: string;
+  portraitUrl: string | null;
+  /** 在位期間の表示(複数在位は「、」区切り)。 */
+  reignLabel: string;
+  details: { label: string; value: string }[];
+}
+
 export interface KinshipNodeOut {
   key: string;
   id: string;
@@ -105,7 +116,9 @@ export interface KinshipNodeOut {
   colorSlot: number;
   female: boolean;
   claimBadge: boolean;
+  /** 皇帝以外(person/consort)の簡易ツールチップ。皇帝はempTipを使う。 */
   tipLines: TipLine[];
+  empTip: KinshipEmperorTip | null;
 }
 
 export interface KinshipTieOut {
@@ -165,7 +178,7 @@ export interface KinshipChapterLayout {
   height: number;
   axisX: number;
   ticks: { y: number; label: string }[];
-  bands: { label: string; x: number; width: number; labelY: number }[];
+  bands: { label: string; x: number; width: number; labelX: number; labelY: number }[];
   dynastyHeads: { label: string; x: number; y: number }[];
   nodes: KinshipNodeOut[];
   ties: KinshipTieOut[];
@@ -181,7 +194,9 @@ export interface KinshipChapterLayout {
 
 // --- レイアウト定数 ---
 const AXIS_X = 64;
-const BAND_GAP = 56;
+// バンド間の横マージン。広げすぎると列共有バンド(秦など)が隣の幹から不必要に
+// 離れて空白が目立つ(レビュー⑦)。矢印・補助線のガター兼用の最小限にする。
+const BAND_GAP = 40;
 const M_TOP = 96;
 const M_BOTTOM = 48;
 const CONSORT_H = 24;
@@ -716,6 +731,10 @@ function buildChapter(
 
   // --- 垂下線(junction) ---
   const drops: KinshipDropOut[] = [];
+  // 垂下点が子グループのx範囲から外れると、バーに水平ジョグ(無駄な曲がり)が
+  // 生じる。tree.tsのshiftKidsToJunctionが揃えきれなかったものはハード制約
+  // 違反として品質ゲートで落とす。
+  const jogViolations: string[] = [];
   packed.forEach((pb, bi) => {
     for (const j of pb.junctions) {
       const father = rectById.get(j.fatherId);
@@ -731,6 +750,14 @@ function buildChapter(
         .map((c) => rectById.get(c))
         .filter((r): r is PlacedRect => r !== undefined);
       if (kids.length === 0) continue;
+      if (
+        jx < Math.min(...kids.map((k) => k.cx)) - 4 ||
+        jx > Math.max(...kids.map((k) => k.cx)) + 4
+      ) {
+        jogViolations.push(
+          `垂下点の段差 ${nameOf(j.fatherId)}${j.motherId !== null ? `═${nameOf(j.motherId)}` : ""}→${j.children.map(nameOf).join("・")} [jx=${jx.toFixed(0)} 子cx=${kids.map((k) => k.cx.toFixed(0)).join(",")}]`,
+        );
+      }
       const minKidTop = Math.min(...kids.map((k) => k.y));
       // バーは最年長の子の直上。親と子が接している場合も子の枠内には入れない。
       const barY = Math.min(Math.max(minKidTop - 10, topY + 6), minKidTop - 2);
@@ -1043,7 +1070,7 @@ function buildChapter(
   //  横断が出る配置はキュレーション(バンド順・CHILD_ORDER_OVERRIDES)や
   //  ルーティングの修正で解消してからでないとビルドできない)
   {
-    const violations: string[] = [];
+    const violations: string[] = [...jogViolations];
     for (const seg of qsegs) {
       const sx0 = Math.min(seg.x1, seg.x2);
       const sx1 = Math.max(seg.x1, seg.x2);
@@ -1082,7 +1109,7 @@ function buildChapter(
     }
     if (violations.length > 0) {
       throw new Error(
-        `kinship/layout: 章「${def.title}」で線がノードを横切っています(${violations.length}件):\n` +
+        `kinship/layout: 章「${def.title}」で品質ゲート違反(横断・重なり・垂下点の段差)があります(${violations.length}件):\n` +
           violations.join("\n"),
       );
     }
@@ -1092,10 +1119,16 @@ function buildChapter(
   const bands = def.bands.map((b, i) => {
     const bandNodes = packed[i].items.map((it) => rectById.get(it.id)!);
     const topY = Math.min(...bandNodes.map((n) => n.y));
+    // 見出しは「バンド最上部のノード群」の中央に置く。バンド全幅の中央だと、
+    // 幅の広いバンド(漢)で見出しが最上部ノードから離れた空白に浮く(レビュー⑦)。
+    const topNodes = bandNodes.filter((n) => n.y < topY + 60);
+    const tx0 = Math.min(...topNodes.map((n) => n.x));
+    const tx1 = Math.max(...topNodes.map((n) => n.x + n.w));
     return {
       label: b.label,
       x: bandXs[i],
       width: packed[i].width,
+      labelX: (tx0 + tx1) / 2,
       labelY: topY - 34,
     };
   });
@@ -1219,33 +1252,24 @@ function buildChapter(
       const category = succ?.category ?? emp.routeCategory;
       const disputed = succ?.veracity === "disputed";
       const sub = `${ordinalLabel(emp.ordinals[0])}・${category}${disputed ? "?" : ""}`;
-      const tipLines: TipLine[] = [
-        { text: `${emp.female ? "♀ " : ""}${emp.name}` },
-        { text: `${emp.dynastyLabel}・${ordinalLabel(emp.ordinals[0])}`, muted: true },
-        { text: `在位 ${fmtPeriod(emp.reigns[0].a, emp.reigns[0].b)}`, muted: true },
+      // ツールチップは統計ページ共通のEmperorTooltip(肖像+名前+王朝+在位+補足)。
+      // クリックで全項目ダイアログを開くため、系譜固有の補足だけをdetailsに載せる。
+      const details: { label: string; value: string }[] = [
+        {
+          label: "即位",
+          value: `${ordinalLabel(emp.ordinals[0])}・${category}${disputed ? "（諸説あり）" : ""}`,
+        },
       ];
-      if (succ) {
-        tipLines.push({
-          text: `即位: ${category}${disputed ? "（諸説あり）" : ""}／先代 ${nameOf(succ.from)} の${succ.relationToPredecessor ?? "不明"}`,
-          muted: true,
+      if (succ)
+        details.push({
+          label: "先代",
+          value: `${nameOf(succ.from)}の${succ.relationToPredecessor ?? "続柄不明"}`,
         });
-      } else {
-        tipLines.push({ text: `即位: ${category}（先代を持たない起点）`, muted: true });
-      }
       const fatherId = rel2.primaryFather.get(id);
       const motherId = rel2.motherOf.get(id);
-      if (fatherId || motherId) {
-        tipLines.push({
-          text: [
-            fatherId ? `父: ${nameOf(fatherId)}` : null,
-            motherId ? `母: ${nameOf(motherId)}` : null,
-          ]
-            .filter(Boolean)
-            .join("／"),
-          muted: true,
-        });
-      }
-      if (claim) tipLines.push({ text: `◇遠祖の主張: ${claim.claimedAncestry}`, muted: true });
+      if (fatherId) details.push({ label: "父", value: nameOf(fatherId) });
+      if (motherId) details.push({ label: "母", value: nameOf(motherId) });
+      if (claim) details.push({ label: "◇遠祖の主張", value: claim.claimedAncestry });
       return {
         key: id,
         id,
@@ -1259,13 +1283,19 @@ function buildChapter(
         colorSlot: KINSHIP_COLOR_BY_DYNKEY[emp.dynastyKey] ?? 0,
         female: emp.female,
         claimBadge: claim !== undefined,
-        tipLines,
+        tipLines: [],
+        empTip: {
+          name: emp.name,
+          dynastyLabel: emp.dynastyLabel,
+          portraitUrl: emp.portraitUrl,
+          reignLabel: emp.reigns.map((rg) => fmtPeriod(rg.a, rg.b)).join("、"),
+          details,
+        },
       };
     }
     const p = rel2.personById.get(id)!;
     const tipLines: TipLine[] = [
       { text: `${p.female ? "♀ " : ""}${p.name}` },
-      { text: `非皇帝（${p.kind}）`, muted: true },
       { text: personPeriod(p), muted: true },
     ];
     const label = `${p.female ? "♀" : ""}${shortName(p.name)}`;
@@ -1305,6 +1335,7 @@ function buildChapter(
       female: p.female,
       claimBadge: claim !== undefined,
       tipLines,
+      empTip: null,
     };
   }
 }
