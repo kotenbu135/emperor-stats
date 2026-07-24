@@ -92,6 +92,9 @@ export interface PackedTie {
   husbandId: string;
   spouseId: string;
   double: boolean;
+  /** 連結線のx区間(バンド相対)。連なった第2妃は内側の妃の外縁から引く。 */
+  x1: number;
+  x2: number;
 }
 
 export interface PackedBand {
@@ -174,14 +177,24 @@ export function packBand(g: BandGraph): PackedBand {
   const treeEdges: { parent: string; child: string }[] = [];
   const itemById = new Map<string, PackedItem>();
 
-  /** サブツリーの座標シフトをitems/junctionsへも伝播する。 */
-  const shiftPlaced = (itemFrom: number, juncFrom: number, rects: Rect[], dx: number): void => {
+  /** サブツリーの座標シフトをitems/junctions/tiesへも伝播する。 */
+  const shiftPlaced = (
+    itemFrom: number,
+    juncFrom: number,
+    tieFrom: number,
+    rects: Rect[],
+    dx: number,
+  ): void => {
     for (const r of rects) {
       r.x0 += dx;
       r.x1 += dx;
     }
     for (let i = itemFrom; i < items.length; i++) items[i].cx += dx;
     for (let i = juncFrom; i < junctions.length; i++) junctions[i].x += dx;
+    for (let i = tieFrom; i < ties.length; i++) {
+      ties[i].x1 += dx;
+      ties[i].x2 += dx;
+    }
   };
 
   /**
@@ -195,11 +208,12 @@ export function packBand(g: BandGraph): PackedBand {
     for (const rootId of rootIds) {
       const itemFrom = items.length;
       const juncFrom = junctions.length;
+      const tieFrom = ties.length;
       const sub = layoutSubtree(rootId);
       // 左端0起点に寄せてから、衝突がなくなる最小シフトを探す
       // (押す量は単調に増えるだけなので反復は収束する)。
       const minX = Math.min(...sub.rects.map((r) => r.x0));
-      shiftPlaced(itemFrom, juncFrom, sub.rects, -minX);
+      shiftPlaced(itemFrom, juncFrom, tieFrom, sub.rects, -minX);
       let rootX = sub.rootX - minX;
       let guard = 0;
       for (;;) {
@@ -209,7 +223,7 @@ export function packBand(g: BandGraph): PackedBand {
           rootX < prevRootX + MIN_SIB_SEP ? prevRootX + MIN_SIB_SEP - rootX : 0;
         const dx = Math.max(push, orderPush);
         if (dx <= 0.01) break;
-        shiftPlaced(itemFrom, juncFrom, sub.rects, dx);
+        shiftPlaced(itemFrom, juncFrom, tieFrom, sub.rects, dx);
         rootX += dx;
         if (++guard > 500)
           throw new Error(`kinship/tree: パッキングが収束しません(${rootId})`);
@@ -266,6 +280,7 @@ export function packBand(g: BandGraph): PackedBand {
       R: rootX + w / 2,
     };
     const spouseX = new Map<string, number>();
+    const tieMid = new Map<string, number>();
     for (const sp of spouses) {
       const own = children.filter((c) => g.motherOf.get(c) === sp.id);
       const meanX =
@@ -274,12 +289,16 @@ export function packBand(g: BandGraph): PackedBand {
           : Number.POSITIVE_INFINITY; // 子なしは右へ
       const side: "L" | "R" = meanX < rootX ? "L" : "R";
       const sw = consortWidth(g.info.get(sp.id)?.name ?? sp.id);
+      // 連結線は現在の側の境界(初回=夫の枠、連なった場合=内側の妃の外縁)から引く。
+      const tieFromX = sideEdge[side];
+      const tieToX = side === "L" ? tieFromX - TIE_LEN : tieFromX + TIE_LEN;
       const cx =
         side === "L"
           ? sideEdge.L - TIE_LEN - sw / 2
           : sideEdge.R + TIE_LEN + sw / 2;
       sideEdge[side] = side === "L" ? cx - sw / 2 : cx + sw / 2;
       spouseX.set(sp.id, cx);
+      tieMid.set(sp.id, (tieFromX + tieToX) / 2);
       items.push({
         id: sp.id,
         role: "consort",
@@ -290,7 +309,13 @@ export function packBand(g: BandGraph): PackedBand {
         effEnd: spouseSpan.end,
         minPx: PERSON_MIN_PX,
       });
-      ties.push({ husbandId: id, spouseId: sp.id, double: sp.double });
+      ties.push({
+        husbandId: id,
+        spouseId: sp.id,
+        double: sp.double,
+        x1: Math.min(tieFromX, tieToX),
+        x2: Math.max(tieFromX, tieToX),
+      });
       rects.push({
         x0: cx - sw / 2,
         x1: cx + sw / 2,
@@ -308,12 +333,8 @@ export function packBand(g: BandGraph): PackedBand {
         groups.set(key, [...(groups.get(key) ?? []), c]);
       }
       for (const [motherId, kids] of groups) {
-        const jx =
-          motherId === null
-            ? rootX
-            : (spouseX.get(motherId)! +
-                (spouseX.get(motherId)! < rootX ? rootX - w / 2 : rootX + w / 2)) /
-              2;
+        // 母のいるグループは父と母の連結線の真ん中から、母不明は父の下辺中央から。
+        const jx = motherId === null ? rootX : tieMid.get(motherId)!;
         junctions.push({ fatherId: id, motherId, x: jx, children: kids });
         const topKid = Math.min(...kids.map((c) => yearSpan(g.info.get(c)!).start));
         if (topKid > span.end)
@@ -325,9 +346,16 @@ export function packBand(g: BandGraph): PackedBand {
   };
 
   // --- 森: ルート(バンド内に主親を持たないノード)をアンカー年順に詰める ---
+  // childOrderの明示指定(CHILD_ORDER_OVERRIDES)はルートの並びにも効かせる
+  // (孺子嬰を右端に寄せて禅譲矢印の横断を短くする等)。指定なしは0扱い。
+  const rootOrder = (id: string): number => g.childOrderOf.get(id) ?? 0;
   const roots = g.memberIds
     .filter((id) => !g.primaryFather.has(id))
-    .sort((p, q) => g.info.get(p)!.anchor - g.info.get(q)!.anchor);
+    .sort(
+      (p, q) =>
+        rootOrder(p) - rootOrder(q) ||
+        g.info.get(p)!.anchor - g.info.get(q)!.anchor,
+    );
   if (roots.length === 0)
     throw new Error(`kinship/tree: バンド「${g.label}」に森のルートがありません`);
   packSequence(roots, []);
@@ -336,6 +364,10 @@ export function packBand(g: BandGraph): PackedBand {
   const minX = Math.min(...items.map((i) => i.cx - i.w / 2));
   for (const i of items) i.cx -= minX;
   for (const j of junctions) j.x -= minX;
+  for (const t of ties) {
+    t.x1 -= minX;
+    t.x2 -= minX;
+  }
   const width = Math.max(...items.map((i) => i.cx + i.w / 2));
 
   // --- 同一カラムの親子チェーン押し下げ(実効年区間のカーソル解決) ---

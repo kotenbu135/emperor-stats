@@ -38,9 +38,12 @@ export const KINSHIP_CHAPTER_DEFS: KinshipChapterDef[] = [
     id: "qin-han",
     title: "秦・漢",
     period: "前221年 – 220年",
+    // バンド順はエッジの横断を最小化するキュレーション:
+    // 前漢の右端に劉發系(舂陵=後漢祖先・玄漢祖先)を寄せ(CHILD_ORDER_OVERRIDES)、
+    // その右に後漢(劉欽→光武帝が隣接ホップ)、次に新(孺子嬰→王莽の禅譲矢印は
+    // 後漢バンド上部の空白年代を直進横断・王禁→王政君も右側から入る)。
     bands: [
       { label: "秦", dynastyKeys: ["秦__秦（始皇帝以降）"] },
-      { label: "新（王氏）", dynastyKeys: ["新__新"] },
       {
         label: "前漢（劉氏）",
         dynastyKeys: [
@@ -50,6 +53,7 @@ export const KINSHIP_CHAPTER_DEFS: KinshipChapterDef[] = [
         ],
       },
       { label: "後漢", dynastyKeys: ["後漢__後漢"] },
+      { label: "新（王氏）", dynastyKeys: ["新__新"] },
       { label: "漢（赤眉軍）", dynastyKeys: ["漢（赤眉軍）__漢（赤眉軍）"] },
       { label: "成家", dynastyKeys: ["成家__成家"] },
       { label: "仲家", dynastyKeys: ["仲家__仲家"] },
@@ -76,6 +80,15 @@ export const KINSHIP_ENABLED_CHAPTER_IDS: string[] = ["qin-han"];
  */
 export const PERSON_BAND_OVERRIDES: Record<string, string> = {
   "p-ruzi-ying": "前漢（劉氏）",
+};
+
+/**
+ * 兄弟の横並び順の明示指定(データのchildOrderより優先)。値が大きいほど右。
+ * - p-liu-fa(劉發): 舂陵(後漢祖先)・玄漢祖先のチェーンを前漢バンドの右端に
+ *   寄せ、劉欽→光武帝(後漢)のバンド間エッジを隣接ホップにする。
+ */
+export const CHILD_ORDER_OVERRIDES: Record<string, number> = {
+  "p-liu-fa": 999,
 };
 
 // 配色はtimeline-river.tsのSTREAM_DEFSと同じ意味ベース割当(漢系=4金・新=1青・

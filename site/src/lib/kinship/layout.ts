@@ -11,6 +11,7 @@
 import { formatYear } from "@/lib/emperor-types";
 import { fromAstroYear } from "@/lib/timeline-river";
 import {
+  CHILD_ORDER_OVERRIDES,
   KINSHIP_CHAPTER_DEFS,
   KINSHIP_COLOR_BY_DYNKEY,
   KINSHIP_ENABLED_CHAPTER_IDS,
@@ -295,6 +296,8 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
     if (e.type === "kinship" && typeof e.childOrder === "number")
       childOrderOf.set(e.to, e.childOrder);
   }
+  for (const [id, order] of Object.entries(CHILD_ORDER_OVERRIDES))
+    childOrderOf.set(id, order);
 
   // --- 配置アンカー年の推定(スコープ全体で1回。緩和反復) ---
   const est = new Map<string, number>();
@@ -596,15 +599,19 @@ function buildChapter(
   // --- 夫婦の連結線 ---
   const ties: KinshipTieOut[] = [];
   const tieYOf = new Map<string, number>(); // spouseId → tie y
-  packed.forEach((pb) => {
+  packed.forEach((pb, bi) => {
     for (const t of pb.ties) {
-      const h = rectById.get(t.husbandId);
       const s = rectById.get(t.spouseId);
-      if (!h || !s) continue;
+      if (!s) continue;
       const y = s.y + s.h / 2;
-      const [x1, x2] =
-        s.cx < h.cx ? [s.x + s.w, h.x] : [h.x + h.w, s.x];
-      ties.push({ husbandId: t.husbandId, spouseId: t.spouseId, x1, x2, y, double: t.double });
+      ties.push({
+        husbandId: t.husbandId,
+        spouseId: t.spouseId,
+        x1: bandXs[bi] + t.x1,
+        x2: bandXs[bi] + t.x2,
+        y,
+        double: t.double,
+      });
       tieYOf.set(t.spouseId, y);
     }
   });
@@ -663,7 +670,8 @@ function buildChapter(
   const arrows: KinshipArrowOut[] = [];
 
   const curvePath = (a: PlacedRect, b: PlacedRect): string => {
-    // 上→下が成り立てば縦ベジェ(下辺→上辺)、成り立たなければ側面どうしの水平ベジェ。
+    // 矢印(王朝間交代)用: 上→下が成り立てば縦ベジェ、成り立たなければ側面どうしの
+    // 水平ベジェ。
     if (a.y + a.h < b.y - 4 && Math.abs(a.cx - b.cx) < 600) {
       const y1 = a.y + a.h;
       const y2 = b.y;
@@ -677,6 +685,31 @@ function buildChapter(
     const y2 = b.y + b.h / 2;
     const mx = (x1 + x2) / 2;
     return `M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`;
+  };
+
+  // 補助エッジ(血縁)用: 家系図の直交線に揃えたポリライン。無用な曲がりを避け、
+  // 水平区間は到達先の直前(枠の外10px)を通す。到達点は垂下線(cx)と重ならないよう
+  // 10pxずらす。
+  const orthoPath = (a: PlacedRect, b: PlacedRect): string => {
+    const enterX = b.cx + (a.cx <= b.cx ? -10 : 10);
+    if (b.y - (a.y + a.h) >= 14) {
+      // 通常: 上の親から下の子へ(下辺→水平→上辺)。
+      const laneY = b.y - 6;
+      return `M ${a.cx} ${a.y + a.h} L ${a.cx} ${laneY} L ${enterX} ${laneY} L ${enterX} ${b.y}`;
+    }
+    if (a.y - (b.y + b.h) >= 14) {
+      // 到達先が上にある場合(王莽→孝平王皇后など)は下辺側から入る。
+      const laneY = b.y + b.h + 6;
+      return `M ${a.cx} ${a.y} L ${a.cx} ${laneY} L ${enterX} ${laneY} L ${enterX} ${b.y + b.h}`;
+    }
+    // 年代が重なる場合は側面どうしを水平に結ぶ(到達側の直前で縦にずらす)。
+    const leftToRight = a.cx < b.cx;
+    const x1 = leftToRight ? a.x + a.w : a.x;
+    const x2 = leftToRight ? b.x : b.x + b.w;
+    const y1 = a.y + a.h / 2;
+    const y2 = b.y + b.h / 2;
+    const jogX = leftToRight ? x2 - 12 : x2 + 12;
+    return `M ${x1} ${y1} L ${jogX} ${y1} L ${jogX} ${y2} L ${x2} ${y2}`;
   };
 
   // 人物の「王朝コンテキスト」: 皇帝=dynastyKey、人物=所属バンドの先頭dynastyKey。
@@ -733,7 +766,7 @@ function buildChapter(
         key: `m:${e.from}→${e.to}`,
         fromId: e.from,
         toId: e.to,
-        path: curvePath(a, b),
+        path: orthoPath(a, b),
         dashed: false,
         disputed: false,
         marriage: true,
@@ -791,7 +824,7 @@ function buildChapter(
       key: `k:${e.from}→${e.to}:${e.relation}`,
       fromId: e.from,
       toId: e.to,
-      path: curvePath(a, b),
+      path: orthoPath(a, b),
       dashed: dashed || disputed,
       disputed,
       marriage: false,
