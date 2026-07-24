@@ -224,7 +224,7 @@
 
 ## データ QA の CI 恒久化（2026-07-21、task.md 3-3）
 
-`scripts/validate_emperors.py` と GitHub Actions ワークフロー `.github/workflows/validate-data.yml` を新設し、`data/` または QA スクリプトを触る push / PR で自動検証が走る体制にした。チェック内容・エラー/警告の区分はスクリプト冒頭の docstring が正（スキーマ適合＝寛容版＋additionalProperties:false 機械付与の厳格版・日付整合・精度と形式の整合・count==events長・QID 形式/一意性・出典禁止語・肖像 manifest 整合/MD5 重複など）。新設時は現データで 0 エラー・警告4種（フェーズB進行中の既知事項）の緑スタート。フェーズB完了（2026-07-21）後の格上げ、ages 日付 ISO 正規化（同日、下記の節）による非 ISO 警告の解消を経て、現在は 0 エラー・警告2種（deathDate > endDate の退位後死去件数表示・datePrecision 非標準トークン）。
+`scripts/validate_emperors.py` と GitHub Actions ワークフロー `.github/workflows/validate-data.yml` を新設し、`data/` または QA スクリプトを触る push / PR で自動検証が走る体制にした。チェック内容・エラー/警告の区分はスクリプト冒頭の docstring が正（スキーマ適合＝寛容版＋additionalProperties:false 機械付与の厳格版・日付整合・精度と形式の整合・count==events長・QID 形式/一意性・出典禁止語・肖像 manifest 整合/MD5 重複など）。新設時は現データで 0 エラー・警告4種（フェーズB進行中の既知事項）の緑スタート。フェーズB完了（2026-07-21）後の格上げ、ages 日付 ISO 正規化（同日、下記の節）による非 ISO 警告の解消、events 日付の全面 ISO 正規化（2026-07-22、下記の節）による datePrecision 警告の解消を経て、現在は 0 エラー・警告1種（deathDate > endDate の退位後死去件数表示・2026-07-24 実測 50 件）。
 
 **運用ルール**:
 - **`KNOWN_ISSUES`（スクリプト内の許容リスト）は「容認」ではなく「個別調査待ち」の明示**。データ側を訂正したら該当エントリを削除する。削除し忘れは「陳腐化エントリ」警告で検出される（訂正済みならエントリが残っていても CI は落ちない＝フェーズB進行中の別セッションのコミットを妨げない設計）。
@@ -235,10 +235,8 @@
 - サイトのビルド・GitHub Pages への公開は `deploy-site.yml` が担う。トリガーの `paths` は `site/**` に加えて `data/**` と肖像画同期元を含む（データのみのコミットでデプロイが走らない構造問題があり 2026-07-20 に恒久対策済み。サイトはビルド時に `data/emperors.json` を直接読むため、データ訂正はデプロイを伴って初めて公開に反映される）。
 - 2026-07-22（task.md 0-2）、`validate-data.yml` が並列に走るだけでデプロイを止められない問題への対策として、`deploy-site.yml` の build ジョブ冒頭に `validate_emperors.py` の実行（デプロイゲート）と `npm run lint`・`npx tsc --noEmit` を追加した。検証エラー時はビルド前に失敗し公開されない。
 
-**CI 構築時に見つかった未解決のデータ問題（許容リスト登録済み・フェーズB等で個別調査を要する。2026-07-22 現況更新）**:
-- ~~`beiwei-yuanfasheng` reigns[0]: startDate > endDate の逆転~~ **解消済み**（2026-07-21 フェーズB北朝ブロックで訂正。`KNOWN_REIGN_ORDER` は空）
-- ~~`qianzhao-liuyuan`: reignSummary.firstStartYear=309 vs reigns[0].startYear=308~~ **解消済み**（2026-07-21 フェーズB ブロック3の reignSummary 再計算で 308 に統一。なお flags.usedEmperorTitleFrom の同種の旧値残存は 2026-07-22 の 0-2 で訂正済み）
-- `ages.deathDate` が最終 `endDate` より前（精度を揃えた比較で9件）: chen-wendi・beiwei-tuobayu・shiguo-qianshu-wangjian・shiguo-nanhan-liusheng・liao-jingzong・liao-daozong・xixia-huizong・xixia-chongzong・shun-lichengzheng。旧暦月表記と西暦換算日の混在が主因とみられ、個別調査での解消待ち（`KNOWN_DEATH_BEFORE_END` に登録済み）
+**CI 構築時に見つかった未解決のデータ問題（許容リスト登録済み・個別調査を要する。2026-07-24 現況更新）**:
+- `ages.deathDate` が最終 `endDate` より前（精度を揃えた比較で7件）: chen-wendi・beiwei-tuobayu・shiguo-qianshu-wangjian・shiguo-nanhan-liusheng・liao-jingzong・liao-daozong・shun-lichengzheng。旧暦月表記と西暦換算日の混在が主因とみられ、個別調査での解消待ち（`KNOWN_DEATH_BEFORE_END` に登録済み。当初9件のうち xixia-huizong・xixia-chongzong は解消済み）
 - `confidence: ""` 4件（既知・task.md 3-3 に記載のとおり値の確定は調査判断待ち）
 
 **同時に直した既存 QA 資産の不備**:
@@ -281,7 +279,7 @@
 - **換算の自己検証**: 干支は当該旧暦月内での一意存在を必須（不在なら日付をでっち上げず先例どおり月精度へ）、「朔」は1日一致（史書朔と sxtwl 天文朔の1日差＝進朔は干支日を採用し note 明記）、年注記との突合、在位 ISO 年範囲チェック。旧暦十一月・十二月の年またぎは sxtwl の太陽暦出力から取る
 - **裏取りで約25件の年・月・干支の取り違えを発見し原典再確認のうえ訂正**（宋史仁宗紀の年見出し取り違え3群、遼天祚帝の乾統起点+10年誤換算、元英宗参卜郎の乱の年、元世祖建元中統の干支ほか。全リストは `CHANGELOG.md` 2026-07-22「events 日付の全面 ISO 正規化」節）。機械換算の不一致が原典の年見出し・朔干支アンカーとの突合で系統誤りの検出器として機能した
 - **CI**: `validate_emperors.py` に events 日付の ISO 形式チェック・precision 語彙の完全一致チェックをエラーとして新設（旧警告は先頭 ascii トークンのみの照合で「day（説明…）」形式を見逃していた）。称帝前イベント10件を `KNOWN_PREACCESSION_EVENTS` へ正当登録
-- **残る警告（スコープ外）**: ~~startDate/endDate の深さが precision より浅い44件~~ **解消（2026-07-23、下記）**・deathDate > endDate 49件（在位終了事由フィールド新設が前提、2026-07-21 ユーザー判断で見送り）
+- **残る警告（スコープ外）**: deathDate > endDate（在位終了事由フィールド新設が前提、2026-07-21 ユーザー判断で見送り）
 
 ### 混在精度44キーの解消（2026-07-23、上記の残警告の後続）
 
@@ -328,9 +326,7 @@ note/quote 内の漢文引用 6,504 件の実在検証＋暦換算の機械リ�
 - **太陽暦年が繰り上がった 3 件**: 宋哲宗の生年（熙寧九年十二月七日 → 1077-01-04）・劉継元の没年（淳化二年十二月癸未 → 0992-01-25）は旧暦 12 月の年またぎによるもの。数え年（年号年ラベル基準）の `accessionAge`/`deathAge` には影響しない。
 - 正規化により `deathDate > endDate` 警告が 40→47 件に増えたのは、新たに機械比較可能になった退位後死去（唐睿宗・後周恭帝・劉鋹・劉継元・孟昶・夏襄宗ら）が正しく可視化されたもので想定どおり。
 
-**申し送り（今回のスコープ外と決めた残警告）**:
-- **datePrecision 非標準トークン（警告、115 件 77 種）**: ages/events の precision 自由記述の正規化は語彙標準の方針確定が先のため未実施（ユーザー判断 2026-07-21）。今回触れた ages フィールド分のみ標準トークン化済み。着手時は `normalizeDatePrecision`（site 側の接頭辞判別）が吸収している実態を壊さないよう、site 表示と検証の両方を確認すること。
-- **deathDate > endDate（警告、47 件→2026-07-22 実測 49 件）**: 在位終了事由フィールドが無く退位後死去と真の誤りを機械判別できないため見送り（ユーザー判断 2026-07-21）。解消するなら終了事由の新フィールド設計が前提。
+**申し送り（今回のスコープ外と決めた残警告）**: **deathDate > endDate（警告、2026-07-24 実測 50 件）**は在位終了事由フィールドが無く退位後死去と真の誤りを機械判別できないため見送り（ユーザー判断 2026-07-21）。解消するなら終了事由の新フィールド設計が前提。
 
 ## ライセンス確定・データ公開基盤（2026-07-21、task.md 2-2/2-3/2-1残/4-2）
 
@@ -338,21 +334,21 @@ note/quote 内の漢文引用 6,504 件の実在検証＋暦換算の機械リ�
 
 - **ライセンス（2-2）**: データ・調査メモ文章＝CC BY 4.0（全文 `data/LICENSE`）／コード＝MIT（ルート `LICENSE`）。`meta.license` に機械可読で記載し、README に帰属表示例つきで明記。宣言前に全 note 約126万字の CC BY-SA 混入スクリーニングを実施（機械マーカー68件の全数分類＋jawiki 記事本文との n-gram 全数突合。近似一致3名4箇所を原典準拠表現に書き換え=7f962d4。判定の詳細はセッションメモリ ccbysa-screening-2026-07-21）
 - **`meta.source` 再定義（2-2 同時）**: primary を `official-histories`（正史原典）へ変更し、Wikipedia「中国帝王一覧」は `inclusionListSeed`（収録候補リストの初期洗い出し用・データ値の典拠ではない）に降格。配布スキーマ（`$defs.meta`）・EMPERORS_SCHEMA.md を同時更新
-- **バージョニング（2-3）**: `meta.version: "2026.07"`（CalVer・データ内容の版。構造の版 `schemaVersion` とは別軸）を新設し、ルートに `CHANGELOG.md` を新設（唐哀帝追加等を遡及記録）。**GitHub Releases のタグ（`v2026.07` 推奨）のみ未実施**（push 後にユーザー主導。Zenodo は 2026-07-21 に中止が確定したため順序制約はなく、いつ切ってもよい）
+- **バージョニング（2-3）**: `meta.version: "2026.07"`（CalVer・データ内容の版。構造の版 `schemaVersion` とは別軸）を新設し、ルートに `CHANGELOG.md` を新設（唐哀帝追加等を遡及記録）。GitHub Releases のタグは 2026-07-24 ユーザー決定で対応しない（再提案しない）
 - **サイト側（2-1残・4-2）**: `/about` に「データセットのダウンロードとライセンス」節（JSON/CSV/スキーマの3リンク＋利用条件）と「正誤表」節を新設。Dataset JSON-LD に `license`/`distribution`/`temporalCoverage`/`version`/`isAccessibleForFree` を追加し、Google Dataset Search の掲載条件（distribution+license）が揃った。`temporalCoverage` はデータから導出（`datasetTemporalCoverage`）
 
-**残タスク（データ公開系）**: GitHub Releases タグ（ユーザー主導）のみ。2-4 Zenodo DOI は **2026-07-21 にユーザー決定で中止**（再提案しない。引用基盤は CC BY 4.0＋CalVer＋CHANGELOG＋Dataset JSON-LD で成立済み。DOI 不要の `CITATION.cff` 配置だけは将来の独立提案の余地あり）。CSV への `wikidataId` 列追加は 2026-07-21 に完了（40→41列・1593d33）。
+**残タスク（データ公開系）**: なし。GitHub Releases タグは 2026-07-24 に、2-4 Zenodo DOI は 2026-07-21 に、いずれもユーザー決定で対応しないことが確定（再提案しない。引用基盤は CC BY 4.0＋CalVer＋CHANGELOG＋Dataset JSON-LD で成立済み。DOI 不要の `CITATION.cff` 配置だけは将来の独立提案の余地あり）。CSV への `wikidataId` 列追加は 2026-07-21 に完了（40→41列・1593d33）。
 
-## 系譜・即位経路グラフ（2026-07-22 フェーズ0完了＋スキーマ凍結、task.md 6-3）
+## 系譜・即位経路グラフ（task.md 6-3。データ調査は全4フェーズ完了 2026-07-24・mainマージ済み 9c88d06）
 
-全皇帝365人を親子・養子・婚姻・即位経路のエッジで結ぶ系譜グラフの新規調査プロジェクト。フェーズ0（スキーマ設計）を完了し、**可視化方式の決定とモック検証を経てスキーマを凍結した**（凍結後の変更は原則しない。ユーザー指示「最終的なアウトプットまで固まってから作業を開始する」に基づき、調査開始前に表示要件から必須フィールドを逆算して確定する手順を踏んだ）。
+全皇帝365人を親子・養子・婚姻・即位経路のエッジで結ぶ系譜グラフの調査プロジェクト。フェーズ0（スキーマ設計・2026-07-22）で**可視化方式の決定とモック検証を経てスキーマを凍結し**（凍結後の変更は原則しない。ユーザー指示「最終的なアウトプットまで固まってから作業を開始する」に基づき、調査開始前に表示要件から必須フィールドを逆算して確定する手順を踏んだ）、続く4調査フェーズ（succession／parentage／interdynastic／crosscheck）を 2026-07-23〜24 に完走した（succession 365本・parentage 222人・genealogicalClaims 62件・Wikidata 外部照合は訂正ゼロ）。続いて **生母（実母）の全域追加調査（maternalLineage フェーズ）が進行中**（2026-07-24 着手・ブロック1〜12完了時点で main へチェックポイント統合済み ee75cdb）。可視化の再設計は生母調査完了後（task.md 6-3 参照）。
 
 - **確定した方針（ユーザー決定）**: データは別ファイル `data/kinship.json`（emperors.json は変更しない）／婚姻エッジを含める／ブリッジ人物（非皇帝ノード）の収録基準は「経路上・一親等〔父系。**実母は接続に寄与する場合のみ**〕・**実在追尊皇帝**・婚姻当事者」の4基準（伝説的・儀礼的遠祖はノード化せず `genealogicalClaims` に記録）。王朝は実質的建国者から表示できるようにする（例：西晋は司馬懿から）
-- **可視化（2026-07-22 決定）**: 方式③「全体1画面のインタラクティブグラフ」＋縦軸=時間（上→下に時代が下る）。エンコーディング・本番実装バックログは `KINSHIP_SCHEMA.md` の可視化節を参照
+- **可視化**: 2026-07-22 に方式③「全体1画面のインタラクティブグラフ」＋縦軸=時間を決定し worktree-kinship-site で全域実装したが、**2026-07-24 ユーザー決定で全面白紙化**（求める品質〔家系図的な配置〕に達せず。ブランチは参照用保持・mainマージなし）。再設計時の要求事項は task.md 6-3 に記録済み（再設計は生母調査完了後）
 - **凍結時の追加フィールド**: succession の `relationToPredecessor`・kinship の `childOrder`/`primaryLineage`・persons の `kana`/`section`/`yearsApproximate`（いずれも「調査時に同時取得しないと全員再訪問になる」表示要件由来の項目）
 - **スキーマ**: `data/schema/KINSHIP_SCHEMA.md`（エッジ3種 succession/kinship/marriage・veracity 区分 verified/claimed/disputed・復位/建国の規約・調査フェーズ計画を含む）
 - **CI**: `scripts/validate_kinship.py` を新設し `validate-data.yml` に組込済み。succession エッジの category は emperors.json の `accessionRoute.category` との整合を機械検証する
-- **進捗管理**: kinship.json 側の `meta.status.phases`（succession/parentage/interdynastic/crosscheck の4フェーズ・現在すべて planned）と `meta.completedBlocks` で行う。このドキュメント冒頭のフェーズ進捗表（emperors.json 対応）とは別管理
+- **進捗管理**: kinship.json 側の `meta.status.phases`（succession/parentage/interdynastic/crosscheck の4フェーズ・すべて completed〔2026-07-23〜24〕。2026-07-24 新設の maternalLineage は進行中）と `meta.completedBlocks` で行う。このドキュメント冒頭のフェーズ進捗表（emperors.json 対応）とは別管理
 - **コーパス下見（2026-07-22）**: 系譜「表」は china-history に無く daizhigev20 側にのみ存在（遼史皇族表・金史宗室表・明史諸王世表・元史/宋史の宗室世系表を確認済み）。新唐書宗室世系表は完全収録が未確認のため、着手時に書ごとに実在・可読性を確認すること
 
 ## 重要なファイル
