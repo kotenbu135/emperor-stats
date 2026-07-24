@@ -120,6 +120,9 @@ export interface KinshipNodeOut {
   label: string;
   /** カプセル2行目(「第N代・世襲」等)。高さ不足時はnull。 */
   sub: string | null;
+  /** 複数在位(廃位→復位)の可視カプセルの分割(在位期間ごとの矩形)。単一在位はnull。
+   *  x・wは共通(統合矩形と同じ)。segments間の隙間=廃位期間に点線コネクタを描く。 */
+  segments: { y: number; h: number }[] | null;
   colorSlot: number;
   female: boolean;
   claimBadge: boolean;
@@ -199,6 +202,11 @@ const BAND_GAP = 40;
 const M_TOP = 96;
 const M_BOTTOM = 48;
 const CONSORT_H = 24;
+// 複数在位の可視サブカプセルの最小高(在位0年の期間も見える高さ。唐中宗など)。
+const MIN_SEG_H = 16;
+// この高さ(px)以下の在位間ギャップは連続とみなしカプセルをマージする(恵帝の廃位は
+// 301年内で年目盛り上ほぼ0のため単一カプセルに。唐中宗の684→705の21年は分割)。
+const SEG_GAP_MIN = 6;
 
 const fmtPeriod = (a: number, b: number) => {
   const fa = formatYear(fromAstroYear(a));
@@ -234,7 +242,12 @@ function shortName(s: string): string {
 export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
   const emperorById = new Map(src.emperors.map((e) => [e.id, e]));
   const personById = new Map(src.persons.map((p) => [p.id, p]));
-  const claimByClaimant = new Map(src.claims.map((c) => [c.claimant, c]));
+  // 1人が複数の系譜主張を持つ場合がある(蜀漢昭烈帝=中山靖王＋漢法統、魏文帝=曹参
+  // 後裔＋顓頊舜同祖など)。claimant→主張配列でグルーピングし、全件を保持する
+  // (Mapで単純にkey化すると最後の1件しか残らない)。
+  const claimsByClaimant = new Map<string, KinshipSourceClaim[]>();
+  for (const c of src.claims)
+    claimsByClaimant.set(c.claimant, [...(claimsByClaimant.get(c.claimant) ?? []), c]);
 
   // --- 主親(実父/養父)の解決: succession先代と同一 > 養父 > 実父。 ---
   // verifiedを優先し、disputedしか無ければdisputedを主親にする(垂下線を点線化)。
@@ -422,7 +435,7 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
       buildChapter(def, src, {
         emperorById,
         personById,
-        claimByClaimant,
+        claimsByClaimant,
         primaryFather,
         primaryFatherDisputed,
         attachedTo,
@@ -439,7 +452,7 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
 interface ResolvedRelations {
   emperorById: Map<string, KinshipSourceEmperor>;
   personById: Map<string, KinshipSourcePerson>;
-  claimByClaimant: Map<string, KinshipSourceClaim>;
+  claimsByClaimant: Map<string, KinshipSourceClaim[]>;
   primaryFather: Map<string, string>;
   primaryFatherDisputed: Set<string>;
   attachedTo: Map<string, string>;
@@ -518,17 +531,17 @@ function buildChapter(
   // --- バンドごとの家系図グラフを構築してパッキング ---
   const info = new Map<string, KinNodeInfo>();
   for (const e of chapterEmperors) {
-    if (e.reigns.length !== 1)
-      throw new Error(
-        `kinship/layout: ${e.id} は複数在位です。複数カプセル+コネクタはフェーズ2で実装します`,
-      );
+    // 複数在位(廃位→復位。恵帝・唐中宗睿宗昭宗など)は、レイアウト・系譜機構では
+    // 先頭即位〜末回退位を覆う「統合矩形」1つとして扱う(パッキング・垂下線・連結線・
+    // 品質ゲートは1人1矩形の前提を崩さない)。可視カプセルは描画時に在位期間ごとの
+    // サブカプセル+点線コネクタへ分割する(buildNodeのsegments)。
     info.set(e.id, {
       id: e.id,
       isEmperor: true,
       name: e.name,
       female: e.female,
       anchor: rel.est.get(e.id)!,
-      reign: { a: e.reigns[0].a, b: e.reigns[0].b },
+      reign: { a: e.reigns[0].a, b: e.reigns[e.reigns.length - 1].b },
     });
   }
   for (const p of src.persons) {
@@ -1073,8 +1086,8 @@ function buildChapter(
   for (const cl of CLAIM_LINE_DEFS) {
     const a = rectById.get(cl.fromId);
     const b = rectById.get(cl.toId);
-    const claim = rel.claimByClaimant.get(cl.claimant);
-    if (!a || !b || claim === undefined) continue;
+    const claims = rel.claimsByClaimant.get(cl.claimant) ?? [];
+    if (!a || !b || claims.length === 0) continue;
     // 起点カプセルの出る高さ。上辺(top)は下の生母の垂下線を避ける。
     const ay = cl.fromAnchor === "top" ? a.y + 14 : a.y + a.h - 14;
     // 垂直コリドー: 終点ノードの脇のバンド間ガター。バンド見出しテキストは
@@ -1101,10 +1114,10 @@ function buildChapter(
       labelY: (ay + my) / 2,
       tipLines: [
         { text: "◇遠祖の系譜主張" },
-        { text: `${nameOf(cl.claimant)}: ${claim.claimedAncestry}`, muted: true },
-        ...(claim.sourcePage
-          ? [{ text: `出典: ${claim.sourcePage}`, muted: true }]
-          : []),
+        ...claims.flatMap((c) => [
+          { text: `${nameOf(cl.claimant)}: ${c.claimedAncestry}`, muted: true },
+          ...(c.sourcePage ? [{ text: `出典: ${c.sourcePage}`, muted: true }] : []),
+        ]),
       ],
     });
   }
@@ -1283,7 +1296,7 @@ function buildChapter(
     rel2: ResolvedRelations,
   ): KinshipNodeOut {
     const emp = rel2.emperorById.get(id);
-    const claim = rel2.claimByClaimant.get(id);
+    const claims = rel2.claimsByClaimant.get(id) ?? [];
     if (emp) {
       const succ = src2.edges.find((x) => x.type === "succession" && x.to === id);
       const category = succ?.category ?? emp.routeCategory;
@@ -1303,21 +1316,49 @@ function buildChapter(
       if (motherId) details.push({ label: "母", value: nameOf(motherId) });
       // 遠祖の主張は長文(高帝の堯後裔説など)。ツールチップに全文を折り返して出す
       // (以前は1行に切り詰めてページ末尾の一覧で全文を補っていたが、一覧は廃止した)。
-      if (claim)
-        details.push({ label: "◇遠祖の主張", value: claim.claimedAncestry, wrap: true });
+      // 1人が複数主張を持つ場合(蜀漢昭烈帝・魏文帝)は各主張を別行で全件出す。
+      for (const c of claims)
+        details.push({ label: "◇遠祖の主張", value: c.claimedAncestry, wrap: true });
+      // 複数在位は在位期間ごとの可視カプセルに分割(統合矩形r内に配置)。ただし年粒度で
+      // 隙間のない連続在位(恵帝の廃位は301年内で年目盛り上ほぼ0)はマージして単一
+      // カプセルにする。実際に年をまたぐ廃位(唐中宗の684→705など)だけ分割し、間に
+      // 点線コネクタを描く。両端は統合矩形の上下辺に合わせる(パッキング押し下げを保つ)。
+      let segments: { y: number; h: number }[] | null = null;
+      if (emp.reigns.length > 1) {
+        const runs: { top: number; bot: number }[] = [];
+        for (const rg of emp.reigns) {
+          const top = yOf(rg.a);
+          const bot = yOf(rg.b);
+          const last = runs[runs.length - 1];
+          if (last && top - last.bot <= SEG_GAP_MIN) last.bot = Math.max(last.bot, bot);
+          else runs.push({ top, bot });
+        }
+        if (runs.length > 1) {
+          segments = runs.map((run, i) => {
+            const top = i === 0 ? r.y : run.top;
+            const bot = i === runs.length - 1 ? r.y + r.h : run.bot;
+            return { y: top, h: Math.max(bot - top, MIN_SEG_H) };
+          });
+        }
+      }
+      // ラベルは最も高い在位カプセルの中央に置く(廃位期間の隙間に載らないように)。
+      const labelSeg = segments
+        ? segments.reduce((a, b) => (b.h > a.h ? b : a))
+        : { y: r.y, h: r.h };
       return {
         key: id,
         id,
         kind: "emperor",
         x: r.x,
-        y: r.y,
+        y: labelSeg.y,
         w: r.w,
-        h: r.h,
+        h: labelSeg.h,
         label: `${emp.female ? "♀" : ""}${emp.name}`,
-        sub: r.h >= 40 ? sub : null,
+        segments,
+        sub: labelSeg.h >= 40 ? sub : null,
         colorSlot: KINSHIP_COLOR_BY_DYNKEY[emp.dynastyKey] ?? 0,
         female: emp.female,
-        claimBadge: claim !== undefined,
+        claimBadge: claims.length > 0,
         tipLines: [],
         empTip: {
           name: emp.name,
@@ -1361,7 +1402,8 @@ function buildChapter(
       if (fatherId) tipLines.push({ text: `父: ${nameOf(fatherId)}`, muted: true });
     }
     if (disp?.tipNote) tipLines.push({ text: disp.tipNote, muted: true });
-    if (claim) tipLines.push({ text: `◇遠祖の主張: ${claim.claimedAncestry}`, muted: true });
+    for (const c of claims)
+      tipLines.push({ text: `◇遠祖の主張: ${c.claimedAncestry}`, muted: true });
     return {
       key: id,
       id,
@@ -1371,10 +1413,11 @@ function buildChapter(
       w: r.w,
       h: r.h,
       label,
+      segments: null,
       sub: disp?.role ?? null,
       colorSlot: 0,
       female: p.female,
-      claimBadge: claim !== undefined,
+      claimBadge: claims.length > 0,
       tipLines,
       empTip: null,
     };

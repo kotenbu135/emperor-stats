@@ -52,9 +52,9 @@ export function EmperorTooltip({
       </div>
       {details.length > 0 && (
         <div className="mt-2 flex max-w-[210px] flex-wrap gap-x-3 gap-y-0.5 border-t border-border/60 pt-2 text-muted-foreground">
-          {details.map((d) => (
+          {details.map((d, i) => (
             <span
-              key={d.label}
+              key={`${d.label}-${i}`}
               className={
                 d.wrap
                   ? "w-full whitespace-normal break-words"

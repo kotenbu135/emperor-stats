@@ -61,8 +61,22 @@ export const KINSHIP_CHAPTER_DEFS: KinshipChapterDef[] = [
       { label: "仲家", dynastyKeys: ["仲家__仲家"] },
     ],
   },
+  {
+    id: "sanguo-xijin",
+    title: "三国・西晋",
+    period: "220年 – 316年",
+    // 王朝間の交代は魏→西晋の禅譲(曹奐→司馬炎)1本のみ。魏と西晋を隣接させて
+    // その矢印を最短にする。魏(曹氏)・西晋(司馬氏)は別姓のため別バンド(=別家系図)。
+    // 西晋バンドは司馬懿ら追尊祖先(179〜265)が三国期に生存するため上部から埋まる。
+    // 蜀漢・呉は他家と継承エッジで繋がらない独立の家系として右に並べる。
+    bands: [
+      { label: "魏", dynastyKeys: ["魏__三国時代"] },
+      { label: "西晋", dynastyKeys: ["西晋__晋"] },
+      { label: "蜀漢", dynastyKeys: ["蜀漢__三国時代"] },
+      { label: "呉", dynastyKeys: ["呉__三国時代"] },
+    ],
+  },
   // --- 以下はフェーズ2で実装する章の枠(バンド未キュレーション) ---
-  { id: "sanguo-xijin", title: "三国・西晋", period: "220年 – 316年", bands: [] },
   { id: "dongjin-shiliuguo", title: "東晋・十六国", period: "304年 – 439年", bands: [] },
   { id: "nanbeichao", title: "南北朝", period: "386年 – 589年", bands: [] },
   { id: "sui-tang", title: "隋唐", period: "581年 – 907年", bands: [] },
@@ -73,7 +87,7 @@ export const KINSHIP_CHAPTER_DEFS: KinshipChapterDef[] = [
 ];
 
 /** 描画を有効化した章(パイロット段階は第1章のみ)。 */
-export const KINSHIP_ENABLED_CHAPTER_IDS: string[] = ["qin-han"];
+export const KINSHIP_ENABLED_CHAPTER_IDS: string[] = ["qin-han", "sanguo-xijin"];
 
 /**
  * ブリッジ人物のバンド帰属の明示指定(自動解決の例外)。値はバンドlabel。
@@ -211,6 +225,12 @@ export const KINSHIP_COLOR_BY_DYNKEY: Record<string, number> = {
   "漢（赤眉軍）__漢（赤眉軍）": 0,
   成家__成家: 0,
   仲家__仲家: 0,
+  // 三国・西晋: 魏=青/西晋=紫/蜀漢=金(漢の法統を継ぐ主張に合わせ漢と同系)/呉=緑。
+  // 朱(--seal)は矢印色のため皇帝カプセルには使わない。
+  魏__三国時代: 1,
+  西晋__晋: 7,
+  蜀漢__三国時代: 4,
+  呉__三国時代: 2,
 };
 
 /** 女性皇帝(emperors.jsonに性別フィールドが無いための表示メタ)。 */

@@ -93,6 +93,9 @@
   --series-6: #eb6834;
   --series-7: #4a3aa7;
   --series-8: #e34948;
+  /* 系譜図(/kinship)の群雄・並立政権カプセル専用色。series-1〜8のどれとも被らない
+     くすんだ藤(muted mauve)。灰だと非皇帝の破線ピルと紛らわしいため専用色にする。 */
+  --kinship-minor: #8d7c94;
   --border: #ddd5c7;
   --input: #ddd5c7;
   --ring: #4a4038;

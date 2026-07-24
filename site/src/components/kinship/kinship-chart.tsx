@@ -36,15 +36,21 @@ const STRUCT_STROKE = "color-mix(in srgb, var(--foreground) 52%, var(--backgroun
 function nodeFill(n: KinshipNodeOut): string {
   if (n.kind === "consort")
     return "color-mix(in srgb, var(--foreground) 5%, var(--background))";
-  if (n.colorSlot === 0)
+  // 非皇帝のつなぎ人物は従来どおり灰(破線枠と合わせて「皇帝でない」ことを示す)。
+  if (n.kind === "person")
     return "color-mix(in srgb, var(--foreground) 10%, var(--background))";
+  // 群雄・並立政権の皇帝カプセルは専用色(灰だと人物ノードと紛らわしい)。
+  if (n.colorSlot === 0)
+    return "color-mix(in srgb, var(--kinship-minor) 40%, var(--background))";
   return `color-mix(in srgb, var(--series-${n.colorSlot}) 42%, var(--background))`;
 }
 function nodeEdge(n: KinshipNodeOut): string {
   if (n.kind === "consort")
     return "color-mix(in srgb, var(--foreground) 30%, var(--background))";
-  if (n.colorSlot === 0)
+  if (n.kind === "person")
     return "color-mix(in srgb, var(--foreground) 38%, var(--background))";
+  if (n.colorSlot === 0)
+    return "color-mix(in srgb, var(--kinship-minor) 80%, var(--background))";
   return `color-mix(in srgb, var(--series-${n.colorSlot}) 82%, var(--background))`;
 }
 
@@ -344,17 +350,48 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
                   : undefined
               }
             >
-              <rect
-                x={n.x}
-                y={n.y}
-                width={n.w}
-                height={n.h}
-                rx={n.kind === "consort" ? n.h / 2 : 8}
-                fill={nodeFill(n)}
-                stroke={nodeEdge(n)}
-                strokeWidth={n.kind === "emperor" ? 1.5 : 1.2}
-                strokeDasharray={n.kind === "person" ? "5 4" : undefined}
-              />
+              {n.segments ? (
+                <>
+                  {/* 廃位期間をまたぐ点線コネクタ(同一人物であることを示す) */}
+                  {n.segments.slice(1).map((s, i) => (
+                    <line
+                      key={`conn:${i}`}
+                      x1={n.x + n.w / 2}
+                      y1={n.segments![i].y + n.segments![i].h}
+                      x2={n.x + n.w / 2}
+                      y2={s.y}
+                      stroke={nodeEdge(n)}
+                      strokeWidth={1.4}
+                      strokeDasharray="2 3"
+                    />
+                  ))}
+                  {n.segments.map((s, i) => (
+                    <rect
+                      key={`seg:${i}`}
+                      x={n.x}
+                      y={s.y}
+                      width={n.w}
+                      height={s.h}
+                      rx={8}
+                      fill={nodeFill(n)}
+                      stroke={nodeEdge(n)}
+                      strokeWidth={1.5}
+                    />
+                  ))}
+                </>
+              ) : (
+                <rect
+                  x={n.x}
+                  y={n.y}
+                  width={n.w}
+                  height={n.h}
+                  rx={n.kind === "consort" ? n.h / 2 : 8}
+                  fill={nodeFill(n)}
+                  stroke={nodeEdge(n)}
+                  strokeWidth={n.kind === "emperor" ? 1.5 : 1.2}
+                  strokeDasharray={n.kind === "person" ? "5 4" : undefined}
+                />
+              )}
               {/* 名前はドラッグ選択してコピーできるようにする(pointer-events無効化をしない) */}
               <text
                 x={n.x + n.w / 2}
