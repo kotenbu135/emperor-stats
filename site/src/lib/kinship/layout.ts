@@ -1275,7 +1275,15 @@ function buildChapter(
         .filter(([, m]) => m === id)
         .map(([c]) => nameOf(c));
       const parts: string[] = [];
-      if (husband) parts.push(`夫: ${nameOf(husband)}`);
+      // 「夫:」は正式な婚姻(=婚姻エッジのある皇后)のみ。妃嬪は礼制上は妾であり
+      // 「夫」は嫡妻を含意するため使わない(収録・検証済みなのも母子関係のみ)。
+      // 皇帝の後宮は「〇〇の妃嬪」と所属で示し、attach先が皇帝でない人物
+      // (史皇孫劉進に付く王翁須など)は関係語を出さず子のみ示す。
+      if (husband) {
+        if (rel2.attachDouble.get(id)) parts.push(`夫: ${nameOf(husband)}`);
+        else if (rel2.emperorById.has(husband))
+          parts.push(`${nameOf(husband)}の妃嬪`);
+      }
       if (kids.length > 0) parts.push(`子: ${kids.join("・")}`);
       if (parts.length > 0) tipLines.push({ text: parts.join("／"), muted: true });
     } else {
