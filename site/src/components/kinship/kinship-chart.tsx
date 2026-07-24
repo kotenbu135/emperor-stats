@@ -75,6 +75,34 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
 
   return (
     <div className="overflow-x-auto rounded-md border border-border bg-background">
+      {/* 年ラベルは横スクロールしても見えるよう、SVG外のstickyオーバーレイで
+          左右両端に固定表示する(h-0なので縦のレイアウトには影響しない)。 */}
+      <div aria-hidden className="pointer-events-none sticky left-0 z-10 h-0 w-0">
+        {layout.ticks.map((t) => (
+          <span
+            key={t.label}
+            className="absolute whitespace-nowrap rounded-sm bg-background/85 px-1 text-[10.5px] text-muted-foreground"
+            style={{ top: t.y - 8, left: 6 }}
+          >
+            {t.label}
+          </span>
+        ))}
+      </div>
+      <div
+        aria-hidden
+        className="pointer-events-none sticky z-10 h-0 w-0"
+        style={{ left: "calc(100% - 6px)" }}
+      >
+        {layout.ticks.map((t) => (
+          <span
+            key={t.label}
+            className="absolute whitespace-nowrap rounded-sm bg-background/85 px-1 text-[10.5px] text-muted-foreground"
+            style={{ top: t.y - 8, left: 0, transform: "translateX(-100%)" }}
+          >
+            {t.label}
+          </span>
+        ))}
+      </div>
       <svg
         role="img"
         aria-label={`${layout.title}の系譜図。縦が時間(上が古い)、横が王朝バンド。皇帝${emperorCount}人を家系図形式で表示。王朝間の交代${layout.arrows.length}本を矢印で表示`}
@@ -108,25 +136,17 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
             stroke="var(--border)"
             strokeWidth={1.5}
           />
+          {/* ラベルはstickyオーバーレイ側で表示するため、SVG内は罫線のみ */}
           {layout.ticks.map((t) => (
-            <g key={t.label}>
-              <line
-                x1={layout.axisX - 5}
-                y1={t.y}
-                x2={layout.width - 16}
-                y2={t.y}
-                stroke="var(--border)"
-                strokeWidth={0.6}
-              />
-              <text
-                x={layout.axisX - 9}
-                y={t.y + 3.5}
-                textAnchor="end"
-                className="fill-muted-foreground text-[10.5px]"
-              >
-                {t.label}
-              </text>
-            </g>
+            <line
+              key={t.label}
+              x1={layout.axisX - 5}
+              y1={t.y}
+              x2={layout.width - 16}
+              y2={t.y}
+              stroke="var(--border)"
+              strokeWidth={0.6}
+            />
           ))}
         </g>
 

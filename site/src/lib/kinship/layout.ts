@@ -20,6 +20,7 @@ import {
 import {
   type BandGraph,
   type KinNodeInfo,
+  LINK_GAP_YEARS,
   NODE_GAP,
   PERSON_H,
   PERSON_HALF_SPAN,
@@ -28,7 +29,6 @@ import {
   type PackedBand,
   type SpouseAttach,
 } from "./tree";
-import { buildYearScale, type YearSpanConstraint } from "./time-scale";
 
 // --- 入力(emperors.tsが整形して渡す) ---
 
@@ -360,7 +360,9 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
   // 反復し、上方向を最後にする(親が上に見えることを優先。残る食い込みは
   // tree.tsの実効区間カーソルが吸収する)。
   {
-    const GAP_YEARS = PERSON_HALF_SPAN + NODE_GAP / PX_PER_YEAR;
+    // 人物→皇帝の辺で皇帝が押し下げられないよう、コネクタの縦室(LINK_GAP_YEARS)
+    // ぶんまで人物側を上へ寄せておく(皇帝カプセルの上辺=即位年を動かさない)。
+    const GAP_YEARS = PERSON_HALF_SPAN + LINK_GAP_YEARS + 0.01;
     const depth = new Map<string, number>();
     const depthOf = (id: string): number => {
       const cached = depth.get(id);
@@ -595,11 +597,26 @@ function buildChapter(
       );
     }
   }
-  const constraints: YearSpanConstraint[] = packed.flatMap((pb) =>
-    pb.items.map((it) => ({ start: it.effStart, end: it.effEnd, minPx: it.minPx })),
-  );
-  const scale = buildYearScale(constraints, PX_PER_YEAR, M_TOP);
-  const { yOf } = scale;
+  // --- 年→px写像(完全等間隔) ---
+  // 章の最初の皇帝在位の直前の25年目盛りを軸の開始とし、そこから下は
+  // 1年=PX_PER_YEAR(8px)の完全等間隔(局所引き伸ばしはしない。短い在位の
+  // カプセル最小高はyearSpanの区間延長+LINK_GAP_YEARSの押し下げで吸収する)。
+  // 開始より前(章の祖先人物: 荘襄王・呂不韋など)は1年=PRE_RATE(2px)に圧縮して
+  // 開始線の上のヘッダー領域に置く(目盛り・グリッドは開始年から)。
+  const PRE_RATE = 2;
+  const allItems = packed.flatMap((pb) => pb.items);
+  const minEff = Math.min(...allItems.map((it) => it.effStart));
+  const maxEff = Math.max(...allItems.map((it) => it.effEnd));
+  const startHist =
+    Math.floor(
+      fromAstroYear(Math.min(...chapterEmperors.map((e) => e.reigns[0].a))) / 25,
+    ) * 25;
+  const startYear = startHist < 0 ? startHist + 1 : startHist;
+  const preH = (startYear - Math.min(minEff, startYear)) * PRE_RATE;
+  const yOf = (y: number): number =>
+    y >= startYear
+      ? M_TOP + preH + (y - startYear) * PX_PER_YEAR
+      : M_TOP + preH - (startYear - y) * PRE_RATE;
 
   const nameOf = (id: string): string =>
     rel.emperorById.get(id)?.name ?? rel.personById.get(id)?.name ?? id;
@@ -627,7 +644,7 @@ function buildChapter(
       let h: number;
       let y: number;
       if (isConsort) {
-        h = Math.min(CONSORT_H, bottom - top);
+        h = CONSORT_H;
         const husband = it.attachedTo !== undefined ? rectById.get(it.attachedTo) : undefined;
         if (husband !== undefined && info.get(it.attachedTo!)?.isEmperor) {
           y = husband.y + 6;
@@ -640,7 +657,8 @@ function buildChapter(
         h = bottom - top;
         y = top;
       } else {
-        h = Math.min(PERSON_H, bottom - top);
+        // 人物は固定高(開始年より前の圧縮領域でも潰れない)。
+        h = PERSON_H;
         y = (top + bottom) / 2 - h / 2;
       }
       const r: PlacedRect = {
@@ -1101,32 +1119,37 @@ function buildChapter(
     }
   }
 
-  // 目盛り(歴史年の25年刻み。0年は暦に存在しないため1年へ置換)。
+  // 目盛り(歴史年の25年刻み・開始年から。0年は暦に存在しないため1年へ置換)。
   const ticks: { y: number; label: string }[] = [];
-  for (let h = Math.ceil(fromAstroYear(scale.minYear) / 25) * 25; ; h += 25) {
+  for (let h = startHist; ; h += 25) {
     const hist = h === 0 ? 1 : h;
     const astro = hist < 0 ? hist + 1 : hist;
-    if (astro > scale.maxYear) break;
-    if (astro < scale.minYear) continue;
+    if (astro > maxEff) break;
     ticks.push({ y: yOf(astro), label: formatYear(hist) });
   }
 
   const height =
-    Math.max(...[...rectById.values()].map((r) => r.y + r.h), yOf(scale.maxYear)) +
+    Math.max(...[...rectById.values()].map((r) => r.y + r.h), yOf(maxEff)) +
     M_BOTTOM;
   // バンドは列共有で最後のバンドが右端とは限らないため、全バンドの右端の最大をとる。
   const width =
     Math.max(...packed.map((pb, i) => bandXs[i] + pb.width)) + 60;
 
   // --- テキスト版 ---
-  const textDynasties: { label: string; emperors: KinshipTextEmperor[] }[] = [];
+  // バンド順はレイアウト都合(漢を最左に等)のため、テキストは年代順に並べ直す。
+  const textDynastiesRaw: {
+    start: number;
+    label: string;
+    emperors: KinshipTextEmperor[];
+  }[] = [];
   for (const bandDef of def.bands) {
     for (const dk of bandDef.dynastyKeys) {
       const list = chapterEmperors
         .filter((e) => e.dynastyKey === dk)
         .sort((p, q) => p.reigns[0].a - q.reigns[0].a);
       if (list.length === 0) continue;
-      textDynasties.push({
+      textDynastiesRaw.push({
+        start: list[0].reigns[0].a,
         label: dk.split("__")[0],
         emperors: list.map((e) => {
           const fatherId = rel.primaryFather.get(e.id);
@@ -1147,6 +1170,9 @@ function buildChapter(
       });
     }
   }
+  const textDynasties = [...textDynastiesRaw]
+    .sort((p, q) => p.start - q.start)
+    .map(({ label, emperors }) => ({ label, emperors }));
   const textTransitions = arrows.map(
     (a) => `${nameOf(a.fromId)} →〔${a.label}〕 ${nameOf(a.toId)}`,
   );

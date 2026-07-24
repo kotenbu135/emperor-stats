@@ -39,11 +39,12 @@ export const KINSHIP_CHAPTER_DEFS: KinshipChapterDef[] = [
     title: "秦・漢",
     period: "前221年 – 220年",
     // バンド順はエッジの横断を最小化するキュレーション:
+    // 漢(劉氏)を最左に置く(章の主役の幹を左端から始め、左上の空白を作らない。
+    // 秦は年代が漢と重ならないため漢の幹の右上の空きに列共有で収まる)。
     // 後漢は劉氏の同族連続政権として前漢と同じバンドに入れる(劉欽→光武帝が
     // 家系図の垂下線そのものになり、光武帝は劉欽の真下に置かれる)。その右に新
     // (孺子嬰→王莽の禅譲矢印と王禁→王政君の線が隣接バンド間の短い線で済む)。
     bands: [
-      { label: "秦", dynastyKeys: ["秦__秦（始皇帝以降）"] },
       {
         label: "漢（劉氏）",
         dynastyKeys: [
@@ -53,6 +54,7 @@ export const KINSHIP_CHAPTER_DEFS: KinshipChapterDef[] = [
           "後漢__後漢",
         ],
       },
+      { label: "秦", dynastyKeys: ["秦__秦（始皇帝以降）"] },
       { label: "新（王氏）", dynastyKeys: ["新__新"] },
       { label: "漢（赤眉軍）", dynastyKeys: ["漢（赤眉軍）__漢（赤眉軍）"] },
       { label: "成家", dynastyKeys: ["成家__成家"] },

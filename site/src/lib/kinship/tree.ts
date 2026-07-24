@@ -32,6 +32,8 @@ const GAP_X = 12; // 横方向の最小間隔
 // クリアランスを確保する)。子の位置に合わせて伸ばす方向は自由。
 const TIE_LEN = 28;
 const MIN_SIB_SEP = 24; // 兄弟ルート間の最小x差(横並び順の保証)
+/** 親の下辺と子の上辺の間に確保する縦室(垂下点→バー→子の線が見える最小高)。 */
+export const LINK_GAP_YEARS = 12 / PX_PER_YEAR;
 /** 人物ノードが年空間で占有する片側幅。 */
 export const PERSON_HALF_SPAN = PERSON_MIN_PX / 2 / PX_PER_YEAR;
 /** 衝突判定の年方向パディング(px換算でNODE_GAP相当)。 */
@@ -133,8 +135,10 @@ function consortWidth(name: string): number {
 function yearSpan(info: KinNodeInfo): { start: number; end: number } {
   if (info.isEmperor && info.reign) {
     const start = info.reign.a;
-    // 同年内の即位・退位(0年区間)にも最小の区間を与える。
-    const end = Math.max(info.reign.b, start + 0.5);
+    // 縦スケールは完全等間隔(局所引き伸ばしなし)のため、短い在位はカプセルの
+    // 最小高ぶんだけ実期間より長い区間を占有する(上辺=即位年は常に正確。
+    // 下辺の延び・直後の即位の押し下げは許容する近似: ユーザー確認済み)。
+    const end = Math.max(info.reign.b, start + EMPEROR_MIN_PX / PX_PER_YEAR);
     return { start, end };
   }
   return { start: info.anchor - PERSON_HALF_SPAN, end: info.anchor + PERSON_HALF_SPAN };
@@ -196,6 +200,16 @@ export function packBand(g: BandGraph): PackedBand {
   // 後段のチェーン押し下げ用に、木構造の辺(親→子。DFSで親の処理が先)を記録する。
   const treeEdges: { parent: string; child: string }[] = [];
   const itemById = new Map<string, PackedItem>();
+  // 世代の深さ(父を子の左右どちらに置くかの交互判定と、押し下げの処理順に使う)。
+  const depth = new Map<string, number>();
+  const depthOf = (nodeId: string): number => {
+    const cached = depth.get(nodeId);
+    if (cached !== undefined) return cached;
+    const f = g.primaryFather.get(nodeId);
+    const d = f === undefined ? 0 : depthOf(f) + 1;
+    depth.set(nodeId, d);
+    return d;
+  };
 
   /** サブツリーの座標シフトをitems/junctions/tiesへも伝播する。 */
   const shiftPlaced = (
@@ -291,8 +305,9 @@ export function packBand(g: BandGraph): PackedBand {
     // 子は母別グループで連続に並んでいる(packBand冒頭のソート)。
     // 目標は「すべての垂下線をまっすぐ落とす」こと:
     // - 母不明グループがあれば、父をその平均xの真上に置く(父下辺中央から垂直)。
-    // - 母グループは、夫婦連結線の長さを伸縮させて連結線の中点をそのグループの
-    //   平均xに正確に合わせる(＝の長さは固定しない。表示が美しくなる長さを選ぶ)。
+    // - 母グループは、垂下点(連結線上の任意の位置でよい。中点である必要はない)を
+    //   そのグループの平均xに正確に合わせる。妃は垂下点のすぐ外側に置く
+    //   (連結線の妃側を短くしてよい: ユーザー指示)。
     const spouses = g.spousesOf.get(id) ?? [];
     const childXById = new Map(childRoots.map((c) => [c.id, c.x]));
     const spouseIdSet = new Set(spouses.map((sp) => sp.id));
@@ -313,9 +328,14 @@ export function packBand(g: BandGraph): PackedBand {
     } else if (nullKids !== undefined) {
       rootX = meanXOf(nullKids);
     } else {
-      // 母グループのみ: 父は最初のグループの左脇(標準長の連結線の中点が真上に来る)。
+      // 母グループのみ: 父は最初のグループの脇に置き、垂下点がグループ平均xに
+      // 来るようにする。左右は世代の偶奇で交互にする(毎世代同じ側だと、幹が
+      // 時代が下るにつれて右へ流れていく)。
+      const t = meanXOf(groupsHere.get(groupKeyOf(children[0]))!);
       rootX =
-        meanXOf(groupsHere.get(groupKeyOf(children[0]))!) - w / 2 - TIE_LEN / 2;
+        depthOf(id) % 2 === 0
+          ? t - w / 2 - TIE_LEN / 2
+          : t + w / 2 + TIE_LEN / 2;
     }
 
     rects.push({ x0: rootX - w / 2, x1: rootX + w / 2, y0: span.start, y1: span.end });
@@ -355,23 +375,27 @@ export function packBand(g: BandGraph): PackedBand {
     // 配偶者の占有年区間は夫と同一にする(描画は夫カプセルの上部にpx整列。
     // 子は必ず夫の実効区間の後に始まるため、連結線を横に伸ばしても子と交差しない)。
     const spouseSpan = { start: span.start, end: span.end };
-    const tieMid = new Map<string, number>();
+    const junctionOf = new Map<string, number>();
     for (const side of ["L", "R"] as const) {
       let edge = side === "L" ? rootX - w / 2 : rootX + w / 2;
       for (const pl of sidePlans[side]) {
         let innerX: number;
         if (pl.hasKids) {
-          // 連結線の中点 = 自分の子グループの平均x になるよう長さを決める。
+          // 垂下点 = 自分の子グループの平均x(連結線上にクランプ)。妃はその
+          // すぐ外側(+12px)に置く。連結線を対称に伸ばす必要はない。
           const target = meanXOf(groupsHere.get(pl.sp.id)!);
-          innerX = 2 * target - edge;
+          const jx =
+            side === "L"
+              ? Math.min(target, edge - TIE_LEN / 2)
+              : Math.max(target, edge + TIE_LEN / 2);
+          junctionOf.set(pl.sp.id, jx);
           innerX =
             side === "L"
-              ? Math.min(innerX, edge - TIE_LEN)
-              : Math.max(innerX, edge + TIE_LEN);
+              ? Math.min(jx - 12, edge - TIE_LEN)
+              : Math.max(jx + 12, edge + TIE_LEN);
         } else {
           innerX = side === "L" ? edge - TIE_LEN : edge + TIE_LEN;
         }
-        tieMid.set(pl.sp.id, (edge + innerX) / 2);
         const cx = side === "L" ? innerX - pl.sw / 2 : innerX + pl.sw / 2;
         items.push({
           id: pl.sp.id,
@@ -413,7 +437,7 @@ export function packBand(g: BandGraph): PackedBand {
     // --- 垂下グループ(母ごと+母不明)と垂下線の占有矩形 ---
     for (const [key, kids] of groupsHere) {
       const motherId = key === "" ? null : key;
-      const jx = motherId === null ? rootX : tieMid.get(motherId)!;
+      const jx = motherId === null ? rootX : junctionOf.get(motherId)!;
       junctions.push({ fatherId: id, motherId, x: jx, children: kids });
       const topKid = Math.min(...kids.map((c) => yearSpan(g.info.get(c)!).start));
       if (topKid > span.end)
@@ -448,33 +472,20 @@ export function packBand(g: BandGraph): PackedBand {
   }
   const width = Math.max(...items.map((i) => i.cx + i.w / 2));
 
-  // --- 同一カラムの親子チェーン押し下げ(実効年区間のカーソル解決) ---
-  // 浅い親から順(深さ昇順)に見て、x方向に重なる親子の年区間が食い込んでいたら
-  // 子を押し下げる。押し下げは子孫の辺の処理で連鎖する(treeEdgesはDFSの
-  // post-orderで深い辺が先に並ぶため、必ず深さ順に並べ替えてから処理する)。
-  const depth = new Map<string, number>();
-  const depthOf = (id: string): number => {
-    const cached = depth.get(id);
-    if (cached !== undefined) return cached;
-    const f = g.primaryFather.get(id);
-    const d = f === undefined ? 0 : depthOf(f) + 1;
-    depth.set(id, d);
-    return d;
-  };
+  // --- 親子チェーン押し下げ(実効年区間のカーソル解決) ---
+  // 浅い親から順(深さ昇順)に見て、親子コネクタ(垂下点→バー→子)が見える最小の
+  // 縦室 LINK_GAP_YEARS を子との間に確保する。在位が隣接する直系継承(恵帝→
+  // 前少帝など)では子がそのぶん下がる(位置の完全な正確さより「親子の線が
+  // 見える」を優先する近似: ユーザー確認済み)。押し下げは深さ順の処理で
+  // 子孫の辺に連鎖する。
   treeEdges.sort((p, q) => depthOf(p.parent) - depthOf(q.parent));
   for (const { parent, child } of treeEdges) {
     const p = itemById.get(parent);
     const c = itemById.get(child);
     if (!p || !c) continue;
-    const xOverlap =
-      p.cx - p.w / 2 < c.cx + c.w / 2 && c.cx - c.w / 2 < p.cx + p.w / 2;
-    if (!xOverlap) continue;
-    // 真に食い込んでいる場合のみ押し下げる(在位が隣接する親子皇帝は年境界を共有
-    // するのが正常で、描画時のNODE_GAPインセットが間隔を作る。ここでPAD_Yまで
-    // 要求すると幹の全皇帝が真の即位年から数pxずつ下へずれてしまう)。
-    if (c.effStart < p.effEnd) {
+    if (c.effStart < p.effEnd + LINK_GAP_YEARS) {
       const len = c.effEnd - c.effStart;
-      c.effStart = p.effEnd;
+      c.effStart = p.effEnd + LINK_GAP_YEARS;
       c.effEnd = c.effStart + len;
     }
   }
