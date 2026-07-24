@@ -99,7 +99,7 @@ export interface KinshipEmperorTip {
   portraitUrl: string | null;
   /** 在位期間の表示(複数在位は「、」区切り)。 */
   reignLabel: string;
-  details: { label: string; value: string }[];
+  details: { label: string; value: string; clamp?: boolean }[];
 }
 
 export interface KinshipNodeOut {
@@ -353,8 +353,7 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
   // 人物側の配置年を妃の描画位置(夫カプセル上部)に揃える。これで補助線が
   // 曲がりのない水平1本の直線になる(実際の生没年はツールチップで示す)。
   {
-    const consortAlignYears =
-      (NODE_GAP / 2 + 6 + CONSORT_H / 2) / PX_PER_YEAR;
+    const consortAlignYears = (6 + CONSORT_H / 2) / PX_PER_YEAR;
     for (const e of src.edges) {
       if (e.type !== "kinship") continue;
       if (e.relation !== "実父" && e.relation !== "実母") continue;
@@ -651,8 +650,11 @@ function buildChapter(
     for (const it of pb.items) {
       const isConsort = it.role === "consort";
       const nodeInfo = info.get(it.id)!;
-      const top = yOf(it.effStart) + NODE_GAP / 2;
-      const bottom = yOf(it.effEnd) - NODE_GAP / 2;
+      // カプセルは実効区間に正確に一致させる(上辺=即位年・下辺=退位年。レビュー⑧:
+      // 区間から内側に寄せるインセットは年目盛りとの系統ズレになるため廃止。
+      // ノード間の視覚的間隔はtree.tsのパッキングパディングが確保する)。
+      const top = yOf(it.effStart);
+      const bottom = yOf(it.effEnd);
       // 皇帝カプセルは実効区間いっぱい(高さ=在位期間)。人物は固定高で区間中央。
       // 配偶者は夫カプセルの「上部」にpx整列する(子は必ず夫の下端より後に始まるため、
       // 連結線を子グループの真上まで伸ばしても子や垂下帯と交差しない)。
@@ -1089,6 +1091,20 @@ function buildChapter(
         }
       }
     }
+    // 皇帝カプセルの年線整合(レビュー⑧): 上辺が即位年より上・下辺が退位年より上に
+    // 来ることは許さない(「安帝の箱が125年の線より上で終わる」の再発防止)。
+    // 下方向のズレのみ許容(短在位の最小高・隣接即位の押し下げという承認済みの近似)。
+    for (const e of chapterEmperors) {
+      const r = rectById.get(e.id);
+      if (!r) continue;
+      const etop = yOf(e.reigns[0].a);
+      const ebot = yOf(e.reigns[e.reigns.length - 1].b);
+      if (r.y < etop - 0.5 || r.y + r.h < ebot - 0.5) {
+        violations.push(
+          `年線整合違反 ${e.name}(${e.id}) [上辺${(r.y - etop).toFixed(1)}px 下辺${(r.y + r.h - ebot).toFixed(1)}px]`,
+        );
+      }
+    }
     // ノードどうしの重なりも禁止(アンカー調整・チェーン押し下げの副作用を検出する)。
     const placedAll = [...rectById.entries()];
     for (let i = 0; i < placedAll.length; i++) {
@@ -1109,7 +1125,7 @@ function buildChapter(
     }
     if (violations.length > 0) {
       throw new Error(
-        `kinship/layout: 章「${def.title}」で品質ゲート違反(横断・重なり・垂下点の段差)があります(${violations.length}件):\n` +
+        `kinship/layout: 章「${def.title}」で品質ゲート違反(横断・重なり・垂下点の段差・年線整合)があります(${violations.length}件):\n` +
           violations.join("\n"),
       );
     }
@@ -1254,22 +1270,20 @@ function buildChapter(
       const sub = `${ordinalLabel(emp.ordinals[0])}・${category}${disputed ? "?" : ""}`;
       // ツールチップは統計ページ共通のEmperorTooltip(肖像+名前+王朝+在位+補足)。
       // クリックで全項目ダイアログを開くため、系譜固有の補足だけをdetailsに載せる。
-      const details: { label: string; value: string }[] = [
+      const details: { label: string; value: string; clamp?: boolean }[] = [
         {
           label: "即位",
           value: `${ordinalLabel(emp.ordinals[0])}・${category}${disputed ? "（諸説あり）" : ""}`,
         },
       ];
-      if (succ)
-        details.push({
-          label: "先代",
-          value: `${nameOf(succ.from)}の${succ.relationToPredecessor ?? "続柄不明"}`,
-        });
       const fatherId = rel2.primaryFather.get(id);
       const motherId = rel2.motherOf.get(id);
       if (fatherId) details.push({ label: "父", value: nameOf(fatherId) });
       if (motherId) details.push({ label: "母", value: nameOf(motherId) });
-      if (claim) details.push({ label: "◇遠祖の主張", value: claim.claimedAncestry });
+      // 遠祖の主張は長文(高帝の堯後裔説など)のためツールチップでは1行に切り詰め、
+      // 全文はページ末尾の一覧で示す。
+      if (claim)
+        details.push({ label: "◇遠祖の主張", value: claim.claimedAncestry, clamp: true });
       return {
         key: id,
         id,

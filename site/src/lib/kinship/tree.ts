@@ -20,10 +20,13 @@
 // 引き伸ばしは「在位が短くカプセル最小高に満たない皇帝」の周辺でのみ発生する
 // (3px/年の頃はほぼ全区間が引き伸ばされ年目盛りが不均等で分かりにくかった)。
 export const PX_PER_YEAR = 8;
-export const NODE_GAP = 10; // 縦方向のノード間隔(年境界から上下5pxずつ内側に描く)
+export const NODE_GAP = 10; // 縦方向のノード間隔(パッキングの衝突パディングで確保する)
 export const EMPEROR_W = 96;
-/** 皇帝カプセルの最小高(名前+「第N代・経路」の2行が成立する高さ)+間隔。 */
-export const EMPEROR_MIN_PX = 52 + NODE_GAP;
+/** 皇帝カプセルの最小高(名前+「第N代・経路」の2行が成立する高さ)。
+ *  カプセルは実在位区間いっぱいに描く(上辺=即位年・下辺=退位年に正確に一致させる。
+ *  レビュー⑧: 区間から内側に寄せるインセットは「箱が退位年の線より上で終わる」
+ *  系統ズレになるため廃止)。 */
+export const EMPEROR_MIN_PX = 52;
 export const PERSON_H = 26;
 export const PERSON_MIN_PX = PERSON_H + NODE_GAP;
 const GAP_X = 12; // 横方向の最小間隔
@@ -36,8 +39,9 @@ const MIN_SIB_SEP = 24; // 兄弟ルート間の最小x差(横並び順の保証
 export const LINK_GAP_YEARS = 12 / PX_PER_YEAR;
 /** 人物ノードが年空間で占有する片側幅。 */
 export const PERSON_HALF_SPAN = PERSON_MIN_PX / 2 / PX_PER_YEAR;
-/** 衝突判定の年方向パディング(px換算でNODE_GAP相当)。 */
-const PAD_Y = NODE_GAP / 2 / PX_PER_YEAR;
+/** 衝突判定の年方向パディング(px換算でNODE_GAP相当)。カプセルは実区間いっぱいに
+ *  描くため、無関係なノードどうしの縦の視覚的間隔はこのパディングだけで作る。 */
+const PAD_Y = NODE_GAP / PX_PER_YEAR;
 
 // --- 入力 ---
 
@@ -538,15 +542,18 @@ export function packBand(g: BandGraph): PackedBand {
   // 前少帝など)では子がそのぶん下がる(位置の完全な正確さより「親子の線が
   // 見える」を優先する近似: ユーザー確認済み)。押し下げは深さ順の処理で
   // 子孫の辺に連鎖する。
+  // 押し下げは「上辺だけ」下げ、下辺(退位年)は高さに余裕がある限り維持する
+  // (レビュー⑧)。全体を平行移動すると、在位が隣接し続ける幹(景帝→武帝→昭帝…)で
+  // ズレが世代ごとに12pxずつ累積し、下辺が退位年の線から大きく外れていく。
+  // 下辺を維持すれば誤差は各人の上辺12pxで打ち止めになり、子孫へ連鎖しない。
   treeEdges.sort((p, q) => depthOf(p.parent) - depthOf(q.parent));
   for (const { parent, child } of treeEdges) {
     const p = itemById.get(parent);
     const c = itemById.get(child);
     if (!p || !c) continue;
     if (c.effStart < p.effEnd + LINK_GAP_YEARS) {
-      const len = c.effEnd - c.effStart;
       c.effStart = p.effEnd + LINK_GAP_YEARS;
-      c.effEnd = c.effStart + len;
+      c.effEnd = Math.max(c.effEnd, c.effStart + c.minPx / PX_PER_YEAR);
     }
   }
   // 配偶者は夫の実効区間に追従させる(夫が押し下げられた場合)。
