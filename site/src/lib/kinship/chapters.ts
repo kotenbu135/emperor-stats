@@ -100,6 +100,52 @@ export const CHILD_ORDER_OVERRIDES: Record<string, number> = {
   "p-liu-wai": 5,
 };
 
+/**
+ * 人物ピルの表示強化(皇帝ではないが史上の地位が線の意味に効く人物)。
+ * - label: ピルの表示名(通称)。無指定は名前の短縮形。
+ * - role: ピル2行目の肩書き(指定するとピルが2行分の高さになる)。
+ * - tipNote: ツールチップ末尾の補足文(サイト側の要約文。原文引用ではない)。
+ * - p-ruzi-ying(孺子嬰): ピルが「劉嬰」だけだと皇太子(孺子)であることが読み
+ *   取れず、王莽への「禅譲・外戚」矢印の説得力がない(ユーザー指摘)。
+ */
+export const PERSON_DISPLAY_OVERRIDES: Record<
+  string,
+  { label?: string; role?: string; tipNote?: string }
+> = {
+  "p-ruzi-ying": {
+    label: "孺子嬰",
+    role: "皇太子",
+    tipNote:
+      "平帝の崩後、王莽により皇太子(号は孺子)に立てられたが、皇帝に即位しないまま初始元年(8年)の王莽即位で漢の帝位を禅譲する形となった",
+  },
+};
+
+/**
+ * 遠祖の系譜主張(genealogicalClaims)をグラフに長い点線で描くもの(キュレーション)。
+ * 主張の中間世代は人物ノードとして収録されていないため、主張上の遠祖(実在の
+ * 描画ノード)から「実父エッジで繋がる最古の祖先ノード」までを1本の点線で結ぶ。
+ * ツールチップに主張の全文(claimedAncestry)と出典を出す。
+ * - 劉盆子(建世帝): 高祖—劉肥—劉章—〔約7世代略〕—劉憲—劉萌の後漢書記載の系譜。
+ *   終点は実父エッジ収録済みの劉萌。垂直コリドーは赤眉バンドの右脇(左脇は
+ *   「新（王氏）」「漢（赤眉軍）」の見出しと王禁ピルに挟まれ11px幅しかない)。
+ */
+export const CLAIM_LINE_DEFS: {
+  claimant: string;
+  fromId: string;
+  toId: string;
+  /** 垂直コリドーを終点ノードのどちら側に通すか。 */
+  side: "L" | "R";
+  label: string;
+}[] = [
+  {
+    claimant: "liu-penzi",
+    fromId: "han-gaozu",
+    toId: "p-liu-meng",
+    side: "R",
+    label: "高祖の後裔（中間は世代略）",
+  },
+];
+
 // 配色はtimeline-river.tsのSTREAM_DEFSと同じ意味ベース割当(漢系=4金・新=1青・
 // 秦=8朱・群雄=0灰)。globals.cssの--series-N。
 export const KINSHIP_COLOR_BY_DYNKEY: Record<string, number> = {

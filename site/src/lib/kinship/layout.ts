@@ -12,10 +12,12 @@ import { formatYear } from "@/lib/emperor-types";
 import { fromAstroYear } from "@/lib/timeline-river";
 import {
   CHILD_ORDER_OVERRIDES,
+  CLAIM_LINE_DEFS,
   KINSHIP_CHAPTER_DEFS,
   KINSHIP_COLOR_BY_DYNKEY,
   KINSHIP_ENABLED_CHAPTER_IDS,
   PERSON_BAND_OVERRIDES,
+  PERSON_DISPLAY_OVERRIDES,
 } from "./chapters";
 import {
   type BandGraph,
@@ -24,6 +26,7 @@ import {
   NODE_GAP,
   PERSON_H,
   PERSON_HALF_SPAN,
+  PERSON_ROLE_H,
   PX_PER_YEAR,
   packBand,
   type PackedBand,
@@ -148,6 +151,10 @@ export interface KinshipAuxOut {
   disputed: boolean;
   /** 婚姻(二重線)の補助エッジか。 */
   marriage: boolean;
+  /** 線上に出すラベル(遠祖の系譜主張の点線のみ)。 */
+  label?: string;
+  labelX?: number;
+  labelY?: number;
   tipLines: TipLine[];
 }
 
@@ -534,6 +541,7 @@ function buildChapter(
   }
   for (const p of src.persons) {
     if (!bandOfNode.has(p.id) && !rel.attachedTo.has(p.id)) continue;
+    const disp = PERSON_DISPLAY_OVERRIDES[p.id];
     info.set(p.id, {
       id: p.id,
       isEmperor: false,
@@ -541,6 +549,8 @@ function buildChapter(
       name: shortName(p.name),
       female: p.female,
       anchor: rel.est.get(p.id)!,
+      dispLabel: disp?.label,
+      dispRole: disp?.role,
     });
   }
 
@@ -674,8 +684,8 @@ function buildChapter(
         h = bottom - top;
         y = top;
       } else {
-        // 人物は固定高(開始年より前の圧縮領域でも潰れない)。
-        h = PERSON_H;
+        // 人物は固定高(開始年より前の圧縮領域でも潰れない)。肩書き行つきは2行分。
+        h = nodeInfo.dispRole !== undefined ? PERSON_ROLE_H : PERSON_H;
         y = (top + bottom) / 2 - h / 2;
       }
       const r: PlacedRect = {
@@ -852,7 +862,10 @@ function buildChapter(
     const x1 = leftToRight ? a.x + a.w : a.x;
     const x2 = leftToRight ? b.x : b.x + b.w;
     const y1 = a.y + a.h / 2;
-    const y2 = b.y + b.h / 2;
+    // 始点の高さが到達先カプセルの縦範囲に収まるなら水平の直線にする(中心どうしを
+    // 結ぶと数pxの高低差で「微妙に下に曲がった」線になる。劉嬰→王莽)。
+    const y2 =
+      y1 >= b.y + 6 && y1 <= b.y + b.h - 6 ? y1 : b.y + b.h / 2;
     const mx = (x1 + x2) / 2;
     return `M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`;
   };
@@ -967,7 +980,10 @@ function buildChapter(
       } else {
         const leftToRight = a.cx < b.cx;
         midX = ((leftToRight ? a.x + a.w : a.x) + (leftToRight ? b.x : b.x + b.w)) / 2;
-        midY = Math.min(a.y + a.h / 2, b.y + b.h / 2) - 8;
+        // 水平化した線(curvePathと同じ判定)はその線のy基準でラベルを置く。
+        const ay = a.y + a.h / 2;
+        const by = ay >= b.y + 6 && ay <= b.y + b.h - 6 ? ay : b.y + b.h / 2;
+        midY = Math.min(ay, by) - 8;
       }
       arrows.push({
         key: `s:${e.from}→${e.to}`,
@@ -1041,6 +1057,49 @@ function buildChapter(
     }
     // 兄弟姉妹など: 補助線。
     auxEdges.push(kinAux(e, a, b, true));
+  }
+
+  // --- 遠祖の系譜主張の点線(CLAIM_LINE_DEFS) ---
+  // 主張上の遠祖ノードの右下から出て、到達先バンドの左脇コリドー(バンド間の
+  // ガター)を垂直に降り、終点ノードの左辺中央へ入る。中間世代は収録されて
+  // いないため1本の長い点線で、主張の全文と出典はツールチップに出す。
+  for (const cl of CLAIM_LINE_DEFS) {
+    const a = rectById.get(cl.fromId);
+    const b = rectById.get(cl.toId);
+    const claim = rel.claimByClaimant.get(cl.claimant);
+    if (!a || !b || claim === undefined) continue;
+    const ay = a.y + a.h - 14; // 右下寄り(上部の妃ピル・連結線を避ける)
+    // 垂直コリドー: 終点ノードの脇のバンド間ガター。バンド見出しテキストは
+    // ゲート対象外のため、通る側は def.side でキュレーションする(44pxは
+    // バンド見出しをかわしつつ隣バンドに届かないオフセット)。
+    const vx = cl.side === "R" ? b.x + b.w + 44 : b.x - 24;
+    const my = b.y + b.h / 2;
+    const pts: [number, number][] = [
+      [a.x + a.w, ay],
+      [vx, ay],
+      [vx, my],
+      [cl.side === "R" ? b.x + b.w : b.x, my],
+    ];
+    pushAuxSegs(pts, [cl.fromId, cl.toId], `遠祖主張 ${cl.claimant}`);
+    auxEdges.push({
+      key: `c:${cl.claimant}:${cl.fromId}→${cl.toId}`,
+      fromId: cl.fromId,
+      toId: cl.toId,
+      path: toPath(pts),
+      dashed: true,
+      disputed: false,
+      marriage: false,
+      label: cl.label,
+      labelX: vx,
+      labelY: (ay + my) / 2,
+      tipLines: [
+        { text: "◇遠祖の系譜主張" },
+        { text: `${nameOf(cl.claimant)}: ${claim.claimedAncestry}`, muted: true },
+        ...(claim.sourcePage
+          ? [{ text: `出典: ${claim.sourcePage}`, muted: true }]
+          : []),
+      ],
+    });
   }
 
   function kinAux(
@@ -1308,11 +1367,16 @@ function buildChapter(
       };
     }
     const p = rel2.personById.get(id)!;
+    const disp = PERSON_DISPLAY_OVERRIDES[id];
+    const tipName =
+      disp?.label !== undefined && disp.label !== p.name
+        ? `${disp.label}（${p.name}）`
+        : p.name;
     const tipLines: TipLine[] = [
-      { text: `${p.female ? "♀ " : ""}${p.name}` },
+      { text: `${p.female ? "♀ " : ""}${tipName}` },
       { text: personPeriod(p), muted: true },
     ];
-    const label = `${p.female ? "♀" : ""}${shortName(p.name)}`;
+    const label = `${p.female ? "♀" : ""}${disp?.label ?? shortName(p.name)}`;
     if (isConsort) {
       const husband = rel2.attachedTo.get(id);
       const kids = [...rel2.motherOf.entries()]
@@ -1334,6 +1398,7 @@ function buildChapter(
       const fatherId = rel2.primaryFather.get(id);
       if (fatherId) tipLines.push({ text: `父: ${nameOf(fatherId)}`, muted: true });
     }
+    if (disp?.tipNote) tipLines.push({ text: disp.tipNote, muted: true });
     if (claim) tipLines.push({ text: `◇遠祖の主張: ${claim.claimedAncestry}`, muted: true });
     return {
       key: id,
@@ -1344,7 +1409,7 @@ function buildChapter(
       w: r.w,
       h: r.h,
       label,
-      sub: null,
+      sub: disp?.role ?? null,
       colorSlot: 0,
       female: p.female,
       claimBadge: claim !== undefined,

@@ -229,6 +229,21 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
                   strokeDasharray={e.dashed ? "2 5" : undefined}
                 />
               )}
+              {e.label !== undefined && (
+                <text
+                  x={e.labelX}
+                  y={e.labelY}
+                  textAnchor="middle"
+                  className="fill-muted-foreground text-[10px]"
+                  style={{
+                    paintOrder: "stroke",
+                    stroke: "var(--background)",
+                    strokeWidth: 3,
+                  }}
+                >
+                  {e.label}
+                </text>
+              )}
               <path
                 d={e.path}
                 fill="none"

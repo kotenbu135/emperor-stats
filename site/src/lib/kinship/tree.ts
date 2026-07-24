@@ -28,6 +28,8 @@ export const EMPEROR_W = 96;
  *  系統ズレになるため廃止)。 */
 export const EMPEROR_MIN_PX = 52;
 export const PERSON_H = 26;
+/** 肩書き行(dispRole)つき人物ピルの高さ(名前+肩書きの2行)。 */
+export const PERSON_ROLE_H = PERSON_H + 12;
 export const PERSON_MIN_PX = PERSON_H + NODE_GAP;
 const GAP_X = 12; // 横方向の最小間隔
 // 夫婦の連結線(＝)の最小長。子グループの垂下線は連結線の中点から落ちるため、
@@ -54,6 +56,9 @@ export interface KinNodeInfo {
   anchor: number;
   /** 皇帝のみ: 在位区間(天文年)。 */
   reign?: { a: number; b: number };
+  /** 表示オーバーライド(chapters.tsのPERSON_DISPLAY_OVERRIDES)。幅・高さに効く。 */
+  dispLabel?: string;
+  dispRole?: string;
 }
 
 export interface SpouseAttach {
@@ -128,7 +133,11 @@ interface Rect {
 
 function nodeWidth(info: KinNodeInfo): number {
   if (info.isEmperor) return EMPEROR_W;
-  return Math.max(48, Math.min(132, info.name.length * 11 + 16));
+  const nm = info.dispLabel ?? info.name;
+  let w = Math.max(48, Math.min(132, nm.length * 11 + 16));
+  if (info.dispRole !== undefined)
+    w = Math.max(w, Math.min(132, info.dispRole.length * 9.5 + 16));
+  return w;
 }
 
 function consortWidth(name: string): number {
@@ -145,7 +154,12 @@ function yearSpan(info: KinNodeInfo): { start: number; end: number } {
     const end = Math.max(info.reign.b, start + EMPEROR_MIN_PX / PX_PER_YEAR);
     return { start, end };
   }
-  return { start: info.anchor - PERSON_HALF_SPAN, end: info.anchor + PERSON_HALF_SPAN };
+  // 肩書き行つきの人物ピルは2行分の高さを占有する。
+  const half =
+    info.dispRole !== undefined
+      ? (PERSON_ROLE_H + NODE_GAP) / 2 / PX_PER_YEAR
+      : PERSON_HALF_SPAN;
+  return { start: info.anchor - half, end: info.anchor + half };
 }
 
 function collideAmount(placed: Rect[], cand: Rect[]): number {
