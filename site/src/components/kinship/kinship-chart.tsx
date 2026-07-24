@@ -174,6 +174,11 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
               y={b.labelY}
               textAnchor="middle"
               className="fill-foreground text-[13px] font-semibold"
+              style={{
+                paintOrder: "stroke",
+                stroke: "var(--background)",
+                strokeWidth: 4,
+              }}
             >
               {b.label}
             </text>

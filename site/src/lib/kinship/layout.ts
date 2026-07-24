@@ -11,8 +11,11 @@
 import { formatYear } from "@/lib/emperor-types";
 import { fromAstroYear } from "@/lib/timeline-river";
 import {
+  BAND_LABEL_ANCHOR,
+  BAND_X_EXTRA,
   CHILD_ORDER_OVERRIDES,
   CLAIM_LINE_DEFS,
+  CONSORT_BOTTOM_ATTACH,
   KINSHIP_CHAPTER_DEFS,
   KINSHIP_COLOR_BY_DYNKEY,
   KINSHIP_ENABLED_CHAPTER_IDS,
@@ -615,6 +618,8 @@ function buildChapter(
           if (yOverlap) x = Math.max(x, a.x1 + BAND_GAP - b.x0);
         }
       }
+      // バンド間の線の通り道を広げるキュレーション(右のバンドも同量押される)。
+      x += BAND_X_EXTRA[pb.label] ?? 0;
       bandXs.push(x);
       placedRects.push(
         ...rects.map((r) => ({ x0: r.x0 + x, x1: r.x1 + x, y0: r.y0, y1: r.y1 })),
@@ -674,7 +679,11 @@ function buildChapter(
         h = CONSORT_H;
         const husband = it.attachedTo !== undefined ? rectById.get(it.attachedTo) : undefined;
         if (husband !== undefined && info.get(it.attachedTo!)?.isEmperor) {
-          y = husband.y + 6;
+          // 既定は夫カプセル上辺。CONSORT_BOTTOM_ATTACH指定は下辺側(生母の垂下線と
+          // 遠祖主張の点線が交差するのを避けるための個別指定)。
+          y = CONSORT_BOTTOM_ATTACH.has(it.id)
+            ? husband.y + husband.h - h - 6
+            : husband.y + 6;
         } else if (husband !== undefined) {
           y = husband.y + husband.h / 2 - h / 2;
         } else {
@@ -1068,11 +1077,11 @@ function buildChapter(
     const b = rectById.get(cl.toId);
     const claim = rel.claimByClaimant.get(cl.claimant);
     if (!a || !b || claim === undefined) continue;
-    const ay = a.y + a.h - 14; // 右下寄り(上部の妃ピル・連結線を避ける)
+    // 起点カプセルの出る高さ。上辺(top)は下の生母の垂下線を避ける。
+    const ay = cl.fromAnchor === "top" ? a.y + 14 : a.y + a.h - 14;
     // 垂直コリドー: 終点ノードの脇のバンド間ガター。バンド見出しテキストは
-    // ゲート対象外のため、通る側は def.side でキュレーションする(44pxは
-    // バンド見出しをかわしつつ隣バンドに届かないオフセット)。
-    const vx = cl.side === "R" ? b.x + b.w + 44 : b.x - 24;
+    // ゲート対象外のため、通る側は def.side でキュレーションする。
+    const vx = cl.side === "R" ? b.x + b.w + 24 : b.x - 24;
     const my = b.y + b.h / 2;
     const pts: [number, number][] = [
       [a.x + a.w, ay],
@@ -1199,12 +1208,19 @@ function buildChapter(
     const topNodes = bandNodes.filter((n) => n.y < topY + 60);
     const tx0 = Math.min(...topNodes.map((n) => n.x));
     const tx1 = Math.max(...topNodes.map((n) => n.x + n.w));
+    // アンカー上書き(新（王氏）を王莽の直上に置く等)。基準ノードの上に配置する。
+    const anchor = BAND_LABEL_ANCHOR[b.label];
+    const anchorRect = anchor ? rectById.get(anchor.anchorId) : undefined;
     return {
       label: b.label,
       x: bandXs[i],
       width: packed[i].width,
-      labelX: (tx0 + tx1) / 2,
-      labelY: topY - 34,
+      labelX: anchorRect
+        ? anchorRect.x + anchorRect.w / 2 + (anchor!.dx ?? 0)
+        : (tx0 + tx1) / 2,
+      labelY: anchorRect
+        ? anchorRect.y + (anchor!.dy ?? 0)
+        : topY - 34,
     };
   });
   // 王朝見出しは複数王朝が同居するバンドのみ(単独王朝バンドはバンド見出しで足りる)。
