@@ -53876,6 +53876,16 @@
     "明皇帝讳叡字符仲文帝"
    ]
   },
+  "wei-mingdi|accessionRoute.note|9b2980e200c5": {
+   "id": "wei-mingdi",
+   "path": "accessionRoute.note",
+   "span": "明皇帝諱叡、字元仲、文帝太子也",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/三国志.txt",
+   "frags": [
+    "明皇帝讳叡字元仲文帝"
+   ]
+  },
   "wei-mingdi|accessionRoute.note|e5bb2a8adf78": {
    "id": "wei-mingdi",
    "path": "accessionRoute.note",

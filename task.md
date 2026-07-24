@@ -1,55 +1,28 @@
 # emperorstats.com デファクトスタンダード化ロードマップ
 
-戦略の骨子: 個別ページの質は既に標準を名乗れる水準にある。当面の課題はそれを「発見可能」「引用可能」「検証可能」にすること。項目 0 が品質是正（2026-07-22 レビュー起点・最優先）、1〜4 が基盤、5 が市場拡大、6 が差別化の再加速。
+戦略の骨子: 個別ページの質は既に標準を名乗れる水準にある。当面の課題はそれを「発見可能」「引用可能」「検証可能」にすること。項目 0〜4（品質是正・基盤づくり）は完了済み。残るは 5 が市場拡大、6 が差別化の再加速。
 
-2026-07-22 更新。同日実施の多角的レビュー（サイトコード・データ品質・ドキュメント整合性・SEO/ライセンス/公開運用の4観点＋実機確認）の所見を項目 0 として追加し、完了済み項目（旧項目4）の詳細記述を圧縮した。完了内容の詳細は `CHANGELOG.md`・`docs/PROJECT_STATUS.md`・`docs/site-design/LAYOUT.md`・`data/emperors.json` の `meta.*Blocks` を参照。
-
----
-
-## 0. 品質是正（2026-07-22 多角的レビュー起点）
-
-**目的**: レビューで検出された欠陥・不整合の解消。データ訂正は `docs/process/RESEARCH_PROCESS.md` の手順に従い、`meta` とドキュメントを同時更新する。
-
-### 0-1. High — **完了（2026-07-22）**
-
-トップ `<title>` 欠落（`seo.tsx` の `title: undefined` 明示キー）修正・`reignSummary.totalReignDuration` 同期漏れ9件の再計算・`check_reign_summary()` への totalReignDuration 検証追加（訂正前データで9件全検出を回帰確認済み）。詳細は `CHANGELOG.md` 2026-07-22 訂正・`docs/PROJECT_STATUS.md`「reignSummary.totalReignDuration の同期漏れ訂正」節。
-
-### 0-2. Medium — **完了（2026-07-22。OGP の公式バリデータ最終確認のみユーザー主導で残**）
-
-- **BCE イベント年規約統一 — 完了**: レビュー見立て8件に対し実際は BCE イベント127件中105件が歴史年直記で、全件を天文年規約へ統一（不規則な5件は原典キャッシュで個別確認）。規約は `ADDITIONAL_SCHEMA.md` に明文化、CI に `check_bce_event_years()` 追加（訂正前データ16件検出を回帰確認）。詳細は `CHANGELOG.md`・`docs/PROJECT_STATUS.md`
-- **usedEmperorTitleFrom — 完了**: 規約を「歴史紀年ベース」と確定し `EMPERORS_SCHEMA.md` に明記（旧暦年またぎ4件は正当な -1 乖離として確定）、旧値残存3件を原典確認のうえ訂正、CI に `check_used_emperor_title_from()` 追加
-- [ ] **OGP 画像の Content-Type 問題 — 簡易確認では実害なし・公式バリデータ確認のみ残**: 2026-07-22 に curl で `application/octet-stream` 配信を再確認した上で socialsharepreview.com（バックエンド実取得型）で検証し、FB 形式カードの画像描画・画像チェック3項目（found/ratio/size）とも合格。ブラウザ系レンダラは Content-Type を無視して sniffing するため実害は観測されず。**X/Facebook 公式バリデータでの最終確認は要ログインのためユーザー主導**。実害が確認された場合のみ拡張子付きパス化（ビルド後リネーム＋meta 書き換え）に着手
-- **デプロイ CI ゲート強化 — 完了**: `deploy-site.yml` build ジョブ冒頭に `validate_emperors.py`（デプロイゲート）＋ `npm run lint`・`npx tsc --noEmit` を追加（ローカルで全て通過確認済み）
-- **ドキュメント陳腐化の是正 — 完了**: PROJECT_STATUS 未解決問題リストの現況更新・deathDate>endDate 49件追記・deploy-site.yml の経緯ドキュメント化、ADDITIONAL_SCHEMA の deferred 矛盾・CLAUDE.md 消滅節参照5箇所の誘導し直し、METHODOLOGY/PORTRAITS 冒頭の現況化、completedBlocks 24・「10項目」・`note` キー・日本語破綻2箇所・簡体字・AGENTS.md 365行
-- **npm audit — 完了**: `fast-uri`(high) を `npm audit fix` で解消、`shadcn`・`sharp` を devDependencies へ移動。残5件は upstream 待ちのみ（production 視点 `--omit=dev` では next 内包 sharp の high 2件のみ、dev 側は shadcn→MCP SDK→hono の moderate 3件）。ビルド・lint・tsc 通過確認済み
-
-### 0-3. Low — **完了（2026-07-22）**
-
-chen-feidi の没年齢矛盾は原典再確認の結果「3書（陳書・南史・建康実録）共通の原典由来の矛盾」と確定（生年552年説は逆算のみで直接記載なし。直接記載2値を維持し note に明示・confidence を medium へ）。コード小修正5点（fail-fast 化・sync-portraits 削除追従・eraOrder throw 化・陳腐化コメント削除・チャート3ファイルの定型を `useRankingChartLayout`/`WindowedChartFrame` へ共通化）、データ構造不統一5点（nanming-zongzong date 補完・反乱系 name 欠落28件・houzhao-shishi confidence・qin displayYears 統一・han-xuandi datePrecision 是正。events の `source` 有無混在のみ 3-4 で対応）、サイト小修正2点（個別ページ sitemap lastmod 撤去・timeline の `<a>` → `Link`）を実施。詳細は `CHANGELOG.md` 2026-07-22 訂正・`docs/PROJECT_STATUS.md`「0-3 Low 残件の解消」節。
+2026-07-24 更新。完了済み項目（0・1・2・4 と 3 の完了分）の詳細記述を削除・圧縮し、対応しないと決めた残作業（項目1の Search Console 観測3件・2-3 の GitHub Releases タグ）を削除した。完了内容の詳細は `CHANGELOG.md`・`docs/PROJECT_STATUS.md`・`docs/site-design/LAYOUT.md`・`data/emperors.json` の `meta.*Blocks` を参照。
 
 ---
 
-## 1. カード・ランキングの `<a>` 化＋Search Console 調査
+## 0. 品質是正（2026-07-22 多角的レビュー起点）— **完了（2026-07-22〜23）**
 
-**目的**: クローラが一覧→個別を辿れるようにし、内部リンク経由で PageRank を365ページに流す。
+High（0-1）・Medium（0-2）・Low（0-3）とも対応済み。詳細は `CHANGELOG.md` 2026-07-22 訂正・`docs/PROJECT_STATUS.md` の各節（reignSummary.totalReignDuration 同期漏れ・BCE イベント年規約・usedEmperorTitleFrom・0-3 Low 残件の解消）。
 
-**実装は完了（2026-07-21）**: 詳細は `docs/site-design/LAYOUT.md`・`site/AGENTS.md`（SEO リンクは LazyMount 外必須・受け入れテストは `out/**.html` を grep）。Intercepting Routes は SEO 利得ゼロのため**却下済み**（再提案しない）。
-
-残タスク（**ユーザー主導・デプロイ後2〜6週**）:
-
-- [ ] Search Console:「インデックス作成 > ページ」で個別365ページの内訳（検出-未登録／クロール済-未登録／登録済）を確認 → `<a>` 化前後で比較
-- [ ] Search Console: URL 検査で代表ページ（qin-shi-huang 等）のライブテスト、レンダリング後 HTML に本文（調査メモまで）が含まれるか確認（個別ページは完全SSR済みなので本文は含まれるはず）
-- [ ] Search Console: sitemap の「検出された URL」数が 365＋固定ページ数と一致するか確認
+- [ ] **OGP 画像の Content-Type 問題 — 簡易確認では実害なし・公式バリデータ確認のみ残（ユーザー主導・要ログイン）**: 2026-07-22 に curl で `application/octet-stream` 配信を再確認した上で socialsharepreview.com（バックエンド実取得型）で検証し、FB 形式カードの画像描画・画像チェック3項目（found/ratio/size）とも合格。ブラウザ系レンダラは Content-Type を無視して sniffing するため実害は観測されず。実害が確認された場合のみ拡張子付きパス化（ビルド後リネーム＋meta 書き換え）に着手
 
 ---
 
-## 2. データ公開（引用される基盤づくり）
+## 1. カード・ランキングの `<a>` 化 — **完了（2026-07-21）**
 
-**目的**:「emperorstats のデータに依拠した」と書かれる状態を作る。標準はビューではなくデータセットに宿る。
+詳細は `docs/site-design/LAYOUT.md`・`site/AGENTS.md`（SEO リンクは LazyMount 外必須・受け入れテストは `out/**.html` を grep）。Intercepting Routes は SEO 利得ゼロのため**却下済み**（再提案しない）。Search Console での事後観測はユーザー決定で対応しない（2026-07-24・再提案しない）。
 
-- **2-1. 配布物 — 完了（2026-07-21）**・**2-2. ライセンス — 完了**・**2-5. Wikidata QID — 完了**: 詳細は `docs/PROJECT_STATUS.md` の各節。2-5 の残る後続は `nameEn` 初期値の enwiki サイトリンク取得のみ（項目5で実施）
-- **2-3. バージョニング — ほぼ完了（2026-07-21）**:
-  - [ ] GitHub Releases でタグを切る（**push 後にユーザー主導**。`v2026.07` 推奨。順序制約なし）
+---
+
+## 2. データ公開（引用される基盤づくり）— **完了**
+
+- **2-1. 配布物・2-2. ライセンス・2-3. バージョニング・2-5. Wikidata QID — 完了（2026-07-21）**: 詳細は `docs/PROJECT_STATUS.md` の各節。2-5 の残る後続は `nameEn` 初期値の enwiki サイトリンク取得のみ（項目5で実施）。GitHub Releases のタグはユーザー決定で対応しない（2026-07-24・再提案しない）
 - **2-4. Zenodo DOI — 中止（2026-07-21 ユーザー決定・再提案しない）**: 引用基盤は CC BY 4.0＋CalVer＋CHANGELOG＋Dataset JSON-LD で成立済み。`CITATION.cff` のみ将来の独立項目として余地あり、現時点では見送り
 
 ---
@@ -58,13 +31,11 @@ chen-feidi の没年齢矛盾は原典再確認の結果「3書（陳書・南�
 
 **目的**:「正史を1件ずつ原典確認」の看板に例外がない状態にする。※訂正は `docs/process/RESEARCH_PROCESS.md` の手順（原典調査・スクリプト自動生成禁止）に従い、`meta.status` とドキュメントを同時更新。
 
-- **3-1. Wikipedia 出典の一掃 — 完了（2026-07-21・全365人）**: 詳細は `meta.deathCauseCompletedBlocks`・`meta.reignDurationSourceBlocks`・`docs/PROJECT_STATUS.md`「出典 QA」節。※フェーズBの派生同期漏れ（reignSummary 9件・usedEmperorTitleFrom 7件）が 0-1/0-2 で検出されており、そちらで是正
+- **3-1. Wikipedia 出典の一掃 — 完了（2026-07-21・全365人）**: 詳細は `meta.deathCauseCompletedBlocks`・`meta.reignDurationSourceBlocks`・`docs/PROJECT_STATUS.md`「出典 QA」節
 - **3-2. 肖像マッピング QA — 完了（2026-07-21）**: 経緯は `docs/site-design/PORTRAITS.md`
   - [ ] **残存リスク**: 「同時代の別人」誤マッチは目視では原理的に拾えない。潰すには Wikidata P18 / Wikipedia リード画像との突き合わせが必要（QID 付与済みで前提は揃っている）
-- **3-3. QA の恒久化（CI）— 完了（2026-07-21）**: 運用ルールは `docs/PROJECT_STATUS.md`「データ QA の CI 恒久化」節。※カバレッジ拡張（totalReignDuration・events 年規約）は 0-1/0-2 で対応
-  - ~~`datePrecision` 非標準トークンの正規化~~ **完了（2026-07-22）**: events 日付の全面 ISO 正規化（非ISO 628件・浅い日付79件・非標準トークン695件）と同時に語彙を year/month/day/null に統一し CI エラー化。詳細は `docs/PROJECT_STATUS.md`「events 日付の全面 ISO 正規化」節
-  - ~~startDate/endDate の混在精度44件~~ **完了（2026-07-23）**: 表現方式は reigns[] と同形式のオブジェクト `{"start":..., "end":...}` にユーザー確定。24キーをオブジェクト化・20キーは原典個別確認で日/月精度へ深化（明憲宗の中略引用による干支誤帰属1件も訂正）、CI 警告をエラーへ格上げ。詳細は `docs/PROJECT_STATUS.md`「events 日付の全面 ISO 正規化」節
-  - [ ] ~~`deathDate > endDate` 警告（49件・2026-07-22 実測）の解消~~ **見送り**（2026-07-21ユーザー判断: 在位終了事由フィールドの新設が前提）
+- **3-3. QA の恒久化（CI）— 完了（2026-07-21。カバレッジ拡張・events 日付 ISO 正規化・混在精度解消は 2026-07-22〜23 完了）**: 運用ルールは `docs/PROJECT_STATUS.md`「データ QA の CI 恒久化」節
+  - [ ] ~~`deathDate > endDate` 警告（50件・2026-07-24 実測）の解消~~ **見送り**（2026-07-21ユーザー判断: 在位終了事由フィールドの新設が前提）
   - [ ] 別途（調査判断が必要な残件）: `confidence: ""` 4件の値確定
 
 ### 3-4. events[].source の穴埋め（旧第4弾・規模大／要方針判断）
@@ -121,7 +92,7 @@ chen-feidi の没年齢矛盾は原典再確認の結果「3書（陳書・南�
 - [ ] Phase 2: 調査メモを LLM 翻訳＋「機械翻訳です」表記で追加、指摘が来たら直す
 - [ ] Phase 3: 反応を見て繁体字。センシティブな判定は方法論ページ（要英訳・中訳）が盾になる
 
-**工数目安（2026-07-21 再見積り）**: Phase 1 で **4〜6日**。前提依存は項目 2-5（QID→nameEn）のみ（完了済み）で、項目 0・3 の残件とは技術的に独立。
+**工数目安（2026-07-21 再見積り）**: Phase 1 で **4〜6日**。前提依存は項目 2-5（QID→nameEn）のみ（完了済み）で、項目 3 の残件とは技術的に独立。
 
 ---
 
@@ -140,18 +111,12 @@ chen-feidi の没年齢矛盾は原典再確認の結果「3書（陳書・南�
 
 ### 6-3. 系図＝系譜・即位経路グラフ（最重量だが最大の差別化・既存サイトに存在しない）
 
-**フェーズ0（スキーマ設計）完了（2026-07-22）**: スコープルール（ブリッジ人物の収録基準＝経路上／一親等〔父系。実母は接続に寄与する場合のみ〕／実在追尊皇帝／婚姻当事者。伝説的遠祖は `genealogicalClaims` へ）・エッジ3種（succession/kinship/marriage＋veracity 区分）・データは別ファイル `data/kinship.json`、以上をユーザーと確定し `data/schema/KINSHIP_SCHEMA.md` に文書化。`scripts/validate_kinship.py` を新設し CI（validate-data.yml）へ組込済み（不正フィクスチャの検出＋有効データ合格を確認済み）。
-
-**可視化方式決定＋スキーマ凍結（2026-07-22）**: 可視化は**方式③「全体1画面のインタラクティブグラフ」＋縦軸=時間（上→下に時代が下る）**をユーザー決定（捏造サンプルデータのモックでハードケース8種を検証済み）。凍結時に追加確定: succession の `relationToPredecessor`（先代との続柄・enum）・kinship の `childOrder`（排行）/`primaryLineage`（実父vs養父のレイアウト主系統）・persons の `kana`/`section`/`yearsApproximate`・disputed 継承エッジの併記許容。調査運用ルール（原文パッセージ保存・王朝間クラスタの初回取り切り・同時取得必須項目）も明文化。詳細はすべて `KINSHIP_SCHEMA.md`。**凍結後のスキーマ変更は原則しない**（調査やり直し防止のユーザー指示）。
-
-**データ調査フェーズ1〜4完了（2026-07-23〜24・mainマージ済み 9c88d06）**: succession 365本・parentage（222人・実父母養父）・interdynastic（縁戚クラスタ＋genealogicalClaims 62件）・crosscheck（Wikidata照合・訂正ゼロ）。進捗詳細は kinship.json の `meta.status.phases`。
+**データ調査は全4フェーズ完了（フェーズ0スキーマ設計 2026-07-22 → succession／parentage／interdynastic／crosscheck 2026-07-23〜24・mainマージ済み 9c88d06）**: succession 365本・parentage 222人（実父母・養父・confirmedFatherUnknown）・interdynastic（縁戚クラスタ＋genealogicalClaims 62件）・crosscheck（Wikidata P22/25/26/1365 照合・訂正ゼロ）。データは `data/kinship.json`、スキーマ・収録基準・調査運用ルールは `data/schema/KINSHIP_SCHEMA.md`（**凍結済み・変更は原則しない**〔調査やり直し防止のユーザー指示〕）、進捗詳細は kinship.json の `meta.status.phases`。CI は `scripts/validate_kinship.py`。
 
 **可視化は白紙化（2026-07-24ユーザー決定・再提案しない）**: 全域版（時間軸×王朝カラム方式）を worktree-kinship-site で実装しレビュー2巡したが、求める品質（家系図的な配置）に達せず全面白紙化。ブランチは参照用に保持（mainマージなし）。再設計時の要求事項: **時間軸（縦=時間）は維持**したうえで家系図を意識した配置（兄弟は横並び・「誰と誰の間に生まれたか」が分かる・夫婦表現）、窮屈な矢印の曲げ回避（幅が足りなければ縦幅を伸ばす）、下向き矢印に「父」ラベルを付ける表現は不可（親子は構造で示す）。
 
-- [ ] **生母（実母）の全域収録 — 着手（2026-07-24・フェーズ `maternalLineage`）**: フェーズ0のスコープルール「実母は接続に寄与する場合のみ」をユーザー決定で転換。「誰と誰の間に生まれたか」を全皇帝で分かるようにするため実母を全域収録する（着手前の実母エッジは9本のみ。365人規模の原典調査。趙姫〔始皇帝生母・元呂不韋の姬〕もここで収録）。ユーザー確定事項: **対象は収録皇帝365人の実母のみ**（ブリッジ人物の母は対象外）／**婚姻エッジは生母が父の正妻＝皇后の場合のみ**（妃嬪には張らない）／パイロット（ブロック1）承認後は自律続行。作業ブランチ `worktree-kinship-mother`。完了ゲートに **Wikidata P25 突合の再実行**（フェーズ4は母を対象外としていたため）を含める。
-- [ ] 可視化の再設計v2 — **着手（2026-07-24・worktree-kinship-v2）**: 時代チャプター縦積み×王朝バンド×家系図パッキング（承認済み計画: `~/.claude/plans/gentle-herding-kahn.md`）。第1章（秦・漢）パイロット実装済み・レビュー反映2巡済み。「線がノードを横切ったらビルド失敗」の品質ゲートを `src/lib/kinship/layout.ts` に組込済み。残: 第2章以降の全章展開・複数在位コネクタ・章またぎ継ぎ目バナー・幅圧縮
-- [ ] **追加調査: 孺子嬰（p-ruzi-ying・劉嬰）の実父エッジ** — 可視化レビュー（2026-07-24）で「劉嬰の出自が図から読めない」と指摘。kinship.json に劉嬰の親エッジが無い（宣帝玄孫・広戚侯劉顕の子とされる。漢書平帝紀・王莽伝で裏取りし、実父ノード＋経路上ブリッジを収録する）。maternalLineage と同様の原典調査手順で行う
-- [ ] **追加調査: 建世帝劉盆子（liu-penzi）の漢宗室への接続** — 可視化レビュー（2026-07-24）で「このような人物も線で繋げたい」と指示。現状は実父・式侯劉萌（p-liu-meng・verified）の1段のみで、後漢書劉玄劉盆子列伝が本文で記す「城阳景王章之后也。祖父宪，元帝时封为式侯，父萌嗣」の先が未収録。調査内容: ①祖父・式侯劉憲ノード＋劉憲→劉萌エッジ（同記事で裏取り）②高祖→劉肥（庶長子・斉悼恵王）→劉章（城陽景王）の各1段（史記斉悼恵王世家・漢書高五王伝）③劉章→劉憲間の中間世代を漢書王子侯表・諸侯王表で世代単位に追えるか確認し、追えなければ劉備「中山靖王之後」と同じく世代略の後裔として収録（genealogicalClaim ＋可視化側に「後裔（世代略）」の点線表現を新設。この点線表現は劉備ら他の世代略後裔にも横展開できる形にする）
+- [ ] **生母（実母）の追加調査 — 進行中（maternalLineage フェーズ・2026-07-24 着手）**: フェーズ0のスコープルール「実母は接続に寄与する場合のみ」をユーザー決定で転換（2026-07-24）し、「誰と誰の間に生まれたか」を全皇帝で分かるようにするため実母を全域収録する（約330人規模の原典調査）。ブロック1〜12（秦〜隋・隋末群雄。実母140エッジ・婚姻70エッジ・confirmedMotherUnknown 59件）完了時点でチェックポイントとして main へ統合済み（ee75cdb）。残り: ブロック13〜23（唐〜清）＋完了ゲートの Wikidata P25 全域再突合
+- [ ] 可視化の再設計v2 — **進行中（2026-07-24・worktree-kinship-v2）**: 時代チャプター縦積み×王朝バンド×家系図パッキング（承認済み計画: `~/.claude/plans/gentle-herding-kahn.md`）。第1章（秦・漢）はレビュー9巡を経て**ユーザー承認済み**（「後漢までの系譜グラフはこれでOK」62eb40c）。「線がノードを横切ったらビルド失敗」等の品質ゲートを `src/lib/kinship/layout.ts` に組込済み。残: 第2章以降の全章展開（生母データが揃った範囲＝〜隋・隋末群雄から）・複数在位コネクタ・章またぎ継ぎ目バナー・幅圧縮。追加調査2件（孺子嬰実父鎖・劉盆子漢宗室claim）は完了しデータ側へ統合済み（1623f63）
 
 ### 6-4. 元号データベース
 - [ ] 改元回数を数えた副産物の元号リストを `/eras` として独立ページ化: 元号→皇帝の逆引き・期間・改元契機
@@ -160,16 +125,12 @@ chen-feidi の没年齢矛盾は原典再確認の結果「3書（陳書・南�
 
 ---
 
-## 残作業まとめ（2026-07-22 更新）
+## 残作業まとめ（2026-07-24 更新）
 
 | 項目 | 内容 | 主導 |
 |---|---|---|
-| 0-1 | ~~High: トップ title 欠落・reignSummary 9件＋CI 検証追加~~ **完了（2026-07-22）** | — |
-| 0-2 | ~~Medium: BCE 年規約105件・usedEmperorTitleFrom・デプロイ CI ゲート・ドキュメント陳腐化・npm audit~~ **完了（2026-07-22）**。OGP Content-Type の X/FB 公式バリデータ最終確認のみ残（簡易確認では実害なし） | ユーザー |
-| 0-3 | ~~Low: chen-feidi 原典確認・コード/データ/サイト小修正~~ **完了（2026-07-22）** | — |
-| 1 残 | Search Console 観測3件（デプロイ後2〜6週） | ユーザー |
-| 2-3 残 | GitHub Releases タグ `v2026.07` | ユーザー（push 後） |
+| 0-2 残 | OGP Content-Type の X/FB 公式バリデータ最終確認（簡易確認では実害なし） | ユーザー |
 | 3-2 残 | 肖像の外部照合（Wikidata P18 突き合わせ） | 任意 |
 | 3-4 | events[].source 補完（優先度中391件＋遷都58件） | 要着手判断 |
 | 5 | 英語版 Phase 1（4〜6日） | 要着手判断 |
-| 6 | クロス分析→比較→元号→系図 | 各独立・軽い 6-1 から |
+| 6 | クロス分析→比較→元号→系図（6-3 は生母追加調査〔進行中〕→可視化再設計） | 各独立・軽い 6-1 から |
