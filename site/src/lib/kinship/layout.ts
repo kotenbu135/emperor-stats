@@ -559,12 +559,40 @@ function buildChapter(
   });
 
   // --- バンドのx配置と年→px写像 ---
+  // 単純な横一列(累積幅)ではなく、年代が重ならないバンドは同じx空間(列)を
+  // 共有する(仲家=後漢末のような単発の群雄バンドが右へ一直線に伸びるのを防ぐ。
+  // バンドの前後関係は縦=時間が示す)。バンドの各矩形は「年代が重なる既配置
+  // 矩形すべての右」に置く — 左側の空きポケットへ滑り込ませると、そのバンドへ
+  // 渡る線が既存バンドの中身を横切るため許さない。判定は年空間(yOfの単調性に
+  // より、年で離れていればpxでも離れる)。
   const bandXs: number[] = [];
   {
-    let x = AXIS_X + 24;
+    interface BRect {
+      x0: number;
+      x1: number;
+      y0: number;
+      y1: number;
+    }
+    const placedRects: BRect[] = [];
+    const V_PAD = NODE_GAP / PX_PER_YEAR;
     for (const pb of packed) {
+      const rects: BRect[] = pb.items.map((it) => ({
+        x0: it.cx - it.w / 2,
+        x1: it.cx + it.w / 2,
+        y0: it.effStart,
+        y1: it.effEnd,
+      }));
+      let x = AXIS_X + 24;
+      for (const b of rects) {
+        for (const a of placedRects) {
+          const yOverlap = a.y0 < b.y1 + V_PAD && b.y0 < a.y1 + V_PAD;
+          if (yOverlap) x = Math.max(x, a.x1 + BAND_GAP - b.x0);
+        }
+      }
       bandXs.push(x);
-      x += pb.width + BAND_GAP;
+      placedRects.push(
+        ...rects.map((r) => ({ x0: r.x0 + x, x1: r.x1 + x, y0: r.y0, y1: r.y1 })),
+      );
     }
   }
   const constraints: YearSpanConstraint[] = packed.flatMap((pb) =>
@@ -881,11 +909,19 @@ function buildChapter(
           : "";
       const label = `${e.category ?? ""}${disputed ? "?" : ""}${relLabel}`;
       const path = curvePath(a, b);
-      const midX = (a.cx + b.cx) / 2;
-      const midY =
-        a.y + a.h < b.y - 4
-          ? (a.y + a.h + b.y) / 2 - 5
-          : Math.min(a.y + a.h / 2, b.y + b.h / 2) - 6;
+      // ラベル位置: 縦の矢印は中間。横の矢印は「ノード枠間の空隙」の中央・線の上
+      // (ノード中心間の中点だと、短い矢印でラベルがカプセルの下に隠れる)。
+      const vertical = a.y + a.h < b.y - 4 && Math.abs(a.cx - b.cx) < 600;
+      let midX: number;
+      let midY: number;
+      if (vertical) {
+        midX = (a.cx + b.cx) / 2;
+        midY = (a.y + a.h + b.y) / 2 - 5;
+      } else {
+        const leftToRight = a.cx < b.cx;
+        midX = ((leftToRight ? a.x + a.w : a.x) + (leftToRight ? b.x : b.x + b.w)) / 2;
+        midY = Math.min(a.y + a.h / 2, b.y + b.h / 2) - 8;
+      }
       arrows.push({
         key: `s:${e.from}→${e.to}`,
         fromId: e.from,
@@ -1078,7 +1114,9 @@ function buildChapter(
   const height =
     Math.max(...[...rectById.values()].map((r) => r.y + r.h), yOf(scale.maxYear)) +
     M_BOTTOM;
-  const width = bandXs[bandXs.length - 1] + packed[packed.length - 1].width + 60;
+  // バンドは列共有で最後のバンドが右端とは限らないため、全バンドの右端の最大をとる。
+  const width =
+    Math.max(...packed.map((pb, i) => bandXs[i] + pb.width)) + 60;
 
   // --- テキスト版 ---
   const textDynasties: { label: string; emperors: KinshipTextEmperor[] }[] = [];

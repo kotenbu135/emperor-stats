@@ -27,7 +27,10 @@ export const EMPEROR_MIN_PX = 52 + NODE_GAP;
 export const PERSON_H = 26;
 export const PERSON_MIN_PX = PERSON_H + NODE_GAP;
 const GAP_X = 12; // 横方向の最小間隔
-const TIE_LEN = 10; // 夫婦の連結線の長さ
+// 夫婦の連結線(＝)の最小長。子グループの垂下線は連結線の中点から落ちるため、
+// 短すぎると垂下線が夫カプセルの縁に貼り付いてしまう(最小でも半分=14pxの
+// クリアランスを確保する)。子の位置に合わせて伸ばす方向は自由。
+const TIE_LEN = 28;
 const MIN_SIB_SEP = 24; // 兄弟ルート間の最小x差(横並び順の保証)
 /** 人物ノードが年空間で占有する片側幅。 */
 export const PERSON_HALF_SPAN = PERSON_MIN_PX / 2 / PX_PER_YEAR;
