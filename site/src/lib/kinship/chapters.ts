@@ -77,12 +77,10 @@ export const KINSHIP_ENABLED_CHAPTER_IDS: string[] = ["qin-han"];
 
 /**
  * ブリッジ人物のバンド帰属の明示指定(自動解決の例外)。値はバンドlabel。
- * - p-ruzi-ying(孺子嬰): 親エッジ未収録のため自動解決だと succession の隣接
- *   (王莽=新バンド)に寄ってしまう。前漢の宗室なので前漢バンドに置く。
+ * 現在は空: p-ruzi-ying(孺子嬰)は追加調査で実父鎖(宣帝→劉囂→劉勛→劉顯→劉嬰)が
+ * 収録されたため、主親経由の自動解決で漢バンドに入る(明示指定は不要になった)。
  */
-export const PERSON_BAND_OVERRIDES: Record<string, string> = {
-  "p-ruzi-ying": "漢（劉氏）",
-};
+export const PERSON_BAND_OVERRIDES: Record<string, string> = {};
 
 /**
  * 兄弟・森ルートの横並び順の明示指定。値が大きいほど右(無指定=0)。
@@ -94,13 +92,12 @@ export const PERSON_BAND_OVERRIDES: Record<string, string> = {
  * - p-liu-wu-liang(劉武): 梁チェーンは文帝の子の左端へ(王氏の線の経路から外す)。
  * - p-liu-wai(劉外): 舂陵チェーンを玄漢祖先チェーンの右に置き、劉欽→光武帝の
  *   降下レーンが更始帝の上を通らないようにする。
- * - p-ruzi-ying(孺子嬰): 前漢バンドの右端に固定し、王莽への禅譲矢印が家系の上を
- *   横断しないようにする。
+ * (p-ruzi-ying=999の右端固定は、実父鎖の収録で孺子嬰が森ルートでなくなり削除。
+ *  現在は宣帝直下の母不明グループとして垂下し、王莽への禅譲矢印は長い水平直線)
  */
 export const CHILD_ORDER_OVERRIDES: Record<string, number> = {
   "p-liu-wu-liang": -5,
   "p-liu-wai": 5,
-  "p-ruzi-ying": 999,
 };
 
 // 配色はtimeline-river.tsのSTREAM_DEFSと同じ意味ベース割当(漢系=4金・新=1青・
