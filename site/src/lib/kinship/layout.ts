@@ -207,6 +207,9 @@ const MIN_SEG_H = 16;
 // この高さ(px)以下の在位間ギャップは連続とみなしカプセルをマージする(恵帝の廃位は
 // 301年内で年目盛り上ほぼ0のため単一カプセルに。唐中宗の684→705の21年は分割)。
 const SEG_GAP_MIN = 6;
+// 品質ゲートで線と当事者以外の箱の間に要求する余白(px)。この距離まで近づく線は
+// 「かぶり」として違反にする(縁を掠める線も自動検出する)。
+const GATE_CLEAR = 1.5;
 
 const fmtPeriod = (a: number, b: number) => {
   const fa = formatYear(fromAstroYear(a));
@@ -262,6 +265,7 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
   }
   const primaryFather = new Map<string, string>();
   const primaryFatherDisputed = new Set<string>(); // childId
+  const primaryFatherAdopted = new Set<string>(); // childId(主親が養父=養子縁組)
   for (const [child, edges] of fatherEdges) {
     const score = (e: KinshipSourceEdge): number =>
       (e.from === successionFrom.get(child) ? 4 : 0) +
@@ -270,6 +274,7 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
     const best = [...edges].sort((p, q) => score(q) - score(p))[0];
     primaryFather.set(child, best.from);
     if (best.veracity !== "verified") primaryFatherDisputed.add(child);
+    if (best.relation === "養父") primaryFatherAdopted.add(child);
   }
 
   // --- 実母・養母・婚姻: 配偶者attach(母は子の主親の脇へ、婚姻相手は夫の脇へ) ---
@@ -438,6 +443,7 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
         claimsByClaimant,
         primaryFather,
         primaryFatherDisputed,
+        primaryFatherAdopted,
         attachedTo,
         attachDouble,
         motherOf,
@@ -455,6 +461,7 @@ interface ResolvedRelations {
   claimsByClaimant: Map<string, KinshipSourceClaim[]>;
   primaryFather: Map<string, string>;
   primaryFatherDisputed: Set<string>;
+  primaryFatherAdopted: Set<string>;
   attachedTo: Map<string, string>;
   attachDouble: Map<string, boolean>;
   motherOf: Map<string, string>;
@@ -802,7 +809,9 @@ function buildChapter(
       if (kids.length === 1 && Math.abs(kids[0].cx - jx) < 4) {
         drops.push({
           path: `M ${jx} ${topY} L ${jx} ${kids[0].y}`,
-          dashed: rel.primaryFatherDisputed.has(j.children[0]),
+          dashed:
+            rel.primaryFatherDisputed.has(j.children[0]) ||
+            rel.primaryFatherAdopted.has(j.children[0]),
           ids: groupIds,
         });
         qsegs.push({
@@ -843,7 +852,8 @@ function buildChapter(
         if (!k) continue;
         drops.push({
           path: `M ${k.cx} ${barY} L ${k.cx} ${k.y}`,
-          dashed: rel.primaryFatherDisputed.has(c),
+          dashed:
+            rel.primaryFatherDisputed.has(c) || rel.primaryFatherAdopted.has(c),
           ids: [j.fatherId, ...(j.motherId !== null ? [j.motherId] : []), c],
         });
         qsegs.push({
@@ -882,10 +892,15 @@ function buildChapter(
     const x1 = leftToRight ? a.x + a.w : a.x;
     const x2 = leftToRight ? b.x : b.x + b.w;
     const y1 = a.y + a.h / 2;
-    // 始点の高さが到達先カプセルの縦範囲に収まるなら水平の直線にする(中心どうしを
-    // 結ぶと数pxの高低差で「微妙に下に曲がった」線になる。劉嬰→王莽)。
+    // 到達先の縦範囲に始点高さが収まるなら水平の直線。収まらない場合、中心どうしを
+    // 結ぶと大きく曲がる(元帝→武帝の禅譲: 武帝が長大な箱で中心が遥か下)。始点が
+    // 到達先の上端より上なら上端付近へ、下端より下なら下端付近へ入れて曲がりを抑える。
     const y2 =
-      y1 >= b.y + 6 && y1 <= b.y + b.h - 6 ? y1 : b.y + b.h / 2;
+      y1 < b.y + 8
+        ? b.y + 12
+        : y1 > b.y + b.h - 8
+          ? b.y + b.h - 12
+          : y1;
     const mx = (x1 + x2) / 2;
     return `M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`;
   };
@@ -1000,10 +1015,9 @@ function buildChapter(
       } else {
         const leftToRight = a.cx < b.cx;
         midX = ((leftToRight ? a.x + a.w : a.x) + (leftToRight ? b.x : b.x + b.w)) / 2;
-        // 水平化した線(curvePathと同じ判定)はその線のy基準でラベルを置く。
-        const ay = a.y + a.h / 2;
-        const by = ay >= b.y + 6 && ay <= b.y + b.h - 6 ? ay : b.y + b.h / 2;
-        midY = Math.min(ay, by) - 8;
+        // 両カプセルの上端より上の空きにラベルを出す(ノード枠と重ならないように)。
+        // ハローで交差線は隠れる。短い禅譲矢印でも文字が箱に被らない。
+        midY = Math.min(a.y, b.y) - 5;
       }
       arrows.push({
         key: `s:${e.from}→${e.to}`,
@@ -1159,13 +1173,16 @@ function buildChapter(
       const sy1 = Math.max(seg.y1, seg.y2);
       for (const [nid, r] of rectById) {
         if (seg.ids.includes(nid)) continue;
-        const rx0 = r.x + 1.5;
-        const rx1 = r.x + r.w - 1.5;
-        const ry0 = r.y + 1.5;
-        const ry1 = r.y + r.h - 1.5;
+        // 箱を GATE_CLEAR px 外側に広げて判定する。線が当事者以外の箱の縁を掠める・
+        // 接する(=見た目の「かぶり」)も検出するため、内側インセットではなく外側マージン
+        // を要求する。近接だが交差でないルーティングはこの余白を確保して回避する。
+        const rx0 = r.x - GATE_CLEAR;
+        const rx1 = r.x + r.w + GATE_CLEAR;
+        const ry0 = r.y - GATE_CLEAR;
+        const ry1 = r.y + r.h + GATE_CLEAR;
         if (sx0 < rx1 && sx1 > rx0 && sy0 < ry1 && sy1 > ry0) {
           violations.push(
-            `${seg.what} が ${nameOf(nid)}(${nid}) を横断 [seg(${seg.x1.toFixed(0)},${seg.y1.toFixed(0)})-(${seg.x2.toFixed(0)},${seg.y2.toFixed(0)}) rect(${r.x.toFixed(0)},${r.y.toFixed(0)},w${r.w.toFixed(0)},h${r.h.toFixed(0)})]`,
+            `${seg.what} が ${nameOf(nid)}(${nid}) に接触/交差 [seg(${seg.x1.toFixed(0)},${seg.y1.toFixed(0)})-(${seg.x2.toFixed(0)},${seg.y2.toFixed(0)}) rect(${r.x.toFixed(0)},${r.y.toFixed(0)},w${r.w.toFixed(0)},h${r.h.toFixed(0)})]`,
           );
         }
       }
@@ -1312,7 +1329,12 @@ function buildChapter(
       ];
       const fatherId = rel2.primaryFather.get(id);
       const motherId = rel2.motherOf.get(id);
-      if (fatherId) details.push({ label: "父", value: nameOf(fatherId) });
+      // 養子縁組(明帝→曹芳など)は「父：○○（養父）」と明示。図では垂下線を破線にする。
+      if (fatherId)
+        details.push({
+          label: "父",
+          value: `${nameOf(fatherId)}${rel2.primaryFatherAdopted.has(id) ? "（養父）" : ""}`,
+        });
       if (motherId) details.push({ label: "母", value: nameOf(motherId) });
       // 遠祖の主張は長文(高帝の堯後裔説など)。ツールチップに全文を折り返して出す
       // (以前は1行に切り詰めてページ末尾の一覧で全文を補っていたが、一覧は廃止した)。

@@ -69,11 +69,14 @@ export const KINSHIP_CHAPTER_DEFS: KinshipChapterDef[] = [
     // その矢印を最短にする。魏(曹氏)・西晋(司馬氏)は別姓のため別バンド(=別家系図)。
     // 西晋バンドは司馬懿ら追尊祖先(179〜265)が三国期に生存するため上部から埋まる。
     // 蜀漢・呉は他家と継承エッジで繋がらない独立の家系として右に並べる。
+    // 西晋を最右に置く: 司馬倫(懿の子だが在位301年で遥か下)の長い垂下線を右端固定で
+    // バンド外側の余白へ逃がすため(右隣にバンドがあると衝突する)。魏と西晋は禅譲
+    // (曹奐→司馬炎)のため隣接を保つ。独立系統の蜀漢・呉を左に置く。
     bands: [
-      { label: "魏", dynastyKeys: ["魏__三国時代"] },
-      { label: "西晋", dynastyKeys: ["西晋__晋"] },
       { label: "蜀漢", dynastyKeys: ["蜀漢__三国時代"] },
       { label: "呉", dynastyKeys: ["呉__三国時代"] },
+      { label: "魏", dynastyKeys: ["魏__三国時代"] },
+      { label: "西晋", dynastyKeys: ["西晋__晋"] },
     ],
   },
   // --- 以下はフェーズ2で実装する章の枠(バンド未キュレーション) ---
@@ -117,6 +120,15 @@ export const CHILD_ORDER_OVERRIDES: Record<string, number> = {
   "p-liu-wu-liang": -5,
   "p-liu-wai": 5,
   "han-wendi": -5,
+  // 三国・西晋: 時間的に遥か後の子への長い垂下線がスロット再利用した隣カラムの
+  // 細いノードの縁を掠める(品質ゲート検出)。右端固定(900+)で独立カラムに出し、
+  // 垂下線をバンド右脇の空きへ逃がす。
+  // - p-cao-yu(曹宇・d.278): 曹操の子だが没年が遥か下。垂下線が曹楷を掠める。右端固定で
+  //   独立カラムへ逃がす。
+  "p-cao-yu": 900,
+  // - jin-simalun(司馬倫・301年)の懿からの長い垂下線が司馬伷/覲を掠める。西晋を最右
+  //   バンドにした上で右端固定し、バンド外側の余白へ逃がす。
+  "jin-simalun": 900,
 };
 
 /**
@@ -146,7 +158,14 @@ export const PERSON_DISPLAY_OVERRIDES: Record<
  * - p-lyu-zhi(呂雉): 恵帝/文帝の左右入替で呂雉が高帝の右側にきたため、右へ出る
  *   劉盆子主張の点線と呂雉→恵帝の垂下線が交差する。呂雉を下辺へ下げて解消。
  */
-export const CONSORT_BOTTOM_ATTACH = new Set<string>(["p-lyu-zhi"]);
+export const CONSORT_BOTTOM_ATTACH = new Set<string>([
+  "p-lyu-zhi",
+  // 後漢明帝の2配偶者(実母 賈貴人＋養母 馬皇后)を上下に振り分け。両方上辺だと
+  // 馬皇后への連結線が賈貴人の箱を掠める(品質ゲート検出)。養母を下辺へ。
+  "p-mashi-hou-han-mingdi",
+  // 西晋武帝の2配偶者(皇后 楊艶＋懐帝生母 王媛姫)を上下に振り分け(同上)。
+  "p-wang-yuanji-huaidi",
+]);
 
 /**
  * バンドを列共有の自然位置からさらに右へずらす量(px)。バンド間の線の通り道を
@@ -169,6 +188,12 @@ export const BAND_LABEL_ANCHOR: Record<
   { anchorId: string; dx?: number; dy?: number }
 > = {
   "新（王氏）": { anchorId: "wang-mang", dy: -12 },
+  // 国名は建国者(初代)の近くに置く。既定だと追尊祖先(曹操・司馬懿・孫堅・劉弘)が
+  // バンド最上部に来て、そこに国名が出て建国者から離れるため。
+  魏: { anchorId: "wei-wendi", dy: -13 },
+  西晋: { anchorId: "jin-wudi", dy: -13 },
+  蜀漢: { anchorId: "shuhan-zhaoliedi", dy: -13 },
+  呉: { anchorId: "wu-dadi", dy: -13 },
 };
 
 /**
