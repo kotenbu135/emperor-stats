@@ -165,26 +165,6 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
           ))}
         </g>
 
-        {/* バンド見出し(最上部ノード群の中央) */}
-        <g aria-hidden>
-          {layout.bands.map((b) => (
-            <text
-              key={b.label}
-              x={b.labelX}
-              y={b.labelY}
-              textAnchor="middle"
-              className="fill-foreground text-[13px] font-semibold"
-              style={{
-                paintOrder: "stroke",
-                stroke: "var(--background)",
-                strokeWidth: 4,
-              }}
-            >
-              {b.label}
-            </text>
-          ))}
-        </g>
-
         {/* 家系図の構造線(垂下線・兄弟バー)。エッジ・ノードの下層 */}
         <g>
           {layout.drops.map((d, i) => (
@@ -299,6 +279,27 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
           ))}
         </g>
 
+        {/* バンド見出し(最上部ノード群の中央)。補助線・矢印の後に描き、ハローで
+            交差線を隠す(新（王氏）の見出しが王莽の連結線と重なる問題の解消)。 */}
+        <g aria-hidden>
+          {layout.bands.map((b) => (
+            <text
+              key={b.label}
+              x={b.labelX}
+              y={b.labelY}
+              textAnchor="middle"
+              className="fill-foreground text-[13px] font-semibold"
+              style={{
+                paintOrder: "stroke",
+                stroke: "var(--background)",
+                strokeWidth: 4,
+              }}
+            >
+              {b.label}
+            </text>
+          ))}
+        </g>
+
         {/* 王朝見出し(各王朝の最初のカプセルの上。ハローで交差線を隠す) */}
         <g aria-hidden>
           {layout.dynastyHeads.map((h) => (
@@ -380,7 +381,7 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
                 </text>
               )}
               {/* 遠祖の系譜主張はグラフ内バッジにしない(隣のノードの付記に見える
-                  誤読があった)。ツールチップとページ末尾の一覧で示す。 */}
+                  誤読があった)。皇帝カプセルのツールチップで全文を示す。 */}
             </g>
           ))}
         </g>

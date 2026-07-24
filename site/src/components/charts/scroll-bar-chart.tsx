@@ -465,7 +465,9 @@ export function FixedTooltip({
   children: ReactNode;
 }) {
   const flip = y > window.innerHeight * 0.6;
-  const left = Math.min(x + 14, window.innerWidth - 254);
+  // 右端で内容(最大 max-w-[320px]+左右パディング)がはみ出て途中で切れないよう、
+  // 実際の最大幅ぶんを確保してクランプする。
+  const left = Math.max(8, Math.min(x + 14, window.innerWidth - 334));
   const top = flip ? y - 12 : y + 14;
   return (
     <div

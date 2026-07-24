@@ -16,6 +16,7 @@ import {
   CHILD_ORDER_OVERRIDES,
   CLAIM_LINE_DEFS,
   CONSORT_BOTTOM_ATTACH,
+  DYNASTY_HEAD_OFFSET,
   KINSHIP_CHAPTER_DEFS,
   KINSHIP_COLOR_BY_DYNKEY,
   KINSHIP_ENABLED_CHAPTER_IDS,
@@ -105,7 +106,7 @@ export interface KinshipEmperorTip {
   portraitUrl: string | null;
   /** 在位期間の表示(複数在位は「、」区切り)。 */
   reignLabel: string;
-  details: { label: string; value: string; clamp?: boolean }[];
+  details: { label: string; value: string; clamp?: boolean; wrap?: boolean }[];
 }
 
 export interface KinshipNodeOut {
@@ -173,13 +174,6 @@ export interface KinshipArrowOut {
   tipLines: TipLine[];
 }
 
-export interface KinshipTextEmperor {
-  id: string;
-  label: string;
-  sub: string;
-  detail: string;
-}
-
 export interface KinshipChapterLayout {
   id: string;
   title: string;
@@ -195,11 +189,6 @@ export interface KinshipChapterLayout {
   drops: KinshipDropOut[];
   auxEdges: KinshipAuxOut[];
   arrows: KinshipArrowOut[];
-  /** テキスト版(王朝ごとの歴代列挙)。 */
-  textDynasties: { label: string; emperors: KinshipTextEmperor[] }[];
-  /** 章内の王朝間交代(テキスト版)。 */
-  textTransitions: string[];
-  claims: { claimant: string; ancestry: string; note: string; source: string }[];
 }
 
 // --- レイアウト定数 ---
@@ -661,6 +650,12 @@ function buildChapter(
   }
   const rectById = new Map<string, PlacedRect>();
   const nodes: KinshipNodeOut[] = [];
+  // 夫ごとの配偶者数。生母/后妃が1人だけの夫は連結線を夫カプセルの上下中央から
+  // 出す(ユーザー指摘:「母の線が箱の上のほうで固定」の是正)。2人以上attachする夫
+  // (高帝の呂雉+薄姫など)は上下に振り分けたまま(重なり回避)にする。
+  const consortCountByHusband = new Map<string, number>();
+  for (const husband of rel.attachedTo.values())
+    consortCountByHusband.set(husband, (consortCountByHusband.get(husband) ?? 0) + 1);
   packed.forEach((pb, bi) => {
     for (const it of pb.items) {
       const isConsort = it.role === "consort";
@@ -679,11 +674,14 @@ function buildChapter(
         h = CONSORT_H;
         const husband = it.attachedTo !== undefined ? rectById.get(it.attachedTo) : undefined;
         if (husband !== undefined && info.get(it.attachedTo!)?.isEmperor) {
-          // 既定は夫カプセル上辺。CONSORT_BOTTOM_ATTACH指定は下辺側(生母の垂下線と
-          // 遠祖主張の点線が交差するのを避けるための個別指定)。
+          // CONSORT_BOTTOM_ATTACH指定は下辺側(生母の垂下線と遠祖主張の点線が交差する
+          // のを避けるための個別指定)。夫にattachする配偶者が1人だけなら上下中央から
+          // 連結線を出す。2人以上は上辺(既定)に置き、下辺指定と振り分けて重なりを防ぐ。
           y = CONSORT_BOTTOM_ATTACH.has(it.id)
             ? husband.y + husband.h - h - 6
-            : husband.y + 6;
+            : (consortCountByHusband.get(it.attachedTo!) ?? 0) <= 1
+              ? husband.y + husband.h / 2 - h / 2
+              : husband.y + 6;
         } else if (husband !== undefined) {
           y = husband.y + husband.h / 2 - h / 2;
         } else {
@@ -1235,10 +1233,11 @@ function buildChapter(
         .filter((x) => x.r !== undefined)
         .sort((p, q) => p.r.y - q.r.y)[0];
       if (!first) continue;
+      const off = DYNASTY_HEAD_OFFSET[dk];
       dynastyHeads.push({
         label: dk.split("__")[0],
-        x: first.r.x,
-        y: first.r.y - 7,
+        x: first.r.x + (off?.dx ?? 0),
+        y: first.r.y - 7 + (off?.dy ?? 0),
       });
     }
   }
@@ -1259,56 +1258,6 @@ function buildChapter(
   const width =
     Math.max(...packed.map((pb, i) => bandXs[i] + pb.width)) + 60;
 
-  // --- テキスト版 ---
-  // バンド順はレイアウト都合(漢を最左に等)のため、テキストは年代順に並べ直す。
-  const textDynastiesRaw: {
-    start: number;
-    label: string;
-    emperors: KinshipTextEmperor[];
-  }[] = [];
-  for (const bandDef of def.bands) {
-    for (const dk of bandDef.dynastyKeys) {
-      const list = chapterEmperors
-        .filter((e) => e.dynastyKey === dk)
-        .sort((p, q) => p.reigns[0].a - q.reigns[0].a);
-      if (list.length === 0) continue;
-      textDynastiesRaw.push({
-        start: list[0].reigns[0].a,
-        label: dk.split("__")[0],
-        emperors: list.map((e) => {
-          const fatherId = rel.primaryFather.get(e.id);
-          const motherId = rel.motherOf.get(e.id);
-          const succ = src.edges.find((x) => x.type === "succession" && x.to === e.id);
-          const parts: string[] = [];
-          if (fatherId) parts.push(`父: ${nameOf(fatherId)}`);
-          if (motherId) parts.push(`母: ${nameOf(motherId)}`);
-          if (succ?.relationToPredecessor)
-            parts.push(`先代の${succ.relationToPredecessor}`);
-          return {
-            id: e.id,
-            label: e.name,
-            sub: `${ordinalLabel(e.ordinals[0])}・${succ?.category ?? e.routeCategory}`,
-            detail: parts.join("／"),
-          };
-        }),
-      });
-    }
-  }
-  const textDynasties = [...textDynastiesRaw]
-    .sort((p, q) => p.start - q.start)
-    .map(({ label, emperors }) => ({ label, emperors }));
-  const textTransitions = arrows.map(
-    (a) => `${nameOf(a.fromId)} →〔${a.label}〕 ${nameOf(a.toId)}`,
-  );
-  const claims = src.claims
-    .filter((c) => rectById.has(c.claimant))
-    .map((c) => ({
-      claimant: nameOf(c.claimant),
-      ancestry: c.claimedAncestry,
-      note: c.noteExcerpt,
-      source: c.sourcePage,
-    }));
-
   return {
     id: def.id,
     title: def.title,
@@ -1324,9 +1273,6 @@ function buildChapter(
     drops,
     auxEdges,
     arrows,
-    textDynasties,
-    textTransitions,
-    claims,
   };
 
   function buildNode(
@@ -1345,7 +1291,7 @@ function buildChapter(
       const sub = `${ordinalLabel(emp.ordinals[0])}・${category}${disputed ? "?" : ""}`;
       // ツールチップは統計ページ共通のEmperorTooltip(肖像+名前+王朝+在位+補足)。
       // クリックで全項目ダイアログを開くため、系譜固有の補足だけをdetailsに載せる。
-      const details: { label: string; value: string; clamp?: boolean }[] = [
+      const details: { label: string; value: string; clamp?: boolean; wrap?: boolean }[] = [
         {
           label: "即位",
           value: `${ordinalLabel(emp.ordinals[0])}・${category}${disputed ? "（諸説あり）" : ""}`,
@@ -1355,10 +1301,10 @@ function buildChapter(
       const motherId = rel2.motherOf.get(id);
       if (fatherId) details.push({ label: "父", value: nameOf(fatherId) });
       if (motherId) details.push({ label: "母", value: nameOf(motherId) });
-      // 遠祖の主張は長文(高帝の堯後裔説など)のためツールチップでは1行に切り詰め、
-      // 全文はページ末尾の一覧で示す。
+      // 遠祖の主張は長文(高帝の堯後裔説など)。ツールチップに全文を折り返して出す
+      // (以前は1行に切り詰めてページ末尾の一覧で全文を補っていたが、一覧は廃止した)。
       if (claim)
-        details.push({ label: "◇遠祖の主張", value: claim.claimedAncestry, clamp: true });
+        details.push({ label: "◇遠祖の主張", value: claim.claimedAncestry, wrap: true });
       return {
         key: id,
         id,

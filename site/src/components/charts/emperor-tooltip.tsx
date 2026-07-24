@@ -13,8 +13,9 @@ export function EmperorTooltip({
   formattedValue: string;
   /** 指標値の下に添える補足項目（死因・即位経路など）。グラフから読み取れる値の
    *  再掲だけにならないよう、ホバーだけで人物の概要が掴めるようにする。
-   *  clamp: 長文になりうる値（系譜主張など）を単独行+ellipsisで1行に収める。 */
-  details?: { label: string; value: string; clamp?: boolean }[];
+   *  clamp: 長文になりうる値を単独行+ellipsisで1行に収める。
+   *  wrap: 長文（系譜主張など）を単独行で折り返して全文表示する。 */
+  details?: { label: string; value: string; clamp?: boolean; wrap?: boolean }[];
   /** 最下部の操作ヒント（例: クリックで全項目を表示）。 */
   hint?: string;
 }) {
@@ -54,7 +55,13 @@ export function EmperorTooltip({
           {details.map((d) => (
             <span
               key={d.label}
-              className={d.clamp ? "w-full truncate" : "whitespace-nowrap"}
+              className={
+                d.wrap
+                  ? "w-full whitespace-normal break-words"
+                  : d.clamp
+                    ? "w-full truncate"
+                    : "whitespace-nowrap"
+              }
             >
               {d.label}：<span className="text-foreground/80">{d.value}</span>
             </span>
