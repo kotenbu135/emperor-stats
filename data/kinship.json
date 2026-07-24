@@ -613,6 +613,13 @@
         "emperors": 17,
         "edges": 10,
         "persons": 5
+      },
+      {
+        "phase": "parentage",
+        "block": "追加調査（申し送り）: 孺子嬰の宣帝への実父鎖（宣元六王伝）＋劉盆子の漢宗室系譜主張（劉備方式・高五王伝）",
+        "emperors": 1,
+        "edges": 4,
+        "persons": 3
       }
     ],
     "confirmedRootless": [
@@ -9667,6 +9674,80 @@
       "posthumous": null,
       "source": {
         "page": "旧唐書 巻五十五 劉武周伝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-xiao",
+      "name": "劉囂",
+      "kana": "りゅうごう",
+      "aliases": [
+        "楚孝王",
+        "定陶王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "前漢宣帝の皇子。孺子嬰の高祖父。宣帝紀「立皇子嚣为定陶王」により宣帝の皇子で、甘露二年に定陶王、三年に楚に徙って楚孝王となった（漢書 宣元六王伝「楚孝王嚣，甘露二年立为定陶王，三年徙楚」）。成帝の河平年間の入朝時に子・劉勋が広戚侯に封じられ、この広戚侯の系統から孺子嬰が出る。生没年は原典から確認できず。",
+      "wikidata": null,
+      "posthumous": null,
+      "source": {
+        "page": "漢書 巻八十 宣元六王傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-xun",
+      "name": "劉勛",
+      "kana": "りゅうくん",
+      "aliases": [
+        "広戚炀侯",
+        "広戚侯"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "楚孝王劉囂の子で初代の広戚侯。孺子嬰の曾祖父。成帝が楚孝王囂の入朝時に「以广戚县户四千三百封其子勋为广戚侯」（漢書 宣元六王伝）と広戚侯に封じた。薨じて炀侯と諡され、子・劉顕が嗣ぐ。生没年は原典から確認できず。",
+      "wikidata": null,
+      "posthumous": null,
+      "source": {
+        "page": "漢書 巻八十 宣元六王傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-liu-xian",
+      "name": "劉顯",
+      "kana": "りゅうけん",
+      "aliases": [
+        "広戚侯"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "秦（始皇帝以降）",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "広戚炀侯劉勋の子で第二代の広戚侯。孺子嬰の実父。漢書 宣元六王伝「广戚侯勋薨，谥曰炀侯，子显嗣」で勋を嗣ぎ、平帝が崩じて嗣子が無かったため「平帝崩，无子，王莽立显子婴为孺子」と、その子・嬰が王莽により孺子（皇太子）に立てられた（王莽伝上も同旨）。宣帝から数えて嬰は玄孫にあたる。生没年は原典から確認できず。",
+      "wikidata": null,
+      "posthumous": null,
+      "source": {
+        "page": "漢書 巻八十 宣元六王傳",
         "lang": "zh-classical"
       }
     }
@@ -23800,6 +23881,59 @@
         "page": "旧唐書 巻五十五 劉武周伝",
         "lang": "zh-classical"
       }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "han-xuandi",
+      "to": "p-liu-xiao",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書 宣帝紀「立皇子嚣为定陶王」により楚孝王囂は宣帝の皇子。のち楚に徙り楚孝王となった。",
+      "source": {
+        "page": "漢書 巻八 宣帝紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-xiao",
+      "to": "p-liu-xun",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書 宣元六王伝「（楚孝王囂の入朝に際し成帝が）以广戚县户四千三百封其子勋为广戚侯」により、広戚炀侯劉勋は楚孝王囂の子。",
+      "source": {
+        "page": "漢書 巻八十 宣元六王傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-xun",
+      "to": "p-liu-xian",
+      "veracity": "verified",
+      "confidence": "high",
+      "childOrder": 1,
+      "note": "漢書 宣元六王伝「广戚侯勋薨，谥曰炀侯，子显嗣」により、広戚侯劉顕は広戚炀侯劉勋の子で侯位を嗣いだ。",
+      "source": {
+        "page": "漢書 巻八十 宣元六王傳",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-liu-xian",
+      "to": "p-ruzi-ying",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "漢書 宣元六王伝「平帝崩，无子，王莽立显子婴为孺子」により、孺子嬰は広戚侯劉顕の子。王莽伝上「立宣帝玄孙婴为皇太子，号曰孺子」も同旨で、嬰は宣帝の玄孫にあたる。",
+      "source": {
+        "page": "漢書 巻八十 宣元六王傳",
+        "lang": "zh-classical"
+      }
     }
   ],
   "genealogicalClaims": [
@@ -24358,6 +24492,15 @@
       "note": "【法統主張】太祖本紀冒頭が愛新覚羅氏の出自を金朝の遺部と主張——「其先盖金遗部」（清史稿 本紀一 太祖本紀）。ただし『盖』の推量辞を伴い清史稿自身が断定を避けている。満洲語 Aisin（愛新）が『金』を意味することもこの主張を補強する。血統系譜そのものではなく王朝起源の正統性を金朝に結びつける主張として法統主張に分類する（veracity=claimed）。太宗皇太極は崇徳元年に旧国号『金／後金』を『大清』へ改めており、金への系譜的自己認識はこの改号以前の後金期の法統基盤に関わる。",
       "source": {
         "page": "清史稿 本紀一 太祖本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "claimant": "liu-penzi",
+      "claimedAncestry": "前漢高祖劉邦の後裔（高祖—斉悼恵王劉肥—城陽景王劉章—〔世代略・約7世代〕—式侯劉憲—劉萌—劉盆子）",
+      "note": "【系譜主張】ただし劉備・劉淵のような当事者の自称ではなく、後漢書が事実として記す遠祖系譜（中間世代不記載）。後漢書 劉玄劉盆子列伝に「刘盆子者，太山式人，城阳景王章之后也。祖父宪，元帝时封为式侯，父萌嗣」とあり、劉盆子は城陽景王劉章の後裔で、祖父は式侯劉憲、父は劉萌（p-liu-meng＝実父エッジ収録済）。城陽景王劉章は斉悼恵王劉肥の子（漢書 高五王伝「悼惠王子朱虚侯章」・「城阳景王章，孝文二年以朱虚侯与东牟侯兴居俱立」）、斉悼恵王劉肥は高祖劉邦の子（同伝「其母高祖微时外妇也。高祖六年立」＝母は高祖の微賎時の外婦で、高祖六年に斉王に立つ）。ただし城陽景王章（前2世紀前半）から式侯劉憲（元帝期・前1世紀後半）に至る約7世代・約140年の中間系譜は正史（王子侯表を含む）に列挙が残らず、実在系譜としてのエッジ化は不可（劉備の中山靖王之後と同型のため genealogicalClaims に記録し、章から憲の間を偽の実父エッジで結ばない）。赤眉軍が擁立に際し「求军中景王后者，得七十余人」と城陽景王の後裔を集めた中から劉盆子を選んだ経緯（後漢書 巻十一）も、この城陽景王章後裔という出自を前提とする。",
+      "source": {
+        "page": "後漢書 巻十一 劉玄劉盆子列傳",
         "lang": "zh-classical"
       }
     }
