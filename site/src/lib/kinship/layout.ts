@@ -291,13 +291,12 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
   }
 
   // --- childOrder ---
-  const childOrderOf = new Map<string, number>();
-  for (const e of src.edges) {
-    if (e.type === "kinship" && typeof e.childOrder === "number")
-      childOrderOf.set(e.to, e.childOrder);
-  }
-  for (const [id, order] of Object.entries(CHILD_ORDER_OVERRIDES))
-    childOrderOf.set(id, order);
+  // 兄弟の並び順はアンカー年(在位・生没からの代表位置)を基本とし、明示指定
+  // (CHILD_ORDER_OVERRIDES)だけを優先キーにする。データのchildOrder(排行)は兄弟の
+  // 一部にしか付いておらず、付いている子だけが端に寄って時系列が壊れるため使わない。
+  const childOrderOf = new Map<string, number>(
+    Object.entries(CHILD_ORDER_OVERRIDES),
+  );
 
   // --- 配置アンカー年の推定(スコープ全体で1回。緩和反復) ---
   const est = new Map<string, number>();
@@ -641,6 +640,15 @@ function buildChapter(
         ...(j.motherId !== null ? [j.motherId] : []),
         ...j.children,
       ];
+      // 垂下点が子の真上に揃っている単独子は1本の直線で落とす(無駄な段差を作らない)。
+      if (kids.length === 1 && Math.abs(kids[0].cx - jx) < 4) {
+        drops.push({
+          path: `M ${jx} ${topY} L ${jx} ${kids[0].y}`,
+          dashed: rel.primaryFatherDisputed.has(j.children[0]),
+          ids: groupIds,
+        });
+        continue;
+      }
       const spineParts = [`M ${jx} ${topY} L ${jx} ${barY}`];
       const barX0 = Math.min(jx, ...kids.map((k) => k.cx));
       const barX1 = Math.max(jx, ...kids.map((k) => k.cx));
@@ -848,8 +856,11 @@ function buildChapter(
       labelY: topY - 34,
     };
   });
+  // 王朝見出しは複数王朝が同居するバンドのみ(単独王朝バンドはバンド見出しで足りる)。
+  // 位置は最初のカプセルの左肩(中央上は垂下線が通るため、文字と線が必ず被る)。
   const dynastyHeads: { label: string; x: number; y: number }[] = [];
   for (const bandDef of def.bands) {
+    if (bandDef.dynastyKeys.length < 2) continue;
     for (const dk of bandDef.dynastyKeys) {
       const first = chapterEmperors
         .filter((e) => e.dynastyKey === dk)
@@ -859,8 +870,8 @@ function buildChapter(
       if (!first) continue;
       dynastyHeads.push({
         label: dk.split("__")[0],
-        x: first.r.cx,
-        y: first.r.y - 8,
+        x: first.r.x,
+        y: first.r.y - 7,
       });
     }
   }

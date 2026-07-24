@@ -268,7 +268,7 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
               key={`${h.label}:${h.y}`}
               x={h.x}
               y={h.y}
-              textAnchor="middle"
+              textAnchor="start"
               className="fill-foreground text-[11.5px] font-semibold"
               style={{
                 paintOrder: "stroke",

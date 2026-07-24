@@ -17,7 +17,7 @@
 
 // --- レイアウト定数 ---
 export const PX_PER_YEAR = 3;
-export const NODE_GAP = 8; // 縦方向のノード間隔(年境界から上下4pxずつ内側に描く)
+export const NODE_GAP = 10; // 縦方向のノード間隔(年境界から上下5pxずつ内側に描く)
 export const EMPEROR_W = 96;
 /** 皇帝カプセルの最小高(名前+「第N代・経路」の2行が成立する高さ)+間隔。 */
 export const EMPEROR_MIN_PX = 52 + NODE_GAP;
@@ -158,16 +158,30 @@ export function packBand(g: BandGraph): PackedBand {
   for (const [child, father] of g.primaryFather) {
     childrenOf.set(father, [...(childrenOf.get(father) ?? []), child]);
   }
+  // 兄弟の並び: 「同じ母の子は必ず連続」させる(母別の垂下グループのバーが
+  // 交差しない必須条件)。グループの順・グループ内の順とも
+  // 「明示指定(childOrderOf。無指定=0)→アンカー年」。
   const sortKey = (id: string): [number, number] => [
-    g.childOrderOf.get(id) ?? Number.POSITIVE_INFINITY,
+    g.childOrderOf.get(id) ?? 0,
     g.info.get(id)!.anchor,
   ];
-  for (const arr of childrenOf.values()) {
-    arr.sort((p, q) => {
-      const [po, pa] = sortKey(p);
-      const [qo, qa] = sortKey(q);
-      return po - qo || pa - qa;
-    });
+  const cmpKey = (p: string, q: string): number => {
+    const [po, pa] = sortKey(p);
+    const [qo, qa] = sortKey(q);
+    return po - qo || pa - qa;
+  };
+  for (const [father, arr] of childrenOf) {
+    const spouseIds = new Set((g.spousesOf.get(father) ?? []).map((sp) => sp.id));
+    const keyOf = (c: string): string => {
+      const m = g.motherOf.get(c);
+      return m !== undefined && spouseIds.has(m) ? m : "";
+    };
+    const groups = new Map<string, string[]>();
+    for (const c of arr) groups.set(keyOf(c), [...(groups.get(keyOf(c)) ?? []), c]);
+    const ordered = [...groups.values()];
+    for (const kids of ordered) kids.sort(cmpKey);
+    ordered.sort((p, q) => cmpKey(p[0], q[0]));
+    childrenOf.set(father, ordered.flat());
   }
 
   const items: PackedItem[] = [];
@@ -215,6 +229,13 @@ export function packBand(g: BandGraph): PackedBand {
       const minX = Math.min(...sub.rects.map((r) => r.x0));
       shiftPlaced(itemFrom, juncFrom, tieFrom, sub.rects, -minX);
       let rootX = sub.rootX - minX;
+      // 右端固定(childOrder指定900以上): 空きスペースへの左詰めをせず、既存の
+      // 全矩形の右側から詰め始める(孺子嬰を新バンド寄りに置き禅譲矢印を短くする等)。
+      if ((g.childOrderOf.get(rootId) ?? 0) >= 900 && baseRects.length > 0) {
+        const pinDx = Math.max(...baseRects.map((r) => r.x1)) + GAP_X;
+        shiftPlaced(itemFrom, juncFrom, tieFrom, sub.rects, pinDx);
+        rootX += pinDx;
+      }
       let guard = 0;
       for (;;) {
         const push = collideAmount(baseRects, sub.rects);
@@ -248,11 +269,78 @@ export function packBand(g: BandGraph): PackedBand {
     for (const { parent, child } of childRoots.map((c) => ({ parent: id, child: c.id })))
       treeEdges.push({ parent, child });
 
-    // --- 自ノード(+配偶者)を子の中央に置く ---
-    const rootX =
+    // --- 自ノード(+配偶者)の配置 ---
+    // 子は母別グループで連続に並んでいる(packBand冒頭のソート)。父のxは
+    // 「各グループの垂下点(母グループ=夫婦連結線の中点/母不明=父の下辺中央)が
+    // そのグループの子の平均xの真上に来る」誤差の子数加重平均が0になる位置に置く。
+    // 子が1グループだけなら垂下線は完全にまっすぐ落ちる(荘襄王═趙姫→始皇帝など)。
+    const spouses = g.spousesOf.get(id) ?? [];
+    const childXById = new Map(childRoots.map((c) => [c.id, c.x]));
+    const spouseIdSet = new Set(spouses.map((sp) => sp.id));
+    const groupKeyOf = (c: string): string => {
+      const m = g.motherOf.get(c);
+      return m !== undefined && spouseIdSet.has(m) ? m : "";
+    };
+    const groupsHere = new Map<string, string[]>();
+    for (const c of children)
+      groupsHere.set(groupKeyOf(c), [...(groupsHere.get(groupKeyOf(c)) ?? []), c]);
+    const meanXOf = (kids: string[]): number =>
+      kids.reduce((sum, c) => sum + (childXById.get(c) ?? 0), 0) / kids.length;
+
+    const rootX0 =
       childRoots.length === 0
         ? 0
         : (childRoots[0].x + childRoots[childRoots.length - 1].x) / 2;
+
+    // 配偶者の側: 産んだ子のいる側(いなければ右)。同じ側では子持ちを内側に置く
+    // (垂下点が夫に近く、連結線が他の妃をまたがない)。
+    interface SpousePlan {
+      sp: SpouseAttach;
+      side: "L" | "R";
+      hasKids: boolean;
+      sw: number;
+    }
+    const sidePlans: Record<"L" | "R", SpousePlan[]> = { L: [], R: [] };
+    for (const sp of spouses) {
+      const kids = groupsHere.get(sp.id);
+      sidePlans[
+        kids !== undefined && meanXOf(kids) < rootX0 ? "L" : "R"
+      ].push({
+        sp,
+        side: kids !== undefined && meanXOf(kids) < rootX0 ? "L" : "R",
+        hasKids: kids !== undefined,
+        sw: consortWidth(g.info.get(sp.id)?.name ?? sp.id),
+      });
+    }
+    for (const arr of [sidePlans.L, sidePlans.R])
+      arr.sort((p, q) => Number(q.hasKids) - Number(p.hasKids));
+
+    // 父x(rootX)相対の連結線区間・垂下点オフセットを確定する。
+    const jOffset = new Map<string, number>();
+    const tieSeg = new Map<string, [number, number]>();
+    for (const side of ["L", "R"] as const) {
+      let edge = side === "L" ? -w / 2 : w / 2;
+      for (const pl of sidePlans[side]) {
+        const to = side === "L" ? edge - TIE_LEN : edge + TIE_LEN;
+        jOffset.set(pl.sp.id, (edge + to) / 2);
+        tieSeg.set(pl.sp.id, [Math.min(edge, to), Math.max(edge, to)]);
+        edge = side === "L" ? to - pl.sw : to + pl.sw;
+      }
+    }
+
+    // rootX = 各グループの (子の平均x − 垂下点オフセット) の子数加重平均。
+    let rootX = rootX0;
+    if (childRoots.length > 0) {
+      let sum = 0;
+      let count = 0;
+      for (const [key, kids] of groupsHere) {
+        const off = key === "" ? 0 : (jOffset.get(key) ?? 0);
+        sum += (meanXOf(kids) - off) * kids.length;
+        count += kids.length;
+      }
+      if (count > 0) rootX = sum / count;
+    }
+
     rects.push({ x0: rootX - w / 2, x1: rootX + w / 2, y0: span.start, y1: span.end });
     const item: PackedItem = {
       id,
@@ -266,80 +354,52 @@ export function packBand(g: BandGraph): PackedBand {
     items.push(item);
     itemById.set(id, item);
 
-    // 配偶者: 自分の産んだ子のいる側に置く(いなければ右)。同じ側が複数なら外へ連結。
-    const spouses = g.spousesOf.get(id) ?? [];
+    // 配偶者ノードと連結線。
     const anchorMid =
       info.isEmperor && info.reign ? (info.reign.a + info.reign.b) / 2 : info.anchor;
     const spouseSpan = {
       start: anchorMid - PERSON_HALF_SPAN,
       end: anchorMid + PERSON_HALF_SPAN,
     };
-    const childXById = new Map(childRoots.map((c) => [c.id, c.x]));
-    const sideEdge: Record<"L" | "R", number> = {
-      L: rootX - w / 2,
-      R: rootX + w / 2,
-    };
-    const spouseX = new Map<string, number>();
-    const tieMid = new Map<string, number>();
-    for (const sp of spouses) {
-      const own = children.filter((c) => g.motherOf.get(c) === sp.id);
-      const meanX =
-        own.length > 0
-          ? own.reduce((s, c) => s + (childXById.get(c) ?? rootX), 0) / own.length
-          : Number.POSITIVE_INFINITY; // 子なしは右へ
-      const side: "L" | "R" = meanX < rootX ? "L" : "R";
-      const sw = consortWidth(g.info.get(sp.id)?.name ?? sp.id);
-      // 連結線は現在の側の境界(初回=夫の枠、連なった場合=内側の妃の外縁)から引く。
-      const tieFromX = sideEdge[side];
-      const tieToX = side === "L" ? tieFromX - TIE_LEN : tieFromX + TIE_LEN;
-      const cx =
-        side === "L"
-          ? sideEdge.L - TIE_LEN - sw / 2
-          : sideEdge.R + TIE_LEN + sw / 2;
-      sideEdge[side] = side === "L" ? cx - sw / 2 : cx + sw / 2;
-      spouseX.set(sp.id, cx);
-      tieMid.set(sp.id, (tieFromX + tieToX) / 2);
-      items.push({
-        id: sp.id,
-        role: "consort",
-        attachedTo: id,
-        cx,
-        w: sw,
-        effStart: spouseSpan.start,
-        effEnd: spouseSpan.end,
-        minPx: PERSON_MIN_PX,
-      });
-      ties.push({
-        husbandId: id,
-        spouseId: sp.id,
-        double: sp.double,
-        x1: Math.min(tieFromX, tieToX),
-        x2: Math.max(tieFromX, tieToX),
-      });
-      rects.push({
-        x0: cx - sw / 2,
-        x1: cx + sw / 2,
-        y0: spouseSpan.start,
-        y1: spouseSpan.end,
-      });
+    for (const side of ["L", "R"] as const) {
+      for (const pl of sidePlans[side]) {
+        const [o1, o2] = tieSeg.get(pl.sp.id)!;
+        const inner = side === "L" ? o1 : o2;
+        const cx = rootX + inner + (side === "L" ? -pl.sw / 2 : pl.sw / 2);
+        items.push({
+          id: pl.sp.id,
+          role: "consort",
+          attachedTo: id,
+          cx,
+          w: pl.sw,
+          effStart: spouseSpan.start,
+          effEnd: spouseSpan.end,
+          minPx: PERSON_MIN_PX,
+        });
+        ties.push({
+          husbandId: id,
+          spouseId: pl.sp.id,
+          double: pl.sp.double,
+          x1: rootX + o1,
+          x2: rootX + o2,
+        });
+        rects.push({
+          x0: cx - pl.sw / 2,
+          x1: cx + pl.sw / 2,
+          y0: spouseSpan.start,
+          y1: spouseSpan.end,
+        });
+      }
     }
 
     // --- 垂下グループ(母ごと+母不明)と垂下線の占有矩形 ---
-    if (children.length > 0) {
-      const groups = new Map<string | null, string[]>();
-      for (const c of children) {
-        const m = g.motherOf.get(c);
-        const key = m !== undefined && spouseX.has(m) ? m : null;
-        groups.set(key, [...(groups.get(key) ?? []), c]);
-      }
-      for (const [motherId, kids] of groups) {
-        // 母のいるグループは父と母の連結線の真ん中から、母不明は父の下辺中央から。
-        const jx = motherId === null ? rootX : tieMid.get(motherId)!;
-        junctions.push({ fatherId: id, motherId, x: jx, children: kids });
-        const topKid = Math.min(...kids.map((c) => yearSpan(g.info.get(c)!).start));
-        if (topKid > span.end)
-          rects.push({ x0: jx - 2, x1: jx + 2, y0: span.end, y1: topKid });
-      }
+    for (const [key, kids] of groupsHere) {
+      const motherId = key === "" ? null : key;
+      const jx = rootX + (motherId === null ? 0 : jOffset.get(motherId)!);
+      junctions.push({ fatherId: id, motherId, x: jx, children: kids });
+      const topKid = Math.min(...kids.map((c) => yearSpan(g.info.get(c)!).start));
+      if (topKid > span.end)
+        rects.push({ x0: jx - 2, x1: jx + 2, y0: span.end, y1: topKid });
     }
 
     return { rects, rootX };
