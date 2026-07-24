@@ -216,7 +216,11 @@ export function packBand(g: BandGraph): PackedBand {
    * (layoutSubtree)の前後でitems/junctionsのindexを控え、シフトを伝播する。
    * 戻り値は各ルートの確定x。
    */
-  const packSequence = (rootIds: string[], baseRects: Rect[]): { id: string; x: number }[] => {
+  const packSequence = (
+    rootIds: string[],
+    baseRects: Rect[],
+    corridor?: (id: string, rootX: number) => Rect | null,
+  ): { id: string; x: number }[] => {
     const rootXs: { id: string; x: number }[] = [];
     let prevRootX = Number.NEGATIVE_INFINITY;
     for (const rootId of rootIds) {
@@ -250,6 +254,10 @@ export function packBand(g: BandGraph): PackedBand {
           throw new Error(`kinship/tree: パッキングが収束しません(${rootId})`);
       }
       baseRects.push(...sub.rects);
+      // 親からこの子へ降りる垂下線の通り道(コリドー)を予約し、後続の兄弟サブツリーが
+      // 線の経路に割り込まないようにする(兄弟バー・長い降下線がノードを横切る事故の防止)。
+      const cor = corridor?.(rootId, rootX);
+      if (cor) baseRects.push(cor);
       rootXs.push({ id: rootId, x: rootX });
       prevRootX = rootX;
     }
@@ -265,15 +273,20 @@ export function packBand(g: BandGraph): PackedBand {
 
     // --- 子サブツリーを左から詰める(時間非重複なら空間再利用) ---
     const rects: Rect[] = [];
-    const childRoots = packSequence(children, rects);
+    const childRoots = packSequence(children, rects, (childId, childRootX) => {
+      const childTop = yearSpan(g.info.get(childId)!).start;
+      if (childTop <= span.end + PAD_Y) return null;
+      return { x0: childRootX - 2, x1: childRootX + 2, y0: span.end, y1: childTop };
+    });
     for (const { parent, child } of childRoots.map((c) => ({ parent: id, child: c.id })))
       treeEdges.push({ parent, child });
 
     // --- 自ノード(+配偶者)の配置 ---
-    // 子は母別グループで連続に並んでいる(packBand冒頭のソート)。父のxは
-    // 「各グループの垂下点(母グループ=夫婦連結線の中点/母不明=父の下辺中央)が
-    // そのグループの子の平均xの真上に来る」誤差の子数加重平均が0になる位置に置く。
-    // 子が1グループだけなら垂下線は完全にまっすぐ落ちる(荘襄王═趙姫→始皇帝など)。
+    // 子は母別グループで連続に並んでいる(packBand冒頭のソート)。
+    // 目標は「すべての垂下線をまっすぐ落とす」こと:
+    // - 母不明グループがあれば、父をその平均xの真上に置く(父下辺中央から垂直)。
+    // - 母グループは、夫婦連結線の長さを伸縮させて連結線の中点をそのグループの
+    //   平均xに正確に合わせる(＝の長さは固定しない。表示が美しくなる長さを選ぶ)。
     const spouses = g.spousesOf.get(id) ?? [];
     const childXById = new Map(childRoots.map((c) => [c.id, c.x]));
     const spouseIdSet = new Set(spouses.map((sp) => sp.id));
@@ -287,58 +300,16 @@ export function packBand(g: BandGraph): PackedBand {
     const meanXOf = (kids: string[]): number =>
       kids.reduce((sum, c) => sum + (childXById.get(c) ?? 0), 0) / kids.length;
 
-    const rootX0 =
-      childRoots.length === 0
-        ? 0
-        : (childRoots[0].x + childRoots[childRoots.length - 1].x) / 2;
-
-    // 配偶者の側: 産んだ子のいる側(いなければ右)。同じ側では子持ちを内側に置く
-    // (垂下点が夫に近く、連結線が他の妃をまたがない)。
-    interface SpousePlan {
-      sp: SpouseAttach;
-      side: "L" | "R";
-      hasKids: boolean;
-      sw: number;
-    }
-    const sidePlans: Record<"L" | "R", SpousePlan[]> = { L: [], R: [] };
-    for (const sp of spouses) {
-      const kids = groupsHere.get(sp.id);
-      sidePlans[
-        kids !== undefined && meanXOf(kids) < rootX0 ? "L" : "R"
-      ].push({
-        sp,
-        side: kids !== undefined && meanXOf(kids) < rootX0 ? "L" : "R",
-        hasKids: kids !== undefined,
-        sw: consortWidth(g.info.get(sp.id)?.name ?? sp.id),
-      });
-    }
-    for (const arr of [sidePlans.L, sidePlans.R])
-      arr.sort((p, q) => Number(q.hasKids) - Number(p.hasKids));
-
-    // 父x(rootX)相対の連結線区間・垂下点オフセットを確定する。
-    const jOffset = new Map<string, number>();
-    const tieSeg = new Map<string, [number, number]>();
-    for (const side of ["L", "R"] as const) {
-      let edge = side === "L" ? -w / 2 : w / 2;
-      for (const pl of sidePlans[side]) {
-        const to = side === "L" ? edge - TIE_LEN : edge + TIE_LEN;
-        jOffset.set(pl.sp.id, (edge + to) / 2);
-        tieSeg.set(pl.sp.id, [Math.min(edge, to), Math.max(edge, to)]);
-        edge = side === "L" ? to - pl.sw : to + pl.sw;
-      }
-    }
-
-    // rootX = 各グループの (子の平均x − 垂下点オフセット) の子数加重平均。
-    let rootX = rootX0;
-    if (childRoots.length > 0) {
-      let sum = 0;
-      let count = 0;
-      for (const [key, kids] of groupsHere) {
-        const off = key === "" ? 0 : (jOffset.get(key) ?? 0);
-        sum += (meanXOf(kids) - off) * kids.length;
-        count += kids.length;
-      }
-      if (count > 0) rootX = sum / count;
+    const nullKids = groupsHere.get("");
+    let rootX: number;
+    if (childRoots.length === 0) {
+      rootX = 0;
+    } else if (nullKids !== undefined) {
+      rootX = meanXOf(nullKids);
+    } else {
+      // 母グループのみ: 父は最初のグループの左脇(標準長の連結線の中点が真上に来る)。
+      rootX =
+        meanXOf(groupsHere.get(groupKeyOf(children[0]))!) - w / 2 - TIE_LEN / 2;
     }
 
     rects.push({ x0: rootX - w / 2, x1: rootX + w / 2, y0: span.start, y1: span.end });
@@ -354,18 +325,48 @@ export function packBand(g: BandGraph): PackedBand {
     items.push(item);
     itemById.set(id, item);
 
-    // 配偶者ノードと連結線。
-    const anchorMid =
-      info.isEmperor && info.reign ? (info.reign.a + info.reign.b) / 2 : info.anchor;
-    const spouseSpan = {
-      start: anchorMid - PERSON_HALF_SPAN,
-      end: anchorMid + PERSON_HALF_SPAN,
-    };
+    // 配偶者: 産んだ子のいる側(いなければ右)。同じ側では子持ちを内側に置く
+    // (連結線が他の妃をまたがない)。
+    interface SpousePlan {
+      sp: SpouseAttach;
+      hasKids: boolean;
+      sw: number;
+    }
+    const sidePlans: Record<"L" | "R", SpousePlan[]> = { L: [], R: [] };
+    for (const sp of spouses) {
+      const kids = groupsHere.get(sp.id);
+      const side: "L" | "R" =
+        kids !== undefined && meanXOf(kids) < rootX ? "L" : "R";
+      sidePlans[side].push({
+        sp,
+        hasKids: kids !== undefined,
+        sw: consortWidth(g.info.get(sp.id)?.name ?? sp.id),
+      });
+    }
+    for (const arr of [sidePlans.L, sidePlans.R])
+      arr.sort((p, q) => Number(q.hasKids) - Number(p.hasKids));
+
+    // 配偶者の占有年区間は夫と同一にする(描画は夫カプセルの上部にpx整列。
+    // 子は必ず夫の実効区間の後に始まるため、連結線を横に伸ばしても子と交差しない)。
+    const spouseSpan = { start: span.start, end: span.end };
+    const tieMid = new Map<string, number>();
     for (const side of ["L", "R"] as const) {
+      let edge = side === "L" ? rootX - w / 2 : rootX + w / 2;
       for (const pl of sidePlans[side]) {
-        const [o1, o2] = tieSeg.get(pl.sp.id)!;
-        const inner = side === "L" ? o1 : o2;
-        const cx = rootX + inner + (side === "L" ? -pl.sw / 2 : pl.sw / 2);
+        let innerX: number;
+        if (pl.hasKids) {
+          // 連結線の中点 = 自分の子グループの平均x になるよう長さを決める。
+          const target = meanXOf(groupsHere.get(pl.sp.id)!);
+          innerX = 2 * target - edge;
+          innerX =
+            side === "L"
+              ? Math.min(innerX, edge - TIE_LEN)
+              : Math.max(innerX, edge + TIE_LEN);
+        } else {
+          innerX = side === "L" ? edge - TIE_LEN : edge + TIE_LEN;
+        }
+        tieMid.set(pl.sp.id, (edge + innerX) / 2);
+        const cx = side === "L" ? innerX - pl.sw / 2 : innerX + pl.sw / 2;
         items.push({
           id: pl.sp.id,
           role: "consort",
@@ -380,8 +381,8 @@ export function packBand(g: BandGraph): PackedBand {
           husbandId: id,
           spouseId: pl.sp.id,
           double: pl.sp.double,
-          x1: rootX + o1,
-          x2: rootX + o2,
+          x1: Math.min(edge, innerX),
+          x2: Math.max(edge, innerX),
         });
         rects.push({
           x0: cx - pl.sw / 2,
@@ -389,13 +390,14 @@ export function packBand(g: BandGraph): PackedBand {
           y0: spouseSpan.start,
           y1: spouseSpan.end,
         });
+        edge = side === "L" ? innerX - pl.sw : innerX + pl.sw;
       }
     }
 
     // --- 垂下グループ(母ごと+母不明)と垂下線の占有矩形 ---
     for (const [key, kids] of groupsHere) {
       const motherId = key === "" ? null : key;
-      const jx = rootX + (motherId === null ? 0 : jOffset.get(motherId)!);
+      const jx = motherId === null ? rootX : tieMid.get(motherId)!;
       junctions.push({ fatherId: id, motherId, x: jx, children: kids });
       const topKid = Math.min(...kids.map((c) => yearSpan(g.info.get(c)!).start));
       if (topKid > span.end)
@@ -462,10 +464,8 @@ export function packBand(g: BandGraph): PackedBand {
     if (it.role !== "consort" || !it.attachedTo) continue;
     const h = itemById.get(it.attachedTo);
     if (!h) continue;
-    const mid = (h.effStart + h.effEnd) / 2;
-    const len = it.effEnd - it.effStart;
-    it.effStart = mid - len / 2;
-    it.effEnd = mid + len / 2;
+    it.effStart = h.effStart;
+    it.effEnd = h.effEnd;
   }
 
   return { label: g.label, width, items, junctions, ties };

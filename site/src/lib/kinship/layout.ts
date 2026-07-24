@@ -574,14 +574,28 @@ function buildChapter(
       const nodeInfo = info.get(it.id)!;
       const top = yOf(it.effStart) + NODE_GAP / 2;
       const bottom = yOf(it.effEnd) - NODE_GAP / 2;
-      // 皇帝カプセルは実効区間いっぱい(高さ=在位期間)。人物・配偶者は、写像の局所
-      // 引き伸ばしで区間が広がっても膨らまないよう固定高で区間中央に置く。
-      const h = isConsort
-        ? Math.min(CONSORT_H, bottom - top)
-        : nodeInfo.isEmperor
-          ? bottom - top
-          : Math.min(PERSON_H, bottom - top);
-      const y = nodeInfo.isEmperor && !isConsort ? top : (top + bottom) / 2 - h / 2;
+      // 皇帝カプセルは実効区間いっぱい(高さ=在位期間)。人物は固定高で区間中央。
+      // 配偶者は夫カプセルの「上部」にpx整列する(子は必ず夫の下端より後に始まるため、
+      // 連結線を子グループの真上まで伸ばしても子や垂下帯と交差しない)。
+      let h: number;
+      let y: number;
+      if (isConsort) {
+        h = Math.min(CONSORT_H, bottom - top);
+        const husband = it.attachedTo !== undefined ? rectById.get(it.attachedTo) : undefined;
+        if (husband !== undefined && info.get(it.attachedTo!)?.isEmperor) {
+          y = husband.y + 6;
+        } else if (husband !== undefined) {
+          y = husband.y + husband.h / 2 - h / 2;
+        } else {
+          y = (top + bottom) / 2 - h / 2;
+        }
+      } else if (nodeInfo.isEmperor) {
+        h = bottom - top;
+        y = top;
+      } else {
+        h = Math.min(PERSON_H, bottom - top);
+        y = (top + bottom) / 2 - h / 2;
+      }
       const r: PlacedRect = {
         x: bandXs[bi] + it.cx - it.w / 2,
         y,
@@ -594,6 +608,18 @@ function buildChapter(
       nodes.push(buildNode(it.id, isConsort, r, src, rel));
     }
   });
+
+  // --- 品質ゲート用: 描いた線分(縦横のみ)を集めて後段でノード横断を検査する ---
+  interface QSeg {
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+    /** この線の当事者(横断チェックから除外するノードid)。 */
+    ids: string[];
+    what: string;
+  }
+  const qsegs: QSeg[] = [];
 
   // --- 夫婦の連結線 ---
   const ties: KinshipTieOut[] = [];
@@ -610,6 +636,14 @@ function buildChapter(
         x2: bandXs[bi] + t.x2,
         y,
         double: t.double,
+      });
+      qsegs.push({
+        x1: bandXs[bi] + t.x1,
+        y1: y,
+        x2: bandXs[bi] + t.x2,
+        y2: y,
+        ids: [t.husbandId, t.spouseId],
+        what: `連結線 ${t.husbandId}═${t.spouseId}`,
       });
       tieYOf.set(t.spouseId, y);
     }
@@ -647,12 +681,38 @@ function buildChapter(
           dashed: rel.primaryFatherDisputed.has(j.children[0]),
           ids: groupIds,
         });
+        qsegs.push({
+          x1: jx,
+          y1: topY,
+          x2: jx,
+          y2: kids[0].y,
+          ids: groupIds,
+          what: `垂下線 ${j.fatherId}→${j.children[0]}`,
+        });
         continue;
       }
       const spineParts = [`M ${jx} ${topY} L ${jx} ${barY}`];
+      qsegs.push({
+        x1: jx,
+        y1: topY,
+        x2: jx,
+        y2: barY,
+        ids: groupIds,
+        what: `垂下線 ${j.fatherId}(縦)`,
+      });
       const barX0 = Math.min(jx, ...kids.map((k) => k.cx));
       const barX1 = Math.max(jx, ...kids.map((k) => k.cx));
-      if (barX1 - barX0 > 0.5) spineParts.push(`M ${barX0} ${barY} L ${barX1} ${barY}`);
+      if (barX1 - barX0 > 0.5) {
+        spineParts.push(`M ${barX0} ${barY} L ${barX1} ${barY}`);
+        qsegs.push({
+          x1: barX0,
+          y1: barY,
+          x2: barX1,
+          y2: barY,
+          ids: groupIds,
+          what: `兄弟バー ${j.fatherId}`,
+        });
+      }
       drops.push({ path: spineParts.join(" "), dashed: false, ids: groupIds });
       for (const c of j.children) {
         const k = rectById.get(c);
@@ -661,6 +721,14 @@ function buildChapter(
           path: `M ${k.cx} ${barY} L ${k.cx} ${k.y}`,
           dashed: rel.primaryFatherDisputed.has(c),
           ids: [j.fatherId, ...(j.motherId !== null ? [j.motherId] : []), c],
+        });
+        qsegs.push({
+          x1: k.cx,
+          y1: barY,
+          x2: k.cx,
+          y2: k.y,
+          ids: groupIds,
+          what: `垂下線 ${j.fatherId}→${c}`,
         });
       }
     }
@@ -695,20 +763,30 @@ function buildChapter(
     return `M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`;
   };
 
-  // 補助エッジ(血縁)用: 家系図の直交線に揃えたポリライン。無用な曲がりを避け、
-  // 水平区間は到達先の直前(枠の外10px)を通す。到達点は垂下線(cx)と重ならないよう
+  // 補助エッジ(血縁)用: 家系図の直交線に揃えたポリライン(点列)。無用な曲がりを
+  // 避け、水平区間は到達先の直前(枠の外)を通す。到達点は垂下線(cx)と重ならないよう
   // 10pxずらす。
-  const orthoPath = (a: PlacedRect, b: PlacedRect): string => {
+  const orthoPoints = (a: PlacedRect, b: PlacedRect): [number, number][] => {
     const enterX = b.cx + (a.cx <= b.cx ? -10 : 10);
     if (b.y - (a.y + a.h) >= 14) {
       // 通常: 上の親から下の子へ(下辺→水平→上辺)。
       const laneY = b.y - 6;
-      return `M ${a.cx} ${a.y + a.h} L ${a.cx} ${laneY} L ${enterX} ${laneY} L ${enterX} ${b.y}`;
+      return [
+        [a.cx, a.y + a.h],
+        [a.cx, laneY],
+        [enterX, laneY],
+        [enterX, b.y],
+      ];
     }
     if (a.y - (b.y + b.h) >= 14) {
       // 到達先が上にある場合(王莽→孝平王皇后など)は下辺側から入る。
       const laneY = b.y + b.h + 6;
-      return `M ${a.cx} ${a.y} L ${a.cx} ${laneY} L ${enterX} ${laneY} L ${enterX} ${b.y + b.h}`;
+      return [
+        [a.cx, a.y],
+        [a.cx, laneY],
+        [enterX, laneY],
+        [enterX, b.y + b.h],
+      ];
     }
     // 年代が重なる場合は側面どうしを水平に結ぶ(到達側の直前で縦にずらす)。
     const leftToRight = a.cx < b.cx;
@@ -717,7 +795,35 @@ function buildChapter(
     const y1 = a.y + a.h / 2;
     const y2 = b.y + b.h / 2;
     const jogX = leftToRight ? x2 - 12 : x2 + 12;
-    return `M ${x1} ${y1} L ${jogX} ${y1} L ${jogX} ${y2} L ${x2} ${y2}`;
+    return [
+      [x1, y1],
+      [jogX, y1],
+      [jogX, y2],
+      [x2, y2],
+    ];
+  };
+  const toPath = (pts: [number, number][]): string =>
+    pts.map(([x, y], i) => `${i === 0 ? "M" : "L"} ${x} ${y}`).join(" ");
+  const pushAuxSegs = (
+    pts: [number, number][],
+    ids: string[],
+    what: string,
+  ): void => {
+    for (let i = 1; i < pts.length; i++) {
+      qsegs.push({
+        x1: pts[i - 1][0],
+        y1: pts[i - 1][1],
+        x2: pts[i][0],
+        y2: pts[i][1],
+        ids,
+        what,
+      });
+    }
+  };
+  const orthoPath = (a: PlacedRect, b: PlacedRect, ids: string[], what: string): string => {
+    const pts = orthoPoints(a, b);
+    pushAuxSegs(pts, ids, what);
+    return toPath(pts);
   };
 
   // 人物の「王朝コンテキスト」: 皇帝=dynastyKey、人物=所属バンドの先頭dynastyKey。
@@ -774,7 +880,7 @@ function buildChapter(
         key: `m:${e.from}→${e.to}`,
         fromId: e.from,
         toId: e.to,
-        path: orthoPath(a, b),
+        path: orthoPath(a, b, [e.from, e.to], `婚姻 ${e.from}═${e.to}`),
         dashed: false,
         disputed: false,
         marriage: true,
@@ -832,7 +938,7 @@ function buildChapter(
       key: `k:${e.from}→${e.to}:${e.relation}`,
       fromId: e.from,
       toId: e.to,
-      path: orthoPath(a, b),
+      path: orthoPath(a, b, [e.from, e.to], `血縁 ${e.from}→${e.to}〔${e.relation}〕`),
       dashed: dashed || disputed,
       disputed,
       marriage: false,
@@ -843,6 +949,38 @@ function buildChapter(
         ...(e.sourcePage ? [{ text: `出典: ${e.sourcePage}`, muted: true }] : []),
       ],
     };
+  }
+
+  // --- 品質ゲート: 線が当事者以外のノードを横切っていたらビルドを落とす ---
+  // (「無駄な線の曲がり・線が他のものを横切るのは禁止」のハード制約化。
+  //  横断が出る配置はキュレーション(バンド順・CHILD_ORDER_OVERRIDES)や
+  //  ルーティングの修正で解消してからでないとビルドできない)
+  {
+    const violations: string[] = [];
+    for (const seg of qsegs) {
+      const sx0 = Math.min(seg.x1, seg.x2);
+      const sx1 = Math.max(seg.x1, seg.x2);
+      const sy0 = Math.min(seg.y1, seg.y2);
+      const sy1 = Math.max(seg.y1, seg.y2);
+      for (const [nid, r] of rectById) {
+        if (seg.ids.includes(nid)) continue;
+        const rx0 = r.x + 1.5;
+        const rx1 = r.x + r.w - 1.5;
+        const ry0 = r.y + 1.5;
+        const ry1 = r.y + r.h - 1.5;
+        if (sx0 < rx1 && sx1 > rx0 && sy0 < ry1 && sy1 > ry0) {
+          violations.push(
+            `${seg.what} が ${nameOf(nid)}(${nid}) を横断 [seg(${seg.x1.toFixed(0)},${seg.y1.toFixed(0)})-(${seg.x2.toFixed(0)},${seg.y2.toFixed(0)}) rect(${r.x.toFixed(0)},${r.y.toFixed(0)},w${r.w.toFixed(0)},h${r.h.toFixed(0)})]`,
+          );
+        }
+      }
+    }
+    if (violations.length > 0) {
+      throw new Error(
+        `kinship/layout: 章「${def.title}」で線がノードを横切っています(${violations.length}件):\n` +
+          violations.join("\n"),
+      );
+    }
   }
 
   // --- バンド見出し・王朝見出し・目盛り ---
