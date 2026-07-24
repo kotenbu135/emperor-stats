@@ -39,20 +39,20 @@ export const KINSHIP_CHAPTER_DEFS: KinshipChapterDef[] = [
     title: "秦・漢",
     period: "前221年 – 220年",
     // バンド順はエッジの横断を最小化するキュレーション:
-    // 前漢の右端に劉發系(舂陵=後漢祖先・玄漢祖先)を寄せ(CHILD_ORDER_OVERRIDES)、
-    // その右に後漢(劉欽→光武帝が隣接ホップ)、次に新(孺子嬰→王莽の禅譲矢印は
-    // 後漢バンド上部の空白年代を直進横断・王禁→王政君も右側から入る)。
+    // 後漢は劉氏の同族連続政権として前漢と同じバンドに入れる(劉欽→光武帝が
+    // 家系図の垂下線そのものになり、光武帝は劉欽の真下に置かれる)。その右に新
+    // (孺子嬰→王莽の禅譲矢印と王禁→王政君の線が隣接バンド間の短い線で済む)。
     bands: [
       { label: "秦", dynastyKeys: ["秦__秦（始皇帝以降）"] },
       {
-        label: "前漢（劉氏）",
+        label: "漢（劉氏）",
         dynastyKeys: [
           "前漢__秦（始皇帝以降）",
           "玄漢（更始）__新",
           "梁__梁",
+          "後漢__後漢",
         ],
       },
-      { label: "後漢", dynastyKeys: ["後漢__後漢"] },
       { label: "新（王氏）", dynastyKeys: ["新__新"] },
       { label: "漢（赤眉軍）", dynastyKeys: ["漢（赤眉軍）__漢（赤眉軍）"] },
       { label: "成家", dynastyKeys: ["成家__成家"] },
@@ -79,7 +79,7 @@ export const KINSHIP_ENABLED_CHAPTER_IDS: string[] = ["qin-han"];
  *   (王莽=新バンド)に寄ってしまう。前漢の宗室なので前漢バンドに置く。
  */
 export const PERSON_BAND_OVERRIDES: Record<string, string> = {
-  "p-ruzi-ying": "前漢（劉氏）",
+  "p-ruzi-ying": "漢（劉氏）",
 };
 
 /**

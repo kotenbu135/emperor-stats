@@ -333,6 +333,25 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
     }
   }
 
+  // --- バンド跨ぎの「単独人物 → 妃」親エッジの水平整列 ---
+  // 王禁→王政君(元帝の皇后)のように、別バンドの人物から妃へ引く親エッジは、
+  // 人物側の配置年を妃の描画位置(夫カプセル上部)に揃える。これで補助線が
+  // 曲がりのない水平1本の直線になる(実際の生没年はツールチップで示す)。
+  {
+    const consortAlignYears =
+      (NODE_GAP / 2 + 6 + CONSORT_H / 2) / PX_PER_YEAR;
+    for (const e of src.edges) {
+      if (e.type !== "kinship") continue;
+      if (e.relation !== "実父" && e.relation !== "実母") continue;
+      if (!personById.has(e.from) || attachedTo.has(e.from)) continue;
+      const husband = attachedTo.get(e.to);
+      if (husband === undefined) continue;
+      const h = emperorById.get(husband);
+      if (!h) continue;
+      est.set(e.from, h.reigns[0].a + consortAlignYears);
+    }
+  }
+
   // --- 家系図の上下整合 ---
   // 人物ノードの配置年は「代表位置」(生没中点等)に過ぎず、親の死年が子の在位中に
   // かかる等で主親子の上下(親が上)が崩れることがある。皇帝の在位は動かせないため、
@@ -767,6 +786,20 @@ function buildChapter(
   // 避け、水平区間は到達先の直前(枠の外)を通す。到達点は垂下線(cx)と重ならないよう
   // 10pxずらす。
   const orthoPoints = (a: PlacedRect, b: PlacedRect): [number, number][] => {
+    // 中心の高さが揃っていて左右に離れている場合は、曲がりのない水平1本で結ぶ
+    // (王禁→王政君など。整列は上のconsortAlignYearsパスで作る)。
+    const acy = a.y + a.h / 2;
+    const bcy = b.y + b.h / 2;
+    if (
+      Math.abs(acy - bcy) <= 4 &&
+      (a.x >= b.x + b.w || b.x >= a.x + a.w)
+    ) {
+      const leftToRight = a.cx < b.cx;
+      return [
+        [leftToRight ? a.x + a.w : a.x, bcy],
+        [leftToRight ? b.x : b.x + b.w, bcy],
+      ];
+    }
     const enterX = b.cx + (a.cx <= b.cx ? -10 : 10);
     if (b.y - (a.y + a.h) >= 14) {
       // 通常: 上の親から下の子へ(下辺→水平→上辺)。
@@ -975,6 +1008,24 @@ function buildChapter(
         }
       }
     }
+    // ノードどうしの重なりも禁止(アンカー調整・チェーン押し下げの副作用を検出する)。
+    const placedAll = [...rectById.entries()];
+    for (let i = 0; i < placedAll.length; i++) {
+      for (let j = i + 1; j < placedAll.length; j++) {
+        const [pid, p] = placedAll[i];
+        const [qid, q] = placedAll[j];
+        if (
+          p.x + 1 < q.x + q.w - 1 &&
+          q.x + 1 < p.x + p.w - 1 &&
+          p.y + 1 < q.y + q.h - 1 &&
+          q.y + 1 < p.y + p.h - 1
+        ) {
+          violations.push(
+            `ノードが重なっています ${nameOf(pid)}(${pid}) × ${nameOf(qid)}(${qid}) [rect(${p.x.toFixed(0)},${p.y.toFixed(0)},w${p.w.toFixed(0)},h${p.h.toFixed(0)}) rect(${q.x.toFixed(0)},${q.y.toFixed(0)},w${q.w.toFixed(0)},h${q.h.toFixed(0)})]`,
+          );
+        }
+      }
+    }
     if (violations.length > 0) {
       throw new Error(
         `kinship/layout: 章「${def.title}」で線がノードを横切っています(${violations.length}件):\n` +
@@ -1014,9 +1065,9 @@ function buildChapter(
     }
   }
 
-  // 目盛り(歴史年の50年刻み。0年は暦に存在しないため1年へ置換)。
+  // 目盛り(歴史年の25年刻み。0年は暦に存在しないため1年へ置換)。
   const ticks: { y: number; label: string }[] = [];
-  for (let h = Math.ceil(fromAstroYear(scale.minYear) / 50) * 50; ; h += 50) {
+  for (let h = Math.ceil(fromAstroYear(scale.minYear) / 25) * 25; ; h += 25) {
     const hist = h === 0 ? 1 : h;
     const astro = hist < 0 ? hist + 1 : hist;
     if (astro > scale.maxYear) break;

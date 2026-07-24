@@ -16,7 +16,10 @@
 //   局所引き伸ばしで吸収するため、位置と年目盛りの対応は保たれる)。
 
 // --- レイアウト定数 ---
-export const PX_PER_YEAR = 3;
+// 縦スケールは固定(1年=8px。約100〜150年が1画面に収まる密度)。時間写像の局所
+// 引き伸ばしは「在位が短くカプセル最小高に満たない皇帝」の周辺でのみ発生する
+// (3px/年の頃はほぼ全区間が引き伸ばされ年目盛りが不均等で分かりにくかった)。
+export const PX_PER_YEAR = 8;
 export const NODE_GAP = 10; // 縦方向のノード間隔(年境界から上下5pxずつ内側に描く)
 export const EMPEROR_W = 96;
 /** 皇帝カプセルの最小高(名前+「第N代・経路」の2行が成立する高さ)+間隔。 */
@@ -384,6 +387,16 @@ export function packBand(g: BandGraph): PackedBand {
           x1: Math.min(edge, innerX),
           x2: Math.max(edge, innerX),
         });
+        // 伸ばした連結線の下(夫の在位年幅)は垂下線の始点が通るため、通り道として
+        // 予約し、他のサブツリーが隙間に滑り込まないようにする。
+        if (pl.hasKids) {
+          rects.push({
+            x0: Math.min(edge, innerX),
+            x1: Math.max(edge, innerX),
+            y0: spouseSpan.start,
+            y1: spouseSpan.end,
+          });
+        }
         rects.push({
           x0: cx - pl.sw / 2,
           x1: cx + pl.sw / 2,
@@ -453,9 +466,12 @@ export function packBand(g: BandGraph): PackedBand {
     const xOverlap =
       p.cx - p.w / 2 < c.cx + c.w / 2 && c.cx - c.w / 2 < p.cx + p.w / 2;
     if (!xOverlap) continue;
-    if (c.effStart < p.effEnd + PAD_Y) {
+    // 真に食い込んでいる場合のみ押し下げる(在位が隣接する親子皇帝は年境界を共有
+    // するのが正常で、描画時のNODE_GAPインセットが間隔を作る。ここでPAD_Yまで
+    // 要求すると幹の全皇帝が真の即位年から数pxずつ下へずれてしまう)。
+    if (c.effStart < p.effEnd) {
       const len = c.effEnd - c.effStart;
-      c.effStart = p.effEnd + PAD_Y;
+      c.effStart = p.effEnd;
       c.effEnd = c.effStart + len;
     }
   }

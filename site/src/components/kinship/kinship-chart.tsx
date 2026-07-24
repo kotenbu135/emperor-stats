@@ -333,15 +333,8 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
                   {n.sub}
                 </text>
               )}
-              {n.claimBadge && (
-                <text
-                  x={n.x + n.w + 5}
-                  y={n.y + 11}
-                  className="fill-muted-foreground text-[9.5px]"
-                >
-                  ◇遠祖
-                </text>
-              )}
+              {/* 遠祖の系譜主張はグラフ内バッジにしない(隣のノードの付記に見える
+                  誤読があった)。ツールチップとページ末尾の一覧で示す。 */}
             </g>
           ))}
         </g>
