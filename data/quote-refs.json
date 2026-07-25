@@ -172,6 +172,16 @@
     "废帝为济南王令食一郡"
    ]
   },
+  "beiqi-gaoxie|accessionRoute.note|71b4f80e0571": {
+   "id": "beiqi-gaoxie",
+   "path": "accessionRoute.note",
+   "span": "高宝宁在营州，表上尊号，绍义遂即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiqi-gaoxie.txt",
+   "frags": [
+    "高宝宁在营州表上尊号"
+   ]
+  },
   "beiqi-gaoxie|deathCause.note|d60707729d6d": {
    "id": "beiqi-gaoxie",
    "path": "deathCause.note",
@@ -3954,6 +3964,16 @@
     "邦昌以太宰退处内东门"
    ]
   },
+  "beiwei-daowudi|accessionRoute.note|d836064f283e": {
+   "id": "beiwei-daowudi",
+   "path": "accessionRoute.note",
+   "span": "右司马许谦上书劝进",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-daowudi.txt",
+   "frags": [
+    "右司马许谦上书劝进"
+   ]
+  },
   "beiwei-daowudi|ages.note|0fe48bd69e81": {
    "id": "beiwei-daowudi",
    "path": "ages.note",
@@ -4205,6 +4225,17 @@
     "崩于天安殿时年三十九"
    ]
   },
+  "beiwei-houfeidi-yuanlang|accessionRoute.note|a86e560e4f33": {
+   "id": "beiwei-houfeidi-yuanlang",
+   "path": "accessionRoute.note",
+   "span": "冬十月壬寅，齐献武王推勃海太守元朗即皇帝位",
+   "status": "corpus",
+   "corpusFile": "china-history/魏书-白话/帝纪/第十一章-卷十一-白话.html",
+   "frags": [
+    "冬十月壬寅齐献武王推",
+    "勃海太守元朗即皇帝位"
+   ]
+  },
   "beiwei-houfeidi-yuanlang|amnestyCount[0].note|65fcf6b09bf5": {
    "id": "beiwei-houfeidi-yuanlang",
    "path": "amnestyCount[0].note",
@@ -4277,6 +4308,16 @@
     "甲辰安定王朗及东海王"
    ]
   },
+  "beiwei-jiemindi|accessionRoute.note|4b704ed5de2f": {
+   "id": "beiwei-jiemindi",
+   "path": "accessionRoute.note",
+   "span": "疏远，又非人望所推",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-jiemindi.txt",
+   "frags": [
+    "疏远又非人望所推"
+   ]
+  },
   "beiwei-jiemindi|accessionRoute.note|6a08fcf29b10": {
    "id": "beiwei-jiemindi",
    "path": "accessionRoute.note",
@@ -4285,6 +4326,26 @@
    "corpusFile": "_corpus_cache/beiwei-jiemindi.txt",
    "frags": [
     "潜默晦身有过人之量"
+   ]
+  },
+  "beiwei-jiemindi|accessionRoute.note|98b82f037d53": {
+   "id": "beiwei-jiemindi",
+   "path": "accessionRoute.note",
+   "span": "太尉公尔朱度律奉进玺绶哀冕之服",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-jiemindi.txt",
+   "frags": [
+    "太尉公尔朱度律奉进玺"
+   ]
+  },
+  "beiwei-jiemindi|accessionRoute.note|fbace9d21366": {
+   "id": "beiwei-jiemindi",
+   "path": "accessionRoute.note",
+   "span": "晔进至邙南，世隆等奉王东郭之外，行禅让之礼",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-jiemindi.txt",
+   "frags": [
+    "晔进至邙南世隆等奉王"
    ]
   },
   "beiwei-jiemindi|amnestyCount[0].note|23138ef4db0d": {
@@ -4415,6 +4476,27 @@
    "corpusFile": "_corpus_cache/beiwei-jiemindi.txt",
    "frags": [
     "太昌初帝殂于门下外省"
+   ]
+  },
+  "beiwei-mingyuandi|accessionRoute.note|0b2968668c2b": {
+   "id": "beiwei-mingyuandi",
+   "path": "accessionRoute.note",
+   "span": "汝当继统，故吾远同汉武，为长久之计",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-mingyuandi.txt",
+   "frags": [
+    "汝当继统故吾远同汉武"
+   ]
+  },
+  "beiwei-mingyuandi|accessionRoute.note|67ba95e86ebe": {
+   "id": "beiwei-mingyuandi",
+   "path": "accessionRoute.note",
+   "span": "天赐六年冬十月，清河王绍作逆，太祖崩。帝入诛绍。壬申，即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-mingyuandi.txt",
+   "frags": [
+    "天赐六年冬十月清河王",
+    "太祖崩帝入诛绍壬申即"
    ]
   },
   "beiwei-mingyuandi|amnestyCount.note|a2ee39320ce1": {
@@ -7609,6 +7691,17 @@
    "frags": [
     "甲子随王杨坚称尊号帝",
     "元年二月甲子上自相府"
+   ]
+  },
+  "beizhou-mingdi|accessionRoute.note|0a1e440e98d7": {
+   "id": "beizhou-mingdi",
+   "path": "accessionRoute.note",
+   "span": "甲子，群臣上表劝进，备法驾奉迎。帝固让，群臣固请，是日，即天王位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beizhou-mingdi.txt",
+   "frags": [
+    "甲子群臣上表劝进备法",
+    "帝固让群臣固请是日即"
    ]
   },
   "beizhou-mingdi|accessionRoute.note|9442624526b6": {
