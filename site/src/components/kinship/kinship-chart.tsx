@@ -178,14 +178,25 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
         {/* 家系図の構造線(垂下線・兄弟バー)。エッジ・ノードの下層 */}
         <g>
           {layout.drops.map((d, i) => (
-            <path
-              key={`drop:${i}`}
-              d={d.path}
-              fill="none"
-              stroke={STRUCT_STROKE}
-              strokeWidth={1.6}
-              strokeDasharray={d.dashed ? "2 4" : undefined}
-            />
+            <g key={`drop:${i}`}>
+              <path
+                d={d.path}
+                fill="none"
+                stroke={STRUCT_STROKE}
+                strokeWidth={1.6}
+                strokeDasharray={d.dashed ? "2 4" : undefined}
+              />
+              {d.tipLines !== undefined && (
+                <path
+                  d={d.path}
+                  fill="none"
+                  stroke="transparent"
+                  strokeWidth={12}
+                  onMouseMove={showTip(d.tipLines)}
+                  onMouseLeave={hideTip}
+                />
+              )}
+            </g>
           ))}
         </g>
 

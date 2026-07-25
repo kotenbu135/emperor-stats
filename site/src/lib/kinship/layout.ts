@@ -19,6 +19,7 @@ import {
   CLAIM_LINE_DEFS,
   CONSORT_BOTTOM_ATTACH,
   DYNASTY_HEAD_OFFSET,
+  EMPEROR_SUB_OVERRIDES,
   KINSHIP_CHAPTER_DEFS,
   KINSHIP_COLOR_BY_DYNKEY,
   KINSHIP_ENABLED_CHAPTER_IDS,
@@ -159,6 +160,8 @@ export interface KinshipDropOut {
   dashed: boolean;
   /** 関与ノードid(クリック強調のグルーピング用)。 */
   ids: string[];
+  /** 破線の垂下線(養子縁組・諸説あり)のツールチップ。実線の垂下線には付けない。 */
+  tipLines?: TipLine[];
 }
 
 export interface KinshipAuxOut {
@@ -280,6 +283,10 @@ export function buildKinshipLayout(
     claimsByClaimant.set(c.claimant, [...(claimsByClaimant.get(c.claimant) ?? []), c]);
 
   // --- 主親(実父/養父)の解決: succession先代と同一 > 養父 > 実父。 ---
+  // 家系図のどこにぶら下げるか(=構造)は帝位・家督の継承側で決める(養子は
+  // 養家の家系図に入る)。線の意味は「実線=血縁・破線=養子縁組」で示し分ける:
+  // 主親が養父の垂下線は破線＋ツールチップ(養子縁組の典拠)、別に引く実父への
+  // 補助線は実線にする(ユーザー確定・2026-07-25)。
   // verifiedを優先し、disputedしか無ければdisputedを主親にする(垂下線を点線化)。
   const fatherEdges = new Map<string, KinshipSourceEdge[]>();
   for (const e of src.edges) {
@@ -293,6 +300,7 @@ export function buildKinshipLayout(
   const primaryFather = new Map<string, string>();
   const primaryFatherDisputed = new Set<string>(); // childId
   const primaryFatherAdopted = new Set<string>(); // childId(主親が養父=養子縁組)
+  const primaryFatherEdge = new Map<string, KinshipSourceEdge>(); // 垂下線のツールチップ用
   for (const [child, edges] of fatherEdges) {
     const score = (e: KinshipSourceEdge): number =>
       (e.from === successionFrom.get(child) ? 4 : 0) +
@@ -300,6 +308,7 @@ export function buildKinshipLayout(
       (e.veracity === "verified" ? 1 : 0);
     const best = [...edges].sort((p, q) => score(q) - score(p))[0];
     primaryFather.set(child, best.from);
+    primaryFatherEdge.set(child, best);
     if (best.veracity !== "verified") primaryFatherDisputed.add(child);
     if (best.relation === "養父") primaryFatherAdopted.add(child);
   }
@@ -476,6 +485,7 @@ export function buildKinshipLayout(
         primaryFather,
         primaryFatherDisputed,
         primaryFatherAdopted,
+        primaryFatherEdge,
         attachedTo,
         attachDouble,
         motherOf,
@@ -494,6 +504,7 @@ interface ResolvedRelations {
   primaryFather: Map<string, string>;
   primaryFatherDisputed: Set<string>;
   primaryFatherAdopted: Set<string>;
+  primaryFatherEdge: Map<string, KinshipSourceEdge>;
   attachedTo: Map<string, string>;
   attachDouble: Map<string, boolean>;
   motherOf: Map<string, string>;
@@ -973,6 +984,21 @@ function buildChapter(
     const key = `${father}|${motherKey}`;
     crossKids.set(key, [...(crossKids.get(key) ?? []), child]);
   }
+  // 破線の垂下線(養子縁組・諸説あり)に付けるツールチップ。実線=血縁の垂下線は
+  // 説明不要なので付けない(ユーザー要望・2026-07-25「血縁のツールチップは
+  // 養子の破線につける」)。
+  const dropTip = (childId: string): TipLine[] | undefined => {
+    const e = rel.primaryFatherEdge.get(childId);
+    if (e === undefined) return undefined;
+    const disputed = e.veracity === "disputed";
+    if (e.relation !== "養父" && !disputed) return undefined;
+    return [
+      { text: `血縁〔${e.relation}〕${disputed ? "（諸説あり）" : ""}` },
+      { text: `${nameOf(e.from)} → ${nameOf(e.to)}／確度: ${e.confidence}`, muted: true },
+      ...(e.noteExcerpt ? [{ text: e.noteExcerpt, muted: true }] : []),
+      ...(e.sourcePage ? [{ text: `出典: ${e.sourcePage}`, muted: true }] : []),
+    ];
+  };
   const crossDrawn = new Set<string>(); // `${father}→${child}` 実際にバーから垂下させたもの
   // 親より上に置かれてしまい兄弟バーから垂下できなかった子(手動配置で親を子より
   // 下へ動かした場合に起きる)。構造では表現できないので補助線へ回す。
@@ -1070,6 +1096,7 @@ function buildChapter(
             rel.primaryFatherDisputed.has(allKidIds[0]) ||
             rel.primaryFatherAdopted.has(allKidIds[0]),
           ids: groupIds,
+          tipLines: dropTip(allKidIds[0]),
         });
         qsegs.push({
           x1: jx,
@@ -1112,6 +1139,7 @@ function buildChapter(
           dashed:
             rel.primaryFatherDisputed.has(c) || rel.primaryFatherAdopted.has(c),
           ids: [j.fatherId, ...(j.motherId !== null ? [j.motherId] : []), c],
+          tipLines: dropTip(c),
         });
         qsegs.push({
           x1: k.cx,
@@ -1462,8 +1490,10 @@ function buildChapter(
         auxEdges.push(kinAux(e, a, b, false));
         continue;
       }
-      // 副親(disputed実父・養父): 点線の補助線。
-      auxEdges.push(kinAux(e, a, b, true));
+      // 副親: 養父は破線、実父(=血縁)は実線の補助線。線の意味を
+      // 「実線=血縁・破線=養子縁組」で統一する(ユーザー確定・2026-07-25。
+      //  司馬攸は司馬昭の実子で司馬師の嗣子＝実線が昭から、破線が師から)。
+      auxEdges.push(kinAux(e, a, b, e.relation === "養父"));
       continue;
     }
     if (e.relation === "実母" || e.relation === "養母") {
@@ -1845,7 +1875,9 @@ function buildChapter(
       const succ = src2.edges.find((x) => x.type === "succession" && x.to === id);
       const category = succ?.category ?? emp.routeCategory;
       const disputed = succ?.veracity === "disputed";
-      const sub = `${ordinalLabel(emp.ordinals[0])}・${category}${disputed ? "?" : ""}`;
+      const sub =
+        EMPEROR_SUB_OVERRIDES[id] ??
+        `${ordinalLabel(emp.ordinals[0])}・${category}${disputed ? "?" : ""}`;
       // ツールチップは統計ページ共通のEmperorTooltip(肖像+名前+王朝+在位+補足)。
       // クリックで全項目ダイアログを開くため、系譜固有の補足だけをdetailsに載せる。
       const details: { label: string; value: string; clamp?: boolean; wrap?: boolean }[] = [
