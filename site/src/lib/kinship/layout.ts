@@ -26,7 +26,6 @@ import {
 } from "./chapters";
 import {
   type BandGraph,
-  EMPEROR_MIN_PX,
   type KinNodeInfo,
   LINK_GAP_YEARS,
   NODE_GAP,
@@ -384,24 +383,11 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
       if (!h) continue;
       est.set(e.from, h.reigns[0].a + consortAlignYears);
     }
-    // 逆向き(皇帝 → 別バンドの人物の妻)も同様に揃える。妃は「夫が人物ピルの場合は
-    // ピルの上下中央」に描かれるため、夫(人物)の配置年を父(皇帝)の在位中央に
-    // 合わせると、父からの親エッジが曲がりのない水平1本になる
-    // (明帝→南康公主〔桓温の妻〕。既定のL字経路だと縦区間が真下の成帝を縦断する)。
-    for (const e of src.edges) {
-      if (e.type !== "kinship") continue;
-      if (e.relation !== "実父" && e.relation !== "実母") continue;
-      const father = emperorById.get(e.from);
-      if (!father) continue;
-      const husband = attachedTo.get(e.to);
-      if (husband === undefined || emperorById.has(husband)) continue;
-      // 短い在位のカプセルは最小高(EMPEROR_MIN_PX)まで下へ伸ばして描かれるので、
-      // 在位年の中点ではなく「描かれる矩形の中央」に相当する年へ揃える。
-      const first = father.reigns[0].a;
-      const last = father.reigns[father.reigns.length - 1].b;
-      const span = Math.max(last - first, EMPEROR_MIN_PX / PX_PER_YEAR);
-      est.set(husband, first + span / 2);
-    }
+    // 逆向き(皇帝 → 別バンドの人物の妻。明帝→南康公主〔桓温の妻〕)は水平整列しない。
+    // 親子は「親が上・子が下」で示すのが家系図の文法で、娘を父と同じ高さに置くと
+    // 夫の連結線と一直線になり「女性どうしが婚姻したように見える」(ユーザー指摘)。
+    // 娘は本来の配置年(夫のピル位置)のまま親より下に置き、両親の兄弟バーから
+    // 垂下させる(下のcrossBandChildren)。
   }
 
   // --- 家系図の上下整合 ---
@@ -826,6 +812,29 @@ function buildChapter(
   // 生じる。tree.tsのshiftKidsToJunctionが揃えきれなかったものはハード制約
   // 違反として品質ゲートで落とす。
   const jogViolations: string[] = [];
+  // バンド跨ぎの子(夫の脇に配偶者として置かれた娘など)は、パッキングの垂下グループに
+  // 入らないので補助線1本になってしまう。両親の兄弟バーを伸ばしてそこから垂下させ、
+  // 同母の兄弟(成帝・康帝)と同じ形にする(ユーザー指摘: 明帝→南康公主が庾文君との
+  // 連結線の延長に見え、女性どうしの婚姻に見える。娘なら兄妹と分かる図にすべき)。
+  // キーは「父|母(父にattachした実母。無ければ空)」= 垂下グループの識別子。
+  const crossKids = new Map<string, string[]>();
+  const bandOfAny = (id: string): number | undefined => {
+    const b = bandOfNode.get(id);
+    if (b !== undefined) return b;
+    const h = rel.attachedTo.get(id);
+    return h !== undefined ? bandOfNode.get(h) : undefined;
+  };
+  for (const [child, father] of rel.primaryFather) {
+    if (!rectById.has(child) || !rectById.has(father)) continue;
+    const fb = bandOfAny(father);
+    const cb = bandOfAny(child);
+    if (fb === undefined || cb === undefined || fb === cb) continue; // 同バンドはパッキングが扱う
+    const m = rel.motherOf.get(child);
+    const motherKey = m !== undefined && rel.attachedTo.get(m) === father ? m : "";
+    const key = `${father}|${motherKey}`;
+    crossKids.set(key, [...(crossKids.get(key) ?? []), child]);
+  }
+  const crossDrawn = new Set<string>(); // `${father}→${child}` 実際にバーから垂下させたもの
   packed.forEach((pb, bi) => {
     for (const j of pb.junctions) {
       const father = rectById.get(j.fatherId);
@@ -859,13 +868,21 @@ function buildChapter(
       // 場合(長い在位)は従来どおり子の直上に置く。
       const clearTop = Math.max(topY + 6, father.y + father.h + 6);
       const barY = Math.min(Math.max(minKidTop - 10, clearTop), minKidTop - 2);
+      // バンド跨ぎの子: バーより下にいるものだけバーを伸ばして垂下させる
+      // (上にいる場合は形にならないので従来どおり補助線1本)。
+      const cross = (crossKids.get(`${j.fatherId}|${j.motherId ?? ""}`) ?? []).filter(
+        (c) => rectById.get(c)!.y > barY + 10,
+      );
+      for (const c of cross) crossDrawn.add(`${j.fatherId}→${c}`);
+      const allKidIds = [...j.children, ...cross];
+      const allKids = allKidIds.map((c) => rectById.get(c)!);
       const groupIds = [
         j.fatherId,
         ...(j.motherId !== null ? [j.motherId] : []),
-        ...j.children,
+        ...allKidIds,
       ];
       // 垂下点が子の真上に揃っている単独子は1本の直線で落とす(無駄な段差を作らない)。
-      if (kids.length === 1 && Math.abs(kids[0].cx - jx) < 4) {
+      if (allKids.length === 1 && Math.abs(kids[0].cx - jx) < 4) {
         drops.push({
           path: `M ${jx} ${topY} L ${jx} ${kids[0].y}`,
           dashed:
@@ -892,8 +909,8 @@ function buildChapter(
         ids: groupIds,
         what: `垂下線 ${j.fatherId}(縦)`,
       });
-      const barX0 = Math.min(jx, ...kids.map((k) => k.cx));
-      const barX1 = Math.max(jx, ...kids.map((k) => k.cx));
+      const barX0 = Math.min(jx, ...allKids.map((k) => k.cx));
+      const barX1 = Math.max(jx, ...allKids.map((k) => k.cx));
       if (barX1 - barX0 > 0.5) {
         spineParts.push(`M ${barX0} ${barY} L ${barX1} ${barY}`);
         qsegs.push({
@@ -906,7 +923,7 @@ function buildChapter(
         });
       }
       drops.push({ path: spineParts.join(" "), dashed: false, ids: groupIds });
-      for (const c of j.children) {
+      for (const c of allKidIds) {
         const k = rectById.get(c);
         if (!k) continue;
         drops.push({
@@ -934,6 +951,8 @@ function buildChapter(
       for (const c of j.children) structuralParent.add(`${j.fatherId}→${c}`);
     }
   });
+  // 兄弟バーを伸ばして垂下させたバンド跨ぎの子も構造で表現済み。
+  for (const k of crossDrawn) structuralParent.add(k);
 
   const auxEdges: KinshipAuxOut[] = [];
   const arrows: KinshipArrowOut[] = [];

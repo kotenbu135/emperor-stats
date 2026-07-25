@@ -22170,6 +22170,19 @@
       }
     },
     {
+      "type": "kinship",
+      "relation": "実母",
+      "from": "p-yu-wenjun",
+      "to": "p-nankang-gongzhu",
+      "veracity": "verified",
+      "confidence": "medium",
+      "note": "太平御覧巻一百五十二引晋中興書「南康宣公主兴男，明帝长女，庾后所生」により、南康公主の生母は明帝の皇后・明穆庾皇后（庾文君）。同じ佚文が実父（明帝）の根拠でもあり、母子関係もこの一文に依拠する（晋書后妃伝・桓温伝には生母の記載がなく、生母を異にする所伝も無い）。単一出典のため confidence は medium。成帝・康帝（いずれも庾文君所生）とは同母の兄妹にあたる。",
+      "source": {
+        "page": "太平御覧 巻一百五十二 皇親部（晋中興書佚文）",
+        "lang": "zh-classical"
+      }
+    },
+    {
       "type": "marriage",
       "from": "beiwei-daowudi",
       "to": "p-murong-shi-daowu",
