@@ -8537,6 +8537,16 @@
     "高祖崩遗诏征世祖入纂"
    ]
   },
+  "chen-wendi|accessionRoute.note|8cf0aedaf020": {
+   "id": "chen-wendi",
+   "path": "accessionRoute.note",
+   "span": "永定三年六月丙午，高祖崩，遗诏征世祖入纂",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chen-wendi.txt",
+   "frags": [
+    "永定三年六月丙午高祖"
+   ]
+  },
   "chen-wendi|accessionRoute.note|a9706393cf6a": {
    "id": "chen-wendi",
    "path": "accessionRoute.note",
@@ -8545,6 +8555,17 @@
    "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/皇极典登极部.txt",
    "frags": [
     "今日之事后应者斩"
+   ]
+  },
+  "chen-wendi|accessionRoute.note|f56eabc8d90b": {
+   "id": "chen-wendi",
+   "path": "accessionRoute.note",
+   "span": "世祖固让，至于再三，群公卿士固请，其日即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chen-wendi.txt",
+   "frags": [
+    "世祖固让至于再三群公",
+    "卿士固请其日即皇帝位"
    ]
   },
   "chen-wendi|ages.note|a38d75ae11a1": {
@@ -8711,6 +8732,26 @@
     "癸酉世祖疾甚是日崩于"
    ]
   },
+  "chen-wudi|accessionRoute.note|0aeae95c273f": {
+   "id": "chen-wudi",
+   "path": "accessionRoute.note",
+   "span": "永定元年冬十月乙亥，高祖即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chen-wudi.txt",
+   "frags": [
+    "永定元年冬十月乙亥高"
+   ]
+  },
+  "chen-wudi|accessionRoute.note|2b37a2df1cbf": {
+   "id": "chen-wudi",
+   "path": "accessionRoute.note",
+   "span": "今便逊位别宫，敬禅于",
+   "status": "corpus",
+   "corpusFile": "china-history/梁书-白话/白话版梁书/敬帝本纪-白话.html",
+   "frags": [
+    "今便逊位别宫敬禅于"
+   ]
+  },
   "chen-wudi|accessionRoute.note|a5d2468be13e": {
    "id": "chen-wudi",
    "path": "accessionRoute.note",
@@ -8855,6 +8896,16 @@
    "corpusFile": "_corpus_cache/chen-xuandi.txt",
    "frags": [
     "慈训太后令废帝为临海"
+   ]
+  },
+  "chen-xuandi|accessionRoute.note|83924ad5376b": {
+   "id": "chen-xuandi",
+   "path": "accessionRoute.note",
+   "span": "中外宜依旧典，奉迎",
+   "status": "corpus",
+   "corpusFile": "china-history/陈书/原文版陈书/卷四-原文.html",
+   "frags": [
+    "中外宜依旧典奉迎"
    ]
   },
   "chen-xuandi|amnestyCount.note|89cd2fc31048": {
@@ -17741,6 +17792,48 @@
     "葬之于显陵谥"
    ]
   },
+  "houliang-xuandi|accessionRoute.note|0c569120d8f8": {
+   "id": "houliang-xuandi",
+   "path": "accessionRoute.note",
+   "span": "太祖遂令假散骑常侍郑穆及荣权持节策命察为梁王",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houliang-xuandi.txt",
+   "frags": [
+    "太祖遂令假散骑常侍郑",
+    "及荣权持节策命察为梁"
+   ]
+  },
+  "houliang-xuandi|accessionRoute.note|3b05ce7f0334": {
+   "id": "houliang-xuandi",
+   "path": "accessionRoute.note",
+   "span": "察乃称皇帝于其国，年号大定",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houliang-xuandi.txt",
+   "frags": [
+    "察乃称皇帝于其国年号"
+   ]
+  },
+  "houliang-xuandi|accessionRoute.note|46db2292ed18": {
+   "id": "houliang-xuandi",
+   "path": "accessionRoute.note",
+   "span": "察既与江陵构隙，恐不能自固，大统十五年，乃遣使称藩，请为附庸",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houliang-xuandi.txt",
+   "frags": [
+    "察既与江陵构隙恐不能",
+    "统十五年乃遣使称藩请"
+   ]
+  },
+  "houliang-xuandi|accessionRoute.note|8a8a2c1c36fc": {
+   "id": "houliang-xuandi",
+   "path": "accessionRoute.note",
+   "span": "及江陵平，太祖立察为梁主",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houliang-xuandi.txt",
+   "frags": [
+    "及江陵平太祖立察为梁"
+   ]
+  },
   "houliang-xuandi|accessionRoute.note|b76b19cbf41e": {
    "id": "houliang-xuandi",
    "path": "accessionRoute.note",
@@ -17749,6 +17842,16 @@
    "corpusFile": "daizhigev20/子藏/类书/御定韵府拾遗.txt",
    "frags": [
     "詧乃称皇帝于其国"
+   ]
+  },
+  "houliang-xuandi|accessionRoute.note|bf6783b9ead6": {
+   "id": "houliang-xuandi",
+   "path": "accessionRoute.note",
+   "span": "察以未有玺命，辞不敢当",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houliang-xuandi.txt",
+   "frags": [
+    "察以未有玺命辞不敢当"
    ]
   },
   "houliang-xuandi|ages.note|6c65be30c2e3": {
@@ -23489,6 +23592,36 @@
     "太清三年五月丙辰高祖"
    ]
   },
+  "liang-jianwendi|accessionRoute.note|2e8ba989d8eb": {
+   "id": "liang-jianwendi",
+   "path": "accessionRoute.note",
+   "span": "晋安王纲，文义生知",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liang-jianwendi.txt",
+   "frags": [
+    "晋安王纲文义生知"
+   ]
+  },
+  "liang-jianwendi|accessionRoute.note|609267124ecc": {
+   "id": "liang-jianwendi",
+   "path": "accessionRoute.note",
+   "span": "可立为皇太子",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liang-jianwendi.txt",
+   "frags": [
+    "可立为皇太子"
+   ]
+  },
+  "liang-jianwendi|accessionRoute.note|696ebbeeaa73": {
+   "id": "liang-jianwendi",
+   "path": "accessionRoute.note",
+   "span": "谨遵先旨，顾命遗泽",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liang-jianwendi.txt",
+   "frags": [
+    "谨遵先旨顾命遗泽"
+   ]
+  },
   "liang-jianwendi|deathCause.note|22e57737dd6b": {
    "id": "liang-jianwendi",
    "path": "deathCause.note",
@@ -23706,6 +23839,27 @@
    "corpusFile": "_corpus_cache/liang-wudi.txt",
    "frags": [
     "今便敬禅于梁即安姑孰"
+   ]
+  },
+  "liang-wudi|accessionRoute.note|b7517895d893": {
+   "id": "liang-wudi",
+   "path": "accessionRoute.note",
+   "span": "高祖抗表陈让，表不获通。于是，齐百官豫章王元琳等八百一十九人，及梁台侍中臣云等一",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liang-wudi.txt",
+   "frags": [
+    "高祖抗表陈让表不获通",
+    "一十九人及梁台侍中臣"
+   ]
+  },
+  "liang-wudi|accessionRoute.note|ee760551a881": {
+   "id": "liang-wudi",
+   "path": "accessionRoute.note",
+   "span": "天监元年夏四月丙寅，高祖即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liang-wudi.txt",
+   "frags": [
+    "天监元年夏四月丙寅高"
    ]
   },
   "liang-wudi|amnestyCount.note|d0974d9e8c99": {
@@ -24698,6 +24852,26 @@
    "frags": [
     "显祖遣兵纳梁永嘉王萧",
     "三月即帝位于郢州年号"
+   ]
+  },
+  "liang-xiaozhuang|accessionRoute.note|0d37e2934348": {
+   "id": "liang-xiaozhuang",
+   "path": "accessionRoute.note",
+   "span": "三月，卽帝位於郢州，年號天啟",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liang-xiaozhuang.txt",
+   "frags": [
+    "三月即帝位于郢州年号"
+   ]
+  },
+  "liang-xiaozhuang|accessionRoute.note|503c5b29da25": {
+   "id": "liang-xiaozhuang",
+   "path": "accessionRoute.note",
+   "span": "顯祖遣兵納梁永嘉王蕭莊主梁祀",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liang-xiaozhuang.txt",
+   "frags": [
+    "显祖遣兵纳梁永嘉王萧"
    ]
   },
   "liang-xiaozhuang|crownPrinceDepositionCount.note|dd0e641973e6": {
@@ -27870,6 +28044,27 @@
    "status": "manual",
    "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
   },
+  "liu-song-liuzixun|accessionRoute.note|6181bc16e02e": {
+   "id": "liu-song-liuzixun",
+   "path": "accessionRoute.note",
+   "span": "琬等因奉子勋起兵，以废立为名",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-song-liuzixun.txt",
+   "frags": [
+    "琬等因奉子勋起兵以废"
+   ]
+  },
+  "liu-song-liuzixun|accessionRoute.note|a03277cff813": {
+   "id": "liu-song-liuzixun",
+   "path": "accessionRoute.note",
+   "span": "泰始二年正月七日，奉子勋为帝，即伪位于寻阳城，年号义嘉元年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-song-liuzixun.txt",
+   "frags": [
+    "泰始二年正月七日奉子",
+    "即伪位于寻阳城年号义"
+   ]
+  },
   "liu-song-liuzixun|ages.note|b5f8d9b4169c": {
    "id": "liu-song-liuzixun",
    "path": "ages.note",
@@ -27992,6 +28187,36 @@
    "frags": [
     "沈攸之诸军至寻阳诛子",
     "母同逆皆夷灭子勋死时"
+   ]
+  },
+  "liu-song-mingdi|accessionRoute.note|86fa05fa3bf9": {
+   "id": "liu-song-mingdi",
+   "path": "accessionRoute.note",
+   "span": "建安王休仁便称臣奉引升西堂，登御坐",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-song-mingdi.txt",
+   "frags": [
+    "建安王休仁便称臣奉引"
+   ]
+  },
+  "liu-song-mingdi|accessionRoute.note|959bc00daeed": {
+   "id": "liu-song-mingdi",
+   "path": "accessionRoute.note",
+   "span": "佃夫、道兒因结寿寂之等殒废帝于后堂",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-song-mingdi.txt",
+   "frags": [
+    "佃夫道儿因结寿寂之等"
+   ]
+  },
+  "liu-song-mingdi|accessionRoute.note|996977f36830": {
+   "id": "liu-song-mingdi",
+   "path": "accessionRoute.note",
+   "span": "泰始元年冬十二月丙寅，上即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-song-mingdi.txt",
+   "frags": [
+    "泰始元年冬十二月丙寅"
    ]
   },
   "liu-song-mingdi|accessionRoute.note|ab4e4a008d2a": {
@@ -28718,6 +28943,17 @@
     "章殿时年四十七谥曰景"
    ]
   },
+  "liu-song-wudi|accessionRoute.note|c318cc704b18": {
+   "id": "liu-song-wudi",
+   "path": "accessionRoute.note",
+   "span": "王奉表陈让，晋帝已逊琅邪王第，表不获通。于是陈留王虔嗣等二百七十人，及宋台群臣，",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-song-wudi.txt",
+   "frags": [
+    "王奉表陈让晋帝已逊琅",
+    "留王虔嗣等二百七十人"
+   ]
+  },
   "liu-song-wudi|deathCause.note|9a3b26059bd5": {
    "id": "liu-song-wudi",
    "path": "deathCause.note",
@@ -28767,6 +29003,17 @@
    "corpusFile": "_corpus_cache/liu-song-wudi.txt",
    "frags": [
     "癸亥上崩于西殿时年六"
+   ]
+  },
+  "liu-song-xiaowudi|accessionRoute.note|e35499e2b39d": {
+   "id": "liu-song-xiaowudi",
+   "path": "accessionRoute.note",
+   "span": "丁卯，大将军江夏王义恭来奔，奉表上尊号。戊辰，上至于新亭。己巳，即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-song-xiaowudi.txt",
+   "frags": [
+    "丁卯大将军江夏王义恭",
+    "尊号戊辰上至于新亭己"
    ]
   },
   "liu-song-xiaowudi|amnestyCount.note|1a1e36ed96e8": {
@@ -35555,6 +35802,26 @@
     "阁已闭阉人禁防黄泰平"
    ]
   },
+  "qi-gaodi|accessionRoute.note|e52ed9ebd515": {
+   "id": "qi-gaodi",
+   "path": "accessionRoute.note",
+   "span": "太祖三辞，宋帝王公以下固请",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qi-gaodi.txt",
+   "frags": [
+    "太祖三辞宋帝王公以下"
+   ]
+  },
+  "qi-gaodi|accessionRoute.note|eebc1d897569": {
+   "id": "qi-gaodi",
+   "path": "accessionRoute.note",
+   "span": "太祖乃下议，备法驾诣东城，迎立",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qi-gaodi.txt",
+   "frags": [
+    "太祖乃下议备法驾诣东"
+   ]
+  },
   "qi-gaodi|amnestyCount.note|7449adc52369": {
    "id": "qi-gaodi",
    "path": "amnestyCount.note",
@@ -35877,6 +36144,26 @@
    "frags": [
     "丙辰齐帝禅位于梁王",
     "天监元年夏四月丙寅高"
+   ]
+  },
+  "qi-mingdi|accessionRoute.note|2f5873073789": {
+   "id": "qi-mingdi",
+   "path": "accessionRoute.note",
+   "span": "未拜，太后令废海陵王，以上入纂",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qi-mingdi.txt",
+   "frags": [
+    "未拜太后令废海陵王以"
+   ]
+  },
+  "qi-mingdi|accessionRoute.note|a03db723d8f5": {
+   "id": "qi-mingdi",
+   "path": "accessionRoute.note",
+   "span": "建武元年冬，十月，癸亥，即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qi-mingdi.txt",
+   "frags": [
+    "建武元年冬十月癸亥即"
    ]
   },
   "qi-mingdi|amnestyCount.note|1e02bd8a33a2": {
