@@ -30875,6 +30875,36 @@
     "秋七月壬辰大渐召英国"
    ]
   },
+  "ming-shizong|accessionRoute.note|3eae5fc73602": {
+   "id": "ming-shizong",
+   "path": "accessionRoute.note",
+   "span": "以遗诏迎王于兴邸",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/ming-shizong.txt",
+   "frags": [
+    "以遗诏迎王于兴邸"
+   ]
+  },
+  "ming-shizong|accessionRoute.note|8f8c639b01d0": {
+   "id": "ming-shizong",
+   "path": "accessionRoute.note",
+   "span": "慈寿皇太后与大学士杨廷和定策",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/ming-shizong.txt",
+   "frags": [
+    "慈寿皇太后与大学士杨"
+   ]
+  },
+  "ming-shizong|accessionRoute.note|d83ffb200d07": {
+   "id": "ming-shizong",
+   "path": "accessionRoute.note",
+   "span": "其以朕意达皇太后，天下事重，与阁臣审处之",
+   "status": "corpus",
+   "corpusFile": "china-history/明史/本纪/第十六章-卷十六-原文.html",
+   "frags": [
+    "其以朕意达皇太后天下"
+   ]
+  },
   "ming-shizong|ages.note|b52742e98000": {
    "id": "ming-shizong",
    "path": "ages.note",
@@ -31373,6 +31403,36 @@
     "己丑次苍崖戍不豫庚寅",
     "榆木川大渐遗诏传位皇",
     "辛卯崩年六十有五成祖"
+   ]
+  },
+  "ming-taizu|accessionRoute.note|ca3d55900f97": {
+   "id": "ming-taizu",
+   "path": "accessionRoute.note",
+   "span": "十二月，韩林儿卒",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/ming-taizu.txt",
+   "frags": [
+    "十二月韩林儿卒"
+   ]
+  },
+  "ming-taizu|accessionRoute.note|e30f3c98ef16": {
+   "id": "ming-taizu",
+   "path": "accessionRoute.note",
+   "span": "李善长等率群臣劝进，不允。固请，乃即吴王位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/ming-taizu.txt",
+   "frags": [
+    "李善长等率群臣劝进不"
+   ]
+  },
+  "ming-taizu|accessionRoute.note|eda06c4f4fbc": {
+   "id": "ming-taizu",
+   "path": "accessionRoute.note",
+   "span": "李善长帅百官劝进，表三上，乃许",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/ming-taizu.txt",
+   "frags": [
+    "李善长帅百官劝进表三"
    ]
   },
   "ming-taizu|ages.note|158fc563c79f": {
@@ -33364,6 +33424,26 @@
     "乙亥崩于干清宫年三十"
    ]
   },
+  "ming-yingzong|accessionRoute.note|0fa418137426": {
+   "id": "ming-yingzong",
+   "path": "accessionRoute.note",
+   "span": "遗诏国家重务白皇太后",
+   "status": "corpus",
+   "corpusFile": "china-history/明史/本纪/第九章-卷九-原文.html",
+   "frags": [
+    "遗诏国家重务白皇太后"
+   ]
+  },
+  "ming-yingzong|accessionRoute.note|457e1af9709f": {
+   "id": "ming-yingzong",
+   "path": "accessionRoute.note",
+   "span": "以兵迎帝于南宫",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/ming-yingzong.txt",
+   "frags": [
+    "以兵迎帝于南宫"
+   ]
+  },
   "ming-yingzong|ages.note|2f9dfbbf6bfd": {
    "id": "ming-yingzong",
    "path": "ages.note",
@@ -33764,6 +33844,26 @@
     "昧爽内城陷帝崩于万岁"
    ]
   },
+  "nanming-anzong|accessionRoute.note|2c4ebf989fd4": {
+   "id": "nanming-anzong",
+   "path": "accessionRoute.note",
+   "span": "徐宏基跪进监国宝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/nanming-anzong.txt",
+   "frags": [
+    "徐宏基跪进监国宝"
+   ]
+  },
+  "nanming-anzong|accessionRoute.note|4ea5ebcc5dcd": {
+   "id": "nanming-anzong",
+   "path": "accessionRoute.note",
+   "span": "潞王贤明，可定大计",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/nanming-anzong.txt",
+   "frags": [
+    "潞王贤明可定大计"
+   ]
+  },
   "nanming-anzong|amnestyCount.note|542b9a79a895": {
    "id": "nanming-anzong",
    "path": "amnestyCount.note",
@@ -33928,6 +34028,16 @@
     "服行礼俄报大清兵已逼"
    ]
   },
+  "nanming-zhaozong|accessionRoute.note|024719606781": {
+   "id": "nanming-zhaozong",
+   "path": "accessionRoute.note",
+   "span": "朕无子，后当属诸",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/nanming-zhaozong.txt",
+   "frags": [
+    "朕无子后当属诸"
+   ]
+  },
   "nanming-zhaozong|amnestyCount[0].note|8363e32caa3c": {
    "id": "nanming-zhaozong",
    "path": "amnestyCount[0].note",
@@ -34067,6 +34177,16 @@
    "frags": [
     "我大清圣祖仁皇帝康熙",
     "夏四月戊午辇上及太子"
+   ]
+  },
+  "nanming-zongzong|accessionRoute.note|29d576befd6a": {
+   "id": "nanming-zongzong",
+   "path": "accessionRoute.note",
+   "span": "与巡抚张肯堂等议奉王监国",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/nanming-zongzong.txt",
+   "frags": [
+    "与巡抚张肯堂等议奉王"
    ]
   },
   "nanming-zongzong|capitalRelocationCount[0].note|698be10c7460": {
@@ -38624,6 +38744,26 @@
     "七月丙寅始皇崩于沙丘"
    ]
   },
+  "qing-dezong|accessionRoute.note|920f0e403e9b": {
+   "id": "qing-dezong",
+   "path": "accessionRoute.note",
+   "span": "传懿旨，以上继文宗为子，入承大统，为嗣皇帝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qing-dezong.txt",
+   "frags": [
+    "传懿旨以上继文宗为子"
+   ]
+  },
+  "qing-dezong|accessionRoute.note|a27e3d17e2d0": {
+   "id": "qing-dezong",
+   "path": "accessionRoute.note",
+   "span": "十二月癸酉，穆宗崩，无嗣",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qing-dezong.txt",
+   "frags": [
+    "十二月癸酉穆宗崩无嗣"
+   ]
+  },
   "qing-dezong|ages.note|6197e935bbca": {
    "id": "qing-dezong",
    "path": "ages.note",
@@ -39095,6 +39235,26 @@
     "朝颁诏天下以明年为同",
     "甲戌李宗羲病免以刘坤",
     "总督上疾大渐崩于养心"
+   ]
+  },
+  "qing-renzong|accessionRoute.note|78f89b2a8030": {
+   "id": "qing-renzong",
+   "path": "accessionRoute.note",
+   "span": "高宗御太和殿，授玺",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qing-renzong.txt",
+   "frags": [
+    "高宗御太和殿授玺"
+   ]
+  },
+  "qing-renzong|accessionRoute.note|f14c5201db5a": {
+   "id": "qing-renzong",
+   "path": "accessionRoute.note",
+   "span": "军国重务仍奏闻，秉训裁决",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/清史稿.txt",
+   "frags": [
+    "军国重务仍奏闻秉训裁"
    ]
   },
   "qing-renzong|ages.note|cf81bb1e6649": {
@@ -40121,6 +40281,36 @@
    "frags": [
     "奉太皇太后懿旨入承大",
     "皇帝嗣穆宗兼承大行皇"
+   ]
+  },
+  "qing-xuantong|accessionRoute.note|4c706b14321b": {
+   "id": "qing-xuantong",
+   "path": "accessionRoute.note",
+   "span": "太皇太后命教养宫内",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qing-xuantong.txt",
+   "frags": [
+    "太皇太后命教养宫内"
+   ]
+  },
+  "qing-xuantong|accessionRoute.note|75b2f0b8a1a6": {
+   "id": "qing-xuantong",
+   "path": "accessionRoute.note",
+   "span": "奉太皇太后懿旨，入承大统，为嗣皇帝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qing-xuantong.txt",
+   "frags": [
+    "奉太皇太后懿旨入承大"
+   ]
+  },
+  "qing-xuantong|accessionRoute.note|f840bde0de59": {
+   "id": "qing-xuantong",
+   "path": "accessionRoute.note",
+   "span": "奉太皇太后懿旨监国",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qing-xuantong.txt",
+   "frags": [
+    "奉太皇太后懿旨监国"
    ]
   },
   "qing-xuantong|ages.note|5300bbb89434": {
@@ -44537,6 +44727,36 @@
     "巳先主殂于永",
     "殂于永安宫时",
     "安宫时年六十"
+   ]
+  },
+  "shun-lichengzheng|accessionRoute.note|0970cd6b5256": {
+   "id": "shun-lichengzheng",
+   "path": "accessionRoute.note",
+   "span": "求禅位。帝怒，叱之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shun-lichengzheng.txt",
+   "frags": [
+    "求禅位帝怒叱之"
+   ]
+  },
+  "shun-lichengzheng|accessionRoute.note|c4925432701c": {
+   "id": "shun-lichengzheng",
+   "path": "accessionRoute.note",
+   "span": "自称曰新顺王",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shun-lichengzheng.txt",
+   "frags": [
+    "自称曰新顺王"
+   ]
+  },
+  "shun-lichengzheng|accessionRoute.note|e8d3923de1fd": {
+   "id": "shun-lichengzheng",
+   "path": "accessionRoute.note",
+   "span": "金星率贼众三表劝进，乃从之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shun-lichengzheng.txt",
+   "frags": [
+    "金星率贼众三表劝进乃"
    ]
   },
   "shun-lichengzheng|deathCause.note|3c2137e08a5c": {
@@ -61223,6 +61443,26 @@
     "是日巳时帝崩于滋德殿"
    ]
   },
+  "wuzhou-wusangui|accessionRoute.note|74630200fc0c": {
+   "id": "wuzhou-wusangui",
+   "path": "accessionRoute.note",
+   "span": "自号周王天下都招讨兵马大元帅",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wuzhou-wusangui.txt",
+   "frags": [
+    "自号周王天下都招讨兵"
+   ]
+  },
+  "wuzhou-wusangui|accessionRoute.note|cf58c526fe63": {
+   "id": "wuzhou-wusangui",
+   "path": "accessionRoute.note",
+   "span": "其下争劝进，遂以三月朔称帝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wuzhou-wusangui.txt",
+   "frags": [
+    "其下争劝进遂以三月朔"
+   ]
+  },
   "wuzhou-wusangui|ages.note|df57c3e06e18": {
    "id": "wuzhou-wusangui",
    "path": "ages.note",
@@ -61299,6 +61539,26 @@
    "corpusFile": "_corpus_cache/wuzhou-wushifan.txt",
    "frags": [
     "其下拥称帝改号洪化"
+   ]
+  },
+  "wuzhou-wushifan|accessionRoute.note|345b26fec449": {
+   "id": "wuzhou-wushifan",
+   "path": "accessionRoute.note",
+   "span": "召其孙世璠於云南",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wuzhou-wushifan.txt",
+   "frags": [
+    "召其孙世璠于云南"
+   ]
+  },
+  "wuzhou-wushifan|accessionRoute.note|d1b4dfd2c7f2": {
+   "id": "wuzhou-wushifan",
+   "path": "accessionRoute.note",
+   "span": "至贵阳，其下拥称帝，改号洪化",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wuzhou-wushifan.txt",
+   "frags": [
+    "至贵阳其下拥称帝改号"
    ]
   },
   "wuzhou-wushifan|amnestyCount.note|18c9cc1a302e": {
@@ -61401,6 +61661,16 @@
     "熊庶子留云南奔三桂之",
     "疏报王师于十月二十八",
     "入云南城吴世璠自杀传"
+   ]
+  },
+  "xi-zhangxianzhong|accessionRoute.note|85491b0383f3": {
+   "id": "xi-zhangxianzhong",
+   "path": "accessionRoute.note",
+   "span": "献忠遂僭号，改武昌曰天授府",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xi-zhangxianzhong.txt",
+   "frags": [
+    "献忠遂僭号改武昌曰天"
    ]
   },
   "xi-zhangxianzhong|accessionRoute.note|b3ae5a1a8fde": {
@@ -68064,6 +68334,16 @@
     "曰袁术乃至是乎因愤慨"
    ]
   },
+  "yuan-taidingdi|accessionRoute.note|b4c4c8d76697": {
+   "id": "yuan-taidingdi",
+   "path": "accessionRoute.note",
+   "span": "即皇帝位于龙居河",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-taidingdi.txt",
+   "frags": [
+    "即皇帝位于龙居河"
+   ]
+  },
   "yuan-taidingdi|ages.note|6c69b6defb19": {
    "id": "yuan-taidingdi",
    "path": "ages.note",
@@ -68477,6 +68757,26 @@
     "七月辛酉朔宁夏地震庚"
    ]
   },
+  "yuan-tianshundi|accessionRoute.note|68b3f081a306": {
+   "id": "yuan-tianshundi",
+   "path": "accessionRoute.note",
+   "span": "倒剌沙立皇太子为皇帝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-tianshundi.txt",
+   "frags": [
+    "倒剌沙立皇太子为皇帝"
+   ]
+  },
+  "yuan-tianshundi|accessionRoute.note|ceb8d03e66d4": {
+   "id": "yuan-tianshundi",
+   "path": "accessionRoute.note",
+   "span": "皇子阿速吉八为皇太子",
+   "status": "corpus",
+   "corpusFile": "china-history/元史/本纪/第二十九章-卷二十九-原文.html",
+   "frags": [
+    "皇子阿速吉八为皇太子"
+   ]
+  },
   "yuan-tianshundi|ages.note|176a08b284f5": {
    "id": "yuan-tianshundi",
    "path": "ages.note",
@@ -68607,6 +68907,26 @@
    "frags": [
     "秋七月己巳遣中书平章",
     "都迎怀王图帖木儿于江"
+   ]
+  },
+  "yuan-wenzong|accessionRoute.note|250478107f7b": {
+   "id": "yuan-wenzong",
+   "path": "accessionRoute.note",
+   "span": "协谋推戴，属于眇躬",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-wenzong.txt",
+   "frags": [
+    "协谋推戴属于眇躬"
+   ]
+  },
+  "yuan-wenzong|accessionRoute.note|3f52ffeaf8eb": {
+   "id": "yuan-wenzong",
+   "path": "accessionRoute.note",
+   "span": "率诸王、大臣伏阙请早正大位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-wenzong.txt",
+   "frags": [
+    "率诸王大臣伏阙请早正"
    ]
   },
   "yuan-wenzong|ages.note|1a45ae90cbb4": {
@@ -69500,6 +69820,26 @@
     "友谅中流矢死"
    ]
   },
+  "yuanmo-hanlin-er|accessionRoute.note|27729ca31f07": {
+   "id": "yuanmo-hanlin-er",
+   "path": "accessionRoute.note",
+   "span": "福通物色林儿，得诸砀山夹河",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuanmo-hanlin-er.txt",
+   "frags": [
+    "福通物色林儿得诸砀山"
+   ]
+  },
+  "yuanmo-hanlin-er|accessionRoute.note|347108b3af2a": {
+   "id": "yuanmo-hanlin-er",
+   "path": "accessionRoute.note",
+   "span": "山童为吏所捕诛",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuanmo-hanlin-er.txt",
+   "frags": [
+    "山童为吏所捕诛"
+   ]
+  },
   "yuanmo-hanlin-er|accessionRoute.note|45eb7a74e4f4": {
    "id": "yuanmo-hanlin-er",
    "path": "accessionRoute.note",
@@ -69509,6 +69849,16 @@
    "frags": [
     "福通物色林儿",
     "迎至亳僭称皇帝又号小"
+   ]
+  },
+  "yuanmo-hanlin-er|accessionRoute.note|d5af0af035fd": {
+   "id": "yuanmo-hanlin-er",
+   "path": "accessionRoute.note",
+   "span": "迎至亳，僣称皇帝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuanmo-hanlin-er.txt",
+   "frags": [
+    "迎至亳僣称皇帝"
    ]
   },
   "yuanmo-hanlin-er|capitalRelocationCount[0].note|2003250075f5": {
@@ -69846,6 +70196,16 @@
     "僭即皇帝位于重庆国号"
    ]
   },
+  "yuanmo-mingyuzhen|accessionRoute.note|cd63b3ebcc4f": {
+   "id": "yuanmo-mingyuzhen",
+   "path": "accessionRoute.note",
+   "span": "僣即皇帝位于重庆",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuanmo-mingyuzhen.txt",
+   "frags": [
+    "僣即皇帝位于重庆"
+   ]
+  },
   "yuanmo-mingyuzhen|accessionRoute.note|f11a70f4ff51": {
    "id": "yuanmo-mingyuzhen",
    "path": "accessionRoute.note",
@@ -69925,6 +70285,16 @@
     "位于重庆国号夏建元天",
     "二十六年春玉珍病革",
     "遂卒凡立五年年三十六"
+   ]
+  },
+  "yuanmo-xushouhui|accessionRoute.note|0a5918122213": {
+   "id": "yuanmo-xushouhui",
+   "path": "accessionRoute.note",
+   "span": "奇寿辉状貌，遂推为主",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuanmo-xushouhui.txt",
+   "frags": [
+    "奇寿辉状貌遂推为主"
    ]
   },
   "yuanmo-xushouhui|amnestyCount.note|5cef7842b6fd": {

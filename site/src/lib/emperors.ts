@@ -156,7 +156,8 @@ interface RawEmperor {
     reignCount: number;
   };
   deathCause?: { category: DeathCauseCategory } & RawNarrativeField;
-  accessionRoute?: { category: AccessionRouteCategory } & RawNarrativeField;
+  /** 多軸化完了（2026-07-26）により全365人が持つ。category は axes からの導出値。 */
+  accessionRoute: { category: AccessionRouteCategory } & RawNarrativeField;
   eraChangeCount?: RawCount;
   amnestyCount?: RawCount;
   empressInstallationCount?: RawCount;
@@ -437,7 +438,8 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     reignNeedsPreciseDays: e.reignSummary.totalReignDuration.needsPreciseDays,
     reignCount: e.reignSummary.reignCount,
     deathCauseCategory: e.deathCause?.category ?? "不詳",
-    accessionRouteCategory: e.accessionRoute?.category ?? "不詳",
+    // 多軸化完了後は全365人が accessionRoute.category を持つ（validate_emperors.py が必須化）。
+    accessionRouteCategory: e.accessionRoute.category,
     eraChangeCount: e.eraChangeCount?.count ?? 0,
     amnestyCount: e.amnestyCount?.count ?? 0,
     empressInstallationCount: e.empressInstallationCount?.count ?? 0,
@@ -1511,7 +1513,7 @@ export function getKinshipSource(): KinshipSource {
       portraitUrl: portraitIds.has(e.id) ? `${BASE_PATH}/portraits/${e.id}.webp` : null,
       dynastyKey: dynastyKey(e.dynasty),
       female: FEMALE_EMPEROR_IDS.has(e.id),
-      routeCategory: e.accessionRoute?.category ?? "不詳",
+      routeCategory: e.accessionRoute.category,
       ordinals: ordinalsById.get(e.id)!,
       reigns: e.reigns.map((r) => ({
         a: astroYear(r.startYear),

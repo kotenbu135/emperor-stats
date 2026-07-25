@@ -841,14 +841,15 @@ def derive_category(axes):
 def check_accession_axes(data):
     """accessionRoute.axes（2026-07-26 多軸化）の enum と category 導出の整合を検査する。
 
-    axes を持たないレコードは移行前として素通しする（移行完了後に必須化する）。
+    2026-07-26 に全365人の移行が完了したため、axes は必須（欠落はエラー）。
     """
     for e in data["emperors"]:
         route = e.get("accessionRoute") or {}
         axes = route.get("axes")
-        if axes is None:
-            continue
         eid = e["id"]
+        if axes is None:
+            err(f"[axes] {eid}: accessionRoute.axes が無い（多軸化は全員必須）")
+            continue
         if not isinstance(axes, dict):
             err(f"[axes] {eid}: accessionRoute.axes が object でない")
             continue
