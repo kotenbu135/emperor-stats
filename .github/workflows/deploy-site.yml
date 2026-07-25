@@ -27,7 +27,7 @@ jobs:
 
       # デプロイゲート: validate-data.yml は並列に走るだけでデプロイを止めないため、
       # build ジョブ冒頭でもデータ検証を実行し、検証エラー時は公開させない（task.md 0-2）
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
