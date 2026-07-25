@@ -66,5 +66,10 @@ export const navCategories: NavCategory[] = [
       { label: "死因の内訳", href: "/dynasties#death-cause" },
     ],
   },
+  // 系譜・家系図は段階公開中(第1〜4章＝秦から南北朝まで)。全章そろうまでは
+  // SITE_SECTIONS(トップのカード一覧・sitemap.xml)には載せず、robotsもnoindexの
+  // まま、メニューからだけ辿れるようにする。ラベルの「一部公開」は、全皇帝が
+  // 載っていることを期待して開いた人が面食らわないための注記。
+  { label: "系譜・家系図（一部公開）", href: "/kinship" },
   { label: "このサイトについて", href: "/about" },
 ];

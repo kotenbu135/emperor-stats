@@ -165,6 +165,8 @@
 
 2026-07-18 の Lighthouse 改善（チャートの遅延マウント+行ウィンドウイング・`/emperors` 先頭肖像画の priority 化・Select 幅固定と scrollbar-gutter による CLS 解消・アクセシブルネーム付与）により、初回計測時のバックログ（TBT・LCP・a11y 2件・CLS）はすべて解消済み。Lighthouse は accessibility 全9ページ 100、performance 66〜100（低スコア側は WSL2 計測環境の TBT 増幅を含み、実ブラウザの Long Task 実測では全ページ合計約100ms）。現時点で未対応バックログなし。
 
+**注意（2026-07-26）**: `site/src/lib/emperors.ts` は `reigns[].dynastyOrder` が**同一王朝内で重複したらビルド全体を throw で落とす**（`kinship: <王朝> の第N代が <id> と <id> で重複しています`）。/kinship 専用のチェックではなく全ページ共通のデータ層で走るため、**dynastyOrder を編集して重複させると emperorstats.com 全体のデプロイが止まる**。値は個別調査で決めるものなので機械的な自動採番はせず、編集したら `npm run build` まで通してから push すること。null は「歴代に数えない在位」の意味で、同じ王朝に調査済みの値が1つでもあれば導出で埋めない（判定基準は [site-design/KINSHIP.md](site-design/KINSHIP.md)）。
+
 ## サイト実装で見つかったデータ品質の申し送り事項
 
 サイト実装（`site/`）を進める中で発見した、`data/emperors.json` 側の是正が望ましい点。現時点で未対応の申し送りはなし（以下は解消記録）。
@@ -350,6 +352,7 @@ note/quote 内の漢文引用 6,504 件の実在検証＋暦換算の機械リ�
 - **スキーマ**: `data/schema/KINSHIP_SCHEMA.md`（エッジ3種 succession/kinship/marriage・veracity 区分 verified/claimed/disputed・復位/建国の規約・調査フェーズ計画を含む）
 - **CI**: `scripts/validate_kinship.py` を新設し `validate-data.yml` に組込済み。succession エッジの category は emperors.json の `accessionRoute.category` との整合を機械検証する
 - **進捗管理**: kinship.json 側の `meta.status.phases`（succession/parentage/interdynastic/crosscheck の4フェーズ・すべて completed〔2026-07-23〜24〕。2026-07-24 新設の maternalLineage は進行中）と `meta.completedBlocks` で行う。このドキュメント冒頭のフェーズ進捗表（emperors.json 対応）とは別管理
+- **可視化の再設計（v2）と暫定公開（2026-07-26）**: 章スタック方式（時代ごとの章を縦に積み、章内は王朝バンド×家系図パッキング）で作り直し、**第1〜4章＝秦・漢／三国・西晋／東晋・十六国／南北朝（前221年〜589年）を暫定公開版として main へマージ・GitHub Pages で配信**（ユーザー判断）。配置は**ユーザーがブラウザの編集モードでドラッグして決め `manual-layout.json` に凍結する**方式（自動配置では品質要求に届かなかったため。`npm run kinship-editor` ＋ `/kinship?edit=<章id>`）。露出はメニュー（`nav-data.ts`）への追加までで、`SITE_SECTIONS`/`sitemap.xml` は未登録・`robots: noindex` のまま（全章そろうまで）。設計方針・規範・章追加手順は [site-design/KINSHIP.md](site-design/KINSHIP.md)
 - **コーパス下見（2026-07-22）**: 系譜「表」は china-history に無く daizhigev20 側にのみ存在（遼史皇族表・金史宗室表・明史諸王世表・元史/宋史の宗室世系表を確認済み）。新唐書宗室世系表は完全収録が未確認のため、着手時に書ごとに実在・可読性を確認すること
 
 ## 重要なファイル
