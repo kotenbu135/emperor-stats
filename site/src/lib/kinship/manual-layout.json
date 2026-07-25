@@ -42,11 +42,11 @@
       },
       "p-liu-zizhang": {
         "x": 195,
-        "year": -0.9473684210526301
+        "year": -0.94736842105263
       },
       "p-heshi-liu-zizhang": {
         "x": 272,
-        "year": -0.9473684210526301
+        "year": -0.94736842105263
       },
       "p-liu-li": {
         "x": 195.5,
@@ -430,7 +430,7 @@
         "mid": 180,
         "to": {
           "side": "R",
-          "t": 0.45454545454545453
+          "t": 0.4545454545454546
         }
       },
       "c:liu-penzi:han-gaozu→p-liu-meng": {
@@ -464,5 +464,184 @@
       }
     },
     "junctions": {}
+  },
+  "sanguo-xijin": {
+    "mode": "manual",
+    "nodes": {
+      "shuhan-liushan": {
+        "x": 102
+      },
+      "shuhan-zhaoliedi": {
+        "x": 164
+      },
+      "p-ganshi-shuhan-zhaoliedi": {
+        "x": 88,
+        "year": 224.25
+      },
+      "p-liu-hong-shu": {
+        "x": 188,
+        "year": 214.74
+      },
+      "wu-sunliang": {
+        "x": 250
+      },
+      "wu-modi": {
+        "x": 372
+      },
+      "p-sun-he": {
+        "x": 358,
+        "year": 255.76
+      },
+      "p-heshi-sun-he": {
+        "x": 434,
+        "year": 255.76
+      },
+      "wu-jingdi": {
+        "x": 494
+      },
+      "wu-dadi": {
+        "x": 334
+      },
+      "p-panshi-wu-dadi": {
+        "x": 238,
+        "year": 231.25
+      },
+      "p-wangshi-nanyang-wu-dadi": {
+        "x": 554,
+        "year": 231.25
+      },
+      "p-sun-jian": {
+        "x": 320,
+        "year": 174
+      },
+      "p-wushi-sun-jian": {
+        "x": 396,
+        "year": 174
+      },
+      "wei-caofang": {
+        "x": 705
+      },
+      "wei-mingdi": {
+        "x": 705
+      },
+      "wei-caomao": {
+        "x": 602
+      },
+      "p-cao-lin": {
+        "x": 626,
+        "year": 250.365
+      },
+      "wei-wendi": {
+        "x": 602
+      },
+      "p-zhenshi-wei-wendi": {
+        "x": 766,
+        "year": 222.625
+      },
+      "p-cao-kai": {
+        "x": 882,
+        "year": 234.5
+      },
+      "p-cao-zhang": {
+        "x": 882,
+        "year": 222.75
+      },
+      "wei-yuandi": {
+        "x": 918
+      },
+      "p-cao-yu": {
+        "x": 942,
+        "year": 256.24
+      },
+      "p-cao-cao": {
+        "x": 900,
+        "year": 191.625
+      },
+      "p-bianshi-cao-cao": {
+        "x": 530,
+        "year": 191.625
+      },
+      "p-sima-shi": {
+        "x": 1001.5,
+        "year": 231.5
+      },
+      "jin-mindi": {
+        "x": 1015.5
+      },
+      "p-sima-yan-wu": {
+        "x": 1077.5,
+        "year": 296
+      },
+      "p-xunshi-sima-yan-wu": {
+        "x": 1001.5,
+        "year": 296
+      },
+      "jin-huidi": {
+        "x": 1246.5
+      },
+      "jin-huaidi": {
+        "x": 1138.5
+      },
+      "jin-wudi": {
+        "x": 1054
+      },
+      "p-yang-yan": {
+        "x": 1311.5,
+        "year": 268
+      },
+      "p-wang-yuanji-huaidi": {
+        "x": 1210.5,
+        "year": 287.75
+      },
+      "p-sima-zhao": {
+        "x": 1116,
+        "year": 238
+      },
+      "p-wang-yuanji": {
+        "x": 1040,
+        "year": 238
+      },
+      "p-sima-jin": {
+        "x": 1366.5,
+        "year": 273
+      },
+      "p-xiahou-guangji": {
+        "x": 1443.5,
+        "year": 273
+      },
+      "p-sima-zhou": {
+        "x": 1366.5,
+        "year": 255
+      },
+      "jin-simalun": {
+        "x": 1509.5
+      },
+      "p-sima-yi": {
+        "x": 1161.3333333333333,
+        "year": 215
+      },
+      "p-boshi-sima-yi": {
+        "x": 1569.5,
+        "year": 215
+      }
+    },
+    "labels": {
+      "band:蜀漢": {
+        "x": 178,
+        "y": 326
+      },
+      "band:魏": {
+        "x": 626,
+        "y": 319
+      },
+      "band:西晋": {
+        "x": 1077.5,
+        "y": 682
+      }
+    },
+    "edges": {},
+    "junctions": {
+      "p-sima-yi|": 1182.3333333333333
+    }
   }
 }
