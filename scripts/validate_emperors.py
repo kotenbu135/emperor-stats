@@ -825,7 +825,7 @@ def derive_category(axes):
     if src == "他政権から受禅":
         return "受禅（易姓）" if agent == "本人" else "受禅（擁立）"
     if src == "自立":
-        return "自立・建国" if agent == "本人" else "推戴・建国"
+        return "自立" if agent == "本人" else "推戴"
     if src == "前代君主から継承":
         if axes.get("procedure") == "内禅":
             return "内禅"
