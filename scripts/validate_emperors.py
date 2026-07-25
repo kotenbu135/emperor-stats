@@ -894,6 +894,15 @@ def check_accession_axes(data):
             if agents and "第三者" not in (decided or []):
                 err(f"[axes] {eid}.decidedByAgents: decidedBy に第三者を含まないのに類型が指定されている")
 
+        # note が旧カテゴリでの判定文言を残したままだと、表示（category は軸から導出）と
+        # 説明文が食い違う。多軸化でラベルが変わった人物の note 書き換え漏れを検出する。
+        note = route.get("note") or ""
+        for lab in ("世襲", "簒奪", "禅譲", "内禅", "擁立", "復位", "建国"):
+            for pat in (f"{lab}と判定", f"{lab}に分類", f"{lab}を採用"):
+                if pat in note and route.get("category") != lab:
+                    err(f"[axes] {eid}: note に旧判定文言「{pat}」が残っているが "
+                        f"category は {route.get('category')!r}")
+
         derived = derive_category(axes)
         if derived is None:
             err(f"[axes] {eid}: 軸の組み合わせから category を導出できない（導出ルール未該当）")

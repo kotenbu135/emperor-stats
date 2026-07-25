@@ -15693,6 +15693,26 @@
     "八月辛亥帝崩癸丑殡于"
    ]
   },
+  "hou-han-shaodi-bian|accessionRoute.note|54d7b8ce1610": {
+   "id": "hou-han-shaodi-bian",
+   "path": "accessionRoute.note",
+   "span": "硕谋不行，皇子辩乃即位",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/别史/通志.txt",
+   "frags": [
+    "硕谋不行皇子辩乃即位"
+   ]
+  },
+  "hou-han-shaodi-bian|accessionRoute.note|b2c85954c13d": {
+   "id": "hou-han-shaodi-bian",
+   "path": "accessionRoute.note",
+   "span": "群臣请立太子，帝以辩轻佻无威仪，不可为人主",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "群臣请立太子帝以辩轻"
+   ]
+  },
   "hou-han-shaodi-bian|accessionRoute.note|f197a519f589": {
    "id": "hou-han-shaodi-bian",
    "path": "accessionRoute.note",
