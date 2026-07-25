@@ -9352,6 +9352,47 @@
     "在位三十年伪谥武帝庙"
    ]
   },
+  "dongjin-aidi|accessionRoute.note|15be11fbb372": {
+   "id": "dongjin-aidi",
+   "path": "accessionRoute.note",
+   "span": "于是百官备法驾，迎于琅邪第",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-aidi.txt",
+   "frags": [
+    "于是百官备法驾迎于琅"
+   ]
+  },
+  "dongjin-aidi|accessionRoute.note|82ea0070b1e1": {
+   "id": "dongjin-aidi",
+   "path": "accessionRoute.note",
+   "span": "帝奄不救疾，胤嗣未建。琅邪王丕，中兴正统，明德懋亲",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-aidi.txt",
+   "frags": [
+    "帝奄不救疾胤嗣未建琅",
+    "邪王丕中兴正统明德懋"
+   ]
+  },
+  "dongjin-aidi|accessionRoute.note|afcbcefacb6f": {
+   "id": "dongjin-aidi",
+   "path": "accessionRoute.note",
+   "span": "其以王奉大统",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-aidi.txt",
+   "frags": [
+    "其以王奉大统"
+   ]
+  },
+  "dongjin-aidi|accessionRoute.note|ec672ccb846d": {
+   "id": "dongjin-aidi",
+   "path": "accessionRoute.note",
+   "span": "五年五月丁巳，穆帝崩",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-aidi.txt",
+   "frags": [
+    "五年五月丁巳穆帝崩"
+   ]
+  },
   "dongjin-aidi|amnestyCount.note|b992b056f5e0": {
    "id": "dongjin-aidi",
    "path": "amnestyCount.note",
@@ -9802,6 +9843,37 @@
     "癸巳帝崩于西堂时年二"
    ]
   },
+  "dongjin-feidi|accessionRoute.note|1f23f2cc5511": {
+   "id": "dongjin-feidi",
+   "path": "accessionRoute.note",
+   "span": "兴宁三年二月丙申，哀帝崩，无嗣",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-feidi.txt",
+   "frags": [
+    "兴宁三年二月丙申哀帝"
+   ]
+  },
+  "dongjin-feidi|accessionRoute.note|995fa4860bf7": {
+   "id": "dongjin-feidi",
+   "path": "accessionRoute.note",
+   "span": "于是百官奉迎于琅邪第",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-feidi.txt",
+   "frags": [
+    "于是百官奉迎于琅邪第"
+   ]
+  },
+  "dongjin-feidi|accessionRoute.note|ed45b51571df": {
+   "id": "dongjin-feidi",
+   "path": "accessionRoute.note",
+   "span": "琅邪王奕，明德茂亲，属当储嗣，宜奉祖宗，纂承大统",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-feidi.txt",
+   "frags": [
+    "琅邪王奕明德茂亲属当",
+    "储嗣宜奉祖宗纂承大统"
+   ]
+  },
   "dongjin-feidi|amnestyCount.note|f0737c7acf29": {
    "id": "dongjin-feidi",
    "path": "amnestyCount.note",
@@ -9893,6 +9965,36 @@
    "frags": [
     "己酉集百官于朝堂宣崇",
     "即日桓温使散骑侍郎刘"
+   ]
+  },
+  "dongjin-gongdi|accessionRoute.note|6a197544c7a9": {
+   "id": "dongjin-gongdi",
+   "path": "accessionRoute.note",
+   "span": "咨尔大司马、琅邪王，体自先皇，明德光懋",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-gongdi.txt",
+   "frags": [
+    "咨尔大司马琅邪王体自"
+   ]
+  },
+  "dongjin-gongdi|accessionRoute.note|90aa8e923a6b": {
+   "id": "dongjin-gongdi",
+   "path": "accessionRoute.note",
+   "span": "刘裕矫称遗诏曰",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-gongdi.txt",
+   "frags": [
+    "刘裕矫称遗诏曰"
+   ]
+  },
+  "dongjin-gongdi|accessionRoute.note|bc5b778ae9ae": {
+   "id": "dongjin-gongdi",
+   "path": "accessionRoute.note",
+   "span": "十四年十二月戊寅，安帝崩",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-gongdi.txt",
+   "frags": [
+    "十四年十二月戊寅安帝"
    ]
   },
   "dongjin-gongdi|amnestyCount[0].note|1c684b704750": {
@@ -20307,6 +20409,47 @@
    "corpusFile": "china-history/晋书/帝纪/第五章--原文.html",
    "frags": [
     "光熙元年十一月庚午孝"
+   ]
+  },
+  "jin-mindi|accessionRoute.note|090068714534": {
+   "id": "jin-mindi",
+   "path": "accessionRoute.note",
+   "span": "六年九月辛巳，奉秦王为皇太子",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-mindi.txt",
+   "frags": [
+    "六年九月辛巳奉秦王为"
+   ]
+  },
+  "jin-mindi|accessionRoute.note|95eaf9f6f3cc": {
+   "id": "jin-mindi",
+   "path": "accessionRoute.note",
+   "span": "壬申，即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-mindi.txt",
+   "frags": [
+    "壬申即皇帝位"
+   ]
+  },
+  "jin-mindi|accessionRoute.note|c45ba46c7fe4": {
+   "id": "jin-mindi",
+   "path": "accessionRoute.note",
+   "span": "豫州刺史阎鼎与前抚军长史王毗、司徒长史刘畴、中书郎李昕及籓、组等同谋奉帝归于长安",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-mindi.txt",
+   "frags": [
+    "豫州刺史阎鼎与前抚军",
+    "刘畴中书郎李昕及籓组"
+   ]
+  },
+  "jin-mindi|accessionRoute.note|ca5b0e122459": {
+   "id": "jin-mindi",
+   "path": "accessionRoute.note",
+   "span": "建兴元年夏四月丙午，奉怀帝崩问",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-mindi.txt",
+   "frags": [
+    "建兴元年夏四月丙午奉"
    ]
   },
   "jin-mindi|amnestyCount[0].note|d69b5090bf40": {
