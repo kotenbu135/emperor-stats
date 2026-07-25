@@ -24,11 +24,29 @@ export interface ManualLabelPos {
   y: number;
 }
 
+/** 線が箱に取り付く位置。side=辺、t=その辺上の位置(0〜1)。 */
+export interface ManualAnchor {
+  side: "L" | "R" | "T" | "B";
+  t: number;
+}
+
+/** 補助線・遠祖主張の点線の付け根と、途中の折れ位置。 */
+export interface ManualEdgeRoute {
+  from?: ManualAnchor;
+  to?: ManualAnchor;
+  /** 折れ線の中間座標(左右に出る線ならx、上下に出る線ならy)。 */
+  mid?: number;
+}
+
 export interface ManualChapter {
   mode: "auto" | "manual";
   nodes: Record<string, ManualNodePos>;
   /** 見出し・ラベルの位置。キーは `band:<label>` / `dyn:<dynastyKey>` / `arrow:<key>` / `aux:<key>`。 */
   labels?: Record<string, ManualLabelPos>;
+  /** 補助線の付け根。キーは補助線のkey(`k:…` / `m:…` / `c:…`)。 */
+  edges?: Record<string, ManualEdgeRoute>;
+  /** 垂下線が親から降りる位置(x)。キーは `<父id>|<母id or 空>`。 */
+  junctions?: Record<string, number>;
 }
 
 export type ManualLayout = Record<string, ManualChapter>;

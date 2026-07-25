@@ -226,15 +226,6 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
               )}
               {e.label !== undefined && (
                 <text
-                  onPointerDown={
-                    editor.onLabelPointerDown
-                      ? (ev) =>
-                          editor.onLabelPointerDown!(
-                            ev as unknown as React.PointerEvent<SVGGElement>,
-                            `aux:${e.key}`,
-                          )
-                      : undefined
-                  }
                   x={e.labelX}
                   y={e.labelY}
                   textAnchor="middle"
@@ -274,15 +265,6 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
                 markerEnd={`url(#${markerId})`}
               />
               <text
-                onPointerDown={
-                  editor.onLabelPointerDown
-                    ? (ev) =>
-                        editor.onLabelPointerDown!(
-                          ev as unknown as React.PointerEvent<SVGGElement>,
-                          `arrow:${a.key}`,
-                        )
-                    : undefined
-                }
                 x={a.labelX}
                 y={a.labelY}
                 textAnchor="middle"
@@ -315,15 +297,6 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
             .map((b) => (
               <text
                 key={b.label}
-                onPointerDown={
-                  editor.onLabelPointerDown
-                    ? (ev) =>
-                        editor.onLabelPointerDown!(
-                          ev as unknown as React.PointerEvent<SVGGElement>,
-                          `band:${b.label}`,
-                        )
-                    : undefined
-                }
                 x={b.labelX}
                 y={b.labelY}
                 textAnchor="middle"
@@ -344,15 +317,6 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
           {layout.dynastyHeads.map((h) => (
             <text
               key={`${h.label}:${h.y}`}
-              onPointerDown={
-                editor.onLabelPointerDown
-                  ? (ev) =>
-                      editor.onLabelPointerDown!(
-                        ev as unknown as React.PointerEvent<SVGGElement>,
-                        `dyn:${h.key}`,
-                      )
-                  : undefined
-              }
               x={h.x}
               y={h.y}
               textAnchor="start"
@@ -479,8 +443,11 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
             </g>
           ))}
         </g>
+
+        {editor.overlay}
       </svg>
 
+      {/* 編集モードのオーバーレイはSVGの最前面に置く(ハンドルを掴めるように) */}
       <TipOutlet
         render={(tip) => (
           <FixedTooltip x={tip.x} y={tip.y}>

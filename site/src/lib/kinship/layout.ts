@@ -26,6 +26,7 @@ import {
 } from "./chapters";
 import {
   manualChapterOf,
+  type ManualAnchor,
   type ManualChapter,
   type ManualLayout,
 } from "./manual";
@@ -117,6 +118,8 @@ export interface KinshipEmperorTip {
 }
 
 export interface KinshipNodeOut {
+  /** 配偶者ノードのみ: 夫のid(編集モードの「子孫まとめて移動」で使う)。 */
+  attachedTo?: string;
   key: string;
   id: string;
   kind: "emperor" | "person" | "consort";
@@ -199,13 +202,15 @@ export interface KinshipChapterLayout {
   drops: KinshipDropOut[];
   auxEdges: KinshipAuxOut[];
   arrows: KinshipArrowOut[];
+  /** 垂下線が親から降りる位置(編集モードのハンドル用)。 */
+  junctions: { key: string; x: number; y: number }[];
   /** 年→pxの写像(編集モードがpx→年の逆変換に使う)。
    *  y >= zeroY: startYear + (y-zeroY)/PX_PER_YEAR / y < zeroY: startYear - (zeroY-y)/PRE_RATE */
   axis: { startYear: number; zeroY: number };
   /** 手動配置(凍結)の章か。 */
   manual: boolean;
   /** 品質ゲート違反(手動配置の章では警告として持ち回り、編集モードで表示する)。 */
-  violations: string[];
+  violations: { text: string; ids: string[] }[];
 }
 
 // --- レイアウト定数 ---
@@ -863,7 +868,8 @@ function buildChapter(
   // 垂下点が子グループのx範囲から外れると、バーに水平ジョグ(無駄な曲がり)が
   // 生じる。tree.tsのshiftKidsToJunctionが揃えきれなかったものはハード制約
   // 違反として品質ゲートで落とす。
-  const jogViolations: string[] = [];
+  const jogViolations: { text: string; ids: string[] }[] = [];
+  const junctionHandles: { key: string; x: number; y: number }[] = [];
   // バンド跨ぎの子(夫の脇に配偶者として置かれた娘など)は、パッキングの垂下グループに
   // 入らないので補助線1本になってしまう。両親の兄弟バーを伸ばしてそこから垂下させ、
   // 同母の兄弟(成帝・康帝)と同じ形にする(ユーザー指摘: 明帝→南康公主が庾文君との
@@ -907,7 +913,12 @@ function buildChapter(
           j.motherId !== null && tieXOf.has(j.motherId)
             ? tieXOf.get(j.motherId)!
             : ([father.x + 10, father.x + father.w - 10] as [number, number]);
-        jx = Math.min(Math.max(mid, Math.min(...range)), Math.max(...range));
+        // 手動指定(編集モードで垂下点をドラッグ)があればそれを使う。
+        const manJx = man.junctions?.[`${j.fatherId}|${j.motherId ?? ""}`];
+        jx =
+          manJx !== undefined
+            ? manJx
+            : Math.min(Math.max(mid, Math.min(...range)), Math.max(...range));
       }
       let topY: number;
       if (j.motherId !== null && tieYOf.has(j.motherId)) {
@@ -919,13 +930,19 @@ function buildChapter(
         .map((c) => rectById.get(c))
         .filter((r): r is PlacedRect => r !== undefined);
       if (kids.length === 0) continue;
+      junctionHandles.push({
+        key: `${j.fatherId}|${j.motherId ?? ""}`,
+        x: jx,
+        y: topY,
+      });
       if (
         jx < Math.min(...kids.map((k) => k.cx)) - 4 ||
         jx > Math.max(...kids.map((k) => k.cx)) + 4
       ) {
-        jogViolations.push(
-          `垂下点の段差 ${nameOf(j.fatherId)}${j.motherId !== null ? `═${nameOf(j.motherId)}` : ""}→${j.children.map(nameOf).join("・")} [jx=${jx.toFixed(0)} 子cx=${kids.map((k) => k.cx.toFixed(0)).join(",")}]`,
-        );
+        jogViolations.push({
+          text: `垂下点の段差 ${nameOf(j.fatherId)}${j.motherId !== null ? `═${nameOf(j.motherId)}` : ""}→${j.children.map(nameOf).join("・")}`,
+          ids: [j.fatherId, ...j.children],
+        });
       }
       const minKidTop = Math.min(...kids.map((k) => k.y));
       // バーは最年長の子の直上。親と子が接している場合も子の枠内には入れない。
@@ -1126,10 +1143,73 @@ function buildChapter(
       });
     }
   };
-  const orthoPath = (a: PlacedRect, b: PlacedRect, ids: string[], what: string): string => {
-    const pts = orthoPoints(a, b);
-    pushAuxSegs(pts, ids, what);
-    return toPath(pts);
+  /** 手動指定された付け根(辺と辺上の位置)の座標。 */
+  const anchorPoint = (r: PlacedRect, a: ManualAnchor): [number, number] => {
+    const t = Math.min(Math.max(a.t, 0), 1);
+    switch (a.side) {
+      case "L":
+        return [r.x, r.y + r.h * t];
+      case "R":
+        return [r.x + r.w, r.y + r.h * t];
+      case "T":
+        return [r.x + r.w * t, r.y];
+      default:
+        return [r.x + r.w * t, r.y + r.h];
+    }
+  };
+  /**
+   * 付け根を手で決めた線の経路(直交の折れ線)。左右の辺から出る線は
+   * 「水平→(中間x)→垂直→水平」、上下の辺なら「垂直→(中間y)→水平→垂直」。
+   * 両端の向きが違う場合はL字1回で結ぶ。
+   */
+  const elbowPoints = (
+    p: [number, number],
+    ps: ManualAnchor["side"],
+    q: [number, number],
+    qs: ManualAnchor["side"],
+    mid: number | undefined,
+  ): [number, number][] => {
+    const pH = ps === "L" || ps === "R";
+    const qH = qs === "L" || qs === "R";
+    if (pH && qH) {
+      const mx = mid ?? (p[0] + q[0]) / 2;
+      return [p, [mx, p[1]], [mx, q[1]], q];
+    }
+    if (!pH && !qH) {
+      const my = mid ?? (p[1] + q[1]) / 2;
+      return [p, [p[0], my], [q[0], my], q];
+    }
+    return pH ? [p, [q[0], p[1]], q] : [p, [p[0], q[1]], q];
+  };
+  /** 手動の付け根指定があればそれで引き、無ければ既定のルーティング。 */
+  const routedPoints = (
+    key: string,
+    a: PlacedRect,
+    b: PlacedRect,
+    fallback?: () => [number, number][],
+  ): [number, number][] => {
+    const route = man?.edges?.[key];
+    if (route?.from || route?.to) {
+      // 片端だけ手で決めた場合、もう一端は既定のルーティングの端点を使う。
+      const def = fallback ? fallback() : orthoPoints(a, b);
+      const guessSide = (
+        pt: [number, number],
+        r: PlacedRect,
+      ): ManualAnchor["side"] =>
+        Math.abs(pt[1] - r.y) < 0.5
+          ? "T"
+          : Math.abs(pt[1] - (r.y + r.h)) < 0.5
+            ? "B"
+            : pt[0] <= r.cx
+              ? "L"
+              : "R";
+      const fs = route.from?.side ?? guessSide(def[0], a);
+      const ts = route.to?.side ?? guessSide(def[def.length - 1], b);
+      const fp = route.from ? anchorPoint(a, route.from) : def[0];
+      const tp = route.to ? anchorPoint(b, route.to) : def[def.length - 1];
+      return elbowPoints(fp, fs, tp, ts, route.mid);
+    }
+    return fallback ? fallback() : orthoPoints(a, b);
   };
 
   /**
@@ -1229,11 +1309,14 @@ function buildChapter(
     }
     if (e.type === "marriage") {
       if (rel.attachedTo.has(e.from) || rel.attachedTo.has(e.to)) continue; // 連結線で表現済み
+      const mkey = `m:${e.from}→${e.to}`;
+      const mpts = routedPoints(mkey, a, b);
+      pushAuxSegs(mpts, [e.from, e.to], `婚姻 ${e.from}═${e.to}`);
       auxEdges.push({
-        key: `m:${e.from}→${e.to}`,
+        key: mkey,
         fromId: e.from,
         toId: e.to,
-        path: orthoPath(a, b, [e.from, e.to], `婚姻 ${e.from}═${e.to}`),
+        path: toPath(mpts),
         dashed: false,
         disputed: false,
         marriage: true,
@@ -1289,21 +1372,27 @@ function buildChapter(
     const b = rectById.get(cl.toId);
     const claims = rel.claimsByClaimant.get(cl.claimant) ?? [];
     if (!a || !b || claims.length === 0) continue;
-    // 起点カプセルの出る高さ。上辺(top)は下の生母の垂下線を避ける。
-    const ay = cl.fromAnchor === "top" ? a.y + 14 : a.y + a.h - 14;
-    // 垂直コリドー: 終点ノードの脇のバンド間ガター。バンド見出しテキストは
-    // ゲート対象外のため、通る側は def.side でキュレーションする。
-    const vx = cl.side === "R" ? b.x + b.w + 24 : b.x - 24;
-    const my = b.y + b.h / 2;
-    const pts: [number, number][] = [
-      [a.x + a.w, ay],
-      [vx, ay],
-      [vx, my],
-      [cl.side === "R" ? b.x + b.w : b.x, my],
-    ];
+    const ckey = `c:${cl.claimant}:${cl.fromId}→${cl.toId}`;
+    // 付け根・縦の通り道は編集モードでドラッグして決められる(manual.edges)。
+    // 既定は「起点カプセルの右辺から出て(上辺寄り: 下の生母の垂下線を避ける)、
+    // 終点ノードの脇のバンド間ガターを降りて側面へ入る」。
+    const pts = routedPoints(ckey, a, b, () => {
+      const ay = cl.fromAnchor === "top" ? a.y + 14 : a.y + a.h - 14;
+      const vx = cl.side === "R" ? b.x + b.w + 24 : b.x - 24;
+      const my = b.y + b.h / 2;
+      return [
+        [a.x + a.w, ay],
+        [vx, ay],
+        [vx, my],
+        [cl.side === "R" ? b.x + b.w : b.x, my],
+      ];
+    });
+    const vx = pts[1]?.[0] ?? pts[0][0];
+    const ay = pts[0][1];
+    const my = pts[pts.length - 1][1];
     pushAuxSegs(pts, [cl.fromId, cl.toId], `遠祖主張 ${cl.claimant}`);
     auxEdges.push({
-      key: `c:${cl.claimant}:${cl.fromId}→${cl.toId}`,
+      key: ckey,
       fromId: cl.fromId,
       toId: cl.toId,
       path: toPath(pts),
@@ -1331,7 +1420,8 @@ function buildChapter(
   ): KinshipAuxOut {
     const disputed = e.veracity === "disputed";
     const { rect: a, ids: chainIds } = withConsortChain(e.from, a0, b);
-    const pts = orthoPoints(a, b);
+    const key = `k:${e.from}→${e.to}:${e.relation}`;
+    const pts = routedPoints(key, a, b);
     pushAuxSegs(pts, [e.from, e.to, ...chainIds], `血縁 ${e.from}→${e.to}〔${e.relation}〕`);
     // 親子は「親が上・子が下」の位置関係で示すのが基本だが、年代が重なる相手
     // (配偶者として夫の年区間に整列した娘など)へは横向きの線になり、上下関係が
@@ -1390,9 +1480,9 @@ function buildChapter(
   //  横断が出る配置はキュレーション(バンド順・CHILD_ORDER_OVERRIDES)や
   //  ルーティングの修正で解消してからでないとビルドできない)
   // 手動配置(mode=manual)の章では警告に留め、編集モードのパネルに出す。
-  let gateViolations: string[] = [];
+  let gateViolations: { text: string; ids: string[] }[] = [];
   {
-    const violations: string[] = [...jogViolations];
+    const violations: { text: string; ids: string[] }[] = [...jogViolations];
     for (const seg of qsegs) {
       const sx0 = Math.min(seg.x1, seg.x2);
       const sx1 = Math.max(seg.x1, seg.x2);
@@ -1408,9 +1498,10 @@ function buildChapter(
         const ry0 = r.y - GATE_CLEAR;
         const ry1 = r.y + r.h + GATE_CLEAR;
         if (sx0 < rx1 && sx1 > rx0 && sy0 < ry1 && sy1 > ry0) {
-          violations.push(
-            `${seg.what} が ${nameOf(nid)}(${nid}) に接触/交差 [seg(${seg.x1.toFixed(0)},${seg.y1.toFixed(0)})-(${seg.x2.toFixed(0)},${seg.y2.toFixed(0)}) rect(${r.x.toFixed(0)},${r.y.toFixed(0)},w${r.w.toFixed(0)},h${r.h.toFixed(0)})]`,
-          );
+          violations.push({
+            text: `${seg.what} が ${nameOf(nid)}(${nid}) に接触/交差`,
+            ids: [nid],
+          });
         }
       }
     }
@@ -1423,9 +1514,10 @@ function buildChapter(
       const etop = yOf(e.reigns[0].a);
       const ebot = yOf(e.reigns[e.reigns.length - 1].b);
       if (r.y < etop - 0.5 || r.y + r.h < ebot - 0.5) {
-        violations.push(
-          `年線整合違反 ${e.name}(${e.id}) [上辺${(r.y - etop).toFixed(1)}px 下辺${(r.y + r.h - ebot).toFixed(1)}px]`,
-        );
+        violations.push({
+          text: `年線整合違反 ${e.name}(${e.id}) [上辺${(r.y - etop).toFixed(1)}px 下辺${(r.y + r.h - ebot).toFixed(1)}px]`,
+          ids: [e.id],
+        });
       }
     }
     // ノードどうしの重なりも禁止(アンカー調整・チェーン押し下げの副作用を検出する)。
@@ -1440,16 +1532,17 @@ function buildChapter(
           p.y + 1 < q.y + q.h - 1 &&
           q.y + 1 < p.y + p.h - 1
         ) {
-          violations.push(
-            `ノードが重なっています ${nameOf(pid)}(${pid}) × ${nameOf(qid)}(${qid}) [rect(${p.x.toFixed(0)},${p.y.toFixed(0)},w${p.w.toFixed(0)},h${p.h.toFixed(0)}) rect(${q.x.toFixed(0)},${q.y.toFixed(0)},w${q.w.toFixed(0)},h${q.h.toFixed(0)})]`,
-          );
+          violations.push({
+            text: `ノードが重なっています ${nameOf(pid)}(${pid}) × ${nameOf(qid)}(${qid})`,
+            ids: [pid, qid],
+          });
         }
       }
     }
     if (violations.length > 0) {
       const msg =
         `kinship/layout: 章「${def.title}」で品質ゲート違反(横断・重なり・垂下点の段差・年線整合)があります(${violations.length}件):\n` +
-        violations.join("\n");
+        violations.map((v) => v.text).join("\n");
       // 手動配置の章では配置の決定権はユーザーにあるので、ビルドは落とさず
       // 警告として編集モードのパネル・ビルドログに出す。
       if (man) console.warn(msg);
@@ -1609,6 +1702,7 @@ function buildChapter(
     drops,
     auxEdges,
     arrows,
+    junctions: junctionHandles,
     axis: { startYear, zeroY: yOf(startYear) },
     manual: man !== undefined,
     violations: gateViolations,
@@ -1738,6 +1832,7 @@ function buildChapter(
     return {
       key: id,
       id,
+      attachedTo: isConsort ? rel2.attachedTo.get(id) : undefined,
       kind: isConsort ? "consort" : "person",
       x: r.x,
       y: r.y,
