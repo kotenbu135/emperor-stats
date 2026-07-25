@@ -708,6 +708,8 @@ function buildChapter(
 
   const nameOf = (id: string): string =>
     rel.emperorById.get(id)?.name ?? rel.personById.get(id)?.name ?? id;
+  const femaleOf = (id: string): boolean =>
+    rel.emperorById.get(id)?.female ?? rel.personById.get(id)?.female ?? false;
 
   // --- ノード矩形の確定 ---
   interface PlacedRect {
@@ -965,15 +967,18 @@ function buildChapter(
   // 補助エッジ(血縁)用: 家系図の直交線に揃えたポリライン(点列)。無用な曲がりを
   // 避け、水平区間は到達先の直前(枠の外)を通す。到達点は垂下線(cx)と重ならないよう
   // 10pxずらす。
+  // 「同じ高さで左右に離れている」= 水平1本で結ぶ形。この形は上下関係が出ないため
+  // 親子であることが読めない(ユーザー指摘: 明帝→南康公主が庾文君との連結線の
+  // 延長に見え、明帝・庾文君・南康公主・桓温の関係が分からない)。kinAuxはこの
+  // 判定で続柄ラベルを付ける。
+  const isSideBySide = (a: PlacedRect, b: PlacedRect): boolean =>
+    Math.abs(a.y + a.h / 2 - (b.y + b.h / 2)) <= 4 &&
+    (a.x >= b.x + b.w || b.x >= a.x + a.w);
   const orthoPoints = (a: PlacedRect, b: PlacedRect): [number, number][] => {
     // 中心の高さが揃っていて左右に離れている場合は、曲がりのない水平1本で結ぶ
     // (王禁→王政君など。整列は上のconsortAlignYearsパスで作る)。
-    const acy = a.y + a.h / 2;
     const bcy = b.y + b.h / 2;
-    if (
-      Math.abs(acy - bcy) <= 4 &&
-      (a.x >= b.x + b.w || b.x >= a.x + a.w)
-    ) {
+    if (isSideBySide(a, b)) {
       const leftToRight = a.cx < b.cx;
       return [
         [leftToRight ? a.x + a.w : a.x, bcy],
@@ -1238,16 +1243,48 @@ function buildChapter(
   ): KinshipAuxOut {
     const disputed = e.veracity === "disputed";
     const { rect: a, ids: chainIds } = withConsortChain(e.from, a0, b);
+    const pts = orthoPoints(a, b);
+    pushAuxSegs(pts, [e.from, e.to, ...chainIds], `血縁 ${e.from}→${e.to}〔${e.relation}〕`);
+    // 親子は「親が上・子が下」の位置関係で示すのが基本だが、年代が重なる相手
+    // (配偶者として夫の年区間に整列した娘など)へは横向きの線になり、上下関係が
+    // 出ないので親子と読めない。この形のときだけ線の上に続柄を出す
+    // (ユーザー指摘: 明帝→南康公主が庾文君との連結線の延長に見え、明帝・庾文君・
+    //  南康公主・桓温の関係が分からない)。位置は最長の水平区間の中央。
+    const flat = b.y - (a.y + a.h) < 14 && a.y - (b.y + b.h) < 14;
+    let label: string | undefined;
+    let labelX = 0;
+    let labelY = 0;
+    if (flat) {
+      const kin =
+        e.relation === "実父" || e.relation === "実母"
+          ? femaleOf(e.to)
+            ? "娘"
+            : "子"
+          : e.relation === "養父" || e.relation === "養母"
+            ? femaleOf(e.to)
+              ? "養女"
+              : "養子"
+            : stripParen(e.relation ?? "");
+      label = `${nameOf(e.from)}の${kin}`;
+      let longest = -1;
+      for (let i = 1; i < pts.length; i++) {
+        if (pts[i - 1][1] !== pts[i][1]) continue;
+        const len = Math.abs(pts[i][0] - pts[i - 1][0]);
+        if (len > longest) {
+          longest = len;
+          labelX = (pts[i][0] + pts[i - 1][0]) / 2;
+          labelY = pts[i][1] - 5;
+        }
+      }
+    }
     return {
       key: `k:${e.from}→${e.to}:${e.relation}`,
       fromId: e.from,
       toId: e.to,
-      path: orthoPath(
-        a,
-        b,
-        [e.from, e.to, ...chainIds],
-        `血縁 ${e.from}→${e.to}〔${e.relation}〕`,
-      ),
+      label,
+      labelX,
+      labelY,
+      path: toPath(pts),
       dashed: dashed || disputed,
       disputed,
       marriage: false,
