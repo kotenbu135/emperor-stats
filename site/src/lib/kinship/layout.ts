@@ -25,6 +25,11 @@ import {
   PERSON_HEAD_ROOM_PX,
 } from "./chapters";
 import {
+  manualChapterOf,
+  type ManualChapter,
+  type ManualLayout,
+} from "./manual";
+import {
   type BandGraph,
   type KinNodeInfo,
   LINK_GAP_YEARS,
@@ -188,12 +193,19 @@ export interface KinshipChapterLayout {
   axisX: number;
   ticks: { y: number; label: string }[];
   bands: { label: string; x: number; width: number; labelX: number; labelY: number }[];
-  dynastyHeads: { label: string; x: number; y: number }[];
+  dynastyHeads: { key: string; label: string; x: number; y: number }[];
   nodes: KinshipNodeOut[];
   ties: KinshipTieOut[];
   drops: KinshipDropOut[];
   auxEdges: KinshipAuxOut[];
   arrows: KinshipArrowOut[];
+  /** 年→pxの写像(編集モードがpx→年の逆変換に使う)。
+   *  y >= zeroY: startYear + (y-zeroY)/PX_PER_YEAR / y < zeroY: startYear - (zeroY-y)/PRE_RATE */
+  axis: { startYear: number; zeroY: number };
+  /** 手動配置(凍結)の章か。 */
+  manual: boolean;
+  /** 品質ゲート違反(手動配置の章では警告として持ち回り、編集モードで表示する)。 */
+  violations: string[];
 }
 
 // --- レイアウト定数 ---
@@ -244,7 +256,11 @@ function shortName(s: string): string {
   return t.length > 0 ? t : s;
 }
 
-export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
+export function buildKinshipLayout(
+  src: KinshipSource,
+  /** 手動レイアウト(章ごとの凍結座標)。省略時は manual-layout.json。 */
+  manual?: ManualLayout,
+): KinshipChapterLayout[] {
   const emperorById = new Map(src.emperors.map((e) => [e.id, e]));
   const personById = new Map(src.persons.map((p) => [p.id, p]));
   // 1人が複数の系譜主張を持つ場合がある(蜀漢昭烈帝=中山靖王＋漢法統、魏文帝=曹参
@@ -444,7 +460,7 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
     if (!def || def.bands.length === 0)
       throw new Error(`kinship/layout: 章 "${chapterId}" のバンドが未定義です`);
     chapters.push(
-      buildChapter(def, src, {
+      buildChapter(def, src, manualChapterOf(manual, chapterId), {
         emperorById,
         personById,
         claimsByClaimant,
@@ -479,6 +495,8 @@ interface ResolvedRelations {
 function buildChapter(
   def: (typeof KINSHIP_CHAPTER_DEFS)[number],
   src: KinshipSource,
+  /** この章の手動配置(mode=manualのときだけ渡る)。 */
+  man: ManualChapter | undefined,
   rel: ResolvedRelations,
 ): KinshipChapterLayout {
   const bandOfDynKey = new Map<string, number>();
@@ -753,12 +771,21 @@ function buildChapter(
         h = nodeInfo.dispRole !== undefined ? PERSON_ROLE_H : PERSON_H;
         y = (top + bottom) / 2 - h / 2;
       }
+      // 手動配置(凍結座標)を最優先。表に無いノードは自動配置のまま(データ追加時の
+      // 取りこぼしは編集モードが「未配置」として示す)。皇帝の縦は年目盛りに固定。
+      const mp = man?.nodes[it.id];
+      let rx = bandXs[bi] + it.cx - it.w / 2;
+      let ry = y;
+      if (mp) {
+        if (typeof mp.x === "number") rx = mp.x;
+        if (typeof mp.year === "number" && !nodeInfo.isEmperor) ry = yOf(mp.year) - h / 2;
+      }
       const r: PlacedRect = {
-        x: bandXs[bi] + it.cx - it.w / 2,
-        y,
+        x: rx,
+        y: ry,
         w: it.w,
         h,
-        cx: bandXs[bi] + it.cx,
+        cx: rx + it.w / 2,
         bandIndex: bi,
       };
       rectById.set(it.id, r);
@@ -781,23 +808,48 @@ function buildChapter(
   // --- 夫婦の連結線 ---
   const ties: KinshipTieOut[] = [];
   const tieYOf = new Map<string, number>(); // spouseId → tie y
+  const tieXOf = new Map<string, [number, number]>(); // spouseId → 連結線のx区間
+  /**
+   * 手動配置の章では、連結線は「夫の辺 → 妃の辺」を最終座標から引き直す
+   * (パッキングが出したx区間は手で動かした後の位置と合わないため)。
+   * 同じ夫に妃が複数いて間に挟まる場合は、内側の妃の外縁から引く。
+   */
+  const manualTieX = (husbandId: string, spouseId: string): [number, number] => {
+    const h = rectById.get(husbandId)!;
+    const s = rectById.get(spouseId)!;
+    const toRight = s.cx > h.cx;
+    let edge = toRight ? h.x + h.w : h.x;
+    for (const [other, hus] of rel.attachedTo) {
+      if (hus !== husbandId || other === spouseId) continue;
+      const o = rectById.get(other);
+      if (!o) continue;
+      if (o.y >= s.y + s.h || s.y >= o.y + o.h) continue; // 高さが重ならない妃は経路外
+      if (toRight ? o.x + o.w <= s.x && o.x >= h.x : o.x >= s.x && o.x + o.w <= h.x + h.w)
+        edge = toRight ? Math.max(edge, o.x + o.w) : Math.min(edge, o.x);
+    }
+    return toRight ? [edge, s.x] : [s.x + s.w, edge];
+  };
   packed.forEach((pb, bi) => {
     for (const t of pb.ties) {
       const s = rectById.get(t.spouseId);
       if (!s) continue;
       const y = s.y + s.h / 2;
+      const [tx1, tx2] = man
+        ? manualTieX(t.husbandId, t.spouseId)
+        : [bandXs[bi] + t.x1, bandXs[bi] + t.x2];
+      tieXOf.set(t.spouseId, [tx1, tx2]);
       ties.push({
         husbandId: t.husbandId,
         spouseId: t.spouseId,
-        x1: bandXs[bi] + t.x1,
-        x2: bandXs[bi] + t.x2,
+        x1: tx1,
+        x2: tx2,
         y,
         double: t.double,
       });
       qsegs.push({
-        x1: bandXs[bi] + t.x1,
+        x1: tx1,
         y1: y,
-        x2: bandXs[bi] + t.x2,
+        x2: tx2,
         y2: y,
         ids: [t.husbandId, t.spouseId],
         what: `連結線 ${t.husbandId}═${t.spouseId}`,
@@ -839,7 +891,24 @@ function buildChapter(
     for (const j of pb.junctions) {
       const father = rectById.get(j.fatherId);
       if (!father) continue;
-      const jx = bandXs[bi] + j.x;
+      // 手動配置の章では垂下点も最終座標から決める: 子の中央に合わせ、
+      // 夫婦の連結線(母がいる場合)または父カプセルの幅の内側にクランプする
+      // (段差=無駄な曲がりを作らないため)。
+      let jx = bandXs[bi] + j.x;
+      if (man) {
+        const kidCxs = j.children
+          .map((c) => rectById.get(c)?.cx)
+          .filter((v): v is number => v !== undefined);
+        const mid =
+          kidCxs.length > 0
+            ? (Math.min(...kidCxs) + Math.max(...kidCxs)) / 2
+            : father.cx;
+        const range =
+          j.motherId !== null && tieXOf.has(j.motherId)
+            ? tieXOf.get(j.motherId)!
+            : ([father.x + 10, father.x + father.w - 10] as [number, number]);
+        jx = Math.min(Math.max(mid, Math.min(...range)), Math.max(...range));
+      }
       let topY: number;
       if (j.motherId !== null && tieYOf.has(j.motherId)) {
         topY = tieYOf.get(j.motherId)!;
@@ -1320,6 +1389,8 @@ function buildChapter(
   // (「無駄な線の曲がり・線が他のものを横切るのは禁止」のハード制約化。
   //  横断が出る配置はキュレーション(バンド順・CHILD_ORDER_OVERRIDES)や
   //  ルーティングの修正で解消してからでないとビルドできない)
+  // 手動配置(mode=manual)の章では警告に留め、編集モードのパネルに出す。
+  let gateViolations: string[] = [];
   {
     const violations: string[] = [...jogViolations];
     for (const seg of qsegs) {
@@ -1376,11 +1447,15 @@ function buildChapter(
       }
     }
     if (violations.length > 0) {
-      throw new Error(
+      const msg =
         `kinship/layout: 章「${def.title}」で品質ゲート違反(横断・重なり・垂下点の段差・年線整合)があります(${violations.length}件):\n` +
-          violations.join("\n"),
-      );
+        violations.join("\n");
+      // 手動配置の章では配置の決定権はユーザーにあるので、ビルドは落とさず
+      // 警告として編集モードのパネル・ビルドログに出す。
+      if (man) console.warn(msg);
+      else throw new Error(msg);
     }
+    gateViolations = violations;
   }
 
   // --- バンド見出し・王朝見出し・目盛り ---
@@ -1410,7 +1485,7 @@ function buildChapter(
   });
   // 王朝見出しは複数王朝が同居するバンドのみ(単独王朝バンドはバンド見出しで足りる)。
   // 位置は最初のカプセルの左肩(中央上は垂下線が通るため、文字と線が必ず被る)。
-  const dynastyHeads: { label: string; x: number; y: number }[] = [];
+  const dynastyHeads: { key: string; label: string; x: number; y: number }[] = [];
   for (const bandDef of def.bands) {
     if (bandDef.dynastyKeys.length < 2) continue;
     for (const dk of bandDef.dynastyKeys) {
@@ -1422,6 +1497,7 @@ function buildChapter(
       if (!first) continue;
       const off = DYNASTY_HEAD_OFFSET[dk];
       dynastyHeads.push({
+        key: dk,
         label: dk.split("__")[0],
         x: first.r.x + (off?.dx ?? 0),
         y: first.r.y - 7 + (off?.dy ?? 0),
@@ -1465,6 +1541,39 @@ function buildChapter(
       );
   }
 
+  // --- 見出し・ラベルの手動位置(編集モードでドラッグしたもの)を反映 ---
+  // キー: band:<バンド名> / dyn:<dynastyKey> / arrow:<key> / aux:<key>
+  if (man?.labels) {
+    for (const b of bands) {
+      const p = man.labels[`band:${b.label}`];
+      if (p) {
+        b.labelX = p.x;
+        b.labelY = p.y;
+      }
+    }
+    for (const h of dynastyHeads) {
+      const p = man.labels[`dyn:${h.key}`];
+      if (p) {
+        h.x = p.x;
+        h.y = p.y;
+      }
+    }
+    for (const a of arrows) {
+      const p = man.labels[`arrow:${a.key}`];
+      if (p) {
+        a.labelX = p.x;
+        a.labelY = p.y;
+      }
+    }
+    for (const e of auxEdges) {
+      const p = man.labels[`aux:${e.key}`];
+      if (p && e.label !== undefined) {
+        e.labelX = p.x;
+        e.labelY = p.y;
+      }
+    }
+  }
+
   // 目盛り(歴史年の25年刻み・開始年から。0年は暦に存在しないため1年へ置換)。
   const ticks: { y: number; label: string }[] = [];
   for (let h = startHist; ; h += 25) {
@@ -1478,8 +1587,12 @@ function buildChapter(
     Math.max(...[...rectById.values()].map((r) => r.y + r.h), yOf(maxEff)) +
     M_BOTTOM;
   // バンドは列共有で最後のバンドが右端とは限らないため、全バンドの右端の最大をとる。
+  // 手動配置でバンド幅の外へ出したノードも収める。
   const width =
-    Math.max(...packed.map((pb, i) => bandXs[i] + pb.width)) + 60;
+    Math.max(
+      ...packed.map((pb, i) => bandXs[i] + pb.width),
+      ...[...rectById.values()].map((r) => r.x + r.w),
+    ) + 60;
 
   return {
     id: def.id,
@@ -1496,6 +1609,9 @@ function buildChapter(
     drops,
     auxEdges,
     arrows,
+    axis: { startYear, zeroY: yOf(startYear) },
+    manual: man !== undefined,
+    violations: gateViolations,
   };
 
   function buildNode(

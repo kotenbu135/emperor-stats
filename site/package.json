@@ -9,6 +9,7 @@
     "predev": "npm run sync-portraits && npm run build-emperor-notes && npm run build-data-distribution",
     "prebuild": "npm run sync-portraits && npm run build-emperor-notes && npm run build-data-distribution",
     "dev": "next dev",
+    "kinship-editor": "node ../scripts/kinship-editor-server.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

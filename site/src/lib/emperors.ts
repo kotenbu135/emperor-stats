@@ -35,6 +35,7 @@ import { buildRiverTimeline, type RiverTimelineData } from "@/lib/timeline-river
 import {
   buildKinshipLayout,
   type KinshipChapterLayout,
+  type KinshipSource,
   type KinshipSourceClaim,
   type KinshipSourceEdge,
   type KinshipSourceEmperor,
@@ -1414,6 +1415,18 @@ function truncateNote(note: string, max = 160): string {
 let kinshipCache: KinshipChapterLayout[] | null = null;
 export function getKinshipGraphData(): KinshipChapterLayout[] {
   if (kinshipCache) return kinshipCache;
+  kinshipCache = buildKinshipLayout(getKinshipSource());
+  return kinshipCache;
+}
+
+/**
+ * レイアウト計算の入力(章スコープの皇帝・人物・エッジ)。ブラウザの編集モードが
+ * 同じ入力でレイアウトを再計算できるよう、/kinship-source(開発時のみ実データ)から
+ * 配信する。
+ */
+let kinshipSourceCache: KinshipSource | null = null;
+export function getKinshipSource(): KinshipSource {
+  if (kinshipSourceCache) return kinshipSourceCache;
   const kinshipPath = path.join(process.cwd(), "..", "data", "kinship.json");
   const kin = JSON.parse(fs.readFileSync(kinshipPath, "utf-8")) as RawKinship;
 
@@ -1559,8 +1572,8 @@ export function getKinshipGraphData(): KinshipChapterLayout[] {
       sourcePage: c.source.page,
     }));
 
-  kinshipCache = buildKinshipLayout({ emperors, persons, edges, claims });
-  return kinshipCache;
+  kinshipSourceCache = { emperors, persons, edges, claims };
+  return kinshipSourceCache;
 }
 
 export interface PortraitCredit {

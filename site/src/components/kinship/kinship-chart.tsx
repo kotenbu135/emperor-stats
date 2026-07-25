@@ -17,6 +17,7 @@ import {
 } from "@/components/charts/scroll-bar-chart";
 import { EmperorTooltip } from "@/components/charts/emperor-tooltip";
 import { useDetailOutlet } from "@/components/emperors/emperor-detail-dialog";
+import { useKinshipEditor } from "@/components/kinship/kinship-editor";
 import { BASE_PATH } from "@/lib/base-path";
 import type { EmperorRecord } from "@/lib/emperor-types";
 import type {
@@ -54,9 +55,12 @@ function nodeEdge(n: KinshipNodeOut): string {
   return `color-mix(in srgb, var(--series-${n.colorSlot}) 82%, var(--background))`;
 }
 
-export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
+export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterLayout }) {
   const { setTip, TipOutlet } = useTipOutlet<KinshipTip>();
   const { openDetail, DetailOutlet } = useDetailOutlet();
+  // 開発時の手動レイアウト編集モード(?edit=<章id>)。通常表示では何もしない。
+  const editor = useKinshipEditor(serverLayout);
+  const layout = editor.layout;
 
   // ダイアログに出すフルEmperorRecordは開く時に/emperor-records/{id}(静的書き出し)を
   // fetchして取得する(emperor-grid.tsxと同じ方式・Mapキャッシュ+最新要求id確認つき)。
@@ -222,6 +226,15 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
               )}
               {e.label !== undefined && (
                 <text
+                  onPointerDown={
+                    editor.onLabelPointerDown
+                      ? (ev) =>
+                          editor.onLabelPointerDown!(
+                            ev as unknown as React.PointerEvent<SVGGElement>,
+                            `aux:${e.key}`,
+                          )
+                      : undefined
+                  }
                   x={e.labelX}
                   y={e.labelY}
                   textAnchor="middle"
@@ -261,6 +274,15 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
                 markerEnd={`url(#${markerId})`}
               />
               <text
+                onPointerDown={
+                  editor.onLabelPointerDown
+                    ? (ev) =>
+                        editor.onLabelPointerDown!(
+                          ev as unknown as React.PointerEvent<SVGGElement>,
+                          `arrow:${a.key}`,
+                        )
+                    : undefined
+                }
                 x={a.labelX}
                 y={a.labelY}
                 textAnchor="middle"
@@ -293,6 +315,15 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
             .map((b) => (
               <text
                 key={b.label}
+                onPointerDown={
+                  editor.onLabelPointerDown
+                    ? (ev) =>
+                        editor.onLabelPointerDown!(
+                          ev as unknown as React.PointerEvent<SVGGElement>,
+                          `band:${b.label}`,
+                        )
+                    : undefined
+                }
                 x={b.labelX}
                 y={b.labelY}
                 textAnchor="middle"
@@ -313,6 +344,15 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
           {layout.dynastyHeads.map((h) => (
             <text
               key={`${h.label}:${h.y}`}
+              onPointerDown={
+                editor.onLabelPointerDown
+                  ? (ev) =>
+                      editor.onLabelPointerDown!(
+                        ev as unknown as React.PointerEvent<SVGGElement>,
+                        `dyn:${h.key}`,
+                      )
+                  : undefined
+              }
               x={h.x}
               y={h.y}
               textAnchor="start"
@@ -336,7 +376,19 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
               // 描画結果の幾何をHTMLから機械照合するためのQAフック(ノードid)。
               // curlしたSVGのrectとノードidを対応づけて距離を測る(KINSHIP.md参照)。
               data-kid={n.id}
-              className={n.kind === "emperor" ? "cursor-pointer" : undefined}
+              onPointerDown={
+                editor.onNodePointerDown
+                  ? (ev) =>
+                      editor.onNodePointerDown!(ev, n.id, n.kind === "emperor")
+                  : undefined
+              }
+              className={
+                editor.active
+                  ? "cursor-move"
+                  : n.kind === "emperor"
+                    ? "cursor-pointer"
+                    : undefined
+              }
               onMouseMove={(ev) =>
                 setTip(
                   n.empTip !== null
@@ -346,7 +398,7 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
               }
               onMouseLeave={hideTip}
               onClick={
-                n.kind === "emperor"
+                n.kind === "emperor" && !editor.active
                   ? () => {
                       // ドラッグで名前を選択(コピー)した直後のclickでは開かない。
                       if (window.getSelection()?.toString()) return;
@@ -462,6 +514,7 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
         )}
       />
       <DetailOutlet />
+      {editor.panel}
     </div>
   );
 }
