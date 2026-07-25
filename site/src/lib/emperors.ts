@@ -1425,41 +1425,53 @@ export function getKinshipGraphData(): KinshipChapterLayout[] {
   );
   const covered = data.emperors.filter((e) => scopeDynKeys.has(dynastyKey(e.dynasty)));
 
-  // 「第N代」: reigns[].dynastyOrderがあれば採用し、無い王朝は在位開始順から導出する
-  // (両方あるケースは一致をassert。表示用の機械的導出で、調査データの自動生成には
+  // 「第N代」: 調査済みの reigns[].dynastyOrder を最優先で採用し、無い在位だけ
+  // 在位開始順から導出する(表示用の機械的補完で、調査データの自動生成には
   // 当たらない。dynastyOrderは374在位中238件がnull)。
+  // dynastyOrder は「王朝自身の代数」で、皇帝として収録した人物だけを数えた
+  // 導出値とは一致しないことが多い:
+  //  (1) 皇帝を称さなかった君主を含む代数(前涼張祚=涼王を含めて第7代・皇帝としては
+  //      1人目、成漢李雄=李特/李流を含めて第3代、前秦苻健=苻洪を含めて第2代など)。
+  //  (2) 同年に複数人が即位した王朝(後趙349年の石世/石遵/石鑑、西燕386年の3人など)は
+  //      startDate が揃わず在位開始順の機械ソートでは前後が入れ替わる。
+  // したがって両者の一致はassertしない(以前は一致を要求していたが、東晋・十六国章の
+  // 追加で上記の正当な不一致が30件超になったため方針を変更)。整合性チェックは
+  // 「同一王朝内で第N代が重複しないこと」に置き換える。
   const ordinalsById = new Map<string, number[]>();
   {
     const byDynKey = new Map<
       string,
-      { id: string; idx: number; year: number; date: string }[]
+      { id: string; idx: number; year: number; date: string; order: number | null }[]
     >();
     for (const e of covered) {
       const key = dynastyKey(e.dynasty);
       e.reigns.forEach((r, idx) => {
         byDynKey.set(key, [
           ...(byDynKey.get(key) ?? []),
-          { id: e.id, idx, year: r.startYear, date: r.startDate ?? "" },
+          {
+            id: e.id,
+            idx,
+            year: r.startYear,
+            date: r.startDate ?? "",
+            order: typeof r.dynastyOrder === "number" ? r.dynastyOrder : null,
+          },
         ]);
       });
     }
-    for (const arr of byDynKey.values()) {
+    for (const [key, arr] of byDynKey) {
       arr.sort((p, q) => p.year - q.year || p.date.localeCompare(q.date));
+      const seen = new Map<number, string>();
       arr.forEach((r, i) => {
+        const n = r.order ?? i + 1;
+        const dup = seen.get(n);
+        if (dup !== undefined)
+          throw new Error(
+            `kinship: ${key} の第${n}代が ${dup} と ${r.id} で重複しています。dynastyOrderの個別確認が必要です`,
+          );
+        seen.set(n, r.id);
         const list = ordinalsById.get(r.id) ?? [];
-        list[r.idx] = i + 1;
+        list[r.idx] = n;
         ordinalsById.set(r.id, list);
-      });
-    }
-    for (const e of covered) {
-      e.reigns.forEach((r, idx) => {
-        if (typeof r.dynastyOrder === "number") {
-          const derived = ordinalsById.get(e.id)![idx];
-          if (r.dynastyOrder !== derived)
-            throw new Error(
-              `kinship: ${e.id} の第N代導出(${derived})がdynastyOrder(${r.dynastyOrder})と一致しません。即位順の個別確認が必要です`,
-            );
-        }
       });
     }
   }

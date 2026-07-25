@@ -79,8 +79,39 @@ export const KINSHIP_CHAPTER_DEFS: KinshipChapterDef[] = [
       { label: "西晋", dynastyKeys: ["西晋__晋"] },
     ],
   },
+  {
+    id: "dongjin-shiliuguo",
+    title: "東晋・十六国",
+    period: "304年 – 439年",
+    // 13政権55人。同姓の連続政権は1バンド(=1家系図)にまとめる:
+    // 燕は前燕・後燕・西燕・南燕とも慕容皝の子孫なので1バンド(儁=前燕・垂=後燕・
+    // 沖/泓=西燕・徳/納=南燕がすべて皝の子で、分割すると垂下線がバンド跨ぎの
+    // 補助エッジに落ちてしまう。第1章の漢(劉氏)と同じ扱い)。
+    // バンド順の制約:
+    // - 東晋を最左(章の主役・唯一章の全期間を覆う)。
+    // - 楚(桓楚)は東晋の隣(安帝→桓玄の禅譲矢印＋南康公主〔明帝の娘・桓温の妻〕の
+    //   バンド跨ぎ親エッジを最短にする)。
+    // - 前趙と後趙は隣接(劉曜の娘・劉氏が石虎の皇后＝石世の生母で、前趙バンドから
+    //   後趙バンドへ親エッジが渡る)。
+    // 他は年代順に並べる(年代が重ならないバンドは列を共有するので、幅は
+    // バンド数ほどには増えない)。
+    bands: [
+      { label: "東晋", dynastyKeys: ["東晋__晋"] },
+      { label: "楚（桓楚）", dynastyKeys: ["楚（桓楚）__楚"] },
+      { label: "成漢", dynastyKeys: ["成漢__成漢"] },
+      { label: "前趙（漢趙）", dynastyKeys: ["前趙（漢趙）__前趙"] },
+      { label: "後趙", dynastyKeys: ["後趙__後趙"] },
+      { label: "前涼", dynastyKeys: ["前涼__前涼"] },
+      {
+        label: "燕（慕容氏）",
+        dynastyKeys: ["前燕__前燕", "後燕__後燕", "西燕__西燕", "南燕__南燕"],
+      },
+      { label: "前秦", dynastyKeys: ["前秦__前秦"] },
+      { label: "後秦", dynastyKeys: ["後秦__後秦"] },
+      { label: "夏", dynastyKeys: ["夏__夏"] },
+    ],
+  },
   // --- 以下はフェーズ2で実装する章の枠(バンド未キュレーション) ---
-  { id: "dongjin-shiliuguo", title: "東晋・十六国", period: "304年 – 439年", bands: [] },
   { id: "nanbeichao", title: "南北朝", period: "386年 – 589年", bands: [] },
   { id: "sui-tang", title: "隋唐", period: "581年 – 907年", bands: [] },
   { id: "wudai-song", title: "五代十国・宋遼金西夏", period: "907年 – 1279年", bands: [] },
@@ -90,7 +121,11 @@ export const KINSHIP_CHAPTER_DEFS: KinshipChapterDef[] = [
 ];
 
 /** 描画を有効化した章(パイロット段階は第1章のみ)。 */
-export const KINSHIP_ENABLED_CHAPTER_IDS: string[] = ["qin-han", "sanguo-xijin"];
+export const KINSHIP_ENABLED_CHAPTER_IDS: string[] = [
+  "qin-han",
+  "sanguo-xijin",
+  "dongjin-shiliuguo",
+];
 
 /**
  * ブリッジ人物のバンド帰属の明示指定(自動解決の例外)。値はバンドlabel。
@@ -129,6 +164,23 @@ export const CHILD_ORDER_OVERRIDES: Record<string, number> = {
   // - jin-simalun(司馬倫・301年)の懿からの長い垂下線が司馬伷/覲を掠める。西晋を最右
   //   バンドにした上で右端固定し、バンド外側の余白へ逃がす。
   "jin-simalun": 900,
+  // 東晋・十六国:
+  // - 簡文帝(372即位・元帝の末子): 元帝からの垂下線が兄の成帝系(康帝・穆帝・
+  //   庾文君)を縦断する。右端固定で東晋バンドの右脇へ逃がす(孝武帝以降の
+  //   末期東晋がまとめて右カラムへ移り、年代順にも素直になる)。
+  "dongjin-jianwendi": 900,
+  // - 張祚(354即位・張駿の子): 兄・張重華の子の張耀霊(在位344〜355の涼王)を
+  //   垂下線が縦断する。右端固定。
+  "qianliang-zhangzuo": 900,
+  // - 石世(石虎と皇后劉氏の子): 母・劉氏は「子の平均xの側」に置かれるため、
+  //   石世を兄弟の左端にすると劉氏が石虎の左脇に来る。劉氏は左隣の前趙バンドの
+  //   父・劉曜から親エッジを受けるので、左側に置かないと線が石虎のカプセルを
+  //   横断する(既定順だと右脇に来て横断していた)。
+  "houzhao-shishi": -900,
+  // - 石遵(石虎と鄭櫻桃の子): 石世と同じ左側に母子が2組並ぶと、外側の垂下点合わせの
+  //   シフトが内側(石世)まで巻き込んで劉氏の垂下点に段差が出る。石遵を右端固定に
+  //   すると母・鄭櫻桃が石虎の右脇に移り、左右に1組ずつ分かれて段差が解消する。
+  "houzhao-shizun": 900,
 };
 
 /**
@@ -175,6 +227,13 @@ export const CONSORT_BOTTOM_ATTACH = new Set<string>([
  */
 export const BAND_X_EXTRA: Record<string, number> = {
   "漢（赤眉軍）": 40,
+  // 前趙（漢趙）: 左隣の成漢バンドで李慕→李驤(成漢の追尊祖先チェーン)の長い
+  // 垂下線がバンド右端の外へはみ出し、前趙の劉豹・劉和を掠める。バンドの
+  // x配置はノード矩形だけを見て決まる(垂下線の通り道は見ない)ため、ここで広げる。
+  "前趙（漢趙）": 85,
+  // 楚（桓楚）: 簡文帝系を右端固定にしたことで東晋バンドの右カラムが伸び、
+  // 桓温→桓玄の長い垂下線・孝武帝→恭帝の垂下線と桓玄カプセルが干渉する。
+  "楚（桓楚）": 40,
 };
 
 /**
@@ -194,6 +253,18 @@ export const BAND_LABEL_ANCHOR: Record<
   西晋: { anchorId: "jin-wudi", dy: -13 },
   蜀漢: { anchorId: "shuhan-zhaoliedi", dy: -13 },
   呉: { anchorId: "wu-dadi", dy: -13 },
+  // 東晋・十六国も同様に、バンド最上部の追尊祖先(司馬懿・李慕・劉豹・周曷朱・
+  // 慕容皝・苻洪・姚弋仲・劉衛辰・張駿・桓温)でなく建国者(初代皇帝)に整列する。
+  東晋: { anchorId: "dongjin-yuandi", dy: -13 },
+  "楚（桓楚）": { anchorId: "huan-xuan", dy: -13 },
+  成漢: { anchorId: "chenghan-lixiong", dy: -13 },
+  "前趙（漢趙）": { anchorId: "qianzhao-liuyuan", dy: -13 },
+  後趙: { anchorId: "houzhao-shile", dy: -13 },
+  前涼: { anchorId: "qianliang-zhangzuo", dy: -13 },
+  "燕（慕容氏）": { anchorId: "qianyan-murongjun", dy: -13 },
+  前秦: { anchorId: "qianqin-fujian", dy: -13 },
+  後秦: { anchorId: "houqin-yaochang", dy: -13 },
+  夏: { anchorId: "xia-helianbobo", dy: -13 },
 };
 
 /**
@@ -256,6 +327,24 @@ export const KINSHIP_COLOR_BY_DYNKEY: Record<string, number> = {
   西晋__晋: 7,
   蜀漢__三国時代: 4,
   呉__三国時代: 2,
+  // 東晋・十六国: 東晋=紫(西晋と同じスロットで司馬氏の連続を示す)。十六国は
+  // 民族・王家ごとに1色(燕4政権は同族なので同色=緑)。
+  // 楚(桓楚)と前涼は--kinship-minor(藤): 桓楚は東晋を簒奪した1代限りの政権、
+  // 前涼は張祚1人だけが一時的に称帝した例外(他の涼王は皇帝を称していない)で、
+  // いずれも「並立の割拠政権」として扱う。
+  東晋__晋: 7,
+  "楚（桓楚）__楚": 0,
+  成漢__成漢: 5,
+  "前趙（漢趙）__前趙": 1,
+  後趙__後趙: 8,
+  前涼__前涼: 0,
+  前燕__前燕: 2,
+  後燕__後燕: 2,
+  西燕__西燕: 2,
+  南燕__南燕: 2,
+  前秦__前秦: 4,
+  後秦__後秦: 6,
+  夏__夏: 3,
 };
 
 /** 女性皇帝(emperors.jsonに性別フィールドが無いための表示メタ)。 */

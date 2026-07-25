@@ -25,6 +25,7 @@ import {
 } from "./chapters";
 import {
   type BandGraph,
+  EMPEROR_MIN_PX,
   type KinNodeInfo,
   LINK_GAP_YEARS,
   NODE_GAP,
@@ -381,6 +382,24 @@ export function buildKinshipLayout(src: KinshipSource): KinshipChapterLayout[] {
       if (!h) continue;
       est.set(e.from, h.reigns[0].a + consortAlignYears);
     }
+    // 逆向き(皇帝 → 別バンドの人物の妻)も同様に揃える。妃は「夫が人物ピルの場合は
+    // ピルの上下中央」に描かれるため、夫(人物)の配置年を父(皇帝)の在位中央に
+    // 合わせると、父からの親エッジが曲がりのない水平1本になる
+    // (明帝→南康公主〔桓温の妻〕。既定のL字経路だと縦区間が真下の成帝を縦断する)。
+    for (const e of src.edges) {
+      if (e.type !== "kinship") continue;
+      if (e.relation !== "実父" && e.relation !== "実母") continue;
+      const father = emperorById.get(e.from);
+      if (!father) continue;
+      const husband = attachedTo.get(e.to);
+      if (husband === undefined || emperorById.has(husband)) continue;
+      // 短い在位のカプセルは最小高(EMPEROR_MIN_PX)まで下へ伸ばして描かれるので、
+      // 在位年の中点ではなく「描かれる矩形の中央」に相当する年へ揃える。
+      const first = father.reigns[0].a;
+      const last = father.reigns[father.reigns.length - 1].b;
+      const span = Math.max(last - first, EMPEROR_MIN_PX / PX_PER_YEAR);
+      est.set(husband, first + span / 2);
+    }
   }
 
   // --- 家系図の上下整合 ---
@@ -566,6 +585,14 @@ function buildChapter(
     });
   }
 
+  // 年目盛りの開始年(章の最初の在位の直前の25年目盛り)。パッキングでも使うため
+  // 年→px写像より先に確定させる(これより前の人物は圧縮領域=PRE_RATE px/年)。
+  const startHist =
+    Math.floor(
+      fromAstroYear(Math.min(...chapterEmperors.map((e) => e.reigns[0].a))) / 25,
+    ) * 25;
+  const startYear = startHist < 0 ? startHist + 1 : startHist;
+
   const packed: PackedBand[] = def.bands.map((bandDef, bi) => {
     const memberIds = [...bandOfNode.entries()]
       .filter(([, b]) => b === bi)
@@ -592,6 +619,8 @@ function buildChapter(
       spousesOf,
       childOrderOf: rel.childOrderOf,
       motherOf: rel.motherOf,
+      // startYearは既に天文年(startHistの負年補正済み)。
+      preStartYear: startYear,
     };
     return packBand(g);
   });
@@ -645,11 +674,6 @@ function buildChapter(
   const allItems = packed.flatMap((pb) => pb.items);
   const minEff = Math.min(...allItems.map((it) => it.effStart));
   const maxEff = Math.max(...allItems.map((it) => it.effEnd));
-  const startHist =
-    Math.floor(
-      fromAstroYear(Math.min(...chapterEmperors.map((e) => e.reigns[0].a))) / 25,
-    ) * 25;
-  const startYear = startHist < 0 ? startHist + 1 : startHist;
   const preH = (startYear - Math.min(minEff, startYear)) * PRE_RATE;
   const yOf = (y: number): number =>
     y >= startYear
@@ -982,6 +1006,35 @@ function buildChapter(
     return toPath(pts);
   };
 
+  /**
+   * 補助線の始点側に「同じ高さで連なる配偶者ピル」があるとき、始点の矩形を
+   * その外縁まで広げる(明帝→南康公主の水平線が、明帝の右脇の庾文君を横切る
+   * のを防ぐ。線は 明帝═庾文君 の連結線の延長として妃の外縁から出る)。
+   */
+  const withConsortChain = (
+    ownerId: string,
+    a: PlacedRect,
+    b: PlacedRect,
+  ): { rect: PlacedRect; ids: string[] } => {
+    const ids: string[] = [];
+    let x0 = a.x;
+    let x1 = a.x + a.w;
+    const toRight = a.cx < b.cx;
+    for (const [spouseId, husbandId] of rel.attachedTo) {
+      if (husbandId !== ownerId) continue;
+      const r = rectById.get(spouseId);
+      if (!r) continue;
+      // 高さが重ならない(上下に振り分けた)妃は線の経路に無いので対象外。
+      if (r.y >= a.y + a.h || a.y >= r.y + r.h) continue;
+      if (toRight ? r.x + 1 >= x1 : r.x + r.w <= x0 + 1) {
+        ids.push(spouseId);
+        x0 = Math.min(x0, r.x);
+        x1 = Math.max(x1, r.x + r.w);
+      }
+    }
+    return { rect: { ...a, x: x0, w: x1 - x0 }, ids };
+  };
+
   // 人物の「王朝コンテキスト」: 皇帝=dynastyKey、人物=所属バンドの先頭dynastyKey。
   const dynContext = (id: string): string => {
     const e = rel.emperorById.get(id);
@@ -1138,16 +1191,22 @@ function buildChapter(
 
   function kinAux(
     e: KinshipSourceEdge,
-    a: PlacedRect,
+    a0: PlacedRect,
     b: PlacedRect,
     dashed: boolean,
   ): KinshipAuxOut {
     const disputed = e.veracity === "disputed";
+    const { rect: a, ids: chainIds } = withConsortChain(e.from, a0, b);
     return {
       key: `k:${e.from}→${e.to}:${e.relation}`,
       fromId: e.from,
       toId: e.to,
-      path: orthoPath(a, b, [e.from, e.to], `血縁 ${e.from}→${e.to}〔${e.relation}〕`),
+      path: orthoPath(
+        a,
+        b,
+        [e.from, e.to, ...chainIds],
+        `血縁 ${e.from}→${e.to}〔${e.relation}〕`,
+      ),
       dashed: dashed || disputed,
       disputed,
       marriage: false,

@@ -37,10 +37,17 @@ const GAP_X = 12; // 横方向の最小間隔
 // クリアランスを確保する)。子の位置に合わせて伸ばす方向は自由。
 const TIE_LEN = 28;
 const MIN_SIB_SEP = 24; // 兄弟ルート間の最小x差(横並び順の保証)
+/** 同じ夫に複数の妃が連なるとき、内側の妃のピルと次の連結線の間に空ける隙間。 */
+const CHAIN_GAP = 4;
 /** 親の下辺と子の上辺の間に確保する縦室(垂下点→バー→子の線が見える最小高)。 */
 export const LINK_GAP_YEARS = 12 / PX_PER_YEAR;
 /** 人物ノードが年空間で占有する片側幅。 */
 export const PERSON_HALF_SPAN = PERSON_MIN_PX / 2 / PX_PER_YEAR;
+/** 章開始年より前(圧縮領域)の縦スケール(px/年)。layout.tsのPRE_RATEと同じ値。
+ *  圧縮領域の人物ピルは高さが固定(PERSON_H)のまま年スケールだけ1/4になるため、
+ *  パッキングの年空間占有もこの比率で広げないと兄弟ピルどうしがpxで重なる
+ *  (第3章の司馬師/司馬昭で顕在化。年空間では非重複でも実描画では重なる)。 */
+export const PRE_RATE = 2;
 /** 衝突判定の年方向パディング(px換算でNODE_GAP相当)。カプセルは実区間いっぱいに
  *  描くため、無関係なノードどうしの縦の視覚的間隔はこのパディングだけで作る。 */
 const PAD_Y = NODE_GAP / PX_PER_YEAR;
@@ -80,6 +87,9 @@ export interface BandGraph {
   childOrderOf: Map<string, number>;
   /** childId → 実母id(配偶者としてattachされている場合のみ)。 */
   motherOf: Map<string, string>;
+  /** 章の年目盛り開始年。これより前の人物は圧縮領域(PRE_RATE px/年)に描かれる
+   *  ため、年空間の占有をその比率で広げる(yearSpan)。 */
+  preStartYear?: number;
 }
 
 // --- 出力 ---
@@ -144,8 +154,14 @@ function consortWidth(name: string): number {
   return Math.max(48, Math.min(124, name.length * 10.5 + 12));
 }
 
-/** ノードが占有する年区間(パッキング用の初期値)。 */
-function yearSpan(info: KinNodeInfo): { start: number; end: number } {
+/** ノードが占有する年区間(パッキング用の初期値)。
+ *  preStartYear(章の年目盛り開始年)より前の人物は圧縮領域(PRE_RATE px/年)に
+ *  描かれるので、同じピル高を確保するために年空間の占有を
+ *  PX_PER_YEAR/PRE_RATE 倍にする。 */
+function yearSpan(
+  info: KinNodeInfo,
+  preStartYear?: number,
+): { start: number; end: number } {
   if (info.isEmperor && info.reign) {
     const start = info.reign.a;
     // 縦スケールは完全等間隔(局所引き伸ばしなし)のため、短い在位はカプセルの
@@ -155,10 +171,10 @@ function yearSpan(info: KinNodeInfo): { start: number; end: number } {
     return { start, end };
   }
   // 肩書き行つきの人物ピルは2行分の高さを占有する。
-  const half =
-    info.dispRole !== undefined
-      ? (PERSON_ROLE_H + NODE_GAP) / 2 / PX_PER_YEAR
-      : PERSON_HALF_SPAN;
+  const px = info.dispRole !== undefined ? PERSON_ROLE_H + NODE_GAP : PERSON_MIN_PX;
+  const rate =
+    preStartYear !== undefined && info.anchor < preStartYear ? PRE_RATE : PX_PER_YEAR;
+  const half = px / 2 / rate;
   return { start: info.anchor - half, end: info.anchor + half };
 }
 
@@ -319,12 +335,12 @@ export function packBand(g: BandGraph): PackedBand {
     const info = g.info.get(id)!;
     const children = childrenOf.get(id) ?? [];
     const w = nodeWidth(info);
-    const span = yearSpan(info);
+    const span = yearSpan(info, g.preStartYear);
 
     // --- 子サブツリーを左から詰める(時間非重複なら空間再利用) ---
     const rects: Rect[] = [];
     const childRoots = packSequence(children, rects, (childId, childRootX) => {
-      const childTop = yearSpan(g.info.get(childId)!).start;
+      const childTop = yearSpan(g.info.get(childId)!, g.preStartYear).start;
       if (childTop <= span.end + PAD_Y) return null;
       return { x0: childRootX - 2, x1: childRootX + 2, y0: span.end, y1: childTop };
     });
@@ -508,7 +524,10 @@ export function packBand(g: BandGraph): PackedBand {
           y0: spouseSpan.start,
           y1: spouseSpan.end,
         });
-        edge = side === "L" ? innerX - pl.sw : innerX + pl.sw;
+        // 次の妃の連結線は、内側の妃のピル外縁からさらにCHAIN_GAPだけ離して
+        // 引き始める(0だとピルの縁に線が接し、品質ゲートの「かぶり」に当たる)。
+        edge =
+          side === "L" ? innerX - pl.sw - CHAIN_GAP : innerX + pl.sw + CHAIN_GAP;
       }
     }
 
@@ -517,7 +536,9 @@ export function packBand(g: BandGraph): PackedBand {
       const motherId = key === "" ? null : key;
       const jx = motherId === null ? rootX : junctionOf.get(motherId)!;
       junctions.push({ fatherId: id, motherId, x: jx, children: kids });
-      const topKid = Math.min(...kids.map((c) => yearSpan(g.info.get(c)!).start));
+      const topKid = Math.min(
+        ...kids.map((c) => yearSpan(g.info.get(c)!, g.preStartYear).start),
+      );
       if (topKid > span.end)
         rects.push({ x0: jx - 2, x1: jx + 2, y0: span.end, y1: topKid });
     }
