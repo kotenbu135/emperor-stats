@@ -1194,6 +1194,36 @@
     "幼主为守国天王"
    ]
   },
+  "beisong-huizong|accessionRoute.note|39579149fc99": {
+   "id": "beisong-huizong",
+   "path": "accessionRoute.note",
+   "span": "於次端王當立",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-huizong.txt",
+   "frags": [
+    "于次端王当立"
+   ]
+  },
+  "beisong-huizong|accessionRoute.note|91b4d3bfc9b7": {
+   "id": "beisong-huizong",
+   "path": "accessionRoute.note",
+   "span": "乃召端王入，即皇帝位，皇太后權同處分軍國事",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-huizong.txt",
+   "frags": [
+    "乃召端王入即皇帝位皇"
+   ]
+  },
+  "beisong-huizong|accessionRoute.note|f8bd8d1460b9": {
+   "id": "beisong-huizong",
+   "path": "accessionRoute.note",
+   "span": "大行皇帝無子",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-huizong.txt",
+   "frags": [
+    "大行皇帝无子"
+   ]
+  },
   "beisong-huizong|accessionRoute.note|f8ee56fa4b10": {
    "id": "beisong-huizong",
    "path": "accessionRoute.note",
@@ -2617,6 +2647,26 @@
     "戊戌上崩于福宁殿年三"
    ]
   },
+  "beisong-taizong|accessionRoute.note|0e2a455107f6": {
+   "id": "beisong-taizong",
+   "path": "accessionRoute.note",
+   "span": "開寶九年冬十月癸丑，太祖崩，帝遂即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-taizong.txt",
+   "frags": [
+    "开宝九年冬十月癸丑太"
+   ]
+  },
+  "beisong-taizong|accessionRoute.note|207380454ac9": {
+   "id": "beisong-taizong",
+   "path": "accessionRoute.note",
+   "span": "受命杜太后，傳位太宗。",
+   "status": "corpus",
+   "corpusFile": "china-history/宋史/本纪/第三章-卷三-原文.html",
+   "frags": [
+    "受命杜太后传位太宗"
+   ]
+  },
   "beisong-taizong|accessionRoute.note|5738a796a890": {
    "id": "beisong-taizong",
    "path": "accessionRoute.note",
@@ -2625,6 +2675,17 @@
    "corpusFile": "_corpus_cache/beisong-taizong.txt",
    "frags": [
     "后世不能无议"
+   ]
+  },
+  "beisong-taizong|accessionRoute.note|f1926cd4dbe1": {
+   "id": "beisong-taizong",
+   "path": "accessionRoute.note",
+   "span": "若夫太祖之崩不踰年而改元，涪陵縣公之貶死，武功王之自殺，宋后之不成喪，則後世不能",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-taizong.txt",
+   "frags": [
+    "若夫太祖之崩不逾年而",
+    "武功王之自杀宋后之不"
    ]
   },
   "beisong-taizong|ages.note|08348d0dce74": {
@@ -3140,6 +3201,46 @@
    "frags": [
     "三月丁卯占城国来贡壬",
     "皇太子柩前即位是日崩"
+   ]
+  },
+  "beisong-taizu|accessionRoute.note|2107e10e237d": {
+   "id": "beisong-taizu",
+   "path": "accessionRoute.note",
+   "span": "有以黃衣加太祖身，衆皆羅拜，呼萬歲",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-taizu.txt",
+   "frags": [
+    "有以黄衣加太祖身众皆"
+   ]
+  },
+  "beisong-taizu|accessionRoute.note|4d021c74169f": {
+   "id": "beisong-taizu",
+   "path": "accessionRoute.note",
+   "span": "夜五鼓，軍士集驛門，宣言策點檢為天子",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-taizu.txt",
+   "frags": [
+    "夜五鼓军士集驿门宣言"
+   ]
+  },
+  "beisong-taizu|accessionRoute.note|5c8561f8521d": {
+   "id": "beisong-taizu",
+   "path": "accessionRoute.note",
+   "span": "翰林承旨，陶榖出周恭帝，禪位制書于袖中",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-taizu.txt",
+   "frags": [
+    "翰林承旨陶榖出周恭帝"
+   ]
+  },
+  "beisong-taizu|accessionRoute.note|c6cec4225d5b": {
+   "id": "beisong-taizu",
+   "path": "accessionRoute.note",
+   "span": "遷恭帝及符后于西宮，易其帝號曰鄭王",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisong-taizu.txt",
+   "frags": [
+    "迁恭帝及符后于西宫易"
    ]
   },
   "beisong-taizu|ages.note|0cd49e44455e": {
@@ -3705,6 +3806,27 @@
     "天下蠲民租己卯帝崩皇"
    ]
   },
+  "beisongmo-liuyu|accessionRoute.note|64abfdd5e7c0": {
+   "id": "beisongmo-liuyu",
+   "path": "accessionRoute.note",
+   "span": "今立豫为子皇帝，既为邻国之君，又为大朝之子",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisongmo-liuyu.txt",
+   "frags": [
+    "今立豫为子皇帝既为邻"
+   ]
+  },
+  "beisongmo-liuyu|accessionRoute.note|7054eb66ca19": {
+   "id": "beisongmo-liuyu",
+   "path": "accessionRoute.note",
+   "span": "金人遣大同尹高慶裔、知制誥韓昉冊豫為皇帝，國號大齊",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisongmo-liuyu.txt",
+   "frags": [
+    "金人遣大同尹高庆裔知",
+    "诰韩昉册豫为皇帝国号"
+   ]
+  },
   "beisongmo-liuyu|ages.note|94f48426a5d3": {
    "id": "beisongmo-liuyu",
    "path": "ages.note",
@@ -3869,6 +3991,16 @@
    "frags": [
     "天会十五年诏废齐降封",
     "豫为蜀王豫称大号凡八"
+   ]
+  },
+  "beisongmo-zhangbangchang|accessionRoute.note|07679bd31176": {
+   "id": "beisongmo-zhangbangchang",
+   "path": "accessionRoute.note",
+   "span": "適金人奉冊寶至，邦昌北向拜舞受冊",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beisongmo-zhangbangchang.txt",
+   "frags": [
+    "适金人奉册宝至邦昌北"
    ]
   },
   "beisongmo-zhangbangchang|amnestyCount[0].note|855bd5f43af3": {
@@ -20930,6 +21062,26 @@
     "于幽兰轩末帝退保子城"
    ]
   },
+  "jin-shizong|accessionRoute.note|0f936c2e8f7f": {
+   "id": "jin-shizong",
+   "path": "accessionRoute.note",
+   "span": "官属诸军劝进，固让良久",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-shizong.txt",
+   "frags": [
+    "官属诸军劝进固让良久"
+   ]
+  },
+  "jin-shizong|accessionRoute.note|640dc1c08b97": {
+   "id": "jin-shizong",
+   "path": "accessionRoute.note",
+   "span": "完颜元宜等弑海陵于扬州",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-shizong.txt",
+   "frags": [
+    "完颜元宜等弑海陵于扬"
+   ]
+  },
   "jin-shizong|ages.note|045b5ddaed8f": {
    "id": "jin-shizong",
    "path": "ages.note",
@@ -21742,6 +21894,27 @@
    "frags": [
     "十三年正月丙午朔日有",
     "己巳上崩于明德宫年六"
+   ]
+  },
+  "jin-taizu|accessionRoute.note|1ea5397f884c": {
+   "id": "jin-taizu",
+   "path": "accessionRoute.note",
+   "span": "康宗即世，太祖袭位为都勃极烈",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-taizu.txt",
+   "frags": [
+    "康宗即世太祖袭位为都"
+   ]
+  },
+  "jin-taizu|accessionRoute.note|abaf0e7aa11f": {
+   "id": "jin-taizu",
+   "path": "accessionRoute.note",
+   "span": "收国元年正月壬申朔，群臣奉上尊号。是日，即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-taizu.txt",
+   "frags": [
+    "收国元年正月壬申朔群",
+    "臣奉上尊号是日即皇帝"
    ]
   },
   "jin-taizu|ages.note|10418bab6508": {
@@ -25966,6 +26139,17 @@
     "中萧思温南院枢密使高"
    ]
   },
+  "liao-muzong|accessionRoute.note|dd872935f9e5": {
+   "id": "liao-muzong",
+   "path": "accessionRoute.note",
+   "span": "世宗遇害。逆臣察割等伏诛。丁卯，即皇帝位，群臣上尊号曰天顺皇帝，改元应历",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liao-muzong.txt",
+   "frags": [
+    "世宗遇害逆臣察割等伏",
+    "帝位群臣上尊号曰天顺"
+   ]
+  },
   "liao-muzong|ages.note|7123acc5474b": {
    "id": "liao-muzong",
    "path": "ages.note",
@@ -26231,6 +26415,27 @@
    "frags": [
     "十一年春正月己酉朔如",
     "流皆失故道六月丁丑朔"
+   ]
+  },
+  "liao-shizong|accessionRoute.note|4dca6da6f8d0": {
+   "id": "liao-shizong",
+   "path": "accessionRoute.note",
+   "span": "太宗崩于栾城。戊寅，梓宫次镇阳，即皇帝位于柩前",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liao-shizong.txt",
+   "frags": [
+    "太宗崩于栾城戊寅梓宫",
+    "次镇阳即皇帝位于柩前"
+   ]
+  },
+  "liao-shizong|accessionRoute.note|a56fd0be3e4b": {
+   "id": "liao-shizong",
+   "path": "accessionRoute.note",
+   "span": "太后闻帝即位，遣太弟李胡率兵拒之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liao-shizong.txt",
+   "frags": [
+    "太后闻帝即位遣太弟李"
    ]
   },
   "liao-shizong|ages.note|c3c8edb12bf1": {
@@ -26572,6 +26777,36 @@
    "corpusFile": "_corpus_cache/liao-taizong.txt",
    "frags": [
     "戊辰次高邑不豫丁丑崩"
+   ]
+  },
+  "liao-taizu|accessionRoute.note|4d461f473a53": {
+   "id": "liao-taizu",
+   "path": "accessionRoute.note",
+   "span": "太祖三让，从之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liao-taizu.txt",
+   "frags": [
+    "太祖三让从之"
+   ]
+  },
+  "liao-taizu|accessionRoute.note|66eb5fdedbeb": {
+   "id": "liao-taizu",
+   "path": "accessionRoute.note",
+   "span": "群臣奉遗命请立太祖",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liao-taizu.txt",
+   "frags": [
+    "群臣奉遗命请立太祖"
+   ]
+  },
+  "liao-taizu|accessionRoute.note|747c4da7797f": {
+   "id": "liao-taizu",
+   "path": "accessionRoute.note",
+   "span": "大聖大明天皇帝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liao-taizu.txt",
+   "frags": [
+    "大圣大明天皇帝"
    ]
   },
   "liao-taizu|ages.note|d0ec12b2f81e": {
@@ -33884,6 +34119,16 @@
     "福京福州为天兴府布政",
     "八月甲午上知仙霞不可",
     "守决意幸赣自延平出奔"
+   ]
+  },
+  "nansong-duanzong|accessionRoute.note|98b61fb9ee1b": {
+   "id": "nansong-duanzong",
+   "path": "accessionRoute.note",
+   "span": "宜中等乃立昰于福州，以為宋主",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/nansong-duanzong.txt",
+   "frags": [
+    "宜中等乃立昰于福州以"
    ]
   },
   "nansong-duanzong|ages.note|4d975a372c2c": {
@@ -61625,6 +61870,26 @@
     "尉眷攻昌于上邽昌退屯"
    ]
   },
+  "xiliao-dezong|accessionRoute.note|4ae42f1745e6": {
+   "id": "xiliao-dezong",
+   "path": "accessionRoute.note",
+   "span": "我在，汝何敢立淳",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "我在汝何敢立淳"
+   ]
+  },
+  "xiliao-dezong|accessionRoute.note|5969ca95e72c": {
+   "id": "xiliao-dezong",
+   "path": "accessionRoute.note",
+   "span": "文武百官册立大石为帝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "文武百官册立大石为帝"
+   ]
+  },
   "xiliao-dezong|ages.note|089394df5275": {
    "id": "xiliao-dezong",
    "path": "ages.note",
@@ -61725,6 +61990,26 @@
    "corpusFile": "_corpus_cache/xiliao-dezong.txt",
    "frags": [
     "康国十年殁在位二十年"
+   ]
+  },
+  "xiliao-renzong|accessionRoute.note|83fb5a1bd1c8": {
+   "id": "xiliao-renzong",
+   "path": "accessionRoute.note",
+   "span": "子夷列即位，改元绍兴",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-renzong.txt",
+   "frags": [
+    "子夷列即位改元绍兴"
+   ]
+  },
+  "xiliao-renzong|accessionRoute.note|8f5813206eb7": {
+   "id": "xiliao-renzong",
+   "path": "accessionRoute.note",
+   "span": "遣命皇后权国",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-renzong.txt",
+   "frags": [
+    "遣命皇后权国"
    ]
   },
   "xiliao-renzong|ages.note|54241d6ab85c": {
@@ -61846,6 +62131,26 @@
    "corpusFile": "_corpus_cache/xiliao-renzong.txt",
    "frags": [
     "在位十三年殁庙号仁宗"
+   ]
+  },
+  "xiliao-tianxi|accessionRoute.note|2c40c32a4845": {
+   "id": "xiliao-tianxi",
+   "path": "accessionRoute.note",
+   "span": "仁宗次子直鲁古即位，改元天禧",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-tianxi.txt",
+   "frags": [
+    "仁宗次子直鲁古即位改"
+   ]
+  },
+  "xiliao-tianxi|accessionRoute.note|e1dc144d19f2": {
+   "id": "xiliao-tianxi",
+   "path": "accessionRoute.note",
+   "span": "遗诏以妹普速完权国",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-tianxi.txt",
+   "frags": [
+    "遗诏以妹普速完权国"
    ]
   },
   "xiliao-tianxi|ages.note|9f7deb040eef": {
@@ -62429,6 +62734,16 @@
     "大统元年春正月戊申皇",
     "帝即位于城西大赦改元",
     "十七年春三月庚戌帝崩"
+   ]
+  },
+  "xixia-chongzong|accessionRoute.note|5493e386d688": {
+   "id": "xixia-chongzong",
+   "path": "accessionRoute.note",
+   "span": "长子乾顺立，方三岁",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-chongzong.txt",
+   "frags": [
+    "长子干顺立方三岁"
    ]
   },
   "xixia-chongzong|amnestyCount[0].note|15afa0d02401": {
@@ -63152,6 +63467,16 @@
     "忧愤卒时月之十日也年"
    ]
   },
+  "xixia-jingzong|accessionRoute.note|535525973137": {
+   "id": "xixia-jingzong",
+   "path": "accessionRoute.note",
+   "span": "夏王赵德明卒",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-jingzong.txt",
+   "frags": [
+    "夏王赵德明卒"
+   ]
+  },
   "xixia-jingzong|ages.note|3e1168ccb7c7": {
    "id": "xixia-jingzong",
    "path": "ages.note",
@@ -63663,6 +63988,16 @@
     "诸将恐为变执见杀之见"
    ]
   },
+  "xixia-renzong|accessionRoute.note|538f9cce019d": {
+   "id": "xixia-renzong",
+   "path": "accessionRoute.note",
+   "span": "长子仁孝立，时年十六",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-renzong.txt",
+   "frags": [
+    "长子仁孝立时年十六"
+   ]
+  },
   "xixia-renzong|ages.note|177c4d514000": {
    "id": "xixia-renzong",
    "path": "ages.note",
@@ -63870,6 +64205,16 @@
     "仁宗墓号寿陵纯佑时年"
    ]
   },
+  "xixia-shenzong|accessionRoute.note|0c1fc57c8011": {
+   "id": "xixia-shenzong",
+   "path": "accessionRoute.note",
+   "span": "遵顼之立，史不详其故",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-shenzong.txt",
+   "frags": [
+    "遵顼之立史不详其故"
+   ]
+  },
   "xixia-shenzong|accessionRoute.note|74276097198d": {
    "id": "xixia-shenzong",
    "path": "accessionRoute.note",
@@ -63878,6 +64223,17 @@
    "corpusFile": "china-history/金史/列传/第七十二章-卷七十二-原文.html",
    "frags": [
     "安全薨族子遵顼立"
+   ]
+  },
+  "xixia-shenzong|accessionRoute.note|d78e94502f29": {
+   "id": "xixia-shenzong",
+   "path": "accessionRoute.note",
+   "span": "较安全卒前一月，安全有子承祯，不得嗣。金卫绍王无实录，莫得其故也",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-shenzong.txt",
+   "frags": [
+    "较安全卒前一月安全有",
+    "得嗣金卫绍王无实录莫"
    ]
   },
   "xixia-shenzong|ages.note|0788ea7adc4d": {
@@ -64486,6 +64842,37 @@
    "frags": [
     "蒙古兵深入城邑尽溃德",
     "在位四年改元一庙号献"
+   ]
+  },
+  "xixia-yizong|accessionRoute.note|2b7386f3268c": {
+   "id": "xixia-yizong",
+   "path": "accessionRoute.note",
+   "span": "委哥宁令非子，且无功，安得有国",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-yizong.txt",
+   "frags": [
+    "委哥宁令非子且无功安"
+   ]
+  },
+  "xixia-yizong|accessionRoute.note|6d2949e4595d": {
+   "id": "xixia-yizong",
+   "path": "accessionRoute.note",
+   "span": "谅祚书『讹庞立』，以见违命专擅，利立幼君，一人之私也",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-yizong.txt",
+   "frags": [
+    "谅祚书讹庞立以见违命",
+    "专擅利立幼君一人之私"
+   ]
+  },
+  "xixia-yizong|accessionRoute.note|f46f8101406b": {
+   "id": "xixia-yizong",
+   "path": "accessionRoute.note",
+   "span": "没藏讹庞立谅祚",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-yizong.txt",
+   "frags": [
+    "没藏讹庞立谅祚"
    ]
   },
   "xixia-yizong|ages.note|4fd6bc3ccbdf": {

@@ -66,10 +66,10 @@
      "label": "即位経路（多軸化移行中: 軸1〜4＋補助。表示ラベルは軸から導出）",
      "axesMigration": {
       "status": "in-progress",
-      "done": 259,
+      "done": 311,
       "total": 365,
-      "blocks": "秦漢19・後漢14・三国11・晋16・五胡十六国43・南朝35・北朝34・隋/隋末群雄/群雄21・唐32・五代十国34",
-      "note": "定義は data/schema/ADDITIONAL_SCHEMA.md 1節。サイト側の横展開は移行完了後。 移行過程で原典と食い違う旧判定を訂正したため（晋愍帝・東晋康帝・哀帝・廃帝・恭帝、前趙劉聡、成漢李期、前秦苻健・苻丕・苻登、夏赫連定、西燕慕容沖・慕容永、前趙劉曜、梁蕭紀、隋末薛仁杲、後梁末帝朱友貞、南漢殤帝劉玢・後主劉鋹、北漢劉継恩）、2026-07-26 に overall と本フェーズを in-progress に戻した。"
+      "blocks": "秦漢19・後漢14・三国11・晋16・五胡十六国43・南朝35・北朝34・隋/隋末群雄/群雄21・唐32・五代十国34・宋遼西夏金52",
+      "note": "定義は data/schema/ADDITIONAL_SCHEMA.md 1節。サイト側の横展開は移行完了後。 移行過程で原典と食い違う旧判定を訂正したため（晋愍帝・東晋康帝・哀帝・廃帝・恭帝、前趙劉聡、成漢李期、前秦苻健・苻丕・苻登、夏赫連定、西燕慕容沖・慕容永、前趙劉曜、梁蕭紀、隋末薛仁杲、後梁末帝朱友貞、南漢殤帝劉玢・後主劉鋹、北漢劉継恩、金世宗、西夏毅宗）、2026-07-26 に overall と本フェーズを in-progress に戻した。"
      }
     },
     "eraChangeCount": {
@@ -196,7 +196,8 @@
    "【多軸化フェーズ】北朝34名（北魏18・東魏1・北斉8・西魏3・北周4）を axes 化。ラベル変更7件はいずれも旧「建国」「擁立」の整理: beiqi-wenxuandi 建国→受禅（易姓）（東魏孝静帝からの受禅）、beiwei-daowudi・beiwei-yuanyu・beiwei-yuanfasheng 建国→自立、beiwei-houfeidi-yuanlang・beiwei-yuanhao・beiqi-gaoxie 擁立/建国→推戴（いずれも kinship に主 succession エッジがなく前帝から位を受けていない＝軸1が自立で、軸2は第三者）。境界事例2件: 北魏明元帝は清河王紹（弑逆者）を誅して即位したが、道武帝自身が「汝当继统」と後継に指名しており軸2＝先帝（紹は前帝ではない）。北魏節閔帝は元曄からの「行禅让之礼」という同一王朝内の生前譲位だが、廃立を決めたのは爾朱世隆らで両者は直系でないため procedure＝禅譲儀礼とし、内禅ラベルには落とさない（内禅は父子・直系間の生前譲位に限る運用）。北周明帝は「即天王位」で、北斉・北周が当初「天王」を用いたことを軸1b＝新称に記録した。多軸化フェーズ累計172/365名。残り193名。",
    "【多軸化フェーズ】隋5・隋末群雄12＋未移行だった群雄4名（公孫述・劉永・袁術・桓玄）の計21名を axes 化。旧「建国」12名はすべて自立（うち李軌・蕭銑は推戴と自称の双方が原典に記されるため decidedBy=[本人,第三者]）。旧「禅譲」3名（桓玄・楊堅・王世充）は受禅（易姓）へ統一。実質的な判定変更1件: suimo-xuerengao 世襲→継承（経緯記載なし）。『旧唐書』は薛仁杲の立太子・遺詔を記さず「举死，仁杲立于折墌城」「及嗣位，众咸猜惧」とのみ記すため、始皇帝と同じく軸2＝史料から決着不能とした。境界事例: suimo-linshihong は kinship に操師乞（自号・元興王）からの succession エッジがあるが、継いだのは「代董其众」＝軍の指揮であって君主位ではないため軸1＝自立とし、軸4のみエッジに合わせて無血縁を置いた（軸3は該当なし。孫権と同型だが孫権はエッジ自体がないため衝突しなかった）。多軸化フェーズ累計193/365名。残り172名（唐32・五代十国34・宋遼西夏金52・元18・明22・清14）。",
    "【多軸化フェーズ】唐32名（本紀系23・武則天・唐末反乱政権/対抗擁立8）を axes 化。ラベル変更11件。旧「復位」3名（中宗・睿宗・昭宗）は初回即位の経緯でラベルを付け直し（中宗＝遺詔で柩前即位→世襲、睿宗＝武則天が中宗を廃して立てた→擁立、昭宗＝遺詔で皇太弟→世襲）、復位そのものは reigns[].isRestoration のバッジに一本化した。tang-wuzetian 建国→受禅（易姓）（睿宗から位を受け国号を周に改めた王朝交代型の受禅。譲位側が在位中の実子という点は軸4＝母に残る）。tang-gaozu 禅譲→受禅（易姓）。唐末の対抗政権は前帝から位を受けていないため軸1＝自立とし、安禄山・朱泚・李希烈・黄巣＝自立、李承宏（吐蕃が擁立）・李熅（朱玫が擁立）＝推戴。宦官が即位を主導した唐後期の特徴は decidedByAgents＝宦官として9名に記録された（憲宗の内禅も宦官俱文珍主導のため decidedBy＝第三者だが procedure＝内禅が優先しラベルは内禅）。遺詔・立太子と宦官の関与が併存する代宗・穆宗・僖宗・昭宗は decidedBy=[先帝,第三者]（導出は世襲）。多軸化フェーズ累計225/365名。残り140名（五代十国34・宋遼西夏金52・元18・明22・清14）。",
-   "【多軸化フェーズ】五代十国34名（五代本朝14・十国19・桀燕1）を axes 化。ラベル変更16件。旧「建国」7名は全て解消（前蜀王建・後蜀孟知祥・北漢劉崇・桀燕劉守光・閩王延政＝自立、後漢劉知遠＝自立、後唐荘宗・南漢劉龑＝世襲）。着手前に軸1の階調を確定＝原典の継承動詞で判別する（嗣位・嗣王位・襲位・代立＝位を受けた／代領其眾＝軍の指揮のみ／節度使への任命・自号＝自立。帝号の新旧は問わず軸1bが担う）。これにより後唐荘宗（「及武皇厌代，帝乃嗣王位于晋阳」で晋王位を継ぎ15年後に称帝）と南漢劉龑（兄の遺命で権知清海軍留後＋南海王を襲封）が始皇帝・苻健と同型になり建国→世襲。後周太祖郭威は簒奪→受禅（易姓）。漢太后誥「受命相继，是不一姓」「今奉符宝授监国，可即皇帝位」が易姓と符宝移譲を明示する禅代文書のため軸1＝他政権から受禅とし、同一王朝内の廃立にすぎない後唐末帝の曹太后令（軸1＝前代君主から継承・簒奪据え置き）と対比して規約化した。軸2『本人』の境界に攻守の判別を追加＝本人が攻勢に出て前帝の所在地を制圧しその場で即位＝本人（李従珂）、排除を他者が他所で実行し事後に位を届けられた＝第三者（朱友貞。簒奪→擁立、宋孝武帝と同型）。後晋高祖石敬瑭は擁立→推戴（後唐末帝在位中に契丹が別政権として册立、軸1＝自立）。南漢殤帝劉玢は世襲→擁立（高祖が越王昌への逾次立を謀ったのを蕭益が「立嫡以长」で止めた結果の即位で先帝の意思ではない）。南漢後主劉鋹・北漢劉継恩は世襲→継承（経緯記載なし）（立太子・遺詔・推戴のいずれも原典に記述がなく、劉継恩に至っては睿宗が生前に「继恩纯孝，然非济世之才」と不安を述べている＝始皇帝と同型）。後梁太祖・南唐烈祖は禅譲→受禅（易姓）。後晋少帝は『旧五代史』の遺制（世襲寄り）と『新五代史』論賛・『資治通鑑』の大臣擁立説が食い違うため擁立据え置きとし、両説を note に併記した。多軸化フェーズ累計259/365名。残り106名（宋遼西夏金52・元18・明22・清14）。"
+   "【多軸化フェーズ】五代十国34名（五代本朝14・十国19・桀燕1）を axes 化。ラベル変更16件。旧「建国」7名は全て解消（前蜀王建・後蜀孟知祥・北漢劉崇・桀燕劉守光・閩王延政＝自立、後漢劉知遠＝自立、後唐荘宗・南漢劉龑＝世襲）。着手前に軸1の階調を確定＝原典の継承動詞で判別する（嗣位・嗣王位・襲位・代立＝位を受けた／代領其眾＝軍の指揮のみ／節度使への任命・自号＝自立。帝号の新旧は問わず軸1bが担う）。これにより後唐荘宗（「及武皇厌代，帝乃嗣王位于晋阳」で晋王位を継ぎ15年後に称帝）と南漢劉龑（兄の遺命で権知清海軍留後＋南海王を襲封）が始皇帝・苻健と同型になり建国→世襲。後周太祖郭威は簒奪→受禅（易姓）。漢太后誥「受命相继，是不一姓」「今奉符宝授监国，可即皇帝位」が易姓と符宝移譲を明示する禅代文書のため軸1＝他政権から受禅とし、同一王朝内の廃立にすぎない後唐末帝の曹太后令（軸1＝前代君主から継承・簒奪据え置き）と対比して規約化した。軸2『本人』の境界に攻守の判別を追加＝本人が攻勢に出て前帝の所在地を制圧しその場で即位＝本人（李従珂）、排除を他者が他所で実行し事後に位を届けられた＝第三者（朱友貞。簒奪→擁立、宋孝武帝と同型）。後晋高祖石敬瑭は擁立→推戴（後唐末帝在位中に契丹が別政権として册立、軸1＝自立）。南漢殤帝劉玢は世襲→擁立（高祖が越王昌への逾次立を謀ったのを蕭益が「立嫡以长」で止めた結果の即位で先帝の意思ではない）。南漢後主劉鋹・北漢劉継恩は世襲→継承（経緯記載なし）（立太子・遺詔・推戴のいずれも原典に記述がなく、劉継恩に至っては睿宗が生前に「继恩纯孝，然非济世之才」と不安を述べている＝始皇帝と同型）。後梁太祖・南唐烈祖は禅譲→受禅（易姓）。後晋少帝は『旧五代史』の遺制（世襲寄り）と『新五代史』論賛・『資治通鑑』の大臣擁立説が食い違うため擁立据え置きとし、両説を note に併記した。多軸化フェーズ累計259/365名。残り106名（宋遼西夏金52・元18・明22・清14）。",
+   "【多軸化フェーズ】宋遼西夏金52名（北宋9・南宋9・北宋末傀儡2・遼9・西遼3・金10・西夏10）を axes 化。ラベル変更20件。旧「建国」5名を全て解消（南宋高宗＝推戴、遼太祖＝世襲、西遼徳宗＝自立、金太祖・西夏景宗＝継承（経緯記載なし））。旧 enum で唯一の「諸説あり」だった宋太宗も解消——宋史巻四の即位記事は「開寶九年冬十月癸丑，太祖崩，帝遂即皇帝位」の一文のみで遺詔・遺制・顧命・皇太弟・推戴のいずれの語も伴わず（太宗紀・太祖紀とも grep 0件）、杜太后の遺命に触れるのは太祖紀末尾の「受命杜太后，傳位太宗。」一句だけで編年記事ではない。始皇帝と同型の 史料から決着不能 → 継承（経緯記載なし）とした。本ブロックは 継承（経緯記載なし）が11名と多い（宋太宗・遼穆宗・西遼仁宗/末主・金太祖・西夏6名）。西夏は正史を持たず、清代の私撰編年史『西夏書事』の「子○○立」という記法が記録の限界で、神宗遵頊に至っては同書自身が「遵顼之立，史不详其故」と明言する。長子であることを根拠に先帝を推定しない規約（始皇帝ルール）に従った。遼太祖は痕徳菫可汗の「群臣奉遗命请立太祖」で可汗位を継ぎ帝号を新称した2段階のため世襲、金太祖は「康宗即世，太祖袭位为都勃极烈」で部族連合の長を継いだが授与者の記載がなく決着不能。金世宗は簒奪→擁立（海陵王の南征中に東京で「官属诸军劝进」を受けて即位し、海陵王を弑したのは翌月の完顔元宜ら＝別事象・別の場所）。南宋端宗は擁立→推戴（恭帝は伝国璽を奉じて元に降り「削去帝號」となっており、端宗はその恭帝から位を受けていない＝軸1は自立）。張邦昌・劉豫は擁立→推戴（いずれも金が新たに立てた政権で宋の帝位を継いでいない）。西夏毅宗は世襲→擁立（曩霄の遺命は委哥寧令を立てるものだったが没蔵訛龐が退けて幼君を立てた＝「谅祚书『讹庞立』，以见违命专擅」）。内禅の範囲を血縁条件から譲位行為の主体へ切り直した（金哀宗→完顔承麟は同族の遠縁だが「上集百官，传位于东面元帅承麟」と哀宗自身の行為のため内禅を維持）。多軸化フェーズ累計311/365名。残り54名（元18・明22・清14）。"
   ],
   "capitalRelocationCompletedBlocks": [
    "364人全員完了（2026-07-17）。グループ2/3の「人物ごと個別調査」ではなく、王朝ブロック単位（30グループ）で正史原典から遷都イベントを先に列挙し、既存のreignData（在位期間）に機械的に逆引きする2段階方式で実施（ADDITIONAL_SCHEMA.md 6節の方式）。Workflowで30エージェント並列調査・0エラー・id一致。合計60件の遷都イベントを検出し、うち58件を45人の個人レコードに割当（count合計58）、2件（南唐961年の洪州・金陵間移動）は皇帝号返上後〔958年後周へ称臣〕の期間かつ後継者・李煜が本データセット未収録のため人物への割当を見送った（王朝単位の記録として除外理由をshiguo-nantang-lijingのnoteに明記）。著名な事例：北魏孝文帝の平城→洛陽（494年）、永楽帝の南京→北京（1421年）、清世祖の瀋陽→北京（1644年）、南宋高宗の臨安遷都（1138年、例外的にカウント）、金海陵王の燕京遷都・宣宗の開封遷都、後漢献帝期の洛陽→長安→許昌の連続遷都など。王としての在位期間中（皇帝号採用前）に発生した遷都（孫権の建業→武昌、拓跋珪の盛楽→平城、劉淵の離石→蒲子）は、ADDITIONAL_SCHEMA.mdの「後金→清」型例外（自王朝が既に持っていた前の都からの移転は建国時の定都から除外しない）を類推適用してカウントに含めた。",
@@ -76233,12 +76234,27 @@
     }
    },
    "accessionRoute": {
-    "category": "禅譲",
-    "note": "陳橋の変で将士に黄袍を着せられ擁立され、開封帰還後、後周恭帝の詔書により正式な禅譲儀礼を経て即位。『涑水記聞』は禅譲の詔書が事前に用意されていた（出来レース）ことを示しており、形式は禅譲だが実質は簒奪に近い。",
+    "category": "受禅（易姓）",
+    "note": "後周の殿前都点検。北漢・契丹の来寇に出兵した途上、陳橋駅で軍が推戴した（『宋史』巻一「夜五鼓，軍士集驛門，宣言策點檢為天子」「有以黃衣加太祖身，衆皆羅拜，呼萬歲」。原文の語は「黃袍」ではなく「黃衣」）。開封に戻ると「翰林承旨，陶榖出周恭帝，禪位制書于袖中」とあり、北面して拝受したうえ崇元殿で袞冕を服して即位した。譲位した恭帝は「遷恭帝及符后于西宮，易其帝號曰鄭王」と鄭王に改められ、開宝6年に房州で没した。受禅台・符宝・伝国璽・冊礼にあたる語は太祖本紀に現れない。",
     "confidence": "high",
     "source": {
      "page": "宋史 本紀一（太祖一）／涑水記聞",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "他政権から受禅",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "無血縁",
+     "procedure": "禅譲儀礼"
     }
    },
    "eraChangeCount": {
@@ -76638,12 +76654,24 @@
     }
    },
    "accessionRoute": {
-    "category": "諸説あり",
-    "note": "正史の建前は遺詔（後の「金匱之盟」説）による兄弟継承。しかし『続資治通鑑長編』所引『涑水記聞』は、太祖崩御の夜、宋皇后が徳芳を呼びに行かせたにもかかわらず内侍王継恩が独断で晋王（太宗）を迎え入れたと記す。「金匱之盟」も太宗即位後に事後的に「発見」された経緯があり、太祖の子・徳昭の自殺、徳芳の急死、弟・廷美の配流死など潜在的な皇位継承者が次々と排除された点も学術的に指摘される。宋史自身が「後世不能無議」と認めるため諸説ありとする。",
+    "category": "継承（経緯記載なし）",
+    "note": "太祖の同母弟。即位前の地位は晋王・開封尹で、皇太弟に立てられた記録はない。『宋史』巻四の即位記事は「開寶九年冬十月癸丑，太祖崩，帝遂即皇帝位」の一文のみで、遺詔・遺制・顧命・群臣の推戴のいずれの語も伴わない。杜太后の遺命（いわゆる金匱之盟）に触れるのは太祖本紀末尾の「受命杜太后，傳位太宗。」一句だけで、これは日付を持つ編年記事ではなく人物記述部分にある。本紀の賛も「若夫太祖之崩不踰年而改元，涪陵縣公之貶死，武功王之自殺，宋后之不成喪，則後世不能無議焉」と議論の余地を認める。誰が即位を決めたかは原典から確定できない。",
     "confidence": "medium",
     "source": {
      "page": "宋史 本紀四（太宗一）／続資治通鑑長編 巻十七",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "史料から決着不能"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -77103,6 +77131,18 @@
     "source": {
      "page": "宋史 本紀六（真宗一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -77544,6 +77584,18 @@
     "source": {
      "page": "宋史 本紀九（仁宗一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -78319,6 +78371,21 @@
     "source": {
      "page": "宋史 本紀十三（英宗）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "養子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -78516,6 +78583,18 @@
     "source": {
      "page": "宋史 本紀十四（神宗一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -78940,6 +79019,21 @@
     "source": {
      "page": "宋史 本紀十七（哲宗一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "母后"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -79214,11 +79308,25 @@
    },
    "accessionRoute": {
     "category": "擁立",
-    "note": "哲宗に実子なく、複数の弟の中から向太后の主導で選ばれた。宰相章惇の反対（「以年則申王長、以禮律則同母之弟簡王當立」）を押し切り、向太后の意向で端王（徽宗）が選定されたため擁立と判定。",
+    "note": "哲宗の弟。哲宗に子がなく、向太后が垂簾のもとで後継を決めた（『宋史』巻十九「大行皇帝無子」「於次端王當立」）。宰相章惇は「以年則申王長，以禮律則同母之弟簡王當立」と反対したが押し切られ、「乃召端王入，即皇帝位，皇太后權同處分軍國事」と即位した。",
     "confidence": "high",
     "source": {
      "page": "宋史 本紀十九（徽宗一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "母后"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -79797,6 +79905,18 @@
     "source": {
      "page": "宋史 本紀二十三（欽宗）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "子",
+     "procedure": "内禅"
     }
    },
    "eraChangeCount": {
@@ -80031,12 +80151,27 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "靖康の変後、応天府にて即位・建炎改元、南宋建国。苗劉の乱で一時退位させられたが太后の詔により復位（復位は初回即位の延長として扱い、即位経路は初回の建国で判定）。",
+    "category": "推戴",
+    "note": "徽宗の第九子・康王。靖康の変で徽宗・欽宗はともに在位のまま金に連行され、位を譲る行為も詔もないまま宋の朝廷は消滅した。高宗は欽宗から位を受けたのではなく、張邦昌が退いた後に垂簾していた元祐皇后の手書「俾帝嗣統」と、在京百官の三度の上表による勧進を経て応天府で即位した（『宋史』巻二十四）。苗劉の乱で一時退位させられ太后の詔で復位した件はreigns[].isRestoration で表す。",
     "confidence": "high",
     "source": {
      "page": "宋史 本紀 巻二十四（高宗一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "母后",
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -82196,6 +82331,18 @@
     "source": {
      "page": "宋史 本紀 巻三十五（孝宗三）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "養子",
+     "procedure": "内禅"
     }
    },
    "eraChangeCount": {
@@ -82900,6 +83047,18 @@
     "source": {
      "page": "宋史 本紀 巻三十七（寧宗一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "子",
+     "procedure": "内禅"
     }
    },
    "eraChangeCount": {
@@ -83161,6 +83320,21 @@
     "source": {
      "page": "宋史 本紀 巻三十七（寧宗一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "母后",
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -83755,6 +83929,21 @@
     "source": {
      "page": "宋史 本紀 巻四十一（理宗一）／宋史紀事本末「寧宗慶元四年」条",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "母后"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "養子",
+     "procedure": "偽詔・矯詔"
     }
    },
    "eraChangeCount": {
@@ -84385,6 +84574,18 @@
     "source": {
      "page": "宋史 本紀 巻四十六（度宗）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "養子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -84582,6 +84783,22 @@
     "source": {
      "page": "宋史 本紀 巻四十七（瀛国公二王附）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "母后",
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -84772,12 +84989,27 @@
     }
    },
    "accessionRoute": {
-    "category": "擁立",
-    "note": "臨安陥落後、陳宜中・張世傑・陸秀夫ら遺臣が温州で擁立、のち福州にて正式に即位・改元「景炎」。南宋残存政権の樹立であり遺臣による擁立。",
+    "category": "推戴",
+    "note": "度宗の子、恭帝の兄。恭帝は伝国璽を奉じて元に降り「削去帝號」となっており、端宗はその恭帝から位を受けたのではない。臨安脱出後、陳宜中・張世傑・陸秀夫ら遺臣が福州で立てた（『宋史』巻四十七「宜中等乃立昰于福州，以為宋主」）。太皇太后は召還の使を送ったが拒まれている。",
     "confidence": "high",
     "source": {
      "page": "宋史 本紀 巻四十七（瀛国公二王附）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "兄",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -84986,6 +85218,20 @@
     "source": {
      "page": "宋史 本紀 巻四十七（瀛国公二王附）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -85139,12 +85385,27 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "痕德可汗の遺命により群臣に推戴され契丹可汗位に即き、翌年正月に「即皇帝位」して皇帝号を称した。従来の遙輦氏世選（部族連合の輪番可汗制）を廃し新王朝を樹立。",
+    "category": "世襲",
+    "note": "遙輦氏の痕徳菫可汗が死去し、その遺命を奉じた群臣に推されて可汗位に即いた（『遼史』巻一「群臣奉遗命请立太祖」「曷鲁等劝进」「太祖三让，从之」）。痕徳菫は可汗であって皇帝号を持たず、皇帝号は元年正月に新たに称したもの。神冊元年にあらためて群臣と諸属国が壇を築いて尊号「大聖大明天皇帝」を上り、遙輦氏の世選（部族連合の輪番可汗制）は廃された。",
     "confidence": "high",
     "source": {
      "page": "遼史 巻一（太祖紀上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "先帝",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "無血縁",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -85586,6 +85847,21 @@
     "source": {
      "page": "遼史 巻三（太宗紀上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "母后",
+      "宗室"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -85875,11 +86151,23 @@
    },
    "accessionRoute": {
     "category": "簒奪",
-    "note": "太宗の崩御時、柩を護送していた軍中で正式な後継指名なしに自立して即位。摂政的立場にあった太皇太后（述律后）は激怒し弟の李胡に軍を与えて阻止させ両軍が衝突・対峙する事態となった。実質的には現政権（太后）の意に反した武力を伴う即位のため簒奪と判定（擁立の見方も可能な境界事例）。",
+    "note": "太宗の甥（人皇王倍の子）。太宗が欒城で崩じた後、梓宮を護送する軍中で即位した（『遼史』巻五「太宗崩于栾城。戊寅，梓宫次镇阳，即皇帝位于柩前」）。位を与えた主体の記述はなく、摂政の立場にあった述律太后はこれを認めず「太后闻帝即位，遣太弟李胡率兵拒之」と兵で阻もうとして両軍が衝突した。",
     "confidence": "medium",
     "source": {
      "page": "遼史 巻五（世宗紀）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "甥",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -86088,12 +86376,24 @@
     }
    },
    "accessionRoute": {
-    "category": "擁立",
-    "note": "世宗が察割の乱で横死した直後、乱の鎮圧に加わっていた寿安王（穆宗）が擁立された。世宗の実子（後の景宗）は当時4歳の幼児であったため、太宗の子である穆宗が中枢重臣（耶律屋質ら）に推戴される形で即位。",
+    "category": "継承（経緯記載なし）",
+    "note": "太宗の長子・寿安王。世宗が察割の乱で弑された後に即位した。『遼史』巻六の即位記事は「世宗遇害。逆臣察割等伏诛。丁卯，即皇帝位，群臣上尊号曰天顺皇帝，改元应历」の一続きのみで、遺詔・太后の令・群臣の勧進のいずれも記されず、本人が乱の鎮圧に加わったとする記述も本紀にはない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "high",
     "source": {
      "page": "遼史 巻六（穆宗紀上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "史料から決着不能"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "従兄弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -86291,6 +86591,20 @@
     "source": {
      "page": "遼史 巻八（景宗紀上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "その他",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -86543,6 +86857,18 @@
     "source": {
      "page": "遼史 巻十（聖宗紀一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -87025,6 +87351,18 @@
     "source": {
      "page": "遼史 巻十八（興宗紀一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -87340,6 +87678,18 @@
     "source": {
      "page": "遼史 巻二十一（道宗紀一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -87727,6 +88077,18 @@
     "source": {
      "page": "遼史 巻二十七（天祚皇帝紀一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "孫",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -88254,12 +88616,27 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "1124年に自立して王を称し西走、十八部を糾合の上1132年に文武百官に冊立され皇帝に即位（葛児汗、天皇帝）。天祚帝から独立して新国家（西遼）を樹立した典型的な建国。",
+    "category": "自立",
+    "note": "遼の天祚帝がなお存命のなかで西走し、自ら王を称した後、随行の百官が皇帝に册立した（『遼史』巻三十「自立为王」「文武百官册立大石为帝」）。遼の前帝から位を受けた記述はなく、天祚帝はむしろ「我在，汝何敢立淳」と責めており、位を与えた側としては現れない。",
     "confidence": "high",
     "source": {
      "page": "遼史 巻三十（天祚皇帝紀四附耶律大石伝）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -88431,12 +88808,24 @@
     }
    },
    "accessionRoute": {
-    "category": "世襲",
-    "note": "徳宗の嫡子であり、生母・感天皇后（塔不烟）の摂政7年終了後に即位した正統な世襲継承。摂政終了の経緯は明記されていない。",
+    "category": "継承（経緯記載なし）",
+    "note": "徳宗の子。徳宗の死後、母・感天皇后蕭塔不煙が7年間称制し、その後に即位した。『遼史』巻三十の記述は「子夷列即位，改元绍兴」のみで、徳宗の「遣命皇后权国」は皇后に国政を委ねる指示であって夷列を帝位に即けよという文言ではなく、群臣の勧進・詔・册の記載もない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "medium",
     "source": {
      "page": "遼史 巻三十（天祚皇帝紀四附耶律大石伝）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "史料から決着不能"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -88587,12 +88976,24 @@
     }
    },
    "accessionRoute": {
-    "category": "世襲",
-    "note": "承天太后・普速完（仁宗の妹、直魯古の叔母）が14年間摂政した後、密通発覚を機にクーデターで殺害され、その直後に仁宗次子直魯古が即位。血統上は正統な世襲継承だが直前の政変の経緯は詳述がない。",
+    "category": "継承（経緯記載なし）",
+    "note": "仁宗の次子。仁宗の遺詔は妹の普速完に国政を委ねるもので（「遗诏以妹普速完权国」）、直魯古を帝位に即けよという文言ではない。普速完が駙馬の父・斡里剌の兵に射殺された後、『遼史』巻三十は「仁宗次子直鲁古即位，改元天禧」と記すのみで、詔・册・勧進・推戴のいずれの主体も名指ししない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "medium",
     "source": {
      "page": "遼史 巻三十（天祚皇帝紀四附耶律大石伝）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "史料から決着不能"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -88752,12 +89153,24 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "収国元年、諸将の勧進を経て即位・建国。",
+    "category": "継承（経緯記載なし）",
+    "note": "兄・康宗（烏雅束）の死により部族連合の長の地位を継いだ（『金史』巻二「康宗即世，太祖袭位为都勃极烈」）。この継承について康宗の遺命・遺詔、部族長の推戴・会議を記す原文はない。皇帝号はその後に新たに称したもので、「收国元年正月壬申朔，群臣奉上尊号。是日，即皇帝位」に続けて本人が国号「大金」を定めている。君主位を継いだ時点について誰が決めたかは原典から確定できない。",
     "confidence": "high",
     "source": {
      "page": "金史 巻二（太祖本紀）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "史料から決着不能"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -89133,6 +89546,22 @@
     "source": {
      "page": "金史 巻二・巻三",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "宗室"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -89393,6 +89822,21 @@
     "source": {
      "page": "金史 巻四（熙宗本紀）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "その他",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -89628,6 +90072,21 @@
     "source": {
      "page": "金史 巻五（海陵本紀）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "従兄弟",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -89927,12 +90386,27 @@
     }
    },
    "accessionRoute": {
-    "category": "簒奪",
-    "note": "海陵の南征中、東京（遼陽）にて李石の献策により自立して即位。当時の皇帝は海陵であり、その存命中に別の都で挙兵・即位した王朝内クーデターのため簒奪。",
+    "category": "擁立",
+    "note": "太祖の孫、海陵王の従兄弟。海陵王が南征中で在位したまま、東京（遼陽）で官属と帰属した諸軍の勧進を受けて即位した（『金史』巻六「官属诸军劝进，固让良久」）。海陵王を排除したのは本人ではなく、即位の翌月に揚州で「完颜元宜等弑海陵于扬州」と別の場所で弑された。",
     "confidence": "high",
     "source": {
      "page": "金史 巻六十四（后妃伝下・貞懿皇后李氏伝）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "従兄弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -90195,6 +90669,18 @@
     "source": {
      "page": "金史 巻九（章宗本紀一）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "孫",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -90448,6 +90934,21 @@
     "source": {
      "page": "金史 巻十三（衛紹王本紀）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "宦官"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "叔父",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -90668,6 +91169,21 @@
     "source": {
      "page": "金史 巻十三（衛紹王本紀）／巻一百二（徒単鎰伝）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "甥",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -91362,6 +91878,18 @@
     "source": {
      "page": "金史 巻九十九（撒合輦伝）／巻十七（哀宗本紀上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -91732,6 +92260,18 @@
     "source": {
      "page": "金史 巻十八（哀宗本紀下）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "同族（遠縁）",
+     "procedure": "内禅"
     }
    },
    "eraChangeCount": {
@@ -91871,12 +92411,24 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "1038年、壇を築いて即位し「大夏」建国、天授礼法延祚と改元。",
+    "category": "継承（経緯記載なし）",
+    "note": "父・徳明の死により夏の君主位を継いだ（『西夏書事』巻十二「夏王赵德明卒」「子元昊嗣」）。この継承について遺命・推戴を記す原文はなく、宋は定難軍節度使・西平王を、契丹は夏国王を授けている。皇帝号は1038年に新たに称したもので、野利仁栄・楊守素らと謀って壇を築き群臣の册を受けた。君主位を継いだ時点について誰が決めたかは原典から確定できない。",
     "confidence": "high",
     "source": {
      "page": "宋史 巻485（夏国伝上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "史料から決着不能"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -92162,12 +92714,26 @@
     }
    },
    "accessionRoute": {
-    "category": "世襲",
-    "note": "景宗崩御を受け生後1年で即位。",
+    "category": "擁立",
+    "note": "曩霄（元昊）の子。曩霄は子の寧令哥に刺されて死に、遺命は従弟の委哥寧令を立てるものだったが、国相・没蔵訛龐が「委哥宁令非子，且无功，安得有国」としてこれを退け、生後1年の諒祚を立てた（『西夏書事』巻十八「没藏讹庞立谅祚」）。同書の按語は「谅祚书『讹庞立』，以见违命专擅，利立幼君，一人之私也」と、遺命に違背した訛龐個人の行為として記す。",
     "confidence": "high",
     "source": {
      "page": "宋史 巻485",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -92460,12 +93026,24 @@
     }
    },
    "accessionRoute": {
-    "category": "世襲",
-    "note": "毅宗崩御により7歳で即位、梁太后摂政。",
+    "category": "継承（経緯記載なし）",
+    "note": "諒祚の長子。『西夏書事』巻二十一の記述は「长子秉常立」のみで、遺詔・遺命・推戴の記載がない。即位翌年正月から母・梁氏が垂簾摂政し、その弟・梁乙埋が国相となった。誰が即位を決めたかは原典から確定できない（西夏には正史がなく、清代の私撰編年史『西夏書事』の「子○○立」という記法が記録の限界）。",
     "confidence": "high",
     "source": {
      "page": "宋史 巻486",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "史料から決着不能"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -92656,12 +93234,24 @@
     }
    },
    "accessionRoute": {
-    "category": "世襲",
-    "note": "恵宗崩御と同日、3歳で即位。",
+    "category": "継承（経緯記載なし）",
+    "note": "秉常の長子。『西夏書事』巻二十六の記述は「长子乾顺立，方三岁」のみで、遺詔・遺命・推戴の記載がない。即位後は母・梁氏を皇太后とし、梁乙逋が専政した。誰が即位を決めたかは原典から確定できない。",
     "confidence": "high",
     "source": {
      "page": "宋史 巻486",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "史料から決着不能"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -92934,12 +93524,24 @@
     }
    },
    "accessionRoute": {
-    "category": "世襲",
-    "note": "崇宗崩御と同日、16歳で即位。",
+    "category": "継承（経緯記載なし）",
+    "note": "乾順の長子。『西夏書事』巻三十五の記述は「长子仁孝立，时年十六」のみで、遺詔・遺命・推戴の記載がない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "high",
     "source": {
      "page": "宋史 巻486",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "史料から決着不能"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -93241,12 +93843,24 @@
     }
    },
    "accessionRoute": {
-    "category": "世襲",
-    "note": "仁宗崩御と同日、17歳で即位。",
+    "category": "継承（経緯記載なし）",
+    "note": "仁孝の子。『西夏書事』巻三十八の記述は「子纯佑立」のみで、遺詔・遺命・推戴の記載がない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "high",
     "source": {
      "page": "宋史 巻486",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "史料から決着不能"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -93424,6 +94038,21 @@
     "source": {
      "page": "金史 列伝72／宋史 巻486／西夏書事 巻39",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "母后"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "廃位・追放",
+     "relationToPredecessor": "従兄弟",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -93601,12 +94230,24 @@
     }
    },
    "accessionRoute": {
-    "category": "簒奪",
-    "note": "金史「安全薨，族子遵頊立…立在安全薨前一月，衞紹王無實録，不知其故」。西夏書事も安全死去前に既に即位していた異常な時系列を疑わしいとする。安全の実子・承禎を差し置いて擁立されており簒奪＝クーデターを強く示唆するが原典自体が経緯不詳と認めるため確信度medium。",
+    "category": "継承（経緯記載なし）",
+    "note": "斉王。『西夏書事』は経緯が不明であることを明言する——「遵顼之立，史不详其故」。襄宗安全には実子・承禎がありながら継がず、しかも遵頊の即位は安全の死の1ヶ月前にあたる（史臣も「较安全卒前一月，安全有子承祯，不得嗣。金卫绍王无实录，莫得其故也」とする）。廃立を示す原文も推戴を示す原文もなく、誰が即位を決めたかは原典から確定できない。",
     "confidence": "medium",
     "source": {
      "page": "金史 列伝72／西夏書事 巻39-40",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "史料から決着不能"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "廃位・追放",
+     "relationToPredecessor": "同族（遠縁）",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -93776,6 +94417,18 @@
     "source": {
      "page": "西夏書事 巻41",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "子",
+     "procedure": "内禅"
     }
    },
    "eraChangeCount": {
@@ -93933,6 +94586,20 @@
     "source": {
      "page": "西夏書事 巻42",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "甥",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -94073,12 +94740,26 @@
     }
    },
    "accessionRoute": {
-    "category": "擁立",
-    "note": "金軍占領下、留守孫傅らが趙氏擁立を拒否したため金の強要により百官が推挙。本人は「始欲引決」（当初は自殺しようとした）ほど消極的で、金軍が冊宝を届けてようやく即位した。金の主導による擁立。",
+    "category": "推戴",
+    "note": "宋の太宰兼門下侍郎。金が宋の二帝を廃して連行したうえで異姓の君主を立てさせたもので、宋の前帝から位を受けたのではない。留守孫傅らが趙氏擁立を主張したのを金が退け、百官の推挙は金の使者の督促と范瓊の兵の包囲下で行われた。「適金人奉冊寶至，邦昌北向拜舞受冊」と金の冊宝を受けて即位し、国号を大楚とした（『宋史』巻四百七十五）。",
     "confidence": "high",
     "source": {
      "page": "宋史 巻475 列伝234（叛臣上・張邦昌伝）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -94247,12 +94928,26 @@
     }
    },
    "accessionRoute": {
-    "category": "擁立",
-    "note": "劉豫自ら子の劉麟に重宝を持たせ金の左監軍撻辣に僭号を求め賄賂を贈り、金がこれを許可し正式な冊命を経て即位した。本人が積極的に働きかけた点が張邦昌と異なるが、正当性の根拠はあくまで金による冊封にあり金の従属国的な「子皇帝」と位置づけられているため擁立と判定。",
+    "category": "推戴",
+    "note": "済南知府から金に降った宋の臣。金の左監軍撻懶に重宝を贈って僭号を求め、金がこれを容れて冊命した（『宋史』巻四百七十五「金人遣大同尹高慶裔、知制誥韓昉冊豫為皇帝，國號大齊」、『金史』の詔は「今立豫为子皇帝，既为邻国之君，又为大朝之子」）。宋の前帝から位を受けたのではなく、金が新たに立てた政権。本人が積極的に働きかけた点は張邦昌と異なるが、位を授けたのはいずれも金である。",
     "confidence": "high",
     "source": {
      "page": "宋史 巻475 列伝234（叛臣上・劉豫伝）／金史 巻77 列伝15（劉豫伝）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
