@@ -40302,6 +40302,46 @@
     "丙午上不豫丁未上疾大"
    ]
   },
+  "shiguo-beihan-liuchong|accessionRoute.note|766a573631c3": {
+   "id": "shiguo-beihan-liuchong",
+   "path": "accessionRoute.note",
+   "span": "兀欲闻旻自立",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-beihan-liuchong.txt",
+   "frags": [
+    "兀欲闻旻自立"
+   ]
+  },
+  "shiguo-beihan-liuchong|accessionRoute.note|7e5e9b59cd81": {
+   "id": "shiguo-beihan-liuchong",
+   "path": "accessionRoute.note",
+   "span": "乃以周广顺元年正月戊寅即皇帝位于太原",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-beihan-liuchong.txt",
+   "frags": [
+    "乃以周广顺元年正月戊"
+   ]
+  },
+  "shiguo-beihan-liuchong|accessionRoute.note|b2b6d4f76529": {
+   "id": "shiguo-beihan-liuchong",
+   "path": "accessionRoute.note",
+   "span": "大漢神武皇帝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-beihan-liuchong.txt",
+   "frags": [
+    "大汉神武皇帝"
+   ]
+  },
+  "shiguo-beihan-liuchong|accessionRoute.note|d479922de2a1": {
+   "id": "shiguo-beihan-liuchong",
+   "path": "accessionRoute.note",
+   "span": "崇知赟不得归始有自立意",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "崇知赟不得归始有自立"
+   ]
+  },
   "shiguo-beihan-liuchong|ages.note|046a2961122c": {
    "id": "shiguo-beihan-liuchong",
    "path": "ages.note",
@@ -40532,6 +40572,36 @@
     "朔汉主崇殂子",
     "崇殂子承钧遣",
     "承钧遣使来告"
+   ]
+  },
+  "shiguo-beihan-liujien|accessionRoute.note|10a747a01851": {
+   "id": "shiguo-beihan-liujien",
+   "path": "accessionRoute.note",
+   "span": "告哀于契丹后嗣皇帝位",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "告哀于契丹后嗣皇帝位"
+   ]
+  },
+  "shiguo-beihan-liujien|accessionRoute.note|13a0ac6b2544": {
+   "id": "shiguo-beihan-liujien",
+   "path": "accessionRoute.note",
+   "span": "继恩纯孝，然非济世之才，恐不能了我家事",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-beihan-liujien.txt",
+   "frags": [
+    "继恩纯孝然非济世之才"
+   ]
+  },
+  "shiguo-beihan-liujien|accessionRoute.note|5b1fd9b3582b": {
+   "id": "shiguo-beihan-liujien",
+   "path": "accessionRoute.note",
+   "span": "承钧卒，继恩告哀于契丹而后立",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-beihan-liujien.txt",
+   "frags": [
+    "承钧卒继恩告哀于契丹"
    ]
   },
   "shiguo-beihan-liujien|eraChangeCount.note|5341e3bdebb3": {
@@ -40931,6 +41001,26 @@
     "北汉主刘钧卒养子继恩"
    ]
   },
+  "shiguo-houshu-mengchang|accessionRoute.note|5fc2918b35cc": {
+   "id": "shiguo-houshu-mengchang",
+   "path": "accessionRoute.note",
+   "span": "知祥病，昶监国",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-houshu-mengchang.txt",
+   "frags": [
+    "知祥病昶监国"
+   ]
+  },
+  "shiguo-houshu-mengchang|accessionRoute.note|b1be973a0f13": {
+   "id": "shiguo-houshu-mengchang",
+   "path": "accessionRoute.note",
+   "span": "处回遂与季良立昶，而后发丧",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-houshu-mengchang.txt",
+   "frags": [
+    "处回遂与季良立昶而后"
+   ]
+  },
   "shiguo-houshu-mengchang|ages.note|642c737cdc31": {
    "id": "shiguo-houshu-mengchang",
    "path": "ages.note",
@@ -41077,6 +41167,26 @@
     "见于军门全斌承制释之"
    ]
   },
+  "shiguo-houshu-mengzhixiang|accessionRoute.note|4fa04e27975b": {
+   "id": "shiguo-houshu-mengzhixiang",
+   "path": "accessionRoute.note",
+   "span": "明年闰正月，知祥乃即皇帝位，国号蜀",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-houshu-mengzhixiang.txt",
+   "frags": [
+    "明年闰正月知祥乃即皇"
+   ]
+  },
+  "shiguo-houshu-mengzhixiang|accessionRoute.note|a953814afda0": {
+   "id": "shiguo-houshu-mengzhixiang",
+   "path": "accessionRoute.note",
+   "span": "率文武百官劝进",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "率文武百官劝进"
+   ]
+  },
   "shiguo-houshu-mengzhixiang|ages.note|06dbb4200323": {
    "id": "shiguo-houshu-mengzhixiang",
    "path": "ages.note",
@@ -41215,6 +41325,27 @@
     "仁赞为太子仍监国",
     "受遗诏辅政是夕殂秘不",
     "丙寅宣遗制命太子仁赞"
+   ]
+  },
+  "shiguo-jieyan-liushouguang|accessionRoute.note|046c225c146e": {
+   "id": "shiguo-jieyan-liushouguang",
+   "path": "accessionRoute.note",
+   "span": "我为尚父，谁当帝者乎？",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-jieyan-liushouguang.txt",
+   "frags": [
+    "我为尚父谁当帝者乎"
+   ]
+  },
+  "shiguo-jieyan-liushouguang|accessionRoute.note|be805c6bc978": {
+   "id": "shiguo-jieyan-liushouguang",
+   "path": "accessionRoute.note",
+   "span": "守光遂以梁乾化元年八月自号大燕皇帝，改元曰应天",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-jieyan-liushouguang.txt",
+   "frags": [
+    "守光遂以梁干化元年八",
+    "自号大燕皇帝改元曰应"
    ]
   },
   "shiguo-jieyan-liushouguang|empressInstallationCount.note|0c4c4686187e": {
@@ -41458,6 +41589,27 @@
     "千馀人奉闽主及李后出"
    ]
   },
+  "shiguo-min-wangyanjun|accessionRoute.note|5fe19189d1c0": {
+   "id": "shiguo-min-wangyanjun",
+   "path": "accessionRoute.note",
+   "span": "初，延禀与鏻之谋杀延翰也，延禀之兵先至，已执延翰而杀之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-min-wangyanjun.txt",
+   "frags": [
+    "初延禀与𬭸之谋杀延翰",
+    "禀之兵先至已执延翰而"
+   ]
+  },
+  "shiguo-min-wangyanjun|accessionRoute.note|6d7cffd4886b": {
+   "id": "shiguo-min-wangyanjun",
+   "path": "accessionRoute.note",
+   "span": "延禀自以养子，推鏻而立之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-min-wangyanjun.txt",
+   "frags": [
+    "延禀自以养子推𬭸而立"
+   ]
+  },
   "shiguo-min-wangyanjun|amnestyCount[0].note|89db24979982": {
    "id": "shiguo-min-wangyanjun",
    "path": "amnestyCount[0].note",
@@ -41675,6 +41827,28 @@
     "死状仿惧而出俄顷引部"
    ]
   },
+  "shiguo-min-wangyanxi|accessionRoute.note|776eea40483f": {
+   "id": "shiguo-min-wangyanxi",
+   "path": "accessionRoute.note",
+   "span": "重遇入直率二都兵焚长春宫作乱使人迎延羲于瓦砾中呼万嵗",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "重遇入直率二都兵焚长",
+    "乱使人迎延羲于瓦砾中"
+   ]
+  },
+  "shiguo-min-wangyanxi|accessionRoute.note|da84af736961": {
+   "id": "shiguo-min-wangyanxi",
+   "path": "accessionRoute.note",
+   "span": "及康宗遇害延羲自称威武节度使闽国王更今名",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "及康宗遇害延羲自称威",
+    "武节度使闽国王更今名"
+   ]
+  },
   "shiguo-min-wangyanxi|ages.note|c24387c54bf1": {
    "id": "shiguo-min-wangyanxi",
    "path": "ages.note",
@@ -41823,6 +41997,16 @@
     "壮士拉于马上而杀之谥"
    ]
   },
+  "shiguo-min-wangyanzheng|accessionRoute.note|0099b4d3cc22": {
+   "id": "shiguo-min-wangyanzheng",
+   "path": "accessionRoute.note",
+   "span": "延政乃以建州建国称殷，改元天德",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-min-wangyanzheng.txt",
+   "frags": [
+    "延政乃以建州建国称殷"
+   ]
+  },
   "shiguo-min-wangyanzheng|crownPrinceDepositionCount.note|00a2c6a193f0": {
    "id": "shiguo-min-wangyanzheng",
    "path": "crownPrinceDepositionCount.note",
@@ -41930,6 +42114,27 @@
    "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
    "frags": [
     "唐先锋桥道使上元王建"
+   ]
+  },
+  "shiguo-nanhan-liubin|accessionRoute.note|4e535da0c97a": {
+   "id": "shiguo-nanhan-liubin",
+   "path": "accessionRoute.note",
+   "span": "益谏曰立嫡以长违之必乱少者若立祸自此始由是殇帝卒得立",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "益谏曰立嫡以长违之必",
+    "若立祸自此始由是殇帝"
+   ]
+  },
+  "shiguo-nanhan-liubin|accessionRoute.note|d78d4b6128f5": {
+   "id": "shiguo-nanhan-liubin",
+   "path": "accessionRoute.note",
+   "span": "由是洪度卒得立。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-nanhan-liubin.txt",
+   "frags": [
+    "由是洪度卒得立"
    ]
   },
   "shiguo-nanhan-liubin|ages.note|424e0ca787e3": {
@@ -42045,6 +42250,26 @@
    "frags": [
     "丙戌与诸王宴于长春宫",
     "醉弘熙使道庠思潮等掖"
+   ]
+  },
+  "shiguo-nanhan-liuchang|accessionRoute.note|092b29a42eac": {
+   "id": "shiguo-nanhan-liuchang",
+   "path": "accessionRoute.note",
+   "span": "晟卒，以长子立",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-nanhan-liuchang.txt",
+   "frags": [
+    "晟卒以长子立"
+   ]
+  },
+  "shiguo-nanhan-liuchang|accessionRoute.note|2850e376438f": {
+   "id": "shiguo-nanhan-liuchang",
+   "path": "accessionRoute.note",
+   "span": "后主名鋹初名继兴封卫王中宗长子也干和十六年八月辛巳袭位",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "长子也干和十六年八月"
    ]
   },
   "shiguo-nanhan-liuchang|ages.note|46645fa1ad37": {
@@ -42362,6 +42587,46 @@
     "圣明孝皇帝庙号中宗陵"
    ]
   },
+  "shiguo-nanhan-liuyan|accessionRoute.note|30385e940ed9": {
+   "id": "shiguo-nanhan-liuyan",
+   "path": "accessionRoute.note",
+   "span": "自梁初受封爵，禀正朔而已",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-nanhan-liuyan.txt",
+   "frags": [
+    "自梁初受封爵禀正朔而"
+   ]
+  },
+  "shiguo-nanhan-liuyan|accessionRoute.note|a62a181a444c": {
+   "id": "shiguo-nanhan-liuyan",
+   "path": "accessionRoute.note",
+   "span": "代立。乾化二年，除清海节度使",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-nanhan-liuyan.txt",
+   "frags": [
+    "代立干化二年除清海节"
+   ]
+  },
+  "shiguo-nanhan-liuyan|accessionRoute.note|b9645695f817": {
+   "id": "shiguo-nanhan-liuyan",
+   "path": "accessionRoute.note",
+   "span": "及烈宗弥留之际陟遂奉遗命权知清海军留后",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "及烈宗弥留之际陟遂奉"
+   ]
+  },
+  "shiguo-nanhan-liuyan|accessionRoute.note|e6bd24a5e705": {
+   "id": "shiguo-nanhan-liuyan",
+   "path": "accessionRoute.note",
+   "span": "即皇帝位，国号大越，改元曰乾亨",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-nanhan-liuyan.txt",
+   "frags": [
+    "即皇帝位国号大越改元"
+   ]
+  },
   "shiguo-nanhan-liuyan|ages.note|3199f23710c3": {
    "id": "shiguo-nanhan-liuyan",
    "path": "ages.note",
@@ -42542,6 +42807,48 @@
    "span": "資治通鑑(天福七年四月)「丁丑，高祖殂。」(直前に「漢高祖寝疾…」とあり南漢主劉",
    "status": "manual",
    "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
+  },
+  "shiguo-nantang-libian|accessionRoute.note|43231737cece": {
+   "id": "shiguo-nantang-libian",
+   "path": "accessionRoute.note",
+   "span": "十月，溥遣摄太尉杨璘传位于昪，国号齐，改元升元",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-nantang-libian.txt",
+   "frags": [
+    "十月溥遣摄太尉杨璘传",
+    "位于昪国号齐改元升元"
+   ]
+  },
+  "shiguo-nantang-libian|accessionRoute.note|650114987c38": {
+   "id": "shiguo-nantang-libian",
+   "path": "accessionRoute.note",
+   "span": "周本与诸将至金陵劝进",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-nantang-libian.txt",
+   "frags": [
+    "周本与诸将至金陵劝进"
+   ]
+  },
+  "shiguo-nantang-libian|accessionRoute.note|8a6c14d0093f": {
+   "id": "shiguo-nantang-libian",
+   "path": "accessionRoute.note",
+   "span": "受禅老臣知诰，谨上册皇帝为高尚思玄弘古让皇帝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-nantang-libian.txt",
+   "frags": [
+    "受禅老臣知诰谨上册皇",
+    "帝为高尚思玄弘古让皇"
+   ]
+  },
+  "shiguo-nantang-libian|accessionRoute.note|de2ea798dfc9": {
+   "id": "shiguo-nantang-libian",
+   "path": "accessionRoute.note",
+   "span": "闽、越诸国皆遣使劝进",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-nantang-libian.txt",
+   "frags": [
+    "闽越诸国皆遣使劝进"
+   ]
   },
   "shiguo-nantang-libian|ages.note|5105d8a9d60b": {
    "id": "shiguo-nantang-libian",
@@ -42931,6 +43238,27 @@
     "辛卯以太祖皇帝领忠武",
     "唐主避周讳更名景下令",
     "子仪制皆有降损去年号"
+   ]
+  },
+  "shiguo-qianshu-wangjian|accessionRoute.note|c470b6cb7e6a": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "accessionRoute.note",
+   "span": "建乃即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-qianshu-wangjian.txt",
+   "frags": [
+    "建乃即皇帝位"
+   ]
+  },
+  "shiguo-qianshu-wangjian|accessionRoute.note|d8b34fb2096d": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "accessionRoute.note",
+   "span": "王会将佐议称帝皆曰大王虽忠于唐唐已亡矣此所谓天与不取者也",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "王会将佐议称帝皆曰大",
+    "唐唐已亡矣此所谓天与"
    ]
   },
   "shiguo-qianshu-wangjian|ages.note|1f3db6c63a5b": {
@@ -56461,6 +56789,46 @@
     "哀喜交并不知"
    ]
   },
+  "wudai-houhan-gaozu|accessionRoute.note|1a2e642596fa": {
+   "id": "wudai-houhan-gaozu",
+   "path": "accessionRoute.note",
+   "span": "帝于太原宫受册，即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houhan-gaozu.txt",
+   "frags": [
+    "帝于太原宫受册即皇帝"
+   ]
+  },
+  "wudai-houhan-gaozu|accessionRoute.note|97b6263efb1c": {
+   "id": "wudai-houhan-gaozu",
+   "path": "accessionRoute.note",
+   "span": "帝知契丹政乱，乃议建号焉",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houhan-gaozu.txt",
+   "frags": [
+    "帝知契丹政乱乃议建号"
+   ]
+  },
+  "wudai-houhan-gaozu|accessionRoute.note|9afd257f5609": {
+   "id": "wudai-houhan-gaozu",
+   "path": "accessionRoute.note",
+   "span": "契丹闻帝建号，伪制削夺帝官爵",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houhan-gaozu.txt",
+   "frags": [
+    "契丹闻帝建号伪制削夺"
+   ]
+  },
+  "wudai-houhan-gaozu|accessionRoute.note|c266b120b40a": {
+   "id": "wudai-houhan-gaozu",
+   "path": "accessionRoute.note",
+   "span": "以中原无主，帝威望日隆，群情所属，上笺劝进",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houhan-gaozu.txt",
+   "frags": [
+    "以中原无主帝威望日隆"
+   ]
+  },
   "wudai-houhan-gaozu|ages.note|5436932ef43f": {
    "id": "wudai-houhan-gaozu",
    "path": "ages.note",
@@ -56858,6 +57226,17 @@
     "高祖为契丹所立"
    ]
   },
+  "wudai-houjin-gaozu|accessionRoute.note|5655569f3e94": {
+   "id": "wudai-houjin-gaozu",
+   "path": "accessionRoute.note",
+   "span": "乃命筑坛于晋阳城南，册帝为大晋皇帝，契丹主解衣冠授焉",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houjin-gaozu.txt",
+   "frags": [
+    "乃命筑坛于晋阳城南册",
+    "大晋皇帝契丹主解衣冠"
+   ]
+  },
   "wudai-houjin-gaozu|accessionRoute.note|68b10c183b06": {
    "id": "wudai-houjin-gaozu",
    "path": "accessionRoute.note",
@@ -56866,6 +57245,16 @@
    "corpusFile": "daizhigev20/史藏/正史/旧五代史四库.txt",
    "frags": [
     "戎王立石敬瑭为大晋皇"
+   ]
+  },
+  "wudai-houjin-gaozu|accessionRoute.note|bc4addf71d5f": {
+   "id": "wudai-houjin-gaozu",
+   "path": "accessionRoute.note",
+   "span": "欲徇蕃汉群议，册尔为天子",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houjin-gaozu.txt",
+   "frags": [
+    "欲徇蕃汉群议册尔为天"
    ]
   },
   "wudai-houjin-gaozu|ages.note|008c20918042": {
@@ -57259,6 +57648,26 @@
     "乙丑帝崩于保昌殿寿五"
    ]
   },
+  "wudai-houjin-shaodi|accessionRoute.note|0f493e58b86b": {
+   "id": "wudai-houjin-shaodi",
+   "path": "accessionRoute.note",
+   "span": "承遗制命柩前即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houjin-shaodi.txt",
+   "frags": [
+    "承遗制命柩前即皇帝位"
+   ]
+  },
+  "wudai-houjin-shaodi|accessionRoute.note|e0b3b707ba45": {
+   "id": "wudai-houjin-shaodi",
+   "path": "accessionRoute.note",
+   "span": "遗制齐王重贵于柩前即皇帝位",
+   "status": "corpus",
+   "corpusFile": "china-history/旧五代史/后晋/第六章-高祖纪六-原文.html",
+   "frags": [
+    "遗制齐王重贵于柩前即"
+   ]
+  },
   "wudai-houjin-shaodi|ages.note|a03f3981b4d8": {
    "id": "wudai-houjin-shaodi",
    "path": "ages.note",
@@ -57516,6 +57925,47 @@
     "契丹命率先锋二千人自",
     "帝自携剑驱拥后妃已下",
     "人将同赴火为亲校薛超"
+   ]
+  },
+  "wudai-houliang-modi|accessionRoute.note|187c003ae571": {
+   "id": "wudai-houliang-modi",
+   "path": "accessionRoute.note",
+   "span": "事定，象先遣赵岩赍传国宝至东京，请帝即位于洛阳",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houliang-modi.txt",
+   "frags": [
+    "事定象先遣赵岩赍传国",
+    "宝至东京请帝即位于洛"
+   ]
+  },
+  "wudai-houliang-modi|accessionRoute.note|4ecde633ce03": {
+   "id": "wudai-houliang-modi",
+   "path": "accessionRoute.note",
+   "span": "是月，帝即位于东京",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houliang-modi.txt",
+   "frags": [
+    "是月帝即位于东京"
+   ]
+  },
+  "wudai-houliang-modi|accessionRoute.note|8510c833f676": {
+   "id": "wudai-houliang-modi",
+   "path": "accessionRoute.note",
+   "span": "公等如坚推戴，册礼宜在东京",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houliang-modi.txt",
+   "frags": [
+    "公等如坚推戴册礼宜在"
+   ]
+  },
+  "wudai-houliang-modi|accessionRoute.note|b05050600ed2": {
+   "id": "wudai-houliang-modi",
+   "path": "accessionRoute.note",
+   "span": "十七日，象先引禁军千人突入宫城，遂诛友珪",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houliang-modi.txt",
+   "frags": [
+    "十七日象先引禁军千人"
    ]
   },
   "wudai-houliang-modi|ages.note|816cd47539c3": {
@@ -58053,6 +58503,46 @@
    "frags": [
     "龙德三年十月戊寅夕麟",
     "进刃于建国楼之廊下帝"
+   ]
+  },
+  "wudai-houliang-taizu|accessionRoute.note|34cd01573e63": {
+   "id": "wudai-houliang-taizu",
+   "path": "accessionRoute.note",
+   "span": "正押传国宝、玉册、金宝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houliang-taizu.txt",
+   "frags": [
+    "正押传国宝玉册金宝"
+   ]
+  },
+  "wudai-houliang-taizu|accessionRoute.note|557a93a0beb4": {
+   "id": "wudai-houliang-taizu",
+   "path": "accessionRoute.note",
+   "span": "甲辰，天子遣御史大夫薛贻矩来传禅代之意",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houliang-taizu.txt",
+   "frags": [
+    "甲辰天子遣御史大夫薛"
+   ]
+  },
+  "wudai-houliang-taizu|accessionRoute.note|716be11b8c57": {
+   "id": "wudai-houliang-taizu",
+   "path": "accessionRoute.note",
+   "span": "宜以曹州济阴之邑奉唐主，封为济阴王",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houliang-taizu.txt",
+   "frags": [
+    "宜以曹州济阴之邑奉唐"
+   ]
+  },
+  "wudai-houliang-taizu|accessionRoute.note|9a8fc843e5f1": {
+   "id": "wudai-houliang-taizu",
+   "path": "accessionRoute.note",
+   "span": "是月弑济阴王",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houliang-taizu.txt",
+   "frags": [
+    "是月弑济阴王"
    ]
   },
   "wudai-houliang-taizu|ages.note|be49129315fe": {
@@ -58722,6 +59212,26 @@
    "frags": [
     "戊寅峦至卫州谒见闵帝",
     "知其有毒不饮峦缢杀之"
+   ]
+  },
+  "wudai-houtang-mingzong|accessionRoute.note|52e0b0367b7a": {
+   "id": "wudai-houtang-mingzong",
+   "path": "accessionRoute.note",
+   "span": "群臣诸将上笺劝进",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houtang-mingzong.txt",
+   "frags": [
+    "群臣诸将上笺劝进"
+   ]
+  },
+  "wudai-houtang-mingzong|accessionRoute.note|6c5a911e1908": {
+   "id": "wudai-houtang-mingzong",
+   "path": "accessionRoute.note",
+   "span": "文武百僚三拜笺，请行监国之仪",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houtang-mingzong.txt",
+   "frags": [
+    "文武百僚三拜笺请行监"
    ]
   },
   "wudai-houtang-mingzong|ages.note|8bc30662d366": {
@@ -59686,6 +60196,56 @@
     "氏自燔于元武"
    ]
   },
+  "wudai-houtang-zhuangzong|accessionRoute.note|1d11f9a4913a": {
+   "id": "wudai-houtang-zhuangzong",
+   "path": "accessionRoute.note",
+   "span": "及武皇厌代，帝乃嗣王位于晋阳",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+   "frags": [
+    "及武皇厌代帝乃嗣王位"
+   ]
+  },
+  "wudai-houtang-zhuangzong|accessionRoute.note|290f3959938e": {
+   "id": "wudai-houtang-zhuangzong",
+   "path": "accessionRoute.note",
+   "span": "各遣使劝进，请帝绍唐帝位，帝报书不允",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+   "frags": [
+    "各遣使劝进请帝绍唐帝"
+   ]
+  },
+  "wudai-houtang-zhuangzong|accessionRoute.note|4fe2482b461a": {
+   "id": "wudai-houtang-zhuangzong",
+   "path": "accessionRoute.note",
+   "span": "虽承遗命，恐未能弹压",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+   "frags": [
+    "虽承遗命恐未能弹压"
+   ]
+  },
+  "wudai-houtang-zhuangzong|accessionRoute.note|67172815156b": {
+   "id": "wudai-houtang-zhuangzong",
+   "path": "accessionRoute.note",
+   "span": "诸镇凡三上章劝进",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+   "frags": [
+    "诸镇凡三上章劝进"
+   ]
+  },
+  "wudai-houtang-zhuangzong|accessionRoute.note|9670ce09434f": {
+   "id": "wudai-houtang-zhuangzong",
+   "path": "accessionRoute.note",
+   "span": "帝升坛，祭告昊天上帝，遂即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+   "frags": [
+    "帝升坛祭告昊天上帝遂"
+   ]
+  },
   "wudai-houtang-zhuangzong|ages.note|0f6e2ba9758a": {
    "id": "wudai-houtang-zhuangzong",
    "path": "ages.note",
@@ -60167,6 +60727,56 @@
    "frags": [
     "癸巳帝崩于万歳殿圣寿",
     "甲午宣遗制梁王于柩前"
+   ]
+  },
+  "wudai-houzhou-taizu|accessionRoute.note|4c786c2635ca": {
+   "id": "wudai-houzhou-taizu",
+   "path": "accessionRoute.note",
+   "span": "是日，帝自皋门入大内，御崇元殿，即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houzhou-taizu.txt",
+   "frags": [
+    "是日帝自皋门入大内御"
+   ]
+  },
+  "wudai-houzhou-taizu|accessionRoute.note|6597979947ff": {
+   "id": "wudai-houzhou-taizu",
+   "path": "accessionRoute.note",
+   "span": "二十二日旦，郭允明弑汉隐帝于北郊",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houzhou-taizu.txt",
+   "frags": [
+    "二十二日旦郭允明弑汉"
+   ]
+  },
+  "wudai-houzhou-taizu|accessionRoute.note|77bd33b2f0e8": {
+   "id": "wudai-houzhou-taizu",
+   "path": "accessionRoute.note",
+   "span": "今奉符宝授监国，可即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houzhou-taizu.txt",
+   "frags": [
+    "今奉符宝授监国可即皇"
+   ]
+  },
+  "wudai-houzhou-taizu|accessionRoute.note|afa08766017c": {
+   "id": "wudai-houzhou-taizu",
+   "path": "accessionRoute.note",
+   "span": "或有裂黄旗以被帝体，以代赭袍",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houzhou-taizu.txt",
+   "frags": [
+    "或有裂黄旗以被帝体以"
+   ]
+  },
+  "wudai-houzhou-taizu|accessionRoute.note|fbeb105ec183": {
+   "id": "wudai-houzhou-taizu",
+   "path": "accessionRoute.note",
+   "span": "邃古以来，受命相继，是不一姓",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houzhou-taizu.txt",
+   "frags": [
+    "邃古以来受命相继是不"
    ]
   },
   "wudai-houzhou-taizu|ages.note|69c5352efc17": {
