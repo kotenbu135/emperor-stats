@@ -11219,6 +11219,17 @@
     "兵大会更始即帝位南面"
    ]
   },
+  "gongsun-shu|accessionRoute.note|338577fe8337": {
+   "id": "gongsun-shu",
+   "path": "accessionRoute.note",
+   "span": "会有龙出其府殿中，夜有光耀，述以为符瑞，因刻其掌，文曰『公孙帝』。建武元年四月，",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/gongsun-shu.txt",
+   "frags": [
+    "会有龙出其府殿中夜有",
+    "掌文曰公孙帝建武元年"
+   ]
+  },
   "gongsun-shu|accessionRoute.note|afad99a43f3d": {
    "id": "gongsun-shu",
    "path": "accessionRoute.note",
@@ -29230,6 +29241,16 @@
     "庚申帝崩于玉烛殿时年"
    ]
   },
+  "liu-yong-liang|accessionRoute.note|09f43c3a26e7": {
+   "id": "liu-yong-liang",
+   "path": "accessionRoute.note",
+   "span": "及更始败，永自称天子",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-yong-liang.txt",
+   "frags": [
+    "及更始败永自称天子"
+   ]
+  },
   "liu-yong-liang|accessionRoute.note|2e195adceb1e": {
    "id": "liu-yong-liang",
    "path": "accessionRoute.note",
@@ -29239,6 +29260,26 @@
    "frags": [
     "刘永者梁郡睢阳人梁孝",
     "王八世孙也传国至父立"
+   ]
+  },
+  "liu-yong-liang|accessionRoute.note|42b1326b05ba": {
+   "id": "liu-yong-liang",
+   "path": "accessionRoute.note",
+   "span": "永闻更始政乱，遂据国起兵",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-yong-liang.txt",
+   "frags": [
+    "永闻更始政乱遂据国起"
+   ]
+  },
+  "liu-yong-liang|accessionRoute.note|a388e519348a": {
+   "id": "liu-yong-liang",
+   "path": "accessionRoute.note",
+   "span": "更始即位，永先诣洛阳，绍封为梁王，都睢阳",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-yong-liang.txt",
+   "frags": [
+    "更始即位永先诣洛阳绍"
    ]
   },
   "liu-yong-liang|accessionRoute.note|c2ea1c58e1e0": {
@@ -46151,6 +46192,27 @@
     "父弟洛仁杀师都以城降"
    ]
   },
+  "suimo-linshihong|accessionRoute.note|677803a557aa": {
+   "id": "suimo-linshihong",
+   "path": "accessionRoute.note",
+   "span": "师乞中矢而死。士弘代董其众",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-linshihong.txt",
+   "frags": [
+    "师乞中矢而死士弘代董"
+   ]
+  },
+  "suimo-linshihong|accessionRoute.note|feb59c48cc65": {
+   "id": "suimo-linshihong",
+   "path": "accessionRoute.note",
+   "span": "师乞自号元兴王，攻陷豫章郡而据之，以士弘为大将军",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-linshihong.txt",
+   "frags": [
+    "师乞自号元兴王攻陷豫",
+    "郡而据之以士弘为大将"
+   ]
+  },
   "suimo-linshihong|ages.note|5c3fb96b0980": {
    "id": "suimo-linshihong",
    "path": "ages.note",
@@ -46204,6 +46266,36 @@
     "十二月壬辰士弘自称皇",
     "虔州自称皇帝国号楚建",
     "士弘惧己巳请降寻复走"
+   ]
+  },
+  "suimo-liqui|accessionRoute.note|0a3209a69ea8": {
+   "id": "suimo-liqui",
+   "path": "accessionRoute.note",
+   "span": "武德元年冬，轨僭称尊号",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-liqui.txt",
+   "frags": [
+    "武德元年冬轨僭称尊号"
+   ]
+  },
+  "suimo-liqui|accessionRoute.note|bcc193f8507b": {
+   "id": "suimo-liqui",
+   "path": "accessionRoute.note",
+   "span": "轨自称河西大凉王，建元安乐",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-liqui.txt",
+   "frags": [
+    "轨自称河西大凉王建元"
+   ]
+  },
+  "suimo-liqui|accessionRoute.note|c35f026d2fcd": {
+   "id": "suimo-liqui",
+   "path": "accessionRoute.note",
+   "span": "乃谋共举兵，皆相让，莫肯为主",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-liqui.txt",
+   "frags": [
+    "乃谋共举兵皆相让莫肯"
    ]
   },
   "suimo-liqui|crownPrinceDepositionCount.note|5951347a67b2": {
@@ -46722,6 +46814,47 @@
     "悉平丙寅王世充举东都"
    ]
   },
+  "suimo-xiaoxian|accessionRoute.note|082b5d094365": {
+   "id": "suimo-xiaoxian",
+   "path": "accessionRoute.note",
+   "span": "即日集得数千人",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-xiaoxian.txt",
+   "frags": [
+    "即日集得数千人"
+   ]
+  },
+  "suimo-xiaoxian|accessionRoute.note|41448bfe947a": {
+   "id": "suimo-xiaoxian",
+   "path": "accessionRoute.note",
+   "span": "铣于是筑坛于城南，燔燎告天，自称",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-xiaoxian.txt",
+   "frags": [
+    "铣于是筑坛于城南燔燎"
+   ]
+  },
+  "suimo-xiaoxian|accessionRoute.note|925bc8d91453": {
+   "id": "suimo-xiaoxian",
+   "path": "accessionRoute.note",
+   "span": "义宁二年，僭称皇帝，署置百官，一准梁故事",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-xiaoxian.txt",
+   "frags": [
+    "义宁二年僭称皇帝署置"
+   ]
+  },
+  "suimo-xiaoxian|accessionRoute.note|da64a295dfbe": {
+   "id": "suimo-xiaoxian",
+   "path": "accessionRoute.note",
+   "span": "郡县官属众欲推景珍为主，景珍曰：“吾素寒贱，虽假名号，众必不从。今若推",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-xiaoxian.txt",
+   "frags": [
+    "郡县官属众欲推景珍为",
+    "吾素寒贱虽假名号众必"
+   ]
+  },
   "suimo-xiaoxian|ages.note|076d7939344b": {
    "id": "suimo-xiaoxian",
    "path": "ages.note",
@@ -46893,6 +47026,27 @@
     "下令开门出降"
    ]
   },
+  "suimo-xueju|accessionRoute.note|26ac7052e21d": {
+   "id": "suimo-xueju",
+   "path": "accessionRoute.note",
+   "span": "十三年秋七月，举僭号于兰州，以妻鞠氏为皇后，母为皇太后，起坟茔，置陵邑，立庙于城",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-xueju.txt",
+   "frags": [
+    "十三年秋七月举僭号于",
+    "皇后母为皇太后起坟茔"
+   ]
+  },
+  "suimo-xueju|accessionRoute.note|89b7c2bf63d1": {
+   "id": "suimo-xueju",
+   "path": "accessionRoute.note",
+   "span": "自称西秦霸王，建元为秦兴",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-xueju.txt",
+   "frags": [
+    "自称西秦霸王建元为秦"
+   ]
+  },
   "suimo-xueju|accessionRoute.note|f9cfc51ed6e3": {
    "id": "suimo-xueju",
    "path": "accessionRoute.note",
@@ -46984,6 +47138,26 @@
    "corpusFile": "daizhigev20/子藏/类书/太平御览.txt",
    "frags": [
     "八月壬午薛举死其子仁"
+   ]
+  },
+  "suimo-xuerengao|accessionRoute.note|46a3b7009e31": {
+   "id": "suimo-xuerengao",
+   "path": "accessionRoute.note",
+   "span": "举死，仁杲立于折墌城",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-xuerengao.txt",
+   "frags": [
+    "举死仁杲立于折墌城"
+   ]
+  },
+  "suimo-xuerengao|accessionRoute.note|acdd9c37e10a": {
+   "id": "suimo-xuerengao",
+   "path": "accessionRoute.note",
+   "span": "及嗣位，众咸猜惧",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-xuerengao.txt",
+   "frags": [
+    "及嗣位众咸猜惧"
    ]
   },
   "suimo-xuerengao|personalCampaignCount.note|cc73621f8c9e": {
