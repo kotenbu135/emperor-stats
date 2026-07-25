@@ -974,6 +974,9 @@ function buildChapter(
     crossKids.set(key, [...(crossKids.get(key) ?? []), child]);
   }
   const crossDrawn = new Set<string>(); // `${father}→${child}` 実際にバーから垂下させたもの
+  // 親より上に置かれてしまい兄弟バーから垂下できなかった子(手動配置で親を子より
+  // 下へ動かした場合に起きる)。構造では表現できないので補助線へ回す。
+  const liftedKids = new Set<string>();
   packed.forEach((pb, bi) => {
     for (const j of pb.junctions) {
       const father = rectById.get(j.fatherId);
@@ -1007,9 +1010,28 @@ function buildChapter(
       } else {
         topY = father.y + father.h;
       }
-      const kids = j.children
-        .map((c) => rectById.get(c))
-        .filter((r): r is PlacedRect => r !== undefined);
+      // バーは最年長の子の直上。親と子が接している場合も子の枠内には入れない。
+      // 親カプセルの下辺からもクリアランスを取る: 品質ゲートは線を「当事者」の
+      // ノードとの接触では落とさない(線が箱に届くために必要な除外)ため、
+      // 自分の親の箱に貼り付いたバーはゲートでは検出できない(ユーザー指摘の
+      // 「箱と線がほぼ重なっている」= 明帝・孝武帝の兄弟バーが下辺の2px下)。
+      // 構造側で最低6pxを確保する。親カプセルが子の上辺より下まで伸びている
+      // 場合(長い在位)は従来どおり子の直上に置く。
+      const clearTop = Math.max(topY + 6, father.y + father.h + 6);
+      // 手動配置で親を子より下へ動かすと、下向きの兄弟バーの形にできない
+      // (バーが子の箱の上に載り、その子から他の兄弟が生まれたように見える。
+      //  ユーザー指摘・2026-07-25: 司馬防を司馬懿の下に置いたとき、司馬防の
+      //  兄弟バーが司馬懿の真上に来て司馬馗が司馬懿の子に見えた)。
+      // バーより上にいる子はバンド跨ぎの子と同じく補助線1本へフォールバックし、
+      // 編集モードで付け根・通り道を手で決められるようにする。
+      const belowIds = j.children.filter((c) => {
+        const r = rectById.get(c);
+        return r !== undefined && r.y >= clearTop + 2;
+      });
+      for (const c of j.children)
+        if (rectById.has(c) && !belowIds.includes(c))
+          liftedKids.add(`${j.fatherId}→${c}`);
+      const kids = belowIds.map((c) => rectById.get(c)!);
       if (kids.length === 0) continue;
       junctionHandles.push({
         key: `${j.fatherId}|${j.motherId ?? ""}`,
@@ -1021,19 +1043,11 @@ function buildChapter(
         jx > Math.max(...kids.map((k) => k.cx)) + 4
       ) {
         jogViolations.push({
-          text: `垂下点の段差 ${nameOf(j.fatherId)}${j.motherId !== null ? `═${nameOf(j.motherId)}` : ""}→${j.children.map(nameOf).join("・")}`,
-          ids: [j.fatherId, ...j.children],
+          text: `垂下点の段差 ${nameOf(j.fatherId)}${j.motherId !== null ? `═${nameOf(j.motherId)}` : ""}→${belowIds.map(nameOf).join("・")}`,
+          ids: [j.fatherId, ...belowIds],
         });
       }
       const minKidTop = Math.min(...kids.map((k) => k.y));
-      // バーは最年長の子の直上。親と子が接している場合も子の枠内には入れない。
-      // 親カプセルの下辺からもクリアランスを取る: 品質ゲートは線を「当事者」の
-      // ノードとの接触では落とさない(線が箱に届くために必要な除外)ため、
-      // 自分の親の箱に貼り付いたバーはゲートでは検出できない(ユーザー指摘の
-      // 「箱と線がほぼ重なっている」= 明帝・孝武帝の兄弟バーが下辺の2px下)。
-      // 構造側で最低6pxを確保する。親カプセルが子の上辺より下まで伸びている
-      // 場合(長い在位)は従来どおり子の直上に置く。
-      const clearTop = Math.max(topY + 6, father.y + father.h + 6);
       const barY = Math.min(Math.max(minKidTop - 10, clearTop), minKidTop - 2);
       // バンド跨ぎの子: バーより下にいるものだけバーを伸ばして垂下させる
       // (上にいる場合は形にならないので従来どおり補助線1本)。
@@ -1041,7 +1055,7 @@ function buildChapter(
         (c) => rectById.get(c)!.y > barY + 10,
       );
       for (const c of cross) crossDrawn.add(`${j.fatherId}→${c}`);
-      const allKidIds = [...j.children, ...cross];
+      const allKidIds = [...belowIds, ...cross];
       const allKids = allKidIds.map((c) => rectById.get(c)!);
       const groupIds = [
         j.fatherId,
@@ -1053,8 +1067,8 @@ function buildChapter(
         drops.push({
           path: `M ${jx} ${topY} L ${jx} ${kids[0].y}`,
           dashed:
-            rel.primaryFatherDisputed.has(j.children[0]) ||
-            rel.primaryFatherAdopted.has(j.children[0]),
+            rel.primaryFatherDisputed.has(allKidIds[0]) ||
+            rel.primaryFatherAdopted.has(allKidIds[0]),
           ids: groupIds,
         });
         qsegs.push({
@@ -1063,7 +1077,7 @@ function buildChapter(
           x2: jx,
           y2: kids[0].y,
           ids: groupIds,
-          what: `垂下線 ${j.fatherId}→${j.children[0]}`,
+          what: `垂下線 ${j.fatherId}→${allKidIds[0]}`,
         });
         continue;
       }
@@ -1115,7 +1129,8 @@ function buildChapter(
   const structuralParent = new Set<string>(); // `${father}→${child}` 同一バンドの主親
   packed.forEach((pb) => {
     for (const j of pb.junctions) {
-      for (const c of j.children) structuralParent.add(`${j.fatherId}→${c}`);
+      for (const c of j.children)
+        if (!liftedKids.has(`${j.fatherId}→${c}`)) structuralParent.add(`${j.fatherId}→${c}`);
     }
   });
   // 兄弟バーを伸ばして垂下させたバンド跨ぎの子も構造で表現済み。

@@ -562,67 +562,123 @@
         "year": 191.625
       },
       "p-sima-shi": {
-        "x": 1001.5,
-        "year": 231.5
+        "x": 1401,
+        "year": 232.875
       },
       "jin-mindi": {
-        "x": 1015.5
+        "x": 890.5
       },
       "p-sima-yan-wu": {
-        "x": 1077.5,
-        "year": 296
+        "x": 952.5,
+        "year": 296.125
       },
       "p-xunshi-sima-yan-wu": {
-        "x": 1001.5,
-        "year": 296
+        "x": 876.5,
+        "year": 296.125
       },
       "jin-huidi": {
-        "x": 1246.5
+        "x": 1208
       },
       "jin-huaidi": {
-        "x": 1138.5
+        "x": 776.5
       },
       "jin-wudi": {
-        "x": 1054
+        "x": 1127
       },
       "p-yang-yan": {
-        "x": 1311.5,
+        "x": 1280,
         "year": 268
       },
       "p-wang-yuanji-huaidi": {
-        "x": 1210.5,
-        "year": 287.75
+        "x": 753,
+        "year": 286.125
       },
       "p-sima-zhao": {
-        "x": 1116,
-        "year": 238
+        "x": 1313,
+        "year": 237.75
       },
       "p-wang-yuanji": {
-        "x": 1040,
-        "year": 238
+        "x": 1039,
+        "year": 237.625
       },
       "p-sima-jin": {
-        "x": 1366.5,
+        "x": 1532,
         "year": 273
       },
       "p-xiahou-guangji": {
-        "x": 1443.5,
+        "x": 1618,
         "year": 273
       },
       "p-sima-zhou": {
-        "x": 1366.5,
-        "year": 255
+        "x": 1532,
+        "year": 255.125
       },
       "jin-simalun": {
-        "x": 1509.5
+        "x": 1878
       },
       "p-sima-yi": {
-        "x": 1161.3333333333333,
-        "year": 215
+        "x": 1455.3333333333333,
+        "year": 214.75
       },
       "p-boshi-sima-yi": {
-        "x": 1569.5,
-        "year": 215
+        "x": 1974,
+        "year": 214.625
+      },
+      "p-zhang-chunhua": {
+        "x": 1280.25,
+        "year": 214.625
+      },
+      "p-sima-liang": {
+        "x": 1443,
+        "year": 289.25
+      },
+      "p-sima-you": {
+        "x": 1394,
+        "year": 268.125
+      },
+      "p-sima-wei": {
+        "x": 1022.5,
+        "year": 295.385
+      },
+      "p-sima-yi-changsha": {
+        "x": 1078,
+        "year": 295.385
+      },
+      "p-sima-ying": {
+        "x": 1135,
+        "year": 295.385
+      },
+      "p-sima-jiong": {
+        "x": 1394,
+        "year": 305.875
+      },
+      "p-sima-fang": {
+        "x": 1618.1666666666663,
+        "year": 236.13749999999996
+      },
+      "p-sima-fu": {
+        "x": 1723.5,
+        "year": 242.14749999999995
+      },
+      "p-sima-gui": {
+        "x": 1723.5,
+        "year": 274.625
+      },
+      "p-sima-yong": {
+        "x": 1723.5,
+        "year": 307.625
+      },
+      "p-sima-kui": {
+        "x": 1806.5,
+        "year": 265.59999999999997
+      },
+      "p-sima-tai": {
+        "x": 1806.5,
+        "year": 297
+      },
+      "p-sima-yue": {
+        "x": 1806.5,
+        "year": 309
       }
     },
     "labels": {
@@ -635,13 +691,43 @@
         "y": 319
       },
       "band:西晋": {
-        "x": 1077.5,
+        "x": 1147,
         "y": 682
+      },
+      "arrow:s:wei-yuandi→jin-wudi": {
+        "x": 1022.75,
+        "y": 750
+      },
+      "band:呉": {
+        "x": 358,
+        "y": 386
       }
     },
-    "edges": {},
+    "edges": {
+      "k:p-sima-zhao→p-sima-you:実父": {
+        "mid": 620,
+        "to": {
+          "side": "T",
+          "t": 0.20408163265306123
+        }
+      },
+      "s:wei-yuandi→jin-wudi": {
+        "to": {
+          "side": "L",
+          "t": 0.5208333333333334
+        }
+      }
+    },
     "junctions": {
-      "p-sima-yi|": 1182.3333333333333
+      "p-sima-yi|": 1476.3333333333333,
+      "p-sima-yi|p-zhang-chunhua": 1370.25,
+      "p-sima-zhao|p-wang-yuanji": 1176,
+      "p-sima-fang|": 1645.1666666666663,
+      "p-sima-you|": 1419.5,
+      "jin-wudi|p-yang-yan": 1253,
+      "p-sima-shi|": 1421,
+      "p-cao-cao|": 923,
+      "p-sima-zhou|": 1553
     }
   }
 }
