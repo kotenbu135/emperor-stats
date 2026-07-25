@@ -403,8 +403,66 @@
       "properties": {
         "category": {
           "type": "string",
-          "description": "即位経路の分類（8種）。",
-          "enum": ["世襲", "簒奪", "禅譲", "内禅", "擁立", "復位", "建国", "不詳", "諸説あり"]
+          "description": "即位経路の表示ラベル。axes を持つレコードでは axes からの導出値（ADDITIONAL_SCHEMA.md 1節「導出ルール」）。旧 enum 9値は多軸化の移行完了まで併存する。",
+          "enum": [
+            "世襲", "簒奪", "禅譲", "内禅", "擁立", "復位", "建国", "不詳", "諸説あり",
+            "受禅（易姓）", "受禅（擁立）", "自立・建国", "推戴・建国", "継承（主導者不明）"
+          ]
+        },
+        "axes": {
+          "type": "object",
+          "description": "即位経路の多軸表現（2026-07-26 導入）。定義は ADDITIONAL_SCHEMA.md 1節「軸の定義」。enum・category との整合は validate_emperors.py の check_accession_axes が検査する。",
+          "properties": {
+            "throneSource": {
+              "type": "string",
+              "description": "軸1: 君主位の出所。",
+              "enum": ["前代君主から継承", "他政権から受禅", "自立"]
+            },
+            "titleOrigin": {
+              "type": "string",
+              "description": "軸1b: 帝号の由来（バッジ表示）。",
+              "enum": ["継承", "新称"]
+            },
+            "decidedBy": {
+              "type": "array",
+              "description": "軸2: 即位を決めた主体（実態）。複数値可。史料から決着不能は単独でのみ使用。",
+              "minItems": 1,
+              "items": { "type": "string", "enum": ["本人", "先帝", "第三者", "史料から決着不能"] }
+            },
+            "decidedByAgents": {
+              "type": "array",
+              "description": "軸2補助: 第三者の類型。decidedBy に第三者を含むときのみ非空。",
+              "items": { "type": "string", "enum": ["臣下", "軍", "宦官", "外戚", "母后", "宗室"] }
+            },
+            "decidedByBasis": {
+              "type": "string",
+              "description": "軸2の判定が何で決着したか（記録必須）。",
+              "enum": ["既存note", "原典再読"]
+            },
+            "predecessorFate": {
+              "type": "string",
+              "description": "軸3: 前帝の去就。",
+              "enum": ["崩御", "横死", "生前譲位", "廃位・追放", "該当なし"]
+            },
+            "relationToPredecessor": {
+              "type": "string",
+              "description": "軸4: 先帝との血縁。kinship.json の succession エッジと同一語彙。",
+              "enum": [
+                "子", "弟", "兄", "父", "孫", "甥", "叔父", "伯父", "母", "従兄弟",
+                "養子", "同族（遠縁）", "外戚（その他）", "無血縁", "その他", "該当なし"
+              ]
+            },
+            "procedure": {
+              "type": "string",
+              "description": "補助1: 手続きの形式（建前）。",
+              "enum": ["禅譲儀礼", "内禅", "通常の践祚", "儀礼なし・自称", "偽詔・矯詔"]
+            }
+          },
+          "required": [
+            "throneSource", "titleOrigin", "decidedBy", "decidedByBasis",
+            "predecessorFate", "relationToPredecessor", "procedure"
+          ],
+          "additionalProperties": false
         },
         "note": {
           "type": ["string", "null"],

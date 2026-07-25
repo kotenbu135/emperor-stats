@@ -780,6 +780,127 @@ def check_forbidden_sources(data):
         walk(e, "", e["id"])
 
 
+THRONE_SOURCE_ENUM = {"前代君主から継承", "他政権から受禅", "自立"}
+TITLE_ORIGIN_ENUM = {"継承", "新称"}
+DECIDED_BY_ENUM = {"本人", "先帝", "第三者", "史料から決着不能"}
+DECIDED_BY_AGENT_ENUM = {"臣下", "軍", "宦官", "外戚", "母后", "宗室"}
+DECIDED_BY_BASIS_ENUM = {"既存note", "原典再読"}
+PREDECESSOR_FATE_ENUM = {"崩御", "横死", "生前譲位", "廃位・追放", "該当なし"}
+PROCEDURE_ENUM = {"禅譲儀礼", "内禅", "通常の践祚", "儀礼なし・自称", "偽詔・矯詔"}
+# kinship.json の succession エッジと同一語彙（ADDITIONAL_SCHEMA.md 軸4）
+RELATION_ENUM = {
+    "子", "弟", "兄", "父", "孫", "甥", "叔父", "伯父", "母", "従兄弟",
+    "養子", "同族（遠縁）", "外戚（その他）", "無血縁", "その他", "該当なし",
+}
+AXES_REQUIRED = {
+    "throneSource", "titleOrigin", "decidedBy", "decidedByBasis",
+    "predecessorFate", "relationToPredecessor", "procedure",
+}
+AXES_OPTIONAL = {"decidedByAgents"}
+
+
+def derive_category(axes):
+    """ADDITIONAL_SCHEMA.md「導出ルール」に従い axes から category を算出する。
+
+    判定そのものではなく、確定済みの軸値からの機械的な写像（CONSTRAINTS.md の
+    「確定済み調査結果の構造チェック」の範囲）。
+    """
+    src = axes.get("throneSource")
+    # 複数値のときは 本人 > 先帝 > 第三者 の優先順位で1つに畳む
+    decided = axes.get("decidedBy") or []
+    if "本人" in decided:
+        agent = "本人"
+    elif "先帝" in decided:
+        agent = "先帝"
+    elif "第三者" in decided:
+        agent = "第三者"
+    elif decided == ["史料から決着不能"]:
+        agent = "史料から決着不能"
+    else:
+        return None
+
+    if src == "他政権から受禅":
+        return "受禅（易姓）" if agent == "本人" else "受禅（擁立）"
+    if src == "自立":
+        return "自立・建国" if agent == "本人" else "推戴・建国"
+    if src == "前代君主から継承":
+        if axes.get("procedure") == "内禅":
+            return "内禅"
+        return {
+            "本人": "簒奪",
+            "先帝": "世襲",
+            "第三者": "擁立",
+            "史料から決着不能": "継承（主導者不明）",
+        }[agent]
+    return None
+
+
+def check_accession_axes(data):
+    """accessionRoute.axes（2026-07-26 多軸化）の enum と category 導出の整合を検査する。
+
+    axes を持たないレコードは移行前として素通しする（移行完了後に必須化する）。
+    """
+    for e in data["emperors"]:
+        route = e.get("accessionRoute") or {}
+        axes = route.get("axes")
+        if axes is None:
+            continue
+        eid = e["id"]
+        if not isinstance(axes, dict):
+            err(f"[axes] {eid}: accessionRoute.axes が object でない")
+            continue
+
+        missing = AXES_REQUIRED - set(axes)
+        if missing:
+            err(f"[axes] {eid}: 必須の軸が欠落: {sorted(missing)}")
+        extra = set(axes) - AXES_REQUIRED - AXES_OPTIONAL
+        if extra:
+            err(f"[axes] {eid}: 未定義のキー: {sorted(extra)}")
+
+        for key, enum in (
+            ("throneSource", THRONE_SOURCE_ENUM),
+            ("titleOrigin", TITLE_ORIGIN_ENUM),
+            ("decidedByBasis", DECIDED_BY_BASIS_ENUM),
+            ("predecessorFate", PREDECESSOR_FATE_ENUM),
+            ("relationToPredecessor", RELATION_ENUM),
+            ("procedure", PROCEDURE_ENUM),
+        ):
+            if key in axes and axes[key] not in enum:
+                err(f"[axes] {eid}.{key}: enum 外の値: {axes[key]!r}")
+
+        decided = axes.get("decidedBy")
+        if decided is not None:
+            if not isinstance(decided, list) or not decided:
+                err(f"[axes] {eid}.decidedBy: 非空の配列であること: {decided!r}")
+            else:
+                bad = [v for v in decided if v not in DECIDED_BY_ENUM]
+                if bad:
+                    err(f"[axes] {eid}.decidedBy: enum 外の値: {bad}")
+                if len(set(decided)) != len(decided):
+                    err(f"[axes] {eid}.decidedBy: 値が重複: {decided}")
+                if "史料から決着不能" in decided and len(decided) > 1:
+                    err(f"[axes] {eid}.decidedBy: 史料から決着不能は単独でのみ使用: {decided}")
+
+        agents = axes.get("decidedByAgents") or []
+        if not isinstance(agents, list):
+            err(f"[axes] {eid}.decidedByAgents: 配列であること")
+        else:
+            bad = [v for v in agents if v not in DECIDED_BY_AGENT_ENUM]
+            if bad:
+                err(f"[axes] {eid}.decidedByAgents: enum 外の値: {bad}")
+            if agents and "第三者" not in (decided or []):
+                err(f"[axes] {eid}.decidedByAgents: decidedBy に第三者を含まないのに類型が指定されている")
+
+        derived = derive_category(axes)
+        if derived is None:
+            err(f"[axes] {eid}: 軸の組み合わせから category を導出できない（導出ルール未該当）")
+        elif route.get("category") != derived:
+            err(
+                f"[axes] {eid}: category が軸から導出される値と不一致: "
+                f"{route.get('category')!r} ≠ {derived!r}"
+            )
+
+
 def check_portraits(data):
     manifest_path = PORTRAITS_DIR / "manifest.json"
     if not manifest_path.exists():
@@ -829,6 +950,7 @@ def main() -> int:
     check_confidence(data)
     check_event_date_format(data)
     check_forbidden_sources(data)
+    check_accession_axes(data)
     check_portraits(data)
 
     # 訂正済みなのに KNOWN_ISSUES に残っているエントリ（削除してよい）
