@@ -61,7 +61,8 @@ export interface KinshipSourceEmperor {
   /** accessionRoute.category(継承エッジが無い根の表示用)。 */
   routeCategory: string;
   /** 王朝内の即位順(dynastyOrder。無いものはビルド時導出)。在位ごと。 */
-  ordinals: number[];
+  /** 「第N代」。代数に数えない在位(調査済み王朝で dynastyOrder が null)は null。 */
+  ordinals: (number | null)[];
   reigns: { a: number; b: number; isRestoration: boolean }[];
 }
 
@@ -562,6 +563,29 @@ function buildChapter(
           if (b !== undefined) break;
         }
       }
+      if (b !== undefined) {
+        bandOfNode.set(p.id, b);
+        changed = true;
+      }
+    }
+    if (!changed) break;
+  }
+  // 夫がこの章にいない配偶者は、この章では通常のノード(＝実家の家系図の娘)として
+  // 扱うので、上の伝播から漏れたぶんをここで拾う。他章の皇帝に嫁いだ娘
+  // (後燕慕容宝の娘・慕容氏＝北魏道武帝の妻)は、相手の章を有効化した時点で
+  // 婚姻エッジが src に入り attachedTo に載るため standalonePersons から外れ、
+  // バンドが決まらないまま章から消えてしまう(第4章の追加で凍結済みの第3章から
+  // 1ノード落ちた。2026-07-25)。
+  const orphanSpouses = src.persons.filter((p) => {
+    const husband = rel.attachedTo.get(p.id);
+    return husband !== undefined && !bandOfNode.has(husband);
+  });
+  for (let pass = 0; pass < 30; pass++) {
+    let changed = false;
+    for (const p of orphanSpouses) {
+      if (bandOfNode.has(p.id)) continue;
+      const father = rel.primaryFather.get(p.id);
+      const b = father !== undefined ? bandOfNode.get(father) : undefined;
       if (b !== undefined) {
         bandOfNode.set(p.id, b);
         changed = true;
@@ -1885,15 +1909,17 @@ function buildChapter(
       const succ = src2.edges.find((x) => x.type === "succession" && x.to === id);
       const category = succ?.category ?? emp.routeCategory;
       const disputed = succ?.veracity === "disputed";
+      // 代数に数えない在位(反乱・自称政権など)は「第N代」を出さず即位経路だけにする。
+      const ord = emp.ordinals[0];
+      const ordPrefix = typeof ord === "number" ? `${ordinalLabel(ord)}・` : "";
       const sub =
-        EMPEROR_SUB_OVERRIDES[id] ??
-        `${ordinalLabel(emp.ordinals[0])}・${category}${disputed ? "?" : ""}`;
+        EMPEROR_SUB_OVERRIDES[id] ?? `${ordPrefix}${category}${disputed ? "?" : ""}`;
       // ツールチップは統計ページ共通のEmperorTooltip(肖像+名前+王朝+在位+補足)。
       // クリックで全項目ダイアログを開くため、系譜固有の補足だけをdetailsに載せる。
       const details: { label: string; value: string; clamp?: boolean; wrap?: boolean }[] = [
         {
           label: "即位",
-          value: `${ordinalLabel(emp.ordinals[0])}・${category}${disputed ? "（諸説あり）" : ""}`,
+          value: `${ordPrefix}${category}${disputed ? "（諸説あり）" : ""}`,
         },
       ];
       const fatherId = rel2.primaryFather.get(id);

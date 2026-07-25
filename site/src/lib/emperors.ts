@@ -1450,7 +1450,13 @@ export function getKinshipSource(): KinshipSource {
   // したがって両者の一致はassertしない(以前は一致を要求していたが、東晋・十六国章の
   // 追加で上記の正当な不一致が30件超になったため方針を変更)。整合性チェックは
   // 「同一王朝内で第N代が重複しないこと」に置き換える。
-  const ordinalsById = new Map<string, number[]>();
+  // 調査済みの値が1つでもある王朝では、null の在位は「代数に数えない」ものとして
+  // 扱い第N代を出さない(宋の元凶劭・義嘉政権、梁の侯景政権・益州政権など。調査で
+  // 正規の代数を1..Nと連番で与えたうえで、反乱・自称政権にだけ意図的に番号を
+  // 与えなかったもの。ここを在位開始順の導出値で埋めると正規の代数と衝突する
+  // 〔宋: 元凶劭=4が孝武帝と、梁: 侯景政権=2が簡文帝と重複〕)。
+  // 全在位が null の王朝(北朝以降)だけ、従来どおり在位開始順から導出する。
+  const ordinalsById = new Map<string, (number | null)[]>();
   {
     const byDynKey = new Map<
       string,
@@ -1473,15 +1479,18 @@ export function getKinshipSource(): KinshipSource {
     }
     for (const [key, arr] of byDynKey) {
       arr.sort((p, q) => p.year - q.year || p.date.localeCompare(q.date));
+      const investigated = arr.some((r) => r.order !== null);
       const seen = new Map<number, string>();
       arr.forEach((r, i) => {
-        const n = r.order ?? i + 1;
-        const dup = seen.get(n);
-        if (dup !== undefined)
-          throw new Error(
-            `kinship: ${key} の第${n}代が ${dup} と ${r.id} で重複しています。dynastyOrderの個別確認が必要です`,
-          );
-        seen.set(n, r.id);
+        const n = r.order ?? (investigated ? null : i + 1);
+        if (n !== null) {
+          const dup = seen.get(n);
+          if (dup !== undefined)
+            throw new Error(
+              `kinship: ${key} の第${n}代が ${dup} と ${r.id} で重複しています。dynastyOrderの個別確認が必要です`,
+            );
+          seen.set(n, r.id);
+        }
         const list = ordinalsById.get(r.id) ?? [];
         list[r.idx] = n;
         ordinalsById.set(r.id, list);
