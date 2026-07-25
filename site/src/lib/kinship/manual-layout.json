@@ -1,1 +1,468 @@
-{}
+{
+  "qin-han": {
+    "mode": "manual",
+    "nodes": {
+      "liu-yong-liang": {
+        "x": 102
+      },
+      "p-liu-li-liang": {
+        "x": 126,
+        "year": 3
+      },
+      "p-liu-jia-liang": {
+        "x": 126,
+        "year": -24
+      },
+      "p-liu-sui-liang": {
+        "x": 126,
+        "year": -38.99000000000001
+      },
+      "p-liu-dingguo-liang": {
+        "x": 125.5,
+        "year": -45
+      },
+      "p-liu-wushang-liang": {
+        "x": 125.5,
+        "year": -85
+      },
+      "p-liu-xiang-liang": {
+        "x": 126,
+        "year": -96
+      },
+      "p-liu-mai-liang": {
+        "x": 126,
+        "year": -136
+      },
+      "p-liu-wu-liang": {
+        "x": 126,
+        "year": -143
+      },
+      "gengshi-di": {
+        "x": 210
+      },
+      "p-liu-zizhang": {
+        "x": 195,
+        "year": -0.9473684210526301
+      },
+      "p-heshi-liu-zizhang": {
+        "x": 272,
+        "year": -0.9473684210526301
+      },
+      "p-liu-li": {
+        "x": 195.5,
+        "year": -25.89473684210526
+      },
+      "p-liu-xiongqu": {
+        "x": 195,
+        "year": -50.84210526315792
+      },
+      "hou-han-chongdi": {
+        "x": 271
+      },
+      "hou-han-shundi": {
+        "x": 209
+      },
+      "p-yu-meiren": {
+        "x": 333,
+        "year": 135.25
+      },
+      "hou-han-andi": {
+        "x": 271
+      },
+      "p-lishi-hou-han-andi": {
+        "x": 195,
+        "year": 115.5
+      },
+      "p-liu-qing": {
+        "x": 257,
+        "year": 92.5
+      },
+      "p-zuo-xiaoe": {
+        "x": 333,
+        "year": 92.5
+      },
+      "hou-han-zhidi": {
+        "x": 407
+      },
+      "p-liu-hong": {
+        "x": 393,
+        "year": 141.24
+      },
+      "p-chenshi-liu-hong": {
+        "x": 469,
+        "year": 141.24
+      },
+      "p-liu-chong": {
+        "x": 393,
+        "year": 122
+      },
+      "p-liu-kang-qiansheng": {
+        "x": 393,
+        "year": 93
+      },
+      "hou-han-shaodi-yi": {
+        "x": 453
+      },
+      "p-liu-shou": {
+        "x": 477,
+        "year": 120
+      },
+      "hou-han-huandi": {
+        "x": 543
+      },
+      "p-liu-yi": {
+        "x": 605,
+        "year": 142.24
+      },
+      "p-yanshi-liu-yi": {
+        "x": 529,
+        "year": 142.24
+      },
+      "hou-han-shaodi-bian": {
+        "x": 665
+      },
+      "hou-han-xiandi": {
+        "x": 789
+      },
+      "p-cao-jie": {
+        "x": 913,
+        "year": 205.25
+      },
+      "hou-han-lingdi": {
+        "x": 727
+      },
+      "p-he-huanghou-lingdi": {
+        "x": 651,
+        "year": 170.25
+      },
+      "p-wang-meiren-xiandi": {
+        "x": 851,
+        "year": 170.25
+      },
+      "p-liu-chang": {
+        "x": 713,
+        "year": 164.24
+      },
+      "p-dongshi-liu-chang": {
+        "x": 789,
+        "year": 164.24
+      },
+      "p-liu-shu": {
+        "x": 713,
+        "year": 152.09999999999997
+      },
+      "p-liu-kai": {
+        "x": 659,
+        "year": 131
+      },
+      "hou-han-shangdi": {
+        "x": 697
+      },
+      "hou-han-hedi": {
+        "x": 697
+      },
+      "hou-han-zhangdi": {
+        "x": 422.5
+      },
+      "p-liang-guiren-hedi": {
+        "x": 757,
+        "year": 82.25
+      },
+      "hou-han-mingdi": {
+        "x": 360.5
+      },
+      "p-jia-guiren": {
+        "x": 501,
+        "year": 66.75
+      },
+      "p-mashi-hou-han-mingdi": {
+        "x": 271,
+        "year": 69.125
+      },
+      "hou-han-guangwudi": {
+        "x": 422.5
+      },
+      "p-yin-lihua": {
+        "x": 346.5,
+        "year": 41
+      },
+      "p-liu-qin": {
+        "x": 408.5,
+        "year": 3
+      },
+      "p-fanshi-liu-qin": {
+        "x": 484.5,
+        "year": 3
+      },
+      "p-liu-hui": {
+        "x": 408.5,
+        "year": -23.26315789473685
+      },
+      "p-liu-wai": {
+        "x": 408.5,
+        "year": -49.5263157894737
+      },
+      "p-liu-mai": {
+        "x": 302,
+        "year": -75.78947368421052
+      },
+      "p-liu-fa": {
+        "x": 302,
+        "year": -127
+      },
+      "p-ruzi-ying": {
+        "x": 522,
+        "year": 15
+      },
+      "p-liu-xian": {
+        "x": 522.5,
+        "year": -3.875
+      },
+      "p-liu-xun": {
+        "x": 522.5,
+        "year": -22.75
+      },
+      "p-liu-xiao": {
+        "x": 522.5,
+        "year": -41.625
+      },
+      "han-aidi": {
+        "x": 596.5
+      },
+      "p-liu-kang": {
+        "x": 658.5,
+        "year": -22
+      },
+      "p-dingshi-liu-kang": {
+        "x": 582.5,
+        "year": -22
+      },
+      "han-pingdi": {
+        "x": 718.5
+      },
+      "p-wang-shi-pingdi": {
+        "x": 837,
+        "year": 4.5
+      },
+      "p-liu-xing": {
+        "x": 780.5,
+        "year": -7
+      },
+      "p-weishi-liu-xing": {
+        "x": 704.5,
+        "year": -7
+      },
+      "han-chengdi": {
+        "x": 840.5
+      },
+      "han-yuandi": {
+        "x": 695.5
+      },
+      "p-wang-zhengjun": {
+        "x": 900.5,
+        "year": -39.25
+      },
+      "han-xuandi": {
+        "x": 498.5
+      },
+      "p-xu-pingjun": {
+        "x": 755.5,
+        "year": -60.25
+      },
+      "p-liu-jin": {
+        "x": 484.5,
+        "year": -76.25
+      },
+      "p-wang-wengxu": {
+        "x": 560.5,
+        "year": -76.25
+      },
+      "p-liu-ju": {
+        "x": 484.5,
+        "year": -82.25
+      },
+      "han-liuhe": {
+        "x": 815.5
+      },
+      "p-liu-bo": {
+        "x": 839.5,
+        "year": -82.24000000000001
+      },
+      "han-zhaodi": {
+        "x": 923.5
+      },
+      "han-wudi": {
+        "x": 638
+      },
+      "p-zhao-jieyu": {
+        "x": 990.5,
+        "year": -112.25
+      },
+      "han-jingdi": {
+        "x": 278
+      },
+      "p-wang-zhi": {
+        "x": 698,
+        "year": -147.25
+      },
+      "han-wendi": {
+        "x": 102
+      },
+      "p-doushi-han-wendi": {
+        "x": 338,
+        "year": -167.5
+      },
+      "han-qianshaodi": {
+        "x": 290
+      },
+      "han-houshaodi": {
+        "x": 398
+      },
+      "han-huidi": {
+        "x": 345
+      },
+      "han-gaozu": {
+        "x": 164
+      },
+      "p-bo-ji": {
+        "x": 88,
+        "year": -198.75
+      },
+      "p-lyu-zhi": {
+        "x": 408.5,
+        "year": -195.75
+      },
+      "p-liu-taigong": {
+        "x": 136,
+        "year": -205.885
+      },
+      "p-liu-ao": {
+        "x": 234,
+        "year": -206.01
+      },
+      "qin-er-shi": {
+        "x": 494
+      },
+      "qin-shi-huang": {
+        "x": 492
+      },
+      "p-qin-zhuangxiangwang": {
+        "x": 477,
+        "year": -263
+      },
+      "p-zhao-ji": {
+        "x": 554,
+        "year": -263
+      },
+      "p-lyu-buwei": {
+        "x": 614,
+        "year": -262
+      },
+      "wang-mang": {
+        "x": 990.5
+      },
+      "p-wang-man": {
+        "x": 1052.5,
+        "year": -12.75
+      },
+      "p-gongxianjun": {
+        "x": 976.5,
+        "year": -12.75
+      },
+      "p-wang-jin": {
+        "x": 1052.5,
+        "year": -47.875
+      },
+      "liu-penzi": {
+        "x": 1142.5
+      },
+      "p-liu-meng": {
+        "x": 1166.5,
+        "year": 21.24000000000001
+      },
+      "gongsun-shu": {
+        "x": 1278.5
+      },
+      "p-gongsun-ren": {
+        "x": 1302,
+        "year": 21.24000000000001
+      },
+      "yuan-shu": {
+        "x": 1001
+      },
+      "p-yuan-feng": {
+        "x": 1025,
+        "year": 193.24
+      }
+    },
+    "labels": {
+      "band:漢（劉氏）": {
+        "x": 219.5,
+        "y": 311.9200000000001
+      },
+      "dyn:前漢__秦（始皇帝以降）": {
+        "x": 185,
+        "y": 367
+      },
+      "band:漢（赤眉軍）": {
+        "x": 1190.5,
+        "y": 2122.92
+      },
+      "band:成家": {
+        "x": 1326.5,
+        "y": 2122.92
+      },
+      "dyn:玄漢（更始）__新": {
+        "x": 219.5,
+        "y": 2160
+      },
+      "dyn:梁__梁": {
+        "x": 112,
+        "y": 2184
+      },
+      "band:新（王氏）": {
+        "x": 1112.5,
+        "y": 1995
+      }
+    },
+    "edges": {
+      "k:p-lyu-buwei→qin-shi-huang:実父": {
+        "mid": 180,
+        "to": {
+          "side": "R",
+          "t": 0.45454545454545453
+        }
+      },
+      "c:liu-penzi:han-gaozu→p-liu-meng": {
+        "from": {
+          "side": "R",
+          "t": 0.4107142857142857
+        },
+        "mid": 1111.25,
+        "to": {
+          "side": "T",
+          "t": 0.5208333333333334
+        }
+      },
+      "k:wang-mang→p-wang-shi-pingdi:実父": {
+        "from": {
+          "side": "B",
+          "t": 0.53125
+        },
+        "mid": 2070,
+        "to": {
+          "side": "B",
+          "t": 0.4583333333333333
+        }
+      },
+      "k:p-wang-jin→p-wang-zhengjun:実父": {
+        "mid": 1642,
+        "to": {
+          "side": "T",
+          "t": 0.5208333333333334
+        }
+      }
+    },
+    "junctions": {}
+  }
+}
