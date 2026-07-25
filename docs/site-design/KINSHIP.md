@@ -89,7 +89,15 @@
 3. `KINSHIP_COLOR_BY_DYNKEY` に新dynastyKeyの配色を割当（主要王朝＝series枠、群雄＝`--kinship-minor`）。
 4. `npm run build` を回し、品質ゲート違反をキュレーション表の調整で潰す（違反メッセージに
    横断・重なりの当事者と座標が出る）。1章分の違反が0になるまで反復。
-5. `validate_kinship.py` 緑＋目視で規範遵守を確認。次の章へ。
+5. **見出しの重なりを0件にする**。`npm run dev` のログ（またはbuild出力）の
+   「見出しがノードに重なっています」は**ビルドを落とさない報告専用**なので、明示的に確認して
+   `PERSON_HEAD_ROOM_PX`／`BAND_LABEL_ANCHOR`のdx/dyで潰す。
+6. `validate_kinship.py` 緑＋目視で規範遵守を確認。次の章へ。
+
+反復のコツ: `npm run dev` を上げて `curl "localhost:3000/kinship?cb=$RANDOM"` → devログのゲート違反を読む
+（フルbuildは最後の1回でよい）。**devサーバはページ描画をキャッシュするので、編集が反映されない
+ときはクエリを変えるかサーバを再起動する**（古い違反ログを見て空振りしやすい）。幾何の機械照合は
+curlしたSVGを`data-kid`属性でノードidに対応づけて行う（章追加前後のdiffで既存章の無変化も確認できる）。
 
 ## 追加調査タスク（データ側・未着手）
 
