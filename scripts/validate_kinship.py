@@ -60,7 +60,7 @@ PERSON_ID_RE = re.compile(r"^p-[a-z0-9]+(-[a-z0-9]+)*$")
 
 KIND_ENUM = {"追尊皇帝", "宗室", "外戚", "后妃・公主", "その他"}
 GENDER_ENUM = {"male", "female"}
-INCLUSION_ENUM = {"経路上", "一親等", "追尊皇帝", "婚姻当事者"}
+INCLUSION_ENUM = {"経路上", "一親等", "追尊皇帝", "婚姻当事者", "政変当事者"}
 EDGE_TYPE_ENUM = {"succession", "kinship", "marriage"}
 RELATION_ENUM = {"実父", "実母", "養父", "養母", "兄弟姉妹"}
 PARENT_RELATIONS = {"実父", "実母", "養父", "養母"}
