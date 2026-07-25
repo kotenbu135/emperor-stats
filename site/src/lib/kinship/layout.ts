@@ -911,29 +911,39 @@ function buildChapter(
    * (パッキングが出したx区間は手で動かした後の位置と合わないため)。
    * 同じ夫に妃が複数いて間に挟まる場合は、内側の妃の外縁から引く。
    */
-  const manualTieX = (husbandId: string, spouseId: string): [number, number] => {
+  const manualTieX = (
+    husbandId: string,
+    spouseId: string,
+  ): { x1: number; x2: number; via: string[] } => {
     const h = rectById.get(husbandId)!;
     const s = rectById.get(spouseId)!;
     const toRight = s.cx > h.cx;
     let edge = toRight ? h.x + h.w : h.x;
+    // 内側の妃(夫と対象の妃の間に挟まる妃)の外縁が始点になる。その妃は連結線の
+    // 経路の当事者なので、品質ゲートの横断判定から除外する(始点で辺に接するのは
+    // 「かぶり」ではない)。
+    const via: string[] = [];
     for (const [other, hus] of rel.attachedTo) {
       if (hus !== husbandId || other === spouseId) continue;
       const o = rectById.get(other);
       if (!o) continue;
       if (o.y >= s.y + s.h || s.y >= o.y + o.h) continue; // 高さが重ならない妃は経路外
-      if (toRight ? o.x + o.w <= s.x && o.x >= h.x : o.x >= s.x && o.x + o.w <= h.x + h.w)
+      if (toRight ? o.x + o.w <= s.x && o.x >= h.x : o.x >= s.x && o.x + o.w <= h.x + h.w) {
         edge = toRight ? Math.max(edge, o.x + o.w) : Math.min(edge, o.x);
+        via.push(other);
+      }
     }
-    return toRight ? [edge, s.x] : [s.x + s.w, edge];
+    return toRight ? { x1: edge, x2: s.x, via } : { x1: s.x + s.w, x2: edge, via };
   };
   packed.forEach((pb, bi) => {
     for (const t of pb.ties) {
       const s = rectById.get(t.spouseId);
       if (!s) continue;
       const y = s.y + s.h / 2;
-      const [tx1, tx2] = man
+      const tie = man
         ? manualTieX(t.husbandId, t.spouseId)
-        : [bandXs[bi] + t.x1, bandXs[bi] + t.x2];
+        : { x1: bandXs[bi] + t.x1, x2: bandXs[bi] + t.x2, via: [] as string[] };
+      const { x1: tx1, x2: tx2 } = tie;
       tieXOf.set(t.spouseId, [tx1, tx2]);
       ties.push({
         husbandId: t.husbandId,
@@ -948,7 +958,7 @@ function buildChapter(
         y1: y,
         x2: tx2,
         y2: y,
-        ids: [t.husbandId, t.spouseId],
+        ids: [t.husbandId, t.spouseId, ...tie.via],
         what: `連結線 ${t.husbandId}═${t.spouseId}`,
       });
       tieYOf.set(t.spouseId, y);
