@@ -13,6 +13,8 @@ import { fromAstroYear } from "@/lib/timeline-river";
 import {
   BAND_LABEL_ANCHOR,
   BAND_X_EXTRA,
+  CHAPTER_ANCESTOR_STOPS,
+  CHAPTER_EXTRA_PERSONS,
   CHILD_ORDER_OVERRIDES,
   CLAIM_LINE_DEFS,
   CONSORT_BOTTOM_ATTACH,
@@ -184,6 +186,8 @@ export interface KinshipArrowOut {
   labelX: number;
   labelY: number;
   disputed: boolean;
+  /** 手動で付け根を決めた矢印(ベジェではなく直交の折れ線で引く)。 */
+  routed: boolean;
   tipLines: TipLine[];
 }
 
@@ -502,8 +506,11 @@ function buildChapter(
   src: KinshipSource,
   /** この章の手動配置(mode=manualのときだけ渡る)。 */
   man: ManualChapter | undefined,
-  rel: ResolvedRelations,
+  relAll: ResolvedRelations,
 ): KinshipChapterLayout {
+  // 章スコープの絞り込み(下の membership 解決)で attachedTo を差し替えるため、
+  // 以降は章ローカルの rel を使う(relAll は全章共通の解決結果)。
+  let rel = relAll;
   const bandOfDynKey = new Map<string, number>();
   def.bands.forEach((b, i) => {
     for (const dk of b.dynastyKeys) {
@@ -563,6 +570,80 @@ function buildChapter(
         break;
       }
     }
+  }
+
+  // --- 章スコープの絞り込み(2026-07-25) ---
+  // 上の伝播は「どのバンドに属するか」だけを決める。ここで「そもそもこの章に
+  // 出すか」を絞る: 既定は章の皇帝＋その祖先鎖のみで、傍系は
+  // CHAPTER_EXTRA_PERSONS の明示列挙(＋その祖先鎖)だけを通す。
+  // 理由と経緯は chapters.ts の同定数のコメントを参照。
+  {
+    const inScope = new Set<string>(chapterEmperors.map((e) => e.id));
+    const ancestorStops = new Set(CHAPTER_ANCESTOR_STOPS[def.id] ?? []);
+    const addAncestry = (id: string): void => {
+      if (ancestorStops.has(id)) return;
+      const seen = new Set<string>([id]);
+      let cur = rel.primaryFather.get(id);
+      while (cur !== undefined && !seen.has(cur)) {
+        seen.add(cur);
+        inScope.add(cur);
+        if (ancestorStops.has(cur)) break;
+        cur = rel.primaryFather.get(cur);
+      }
+    };
+    for (const e of chapterEmperors) addAncestry(e.id);
+    for (const id of CHAPTER_EXTRA_PERSONS[def.id] ?? []) {
+      if (!rel.personById.has(id))
+        throw new Error(
+          `kinship/layout: CHAPTER_EXTRA_PERSONS["${def.id}"] の "${id}" は persons に存在しません`,
+        );
+      if (!bandOfNode.has(id))
+        throw new Error(
+          `kinship/layout: CHAPTER_EXTRA_PERSONS["${def.id}"] の "${id}" は章「${def.title}」のどのバンドにも解決できません`,
+        );
+      inScope.add(id);
+      addAncestry(id);
+    }
+    // 女性ノードの2例外(いずれも夫の脇のピルではなく単独ノードとして立つもの):
+    // (a) 章内ノードの母。夫(=子の主親)が原典で不明だと配偶者ピルにならず単独
+    //     ノードになる(前趙劉曜の母・胡氏)。母は「誰と誰の間に生まれたか」を
+    //     示すグラフの目的そのものなので落とさない。
+    // (b) 章内ノードの娘。他家へ嫁いだ女性は王朝間の姻戚としてこのグラフの価値
+    //     そのもの(後燕慕容宝の娘で北魏道武帝の妻・慕容氏)。相手の王朝が未実装の
+    //     章だと婚姻エッジ自体が src から落ちるため、婚姻の有無では判定できない。
+    //     男性の子に広げると司馬昭・八王のような傍系が戻ってくるので女性限定。
+    for (const p of src.persons) {
+      if (!p.female || inScope.has(p.id)) continue;
+      const isMotherOfMember = src.edges.some(
+        (e) =>
+          e.type === "kinship" &&
+          (e.relation === "実母" || e.relation === "養母") &&
+          e.from === p.id &&
+          inScope.has(e.to),
+      );
+      const isDaughterOfMember = inScope.has(rel.primaryFather.get(p.id) ?? "");
+      if (isMotherOfMember || isDaughterOfMember) inScope.add(p.id);
+    }
+    for (const id of [...bandOfNode.keys()]) if (!inScope.has(id)) bandOfNode.delete(id);
+
+    // 配偶者ピル(実母・養母・婚姻でattachされた女性)は上の表の対象外。
+    // 「夫が章内にいる」かつ「婚姻エッジを持つ(=生前の皇后・婚姻当事者) or
+    // 子が章内にいる」で判定する。子だけを条件にすると曹節・孝平王皇后・
+    // 南康公主のような婚姻当事者が落ち、婚姻だけを条件にすると柏夫人(子=司馬倫)
+    // のような生母が別章へ付いて回る。
+    const childrenOfMother = new Map<string, string[]>();
+    for (const e of src.edges) {
+      if (e.type !== "kinship" || (e.relation !== "実母" && e.relation !== "養母")) continue;
+      childrenOfMother.set(e.from, [...(childrenOfMother.get(e.from) ?? []), e.to]);
+    }
+    const attachedTo = new Map<string, string>();
+    for (const [wife, husband] of rel.attachedTo) {
+      if (!bandOfNode.has(husband)) continue;
+      const married = rel.attachDouble.get(wife) === true;
+      const hasChildHere = (childrenOfMother.get(wife) ?? []).some((c) => bandOfNode.has(c));
+      if (married || hasChildHere) attachedTo.set(wife, husband);
+    }
+    rel = { ...rel, attachedTo };
   }
 
   // --- バンドごとの家系図グラフを構築してパッキング ---
@@ -1043,6 +1124,24 @@ function buildChapter(
   const auxEdges: KinshipAuxOut[] = [];
   const arrows: KinshipArrowOut[] = [];
 
+  /** 禅譲矢印の既定の端点(ベジェの始点・終点)。手動ルート時の片端の既定値にも使う。 */
+  const curveEnds = (a: PlacedRect, b: PlacedRect): [number, number][] => {
+    if (a.y + a.h < b.y - 4 && Math.abs(a.cx - b.cx) < 600) {
+      return [
+        [a.cx, a.y + a.h],
+        [b.cx, b.y],
+      ];
+    }
+    const leftToRight = a.cx < b.cx;
+    const y1 = a.y + a.h / 2;
+    return [
+      [leftToRight ? a.x + a.w : a.x, y1],
+      [
+        leftToRight ? b.x : b.x + b.w,
+        y1 < b.y + 8 ? b.y + 12 : y1 > b.y + b.h - 8 ? b.y + b.h - 12 : y1,
+      ],
+    ];
+  };
   const curvePath = (a: PlacedRect, b: PlacedRect): string => {
     // 矢印(王朝間交代)用: 上→下が成り立てば縦ベジェ、成り立たなければ側面どうしの
     // 水平ベジェ。
@@ -1262,7 +1361,14 @@ function buildChapter(
           ? `・${stripParen(e.relationToPredecessor)}`
           : "";
       const label = `${e.category ?? ""}${disputed ? "?" : ""}${relLabel}`;
-      const path = curvePath(a, b);
+      const akey = `s:${e.from}→${e.to}`;
+      // 赤矢印も編集モードで付け根・通り道を手で決められる(ユーザー要望・
+      // 2026-07-25)。手動ルートがある矢印は補助線と同じ直交の折れ線で引く
+      // (ベジェのまま曲率だけ動かすより、家系図の直交線と揃うほうが読みやすい)。
+      const routed = man?.edges?.[akey]?.from !== undefined || man?.edges?.[akey]?.to !== undefined;
+      const path = routed
+        ? toPath(routedPoints(akey, a, b, () => curveEnds(a, b)))
+        : curvePath(a, b);
       // ラベル位置: 縦の矢印は中間。横の矢印は「ノード枠間の空隙」の中央・線の上
       // (ノード中心間の中点だと、短い矢印でラベルがカプセルの下に隠れる)。
       const vertical = a.y + a.h < b.y - 4 && Math.abs(a.cx - b.cx) < 600;
@@ -1287,7 +1393,7 @@ function buildChapter(
             : Math.min(a.y, b.y) - 5;
       }
       arrows.push({
-        key: `s:${e.from}→${e.to}`,
+        key: akey,
         fromId: e.from,
         toId: e.to,
         path,
@@ -1295,6 +1401,7 @@ function buildChapter(
         labelX: midX,
         labelY: midY,
         disputed,
+        routed,
         tipLines: [
           { text: `王朝交代〔${e.category}〕${disputed ? "（諸説あり）" : ""}` },
           {
@@ -1545,7 +1652,9 @@ function buildChapter(
         violations.map((v) => v.text).join("\n");
       // 手動配置の章では配置の決定権はユーザーにあるので、ビルドは落とさず
       // 警告として編集モードのパネル・ビルドログに出す。
-      if (man) console.warn(msg);
+      // KINSHIP_GATE=warn は計測用の開発フラグ(違反があるまま章の構成を測るため)。
+      // 合否の判定は必ず素の `npm run build` で行うこと。
+      if (man || process.env.KINSHIP_GATE === "warn") console.warn(msg);
       else throw new Error(msg);
     }
     gateViolations = violations;

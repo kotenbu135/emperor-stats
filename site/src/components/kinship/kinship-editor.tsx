@@ -465,6 +465,14 @@ export function useKinshipEditor(server: KinshipChapterLayout): KinshipEditorApi
     [layout.violations],
   );
 
+  // 凍結後にデータへ追加され、まだ手で置いていないノード(自動配置のまま)。
+  // 見つけて動かしてもらうために色を変えて示す。
+  const unplacedIds = useMemo(() => {
+    const table = manual?.[server.id]?.nodes;
+    if (!table) return new Set<string>();
+    return new Set(layout.nodes.filter((n) => table[n.id] === undefined).map((n) => n.id));
+  }, [manual, server.id, layout.nodes]);
+
   // --- 編集用オーバーレイ(ガイド線・付け根ハンドル・見出しの当たり判定) ---
   const overlay = active ? (
     <g>
@@ -484,6 +492,23 @@ export function useKinshipEditor(server: KinshipChapterLayout): KinshipEditorApi
             stroke="var(--seal)"
             strokeWidth={1.6}
             strokeDasharray="3 2"
+            pointerEvents="none"
+          />
+        ))}
+      {/* まだ手で置いていない(データ追加分の)ノードを示す */}
+      {layout.nodes
+        .filter((n) => unplacedIds.has(n.id))
+        .map((n) => (
+          <rect
+            key={`u:${n.id}`}
+            x={n.x - 5}
+            y={n.y - 5}
+            width={n.w + 10}
+            height={n.h + 10}
+            rx={9}
+            fill="none"
+            stroke="#2563eb"
+            strokeWidth={2}
             pointerEvents="none"
           />
         ))}
@@ -591,6 +616,80 @@ export function useKinshipEditor(server: KinshipChapterLayout): KinshipEditorApi
                 }
               />
             ))}
+          {/* 王朝交代の赤矢印の付け根・通り道 */}
+          {layout.arrows.flatMap((a) => {
+            const pts = pathPoints(a.path);
+            if (pts.length < 2) return [];
+            const first = pts[0];
+            const last = pts[pts.length - 1];
+            const hs = [
+              <Handle
+                key={`sf:${a.key}`}
+                cx={first[0]}
+                cy={first[1]}
+                onDown={(ev) =>
+                  beginDrag(ev, {
+                    kind: "anchor",
+                    key: `${a.key}:from`,
+                    edgeKey: a.key,
+                    edgeEnd: "from",
+                    ownerId: a.fromId,
+                    ox: first[0],
+                    oy: first[1],
+                    w: 0,
+                    h: 0,
+                    lockY: false,
+                  })
+                }
+              />,
+              <Handle
+                key={`st:${a.key}`}
+                cx={last[0]}
+                cy={last[1]}
+                onDown={(ev) =>
+                  beginDrag(ev, {
+                    kind: "anchor",
+                    key: `${a.key}:to`,
+                    edgeKey: a.key,
+                    edgeEnd: "to",
+                    ownerId: a.toId,
+                    ox: last[0],
+                    oy: last[1],
+                    w: 0,
+                    h: 0,
+                    lockY: false,
+                  })
+                }
+              />,
+            ];
+            // 通り道(折れ位置)のハンドルは、付け根を動かして直交の折れ線に
+            // なってから出す(ベジェのままでは mid が効かないため)。
+            if (a.routed && pts.length === 4) {
+              const horizontal = Math.abs(pts[0][1] - pts[1][1]) < 0.5;
+              hs.push(
+                <Handle
+                  key={`sm:${a.key}`}
+                  cx={(pts[1][0] + pts[2][0]) / 2}
+                  cy={(pts[1][1] + pts[2][1]) / 2}
+                  square
+                  onDown={(ev) =>
+                    beginDrag(ev, {
+                      kind: "mid",
+                      key: `${a.key}:mid`,
+                      edgeKey: a.key,
+                      midHorizontal: horizontal,
+                      ox: (pts[1][0] + pts[2][0]) / 2,
+                      oy: (pts[1][1] + pts[2][1]) / 2,
+                      w: 0,
+                      h: 0,
+                      lockY: horizontal,
+                    })
+                  }
+                />,
+              );
+            }
+            return hs;
+          })}
           {/* 線の付け根・通り道のハンドル */}
           {layout.auxEdges.flatMap((e) => {
             const pts = pathPoints(e.path);
@@ -700,6 +799,15 @@ export function useKinshipEditor(server: KinshipChapterLayout): KinshipEditorApi
       <div className="mb-2 leading-relaxed text-muted-foreground">
         ドラッグ=移動／Shift+ドラッグ=子孫ごと／Alt=吸着解除／クリックで選択して矢印キー1px（Shift+8px）／Ctrl+Z=取り消し
       </div>
+      {unplacedIds.size > 0 && (
+        <div className="mb-2 leading-relaxed" style={{ color: "#2563eb" }}>
+          未配置 {unplacedIds.size} 件（青枠・凍結後に追加されたノード）:{" "}
+          {layout.nodes
+            .filter((n) => unplacedIds.has(n.id))
+            .map((n) => n.label)
+            .join("・")}
+        </div>
+      )}
       <div className="mb-2 text-muted-foreground">
         違反 {layout.violations.length} 件
         {layout.violations.length > 0 && (
