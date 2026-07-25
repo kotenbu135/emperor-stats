@@ -22,6 +22,7 @@ import {
   KINSHIP_ENABLED_CHAPTER_IDS,
   PERSON_BAND_OVERRIDES,
   PERSON_DISPLAY_OVERRIDES,
+  PERSON_HEAD_ROOM_PX,
 } from "./chapters";
 import {
   type BandGraph,
@@ -594,6 +595,19 @@ function buildChapter(
     ) * 25;
   const startYear = startHist < 0 ? startHist + 1 : startHist;
 
+  // 見出しの置き場所を作るための人物ピルの持ち上げ(PERSON_HEAD_ROOM_PX)。px指定を
+  // 年に直すスケールは、圧縮領域(章開始年より前)かどうかで変わる。
+  // 祖先側も同量持ち上げる: パッキングの親子チェーン押し下げ
+  // (tree.tsのLINK_GAP_YEARS)で子は親の直下に貼り付くため、本人だけ上げても
+  // 押し戻される(李特は父・李慕に貼り付いていた)。
+  for (const [id, px] of Object.entries(PERSON_HEAD_ROOM_PX)) {
+    for (let cur: string | undefined = id; cur !== undefined; cur = rel.primaryFather.get(cur)) {
+      const it = info.get(cur);
+      if (!it || it.isEmperor) break;
+      it.anchor -= px / (it.anchor < startYear ? PRE_RATE : PX_PER_YEAR);
+    }
+  }
+
   const packed: PackedBand[] = def.bands.map((bandDef, bi) => {
     const memberIds = [...bandOfNode.entries()]
       .filter(([, b]) => b === bi)
@@ -607,9 +621,21 @@ function buildChapter(
     for (const [wife, husband] of rel.attachedTo) {
       if (bandOfNode.get(husband) !== bi) continue;
       if (!info.has(wife)) continue;
+      // 実家(父)が別バンドにいる配偶者は、そのバンド側の脇に置く(親エッジが
+      // 夫・他の妃をすり抜けずに実家側から直接入る)。
+      const wifeFatherBand = ((): number | undefined => {
+        const f = rel.primaryFather.get(wife);
+        return f !== undefined ? bandOfNode.get(f) : undefined;
+      })();
+      const preferSide =
+        wifeFatherBand === undefined || wifeFatherBand === bi
+          ? undefined
+          : wifeFatherBand < bi
+            ? ("L" as const)
+            : ("R" as const);
       spousesOf.set(husband, [
         ...(spousesOf.get(husband) ?? []),
-        { id: wife, double: rel.attachDouble.get(wife) ?? false },
+        { id: wife, double: rel.attachDouble.get(wife) ?? false, preferSide },
       ]);
     }
     const g: BandGraph = {
@@ -823,7 +849,14 @@ function buildChapter(
       }
       const minKidTop = Math.min(...kids.map((k) => k.y));
       // バーは最年長の子の直上。親と子が接している場合も子の枠内には入れない。
-      const barY = Math.min(Math.max(minKidTop - 10, topY + 6), minKidTop - 2);
+      // 親カプセルの下辺からもクリアランスを取る: 品質ゲートは線を「当事者」の
+      // ノードとの接触では落とさない(線が箱に届くために必要な除外)ため、
+      // 自分の親の箱に貼り付いたバーはゲートでは検出できない(ユーザー指摘の
+      // 「箱と線がほぼ重なっている」= 明帝・孝武帝の兄弟バーが下辺の2px下)。
+      // 構造側で最低6pxを確保する。親カプセルが子の上辺より下まで伸びている
+      // 場合(長い在位)は従来どおり子の直上に置く。
+      const clearTop = Math.max(topY + 6, father.y + father.h + 6);
+      const barY = Math.min(Math.max(minKidTop - 10, clearTop), minKidTop - 2);
       const groupIds = [
         j.fatherId,
         ...(j.motherId !== null ? [j.motherId] : []),
@@ -1067,10 +1100,18 @@ function buildChapter(
         midY = (a.y + a.h + b.y) / 2 - 5;
       } else {
         const leftToRight = a.cx < b.cx;
-        midX = ((leftToRight ? a.x + a.w : a.x) + (leftToRight ? b.x : b.x + b.w)) / 2;
-        // 両カプセルの上端より上の空きにラベルを出す(ノード枠と重ならないように)。
-        // ハローで交差線は隠れる。短い禅譲矢印でも文字が箱に被らない。
-        midY = Math.min(a.y, b.y) - 5;
+        const gx0 = leftToRight ? a.x + a.w : b.x + b.w;
+        const gx1 = leftToRight ? b.x : a.x;
+        midX = (gx0 + gx1) / 2;
+        // 矢印の水平区間の真上に置くのが第一(ラベルが矢印から離れると
+        // どの線の注記か読めない。ユーザー指摘: 安帝→桓玄の「禅譲・無血縁」が
+        // 孝武帝の箱の下辺に載っていた)。両カプセルの間隔がラベル幅に足りない
+        // 場合だけ、従来どおり両カプセルの上端より上の空きへ逃がす。
+        const labelW = label.length * 10.5;
+        midY =
+          gx1 - gx0 >= labelW + 16
+            ? a.y + a.h / 2 - 5
+            : Math.min(a.y, b.y) - 5;
       }
       arrows.push({
         key: `s:${e.from}→${e.to}`,
@@ -1299,7 +1340,8 @@ function buildChapter(
     const anchor = BAND_LABEL_ANCHOR[b.label];
     const anchorRect = anchor ? rectById.get(anchor.anchorId) : undefined;
     return {
-      label: b.label,
+      // hideLabelのバンドは見出しを描かない(labelは内部キーとしてのみ使う)。
+      label: b.hideLabel === true ? "" : b.label,
       x: bandXs[i],
       width: packed[i].width,
       labelX: anchorRect
@@ -1329,6 +1371,42 @@ function buildChapter(
         y: first.r.y - 7 + (off?.dy ?? 0),
       });
     }
+  }
+
+  // --- 見出しテキストとノードの重なり検査(報告のみ) ---
+  // 見出しはハロー付きで線の上に描くため線とは重ならないが、ノードのカプセル・
+  // ピルに重なると文字が読めない(ユーザー指摘: 「前趙（漢趙）」が劉豹・呼延氏の
+  // ピルに被る)。テキストのbboxは字数×フォントサイズの概算。ビルドは落とさず
+  // 開発ログに出し、キュレーション(PERSON_ANCHOR_NUDGE_YEARS・見出しdx/dy)で潰す。
+  {
+    const hits: string[] = [];
+    const check = (
+      what: string,
+      x0: number,
+      x1: number,
+      y0: number,
+      y1: number,
+    ): void => {
+      for (const [nid, r] of rectById) {
+        if (x0 < r.x + r.w && r.x < x1 && y0 < r.y + r.h && r.y < y1)
+          hits.push(
+            `${what} × ${nameOf(nid)}(${nid}) [text(${x0.toFixed(0)},${y0.toFixed(0)})-(${x1.toFixed(0)},${y1.toFixed(0)}) rect(${r.x.toFixed(0)},${r.y.toFixed(0)},w${r.w.toFixed(0)},h${r.h.toFixed(0)})]`,
+          );
+      }
+    };
+    for (const b of bands) {
+      if (b.label === "") continue;
+      const w = b.label.length * 13;
+      check(`バンド見出し「${b.label}」`, b.labelX - w / 2, b.labelX + w / 2, b.labelY - 12, b.labelY + 3);
+    }
+    for (const h of dynastyHeads) {
+      check(`王朝見出し「${h.label}」`, h.x, h.x + h.label.length * 11.5, h.y - 10.5, h.y + 2.5);
+    }
+    if (hits.length > 0)
+      console.error(
+        `kinship/layout: 章「${def.title}」の見出しがノードに重なっています(${hits.length}件・報告のみ):\n` +
+          hits.join("\n"),
+      );
   }
 
   // 目盛り(歴史年の25年刻み・開始年から。0年は暦に存在しないため1年へ置換)。

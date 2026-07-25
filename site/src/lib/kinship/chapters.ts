@@ -20,6 +20,9 @@ export interface KinshipBandDef {
   label: string;
   /** このバンドに属する王朝(emperors.tsのdynastyKey = `name__section`)。 */
   dynastyKeys: string[];
+  /** バンド見出しを描かない(王朝見出しだけで足りる同族並立バンド用)。
+   *  labelは内部キー(BAND_X_EXTRA等)として残す。 */
+  hideLabel?: boolean;
 }
 
 export interface KinshipChapterDef {
@@ -103,7 +106,12 @@ export const KINSHIP_CHAPTER_DEFS: KinshipChapterDef[] = [
       { label: "後趙", dynastyKeys: ["後趙__後趙"] },
       { label: "前涼", dynastyKeys: ["前涼__前涼"] },
       {
+        // 4政権を1家系図にまとめるバンドだが、バンド見出し「燕（慕容氏）」は出さない
+        // (王朝見出しの前燕/後燕/西燕/南燕と二重になり、どのカプセルがどの燕かも
+        //  かえって分かりにくい。ユーザー指摘・2026-07-25)。同族であることは
+        //  家系図の構造(すべて慕容皝の子孫)が示す。
         label: "燕（慕容氏）",
+        hideLabel: true,
         dynastyKeys: ["前燕__前燕", "後燕__後燕", "西燕__西燕", "南燕__南燕"],
       },
       { label: "前秦", dynastyKeys: ["前秦__前秦"] },
@@ -261,10 +269,28 @@ export const BAND_LABEL_ANCHOR: Record<
   "前趙（漢趙）": { anchorId: "qianzhao-liuyuan", dy: -13 },
   後趙: { anchorId: "houzhao-shile", dy: -13 },
   前涼: { anchorId: "qianliang-zhangzuo", dy: -13 },
-  "燕（慕容氏）": { anchorId: "qianyan-murongjun", dy: -13 },
   前秦: { anchorId: "qianqin-fujian", dy: -13 },
   後秦: { anchorId: "houqin-yaochang", dy: -13 },
   夏: { anchorId: "xia-helianbobo", dy: -13 },
+};
+
+/**
+ * 人物ピル(皇帝以外)を配置年より上へ持ち上げる量(px)。バンド見出しを建国者の
+ * 直上に置くと、その真上にいる追尊祖先・生母のピルと文字が重なるため、
+ * 見出しの置き場所をここで空ける。
+ * 「皇帝以外の人物の配置は時代に厳密に合わせなくてよい」(ユーザー・2026-07-25)。
+ * 重なりは layout.ts の見出し重なり検査(開発ログに報告)で検出する。
+ * - p-liu-bao(劉豹・前趙): 「前趙（漢趙）」が劉豹・呼延氏のピルに被る。
+ * - p-li-te(李特・成漢): 「成漢」が妻の羅氏のピルに被る。
+ * - p-shi-zhouhezhu(周曷朱・後趙): 「後趙」が妻の王氏(石勒の母)のピルに被る。
+ * - p-liu-hong-shu(劉弘・蜀漢): 「蜀漢」が劉備の父のピルに被る(第2章)。
+ * 妃ピルは夫の年区間に整列するため、指定するのは夫のidにする。
+ */
+export const PERSON_HEAD_ROOM_PX: Record<string, number> = {
+  "p-liu-bao": 20,
+  "p-li-te": 32,
+  "p-shi-zhouhezhu": 20,
+  "p-liu-hong-shu": 20,
 };
 
 /**
@@ -327,8 +353,12 @@ export const KINSHIP_COLOR_BY_DYNKEY: Record<string, number> = {
   西晋__晋: 7,
   蜀漢__三国時代: 4,
   呉__三国時代: 2,
-  // 東晋・十六国: 東晋=紫(西晋と同じスロットで司馬氏の連続を示す)。十六国は
-  // 民族・王家ごとに1色(燕4政権は同族なので同色=緑)。
+  // 東晋・十六国: 東晋=紫(西晋と同じスロットで司馬氏の連続を示す)。
+  // 燕4政権は同族(慕容氏)だが1バンドに同居するため政権ごとに別色にする
+  // (同色だとどのカプセルがどの燕か区別できない。ユーザー指摘・2026-07-25)。
+  // 8スロットしかないので、遠く離れたバンドとは色を再利用する(前燕2・後燕5=成漢と
+  // 同スロット・西燕3=夏と同スロット・南燕1=前趙と同スロット。いずれも
+  // 燕バンドとは横に離れており、隣接バンドとの重複は作らない)。
   // 楚(桓楚)と前涼は--kinship-minor(藤): 桓楚は東晋を簒奪した1代限りの政権、
   // 前涼は張祚1人だけが一時的に称帝した例外(他の涼王は皇帝を称していない)で、
   // いずれも「並立の割拠政権」として扱う。
@@ -339,9 +369,9 @@ export const KINSHIP_COLOR_BY_DYNKEY: Record<string, number> = {
   後趙__後趙: 8,
   前涼__前涼: 0,
   前燕__前燕: 2,
-  後燕__後燕: 2,
-  西燕__西燕: 2,
-  南燕__南燕: 2,
+  後燕__後燕: 5,
+  西燕__西燕: 3,
+  南燕__南燕: 1,
   前秦__前秦: 4,
   後秦__後秦: 6,
   夏__夏: 3,

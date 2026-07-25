@@ -288,22 +288,24 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
         {/* バンド見出し(最上部ノード群の中央)。補助線・矢印の後に描き、ハローで
             交差線を隠す(新（王氏）の見出しが王莽の連結線と重なる問題の解消)。 */}
         <g aria-hidden>
-          {layout.bands.map((b) => (
-            <text
-              key={b.label}
-              x={b.labelX}
-              y={b.labelY}
-              textAnchor="middle"
-              className="fill-foreground text-[13px] font-semibold"
-              style={{
-                paintOrder: "stroke",
-                stroke: "var(--background)",
-                strokeWidth: 4,
-              }}
-            >
-              {b.label}
-            </text>
-          ))}
+          {layout.bands
+            .filter((b) => b.label !== "")
+            .map((b) => (
+              <text
+                key={b.label}
+                x={b.labelX}
+                y={b.labelY}
+                textAnchor="middle"
+                className="fill-foreground text-[13px] font-semibold"
+                style={{
+                  paintOrder: "stroke",
+                  stroke: "var(--background)",
+                  strokeWidth: 4,
+                }}
+              >
+                {b.label}
+              </text>
+            ))}
         </g>
 
         {/* 王朝見出し(各王朝の最初のカプセルの上。ハローで交差線を隠す) */}
@@ -331,6 +333,9 @@ export function KinshipChart({ layout }: { layout: KinshipChapterLayout }) {
           {layout.nodes.map((n) => (
             <g
               key={n.key}
+              // 描画結果の幾何をHTMLから機械照合するためのQAフック(ノードid)。
+              // curlしたSVGのrectとノードidを対応づけて距離を測る(KINSHIP.md参照)。
+              data-kid={n.id}
               className={n.kind === "emperor" ? "cursor-pointer" : undefined}
               onMouseMove={(ev) =>
                 setTip(

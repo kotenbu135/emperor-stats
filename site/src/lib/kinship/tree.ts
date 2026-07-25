@@ -73,6 +73,8 @@ export interface SpouseAttach {
   id: string;
   /** 婚姻エッジあり(皇后)=二重線。なし(妃嬪等の生母)=細単線。 */
   double: boolean;
+  /** 子がいない配偶者を置く側の希望(実家=父のバンドの側)。layout.tsが設定する。 */
+  preferSide?: "L" | "R";
 }
 
 /** バンド1本ぶんの家系図グラフ(layout.tsが構築して渡す)。 */
@@ -443,8 +445,11 @@ export function packBand(g: BandGraph): PackedBand {
       }
     };
 
-    // 配偶者: 産んだ子のいる側(いなければ右)。同じ側では子持ちを内側に置く
-    // (連結線が他の妃をまたがない)。
+    // 配偶者: 産んだ子のいる側。子がいない配偶者は実家(父のバンド)の側へ置く
+    // (指定が無ければ右)。実家側に置かないと、父からの親エッジが夫や内側の妃の
+    // ピルの脇をすり抜けて入ることになり、連結線と重なって「妃と妃の間から
+    // 生まれた」ように見える(ユーザー指摘: 桓温═馬氏═南康公主)。
+    // 同じ側では子持ちを内側に置く(連結線が他の妃をまたがない)。
     interface SpousePlan {
       sp: SpouseAttach;
       hasKids: boolean;
@@ -454,7 +459,11 @@ export function packBand(g: BandGraph): PackedBand {
     for (const sp of spouses) {
       const kids = groupsHere.get(sp.id);
       const side: "L" | "R" =
-        kids !== undefined && meanXOf(kids) < rootX ? "L" : "R";
+        kids !== undefined
+          ? meanXOf(kids) < rootX
+            ? "L"
+            : "R"
+          : (sp.preferSide ?? "R");
       sidePlans[side].push({
         sp,
         hasKids: kids !== undefined,
