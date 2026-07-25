@@ -10122,6 +10122,27 @@
     "是日帝崩于东堂时年五"
    ]
   },
+  "dongjin-kangdi|accessionRoute.note|0bdc3aae0df6": {
+   "id": "dongjin-kangdi",
+   "path": "accessionRoute.note",
+   "span": "初，成帝有疾，中书令庾冰自以舅氏当朝，权侔人主，恐异世之后，戚属将疏，乃言国有强",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-kangdi.txt",
+   "frags": [
+    "初成帝有疾中书令庾冰",
+    "世之后戚属将疏乃言国"
+   ]
+  },
+  "dongjin-kangdi|accessionRoute.note|814636b6df9f": {
+   "id": "dongjin-kangdi",
+   "path": "accessionRoute.note",
+   "span": "八年六月庚寅，成帝不豫，诏以琅邪王为嗣",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-kangdi.txt",
+   "frags": [
+    "八年六月庚寅成帝不豫"
+   ]
+  },
   "dongjin-kangdi|amnestyCount.note|1fde2860aafd": {
    "id": "dongjin-kangdi",
    "path": "amnestyCount.note",
