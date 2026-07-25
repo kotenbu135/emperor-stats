@@ -66,10 +66,10 @@
      "label": "即位経路（多軸化移行中: 軸1〜4＋補助。表示ラベルは軸から導出）",
      "axesMigration": {
       "status": "in-progress",
-      "done": 60,
+      "done": 103,
       "total": 365,
-      "blocks": "秦漢19・後漢14・三国11・晋16",
-      "note": "定義は data/schema/ADDITIONAL_SCHEMA.md 1節。サイト側の横展開は移行完了後。 移行過程で原典と食い違う旧判定5件（晋愍帝・東晋康帝・哀帝・廃帝・恭帝＝いずれも旧「世襲」→擁立）を訂正したため、2026-07-26 に overall と本フェーズを in-progress に戻した。"
+      "blocks": "秦漢19・後漢14・三国11・晋16・五胡十六国43",
+      "note": "定義は data/schema/ADDITIONAL_SCHEMA.md 1節。サイト側の横展開は移行完了後。 移行過程で原典と食い違う旧判定14件（晋愍帝・東晋康帝・哀帝・廃帝・恭帝、前趙劉聡、成漢李期、前秦苻健・苻丕・苻登、夏赫連定、西燕慕容沖・慕容永、前趙劉曜）を訂正したため、2026-07-26 に overall と本フェーズを in-progress に戻した。"
      }
     },
     "eraChangeCount": {
@@ -189,7 +189,8 @@
    "【多軸化フェーズ・進行中】2026-07-26、accessionRoute を4軸＋2補助のファセット構造（accessionRoute.axes）へ移行開始。単一 enum 9値に『政権の連続性／血縁／誰が決めたか／何度目か』の4つの異なる問いが混在し、受禅による王朝創始が禅譲と建国に割れる・王位を継いで称帝した苻健らが建国で始皇帝が世襲になる等の一貫性破れが生じていたため。表示ラベルは軸から機械的に導出する（validate_emperors.py の derive_category が突合）。定義は data/schema/ADDITIONAL_SCHEMA.md 1節。パイロット＝秦漢19名（秦2・前漢14・玄漢1・新1・赤眉1）を原典再読で確定（既存note由来4名は decidedByBasis に明記）。ラベル変更5件: han-gaozu 建国→自立・建国、gengshi-di 擁立→推戴・建国、liu-penzi 擁立→推戴・建国、wang-mang 禅譲→受禅（易姓）、qin-shi-huang 世襲→継承（経緯記載なし）（原文「政代立為秦王」のみで遺詔・立太子の記述がなく、軸2基準の厳密適用により決着不能と判定）。サイト側の横展開は移行完了後にまとめて行う（未着手）。",
    "【多軸化フェーズ】後漢14名（光武帝〜献帝）を axes 化。ラベル変更2件: hou-han-guangwudi 建国→自立・建国、hou-han-shaodi-bian 擁立→継承（経緯記載なし）。少帝弁は本紀が「戊午，皇子辯即皇帝位」とのみ記し、竇何列傳も「群臣請立太子，帝以辯輕佻無威儀，不可為人主……故久不決」（霊帝は立太子せず）「碩謀不行，皇子辯乃即位」（宦官蹇碩の擁立計画は不発）と記すのみで、立てた主体の名指しがないため軸2＝史料から決着不能とした（旧スキーマはこれを擁立に押し込んでいた）。対照的に殤帝は本紀に主導者の記載がないが皇后紀「殤帝生始百日，后乃迎立之」で鄧皇后が特定でき第三者。11名は原典再読、3名（殤帝・安帝・献帝＝決め手が皇后紀・鄧騭伝・董卓伝）は既存noteの列伝引用で確定。",
    "【多軸化フェーズ】三国11名（魏5・蜀漢2・呉4）を axes 化。ラベル変更3件はいずれも語の統一: wei-wendi 禅譲→受禅（易姓）、shuhan-zhaoliedi・wu-dadi 建国→自立・建国。孫権は兄・孫策から江東の支配権を継承したが孫策は君主号を持たない後漢の将軍であり（「策薨，以事授権」）、皇帝号も自ら初めて称したため軸1＝自立・軸1b＝新称。曹髦（「齊王廢，公卿議迎立公」）・曹奐（「使使持節……北迎常道郷公璜嗣明帝後」）・孫休（「孫亮廢，己未，孫綝使宗正孫楷與中書郎董朝迎休」）・孫皓（「於是遂迎立皓」）はいずれも迎立の主体が名指しされ第三者。曹芳は明帝の臨終立太子（「帝甚病，乃立為皇太子。是日，即皇帝位」）で先帝。8名は原典再読、3名（曹丕・劉備・孫権）は既存noteの原文引用で確定。多軸化フェーズ累計44/365名（秦漢19・後漢14・三国11）。残り321名。",
-   "【多軸化フェーズ】晋16名（西晋5・東晋11）を axes 化。うち4件は実質的な判定変更（旧スキーマの誤り是正）: jin-mindi・dongjin-aidi・dongjin-feidi・dongjin-gongdi はいずれも旧「世襲」だが、愍帝は閻鼎ら臣下が長安に奉じて立て（「同謀奉帝歸于長安」）、哀帝・廃帝は崇徳太后（褚太后）の令・詔で迎立され（「皇太后令曰」「于是百官備法駕，迎于琅邪第」／「皇太后詔曰」「于是百官奉迎于琅邪第」）、恭帝は劉裕が遺詔を偽って立てた（「劉裕矯稱遺詔曰」）ため、いずれも軸2＝第三者で擁立。血縁が近いことを理由に世襲としていた旧判定を、原典の記述に即して訂正した。該当4名の note も書き直した。ほか jin-wudi 禅譲→受禅（易姓）、dongjin-yuandi 建国→自立・建国（東晋は愍帝から位を受けておらず自立）。懐帝・康帝は先帝の立太弟・詔がありつつ権臣の関与も記録されるため decidedBy=[先帝,第三者]（導出は世襲）。dongjin-kangdi も康帝紀末尾「初，成帝有疾，中書令庾冰自以舅氏當朝……乃言國有強敵，宜立長君，遂以帝為嗣」により擁立へ訂正（訂正計5件）。多軸化フェーズ累計60/365名（秦漢19・後漢14・三国11・晋16）。"
+   "【多軸化フェーズ】晋16名（西晋5・東晋11）を axes 化。うち4件は実質的な判定変更（旧スキーマの誤り是正）: jin-mindi・dongjin-aidi・dongjin-feidi・dongjin-gongdi はいずれも旧「世襲」だが、愍帝は閻鼎ら臣下が長安に奉じて立て（「同謀奉帝歸于長安」）、哀帝・廃帝は崇徳太后（褚太后）の令・詔で迎立され（「皇太后令曰」「于是百官備法駕，迎于琅邪第」／「皇太后詔曰」「于是百官奉迎于琅邪第」）、恭帝は劉裕が遺詔を偽って立てた（「劉裕矯稱遺詔曰」）ため、いずれも軸2＝第三者で擁立。血縁が近いことを理由に世襲としていた旧判定を、原典の記述に即して訂正した。該当4名の note も書き直した。ほか jin-wudi 禅譲→受禅（易姓）、dongjin-yuandi 建国→自立・建国（東晋は愍帝から位を受けておらず自立）。懐帝・康帝は先帝の立太弟・詔がありつつ権臣の関与も記録されるため decidedBy=[先帝,第三者]（導出は世襲）。dongjin-kangdi も康帝紀末尾「初，成帝有疾，中書令庾冰自以舅氏當朝……乃言國有強敵，宜立長君，遂以帝為嗣」により擁立へ訂正（訂正計5件）。多軸化フェーズ累計60/365名（秦漢19・後漢14・三国11・晋16）。",
+   "【多軸化フェーズ】五胡十六国43名（前涼1・前趙5・前燕2・成漢5・後趙7・前秦5・夏3・後燕6・西燕4・南燕2・後秦3）を axes 化。実質的な判定変更9件: qianzhao-liucong 世襲→簒奪（兄・劉和の軍を破って宮中に攻め入り和を殺害した後に群臣の勧進を受けた）、chenghan-liqi 擁立→簒奪（「与其弟期密计图之」「期自以谋大事既果」で本人が李班殺害の共謀者と判明）、qianqin-fujian 建国→世襲（「世子健收而斩之」「及洪死，健嗣位」＝父・苻洪から君主位を継承し帝号のみ新称。始皇帝と同型で、旧スキーマの一貫性破れの実例そのもの）、qianqin-fupi 世襲→擁立（「王永……劝称尊号，丕从之」）、qianqin-fudeng 世襲→擁立（啖青の提唱で諸将が「推登为帅」）、xia-heliading 世襲→簒奪（兄・昌が北魏に捕らえられた後に残衆を集めて自ら即位。伝位・擁立の記載なし）、xiyan-murongchong 建国→擁立（「乃杀泓，立冲为皇太弟，承制行事」）、xiyan-murongyong 建国→擁立（「乃推慕容永为使持节……河东王」）、qianzhao-liuyao 建国→推戴・建国（「太保呼延晏等自平阳奔之，与太傅硃纪、太尉范隆等上尊号」）。残り8件のラベル変更は語の統一（建国→自立・建国＝劉淵・李雄・石勒・石祗・赫連勃勃・慕容垂・慕容徳・姚萇）。軸1の境界は「前代君主から実際に君主位を受けたか」で判定し、kinship.json の主 succession エッジの有無と結果的に一致した（エッジなし9名＝自立、ほか34名＝前代君主から継承）。ただし石祗（冉閔が石鑑を殺して鄴を握った後に襄国で自立＝エッジなし）と赫連定（兄の捕縛後に直接後を襲う＝エッジあり）は事実関係が近く、kinship 側に石鑑→石祗の succession エッジが欠けている可能性がある（要フォローアップ）。軸1b は前代君主が皇帝号を保持していたかで判定し、王・天王からの昇格（慕容儁・苻健・苻丕・張祚・石虎・慕容盛・慕容熙・慕容永）を新称とした。『晋書』載記の「僭」は史官の貶下表記で全員に付くため、軸2＝本人の根拠には使わない（擁立記事のある人物にも「僭即皇帝位」と書かれる）。note は判定理由を述べる文（「〜のため建国に分類」等）を廃し、事実と原文引用に書き改めた（14名）。多軸化フェーズ累計103/365名（秦漢19・後漢14・三国11・晋16・五胡十六国43）。残り262名。"
   ],
   "capitalRelocationCompletedBlocks": [
    "364人全員完了（2026-07-17）。グループ2/3の「人物ごと個別調査」ではなく、王朝ブロック単位（30グループ）で正史原典から遷都イベントを先に列挙し、既存のreignData（在位期間）に機械的に逆引きする2段階方式で実施（ADDITIONAL_SCHEMA.md 6節の方式）。Workflowで30エージェント並列調査・0エラー・id一致。合計60件の遷都イベントを検出し、うち58件を45人の個人レコードに割当（count合計58）、2件（南唐961年の洪州・金陵間移動）は皇帝号返上後〔958年後周へ称臣〕の期間かつ後継者・李煜が本データセット未収録のため人物への割当を見送った（王朝単位の記録として除外理由をshiguo-nantang-lijingのnoteに明記）。著名な事例：北魏孝文帝の平城→洛陽（494年）、永楽帝の南京→北京（1421年）、清世祖の瀋陽→北京（1644年）、南宋高宗の臨安遷都（1138年、例外的にカウント）、金海陵王の燕京遷都・宣宗の開封遷都、後漢献帝期の洛陽→長安→許昌の連続遷都など。王としての在位期間中（皇帝号採用前）に発生した遷都（孫権の建業→武昌、拓跋珪の盛楽→平城、劉淵の離石→蒲子）は、ADDITIONAL_SCHEMA.mdの「後金→清」型例外（自王朝が既に持っていた前の都からの移転は建国時の定都から除外しない）を類推適用してカウントに含めた。",
@@ -21983,11 +21984,27 @@
    },
    "accessionRoute": {
     "category": "簒奪",
-    "note": "先代（甥）の張耀霊を殺害し自ら涼公を称した後、354年に皇帝を僭称。独自元号「和平」を建元。",
+    "note": "張駿の庶長子で、張耀霊の伯父。趙長・尉緝らが張重華の遺令を矯めて祚を輔政に就け、尉緝の議に従った重華の母・馬氏の命により耀霊が廃されて祚が立てられた（『晋書』張軌傳「长等矫称重华遗令，以祚为持节、督中外诸军、抚军将军，辅政」「祚先烝重华母马氏，马氏遂从缉议，命废耀灵为凉宁侯而立祚」）。祚はその後、耀霊を東苑で殺害させ（「祚寻使杨秋胡害耀灵于东苑」）、永和10年に尉緝・趙長らの議を容れて帝位を僭称した（「祚纳尉缉、赵长等议，僭称帝位」）。前涼の君主は代々涼公・涼王を称しており、皇帝号は祚の代に初めて称された。",
     "confidence": "high",
     "source": {
      "page": "晉書 張軌傳",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "母后",
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "廃位・追放",
+     "relationToPredecessor": "伯父",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -22161,12 +22178,28 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
+    "category": "自立・建国",
     "note": "匈奴の単于家系（前漢と縁戚関係を主張）出身。西晋の八王の乱に乗じ、304年に漢王を自称して挙兵、308年に皇帝を称し漢（前趙、漢趙）を建国。",
     "confidence": "high",
     "source": {
      "page": "晉書 載記第一 劉元海",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宗室",
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -22388,6 +22421,18 @@
     "source": {
      "page": "晉書 載記第一 劉元海（劉和）",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -22541,12 +22586,28 @@
     }
    },
    "accessionRoute": {
-    "category": "世襲",
-    "note": "光文帝劉淵の子。兄・劉和が弟たちの粛清を企て自身も討伐対象とされたが、逆に劉和軍を打ち破って殺害し、群臣に推されて即位。",
+    "category": "簒奪",
+    "note": "光文帝劉淵の四男。兄・劉和が弟たちの粛清を図って兵を向けたのに対し、備えて迎え撃ち、宮中に攻め入って劉和を殺害した（『晋書』載記第一「聪攻西明门，克之」「斩和于光极西室」）。その後、群臣の勧進を受け、弟の北海王乂への譲位を一度は表明したうえで即位した（載記第二「既杀其兄和，群臣劝即尊位。聪初让其弟北海王乂，乂与公卿泣涕固请，聪久而许之」「于是以永嘉四年僭即皇帝位」）。",
     "confidence": "high",
     "source": {
      "page": "晉書 載記第二 劉聰",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宗室",
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -22891,6 +22952,18 @@
     "source": {
      "page": "晉書 載記第二 劉聰（劉粲）",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -23074,12 +23147,26 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "光文帝劉淵の一族（族子）。靳準の乱で劉粲ら劉氏一族が皆殺しにされた後、長安で自立して皇帝を称した。国号を「趙」に改め、劉淵・劉聡系の漢とは別の政権（前趙）として再建したとみなし建国に分類。",
+    "category": "推戴・建国",
+    "note": "劉淵の族子。靳準の乱で劉粲以下の劉氏一族が殺害された後、長安から討伐に向かい、赤壁で平陽から逃れた重臣たちに尊号を奉られて即位した（『晋書』載記第三「靳准之难，自长安赴之。至于赤壁，太保呼延晏等自平阳奔之，与太傅硃纪、太尉范隆等上尊号。曜以太兴元年僭即皇帝位」）。前帝・劉粲から位を受けた記事はない。即位後に国号を「漢」から「趙」に改めた（前趙）。",
     "confidence": "high",
     "source": {
      "page": "晉書 載記第三 劉曜",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -23417,6 +23504,18 @@
     "source": {
      "page": "晉書 載記第十 慕容儁",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -23691,6 +23790,18 @@
     "source": {
      "page": "晉書 載記第十一 慕容暐",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -23881,12 +23992,28 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
+    "category": "自立・建国",
     "note": "巴氐族の首長として304年に成都王を自称、306年に皇帝に即位し成（成漢）を建国。",
     "confidence": "high",
     "source": {
      "page": "晉書 載記第二十一 李雄",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "軍",
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -24200,6 +24327,18 @@
     "source": {
      "page": "晉書 載記第二十一 李班",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "甥",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -24350,12 +24489,27 @@
     }
    },
    "accessionRoute": {
-    "category": "擁立",
-    "note": "李班暗殺の首謀者李越により、皇太后任氏に養育され多才だったことを理由に後継として擁立され即位。本人の主体的な簒奪行為ではない。",
+    "category": "簒奪",
+    "note": "李雄の四男。兄の李越と謀って李班殺害を計画し（『晋書』載記第二十一「越时镇江阳，以班非雄所生，意甚不平。至此，奔丧，与其弟期密计图之」）、越が班を殯宮で殺害した後、越が期に位を譲るかたちで即位した（「既杀班，欲立越为主，越以期雄妻任氏所养，又多才艺，乃让位于期。于是僭即皇帝位」）。原文は即位後の期について「期自以谋大事既果，轻诸旧臣」と記す。",
     "confidence": "high",
     "source": {
      "page": "晉書 載記第二十一 李期",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宗室"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "従兄弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -24543,6 +24697,21 @@
     "source": {
      "page": "晉書 載記第二十一 李壽",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "廃位・追放",
+     "relationToPredecessor": "その他",
+     "procedure": "偽詔・矯詔"
     }
    },
    "eraChangeCount": {
@@ -24729,6 +24898,18 @@
     "source": {
      "page": "晉書 載記第二十一 李勢",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -24950,12 +25131,28 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
+    "category": "自立・建国",
     "note": "羯族出身。奴隷から身を起こし前趙の有力部将となった後、劉曜と対立し319年に自立、329年に前趙を滅ぼし330年に皇帝を称し後趙を建国。",
     "confidence": "high",
     "source": {
      "page": "晉書 載記第四 石勒上",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -25201,11 +25398,26 @@
    },
    "accessionRoute": {
     "category": "世襲",
-    "note": "石勒の子として即位したが、実権は従兄弟の石虎が握る傀儡的立場だった。",
+    "note": "石勒の次男。世子を経て、石勒の即位後に皇太子に立てられた（『晋書』載記第五「勒僭位，立为太子」）。石勒の死後、石虎が弘を軒に臨ませて群臣を制圧し（「季龙执弘使临轩」）、弘は石虎への譲位を申し出たが容れられず、逼られて即位した（「弘大惧，让位于季龙」「遂以咸和七年逼立之」）。実権は石虎が握った。",
     "confidence": "high",
     "source": {
      "page": "晉書 載記第五 石虎上",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宗室"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -25509,6 +25721,21 @@
     "source": {
      "page": "晉書 載記第五 石虎上",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "廃位・追放",
+     "relationToPredecessor": "従兄弟",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -25854,11 +26081,26 @@
    },
    "accessionRoute": {
     "category": "世襲",
-    "note": "石虎の末子として、父の遺詔により即位。",
+    "note": "石虎の末子。張豺が石虎の高齢と病を見て、世を後嗣に立てて自らが輔政となることを図り（『晋書』載記第七「豺以季龙年长多疾，规立世为嗣，刘当为太后，己得辅政，说季龙曰」）、石虎は張挙・李農と議を定めて公卿に上書させ、世を皇太子に立てた（「遂立世为皇太子，刘氏为皇后」）。石虎の死後に即位し、母の劉氏が臨朝、張豺が丞相となった（「于是世即伪位，尊刘氏为皇太后，临朝，进张豺为丞相」）。",
     "confidence": "high",
     "source": {
      "page": "晉書 載記第六 石世",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -26034,6 +26276,22 @@
     "source": {
      "page": "晉書 載記第六 石遵",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "軍",
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "廃位・追放",
+     "relationToPredecessor": "兄",
+     "procedure": "偽詔・矯詔"
     }
    },
    "eraChangeCount": {
@@ -26250,6 +26508,21 @@
     "source": {
      "page": "晉書 載記第七 石鑑",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "兄",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -26432,12 +26705,24 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "石虎の子。冉閔による胡人虐殺（殺胡令）に対抗し、後趙の残存勢力を糾合して襄国で自立し帝位を称した。正統な継承手続きを経ない再興のため建国に分類。",
+    "category": "自立・建国",
+    "note": "石虎の子。冉閔が石鑑を殺して鄴を握った後、襄国で帝号を称し、州郡に拠る六夷の諸勢力がこれに応じた（『晋書』載記第七「石祗闻鉴死，僭称尊号于襄国，诸六夷据州郡拥兵者皆应之」）。前帝から位を受けた記事も擁立者の記載もない。後に冉閔に攻められ皇帝号を捨てて趙王と称した（「祗大惧，去皇帝之号，称赵王」）。",
     "confidence": "medium",
     "source": {
      "page": "晉書 載記第七 石祗",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -26600,12 +26885,24 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "氐族の首長苻洪の三男。351年に天王・大単于を称し、352年1月に皇帝を自称して前秦を建国。",
+    "category": "世襲",
+    "note": "苻洪の三男で世子。苻洪が麻秋に毒殺された際、世子として麻秋を斬り（『晋書』載記第十二「秋因宴鸩洪，将并其众，世子健收而斩之」）、洪の遺言を受けて位を嗣いだ（「洪将死，谓健曰：“所以未入关者，言中州可指时而定。今见困竖子，中原非汝兄弟所能办。关中形胜，吾亡后便可鼓行而西。”」「及洪死，健嗣位，去秦王之号，称晋爵」）。その後、関中を制圧して永和7年に天王・大単于を称し（「永和七年，僭称天王、大单于」）、翌年に皇帝を称した。君主位は父から継承し、皇帝号は自ら新たに称したもの。",
     "confidence": "high",
     "source": {
      "page": "晉書 載記第十二 苻健",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -26927,6 +27224,18 @@
     "source": {
      "page": "晉書 載記第十三 苻生",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -27108,12 +27417,27 @@
     }
    },
    "accessionRoute": {
-    "category": "世襲",
-    "note": "苻堅の庶長子。淝水の戦い後、前秦崩壊の混乱の中、晋陽の南で皇帝に即位。",
+    "category": "擁立",
+    "note": "苻堅の庶長子。淝水の戦い後、鄴から潞川を経て晋陽に入り、そこで苻堅の死を知った。幽州刺史の王永が騎兵一万を率いて合流して尊号を勧め、丕はこれに従って即位した（『晋書』載記第十四「王永留苻冲守壶关，率骑一万会丕，劝称尊号，丕从之，乃以太元十年僭即皇帝位」）。苻堅は天王を称しており、皇帝号はこの時に新たに称された。",
     "confidence": "high",
     "source": {
      "page": "晉書 載記第十四 苻丕",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -27286,12 +27610,27 @@
     }
    },
    "accessionRoute": {
-    "category": "世襲",
-    "note": "哀平帝苻丕の族子（一族）。苻丕の死後、隴東で祭壇を設け皇帝に即位。",
+    "category": "擁立",
+    "note": "苻丕の族子（王室の疏属）。枹罕の氐族諸将が老齢の衛平を退けて後継を議した際、啖青が苻登の擁立を提唱し、諸将が登を帥に推した（『晋書』載記第十四「狄道长苻登虽王室疏属，而志略雄明，请共立之，以赴大驾」「于是推登为帅，遣使于丕请命」）。苻丕の敗死後に尊号を称した（「苻登称尊号，伪谥丕为哀平皇帝」）。推戴された地位は当初は帥・南安王であり、帝位は丕の死後に及んだ。",
     "confidence": "high",
     "source": {
      "page": "晉書 載記第十四 苻登",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "同族（遠縁）",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -27532,6 +27871,18 @@
     "source": {
      "page": "晉書 載記第十四 苻登",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -27695,13 +28046,28 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
+    "category": "自立・建国",
     "note": "匈奴系鉄弗部の首長として自立後、義熙3年（407年）に天王・大単于を僭称（「僭稱天王、大單于」）。その後長安を攻略し、灞上で正式に皇帝位に即いた（「為壇於灞上，僭即皇帝位」）。夏王朝の建国者。",
     "confidence": "high",
     "source": {
      "page": "晉書/卷130",
      "lang": "zh",
      "note": "zh.wikisource.org原文"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -28029,6 +28395,18 @@
      "page": "魏書/卷95",
      "lang": "zh",
      "note": "zh.wikisource.org原文"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -28209,13 +28587,25 @@
     }
    },
    "accessionRoute": {
-    "category": "世襲",
-    "note": "兄・赫連昌が北魏に敗れて捕らえられた後、平涼に逃れて自ら尊号を称し即位した（『魏書』原文「昌敗，定奔於平涼，自稱尊號，改年勝光」）。禅譲等の正式な手続きはないが、夏という同一王朝内での皇位継続と見なし世襲に分類。",
+    "category": "簒奪",
+    "note": "赫連勃勃の五男。兄の赫連昌が北魏に敗れて捕らえられた後、その残衆数万を集めて平涼に拠り、自ら皇帝位に即いた（『十六国春秋』夏録「昌为魏所败定遂收其余众数万还据平凉遂僣即皇帝位」）。前帝からの伝位の記事も擁立者の記載もない。",
     "confidence": "high",
     "source": {
      "page": "魏書/卷95",
      "lang": "zh",
      "note": "zh.wikisource.org原文"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "廃位・追放",
+     "relationToPredecessor": "弟",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -28393,12 +28783,28 @@
     "notes": "後燕皇帝。成武帝。"
    },
    "accessionRoute": {
-    "category": "建国",
+    "category": "自立・建国",
     "note": "前秦崩壊後、太元8年に滎陽で大将軍・大都督・燕王を自称して自立し、太元11年（386年）に正式に皇帝を僭称した後燕の建国者。",
     "confidence": "high",
     "source": {
      "page": "晉書/卷123 慕容垂載記",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "軍",
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "deathCause": {
@@ -28682,6 +29088,18 @@
     "source": {
      "page": "晉書/卷124 慕容寶載記",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "deathCause": {
@@ -28958,6 +29376,18 @@
      "page": "晉書/卷124",
      "lang": "zh",
      "note": "zh.wikisource.org"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "同族（遠縁）",
+     "procedure": "儀礼なし・自称"
     }
    },
    "deathCause": {
@@ -29129,6 +29559,18 @@
      "page": "晉書/卷124",
      "lang": "zh",
      "note": "zh.wikisource.org"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "同族（遠縁）",
+     "procedure": "儀礼なし・自称"
     }
    },
    "deathCause": {
@@ -29282,12 +29724,24 @@
    },
    "accessionRoute": {
     "category": "簒奪",
-    "note": "兄・策を殺害した蘭汗に接近して油断させ、クーデターで蘭汗を討ち取り実権を掌握（「盛夜因如廁…與李旱等誅穆，眾皆踴呼，進攻汗，斬之」）。当初は長楽王として皇帝号を称さず、後に正式に皇帝を称した（「盛於是僭即尊位」）。血統は継ぐが簒奪者から実力で権力を奪取した経緯のため簒奪に分類。",
+    "note": "慕容宝の庶長子。父・宝を殺して位を奪った蘭汗のもとに身を寄せて油断させ、蘭穆・蘭汗を討って実権を掌握した（『晋書』載記第二十四「盛夜因如厕，袒而逾墙，入于东宫，与李旱等诛穆，众皆踊呼，进攻汗，斩之」）。当初は尊号を称さず長楽王にとどまり（「盛谦揖自卑，不称尊号」）、慕容奇の反乱を鎮圧した後に帝位に即いた（「盛于是僭即尊位」）。",
     "confidence": "high",
     "source": {
      "page": "晉書/卷124",
      "lang": "zh",
      "note": "zh.wikisource.org"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "子",
+     "procedure": "儀礼なし・自称"
     }
    },
    "deathCause": {
@@ -29547,6 +30001,21 @@
      "page": "晉書/卷124",
      "lang": "zh",
      "note": "zh.wikisource.org"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "母后",
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "叔父",
+     "procedure": "通常の践祚"
     }
    },
    "deathCause": {
@@ -29792,13 +30261,27 @@
     "notes": "西燕皇帝。威帝。"
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "兄・慕容泓の謀臣らが泓を殺害し沖を皇太弟に擁立（「乃殺泓，立沖為皇太弟，承制行事」）。その後長安を占領し阿房城で自ら皇帝を僭称（「慕容沖即皇帝位於阿房，改元更始」）。西燕で初めて皇帝号を実際に称した人物で、先行政権からの継承を伴わない自立的即位のため建国に分類。",
+    "category": "擁立",
+    "note": "前燕・慕容儁の子で、慕容泓の弟。泓の謀臣である高蓋・宿勤崇らが泓を殺害し、沖を皇太弟に立てて承制させた（『晋書』載記第十四「泓谋臣高盖、宿勤崇等以泓德望后冲，且持法苛峻，乃杀泓，立冲为皇太弟，承制行事」）。その後長安を占領し、阿房で皇帝位に即いた（『資治通鑑』巻106「慕容沖即皇帝位於阿房，改元更始」）。慕容泓は帝号を用いておらず、皇帝号は沖の代に初めて称された。",
     "confidence": "high",
     "source": {
      "page": "晉書/卷114 苻堅載記下、資治通鑑巻106",
      "lang": "zh",
      "note": "zh.wikisource.org"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "弟",
+     "procedure": "通常の践祚"
     }
    },
    "deathCause": {
@@ -29979,6 +30462,20 @@
      "page": "資治通鑑巻106 晋紀二十八",
      "lang": "zh",
      "note": "zh.wikisource.org"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "deathCause": {
@@ -30150,6 +30647,20 @@
      "page": "資治通鑑巻106 晋紀二十八",
      "lang": "zh",
      "note": "zh.wikisource.org"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "従兄弟",
+     "procedure": "通常の践祚"
     }
    },
    "deathCause": {
@@ -30314,13 +30825,28 @@
     "notes": "西燕皇帝。慕容永。"
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "忠の死後、諸将から使持節・大都督中外諸軍事に推戴され実権を掌握。その後前秦苻丕の領地であった長子を占拠し皇帝位に即いて中興と改元。既存の西燕皇帝号を継承したのではなく新たな根拠地を得ての自立的即位のため建国に分類。",
+    "category": "擁立",
+    "note": "西燕の宗室（同族の遠縁）。刁雲が慕容忠を殺害した後、諸将に使持節・大都督中外諸軍事・河東王などに推され、後燕の慕容垂に称藩した（『晋書』載記第十五「刁云杀慕容忠，乃推慕容永为使持节、大都督中外诸军事、大将军、大单于、雍、秦、梁、凉四州牧、录尚书事、河东王、称籓于垂」）。苻丕の敗死後、上党の長子に拠って皇帝号を称し中興と改元した（「丕之臣佐皆没慕容永，永乃进据上党之长子，僭称大号，改元曰中兴」）。推戴された地位は河東王であり、帝号は後に自ら称した。",
     "confidence": "medium",
     "source": {
      "page": "資治通鑑巻106、通鑑紀事本末第16巻",
      "lang": "zh",
      "note": "zh.wikisource.org。即位までの詳細経緯は完全には確認しきれずconfidence medium"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "同族（遠縁）",
+     "procedure": "通常の践祚"
     }
    },
    "deathCause": {
@@ -30524,12 +31050,27 @@
     "notes": "南燕皇帝。献武帝。"
    },
    "accessionRoute": {
-    "category": "建国",
+    "category": "自立・建国",
     "note": "後燕崩壊の混乱の中、当初は群臣の勧めを固辞していたが（「德不從」）、滑台遷都後に瑞兆を得て皇帝を称した。先行政権からの継承ではなく南燕を新規に樹立。",
     "confidence": "high",
     "source": {
      "page": "晉書/卷127 慕容徳載記",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "deathCause": {
@@ -30825,6 +31366,18 @@
     "source": {
      "page": "晉書/卷128 慕容超載記",
      "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "甥",
+     "procedure": "通常の践祚"
     }
    },
    "deathCause": {
@@ -31033,13 +31586,28 @@
     "notes": "後秦皇帝。武昭帝。"
    },
    "accessionRoute": {
-    "category": "建国",
+    "category": "自立・建国",
     "note": "苻堅の敗死後、西州豪族らに盟主に推挙され（「咸推萇為盟主」）、太元9年（384年）に万年秦王を自称、太元11年（386年）長安で正式に皇帝を称し「大秦」（後秦）を建国（「僭即皇帝位於長安…國號大秦」）。",
     "confidence": "high",
     "source": {
      "page": "晉書/卷116 姚萇載記",
      "lang": "zh",
      "note": "zh.wikisource.org"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "deathCause": {
@@ -31353,6 +31921,18 @@
      "page": "晉書/卷117 姚興載記上",
      "lang": "zh",
      "note": "zh.wikisource.org"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "deathCause": {
@@ -31875,6 +32455,18 @@
      "page": "晉書/卷119 姚泓載記",
      "lang": "zh",
      "note": "zh.wikisource.org"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "deathCause": {

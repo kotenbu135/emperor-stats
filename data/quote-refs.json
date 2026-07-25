@@ -9011,6 +9011,38 @@
     "月癸亥朔越因班夜哭弑"
    ]
   },
+  "chenghan-liqi|accessionRoute.note|76e5636df543": {
+   "id": "chenghan-liqi",
+   "path": "accessionRoute.note",
+   "span": "越时镇江阳，以班非雄所生，意甚不平。至此，奔丧，与其弟期密计图之",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/皇极典僭号部.txt",
+   "frags": [
+    "越时镇江阳以班非雄所",
+    "不平至此奔丧与其弟期"
+   ]
+  },
+  "chenghan-liqi|accessionRoute.note|80a7433f96c6": {
+   "id": "chenghan-liqi",
+   "path": "accessionRoute.note",
+   "span": "期自以谋大事既果，轻诸旧臣",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-liqi.txt",
+   "frags": [
+    "期自以谋大事既果轻诸"
+   ]
+  },
+  "chenghan-liqi|accessionRoute.note|a245805aba0a": {
+   "id": "chenghan-liqi",
+   "path": "accessionRoute.note",
+   "span": "既杀班，欲立越为主，越以期雄妻任氏所养，又多才艺，乃让位于期。于是僭即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-liqi.txt",
+   "frags": [
+    "既杀班欲立越为主越以",
+    "养又多才艺乃让位于期"
+   ]
+  },
   "chenghan-liqi|ages.note|051d93bb666f": {
    "id": "chenghan-liqi",
    "path": "ages.note",
@@ -18699,6 +18731,17 @@
     "盛于是僭即尊位"
    ]
   },
+  "houyan-murongsheng|accessionRoute.note|8f5b4538fdf0": {
+   "id": "houyan-murongsheng",
+   "path": "accessionRoute.note",
+   "span": "盛夜因如厕，袒而逾墙，入于东宫，与李旱等诛穆，众皆踊呼，进攻汗，斩之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houyan-murongsheng.txt",
+   "frags": [
+    "盛夜因如厕袒而逾墙入",
+    "李旱等诛穆众皆踊呼进"
+   ]
+  },
   "houyan-murongsheng|accessionRoute.note|c2df83e2682c": {
    "id": "houyan-murongsheng",
    "path": "accessionRoute.note",
@@ -18707,6 +18750,16 @@
    "corpusFile": "_corpus_cache/houyan-murongsheng.txt",
    "frags": [
     "与李旱等诛穆众皆踊呼"
+   ]
+  },
+  "houyan-murongsheng|accessionRoute.note|c5d1063b3bd9": {
+   "id": "houyan-murongsheng",
+   "path": "accessionRoute.note",
+   "span": "盛谦揖自卑，不称尊号",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houyan-murongsheng.txt",
+   "frags": [
+    "盛谦揖自卑不称尊号"
    ]
   },
   "houyan-murongsheng|ages.note|5eeabfb4fa3a": {
@@ -19043,6 +19096,46 @@
     "二十三在位六年云葬之"
    ]
   },
+  "houzhao-shihong|accessionRoute.note|394ad2ecbf18": {
+   "id": "houzhao-shihong",
+   "path": "accessionRoute.note",
+   "span": "遂以咸和七年逼立之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houzhao-shihong.txt",
+   "frags": [
+    "遂以咸和七年逼立之"
+   ]
+  },
+  "houzhao-shihong|accessionRoute.note|4fac4d396ff5": {
+   "id": "houzhao-shihong",
+   "path": "accessionRoute.note",
+   "span": "季龙执弘使临轩",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houzhao-shihong.txt",
+   "frags": [
+    "季龙执弘使临轩"
+   ]
+  },
+  "houzhao-shihong|accessionRoute.note|51a27ee97c54": {
+   "id": "houzhao-shihong",
+   "path": "accessionRoute.note",
+   "span": "勒僭位，立为太子",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houzhao-shihong.txt",
+   "frags": [
+    "勒僭位立为太子"
+   ]
+  },
+  "houzhao-shihong|accessionRoute.note|748cfea513a9": {
+   "id": "houzhao-shihong",
+   "path": "accessionRoute.note",
+   "span": "弘大惧，让位于季龙",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houzhao-shihong.txt",
+   "frags": [
+    "弘大惧让位于季龙"
+   ]
+  },
   "houzhao-shihong|ages.note|4013ff2edc69": {
    "id": "houzhao-shihong",
    "path": "ages.note",
@@ -19331,6 +19424,38 @@
     "位十五年五月甲寅慕容"
    ]
   },
+  "houzhao-shishi|accessionRoute.note|14ba671f671a": {
+   "id": "houzhao-shishi",
+   "path": "accessionRoute.note",
+   "span": "遂立世为皇太子，刘氏为皇后",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/册府元龟.txt",
+   "frags": [
+    "遂立世为皇太子刘氏为"
+   ]
+  },
+  "houzhao-shishi|accessionRoute.note|c96d87eb9dc9": {
+   "id": "houzhao-shishi",
+   "path": "accessionRoute.note",
+   "span": "豺以季龙年长多疾，规立世为嗣，刘当为太后，己得辅政，说季龙曰",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/册府元龟.txt",
+   "frags": [
+    "豺以季龙年长多疾规立",
+    "刘当为太后己得辅政说"
+   ]
+  },
+  "houzhao-shishi|accessionRoute.note|cca65c89f4c1": {
+   "id": "houzhao-shishi",
+   "path": "accessionRoute.note",
+   "span": "于是世即伪位，尊刘氏为皇太后，临朝，进张豺为丞相",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houzhao-shishi.txt",
+   "frags": [
+    "于是世即伪位尊刘氏为",
+    "皇太后临朝进张豺为丞"
+   ]
+  },
   "houzhao-shishi|empressInstallationCount.note|4b75b132eb47": {
    "id": "houzhao-shishi",
    "path": "empressInstallationCount.note",
@@ -19360,6 +19485,27 @@
    "frags": [
     "于是世即伪位",
     "世凡立三十三日"
+   ]
+  },
+  "houzhao-shizhi|accessionRoute.note|8de1cd3b2a08": {
+   "id": "houzhao-shizhi",
+   "path": "accessionRoute.note",
+   "span": "祗大惧，去皇帝之号，称赵王",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houzhao-shizhi.txt",
+   "frags": [
+    "祗大惧去皇帝之号称赵"
+   ]
+  },
+  "houzhao-shizhi|accessionRoute.note|ef705bc29ca4": {
+   "id": "houzhao-shizhi",
+   "path": "accessionRoute.note",
+   "span": "石祗闻鉴死，僭称尊号于襄国，诸六夷据州郡拥兵者皆应之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houzhao-shizhi.txt",
+   "frags": [
+    "石祗闻鉴死僭称尊号于",
+    "诸六夷据州郡拥兵者皆"
    ]
   },
   "houzhao-shizhi|amnestyCount.note|347ae95f302e": {
@@ -36159,6 +36305,48 @@
     "又废何后为王妃迎立新"
    ]
   },
+  "qianliang-zhangzuo|accessionRoute.note|7453cd72672e": {
+   "id": "qianliang-zhangzuo",
+   "path": "accessionRoute.note",
+   "span": "长等矫称重华遗令，以祚为持节、督中外诸军、抚军将军，辅政",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/皇极典僭号部.txt",
+   "frags": [
+    "长等矫称重华遗令以祚",
+    "节督中外诸军抚军将军"
+   ]
+  },
+  "qianliang-zhangzuo|accessionRoute.note|8644838130d5": {
+   "id": "qianliang-zhangzuo",
+   "path": "accessionRoute.note",
+   "span": "祚纳尉缉、赵长等议，僭称帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianliang-zhangzuo.txt",
+   "frags": [
+    "祚纳尉缉赵长等议僭称"
+   ]
+  },
+  "qianliang-zhangzuo|accessionRoute.note|b4e3a29e2eba": {
+   "id": "qianliang-zhangzuo",
+   "path": "accessionRoute.note",
+   "span": "祚先烝重华母马氏，马氏遂从缉议，命废耀灵为凉宁侯而立祚",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/皇极典僭号部.txt",
+   "frags": [
+    "祚先烝重华母马氏马氏",
+    "缉议命废耀灵为凉宁侯"
+   ]
+  },
+  "qianliang-zhangzuo|accessionRoute.note|f74f43466397": {
+   "id": "qianliang-zhangzuo",
+   "path": "accessionRoute.note",
+   "span": "祚寻使杨秋胡害耀灵于东苑",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/皇极典僭号部.txt",
+   "frags": [
+    "祚寻使杨秋胡害耀灵于"
+   ]
+  },
   "qianliang-zhangzuo|ages.note|d41a57e6eac6": {
    "id": "qianliang-zhangzuo",
    "path": "ages.note",
@@ -36284,6 +36472,37 @@
     "定与崇皆被杀"
    ]
   },
+  "qianqin-fudeng|accessionRoute.note|221a869767e1": {
+   "id": "qianqin-fudeng",
+   "path": "accessionRoute.note",
+   "span": "苻登称尊号，伪谥丕为哀平皇帝",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/皇极典僭号部.txt",
+   "frags": [
+    "苻登称尊号伪谥丕为哀"
+   ]
+  },
+  "qianqin-fudeng|accessionRoute.note|761e32060fa9": {
+   "id": "qianqin-fudeng",
+   "path": "accessionRoute.note",
+   "span": "于是推登为帅，遣使于丕请命",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/皇极典僭号部.txt",
+   "frags": [
+    "于是推登为帅遣使于丕"
+   ]
+  },
+  "qianqin-fudeng|accessionRoute.note|bc183d5cafdc": {
+   "id": "qianqin-fudeng",
+   "path": "accessionRoute.note",
+   "span": "狄道长苻登虽王室疏属，而志略雄明，请共立之，以赴大驾",
+   "status": "corpus",
+   "corpusFile": "china-history/魏书/列传/第八十三章-卷八十三-原文.html",
+   "frags": [
+    "狄道长苻登虽王室疏属",
+    "志略雄明请共立之以赴"
+   ]
+  },
   "qianqin-fudeng|ages.note|13fca170355b": {
    "id": "qianqin-fudeng",
    "path": "ages.note",
@@ -36406,6 +36625,47 @@
     "伪谥登曰高皇帝庙号太"
    ]
   },
+  "qianqin-fujian|accessionRoute.note|5ad5b65275e2": {
+   "id": "qianqin-fujian",
+   "path": "accessionRoute.note",
+   "span": "洪将死，谓健曰：“所以未入关者，言中州可指时而定。今见困竖子，中原非汝兄弟所能办",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/地理/陕西通志.txt",
+   "frags": [
+    "洪将死谓健曰所以未入",
+    "竖子中原非汝兄弟所能"
+   ]
+  },
+  "qianqin-fujian|accessionRoute.note|5e7d54bad334": {
+   "id": "qianqin-fujian",
+   "path": "accessionRoute.note",
+   "span": "秋因宴鸩洪，将并其众，世子健收而斩之",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十六国春秋.txt",
+   "frags": [
+    "秋因宴鸩洪将并其众世"
+   ]
+  },
+  "qianqin-fujian|accessionRoute.note|a2462b432bf5": {
+   "id": "qianqin-fujian",
+   "path": "accessionRoute.note",
+   "span": "永和七年，僭称天王、大单于",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianqin-fujian.txt",
+   "frags": [
+    "永和七年僭称天王大单"
+   ]
+  },
+  "qianqin-fujian|accessionRoute.note|fd7ad5268f2b": {
+   "id": "qianqin-fujian",
+   "path": "accessionRoute.note",
+   "span": "及洪死，健嗣位，去秦王之号，称晋爵",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianqin-fujian.txt",
+   "frags": [
+    "及洪死健嗣位去秦王之"
+   ]
+  },
   "qianqin-fujian|ages.note|e900e42e6b1b": {
    "id": "qianqin-fujian",
    "path": "ages.note",
@@ -36500,6 +36760,17 @@
     "数日健死时年三十九在",
     "后改曰高祖丙子秦主健",
     "乙酉健卒谥曰景明皇帝"
+   ]
+  },
+  "qianqin-fupi|accessionRoute.note|6ae197b9dcf7": {
+   "id": "qianqin-fupi",
+   "path": "accessionRoute.note",
+   "span": "王永留苻冲守壶关，率骑一万会丕，劝称尊号，丕从之，乃以太元十年僭即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianqin-fupi.txt",
+   "frags": [
+    "王永留苻冲守壶关率骑",
+    "尊号丕从之乃以太元十"
    ]
   },
   "qianqin-fupi|amnestyCount[0].note|47f50c9abe21": {
@@ -36955,6 +37226,47 @@
     "殿下使甲士执粲数而杀"
    ]
   },
+  "qianzhao-liucong|accessionRoute.note|3e00c6347c14": {
+   "id": "qianzhao-liucong",
+   "path": "accessionRoute.note",
+   "span": "于是以永嘉四年僭即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianzhao-liucong.txt",
+   "frags": [
+    "于是以永嘉四年僭即皇"
+   ]
+  },
+  "qianzhao-liucong|accessionRoute.note|3e7c1aeb861e": {
+   "id": "qianzhao-liucong",
+   "path": "accessionRoute.note",
+   "span": "斩和于光极西室",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/皇极典僭号部.txt",
+   "frags": [
+    "斩和于光极西室"
+   ]
+  },
+  "qianzhao-liucong|accessionRoute.note|e94779692078": {
+   "id": "qianzhao-liucong",
+   "path": "accessionRoute.note",
+   "span": "既杀其兄和，群臣劝即尊位。聪初让其弟北海王乂，乂与公卿泣涕固请，聪久而许之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianzhao-liucong.txt",
+   "frags": [
+    "既杀其兄和群臣劝即尊",
+    "北海王乂乂与公卿泣涕"
+   ]
+  },
+  "qianzhao-liucong|accessionRoute.note|f95e370e7d99": {
+   "id": "qianzhao-liucong",
+   "path": "accessionRoute.note",
+   "span": "聪攻西明门，克之",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十六国春秋.txt",
+   "frags": [
+    "聪攻西明门克之"
+   ]
+  },
   "qianzhao-liucong|ages.note|421dab47b0c2": {
    "id": "qianzhao-liucong",
    "path": "ages.note",
@@ -37149,6 +37461,17 @@
     "元海死和嗣伪位",
     "锐等奔入南宫前锋随之",
     "和于光极西室锐攸枭首"
+   ]
+  },
+  "qianzhao-liuyao|accessionRoute.note|5fdbfd46237b": {
+   "id": "qianzhao-liuyao",
+   "path": "accessionRoute.note",
+   "span": "靳准之难，自长安赴之。至于赤壁，太保呼延晏等自平阳奔之，与太傅硃纪、太尉范隆等上",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianzhao-liuyao.txt",
+   "frags": [
+    "靳准之难自长安赴之至",
+    "与太傅朱纪太尉范隆等"
    ]
   },
   "qianzhao-liuyao|ages.note|bdc40b093512": {
@@ -59681,6 +60004,17 @@
     "己巳豪格师至南部时张"
    ]
   },
+  "xia-heliading|accessionRoute.note|35703a537d11": {
+   "id": "xia-heliading",
+   "path": "accessionRoute.note",
+   "span": "昌为魏所败定遂收其余众数万还据平凉遂僣即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xia-heliading.txt",
+   "frags": [
+    "昌为魏所败定遂收其余",
+    "数万还据平凉遂僣即皇"
+   ]
+  },
   "xia-heliading|accessionRoute.note|c93576ecfd4a": {
    "id": "xia-heliading",
    "path": "accessionRoute.note",
@@ -63266,6 +63600,17 @@
     "慕容冲即皇帝位于阿房"
    ]
   },
+  "xiyan-murongchong|accessionRoute.note|fd24f1536b61": {
+   "id": "xiyan-murongchong",
+   "path": "accessionRoute.note",
+   "span": "泓谋臣高盖、宿勤崇等以泓德望后冲，且持法苛峻，乃杀泓，立冲为皇太弟，承制行事",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/皇极典僭号部.txt",
+   "frags": [
+    "泓谋臣高盖宿勤崇等以",
+    "持法苛峻乃杀泓立冲为"
+   ]
+  },
   "xiyan-murongchong|ages.note|8a5871c58e97": {
    "id": "xiyan-murongchong",
    "path": "ages.note",
@@ -63407,6 +63752,28 @@
    "frags": [
     "恒立西燕主冲之子瑶为",
     "皆去瑶奔永永执瑶杀之"
+   ]
+  },
+  "xiyan-murongyong|accessionRoute.note|80b29d5cd7d4": {
+   "id": "xiyan-murongyong",
+   "path": "accessionRoute.note",
+   "span": "刁云杀慕容忠，乃推慕容永为使持节、大都督中外诸军事、大将军、大单于、雍、秦、梁、",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiyan-murongyong.txt",
+   "frags": [
+    "刁云杀慕容忠乃推慕容",
+    "大将军大单于雍秦梁凉"
+   ]
+  },
+  "xiyan-murongyong|accessionRoute.note|faf2926e6909": {
+   "id": "xiyan-murongyong",
+   "path": "accessionRoute.note",
+   "span": "丕之臣佐皆没慕容永，永乃进据上党之长子，僭称大号，改元曰中兴",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiyan-murongyong.txt",
+   "frags": [
+    "丕之臣佐皆没慕容永永",
+    "上党之长子僭称大号改"
    ]
   },
   "xiyan-murongyong|ages.note|feb40c002cab": {
