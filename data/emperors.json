@@ -66,9 +66,9 @@
      "label": "即位経路（多軸化移行中: 軸1〜4＋補助。表示ラベルは軸から導出）",
      "axesMigration": {
       "status": "in-progress",
-      "done": 193,
+      "done": 225,
       "total": 365,
-      "blocks": "秦漢19・後漢14・三国11・晋16・五胡十六国43・南朝35・北朝34・隋/隋末群雄/群雄21",
+      "blocks": "秦漢19・後漢14・三国11・晋16・五胡十六国43・南朝35・北朝34・隋/隋末群雄/群雄21・唐32",
       "note": "定義は data/schema/ADDITIONAL_SCHEMA.md 1節。サイト側の横展開は移行完了後。 移行過程で原典と食い違う旧判定14件（晋愍帝・東晋康帝・哀帝・廃帝・恭帝、前趙劉聡、成漢李期、前秦苻健・苻丕・苻登、夏赫連定、西燕慕容沖・慕容永、前趙劉曜）を訂正したため、2026-07-26 に overall と本フェーズを in-progress に戻した。"
      }
     },
@@ -194,7 +194,8 @@
    "【多軸化フェーズ】ラベル改称: `自立・建国`→`自立`、`推戴・建国`→`推戴`（2026-07-26、南朝ブロック着手時）。軸1=`自立` のバケットには王朝創始者だけでなく対抗政権の帝位僭称者（劉子勛・蕭正德・蕭紀・蕭荘・後趙石祗）が入るため、`建国` の語がラベルに残っていると誤読を生む。既存16名の category を再導出して追随させた（軸の値は変更なし）。",
    "【多軸化フェーズ】南朝35名（宋10・斉7・梁10・陳5・後梁3）を axes 化。旧「建国」だった王朝創始者4名（劉裕・蕭道成・蕭衍・陳霸先）はいずれも前王朝の皇帝から受禅しており受禅（易姓）に統一（曹丕・楊堅・趙匡胤と同型で、旧スキーマが同型事象を2カテゴリに割っていた実例）。実質的な判定変更4件: liang-houjing 禅譲→受禅（易姓）（旧 enum の値が導出表に無く残っていた）、liang-xiaoji 簒奪→自立（「高祖崩後，紀乃僭號於蜀」＝前帝から位を受けず蜀で別に立てた対抗政権）、liu-song-liuzixun・liang-xiaozhengde・liang-xiaozhuang 擁立→推戴（いずれも kinship に主 succession エッジがなく前帝から位を受けていない＝軸1が自立。擁立との差は軸1のみで、軸2はいずれも第三者）、houliang-xuandi 建国→推戴（西魏の策命で梁王・梁主とされたうえで自国において皇帝を称した。「察以未有玺命，辞不敢当」と本人が璽命を待った記述が軸2＝第三者の決め手）。軸2の境界規則（前帝の排除と即位が別事象なら授与側で取る）の適用例: 宋孝武帝は「上率眾入討」で元凶劉劭を滅ぼしたが即位は江夏王義恭の奉表上尊号の2日後のため第三者＝擁立を維持。対して宋明帝（腹心が前廃帝を殺害→建安王休仁がその場で御座に即かせた）・斉明帝・陳宣帝（いずれも太后令が廃位と自らの入纂を一体で行う）は本人が残り簒奪を維持。陳文帝は遺詔（「遺詔徵世祖入纂」）があり、『南史』侯安都伝の強行推戴は遺詔の効力を覆す介入ではなく実行を促した記述のため decidedBy=[先帝,第三者]（導出は世襲）。note から「王朝創始者のため建国に分類」「実態を重視し擁立を採用」等の判定理由文を排し、事実と原文引用に書き改めた（16名）。多軸化フェーズ累計138/365名（秦漢19・後漢14・三国11・晋16・五胡十六国43・南朝35）。残り227名。",
    "【多軸化フェーズ】北朝34名（北魏18・東魏1・北斉8・西魏3・北周4）を axes 化。ラベル変更7件はいずれも旧「建国」「擁立」の整理: beiqi-wenxuandi 建国→受禅（易姓）（東魏孝静帝からの受禅）、beiwei-daowudi・beiwei-yuanyu・beiwei-yuanfasheng 建国→自立、beiwei-houfeidi-yuanlang・beiwei-yuanhao・beiqi-gaoxie 擁立/建国→推戴（いずれも kinship に主 succession エッジがなく前帝から位を受けていない＝軸1が自立で、軸2は第三者）。境界事例2件: 北魏明元帝は清河王紹（弑逆者）を誅して即位したが、道武帝自身が「汝当继统」と後継に指名しており軸2＝先帝（紹は前帝ではない）。北魏節閔帝は元曄からの「行禅让之礼」という同一王朝内の生前譲位だが、廃立を決めたのは爾朱世隆らで両者は直系でないため procedure＝禅譲儀礼とし、内禅ラベルには落とさない（内禅は父子・直系間の生前譲位に限る運用）。北周明帝は「即天王位」で、北斉・北周が当初「天王」を用いたことを軸1b＝新称に記録した。多軸化フェーズ累計172/365名。残り193名。",
-   "【多軸化フェーズ】隋5・隋末群雄12＋未移行だった群雄4名（公孫述・劉永・袁術・桓玄）の計21名を axes 化。旧「建国」12名はすべて自立（うち李軌・蕭銑は推戴と自称の双方が原典に記されるため decidedBy=[本人,第三者]）。旧「禅譲」3名（桓玄・楊堅・王世充）は受禅（易姓）へ統一。実質的な判定変更1件: suimo-xuerengao 世襲→継承（経緯記載なし）。『旧唐書』は薛仁杲の立太子・遺詔を記さず「举死，仁杲立于折墌城」「及嗣位，众咸猜惧」とのみ記すため、始皇帝と同じく軸2＝史料から決着不能とした。境界事例: suimo-linshihong は kinship に操師乞（自号・元興王）からの succession エッジがあるが、継いだのは「代董其众」＝軍の指揮であって君主位ではないため軸1＝自立とし、軸4のみエッジに合わせて無血縁を置いた（軸3は該当なし。孫権と同型だが孫権はエッジ自体がないため衝突しなかった）。多軸化フェーズ累計193/365名。残り172名（唐32・五代十国34・宋遼西夏金52・元18・明22・清14）。"
+   "【多軸化フェーズ】隋5・隋末群雄12＋未移行だった群雄4名（公孫述・劉永・袁術・桓玄）の計21名を axes 化。旧「建国」12名はすべて自立（うち李軌・蕭銑は推戴と自称の双方が原典に記されるため decidedBy=[本人,第三者]）。旧「禅譲」3名（桓玄・楊堅・王世充）は受禅（易姓）へ統一。実質的な判定変更1件: suimo-xuerengao 世襲→継承（経緯記載なし）。『旧唐書』は薛仁杲の立太子・遺詔を記さず「举死，仁杲立于折墌城」「及嗣位，众咸猜惧」とのみ記すため、始皇帝と同じく軸2＝史料から決着不能とした。境界事例: suimo-linshihong は kinship に操師乞（自号・元興王）からの succession エッジがあるが、継いだのは「代董其众」＝軍の指揮であって君主位ではないため軸1＝自立とし、軸4のみエッジに合わせて無血縁を置いた（軸3は該当なし。孫権と同型だが孫権はエッジ自体がないため衝突しなかった）。多軸化フェーズ累計193/365名。残り172名（唐32・五代十国34・宋遼西夏金52・元18・明22・清14）。",
+   "【多軸化フェーズ】唐32名（本紀系23・武則天・唐末反乱政権/対抗擁立8）を axes 化。ラベル変更11件。旧「復位」3名（中宗・睿宗・昭宗）は初回即位の経緯でラベルを付け直し（中宗＝遺詔で柩前即位→世襲、睿宗＝武則天が中宗を廃して立てた→擁立、昭宗＝遺詔で皇太弟→世襲）、復位そのものは reigns[].isRestoration のバッジに一本化した。tang-wuzetian 建国→受禅（易姓）（睿宗から位を受け国号を周に改めた王朝交代型の受禅。譲位側が在位中の実子という点は軸4＝母に残る）。tang-gaozu 禅譲→受禅（易姓）。唐末の対抗政権は前帝から位を受けていないため軸1＝自立とし、安禄山・朱泚・李希烈・黄巣＝自立、李承宏（吐蕃が擁立）・李熅（朱玫が擁立）＝推戴。宦官が即位を主導した唐後期の特徴は decidedByAgents＝宦官として9名に記録された（憲宗の内禅も宦官俱文珍主導のため decidedBy＝第三者だが procedure＝内禅が優先しラベルは内禅）。遺詔・立太子と宦官の関与が併存する代宗・穆宗・僖宗・昭宗は decidedBy=[先帝,第三者]（導出は世襲）。多軸化フェーズ累計225/365名。残り140名（五代十国34・宋遼西夏金52・元18・明22・清14）。"
   ],
   "capitalRelocationCompletedBlocks": [
    "364人全員完了（2026-07-17）。グループ2/3の「人物ごと個別調査」ではなく、王朝ブロック単位（30グループ）で正史原典から遷都イベントを先に列挙し、既存のreignData（在位期間）に機械的に逆引きする2段階方式で実施（ADDITIONAL_SCHEMA.md 6節の方式）。Workflowで30エージェント並列調査・0エラー・id一致。合計60件の遷都イベントを検出し、うち58件を45人の個人レコードに割当（count合計58）、2件（南唐961年の洪州・金陵間移動）は皇帝号返上後〔958年後周へ称臣〕の期間かつ後継者・李煜が本データセット未収録のため人物への割当を見送った（王朝単位の記録として除外理由をshiguo-nantang-lijingのnoteに明記）。著名な事例：北魏孝文帝の平城→洛陽（494年）、永楽帝の南京→北京（1421年）、清世祖の瀋陽→北京（1644年）、南宋高宗の臨安遷都（1138年、例外的にカウント）、金海陵王の燕京遷都・宣宗の開封遷都、後漢献帝期の洛陽→長安→許昌の連続遷都など。王としての在位期間中（皇帝号採用前）に発生した遷都（孫権の建業→武昌、拓跋珪の盛楽→平城、劉淵の離石→蒲子）は、ADDITIONAL_SCHEMA.mdの「後金→清」型例外（自王朝が既に持っていた前の都からの移転は建国時の定都から除外しない）を類推適用してカウントに含めた。",
@@ -57782,12 +57783,24 @@
     }
    },
    "accessionRoute": {
-    "category": "禅譲",
-    "note": "隋恭帝侑からの禅譲。「高祖即皇帝位於太極殿…改隋義寧二年為唐武德元年」。",
+    "category": "受禅（易姓）",
+    "note": "隋恭帝侑からの禅譲を受けて即位し、唐を開いた（『旧唐書』巻一「高祖即皇帝位於太極殿」「改隋義寧二年為唐武德元年」）。禅譲の儀を経た王朝交代。",
     "confidence": "high",
     "source": {
      "page": "旧唐書 巻一 本紀第一（高祖）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "他政権から受禅",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "外戚（その他）",
+     "procedure": "禅譲儀礼"
     }
    },
    "eraChangeCount": {
@@ -58113,6 +58126,19 @@
     "source": {
      "page": "旧唐書 巻一（高祖、武徳九年条）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人",
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "子",
+     "procedure": "内禅"
     }
    },
    "eraChangeCount": {
@@ -58485,6 +58511,18 @@
     "source": {
      "page": "旧唐書 巻四（高宗上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -59062,12 +59100,24 @@
     }
    },
    "accessionRoute": {
-    "category": "復位",
-    "note": "初回即位（弘道元年）は世襲（高宗崩御に伴う継承）。嗣聖元年に武則天により廃位（廬陵王に降格）後、神龍元年の神龍革命（張柬之らのクーデター）を経て復位した。",
+    "category": "世襲",
+    "note": "高宗の第七子。永隆元年に皇太子に立てられ、弘道元年12月の高宗崩御に際し遺詔により柩前で即位した（『旧唐書』巻七「弘道元年十二月，高宗崩，遗诏皇太子柩前即帝位」）。翌年2月に武則天により廬陵王に廃され（「元年二月，皇太后废帝为庐陵王，幽于别所」）、神龍元年、張柬之ら5人のクーデターで復位した（2度目の在位は reigns の isRestoration で表す）。",
     "confidence": "high",
     "source": {
      "page": "旧唐書 巻七（中宗睿宗）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -59427,12 +59477,26 @@
     }
    },
    "accessionRoute": {
-    "category": "復位",
-    "note": "初回即位（嗣聖元年）は武則天による擁立（傀儡）。景雲元年、李隆基の唐隆政変（韋后誅殺）を経て再度即位したため復位。",
+    "category": "擁立",
+    "note": "高宗の第八子、中宗の同母弟。嗣聖元年、臨朝した武則天が中宗を廬陵王に廃して豫王（睿宗）を帝に立て、自らは臨朝称制を続けた（『旧唐書』巻七「嗣圣元年，则天临朝，废中宗为庐陵王，立豫王为皇帝，仍临朝称制」）。武周革命で皇嗣に降された。景雲元年、李隆基の唐隆政変を経て少帝が別宮に退き再び即位した（「于是少帝逊于别宫。是日即皇帝位」。2度目の在位は isRestoration で表す）。",
     "confidence": "high",
     "source": {
      "page": "旧唐書 巻七（睿宗）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "母后"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "廃位・追放",
+     "relationToPredecessor": "弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -59838,6 +59902,21 @@
     "source": {
      "page": "旧唐書 巻七（中宗睿宗）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "母后",
+      "外戚"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -60046,6 +60125,18 @@
     "source": {
      "page": "新唐書 巻五（睿宗紀）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "子",
+     "procedure": "内禅"
     }
    },
    "eraChangeCount": {
@@ -60616,6 +60707,21 @@
     "source": {
      "page": "旧唐書 巻十（粛宗紀）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -60978,6 +61084,21 @@
     "source": {
      "page": "旧唐書 巻十一（代宗紀）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宦官"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -61357,6 +61478,18 @@
     "source": {
      "page": "旧唐書 巻十二（徳宗紀上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -61890,6 +62023,18 @@
     "source": {
      "page": "旧唐書 巻十四（順宗紀）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -62060,6 +62205,20 @@
     "source": {
      "page": "旧唐書 巻十四（順宗紀）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宦官"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "子",
+     "procedure": "内禅"
     }
    },
    "eraChangeCount": {
@@ -62475,6 +62634,21 @@
     "source": {
      "page": "旧唐書 本紀第十六（穆宗）／資治通鑑 巻241（唐紀57・元和十五年）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宦官"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -62773,6 +62947,18 @@
     "source": {
      "page": "旧唐書 本紀第十七上（敬宗）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -62999,6 +63185,20 @@
     "source": {
      "page": "旧唐書 本紀第十七上（文宗上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宦官"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -63252,6 +63452,20 @@
     "source": {
      "page": "旧唐書 本紀第十八上（武宗）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宦官"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "弟",
+     "procedure": "偽詔・矯詔"
     }
    },
    "eraChangeCount": {
@@ -63559,6 +63773,20 @@
     "source": {
      "page": "新唐書 本紀第八（武宗）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宦官"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "叔父",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -63821,6 +64049,20 @@
     "source": {
      "page": "資治通鑑 巻250（唐紀66・大中十三年）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宦官"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -64101,6 +64343,21 @@
     "source": {
      "page": "旧唐書 巻十九下（僖宗）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宦官"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -64478,12 +64735,27 @@
     }
    },
    "accessionRoute": {
-    "category": "復位",
-    "note": "初回即位（文徳元年3月）は世襲（僖宗大漸に際し宦官楊復恭の主導はあるが遺詔により皇太弟に立てられ柩前即位）。光化3年11月、宦官劉季述らのクーデターにより幽閉され太上皇にされたが、天復元年正月、孫徳昭らの反クーデターにより復位。",
+    "category": "世襲",
+    "note": "懿宗の第七子、僖宗の同母弟。文徳元年、僖宗が危篤となった際、群臣は吉王を立てようとしたが、軍容使の楊復恭が寿王の監国を請い、遺詔により皇太弟に立てられて柩前で即位した（『旧唐書』巻二十上「唯军容杨复恭请以寿王监国。三月六日，宣遗诏」「立为皇太弟。八日，柩前即位」）。光化3年に宦官劉季述らのクーデターで幽閉され太上皇とされたが、天復元年正月の反クーデターで復位した（2度目の在位は isRestoration で表す）。",
     "confidence": "high",
     "source": {
      "page": "旧唐書 巻二十上（昭宗）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宦官"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -64928,6 +65200,20 @@
     "source": {
      "page": "旧唐書 巻二十下（哀帝紀）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "子",
+     "procedure": "偽詔・矯詔"
     }
    },
    "eraChangeCount": {
@@ -65087,6 +65373,20 @@
     "source": {
      "page": "旧唐書 巻二十上（昭宗）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "宦官"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "廃位・追放",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -65243,12 +65543,24 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "国号を「周」に改め自ら皇帝に即位（天授元年）。神龍革命により中宗へ譲位。",
+    "category": "受禅（易姓）",
+    "note": "高宗の皇后。中宗・睿宗を廃立して臨朝称制した後、天授元年に睿宗から位を受け、国号を「周」に改めて自ら皇帝に即位した（睿宗は皇嗣に降された。『旧唐書』巻七「及革命，改国号为周，降帝为皇嗣」）。神龍革命により中宗へ譲位。唐から周への王朝交代を伴う受禅で、譲位側は在位中の皇帝（実子の睿宗）。",
     "confidence": "high",
     "source": {
      "page": "旧唐書 巻六（則天皇后）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "他政権から受禅",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "母",
+     "procedure": "禅譲儀礼"
     }
    },
    "eraChangeCount": {
@@ -65703,12 +66015,26 @@
     }
    },
    "accessionRoute": {
-    "category": "擁立",
-    "note": "広徳元年10月、長安を占領した吐蕃の宰相馬重英と唐の降将高暉が「立故邠王守禮之孫廣武王承宏爲帝，改元，置百官」。元号建元・大赦・百官設置を伴う実質的な即位だが本人の主体的行為ではなく外部勢力（吐蕃）主導による擁立。",
+    "category": "推戴",
+    "note": "邠王守禮の孫。広徳元年10月、長安を占領した吐蕃の宰相馬重英と唐の降将高暉が広武王承宏を帝に立て、改元して百官を置いた（『新唐書』「立故邠王守禮之孫廣武王承宏爲帝，改元，置百官」）。唐の前帝から位を受けたのではなく、外部勢力（吐蕃）が別に立てた。",
     "confidence": "high",
     "source": {
      "page": "資治通鑑 巻二百二十三",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -65873,12 +66199,26 @@
     }
    },
    "accessionRoute": {
-    "category": "擁立",
-    "note": "田令孜専横に反発した邠寧節度使朱玫が、興元へ逃れる僖宗を追いきれず、病で従駕できなかった嗣襄王熅を拘束し「監軍国事」に推戴。本人の主体的な簒奪行為はなく軍閥朱玫による擁立（傀儡的即位）。",
+    "category": "推戴",
+    "note": "嗣襄王。田令孜の専横に反発した邠寧節度使朱玫が、興元へ逃れる僖宗を追いきれず、病で従駕できなかった襄王熅を拘束して「監軍国事」に推戴し、帝位に即けた。唐の前帝から位を受けたのではなく、軍閥が別に立てた。",
     "confidence": "high",
     "source": {
      "page": "新唐書 巻82（十一宗諸子・襄王煴伝）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -66033,12 +66373,24 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "天宝15載（至徳元載）正月、洛陽で「燕」を自称して即位、元号「聖武」。唐から独立した新政権の樹立のため建国。",
+    "category": "自立",
+    "note": "天宝15載（至徳元載）正月、洛陽で国号「燕」・元号「聖武」を建てて即位した。唐の前帝から位を受けたのではなく、自ら新政権を樹立した。",
     "confidence": "high",
     "source": {
      "page": "旧唐書 巻二百上（逆臣上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -66219,6 +66571,21 @@
     "source": {
      "page": "新唐書 巻二百二十五上（逆臣上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "子",
+     "procedure": "偽詔・矯詔"
     }
    },
    "eraChangeCount": {
@@ -66416,6 +66783,18 @@
     "source": {
      "page": "新唐書 巻二百二十五上（逆臣上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "無血縁",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -66630,6 +67009,22 @@
     "source": {
      "page": "新唐書 巻二百二十五上（逆臣上）",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "軍"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -66803,12 +67198,28 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "涇原兵変で統率者を失った叛乱兵に迎えられ「稱太尉」にとどまっていたが、源休らの勧めで即位の意志を固め、宣政殿にて「僭即偽位、自稱大秦皇帝」。唐から独立した新政権樹立のため建国。",
+    "category": "自立",
+    "note": "涇原兵変で統率者を失った叛乱兵に迎えられて太尉を称するにとどまっていたが、源休らの勧めを受けて即位を決し、宣政殿で「僭即偽位、自稱大秦皇帝」と帝号を称した。推戴と自らの決断の双方が原典に記される。",
     "confidence": "high",
     "source": {
      "page": "旧唐書 巻二百上",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "軍",
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -66991,12 +67402,24 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "建中3年冬、4藩鎮が相次いで王を僭称した際、李希烈も「建興王・天下都元帥」を自称。興元元年正月、汴州占領後「僭即皇帝位、國號楚」と正式に皇帝を称した。唐の一節度使からの自立的建国。",
+    "category": "自立",
+    "note": "淮西節度使。建中3年冬に4藩鎮が相次いで王を僭称した際、李希烈も「建興王・天下都元帥」を自称し、興元元年正月に汴州を占領して「僭即皇帝位、國號楚」と帝号を称した。唐の一節度使からの自立で、擁立者の記載はない。",
     "confidence": "high",
     "source": {
      "page": "新唐書 巻二百二十五中",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -67151,12 +67574,24 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
-    "note": "広明元年12月13日、長安含元殿にて即位、国号「大斉」、元号「金統」。唐から独立した新政権の樹立であり黄巣自身の主体的な建国。",
+    "category": "自立",
+    "note": "広明元年12月13日、長安の含元殿で即位し、国号「大斉」・元号「金統」を建てた。唐の前帝から位を受けたのではなく、自ら新政権を樹立した。",
     "confidence": "high",
     "source": {
      "page": "旧唐書 巻二百下",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {

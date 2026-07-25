@@ -48870,6 +48870,16 @@
     "乃召百姓入殿前宣之是"
    ]
   },
+  "tang-gaozu|accessionRoute.note|0bf946827cf6": {
+   "id": "tang-gaozu",
+   "path": "accessionRoute.note",
+   "span": "高祖即皇帝位於太極殿",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-gaozu.txt",
+   "frags": [
+    "高祖即皇帝位于太极殿"
+   ]
+  },
   "tang-gaozu|accessionRoute.note|19b03791ffaa": {
    "id": "tang-gaozu",
    "path": "accessionRoute.note",
@@ -48878,6 +48888,16 @@
    "corpusFile": "_corpus_cache/tang-gaozu.txt",
    "frags": [
     "高祖即皇帝位于太极殿",
+    "改隋义宁二年为唐武德"
+   ]
+  },
+  "tang-gaozu|accessionRoute.note|7b89db95b29b": {
+   "id": "tang-gaozu",
+   "path": "accessionRoute.note",
+   "span": "改隋義寧二年為唐武德元年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-gaozu.txt",
+   "frags": [
     "改隋义宁二年为唐武德"
    ]
   },
@@ -49562,6 +49582,27 @@
     "四年正月辛亥朔",
     "辛未上大渐诏皇太子监",
     "壬申上崩于寝殿时年三"
+   ]
+  },
+  "tang-ruizong|accessionRoute.note|0dc821a5e4c8": {
+   "id": "tang-ruizong",
+   "path": "accessionRoute.note",
+   "span": "于是少帝逊于别宫。是日即皇帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-ruizong.txt",
+   "frags": [
+    "于是少帝逊于别宫是日"
+   ]
+  },
+  "tang-ruizong|accessionRoute.note|b354bbcc120b": {
+   "id": "tang-ruizong",
+   "path": "accessionRoute.note",
+   "span": "嗣圣元年，则天临朝，废中宗为庐陵王，立豫王为皇帝，仍临朝称制",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-ruizong.txt",
+   "frags": [
+    "嗣圣元年则天临朝废中",
+    "陵王立豫王为皇帝仍临"
    ]
   },
   "tang-ruizong|ages.note|60e5ae2ee349": {
@@ -50659,6 +50700,16 @@
    "frags": [
     "五年春正月戊寅朔上不",
     "当军国事皇太子成美复"
+   ]
+  },
+  "tang-wuzetian|accessionRoute.note|24b185d37944": {
+   "id": "tang-wuzetian",
+   "path": "accessionRoute.note",
+   "span": "及革命，改国号为周，降帝为皇嗣",
+   "status": "corpus",
+   "corpusFile": "china-history/旧唐书/本纪/第七章-卷七-原文.html",
+   "frags": [
+    "及革命改国号为周降帝"
    ]
   },
   "tang-wuzetian|ages.note|852aebc1d3c0": {
@@ -52291,6 +52342,26 @@
     "是日崩于咸宁殿圣寿四"
    ]
   },
+  "tang-zhaozong|accessionRoute.note|0f4d94bc2c5c": {
+   "id": "tang-zhaozong",
+   "path": "accessionRoute.note",
+   "span": "唯军容杨复恭请以寿王监国。三月六日，宣遗诏",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-zhaozong.txt",
+   "frags": [
+    "唯军容杨复恭请以寿王"
+   ]
+  },
+  "tang-zhaozong|accessionRoute.note|2007eb5dd820": {
+   "id": "tang-zhaozong",
+   "path": "accessionRoute.note",
+   "span": "立为皇太弟。八日，柩前即位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-zhaozong.txt",
+   "frags": [
+    "立为皇太弟八日柩前即"
+   ]
+  },
   "tang-zhaozong|ages.note|0e9480783746": {
    "id": "tang-zhaozong",
    "path": "ages.note",
@@ -52734,6 +52805,27 @@
     "八月壬辰朔壬寅夜朱全",
     "右龙武统军氏叔琮枢密",
     "帝殂年三十八"
+   ]
+  },
+  "tang-zhongzong|accessionRoute.note|54e4eed45172": {
+   "id": "tang-zhongzong",
+   "path": "accessionRoute.note",
+   "span": "元年二月，皇太后废帝为庐陵王，幽于别所",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-zhongzong.txt",
+   "frags": [
+    "元年二月皇太后废帝为"
+   ]
+  },
+  "tang-zhongzong|accessionRoute.note|6301635ed9ba": {
+   "id": "tang-zhongzong",
+   "path": "accessionRoute.note",
+   "span": "弘道元年十二月，高宗崩，遗诏皇太子柩前即帝位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-zhongzong.txt",
+   "frags": [
+    "弘道元年十二月高宗崩",
+    "遗诏皇太子柩前即帝位"
    ]
   },
   "tang-zhongzong|ages.note|3ead8152d1fc": {
