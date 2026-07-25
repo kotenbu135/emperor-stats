@@ -32,6 +32,7 @@ import {
   PERSON_H,
   PERSON_HALF_SPAN,
   PERSON_ROLE_H,
+  PRE_RATE,
   PX_PER_YEAR,
   packBand,
   type PackedBand,
@@ -670,7 +671,6 @@ function buildChapter(
   // カプセル最小高はyearSpanの区間延長+LINK_GAP_YEARSの押し下げで吸収する)。
   // 開始より前(章の祖先人物: 荘襄王・呂不韋など)は1年=PRE_RATE(2px)に圧縮して
   // 開始線の上のヘッダー領域に置く(目盛り・グリッドは開始年から)。
-  const PRE_RATE = 2;
   const allItems = packed.flatMap((pb) => pb.items);
   const minEff = Math.min(...allItems.map((it) => it.effStart));
   const maxEff = Math.max(...allItems.map((it) => it.effEnd));

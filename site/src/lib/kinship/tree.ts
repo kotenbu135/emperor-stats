@@ -43,7 +43,8 @@ const CHAIN_GAP = 4;
 export const LINK_GAP_YEARS = 12 / PX_PER_YEAR;
 /** 人物ノードが年空間で占有する片側幅。 */
 export const PERSON_HALF_SPAN = PERSON_MIN_PX / 2 / PX_PER_YEAR;
-/** 章開始年より前(圧縮領域)の縦スケール(px/年)。layout.tsのPRE_RATEと同じ値。
+/** 章開始年より前(圧縮領域)の縦スケール(px/年)。layout.tsの年→px写像もこれを使う
+ *  (単一情報源。パッキングの年空間占有と実描画のスケールが食い違うと重なる)。
  *  圧縮領域の人物ピルは高さが固定(PERSON_H)のまま年スケールだけ1/4になるため、
  *  パッキングの年空間占有もこの比率で広げないと兄弟ピルどうしがpxで重なる
  *  (第3章の司馬師/司馬昭で顕在化。年空間では非重複でも実描画では重なる)。 */
