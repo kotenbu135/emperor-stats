@@ -180,7 +180,8 @@
    "新末群雄（王莽・更始帝・劉盆子・公孫述・劉永・袁術）6名 — 王莽=禅譲（居摂・仮皇帝から偽造符命〈金匱〉を経て孺子嬰から即真天子位。形式は禅譲だが実質は外戚簒奪）、更始帝=擁立（緑林軍系諸将〈新市兵・平林兵・下江兵〉の推戴、本人は受動的）、劉盆子=擁立（赤眉軍によるくじ引き擁立、傀儡的即位）、公孫述=建国（「遂自立為天子」成家建国）、劉永=建国（梁孝王八世孫として梁王位は世襲したが、皇帝即位自体は更始帝敗死後の「自称天子」で先行政権からの継承なし）、袁術=建国（張炯の符命を口実に「僭号，自称仲家」）。『漢書』王莽傳、『後漢書』劉玄劉盆子列傳・隗囂公孫述列傳・王劉張李彭盧列傳・劉焉袁術呂布列傳の原文で確認。これにより364人全員のaccessionRoute調査が完了。",
    "追記(2026-07-20): 通史年表設計時に発覚した収録漏れを修正し唐哀帝(李柷、tang-aidi、904-907年在位)を追加。旧唐書巻二十下(哀帝紀)・資治通鑑(daizhigev20巻266)原典で全12項目を個別調査(即位経路=擁立、死因=暗殺[鴆殺]、eraChange/amnesty/empressInstallation/crownPrinceDeposition/capitalRelocation/personalCampaign/rebellionSuppression/rebellionSuffered=いずれもcount 0)。365名に修正(364→365)。",
    "【多軸化フェーズ・進行中】2026-07-26、accessionRoute を4軸＋2補助のファセット構造（accessionRoute.axes）へ移行開始。単一 enum 9値に『政権の連続性／血縁／誰が決めたか／何度目か』の4つの異なる問いが混在し、受禅による王朝創始が禅譲と建国に割れる・王位を継いで称帝した苻健らが建国で始皇帝が世襲になる等の一貫性破れが生じていたため。表示ラベルは軸から機械的に導出する（validate_emperors.py の derive_category が突合）。定義は data/schema/ADDITIONAL_SCHEMA.md 1節。パイロット＝秦漢19名（秦2・前漢14・玄漢1・新1・赤眉1）を原典再読で確定（既存note由来4名は decidedByBasis に明記）。ラベル変更5件: han-gaozu 建国→自立・建国、gengshi-di 擁立→推戴・建国、liu-penzi 擁立→推戴・建国、wang-mang 禅譲→受禅（易姓）、qin-shi-huang 世襲→継承（経緯記載なし）（原文「政代立為秦王」のみで遺詔・立太子の記述がなく、軸2基準の厳密適用により決着不能と判定）。サイト側の横展開は移行完了後にまとめて行う（未着手）。",
-   "【多軸化フェーズ】後漢14名（光武帝〜献帝）を axes 化。ラベル変更2件: hou-han-guangwudi 建国→自立・建国、hou-han-shaodi-bian 擁立→継承（経緯記載なし）。少帝弁は本紀が「戊午，皇子辯即皇帝位」とのみ記し、竇何列傳も「群臣請立太子，帝以辯輕佻無威儀，不可為人主……故久不決」（霊帝は立太子せず）「碩謀不行，皇子辯乃即位」（宦官蹇碩の擁立計画は不発）と記すのみで、立てた主体の名指しがないため軸2＝史料から決着不能とした（旧スキーマはこれを擁立に押し込んでいた）。対照的に殤帝は本紀に主導者の記載がないが皇后紀「殤帝生始百日，后乃迎立之」で鄧皇后が特定でき第三者。11名は原典再読、3名（殤帝・安帝・献帝＝決め手が皇后紀・鄧騭伝・董卓伝）は既存noteの列伝引用で確定。残り332名。"
+   "【多軸化フェーズ】後漢14名（光武帝〜献帝）を axes 化。ラベル変更2件: hou-han-guangwudi 建国→自立・建国、hou-han-shaodi-bian 擁立→継承（経緯記載なし）。少帝弁は本紀が「戊午，皇子辯即皇帝位」とのみ記し、竇何列傳も「群臣請立太子，帝以辯輕佻無威儀，不可為人主……故久不決」（霊帝は立太子せず）「碩謀不行，皇子辯乃即位」（宦官蹇碩の擁立計画は不発）と記すのみで、立てた主体の名指しがないため軸2＝史料から決着不能とした（旧スキーマはこれを擁立に押し込んでいた）。対照的に殤帝は本紀に主導者の記載がないが皇后紀「殤帝生始百日，后乃迎立之」で鄧皇后が特定でき第三者。11名は原典再読、3名（殤帝・安帝・献帝＝決め手が皇后紀・鄧騭伝・董卓伝）は既存noteの列伝引用で確定。",
+   "【多軸化フェーズ】三国11名（魏5・蜀漢2・呉4）を axes 化。ラベル変更3件はいずれも語の統一: wei-wendi 禅譲→受禅（易姓）、shuhan-zhaoliedi・wu-dadi 建国→自立・建国。孫権は兄・孫策から江東の支配権を継承したが孫策は君主号を持たない後漢の将軍であり（「策薨，以事授権」）、皇帝号も自ら初めて称したため軸1＝自立・軸1b＝新称。曹髦（「齊王廢，公卿議迎立公」）・曹奐（「使使持節……北迎常道郷公璜嗣明帝後」）・孫休（「孫亮廢，己未，孫綝使宗正孫楷與中書郎董朝迎休」）・孫皓（「於是遂迎立皓」）はいずれも迎立の主体が名指しされ第三者。曹芳は明帝の臨終立太子（「帝甚病，乃立為皇太子。是日，即皇帝位」）で先帝。8名は原典再読、3名（曹丕・劉備・孫権）は既存noteの原文引用で確定。多軸化フェーズ累計44/365名（秦漢19・後漢14・三国11）。残り321名。"
   ],
   "capitalRelocationCompletedBlocks": [
    "364人全員完了（2026-07-17）。グループ2/3の「人物ごと個別調査」ではなく、王朝ブロック単位（30グループ）で正史原典から遷都イベントを先に列挙し、既存のreignData（在位期間）に機械的に逆引きする2段階方式で実施（ADDITIONAL_SCHEMA.md 6節の方式）。Workflowで30エージェント並列調査・0エラー・id一致。合計60件の遷都イベントを検出し、うち58件を45人の個人レコードに割当（count合計58）、2件（南唐961年の洪州・金陵間移動）は皇帝号返上後〔958年後周へ称臣〕の期間かつ後継者・李煜が本データセット未収録のため人物への割当を見送った（王朝単位の記録として除外理由をshiguo-nantang-lijingのnoteに明記）。著名な事例：北魏孝文帝の平城→洛陽（494年）、永楽帝の南京→北京（1421年）、清世祖の瀋陽→北京（1644年）、南宋高宗の臨安遷都（1138年、例外的にカウント）、金海陵王の燕京遷都・宣宗の開封遷都、後漢献帝期の洛陽→長安→許昌の連続遷都など。王としての在位期間中（皇帝号採用前）に発生した遷都（孫権の建業→武昌、拓跋珪の盛楽→平城、劉淵の離石→蒲子）は、ADDITIONAL_SCHEMA.mdの「後金→清」型例外（自王朝が既に持っていた前の都からの移転は建国時の定都から除外しない）を類推適用してカウントに含めた。",
@@ -12349,12 +12350,24 @@
     }
    },
    "accessionRoute": {
-    "category": "禅譲",
+    "category": "受禅（易姓）",
     "note": "延康元年（220年）冬、後漢献帝が「衆望在魏」を理由に群公卿士を召し高廟に告祠、御史大夫張音を遣わし璽綬を持たせ禅位。策文に「天命不于常、惟帰有徳……敬遜爾位……天禄永終」とあり、曹丕は繁陽に築いた壇で「升壇即阼」し、「改延康為黄初、大赦」。形式上は堯舜禅譲の故事に倣った禅譲だが、実態は建安年間からの曹操・曹丕父子による漢朝権力掌握の帰結であり、後漢皇帝に対する事実上の簒奪を儀礼的な譲位劇として完成させたものとされる（献帝はその後、山陽公に封じられ存命）。",
     "confidence": "high",
     "source": {
      "page": "三國志 魏書二 文帝紀",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "他政権から受禅",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "既存note",
+     "predecessorFate": "生前譲位",
+     "relationToPredecessor": "外戚（その他）",
+     "procedure": "禅譲儀礼"
     }
    },
    "eraChangeCount": {
@@ -12597,6 +12610,18 @@
     "source": {
      "page": "三國志 魏書三 明帝紀",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -12956,6 +12981,18 @@
     "source": {
      "page": "三國志 魏書四 三少帝紀",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "養子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -13261,6 +13298,21 @@
     "source": {
      "page": "三國志 魏書四 三少帝紀",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "母后",
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "廃位・追放",
+     "relationToPredecessor": "従兄弟",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -13512,6 +13564,20 @@
     "source": {
      "page": "三國志 魏書四 三少帝紀",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "横死",
+     "relationToPredecessor": "その他",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -13736,12 +13802,27 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
+    "category": "自立・建国",
     "note": "後漢滅亡（曹丕の禅譲受禅）を受け、群臣が上表して漢中王への即位を勧進した（「輒依旧典、封備漢中王」）。その後、献帝弑逆の誤報を受け群臣・讖緯瑞祥を根拠に再三の勧進があり「即皇帝位於成都武担之南」と即位。即位文は「操子丕、載其凶逆、窃居神器…嗣武二祖、龔行天罰」とし、漢室断絶を継ぐ形での新規建国として即位した。曹丕からの直接の譲位を受けたわけではなく、後漢の禅譲を認めず自ら漢の正統を名乗って皇帝を称したものであるため建国と判定。",
     "confidence": "high",
     "source": {
      "page": "三国志・蜀書・先主伝",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人",
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "既存note",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -13949,6 +14030,18 @@
     "source": {
      "page": "三国志・蜀書・後主伝",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -14357,12 +14450,24 @@
     }
    },
    "accessionRoute": {
-    "category": "建国",
+    "category": "自立・建国",
     "note": "兄孫策の死により「策薨、以事授権」で江東の支配権を継承したが、当時の孫策・孫権はいずれも後漢の官職を帯びた地方軍閥であり皇帝ではない。皇帝号は孫権が自ら初めて称したもの（「黄龍元年…南郊即皇帝位…追尊父破虜将軍堅為武烈皇帝…兄討逆将軍策為長沙桓王」）。兄孫策は死後に王を追贈されたのみで皇帝ではなく、孫権の皇帝即位は先帝からの世襲ではなく呉を新規に建国して皇帝を称したものと判定。",
     "confidence": "high",
     "source": {
      "page": "三国志・呉書・呉主伝",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "自立",
+     "titleOrigin": "新称",
+     "decidedBy": [
+      "本人"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "既存note",
+     "predecessorFate": "該当なし",
+     "relationToPredecessor": "該当なし",
+     "procedure": "儀礼なし・自称"
     }
    },
    "eraChangeCount": {
@@ -14808,6 +14913,18 @@
     "source": {
      "page": "三国志・呉書・三嗣主伝",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "先帝"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "子",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -15110,6 +15227,20 @@
     "source": {
      "page": "三国志・呉書・三嗣主伝",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "廃位・追放",
+     "relationToPredecessor": "兄",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
@@ -15334,6 +15465,21 @@
     "source": {
      "page": "三国志・呉書・三嗣主伝",
      "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "前代君主から継承",
+     "titleOrigin": "継承",
+     "decidedBy": [
+      "第三者"
+     ],
+     "decidedByAgents": [
+      "臣下",
+      "母后"
+     ],
+     "decidedByBasis": "原典再読",
+     "predecessorFate": "崩御",
+     "relationToPredecessor": "甥",
+     "procedure": "通常の践祚"
     }
    },
    "eraChangeCount": {
