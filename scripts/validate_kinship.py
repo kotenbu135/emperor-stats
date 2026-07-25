@@ -67,9 +67,12 @@ PARENT_RELATIONS = {"実父", "実母", "養父", "養母"}
 MALE_RELATIONS = {"実父", "養父"}
 FEMALE_RELATIONS = {"実母", "養母"}
 # 旧 enum 9値と、多軸化（2026-07-26・ADDITIONAL_SCHEMA.md 1節）で導出される新ラベルが移行完了まで併存する
+# 2026-07-26 の多軸化完了で、emperors.json 側の旧 enum（禅譲・建国・不詳・諸説あり）は消滅した。
+# 「復位」は isRestoration=true の復位エッジ専用のラベルとして kinship 側にのみ残る
+# （emperors.accessionRoute.category には現れない）。
 CATEGORY_ENUM = {
-    "世襲", "簒奪", "禅譲", "内禅", "擁立", "復位", "建国", "不詳", "諸説あり",
-    "受禅（易姓）", "受禅（擁立）", "自立", "推戴", "継承（経緯記載なし）",
+    "世襲", "擁立", "簒奪", "内禅", "継承（経緯記載なし）",
+    "受禅（易姓）", "受禅（擁立）", "自立", "推戴", "復位",
 }
 REL_TO_PRED_ENUM = {
     "子", "養子", "孫", "曾孫", "弟", "兄", "甥", "姪", "叔父", "伯父", "従兄弟",
@@ -78,7 +81,8 @@ REL_TO_PRED_ENUM = {
 }
 KANA_RE = re.compile(r"^[ぁ-ゖー]+$")
 # 主エッジ不在を許容する accessionRoute（新ラベルの 自立／推戴 は旧 建国 に対応）
-ROOT_CATEGORIES = {"建国", "不詳", "諸説あり", "自立", "推戴"}
+# 前代君主から位を受けていない＝succession エッジを持たなくてよいラベル。
+ROOT_CATEGORIES = {"自立", "推戴"}
 VERACITY_ENUM = {"verified", "claimed", "disputed"}
 CONFIDENCE_ENUM = {"high", "medium", "low"}
 

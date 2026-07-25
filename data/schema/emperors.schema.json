@@ -399,13 +399,14 @@
 
     "accessionRoute": {
       "type": "object",
-      "description": "即位経路。複数回即位した人物もレコード単位の単一値（初回即位の経路を主とし、復位がある場合は「復位」）。定義は ADDITIONAL_SCHEMA.md 1節。",
+      "description": "即位経路。4軸＋2補助（axes）が実体で、category はそこから機械導出される表示ラベル。複数回即位した人物は初回即位の経緯でラベルを付け、復位は reigns[].isRestoration が担う。定義は ADDITIONAL_SCHEMA.md 1節。",
       "properties": {
         "category": {
           "type": "string",
           "description": "即位経路の表示ラベル。axes を持つレコードでは axes からの導出値（ADDITIONAL_SCHEMA.md 1節「導出ルール」）。旧 enum 9値は多軸化の移行完了まで併存する。",
           "enum": [
-            "世襲", "簒奪", "禅譲", "内禅", "擁立", "復位", "建国", "不詳", "諸説あり",
+            "世襲", "擁立", "簒奪", "内禅", "継承（経緯記載なし）",
+            "受禅（易姓）", "受禅（擁立）", "自立", "推戴",
             "受禅（易姓）", "受禅（擁立）", "自立", "推戴", "継承（経緯記載なし）"
           ]
         },
