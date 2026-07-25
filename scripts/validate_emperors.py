@@ -787,10 +787,13 @@ DECIDED_BY_AGENT_ENUM = {"臣下", "軍", "宦官", "外戚", "母后", "宗室"
 DECIDED_BY_BASIS_ENUM = {"既存note", "原典再読"}
 PREDECESSOR_FATE_ENUM = {"崩御", "横死", "生前譲位", "廃位・追放", "該当なし"}
 PROCEDURE_ENUM = {"禅譲儀礼", "内禅", "通常の践祚", "儀礼なし・自称", "偽詔・矯詔"}
-# kinship.json の succession エッジと同一語彙（ADDITIONAL_SCHEMA.md 軸4）
+# kinship.json の REL_TO_PRED_ENUM と同一語彙（ADDITIONAL_SCHEMA.md 軸4）＋
+# succession エッジを持たない人物（自立等）用の「該当なし」。
+# 値の一致は validate_kinship.py の check_axes_sync が突合する
 RELATION_ENUM = {
-    "子", "弟", "兄", "父", "孫", "甥", "叔父", "伯父", "母", "従兄弟",
-    "養子", "同族（遠縁）", "外戚（その他）", "無血縁", "その他", "該当なし",
+    "子", "養子", "孫", "曾孫", "弟", "兄", "甥", "姪", "叔父", "伯父", "従兄弟",
+    "同族（遠縁）", "父", "母", "祖父", "外祖父", "女婿", "舅（妻の父）",
+    "外戚（その他）", "無血縁", "不明", "その他", "該当なし",
 }
 AXES_REQUIRED = {
     "throneSource", "titleOrigin", "decidedBy", "decidedByBasis",
@@ -830,7 +833,7 @@ def derive_category(axes):
             "本人": "簒奪",
             "先帝": "世襲",
             "第三者": "擁立",
-            "史料から決着不能": "継承（主導者不明）",
+            "史料から決着不能": "継承（経緯記載なし）",
         }[agent]
     return None
 

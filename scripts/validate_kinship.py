@@ -66,14 +66,19 @@ RELATION_ENUM = {"実父", "実母", "養父", "養母", "兄弟姉妹"}
 PARENT_RELATIONS = {"実父", "実母", "養父", "養母"}
 MALE_RELATIONS = {"実父", "養父"}
 FEMALE_RELATIONS = {"実母", "養母"}
-CATEGORY_ENUM = {"世襲", "簒奪", "禅譲", "内禅", "擁立", "復位", "建国", "不詳", "諸説あり"}
+# 旧 enum 9値と、多軸化（2026-07-26・ADDITIONAL_SCHEMA.md 1節）で導出される新ラベルが移行完了まで併存する
+CATEGORY_ENUM = {
+    "世襲", "簒奪", "禅譲", "内禅", "擁立", "復位", "建国", "不詳", "諸説あり",
+    "受禅（易姓）", "受禅（擁立）", "自立・建国", "推戴・建国", "継承（経緯記載なし）",
+}
 REL_TO_PRED_ENUM = {
     "子", "養子", "孫", "曾孫", "弟", "兄", "甥", "姪", "叔父", "伯父", "従兄弟",
     "同族（遠縁）", "父", "母", "祖父", "外祖父", "女婿", "舅（妻の父）",
     "外戚（その他）", "無血縁", "不明", "その他",
 }
 KANA_RE = re.compile(r"^[ぁ-ゖー]+$")
-ROOT_CATEGORIES = {"建国", "不詳", "諸説あり"}  # 主エッジ不在を許容する accessionRoute
+# 主エッジ不在を許容する accessionRoute（新ラベルの 自立・建国／推戴・建国 は旧 建国 に対応）
+ROOT_CATEGORIES = {"建国", "不詳", "諸説あり", "自立・建国", "推戴・建国"}
 VERACITY_ENUM = {"verified", "claimed", "disputed"}
 CONFIDENCE_ENUM = {"high", "medium", "low"}
 
@@ -411,6 +416,35 @@ def check_coverage(meta, emperors, emperor_ids, succession_covered, parents_of, 
                     f"confirmedMotherUnknown にも未登録: {e['id']}")
 
 
+def check_axes_sync(edges, emperors):
+    """emperors.json の accessionRoute.axes.relationToPredecessor と
+    kinship.json の主 succession エッジの relationToPredecessor の一致を検査する。
+
+    軸4は kinship.json（Wikidata 突合済み）を正として転記する規約のため、
+    片方だけ直すとここで落ちる（ADDITIONAL_SCHEMA.md 1節 軸4）。
+    """
+    primary_edge = {}
+    for e in edges:
+        if e.get("type") != "succession" or e.get("isRestoration"):
+            continue
+        primary_edge.setdefault(e.get("to"), e)
+    for e in emperors:
+        axes = (e.get("accessionRoute") or {}).get("axes")
+        if not axes:
+            continue
+        ours = axes.get("relationToPredecessor")
+        edge = primary_edge.get(e["id"])
+        if edge is None:
+            if ours != "該当なし":
+                err(f"[axes-sync] {e['id']}: succession 主エッジがないのに "
+                    f"axes.relationToPredecessor={ours!r}（該当なし であるべき）")
+            continue
+        theirs = edge.get("relationToPredecessor")
+        if ours != theirs:
+            err(f"[axes-sync] {e['id']}: axes.relationToPredecessor={ours!r} が "
+                f"kinship の succession エッジ {theirs!r} と不一致")
+
+
 def main() -> int:
     kin = json.loads(KINSHIP_PATH.read_text(encoding="utf-8"))
     emp = json.loads(EMPERORS_PATH.read_text(encoding="utf-8"))
@@ -437,6 +471,7 @@ def main() -> int:
     orphan = set(gender_by_person) - referenced
     if orphan:
         err(f"[persons] 孤立ブリッジ（どのエッジからも参照されない）: {sorted(orphan)}")
+    check_axes_sync(kin.get("edges", []), emperors)
     check_claims(kin.get("genealogicalClaims", []), emperor_ids)
     check_coverage(kin.get("meta", {}), emperors, emperor_ids, succession_covered, parents_of,
                    father_covered, mother_covered)
