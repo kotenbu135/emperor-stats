@@ -540,18 +540,18 @@
       },
       "p-cao-kai": {
         "x": 882,
-        "year": 234.5
+        "year": 234.375
       },
       "p-cao-zhang": {
         "x": 882,
         "year": 222.75
       },
       "wei-yuandi": {
-        "x": 918
+        "x": 956
       },
       "p-cao-yu": {
-        "x": 942,
-        "year": 256.24
+        "x": 980,
+        "year": 255.865
       },
       "p-cao-cao": {
         "x": 906,
@@ -679,6 +679,10 @@
       "p-sima-yue": {
         "x": 1794.5,
         "year": 309.375
+      },
+      "p-cao-jie": {
+        "x": 930,
+        "year": 246
       }
     },
     "labels": {
@@ -695,7 +699,7 @@
         "y": 682
       },
       "arrow:s:wei-yuandi→jin-wudi": {
-        "x": 1022.75,
+        "x": 1052.25,
         "y": 750
       },
       "band:呉": {
@@ -734,7 +738,8 @@
       "p-sima-shi|": 1421,
       "p-cao-cao|": 923,
       "p-sima-zhou|": 1553,
-      "jin-wudi|": 1162
+      "jin-wudi|": 1162,
+      "p-cao-zhang|": 906
     }
   },
   "dongjin-shiliuguo": {
