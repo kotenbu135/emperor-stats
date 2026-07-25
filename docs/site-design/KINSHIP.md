@@ -95,6 +95,31 @@
   `BAND_X_EXTRA`・`PERSON_BAND_OVERRIDES`・`DYNASTY_HEAD_OFFSET`・`BAND_LABEL_ANCHOR`・
   `CLAIM_LINE_DEFS`（すべて chapters.ts）。← 章追加時の作業量の主因はここ。
 
+## 手動レイアウト（編集モード）
+
+自動配置の間接的なつまみ（`CHILD_ORDER_OVERRIDES` 等）ではユーザーの品質要求に届かないため、
+**最終座標をユーザーがドラッグで決めて凍結する**方式を用意した（2026-07-25）。
+
+```bash
+cd site && npm run dev
+cd site && npm run kinship-editor   # 別ターミナル: 保存サーバ(:4123)
+# http://localhost:3000/kinship?edit=<章id>
+```
+
+- 動かせるもの: 皇帝カプセル（横のみ・縦＝在位期間は年目盛りに固定）／非皇帝のピル・配偶者（縦横）／
+  見出し・ラベルの文字／線の付け根（補助線・遠祖主張の点線の両端）・折れ線の通り道・垂下線の降り口。
+- 操作: ドラッグ＝移動、Shift+ドラッグ＝子孫と配偶者ごと、Alt＝吸着解除、クリックで選択して矢印キー
+  1px（Shift+8px）、Ctrl+Z＝取り消し。他ノードの辺・中心に6pxで吸着しガイド線が出る。
+- 保存すると `site/src/lib/kinship/manual-layout.json` に書かれ、その章は `mode:"manual"` ＝**凍結**。
+  以後レイアウトエンジンを直してもその章は動かない。表に無いノード（後から追加した人物）は
+  自動配置にフォールバックする。
+- 座標は x＝章内の絶対px、y＝**年**（人物追加で時間軸が伸びても意味が保たれる）。
+- **`manual` の章では品質ゲートはビルドを落とさず警告**（配置の決定権はユーザーにあるため）。
+  違反ノードは編集モードで朱の破線で強調され、パネルに一覧が出る。
+- 仕組み: ドラッグ中はSVG要素にtransformを当てるだけ。離した時点でブラウザ側で
+  `buildKinshipLayout` をやり直す（入力は `/kinship-source`＝開発時のみ実データ）。
+  第1章107ノードで再計算31ms。
+
 ## 章を1つ有効化する手順
 
 1. `KINSHIP_CHAPTER_DEFS`（chapters.ts）で当該章の `bands` をキュレーション
