@@ -37,15 +37,24 @@ export function Section({
   id,
   title,
   description,
+  scrollMt,
   children,
 }: {
   id?: string;
   title: string;
   description?: string;
+  /** アンカージャンプ時に上へ空ける量(px)。既定は80px。ページ内に固定バーが
+   *  あるページは、そのバーの高さぴったりにする（大きいと前セクションの末尾
+   *  （横スクロールバーなど）が覗き、小さいとバーに隠れる）。 */
+  scrollMt?: number;
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="scroll-mt-20 px-6 py-8 md:px-10">
+    <section
+      id={id}
+      className={cn("px-6 py-8 md:px-10", scrollMt === undefined && "scroll-mt-20")}
+      style={scrollMt === undefined ? undefined : { scrollMarginTop: scrollMt }}
+    >
       <div className="flex items-center gap-2.5">
         <span aria-hidden className="h-5 w-1 shrink-0 rounded-full bg-seal/80" />
         <h2 className="font-heading text-xl font-semibold text-foreground">

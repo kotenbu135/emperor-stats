@@ -162,7 +162,7 @@
         "x": 697
       },
       "hou-han-zhangdi": {
-        "x": 422.5
+        "x": 441
       },
       "p-liang-guiren-hedi": {
         "x": 757,
@@ -172,12 +172,12 @@
         "x": 360.5
       },
       "p-jia-guiren": {
-        "x": 501,
-        "year": 66.75
+        "x": 577,
+        "year": 69.875
       },
       "p-mashi-hou-han-mingdi": {
-        "x": 271,
-        "year": 69.125
+        "x": 651,
+        "year": 66.75
       },
       "hou-han-guangwudi": {
         "x": 422.5
@@ -347,16 +347,16 @@
         "x": 492
       },
       "p-qin-zhuangxiangwang": {
-        "x": 477,
-        "year": -263
+        "x": 455,
+        "year": -239
       },
       "p-zhao-ji": {
-        "x": 554,
-        "year": -263
+        "x": 570.5,
+        "year": -239.5
       },
       "p-lyu-buwei": {
-        "x": 614,
-        "year": -262
+        "x": 638,
+        "year": -239
       },
       "wang-mang": {
         "x": 990.5
@@ -421,8 +421,12 @@
         "y": 2184
       },
       "band:新（王氏）": {
-        "x": 1112.5,
-        "y": 1995
+        "x": 1001,
+        "y": 2036
+      },
+      "band:秦": {
+        "x": 503,
+        "y": 211
       }
     },
     "edges": {
@@ -461,9 +465,19 @@
           "side": "T",
           "t": 0.5208333333333334
         }
+      },
+      "k:p-mashi-hou-han-mingdi→hou-han-zhangdi:養母": {
+        "mid": 2572,
+        "to": {
+          "side": "T",
+          "t": 0.875
+        }
       }
     },
-    "junctions": {}
+    "junctions": {
+      "hou-han-mingdi|p-jia-guiren": 490,
+      "hou-han-zhangdi|": 493
+    }
   },
   "sanguo-xijin": {
     "mode": "manual",

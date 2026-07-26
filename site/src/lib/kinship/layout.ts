@@ -64,6 +64,10 @@ export interface KinshipSourceEmperor {
   female: boolean;
   /** accessionRoute.category(継承エッジが無い根の表示用)。 */
   routeCategory: string;
+  /** 即位経路の軸(2026-07-26の多軸化)。王朝交代の矢印ラベルを「手続きの形式」で
+   *  決めるために使う(補助1 procedure と軸2 decidedBy)。 */
+  routeProcedure: string;
+  routeDecidedBy: string[];
   /** 王朝内の即位順(dynastyOrder。無いものはビルド時導出)。在位ごと。 */
   /** 「第N代」。代数に数えない在位(調査済み王朝で dynastyOrder が null)は null。 */
   ordinals: (number | null)[];
@@ -203,8 +207,13 @@ export interface KinshipChapterLayout {
   id: string;
   title: string;
   period: string;
+  /** 掲載範囲(「秦（始皇帝）から後漢（献帝）までの系譜」)。章の皇帝から導出。 */
+  range: string;
   width: number;
   height: number;
+  /** SVGの表示開始y(この値より上は空白なので viewBox で切り落とす)。座標系は
+   *  切らない — 手動レイアウトも編集モードもこの絶対座標のままで動く。 */
+  viewTop: number;
   axisX: number;
   ticks: { y: number; label: string }[];
   bands: { label: string; x: number; width: number; labelX: number; labelY: number }[];
@@ -231,6 +240,8 @@ const AXIS_X = 64;
 // 離れて空白が目立つ(レビュー⑦)。矢印・補助線のガター兼用の最小限にする。
 const BAND_GAP = 40;
 const M_TOP = 96;
+// 図の一番上の要素の上に残す余白(px)。viewTop の算出に使う。
+const VIEW_TOP_PAD = 16;
 const M_BOTTOM = 48;
 const CONSORT_H = 24;
 // 複数在位の可視サブカプセルの最小高(在位0年の期間も見える高さ。唐中宗など)。
@@ -244,6 +255,8 @@ const GATE_CLEAR = 1.5;
 // 皇帝カプセルの1行目(text-[11px])の1文字あたりの概算幅。通用名を併記しても
 // カプセル(EMPEROR_W=96px)に収まるかの判定に使う。
 const LABEL_CHAR_W = 11;
+/** 皇后との夫婦を示す二重線の、中心からの上下オフセット(px)。描画側と共用する。 */
+export const TIE_DOUBLE_GAP = 1.7;
 
 const fmtPeriod = (a: number, b: number) => {
   const fa = formatYear(fromAstroYear(a));
@@ -576,6 +589,20 @@ function buildChapter(
     return { e, band: b };
   });
   const chapterEmperors = [...ownEmperors, ...extraEmperors.map((x) => x.e)];
+  // 章見出しの下に出す掲載範囲(例:「秦（始皇帝）から後漢（献帝）までの系譜」)。
+  // 手書きすると章の増減・収録追加で古くなるので、章の皇帝の実データから導出する
+  // (最も早く即位した皇帝 → 最も遅く在位を終えた皇帝)。他章から借りてきた
+  // extraEmperors は章の範囲ではないので除く。
+  const rangeLabel = (() => {
+    const first = ownEmperors.reduce((m, e) =>
+      Math.min(...e.reigns.map((r) => r.a)) < Math.min(...m.reigns.map((r) => r.a)) ? e : m,
+    );
+    const last = ownEmperors.reduce((m, e) =>
+      Math.max(...e.reigns.map((r) => r.b)) > Math.max(...m.reigns.map((r) => r.b)) ? e : m,
+    );
+    const at = (e: KinshipSourceEmperor) => `${e.dynastyLabel}（${e.name}）`;
+    return `${at(first)}から${at(last)}までの系譜`;
+  })();
   const bandOfNode = new Map<string, number>();
   for (const e of ownEmperors) bandOfNode.set(e.id, bandOfDynKey.get(e.dynastyKey)!);
   // 追加皇帝のバンドは伝播パス(下)より先に確定させる。あとから入れると、その皇帝を
@@ -873,7 +900,6 @@ function buildChapter(
   // 開始線の上のヘッダー領域に置く(目盛り・グリッドは開始年から)。
   const allItems = packed.flatMap((pb) => pb.items);
   const minEff = Math.min(...allItems.map((it) => it.effStart));
-  const maxEff = Math.max(...allItems.map((it) => it.effEnd));
   const preH = (startYear - Math.min(minEff, startYear)) * PRE_RATE;
   const yOf = (y: number): number =>
     y >= startYear
@@ -1115,7 +1141,12 @@ function buildChapter(
       }
       let topY: number;
       if (j.motherId !== null && tieYOf.has(j.motherId)) {
-        topY = tieYOf.get(j.motherId)!;
+        // 皇后との夫婦は二重線なので、子の垂下線は「下側の線」から出す。連結線の
+        // 中心から出すと2本の線の間から子が生えているように見える(ユーザー指摘・
+        // 2026-07-26)。妃嬪等の単線はそのまま線上から出す。
+        topY =
+          tieYOf.get(j.motherId)! +
+          (rel.attachDouble.get(j.motherId) === true ? TIE_DOUBLE_GAP : 0);
       } else {
         topY = father.y + father.h;
       }
@@ -1474,6 +1505,30 @@ function buildChapter(
     return b !== undefined ? def.bands[b].dynastyKeys[0] : "";
   };
 
+  /**
+   * 王朝交代の矢印ラベルの「形式」部分(ユーザー確定・2026-07-26)。
+   * 新帝の即位経路カテゴリ(`受禅（易姓）` など)をそのまま短縮して出すのをやめ、
+   * 多軸化で得た補助1 `procedure`＝手続きの形式で決める。矢印が指すのは
+   * 「位がどんな形で移ったか」という2政権間の出来事で、カプセル2行目(新帝個人の
+   * 即位経路)とは役割が違うのに同じ語が出ていた。
+   * - 禅譲儀礼 → 「禅譲」。矢印は先帝→新帝の向きなので、渡す側視点の語にする
+   *   (正式名の `受禅（易姓）` はツールチップの1行目にそのまま出る)
+   * - 偽詔・矯詔 → 「矯詔の禅譲」。隋恭帝侗→王世充だけが該当し、他の禅譲儀礼と
+   *   同じ表記に潰れていた
+   * - 儀礼なし・自称＋本人主導 → 「簒奪」
+   * - それ以外 → 従来どおり category の短縮形(擁立・世襲・推戴・復位)
+   */
+  const arrowForm = (e: KinshipSourceEdge): string => {
+    const to = rel.emperorById.get(e.to);
+    if (to) {
+      if (to.routeProcedure === "禅譲儀礼") return "禅譲";
+      if (to.routeProcedure === "偽詔・矯詔") return "矯詔の禅譲";
+      if (to.routeProcedure === "儀礼なし・自称" && to.routeDecidedBy.includes("本人"))
+        return "簒奪";
+    }
+    return shortCategory(e.category);
+  };
+
   for (const e of src.edges) {
     const a = rectById.get(e.from);
     const b = rectById.get(e.to);
@@ -1481,12 +1536,17 @@ function buildChapter(
     if (e.type === "succession") {
       if (dynContext(e.from) === dynContext(e.to)) continue; // カプセル内表記で示す
       const disputed = e.veracity === "disputed";
+      // 続柄は「例外的な血縁のときだけ」出す。子・無血縁・その他・不明は交代の
+      // 既定値で情報量がなく(王朝をまたぐ23本中10本が同じ「受禅・無血縁」だった)、
+      // 情報量のある外戚・同族・母が同じ体裁に埋もれていた。
       const relLabel =
         e.relationToPredecessor &&
-        !["子", "不明"].includes(e.relationToPredecessor)
+        !["子", "不明", "無血縁", "その他", "該当なし"].includes(
+          e.relationToPredecessor,
+        )
           ? `・${stripParen(e.relationToPredecessor)}`
           : "";
-      const label = `${shortCategory(e.category)}${disputed ? "?" : ""}${relLabel}`;
+      const label = `${arrowForm(e)}${disputed ? "?" : ""}${relLabel}`;
       const akey = `s:${e.from}→${e.to}`;
       // 赤矢印も編集モードで付け根・通り道を手で決められる(ユーザー要望・
       // 2026-07-25)。手動ルートがある矢印は補助線と同じ直交の折れ線で引く
@@ -1904,18 +1964,23 @@ function buildChapter(
     }
   }
 
+  // 図の下端は「実際に描かれたノードの下端」で決める。maxEff はパッキング(自動配置)が
+  // 出した占有区間の最大で、手動配置の章では実配置よりずっと下になることがある
+  // (第4章は自動配置の名残で目盛りが650年まで伸び、589年より下は空白だった。
+  //  ユーザー指摘・2026-07-26)。
+  const bottomPx = Math.max(...[...rectById.values()].map((r) => r.y + r.h));
+  const bottomYear = startYear + (bottomPx - yOf(startYear)) / PX_PER_YEAR;
+
   // 目盛り(歴史年の25年刻み・開始年から。0年は暦に存在しないため1年へ置換)。
   const ticks: { y: number; label: string }[] = [];
   for (let h = startHist; ; h += 25) {
     const hist = h === 0 ? 1 : h;
     const astro = hist < 0 ? hist + 1 : hist;
-    if (astro > maxEff) break;
+    if (astro > bottomYear) break;
     ticks.push({ y: yOf(astro), label: formatYear(hist) });
   }
 
-  const height =
-    Math.max(...[...rectById.values()].map((r) => r.y + r.h), yOf(maxEff)) +
-    M_BOTTOM;
+  const height = bottomPx + M_BOTTOM;
   // バンドは列共有で最後のバンドが右端とは限らないため、全バンドの右端の最大をとる。
   // 手動配置でバンド幅の外へ出したノードも収める。
   const width =
@@ -1924,12 +1989,31 @@ function buildChapter(
       ...[...rectById.values()].map((r) => r.x + r.w),
     ) + 60;
 
+  // 図の上端。M_TOP + 圧縮領域(preH)は自動配置の祖先の年から決まるので、手動配置の
+  // 章では実際に描かれた一番上の要素よりずっと上になり、図の頭に何もない空白が
+  // 残る(ユーザー指摘・2026-07-26。第1章は約300px)。下端(bottomPx)と同じく
+  // 「実際に描かれたもの」で決める。座標は動かさず viewBox で切り落とすだけなので、
+  // manual-layout.json(yは年で持つ)にも編集モードのドラッグ量にも影響しない。
+  const viewTop = Math.max(
+    0,
+    Math.min(
+      ...[...rectById.values()].map((r) => r.y),
+      // 文字は基準線が下端なので、上へ字面ぶん余裕をとってから比較する。
+      ...bands.map((b) => b.labelY - 16),
+      ...dynastyHeads.map((h) => h.y - 14),
+      ...ticks.map((t) => t.y - 10),
+      ...arrows.map((a) => a.labelY - 12),
+    ) - VIEW_TOP_PAD,
+  );
+
   return {
     id: def.id,
     title: def.title,
     period: def.period,
+    range: rangeLabel,
     width,
     height,
+    viewTop,
     axisX: AXIS_X,
     ticks,
     bands,

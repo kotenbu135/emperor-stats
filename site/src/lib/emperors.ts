@@ -1526,6 +1526,8 @@ export function getKinshipSource(): KinshipSource {
       dynastyKey: dynastyKey(e.dynasty),
       female: FEMALE_EMPEROR_IDS.has(e.id),
       routeCategory: e.accessionRoute.category,
+      routeProcedure: e.accessionRoute.axes.procedure,
+      routeDecidedBy: e.accessionRoute.axes.decidedBy,
       ordinals: ordinalsById.get(e.id)!,
       reigns: e.reigns.map((r) => ({
         a: astroYear(r.startYear),

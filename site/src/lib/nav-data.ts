@@ -1,3 +1,8 @@
+import {
+  KINSHIP_CHAPTER_DEFS,
+  KINSHIP_ENABLED_CHAPTER_IDS,
+} from "@/lib/kinship/chapters";
+
 export interface NavLink {
   label: string;
   href: string;
@@ -70,6 +75,17 @@ export const navCategories: NavCategory[] = [
   // SITE_SECTIONS(トップのカード一覧・sitemap.xml)には載せず、robotsもnoindexの
   // まま、メニューからだけ辿れるようにする。ラベルの「一部公開」は、全皇帝が
   // 載っていることを期待して開いた人が面食らわないための注記。
-  { label: "系譜・家系図（一部公開）", href: "/kinship" },
+  {
+    label: "系譜・家系図（一部公開）",
+    href: "/kinship",
+    // 章は他ページのセクションと同じ扱いにする(ユーザー指示・2026-07-26)。
+    // 有効な章の定義から導出するので、章を増やしてもメニューだけ古くならない。
+    items: KINSHIP_ENABLED_CHAPTER_IDS.map((id, i) => ({
+      label: `第${i + 1}章 ${
+        KINSHIP_CHAPTER_DEFS.find((d) => d.id === id)?.title ?? id
+      }`,
+      href: `/kinship#${id}`,
+    })),
+  },
   { label: "このサイトについて", href: "/about" },
 ];

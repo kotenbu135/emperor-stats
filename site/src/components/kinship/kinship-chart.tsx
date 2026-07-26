@@ -10,7 +10,7 @@
 // - 親子は垂下線(junction)の構造で示し、線に続柄ラベルは付けない。
 //   矢印は王朝間の交代のみ。
 
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   FixedTooltip,
   useTipOutlet,
@@ -20,39 +20,39 @@ import { useDetailOutlet } from "@/components/emperors/emperor-detail-dialog";
 import { useKinshipEditor } from "@/components/kinship/kinship-editor";
 import { BASE_PATH } from "@/lib/base-path";
 import type { EmperorRecord } from "@/lib/emperor-types";
-import type {
-  KinshipChapterLayout,
-  KinshipEmperorTip,
-  KinshipNodeOut,
-  TipLine,
+import {
+  CONSORT_EDGE,
+  CONSORT_FILL,
+  KIN_STROKE,
+  PERSON_EDGE,
+  PERSON_FILL,
+  STRUCT_STROKE,
+  seriesEdge,
+  seriesFill,
+} from "@/lib/kinship/style";
+import {
+  TIE_DOUBLE_GAP,
+  type KinshipChapterLayout,
+  type KinshipEmperorTip,
+  type KinshipNodeOut,
+  type TipLine,
 } from "@/lib/kinship/layout";
 
 type KinshipTip =
   | { x: number; y: number; kind: "lines"; lines: TipLine[] }
   | { x: number; y: number; kind: "emperor"; emp: KinshipEmperorTip };
 
-const KIN_STROKE = "color-mix(in srgb, var(--foreground) 42%, var(--background))";
-const STRUCT_STROKE = "color-mix(in srgb, var(--foreground) 52%, var(--background))";
-
 function nodeFill(n: KinshipNodeOut): string {
-  if (n.kind === "consort")
-    return "color-mix(in srgb, var(--foreground) 5%, var(--background))";
+  if (n.kind === "consort") return CONSORT_FILL;
   // 非皇帝のつなぎ人物は従来どおり灰(破線枠と合わせて「皇帝でない」ことを示す)。
-  if (n.kind === "person")
-    return "color-mix(in srgb, var(--foreground) 10%, var(--background))";
+  if (n.kind === "person") return PERSON_FILL;
   // 群雄・並立政権の皇帝カプセルは専用色(灰だと人物ノードと紛らわしい)。
-  if (n.colorSlot === 0)
-    return "color-mix(in srgb, var(--kinship-minor) 40%, var(--background))";
-  return `color-mix(in srgb, var(--series-${n.colorSlot}) 42%, var(--background))`;
+  return seriesFill(n.colorSlot);
 }
 function nodeEdge(n: KinshipNodeOut): string {
-  if (n.kind === "consort")
-    return "color-mix(in srgb, var(--foreground) 30%, var(--background))";
-  if (n.kind === "person")
-    return "color-mix(in srgb, var(--foreground) 38%, var(--background))";
-  if (n.colorSlot === 0)
-    return "color-mix(in srgb, var(--kinship-minor) 80%, var(--background))";
-  return `color-mix(in srgb, var(--series-${n.colorSlot}) 82%, var(--background))`;
+  if (n.kind === "consort") return CONSORT_EDGE;
+  if (n.kind === "person") return PERSON_EDGE;
+  return seriesEdge(n.colorSlot);
 }
 
 export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterLayout }) {
@@ -95,20 +95,48 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
   const emperorCount = layout.nodes.filter((n) => n.kind === "emperor").length;
   const markerId = `kinship-arrow-${layout.id}`;
 
+  // 横スクロールの端フェード用。stateは端をまたぐ瞬間しか変わらないので、
+  // スクロール中に再レンダリングが走り続けることはない。
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(true);
+  const syncEdges = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setAtStart(el.scrollLeft <= 1);
+    setAtEnd(el.scrollLeft >= el.scrollWidth - el.clientWidth - 1);
+  }, []);
+  const onScroll = useCallback(() => syncEdges(), [syncEdges]);
+  useEffect(() => {
+    syncEdges();
+    const el = scrollRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    // 画面幅が変わると「続きがあるか」も変わる。
+    const ro = new ResizeObserver(syncEdges);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [syncEdges]);
+
   const showTip = (lines: TipLine[]) => (ev: React.MouseEvent) =>
     setTip({ x: ev.clientX, y: ev.clientY, kind: "lines", lines });
   const hideTip = () => setTip(null);
 
   return (
-    <div className="overflow-x-auto rounded-md border border-border bg-background">
+    <div className="relative rounded-md border border-border bg-background">
+      <div
+        ref={scrollRef}
+        onScroll={onScroll}
+        className="overflow-x-auto"
+      >
       {/* 年ラベルは横スクロールしても見えるよう、SVG外のstickyオーバーレイで
-          左右両端に固定表示する(h-0なので縦のレイアウトには影響しない)。 */}
-      <div aria-hidden className="pointer-events-none sticky left-0 z-10 h-0 w-0">
+          左右両端に固定表示する(h-0なので縦のレイアウトには影響しない)。
+          横スクロールの端フェード(z-10)より上に出すため z-20。 */}
+      <div aria-hidden className="pointer-events-none sticky left-0 z-20 h-0 w-0">
         {layout.ticks.map((t) => (
           <span
             key={t.label}
             className="absolute whitespace-nowrap rounded-sm bg-background/85 px-1 text-[10.5px] text-muted-foreground"
-            style={{ top: t.y - 8, left: 6 }}
+            style={{ top: t.y - layout.viewTop - 8, left: 6 }}
           >
             {t.label}
           </span>
@@ -116,14 +144,18 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
       </div>
       <div
         aria-hidden
-        className="pointer-events-none sticky z-10 h-0 w-0"
+        className="pointer-events-none sticky z-20 h-0 w-0"
         style={{ left: "calc(100% - 6px)" }}
       >
         {layout.ticks.map((t) => (
           <span
             key={t.label}
             className="absolute whitespace-nowrap rounded-sm bg-background/85 px-1 text-[10.5px] text-muted-foreground"
-            style={{ top: t.y - 8, left: 0, transform: "translateX(-100%)" }}
+            style={{
+              top: t.y - layout.viewTop - 8,
+              left: 0,
+              transform: "translateX(-100%)",
+            }}
           >
             {t.label}
           </span>
@@ -133,8 +165,8 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
         role="img"
         aria-label={`${layout.title}の系譜図。縦が時間(上が古い)、横が王朝バンド。皇帝${emperorCount}人を家系図形式で表示。王朝間の交代${layout.arrows.length}本を矢印で表示`}
         width={layout.width}
-        height={layout.height}
-        viewBox={`0 0 ${layout.width} ${layout.height}`}
+        height={layout.height - layout.viewTop}
+        viewBox={`0 ${layout.viewTop} ${layout.width} ${layout.height - layout.viewTop}`}
         className="block"
       >
         <defs>
@@ -205,9 +237,11 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
           {layout.ties.map((t, i) => (
             <g key={`tie:${i}`}>
               {t.double ? (
+                // 二重線の間隔はレイアウト側と共用する(子の垂下線を下側の線から
+                // 出すため。TIE_DOUBLE_GAP)。
                 <>
-                  <line x1={t.x1} y1={t.y - 1.7} x2={t.x2} y2={t.y - 1.7} stroke={STRUCT_STROKE} strokeWidth={1.4} />
-                  <line x1={t.x1} y1={t.y + 1.7} x2={t.x2} y2={t.y + 1.7} stroke={STRUCT_STROKE} strokeWidth={1.4} />
+                  <line x1={t.x1} y1={t.y - TIE_DOUBLE_GAP} x2={t.x2} y2={t.y - TIE_DOUBLE_GAP} stroke={STRUCT_STROKE} strokeWidth={1.4} />
+                  <line x1={t.x1} y1={t.y + TIE_DOUBLE_GAP} x2={t.x2} y2={t.y + TIE_DOUBLE_GAP} stroke={STRUCT_STROKE} strokeWidth={1.4} />
                 </>
               ) : (
                 <line x1={t.x1} y1={t.y} x2={t.x2} y2={t.y} stroke={KIN_STROKE} strokeWidth={1.1} />
@@ -457,6 +491,29 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
 
         {editor.overlay}
       </svg>
+      </div>
+
+      {/* 横スクロールできることを示す端のフェード。図が枠の中で切れているのか
+          続きがあるのか分からない、というユーザー指摘(2026-07-26)への対応。
+          スクロール位置に応じて出し入れするので「まだ続きがある側」だけが光る。
+          年ラベルのstickyオーバーレイ(z-20)より下(z-10)に敷く。 */}
+      {!atStart && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-background to-transparent"
+        />
+      )}
+      {!atEnd && (
+        <>
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-background to-transparent"
+          />
+          <span className="pointer-events-none absolute right-2 top-2 z-20 rounded-full border border-border bg-background/90 px-2 py-0.5 text-[11px] text-muted-foreground">
+            横スクロールで続き →
+          </span>
+        </>
+      )}
 
       {/* 編集モードのオーバーレイはSVGの最前面に置く(ハンドルを掴めるように) */}
       <TipOutlet

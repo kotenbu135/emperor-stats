@@ -2,7 +2,7 @@
 // - 構成: 時代チャプター縦積み(章を縦に積み、時間は下へ連続)。章内は王朝バンドを
 //   横に並べ、バンド内は家系図(兄弟横並び・夫婦連結・母別の垂下線)。
 // - 王朝内の継承は矢印にせず、カプセル内の「第N代・即位経路」表記で示す。
-//   矢印は王朝間の交代(受禅・簒奪など)のみ。
+//   矢印は王朝間の交代(禅譲・簒奪など)のみ。
 // - 段階公開: 現在は第1章(秦・漢)〜第4章(南北朝)。有効な章は chapters.ts の
 //   KINSHIP_ENABLED_CHAPTER_IDS が単一の情報源で、この画面の文言もそこから導出する
 //   (章を増やしたときに文言だけ古くなる事故を防ぐ)。全章そろうまで SITE_SECTIONS
@@ -11,7 +11,12 @@
 // - レイアウトはビルド時計算(getKinshipGraphData → src/lib/kinship/)。
 
 import { PageHeader, Section } from "@/components/layout/page-header";
+import {
+  KINSHIP_NAV_H,
+  KinshipChapterNav,
+} from "@/components/kinship/kinship-chapter-nav";
 import { KinshipChart } from "@/components/kinship/kinship-chart";
+import { KinshipLegend } from "@/components/kinship/kinship-legend";
 import { getKinshipGraphData } from "@/lib/emperors";
 import { buildMetadata } from "@/lib/seo";
 
@@ -34,13 +39,10 @@ export const metadata = {
   ...buildMetadata({
     path: "/kinship",
     title: "系譜・家系図",
-    description: `中国皇帝の系譜を、時代ごとの章に分けた家系図で描くページです。兄弟・夫婦・生母の関係と、受禅・簒奪など王朝間の交代の系譜関係を示します（段階公開中・現在は${COVERAGE}）。`,
+    description: `中国皇帝の系譜を、時代ごとの章に分けた家系図で描くページです。兄弟・夫婦・生母の関係と、禅譲・簒奪など王朝間の交代の系譜関係を示します（段階公開中・現在は${COVERAGE}）。`,
   }),
   robots: { index: false },
 };
-
-const LEGEND =
-  "凡例: 色付きカプセル＝皇帝（高さが在位期間・2行目は「第N代・即位経路」。図の中では経路名を短縮し、「受禅」は「受禅（易姓）」＝王朝交代を伴う受禅、「継承」は「継承（経緯記載なし）」＝原典が誰の決定かを記していない継承を指します。正式な区分名はツールチップに出ます）／破線枠＝皇帝でないつなぎの人物（生没年または系譜からの推定で配置。2行目がある場合は「第N代・称号」＝皇帝を称さなかった君主で、王朝の代数はこの人物を含めて数えます）／丸枠＝后妃など配偶者（位置は相手方＝夫または子の父の在位に整列。生没年はツールチップ）／二重線＝皇后との夫婦、細線＝妃嬪等の生母／灰の縦横線＝親子（夫婦の連結点から子へ降りる線。母ごとに分かれ、誰と誰の間の子かを示す）／破線の親子線＝養子縁組（例: 明帝→曹芳）または実父に諸説あり（ツールチップで区別）／横向きの親子線には「◯◯の子」「◯◯の娘」と続柄を添えます（他家に嫁いだ娘など、親と同じ高さに置かれる人物への線）／朱の矢印＝王朝間の交代（受禅・簒奪など。ラベルは経路と先代との続柄）／点線＋?＝史書間で記述が対立するもの（諸説あり）。縦スケールは1年＝8pxの完全等間隔です（在位が極端に短い皇帝のカプセルは名前が読める最小の高さで描くため、実期間よりわずかに長くなることがあります。また親子の線が見えるよう、先代の在位に隣接して即位した皇帝は上辺だけをわずかに下げ、下辺＝退位年の位置は保ちます）。章の開始前に没した祖先（荘襄王など）は最上部に圧縮して配置します。伝説的な遠祖の系譜主張は皇帝カプセルのツールチップで示します。";
 
 export default function KinshipPage() {
   const chapters = CHAPTERS;
@@ -49,26 +51,31 @@ export default function KinshipPage() {
     <>
       <PageHeader
         title="系譜・家系図"
-        description="皇帝間の血縁（実父・実母・養親）・婚姻と、王朝間の交代（受禅・簒奪など）の系譜関係を、時代ごとの章に分けた家系図で描きます。縦が時間（上が古い）、横が王朝です。王朝内の継承は矢印ではなくカプセル内の「第N代・即位経路」で示し、矢印は王朝間の交代だけに使います。"
+        description="皇帝間の血縁や王朝間の交代の系譜関係を表しています。"
       />
-      <div className="px-6 pt-6 md:px-10">
-        <p className="max-w-3xl rounded-md border border-seal/30 bg-seal/5 px-4 py-3 text-sm leading-relaxed text-foreground">
-          <span className="font-semibold">暫定公開版です。</span>
-          現在掲載しているのは{COVERAGE}で、隋以降の章は準備中です。掲載済みの章についても、
-          配置や表記は今後の調査にあわせて変わることがあります。
-        </p>
+      {/* 凡例は各章の下に置いた長文をやめ、実際の描画と同じマークを並べた図版を
+          ページ先頭に1つだけ置く(ユーザー指示・2026-07-26)。下の固定バーと枠線が
+          接して二重線に見えないよう pb で離す。 */}
+      <div className="px-6 pb-4 pt-6 md:px-10">
+        <KinshipLegend />
       </div>
+      {/* 章ジャンプ。sticky が効く範囲は親要素の箱に限られるため、章と同じ最上位の
+          並びに置く(上のヘッダー用 div の中に入れると、その div が画面外へ出た
+          時点で固定が外れてしまう)。 */}
+      <KinshipChapterNav
+        chapters={chapters.map((c) => ({ id: c.id, title: c.title }))}
+      />
       {chapters.map((c, i) => (
         <Section
           key={c.id}
           id={c.id}
           title={`第${i + 1}章 ${c.title}（${c.period}）`}
-          description="皇帝にマウスを載せると概要、クリックで全項目（在位・死因・順位などの詳細ダイアログ。他の統計ページと共通）を表示します。名前はドラッグで選択してコピーできます。"
+          description={c.range}
+          // 固定バーの高さぴったりに合わせる(大きいと前の章の横スクロールバーが
+          // ジャンプ後の画面上部に覗く。ユーザー指摘・2026-07-26)。
+          scrollMt={KINSHIP_NAV_H}
         >
           <KinshipChart layout={c} />
-          <p className="mt-3 max-w-3xl text-xs leading-relaxed text-muted-foreground">
-            {LEGEND}
-          </p>
         </Section>
       ))}
     </>
