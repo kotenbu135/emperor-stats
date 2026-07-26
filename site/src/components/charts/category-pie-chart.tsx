@@ -195,7 +195,7 @@ export function CategoryPieChart({
       </div>
       <TableDetails summary="表で見る">
         {() => (
-          <div className="mt-2 rounded-md border border-border">
+          <div className="mt-2 max-h-[480px] overflow-y-auto rounded-md border border-border">
             <table className="w-full text-sm">
               <thead className="bg-secondary text-left">
                 <tr>
