@@ -177,7 +177,7 @@ export default async function EmperorPage({
           <EmperorNarrativeSections narrative={getEmperorNarrative(id)} />
           {events.length > 0 && (
             <section className="mt-2 space-y-2 border-t border-border pt-5">
-              <h3 className="font-heading text-sm font-semibold text-foreground">
+              <h3 className="font-heading text-base font-semibold text-foreground">
                 在位中の出来事（{events.length}件）
               </h3>
               <p className="text-xs leading-relaxed text-muted-foreground">

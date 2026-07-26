@@ -63,7 +63,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       </header>
 
       <aside className="hidden shrink-0 border-r border-border bg-sidebar md:block md:w-60">
-        <div className="sticky top-0 flex h-screen flex-col overflow-y-auto px-4 py-6">
+        <div className="sticky top-0 flex h-dvh flex-col overflow-y-auto px-4 py-6">
           <Link
             href="/"
             className="mb-6 flex items-center gap-2.5 font-heading text-xl font-semibold text-foreground"

@@ -44,7 +44,7 @@ export function FilterField({
   );
 }
 
-function DynastyCategoryHint() {
+export function DynastyCategoryHint() {
   return (
     <HoverCard openDelay={100} closeDelay={50}>
       <HoverCardTrigger asChild>

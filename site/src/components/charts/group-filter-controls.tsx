@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FilterField } from "@/components/charts/chart-filter-controls";
+import { DynastyCategoryHint, FilterField } from "@/components/charts/chart-filter-controls";
 import {
   dynastyCategoryOptions,
   type DynastyCategory,
@@ -57,7 +57,7 @@ export function GroupFilterControls({
         </Select>
       </FilterField>
 
-      <FilterField label="王朝の区分">
+      <FilterField label="王朝の区分" hint={<DynastyCategoryHint />}>
         <Select value={categoryValue} onValueChange={onCategoryChange}>
           <SelectTrigger className="w-[170px]" aria-label="王朝の区分で絞り込み">
             <SelectValue />

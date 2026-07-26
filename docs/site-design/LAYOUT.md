@@ -707,6 +707,22 @@ task.md 3-1 フェーズB完了（`reigns[].duration.source` への正史原文 
 - **`emperor-tooltip` の hint は `/kinship` でも使われる**（`kinship-chart.tsx` → `EmperorTooltip`）。ホバー時のツールチップ内補助文だけは `/kinship` でも 10px→11px になる。静止画のスクリーンショットには現れず、ノード・ラベルの配置は不変。
 - **Tailwind のソース走査は `design-plans/*.md` の散文も拾う**。計画書に書いたクラス名（`px-gutter` 等）が実装前からビルド出力に現れる。CSS の grep で実装状況を判定しないこと。
 
+## 見出し・ヒント・重なりの整理（2026-07-27・design-plans/07・08・09・11）
+
+小粒の計画4件をまとめて実装した。いずれも新しい設計判断を含まず、既存の決定を適用漏れの箇所へ広げるもの。
+
+- **ページタイトルの所有者を `PageHeader` に統一**（07）。トップと404だけが見出しを手書きしており、罫線が無く・説明文の行間と余白がずれ・03 で入れた改行制御（`text-balance` / `text-pretty`）も効いていなかった。`PageHeader` へ載せ替えて全13ルートが同じ帯になった。**手書きの h1 を作らないこと** — 共有部品を通らない見出しは、罫線・余白・改行制御が抜け落ちたまま気づかれずに残る。
+  - トップは `contained containedWidth="max-w-4xl"`（`/emperors/[id]` の先行例と同じ）。実測で見出しの朱バー左端と StatTile の左端が 1440px・375px とも一致することを確認済み。
+  - **`PageHeader` を分離したら本文側の `mt-8` は消す**。帯の下端 padding 32px + 罫線 1px + 本文ラッパーの上 padding 32px = 65px が新たに入るため、`mt-8` を残すと 97px になり他ルートから外れる（計画は「`mt-8` を Preserve」と書いていたが誤り）。
+  - トップの説明文は `leading-relaxed`（1.625）→ `text-sm` 既定（1.4286）、`mt-3` → `mt-2` に変わる。`PageHeader` 側を直して取り戻してはいけない — `/kinship`・`/timeline` が同じ部品を通っており、凍結面の描画が動く。
+- **「王朝の区分」フィルタの ⓘ を全サーフェスへ**（08）。`DynastyCategoryHint` を export して `/dynasties`・`/emperors` にも渡した。バンドル増は実質ゼロ（`chart-filter-controls` モジュールは丸ごと共有チャンクに入っており、`HoverCard` も説明文の文字列も両ページに既に含まれていた）。フィルタ行の折り返し位置は変わらない（`FilterField` の寄与幅は `SelectTrigger` の固定 170px が決めており、ラベル＋ⓘ は 78px でこれを下回る）。
+- **h3 を `text-base` に統一**（09）。`/about` だけが `text-base` で、他5箇所が本文と同じ `text-sm` だった。機械置換は危険 — `font-heading text-sm font-semibold text-foreground` は Preserve 対象の `<summary>` 3箇所と `nav-menu.tsx` にも一致するため、`<h3 className="` を含めてアンカーする。検証は `rg '<h3[^>]*text-sm' src/` が空になること。
+  - **残った不整合（意図的・計画の Preserve 指示による）**: 「関連動画」は個別ページでは h3（16px）、ダイアログでは `<summary>`（14px）のまま。ダイアログは `collapseVideos` で折りたたむ別分岐のため。
+- **`h-screen` → `h-dvh`**（11・`site-shell.tsx:66` の1トークン）。サイドバーは `md:block` なのでモバイルでは描画されず実害は無かったが、規則違反を消した。1440px・768px で `sticky top-0` の張り付きと枠内スクロールが変わらないことを実測済み（767px 以下では `display:none` で計測不能なので「消えた」と誤読しないこと）。
+- **z-index はリネームしない**（11）。値は場当たりでなく4段に揃っている: 最下段 z-10（一覧の時代見出し・横スクロールの端フェード）＜ z-20（系譜図の年ラベル・横スクロールの告知バッジ）＜ z-30（章ジャンプのスティッキー）＜ z-50（ツールチップ・ダイアログ・ポップオーバー・編集パネル）。**計画が DESIGN.md に書けと指示していた段の順序はコードと逆だったので、実測に合わせて修正して記載した。** 04 の切り出しで端フェードと告知バッジは `horizontal-scroll-hint.tsx` へ移っており、この段は `/kinship` 固有ではなくサイト横断の共有部品が持つ。
+
+**実施しなかった計画**: 10（統計3ページへのリード文追加）は計画自身の停止条件に該当したため破棄した。詳細は `site/design-plans/README.md`。06（円グラフのラベル切れ）は計画の解法が成立しないことが実測で判明し、別解の判断待ち。
+
 ## 関連ドキュメント
 
 - [TIMELINE.md](./TIMELINE.md) — 通史年表（`/timeline`）の設計

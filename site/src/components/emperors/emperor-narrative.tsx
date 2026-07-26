@@ -58,7 +58,7 @@ export function NarrativeBlock({
 }) {
   return (
     <section className="space-y-1.5">
-      <h3 className="font-heading text-sm font-semibold text-foreground">
+      <h3 className="font-heading text-base font-semibold text-foreground">
         {title}
       </h3>
       <p className="text-sm leading-relaxed">{section.note}</p>
@@ -117,7 +117,7 @@ export function EmperorNarrativeSections({
       </div>
       {restorations.length > 0 && (
         <section className="space-y-1.5">
-          <h3 className="font-heading text-sm font-semibold text-foreground">
+          <h3 className="font-heading text-base font-semibold text-foreground">
             復位の経緯
           </h3>
           {restorations.map((r) => (

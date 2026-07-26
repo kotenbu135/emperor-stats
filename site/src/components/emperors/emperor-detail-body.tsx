@@ -203,7 +203,7 @@ export function EmperorDetailBody({
       {record.videos.length > 0 &&
         (!collapseVideos ? (
           <div className="space-y-2">
-            <h3 className="font-heading text-sm font-semibold text-foreground">
+            <h3 className="font-heading text-base font-semibold text-foreground">
               関連動画
             </h3>
             {videoNote}

@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { PageHeader } from "@/components/layout/page-header";
 import { getOverviewStats } from "@/lib/emperors";
 import { buildMetadata, JsonLd, SITE_SECTIONS, websiteJsonLd } from "@/lib/seo";
 
@@ -40,84 +41,80 @@ export default function Home() {
   const stats = getOverviewStats();
 
   return (
-    <div className="bg-background px-6 py-8 md:px-10">
+    <>
       <JsonLd data={websiteJsonLd()} />
-      {/* ワイド画面では左寄せだと右側の余白が目立つため中央寄せにする */}
-      <div className="mx-auto max-w-4xl">
-        <div className="flex items-center gap-3">
-          <span aria-hidden className="h-7 w-1 shrink-0 rounded-full bg-seal" />
-          <h1 className="font-heading text-2xl font-semibold text-foreground md:text-3xl">
-            中国皇帝統計
-          </h1>
-        </div>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          始皇帝から溥儀まで、中国史上で実際に「皇帝」を名乗った
-          {stats.emperorCount}
-          名の統計情報を可視化したサイトです。
-        </p>
+      <PageHeader
+        contained
+        containedWidth="max-w-4xl"
+        title="中国皇帝統計"
+        description={`始皇帝から溥儀まで、中国史上で実際に「皇帝」を名乗った${stats.emperorCount}名の統計情報を可視化したサイトです。`}
+      />
+      {/* ワイド画面では左寄せだと右側の余白が目立つため中央寄せにする（PageHeaderのcontainedと同じ列幅） */}
+      <div className="px-6 py-8 md:px-10">
+        <div className="mx-auto w-full max-w-4xl">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+            <StatTile
+              label="収録皇帝数"
+              value={`${stats.emperorCount}名`}
+              note="実際に皇帝を名乗った人物のみ"
+            />
+            <StatTile
+              label="平均在位期間"
+              value={stats.avgReignLabel}
+              note="全収録皇帝の単純平均"
+            />
+            <StatTile
+              label="最長在位"
+              value={stats.longestReign.durationLabel}
+              note={`${stats.longestReign.name}（${stats.longestReign.dynastyLabel}）`}
+            />
+            <StatTile
+              label="最短在位"
+              value={stats.shortestReign.durationLabel}
+              note={`${stats.shortestReign.name}（${stats.shortestReign.dynastyLabel}）`}
+            />
+            <StatTile
+              label={`最多の死因「${stats.topDeathCause.category}」`}
+              value={`${stats.topDeathCause.percent}%`}
+              note={`${stats.topDeathCause.count}名`}
+            />
+            <StatTile
+              label={`最多の即位経路「${stats.topAccessionRoute.category}」`}
+              value={`${stats.topAccessionRoute.percent}%`}
+              note={`${stats.topAccessionRoute.count}名`}
+            />
+          </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-3">
-          <StatTile
-            label="収録皇帝数"
-            value={`${stats.emperorCount}名`}
-            note="実際に皇帝を名乗った人物のみ"
-          />
-          <StatTile
-            label="平均在位期間"
-            value={stats.avgReignLabel}
-            note="全収録皇帝の単純平均"
-          />
-          <StatTile
-            label="最長在位"
-            value={stats.longestReign.durationLabel}
-            note={`${stats.longestReign.name}（${stats.longestReign.dynastyLabel}）`}
-          />
-          <StatTile
-            label="最短在位"
-            value={stats.shortestReign.durationLabel}
-            note={`${stats.shortestReign.name}（${stats.shortestReign.dynastyLabel}）`}
-          />
-          <StatTile
-            label={`最多の死因「${stats.topDeathCause.category}」`}
-            value={`${stats.topDeathCause.percent}%`}
-            note={`${stats.topDeathCause.count}名`}
-          />
-          <StatTile
-            label={`最多の即位経路「${stats.topAccessionRoute.category}」`}
-            value={`${stats.topAccessionRoute.percent}%`}
-            note={`${stats.topAccessionRoute.count}名`}
-          />
-        </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {sections.map((s) => (
+              <Card
+                key={s.href}
+                // transition-[...] を渡すとCardの基底 transition-transform を上書きするので、
+                // 持ち上がり(translate)と枠色の両方をここで指定する。
+                className="transition-[translate,border-color] duration-150 ease-out hover:border-seal/60 motion-safe:hover:-translate-y-px motion-safe:hover:shadow-sm motion-reduce:transition-none"
+              >
+                <CardHeader>
+                  <CardTitle className="font-heading text-lg">{s.label}</CardTitle>
+                  <CardDescription>{s.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button variant="outline" asChild>
+                    <Link href={s.href}>見る</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {sections.map((s) => (
-            <Card
-              key={s.href}
-              // transition-[...] を渡すとCardの基底 transition-transform を上書きするので、
-              // 持ち上がり(translate)と枠色の両方をここで指定する。
-              className="transition-[translate,border-color] duration-150 ease-out hover:border-seal/60 motion-safe:hover:-translate-y-px motion-safe:hover:shadow-sm motion-reduce:transition-none"
-            >
-              <CardHeader>
-                <CardTitle className="font-heading text-lg">{s.label}</CardTitle>
-                <CardDescription>{s.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button variant="outline" asChild>
-                  <Link href={s.href}>見る</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+          <p className="mt-8 text-xs text-muted-foreground">
+            数え方・収録基準は
+            <Link href="/about" className="underline underline-offset-2 hover:text-seal">
+              このサイトについて
+            </Link>
+            をご覧ください。
+          </p>
         </div>
-
-        <p className="mt-8 text-xs text-muted-foreground">
-          数え方・収録基準は
-          <Link href="/about" className="underline underline-offset-2 hover:text-seal">
-            このサイトについて
-          </Link>
-          をご覧ください。
-        </p>
       </div>
-    </div>
+    </>
   );
 }

@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FilterField } from "@/components/charts/chart-filter-controls";
+import { DynastyCategoryHint, FilterField } from "@/components/charts/chart-filter-controls";
 import { DynastyCombobox } from "@/components/charts/dynasty-combobox";
 import type {
   DynastyCategory,
@@ -270,7 +270,7 @@ export function EmperorGrid({
             onChange={setDynastyValue}
           />
         </FilterField>
-        <FilterField label="王朝の区分">
+        <FilterField label="王朝の区分" hint={<DynastyCategoryHint />}>
           <Select
             value={categoryValue}
             onValueChange={(v) => setCategoryValue(v as DynastyCategory | "all")}
