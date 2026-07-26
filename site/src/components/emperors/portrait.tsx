@@ -7,20 +7,46 @@
 // 併記した srcset 付きの素の<img>で出し分ける（1x表示・ダイアログの小サイズ
 // 表示はサムネ側が選ばれ、一覧150枚超の転送量が減る）。
 
+import {
+  DYNASTY_MONOGRAM_MIX,
+  dynastyColorMix,
+  dynastyColorSlot,
+} from "@/lib/dynasty-colors";
 import type { EmperorRecord } from "@/lib/emperor-types";
 
 /** 肖像表示に必要な最小フィールド（一覧の軽量レコード・フルレコードの両方が満たす）。 */
-type PortraitSubject = Pick<EmperorRecord, "name" | "personalName" | "portraitUrl">;
+type PortraitSubject = Pick<
+  EmperorRecord,
+  "name" | "personalName" | "portraitUrl" | "dynastyKey"
+>;
 
 /** モノグラムに使う一文字。姓（諱の頭文字）を優先し、なければ通称の頭文字を使う。 */
 function monogramChar(record: PortraitSubject): string {
   return (record.personalName ?? record.name).charAt(0);
 }
 
-/** 肖像がない皇帝のプレースホルダー（姓一文字を大きく淡く表示）。 */
-function Monogram({ char, large = false }: { char: string; large?: boolean }) {
+/** 肖像がない皇帝のプレースホルダー（姓一文字を大きく淡く表示）。
+ *  背景はその皇帝の王朝色を宣紙色に混ぜた淡彩で、同じ時代見出しの下のカードが
+ *  まとまって見えるようにする（既存のどの面よりも淡くし、姓一文字が読める濃度に落とす）。 */
+function Monogram({
+  char,
+  dynastyKey,
+  large = false,
+}: {
+  char: string;
+  dynastyKey: string;
+  large?: boolean;
+}) {
   return (
-    <div className="flex h-full w-full items-center justify-center bg-secondary">
+    <div
+      className="flex h-full w-full items-center justify-center"
+      style={{
+        backgroundColor: dynastyColorMix(
+          dynastyColorSlot(dynastyKey),
+          DYNASTY_MONOGRAM_MIX,
+        ),
+      }}
+    >
       <span
         className={`select-none font-heading font-semibold text-muted-foreground/50 ${
           large ? "text-6xl" : "text-4xl"
@@ -52,7 +78,14 @@ export function Portrait({
    *  （LAYOUT.mdのLighthouse計測記録）。 */
   priority?: boolean;
 }) {
-  if (!record.portraitUrl) return <Monogram char={monogramChar(record)} large={large} />;
+  if (!record.portraitUrl)
+    return (
+      <Monogram
+        char={monogramChar(record)}
+        dynastyKey={record.dynastyKey}
+        large={large}
+      />
+    );
   return (
     // unoptimized の next/image は srcset を出せない（カスタム srcSet 指定も不可）
     // ため、静的2サイズを自前 srcset で出す。

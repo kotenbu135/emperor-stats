@@ -6,10 +6,8 @@ import {
   ResponsiveBar,
   type BarDatum,
 } from "@nivo/bar";
-import {
-  nivoTheme,
-  rankingSeriesColor,
-} from "@/components/charts/nivo-theme";
+import { nivoTheme } from "@/components/charts/nivo-theme";
+import { dynastyEdgeHex, dynastyFillHex } from "@/lib/dynasty-colors";
 import {
   FixedTooltip,
   MARGIN_RIGHT,
@@ -66,6 +64,9 @@ interface RankedDatum {
   value: number;
   formatted: string;
   record: EmperorRecord;
+  /** 棒の塗り・縁（王朝色を地色に混ぜた濃度）。Nivoに渡す前に確定させる。 */
+  fill: string;
+  edge: string;
 }
 
 export function RankingBarChart({
@@ -150,6 +151,8 @@ export function RankingBarChart({
     value: rawValueOf(r, metricKey) as number,
     formatted: formatOf(r, metricKey),
     record: r,
+    fill: dynastyFillHex(r.dynastyKey),
+    edge: dynastyEdgeHex(r.dynastyKey),
   }));
 
   // 軸ドメイン・マージン・行ウィンドウイングの定型は共通フックにまとめている。
@@ -223,7 +226,12 @@ export function RankingBarChart({
               theme={nivoTheme}
               // role="img"のSVGに必要なアクセシブルネーム（Lighthouse svg-img-alt対応）。
               ariaLabel={`皇帝別${valueLabel}の横棒グラフ`}
-              colors={[rankingSeriesColor]}
+              // 棒はその皇帝の王朝色（凡例は付かない——87王朝の凡例は成立しない。
+              // 各行に王朝名がラベルされているので、色は「同じ王朝がどこに固まって
+              // いるか」を見せるグルーピングの手掛かりとして働く）。
+              colors={(d) => String(d.data.fill)}
+              borderWidth={1}
+              borderColor={(d: { data: { data: BarDatum } }) => String(d.data.data.edge)}
               margin={{ top: MARGIN_TOP, right: MARGIN_RIGHT, bottom: 6, left: marginLeft }}
               padding={0.35}
               borderRadius={3}

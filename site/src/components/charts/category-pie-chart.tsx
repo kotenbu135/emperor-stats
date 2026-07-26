@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { ResponsivePie, type PieCustomLayerProps } from "@nivo/pie";
+import { categoryColorMaps, nivoTheme } from "@/components/charts/nivo-theme";
 import {
-  categoryColorMaps,
-  darkSlices,
-  nivoTheme,
-} from "@/components/charts/nivo-theme";
+  DYNASTY_EDGE_MIX,
+  DYNASTY_FILL_MIX,
+  mixHex,
+  readableTextOn,
+} from "@/lib/dynasty-colors";
 import {
   ChartFilterControls,
   type SortDirection,
@@ -65,9 +67,19 @@ export function CategoryPieChart({
     counts.set(c, (counts.get(c) ?? 0) + 1);
   }
 
-  // カテゴリの意味に対応した固定色（nivo-theme.tsでdataviz検証済み）。
+  // カテゴリの意味に対応した固定色（nivo-theme.tsでdataviz検証済み）。色の割り当て
+  // そのものは変えず、塗りは地色に混ぜた濃度で出す（生の彩度だと宣紙色のクロームから
+  // 浮き、グラフだけ別のサイトのように見える。/timeline・/kinship と同じ規則）。
   const colorMap = categoryColorMaps[metricKey];
   const fallbackColor = "#6b6258";
+  const rawOf = (category: string) => colorMap[category] ?? fallbackColor;
+  const fillOf = (category: string) => mixHex(rawOf(category), DYNASTY_FILL_MIX);
+  const edgeOf = (category: string) => mixHex(rawOf(category), DYNASTY_EDGE_MIX);
+  /** 凡例・表・ツールチップのスウォッチ。実際の弧とまったく同じ塗り＋縁で描く。 */
+  const swatchStyle = (category: string) => ({
+    backgroundColor: fillOf(category),
+    border: `1px solid ${edgeOf(category)}`,
+  });
 
   let entries = categoryOrder
     .filter((c) => (counts.get(c) ?? 0) > 0)
@@ -134,21 +146,25 @@ export function CategoryPieChart({
           data={pieData}
           role="presentation"
           theme={nivoTheme}
-          colors={(d) => colorMap[d.id as string] ?? fallbackColor}
+          colors={(d) => fillOf(d.id as string)}
           margin={{ top: 28, right: 32, bottom: 28, left: 32 }}
           innerRadius={0.5}
           padAngle={1.5}
           cornerRadius={2}
           activeOuterRadiusOffset={6}
-          borderWidth={0}
+          borderWidth={1}
+          borderColor={(d) => edgeOf(d.data.id)}
           arcLinkLabel={(d) => `${d.id} ${percentOf(d.value)}%`}
           arcLinkLabelsSkipAngle={4}
           arcLinkLabelsTextColor="#3a3530"
-          arcLinkLabelsColor={{ from: "color" }}
+          // 引き出し線は弧と同じ色相の82%濃度（＝弧の縁と同じ）で引く。既定の
+          // { from: "color" } だと55%の塗りをそのまま継いで対地色1.44:1まで落ち、
+          // 弧とラベルの対応を示す唯一の線が見えなくなる。
+          arcLinkLabelsColor={(d) => edgeOf(d.id as string)}
           arcLabelsSkipAngle={12}
-          arcLabelsTextColor={(d) =>
-            darkSlices.has(colorMap[d.id as string] ?? "") ? "#f5f1e8" : "#3a3530"
-          }
+          // 弧の上に載せる文字色は混色後の実値からコントラスト比で選ぶ
+          // （生の彩度を前提にした固定リストは淡彩化後には当てはまらない）。
+          arcLabelsTextColor={(d) => readableTextOn(fillOf(d.id as string))}
           layers={["arcs", "arcLabels", "arcLinkLabels", CenteredTotal]}
           legends={[]}
           tooltip={({ datum }) => (
@@ -179,7 +195,7 @@ export function CategoryPieChart({
               >
                 <span
                   className="inline-block size-3 rounded-full"
-                  style={{ backgroundColor: colorMap[d.category] ?? fallbackColor }}
+                  style={swatchStyle(d.category)}
                 />
                 {d.category}
               </button>
@@ -210,9 +226,7 @@ export function CategoryPieChart({
                     <td className="px-3 py-1.5">
                       <span
                         className="mr-2 inline-block size-2.5 rounded-full align-middle"
-                        style={{
-                          backgroundColor: colorMap[d.category] ?? fallbackColor,
-                        }}
+                        style={swatchStyle(d.category)}
                       />
                       {d.category}
                     </td>

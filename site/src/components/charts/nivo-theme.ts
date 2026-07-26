@@ -65,12 +65,12 @@ export const categoryColorMaps: Record<string, Record<string, string>> = {
   },
 };
 
-/** 濃色スライス（クリーム文字が読める色）。それ以外は墨色文字を使う。 */
-export const darkSlices = new Set(["#2a78d6", "#e34948", "#4a3aa7", "#008300"]);
-
-// ランキング棒グラフ（単一系列）はサイトの印章朱に合わせる。
-// #a6321c vs surface #f5f1e8 = 6.02:1（マーク3:1基準を満たす。数値ラベルはバー外側の墨色文字）。
-export const rankingSeriesColor = "#a6321c";
+// 円グラフ・積み上げ棒の塗りは、これらの生の値ではなく地色と混ぜた濃度で渡す
+// （lib/dynasty-colors.ts の mixHex／DYNASTY_FILL_MIX・DYNASTY_EDGE_MIX）。
+// 塗りの上に載せる文字色も混色後の実値から選ぶ（同 readableTextOn）。
+//
+// ランキング棒グラフの色は王朝ごと（lib/dynasty-colors.ts）。かつては朱の単色
+// （--seal #a6321c）だったが、朱は印章的なワンポイントに限定する方針に戻した。
 
 /**
  * Nivoの数値軸はnice-numberアルゴリズムにより、値域が小さいと0.5刻みの目盛りを

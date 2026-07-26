@@ -39,6 +39,7 @@ npx tsc --noEmit   # 型チェック
 
 1. **`src/lib/timeline-river.ts` の `STREAM_DEFS` に追記**（新王朝・新政権の場合）。全 dynastyKey の被覆をビルド時に assert しているため、漏れるとビルドが落ちる
 2. **`src/lib/kana-readings.ts` の音読みテーブルに新出漢字の読みを追記**（かな検索用・手書きテーブル）。未登録漢字はビルド時に throw するため、漏れるとビルドが落ちる
+2b. **`src/lib/dynasty-colors.ts` の `DYNASTY_COLOR_SLOT` に新しい dynastyKey を追記**（王朝→配色スロットの単一情報源・87王朝）。未割当のキーは throw するため、漏れるとランキング棒グラフ・`/dynasties`・`/emperors` のカードが落ちる。スロットの選び方は意味ベース（漢系=4金・北族=1青・晋系=7紫・宋=2緑・明=8赤・隋/梁系=5青緑）で、`dynasty.category` が「並立政権」「反乱・自称政権」の割拠政権は 0（`--kinship-minor` 藤）
 3. **人数のハードコード表記を更新**: サイト表示本体は `stats.emperorCount` から動的導出のためコード変更不要だが、ドキュメント類（`site/README.md`・`site/AGENTS.md`・`docs/site-design/METHODOLOGY.md`・ルート `README.md`/`CLAUDE.md`）と `CHANGELOG.md` の人数表記は手動更新
 4. 肖像画を載せる場合は `../docs/site-design/PORTRAITS.md` の「肖像の増減手順」に従う（PD/CC0 のみ・manifest 管理）
 5. `npx tsc --noEmit`・`npm run lint`・`npm run build` で検証（1・2 の漏れはここで検出される）

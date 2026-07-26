@@ -28,11 +28,6 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -64,7 +59,9 @@
  * --series-1〜8 は死因/即位経路等のenumカテゴリ用パレット。dataviz skillの
  * デフォルト8色をsurface #F5F1E8に対しvalidate_palette.jsで検証済み（全項目PASS、
  * 4スロットはコントラストWARNのため直接ラベル表示で緩和）。
- * --chart-1〜5 は王朝別カテゴリカルパレット（横断ビュー用、未確定）のため暫定グレースケールのまま。
+ * 王朝別の識別色は src/lib/dynasty-colors.ts が --series-1〜8 と --kinship-minor へ
+ * 割り当てる（87王朝・意味ベース）。これらは生の値で塗らず、必ず color-mix で
+ * 地色に混ぜた濃度で使う。
  */
 :root {
   --background: #f5f1e8;
@@ -99,11 +96,6 @@
   --border: #ddd5c7;
   --input: #ddd5c7;
   --ring: #4a4038;
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
   --radius: 0.5rem;
   --sidebar: #ede7d8;
   --sidebar-foreground: #3a3530;

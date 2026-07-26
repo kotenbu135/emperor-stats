@@ -2,10 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { ResponsiveBar, type BarDatum } from "@nivo/bar";
+import { nivoTheme } from "@/components/charts/nivo-theme";
 import {
-  nivoTheme,
-  rankingSeriesColor,
-} from "@/components/charts/nivo-theme";
+  DYNASTY_EDGE_MIX,
+  DYNASTY_FILL_MIX,
+  dynastyColorHex,
+  dynastyEdgeHex,
+  dynastyFillHex,
+} from "@/lib/dynasty-colors";
 import {
   FixedTooltip,
   MARGIN_RIGHT,
@@ -60,12 +64,18 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
       .map((row, i) => [row.key, i + 1]),
   );
 
+  // 1棒＝1王朝のときは自身の王朝色で塗る。集計単位が「時代」のときは王朝色を
+  // 定義できないため単色にフォールバックする（--series-1 青。朱には戻さない）。
   const chartData = sorted.map((row) => ({
     id: row.key,
     label: `${rankByKey.get(row.key)}. ${row.label}（${row.emperorCount}名）`,
     value: row.avgReignDays / 365,
     formatted: avgLabel(row),
     row,
+    fill:
+      unit === "dynasty" ? dynastyFillHex(row.key) : dynastyColorHex(1, DYNASTY_FILL_MIX),
+    edge:
+      unit === "dynasty" ? dynastyEdgeHex(row.key) : dynastyColorHex(1, DYNASTY_EDGE_MIX),
   }));
 
   // 軸ドメイン・マージン・行ウィンドウイングの定型は共通フックにまとめている。
@@ -130,7 +140,9 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
               theme={nivoTheme}
               // role="img"のSVGに必要なアクセシブルネーム（Lighthouse svg-img-alt対応）。
               ariaLabel={`${unit === "dynasty" ? "王朝" : "時代"}別の平均在位年数の横棒グラフ`}
-              colors={[rankingSeriesColor]}
+              colors={(d) => String(d.data.fill)}
+              borderWidth={1}
+              borderColor={(d: { data: { data: BarDatum } }) => String(d.data.data.edge)}
               margin={{ top: MARGIN_TOP, right: MARGIN_RIGHT, bottom: 6, left: marginLeft }}
               padding={0.35}
               borderRadius={3}
