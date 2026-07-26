@@ -35,7 +35,7 @@ export function YoutubeEmbed({ video }: { video: EmperorVideo }) {
     <button
       type="button"
       onClick={() => setLoaded(true)}
-      className="group flex w-full items-center gap-3 rounded-md border border-border/60 bg-card p-2 text-left transition-colors hover:border-border hover:bg-secondary/60"
+      className="group flex w-full items-center gap-3 rounded-md border border-border/60 bg-card p-2 text-left transition-[translate,border-color,background-color] duration-150 ease-out hover:border-border hover:bg-secondary/60 motion-safe:hover:-translate-y-px motion-reduce:transition-none"
       aria-label={`動画「${video.title}」をこのページ内で再生`}
     >
       <span className="relative aspect-video w-32 shrink-0 overflow-hidden rounded-sm border border-border/60 sm:w-40">

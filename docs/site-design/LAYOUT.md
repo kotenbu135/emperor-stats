@@ -672,6 +672,18 @@ task.md 3-1 フェーズB完了（`reigns[].duration.source` への正史原文 
 - **凡例・表・ツールチップのスウォッチは、実際の弧・セグメントとまったく同じ塗り＋縁で描く**（`/kinship` の凡例と同じ原則）。片方だけ生の値のまま残すと色の言語が割れる。
 - **`/timeline` と `/kinship` は描画を1ピクセルも変えていない**。フルページスクリーンショットのバイト比較（デスクトップ・モバイル）で確認した。`/kinship` は第1〜4章の配置がユーザーのドラッグ編集で凍結済みのため、これは絶対条件。なお `cmp` によるバイト比較は、この構成では**未変更ツリーを2回撮って26枚全て一致する**（＝偽陽性が出ない）ことを事前に検証してから使っている。
 
+## 面の3段化とホバーの持ち上がり（2026-07-27・design-plans/02）
+
+ユーザーの「今のデザインに古臭さを感じる／長く滞在しようという気になれない」に対する `baseline-ui` の分析結果への対応。世界観（水墨文人）は変えていない。
+
+- **原因**: `--card` と `--background` が同一値（`#f5f1e8`）で、カードが1pxの罫線と角丸だけで存在を示していた。加えてサイト全体の `hover:*` 91件がすべて色の変化と下線だけで、`transform` を伴うホバーが1件も無かった（触れた手応えが返らない）。
+- **面は明度で3段**: `--sidebar #ede7d8` < `--background #f5f1e8` < `--card #faf7f0`。すでにサイドバーで「明度で面を分ける」方針は実装済みだったので、その反対側（1段明るい面）を埋めただけ。**静止状態に影は置かない**（365枚のカードが並ぶ `/emperors` で画面がざらつく）。
+- **影はホバーのときだけ1段**（Tailwind 既定スケールの `shadow-sm`）。持ち上がりは `-translate-y-px`・150ms。
+- **Tailwind v4 の罠**: `-translate-y-*` は `transform` ではなく **`translate` プロパティ**を書く。そのため遷移対象は `transition-[translate,…]` と書く必要がある（`transition-[transform,…]` だとホバーが瞬間移動になる。実際に一度これで実装して実測で気づいた）。v4 の `transition-transform` ユーティリティは `transform, translate, scale, rotate` に展開されるので単体なら正しいが、`cn()`（tailwind-merge）は利用側が渡した `transition-*` で基底を上書きするため、`Card` に渡す className 側でも遷移対象を明示すること。
+- **`prefers-reduced-motion` は `motion-safe:` で書く**。`hover:shadow-sm` ＋ `motion-reduce:hover:shadow-none` の打ち消しはバリアントの出力順に勝てず影が残った。`motion-safe:hover:-translate-y-px` のように「動いてよいときだけ規則を作る」書き方なら打ち消し合戦にならない。実測で確認済み（reduced-motion 時は translate も影も出ない）。
+- **性能**: `/emperors` はグリッド全365枚が DOM に載る（行ウィンドウイングの対象外）ため実測した。ポインタをグリッド上に置いたまま60回スクロールして **Long Task 0件・CLS 0.0000**。
+- StatTile（表示専用・クリックできない）にはホバーの反応を与えない。
+
 ## 関連ドキュメント
 
 - [TIMELINE.md](./TIMELINE.md) — 通史年表（`/timeline`）の設計

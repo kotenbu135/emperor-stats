@@ -93,7 +93,9 @@ export default function Home() {
           {sections.map((s) => (
             <Card
               key={s.href}
-              className="transition-colors hover:border-seal/60"
+              // transition-[...] を渡すとCardの基底 transition-transform を上書きするので、
+              // 持ち上がり(translate)と枠色の両方をここで指定する。
+              className="transition-[translate,border-color] duration-150 ease-out hover:border-seal/60 motion-safe:hover:-translate-y-px motion-safe:hover:shadow-sm motion-reduce:transition-none"
             >
               <CardHeader>
                 <CardTitle className="font-heading text-lg">{s.label}</CardTitle>

@@ -62,7 +62,11 @@ const EmperorCard = memo(function EmperorCard({
         e.preventDefault();
         onSelect(record);
       }}
-      className="group block overflow-hidden rounded-md border border-border bg-background text-left transition-colors hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring"
+      // hoverの移動はcompositorプロパティだけに限る。365枚が全件DOMに載るグリッドなので、
+      // top/marginで動かすと再レイアウトがCLSに化ける。
+      // Tailwind v4 の -translate-y-* は transform ではなく translate プロパティを書くため、
+      // 遷移対象は translate と書く(transform と書くとホバーが瞬間移動になる)。
+      className="group block overflow-hidden rounded-md border border-border bg-card text-left transition-[translate,border-color] duration-150 ease-out hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring motion-safe:hover:-translate-y-px motion-safe:hover:shadow-sm motion-reduce:transition-none"
     >
       <div className="relative aspect-[3/4] w-full overflow-hidden">
         <Portrait
