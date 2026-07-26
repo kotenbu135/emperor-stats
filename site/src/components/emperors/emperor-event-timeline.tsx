@@ -74,11 +74,16 @@ function EventRow({ row }: { row: EmperorEventRow }) {
   }
   return (
     <details className="group border-b border-border/60">
-      <summary className="flex cursor-pointer list-none flex-wrap items-baseline gap-x-3 gap-y-0.5 py-1.5 [&::-webkit-details-marker]:hidden">
-        {head}
+      {/* headとシェブロンを同じflexの兄弟にすると、狭い画面で本文が1行を占めた
+          ときにシェブロンだけが次の行へ押し出される。headを折り返し可能な箱に
+          まとめ、シェブロンはその外側に nowrap で並べる。 */}
+      <summary className="flex cursor-pointer list-none flex-nowrap items-start gap-x-3 py-1.5 [&::-webkit-details-marker]:hidden">
+        <span className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-3 gap-y-0.5">
+          {head}
+        </span>
         <ChevronRight
           aria-hidden
-          className="size-3.5 shrink-0 self-center text-muted-foreground transition-transform group-open:rotate-90"
+          className="mt-1 size-3.5 shrink-0 text-muted-foreground transition-transform group-open:rotate-90"
         />
       </summary>
       <div className="space-y-1 pb-2 pl-2 text-sm">

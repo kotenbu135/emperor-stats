@@ -78,12 +78,32 @@ export const categoryColorMaps: Record<string, Record<string, string>> = {
  * 目盛り配列を明示的に計算する。刻みに乗らない終端値（例: 最大62で60の隣に62）は
  * 目盛りが密集して読みにくいため追加しない（終端の値はバー横の数値ラベルで読める）。
  */
-export function integerTickValues(maxValue: number): number[] {
+/** 目盛りラベルが重ならない最小の間隔（px）。「前221年」級の長いラベルは軸に出ない
+ *  （数値のみ）ため、2〜3桁の整数が触れ合わない幅で足りる。 */
+const MIN_TICK_GAP = 40;
+
+export function integerTickValues(maxValue: number, plotWidth?: number): number[] {
   const max = Math.max(1, Math.ceil(maxValue));
+  // 値域だけで決めた既定の刻み（デスクトップ幅ではこれで重ならない）。
   let step = 1;
   if (max > 60) step = 10;
   else if (max > 30) step = 5;
   else if (max > 12) step = 2;
+
+  // 描画幅が分かる場合は、目盛り本数×MIN_TICK_GAP が幅に収まる刻みまで粗くする。
+  // 値域だけで刻みを決めると、狭い画面（390px幅の/dynastiesはmax≒26→刻み2→14本）で
+  // 目盛りが密着して読めなくなる。既定より細かくはしない（デスクトップの見え方を変えない）。
+  if (plotWidth !== undefined && plotWidth > 0) {
+    const fits = (s: number) => (Math.floor(max / s) + 1) * MIN_TICK_GAP <= plotWidth;
+    for (const s of [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000]) {
+      if (s < step) continue;
+      // 刻みを粗くしても入らないほど狭い場合は、0と最大値付近の2本だけ残る
+      // ところで打ち切る（1本だけの軸にはしない）。
+      if (s > max) break;
+      step = s;
+      if (fits(s)) break;
+    }
+  }
 
   const ticks: number[] = [];
   for (let v = 0; v <= max; v += step) ticks.push(v);

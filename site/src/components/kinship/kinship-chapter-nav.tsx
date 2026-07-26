@@ -10,6 +10,10 @@
 //   (ずれると、ジャンプ先の上に前の章の横スクロールバーが覗く)。
 
 import { useEffect, useState } from "react";
+import {
+  HorizontalScrollHint,
+  useHorizontalScrollEdges,
+} from "@/components/charts/horizontal-scroll-hint";
 import { cn } from "@/lib/utils";
 
 /** 固定バーの高さ(px)。章の scroll-mt と必ず同じ値にすること。 */
@@ -21,6 +25,9 @@ export function KinshipChapterNav({
   chapters: { id: string; title: string }[];
 }) {
   const [activeId, setActiveId] = useState<string>(chapters[0]?.id ?? "");
+  // 章が4つあると狭い画面では3つ目までしか見えず、手掛かりもなかった。
+  const { scrollRef, atStart, atEnd, onScroll } =
+    useHorizontalScrollEdges<HTMLUListElement>();
 
   useEffect(() => {
     const onHashChange = () => {
@@ -57,7 +64,14 @@ export function KinshipChapterNav({
       <span className="mr-3 hidden shrink-0 text-xs text-muted-foreground sm:inline">
         章へジャンプ
       </span>
-      <ul className="flex min-w-0 gap-2 overflow-x-auto whitespace-nowrap py-1">
+      {/* 端フェードを絶対配置するため relative な箱で包む。バーは高さ固定なので
+          フェードは inset-y-0 でバー全高に伸びる。 */}
+      <div className="relative min-w-0 flex-1">
+      <ul
+        ref={scrollRef}
+        onScroll={onScroll}
+        className="flex min-w-0 gap-2 overflow-x-auto whitespace-nowrap py-1"
+      >
         {chapters.map((c, i) => {
           const active = c.id === activeId;
           return (
@@ -78,6 +92,9 @@ export function KinshipChapterNav({
           );
         })}
       </ul>
+      {/* 48px固定のバーではバッジが章ピルに重なるため端フェードだけにする。 */}
+      <HorizontalScrollHint atStart={atStart} atEnd={atEnd} showBadge={false} />
+      </div>
     </nav>
   );
 }

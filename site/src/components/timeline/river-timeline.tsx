@@ -22,6 +22,10 @@ import {
 } from "react";
 import { Button } from "@/components/ui/button";
 import {
+  HorizontalScrollHint,
+  useHorizontalScrollEdges,
+} from "@/components/charts/horizontal-scroll-hint";
+import {
   FixedTooltip,
   useChartWidth,
   useTipOutlet,
@@ -147,6 +151,9 @@ export function RiverTimeline({
   const expandedSet = useMemo(() => new Set(expanded), [expanded]);
   const { chartAreaRef, chartWidth } = useChartWidth();
   const scrollRef = useRef<HTMLDivElement>(null);
+  // 横スクロールできることを示す端フェード（/kinship と同じ共有部品）。
+  // 年表は約2000年分が画面外にあり、狭い画面では続きがあると気づけなかった。
+  const { atStart, atEnd, syncEdges } = useHorizontalScrollEdges(scrollRef);
   const svgRef = useRef<SVGSVGElement>(null);
   const pendingCenterRef = useRef<number | null>(null);
   const suppressTipClearRef = useRef(false);
@@ -209,6 +216,9 @@ export function RiverTimeline({
     });
   };
   const handleScroll = () => {
+    // 端フェードの出し入れ。stateは端をまたぐ瞬間しか変わらないので、
+    // 下のrAFによるラベルのクランプ処理と競合しない。
+    syncEdges();
     cancelAnimationFrame(rafRef.current);
     if (suppressTipClearRef.current) {
       suppressTipClearRef.current = false;
@@ -479,20 +489,26 @@ export function RiverTimeline({
   return (
     <div ref={chartAreaRef}>
       {/* ズーム切替と時代へのジャンプ */}
-      <div className="mb-3 flex flex-wrap items-center gap-2">
-        <span className="text-xs text-muted-foreground">表示範囲</span>
-        {(Object.keys(ZOOM_LABELS) as Zoom[]).map((z) => (
-          <Button
-            key={z}
-            size="sm"
-            variant={zoom === z ? "default" : "outline"}
-            aria-pressed={zoom === z}
-            onClick={() => applyView(z)}
-          >
-            {ZOOM_LABELS[z]}
-          </Button>
-        ))}
-        <span className="ml-2 text-xs text-muted-foreground">時代へ移動</span>
+      {/* ラベルと対象を同じflexの兄弟にすると、狭い画面で「時代へ移動」だけが
+          前の行末に残り、ピル群が次の行へ落ちて対応が読めなくなる。
+          「表示範囲＋ボタン」「時代へ移動＋ピル」をそれぞれ1つの箱にまとめる。 */}
+      <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <span className="flex flex-wrap items-center gap-2">
+          <span className="text-xs text-muted-foreground">表示範囲</span>
+          {(Object.keys(ZOOM_LABELS) as Zoom[]).map((z) => (
+            <Button
+              key={z}
+              size="sm"
+              variant={zoom === z ? "default" : "outline"}
+              aria-pressed={zoom === z}
+              onClick={() => applyView(z)}
+            >
+              {ZOOM_LABELS[z]}
+            </Button>
+          ))}
+        </span>
+        <span className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
+        <span className="text-xs text-muted-foreground">時代へ移動</span>
         <span className="flex flex-wrap gap-1.5">
           {river.chapters
             .filter((c) => c.label)
@@ -507,9 +523,12 @@ export function RiverTimeline({
               </button>
             ))}
         </span>
+        </span>
       </div>
 
-      {/* 年表本体 */}
+      {/* 年表本体。端フェードを絶対配置するため relative なラッパーで包む
+          （枠線・角丸はラッパー側へ移し、スクロール枠は中身だけを担う）。 */}
+      <div className="relative rounded border border-border bg-background">
       <div
         ref={scrollRef}
         onScroll={handleScroll}
@@ -521,7 +540,7 @@ export function RiverTimeline({
         tabIndex={0}
         role="application"
         aria-label="通史年表。左右キーで同じ段の皇帝を時代順に移動、上下キーで同時期に並立する王朝へ移動、Enterで詳細の表示や群雄のまとまりの開閉ができます。同じ内容は下の「表で見る」でも参照できます。"
-        className="overflow-x-auto overscroll-x-contain rounded border border-border bg-background focus-visible:outline-2 focus-visible:outline-ring"
+        className="overflow-x-auto overscroll-x-contain rounded bg-background focus-visible:outline-2 focus-visible:outline-ring"
       >
         <span aria-live="polite" className="sr-only">
           {focusedRecord
@@ -827,6 +846,8 @@ export function RiverTimeline({
             strokeWidth={0.8}
           />
         </svg>
+      </div>
+      <HorizontalScrollHint atStart={atStart} atEnd={atEnd} />
       </div>
 
       {/* 凡例 */}

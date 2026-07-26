@@ -333,7 +333,6 @@ export function useRankingChartLayout<T extends { id: string; label: string }>(
   hoverAllowed: () => boolean;
 } {
   const domainMax = Math.ceil(maxValue);
-  const ticks = integerTickValues(maxValue);
 
   // 左マージンはラベル長とコンテナ幅の両方で制限する（狭い画面で描画領域が消えないように）。
   const maxLabelLength = Math.max(0, ...chartData.map((d) => d.label.length));
@@ -342,6 +341,9 @@ export function useRankingChartLayout<T extends { id: string; label: string }>(
     Math.max(100, maxLabelLength * 11 + 24),
     Math.max(90, Math.floor(chartWidth * 0.42)),
   );
+  // 目盛りの刻みは値域だけでなく実際の描画幅からも決める（狭い画面で目盛りが
+  // 密着して読めなくなるため）。marginLeftの算出後でないと描画幅が出ない。
+  const ticks = integerTickValues(maxValue, chartWidth - marginLeft - MARGIN_RIGHT);
   // マージンに収まらないラベルは末尾を省略する。
   const charBudget = Math.max(4, Math.floor((marginLeft - 16) / 11));
   const truncate = (label: string) =>

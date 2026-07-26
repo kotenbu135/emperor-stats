@@ -10,12 +10,16 @@
 // - 親子は垂下線(junction)の構造で示し、線に続柄ラベルは付けない。
 //   矢印は王朝間の交代のみ。
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 import {
   FixedTooltip,
   useTipOutlet,
 } from "@/components/charts/scroll-bar-chart";
 import { EmperorTooltip } from "@/components/charts/emperor-tooltip";
+import {
+  HorizontalScrollHint,
+  useHorizontalScrollEdges,
+} from "@/components/charts/horizontal-scroll-hint";
 import { useDetailOutlet } from "@/components/emperors/emperor-detail-dialog";
 import { useKinshipEditor } from "@/components/kinship/kinship-editor";
 import { BASE_PATH } from "@/lib/base-path";
@@ -95,27 +99,9 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
   const emperorCount = layout.nodes.filter((n) => n.kind === "emperor").length;
   const markerId = `kinship-arrow-${layout.id}`;
 
-  // 横スクロールの端フェード用。stateは端をまたぐ瞬間しか変わらないので、
-  // スクロール中に再レンダリングが走り続けることはない。
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(true);
-  const syncEdges = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    setAtStart(el.scrollLeft <= 1);
-    setAtEnd(el.scrollLeft >= el.scrollWidth - el.clientWidth - 1);
-  }, []);
-  const onScroll = useCallback(() => syncEdges(), [syncEdges]);
-  useEffect(() => {
-    syncEdges();
-    const el = scrollRef.current;
-    if (!el || typeof ResizeObserver === "undefined") return;
-    // 画面幅が変わると「続きがあるか」も変わる。
-    const ro = new ResizeObserver(syncEdges);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [syncEdges]);
+  // 横スクロールの端フェードは共有部品(charts/horizontal-scroll-hint.tsx)へ切り出した。
+  // 実装の出自はこのファイルで、/timeline と章ジャンプでも同じ手掛かりが要るため。
+  const { scrollRef, atStart, atEnd, onScroll } = useHorizontalScrollEdges();
 
   const showTip = (lines: TipLine[]) => (ev: React.MouseEvent) =>
     setTip({ x: ev.clientX, y: ev.clientY, kind: "lines", lines });
@@ -497,23 +483,7 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
           続きがあるのか分からない、というユーザー指摘(2026-07-26)への対応。
           スクロール位置に応じて出し入れするので「まだ続きがある側」だけが光る。
           年ラベルのstickyオーバーレイ(z-20)より下(z-10)に敷く。 */}
-      {!atStart && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-background to-transparent"
-        />
-      )}
-      {!atEnd && (
-        <>
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-background to-transparent"
-          />
-          <span className="pointer-events-none absolute right-2 top-2 z-20 rounded-full border border-border bg-background/90 px-2 py-0.5 text-[11px] text-muted-foreground">
-            横スクロールで続き →
-          </span>
-        </>
-      )}
+      <HorizontalScrollHint atStart={atStart} atEnd={atEnd} />
 
       {/* 編集モードのオーバーレイはSVGの最前面に置く(ハンドルを掴めるように) */}
       <TipOutlet
