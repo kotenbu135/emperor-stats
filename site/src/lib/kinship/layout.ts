@@ -263,6 +263,20 @@ function stripParen(s: string): string {
   return s.replace(/（[^）]*）/g, "");
 }
 
+/**
+ * 即位経路のグラフ内表記(カプセル2行目・矢印ラベル)。括弧の限定を落として
+ * 「受禅（易姓）」→「受禅」・「継承（経緯記載なし）」→「継承」にする。
+ * 2026-07-26 の多軸化で語が2字から6〜10字に伸び、幅96px(EMPEROR_W)の
+ * カプセルから溢れて隣の破線に重なる／矢印ラベルが両端のカプセルに埋もれて
+ * 読めなくなったため(始皇帝・後漢少帝弁・安帝→桓玄・北斉文宣帝で実測)。
+ * カプセル幅は凍結配置に直結するので広げられない。正式名はツールチップの
+ * 「即位」行・矢印ツールチップ・統計ページ・詳細ダイアログにそのまま出る。
+ * ※「受禅（擁立）」も「受禅」に潰れるが、導出上存在するだけで該当者は0名。
+ */
+function shortCategory(s: string | undefined): string {
+  return stripParen(s ?? "");
+}
+
 /** 「竇氏〔孝文竇皇后〕」→「竇氏」。ノード表示は短名にし、全名はツールチップで示す。 */
 function shortName(s: string): string {
   const t = s.replace(/〔[^〕]*〕/g, "");
@@ -1437,7 +1451,7 @@ function buildChapter(
         !["子", "不明"].includes(e.relationToPredecessor)
           ? `・${stripParen(e.relationToPredecessor)}`
           : "";
-      const label = `${e.category ?? ""}${disputed ? "?" : ""}${relLabel}`;
+      const label = `${shortCategory(e.category)}${disputed ? "?" : ""}${relLabel}`;
       const akey = `s:${e.from}→${e.to}`;
       // 赤矢印も編集モードで付け根・通り道を手で決められる(ユーザー要望・
       // 2026-07-25)。手動ルートがある矢印は補助線と同じ直交の折れ線で引く
@@ -1912,8 +1926,10 @@ function buildChapter(
       // 代数に数えない在位(反乱・自称政権など)は「第N代」を出さず即位経路だけにする。
       const ord = emp.ordinals[0];
       const ordPrefix = typeof ord === "number" ? `${ordinalLabel(ord)}・` : "";
+      // カプセル2行目は短縮形(shortCategory)。正式名は下のdetails「即位」行で出す。
       const sub =
-        EMPEROR_SUB_OVERRIDES[id] ?? `${ordPrefix}${category}${disputed ? "?" : ""}`;
+        EMPEROR_SUB_OVERRIDES[id] ??
+        `${ordPrefix}${shortCategory(category)}${disputed ? "?" : ""}`;
       // ツールチップは統計ページ共通のEmperorTooltip(肖像+名前+王朝+在位+補足)。
       // クリックで全項目ダイアログを開くため、系譜固有の補足だけをdetailsに載せる。
       const details: { label: string; value: string; clamp?: boolean; wrap?: boolean }[] = [
