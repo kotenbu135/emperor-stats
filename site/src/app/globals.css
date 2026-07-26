@@ -116,6 +116,10 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* 日本語は任意の文字位置で折り返されるため、制御しないと「記載がない皇/帝」の
+       ように熟語が行をまたいで割れる。文節単位の改行にする（未対応ブラウザでは
+       無視されるだけで劣化しないので、フォールバックの分岐は書かない）。 */
+    word-break: auto-phrase;
   }
   html {
     @apply font-sans;

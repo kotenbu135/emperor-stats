@@ -19,7 +19,7 @@ export const metadata = buildMetadata({
 
 function Prose({ children }: { children: React.ReactNode }) {
   return (
-    <div className="space-y-3 text-sm leading-relaxed text-foreground/90">
+    <div className="space-y-3 text-pretty text-sm leading-relaxed text-foreground/90">
       {children}
     </div>
   );

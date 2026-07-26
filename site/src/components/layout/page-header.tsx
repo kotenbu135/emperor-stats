@@ -19,12 +19,12 @@ export function PageHeader({
         <div className="flex items-center gap-3">
           {/* 印章の朱をイメージしたアクセントバー（水墨基調に差す一点の色味） */}
           <span aria-hidden className="h-7 w-1 shrink-0 rounded-full bg-seal" />
-          <h1 className="font-heading text-2xl font-semibold text-foreground md:text-3xl">
+          <h1 className="text-balance font-heading text-2xl font-semibold text-foreground md:text-3xl">
             {title}
           </h1>
         </div>
         {description && (
-          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+          <p className="mt-2 max-w-2xl text-pretty text-sm text-muted-foreground">
             {description}
           </p>
         )}
@@ -57,12 +57,12 @@ export function Section({
     >
       <div className="flex items-center gap-2.5">
         <span aria-hidden className="h-5 w-1 shrink-0 rounded-full bg-seal/80" />
-        <h2 className="font-heading text-xl font-semibold text-foreground">
+        <h2 className="text-balance font-heading text-xl font-semibold text-foreground">
           {title}
         </h2>
       </div>
       {description && (
-        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+        <p className="mt-1 text-pretty text-sm text-muted-foreground">{description}</p>
       )}
       <div className="mt-6">{children}</div>
     </section>
