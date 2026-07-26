@@ -31,7 +31,7 @@
   "phases": {
     "reignData": { "status": "completed", "label": "在位データ（即位日・崩御日・在位期間）" },
     "deathCause": { "status": "not-started", "label": "死因" },
-    "accessionRoute": { "status": "not-started", "label": "即位経路（世襲/簒奪/擁立/禅譲など）" },
+    "accessionRoute": { "status": "not-started", "label": "即位経路（4軸＋2補助の多軸構造。表示ラベルは世襲/擁立/受禅（易姓）など）" },
     "eraChangeCount": { "status": "not-started", "label": "改元回数" },
     "amnestyCount": { "status": "not-started", "label": "大赦回数" },
     "empressInstallationCount": { "status": "not-started", "label": "立后（皇后冊立）回数" },

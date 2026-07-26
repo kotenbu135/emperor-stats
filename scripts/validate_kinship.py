@@ -17,7 +17,8 @@
     主エッジ（isRestoration=false・veracity≠disputed）は皇帝ごとに最大1本
     （disputed は対立説の併記として複数可）・
     非 disputed 主エッジの category が emperors.json の accessionRoute.category と整合
-    （accessionRoute=復位 の皇帝は主エッジ category=初回経路＋isRestoration エッジを別途持つ規約）
+    （復位は 2026-07-26 の多軸化で category から消え reigns[].isRestoration に一本化された。
+    主エッジ category=初回即位の経路、復位は category="復位" の isRestoration エッジで持つ）
   - kinship: 実父/養父の from は male・実母/養母の from は female（gender 判明時のみ）・
     verified の実父エッジ・実母エッジはそれぞれ子ごとに最大1本・親子エッジ（実父/実母/養父/養母）の循環なし・
     childOrder は 1 以上の整数・primaryLineage:true は子ごとに最大1本
@@ -28,7 +29,7 @@
 
 網羅性チェック（meta.status.phases の該当フェーズが completed のときのみ有効化・エラー）:
   - succession 完了後: 全皇帝が succession エッジを持つ（disputed 主エッジのみ・復位エッジ
-    のみでも可）、または accessionRoute=建国/不詳/諸説あり、または meta.confirmedRootless
+    のみでも可）、または accessionRoute=自立/推戴（ROOT_CATEGORIES）、または meta.confirmedRootless
     （原典確認済みの並立根・傀儡根リスト。id 実在・reason 必須・陳腐化は常時検証）に記載
   - parentage 完了後: 実父/養父エッジを持たず meta.confirmedFatherUnknown にも未登録の
     皇帝をエラーで列挙（confirmedFatherUnknown の構造検証は常時。「調査済みだが不明」の確定は
