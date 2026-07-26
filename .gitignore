@@ -44,3 +44,11 @@ next-env.d.ts
 
 # generated per-emperor source text cache (regenerate with scripts/build_corpus_cache.py)
 /_corpus_cache
+
+# claude.ai/design sync (staged converter scripts, build output, machine state)
+site/.ds-sync/
+site/ds-bundle/
+site/.design-sync/.cache/
+site/.design-sync/learnings/
+site/.design-sync/node_modules
+site/.design-sync/compiled/
