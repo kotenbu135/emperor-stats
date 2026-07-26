@@ -1517,6 +1517,10 @@ export function getKinshipSource(): KinshipSource {
     return {
       id: e.id,
       name: displayName(e.name),
+      // 通用名(諱)は /emperors の一覧カードと同じ導出を使う(ユーザー要望・2026-07-26
+      // 「皇帝一覧ページと同様に皇帝名以外の名前のほうが有名な人物は
+      //  二世皇帝・胡亥のように表示する」)。
+      subName: cardSubtitleOf(e.id, e.name.personalName, displayName(e.name)),
       dynastyLabel: dynastyLabel(e.dynasty),
       portraitUrl: portraitIds.has(e.id) ? `${BASE_PATH}/portraits/${e.id}.webp` : null,
       dynastyKey: dynastyKey(e.dynasty),

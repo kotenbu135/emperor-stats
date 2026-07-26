@@ -198,6 +198,29 @@ export const CHAPTER_ANCESTOR_STOPS: Record<string, string[]> = {
   "dongjin-shiliuguo": ["p-sima-yi"],
 };
 
+/**
+ * 他章の皇帝をこの章にも出す指定(2026-07-26)。値は皇帝idと置き場所のバンドlabel。
+ *
+ * 章の皇帝は既定でバンドの dynastyKeys から決まるので、前王朝の最後の皇帝は
+ * 自分の章にしか出ない。すると**王朝交代の矢印は両端が同じ章に揃ったときだけ
+ * 描かれる**ため(layout.ts の arrows。片端が章スコープ外だと落ちる)、章をまたぐ
+ * 交代——後漢献帝→魏文帝の受禅——がどの章にも現れなくなる。
+ *
+ * dynastyKey をバンドに足す方法は採れない(その王朝の皇帝が全員入ってしまい、
+ * バンド間の重複assertにも当たる)ため、ここで人物単位に指定する。
+ * - 祖先鎖は辿らない(CHAPTER_EXTRA_PERSONS と違う点。辿ると後漢の系統がまるごと
+ *   第2章へ流れ込む)。カプセルの色・第N代・ツールチップは本人の王朝のまま。
+ * - 章の年目盛りの開始年(startHist)の計算からも除く。前王朝の皇帝は章頭より前に
+ *   即位しているのが普通で、含めると圧縮領域の境界が動いて凍結済みの配置がずれる。
+ */
+export const CHAPTER_EXTRA_EMPERORS: Record<string, { id: string; band: string }[]> = {
+  "sanguo-xijin": [
+    // 後漢献帝: 曹丕への受禅(220年)の起点。魏バンドに置く(皇后の曹節＝曹操の娘が
+    // 同バンドにいるので、婚姻の連結線もバンド内で完結する)。カプセルは後漢の色。
+    { id: "hou-han-xiandi", band: "魏" },
+  ],
+};
+
 export const CHAPTER_EXTRA_PERSONS: Record<string, string[]> = {
   "qin-han": [
     // 孺子嬰(皇太子のまま王莽へ禅譲)と、その実父鎖(宣帝→劉囂→劉勛→劉顯→劉嬰)。

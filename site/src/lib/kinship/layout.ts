@@ -14,6 +14,7 @@ import {
   BAND_LABEL_ANCHOR,
   BAND_X_EXTRA,
   CHAPTER_ANCESTOR_STOPS,
+  CHAPTER_EXTRA_EMPERORS,
   CHAPTER_EXTRA_PERSONS,
   CHILD_ORDER_OVERRIDES,
   CLAIM_LINE_DEFS,
@@ -53,6 +54,9 @@ import {
 export interface KinshipSourceEmperor {
   id: string;
   name: string;
+  /** 皇帝号だけでは誰か分かりにくい人物の通用名(諱など)。/emperors の一覧カードと
+   *  同じ導出(lib/card-subtitle.ts)。カプセルには「二世皇帝・胡亥」の形で出す。 */
+  subName: string | null;
   dynastyLabel: string;
   portraitUrl: string | null;
   /** `name__section`(emperors.tsのdynastyKeyと同一)。 */
@@ -237,6 +241,9 @@ const SEG_GAP_MIN = 6;
 // 品質ゲートで線と当事者以外の箱の間に要求する余白(px)。この距離まで近づく線は
 // 「かぶり」として違反にする(縁を掠める線も自動検出する)。
 const GATE_CLEAR = 1.5;
+// 皇帝カプセルの1行目(text-[11px])の1文字あたりの概算幅。通用名を併記しても
+// カプセル(EMPEROR_W=96px)に収まるかの判定に使う。
+const LABEL_CHAR_W = 11;
 
 const fmtPeriod = (a: number, b: number) => {
   const fa = formatYear(fromAstroYear(a));
@@ -548,9 +555,32 @@ function buildChapter(
   const bandOfLabel = new Map(def.bands.map((b, i) => [b.label, i]));
 
   // --- 章の皇帝(=バンドのdynastyKeyに属するもの) ---
-  const chapterEmperors = src.emperors.filter((e) => bandOfDynKey.has(e.dynastyKey));
+  const ownEmperors = src.emperors.filter((e) => bandOfDynKey.has(e.dynastyKey));
+  // 他章の皇帝の明示追加(前王朝の最後の皇帝＝王朝交代矢印の起点。CHAPTER_EXTRA_EMPERORS)。
+  // 祖先鎖は辿らない(下の inScope でも addAncestry を呼ばない)。
+  const extraEmperors = (CHAPTER_EXTRA_EMPERORS[def.id] ?? []).map((x) => {
+    const e = src.emperors.find((y) => y.id === x.id);
+    if (!e)
+      throw new Error(
+        `kinship/layout: CHAPTER_EXTRA_EMPERORS["${def.id}"] の "${x.id}" は章スコープの皇帝に存在しません`,
+      );
+    const b = bandOfLabel.get(x.band);
+    if (b === undefined)
+      throw new Error(
+        `kinship/layout: CHAPTER_EXTRA_EMPERORS["${def.id}"] の "${x.id}" のバンド "${x.band}" は章「${def.title}」にありません`,
+      );
+    if (bandOfDynKey.has(e.dynastyKey))
+      throw new Error(
+        `kinship/layout: CHAPTER_EXTRA_EMPERORS["${def.id}"] の "${x.id}" は章「${def.title}」の皇帝です(明示追加は不要)`,
+      );
+    return { e, band: b };
+  });
+  const chapterEmperors = [...ownEmperors, ...extraEmperors.map((x) => x.e)];
   const bandOfNode = new Map<string, number>();
-  for (const e of chapterEmperors) bandOfNode.set(e.id, bandOfDynKey.get(e.dynastyKey)!);
+  for (const e of ownEmperors) bandOfNode.set(e.id, bandOfDynKey.get(e.dynastyKey)!);
+  // 追加皇帝のバンドは伝播パス(下)より先に確定させる。あとから入れると、その皇帝を
+  // 夫とする配偶者(献帝の皇后・曹節)が「夫が章外」の救済側で解決されてしまう。
+  for (const x of extraEmperors) bandOfNode.set(x.e.id, x.band);
 
   // --- ブリッジ人物のバンド帰属: 主親→主子→隣接の順で伝播し、明示指定が最優先 ---
   const standalonePersons = src.persons.filter((p) => !rel.attachedTo.has(p.id));
@@ -640,7 +670,9 @@ function buildChapter(
         cur = rel.primaryFather.get(cur);
       }
     };
-    for (const e of chapterEmperors) addAncestry(e.id);
+    // 祖先鎖を辿るのは章自身の皇帝だけ(追加皇帝は本人1ノードのみ。辿ると前王朝の
+    // 系統がまるごと流れ込む)。
+    for (const e of ownEmperors) addAncestry(e.id);
     for (const id of CHAPTER_EXTRA_PERSONS[def.id] ?? []) {
       if (!rel.personById.has(id))
         throw new Error(
@@ -728,9 +760,12 @@ function buildChapter(
 
   // 年目盛りの開始年(章の最初の在位の直前の25年目盛り)。パッキングでも使うため
   // 年→px写像より先に確定させる(これより前の人物は圧縮領域=PRE_RATE px/年)。
+  // 追加皇帝(CHAPTER_EXTRA_EMPERORS)は含めない。前王朝の皇帝は章頭より前に即位して
+  // いるのが普通で、含めると圧縮領域(PRE_RATE)の境界が動いて既存の配置がずれる
+  // (献帝の189年で第2章の開始年が200→175に後退する)。
   const startHist =
     Math.floor(
-      fromAstroYear(Math.min(...chapterEmperors.map((e) => e.reigns[0].a))) / 25,
+      fromAstroYear(Math.min(...ownEmperors.map((e) => e.reigns[0].a))) / 25,
     ) * 25;
   const startYear = startHist < 0 ? startHist + 1 : startHist;
 
@@ -1978,6 +2013,13 @@ function buildChapter(
       const labelSeg = segments
         ? segments.reduce((a, b) => (b.h > a.h ? b : a))
         : { y: r.y, h: r.h };
+      // 通用名(諱)の併記。カプセル幅は固定(EMPEROR_W)なので、11pxで収まる長さ
+      // (「廃帝（東昏侯）・蕭宝巻」など10字以上)を超えるものはツールチップだけに出す。
+      // 女性皇帝の「♀」も1字ぶん幅を食う(隋唐章の武則天)ので判定に含める。
+      const namePrefix = emp.female ? "♀" : "";
+      const fullName = emp.subName ? `${emp.name}・${emp.subName}` : emp.name;
+      const capName =
+        (namePrefix + fullName).length * LABEL_CHAR_W <= r.w - 4 ? fullName : emp.name;
       return {
         key: id,
         id,
@@ -1986,7 +2028,7 @@ function buildChapter(
         y: labelSeg.y,
         w: r.w,
         h: labelSeg.h,
-        label: `${emp.female ? "♀" : ""}${emp.name}`,
+        label: `${namePrefix}${capName}`,
         segments,
         sub: labelSeg.h >= 40 ? sub : null,
         colorSlot: KINSHIP_COLOR_BY_DYNKEY[emp.dynastyKey] ?? 0,
@@ -1994,7 +2036,9 @@ function buildChapter(
         claimBadge: claims.length > 0,
         tipLines: [],
         empTip: {
-          name: emp.name,
+          // ツールチップは幅に余裕があるので常に併記する(カプセルに入らなかった
+          // 人物の通用名はここでだけ読める)。
+          name: fullName,
           dynastyLabel: emp.dynastyLabel,
           portraitUrl: emp.portraitUrl,
           reignLabel: emp.reigns.map((rg) => fmtPeriod(rg.a, rg.b)).join("、"),
