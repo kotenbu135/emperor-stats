@@ -31,6 +31,9 @@ let written = 0;
 for (const e of data.emperors) {
   const notes = {
     accession: narrativeSectionOf(e.accessionRoute),
+    // 表示ラベル（世襲・擁立…）を導いた4軸＋補助。ダイアログでも根拠を出すため同梱する
+    // （1人あたり数百バイト）。多軸化完了により全365人が持つ。
+    accessionAxes: e.accessionRoute?.axes ?? null,
     death: narrativeSectionOf(e.deathCause),
   };
   // 経緯が両方とも無い皇帝は JSON を出さない（ダイアログ側は 404/空を非表示扱い）。

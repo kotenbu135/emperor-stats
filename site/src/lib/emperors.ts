@@ -7,6 +7,7 @@ import {
   eraOrder,
   formatReignDuration,
   formatYear,
+  type AccessionAxes,
   type AccessionRouteCategory,
   type DeathCauseCategory,
   type DynastyCategory,
@@ -157,7 +158,10 @@ interface RawEmperor {
   };
   deathCause?: { category: DeathCauseCategory } & RawNarrativeField;
   /** 多軸化完了（2026-07-26）により全365人が持つ。category は axes からの導出値。 */
-  accessionRoute: { category: AccessionRouteCategory } & RawNarrativeField;
+  accessionRoute: {
+    category: AccessionRouteCategory;
+    axes: AccessionAxes;
+  } & RawNarrativeField;
   eraChangeCount?: RawCount;
   amnestyCount?: RawCount;
   empressInstallationCount?: RawCount;
@@ -440,6 +444,9 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     deathCauseCategory: e.deathCause?.category ?? "不詳",
     // 多軸化完了後は全365人が accessionRoute.category を持つ（validate_emperors.py が必須化）。
     accessionRouteCategory: e.accessionRoute.category,
+    // 旧「建国」「復位」がラベルから消えた分の情報を、バッジとして即位経路の脇に出す。
+    accessionTitleNew: e.accessionRoute.axes.titleOrigin === "新称",
+    hasRestoration: e.reigns.some((r) => r.isRestoration),
     eraChangeCount: e.eraChangeCount?.count ?? 0,
     amnestyCount: e.amnestyCount?.count ?? 0,
     empressInstallationCount: e.empressInstallationCount?.count ?? 0,
@@ -658,6 +665,7 @@ export function getEmperorNarrative(id: string): EmperorNarrative {
   ];
   return {
     accession: narrativeSectionOf(e.accessionRoute),
+    accessionAxes: e.accessionRoute.axes,
     death: narrativeSectionOf(e.deathCause),
     restorations: e.reigns
       .filter((r) => r.isRestoration && r.note)

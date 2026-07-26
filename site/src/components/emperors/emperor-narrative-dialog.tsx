@@ -41,7 +41,11 @@ export function EmperorNarrativeDialogSection({ id }: { id: string }) {
   return (
     <div className="flex flex-col gap-4 border-t border-border pt-4">
       {notes.accession && (
-        <NarrativeBlock title="即位の経緯" section={notes.accession} />
+        <NarrativeBlock
+          title="即位の経緯"
+          section={notes.accession}
+          axes={notes.accessionAxes}
+        />
       )}
       {notes.death && (
         <NarrativeBlock title="死因の経緯" section={notes.death} />

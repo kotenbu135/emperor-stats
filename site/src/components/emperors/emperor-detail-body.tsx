@@ -118,9 +118,19 @@ export function EmperorDetailBody({
               value={record.reignDurationLabel}
               sub={rankText(record.ranks.reignYears)}
             />
+            {/* 旧「建国」「復位」はラベルから外して軸・在位情報へ移したため、
+                その2点だけは経路の脇に補足として出す（判定の4軸は「即位の経緯」節）。 */}
             <DetailRow
               label="即位経路"
               value={record.accessionRouteCategory}
+              sub={
+                [
+                  record.accessionTitleNew ? "帝号を新たに称した" : null,
+                  record.hasRestoration ? "のちに復位" : null,
+                ]
+                  .filter(Boolean)
+                  .join("・") || null
+              }
             />
             <DetailRow label="死因" value={record.deathCauseCategory} />
             <DetailRow

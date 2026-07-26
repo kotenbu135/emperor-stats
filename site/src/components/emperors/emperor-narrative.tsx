@@ -5,16 +5,56 @@
 // 詳細ダイアログへの反映はtask.md第3弾（lazy fetch）で行う。
 
 import { ChevronRight } from "lucide-react";
-import type { EmperorNarrative, NarrativeSection } from "@/lib/emperor-types";
+import {
+  accessionAxisLabels,
+  type AccessionAxes,
+  type EmperorNarrative,
+  type NarrativeSection,
+} from "@/lib/emperor-types";
+
+/**
+ * 即位経路の4軸＋補助。表示ラベル（世襲・擁立…）はこの軸から機械導出した値なので、
+ * ラベルだけを出すと「なぜその区分なのか」「どの軸で他の皇帝と違うのか」が読者に見えない。
+ * 軸2は「第三者」のとき内訳（臣下・軍・宦官…）を括弧で添える。
+ */
+export function AccessionAxesTable({ axes }: { axes: AccessionAxes }) {
+  const decidedBy = axes.decidedBy
+    .map((who) =>
+      who === "第三者" && axes.decidedByAgents.length > 0
+        ? `${who}（${axes.decidedByAgents.join("・")}）`
+        : who,
+    )
+    .join(" / ");
+  const rows: [string, string][] = [
+    [accessionAxisLabels.throneSource, axes.throneSource],
+    [accessionAxisLabels.decidedBy, decidedBy],
+    [accessionAxisLabels.predecessorFate, axes.predecessorFate],
+    [accessionAxisLabels.relationToPredecessor, axes.relationToPredecessor],
+    [accessionAxisLabels.procedure, axes.procedure],
+  ];
+  return (
+    <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-0.5 text-xs leading-relaxed">
+      {rows.map(([label, value]) => (
+        <div key={label} className="contents">
+          <dt className="text-muted-foreground">{label}</dt>
+          <dd>{value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
 
 // 純表示部品（hook・server専用APIなし）。詳細ダイアログ（Client Component）の
 // lazy fetch表示（emperor-narrative-dialog.tsx）でも再利用する。
 export function NarrativeBlock({
   title,
   section,
+  axes = null,
 }: {
   title: string;
   section: NarrativeSection;
+  /** 即位の経緯のみ。判定ラベルの導出根拠として軸を折りたたみで添える。 */
+  axes?: AccessionAxes | null;
 }) {
   return (
     <section className="space-y-1.5">
@@ -22,6 +62,20 @@ export function NarrativeBlock({
         {title}
       </h3>
       <p className="text-sm leading-relaxed">{section.note}</p>
+      {axes && (
+        <details className="group">
+          <summary className="flex cursor-pointer list-none items-center gap-1.5 text-xs text-muted-foreground [&::-webkit-details-marker]:hidden">
+            <ChevronRight
+              aria-hidden
+              className="size-3 shrink-0 transition-transform group-open:rotate-90"
+            />
+            判定の軸（この区分を導いた4つの事実）
+          </summary>
+          <div className="mt-1.5 border-l-2 border-border pl-3">
+            <AccessionAxesTable axes={axes} />
+          </div>
+        </details>
+      )}
       <p className="text-xs leading-relaxed text-muted-foreground">
         出典: {section.sourceLabel}
         {section.sourceNote && (
@@ -37,7 +91,8 @@ export function EmperorNarrativeSections({
 }: {
   narrative: EmperorNarrative;
 }) {
-  const { accession, death, restorations, memos, reignSources } = narrative;
+  const { accession, accessionAxes, death, restorations, memos, reignSources } =
+    narrative;
   if (
     !accession &&
     !death &&
@@ -51,7 +106,13 @@ export function EmperorNarrativeSections({
     <div className="mt-2 flex flex-col gap-5 border-t border-border pt-5">
       {/* 経緯2節はlg以上で左右に並べる（noteは中央値100字前後の短い叙述）。 */}
       <div className="grid gap-5 lg:grid-cols-2 lg:gap-x-10">
-        {accession && <NarrativeBlock title="即位の経緯" section={accession} />}
+        {accession && (
+          <NarrativeBlock
+            title="即位の経緯"
+            section={accession}
+            axes={accessionAxes}
+          />
+        )}
         {death && <NarrativeBlock title="死因の経緯" section={death} />}
       </div>
       {restorations.length > 0 && (

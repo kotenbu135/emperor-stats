@@ -76,6 +76,12 @@ export interface EmperorRecord {
   reignCount: number;
   deathCauseCategory: DeathCauseCategory;
   accessionRouteCategory: AccessionRouteCategory;
+  /** 帝号を新たに称した（axes.titleOrigin = 新称）。旧「建国」が伝えていた情報のうち、
+   *  皇位の出所とは別の「王朝を興して皇帝号を新設した」側面をここで示す。 */
+  accessionTitleNew: boolean;
+  /** 廃位・退位ののち再び即位した在位を持つ（reigns[].isRestoration）。
+   *  旧「復位」ラベルの代わりに、即位経路の脇のバッジとして出す。 */
+  hasRestoration: boolean;
   eraChangeCount: number;
   amnestyCount: number;
   empressInstallationCount: number;
@@ -196,6 +202,8 @@ export interface EmperorStructuredDates {
  */
 export interface EmperorNarrative {
   accession: NarrativeSection | null;
+  /** 即位経路の4軸＋補助（表示ラベルの導出根拠）。 */
+  accessionAxes: AccessionAxes | null;
   death: NarrativeSection | null;
   restorations: RestorationNarrative[];
   memos: ResearchMemo[];
@@ -210,6 +218,7 @@ export interface EmperorNarrative {
  */
 export interface EmperorNarrativeNotes {
   accession: NarrativeSection | null;
+  accessionAxes: AccessionAxes | null;
   death: NarrativeSection | null;
 }
 
@@ -471,4 +480,39 @@ export const accessionRouteDescriptions: Record<AccessionRouteCategory, string> 
   "受禅（擁立）": "別姓・別政権の皇帝から位を受けた王朝交代だが、立てたのは第三者だった",
   自立: "先行する君主から位を受けず、自ら皇帝を称した（例：劉邦・光武帝・明太祖）",
   推戴: "先行する君主から位を受けていないが、自ら称したのではなく他者に立てられた（例：南明の諸帝）",
+};
+
+/**
+ * 即位経路の多軸表現（2026-07-26 導入。data/schema/ADDITIONAL_SCHEMA.md 1節が正典）。
+ * 表示ラベル accessionRouteCategory はこの軸から機械導出した値なので、
+ * 「なぜそのラベルなのか」を読者に見せるにはこちらを出す必要がある。
+ * 経緯noteと同じくデータ量があるため、EmperorRecord ではなく経緯JSON側で運ぶ。
+ */
+export interface AccessionAxes {
+  /** 軸1: 君主位の出所。 */
+  throneSource: string;
+  /** 軸1b: 帝号が新称か継承か（王朝を興して皇帝号を新たに称したかの手がかり）。 */
+  titleOrigin: string;
+  /** 軸2: 即位を決めた主体（複数可・「史料から決着不能」は単独）。 */
+  decidedBy: string[];
+  /** 軸2の補助: 第三者の内訳（臣下・軍・宦官・外戚・母后・宗室）。第三者を含むときのみ非空。 */
+  decidedByAgents: string[];
+  /** 軸3: 先帝の去就。 */
+  predecessorFate: string;
+  /** 軸4: 先帝との血縁（kinshipグラフの続柄と一致）。 */
+  relationToPredecessor: string;
+  /** 補助1: 手続きの形式（禅譲儀礼・内禅・通常の践祚・儀礼なし・自称・偽詔・矯詔）。 */
+  procedure: string;
+}
+
+/** 軸の表示見出し（詳細ダイアログ・個別ページの「即位の経緯」節で使う）。 */
+export const accessionAxisLabels: Record<
+  Exclude<keyof AccessionAxes, "decidedByAgents" | "titleOrigin">,
+  string
+> = {
+  throneSource: "君主位の出所",
+  decidedBy: "即位を決めた主体",
+  predecessorFate: "先帝の去就",
+  relationToPredecessor: "先帝との血縁",
+  procedure: "手続きの形式",
 };
