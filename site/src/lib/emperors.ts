@@ -1575,6 +1575,7 @@ export function getKinshipSource(): KinshipSource {
       id: p.id,
       name: p.name,
       kind: p.kind,
+      section: p.section,
       female: p.gender === "female",
       // kinship.jsonの年は既に天文年(KINSHIP_SCHEMA.md)。astroYear()を重ねないこと。
       // null(不明)はそのまま渡し、配置はlayout側が系譜エッジから推定する。

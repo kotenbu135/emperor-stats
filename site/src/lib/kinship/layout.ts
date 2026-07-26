@@ -78,6 +78,9 @@ export interface KinshipSourcePerson {
   id: string;
   name: string;
   kind: string;
+  /** kinship.json の section(= emperors.json の dynasty.section と同じ語彙)。
+   *  複数王朝を束ねたバンドで、人物がどの政権の人かを決めるのに使う。 */
+  section: string;
   female: boolean;
   birthYear: number | null;
   deathYear: number | null;
@@ -1505,7 +1508,14 @@ function buildChapter(
     const e = rel.emperorById.get(id);
     if (e) return e.dynastyKey;
     const b = bandOfNode.get(id);
-    return b !== undefined ? def.bands[b].dynastyKeys[0] : "";
+    if (b === undefined) return "";
+    const keys = def.bands[b].dynastyKeys;
+    // 複数王朝を束ねたバンド(燕＝前燕/後燕/西燕/南燕)で先頭に固定すると、
+    // 同一政権内の継承が「王朝交代」に化けて赤矢印が出る(慕容泓〔西燕初代〕→
+    // 慕容沖〔西燕2代〕が前燕→西燕の交代として描かれていた。ユーザー指摘・
+    // 2026-07-26)。人物は自分の section(kinship.json)と一致する王朝を採る。
+    const sec = rel.personById.get(id)?.section;
+    return (sec && keys.find((k) => k.endsWith(`__${sec}`))) || keys[0];
   };
 
   /**
