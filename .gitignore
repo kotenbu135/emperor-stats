@@ -52,3 +52,9 @@ site/.design-sync/.cache/
 site/.design-sync/learnings/
 site/.design-sync/node_modules
 site/.design-sync/compiled/
+
+# design-plans のスクリーンショット取得ツール（ローカル専用）
+site/design-plans/tools/node_modules/
+site/design-plans/tools/before*/
+site/design-plans/tools/after*/
+site/design-plans/tools/shots*/

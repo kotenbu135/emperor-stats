@@ -10,6 +10,11 @@
   --font-sans: var(--font-sans);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-heading: var(--font-serif);
+  /* DESIGN.md のタイポスケール6段のうち、Tailwind 既定値に対応がない唯一の段。
+     極小テキストの生px指定（9px〜13px が7種類に散っていた）を1つに集約するための名前。
+     他の5段（body/caption/title/section/subsection）は text-sm/text-xs/text-2xl/
+     text-xl/text-base と同値なので、同じ値に2つの名前を作らないためトークン化しない。 */
+  --text-micro: 0.6875rem;
   --color-seal: var(--seal);
   --color-seal-foreground: var(--seal-foreground);
   --color-series-1: var(--series-1);
@@ -51,6 +56,21 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  /* DESIGN.md のスペーシングスケール。ページの左右とセクションの上下は共有部品
+     （PageHeader / Section）が供給する契約なので、その所有者が裸の数値クラスでなく
+     名前で書けるようトークン化する。値は Tailwind 既定の px-6 / md:px-10 / py-8 と
+     同一（1ピクセルも変わらない）。
+     block(1.5rem) はトークン化しない: --spacing-block を足すと Tailwind の inline-*
+     (inline-size) ユーティリティが名前空間を食って .inline-block{inline-size:1.5rem}
+     を生成し、display ユーティリティの .inline-block と同名衝突する（/timeline・
+     /kinship・円グラフが inline-block を使用中で描画が壊れる。実測で確認）。
+     Section の「見出しから中身まで」は同値の既定クラス mt-6 で書く。
+     stack(0.5rem) と inline(0.375rem) は足さない。現在の呼び出し側がこの段に乗って
+     いない（PageHeader の gap-3=0.75rem・Section の gap-2.5=0.625rem・mt-1=0.25rem）
+     ため、トークン化すると値が動く。段へ寄せるかどうかは別の変更として判断する。 */
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-wide: 2.5rem;
+  --spacing-section: 2rem;
 }
 
 /*

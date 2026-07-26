@@ -69,7 +69,7 @@ export function EmperorTooltip({
         </div>
       )}
       {hint && (
-        <div className="mt-1.5 text-[10px] text-muted-foreground/70">{hint}</div>
+        <div className="mt-1.5 text-micro text-muted-foreground/70">{hint}</div>
       )}
     </div>
   );

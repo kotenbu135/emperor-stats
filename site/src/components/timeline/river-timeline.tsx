@@ -517,7 +517,7 @@ export function RiverTimeline({
                 key={c.label}
                 type="button"
                 onClick={() => jumpTo(c.a)}
-                className="rounded-full border border-border px-2.5 py-0.5 font-heading text-[11px] font-medium text-foreground/70 transition-colors hover:border-seal hover:text-seal"
+                className="rounded-full border border-border px-2.5 py-0.5 font-heading text-micro font-medium text-foreground/70 transition-colors hover:border-seal hover:text-seal"
               >
                 {c.label}
               </button>
@@ -915,7 +915,7 @@ export function RiverTimeline({
                       : ""}
                   ・皇帝{tip.stream.emperorCount}人
                 </div>
-                <div className="mt-1.5 text-[10px] text-muted-foreground/70">
+                <div className="mt-1.5 text-micro text-muted-foreground/70">
                   {tip.stream.kind === "cluster"
                     ? "クリックで構成政権を開閉"
                     : "クリックでこの時代を拡大"}
@@ -937,7 +937,7 @@ export function RiverTimeline({
                     </div>
                   ))}
                 </div>
-                <div className="mt-1.5 text-[10px] text-muted-foreground/70">クリックでたたむ</div>
+                <div className="mt-1.5 text-micro text-muted-foreground/70">クリックでたたむ</div>
               </div>
             )}
           </FixedTooltip>

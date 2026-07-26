@@ -10,10 +10,12 @@
 
 | | |
 |---|---|
-| ブランチ | `design-audit`（`main` から分岐・**未コミット**） |
-| 製品ソースの変更 | **なし**（`src/` は1行も触っていない） |
+| ブランチ | `design-audit`（`main` から分岐） |
 | 追加済みファイル | `site/DESIGN.md`（新規・承認済み）、このディレクトリ一式 |
-| 実装済みの計画 | **0件** |
+| 実装済みの計画 | **01・02・03・04・05**（`1f96524`／`8318d29`／`c12301b`／`050ed68`／本コミット） |
+| 次に着手する計画 | **06**（円グラフのラベル切れ） |
+
+**05 で計画からの逸脱が1件ある。** `Section` の `mt-6` → `mt-block` は実施していない。`--spacing-block` を `@theme` に足すと Tailwind v4 の `inline-*`（`inline-size`）ユーティリティが `--spacing-*` 名前空間を食い、`.inline-block{inline-size:1.5rem}` が display ユーティリティの `.inline-block` と同名衝突するため（`/timeline` 5箇所・`/kinship` 2箇所・円グラフ2箇所が壊れる）。ユーザー判断で `mt-6` のまま残した。経緯は `docs/site-design/LAYOUT.md` の該当節。
 
 `site/DESIGN.md` はユーザー承認済みの設計契約。計画はすべてこれを根拠に書かれている。`npx @google/design.md lint DESIGN.md` が errors 0 / warnings 0 で通る状態を保つこと。
 
@@ -80,7 +82,7 @@ npm run build
 npx serve out -p 4599 &          # 静的書き出しを配信
 
 cd design-plans/tools
-npm i playwright@1.62.0 sharp    # 初回のみ
+npm i                            # 初回のみ（package.json に playwright 1.62.0 / sharp を固定済み）
 SHOT_DIR=./before-desktop node capture-desktop.mjs   # 13ルート×2幅 = 26枚
 SHOT_DIR=./before-mobile  node capture-mobile.mjs    # 390×844 の3スライス連結 = 12枚
 

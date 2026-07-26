@@ -14,7 +14,7 @@ export function PageHeader({
   containedWidth?: string;
 }) {
   return (
-    <div className="border-b border-border bg-background px-6 py-8 md:px-10">
+    <div className="border-b border-border bg-background px-gutter py-section md:px-gutter-wide">
       <div className={cn(contained && cn("mx-auto w-full", containedWidth))}>
         <div className="flex items-center gap-3">
           {/* 印章の朱をイメージしたアクセントバー（水墨基調に差す一点の色味） */}
@@ -52,7 +52,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={cn("px-6 py-8 md:px-10", scrollMt === undefined && "scroll-mt-20")}
+      className={cn("px-gutter py-section md:px-gutter-wide", scrollMt === undefined && "scroll-mt-20")}
       style={scrollMt === undefined ? undefined : { scrollMarginTop: scrollMt }}
     >
       <div className="flex items-center gap-2.5">

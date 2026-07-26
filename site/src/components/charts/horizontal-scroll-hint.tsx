@@ -77,7 +77,7 @@ export function HorizontalScrollHint({
             className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-background to-transparent"
           />
           {showBadge && (
-            <span className="pointer-events-none absolute right-2 top-2 z-20 rounded-full border border-border bg-background/90 px-2 py-0.5 text-[11px] text-muted-foreground">
+            <span className="pointer-events-none absolute right-2 top-2 z-20 rounded-full border border-border bg-background/90 px-2 py-0.5 text-micro text-muted-foreground">
               横スクロールで続き →
             </span>
           )}

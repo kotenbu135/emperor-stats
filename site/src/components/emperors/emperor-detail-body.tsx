@@ -191,7 +191,7 @@ export function EmperorDetailBody({
               <dd className="text-right tabular-nums">
                 {count}回
                 {rank && (
-                  <span className="block text-[10px] leading-tight text-muted-foreground">
+                  <span className="block text-micro leading-tight text-muted-foreground">
                     {rankText(rank)}
                   </span>
                 )}
