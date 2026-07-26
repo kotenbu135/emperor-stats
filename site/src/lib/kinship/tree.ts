@@ -153,8 +153,12 @@ function nodeWidth(info: KinNodeInfo): number {
   return w;
 }
 
-function consortWidth(name: string): number {
-  return Math.max(48, Math.min(124, name.length * 10.5 + 12));
+function consortWidth(info: KinNodeInfo | undefined, fallback: string): number {
+  const w = Math.max(48, Math.min(124, (info?.name ?? fallback).length * 10.5 + 12));
+  // 肩書き行(諡号・尊号)を持つ配偶者は、その行が収まる幅も確保する。
+  return info?.dispRole === undefined
+    ? w
+    : Math.max(w, Math.min(124, info.dispRole.length * 9.5 + 16));
 }
 
 /** ノードが占有する年区間(パッキング用の初期値)。
@@ -467,7 +471,7 @@ export function packBand(g: BandGraph): PackedBand {
       sidePlans[side].push({
         sp,
         hasKids: kids !== undefined,
-        sw: consortWidth(g.info.get(sp.id)?.name ?? sp.id),
+        sw: consortWidth(g.info.get(sp.id), sp.id),
       });
     }
     for (const arr of [sidePlans.L, sidePlans.R])

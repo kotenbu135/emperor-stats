@@ -1013,15 +1013,15 @@
         "year": 341.25
       },
       "p-zhang-yaoling": {
-        "x": 2318,
+        "x": 2253.5,
         "year": 349.5
       },
       "p-zhang-chonghua": {
-        "x": 2341.5,
+        "x": 2277,
         "year": 338.875
       },
       "qianliang-zhangzuo": {
-        "x": 2412.5
+        "x": 2420
       },
       "p-zhang-jun": {
         "x": 2378.125,
@@ -1031,10 +1031,10 @@
         "x": 2759
       },
       "xiyan-murongzhong": {
-        "x": 2504.5
+        "x": 2544.5
       },
       "p-murong-hong": {
-        "x": 2513.5,
+        "x": 2556,
         "year": 382.365
       },
       "xiyan-murongyao": {
@@ -1081,7 +1081,7 @@
         "x": 3193
       },
       "p-duanshi-houyan-murongchui": {
-        "x": 3000.25,
+        "x": 2994.25,
         "year": 391
       },
       "nanyan-murongde": {
@@ -1092,7 +1092,7 @@
         "year": 322.625
       },
       "p-duanshi-murong-huang": {
-        "x": 2674,
+        "x": 2668,
         "year": 322.5
       },
       "p-lanshi-murong-huang": {
@@ -1104,7 +1104,7 @@
         "year": 320.25
       },
       "xiyan-murongyong": {
-        "x": 2397
+        "x": 2420
       },
       "houyan-murongxiang": {
         "x": 2782
@@ -1183,7 +1183,7 @@
         "year": 307.8641666666667
       },
       "p-zhang-mao": {
-        "x": 2478.0,
+        "x": 2478,
         "year": 316.375
       },
       "p-zhang-shi": {
@@ -1195,8 +1195,8 @@
         "year": 296.25
       },
       "p-zhang-tianxi": {
-        "x": 2493,
-        "year": 334.88
+        "x": 2526,
+        "year": 363.38
       },
       "p-murong-yun": {
         "x": 2616,
@@ -1211,7 +1211,7 @@
         "year": 403.125
       },
       "p-duan-sui": {
-        "x": 2305,
+        "x": 2329.5,
         "year": 390.375
       },
       "p-fu-xiong": {
@@ -1227,8 +1227,8 @@
         "year": 370
       },
       "p-zhang-xuanjing": {
-        "x": 2518,
-        "year": 362.375
+        "x": 2324.5,
+        "year": 360.875
       }
     },
     "labels": {
@@ -1265,7 +1265,7 @@
         "y": 463.5800000000001
       },
       "band:前涼": {
-        "x": 2436.5,
+        "x": 2445,
         "y": 649.5800000000002
       },
       "band:後秦": {
@@ -1285,8 +1285,8 @@
         "y": 881.5000000000002
       },
       "dyn:南燕__南燕": {
-        "x": 3373.5,
-        "y": 1019.5800000000002
+        "x": 3495.5,
+        "y": 1017.5800000000002
       },
       "band:夏": {
         "x": 4275,
@@ -1375,7 +1375,7 @@
       "dongjin-mingdi|p-yu-wenjun": 347,
       "p-zhang-shi|": 2422,
       "p-zhang-jun|": 2419.75,
-      "p-zhang-chonghua|": 2383,
+      "p-zhang-chonghua|": 2319,
       "p-murong-huang|p-gongsunshi-murong-huang": 3534.5,
       "p-murong-huang|": 2966.75,
       "p-fuhong|": 3900.5,

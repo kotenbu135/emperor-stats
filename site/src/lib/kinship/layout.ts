@@ -250,6 +250,10 @@ const M_TOP = 96;
 const VIEW_TOP_PAD = 16;
 const M_BOTTOM = 48;
 const CONSORT_H = 24;
+/** 肩書き行(dispRole)つき配偶者ピルの高さ(名前+肩書きの2行)。名は伝わらず
+ *  「段氏」としか書けない同姓の后妃が同じ図に複数出るケース(燕の慕容氏に嫁いだ
+ *  段氏3人)で、諡号・尊号を2行目に出して呼び分けるために使う。 */
+const CONSORT_ROLE_H = 34;
 // 複数在位の可視サブカプセルの最小高(在位0年の期間も見える高さ。唐中宗など)。
 const MIN_SEG_H = 16;
 // この高さ(px)以下の在位間ギャップは連続とみなしカプセルをマージする(恵帝の廃位は
@@ -949,7 +953,7 @@ function buildChapter(
       let h: number;
       let y: number;
       if (isConsort) {
-        h = CONSORT_H;
+        h = nodeInfo.dispRole !== undefined ? CONSORT_ROLE_H : CONSORT_H;
         const husband = it.attachedTo !== undefined ? rectById.get(it.attachedTo) : undefined;
         if (husband !== undefined && info.get(it.attachedTo!)?.isEmperor) {
           // CONSORT_BOTTOM_ATTACH指定は下辺側(生母の垂下線と遠祖主張の点線が交差する
