@@ -25,7 +25,7 @@ function StatTile({
 }) {
   return (
     <Card className="border-t-2 border-t-seal/70">
-      <CardContent className="px-4">
+      <CardContent>
         <p className="text-xs text-muted-foreground">{label}</p>
         <p className="mt-1 font-heading text-2xl font-semibold text-seal">
           {value}
@@ -40,13 +40,13 @@ export default function Home() {
   const stats = getOverviewStats();
 
   return (
-    <div className="bg-background px-6 py-10 md:px-10 md:py-12">
+    <div className="bg-background px-6 py-8 md:px-10">
       <JsonLd data={websiteJsonLd()} />
       {/* ワイド画面では左寄せだと右側の余白が目立つため中央寄せにする */}
       <div className="mx-auto max-w-4xl">
         <div className="flex items-center gap-3">
-          <span aria-hidden className="h-8 w-1 shrink-0 rounded-full bg-seal" />
-          <h1 className="font-heading text-3xl font-semibold text-foreground">
+          <span aria-hidden className="h-7 w-1 shrink-0 rounded-full bg-seal" />
+          <h1 className="font-heading text-2xl font-semibold text-foreground md:text-3xl">
             中国皇帝統計
           </h1>
         </div>
@@ -93,7 +93,7 @@ export default function Home() {
           {sections.map((s) => (
             <Card
               key={s.href}
-              className="transition-colors hover:border-seal/50"
+              className="transition-colors hover:border-seal/60"
             >
               <CardHeader>
                 <CardTitle className="font-heading text-lg">{s.label}</CardTitle>

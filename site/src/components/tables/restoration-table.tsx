@@ -54,7 +54,7 @@ export function RestorationTable({
         onSortDirectionChange={setSortDirection}
         resultCount={sorted.length}
       />
-      <div className="max-h-[560px] overflow-y-auto rounded-md border border-border">
+      <div className="mt-2 max-h-[480px] overflow-y-auto rounded-md border border-border">
         <Table>
           <TableHeader>
             <TableRow>

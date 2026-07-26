@@ -36,9 +36,12 @@ export default function DeathAccessionPage() {
       </div>
       <div className="grid gap-10 px-6 pb-8 md:grid-cols-2 md:px-10">
         <section id="death-cause" className="scroll-mt-20">
-          <h2 className="font-heading text-xl font-semibold text-foreground">
-            死因別分布
-          </h2>
+          <div className="flex items-center gap-2.5">
+            <span aria-hidden className="h-5 w-1 shrink-0 rounded-full bg-seal/80" />
+            <h2 className="font-heading text-xl font-semibold text-foreground">
+              死因別分布
+            </h2>
+          </div>
           <div className="mt-6">
             <LazyMount estimatedHeight={580}>
               <CategoryPieChart
@@ -53,9 +56,12 @@ export default function DeathAccessionPage() {
           </div>
         </section>
         <section id="accession" className="scroll-mt-20">
-          <h2 className="font-heading text-xl font-semibold text-foreground">
-            即位経路別分布
-          </h2>
+          <div className="flex items-center gap-2.5">
+            <span aria-hidden className="h-5 w-1 shrink-0 rounded-full bg-seal/80" />
+            <h2 className="font-heading text-xl font-semibold text-foreground">
+              即位経路別分布
+            </h2>
+          </div>
           <div className="mt-6">
             <LazyMount estimatedHeight={580}>
               <CategoryPieChart

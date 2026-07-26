@@ -532,7 +532,7 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
                 hint="クリックで全項目を表示"
               />
             ) : (
-              <div className="max-w-[320px] rounded-md border border-border bg-background px-2.5 py-2 text-xs leading-relaxed shadow-md">
+              <div className="max-w-[320px] rounded-md border border-border bg-background p-3 text-xs leading-relaxed shadow-md">
                 {tip.lines.map((line, i) => (
                   <div
                     key={i}
