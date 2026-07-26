@@ -61,9 +61,9 @@ PERSON_ID_RE = re.compile(r"^p-[a-z0-9]+(-[a-z0-9]+)*$")
 
 KIND_ENUM = {"追尊皇帝", "宗室", "外戚", "后妃・公主", "その他"}
 GENDER_ENUM = {"male", "female"}
-INCLUSION_ENUM = {"経路上", "一親等", "追尊皇帝", "婚姻当事者", "政変当事者"}
+INCLUSION_ENUM = {"経路上", "一親等", "追尊皇帝", "婚姻当事者", "政変当事者", "歴代君主"}
 EDGE_TYPE_ENUM = {"succession", "kinship", "marriage"}
-RELATION_ENUM = {"実父", "実母", "養父", "養母", "兄弟姉妹"}
+RELATION_ENUM = {"実父", "実母", "養父", "養母", "兄弟姉妹", "遠祖"}
 PARENT_RELATIONS = {"実父", "実母", "養父", "養母"}
 MALE_RELATIONS = {"実父", "養父"}
 FEMALE_RELATIONS = {"実母", "養母"}
@@ -473,7 +473,12 @@ def main() -> int:
      mother_covered) = check_edges(
         kin.get("edges", []), emperor_ids, gender_by_person, accession_by_id,
         restoration_reigns_by_id)
-    orphan = set(gender_by_person) - referenced
+    # 孤立ブリッジは原則禁止。ただしスコープルール6（歴代君主）で収録した人物だけは、
+    # 血縁・婚姻が原典に一切記されない君主（西燕第3代の段随＝慕容沖の将）がありうるため
+    # 例外とする。図では代数の欠番を埋める灰ピルとして単独で置かれる。
+    dynastic_only = {p["id"] for p in kin.get("persons", [])
+                     if p.get("inclusionReason") == ["歴代君主"]}
+    orphan = set(gender_by_person) - referenced - dynastic_only
     if orphan:
         err(f"[persons] 孤立ブリッジ（どのエッジからも参照されない）: {sorted(orphan)}")
     check_axes_sync(kin.get("edges", []), emperors)

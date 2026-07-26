@@ -662,6 +662,14 @@
         "emperors": 0,
         "edges": 2,
         "persons": 1
+      },
+      {
+        "phase": "parentage",
+        "block": "十六国の代数の欠番・苻堅の父・遠祖線（2026-07-26）",
+        "emperors": 0,
+        "edges": 13,
+        "persons": 11,
+        "note": "ユーザー提示の疑義7件への対応。(1)成漢第2代 李流・後燕第5代 蘭汗・前涼第1〜3代 張軌/張寔/張茂・西燕第3/4代 段随/慕容顗 を「歴代君主」として収録し、カプセルの第N代が飛んで見える状態を解消（スコープルール6を新設）。(2)苻堅の実父 苻雄を収録し苻洪→苻雄→苻堅の父子鎖を通した（あわせて西燕慕容顗の父 慕容桓、慕容皝の父 慕容廆、慕容廆の弟 慕容運を経路上として収録）。(3)実父の名が史料に伝わらない慕容詳（曾祖父＝慕容皝）・慕容永（祖父＝慕容運）は relation=遠祖 の破線エッジで判明分の祖先へ接続（実父エッジではないため confirmedFatherUnknown の登録はそのまま）。(4)劉曜は全史料が劉淵の族子とするのみで実父の名がなく、祖父以上（劉防・劉広・劉亮）も前趙の帝系に接続しないため遠祖線を引かずに据え置き（ja.wikipedia が「父は劉緑」とするが出典の記載がなく、晋書・魏書・十六国春秋・資治通鑑のいずれにも劉緑/劉録は現れない。十六国春秋は該当箇所を「考[阙]为宣成皇帝」と欠字で明示し、zh.wikipedia も「宣成帝劉某」とする）。(5)苻敞の父も同様に全史料に記載がなく据え置き。あわせて emperors.json の劉曜の dynastyOrder を 7→5 に訂正（載記一〜三が立伝するのは劉淵・劉和・劉聡・劉粲・劉曜の5人のみ）。"
       }
     ],
     "confirmedRootless": [
@@ -1392,7 +1400,7 @@
         "一親等",
         "追尊皇帝"
       ],
-      "note": "前秦第3代君主（357-385在位）。皇帝を称さず「大秦天王」として君臨したため本データセット収録外（収録皇帝 qianqin-fujian=苻健とは別人）。出自は「苻坚，字永固，一名文玉，雄之子也」（晋書載記第十三）。淝水の戦い後の前秦崩壊の中、姚萇に捕らえられ殺害された：「苌乃缢坚于新平佛寺中，时年四十八。中山公诜及张夫人并自杀。是岁太元十年也」（晋書載記第十四）。没年太元十年（385年）・時年四十八（数え）より生年338年と逆算（英語圏二次資料には337年とするものがあるが原典逆算の338年を採用）。子の苻丕により皇帝号・廟号を追贈された：「丕僭号，伪追谥坚曰世祖宣昭皇帝」（晋書載記第十四）。",
+      "note": "前秦の第4代君主（357-385在位。苻洪を初代とする通し番号＝emperors.json の dynastyOrder と同じ数え方）。皇帝を称さず「大秦天王」として君臨したため本データセット収録外（収録皇帝 qianqin-fujian=苻健とは別人）。出自は「苻坚，字永固，一名文玉，雄之子也」（晋書載記第十三）。淝水の戦い後の前秦崩壊の中、姚萇に捕らえられ殺害された：「苌乃缢坚于新平佛寺中，时年四十八。中山公诜及张夫人并自杀。是岁太元十年也」（晋書載記第十四）。没年太元十年（385年）・時年四十八（数え）より生年338年と逆算（英語圏二次資料には337年とするものがあるが原典逆算の338年を採用）。子の苻丕により皇帝号・廟号を追贈された：「丕僭号，伪追谥坚曰世祖宣昭皇帝」（晋書載記第十四）。",
       "posthumous": {
         "dynasty": "前秦",
         "templeName": "世祖",
@@ -11133,6 +11141,309 @@
       "wikidata": "Q709785",
       "source": {
         "page": "晋書 巻三十一 列伝第一 后妃伝上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-li-liu",
+      "name": "李流",
+      "kana": "りりゅう",
+      "aliases": [
+        "李玄通",
+        "秦文王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "成漢",
+      "birthYear": 248,
+      "deathYear": 303,
+      "yearsApproximate": true,
+      "posthumous": {
+        "dynasty": "成漢",
+        "templeName": null,
+        "posthumousName": "秦文王"
+      },
+      "inclusionReason": [
+        "歴代君主"
+      ],
+      "note": "成漢の第2代君主（在位303年）。李特の第四弟で、李慕（既存ブリッジ p-li-mu）の子（『晋書』載記第二十「李流，字玄通，特第四弟也。」）。兄・李特が羅尚軍に敗死した後に流民集団を統率し、病没に際して甥の李雄への継承を遺命した（「流疾笃，谓诸将曰：“骁骑高明仁爱，识断多奇，固足以济大事，然前军英武，殆天所相，可共受事于前军，以为成都王。”遂死，时年五十六。诸将共立雄为主。雄僭号，追谥流秦文王。」）。王号追諡（秦文王）どまりで皇帝号の追贈はないため kind=宗室。没年303年（太安二年）・享年56（数え）からの逆算で生年248年（原典に生年の直接記載はないため yearsApproximate=true）。Wikidata QID は未取得。",
+      "wikidata": null,
+      "source": {
+        "page": "晋書 載記第二十 李特・李流",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-lan-han",
+      "name": "蘭汗",
+      "kana": "らんかん",
+      "aliases": [
+        "昌黎王",
+        "頓丘王"
+      ],
+      "kind": "外戚",
+      "gender": "male",
+      "section": "後燕",
+      "birthYear": null,
+      "deathYear": 398,
+      "yearsApproximate": false,
+      "posthumous": null,
+      "inclusionReason": [
+        "歴代君主",
+        "経路上"
+      ],
+      "note": "後燕の第5代君主（在位398年）。慕容垂の生母・蘭氏（既存ブリッジ p-lanshi-murong-huang）の末弟にあたる外戚で、恵愍帝慕容宝を龍城に迎え入れて弑逆し自立した（『晋書』載記第二十四「会兰汗遣左将军苏超迎宝，宝以汗垂之季舅，盛又汗之壻也，必谓忠款无贰，乃还至龙城。汗引宝入于外邸，弑之」）。皇帝号は称さず「汗自称大都督、大将军、大单于、昌黎王。」にとどまるため皇帝365人の収録基準には入らない。娘は慕容盛の妃で（『十六国春秋』後燕録「盛妃兰氏尚书顿丘王兰汗之女也」、同記事から尚書・頓丘王の官爵も判明）、その慕容盛に討たれた（『晋書』載記第二十四「盛夜因如厕，袒而逾墙，入于东宫，与李旱等诛穆，众皆踊呼，进攻汗，斩之。」）。生年は原典に記載なし。Wikidata QID は未取得。",
+      "wikidata": null,
+      "source": {
+        "page": "晋書 巻百二十四 載記第二十四 慕容宝・慕容盛／十六国春秋 後燕録 盛妃蘭氏",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhang-gui",
+      "name": "張軌",
+      "kana": "ちょうき",
+      "aliases": [
+        "張士彦",
+        "西平武公"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "前涼",
+      "birthYear": 255,
+      "deathYear": 314,
+      "yearsApproximate": true,
+      "posthumous": {
+        "dynasty": "前涼",
+        "templeName": null,
+        "posthumousName": "武公"
+      },
+      "inclusionReason": [
+        "歴代君主",
+        "経路上"
+      ],
+      "note": "前涼の初代君主（涼州刺史・西平公、在位301-314）。安定郡烏氏の人（『晋書』巻八十六 列伝第五十六「张轨，字士彦，安定乌氏人，汉常山景王耳十七代孙也。」）。西晋の涼州刺史として姑臧に拠り、以後の前涼政権の基礎を築いた。「卒年六十。谥曰武公。」により没年314年（建興二年）・享年60（数え）からの逆算で生年255年（生年の直接記載はないため yearsApproximate=true）。公号どまりで皇帝号の追贈はないため kind=宗室（前涼で皇帝を称したのは第7代の張祚のみ）。Wikidata QID は未取得。",
+      "wikidata": null,
+      "source": {
+        "page": "晋書 巻八十六 列伝第五十六 張軌",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhang-shi",
+      "name": "張寔",
+      "kana": "ちょうしょく",
+      "aliases": [
+        "張安遜",
+        "昭公",
+        "元公"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "前涼",
+      "birthYear": null,
+      "deathYear": 320,
+      "yearsApproximate": false,
+      "posthumous": {
+        "dynasty": "前涼",
+        "templeName": null,
+        "posthumousName": "昭公（元公）"
+      },
+      "inclusionReason": [
+        "歴代君主",
+        "経路上"
+      ],
+      "note": "前涼の第2代君主（在位314-320）。張軌の子で父の死後に州人に推されて位を摂した（『晋書』巻八十六「寔字安逊，学尚明察，敬贤爱士，以秀才为郎中。」「轨卒，州人推寔摄父位。」）。劉弘の妖言を信じた帳下の閻沙らに殺害された（「沙等不之知，以其夜害寔。在位六年。私谥曰昭公，元帝赐谥曰元。子骏，年幼，弟茂摄事。」）。この記事から第4代・張駿（既存ブリッジ p-zhang-jun）が張寔の子であることも確認できる。享年の記載がないため生年は不明。Wikidata QID は未取得。",
+      "wikidata": null,
+      "source": {
+        "page": "晋書 巻八十六 列伝第五十六 張軌（張寔）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-zhang-mao",
+      "name": "張茂",
+      "kana": "ちょうも",
+      "aliases": [
+        "張成遜",
+        "成公"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "前涼",
+      "birthYear": 277,
+      "deathYear": 324,
+      "yearsApproximate": true,
+      "posthumous": {
+        "dynasty": "前涼",
+        "templeName": null,
+        "posthumousName": "成公"
+      },
+      "inclusionReason": [
+        "歴代君主",
+        "経路上"
+      ],
+      "note": "前涼の第3代君主（在位320-324）。張軌の子・張寔の弟で、兄の遇害後に州人に推されて涼州牧となった（『晋書』巻八十六「茂字成逊，虚靖好学，不以世利婴心。」「太兴三年，寔既遇害，州人推茂为大都督、太尉、凉州牧，茂不从，但受使持节、平西将军、凉州牧。乃诛阎沙及党与数百人，赦其境内。复以兄子骏为抚军将军、武威太守、西平公」）。自身に子がなく兄の子・張駿が嗣いだ（「年四十八。在位五年。私谥曰成。茂无子，骏嗣位。」）。没年324年・享年48（数え）からの逆算で生年277年（生年の直接記載はないため yearsApproximate=true）。Wikidata QID は未取得。",
+      "wikidata": null,
+      "source": {
+        "page": "晋書 巻八十六 列伝第五十六 張軌（張茂）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-duan-sui",
+      "name": "段随",
+      "kana": "だんずい",
+      "aliases": [
+        "燕王"
+      ],
+      "kind": "その他",
+      "gender": "male",
+      "section": "西燕",
+      "birthYear": null,
+      "deathYear": 386,
+      "yearsApproximate": false,
+      "posthumous": null,
+      "inclusionReason": [
+        "歴代君主"
+      ],
+      "note": "西燕の第3代君主（在位386年、燕王・昌平と改元）。慕容氏ではなく威帝慕容沖の将で、韓延が慕容沖を殺害した後に擁立された（『資治通鑑』巻百六「左将军韩延因众心不悦，攻冲，杀之，立冲将段随为燕王，改元昌平。」）。まもなく慕容恒・慕容永に襲われて殺された（「西燕左仆射慕容恒、尚书慕容永袭段随，杀之；」）。慕容氏との血縁・婚姻関係は原典に記載がなく、系譜上はどのノードとも接続しない（代数の欠番を埋めるための歴代君主ノード）。皇帝号は称していないため皇帝365人の収録基準には入らない。生年不明。Wikidata QID は未取得。",
+      "wikidata": null,
+      "source": {
+        "page": "資治通鑑 巻百六 晋孝武帝太元十一年",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-murong-yi",
+      "name": "慕容顗",
+      "kana": "ぼようぎ",
+      "aliases": [
+        "燕王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "西燕",
+      "birthYear": null,
+      "deathYear": 386,
+      "yearsApproximate": false,
+      "posthumous": null,
+      "inclusionReason": [
+        "歴代君主",
+        "経路上"
+      ],
+      "note": "西燕の第4代君主（在位386年、燕王・建明と改元）。前燕の宜都王慕容桓（既存ブリッジ p-murong-huan）の子で、段随を討った慕容恒・慕容永に擁立された（『資治通鑑』巻百六「西燕左仆射慕容恒、尚书慕容永袭段随，杀之；立宜都王子顗为燕王，改元建明，帅鲜卑男女四十馀万口去长安而东。恒弟护军将军韬，诱顗于临晋」）。臨晋で慕容韜に誘い出されて殺され、代わって慕容瑤が立てられた。皇帝号は称していないため皇帝365人の収録基準には入らない。生年不明。Wikidata QID は未取得。",
+      "wikidata": null,
+      "source": {
+        "page": "資治通鑑 巻百六 晋孝武帝太元十一年",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-murong-huan",
+      "name": "慕容桓",
+      "kana": "ぼようかん",
+      "aliases": [
+        "宜都王"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "前燕",
+      "birthYear": null,
+      "deathYear": 370,
+      "yearsApproximate": false,
+      "posthumous": null,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "前燕の宗室。文明帝慕容皝の子で景昭帝慕容儁の弟にあたり、慕容儁の即位後に宜都王に封ぜられた（『十六国春秋』前燕録「又封弟桓为宜都王」）。前燕滅亡時に遼東へ奔ったが前秦の朱嶷に捕らえられて殺された（同「桓弃众单走嶷获而杀之」＝建熙十一年・370年）。西燕第4代の慕容顗（p-murong-yi）の実父として、西燕の帝系を前燕の慕容皝へ接続する経路上の人物。生年不明。Wikidata QID は未取得。",
+      "wikidata": null,
+      "source": {
+        "page": "十六国春秋 前燕録 慕容儁・慕容暐",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-fu-xiong",
+      "name": "苻雄",
+      "kana": "ふゆう",
+      "aliases": [
+        "苻元才",
+        "東海王",
+        "魏王",
+        "文桓皇帝"
+      ],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "前秦",
+      "birthYear": null,
+      "deathYear": 354,
+      "yearsApproximate": true,
+      "posthumous": {
+        "dynasty": "前秦",
+        "templeName": null,
+        "posthumousName": "文桓皇帝"
+      },
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "前秦の宗室。苻洪（既存ブリッジ p-fuhong）の末子で、兄・苻健の建国を支えた佐命元勲（『晋書』載記第十二「苻雄，字元才，洪之季子也。少善兵书，而多谋略，好施下士，便弓马，有政术。健僭位，为佐命元勋，权侔人主，而谦恭奉法。健常曰：“元才，吾姬旦也。”及卒，健哭之欧血，曰：“天不欲吾定四海邪？何夺元才之速也！”子坚，别有载记。」）。子の苻堅（既存ブリッジ p-fu-jian）が「苻坚，字永固，一名文玉，雄之子也。祖洪」（載記第十三）と記され、苻洪→苻雄→苻堅の父子鎖が確認できる。苻堅は即位に際して父を追尊した（同「追谥父雄为文桓皇帝」）。『十六国春秋』前秦録は死の経緯を「雄遂攻乔秉于雍以疾卒于军徤哭之呕血曰天不欲吾平四海耶何夺元才之速也赠魏王谥曰敬武」と記す。皇帝号（文桓皇帝）の追尊はあるが廟号の追贈は原典に見えないため kind=宗室（既存の宇文覚・孫和・桓温らと同じ扱い）。没年は原典に年の明記がなく、桓温の北伐（永和十年＝354年）直後の記事であることによる概数のため yearsApproximate=true。Wikidata QID は未取得。",
+      "wikidata": null,
+      "source": {
+        "page": "晋書 巻百十二 載記第十二 苻雄／巻百十三 載記第十三 苻堅上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-murong-hui",
+      "name": "慕容廆",
+      "kana": "ぼようかい",
+      "aliases": [
+        "慕容奕落瓌",
+        "遼東公",
+        "武宣皇帝"
+      ],
+      "kind": "追尊皇帝",
+      "gender": "male",
+      "section": "前燕",
+      "birthYear": 269,
+      "deathYear": 333,
+      "yearsApproximate": true,
+      "posthumous": {
+        "dynasty": "前燕",
+        "templeName": "高祖",
+        "posthumousName": "武宣皇帝"
+      },
+      "inclusionReason": [
+        "経路上",
+        "追尊皇帝"
+      ],
+      "note": "慕容部鮮卑の首長で前燕の遠祖。文明帝慕容皝（既存ブリッジ p-murong-huang）の実父。晋の車騎将軍・遼東公として遼西に拠った（『十六国春秋』前燕録「慕容廆字奕落瓌鲜卑人也本出于昌黎之棘城」）。咸和八年（333年）に死去し慕容皝が嗣いだ（『晋書』帝紀「乙未，车骑将军、辽东公慕容廆卒，子皝嗣位。」）。「八年，廆卒，乃止。时年六十五，在位四十九年。帝遣使者策赠大将军、开府仪同三司，谥曰襄。及俊僭号，伪谥武宣皇帝。」（載記第八）により享年65（数え）から生年269年を逆算（生年の直接記載はないため yearsApproximate=true）。孫の慕容儁が称帝時に皇帝号＋廟号を追尊（載記第十一「追尊廆为高祖武宣皇帝，皝为太祖文明皇帝。」）したため kind=追尊皇帝。西燕の慕容永の祖父・慕容運（p-murong-yun）の兄でもある。",
+      "wikidata": "Q1069776",
+      "source": {
+        "page": "晋書 巻百八 載記第八 慕容廆",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-murong-yun",
+      "name": "慕容運",
+      "kana": "ぼよううん",
+      "aliases": [],
+      "kind": "宗室",
+      "gender": "male",
+      "section": "前燕",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "posthumous": null,
+      "inclusionReason": [
+        "経路上"
+      ],
+      "note": "慕容廆（p-murong-hui）の弟で、西燕の慕容永の祖父。『魏書』巻九十五は慕容部の系譜を「廆弟运，运孙永。」と記し、『十六国春秋』後燕録の慕容永伝も「慕容永字叔明廆弟运之孙也」と一致する。慕容運と慕容永の間の世代（慕容永の実父）はいずれの史料にも名が伝わらないため（慕容永は meta.confirmedFatherUnknown に登録済み）、慕容永へは実父エッジではなく遠祖エッジ（祖父）で接続する。生没年は原典に記載なし。Wikidata QID は未取得。",
+      "wikidata": null,
+      "source": {
+        "page": "魏書 巻九十五／十六国春秋 巻五十 後燕録八 慕容永",
         "lang": "zh-classical"
       }
     }
@@ -26190,6 +26501,177 @@
       "note": "晋書 巻三十一 列伝第一 后妃伝上の宣穆張皇后条に「生景帝、文帝、平原王干、南阳公主。」とあり、司馬昭（文帝）が司馬懿の嫡妻・張春華の所生であることが明記される。巻二 文帝紀の「文皇帝讳昭，字子上，景帝之母弟也。」も景帝・文帝が同母兄弟であることを裏づける。",
       "source": {
         "page": "晋書 巻三十一 列伝第一 后妃伝上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-li-mu",
+      "to": "p-li-liu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『晋書』載記第二十「李流，字玄通，特第四弟也。」により李流は李特の第四弟＝李慕の子。李慕については同巻「特父慕，为东羌猎将。」。",
+      "source": {
+        "page": "晋書 載記第二十 李特・李流",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "兄弟姉妹",
+      "from": "p-lanshi-murong-huang",
+      "to": "p-lan-han",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『晋書』載記第二十四「宝以汗垂之季舅」により蘭汗は成武帝慕容垂の季舅（母方のいちばん下の叔父）。慕容垂の生母は蘭氏（p-lanshi-murong-huang）なので、蘭汗は蘭氏の弟にあたる。両者の父の名は原典に伝わらず親エッジを立てられないため、兄弟姉妹エッジで表現する（KINSHIP_SCHEMA.md の兄弟姉妹エッジの但し書き＝親が不明・収録基準外だが兄弟関係が原典に明記されている場合、に該当）。",
+      "source": {
+        "page": "晋書 巻百二十四 載記第二十四 慕容宝",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhang-gui",
+      "to": "p-zhang-shi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『晋書』巻八十六「轨卒，州人推寔摄父位。」により張寔は張軌の子。",
+      "source": {
+        "page": "晋書 巻八十六 列伝第五十六 張軌",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhang-gui",
+      "to": "p-zhang-mao",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『晋書』巻八十六の張茂伝は「二年，征为侍中，以父老固辞。」と父（張軌）の存命中の事績を記し、兄・張寔の遇害後に「州人推茂」とあることから張軌の子・張寔の弟と確認できる。",
+      "source": {
+        "page": "晋書 巻八十六 列伝第五十六 張軌（張茂）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-zhang-shi",
+      "to": "p-zhang-jun",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『晋書』巻八十六の張寔の遇害記事「子骏，年幼，弟茂摄事。」および張茂の記事「复以兄子骏为抚军将军、武威太守、西平公」「茂无子，骏嗣位。」により、第4代・張駿は張寔の子（張茂にとっては兄の子）。",
+      "source": {
+        "page": "晋書 巻八十六 列伝第五十六 張軌（張寔・張茂）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-murong-huang",
+      "to": "p-murong-huan",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『十六国春秋』前燕録の慕容儁の封建記事「又封弟桓为宜都王」により、宜都王慕容桓は慕容儁の弟＝文明帝慕容皝の子。",
+      "source": {
+        "page": "十六国春秋 前燕録 慕容儁",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-murong-huan",
+      "to": "p-murong-yi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『資治通鑑』巻百六「立宜都王子顗为燕王，改元建明」により、西燕第4代の慕容顗は宜都王（慕容桓）の子。",
+      "source": {
+        "page": "資治通鑑 巻百六 晋孝武帝太元十一年",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-fuhong",
+      "to": "p-fu-xiong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『晋書』載記第十二「苻雄，字元才，洪之季子也。」により苻雄は苻洪の末子。",
+      "source": {
+        "page": "晋書 巻百十二 載記第十二 苻雄",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-fu-xiong",
+      "to": "p-fu-jian",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『晋書』載記第十三「苻坚，字永固，一名文玉，雄之子也。祖洪」により苻堅は苻雄の子・苻洪の孫。苻堅は即位時に「追谥父雄为文桓皇帝」と父を追尊した。",
+      "source": {
+        "page": "晋書 巻百十三 載記第十三 苻堅上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "実父",
+      "from": "p-murong-hui",
+      "to": "p-murong-huang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『晋書』帝紀（成帝紀）咸和八年「乙未，车骑将军、辽东公慕容廆卒，子皝嗣位。」により慕容皝は慕容廆の子。慕容儁の称帝時に「追尊廆为高祖武宣皇帝，皝为太祖文明皇帝。」と父子そろって追尊された。",
+      "source": {
+        "page": "晋書 巻七 帝紀第七 成帝／巻百十一 載記第十一 慕容儁",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "兄弟姉妹",
+      "from": "p-murong-hui",
+      "to": "p-murong-yun",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『魏書』巻九十五「廆弟运，运孙永。」・『十六国春秋』後燕録「慕容永字叔明廆弟运之孙也」の両史料一致で慕容運は慕容廆の弟。両者の父・慕容渉歸は本データセットの収録基準外のため、兄弟姉妹エッジで表現する。",
+      "source": {
+        "page": "魏書 巻九十五／十六国春秋 巻五十 後燕録八 慕容永",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "遠祖",
+      "relationDetail": "祖父",
+      "from": "p-murong-yun",
+      "to": "xiyan-murongyong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『十六国春秋』巻五十 後燕録八「慕容永字叔明廆弟运之孙也」・『魏書』巻九十五「廆弟运，运孙永。」の一致により、慕容永は慕容運の孫。両者の間の世代（慕容永の実父）はいずれの史料にも名がなく（meta.confirmedFatherUnknown に登録済み）、中間ブリッジを立てられないため祖父へ直接つなぐ遠祖エッジとする。",
+      "source": {
+        "page": "魏書 巻九十五／十六国春秋 巻五十 後燕録八 慕容永",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "遠祖",
+      "relationDetail": "曾祖父",
+      "from": "p-murong-huang",
+      "to": "houyan-murongxiang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "『十六国春秋』後燕録の割注「详皝之曾孙也」により慕容詳は文明帝慕容皝の曾孫。中間2世代（祖父・父）の名はどの史料にも伝わらず（meta.confirmedFatherUnknown に登録済み）、中間ブリッジを立てられないため曾祖父へ直接つなぐ遠祖エッジとする。なお『資治通鑑』の「详，珪之曾孙也」の「珪」は年代的に成立不可能で「皝」の転写混入と判断済み（2026-07-23 フェーズ2ブロック8）。",
+      "source": {
+        "page": "十六国春秋 後燕録 慕容詳",
         "lang": "zh-classical"
       }
     }

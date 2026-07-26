@@ -1390,6 +1390,8 @@ interface RawKinshipEdge {
   isRestoration?: boolean;
   /** kinship のみ。 */
   relation?: string;
+  /** relation="遠祖" のときの続柄(祖父・曾祖父)。 */
+  relationDetail?: string;
   childOrder?: number | null;
   veracity: string;
   confidence: string;
@@ -1407,6 +1409,7 @@ interface RawKinship {
     birthYear: number | null;
     deathYear: number | null;
     yearsApproximate: boolean;
+    inclusionReason?: string[];
   }[];
   edges: RawKinshipEdge[];
   genealogicalClaims: {
@@ -1543,6 +1546,14 @@ export function getKinshipSource(): KinshipSource {
   // (スコープ外皇帝の家系が芋づる式に入るのを防ぐ)。
   const personIds = new Set(kin.persons.map((p) => p.id));
   const included = new Set<string>(emperors.map((e) => e.id));
+  // スコープルール6(歴代君主)だけで収録した人物は、血縁・婚姻が原典に一切
+  // 記されずエッジを1本も持たないことがある(西燕第3代の段随＝慕容沖の将)。
+  // エッジの推移閉包では拾えないので先に入れておく(章への配置は
+  // chapters.ts の CHAPTER_EXTRA_PERSONS で明示する)。
+  for (const p of kin.persons) {
+    if (p.inclusionReason?.length === 1 && p.inclusionReason[0] === "歴代君主")
+      included.add(p.id);
+  }
   for (let grew = true; grew; ) {
     grew = false;
     for (const e of kin.edges) {
@@ -1581,6 +1592,7 @@ export function getKinshipSource(): KinshipSource {
       category: e.category,
       relationToPredecessor: e.relationToPredecessor,
       relation: e.relation,
+      relationDetail: e.relationDetail,
       childOrder: e.childOrder ?? undefined,
       veracity: e.veracity,
       confidence: e.confidence,

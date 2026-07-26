@@ -91,6 +91,9 @@ export interface KinshipSourceEdge {
   category?: string;
   relationToPredecessor?: string;
   relation?: string;
+  /** relation="遠祖" のときの続柄(祖父・曾祖父)。実父の名が史料に伝わらない
+   *  皇帝を、判明している祖先へ破線でつなぐときに使う。 */
+  relationDetail?: string;
   childOrder?: number;
   veracity: string;
   confidence: string;
@@ -1762,7 +1765,13 @@ function buildChapter(
       disputed,
       marriage: false,
       tipLines: [
-        { text: `血縁〔${e.relation}〕${disputed ? "（諸説あり）" : ""}` },
+        // 遠祖(実父の名が史料に伝わらない皇帝を判明分の祖先へつなぐ破線)は
+        // 続柄まで出す。「血縁〔遠祖〕」だけだと何世代離れているか分からない。
+        {
+          text: `血縁〔${e.relation}${
+            e.relation === "遠祖" && e.relationDetail ? `・${e.relationDetail}` : ""
+          }〕${disputed ? "（諸説あり）" : ""}`,
+        },
         { text: `${nameOf(e.from)} → ${nameOf(e.to)}／確度: ${e.confidence}`, muted: true },
         ...(e.noteExcerpt ? [{ text: e.noteExcerpt, muted: true }] : []),
         ...(e.sourcePage ? [{ text: `出典: ${e.sourcePage}`, muted: true }] : []),
@@ -2066,6 +2075,16 @@ function buildChapter(
           value: `${nameOf(fatherId)}${rel2.primaryFatherAdopted.has(id) ? "（養父）" : ""}`,
         });
       if (motherId) details.push({ label: "母", value: nameOf(motherId) });
+      // 実父の名が史料に伝わらない皇帝(慕容詳・慕容永)は、判明している祖先へ
+      // 破線でつないでいる。線だけでは何世代離れているか読めないので、父の行の
+      // 代わりに祖先の行を出す(「父：」が出ないのは調査もれではないことを示す)。
+      for (const e of src.edges) {
+        if (e.type !== "kinship" || e.relation !== "遠祖" || e.to !== id) continue;
+        details.push({
+          label: "祖先",
+          value: `${nameOf(e.from)}（${e.relationDetail ?? "遠祖"}・間の世代は史料に名を欠く）`,
+        });
+      }
       // 遠祖の主張は長文(高帝の堯後裔説など)。ツールチップに全文を折り返して出す
       // (以前は1行に切り詰めてページ末尾の一覧で全文を補っていたが、一覧は廃止した)。
       // 1人が複数主張を持つ場合(蜀漢昭烈帝・魏文帝)は各主張を別行で全件出す。
