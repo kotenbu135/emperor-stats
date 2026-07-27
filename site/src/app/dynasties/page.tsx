@@ -4,12 +4,18 @@ import { DynastyAvgReignChart } from "@/components/charts/dynasty-avg-reign-char
 import { DynastyDeathCauseChart } from "@/components/charts/dynasty-death-cause-chart";
 import { ChartTakeaway } from "@/components/charts/chart-takeaway";
 import { getAllEmperorRecords, getChartTakeaway } from "@/lib/emperors";
-import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
+import { BreadcrumbJsonLd, buildMetadata, StatsPageJsonLd } from "@/lib/seo";
+
+// title/descriptionはナビの短いラベル（SITE_SECTIONS）とは別物にする。
+// ナビは短いままが正しく、検索結果に出るのはこちら。JSON-LDにも同じ定数を渡す。
+const PAGE_TITLE = "王朝別の平均在位年数と死因の内訳";
+const PAGE_DESCRIPTION =
+  "皇帝365人の統計を王朝・時代の単位に集計した横断ビューです。王朝ごとの皇帝1人あたりの平均在位年数と、死因の内訳を比較できます。";
 
 export const metadata = buildMetadata({
   path: "/dynasties",
-  title: "王朝・時代で見る",
-  description: sectionDescription("/dynasties"),
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
 });
 
 export default function DynastiesPage() {
@@ -18,6 +24,11 @@ export default function DynastiesPage() {
   return (
     <>
       <BreadcrumbJsonLd label="王朝・時代で見る" path="/dynasties" />
+      <StatsPageJsonLd
+        name={PAGE_TITLE}
+        description={PAGE_DESCRIPTION}
+        path="/dynasties"
+      />
       <PageHeader
         title="王朝・時代で見る"
         description="皇帝個人の統計を王朝（または時代）単位に集計した横断ビューです。"

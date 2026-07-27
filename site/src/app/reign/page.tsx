@@ -10,12 +10,18 @@ import {
   getDynastyOptions,
   getRestorationRows,
 } from "@/lib/emperors";
-import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
+import { BreadcrumbJsonLd, buildMetadata, StatsPageJsonLd } from "@/lib/seo";
+
+// title/descriptionはナビの短いラベル（SITE_SECTIONS）とは別物にする。
+// ナビは短いままが正しく、検索結果に出るのはこちら。JSON-LDにも同じ定数を渡す。
+const PAGE_TITLE = "在位年数ランキングと復位者一覧";
+const PAGE_DESCRIPTION =
+  "皇帝を名乗った365人の在位年数を長い順に並べたランキングと、廃位・退位を経て再び即位した復位者の一覧です。王朝ごとに絞り込めます。";
 
 export const metadata = buildMetadata({
   path: "/reign",
-  title: "在位データ",
-  description: sectionDescription("/reign"),
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
 });
 
 export default function ReignPage() {
@@ -25,6 +31,11 @@ export default function ReignPage() {
   return (
     <>
       <BreadcrumbJsonLd label="在位データ" path="/reign" />
+      <StatsPageJsonLd
+        name={PAGE_TITLE}
+        description={PAGE_DESCRIPTION}
+        path="/reign"
+      />
       <PageHeader
         title="在位データ"
       />

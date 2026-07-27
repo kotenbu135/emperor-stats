@@ -13,12 +13,18 @@ import {
   getDynastyOptions,
   type RankingMetricKey,
 } from "@/lib/emperors";
-import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
+import { BreadcrumbJsonLd, buildMetadata, StatsPageJsonLd } from "@/lib/seo";
+
+// title/descriptionはナビの短いラベル（SITE_SECTIONS）とは別物にする。
+// ナビは短いままが正しく、検索結果に出るのはこちら。JSON-LDにも同じ定数を渡す。
+const PAGE_TITLE = "改元・大赦・立后・遷都の回数ランキング";
+const PAGE_DESCRIPTION =
+  "皇帝365人が在位中に行った改元・大赦・立后・皇太子廃立・遷都の回数を正史から数えた5つのランキングです。王朝ごとに絞り込めます。";
 
 export const metadata = buildMetadata({
   path: "/court-events",
-  title: "宮廷イベント",
-  description: sectionDescription("/court-events"),
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
 });
 
 const sections: {
@@ -76,6 +82,11 @@ export default function CourtEventsPage() {
   return (
     <>
       <BreadcrumbJsonLd label="宮廷イベント" path="/court-events" />
+      <StatsPageJsonLd
+        name={PAGE_TITLE}
+        description={PAGE_DESCRIPTION}
+        path="/court-events"
+      />
       <PageHeader
         title="宮廷イベント"
         description="改元・大赦・立后・皇太子廃立・遷都という、在位中に朝廷で起きた出来事の回数を集計しています。"

@@ -155,6 +155,45 @@ export function breadcrumbJsonLd(
   };
 }
 
+/**
+ * 一覧ページ用のCollectionPage＋ItemList。itemsは先頭N件だけを渡してよく、
+ * リスト全体の規模はnumberOfItemsで伝える（全件を書き出すとHTMLが太るため。
+ * itemsの順序＝ページの既定表示順で、positionはその順に振る）。
+ * ListItemのURLは詳細ページを指すため item ではなく url に置く。
+ */
+export function collectionPageJsonLd({
+  name,
+  description,
+  path,
+  numberOfItems,
+  items,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  numberOfItems: number;
+  items: { name: string; url: string }[];
+}): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    description,
+    url: absoluteUrl(path),
+    inLanguage: "ja",
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems,
+      itemListElement: items.map((item, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: item.name,
+        url: item.url,
+      })),
+    },
+  };
+}
+
 export function websiteJsonLd(): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
@@ -165,6 +204,12 @@ export function websiteJsonLd(): Record<string, unknown> {
     inLanguage: "ja",
   };
 }
+
+/**
+ * /about に置くDatasetノードのIRI。統計ページのWebPageから isPartOf で
+ * 参照するため、@idを与えて指せるようにしている（Dataset本体の内容は変えない）。
+ */
+export const DATASET_ID = `${SITE_URL}/about#dataset`;
 
 export function datasetJsonLd({
   description,
@@ -182,6 +227,7 @@ export function datasetJsonLd({
   return {
     "@context": "https://schema.org",
     "@type": "Dataset",
+    "@id": DATASET_ID,
     name: SITE_NAME,
     description,
     url: SITE_URL,
@@ -235,6 +281,49 @@ export function BreadcrumbJsonLd({ label, path }: { label: string; path: string 
       ])}
     />
   );
+}
+
+/**
+ * 統計ページ用のWebPage。isPartOfで /about のDatasetを指し、どのページも
+ * 同一データセットの可視化であることを機械可読にする。
+ */
+export function statsPageJsonLd({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name,
+    description,
+    url: absoluteUrl(path),
+    inLanguage: "ja",
+    isPartOf: {
+      "@type": "Dataset",
+      "@id": DATASET_ID,
+      name: SITE_NAME,
+      url: absoluteUrl("/about"),
+    },
+  };
+}
+
+/** 統計ページ用のWebPage JSON-LD。name/descriptionはページ側の metadata と
+ *  同じ定数を渡すこと（検索結果に出る文言とのdrift防止）。 */
+export function StatsPageJsonLd({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}) {
+  return <JsonLd data={statsPageJsonLd({ name, description, path })} />;
 }
 
 /** JSON-LD構造化データの埋め込み用。値はすべてこのサイト自身が生成したデータのみを渡すこと。 */

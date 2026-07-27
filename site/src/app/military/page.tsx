@@ -14,12 +14,18 @@ import {
   militaryEventLabels,
   type MilitaryEventKey,
 } from "@/lib/emperors";
-import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
+import { BreadcrumbJsonLd, buildMetadata, StatsPageJsonLd } from "@/lib/seo";
+
+// title/descriptionはナビの短いラベル（SITE_SECTIONS）とは別物にする。
+// ナビは短いままが正しく、検索結果に出るのはこちら。JSON-LDにも同じ定数を渡す。
+const PAGE_TITLE = "親征・反乱鎮圧・被反乱の回数ランキング";
+const PAGE_DESCRIPTION =
+  "皇帝自身が軍を率いた親征、政権側として鎮圧した反乱、自らに対して起こされた反乱。365人分の回数を数えた3つのランキングです。";
 
 export const metadata = buildMetadata({
   path: "/military",
-  title: "軍事",
-  description: sectionDescription("/military"),
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
 });
 
 const sections: { id: string; key: MilitaryEventKey; description: string }[] = [
@@ -50,6 +56,11 @@ export default function MilitaryPage() {
   return (
     <>
       <BreadcrumbJsonLd label="軍事" path="/military" />
+      <StatsPageJsonLd
+        name={PAGE_TITLE}
+        description={PAGE_DESCRIPTION}
+        path="/military"
+      />
       <PageHeader title="軍事" />
       {/* 3つのランキングが縦に並び、狭い画面では1画面スクロールしてもまだ1つ目の
           途中にいる。サイドバーの節リンクはモバイルではハンバーガーの中なので、
