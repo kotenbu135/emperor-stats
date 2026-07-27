@@ -959,6 +959,149 @@ export function getOverviewStats(): OverviewStats {
 }
 
 // ---------------------------------------------------------------------------
+// トップページ（概要ダッシュボード）の中身。
+//
+// 旧トップはサイドバーと同じ8項目をカード化して「見る」ボタンを添えたリンク集
+// だった。ナビゲーションと1対1で重複するぶん情報量が増えず、365人分の集計を
+// 持つサイトの入口として中身を何も見せていなかった。ここではリンクの代わりに、
+// 各ページの実データの抜粋（上位ランキング・内訳・時代ごとの厚み）を供給する。
+//
+// 数値の出どころは各ページのチャートと同じ getAllEmperorRecords で、母集団の
+// 絞り込みを挟まない（トップと個別ページで数字がずれないようにするため）。
+
+/** トップページのミニランキング1行分。 */
+export interface HomeRankedEmperor {
+  id: string;
+  name: string;
+  personalName: string | null;
+  dynastyLabel: string;
+  dynastyKey: string;
+  portraitUrl: string | null;
+  valueLabel: string;
+  /** 1位を1とした相対長（ミニ棒の幅に使う）。 */
+  ratio: number;
+}
+
+/** 内訳（死因・即位経路）1区分。 */
+export interface HomeBreakdownSlice {
+  category: string;
+  count: number;
+  /** 表示用の丸めた百分率。合計は必ずしも100にならない。 */
+  percent: number;
+  /** 一覧に出す百分率の表示。1%未満の区分は「0%」ではなく小数1桁で出す
+   *  （1名でも該当者がいることを「0%」と読ませない）。 */
+  percentLabel: string;
+  /** 帯の幅に使う実数比（0〜1）。丸めずに持つ。 */
+  share: number;
+}
+
+/** 時代ごとの皇帝数。 */
+export interface HomeEraBand {
+  label: string;
+  count: number;
+  share: number;
+}
+
+export interface HomeHighlights {
+  longestReigns: HomeRankedEmperor[];
+  deathCauses: HomeBreakdownSlice[];
+  accessionRoutes: HomeBreakdownSlice[];
+  eras: HomeEraBand[];
+  dynastyCount: number;
+  /** 収録範囲の表示（例: "前221年〜1912年"）。 */
+  yearSpanLabel: string;
+}
+
+/**
+ * reigns[].startYear / endYear を表示用の和年表記へ。
+ * この2フィールドは天文年ではなく歴史年（紀元前221年 = -221・0年は存在しない）で
+ * 入っているため、負値はそのまま絶対値を「前N年」にする（1を足さない）。
+ */
+function historicalYearLabel(year: number): string {
+  return year < 0 ? `前${-year}年` : `${year}年`;
+}
+
+function breakdown(
+  records: EmperorRecord[],
+  pick: (r: EmperorRecord) => string,
+): HomeBreakdownSlice[] {
+  const counts = new Map<string, number>();
+  for (const r of records) {
+    const key = pick(r);
+    counts.set(key, (counts.get(key) ?? 0) + 1);
+  }
+  const total = records.length;
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([category, count]) => {
+      const share = count / total;
+      const percent = Math.round(share * 100);
+      return {
+        category,
+        count,
+        percent,
+        percentLabel: percent >= 1 ? `${percent}%` : `${(share * 100).toFixed(1)}%`,
+        share,
+      };
+    });
+}
+
+/** トップページ用の抜粋データ。ビルド時に一度だけ計算する。 */
+export function getHomeHighlights(topCount = 6): HomeHighlights {
+  const records = getAllEmperorRecords();
+  const total = records.length;
+
+  const byReign = [...records].sort(
+    (a, b) => b.reignApproxDays - a.reignApproxDays,
+  );
+  const maxDays = byReign[0].reignApproxDays;
+  const longestReigns: HomeRankedEmperor[] = byReign
+    .slice(0, topCount)
+    .map((r) => ({
+      id: r.id,
+      name: r.name,
+      personalName: r.personalName,
+      dynastyLabel: r.dynastyLabel,
+      dynastyKey: r.dynastyKey,
+      portraitUrl: r.portraitUrl,
+      valueLabel: r.reignDurationLabel,
+      ratio: r.reignApproxDays / maxDays,
+    }));
+
+  // 時代の並びは元データの収録順（＝時系列）をそのまま使う。ソートすると
+  // 「五胡十六国」より「三国」が後ろに来るような並びになってしまう。
+  const eraCounts = new Map<string, number>();
+  for (const r of records) {
+    eraCounts.set(r.eraLabel, (eraCounts.get(r.eraLabel) ?? 0) + 1);
+  }
+  const eras: HomeEraBand[] = [...eraCounts.entries()].map(([label, count]) => ({
+    label,
+    count,
+    share: count / total,
+  }));
+
+  let minYear = Infinity;
+  let maxYear = -Infinity;
+  for (const e of data.emperors) {
+    for (const r of e.reigns) {
+      if (typeof r.startYear === "number" && r.startYear < minYear)
+        minYear = r.startYear;
+      if (typeof r.endYear === "number" && r.endYear > maxYear)
+        maxYear = r.endYear;
+    }
+  }
+
+  return {
+    longestReigns,
+    deathCauses: breakdown(records, (r) => r.deathCauseCategory),
+    accessionRoutes: breakdown(records, (r) => r.accessionRouteCategory),
+    eras,
+    dynastyCount: new Set(records.map((r) => r.dynastyKey)).size,
+    yearSpanLabel: `${historicalYearLabel(minYear)}〜${historicalYearLabel(maxYear)}`,
+  };
+}
+
+// ---------------------------------------------------------------------------
 // グラフページの「読み取れること」（SSR テキスト）。クローラと未訪問ユーザーに
 // 各グラフの結論を1〜2文で言語化する（グラフ本体は LazyMount で画面外未マウント＝
 // 数値が一切 DOM に出ないため、この結論文は実質ゼロからの純増になる）。
