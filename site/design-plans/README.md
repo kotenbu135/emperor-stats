@@ -107,7 +107,10 @@ SHOT_DIR=./after-mobile   node capture-mobile.mjs
 
 - `capture-desktop.mjs` — 1440×900 と 375×812 のフルページ。LazyMount を起こすため全高までスクロールしてから先頭に戻して撮る
 - `capture-mobile.mjs` — 390×844（iPhone 14 相当）。**フルページだと `/emperors` が54,000px超になり判読できない**ため、上端・中間・下端の3スライスを sharp で1枚に連結する
-- `verify-tooltips.mjs` — 円グラフのラベル・ツールチップの実測（06 の検証に使ったもの）
+- `verify-tooltips.mjs` — 円グラフのラベル・ツールチップの実測（06 の検証に使ったもの。実際に見るのは `/reign` と `/timeline`）
+- `perf-check.mjs` — CLS と Long Task の実測（`node perf-check.mjs`。5ルート×375/1440px を回して
+  レイアウトシフトの累積と50ms以上のタスク数を出す）。**絶対値でなく変更前との相対比較で見る** —
+  1440px の CLS 0.0015〜0.0029 と読み込み時の Long Task 1〜2件は 2026-07-27 時点の素の値
 - `BASE_URL` 環境変数でポートを変更できる。出力先（`before*/`・`after*/`・`shots*/`・`rebuild-shots/`）は `.gitignore` 済み
 
 ユーザーに確認用スクリーンショットを見せるときは `/tmp` でなくこのディレクトリ配下（`rebuild-shots/` 等）へ出し、パスを本文で伝えること。
