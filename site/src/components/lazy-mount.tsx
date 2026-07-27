@@ -2,7 +2,7 @@
 
 // 画面外チャートの遅延マウント枠。Nivoチャートは1つあたりの描画コストが大きく、
 // 全セクションを初回レンダリングで一括マウントするとTBTが数秒に達するため
-// （docs/site-design/LAYOUT.md「全9ページ計測」節）、ビューポート手前に
+// （docs/site-design/PERFORMANCE.md「全9ページ計測」節）、ビューポート手前に
 // 近づいた時点で初めて子コンポーネントをマウントする。
 
 import { useEffect, useRef, useState, type ReactNode } from "react";

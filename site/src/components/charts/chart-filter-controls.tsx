@@ -128,7 +128,7 @@ export function ChartFilterControls({
         <FilterField label="並び順">
           <Select value={sortDirection} onValueChange={onSortDirectionChange}>
             {/* 幅を固定する（自動幅だとWebフォント読み込みで幅が変わり、フィルタ行の
-                折り返し位置がずれてレイアウトシフトになる。LAYOUT.mdのCLS計測記録）。 */}
+                折り返し位置がずれてレイアウトシフトになる。PERFORMANCE.mdのCLS計測記録）。 */}
             <SelectTrigger className="w-[180px]" aria-label="並び順">
               <SelectValue />
             </SelectTrigger>

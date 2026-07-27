@@ -6,7 +6,7 @@
 //   座/下:南方）、帯の太さ=唯一在位（統一）、灰ハッチ=クラスター（クリック開閉）。
 // - 描画はzoom/開閉/コンテナ幅が変わったときだけ。スクロールは常にネイティブ。
 // - ホバー・詳細ダイアログの状態はチャートに持たない（useTipOutlet/useDetailOutlet。
-//   経緯はLAYOUT.md「実機timespanレポート」節）。
+//   経緯はPERFORMANCE.md「実機timespanレポート」節）。
 // - ズーム時の帯ラベルはスクロールに追従してスパン内へクランプする（rAF+transform
 //   の直接DOM操作。top/left書き換えやReact stateにはしない）。
 // - キーボード操作は第1世代を踏襲（role="application"・左右=同じ段・上下=並立・

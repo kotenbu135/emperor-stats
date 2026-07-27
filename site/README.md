@@ -20,5 +20,5 @@ npm run lint
 ## ドキュメント
 
 - 開発時の注意点・アーキテクチャ: [AGENTS.md](AGENTS.md)
-- レイアウト・設計判断の記録: [../docs/site-design/LAYOUT.md](../docs/site-design/LAYOUT.md)
+- レイアウト方針・規範: [../docs/site-design/LAYOUT.md](../docs/site-design/LAYOUT.md)（実装記録は同ディレクトリの PERFORMANCE.md・IMPLEMENTATION_LOG.md・REDESIGN_2026-07.md）
 - データセットのスキーマ: [../data/schema/](../data/schema/)

@@ -237,7 +237,7 @@ function computeRange(
 
 /**
  * グラフ内スクロールの行ウィンドウイング。364行を全件SVGレンダリングすると
- * マウントだけで秒単位のCPUを食うため（LAYOUT.mdのTBT計測記録）、可視範囲
+ * マウントだけで秒単位のCPUを食うため（PERFORMANCE.mdのTBT計測記録）、可視範囲
  * ±オーバースキャンの行だけをNivoに渡す。行ピッチはROW_HEIGHT固定なので、
  * スライスをtop = start×ROW_HEIGHTに絶対配置すれば全件描画と行位置が一致する。
  *

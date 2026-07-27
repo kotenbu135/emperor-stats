@@ -75,7 +75,7 @@ export function Portrait({
   large?: boolean;
   /** ファーストビューのカードで指定する。既定のloading="lazy"だと先頭カードの
    *  肖像がLCP要素なのに読み込みが後回しになりLCPが大幅に悪化する
-   *  （LAYOUT.mdのLighthouse計測記録）。 */
+   *  （PERFORMANCE.mdのLighthouse計測記録）。 */
   priority?: boolean;
 }) {
   if (!record.portraitUrl)

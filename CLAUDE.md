@@ -42,8 +42,8 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 - **`site/`** — Next.js サイト（静的書き出し・emperorstats.com で公開）。詳細は [site/AGENTS.md](site/AGENTS.md)。
 - **`data/images/portraits/`** — 肖像画アセット（PD/CC0 のみ・`manifest.json` で出典管理）。サイトの皇帝一覧カード・出典一覧で使用中。
 - **`china-history/`・`daizhigev20/`** — 正史原文のローカルコーパス（`.gitignore` 対象・リポジトリには含まれない、事前に `git clone --depth 1` 済み）。データ訂正時の一次情報源として最優先で参照する（詳細: [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md)）。
-- **`_corpus_cache/`** — 上記コーパスから人物ごとに抽出・整形済みの本紀原文キャッシュ（`.gitignore` 対象、`scripts/build_corpus_cache.py` で再生成可能）。キャッシュが無い人物を調査する際は、先にこのスクリプトへ書名・巻・行範囲のマッピングを追記して生成してから調査に入る（詳細: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「皇帝ごとの原文キャッシュ」節）。
-- **`docs/site-design/`** — サイトのレイアウト設計メモ兼実装記録（[LAYOUT.md](docs/site-design/LAYOUT.md)）。実装済みの決定事項・教訓が時系列で追記されている。
+- **`_corpus_cache/`** — 上記コーパスから人物ごとに抽出・整形済みの本紀原文キャッシュ（`.gitignore` 対象、`scripts/build_corpus_cache.py` で再生成可能）。キャッシュが無い人物を調査する際は、先にこのスクリプトへ書名・巻・行範囲のマッピングを追記して生成してから調査に入る（対応表: [docs/process/SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md)）。
+- **`docs/site-design/`** — サイトの設計ドキュメント群。方針・規範は [LAYOUT.md](docs/site-design/LAYOUT.md)、実装の決定事項・教訓は PERFORMANCE.md（性能）・IMPLEMENTATION_LOG.md（2026-07-18〜22）・REDESIGN_2026-07.md（2026-07-27 のデザイン再構成）に時系列で分かれている（節→ファイルの索引は LAYOUT.md）。
 
 ## 重要な参考文書
 
@@ -54,16 +54,17 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 | **ディレクトリ全体の案内** | [docs/README.md](docs/README.md) / [data/README.md](data/README.md) |
 | **プロジェクト現状・データ品質の申し送り** | [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) |
 | **データ調査の進め方（訂正時もこの手順）** | [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) |
-| **ローカルコーパス利用メモ（巻数の罠・行番号インデックス、着手前必読）** | [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) |
+| **ローカルコーパス利用メモ（書物・王朝を問わず効く罠、着手前必読）** | [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) |
+| **史料マッピング・行番号インデックス（担当ブロックの書名・巻・行範囲）** | [docs/process/SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md) |
 | **絶対に守るべき制約** | [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md) |
 | **AI調査の知見集（設計指針・失敗事例）** | [docs/process/AI_RESEARCH_LESSONS.md](docs/process/AI_RESEARCH_LESSONS.md) |
 | **JSON スキーマ参照** | [docs/schema/SCHEMA_OVERVIEW.md](docs/schema/SCHEMA_OVERVIEW.md) |
-| **サイトの設計判断・実装記録** | [docs/site-design/LAYOUT.md](docs/site-design/LAYOUT.md) |
+| **サイトの設計方針・規範（＋実装記録の索引）** | [docs/site-design/LAYOUT.md](docs/site-design/LAYOUT.md) |
 
 ## 最重要ルール（抜粋）
 
 - **原典（正史の本紀・列伝）を第一情報源とします** — WebSearch の要約だけでは判定しません
-- **正史原典調査（データ訂正・新規ブロック着手）に入る前に、必ず [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) と [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) を読むこと**。「存在は知っている」「前回読んだ」では不十分で、対象王朝・書物ごとに調査着手のたびに読み直す。両ファイルには「china-history の相対巻数（絶対巻数－50）」「帝紀に独立記述のない人物は列伝で代替」など、読まずに進めると誤った巻・誤った日付を採用してしまう罠が書物・王朝別に記録されている。読まずに調査エージェント（Workflow等）を起動し、後から欠落に気づいて手戻りする事故が複数回発生している
+- **正史原典調査（データ訂正・新規ブロック着手）に入る前に、必ず [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) と [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) を読むこと**。「存在は知っている」「前回読んだ」では不十分で、対象王朝・書物ごとに調査着手のたびに読み直す。両ファイルには「china-history の相対巻数（絶対巻数－50）」「帝紀に独立記述のない人物は列伝で代替」など、読まずに進めると誤った巻・誤った日付を採用してしまう罠が記録されている（担当ブロックの書名・巻・行範囲は [docs/process/SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md) から引く）。読まずに調査エージェント（Workflow等）を起動し、後から欠落に気づいて手戻りする事故が複数回発生している
 - **スクリプトによるデータの自動生成は禁止** — 人物ごと個別調査・判定が必須（日数計算等の機械的な計算補助や、確定済み調査結果の構造チェックはOK）
 - **データ正確性が最優先** — データに誤りが見つかった場合は個別調査で訂正するのが原則で、サイト側での場当たり的な補正はしません（表示破綻の回避のみ許容。既知の例は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) の申し送り事項を参照）
 - **データを訂正したら** `data/emperors.json` の該当データと関連する `meta` 情報・ドキュメントを**同じタイミングで**更新する

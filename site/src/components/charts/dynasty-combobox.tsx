@@ -2,7 +2,7 @@
 
 // 王朝フィルタ用の検索可能コンボボックス。選択肢が87件と多く素のSelectでは
 // スクロールが長すぎるため、cmdk+Popoverでテキスト入力による絞り込みを付けた
-// （docs/site-design/LAYOUT.md「王朝フィルタの検索可能Combobox化」）。
+// （docs/site-design/IMPLEMENTATION_LOG.md「王朝フィルタの検索可能Combobox化」）。
 // トリガーは固定幅（自動幅だとWebフォント読込で折り返しがずれCLSになる）・
 // aria-label必須（role=comboboxのボタンは中身がアクセシブルネームにならない）。
 
