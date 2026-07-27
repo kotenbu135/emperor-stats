@@ -112,21 +112,10 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
         onSortChange={setSort}
         sortLabel={{ desc: "皇帝数の多い順", asc: "皇帝数の少ない順" }}
       >
-        <span className="pb-2 text-sm text-muted-foreground">
+        <span className="text-sm text-muted-foreground sm:pb-2">
           全{sorted.length}件を表示中
         </span>
       </GroupFilterControls>
-      <div className="mb-3 flex flex-wrap gap-x-4 gap-y-1.5">
-        {deathCauseCategoryOrder.map((c) => (
-          <span key={c} className="flex items-center gap-1.5 text-xs text-foreground/90">
-            <span
-              className="inline-block size-2.5 rounded-[3px]"
-              style={swatchStyle(c)}
-            />
-            {c}
-          </span>
-        ))}
-      </div>
       <WindowedChartFrame
         axisLabel="人"
         chartWidth={chartWidth}
@@ -195,6 +184,18 @@ export function DynastyDeathCauseChart({ records }: { records: EmperorRecord[] }
               animate={false}
             />
       </WindowedChartFrame>
+      {/* 分類の凡例はグラフの下に置く（円グラフと同じ並び）。 */}
+      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
+        {deathCauseCategoryOrder.map((c) => (
+          <span key={c} className="flex items-center gap-1.5 text-xs text-foreground/90">
+            <span
+              className="inline-block size-2.5 rounded-[3px]"
+              style={swatchStyle(c)}
+            />
+            {c}
+          </span>
+        ))}
+      </div>
       <TipOutlet
         render={(tip) => (
           <FixedTooltip x={tip.x} y={tip.y}>

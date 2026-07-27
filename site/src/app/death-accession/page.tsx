@@ -11,30 +11,39 @@ import {
   getChartTakeaway,
   getDynastyOptions,
 } from "@/lib/emperors";
-import { BreadcrumbJsonLd, buildMetadata, sectionDescription } from "@/lib/seo";
+import { BreadcrumbJsonLd, buildMetadata, StatsPageJsonLd } from "@/lib/seo";
+
+// title/descriptionはナビの短いラベル（SITE_SECTIONS）とは別物にする。
+// ナビは短いままが正しく、検索結果に出るのはこちら。JSON-LDにも同じ定数を渡す。
+const PAGE_TITLE = "死因別・即位経路別の分布";
+const PAGE_DESCRIPTION =
+  "皇帝365人の死因を病死・暗殺・処刑・戦死・自尽など8分類で、即位の経緯を世襲・擁立・簒奪・受禅などの分類で集計した円グラフです。";
 
 export const metadata = buildMetadata({
   path: "/death-accession",
-  title: "死因・即位",
-  description: sectionDescription("/death-accession"),
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
 });
 
 export default function DeathAccessionPage() {
   const records = getAllEmperorRecords();
   const dynastyOptions = getDynastyOptions();
+  // 総括文は、その内容が対象とする節の中に置く（1文目＝死因・2文目＝即位経路）。
+  // 死因・即位経路は対等な2つの円グラフなので、どちらの節も総括文なしにはしない。
+  const takeaway = getChartTakeaway("death-accession");
 
   return (
     <>
       <BreadcrumbJsonLd label="死因・即位" path="/death-accession" />
+      <StatsPageJsonLd
+        name={PAGE_TITLE}
+        description={PAGE_DESCRIPTION}
+        path="/death-accession"
+      />
       <PageHeader
         title="死因・即位"
       />
-      {/* 死因・即位経路は対等な2つの円グラフ。総括文はグリッドの上に1本だけ置き、
-          両方（死因＋即位経路）に触れる（片方が総括文なしにならないように）。 */}
-      <div className="px-6 pt-8 md:px-10">
-        <ChartTakeaway sentences={getChartTakeaway("death-accession")} />
-      </div>
-      <div className="grid gap-10 px-6 pb-8 md:grid-cols-2 md:px-10">
+      <div className="grid gap-10 px-6 py-8 md:grid-cols-2 md:px-10">
         <section id="death-cause" className="scroll-mt-20">
           <div className="flex items-center gap-2.5">
             <span aria-hidden className="h-5 w-1 shrink-0 rounded-full bg-seal/80" />
@@ -43,6 +52,7 @@ export default function DeathAccessionPage() {
             </h2>
           </div>
           <div className="mt-6">
+            <ChartTakeaway sentences={takeaway.slice(0, 1)} />
             <LazyMount estimatedHeight={580}>
               <CategoryPieChart
                 records={records}
@@ -63,6 +73,7 @@ export default function DeathAccessionPage() {
             </h2>
           </div>
           <div className="mt-6">
+            <ChartTakeaway sentences={takeaway.slice(1)} />
             <LazyMount estimatedHeight={580}>
               <CategoryPieChart
                 records={records}

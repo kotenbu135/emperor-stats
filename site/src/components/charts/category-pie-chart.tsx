@@ -36,12 +36,9 @@ interface PieDatum {
   percent: number;
 }
 
-/** nivoの外側ラベル(arcLinkLabel)が弧の縁から水平に消費する幅。
- *  内訳: activeOuterRadiusOffset 6 + diagonalLength 16 + straightLength 24 + textOffset 6。
- *  真横に出るラベル(sinθ=1)が最悪ケースなので、この値をそのまま片側の必要量に足す。 */
-const LINK_WIDTH = 52;
-/** 外側ラベルを出すために最低限確保する円の直径。これを下回るなら外側ラベルをやめる。 */
-const MIN_OUTSIDE_DIAMETER = 200;
+/** margin.left = margin.right。左右を同じ値に固定することで、分類の違う円どうしでも
+ *  描画半径が必ず揃う（片方だけラベルの長さに応じて余白を変えると半径がずれる）。 */
+const SIDE_MARGIN = 32;
 /** margin.top + margin.bottom。縦方向の直径上限を出すのに使う。 */
 const VERTICAL_MARGIN = 56;
 
@@ -53,8 +50,9 @@ function estimateTextWidth(text: string, fontSize: number) {
   return em * fontSize;
 }
 
-/** 描画コンテナの幅をResizeObserverで測る。外側ラベルが収まるかは
- *  ビューポート幅でなく「この列の幅」で決まる（2カラムか1カラムかで倍違う）。 */
+/** 描画コンテナの幅をResizeObserverで測る。弧の中にカテゴリ名まで入るかは
+ *  円の直径で決まり、その直径はビューポート幅でなく「この列の幅」で決まる
+ *  （2カラムか1カラムかで倍違う。375pxでは高さでなく幅の側が上限になる）。 */
 function useMeasuredWidth<T extends HTMLElement>() {
   const ref = useRef<T>(null);
   const [width, setWidth] = useState(0);
@@ -137,34 +135,17 @@ export function CategoryPieChart({
     percent: percentOf(d.count),
   }));
 
-  // 外側ラベルが収まるかを、列の実測幅と「この分類で最も長いラベル」から決める。
-  // 見積もりは絞り込みの影響を受けない2点で固定する — 割合は常に3桁(100%)で、
-  // カテゴリは表示中のものでなく categoryOrder の全件で測る。表示中のカテゴリや
-  // 実際の桁数で計算すると、王朝を絞り込むたびに内側/外側が入れ替わってしまう。
+  // ラベルは弧の中だけに置く。弧に入るぶんだけカテゴリ名を併記し、入らないものは
+  // 割合だけにする。割合だけにするとコントラストの低いスロットの識別が凡例だけに
+  // 頼ることになるため、入るものには必ず名前を出す
+  // （直接ラベルを併記することがこの配色を採用した前提。DESIGN.md の Colors 節）。
   const labelFontSize = 11;
-  const widestLabel = categoryOrder.reduce(
-    (w, c) => Math.max(w, estimateTextWidth(`${c} 100%`, labelFontSize)),
-    0,
-  );
-  const outsideDiameter = Math.min(
-    2 * (measuredWidth / 2 - LINK_WIDTH - widestLabel),
+  const innerDiameter = Math.min(
+    measuredWidth - SIDE_MARGIN * 2,
     height - VERTICAL_MARGIN,
   );
-  // 幅が未計測(初回フレーム)のうちは外側ラベルを出さない。切り詰めた円を一瞬見せるより、
-  // 内側ラベルのまま確定させるほうが目に留まらない。
-  const useOutsideLabels =
-    measuredWidth > 0 && outsideDiameter >= MIN_OUTSIDE_DIAMETER;
-  const sideMargin = useOutsideLabels
-    ? Math.round((measuredWidth - outsideDiameter) / 2)
-    : 32;
-
-  // 外側ラベルを出さないときは、弧の中に入るぶんだけカテゴリ名を併記する。
-  // 割合だけにすると、コントラストの低いスロットの識別が凡例だけに頼ることになる
-  // （直接ラベルを併記することがこの配色を採用した前提。DESIGN.md の Colors 節）。
-  const innerDiameter = Math.min(measuredWidth - 64, height - VERTICAL_MARGIN);
   const arcLabelOf = (d: PieDatum) => {
     const pct = `${d.percent}%`;
-    if (useOutsideLabels) return `${d.value}`;
     const r = innerDiameter / 2;
     const rad = (d.percent / 100) * 2 * Math.PI;
     // 水平に置く文字が使える幅は、リングの厚み（innerRadius 0.5）と
@@ -231,35 +212,23 @@ export function CategoryPieChart({
           role="presentation"
           theme={nivoTheme}
           colors={(d) => fillOf(d.id as string)}
-          margin={{ top: 28, right: sideMargin, bottom: 28, left: sideMargin }}
+          margin={{ top: 28, right: SIDE_MARGIN, bottom: 28, left: SIDE_MARGIN }}
           innerRadius={0.5}
           padAngle={1.5}
           cornerRadius={2}
           activeOuterRadiusOffset={6}
           borderWidth={1}
           borderColor={(d) => edgeOf(d.data.id)}
-          // 列が狭いと外側ラベルは弧の縁から52px＋文字幅を消費し、どんなmarginでも
-          // コンテナに収まらない（375pxでは半径0の円でも足りない）。収まらない幅では
-          // 外側ラベルを出さず、割合を弧の中に置いて直下の凡例と表で識別させる。
-          arcLinkLabel={(d) => `${d.id} ${d.data.percent}%`}
-          arcLinkLabelsSkipAngle={useOutsideLabels ? 4 : 360}
-          arcLinkLabelsTextColor="#3a3530"
-          // 引き出し線は弧と同じ色相の82%濃度（＝弧の縁と同じ）で引く。既定の
-          // { from: "color" } だと55%の塗りをそのまま継いで対地色1.44:1まで落ち、
-          // 弧とラベルの対応を示す唯一の線が見えなくなる。
-          arcLinkLabelsColor={(d) => edgeOf(d.id as string)}
-          // 外側ラベルを出すときは人数（割合は外側ラベルが運ぶ）、出さないときは
-          // 割合と、弧に入るならカテゴリ名も弧の中に置く。
+          // 引き出し線で外へ出す方式（arcLinkLabels）は使わない。列が狭いと線と文字だけで
+          // 列の半分を使い切り、幅ごとに内側/外側が入れ替わって左右の円の半径も揃わない。
+          // 割合を弧の中に置き、入るならカテゴリ名も併記し、入らないものと実数は
+          // 直下の凡例と表で識別させる。
           arcLabel={(d) => arcLabelOf(d.data)}
           arcLabelsSkipAngle={12}
           // 弧の上に載せる文字色は混色後の実値からコントラスト比で選ぶ
           // （生の彩度を前提にした固定リストは淡彩化後には当てはまらない）。
           arcLabelsTextColor={(d) => readableTextOn(fillOf(d.id as string))}
-          layers={
-            useOutsideLabels
-              ? ["arcs", "arcLabels", "arcLinkLabels", CenteredTotal]
-              : ["arcs", "arcLabels", CenteredTotal]
-          }
+          layers={["arcs", "arcLabels", CenteredTotal]}
           legends={[]}
           tooltip={({ datum }) => (
             // Nivoのツールチップラッパーは幅0のアンカーに絶対配置されるため、max-widthだけだと
@@ -279,6 +248,8 @@ export function CategoryPieChart({
           )}
         />
       </div>
+      {/* 弧の中は割合だけなので、実数はこの凡例と「表で見る」が持つ
+          （弧に人数と割合を両方載せると、名前が入らなくなる）。 */}
       <div className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-2">
         {entries.map((d) => (
           <HoverCard key={d.category} openDelay={100} closeDelay={50}>
@@ -292,6 +263,9 @@ export function CategoryPieChart({
                   style={swatchStyle(d.category)}
                 />
                 {d.category}
+                <span className="tabular-nums text-muted-foreground">
+                  {d.count}人
+                </span>
               </button>
             </HoverCardTrigger>
             <HoverCardContent className="w-64 text-sm">
