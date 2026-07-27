@@ -25,9 +25,15 @@ import {
 } from "@/components/charts/horizontal-scroll-hint";
 import { cn } from "@/lib/utils";
 
-/** 固定バーの高さ(px)。節側の scroll-margin-top（Section の scrollMt）と、
- *  節見出しを sticky にする場合の top は、必ずこの値に揃えること。 */
+/** 固定バーの高さ(px)。 */
 export const SECTION_NAV_H = 48;
+
+/**
+ * ジャンプ先の scroll-margin-top / 節見出しを sticky にする場合の top。
+ * モバイルはサイトヘッダー(--chrome-top = 56px)も画面上端に固定されているため、
+ * バーの高さだけでは足りない。直値ではなくこの式を使うこと。
+ */
+export const BELOW_SECTION_NAV = `calc(var(--chrome-top) + ${SECTION_NAV_H}px)`;
 
 export interface JumpItem {
   /** 節本体の要素id。 */
@@ -105,10 +111,11 @@ export function SectionJumpNav({
       // 端フェード（z-10）と図の中で位置を保つラベル（z-20）より上、画面に固定される
       // 要素（z-50）より下。
       className={cn(
-        "sticky top-0 z-30 flex items-center border-b border-border bg-background/95 px-gutter backdrop-blur md:px-gutter-wide",
+        "sticky z-30 flex items-center border-b border-border bg-background/95 px-gutter backdrop-blur md:px-gutter-wide",
         className,
       )}
-      style={{ height: SECTION_NAV_H }}
+      // モバイルは sticky なサイトヘッダーの下に着ける。
+      style={{ height: SECTION_NAV_H, top: "var(--chrome-top)" }}
     >
       <span className="mr-3 hidden shrink-0 text-xs text-muted-foreground sm:inline">
         {label}

@@ -34,7 +34,22 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-full flex-1 flex-col md:flex-row">
-      <header className="flex items-center justify-between border-b border-border bg-sidebar px-4 py-3 md:hidden">
+      {/* キーボード操作でナビゲーション（デスクトップは11項目・モバイルはメニュー
+          ボタン）を飛ばして本文へ入るための導線。フォーカスされたときだけ現れる。 */}
+      <a
+        href="#main"
+        className="sr-only z-50 rounded-md border border-seal bg-background px-3 py-2 text-sm text-seal focus:not-sr-only focus:absolute focus:left-3 focus:top-3"
+      >
+        本文へスキップ
+      </a>
+      {/* モバイルは sticky。/emperors は全高5万px級で、固定しないと一度スクロール
+          した時点でメニューへ戻る手段が無くなる（サイドバーはこの画面幅では
+          ハンバーガーの中にしか無い）。高さは h-14 に固定し、globals.css の
+          --chrome-top と必ず同じ値にする。
+          重なりは「画面に固定される要素」の段(z-50)。ページ内の固定索引(z-30)より
+          上に出す必要があり、ダイアログ等はポータルでこの後ろのDOMに出るため
+          同じ段でも上に描かれる。 */}
+      <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-border bg-sidebar px-4 md:hidden">
         <Link
           href="/"
           className="flex items-center gap-2 font-heading text-lg font-semibold text-foreground"
@@ -75,7 +90,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      <main className="flex min-w-0 flex-1 flex-col">
+      <main id="main" tabIndex={-1} className="flex min-w-0 flex-1 flex-col">
         <div className="flex-1">{children}</div>
         <SiteFooter />
       </main>

@@ -10,7 +10,7 @@
 // - 親子は垂下線(junction)の構造で示し、線に続柄ラベルは付けない。
 //   矢印は王朝間の交代のみ。
 
-import { useCallback, useRef } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
   FixedTooltip,
   useTipOutlet,
@@ -21,6 +21,7 @@ import {
   useHorizontalScrollEdges,
 } from "@/components/charts/horizontal-scroll-hint";
 import { useDetailOutlet } from "@/components/emperors/emperor-detail-dialog";
+import { KinshipBandNav } from "@/components/kinship/kinship-band-nav";
 import { useKinshipEditor } from "@/components/kinship/kinship-editor";
 import { BASE_PATH } from "@/lib/base-path";
 import type { EmperorRecord } from "@/lib/emperor-types";
@@ -96,6 +97,16 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
     [openDetail],
   );
 
+  // 表示倍率。既定1＝従来と同一の描画。系譜の座標(layout)は一切変えず、
+  // SVGの描画サイズだけを変える(viewBoxは据え置き)。
+  const [scale, setScale] = useState(1);
+  // ピルは図の左から順に並べる（layout.bands の並びは描画都合で左右順ではない）。
+  const bands = useMemo(
+    () =>
+      layout.bands.filter((b) => b.label !== "").sort((p, q) => p.x - q.x),
+    [layout.bands],
+  );
+
   const emperorCount = layout.nodes.filter((n) => n.kind === "emperor").length;
   const markerId = `kinship-arrow-${layout.id}`;
 
@@ -109,6 +120,22 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
 
   return (
     <div className="relative rounded-md border border-border bg-background">
+      {/* 王朝ジャンプと図本体を z-20 の重ね合わせコンテキストに閉じ込める。
+          王朝ジャンプは章ジャンプ(z-30)と同じ段だがDOM順では後ろにあるため、
+          章の枠が上へ抜けて sticky が押し出される瞬間に章ジャンプへ被さる。
+          この箱で閉じ込めると、中の z-30 は外の z-30 を超えられなくなる。
+          ツールチップ・詳細ダイアログ・編集パネル(z-50)はこの箱の外に置くこと
+          （中に入れると同じ理由で章ジャンプの下へ潜る）。 */}
+      <div className="relative z-20">
+      <KinshipBandNav
+        bands={bands}
+        scrollRef={scrollRef}
+        scale={scale}
+        onScaleChange={setScale}
+        chapterTitle={layout.title}
+      />
+      {/* 端フェードの位置基準。王朝ジャンプの高さを含めないよう、図の枠だけを囲む。 */}
+      <div className="relative">
       <div
         ref={scrollRef}
         onScroll={onScroll}
@@ -122,15 +149,17 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
           <span
             key={t.label}
             className="absolute whitespace-nowrap rounded-sm bg-background/85 px-1 text-[10.5px] text-muted-foreground"
-            style={{ top: t.y - layout.viewTop - 8, left: 6 }}
+            style={{ top: (t.y - layout.viewTop) * scale - 8, left: 6 }}
           >
             {t.label}
           </span>
         ))}
       </div>
+      {/* 右端の年ラベル。狭い画面では表示幅が345pxしかなく、左端のラベルとの間に
+          カプセルが入る余地が無いため重なる(390pxで実測1件)。sm未満では出さない。 */}
       <div
         aria-hidden
-        className="pointer-events-none sticky z-20 h-0 w-0"
+        className="pointer-events-none sticky z-20 hidden h-0 w-0 sm:block"
         style={{ left: "calc(100% - 6px)" }}
       >
         {layout.ticks.map((t) => (
@@ -138,7 +167,7 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
             key={t.label}
             className="absolute whitespace-nowrap rounded-sm bg-background/85 px-1 text-[10.5px] text-muted-foreground"
             style={{
-              top: t.y - layout.viewTop - 8,
+              top: (t.y - layout.viewTop) * scale - 8,
               left: 0,
               transform: "translateX(-100%)",
             }}
@@ -150,8 +179,8 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
       <svg
         role="img"
         aria-label={`${layout.title}の系譜図。縦が時間(上が古い)、横が王朝バンド。皇帝${emperorCount}人を家系図形式で表示。王朝間の交代${layout.arrows.length}本を矢印で表示`}
-        width={layout.width}
-        height={layout.height - layout.viewTop}
+        width={layout.width * scale}
+        height={(layout.height - layout.viewTop) * scale}
         viewBox={`0 ${layout.viewTop} ${layout.width} ${layout.height - layout.viewTop}`}
         className="block"
       >
@@ -484,6 +513,8 @@ export function KinshipChart({ layout: serverLayout }: { layout: KinshipChapterL
           スクロール位置に応じて出し入れするので「まだ続きがある側」だけが光る。
           年ラベルのstickyオーバーレイ(z-20)より下(z-10)に敷く。 */}
       <HorizontalScrollHint atStart={atStart} atEnd={atEnd} />
+      </div>
+      </div>
 
       {/* 編集モードのオーバーレイはSVGの最前面に置く(ハンドルを掴めるように) */}
       <TipOutlet

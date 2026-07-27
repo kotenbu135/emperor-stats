@@ -61,3 +61,4 @@ site/design-plans/tools/shots*/
 
 .claude/skills/
 site/design-plans/tools/rebuild-shots/
+site/design-plans/tools/_*.mjs

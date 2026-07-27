@@ -83,6 +83,22 @@
  * 割り当てる（87王朝・意味ベース）。これらは生の値で塗らず、必ず color-mix で
  * 地色に混ぜた濃度で使う。
  */
+/*
+ * 画面上端に固定されているクロームの高さ。モバイルはサイトヘッダー(h-14=56px)が
+ * sticky なのでその分、デスクトップはサイドバー方式でヘッダーが無いので0。
+ * ページ内の固定索引(section-jump-nav・kinship-chapter-nav)の sticky top と、
+ * ジャンプ先の scroll-margin-top は必ずこの変数から導くこと。直値で書くと、
+ * ヘッダーの高さを変えたときにジャンプ先が固定バーの下へ潜る。
+ */
+:root {
+  --chrome-top: 3.5rem;
+}
+@media (min-width: 48rem) {
+  :root {
+    --chrome-top: 0px;
+  }
+}
+
 :root {
   --background: #f5f1e8;
   --foreground: #3a3530;

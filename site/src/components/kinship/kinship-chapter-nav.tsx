@@ -16,8 +16,13 @@ import {
 } from "@/components/charts/horizontal-scroll-hint";
 import { cn } from "@/lib/utils";
 
-/** 固定バーの高さ(px)。章の scroll-mt と必ず同じ値にすること。 */
+/** 固定バーの高さ(px)。 */
 export const KINSHIP_NAV_H = 48;
+
+/** 章の scroll-margin-top。モバイルは sticky なサイトヘッダー(--chrome-top)も
+ *  上端を占めるため、バーの高さだけでは足りない（ずれると、ジャンプ先の上に
+ *  前の章の横スクロールバーが覗く）。 */
+export const BELOW_KINSHIP_NAV = `calc(var(--chrome-top) + ${KINSHIP_NAV_H}px)`;
 
 export function KinshipChapterNav({
   chapters,
@@ -58,8 +63,9 @@ export function KinshipChapterNav({
   return (
     <nav
       aria-label="章へジャンプ"
-      className="sticky top-0 z-30 flex items-center border-b border-border bg-background/95 px-6 backdrop-blur md:px-10"
-      style={{ height: KINSHIP_NAV_H }}
+      className="sticky z-30 flex items-center border-b border-border bg-background/95 px-6 backdrop-blur md:px-10"
+      // モバイルは sticky なサイトヘッダーの下に着ける。
+      style={{ height: KINSHIP_NAV_H, top: "var(--chrome-top)" }}
     >
       <span className="mr-3 hidden shrink-0 text-xs text-muted-foreground sm:inline">
         章へジャンプ

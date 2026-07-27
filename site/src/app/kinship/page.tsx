@@ -12,7 +12,7 @@
 
 import { PageHeader, Section } from "@/components/layout/page-header";
 import {
-  KINSHIP_NAV_H,
+  BELOW_KINSHIP_NAV,
   KinshipChapterNav,
 } from "@/components/kinship/kinship-chapter-nav";
 import { KinshipChart } from "@/components/kinship/kinship-chart";
@@ -73,7 +73,7 @@ export default function KinshipPage() {
           description={c.range}
           // 固定バーの高さぴったりに合わせる(大きいと前の章の横スクロールバーが
           // ジャンプ後の画面上部に覗く。ユーザー指摘・2026-07-26)。
-          scrollMt={KINSHIP_NAV_H}
+          scrollMt={BELOW_KINSHIP_NAV}
         >
           <KinshipChart layout={c} />
         </Section>

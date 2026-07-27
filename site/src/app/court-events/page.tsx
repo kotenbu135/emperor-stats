@@ -1,7 +1,7 @@
 import { PageHeader, Section } from "@/components/layout/page-header";
 import {
+  BELOW_SECTION_NAV,
   SectionJumpNav,
-  SECTION_NAV_H,
 } from "@/components/layout/section-jump-nav";
 import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
@@ -93,7 +93,7 @@ export default function CourtEventsPage() {
         <Section
           key={id}
           id={id}
-          scrollMt={SECTION_NAV_H}
+          scrollMt={BELOW_SECTION_NAV}
           title={title}
           description={description}
         >

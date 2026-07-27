@@ -43,10 +43,12 @@ export function Section({
   id?: string;
   title: string;
   description?: string;
-  /** アンカージャンプ時に上へ空ける量(px)。既定は80px。ページ内に固定バーが
+  /** アンカージャンプ時に上へ空ける量。既定は80px。ページ内に固定バーが
    *  あるページは、そのバーの高さぴったりにする（大きいと前セクションの末尾
-   *  （横スクロールバーなど）が覗き、小さいとバーに隠れる）。 */
-  scrollMt?: number;
+   *  （横スクロールバーなど）が覗き、小さいとバーに隠れる）。
+   *  モバイルでは sticky なサイトヘッダーも上端を占めるため、直値でなく
+   *  BELOW_SECTION_NAV のような calc 式（string）を渡すこと。 */
+  scrollMt?: number | string;
   children: React.ReactNode;
 }) {
   return (

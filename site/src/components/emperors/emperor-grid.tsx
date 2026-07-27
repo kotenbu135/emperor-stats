@@ -38,7 +38,10 @@ import { toHiragana } from "@/lib/kana";
 import { BASE_PATH } from "@/lib/base-path";
 import { Portrait } from "@/components/emperors/portrait";
 import { EmperorDetailDialog } from "@/components/emperors/emperor-detail-dialog";
-import { SectionJumpNav, SECTION_NAV_H } from "@/components/layout/section-jump-nav";
+import {
+  BELOW_SECTION_NAV,
+  SectionJumpNav,
+} from "@/components/layout/section-jump-nav";
 
 /** 一覧のカード1枚。フィルタ・検索のたびに364枚を再レンダリングしないようmemo化
  *  （実機Lighthouse timespanで操作ごとの再レンダリングがTBT・遅延レイアウトシフトの
@@ -340,13 +343,13 @@ export function EmperorGrid({
                 key={era}
                 id={`era-${era}`}
                 className="mb-6 last:mb-0"
-                style={{ scrollMarginTop: SECTION_NAV_H }}
+                style={{ scrollMarginTop: BELOW_SECTION_NAV }}
               >
                 <h2
                   // スクロール中の現在地がわかるよう、固定した時代ジャンプバーの
                   // 真下（SECTION_NAV_H）に貼り付ける。
                   className="sticky z-10 -mx-2 mb-3 border-b border-border bg-background/95 px-2 py-2 font-heading text-base font-semibold text-foreground backdrop-blur-sm"
-                  style={{ top: SECTION_NAV_H }}
+                  style={{ top: BELOW_SECTION_NAV }}
                 >
                   {era}
                   <span className="ml-2 text-sm font-normal text-muted-foreground">
