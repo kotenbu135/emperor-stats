@@ -58,3 +58,6 @@ site/design-plans/tools/node_modules/
 site/design-plans/tools/before*/
 site/design-plans/tools/after*/
 site/design-plans/tools/shots*/
+
+.claude/skills/
+site/design-plans/tools/rebuild-shots/
