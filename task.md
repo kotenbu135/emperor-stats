@@ -62,6 +62,18 @@ High（0-1）・Medium（0-2）・Low（0-3）とも対応済み。詳細は `CH
 
 ---
 
+## 4b. SEO 監査（2026-07-27）の実施
+
+監査本体は `emperorstats.com-audit/`（Score 72/100・**Critical 判定 0件**）。Phase 分けは同ディレクトリの `ACTION-PLAN.md` が正。
+
+- **Phase 1（既存パターンの横展開）— 完了（2026-07-27）**: /death-accession・/dynasties への静的な数値リスト、「読み取れること」を全16節へ、/emperors の meta description 独立、GitHub リポジトリの description/topics 設定。実装記録は `docs/site-design/IMPLEMENTATION_LOG.md`「SEO 監査 Phase 1」節（2026-07-21 に決めた「総括文はページ1本のみ」を変更した経緯を含む）
+- [ ] **Phase 2（構造の是正）**: サイドバーの空 `<h3>`×7・皇帝個別365ページの h1→h3 レベル飛び・個別ページ→統計ページの文脈内リンク（現状0件）・Cloudflare の Transform/Redirect Rules（セキュリティヘッダ・trailing slash 404・`/index.html` の二重配信）。**うち Cloudflare 2件はコードでなくインフラ設定**
+- [ ] **Phase 3（権威と発見性）**: データセットの公開先追加（awesome list / Kaggle・HF / Wikidata P854 個別提案 / jawiki はノート提案）・運営者情報の明示と Organization ノード・構造化データのグラフ結合。Zenodo DOI・FAQPage・HowTo は含めない（いずれも既に却下・廃止済み）
+
+計画に「意図的に含めなかったもの」として、Search Console 連携・Zenodo DOI・`<img>` width/height 追加・llms.txt・IndexNow が明記されている（再提案しない）。
+
+---
+
 ## 5. 英語版
 
 **目的**: 中華皇帝への関心人口は英語圏＋中華圏が圧倒的多数。日本語限定は市場を自ら狭めている。
@@ -133,5 +145,6 @@ High（0-1）・Medium（0-2）・Low（0-3）とも対応済み。詳細は `CH
 | 0-2 残 | OGP Content-Type の X/FB 公式バリデータ最終確認（簡易確認では実害なし） | ユーザー |
 | 3-2 残 | 肖像の外部照合（Wikidata P18 突き合わせ） | 任意 |
 | 3-4 | events[].source 補完（優先度中391件＋遷都58件） | 要着手判断 |
+| 4b | SEO 監査 Phase 2（構造の是正・うち2件はインフラ設定）・Phase 3（権威と発見性） | 要着手判断 |
 | 5 | 英語版 Phase 1（4〜6日） | 要着手判断 |
 | 6 | クロス分析→比較→元号→系図（6-3 は生母追加調査〔ブロック13〜23 残〕と /kinship 第5章以降の展開が並行） | 各独立・軽い 6-1 から |
