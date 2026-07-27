@@ -19,6 +19,7 @@ import {
 } from "react";
 import type { BarDatum, BarCustomLayerProps } from "@nivo/bar";
 import { integerTickValues } from "@/components/charts/nivo-theme";
+import { VerticalScrollHint } from "@/components/charts/horizontal-scroll-hint";
 
 export const ROW_HEIGHT = 24;
 /**
@@ -488,30 +489,39 @@ export function WindowedChartFrame({
           label={axisLabel}
         />
       </div>
-      <div
-        ref={scrollRef}
-        className="overflow-y-auto overscroll-contain"
-        style={{ maxHeight: SCROLL_MAX_HEIGHT }}
-        onScroll={onScroll}
-      >
-        <div ref={chartAreaRef} className="relative" style={{ height: chartHeight }}>
-          <div
-            className="absolute inset-x-0 top-0"
-            // スライスの縦位置はtopでなくtransformで動かす。topの書き換えは
-            // レイアウトシフトとして計上され、グラフ内スクロールだけでCLSが
-            // 秒単位に悪化する（transformはlayout-shiftの対象外）。
-            style={{
-              transform: isFullRange
-                ? undefined
-                : `translateY(${start * rowHeight}px)`,
-              height: isFullRange
-                ? chartHeight
-                : (end - start) * rowHeight + 12,
-            }}
-          >
-            {children}
+      {/* 枠の下端では行が必ず途中で切れる。続きがあることを端フェードで示す
+          （横スクロール枠と同じ手掛かり）。フェードはスクロール枠の外側に重ねる
+          絶対配置なので、行の位置も高さも動かさない。 */}
+      <div className="relative">
+        <div
+          ref={scrollRef}
+          className="overflow-y-auto overscroll-contain"
+          style={{ maxHeight: SCROLL_MAX_HEIGHT }}
+          onScroll={onScroll}
+        >
+          <div ref={chartAreaRef} className="relative" style={{ height: chartHeight }}>
+            <div
+              className="absolute inset-x-0 top-0"
+              // スライスの縦位置はtopでなくtransformで動かす。topの書き換えは
+              // レイアウトシフトとして計上され、グラフ内スクロールだけでCLSが
+              // 秒単位に悪化する（transformはlayout-shiftの対象外）。
+              style={{
+                transform: isFullRange
+                  ? undefined
+                  : `translateY(${start * rowHeight}px)`,
+                height: isFullRange
+                  ? chartHeight
+                  : (end - start) * rowHeight + 12,
+              }}
+            >
+              {children}
+            </div>
           </div>
         </div>
+        {/* フェードの出し分けは実測のはみ出し（scrollHeight）で決まる。isFullRange
+            （＝ウィンドウが全行を覆っている）と結び付けないこと。全行を描いていても
+            枠の高さ上限を超えていればスクロールは起きる。 */}
+        <VerticalScrollHint scrollRef={scrollRef} />
       </div>
     </div>
   );
