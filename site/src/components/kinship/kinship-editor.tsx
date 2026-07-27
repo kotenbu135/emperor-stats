@@ -144,6 +144,8 @@ export function useKinshipEditor(server: KinshipChapterLayout): KinshipEditorApi
   const [manual, setManual] = useState<ManualLayout | null>(null);
   const [status, setStatus] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  /** 選択中の王朝交代の矢印(キー)。直線／直角の切り替え対象。 */
+  const [selectedArrowKey, setSelectedArrowKey] = useState<string | null>(null);
   const [showHandles, setShowHandles] = useState(true);
   const srcRef = useRef<KinshipSource | null>(null);
   const buildRef = useRef<
@@ -414,6 +416,7 @@ export function useKinshipEditor(server: KinshipChapterLayout): KinshipEditorApi
       }
       if (ev.key === "Escape") {
         setSelectedId(null);
+        setSelectedArrowKey(null);
         return;
       }
       if (!selectedId) return;
@@ -616,6 +619,38 @@ export function useKinshipEditor(server: KinshipChapterLayout): KinshipEditorApi
                 }
               />
             ))}
+          {/* 矢印そのものの当たり判定。クリックで選択し、パネルで直線／直角を選ぶ。
+              オーバーレイはカプセルより上に載るので、当たり判定の幅は線の見た目
+              (2px)に近い7pxに留める(広げると矢印が横切るカプセルを掴めなくなる。
+              それでも邪魔なときは「ハンドル非表示」でオーバーレイごと消せる)。 */}
+          {layout.arrows.map((a) => (
+            <g key={`sel:${a.key}`}>
+              {selectedArrowKey === a.key && (
+                <path
+                  d={a.path}
+                  fill="none"
+                  stroke="var(--foreground)"
+                  strokeOpacity={0.3}
+                  strokeWidth={8}
+                  strokeLinecap="round"
+                  pointerEvents="none"
+                />
+              )}
+              <path
+                d={a.path}
+                fill="none"
+                stroke="transparent"
+                strokeWidth={7}
+                strokeLinecap="round"
+                pointerEvents="stroke"
+                className="cursor-pointer"
+                onPointerDown={(ev) => {
+                  ev.stopPropagation();
+                  setSelectedArrowKey((k) => (k === a.key ? null : a.key));
+                }}
+              />
+            </g>
+          ))}
           {/* 王朝交代の赤矢印の付け根・通り道 */}
           {layout.arrows.flatMap((a) => {
             const pts = pathPoints(a.path);
@@ -797,8 +832,41 @@ export function useKinshipEditor(server: KinshipChapterLayout): KinshipEditorApi
       </div>
       <div className="mb-2 text-muted-foreground">{status}</div>
       <div className="mb-2 leading-relaxed text-muted-foreground">
-        ドラッグ=移動／Shift+ドラッグ=子孫ごと／Alt=吸着解除／クリックで選択して矢印キー1px（Shift+8px）／Ctrl+Z=取り消し
+        ドラッグ=移動／Shift+ドラッグ=子孫ごと／Alt=吸着解除／クリックで選択して矢印キー1px（Shift+8px）／Ctrl+Z=取り消し／赤矢印をクリック=直線・直角の切り替え
       </div>
+      {selectedArrowKey &&
+        (() => {
+          const a = layout.arrows.find((x) => x.key === selectedArrowKey);
+          if (!a) return null;
+          const straight =
+            manual?.[server.id]?.edges?.[selectedArrowKey]?.straight === true;
+          return (
+            <div className="mb-2 rounded border border-border p-2">
+              <div className="mb-1 leading-tight">
+                選択中の矢印: {a.label}（{a.fromId} → {a.toId}）
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() =>
+                    edit((ch) => {
+                      const cur = { ...(ch.edges?.[selectedArrowKey] ?? {}) };
+                      if (cur.straight) delete cur.straight;
+                      else cur.straight = true;
+                      ch.edges = { ...(ch.edges ?? {}), [selectedArrowKey]: cur };
+                    })
+                  }
+                  className="rounded border border-border px-2 py-1 hover:bg-muted"
+                >
+                  {straight ? "直線をやめる" : "直線にする"}
+                </button>
+                <span className="text-muted-foreground">
+                  現在: {straight ? "直線" : a.routed ? "直角の折れ線" : "曲線（既定）"}
+                </span>
+              </div>
+            </div>
+          );
+        })()}
       {unplacedIds.size > 0 && (
         <div className="mb-2 leading-relaxed" style={{ color: "#2563eb" }}>
           未配置 {unplacedIds.size} 件（青枠・凍結後に追加されたノード）:{" "}

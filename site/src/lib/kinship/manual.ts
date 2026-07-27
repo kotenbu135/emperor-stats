@@ -36,6 +36,12 @@ export interface ManualEdgeRoute {
   to?: ManualAnchor;
   /** 折れ線の中間座標(左右に出る線ならx、上下に出る線ならy)。 */
   mid?: number;
+  /**
+   * 直交の折れ線をやめ、付け根どうしを1本の直線で結ぶ(2026-07-27)。
+   * 斜めに離れたバンド間の交代矢印は、直角に曲げると遠回りして他のカプセルを
+   * 横切るため(ユーザー要望)。true のときは mid を使わない。
+   */
+  straight?: boolean;
 }
 
 export interface ManualChapter {

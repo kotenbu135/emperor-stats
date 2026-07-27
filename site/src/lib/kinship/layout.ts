@@ -14,7 +14,10 @@ import {
   BAND_LABEL_ANCHOR,
   BAND_X_EXTRA,
   CHAPTER_ANCESTOR_STOPS,
+  CHAPTER_ARROW_LABELS,
+  CHAPTER_EXTRA_ARROWS,
   CHAPTER_EXTRA_EMPERORS,
+  CHAPTER_HIDDEN_ARROWS,
   CHAPTER_EXTRA_PERSONS,
   CHILD_ORDER_OVERRIDES,
   CLAIM_LINE_DEFS,
@@ -1455,7 +1458,7 @@ function buildChapter(
     fallback?: () => [number, number][],
   ): [number, number][] => {
     const route = man?.edges?.[key];
-    if (route?.from || route?.to) {
+    if (route?.from || route?.to || route?.straight) {
       // 片端だけ手で決めた場合、もう一端は既定のルーティングの端点を使う。
       const def = fallback ? fallback() : orthoPoints(a, b);
       const guessSide = (
@@ -1473,6 +1476,8 @@ function buildChapter(
       const ts = route.to?.side ?? guessSide(def[def.length - 1], b);
       const fp = route.from ? anchorPoint(a, route.from) : def[0];
       const tp = route.to ? anchorPoint(b, route.to) : def[def.length - 1];
+      // 直線指定は付け根どうしを直に結ぶ(辺の向き・mid は使わない)。
+      if (route.straight) return [fp, tp];
       return elbowPoints(fp, fs, tp, ts, route.mid);
     }
     return fallback ? fallback() : orthoPoints(a, b);
@@ -1546,7 +1551,39 @@ function buildChapter(
     return shortCategory(e.category);
   };
 
-  for (const e of src.edges) {
+  // 図の側で足す王朝交代の矢印(CHAPTER_EXTRA_ARROWS)。succession エッジと同じ形に
+  // 組み立てて同じループへ流し、キー・手動ルート・ラベルの扱いを完全に共通化する。
+  // ラベルだけは新帝の即位経路軸から導けない(相手が皇帝として非収録)ので明示指定。
+  const arrowLabelOverride = new Map<string, string>();
+  for (const x of CHAPTER_ARROW_LABELS[def.id] ?? [])
+    arrowLabelOverride.set(`s:${x.fromId}→${x.toId}`, x.label);
+  // 描かない矢印(CHAPTER_HIDDEN_ARROWS)。指定が空振りしたらビルドを落とす。
+  const hiddenArrows = new Set(
+    (CHAPTER_HIDDEN_ARROWS[def.id] ?? []).map((x) => `s:${x.fromId}→${x.toId}`),
+  );
+  const usedArrowKeys = new Set<string>();
+  const curatedEdges: KinshipSourceEdge[] = (CHAPTER_EXTRA_ARROWS[def.id] ?? []).map(
+    (x) => {
+      if (!rectById.has(x.fromId) || !rectById.has(x.toId))
+        throw new Error(
+          `kinship/layout: CHAPTER_EXTRA_ARROWS["${def.id}"] の ${x.fromId}→${x.toId} は章スコープ外のノードを指しています`,
+        );
+      arrowLabelOverride.set(`s:${x.fromId}→${x.toId}`, x.label);
+      return {
+        type: "succession",
+        from: x.fromId,
+        to: x.toId,
+        category: x.category,
+        relationToPredecessor: x.relationToPredecessor,
+        veracity: "verified",
+        confidence: "high",
+        noteExcerpt: x.noteExcerpt,
+        sourcePage: x.sourcePage,
+      };
+    },
+  );
+
+  for (const e of [...src.edges, ...curatedEdges]) {
     const a = rectById.get(e.from);
     const b = rectById.get(e.to);
     if (!a || !b) continue; // 端点が章スコープ外
@@ -1563,12 +1600,21 @@ function buildChapter(
         )
           ? `・${stripParen(e.relationToPredecessor)}`
           : "";
-      const label = `${arrowForm(e)}${disputed ? "?" : ""}${relLabel}`;
       const akey = `s:${e.from}→${e.to}`;
+      usedArrowKeys.add(akey);
+      if (hiddenArrows.has(akey)) continue;
+      const label =
+        arrowLabelOverride.get(akey) ??
+        `${arrowForm(e)}${disputed ? "?" : ""}${relLabel}`;
       // 赤矢印も編集モードで付け根・通り道を手で決められる(ユーザー要望・
       // 2026-07-25)。手動ルートがある矢印は補助線と同じ直交の折れ線で引く
       // (ベジェのまま曲率だけ動かすより、家系図の直交線と揃うほうが読みやすい)。
-      const routed = man?.edges?.[akey]?.from !== undefined || man?.edges?.[akey]?.to !== undefined;
+      // 付け根を動かすか「直線」を選ぶと、ベジェをやめて手動ルートの線になる。
+      const mroute = man?.edges?.[akey];
+      const routed =
+        mroute?.from !== undefined ||
+        mroute?.to !== undefined ||
+        mroute?.straight === true;
       const path = routed
         ? toPath(routedPoints(akey, a, b, () => curveEnds(a, b)))
         : curvePath(a, b);
@@ -1674,6 +1720,19 @@ function buildChapter(
     // 兄弟姉妹など: 補助線。
     auxEdges.push(kinAux(e, a, b, true));
   }
+
+  // 矢印のキュレーション指定(非表示・ラベル上書き)が空振りしていないか。
+  // データ側の訂正でエッジが消えたのに指定だけ残る、を検出する。
+  for (const key of hiddenArrows)
+    if (!usedArrowKeys.has(key))
+      throw new Error(
+        `kinship/layout: CHAPTER_HIDDEN_ARROWS["${def.id}"] の ${key} に対応する矢印がありません`,
+      );
+  for (const x of CHAPTER_ARROW_LABELS[def.id] ?? [])
+    if (!usedArrowKeys.has(`s:${x.fromId}→${x.toId}`))
+      throw new Error(
+        `kinship/layout: CHAPTER_ARROW_LABELS["${def.id}"] の s:${x.fromId}→${x.toId} に対応する矢印がありません`,
+      );
 
   // --- 遠祖の系譜主張の点線(CLAIM_LINE_DEFS) ---
   // 主張上の遠祖ノードの右下から出て、到達先バンドの左脇コリドー(バンド間の

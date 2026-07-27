@@ -1301,8 +1301,9 @@
         },
         "from": {
           "side": "L",
-          "t": 0.4011627906976744
-        }
+          "t": 0.4069767441860465
+        },
+        "straight": true
       },
       "k:p-renshi-chenghan-lixiong→chenghan-liqi:養母": {
         "to": {
@@ -1982,11 +1983,11 @@
       },
       "p-yaoshi-yuwen-tai": {
         "x": 5742.5,
-        "year": 530.5
+        "year": 532
       },
       "p-chinushi-yuwen-tai": {
         "x": 6038,
-        "year": 530.5
+        "year": 529
       }
     },
     "labels": {
@@ -2027,11 +2028,11 @@
         "y": 1402
       },
       "arrow:s:dongwei-xiaojingdi→beiqi-wenxuandi": {
-        "x": 4355.5,
-        "y": 1430
+        "x": 4211.5,
+        "y": 1556
       },
       "arrow:s:beiwei-xiaowudi→dongwei-xiaojingdi": {
-        "x": 4217.5,
+        "x": 4203.5,
         "y": 1564
       },
       "arrow:s:beiwei-xiaowudi→xiwei-wendi": {
@@ -2049,6 +2050,10 @@
       "band:北周（宇文氏）": {
         "x": 5672.5,
         "y": 1342
+      },
+      "arrow:s:xiwei-gongdi→p-yuwen-jue": {
+        "x": 5346.625,
+        "y": 1544
       }
     },
     "edges": {
@@ -2089,7 +2094,7 @@
       "s:dongwei-xiaojingdi→beiqi-wenxuandi": {
         "to": {
           "side": "R",
-          "t": 0.8194444444444444
+          "t": 0.5972222222222222
         },
         "from": {
           "side": "B",
@@ -2117,6 +2122,12 @@
           "t": 0.28125
         },
         "mid": 4640.5
+      },
+      "s:xiwei-gongdi→p-yuwen-jue": {
+        "to": {
+          "side": "L",
+          "t": 0.47368421052631576
+        }
       }
     },
     "junctions": {
