@@ -133,6 +133,10 @@ export interface EmperorListRecord {
   dynastyKey: string;
   dynastyCategory: DynastyCategory;
   portraitUrl: string | null;
+  /** 在位期間の表示文字列（例: "1908–1912年 / 1917年"）。カード3行目に出す。
+   *  名前と王朝しか無いカードは統計サイトの一覧として読み取れる情報が乏しく、
+   *  同じ時代の中で誰がいつの人なのかを掴めないため添える。 */
+  periodsLabel: string;
   /** 皇帝一覧の検索対象文字列（各種名称・別名・王朝名・時代を連結したもの）。 */
   searchText: string;
   /** かな検索用のひらがな読み（読み展開をスペース区切りで連結。表示には使わない）。 */

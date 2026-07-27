@@ -507,6 +507,7 @@ export function getEmperorListRecords(): EmperorListRecord[] {
     dynastyKey: r.dynastyKey,
     dynastyCategory: r.dynastyCategory,
     portraitUrl: r.portraitUrl,
+    periodsLabel: r.periodsLabel,
     searchText: r.searchText,
     searchKana: kanaById.get(r.id)!,
   }));

@@ -38,6 +38,7 @@ import { toHiragana } from "@/lib/kana";
 import { BASE_PATH } from "@/lib/base-path";
 import { Portrait } from "@/components/emperors/portrait";
 import { EmperorDetailDialog } from "@/components/emperors/emperor-detail-dialog";
+import { EraJumpNav, ERA_NAV_H } from "@/components/emperors/era-jump-nav";
 
 /** 一覧のカード1枚。フィルタ・検索のたびに364枚を再レンダリングしないようmemo化
  *  （実機Lighthouse timespanで操作ごとの再レンダリングがTBT・遅延レイアウトシフトの
@@ -88,6 +89,12 @@ const EmperorCard = memo(function EmperorCard({
         </div>
         <div className="truncate text-xs text-muted-foreground">
           {record.dynastyLabel}
+        </div>
+        {/* 在位期間。同じ時代の中で誰がいつの人かを、カードを開かずに掴めるようにする
+            （名前と王朝だけでは統計サイトの一覧として読み取れる情報が乏しい）。
+            復位者は期間が複数連なって長くなるため truncate に任せ、全体は詳細で読ませる。 */}
+        <div className="truncate text-micro tabular-nums text-muted-foreground/85">
+          {record.periodsLabel}
         </div>
       </div>
     </Link>
@@ -251,23 +258,29 @@ export function EmperorGrid({
 
   return (
     <div>
-      <div className="mb-5 flex flex-wrap items-end gap-4">
-        <FilterField label="検索">
-          <div className="relative">
-            <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="名前・王朝名など"
-              className="w-[220px] pl-8"
-            />
-          </div>
-        </FilterField>
+      {/* 狭い画面ではフィルタ3つが縦に積まれ、ファーストビューをほぼ埋めていた。
+          検索を1行、王朝と区分を2列に置いて3行を2行に畳む。幅は列から決まるので
+          自動幅ではなく、Webフォント読込による折り返しずれ（CLS）は起きない。 */}
+      <div className="mb-4 grid grid-cols-2 items-end gap-x-3 gap-y-3 sm:flex sm:flex-wrap sm:gap-4">
+        <div className="col-span-2 sm:col-auto">
+          <FilterField label="検索">
+            <div className="relative">
+              <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="名前・王朝名など"
+                className="w-full pl-8 sm:w-[220px]"
+              />
+            </div>
+          </FilterField>
+        </div>
         <FilterField label="王朝">
           <DynastyCombobox
             options={dynastyOptions}
             value={dynastyValue}
             onChange={setDynastyValue}
+            triggerWidthClass="w-full sm:w-[200px]"
           />
         </FilterField>
         <FilterField label="王朝の区分" hint={<DynastyCategoryHint />}>
@@ -275,7 +288,10 @@ export function EmperorGrid({
             value={categoryValue}
             onValueChange={(v) => setCategoryValue(v as DynastyCategory | "all")}
           >
-            <SelectTrigger className="w-[170px]" aria-label="王朝の区分で絞り込み">
+            <SelectTrigger
+              className="w-full sm:w-[170px]"
+              aria-label="王朝の区分で絞り込み"
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -288,7 +304,7 @@ export function EmperorGrid({
             </SelectContent>
           </Select>
         </FilterField>
-        <span className="pb-2 text-sm text-muted-foreground">
+        <span className="col-span-2 text-sm text-muted-foreground sm:col-auto sm:pb-2">
           全{filtered.length}名を表示中
         </span>
       </div>
@@ -299,32 +315,29 @@ export function EmperorGrid({
         </p>
       ) : (
         <>
-          {/* 時代セクションへのページ内ジャンプ。絞り込みで空になった時代は出さない。 */}
-          <nav
-            aria-label="時代へジャンプ"
-            className="mb-4 flex flex-wrap gap-x-3 gap-y-1 text-sm"
-          >
-            {sections.map(([era]) => (
-              <a
-                key={era}
-                href={`#era-${era}`}
-                className="text-muted-foreground underline underline-offset-2 hover:text-seal"
-              >
-                {era}
-              </a>
-            ))}
-          </nav>
+          {/* 時代セクションへのページ内ジャンプ。絞り込みで空になった時代は出さない。
+              画面上部に固定して、5万px級のスクロールのどこからでも他の時代へ飛べる
+              ようにする（従来は本文先頭の素のテキストリンクで、少し送ると消えた）。 */}
+          <EraJumpNav eras={sections.map(([era, list]) => ({ era, count: list.length }))} />
           {sections.map(([era, list], sectionIndex) => {
             // ファーストビュー相当（最大6カラム×2行）だけ肖像を先行読み込みする。
             // 先頭セクション以外は必ず画面外なので対象は先頭セクションのみでよい。
             const priorityCount = sectionIndex === 0 ? 12 : 0;
             return (
-              <section key={era} className="mb-6 last:mb-0">
+              // アンカー先と「現在地」の観測対象はどちらもこの section。見出しは
+              // sticky でバーの真下に貼り付き続けるため、見出しを観測対象にすると
+              // 判定帯（画面の20%〜45%）に一度も入らず現在地が更新されない。
+              <section
+                key={era}
+                id={`era-${era}`}
+                className="mb-6 last:mb-0"
+                style={{ scrollMarginTop: ERA_NAV_H }}
+              >
                 <h2
-                  id={`era-${era}`}
-                  // スクロール中の現在地がわかるよう画面上部に貼り付ける。アンカー
-                  // ジャンプ時に自身の高さで隠れないようscroll-mtを添える。
-                  className="sticky top-0 z-10 -mx-2 mb-3 scroll-mt-1 border-b border-border bg-background/95 px-2 py-2 font-heading text-base font-semibold text-foreground backdrop-blur-sm"
+                  // スクロール中の現在地がわかるよう、固定した時代ジャンプバーの
+                  // 真下（ERA_NAV_H）に貼り付ける。
+                  className="sticky z-10 -mx-2 mb-3 border-b border-border bg-background/95 px-2 py-2 font-heading text-base font-semibold text-foreground backdrop-blur-sm"
+                  style={{ top: ERA_NAV_H }}
                 >
                   {era}
                   <span className="ml-2 text-sm font-normal text-muted-foreground">
