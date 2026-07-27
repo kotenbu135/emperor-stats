@@ -179,14 +179,21 @@ function Figure({
   return (
     <div className="min-w-0">
       <dt className="text-xs text-muted-foreground">{label}</dt>
-      <dd
-        className={`mt-0.5 font-heading text-2xl font-semibold tabular-nums md:text-3xl ${
-          lead ? "text-seal" : "text-foreground"
-        }`}
-      >
-        {value}
+      {/* 注記は dd の中に入れる。dl 直下の div に置けるのは dt/dd だけで、
+          p を並べると HTML として不正（axe の definition-list に当たる）。
+          値と注記は span を block にして従来と同じ縦積みにする。 */}
+      <dd className="mt-0.5">
+        <span
+          className={`block font-heading text-2xl font-semibold tabular-nums md:text-3xl ${
+            lead ? "text-seal" : "text-foreground"
+          }`}
+        >
+          {value}
+        </span>
+        <span className="mt-0.5 block text-pretty text-micro text-muted-foreground">
+          {note}
+        </span>
       </dd>
-      <p className="mt-0.5 text-pretty text-micro text-muted-foreground">{note}</p>
     </div>
   );
 }
