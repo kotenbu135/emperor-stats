@@ -141,6 +141,11 @@ export async function renderEmperorOgImage(record: EmperorRecord): Promise<Image
   );
 }
 
+/** 統計ページの共有カード画像。
+ *  ここに渡す title は**ページの `<title>` ではなくナビの短いラベル**を使う（2026-07-27）。
+ *  検索向けに `<title>` を具体化した（例「在位年数ランキングと復位者一覧」）が、72pxで15文字を
+ *  超えると内側の幅992pxで折り返し、説明文とフッターが重なる。カード画像は一目で読める板として
+ *  短い名前を出し、検索クエリと重ねる長い文字列は og:title（＝metadata 側）が運ぶ。 */
 export function renderStatPageOgImage({
   title,
   description,

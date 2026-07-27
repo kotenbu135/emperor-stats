@@ -358,6 +358,9 @@ SEOリンクの維持も確認済み（`out/emperors.html` に皇帝365リンク
 - 各統計ページに `WebPage` + `isPartOf` を足し `/about` の `Dataset` へ `@id` で結ぶ
 - `/kinship-source` を robots.txt で Disallow。本番ビルドでは既に空JSONを返すため実在の漏洩ではなく、
   そのガードが将来変わったときの保険（`/kinship` 全章公開時に一緒に外す）
+- **OGP画像の見出しは短いままにした**（`opengraph-image.tsx` は無変更）。`<title>` を具体化したが、
+  72pxで15文字を超えると内側幅992pxで折り返して説明文とフッターに重なる。画像は一目で読める板として
+  短い名前を出し、検索クエリと重ねる長い文字列は og:title が運ぶ（判断は `lib/og-image.tsx` にコメントで残した）
 
 ### 回帰確認
 
@@ -368,4 +371,8 @@ SEOリンクの維持も確認済み（`out/emperors.html` に皇帝365リンク
 | `/about`・404 | バイト一致 |
 | その他9ルート | 意図した差分のみ |
 | `npx tsc --noEmit`・`npx eslint src`・`npm run build` | すべて通過 |
+| CLS（375px・5ルート） | 前後とも **0**（`tools/perf-check.mjs`） |
+| CLS（1440px・5ルート） | 前後とも 0.0015〜0.0029（`LazyMount` の見積り高さ由来・退行なし） |
+| Long Task | 前後とも読み込み時1〜2件（50〜129ms）。**絶対値0は変更前から満たしていない** |
+| 詳細ダイアログ（1440・375px・肖像あり/モノグラム） | 面は二重にならず、関連動画は `details` 既定閉のまま |
 
