@@ -194,7 +194,11 @@ export const emperorCount = data.meta.count;
 export const datasetGeneratedAt = data.meta.generatedAt;
 export const datasetVersion = data.meta.version;
 
-/** データが扱う年代範囲（天文年・ISO 8601区間）。Dataset JSON-LD の temporalCoverage 用。 */
+/**
+ * データが扱う年代範囲（天文年・ISO 8601区間）。Dataset JSON-LD の temporalCoverage 用。
+ * データの年は歴史紀年（前221年 = -221）なので、ISO 8601（0年あり）へは
+ * astroYear() を通してから整形する（通さないと紀元前側が1年古くずれる）。
+ */
 export const datasetTemporalCoverage = (() => {
   let min = Infinity;
   let max = -Infinity;
@@ -204,8 +208,10 @@ export const datasetTemporalCoverage = (() => {
       if (typeof r.endYear === "number" && r.endYear > max) max = r.endYear;
     }
   }
-  const iso = (y: number) =>
-    y < 0 ? `-${String(-y).padStart(4, "0")}` : String(y).padStart(4, "0");
+  const iso = (y: number) => {
+    const a = astroYear(y);
+    return a < 0 ? `-${String(-a).padStart(4, "0")}` : String(a).padStart(4, "0");
+  };
   return `${iso(min)}/${iso(max)}`;
 })();
 
