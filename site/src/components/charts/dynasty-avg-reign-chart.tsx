@@ -114,7 +114,7 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
         onSortChange={setSort}
         sortLabel={{ desc: "長い順", asc: "短い順" }}
       >
-        <span className="pb-2 text-sm text-muted-foreground">
+        <span className="text-sm text-muted-foreground sm:pb-2">
           全{sorted.length}件を表示中
         </span>
       </GroupFilterControls>

@@ -129,7 +129,8 @@ export function EmperorEventTimeline({ rows }: { rows: EmperorEventRow[] }) {
     );
 
   return (
-    <div className="space-y-2">
+    // 個別ページの他ブロックと同じ--cardの面に載せる（体裁はトップのパネルと共通）。
+    <div className="space-y-2 rounded-[0.5rem] border border-border bg-card p-5">
       {kinds.length > 1 && (
         <div
           className="flex flex-wrap gap-1.5"
@@ -161,7 +162,8 @@ export function EmperorEventTimeline({ rows }: { rows: EmperorEventRow[] }) {
           ))}
         </div>
       )}
-      <div className="border-t border-border/60">
+      {/* 面に載せたので最終行の下罫は残さない（カード下端の余白に浮いて見える）。 */}
+      <div className="border-t border-border/60 [&>*:last-child]:border-b-0">
         {visible.map((row, i) => (
           <EventRow key={i} row={row} />
         ))}

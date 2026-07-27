@@ -3,7 +3,8 @@
 // 王朝フィルタ用の検索可能コンボボックス。選択肢が87件と多く素のSelectでは
 // スクロールが長すぎるため、cmdk+Popoverでテキスト入力による絞り込みを付けた
 // （docs/site-design/IMPLEMENTATION_LOG.md「王朝フィルタの検索可能Combobox化」）。
-// トリガーは固定幅（自動幅だとWebフォント読込で折り返しがずれCLSになる）・
+// トリガーは狭い画面では全幅、sm以上は固定幅にする。幅が列から決まるか固定値なので、
+// 自動幅と違いWebフォント読込による折り返しずれ（CLS）は起きない。
 // aria-label必須（role=comboboxのボタンは中身がアクセシブルネームにならない）。
 
 import { useState } from "react";
@@ -44,13 +45,13 @@ export function DynastyCombobox({
   options,
   value,
   onChange,
-  triggerWidthClass = "w-[200px]",
+  triggerWidthClass = "w-full sm:w-[200px]",
 }: {
   options: DynastyOption[];
   /** 選択中の dynastyKey。未選択は "all"。 */
   value: string;
   onChange: (value: string) => void;
-  /** トリガーの幅クラス。狭い画面で列に合わせたい呼び出し側だけ渡す。
+  /** トリガーの幅クラス。既定と違う固定幅にしたい呼び出し側だけ渡す。
    *  必ず「フォントに依存しない幅」を渡すこと（w-full や固定px。auto は不可）。 */
   triggerWidthClass?: string;
 }) {
@@ -75,7 +76,13 @@ export function DynastyCombobox({
         <span className="truncate">{selectedLabel}</span>
         <ChevronDownIcon className="pointer-events-none size-4 shrink-0 text-muted-foreground" />
       </PopoverTrigger>
-      <PopoverContent align="start" className="w-[200px] p-0">
+      {/* 候補リストの幅はトリガーに追随させる（狭い画面でトリガーだけ全幅になり、
+          候補リストが取り残されて狭く見えるのを防ぐ）。ただし列に収まる呼び出し側で
+          200pxを下回らないよう下限を置く。 */}
+      <PopoverContent
+        align="start"
+        className="w-[var(--radix-popover-trigger-width)] min-w-[200px] p-0 sm:w-[200px]"
+      >
         <Command
           // cmdk既定のあいまい一致は漢字1字でも飛び石マッチして候補が絞れないため、
           // ラベル・時代名・読み（keywords経由）の部分一致のみ採用する。クエリは

@@ -34,7 +34,9 @@ export function FilterField({
   children: ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-1">
+    // 狭い画面ではフィールドを全幅にして、ラベル・入力・件数の左端をそろえる
+    // （中の入力の w-full が効くよう、包む側にも幅を与える）。
+    <div className="flex w-full flex-col gap-1 sm:w-auto">
       <span className="flex items-center gap-1 text-xs text-muted-foreground">
         {label}
         {hint}
@@ -110,7 +112,10 @@ export function ChartFilterControls({
 
       <FilterField label="王朝の区分" hint={<DynastyCategoryHint />}>
         <Select value={categoryValue} onValueChange={onCategoryChange}>
-          <SelectTrigger className="w-[170px]" aria-label="王朝の区分で絞り込み">
+          <SelectTrigger
+            className="w-full sm:w-[170px]"
+            aria-label="王朝の区分で絞り込み"
+          >
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -127,9 +132,10 @@ export function ChartFilterControls({
       {sortDirection && onSortDirectionChange && (
         <FilterField label="並び順">
           <Select value={sortDirection} onValueChange={onSortDirectionChange}>
-            {/* 幅を固定する（自動幅だとWebフォント読み込みで幅が変わり、フィルタ行の
-                折り返し位置がずれてレイアウトシフトになる。PERFORMANCE.mdのCLS計測記録）。 */}
-            <SelectTrigger className="w-[180px]" aria-label="並び順">
+            {/* 狭い画面は全幅、sm以上は固定幅にする。どちらも幅が列か固定値から決まるので、
+                自動幅と違いWebフォント読み込みで幅が変わらない（フィルタ行の折り返し位置が
+                ずれてレイアウトシフトになる。PERFORMANCE.mdのCLS計測記録）。 */}
+            <SelectTrigger className="w-full sm:w-[180px]" aria-label="並び順">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -141,7 +147,7 @@ export function ChartFilterControls({
       )}
 
       {resultCount !== undefined && (
-        <span className="pb-2 text-sm text-muted-foreground">
+        <span className="text-sm text-muted-foreground sm:pb-2">
           {resultCount}
           {resultUnit}表示中
         </span>

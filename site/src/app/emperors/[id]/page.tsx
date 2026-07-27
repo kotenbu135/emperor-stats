@@ -7,6 +7,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { PageHeader } from "@/components/layout/page-header";
 import {
   EmperorDetailBody,
+  EmperorVideosSection,
   dynastyContextLabel,
 } from "@/components/emperors/emperor-detail-body";
 import { EmperorNarrativeSections } from "@/components/emperors/emperor-narrative";
@@ -171,12 +172,15 @@ export default async function EmperorPage({
               )}
             </nav>
           </div>
-          <EmperorDetailBody record={record} wide />
+          <EmperorDetailBody record={record} wide surface renderVideos={false} />
           {/* 経緯・調査メモは個別ページ限定（詳細ダイアログには出さない）。
               静的書き出しなのでnote全文を載せてもクライアント負荷はない。 */}
           <EmperorNarrativeSections narrative={getEmperorNarrative(id)} />
+          {/* 関連動画は外部チャンネルの制作物で、本文（経緯の散文）より後ろに置く。
+              EmperorDetailBodyのrenderVideos={false}と対で、位置だけをここで決める。 */}
+          <EmperorVideosSection record={record} wide />
           {events.length > 0 && (
-            <section className="mt-2 space-y-2 border-t border-border pt-5">
+            <section className="mt-2 space-y-2">
               <h3 className="font-heading text-base font-semibold text-foreground">
                 在位中の出来事（{events.length}件）
               </h3>

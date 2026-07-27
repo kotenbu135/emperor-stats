@@ -47,7 +47,7 @@ export function GroupFilterControls({
         <Select value={unit} onValueChange={onUnitChange}>
           {/* aria-label: role=comboboxのボタンは中身のテキストがアクセシブルネームに
               ならない（chart-filter-controls.tsxと同じ対応）。 */}
-          <SelectTrigger className="w-[130px]" aria-label="集計単位">
+          <SelectTrigger className="w-full sm:w-[130px]" aria-label="集計単位">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -59,7 +59,10 @@ export function GroupFilterControls({
 
       <FilterField label="王朝の区分" hint={<DynastyCategoryHint />}>
         <Select value={categoryValue} onValueChange={onCategoryChange}>
-          <SelectTrigger className="w-[170px]" aria-label="王朝の区分で絞り込み">
+          <SelectTrigger
+            className="w-full sm:w-[170px]"
+            aria-label="王朝の区分で絞り込み"
+          >
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -75,8 +78,9 @@ export function GroupFilterControls({
 
       <FilterField label="並び順">
         <Select value={sort} onValueChange={onSortChange}>
-          {/* 幅固定: 自動幅だとWebフォント読み込みで折り返し位置がずれCLSになる。 */}
-          <SelectTrigger className="w-[180px]" aria-label="並び順">
+          {/* 狭い画面は全幅・sm以上は固定幅: 自動幅だとWebフォント読み込みで
+              折り返し位置がずれCLSになる。 */}
+          <SelectTrigger className="w-full sm:w-[180px]" aria-label="並び順">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>

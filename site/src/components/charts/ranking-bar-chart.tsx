@@ -88,7 +88,8 @@ export function RankingBarChart({
   valueLabel: string;
   defaultSort?: SortDirection;
   /** 順位1位をどちら側に固定するか（並び順を切り替えても順位は変わらない）。
-   *  既定は多い順の1位。即位時年齢のように「少ない方が1位」の指標では"asc"を指定する。 */
+   *  既定は多い順の1位。「少ない方が1位」の指標では"asc"を指定する（現在この指定を
+   *  使う指標は無い。lib/emperors.ts の RANK_DIRECTIONS と必ず一致させること）。 */
   rankDirection?: SortDirection;
   sortLabel?: { desc: string; asc: string };
   /** 値が算出できない皇帝を除外したときの件数注記のラベル（例: "生年不詳などで年齢不明"）。 */
@@ -198,7 +199,7 @@ export function RankingBarChart({
         onSortDirectionChange={setSortDirection}
         sortLabel={sortLabel}
       >
-        <span className="pb-2 text-sm text-muted-foreground">
+        <span className="text-sm text-muted-foreground sm:pb-2">
           {countNotes.length > 0
             ? `全${sorted.length}件を表示中（このほか${countNotes.join("、")}）`
             : `全${sorted.length}件を表示中`}
