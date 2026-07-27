@@ -13,15 +13,15 @@ export function CategoryBreakdownList({
   slices,
   categoryOrder,
   categoryDescriptions,
-  title,
+  label,
   unit = "名",
 }: {
   slices: HomeBreakdownSlice[];
   /** 表示順。円グラフの既定の並び（意味に沿った固定順）と同じものを渡す。 */
   categoryOrder: readonly string[];
   categoryDescriptions: Record<string, string>;
-  /** 見出し（例: "死因8分類の内訳"）。 */
-  title: string;
+  /** 見出しの対象名（例: "死因"）。区分数は実際に出す行数から導出する。 */
+  label: string;
   unit?: string;
 }) {
   const byCategory = new Map(slices.map((s) => [s.category, s]));
@@ -29,6 +29,11 @@ export function CategoryBreakdownList({
     .map((category) => byCategory.get(category))
     .filter((s): s is HomeBreakdownSlice => s !== undefined);
   if (rows.length === 0) return null;
+
+  // 見出しの「N分類」は実際の行数から導出する。該当者0名の区分は円グラフにも
+  // このリストにも現れないため、スキーマ上の区分数を手で書くとずれる
+  // （即位経路は9区分あるが「受禅（擁立）」が該当0名なので実際は8行）。
+  const title = `${label}${rows.length}分類の内訳と定義`;
 
   return (
     <div className="mt-6">

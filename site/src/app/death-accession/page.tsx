@@ -70,7 +70,7 @@ export default function DeathAccessionPage() {
               slices={getCategoryBreakdown("deathCauseCategory")}
               categoryOrder={deathCauseCategoryOrder}
               categoryDescriptions={deathCauseDescriptions}
-              title="死因8分類の内訳と定義"
+              label="死因"
             />
           </div>
         </section>
@@ -99,7 +99,7 @@ export default function DeathAccessionPage() {
               slices={getCategoryBreakdown("accessionRouteCategory")}
               categoryOrder={accessionRouteCategoryOrder}
               categoryDescriptions={accessionRouteDescriptions}
-              title="即位経路9分類の内訳と定義"
+              label="即位経路"
             />
           </div>
         </section>
