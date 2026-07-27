@@ -44,7 +44,7 @@ export default function ReignPage() {
         title="在位年数ランキング"
         description="在位期間のランキングです。複数回即位した皇帝は、在位期間の合計で集計しています。"
       >
-        <ChartTakeaway sentences={getChartTakeaway("reign")} />
+        <ChartTakeaway sentences={getChartTakeaway("reign/ranking")} />
         <LazyMount estimatedHeight={680}>
           <RankingBarChart
             records={records}
@@ -65,6 +65,7 @@ export default function ReignPage() {
         title="復位者一覧（複数回即位）"
         description="廃位・退位を経て再び即位した皇帝の一覧です。"
       >
+        <ChartTakeaway sentences={getChartTakeaway("reign/restoration")} />
         <RestorationTable
           rows={getRestorationRows()}
           dynastyOptions={dynastyOptions}

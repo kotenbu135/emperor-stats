@@ -170,7 +170,7 @@ Next.js + GitHub Pages で構築した統計可視化サイト（emperorstats.co
 - 実機Lighthouse timespanレポートに基づく改善（2026-07-18・Lighthouse改善の直後）
 - 実機Lighthouse timespanレポート第2弾に基づく改善（2026-07-19）
 
-### [IMPLEMENTATION_LOG.md](./IMPLEMENTATION_LOG.md) — 実装記録（2026-07-18〜22）
+### [IMPLEMENTATION_LOG.md](./IMPLEMENTATION_LOG.md) — 実装記録（2026-07-18〜22・2026-07-27 SEO 追補）
 
 - 雛形作成（2026-07-18）
 - MVPページ実装（2026-07-18）
@@ -200,6 +200,7 @@ Next.js + GitHub Pages で構築した統計可視化サイト（emperorstats.co
 - 一覧カードの補助名（諱・通用名）表示（2026-07-22）
 - 系譜・即位経路グラフの可視化方式決定（2026-07-22・実装は未着手）
 - 系譜グラフ試作ページ /kinship（2026-07-22・調査済み36人での描画検証）
+- SEO 監査 Phase 1: 既存パターンの横展開（2026-07-27・「読み取れること」を全16節へ変更した記録を含む）
 
 ### [REDESIGN_2026-07.md](./REDESIGN_2026-07.md) — デザイン再構成（2026-07-27）
 

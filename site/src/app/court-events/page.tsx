@@ -12,6 +12,7 @@ import {
   getChartTakeaway,
   getDynastyOptions,
   type RankingMetricKey,
+  type TakeawaySection,
 } from "@/lib/emperors";
 import { BreadcrumbJsonLd, buildMetadata, StatsPageJsonLd } from "@/lib/seo";
 
@@ -30,24 +31,28 @@ export const metadata = buildMetadata({
 const sections: {
   id: string;
   key: RankingMetricKey;
+  takeaway: TakeawaySection;
   title: string;
   description: string;
 }[] = [
   {
     id: "era",
     key: "eraChangeCount",
+    takeaway: "court-events/era",
     title: "改元回数ランキング",
     description: "即位時の建元を含め、在位中に何回改元したかを表示します。",
   },
   {
     id: "amnesty",
     key: "amnestyCount",
+    takeaway: "court-events/amnesty",
     title: "大赦回数ランキング",
     description: "本紀に「大赦天下」等と明記された全国規模の大赦の回数です。",
   },
   {
     id: "empress",
     key: "empressInstallationCount",
+    takeaway: "court-events/empress",
     title: "立后回数ランキング",
     description:
       "皇后として正式に冊立された回数です（廃后後の再冊立も別カウント）。",
@@ -55,12 +60,14 @@ const sections: {
   {
     id: "deposition",
     key: "crownPrinceDepositionCount",
+    takeaway: "court-events/deposition",
     title: "皇太子廃立回数ランキング",
     description: "立てられていた皇太子（皇太弟等を含む）を廃した回数です。",
   },
   {
     id: "capital",
     key: "capitalRelocationCount",
+    takeaway: "court-events/capital",
     title: "遷都回数ランキング",
     description:
       "自分の在位中に正式な遷都（恒久的な都の移転）を行った回数です。戦乱による一時的な避難・行幸や、副都の新設は含めません。",
@@ -100,7 +107,7 @@ export default function CourtEventsPage() {
           label: title.replace(/回数ランキング$/, ""),
         }))}
       />
-      {sections.map(({ id, key, title, description }) => (
+      {sections.map(({ id, key, takeaway, title, description }) => (
         <Section
           key={id}
           id={id}
@@ -108,10 +115,9 @@ export default function CourtEventsPage() {
           title={title}
           description={description}
         >
-          {/* 総括文は代表 Section（改元回数）1本のみに付ける（全 Section には付けない）。 */}
-          {id === "era" && (
-            <ChartTakeaway sentences={getChartTakeaway("court-events")} />
-          )}
+          {/* 総括文は全 Section に1本ずつ置く（2026-07-27 に「ページ1本のみ」から変更。
+              グラフは LazyMount 配下なので、総括文の無い節は数値がどこにも出ない）。 */}
+          <ChartTakeaway sentences={getChartTakeaway(takeaway)} />
           <LazyMount estimatedHeight={680}>
             <RankingBarChart
               records={records}

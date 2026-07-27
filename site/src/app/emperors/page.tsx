@@ -8,13 +8,20 @@ import {
   buildMetadata,
   collectionPageJsonLd,
   JsonLd,
-  sectionDescription,
 } from "@/lib/seo";
+
+// title/descriptionはナビの短いラベル（SITE_SECTIONS）とは別物にする。
+// ナビは短いままが正しく、検索結果に出るのはこちら。JSON-LDにも同じ定数を渡す。
+// （2026-07-27 まではナビ用の短い説明22字をそのまま meta description に流用していた。
+//  統計8ページが60〜76字なのに対しサイト最大のハブページだけ手薄だったため独立させた。）
+const PAGE_TITLE = "皇帝一覧";
+const PAGE_DESCRIPTION =
+  "始皇帝から溥儀まで、皇帝を名乗った365人の一覧です。名前・王朝・時代で絞り込み、在位年数や死因など全12項目を1人ずつ確認できます。";
 
 export const metadata = buildMetadata({
   path: "/emperors",
-  title: "皇帝一覧",
-  description: sectionDescription("/emperors"),
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
 });
 
 /**
@@ -49,8 +56,8 @@ export default function EmperorsPage() {
       <BreadcrumbJsonLd label="皇帝一覧" path="/emperors" />
       <JsonLd
         data={collectionPageJsonLd({
-          name: "皇帝一覧",
-          description: sectionDescription("/emperors"),
+          name: PAGE_TITLE,
+          description: PAGE_DESCRIPTION,
           path: "/emperors",
           numberOfItems: records.length,
           items: listItems,

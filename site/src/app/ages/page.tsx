@@ -45,7 +45,7 @@ export default function AgesPage() {
         title="即位時年齢ランキング"
         description={`皇帝として即位した時点の年齢です（生年が判明している${accessionKnown}名分）。年長で即位した皇帝から順に表示します。`}
       >
-        <ChartTakeaway sentences={getChartTakeaway("ages")} />
+        <ChartTakeaway sentences={getChartTakeaway("ages/accession-age")} />
         <LazyMount estimatedHeight={680}>
           <RankingBarChart
             records={records}
@@ -68,6 +68,7 @@ export default function AgesPage() {
         title="没年齢ランキング"
         description={`崩御・死去した時点の年齢です（享年が判明している${deathKnown}名分）。長寿の皇帝から順に表示します。`}
       >
+        <ChartTakeaway sentences={getChartTakeaway("ages/death-age")} />
         <LazyMount estimatedHeight={680}>
           <RankingBarChart
             records={records}

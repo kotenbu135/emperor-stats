@@ -1,7 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { BASE_PATH } from "@/lib/base-path";
-import { aggregateByGroup } from "@/components/charts/dynasty-aggregate";
+import {
+  aggregateByGroup,
+  type GroupAggRow,
+} from "@/components/charts/dynasty-aggregate";
 import {
   astroYear,
   eraOrder,
@@ -1053,6 +1056,18 @@ function breakdown(
     });
 }
 
+/**
+ * 分類（死因・即位経路）の全区分の件数と割合。トップの内訳パネルと
+ * /death-accession の静的一覧が同じ集計を使うための公開口で、
+ * 中身は円グラフ（CategoryPieChart）の絞り込み無しの状態とまったく同じ数え方。
+ * 並びは呼び出し側が categoryOrder で決める（この関数は件数の多い順で返す）。
+ */
+export function getCategoryBreakdown(
+  metricKey: "deathCauseCategory" | "accessionRouteCategory",
+): HomeBreakdownSlice[] {
+  return breakdown(getAllEmperorRecords(), (r) => r[metricKey]);
+}
+
 /** トップページ用の抜粋データ。ビルド時に一度だけ計算する。 */
 export function getHomeHighlights(topCount = 6): HomeHighlights {
   const records = getAllEmperorRecords();
@@ -1120,13 +1135,30 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
 //     （＝0回除外・年齢判明者のみの対象人数）。手書きの .filter を挟まないので、
 //     isRanked/RANK_DIRECTIONS を将来変えても本文が勝手にずれない。
 
-export type TakeawayPage =
-  | "reign"
-  | "ages"
-  | "death-accession"
-  | "court-events"
-  | "military"
-  | "dynasties";
+// 【粒度】2026-07-21 の初版は「各ページ1本（代表 Section 直下）」に限定していたが、
+// 2026-07-27 の SEO 監査で「統計6ページ16節のうち総括文があるのは7節（44%）」＝
+// 総括文の無い9節はチャートを描かないと数値がどこにも出ない状態と判明したため、
+// 全16節に1本ずつ置く方針へ改めた（キーもページ単位→節単位へ）。置き場所の規範
+// （その主張が対象とする節の中に置く・ページ先頭へ持ち上げない）は初版のまま。
+
+/** 統計6ページの節キー。値は各ページの Section id と一致させる（`ページ/節id`）。 */
+export type TakeawaySection =
+  | "reign/ranking"
+  | "reign/restoration"
+  | "ages/accession-age"
+  | "ages/death-age"
+  | "death-accession/death-cause"
+  | "death-accession/accession"
+  | "court-events/era"
+  | "court-events/amnesty"
+  | "court-events/empress"
+  | "court-events/deposition"
+  | "court-events/capital"
+  | "military/campaign"
+  | "military/suppression"
+  | "military/suffered"
+  | "dynasties/avg-reign"
+  | "dynasties/death-cause";
 
 /** 指標の生値（回数・年齢）。ranks と同じ RankingMetricKey を受け、reignYears は扱わない。 */
 function metricValueOf(r: EmperorRecord, key: RankingMetricKey): number | null {
@@ -1174,33 +1206,105 @@ function countTakeaway(
 }
 
 /** 王朝別平均在位の小標本しきい値。これ未満は1人の在位が平均を大きく動かすため、
- *  最長平均の主張から除外する（除外することを本文にも明記する）。 */
+ *  最長平均の主張から除外する（除外することを本文にも明記する）。
+ *  /dynasties の2節（平均在位・死因の内訳）で同じしきい値を使う。 */
 const DYNASTY_MIN_EMPERORS = 5;
 
+/** 小標本を除いた王朝別集計。/dynasties の2つのチャートと同じ aggregateByGroup 由来。 */
+function eligibleDynastyRows(records: EmperorRecord[]): GroupAggRow[] {
+  return aggregateByGroup(records, "dynasty", "all").filter(
+    (r) => r.emperorCount >= DYNASTY_MIN_EMPERORS,
+  );
+}
+
+/** 王朝が同率で並んだときの表記。皇帝の leaderLabel と同じく区切りは「と」を使う。 */
+function dynastyLeaderLabel(
+  rows: GroupAggRow[],
+  detail: (row: GroupAggRow) => string,
+): string {
+  const labeled = rows.map((r) => `${r.label}（${detail(r)}）`);
+  if (labeled.length === 1) return labeled[0];
+  if (labeled.length === 2) return `${labeled[0]}と${labeled[1]}の2王朝`;
+  return `${labeled[0]}ら${labeled.length}王朝`;
+}
+
+/** ある死因の割合が最も高い王朝（小標本を除く）。同率は全件返す。 */
+function topDeathCauseShare(
+  records: EmperorRecord[],
+  category: DeathCauseCategory,
+): { leaders: GroupAggRow[]; percent: number } | null {
+  const rows = eligibleDynastyRows(records);
+  if (rows.length === 0) return null;
+  const shareOf = (r: GroupAggRow) =>
+    r.deathCauseCounts[category] / r.emperorCount;
+  const max = Math.max(...rows.map(shareOf));
+  if (max <= 0) return null;
+  return {
+    leaders: rows.filter((r) => Math.abs(shareOf(r) - max) < 1e-9),
+    percent: Math.round(max * 100),
+  };
+}
+
+/** 死因の割合が最も高い王朝を述べる1文。母集団の明示（N名中M名）まで含める。 */
+function deathCauseShareSentence(
+  records: EmperorRecord[],
+  category: DeathCauseCategory,
+  lead: string,
+): string | null {
+  const top = topDeathCauseShare(records, category);
+  if (!top) return null;
+  const label = dynastyLeaderLabel(
+    top.leaders,
+    (r) => `${r.emperorCount}名中${r.deathCauseCounts[category]}名`,
+  );
+  return `${lead}${label}で、${top.percent}%です。`;
+}
+
 /**
- * グラフページ1本ぶんの「読み取れること」総括文（その内容が対象とする節の中に置く）。
+ * 統計6ページの各節ぶんの「読み取れること」総括文（その内容が対象とする節の中に置く）。
  * すべてビルド時にデータから導出する表示用の機械集計（自動生成禁止には非抵触）。
  */
-export function getChartTakeaway(page: TakeawayPage): string[] {
+export function getChartTakeaway(section: TakeawaySection): string[] {
   const records = getAllEmperorRecords();
-  switch (page) {
-    case "reign": {
+  switch (section) {
+    case "reign/ranking": {
       const s = getOverviewStats();
       return [
         `収録した${s.emperorCount}名の在位期間は、最長が${s.longestReign.name}（${s.longestReign.dynastyLabel}）の${s.longestReign.durationLabel}、最短が${s.shortestReign.name}（${s.shortestReign.dynastyLabel}）の${s.shortestReign.durationLabel}です。`,
         `1人あたりの平均は${s.avgReignLabel}です。`,
       ];
     }
-    case "death-accession": {
-      // 1文目＝死因・2文目＝即位経路の順。ページ側（app/death-accession/page.tsx）が
-      // この配列を節ごとに振り分けるため、順序を入れ替えたり文を挟んだりしないこと。
+    case "reign/restoration": {
+      // 母集団は getOverviewStats（reignCount>=2）＝この節の表の行数と同じ定義。
+      const s = getOverviewStats();
+      const rows = getRestorationRows();
+      if (rows.length === 0) return [];
+      const maxCount = Math.max(...rows.map((r) => r.reignCount));
+      const leaders = rows.filter((r) => r.reignCount === maxCount);
+      const names =
+        leaders.length === 1
+          ? `${leaders[0].name}（${leaders[0].dynastyLabel}）`
+          : leaders.length === 2
+            ? `${leaders[0].name}と${leaders[1].name}の2名`
+            : `${leaders[0].name}ら${leaders.length}名`;
+      return [
+        `廃位・退位を経て再び即位した皇帝は、${s.emperorCount}名中${s.restorationCount}名です。`,
+        `即位回数が最も多いのは${names}で、${maxCount}回です。`,
+      ];
+    }
+    case "death-accession/death-cause": {
       const s = getOverviewStats();
       return [
         `${s.emperorCount}名の死因で最も多いのは「${s.topDeathCause.category}」で、${s.topDeathCause.count}名（${s.topDeathCause.percent}%）です。`,
+      ];
+    }
+    case "death-accession/accession": {
+      const s = getOverviewStats();
+      return [
         `即位経路で最も多いのは「${s.topAccessionRoute.category}」で、${s.topAccessionRoute.count}名（${s.topAccessionRoute.percent}%）です。`,
       ];
     }
-    case "ages": {
+    case "ages/accession-age": {
       const top = topRanked(records, "accessionAge"); // desc=年長順が1位
       if (!top) return [];
       return [
@@ -1208,25 +1312,71 @@ export function getChartTakeaway(page: TakeawayPage): string[] {
         `生年が判明しない皇帝が多く、即位時年齢を算出できたのはこの${top.total}名にとどまります。`,
       ];
     }
-    case "court-events": {
+    case "ages/death-age": {
+      const top = topRanked(records, "deathAge"); // desc=長寿順が1位
+      if (!top) return [];
+      return [
+        `没年齢（数え年）が判明する${top.total}名のうち、最も長命だったのは${leaderLabel(top.leaders)}で、${top.value}歳です。`,
+      ];
+    }
+    case "court-events/era": {
       return countTakeaway(records, "eraChangeCount", {
         verb: "改元回数",
         unit: "回",
         populationClause: "即位時の建元を含め在位中に一度でも改元した皇帝",
       });
     }
-    case "military": {
+    case "court-events/amnesty": {
+      return countTakeaway(records, "amnestyCount", {
+        verb: "大赦（全国規模の恩赦）の回数",
+        unit: "回",
+        populationClause: "在位中に一度でも大赦を行った皇帝",
+      });
+    }
+    case "court-events/empress": {
+      return countTakeaway(records, "empressInstallationCount", {
+        verb: "立后（皇后の冊立）の回数",
+        unit: "回",
+        populationClause: "在位中に一度でも皇后を立てた皇帝",
+      });
+    }
+    case "court-events/deposition": {
+      return countTakeaway(records, "crownPrinceDepositionCount", {
+        verb: "皇太子を廃した回数",
+        unit: "回",
+        populationClause: "在位中に一度でも皇太子を廃した皇帝",
+      });
+    }
+    case "court-events/capital": {
+      return countTakeaway(records, "capitalRelocationCount", {
+        verb: "遷都の回数",
+        unit: "回",
+        populationClause: "在位中に遷都を行った皇帝",
+      });
+    }
+    case "military/campaign": {
       return countTakeaway(records, "personalCampaignCount", {
         verb: "親征（皇帝自身が軍を率いた出征）の回数",
         unit: "回",
         populationClause: "親征の記録がある皇帝",
       });
     }
-    case "dynasties": {
-      const rows = aggregateByGroup(records, "dynasty", "all");
-      const eligible = rows.filter(
-        (r) => r.emperorCount >= DYNASTY_MIN_EMPERORS,
-      );
+    case "military/suppression": {
+      return countTakeaway(records, "rebellionSuppressionCount", {
+        verb: "政権側として鎮圧にあたった反乱の件数",
+        unit: "件",
+        populationClause: "反乱を鎮圧した記録がある皇帝",
+      });
+    }
+    case "military/suffered": {
+      return countTakeaway(records, "rebellionSufferedCount", {
+        verb: "自らに対して起こされた反乱の件数",
+        unit: "件",
+        populationClause: "反乱を起こされた記録がある皇帝",
+      });
+    }
+    case "dynasties/avg-reign": {
+      const eligible = eligibleDynastyRows(records);
       if (eligible.length === 0) return [];
       const top = eligible.reduce((a, b) =>
         b.avgReignDays > a.avgReignDays ? b : a,
@@ -1236,6 +1386,22 @@ export function getChartTakeaway(page: TakeawayPage): string[] {
         `皇帝が${DYNASTY_MIN_EMPERORS}名以上いる王朝では、1人あたりの平均在位年数が最も長いのは${top.label}で、約${years}年（${top.emperorCount}名）です。`,
         `皇帝が少ない王朝は1人の在位が平均を大きく動かすため、${DYNASTY_MIN_EMPERORS}名未満はこの比較から除いています。`,
       ];
+    }
+    case "dynasties/death-cause": {
+      // 平均在位の節と同じ小標本しきい値を使う（1人王朝は割合が0%か100%にしかならない）。
+      const sentences = [
+        deathCauseShareSentence(
+          records,
+          "病死",
+          `皇帝が${DYNASTY_MIN_EMPERORS}名以上いる王朝のうち、病死の割合が最も高いのは`,
+        ),
+        deathCauseShareSentence(
+          records,
+          "暗殺",
+          "同じ条件で、暗殺の割合が最も高いのは",
+        ),
+      ];
+      return sentences.filter((s): s is string => s !== null);
     }
   }
 }

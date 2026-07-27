@@ -2,12 +2,14 @@ import { PageHeader } from "@/components/layout/page-header";
 import { LazyMount } from "@/components/lazy-mount";
 import { CategoryPieChart } from "@/components/charts/category-pie-chart";
 import { ChartTakeaway } from "@/components/charts/chart-takeaway";
+import { CategoryBreakdownList } from "@/components/tables/category-breakdown-list";
 import {
   accessionRouteCategoryOrder,
   accessionRouteDescriptions,
   deathCauseCategoryOrder,
   deathCauseDescriptions,
   getAllEmperorRecords,
+  getCategoryBreakdown,
   getChartTakeaway,
   getDynastyOptions,
 } from "@/lib/emperors";
@@ -28,9 +30,6 @@ export const metadata = buildMetadata({
 export default function DeathAccessionPage() {
   const records = getAllEmperorRecords();
   const dynastyOptions = getDynastyOptions();
-  // 総括文は、その内容が対象とする節の中に置く（1文目＝死因・2文目＝即位経路）。
-  // 死因・即位経路は対等な2つの円グラフなので、どちらの節も総括文なしにはしない。
-  const takeaway = getChartTakeaway("death-accession");
 
   return (
     <>
@@ -52,7 +51,9 @@ export default function DeathAccessionPage() {
             </h2>
           </div>
           <div className="mt-6">
-            <ChartTakeaway sentences={takeaway.slice(0, 1)} />
+            <ChartTakeaway
+              sentences={getChartTakeaway("death-accession/death-cause")}
+            />
             <LazyMount estimatedHeight={580}>
               <CategoryPieChart
                 records={records}
@@ -63,6 +64,14 @@ export default function DeathAccessionPage() {
                 chartLabel="死因別分布"
               />
             </LazyMount>
+            {/* 円グラフは LazyMount 配下なので、区分名・件数・定義は画面外では
+                DOM に出ない。8分類すべてを静的に出すのはこのリストの役割。 */}
+            <CategoryBreakdownList
+              slices={getCategoryBreakdown("deathCauseCategory")}
+              categoryOrder={deathCauseCategoryOrder}
+              categoryDescriptions={deathCauseDescriptions}
+              title="死因8分類の内訳と定義"
+            />
           </div>
         </section>
         <section id="accession" className="scroll-mt-20">
@@ -73,7 +82,9 @@ export default function DeathAccessionPage() {
             </h2>
           </div>
           <div className="mt-6">
-            <ChartTakeaway sentences={takeaway.slice(1)} />
+            <ChartTakeaway
+              sentences={getChartTakeaway("death-accession/accession")}
+            />
             <LazyMount estimatedHeight={580}>
               <CategoryPieChart
                 records={records}
@@ -84,6 +95,12 @@ export default function DeathAccessionPage() {
                 chartLabel="即位経路別分布"
               />
             </LazyMount>
+            <CategoryBreakdownList
+              slices={getCategoryBreakdown("accessionRouteCategory")}
+              categoryOrder={accessionRouteCategoryOrder}
+              categoryDescriptions={accessionRouteDescriptions}
+              title="即位経路9分類の内訳と定義"
+            />
           </div>
         </section>
       </div>
