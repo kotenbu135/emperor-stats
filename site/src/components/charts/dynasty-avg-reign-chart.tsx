@@ -87,6 +87,9 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
     truncate,
     idToLabel,
     chartHeight,
+    rowHeight,
+    narrow,
+    barPadding,
     windowData,
     isFullRange,
     scrollRef,
@@ -124,6 +127,7 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
         scrollRef={scrollRef}
         chartAreaRef={chartAreaRef}
         chartHeight={chartHeight}
+        rowHeight={rowHeight}
         start={start}
         end={end}
         isFullRange={isFullRange}
@@ -144,17 +148,22 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
               borderWidth={1}
               borderColor={(d: { data: { data: BarDatum } }) => String(d.data.data.edge)}
               margin={{ top: MARGIN_TOP, right: MARGIN_RIGHT, bottom: 6, left: marginLeft }}
-              padding={0.35}
+              padding={barPadding}
               borderRadius={3}
               valueScale={{ type: "linear", min: 0, max: domainMax, nice: false }}
               enableGridY={false}
               enableGridX
               gridXValues={ticks}
-              axisLeft={{
-                tickSize: 0,
-                tickPadding: 8,
-                format: (id: string) => truncate(idToLabel.get(id) ?? id),
-              }}
+              // 狭い画面では名前を軸ラベルに置かず、行の上段（RowOverlay）へ移す。
+              axisLeft={
+                narrow
+                  ? null
+                  : {
+                      tickSize: 0,
+                      tickPadding: 8,
+                      format: (id: string) => truncate(idToLabel.get(id) ?? id),
+                    }
+              }
               axisBottom={null}
               enableLabel={false}
               layers={["grid", "axes", "bars", OutsideValueLabels]}
@@ -165,6 +174,8 @@ export function DynastyAvgReignChart({ records }: { records: EmperorRecord[] }) 
                 数pxしかなく狙えないため）。ranking-bar-chart.tsxと同じ方式。 */}
             <RowOverlay
               rows={chartData.slice(start, end)}
+              rowHeight={rowHeight}
+              labelOf={narrow ? (d) => d.label : undefined}
               hoverAllowed={hoverAllowed}
               onHover={(d, event) =>
                 setTip({ row: d.row, x: event.clientX, y: event.clientY })

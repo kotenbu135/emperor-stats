@@ -21,6 +21,15 @@ import type { BarDatum, BarCustomLayerProps } from "@nivo/bar";
 import { integerTickValues } from "@/components/charts/nivo-theme";
 
 export const ROW_HEIGHT = 24;
+/**
+ * 狭い画面では行を高くし、皇帝名を軸ラベル（＝プロット幅を食う左マージン）ではなく
+ * 行の上段にフル幅で置く。390pxでは左マージンが幅の42%を占め、ラベルは11文字で
+ * 省略され、棒の描画域が160pxしか残らず長短がほとんど読めなかった。
+ * 上段=名前(13px) / 中段=棒(12px) / 下段=行の間隔、の配分。
+ */
+export const ROW_HEIGHT_NARROW = 38;
+/** この幅を下回ったら上記の縦積みレイアウトに切り替える(px)。 */
+export const NARROW_CHART_WIDTH = 520;
 // バー右外側の数値ラベル領域。
 export const MARGIN_RIGHT = 76;
 // Nivoチャートの上マージン。RowOverlayの行位置計算と共有するため定数化する。
@@ -60,6 +69,8 @@ export function OutsideValueLabels({ bars }: BarCustomLayerProps<BarDatum>) {
  */
 export function RowOverlay<T>({
   rows,
+  rowHeight = ROW_HEIGHT,
+  labelOf,
   hoverAllowed,
   onHover,
   onLeave,
@@ -69,6 +80,11 @@ export function RowOverlay<T>({
 }: {
   /** ウィンドウ内に表示中の行（上から順）。 */
   rows: T[];
+  /** 行の高さ。狭い画面では ROW_HEIGHT_NARROW を渡す（既定は ROW_HEIGHT）。 */
+  rowHeight?: number;
+  /** 渡すと行の上段に名前を描く（狭い画面用）。軸ラベルの代わりなので、
+   *  呼び出し側は同時に axisLeft を切ること。省略時は従来どおり透明のヒット領域。 */
+  labelOf?: (row: T) => string;
   /** スクロール直後のホバー抑制（useWindowedRowsのhoverAllowed）。 */
   hoverAllowed: () => boolean;
   onHover: (row: T, event: ReactMouseEvent<HTMLElement>) => void;
@@ -85,7 +101,7 @@ export function RowOverlay<T>({
   return (
     <>
       {rows.map((row, i) => {
-        const style = { top: MARGIN_TOP + i * ROW_HEIGHT, height: ROW_HEIGHT };
+        const style = { top: MARGIN_TOP + i * rowHeight, height: rowHeight };
         const handlers = {
           onMouseEnter: (event: ReactMouseEvent<HTMLElement>) => {
             if (hoverAllowed()) onHover(row, event);
@@ -94,6 +110,12 @@ export function RowOverlay<T>({
         };
         const overlayClass =
           "absolute inset-x-0 cursor-pointer hover:bg-seal/5 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring";
+        // 名前は棒の上段に置く。棒はバンドの中央に描かれるので、上段の13pxとは重ならない。
+        const labelNode = labelOf ? (
+          <span className="pointer-events-none absolute inset-x-1 top-0 block truncate text-left text-micro leading-[13px] text-foreground">
+            {labelOf(row)}
+          </span>
+        ) : null;
         return onSelect && hrefOf ? (
           <a
             key={i}
@@ -115,7 +137,9 @@ export function RowOverlay<T>({
               onSelect(row);
             }}
             {...handlers}
-          />
+          >
+            {labelNode}
+          </a>
         ) : onSelect ? (
           <button
             key={i}
@@ -128,7 +152,9 @@ export function RowOverlay<T>({
               onSelect(row);
             }}
             {...handlers}
-          />
+          >
+            {labelNode}
+          </button>
         ) : (
           <div
             key={i}
@@ -136,7 +162,9 @@ export function RowOverlay<T>({
             className="absolute inset-x-0 hover:bg-seal/5"
             style={style}
             {...handlers}
-          />
+          >
+            {labelNode}
+          </div>
         );
       })}
     </>
@@ -197,11 +225,12 @@ function computeRange(
   scrollTop: number,
   viewportHeight: number,
   rowCount: number,
+  rowHeight: number,
 ): { start: number; end: number } {
-  const rawStart = Math.floor(scrollTop / ROW_HEIGHT) - OVERSCAN_ROWS;
+  const rawStart = Math.floor(scrollTop / rowHeight) - OVERSCAN_ROWS;
   const start = Math.max(0, Math.floor(rawStart / STEP_ROWS) * STEP_ROWS);
   const rawEnd =
-    Math.ceil((scrollTop + viewportHeight) / ROW_HEIGHT) + OVERSCAN_ROWS;
+    Math.ceil((scrollTop + viewportHeight) / rowHeight) + OVERSCAN_ROWS;
   const end = Math.min(rowCount, Math.ceil(rawEnd / STEP_ROWS) * STEP_ROWS);
   return { start, end };
 }
@@ -216,7 +245,10 @@ function computeRange(
  * 変わるのは範囲がSTEP_ROWS境界をまたいだときだけなので、呼び出し側コンポーネント
  * （Nivoチャート含む）の再レンダリングもそのときしか起きない。
  */
-export function useWindowedRows(rowCount: number): {
+export function useWindowedRows(
+  rowCount: number,
+  rowHeight: number = ROW_HEIGHT,
+): {
   scrollRef: RefObject<HTMLDivElement | null>;
   /** 表示範囲の先頭行（チャート上端から数えた0始まり）。 */
   start: number;
@@ -233,8 +265,12 @@ export function useWindowedRows(rowCount: number): {
   // 初期の高さはSCROLL_MAX_HEIGHTの上限。マウント後に実測値へ置き換わる。
   const viewportHeightRef = useRef(520);
   const rowCountRef = useRef(rowCount);
+  // 行高さは画面幅で切り替わる（狭い画面は名前を上段に置くぶん高い）。
+  const rowHeightRef = useRef(rowHeight);
   const rafRef = useRef(0);
-  const [range, setRange] = useState(() => computeRange(0, 520, rowCount));
+  const [range, setRange] = useState(() =>
+    computeRange(0, 520, rowCount, rowHeight),
+  );
 
   const updateRange = () => {
     const el = scrollRef.current;
@@ -242,6 +278,7 @@ export function useWindowedRows(rowCount: number): {
       el?.scrollTop ?? 0,
       viewportHeightRef.current,
       rowCountRef.current,
+      rowHeightRef.current,
     );
     setRange((prev) =>
       prev.start === next.start && prev.end === next.end ? prev : next,
@@ -266,8 +303,9 @@ export function useWindowedRows(rowCount: number): {
   // 呼び出し側のsliceが範囲外になる）。
   useEffect(() => {
     rowCountRef.current = rowCount;
+    rowHeightRef.current = rowHeight;
     updateRange();
-  }, [rowCount]);
+  }, [rowCount, rowHeight]);
 
   const lastScrollAtRef = useRef(-Infinity);
   const handleScroll = () => {
@@ -323,6 +361,14 @@ export function useRankingChartLayout<T extends { id: string; label: string }>(
   truncate: (label: string) => string;
   idToLabel: Map<string, string>;
   chartHeight: number;
+  /** 行の高さ。狭い画面では名前を行の上段に置くぶん高い。 */
+  rowHeight: number;
+  /** 名前を軸ラベルではなく行の上段に置くレイアウトか。呼び出し側はこれが真の
+   *  ときだけ axisLeft を切り、RowOverlay に labelOf を渡す。 */
+  narrow: boolean;
+  /** Nivoのバー太さ（バンドに対する余白の割合）。狭い画面では上段の名前と
+   *  重ならないよう細くする。 */
+  barPadding: number;
   /** ウィンドウ範囲の行（Nivoに渡す表示順反転済みスライス）。 */
   windowData: T[];
   isFullRange: boolean;
@@ -334,13 +380,23 @@ export function useRankingChartLayout<T extends { id: string; label: string }>(
 } {
   const domainMax = Math.ceil(maxValue);
 
+  // 狭い画面では名前を左マージン（＝軸ラベル）に置くのをやめ、行の上段へ移す。
+  // 390pxでは左マージンが幅の42%を占め、名前は11文字で省略され、棒の描画域が
+  // 160pxしか残らずランキングの長短がほとんど読めなかった。
+  const narrow = chartWidth > 0 && chartWidth < NARROW_CHART_WIDTH;
+  const rowHeight = narrow ? ROW_HEIGHT_NARROW : ROW_HEIGHT;
+  // バンド38pxに対し棒は約12px。中央に描かれるので上段13pxの名前とは重ならない。
+  const barPadding = narrow ? 0.68 : 0.35;
+
   // 左マージンはラベル長とコンテナ幅の両方で制限する（狭い画面で描画領域が消えないように）。
   const maxLabelLength = Math.max(0, ...chartData.map((d) => d.label.length));
-  const marginLeft = Math.min(
-    260,
-    Math.max(100, maxLabelLength * 11 + 24),
-    Math.max(90, Math.floor(chartWidth * 0.42)),
-  );
+  const marginLeft = narrow
+    ? 4
+    : Math.min(
+        260,
+        Math.max(100, maxLabelLength * 11 + 24),
+        Math.max(90, Math.floor(chartWidth * 0.42)),
+      );
   // 目盛りの刻みは値域だけでなく実際の描画幅からも決める（狭い画面で目盛りが
   // 密着して読めなくなるため）。marginLeftの算出後でないと描画幅が出ない。
   const ticks = integerTickValues(maxValue, chartWidth - marginLeft - MARGIN_RIGHT);
@@ -354,13 +410,15 @@ export function useRankingChartLayout<T extends { id: string; label: string }>(
   const displayData = [...chartData].reverse();
   // indexByは一意なidを使う（label＝氏名+王朝名は、同名同王朝が重複しうるため衝突対策）。
   const idToLabel = new Map(displayData.map((d) => [d.id, d.label]));
-  const chartHeight = Math.max(chartData.length * ROW_HEIGHT + 12, 96);
+  const chartHeight = Math.max(chartData.length * rowHeight + 12, 96);
 
   // 行ウィンドウイング。displayDataは反転済み（先頭＝最下行）なので、
   // 上からstart..end行は配列末尾側のスライスに対応する。
   const rowCount = chartData.length;
-  const { scrollRef, start, end, handleScroll, hoverAllowed } =
-    useWindowedRows(rowCount);
+  const { scrollRef, start, end, handleScroll, hoverAllowed } = useWindowedRows(
+    rowCount,
+    rowHeight,
+  );
   const windowData = displayData.slice(rowCount - end, rowCount - start);
   // 全行が範囲内のときは従来と同じ全高レンダリング（少件数時の見た目を変えない）。
   const isFullRange = start === 0 && end === rowCount;
@@ -372,6 +430,9 @@ export function useRankingChartLayout<T extends { id: string; label: string }>(
     truncate,
     idToLabel,
     chartHeight,
+    rowHeight,
+    narrow,
+    barPadding,
     windowData,
     isFullRange,
     scrollRef,
@@ -392,6 +453,7 @@ export function WindowedChartFrame({
   scrollRef,
   chartAreaRef,
   chartHeight,
+  rowHeight = ROW_HEIGHT,
   start,
   end,
   isFullRange,
@@ -406,6 +468,8 @@ export function WindowedChartFrame({
   scrollRef: RefObject<HTMLDivElement | null>;
   chartAreaRef: RefObject<HTMLDivElement | null>;
   chartHeight: number;
+  /** 行の高さ。狭い画面では ROW_HEIGHT_NARROW（既定は ROW_HEIGHT）。 */
+  rowHeight?: number;
   start: number;
   end: number;
   isFullRange: boolean;
@@ -439,10 +503,10 @@ export function WindowedChartFrame({
             style={{
               transform: isFullRange
                 ? undefined
-                : `translateY(${start * ROW_HEIGHT}px)`,
+                : `translateY(${start * rowHeight}px)`,
               height: isFullRange
                 ? chartHeight
-                : (end - start) * ROW_HEIGHT + 12,
+                : (end - start) * rowHeight + 12,
             }}
           >
             {children}
