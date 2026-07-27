@@ -3,12 +3,60 @@
 // （app/emperors/[id]/page.tsx）で共用する。"use client"を付けない純粋な表示部品
 // （ダイアログ側から使うとクライアント、個別ページから使うとサーバーで描画される）。
 
+import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Portrait } from "@/components/emperors/portrait";
 import { YoutubeEmbed } from "@/components/emperors/youtube-embed";
 import type { EmperorRecord, MetricRank } from "@/lib/emperor-types";
 import { VIDEO_CHANNEL } from "@/lib/video-channel";
 import { cn } from "@/lib/utils";
+
+/**
+ * 統計ページの該当節への文脈内リンク（2026-07-27 の SEO 監査 2-3）。
+ * 個別ページ365件には「365名中12位」のような順位が大量に出ているのに、
+ * その順位表が載っているランキングページへの発リンクが0件だったため、
+ * 順位・分類の表示そのものを導線にする。
+ *
+ * 個別ページ（linkStats）でだけ出す。詳細ダイアログはランキングチャートの行
+ * クリックからも開くので、そこから同じランキング節へ戻すリンクは循環になる。
+ */
+function StatLink({
+  href,
+  label,
+  children,
+}: {
+  href: string;
+  /** リンク単体で意味が通るようにする説明（「病死」だけでは行き先が分からない）。 */
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      aria-label={label}
+      title={label}
+      className="underline decoration-dotted underline-offset-2 hover:text-seal"
+    >
+      {children}
+    </Link>
+  );
+}
+
+function withStatLink(
+  text: string | null,
+  href: string,
+  label: string,
+  enabled: boolean,
+): React.ReactNode {
+  if (!text) return null;
+  return enabled ? (
+    <StatLink href={href} label={label}>
+      {text}
+    </StatLink>
+  ) : (
+    text
+  );
+}
 
 /** 「明」「呉・三国（三国）」のような、王朝名＋時代の見出し用サブラベル。
  *  王朝名から時代が読み取れる場合は重複を避けて時代を付さない。 */
@@ -25,9 +73,10 @@ function DetailRow({
   sub,
 }: {
   label: string;
-  value: string;
+  /** 文字列のほか、統計ページへのリンク（StatLink）を包んだ要素も受ける。 */
+  value: React.ReactNode;
   /** 値の下に小さく添える補足（順位表示に使う）。 */
-  sub?: string | null;
+  sub?: React.ReactNode;
 }) {
   return (
     // 補足（順位）はラベルと値の下に行いっぱいで置く。値の下に入れると、
@@ -67,12 +116,17 @@ export function EmperorVideosSection({
   record,
   wide = false,
   collapse = false,
+  headingLevel = "h3",
 }: {
   record: EmperorRecord;
   /** 動画リストを2カラムのグリッドに並べる（広幅表示用）。 */
   wide?: boolean;
   /** 折りたたみ（既定閉）にする。 */
   collapse?: boolean;
+  /** 見出しの階層。ダイアログでは DialogTitle（h2）の下なので h3 のままでよいが、
+   *  個別ページでは PageHeader の h1 直下なので h2 にする（h1→h3 のレベル飛び回避・
+   *  2026-07-27 の SEO 監査 2-2）。見た目のサイズは階層に関わらず変えない。 */
+  headingLevel?: "h2" | "h3";
 }) {
   if (record.videos.length === 0) return null;
   const videoNote = (
@@ -96,11 +150,12 @@ export function EmperorVideosSection({
       ))}
     </div>
   );
+  const Heading = headingLevel;
   return !collapse ? (
     <div className="space-y-2">
-      <h3 className="font-heading text-base font-semibold text-foreground">
+      <Heading className="font-heading text-base font-semibold text-foreground">
         関連動画
-      </h3>
+      </Heading>
       {videoNote}
       {videoList}
     </div>
@@ -130,6 +185,8 @@ export function EmperorDetailBody({
   collapseVideos = !wide,
   renderVideos = true,
   surface = false,
+  linkStats = false,
+  videoHeadingLevel = "h3",
 }: {
   record: EmperorRecord;
   /** 個別ページ用の広幅表示。lg以上で基本情報と回数系を左右2カラムに並べて
@@ -145,6 +202,11 @@ export function EmperorDetailBody({
    *  なので重ねない（wideはダイアログでも渡るため、面の有無はwideから導かず
    *  この prop で受ける）。既定は面なし＝ダイアログ側の呼び出しは無変更でよい。 */
   surface?: boolean;
+  /** 順位・分類の表示を、対応する統計ページの節へのリンクにする（StatLink 参照）。
+   *  個別ページ専用。既定は false ＝ダイアログ側の呼び出しは無変更。 */
+  linkStats?: boolean;
+  /** 関連動画の見出し階層（EmperorVideosSection の headingLevel と同じ意味）。 */
+  videoHeadingLevel?: "h2" | "h3";
 }) {
   return (
     <>
@@ -182,13 +244,23 @@ export function EmperorDetailBody({
             <DetailRow
               label="在位期間"
               value={record.reignDurationLabel}
-              sub={rankText(record.ranks.reignYears)}
+              sub={withStatLink(
+                rankText(record.ranks.reignYears),
+                "/reign#ranking",
+                "在位年数ランキングを見る",
+                linkStats,
+              )}
             />
             {/* 旧「建国」「復位」はラベルから外して軸・在位情報へ移したため、
                 その2点だけは経路の脇に補足として出す（判定の4軸は「即位の経緯」節）。 */}
             <DetailRow
               label="即位経路"
-              value={record.accessionRouteCategory}
+              value={withStatLink(
+                record.accessionRouteCategory,
+                "/death-accession#accession",
+                "即位経路別の分布を見る",
+                linkStats,
+              )}
               sub={
                 [
                   record.accessionTitleNew ? "帝号を新たに称した" : null,
@@ -198,16 +270,34 @@ export function EmperorDetailBody({
                   .join("・") || null
               }
             />
-            <DetailRow label="死因" value={record.deathCauseCategory} />
+            <DetailRow
+              label="死因"
+              value={withStatLink(
+                record.deathCauseCategory,
+                "/death-accession#death-cause",
+                "死因別の分布を見る",
+                linkStats,
+              )}
+            />
             <DetailRow
               label="即位時年齢"
               value={ageText(record.accessionAge)}
-              sub={rankText(record.ranks.accessionAge, "年長順")}
+              sub={withStatLink(
+                rankText(record.ranks.accessionAge, "年長順"),
+                "/ages#accession-age",
+                "即位時年齢ランキングを見る",
+                linkStats,
+              )}
             />
             <DetailRow
               label="没年齢"
               value={ageText(record.deathAge)}
-              sub={rankText(record.ranks.deathAge, "長寿順")}
+              sub={withStatLink(
+                rankText(record.ranks.deathAge, "長寿順"),
+                "/ages#death-age",
+                "没年齢ランキングを見る",
+                linkStats,
+              )}
             />
           </dl>
         </div>
@@ -221,42 +311,61 @@ export function EmperorDetailBody({
               surface && "[&>*:nth-last-child(-n+2)]:border-b-0",
             )}
           >
+            {/* 4つ目はその回数のランキングが載っている節（nav-data.ts のアンカーと
+                同じ）。順位が出ている行だけリンクにする＝0回の行は順位対象外で
+                補足自体が無い。 */}
             {(
               [
-                ["改元", record.eraChangeCount, record.ranks.eraChangeCount],
-                ["大赦", record.amnestyCount, record.ranks.amnestyCount],
+                [
+                  "改元",
+                  record.eraChangeCount,
+                  record.ranks.eraChangeCount,
+                  "/court-events#era",
+                ],
+                [
+                  "大赦",
+                  record.amnestyCount,
+                  record.ranks.amnestyCount,
+                  "/court-events#amnesty",
+                ],
                 [
                   "立后",
                   record.empressInstallationCount,
                   record.ranks.empressInstallationCount,
+                  "/court-events#empress",
                 ],
                 [
                   "皇太子廃立",
                   record.crownPrinceDepositionCount,
                   record.ranks.crownPrinceDepositionCount,
+                  "/court-events#deposition",
                 ],
                 [
                   "親征",
                   record.personalCampaignCount,
                   record.ranks.personalCampaignCount,
+                  "/military#campaign",
                 ],
                 [
                   "反乱鎮圧",
                   record.rebellionSuppressionCount,
                   record.ranks.rebellionSuppressionCount,
+                  "/military#suppression",
                 ],
                 [
                   "被反乱",
                   record.rebellionSufferedCount,
                   record.ranks.rebellionSufferedCount,
+                  "/military#suffered",
                 ],
                 [
                   "遷都",
                   record.capitalRelocationCount,
                   record.ranks.capitalRelocationCount,
+                  "/court-events#capital",
                 ],
               ] as const
-            ).map(([label, count, rank]) => (
+            ).map(([label, count, rank, href]) => (
               <div
                 key={label}
                 className="flex items-start justify-between gap-2 border-b border-border/60 py-1.5"
@@ -266,7 +375,12 @@ export function EmperorDetailBody({
                   {count}回
                   {rank && (
                     <span className="block text-micro leading-tight text-muted-foreground">
-                      {rankText(rank)}
+                      {withStatLink(
+                        rankText(rank),
+                        href,
+                        `${label}回数ランキングを見る`,
+                        linkStats,
+                      )}
                     </span>
                   )}
                 </dd>
@@ -283,6 +397,7 @@ export function EmperorDetailBody({
           record={record}
           wide={wide}
           collapse={collapseVideos}
+          headingLevel={videoHeadingLevel}
         />
       )}
     </>

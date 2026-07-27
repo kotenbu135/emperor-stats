@@ -58,6 +58,33 @@ export const SITE_SECTIONS: SiteSection[] = [
   },
 ];
 
+/**
+ * 運営者。実名は出さず GitHub のハンドルを名乗りとして使う（2026-07-27 の SEO 監査 3-2）。
+ * 監査時点では著者・運営者の実在性を示す情報が本文にも構造化データにも無く、
+ * Dataset の creator がサイト自身を指す自己言及になっていた。
+ * ハンドル・URL の単一情報源はここ（/about の本文と JSON-LD が同じ値を使う）。
+ */
+export const OPERATOR = {
+  /** 名乗り（GitHub のハンドル）。 */
+  handle: "kotenbu135",
+  profileUrl: "https://github.com/kotenbu135",
+  repoUrl: "https://github.com/kotenbu135/emperor-stats",
+} as const;
+
+/** 運営者ノードのIRI。Dataset の creator と /about の記載が同じ主体を指すよう @id で結ぶ。 */
+export const OPERATOR_ID = `${SITE_URL}/about#operator`;
+
+/** 運営者（Person）ノード。sameAs は本人が管理していると確認できる URL のみ。 */
+export function operatorNode(): Record<string, unknown> {
+  return {
+    "@type": "Person",
+    "@id": OPERATOR_ID,
+    name: OPERATOR.handle,
+    url: absoluteUrl("/about"),
+    sameAs: [OPERATOR.profileUrl, OPERATOR.repoUrl],
+  };
+}
+
 export function absoluteUrl(path: string): string {
   return path === "/" ? SITE_URL : `${SITE_URL}${path}`;
 }
@@ -237,7 +264,10 @@ export function datasetJsonLd({
     inLanguage: "ja",
     license: "https://creativecommons.org/licenses/by/4.0/",
     isAccessibleForFree: true,
-    creator: { "@type": "Organization", name: SITE_NAME },
+    // creator はサイト自身でなく運営者を指す（自己言及だと E-E-A-T の
+    // Authoritativeness シグナルにならない）。publisher はサイトのまま。
+    creator: operatorNode(),
+    publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
     distribution: [
       {
         "@type": "DataDownload",

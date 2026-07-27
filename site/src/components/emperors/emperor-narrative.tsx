@@ -50,17 +50,23 @@ export function NarrativeBlock({
   title,
   section,
   axes = null,
+  headingLevel = "h3",
 }: {
   title: string;
   section: NarrativeSection;
   /** 即位の経緯のみ。判定ラベルの導出根拠として軸を折りたたみで添える。 */
   axes?: AccessionAxes | null;
+  /** 見出しの階層。ダイアログでは DialogTitle（h2）の下なので h3、個別ページでは
+   *  PageHeader の h1 直下なので h2（h1→h3 のレベル飛び回避・2026-07-27 の SEO 監査 2-2）。
+   *  見た目のサイズは階層に関わらず変えない。 */
+  headingLevel?: "h2" | "h3";
 }) {
+  const Heading = headingLevel;
   return (
     <section className="space-y-1.5">
-      <h3 className="font-heading text-base font-semibold text-foreground">
+      <Heading className="font-heading text-base font-semibold text-foreground">
         {title}
-      </h3>
+      </Heading>
       <p className="text-sm leading-relaxed">{section.note}</p>
       {axes && (
         <details className="group">
@@ -106,20 +112,25 @@ export function EmperorNarrativeSections({
     <div className="mt-2 flex flex-col gap-5 border-t border-border pt-5">
       {/* 経緯2節はlg以上で左右に並べる（noteは中央値100字前後の短い叙述）。 */}
       <div className="grid gap-5 lg:grid-cols-2 lg:gap-x-10">
+        {/* この節一式は個別ページ専用（ダイアログは emperor-narrative-dialog.tsx が
+            NarrativeBlock を直接使う）。個別ページの見出しは h1 の直下なので h2。 */}
         {accession && (
           <NarrativeBlock
             title="即位の経緯"
             section={accession}
             axes={accessionAxes}
+            headingLevel="h2"
           />
         )}
-        {death && <NarrativeBlock title="死因の経緯" section={death} />}
+        {death && (
+          <NarrativeBlock title="死因の経緯" section={death} headingLevel="h2" />
+        )}
       </div>
       {restorations.length > 0 && (
         <section className="space-y-1.5">
-          <h3 className="font-heading text-base font-semibold text-foreground">
+          <h2 className="font-heading text-base font-semibold text-foreground">
             復位の経緯
-          </h3>
+          </h2>
           {restorations.map((r) => (
             <p key={r.periodLabel} className="text-sm leading-relaxed">
               <span className="text-muted-foreground">{r.periodLabel}｜</span>

@@ -35,22 +35,36 @@ function AccordionItem({
 function AccordionTrigger({
   className,
   children,
+  asHeading = true,
   ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
-  return (
-    <AccordionPrimitive.Header className="flex">
-      <AccordionPrimitive.Trigger
-        data-slot="accordion-trigger"
-        className={cn(
-          "group/accordion-trigger relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2.5 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:after:border-ring disabled:pointer-events-none disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-muted-foreground",
-          className
-        )}
-        {...props}
-      >
-        {children}
-        <ChevronDownIcon data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden" />
-        <ChevronUpIcon data-slot="accordion-trigger-icon" className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline" />
-      </AccordionPrimitive.Trigger>
+}: React.ComponentProps<typeof AccordionPrimitive.Trigger> & {
+  /** トリガーを見出し（Radix既定の h3）で包むか。false にすると Header を
+   *  asChild で div として描く（data-state 等の属性は保つ）。ナビゲーションの
+   *  ようにトリガーが見出しでない用途で使う — テキストを持たないトリガーだと
+   *  中身が空の h3 がページの見出し構造に混ざるため（2026-07-27 の SEO 監査 2-1）。 */
+  asHeading?: boolean
+}) {
+  // 条件分岐でラッパー用の関数コンポーネントを作らないこと（レンダーごとに
+  // 型が変わり、トリガーが毎回アンマウント＝フォーカスが飛ぶ）。要素を組んで置く。
+  const trigger = (
+    <AccordionPrimitive.Trigger
+      data-slot="accordion-trigger"
+      className={cn(
+        "group/accordion-trigger relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2.5 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:after:border-ring disabled:pointer-events-none disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-muted-foreground",
+        className
+      )}
+      {...props}
+    >
+      {children}
+      <ChevronDownIcon data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden" />
+      <ChevronUpIcon data-slot="accordion-trigger-icon" className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline" />
+    </AccordionPrimitive.Trigger>
+  )
+  return asHeading ? (
+    <AccordionPrimitive.Header className="flex">{trigger}</AccordionPrimitive.Header>
+  ) : (
+    <AccordionPrimitive.Header asChild>
+      <div className="flex">{trigger}</div>
     </AccordionPrimitive.Header>
   )
 }

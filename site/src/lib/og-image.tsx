@@ -9,6 +9,7 @@ import { ImageResponse } from "next/og";
 import sharp from "sharp";
 import { dynastyContextLabel } from "@/components/emperors/emperor-detail-body";
 import type { EmperorRecord } from "@/lib/emperor-types";
+import { getEmperorOgChips, type OgFact } from "@/lib/emperors";
 import { SITE_NAME } from "@/lib/seo";
 
 export const OG_IMAGE_SIZE = { width: 1200, height: 630 };
@@ -29,7 +30,51 @@ const PALETTE = {
   muted: "#6b6258",
   seal: "#a6321c",
   sealForeground: "#f5f1e8",
+  /** 事実カード・チップの罫と面（本文の --border / --card 相当の値を焼き込んだもの）。 */
+  line: "#d9d1c2",
+  card: "#fbf8f2",
 };
+
+/** 事実カード（ページの代表的な数値）。2枚を横に並べる前提の幅で組む。 */
+function FactCards({ facts }: { facts: OgFact[] }) {
+  if (facts.length === 0) return null;
+  return (
+    <div style={{ display: "flex", gap: 20, marginTop: 26 }}>
+      {facts.map((f) => (
+        <div
+          key={f.label}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            flex: 1,
+            border: `1px solid ${PALETTE.line}`,
+            borderLeft: `6px solid ${PALETTE.seal}`,
+            borderRadius: 10,
+            padding: "14px 18px",
+            backgroundColor: PALETTE.card,
+          }}
+        >
+          <span style={{ fontSize: 18, color: PALETTE.muted }}>{f.label}</span>
+          <span
+            style={{
+              fontSize: 34,
+              fontWeight: 700,
+              color: PALETTE.foreground,
+              marginTop: 4,
+            }}
+          >
+            {f.value}
+          </span>
+          {f.sub && (
+            <span style={{ fontSize: 18, color: PALETTE.muted, marginTop: 2 }}>
+              {f.sub}
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function Frame({ children }: { children: React.ReactNode }) {
   return (
@@ -90,6 +135,18 @@ function Footer() {
   );
 }
 
+/**
+ * 皇帝名の文字サイズ。名前は2文字（「太宗」）から14文字（「承天応運啓聖睿文宣武皇帝黄巣」）
+ * まで幅があり、固定88pxだと長い名前が2行になってチップ・フッターと重なる。
+ * 収まる幅から逆算して1行に保つ（全角1文字≒1em で見積もり、下限44px）。
+ */
+function emperorNameFontSize(name: string, hasPortrait: boolean): number {
+  // 内側の幅992pxから、肖像（220px）とその左の余白（48px）を引いた実効幅。
+  const available = hasPortrait ? 992 - 220 - 48 : 992;
+  const perChar = available / Math.max(name.length, 1);
+  return Math.max(44, Math.min(88, Math.floor(perChar * 0.98)));
+}
+
 export async function renderEmperorOgImage(record: EmperorRecord): Promise<ImageResponse> {
   let portraitSrc: string | null = null;
   if (record.hasPortrait) {
@@ -110,7 +167,7 @@ export async function renderEmperorOgImage(record: EmperorRecord): Promise<Image
             </span>
             <span
               style={{
-                fontSize: 88,
+                fontSize: emperorNameFontSize(record.name, portraitSrc !== null),
                 fontWeight: 700,
                 color: PALETTE.foreground,
                 marginTop: 8,
@@ -119,9 +176,29 @@ export async function renderEmperorOgImage(record: EmperorRecord): Promise<Image
             >
               {record.name}
             </span>
-            <span style={{ fontSize: 30, color: PALETTE.muted, marginTop: 24 }}>
+            <span style={{ fontSize: 30, color: PALETTE.muted, marginTop: 18 }}>
               在位 {record.periodsLabel}（{record.reignDurationLabel}）
             </span>
+            {/* 名前と在位だけでは「開くと何が分かるか」が伝わらないため、
+                個別ページが持っている順位・分類をチップで見せる（2026-07-27）。 */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 20 }}>
+              {getEmperorOgChips(record).map((chip) => (
+                <span
+                  key={chip}
+                  style={{
+                    display: "flex",
+                    fontSize: 20,
+                    color: PALETTE.foreground,
+                    border: `1px solid ${PALETTE.line}`,
+                    borderRadius: 999,
+                    padding: "8px 18px",
+                    backgroundColor: PALETTE.card,
+                  }}
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
           </div>
           {portraitSrc && (
             // eslint-disable-next-line @next/next/no-img-element -- next/ogのImageResponseはnext/imageを使えない
@@ -143,15 +220,21 @@ export async function renderEmperorOgImage(record: EmperorRecord): Promise<Image
 
 /** 統計ページの共有カード画像。
  *  ここに渡す title は**ページの `<title>` ではなくナビの短いラベル**を使う（2026-07-27）。
- *  検索向けに `<title>` を具体化した（例「在位年数ランキングと復位者一覧」）が、72pxで15文字を
- *  超えると内側の幅992pxで折り返し、説明文とフッターが重なる。カード画像は一目で読める板として
- *  短い名前を出し、検索クエリと重ねる長い文字列は og:title（＝metadata 側）が運ぶ。 */
+ *  検索向けに `<title>` を具体化した（例「在位年数ランキングと復位者一覧」）が、大きな文字で
+ *  15文字を超えると内側の幅992pxで折り返し、下の要素と重なる。カード画像は一目で読める板として
+ *  短い名前を出し、検索クエリと重ねる長い文字列は og:title（＝metadata 側）が運ぶ。
+ *
+ *  facts は各ページの代表的な数値（lib/emperors.ts の getOgFacts）。ページ名と説明だけでは
+ *  「開くと何が分かるか」が画像から読めずクリックに繋がらないため、実データを2枚のカードで
+ *  見せる（2026-07-27 の SEO 監査 2-5）。縦の内訳は 24+74+38+26+110+40 で内側の高さ416pxに収まる。 */
 export function renderStatPageOgImage({
   title,
   description,
+  facts = [],
 }: {
   title: string;
   description: string;
+  facts?: OgFact[];
 }): ImageResponse {
   return new ImageResponse(
     (
@@ -160,10 +243,10 @@ export function renderStatPageOgImage({
           <span style={{ fontSize: 24, fontWeight: 700, color: PALETTE.seal }}>{SITE_NAME}</span>
           <span
             style={{
-              fontSize: 72,
+              fontSize: 64,
               fontWeight: 700,
               color: PALETTE.foreground,
-              marginTop: 16,
+              marginTop: 6,
               lineHeight: 1.15,
             }}
           >
@@ -172,15 +255,16 @@ export function renderStatPageOgImage({
           <span
             style={{
               display: "flex",
-              fontSize: 28,
+              fontSize: 26,
               color: PALETTE.muted,
-              marginTop: 24,
-              lineHeight: 1.5,
-              maxWidth: 900,
+              marginTop: 14,
+              lineHeight: 1.45,
+              maxWidth: 940,
             }}
           >
             {description}
           </span>
+          <FactCards facts={facts} />
         </div>
         <Footer />
       </Frame>

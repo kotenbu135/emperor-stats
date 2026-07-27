@@ -154,7 +154,12 @@ export function NavMenu({ onNavigate }: { onNavigate?: () => void }) {
                 >
                   {category.label}
                 </Link>
+                {/* ナビは見出しではないので Radix 既定の h3 で包まない
+                    （トリガーはシェブロンだけでテキストを持たないため、包むと
+                    中身が空の h3 が全ページに7個ずつ並ぶ）。見出しの役割は
+                    左隣のカテゴリリンクが担っている。 */}
                 <AccordionTrigger
+                  asHeading={false}
                   aria-label={`${category.label}の項目を開閉`}
                   className="flex-none rounded-md p-1.5 hover:bg-accent/70 hover:no-underline"
                 />

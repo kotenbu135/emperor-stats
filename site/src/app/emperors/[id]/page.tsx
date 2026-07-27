@@ -172,18 +172,30 @@ export default async function EmperorPage({
               )}
             </nav>
           </div>
-          <EmperorDetailBody record={record} wide surface renderVideos={false} />
+          {/* linkStats: 順位・分類の表示を対応するランキング節へのリンクにする。
+              videoHeadingLevel は renderVideos={false} のため実際には効かないが、
+              位置だけ切り出した下の EmperorVideosSection と揃えて明示しておく。 */}
+          <EmperorDetailBody
+            record={record}
+            wide
+            surface
+            renderVideos={false}
+            linkStats
+            videoHeadingLevel="h2"
+          />
           {/* 経緯・調査メモは個別ページ限定（詳細ダイアログには出さない）。
               静的書き出しなのでnote全文を載せてもクライアント負荷はない。 */}
           <EmperorNarrativeSections narrative={getEmperorNarrative(id)} />
           {/* 関連動画は外部チャンネルの制作物で、本文（経緯の散文）より後ろに置く。
               EmperorDetailBodyのrenderVideos={false}と対で、位置だけをここで決める。 */}
-          <EmperorVideosSection record={record} wide />
+          <EmperorVideosSection record={record} wide headingLevel="h2" />
           {events.length > 0 && (
             <section className="mt-2 space-y-2">
-              <h3 className="font-heading text-base font-semibold text-foreground">
+              {/* 個別ページの節見出しは h1（PageHeader）の直下なので h2。
+                  見た目の大きさは従来どおり text-base のまま。 */}
+              <h2 className="font-heading text-base font-semibold text-foreground">
                 在位中の出来事（{events.length}件）
-              </h3>
+              </h2>
               <p className="text-xs leading-relaxed text-muted-foreground">
                 改元・大赦・立后・皇太子廃立・親征・反乱鎮圧・被反乱・遷都の8項目で確認した出来事を日付順に並べています。日付は史料の記述の細かさに応じて年・月・日で表示し、西暦に換算できていないもの（元号表記のまま）と日付不詳のものは末尾にまとめています。行を開くと調査時の記録と出典が読めます。
               </p>
@@ -233,6 +245,8 @@ export default async function EmperorPage({
               <span />
             )}
           </nav>
+          {/* 王朝単位の比較（/dynasties）はレコードの各項目に対応する順位が無く
+              上のリンクからは辿れないため、ここで文中から送る。 */}
           <p className="text-xs text-muted-foreground">
             収録基準・各項目の数え方・出典は
             <Link href="/about" className="underline underline-offset-2 hover:text-seal">
@@ -241,6 +255,10 @@ export default async function EmperorPage({
             を、時代の中での位置は
             <Link href="/timeline" className="underline underline-offset-2 hover:text-seal">
               通史年表
+            </Link>
+            を、{record.dynastyLabel}全体の平均在位年数や死因の傾向は
+            <Link href="/dynasties" className="underline underline-offset-2 hover:text-seal">
+              王朝・時代で見る
             </Link>
             をご覧ください。
           </p>

@@ -1,4 +1,5 @@
 import { OG_IMAGE_CONTENT_TYPE, OG_IMAGE_SIZE, renderStatPageOgImage } from "@/lib/og-image";
+import { getOgFacts } from "@/lib/emperors";
 import { sectionDescription } from "@/lib/seo";
 
 export const dynamic = "force-static";
@@ -10,5 +11,6 @@ export default function Image() {
   return renderStatPageOgImage({
     title: "王朝・時代で見る",
     description: sectionDescription("/dynasties"),
+    facts: getOgFacts("/dynasties"),
   });
 }

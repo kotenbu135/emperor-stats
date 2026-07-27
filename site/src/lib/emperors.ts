@@ -1407,6 +1407,193 @@ export function getChartTakeaway(section: TakeawaySection): string[] {
 }
 
 // ---------------------------------------------------------------------------
+// OGP画像（SNSの共有カード）に載せる事実。
+//
+// 監査（2026-07-27）の 2-5 で Content-Type は実害なしと確認できたので、次の論点は
+// 「カードがクリックされるか」。従来はページ名と短い説明だけで、そのページを開くと
+// 何が分かるのかが画像から読めなかった。タイムライン上で目を引くのは具体的な数値な
+// ので、各ページの代表的な事実を2枚のカードで載せる。
+//
+// 【整合性の要】ここも「読み取れること」と同じで、数値は手書きせずページ本体と同じ
+// 集計から導く（getOverviewStats・topRanked・eligibleDynastyRows）。画像はビルド時に
+// 焼かれてキャッシュも効くため、本文とずれると訂正が最も届きにくい面になる。
+
+/** OGP画像の下段に置く事実カード。value は 34px で1行に収まる長さ（全角12文字程度）に保つ。 */
+export interface OgFact {
+  /** カード上段の見出し（例: "最長在位"）。 */
+  label: string;
+  /** 主役の値（例: "61年332日"）。 */
+  value: string;
+  /** 値の下に添える補足（誰の記録か・母集団）。 */
+  sub?: string;
+}
+
+/** OGP画像に事実カードを出すページ。値は各ルートのパスと一致させる。 */
+export type OgFactPage =
+  | "/"
+  | "/timeline"
+  | "/emperors"
+  | "/reign"
+  | "/death-accession"
+  | "/court-events"
+  | "/military"
+  | "/ages"
+  | "/dynasties"
+  | "/about";
+
+/** 回数系ランキングの1位を事実カード1枚にする（countTakeaway と同じ topRanked 由来）。 */
+function countFact(
+  records: EmperorRecord[],
+  key: RankingMetricKey,
+  label: string,
+  unit: string,
+): OgFact | null {
+  const top = topRanked(records, key);
+  if (!top) return null;
+  return {
+    label,
+    value: `${top.value}${unit}`,
+    sub: leaderLabel(top.leaders),
+  };
+}
+
+/** 年齢ランキングの1位を事実カード1枚にする。 */
+function ageFact(
+  records: EmperorRecord[],
+  key: RankingMetricKey,
+  label: string,
+): OgFact | null {
+  const top = topRanked(records, key);
+  if (!top) return null;
+  return {
+    label,
+    value: `${top.value}歳`,
+    sub: `${leaderLabel(top.leaders)}／${top.total}名中`,
+  };
+}
+
+export function getOgFacts(page: OgFactPage): OgFact[] {
+  const records = getAllEmperorRecords();
+  const stats = getOverviewStats();
+  switch (page) {
+    case "/":
+    case "/about": {
+      return [
+        {
+          label: "収録した皇帝",
+          value: `${stats.emperorCount}名`,
+          sub: `全12項目・正史原典から個別調査`,
+        },
+        {
+          label: "最多の死因",
+          value: `${stats.topDeathCause.category} ${stats.topDeathCause.count}名`,
+          sub: `${stats.emperorCount}名の${stats.topDeathCause.percent}%`,
+        },
+      ];
+    }
+    case "/timeline":
+    case "/emperors": {
+      const highlights = getHomeHighlights();
+      return [
+        {
+          label: "収録した皇帝",
+          value: `${stats.emperorCount}名`,
+          sub: `${highlights.dynastyCount}の王朝・政権`,
+        },
+        {
+          label: "在位が判明する範囲",
+          value: highlights.yearSpanLabel,
+          sub: "始皇帝から溥儀まで",
+        },
+      ];
+    }
+    case "/reign": {
+      return [
+        {
+          label: "最長在位",
+          value: stats.longestReign.durationLabel,
+          sub: `${stats.longestReign.name}（${stats.longestReign.dynastyLabel}）`,
+        },
+        {
+          label: "復位した皇帝",
+          value: `${stats.restorationCount}名`,
+          sub: `${stats.emperorCount}名中`,
+        },
+      ];
+    }
+    case "/death-accession": {
+      return [
+        {
+          label: "最多の死因",
+          value: `${stats.topDeathCause.category} ${stats.topDeathCause.count}名`,
+          sub: `${stats.emperorCount}名の${stats.topDeathCause.percent}%`,
+        },
+        {
+          label: "最多の即位経路",
+          value: `${stats.topAccessionRoute.category} ${stats.topAccessionRoute.count}名`,
+          sub: `${stats.emperorCount}名の${stats.topAccessionRoute.percent}%`,
+        },
+      ];
+    }
+    case "/court-events": {
+      return [
+        countFact(records, "eraChangeCount", "改元の最多", "回"),
+        countFact(records, "amnestyCount", "大赦の最多", "回"),
+      ].filter((f): f is OgFact => f !== null);
+    }
+    case "/military": {
+      return [
+        countFact(records, "personalCampaignCount", "親征の最多", "回"),
+        countFact(records, "rebellionSufferedCount", "被反乱の最多", "件"),
+      ].filter((f): f is OgFact => f !== null);
+    }
+    case "/ages": {
+      return [
+        ageFact(records, "accessionAge", "最年長での即位"),
+        ageFact(records, "deathAge", "最長寿"),
+      ].filter((f): f is OgFact => f !== null);
+    }
+    case "/dynasties": {
+      const eligible = eligibleDynastyRows(records);
+      const facts: OgFact[] = [];
+      if (eligible.length > 0) {
+        const top = eligible.reduce((a, b) =>
+          b.avgReignDays > a.avgReignDays ? b : a,
+        );
+        facts.push({
+          label: `平均在位が最長の王朝`,
+          value: `${top.label} 約${(top.avgReignDays / 365).toFixed(1)}年`,
+          sub: `皇帝${top.emperorCount}名／${DYNASTY_MIN_EMPERORS}名以上の王朝で比較`,
+        });
+      }
+      const share = topDeathCauseShare(records, "病死");
+      if (share) {
+        facts.push({
+          label: "病死の割合が最も高い王朝",
+          value: `${share.leaders[0].label} ${share.percent}%`,
+          sub: `${share.leaders[0].emperorCount}名中${share.leaders[0].deathCauseCounts["病死"]}名`,
+        });
+      }
+      return facts;
+    }
+  }
+}
+
+/** 皇帝個別ページのOGP画像に載せるチップ（順位・分類）。レコードの表示値をそのまま使う。
+ *  **3枚まで**にすること — 肖像がある皇帝は左カラムの幅が約724pxしかなく、4枚だと
+ *  「即位経路 受禅（易姓）」のような幅広チップで2段になり、フッターと重なる。 */
+export function getEmperorOgChips(record: EmperorRecord): string[] {
+  const chips: string[] = [];
+  const reignRank = record.ranks.reignYears;
+  if (reignRank) {
+    chips.push(`在位年数 ${reignRank.total}名中${reignRank.rank}位`);
+  }
+  chips.push(`死因 ${record.deathCauseCategory}`);
+  chips.push(`即位経路 ${record.accessionRouteCategory}`);
+  return chips;
+}
+
+// ---------------------------------------------------------------------------
 // 通史年表（/timeline）用のデータ。設計は docs/site-design/TIMELINE.md。
 // 帯・空位・並立数はすべて収録皇帝のreigns[]の純粋な写像としてビルド時に計算する
 // （王朝の建国〜滅亡年を別途調査して持ち込まない）。

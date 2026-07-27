@@ -8,13 +8,13 @@ import {
 } from "@/lib/emperors";
 import { BASE_PATH } from "@/lib/base-path";
 import { VIDEO_CHANNEL } from "@/lib/video-channel";
-import { buildMetadata, datasetJsonLd, JsonLd } from "@/lib/seo";
+import { buildMetadata, datasetJsonLd, JsonLd, OPERATOR } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   path: "/about",
   title: "このサイトについて",
   description:
-    "中国皇帝統計の収録基準・各統計項目の数え方・典拠とした史料・データセットのダウンロード（CC BY 4.0）・肖像画の出典・免責事項について説明します。",
+    "中国皇帝統計の収録基準・各統計項目の数え方・典拠とした史料・データセットのダウンロード（CC BY 4.0）・肖像画の出典・運営者情報・免責事項について説明します。",
 });
 
 function Prose({ children }: { children: React.ReactNode }) {
@@ -65,7 +65,7 @@ export default function AboutPage() {
       />
       <PageHeader
         title="このサイトについて"
-        description="収録基準・各統計項目の数え方・典拠とした史料・データセットのダウンロード・肖像画の出典・免責事項について説明します。"
+        description="収録基準・各統計項目の数え方・典拠とした史料・データセットのダウンロード・肖像画の出典・運営者情報・免責事項について説明します。"
         contained
       />
       {/* 記事型ページのためワイド画面では本文列を中央寄せにする（PageHeaderのcontainedと同じ列幅） */}
@@ -354,6 +354,56 @@ export default function AboutPage() {
               {VIDEO_CHANNEL.name}
             </a>
             」様が制作・公開されているものです。動画の内容は当サイトの集計・調査とは独立しており、当サイトが内容の正確性を保証するものではありません。埋め込みにはYouTubeの公式埋め込み機能を利用しています。
+          </p>
+        </Prose>
+
+        {/* 見出しのidは lib/seo.tsx の OPERATOR_ID（.../about#operator）と一致させること。
+            JSON-LD の Person ノードが指す先＝この節。 */}
+        <H2 id="operator">運営者について</H2>
+        <Prose>
+          <p>
+            このサイトとデータセットは、
+            <a
+              href={OPERATOR.profileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              {OPERATOR.handle}
+            </a>
+            が個人で制作・運営しています。所属する組織や団体はなく、企業・研究機関からの資金提供も受けていません。広告掲載やアフィリエイトも行っていません。
+          </p>
+          <p>
+            制作者は歴史学の専門家ではありません。そのぶん、<strong>判断の根拠を全部残して検証できるようにする</strong>方針で作っています。{stats.emperorCount}
+            名の全員について、在位の開始日・終了日は正史原文の該当箇所を引用したうえで暦換算の計算過程まで記録し、死因・即位の経緯・回数系の各項目にも判定時の調査メモと出典（書名・巻）を付けています。これらはサイトの各皇帝の個別ページで読めるほか、
+            <a
+              href={`${BASE_PATH}/data/emperors.json`}
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              配布データ
+            </a>
+            にも同じものが入っています。集計結果に疑問があれば、根拠にした原文まで遡って確かめられます。
+          </p>
+          <p>
+            ソースコード・データの変更履歴・調査手順の記録は
+            <a
+              href={OPERATOR.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              GitHub リポジトリ
+            </a>
+            ですべて公開しています。ご指摘・ご連絡は同リポジトリの
+            <a
+              href={`${OPERATOR.repoUrl}/issues`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-seal"
+            >
+              Issue
+            </a>
+            へお願いします。
           </p>
         </Prose>
 
