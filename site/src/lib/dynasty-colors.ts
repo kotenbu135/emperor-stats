@@ -141,8 +141,8 @@ const INK_HEX = "#3a3530";
 export const DYNASTY_FILL_MIX = 55;
 /** 塗りより一段濃い輪郭で形を締める（kinship/style.ts の正統と同値）。 */
 export const DYNASTY_EDGE_MIX = 82;
-/** 肖像なしカードのモノグラム背景。姓一文字が読める淡さまで落とす。 */
-export const DYNASTY_MONOGRAM_MIX = 22;
+/* 肖像なしカードのモノグラム背景の濃度は、肖像ありのカードとの明度差から決めるため
+ * components/emperors/portrait.tsx のローカル定数（MONOGRAM_MIX）が持つ。 */
 
 /** dynastyKey（`name__section`）→ スロット。未知のキーは throw する
  *  （皇帝を追加収録したときに気づけるようにする。eraLabelOf の既存方式に揃える）。 */
