@@ -31,13 +31,16 @@ function StatLink({
   children: React.ReactNode;
 }) {
   return (
+    // 説明は aria-label でなく sr-only の追記で足す。aria-label はアクセシブル名を
+    // 丸ごと置き換えるため、可視テキスト（「病死」「365名中1位」）が名前から消えて
+    // WCAG 2.5.3 Label in Name に反する（音声入力で「病死」と言っても操作できない）。
     <Link
       href={href}
-      aria-label={label}
       title={label}
       className="underline decoration-dotted underline-offset-2 hover:text-seal"
     >
       {children}
+      <span className="sr-only">（{label}）</span>
     </Link>
   );
 }
@@ -93,6 +96,34 @@ function DetailRow({
       )}
     </div>
   );
+}
+
+/** 即位経路の脇に出す補足（帝号を新たに称した・のちに復位）。
+ *  復位は順位指標ではないので上の rank の仕掛けに乗らないが、/reign の復位者一覧へ
+ *  送れる唯一の手掛かりなのでここからリンクする。 */
+function accessionSubNote(
+  record: EmperorRecord,
+  linkStats: boolean,
+): React.ReactNode {
+  const parts: React.ReactNode[] = [];
+  if (record.accessionTitleNew) parts.push("帝号を新たに称した");
+  if (record.hasRestoration) {
+    parts.push(
+      withStatLink(
+        "のちに復位",
+        "/reign#restoration",
+        "復位者一覧を見る",
+        linkStats,
+      ),
+    );
+  }
+  if (parts.length === 0) return null;
+  return parts.map((part, i) => (
+    <span key={i}>
+      {i > 0 && "・"}
+      {part}
+    </span>
+  ));
 }
 
 function ageText(age: number | null): string {
@@ -261,14 +292,7 @@ export function EmperorDetailBody({
                 "即位経路別の分布を見る",
                 linkStats,
               )}
-              sub={
-                [
-                  record.accessionTitleNew ? "帝号を新たに称した" : null,
-                  record.hasRestoration ? "のちに復位" : null,
-                ]
-                  .filter(Boolean)
-                  .join("・") || null
-              }
+              sub={accessionSubNote(record, linkStats)}
             />
             <DetailRow
               label="死因"

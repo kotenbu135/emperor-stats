@@ -1557,21 +1557,37 @@ export function getOgFacts(page: OgFactPage): OgFact[] {
       const eligible = eligibleDynastyRows(records);
       const facts: OgFact[] = [];
       if (eligible.length > 0) {
-        const top = eligible.reduce((a, b) =>
-          b.avgReignDays > a.avgReignDays ? b : a,
+        // 同率1位を黙って1件に丸めない（皇帝の leaderLabel と同じ扱い）。
+        const maxDays = Math.max(...eligible.map((r) => r.avgReignDays));
+        const leaders = eligible.filter(
+          (r) => Math.abs(r.avgReignDays - maxDays) < 1e-9,
         );
+        const years = (maxDays / 365).toFixed(1);
         facts.push({
-          label: `平均在位が最長の王朝`,
-          value: `${top.label} 約${(top.avgReignDays / 365).toFixed(1)}年`,
-          sub: `皇帝${top.emperorCount}名／${DYNASTY_MIN_EMPERORS}名以上の王朝で比較`,
+          label: "平均在位が最長の王朝",
+          value:
+            leaders.length === 1
+              ? `${leaders[0].label} 約${years}年`
+              : `${leaders[0].label}ら${leaders.length}王朝 約${years}年`,
+          sub:
+            leaders.length === 1
+              ? `皇帝${leaders[0].emperorCount}名／${DYNASTY_MIN_EMPERORS}名以上の王朝で比較`
+              : `${DYNASTY_MIN_EMPERORS}名以上の王朝で比較`,
         });
       }
       const share = topDeathCauseShare(records, "病死");
       if (share) {
+        const [first] = share.leaders;
         facts.push({
           label: "病死の割合が最も高い王朝",
-          value: `${share.leaders[0].label} ${share.percent}%`,
-          sub: `${share.leaders[0].emperorCount}名中${share.leaders[0].deathCauseCounts["病死"]}名`,
+          value:
+            share.leaders.length === 1
+              ? `${first.label} ${share.percent}%`
+              : `${first.label}ら${share.leaders.length}王朝 ${share.percent}%`,
+          sub:
+            share.leaders.length === 1
+              ? `${first.emperorCount}名中${first.deathCauseCounts["病死"]}名`
+              : `皇帝${DYNASTY_MIN_EMPERORS}名以上の王朝で比較`,
         });
       }
       return facts;

@@ -135,16 +135,28 @@ function Footer() {
   );
 }
 
+/** 内側の幅992pxから、肖像（220px）とその左の余白（48px）を引いた左カラムの実効幅。 */
+function emperorColumnWidth(hasPortrait: boolean): number {
+  return hasPortrait ? 992 - 220 - 48 : 992;
+}
+
+/** 文字列の幅を em 単位で見積もる（全角＝1em・ASCII＝0.55em）。
+ *  皇帝名は全角だけとは限らず（「英宗・正統帝/天順帝」）、在位行は数字と区切りが大半。 */
+function approxEmWidth(text: string): number {
+  let w = 0;
+  for (const ch of text) w += /[\x20-\x7e]/.test(ch) ? 0.55 : 1;
+  return w;
+}
+
 /**
- * 皇帝名の文字サイズ。名前は2文字（「太宗」）から14文字（「承天応運啓聖睿文宣武皇帝黄巣」）
- * まで幅があり、固定88pxだと長い名前が2行になってチップ・フッターと重なる。
- * 収まる幅から逆算して1行に保つ（全角1文字≒1em で見積もり、下限44px）。
+ * 1行に収まる文字サイズを幅から逆算する。折り返すと下の要素（チップ・フッター）と
+ * 重なるため、長い文字列は縮めて1行に保つ。
+ * 実測で踏んだ2件: 皇帝名は2文字（「太宗」）〜14文字（「承天応運啓聖睿文宣武皇帝黄巣」）、
+ * 在位行は復位者（宣統帝「在位 1908–1912年 / 1917年 / 1934–1945年（14年256日）」）が最長。
  */
-function emperorNameFontSize(name: string, hasPortrait: boolean): number {
-  // 内側の幅992pxから、肖像（220px）とその左の余白（48px）を引いた実効幅。
-  const available = hasPortrait ? 992 - 220 - 48 : 992;
-  const perChar = available / Math.max(name.length, 1);
-  return Math.max(44, Math.min(88, Math.floor(perChar * 0.98)));
+function fitFontSize(text: string, available: number, max: number, min: number): number {
+  const fit = Math.floor((available * 0.98) / Math.max(approxEmWidth(text), 1));
+  return Math.max(min, Math.min(max, fit));
 }
 
 export async function renderEmperorOgImage(record: EmperorRecord): Promise<ImageResponse> {
@@ -157,6 +169,9 @@ export async function renderEmperorOgImage(record: EmperorRecord): Promise<Image
     portraitSrc = `data:image/png;base64,${pngBuf.toString("base64")}`;
   }
 
+  const columnWidth = emperorColumnWidth(portraitSrc !== null);
+  const reignLine = `在位 ${record.periodsLabel}（${record.reignDurationLabel}）`;
+
   return new ImageResponse(
     (
       <Frame>
@@ -167,7 +182,7 @@ export async function renderEmperorOgImage(record: EmperorRecord): Promise<Image
             </span>
             <span
               style={{
-                fontSize: emperorNameFontSize(record.name, portraitSrc !== null),
+                fontSize: fitFontSize(record.name, columnWidth, 88, 44),
                 fontWeight: 700,
                 color: PALETTE.foreground,
                 marginTop: 8,
@@ -176,8 +191,14 @@ export async function renderEmperorOgImage(record: EmperorRecord): Promise<Image
             >
               {record.name}
             </span>
-            <span style={{ fontSize: 30, color: PALETTE.muted, marginTop: 18 }}>
-              在位 {record.periodsLabel}（{record.reignDurationLabel}）
+            <span
+              style={{
+                fontSize: fitFontSize(reignLine, columnWidth, 30, 20),
+                color: PALETTE.muted,
+                marginTop: 18,
+              }}
+            >
+              {reignLine}
             </span>
             {/* 名前と在位だけでは「開くと何が分かるか」が伝わらないため、
                 個別ページが持っている順位・分類をチップで見せる（2026-07-27）。 */}
