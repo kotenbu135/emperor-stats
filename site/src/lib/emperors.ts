@@ -373,7 +373,7 @@ const RANK_DIRECTIONS: Record<RankingMetricKey, "asc" | "desc"> = {
   rebellionSuppressionCount: "desc",
   rebellionSufferedCount: "desc",
   capitalRelocationCount: "desc",
-  accessionAge: "asc", // 若い順が1位（幼帝ランキング）
+  accessionAge: "desc", // 年長順
   deathAge: "desc", // 長寿順
 };
 
@@ -1178,7 +1178,7 @@ function countTakeaway(
 const DYNASTY_MIN_EMPERORS = 5;
 
 /**
- * グラフページ1本ぶんの「読み取れること」総括文（各ページ代表 Section 直下に置く）。
+ * グラフページ1本ぶんの「読み取れること」総括文（その内容が対象とする節の中に置く）。
  * すべてビルド時にデータから導出する表示用の機械集計（自動生成禁止には非抵触）。
  */
 export function getChartTakeaway(page: TakeawayPage): string[] {
@@ -1192,6 +1192,8 @@ export function getChartTakeaway(page: TakeawayPage): string[] {
       ];
     }
     case "death-accession": {
+      // 1文目＝死因・2文目＝即位経路の順。ページ側（app/death-accession/page.tsx）が
+      // この配列を節ごとに振り分けるため、順序を入れ替えたり文を挟んだりしないこと。
       const s = getOverviewStats();
       return [
         `${s.emperorCount}名の死因で最も多いのは「${s.topDeathCause.category}」で、${s.topDeathCause.count}名（${s.topDeathCause.percent}%）です。`,
@@ -1199,10 +1201,10 @@ export function getChartTakeaway(page: TakeawayPage): string[] {
       ];
     }
     case "ages": {
-      const top = topRanked(records, "accessionAge"); // asc=若い順が1位
+      const top = topRanked(records, "accessionAge"); // desc=年長順が1位
       if (!top) return [];
       return [
-        `即位時の年齢（数え年）が判明する${top.total}名のうち、最も若くして即位したのは${leaderLabel(top.leaders)}で、${top.value}歳です。`,
+        `即位時の年齢（数え年）が判明する${top.total}名のうち、最も年長で即位したのは${leaderLabel(top.leaders)}で、${top.value}歳です。`,
         `生年が判明しない皇帝が多く、即位時年齢を算出できたのはこの${top.total}名にとどまります。`,
       ];
     }

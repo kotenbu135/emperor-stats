@@ -16,7 +16,7 @@ export function TopRankedTable({
 }: {
   records: EmperorRecord[];
   metricKey: RankingMetricKey;
-  /** 見出し（例: "在位期間の上位10名"・"即位時年齢の若い順10名"）。 */
+  /** 見出し（例: "在位期間の上位10名"・"即位時年齢の年長順10名"）。 */
   title: string;
   count?: number;
 }) {
