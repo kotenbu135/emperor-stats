@@ -1,4 +1,8 @@
 import { PageHeader, Section } from "@/components/layout/page-header";
+import {
+  SectionJumpNav,
+  SECTION_NAV_H,
+} from "@/components/layout/section-jump-nav";
 import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
 import { ChartTakeaway } from "@/components/charts/chart-takeaway";
@@ -76,8 +80,23 @@ export default function CourtEventsPage() {
         title="宮廷イベント"
         description="改元・大赦・立后・皇太子廃立・遷都という、在位中に朝廷で起きた出来事の回数を集計しています。"
       />
+      {/* 5つのランキングが縦に並ぶ。サイドバーの節リンクはモバイルでは
+          ハンバーガーの中なので、ページ内にも索引を出す。 */}
+      <SectionJumpNav
+        label="ランキングへジャンプ"
+        items={sections.map(({ id, title }) => ({
+          id,
+          label: title.replace(/回数ランキング$/, ""),
+        }))}
+      />
       {sections.map(({ id, key, title, description }) => (
-        <Section key={id} id={id} title={title} description={description}>
+        <Section
+          key={id}
+          id={id}
+          scrollMt={SECTION_NAV_H}
+          title={title}
+          description={description}
+        >
           {/* 総括文は代表 Section（改元回数）1本のみに付ける（全 Section には付けない）。 */}
           {id === "era" && (
             <ChartTakeaway sentences={getChartTakeaway("court-events")} />

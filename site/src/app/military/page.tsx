@@ -1,4 +1,8 @@
 import { PageHeader, Section } from "@/components/layout/page-header";
+import {
+  SectionJumpNav,
+  SECTION_NAV_H,
+} from "@/components/layout/section-jump-nav";
 import { LazyMount } from "@/components/lazy-mount";
 import { RankingBarChart } from "@/components/charts/ranking-bar-chart";
 import { ChartTakeaway } from "@/components/charts/chart-takeaway";
@@ -47,10 +51,21 @@ export default function MilitaryPage() {
     <>
       <BreadcrumbJsonLd label="軍事" path="/military" />
       <PageHeader title="軍事" />
+      {/* 3つのランキングが縦に並び、狭い画面では1画面スクロールしてもまだ1つ目の
+          途中にいる。サイドバーの節リンクはモバイルではハンバーガーの中なので、
+          ページ内にも索引を出す。 */}
+      <SectionJumpNav
+        label="ランキングへジャンプ"
+        items={sections.map(({ id, key }) => ({
+          id,
+          label: militaryEventLabels[key],
+        }))}
+      />
       {sections.map(({ id, key, description }) => (
         <Section
           key={key}
           id={id}
+          scrollMt={SECTION_NAV_H}
           title={`${militaryEventLabels[key]}ランキング`}
           description={description}
         >

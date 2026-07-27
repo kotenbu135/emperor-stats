@@ -38,7 +38,7 @@ import { toHiragana } from "@/lib/kana";
 import { BASE_PATH } from "@/lib/base-path";
 import { Portrait } from "@/components/emperors/portrait";
 import { EmperorDetailDialog } from "@/components/emperors/emperor-detail-dialog";
-import { EraJumpNav, ERA_NAV_H } from "@/components/emperors/era-jump-nav";
+import { SectionJumpNav, SECTION_NAV_H } from "@/components/layout/section-jump-nav";
 
 /** 一覧のカード1枚。フィルタ・検索のたびに364枚を再レンダリングしないようmemo化
  *  （実機Lighthouse timespanで操作ごとの再レンダリングがTBT・遅延レイアウトシフトの
@@ -318,7 +318,16 @@ export function EmperorGrid({
           {/* 時代セクションへのページ内ジャンプ。絞り込みで空になった時代は出さない。
               画面上部に固定して、5万px級のスクロールのどこからでも他の時代へ飛べる
               ようにする（従来は本文先頭の素のテキストリンクで、少し送ると消えた）。 */}
-          <EraJumpNav eras={sections.map(([era, list]) => ({ era, count: list.length }))} />
+          <SectionJumpNav
+            label="時代へジャンプ"
+            // 一覧本文は既に px-gutter された箱の中なので、バーだけ全幅に戻す。
+            className="-mx-gutter md:-mx-gutter-wide"
+            items={sections.map(([era, list]) => ({
+              id: `era-${era}`,
+              label: era,
+              count: list.length,
+            }))}
+          />
           {sections.map(([era, list], sectionIndex) => {
             // ファーストビュー相当（最大6カラム×2行）だけ肖像を先行読み込みする。
             // 先頭セクション以外は必ず画面外なので対象は先頭セクションのみでよい。
@@ -331,13 +340,13 @@ export function EmperorGrid({
                 key={era}
                 id={`era-${era}`}
                 className="mb-6 last:mb-0"
-                style={{ scrollMarginTop: ERA_NAV_H }}
+                style={{ scrollMarginTop: SECTION_NAV_H }}
               >
                 <h2
                   // スクロール中の現在地がわかるよう、固定した時代ジャンプバーの
-                  // 真下（ERA_NAV_H）に貼り付ける。
+                  // 真下（SECTION_NAV_H）に貼り付ける。
                   className="sticky z-10 -mx-2 mb-3 border-b border-border bg-background/95 px-2 py-2 font-heading text-base font-semibold text-foreground backdrop-blur-sm"
-                  style={{ top: ERA_NAV_H }}
+                  style={{ top: SECTION_NAV_H }}
                 >
                   {era}
                   <span className="ml-2 text-sm font-normal text-muted-foreground">
