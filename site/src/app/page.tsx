@@ -54,7 +54,7 @@ export default function Home() {
 
       <Section
         title="在位が長かった皇帝"
-        description={`最長は${stats.longestReign.name}（${stats.longestReign.dynastyLabel}）の${stats.longestReign.durationLabel}、最短は${stats.shortestReign.name}（${stats.shortestReign.dynastyLabel}）の${stats.shortestReign.durationLabel}です。棒の色はその皇帝の王朝を表します。`}
+        description={`最長は${stats.longestReign.name}（${stats.longestReign.dynastyLabel}）の${stats.longestReign.durationLabel}、最短は${stats.shortestReign.name}（${stats.shortestReign.dynastyLabel}）の${stats.shortestReign.durationLabel}です。`}
       >
         <RankedEmperorList rows={highlights.longestReigns} />
         <div className="mt-4">
@@ -64,7 +64,7 @@ export default function Home() {
 
       <Section
         title="死因と即位経路の内訳"
-        description="皇帝がどのように位に就き、どのように没したかの分布です。区分の定義は「このサイトについて」に記載しています。"
+        description="皇帝がどのように位に就き、どのように没したかの分布です。"
       >
         <div className="grid gap-4 xl:grid-cols-2">
           <Panel>
@@ -96,7 +96,7 @@ export default function Home() {
 
       <Section
         title="時代ごとの皇帝数"
-        description="収録した365名を時代区分ごとに数えたものです。並びは時系列で、人数の多い順ではありません。"
+        description="収録した365名を時代区分ごとの皇帝の人数です。"
       >
         <EraBands eras={highlights.eras} />
         <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
@@ -141,7 +141,7 @@ function OverviewFigures({
       <Figure
         label="収録した皇帝"
         value={`${emperorCount}名`}
-        note="実際に「皇帝」を名乗った人物のみ"
+        note="生前に「皇帝」を名乗った人物のみ"
         lead
       />
       <Figure
