@@ -1,6 +1,0 @@
-{
-  "name": "帝 中国皇帝統計",
-  "description": "Imperial Chinese Emperor Statistics & Data Science Dashboard (帝 中国皇帝統計) — Comprehensive statistics, reigns, causes of death, dynasty comparisons, and historical analytics.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
