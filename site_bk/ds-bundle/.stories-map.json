@@ -1,0 +1,172 @@
+{
+  "global": "EmperorStatsDS",
+  "pkg": "site",
+  "pkgDir": "/home/sakis/emperor-stats/site",
+  "extraEntries": [],
+  "exported": [],
+  "storybookStatic": null,
+  "keyRecipe": 7,
+  "cfgSliceGlobal": "a139d95ad8ab0a8ba08b44a258c54602e36090304087f48fe923c61aa5a8ae08",
+  "components": [
+    {
+      "name": "Accordion",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "cb2b556b7c9fb448",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Badge",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "4aefa8f631f2b6e6",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Button",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "040d1cb9a7d6047e",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Card",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "464b55edac6aa530",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Command",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "5a4be211e8eb94ca",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Dialog",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "d74f2b7b0fd15a9d",
+      "cfgSlice": "92d0a42a8321b0726afce404e37abf9036439737a4b05cd56c7db5e251480b27",
+      "stories": []
+    },
+    {
+      "name": "HoverCard",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "39e99120b35f12f2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Input",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "ff143296d4d645c5",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "InputGroup",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "39e99120b35f12f2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "NavMenu",
+      "group": "layout",
+      "srcSha": null,
+      "sourceKey": "39e99120b35f12f2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "PageHeader",
+      "group": "layout",
+      "srcSha": null,
+      "sourceKey": "c47c827c6e343191",
+      "cfgSlice": "4e8959f065700952cf4e69aafb9460a8b7d5bc731afb4dded70b826582be8946",
+      "stories": []
+    },
+    {
+      "name": "Popover",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "39e99120b35f12f2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Section",
+      "group": "layout",
+      "srcSha": null,
+      "sourceKey": "61c44ca60d683f44",
+      "cfgSlice": "4e8959f065700952cf4e69aafb9460a8b7d5bc731afb4dded70b826582be8946",
+      "stories": []
+    },
+    {
+      "name": "Select",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "b83dbbae06727acf",
+      "cfgSlice": "096dbaec5d142a89b5ac8505483aca3c1996a1f76ab03a50080a27eb03abc428",
+      "stories": []
+    },
+    {
+      "name": "Separator",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "39e99120b35f12f2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Sheet",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "39e99120b35f12f2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "SiteFooter",
+      "group": "layout",
+      "srcSha": null,
+      "sourceKey": "39e99120b35f12f2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "SiteShell",
+      "group": "layout",
+      "srcSha": null,
+      "sourceKey": "39e99120b35f12f2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    },
+    {
+      "name": "Table",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "1c0f32088e0ea5c6",
+      "cfgSlice": "7eea6d3f75d9b421a31db29ed1fa969a4d82f32c30c8559e19b87f492e70302c",
+      "stories": []
+    },
+    {
+      "name": "Textarea",
+      "group": "general",
+      "srcSha": null,
+      "sourceKey": "39e99120b35f12f2",
+      "cfgSlice": "5ff899b099eb6923833804cda955efdd69101524bec86f67dac5537cd81802e8",
+      "stories": []
+    }
+  ]
+}

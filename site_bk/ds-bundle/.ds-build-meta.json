@@ -1,0 +1,9 @@
+{
+  "namespace": "EmperorStatsDS",
+  "source": "site@0.1.0",
+  "shape": "package",
+  "provider": null,
+  "componentCount": 20,
+  "skippedStoryIds": [],
+  "runtimeFontPrefixes": []
+}
