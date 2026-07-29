@@ -28,21 +28,15 @@
 |---|---|
 | [schema/SCHEMA_OVERVIEW.md](schema/SCHEMA_OVERVIEW.md) | `data/emperors.json` のスキーマ参照ガイド（詳細は [data/schema/](../data/schema/) を参照） |
 
-## site-design/ — サイトレイアウト設計・実装記録
+## site-design/ — 新サイトのデザイン資料
 
-Next.js サイト（`../site/`、2026-07-18実装完了）のレイアウト・メニュー構成・グラフ案の検討メモと、実装時の決定事項・教訓の時系列記録です。
+旧 Next.js サイト（`site/`）とその設計ドキュメント一式は 2026-07-29 に削除しました（ゼロベース再構築のため）。現在ここにあるのは、新サイトを外部のデザインツール（Claude Design）に依頼するための資料です。
 
 | ファイル | 内容 |
 |---|---|
-| [site-design/LAYOUT.md](site-design/LAYOUT.md) | **方針・規範**（基本レイアウト・メニュー構成・グラフ/表の具体案・デザイン世界観・技術スタック）＋実装記録の索引 |
-| [site-design/PERFORMANCE.md](site-design/PERFORMANCE.md) | 性能・計測の記録（Lighthouse・実機 timespan）。`site/src/` のコード内コメントが参照する計測記録はここ |
-| [site-design/IMPLEMENTATION_LOG.md](site-design/IMPLEMENTATION_LOG.md) | 実装記録（2026-07-18〜22。雛形〜MVP〜全統計ページ〜SEO〜個別ページ〜/kinship 試作） |
-| [site-design/REDESIGN_2026-07.md](site-design/REDESIGN_2026-07.md) | デザイン再構成の記録（2026-07-27。王朝色システム・トップ/一覧/ランキング再構成・共通シェル） |
-| [site-design/TIMELINE.md](site-design/TIMELINE.md) | 通史年表（`/timeline`）の設計・実装記録（第2世代「大河ビュー」） |
-| [site-design/KINSHIP.md](site-design/KINSHIP.md) | 系譜・家系図（`/kinship`）の拡張ガイド（章スコープ・レイアウト規範・手動配置編集・公開状態） |
-| [site-design/KINSHIP_LOG.md](site-design/KINSHIP_LOG.md) | `/kinship` の章ごとの実装・レビュー対応の時系列記録と、完了した追加調査タスク |
-| [site-design/METHODOLOGY.md](site-design/METHODOLOGY.md) | サイト掲載用の方法論文言ドラフト（収録基準・数え方の説明） |
-| [site-design/PORTRAITS.md](site-design/PORTRAITS.md) | 肖像画収集の調査結果（PD/CC0 のみ・150名分確定）＋肖像マッピングQAの手順・反映先 |
+| [../DESIGN.md](../DESIGN.md) | **デザインシステム（規範）** — 配色（時代11色・カテゴリ8色は contrast/CVD 検証済み）・タイポグラフィ・コンポーネント仕様・アクセシビリティ・性能規範・禁止事項。リポジトリ直下 |
+| [site-design/CLAUDE_DESIGN_PROMPT.md](site-design/CLAUDE_DESIGN_PROMPT.md) | Claude Design へ渡す依頼プロンプト（画面仕様＋v3 スキーマのデータ契約＋エッジケース一覧） |
+| [site-design/fixtures/emperors.sample.json](site-design/fixtures/emperors.sample.json) | 上のプロンプトに添付する実データ抜粋（14人・全11時代・エッジケース網羅。`meta._fixture` に切り詰め内容を明記） |
 
 ## 関連
 

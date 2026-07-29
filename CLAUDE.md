@@ -43,7 +43,7 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 - **`data/images/portraits/`** — 肖像画アセット（PD/CC0 のみ・`manifest.json` で出典管理）。サイトの皇帝一覧カード・出典一覧で使用中。
 - **`china-history/`・`daizhigev20/`** — 正史原文のローカルコーパス（`.gitignore` 対象・リポジトリには含まれない、事前に `git clone --depth 1` 済み）。データ訂正時の一次情報源として最優先で参照する（詳細: [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md)）。
 - **`_corpus_cache/`** — 上記コーパスから人物ごとに抽出・整形済みの本紀原文キャッシュ（`.gitignore` 対象、`scripts/build_corpus_cache.py` で再生成可能）。キャッシュが無い人物を調査する際は、先にこのスクリプトへ書名・巻・行範囲のマッピングを追記して生成してから調査に入る（対応表: [docs/process/SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md)）。
-- **`docs/site-design/`** — サイトの設計ドキュメント群。方針・規範は [LAYOUT.md](docs/site-design/LAYOUT.md)、実装の決定事項・教訓は PERFORMANCE.md（性能）・IMPLEMENTATION_LOG.md（2026-07-18〜22）・REDESIGN_2026-07.md（2026-07-27 のデザイン再構成）に時系列で分かれている（節→ファイルの索引は LAYOUT.md）。
+- **`DESIGN.md`（リポジトリ直下）・`docs/site-design/`** — 新サイトのデザイン資料。旧 `site/` とその設計ドキュメント一式は 2026-07-29 に削除済み（ゼロベース再構築のため）。`DESIGN.md` がデザインシステムの規範、`docs/site-design/CLAUDE_DESIGN_PROMPT.md` が Claude Design への依頼プロンプト、`docs/site-design/fixtures/emperors.sample.json` がそれに添付する実データ抜粋（14人）。
 
 ## 重要な参考文書
 
@@ -59,7 +59,8 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 | **絶対に守るべき制約** | [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md) |
 | **AI調査の知見集（設計指針・失敗事例）** | [docs/process/AI_RESEARCH_LESSONS.md](docs/process/AI_RESEARCH_LESSONS.md) |
 | **JSON スキーマ参照** | [docs/schema/SCHEMA_OVERVIEW.md](docs/schema/SCHEMA_OVERVIEW.md) |
-| **サイトの設計方針・規範（＋実装記録の索引）** | [docs/site-design/LAYOUT.md](docs/site-design/LAYOUT.md) |
+| **サイトのデザインシステム（規範）** | [DESIGN.md](DESIGN.md) |
+| **Claude Design への依頼プロンプト（画面仕様・データ契約）** | [docs/site-design/CLAUDE_DESIGN_PROMPT.md](docs/site-design/CLAUDE_DESIGN_PROMPT.md) |
 
 ## 最重要ルール（抜粋）
 

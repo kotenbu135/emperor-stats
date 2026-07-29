@@ -1,0 +1,4997 @@
+{
+ "meta": {
+  "_fixture": {
+   "note": "data/emperors.json（365人・6.7MB）から14人だけ抜き出した検証用サンプル。UI の実装確認に必要なエッジケースを網羅する目的で選んだ。実データのスキーマ（schemaVersion 3.0.0）と完全に同じ構造で、値も原本のまま。",
+   "truncations": [
+    "各カウント項目（eraChangeCount ほか8種）の events[] は先頭3件だけ収録した。count は原本のまま実数なので、このサンプルに限り count !== events.length になる（実データでは常に count === events.length）。",
+    "meta は UI が使うキーだけ残した（catalogs は eras 11件・regimes 87件・enums 全種を原本のまま収録）。"
+   ],
+   "realCounts": {
+    "emperors": 365,
+    "regimes": 87,
+    "eras": 11,
+    "portraitsWebp": 150
+   },
+   "portraitsInThisSample": {
+    "available": [
+     "qin-shi-huang",
+     "wei-wendi",
+     "jin-huidi",
+     "tang-wuzetian",
+     "wudai-houzhou-shizong",
+     "nansong-gaozong",
+     "yuan-shizu",
+     "ming-yingzong",
+     "qing-shengzu",
+     "zhonghuadiguo-yuanshikai"
+    ],
+    "missing": [
+     "qianzhao-liuhe",
+     "liang-xiaozhengde",
+     "tang-aidi",
+     "jin-modi"
+    ]
+   },
+   "edgeCases": {
+    "qin-shi-huang": "即位日が year 精度（startDate が null）・exactDays null・在位は概算のみ",
+    "wei-wendi": "標準的なレコード（最小構成の参照用）",
+    "jin-huidi": "reignCount 2（廃位→復位。reigns[].isRestoration true）・accessionAge null",
+    "qianzhao-liuhe": "在位6日・肖像なし・ages 全 null・十六国の短命帝",
+    "liang-xiaozhengde": "standing rival（同一国号内の対立皇帝・20人のうちの1人）・commonName が「〜政権」表記",
+    "tang-wuzetian": "flags.isFemale true（365人で唯一）・regimeId は tang ではなく wu-zhou（別政権）",
+    "tang-aidi": "肖像なし・即位13歳/没17歳の幼帝",
+    "wudai-houzhou-shizong": "五代の標準例",
+    "jin-modi": "totalReignDuration.approxDays 0（在位当日に戦死）・肖像なし・ages 全 null",
+    "nansong-gaozong": "イベント総数223件（最大）・rebellionSufferedCount.count 114・在位35年",
+    "yuan-shizu": "元。廟号・諡号・別名がすべて揃う例",
+    "ming-yingzong": "reignCount 2（土木の変→奪門の変で復位）・commonName に2つの元号が入る",
+    "qing-shengzu": "最長在位（22,597日＝61.9年）・isExact true",
+    "zhonghuadiguo-yuanshikai": "era modern（1人だけの時代）・在位101日"
+   }
+  },
+  "title": "中国皇帝統計データ",
+  "description": "始皇帝〜溥儀。生前に自ら「皇帝」の文字を含む称号を実際に使用した人物のみ。追尊・追贈・王・公・天王・単于止まりは除外。皇后は除外（皇帝を称した武則天は含む）。反乱・僭称政権も皇帝を自称したなら含む。",
+  "license": {
+   "data": {
+    "name": "Creative Commons Attribution 4.0 International",
+    "spdx": "CC-BY-4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "scope": "本データセット（emperors.json）のデータおよび調査メモ（note 等の自由記述文章）",
+    "attribution": "中国皇帝統計 (emperorstats.com)",
+    "fullText": "data/LICENSE"
+   },
+   "code": {
+    "name": "MIT License",
+    "spdx": "MIT",
+    "scope": "リポジトリのコード（site/・scripts/ ほか）",
+    "fullText": "LICENSE"
+   }
+  },
+  "version": "2026.07",
+  "schemaVersion": "3.0.0",
+  "generatedAt": "2026-07-29",
+  "count": 365,
+  "inclusionCriteria": [
+   "生前に自ら「皇帝」の2文字を含む称号を使用した人物のみ（諡号に「帝」が付くだけでは不可）",
+   "追尊・追贈は除外",
+   "王・公・天王・単于止まりの人物は除外",
+   "皇后は除外（ただし皇帝を称した武則天は含む）",
+   "皇帝を称した女性のみ含む",
+   "始皇帝以降、溥儀まで",
+   "正統性を問わず皇帝を自称した反乱・僭称政権も含む"
+  ],
+  "reignDaysPolicy": "全皇帝の在位を可能な限り日数レベルで記録。即位日・崩御日から exactDays を算出。日付の判明精度は各 reign の datePrecision に明示。approxDays は年=365/月=30/週=7/日=1 で換算した概算共通尺度（グラフ主軸）。日付は西暦基準（両端が特定できれば暦系によらず日数不変）。旧暦表記は startDateRaw/endDateRaw に保持。 出典は task.md 3-1 フェーズBで、Wikipedia 記事名から正史の巻名＋日付根拠の原文引用（source.quote）＋旧暦→西暦の換算典拠（source.conversion）へ差し替え済み（2026-07-21 に全365人・12ブロックで完了。詳細は reignDurationSourceBlocks）。",
+  "catalogs": {
+   "note": "時代・政権・enum の表示ラベルはここに集約する（レコード側は ID のみを持つ）。設計と移行手順は docs/schema/V3_MIGRATION_PLAN.md を参照。",
+   "eras": [
+    {
+     "id": "qin-han",
+     "label": "秦・漢",
+     "labelEn": null,
+     "sortOrder": 1
+    },
+    {
+     "id": "three-kingdoms-jin",
+     "label": "三国・西晋",
+     "labelEn": null,
+     "sortOrder": 2
+    },
+    {
+     "id": "eastern-jin-sixteen",
+     "label": "東晋・十六国",
+     "labelEn": null,
+     "sortOrder": 3
+    },
+    {
+     "id": "northern-southern",
+     "label": "南北朝",
+     "labelEn": null,
+     "sortOrder": 4
+    },
+    {
+     "id": "sui-tang",
+     "label": "隋・唐",
+     "labelEn": null,
+     "sortOrder": 5
+    },
+    {
+     "id": "five-dynasties",
+     "label": "五代十国",
+     "labelEn": null,
+     "sortOrder": 6
+    },
+    {
+     "id": "song-liao-jin-xia",
+     "label": "宋・遼・金・西夏",
+     "labelEn": null,
+     "sortOrder": 7
+    },
+    {
+     "id": "yuan",
+     "label": "元",
+     "labelEn": null,
+     "sortOrder": 8
+    },
+    {
+     "id": "ming",
+     "label": "明",
+     "labelEn": null,
+     "sortOrder": 9
+    },
+    {
+     "id": "qing",
+     "label": "清",
+     "labelEn": null,
+     "sortOrder": 10
+    },
+    {
+     "id": "modern",
+     "label": "近代",
+     "labelEn": null,
+     "sortOrder": 11
+    }
+   ],
+   "regimes": [
+    {
+     "id": "qin",
+     "name": "秦",
+     "label": "秦",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "orthodox",
+     "startYear": -221,
+     "endYear": -207,
+     "sortOrder": 1,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "western-han",
+     "name": "前漢",
+     "label": "前漢",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "orthodox",
+     "startYear": -202,
+     "endYear": 6,
+     "sortOrder": 2,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "xin",
+     "name": "新",
+     "label": "新",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "orthodox",
+     "startYear": 8,
+     "endYear": 23,
+     "sortOrder": 3,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "xuanhan",
+     "name": "玄漢（更始）",
+     "label": "玄漢（更始帝）",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "orthodox",
+     "startYear": 23,
+     "endYear": 25,
+     "sortOrder": 4,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "chengjia",
+     "name": "成家",
+     "label": "成家（公孫述）",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "rebel",
+     "startYear": 25,
+     "endYear": 36,
+     "sortOrder": 5,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "chimei-han",
+     "name": "漢（赤眉軍）",
+     "label": "漢（赤眉軍）",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "rebel",
+     "startYear": 25,
+     "endYear": 27,
+     "sortOrder": 6,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "eastern-han",
+     "name": "後漢",
+     "label": "後漢",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "orthodox",
+     "startYear": 25,
+     "endYear": 220,
+     "sortOrder": 7,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "liuyong-liang",
+     "name": "梁",
+     "label": "梁（劉永）",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "rebel",
+     "startYear": 26,
+     "endYear": 27,
+     "sortOrder": 8,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "zhongjia",
+     "name": "仲家",
+     "label": "仲家（袁術）",
+     "labelEn": null,
+     "eraId": "three-kingdoms-jin",
+     "category": "rebel",
+     "startYear": 197,
+     "endYear": 199,
+     "sortOrder": 9,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "cao-wei",
+     "name": "魏",
+     "label": "魏（曹魏）",
+     "labelEn": null,
+     "eraId": "three-kingdoms-jin",
+     "category": "orthodox",
+     "startYear": 220,
+     "endYear": 266,
+     "sortOrder": 10,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "shu-han",
+     "name": "蜀漢",
+     "label": "蜀漢",
+     "labelEn": null,
+     "eraId": "three-kingdoms-jin",
+     "category": "orthodox",
+     "startYear": 221,
+     "endYear": 263,
+     "sortOrder": 11,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "eastern-wu",
+     "name": "呉",
+     "label": "呉（孫呉）",
+     "labelEn": null,
+     "eraId": "three-kingdoms-jin",
+     "category": "orthodox",
+     "startYear": 229,
+     "endYear": 280,
+     "sortOrder": 12,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "western-jin",
+     "name": "西晋",
+     "label": "西晋",
+     "labelEn": null,
+     "eraId": "three-kingdoms-jin",
+     "category": "orthodox",
+     "startYear": 266,
+     "endYear": 316,
+     "sortOrder": 13,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "cheng-han",
+     "name": "成漢",
+     "label": "成漢",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 306,
+     "endYear": 347,
+     "sortOrder": 14,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "former-zhao",
+     "name": "前趙（漢趙）",
+     "label": "前趙（漢趙）",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 308,
+     "endYear": 329,
+     "sortOrder": 15,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "eastern-jin",
+     "name": "東晋",
+     "label": "東晋",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "orthodox",
+     "startYear": 318,
+     "endYear": 420,
+     "sortOrder": 16,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "later-zhao",
+     "name": "後趙",
+     "label": "後趙",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 330,
+     "endYear": 351,
+     "sortOrder": 17,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "former-qin",
+     "name": "前秦",
+     "label": "前秦",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 352,
+     "endYear": 394,
+     "sortOrder": 18,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "former-yan",
+     "name": "前燕",
+     "label": "前燕",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 352,
+     "endYear": 370,
+     "sortOrder": 19,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "former-liang",
+     "name": "前涼",
+     "label": "前涼",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 354,
+     "endYear": 355,
+     "sortOrder": 20,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "western-yan",
+     "name": "西燕",
+     "label": "西燕",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 384,
+     "endYear": 394,
+     "sortOrder": 21,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "later-qin",
+     "name": "後秦",
+     "label": "後秦",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 386,
+     "endYear": 417,
+     "sortOrder": 22,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "later-yan",
+     "name": "後燕",
+     "label": "後燕",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 386,
+     "endYear": 407,
+     "sortOrder": 23,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "southern-yan",
+     "name": "南燕",
+     "label": "南燕",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 400,
+     "endYear": 410,
+     "sortOrder": 24,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "huan-chu",
+     "name": "楚（桓楚）",
+     "label": "楚（桓楚）",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "rebel",
+     "startYear": 403,
+     "endYear": 404,
+     "sortOrder": 25,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "hexia",
+     "name": "夏",
+     "label": "夏（赫連夏）",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 419,
+     "endYear": 431,
+     "sortOrder": 26,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "northern-wei",
+     "name": "北魏",
+     "label": "北魏",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 399,
+     "endYear": 535,
+     "sortOrder": 27,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "liu-song",
+     "name": "宋",
+     "label": "宋（劉宋）",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 420,
+     "endYear": 479,
+     "sortOrder": 28,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "southern-qi",
+     "name": "斉",
+     "label": "斉（南斉）",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 479,
+     "endYear": 502,
+     "sortOrder": 29,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "southern-liang",
+     "name": "梁",
+     "label": "梁（蕭梁）",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 502,
+     "endYear": 560,
+     "sortOrder": 30,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "eastern-wei",
+     "name": "東魏",
+     "label": "東魏",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 534,
+     "endYear": 550,
+     "sortOrder": 31,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "western-wei",
+     "name": "西魏",
+     "label": "西魏",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 535,
+     "endYear": 557,
+     "sortOrder": 32,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "northern-qi",
+     "name": "北斉",
+     "label": "北斉",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 550,
+     "endYear": 580,
+     "sortOrder": 33,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "houjing-han",
+     "name": "梁（簒奪・漢）",
+     "label": "漢（侯景）",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "rebel",
+     "startYear": 552,
+     "endYear": 552,
+     "sortOrder": 34,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "western-liang",
+     "name": "後梁",
+     "label": "後梁（西梁）",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 555,
+     "endYear": 587,
+     "sortOrder": 35,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "chen",
+     "name": "陳",
+     "label": "陳",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 557,
+     "endYear": 589,
+     "sortOrder": 36,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "northern-zhou",
+     "name": "北周",
+     "label": "北周",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 559,
+     "endYear": 581,
+     "sortOrder": 37,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "sui",
+     "name": "隋",
+     "label": "隋",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "orthodox",
+     "startYear": 581,
+     "endYear": 619,
+     "sortOrder": 38,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "dingyang",
+     "name": "定楊",
+     "label": "定楊（劉武周）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 617,
+     "endYear": 622,
+     "sortOrder": 39,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "liangshidu-liang",
+     "name": "梁",
+     "label": "梁（梁師都）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 617,
+     "endYear": 628,
+     "sortOrder": 40,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "suimo-chu",
+     "name": "楚",
+     "label": "楚（隋末）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 617,
+     "endYear": 622,
+     "sortOrder": 41,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "xiqin",
+     "name": "秦（西秦）",
+     "label": "秦（西秦・薛挙）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 617,
+     "endYear": 618,
+     "sortOrder": 42,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "liguigui-liang",
+     "name": "涼",
+     "label": "涼（李軌）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 618,
+     "endYear": 619,
+     "sortOrder": 43,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "tang",
+     "name": "唐",
+     "label": "唐",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "orthodox",
+     "startYear": 618,
+     "endYear": 907,
+     "sortOrder": 44,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "xu",
+     "name": "許",
+     "label": "許（宇文化及）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 618,
+     "endYear": 619,
+     "sortOrder": 45,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "suimo-wu",
+     "name": "呉",
+     "label": "呉（李子通）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 619,
+     "endYear": 622,
+     "sortOrder": 46,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "zheng",
+     "name": "鄭",
+     "label": "鄭（王世充）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 619,
+     "endYear": 621,
+     "sortOrder": 47,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "suimo-song",
+     "name": "宋",
+     "label": "宋（輔公祏）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 623,
+     "endYear": 624,
+     "sortOrder": 48,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "wu-zhou",
+     "name": "周",
+     "label": "周（武周）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "orthodox",
+     "startYear": 690,
+     "endYear": 705,
+     "sortOrder": 49,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "anshi-yan",
+     "name": "燕",
+     "label": "燕（安史）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 756,
+     "endYear": 763,
+     "sortOrder": 50,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "zhuci-qin",
+     "name": "秦（漢）",
+     "label": "秦→漢（朱泚）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 783,
+     "endYear": 784,
+     "sortOrder": 51,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "lixilie-chu",
+     "name": "楚",
+     "label": "楚（李希烈）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 784,
+     "endYear": 786,
+     "sortOrder": 52,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "huangchao-qi",
+     "name": "斉",
+     "label": "斉（黄巣）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 881,
+     "endYear": 884,
+     "sortOrder": 53,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "former-shu",
+     "name": "前蜀",
+     "label": "前蜀",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 907,
+     "endYear": 925,
+     "sortOrder": 54,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "later-liang",
+     "name": "後梁",
+     "label": "後梁",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "orthodox",
+     "startYear": 907,
+     "endYear": 923,
+     "sortOrder": 55,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "jie-yan",
+     "name": "桀燕",
+     "label": "桀燕（劉守光）",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 911,
+     "endYear": 914,
+     "sortOrder": 56,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "southern-han",
+     "name": "南漢",
+     "label": "南漢",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 917,
+     "endYear": 971,
+     "sortOrder": 57,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "later-tang",
+     "name": "後唐",
+     "label": "後唐",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "rebel",
+     "startYear": 923,
+     "endYear": 937,
+     "sortOrder": 58,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "yang-wu",
+     "name": "呉",
+     "label": "呉（楊呉）",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 927,
+     "endYear": 937,
+     "sortOrder": 59,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "min",
+     "name": "閩",
+     "label": "閩",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 933,
+     "endYear": 945,
+     "sortOrder": 60,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "later-shu",
+     "name": "後蜀",
+     "label": "後蜀",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 934,
+     "endYear": 965,
+     "sortOrder": 61,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "later-jin",
+     "name": "後晋",
+     "label": "後晋",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "rebel",
+     "startYear": 936,
+     "endYear": 947,
+     "sortOrder": 62,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "southern-tang",
+     "name": "南唐",
+     "label": "南唐",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 937,
+     "endYear": 958,
+     "sortOrder": 63,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "later-han",
+     "name": "後漢",
+     "label": "後漢（五代）",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "orthodox",
+     "startYear": 947,
+     "endYear": 951,
+     "sortOrder": 64,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "later-zhou",
+     "name": "後周",
+     "label": "後周",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "orthodox",
+     "startYear": 951,
+     "endYear": 960,
+     "sortOrder": 65,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "northern-han",
+     "name": "北漢",
+     "label": "北漢",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 951,
+     "endYear": 979,
+     "sortOrder": 66,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "liao",
+     "name": "遼",
+     "label": "遼",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "orthodox",
+     "startYear": 916,
+     "endYear": 1128,
+     "sortOrder": 67,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "northern-song",
+     "name": "北宋",
+     "label": "北宋",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "orthodox",
+     "startYear": 960,
+     "endYear": 1127,
+     "sortOrder": 68,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "western-xia",
+     "name": "西夏",
+     "label": "西夏",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "coexisting",
+     "startYear": 1038,
+     "endYear": 1227,
+     "sortOrder": 69,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "jin-jurchen",
+     "name": "金",
+     "label": "金",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "orthodox",
+     "startYear": 1115,
+     "endYear": 1234,
+     "sortOrder": 70,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "southern-song",
+     "name": "南宋",
+     "label": "南宋",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "orthodox",
+     "startYear": 1127,
+     "endYear": 1279,
+     "sortOrder": 71,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "zhangbangchang-chu",
+     "name": "楚",
+     "label": "楚（張邦昌）",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "coexisting",
+     "startYear": 1127,
+     "endYear": 1127,
+     "sortOrder": 72,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "liuyu-qi",
+     "name": "斉",
+     "label": "斉（劉豫）",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "coexisting",
+     "startYear": 1130,
+     "endYear": 1138,
+     "sortOrder": 73,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "western-liao",
+     "name": "西遼",
+     "label": "西遼",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "coexisting",
+     "startYear": 1132,
+     "endYear": 1213,
+     "sortOrder": 74,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "yuan",
+     "name": "元",
+     "label": "元",
+     "labelEn": null,
+     "eraId": "yuan",
+     "category": "orthodox",
+     "startYear": 1260,
+     "endYear": 1370,
+     "sortOrder": 75,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "tianwan",
+     "name": "天完",
+     "label": "天完（徐寿輝）",
+     "labelEn": null,
+     "eraId": "yuan",
+     "category": "coexisting",
+     "startYear": 1351,
+     "endYear": 1360,
+     "sortOrder": 76,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "hanlin-song",
+     "name": "宋",
+     "label": "宋（韓林児）",
+     "labelEn": null,
+     "eraId": "yuan",
+     "category": "coexisting",
+     "startYear": 1355,
+     "endYear": 1367,
+     "sortOrder": 77,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "chen-han",
+     "name": "陳漢",
+     "label": "陳漢（陳友諒）",
+     "labelEn": null,
+     "eraId": "yuan",
+     "category": "coexisting",
+     "startYear": 1360,
+     "endYear": 1364,
+     "sortOrder": 78,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "ming-xia",
+     "name": "夏",
+     "label": "夏（明玉珍）",
+     "labelEn": null,
+     "eraId": "yuan",
+     "category": "coexisting",
+     "startYear": 1362,
+     "endYear": 1371,
+     "sortOrder": 79,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "northern-yuan",
+     "name": "北元",
+     "label": "北元",
+     "labelEn": null,
+     "eraId": "yuan",
+     "category": "orthodox",
+     "startYear": 1370,
+     "endYear": 1378,
+     "sortOrder": 80,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "ming",
+     "name": "明",
+     "label": "明",
+     "labelEn": null,
+     "eraId": "ming",
+     "category": "orthodox",
+     "startYear": 1368,
+     "endYear": 1644,
+     "sortOrder": 81,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "shun",
+     "name": "順",
+     "label": "順（李自成）",
+     "labelEn": null,
+     "eraId": "ming",
+     "category": "rebel",
+     "startYear": 1644,
+     "endYear": 1645,
+     "sortOrder": 82,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "southern-ming",
+     "name": "南明",
+     "label": "南明",
+     "labelEn": null,
+     "eraId": "ming",
+     "category": "orthodox",
+     "startYear": 1644,
+     "endYear": 1662,
+     "sortOrder": 83,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "xi",
+     "name": "西",
+     "label": "西（張献忠）",
+     "labelEn": null,
+     "eraId": "ming",
+     "category": "rebel",
+     "startYear": 1644,
+     "endYear": 1647,
+     "sortOrder": 84,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "qing",
+     "name": "清",
+     "label": "清",
+     "labelEn": null,
+     "eraId": "qing",
+     "category": "orthodox",
+     "startYear": 1636,
+     "endYear": 1945,
+     "sortOrder": 85,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "wu-zhou-sanfan",
+     "name": "呉周",
+     "label": "周（呉三桂）",
+     "labelEn": null,
+     "eraId": "qing",
+     "category": "coexisting",
+     "startYear": 1678,
+     "endYear": 1681,
+     "sortOrder": 86,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "empire-of-china",
+     "name": "中華帝国",
+     "label": "中華帝国（袁世凱）",
+     "labelEn": null,
+     "eraId": "modern",
+     "category": "coexisting",
+     "startYear": 1915,
+     "endYear": 1916,
+     "sortOrder": 87,
+     "dynastyOrderSurveyed": false
+    }
+   ],
+   "enums": {
+    "regimeCategory": [
+     {
+      "id": "orthodox",
+      "label": "正統王朝",
+      "labelEn": null,
+      "description": "王朝の本流として歴代に数えられる政権"
+     },
+     {
+      "id": "coexisting",
+      "label": "並立政権",
+      "labelEn": null,
+      "description": "同時代に他政権と並立した政権（十六国・十国・遼金西夏など）"
+     },
+     {
+      "id": "rebel",
+      "label": "反乱・自称政権",
+      "labelEn": null,
+      "description": "既存王朝への反乱・自立により建てられた政権"
+     }
+    ],
+    "emperorStanding": [
+     {
+      "id": "regular",
+      "label": "正規の皇帝",
+      "labelEn": null,
+      "description": "その政権の歴代皇帝。即位の経緯が簒奪・自立・弑逆であっても正規に含む"
+     },
+     {
+      "id": "rival",
+      "label": "対立・僭称の皇帝",
+      "labelEn": null,
+      "description": "同じ国号のまま並立して帝号を称し、その王朝の正史が帝紀を立てない皇帝"
+     }
+    ],
+    "accessionCategory": [
+     {
+      "id": "hereditary",
+      "label": "世襲",
+      "labelEn": null
+     },
+     {
+      "id": "enthroned",
+      "label": "擁立",
+      "labelEn": null
+     },
+     {
+      "id": "self-established",
+      "label": "自立",
+      "labelEn": null
+     },
+     {
+      "id": "usurpation",
+      "label": "簒奪",
+      "labelEn": null
+     },
+     {
+      "id": "acclamation",
+      "label": "推戴",
+      "labelEn": null
+     },
+     {
+      "id": "abdication-received",
+      "label": "受禅（易姓）",
+      "labelEn": null
+     },
+     {
+      "id": "succession-unspecified",
+      "label": "継承（経緯記載なし）",
+      "labelEn": null
+     },
+     {
+      "id": "inner-abdication",
+      "label": "内禅",
+      "labelEn": null
+     }
+    ],
+    "throneSource": [
+     {
+      "id": "inherited",
+      "label": "前代君主から継承",
+      "labelEn": null
+     },
+     {
+      "id": "abdication-received",
+      "label": "他政権から受禅",
+      "labelEn": null
+     },
+     {
+      "id": "self-established",
+      "label": "自立",
+      "labelEn": null
+     }
+    ],
+    "titleOrigin": [
+     {
+      "id": "inherited",
+      "label": "継承",
+      "labelEn": null
+     },
+     {
+      "id": "new",
+      "label": "新称",
+      "labelEn": null
+     }
+    ],
+    "decidedBy": [
+     {
+      "id": "self",
+      "label": "本人",
+      "labelEn": null
+     },
+     {
+      "id": "predecessor",
+      "label": "先帝",
+      "labelEn": null
+     },
+     {
+      "id": "third-party",
+      "label": "第三者",
+      "labelEn": null
+     },
+     {
+      "id": "undetermined",
+      "label": "史料から決着不能",
+      "labelEn": null
+     }
+    ],
+    "decidedByAgent": [
+     {
+      "id": "officials",
+      "label": "臣下",
+      "labelEn": null
+     },
+     {
+      "id": "military",
+      "label": "軍",
+      "labelEn": null
+     },
+     {
+      "id": "eunuchs",
+      "label": "宦官",
+      "labelEn": null
+     },
+     {
+      "id": "consort-kin",
+      "label": "外戚",
+      "labelEn": null
+     },
+     {
+      "id": "empress-dowager",
+      "label": "母后",
+      "labelEn": null
+     },
+     {
+      "id": "imperial-clan",
+      "label": "宗室",
+      "labelEn": null
+     }
+    ],
+    "decidedByBasis": [
+     {
+      "id": "existing-note",
+      "label": "既存note",
+      "labelEn": null
+     },
+     {
+      "id": "source-reread",
+      "label": "原典再読",
+      "labelEn": null
+     }
+    ],
+    "predecessorFate": [
+     {
+      "id": "natural-death",
+      "label": "崩御",
+      "labelEn": null
+     },
+     {
+      "id": "violent-death",
+      "label": "横死",
+      "labelEn": null
+     },
+     {
+      "id": "abdicated",
+      "label": "生前譲位",
+      "labelEn": null
+     },
+     {
+      "id": "deposed",
+      "label": "廃位・追放",
+      "labelEn": null
+     },
+     {
+      "id": "none",
+      "label": "該当なし",
+      "labelEn": null
+     }
+    ],
+    "procedure": [
+     {
+      "id": "abdication-ceremony",
+      "label": "禅譲儀礼",
+      "labelEn": null
+     },
+     {
+      "id": "inner-abdication",
+      "label": "内禅",
+      "labelEn": null
+     },
+     {
+      "id": "normal",
+      "label": "通常の践祚",
+      "labelEn": null
+     },
+     {
+      "id": "no-ceremony",
+      "label": "儀礼なし・自称",
+      "labelEn": null
+     },
+     {
+      "id": "forged-edict",
+      "label": "偽詔・矯詔",
+      "labelEn": null
+     }
+    ],
+    "relationToPredecessor": [
+     {
+      "id": "son",
+      "label": "子",
+      "labelEn": null
+     },
+     {
+      "id": "adopted-son",
+      "label": "養子",
+      "labelEn": null
+     },
+     {
+      "id": "grandson",
+      "label": "孫",
+      "labelEn": null
+     },
+     {
+      "id": "great-grandson",
+      "label": "曾孫",
+      "labelEn": null
+     },
+     {
+      "id": "younger-brother",
+      "label": "弟",
+      "labelEn": null
+     },
+     {
+      "id": "elder-brother",
+      "label": "兄",
+      "labelEn": null
+     },
+     {
+      "id": "nephew",
+      "label": "甥",
+      "labelEn": null
+     },
+     {
+      "id": "niece",
+      "label": "姪",
+      "labelEn": null
+     },
+     {
+      "id": "uncle-younger",
+      "label": "叔父",
+      "labelEn": null
+     },
+     {
+      "id": "uncle-elder",
+      "label": "伯父",
+      "labelEn": null
+     },
+     {
+      "id": "cousin",
+      "label": "従兄弟",
+      "labelEn": null
+     },
+     {
+      "id": "distant-kin",
+      "label": "同族（遠縁）",
+      "labelEn": null
+     },
+     {
+      "id": "father",
+      "label": "父",
+      "labelEn": null
+     },
+     {
+      "id": "mother",
+      "label": "母",
+      "labelEn": null
+     },
+     {
+      "id": "grandfather",
+      "label": "祖父",
+      "labelEn": null
+     },
+     {
+      "id": "maternal-grandfather",
+      "label": "外祖父",
+      "labelEn": null
+     },
+     {
+      "id": "son-in-law",
+      "label": "女婿",
+      "labelEn": null
+     },
+     {
+      "id": "father-in-law",
+      "label": "舅（妻の父）",
+      "labelEn": null
+     },
+     {
+      "id": "affinal-kin",
+      "label": "外戚（その他）",
+      "labelEn": null
+     },
+     {
+      "id": "unrelated",
+      "label": "無血縁",
+      "labelEn": null
+     },
+     {
+      "id": "unknown",
+      "label": "不明",
+      "labelEn": null
+     },
+     {
+      "id": "other",
+      "label": "その他",
+      "labelEn": null
+     },
+     {
+      "id": "none",
+      "label": "該当なし",
+      "labelEn": null
+     }
+    ],
+    "deathCause": [
+     {
+      "id": "illness",
+      "label": "病死",
+      "labelEn": null
+     },
+     {
+      "id": "assassination",
+      "label": "暗殺",
+      "labelEn": null
+     },
+     {
+      "id": "execution",
+      "label": "処刑",
+      "labelEn": null
+     },
+     {
+      "id": "killed-in-battle",
+      "label": "戦死",
+      "labelEn": null
+     },
+     {
+      "id": "suicide",
+      "label": "自尽",
+      "labelEn": null
+     },
+     {
+      "id": "accident",
+      "label": "事故死",
+      "labelEn": null
+     },
+     {
+      "id": "unknown",
+      "label": "不詳",
+      "labelEn": null
+     },
+     {
+      "id": "disputed",
+      "label": "諸説あり",
+      "labelEn": null
+     }
+    ],
+    "confidence": [
+     {
+      "id": "high",
+      "label": "高",
+      "labelEn": null
+     },
+     {
+      "id": "medium",
+      "label": "中",
+      "labelEn": null
+     },
+     {
+      "id": "low",
+      "label": "低",
+      "labelEn": null
+     }
+    ],
+    "datePrecision": [
+     {
+      "id": "day",
+      "label": "日",
+      "labelEn": null
+     },
+     {
+      "id": "month",
+      "label": "月",
+      "labelEn": null
+     },
+     {
+      "id": "year",
+      "label": "年",
+      "labelEn": null
+     }
+    ],
+    "kinshipRelationDetail": [
+     {
+      "id": "grandfather",
+      "label": "祖父",
+      "labelEn": null
+     },
+     {
+      "id": "great-grandfather",
+      "label": "曾祖父",
+      "labelEn": null
+     }
+    ]
+   }
+  }
+ },
+ "emperors": [
+  {
+   "id": "qin-shi-huang",
+   "name": {
+    "personalName": "嬴政",
+    "commonName": "始皇帝",
+    "aliases": [
+     "秦始皇",
+     "趙政"
+    ],
+    "posthumousName": null,
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "qin-han",
+   "regimeId": "qin",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
+   "reigns": [
+    {
+     "startYear": -221,
+     "endYear": -210,
+     "dynastyOrder": 1,
+     "isRestoration": false,
+     "note": "皇帝在位。王位即位は前247年だが皇帝号採用は前221年統一時。",
+     "raw": "紀元前221年 - 紀元前210年",
+     "durationRaw": "11年",
+     "startDate": null,
+     "endDate": "-0209-09-10",
+     "startDateRaw": "始皇帝26年（前221年、天下統一・皇帝号採用）",
+     "endDateRaw": "始皇帝三十七年七月丙寅（旧暦）",
+     "datePrecision": {
+      "start": "year",
+      "end": "day"
+     },
+     "duration": {
+      "value": 11,
+      "unit": "year",
+      "approxDays": 3915,
+      "exactDays": null,
+      "needsPreciseDays": true,
+      "source": {
+       "page": "史記 巻六 秦始皇本紀",
+       "lang": "zh-classical",
+       "quote": "七月丙寅，始皇崩於沙丘平臺",
+       "conversion": "崩御は始皇帝三十七年七月丙寅＝前210年。既存の endDate「-0210-09-10」は天文年表記では前211年を指しており、本データセットの他レコード（天文年表記）と1年ずれていたため -0209-09-10 に訂正した（月日は従前の値を踏襲、機械換算による裏取りは未了）。",
+       "note": "皇帝在位の起点は前221年（天下統一・皇帝号採用）で、正史に日次の記述はない。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 3915,
+     "displayYears": 10.7,
+     "needsPreciseDays": true,
+     "isExact": false
+    },
+    "firstStartYear": -221,
+    "lastEndYear": -210,
+    "reignCount": 1
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": -221
+   },
+   "sources": {
+    "wikidata": "Q7192",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": "称号『始皇帝』。中国初代皇帝。前221年統一時に王号を『皇帝』に改称。"
+   },
+   "deathCause": {
+    "category": "illness",
+    "note": "第5回巡遊の途上で発病し、河北の沙丘平台宮にて崩御（49歳、数え年50歳）。急死とされるが病状悪化による自然死で他殺の記録はない。",
+    "confidence": "high",
+    "source": {
+     "page": "史記・秦始皇本紀",
+     "lang": "zh-classical"
+    }
+   },
+   "eraChangeCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "年号制度なし。『史記』秦始皇本紀は「秦王政○年」「始皇○年」の紀年のみで、改元の記述はない。"
+   },
+   "amnestyCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "『史記』秦始皇本紀に「大赦」の語は見当たらない。二十五年条に「天下大酺」（祝宴）の記述はあるが大赦ではないため含めない。"
+   },
+   "empressInstallationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "『史記』秦始皇本紀に立后の記述なし。始皇帝の皇后についての記載自体が本紀に存在しない。"
+   },
+   "crownPrinceDepositionCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "『史記』秦始皇本紀に長男扶蘇を正式に皇太子（太子）と冊立した記述は見当たらない（三十七年条で「少子胡亥」との対比はあるが「太子」の語は扶蘇に付されていない）。廃立の対象となる立太子の事実自体が確認できないため0回とする。"
+   },
+   "accessionRoute": {
+    "categoryId": "succession-unspecified",
+    "note": "父・荘襄王の崩御により、13歳で秦王を継承（「年十三歳、荘襄王死、政代立為秦王」）。前221年の天下統一後、既に秦王として在位していた政が自ら「王」から「皇帝」へ称号を変更した（丞相らの上奏「王為泰皇」に対し「去泰、著皇、采上古帝位号、号曰皇帝」と自裁）。皇位の出所は前代君主（父・荘襄王）からの継承であり、皇帝号は先行する皇帝政権から受け継いだものではなく自ら新たに称したもの（帝号新称）と判定。ただし本紀は継承の経緯を「年十三歳，庄襄王死，政代立為秦王」としか記さず、遺詔・顧命・立太子の記述がないため、即位を決めた主体は史料から決着不能とする（嫡子であることを根拠に「先帝の意思」と推定しない）。",
+    "confidence": "high",
+    "source": {
+     "page": "史記・秦始皇本紀",
+     "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "inherited",
+     "titleOrigin": "new",
+     "decidedBy": [
+      "undetermined"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "existing-note",
+     "predecessorFate": "natural-death",
+     "relationToPredecessor": "son",
+     "procedure": "normal"
+    }
+   },
+   "personalCampaignCount": {
+    "events": [],
+    "confidence": "high",
+    "count": 0,
+    "note": "『史記』秦始皇本紀を通読。皇帝在位期間（二十六年＝前221年統一〜三十七年＝前210年崩御）に該当する記述には、始皇帝本人が軍を率いて出征した記録は見当たらない。二十六年の斉平定（王賁が指揮）で天下統一を達成した後は、対匈奴（三十二年、蒙恬に三十万を率いさせ北撃）、嶺南平定（三十三年、逋亡人・贅婿・賈人を発して陸梁地を略取、蒙恬が高闕・陽山・北仮中を攻略）、長城建設（三十四年）等いずれも将軍・将吏への派遣で、始皇帝自身が戦陣に赴いた記述はない。統一前の六国征服戦（王翦・桓齮・王賁・蒙武ら将軍が主導）も皇帝在位期間外（前221年より前）のため対象外。二十七〜二十九年・三十七年等の陇西北地巡狩、東方巡狩（琅邪・之罘・会稽等）、封禅は軍を率いた軍事行動ではなく巡遊・封禅のため親征に含めない。該当記事なし。"
+   },
+   "rebellionSuppressionCount": {
+    "events": [],
+    "confidence": "high",
+    "count": 0,
+    "note": "皇帝在位期間（前221〜前210年）中に秦王朝側が鎮圧主体となった反乱の記述は本紀中に見当たらない。統一前の反乱（例：二十一年＝前226年の新郑反、二十三年＝前224年の項燕・昌平君の反秦）は即位前（秦王政時代）の出来事であり対象外。陳勝・呉広の蜂起（張楚、二世皇帝元年七月＝前209年）は始皇帝崩御（前210年七月）後、二世皇帝の治世に起きた事件であり本人の在位期間外のため含めない。該当記事なし。"
+   },
+   "rebellionSufferedCount": {
+    "events": [],
+    "confidence": "high",
+    "count": 0,
+    "note": "皇帝在位期間中に始皇帝自身に対して起こされた反乱（軍事的蜂起）の記述はない。二十九年（前218年）の陽武博浪沙での狙撃未遂（後世の伝承で張良による企図とされる）や三十一年（前216年）の咸陽微行中の蘭池での「盗」との遭遇は、いずれも刺客・盗賊による襲撃であり、軍を率いた蜂起・反乱とは性質が異なるため反乱としては数えない（同様に即位前の前227年の荊軻刺殺未遂も既に別カウントで扱われるべき事案であり対象外）。三十六年の隕石に刻まれた「始皇帝死而地分」やこれに続く占い等も反乱ではなく凶兆・流言の記述。該当記事なし。"
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "史記・秦始皇本紀を通読。孝公以来の国都咸陽が始皇帝・二世皇帝の代を通じて一貫した国都であり、在位中の遷都の記録はない（阿房宮等の宮殿増築はあるが都自体の移転ではない）。"
+   },
+   "ages": {
+    "birthDate": "-0258-01",
+    "birthDatePrecision": "month",
+    "deathDate": "-0209-09-10",
+    "deathDatePrecision": "day",
+    "accessionAge": 39,
+    "deathAge": 50,
+    "confidence": "high",
+    "note": "『史記』秦始皇本紀冒頭「以秦昭王四十八年正月生於邯鄲」（生年月の直接記載、日不詳のためbirthDatePrecisionはmonth）。同箇所「年十三歳、荘襄王死、政代立為秦王」（数え年13歳で秦王に即位、前247年）とあるが、これは王位即位時の年齢であり、本データセットの収録基準である皇帝号採用（前221年、天下統一時）時点の年齢ではない。皇帝即位時（reigns[0].startDateRaw＝始皇帝26年）の年齢は、王位即位（前247年・数え13歳）から皇帝号採用（前221年）までの年号差26年により逆算し数え39歳とした（生年前259年正月からの直接計算259-221+1=39とも一致し相互検証済み）。没年齢は本紀に「時年◯」の直接記載はないが、生年（前259年）と既存deathCause.note・reigns[0].endDate（-0209-09-10＝前210年、七月丙寅・沙丘平台にて崩御）から算出すると数え50歳となり、deathCause.noteに既に記載の「49歳、数え年50歳」とも整合する（王位即位13歳からの逆算13+(210-247)... 検算は259-210+1=50で一致）。"
+   }
+  },
+  {
+   "id": "wei-wendi",
+   "name": {
+    "personalName": "曹丕",
+    "commonName": "文帝",
+    "aliases": [],
+    "posthumousName": "文帝",
+    "templeName": "高祖",
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "cao-wei",
+   "researchSection": "三国時代",
+   "standing": "regular",
+   "reigns": [
+    {
+     "startYear": 220,
+     "endYear": 226,
+     "dynastyOrder": 1,
+     "isRestoration": false,
+     "note": "後漢献帝より禅譲を受け即位。魏建国。",
+     "raw": "220年 - 226年",
+     "durationRaw": null,
+     "startDate": "0220-12-10",
+     "endDate": "0226-06-29",
+     "startDateRaw": "延康元年10月庚午（旧暦、魏王曹丕が壇に登り即位した日）",
+     "endDateRaw": "黄初7年5月17日",
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 2027,
+      "unit": "day",
+      "approxDays": 2027,
+      "exactDays": 2027,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "三國志 魏書二 文帝紀",
+       "lang": "zh-classical",
+       "quote": "乃為壇於繁陽。庚午，王升壇即阼，百官陪位。事訖，降壇，視燎成禮而反。改延康為黄初，大赦。／丁巳，帝崩於嘉福殿，時年四十。",
+       "conversion": "即位（延康元年十月庚午、王升壇即阼の日）はsxtwl換算で220-12-10（既存値0220-11-25は献帝の遜位詔の日=乙卯であり、曹丕本人の即位日ではなかったため訂正）。崩御（黄初七年五月丁巳）は226-06-29でsxtwl換算・既存値とも一致。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 2027,
+     "displayYears": 5.6,
+     "needsPreciseDays": false,
+     "isExact": true
+    },
+    "firstStartYear": 220,
+    "lastEndYear": 226,
+    "reignCount": 1
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": 220
+   },
+   "sources": {
+    "wikidata": "Q313333",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": "魏正統皇帝。文帝。"
+   },
+   "deathCause": {
+    "category": "illness",
+    "note": "黄初七年（226年）五月、「帝疾篤」（帝の病が篤くなり）曹真・陳群・曹休・司馬懿の4人に後事を託し、丁巳の日に嘉福殿で崩御（享年40）。「六月戊寅，葬首陽陵」と首陽陵に葬られた。他殺を示す記述はない。",
+    "confidence": "high",
+    "source": {
+     "page": "三國志 魏書二 文帝紀",
+     "lang": "zh"
+    }
+   },
+   "accessionRoute": {
+    "categoryId": "abdication-received",
+    "note": "延康元年（220年）冬、後漢献帝が「衆望在魏」を理由に群公卿士を召し高廟に告祠、御史大夫張音を遣わし璽綬を持たせ禅位。策文に「天命不于常、惟帰有徳……敬遜爾位……天禄永終」とあり、曹丕は繁陽に築いた壇で「升壇即阼」し、「改延康為黄初、大赦」。形式上は堯舜禅譲の故事に倣った禅譲だが、実態は建安年間からの曹操・曹丕父子による漢朝権力掌握の帰結であり、後漢皇帝に対する事実上の簒奪を儀礼的な譲位劇として完成させたものとされる（献帝はその後、山陽公に封じられ存命）。",
+    "confidence": "high",
+    "source": {
+     "page": "三國志 魏書二 文帝紀",
+     "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "abdication-received",
+     "titleOrigin": "inherited",
+     "decidedBy": [
+      "self"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "existing-note",
+     "predecessorFate": "abdicated",
+     "relationToPredecessor": "affinal-kin",
+     "procedure": "abdication-ceremony"
+    }
+   },
+   "eraChangeCount": {
+    "events": [
+     {
+      "datePrecision": "day",
+      "note": "漢献帝より禅譲を受け即位した当日、庚午の日に「改延康為黄初」とあり、延康（漢の元号）から黄初（魏の元号）へ建元した。即位に伴う最初の元号制定としてカウント。",
+      "source": {
+       "page": "三國志 魏書二 文帝紀",
+       "lang": "zh-classical"
+      },
+      "date": "0220-11-25"
+     }
+    ],
+    "note": "曹丕即位に伴う建元（延康→黄初）が在位中唯一の改元。以後黄初元年〜七年まで改元記事は本紀中に見られない。",
+    "count": 1,
+    "confidence": "high"
+   },
+   "amnestyCount": {
+    "events": [
+     {
+      "datePrecision": "day",
+      "note": "即位当日、改元と同時に「改延康為黄初、大赦」とあり、全国規模の大赦を実施。",
+      "source": {
+       "page": "三國志 魏書二 文帝紀",
+       "lang": "zh-classical"
+      },
+      "date": "0220-11-25"
+     }
+    ],
+    "note": "本紀に「大赦天下」に相当する全国規模の大赦は即位当日の一件のみ。他に「赦青、徐二州」（黄初五年、青州・徐州限定）「其見脅略及亡命者、皆赦其罪」（黄初四年、逆賊に協従した者限定の恩赦）があるが、いずれも地域・対象限定のため大赦としてカウントしない。",
+    "count": 1,
+    "confidence": "high"
+   },
+   "empressInstallationCount": {
+    "events": [
+     {
+      "datePrecision": "month",
+      "note": "黄初三年九月庚子、皇后郭氏を立てる（文帝紀「庚子、立皇后郭氏」）。后妃伝には、中郎の栈潜が郭氏を皇后に立てることに反対する上疏をしたが文帝は聞き入れず、「遂立為皇后」と冊立に至った経緯が記される。庚子の具体的な西暦日への換算は未実施のため月精度とした。",
+      "source": {
+       "page": "三國志 魏書二 文帝紀・魏書五 后妃傳",
+       "lang": "zh-classical"
+      },
+      "date": "0222-09-01"
+     }
+    ],
+    "note": "在位中の皇后冊立は郭氏（文徳郭皇后）の一件のみ。甄氏（後の文昭甄皇后）は文帝生前は皇后に冊立されず、黄初二年六月に賜死されており（后妃伝「後愈失意、有怨言。帝大怒、二年六月、遣使賜死」）、その皇后号は明帝即位後の追諡（追封）である。",
+    "count": 1,
+    "confidence": "high"
+   },
+   "crownPrinceDepositionCount": {
+    "events": [],
+    "note": "文帝紀を通読した限り、在位中に皇太子（法定推定継承者）を正式に立てた記事自体が見当たらない。黄初三年三月に「立齊公叡為平原王」（曹叡を平原王に封じる）とあるが、これは立太子ではなく王号への封建。崩御直前の黄初七年五月に「召中軍大將軍曹真…並受遺詔輔嗣主」とあり曹叡が「嗣主」として遺詔を受けているが、これも生前の正式な立太子・廃太子の記事ではない。立太子自体が確認できないため廃立も0件と判定した。",
+    "count": 0,
+    "confidence": "medium"
+   },
+   "ages": {
+    "birthDate": "0187-01-01",
+    "birthDatePrecision": "year",
+    "deathDate": "0226-06-29",
+    "deathDatePrecision": "day",
+    "deathAge": 40,
+    "confidence": "high",
+    "note": "三國志 魏書二 文帝紀「中平四年冬，生于譙」（生年187年冬、月日不詳のため年精度）「丁巳，帝崩于嘉福殿，時年四十」（数え年）。 即位時年齢は逆算値：崩御時「時年四十」（黄初7年=226年）と即位年（黄初元年=220年）の年号差6年から数え年で34歳と算出（生年187年からの直接計算220-187+1=34とも一致し検証済み）。",
+    "accessionAge": 34
+   },
+   "personalCampaignCount": {
+    "note": "延康元年（220年）六月の『治兵於東郊，遂南征』は曹丕が皇帝に即位する前（魏王・丞相としての在位中、黄初改元・即位は同年十月庚午）の出来事のため、文帝（皇帝）としての親征カウントからは除外した。皇帝即位後（220年末〜226年）に確認できる親征は全て孫権（呉）を目標とする3回（黄初三〜四年・五年・六年）で、いずれも決戦には至らず撤退している。蜀漢との交戦は在位中に文帝紀本文からは確認できなかった。",
+    "events": [
+     {
+      "startDate": "0222-10-01",
+      "note": "『三国志』魏書文帝紀：黄初三年冬十月「孫権復叛…帝自許昌南征，諸軍兵並進，權臨江拒守」、十一月「行幸宛」、黄初四年三月「行自宛還洛陽宮」。曹丕の対呉第一次親征。「帝自許昌南征」と明記され皇帝本人の出陣が確認できる。",
+      "datePrecision": "month",
+      "endDate": "0223-03-01",
+      "outcome": "呉軍が臨江拒守し決戦に至らず、許昌から宛まで進軍したのみで黄初四年三月に洛陽へ帰還（決着つかず撤退）",
+      "target": "孫権（呉）"
+     },
+     {
+      "startDate": "0224-08-01",
+      "note": "黄初五年秋七月「行東巡，幸許昌宮」、八月「為水軍，親御龍舟，循蔡・潁，浮淮，幸壽春」、九月「遂至廣陵」、冬十月「行還許昌宮」。「親御龍舟」と明記され皇帝本人が水軍を指揮した対呉第二次親征（広陵方面）。",
+      "datePrecision": "month",
+      "endDate": "0224-10-01",
+      "outcome": "水軍を率い寿春・広陵まで進出したが決戦に至らず、黄初五年冬十月に許昌宮へ帰還",
+      "target": "孫権（呉）"
+     },
+     {
+      "startDate": "0225-03-01",
+      "note": "黄初六年三月辛未「帝為舟師東征」、五月「幸譙」、八月「帝遂以舟師自譙循渦入淮，從陸道幸徐」、十月「行幸廣陵故城，臨江觀兵，戎卒十餘萬，旌旗數百里」、「是歲大寒，水道冰，舟不得入江，乃引還」。対呉第三次親征（広陵方面）。任城王彰の薨去や十二月の橋玄祭祀の記事から帰還は十一月頃と推定。",
+      "datePrecision": "month",
+      "endDate": "0225-11-01",
+      "outcome": "広陵故城まで進出し臨江観兵したが、寒波で水路が凍結し長江に入れず撤退（決戦なし）",
+      "target": "孫権（呉）"
+     }
+    ],
+    "confidence": "high",
+    "count": 3
+   },
+   "rebellionSuppressionCount": {
+    "note": "黄初三年（222年）冬十月の『孫権復叛』（帝自許昌南征、上記親征#1の対象）は、孫権が黄初二年に一時的に魏の冊封（呉王・九錫）を受けていたことを背景に原文が『叛』と表現しているが、呉は独自の官制・軍隊・領域を保持する事実上の独立政権であり、魏への服属は劉備との夷陵の戦いを有利に進めるための一時的・名目的なものに過ぎなかった（孫権は後の229年に自ら皇帝を称している）。基準『対象人物の統治下ではない独立政権との戦争は反乱でなく統一戦争として区別する』に従い、鎮圧・被反乱いずれのカウントにも算入しなかった（異論の余地がありconfidence: medium）。同様に黄初六年の并州刺史梁習による鮮卑軻比能討伐も、原文に『叛』の語がなく対外的な異民族討伐の性格が強いため除外した。この結果、在位中に確認できる服属者による反乱は鄭甘（221年）・蔡方（225年）の2件。",
+    "events": [
+     {
+      "startDate": "0221-05-01",
+      "leader": "鄭甘",
+      "note": "鄭甘は延康元年（220年、曹丕即位前）に馮翊の山賊として王照とともに投降し列侯に封じられていたが、黄初二年（221年）五月に再び反乱を起こした（『郑甘复叛』）。皇帝は親征せず、曹仁を派遣して討伐・斬首させた。",
+      "datePrecision": "month",
+      "endDate": "0221-05-01",
+      "name": "鄭甘の反乱（馮翊山賊鄭甘の再叛）",
+      "outcome": "大将軍曹仁を派遣し討伐、鄭甘を斬った（鎮圧成功）"
+     },
+     {
+      "startDate": "0225-06-01",
+      "leader": "蔡方",
+      "note": "利成郡（青州）の郡兵が蔡方らを首謀者として反乱を起こし、太守徐質を殺害した。皇帝は親征せず、任福・段昭ら将軍と青州刺史を派遣して鎮圧させた（『討平之』）。",
+      "datePrecision": "month",
+      "endDate": "0225-06-01",
+      "name": "利成郡兵蔡方の反乱",
+      "outcome": "屯騎校尉任福・歩兵校尉段昭および青州刺史が討伐し平定。脅迫された者・逃亡者は恩赦"
+     }
+    ],
+    "confidence": "medium",
+    "count": 2
+   },
+   "rebellionSufferedCount": {
+    "note": "反乱鎮圧回数と同一の2件（鄭甘221年・蔡方225年）を計上。孫権の『復叛』（222年）は独立政権（呉）との統一戦争として反乱鎮圧回数と同様に除外した（confidence: medium、判断根拠は反乱鎮圧回数のnote参照）。在位中に朝廷内クーデターによる弑逆・廃位の記事はなく（崩御は疾病による自然死）、該当なし。",
+    "events": [
+     {
+      "startDate": "0221-05-01",
+      "leader": "鄭甘",
+      "note": "反乱鎮圧回数の事件と同一。列侯に封じられていた元山賊が再叛した服属者の反乱。",
+      "datePrecision": "month",
+      "endDate": "0221-05-01",
+      "name": "鄭甘の反乱",
+      "outcome": "曹仁により鎮圧され鄭甘は斬られた（皇帝側の勝利）"
+     },
+     {
+      "startDate": "0225-06-01",
+      "leader": "蔡方",
+      "note": "反乱鎮圧回数の事件と同一。郡兵による太守殺害を伴う反乱。",
+      "datePrecision": "month",
+      "endDate": "0225-06-01",
+      "name": "利成郡兵蔡方の反乱",
+      "outcome": "任福・段昭・青州刺史により鎮圧され平定（皇帝側の勝利）"
+     }
+    ],
+    "confidence": "medium",
+    "count": 2
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "三国志魏書を通読。曹丕の洛陽定都（建国時の定都）以降、明帝・少帝期を通じて洛陽が一貫した主都（許昌等五都は陪都で行幸のみ）。"
+   }
+  },
+  {
+   "id": "jin-huidi",
+   "name": {
+    "personalName": "司馬衷",
+    "commonName": "恵帝",
+    "aliases": [],
+    "posthumousName": "恵帝",
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "western-jin",
+   "researchSection": "晋",
+   "standing": "regular",
+   "reigns": [
+    {
+     "startYear": 290,
+     "endYear": 301,
+     "dynastyOrder": 2,
+     "isRestoration": false,
+     "note": "司馬倫に廃され太上皇とされた。",
+     "raw": "290年 - 301年",
+     "durationRaw": null,
+     "startDate": "0290-05-16",
+     "endDate": "0301-02-03",
+     "startDateRaw": "太熙元年4月20日",
+     "endDateRaw": "永寧元年1月9日（乙丑、趙王倫が簒位した日）",
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 3916,
+      "unit": "day",
+      "approxDays": 3916,
+      "exactDays": 3916,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "晋書 巻四 恵帝紀",
+       "lang": "zh-classical",
+       "quote": "永寧元年春正月乙丑，趙王倫篡帝位。丙寅，遷帝於金墉城，號曰太上皇……",
+       "conversion": "廃位（皇帝の地位喪失）の起点を趙王倫が簒位した当日「乙丑」（永寧元年正月9日）とみなしsxtwl換算すると301-02-03（jin-simalunのstartDateと同日）。既存endDate(301-01-09)は『9』を西暦の日番号としてそのまま転記した誤りで訂正。",
+       "note": "exactDays を 3915→3916 に訂正（2026-07-22）。旧値は日付ラベル（ユリウス暦）にグレゴリオ暦算術を適用してユリウス暦の閏世紀日（100の倍数年の2月29日）を1日取りこぼしていた。実経過日数はユリウス通日（JDN）差で再計算。"
+      }
+     }
+    },
+    {
+     "startYear": 301,
+     "endYear": 307,
+     "dynastyOrder": 4,
+     "isRestoration": true,
+     "note": "八王の乱の中、司馬倫排斥後に復位。",
+     "raw": "301年 - 307年",
+     "durationRaw": null,
+     "startDate": "0301-05-30",
+     "endDate": "0307-01-08",
+     "startDateRaw": "永寧元年4月7日（辛酉、司馬倫誅殺・恵帝反正の日。即日復位）",
+     "endDateRaw": "光熙元年11月18日（崩御）",
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 2049,
+      "unit": "day",
+      "approxDays": 2049,
+      "exactDays": 2049,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "晋書 巻四 恵帝紀",
+       "lang": "zh-classical",
+       "quote": "（趙王倫誅殺）辛酉，……逐倫歸第，即日乘輿反正。／光熙元年十一月庚午，孝惠帝崩……",
+       "conversion": "復位は司馬倫一党誅殺と同日「辛酉」（永寧元年4月7日）で、sxtwl換算は301-05-30（qianzhao側ではなくjin-simalunの訂正後endDateと同日）。既存startDate(301-04-07)は『4月7日』を西暦の月日としてそのまま転記した誤りで訂正。崩御(光熙元年11月18日=庚午)はsxtwl換算307-01-08で既存endDateと一致、変更なし。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 5965,
+     "displayYears": 16.33,
+     "needsPreciseDays": false,
+     "isExact": true
+    },
+    "firstStartYear": 290,
+    "lastEndYear": 307,
+    "reignCount": 2
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": 290
+   },
+   "sources": {
+    "wikidata": "Q7357",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": "西晋皇帝。司馬倫の簒奪により一時中断、復位。"
+   },
+   "deathCause": {
+    "category": "disputed",
+    "note": "光熙元年（307年）十一月、長安顕陽殿で餅を食べ中毒死したとされる（享年48）。実力者の東海王司馬越による毒殺という伝聞が広く伝わるが、正史に確定的な直接記述はなく、病死・毒殺の両説が併存する。",
+    "confidence": "low",
+    "source": {
+     "page": "晉書 帝紀第四 孝惠帝",
+     "lang": "zh"
+    }
+   },
+   "accessionRoute": {
+    "categoryId": "hereditary",
+    "note": "武帝の嫡次子として即位。知的障害があったとされ、実権は皇后賈南風や外戚・宗室諸王が握った。",
+    "confidence": "high",
+    "source": {
+     "page": "晉書 帝紀第四 孝惠帝",
+     "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "inherited",
+     "titleOrigin": "inherited",
+     "decidedBy": [
+      "predecessor"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "source-reread",
+     "predecessorFate": "natural-death",
+     "relationToPredecessor": "son",
+     "procedure": "normal"
+    }
+   },
+   "eraChangeCount": {
+    "count": 11,
+    "events": [
+     {
+      "date": "0290-05-16",
+      "datePrecision": "day",
+      "note": "武帝崩御当日、皇太子即位に伴い建元（永熙）。日付原文: 太熙元年四月己酉（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "晋書帝紀第四",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0291-02-16",
+      "datePrecision": "day",
+      "note": "詔により「永熙二年」を「永平元年」と改称。日付原文: 永平元年正月乙酉朔（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "晋書帝紀第四",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0291-04-24",
+      "datePrecision": "day",
+      "note": "太傅楊駿誅殺後、改元（元康に改元）。大赦を伴う。日付原文: 永平元年三月壬辰（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "晋書帝紀第四",
+       "lang": "zh"
+      }
+     }
+    ],
+    "confidence": "high",
+    "note": "即位に伴う最初の建元（永熙）を含め、恵帝在位期間中に行われた改元を全て計上。太熙元年即位～永寧元年正月の趙王倫簒位直前までを前半在位、永寧元年四月の復位（4月7日）～光熙元年十一月崩御までを後半在位とし合算。倫が皇帝を称していた永寧元年正月9日～4月7日の間の改元（倫独自の建元があった可能性）は本紀に記載がなく、恵帝側には計上していない。一部の改元は日付が「月」までしか特定できない（永寧元年十二月・永興元年正月）。"
+   },
+   "amnestyCount": {
+    "count": 23,
+    "events": [
+     {
+      "date": "0290-05-16",
+      "datePrecision": "day",
+      "note": "武帝崩御当日、皇太子即位に伴い大赦（改元も同時）。日付原文: 太熙元年四月己酉（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "晋書帝紀第四",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0291-04-24",
+      "datePrecision": "day",
+      "note": "太傅楊駿誅殺後、大赦（改元も同時、元康に改元）。日付原文: 永平元年三月壬辰（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "晋書帝紀第四",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0292-09-05",
+      "datePrecision": "day",
+      "note": "大赦。日付原文: 元康二年八月壬子（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "晋書帝紀第四",
+       "lang": "zh"
+      }
+     }
+    ],
+    "confidence": "high",
+    "note": "「大赦」と明記された事例のみを計上（「曲赦洛陽」「赦五歳刑」「赦司冀兗豫四州」「赦諸州之遭地災者」等の地域・部分的恩赦は除外）。太熙元年即位～永寧元年正月の趙王倫簒位直前までを前半在位、永寧元年四月の復位～光熙元年十一月崩御までを後半在位とし、両者を合算。倫が皇帝を称していた永寧元年正月9日～4月7日の間に該当する大赦は原文中に見当たらず（該当区間中の記述に「大赦」の語なし）。永康元年四月甲午の「倫矯詔大赦」は倫の簒位（永寧元年正月）以前・恵帝在位下の出来事のため恵帝側に計上した。"
+   },
+   "empressInstallationCount": {
+    "count": 5,
+    "events": [
+     {
+      "date": "0290-05-16",
+      "datePrecision": "day",
+      "note": "武帝崩御・恵帝即位と同日に、妃賈氏を皇后に冊立。日付原文: 太熙元年四月己酉（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "晋書帝紀第四",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0300-12-04",
+      "datePrecision": "day",
+      "note": "賈皇后が同年4月に廃后・誅殺された後、羊氏を皇后に冊立。日付原文: 永康元年十一月甲子（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "晋書帝紀第四",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0304-08-19",
+      "datePrecision": "day",
+      "note": "同年2月に廃后されていた羊皇后を復位（再冊立）。日付原文: 永興元年七月戊戌（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "晋書帝紀第四",
+       "lang": "zh"
+      }
+     }
+    ],
+    "confidence": "medium",
+    "note": "皇后として正式に冊立・復位した事例を計上（廃后後の再冊立も別カウント）。永興二年十一月の「立節將軍周權詐被檄……復皇后羊氏」は偽の詔を騙った将軍による僭称行為で、即座に討たれ「復廢皇后」となっているため正式な冊立とは認めず除外した。日付が「月」までしか特定できない事例が一部ある。"
+   },
+   "crownPrinceDepositionCount": {
+    "count": 4,
+    "events": [
+     {
+      "date": "0300-02-06",
+      "datePrecision": "day",
+      "note": "皇太子遹（実子、広陵王として立てられていた）を廃して庶人とし、その三子も金墉城に幽閉。日付原文: 元康九年十二月壬戌（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "晋書帝紀第四",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0304-04-08",
+      "datePrecision": "day",
+      "note": "成都王穎の圧力下、皇太子覃（清河王遐の子）を廃し清河王に戻す。皇后羊氏も同時に廃后。日付原文: 永興元年二月乙酉（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "晋書帝紀第四",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0304-09",
+      "datePrecision": "month",
+      "note": "張方が洛陽に再入城し、7月に復位したばかりの皇太子覃を再度廃する。皇后羊氏も同時再廃后。日付干支は明記されず。日付原文: 永興元年八月（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "晋書帝紀第四",
+       "lang": "zh"
+      }
+     }
+    ],
+    "confidence": "medium",
+    "note": "立てられていた皇太子・皇太孫・皇太弟が廃された事例のみ計上（立太子そのものは除外）。永寧元年正月丙寅の「廢皇太孫臧爲濮陽王」は趙王倫簒位中（正月9日～4月7日）の出来事であり、指示に従い倫側に帰属させ恵帝側には含めていない。永興元年十二月丁亥の成都王穎の儲貳（皇太弟）解任は「其以王還第」との表現で明示的に「廢」の語は用いられていないが、実質的な皇太弟廃立に相当すると判断（medium confidence）。永興元年八月の皇太子覃再廃位は正確な日付干支が示されていない。"
+   },
+   "ages": {
+    "deathDate": "0307-01-08",
+    "deathDatePrecision": "day",
+    "deathAge": 48,
+    "confidence": "high",
+    "note": "崩御時年齢48歳は本紀末尾に「時年四十八」と直接記載（光熙元年十一月庚午）。生年月日・即位時年齢の直接記載は本紀中になし（泰始三年立太子時の「時年九歳」はあるが即位時ではない）。"
+   },
+   "personalCampaignCount": {
+    "note": "『晋書』帝紀第四に「帝自將」「親征」の定型句は見られないが、蕩陰の戦いで恵帝が矢を受け負傷したという明確な戦場臨席の証拠があるため1回のみ計上した。それ以外の軍事行動（元康年間の氐羌討伐、太安二年の長沙王乂を大都督とした防衛戦等）はいずれも将軍（周處・孟觀・司馬乂等）が「帥軍」「討」の主体であり、恵帝本人の出陣を示す記述がないため親征に含めなかった。",
+    "events": [
+     {
+      "startDate": "0304-07-01",
+      "note": "永興元年七月、右衛將軍陳眕の勒兵に応じ司徒王戎・東海王越ら群臣が「奉帝北征」して成都王穎討伐に出陣。己未、六軍は蕩陰で石超に敗績し「矢及乘輿」「帝傷頰、中三矢、亡六璽」と原文にあり、恵帝本人が戦闘現場にいたことが明記されるため親征と認定（medium confidence。「帝自將」等の定型句はないが、皇帝が矢を受けるほど戦場に直接身を置いた記述は他に類例がなく信頼度は比較的高い）。この後恵帝は穎方に身柄を掌握され鄴へ移されるが、この捕捉は恵帝側（朝廷）が先に穎を攻撃した結果であるため反乱鎮圧・被反乱いずれにも計上しない（基準3該当）。",
+      "datePrecision": "month",
+      "endDate": "0304-07-30",
+      "outcome": "敗北・皇帝が捕捉される",
+      "target": "成都王穎（蕩陰の戦い）"
+     }
+    ],
+    "confidence": "medium",
+    "count": 1
+   },
+   "rebellionSuppressionCount": {
+    "note": "八王の乱における諸王同士の権力闘争（斉王冏誅殺〈太安元年、長沙王乂による先制攻撃で冏は挙兵しておらず基準3により除外〉、河間王顒・成都王穎による長沙王乂討伐〈太安二年、諸王間の政争として除外〉、劉喬vs范陽王虓等の代理戦争）は、恵帝自身への反乱ではなく摂政・実権を巡る宗室間抗争と判断し除外した。淮南王允の趙王倫討伐（永康元年八月）も、倫が未だ簒位前で允の標的が倫個人の権力であり恵帝政権への反乱と断定しがたいため除外した（medium confidence、判断が割れる可能性あり）。永寧元年1月9日〜4月7日（趙王倫簒奪期間、倫誅殺による恵帝復位を含む）はjin-simalun側集計のため完全に除外した。公師籓の乱（成都王穎配下の将による永興二年七月頃の蜂起、陽平・汲郡太守殺害後、九月にも平原・清河太守を殺害）は初戦で趙驤に「撃破之」とあるが最終的鎮圧の記載が本紀になく未鎮圧と判断し被反乱のみに計上した。",
+    "events": [
+     {
+      "startDate": "0294-05-01",
+      "leader": "郝散",
+      "note": "元康四年夏五月、匈奴部民郝散が上党を攻め長吏を殺害（服属異民族の反乱）。八月、郝散は衆を率いて投降したが冯翊都尉に殺害され事実上鎮圧された。",
+      "datePrecision": "month",
+      "endDate": "0294-08-01",
+      "name": "郝散の乱",
+      "outcome": "鎮圧成功"
+     },
+     {
+      "startDate": "0296-05-01",
+      "leader": "度元（のち氐帥斉万年）",
+      "note": "元康六年五月、郝散の弟度元が馬蘭羌・廬水胡を率いて北地を攻め太守張損を殺害。同年八月には秦雍の氐羌が悉く叛し氐帥斉万年を推戴して皇帝を僭称、涇陽を囲んだ。冯翊太守欧陽建・雍州刺史解系が相次いで敗れ、元康七年正月には周處が六陌の戦いで敗死するなど朝廷側は苦戦したが、元康九年正月に左積弩将軍孟観が中亭で大破し斉万年を捕獲して鎮圧完了。度元単独の蜂起（296年五月）と秦雍氐羌の大反乱（同年八月以降、斉万年擁立）は時期的に連続しており同一の乱の展開と判断し1件とした。",
+      "datePrecision": "month",
+      "endDate": "0299-01-01",
+      "name": "元康氐羌の乱（度元・斉万年の乱）",
+      "outcome": "鎮圧成功（数年を要した）"
+     },
+     {
+      "startDate": "0299-04-01",
+      "leader": "張承基",
+      "note": "元康九年夏四月、鄴の張承基等が「妖言署置」（偽の官職名号を称し）数千人を集めて党を組んだが、郡県により逮捕され全員処刑された。規模・記述はごく簡略だが官職僭称を伴う組織的蜂起として計上した（medium confidence）。",
+      "datePrecision": "month",
+      "endDate": "0299-04-30",
+      "name": "鄴の妖言蜂起（張承基の乱）",
+      "outcome": "鎮圧成功"
+     }
+    ],
+    "confidence": "medium",
+    "count": 6
+   },
+   "rebellionSufferedCount": {
+    "note": "反乱鎮圧回数（6）と被反乱回数（11）の差（5件）は、赵廞・李特/李雄・劉元海・陳敏・公師籓がいずれも恵帝在位終了までに（本紀の記述範囲内で）政府側による鎮圧が確認できないため（基準2、および赵廞についてはその趣旨の準用）である。八王の乱の宗室間権力闘争（斉王冏・河間王顒・成都王穎・長沙王乂・東海王越らの抗争のうち、恵帝個人の身柄拘束に直結しないもの）は反乱に該当しないと判断し除外した。趙王倫の簒奪・打倒（永寧元年1月9日〜4月7日）は指示に従いjin-simalun側集計として完全に除外した。",
+    "events": [
+     {
+      "startDate": "0294-05-01",
+      "leader": "郝散",
+      "note": "反乱鎮圧側と同一事件（対称計上）。",
+      "datePrecision": "month",
+      "endDate": "0294-08-01",
+      "name": "郝散の乱",
+      "outcome": "郝散降伏後、殺害され乱終息"
+     },
+     {
+      "startDate": "0296-05-01",
+      "leader": "度元（のち斉万年）",
+      "note": "反乱鎮圧側と同一事件（対称計上）。",
+      "datePrecision": "month",
+      "endDate": "0299-01-01",
+      "name": "元康氐羌の乱（度元・斉万年の乱）",
+      "outcome": "斉万年捕獲により終息"
+     },
+     {
+      "startDate": "0299-04-01",
+      "leader": "張承基",
+      "note": "反乱鎮圧側と同一事件（対称計上）。",
+      "datePrecision": "month",
+      "endDate": "0299-04-30",
+      "name": "鄴の妖言蜂起",
+      "outcome": "郡県により逮捕・処刑"
+     }
+    ],
+    "confidence": "medium",
+    "count": 11
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "晋書帝紀を通読。西晋建国（洛陽定都、建国時の定都）から永嘉の乱（311年）まで洛陽が一貫した都、遷都の記録なし。"
+   }
+  },
+  {
+   "id": "qianzhao-liuhe",
+   "name": {
+    "personalName": "劉和",
+    "commonName": "劉和",
+    "aliases": [],
+    "posthumousName": null,
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-zhao",
+   "researchSection": "前趙",
+   "standing": "regular",
+   "reigns": [
+    {
+     "startYear": 310,
+     "endYear": 310,
+     "dynastyOrder": 2,
+     "isRestoration": false,
+     "note": "父・劉淵崩御の同月に即位したが在位わずか6日で弟の劉聡に殺害された。",
+     "raw": "310年 - 310年",
+     "durationRaw": null,
+     "startDate": "0310-08-29",
+     "endDate": "0310-09-04",
+     "startDateRaw": "河瑞2年7月18日（己卯、劉淵崩御と同日）",
+     "endDateRaw": "河瑞2年7月24日（乙酉、6日後）",
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 6,
+      "unit": "day",
+      "approxDays": 6,
+      "exactDays": 6,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "晋書 巻一百一 載記第一（劉和、劉淵載記に同居）",
+       "lang": "zh-classical",
+       "quote": "元海死、和嗣偽位。……銳等奔入南宮，前鋒隨之，斬和於光極西室。銳、攸梟首通衢。",
+       "conversion": "父劉淵の崩御日(己卯、liuyuan訂正後310-08-29)と同日に即位。資治通鑑は殺害を『乙酉』とし、sxtwl換算で河瑞2年7月24日=310-09-04。既存endDate(310-08-25)はganzhi乙亥（14日）に相当し乙酉（24日）と不一致、liuyuanと同型の転記ミスと判断し訂正。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 6,
+     "displayYears": 0.02,
+     "needsPreciseDays": false,
+     "isExact": true
+    },
+    "firstStartYear": 310,
+    "lastEndYear": 310,
+    "reignCount": 1
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": 310
+   },
+   "sources": {
+    "wikidata": "Q714140",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": "前趙（漢趙）皇帝。劉和。"
+   },
+   "deathCause": {
+    "category": "assassination",
+    "note": "側近の呼延攸・劉鋭らに唆され、弟たち（北海王劉乂・魯王劉隆・斉王劉裕ら）と大司馬劉聡の粛清を企てたが、劉聡討伐に差し向けた軍が敗れ、逆に劉聡側に討たれて殺害された（即位からわずか数日）。同一政権内（弟）による殺害のため暗殺に分類。",
+    "confidence": "high",
+    "source": {
+     "page": "晉書 載記第一 劉元海（劉和）",
+     "lang": "zh"
+    }
+   },
+   "accessionRoute": {
+    "categoryId": "hereditary",
+    "note": "光文帝劉淵の長男として即位。",
+    "confidence": "high",
+    "source": {
+     "page": "晉書 載記第一 劉元海（劉和）",
+     "lang": "zh"
+    },
+    "axes": {
+     "throneSource": "inherited",
+     "titleOrigin": "inherited",
+     "decidedBy": [
+      "predecessor"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "source-reread",
+     "predecessorFate": "natural-death",
+     "relationToPredecessor": "son",
+     "procedure": "normal"
+    }
+   },
+   "eraChangeCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "劉和は父劉元海の元号「河瑞」を継続使用したまま在位6日間で殺害されており、改元の記載は無い。載記第一該当箇所（元海死～和嗣伪位～斩和于光极西室）を通読したが、劉和自身による建元・改元の記事は存在しない。"
+   },
+   "amnestyCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "劉和の在位記事（元海死，和嗣伪位…锐、攸枭首通衢）は約6日間の簒奪劇の顛末のみを記し、大赦の記載は無い。直前の元海即位時の大赦（永嘉二年即皇帝位時、および河瑞改元時）はいずれも元海自身の在位中の出来事であり、劉和には帰属しない。"
+   },
+   "empressInstallationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "劉和の在位6日間の記事中に皇后冊立の記載は無い。父元海の代に「立其妻单氏为皇后」とあるが、これは元海の皇后（単氏、劉和の生母）についての記事であり劉和自身による立后ではない。"
+   },
+   "crownPrinceDepositionCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "劉和自身は元海生前に皇太子に立てられていたが（「立其妻单氏为皇后，子和为皇太子」）、即位後は逆に弟らに攻められて殺害されており、皇太子を廃したという記事は無い。劉和の在位中に新たな皇太子が立てられ、それが廃された形跡もない。"
+   },
+   "personalCampaignCount": {
+    "confidence": "high",
+    "events": [],
+    "note": "劉和の在位は永嘉四年（310年）七月、父劉淵の死去による即位から同月中の弑殺まで数日間（晋書載記・資治通鑑の干支表記では即位の己卯日から6日後の乙酉日に殺害）のみであり、皇帝（王・天王）としての対外親征の記録は晋書載記・資治通鑑いずれにも見当たらない。即位前は皇太子の地位にあり、独立した君主号を称して出征した記録もない。",
+    "count": 0
+   },
+   "rebellionSuppressionCount": {
+    "confidence": "high",
+    "events": [],
+    "note": "劉和は即位直後、衛尉西昌王劉鋭・宗正呼延攸らの讒言により、まだ何ら反抗行動を起こしていない異母弟の劉聡（大司馬・大単于）・劉裕（大司徒）・劉隆（尚書令）・劉乂（撫軍大将軍）に対して将軍（劉鋭・劉景・呼延攸・劉安国・劉乗・劉欽・田密・劉璿ら）を差し向け先制攻撃を仕掛けた。これは皇帝自身が権臣・宗室を先制的に武力で打倒しようとした事案（相手はまだ反乱を起こしていない）にあたるため、例外3によりrebellionSuppressionCount・rebellionSufferedCountいずれからも除外する。結果としてこの先制攻撃自体は劉裕・劉隆の殺害には成功したが、劉聡には備えられて失敗し、劉和自身が反撃を受けて敗死したため、劉和側が反乱を鎮圧した事実はない。",
+    "count": 0
+   },
+   "rebellionSufferedCount": {
+    "confidence": "medium",
+    "events": [
+     {
+      "note": "先に劉和が異母弟達へ先制攻撃を仕掛けた事案自体は例外3により両カウントから除外対象だが、これに対し劉聡が兵力（単于台の守備兵等）を用いて防戦・反撃し、最終的に皇帝である劉和を弑逆・廃位に追い込んだ点は、朝廷内部の権力者（宗室・大司馬）による兵力を伴うクーデター・弑逆にあたるため例外4に該当し、rebellionSufferedCountにのみ1件計上する（鎮圧の主体が劉和側ではなく劉聡側であるためrebellionSuppressionCountには計上しない）。",
+      "outcome": "劉和敗死。劉聡の軍が西明門を攻略し、劉和は南宮に逃げ込むも光極西室にて殺害された。首謀者側の劉鋭・呼延攸・劉乗も梟首された。劉聡がその後皇帝位に即いた（qianzhao-liucong、載記第二）。",
+      "name": "劉聡による反撃・弑逆（劉和の廃位・殺害）",
+      "startDate": "0310-07-01",
+      "endDate": "0310-07-31",
+      "datePrecision": "month",
+      "leader": "劉聡（大司馬・大単于、劉和の異母弟）"
+     }
+    ],
+    "note": "本件は劉和自身の先制攻撃と、それに対する劉聡の反撃・弑逆という一連の内紛の帰結であり、通常の『臣下が皇帝を奇襲した反乱』とは事象の発生順序が逆であるため、例外3（先制攻撃部分の除外）と例外4（結果としての弑逆クーデター）を組み合わせて解釈した。この整理はrebellionSuppressionCount/rebellionSufferedCountの非対称を正当化する4類型の趣旨（特に例外4）に沿うと判断したが、五胡十六国ブロックの他事例との整合性を要確認事項として残す。",
+    "count": 1
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "晋書載記を通読。離石→蒲子→平陽の遷都は劉元海（劉淵）の代、平陽→長安の遷都は劉曜の代の出来事であり、劉和・劉聡・劉粲の各代には追加の遷都記録はない。"
+   },
+   "ages": {
+    "birthDate": null,
+    "birthDatePrecision": null,
+    "deathDate": "0310-09-04",
+    "deathDatePrecision": "day",
+    "accessionAge": null,
+    "deathAge": null,
+    "confidence": "low",
+    "note": "既存レコード(deathCause/accessionRoute/reigns等の note・raw)および_corpus_cache/qianzhao-liuhe.txt(晋書載記第一 劉和条)を確認したが、生年月日・即位時年齢・享年(時年◯◯・年◯◯等)の直接記載は見当たらなかった。父劉淵の崩御と同日即位し在位6日で殺害されたことのみ判明。没日は既存reignsのendDate(0310-08-25、河瑞2年7月14日)と一致。年号年ラベルの差分から逆算できる別の直接記載も無いため、accessionAge/deathAgeはnullのまま確定。"
+   }
+  },
+  {
+   "id": "liang-xiaozhengde",
+   "name": {
+    "personalName": "蕭正徳",
+    "commonName": "侯景政権（正平）",
+    "aliases": [],
+    "posthumousName": null,
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "northern-southern",
+   "regimeId": "southern-liang",
+   "researchSection": "南朝",
+   "standing": "rival",
+   "reigns": [
+    {
+     "startYear": 548,
+     "endYear": 549,
+     "dynastyOrder": null,
+     "isRestoration": false,
+     "note": "侯景に擁立され儀賢堂で即位、「正平」に改元。台城陥落後に降格され侯景を批判、密通が発覚し矯詔により殺害（永福省）。",
+     "raw": null,
+     "durationRaw": null,
+     "startDate": "0548-12-01",
+     "endDate": "0549-04-27",
+     "startDateRaw": "太清二年十一月（日次不詳）",
+     "endDateRaw": "太清三年三月庚午（旧暦）",
+     "datePrecision": {
+      "start": "month",
+      "end": "day"
+     },
+     "duration": {
+      "value": 147,
+      "unit": "day",
+      "approxDays": 147,
+      "exactDays": null,
+      "needsPreciseDays": true,
+      "source": {
+       "page": "梁書 巻五十六 侯景伝／資治通鑑 巻百六十一・百六十二",
+       "lang": "zh-classical",
+       "quote": "十一月，景立萧正德为帝，即伪位于仪贤堂，改年曰正平。（梁書侯景伝）／庚午，诏征镇牧守可复本任。…景更以正德为侍中、大司马，百官皆复旧职。（資治通鑑巻百六十二。梁書侯景伝「台城没，复太清之号，降正德为大司马」）",
+       "conversion": "sxtwl検算: 太清二年十一月は戊午朔=0548-12-16〜0549-01-14で、既存startDate 0548-11-01は旧暦月番号をそのまま西暦11月に転記した誤りのため0548-12-01（月精度）へ訂正（即位の日次は梁書・通鑑に明記がなく、通鑑の記事配列では戊午朔〜辛酉=12-19の間。南史巻八十は擁立を「己未」=十一月二日=0548-12-17とするため日精度への格上げ候補）。endDateは慣行（帝号喪失日）に従い、死去（太清三年六月）ベースの0549-06-15から大司馬への降格日=太清三年三月庚午（丙辰朔=0549-04-13、庚午=十五日）=0549-04-27（日精度）へ訂正。",
+       "note": "endDateは死去日でなく帝号喪失日（大司馬への降格、資治通鑑が庚午に日付づける）を採用。台城陥落・太清復号は三月丁卯=0549-04-24で、この時点で事実上帝位を失ったとする解釈もありうるが、降格が明示的に日付づけられた庚午を採る。死去は梁書・南史とも太清三年六月（日次なし）だが、資治通鑑巻百六十二「癸丑，缢杀正德」=0549-08-08が日を与える（ages.deathDateに充当）。旧noteが「無出典」として不採用にしたzh版の「549年8月8日」はこの資治通鑑癸丑と一致しており、判断を撤回した。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 147,
+     "displayYears": 0.4,
+     "needsPreciseDays": true,
+     "isExact": false
+    },
+    "firstStartYear": 548,
+    "lastEndYear": 549,
+    "reignCount": 1
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": 548
+   },
+   "sources": {
+    "wikidata": "Q837915",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": "梁皇帝。侯景政権（正平）。 『梁書』『南史』侯景傳とも「景立蕭正德爲帝，卽偽位於儀賢堂，改年曰正平」と一致して記載、原典で即位の事実を確認済み。"
+   },
+   "deathCause": {
+    "category": "assassination",
+    "note": "台城陥落後に大司馬へ降格、侯景の裏切りを怨み挙兵を企てたが密書が侯景に押収され「景遮得其書，癸丑，縊殺正德」（資治通鑑卷162）で絞殺された。擁立した侯景政権内部での粛清のため暗殺に分類。",
+    "confidence": "high",
+    "source": {
+     "page": "資治通鑑 卷162 梁紀十八；梁書/卷55 臨賀王正德傳",
+     "lang": "zh",
+     "note": "資治通鑑を第一根拠"
+    }
+   },
+   "accessionRoute": {
+    "categoryId": "acclamation",
+    "note": "臨賀王。侯景に内応して渡江を助け、台城陥落後に侯景によって天子に推された（『梁書』巻五十五「景推正德為天子，改年為正平元年」）。梁の帝位を継いだのではなく侯景が別に立てた対抗政権。翌年、侯景は簡文帝を立てて正德を廃し、後に殺害した。",
+    "confidence": "high",
+    "source": {
+     "page": "梁書/卷55 臨賀王正德傳；南史/卷80 賊臣傳",
+     "lang": "zh",
+     "note": "梁書卷55"
+    },
+    "axes": {
+     "throneSource": "self-established",
+     "titleOrigin": "new",
+     "decidedBy": [
+      "third-party"
+     ],
+     "decidedByAgents": [
+      "military"
+     ],
+     "decidedByBasis": "source-reread",
+     "predecessorFate": "none",
+     "relationToPredecessor": "none",
+     "procedure": "no-ceremony"
+    }
+   },
+   "eraChangeCount": {
+    "count": 1,
+    "events": [
+     {
+      "date": null,
+      "datePrecision": "month",
+      "note": "太清二年十一月、侯景が儀賢堂で蕭正德を帝位に就け、「改年曰正平」（梁書卷五十六侯景傳）。南史では「十一月戊午朔…己未，景立蕭正德為天子於南闕前…改元正平」（南史卷八十）とあり、十一月戊午朔の翌日（己未）の擁立に伴う建元。即位に伴う最初の改元として1回とカウント。",
+      "source": {
+       "page": "梁書/卷56 侯景傳；南史/卷80 賊臣傳",
+       "lang": "zh"
+      }
+     }
+    ],
+    "confidence": "high",
+    "note": "台城陥落後（太清三年三月）、侯景が「復太清之號，降正德為大司馬」（梁書卷五十五臨賀王正德傳）としており、これは正德自身が主導した改元ではなく、武帝（太清）権威の回復・正德の廃位に伴うものであるため、正德の在位中の改元としてはカウントしなかった（固有注意事項『武帝在位中の出来事』に対応）。"
+   },
+   "amnestyCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "medium",
+    "note": "台城陥落時（太清三年三月）に侯景が『矫诏大赦天下』（梁書卷五十六侯景傳）『矫诏大赦』（南史卷八十）を発したが、南史の記述順（帝＝武帝が景と対面し実権回復→矫诏大赦→矫诏征鎮牧守各復本位→正德を侍中・大司馬に降格）から、この赦令は武帝（太清）権威回復後に発せられたものと判断し、正德の在位（太清二年十一月〜三年三月の擬帝期間）には帰属させなかった。正德自身が『皇帝』として大赦を発した記録は原典に見当たらない。"
+   },
+   "empressInstallationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "原典に正德在位中の皇后冊立の記載はなし。『正德以女妻之』（自身の娘を侯景に嫁がせた）という記述はあるが、これは立后とは無関係。"
+   },
+   "crownPrinceDepositionCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "南史卷八十に「正德乃以長子見理為太子」とあり、正德は在位中に長子見理を皇太子に立てたが、これを廃した記載は原典になし（正德は太清三年三月に大司馬へ降格・六月に誅殺され在位を終えており、見理はその後も東府城守備等で活動）。立太子自体は本項目のカウント対象外。"
+   },
+   "personalCampaignCount": {
+    "count": 1,
+    "confidence": "high",
+    "events": [
+     {
+      "outcome": "侯景に擁立され仪贤堂で即位、年号を「正平」と改元",
+      "note": "梁書 列伝第四十九 臨賀王正德傳: 太清二年、侯景の誘いに応じ、先んじて大船数十艘を用意し「載荻」と偽って侯景軍を長江対岸へ渡す手引きをした（正德先遣大船数十艘、伪称载荻、实装济景）。梁書本紀（巻3）にも「戊申、以新除光禄大夫临贺王正德为平北将军、都督京师诸军、屯丹阳郡…辛亥、景师至京、临贺王正德率众附贼」とあり、十月に丹阳郡で自ら率いた部隊を率いて侯景軍に合流したことが確認できる（列伝も「萧正德先屯丹阳郡、至是、率所部与景合」と同内容）。十一月、侯景により仪贤堂で皇帝に擁立され、年号を「正平」と改元した（景立萧正德为帝、即伪位于仪贤堂、改年曰正平）。自身の兵を率いて侯景に合流し、自らの帝位簒奪という軍事行動の目的を達成した一連の行動として1回に計上した。",
+      "target": "建康台城（自らの帝位簒奪のため侯景軍と合流・進軍）",
+      "startDate": "0548-11-01",
+      "datePrecision": "month",
+      "endDate": "0548-12-01"
+     }
+    ],
+    "note": "梁書列伝・本紀に明記された、正徳自身の軍勢を率いての帝位簒奪行動を1回とした。"
+   },
+   "rebellionSuppressionCount": {
+    "count": 0,
+    "confidence": "high",
+    "events": [],
+    "note": "正徳は侯景の傀儡皇帝であり、在位期間（548年11月即位〜549年3月台城陥落による廃位）を通じて実際の軍事的実権は侯景側にあった。正徳自身（またはその政権）が主体となって反乱を鎮圧した記録は梁書列伝・本紀のいずれにも見当たらない。該当記事なし。"
+   },
+   "rebellionSufferedCount": {
+    "count": 1,
+    "confidence": "high",
+    "events": [
+     {
+      "outcome": "太清三年三月の台城陥落後、侯景の矫诏により侍中・大司馬に格下げされ帝位を追われた。その後正徳が怨言を漏らしたことを侯景が知り、謀反を恐れて六月に永福省で殺害した。",
+      "leader": "侯景",
+      "name": "侯景による正徳政権の廃位・粛清",
+      "note": "梁書 列伝第四十九 臨賀王正德傳: 「台城没、复太清之号、降正德为大司马。正德有怨言、景闻之、虑其为变、矫诏杀之」。梁書 列伝第五十 侯景傳: 「景矫诏曰：日者、奸臣擅命…征镇牧守可各复本任。降萧正德为侍中、大司马、百官皆复其职」（台城陥落直後、太清三年三月）、および「至是、景杀萧正德于永福省」（太清三年六月、高祖崩御・簡文帝即位後の記事に続く）。正徳は自ら兵権を持たない状態で、権臣（実質的な軍事的実権者）侯景の兵力を背景にした矫诏によって廃位され、後日殺害された。設問文で例外4（朝廷内部の権力者による兵力を伴う弑逆・クーデター）に該当するとの指示があり、これに従い被反乱1件として計上。廃位（549年3月）と殺害（549年6月）は同一の政変（侯景による正徳排除）の一連の帰結とみなし、1件として集計した（廃位時点で正徳側の武力抵抗や独立した挙兵は記録されていないため、鎮圧回数には計上しない）。",
+      "startDate": "0549-04-01",
+      "datePrecision": "month",
+      "endDate": "0549-07-01"
+     }
+    ],
+    "note": "台城陥落による廃位から永福省での殺害までを、侯景による一連の政変（例外4）として1件に計上した。"
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "梁書本紀・南史を通読。建康定都（建国時の定都）から侯景の乱期を含め遷都の記録なし（承聖元年の江陵遷都は元帝の代の出来事として計上済み）。"
+   },
+   "ages": {
+    "birthDate": null,
+    "birthDatePrecision": null,
+    "deathDate": "0549-08-08",
+    "deathDatePrecision": "day",
+    "accessionAge": null,
+    "deathAge": null,
+    "confidence": "low",
+    "note": "調査したが原典（梁書卷55臨賀王正德傳、南史卷80賊臣傳）に生年月日・享年（「時年」「享年」等）の直接記載が見当たらなかった。父は臨川靖惠王蕭宏（梁武帝の弟）で「第三子」と記されるのみで生年不詳。既存レコードのreignData（在位は太清二年十一月=548年12月〜太清三年三月=549年4月の大司馬降格まで）・deathCause・accessionRoute等のnoteにも年齢記載は含まれない。_corpus_cache/liang-xiaozhengde.txt（梁書卷55該当箇所全文キャッシュ済み）を確認したが同様に年齢記載なし。侯景の傀儡皇帝として短期間で殺害された人物であり、生年不明は五胡十六国・南北朝の類例と同様の妥当な調査結果と判断。死去日は2026-07-21の出典整備で、資治通鑑巻百六十二「癸丑，缢杀正德」（太清三年六月癸丑=0549-08-08、sxtwl検算一致）により日精度で確定しdeathDateに充当した（梁書・南史は六月の月まで）。旧duration.source.noteがzh版Wikipediaの「549年8月8日」を無出典として不採用にしていたが、資治通鑑と一致していたため判断を撤回。生年・年齢は引き続き不明。"
+   }
+  },
+  {
+   "id": "tang-wuzetian",
+   "name": {
+    "personalName": "武曌",
+    "commonName": "則天大聖皇帝（武則天）",
+    "aliases": [
+     "則天武后"
+    ],
+    "posthumousName": null,
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "sui-tang",
+   "regimeId": "wu-zhou",
+   "researchSection": "唐",
+   "standing": "regular",
+   "reigns": [
+    {
+     "startYear": 690,
+     "endYear": 705,
+     "dynastyOrder": null,
+     "isRestoration": false,
+     "note": "天授元年9月9日、国号を「周」に改め自ら皇帝に即位(中国史上唯一の女性皇帝)。神龍元年正月25日(丙午)、神龍革命により中宗へ譲位。同年11月26日崩御。",
+     "raw": null,
+     "durationRaw": null,
+     "startDate": "0690-10-16",
+     "endDate": "0705-02-21",
+     "startDateRaw": "載初元年九月九日(壬午)",
+     "endDateRaw": "神龍元年正月(甲辰)",
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 5242,
+      "unit": "day",
+      "approxDays": 5242,
+      "exactDays": 5242,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "旧唐書 本紀第六 則天皇后",
+       "lang": "zh-classical",
+       "quote": "〔即位〕九月九日壬午，革唐命，改國號為周。改元為天授，大赦天下，賜酺七日。乙酉，加尊號曰聖神皇帝，降皇帝為皇嗣。／〔在位終了＝傳位〕神龍元年春正月，大赦，改元。上不豫……癸亥，麟臺監張易之與弟司僕卿昌宗反，皇太子率左右羽林軍桓彥範、敬暉等，以羽林兵入禁中誅之。甲辰，皇太子監國，總統萬機，大赦天下。是日，上傳皇帝位於皇太子。戊申，皇帝上尊號曰則天大聖皇帝。",
+       "conversion": "載初元年（周正=建子月を正月とする改暦後）の月数表記は「一月」以降、旧暦（夏正）の月番号とそのまま一致する（正月=旧689年11月、腊月=旧689年12月、一月=旧690年1月…九月=旧690年9月）ため、「九月九日壬午」をsxtwl.fromLunar(690,9,9,False)で換算すると690-10-16(壬午)となり、現行startDateと完全一致（補正なし）。在位終了（傳位）は本文が「甲辰、皇太子監國……是日、上傳皇帝位於皇太子」と明記する甲辰日で、神龍元年（705年）正月中の甲辰をsxtwl（fromLunar/fromSolarの往復確認済み）で特定すると705-02-21となる。既存endDate 705-02-23は原文中のどの干支（癸亥/甲辰/戊申）にも一致せず、705-02-23自体は丙午に当たり本文に対応記事がないため、原文の干支換算を優先して補正した。",
+       "note": "endDateは現行データの定義（死去ではなく「退位/傳位」）を維持し、その定義に対応する干支のみを厳密照合した。実際の崩御は同年冬十一月壬寅（705年）で別日（「則天將大漸……是日、崩於上陽宮之仙居殿、年八十三」）であり、退位日と混同していない。戊申（本文中では「皇帝上尊號曰則天大聖皇帝」＝新帝から尊号を奉られた日、傳位4日後）はendDateの根拠としていない。 exactDays を 5241→5242 に訂正（2026-07-22）。旧値は日付ラベル（ユリウス暦）にグレゴリオ暦算術を適用してユリウス暦の閏世紀日（100の倍数年の2月29日）を1日取りこぼしていた。実経過日数はユリウス通日（JDN）差で再計算。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 5242,
+     "displayYears": 14.36,
+     "needsPreciseDays": false,
+     "isExact": true
+    },
+    "firstStartYear": 690,
+    "lastEndYear": 705,
+    "reignCount": 1
+   },
+   "flags": {
+    "isFemale": true,
+    "usedEmperorTitleFrom": 690
+   },
+   "sources": {
+    "wikidata": "Q9738",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": "『旧唐書』巻6「九月九日壬午，革唐命，改國號為周。改元為天授」（即位）、巻7「乙巳，則天傳位於皇太子」「丙午，即皇帝位於通天宮」（譲位、中宗即位は翌丙午）、崩御日（同年11月壬寅、上陽宮仙居殿）を原典で確認。"
+   },
+   "deathCause": {
+    "category": "illness",
+    "note": "神龍元年11月、譲位後に上陽宮にて崩御。83歳という高齢であり、本紀の記述（重体化してからの遺詔発布→崩御）から自然死・老衰死と判定。",
+    "confidence": "high",
+    "source": {
+     "page": "旧唐書 巻六（則天皇后、神龍元年十一月条）",
+     "lang": "zh-classical"
+    }
+   },
+   "accessionRoute": {
+    "categoryId": "abdication-received",
+    "note": "高宗の皇后。中宗・睿宗を廃立して臨朝称制した後、天授元年に睿宗から位を受け、国号を「周」に改めて自ら皇帝に即位した（睿宗は皇嗣に降された。『旧唐書』巻七「及革命，改国号为周，降帝为皇嗣」）。神龍革命により中宗へ譲位。唐から周への王朝交代を伴う受禅で、譲位側は在位中の皇帝（実子の睿宗）。",
+    "confidence": "high",
+    "source": {
+     "page": "旧唐書 巻六（則天皇后）",
+     "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "abdication-received",
+     "titleOrigin": "inherited",
+     "decidedBy": [
+      "self"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "source-reread",
+     "predecessorFate": "abdicated",
+     "relationToPredecessor": "mother",
+     "procedure": "abdication-ceremony"
+    }
+   },
+   "eraChangeCount": {
+    "count": 14,
+    "confidence": "high",
+    "note": "旧唐書巻六本紀を通読し、690年9月9日の建国・称帝（天授改元）から705年正月の神龍改元までに実際に用いられた年号を漏れなく数え上げた。天授・如意・長寿・延載・証聖・天冊万歳・万歳登封・万歳通天・神功・聖暦・久視・大足・長安・神龍の計14元号（14回の改元、即位に伴う最初の建元＝天授改元を1回として含む）。中国史上最多クラスの改元回数として知られる本人の特徴と一致する。なお701年正月の久視→大足改元のみ、本文に大赦の記載を伴わない（他の改元は原則として大赦天下と同時に行われている）。",
+    "events": [
+     {
+      "date": "0690-09-09",
+      "datePrecision": "day",
+      "note": "天授元年九月九日壬午。国号を唐から周に改め、自ら皇帝に即位すると同時に建元（即位に伴う最初の建元、皇帝即位（改元同時））。",
+      "source": {
+       "page": "旧唐書巻六（則天皇后紀）",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0692-04",
+      "datePrecision": "month",
+      "note": "天授三年四月、如意に改元（皇帝在位中）。",
+      "source": {
+       "page": "旧唐書巻六（則天皇后紀）",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0692-09",
+      "datePrecision": "month",
+      "note": "如意元年九月、長寿に改元（皇帝在位中）。",
+      "source": {
+       "page": "旧唐書巻六（則天皇后紀）",
+       "lang": "zh"
+      }
+     }
+    ]
+   },
+   "amnestyCount": {
+    "count": 17,
+    "confidence": "high",
+    "note": "在位期間（690年9月9日 天授建元・即位～705年正月 神龍改元まで）に旧唐書巻六本紀で確認できる「大赦天下」「大赦」（全国規模の恩赦）を計上。地域限定の「曲赦」（曲赦其縣、曲赦告成県の2件）は除外。705年正月の神龍改元時の大赦（皇太子率羽林兵誅張易之昆弟の政変前、上がまだ実権を握っていた時点の大赦）までを計上し、同月後半の「甲辰、皇太子監国、總統萬機、大赦天下」（政変後、皇太子が監国として発した大赦）は本人ではなく中宗（皇太子監国期）の在位に帰属するため除外した。",
+    "events": [
+     {
+      "date": "0690-09-09",
+      "datePrecision": "day",
+      "note": "天授元年九月九日壬午、国号を周と改め称帝すると同時に大赦天下・改元天授。",
+      "source": {
+       "page": "旧唐書巻六（則天皇后紀）",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0692-04",
+      "datePrecision": "month",
+      "note": "天授三年四月、大赦天下・改元如意（禁断天下屠殺も合わせて発布）。",
+      "source": {
+       "page": "旧唐書巻六（則天皇后紀）",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0692-09",
+      "datePrecision": "month",
+      "note": "如意元年九月、大赦天下・改元長寿。",
+      "source": {
+       "page": "旧唐書巻六（則天皇后紀）",
+       "lang": "zh"
+      }
+     }
+    ]
+   },
+   "empressInstallationCount": {
+    "count": 0,
+    "confidence": "high",
+    "note": "則天は自ら皇帝（周）として在位した690～705年の間、女帝であり配偶者たる皇后は存在しない。旧唐書巻六本紀の当該期間中に「立...為皇后」等、皇后冊立を示す記事は見当たらない（「皇后」の語自体が本紀の即位後部分に一度も出現しない）。したがって立后回数は0。",
+    "events": []
+   },
+   "crownPrinceDepositionCount": {
+    "count": 0,
+    "confidence": "high",
+    "note": "在位期間（690～705年）中、旧唐書巻六本紀には皇太子・皇嗣を「廃した」と明記する記事は見当たらない。即位当日（690年9月9日）に「降皇帝為皇嗣」とあるのは、前皇帝（睿宗）を皇帝位から皇嗣（法定推定継承者相当）に降格させたものであり、既に立てられていた皇太子を廃したものではないため計上しない。また683～684年（嗣聖元年）の「廃皇太孫重照為庶人」は則天が皇太后として臨朝称制していた時期（皇帝即位前、唐朝中宗・睿宗の治世下）の出来事であり、本項で対象とする則天の皇帝在位期間（690-705年）の範囲外のため計上対象外とした。",
+    "events": []
+   },
+   "ages": {
+    "birthDate": null,
+    "birthDatePrecision": null,
+    "deathDate": "0705-12-16",
+    "deathDatePrecision": "day",
+    "accessionAge": 68,
+    "deathAge": 83,
+    "confidence": "high",
+    "note": "既存レコード（旧唐書巻六）に「崩于上陽宮之仙居殿、年八十三」と明記された崩御時年齢(83歳)を再利用。即位時年齢(accessionAge)は直接記載がないため、690年(天授元年、即位)と705年(神龍元年、崩御)の年号年ラベル差分(15年)を83歳から差し引いて逆算：83-15=68歳。両日付とも各年の旧暦新年より後(690年9月即位・705年11月崩御)であるため、この間に経過した数え年の加齢回数は正確に15回であり、逆算は妥当。（2026-07-21 ages日付ISO正規化: deathDate 705-11-26→0705-12-16（神龍元年十一月壬寅=旧暦11月26日のsxtwl換算で日番号・干支の両方が一致。従来値は旧暦日番号の転記だった）。）"
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "建国時に既存の神都洛陽（684年に唐代の措置で確立済み）をそのまま継承しており、周朝在位中に独自の遷都は発生していない。"
+   },
+   "personalCampaignCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "旧唐書巻六本紀を在位期間(690年9月9日 天授建元・即位～705年正月 神龍改元まで)通読。吐蕃・契丹・突厥への軍事行動はいずれも「命○○為大総管以討之」等、将軍への派遣・勅命の形式で行われており、則天自身が出陣した記事は見当たらない。本人の行幸(幸嵩山・幸三阳宫・幸京師等)や親祀明堂・封禅はいずれも儀礼的なものであり親征に該当しない。"
+   },
+   "rebellionSuppressionCount": {
+    "count": 1,
+    "events": [
+     {
+      "startDate": "0696-05",
+      "endDate": "0697-09",
+      "datePrecision": "month",
+      "leader": "李尽忠（松漠都督、後に孫万栄が継承）",
+      "name": "営州契丹の反乱（李尽忠・孫万栄の乱）",
+      "outcome": "営州城傍の服属契丹の首領・松漠都督李尽忠が妻兄孫万栄とともに挙兵し都督趙文翙を殺害、営州を陥落させ可汗を自称。武周は曹仁師・王孝傑ら数次にわたり大軍を派遣したが緒戦は苦戦(西硖石・硖石谷で官軍敗績、王孝傑戦死)。李尽忠病死後は孫万栄が継承し冀州・瀛州属県を陥落させたが、697年6月に孫万栄が自らの家奴に殺害され残党が瓦解。同年9月「以契丹李尽滅等平」として大赦天下・改元神功が行われ、鎮圧完了とされた。",
+      "note": "服属民（営州城傍の契丹）による蜂起のため被反乱・鎮圧の双方に計上。"
+     }
+    ],
+    "confidence": "high",
+    "note": "在位期間(690-705年)中に政権側が鎮圧の主体となった武装反乱は、営州契丹の反乱(万歳通天元年5月～神功元年9月)の1件のみ。徐敬業の乱(684年)・越王貞ら宗室諸王の反乱(688年)はいずれも則天が皇太后として臨朝称制していた時期(皇帝即位前)の出来事のため、本項の在位期間集計対象外とした。また綦連耀謀反(697年、李元素・孫元亨らが連座)は密告・摘発により関係者が伏誅したのみで実際の挙兵が確認できないため含めない。"
+   },
+   "rebellionSufferedCount": {
+    "count": 2,
+    "events": [
+     {
+      "startDate": "0696-05",
+      "endDate": "0697-09",
+      "datePrecision": "month",
+      "leader": "李尽忠（松漠都督、後に孫万栄が継承）",
+      "name": "営州契丹の反乱（李尽忠・孫万栄の乱）",
+      "outcome": "武周側が数次の派兵の末、697年に反乱側の内部崩壊により鎮圧に至った。",
+      "note": "服属民（営州城傍の契丹）による蜂起のため被反乱・鎮圧の双方に計上。"
+     },
+     {
+      "startDate": "0705-01",
+      "endDate": "0705-01",
+      "datePrecision": "month",
+      "leader": "皇太子李顕・張柬之・桓彦范・敬暉ら（左右羽林軍を動員）",
+      "name": "神龍政変",
+      "outcome": "羽林軍が禁中に入り寵臣張易之・張昌宗兄弟を誅殺、皇太子が監国・大赦天下を宣言した同日に則天は皇太子へ譲位。則天自身は退位に追い込まれ、周は唐に復した。",
+      "note": "朝廷内部の権力者(皇太子・宰相ら)による兵力(羽林軍)を伴うクーデターであり、鎮圧の主体が則天側ではなく反乱者側のため鎮圧回数には計上せず、被反乱回数のみに計上（パターン4）。"
+     }
+    ],
+    "confidence": "high",
+    "note": "在位期間(690-705年)中に則天の政権に対して起こされた武装反乱は、営州契丹の反乱(鎮圧回数と同一事象)と、末期に発生した神龍政変(705年、羽林軍を用いたクーデターにより退位に追い込まれた事件)の2件。神龍政変は皇太子・張柬之らが左右羽林軍を動員して武力で張易之兄弟を誅殺し、則天を退位・譲位に追い込んだものであり、鎮圧の主体が則天側ではなく反乱者側であるため鎮圧回数には計上しないが、兵力を伴う弑逆・クーデターとして被反乱回数には計上する（望夷宮の変と同型のパターン4に該当）。"
+   }
+  },
+  {
+   "id": "tang-aidi",
+   "name": {
+    "personalName": "李柷",
+    "commonName": "哀帝",
+    "aliases": [],
+    "posthumousName": "哀皇帝",
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
+   "reigns": [
+    {
+     "startYear": 904,
+     "endYear": 907,
+     "dynastyOrder": null,
+     "isRestoration": false,
+     "note": "昭宗第九子（母は積善皇后何氏）。初名祚、輝王に封ぜられていた。天祐元年八月十二日、父昭宗が朱全忠配下の蒋玄暉らに弑殺された翌日、蒋玄暉が矯詔（偽の遺詔）により当時13歳の輝王を皇太子に立て「柷」と改名、監軍国事とした。同月十五日（丙午）、柩前にて即位（『旧唐書』「帝時年十三」）。天祐四年（開平元年）四月十八日（甲子）、朱全忠（後梁太祖）へ禅譲し退位、済陰王に降封された。崩御後の諡号は当初「昭宣光烈孝皇帝」・廟号「景宗」が提案されたが、「少帝の行事は宗を称するにふさわしくない」として却下され、本諡「哀皇帝」のみが正式に採用された。",
+     "raw": null,
+     "durationRaw": null,
+     "startDate": "0904-09-26",
+     "endDate": "0907-06-01",
+     "startDateRaw": "天祐元年八月十五日（丙午、旧暦）",
+     "endDateRaw": "天祐四年（開平元年）四月十八日（甲子、旧暦）",
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 978,
+      "unit": "day",
+      "approxDays": 978,
+      "exactDays": 978,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "旧唐書 巻二十下（哀帝紀）",
+       "lang": "zh-classical",
+       "quote": "丙午，大行皇帝大殓，皇太子柩前即皇帝位。／甲子，行事。",
+       "conversion": "sxtwl検算: 天祐元年八月十五日=丙午=ユリウス暦0904-09-26（同月の丙午は十五日のみ）。天祐四年四月十八日=甲子=ユリウス暦0907-06-01（本紀の「三月戊寅朔」・四月丁未朔と干支連鎖が整合）。904-09-26→907-06-01は978日で既存exactDays 978と一致し、訂正なし。",
+       "note": "即位日・退位日とも原文は干支で特定可能（丙午=八月十五日、甲子=四月十八日の冊礼施行=禅譲）。退位日(0907-06-01)は既存のwudai-houliang-taizuレコードのstartDateと一致し裏付けが取れる。禅譲直前の記事の干支列（乙酉→甲午→甲子）は日次として単調に並ばず錯簡の可能性があるが、冊礼施行日「甲子」自体は三月戊寅朔・sxtwl・後梁太祖即位日の三重で確認できる。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 978,
+     "displayYears": 2.68,
+     "needsPreciseDays": false,
+     "isExact": true
+    },
+    "firstStartYear": 904,
+    "lastEndYear": 907,
+    "reignCount": 1
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": 904
+   },
+   "deathCause": {
+    "category": "assassination",
+    "note": "禅譲後、済陰王に降封され曹州（氏叔琮の旧邸）に幽閉された。開平二年（908年）二月、朱全忠の命により鴆殺（毒殺）された。『資治通鑑』巻266（後梁紀一、開平二年二月）に「癸亥，鴆殺済陰王于曹州，追諡曰唐哀皇帝」と明記。『旧唐書』哀帝紀も「帝為全忠所害、時年十七」とし、天祐五年（旧臣が唐の年号で表記）二月二十一日と日付を記す。唐朝は既に滅亡し済陰王という降封身分での密殺であり、同様の先例（東晋恭帝・劉宋順帝・東魏孝静帝）に倣い暗殺に分類した。",
+    "confidence": "high",
+    "source": {
+     "page": "旧唐書 巻二十下（哀帝紀）／資治通鑑 巻266（後梁紀一・開平二年）",
+     "lang": "zh-classical"
+    }
+   },
+   "accessionRoute": {
+    "categoryId": "enthroned",
+    "note": "天祐元年八月十二日、父昭宗が朱全忠配下の蒋玄暉らに弑殺された翌日、蒋玄暉が矯詔（偽の遺詔）により当時13歳の輝王祚を皇太子に立て柷と改名、同月十五日（丙午）柩前で即位させた。本人の主体的な行為ではなく、父を弑逆した朱全忠一派による擁立即位のため擁立と判定（後漢献帝・唐李裕等の先例と同型）。",
+    "confidence": "high",
+    "source": {
+     "page": "旧唐書 巻二十下（哀帝紀）",
+     "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "inherited",
+     "titleOrigin": "inherited",
+     "decidedBy": [
+      "third-party"
+     ],
+     "decidedByAgents": [
+      "officials"
+     ],
+     "decidedByBasis": "source-reread",
+     "predecessorFate": "violent-death",
+     "relationToPredecessor": "son",
+     "procedure": "forged-edict"
+    }
+   },
+   "eraChangeCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "在位中（天祐元年八月〜四年四月）、父昭宗の代から続く「天祐」の元号をそのまま継続使用し、自身による新たな建元は行っていない（禅譲の詔でも改元の宣言はなし）。開平（後梁太祖の年号）への改元は退位後、朱全忠自身の即位に伴うものであり哀帝自身の治世には該当しない。"
+   },
+   "amnestyCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "『旧唐書』哀帝紀（巻二十下）を通読したが、即位に伴う大赦を含め在位中に「大赦」「大赦天下」と明記される記事は見当たらない。天祐二年五月辛亥条に彗星出現に伴う「徳音」（京畿の軍鎮諸司禁囚を対象にした限定的な減刑）はあるが、全国規模の大赦ではないため対象外。父昭宗弑殺後の混乱と朱全忠一派による政治的統制下、慣例的な即位恩赦すら発せられなかった。"
+   },
+   "empressInstallationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "哀帝紀を通読したが皇后冊立の記事はない。即位時13歳、崩御時17歳という短い在位・生涯であり、在位中を通じて皇后は不在であったとみられる。"
+   },
+   "crownPrinceDepositionCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "哀帝紀を通読したが在位中（3年弱）に皇太子が立てられた記事自体が存在せず、廃立の記録もない。哀帝自身も嗣子を残さぬまま17歳で没した。"
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "長安から洛陽への強制遷都は即位前年の天祐元年正月、父昭宗の代に朱全忠の主導で完了しており（tang-zhaozongのcapitalRelocationCountに計上済み）、哀帝自身の在位中（洛陽奠都後）に新たな遷都は発生していない。"
+   },
+   "personalCampaignCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "哀帝紀を通読したが、皇帝自身が軍を率いて出征した記事はない。在位中の軍事行動（荊襄への出兵等）はすべて朱全忠が元帥として指揮しており、哀帝本人の親征は皆無。"
+   },
+   "rebellionSuppressionCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "哀帝紀を通読したが、哀帝側（朝廷）が主体となって反乱を鎮圧した記事はない。荊襄の趙匡凝討伐等はいずれも朱全忠が独自に指揮した勢力争いであり、哀帝の朝廷による鎮圧行動とは言えない。"
+   },
+   "rebellionSufferedCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "哀帝紀を通読したが、哀帝の朝廷に対する武装反乱・クーデターの記事はない。在位中の唯一の弑逆的暴力（父昭宗の弑殺）は即位前の出来事であり本人の在位中には該当しない。柳璨・裴枢ら朝臣の粛清（白馬の禍）は朱全忠一派による一方的な処断であり、朝廷への武力反乱ではないため対象外。"
+   },
+   "ages": {
+    "birthDate": "0892-09-27",
+    "birthDatePrecision": "day",
+    "deathDate": "0908-03-25",
+    "deathDatePrecision": "day",
+    "accessionAge": 13,
+    "deathAge": 17,
+    "confidence": "high",
+    "note": "『旧唐書』哀帝紀冒頭「景福元年九月三日、生於大内」、即位記事「帝時年十三」、崩御記事「帝為全忠所害、時年十七」といずれも直接記載があり、数え年の記載として採用。生年月日・崩御日はsxtwlによる旧暦→新暦換算（景福元年九月三日→892-09-27、天祐五年二月二十一日→908-03-25）。"
+   },
+   "sources": {
+    "wikidata": "Q9892",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": "2026-07-20、通史年表の設計検討中に在位年カバレッジを機械集計した際、905-906年が皇帝不在期間として現れたことから収録漏れが判明し追加調査・収録した（唐は殤帝・李裕・李承宏・李熅ら短命帝まで収録済みだったが哀帝のみ欠落していた）。全12項目を『旧唐書』巻二十下（哀帝紀）および『資治通鑑』（daizhigev20所収、巻266）の原典で個別調査。日付換算はsxtwlを使用。天祐五年二月二十一日（死去）の換算日は資治通鑑の干支表記「癸亥」との間に1日のズレが生じた（sxtwl換算では該当日の干支は壬戌）。旧唐書の直接的な日次記載（二十一日）を優先し0908-03-25を採用したが、暦法再構成に起因する1日程度の誤差の可能性がある。即位日(0904-09-26)・退位日(0907-06-01)は資治通鑑および既存のwudai-houliang-taizuレコード（startDate: 0907-06-01, 開平元年4月18日の記述）と整合することを確認済み。"
+   }
+  },
+  {
+   "id": "wudai-houzhou-shizong",
+   "name": {
+    "personalName": "柴栄",
+    "commonName": "世宗（柴栄）",
+    "aliases": [],
+    "posthumousName": null,
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "five-dynasties",
+   "regimeId": "later-zhou",
+   "researchSection": "五代十国",
+   "standing": "regular",
+   "reigns": [
+    {
+     "startYear": 954,
+     "endYear": 959,
+     "dynastyOrder": null,
+     "isRestoration": false,
+     "note": "顕徳元年1月21日即位。顕徳6年6月19日崩御。",
+     "raw": null,
+     "durationRaw": null,
+     "startDate": "0954-02-26",
+     "endDate": "0959-07-27",
+     "startDateRaw": null,
+     "endDateRaw": null,
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 1977,
+      "unit": "day",
+      "approxDays": 1977,
+      "exactDays": 1977,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "旧五代史・周書 世宗紀一（即位）／世宗紀六（崩御）",
+       "lang": "zh-classical",
+       "quote": "壬辰，太祖崩，秘不発喪。丙申，内出太祖遺制：「晉王榮可於柩前即位。」群臣奉帝即皇帝位。／六月乙亥朔……癸巳，帝崩於萬歳殿，聖壽三十九。甲午，宣遺制，梁王於柩前即皇帝位。",
+       "conversion": "即位: 顕徳元年（954）正月丙申の日。同年正月朔（庚辰）を起点にsxtwl.fromLunar(954,1,d,False)でd=1..30を走査すると、丙申はd=21で一致し、対応する新暦は954-02-26（getSolarYear/Month/Day = 954/2/26）。既存startDate 0954-02-26・precision dayと完全一致。\n崩御: 顕徳六年（959）六月癸巳の日。本文に「六月乙亥朔」と明記されており、これを起点にsxtwl.fromLunar(959,6,d,False)を走査すると、乙亥はd=1（六月朔と一致、検算OK）、癸巳はd=19で一致し、対応する新暦は959-07-27（959/7/27）。既存endDate 0959-07-27・precision dayと完全一致。\n両日付とも原文干支から独立に換算し、既存値と一致することを確認した。",
+       "note": "出典は旧五代史（周書・世宗紀）のみで確定可能。即位記事は世宗紀一（顕徳元年正月）、崩御記事は世宗紀六（顕徳六年六月）に所在。新五代史・資治通鑑等の異同は確認不要なほど原文が明確（干支・朔日とも記載あり）だったため参照していない。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 1977,
+     "displayYears": 5.42,
+     "needsPreciseDays": false,
+     "isExact": true
+    },
+    "firstStartYear": 954,
+    "lastEndYear": 959,
+    "reignCount": 1
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": 954
+   },
+   "sources": {
+    "wikidata": "Q1319646",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": ""
+   },
+   "deathCause": {
+    "category": "illness",
+    "note": "契丹遠征中、瓦橋関で発病し帰還を待たず崩御。",
+    "confidence": "high",
+    "source": {
+     "page": "旧五代史 巻一百十九（周書・世宗紀六）",
+     "lang": "zh-classical"
+    }
+   },
+   "accessionRoute": {
+    "categoryId": "hereditary",
+    "note": "郭威の甥で養子として迎えられ、生前より開封尹・晋王として後継者の地位を確立、郭威の遺制により柩前で即位。",
+    "confidence": "high",
+    "source": {
+     "page": "旧五代史 巻一百十三（周書・太祖紀四）",
+     "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "inherited",
+     "titleOrigin": "inherited",
+     "decidedBy": [
+      "predecessor"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "source-reread",
+     "predecessorFate": "natural-death",
+     "relationToPredecessor": "adopted-son",
+     "procedure": "normal"
+    }
+   },
+   "eraChangeCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "顕徳の元号は世宗の即位前、太祖郭威自身が顕徳元年正月丙子朔の郊祀に際し「大赦天下，改廣順四年爲顯德元年」と改元したもの（旧五代史巻一百十三・太祖紀四）。太祖はその後同月壬辰に崩御し、世宗は丙申に柩前で即位したが、既に定まっていた顕徳の元号をそのまま継続使用したため、世宗自身による改元・建元とはみなさない。世宗は顕徳元年〜六年（顕徳六年六月崩御）まで在位中一度も改元しておらず、eraChangeCount=0とした。"
+   },
+   "amnestyCount": {
+    "count": 1,
+    "events": [
+     {
+      "date": "0954-04-12",
+      "datePrecision": "day",
+      "note": "河東（劉崇）出兵の詔に続き「制：大赦天下，常赦所不原者，咸赦除之」と全国規模の大赦を実施。なお同年正月丙子朔の大赦（旧五代史巻一百十三太祖紀四、改元「広順四年為顕徳元年」と同時）は太祖郭威が崩御（同月壬辰）する前に自ら行ったもので世宗自身の治世下の事績ではないため対象外とした。在位中に見られる「曲赦潞州」（顕徳元年）「曲赦秦鳳階成等州」（顕徳二年）「曲赦寿州管内」（顕徳四年）「曲赦淮南道諸州」（顕徳三年）はいずれも地域限定の恩赦のため含めていない。日付原文: 顕徳元年三月辛巳（954年）（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "旧五代史 巻一百十四（周書・世宗紀一）",
+       "lang": "zh"
+      }
+     }
+    ],
+    "confidence": "high",
+    "note": "旧五代史世宗紀一〜六（巻一百十四〜一百十九）を通読し「大赦天下」等の明記がある全国規模の恩赦を抽出。「曲赦」は地域限定のため除外した。"
+   },
+   "empressInstallationCount": {
+    "count": 2,
+    "events": [
+     {
+      "date": "0954-05-23",
+      "datePrecision": "day",
+      "note": "衛国夫人符氏（後の宣懿皇后）を皇后に冊立。原文「制立衛國夫人符氏爲皇后，仍令有司擇日備禮冊命」。同后は顕徳三年七月辛亥に崩じ、同年十月に「宣懿皇后」と諡され懿陵に葬られた。日付原文: 顕徳元年四月壬戌（954年）（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "旧五代史 巻一百十四（周書・世宗紀一）",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "0959-07-17",
+      "datePrecision": "day",
+      "note": "魏王符彦卿の娘（先の宣懿皇后の妹、通称「小符皇后」）を皇后に冊立。原文「立魏王符彥卿女爲皇后，仍令所司擇日備禮冊命」。世宗はその直後の同年六月癸巳に崩御し、恭帝の代も引き続き皇后（のち皇太后）となった。日付原文: 顕徳六年六月癸未（959年）（2026-07-22にISO表記へ正規化）",
+      "source": {
+       "page": "旧五代史 巻一百十九（周書・世宗紀六）",
+       "lang": "zh"
+      }
+     }
+    ],
+    "confidence": "high",
+    "note": "顕徳四年四月壬午「故彭城郡夫人劉氏追冊爲皇后」（旧五代史巻一百十七・世宗紀四）は既に故人となっていた先妻への没後の追冊であり、生前の正式冊立ではないため本カウントには含めていない（既存データの後燕慕容熙条にある先例と同様の扱い）。廃后・再冊立の事例はなし。"
+   },
+   "crownPrinceDepositionCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "世宗の在位中（顕徳元年〜六年）に皇太子（皇太弟・皇太孫を含む）が立てられた記録は見当たらず、従って廃立の記録もない。世宗自身も太祖の代に正式な「皇太子」号を受けたわけではなく、開封尹・判内外兵馬事という形で事実上の後継者の地位を得ていた。世宗の子・宗訓（後の恭帝）も顕徳六年六月癸未に梁王に封じられたのみで、皇太子には立てられていない。"
+   },
+   "ages": {
+    "birthDate": "0921-10-27",
+    "birthDatePrecision": "day",
+    "deathDate": "0959-07-27",
+    "deathDatePrecision": "day",
+    "accessionAge": 34,
+    "deathAge": 39,
+    "confidence": "high",
+    "note": "旧五代史巻一百十四（周書・世宗紀一）冒頭に「帝以唐天祐十八年，歲在辛巳，九月二十四日丙午，生於邢州之別墅」と生年月日が直接記載。巻一百十九（世宗紀六）崩御記事に「帝崩于萬歲殿，聖壽三十九」と没年齢（数え年）が直接記載されている。即位時年齢34歳（数え年）は生年（921年）と即位年（顕徳元年＝954年）の差から逆算した値で、没年齢39歳（959年）との整合（959-921+1=39）を確認済み。既存データを再検証し変更なし。（2026-07-21 ages日付ISO正規化: birthDate「天祐十八年九月二十四日丙午」→0921-10-27、deathDate「顕徳六年六月癸巳（六月十九日）」→0959-07-27（いずれも日番号・干支ともsxtwl換算で一致、deathDateはreigns.endDateとも一致）。）"
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "旧五代史帝紀を通読。後漢の都・開封をそのまま継承、在位中を通じて遷都の記録なし。"
+   },
+   "personalCampaignCount": {
+    "count": 5,
+    "events": [
+     {
+      "startDate": "0954-04-01",
+      "endDate": "0954-07-01",
+      "datePrecision": "month",
+      "target": "北漢（劉崇）・契丹（援軍）",
+      "outcome": "高平の戦いで北漢・契丹連合軍に大勝（貼将張暉らを斬殺、契丹軍は不戦のまま撤退）。逃走した劉崇を追撃して北漢の都・太原を包囲したが、大雨と兵站難のため攻略できず撤退（北漢政権は存続）。",
+      "note": "顕徳元年三月癸未「诏以刘崇入寇，车驾取今月十一日亲征」、乙酉「车驾发京师」で出征、癸巳に高平で会戦・大勝。潞州経由でそのまま「亲征刘崇」と明記された太原包囲戦に移行し（京師への帰還を挟まない継続行動）、六月庚午「帝至自河东」で帰京。北漢・契丹は後周と対等な独立政権・外国勢力であり反乱扱いとせず親征のみに計上。"
+     },
+     {
+      "startDate": "0956-02-01",
+      "endDate": "0956-06-01",
+      "datePrecision": "month",
+      "target": "南唐（李景）",
+      "outcome": "正陽で南唐の劉彦貞軍を撃破、滁州・泰州・光州等を制圧する等緒戦に連勝。しかし寿州（寿春）包囲は長期化し攻略できず、李穀の退却の失策もあって戦線が伸びたため、いったん京師へ帰還（南唐はなお抵抗を継続）。",
+      "note": "顕徳三年正月「车驾发京师」で淮南（南唐）へ出征、五月「上至自淮南」で帰京。南唐は後周と対等な独立政権（十国の一つ）であり親征回数にのみ計上。"
+     },
+     {
+      "startDate": "0957-03-01",
+      "endDate": "0957-05-01",
+      "datePrecision": "month",
+      "target": "南唐（李景）",
+      "outcome": "紫金山に集結した南唐の援軍を撃破して寿州を孤立させ、守将劉仁贍が降伏して寿州（寿春）が陥落。淮南北部の要衝を制圧して京師へ帰還。",
+      "note": "顕徳四年二月「车驾发京师」で再出征、四月「车驾至自下蔡」で帰京。前回（顕徳三年）の遠征とは京師帰還を挟んで年をまたいだ再出征のため、既存データ（例：隋煬帝の高句麗三征）の運用基準に従い別カウントとした。"
+     }
+    ],
+    "confidence": "high",
+    "note": "旧五代史世宗紀一〜六（巻一百十四〜一百十九）を通読。北漢・契丹（顕徳元年）、南唐（顕徳三〜五年、3回）、契丹（顕徳六年）の計5回、いずれも「车驾发京师」「帝亲率诸军」等の記述で皇帝本人の出陣が明記されている。淮南（南唐）遠征は同一相手だが、毎回京師へ帰還した後に新たな詔で再出征しており、年をまたいだ再出征として3回に分けてカウントした（既存の他エンペラー事例における運用基準に整合）。"
+   },
+   "rebellionSuppressionCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "旧五代史世宗紀一〜六を通読したが、世宗の在位中（顕徳元年〜六年）に後周が鎮圧主体となった服属民・節度使等の離反・武装蜂起は見当たらなかった。北漢・南唐・契丹との戦争は対等な独立政権・外国勢力との統一戦争／外征でありrebellionSuppressionCountの対象外（personalCampaignCountに計上済み）。潘叔嗣による朗州節度使王進逵殺害（顕徳三年、湖南・武平軍領域内部の権力闘争）は後周が鎮圧行動を取っておらず（新指導者・周行逢をそのまま追認）、対象外とした。"
+   },
+   "rebellionSufferedCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "旧五代史世宗紀一〜六を通読したが、世宗の統治機構下（後周直轄の節度使・将軍・官僚）による離反・武装蜂起で世宗自身に対して起こされたものは見当たらなかった。検討したが除外した事案：(a)顕徳三年二月、潘叔嗣による朗州節度使王進逵殺害は湖南・武平軍節度使領域（半独立政権）内部の権力闘争であり、後周が直接の攻撃対象になったものではない。(b)顕徳六年正月、青州節度使・陳王安審琦が部曲に殺害された事件は記述が一行のみで蜂起の規模・性質が不明のため不採用。北漢・南唐・契丹との戦争は対等な独立政権・外国勢力との統一戦争／外征でありrebellionSufferedCountの対象外（personalCampaignCountに計上済み）。高平の戦いで敗走した将軍樊愛能・何徽の処刑は臨陣逃亡（軍紀違反）による処罰であり、反乱には該当しないため対象外とした。"
+   }
+  },
+  {
+   "id": "jin-modi",
+   "name": {
+    "personalName": "完顔承麟",
+    "commonName": "末帝",
+    "aliases": [],
+    "posthumousName": null,
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "jin-jurchen",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
+   "reigns": [
+    {
+     "startYear": 1234,
+     "endYear": 1234,
+     "dynastyOrder": null,
+     "isRestoration": false,
+     "note": "天興3年正月10日朝、哀宗より譲位を受け即位。宣徽使らが即位大典を主宰し、甲冑を着用し百官の朝拝を受けたと明記あり(正式な即位儀礼を実施)。即位式終了直後、蔡州城壁陥落・乱軍の中で戦死、金朝滅亡(東アジア史上最短在位皇帝、在位数時間)。",
+     "raw": null,
+     "durationRaw": null,
+     "startDate": "1234-02-09",
+     "endDate": "1234-02-09",
+     "startDateRaw": null,
+     "endDateRaw": null,
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 0,
+      "unit": "day",
+      "approxDays": 0,
+      "exactDays": 0,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "金史 本紀十八 哀宗紀下（末帝承麟附録）",
+       "lang": "zh-classical",
+       "quote": "戊申，夜，上集百官，传位于东面元帅承麟，承麟固让。……己酉，承麟即皇帝位。百官称贺。礼毕，亟出捍敌，而南面已立帜。俄顷，四面呼声震天地。南面守者弃门，大军入，与城中军巷战，城中军不能御。帝自缢于幽兰轩。末帝退保子城，闻帝崩，率群臣入哭，谥曰哀宗。哭奠未毕，城溃，诸禁近举火焚之。奉御绛山收哀宗骨瘗之汝水上。末帝为乱兵所害，金亡。",
+       "conversion": "sxtwlで西暦1234年を機械的に走査したところ、戊申＝1234-02-08（旧暦天興三年正月九日）、己酉＝1234-02-09（正月十日）で、原文の干支と一致した。原文は己酉に承麟が即位し、即位礼が終わるや直ちに出撃、程なく（俄頃）蔡州城が陥落し末帝が乱兵に殺害された旨を同一段落内で連続して記しており、即位と戦死が同日（己酉）の出来事として叙述されている。既存のstartDate=1234-02-09・endDate=1234-02-09（いずれもday精度）と完全に一致する。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 0,
+     "displayYears": 0.0,
+     "needsPreciseDays": false,
+     "isExact": true
+    },
+    "firstStartYear": 1234,
+    "lastEndYear": 1234,
+    "reignCount": 1
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": 1234
+   },
+   "sources": {
+    "wikidata": "Q5069",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": ""
+   },
+   "deathCause": {
+    "category": "killed-in-battle",
+    "note": "即位式直後、蔡州城壁陥落による乱軍との市街戦の中で死亡。「末帝为乱兵所害，金亡」。",
+    "confidence": "high",
+    "source": {
+     "page": "金史 巻十八（哀宗本紀下）",
+     "lang": "zh-classical"
+    }
+   },
+   "accessionRoute": {
+    "categoryId": "inner-abdication",
+    "note": "哀宗が蔡州陥落必至と判断し、正式な譲位の詔をもって承麟に伝位。辞退→詔→即位→百官祝賀という正式な内禅（同一王朝内の生前譲位）の手続きを踏んでいる。原典（金史）は「傳位」と記し、承麟は哀宗の子ではなく世祖の後裔にあたる宗室（傍系）である。",
+    "confidence": "high",
+    "source": {
+     "page": "金史 巻十八（哀宗本紀下）",
+     "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "inherited",
+     "titleOrigin": "inherited",
+     "decidedBy": [
+      "predecessor"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "source-reread",
+     "predecessorFate": "abdicated",
+     "relationToPredecessor": "distant-kin",
+     "procedure": "inner-abdication"
+    }
+   },
+   "eraChangeCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "金史巻十八（哀宗本紀下）によれば、天興三年正月戊申の夜、哀宗が東面元帥完顔承麟に譲位（「伝位於東面元帥承麟」）、承麟は固辞したが翌己酉の日に即皇帝位。百官の祝賀の礼が終わるや否や城外に出て防戦し、程なく哀宗自縊、蔡州城陥落という経過で、末帝の在位中に新元号への改元（建元）を行った記録は一切ない。元号は哀宗期の「天興」（三年）がそのまま継続使用されており、改元は行われなかったためカウントしない。"
+   },
+   "amnestyCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "末帝（完顔承麟）の在位は天興三年正月戊申夜～己酉の即位からその日のうちの蔡州陥落・戦死までの極めて短期間（数時間～半日程度）で、金史巻十八にはこの間に大赦（大赦天下）が行われた記載は一切ない。なお在位前、哀宗期に「赦河朔」「曲赦蔡州管内」等の恩赦記事はあるが、いずれも哀宗が発した詔であり範囲も限定的（河朔・蔡州管内のみ）で、全国規模の「大赦天下」ではなく、また末帝自身の治世下の出来事でもないため対象外とした。"
+   },
+   "empressInstallationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "在位が数時間程度と極めて短く、金史巻十八・后妃伝等に末帝が皇后を冊立したとする記載はない。承麟は即位直後に蔡州陥落・戦死しており、そもそも皇后を立てる時間的余裕がなかったと考えられる。"
+   },
+   "crownPrinceDepositionCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "在位が数時間程度と極めて短く、金史巻十八・関連列伝のいずれにも末帝の治世下で皇太子（または皇太弟等）を立てた、あるいは廃した記録は存在しない。"
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "金史本紀を通読。該当在位期間中に新たな遷都の記録なし（上京→中都は海陵王期、中都→南京は宣宗期の出来事として各々計上済み。哀宗期の帰徳・蔡州への移動は滅亡直前の戦時避難で恒久的遷都と認められず対象外）。"
+   },
+   "personalCampaignCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "原文キャッシュ(戊申夜の哀宗譲位〜己酉即位〜城陥落による戦死までの短文)には承麟自身が軍を率いて出征した記述はない。即位式終了直後に「亦出捍敌」（出て防戦にあたった）とあるが、これは既に包囲されていた蔡州城内での防衛戦闘であり、外征・親征ではない。在位数時間のため親征の機会自体がなかった。"
+   },
+   "rebellionSuppressionCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "原文に承麟が反乱を鎮圧した記述なし。城内での「乱軍」との市街戦は、モンゴル・南宋連合軍による蔡州城陥落に伴う攻城戦であり対外戦争（本ブロックのルールにより鎮圧・被反乱の対象外）。"
+   },
+   "rebellionSufferedCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "承麟は乱軍（城壁を突破したモンゴル・南宋連合軍）に殺害された（「末帝为乱兵所害，金亡」）が、これは対等勢力（モンゴル・南宋）による対外戦争・攻城戦の帰結であり、本ブロックのルールにより国内反乱には該当しないため計上しない。朝廷内部の権力者によるクーデター・弑逆でもない。"
+   },
+   "ages": {
+    "deathDate": "1234-02-09",
+    "deathDatePrecision": "day",
+    "confidence": "low",
+    "note": "既存ノート(ages: null)・原文キャッシュいずれにも承麟の生年・年齢に関する記載なし(「時年」「年◯◯」等の表現は本文中に登場しない)。原文キャッシュ自体が哀宗崩御〜承麟即位・戦死までの短い一節のみで、これが原文の全情報量。調査済みだが生年・即位時年齢・没年齢とも不明として確定する。"
+   }
+  },
+  {
+   "id": "nansong-gaozong",
+   "name": {
+    "personalName": "趙構",
+    "commonName": "高宗",
+    "aliases": [],
+    "posthumousName": null,
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "southern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
+   "reigns": [
+    {
+     "startYear": 1127,
+     "endYear": 1129,
+     "dynastyOrder": null,
+     "isRestoration": false,
+     "note": "靖康2年5月1日(庚寅)、南京応天府にて即位、建炎に改元(南宋建国)。建炎3年3月5日、苗劉の乱により趙旉に譲位。",
+     "raw": null,
+     "durationRaw": null,
+     "startDate": "1127-06-12",
+     "endDate": "1129-03-26",
+     "startDateRaw": null,
+     "endDateRaw": null,
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 653,
+      "unit": "day",
+      "approxDays": 653,
+      "exactDays": 653,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "宋史 本紀二十四 高宗一",
+       "lang": "zh-classical",
+       "quote": "五月庚寅朔，帝登壇受命，禮畢慟哭，遙謝二帝，即位于府治。改元建炎。／三月己卯朔……癸未，傅、正彥等叛，勒兵向闕，殺王淵及內侍康履以下百餘人……傅等迫帝遜位于皇子魏國公，請隆祐太后垂簾同聽政（建炎三年三月，本紀二十五）",
+       "conversion": "建炎元年五月一日(朔・庚寅)をsxtwlで換算すると1127-06-12(干支庚寅)となり原文の干支と一致、既存startDateと完全一致。建炎3年三月朔は己卯で、以降庚辰(2)辛巳(3)壬午(4)癸未(5)と数えると癸未=3月5日。sxtwl換算で1129-03-26(干支癸未)となり原文干支と一致、既存endDateと完全一致。",
+       "note": "即位記事は巻24(高宗一)、苗劉の乱による譲位記事は巻25(高宗二)に所在。"
+      }
+     }
+    },
+    {
+     "startYear": 1129,
+     "endYear": 1162,
+     "dynastyOrder": null,
+     "isRestoration": true,
+     "note": "明受元年4月1日、苗劉の乱鎮圧を受け復位(建炎年号は4月22日に正式回復)。紹興32年6月11日、孝宗へ譲位。1187年11月9日(淳熙14年10月8日)崩御。",
+     "raw": null,
+     "durationRaw": null,
+     "startDate": "1129-04-20",
+     "endDate": "1162-07-24",
+     "startDateRaw": null,
+     "endDateRaw": null,
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 12148,
+      "unit": "day",
+      "approxDays": 12148,
+      "exactDays": 12148,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "宋史 本紀二十五 高宗二／本紀三十二 高宗九",
+       "lang": "zh-classical",
+       "quote": "夏四月戊申朔，太后下詔還政，皇帝復大位。（建炎三年四月、本紀二十五）／庚戌，復紀年建炎。（同、四月三日）／六月丙寅朔……丙子，詔皇太子即皇帝位。帝稱太上皇帝，退處德壽宮……孝宗即位。（紹興三十二年六月、本紀三十二）",
+       "conversion": "建炎3年四月一日(朔・戊申)をsxtwlで換算すると1129-04-20(干支戊申)となり原文干支と一致、既存startDateと完全一致(復位した日)。なお同月三日庚戌の「復紀年建炎」(建炎年号の正式回復)は1129-04-22に換算され、既存noteの「建炎年号は4月22日に正式回復」と符合(こちらは即位=復位日ではなく年号回復日として別記されている、記述に矛盾なし)。紹興32年六月朔は丙寅で、丁卯(2)戊辰(3)己巳(4)庚午(5)辛未(6)壬申(7)癸酉(8)甲戌(9)乙亥(10)丙子(11)と数えると丙子=6月11日。sxtwl換算で1162-07-24(干支丙子)となり原文干支と一致、既存endDateと完全一致(孝宗への譲位日)。なお本紀末尾には淳熙14年10月8日(乙亥)崩御(徳寿殿)の記事もあるが、これはreignのendDate(退位日)ではなく死亡日であり、既存データの扱い(退位日をendDateとする)と整合的。",
+       "note": "復位記事・建炎年号回復記事は巻25(高宗二)、譲位記事は巻32(高宗九)に所在。原文には崩御記事(淳熙十四年十月乙亥，崩于德壽殿，年八十一)もあり、既存note中の崩御日1187-11-09との照合はここでは行っていないが、endDateには影響しない別事象として整理した。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 12801,
+     "displayYears": 35.07,
+     "needsPreciseDays": false,
+     "isExact": true
+    },
+    "firstStartYear": 1127,
+    "lastEndYear": 1162,
+    "reignCount": 2
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": 1127
+   },
+   "sources": {
+    "wikidata": "Q7489",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": ""
+   },
+   "deathCause": {
+    "category": "illness",
+    "note": "淳熙14年10月、徳寿殿にて崩御。享年81。復位後も特に病変・他殺を疑わせる記述はなく老衰による自然死。",
+    "confidence": "high",
+    "source": {
+     "page": "宋史 本紀 巻三十二（高宗九）",
+     "lang": "zh-classical"
+    }
+   },
+   "accessionRoute": {
+    "categoryId": "acclamation",
+    "note": "徽宗の第九子・康王。靖康の変で徽宗・欽宗はともに在位のまま金に連行され、位を譲る行為も詔もないまま宋の朝廷は消滅した。高宗は欽宗から位を受けたのではなく、張邦昌が退いた後に垂簾していた元祐皇后の手書「俾帝嗣統」と、在京百官の三度の上表による勧進を経て応天府で即位した（『宋史』巻二十四）。苗劉の乱で一時退位させられ太后の詔で復位した件はreigns[].isRestoration で表す。",
+    "confidence": "high",
+    "source": {
+     "page": "宋史 本紀 巻二十四（高宗一）",
+     "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "self-established",
+     "titleOrigin": "new",
+     "decidedBy": [
+      "third-party"
+     ],
+     "decidedByAgents": [
+      "empress-dowager",
+      "officials"
+     ],
+     "decidedByBasis": "source-reread",
+     "predecessorFate": "none",
+     "relationToPredecessor": "none",
+     "procedure": "normal"
+    }
+   },
+   "eraChangeCount": {
+    "count": 2,
+    "confidence": "high",
+    "events": [
+     {
+      "date": "1127-06-12",
+      "datePrecision": "day",
+      "note": "建炎元年五月一日(庚寅朔)、南京応天府にて即位すると同時に「改元建炎」。皇帝即位に伴う最初の建元。【皇帝即位（改元同時）】【第1在位区間】",
+      "source": {
+       "page": "宋史 本紀 巻二十四（高宗一）",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "1131-01-31",
+      "datePrecision": "day",
+      "note": "紹興元年正月己亥朔、「下詔改元」と明記。建炎から紹興への改元。【皇帝在位中】【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興元年正月己亥朔））",
+      "source": {
+       "page": "宋史 本紀 巻二十六（高宗三）",
+       "lang": "zh"
+      }
+     }
+    ],
+    "note": "高宗自身の在位期間中の新元号への切替は「建炎」（即位・建元、1127年）と「紹興」（1131年）の2回。なお建炎三年三月己丑（苗劉の乱により趙旉へ譲位した後、3月11日）に「改元明受」との記事があるが、これは高宗が既に譲位し帝位を退いていた期間（本紀は「帝遜位于皇子魏國公」と明記、太后詔でも高宗を「皇太弟」、趙旉を「皇帝・皇太姪」と呼称）の出来事であり、公式な高宗の在位区間（1127-1129／1129-1162、本紀では1129年3月5日の譲位から同年4月1日の復位までは空白）の外側にあたる。趙旉（明受帝）は本プロジェクトの既存判定（emperors.json内の除外理由メモ）でも独立した収録対象皇帝としていないため、この改元は高宗自身のeraChangeCountには含めなかった。同年四月三日(庚戌)に「復紀年建炎」（元号を建炎に戻す）との記事もあるが、これは高宗自身が新たに定めた既存元号「建炎」への復帰であり新元号の制定ではないため、追加の改元としてはカウントしていない。"
+   },
+   "amnestyCount": {
+    "count": 20,
+    "confidence": "high",
+    "events": [
+     {
+      "date": "1127-06-12",
+      "datePrecision": "day",
+      "note": "建炎元年五月一日(庚寅朔)、即位・改元建炎と同時に大赦。「常赦所不原者咸赦除之」と特に広範な赦とも明記。【第1在位区間】",
+      "source": {
+       "page": "宋史 本紀 巻二十四（高宗一）",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "1127-07-23",
+      "datePrecision": "day",
+      "note": "建炎元年六月辛未、皇子旉（後の元懿太子）誕生に伴い大赦。【第1在位区間】。（旧 precision 記載: day（干支のみ：建炎元年六月辛未））",
+      "source": {
+       "page": "宋史 本紀 巻二十四（高宗一）",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "1128-12-15",
+      "datePrecision": "day",
+      "note": "建炎二年十一月壬寅、冬至の圜丘における昊天上帝祭祀（太祖配享）に伴い大赦。【第1在位区間】。（旧 precision 記載: day（干支のみ：建炎二年十一月壬寅））",
+      "source": {
+       "page": "宋史 本紀 巻二十五（高宗二）",
+       "lang": "zh"
+      }
+     }
+    ],
+    "note": "宋史本紀巻二十四〜三十二（高宗一〜九）を通読し「大赦」と明記された箇所を全数抽出。多くは3年に1度の郊祀（合祀・合祭天地／圜丘・明堂）に伴う恒例の大赦で、彗星出現や金国との和議成立等を理由とする臨時の大赦も含む。建炎三年三月甲申（苗劉の乱で趙旉へ譲位した直後）の大赦1件は、本紀では「尊帝為睿聖仁孝皇帝...大赦」と記載されるが、この時点は高宗の公式な二在位区間（1127-1129／1129-1162）のいずれにも属さない譲位中の空白期間（趙旉の名目在位期間、本データセットでは趙旉は非収録emperorのため）の出来事と判断し、高宗自身のカウントからは除外した（除外しても計20件が高宗自身の在位区間内に確認できる）。「曲赦」「曲赦京城」等の地域限定の恩赦は見当たらなかった。"
+   },
+   "empressInstallationCount": {
+    "count": 2,
+    "confidence": "high",
+    "events": [
+     {
+      "date": "1127-06-15",
+      "datePrecision": "day",
+      "note": "建炎元年五月癸巳、「遙立嘉國夫人邢氏為皇后」と明記。邢氏は靖康の変で金軍に捕らえられ北方に抑留されていたため「遙立」（在絶中の遠隔立后）の形をとった。後の紹興九年六月庚戌に五国城で崩御（「皇后邢氏崩于五國城」）、紹興十三年七月丁酉に諡懿節と追贈。廃后の記載はなし。【第1在位区間】。（旧 precision 記載: day（干支のみ：建炎元年五月癸巳））",
+      "source": {
+       "page": "宋史 本紀 巻二十四（高宗一）",
+       "lang": "zh"
+      }
+     },
+     {
+      "date": "1143-05-18",
+      "datePrecision": "day",
+      "note": "紹興十三年閏四月己丑、「立貴妃吳氏為皇后」と明記（邢皇后没後の立后）。以後、高宗崩御・孝宗への譲位後も太上皇后として存続。廃后の記載はなし。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興十三年閏四月己丑））",
+      "source": {
+       "page": "宋史 本紀 巻三十（高宗七）",
+       "lang": "zh"
+      }
+     }
+    ],
+    "note": "本紀に「立...為皇后」と明記された立后は建炎元年（邢氏、在絶中の遙立）と紹興十三年（呉氏）の2回のみ確認。両者とも廃后・再冊立の記載はなし。邢皇后は在位中に金国で崩御し、呉皇后は高宗崩御後も存続したため、皇后不在期間（建炎元年５月〜紹興十三年閏4月）を挟むが、いずれも死去によるものであり廃立には該当しない。"
+   },
+   "crownPrinceDepositionCount": {
+    "count": 0,
+    "confidence": "high",
+    "events": [],
+    "note": "宋史本紀巻二十四〜三十二を通読したが、皇太子（皇太弟・皇太孫等を含む）を廃した記事は確認できなかった。在位中に皇太子に立てられたのは2名のみ：(1)建炎三年五月壬申、皇子魏国公旉（趙旉）を皇太子に立てるも、同年七月丁亥に薨去（「皇太子薨、謚元懿」）——廃立ではなく死去による欠員。(2)紹興三十二年五月甲子、建王瑋（趙眘、後の孝宗）を皇太子に立て、間もなく六月丙子に譲位・即位しており廃立の事実なし。なお建炎三年の苗劉の乱の際、太后詔により睿聖皇帝（高宗自身）が「皇太弟」、趙旉（皇帝）が「皇太姪」と呼称された記事があるが、これは通常の皇太子制度とは異なる非常時の称号操作であり、法定推定継承者の廃立には該当しないため、カウントに含めていない。"
+   },
+   "ages": {
+    "birthDate": "1107-06-12",
+    "birthDatePrecision": "day",
+    "deathDate": "1187-11-09",
+    "deathDatePrecision": "day",
+    "deathAge": 81,
+    "confidence": "high",
+    "note": "崩御時年齢は本紀に「淳熙十四年十月乙亥、崩于德壽殿、年八十一」と直接記載（宋史 本紀 巻三十二〔高宗九〕）。生年は「大觀元年五月乙巳、生東京之大內」と明記（宋史 本紀 巻二十四〔高宗一〕）だが、原文に即位時年齢を直接示す「時年◯◯」等の記述は確認できず、accessionAgeはfoundとしない。（2026-07-21 ages日付ISO正規化: birthDate「大觀元年五月乙巳」→1107-06-12（旧暦5月20日のsxtwl換算。「赤光照室」の瑞祥記事あり〔従来precision注記より転記〕）。）。（deathDate の旧 precision 記載: day（原文は「淳熙十四年十月乙亥」。既存reignsデータのGregorian換算1187-11-09と一致））",
+    "accessionAge": 21
+   },
+   "capitalRelocationCount": {
+    "count": 1,
+    "events": [
+     {
+      "date": "1138-01-01",
+      "datePrecision": "year",
+      "from": "東京開封府（汴京、北宋旧都）",
+      "to": "臨安府（杭州）",
+      "note": "宋史 本紀 卷二十九（高宗六）紹興八年の年末条に「是歲、始定都于杭」とあり、この年に正式に杭州（臨安府）を都と定めたことが明記される。なお高宗は靖康の変（1127年）後、應天府で即位した後、揚州・建康・杭州・紹興府等を転々としており（同紀）、これらは戦乱下の一時的な行在であって恒久的な遷都とは認めない。紹興二年二月にも一度「帝至臨安府」とあるが、その後も建康等へ再度移動しており（卷二十九冒頭「八年春正月戊子朔、帝在建康」）、紹興八年の「始定都于杭」の記事をもって臨安が恒久的な主都として確定したと判断した。なお卷四十七（南宋末）には賈似道・韓震による遷都上奏の記事があるが、いずれも採用されず実現しなかった（韓震は遷都を請うたため陳宜中に殺害された）ため、遷都の実行としてはカウントしない。（出典: 宋史 本紀 卷二十九（高宗六）紹興八年十二月条「是歲、始定都于杭」）"
+     }
+    ],
+    "confidence": "high",
+    "note": "在位中に遷都1回（1138年 東京開封府（汴京、北宋旧都）→臨安府（杭州））。"
+   },
+   "personalCampaignCount": {
+    "count": 3,
+    "events": [
+     {
+      "target": "偽齊・金（劉豫・完顏兀朮の淮西侵攻）",
+      "startDate": "1134-10",
+      "endDate": "1134-12",
+      "datePrecision": "month",
+      "outcome": "臨安から平江へ進発、韓世忠が大儀鎮で金軍を撃破、金軍撤退",
+      "note": "紹興4年、趙鼎と親征を決定し禁兵を率いて平江まで進発"
+     },
+     {
+      "target": "偽齊（劉豫の淮西侵攻、藕塘の戦い）",
+      "startDate": "1136-08",
+      "endDate": "1136-09",
+      "datePrecision": "month",
+      "outcome": "臨安から平江へ進発、楊沂中らが藕塘で劉猊を大破",
+      "note": "紹興6年、将士に親征を告げ平江まで進発"
+     },
+     {
+      "target": "金（完顏亮の南侵）",
+      "startDate": "1161-12",
+      "endDate": "1162-06",
+      "datePrecision": "month",
+      "outcome": "臨安発、平江・建康・鎮江まで進発（采石磯の戦いは虞允文が先に勝利済み）、翌年孝宗へ譲位",
+      "note": "紹興31-32年、陳康伯の進言で親征を決定し建王を伴い進発"
+     }
+    ],
+    "confidence": "medium",
+    "note": "原文に「親征」の語は建炎4年(1130)・紹興4年(1134)・紹興6年(1136)・紹興31年(1161)の4回登場するが、1130年の「下詔親征，巡幸浙西」は帝の実際の移動が記録されておらず象徴的宣言に留まると判断し除外。他3回は「帝御舟發臨安，禁兵扈從」等、禁軍を伴い戦線方向へ実際に進発した記録があるため計上（実戦の直接指揮は将軍任せだが、澶淵の盟の真宗親征と同型の「玉座帯同型親征」として扱った）。"
+   },
+   "rebellionSuppressionCount": {
+    "count": 81,
+    "events": [
+     {
+      "leader": "周德",
+      "name": "江寧の叛卒",
+      "startDate": "1127",
+      "endDate": "1127",
+      "datePrecision": "year",
+      "outcome": "李綱が誅殺",
+      "note": ""
+     },
+     {
+      "leader": "李孝忠",
+      "name": "襄陽侵犯の賊",
+      "startDate": "1127",
+      "endDate": "1129",
+      "datePrecision": "year",
+      "outcome": "范瓊が復州で斬殺",
+      "note": ""
+     },
+     {
+      "leader": "杜用",
+      "name": "陳州軍賊",
+      "startDate": "1127",
+      "endDate": "1127",
+      "datePrecision": "year",
+      "outcome": "平定",
+      "note": ""
+     }
+    ],
+    "confidence": "low",
+    "note": "在位35年間（うち1127-1136年が特に多発期）、キーワード検索（賊/叛/亂/寇/伏誅/降等）による全文走査で識別した国内反乱81件を個別首謀者単位で計上。史料が極めて稠密なため全件を逐語確認できておらず、同名異人の誤統合・逆に同一人物の重複計上・軽微な一文言及の見落としが残る可能性がある（confidence low）。鍾相・楊幺の乱（1130-1135）・范汝為の乱（建州、1130-1132、建炎4年7月挙兵→12月招降→紹興元年10月再叛→紹興2年正月韓世忠が鎮圧）は史料上一体の反乱として各1件に統合（初回の機械検証でこのイベント自体が配列から漏れていたため事後追加、他79件は変更なし）。苗劉兵変は例外4（朝廷内部クーデター）につきsuffered側のみ計上しここには含めない。"
+   },
+   "rebellionSufferedCount": {
+    "count": 114,
+    "events": [
+     {
+      "leader": "周德",
+      "name": "江寧の叛卒",
+      "startDate": "1127",
+      "endDate": "1127",
+      "datePrecision": "year",
+      "outcome": "鎮圧済み",
+      "note": ""
+     },
+     {
+      "leader": "李孝忠",
+      "name": "襄陽侵犯の賊",
+      "startDate": "1127",
+      "endDate": "1129",
+      "datePrecision": "year",
+      "outcome": "鎮圧済み",
+      "note": ""
+     },
+     {
+      "leader": "杜用",
+      "name": "陳州軍賊",
+      "startDate": "1127",
+      "endDate": "1127",
+      "datePrecision": "year",
+      "outcome": "鎮圧済み",
+      "note": ""
+     }
+    ],
+    "confidence": "low",
+    "note": "rebellionSuppressionCountの81件（対称的に鎮圧側・被反乱側の両方に計上）に加え、鎮圧できず金・西夏・偽齊等の外部勢力へ逃亡・投降した将領の離反や、鎮圧記録が明確でない事案33件を追加計上。苗劉兵変（1129）は例外4（朝廷内部の権力者による兵力を伴うクーデター）として被反乱側のみに計上。酈瓊の大規模兵変（1137、約4万の兵を率い偽齊へ投降）は成功した離反であり鎮圧記録がないため被反乱側のみに計上。范汝為の乱本体（建州占拠、1130-1132）が初回の機械検証で配列から漏れていたため事後追加（他112件は変更なし）。confidence lowの理由はrebellionSuppressionCountと同じ（史料稠密のため全件逐語確認未了）。"
+   }
+  },
+  {
+   "id": "yuan-shizu",
+   "name": {
+    "personalName": "クビライ（忽必烈）",
+    "commonName": "世祖",
+    "aliases": [],
+    "posthumousName": null,
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "yuan",
+   "regimeId": "yuan",
+   "researchSection": "元",
+   "standing": "regular",
+   "reigns": [
+    {
+     "startYear": 1260,
+     "endYear": 1294,
+     "dynastyOrder": null,
+     "isRestoration": false,
+     "note": "即位詔書「皇帝登宝位詔」で既に「朕」と自称し「大蒙古国皇帝」を名乗る(中統元年3月24日)。至元8年11月、国号を「大元」と定め中国式皇帝号を確立(1271年12月18日)。至元31年1月22日崩御。チンギス・カン以下4代とは異なり、即位当初から漢制「皇帝」号を自称していた点を優先し在位起点を1260年とする。",
+     "raw": null,
+     "durationRaw": null,
+     "startDate": "1260-05-05",
+     "endDate": "1294-02-18",
+     "startDateRaw": null,
+     "endDateRaw": null,
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 12342,
+      "unit": "day",
+      "approxDays": 12342,
+      "exactDays": 12342,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "元史 世祖紀一／元史 世祖紀十四",
+       "lang": "zh-classical",
+       "quote": "中统元年春三月戊辰朔，车驾至开平。亲王合丹、阿只吉率西道诸王，塔察儿、也先哥、忽剌忽儿、爪都率东道诸王，皆来会，与诸大臣劝进。帝三让，诸王大臣固请。辛卯，帝即皇帝位，以祃祃、赵璧、董文炳为燕京路宣慰使。……辛丑，以即位诏天下。／三十一年春正月壬子朔，帝不豫，免朝贺。癸亥，知枢密院事伯颜至自军中。庚午，帝大渐。癸酉，帝崩于紫檀殿。在位三十五年，寿八十。亲王、诸大臣发使告哀于皇孙。乙亥，灵驾发引，葬起辇谷，从诸帝陵。",
+       "conversion": "即位日は「中統元年三月戊辰朔」（三月一日=戊辰）から数えて「辛卯」の日。干支距離を計算すると戊辰から辛卯までは23日後＝三月二十四日。sxtwlで農暦1260年3月24日→新暦換算した結果、1260年5月5日となり、既存のstartDate(1260-05-05)と完全一致。確信度は高い（本紀に明記された朔日起点からの干支計算＋ライブラリ換算の二重確認）。なお至元8年11月の「建国号曰大元」詔（世祖紀四付近、行番号136-138）は国号を大蒙古国から大元へ改めた記録として本文中に別途存在するが、この訂正作業ではreignのstartDateを変更する対象ではないため参考記載に留める。\n崩御日は「至元三十一年正月壬子朔」（正月一日=壬子）から数えて「癸酉」の日。干支距離を計算すると壬子から癸酉までは21日後＝正月二十二日。sxtwlで農暦1294年1月22日→新暦換算した結果、1294年2月18日となり、既存のendDate(1294-02-18)と完全一致。確信度は高い（本紀に明記された朔日起点からの干支計算＋ライブラリ換算の二重確認）。直前の行番号415に「三十年」（至元三十年）の記述が連続しており、この「三十一年」が至元三十一年であることを文脈から確認済み。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 12342,
+     "displayYears": 33.81,
+     "needsPreciseDays": false,
+     "isExact": true
+    },
+    "firstStartYear": 1260,
+    "lastEndYear": 1294,
+    "reignCount": 1
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": 1260
+   },
+   "sources": {
+    "wikidata": "Q7523",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": "1260-1271年の間も漢制皇帝号(「朕」「大蒙古国皇帝」)を自称していた記録があるため、在位起点を1260年に修正(ユーザー承認済み)。 『元史』巻四・世祖一「中統元年三月辛卯…帝即皇帝位」、即位詔書「皇帝登寶位詔」全文も本紀収録。1260年即位が原典で確認。"
+   },
+   "deathCause": {
+    "category": "illness",
+    "note": "至元31年正月「帝不豫」に始まり「大漸」を経て崩御。発病→重体化→崩御という典型的な自然経過で暗殺・変事を示唆する記述はない。80歳という高齢での病没。",
+    "confidence": "high",
+    "source": {
+     "page": "元史 巻十七（世祖十四）",
+     "lang": "zh-classical"
+    }
+   },
+   "accessionRoute": {
+    "categoryId": "enthroned",
+    "note": "モンゴル伝統のクリルタイ（全宗族会議）を経ず、開平（上都）で自らの支持基盤である漢地方面の諸王・重臣らに推戴される形で即位。同時期、弟アリクブケも別途カラコルムで諸侯に推戴され二重即位状態となった。実質的には限定的な支持勢力による擁立。",
+    "confidence": "medium",
+    "source": {
+     "page": "元史 巻四（世祖一）",
+     "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "inherited",
+     "titleOrigin": "new",
+     "decidedBy": [
+      "third-party"
+     ],
+     "decidedByAgents": [
+      "imperial-clan",
+      "officials"
+     ],
+     "decidedByBasis": "source-reread",
+     "predecessorFate": "natural-death",
+     "relationToPredecessor": "younger-brother",
+     "procedure": "normal"
+    }
+   },
+   "eraChangeCount": {
+    "count": 2,
+    "events": [
+     {
+      "date": "1260-06-29",
+      "datePrecision": "day",
+      "note": "即位に伴う最初の建元。「建元中统，诏曰：…可自庚申年五月十九日，建元为中统元年。」即位そのものは同年三月辛卯（既知の経緯の1260-05-05に相当）だが、建元（元号制定）の詔はこの五月の記事。元史世祖紀は「五月戊辰朔…丙戌，建元中統」と記し（戊辰朔は sxtwl と一致）、丙戌＝五月十九日＝ユリウス暦1260年6月29日（詔文の「可自庚申年五月十九日」とも一致。従来記載の丙辰は丙戌の転記誤り）（2026-07-22の日付正規化時に確認）。（旧 precision 記載: year（原文は中統元年五月丙辰詔、遡って「庚申年五月十九日」起算と明記、旧暦日のみ））",
+      "source": {
+       "page": "元史 巻四（世祖一）",
+       "lang": "zh-classical"
+      }
+     },
+     {
+      "date": "1264-09-07",
+      "datePrecision": "day",
+      "note": "「以改元大赦天下，诏曰：…可大赦天下，改中统五年为至元元年。」中統から至元への改元。同日に大赦も実施（amnestyCountの2件目と同一）。至元8年（1271）の国号「大元」制定は改元ではないため対象外。（旧 precision 記載: year（原文は中統五年八月丁巳詔、旧暦日のみ））",
+      "source": {
+       "page": "元史 巻五（世祖二）",
+       "lang": "zh-classical"
+      }
+     }
+    ],
+    "confidence": "high",
+    "note": "中統建元（即位建元、1260）・至元改元（1264）の計2回。中統元年から至元元年までの間の改元は他になし。国号変更（至元8年、大元）は改元と混同していない。"
+   },
+   "amnestyCount": {
+    "count": 7,
+    "events": [
+     {
+      "date": "1260-07-07",
+      "datePrecision": "day",
+      "note": "阿里不哥の反乱を受け「诏赦天下」。改元建元とほぼ同時期（同五月）の別詔。（旧 precision 記載: year（原文は中統元年五月甲午、旧暦日のみ））",
+      "source": {
+       "page": "元史 巻四（世祖一）",
+       "lang": "zh-classical"
+      }
+     },
+     {
+      "date": "1264-09-07",
+      "datePrecision": "day",
+      "note": "「以改元大赦天下」。中統五年を至元元年に改元する詔と同時に大赦天下を実施（eraChangeCountの2件目と同一日）。（旧 precision 記載: year（原文は中統五年八月丁巳、旧暦日のみ））",
+      "source": {
+       "page": "元史 巻五（世祖二）",
+       "lang": "zh-classical"
+      }
+     },
+     {
+      "date": "1276-10-20",
+      "datePrecision": "day",
+      "note": "南宋平定を受け「以平宋赦天下」。（旧 precision 記載: year（原文は至元十三年九月癸卯、旧暦日のみ））",
+      "source": {
+       "page": "元史 巻九（世祖六）",
+       "lang": "zh-classical"
+      }
+     }
+    ],
+    "confidence": "high",
+    "note": "「大赦」「赦天下」と明記された全国規模の恩赦のみ計上（計7回）。個人・特定集団向けの「赦其罪」「赦免」「赦囚徒（黥面等の限定措置）」等の部分的赦免は除外した。巻六・七・十・十一・十二・十四には該当する全国規模の大赦記事は見当たらなかった。"
+   },
+   "empressInstallationCount": {
+    "count": 2,
+    "events": [
+     {
+      "date": "1273-04-02",
+      "datePrecision": "day",
+      "note": "皇后弘吉剌氏（察必）の正式冊立。「帝御广寒殿，遣摄太尉、中书右丞相安童授皇后弘吉剌氏玉册玉宝…辛未，以皇后、皇太子受册宝，诏告天下。」皇太子（真金）の冊立と同日実施。察必は至元十八年（1281）二月乙未に崩御（贞懿顺圣昭天睿文光应皇后、巻十一 世祖八）。（旧 precision 記載: year（原文は至元十年三月丙寅（授冊儀式）～辛未（詔告天下）、旧暦日のみ））",
+      "source": {
+       "page": "元史 巻八（世祖五）",
+       "lang": "zh-classical"
+      }
+     },
+     {
+      "date": "1283-02-02",
+      "datePrecision": "day",
+      "note": "「纳皇后弘吉剌氏」。先の皇后察必（弘吉剌氏）崩御後、同じ弘吉剌氏一族から新たに立后（後の南必皇后とされる）。冊宝儀礼の詳細記述は簡略。（旧 precision 記載: year（原文は至元二十年正月己未、旧暦日のみ））",
+      "source": {
+       "page": "元史 巻十二（世祖九）",
+       "lang": "zh-classical"
+      }
+     }
+    ],
+    "confidence": "medium",
+    "note": "1件目（察必）は「授玉册玉宝」「诏告天下」という明確な正式冊立の記述があり confidence高。2件目（南必か）は「纳皇后弘吉剌氏」という簡潔な表現のみで、正式な册宝儀礼の記述を欠くため、立后そのものは確実だが儀礼の格式についてはやや不明瞭。廃后の記録は本紀中に見当たらないため、再冊立（復位）の事例はない。"
+   },
+   "crownPrinceDepositionCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "至元十年（1273）三月に皇太子として正式冊立された真金（燕王）は、至元二十二年（1285）十二月に「皇太子薨」と薨去するまで一貫して皇太子の地位にあり、廃立の記事は本紀中に見当たらない（元史 巻十三 世祖十）。真金以外に皇太子・皇太弟等の法定推定継承者が立てられた記録もなく、廃立事例は確認できなかった。"
+   },
+   "ages": {
+    "birthDate": "1215-09-23",
+    "birthDatePrecision": "day",
+    "deathDate": "1294-02-18",
+    "deathDatePrecision": "day",
+    "deathAge": 80,
+    "confidence": "high",
+    "note": "元史 巻四（世祖一）冒頭に「世祖圣德神功文武皇帝，讳忽必烈，睿宗皇帝第四子。母庄圣太后，怯烈氏。以乙亥岁八月乙卯生。」と明記。巻十七（世祖十四）末尾の崩御記事に「帝崩于紫檀殿。在位三十五年，寿八十。」と明記（数え年）。即位時の年齢は原文に直接記載なし。（birthDate の旧 precision 記載: day（原文は旧暦「乙亥岁八月乙卯」生。西暦への換算はローカルコーパスの暦変換ツールでは未検証のため、通説上のグレゴリオ暦換算値を採用））。（deathDate の旧 precision 記載: day（既知の経緯記載の至元31年1月22日と一致。原文は「三十一年春正月壬子朔…癸酉，帝崩于紫檀殿」））",
+    "accessionAge": 46
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "元史地理志・本紀を通読。大都定都はクビライによる建国期の首都確定プロセス（建国時の定都のため対象外）、以後大都が一貫した正都（上都は複都制の陪都）で惠宗期の大都放棄（1368年）まで遷都の記録なし。"
+   },
+   "personalCampaignCount": {
+    "count": 3,
+    "events": [
+     {
+      "target": "阿里不哥（アリクブケ、実弟・対立可汗）",
+      "outcome": "追撃・北遁させ最終的に投降させた",
+      "startDate": "1260-08",
+      "endDate": "1261-12",
+      "datePrecision": "month",
+      "note": "中統元年七月「帝自将讨阿里不哥」で親征開始、中統二年十一月に昔木土脑儿の戦い後「帝亲率诸军以蹑其后」「帝亲将诸万户汉军及武卫军，由檀、顺州驻潮河川」と自ら追撃を継続。同一標的（阿里不哥）への一連の親征として1件にまとめた。阿里不哥本人の最終投降は至元元年（1264）七月だが、その間の親征記事（原文「帝自将」「帝亲率」「帝亲将」）が確認できるのは1260-1261年の期間のみ。（旧 precision 記載: month（原文は中統元年七月「帝自将讨阿里不哥」、中統二年十一月「帝亲率诸军以蹑其后」「帝亲将诸万户汉军及武卫军」、いずれも旧暦月のみ））"
+     },
+     {
+      "target": "乃颜（ナヤン、東方三王家の一・諸王）",
+      "outcome": "乃颜を捕縛・処刑",
+      "startDate": "1287-06",
+      "endDate": "1287-06",
+      "datePrecision": "month",
+      "note": "至元二十四年四月「诸王乃颜反」を受け、同五月「帝自将征乃颜，发上都」と明記。同年内に乃颜は捕縛・処刑（「乃颜以反诛」）。（旧 precision 記載: month（原文は至元二十四年五月「帝自将征乃颜，发上都」、六月「车驾驻干大利斡鲁脱之地，获乃颜辎重千余」、旧暦月のみ））"
+     },
+     {
+      "target": "海都（カイドゥ、オゴデイ家当主）",
+      "outcome": "撃退（海都本隊との決戦ではないが親征により侵攻を退けた）",
+      "startDate": "1289-07-19",
+      "endDate": "1289-07-19",
+      "datePrecision": "day",
+      "note": "至元二十六年七月「海都兵犯边，帝亲征」と明記。海都はオゴデイ家（モンゴル帝国内の対等な宗主権争い相手）であり服属民ではないため、判定基準に従いrebellionSuppression/Sufferedには算入せずpersonalCampaignCountのみに計上。（旧 precision 記載: month（原文は至元二十六年七月戊寅朔「海都兵犯边，帝亲征」、旧暦月のみ））"
+     }
+    ],
+    "confidence": "",
+    "note": "「帝自将」「帝亲征」「帝亲率」等の直接記載がある遠征のみを計上。南宋征服（バヤン主導）・元寇（日本、忻都・洪茶丘等主導）・安南征服（トゴン等主導）・雲南大理平定（即位前の1253年、藩邸時代のため対象外）等、世祖本人不出征または即位前の遠征は除外した。"
+   },
+   "rebellionSuppressionCount": {
+    "count": 18,
+    "events": [
+     {
+      "leader": "阿里不哥（および西方支持勢力の阿蓝答儿・浑都海）",
+      "name": "阿里不哥の反乱",
+      "outcome": "阿蓝答儿・浑都海は姑臧で撃破・斬首（中統元年九月）、阿里不哥本人は至元元年七月に投降",
+      "startDate": "1260-04",
+      "endDate": "1264-07",
+      "datePrecision": "month",
+      "note": "「是月，阿里不哥僣号于和林城西按坦河」（僭号と明記）、「以阿里不哥反，诏赦天下」と反乱として扱われている。阿蓝答儿・浑都海は「谋立阿里不哥」の一味として同一反乱に含めた。"
+     },
+     {
+      "leader": "李璮",
+      "name": "李璮の反乱",
+      "outcome": "済南で包囲され投水自殺を図るも捕縛、体解に処す",
+      "startDate": "1262-02",
+      "endDate": "1262-08",
+      "datePrecision": "month",
+      "note": "山東行省大都督（元朝の服属漢人軍閥）による反乱。「李璮反，以涟、海三城献于宋」。"
+     },
+     {
+      "leader": "裴仲孙（高麗三別抄）",
+      "name": "高麗三別抄の乱",
+      "outcome": "珍島陥落等を経て鎮圧される方向で推移（本紀本文では至元8年時点の経過のみ確認、最終鎮圧の明記なし）",
+      "startDate": "1271",
+      "endDate": "1273",
+      "datePrecision": "year",
+      "note": "「高丽叛臣裴仲孙乞诸军退屯，然后内附」「高丽安抚阿海略地珍岛，与逆党遇」。高麗は元の服属国であり、その臣下による反乱として計上。（旧 precision 記載: year（本紀では至元八年の記事にのみ経過が確認できる。史実上の最終鎮圧年（1273年、済州島陥落）を終期として採用））"
+     }
+    ],
+    "confidence": "medium",
+    "note": "元史 巻四～巻十七（世祖一～十四）を通読し、原文に「反」「叛」の語で明記された事件のうち、指導者名が特定でき鎮圧の経過が確認できるものを計上した（18件）。rebellionSufferedCount側にのみ含まれる董賢挙・鍾明亮の乱（在位中に鎮圧至らず）は本フィールドには含めない。世祖の34年に及ぶ在位期間は新征服地（旧南宋領・雲南等）を含む広大な領域を統治したため、単発の「〇〇謀反、伏诛」のような詳細を欠く記事（陰謀発覚・即日処刑等で軍事的な反乱の実態が不明瞭なもの）は本人不特定または実態不明として除外しており、網羅的な最終値ではない可能性がある（confidence medium）。"
+   },
+   "rebellionSufferedCount": {
+    "count": 20,
+    "events": [
+     {
+      "leader": "阿里不哥（および西方支持勢力の阿蓝答儿・浑都海）",
+      "name": "阿里不哥の反乱",
+      "outcome": "阿蓝答儿・浑都海は姑臧で撃破・斬首（中統元年九月）、阿里不哥本人は至元元年七月に投降",
+      "startDate": "1260-04",
+      "endDate": "1264-07",
+      "datePrecision": "month",
+      "note": "実弟による対立可汗擁立。「是月，阿里不哥僣号于和林城西按坦河」「以阿里不哥反，诏赦天下」。"
+     },
+     {
+      "leader": "李璮",
+      "name": "李璮の反乱",
+      "outcome": "済南で包囲され投水自殺を図るも捕縛、体解に処す",
+      "startDate": "1262-02",
+      "endDate": "1262-08",
+      "datePrecision": "month",
+      "note": "山東行省大都督（服属漢人軍閥）による反乱。"
+     },
+     {
+      "leader": "裴仲孙（高麗三別抄）",
+      "name": "高麗三別抄の乱",
+      "outcome": "珍島陥落等を経て鎮圧される方向で推移",
+      "startDate": "1271",
+      "endDate": "1273",
+      "datePrecision": "year",
+      "note": "服属国高麗の臣下による反乱。"
+     }
+    ],
+    "confidence": "medium",
+    "note": "rebellionSuppressionCountと同一の18件に加え、在位中に鎮圧が完了しなかったことが原文に明記されている董賢挙の乱・鍾明亮の乱の2件（ルール例外パターン(2)「未鎮圧のまま在位終了」）を追加し、計20件とした。海都（カイドゥ）・南宋・元寇（日本）・安南・占城・緬甸等、対等勢力・外国との戦争は判定基準に従い本フィールドから除外している。網羅性についてはrebellionSuppressionCount側の注記を参照（confidence medium）。"
+   }
+  },
+  {
+   "id": "ming-yingzong",
+   "name": {
+    "personalName": "朱祁鎮",
+    "commonName": "英宗（正統帝/天順帝）",
+    "aliases": [],
+    "posthumousName": null,
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
+   "reigns": [
+    {
+     "startYear": 1435,
+     "endYear": 1449,
+     "dynastyOrder": null,
+     "isRestoration": false,
+     "note": "宣徳10年1月10日即位(正統帝)。正統14年9月6日、土木の変で瓦剌の捕虜となり、弟の景泰帝(代宗)が即位。",
+     "raw": null,
+     "durationRaw": null,
+     "startDate": "1435-02-07",
+     "endDate": "1449-09-22",
+     "startDateRaw": null,
+     "endDateRaw": null,
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 5341,
+      "unit": "day",
+      "approxDays": 5341,
+      "exactDays": 5341,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "明史 本紀第十 英宗前紀",
+       "lang": "zh-classical",
+       "quote": "宣德十年春正月，宣宗崩，壬午，即皇帝位。（即位）／……九月癸未，郕王即位，遥尊帝为太上皇帝。（在位終了＝代宗即位）",
+       "conversion": "宣徳10年正月は朔＝癸酉(1435-01-29)。壬午は朔から10日目→1435-02-07（本紀「正月十日」に一致）。正統14年9月は朔(1日)＝戊寅→1449-09-17。癸未は朔から6日目→1449-09-22（本紀の「九月癸未」は正統14年9月6日に一致）。",
+       "note": "本紀では8月15日(壬戌、1449-09-01)の土木の変で北狩(捕虜)となっているが、在位終了日は既存方針通り郕王(代宗)即位日(9月6日=9/22)を採用。"
+      }
+     }
+    },
+    {
+     "startYear": 1457,
+     "endYear": 1464,
+     "dynastyOrder": null,
+     "isRestoration": true,
+     "note": "景泰8年1月17日、奪門の変により復位(天順帝)。代宗の廃位(1457年2月24日)より前に復位しており、約2週間の過渡期に両者が並存する形となった(史実通り記録)。天順8年1月17日崩御。",
+     "raw": null,
+     "durationRaw": null,
+     "startDate": "1457-02-11",
+     "endDate": "1464-02-23",
+     "startDateRaw": null,
+     "endDateRaw": null,
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 2568,
+      "unit": "day",
+      "approxDays": 2568,
+      "exactDays": 2568,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "明史 本紀第十二 英宗後紀",
+       "lang": "zh-classical",
+       "quote": "天顺元年春正月壬午，昧爽……日中，御奉天殿即位。（奪門の変・復位）／八年春正月乙卯，帝不豫……庚午，崩，年三十有八。（崩御）",
+       "conversion": "景泰8年(天順元年)正月は朔＝丙寅(1457-01-26)。壬午は朔から17日目→1457-02-11（本紀の「正月十七日」奪門の変に一致）。天順8年正月は朔＝甲寅(1464-02-07)。庚午は朔から17日目→1464-02-23（本紀の「正月十七日」崩御に一致）。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 7909,
+     "displayYears": 21.67,
+     "needsPreciseDays": false,
+     "isExact": true
+    },
+    "firstStartYear": 1435,
+    "lastEndYear": 1464,
+    "reignCount": 2
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": 1435
+   },
+   "sources": {
+    "wikidata": "Q9983",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": ""
+   },
+   "deathCause": {
+    "category": "illness",
+    "note": "天順8年正月「不豫」となり、皇太子に文華殿で摂事させた後「大漸」、遺詔で宮妃殉葬を廃止する旨を残し崩御。事件性を示す記述はなく病死。",
+    "confidence": "high",
+    "source": {
+     "page": "明史 本紀第十二（英宗後紀）",
+     "lang": "zh-classical"
+    }
+   },
+   "accessionRoute": {
+    "categoryId": "hereditary",
+    "note": "宣宗の長子。生後まもなく皇太子に冊立され、宣徳10年の宣宗崩御に伴い遺詔により即位した（宣宗の遺詔は「遗诏国家重务白皇太后」と国政を皇太后に諮ることを定める）。正統14年の土木の変で瓦剌に捕らわれ、弟の郕王（代宗）が即位して太上皇帝と遥尊された。天順元年正月、石亨・徐有貞・曹吉祥らが「以兵迎帝于南宫」として幽閉先から迎え出し復位した（2度目の在位は reigns の isRestoration で表す）。",
+    "confidence": "high",
+    "source": {
+     "page": "明史 本紀第十二（英宗後紀）／明史紀事本末 巻三十五（南宮復辟）",
+     "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "inherited",
+     "titleOrigin": "inherited",
+     "decidedBy": [
+      "predecessor"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "source-reread",
+     "predecessorFate": "natural-death",
+     "relationToPredecessor": "son",
+     "procedure": "normal"
+    }
+   },
+   "eraChangeCount": {
+    "note": "英宗前紀（卷十・正統期）で即位建元1回、英宗後紀（卷十二・天順期）で復辟に伴う建元1回の計2回。両者の間の景泰年間（代宗在位）における改元は代宗自身の紀に属するため、本人物の集計には含めていない。",
+    "count": 2,
+    "events": [
+     {
+      "datePrecision": "month",
+      "date": "1435-01",
+      "note": "宣徳十年正月壬午、宣宗崩御を受け即位。「遵遗诏大事白皇太后行。大赦天下，以明年为正统元年。」により翌年を正統元年とする建元（即位に伴う最初の建元）。卷十より。"
+     },
+     {
+      "datePrecision": "month",
+      "date": "1457-01",
+      "note": "天順元年正月丙戌、奪門の変（南宮復辟）を経て「诏赦天下，改景泰八年为天顺元年」と詔し、景泰八年を天順元年に改める建元。卷十二より。"
+     }
+    ],
+    "confidence": "high"
+   },
+   "amnestyCount": {
+    "note": "「大赉」（褒賞・恩賜、例：正統四年三月乙亥「大赉文武军民」、天順元年七月辛卯「大赉诸边军士」）は金品下賜であり大赦とは別物のため除外。「宥…罪」（罪人個別の宥免、例：正統四年閏月の交阯王通・馬騏の罪の赦免）も全国規模の大赦ではないため除外。景泰年間の大赦は代宗紀に属するため対象外。",
+    "count": 8,
+    "events": [
+     {
+      "datePrecision": "month",
+      "date": "1435-01",
+      "note": "宣徳十年正月、即位に伴う「大赦天下，以明年为正统元年」。卷十。"
+     },
+     {
+      "datePrecision": "month",
+      "date": "1439-03",
+      "note": "正統四年三月己酉「诏赦天下」。卷十。"
+     },
+     {
+      "datePrecision": "month",
+      "date": "1441-11",
+      "note": "正統六年十一月甲午朔、乾清宮等完成・北京定都に伴い「大赦」。卷十。"
+     }
+    ],
+    "confidence": "high"
+   },
+   "empressInstallationCount": {
+    "note": "冒頭の「生四月，立为皇太子，遂册贵妃为皇后」は宣徳期に英宗生母の孫氏が宣宗の皇后に冊立された記事であり、英宗自身の立后ではないため対象外。天順期（卷十二）には新たな立后の記事はなく、銭皇后がそのまま皇后位を継続したとみられる（景泰年間に廃后された記録もない）。景泰帝（代宗）の汪后・杭后の立后・廃立は代宗紀に属するため対象外。",
+    "count": 1,
+    "events": [
+     {
+      "datePrecision": "month",
+      "date": "1442-05",
+      "note": "正統七年五月戊寅「立皇后钱氏」。銭氏を皇后に冊立。卷十。"
+     }
+    ],
+    "confidence": "high"
+   },
+   "crownPrinceDepositionCount": {
+    "note": "卷十・卷十二とも英宗自身による皇太子廃立の記事は見当たらない。正統十四年己巳（土木の変後）に「皇太后命立皇子见深为皇太子」とあるのは新規の立太子であり廃立ではない。天順元年三月己巳「复立长子见深为皇太子」は景泰年間に代宗が見深を廃して自子見済を立てた措置（代宗紀に属する）の後、英宗が復辟して見深を皇太子に復した「再冊立」であり、英宗自身による廃立行為ではないため対象外。",
+    "count": 0,
+    "events": [],
+    "confidence": "high"
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "明史本紀を通読。該当在位期間中に新たな遷都の記録なし（南京→北京の遷都は永楽帝の代の出来事として計上済み。洪武帝期の鳳陽「中都」構想は未完成のまま放棄され実行されず）。"
+   },
+   "personalCampaignCount": {
+    "count": 1,
+    "events": [
+     {
+      "outcome": "大敗・被虜（土木の変）。正統十四年七月己丑「瓦剌也先寇大同...下诏亲征」、八月壬戌「师溃，死者数十万...帝北狩」で瓦剌の捕虜となった。",
+      "startDate": "1449-07",
+      "note": "英宗前紀。吏部尚書王直らの諫止を退けて親征を強行し、土木堡で瓦剌軍に包囲され大敗、皇帝自身が捕虜となった。",
+      "endDate": "1449-08",
+      "datePrecision": "month",
+      "target": "瓦剌（オイラト、也先）"
+     }
+    ],
+    "confidence": "high",
+    "note": "英宗前紀・正統14年7-8月の土木の変での親征のみが該当。「下诏亲征」と明記され、瓦剌（オイラト、也先）という北方モンゴル系の対等勢力・外国に対する親征のため、判定基準の通り敗北・被虜という結果も含め1件として計上する。奪門の変（1457年復位）は自身のaccessionRoute領域として除外済み。天順期には帝自身が親征した記事は見当たらない（石亨の延綏討伐等はいずれも将軍主導で本人不出征）。"
+   },
+   "rebellionSuppressionCount": {
+    "count": 16,
+    "events": [
+     {
+      "leader": "不詳（蒙顾十六洞贼）",
+      "outcome": "蕭授により鎮圧された。",
+      "startDate": "1436-12",
+      "name": "広西蒙顾十六洞賊の乱",
+      "endDate": "1436-12",
+      "datePrecision": "month"
+     },
+     {
+      "leader": "思任发（のち子の思机发）",
+      "outcome": "王骥らにより実質的に鎮圧・平定された。",
+      "startDate": "1438-04",
+      "name": "麓川の乱（思任发・思机发父子）",
+      "endDate": "1449-02",
+      "datePrecision": "month"
+     },
+     {
+      "leader": "不詳（貴州計砂叛苗）",
+      "outcome": "蕭授により鎮圧された。",
+      "startDate": "1439-02",
+      "name": "貴州計砂叛苗の乱",
+      "endDate": "1439-02",
+      "datePrecision": "month"
+     }
+    ],
+    "confidence": "medium",
+    "note": "上記参照"
+   },
+   "rebellionSufferedCount": {
+    "count": 20,
+    "events": [
+     {
+      "leader": "不詳（蒙顾十六洞贼）",
+      "outcome": "蕭授により鎮圧された。",
+      "startDate": "1436-12",
+      "name": "広西蒙顾十六洞賊の乱",
+      "endDate": "1436-12",
+      "datePrecision": "month"
+     },
+     {
+      "leader": "思任发（のち子の思机发）",
+      "outcome": "王骥らにより実質的に鎮圧・平定された。",
+      "startDate": "1438-04",
+      "name": "麓川の乱（思任发・思机发父子）",
+      "endDate": "1449-02",
+      "datePrecision": "month"
+     },
+     {
+      "leader": "不詳（貴州計砂叛苗）",
+      "outcome": "蕭授により鎮圧された。",
+      "startDate": "1439-02",
+      "name": "貴州計砂叛苗の乱",
+      "endDate": "1439-02",
+      "datePrecision": "month"
+     }
+    ],
+    "confidence": "medium",
+    "note": "正統・天順両期を通算。rebellionSuppressionCountの16件は同一の反乱群として被反乱側にもそのまま計上し、加えて未鎮圧のまま在位が終了した4件（例外(2)：正統期は土木の変で在位事実上終了、天順期は英宗崩御）を追加した。奪門の変で代宗（景泰帝）から兵力を伴って帝位を奪還した経緯自体は、英宗にとっては自身のaccessionRoute（復位）領域であり被反乱には含めない。北方モンゴル系（瓦剌・孛来）との交戦は対等勢力・外国として除外（土木の変での被虜はpersonalCampaignCount側に計上済み）。"
+   },
+   "ages": {
+    "deathAge": 38,
+    "note": "没年齢38歳は英宗後紀末尾「庚午，崩，年三十有八」（天順八年正月庚午）に直接記載、既存reignsのendDate(1464-02-23)と一致。生年の直接記載（「生於◯◯年」等）はこのキャッシュ範囲には見当たらないため、数え年の原理（没年-没年齢+1）で1427年と逆算した（1464-38+1=1427）。即位時年齢9歳は、既存reignsの第1期startDate(1435-02-07、宣徳十年正月壬午)とこの逆算生年(1427年)の差分から算出（1435-1427+1=9）。歴史的に広く知られる英宗の生年（宣徳二年＝1427年）とも整合するが、当キャッシュ内に「◯◯年生」の直接原文はないため、生年・即位時年齢はいずれも逆算値（confidence highだが直接記載ではない点を明記）。（birthDate の旧 precision 記載: year（直接記載なし、没年齢からの逆算値））",
+    "deathDate": "1464-02-23",
+    "confidence": "high",
+    "accessionAge": 9,
+    "birthDatePrecision": "year",
+    "birthDate": "1427",
+    "deathDatePrecision": "day"
+   }
+  },
+  {
+   "id": "qing-shengzu",
+   "name": {
+    "personalName": "愛新覚羅玄燁",
+    "commonName": "聖祖（康熙帝）",
+    "aliases": [],
+    "posthumousName": null,
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "eraId": "qing",
+   "regimeId": "qing",
+   "researchSection": "清",
+   "standing": "regular",
+   "reigns": [
+    {
+     "startYear": 1661,
+     "endYear": 1722,
+     "dynastyOrder": null,
+     "isRestoration": false,
+     "note": "順治18年1月7日即位。康熙61年11月13日崩御(清史稿原典の干支「甲午」に基づく。ja版本文の「11月14日」は同記事内のinfoboxとも矛盾する算術上の誤りと判断)。",
+     "raw": null,
+     "durationRaw": null,
+     "startDate": "1661-02-05",
+     "endDate": "1722-12-20",
+     "startDateRaw": "順治十八年正月丁巳（旧暦）",
+     "endDateRaw": "康熙六十一年十一月甲午（旧暦）",
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 22597,
+      "unit": "day",
+      "approxDays": 22597,
+      "exactDays": 22597,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "清史稿 本紀六（聖祖本紀一）・本紀八（聖祖本紀三）",
+       "lang": "zh-classical",
+       "quote": "顺治十八年正月丙辰，世祖崩，帝即位，年八岁，改元康熙。／甲午，上大渐，日加戌，上崩，年六十九。",
+       "conversion": "sxtwl検算: 順治十八年正月は丙辰=初六=1661-02-04・丁巳=初七=1661-02-05。即位日は世祖本紀（本紀五）「丁巳，崩于养心殿」に従い1661-02-05=既存startDateと一致。康熙六十一年十一月甲午=十三日=1722-12-20=既存endDateと一致。1661-02-05→1722-12-20は22597日で既存exactDays 22597と一致し、訂正なし。",
+       "note": "清史稿内部で即位日の干支が不整合（聖祖本紀「正月丙辰」・世祖本紀「丁巳崩」）。世祖本紀・実録・通説に従い丁巳=1661-02-05を採用。実録の正式登極日は正月初九己未（1661-02-07）だが、本データセットは世祖崩御・帝即位の記事日を採用している。旧pageの「清史稿巻8/巻9」は巻数誤り（巻九は世宗本紀）のため訂正。"
+      }
+     }
+    }
+   ],
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 22597,
+     "displayYears": 61.91,
+     "needsPreciseDays": false,
+     "isExact": true
+    },
+    "firstStartYear": 1661,
+    "lastEndYear": 1722,
+    "reignCount": 1
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": 1661
+   },
+   "sources": {
+    "wikidata": "Q17790",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": ""
+   },
+   "deathCause": {
+    "category": "illness",
+    "note": "康熙61年11月、暢春園にて「上不豫」から数日後「大漸」を経て崩御、享年69。正史の記述は自然な病没の経過を淡々と記すのみで毒殺を示唆する記載は一切ない。雍正帝による毒殺説は民間伝承由来で正史には根拠がない。",
+    "confidence": "high",
+    "source": {
+     "page": "清史稿 巻八（聖祖本紀三）",
+     "lang": "zh-classical"
+    }
+   },
+   "accessionRoute": {
+    "categoryId": "hereditary",
+    "note": "順治18年正月、世祖崩御に伴い遺詔により8歳で即位。世祖の遺詔本文に生前皇太子として明確に指名されていたことが記されている（幼少のため四大臣が輔政）。",
+    "confidence": "high",
+    "source": {
+     "page": "清史稿 巻六（聖祖本紀一）",
+     "lang": "zh-classical"
+    },
+    "axes": {
+     "throneSource": "inherited",
+     "titleOrigin": "inherited",
+     "decidedBy": [
+      "predecessor"
+     ],
+     "decidedByAgents": [],
+     "decidedByBasis": "source-reread",
+     "predecessorFate": "natural-death",
+     "relationToPredecessor": "son",
+     "procedure": "normal"
+    }
+   },
+   "eraChangeCount": {
+    "note": "康熙帝は在位61年間、「康熙」の一元号のみを使用し、改元は行わなかった（明清以降の一世一元の慣例）。即位当日の建元のみを1件としてカウントする。",
+    "count": 1,
+    "events": [
+     {
+      "datePrecision": "day",
+      "date": "1661-02-05",
+      "note": "順治十八年（1661年）正月丙辰、世祖（順治帝）崩御に伴い即位、「康熙」に建元。原文：「順治十八年正月丙辰，世祖崩，帝即位，年八歲，改元康熙。」日付は本データセットの在位開始日（1661-02-05）に合わせた（原文干支「丙辰」の西暦換算値は1661-02-04となるが、既存のstartDateとの整合を優先した）。",
+      "source": {
+       "page": "清史稿 本紀六 聖祖本紀一",
+       "lang": "zh"
+      }
+     }
+    ],
+    "confidence": "high"
+   },
+   "amnestyCount": {
+    "note": "「大赦天下」の定型句そのものは康熙元年（1662年）の1件のみだが、本プロジェクトの既存判例（他王朝の肆赦・咸赦除之・赦殊死以下等の全国規模恩赦を計上する基準）に従い、地域限定を示す語（「曲赦」等）を伴わない全国規模の恩赦を計10件追加で計上した。「曲赦」と明記された記事（康熙十年・二十一年・三十八年）および特定省份に限定した恩赦（康熙四十四年「赦山東、江蘇、浙江、福建死罪減一等」）は全国規模でないため除外した。",
+    "count": 11,
+    "events": [
+     {
+      "datePrecision": "month",
+      "date": null,
+      "note": "康熙元年（1662年）三月（具体的な干支日の記載なし）、雲南平定を告廟祭陵した際の大赦。原文：「三月，以滇南平，告廟祭陵，赦天下。」",
+      "source": {
+       "page": "清史稿 本紀六 聖祖本紀一",
+       "lang": "zh"
+      }
+     },
+     {
+      "datePrecision": "day",
+      "date": "1665-04-19",
+      "note": "康熙四年（1665年）三月辛卯、星変・地震を機とした肆赦。原文：「三月戊子，京師地震有聲。辛卯，金星晝見。以星變地震肆赦，免逋賦。」地域限定の語を伴わず「肆赦」と明記されており、本プロジェクトの先例（遼史・金史等の肆赦計上基準）に従い計上した。",
+      "source": {
+       "page": "清史稿 本紀六 聖祖本紀一",
+       "lang": "zh"
+      }
+     },
+     {
+      "datePrecision": "day",
+      "date": "1667-08-25",
+      "note": "康熙六年（1667年）七月己酉、上（14歳）の親政開始に伴う恩赦。原文：「秋七月己酉，上親政，御太和殿受賀，加恩中外，罪非殊死，咸赦除之。」「加恩中外」と明記され対象地域を限定しない全国規模の恩赦。",
+      "source": {
+       "page": "清史稿 本紀六 聖祖本紀一",
+       "lang": "zh"
+      }
+     }
+    ],
+    "confidence": "medium"
+   },
+   "empressInstallationCount": {
+    "note": "在位中に3名の皇后が冊立された（いずれも死去後に新たな皇后は別途冊立されず、康熙帝崩御まで皇后不在の期間が続いた）。孝誠仁皇后（赫舍里氏）は康熙十三年（1674年）出産直後に崩御、孝昭仁皇后（鈕祜祿氏）は冊立の半年後に崩御、孝懿仁皇后（佟佳氏）は冊立の翌日に崩御している。",
+    "count": 3,
+    "events": [
+     {
+      "datePrecision": "day",
+      "date": "1665-10-16",
+      "note": "康熙四年（1665年）九月辛卯、赫舍里氏（輔政大臣索尼の孫女、後の孝誠仁皇后）を皇后に冊立。原文：「九月辛卯，冊赫舍里氏爲皇后，輔臣索尼之孫女也。」",
+      "source": {
+       "page": "清史稿 本紀六 聖祖本紀一",
+       "lang": "zh"
+      }
+     },
+     {
+      "datePrecision": "day",
+      "date": "1677-09-18",
+      "note": "康熙十六年（1677年）八月丙寅、貴妃鈕祜祿氏（後の孝昭仁皇后）を皇后に冊立、同時に佟佳氏を貴妃とした。原文：「丙寅，冊立貴妃鈕祜祿氏爲皇后，佟佳氏爲貴妃。」",
+      "source": {
+       "page": "清史稿 本紀六 聖祖本紀一",
+       "lang": "zh"
+      }
+     },
+     {
+      "datePrecision": "day",
+      "date": "1689-08-23",
+      "note": "康熙二十八年（1689年）七月癸卯、貴妃佟氏（後の孝懿仁皇后）を皇后に冊立。原文：「秋七月，⋯癸卯，冊立貴妃佟氏爲皇后。甲辰，皇后崩，謚曰孝懿。」冊立の翌日に崩御している。",
+      "source": {
+       "page": "清史稿 本紀七 聖祖本紀二",
+       "lang": "zh"
+      }
+     }
+    ],
+    "confidence": "high"
+   },
+   "crownPrinceDepositionCount": {
+    "note": "皇太子胤礽（後の理密親王）を2度廃した。1度目（康熙四十七年）と2度目（康熙五十一年）のいずれも本紀に「廢」と明記。1度目の廃立後、康熙四十八年三月辛巳に一度復立しているが、これは廃立回数のカウント対象外（廃立そのものではないため）。2度目の廃立以降、康熙帝崩御（1722年）まで新たな皇太子は立てられなかった。",
+    "count": 2,
+    "events": [
+     {
+      "datePrecision": "day",
+      "date": "1708-11-06",
+      "note": "康熙四十七年（1708年）九月丁酉、皇太子胤礽の廃位を天下に布告。原文：「九月乙亥，上駐布爾哈蘇臺。丁丑，召集廷臣行宮，宣示皇太子胤礽罪狀，命拘執之，送京幽禁。己丑，上還京。丁酉，廢皇太子胤礽，頒示天下。」本紀では具体的な罪状の詳細までは記されず「罪狀」とのみある。",
+      "source": {
+       "page": "清史稿 本紀八 聖祖本紀三",
+       "lang": "zh"
+      }
+     },
+     {
+      "datePrecision": "day",
+      "date": "1712-10-29",
+      "note": "康熙五十一年（1712年）九月庚戌、復立されていた皇太子胤礽が再び廃された。原文：「九月庚戌，上奉皇太后還宮。皇太子胤礽復以罪廢，錮於咸安宮。」同年十一月己酉には「以復廢皇太子胤礽告廟，宣示天下」と改めて宗廟に告げ天下に布告している（本紀八）。本紀では再度の廃立の具体的理由は詳述されていない。",
+      "source": {
+       "page": "清史稿 本紀八 聖祖本紀三",
+       "lang": "zh"
+      }
+     }
+    ],
+    "confidence": "high"
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "清史稿本紀を通読。該当在位期間中に新たな遷都の記録なし（盛京瀋陽→北京は世祖〔順治帝〕の代の出来事として計上済み。1900年義和団の乱時の西太后・光緒帝の西安一時避難は1902年に北京へ帰還しており恒久的な遷都に該当せず対象外）。"
+   },
+   "personalCampaignCount": {
+    "count": 3,
+    "confidence": "high",
+    "note": "康熙帝は準噶爾（ジュンガル）部の噶爾丹に対し計3回の親征を行った。本ブロック判定基準5により準噶爾は清の統治下にない対等勢力・外国として扱い、鎮圧・被反乱いずれにも計上せず、親征のみpersonalCampaignCountに計上した。なお三藩の乱（康熙十三年12月）に際し「上議親征」の動議があったが、太皇太后高齢・京師防衛を理由に王大臣が諫止し実現しなかったため計上しない（本紀六「上議親征。王大臣以京師根本重地，太皇太后年高，力諫乃止」）。",
+    "events": [
+     {
+      "target": "噶爾丹（準噶爾）",
+      "startDate": "1690-07",
+      "endDate": "1690-08",
+      "datePrecision": "month",
+      "outcome": "上親征し北京を発したが（本紀七「秋七月癸卯，上親征，發京師」）、行軍途中に発病し博洛和屯より回鑾（「己酉，上駐博洛和屯，有疾回鑾」）。実際の交戦（烏蘭布通の戦い）は裕親王福全が指揮し噶爾丹を敗走させた。皇帝自身は前線に到達していないが、清史における通例「康熙帝三次親征噶爾丹」の第一次として数えられるため計上した。",
+      "note": "康熙二十九年"
+     },
+     {
+      "target": "噶爾丹（準噶爾）",
+      "startDate": "1696-02",
+      "endDate": "1696-06",
+      "datePrecision": "month",
+      "outcome": "上自ら六師を率い出征（「丙辰，上親統六師啟行」）、克魯倫河まで進出し噶爾丹本営を急襲、噶爾丹は敗走。同時に西路軍（大将軍費揚古）が昭莫多で噶爾丹軍を大破（阵斩其妻阿奴）。",
+      "note": "康熙三十五年"
+     },
+     {
+      "target": "噶爾丹（準噶爾）",
+      "startDate": "1697-02",
+      "endDate": "1697-05",
+      "datePrecision": "month",
+      "outcome": "再度親征し（「上親征噶爾丹，啟鑾」）寧夏まで進出して指揮、駐留中に噶爾丹が閏三月に服毒死したとの報を受け親征終了、上還京。",
+      "note": "康熙三十六年"
+     }
+    ]
+   },
+   "rebellionSuppressionCount": {
+    "count": 14,
+    "confidence": "medium",
+    "note": "清史稿本紀六〜八（聖祖本紀一〜三）を通読し、清朝の統治下にある勢力（服属民・国内住民・辺境土司等）による武装蜂起で在位中に鎮圧が確認できたものを計上した（計14件、rebellionSufferedCountと同一件数、全て鎮圧完了）。三藩の乱は同時多発的な同調反乱（孫延齢・王輔臣・呉之茂・楊来嘉・洪福・蔡禄・朱統鍠の挙兵、寧夏兵変等）を含め判定基準6の名指し規定に従い1件として集約した。除外事例：(a)鰲拜の専横（1669年、武力衝突を伴わず摘発・拘禁で解決、判定基準2-(4)の朝廷内クーデターに該当せず除外）、(b)京師の楊起隆偽朱三太子事件（1673年12月、挙兵に至らず摘発・逃亡で終息、判定基準4により除外）、(c)湖廣郧陽茅麓山の李来亨・郝揺旗（大順軍残党、1663〜64年鎮圧）は清に服属したことのない南明・大順系抵抗勢力の残存であり明清交替期の統一戦争の延長と判断し除外、(d)台湾鄭氏政権（鄭錦・鄭克塽、三藩期の沿海侵攻を含む）は清に服属したことのない独立政権であり統一戦争として除外（判定基準3）、(e)西藏出兵（1717〜1720年、策妄阿拉布坦のチベット侵攻・喀喇烏蘇での額倫特・色楞の敗死・延信/噶爾弼による西藏平定）は準噶爾という対等な外国勢力との戦争であり判定基準5により除外、(f)ロシア（雅克薩の戦い、1685〜89年）は対等な外国勢力として除外、(g)湖廣鎮筸紅苗をめぐる一連の記事（1701・1704・1708年）は殺人事件の裁判・官吏の隠蔽処分が中心で明確な武装蜂起・鎮圧軍事行動の記述を欠くため除外。",
+    "events": [
+     {
+      "name": "山東于七の乱",
+      "leader": "于七",
+      "startDate": "1661-10",
+      "datePrecision": "month",
+      "outcome": "済世哈が討平",
+      "note": "本紀六「山東民于七作亂…命靖東將軍濟世哈討平之」"
+     },
+     {
+      "name": "三藩の乱",
+      "leader": "呉三桂・耿精忠・尚之信（および同調した孫延齢・王輔臣・呉之茂等）",
+      "startDate": "1673-12",
+      "endDate": "1681-11",
+      "datePrecision": "month",
+      "outcome": "康熙二十年十一月に呉世璠自殺、雲南平定により終息",
+      "note": "同時多発的な同調反乱・寧夏兵変・郧陽兵変等を含め1件に集約（判定基準6）"
+     },
+     {
+      "name": "察哈爾布爾尼の乱",
+      "leader": "布爾尼（察哈爾蒙古）",
+      "startDate": "1675-03",
+      "datePrecision": "month",
+      "outcome": "信郡王鄂扎・大学士図海が討平",
+      "note": "察哈爾蒙古は清の盟旗体制下の服属民"
+     }
+    ]
+   },
+   "rebellionSufferedCount": {
+    "count": 14,
+    "confidence": "medium",
+    "note": "rebellionSuppressionCountと同一の14件を両面計上（在位中に鎮圧できず終わった事例はない）。集計方針・除外事例の詳細はrebellionSuppressionCount.noteを参照。",
+    "events": [
+     {
+      "name": "山東于七の乱",
+      "leader": "于七",
+      "startDate": "1661-10",
+      "datePrecision": "month",
+      "outcome": "済世哈により鎮圧された"
+     },
+     {
+      "name": "三藩の乱",
+      "leader": "呉三桂・耿精忠・尚之信（および同調した孫延齢・王輔臣・呉之茂等）",
+      "startDate": "1673-12",
+      "endDate": "1681-11",
+      "datePrecision": "month",
+      "outcome": "康熙二十年十一月に呉世璠自殺、雲南平定により終息",
+      "note": "同時多発的な同調反乱・寧夏兵変・郧陽兵変等を含め1件に集約（判定基準6）"
+     },
+     {
+      "name": "察哈爾布爾尼の乱",
+      "leader": "布爾尼（察哈爾蒙古）",
+      "startDate": "1675-03",
+      "datePrecision": "month",
+      "outcome": "鎮圧された"
+     }
+    ]
+   },
+   "ages": {
+    "birthDate": "1654-05-04",
+    "birthDatePrecision": "day",
+    "deathDate": "1722-12-20",
+    "deathDatePrecision": "day",
+    "accessionAge": 8,
+    "deathAge": 69,
+    "confidence": "high",
+    "note": "即位時年齢は清史稿本紀六「順治十八年正月丙辰、世祖崩、帝即位、年八歳」（数え年）により8歳。没年齢は本紀八「（康熙六十一年十一月）甲午、上大漸…上崩、年六十九」（数え年）により69歳で、既存deathCause.noteの「享年69」と一致。生年は本紀冒頭「母孝康章皇后佟佳氏、順治十一年三月戊申誕上於景仁宮」（順治11年=1654年）に基づき、西暦換算日（1654-05-04）は広く引用される通説換算値を採用した（干支から自前で再換算はしていない）。没日は既存reigns.endDate（1722-12-20、康熙六十一年十一月十三日甲午）と一致。"
+   }
+  },
+  {
+   "accessionRoute": {
+    "categoryId": "self-established",
+    "note": "中華民国大総統。1915年、参政院代行立法院が国民代表大会の推戴書を上呈し、二度の辞退の後に受諾する形で12月12日に皇帝即位を宣言し、国号「中華帝国」・元号「洪憲」を定めた。清朝や中華民国の前任者から位を受けたのではなく、共和政の体制のなかで自ら帝制を樹立したもの。正式な登極の儀は挙行されていない。本項は正史の範囲外のため、判定は近現代の学術的に信頼できる情報源による（原典引用なし）。",
+    "confidence": "high",
+    "source": {
+     "page": "近現代の学術的に信頼できる複数情報源",
+     "lang": "zh/ja"
+    },
+    "axes": {
+     "throneSource": "self-established",
+     "titleOrigin": "new",
+     "decidedBy": [
+      "self",
+      "third-party"
+     ],
+     "decidedByAgents": [
+      "officials"
+     ],
+     "decidedByBasis": "existing-note",
+     "predecessorFate": "none",
+     "relationToPredecessor": "none",
+     "procedure": "no-ceremony"
+    }
+   },
+   "ages": {
+    "birthDate": "1859-09-16",
+    "birthDatePrecision": "day",
+    "deathDate": "1916-06-06",
+    "deathDatePrecision": "day",
+    "accessionAge": 57,
+    "deathAge": 58,
+    "confidence": "high",
+    "note": "生年月日は1859年9月16日（咸豊9年8月20日）、没日は1916年6月6日で複数の信頼できる情報源（中文維基百科・日本語維基百科等）が一致。一般に流布する「享年56」は満年齢（周歳）に基づく値だが（1859年9月生・1916年6月没で1916年の誕生日未到達＝満56歳）、本データセットのages方針は数え年（虚歳）統一のため、他の全皇帝と計算方式を揃え数え年で算出する：deathAge=1916-1859+1=58、accessionAge（1915年12月の中華帝国皇帝即位時点）=1915-1859+1=57（生年・称帝年とも旧暦年ラベルのまたぎはない）。deathCause.note の「享年56」は満年齢である旨を併記した。（2026-07-22、満年齢混在の是正。旧値はaccessionAge=56・deathAge=56）。"
+   },
+   "amnestyCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "medium",
+    "note": "中文資料（洪憲帝制関連）を複数検索したが、洪憲期間中に全国規模の大赦が布告されたとする記録は見つからなかった。この期間に確認できた勅令は主に爵位授与に関するものであり、大赦令ではない。なお1912年3月10日の臨時大総統就任時の大赦令は別事件（本件の対象期間外）のため計上しない。史料が完全に網羅されているとは限らないため確信度はmediumとする。"
+   },
+   "capitalRelocationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "北京をそのまま首都として踏襲、1916年の帝政取消（退位）まで遷都の記録は一切ない。"
+   },
+   "crownPrinceDepositionCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "長男・袁克定は自ら「皇太子」を私称し印章まで作らせるなど事実上の後継者を自任していたが、正式な冊立の儀礼・詔書は存在しない。従って廃立（既に立てられていた皇太子を廃する）に該当する事実もない（そもそも冊立自体がないため対象外）。"
+   },
+   "deathCause": {
+    "category": "illness",
+    "note": "1916年3月頃から体調不良が報じられ、5月以降悪化、6月3日「病篤，飲食即吐，小便癃閉」（排尿困難）を経て6月6日死去（享年56、満年齢。数え年では58）。主治医の見立てでは膀胱結石に起因する尿毒症（腎不全）で晩年は糖尿病も併発していたとされる。帝政失敗による憂憤が悪化の一因との見方もあるが、直接の医学的死因は尿毒症（病死）。俗説「羞憤自殺」は史実と異なる。",
+    "confidence": "high",
+    "source": {
+     "page": "近現代の学術的に信頼できる複数情報源（正史範囲外）",
+     "lang": "zh"
+    }
+   },
+   "eraId": "modern",
+   "regimeId": "empire-of-china",
+   "researchSection": "清",
+   "standing": "regular",
+   "empressInstallationCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "正式な登極大典（1916年1月1日予定）は雲南での護国軍蜂起・護国戦争の勃発により延期が重なり、最終的に帝制取消（1916-03-22）により一度も挙行されなかった。登極大典が行われなかったため、それに付随する皇后冊立の儀礼も行われた記録はない。"
+   },
+   "eraChangeCount": {
+    "count": 1,
+    "events": [
+     {
+      "date": "1915-12-31",
+      "datePrecision": "day",
+      "note": "袁世凱は1915年12月31日、翌年（民国5年=1916年）を「洪憲元年」とする旨を宣布し、1916年1月1日より紀年として使用開始（即位に伴う最初の建元）。1916年3月22日に帝制取消を宣言し、翌23日に洪憲年号を廃止して民国年号に復帰したが、これは新元号への切替ではなく帝政自体の撤回であり改元とはカウントしない。他に洪憲期間中の改元記録は確認できなかった。",
+      "source": {
+       "page": "近現代の学術的に信頼できる複数情報源（正史範囲外）",
+       "lang": "zh"
+      }
+     }
+    ],
+    "confidence": "high",
+    "note": "洪憲は1915-12-31宣布・1916-01-01発効・1916-03-23廃止の一元号のみで、在位83日間を通じて改元は1回。"
+   },
+   "flags": {
+    "isFemale": false,
+    "usedEmperorTitleFrom": 1915
+   },
+   "id": "zhonghuadiguo-yuanshikai",
+   "name": {
+    "personalName": "袁世凱",
+    "commonName": "洪憲帝（袁世凱）",
+    "aliases": [],
+    "posthumousName": null,
+    "templeName": null,
+    "regnalTitle": "皇帝"
+   },
+   "personalCampaignCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "護国戦争（1915年12月〜1916年3月）に際し、袁世凱は「征滇臨時軍務処」を設置し討伐計画を自ら指揮したが、北京に留まり北洋軍を将軍に指揮させて三方向から雲南へ進攻させただけで、皇帝自身が軍を率いて戦場に赴いた事実は確認できない。判定基準1（皇帝自身が軍を率いて戦場に赴いた場合のみ計上）に該当せず0回とした。"
+   },
+   "rebellionSufferedCount": {
+    "count": 1,
+    "events": [
+     {
+      "name": "護国戦争",
+      "leader": "蔡鍔（唐継尭・李烈鈞と共に護国軍を組織）",
+      "startDate": "1915-12-25",
+      "endDate": "1916-03-22",
+      "datePrecision": "day",
+      "outcome": "雲南独立宣言（1915-12-25）を皮切りに護国軍が挙兵、1916年1月27日貴州・3月15日広西も独立を表明し反乱が拡大。北洋軍は四川で護国軍に敗北し、軍事的劣勢の中1916年3月22日に袁世凱は帝政取消・退位を宣言（未鎮圧のまま終了）。袁世凱自身は同年6月6日に病死。",
+      "note": "旧部下（元雲南都督蔡鍔ら）・地方軍閥（雲南・貴州・広西等）による反乱で、本ブロック判定基準8に基づき服属民の反乱として計上。清朝との対等勢力間の戦争ではなく、袁世凱の統治下にあった地方勢力・旧部下による蜂起である点で除外規定（判定基準5）には該当しない。"
+     }
+    ],
+    "confidence": "high",
+    "note": "護国戦争（第三革命とも呼ばれる）が在位期間中唯一の被反乱事例。旧部下・地方軍閥による挙兵であり服属民の反乱として通常通り計上した。未鎮圧のまま帝政取消・退位に至ったため判定基準2-(2)によりrebellionSuppressionCountには計上せず、rebellionSufferedCountにのみ計上した。"
+   },
+   "rebellionSuppressionCount": {
+    "count": 0,
+    "events": [],
+    "confidence": "high",
+    "note": "護国戦争は北洋軍が四川方面で護国軍に敗北するなど鎮圧に失敗し、袁世凱は軍事的劣勢と内外の圧力の中1916年3月22日に帝政取消・退位を宣言した（未鎮圧のまま在位終了、判定基準2の(2)に該当）ため、鎮圧実績としては計上しない。他に在位83日間（1915-12-12〜1916-03-22）中に鎮圧した反乱は確認されない。"
+   },
+   "reignSummary": {
+    "totalReignDuration": {
+     "approxDays": 101,
+     "displayYears": 0.28,
+     "needsPreciseDays": false,
+     "isExact": true
+    },
+    "firstStartYear": 1915,
+    "lastEndYear": 1916,
+    "reignCount": 1
+   },
+   "reigns": [
+    {
+     "startYear": 1915,
+     "endYear": 1916,
+     "dynastyOrder": null,
+     "isRestoration": false,
+     "note": "中華民国大総統から皇帝への即位を宣言、「中華帝国大皇帝」を称する(正式な登極の儀は挙行されず)。元号「洪憲」は1916年1月1日より使用開始。国内外の反発(護国戦争)を受け1916年3月22日、帝政取消・退位を宣言(在位101日間、中国語圏の通説では両端日を含む数え方で「102日」とも)。",
+     "raw": null,
+     "durationRaw": null,
+     "startDate": "1915-12-12",
+     "endDate": "1916-03-22",
+     "startDateRaw": null,
+     "endDateRaw": null,
+     "datePrecision": {
+      "start": "day",
+      "end": "day"
+     },
+     "duration": {
+      "value": 101,
+      "unit": "day",
+      "approxDays": 101,
+      "exactDays": 101,
+      "needsPreciseDays": false,
+      "source": {
+       "page": "近現代の学術的に信頼できる複数情報源（正史範囲外）",
+       "lang": "zh/ja",
+       "quote": "1915年12月12日、袁世凱は国民代表大会の推戴を受諾し帝位就任（国号「中華帝国」）を宣言。1916年3月22日、護国戦争等の反発を受け「撤銷帝制令」により帝政取消を宣言。",
+       "conversion": "西暦直接記述のため換算不要。日数はISO日付の単純差分（(1916-03-22)-(1915-12-12)=101日）で、既存データのexactDays算出方式（(endDate-startDate)の排他的日数差）と整合することを確認済み。中国語圏で広く言われる「102天」は両端日を含む数え方の違いであり、日付自体の不一致ではない。"
+      }
+     }
+    }
+   ],
+   "sources": {
+    "wikidata": "Q210329",
+    "cbdb": null
+   },
+   "verification": {
+    "emperorTitleConfirmed": true,
+    "confidence": "high",
+    "notes": ""
+   }
+  }
+ ]
+}
