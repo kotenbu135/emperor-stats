@@ -1,0 +1,1207 @@
+{
+  "meta": {
+    "dynastyName": "後秦",
+    "dynastySection": "後秦",
+    "count": 3,
+    "file": "data/emperors/dyn_042.json"
+  },
+  "emperors": [
+    {
+      "id": "houqin-yaochang",
+      "name": {
+        "personalName": "姚萇",
+        "commonName": "武昭帝",
+        "aliases": [],
+        "posthumousName": "武昭帝",
+        "templeName": "太祖",
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "後秦",
+        "category": "並立政権",
+        "section": "後秦"
+      },
+      "reigns": [
+        {
+          "startYear": 386,
+          "endYear": 393,
+          "dynastyOrder": 1,
+          "isRestoration": false,
+          "note": "384年に万年秦王を自称、386年4月に長安で皇帝に即位。",
+          "raw": "386年 - 394年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": null,
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "month",
+            "end": "year"
+          },
+          "duration": {
+            "value": 2453,
+            "unit": "day",
+            "approxDays": 2453,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百十六 載記第十六（姚萇）",
+              "lang": "zh-classical",
+              "quote": "以太元十一年萇僭即皇帝位於長安，大赦，改元曰建初，國號大秦。／以太元十八年死，時年六十四，在位八年。偽謚武昭皇帝，廟號太祖，墓稱原陵。",
+              "conversion": "太元十一年=386年（既存startYearと一致）。太元十八年=393年（太元元年=376年起算。資治通鑑にも393年内の崩御と確認）。386→393年で『在位八年』（数え年式）とも正確に一致。既存endYear(394)は誤りで393に訂正（ages.deathDateは既に393年で記録済み）。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 2453,
+          "displayYears": 6.72,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 386,
+        "lastEndYear": 393,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 386
+      },
+      "sources": {
+        "wikidata": "Q1147266",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "後秦皇帝。武昭帝。"
+      },
+      "accessionRoute": {
+        "category": "自立",
+        "note": "苻堅の敗死後、西州豪族らに盟主に推挙され（「咸推萇為盟主」）、太元9年（384年）に万年秦王を自称、太元11年（386年）長安で正式に皇帝を称し「大秦」（後秦）を建国（「僭即皇帝位於長安…國號大秦」）。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書/卷116 姚萇載記",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "自立",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "本人",
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "該当なし",
+          "relationToPredecessor": "該当なし",
+          "procedure": "儀礼なし・自称"
+        }
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "苻堅の亡霊に脅かされる夢を見て以降「陰腫」（腫瘍）を発症し、治療を受けるも病状悪化、譫言を発するようになった末、太元18年（393年）64歳で死去。暗殺・処刑等の外的加害記述はない。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書/卷116 姚萇載記",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "eraChangeCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": "0384",
+            "datePrecision": "year",
+            "note": "【皇帝即位前】太元九年、苻堅敗死後に西州豪族らに推され、大将軍・大単于・万年秦王を自称し「称制行事」、年号を白雀と建元（最初の建元）。",
+            "source": {
+              "page": "晉書 巻116 姚萇載記",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0386",
+            "datePrecision": "year",
+            "note": "【皇帝即位（改元同時）】太元十一年、長安で正式に皇帝位に即き（僭即皇帝位）、国号を大秦（後秦）とし、「改元曰建初」と明記。秦王自立から皇帝号への改称に伴う改元。",
+            "source": {
+              "page": "晉書 巻116 姚萇載記",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "固有注意事項に従い、秦王自立（白雀建元）と皇帝号改称（建初改元）の2回をeraChangeCountに算入。載記中に他の改元記事は見られない（建初は姚萇の死まで継続、以後の改元は後継者の姚興による）。"
+      },
+      "amnestyCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": "0384",
+            "datePrecision": "year",
+            "note": "太元九年、大将軍・大単于・万年秦王を自称した際に「大赦境内」（境内に大赦す）と明記。年号を白雀と建元。",
+            "source": {
+              "page": "晉書 巻116 姚萇載記",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0386",
+            "datePrecision": "year",
+            "note": "太元十一年、長安で皇帝に即位した際に「大赦」と明記。年号を建初に改元。",
+            "source": {
+              "page": "晉書 巻116 姚萇載記",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "「大赦」と明記された記事は2件（384年の万年秦王自立時、386年の皇帝即位時）。同載記中盤の「除妖謗之言及赦前姦穢」（赦前の意）は新規の全国規模大赦の明記ではないため不採用。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0386",
+            "datePrecision": "year",
+            "note": "太元十一年、皇帝即位に伴い妻の虵氏（蛇氏）を皇后に立てたと明記（「立妻虵氏為皇后」）。",
+            "source": {
+              "page": "晉書 巻116 姚萇載記",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "立后は1回のみ確認。廃后・再冊立の記載なし。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "386年皇帝即位時に子の姚興を皇太子に立てた記事（立太子）はあるが、廃立の記載は載記中に見られない。姚興はそのまま姚萇の死後に後継した。"
+      },
+      "ages": {
+        "birthDatePrecision": null,
+        "deathDate": "0393",
+        "deathDatePrecision": "year",
+        "deathAge": 64,
+        "confidence": "high",
+        "note": "「以太元十八年死，時年六十四，在位八年。」享年64（数え）と明記。即位時年齢の記載はなし。太元十八年は西暦393年（晋書本文の表記に従う。データセット既存値の394年とは1年のずれがあるが、原文の年号表記をそのまま採用）。（2026-07-21 ages日付ISO正規化: deathDate「太元十八年(393年)」→0393（年精度）。）"
+      },
+      "personalCampaignCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "宋方の軍を貳県で撃破、新平を包囲・攻略（抵抗した守将苟輔らを降伏後に生き埋め）、安定を攻略。最終的に部将呉忠に命じて五将山に逃れた苻堅を捕らえさせ、太元十年八月（385年）に弑殺した。",
+            "note": "太元九年（384年）四月頃、万年秦王・大単于を自称した直後からの一連の対苻堅（前秦本宗）戦役。同年、苻堅自身も反撃のため趙氏坞に親征し姚萇軍を追い詰めたが、大雨に助けられ姚萇側が持ちこたえた（『資治通鑑』太元九年条）。討伐の一部（新平攻略・苻堅捕縛）は部将に委ねられたが、萇自身も貳県での宋方撃破・七万の兵を率いた楊璧撃破など要所で親征しているため一連の親征として1件に計上した。",
+            "startDate": "0384-01-01",
+            "endDate": "0385-12-31",
+            "datePrecision": "year",
+            "target": "苻堅（前秦）"
+          },
+          {
+            "outcome": "馬嵬に拠った扶風王驎を撃破（驎は漢中へ敗走）、郝奴の弟・多を捕らえて長安に迫ると、郝奴は畏れて降伏した。これにより長安を確保し、同年（太元十一年）長安で皇帝に即位する基盤を得た。",
+            "note": "苻堅死後、長安を占拠していた慕容沖が東方へ去った隙に自立した割拠勢力に対する親征（『晋書』姚萇載記・『資治通鑑』太元十一年四月条）。",
+            "startDate": "0386-04-01",
+            "endDate": "0386-04-30",
+            "datePrecision": "month",
+            "target": "盧水胡郝奴・扶風王驎（関中割拠勢力）"
+          },
+          {
+            "outcome": "太元十一年（386年）の苻登即位直後から崩御直前（太元十八年十月）まで一進一退の攻防を継続。載記に「登と相持すること積年、しばしば登に敗れる」とあるほど苦戦した局面もあり（胡奴阜の戦いで矢を受け重傷）、大界の奇襲・安定城東の大勝等で優位に立つ場面もあった。最終的な苻登討滅は果たせぬまま崩御し、後継の姚興に持ち越された。",
+            "note": "苻登本人および一時服属・離反を繰り返した前秦系勢力（秦州刺史王統・平涼の匈奴金熙・鮮卑没奕于等）との継続的抗争をまとめて1件として計上。対等な独立政権同士の統一戦争にあたるため反乱鎮圧・被反乱には含めない。",
+            "startDate": "0386-01-01",
+            "endDate": "0393-10-01",
+            "datePrecision": "year",
+            "target": "苻登（前秦後継政権）"
+          },
+          {
+            "outcome": "自ら精兵約1600を率いて出陣し、部将王超・譚亮らに命じて魏掲飛の軍を撃破・斬首（首級一万余）、雷悪地は再度降伏した。",
+            "note": "反乱鎮圧回数の同名事案（雷悪地の反乱）と同一事象。萇本人が現地（杏城方面）に赴いたため親征としても計上した。",
+            "startDate": "0390-04-01",
+            "endDate": "0390-04-30",
+            "datePrecision": "month",
+            "target": "魏掲飛・雷悪地"
+          }
+        ],
+        "note": "在位期間全体（太元九年〔384年〕の万年秦王自立から太元十八年〔393年〕崩御まで）を対象に集計。対苻登戦は数年にわたる断続的抗争のため『同一目的の継続』として1件にまとめており、この点は解釈の幅がある。",
+        "count": 4
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "長安争奪戦の混乱期（太元十年〔385年〕頃）に私兵5000ずつを擁して自衛していた徐嵩・胡空は、いったん後秦の官爵を受けて服属したが、苻登が接近すると寝返って降伏し、登から雍州刺史・京兆尹に任じられた。後に部将姚方成が徐嵩の砦を攻略し、徐嵩を捕らえて処刑、その兵を生き埋めにした（『資治通鑑』太元十一〜十二年条。『晋書』載記には未記載）。萇本人は出陣せず部将による鎮圧のため親征には含めない。",
+            "outcome": "鎮圧成功（徐嵩を捕縛・処刑、その部曲を生き埋め）",
+            "name": "徐嵩・胡空の離反（苻登への帰順）",
+            "startDate": "0386-01-01",
+            "endDate": "0387-12-31",
+            "datePrecision": "year",
+            "leader": "徐嵩・胡空"
+          },
+          {
+            "note": "雷悪地は太元十四年（389年）十二月に一旦後秦に降り鎮軍将軍に任じられていたが、太元十五年（390年）四月、なお前秦（苻登）の鎮東将軍だった魏掲飛の挙兵に呼応して離反し、後秦の安北将軍姚当城（杏城）・鎮東将軍姚汉得（李潤）を攻撃した。萇自ら精兵を率いて赴き鎮圧した。",
+            "outcome": "鎮圧成功（掲飛斬首、悪地は再度降伏）",
+            "name": "魏掲飛・雷悪地の反乱",
+            "startDate": "0390-04-01",
+            "endDate": "0390-04-30",
+            "datePrecision": "month",
+            "leader": "魏掲飛・雷悪地"
+          },
+          {
+            "note": "太元十五年（390年）七月、馮翊の郭質が挙兵し「姚萇凶虐」を掲げて三輔に檄を飛ばし、三輔の砦の多くが呼応した（郑県の苟曜のみ従わず後秦側に付いた）。同年十二月、苟曜が郑県東で郭質を撃破し、質は洛陽へ敗走した。萇本人は出陣せず部将（苟曜）による鎮圧のため親征には含めない。",
+            "outcome": "鎮圧成功（郭質は敗れて洛陽へ逃亡）",
+            "name": "郭質の反乱（馮翊・三輔の蜂起）",
+            "startDate": "0390-07-01",
+            "endDate": "0390-12-31",
+            "datePrecision": "month",
+            "leader": "郭質"
+          },
+          {
+            "note": "郭質の乱鎮圧の功で予州刺史に任じられた苟曜が、太元十六年（391年）に密かに苻登に内応。五月、馬頭原の戦いで萇自ら迎撃したが当初は苻登に敗れ右将軍呉忠を失った。萇は軍を立て直して反撃し苻登を大破、登は郿へ退いた。その後萇は長安の太子姚興に『苟曜が来たら捕らえて誅殺せよ』と命じ、苟曜は長安で誅殺された。",
+            "outcome": "鎮圧成功（当初は敗れるも立て直して大破し、後に長安で誘殺）",
+            "name": "苟曜の反乱（苻登への内応）",
+            "startDate": "0391-01-01",
+            "endDate": "0391-12-31",
+            "datePrecision": "year",
+            "leader": "苟曜"
+          }
+        ],
+        "note": "対苻登・苻堅本宗との抗争（対等な独立政権同士の統一戦争）は反乱に含めず、一旦服属した者の離反・服属民の蜂起のみを反乱として計上した。徐嵩・胡空の件は『資治通鑑』のみに記載があり日付の比定に幅がある。",
+        "count": 4
+      },
+      "rebellionSufferedCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "rebellionSuppressionCountと同一事象。いったん後秦の官爵を受けて服属した後、苻登の接近を機に寝返った服属民の反乱として計上。",
+            "outcome": "後秦から離反し苻登に帰順したが、最終的に部将姚方成に捕縛・処刑された",
+            "name": "徐嵩・胡空の離反（苻登への帰順）",
+            "startDate": "0386-01-01",
+            "endDate": "0387-12-31",
+            "datePrecision": "year",
+            "leader": "徐嵩・胡空"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。雷悪地は一旦後秦に服属した将であり服属民の反乱として計上。",
+            "outcome": "後秦の安北将軍・鎮東将軍の拠点を攻撃したが、萇の親征により鎮圧された",
+            "name": "魏掲飛・雷悪地の反乱",
+            "startDate": "0390-04-01",
+            "endDate": "0390-04-30",
+            "datePrecision": "month",
+            "leader": "魏掲飛・雷悪地"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。後秦統治下の馮翊・三輔住民による蜂起として計上。",
+            "outcome": "馮翊・三輔の広範な地域が呼応する大規模な反乱となったが、苟曜により鎮圧された",
+            "name": "郭質の反乱（馮翊・三輔の蜂起）",
+            "startDate": "0390-07-01",
+            "endDate": "0390-12-31",
+            "datePrecision": "month",
+            "leader": "郭質"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。萇自ら任じた予州刺史の内部者による裏切りとして計上。",
+            "outcome": "萇自身が緒戦で敗れ将軍呉忠を失う被害を受けたが、立て直して鎮圧・誅殺した",
+            "name": "苟曜の反乱（苻登への内応）",
+            "startDate": "0391-01-01",
+            "endDate": "0391-12-31",
+            "datePrecision": "year",
+            "leader": "苟曜"
+          },
+          {
+            "note": "太元十七年（392年）、関中に居住していた巴蜀出身の民が後秦に叛き、弘農に拠って苻登側に帰順した（『資治通鑑』太元十七年条）。その後は東晋軍（郗恢配下）が苻登配下の竇沖を弘農周辺で攻撃した記録があるのみで、後秦（姚萇）側による鎮圧記事は太元十八年の崩御までに見当たらないため、未鎮圧のまま在位終了のケースとしてrebellionSufferedCountのみに計上した（rebellionSuppressionCountには含めない）。",
+            "outcome": "未鎮圧のまま姚萇は崩御（弘農は後秦の統制から外れたまま推移）",
+            "name": "関中巴蜀人の離反",
+            "startDate": "0392-01-01",
+            "endDate": null,
+            "datePrecision": "year",
+            "leader": "巴蜀人（関中在住）"
+          }
+        ],
+        "note": "rebellionSuppressionCountの4件全てに加え、崩御までに後秦側の鎮圧記事が確認できなかった関中巴蜀人の離反（392年）を未鎮圧のまま在位終了のケースとして追加計上した。",
+        "count": 5
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。姚萇の長安（常安）定都（建国時の定都）から417年の劉裕による滅亡まで長安が一貫した都。"
+      }
+    },
+    {
+      "id": "houqin-yaoxing",
+      "name": {
+        "personalName": "姚興",
+        "commonName": "文桓帝",
+        "aliases": [],
+        "posthumousName": "文桓帝",
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "後秦",
+        "category": "並立政権",
+        "section": "後秦"
+      },
+      "reigns": [
+        {
+          "startYear": 394,
+          "endYear": 399,
+          "dynastyOrder": 2,
+          "isRestoration": false,
+          "note": "父姚萇の死を受け皇帝に即位。399年、天体の異変を理由に自ら『皇帝』号を『天王』に変更し在位継続。",
+          "raw": "394年 - 399年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": null,
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "year",
+            "end": "year"
+          },
+          "duration": {
+            "value": 1826,
+            "unit": "day",
+            "approxDays": 1826,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百十七 載記第十七（姚興上）",
+              "lang": "zh-classical",
+              "quote": "太元十九年，僭即帝位於槐里，大赦境內，改元曰皇初，遂如安定。／興以日月薄蝕，災眚屢見，降號稱王……乃遣旻告於社稷宗廟，大赦，改元弘始。",
+              "conversion": "太元十九年=394年（既存startYearと一致）。降号・改元弘始は資治通鑑の干支から399年と確定（既存endYear=399と一致）。変更なし。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 1826,
+          "displayYears": 5.0,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 394,
+        "lastEndYear": 399,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 394
+      },
+      "sources": {
+        "wikidata": "Q1149160",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "後秦皇帝。文桓帝。"
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "父・姚萇の死去に際し一旦喪を秘匿し政権基盤を固めた上で対立勢力の苻登を討伐、太元19年（394年）に正式に皇帝位を継承（「僭即帝位于槐里」）。父から子への世襲。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書/卷117 姚興載記上",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "晩年、皇太子泓を廃し寵愛する子・姚弼を立てようとする動きの中で長期の病臥（「興寢疾」「興疾篤」等）を繰り返し、姚弼を賜死させた後、義熙12年（416年）51歳で死去。暗殺・処刑された記述はない。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書/卷118 姚興載記下",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "eraChangeCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": "0394",
+            "datePrecision": "year",
+            "note": "太元十九年（394年）、槐里で即位（僭即帝位）し「改元曰皇初」。即位に伴う最初の建元。",
+            "source": {
+              "page": "晋書載記第十七 姚興上",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0399",
+            "datePrecision": "year",
+            "note": "洛陽陥落後、日月薄蝕・災眚を理由に皇帝号を下げ王と称し、「改元弘始」。安帝紀の隆安三年（399年）冬十月「姚興陥洛陽」の記事と時期的に対応。",
+            "source": {
+              "page": "晋書載記第十七 姚興上",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "原文中「改元」の明記は2箇所のみ（載記第十七・第十八の全範囲でgrep確認）。皇初（394-399）→弘始（399-416、崩御まで継続）の2元号。"
+      },
+      "amnestyCount": {
+        "count": 4,
+        "events": [
+          {
+            "date": "0394",
+            "datePrecision": "year",
+            "note": "太元十九年（394年）、槐里にて即位（僭即帝位）した際に「大赦境内」、元号を皇初と改元。",
+            "source": {
+              "page": "晋書載記第十七 姚興上",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0399",
+            "datePrecision": "year",
+            "note": "洛陽陥落（安帝紀隆安三年冬十月条と対応）後、皇帝号を下げて王と称し「大赦」、弘始と改元。",
+            "source": {
+              "page": "晋書載記第十七 姚興上",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "子の泓を皇太子に立てた際「大赦境内，賜男子為父後者爵一級」。魏討伐（柴壁の戦い、402年頃）の準備記事の直前に位置するが原文に年次記載なし。",
+            "source": {
+              "page": "晋書載記第十七 姚興上",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "杜郵から羊牧まで大閲兵を行い、姚碩徳の来朝に際し「大赦其境内」。原文に年次記載なし（仇池遠征・後の桓玄滅亡記事の間に位置し、おおよそ404年前後と推測されるが確定できない）。",
+            "source": {
+              "page": "晋書載記第十七 姚興上",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "「大赦」と明記された全国規模の恩赦のみを抽出。載記第十七・第十八の全範囲（巻8349〜8469行）をgrep確認し、他に該当箇所なし。"
+      },
+      "empressInstallationCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "「興立其昭儀張氏為皇后」。桓玄政変関連記事（403年頃）の直後に位置するが原文に年次記載なし。",
+            "source": {
+              "page": "晋書載記第十七 姚興上",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "「興立昭儀斉氏為皇后」。楊佛嵩の戦死記事の後に位置し、在位後半（410年前後か）と推測されるが原文に年次記載なし。前皇后張氏の廃位・死去についての記載は原文になく、経緯不明のまま新たな立后が記される。",
+            "source": {
+              "page": "晋書載記第十八 姚興下",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "「立...為皇后」の明記を2件確認。1件目（張氏）と2件目（斉氏）の間に廃后や皇后崩御の記載は見当たらないため、再冊立か新規冊立かは原文からは判断不可。ともに正式冊立としてカウント。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "太子泓（後の姚泓）は在位中一貫して皇太子の地位を保持。弟の広平公姚弼が太子の地位を狙い（奪嫡の謀）、群臣が繰り返し弼の処断・太子廃立回避を進言する記事（巻8434〜8464行）が続くが、姚興は最終的に太子泓を廃することなく、むしろ弼を処罰する側に回った。よって皇太子廃立は0件。"
+      },
+      "ages": {
+        "birthDatePrecision": null,
+        "deathDate": "0416-03",
+        "deathDatePrecision": "month",
+        "deathAge": 51,
+        "confidence": "high",
+        "note": "『晋書』載記第十八末尾（巻8464行付近）に「義熙十二年，興死，時年五十一，在位二十二年」と明記。安帝紀（巻8418行付近）に「二月丁未，姚興死」とあり、月日まで特定できる。即位時年齢・生年月日は原文に直接の記載なし（計算は可能だが原文非記載のため記録せず）。太元十九年（394年）即位、在位22年は義熙十二年（416年）没と整合。（2026-07-21 ages日付ISO正規化: deathDate「義熙十二年二月丁未（416年）」→0416-03、precision day→month。安帝紀「二月丁未，姚興死」の丁未はsxtwl暦表の旧暦2月（太陽暦0416-03-15〜04-12）内に存在しない（0416-03-13=sxtwl旧暦1月29日が丁未。東晋暦〔平朔〕とsxtwl〔定朔〕の朔差とみられる）。日次確定不能のため月精度へ保守的に格下げし、旧暦2月の太陽暦多数月3月を採用。）"
+      },
+      "personalCampaignCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "父姚萇の死後、自ら精鋭騎兵を率いて苻登軍を大破（渇死者十二三）、登は雍へ敗走。即位後さらに安定から泾陽に進軍し山南で苻登を斬殺、前秦は滅亡した。",
+            "note": "父の喪を秘匿したまま軍を率いており、即位（太元十九年＝394年）前後にまたがる一連の親征として1回に計上。途上、咸陽太守劉忌奴の離反（拠避世堡以叛）も興自らが急襲し捕縛している。",
+            "startDate": "0393-01-01",
+            "endDate": "0394-12-31",
+            "datePrecision": "year",
+            "target": "苻登（前秦残存政権）"
+          },
+          {
+            "outcome": "自ら諸将を率いて武功に進軍。楊多は兄の子・良国に殺され部衆は降伏、竇沖は汧川に逃れるも氐族の仇高に捕らえられ送還された。",
+            "note": "反乱鎮圧回数にも計上（強熙・楊多・竇沖の乱）。",
+            "startDate": "0394-01-01",
+            "endDate": "0394-12-31",
+            "datePrecision": "year",
+            "target": "強熙・楊多・竇沖（自立を図った後秦の将軍ら）"
+          },
+          {
+            "outcome": "自ら歩騎二万を率いて討伐。薛勃は恐れて没奕于のもとへ逃げ込んだが、没奕于に捕らえられ興のもとへ送還された。",
+            "note": "反乱鎮圧回数にも計上。なお同名の薛勃による最初の反乱（魏軍撃退直後の再叛）は姚崇が鎮圧しており興は出陣していないため、親征としては別事象（後者のみ計上）。年代は興の母虵氏死去の記事の後に位置することから推定（低確度）。",
+            "startDate": "0397-01-01",
+            "endDate": "0397-12-31",
+            "datePrecision": "year",
+            "target": "鮮卑薛勃（二度目の大規模反乱、上郡・弐川の雑胡も呼応）"
+          },
+          {
+            "outcome": "自ら軍を率いて湖城に進軍、弘農太守・華山太守が降伏。さらに陝城を経て上洛を攻略した。",
+            "note": "改元弘始（399年）直前の記事として推定。洛陽攻略自体は姚崇・楊佛嵩の派遣によるもので親征に含めていない。",
+            "startDate": "0398-01-01",
+            "endDate": "0399-06-30",
+            "datePrecision": "year",
+            "target": "東晋（弘農・陝城・上洛）"
+          },
+          {
+            "outcome": "姚碩德の隴右方面軍を後方から自ら支援（潜軍赴之）。乾帰は敗走し部衆三万六千が投降、鎧馬六万匹を獲得した。",
+            "note": "この時点の乞伏乾帰は後秦にまだ服属しておらず独立政権との交戦のため、反乱鎮圧回数には含めない（後に乾帰が服属した後、再度離反した事件は別途反乱として計上）。",
+            "startDate": "0400-01-01",
+            "endDate": "0400-12-31",
+            "datePrecision": "year",
+            "target": "乞伏乾帰（西秦、当時は独立政権）"
+          },
+          {
+            "outcome": "姚平ら先鋒を派遣した上で自ら4万7千の軍を率いて長安から出陣したが、蒲坂で逡巡し前進しなかった。姚平の軍は柴壁で魏軍に包囲され全滅（姚平は投水自殺、狄伯支ら十将・四万余人が魏軍の捕虜となる大敗）。魏軍がさらに蒲坂を攻めるも姚緒が守り抜き魏軍は撤退した。",
+            "note": "いわゆる柴壁の戦い。北魏は独立政権のため反乱鎮圧回数には含めない。",
+            "startDate": "0402-01-01",
+            "endDate": "0402-12-31",
+            "datePrecision": "year",
+            "target": "北魏"
+          },
+          {
+            "outcome": "貳城に赴いて討伐しようとしたところ勃勃の騎兵に急襲されたが、姚文宗・斉莫が力戦して撃退に成功した。",
+            "note": "赫連勃勃の自立（没奕于殺害・以叛）は407年頃とされる。反乱鎮圧回数にも計上（一連の赫連勃勃の乱として集約）。",
+            "startDate": "0407-01-01",
+            "endDate": "0408-12-31",
+            "datePrecision": "year",
+            "target": "赫連勃勃（旧配下の没奕于を殺して自立した夏国）"
+          },
+          {
+            "outcome": "貳城に赴いて平涼を救援、胡金纂の軍を大破し生擒した。ただし勃勃の甥・提が定陽を陥落させ略陽太守も敗走するなど被害が拡大し、興自ら安定から追撃したが追いつけず撤退した。",
+            "note": "反乱鎮圧回数は赫連勃勃の乱として1件に集約（本項目は親征としては別出陣のためカウント）。",
+            "startDate": "0409-01-01",
+            "endDate": "0410-12-31",
+            "datePrecision": "year",
+            "target": "赫連勃勃配下の胡金纂ほか（平涼方面）"
+          },
+          {
+            "outcome": "姚弼を杏城救援に派遣したが間に合わず杏城が陥落。興自身は北地まで出陣したが直接交戦はせず長安に帰還した。",
+            "note": "終盤の事件のため年代は推定（司馬休之来奔記事の後、姚弼政変の前）。",
+            "startDate": "0415-01-01",
+            "endDate": "0415-12-31",
+            "datePrecision": "year",
+            "target": "赫連勃勃（杏城方面）"
+          },
+          {
+            "outcome": "病身を押して自ら討伐に赴き、仇常を斬り李弘を捕らえて凱旋した。",
+            "note": "興の崩御（416年）直前の重篤な発病期の出来事として記される。反乱鎮圧回数にも計上。",
+            "startDate": "0415-01-01",
+            "endDate": "0416-06-30",
+            "datePrecision": "year",
+            "target": "妖賊李弘・氐仇常（貳原の反乱）"
+          },
+          {
+            "outcome": "自ら軽騎五千を率いて陇口で諸将と合流したが、味方の楊伯寿が楊盛に敗退したため、伯寿を斬って撤退した。鎮圧は失敗に終わった。",
+            "note": "反乱鎮圧回数にも計上（楊盛の乱・第二次、鎮圧失敗）。楊盛の最初の反乱（姚碩德らによる鎮圧、請降）は非親征のため personalCampaignCount には含めていない。",
+            "startDate": "0415-01-01",
+            "endDate": "0416-06-30",
+            "datePrecision": "year",
+            "target": "仇池公楊盛"
+          }
+        ],
+        "note": "『晋書』載記第十七・十八（姚興上・下）を通読し、「兴自将」「兴率」「兴自」「兴如」「兴舆疾」等、興本人の出陣が明記された軍事行動のみを親征として計上した。将軍への派遣のみ（例：使姚崇寇洛陽、遣杨佛嵩攻洛陽、使姚碩德伐仇池等）は除外。赫連勃勃（夏）に対しては407年の自立以降、複数回にわたり個別の出陣が記録されており、各出陣の間に他の事件（乞伏乾帰の乱・姚弼の政変等）が挟まり時間的間隔があるため、同一相手でも別カウントとした（本文指示『年を空けて同じ相手に再度出征したら別カウント』に準拠）。多くの中盤〜終盤の事件には明確な年号記載がなく、載記内の記述順序と柴壁の戦い(402年、北魏本紀等で確認可能)・赫連勃勃自立(407年)等の既知の史実を手がかりに年代を推定した（precision=yearだが推定幅あり、要継続確認）。",
+        "count": 11
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "興即位（394年）直後の内部反乱。",
+            "outcome": "成功。興自ら諸将を率いて武功に進軍し、楊多は兄の子・良国に殺され部衆は降伏、竇沖は汧川で氐族の仇高に捕らえられ送還された。",
+            "name": "強熙・楊多・竇沖の乱",
+            "startDate": "0394-01-01",
+            "endDate": "0394-12-31",
+            "datePrecision": "year",
+            "leader": "強熙・楊多（後秦の将軍）、盟主に推された竇沖"
+          },
+          {
+            "note": "興は出陣していない（姚崇の派遣）。魏軍撃退直後の再叛。",
+            "outcome": "成功。姚崇が討伐し捕らえ、その士馬を接収した。",
+            "name": "鮮卑薛勃の乱（初回）",
+            "startDate": "0394-01-01",
+            "endDate": "0396-12-31",
+            "datePrecision": "year",
+            "leader": "薛勃"
+          },
+          {
+            "note": "親征回数にも計上。",
+            "outcome": "成功。興自ら歩騎二万を率いて討伐し、勃は没奕于に捕らえられ送還された。",
+            "name": "鮮卑薛勃の乱（二回目・大規模、上郡・弐川の雑胡も呼応）",
+            "startDate": "0397-01-01",
+            "endDate": "0397-12-31",
+            "datePrecision": "year",
+            "leader": "薛勃"
+          },
+          {
+            "note": "興は出陣していない。陇東太守姚回を殺害し方山に拠って叛いた事件。",
+            "outcome": "成功。姚紹らを派遣し屠飛・啖鉄を斬殺した。",
+            "name": "武都氐・屠飛・啖鉄の乱",
+            "startDate": "0399-01-01",
+            "endDate": "0400-12-31",
+            "datePrecision": "year",
+            "leader": "屠飛・啖鉄"
+          },
+          {
+            "note": "旧配下の没奕于配下の部族長だった赫連勃勃が没奕于を殺害し自立した反乱。複数年・複数地域にわたる一連の攻防を首謀者が同一のため1件に集約（親征回数では出陣ごとに個別計上）。",
+            "outcome": "未完・実質失敗。貳城への急襲は姚文宗らが撃退し、平涼救援では部将胡金纂を捕らえる戦果を挙げたが、定陽・杏城など各地で敗北・陥落を許し、興の崩御（416年）まで完全に鎮圧できなかった。勃勃はその後も独立国「夏」として存続し、興の子・姚泓の代（417年）に長安を陥落させ後秦を滅ぼした。",
+            "name": "赫連勃勃（夏）の乱",
+            "startDate": "0407-01-01",
+            "endDate": "0416-08-01",
+            "datePrecision": "year",
+            "leader": "赫連勃勃"
+          },
+          {
+            "note": "興は出陣していない。年代は明確な年号記載がなく推定（低確度）。",
+            "outcome": "失敗（少なくとも当初は）。興が派遣した敛成が羌に敗れ、敛成は罪を恐れて赫連勃勃のもとへ出奔した。反乱そのもののその後の帰趨は原文に明記なし。",
+            "name": "貳県羌の乱",
+            "startDate": "0411-01-01",
+            "endDate": "0412-12-31",
+            "datePrecision": "year",
+            "leader": "貳県の羌族（首謀者名不詳）"
+          },
+          {
+            "note": "興は出陣していない。阴密に南下して民を劫掠したことに対する鎮圧。年代は推定（低確度）。",
+            "outcome": "成功。姚弼が亭地を捕らえて送還し、その部下七百余人を殺害、二千余戸を鄭城に移した。",
+            "name": "遼東侯・弥姐亭地の乱",
+            "startDate": "0412-01-01",
+            "endDate": "0413-12-31",
+            "datePrecision": "year",
+            "leader": "弥姐亭地（遼東侯）"
+          },
+          {
+            "note": "親征回数にも計上。",
+            "outcome": "成功。興が病身を押して自ら討伐し、仇常を斬り李弘を捕らえた。",
+            "name": "妖賊李弘・氐仇常の乱（貳原）",
+            "startDate": "0415-01-01",
+            "endDate": "0416-06-30",
+            "datePrecision": "year",
+            "leader": "李弘・仇常"
+          },
+          {
+            "note": "興は出陣していない。楊盛は394年頃に一度自発的に服属していたが、その後離反したため反乱として計上。年代は推定。",
+            "outcome": "成功。姚碩德・姚敛成・姚寿都らが仇池に進軍し、楊盛は請降して子の難当らを人質に差し出した。",
+            "name": "仇池公・楊盛の乱（第一次）",
+            "startDate": "0399-01-01",
+            "endDate": "0406-12-31",
+            "datePrecision": "year",
+            "leader": "楊盛"
+          },
+          {
+            "note": "親征回数にも計上。",
+            "outcome": "失敗。興自ら軽騎を率いて陇口まで出陣したが、味方の楊伯寿が楊盛に敗れ、興は伯寿を斬って撤退した。",
+            "name": "仇池公・楊盛の乱（第二次）",
+            "startDate": "0415-01-01",
+            "endDate": "0416-06-30",
+            "datePrecision": "year",
+            "leader": "楊盛"
+          },
+          {
+            "note": "太子泓の廃立を狙う姚弼の数年越しの動きが、興の末期の病に乗じた武装蜂起にまで発展した事件。鎮圧の主体は興側（禁兵・東宮兵）であり、興が病死したのはこの武力衝突による殺害ではなく持病の悪化によるため、弑逆クーデター成功のケース（除外規定4）には該当しない。",
+            "outcome": "成功（鎮圧）。興が重病の間に姚弼が数千の兵を私邸に集めるなど権力奪取を図り、興の崩御直前には弟の姚愔が甲士を率いて宮門を攻撃・放火したが、興は病身ながら前殿に出て禁兵を指揮し撃退。姚弼は賜死、姚愔は敗走して驪山に逃亡した。興は反乱鎮圧直後、義熙十二年（416年）に病没した。",
+            "name": "姚弼（広平公）・姚愔のクーデター未遂",
+            "startDate": "0413-01-01",
+            "endDate": "0416-08-01",
+            "datePrecision": "year",
+            "leader": "姚弼（興の子）、最終的な武装蜂起の実行者は弟の姚愔"
+          }
+        ],
+        "note": "皇帝側（後秦）が鎮圧の主体だった事件を計上。成功・失敗を問わずカウントし、結末をnoteに記した。赫連勃勃（夏）は既に高位の称号を与えられた旧配下（没奕于配下の匈奴部族長）が主君を殺して自立した反乱と判断し、その後の対夏戦争全体を1件の反乱として集約した（複数の局地戦は反乱鎮圧回数としては1件だが、親征回数では出陣ごとに個別計上）。乞伏乾帰の再叛（金城陥落）は興が軍事的鎮圧行動を一切取らず乾帰の自発的謝罪降伏のみで収束したため、鎮圧回数には含めず被反乱回数のみに計上した（詳細はrebellionSufferedCount側のnote参照）。",
+        "count": 11
+      },
+      "rebellionSufferedCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "rebellionSuppressionCountと同一事象。",
+            "outcome": "興自ら鎮圧に成功。",
+            "name": "強熙・楊多・竇沖の乱",
+            "startDate": "0394-01-01",
+            "endDate": "0394-12-31",
+            "datePrecision": "year",
+            "leader": "強熙・楊多・竇沖"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。",
+            "outcome": "姚崇により鎮圧成功。",
+            "name": "鮮卑薛勃の乱（初回）",
+            "startDate": "0394-01-01",
+            "endDate": "0396-12-31",
+            "datePrecision": "year",
+            "leader": "薛勃"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。",
+            "outcome": "興自ら鎮圧に成功。",
+            "name": "鮮卑薛勃の乱（二回目・大規模）",
+            "startDate": "0397-01-01",
+            "endDate": "0397-12-31",
+            "datePrecision": "year",
+            "leader": "薛勃"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。",
+            "outcome": "姚紹により鎮圧成功。",
+            "name": "武都氐・屠飛・啖鉄の乱",
+            "startDate": "0399-01-01",
+            "endDate": "0400-12-31",
+            "datePrecision": "year",
+            "leader": "屠飛・啖鉄"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。",
+            "outcome": "興の在位中は完全鎮圧できず、興の死後まもなく夏が後秦を滅ぼした。",
+            "name": "赫連勃勃（夏）の乱",
+            "startDate": "0407-01-01",
+            "endDate": "0416-08-01",
+            "datePrecision": "year",
+            "leader": "赫連勃勃"
+          },
+          {
+            "note": "rebellionSuppressionCountには含めていない（後秦側の鎮圧行動が皆無だったため）。乾帰は以前一度服属し官爵（鎮遠将軍・河州刺史）を受けていた後の再叛であり『服属民の反乱』に該当する。",
+            "outcome": "興側による軍事的鎮圧行動は取られず、乾帰が金城を陥落させ太守任蘭を殺した後、赫連勃勃の脅威を優先した興は乾帰を放置。乾帰は自発的に謝罪・降伏し、興はその官爵を仮に認めて事態を収拾した。乾帰はその後まもなく部下に殺害された。",
+            "name": "乞伏乾帰の再叛",
+            "startDate": "0410-01-01",
+            "endDate": "0410-12-31",
+            "datePrecision": "year",
+            "leader": "乞伏乾帰"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。",
+            "outcome": "興が派遣した敛成が羌に敗北。反乱自体のその後の帰趨は原文に明記なし。",
+            "name": "貳県羌の乱",
+            "startDate": "0411-01-01",
+            "endDate": "0412-12-31",
+            "datePrecision": "year",
+            "leader": "貳県の羌族（首謀者名不詳）"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。",
+            "outcome": "姚弼により鎮圧成功。",
+            "name": "遼東侯・弥姐亭地の乱",
+            "startDate": "0412-01-01",
+            "endDate": "0413-12-31",
+            "datePrecision": "year",
+            "leader": "弥姐亭地"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。",
+            "outcome": "興自ら鎮圧に成功。",
+            "name": "妖賊李弘・氐仇常の乱",
+            "startDate": "0415-01-01",
+            "endDate": "0416-06-30",
+            "datePrecision": "year",
+            "leader": "李弘・仇常"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。",
+            "outcome": "姚碩德らにより鎮圧成功、楊盛は請降。",
+            "name": "仇池公・楊盛の乱（第一次）",
+            "startDate": "0399-01-01",
+            "endDate": "0406-12-31",
+            "datePrecision": "year",
+            "leader": "楊盛"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。",
+            "outcome": "興自ら出陣するも味方が敗れ、鎮圧失敗。",
+            "name": "仇池公・楊盛の乱（第二次）",
+            "startDate": "0415-01-01",
+            "endDate": "0416-06-30",
+            "datePrecision": "year",
+            "leader": "楊盛"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象。",
+            "outcome": "興側が最終的に鎮圧に成功したが、興崩御の直前に武装蜂起にまで至った深刻な政変だった。",
+            "name": "姚弼（広平公）・姚愔のクーデター未遂",
+            "startDate": "0413-01-01",
+            "endDate": "0416-08-01",
+            "datePrecision": "year",
+            "leader": "姚弼・姚愔"
+          }
+        ],
+        "note": "rebellionSuppressionCountの11件すべてに加え、乞伏乾帰の再叛（服属後に金城を陥落させた事件）を追加した。この事件は興が軍事的鎮圧行動を一度も起こさず、赫連勃勃への対応を優先して乾帰の自発的な謝罪・降伏をそのまま受け入れて収束したため、rebellionSuppressionCountには計上していない（鎮圧行動が一切着手されなかったケースであり、本文の除外理由2『未鎮圧のまま在位終了』に準ずる扱いとした。乾帰の乱自体は興の在位終了前に収束しているが、後秦側からの軍事的鎮圧行動が皆無だった点で同種の非対称性と判断）。",
+        "count": 12
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。姚萇の長安（常安）定都（建国時の定都）から417年の劉裕による滅亡まで長安が一貫した都。"
+      }
+    },
+    {
+      "id": "houqin-yaohong",
+      "name": {
+        "personalName": "姚泓",
+        "commonName": "姚泓",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "後秦",
+        "category": "並立政権",
+        "section": "後秦"
+      },
+      "reigns": [
+        {
+          "startYear": 416,
+          "endYear": 417,
+          "dynastyOrder": 3,
+          "isRestoration": false,
+          "note": "父姚興の死を受け皇帝に即位。東晋の劉裕に敗れ建康で処刑、後秦滅亡。",
+          "raw": "416年 - 417年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": null,
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "year",
+            "end": "year"
+          },
+          "duration": {
+            "value": 366,
+            "unit": "day",
+            "approxDays": 366,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百十九 載記第十九（姚泓）",
+              "lang": "zh-classical",
+              "quote": "泓發喪，以義熙十二年僭即帝位，大赦殊死已下，改元永和，廬於諮議堂。／送泓於建康市斬之，時年三十，在位二年。／以安帝義熙十三年而滅。",
+              "conversion": "義熙十二年=416年（既存startYearと一致）。義熙十三年=417年（既存endYearと一致）。416→417年で『在位二年』とも整合。変更なし。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 366,
+          "displayYears": 1.0,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 416,
+        "lastEndYear": 417,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 416
+      },
+      "sources": {
+        "wikidata": "Q1074768",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "後秦皇帝。姚泓。"
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "父・姚興の死後、皇太子の地位を狙う複数の政変（姚愔・尹元の反乱、姚弼の奪嫡の謀）を鎮圧・収拾した上で正嫡の皇太子として正式に帝位を継承（義熙12年・416年）。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書/卷119 姚泓載記",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "deathCause": {
+        "category": "処刑",
+        "note": "東晋・劉裕の北伐で長安が孤立し陥落。妻子とともに劉裕軍に降伏後、建康（現・南京）まで護送され市中で斬首された（「送泓于建康市斬之，時年三十，在位二年」）。征服者による公的処断のため処刑。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書/卷119 姚泓載記",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "year",
+            "note": "「泓发丧，以义熙十二年僭即帝位，大赦殊死已下，改元永和，庐于谘议堂」。義熙十二年（416年）、姚興の喪を発すると同時に帝位に即き、建元（初めての改元）として「永和」に改元した。以後、義熙十三年（417年）に長安陥落・処刑されるまで別の改元記事は見当たらない。",
+            "source": {
+              "page": "晋書載記第十九姚泓",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位約2年間で確認できる改元は即位時の「永和」建元1回のみ。"
+      },
+      "amnestyCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "year",
+            "note": "「泓发丧，以义熙十二年僭即帝位，大赦殊死已下，改元永和」。姚興の死去を秘して喪を発した後、義熙十二年（416年）に即位し、死刑以外の罪を大赦、同時に永和と改元した。",
+            "source": {
+              "page": "晋書載記第十九姚泓",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "「大赦殊死已下」の一件のみ確認。なお前段の「赦其余党」（劉厥の残党を赦す）は反乱者一味に限定した部分的赦免であり、全国規模の大赦とは認められないため含めない。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "載記中に皇后冊立の記載は一切ない。姚泓の在位は義熙十二年（416年）～十三年（417年）の約2年間と短く、晋軍の侵攻・内乱鎮圧に忙殺されており、立后の記録は残っていない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "載記中に姚泓が皇太子（または皇太弟等）を立てて廃したとする記載はない。「皇太子」の語は姚興在世中の泓自身を指す用例（右僕射韋華の発言「皇太子実有恭惠之德」）のみで、泓自身の在位中の立太子・廃太子の記録は見られない。"
+      },
+      "ages": {
+        "birthDatePrecision": null,
+        "deathDatePrecision": null,
+        "deathAge": 30,
+        "confidence": "high",
+        "note": "載記末尾に「送泓于建康市斩之，时年三十，在位二年」とあり、没年齢30歳・在位2年と明記される。生年月日・崩御の具体的な日付・即位時の年齢についての直接記載は見当たらない。"
+      },
+      "personalCampaignCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "長安周辺での防衛戦に自ら出陣したが各地で敗退し、最終的に長安が陥落。妻子と共に降伏し建康に送られ処刑された（後秦滅亡）。",
+            "note": "「泓遣姚裕率步骑八千距之，泓躬将大众继发」との記載で姚泓自身が主力軍を率いて出陣したことが明記される。以後「泓自灞上还军」「泓自逍遥园赴之」等、長安近郊での防衛行動が続いた。開始月日は明確でないため西暦417年4月頃（姚紹戦死・対魏援軍要請の後）〜7月（長安陥落・被虜）と推定。劉裕の遠征自体は義熙12年（416年）8月に開始しているが、姚泓自身が親征した（軍を率いて出陣した）と明記されるのはこの終盤局面。",
+            "startDate": "0417-04",
+            "endDate": "0417-07",
+            "datePrecision": "month",
+            "target": "劉裕（東晋北伐軍）"
+          }
+        ],
+        "note": "劉裕の東晋北伐は対等な独立政権同士の統一戦争にあたるが、指示に従い親征回数には該当すれば計上する扱いとした（鎮圧・被反乱には不算入）。",
+        "count": 1
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "姚興死去直後、秘不発喪の期間中に発生。「南阳公姚愔及大将军尹元等谋为乱，泓皆诛之」。data/emperors.json既存のaccessionRoute記載でもこの一件を「姚愔・尹元の反乱」と位置づけている。",
+            "outcome": "泓（実権掌握中）が両名を誅殺し鎮圧",
+            "name": "南陽公姚愔・大将軍尹元の政変未遂",
+            "startDate": "0416",
+            "endDate": "0416",
+            "datePrecision": "year",
+            "leader": "姚愔・尹元"
+          },
+          {
+            "note": "安定に移住させられていた李閏の羌族を率いて旧地に叛還。姚賛が討ち、降伏後に有力者数百戸を長安へ、残りは李閏へ還した。",
+            "outcome": "姚賛が討伐、党容は降伏",
+            "name": "羌酋党容の離反",
+            "startDate": "0416",
+            "endDate": "0416",
+            "datePrecision": "year",
+            "leader": "党容"
+          },
+          {
+            "note": "「北地太守毛雍据赵氏坞以叛于泓，姚绍讨擒之」。",
+            "outcome": "姚紹が討伐し捕らえた",
+            "name": "北地太守毛雍の反乱",
+            "startDate": "0416",
+            "endDate": "0416",
+            "datePrecision": "year",
+            "leader": "毛雍"
+          },
+          {
+            "note": "姚宣が李閏を放棄し邢望へ南遷した後、残された李閏に羌族が拠って叛乱、姚紹が討破した。姚宣自身は武力衝突なく姚紹へ帰罪・誅殺されたため別事案として不算入。",
+            "outcome": "姚紹が討伐し撃破",
+            "name": "李閏の羌族諸集団の蜂起",
+            "startDate": "0416",
+            "endDate": "0416",
+            "datePrecision": "year",
+            "leader": "不詳（李閏在住の羌族諸集団）"
+          },
+          {
+            "note": "「并州、定阳、贰城胡数万落叛泓，入于平阳...推匈奴曹弘为大单于，所在残掠。征东姚懿自蒲坂讨弘，战于平阳，大破之，执弘」。",
+            "outcome": "征東姚懿が平陽で大破し曹弘を捕らえ長安へ送致",
+            "name": "并州・定陽・貳城胡（曹弘擁立）の反乱",
+            "startDate": "0416",
+            "endDate": "0416",
+            "datePrecision": "year",
+            "leader": "曹弘（推戴した并州・定陽・貳城胡数万落）"
+          },
+          {
+            "note": "「平阳氐苟渴聚众千余，据五丈原以叛，遣镇远姚万、恢武姚难讨之，为渴所败。姚谌讨渴，擒之」。",
+            "outcome": "初戦は敗退したが姚諶が討伐し苟渴を捕らえた",
+            "name": "平陽氐苟渴の蜂起",
+            "startDate": "0416",
+            "endDate": "0417",
+            "datePrecision": "year",
+            "leader": "苟渴"
+          },
+          {
+            "note": "司馬孫暢の勧めで長安襲撃・姚紹誅殺・泓廃立を企図し挙兵僭号。鎮人らが包囲し、姚紹が蒲坂に入って捕らえた。",
+            "outcome": "姚紹が蒲坂で懿を捕縛・幽閉、参謀孫暢らを誅殺し鎮圧",
+            "name": "征東姚懿の反乱（長安襲撃計画・僭号）",
+            "startDate": "0416",
+            "endDate": "0417",
+            "datePrecision": "year",
+            "leader": "姚懿"
+          },
+          {
+            "note": "安定鎮戸3万8千を率いて挙兵し大都督・建義大将軍を自称、長安に迫り「長安大震」の事態となったが最終的に鎮圧された。泓は恢の死を悲しみ公礼で葬った。",
+            "outcome": "姚紹・姚賛が挟撃し大破、姚恢とその弟3人を殺害",
+            "name": "征北姚恢の反乱",
+            "startDate": "0417",
+            "endDate": "0417",
+            "datePrecision": "year",
+            "leader": "姚恢"
+          }
+        ],
+        "note": "各事件とも月日までは史料上特定できず年精度に留まる。姚愔・尹元事件は武力衝突の直接描写がなく解釈に幅があるが、既存データのaccessionRoute記載と整合させ計上した。",
+        "count": 8
+      },
+      "rebellionSufferedCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "鎮圧回数と同一事案。",
+            "outcome": "鎮圧され両名誅殺",
+            "name": "南陽公姚愔・大将軍尹元の政変未遂",
+            "startDate": "0416",
+            "endDate": "0416",
+            "datePrecision": "year",
+            "leader": "姚愔・尹元"
+          },
+          {
+            "note": "鎮圧回数と同一事案。",
+            "outcome": "鎮圧され降伏",
+            "name": "羌酋党容の離反",
+            "startDate": "0416",
+            "endDate": "0416",
+            "datePrecision": "year",
+            "leader": "党容"
+          },
+          {
+            "note": "鎮圧回数と同一事案。",
+            "outcome": "鎮圧され捕縛",
+            "name": "北地太守毛雍の反乱",
+            "startDate": "0416",
+            "endDate": "0416",
+            "datePrecision": "year",
+            "leader": "毛雍"
+          },
+          {
+            "note": "鎮圧回数と同一事案。",
+            "outcome": "鎮圧され撃破",
+            "name": "李閏の羌族諸集団の蜂起",
+            "startDate": "0416",
+            "endDate": "0416",
+            "datePrecision": "year",
+            "leader": "不詳（李閏在住の羌族諸集団）"
+          },
+          {
+            "note": "鎮圧回数と同一事案。",
+            "outcome": "鎮圧され曹弘捕縛",
+            "name": "并州・定陽・貳城胡（曹弘擁立）の反乱",
+            "startDate": "0416",
+            "endDate": "0416",
+            "datePrecision": "year",
+            "leader": "曹弘（并州・定陽・貳城胡数万落）"
+          },
+          {
+            "note": "鎮圧回数と同一事案。",
+            "outcome": "鎮圧され苟渴捕縛",
+            "name": "平陽氐苟渴の蜂起",
+            "startDate": "0416",
+            "endDate": "0417",
+            "datePrecision": "year",
+            "leader": "苟渴"
+          },
+          {
+            "note": "泓廃立・姚紹誅殺を狙った皇族による内乱。鎮圧回数と同一事案。",
+            "outcome": "鎮圧され捕縛",
+            "name": "征東姚懿の反乱（長安襲撃計画・僭号）",
+            "startDate": "0416",
+            "endDate": "0417",
+            "datePrecision": "year",
+            "leader": "姚懿"
+          },
+          {
+            "note": "長安に迫り「長安大震」を引き起こした皇族による大規模内乱。鎮圧回数と同一事案。",
+            "outcome": "鎮圧され姚恢とその弟3人が殺害された",
+            "name": "征北姚恢の反乱",
+            "startDate": "0417",
+            "endDate": "0417",
+            "datePrecision": "year",
+            "leader": "姚恢"
+          }
+        ],
+        "note": "反乱鎮圧回数と対称的に同一8事案を計上。すべて泓の在位中に発生・鎮圧されており、未鎮圧のまま在位終了した反乱は確認されない（劉裕による外征は対等政権同士の戦争として別枠扱い）。",
+        "count": 8
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。姚萇の長安（常安）定都（建国時の定都）から417年の劉裕による滅亡まで長安が一貫した都。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "meta": {
+    "dynastyName": "西",
+    "dynastySection": "明",
+    "count": 1,
+    "file": "data/emperors/dyn_072.json"
+  },
+  "emperors": [
+    {
+      "accessionRoute": {
+        "category": "自立",
+        "note": "崇禎3年に「自称八大王」、16年に武昌で「献忠遂僭号，改武昌曰天授府」として「铸西王之宝」と西王の宝を鋳し、のち成都で大西国王を僭号して位に即いた（『明史』巻三百九）。勧進・推戴・遺詔・冊立のいずれの記載もなく、いずれも自ら号したものである。",
+        "confidence": "high",
+        "source": {
+          "page": "明史 巻309（列伝197・流賊）",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "自立",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "本人"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "該当なし",
+          "relationToPredecessor": "該当なし",
+          "procedure": "儀礼なし・自称"
+        }
+      },
+      "ages": {
+        "confidence": "high",
+        "birthDate": "1606-09-18",
+        "birthDatePrecision": "day",
+        "deathDate": "1647-01-02",
+        "deathDatePrecision": "day",
+        "accessionAge": 39,
+        "deathAge": 42,
+        "note": "生年は明史列伝に直接記載なし（「與李自成同歳生」との記述のみ）だが、中国語版・日本語版Wikipedia等の複数の学術的信源が一致して万暦34年8月17日（1606年9月18日）生まれとする。没日は既存reigns.endDate（1647-01-02、順治3年11月27日、鳳凰坡で清軍に射殺）と一致。数え年で没年齢=1647-1606+1=42歳、即位（1644年11月、崇禎17年）時年齢=1644-1606+1=39歳。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "張献忠関連部分を精査したが「大赦」「赦天下」等、全国規模の大赦に該当する記述は一切確認できなかった。張献忠は残虐な統治で知られ、大赦を行った形跡は見当たらない。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "明史流賊伝を通読。成都定都（建国時の定都、「西京」と改称）後、1646年に成都を焼いて敗走、新たな定都を果たさぬまま同年戦死。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "張献忠伝中に皇太子の立太子・廃立に関する記述は確認できなかった。「封太子为宋王」は明の太子（崇禎帝の子）に関する李自成側の記事であり無関係。張献忠の即位記事でも太子の冊立に触れておらず、廃立の記録も存在しない。"
+      },
+      "deathCause": {
+        "category": "戦死",
+        "note": "明史は「至塩亭界，大霧…猝遇我兵於鳳凰坡，中矢墜馬…我兵擒献忠出，斬之」（負傷後潜伏を発見され斬首）、清史稿は「豪格親射献忠，殪」「斬献忠於陣」（陣中で射殺・斬殺）とし、両書とも奇襲遭遇戦闘の直後の死とする点で一致。政権交代確定後の公的処断（処刑）とは性質が異なる戦闘の帰結としての死のため戦死を維持（明史の「捕縛後斬首」との境界事例）。",
+        "confidence": "medium",
+        "source": {
+          "page": "明史 巻309（列伝197・流賊）／清史稿 巻4（世祖本紀一）・巻225・巻231",
+          "lang": "zh-classical"
+        }
+      },
+      "dynasty": {
+        "name": "西",
+        "category": "反乱・自称政権",
+        "section": "明"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "張献忠伝中に皇后冊立の記述は確認できなかった。「立妻高氏为皇后」は李自成の記事であり張献忠とは無関係。張献忠の即位記事（成都、崇禎十七年冬十一月）では官制設置のみが記され、皇后の冊立に関する言及はない。"
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "1644-11",
+            "datePrecision": "month",
+            "note": "崇祯十七年（甲申、1644年）冬十一月庚寅、成都で即位し国号「大西」を僭称、年号を「大顺」と建元した。原文（明史 列传一百九十七 流贼・张献忠伝）：「献忠遂僭号大西国王，改元大顺，冬十一月庚寅，即伪位，以蜀王府为宫，名成都曰西京。」即位に伴う最初の建元であり、これが唯一の改元。以降、順治三年（1646年）に鳳凰坡で戦死するまで別の改元記事は本紀相当部分に見られない。原文の干支日付（庚寅）に対応するグレゴリオ暦の正確な日は確認できず、月精度で概算。",
+            "source": {
+              "page": "明史 列传一百九十七 流贼",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "medium",
+        "note": "建元の事実自体は原文に明記され確度が高いが、グレゴリオ暦換算の月は概算のためconfidenceはmediumとした。張献忠伝中で改元・建元に該当する記述はこの1件のみ。"
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 1644
+      },
+      "id": "xi-zhangxianzhong",
+      "name": {
+        "personalName": "張献忠",
+        "commonName": "大順帝（張献忠）",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "1644年11月の建国（成都で皇帝を称す）後、死没（1647年1月）までの短い在位期間中、明史列伝は献忠自身が軍を率いて出征した記述を残していない。養子の孫可望・艾能奇・劉文秀・李定国らを将軍とし諸府州県の平定に分派しており（「分徇諸府州県，悉陥之」）、いずれも将軍派遣であり皇帝自身の親征ではない。保寧・順慶を巡る李自成軍との攻防も自成側からの攻撃であり献忠自身の出征ではない。1646年の成都焼却・北走は清軍からの敗走中の遭遇戦であり、対清戦争（判定基準5により除外対象）に付随する退却行動であって能動的な親征とは言えないため計上しない。建国前（1630〜1644年）の各地転戦は判定基準5によりaccessionRoute領域として本カウントの対象外。"
+      },
+      "rebellionSufferedCount": {
+        "count": 1,
+        "events": [
+          {
+            "name": "曾英・李占春・於大海・王祥・楊展・曹勲らによる川中蜂起",
+            "leader": "曾英・李占春・於大海・王祥・楊展・曹勲ら",
+            "startDate": null,
+            "endDate": null,
+            "datePrecision": null,
+            "outcome": "未鎮圧のまま献忠死没（1647年1月）。鎮圧は死後に養子孫可望らが「殺曾英、李乾徳等」として果たした。",
+            "note": "明史列伝197「當是時，曾英、李占春、於大海、王祥、楊展、曹勲等議兵並起，故献忠誅殺益毒」。献忠の統治下（成都占領後の四川内）における残虐な統治への反発として地元勢力が挙兵した記述。判定基準7の「統治下での地方反抗・内部反乱」に該当すると判断し計上。時期は1645〜1646年頃と推定されるが原文に明確な年月記載なし（datePrecision unknown）。判定基準2-(2)により、死没時点で未鎮圧のためsufferedCountのみに計上しsuppressionCountには含めない。なお伪将劉進忠の離反・清軍への道案内（献忠戦死の直接的契機）は武力蜂起ではなく逃亡・投降・道案内であり、かつ実質的に対清戦争（判定基準5で除外対象）の一部と評価されるため、反乱としては計上しない。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "曾英らの蜂起1件のみを計上。史料の記述が簡潔なため規模・具体的な期間・鎮圧経緯の詳細は不明（confidence medium）。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "medium",
+        "note": "在位期間（1644年11月〜1647年1月）中、明史列伝には献忠自身または配下による明確な反乱鎮圧の記述が見当たらない。曾英・李占春らの蜂起（rebellionSufferedCountに計上）は献忠の死まで鎮圧されないまま終わっており（鎮圧は死後に養子の孫可望らが行った）、判定基準2-(2)により本カウントには含めない。李自成（順）との保寧・順慶を巡る攻防は対等な独立政権間の争いのため判定基準5により対象外。"
+      },
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 759,
+          "displayYears": 2.08,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 1644,
+        "lastEndYear": 1647,
+        "reignCount": 1
+      },
+      "reigns": [
+        {
+          "startYear": 1644,
+          "endYear": 1647,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "崇禎17年11月、成都にて皇帝を称し、国号「大西」、元号「大順」(李自成の国号「大順」とは別物)を建元。順治3年11月己巳、四川省西充県鳳凰山にて清軍(豪格配下)との戦闘中に射殺され戦死。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "1644-12-04",
+          "endDate": "1647-01-02",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 759,
+            "unit": "day",
+            "approxDays": 759,
+            "exactDays": 759,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "明史 列传第一百九十七「流賊」（daizhigev20版 行22982〜23049）／清史稿 本紀五（世祖本紀二）",
+              "lang": "zh-classical",
+              "quote": "（即位）是時我大清兵已定京師，李自成遁歸西安。……獻忠遂僭號大西國王，改元大順，冬十一月庚寅，即偽位，以蜀王府為宮，名成都曰西京。（崩御、清史稿）十一月癸卯朔……己巳，豪格師至南部，時張獻忠列寨西充，鰲拜等兼程進撃，大破之，斬獻忠於陣。",
+              "conversion": "即位: 崇禎17年11月6日→fromLunar(1644,11,6)=新暦1644-12-04、日干支庚寅。原文と一致。既存startDateと一致。崩御: 順治3年11月朔→fromLunar(1646,11,1)=新暦1646-12-07、日干支癸卯（原文の朔日干支と一致）。同月「己巳」→fromLunar(1646,11,27)=新暦1647-01-02、日干支己巳。既存endDateと完全一致。"
+            }
+          }
+        }
+      ],
+      "sources": {
+        "wikidata": "Q715573",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": ""
+      }
+    }
+  ]
+}

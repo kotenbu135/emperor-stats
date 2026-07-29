@@ -1,0 +1,1150 @@
+{
+  "meta": {
+    "dynastyName": "成漢",
+    "dynastySection": "成漢",
+    "count": 5,
+    "file": "data/emperors/dyn_046.json"
+  },
+  "emperors": [
+    {
+      "id": "chenghan-lixiong",
+      "name": {
+        "personalName": "李雄",
+        "commonName": "武帝",
+        "aliases": [],
+        "posthumousName": "武帝",
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "成漢",
+        "category": "並立政権",
+        "section": "成漢"
+      },
+      "reigns": [
+        {
+          "startYear": 306,
+          "endYear": 334,
+          "dynastyOrder": 3,
+          "isRestoration": false,
+          "note": "304年に成都王を自称、306年に皇帝に即位、元号を晏平とした。",
+          "raw": "306年 - 334年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": "0334-08-11",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "month",
+            "end": "day"
+          },
+          "duration": {
+            "value": 10435,
+            "unit": "day",
+            "approxDays": 10435,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百二十一 載記第二十一（李雄）",
+              "lang": "zh-classical",
+              "quote": "咸和八年，雄生瘍於頭，六日死，時年六十一，在位三十年。偽謚武帝，廟曰太宗，墓號安都陵。",
+              "conversion": "崩御日(334-08-11)は資治通鑑『丁卯，雄卒』のsxtwl換算(咸和9年6月25日=334-08-11)と一致。既存値は資治通鑑系と一致するため維持。",
+              "note": "華陽国志（成漢地方史）は崩御日を『癸亥』(334-08-07)とし、資治通鑑系の既存値と4日差がある異説として存在する。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 10435,
+          "displayYears": 28.59,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 306,
+        "lastEndYear": 334,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 306
+      },
+      "sources": {
+        "wikidata": "Q712330",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "成漢皇帝。武帝。"
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "玉衡24年（334年）夏五月、頭部に悪性の腫れ物（悪瘡）ができ病に伏し、大将軍李寿に遺詔を託した後、6月丁卯に崩御（享年61、在位30年）。他殺の記述はない。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第二十一 李雄",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "自立",
+        "note": "巴氐族の首長として304年に成都王を自称、306年に皇帝に即位し成（成漢）を建国。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第二十一 李雄",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "自立",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "本人",
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "軍",
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "該当なし",
+          "relationToPredecessor": "該当なし",
+          "procedure": "儀礼なし・自称"
+        }
+      },
+      "eraChangeCount": {
+        "count": 3,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "year",
+            "note": "【皇帝即位前】永興元年（304年）成都王を僭称した際、「建元為建興」とあり最初の建元。固有指示により成都王即位時の建元をeraChangeCountに含める。",
+            "source": {
+              "page": "晉書 載記第二十一 李雄",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "【皇帝即位（改元同時）】范長生の勧めで皇帝号を僭称した際、「改年曰太武」とあり改元。成都王から皇帝への改称に伴う建元。",
+            "source": {
+              "page": "晉書 載記第二十一 李雄",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "【皇帝在位中】文碩討伐成功後、「改元曰玉衡」とある改元。",
+            "source": {
+              "page": "晉書 載記第二十一 李雄",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "建興（皇帝即位前・成都王時代）→太武（皇帝即位に伴う改元）→玉衡（皇帝在位中）の3回の改元を確認。晏平など他の元号への言及は載記本文中には見当たらなかった（データセット側で306年に「晏平」に改元とする記述があるが、本紀原文には明記されていないため今回はカウントに含めていない）。2026-07-16ユーザー確認により、皇帝即位前後の区分を各eventのnoteに明記しつつ、カウント自体は皇帝即位前・在位中の両方を含める従来方針を維持。"
+      },
+      "amnestyCount": {
+        "count": 4,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "year",
+            "note": "永興元年（304年）成都王を僭称した際に「赦其境内」とあり、境内（成漢の支配域）全域への恩赦。建元「建興」と同時。",
+            "source": {
+              "page": "晉書 載記第二十一 李雄",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "范長生の勧めにより帝位に即いた際（皇帝号への改称）に「赦其境内」とあり、改年「太武」と同時。",
+            "source": {
+              "page": "晉書 載記第二十一 李雄",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "羅尚死後、文碩討伐に成功し「雄大悦、赦其境内、改元曰玉衡」とある。改元「玉衡」と同時の恩赦。",
+            "source": {
+              "page": "晉書 載記第二十一 李雄",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "李寿らが寧州（尹奉降伏）を平定した際、「雄於是赦其境内、使班討平寧州夷」とある恩赦。",
+            "source": {
+              "page": "晉書 載記第二十一 李雄",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "原文の「赦其境内」はいずれも成漢の支配領域全体を対象とした恩赦であり、大赦に相当するものとしてカウントした。「下寬大之令」（帰順者への優遇措置）は地域限定・対象限定の恩恵であり大赦に該当しないため除外した。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "「偽立其妻任氏為皇后」とあり、妻の任氏を皇后に立てた。南方の漢嘉・涪陵獲得や宽大の令の記述の後、氐王楊難敵の記述の前に位置する。",
+            "source": {
+              "page": "晉書 載記第二十一 李雄",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "李雄在位中の立后は任氏の一回のみ確認。廃后・再冊立の記録なし。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "李雄在位中に皇太子が廃立された記録は見当たらない。兄李蕩の子・班を太子に立てる際、群臣・李驤らとの間で異論があったが、これは立太子の議論であり廃立ではない（班は雄死後に即位、その後李越に殺害されるが、これは雄の在位期間外の出来事）。"
+      },
+      "ages": {
+        "birthDatePrecision": null,
+        "deathDate": "0334",
+        "deathDatePrecision": "year",
+        "deathAge": 61,
+        "confidence": "medium",
+        "note": "晋書載記第二十一に「咸和八年、雄生疡於頭、六日死、時年六十一、在位三十年」とあり、崩御時年齢61歳が明記されている（咸和八年=334年、原文は年のみで月日は記載なし。設問記載の8月11日崩御は別典拠による）。即位時年齢・生年月日の直接記載は本紀中に見当たらない（母が身ごもってから「十四月而生雄」とあるのみで具体的な生年は不明）。"
+      },
+      "personalCampaignCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "李流の死後、雄が大都督・大将軍・益州牧を自称し郫城に拠った直後、羅尚が将を遣わして雄を攻めたが、雄自らこれを撃退した（「羅尚遣將攻雄，雄擊走之」）。",
+            "note": "永興元年（304年）の成都王僭称の直前後の出来事とみられ、正確な年次は載記本文に明記されない。晋書本紀等での裏付けは取れていない。",
+            "startDate": "0303",
+            "endDate": "0304",
+            "datePrecision": "year",
+            "target": "羅尚（西晋益州刺史）配下の攻撃部隊"
+          },
+          {
+            "outcome": "羅尚が向奮を安漢の宜福に駐屯させ雄に迫らせたため、雄自ら軍を率いて向奮を攻撃したが攻略できず（「雄率眾攻奮，不克」）、兵を引いた。",
+            "note": "晋書本紀の永嘉三年（309年）「李雄別帥羅羨以梓潼歸順」の記事付近の出来事と推定し年次を仮置き。",
+            "startDate": "0309",
+            "endDate": "0309",
+            "datePrecision": "year",
+            "target": "向奮（羅尚配下の将軍）"
+          }
+        ],
+        "note": "李雄本人が軍を率いた記述が明確なのは載記中この2件のみ（他は李国・李雲・李驤・李寿・費黑・任回・班等の将軍による派遣戦役で本人不在のため対象外とした）。1件目は「雄擊走之」という簡潔な表現で本人親征かやや解釈の幅がある。李雄の在位はreignsフィールドでは306年開始だが、成漢建国者としての即位前の君主号（成都王、304年）時代の軍事行動も対象期間に含める方針（グループ3特有ルール）に従い304年前後の事象も候補としたが、明確に日付が付されている事象がないため確度は中程度とした。",
+        "count": 2
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "晋書本紀（懐帝紀）永嘉三年条「李雄別帥羅羨以梓潼歸順」・永嘉四年条「李雄陷梓潼」と符合する。",
+            "outcome": "李离の部将であった羅羕・張金苟が李离と閻式を殺害し、梓潼を挙げて晋の羅尚に投降した。雄は将の張寶を派遣して梓潼を襲撃・奪還させ（「陷之」）、鎮圧に成功した。のち李驤が涪を攻略した際に晋側の梓潼太守譙登を捕らえており、奪還が最終的に確定した。",
+            "name": "李离配下（羅羕・張金苟）の反乱・梓潼失陥",
+            "startDate": "0309",
+            "endDate": "0310",
+            "datePrecision": "year",
+            "leader": "羅羕（羅羨）・張金苟"
+          },
+          {
+            "note": "晋書本紀永嘉四年条「李雄將文碩殺雄大將軍李國，以巴西歸順」と符合する。",
+            "outcome": "巴西を鎮守していた李国が帳下の文碩に殺害され、文碩は巴西を挙げて晋の羅尚に投降した。羅尚死後の混乱に乗じ李驤が涪を攻略し勝ちに乗じて文碩を討伐し、これを殺害して鎮圧した。",
+            "name": "李国配下（文碩）の反乱・巴西失陥",
+            "startDate": "0310",
+            "endDate": "0310",
+            "datePrecision": "year",
+            "leader": "文碩"
+          },
+          {
+            "note": "楊難敵が劉曜に敗れて服属した時期は載記に明記されないが、前趙が仇池方面へ進出した320年代前半頃と推定される。鎮圧失敗のまま在位終了までその後の再討伐は載記に記載がない。",
+            "outcome": "劉曜に敗れて葭萌に逃れ子を人質に出して服属していた氐王楊難敵が、要害を恃んで法を守らなくなったため、雄は中領軍琀・将軍楽次・費他・李乾ら（白水橋方面）と征東李寿・玝（陰平方面）を派遣して討伐させたが、難敵軍に四面から攻められ琀・稚（雄の兄李蕩の子）を含む将兵数千人を失う大敗を喫し、鎮圧は失敗に終わった。",
+            "name": "氐王楊難敵の離反",
+            "startDate": null,
+            "endDate": null,
+            "datePrecision": null,
+            "leader": "楊難敵"
+          },
+          {
+            "note": "載記末尾の雄の人物評の一部として記されており、発生時期は特定できない。同名の隗文・苻成に類似する人物が晋書本紀では成漢滅亡後（346年前後、桓温の蜀平定直後）にも反乱を起こしているが、これは李雄の在位期間外の別事象であり本項目には含めていない。",
+            "outcome": "既に服属していた氐の苻成・隗文が離反し（「既降復叛」）、雄の母を傷つけるに至ったが、後に帰順した際、雄は罪を全て許し厚遇した。原文には軍事的な鎮圧行動の詳細は記されておらず、寛容策により終息した可能性がある。",
+            "name": "氐苻成・隗文の反乱",
+            "startDate": null,
+            "endDate": null,
+            "datePrecision": null,
+            "leader": "苻成・隗文"
+          }
+        ],
+        "note": "対晋（羅尚・王逊・李毅等）勢力への進出戦役（李国・李雲の漢中侵攻、李骧の越巂・寧州攻略、李寿らの巴東・朱提攻略等）は、対象が晋の統治下にあり李雄に服属していなかった勢力への外征・征服戦であり鎮圧・被反乱いずれにも含めていない。",
+        "count": 4
+      },
+      "rebellionSufferedCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "rebellionSuppressionCountと同一事象・同一件数（対称）。",
+            "outcome": "李离配下の羅羕・張金苟が主君李离と閻式を殺害し、梓潼を挙げて晋の羅尚に寝返った。梓潼は一時失陥したが、雄が張寶を派遣して奪還し鎮圧された。",
+            "name": "李离配下（羅羕・張金苟）の反乱・梓潼失陥",
+            "startDate": "0309",
+            "endDate": "0310",
+            "datePrecision": "year",
+            "leader": "羅羕（羅羨）・張金苟"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象・同一件数（対称）。",
+            "outcome": "巴西を鎮守する李国が帳下の文碩に殺害され、巴西が晋の羅尚に寝返った。のち李驤により文碩は討たれ鎮圧された。",
+            "name": "李国配下（文碩）の反乱・巴西失陥",
+            "startDate": "0310",
+            "endDate": "0310",
+            "datePrecision": "year",
+            "leader": "文碩"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象・同一件数（対称）。鎮圧失敗のまま経過した点は基準2（未鎮圧のまま在位終了）にも該当しうるが、鎮圧側にも1件計上（試みが行われ失敗）としたため件数は一致する。",
+            "outcome": "人質を出して服属していた楊難敵が離反し、雄が派遣した討伐軍（琀・稚ら）を返り討ちにして将兵数千人を殺した。鎮圧は失敗に終わり、以後の再討伐は載記に記載がない。",
+            "name": "氐王楊難敵の離反",
+            "startDate": null,
+            "endDate": null,
+            "datePrecision": null,
+            "leader": "楊難敵"
+          },
+          {
+            "note": "rebellionSuppressionCountと同一事象・同一件数（対称）。",
+            "outcome": "服属していた苻成・隗文が離反し、雄の母を傷つける事態に至った。後に帰順し雄に許された。",
+            "name": "氐苻成・隗文の反乱",
+            "startDate": null,
+            "endDate": null,
+            "datePrecision": null,
+            "leader": "苻成・隗文"
+          }
+        ],
+        "note": "反乱鎮圧回数と対称の4件とした。いずれも成漢に服属していた将領・部族（羅羕・張金苟、文碩、楊難敵、苻成・隗文）による離反であり、規模・身分を問わず両面に計上する基準に従った。",
+        "count": 4
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。李雄の成都定都（建国時の定都）から347年の桓温による滅亡まで成都が一貫した都。"
+      }
+    },
+    {
+      "id": "chenghan-liban",
+      "name": {
+        "personalName": "李班",
+        "commonName": "李班",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "成漢",
+        "category": "並立政権",
+        "section": "成漢"
+      },
+      "reigns": [
+        {
+          "startYear": 334,
+          "endYear": 334,
+          "dynastyOrder": 4,
+          "isRestoration": false,
+          "note": "李雄の養子として即位したが在位約4ヶ月で李越に暗殺された。",
+          "raw": "334年 - 334年",
+          "durationRaw": null,
+          "startDate": "0334-08-11",
+          "endDate": null,
+          "startDateRaw": null,
+          "endDateRaw": "咸和九年10月（旧暦、334年11月13日〜12月12日頃、日不詳。資治通鑑「癸亥朔」と華陽国志「癸亥」で日次特定に相違あり）",
+          "datePrecision": {
+            "start": "day",
+            "end": "month"
+          },
+          "duration": {
+            "value": 108,
+            "unit": "day",
+            "approxDays": 108,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百二十一 載記第二十一（李班）／資治通鑑 巻九五／華陽国志 巻九",
+              "lang": "zh-classical",
+              "quote": "（晋書）咸和九年，班因夜哭，越殺班於殯宮，時年四十七，在位一年。（資治通鑑）冬，十月，癸亥朔，越因班夜哭，弒之於殯宮。（華陽国志）冬十月癸亥，期、越殺班於臨次。",
+              "conversion": "資治通鑑・華陽国志ともに崩御を旧暦『十月』とするが、既存endDate(334-10-05)は旧暦8月相当でこの月ラベルと矛盾する。癸亥の具体的な日については資治通鑑（朔=1日）と華陽国志（朔の明記なし）が食い違い、sxtwl換算では癸亥は10月23日(=334-12-05)で資治通鑑の『朔』説とも一致しない。日次を確定できないため月精度へ格下げする。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 108,
+          "displayYears": 0.3,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 334,
+        "lastEndYear": 334,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 334
+      },
+      "sources": {
+        "wikidata": "Q712522",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "成漢皇帝。李班。"
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "李雄の子でないにもかかわらず後継とされたことに不満を持った従弟の李越が、弟の李期と共謀。李雄の喪に服し殯宮で哭礼していた隙を突かれ、李越に殺害された（在位約4ヶ月）。同一政権内の近親による謀殺のため暗殺に分類。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第二十一 李班",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "李雄の兄李蕩の子（甥）。幼くして李雄のもとで養育され（雄の妻任氏が母となった）、太子に立てられ遺詔により即位。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第二十一 李班",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "甥",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "李班は李雄の崩御を受けて「嗣偽位」（既存の帝位を継承）した形であり、独自の建元・改元を行った記載はない。父（伯父筋）李雄の代の年号（玉衡）がそのまま用いられたとみられ、班の在位中に新元号への切り替えを示す記述は原文に存在しない。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "『晋書』載記第二十一の李班在位期間（雄死去による嗣位から越による殺害まで）の記述には、大赦・大赦天下に類する記載は見られない。班の在位中の記事は喪礼を執り行ったこと、越・期との確執、太史令韓豹の上奏、暗殺の経緯のみで恩赦への言及はない。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "李班在位中（雄死去より越による殺害まで）に皇后を冊立したとの記載は見られない。在位が約2ヶ月と短く、喪に服していたこともあり、立后関連の記事は確認できない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "李班在位中に皇太子（皇太弟等含む）を廃立した記載はない。班自身はかつて雄の太子であったが、これは即位前の話であり、班の在位中に太子を新たに立てた・廃した記述も存在しない。班は暗殺により崩じており、廃立ではなく弑逆（越による殺害）である。"
+      },
+      "ages": {
+        "birthDatePrecision": null,
+        "deathDatePrecision": "year",
+        "deathAge": 47,
+        "confidence": "high",
+        "note": "『晋書』載記第二十一に「(李班)咸和九年、班因夜哭、越殺班於殯宮、時年四十七、在位一年」とあり、崩御時年齢47歳が直接記載されている。生年月日・即位時年齢の直接記載はなし。原文の崩御年表記は「咸和九年」のみで正確な月日は記載されていない（タスクで示された334年10月5日という日付は原文に直接の記載なし）。"
+      },
+      "personalCampaignCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "晋書載記第二十一に李班在位中(咸和九年六月~十月)の親征記録なし。太子時代の「討平寧州夷」（撫軍として指揮）は即位前・非君主号のため対象外とした。",
+        "count": 0
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "在位中に李班側が鎮圧主体となった反乱の記録なし。唯一の武力事件（李越・李期による弑逆）は李班が被害者側であり鎮圧行動を取れなかったため計上しない（例外4に該当）。",
+        "count": 0
+      },
+      "rebellionSufferedCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "note": "晋書載記第二十一「班因夜哭、越殺班於殯宮」、晋書帝紀「冬十月、李雄子期弑李班而自立」に基づく。本タスク指示で明示例示される「成漢の李期弑逆」に該当する同一政権内部の権力闘争型クーデントとして計上。",
+            "outcome": "咸和九年冬十月、李班の従兄弟である李越が殯宮（李雄の喪に服していた場所）で夜中に李班を殺害し、李期が帝位を継いだ。李班は在位約4ヶ月で死去（享年47）。",
+            "name": "李越・李期のクーデター（李班弑逆）",
+            "startDate": "0334-10",
+            "endDate": "0334-10",
+            "datePrecision": "month",
+            "leader": "李越（実行）・李期（共謀・後継）"
+          }
+        ],
+        "note": "",
+        "count": 1
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。李雄の成都定都（建国時の定都）から347年の桓温による滅亡まで成都が一貫した都。"
+      }
+    },
+    {
+      "id": "chenghan-liqi",
+      "name": {
+        "personalName": "李期",
+        "commonName": "李期",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "成漢",
+        "category": "並立政権",
+        "section": "成漢"
+      },
+      "reigns": [
+        {
+          "startYear": 334,
+          "endYear": 338,
+          "dynastyOrder": 5,
+          "isRestoration": false,
+          "note": "李班暗殺後に即位、玉恒と改元。李寿に廃され自殺。",
+          "raw": "334年 - 338年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": null,
+          "startDateRaw": null,
+          "endDateRaw": "咸康4年5月（338年5月頃、旧暦、日不詳）",
+          "datePrecision": {
+            "start": "month",
+            "end": "month"
+          },
+          "duration": {
+            "value": 1308,
+            "unit": "day",
+            "approxDays": 1308,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百二十一 載記第二十一（李期）／晋書 巻七 成帝紀／華陽国志 巻九",
+              "lang": "zh-classical",
+              "quote": "咸康三年，自縊而死，時年二十五，在位三年。（晋書載記）／四年夏四月，壽自涪還襲期……既誅越、騫、初，廢期為邛都縣公；五月，乃殺期及誅李始等……期死時年二十四，謚曰幽公。（華陽国志）",
+              "conversion": "晋書載記は崩御を『咸康三年』(337)、成帝紀・華陽国志はいずれも『咸康四年』(338、4月廃位・5月死去)とする。二つの独立史料が一致する338年5月説を採用し、endDateRawに反映。享年は載記が25、華陽国志が24と対立するため確証が持てず、ages.deathAgeは変更しない。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 1308,
+          "displayYears": 3.58,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 334,
+        "lastEndYear": 338,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 334
+      },
+      "sources": {
+        "wikidata": "Q712327",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "成漢皇帝。李期。"
+      },
+      "deathCause": {
+        "category": "自尽",
+        "note": "従父の李寿が挙兵し成都を制圧、大逆不道の罪を理由に重臣（李越・景騫ら）の誅殺を上奏させられ従わざるを得ず、実権を完全に失った。李寿により廃位（幽公に降格）された後、自殺した。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第二十一 李期",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "簒奪",
+        "note": "李雄の四男。兄の李越と謀って李班殺害を計画し（『晋書』載記第二十一「越时镇江阳，以班非雄所生，意甚不平。至此，奔丧，与其弟期密计图之」）、越が班を殯宮で殺害した後、越が期に位を譲るかたちで即位した（「既杀班，欲立越为主，越以期雄妻任氏所养，又多才艺，乃让位于期。于是僭即皇帝位」）。原文は即位後の期について「期自以谋大事既果，轻诸旧臣」と記す。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第二十一 李期",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "本人",
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "宗室"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "横死",
+          "relationToPredecessor": "従兄弟",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0334",
+            "datePrecision": "year",
+            "note": "即位に伴い「改元玉恆」。李期即位時の建元（成漢の新年号）。",
+            "source": {
+              "page": "晋書載記第二十一（李期）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "即位時の建元のみ。在位中に他の改元記載なし。"
+      },
+      "amnestyCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0334",
+            "datePrecision": "year",
+            "note": "李期が皇帝位に即くにあたり「大赦境内」。班を殺した李越が即位を譲り、李期が僭即皇帝位した直後の記事。",
+            "source": {
+              "page": "晋書載記第二十一（李期）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "即位時の一度のみ記載。李期の在位中（咸和九年～咸康三年）に他の大赦記事はない。なお成帝本紀側にも李期在位期間中の建康朝廷による大赦記事はあるが、これは東晋朝廷の出来事であり成漢の李期には帰属しない。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0334",
+            "datePrecision": "year",
+            "note": "即位直後「立妻阎氏为皇后」。妻の阎氏を皇后に冊立。",
+            "source": {
+              "page": "晋書載記第二十一（李期）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "冊立は一度のみ。廃后・再冊立の記載なし。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "李期の在位中、皇太子（皇太弟等含む）を立てた記載自体がない。咸康三年に李寿が任氏の命を偽って李期自身を邛都県公に廃した（「寿矫任氏令，废期为邛都县公，幽之别宫」）が、これは皇帝本人の廃位であり皇太子廃立には該当しないため計上しない。"
+      },
+      "ages": {
+        "birthDatePrecision": null,
+        "deathDate": "0338-05",
+        "deathDatePrecision": "month",
+        "deathAge": 25,
+        "confidence": "medium",
+        "note": "載記に「時年二十五、在位三年」と明記（李期の記述末尾）。没年について、載記本文は咸康三年(337)に李寿が任氏の命を偽って李期を邛都県公に廃し、その後李期が自縊したと記す。一方、晋書帝紀（成帝紀）は咸康四年(338)夏四月に「李寿弑李期」とあり1年のずれがある。載記の「在位三年」（咸和九年=334即位〜咸康三年=337没）という記述と内的整合性が取れるため、本回答では載記の咸康三年説を採用した。生年・即位時年齢の直接記載はない。（2026-07-21追記：晋書成帝紀・華陽国志がいずれも咸康四年〈338年〉5月説で一致するため、ages.deathDateを337→338-05へ訂正。享年は載記25歳・華陽国志24歳で対立し確証が持てないためdeathAgeは変更しない。reigns[0].endYear(338)とは元々整合していた。）（2026-07-21 ages日付ISO正規化: deathDate 338-05→0338-05（ゼロ埋めのみ。咸康四年夏四月〔旧暦〕の太陽暦多数月5月に基づく既存換算値を維持）。）"
+      },
+      "personalCampaignCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "李期本人が自ら軍を率いて出征した記録は『晋書』載記・『資治通鑑』ともに見られない。漢中の晋将司馬勲攻撃（咸康2年11月）、李玝討伐（涪への進軍）はいずれも李寿ら将軍を派遣したのみで、李期自身の親征ではない。",
+        "count": 0
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "在位中の武力反乱で李期側（皇帝側）が鎮圧主体となった事例は確認できない。罗演・上官澹の弑逆計画（咸康元年）は挙兵に至らず摘発のみで終結したため対象外。従兄李載の「謀反」は李期による冤罪での粛清であり実際の反乱ではないため対象外。李玝討伐は李寿の説得により玝が戦わず逃亡（晋へ亡命）したもので実際の軍事衝突がなく、反乱としての実態が乏しいため対象外とした。李寿の挙兵（下記）は反乱者側が主体となり皇帝を廃位に追い込んだ内部クーデターであり、例外4（朝廷内部の権力者による兵力を伴う弑逆・クーデター）に該当するため鎮圧側には計上しない。",
+        "count": 0
+      },
+      "rebellionSufferedCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "note": "李寿は成主雄・李期らと同族の宗室（李驤の子、李期の従兄弟）で、汉王・梁州刺史・録尚書事として大兵権を握っていた実力者。皇帝个人を弑逆・廃位に追い込む兵力行使を伴うクーデターであり、判定基準の例外4（宗室権臣による兵力を伴う弑逆・クーデター）に該当するため、被反乱回数には計上するが反乱鎮圧回数には計上しない。「晋書」李期載記は死去を『咸康三年（337年）』とするが、『晋書』成帝紀（本紀）は『（咸康）四年（338年）夏四月，李寿弑李期』とし、『資治通鑑』咸康四年（338年）条も同年四月に李寿挙兵・廃位、五月に自縊と記す。本紀・通鑑が一致するため咸康四年（338年）を採用し、載記の『三年』は誤記と判断した。",
+            "outcome": "李期が安北将軍李攸（李寿の養弟）を鴆殺し、また越・景騫らと李寿討伐を密議していたことを察知した李寿が、歩騎一万を率いて涪から成都を急襲し、無防備だった成都城を占拠。李寿は建寧王李越・景騫・田褒・姚華・許涪・李遐・李西らを『乱政謀反』として誅殺させた上で、皇太后任氏の令を偽って李期を邛都県公に廃し別宮に幽閉した。李期は『天下の主が小県公にされるくらいなら死んだ方がましだ』と嘆き、翌月（咸康四年五月）に自縊して死去（享年25）。李寿はそのまま自立して皇帝に即位し、国号を『漢』に改めた（成漢から漢への政権交代）。",
+            "name": "李寿の政変（成主李期廃位事件）",
+            "startDate": "0338-04",
+            "endDate": "0338-05",
+            "datePrecision": "month",
+            "leader": "李寿"
+          }
+        ],
+        "note": "咸康元年（335年）の羅演・上官澹による李期暗殺未遂計画は、密告により発覚し挙兵に至らなかったため（謀反計画のみで終結）、被反乱回数には含めていない。",
+        "count": 1
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。李雄の成都定都（建国時の定都）から347年の桓温による滅亡まで成都が一貫した都。"
+      }
+    },
+    {
+      "id": "chenghan-lishou",
+      "name": {
+        "personalName": "李寿",
+        "commonName": "昭文帝",
+        "aliases": [],
+        "posthumousName": "昭文帝",
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "成漢",
+        "category": "並立政権",
+        "section": "成漢"
+      },
+      "reigns": [
+        {
+          "startYear": 338,
+          "endYear": 343,
+          "dynastyOrder": 6,
+          "isRestoration": false,
+          "note": "338年に李期を廃し即位、国号を『成』から『漢』に改号。",
+          "raw": "338年 - 343年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": null,
+          "startDateRaw": "咸康4年（338年）、日不詳",
+          "endDateRaw": "建元元年8月（343年8月頃、旧暦、日不詳）",
+          "datePrecision": {
+            "start": "month",
+            "end": "month"
+          },
+          "duration": {
+            "value": 2038,
+            "unit": "day",
+            "approxDays": 2038,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百二十一 載記第二十一（李壽）／晋書 成帝紀・康帝紀／華陽国志 巻九",
+              "lang": "zh-classical",
+              "quote": "遂以咸康四年僭即偽位，赦其境內，改元為漢興。……壽疾篤，常見李期、蔡興為祟。八年，壽死，時年四十四，在位五年。（晋書載記）／晋康帝建元元年，壽卒，勢立，改元太和。（華陽国志）",
+              "conversion": "載記の『八年』は成帝紀・康帝紀の記述と対照すると建元元年(343年)8月に相当し、華陽国志の『建元元年』とも一致（既にages.jsonで判明済み、reignsへ転記）。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 2038,
+          "displayYears": 5.58,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 338,
+        "lastEndYear": 343,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 338
+      },
+      "sources": {
+        "wikidata": "Q712558",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "成漢皇帝。昭文帝。"
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "漢興6年（343年）8月、44歳で崩御（在位5年）。晩年は重病に苦しみ、廃位・自殺に追い込んだ李期や、誅殺した左僕射蔡興の亡霊を見る夢にうなされたという逸話が伝わる。心因的要因が語られるが直接の死因は病。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第二十一 李壽",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "簒奪",
+        "note": "李雄の従弟（李特の弟・李驤の子）。李期の専横に乗じ挙兵して成都を制圧、李期を廃位に追い込み実権を奪って即位。国号を「成」から「漢」に改号。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第二十一 李壽",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "本人",
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "廃位・追放",
+          "relationToPredecessor": "その他",
+          "procedure": "偽詔・矯詔"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0338-04",
+            "datePrecision": "month",
+            "note": "咸康四年四月、李期を弑して即位し、国号を『成』から『漢』に改め、年号を『漢興』と建元した（「遂以咸康四年僭即偽位、赦其境内、改元為漢興」）。国号改称と建元が同一の即位事績として記される。",
+            "source": {
+              "page": "晉書 載記第二十一 李寿",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "即位に伴う建元（漢興、国号を漢に改称）が1回。以後、343年8月に崩御するまで再度の改元は記されていない（後継の李勢が『太和』へ改元したのは李寿死後の事績であり、李勢側に帰属）。"
+      },
+      "amnestyCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0338-04",
+            "datePrecision": "month",
+            "note": "咸康四年四月、李期を廃して即位した際に「赦其境内」（境内を赦す）と大赦を行った。国号改称・建元と同時の事績。",
+            "source": {
+              "page": "晉書 載記第二十一 李寿",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "李寿在位中（338～343年）に明記された大赦は即位時の1回のみ。以後の在位期間中に追加の大赦記事は見当たらない。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0338-04",
+            "datePrecision": "month",
+            "note": "咸康四年四月の即位に伴い、妻の閻氏を皇后に立てた（「立妻閻氏為皇后」）。",
+            "source": {
+              "page": "晉書 載記第二十一 李寿",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中に閻氏以外の立后・廃后の記述はない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "李寿は即位時に世子・李勢を太子に立てたのみで、在位中に皇太子を廃した記述はない。李期を『邛都県公』に廃した事績は先帝（前の即位者）を廃位したものであり、皇太子の廃立には該当しない。"
+      },
+      "ages": {
+        "birthDatePrecision": null,
+        "deathDate": "0343-09",
+        "deathDatePrecision": "month",
+        "deathAge": 44,
+        "confidence": "high",
+        "note": "『晋書』載記第二十一：「寿疾篤、常見李期、蔡興為祟。八年、寿死、時年四十四、在位五年」。八年は成帝紀・康帝紀の記述と対照すると建元元年（343年）に相当し、同紀「八月、李寿死、子勢嗣偽位」と一致する。即位時（咸康四年＝338年）の年齢は原文に直接記載なし。「時年十九」の記述は前将軍・征東将軍拝任時（李雄期）のもので即位年齢ではないため採用せず。（2026-07-21 ages日付ISO正規化: deathDate 343-08→0343-09。建元元年八月〔旧暦〕は太陽暦0343-09-06〜10-04で多数月9月。従来値は旧暦月番号の転記だった。）"
+      },
+      "personalCampaignCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "咸康四年（338年）四月、汉王であった李寿が歩騎一万余を率いて涪から成都を急襲。李期側は不意を突かれ無防備のまま成都を制圧され、李寿は李越・景騫らを捕えて誅殺、太后任氏の令を偽って李期を邛都県公に廃した（李期はのちに自殺）。李寿はそのまま同年中に皇帝を僭称し、国号を『成』から『漢』に改めた。",
+            "note": "李寿がまだ李期配下の『漢王』（臣従の王号）だった時点での挙兵だが、この一連の軍事行動が同年内にそのまま自らの即位に直結しており、対象期間（在位338-343年）の起点をなす事績として計上した。",
+            "startDate": "0338-04",
+            "endDate": "0338-04",
+            "datePrecision": "month",
+            "target": "李期（成漢の主）とその一派（建寧王李越・尚書令景騫・田褒・姚華ら）"
+          }
+        ],
+        "note": "『晋書』載記第二十一（李寿載記）「乃誓文武、得数千人、袭成都、克之」および『資治通鑑』晋紀十八・咸康四年条「寿乃…帅步骑万余人自涪袭成都…遂克成都」に基づく。以後の在位期間（338-343年）中に李寿自身が軍を率いて戦場に赴いた記事は確認できなかった（対晋の水軍動員（咸康五年）は成都城壁上から観閲したのみで出征せず取りやめ、牂柯遠征は鎮東大将軍李奕の派遣、巴東・江陽方面の攻防も配下将軍の指揮であり、いずれも親征に該当しない）。",
+        "count": 1
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "在位期間（338-343年）中、李寿政権に対する武力蜂起が実際に発生し鎮圧に至った記録は確認できなかった。咸康年間に『広漢太守李乾、大臣と通謀し寿を廃せんと欲す』との告発（『晋書』李寿載記・『資治通鑑』）、および咸康年間の『漢仆射任顔謀反、誅』（『資治通鑑』）の2件があるが、いずれも挙兵（実際の兵力行使）に至った記述がなく、前者は李乾の左遷、後者は誅殺のみで処理されており、密告・摘発型の謀反計画として鎮圧回数には含めなかった。李期を廃した咸康四年（338）のクーデターは李寿自身が先制的に攻撃を仕掛けた事案（李期側はまだ挙兵しておらず無防備だった）であり、反乱が成立していないため鎮圧回数には計上しない。",
+        "count": 0
+      },
+      "rebellionSufferedCount": {
+        "confidence": "medium",
+        "events": [],
+        "note": "李期を廃した咸康四年（338）のクーデターは李寿自身が攻撃の主体であり（李期側は事前に察知して監視・毒殺工作を行ったのみで、実際の挙兵には至らないまま李寿の急襲を受けた）、反乱が成立していないため被反乱回数には含めない。咸康年間の『漢仆射任顔謀反、誅』（『資治通鑑』）は記述が極めて簡略で、実際の挙兵の有無が判然としないため（密告・摘発のみで終わった可能性が高いと判断）除外したが、記述の簡潔さゆえ確信度は中とした。広漢太守李乾の廃立計画も告発のみで武力行使の記録がなく除外。",
+        "count": 0
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。李雄の成都定都（建国時の定都）から347年の桓温による滅亡まで成都が一貫した都。"
+      }
+    },
+    {
+      "id": "chenghan-lishi",
+      "name": {
+        "personalName": "李勢",
+        "commonName": "後主",
+        "aliases": [],
+        "posthumousName": "後主",
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "成漢",
+        "category": "並立政権",
+        "section": "成漢"
+      },
+      "reigns": [
+        {
+          "startYear": 343,
+          "endYear": 347,
+          "dynastyOrder": 7,
+          "isRestoration": false,
+          "note": "343年9月に即位、347年4月に東晋の桓温に敗れ降伏、成漢滅亡。",
+          "raw": "343年 - 347年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": "0347-04-13",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "month",
+            "end": "day"
+          },
+          "duration": {
+            "value": 1306,
+            "unit": "day",
+            "approxDays": 1306,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百二十一 載記第二十一（李勢）",
+              "lang": "zh-classical",
+              "quote": "勢尋輿櫬面縛軍門……送降文於溫曰：『偽嘉寧二年三月十七日、略陽李勢叩頭死罪。……即日到白水城，謹遣私署散騎常侍王幼奉箋以聞……』",
+              "conversion": "降伏日は李勢自身の降伏文書に『嘉寧二年三月十七日』と明記。sxtwl換算で347-04-13となり既存endDateと完全一致、変更なし。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 1306,
+          "displayYears": 3.58,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 343,
+        "lastEndYear": 347,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 343
+      },
+      "sources": {
+        "wikidata": "Q712772",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "成漢皇帝。後主。"
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "永和3年（347年）3月、東晋の桓温に成都を攻略され、自らを縛り棺を担いで投降。帰義侯に封じられ建康に移住、処刑・粛清されることなく14年後の升平5年（361年）に死去。降伏後は天寿を全うしたとみられ、具体的な死因の詳細な記述はないが自然死。",
+        "confidence": "medium",
+        "source": {
+          "page": "晉書 載記第二十一 李勢",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "昭文帝李寿の子として即位。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第二十一 李勢",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "李寿の死去に伴い李勢が即位、「改元曰太和」と建元。成漢における即位建元。",
+            "source": {
+              "page": "晋書載記第二十一（李勢）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "弟李広を太弟に立てた後に謀反を疑い誅殺、これに続き李奕の反乱を鎮圧した後、「势既诛奕，大赦境内，改年嘉宁」と改元（太和→嘉寧）。",
+            "source": {
+              "page": "晋書載記第二十一（李勢）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "即位建元（太和）と李奕の乱鎮圧後の改元（嘉寧）の計2回。原文に他の改元記事は見当たらない。"
+      },
+      "amnestyCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "李奕（晋寿から挙兵し反乱）を討伐・誅殺した後、「大赦境内」と明記され、同時に嘉寧と改元。成漢史上唯一「大赦」の語が明記された恩赦。なお即位時（太和改元時）は単に「赦其境内」（大の字なし）と記されており、本方針の「大赦」明記基準を満たさないため計上しない。",
+            "source": {
+              "page": "晋書載記第二十一（李勢）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "原文「势既诛奕，大赦境内，改年嘉宁」の1件のみを計上。即位時の「赦其境内」（大赦ではない）は基準外として除外。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "李勢即位時に「妻李氏为皇后」と明記。原文に廃后・再冊立の記述はなし。",
+            "source": {
+              "page": "晋書載記第二十一（李勢）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "即位時の一度のみ。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "李勢に子がなかったため弟の李広が「太弟」（皇太弟）となることを求め、当初拒否されたが馬当・解思明の進言により許可され太弟となった。その後、李勢は李広らが謀反を企てていると疑い、太保李奕に命じて涪城の李広を襲わせ、馬当・解思明を誅殺（三族皆殺し）、李広を臨邛侯に降格（貶）した。李広はその後自殺。太弟という法定推定継承者の地位を剥奪（貶降）した事例として1件計上。",
+            "source": {
+              "page": "晋書載記第二十一（李勢）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "medium",
+        "note": "原文は「废太弟」と明記されているわけではなく「贬广为临邛侯」（臨邛侯に貶める）という表現だが、太弟の地位からの実質的な廃黜と判断し1件計上。"
+      },
+      "personalCampaignCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "桓温が成都に迫ると、李勢は全軍を率いて自ら成都近郊の笮橋に出撃して交戦（『資治通鑑』永和三年条：「势悉众出战于成都之笮桥」）。緒戦は晋軍参軍龔護が戦死するなど一進一退となったが、袁喬の督戦で晋軍が盛り返し成漢軍は大潰。桓温は勝に乗じて成都城門を焼き、李勢は夜に東門から脱出し葭萌城まで敗走、のち桓温に降伏し成漢は滅亡した。",
+            "note": "『晋書』李勢載記の「势于是悉众与温战于笮桥」及び『資治通鑑』永和三年条の「势悉众出战于成都之笮桥」に基づく。正確な戦闘日は不明だが、降伏文書の日付（嘉寧二年三月十七日）より直前の347年3月中と推定、幅を見て月精度とした。",
+            "startDate": "0347-02",
+            "endDate": "0347-03",
+            "datePrecision": "month",
+            "target": "桓温率いる東晋の成漢征討軍"
+          }
+        ],
+        "note": "『晋書』李勢載記に「势于是悉众与温战于笮桥」、『資治通鑑』晋紀に「势悉众出战于成都之笮桥」と明記されており、皇帝本人が最終決戦の場に出陣したことが確認できる（それ以前の彭模攻防戦は叔父の李福・従兄の李権が主体で本人不出陣）。この一戦をもって親征1回とカウントした。桓温の遠征自体は東晋という独立政権への対等勢力への征服戦争だが、personalCampaignCountの判定基準は対象の独立性を問わないため計上した。",
+        "count": 1
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "note": "『晋書』李勢載記・『資治通鑑』晋紀（永和二年冬条）に拠る。李弈はもと李勢の命で弟の汉王李広（太弟就任を求めて疑われた）を涪城に攻めた将であったが、のちに自ら晋寿で挙兵し反旗を翻した。時期は「冬」とのみ記され月日不明のため年精度とした（永和二年＝346年冬、嘉寧改元は反乱鎮圧直後）。",
+            "outcome": "李弈は晋寿より挙兵し、蜀人の多くが従って数万の兵衆に膨れ上がった。李勢は成都城に登って防戦（『晋書』李勢載記「勢登城距戦」、『資治通鑑』「勢登城拒之」）。李弈は単騎で城門に突入したが門衛に射殺され、その軍勢は瓦解・鎮圧された。乱後、李勢は大赦を行い嘉寧と改元した。",
+            "name": "李弈の反乱",
+            "startDate": "0346",
+            "endDate": "0346",
+            "datePrecision": "year",
+            "leader": "李弈（もと太保、李広〔汉王広〕討伐の将）"
+          }
+        ],
+        "note": "汉王広・馬当・解思明の粛清（李勢が謀反を疑い先制的に太保李奕を派遣して汉王広を涪城に攻めさせ、馬当・解思明を誅殺した事件）は、相手側がまだ挙兵していない段階での皇帝側の先制武力行使であり、例外3（皇帝自身が攻撃の主体だった場合）に該当するため鎮圧回数・被反乱回数のいずれにも算入しなかった。桓温（東晋）による成漢征討は対等な独立政権同士の征服戦争であり反乱には該当しないため除外した。",
+        "count": 1
+      },
+      "rebellionSufferedCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "note": "rebellionSuppressionCountと同一事件（首謀者単位で1件、鎮圧・被反乱とも対称）。李勢自身が成都城壁上で防戦の指揮を執った（登城距戦）。",
+            "outcome": "李弈が晋寿で挙兵し数万の兵衆を集めて成都に迫ったが、単騎で城門に突入したところを門衛に射殺され、軍勢は瓦解し鎮圧された。",
+            "name": "李弈の反乱",
+            "startDate": "0346",
+            "endDate": "0346",
+            "datePrecision": "year",
+            "leader": "李弈（もと太保、李広〔汉王広〕討伐の将）"
+          }
+        ],
+        "note": "汉王広粛清事件は例外3（皇帝側の先制攻撃、相手未挙兵）に該当し除外。桓温（東晋）による成漢征討は対等な独立政権同士の統一戦争であり被反乱には含めなかった（personalCampaignCountの方には計上済み）。載記中の「夷獠叛乱、軍守離缺、境宇日蹙」という記述は、山地から流出した獠族が巴西〜犍為・梓潼一帯十余万落に広がり統制不能となった一般的な社会情勢を述べたもので、特定の首謀者・蜂起地点・鎮圧経過を伴う個別事件として記述されていないため、被反乱回数には算入しなかった（researchNoteに要留意事項として記録）。",
+        "count": 1
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。李雄の成都定都（建国時の定都）から347年の桓温による滅亡まで成都が一貫した都。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathDate": "0361-01-01",
+        "deathDatePrecision": "year",
+        "accessionAge": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "既存レコード（deathCause.note/accessionRoute.note/reigns[].note）および_corpus_cache/chenghan-lishi.txt（晋書載記第二十一・李勢伝）を確認したが、生年月日・即位時年齢・没年齢（「時年」「享年」等）の直接記載はいずれも見当たらなかった。原文末尾に「升平五年、死於建康」（361年、建康で死去）とあり没年は年精度で判明するため deathDate は0361-01-01（year精度）としたが、月日・享年は不明。即位年（343年）から逆算する起点となる年齢の直接記載も原文になく、accessionAge/deathAgeとも逆算不能。調査したが原典に生年月日・享年の直接記載が見当たらなかった。"
+      }
+    }
+  ]
+}

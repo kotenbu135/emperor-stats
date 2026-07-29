@@ -1,0 +1,198 @@
+{
+  "meta": {
+    "dynastyName": "楚",
+    "dynastySection": "宋遼西夏金",
+    "count": 1,
+    "file": "data/emperors/dyn_060.json"
+  },
+  "emperors": [
+    {
+      "id": "beisongmo-zhangbangchang",
+      "name": {
+        "personalName": "張邦昌",
+        "commonName": "張邦昌",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "楚",
+        "category": "並立政権",
+        "section": "宋遼西夏金"
+      },
+      "reigns": [
+        {
+          "startYear": 1127,
+          "endYear": 1127,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "靖康2年3月7日、金により「大楚皇帝」に擁立され即位。本人は消極的で「不御正殿、不受常朝」など皇帝としての権能行使を避けた形跡がある。靖康2年4月11日、退位(在位約33日)。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "1127-04-20",
+          "endDate": "1127-05-23",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 33,
+            "unit": "day",
+            "approxDays": 33,
+            "exactDays": 33,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "宋史 卷475 列傳234 叛臣上（張邦昌傳）",
+              "lang": "zh-classical",
+              "quote": "適金人奉冊寶至，邦昌北向拜舞受冊，即偽位，僭號大楚／復降手書請元祐皇后垂簾聽政，以俟復辟…太后始御內東門小殿，垂簾聽政。邦昌以太宰退處內東門資善堂",
+              "conversion": "宋史列傳「叛臣上」張邦昌傳には即位（偽位僭號大楚）・退位（元祐皇后垂簾聽政への権限返還）いずれの記事にも月日の記載が原文中に一切ない（ファイル全文をgrepしても『月』の字を含む紀年表現・日付を示す『日』の用例は0件、あるのは『今日』『是日』『四十餘日』等の一般語のみ）。年のみは文脈上確定できる：巻6『明年春』は直前『其冬，金人陷京師』（靖康元年冬）の翌年を指すため靖康二年＝1127年と特定できる（era-name慣例による換算、sxtwlでの月日換算は月日情報が無いため実施不可）。これは既存データ（startDate=1127-04-20, endDate=1127-05-23、いずれもday精度）と『矛盾する』わけではない——両日付とも靖康二年（1127年）の範囲内に収まっており、本史料が確定できる年の情報とは整合する。単に本列傳原文には月日レベルの根拠が存在せず、既存のday精度の典拠は別史料（靖康要録・三朝北盟會編、または宋史本紀 欽宗紀・高宗紀等）に由来すると推測される。startMatchesExisting/endMatchesExistingはprecision不一致（year vs day）のため形式上falseとしたが、これは既存値の誤りを意味しない。日精度への出典差し替えを行うなら列傳ではなく本紀等の追加調査が必要。",
+              "note": "李綱の上奏文（巻13）に『異姓建邦四十餘日』とあり、在位日数について本紀原文中で唯一の定量的言及。既存noteの『在位約33日』と近似オーダーではあるが、これは正確な日数計算ではなく李綱の修辞的概数（切り上げ・概算）であり、既存の33日を覆す根拠にはならない。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 33,
+          "displayYears": 0.09,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 1127,
+        "lastEndYear": 1127,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 1127
+      },
+      "sources": {
+        "wikidata": "Q2648375",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "medium",
+        "notes": "金の冊命文自体は『冊命爾為皇帝』と明記するが、『宋史』卷475本文は『即偽位』（即皇帝位ではない）という用語を用い、即位儀礼でも本人が正殿に座らず拝礼を辞退するなど消極的行動が記録されている。史料自体に正統性への価値判断が織り込まれておりconfidenceはmedium据え置き。"
+      },
+      "deathCause": {
+        "category": "自尽",
+        "note": "南宋高宗が僭位中の罪状に加え、宮中の華国靖恭夫人李氏との密通発覚を理由に「詔數邦昌罪，賜死潭州」と命じた。「賜死」は本人による自裁の形式を取る強制死であり、臣下が自裁を強要された場合は実行形式を優先し自尽に分類する既定方針に従う。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 巻475 列伝234（叛臣上・張邦昌伝）",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "推戴",
+        "note": "宋の太宰兼門下侍郎。金が宋の二帝を廃して連行したうえで異姓の君主を立てさせたもので、宋の前帝から位を受けたのではない。留守孫傅らが趙氏擁立を主張したのを金が退け、百官の推挙は金の使者の督促と范瓊の兵の包囲下で行われた。「適金人奉冊寶至，邦昌北向拜舞受冊」と金の冊宝を受けて即位し、国号を大楚とした（『宋史』巻四百七十五）。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 巻475 列伝234（叛臣上・張邦昌伝）",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "自立",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "軍"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "該当なし",
+          "relationToPredecessor": "該当なし",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 0,
+        "confidence": "high",
+        "note": "張邦昌は靖康2年3月7日に金の擁立により「大楚」皇帝として即位（僭号）したが、原文（宋史巻475・叛臣上・張邦昌伝）には改元・建元を示す記述が一切なく、「見百官称『予』、手詔曰『手書』」など、皇帝としての権能行使や正式な即位儀礼を意図的に避けた記述がある。同じ巻に併記される劉豫（大斉皇帝）については「十一月、改明年元阜昌」と明確に改元記事があるのに対し、張邦昌にはこれに相当する記事が全く存在しないことから、張邦昌は在位約33日間、独自の元号を建てなかった（改元0回）と判断した。国号の「大楚」への変更は改元ではないため、eraChangeCountには含めていない。",
+        "events": []
+      },
+      "amnestyCount": {
+        "count": 1,
+        "confidence": "medium",
+        "note": "張邦昌在位中（1127年3月7日〜4月11日、約33日間）に2件の恩赦関連記事があるが、うち1件（即位当初の「先赦京城」）は道路不通のため京城に限定した地域限定の恩赦であり、収録基準（全国規模の大赦のみ）から除外した。金軍撤退後の「赦天下」は「大赦天下」の語そのものではないが「天下」全体を対象とする恩赦である旨が明記されており、全国規模の恩赦として1件カウントした。日付は原文に明記されておらず、金軍撤退（靖康2年3月末頃）後、退位（靖康2年4月11日）以前の間と推定される。",
+        "events": [
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "「金師既還、邦昌降手書赦天下」。金軍が汴京から撤退した後、張邦昌が手書（皇帝の詔勅に相当する語を避けた文書）を降して天下に恩赦を布告した。国号は「大楚」（僭号）だが、退位直前の政治的配慮（呂好問らの進言を容れ、後に康王への政権返還・元祐皇后の垂簾聴政へと繋がる一連の動きの中での措置）とみられる。なお即位当初にも「以道阻先赦京城」とあるが、これは道路不通のため京城のみに限定した恩赦であり、全国規模ではないため本カウントには含めていない。（旧 precision 記載: unknown（金軍撤退後・退位前の間と推定、靖康2年3〜4月））",
+            "source": {
+              "page": "宋史 巻475 列伝234（叛臣上・張邦昌伝）",
+              "lang": "zh"
+            }
+          }
+        ]
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "confidence": "high",
+        "note": "張邦昌自身が皇后を正式冊立した記録はない。在位中に「元祐皇后」を「宋太后」に冊立した記事はあるが、これは張邦昌自身の皇后ではなく、旧哲宗廃后（孟氏）を太后として立てたものであり、立后（皇后冊立）には該当しない。",
+        "events": []
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "confidence": "high",
+        "note": "張邦昌の在位期間（約33日間）中、皇太子等の法定推定継承者が立てられた事実・廃された事実は原文に見当たらない。該当なし。",
+        "events": []
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "宋史張邦昌伝を通読。金陵遷都を計画したが実行されず、在位約33日を通じて開封に留まった。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位約33日で終始消極的姿勢(「始欲引決」「不御正殿、不受常朝」等)。原文に自ら軍を率いて出征した記述なし。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 1,
+        "events": [
+          {
+            "name": "呉革の挙兵(異姓に屈するを恥じた蜂起)",
+            "leader": "吳革",
+            "startDate": "1127-04",
+            "endDate": "1127-04",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "外統制官宣贊舍人の呉革が「恥屈節異姓」を掲げ内親事官数百人を率い金水門外で挙兵を計画。范瓊が偽って合謀を装い、兵仗を捨てさせた後に襲撃し百余人を殺害、呉革とその子を含む捕らえた者らも誅殺。楚政権(張邦昌)側の武力による鎮圧。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "実行主体は范瓊(武将)だが張邦昌の政権下で行われた鎮圧のため計上。張邦昌自身が指揮した記述はない。"
+      },
+      "rebellionSufferedCount": {
+        "count": 1,
+        "events": [
+          {
+            "name": "呉革の挙兵(異姓に屈するを恥じた蜂起)",
+            "leader": "吳革",
+            "startDate": "1127-04",
+            "endDate": "1127-04",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "張邦昌の傀儡政権(大楚)の正統性を否定する国内蜂起であり、政権側(范瓊)により武力鎮圧された。金軍との対外戦争ではなく国内の反乱として計上。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "在位約33日の短期間に発生した唯一の武力蜂起。他に反乱の記述は原文キャッシュ内に見当たらない。"
+      },
+      "ages": {
+        "confidence": "low",
+        "note": "既存ノート・原文キャッシュ(宋史巻四百七十五・叛臣伝)いずれにも生年・即位時年齢・没年齢の直接記載なし。調査済みだが不明。"
+      }
+    }
+  ]
+}

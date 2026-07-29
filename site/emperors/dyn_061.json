@@ -1,0 +1,403 @@
+{
+  "meta": {
+    "dynastyName": "楚",
+    "dynastySection": "隋末群雄",
+    "count": 2,
+    "file": "data/emperors/dyn_061.json"
+  },
+  "emperors": [
+    {
+      "id": "suimo-linshihong",
+      "name": {
+        "personalName": "林士弘",
+        "commonName": "林士弘",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "楚",
+        "category": "並立政権",
+        "section": "隋末群雄"
+      },
+      "reigns": [
+        {
+          "startYear": 617,
+          "endYear": 622,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "虔州にて南越王を称した後、楚の皇帝を僭称。私年号「太平」。唐に敗れ降伏後も再度反抗、武徳5年、山中に逃れて病死。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0617-01-22",
+          "endDate": "0622-01-01",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "year"
+          },
+          "duration": {
+            "value": 1805,
+            "unit": "day",
+            "approxDays": 1805,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "旧唐書 巻五十六 列伝第六（林士弘伝）／新唐書 巻八十七 列伝第十二（林士弘伝）／資治通鑑 巻一百八十三・巻一百九十",
+              "lang": "zh-classical",
+              "quote": "「十二月，壬辰，士弘自称皇帝，国号楚，建元太平」（資治通鑑 巻一百八十三、大業十二年）。旧唐書「大业十三年，徙据虔州，自称皇帝，国号楚，建元太平」。死去は「林士弘遣其弟鄱阳王药师攻循州…士弘惧，己巳，请降。寻复走保安成山洞…会士弘死，其众遂散。」（資治通鑑 巻一百九十、武徳五年十月）。旧唐書「其年，洪州总管张善安密知其事，发兵讨之，会士弘死，部兵溃散。」",
+              "conversion": "資治通鑑の「十二月壬辰」は大業十二年の条に位置し、sxtwl.fromLunar(616,12,10,False)=壬辰・新暦617-01-22（西暦年は617年、既存の「617年説」採用と整合）。既存startDate(0617-01-01・年精度)を日精度へ格上げした。死去は「己巳」(fromLunar(622,10,21,False)=622-11-29)〜次段落の日付「乙亥」(fromLunar(622,10,27,False)=622-12-05)の間に日次干支なしで記述され、月境（11月/12月）をまたぐため月精度への絞り込みは確定困難と判断し、既存の年精度(0622-01-01)を維持する。",
+              "note": "即位年について旧唐書/新唐書「大業十三年」の紀年表記と資治通鑑の精密な日付（大業十二年十二月＝新暦617年1月）との間に暦法上の紀年ズレがあるが、いずれも西暦換算では617年で一致するため実質的な対立ではない。死去は月境をまたぐため年精度を維持した。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 1805,
+          "displayYears": 4.95,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 617,
+        "lastEndYear": 622,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 617
+      },
+      "sources": {
+        "wikidata": "Q1290826",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "『旧唐書』卷56「大業十三年…自稱皇帝，國號楚，建元太平」、『資治通鑑』卷183「士弘自稱皇帝，國號楚，建元太平」で一致確認（南越王からの二段階昇格）。"
+      },
+      "deathCause": {
+        "category": "不詳",
+        "note": "旧唐書・新唐書・資治通鑑いずれも「会士弘死」（ちょうど士弘が死んだ）とのみ記し、死因（病・戦・処刑）への言及が一切ない。討伐軍との交戦記録もないため自然死の可能性は示唆されるが、原典に直接の根拠はなく不詳とする。",
+        "confidence": "medium",
+        "source": {
+          "page": "旧唐書 巻五十六（林士弘伝）／新唐書 列伝第十二／資治通鑑 巻一九〇",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "自立",
+        "note": "饒州鄱陽の人。操師乞（自号・元興王）の大将軍となり、師乞が流矢に当たって死ぬとその衆を統べた（『旧唐書』巻五十六「师乞自号元兴王，攻陷豫章郡而据之，以士弘为大将军」「师乞中矢而死。士弘代董其众」）。継いだのは軍の指揮であって君主位ではなく、大業13年に虔州へ移って南越王を自称し、まもなく国号「楚」・元号「太平」で皇帝を僭称した。",
+        "confidence": "high",
+        "source": {
+          "page": "旧唐書 巻五十六（林士弘伝）／新唐書 列伝第十二",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "自立",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "本人"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "該当なし",
+          "relationToPredecessor": "無血縁",
+          "procedure": "儀礼なし・自称"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0617-12",
+            "datePrecision": "month",
+            "note": "大業十三年（617年）、虔州に拠って自ら南越王を称した後、まもなく国号を「楚」とし皇帝を僭称、私年号「太平」を建元した（皇帝即位（改元同時））。新唐書は「遂大振、衆十余万、據虔州、自號南越王。俄僭號楚：稱皇帝、建元為太平」とし南越王→皇帝の二段階即位を明記するが、南越王在位中に独自の年号を建てた記載はなく、確認できる建元は「太平」の一度のみ。資治通鑑は「十二月、壬辰、士弘自稱皇帝、國號楚、建元太平」とし、旧唐書も「大業十三年、徙據虔州、自稱皇帝、國號楚、建元太平」とほぼ同内容。武徳5年（622年）の死去まで「太平」年号が継続使用されたとみられ、途中での再改元の記載はない。",
+            "source": {
+              "page": "旧唐書列傳第六（巻五十六）／新唐書列傳第十二／資治通鑑巻一九〇",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "唯一の年号「太平」建元のみ確認。南越王を称した時点では独自年号の記載がなく、皇帝僭称と同時の建元と判断した。二段階即位パターンに該当するが、eraChangeとして数えられる事象は皇帝即位時の1回のみ。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "旧唐書列傳巻五十六・新唐書列傳第十二・資治通鑑巻一九〇の林士弘関連記事を通読したが、「大赦」「大赦天下」等の記載は一切見当たらない。在位期間が短く（617-622年）、史料も簡潔なため、大赦の実施が確認できない。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "皇后冊立の記載は旧唐書・新唐書・資治通鑑いずれにも見当たらない。虔州で皇帝を僭称した後も王戎を司空に任じた等、官職任命の記事はあるが、后妃関係の記事は存在しない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "皇太子（またはそれに類する法定推定継承者）を立てた記載自体が見当たらず、廃立の記録もない。史料には弟の鄱陽王薬師（林薬師）が武将として登場するのみで、皇太子冊立の記載はない。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "旧唐書林士弘伝を通読。虔州での即位（建国時の定都）以後は山中避難のみで新首都樹立の記録なし。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "medium",
+        "note": "『旧唐書』巻56林士弘伝を通読。大業十二年、操師乞の敗死後に林士弘が代わってその衆を統べ、劉子翊と彭蠡湖で交戦した記事（『士弘代董其眾、復與子翊大戰於彭蠡湖、隋師敗績』）があるが、この時点では士弘はまだ独自の国号・帝号を称しておらず（皇帝僭称・国号「楚」・建元「太平」は大業十三年の徙拠虔州以降）、自身の政権の軍としての出征とは言えないため親征には算入しなかった（reignsのstartYear=617=称帝年と整合）。即位後（617-622年）の記事では『攻陷臨川、廬陵、南康、宜春等諸郡』等の領土拡大が見えるが、士弘自身が親征したことを示す明記（『自將』等）がなく、将帥主導の可能性を排除できないため計上しなかった。武徳五年の循州攻撃は弟の鄱陽王藥師が率兵しており士弘自身の出征ではない。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 1,
+        "events": [
+          {
+            "startDate": null,
+            "endDate": null,
+            "datePrecision": null,
+            "leader": "張善安",
+            "name": "張善安の離反・豫章襲撃",
+            "outcome": "失敗。張善安は当初林士弘に帰属していたが、士弘に不信を持たれ南塘に駐屯させられたことを恨み豫章を襲撃・城郭を焼き討ち。士弘は後に豫章を放棄し、善安がこれを占拠、唐に帰順して洪州総管に任じられた。",
+            "note": "『旧唐書』巻56林士弘伝・張善安伝に基づく（rebellionSufferedCountと同一事象、詳細はそちらのnote参照）。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "在位中(617-622年)に確認できる服属勢力の離反は張善安の一件のみ。武徳5年の循州攻撃(藥師率兵)は既に唐領となっていた地域への外征であり服属民の反乱鎮圧ではないため対象外、王戎の謀反(士弘死没時期)は唐に対するものであり士弘自身が鎮圧の主体ではないため対象外とした。"
+      },
+      "rebellionSufferedCount": {
+        "count": 1,
+        "events": [
+          {
+            "startDate": null,
+            "endDate": null,
+            "datePrecision": null,
+            "leader": "張善安",
+            "name": "張善安の離反・豫章襲撃",
+            "outcome": "士弘は最終的に豫章を放棄・失陥。張善安がこれを占拠し唐に帰順して洪州総管に任じられた。",
+            "note": "『旧唐書』巻56林士弘伝『其黨張善安保南康郡、懷貳於士弘…擊破豫章』、同巻張善安伝『因渡江、附林士弘於豫章…士弘不信之、營於南塘上。善安憾之、襲擊士弘、焚其郛郭。而士弘後去豫章、善安復來據之、仍以其地歸國、授洪州總管』に基づく。張善安は当初士弘に帰属（服属）した後に離反したため服属民の反乱として算入。正確な年月日の記載はないが、張善安伝の記述配置（王世充・輔公祏の乱の間）から武徳2-3年（619-620年）頃と推定される。suppressionCountと完全に一致（同一反乱を両面集計）。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "在位中(617-622年)に武力反抗を伴う反乱として確認できるのは張善安の離反1件のみ。武徳5年の循州攻撃は既に唐領となっていた地域への士弘側からの外征でありTangとの対外戦争に該当するため対象外、王戎の謀反（士弘死没と同時期）は唐に対する挙兵（士弘復権を企図）であり士弘自身への反乱ではないため対象外とした。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathDate": null,
+        "deathDatePrecision": null,
+        "accessionAge": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "『旧唐書』巻56（列伝第六）林士弘伝を通読したが、即位時年齢・没年齢・生年月日に関する直接記載（「時年」「年◯◯」「享年」等）は見当たらない。死去記事も「其年、洪州總管張善安密知其事、發兵討之、會士弘死」とのみで年齢情報を欠く。既存のdeathCause/accessionRouteのnoteにも年齢記載はない。関連する萧铣伝（同巻）には没年齢「年三十九」の記載があるが林士弘には対応する記載がない。"
+      }
+    },
+    {
+      "id": "suimo-zhucan",
+      "name": {
+        "personalName": "朱粲",
+        "commonName": "朱粲",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "楚",
+        "category": "並立政権",
+        "section": "隋末群雄"
+      },
+      "reigns": [
+        {
+          "startYear": 618,
+          "endYear": 621,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "大業11年12月に起兵した時点では「迦楼羅王」を自称(皇帝ではない)。617年に瓦岗軍の李密に一時臣従。武徳元年、冠軍県にて再挙兵後「楚帝」を自称、年号「昌達」に改元。これが皇帝を称した最初の時点であり、reignsのstartYearは起兵年(615年)ではなく称帝年(618年)を採用。武徳4年、王世充討伐に伴い李世民に洛水にて捕らえられ斬首。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0618-11-01",
+          "endDate": "0621-06-05",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "month",
+            "end": "day"
+          },
+          "duration": {
+            "value": 947,
+            "unit": "day",
+            "approxDays": 947,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "旧唐書 巻五十六 列伝第六（硃粲伝）／新唐書 巻八十七 列伝第十二（硃粲伝）／資治通鑑 巻一百八十六・巻一百八十九",
+              "lang": "zh-classical",
+              "quote": "「既而粲收集余众，兵复大振，自称楚帝于冠军，改元昌达，进攻邓州。」（資治通鑑 巻一百八十六、武徳元年十月）。旧唐書「僭称楚帝于冠军，建元为昌达，攻陷邓州」。新唐書は「攻拔南阳」と邓州でなく南阳と記す（軽微な異同）。死去は「丁卯，世民入宫城…收世充之党罪尤大者段达…硃粲…等十馀人斩于洛水之上。」（資治通鑑 巻一百八十九、武徳四年五月）。旧唐書「东都平，获之，斩于洛水之上。」",
+              "conversion": "即位記事は資治通鑑武德元年（618年）十月の段落（庚辰=618-11-01〜癸未=618-11-04の間）に日次干支なしで埋め込まれている。既存startDate(0618-10-01)は暦月番号（十月）をそのままグレゴリオ暦月と誤読していたため11月へ訂正。死去は資治通鑑が武德四年（621年）五月「丁卯」と明記、sxtwl.fromLunar(621,5,10,False)=丁卯・新暦621-06-05で既存endDateと完全一致（訂正不要）。",
+              "note": "死去日は資治通鑑の明確な干支記事と完全一致しており高信頼。即位日は月精度が限界（前後の日付標識に挟撃された範囲での絞り込み）。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 947,
+          "displayYears": 2.59,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 618,
+        "lastEndYear": 621,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 618
+      },
+      "sources": {
+        "wikidata": "Q1018779",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "『旧唐書』卷56「迦樓羅王」(王)→「僭稱楚帝於冠軍，建元為昌達」(帝、建元を伴う)の変化を確認。即位年は『隋書』のみ615年説、他史料は618年説（DB採用）。"
+      },
+      "deathCause": {
+        "category": "処刑",
+        "note": "王世充のもとへ出奔し龍驤大将軍を拝命していたが、洛陽平定に伴い捕らえられ、洛水のほとりで斬首された（「東都平，獲之，斬於洛水之上」）。",
+        "confidence": "high",
+        "source": {
+          "page": "旧唐書 巻五十六（硃粲伝）／新唐書 列伝第十二",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "自立",
+        "note": "亳州で挙兵し「自称迦楼羅王」（皇帝ではない称号）を経て、義寧年間の勢力再建後「僭称楚帝於冠軍」、元号「昌達」を建てた。先行する君主から君主位を受けていない純粋な自立。",
+        "confidence": "high",
+        "source": {
+          "page": "旧唐書 巻五十六（硃粲伝）／新唐書 列伝第十二",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "自立",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "本人"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "該当なし",
+          "relationToPredecessor": "該当なし",
+          "procedure": "儀礼なし・自称"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "冠軍県にて再挙兵し「楚帝」を僭称すると同時に「昌達」に建元。【皇帝即位（改元同時）】原文は「俄而収輯余衆，兵又大盛，僭称楚帝於冠軍，建元為昌達」（旧唐書）／「僭号楚帝，建元為昌達」（新唐書）。なお大業11年末に起兵し「迦楼羅王」を自称していた期間について、独自の年号を建てたとの記載は原典になく、この期間の建元はカウントしない。（旧 precision 記載: unknown（武徳元年〔618年〕、具体的な月日の記載なし））",
+            "source": {
+              "page": "旧唐書列傳第六（巻五十六・硃粲伝）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "旧唐書列傳第六（巻五十六）・新唐書列傳第十二とも同内容の記述で一致。硃粲の在位期間中に確認できる建元は「昌達」への1回のみ。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "旧唐書・新唐書の硃粲伝を通読したが、「大赦」「大赦天下」等の記載は見当たらない。短期間の割拠政権で恩赦記事自体が存在しない。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "硃粲伝に皇后冊立の記載はない。楚帝僭称後も皇后に関する記述は一切見られない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "硃粲伝に皇太子（皇太弟・皇太孫を含む）を立てた記載自体がなく、廃立の記載もない。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "旧唐書朱粲伝を通読。冠軍での即位（建国時の定都）以後は敗走・投降のみで遷都の記録なし。"
+      },
+      "personalCampaignCount": {
+        "count": 1,
+        "events": [
+          {
+            "startDate": null,
+            "endDate": null,
+            "datePrecision": null,
+            "target": "鄧州",
+            "outcome": "勝利（攻略・占拠、これにより衆二十万を有するに至る）",
+            "note": "「僭称楚帝于冠军，建元为昌达，攻陷邓州，有众二十万」（旧唐書巻五十六）。楚帝を称した直後に鄧州を攻略した記事で、主語は一貫して硃粲本人であり別の将軍名は登場しないため、本人が率いた軍事行動と判断した。（旧 precision 記載: unknown（武徳元年〔618年〕、冠軍にて楚帝を僭称・建元「昌達」と同一記事内で記載され、具体的な月日の記載なし））"
+          }
+        ],
+        "confidence": "medium",
+        "note": "旧唐書巻五十六（硃粲伝）を通読。楚帝僭称後の鄧州攻略のみを、皇帝自身が率いたと解釈できる親征として確認した。僭称迦楼羅王期（即位前、618年以前。淮水渡河・竟陵沔陽屠殺・山南掠奪等）は、reignsのstartYear（618年、楚帝僭称時点）より前の出来事であり、この人物の「皇帝としての在位」に含まれないため対象外とした。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 1,
+        "events": [
+          {
+            "startDate": null,
+            "endDate": null,
+            "datePrecision": null,
+            "leader": "楊士林・田瓚",
+            "name": "顕州首領楊士林・田瓚の離反（諸州響応）",
+            "outcome": "鎮圧失敗（淮源の戦いで敗北、菊潭県へ敗走後、政権崩壊）",
+            "note": "「诸城惧税，皆相携逃散。显州首领杨士林、田瓚率兵以背粲，诸州响应，相聚而攻之，大战于淮源。粲败，以数千兵奔于菊潭县」（旧唐書巻五十六）。硃粲自身が敗走した経緯から本人が交戦の当事者であったと判断。鎮圧を試みたが失敗し、そのまま政権崩壊（唐への降伏申し出、のち王世充へ出奔）に至ったケースとして鎮圧側にも計上した。（旧 precision 記載: unknown（武徳年間、楚帝在位末期。高祖への降伏・段確侮辱事件・王世充への出奔の直前の記事として記載））"
+          }
+        ],
+        "confidence": "medium",
+        "note": "楊士林・田瓚らの離反・挙兵1件のみ確認。服属していた顕州等の首領による蜂起で、硃粲側（政権側）が防戦・鎮圧を試みたが失敗した唯一の事例。"
+      },
+      "rebellionSufferedCount": {
+        "count": 1,
+        "events": [
+          {
+            "startDate": null,
+            "endDate": null,
+            "datePrecision": null,
+            "leader": "楊士林・田瓚",
+            "name": "顕州首領楊士林・田瓚の離反（諸州響応）",
+            "outcome": "淮源の戦いで敗北、菊潭県へ敗走し唐へ降伏を申し出るも段確に侮辱され、王世充へ出奔（実質的に政権崩壊）",
+            "note": "服属していた顕州等の首領が離反・挙兵し、周辺諸州もこれに呼応、淮源で大規模な戦闘となった。鎮圧側と同一の反乱1件のみを計上。義寧中の馬元規による討伐は、硃粲が皇帝を称する以前（迦楼羅王僭称期）の出来事であり、かつ隋朝の官軍による討伐（服属民の反乱ではなく硃粲側が反乱者にあたる）のため対象外とした。（旧 precision 記載: unknown（武徳年間、楚帝在位末期。高祖への降伏・段確侮辱事件・王世充への出奔の直前の記事として記載））"
+          }
+        ],
+        "confidence": "medium",
+        "note": "楊士林・田瓚らによる離反・挙兵1件のみ確認。鎮圧回数と同一の反乱を両面計上（原則通り）。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathDate": null,
+        "deathDatePrecision": null,
+        "accessionAge": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "旧唐書巻五十六（硃粲伝）を通読したが、生年月日・即位時年齢・享年の直接記載（「時年」「享年」等）は見当たらなかった。既存のdeathCause/accessionRoute調査（新唐書列伝第十二も参照済み）でも年齢記載は確認されていない。調査済みだが不明として確定。"
+      }
+    }
+  ]
+}

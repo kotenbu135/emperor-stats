@@ -1,0 +1,1450 @@
+{
+  "meta": {
+    "dynastyName": "陳",
+    "dynastySection": "南朝",
+    "count": 5,
+    "file": "data/emperors/dyn_083.json"
+  },
+  "emperors": [
+    {
+      "id": "chen-wudi",
+      "name": {
+        "personalName": "陳霸先",
+        "commonName": "武帝",
+        "aliases": [],
+        "posthumousName": "武帝",
+        "templeName": "高祖",
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "陳",
+        "category": "正統王朝",
+        "section": "南朝"
+      },
+      "reigns": [
+        {
+          "startYear": 557,
+          "endYear": 559,
+          "dynastyOrder": 1,
+          "isRestoration": false,
+          "note": "梁敬帝への禅譲強要により即位。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0557-11-16",
+          "endDate": "0559-08-09",
+          "startDateRaw": "永定元年冬十月乙亥",
+          "endDateRaw": "永定三年六月丙午",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 631,
+            "unit": "day",
+            "approxDays": 631,
+            "exactDays": 631,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "陳書 本紀第二 高祖紀下",
+              "lang": "zh-classical",
+              "quote": "永定元年冬十月乙亥，高祖即皇帝位于南郊，柴燎告天曰：「皇帝臣霸先，敢用玄牡昭告于皇皇后帝……」／（三年）六月……丁酉，高祖不豫，遣兼太宰、尚書左僕射王通以疾告太廟……丙午，崩于璿璣殿，時年五十七。",
+              "conversion": "sxtwl.fromLunar(557,10,day,False)を走査し「乙亥」を検索すると永定元年10月10日（非閏月）で一致、getSolarYear/Month/Day()は557-11-16。同様にsxtwl.fromLunar(559,6,day,False)を走査し「丙午」を検索すると永定三年6月21日（非閏月）で一致、getSolarYear/Month/Day()は559-08-09。両日とも現行データのstartDate/endDateと完全一致したため、日付・precisionとも変更なし。exactDaysはpython3のdatetime.date差分で631日と機械計算し、既存値と一致確認。",
+              "note": "endDateは崩御（死去）日であり、退位や廃位ではない（禅譲を受けて即位した皇帝なのでnoteの「即位」の性質と終了事由「崩御」は別物として扱った）。両日とも原文干支から一意に特定でき、既存Wikipedia由来のsource.pageを正史原典（陳書 本紀第二 高祖紀下）に差し替えるのみで日付自体の訂正は不要だった。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 631,
+          "displayYears": 1.7,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 557,
+        "lastEndYear": 559,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 557
+      },
+      "sources": {
+        "wikidata": "Q718217",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "陳皇帝。武帝。"
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "「高祖不豫」から「高祖疾又甚」を経て「崩於璿璣殿，時年五十七」（陳書卷二 高祖下、永定三年）。疾病による自然死。",
+        "confidence": "high",
+        "source": {
+          "page": "陳書/卷二 本紀第二 高祖下",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "accessionRoute": {
+        "category": "受禅（易姓）",
+        "note": "梁の実権を掌握したうえで敬帝の禅譲を受け、陳を開いた（『陳書』巻二「梁氏以天祿永終，歷數攸在，遵與能之典，集大命於朕躬」、『梁書』巻六「今便逊位别宫，敬禅于」）。禅譲の儀を経て永定元年10月に即位（「永定元年冬十月乙亥，高祖即皇帝位」）。",
+        "confidence": "high",
+        "source": {
+          "page": "陳書/卷二 本紀第二 高祖下",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "他政権から受禅",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "本人"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "生前譲位",
+          "relationToPredecessor": "無血縁",
+          "procedure": "禅譲儀礼"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0557-11-16",
+            "datePrecision": "day",
+            "note": "永定元年冬十月乙亥、南郊にて即位。同日の詔で「改梁太平二年为永定元年」と改元（建国改元）。以後、永定三年六月の崩御まで改元なし。",
+            "source": {
+              "page": "陈书本纪第二 高祖下（永定元年冬十月乙亥）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中は永定の元号のみで、他の改元記事はなし（固有の注意事項どおり建国改元を1回としてカウント）。"
+      },
+      "amnestyCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0557-11-16",
+            "datePrecision": "day",
+            "note": "永定元年冬十月乙亥、即位の柴燎告天・詔で「可大赦天下，改梁太平二年为永定元年」と明記。即位改元と同日の建国大赦。",
+            "source": {
+              "page": "陈书本纪第二 高祖下（永定元年冬十月乙亥）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "巻二本文中で「大赦」の語が明記されるのはこの一箇所のみ（grep確認済み）。永定二年正月辛丑の南郊親祭の詔に「夫罪无轻重，已发觉未发觉，在今昧爽以前，皆赦除之」とあるが「大赦」の語を用いていないため対象外とした。また永定元年十一月己卯の四方への玺書中「皆从肆赦」も特定の盗賊・山谷酋長に対する限定的赦免であり全国規模の「大赦」明記ではないため除外した。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0557-11-22",
+            "datePrecision": "day",
+            "note": "永定元年十月辛巳（即位の6日後）、「追谥前夫人钱氏号为昭皇后……立夫人章氏为皇后」と明記。章皇后（章要儿）の正式冊立。",
+            "source": {
+              "page": "陈书本纪第二 高祖下（永定元年十月辛巳）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中の立后はこの一件のみ。先夫人銭氏は既に故人であり追諡（昭皇后）であって立后カウントには含めない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位中（永定元年〜三年）に皇太子を立てた記事自体が見当たらず、廃立の記録もない。卷二の「世子克为孝怀太子」は即位当日に亡き世子陈克へ追諡した記事であり、生前に皇太子として冊立され廃されたものではないため対象外。他の「太子」出現箇所（太子洗马・太子二卫率・太子少傅）はいずれも官職名で本件と無関係。"
+      },
+      "ages": {
+        "birthDate": "0503",
+        "birthDatePrecision": "year",
+        "deathDate": "0559-08-09",
+        "deathDatePrecision": "day",
+        "deathAge": 57,
+        "confidence": "high",
+        "note": "生年（503年、梁天監二年）・没年齢57歳（「時年五十七」）はいずれも直接記載。即位時年齢の直接記載はなし。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "陳書卷二（高祖下）永定元年〜三年の全記事を確認したが、「帝自将」「亲征」「帝率衆」等、高祖本人が軍を率いて出陣したことを示す記述は見当たらない。王琳・蕭荘方面（西讨）、余孝劢・熊昙朗方面の軍事行動はいずれも周文育・侯安都・侯瑱・徐度・臨川王蒨ら将帥に委ねられており、高祖自身は「舆驾幸石头，饯司空侯瑱」「舆驾幸冶城寺亲送焉」等、出征する将軍を見送る（餞別）記事のみで、本人が戦場に赴いた記述はない。よって0件とした。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 2,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "未鎮圧（武帝在位中には決着せず）",
+            "leader": "王琳（擁立された皇帝は蕭荘＝liang-xiaozhuang）",
+            "name": "王琳・蕭荘（北斉支援下の対立梁政権「天啓」）の抵抗",
+            "note": "陳建国直後の永定元年十月（同月内、日付特定不能のため「是月」）、王琳（元梁の湘州刺史、梁の旧臣で陳への服属を拒否）は陳の「西讨都督」周文育・侯安都を郢州で撃破し捕虜とした。翌永定二年（558）三月（「是月」）、王琳は北斉の支援を受け梁の宗室蕭荘（永嘉王）を郢州で皇帝に擁立し対立政権（年号天啓）を樹立。陳は侯瑱・徐度・臨川王蒨らを派遣して継続的に討伐し（王琳将李孝钦・樊猛・余孝顷を七月に工塘で捕獲、十月に周文育を余孝劢討伐へ派遣等）、周文育・侯安都はいったん捕らえられたが八月に逃げ帰り不問とされた。永定三年（559）六月には王琳配下の援軍常众爱を侯安都が左里で撃破し王琳の従弟王袭・主帅羊暕らを捕獲したが、王琳・蕭荘本体はなお屈せず、同年八月の武帝崩御時点でも抗争は未決着のまま陳文帝期（560年、対象外）に持ち越された。王琳・蕭荘は陳建国当初から一度も陳に服属しなかった旧梁勢力であり、外国（北斉）の支援も受けているため『対等な独立政権同士の抗争』として除外すべきか、データセット上『liang-xiaozhuang』が対立政権の首謀者として別人物登録されている構造（劉子勛型）に倣い正統側の陳武帝の鎮圧・被反乱として計上すべきか判断が分かれる。本記録では後者の解釈を採用し計上したが、confidenceはmediumとする。",
+            "startDate": "0557-11-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "未鎮圧のまま武帝崩御（実際の討伐完了は陳文帝期）",
+            "leader": "熊昙朗（北江州刺史）",
+            "name": "熊昙朗の反乱",
+            "note": "永定三年（559）五月乙酉（「五月丙辰朔」を起点に干支差分から換算、既存データの六月丙午=0559-08-09との整合を確認）、陳から北江州刺史・平西将軍・开府仪同三司に任じられていた熊昙朗が、王琳配下・余孝劢討伐のため派遣されていた都督周文育を軍中で殺害し挙兵（「杀都督周文育于军，举兵反」）。明確に陳へ服属していた官が反旗を翻した反乱にあたる。王琳もこれに乗じ常众爱・曹庆を派遣して余孝劢を支援したが、同年六月に侯安都が常众爱らを左里で撃破（王袭・羊暕ら捕獲、常众爱は逃亡後に廬山の民に斬られる）。しかし熊昙朗本人は捕らえられず、詔で「昙朗噬逆，罪不容诛，分命众军，仍事掩讨」と継続討伐を命じたまま同月（559年八月）武帝が崩御し未決着に終わった。",
+            "startDate": "0559-07-19",
+            "datePrecision": "day",
+            "endDate": null
+          }
+        ],
+        "note": "熊昙朗の反乱（confidence高）は明確に陳服属官の離反であり確度が高い。王琳・蕭荘の抵抗（confidence中）は服属歴のない旧梁勢力＋外国支援という点で対等勢力間の戦争とも解釈しうるため、全体としてconfidenceをmediumとした。"
+      },
+      "rebellionSufferedCount": {
+        "count": 2,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "未鎮圧のまま武帝崩御、陳文帝期へ継続",
+            "leader": "王琳（擁立された皇帝は蕭荘＝liang-xiaozhuang）",
+            "name": "王琳・蕭荘（北斉支援下の対立梁政権「天啓」）の抵抗",
+            "note": "rebellionSuppressionCountと同一事象。武帝在位中を通じて陳の郢州方面の権威に対する最大の脅威であり、建国直後（557年十月）に西讨軍が撃破・捕虜とされ、558年三月には対立皇帝（蕭荘）擁立にまで発展した。武帝崩御（559年八月）時点で未鎮圧のため、規則2（未鎮圧のまま在位終了）により被反乱にも計上。分類の妥当性（対等勢力間抗争か服属拒否勢力の反乱か）は判断が分かれるためconfidence medium。",
+            "startDate": "0557-11-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "未鎮圧のまま武帝崩御",
+            "leader": "熊昙朗（北江州刺史）",
+            "name": "熊昙朗の反乱",
+            "note": "rebellionSuppressionCountと同一事象。陳の任命官による都督殺害・挙兵であり、被反乱として計上する根拠は明確（confidence高）。",
+            "startDate": "0559-07-19",
+            "datePrecision": "day",
+            "endDate": null
+          }
+        ],
+        "note": "被反乱2件はいずれも鎮圧回数と対称（同一事象を両面計上）。熊昙朗事件は確度高、王琳・蕭荘事件は分類判断にconfidence medium。南豫州刺史沈泰の北斉への逃亡（永定二年二月）は挙兵を伴わない単純な離反・出奔であり武力反抗の記述がないため被反乱には含めなかった。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "陳書本紀を通読。建国（建康定都、建国時の定都）から589年の滅亡まで建康が一貫した都、遷都の記録なし。"
+      }
+    },
+    {
+      "id": "chen-wendi",
+      "name": {
+        "personalName": "陳蒨",
+        "commonName": "文帝",
+        "aliases": [],
+        "posthumousName": "文帝",
+        "templeName": "世祖",
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "陳",
+        "category": "正統王朝",
+        "section": "南朝"
+      },
+      "reigns": [
+        {
+          "startYear": 559,
+          "endYear": 566,
+          "dynastyOrder": 2,
+          "isRestoration": false,
+          "note": "武帝崩御の約1週間後、章太后の命により擁立（武帝実子ではなく甥）。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0559-08-17",
+          "endDate": "0566-05-31",
+          "startDateRaw": "永定三年六月甲寅",
+          "endDateRaw": "天康元年四月癸酉",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 2479,
+            "unit": "day",
+            "approxDays": 2479,
+            "exactDays": 2479,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "陳書 本紀第三 世祖紀",
+              "lang": "zh-classical",
+              "quote": "永定三年六月丙午，高祖崩，遺詔征世祖入纂。甲寅，至自南皖，入居中書省。皇后令曰：「……宜奉大宗，嗣膺寶錄……」世祖固讓，至于再三，群公卿士固請，其日即皇帝位於太極前殿。／天康元年……夏四月乙卯，皇孫至澤生……癸酉，世祖疾甚。是日，崩於有覺殿。",
+              "conversion": "即位日は「永定三年六月甲寅」。sxtwl.fromLunar(559,6,29,False)（六月甲寅は同月29日目）で西暦559年8月17日と算出、現行startDate(0559-08-17)と完全一致。崩御日は「天康元年四月癸酉」。sxtwl.fromLunar(566,4,27,False)で西暦566年5月31日と算出、現行endDate(0566-05-31)と完全一致。両日ともday精度で確定し、通算日数差はpython3 datetimeで2479日と機械計算、現行exactDays(2479)とも一致。",
+              "note": "在位終了は崩御（有覚殿にて）。同月「六月丙午、高祖崩」（559年6月丙午＝8月9日相当）から起算し、世祖が南皖より帰還・即位したのが甲寅（同月29日目）で、既存noteの「武帝崩御の約1週間後」という記述とも整合（丙午→甲寅は8日差）。原文・換算とも現行データの日付・precision・exactDaysを全て裏付けたため補正なし。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 2479,
+          "displayYears": 6.8,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 559,
+        "lastEndYear": 566,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 559
+      },
+      "sources": {
+        "wikidata": "Q712113",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "陳皇帝。文帝。"
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "「世祖疾甚。是日，崩於有覺殿」、遺詔にも「疾苦彌留，遂至不救」（陳書卷三）。重篤な疾病による崩御。",
+        "confidence": "high",
+        "source": {
+          "page": "陳書/卷三 本紀第三 世祖",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "武帝の甥。武帝の遺詔により召されて大統を継いだ（『陳書』巻三「永定三年六月丙午，高祖崩，遗诏征世祖入纂」）。章皇后の令が「須立長主」として蒨を指名し、本人が再三固辞した末に群公卿士の固請を受けて即位した（「世祖固让，至于再三，群公卿士固请，其日即皇帝位」）。『南史』侯安都伝には安都が剣を提げて推戴を強行したという別伝があるが、遺詔の効力を覆す介入ではなく、その実行を促した記述。",
+        "confidence": "medium",
+        "source": {
+          "page": "陳書/卷三 本紀第三 世祖（公式記述）；南史/卷六十六 列傳第五十六 侯安都（実態）",
+          "lang": "zh",
+          "note": "zh.wikisource.org＋WebSearch経由で南史原文確認"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝",
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "母后",
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "甥",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "天嘉元年春正月癸丑「改永定四年為天嘉元年」（世祖即位後最初の建元）。",
+            "source": {
+              "page": "陈书卷三 世祖本纪",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "天康元年春二月丙子「改天嘉七年為天康元年」。",
+            "source": {
+              "page": "陈书卷三 世祖本纪",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "世祖は即位当初は高祖の元号「永定」を継続使用（永定三年〜四年）。天嘉元年正月に初めて改元（永定四年→天嘉元年）、これを即位後最初の建元として1回目に計上。天康元年二月に天嘉七年→天康元年へ再改元。"
+      },
+      "amnestyCount": {
+        "count": 6,
+        "events": [
+          {
+            "date": "0559-08-17",
+            "datePrecision": "day",
+            "note": "即位当日（永定三年六月・世祖即皇帝位当日）の詔で「可大赦天下，罪無輕重，悉皆蕩滌」と発令。",
+            "source": {
+              "page": "陈书卷三 世祖本纪",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "天嘉元年春正月癸丑、改元の詔中に「其大赦天下」とあり、同日「改永定四年為天嘉元年」で改元も実施（同一詔での併記）。",
+            "source": {
+              "page": "陈书卷三 世祖本纪",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "天嘉二年春正月庚戌「大赦天下」。",
+            "source": {
+              "page": "陈书卷三 世祖本纪",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "天嘉三年三月甲申「大赦天下」。",
+            "source": {
+              "page": "陈书卷三 世祖本纪",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "天嘉四年十二月丙申「大赦天下」。",
+            "source": {
+              "page": "陈书卷三 世祖本纪",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "天康元年春二月丙子、改元の詔中に「可大赦天下」とあり、同日「改天嘉七年為天康元年」で改元も実施（同一詔での併記）。",
+            "source": {
+              "page": "陈书卷三 世祖本纪",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "「大赦天下」と明記された全国規模の恩赦のみ計上。「曲赦」（京師・湘州諸郡・東陽郡・建安晋安二郡等の地域限定恩赦、計6回言及あり）および「赦京師殊死已下」（天嘉元年四月辛丑、京師限定）は範囲限定のため除外。即位当日の大赦（永定三年六月）を1回目として起算。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "永定三年九月乙亥「立妃沈氏為皇后」。",
+            "source": {
+              "page": "陈书卷三 世祖本纪",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "即位直後の永定三年九月に一度のみ立后。再冊立の記事なし。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "本紀に該当記事なし。永定三年九月辛酉に皇子伯宗を皇太子に立てた記事はあるが（立太子）、廃太子の記事は本紀中に見られない。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "陳書卷三（世祖本紀）を通読したが、在位期間（永定三年六月～天康元年四月、559～566年）中に世祖自身が「親征」「帝自将」等の形で出陣した記述は見当たらない。王琳・熊曇朗・留異・周迪・陳宝応らへの対応はすべて侯瑱・侯安都・徐度・周迪・章昭達ら将軍への派遣によるもので、皇帝本人の出征はない。よって該当記事なしとして0件とした。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 6,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "鎮圧成功",
+            "leader": "王琳（旧梁の将軍。北斉の支援を得て蕭荘を擁立）",
+            "name": "王琳・蕭荘の乱",
+            "note": "王琳は梁末の将軍で、高祖陳霸先による禅譲（陳の建国）を認めず抵抗を続けていた勢力（高祖紀では即位直後の557年時点から周文育・侯安都を郢州で破り捕虜とするなど既に交戦しており、陳に服属していない旧梁遺臣という性格が強い）。永定三年（559）十一月に大雷へ侵攻し建康に迫ったため、世祖は太尉侯瑱・司空侯安都・仪同徐度を派遣して防がせた。天嘉元年（560）二月、侯瑱が梁山で王琳を破り、斉将劉伯球を生擒、王琳とその擁立した蕭荘（永嘉王）は敗れて北斉へ亡命した。北周・北斉の対外的支援は背景として区別し、王琳自身の挙兵・離反行為を服属者による反乱として鎮圧回数に計上した（指示文の判定方針に従う）。",
+            "startDate": "0559-11-01",
+            "datePrecision": "month",
+            "endDate": "0560-02-01"
+          },
+          {
+            "outcome": "鎮圧成功",
+            "leader": "紀機（高州刺史）",
+            "name": "紀機の叛乱（王琳に呼応）",
+            "note": "天嘉元年二月乙未、高州刺史紀機が軍を離れて宣城に還り、郡を拠点として王琳に呼応して叛いた。同時期の記事により泾令賀当遷が討平したとのみ記され、日付の幅は不明だが同月内で決着したとみられる。王琳の乱と連動するが首謀者・蜂起地点が異なるため別件として計上した。",
+            "startDate": "0560-02-01",
+            "datePrecision": "month",
+            "endDate": "0560-02-01"
+          },
+          {
+            "outcome": "鎮圧成功（討たれ梟首）",
+            "leader": "熊曇朗（北江州刺史）",
+            "name": "熊曇朗の乱",
+            "note": "陳書卷二（高祖紀）によれば永定三年（559）五月乙酉、北江州刺史熊曇朗が都督周文育を軍中で殺害して挙兵した。これは世祖の即位（同年六月）より前だが、反乱自体は世祖の治世に入っても継続し、天嘉元年（560）三月丁巳、江州刺史周迪が南中を平定し熊曇朗を斬って首を京師に伝えた。反乱の発生は高祖代だが、鎮圧完了は世祖代のためここに計上し、startDateは在位期間外のためnullとした。",
+            "startDate": null,
+            "datePrecision": "month",
+            "endDate": "0560-03-01"
+          },
+          {
+            "outcome": "鎮圧成功（最終的に捕縛され京師に送られた）",
+            "leader": "留異（縉州刺史）",
+            "name": "留異の乱",
+            "note": "陳書卷三の天嘉二年十二月の記事に「先是、縉州刺史留異応於王琳等反」とあり、正確な挙兵時期は明記されないが王琳の活動期（天嘉元年頃、560年）に遡ると推測されるためyear精度・推定startDateとした。天嘉二年（561）十二月丙戌、司空侯安都に討伐を命じ、天嘉三年（562）正月庚寅に桃支嶺で留異を破り、留異は身一つで晋安へ逃亡（東陽郡平定）。その後、晋安で陳宝応と合流し抵抗を続けたが、天嘉五年（564）十一月丁亥、章昭達が建安で陳宝応を破った際に留異も共に捕らえられ京師へ送られた。長期にわたるが首謀者が同一のため1件として集計した。",
+            "startDate": "0560-01-01",
+            "datePrecision": "year",
+            "endDate": "0564-11-01"
+          },
+          {
+            "outcome": "鎮圧成功（最終的に討たれ梟首）",
+            "leader": "周迪（江州刺史）",
+            "name": "周迪の乱",
+            "note": "天嘉三年（562）閏二月己酉、江州刺史周迪が留異に呼応して挙兵し湓城を襲い豫章郡を攻めたが陥とせず。同年九月に一時降伏。天嘉四年（563）正月、再び城を棄てて逃走し閩州刺史陳宝応の庇護を受けた（臨川郡は平定）。同年九月に再度臨川へ侵寇し、護軍章昭達が討伐、十一月に大破し党与を捕えたが周迪自身は潜伏を続け、天嘉六年（565）七月丙戌、臨川太守駱文牙がついに斬り、首級を京師に送り朱雀航に梟した。閏月は暦月換算の都合上「02」として扱った（datePrecisionはmonth）。首謀者が同一のため一連の挙兵・逃亡・再挙兵を1件として集計した。",
+            "startDate": "0562-02-01",
+            "datePrecision": "month",
+            "endDate": "0565-07-01"
+          },
+          {
+            "outcome": "鎮圧成功",
+            "leader": "陳宝応（閩州刺史）",
+            "name": "陳宝応の乱",
+            "note": "天嘉四年（563）正月甲申、閩州刺史陳宝応が逃亡してきた周迪を受け入れて匿い朝廷に反抗する姿勢を明確にした。天嘉五年（564）十一月丁亥、護軍章昭達が建安で陳宝応を破り、留異とともに捕らえて京師に送り、晋安郡を平定した。留異とは合流していたが首謀者・拠点（閩州）が異なるため別件として計上した。",
+            "startDate": "0563-01-01",
+            "datePrecision": "month",
+            "endDate": "0564-11-01"
+          }
+        ],
+        "note": "王琳（旧梁将軍・北斉支援下の対立擁立）を服属者の離反反乱として計上する判断、紀機・留異・陳宝応を王琳・周迪と別件に切り分けた粒度判断、熊曇朗のように反乱開始が高祖代に遡る事例の扱いなど、いずれも指示文の基準に沿って判断したが史料の記述が簡潔で境界事例を含むためconfidenceはmediumとした。侯安都の誅殺（天嘉四年六月）は挙兵の記述がなく皇帝側による先制的処断とみなし、反乱には計上していない。"
+      },
+      "rebellionSufferedCount": {
+        "count": 6,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "撃退成功（王琳・蕭荘は北斉へ敗走）",
+            "leader": "王琳（旧梁の将軍。蕭荘を擁立）",
+            "name": "王琳・蕭荘の乱",
+            "note": "rebellionSuppressionCountと同一事件。北斉の支援を受けた王琳が大雷から建康に迫ったが、天嘉元年二月に梁山で撃破され、王琳・蕭荘は北斉へ亡命した。",
+            "startDate": "0559-11-01",
+            "datePrecision": "month",
+            "endDate": "0560-02-01"
+          },
+          {
+            "outcome": "鎮圧された",
+            "leader": "紀機（高州刺史）",
+            "name": "紀機の叛乱（王琳に呼応）",
+            "note": "rebellionSuppressionCountと同一事件。",
+            "startDate": "0560-02-01",
+            "datePrecision": "month",
+            "endDate": "0560-02-01"
+          },
+          {
+            "outcome": "鎮圧され熊曇朗は斬られた",
+            "leader": "熊曇朗（北江州刺史）",
+            "name": "熊曇朗の乱",
+            "note": "rebellionSuppressionCountと同一事件。反乱発生は高祖代（559年5月）だが、世祖即位後も反乱状態が継続していたため被反乱としても計上した。",
+            "startDate": null,
+            "datePrecision": "month",
+            "endDate": "0560-03-01"
+          },
+          {
+            "outcome": "最終的に捕縛された",
+            "leader": "留異（縉州刺史）",
+            "name": "留異の乱",
+            "note": "rebellionSuppressionCountと同一事件。",
+            "startDate": "0560-01-01",
+            "datePrecision": "year",
+            "endDate": "0564-11-01"
+          },
+          {
+            "outcome": "最終的に討たれた",
+            "leader": "周迪（江州刺史）",
+            "name": "周迪の乱",
+            "note": "rebellionSuppressionCountと同一事件。",
+            "startDate": "0562-02-01",
+            "datePrecision": "month",
+            "endDate": "0565-07-01"
+          },
+          {
+            "outcome": "捕縛された",
+            "leader": "陳宝応（閩州刺史）",
+            "name": "陳宝応の乱",
+            "note": "rebellionSuppressionCountと同一事件。",
+            "startDate": "0563-01-01",
+            "datePrecision": "month",
+            "endDate": "0564-11-01"
+          }
+        ],
+        "note": "rebellionSuppressionCountと完全に対称（同一6件）とした。いずれも皇帝側（陳）が鎮圧の主体であり、鎮圧側と被反乱側で粒度・結果が食い違う事例はなかった。侯安都の誅殺は挙兵を伴わない先制的処断とみなし対象外とした。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "陳書本紀を通読。建国（建康定都、建国時の定都）から589年の滅亡まで建康が一貫した都、遷都の記録なし。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathDate": "0566-04-01",
+        "deathDatePrecision": "day",
+        "accessionAge": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "陳書卷三（世祖本紀）・南史・資治通鑑（世祖文皇帝紀）を通読したが、生年月日・即位時年齢・崩御時の享年（「時年○○」等）の直接記載が見当たらなかった。他の陳朝皇族（弟の高宗陳頊は「梁中大通二年七月辛酉生」と明記）とは異なり、世祖蒨自身の生年に関する記述は原典に確認できず。deathDateは陳書「天康元年…四月…癸酉，崩於有覺殿」（reigns[0].endDateと一致）。調査済みだが年齢は不明として確定。"
+      }
+    },
+    {
+      "id": "chen-feidi",
+      "name": {
+        "personalName": "陳伯宗",
+        "commonName": "廃帝（臨海王）",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "陳",
+        "category": "正統王朝",
+        "section": "南朝"
+      },
+      "reigns": [
+        {
+          "startYear": 566,
+          "endYear": 568,
+          "dynastyOrder": 3,
+          "isRestoration": false,
+          "note": "父文帝崩御と同日に即位（13歳、実権は叔父陳頊）。陳頊により廃位・臨海王に降封（570-04-22に殺害）。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0566-05-31",
+          "endDate": "0568-12-27",
+          "startDateRaw": "天康元年四月癸酉",
+          "endDateRaw": "光大二年十一月甲寅",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 941,
+            "unit": "day",
+            "approxDays": 941,
+            "exactDays": 941,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "陳書 本紀第四 廃帝紀",
+              "lang": "zh-classical",
+              "quote": "（即位）天康元年四月癸酉，世祖崩，其日，太子即皇帝位于太极前殿。／（廃位）十一月……甲寅，慈训太后集群臣于朝堂，令曰：「……宜在流放，今可特降为临海郡王，送还籓邸。……」是日，出居别第。",
+              "conversion": "即位日「天康元年四月癸酉」をsxtwlで換算すると、四月の干支配列中27日目が癸酉にあたり、西暦566-05-31（世祖文帝崩御と同日）となる。在位終了（廃位・出居別第）日「光大二年十一月甲寅」も同様に十一月23日目が甲寅にあたり、西暦568-12-27となる。両日とも現行データのstartDate/endDateと完全一致し、python3のdatetime差分計算でもexactDays=941が一致確認できた（既存の941日と同一）。",
+              "note": "endDateは崩御ではなく「臨海郡王への降封・出居別第」を在位終了と定義した日（原文「是日、出居別第」）。実際の死去（殺害）は太建二年四月（569年、別日）であり、note記載の「570-04-22に殺害」と混同しないよう既存の在位終了の定義通り維持した。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 941,
+          "displayYears": 2.6,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 566,
+        "lastEndYear": 568,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 566
+      },
+      "sources": {
+        "wikidata": "Q718222",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "陳皇帝。廃帝（臨海王）。"
+      },
+      "deathCause": {
+        "category": "不詳",
+        "note": "『陳書』卷四本紀は「太建二年四月薨，時年十九」とのみ記し死因を示していない。『南史』卷十も同様。同母弟・始興王陳伯茂は陳頊（宣帝）の刺客により確実に暗殺されており、現代の通説では廃帝も宣帝による暗殺が有力視されているが、原典に直接の記述がないため原典に忠実に不詳を採用（暗殺説はここに併記の通り）。",
+        "confidence": "low",
+        "source": {
+          "page": "陳書/卷四 本紀第四 廢帝；南史/卷十 陳本紀下第十",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "世祖（文帝）の嫡長子として、父の崩御と同日に即位。通常の父子継承。",
+        "confidence": "high",
+        "source": {
+          "page": "陳書/卷四 本紀第四 廢帝",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0567-01-28",
+            "datePrecision": "day",
+            "note": "即位時は世祖の元号「天康」をそのまま継続使用（新規建元なし）。光大元年正月乙亥の詔で「改天康二年为光大元年」とあり、天康から光大へ改元。（旧 precision 記載: 光大元年正月乙亥（世祖から継続していた天康元年・二年を改めて光大元年とした））",
+            "source": {
+              "page": "陈书本纪第四 廢帝",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "廢帝は即位時に新元号を建てず父世祖の「天康」年号を継続使用したため即位建元はカウントしない。在位中の改元は「天康→光大」の1回のみ。"
+      },
+      "amnestyCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": "0566-05-31",
+            "datePrecision": "day",
+            "note": "天康元年四月癸酉、世祖崩御の当日に皇太子伯宗が即位、詔に「可大赦天下」とある",
+            "source": {
+              "page": "陈书本纪第四 廢帝",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0567-01-28",
+            "datePrecision": "day",
+            "note": "光大元年正月乙亥の詔に「可大赦天下。改天康二年为光大元年」とあり、改元と同時に大赦天下を実施。（旧 precision 記載: 光大元年正月乙亥（改元と同時、日付未特定））",
+            "source": {
+              "page": "陈书本纪第四 廢帝",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "「大赦天下」と明記された全国規模の恩赦は即位時と光大改元時の2回。冬十月辛巳の「赦湘、巴二州为皎所诖误者」は湘・巴二州限定の部分的恩赦のためカウント対象外。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0566-08-23",
+            "datePrecision": "day",
+            "note": "天康元年秋七月丁酉、「立妃王氏为皇后」とあり、王妃を皇后に冊立。丁酉は sxtwl 換算で天康元年七月二十二日＝ユリウス暦566年8月23日に一意。2026-07-22 の日付ISO正規化時に個別確認のうえ訂正。日付原文: 0566-08-XX（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "陈书本纪第四 廢帝",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中に立后は1回のみで、廃后・再冊立の記載はない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "光大元年七月戊申に皇子至泽を皇太子に立てた記事はあるが、廃帝在位中にこの皇太子が廃されたとする記載は本紀中に見られない。廃帝自身が光大二年十一月甲寅に慈訓太后の令により皇帝位を廃され臨海郡王に降格されているが、これは皇太子の廃立ではなく皇帝本人の廃位であるためカウント対象外。"
+      },
+      "ages": {
+        "birthDate": "0554",
+        "birthDatePrecision": "year",
+        "deathDate": "0570-04",
+        "deathDatePrecision": "month",
+        "deathAge": 19,
+        "confidence": "medium",
+        "note": "生年は梁承聖三年（554年）五月庚寅（『陳書』卷四・『南史』卷十・『建康実録』とも同記載）、没年齢は太建二年（570年）四月薨「時年十九」（同3書とも同記載）で、554年生なら数え年17となり両立しない原典内部の矛盾（2026-07-22に原典再確認、矛盾は3書共通で原典由来）。生年552年説は「時年十九」からの逆算にすぎず、552年を生年として直接記す原典は確認できない。傍証として同母弟・始興王伯茂は光大二年（568年）十一月の殺害時「時年十八」（『陳書』卷二十八）＝逆算生年551年頃で、兄・伯宗の554年生と両立せず年齢記載側（552年頃生）を支持する。暦計算上は554年・552年とも五月に庚寅の日が実在し（新暦554-06-20／552-06-30）日干支からの判別は不能。唯一の生年直接記載（554年）と没年齢の直接記載（19歳）をそのまま採録し、矛盾は本注記に明示する。廃位後（皇帝在位期間外）の崩御だが人物の生没情報として記録。即位時年齢の直接記載はなし。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "廢帝（陳伯宗）は天康元年（566年）即位時に約12歳、光大二年（568年）廃位時も未成年（太建二年570年薨去時「時年十九」から逆算し廃位時は14歳前後）で、実権は終始叔父の安成王陳頊（太傅・録尚書・都督中外諸軍事）が握っていた。陳書卷四・南史卷十本紀を通読したが「帝自将」「親征」「帝率衆」等、皇帝本人が出陣したことを示す記述は皆無。「舆驾亲祠太庙」「舆驾亲祠南郊」等の記事はいずれも宗廟・南郊での祭祀であり軍事行動ではない。該当記事なし。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 2,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "鎮圧成功（即日処刑）",
+            "leader": "余孝頃（宣毅将軍・南豫州刺史）",
+            "name": "余孝頃の乱",
+            "note": "陳書卷四本紀「光大元年二月辛亥，宣毅将軍、南豫州刺史余孝頃謀反伏誅」。陳朝任命の地方長官（南豫州刺史）による反乱で、発覚・鎮圧・処刑が同一記事内に記される即決事案。南史卷十には対応する明示的記事なし（陳書のみ）。日付はグレゴリオ暦へ機械換算した概算（原文表記：光大元年二月辛亥）。",
+            "startDate": "0567-03-01",
+            "datePrecision": "month",
+            "endDate": "0567-03-01"
+          },
+          {
+            "outcome": "鎮圧成功。華皎は単舸で北周方の江陵へ逃亡、官軍（都督淳于量・呉明徹ら）が北周将拓跋定を捕虜とし兵1万余・馬4千余を鹵獲。",
+            "leader": "華皎（安南将軍・湘州刺史）",
+            "name": "華皎の乱",
+            "note": "陳書卷四「光大元年五月…安南将軍、湘州刺史華皎謀反，丙申，以中撫大将軍淳于量為使持節、征南大将軍，総率舟師以討之」、及び「是月，周将長胡公拓跋定率歩騎二萬入郢州，与華皎水陸倶進，都督淳于量、呉明徹等与戦，大破之。皎単舸奔江陵，擒拓跋定」。湘州刺史華皎は陳朝の任命官（服属する臣下）であり、後梁蕭巋を擁立し北周軍（拓跋定の援軍二万）と連合したが、これは外部勢力との対等な統一戦争ではなく、あくまで陳朝内部の臣下による離反・反乱に北周が加担した構図（帰属主体は華皎側）と判断し、鎮圧・被反乱の双方に計上した。なお光大二年十一月の廃帝廃位詔（慈訓太后令）は「於是密詔華皎，称兵上流」とし、廃帝本人がこの乱を密かに指示したと非難しているが、これは廃帝を排除した安成王頊側が事後（廃位当日）に発した政治的正当化文書内の一方的主張であり、逐日記事の本紀本文にはこの点を裏付ける記述がない。したがって本件を廃帝自身の先制攻撃（例外3）とは断定せず、通常の反乱（服属する臣下の離反）として計上した。confidence: medium（廃帝本人の関与の有無については異説の余地あり）。",
+            "startDate": "0567-06-01",
+            "datePrecision": "month",
+            "endDate": "0567-10-01"
+          }
+        ],
+        "note": "陳書卷四・南史卷十本紀に加え、daizhigev20版陳書列傳（到仲挙傳・韓子高傳・華皎傳）も確認した。光大元年中に発覚した『到仲挙・韓子高の陰謀』（右衛将軍韓子高が到仲挙父子と結び東城に屯拠し安成王頊に迫ろうとした計画で、決行予定日（本月七日）前に密告により発覚し韓子高・到仲挙父子が処刑された事案。原文『竝克今月七日，縱其兇謀。頼祖宗之霊，姦謀顕露』）、及び『建安人張安国の反乱未遂』（章太后が宦官蒋裕を通じ張安国を誘い挙兵させ安成王頴頊打倒を図った計画で、原文『安国事覚，並為高宗所誅』）は、いずれも実際の挙兵・戦闘に至る前に発覚・鎮圧された謀反計画であり、本紀の逐日記事にも記載されないことから、本基準の『未然に発覚し実際の挙兵に至らなかった謀反計画』に該当すると判断し不算入とした。また光大二年十一月の廃帝自身の廃位（安成王頴頊による）は最重要事件だが、原文（陳書卷四・南史卷十いずれも）には慈訓太后の令による形式的な廃位手続きとして記され、兵力を用いたことを示す明示的な記述（挙兵・入宮・弑逆等の語）がないため、反乱鎮圧回数には計上していない（自身が鎮圧する立場にないため元々対象外）。"
+      },
+      "rebellionSufferedCount": {
+        "count": 2,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "鎮圧成功（即日処刑）",
+            "leader": "余孝頃（宣毅将軍・南豫州刺史）",
+            "name": "余孝頃の乱",
+            "note": "反乱鎮圧回数と同一事案。陳書卷四「光大元年二月辛亥，宣毅将軍、南豫州刺史余孝頃謀反伏誅」。",
+            "startDate": "0567-03-01",
+            "datePrecision": "month",
+            "endDate": "0567-03-01"
+          },
+          {
+            "outcome": "鎮圧成功。華皎は北周方へ逃亡、官軍が北周援軍を撃破。",
+            "leader": "華皎（安南将軍・湘州刺史）",
+            "name": "華皎の乱",
+            "note": "反乱鎮圧回数と同一事案。詳細は反乱鎮圧回数側のnote参照。廃帝廃位詔は本乱を廃帝本人の密命によるものと主張するが、逐日記事では未確認のため確定的事実とはせず、通常の被反乱として計上した（confidence: medium）。",
+            "startDate": "0567-06-01",
+            "datePrecision": "month",
+            "endDate": "0567-10-01"
+          }
+        ],
+        "note": "光大二年十一月甲寅、廃帝は慈訓太后（章太后）の令により臨海郡王へ降封され廃位された（陳書卷四・南史卷十）。ユーザー提示の参考情報にある通りこれが在位中最重要の政治事件だが、原文には『挙兵』『称兵』『兵入』等、武力行使を示す語が一切なく、太傅・録尚書・都督中外諸軍事として既に全軍を掌握していた安成王頴頊が、太后の詔勅という形式的手続きのみで廃位を完了させたと読める（廃帝は当日『出居別第』と記されるのみで、拘禁・殺害等の直接的暴力の記述もこの時点ではない。廃帝の死去は2年後の太建二年570年で死因は原典に記載なし別途死因調査済み）。近年の研究（日本語Wikipedia等の概説）でも『直接的な軍事クーデターというよりも…宮廷内の権力闘争』と評されており、原典・後世評価の双方から見て例外4（兵力を伴う弑逆・クーデター）の典型例と断定する根拠に乏しいと判断し、被反乱回数には計上しなかった。ただし安成王頴頊が都督中外諸軍事として軍事的実権を既に掌握した状態での廃位である点は事実上の武力を背景にした権力移行と見る余地もあり、この判断はconfidence: mediumとし、将来的な再検討の余地を残す。到仲挙・韓子高の陰謀、建安人張安国の反乱未遂については反乱鎮圧回数のnote参照（いずれも挙兵前に発覚・鎮圧されたため不算入）。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "陳書本紀を通読。建国（建康定都、建国時の定都）から589年の滅亡まで建康が一貫した都、遷都の記録なし。"
+      }
+    },
+    {
+      "id": "chen-xuandi",
+      "name": {
+        "personalName": "陳頊",
+        "commonName": "宣帝",
+        "aliases": [],
+        "posthumousName": "宣帝",
+        "templeName": "高宗",
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "陳",
+        "category": "正統王朝",
+        "section": "南朝"
+      },
+      "reigns": [
+        {
+          "startYear": 569,
+          "endYear": 582,
+          "dynastyOrder": 4,
+          "isRestoration": false,
+          "note": "甥陳伯宗を強制廃位させ即位。宣福殿にて崩御。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0569-02-05",
+          "endDate": "0582-02-17",
+          "startDateRaw": "太建元年正月甲午",
+          "endDateRaw": "太建十四年正月甲寅",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 4760,
+            "unit": "day",
+            "approxDays": 4760,
+            "exactDays": 4760,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "陳書 本紀第五 宣帝紀",
+              "lang": "zh-classical",
+              "quote": "太建元年春正月甲午，即皇帝位于太极前殿…／十四年春正月己酉，高宗弗豫。甲寅，崩于宣福殿，时年五十三。",
+              "conversion": "即位: 太建元年正月甲午(569年、月内通日=4日目)→sxtwl.fromLunar(569,1,4,False)で西暦569-02-05に一致。崩御: 太建十四年正月甲寅(582年、月内通日=10日目)→sxtwl.fromLunar(582,1,10,False)で西暦582-02-17に一致。いずれも現行値(0569-02-05／0582-02-17)と完全一致したため補正なし。exactDaysもpython3 datetime差分で4760日を再計算し現行値と一致確認済み。",
+              "note": "崩御記事は「甲寅，崩于宣福殿」で、直前の「己酉，高宗弗豫」（発病）とは別日。endDateは既存noteの定義通り崩御日(甲寅)を採用し、発病日(己酉)とは混同していない。太建十四年=582年であることは即位年(太建元年=569年)からの通算で確認。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 4760,
+          "displayYears": 13.0,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 569,
+        "lastEndYear": 582,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 569
+      },
+      "sources": {
+        "wikidata": "Q718227",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "陳皇帝。宣帝。"
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "「高宗弗豫。甲寅，崩於宣福殿，時年五十三」、遺詔にも「爰自遘疾，曾未浹旬，醫藥不瘳，便屬大漸」（陳書卷五）。急病による自然死。",
+        "confidence": "high",
+        "source": {
+          "page": "陳書/卷五 本紀第五 宣帝",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "accessionRoute": {
+        "category": "簒奪",
+        "note": "文帝の弟で、廃帝の叔父。輔政の地位から到仲舉・韓子高ら政敵を粛清したうえ、慈訓太后の令により廃帝を臨海王に落として自ら大統を継いだ（『陳書』巻四「慈訓太后令廢帝為臨海王，以高宗入纂」、巻三「中外宜依旧典，奉迎」）。前帝を廃した行為と自らを立てた行為が同一の太后令によっている。",
+        "confidence": "high",
+        "source": {
+          "page": "陳書/卷五 本紀第五 宣帝；陳書/卷二十 列傳第十四 到仲舉・韓子高・華皎",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "本人",
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "母后"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "廃位・追放",
+          "relationToPredecessor": "叔父",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0569-02-05",
+            "datePrecision": "day",
+            "note": "太建元年正月甲午、即位の詔で「可改光大三年為太建元年」とあり、即位に伴い光大三年を太建元年に改元。以後、宣帝崩御（太建十四年）まで年号「太建」のまま推移し、他に改元の記述はない。",
+            "source": {
+              "page": "陳書本紀第五 宣帝",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "宣帝在位中の改元は即位に伴う光大三年→太建元年の一度のみ。太建十四年（582年）崩御まで太建の年号が継続し、次の改元（至德）は後主（陳叔宝）の代に行われたため宣帝の在位期間には含めない。"
+      },
+      "amnestyCount": {
+        "count": 6,
+        "events": [
+          {
+            "date": "0569-02-05",
+            "datePrecision": "day",
+            "note": "太建元年正月甲午、即位の詔で「可改光大三年為太建元年。大赦天下。」と、改元と同日に大赦天下を布告。",
+            "source": {
+              "page": "陳書本紀第五 宣帝",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0570-03",
+            "datePrecision": "month",
+            "note": "太建二年三月丁未、「大赦天下」。同月丙午に「曲赦廣、衡二州」（地域限定の恩赦）があるが、これは全国規模ではないためカウントしない。",
+            "source": {
+              "page": "陳書本紀第五 宣帝",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0571-03",
+            "datePrecision": "month",
+            "note": "太建三年三月丁丑、「大赦天下」。天康元年から太建元年までの未納の軍糧・禄秩等を免除する詔も併せて出された。",
+            "source": {
+              "page": "陳書本紀第五 宣帝",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0572-09",
+            "datePrecision": "month",
+            "note": "太建四年九月辛亥、「大赦天下」。",
+            "source": {
+              "page": "陳書本紀第五 宣帝",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0578-03",
+            "datePrecision": "month",
+            "note": "太建十年三月乙酉、「大赦天下」。",
+            "source": {
+              "page": "陳書本紀第五 宣帝",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0579-11",
+            "datePrecision": "month",
+            "note": "太建十一年十一月辛卯、詔に「可大赦天下」とあり。北周軍来攻直前の大赦。",
+            "source": {
+              "page": "陳書本紀第五 宣帝",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "「大赦天下」と明記された全国規模の恩赦のみを計上した。太建六年正月の詔に見える「可赦江右淮北南司…十五州…罪無輕重，悉皆原宥」や太建二年三月丙午の「曲赦廣、衡二州」は地域限定の恩赦であり対象外とした。日付は干支日から旧暦年月をグレゴリオ暦の年月に変換したもので、日単位までの厳密な換算は行っていない（即位日と同日の事例のみ既知の即位日0569-02-05を使用）。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0569-02-05",
+            "datePrecision": "day",
+            "note": "太建元年正月甲午、即位の詔と同日に「立妃柳氏為皇后」とあり、柳氏が皇后に正式冊立された。以後、在位中に皇后が交代・再冊立された記述はない。",
+            "source": {
+              "page": "陳書本紀第五 宣帝",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "宣帝の在位中、皇后冊立の記述は即位時の柳氏立后の一度のみで、廃后・再冊立の記載はない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "太建元年正月甲午、世子叔宝を皇太子に立てて以降、宣帝の在位中（太建元年～十四年）に皇太子が廃されたという記述は本紀中に見当たらない。叔宝は宣帝崩御時にそのまま皇太子から即位（後の後主）した。なお光大二年十一月に「慈訓太后令廢帝為臨海王」とあるのは、宣帝が皇太弟として先帝（廃帝陳伯宗）を廃立させた事件であり、これは宣帝自身が擁立された皇太子・皇太弟の廃立ではなく先帝（皇帝）の廃位なので本項目には該当しない。"
+      },
+      "ages": {
+        "birthDate": "0530-07",
+        "birthDatePrecision": "month",
+        "deathDate": "0582-02-17",
+        "deathDatePrecision": "day",
+        "deathAge": 53,
+        "confidence": "high",
+        "note": "生年月（梁中大通二年七月）・没年齢53歳（「時年五十三」）はいずれも直接記載。即位時年齢の直接記載はなし。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "陳書卷五本紀を通読したが「帝自将」「親征」等、宣帝自身が軍を率いて出陣したことを示す記述は見当たらない。太建五年（573）・七年（577）・九年（579）〜十年（578の呂梁での大敗）の対北斉・北周の北伐はいずれも呉明徹・黄法抃・淳于量・任忠・樊毅ら諸将が都督として率いており、皇帝本人は建康に留まり亲祠太庙・亲耕藉田等の儀礼のみを行っている。また北伐自体は対等な独立政権（北斉・北周）との対外戦争のため、仮に皇帝親征があったとしても本カウントの対象外となる性質のものである。該当記事なしのためcount 0。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 2,
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "鎮圧成功（生擒され建康で斬首、広州平定）",
+            "leader": "欧陽紇",
+            "name": "欧陽紇の広州挙兵",
+            "note": "太建元年（569）冬十月、新除左衛将軍欧陽紇が広州に拠って挙兵。皇帝は車騎将軍・開府儀同三司章昭達を派遣して討伐させ（皇帝本人は出陣せず）、太建二年（570）二月癸未に章昭達が欧陽紇を捕らえて建康に送り、建康市で斬った。「広州平」と明記。欧陽紇は陳朝の官職（左衛将軍）を帯びた服属官であり、独立政権との抗争ではなく政権内部の反乱に該当。",
+            "startDate": "0569-10-01",
+            "datePrecision": "month",
+            "endDate": "0570-02-01"
+          },
+          {
+            "outcome": "鎮圧成功",
+            "leader": "田伯興",
+            "name": "廬江の蛮・田伯興の乱",
+            "note": "太建十年（578）十二月乙亥、合州廬江郡の蛮（異民族属民）田伯興が挙兵して枞陽を寇し、刺史鲁広達がこれを討平した（同一記事内で発生と鎮圧が完結）。廬江は陳朝支配下の郡県であり、服属する異民族属民の蜂起として反乱に計上。",
+            "startDate": "0578-12-01",
+            "datePrecision": "month",
+            "endDate": "0578-12-01"
+          }
+        ],
+        "note": "陳書卷五本紀に明記された2件の内部反乱（欧陽紇・田伯興）を計上。北伐（呂梁の戦い等、対北斉・北周）は対等な独立政権との対外戦争のため除外。太建十二年（580）の北周の司馬消難による九州八鎮を挙げての陳への内附（投降）は、陳への反乱ではなく北周からの離反・帰順であり、陳側の反乱鎮圧には該当しないため計上せず。"
+      },
+      "rebellionSufferedCount": {
+        "count": 2,
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "鎮圧され欧陽紇は処刑",
+            "leader": "欧陽紇",
+            "name": "欧陽紇の広州挙兵",
+            "note": "rebellionSuppressionCountと同一事件。左衛将軍欧陽紇が広州で挙兵、章昭達により鎮圧・処刑された。",
+            "startDate": "0569-10-01",
+            "datePrecision": "month",
+            "endDate": "0570-02-01"
+          },
+          {
+            "outcome": "鎮圧され乱は平定",
+            "leader": "田伯興",
+            "name": "廬江の蛮・田伯興の乱",
+            "note": "rebellionSuppressionCountと同一事件。廬江の蛮田伯興が枞陽を寇し、刺史鲁広達が討平した。",
+            "startDate": "0578-12-01",
+            "datePrecision": "month",
+            "endDate": "0578-12-01"
+          }
+        ],
+        "note": "鎮圧回数と対称的に同じ2件を計上。宣帝は太建十四年（582）正月に自然死（弗豫→崩）しており、クーデター・弑逆による死ではないため、それに関連する被反乱事件はなし。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "陳書本紀を通読。建国（建康定都、建国時の定都）から589年の滅亡まで建康が一貫した都、遷都の記録なし。"
+      }
+    },
+    {
+      "id": "chen-houzhu",
+      "name": {
+        "personalName": "陳叔宝",
+        "commonName": "後主",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "陳",
+        "category": "正統王朝",
+        "section": "南朝"
+      },
+      "reigns": [
+        {
+          "startYear": 582,
+          "endYear": 589,
+          "dynastyOrder": 5,
+          "isRestoration": false,
+          "note": "父宣帝崩御と同日に即位。禎明3年正月20日(589年2月10日)、隋将韓擒虎に建康(台城)を陥落・捕縛され陳滅亡、皇帝の地位を喪失。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0582-02-20",
+          "endDate": "0589-02-10",
+          "startDateRaw": "太建十四年正月丁巳",
+          "endDateRaw": "禎明三年正月甲申",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 2547,
+            "unit": "day",
+            "approxDays": 2547,
+            "exactDays": 2547,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "陳書 本紀第六 後主",
+              "lang": "zh-classical",
+              "quote": "十四年正月甲寅，高宗崩。乙卯，始兴王叔陵作逆，伏诛。丁巳，太子即皇帝位于太极前殿。／三年春正月乙丑朔……甲申，后主遣众军与弼合战，众军败绩。弼乘胜至乐游苑，鲁广达犹督散兵力战，不能拒。弼进攻宫城，烧北掖门。是时韩擒虎率众自新林至于石子冈，任忠出降于擒虎，仍引擒虎经硃雀航趣宫城，自南掖门而入……后主闻兵至，从宫人十馀出后堂景阳殿，将自投于井。袁宪侍侧，苦谏不从，后阁舍人夏侯公韵又以身蔽井，后主与争久之，方得入焉。及夜，为隋军所执。",
+              "conversion": "陳書本紀(後主紀)により、太建十四年正月甲寅(高宗＝宣帝崩御)→乙卯(始興王叔陵の乱誅殺)→丁巳(太子＝後主が皇帝位に即く)の順で3日間の経過がある。sxtwl.fromLunar(582,1,13,False)によりこの丁巳は西暦582年2月20日と換算される(甲寅=582-02-17、乙卯=582-02-18、丙辰=582-02-19、丁巳=582-02-20)。祯明三年正月は乙丑朔で、隋軍に捕縛された甲申は乙丑朔から20日目にあたりsxtwl.fromLunar(589,1,20,False)で589年2月10日と換算される。既存endDate(0589-02-10)はこの換算と一致し据え置き。既存startDate(0582-02-17)は太子即位日ではなく父宣帝崩御日(甲寅)の換算値と一致しており、即位記事の干支「丁巳」とは3日ずれていたため、原文の即位干支に基づき0582-02-20へ補正した。",
+              "note": "在位開始日を「宣帝崩御日(甲寅)」から「後主自身の即位日(丁巳、崩御の3日後)」へ補正した。陳書本紀の記述では崩御→始興王叔陵の乱鎮圧→太子即位が3日間に分けて起きており、即位日は崩御と同日ではない点に注意(既存noteの「父宣帝崩御と同日に即位」という記述は原文と整合しないため、データ訂正時にnote本文の見直しも検討されたい。ただし本タスクでは在位終了事由の定義自体は変更しないとの指示のため、note文面の修正は範囲外として据え置いた)。endDateは在位終了の定義(隋将韓擒虎による捕縛・建康陥落＝陳滅亡による皇帝の地位喪失)のまま、原文の干支と整合することを確認した。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 2547,
+          "displayYears": 7.0,
+          "needsPreciseDays": false,
+          "isExact": true,
+          "exactDays": 2550
+        },
+        "firstStartYear": 582,
+        "lastEndYear": 589,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 582
+      },
+      "sources": {
+        "wikidata": "Q718206",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "在位終了日（陳滅亡日）は隋ブロック調査で確定済み(589年2月10日)。confidenceをhighに更新。"
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "『陳書』卷六は「隋仁壽四年十一月壬子，薨於洛陽，時年五十二」と記す。降伏後16年間、隋文帝から優待され「与其子弟日饮一石」（南史・資治通鑑。陳書にこの記事はない）と伝わる生活を送っていたことが記録され、暗殺・処刑を示唆する記述は一切なし。",
+        "confidence": "medium",
+        "source": {
+          "page": "陳書/卷六 本紀第六 後主",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "父・高宗（宣帝）崩御を受け、兄弟の反乱未遂（陳叔陵、即日鎮圧）を経て皇太子（陳叔寶）が正規の手続きで即位。",
+        "confidence": "high",
+        "source": {
+          "page": "陳書/卷六 本紀第六 後主",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "至德元年正月壬寅、詔により太建十五年を至德元年に改元。「可大赦天下，改太建十五年為至德元年。」",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "禎明元年正月戊寅、詔により至德五年を禎明元年に改元。「可大赦天下，改至德五年為禎明元年。」",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "太建十四年正月丁巳の即位時は、父・宣帝（高宗）の太建の年号をそのまま継続使用しており、即位に伴う新規建元は行われていない（太建十五年まで太建の元号が続いた）。在位中に確認できる改元は至德・禎明の2回のみ。"
+      },
+      "amnestyCount": {
+        "count": 10,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "太建十四年正月丁巳、即位の詔で大赦天下。「可大赦天下。在位文武及孝悌力田為父後者，並賜爵一級。」",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "太建十四年七月辛未、大赦天下。",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "太建十四年九月丙午、太極殿での無㝵大会・捨身に伴い大赦天下。",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "至德元年正月壬寅、太建十五年を至德元年に改元する詔とともに大赦天下（改元とセットの恩赦）。",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "至德二年正月癸巳、大赦天下。",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "至德二年十一月丙寅、大赦天下。",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "至德三年十一月辛巳、長干寺行幸に伴い大赦天下。",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "至德四年十一月己卯、詔により大赦天下。",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "禎明元年正月戊寅、至德五年を禎明元年に改元する詔とともに大赦天下（改元とセットの恩赦）。",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "禎明元年九月甲午、蕭岩・蕭瓛らの投降・渡江に伴い大赦天下。",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "本紀中「大赦天下」と明記された事例を機械的に全件抽出し10件を確認（grepで原文中の出現箇所を全て検証済み）。部分的・地域限定の恩赦（禎明二年十一月「克日於大政殿訊獄」等の減刑措置は全国規模の大赦と明記されていないため除外）は含めていない。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "太建十四年正月己巳、妃沈氏（沈皇后）を皇后に立てる。「己巳，立妃沈氏為皇后。」",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "本紀を通読した限り、廃后および再冊立の記録は見当たらない（沈皇后は在位を通じて皇后のまま）。よって立后は1回のみ。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "禎明二年六月庚子、皇太子胤（永康公胤として立太子）を廃して吳興王とし、同日、始安王深（皇子深）を新たに皇太子に立てた。「庚子，廢皇太子胤為吳興王，立軍師將軍、揚州刺史始安王深為皇太子。」",
+            "source": {
+              "page": "陳書卷六 本紀第六 後主",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "本紀中で明確に「廢皇太子」と記された事例は1件のみ。立太子自体（太建十四年四月丙申の胤立太子、禎明二年六月庚子の深立太子）はカウントに含めていない。"
+      },
+      "ages": {
+        "deathAge": 52,
+        "confidence": "high",
+        "note": "生年（553年、梁承聖二年）・没年齢52歳（「時年五十二」、隋仁壽四年604年）はいずれも直接記載だが、干支日のグレゴリオ暦換算は未実施のためbirthDate/deathDateは保留。即位時年齢の直接記載はなし。禅譲（589年）後、隋の捕虜として604年に死去。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "陳書巻六（後主紀）を通読したが、後主自身が「親征」「帝自将」等の形で軍を率いて出陣した記録は見当たらない。祯明三年（589）の隋軍侵攻時も、驃騎大将軍豫章王叔英・萧摩訶・樊毅・鲁広達・任忠ら諸将に建康城内外の要地を分担して防衛させ、後主自身は台城（宮城）内にとどまり、最終的に景陽殿の井戸に隠れて隋軍に捕らえられた。該当記事なし。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 2,
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "鎮圧成功（萧摩訶らにより誅殺）",
+            "leader": "始興王叔陵（陳叔陵）",
+            "name": "始興王叔陵の乱",
+            "note": "太建十四年正月甲寅、父・高宗が崩御。翌日乙卯、次弟の始興王叔陵が挙兵し、即位直前の後主を剉薬刀で背後から斬りつけて負傷させ、駆けつけた皇太后にも斬りつけた。長沙王叔坚が叔陵を取り押さえ刀を奪ったが、叔陵は隙を見て脱出し東府城に立てこもり甲士を集め叛乱、新安王伯固も呼応した。右衛将軍萧摩訶が東府を包囲し、偽って投降を受け入れる態を装って使者を斬り、寅刻から巳刻（同日内）で鎮圧、乱戦の中で叔陵は殺害され梟首された。後主の即位（丁巳）直前・在位開始とほぼ同時の出来事だが、後主が既に事実上の後継者として襲撃対象となった事件であり計上した。",
+            "startDate": "0582-02-01",
+            "datePrecision": "month",
+            "endDate": "0582-02-01"
+          },
+          {
+            "outcome": "鎮圧成功（討伐軍に斬首・伝首）",
+            "leader": "章大宝",
+            "name": "章大宝の乱",
+            "note": "至德三年三月辛酉、前豊州刺史章大宝が挙兵して反乱。夏四月庚戌、豊州義軍主陳景詳が大宝を斬り、その首級を建康（京師）に送った。後主自身の親征ではなく現地軍による鎮圧。",
+            "startDate": "0585-04-01",
+            "datePrecision": "month",
+            "endDate": "0585-05-01"
+          }
+        ],
+        "note": "隋（楊堅・晋王広）による滅陳戦争（祯明三年）は対等な独立政権であった隋との対外戦争・統一戦争にあたるため除外した（指示に基づく）。祯明二年に後梁の萧岩・萧献らが陳に投降した記事があるが、これは陳への帰順であり反乱ではないため計上しない。"
+      },
+      "rebellionSufferedCount": {
+        "count": 2,
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "後主自身が刃傷を負う襲撃を受けたが、萧摩訶らにより鎮圧され即位を果たした",
+            "leader": "始興王叔陵（陳叔陵）",
+            "name": "始興王叔陵の乱",
+            "note": "rebellionSuppressionCountと同一事件。後主本人が直接襲撃対象となり負傷した点で被反乱として明確。",
+            "startDate": "0582-02-01",
+            "datePrecision": "month",
+            "endDate": "0582-02-01"
+          },
+          {
+            "outcome": "反乱は発生したが速やかに鎮圧され、後主の統治には大きな影響なし",
+            "leader": "章大宝",
+            "name": "章大宝の乱",
+            "note": "rebellionSuppressionCountと同一事件。前豊州刺史（服属していた地方官）による挙兵。",
+            "startDate": "0585-04-01",
+            "datePrecision": "month",
+            "endDate": "0585-05-01"
+          }
+        ],
+        "note": "隋による滅陳戦争（対等な独立政権との統一戦争）は被反乱に含めない（指示に基づく）。鎮圧回数と被反乱回数は同一の2件で一致する。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "陳書本紀を通読。建国（建康定都、建国時の定都）から589年の滅亡まで建康が一貫した都、遷都の記録なし。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,5276 @@
+{
+  "meta": {
+    "dynastyName": "南宋",
+    "dynastySection": "宋遼西夏金",
+    "count": 9,
+    "file": "data/emperors/dyn_017.json"
+  },
+  "emperors": [
+    {
+      "id": "nansong-gaozong",
+      "name": {
+        "personalName": "趙構",
+        "commonName": "高宗",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "南宋",
+        "category": "正統王朝",
+        "section": "宋遼西夏金"
+      },
+      "reigns": [
+        {
+          "startYear": 1127,
+          "endYear": 1129,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "靖康2年5月1日(庚寅)、南京応天府にて即位、建炎に改元(南宋建国)。建炎3年3月5日、苗劉の乱により趙旉に譲位。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "1127-06-12",
+          "endDate": "1129-03-26",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 653,
+            "unit": "day",
+            "approxDays": 653,
+            "exactDays": 653,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "宋史 本紀二十四 高宗一",
+              "lang": "zh-classical",
+              "quote": "五月庚寅朔，帝登壇受命，禮畢慟哭，遙謝二帝，即位于府治。改元建炎。／三月己卯朔……癸未，傅、正彥等叛，勒兵向闕，殺王淵及內侍康履以下百餘人……傅等迫帝遜位于皇子魏國公，請隆祐太后垂簾同聽政（建炎三年三月，本紀二十五）",
+              "conversion": "建炎元年五月一日(朔・庚寅)をsxtwlで換算すると1127-06-12(干支庚寅)となり原文の干支と一致、既存startDateと完全一致。建炎3年三月朔は己卯で、以降庚辰(2)辛巳(3)壬午(4)癸未(5)と数えると癸未=3月5日。sxtwl換算で1129-03-26(干支癸未)となり原文干支と一致、既存endDateと完全一致。",
+              "note": "即位記事は巻24(高宗一)、苗劉の乱による譲位記事は巻25(高宗二)に所在。"
+            }
+          }
+        },
+        {
+          "startYear": 1129,
+          "endYear": 1162,
+          "dynastyOrder": null,
+          "isRestoration": true,
+          "note": "明受元年4月1日、苗劉の乱鎮圧を受け復位(建炎年号は4月22日に正式回復)。紹興32年6月11日、孝宗へ譲位。1187年11月9日(淳熙14年10月8日)崩御。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "1129-04-20",
+          "endDate": "1162-07-24",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 12148,
+            "unit": "day",
+            "approxDays": 12148,
+            "exactDays": 12148,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "宋史 本紀二十五 高宗二／本紀三十二 高宗九",
+              "lang": "zh-classical",
+              "quote": "夏四月戊申朔，太后下詔還政，皇帝復大位。（建炎三年四月、本紀二十五）／庚戌，復紀年建炎。（同、四月三日）／六月丙寅朔……丙子，詔皇太子即皇帝位。帝稱太上皇帝，退處德壽宮……孝宗即位。（紹興三十二年六月、本紀三十二）",
+              "conversion": "建炎3年四月一日(朔・戊申)をsxtwlで換算すると1129-04-20(干支戊申)となり原文干支と一致、既存startDateと完全一致(復位した日)。なお同月三日庚戌の「復紀年建炎」(建炎年号の正式回復)は1129-04-22に換算され、既存noteの「建炎年号は4月22日に正式回復」と符合(こちらは即位=復位日ではなく年号回復日として別記されている、記述に矛盾なし)。紹興32年六月朔は丙寅で、丁卯(2)戊辰(3)己巳(4)庚午(5)辛未(6)壬申(7)癸酉(8)甲戌(9)乙亥(10)丙子(11)と数えると丙子=6月11日。sxtwl換算で1162-07-24(干支丙子)となり原文干支と一致、既存endDateと完全一致(孝宗への譲位日)。なお本紀末尾には淳熙14年10月8日(乙亥)崩御(徳寿殿)の記事もあるが、これはreignのendDate(退位日)ではなく死亡日であり、既存データの扱い(退位日をendDateとする)と整合的。",
+              "note": "復位記事・建炎年号回復記事は巻25(高宗二)、譲位記事は巻32(高宗九)に所在。原文には崩御記事(淳熙十四年十月乙亥，崩于德壽殿，年八十一)もあり、既存note中の崩御日1187-11-09との照合はここでは行っていないが、endDateには影響しない別事象として整理した。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 12801,
+          "displayYears": 35.07,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 1127,
+        "lastEndYear": 1162,
+        "reignCount": 2
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 1127
+      },
+      "sources": {
+        "wikidata": "Q7489",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": ""
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "淳熙14年10月、徳寿殿にて崩御。享年81。復位後も特に病変・他殺を疑わせる記述はなく老衰による自然死。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻三十二（高宗九）",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "推戴",
+        "note": "徽宗の第九子・康王。靖康の変で徽宗・欽宗はともに在位のまま金に連行され、位を譲る行為も詔もないまま宋の朝廷は消滅した。高宗は欽宗から位を受けたのではなく、張邦昌が退いた後に垂簾していた元祐皇后の手書「俾帝嗣統」と、在京百官の三度の上表による勧進を経て応天府で即位した（『宋史』巻二十四）。苗劉の乱で一時退位させられ太后の詔で復位した件はreigns[].isRestoration で表す。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻二十四（高宗一）",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "自立",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "母后",
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "該当なし",
+          "relationToPredecessor": "該当なし",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 2,
+        "confidence": "high",
+        "events": [
+          {
+            "date": "1127-06-12",
+            "datePrecision": "day",
+            "note": "建炎元年五月一日(庚寅朔)、南京応天府にて即位すると同時に「改元建炎」。皇帝即位に伴う最初の建元。【皇帝即位（改元同時）】【第1在位区間】",
+            "source": {
+              "page": "宋史 本紀 巻二十四（高宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1131-01-31",
+            "datePrecision": "day",
+            "note": "紹興元年正月己亥朔、「下詔改元」と明記。建炎から紹興への改元。【皇帝在位中】【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興元年正月己亥朔））",
+            "source": {
+              "page": "宋史 本紀 巻二十六（高宗三）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "note": "高宗自身の在位期間中の新元号への切替は「建炎」（即位・建元、1127年）と「紹興」（1131年）の2回。なお建炎三年三月己丑（苗劉の乱により趙旉へ譲位した後、3月11日）に「改元明受」との記事があるが、これは高宗が既に譲位し帝位を退いていた期間（本紀は「帝遜位于皇子魏國公」と明記、太后詔でも高宗を「皇太弟」、趙旉を「皇帝・皇太姪」と呼称）の出来事であり、公式な高宗の在位区間（1127-1129／1129-1162、本紀では1129年3月5日の譲位から同年4月1日の復位までは空白）の外側にあたる。趙旉（明受帝）は本プロジェクトの既存判定（emperors.json内の除外理由メモ）でも独立した収録対象皇帝としていないため、この改元は高宗自身のeraChangeCountには含めなかった。同年四月三日(庚戌)に「復紀年建炎」（元号を建炎に戻す）との記事もあるが、これは高宗自身が新たに定めた既存元号「建炎」への復帰であり新元号の制定ではないため、追加の改元としてはカウントしていない。"
+      },
+      "amnestyCount": {
+        "count": 20,
+        "confidence": "high",
+        "events": [
+          {
+            "date": "1127-06-12",
+            "datePrecision": "day",
+            "note": "建炎元年五月一日(庚寅朔)、即位・改元建炎と同時に大赦。「常赦所不原者咸赦除之」と特に広範な赦とも明記。【第1在位区間】",
+            "source": {
+              "page": "宋史 本紀 巻二十四（高宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1127-07-23",
+            "datePrecision": "day",
+            "note": "建炎元年六月辛未、皇子旉（後の元懿太子）誕生に伴い大赦。【第1在位区間】。（旧 precision 記載: day（干支のみ：建炎元年六月辛未））",
+            "source": {
+              "page": "宋史 本紀 巻二十四（高宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1128-12-15",
+            "datePrecision": "day",
+            "note": "建炎二年十一月壬寅、冬至の圜丘における昊天上帝祭祀（太祖配享）に伴い大赦。【第1在位区間】。（旧 precision 記載: day（干支のみ：建炎二年十一月壬寅））",
+            "source": {
+              "page": "宋史 本紀 巻二十五（高宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1129-04-27",
+            "datePrecision": "day",
+            "note": "建炎三年四月乙卯（復位後）、大赦。仁宗朝の法度を復活させるなど苗劉の乱鎮圧・復位後の善後措置の一環。【第2在位区間・復位直後】なお同年三月甲申（苗劉の乱により趙旉へ譲位した直後、帝が睿聖仁孝皇帝と号された際）にも大赦の記載があるが、この時点は本紀二区分（1127-1129／1129-1162）のいずれの在位区間にも属さない譲位中の空白期間（趙旉の在位期間、本データセットでは非収録）の出来事のため、高宗自身のamnestyCountには含めていない。",
+            "source": {
+              "page": "宋史 本紀 巻二十五（高宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1131-10-10",
+            "datePrecision": "day",
+            "note": "紹興元年九月辛亥、明堂における合祭天地（太祖・太宗配享）に伴い大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興元年九月辛亥））",
+            "source": {
+              "page": "宋史 本紀 巻二十六（高宗三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1132-10-14",
+            "datePrecision": "day",
+            "note": "紹興二年九月辛酉、彗星出現を理由に大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興二年九月辛酉））",
+            "source": {
+              "page": "宋史 本紀 巻二十七（高宗四）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1134-10-04",
+            "datePrecision": "day",
+            "note": "紹興四年九月辛酉、明堂における合祭天地に伴い大赦。襄陽等六郡の租税三年分も蠲免。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興四年九月辛酉））",
+            "source": {
+              "page": "宋史 本紀 巻二十七（高宗四）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1137-10-08",
+            "datePrecision": "day",
+            "note": "紹興七年九月辛巳、明堂における合祭天地に伴い大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興七年九月辛巳））",
+            "source": {
+              "page": "宋史 本紀 巻二十八（高宗五）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1139-02-05",
+            "datePrecision": "day",
+            "note": "紹興九年正月丙戌、金国との和議成立を理由に大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興九年正月丙戌））",
+            "source": {
+              "page": "宋史 本紀 巻二十九（高宗六）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1140-10-21",
+            "datePrecision": "day",
+            "note": "紹興十年九月庚戌、明堂における合祀天地に伴い大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興十年九月庚戌））",
+            "source": {
+              "page": "宋史 本紀 巻二十九（高宗六）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1142-10-03",
+            "datePrecision": "day",
+            "note": "紹興十二年九月壬寅、大赦（金との和議・欑宮総護使任命等と同時期）。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興十二年九月壬寅））",
+            "source": {
+              "page": "宋史 本紀 巻三十（高宗七）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1143-12-15",
+            "datePrecision": "day",
+            "note": "紹興十三年十一月庚申、日南至（冬至）の圜丘における合祀天地（太祖・太宗配享）に伴い大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興十三年十一月庚申））",
+            "source": {
+              "page": "宋史 本紀 巻三十（高宗七）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1145-05-05",
+            "datePrecision": "day",
+            "note": "紹興十五年四月丁亥、彗星出現を理由に大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興十五年四月丁亥））",
+            "source": {
+              "page": "宋史 本紀 巻三十（高宗七）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1146-12-15",
+            "datePrecision": "day",
+            "note": "紹興十六年十一月丙子、圜丘における合祀天地に伴い大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興十六年十一月丙子））",
+            "source": {
+              "page": "宋史 本紀 巻三十（高宗七）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1149-12-15",
+            "datePrecision": "day",
+            "note": "紹興十九年十一月壬辰、圜丘における合祀天地に伴い大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興十九年十一月壬辰））",
+            "source": {
+              "page": "宋史 本紀 巻三十（高宗七）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1152-12-15",
+            "datePrecision": "day",
+            "note": "紹興二十二年十一月戊申、圜丘における合祀天地に伴い大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興二十二年十一月戊申））",
+            "source": {
+              "page": "宋史 本紀 巻三十（高宗七）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1155-12-15",
+            "datePrecision": "day",
+            "note": "紹興二十五年十一月癸亥、圜丘における合祀天地に伴い大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興二十五年十一月癸亥））",
+            "source": {
+              "page": "宋史 本紀 巻三十一（高宗八）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1158-12-15",
+            "datePrecision": "day",
+            "note": "紹興二十八年十一月己卯、圜丘における合祀天地に伴い大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興二十八年十一月己卯））",
+            "source": {
+              "page": "宋史 本紀 巻三十一（高宗八）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1159-10-27",
+            "datePrecision": "day",
+            "note": "紹興二十九年九月乙未、皇太后（韋太后ではなく当時の皇太后＝顕仁皇后没後のため実質的には別の記事、原文は「以皇太后不豫大赦」＝皇太后の病気平癒祈願のため大赦）。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興二十九年九月乙未））",
+            "source": {
+              "page": "宋史 本紀 巻三十一（高宗八）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1161-09-22",
+            "datePrecision": "day",
+            "note": "紹興三十一年九月辛未、明堂にて徽宗を上帝に配して宗祀した際に大赦。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興三十一年九月辛未））",
+            "source": {
+              "page": "宋史 本紀 巻三十二（高宗九）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "note": "宋史本紀巻二十四〜三十二（高宗一〜九）を通読し「大赦」と明記された箇所を全数抽出。多くは3年に1度の郊祀（合祀・合祭天地／圜丘・明堂）に伴う恒例の大赦で、彗星出現や金国との和議成立等を理由とする臨時の大赦も含む。建炎三年三月甲申（苗劉の乱で趙旉へ譲位した直後）の大赦1件は、本紀では「尊帝為睿聖仁孝皇帝...大赦」と記載されるが、この時点は高宗の公式な二在位区間（1127-1129／1129-1162）のいずれにも属さない譲位中の空白期間（趙旉の名目在位期間、本データセットでは趙旉は非収録emperorのため）の出来事と判断し、高宗自身のカウントからは除外した（除外しても計20件が高宗自身の在位区間内に確認できる）。「曲赦」「曲赦京城」等の地域限定の恩赦は見当たらなかった。"
+      },
+      "empressInstallationCount": {
+        "count": 2,
+        "confidence": "high",
+        "events": [
+          {
+            "date": "1127-06-15",
+            "datePrecision": "day",
+            "note": "建炎元年五月癸巳、「遙立嘉國夫人邢氏為皇后」と明記。邢氏は靖康の変で金軍に捕らえられ北方に抑留されていたため「遙立」（在絶中の遠隔立后）の形をとった。後の紹興九年六月庚戌に五国城で崩御（「皇后邢氏崩于五國城」）、紹興十三年七月丁酉に諡懿節と追贈。廃后の記載はなし。【第1在位区間】。（旧 precision 記載: day（干支のみ：建炎元年五月癸巳））",
+            "source": {
+              "page": "宋史 本紀 巻二十四（高宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1143-05-18",
+            "datePrecision": "day",
+            "note": "紹興十三年閏四月己丑、「立貴妃吳氏為皇后」と明記（邢皇后没後の立后）。以後、高宗崩御・孝宗への譲位後も太上皇后として存続。廃后の記載はなし。【第2在位区間】。（旧 precision 記載: day（干支のみ：紹興十三年閏四月己丑））",
+            "source": {
+              "page": "宋史 本紀 巻三十（高宗七）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "note": "本紀に「立...為皇后」と明記された立后は建炎元年（邢氏、在絶中の遙立）と紹興十三年（呉氏）の2回のみ確認。両者とも廃后・再冊立の記載はなし。邢皇后は在位中に金国で崩御し、呉皇后は高宗崩御後も存続したため、皇后不在期間（建炎元年５月〜紹興十三年閏4月）を挟むが、いずれも死去によるものであり廃立には該当しない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "宋史本紀巻二十四〜三十二を通読したが、皇太子（皇太弟・皇太孫等を含む）を廃した記事は確認できなかった。在位中に皇太子に立てられたのは2名のみ：(1)建炎三年五月壬申、皇子魏国公旉（趙旉）を皇太子に立てるも、同年七月丁亥に薨去（「皇太子薨、謚元懿」）——廃立ではなく死去による欠員。(2)紹興三十二年五月甲子、建王瑋（趙眘、後の孝宗）を皇太子に立て、間もなく六月丙子に譲位・即位しており廃立の事実なし。なお建炎三年の苗劉の乱の際、太后詔により睿聖皇帝（高宗自身）が「皇太弟」、趙旉（皇帝）が「皇太姪」と呼称された記事があるが、これは通常の皇太子制度とは異なる非常時の称号操作であり、法定推定継承者の廃立には該当しないため、カウントに含めていない。"
+      },
+      "ages": {
+        "birthDate": "1107-06-12",
+        "birthDatePrecision": "day",
+        "deathDate": "1187-11-09",
+        "deathDatePrecision": "day",
+        "deathAge": 81,
+        "confidence": "high",
+        "note": "崩御時年齢は本紀に「淳熙十四年十月乙亥、崩于德壽殿、年八十一」と直接記載（宋史 本紀 巻三十二〔高宗九〕）。生年は「大觀元年五月乙巳、生東京之大內」と明記（宋史 本紀 巻二十四〔高宗一〕）だが、原文に即位時年齢を直接示す「時年◯◯」等の記述は確認できず、accessionAgeはfoundとしない。（2026-07-21 ages日付ISO正規化: birthDate「大觀元年五月乙巳」→1107-06-12（旧暦5月20日のsxtwl換算。「赤光照室」の瑞祥記事あり〔従来precision注記より転記〕）。）。（deathDate の旧 precision 記載: day（原文は「淳熙十四年十月乙亥」。既存reignsデータのGregorian換算1187-11-09と一致））",
+        "accessionAge": 21
+      },
+      "capitalRelocationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "1138-01-01",
+            "datePrecision": "year",
+            "from": "東京開封府（汴京、北宋旧都）",
+            "to": "臨安府（杭州）",
+            "note": "宋史 本紀 卷二十九（高宗六）紹興八年の年末条に「是歲、始定都于杭」とあり、この年に正式に杭州（臨安府）を都と定めたことが明記される。なお高宗は靖康の変（1127年）後、應天府で即位した後、揚州・建康・杭州・紹興府等を転々としており（同紀）、これらは戦乱下の一時的な行在であって恒久的な遷都とは認めない。紹興二年二月にも一度「帝至臨安府」とあるが、その後も建康等へ再度移動しており（卷二十九冒頭「八年春正月戊子朔、帝在建康」）、紹興八年の「始定都于杭」の記事をもって臨安が恒久的な主都として確定したと判断した。なお卷四十七（南宋末）には賈似道・韓震による遷都上奏の記事があるが、いずれも採用されず実現しなかった（韓震は遷都を請うたため陳宜中に殺害された）ため、遷都の実行としてはカウントしない。（出典: 宋史 本紀 卷二十九（高宗六）紹興八年十二月条「是歲、始定都于杭」）"
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中に遷都1回（1138年 東京開封府（汴京、北宋旧都）→臨安府（杭州））。"
+      },
+      "personalCampaignCount": {
+        "count": 3,
+        "events": [
+          {
+            "target": "偽齊・金（劉豫・完顏兀朮の淮西侵攻）",
+            "startDate": "1134-10",
+            "endDate": "1134-12",
+            "datePrecision": "month",
+            "outcome": "臨安から平江へ進発、韓世忠が大儀鎮で金軍を撃破、金軍撤退",
+            "note": "紹興4年、趙鼎と親征を決定し禁兵を率いて平江まで進発"
+          },
+          {
+            "target": "偽齊（劉豫の淮西侵攻、藕塘の戦い）",
+            "startDate": "1136-08",
+            "endDate": "1136-09",
+            "datePrecision": "month",
+            "outcome": "臨安から平江へ進発、楊沂中らが藕塘で劉猊を大破",
+            "note": "紹興6年、将士に親征を告げ平江まで進発"
+          },
+          {
+            "target": "金（完顏亮の南侵）",
+            "startDate": "1161-12",
+            "endDate": "1162-06",
+            "datePrecision": "month",
+            "outcome": "臨安発、平江・建康・鎮江まで進発（采石磯の戦いは虞允文が先に勝利済み）、翌年孝宗へ譲位",
+            "note": "紹興31-32年、陳康伯の進言で親征を決定し建王を伴い進発"
+          }
+        ],
+        "confidence": "medium",
+        "note": "原文に「親征」の語は建炎4年(1130)・紹興4年(1134)・紹興6年(1136)・紹興31年(1161)の4回登場するが、1130年の「下詔親征，巡幸浙西」は帝の実際の移動が記録されておらず象徴的宣言に留まると判断し除外。他3回は「帝御舟發臨安，禁兵扈從」等、禁軍を伴い戦線方向へ実際に進発した記録があるため計上（実戦の直接指揮は将軍任せだが、澶淵の盟の真宗親征と同型の「玉座帯同型親征」として扱った）。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 81,
+        "events": [
+          {
+            "leader": "周德",
+            "name": "江寧の叛卒",
+            "startDate": "1127",
+            "endDate": "1127",
+            "datePrecision": "year",
+            "outcome": "李綱が誅殺",
+            "note": ""
+          },
+          {
+            "leader": "李孝忠",
+            "name": "襄陽侵犯の賊",
+            "startDate": "1127",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "范瓊が復州で斬殺",
+            "note": ""
+          },
+          {
+            "leader": "杜用",
+            "name": "陳州軍賊",
+            "startDate": "1127",
+            "endDate": "1127",
+            "datePrecision": "year",
+            "outcome": "平定",
+            "note": ""
+          },
+          {
+            "leader": "李昱",
+            "name": "京東賊",
+            "startDate": "1127",
+            "endDate": "1127",
+            "datePrecision": "year",
+            "outcome": "平定",
+            "note": ""
+          },
+          {
+            "leader": "杜林",
+            "name": "成都謀反",
+            "startDate": "1127",
+            "endDate": "1127",
+            "datePrecision": "year",
+            "outcome": "伏誅",
+            "note": ""
+          },
+          {
+            "leader": "史斌",
+            "name": "関中賊、興州で僭号称帝",
+            "startDate": "1127",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "呉玠部が襲撃し斬殺",
+            "note": ""
+          },
+          {
+            "leader": "陳通",
+            "name": "杭州兵変",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "王淵が捕らえ誅殺",
+            "note": ""
+          },
+          {
+            "leader": "宮儀",
+            "name": "博州卒の萊州侵犯",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "後に金との戦いに転じ自然消滅",
+            "note": "確実な鎮圧記述はないが継続的脅威は解消"
+          },
+          {
+            "leader": "張員",
+            "name": "建州軍校の反乱",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "赦免後再反乱、討捕",
+            "note": ""
+          },
+          {
+            "leader": "趙萬",
+            "name": "常州侵犯の軍賊",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "王淵・張俊が誘殺",
+            "note": ""
+          },
+          {
+            "leader": "丁進",
+            "name": "壽春府包囲の軍賊",
+            "startDate": "1129",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "劉正彥が撃破し降伏させる",
+            "note": ""
+          },
+          {
+            "leader": "張遇",
+            "name": "真定軍賊",
+            "startDate": "1129",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "王淵が招降、韓世忠軍に編入",
+            "note": ""
+          },
+          {
+            "leader": "靳賽",
+            "name": "光山県侵犯の賊",
+            "startDate": "1129",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "劉光世に降伏",
+            "note": ""
+          },
+          {
+            "leader": "徐明",
+            "name": "秀州卒の反乱",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "張俊が捕斬",
+            "note": ""
+          },
+          {
+            "leader": "葉濃",
+            "name": "建州卒の反乱、福州侵犯",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "趙哲が大破、張俊が捕斬",
+            "note": ""
+          },
+          {
+            "leader": "楊進",
+            "name": "河北賊（第一次）",
+            "startDate": "1128",
+            "endDate": "1128",
+            "datePrecision": "year",
+            "outcome": "宗澤に降伏",
+            "note": ""
+          },
+          {
+            "leader": "貴仲正",
+            "name": "京西賊、岳州陥落",
+            "startDate": "1130",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "降伏",
+            "note": ""
+          },
+          {
+            "leader": "張用（第一次）",
+            "name": "淮寧府侵犯",
+            "startDate": "1129",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "李允文が招降",
+            "note": ""
+          },
+          {
+            "leader": "張用（第二次）",
+            "name": "江西再侵犯",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "岳飛が招降",
+            "note": ""
+          },
+          {
+            "leader": "邵青（第一次）",
+            "name": "泗州の水賊",
+            "startDate": "1130",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "劉光世が招降",
+            "note": ""
+          },
+          {
+            "leader": "邵青（第二次）",
+            "name": "太平州包囲",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "招降、後に行在へ帰順",
+            "note": ""
+          },
+          {
+            "leader": "劉文舜",
+            "name": "濠州侵犯",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "劉光世配下が饒州で誘殺",
+            "note": ""
+          },
+          {
+            "leader": "王宗石",
+            "name": "妖賊、信州貴溪県",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "王徳が撃破、後に伏誅",
+            "note": ""
+          },
+          {
+            "leader": "劉超",
+            "name": "荊南占拠",
+            "startDate": "1131",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "降伏、光州守に任命",
+            "note": ""
+          },
+          {
+            "leader": "鍾相・楊幺",
+            "name": "鍾相・楊幺の乱（洞庭湖、鼎州）",
+            "startDate": "1130",
+            "endDate": "1135",
+            "datePrecision": "year",
+            "outcome": "鍾相は1130年に捕縛処刑、後継の楊幺（楊太）一党は1135年岳飛が水砦を攻略し全滅",
+            "note": "農民反乱として服属民の反乱に該当、鎮圧・被反乱双方に計上"
+          },
+          {
+            "leader": "曹成",
+            "name": "漢陽軍から江西・広西を転戦した賊軍",
+            "startDate": "1131",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "岳飛が桂嶺県で大破",
+            "note": ""
+          },
+          {
+            "leader": "戚方",
+            "name": "江淮宣撫司准備将の反乱",
+            "startDate": "1129",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "張俊に降伏",
+            "note": ""
+          },
+          {
+            "leader": "張寶",
+            "name": "禁卒の謀乱（航海避兵時）",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "呂頤浩が伏兵で捕斬",
+            "note": ""
+          },
+          {
+            "leader": "劉可",
+            "name": "京西侵犯の賊",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "自派閥に殺害される",
+            "note": ""
+          },
+          {
+            "leader": "王亦",
+            "name": "御営統制、江寧占拠謀議",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "計画失敗し逃亡",
+            "note": ""
+          },
+          {
+            "leader": "陳新",
+            "name": "虔州包囲の郷兵首領",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "撃破され撤退",
+            "note": ""
+          },
+          {
+            "leader": "胡友",
+            "name": "虔州侵犯の叛将",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "陳新とともに撃破",
+            "note": ""
+          },
+          {
+            "leader": "傅選",
+            "name": "叛将",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "虔州で降伏",
+            "note": ""
+          },
+          {
+            "leader": "酈瓊（第一次）",
+            "name": "初期の反乱・降伏",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "劉光世に降伏",
+            "note": "1137年の大規模兵変（叛降偽齊）とは別事象として扱う"
+          },
+          {
+            "leader": "楊勍",
+            "name": "御営前軍将の反乱",
+            "startDate": "1130",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "招安後再反乱、最終的に誘殺",
+            "note": ""
+          },
+          {
+            "leader": "郭仲威",
+            "name": "淮陽軍陥落",
+            "startDate": "1131",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "捕らえられ伏誅",
+            "note": ""
+          },
+          {
+            "leader": "王俊",
+            "name": "汝州の賊",
+            "startDate": "1131",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "翟興が撃破",
+            "note": ""
+          },
+          {
+            "leader": "潭州禁卒（不詳）",
+            "name": "潭州禁卒の謀乱",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "向子諲が招安",
+            "note": ""
+          },
+          {
+            "leader": "祝友",
+            "name": "王善余党の反乱",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "降伏",
+            "note": ""
+          },
+          {
+            "leader": "郭希",
+            "name": "金・房州賊、帰州侵犯",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "田祐恭が撃退",
+            "note": ""
+          },
+          {
+            "leader": "劉時挙",
+            "name": "建陽賊",
+            "startDate": "1131",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "范汝為が討平",
+            "note": ""
+          },
+          {
+            "leader": "崔紹祖",
+            "name": "反乱者",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "伏誅",
+            "note": ""
+          },
+          {
+            "leader": "李捧",
+            "name": "反乱者（後に招降・武将に）",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "劉洪道が招降",
+            "note": ""
+          },
+          {
+            "leader": "華旺",
+            "name": "反乱者（後に招降・武将に）",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "劉洪道が招降",
+            "note": ""
+          },
+          {
+            "leader": "許約",
+            "name": "弓手、蔡州褒信県、光州占拠",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "酈瓊が光州を回復し降伏させる",
+            "note": ""
+          },
+          {
+            "leader": "白常",
+            "name": "陝西叛将、岷州包囲",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "関師古が撃破",
+            "note": ""
+          },
+          {
+            "leader": "李寶（盗賊）",
+            "name": "石陂の残賊",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "顔孝恭が招降",
+            "note": "水軍名将の李寶とは別人"
+          },
+          {
+            "leader": "修達",
+            "name": "建昌軍軍卒の反乱",
+            "startDate": "1136",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "侯愨が捕らえ斬殺",
+            "note": ""
+          },
+          {
+            "leader": "楊再興（第一次）",
+            "name": "徭賊、鎮汝軍付近",
+            "startDate": "1136",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "呉錫が大破、後に岳家軍の将となる",
+            "note": "後の岳家軍名将と同一人物とみられる"
+          },
+          {
+            "leader": "楊再興（同名別人）",
+            "name": "武岡軍徭人の反乱",
+            "startDate": "1145",
+            "endDate": "1154",
+            "datePrecision": "year",
+            "outcome": "1154年李道が討平し、本人・二子を捕縛",
+            "note": "岳家軍の楊再興は1140年小商橋で戦死済みのため別人"
+          },
+          {
+            "leader": "区稠",
+            "name": "広賊、韶州楽昌県包囲",
+            "startDate": "1134",
+            "endDate": "1134",
+            "datePrecision": "year",
+            "outcome": "韓京が撃斬",
+            "note": ""
+          },
+          {
+            "leader": "朱聰",
+            "name": "海賊、広州・泉州侵犯",
+            "startDate": "1135",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "降伏、水軍統領に任命",
+            "note": ""
+          },
+          {
+            "leader": "檀成",
+            "name": "湖北軍賊、長陽県侵犯",
+            "startDate": "1135",
+            "endDate": "1135",
+            "datePrecision": "year",
+            "outcome": "解潜配下が捕斬",
+            "note": ""
+          },
+          {
+            "leader": "曾袞",
+            "name": "恵州軍賊の反乱",
+            "startDate": "1136",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "韓京が夜襲し撃破",
+            "note": ""
+          },
+          {
+            "leader": "伍俊（第一次）",
+            "name": "澧州賊徒",
+            "startDate": "1136",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "内部離反を経て降伏",
+            "note": ""
+          },
+          {
+            "leader": "伍俊（第二次）",
+            "name": "桃源占拠の再反乱",
+            "startDate": "1139",
+            "endDate": "1139",
+            "datePrecision": "year",
+            "outcome": "薛弼が誅殺",
+            "note": ""
+          },
+          {
+            "leader": "駱科",
+            "name": "宜章洞民の反乱",
+            "startDate": "1142",
+            "endDate": "1142",
+            "datePrecision": "year",
+            "outcome": "討伐軍派遣、鎮定",
+            "note": ""
+          },
+          {
+            "leader": "歐幻四",
+            "name": "駱科余党の再反乱",
+            "startDate": "1142",
+            "endDate": "1142",
+            "datePrecision": "year",
+            "outcome": "討伐",
+            "note": ""
+          },
+          {
+            "leader": "俞一",
+            "name": "宣州涇県の妖賊",
+            "startDate": "1144",
+            "endDate": "1144",
+            "datePrecision": "year",
+            "outcome": "守臣が捕滅",
+            "note": ""
+          },
+          {
+            "leader": "黄曾",
+            "name": "信州妖賊、貴溪県陥落",
+            "startDate": "1150",
+            "endDate": "1150",
+            "datePrecision": "year",
+            "outcome": "李横等が討平",
+            "note": ""
+          },
+          {
+            "leader": "江大明",
+            "name": "厳州遂安の賊、衢州侵犯",
+            "startDate": "1158",
+            "endDate": "1158",
+            "datePrecision": "year",
+            "outcome": "官軍が捕斬",
+            "note": ""
+          },
+          {
+            "leader": "陳演添",
+            "name": "海賊、高州・雷州侵犯",
+            "startDate": "1160",
+            "endDate": "1160",
+            "datePrecision": "year",
+            "outcome": "地元民が捕殺",
+            "note": ""
+          },
+          {
+            "leader": "王文満",
+            "name": "海南黎族の反乱",
+            "startDate": "1160",
+            "endDate": "1160",
+            "datePrecision": "year",
+            "outcome": "平定",
+            "note": ""
+          },
+          {
+            "leader": "凌鉄",
+            "name": "雷州軍賊の反乱",
+            "startDate": "1161",
+            "endDate": "1161",
+            "datePrecision": "year",
+            "outcome": "高居弁が討平",
+            "note": ""
+          },
+          {
+            "leader": "俞八",
+            "name": "衢州民の反乱",
+            "startDate": "1154",
+            "endDate": "1154",
+            "datePrecision": "year",
+            "outcome": "辛立が討平",
+            "note": ""
+          },
+          {
+            "leader": "高聚",
+            "name": "萍郷賊",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "岳飛配下が討禽",
+            "note": ""
+          },
+          {
+            "leader": "余勝",
+            "name": "順昌県賊",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "王元鼎が捕殺",
+            "note": ""
+          },
+          {
+            "leader": "余照",
+            "name": "石陂余賊",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "朱芾が禽斬",
+            "note": ""
+          },
+          {
+            "leader": "李勃",
+            "name": "反乱者",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "伏誅",
+            "note": ""
+          },
+          {
+            "leader": "李通",
+            "name": "司空山賊",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "降伏",
+            "note": ""
+          },
+          {
+            "leader": "李宗諒",
+            "name": "江西将、戍兵誘反",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "趙進が撃退",
+            "note": ""
+          },
+          {
+            "leader": "周十隆",
+            "name": "虔賊、循梅汀州侵犯",
+            "startDate": "1133",
+            "endDate": "1135",
+            "datePrecision": "year",
+            "outcome": "招降と再反乱を繰り返し最終的に討伐軍で鎮定",
+            "note": ""
+          },
+          {
+            "leader": "董先",
+            "name": "商州、偽斉への一時的離反",
+            "startDate": "1132",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "後に帰順し鎮撫使に任命",
+            "note": ""
+          },
+          {
+            "leader": "趙進",
+            "name": "江西軍賊、瑞昌県侵犯",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "楊惟忠が討降",
+            "note": ""
+          },
+          {
+            "leader": "繆羅",
+            "name": "厳州賊",
+            "startDate": "1134",
+            "endDate": "1134",
+            "datePrecision": "year",
+            "outcome": "楊沂中が招降",
+            "note": ""
+          },
+          {
+            "leader": "黄琛",
+            "name": "南豊県賊の首魁",
+            "startDate": "1134",
+            "endDate": "1134",
+            "datePrecision": "year",
+            "outcome": "朱芾が禽誅",
+            "note": ""
+          },
+          {
+            "leader": "雷徳進",
+            "name": "澧州賊",
+            "startDate": "1135",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "降伏、後に部下に殺され残党も降伏",
+            "note": ""
+          },
+          {
+            "leader": "趙延壽",
+            "name": "荊襄賊、後に常州方面で叛乱",
+            "startDate": "1131",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "劉光世配下が悉く誅殺",
+            "note": ""
+          },
+          {
+            "leader": "王山",
+            "name": "海州賊、漣水軍侵犯",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "討伐軍が撃破",
+            "note": ""
+          },
+          {
+            "leader": "斉述",
+            "name": "虔州軍卒の反乱、二将殺害し虔州占拠",
+            "startDate": "1152",
+            "endDate": "1152",
+            "datePrecision": "year",
+            "outcome": "李耕が虔州に入り叛兵を誅滅（黄明ら8人処刑）",
+            "note": "紹興22年"
+          },
+          {
+            "leader": "范汝為",
+            "name": "范汝為の乱（建州占拠）",
+            "startDate": "1130",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "韓世忠が建州を攻略、范汝為は自焚死",
+            "note": "建炎4年7月建州で挙兵（李捧が鎮圧に失敗し官軍潰走）、同年12月一旦招降されるも紹興元年10月再び建州を占拠、紹興2年正月韓世忠が建州を攻略し范汝為自焚死・残党も平定"
+          }
+        ],
+        "confidence": "low",
+        "note": "在位35年間（うち1127-1136年が特に多発期）、キーワード検索（賊/叛/亂/寇/伏誅/降等）による全文走査で識別した国内反乱81件を個別首謀者単位で計上。史料が極めて稠密なため全件を逐語確認できておらず、同名異人の誤統合・逆に同一人物の重複計上・軽微な一文言及の見落としが残る可能性がある（confidence low）。鍾相・楊幺の乱（1130-1135）・范汝為の乱（建州、1130-1132、建炎4年7月挙兵→12月招降→紹興元年10月再叛→紹興2年正月韓世忠が鎮圧）は史料上一体の反乱として各1件に統合（初回の機械検証でこのイベント自体が配列から漏れていたため事後追加、他79件は変更なし）。苗劉兵変は例外4（朝廷内部クーデター）につきsuffered側のみ計上しここには含めない。"
+      },
+      "rebellionSufferedCount": {
+        "count": 114,
+        "events": [
+          {
+            "leader": "周德",
+            "name": "江寧の叛卒",
+            "startDate": "1127",
+            "endDate": "1127",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "李孝忠",
+            "name": "襄陽侵犯の賊",
+            "startDate": "1127",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "杜用",
+            "name": "陳州軍賊",
+            "startDate": "1127",
+            "endDate": "1127",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "李昱",
+            "name": "京東賊",
+            "startDate": "1127",
+            "endDate": "1127",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "杜林",
+            "name": "成都謀反",
+            "startDate": "1127",
+            "endDate": "1127",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "史斌",
+            "name": "関中賊、興州で僭号称帝",
+            "startDate": "1127",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "陳通",
+            "name": "杭州兵変",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "宮儀",
+            "name": "博州卒の萊州侵犯",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "自然消滅",
+            "note": ""
+          },
+          {
+            "leader": "張員",
+            "name": "建州軍校の反乱",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "趙萬",
+            "name": "常州侵犯の軍賊",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "丁進",
+            "name": "壽春府包囲の軍賊",
+            "startDate": "1129",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "張遇",
+            "name": "真定軍賊",
+            "startDate": "1129",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "靳賽",
+            "name": "光山県侵犯の賊",
+            "startDate": "1129",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "徐明",
+            "name": "秀州卒の反乱",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "葉濃",
+            "name": "建州卒の反乱、福州侵犯",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "楊進",
+            "name": "河北賊（第一次）",
+            "startDate": "1128",
+            "endDate": "1128",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "貴仲正",
+            "name": "京西賊、岳州陥落",
+            "startDate": "1130",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "張用（第一次）",
+            "name": "淮寧府侵犯",
+            "startDate": "1129",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "張用（第二次）",
+            "name": "江西再侵犯",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "邵青（第一次）",
+            "name": "泗州の水賊",
+            "startDate": "1130",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "邵青（第二次）",
+            "name": "太平州包囲",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "劉文舜",
+            "name": "濠州侵犯",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "王宗石",
+            "name": "妖賊、信州貴溪県",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "劉超",
+            "name": "荊南占拠",
+            "startDate": "1131",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "鍾相・楊幺",
+            "name": "鍾相・楊幺の乱（洞庭湖、鼎州）",
+            "startDate": "1130",
+            "endDate": "1135",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": "農民反乱、服属民の反乱として計上"
+          },
+          {
+            "leader": "曹成",
+            "name": "漢陽軍から江西・広西を転戦した賊軍",
+            "startDate": "1131",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "戚方",
+            "name": "江淮宣撫司准備将の反乱",
+            "startDate": "1129",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "張寶",
+            "name": "禁卒の謀乱（航海避兵時）",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "劉可",
+            "name": "京西侵犯の賊",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "王亦",
+            "name": "御営統制、江寧占拠謀議",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "陳新",
+            "name": "虔州包囲の郷兵首領",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "胡友",
+            "name": "虔州侵犯の叛将",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "傅選",
+            "name": "叛将",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "酈瓊（第一次）",
+            "name": "初期の反乱・降伏",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "楊勍",
+            "name": "御営前軍将の反乱",
+            "startDate": "1130",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "郭仲威",
+            "name": "淮陽軍陥落",
+            "startDate": "1131",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "王俊",
+            "name": "汝州の賊",
+            "startDate": "1131",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "潭州禁卒（不詳）",
+            "name": "潭州禁卒の謀乱",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "祝友",
+            "name": "王善余党の反乱",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "郭希",
+            "name": "金・房州賊、帰州侵犯",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "劉時挙",
+            "name": "建陽賊",
+            "startDate": "1131",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "崔紹祖",
+            "name": "反乱者",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "李捧",
+            "name": "反乱者（後に招降・武将に）",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "華旺",
+            "name": "反乱者（後に招降・武将に）",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "許約",
+            "name": "弓手、蔡州褒信県、光州占拠",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "白常",
+            "name": "陝西叛将、岷州包囲",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "李寶（盗賊）",
+            "name": "石陂の残賊",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "修達",
+            "name": "建昌軍軍卒の反乱",
+            "startDate": "1136",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "楊再興（第一次）",
+            "name": "徭賊、鎮汝軍付近",
+            "startDate": "1136",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "楊再興（同名別人）",
+            "name": "武岡軍徭人の反乱",
+            "startDate": "1145",
+            "endDate": "1154",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "区稠",
+            "name": "広賊、韶州楽昌県包囲",
+            "startDate": "1134",
+            "endDate": "1134",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "朱聰",
+            "name": "海賊、広州・泉州侵犯",
+            "startDate": "1135",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "檀成",
+            "name": "湖北軍賊、長陽県侵犯",
+            "startDate": "1135",
+            "endDate": "1135",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "曾袞",
+            "name": "恵州軍賊の反乱",
+            "startDate": "1136",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "伍俊（第一次）",
+            "name": "澧州賊徒",
+            "startDate": "1136",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "伍俊（第二次）",
+            "name": "桃源占拠の再反乱",
+            "startDate": "1139",
+            "endDate": "1139",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "駱科",
+            "name": "宜章洞民の反乱",
+            "startDate": "1142",
+            "endDate": "1142",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "歐幻四",
+            "name": "駱科余党の再反乱",
+            "startDate": "1142",
+            "endDate": "1142",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "俞一",
+            "name": "宣州涇県の妖賊",
+            "startDate": "1144",
+            "endDate": "1144",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "黄曾",
+            "name": "信州妖賊、貴溪県陥落",
+            "startDate": "1150",
+            "endDate": "1150",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "江大明",
+            "name": "厳州遂安の賊、衢州侵犯",
+            "startDate": "1158",
+            "endDate": "1158",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "陳演添",
+            "name": "海賊、高州・雷州侵犯",
+            "startDate": "1160",
+            "endDate": "1160",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "王文満",
+            "name": "海南黎族の反乱",
+            "startDate": "1160",
+            "endDate": "1160",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "凌鉄",
+            "name": "雷州軍賊の反乱",
+            "startDate": "1161",
+            "endDate": "1161",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "俞八",
+            "name": "衢州民の反乱",
+            "startDate": "1154",
+            "endDate": "1154",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "高聚",
+            "name": "萍郷賊",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "余勝",
+            "name": "順昌県賊",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "余照",
+            "name": "石陂余賊",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "李勃",
+            "name": "反乱者",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "李通",
+            "name": "司空山賊",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "李宗諒",
+            "name": "江西将、戍兵誘反",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "周十隆",
+            "name": "虔賊、循梅汀州侵犯",
+            "startDate": "1133",
+            "endDate": "1135",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "董先",
+            "name": "商州、偽斉への一時的離反",
+            "startDate": "1132",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "趙進",
+            "name": "江西軍賊、瑞昌県侵犯",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "繆羅",
+            "name": "厳州賊",
+            "startDate": "1134",
+            "endDate": "1134",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "黄琛",
+            "name": "南豊県賊の首魁",
+            "startDate": "1134",
+            "endDate": "1134",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "雷徳進",
+            "name": "澧州賊",
+            "startDate": "1135",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "趙延壽",
+            "name": "荊襄賊、後に常州方面で叛乱",
+            "startDate": "1131",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "王山",
+            "name": "海州賊、漣水軍侵犯",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": ""
+          },
+          {
+            "leader": "斉述",
+            "name": "虔州軍卒の反乱、二将殺害し虔州占拠",
+            "startDate": "1152",
+            "endDate": "1152",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": "紹興22年"
+          },
+          {
+            "leader": "苗傅・劉正彦",
+            "name": "苗劉兵変（明受の変）",
+            "startDate": "1129-03",
+            "endDate": "1129-04",
+            "datePrecision": "month",
+            "outcome": "帝を一時退位に追い込み明受に改元させたが、呂頤浩・張浚・韓世忠らが討伐し復位・両名処刑",
+            "note": "例外4：朝廷内部の権力者による兵力を伴うクーデターにつきsuffered側のみ計上"
+          },
+          {
+            "leader": "王善",
+            "name": "淮寧府攻撃、後に金への投降を試みる",
+            "startDate": "1129",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "金への投降途上で金軍に捕らえられる（宋軍による鎮圧ではない）",
+            "note": ""
+          },
+          {
+            "leader": "李成",
+            "name": "河北・京東捉殺使、大規模な流賊軍指揮官",
+            "startDate": "1129",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "最終的に偽齊へ投降し将軍となる（宋軍未鎮圧）",
+            "note": ""
+          },
+          {
+            "leader": "孔彥舟",
+            "name": "東平府兵馬鈐轄、渡淮して黄州侵犯",
+            "startDate": "1128",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "一時招諭に応じ官職を得るも最終的に偽齊へ投降（宋軍未鎮圧）",
+            "note": ""
+          },
+          {
+            "leader": "酈瓊（第二次）",
+            "name": "淮西兵変、監軍呂祉らを殺害し約4万の兵を率い偽齊へ投降",
+            "startDate": "1137",
+            "endDate": "1137",
+            "datePrecision": "year",
+            "outcome": "全軍を率いて偽齊へ逃亡、鎮圧できず",
+            "note": "淮西軍の大量離反、南宋軍事史上の重大事件"
+          },
+          {
+            "leader": "慕洧",
+            "name": "環慶路統制、西夏へ投降",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "西夏へ投降、以後も国境を侵犯するが宋軍による鎮圧なし",
+            "note": ""
+          },
+          {
+            "leader": "張中彥",
+            "name": "涇原統制、金へ投降",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "金へ投降、以後金の将として活動",
+            "note": ""
+          },
+          {
+            "leader": "趙彬",
+            "name": "経略司幹辦、金へ投降",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "金へ投降、以後金の将として耀州侵犯",
+            "note": ""
+          },
+          {
+            "leader": "張中孚",
+            "name": "原州にて金へ投降",
+            "startDate": "1131",
+            "endDate": "1131",
+            "datePrecision": "year",
+            "outcome": "金へ投降、鎮圧されず",
+            "note": ""
+          },
+          {
+            "leader": "徐文",
+            "name": "偽齊へ投降した将領",
+            "startDate": "1134",
+            "endDate": "1134",
+            "datePrecision": "year",
+            "outcome": "偽齊へ投降、鎮圧されず",
+            "note": "1130年に一度金から宋へ帰順していたが再離反"
+          },
+          {
+            "leader": "関師古",
+            "name": "熙河統制、洮・岷二州を率いて偽齊へ投降",
+            "startDate": "1136",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "領地とともに偽齊へ投降、鎮圧されず",
+            "note": ""
+          },
+          {
+            "leader": "羅興",
+            "name": "壽春府知府、偽齊へ投降",
+            "startDate": "1136",
+            "endDate": "1136",
+            "datePrecision": "year",
+            "outcome": "偽齊へ投降、鎮圧されず",
+            "note": ""
+          },
+          {
+            "leader": "趙榮",
+            "name": "宋叛将、金軍とともに侵攻に参加",
+            "startDate": "1141",
+            "endDate": "1141",
+            "datePrecision": "year",
+            "outcome": "金の将として活動、鎮圧されず",
+            "note": ""
+          },
+          {
+            "leader": "趙惟清",
+            "name": "叛将、忠臣王忠植を捕らえ金に投降",
+            "startDate": "1140",
+            "endDate": "1140",
+            "datePrecision": "year",
+            "outcome": "金へ投降、鎮圧されず",
+            "note": ""
+          },
+          {
+            "leader": "陳感",
+            "name": "海賊、雷州侵犯",
+            "startDate": "1135",
+            "endDate": "1135",
+            "datePrecision": "year",
+            "outcome": "官軍がたびたび敗北、鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "華齊",
+            "name": "汀賊、漳州長泰県侵犯",
+            "startDate": "1155",
+            "endDate": "1155",
+            "datePrecision": "year",
+            "outcome": "安撫司の討伐軍が敗北、鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "李彥琪",
+            "name": "涇原兵馬都監、離反",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "離反後の消息不明、鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "桑仲",
+            "name": "襄陽を武力で占拠し半独立化、復州・金州侵犯",
+            "startDate": "1129",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "配下に殺害され消滅（宋軍による鎮圧ではない）",
+            "note": ""
+          },
+          {
+            "leader": "楊華・楊広",
+            "name": "湖賊、鼎州・澧州・潭州侵犯",
+            "startDate": "1132",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "撃退の記録はあるが最終鎮圧の確証なし",
+            "note": ""
+          },
+          {
+            "leader": "蓋進",
+            "name": "濱州賊、棣州陥落",
+            "startDate": "1130",
+            "endDate": "1130",
+            "datePrecision": "year",
+            "outcome": "守臣殺害後の鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "王定",
+            "name": "青州敗将、帥臣曾孝序殺害",
+            "startDate": "1129",
+            "endDate": "1129",
+            "datePrecision": "year",
+            "outcome": "鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "陸德",
+            "name": "太平州軍士、拠城謀反",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "謝達",
+            "name": "虔賊、恵州侵犯",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "彭友",
+            "name": "浙東賊、龍泉県侵犯",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "劉德",
+            "name": "李通余党、舒州包囲",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "范忠",
+            "name": "范汝為余党、龍泉県掠奪",
+            "startDate": "1133",
+            "endDate": "1133",
+            "datePrecision": "year",
+            "outcome": "討捕の記録はあるが最終鎮圧の確証なし",
+            "note": ""
+          },
+          {
+            "leader": "黎盛",
+            "name": "海賊、潮州侵犯",
+            "startDate": "1134",
+            "endDate": "1134",
+            "datePrecision": "year",
+            "outcome": "民居焼き払い後撤退、鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "朱明",
+            "name": "海賊",
+            "startDate": "1144",
+            "endDate": "1144",
+            "datePrecision": "year",
+            "outcome": "討伐軍派遣、最終鎮圧の確証なし",
+            "note": ""
+          },
+          {
+            "leader": "張大一",
+            "name": "建州民の反乱",
+            "startDate": "1150",
+            "endDate": "1150",
+            "datePrecision": "year",
+            "outcome": "鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "劉忠",
+            "name": "淮賊、蘄州侵犯、岳州平江県占拠",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "李永琦",
+            "name": "鄜延将、慶陽府侵犯",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧記録なし",
+            "note": ""
+          },
+          {
+            "leader": "龔富",
+            "name": "広賊、南雄州包囲",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧記録が同志の吳忠・鄧慶ほど明確でない",
+            "note": ""
+          },
+          {
+            "leader": "翟進（海賊）",
+            "name": "水賊、漢陽軍襲撃、守臣殺害",
+            "startDate": "1132",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧記録なし",
+            "note": "1129年戦死の忠臣・翟進とは別人"
+          },
+          {
+            "leader": "范汝為",
+            "name": "范汝為の乱（建州占拠）",
+            "startDate": "1130",
+            "endDate": "1132",
+            "datePrecision": "year",
+            "outcome": "鎮圧済み",
+            "note": "建炎4年7月建州で挙兵、同年12月一旦招降されるも紹興元年10月再び建州を占拠、紹興2年正月韓世忠が建州を攻略し自焚死"
+          }
+        ],
+        "confidence": "low",
+        "note": "rebellionSuppressionCountの81件（対称的に鎮圧側・被反乱側の両方に計上）に加え、鎮圧できず金・西夏・偽齊等の外部勢力へ逃亡・投降した将領の離反や、鎮圧記録が明確でない事案33件を追加計上。苗劉兵変（1129）は例外4（朝廷内部の権力者による兵力を伴うクーデター）として被反乱側のみに計上。酈瓊の大規模兵変（1137、約4万の兵を率い偽齊へ投降）は成功した離反であり鎮圧記録がないため被反乱側のみに計上。范汝為の乱本体（建州占拠、1130-1132）が初回の機械検証で配列から漏れていたため事後追加（他112件は変更なし）。confidence lowの理由はrebellionSuppressionCountと同じ（史料稠密のため全件逐語確認未了）。"
+      }
+    },
+    {
+      "id": "nansong-xiaozong",
+      "name": {
+        "personalName": "趙眘",
+        "commonName": "孝宗",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "南宋",
+        "category": "正統王朝",
+        "section": "宋遼西夏金"
+      },
+      "reigns": [
+        {
+          "startYear": 1162,
+          "endYear": 1189,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "紹興32年6月11日即位。淳熙16年2月2日、光宗へ譲位。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "1162-07-24",
+          "endDate": "1189-02-18",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 9706,
+            "unit": "day",
+            "approxDays": 9706,
+            "exactDays": 9706,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "宋史 本紀三十三 孝宗一（即位）／本紀三十五 孝宗三（内禅）",
+              "lang": "zh-classical",
+              "quote": "三十二年…六月甲戌，御筆賜字元永。乙亥，內降御札：「皇太子可即皇帝位。朕稱太上皇帝，退處德壽宮，皇后稱太上皇后。」丙子，遣中使召帝入禁中面諭之，帝又推遜不受…於是高宗出御紫宸殿，輔臣奏事畢，高宗還宮。百官移班殿門外，拜詔畢，復入班殿庭。頃之，內侍掖帝至御榻前…宰相率百僚稱賀，帝遽興。／十六年…二月辛酉朔，日有食之。壬戌，下詔傳位皇太子。是日，皇太子即皇帝位。帝素服駕之重華宮。",
+              "conversion": "紹興32年=1162年、淳熙16年=1189年として旧暦年を特定。六月の連続干支（甲戌→乙亥→丙子）をsxtwlでfromLunar(1162,6,d)により全日換算した結果、丙子は6月11日=西暦1162-07-24と算出され、原文の干支・既存startDateと完全一致。淳熙16年2月はfromLunar(1189,2,d)で辛酉朔（1日）→壬戌（2日）=西暦1189-02-18と算出、原文干支・既存endDateと完全一致。実際の即位儀礼日（乙亥の詔ではなく丙子の登壇・百官稱賀）を即位日として採用した点、既存noteの記述（紹興32年6月11日即位／淳熙16年2月2日光宗へ譲位）とも整合する。",
+              "note": "六月甲戌(9日)乙亥(10日)丙子(11日)の3日間で、乙亥に譲位の詔勅が発せられ、丙子に実際の即位儀礼（登壇・百官の祝賀）が行われるという2段階の記事構造。即位日としては儀礼当日の丙子を採用（既存データもこれと一致）。淳熙16年の内禅は「壬戌、下詔傳位皇太子。是日、皇太子即皇帝位」と詔勅と即位が同日内で完結しており曖昧さはない。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 9706,
+          "displayYears": 26.59,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 1162,
+        "lastEndYear": 1189,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 1162
+      },
+      "sources": {
+        "wikidata": "Q7492",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": ""
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "紹熙5年5月に発病、6月に重華殿で崩御。享年68。譲位後の自然死。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻三十五（孝宗三）",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "内禅",
+        "note": "淳煕16年2月、高宗より内禅（生前譲位）を受けて即位。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻三十五（孝宗三）",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "生前譲位",
+          "relationToPredecessor": "養子",
+          "procedure": "内禅"
+        }
+      },
+      "eraChangeCount": {
+        "count": 3,
+        "confidence": "high",
+        "events": [
+          {
+            "date": "1162-11-01",
+            "datePrecision": "month",
+            "note": "紹興32年11月戊申、「詔改明年為隆興元年」。即位当初（紹興32年6月〜）は前代（高宗）の元号「紹興」をそのまま継続使用しており、この詔による隆興への改元（施行は翌年正月朔）が孝宗在位中最初の改元にあたる。",
+            "source": {
+              "page": "宋史 本紀 巻三十三（孝宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1165-01-01",
+            "datePrecision": "day",
+            "note": "乾道元年正月辛亥朔、圜丘にて合祀天地、「大赦，改元」。隆興から乾道への改元。",
+            "source": {
+              "page": "宋史 本紀 巻三十三（孝宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1173-11-01",
+            "datePrecision": "month",
+            "note": "乾道9年11月戊戌、圜丘にて合祀天地、「大赦，改明年為淳熙元年」。乾道から淳熙への改元（施行は翌年正月）。",
+            "source": {
+              "page": "宋史 本紀 巻三十四（孝宗二）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "note": "孝宗在位中に使用された元号は紹興（即位当初、高宗代からの継続使用のためカウントせず）→隆興→乾道→淳熙の順で、改元は隆興・乾道・淳熙への切替の計3回。淳熙16年の譲位後、光宗代の紹熙への改元は孝宗自身の在位中の出来事ではないため対象外。"
+      },
+      "amnestyCount": {
+        "count": 14,
+        "confidence": "high",
+        "events": [
+          {
+            "date": "1162-07-01",
+            "datePrecision": "month",
+            "note": "紹興32年6月戊寅（即位直後）、「大赦」。即位に伴う恩赦。",
+            "source": {
+              "page": "宋史 本紀 巻三十三（孝宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1165-01-01",
+            "datePrecision": "day",
+            "note": "乾道元年正月辛亥朔（元日）、圜丘にて合祀天地、「大赦，改元」。改元（隆興→乾道）と同時の大赦。",
+            "source": {
+              "page": "宋史 本紀 巻三十三（孝宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1166-08-01",
+            "datePrecision": "month",
+            "note": "乾道2年8月戊子、「大赦」（同月乙酉に長子愭を皇太子に立てた直後）。",
+            "source": {
+              "page": "宋史 本紀 巻三十三（孝宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1167-11-01",
+            "datePrecision": "month",
+            "note": "乾道3年11月丙寅、圜丘にて合祀天地、「大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻三十四（孝宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1170-11-01",
+            "datePrecision": "month",
+            "note": "乾道6年11月壬午、圜丘にて合祀天地、「大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻三十四（孝宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1171-02-01",
+            "datePrecision": "month",
+            "note": "乾道7年2月癸丑、「詔立子惇為皇太子，大赦」。新皇太子（惇、後の光宗）冊立と同時の大赦。",
+            "source": {
+              "page": "宋史 本紀 巻三十四（孝宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1173-11-01",
+            "datePrecision": "month",
+            "note": "乾道9年11月戊戌、圜丘にて合祀天地、「大赦，改明年為淳熙元年」。改元（乾道→淳熙）と同時の大赦。",
+            "source": {
+              "page": "宋史 本紀 巻三十四（孝宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1175-12-01",
+            "datePrecision": "month",
+            "note": "淳熙2年12月甲午、徳寿宮にて慶寿礼を行い「大赦，文武官封父母，賞諸軍」。",
+            "source": {
+              "page": "宋史 本紀 巻三十四（孝宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1176-11-01",
+            "datePrecision": "month",
+            "note": "淳熙3年11月癸丑、圜丘にて合祀天地、「大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻三十四（孝宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1179-09-01",
+            "datePrecision": "month",
+            "note": "淳熙6年9月辛未、明堂にて合祭天地、「大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻三十五（孝宗三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1182-09-01",
+            "datePrecision": "month",
+            "note": "淳熙9年9月辛巳、明堂にて大享（太祖・太宗配享）、「大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻三十五（孝宗三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1185-11-01",
+            "datePrecision": "month",
+            "note": "淳熙12年11月辛丑、圜丘にて合祀天地、「大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻三十五（孝宗三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1186-01-01",
+            "datePrecision": "month",
+            "note": "淳熙13年正月庚辰朔、徳寿宮にて慶寿礼を行い「大赦，文武臣僚並理三年磨勘」。",
+            "source": {
+              "page": "宋史 本紀 巻三十五（孝宗三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1188-09-01",
+            "datePrecision": "month",
+            "note": "淳熙15年9月辛丑、明堂にて大饗（太祖・太宗配享）、「大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻三十五（孝宗三）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "note": "合計14回、いずれも「大赦」と明記された全国規模の恩赦のみを計上。なお淳熙14年（1187）10月辛未の「以太上皇不豫，赦」は「大赦」ではなく単に「赦」とのみ記載されており、規模不詳・限定的恩赦の可能性があるため計上対象外とした（除外）。"
+      },
+      "empressInstallationCount": {
+        "count": 2,
+        "confidence": "high",
+        "events": [
+          {
+            "date": "1164-10-01",
+            "datePrecision": "month",
+            "note": "隆興2年10月丙子、「立賢妃夏氏為皇后」（賢妃夏氏を皇后に立てる）。正式な冊立の儀（御文徳殿にて冊皇后）は乾道2年正月壬辰に挙行。夏皇后は乾道3年6月辛卯に崩御。",
+            "source": {
+              "page": "宋史 本紀 巻三十三（孝宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1176-08-01",
+            "datePrecision": "month",
+            "note": "淳熙3年8月庚辰、太上皇（高宗）の詔により「立貴妃謝氏為皇后」（貴妃謝氏を皇后に立てる）。正式な冊立の儀（御文徳殿にて冊皇后）は同年10月丙子に挙行。",
+            "source": {
+              "page": "宋史 本紀 巻三十四（孝宗二）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "note": "冊立の詔と正式冊礼（御文徳殿での冊皇后）が別日に分かれるケースがあるが、同一人物の同一立后につき1イベントとして計上（詔の日付を採用）。なお乾道元年8月「追冊故妃郭氏為皇后」は、即位前に死去していた旧妃郭氏への死後の皇后号追贈（追封）であり、在位中の生存する皇后の正式冊立には該当しないため計上対象外とした。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位中に皇太子は2人立てられた（乾道元年8月乙酉、長子愭を立太子＝荘文太子。乾道7年2月癸丑、三子惇を立太子）。愭は乾道3年7月乙巳に病没（謚荘文、廃立ではなく死去）、惇はそのまま在位を継続し淳熙16年の譲位により光宗として即位した。本紀中に皇太子廃立（廃す）の記述は見当たらず、該当なし。"
+      },
+      "ages": {
+        "birthDate": "1127-10-01",
+        "birthDatePrecision": "month",
+        "deathDate": "1194-06-01",
+        "deathDatePrecision": "month",
+        "deathAge": 68,
+        "confidence": "medium",
+        "note": "生年は宋史本紀巻三十三冒頭「以建炎元年十月戊寅生帝于秀州青杉牐之官舍」に直接記載（建炎元年＝1127年、十月戊寅の干支日）。没年月日・没年齢は巻三十五末尾「紹熙五年五月壬戌，壽皇聖帝不豫。六月戊戌，崩于重華殿，年六十有八」に直接記載（享年68、既存deathCause.noteの「享年68」と整合）。いずれも干支日から西暦の正確な日付への換算は未実施のため月精度で記録（干支日は原文に明記済み：生年=十月戊寅、没日=六月戊戌）。没年は譲位後（光宗代・紹熙5年＝1194年）の出来事であり、孝宗の在位期間（1162-1189）外だが参考情報として記録。即位時年齢の直接記載（「即位時年◯◯」等）は本紀中に見当たらず。",
+        "accessionAge": 36
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "宋史本紀を通読。高宗期の臨安遷都（1138年）を継承、以後南宋滅亡（1279年）まで臨安が一貫した都。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "medium",
+        "note": "原文中に孝宗自身の親征関連記事が2件あるが、いずれも実際の出征に至っていないと判断し計上しなかった。(1)隆興元年(1163)5月甲寅、符離之潰の翌日「乙卯，下詔親征」との記事があるが、直後も張浚が都督として淮に赴き、湯思退が和平交渉を進める展開で、帝自身が都を出て戦地に赴いた記述は見当たらない。(2)乾道9年(1173)9月壬辰、虞允文が四川宣撫使として辞去する際「帝諭以決策親征，令允文治兵俟報」とあるが、これも虞允文に治兵を命じただけで、以後（淳熙元年2月に允文病没まで）帝自身の出征記録はない。対外戦争（隆興北伐等）は本ブロックのルールにより親征しても対外戦争は本カウント対象だが、いずれにせよ実際の出征が確認できないため0件とした。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 21,
+        "events": [
+          {
+            "name": "廣西賊王宣の乱",
+            "leader": "王宣",
+            "startDate": "1162-12",
+            "endDate": "1163-03",
+            "datePrecision": "month",
+            "outcome": "鎮圧（廣西賊平）",
+            "note": "藤州を破り太守棄城逃亡、隆興元年3月に平定"
+          },
+          {
+            "name": "容州妖賊李雲の乱",
+            "leader": "李雲",
+            "startDate": "1164-02",
+            "endDate": "1164-02",
+            "datePrecision": "month",
+            "outcome": "鎮圧（獲李雲，其黨悉平）",
+            "note": ""
+          },
+          {
+            "name": "湖南盜の乱",
+            "leader": "不詳",
+            "startDate": "1166-03",
+            "endDate": "1166-03",
+            "datePrecision": "month",
+            "outcome": "鎮圧（官軍討平之）",
+            "note": "湖南から広東に入り州県を焼掠"
+          },
+          {
+            "name": "郴州盜李金の乱",
+            "leader": "李金",
+            "startDate": "1166-05",
+            "endDate": "1166-08",
+            "datePrecision": "month",
+            "outcome": "鎮圧（獲李金）",
+            "note": ""
+          },
+          {
+            "name": "淮北紅巾賊(蕭榮)の乱",
+            "leader": "蕭榮",
+            "startDate": "1166-10",
+            "endDate": "1166-10",
+            "datePrecision": "month",
+            "outcome": "鎮圧（擊殺其首蕭榮）",
+            "note": "淮河を越えて南下し劫掠"
+          },
+          {
+            "name": "雅州沙平蠻の反乱",
+            "leader": "不詳（沙平蠻）",
+            "startDate": "1170-01",
+            "endDate": "1170-02",
+            "datePrecision": "month",
+            "outcome": "和解による鎮定（軍事的討伐は失敗、辺税減免で帰服）",
+            "note": "四川制置使晁公武の討伐は失敗、王炎が交渉で解決"
+          },
+          {
+            "name": "沅州徭人の蜂起",
+            "leader": "不詳（徭人）",
+            "startDate": "1171-09",
+            "endDate": "1171-09",
+            "datePrecision": "month",
+            "outcome": "諭解により鎮定（軍事討伐は失敗）",
+            "note": "州城に迫るも安撫司が説得して解決、守臣孫叔傑は罪に問われた"
+          },
+          {
+            "name": "茶寇賴文政の乱",
+            "leader": "賴文政",
+            "startDate": "1174-04",
+            "endDate": "1174-09",
+            "datePrecision": "month",
+            "outcome": "鎮圧（辛棄疾が誘殺、茶寇平）",
+            "note": "湖北で起こり湖南・江西・広東に転戦、官軍がしばしば敗北するも最終的に辛棄疾が平定"
+          },
+          {
+            "name": "青羌奴兒結の乱",
+            "leader": "奴兒結",
+            "startDate": "1174-02",
+            "endDate": "1174-07",
+            "datePrecision": "month",
+            "outcome": "投降により鎮定",
+            "note": "安静砦を攻め黎商老を戦死させた後、投降。淳熙12年(1185)正月に四川制置使留正が改めて人を遣り誘殺しており、後年まで禍根が残った"
+          },
+          {
+            "name": "吐蕃彌羌畜列の侵攻",
+            "leader": "彌羌畜列",
+            "startDate": "1174-07",
+            "endDate": "1174-07",
+            "datePrecision": "month",
+            "outcome": "鎮圧（卭部川蠻を誘い撃卻）",
+            "note": "四川黎州辺の吐蕃系部族、安静砦を陥落させ深入り"
+          },
+          {
+            "name": "靖州徭人の反乱",
+            "leader": "不詳（徭人）",
+            "startDate": "1176-04",
+            "endDate": "1176-08",
+            "datePrecision": "month",
+            "outcome": "鎮圧（靖州徭寇平）",
+            "note": ""
+          },
+          {
+            "name": "黎州蠻の侵攻",
+            "leader": "不詳（黎州蠻）",
+            "startDate": "1177-12",
+            "endDate": "1178-03",
+            "datePrecision": "month",
+            "outcome": "投降により鎮定（当初官軍失利）",
+            "note": "官軍が敗れ蠻が一旦引き上げた後、翌春に投降"
+          },
+          {
+            "name": "威州蠻の侵攻",
+            "leader": "不詳（威州蠻）",
+            "startDate": "1178-02",
+            "endDate": "1178-02",
+            "datePrecision": "month",
+            "outcome": "鎮圧（討降之）",
+            "note": ""
+          },
+          {
+            "name": "郴州賊陳峒の乱",
+            "leader": "陳峒",
+            "startDate": "1179-03",
+            "endDate": "1179-05",
+            "datePrecision": "month",
+            "outcome": "鎮圧（郴寇平）",
+            "note": "連道州・桂陽軍の諸県を破る"
+          },
+          {
+            "name": "廣西妖賊李接の乱",
+            "leader": "李接",
+            "startDate": "1179-06",
+            "endDate": "1179-10",
+            "datePrecision": "month",
+            "outcome": "鎮圧（廣西妖賊平）",
+            "note": "鬱林州を破り化州を包囲"
+          },
+          {
+            "name": "潮州賊沈師の乱",
+            "leader": "沈師",
+            "startDate": "1181-03",
+            "endDate": "1181-12",
+            "datePrecision": "month",
+            "outcome": "鎮圧（誘出降、誅之）",
+            "note": "汀州・漳州の民も被害を受けた"
+          },
+          {
+            "name": "黎州五部落の侵攻",
+            "leader": "不詳（黎州五部落）",
+            "startDate": "1181-04",
+            "endDate": "1181-10",
+            "datePrecision": "month",
+            "outcome": "投降により鎮定（当初官軍たびたび敗北）",
+            "note": "盤佗砦・黎州塞を繰り返し侵犯、官軍死者多数、最終的に進馬乞降"
+          },
+          {
+            "name": "黎州戍軍伍進の兵変",
+            "leader": "伍進",
+            "startDate": "1181-11",
+            "endDate": "1181-11",
+            "datePrecision": "month",
+            "outcome": "鎮圧（誅之）",
+            "note": "黎州五部落侵攻の混乱に乗じた駐屯軍の反乱、知常が逃亡"
+          },
+          {
+            "name": "敘州賊大波浪の乱",
+            "leader": "大波浪",
+            "startDate": null,
+            "endDate": "1182-02",
+            "datePrecision": "month",
+            "outcome": "鎮圧（獲之）",
+            "note": "四川制置司が捕獲した記事のみで蜂起開始の記載なし"
+          },
+          {
+            "name": "黎州土丁張百祥の乱",
+            "leader": "張百祥",
+            "startDate": "1182-02",
+            "endDate": "1182-02",
+            "datePrecision": "month",
+            "outcome": "鎮圧（土丁潰去）",
+            "note": "科役に耐えかね蜂起、統領官劉大年が撃退したが大年自身は罪に問われ誅された"
+          },
+          {
+            "name": "安化蠻蒙光漸の侵攻",
+            "leader": "蒙光漸",
+            "startDate": "1184-01",
+            "endDate": "1184-01",
+            "datePrecision": "month",
+            "outcome": "鎮圧（獲光漸）",
+            "note": "宜州思立砦を侵犯"
+          }
+        ],
+        "confidence": "medium",
+        "note": "対等勢力（金）との対外戦争（隆興北伐等）は本ブロックのルールに従い除外。国内の盗賊・妖賊・辺境部族（蠻・徭・羌・吐蕃系）の蜂起・侵犯21件を独立した首謀者・蜂起単位で計上。数ヶ月にわたる同一首謀者の一連の軍事行動は1件に集約（黎州五部落・黎州蠻など）。沅州徭人・雅州沙平蠻のように軍事鎮圧が失敗し交渉で解決したケースも「反乱の終結」として鎮圧に計上した。"
+      },
+      "rebellionSufferedCount": {
+        "count": 21,
+        "events": [
+          {
+            "name": "廣西賊王宣の乱",
+            "leader": "王宣",
+            "startDate": "1162-12",
+            "endDate": "1163-03",
+            "datePrecision": "month",
+            "outcome": "藤州を破り太守が棄城逃亡、最終的に鎮圧",
+            "note": ""
+          },
+          {
+            "name": "容州妖賊李雲の乱",
+            "leader": "李雲",
+            "startDate": "1164-02",
+            "endDate": "1164-02",
+            "datePrecision": "month",
+            "outcome": "同日鎮圧",
+            "note": ""
+          },
+          {
+            "name": "湖南盜の乱",
+            "leader": "不詳",
+            "startDate": "1166-03",
+            "endDate": "1166-03",
+            "datePrecision": "month",
+            "outcome": "広東に侵入し州県を焼掠、同季に鎮圧",
+            "note": ""
+          },
+          {
+            "name": "郴州盜李金の乱",
+            "leader": "李金",
+            "startDate": "1166-05",
+            "endDate": "1166-08",
+            "datePrecision": "month",
+            "outcome": "鎮圧",
+            "note": ""
+          },
+          {
+            "name": "淮北紅巾賊(蕭榮)の乱",
+            "leader": "蕭榮",
+            "startDate": "1166-10",
+            "endDate": "1166-10",
+            "datePrecision": "month",
+            "outcome": "淮河を越え劫掠、まもなく鎮圧",
+            "note": ""
+          },
+          {
+            "name": "雅州沙平蠻の反乱",
+            "leader": "不詳（沙平蠻）",
+            "startDate": "1170-01",
+            "endDate": "1170-02",
+            "datePrecision": "month",
+            "outcome": "碉門砦を焼く、官軍討伐は失敗、後に和解",
+            "note": ""
+          },
+          {
+            "name": "沅州徭人の蜂起",
+            "leader": "不詳（徭人）",
+            "startDate": "1171-09",
+            "endDate": "1171-09",
+            "datePrecision": "month",
+            "outcome": "州城に迫る、官軍失利、後に諭解で鎮定",
+            "note": ""
+          },
+          {
+            "name": "茶寇賴文政の乱",
+            "leader": "賴文政",
+            "startDate": "1174-04",
+            "endDate": "1174-09",
+            "datePrecision": "month",
+            "outcome": "官軍数敗、広東まで拡大、最終的に鎮圧",
+            "note": ""
+          },
+          {
+            "name": "青羌奴兒結の乱",
+            "leader": "奴兒結",
+            "startDate": "1174-02",
+            "endDate": "1174-07",
+            "datePrecision": "month",
+            "outcome": "安静砦を攻め黎商老戦死させる、後に投降",
+            "note": "淳熙12年(1185)に再度誘殺される事件があるが同一人物の後日談として本件に含める"
+          },
+          {
+            "name": "吐蕃彌羌畜列の侵攻",
+            "leader": "彌羌畜列",
+            "startDate": "1174-07",
+            "endDate": "1174-07",
+            "datePrecision": "month",
+            "outcome": "安静砦陥落・深入、同日撃退",
+            "note": ""
+          },
+          {
+            "name": "靖州徭人の反乱",
+            "leader": "不詳（徭人）",
+            "startDate": "1176-04",
+            "endDate": "1176-08",
+            "datePrecision": "month",
+            "outcome": "辺境侵犯、鎮圧",
+            "note": ""
+          },
+          {
+            "name": "黎州蠻の侵攻",
+            "leader": "不詳（黎州蠻）",
+            "startDate": "1177-12",
+            "endDate": "1178-03",
+            "datePrecision": "month",
+            "outcome": "官軍失利したが蠻自ら撤退、翌春投降",
+            "note": ""
+          },
+          {
+            "name": "威州蠻の侵攻",
+            "leader": "不詳（威州蠻）",
+            "startDate": "1178-02",
+            "endDate": "1178-02",
+            "datePrecision": "month",
+            "outcome": "辺境侵犯、同日撃退・降伏",
+            "note": ""
+          },
+          {
+            "name": "郴州賊陳峒の乱",
+            "leader": "陳峒",
+            "startDate": "1179-03",
+            "endDate": "1179-05",
+            "datePrecision": "month",
+            "outcome": "州県を破る、鎮圧",
+            "note": ""
+          },
+          {
+            "name": "廣西妖賊李接の乱",
+            "leader": "李接",
+            "startDate": "1179-06",
+            "endDate": "1179-10",
+            "datePrecision": "month",
+            "outcome": "鬱林州を破り化州包囲、鎮圧",
+            "note": ""
+          },
+          {
+            "name": "潮州賊沈師の乱",
+            "leader": "沈師",
+            "startDate": "1181-03",
+            "endDate": "1181-12",
+            "datePrecision": "month",
+            "outcome": "汀漳二州の民が被害、最終的に誘殺",
+            "note": ""
+          },
+          {
+            "name": "黎州五部落の侵攻",
+            "leader": "不詳（黎州五部落）",
+            "startDate": "1181-04",
+            "endDate": "1181-10",
+            "datePrecision": "month",
+            "outcome": "官軍死者多数、最終的に投降",
+            "note": ""
+          },
+          {
+            "name": "黎州戍軍伍進の兵変",
+            "leader": "伍進",
+            "startDate": "1181-11",
+            "endDate": "1181-11",
+            "datePrecision": "month",
+            "outcome": "駐屯軍が反乱、地方官逃亡、同日鎮圧",
+            "note": "内部の軍事反乱であり朝廷中枢クーデターではないため通常通り鎮圧側にも計上"
+          },
+          {
+            "name": "敘州賊大波浪の乱",
+            "leader": "大波浪",
+            "startDate": null,
+            "endDate": "1182-02",
+            "datePrecision": "month",
+            "outcome": "捕獲された記事のみ、蜂起の具体的経緯は原文に記載なし",
+            "note": "「賊」表記から先行する反乱活動が推定されるが原文簡略のため詳細不明"
+          },
+          {
+            "name": "黎州土丁張百祥の乱",
+            "leader": "張百祥",
+            "startDate": "1182-02",
+            "endDate": "1182-02",
+            "datePrecision": "month",
+            "outcome": "科役への不満から蜂起、同日鎮圧",
+            "note": ""
+          },
+          {
+            "name": "安化蠻蒙光漸の侵攻",
+            "leader": "蒙光漸",
+            "startDate": "1184-01",
+            "endDate": "1184-01",
+            "datePrecision": "month",
+            "outcome": "宜州思立砦侵犯、同日鎮圧",
+            "note": ""
+          }
+        ],
+        "confidence": "medium",
+        "note": "鎮圧回数と1:1で対応（例外パターンに該当する事例なし）。対外戦争（隆興北伐等の金との戦い）は除外。すべて国内の盗賊・妖賊・辺境部族蜂起として計上。"
+      }
+    },
+    {
+      "id": "nansong-guangzong",
+      "name": {
+        "personalName": "趙惇",
+        "commonName": "光宗",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "南宋",
+        "category": "正統王朝",
+        "section": "宋遼西夏金"
+      },
+      "reigns": [
+        {
+          "startYear": 1189,
+          "endYear": 1194,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "淳熙16年2月2日即位。紹熙5年7月5日、強制退位。1200年9月17日崩御。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "1189-02-18",
+          "endDate": "1194-07-24",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 1982,
+            "unit": "day",
+            "approxDays": 1982,
+            "exactDays": 1982,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "宋史 本紀三十六 光宗",
+              "lang": "zh-classical",
+              "quote": "十六年正月辛亥，兩府奏事，孝宗諭以倦勤，欲禪位皇太子，退就休養，以畢高宗三年之制。因令必大進呈詔草。二月壬戌，孝宗吉服御紫宸殿，行內禪禮／秋七月辛酉，丞相留正稱疾，乞罷政，遂逃歸……甲子，太皇太后以皇帝疾未能執喪，命皇子嘉王即皇帝位于重華宮之素幄，尊皇帝為太上皇帝，皇后為壽仁太上皇后，移御泰安宮",
+              "conversion": "sxtwl換算: 淳熙十六年二月内で干支「壬戌」を持つ日を検索した結果、旧暦二月二日=新暦1189-02-18(壬戌)で一致、既存startDate(1189-02-18/精度day)と完全一致。紹熙五年七月内で干支「甲子」を検索した結果、旧暦七月五日=新暦1194-07-24(甲子)で一致、既存endDate(1194-07-24/精度day)と完全一致。なお参考として崩御日(慶元六年八月辛卯)もsxtwlで換算すると1200-09-17となり、既存note記載の『1200年9月17日崩御』とも一致することを確認した(reigns配列外の情報のため換算結果のみ付記)。",
+              "note": "帝位は紹熙五年七月甲子の内禅(強制退位、皇太子嘉王=寧宗の即位)をもって終了しており、崩御(慶元六年八月辛卯=1200-09-17)は太上皇帝としての死去で在位期間には含まれない。既存endDateは内禅日を採用しており、原文と整合している。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 1982,
+          "displayYears": 5.43,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 1189,
+        "lastEndYear": 1194,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 1189
+      },
+      "sources": {
+        "wikidata": "Q7494",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": ""
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "慶元6年8月不豫、壽康宮にて崩御。享年54。譲位後の自然死。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻三十六（光宗）",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "内禅",
+        "note": "淳煕16年、孝宗より内禅の礼を経て即位。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻三十七（寧宗一）",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "生前譲位",
+          "relationToPredecessor": "子",
+          "procedure": "内禅"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "1189-12-23",
+            "datePrecision": "day",
+            "note": "淳熙16年11月14日（庚午）、翌年（淳熙17年）を紹熙元年とする改元の詔を発布。原文：「詔改明年為紹熙元年」。即位時（淳熙16年2月）は前代孝宗の淳熙年号をそのまま継続使用しており改元しなかったため、これはカウントしていない。",
+            "source": {
+              "page": "宋史 本紀 巻三十六（光宗）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "光宗在位中（淳熙16年2月〜紹熙5年7月）の改元は紹熙への1回のみ。即位時は淳熙年号を継続使用したため建元カウントの対象外とした。"
+      },
+      "amnestyCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "1189-02-20",
+            "datePrecision": "day",
+            "note": "即位直後、淳熙16年2月4日（甲子）に大赦。百官進秩一級、諸軍優賞、公私の逋負及び郡県の淳熙14年以前の税役を蠲免。原文：「甲子，帝率羣臣朝重華宮。大赦，百官進秩一級，優賞諸軍，蠲公私逋負及郡縣淳熙十四年以前稅役」。",
+            "source": {
+              "page": "宋史 本紀 巻三十六（光宗）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "medium",
+        "note": "淳熙17年（在位二年）十一月壬申条に「帝既聞貴妃薨，又值此變，震懼感疾，罷稱賀，肆赦不御樓」とあり、貴妃の急死と合祭天地の礼が大風雨で中止になった際に「肆赦」（恩赦を布告するが慣例の御楼儀礼は行わず）との記載があるが、「大赦」「大赦天下」の明記を欠くためカウントに含めていない。同様に紹熙5年5月戊寅条「以壽皇聖帝疾，赦」も「大赦」の明記がないため除外。明記された大赦は即位直後の1回のみ。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "1189-02-18",
+            "datePrecision": "day",
+            "note": "即位当日（淳熙16年2月2日・壬戌）、孝宗（壽皇聖帝）の詔により元妃李氏（李鳳娘）を皇后に立てる。原文：「帝還內，即上尊號曰至尊壽皇聖帝，皇后曰壽成皇后。壽皇聖帝詔立帝元妃李氏為皇后」。",
+            "source": {
+              "page": "宋史 本紀 巻三十六（光宗）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "光宗在位中の立后は李氏の1回のみ確認。廃后・再冊立の記載はなし。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "光宗在位中、嫡子の嘉王擴（後の寧宗）を皇太子に正式册立した記録は本紀に見当たらない。紹熙元年春以降、丞相留正らが繰り返し立太子を上奏し、紹熙5年7月には光宗も一旦これを許可した（「初，正等屢請立嘉王為皇太子，帝許之」）が、正式な冊立手続きが完了する前に孝宗崩御と光宗の病を機に太皇太后の命で嘉王が直接皇帝位に即いた（宋史 本紀 巻三十七・寧宗一）。皇太子が正式に立てられた事実自体がないため、廃立も発生していない。"
+      },
+      "ages": {
+        "birthDate": "1147-09-30",
+        "birthDatePrecision": "day",
+        "deathDate": "1200-09-17",
+        "deathDatePrecision": "day",
+        "deathAge": 54,
+        "confidence": "high",
+        "note": "原文：「紹興十七年九月乙丑，生于藩邸」（宋史 本紀 巻三十六・光宗）。崩御記事：「（慶元六年八月）辛卯，崩于壽康宮，年五十有四」（同巻）。死亡年月日と崩御時年齢（数え54歳）は本紀に明記。即位時年齢は原文に直接の記載なし（生年月日から逆算すると満41歳・数え43歳相当だが、原文明記でないためaccessionAgeはnullとした）。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "宋史本紀を通読。高宗期の臨安遷都（1138年）を継承、以後南宋滅亡（1279年）まで臨安が一貫した都。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位中（淳熙16年～紹熙5年、1189-1194）に光宗自身が軍を率いて出征した記録は原文に一切見当たらない。むしろ在位中は病がち（「帝有疾，不視朝」等の記事が頻出）であり、対外・対内を問わず親征の事実はない。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 4,
+        "events": [
+          {
+            "name": "浦城盜張海の乱",
+            "leader": "張海",
+            "startDate": "1190",
+            "endDate": null,
+            "datePrecision": "year",
+            "outcome": "suppressed_uncertain",
+            "note": "紹熙元年十二月戊申「浦城盜張海作亂，詔提點刑獄豐誼捕之」。福建・浦城の盗賊蜂起で、提点刑獄の豐誼に捕縛を命じた。以後の続報は原文になく、成否の明記はないが、大きな展開の記述もないため鎮圧されたとみなす。"
+          },
+          {
+            "name": "宜州蠻の辺境侵犯",
+            "leader": "(名なし・宜州蠻)",
+            "startDate": "1192",
+            "endDate": null,
+            "datePrecision": "year",
+            "outcome": "suppressed_uncertain",
+            "note": "紹熙三年三月「宜州蠻寇邊，改知鬱林州沙世堅知宜州以討之」。広西・宜州の異民族による辺境侵犯に対し、鬱林州知事の沙世堅を宜州知事に転任させて討伐にあたらせた。以後の続報は原文になく成否不明。"
+          },
+          {
+            "name": "瀘州騎射卒張信の乱",
+            "leader": "張信",
+            "startDate": "1192",
+            "endDate": "1192",
+            "datePrecision": "year",
+            "outcome": "suppressed",
+            "note": "紹熙三年七月壬午「瀘州騎射卒張信等作亂，殺其帥臣張孝芳」、甲申（2日後）「軍士卞進、張昌擊殺信」。四川・瀘州の駐屯兵が反乱を起こし主将を殺害したが、直後に他の軍士によって張信は討たれ鎮圧された。"
+          },
+          {
+            "name": "叙州夷賊の辺境侵犯",
+            "leader": "沒該落無 等",
+            "startDate": "1193",
+            "endDate": "1193",
+            "datePrecision": "year",
+            "outcome": "suppressed",
+            "note": "紹熙四年七月「叙州夷賊沒該落無等寇邊，遣兵討平之」。四川・叙州の異民族が辺境を侵犯したが、原文に「遣兵討平之」と明記されており鎮圧完了。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "浦城・宜州の2件は鎮圧の着手（捕縛・討伐の命）は明記されるが最終的な成否の記述がないため確信度は中程度。瀘州・叙州の2件は原文に鎮圧完了の記述がある。紹熙5年の辰州徭賊の乱（4件目参照）は在位終了（強制内禅）直前で鎮圧対応の記載自体がなく、rebellionSuppressionCountには含めていない（exception2: 未鎮圧のまま在位終了）。"
+      },
+      "rebellionSufferedCount": {
+        "count": 5,
+        "events": [
+          {
+            "name": "浦城盜張海の乱",
+            "leader": "張海",
+            "startDate": "1190",
+            "endDate": null,
+            "datePrecision": "year",
+            "outcome": "suppressed_uncertain",
+            "note": "紹熙元年十二月、福建・浦城の盗賊蜂起。詔で捕縛を命じたが以後の続報なし。"
+          },
+          {
+            "name": "宜州蠻の辺境侵犯",
+            "leader": "(名なし・宜州蠻)",
+            "startDate": "1192",
+            "endDate": null,
+            "datePrecision": "year",
+            "outcome": "suppressed_uncertain",
+            "note": "紹熙三年三月、広西・宜州の異民族による辺境侵犯。討伐を命じたが以後の続報なし。"
+          },
+          {
+            "name": "瀘州騎射卒張信の乱",
+            "leader": "張信",
+            "startDate": "1192",
+            "endDate": "1192",
+            "datePrecision": "year",
+            "outcome": "suppressed",
+            "note": "紹熙三年七月、瀘州駐屯兵の反乱。主将殺害後、直ちに他の軍士に討たれ鎮圧。"
+          },
+          {
+            "name": "叙州夷賊の辺境侵犯",
+            "leader": "沒該落無 等",
+            "startDate": "1193",
+            "endDate": "1193",
+            "datePrecision": "year",
+            "outcome": "suppressed",
+            "note": "紹熙四年七月、四川・叙州の異民族による辺境侵犯。「遣兵討平之」と原文に明記。"
+          },
+          {
+            "name": "辰州徭賊の辺境侵犯",
+            "leader": "(名なし・辰州徭賊)",
+            "startDate": "1194",
+            "endDate": null,
+            "datePrecision": "year",
+            "outcome": "unresolved_reign_ended",
+            "note": "紹熙五年四月「辰州徭賊寇邊」。湖南・辰州の徭族による辺境侵犯。この直後、孝宗の病篤・崩御（六月）を経て光宗自身も七月に強制内禅（寧宗即位）となり、この反乱への鎮圧対応の記述が原文に見当たらないまま在位が終了した（exception2に該当、suppressionCountには含めず）。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "国内の盗賊蜂起・異民族辺境侵犯を服属民の反乱として計上（対等勢力である金・遼・西夏との対外関係は本カウントに含めていない）。5件中3件は鎮圧の記述あり、2件（浦城・宜州）は着手のみで成否不明、1件（辰州徭賊）は在位終了直前で鎮圧対応の記載自体がない。朝廷内クーデター的事件（光宗自身が弑逆・廃位された事例）は本人には該当しない（内禅は太皇太后の主導によるものだが兵力を伴う強制排除ではなく、宋史本紀上も穏当な譲位の体裁を取っているためsufferedには計上しない）。"
+      }
+    },
+    {
+      "id": "nansong-ningzong",
+      "name": {
+        "personalName": "趙拡",
+        "commonName": "寧宗",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "南宋",
+        "category": "正統王朝",
+        "section": "宋遼西夏金"
+      },
+      "reigns": [
+        {
+          "startYear": 1194,
+          "endYear": 1224,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "紹熙5年7月5日（甲子）即位。嘉定17年閏8月3日崩御。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "1194-07-24",
+          "endDate": "1224-09-17",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 11013,
+            "unit": "day",
+            "approxDays": 11013,
+            "exactDays": 11013,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "宋史 本紀三十七 寧宗一",
+              "lang": "zh-classical",
+              "quote": "五年六月戊戌，孝宗崩，光宗以疾不能出。／七月辛酉，留正以疾辭去。知樞密院事趙汝愚見正去，乃遣韓侂冑因內侍張宗尹以禪位嘉王之意，請于太皇太后……侂冑出，告汝愚，命殿帥郭杲夜分兵衞南北內。／翌日禫祭，汝愚率百官詣大行柩前，太皇太后垂簾……汝愚袖出所擬以進，云：「皇帝以疾，未能執喪，曾有御筆，欲自退閑，皇子嘉王擴可即皇帝位。尊皇帝為太上皇，皇后為太上皇后。」太皇太后覽畢，曰：「甚善。」……眾扶入素幄，披黃袍，方却立未坐，汝愚率同列再拜。帝詣几筵殿，哭盡哀……乃坐。百官起居訖，乃入行禫祭禮。／【續資治通鑑 卷一百五十三】甲子，太皇太后詔嘉王擴成服即位，尊帝為太上皇帝，皇后為太上皇后。",
+              "conversion": "起点: 寧宗本紀37は六月戊戌(孝宗崩)→七月辛酉(留正辞去)→「翌日禫祭」の順で即位過程を記し、即位当日そのものに干支を付さず「翌日」という相対表現のみを用いる。文字通り読めば七月3日=壬戌(1194-07-22)となるが、これは禫祭と成服即位を圧縮した叙述である。傍証を照合すると、(1)光宗本紀36は「甲子，太皇太后以皇帝疾未能執喪，命皇子嘉王即皇帝位于重華宮之素幄」と即位日を明示的に甲子＝七月5日とし、(2)續資治通鑑 卷153も「甲子，太皇太后詔嘉王擴成服即位」と甲子を明記、さらに(3)續資治通鑑は韓侂冑が太皇太后へ禅位を請うたが「兩日不獲命」と記し、壬戌の禫祭から2日後の甲子に成服即位が成った経緯を裏づける。sxtwlで紹熙5年七月2日=辛酉=1194-07-21・七月3日=壬戌=1194-07-22・七月5日=甲子=1194-07-24を確認。以上より即位日は甲子＝1194-07-24を採用する（光宗本紀のendDate 1194-07-24とも一致し、寧宗本紀単独の「翌日」読みで07-22としていた旧値の内部矛盾を解消）。終点: 「閏八月乙未朔」を起点にsxtwlで換算すると乙未=1224-09-15、3日後の丁酉=1224-09-17となり本文「丁酉，皇帝崩于福寧殿」と完全一致、既存endDate=1224-09-17と精度・日付とも一致。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 11013,
+          "displayYears": 30.17,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 1194,
+        "lastEndYear": 1224,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 1194
+      },
+      "sources": {
+        "wikidata": "Q7496",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": ""
+      },
+      "deathCause": {
+        "category": "諸説あり",
+        "note": "宋史は発病後の自然死として記す。元代の筆記『東南紀聞』は史彌遠が金丹百粒を進めた直後に崩御したとし毒殺を示唆するが、正史には見えない。史彌遠が済王竑を廃し理宗を擁立した経緯（矯詔）と併せて後世の疑惑として語られる。確定的な暗殺の証拠はないため諸説あり。",
+        "confidence": "medium",
+        "source": {
+          "page": "宋史 本紀 巻四十（寧宗四）／東南紀聞（元代筆記）",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "擁立",
+        "note": "孝宗崩御後、光宗が病で喪を執れないことを理由に、知枢密院事趙汝愚が韓侂冑を介して太皇太后呉氏を動かし嘉王（寧宗）を擁立。正史は「内禅」の語を用いるが実質は大臣主導のクーデター的擁立。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻三十七（寧宗一）",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "母后",
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "生前譲位",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 4,
+        "confidence": "high",
+        "note": "紹熙五年七月の即位時は前代（光宗）の元号「紹熙」をそのまま踏襲し、その年内は改元しなかった（建元は行わず）。年内の慶元への改元詔から寧宗代の元号は紹熙→慶元→嘉泰→開禧→嘉定と推移し、崩御（嘉定十七年）までこの4回の改元が全て。",
+        "events": [
+          {
+            "date": "1194-12-09",
+            "datePrecision": "day",
+            "note": "「詔改明年為慶元元年」。即位後最初の改元（建元）。翌年正月より慶元元年。日付原文: 紹熙五年（1194年）閏十月壬午（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十七（寧宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1201-01-27",
+            "datePrecision": "day",
+            "note": "「詔改明年為嘉泰元年」。翌年正月より嘉泰元年。日付原文: 慶元六年（1200年）十二月（癸卯前後）。宋史寧宗紀は改元詔を癸卯の条に記しており、十二月癸卯＝ユリウス暦1201年1月27日に確定。2026-07-22 の日付ISO正規化時に個別確認のうえ訂正",
+            "source": {
+              "page": "宋史 本紀 巻三十七（寧宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1205-01-02",
+            "datePrecision": "day",
+            "note": "「詔改明年為開禧元年」。翌年正月より開禧元年。日付原文: 嘉泰四年（1204年）十二月己亥（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十八（寧宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1208-01-15",
+            "datePrecision": "day",
+            "note": "「詔改明年為嘉定元年」。翌年正月より嘉定元年。韓侂冑誅殺直後の改元。日付原文: 開禧三年（1207年）十二月丁卯（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十八（寧宗二）",
+              "lang": "zh"
+            }
+          }
+        ]
+      },
+      "amnestyCount": {
+        "count": 13,
+        "confidence": "high",
+        "note": "「大赦」と明記された全国規模の恩赦のみ計上。「曲赦泗州」「赦西和・階・成・鳳四州」「赦兩淮・湖北・京西被兵諸州」等の地域限定恩赦、および「以太皇太后（太上皇／太上皇后）違豫，赦」等の単なる「赦」（大赦の明記なし）は除外した。",
+        "events": [
+          {
+            "date": "1194-07-26",
+            "datePrecision": "day",
+            "note": "光宗禅位・寧宗即位に伴う大赦。皇后韓氏冊立と同日連続記事。日付原文: 紹熙五年（1194年）七月丙寅（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十七（寧宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1194-09-29",
+            "datePrecision": "day",
+            "note": "合祭天地于明堂に伴う大赦。日付原文: 紹熙五年（1194年）九月辛未（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十七（寧宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1197-12-15",
+            "datePrecision": "day",
+            "note": "祀天地于圜丘に伴う大赦。日付原文: 慶元三年（1197年）十一月甲辰（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十七（寧宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1200-10-27",
+            "datePrecision": "day",
+            "note": "合祭天地于明堂に伴う大赦。日付原文: 慶元六年（1200年）九月辛未（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十七（寧宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1203-12-15",
+            "datePrecision": "day",
+            "note": "祀天地于圜丘に伴う大赦。日付原文: 嘉泰三年（1203年）十一月乙亥（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十八（寧宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1206-10-16",
+            "datePrecision": "day",
+            "note": "合祭天地于明堂に伴う大赦。日付原文: 開禧二年（1206年）九月辛卯（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十八（寧宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1207-12-18",
+            "datePrecision": "day",
+            "note": "皇子曮（懤）を皇太子に立てたことに伴う大赦。日付原文: 開禧三年（1207年）十一月己亥（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十八（寧宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1209-10-10",
+            "datePrecision": "day",
+            "note": "合祭天地于明堂に伴う大赦。日付原文: 嘉定二年（1209年）九月辛丑（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十九（寧宗三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1212-12-14",
+            "datePrecision": "day",
+            "note": "祀天地于圜丘に伴う大赦。日付原文: 嘉定五年（1212年）十一月壬戌（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十九（寧宗三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1215-10-09",
+            "datePrecision": "day",
+            "note": "合祭天地于明堂に伴う大赦。日付原文: 嘉定八年（1215年）九月辛未（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十九（寧宗三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1218-10-03",
+            "datePrecision": "day",
+            "note": "合祭天地于明堂に伴う大赦。日付原文: 嘉定十一年（1218年）九月辛巳（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻四十（寧宗四）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1221-09-27",
+            "datePrecision": "day",
+            "note": "合祭天地于明堂に伴う大赦。日付原文: 嘉定十四年（1221年）九月辛卯（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻四十（寧宗四）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1222-02-22",
+            "datePrecision": "day",
+            "note": "「恭膺天命之寶」受寶を機とする大赦。文武官進秩一級、諸軍犒賞。日付原文: 嘉定十五年（1222年）正月己未（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻四十（寧宗四）",
+              "lang": "zh"
+            }
+          }
+        ]
+      },
+      "empressInstallationCount": {
+        "count": 2,
+        "confidence": "high",
+        "note": "皇后は在位中に韓氏・楊氏の二人。いずれも先に「立…為皇后」の詔があり、後日改めて「冊皇后」の正式儀式が行われている（同一人物につき立后決定と冊立儀式の二段階）。ここでは正式冊立儀式の日付を採用し、note内に立后決定日も付記した。廃后の記録はなし。",
+        "events": [
+          {
+            "date": "1196-10-28",
+            "datePrecision": "day",
+            "note": "皇后韓氏の冊立儀式。なお立后の決定自体は即位直後の紹熙五年七月乙丑「太皇太后命立崇國夫人韓氏為皇后」。韓氏は慶元六年（1200年）十一月己未に崩御。日付原文: 慶元二年（1196年）十月辛亥（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十七（寧宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1203-03-20",
+            "datePrecision": "day",
+            "note": "皇后楊氏の冊立儀式（御文德殿冊皇后）。なお立后の決定自体は嘉泰二年（1202年）十二月甲申「立貴妃楊氏為皇后」。日付原文: 嘉泰三年（1203年）二月乙巳（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀 巻三十八（寧宗二）",
+              "lang": "zh"
+            }
+          }
+        ]
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "confidence": "medium",
+        "note": "在位中に正式冊立された皇太子は嘉定二年冊立の詢（旧名曮）のみで、詢は嘉定十三年八月に薨去（廃立ではなく病没）。嘉定十四年に姪の貴和（改名して竑）が「皇子」として国本に擬せられたが、原文（巻四十）では終始「皇子」と記され「皇太子」には冊立されていない。竑は寧宗崩御（嘉定十七年閏八月丁酉）の当夜、丞相史彌遠が偽の遺詔により貴誠（後の理宗昀）を皇子に立て、竑を済陽郡王に格下げした（列伝「皇子竑」等に詳しい）。この処分は寧宗の生前の意思・行為ではなく崩御直後の政変であり、かつ竑の正式称号も「皇太子」ではなく「皇子」であったため、本項目（皇太子廃立）には計上しなかった。境界事例として要再検討。",
+        "events": []
+      },
+      "ages": {
+        "birthDate": "1168-11-19",
+        "birthDatePrecision": "day",
+        "deathDate": "1224-09-17",
+        "deathDatePrecision": "day",
+        "deathAge": 57,
+        "confidence": "high",
+        "note": "宋史本紀卷四十（寧宗四）に「皇帝崩于福寧殿，年五十七」と明記。生年は卷三十七（寧宗一）冒頭に「乾道四年十月丙午，生于王邸」と明記。即位時年齢（数え27歳相当）は原文に直接の記載なし（計算値のため記録せず）。（2026-07-21 ages日付ISO正規化: birthDate「乾道四年十月丙午」→1168-11-19（旧暦10月19日）、deathDate「嘉定十七年閏八月丁酉」→1224-09-17（閏8月3日、reigns.endDateと一致）。いずれもsxtwl換算。）"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "宋史本紀を通読。高宗期の臨安遷都（1138年）を継承、以後南宋滅亡（1279年）まで臨安が一貫した都。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "宋史本紀卷三十七〜四十（紹熙5年〜嘉定17年、全在位期間）を確認したが、寧宗自身が軍を率いて出征した記録は見当たらない。開禧北伐（対金、開禧二年）も韓侂冑主導の親征命令（「下詔伐金」）であり、寧宗自身は禁中に留まり出征していない。呉曦の乱・郴州黒風洞の乱等の国内反乱も官軍・地方将帥が鎮圧しており皇帝親征の記述なし。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 14,
+        "events": [
+          {
+            "name": "大奚山島民の乱",
+            "leader": "不明（大奚山島民）",
+            "startDate": "1197",
+            "endDate": "1197",
+            "datePrecision": "year",
+            "outcome": "鎮圧（全滅）",
+            "note": "広東提挙茶塩徐安国が私塩取締りを行ったことに端を発し島民が蜂起、知広州銭之望が出兵し島民を皆殺しにして鎮圧（慶元三年）。"
+          },
+          {
+            "name": "龍州蕃部の反乱",
+            "leader": "不明（龍州蕃部）",
+            "startDate": "1201",
+            "endDate": "1203",
+            "datePrecision": "year",
+            "outcome": "鎮圧（投降）",
+            "note": "嘉泰元年・三年と侵寇を繰り返したが官軍が討伐し嘉泰三年十月に投降。"
+          },
+          {
+            "name": "雅州蠻（高吟師）の反乱",
+            "leader": "高吟師",
+            "startDate": "1202",
+            "endDate": "1206",
+            "datePrecision": "year",
+            "outcome": "鎮圧（投降後誅殺）",
+            "note": "開禧二年に碉門砦焼き討ち等で官軍が一時敗北、御前大軍を投入し討伐、高吟師は投降後に殺害された。"
+          },
+          {
+            "name": "瓊州西浮洞逃軍の乱",
+            "leader": "不明（逃亡兵）",
+            "startDate": "1204",
+            "endDate": "1204",
+            "datePrecision": "year",
+            "outcome": "鎮圧",
+            "note": "逃亡兵が瓊州西浮洞で蜂起し文昌県を掠奪、官軍が討伐平定（嘉泰四年）。"
+          },
+          {
+            "name": "呉曦の反乱（僭位蜀王）",
+            "leader": "呉曦",
+            "startDate": "1206",
+            "endDate": "1207",
+            "datePrecision": "year",
+            "outcome": "鎮圧（誅殺・四川平定）",
+            "note": "四川宣撫副使呉曦が金に投降し関外四州を献じ蜀王を自称して興州で僭位、安丙・李好義らが共謀して誅殺し四川を平定した。"
+          },
+          {
+            "name": "郴州黒風峒寇（羅世傳・李元礪）の反乱",
+            "leader": "羅世傳、李元礪",
+            "startDate": "1208",
+            "endDate": "1211",
+            "datePrecision": "year",
+            "outcome": "鎮圧",
+            "note": "湖南郴州黒風峒の土賊羅世傳・李元礪らが数度にわたり反乱、討伐と招降を繰り返した末、嘉定三年末に羅世傳が李元礪を捕えて投降させ、李元礪は嘉定四年二月伏誅。羅世傳はその後再叛したが同年九月に配下に殺され鎮圧完了。"
+          },
+          {
+            "name": "楚州渠賊胡海の乱",
+            "leader": "胡海",
+            "startDate": null,
+            "endDate": "1210",
+            "datePrecision": "year",
+            "outcome": "鎮圧（誅殺）",
+            "note": "楚州の土賊の頭目胡海が嘉定三年三月に誅殺され鎮圧（「賞楚州平賊功」の記事とも符合）。"
+          },
+          {
+            "name": "知思州田宗範の反乱",
+            "leader": "田宗範",
+            "startDate": "1213",
+            "endDate": "1213",
+            "datePrecision": "year",
+            "outcome": "鎮圧",
+            "note": "思州の知州田宗範が反乱を企て、夔州路安撫司が兵を遣わして討ち平定した（嘉定六年八月）。"
+          },
+          {
+            "name": "敘州蠻（酋米在）の反乱",
+            "leader": "米在（酋）",
+            "startDate": "1211",
+            "endDate": "1212",
+            "datePrecision": "year",
+            "outcome": "鎮圧（投降）",
+            "note": "敘州蠻が嘉定府利店砦を陥落させるなど侵寇したが、四川制置司の討伐によりその酋長米在が投降。"
+          },
+          {
+            "name": "興元軍士権興の乱",
+            "leader": "権興",
+            "startDate": "1219",
+            "endDate": "1219",
+            "datePrecision": "year",
+            "outcome": "鎮圧（投降）",
+            "note": "興元の軍士権興らが叛いて巴州を攻め守臣が棄城したが、まもなく投降した（嘉定十二年三月）。"
+          },
+          {
+            "name": "張福・莫簡の紅巾軍の乱",
+            "leader": "張福、莫簡",
+            "startDate": "1219",
+            "endDate": "1219",
+            "datePrecision": "year",
+            "outcome": "鎮圧（誅殺）",
+            "note": "興元軍士張福・莫簡らが紅巾を掲げて蜂起し閬州・果州・遂寧府・普州等を席巻したが、張威が討伐し張福を捕えて誅殺、紅巾賊は平定された（嘉定十二年閏三月〜七月）。"
+          },
+          {
+            "name": "黎州蠻（畜卜）の反乱",
+            "leader": "畜卜",
+            "startDate": "1201",
+            "endDate": "1215",
+            "datePrecision": "year",
+            "outcome": "鎮圧（投降）",
+            "note": "黎州蛮の首領畜卜が長年にわたり断続的に侵寇（一時は官軍が敗績）を繰り返したが、嘉定八年に至り投降した。"
+          },
+          {
+            "name": "京東安撫張林の反乱",
+            "leader": "張林",
+            "startDate": "1221",
+            "endDate": "1223",
+            "datePrecision": "year",
+            "outcome": "鎮圧（敗走・部将投降）",
+            "note": "京東安撫張林が反乱を起こし、知済南府种贇らに青州で攻められ敗走、嘉定十六年にその部将邢徳が投降し事実上鎮圧された。"
+          },
+          {
+            "name": "雅州蠻の反乱（第二次）",
+            "leader": "不明",
+            "startDate": "1217",
+            "endDate": "1220",
+            "datePrecision": "year",
+            "outcome": "鎮圧（投降）",
+            "note": "嘉定十年以降雅州蠻が再び碉門砦焼き討ち等の侵寇を繰り返したが、嘉定十三年五月に投降した。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "宋史本紀の在位28年分（1194〜1224）を精査。金（対等勢力）との開禧北伐・嘉定年間の大規模侵攻戦争は対外戦争として本カウントから除外。密告・摘発のみで実際の兵力行使に至らなかった謀反計画（沔州統制張林の謀反〈事覚、貸死除名〉、訓武郎羅日愿〈謀為変、伏誅〉、沔州将劉世雄〈謀拠仙人原作乱、伏誅〉、殿前司同正将華岳〈謀為変、殺之〉）は鎮圧・被反乱いずれにも含めていない。雅州蛮・黎州蛮・龍州蕃部・敘州蛮等の辺境部族による散発的侵寇は、原文の記述単位（名前が付く首領・地域ごとの一連の侵寇〜投降/鎮圧サイクル）でまとめて1件と数えたため、区切り方に解釈の幅がある（confidence medium）。"
+      },
+      "rebellionSufferedCount": {
+        "count": 16,
+        "events": [
+          {
+            "name": "大奚山島民の乱",
+            "leader": "不明（大奚山島民）",
+            "startDate": "1197",
+            "endDate": "1197",
+            "datePrecision": "year",
+            "outcome": "鎮圧（全滅）",
+            "note": "服属民（島民）の反乱として被反乱にも計上。"
+          },
+          {
+            "name": "龍州蕃部の反乱",
+            "leader": "不明（龍州蕃部）",
+            "startDate": "1201",
+            "endDate": "1203",
+            "datePrecision": "year",
+            "outcome": "鎮圧（投降）",
+            "note": ""
+          },
+          {
+            "name": "雅州蠻（高吟師）の反乱",
+            "leader": "高吟師",
+            "startDate": "1202",
+            "endDate": "1206",
+            "datePrecision": "year",
+            "outcome": "鎮圧（投降後誅殺）",
+            "note": ""
+          },
+          {
+            "name": "瓊州西浮洞逃軍の乱",
+            "leader": "不明（逃亡兵）",
+            "startDate": "1204",
+            "endDate": "1204",
+            "datePrecision": "year",
+            "outcome": "鎮圧",
+            "note": ""
+          },
+          {
+            "name": "呉曦の反乱（僭位蜀王）",
+            "leader": "呉曦",
+            "startDate": "1206",
+            "endDate": "1207",
+            "datePrecision": "year",
+            "outcome": "鎮圧（誅殺・四川平定）",
+            "note": "四川方面軍を統率する重臣による反乱・僭位のため被反乱に計上。"
+          },
+          {
+            "name": "郴州黒風峒寇（羅世傳・李元礪）の反乱",
+            "leader": "羅世傳、李元礪",
+            "startDate": "1208",
+            "endDate": "1211",
+            "datePrecision": "year",
+            "outcome": "鎮圧",
+            "note": ""
+          },
+          {
+            "name": "楚州渠賊胡海の乱",
+            "leader": "胡海",
+            "startDate": null,
+            "endDate": "1210",
+            "datePrecision": "year",
+            "outcome": "鎮圧（誅殺）",
+            "note": ""
+          },
+          {
+            "name": "知思州田宗範の反乱",
+            "leader": "田宗範",
+            "startDate": "1213",
+            "endDate": "1213",
+            "datePrecision": "year",
+            "outcome": "鎮圧",
+            "note": ""
+          },
+          {
+            "name": "敘州蠻（酋米在）の反乱",
+            "leader": "米在（酋）",
+            "startDate": "1211",
+            "endDate": "1212",
+            "datePrecision": "year",
+            "outcome": "鎮圧（投降）",
+            "note": ""
+          },
+          {
+            "name": "興元軍士権興の乱",
+            "leader": "権興",
+            "startDate": "1219",
+            "endDate": "1219",
+            "datePrecision": "year",
+            "outcome": "鎮圧（投降）",
+            "note": ""
+          },
+          {
+            "name": "張福・莫簡の紅巾軍の乱",
+            "leader": "張福、莫簡",
+            "startDate": "1219",
+            "endDate": "1219",
+            "datePrecision": "year",
+            "outcome": "鎮圧（誅殺）",
+            "note": ""
+          },
+          {
+            "name": "黎州蠻（畜卜）の反乱",
+            "leader": "畜卜",
+            "startDate": "1201",
+            "endDate": "1215",
+            "datePrecision": "year",
+            "outcome": "鎮圧（投降）",
+            "note": ""
+          },
+          {
+            "name": "京東安撫張林の反乱",
+            "leader": "張林",
+            "startDate": "1221",
+            "endDate": "1223",
+            "datePrecision": "year",
+            "outcome": "鎮圧（敗走・部将投降）",
+            "note": ""
+          },
+          {
+            "name": "雅州蠻の反乱（第二次）",
+            "leader": "不明",
+            "startDate": "1217",
+            "endDate": "1220",
+            "datePrecision": "year",
+            "outcome": "鎮圧（投降）",
+            "note": ""
+          },
+          {
+            "name": "漣水忠義軍統轄石珪の反乱",
+            "leader": "石珪",
+            "startDate": "1220",
+            "endDate": null,
+            "datePrecision": "year",
+            "outcome": "鎮圧記載なし（未解決のまま原文終了）",
+            "note": "嘉定十三年八月に一度帰順して漣水忠義軍統轄に任じられたが同年十二月に再び叛いた。その後の鎮圧・帰順等の記載が原文（嘉定十七年の崩御まで）に見当たらないため、suppressionCountには含めず被反乱のみ計上（未鎮圧のまま在位終了パターン）。"
+          },
+          {
+            "name": "虛恨蠻の侵寇",
+            "leader": "不明",
+            "startDate": "1213",
+            "endDate": "1213",
+            "datePrecision": "year",
+            "outcome": "鎮圧記載なし",
+            "note": "嘉定六年十一月に嘉定府中鎮砦へ侵寇した記事のみで、その後の鎮圧・投降等の記載が原文に見当たらないため、suppressionCountには含めず被反乱のみ計上。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "国内の権力者による兵力を伴うクーデター（呉曦の僭位）を含め、原則suppressionCountと同じ反乱群を計上。石珪・虛恨蠻の2件のみ、原文に明確な鎮圧記載が見当たらず「未鎮圧のまま在位終了」パターンとしてsuppressionCountから除外しsufferedCountのみに計上した。金（対等勢力）との戦争は本カウントから除外している。"
+      }
+    },
+    {
+      "id": "nansong-lizong",
+      "name": {
+        "personalName": "趙昀",
+        "commonName": "理宗",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "南宋",
+        "category": "正統王朝",
+        "section": "宋遼西夏金"
+      },
+      "reigns": [
+        {
+          "startYear": 1224,
+          "endYear": 1264,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "嘉定17年閏8月3日即位。景定5年10月26日崩御。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "1224-09-17",
+          "endDate": "1264-11-16",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 14670,
+            "unit": "day",
+            "approxDays": 14670,
+            "exactDays": 14670,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "宋史 本紀四十一 理宗一（即位）／本紀四十五 理宗五（崩御）",
+              "lang": "zh-classical",
+              "quote": "閏月丙申，寧宗疾甚，丁酉，崩于福寧殿。彌遠使楊谷、楊石入白楊皇后，稱遺旨以皇子竑開府儀同三司，進封濟陽郡王、判寧國府，命子昀嗣皇帝位。／冬十月丙午……帝有疾不視朝。丙寅，大赦。丁卯，帝崩。遺詔皇太子禥即皇帝位。",
+              "conversion": "即位：嘉定十七年閏八月丁酉。sxtwlでfromLunar(1224,8,day,isRun=True)を1〜30日走査した結果、閏八月三日が丁酉に一致し新暦1224-09-17と算出、既存startDate(1224-09-17・精度day)と完全一致。崩御：景定五年十月丁卯。同様にfromLunar(1264,10,day,isRun=False)を走査した結果、十月二十六日が丁卯に一致し新暦1264-11-16と算出、既存endDate(1264-11-16・精度day)と完全一致。原文中の丙午(5日)・辛亥(10日)・乙丑(24日)・丙寅(25日)・丁卯(26日)という干支の並びも算出結果と矛盾なく整合。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 14670,
+          "displayYears": 40.19,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 1224,
+        "lastEndYear": 1264,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 1224
+      },
+      "sources": {
+        "wikidata": "Q7497",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": ""
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "景定5年10月、発病後に崩御。他殺を疑わせる記述なし。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻四十五（理宗五）",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "擁立",
+        "note": "寧宗危篤時、権臣史彌遠が正式に擁立されていた皇子済王竑を排除し遠縁の趙貴誠（理宗）を代わりに擁立。矯詔（偽の遺詔）を用いた点で正統性に疑義があり、即位後、済王竑は史彌遠の指示で自尽に追い込まれた。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻四十一（理宗一）／宋史紀事本末「寧宗慶元四年」条",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下",
+            "母后"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "養子",
+          "procedure": "偽詔・矯詔"
+        }
+      },
+      "eraChangeCount": {
+        "count": 8,
+        "confidence": "high",
+        "note": "宋史本紀巻四十一〜四十四（理宗一〜四）を通読し、「詔改明年為◯◯元年」「詔改來年為◯◯元年」の形で改元が宣言された箇所を8件確認。理宗は嘉定十七年閏八月に即位したが、その年は前代寧宗の元号「嘉定」をそのまま在位中に継続使用しており（改元せず）、翌年正月から初めて自らの元号「寶慶」に改めているため、この寶慶改元を実質的な最初の建元として1回目にカウントした。以後、紹定・端平・嘉熙・淳祐・寶祐・開慶・景定と計7回改元しており、合計8回。国号変更は該当なし。日付は各元号の効力発生日（当該年正月朔日）を原文干支からsxtwlで西暦換算したもの。理宗は即位前に「王」等の身分で独自の元号を称した事実はなく、2段階即位パターンには該当しないため、noteへの【皇帝即位前】等の付記は不要と判断した。",
+        "events": [
+          {
+            "date": "1225-02-09",
+            "datePrecision": "day",
+            "note": "寶慶改元。理宗即位後最初の建元。嘉定十七年十一月丁亥（西暦1225-01-05）に「詔改明年為寶慶元年」と宣言され、翌年正月（寶慶元年春正月壬戌朔）より施行。それまでの嘉定十七年在位中は前代元号を継続使用しており改元していない。",
+            "source": {
+              "page": "宋史 本紀 巻四十一（理宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1228-02-08",
+            "datePrecision": "day",
+            "note": "紹定改元。寶慶三年十一月辛巳（西暦1227-12-15）、冬至の郊祀・大赦と同日に「改明年為紹定元年」と宣言され、翌年正月（紹定元年春正月丙子朔）より施行。",
+            "source": {
+              "page": "宋史 本紀 巻四十一（理宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1234-01-31",
+            "datePrecision": "day",
+            "note": "端平改元。紹定六年十一月丙午（西暦1233-12-08）に「詔改明年為端平元年」と宣言され、翌年正月より施行。",
+            "source": {
+              "page": "宋史 本紀 巻四十一（理宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1237-01-28",
+            "datePrecision": "day",
+            "note": "嘉熙改元。端平三年十二月壬寅（西暦1237-01-17）に「詔改明年為嘉熙元年」と宣言され、翌年正月（嘉熙元年春正月乙卯）より施行。",
+            "source": {
+              "page": "宋史 本紀 巻四十二（理宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1241-02-13",
+            "datePrecision": "day",
+            "note": "淳祐改元。嘉熙四年十月癸巳（西暦1240-10-19）に「詔改明年為淳祐元年」と宣言され、翌年正月（淳祐元年春正月庚寅朔）より施行。",
+            "source": {
+              "page": "宋史 本紀 巻四十二（理宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1253-01-31",
+            "datePrecision": "day",
+            "note": "寶祐改元。淳祐十二年八月辛巳（西暦1252-10-04）に「詔改明年為寶祐元年」と宣言され、翌年正月（寶祐元年春正月庚寅朔）より施行。",
+            "source": {
+              "page": "宋史 本紀 巻四十三（理宗三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1259-01-25",
+            "datePrecision": "day",
+            "note": "開慶改元。寶祐六年十二月戊寅（西暦1258-12-29）に「詔改來年為開慶元年」と宣言され、翌年正月（開慶元年春正月乙巳朔）より施行。",
+            "source": {
+              "page": "宋史 本紀 巻四十四（理宗四）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1260-02-13",
+            "datePrecision": "day",
+            "note": "景定改元。開慶元年十二月辛亥（西暦1260-01-26）に「詔改來年為景定元年」と宣言され、翌年正月より施行。開慶は在位1年に満たない短命の元号であった。",
+            "source": {
+              "page": "宋史 本紀 巻四十四（理宗四）",
+              "lang": "zh"
+            }
+          }
+        ]
+      },
+      "amnestyCount": {
+        "count": 21,
+        "confidence": "high",
+        "note": "宋史本紀巻四十一〜四十五（理宗一〜五、china-history/宋史/本紀のローカルコーパス、文言文であることを目視確認済み）を通読し、「大赦」と明記された全国規模の恩赦21件を確認。内訳：即位大赦1件、祀明堂（南郊親祭）に伴う定例大赦13件、改元宣言と同時の郊祀大赦1件（紹定改元）、星変（彗星等）に対する罪己大赦2件、皇太后（楊太后）慶事・不予に伴う大赦2件、立皇太子冊礼に伴う大赦1件、崩御前日の大赦1件。日付は原文の干支日をsxtwlライブラリで西暦換算（換算結果は既存データのstartDate/endDateと一致し検証済み）。",
+        "events": [
+          {
+            "date": "1224-09-17",
+            "datePrecision": "day",
+            "note": "嘉定十七年閏八月三日（丁酉）、寧宗崩御と同日、理宗の即位に伴う大赦。原文「命子昀嗣皇帝位。大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十一（理宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1224-11-10",
+            "datePrecision": "day",
+            "note": "嘉定十七年九月辛卯、祀明堂（南郊親祭）に伴う定例大赦。原文「辛卯，祀明堂，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十一（理宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1227-12-15",
+            "datePrecision": "day",
+            "note": "寶慶三年十一月辛巳、冬至の郊祀に伴う大赦。同日「改明年為紹定元年」と紹定改元も宣言されており、改元と大赦が同一記事に記される。原文「辛巳，日南至，郊，大赦。改明年為紹定元年」。",
+            "source": {
+              "page": "宋史 本紀 巻四十一（理宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1230-10-20",
+            "datePrecision": "day",
+            "note": "紹定三年九月辛丑、祀明堂に伴う定例大赦。原文「辛丑，祀明堂，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十一（理宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1231-02-04",
+            "datePrecision": "day",
+            "note": "紹定四年正月戊子、皇太后（楊太后）七十五歳の慶壽礼に伴う大赦。原文「皇太后年七十有五，上詣慈明殿行慶壽禮，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十一（理宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1232-11-25",
+            "datePrecision": "day",
+            "note": "紹定五年十月戊子、星変（彗星）を理由とする罪己の大赦。原文「以星變大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十一（理宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1233-01-18",
+            "datePrecision": "day",
+            "note": "紹定五年十二月壬午、皇太后（楊太后）不予（病篤）に際しての大赦。同月皇太后崩御。原文「皇太后不豫。壬午，大赦。皇太后崩」。",
+            "source": {
+              "page": "宋史 本紀 巻四十一（理宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1233-10-14",
+            "datePrecision": "day",
+            "note": "紹定六年九月辛亥、祀明堂に伴う定例大赦。原文「辛亥，祀明堂，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十一（理宗一）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1236-10-18",
+            "datePrecision": "day",
+            "note": "端平三年九月辛未、祀明堂に伴う定例大赦。原文「辛未，祀明堂，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十二（理宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1239-10-13",
+            "datePrecision": "day",
+            "note": "嘉熙三年九月辛巳、祀明堂に伴う定例大赦。原文「辛巳，祀明堂，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十二（理宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1240-02-27",
+            "datePrecision": "day",
+            "note": "嘉熙四年二月戊戌、彗星出現による星変を理由とする大赦。原文「彗星出營室。庚辰，以星變下詔罪己…戊戌，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十二（理宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1242-10-07",
+            "datePrecision": "day",
+            "note": "淳祐二年九月辛卯、祀明堂に伴う定例大赦。原文「辛卯，祀明堂，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十二（理宗二）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1245-10-11",
+            "datePrecision": "day",
+            "note": "淳祐五年九月辛亥、太祖・太宗・寧宗を配祀した祀明堂に伴う大赦。原文「辛亥，祀明堂，奉太祖、太宗、寧宗並侑，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十三（理宗三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1248-10-05",
+            "datePrecision": "day",
+            "note": "淳祐八年九月辛酉、祀明堂に伴う定例大赦。原文「辛酉，祀明堂，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十三（理宗三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1251-09-30",
+            "datePrecision": "day",
+            "note": "淳祐十一年九月辛未、祀明堂に伴う定例大赦。原文「辛未，祀明堂，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十三（理宗三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1254-10-24",
+            "datePrecision": "day",
+            "note": "寶祐二年九月辛亥、祀明堂に伴う定例大赦。原文「辛亥，祀明堂，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十四（理宗四）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1257-10-18",
+            "datePrecision": "day",
+            "note": "寶祐五年九月辛酉、祀明堂に伴う定例大赦。原文「辛酉，祀明堂，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十四（理宗四）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1260-08-09",
+            "datePrecision": "day",
+            "note": "景定元年七月丁卯朔、皇太子（禥、後の度宗）入東宮・冊礼に伴う大赦。原文「皇太子入東宮，行冊禮，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十五（理宗五）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1260-10-22",
+            "datePrecision": "day",
+            "note": "景定元年九月辛巳、祀明堂に伴う定例大赦。原文「辛巳，祀明堂，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十五（理宗五）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1263-10-17",
+            "datePrecision": "day",
+            "note": "景定四年九月辛卯、祀明堂に伴う定例大赦。原文「辛卯，祀明堂，大赦」。",
+            "source": {
+              "page": "宋史 本紀 巻四十五（理宗五）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1264-11-15",
+            "datePrecision": "day",
+            "note": "景定五年十月丙寅、帝が疾を得て視朝せず、その状況下での大赦。翌日丁卯（1264-11-16）に崩御。原文「帝有疾不視朝。丙寅，大赦。丁卯，帝崩」。",
+            "source": {
+              "page": "宋史 本紀 巻四十五（理宗五）",
+              "lang": "zh"
+            }
+          }
+        ]
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "confidence": "high",
+        "note": "宋史本紀巻四十一に、貴妃謝氏を皇后に冊立した記事1件のみ確認。以後、崩御（景定五年）までの本紀（巻四十二〜四十五）を通読したが、他の皇后冊立・廃后・再冊立の記述は見当たらない。なお巻四十四に「成穆皇后」への言及があるが、これは理宗自身の后ではなく別の（先代の）皇后への追贈関連の記事であり、理宗の立后とは無関係のため計上しない。",
+        "events": [
+          {
+            "date": "1231-01-14",
+            "datePrecision": "day",
+            "note": "紹定三年十二月丁卯、貴妃謝氏を皇后に冊立。同年九月に美人から貴妃に進封されていた謝氏が、この日正式に皇后として冊立された。原文「丁卯，冊命貴妃謝氏為皇后」。",
+            "source": {
+              "page": "宋史 本紀 巻四十一（理宗一）",
+              "lang": "zh"
+            }
+          }
+        ]
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "宋史本紀巻四十一〜四十五を通読したが、理宗自身が皇太子・皇太弟・皇太孫等を廃した記述は見当たらない。理宗は在位中40年近く実子がなく、晩年の景定元年六月に甥（嗣榮王与芮の子）忠王禥（後の度宗）を皇太子に立て（同年七月冊礼、大赦）、以後廃立されることなくそのまま景定五年の崩御時に「遺詔皇太子禥即皇帝位」として即位している。なお本紀冒頭近くに寧宗の「景獻太子薨」の記述があるが、これは理宗即位前の寧宗期の出来事であり、理宗による廃立ではない（薨去であり廃立でもない）。"
+      },
+      "ages": {
+        "birthDate": "1205-01-26",
+        "birthDatePrecision": "day",
+        "deathDate": "1264-11-16",
+        "deathDatePrecision": "day",
+        "confidence": "high",
+        "note": "生年は宋史本紀巻四十一冒頭「以開禧元年正月癸亥生于邑中虹橋里第」に直接記載（開禧元年正月癸亥＝西暦1205-01-26、ローカル暦法ライブラリsxtwlで換算、換算結果は本データセット既存のstartDate=1224-09-17〈嘉定十七年閏八月三日〉と完全一致し検証済み）。没日は本紀巻四十五「帝有疾不視朝。丙寅，大赦。丁卯，帝崩」の丁卯＝1264-11-16（既存endDateと一致）。ただし原文中に「時年◯◯」等の数値年齢の直接記載は見当たらなかったため、accessionAge・deathAgeはnullとする。生没日から数え年を計算すると崩御時60歳（1264-1205+1）だが、これは原文直接記載ではなく計算値である。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "宋史本紀を通読。高宗期の臨安遷都（1138年）を継承、以後南宋滅亡（1279年）まで臨安が一貫した都。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位40年（1224-1264）の本紀全体を精査したが、皇帝自身が軍を率いて出征した記述は一切見当たらない。モンゴル（大元）との戦争・李全の乱・襄陽争奪戦等はすべて趙范・趙葵・孟珙・呂文德・賈似道ら将帥が指揮しており、理宗は臨安に留まり詔勅・恩賞・人事で対応するのみ。史彌遠・賈似道ら権臣が実権を握った治世という史書の評価とも整合的。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 9,
+        "events": [
+          {
+            "name": "潘壬・潘丙・潘甫の乱（湖州、済王竑擁立事件）",
+            "leader": "潘壬・潘丙・潘甫",
+            "startDate": "1225-01",
+            "endDate": "1225-02",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "彭任率いる殿司軍が鎮圧（盜平）。"
+          },
+          {
+            "name": "李全の乱（淮東）",
+            "leader": "李全",
+            "startDate": "1230-12",
+            "endDate": "1231-01",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "趙范・趙葵が新塘で誅殺。"
+          },
+          {
+            "name": "蒲世興の乱（四川萬州）",
+            "leader": "蒲世興",
+            "startDate": null,
+            "endDate": "1235-12",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "四川制置司が派兵し萬州で斬首。"
+          },
+          {
+            "name": "建陽県盗（福建、数千人規模）",
+            "leader": "不明",
+            "startDate": "1234-05",
+            "endDate": "1234-08",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "殿司精鋭千人が討捕、王埜が平定の功により加官。"
+          },
+          {
+            "name": "永州東安県盗",
+            "leader": "不明",
+            "startDate": "1244-07",
+            "endDate": "1244-07",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "飛虎軍が討捕成功。"
+          },
+          {
+            "name": "信州玉山県盗",
+            "leader": "不明",
+            "startDate": "1252-05",
+            "endDate": "1252-06",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "「玉山寇平」。"
+          },
+          {
+            "name": "荻浦鹽寇（浙西）",
+            "leader": "不明",
+            "startDate": null,
+            "endDate": "1254-07",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "包恢の招捕により「荻浦海寇平」。"
+          },
+          {
+            "name": "台州海寇",
+            "leader": "不明",
+            "startDate": null,
+            "endDate": "1254",
+            "datePrecision": "year",
+            "outcome": "suppressed",
+            "note": "路分董橚らが積年の海賊を擒獲。"
+          },
+          {
+            "name": "邵武寇（福建）",
+            "leader": "不明",
+            "startDate": null,
+            "endDate": "1255-03",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "「邵武寇平」。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "原文で「平」「討捕」「誅」「擒獲」等、鎮圧完了が明記された9件のみを計上。被反乱側でカウントした残り5件（漳州連城盗・蠻獠竊発・淮西潰兵・襄陽軍變・詹沔の乱）は鎮圧完了の記載を原文中に確認できなかったため除外した（集計粒度差・未鎮圧のまま在位終了・鎮圧失敗のいずれかに該当）。長期在位かつ摘要形式の本紀という性質上、記録に残らなかった小規模鎮圧が他にも存在する可能性は否定できずconfidenceはmediumとした。"
+      },
+      "rebellionSufferedCount": {
+        "count": 14,
+        "events": [
+          {
+            "name": "潘壬・潘丙・潘甫の乱（湖州、済王竑擁立事件）",
+            "leader": "潘壬・潘丙・潘甫",
+            "startDate": "1225-01",
+            "endDate": "1225-02",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "史彌遠の廃立を討つと偽称して済王竑を擁立、州治を占拠。彭任率いる殿司軍に鎮圧され（盜平）、竑は史彌遠の指示で自尽に追い込まれた。皇位継承の正統性に絡む反乱として被反乱に計上。"
+          },
+          {
+            "name": "李全の乱（淮東）",
+            "leader": "李全",
+            "startDate": "1230-12",
+            "endDate": "1231-01",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "もと忠義軍統制だった李全が反乱、朝廷は「逆賊」として討伐を命令。趙范・趙葵らが新塘で李全を誅殺し鎮圧。"
+          },
+          {
+            "name": "蒲世興の乱（四川萬州）",
+            "leader": "蒲世興",
+            "startDate": null,
+            "endDate": "1235-12",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "「叛軍首賊」蒲世興を四川制置司が派兵し萬州で斬首。反乱発生時期は原文に明記なし、鎮圧時期のみ判明。"
+          },
+          {
+            "name": "建陽県盗（福建、数千人規模）",
+            "leader": "不明（首謀者名記載なし）",
+            "startDate": "1234-05",
+            "endDate": "1234-08",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "衆数千人が蜂起し邵武・麻沙・長平を焼劫。殿司精鋭千人（統制婁拱・統領楊辛）が討捕し、王埜が平定の功により加官。"
+          },
+          {
+            "name": "永州東安県盗",
+            "leader": "不明",
+            "startDate": "1244-07",
+            "endDate": "1244-07",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "飛虎軍正將吳龍・統制鄭存等が討捕に成功。"
+          },
+          {
+            "name": "信州玉山県盗",
+            "leader": "不明（「玉山寇」）",
+            "startDate": "1252-05",
+            "endDate": "1252-06",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "「盜起信州玉山縣」の翌月「玉山寇平」と鎮圧を確認。"
+          },
+          {
+            "name": "荻浦鹽寇（浙西）",
+            "leader": "不明",
+            "startDate": null,
+            "endDate": "1254-07",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "包恢が浙西刑獄提点として招捕にあたり「荻浦海寇平」。発生時期は明記なし。"
+          },
+          {
+            "name": "台州海寇",
+            "leader": "不明",
+            "startDate": null,
+            "endDate": "1254",
+            "datePrecision": "year",
+            "outcome": "suppressed",
+            "note": "「積年」（長年）にわたり被害を及ぼした海賊を路分董橚らが擒獲。発生時期は明記なし。"
+          },
+          {
+            "name": "邵武寇（福建）",
+            "leader": "不明",
+            "startDate": null,
+            "endDate": "1255-03",
+            "datePrecision": "month",
+            "outcome": "suppressed",
+            "note": "「邵武寇平」と鎮圧完了のみ記載。1230年の漳州・連城盗や1234年の泉漳寇盜問題との関連性は原文からは確定できない。"
+          },
+          {
+            "name": "漳州・連城盗（福建）",
+            "leader": "不明",
+            "startDate": "1230-04",
+            "endDate": null,
+            "datePrecision": "month",
+            "outcome": "unresolved_or_unclear",
+            "note": "「漳州、連城盜起」で地方官が守れず罷免されたのみ記載。以後「漳寇」への対応記事（1233年の禦漳寇有功等）はあるが、鎮圧完了を明記する記述が見当たらず、鎮圧回数には計上しなかった（集計粒度差）。"
+          },
+          {
+            "name": "汀・贛・吉・建昌の蠻獠竊発",
+            "leader": "不明（蠻獠＝非漢族系住民の蜂起）",
+            "startDate": "1233-02",
+            "endDate": null,
+            "datePrecision": "month",
+            "outcome": "unresolved_or_unclear",
+            "note": "服属民（蠻獠）の反乱として被反乱に計上。「復賦稅一年」と税免除による安撫のみ記載で、軍事的鎮圧の記述がないため鎮圧回数には計上しなかった。"
+          },
+          {
+            "name": "淮西潰兵の乱（呂文信・杜林、六安・霍丘）",
+            "leader": "呂文信・杜林",
+            "startDate": "1235-10",
+            "endDate": null,
+            "datePrecision": "month",
+            "outcome": "unresolved_or_unclear",
+            "note": "大元軍に固始県を破られた後、淮西の宋軍潰兵数万が反乱し六安・霍丘を占拠（羣盜所據）。以後この反乱への鎮圧記事が見当たらず、鎮圧回数には計上しなかった。"
+          },
+          {
+            "name": "襄陽軍變（王旻・李伯淵）",
+            "leader": "王旻・李伯淵",
+            "startDate": "1235-03",
+            "endDate": "1235-03",
+            "datePrecision": "month",
+            "outcome": "failed_to_suppress",
+            "note": "襄陽の北軍主將王旻・李伯淵が城郭倉庫を焼いて大元に投降、南軍主將李虎も混乱に乗じ掠奪、「南北軍交爭造亂」で襄陽が空になった。制置使趙范は失策で削官処分となったのみで反乱側は目的（投降・離脱）を達成しており鎮圧失敗。皇帝自身が攻撃主体ではない純粋な内部軍反乱のため被反乱には計上するが鎮圧回数には含めない（対等勢力間の対外戦争ではなく、宋軍内部の離反・略奪事件）。"
+          },
+          {
+            "name": "衢州詹沔の乱（常山県）",
+            "leader": "詹沔",
+            "startDate": "1264-06",
+            "endDate": null,
+            "datePrecision": "month",
+            "outcome": "unresolved_at_reign_end",
+            "note": "「衢州詹沔之變」により常山県が焼劫され知州謝塈が棄城逃亡。原因を作った都吏徐信は斬られたが、詹沔自身の処遇・反乱の帰結は記載がなく、帝崩御（同年10月）まで4ヶ月足らずのため在位終了まで未解決の可能性が高く鎮圧回数には計上しなかった。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "在位40年に及ぶ本紀（473行）を精査し「盜」「寇」「賊」「叛」「亂」「變」等のキーワードで洗い出した。対外戦争（モンゴル・金との戦い）はrebellionSufferedCountから明確に除外。国内の盗賊蜂起・服属民反乱・軍内部の反乱/離反は計上基準に従い含めた。ただし摘要形式の本紀のため一部事件は発生・帰結の記載が断片的で、鎮圧完了が確認できない4件（漳州連城盗・蠻獠竊発・淮西潰兵・詹沔の乱）と鎮圧失敗が明確な襄陽軍變は集計粒度差・未鎮圧終了のパターンとして鎮圧回数から除外した。件数の多さは長期在位（特にモンゴル侵攻圧力下で辺境が不安定化した端平〜景定年間）を反映している可能性が高いが、境界事例の判断に幅があるためconfidenceはmediumとした。"
+      }
+    },
+    {
+      "id": "nansong-duzong",
+      "name": {
+        "personalName": "趙禥",
+        "commonName": "度宗",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "南宋",
+        "category": "正統王朝",
+        "section": "宋遼西夏金"
+      },
+      "reigns": [
+        {
+          "startYear": 1264,
+          "endYear": 1274,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "景定5年10月26日即位。咸淳10年7月9日崩御。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "1264-11-16",
+          "endDate": "1274-08-12",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 3556,
+            "unit": "day",
+            "approxDays": 3556,
+            "exactDays": 3556,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "宋史 本紀四十六 度宗",
+              "lang": "zh-classical",
+              "quote": "五年十月丁卯，理宗崩。受遺詔，太子即皇帝位。／秋七月壬午，汪立信乞致仕，不允。癸未，帝崩于福寧殿，遺詔太子〈濕，去氵〉即皇帝位。",
+              "conversion": "景定5年10月の干支表(sxtwl)で丁卯は10月26日=新暦1264-11-16と算出、既存startDate(1264-11-16)・note(景定5年10月26日即位)と完全一致。咸淳10年7月の干支表で癸未は7月9日=新暦1274-08-12と算出、既存endDate(1274-08-12)・note(咸淳10年7月9日崩御)と完全一致。原文の干支と両者とも一致しており、既存データの精度(day)・値ともに訂正不要。差し替えるべきはduration.sourceのみ(Wikipedia記事名→宋史 本紀四十六 度宗)。",
+              "note": "即位記事「太子即皇帝位」と崩御記事は同じ本紀46内に記載。理宗崩御と度宗即位は同日(丁卯)の出来事として続けて記されている。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 3556,
+          "displayYears": 9.74,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 1264,
+        "lastEndYear": 1274,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 1264
+      },
+      "sources": {
+        "wikidata": "Q7498",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": ""
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "咸淳10年7月、福寧殿にて崩御。享年35。正史には発病の予兆記述がなく突然の崩御として記されるが暗殺・処刑を示す記述もない。",
+        "confidence": "medium",
+        "source": {
+          "page": "宋史 本紀 巻四十六（度宗）",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "景定元年、理宗（伯父）の皇太子に立てられ、理宗崩御に伴い遺詔により即位。理宗に実子なく度宗は理宗の甥（養子格）として立太子されており通常の立太子・即位手続きを経た世襲。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻四十六（度宗）",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "養子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "1264-12-20",
+            "datePrecision": "day",
+            "note": "度宗即位（景定五年十月丁卯、理宗崩御を受け太子即位）に伴う建元。即位当初は理宗の景定年号を継続使用し、景定五年十二月辛丑「詔改明年為咸淳元年」との詔により翌年から咸淳と改元。以後、咸淳十年の崩御まで咸淳の元号を継続使用し、再度の改元は本紀中に見当たらない。【皇帝即位（改元同時）】",
+            "source": {
+              "page": "宋史 本紀四十六（度宗）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "度宗は皇帝即位前に別の身分（王等）で在位した期間はなく、2段階即位パターンには該当しない。在位中の改元は即位に伴う咸淳建元の1回のみ。"
+      },
+      "amnestyCount": {
+        "count": 3,
+        "events": [
+          {
+            "date": "1264-11-20",
+            "datePrecision": "day",
+            "note": "度宗即位直後（理宗崩御の4日後）の大赦。「辛未，大赦」と明記。日付原文: 景定五年十月辛未（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀四十六（度宗）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1267-01-27",
+            "datePrecision": "day",
+            "note": "南郊祭祀に伴う大赦。「郊，大赦」と明記。日付原文: 咸淳三年正月己丑朔（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀四十六（度宗）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "1269-10-15",
+            "datePrecision": "day",
+            "note": "明堂親祀に伴う大赦。「祀明堂，大赦」と明記。日付原文: 咸淳五年九月辛酉（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀四十六（度宗）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "本紀本文中「大赦」の語が明記された箇所は上記3件。なお咸淳八年九月辛未の明堂禮成の条に「肆赦」（大雨に遇い逍遙輦に改乗して和寧門に入り肆赦）とあるが、「大赦」の明記ではなく別語であるため今回はカウントに含めなかった（低確度の追加候補として付記）。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "1267-02-10",
+            "datePrecision": "day",
+            "note": "「冊命妃全氏為皇后」と明記。全氏は景定元年（皇太子時代）に皇太子妃に冊立されていたが、皇后としての正式冊立はこの咸淳三年が該当。日付原文: 咸淳三年正月癸卯（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀四十六（度宗）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "本紀中で皇后冊立の記事は全氏の1回のみ確認。楊氏は咸淳四年六月に淑妃（妃嬪位）に進んだのみで皇后冊立の記事はない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "度宗の在位中（咸淳元年～十年）、諸皇子（憲・鍠・昰・〈濕〉・昺）が生まれ、子憲が益國公に封じられた記事等はあるが、本紀中に度宗自身の治世下で「立皇太子」及びその廃立が行われた記事は見当たらない（子憲は咸淳6年6月に薨去のみ）。度宗自身が理宗の皇太子として景定元年に立てられ廃されずに即位した経緯はあるが、これは廃立ではない。よって0回。"
+      },
+      "ages": {
+        "birthDate": "1240-05-02",
+        "birthDatePrecision": "day",
+        "deathDate": "1274-08-12",
+        "deathDatePrecision": "day",
+        "confidence": "medium",
+        "note": "本紀冒頭に「嘉熙四年四月九日生于紹興府榮邸」と生年月日が明記され、末尾に「咸淳十年……帝崩于福寧殿」と崩御記事があるが、「時年◯◯」等の直接的な享年表記は本紀中に見当たらなかった（該当文字列を検索したが該当なし）。享年の直接記載はないが、直接記載の生年（嘉熙四年=1240）と即位（景定五年=1264）・崩御（咸淳十年=1274）の年号年ラベル差分による逆算で accessionAge=25・deathAge=35（数え年）とした（規定10節。直接記載の年齢アンカーを欠くため confidence は medium。旧記載の「nullとした」は note 同期漏れで、2026-07-22 訂正）。（2026-07-21 ages日付ISO正規化: birthDate「嘉熙四年四月九日」→1240-05-02、deathDate「咸淳十年七月癸未」→1274-08-12（旧暦7月9日、reigns.endDateと一致）。いずれもsxtwl換算。）",
+        "accessionAge": 25,
+        "deathAge": 35
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "宋史本紀を通読。高宗期の臨安遷都（1138年）を継承、以後南宋滅亡（1279年）まで臨安が一貫した都。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位中(1264-1274)、元(モンゴル)による襄陽・樊城包囲戦(咸淳4-9年/1268-1273)など対元防衛戦が続いたが、本紀を通読しても度宗自身が出征した記述は一切なく、終始臨安宮中に留まり呂文徳・李庭芝・夏貴・張世傑ら将帥に軍事を委任していた（賈似道への「請為總護山陵使」等はあるが親征要請ではない）。よって親征は0件。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "本紀を通読したが、国内の農民反乱・地方蜂起・盗賊蜂起に該当する記事は見当たらない。在位中の主要軍事事項は元(モンゴル)との襄陽・樊城の戦いなど対等勢力間の対外戦争のみであり、ルールにより鎮圧・被反乱の集計対象外。国内での謀反・兵変の記述もない。"
+      },
+      "rebellionSufferedCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "本紀を通読したが、国内勢力による反乱・兵変・弑逆未遂等の記述は見当たらない。度宗は咸淳十年に福寧殿で崩御しており、遺詔により子（後の恭帝）が即位しているため廃位・弑逆の記録もない。元との襄陽・樊城の戦い等は対外戦争でありルール上除外。"
+      }
+    },
+    {
+      "id": "nansong-gongdi",
+      "name": {
+        "personalName": "趙㬎",
+        "commonName": "恭帝",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "南宋",
+        "category": "正統王朝",
+        "section": "宋遼西夏金"
+      },
+      "reigns": [
+        {
+          "startYear": 1274,
+          "endYear": 1276,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "咸淳10年7月9日即位。徳祐2年1月18日、元への降伏により南宋(臨安政権)滅亡。1323年5月頃、元により自尽を命じられる。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "1274-08-12",
+          "endDate": "1276-02-04",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 541,
+            "unit": "day",
+            "approxDays": 541,
+            "exactDays": 541,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "宋史 本紀四十七 瀛國公二王附（巻47）",
+              "lang": "zh-classical",
+              "quote": "咸淳六年九月己丑，生於臨安府之大內。九年十一月授左衞上將軍，封嘉國公。十年七月癸未，度宗崩，奉遺詔即皇帝位于柩前，年四歲，謝太后臨朝稱詔。／甲申，大元兵至皋亭山，遣監察御史楊應奎上傳國璽降",
+              "conversion": "即位: 前文の咸淳六年・九年の記述から、この「十年」は咸淳十年であると文脈確定できる。咸淳十年七月の朔から数えるとsxtwlの換算で「癸未」は7月9日目にあたり、1274-08-12（干支=癸未、原文と一致）。既存startDate(1274-08-12/day)と完全一致。／在位終了: 徳祐二年春正月丁卯朔（1月1日=丁卯）を起点に、甲申は干支順で丁卯から17日後＝正月18日、sxtwl換算で1276-02-04（干支=甲申、原文と一致）。既存endDate(1276-02-04/day)と完全一致し、既存note内の「徳祐2年1月18日」の記述とも整合。ganzhi照合・既存データともに矛盾なし。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 541,
+          "displayYears": 1.48,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 1274,
+        "lastEndYear": 1276,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 1274
+      },
+      "sources": {
+        "wikidata": "Q7500",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "死去日はmonth精度止まり。 『宋史』卷47本紀本文中「十年七月癸未、度宗崩、奉遺詔即皇帝位於柩前、年四歲」（咸淳十年七月癸未）で確認。章題の『瀛國公』は降伏後の降封号であり後世通称『恭帝』とは異なる点に留意。"
+      },
+      "deathCause": {
+        "category": "処刑",
+        "note": "元へ降伏、瀛国公に降封後、至治3年4月、元朝（英宗）により河西の地で死を賜った（賜死）。元代の仏教史書『佛祖歴代通載』至治三年条に「賜瀛國公合尊死於河西」とある。政権交代後、征服者側の元朝皇帝の命による処断のため処刑と判定（形式は自尽を命じる賜死）。",
+        "confidence": "medium",
+        "source": {
+          "page": "佛祖歴代通載（元代仏教史書、至治三年条）",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "度宗崩御後「奉遺詔即皇帝位於柩前」。度宗の子（母は全皇后＝嫡出）で太后謝氏・賈似道が嫡子優先の原則で選定した通常の皇位継承手続き。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻四十七（瀛国公二王附）",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝",
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "母后",
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "1274-11-21",
+            "datePrecision": "day",
+            "note": "咸淳10年10月甲子（換算1274-11-21）、「詔以明年為德祐元年」（翌年〈1275年〉を徳祐元年とする改元の詔）。恭帝は咸淳10年7月の即位時には先代度宗の元号「咸淳」をそのまま継続使用しており、これは改元とみなさない（2段階即位パターンには該当しない通常の世襲即位）。この徳祐への改元が恭帝在位中唯一の改元であり、退位（徳祐2年正月）まで徳祐が継続使用された。",
+            "source": {
+              "page": "宋史 本紀四十七（瀛国公二王附）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "china-history版・daizhigev20版の両方で「甲子、詔以明年為德祐元年」の記述が一致することを確認。恭帝在位中（咸淳10年7月～徳祐2年正月）に他の改元記事は見当たらなかった。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "『宋史』本紀巻四十七（恭帝在位：咸淳10年7月即位～徳祐2年正月降伏まで）を通読したが、「大赦」「大赦天下」と明記された全国規模の恩赦は見当たらなかった。関連する記述として、徳祐元年正月戊戌「赦京畿罪」（京畿地域限定）、同年三月戊戌「赦邊城降將罪」（降伏した辺境守将等の特定対象限定）、同年九月辛巳「有事于明堂、赦」（明堂親祭に伴う恩赦だが「大赦」等の明記なし、対象範囲不明瞭）の3件があるが、いずれも地域・対象限定または「大赦」表記を欠くため、判定基準に基づき0件とした。china-history版とdaizhigev20版の両方で同一の記述を確認済み。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "本紀本文中に恭帝自身の皇后冊立の記述は見当たらなかった。文中に見える「皇后」はすべて先代（度宗）の后妃に関するもの（実母・全皇后＝即位後に皇太后へ、祖母・謝太皇太后の尊号加上など）であり、幼帝であった恭帝自身が婚姻・立后した記録はない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "本紀本文中に「太子」「皇太子」「皇太弟」等の立太子・廃太子に関する記述は一切見当たらなかった。恭帝自身は即位時数え4歳、退位時数え6歳の幼帝であり、在位期間も約1年半と短く、皇太子を立てる余地がなかったことと整合する。"
+      },
+      "ages": {
+        "birthDate": "1271-11-02",
+        "birthDatePrecision": "day",
+        "deathDate": "1323-05",
+        "deathDatePrecision": "month",
+        "accessionAge": 4,
+        "confidence": "medium",
+        "note": "『宋史』本紀巻四十七に「咸淳七年九月己丑、生於臨安府之大内」「十年七月癸未、度宗崩、奉遺詔即皇帝位於柩前、年四歳」とあり、生年月日（陰暦）と即位時年齢（数え4歳）が直接記載されている。没日は『佛祖歴代通載』至治三年条「是年四月、賜瀛国公合尊死於河西」により至治三年（1323年）四月と判明するが、没時の年齢（時年◯◯）の記載は同条には見当たらなかった。生年の陰暦→西暦換算はsxtwlライブラリによる機械換算のため、宋代当時の実際の頒暦との間に若干のずれが生じている可能性がある（即位日の換算値1274-08-12は課題文の「咸淳10年7月9日」と整合することを確認済み）。（birthDate の旧 precision 記載: day（陰暦換算：咸淳七年九月己丑。china-history版原文は「咸淳六年」とOCR誤りがあり、daizhigev20版『宋史』原文で「咸淳七年九月己丑」が正しいことを確認した上で換算））。（deathDate の旧 precision 記載: month（原文「是年四月」で日付までは記載なし。至治三年四月））"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "宋史本紀を通読。高宗期の臨安遷都（1138年）を継承、以後南宋滅亡（1279年）まで臨安が一貫した都。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "恭帝は即位時数え4歳・退位（元への降伏）時数え6歳の幼帝であり、在位期間（咸淳10年7月～徳祐2年1月、1274-1276）を通じて実権は謝太后・賈似道・陳宜中ら重臣が握っていた。原文キャッシュ（宋史巻四十七）には元軍侵攻に対する迎撃・防衛戦の記事が多数あるが（賈似道の督師・張世傑らの防戦等）、いずれも臣下が指揮したものであり、恭帝自身が軍を率いて出征した記述は皆無。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 2,
+        "events": [
+          {
+            "name": "潮州・漳州の盗賊蜂起",
+            "leader": "首謀者名不詳",
+            "startDate": "1274-11-03",
+            "endDate": null,
+            "datePrecision": "day",
+            "outcome": "鎮圧（邢友龍が撃破し、丁巳の条で友龍以下諸将に恩賞）",
+            "note": "『宋史』本紀「廣西經略司權參議官邢友龍擊潮州、漳州寇，破之」。国内の盗賊蜂起の鎮圧としてカウント。（旧 precision 記載: day（陰暦、咸淳十年十月丙午））"
+          },
+          {
+            "name": "殿前指揮使韓震配下の兵変",
+            "leader": "韓震配下の兵士",
+            "startDate": "1275-03-29",
+            "endDate": null,
+            "datePrecision": "day",
+            "outcome": "鎮圧（発兵して捕縛を図り、反乱軍は四散）",
+            "note": "『宋史』本紀「震所部兵叛，攻嘉會門，射火箭至大內，急發兵捕之，皆散走」。朝廷側が武力で鎮圧に成功したためsuppressionにも計上。（旧 precision 記載: day（陰暦、徳祐元年三月壬申朔））"
+          }
+        ],
+        "confidence": "medium",
+        "note": "同上。対元朝との対外戦争（防衛戦の連続）はルールにより一切除外。国内反乱2件のみを計上。"
+      },
+      "rebellionSufferedCount": {
+        "count": 2,
+        "events": [
+          {
+            "name": "潮州・漳州の盗賊蜂起",
+            "leader": "首謀者名不詳",
+            "startDate": "1274-11-03",
+            "endDate": null,
+            "datePrecision": "day",
+            "outcome": "鎮圧（広西経略司権参議官・邢友龍が撃破）",
+            "note": "『宋史』本紀「冬十月丙午…廣西經略司權參議官邢友龍擊潮州、漳州寇，破之」。国内の盗賊蜂起としてルールに従いsuffered/suppression双方に計上。（旧 precision 記載: day（陰暦、咸淳十年十月丙午の条に「撃破した」旨のみ記載され、蜂起自体の開始日は不明））"
+          },
+          {
+            "name": "殿前指揮使韓震配下の兵変",
+            "leader": "韓震配下の兵士（韓震本人は事前に陳宜中に誅殺されている）",
+            "startDate": "1275-03-29",
+            "endDate": null,
+            "datePrecision": "day",
+            "outcome": "鎮圧（朝廷が発兵して捕縛を図り、反乱軍は四散）",
+            "note": "『宋史』本紀「三月壬申朔…殿前指揮使韓震請遷都，陳宜中殺之。震所部兵叛，攻嘉會門，射火箭至大內，急發兵捕之，皆散走」。韓震自身の誅殺は朝廷側の処断だが、その配下の兵が武力蜂起し皇居（大内）に火矢を放つ実力行使に及んだため、朝廷内部の権力争いに起因する兵変としてsufferedに計上。最終的に鎮圧されているためsuppressionにも計上（例外4の『成功したクーデター』とは異なり、この兵変は鎮圧に成功しているため通常の反乱と同様に両方に計上する扱いとした）。（旧 precision 記載: day（陰暦、徳祐元年三月壬申朔（三月一日）の条に記載））"
+          }
+        ],
+        "confidence": "medium",
+        "note": "対元朝との戦争（元軍による南宋侵攻・臨安陥落・恭帝の降伏）は、五代十国ブロックで確立した『対等勢力・外国との対外戦争』ルールに従い、rebellionSuppression/Sufferedの対象外として一切計上していない（deathCause/accessionRouteの評価とは別軸）。国内の反乱として原文に明記されているのは上記2件のみ。潮州・漳州の蜂起は記述が一行と簡略なため確信度はmedium。"
+      }
+    },
+    {
+      "id": "nansong-duanzong",
+      "name": {
+        "personalName": "趙昰",
+        "commonName": "端宗",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "南宋",
+        "category": "反乱・自称政権",
+        "section": "宋遼西夏金"
+      },
+      "reigns": [
+        {
+          "startYear": 1276,
+          "endYear": 1278,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "景炎元年、福州にて即位・改元(南宋残存政権)。1278年5月8日崩御。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "1276-06-14",
+          "endDate": "1278-05-08",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 693,
+            "unit": "day",
+            "approxDays": 693,
+            "exactDays": 693,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "宋史 本紀四十七 瀛国公二王附（端宗）",
+              "lang": "zh-classical",
+              "quote": "五月乙未朔，宜中等乃立昰于福州，以為宋主，改元景炎／四月戊辰，昰殂于碙洲，其臣號之曰端宗。",
+              "conversion": "即位: 「五月乙未朔」＝徳祐二年（1276年、この日をもって景炎に改元）五月一日。sxtwlでfromLunar(1276,5,1)を計算すると干支は乙未（原文と一致）、新暦換算1276-06-14となり既存startDateと完全一致。崩御: 「至元十五年四月戊辰」＝至元15年（1278年）四月の戊辰日。同月中で干支戊辰となる日を走査するとlunar(1278,4,15)が該当し、干支戊辰（原文と一致）、新暦換算1278-05-08となり既存endDateと完全一致。両日付とも精度dayで確定でき、既存値の書き換えは不要。出典を宋史本紀四十七の該当原文引用に差し替え可能。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 693,
+          "displayYears": 1.9,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 1276,
+        "lastEndYear": 1278,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 1276
+      },
+      "sources": {
+        "wikidata": "Q7501",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": ""
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "祥興元年4月、冈州にて崩御。直接の契機は前年12月の台風による座礁事故（「颶風壊舟，幾溺死，遂成疾」）。数ヶ月間病を患い翌年4月に崩御。事故に起因する発病後の病死。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻四十七（瀛国公二王附）",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "推戴",
+        "note": "度宗の子、恭帝の兄。恭帝は伝国璽を奉じて元に降り「削去帝號」となっており、端宗はその恭帝から位を受けたのではない。臨安脱出後、陳宜中・張世傑・陸秀夫ら遺臣が福州で立てた（『宋史』巻四十七「宜中等乃立昰于福州，以為宋主」）。太皇太后は召還の使を送ったが拒まれている。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻四十七（瀛国公二王附）",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "自立",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下",
+            "軍"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "該当なし",
+          "relationToPredecessor": "兄",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "1276-05-01",
+            "datePrecision": "day",
+            "note": "景炎元年五月乙未朔、福州にて陳宜中らが益王趙昰を擁立し帝位に即け、同時に建元して「景炎」とした（皇帝即位（改元同時）。それ以前は皇帝を称しておらず、益王・判福州等の身分であったため、これが唯一の建元・改元。以後崩御（景炎三年四月）までの間、他に改元の記事はない。",
+            "source": {
+              "page": "宋史 本紀四十七（瀛國公二王附）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "南宋滅亡直前の擁立政権。原文に「宜中等乃立昰于福州，以為宋主，改元景炎」と明記されており、皇帝を称し改元した事実が確認できる。国号（宋）は変更されておらず、国号変更と改元の混同はない。崩御後の「祥興」改元（景炎三年五月）は後継の衞王昺（祥興帝）によるものであり端宗自身の改元ではないため計上しない。"
+      },
+      "amnestyCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "1276-05-01",
+            "datePrecision": "day",
+            "note": "景炎元年五月乙未朔、福州にて即位・改元と同日に「郊赦」の記事あり。原文は「大赦」「大赦天下」の明確な文言ではなく「郊赦」（郊祀・即位に伴う恩赦）という表現のため、全国規模の大赦に相当するか判定がやや曖昧。即位に伴う恩赦としての性質上ここでは1回とカウントしたが、確度は中とする。",
+            "source": {
+              "page": "宋史 本紀四十七（瀛國公二王附）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "medium",
+        "note": "本紀通読の範囲（景炎元年五月即位〜景炎三年四月崩御）で「赦」字を含む記事は上記「郊赦」の1件のみ。「大赦天下」等の明記された表現ではないため、ユーザー確認を推奨する曖昧ケース。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位中に皇后冊立の記事なし。母の楊淑妃は「太后」に冊立（同聽政）されたのみで、皇后の冊立ではない。端宗自身は即位時わずか数え8～9歳前後で在位も短く、立后の記録は見られない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位期間（景炎元年五月〜三年四月、約2年弱）を通じて皇太子（皇太弟等含む）が立てられた記述自体がなく、廃立の記事もない。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "宋史本紀を通読。高宗期の臨安遷都（1138年）を継承、以後南宋滅亡（1279年）まで臨安が一貫した都。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位期間(1276-1278)、端宗(昰)は即位時数え年9歳の幼帝で終始臣下（張世傑・文天祥・陳宜中ら）に擁されて元軍から逃避する立場にあり、原文キャッシュ全体を通じて皇帝自身が軍を率いて出征した記述は皆無。全ての軍事行動（文天祥の江西・福建各地転戦、張世傑の泉州包囲等）は臣下が主体。元軍との一連の攻防は対等勢力間の対外戦争であり、そもそも本フィールドの性質上、皇帝自身が主体的に出征した場合のみ計上する規定に該当しない。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 2,
+        "events": [
+          {
+            "name": "漳州亂",
+            "leader": "不明（原文に首謀者名の記載なし）",
+            "startDate": "1276-08",
+            "endDate": null,
+            "datePrecision": "month",
+            "outcome": "陳文龍を閩・廣宣撫使に任じ討伐を命じたが、原文に鎮圧完了の明記なし",
+            "note": "rebellionSufferedCountと同一事案。宮廷（皇帝ではなく臣下）主体の鎮圧命令として計上。"
+          },
+          {
+            "name": "興化石手軍亂",
+            "leader": "不明（原文に首謀者名の記載なし）",
+            "startDate": "1276-08",
+            "endDate": null,
+            "datePrecision": "month",
+            "outcome": "翌9月に陳文龍が興化軍知事に復帰しており事態収拾を示唆するが、鎮圧の詳細記載はなし",
+            "note": "rebellionSufferedCountと同一事案。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "suppressionとsufferedは同一の2件で一致（集計粒度差・未鎮圧終了等の例外パターンは該当せず）。原文が簡略な編年体（宋史巻47は逃避行の記録が中心）で、討伐の成否まで明記されないケースが多いためconfidenceはmedium。"
+      },
+      "rebellionSufferedCount": {
+        "count": 2,
+        "events": [
+          {
+            "name": "漳州亂",
+            "leader": "不明（原文に首謀者名の記載なし）",
+            "startDate": "1276-08",
+            "endDate": null,
+            "datePrecision": "month",
+            "outcome": "朝廷が陳文龍を閩・廣宣撫使に任じ討伐を命じたが、原文に鎮圧完了の明記なし",
+            "note": "景炎元年8月「漳州亂，命陳文龍為閩、廣宣撫使以討之」。国内（福建）における地方蜂起であり、対元戦争とは別枠の国内反乱として計上。"
+          },
+          {
+            "name": "興化石手軍亂",
+            "leader": "不明（原文に首謀者名の記載なし、興化に駐屯する石手軍＝地方軍の兵変とみられる）",
+            "startDate": "1276-08",
+            "endDate": null,
+            "datePrecision": "month",
+            "outcome": "翌9月に陳文龍が興化軍知事に復帰しており事態収拾を示唆するが、鎮圧の詳細記載はなし",
+            "note": "景炎元年8月「興化石手軍亂」。漳州亂と同段落・同時期に発生した別の国内騒乱（駐屯兵の兵変）として独立に計上。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "原文キャッシュ全体（宋史巻47・端宗本紀相当部分）をgrep等で「亂・叛・反・寇」を確認した結果、上記2件のみ該当（他の「反」は「不反＝帰らず」の意で対象外）。蒲壽庚による泉州での宗室・士大夫殺害（景炎元年11月）は、正史原文が地方官の裏切り・元への投降に伴う殺戮として描写しており、組織だった蜂起・反乱というより対元戦争の混乱に付随する事件と判断し、本カウントには含めなかった（noteに経緯のみ記録）。元軍との一連の攻防（宋vs元）は対等勢力間の対外戦争としてルール上除外。"
+      },
+      "ages": {
+        "birthDate": "1268",
+        "birthDatePrecision": "year",
+        "deathDate": "1278-05-08",
+        "deathDatePrecision": "day",
+        "accessionAge": 9,
+        "deathAge": 11,
+        "confidence": "high",
+        "note": "生年は度宗本紀（宋史巻46）咸淳四年六月甲申条「皇子昰生」により咸淳四年(1268年)と判明（干支日のみでグレゴリオ暦換算未実施のため精度は年）。即位（景炎元年=1276年、原文キャッシュ「五月乙未朔，宜中等乃立昰于福州」）時は1276-1268+1=数え年9歳。崩御（至元15年=景炎3年=1278年四月戊辰、碙洲にて崩御。既存reigns.endDate 1278-05-08と一致）時は1278-1268+1=数え年11歳。原文キャッシュ内に「時年」等の直接年齢記載はなく、生年からの逆算値。"
+      }
+    },
+    {
+      "id": "nansong-weiwang",
+      "name": {
+        "personalName": "趙昺",
+        "commonName": "衛王（祥興帝）",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "南宋",
+        "category": "反乱・自称政権",
+        "section": "宋遼西夏金"
+      },
+      "reigns": [
+        {
+          "startYear": 1278,
+          "endYear": 1279,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "景炎3年4月17日、祥興に改元し即位。祥興2年2月6日、崖山の戦いで元軍に敗れ入水自殺、南宋完全滅亡。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "1278-05-10",
+          "endDate": "1279-03-19",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 313,
+            "unit": "day",
+            "approxDays": 313,
+            "exactDays": 313,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "宋史 本紀四十七 瀛国公二王附（衞王紀）",
+              "lang": "zh-classical",
+              "quote": "庚午，衆又立衞王昺為主，以陸秀夫為左丞相／五月癸未朔，改元祥興／二月戊寅朔，世傑部將陳寶降。己卯，都統張達以夜襲大軍營，亡失甚衆。癸未……世傑乃與蘇劉義斷維，以十餘舟奪港而去，陸秀夫走衞王舟，王舟大，且諸舟環結，度不得出走，乃負昺投海中，後宮及諸臣多從死者",
+              "conversion": "即位日：本紀原文の擁立記事「庚午，衆又立衞王昺為主」の干支庚午をsxtwlで景炎3年(戊寅=1278年)4月17日として換算すると1278-05-10・当日干支庚午が一致。年の特定はキャッシュ冒頭に景炎三年夏四月の年月見出しが欠落しているため既存noteに依拠する必要があったが、直後の「五月癸未朔，改元祥興」（キャッシュ内原文）をsxtwlでfromLunar(1278,5,1)換算すると同年5月1日の朔干支が癸未と一致し、1278年であることをキャッシュ内在の朔日干支でも独立に確認できた。崩御(入水)日：「二月戊寅朔」の朔干支をfromLunar(1279,2,1)で換算すると戊寅と一致（＝1279年2月と確定）、続く「癸未」（月内6日目）をfromLunar(1279,2,6)で換算すると1279-03-19・干支癸未も一致。両日とも既存startDate=1278-05-10／endDate=1279-03-19（いずれもday精度）と完全一致した。",
+              "note": "キャッシュファイルは「庚午，衆又立衞王昺為主」から始まっており、直前の「景炎三年夏四月」相当の年月見出し自体はキャッシュ本文中に文字として現れていない。ただし年の特定は擁立記事の干支(庚午)単独ではなく、同段内の「五月癸未朔，改元祥興」の朔干支(癸未)とのsxtwl換算による相互整合、および既存note・endDateとの整合の両面から1278年である蓋然性が極めて高いと判断した。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 313,
+          "displayYears": 0.86,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 1278,
+        "lastEndYear": 1279,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 1278
+      },
+      "sources": {
+        "wikidata": "Q7503",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": ""
+      },
+      "deathCause": {
+        "category": "自尽",
+        "note": "祥興2年2月、崖山の戦いで元軍（張弘範）に敗北。陸秀夫に背負われての入水であり、8歳の幼帝自身の意志による自尽というより殉節を目的とした行為だが、南宋滅亡に伴う象徴的な自尽（集団殉国）として自尽と判定。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻四十七（瀛国公二王附）",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "擁立",
+        "note": "端宗崩御後、遺臣により擁立、改元「祥興」。南宋最後の政権を継承する遺臣主導の擁立。",
+        "confidence": "high",
+        "source": {
+          "page": "宋史 本紀 巻四十七（瀛国公二王附）",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "弟",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "1278-05-23",
+            "datePrecision": "day",
+            "note": "端宗昰が景炎三年四月戊辰に碙洲で崩じ、庚午に群臣が衞王昺を擁立（皇帝即位）。その約1ヶ月後の五月癸未朔に『祥興』へ改元。前代（端宗昰）の元号『景炎』からの切り替えであり、昺自身の即位に伴う最初の建元。以後、祥興二年二月癸未の崖山陥落・入水自殺まで祥興を継続使用し、他に改元の記録は確認されなかった。日付原文: 祥興元年（景炎三年）五月癸未朔（2026-07-22にISO表記へ正規化）",
+            "source": {
+              "page": "宋史 本紀四十七（瀛国公・二王附）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "衞王昺は端宗昰の在位中（景炎年間）は皇帝ではなく『衞王』の王号のみで自らの元号を持たなかったため、2段階即位パターン（皇帝以外の身分での改元）には該当しない。即位（庚午）と改元宣言（五月癸未朔）の間に約1ヶ月のずれがあるが、その間も景炎の年号がそのまま暫定的に使われ続けただけであり、これを独立の改元とは数えず、祥興建元の1回のみをカウントした。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "medium",
+        "note": "宋史 本紀四十七（瀛国公・二王附）中の衞王昺在位期間（景炎三年四月庚午の擁立～祥興二年二月癸未の崖山陥落・入水まで）の記事を通読したが「大赦」「大赦天下」等の語は確認できなかった。同区間はdaizhigev20/史藏/正史/宋史.txtでも『赦』字の出現なし（景炎改元時の『郊赦』は端宗昰の在位中の記事であり衞王昺自身の治世下の出来事ではないため対象外）。畢沅『続資治通鑑』の並行区間でも同様に赦の記事なし。在位期間が約10ヶ月と短く、崖山への逃避行が中心の記録であるため、記載漏れの可能性も考慮しconfidenceはmediumとした。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "衞王昺（祥興帝）は即位時8歳、崩御時9歳（いずれも続資治通鑑）の幼少での在位であり、宋史本紀四十七にも立后（冊立皇后）の記事は一切見当たらない。皇后不在のため0。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "衞王昺は即位時8歳（続資治通鑑）で在位約10ヶ月のうちに崖山で崩じており、立太子（皇太子・皇太弟等）の記録自体が宋史本紀・続資治通鑑いずれにも存在しない。廃立の記事なし。"
+      },
+      "ages": {
+        "birthDate": "1272-02-12",
+        "birthDatePrecision": "day",
+        "deathDate": "1279-03-19",
+        "deathDatePrecision": "day",
+        "accessionAge": 8,
+        "deathAge": 9,
+        "confidence": "medium",
+        "note": "宋史本紀四十七（瀛国公・二王附）自体には昺の生没年齢の明記なし。生年は宋史 本紀四十六（度宗）咸淳八年正月辛未条「子昺生」に記載（宋史局部でdaizhigev20/史藏/正史/宋史.txtにて確認、china-history版本紀46は今回未確認）。即位時齢「年八歳矣」および崩御時齢「宋主時年九歳」は清・畢沅『続資治通鑑』（daizhigev20/史藏/编年/续资治通鉴.txt、至元十五年～十六年条）に記載。続資治通鑑は編年体の後代史書であり正史本紀・列伝そのものではないため参考情報として付記し、confidenceはmediumとした。（2026-07-21 ages日付ISO正規化: birthDate「咸淳八年正月辛未」→1272-02-12（旧暦1月12日）、deathDate「祥興二年二月癸未」→1279-03-19（旧暦2月6日、reigns.endDateと一致）。いずれもsxtwl換算。）"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "宋史本紀を通読。高宗期の臨安遷都（1138年）を継承、以後南宋滅亡（1279年）まで臨安が一貫した都。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "原文キャッシュ（宋史本紀四十七、景炎3年～祥興2年）は衞王昺（8～9歳の幼帝）の在位期間全体をカバーするが、軍事行動はすべて張世傑・陸秀夫ら大臣・将軍が主導しており、昺自身が軍を率いて出征した記述は皆無。幼帝であり実質的な親征は不可能な年齢。崖山の戦いも昺は舟中に「居」するのみで指揮を執っていない。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "原文に登場する軍事衝突（元軍によるコウ州・広州・厓山攻略、文天祥の敗走・被執等）はすべて元（外国勢力）との対外戦争であり、対等勢力間の統一戦争は本ルールにより鎮圧対象外。国内の農民反乱・地方蜂起の記述は原文キャッシュ内に見当たらない。"
+      },
+      "rebellionSufferedCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "崖山の戦いを含む元軍との一連の戦闘は対等勢力（南宋 vs 元）間の対外戦争であり、宋遼西夏金ブロックのルールにより被反乱には計上しない。宮廷内部の兵力を伴うクーデター・弑逆の記述も原文にはない（陸秀夫による入水は殉節でありクーデターではない）。"
+      }
+    }
+  ]
+}

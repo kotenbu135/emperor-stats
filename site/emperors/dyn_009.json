@@ -1,0 +1,1329 @@
+{
+  "meta": {
+    "dynastyName": "前趙（漢趙）",
+    "dynastySection": "前趙",
+    "count": 5,
+    "file": "data/emperors/dyn_009.json"
+  },
+  "emperors": [
+    {
+      "id": "qianzhao-liuyuan",
+      "name": {
+        "personalName": "劉淵",
+        "commonName": "光文帝",
+        "aliases": [],
+        "posthumousName": "光文帝",
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "前趙（漢趙）",
+        "category": "並立政権",
+        "section": "前趙"
+      },
+      "reigns": [
+        {
+          "startYear": 308,
+          "endYear": 310,
+          "dynastyOrder": 1,
+          "isRestoration": false,
+          "note": "304年に漢王として即位、308年に皇帝を称した（旧記載309年10月から原文に基づき修正）。",
+          "raw": "308年 - 310年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": "0310-08-29",
+          "startDateRaw": "永嘉2年（308年）、月日不詳（晋書載記第一原文「永嘉二年、元海僭即皇帝位、大赦境内、改元永凤」による。旧来「永鳳2年〈309年〉10月」としていたが原文優先で修正、2026-07-16ユーザー確認）",
+          "endDateRaw": "河瑞2年7月18日（己卯、310年8月29日）",
+          "datePrecision": {
+            "start": "year",
+            "end": "day"
+          },
+          "duration": {
+            "value": 971,
+            "unit": "day",
+            "approxDays": 971,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百一 載記第一（劉元海）",
+              "lang": "zh-classical",
+              "quote": "永嘉二年、元海僭即皇帝位、大赦境內、改元永鳳。……以永嘉四年死、在位六年、偽謚光文皇帝、廟號高祖。",
+              "conversion": "載記本文に崩御の日次記載なし。資治通鑑・十六国春秋輯補がいずれも崩御を『己卯』（永嘉四年7月）とする。sxtwl換算で河瑞2年7月18日=310-08-29。既存endDate(310-08-19)は『7月18日』の十の位が脱落し『7月8日』になった転記ミスと判断し訂正。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 971,
+          "displayYears": 2.66,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 308,
+        "lastEndYear": 310,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 308
+      },
+      "sources": {
+        "wikidata": "Q714159",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "前趙（漢趙）皇帝。光文帝。"
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "河瑞2年（310年）7月、病篤くなり劉歓楽・劉洋らに遺詔を託した後、崩御（在位6年）。9月、光文皇帝と諡され永光陵に葬られた。『晋書』劉元海載記は「寝疾」「疾篤」と病状悪化の経過のみ記し、具体的な病名の記載はないが他殺の記述もない。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第一 劉元海",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "自立",
+        "note": "匈奴の単于家系（前漢と縁戚関係を主張）出身。西晋の八王の乱に乗じ、304年に漢王を自称して挙兵、308年に皇帝を称し漢（前趙、漢趙）を建国。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第一 劉元海",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "自立",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "本人",
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "宗室",
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "該当なし",
+          "relationToPredecessor": "該当なし",
+          "procedure": "儀礼なし・自称"
+        }
+      },
+      "eraChangeCount": {
+        "count": 3,
+        "events": [
+          {
+            "date": "0304",
+            "datePrecision": "year",
+            "note": "【皇帝即位前】南郊に壇を設けて漢王に即位し、境内を赦して年号を「元熙」と建元した（「乃为坛于南郊、僭即汉王位…乃赦其境内、年号元熙」）。永興元年（304年）の出来事。人物固有の注意事項により、建国に伴う最初の建元としてeraChangeCountに含めた。",
+            "source": {
+              "page": "晋書載記第一（劉元海）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0308",
+            "datePrecision": "year",
+            "note": "【皇帝即位（改元同時）】皇帝を僭称し、境内を大赦して「永凤」に改元した（「永嘉二年、元海僭即皇帝位、大赦境内、改元永凤」）。原文の「永嘉二年」（308年）を採用し、既存reignsのstartDateRawも309年10月から308年に修正済み（2026-07-16ユーザー確認）。",
+            "source": {
+              "page": "晋書載記第一（劉元海）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "【皇帝在位中】汾水で玉璽（「有新保之」の文字、王莽時代の璽と伝わる）を得たことを瑞祥とし、境内を大赦して「河瑞」に改元した（「元海以为己瑞、大赦境内、改年河瑞」）。具体的な年月は原文に記載がないが、永凤改元後・第二次洛陽侵攻（「是冬」）以前の出来事として記される。",
+            "source": {
+              "page": "晋書載記第一（劉元海）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "medium",
+        "note": "人物固有の注意事項に従い、建国者としての元熙（皇帝即位前・漢王即位時）→永凤（皇帝即位時）→河瑞（皇帝在位中）の3回の建元・改元をすべて含めた。永凤改元の年次は原文「永嘉二年」（308年）を採用し確定（2026-07-16ユーザー確認、reigns側の即位年も309→308に修正済み）。"
+      },
+      "amnestyCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": "0308",
+            "datePrecision": "year",
+            "note": "【皇帝即位（改元同時）】皇帝を僭称した際、境内を大赦し、永凤と改元した（「元海僭即皇帝位、大赦境内、改元永凤」）。原文の「永嘉二年」（308年）を採用（2026-07-16ユーザー確認）。",
+            "source": {
+              "page": "晋書載記第一（劉元海）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "【皇帝在位中】汾水で玉璽を得たことを瑞祥とし、境内を大赦して河瑞と改元した（「元海以为己瑞、大赦境内、改年河瑞」）。原文に具体的な年月の記載はなく、永凤改元後・第二次洛陽侵攻（「是冬」の記事）以前の出来事として記される。",
+            "source": {
+              "page": "晋書載記第一（劉元海）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "「大赦」と明記された事例のみを計上した（2回）。これとは別に、漢王即位時（永興元年／304年、「乃赦其境内、年号元熙」）および崩御直前の立后・立太子時（「以刘欢乐为太傅…赦其境内。立其妻单氏为皇后、子和为皇太子」）にも「赦其境内」の記述があるが、「大赦」の語を欠くため厳密基準では計上対象外とした（境内＝自国全域を対象とする恩赦である点は他の大赦事例と同様であり、広義には該当し得る点に留意）。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "「立其妻单氏为皇后、子和为皇太子、封子乂为北海王」。第二次洛陽侵攻失敗後・元海の発病前の記事として記され、具体的な年月の記載はない（永嘉三〜四年頃と推定）。なお、漢王即位時（304年）には「立其妻呼延氏为王后」とあるが、これは「王后」であり皇帝の后＝「皇后」ではないため計上しない。",
+            "source": {
+              "page": "晋書載記第一（劉元海）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "『晋書』本文で「立...为皇后」と明記される事例は単氏の一件のみ。呼延氏の王后冊立（304年）は皇帝即位前の出来事であり、かつ「王后」であって「皇后」ではないため対象外とした。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "劉元海の在位中に皇太子（子の劉和、崩御直前に立太子）が廃されたとする記述はない。和は元海の崩御後に即位し、その後まもなく弟の劉聡に討たれているが、これは元海在位中の出来事ではない。"
+      },
+      "personalCampaignCount": {
+        "confidence": "medium",
+        "events": [],
+        "note": "晋書載記第一によれば、劉淵は304年の大単于・漢王即位以降310年崩御まで、対晋の軍事行動（劉曜・劉景・劉延年・劉聡・王弥・呼延翼ら諸将子への派遣）を一貫して将軍・皇子に委任しており、本人が自ら軍を率いて出陣した記述は見当たらない（例:「元海遣其建武将軍劉曜寇太原」「命右於陸王劉景…将討鮮卑」「元海驰遣黄门郎傅询召聪等还师」等はいずれも派遣・命令のみ）。聡が敗走した際も「元海素服迎師」（喪服で迎えるのみ）とあり、親征の実例なし。",
+        "count": 0
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "medium",
+        "events": [],
+        "note": "劉淵在位期間（304年大単于即位〜310年崩御）中、載記第一に記録される軍事衝突はすべて対晋（司馬騰・司馬越・劉琨・王浚ら）の戦争であり、これは劉淵が晋から独立した対等な政権を樹立して晋を打倒しようとする建国戦争であるため、ブロック方針により鎮圧・被反乱いずれからも除外する。載記中に劉淵配下の服属民・部族による蜂起の記述は見当たらない。",
+        "count": 0
+      },
+      "rebellionSufferedCount": {
+        "confidence": "medium",
+        "events": [],
+        "note": "同上の理由により、対晋戦争は対等政権間の統一戦争として除外。「元康末、坐部人叛出塞免官」という記述があるが、これは304年即位以前（晋の官吏として左部帥・北部都尉であった時期）の出来事であり、かつ実際の武力鎮圧行動が記されていない（部民が塞外へ逃亡しただけで免官処分を受けた）ため、対象期間外・要件不充足として計上せず。劉淵没後の劉和と劉聡の内紛（310年）は劉淵の在位終了後の出来事のため対象外。",
+        "count": 0
+      },
+      "capitalRelocationCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": "0305-01-01",
+            "datePrecision": "year",
+            "from": "離石",
+            "to": "蒲子",
+            "note": "劉元海（光文帝）在位中。晋書載記第一（刘元海載記）: 永興元年（304）左国城で漢王を称し離石に都した後、「二年（永興二年＝305年）……是歳、離石大饑、遷於黎亭、以就邸閣穀……遂進拠河東、攻寇蒲坂・平陽、皆陥之。元海遂入都蒲子」とあり、離石の飢饉により黎亭へ一時移動した後、蒲坂・平陽を攻略して正式に蒲子に都を定めた（「入都蒲子」の明記）。離石自体は建国当初の定都（永興元年の漢王即位に伴う最初の定都）にあたるため対象外とし、その後の蒲子への移転を遷都イベントとしてカウントした。（出典: 晋書 巻百一 載記第一 劉元海）"
+          },
+          {
+            "date": "0308-01-01",
+            "datePrecision": "year",
+            "from": "蒲子",
+            "to": "平陽",
+            "note": "劉元海（光文帝）在位中。晋書載記第一: 「永嘉二年、元海僭即皇帝位、大赦境内、改元永鳳……太史令宣于修之言於元海曰『……平陽勢有紫気、兼陶唐旧都、願陛下上迎乾象、下協坤祥。』於是遷都平陽。」永嘉2年（308）に皇帝を称すると同時に、堯の故都とされる平陽へ正式に遷都した明記あり。（出典: 晋書 巻百一 載記第一 劉元海）"
+          }
+        ],
+        "confidence": "medium",
+        "note": "在位中に遷都2回（0305年 離石→蒲子、0308年 蒲子→平陽）。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathDate": "0310-08-29",
+        "deathDatePrecision": "day",
+        "accessionAge": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "既存レコード(deathCause/accessionRoute/reigns等)および_corpus_cache/qianzhao-liuyuan.txt(晋書載記第一 劉元海伝)を確認したが、生年月日・享年・即位時年齢の直接記載は見当たらなかった。原文は「七歳にして母の喪に遭う」等の逸話や「身長八尺四寸」といった体格描写はあるが、生年や没年齢を示す「時年」「享年」等の記述はなく、崩御記事も「以永嘉四年死、在位六年」と在位年数のみで年齢の記載がない。年号年ラベルの差分から逆算する材料（特定年号年における年齢の直接記載）も存在しないため、accessionAge/deathAgeともnullのまま確定した。deathDateは既存reigns[].endDate（河瑞2年7月8日＝310年8月19日、日精度）を採用。birthDateは不明のためnull。"
+      }
+    },
+    {
+      "id": "qianzhao-liuhe",
+      "name": {
+        "personalName": "劉和",
+        "commonName": "劉和",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "前趙（漢趙）",
+        "category": "並立政権",
+        "section": "前趙"
+      },
+      "reigns": [
+        {
+          "startYear": 310,
+          "endYear": 310,
+          "dynastyOrder": 2,
+          "isRestoration": false,
+          "note": "父・劉淵崩御の同月に即位したが在位わずか6日で弟の劉聡に殺害された。",
+          "raw": "310年 - 310年",
+          "durationRaw": null,
+          "startDate": "0310-08-29",
+          "endDate": "0310-09-04",
+          "startDateRaw": "河瑞2年7月18日（己卯、劉淵崩御と同日）",
+          "endDateRaw": "河瑞2年7月24日（乙酉、6日後）",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 6,
+            "unit": "day",
+            "approxDays": 6,
+            "exactDays": 6,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "晋書 巻一百一 載記第一（劉和、劉淵載記に同居）",
+              "lang": "zh-classical",
+              "quote": "元海死、和嗣偽位。……銳等奔入南宮，前鋒隨之，斬和於光極西室。銳、攸梟首通衢。",
+              "conversion": "父劉淵の崩御日(己卯、liuyuan訂正後310-08-29)と同日に即位。資治通鑑は殺害を『乙酉』とし、sxtwl換算で河瑞2年7月24日=310-09-04。既存endDate(310-08-25)はganzhi乙亥（14日）に相当し乙酉（24日）と不一致、liuyuanと同型の転記ミスと判断し訂正。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 6,
+          "displayYears": 0.02,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 310,
+        "lastEndYear": 310,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 310
+      },
+      "sources": {
+        "wikidata": "Q714140",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "前趙（漢趙）皇帝。劉和。"
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "側近の呼延攸・劉鋭らに唆され、弟たち（北海王劉乂・魯王劉隆・斉王劉裕ら）と大司馬劉聡の粛清を企てたが、劉聡討伐に差し向けた軍が敗れ、逆に劉聡側に討たれて殺害された（即位からわずか数日）。同一政権内（弟）による殺害のため暗殺に分類。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第一 劉元海（劉和）",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "光文帝劉淵の長男として即位。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第一 劉元海（劉和）",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "劉和は父劉元海の元号「河瑞」を継続使用したまま在位6日間で殺害されており、改元の記載は無い。載記第一該当箇所（元海死～和嗣伪位～斩和于光极西室）を通読したが、劉和自身による建元・改元の記事は存在しない。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "劉和の在位記事（元海死，和嗣伪位…锐、攸枭首通衢）は約6日間の簒奪劇の顛末のみを記し、大赦の記載は無い。直前の元海即位時の大赦（永嘉二年即皇帝位時、および河瑞改元時）はいずれも元海自身の在位中の出来事であり、劉和には帰属しない。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "劉和の在位6日間の記事中に皇后冊立の記載は無い。父元海の代に「立其妻单氏为皇后」とあるが、これは元海の皇后（単氏、劉和の生母）についての記事であり劉和自身による立后ではない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "劉和自身は元海生前に皇太子に立てられていたが（「立其妻单氏为皇后，子和为皇太子」）、即位後は逆に弟らに攻められて殺害されており、皇太子を廃したという記事は無い。劉和の在位中に新たな皇太子が立てられ、それが廃された形跡もない。"
+      },
+      "personalCampaignCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "劉和の在位は永嘉四年（310年）七月、父劉淵の死去による即位から同月中の弑殺まで数日間（晋書載記・資治通鑑の干支表記では即位の己卯日から6日後の乙酉日に殺害）のみであり、皇帝（王・天王）としての対外親征の記録は晋書載記・資治通鑑いずれにも見当たらない。即位前は皇太子の地位にあり、独立した君主号を称して出征した記録もない。",
+        "count": 0
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "劉和は即位直後、衛尉西昌王劉鋭・宗正呼延攸らの讒言により、まだ何ら反抗行動を起こしていない異母弟の劉聡（大司馬・大単于）・劉裕（大司徒）・劉隆（尚書令）・劉乂（撫軍大将軍）に対して将軍（劉鋭・劉景・呼延攸・劉安国・劉乗・劉欽・田密・劉璿ら）を差し向け先制攻撃を仕掛けた。これは皇帝自身が権臣・宗室を先制的に武力で打倒しようとした事案（相手はまだ反乱を起こしていない）にあたるため、例外3によりrebellionSuppressionCount・rebellionSufferedCountいずれからも除外する。結果としてこの先制攻撃自体は劉裕・劉隆の殺害には成功したが、劉聡には備えられて失敗し、劉和自身が反撃を受けて敗死したため、劉和側が反乱を鎮圧した事実はない。",
+        "count": 0
+      },
+      "rebellionSufferedCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "先に劉和が異母弟達へ先制攻撃を仕掛けた事案自体は例外3により両カウントから除外対象だが、これに対し劉聡が兵力（単于台の守備兵等）を用いて防戦・反撃し、最終的に皇帝である劉和を弑逆・廃位に追い込んだ点は、朝廷内部の権力者（宗室・大司馬）による兵力を伴うクーデター・弑逆にあたるため例外4に該当し、rebellionSufferedCountにのみ1件計上する（鎮圧の主体が劉和側ではなく劉聡側であるためrebellionSuppressionCountには計上しない）。",
+            "outcome": "劉和敗死。劉聡の軍が西明門を攻略し、劉和は南宮に逃げ込むも光極西室にて殺害された。首謀者側の劉鋭・呼延攸・劉乗も梟首された。劉聡がその後皇帝位に即いた（qianzhao-liucong、載記第二）。",
+            "name": "劉聡による反撃・弑逆（劉和の廃位・殺害）",
+            "startDate": "0310-07-01",
+            "endDate": "0310-07-31",
+            "datePrecision": "month",
+            "leader": "劉聡（大司馬・大単于、劉和の異母弟）"
+          }
+        ],
+        "note": "本件は劉和自身の先制攻撃と、それに対する劉聡の反撃・弑逆という一連の内紛の帰結であり、通常の『臣下が皇帝を奇襲した反乱』とは事象の発生順序が逆であるため、例外3（先制攻撃部分の除外）と例外4（結果としての弑逆クーデター）を組み合わせて解釈した。この整理はrebellionSuppressionCount/rebellionSufferedCountの非対称を正当化する4類型の趣旨（特に例外4）に沿うと判断したが、五胡十六国ブロックの他事例との整合性を要確認事項として残す。",
+        "count": 1
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。離石→蒲子→平陽の遷都は劉元海（劉淵）の代、平陽→長安の遷都は劉曜の代の出来事であり、劉和・劉聡・劉粲の各代には追加の遷都記録はない。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathDate": "0310-09-04",
+        "deathDatePrecision": "day",
+        "accessionAge": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "既存レコード(deathCause/accessionRoute/reigns等の note・raw)および_corpus_cache/qianzhao-liuhe.txt(晋書載記第一 劉和条)を確認したが、生年月日・即位時年齢・享年(時年◯◯・年◯◯等)の直接記載は見当たらなかった。父劉淵の崩御と同日即位し在位6日で殺害されたことのみ判明。没日は既存reignsのendDate(0310-08-25、河瑞2年7月14日)と一致。年号年ラベルの差分から逆算できる別の直接記載も無いため、accessionAge/deathAgeはnullのまま確定。"
+      }
+    },
+    {
+      "id": "qianzhao-liucong",
+      "name": {
+        "personalName": "劉聡",
+        "commonName": "昭武帝",
+        "aliases": [],
+        "posthumousName": "昭武帝",
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "前趙（漢趙）",
+        "category": "並立政権",
+        "section": "前趙"
+      },
+      "reigns": [
+        {
+          "startYear": 310,
+          "endYear": 318,
+          "dynastyOrder": 3,
+          "isRestoration": false,
+          "note": null,
+          "raw": "310年 - 318年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": "0318-08-31",
+          "startDateRaw": "河瑞2年（310年）9月頃（日不詳）",
+          "endDateRaw": "麟嘉3年7月19日（318年8月31日）",
+          "datePrecision": {
+            "start": "month",
+            "end": "day"
+          },
+          "duration": {
+            "value": 2907,
+            "unit": "day",
+            "approxDays": 2907,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百二 載記第二（劉聰）",
+              "lang": "zh-classical",
+              "quote": "於是以永嘉四年僭即皇帝位……太興元年、聰死、在位九年、偽謚曰昭武皇帝，廟號烈宗。",
+              "conversion": "崩御日『癸亥』（麟嘉3年7月19日）をsxtwl換算すると318-08-31で既存endDateと一致、変更なし。即位は兄劉和殺害(乙酉、liuhe訂正後310-09-04)の直後のため、startDateRawの月表記を精緻化。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 2907,
+          "displayYears": 7.96,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 310,
+        "lastEndYear": 318,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 310
+      },
+      "sources": {
+        "wikidata": "Q714176",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "前趙（漢趙）皇帝。昭武帝。"
+      },
+      "deathCause": {
+        "category": "不詳",
+        "note": "太興元年（318年）、崩御（在位9年）。晩年は暴虐・享楽的な振る舞いが目立ち、側近の讒言を容れて臣下を処刑し、後宮に耽り百日朝廷に出ないこともあったと伝わるが、具体的な病名や他殺を示す直接的な死因の記述は確認できていない。死後、昭武皇帝と追諡され烈宗と廟号された。",
+        "confidence": "low",
+        "source": {
+          "page": "晉書 載記第二 劉聰",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "擁立",
+        "note": "光文帝劉淵の四男。兄・劉和が弟たちの粛清を図って兵を向けたのに対し、備えて迎え撃ち、宮中に攻め入って劉和を殺害した（『晋書』載記第一「聪攻西明门，克之」「斩和于光极西室」）。劉和の排除と即位は別事象で、即位は群臣の勧進と弟の北海王乂・公卿の固請を経ている（載記第二「既杀其兄和，群臣劝即尊位。聪初让其弟北海王乂，乂与公卿泣涕固请，聪久而许之」「于是以永嘉四年僭即皇帝位」）ため、軸2は授与側で取る。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第二 劉聰",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "宗室",
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "横死",
+          "relationToPredecessor": "弟",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 4,
+        "confidence": "high",
+        "note": "原文中に「改元○○」「改年○○」と明記された箇所を4件確認(光興・嘉平・建元・麟嘉)。これは劉聡在位中の元号数(光興310年、嘉平311-315年、建元315-316年、麟嘉316-318年)と一致する。",
+        "events": [
+          {
+            "date": "0310",
+            "datePrecision": "year",
+            "note": "永嘉4年(310年)、皇帝位に即位(僭称)し「大赦境内、改元光興」。即位に伴う建元。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "洛陽陥落・懐帝移送後、「聡大赦、改年嘉平」。原文に月日の明記なし。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "太廟新成に伴い「大赦境内、改年建元」。原文に月日の明記なし。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "西晋愍帝出降後、「大赦境内、改年麟嘉」。原文に月日の明記なし。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          }
+        ]
+      },
+      "amnestyCount": {
+        "count": 6,
+        "confidence": "high",
+        "note": "「大赦」の語が明記された箇所を6件確認。即位時の大赦(改元光興と同時)、洛陽陥落後の大赦(改年嘉平と同時)、懐帝鴆殺直後の大赦(殊死已下)、太廟新成による大赦(改年建元と同時)、愍帝出降後の大赦(改年麟嘉と同時)、劉粲立太子時の大赦(殊死已下)の計6回。うち2件は「殊死已下」と適用範囲が限定されているが、「大赦境内」「大赦」と明記され全国(境内)規模のため計上した。",
+        "events": [
+          {
+            "date": "0310",
+            "datePrecision": "year",
+            "note": "永嘉4年(310年)、皇帝位に即位(僭称)し「大赦境内、改元光興」。即位に伴う大赦。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "洛陽陥落・懐帝を平陽へ移送した後、「聡大赦、改年嘉平」。原文に月日の明記なし。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "正旦の宴で懐帝を鴆殺し庾珉・王俊らを誅した際、「大赦境内殊死已下」。殊死(死刑)以下の罪を対象とする大赦。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "太廟が新たに完成したことに伴い「大赦境内、改年建元」。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "西晋愍帝が長安外城陥落により出降した後、「大赦境内、改年麟嘉」。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "皇太弟劉乂を廃した後、劉粲を皇太子に立てた際、「大赦殊死已下」。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          }
+        ]
+      },
+      "empressInstallationCount": {
+        "count": 8,
+        "confidence": "medium",
+        "note": "劉聡は在位中に複数の皇后(上皇后・左皇后・右皇后・中皇后等、いわゆる四后制)を並立させたため、通常の一夫一皇后制とは異なり冊立回数が多い。原文で「立○○為○皇后」と明記された箇所を8件確認。うち「聡以其皇后靳氏為上皇后」(既に皇后であった靳氏を上皇后に格上げ)は新規冊立ではなく称号変更とみなし除外した。個々の女性の身元(例えば左貴嫔劉氏と後の貴妃劉氏が同一人物か等)に一部曖昧さがあるため confidence は medium とした。",
+        "events": [
+          {
+            "date": "0310",
+            "datePrecision": "year",
+            "note": "永嘉4年(310年)即位時、妻の呼延氏を皇后に立てる。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "皇后呼延氏の死後、太保劉殷の娘(左貴嫔劉氏)を皇后に立てる。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "中護軍靳準の娘二人(月光・月華)を左右貴嫔とした数ヶ月後、月光を皇后に立てる。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "四后制導入時、貴妃劉氏を左皇后に立てる(既存の皇后靳氏は上皇后に格上げ、これは新規冊立とせず除外)。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "同時期、右貴嫔靳氏(月華)を右皇后に立てる。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "張氏(先の皇太后張氏か)の侍婢であった樊氏を上皇后に立てる(上皇后靳氏が淫行により廃后・自殺した後と見られる)。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "中常侍王沈の養女(14歳)を左皇后に立てる。王鑑ら諫言した臣下は処刑された。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "中常侍宣懐の養女を中皇后に立てる。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          }
+        ]
+      },
+      "crownPrinceDepositionCount": {
+        "count": 1,
+        "confidence": "high",
+        "note": "皇太弟劉乂(聡の異母弟、北海王)が郭猗・王沈・靳準ら宦官・寵臣の讒言により謀反を疑われ、東宫官属を誅殺された上で「廃乂為北部王」と皇太弟位を廃され北部王に格下げされた。まもなく靳準により殺害された。皇太弟は法定推定継承者(皇太子相当)としてカウント対象とした。",
+        "events": [
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "郭猗・靳準らの讒言により皇太弟劉乂の謀反疑惑が作り上げられ、東宮官属が誅殺された上で「廃乂為北部王」。その後、劉粲の命により靳準に殺害された。原文に月日の明記なし(麟嘉年間、愍帝出降記事の後に位置)。",
+            "source": {
+              "page": "晋書載記第二(劉聡載記)",
+              "lang": "zh"
+            }
+          }
+        ]
+      },
+      "personalCampaignCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "『晋書』劉聰載記全体（永嘉四年即位〜太興元年薨、在位9年）を通読したが、劉聰自身が軍を率いて出征した記録は一切ない。洛陽攻略（呼延晏・劉曜・王弥）、長安攻略（劉粲・劉曜・趙染）、愍帝討伐、劉琨討伐（劉粲・劉曜）、曹嶷・石勒への対応等、全ての軍事行動は子（劉粲・劉曜）や将軍に委任されており、聰自身は平陽の宮中に留まり狩猟・酒色に耽っていたことが繰り返し記される（中軍王彰の諫言等）。即位前は父劉淵の下で右賢王・鹿蠡王等として従軍したが、独立した君主号での出征ではないため対象外。",
+        "count": 0
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "太弟劉乂粛清（靳準・王沈らの讒言により郭猗が氐羌酋長十余人を拷問し虚偽の自白を取らせ、劉乂を北部王に降格後に殺害、東宮属官・士卒1万5千余を坑殺）を契機に、氐羌部落十余万落が反乱。『晋書』劉聰載記および『資治通鑑』晋紀十二（建武元年四月）に一致する記述あり。",
+            "outcome": "靳準を行車騎大将軍として派遣し鎮圧（討平）した",
+            "name": "氐羌部落の反乱",
+            "startDate": "0317-04",
+            "endDate": null,
+            "datePrecision": "month",
+            "leader": "氐羌諸酋長（姓名不詳・複数）"
+          }
+        ],
+        "note": "劉乂粛清自体は劉粲側が策謀により先制的に劉乂を誣告・攻撃したもので、劉乂側に挙兵の事実はないため例外3に該当し鎮圧・被反乱いずれからも除外した。その巻き添えで生じた氐羌部落の反乱のみを1件として計上。なお石勒・曹嶷は聰の存命中に명号上は服属を保ったまま自立傾向を強めたが、命令拒否・密約に留まり実際の挙兵・武力衝突には至っていないため計上していない。",
+        "count": 1
+      },
+      "rebellionSufferedCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "rebellionSuppressionCountと同一事象。服属下にあった氐羌部落十余万落が蜂起し、靳準が討平した。",
+            "outcome": "靳準により鎮圧された",
+            "name": "氐羌部落の反乱",
+            "startDate": "0317-04",
+            "endDate": null,
+            "datePrecision": "month",
+            "leader": "氐羌諸酋長（姓名不詳・複数）"
+          }
+        ],
+        "note": "鎮圧側と対称の1件のみ計上。劉乂粛清事件自体（劉乂は挙兵していない冤罪ケース）は例外3により除外。",
+        "count": 1
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。離石→蒲子→平陽の遷都は劉元海（劉淵）の代、平陽→長安の遷都は劉曜の代の出来事であり、劉和・劉聡・劉粲の各代には追加の遷都記録はない。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "accessionAge": null,
+        "deathDate": "0318-08-31",
+        "deathDatePrecision": "day",
+        "deathAge": null,
+        "confidence": "low",
+        "note": "調査したが原典（晋書載記第二・劉聰載記）に生年月日・享年の直接記載が見当たらなかった。冒頭に「十五月而生聰焉」とあるが妊娠期間の記述のみで生年は不明。「年十四」の記載は劉聰が14歳で経史に通じたという逸話であり即位年齢・没年齢の手がかりにはならない。崩御記事は「太興元年、聰死、在位九年」とあり没年（318年）は確定するが日付・享年の記載はない。deathDateはreignsの既存endDate（0318-08-31、日本語wikiベースの日精度値）を採用したが、これは晋書原文には日付までの記載はなく出典が異なる点に留意。"
+      }
+    },
+    {
+      "id": "qianzhao-liucan",
+      "name": {
+        "personalName": "劉粲",
+        "commonName": "隠帝",
+        "aliases": [],
+        "posthumousName": "隠帝",
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "前趙（漢趙）",
+        "category": "並立政権",
+        "section": "前趙"
+      },
+      "reigns": [
+        {
+          "startYear": 318,
+          "endYear": 318,
+          "dynastyOrder": 4,
+          "isRestoration": false,
+          "note": "劉聡崩御を受け318年7月(旧暦)に即位、同年靳準のクーデターにより殺害。月日は史料上不特定のため概算。",
+          "raw": "318年 - 318年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": null,
+          "startDateRaw": "318年7月（旧暦、日不詳）",
+          "endDateRaw": "麟嘉3年8月頃（318年、旧暦、日不詳、靳準の乱で殺害）",
+          "datePrecision": {
+            "start": "month",
+            "end": "month"
+          },
+          "duration": {
+            "value": 30,
+            "unit": "day",
+            "approxDays": 30,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百二 載記第二（劉聰載記末尾、劉粲部分）",
+              "lang": "zh-classical",
+              "quote": "既嗣偽位……改元漢昌。……準遂勒兵入宮，升其光極前殿，下使甲士執粲，數而殺之。",
+              "conversion": "資治通鑑の記事順序（八月の直後に政変記事）から崩御を麟嘉3年8月頃と推定し、endDateRawを精緻化。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 30,
+          "displayYears": 0.08,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 318,
+        "lastEndYear": 318,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 318
+      },
+      "sources": {
+        "wikidata": "Q1152735",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "前趙（漢趙）皇帝。隠帝。"
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "即位後、酒色に溺れ政務・軍務を国舅の靳準に委任。靳準はこれに乗じてクーデターを計画し、光極殿で甲士に命じて劉粲・劉元公父子を捕らえ、罪状を数え上げた上で処刑した。劉氏一族も老若男女を問わず皆殺しにされた（在位約1ヶ月）。同一政権内の重臣による粛清のため暗殺に分類。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第二 劉聰（劉粲）",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "昭武帝劉聡の太子として即位。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第二 劉聰（劉粲）",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "year",
+            "note": "劉聰の死を受けて劉粲が偽位を嗣ぐと同時に改元し、元号を「漢昌」とした。即位に伴う建元として1回とカウント。",
+            "source": {
+              "page": "晋書載記第二",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "medium",
+        "note": "原文「既嗣伪位…大赦境内，改元汉昌」より。具体的な月日は明記されていないが、帝紀（元帝紀）の記述から太兴元年（318年）七月頃の即位直後と推定される。在位1ヶ月未満のためこの1回のみ。"
+      },
+      "amnestyCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "year",
+            "note": "即位に伴い「大赦境内」（国内全域の大赦）を実施。前趙（漢趙）は独立政権のため「境内」は同国の全域を指し、他国の「大赦天下」に相当するものとして全国規模の恩赦とみなした。",
+            "source": {
+              "page": "晋書載記第二",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "medium",
+        "note": "原文「立其妻靳氏为皇后，子元公为太子，大赦境内，改元汉昌」。地域限定の恩赦ではなく国全体を対象とする大赦と判断。在位期間中にこれ以外の大赦記事は見当たらない。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "year",
+            "note": "即位に伴い妻の靳氏を皇后として正式に冊立した。",
+            "source": {
+              "page": "晋書載記第二",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "原文「立其妻靳氏为皇后」。廃后・再冊立の記録はなし。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "即位時に子の元公を皇太子に立てた（「子元公为太子」）記録はあるが、廃立の記事はない。靳準の乱により刘粲は殺害され「刘氏男女无少长皆斩于东市」（劉氏一族が男女問わず皆殺しにされた）とあるが、これは廃立行為ではなくクーデターによる皆殺しであり、皇太子廃立としてはカウントしない。"
+      },
+      "personalCampaignCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "在位期間（318年、即位から約1ヶ月）中に劉粲自身が軍を率いて出征した記録は晋書載記に見当たらない。「粲大阅上林，谋讨石勒」（上林で大閲兵を行い石勒討伐を謀った）との記述はあるが、これは計画段階に留まり、実行前に靳準のクーデターで殺害されたため出征には至っていない。なお即位前（皇太子・相国・晋王時代）には刘琨・贾疋・赵固等への遠征記録が多数あるが、本人物のreignsは318年の皇帝在位期間のみを対象としているため、それ以前の遠征は本項目に計上しない。",
+        "count": 0
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "在位中（318年）、靳準の讒言により太宰劉景・太師劉顗・大司馬劉驥・大司徒劉劢らを粛清した記録があるが、これは靳準が「諸公が皇帝を廃して済南王(劉驥)を立てようとしている」と偽って告げたことによる劉粲自身の先制的な粛清であり、劉景ら側が実際に挙兵・反乱を起こした事実はない（判定基準の例外3：皇帝自身が権臣を先制的に武力打倒したケース）。反乱そのものが成立していないため鎮圧回数には含めない。在位終盤に発生した靳準の乱（下記rebellionSufferedCount参照）は靳準側が兵力を用いて皇帝を弑逆した政変であり、鎮圧主体が皇帝側ではなく反乱者側であるため（判定基準の例外4）、鎮圧回数には計上しない。",
+        "count": 0
+      },
+      "rebellionSufferedCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "note": "靳準は劉聡の外戚（二女が貴嬪）かつ側近の重臣として、劉粲の代には軍国の事を一手に委ねられていた（「军国之事一决于准」）。その靳準が兵力を用いて主君を弑逆したクーデターであり、判定基準の例外4（朝廷内部の権力者による兵力を伴う弑逆・クーデター）に該当するためrebellionSufferedCountには計上するが、鎮圧の主体が皇帝側ではなく反乱者側であるためrebellionSuppressionCountには計上しない。",
+            "outcome": "国舅・大将軍・録尚書事の靳準が兵を率いて宮中に乱入し、光極前殿に登って甲士に命じて劉粲を捕らえさせ、罪状を数え上げた上で処刑した。劉氏一族は男女を問わず皆殺しにされ（「刘氏男女无少长皆斩于东市」）、劉元海・劉聡の墓も暴かれ宗廟も焼かれた。劉粲は即位からわずか約1ヶ月で殺害され、前趙（漢趙）政権は事実上崩壊した。靳準は自ら大将軍・漢天王を称して簒奪した。",
+            "name": "靳準の乱",
+            "startDate": null,
+            "endDate": null,
+            "datePrecision": "year",
+            "leader": "靳準"
+          }
+        ],
+        "note": "日付は晋書元帝紀の記述順（劉聡死→粲嗣位→8月冀徐青三州蝗→靳準弑粲）から太興元年（318年）8月頃と推定されるが、載記本文では月の明記がないためdatePrecisionはyearとした。",
+        "count": 1
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。離石→蒲子→平陽の遷都は劉元海（劉淵）の代、平陽→長安の遷都は劉曜の代の出来事であり、劉和・劉聡・劉粲の各代には追加の遷都記録はない。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "accessionAge": null,
+        "deathDate": null,
+        "deathDatePrecision": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "既存レコード(deathCause.note・accessionRoute.note・reignData・reigns[].note等)および_corpus_cache/qianzhao-liucan.txt(晋書載記第二 劉聰下 劉粲部分)を確認したが、生年月日・即位時年齢・享年の直接記載は見当たらなかった。父劉聡の崩御(318年)を受けて即位し、在位約1ヶ月で靳準のクーデターにより殺害された事実(晋書元帝紀・載記とも記載)のみ確認でき、年齢を逆算できる年号年ラベルの対応記載も見つからなかった。五胡十六国期の極短命な即位者に典型的な生年不詳ケースと判断し、ages各フィールドはnullのまま確定する。"
+      }
+    },
+    {
+      "id": "qianzhao-liuyao",
+      "name": {
+        "personalName": "劉曜",
+        "commonName": "劉曜",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "前趙（漢趙）",
+        "category": "並立政権",
+        "section": "前趙"
+      },
+      "reigns": [
+        {
+          "startYear": 318,
+          "endYear": 329,
+          "dynastyOrder": 5,
+          "isRestoration": false,
+          "note": "靳準討伐後、318年10月に赤壁で皇帝への即位を宣言、国号を『趙』に改めた。後趙との洛陽の戦いで捕虜となり処刑。",
+          "raw": "318年 - 329年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": null,
+          "startDateRaw": "318年10月（旧暦、日不詳）",
+          "endDateRaw": "329年（日不詳、処刑）",
+          "datePrecision": {
+            "start": "month",
+            "end": "month"
+          },
+          "duration": {
+            "value": 3745,
+            "unit": "day",
+            "approxDays": 3745,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百三 載記第三（劉曜）",
+              "lang": "zh-classical",
+              "quote": "曜以太興元年僭即皇帝位，大赦境內，惟準一門不在赦例，改元光初。……曜在位十年而敗。",
+              "conversion": "即位月(318年10月)は資治通鑑と整合、変更なし。崩御(処刑)は原典に具体的な干支・月の記載がなく既存の『329年（日不詳）』のまま。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 3745,
+          "displayYears": 10.26,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 318,
+        "lastEndYear": 329,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 318
+      },
+      "sources": {
+        "wikidata": "Q1149197",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "前趙（漢趙）皇帝。劉曜。"
+      },
+      "deathCause": {
+        "category": "処刑",
+        "note": "太和2年（329年）、後趙の石虎を破った勢いで洛陽を攻めたが、石勒自ら大軍を率いて救援に向かい、石虎・石堪・石聡と三方から挟撃されて大敗。劉曜自身が酒に酔っていた状態で捕らえられ、襄国へ護送された。石勒は前趙君主の名義で各地に投降を呼びかけさせようとしたが劉曜がこれを拒否したため、激怒した石勒の命により処刑された。政権交代後の勝者（後趙・石勒）側による処断のため処刑に分類。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第三 劉曜",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "推戴",
+        "note": "劉淵の族子。靳準の乱で劉粲以下の劉氏一族が殺害された後、長安から討伐に向かい、赤壁で平陽から逃れた重臣たちに尊号を奉られて即位した（『晋書』載記第三「靳准之难，自长安赴之。至于赤壁，太保呼延晏等自平阳奔之，与太傅硃纪、太尉范隆等上尊号。曜以太兴元年僭即皇帝位」）。前帝・劉粲から位を受けた記事はない。即位後に国号を「漢」から「趙」に改めた（前趙）。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第三 劉曜",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "自立",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "該当なし",
+          "relationToPredecessor": "該当なし",
+          "procedure": "儀礼なし・自称"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0318",
+            "datePrecision": "year",
+            "note": "「曜以太興元年僭即皇帝位、大赦境内、惟準一門不在赦例、改元光初」。即位に伴う建元。",
+            "source": {
+              "page": "晋書載記第三",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位期間中（318～329年）、光初以外の改元記事は見られず、光初の元号が最後まで継続使用された。"
+      },
+      "amnestyCount": {
+        "count": 6,
+        "events": [
+          {
+            "date": "0318",
+            "datePrecision": "year",
+            "note": "太興元年、皇帝を僭称し即位。境内に大赦（靳準一門のみ赦例に非ず）。改元光初と同時。",
+            "source": {
+              "page": "晋書載記第三",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "靳明降伏・遷都長安・立后（羊氏）立太子（熙）等の後、「大赦境内殊死已下」。光初三年（320年）の記事より前に位置するため光初元～二年頃と推定。",
+            "source": {
+              "page": "晋書載記第三",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "游子遠の進言により尹車謀反・巴氐叛乱鎮圧後、「大赦境内」。光初三年（陳倉攻撃の記事）以降、太寧元年（323年）以前と推定。",
+            "source": {
+              "page": "晋書載記第三",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "終南山崩の祥瑞を受け、斎戒七日の後に太廟で受け「大赦境内」。太寧元年（323年）以前と推定。",
+            "source": {
+              "page": "晋書載記第三",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "父（永垣陵）・妻羊氏（顕平陵）の埋葬後、「大赦境内殊死已下」。太寧元年（323年）以前と推定。",
+            "source": {
+              "page": "晋書載記第三",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0328",
+            "datePrecision": "year",
+            "note": "咸和三年、三人金面の夢の凶兆を受け「大赦殊死已下」。",
+            "source": {
+              "page": "晋書載記第三",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "「曲赦」（太寧元年の陇右限定、及び曜が長安に還った際の長安限定の恩赦）は地域限定の恩赦のため「大赦」に該当せず対象外とした。日付未確定の事件は前後の紀年記事（光初三年・太寧元年・咸和三年）から相対的に推定した範囲を注記した。"
+      },
+      "empressInstallationCount": {
+        "count": 3,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "「立其妻羊氏為皇后」。遷都長安・立太子熙・封諸子王等と同時期の記事（光初元～二年頃）。",
+            "source": {
+              "page": "晋書載記第三",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "「曜立后劉氏」。太寧元年（323年）以降の記事群の中に位置する。",
+            "source": {
+              "page": "晋書載記第三",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "皇后劉氏の遺言により、その叔父劉昶の娘・芳を「立劉皑女芳為皇后」。咸和三年（328年）記事の直前に位置する。",
+            "source": {
+              "page": "晋書載記第三",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "羊氏（初代）・劉氏（二代目、疾病により死去）・劉芳（三代目）の3回の立后が明記されている。廃后の記載はなく、いずれも死去による代替わり。日付は本紀の記述順序から相対的に推定した。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "皇太子熙を廃して胤（義孫）に替える提案が劉聡の遺志を引き合いに議論されたが（呼延晏・卜泰・韓広らの諫言、及び胤自身の固辞）、「曜亦以太子羊氏所生、羊有寵、哀之不忍廃、乃止」とあり、実際には廃立は行われなかった。よって廃立回数は0とした。"
+      },
+      "personalCampaignCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "曜自ら精鋭を率いて雍から出陣し陳倉で楊曼を撃破（配下の王連戦死）、続いて草壁の路松多、安定を陥落させ、南陽王保は桑城へ退却した。長安へ凱旋。",
+            "note": "光初三年（320年）の記事。当初は妖星の兆しにより雍城で一旦進軍を停止したが、後日改めて出陣し攻略に成功した。",
+            "startDate": "0320",
+            "endDate": "0320",
+            "datePrecision": "year",
+            "target": "南陽王保勢力（楊曼・路松多、陳倉・草壁・安定方面）"
+          },
+          {
+            "outcome": "楊難敵を撃破し仇池へ追い詰めたが、曜自身が疾病に倒れ包囲継続が困難となり、使者を派遣して交渉。楊難敵は称藩し武都王に封じられ服属。南安の楊韜も降伏した。",
+            "note": "原文に具体的年号の記載なし。光初三年（陳倉遠征）以降、太寧元年（323年、陳安挙兵）以前の記事として相対的に推定（confidence medium）。",
+            "startDate": "0321",
+            "endDate": "0322",
+            "datePrecision": "year",
+            "target": "仇池氐（楊難敵・楊韜）"
+          },
+          {
+            "outcome": "曜自ら隴城を包囲し陳安を追い詰めた。陳安は突囲して逃走を図るも追撃され、澗曲で斬られ乱は平定された。",
+            "note": "太寧元年（323年）挙兵。鎮圧完了時期は原文に明記なく、通説（資治通鑑等）により太寧二年（324年）頃と推定。",
+            "startDate": "0323",
+            "endDate": "0324",
+            "datePrecision": "year",
+            "target": "陳安（隴右の反乱勢力）"
+          },
+          {
+            "outcome": "曜自ら28万5千の大軍を率いて西河まで進軍し軍事的威圧を加えた。実戦には至らず張茂は使者を送り称藩、馬・牛・羊・金銀等を献上して涼王に封じられた。",
+            "note": "原文に年号記載なし。陳安平定後、咸和三年以前の記事として推定（通説では太寧二年頃、confidence low〜medium）。",
+            "startDate": "0324",
+            "endDate": "0324",
+            "datePrecision": "year",
+            "target": "前涼（張茂、涼州）"
+          },
+          {
+            "outcome": "劉岳を救援するため自ら出兵し、当初は石季龍配下の石聡を破るも、金谷で夜間に軍中が原因不明の混乱に陥り総崩れとなり退却。劉岳ら配下将士多数が後趙軍に捕らえられ、士卒1万6千が生き埋めにされる大敗を喫した。",
+            "note": "原文に年号記載なし。張茂の記事の後、咸和三年以前の出来事として推定（通説では太寧三年、confidence low）。",
+            "startDate": "0325",
+            "endDate": "0325",
+            "datePrecision": "year",
+            "target": "後趙（石生・石季龍、洛陽方面）"
+          },
+          {
+            "outcome": "石季龍の侵攻に対し自ら大軍を率いて出撃し高候で撃破・追撃したが、金墉包囲中に石勒本隊が到着。酒に酔った状態で西陽門の戦いに臨み大敗、馬もろとも氷上に転落して負傷、捕らえられた。後に石勒により処刑され前趙は事実上滅亡した。",
+            "note": "咸和三年の記事。捕縛後は間もなく（咸和四年頃）処刑された。",
+            "startDate": "0328",
+            "endDate": "0328",
+            "datePrecision": "year",
+            "target": "後趙（石勒・石季龍、蒲坂・金墉方面）"
+          }
+        ],
+        "note": "6件のうち318年即位直後の陳倉遠征と328年の最終決戦は原文の紀年（光初三年・咸和三年）で確定。仇池・張茂・洛陽の3件は原文に年号記載がなく、太寧元年（陳安挙兵）と咸和三年の間の相対的な記事順序及び通説から年代を推定した（confidence低め）。仇池・張茂は服属前の勢力を軍事威圧により服属（称藩）させたものであり反乱鎮圧ではないため親征回数にのみ計上。洛陽・蒲坂/金墉の2件は対等な独立政権である後趙との抗争のため反乱数には含めていない。",
+        "count": 6
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "note": "光初三年（陳倉遠征）以降、太寧元年（323年）以前の出来事として推定。長水校尉尹車の謀反に端を発し、巴・氐・羌30余万が呼応した大規模反乱。",
+            "outcome": "曜は当初親征を企図したが游子遠の諫言で思いとどまり、子遠を車騎大将軍として派遣。赦免と懐柔策により大半が投降し、句氏一族のみ陰密に籠城したが攻略され鎮圧完了した。",
+            "name": "尹車謀反・句渠知の乱（巴氐羌連合反乱）",
+            "startDate": "0320",
+            "endDate": "0322",
+            "datePrecision": "year",
+            "leader": "尹車・句渠知"
+          },
+          {
+            "note": "太寧元年（323年）挙兵。陳安はもと隴右で曜に服属していた将で、曜の疾病中に不遜を疑い離反・自立（涼王を自称）した。",
+            "outcome": "曜自ら隴城を包囲して鎮圧、陳安は逃走後に討ち取られた。",
+            "name": "陳安の乱",
+            "startDate": "0323",
+            "endDate": "0324",
+            "datePrecision": "year",
+            "leader": "陳安"
+          }
+        ],
+        "note": "上郡氐羌（虚除権渠）討伐は原文に「先是、上郡氐羌十余万落保険不降」とあり、元来前趙に服属していなかった勢力の征服・服属化と判断し反乱数には含めなかった。陳倉方面（南陽王保・路松多）も晋残存勢力との攻防であり服属民の反乱ではないと判断し除外した。",
+        "count": 2
+      },
+      "rebellionSufferedCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "note": "鎮圧回数と同一の反乱を被反乱側からも計上。",
+            "outcome": "游子遠の派遣により鎮圧に成功した。",
+            "name": "尹車謀反・句渠知の乱（巴氐羌連合反乱）",
+            "startDate": "0320",
+            "endDate": "0322",
+            "datePrecision": "year",
+            "leader": "尹車・句渠知"
+          },
+          {
+            "note": "鎮圧回数と同一の反乱を被反乱側からも計上。",
+            "outcome": "曜自身の親征により鎮圧に成功した。",
+            "name": "陳安の乱",
+            "startDate": "0323",
+            "endDate": "0324",
+            "datePrecision": "year",
+            "leader": "陳安"
+          }
+        ],
+        "note": "鎮圧回数と対称的に同一の2件を計上した。曜が捕縛された後（咸和三年末）に長安で将軍蔣英・辛恕が後趙の石勒に投降した事件は、曜が既に捕虜となり実質的な統治権を失った後の出来事であり、子の劉煕を中心とする残存勢力の代の事件として扱い、曜自身の被反乱数には算入しなかった。",
+        "count": 2
+      },
+      "capitalRelocationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0318-01-01",
+            "datePrecision": "year",
+            "from": "平陽",
+            "to": "長安",
+            "note": "劉曜在位中。晋書載記第三（劉曜載記）: 靳準の乱（318年、劉粲が靳準に弑され平陽が混乱・荒廃）の後、劉曜は赤壁で即位（太興元年、改元光初）。靳明の投降・誅殺により靳氏残党を平定した記事に続けて「使刘雅迎母胡氏丧于平阳、还葬粟邑……徙都長安、起光世殿於前、紫光殿於後。」と明記。平陽は靳準の乱で荒廃しており、劉曜は同一政権（国号は漢から趙に改めたが王統は連続）の遷都として長安に都を移した。（出典: 晋書 巻百三 載記第三 劉曜）"
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中に遷都1回（0318年 平陽→長安）。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathDate": "0329-01-01",
+        "deathDatePrecision": "year",
+        "accessionAge": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "既存レコード(reigns[].note/deathCause.note/accessionRoute.note等)及び_corpus_cache/qianzhao-liuyao.txt(晋書載記第三 劉曜載記)を確認したが、劉曜本人の生年・即位時年齢・没年齢の直接記載(「時年」「享年」等)は見当たらなかった。幼少期の逸話として「年八歳、従元海猎於西山」(劉淵に養われていた頃、8歳で狩猟に同行した)との記載はあるが、この出来事に対応する具体的な年号年のラベルがなく、逆算の起点として使えないため採用しなかった。死亡年(329年、後趙により処刑)は既存reigns[0].endDateRaw「329年(日不詳、処刑)」と一致するため年精度のみdeathDateに反映したが、享年不明のためdeathAgeはnullとした。調査したが原典に生年月日・享年の直接記載が見当たらなかった。"
+      }
+    }
+  ]
+}

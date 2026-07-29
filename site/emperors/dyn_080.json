@@ -1,0 +1,218 @@
+{
+  "meta": {
+    "dynastyName": "鄭",
+    "dynastySection": "隋末群雄",
+    "count": 1,
+    "file": "data/emperors/dyn_080.json"
+  },
+  "emperors": [
+    {
+      "id": "suimo-wangshichong",
+      "name": {
+        "personalName": "王世充",
+        "commonName": "王世充",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "鄭",
+        "category": "並立政権",
+        "section": "隋末群雄"
+      },
+      "reigns": [
+        {
+          "startYear": 619,
+          "endYear": 621,
+          "dynastyOrder": null,
+          "isRestoration": false,
+          "note": "楊侗（皇泰主）から禅譲を受け皇帝に即位。国号「鄭」、元号「開明」。武徳4年5月、唐へ降伏、その後長安護送中に定州刺史独孤修徳に殺害(正確な殺害日は未特定)。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0619-05-25",
+          "endDate": "0621-06-04",
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 741,
+            "unit": "day",
+            "approxDays": 741,
+            "exactDays": 741,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "旧唐書 巻五十四 王世充・竇建德傳／旧唐書 巻一 高祖本紀",
+              "lang": "zh-classical",
+              "quote": "（即位）王世充傳「四月，假为侗诏策禅位，遣兄世恽废侗于含凉殿，世充僭即皇帝位，建元曰开明，国号郑。」／旧唐書高祖本紀「（皇泰二年）夏四月乙巳，王世充篡越王侗位，僭称天子，国号郑。」（終了・降伏）旧唐書高祖本紀「（武德四年）五月己未，秦王大破窦建德之众于武牢，擒建德，河北悉平。丙寅，王世充举东都降，河南平。」王世充傳「乃率其将吏诣军门请降。」（死去）王世充傳「与兄苪、妻、子同徙于蜀，将行，为仇人定州刺史独孤修所杀。」",
+              "conversion": "即位: 高祖本紀の皇泰二年（619年）四月「乙巳」条をsxtwl.fromLunar(619,4,7,False)で換算すると新暦619-05-25、既存startDateと完全一致。終了: 同本紀武徳四年（621年）五月「丙寅」条（王世充の東都開城降伏）をsxtwl.fromLunar(621,5,9,False)で換算すると新暦621-06-04。既存endDate(0621-06-01)は月精度のプレースホルダだったため、原文干支に基づき日精度(0621-06-04)へ格上げした。",
+              "note": "死去日は蜀への配流出発直前に仇人・独孤修に殺害されたとのみ記され、具体的な干支は原文（王世充傳・高祖本紀とも）に記載がない。既存の運用方針（死亡日未特定のため降伏日を在位終了日として代用）を踏襲する。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 741,
+          "displayYears": 2.03,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 619,
+        "lastEndYear": 621,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 619
+      },
+      "sources": {
+        "wikidata": "Q708305",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "『旧唐書』卷54王世充傳「世充僭即皇帝位，建元曰開明，國號鄭」で確認。"
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "洛陽陥落後、高祖は罪を問うたが秦王の「不死」の約束に従い庶人として蜀への流刑に処した。出発前、羽林将軍・独孤修徳（世充にかつて父を誅殺された仇討ち）に殺害された。旧唐書史臣曰も「出降秦王，不致顕戮」と公的処刑ではなかったと明記し、高祖は修徳を免官としたのみで厳罰していない。政権交代後の私怨による内部殺害のため暗殺と判定（境界事例）。",
+        "confidence": "medium",
+        "source": {
+          "page": "新唐書 王世充伝／旧唐書 巻五十四（王世充・竇建徳伝）／旧唐書 高祖本紀 武徳四年七月条",
+          "lang": "zh-classical"
+        }
+      },
+      "accessionRoute": {
+        "category": "受禅（易姓）",
+        "note": "世充は「復子明辟」（後で位を返す）を偽って恭帝侗を懐柔した上で、侗の禅位の詔を偽造させ（「仮為侗詔策禅位」）、皇帝に即位（国号「鄭」、元号「開明」）。形式は禅譲だが詔自体が偽造されており実質は簒奪。",
+        "confidence": "high",
+        "source": {
+          "page": "旧唐書 巻五十四（王世充・竇建徳伝）",
+          "lang": "zh-classical"
+        },
+        "axes": {
+          "throneSource": "他政権から受禅",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "本人"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "生前譲位",
+          "relationToPredecessor": "無血縁",
+          "procedure": "偽詔・矯詔"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0619-04",
+            "datePrecision": "month",
+            "note": "皇泰2年(619年)四月乙巳、楊侗（皇泰主）から禅譲を受けて皇帝に即位し、翌丙午、建元して「開明」とし、国号を鄭とした。皇帝即位と同時の建元（最初の建元）であり、これ以前に王世充自身の年号は存在しない（それ以前は郑王・相国として皇泰主の「皇泰」年号を奉じていた）。在位中（619〜621年）に他の改元記録は見当たらない。",
+            "source": {
+              "page": "旧唐書 巻五十四 王世充竇建德列伝",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "『旧唐書』『新唐書』『資治通鑑』いずれも即位と改元開明を同時期の出来事として記す。二段階即位（王→皇帝で別の年号を用いた期間）には該当しない。"
+      },
+      "amnestyCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": "0619-04",
+            "datePrecision": "month",
+            "note": "皇泰二年(619年)四月乙巳、王世充が法駕を備え洛陽宮に入り皇帝に即位。翌丙午、大赦を行うと同時に建元して「開明」とし、国号を鄭とした。即位・改元と同日の大赦。",
+            "source": {
+              "page": "資治通鑑 巻一百八十七（唐紀三）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "『新唐書』王世充伝に「三年、下書大赦」とあり、開明三年（本紀・列伝の記事順から武徳三〜四年頃、620〜621年、秦王李世民による洛陽包囲の最中）に大赦を発したとする記載がある。『旧唐書』には対応する記述は見当たらず、単独史料（新唐書）のみに拠る。（旧 precision 記載: year(推定621年頃)）",
+            "source": {
+              "page": "新唐書 巻八十五 王世充竇建德列伝",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "medium",
+        "note": "武徳四年七月丁卯（620/621年）の『大赦天下』（旧唐書高祖本紀）は唐高祖が窦建徳・王世充討平後に発した唐朝自身の大赦であり、王世充自身が発した恩赦ではないため対象外とした。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "『旧唐書』巻五十四・『新唐書』巻八十五の王世充伝を通読したが、皇后冊立に関する記載は見当たらない。王世充の妻についての記述自体が乏しく、皇后として正式冊立された事実は確認できない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "即位当日の皇泰2年(619年)四月戊申、子の玄応を皇太子に立てたが（『資治通鑑』巻一百八十七）、在位中に皇太子を廃立した記録は『旧唐書』『新唐書』『資治通鑑』のいずれにも見当たらない。玄応は世充が唐に降伏し蜀へ護送される途上、世充が独孤修徳に殺害された後、謀反を企てて誅殺されたのみで、正式な廃立手続きは確認できない。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "旧唐書王世充伝を通読。一貫して洛陽（東都）が都、遷都の記録なし。"
+      },
+      "personalCampaignCount": {
+        "count": 2,
+        "events": [
+          {
+            "startDate": "0619-10",
+            "endDate": null,
+            "datePrecision": "month",
+            "target": "滑州・黎陽（東方への領土拡大）",
+            "outcome": "黎陽に兵を臨ませ東方の地を平定。これに対し竇建德が報復として鄭の殷州を攻撃する遠因となった。",
+            "note": "開明元年（皇泰2年/619年）十月、「世充率衆東徇地，至於滑州，仍以兵臨黎陽」（旧唐書巻五十四）。世充自身が軍を率いて東方へ出征した明確な記事。"
+          },
+          {
+            "startDate": "0620-08",
+            "endDate": "0621-03",
+            "datePrecision": "month",
+            "target": "秦王李世民（唐軍、洛陽包囲）",
+            "outcome": "敗北。8月の対陣・2月の出撃戦いずれも不利に終わり、以後城に籠って出撃せず、最終的に洛陽陥落・世充降伏（三月）に至った。",
+            "note": "同一の相手（秦王李世民率いる唐軍）による洛陽包囲戦線として一連の防衛行動を1回にまとめた。八月「秦王陳兵於青城宮，世充悉兵來拒」（世充自ら全軍を率いて出て対陣・応酬）、翌年二月「世充率兵出方諸門，與王師相抗，世充軍敗」（世充自ら兵を率いて城門から出撃し敗北）のいずれも世充本人が親しく軍を率いた記事。防衛戦であり典型的な遠征型の「親征」とは性質が異なるため、判定基準の解釈に幅がある境界事例として確度を中とした。"
+          }
+        ],
+        "confidence": "medium",
+        "note": "対象は王世充自身の政権（鄭、619年4月即位〜621年6月降伏）としての軍事行動に限定し、隋の将軍だった即位以前の軍功（孟譲・格謙・盧明月・李密との戦い等）は除外した。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位中（619年4月即位〜621年6月降伏）に政権側が武力鎮圧の主体となった反乱事例は見当たらなかった。619年5月の礼部尚書裴仁基・その子行儼・尚書左丞宇文儒童ら数十人による「謀誅世充，復尊立侗」の陰謀は、実際の挙兵に至る前に「事泄」（密告により発覚）し関係者が誅殺された事案であり、兵力行使を伴う反乱には該当しないため鎮圧・被反乱いずれの集計にも含めなかった。竇建德の侵攻（619年11月・殷州攻撃）や唐（秦王李世民）による洛陽包囲（620〜621年）は、いずれも王世充政権に服属しない対等・優勢な独立勢力との抗争であり、服属民の反乱ではないため対象外とした。"
+      },
+      "rebellionSufferedCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "rebellionSuppressionCountと同一の理由により0件。619年5月の裴仁基らの陰謀は挙兵前に露見・鎮圧された謀反計画であり、実際の武力反抗（挙兵）に至っていないため被反乱としても不算入。竇建德・唐軍との抗争は対等な群雄・征服勢力との戦争であり服属勢力の反乱ではないため除外。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathDate": null,
+        "deathDatePrecision": null,
+        "accessionAge": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "調査対象の『旧唐書』巻五十四（王世充・竇建德列伝）を通読したが、王世充自身の生年・没時の年齢に関する直接記載（「時年」「享年」等）は見当たらなかった（同列伝内で年齢記載があるのは竇建德の「斬於長安市，年四十九」のみで、王世充本人には該当なし）。既存レコードのdeathCause.note／accessionRoute.note／reigns[].noteにも年齢記載はない。逆算可能な確定情報（生年に紐づく年号年）も見当たらないため、accessionAge/deathAgeともnullとした。"
+      }
+    }
+  ]
+}

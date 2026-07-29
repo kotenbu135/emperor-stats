@@ -1,0 +1,782 @@
+{
+  "meta": {
+    "dynastyName": "西魏",
+    "dynastySection": "北朝",
+    "count": 3,
+    "file": "data/emperors/dyn_077.json"
+  },
+  "emperors": [
+    {
+      "id": "xiwei-wendi",
+      "name": {
+        "personalName": "元宝炬",
+        "commonName": "文帝",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "西魏",
+        "category": "正統王朝",
+        "section": "北朝"
+      },
+      "reigns": [
+        {
+          "startYear": 535,
+          "endYear": 551,
+          "dynastyOrder": 1,
+          "isRestoration": false,
+          "note": "大統元年正月(戊申)、孝武帝の崩御を受けて即位。大統17年3月(庚戌)崩御。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0535-02-18",
+          "endDate": "0551-03-28",
+          "startDateRaw": "大統元年正月（戊申、即位於城西の日）",
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 5882,
+            "unit": "day",
+            "approxDays": 5882,
+            "exactDays": 5882,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "北史 巻五（魏本紀第五・西魏文帝）",
+              "lang": "zh-classical",
+              "quote": "大統元年春正月戊申，皇帝即位於城西，大赦，改元。……十七年春三月庚戌，帝崩於乾安殿，時年四十五。",
+              "conversion": "崩御記事の干支（大統17年3月庚戌）はsxtwl換算で551-03-28となり、既存endDateと完全一致。startDateは現行値が孝武帝崩御日（永熙3年閏12月癸巳=535-02-03）の換算と一致していたが、本紀が明記する正式な即位記事『即位於城西』の日付（大統元年正月戊申=535-02-18）に訂正する。先帝崩御日ではなく本人の即位記事日を採る扱いは、ブロック3以降で確立したjin-wudi/jin-huaidi等と同型のパターン。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 5882,
+          "displayYears": 16.1,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 535,
+        "lastEndYear": 551,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 535
+      },
+      "sources": {
+        "wikidata": "Q2985487",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": ""
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "大統17年(551年)3月庚戌、乾安殿で崩御(享年45)。原典は「崩」とのみ記し疾病名や不審死を示す記述はなく、自然死とみて矛盾しない。",
+        "confidence": "medium",
+        "source": {
+          "page": "北史 巻五 魏本紀(西魏文帝)",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "擁立",
+        "note": "孝文帝の孫・京兆王愉の子で孝武帝の従弟。永熙3年閏12月、孝武帝が宇文泰に殺害された後、丞相宇文泰が群臣を率いて即位を勧進(形式上三度辞退した後に受諾)。本人の主体的簒奪行為はなく宇文泰主導の擁立即位。",
+        "confidence": "high",
+        "source": {
+          "page": "北史 巻五 魏本紀(西魏文帝)",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "横死",
+          "relationToPredecessor": "従兄弟",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0535-02-03",
+            "datePrecision": "day",
+            "note": "大統元年正月戊申、即位に伴い建元「大統」(「皇帝即位於城西、大赦、改元」)。文帝一代を通じ大統十七年(551年)崩御まで改元は他になし。",
+            "source": {
+              "page": "北史卷五 魏本紀第五(西魏文帝)",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "即位時の建元のみ。以後在位17年間(大統元年〜十七年)を通じ年号「大統」のまま改元なし。"
+      },
+      "amnestyCount": {
+        "count": 7,
+        "events": [
+          {
+            "date": "0535-02-03",
+            "datePrecision": "day",
+            "note": "大統元年正月戊申、即位に伴う大赦(「皇帝即位於城西、大赦、改元」)。",
+            "source": {
+              "page": "北史卷五 魏本紀第五(西魏文帝)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "month",
+            "note": "大統三年(537年)二月、槐里で神璽が出土したことに伴う大赦(「槐里獲神璽、大赦」)。",
+            "source": {
+              "page": "北史卷五 魏本紀第五(西魏文帝)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "month",
+            "note": "大統四年(538年)三月、蠕蠕女郁久閭氏の立后に伴う大赦(「立蠕蠕女郁久閭氏為皇后、大赦」)。",
+            "source": {
+              "page": "北史卷五 魏本紀第五(西魏文帝)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "month",
+            "note": "大統九年(543年)秋七月の大赦。",
+            "source": {
+              "page": "北史卷五 魏本紀第五(西魏文帝)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "month",
+            "note": "大統十三年(547年)三月の大赦。",
+            "source": {
+              "page": "北史卷五 魏本紀第五(西魏文帝)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "month",
+            "note": "大統十四年(548年、正月頃)皇孫誕生に伴う大赦(「皇孫生、大赦」)。",
+            "source": {
+              "page": "北史卷五 魏本紀第五(西魏文帝)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "month",
+            "note": "大統十六年(550年)秋九月の大赦。",
+            "source": {
+              "page": "北史卷五 魏本紀第五(西魏文帝)",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "「大赦」と明記された全国規模の恩赦のみカウント。大統五年の「赦京城内」(京城限定)、大統十四年の「赦潁・豫・廣・北・洛・東荆・襄等七州」(特定七州限定)、大統元年の「降罪人」(減刑のみ)は地域限定または部分的措置のため除外。"
+      },
+      "empressInstallationCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "大統元年正月乙卯、妃乙氏を皇后に立てる(「立妃乙氏為皇后」)。",
+            "source": {
+              "page": "北史卷五 魏本紀第五(西魏文帝)",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "month",
+            "note": "大統四年三月、乙氏皇后廃位(同年二月「廃皇后乙氏」)後、蠕蠕(柔然)女の郁久閭氏を皇后に立てる(「立蠕蠕女郁久閭氏為皇后、大赦」)。",
+            "source": {
+              "page": "北史卷五 魏本紀第五(西魏文帝)",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中に皇后は乙氏→(廃后)→郁久閭氏の順で2回冊立。再冊立(同一人物の復位)はなし。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "大統元年正月乙卯に皇子欽(のちの廃帝)が皇太子に立てられて以降、文帝崩御(大統十七年三月)まで廃立の記載はない。欽は文帝崩御後にそのまま即位した(廃帝)。"
+      },
+      "ages": {
+        "deathDate": "0551-03-28",
+        "deathDatePrecision": "day",
+        "deathAge": 45,
+        "confidence": "high",
+        "note": "崩御時年齢45歳は北史（西魏文帝紀）に「時年四十五」と直接記載（十七年三月庚戌）。生年月日・即位時年齢の直接記載はなし。"
+      },
+      "personalCampaignCount": {
+        "count": 1,
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "緒戦では独孤信を洛陽の包囲から救援したが、その後の河橋の戦いで西魏軍が大敗し洛陽を再び失陥、関中へ撤退（撤退の隙を突かれ関中で東魏降卒の反乱＝趙青雀の乱が発生した）",
+            "note": "北史巻五(西魏文帝紀)「秋七月，东魏将侯景等围洛阳，帝与安定公宇文泰东伐。九月，车驾至自东伐」により文帝本人の出陣を確認。周書巻二(太祖紀下)では「先是，魏帝将幸洛阳拜园陵，会信被围，诏太祖率军救信，魏帝亦东」「是夕，魏帝幸太祖营」「又未知魏帝及太祖所在」「魏帝留止阌乡」と、文帝が谷城・瀍東まで進軍し閿郷に留まったことが確認できる。他の対東魏戦（沙苑・邙山・玉璧等）はいずれも宇文泰単独の指揮によるもので文帝本人の出陣が確認できないため親征には含めていない。",
+            "target": "東魏(侯景・高歓)",
+            "startDate": "0538-07-01",
+            "datePrecision": "month",
+            "endDate": "0538-09-01"
+          }
+        ],
+        "note": "在位17年間で文帝自身の出陣が明記される軍事行動はこの1件のみ。対東魏戦は対等な独立政権同士の戦争だが、親征回数のカウント基準（皇帝本人の出陣の有無のみを問う）に従い計上した。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 9,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "仪同三司段敬が討伐し平定",
+            "leader": "梁□定（河州境の羌族酋長、梁覧＝梁景睿の従弟。原文の人名中間部が文字化け）",
+            "name": "河州羌・梁□定の乱（第1次）",
+            "note": "北史巻五「二年...二月，仪同三司段敬讨叛羌梁ＧＣ定平之」。北史巻四十九梁覧伝「览从弟ＧＣ定反，欲图览，览与数战未能平，王师至，始破之」と対応し、河州刺史梁覧の従弟にあたる羌族酋長と判明。confidence medium（人名判読不能）。",
+            "startDate": "0536-02-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "太祖(宇文泰)自ら軽騎を率いて追撃したが河北千余里に及ぶも追いつけず、逃亡を許した（鎮圧失敗）",
+            "leader": "万俟普拨（秦州刺史・建忠王）及びその子万俟寿楽干（太宰）",
+            "name": "万俟普拨の東魏亡命（叛入東魏）",
+            "note": "周書巻二(太祖紀下)「秦州刺史、建中王万俟普拨率所部叛入东魏。太祖勒轻骑追之，至河北千余里，不及而还」。北史巻五にも対応記事「秦州刺史、建忠王万俟普拨及其子太宰寿乐干率所部奔东魏」あり。既に秦州刺史という要職にあった人物の離反で宇文泰自ら追討を試みたため計上した。confidence medium（実際の交戦記録はなく追撃失敗のみ）。",
+            "startDate": "0536-05-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "建昌太守賀蘭植に攻められ斬られた（鎮圧成功）",
+            "leader": "李叔仁（凉州刺史・司徒）",
+            "name": "李叔仁の東魏内通事件",
+            "note": "北史巻五「十二月，司徒李叔仁自凉州通使于东魏，建昌太守贺兰植攻斩之」。北史巻三十七李叔仁伝「后除凉州刺史。遣使密通款于东魏，事觉见杀」。「攻斩之」の表現から武力行使を伴ったとみられるが、実際の挙兵の記述はなく密告発覚による討伐の側面が強い。confidence medium。",
+            "startDate": "0537-12-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "華州刺史宇文導・宇文泰が討伐し鎮圧、梁景睿は誅殺、関中平定",
+            "leader": "趙青雀・於伏徳（沙苑の戦いで捕虜となった東魏降卒）、太傅梁景睿（内通）",
+            "name": "趙青雀の乱（関中・東魏降卒の反乱）",
+            "note": "周書巻二(太祖紀下)・北史巻五共通。大統四年の東伐(河橋の戦い)で西魏軍が敗れ関中の留守兵が手薄になった隙に、沙苑の戦いの捕虜で民間に散在していた東魏降卒(趙青雀・於伏徳ら)が長安子城・咸陽で蜂起。太傅梁景睿(病で長安に留まっていた)もこれに通謀し誅殺された。同時期に弘農でも捕虜の東魏降卒が閉門拒守する事件があり(「所虏降卒在弘农者，因相与闭门拒守。进攻拔之，诛其魁首数百人」)、同一の東伐失敗を契機とした東魏降卒反乱として本件に含めた。confidence high。",
+            "startDate": "0538-08-01",
+            "datePrecision": "month",
+            "endDate": "0538-09-01"
+          },
+          {
+            "outcome": "于謹が討伐し捕縛（鎮圧成功）",
+            "leader": "劉平（伏）（稽胡帥・夏州刺史）",
+            "name": "劉平の乱",
+            "note": "北史巻五「七年春二月...三月，夏州刺史刘平谋反，大都督于谨讨禽之」。周書巻二(太祖紀下)「七年春三月，稽胡帅、夏州刺史刘平伏据上郡叛，遣开府于谨讨平之」と対応。既に夏州刺史という官職にあった稽胡(山胡)族長の離反。confidence high。",
+            "startDate": "0541-03-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "独孤信が討伐し平定（梁仚定自身は部下に殺されたが、遺した徒党も独孤信に撃破・投降させられた）",
+            "leader": "梁仚定（岷州刺史・赤水蕃王）",
+            "name": "梁仚定の乱（赤水羌の反乱、第2次）",
+            "note": "北史巻五「冬十一月，叛羌梁ＧＣ定徒党屯于赤水城，秦州刺史独孤信击平之」。周書巻十六独孤信伝に詳細「七年，岷州刺史、赤水蕃王梁仚定举兵反，诏信讨之。仚定寻为其部下所杀。而仚定子弟，仍收其余众...乘胜逐北，径至城下，贼并出降」。北史巻四十九梁覧伝の「览从弟ＧＣ定」(大統二年反乱)と同一人物とみられ、大統二年に一度鎮圧された後5年を経て再挙兵したため別件として計上した。confidence medium（前回鎮圧との同一人物性の判断に幅あり）。",
+            "startDate": "0541-11-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "独孤信が凉州を攻略し宇文仲和を捕縛、瓜州も別途鎮圧（鎮圧成功）",
+            "leader": "宇文仲和（凉州刺史）、張保（瓜州民）",
+            "name": "宇文仲和の乱",
+            "note": "北史巻五「十二年春二月，凉州刺史宇文仲和反，秦州刺史独孤信讨平之」。周書巻二(太祖紀下)に詳細「凉州刺史宇文仲和据州反。瓜州民张保害刺史成庆，以州应仲和...夏五月，独孤信平凉州，擒仲和...瓜州都督令狐延起义诛张保，瓜州平」。凉州刺史の離反に瓜州の張保も呼応した事案で一体の反乱として計上。confidence high。",
+            "startDate": "0546-02-01",
+            "datePrecision": "month",
+            "endDate": "0546-05-01"
+          },
+          {
+            "outcome": "西魏は配下の将士を追還し王思政に頴川を接収させたが、侯景自身は梁へ逃亡し捕捉できず（鎮圧は不完全）",
+            "leader": "侯景（大将軍・河南大行台）",
+            "name": "侯景の反乱（西魏からの離反）",
+            "note": "北史巻五「秋七月，司空若干惠薨。大将军侯景据豫州叛」。同年二月に河南六州を率いて西魏に内附し太傅・河南大行台に任じられていた侯景が7月に予州で離反。周書巻二(太祖紀下)「秋七月，侯景密图附梁。太祖知其谋，悉追还前后所配景将士。景惧，遂叛」。最終的に梁へ亡命し討伐は不成功だったが、鎮圧を試みた(配下将士召還・頴川接収)ため計上した（規定により鎮圧成否は問わない）。confidence medium。",
+            "startDate": "0547-07-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "楊忠が随郡を攻略し安陸を包囲、翌年正月に梁の援軍柳仲礼を撃破・捕縛し安陸を陥落（鎮圧成功）",
+            "leader": "孫暠（元梁の竟陵郡守、西魏に内附後に離反）",
+            "name": "孫暠の乱・柳仲礼来援の撃退",
+            "note": "周書巻二(太祖紀下)「梁竟陵郡守孙暠举郡来附，太祖使大都督符贵往镇之。及景克建业，仲礼还司州，率众来寇，暠以郡叛。太祖大怒。冬十一月，遣开府杨忠率兵与行台仆射长孙俭讨之，攻克随郡...十六年春正月，柳仲礼率众来援安陆，杨忠逆击于漴头，大破之，擒仲礼」。元梁の竟陵郡守孫暠が西魏に服属した後、梁の攻勢を受けて再び梁側に離反(「以郡叛」)した事案。西魏はこれを討伐し、梁からの救援軍も撃破した。対梁(対等政権)との戦争と一体化した事案だが、発端が服属していた孫暠の離反であるため反乱として計上した。confidence medium。",
+            "startDate": "0549-11-01",
+            "datePrecision": "month",
+            "endDate": "0550-01-01"
+          }
+        ],
+        "note": "北史巻五(西魏文帝紀)自体は簡略な記事のみのため、周書巻二(太祖紀下)・巻十六(独孤信伝)・巻三十七(李叔仁伝)・巻四十九(梁覧伝)で補完した（china-history側の北史巻五ファイルは空のためdaizhigev20全文検索を使用）。東魏(高歓政権)との戦争(沙苑・河橋・邙山・玉璧の戦い等)、および高仲密の西魏内附・元罗や许和の勢力移動など武力衝突を伴わない単純な離反・帰順は対等政権間の勢力移動とみなし除外した。既述の9件はいずれも既に服属していた州刺史・将軍クラスの離反、または捕虜となった東魏降卒の蜂起であり反乱として計上した。うち複数件(万俟普拨・李叔仁・侯景)は「叛」の語はあるが実際の交戦記録が乏しく、confidence medium。"
+      },
+      "rebellionSufferedCount": {
+        "count": 9,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "段敬に鎮圧された",
+            "leader": "梁□定（河州境の羌族酋長）",
+            "name": "河州羌・梁□定の乱（第1次）",
+            "note": "rebellionSuppressionCountの同名事件と対応。confidence medium。",
+            "startDate": "0536-02-01",
+            "datePrecision": "year",
+            "endDate": null
+          },
+          {
+            "outcome": "太祖の追撃も及ばず逃亡を許した（鎮圧失敗のまま在位終了まで再挙兵の記録なし）",
+            "leader": "万俟普拨（秦州刺史・建忠王）及びその子万俟寿楽干",
+            "name": "万俟普拨の東魏亡命",
+            "note": "rebellionSuppressionCountの同名事件と対応。既に服属していた秦州刺史の離反であり、鎮圧が不成功に終わった点で被反乱に計上。confidence medium。",
+            "startDate": "0536-05-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "討伐され誅殺された",
+            "leader": "李叔仁（凉州刺史・司徒）",
+            "name": "李叔仁の東魏内通事件",
+            "note": "rebellionSuppressionCountの同名事件と対応。confidence medium。",
+            "startDate": "0537-12-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "宇文泰・宇文導により鎮圧され関中平定",
+            "leader": "趙青雀・於伏徳（東魏降卒）、太傅梁景睿（内通）",
+            "name": "趙青雀の乱（関中・東魏降卒の反乱）",
+            "note": "rebellionSuppressionCountの同名事件と対応。皇帝(文帝)自身は東伐中で閿郷に留まっており在京しなかったが、政権の本拠地たる長安・咸陽が直接反乱の標的となった重大事案。confidence high。",
+            "startDate": "0538-08-01",
+            "datePrecision": "month",
+            "endDate": "0538-09-01"
+          },
+          {
+            "outcome": "于謹に捕縛され鎮圧",
+            "leader": "劉平（伏）（稽胡帥・夏州刺史）",
+            "name": "劉平の乱",
+            "note": "rebellionSuppressionCountの同名事件と対応。confidence high。",
+            "startDate": "0541-03-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "独孤信に鎮圧された",
+            "leader": "梁仚定（岷州刺史・赤水蕃王）",
+            "name": "梁仚定の乱（赤水羌の反乱、第2次）",
+            "note": "rebellionSuppressionCountの同名事件と対応。confidence medium。",
+            "startDate": "0541-11-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "独孤信に鎮圧された",
+            "leader": "宇文仲和（凉州刺史）、張保（瓜州民）",
+            "name": "宇文仲和の乱",
+            "note": "rebellionSuppressionCountの同名事件と対応。confidence high。",
+            "startDate": "0546-02-01",
+            "datePrecision": "month",
+            "endDate": "0546-05-01"
+          },
+          {
+            "outcome": "侯景本人は梁へ逃亡し捕捉されなかった（鎮圧未完了）",
+            "leader": "侯景（大将軍・河南大行台）",
+            "name": "侯景の反乱（西魏からの離反）",
+            "note": "rebellionSuppressionCountの同名事件と対応。confidence medium。",
+            "startDate": "0547-07-01",
+            "datePrecision": "month",
+            "endDate": null
+          },
+          {
+            "outcome": "楊忠に鎮圧され安陸を確保",
+            "leader": "孫暠（元梁の竟陵郡守）",
+            "name": "孫暠の乱・柳仲礼来援の撃退",
+            "note": "rebellionSuppressionCountの同名事件と対応。confidence medium。",
+            "startDate": "0549-11-01",
+            "datePrecision": "month",
+            "endDate": "0550-01-01"
+          }
+        ],
+        "note": "rebellionSuppressionCountと同一の9件をそのまま対称的に計上した（集計粒度差・未鎮圧終了等の食い違いは生じていない）。全件が服属していた州刺史・将軍クラスの離反、または捕虜東魏降卒の蜂起であり、政権(西魏)の支配基盤への直接的な反抗行動と判断した。東魏(高歓政権)との対等な政権間戦争、および武力衝突を伴わない単純な勢力移動は除外している。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "北史魏本紀を通読。文帝の長安即位（建国時の定都）から恭帝の隋への禅譲まで長安が一貫した都、遷都の記録なし。"
+      }
+    },
+    {
+      "id": "xiwei-feidi-yuanqin",
+      "name": {
+        "personalName": "元欽",
+        "commonName": "廃帝",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "西魏",
+        "category": "正統王朝",
+        "section": "北朝"
+      },
+      "reigns": [
+        {
+          "startYear": 551,
+          "endYear": 554,
+          "dynastyOrder": 2,
+          "isRestoration": false,
+          "note": "大統17年3月6日（庚戌）、父・文帝の崩御を受け即位（独自の元号は建てず父の年号を踏襲、552年に「元年」と改称）。554年2月頃廃位。恭帝元年4月庚戌、宇文泰により毒殺。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0551-03-28",
+          "endDate": "0554-03-01",
+          "startDateRaw": "大統17年3月6日（庚戌、父・文帝の崩御と同日の即位）",
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "day",
+            "end": "month"
+          },
+          "duration": {
+            "value": 1069,
+            "unit": "day",
+            "approxDays": 1069,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "北史 巻五（魏本紀第五・西魏廃帝）／資治通鑑 巻一六四（梁紀二十）",
+              "lang": "zh-classical",
+              "quote": "十七年三月，即皇帝位。（北史）／庚戌，魏文帝殂，太子欽立。（資治通鑑）／三年春正月，安定公宇文泰廢帝而立齊王廓。（北史）",
+              "conversion": "資治通鑑が明記する即位日の干支「庚戌」（大統17年3月）はsxtwl換算で551-03-28。父・文帝の崩御と同日の即位であることが複数史料で確認できるため、既存startDate(0551-04-17、父崩御日とは無関係な値)を訂正する。廃位（reign end）は原典に日次記載がなく月精度に留まる。",
+              "note": "既存ノートの『大統17年3月6日』はsxtwl換算で庚戌=551-03-28と一致するが、格納されていたstartDate自体はこれと不整合であり、データ内部の矛盾だったとみられる。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 1069,
+          "displayYears": 2.93,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 551,
+        "lastEndYear": 554,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 551
+      },
+      "sources": {
+        "wikidata": "Q2660296",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "『北史』卷5「十七年三月，即皇帝位」（大統17年/551年）と原典で確認。"
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "宇文泰暗殺を謀った尚書元烈の事件(553年)後、元欽自身も李基・李暉・於翼ら宿衛の武衛将軍を語らい宇文泰暗殺を計画したが密告され発覚、恭帝3年(554年)正月、宇文泰により廃位・幽閉。同年4月庚戌、宇文泰が毒酒(鴆)で毒殺した(『資治通鑑』巻165「庚戌、魏太師泰鴆殺廢帝」)。同一政権内部者(宇文泰)による謀殺のため暗殺に分類。",
+        "confidence": "high",
+        "source": {
+          "page": "資治通鑑 巻165",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "文帝の長子。大統元年(535年)正月に皇太子に立てられ、大統17年(551年)3月、父・文帝崩御を受け正式な手続きで即位した。実権は宇文泰にあったが即位経路自体は嫡長子としての通常の世襲継承。",
+        "confidence": "high",
+        "source": {
+          "page": "北史 巻五 魏本紀(西魏廢帝)",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "廢帝は即位記事（「十七年三月、即皇帝位」）において「改元」「建元」の語が用いられておらず、以後の記事も「元年」「二年」「三年」という即位起算の紀年のみで独自の年号を建てていない（史実として廢帝は無年号で知られる）。後継の恭帝の即位記事には「廢帝三年正月、即皇帝位、改元」と明記されるのと対照的であり、廢帝自身に改元の記載がないことは確度が高い。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "北史卷五の西魏廢帝（元欽）在位期間の記事（大統十七年三月即位～廢帝三年正月廢位まで）を通読したが、「大赦」の語は一度も現れない。文帝紀（父帝の代）には大赦記事が複数あるが、廢帝自身の治世には見られない。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "廢帝の治世中に皇后を立てた記事は見られない。母の乙皇后は父・文帝の皇后であり、廢帝自身による立后記事ではない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "廢帝自身が大統元年正月乙卯に父・文帝によって皇太子に立てられた記事はあるが、これは廢帝自身の治世下の出来事ではなく即位前の立太子である（カウント対象外）。廢帝の治世中に皇太子を立てた記事、および廃立した記事は見られない。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "在位中（551年3月即位～554年正月廃位）の記録（北史巻五、資治通鑑巻165）に帝自身が軍を率いて出征した旨の記述（「帝自将」「親征」等）は見当たらない。梁の侵攻撃退（551年3月、大将軍楊忠が梁の邵陵王蕭綸を安陸で撃破）、剣南平定（553年8月、大将軍尉遅迥が成都を攻略）はいずれも将軍による軍事行動であり皇帝本人の出陣ではないため該当なし。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "該当記事なし。在位中の軍事行動は(1)551年3月、梁の邵陵王蕭綸の安陸侵攻を大将軍楊忠が撃退、(2)553年8月、大将軍尉遅迥が成都（剣南）を攻略・平定、のいずれも南朝梁（対等な独立政権）との対外戦争であり、西魏に服属する臣下の反乱ではないため反乱鎮圧に該当しない。また553年11月、尚書元烈が宇文泰暗殺を謀るも計画が露見し宇文泰に誅殺された事件（北史巻五「安定公宇文泰殺尚書元烈」、資治通鑑巻165「魏尚書元烈謀殺宇文泰、事泄、泰殺之」、周書「元烈謀作乱、事発、伏誅」）は実際の挙兵に至らず密告・摘発のみで終わった謀反計画であり、鎮圧・被反乱いずれにも含めないルールに従い除外した。"
+      },
+      "rebellionSufferedCount": {
+        "count": 1,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "廃位され雍州に幽閉、同年4月（資治通鑑：夏四月庚戌）宇文泰により鴆殺された",
+            "leader": "宇文泰（安定公・太師）",
+            "name": "宇文泰による廃帝欽の廃位・鴆殺",
+            "note": "北史巻五「三年春正月、安定公宇文泰廃帝而立齊王廓。帝自元烈之誅、有怨言。淮安王育、広平王賛等並垂泣諫、帝不聴、故及於辱」、資治通鑑巻165（承聖三年）「魏主自元烈之死、有怨言、密謀誅太師泰…由是魏主謀泄、泰廃魏主、置之雍州、立其弟齊王廓」「庚戌、魏太師泰鴆殺廃帝」、周書「自元烈誅、魏帝有怨言…太祖與公卿定議、廃帝、尊立齊王廓」に基づく。経緯としては先に元烈（宇文泰暗殺を謀った尚書、553年11月誅殺）の死を恨んだ皇帝側が宇文泰誅殺を密謀したが、実行前に計画が露見し（原文は「謀泄」であり実際の武力行使には至っていない）、これを受けて権臣宇文泰が皇帝を廃位・幽閉し、後に毒殺した。皇帝本人が実際に武力行使に及んだ形跡がないため『例外3（皇帝が先制して武力打倒）』には該当せず、一方で史料上『兵力を伴うクーデター』と明記する記述も乏しい（『太祖與公卿定議、廃帝』と政治的合意による廃位のように書かれる）ため、事実上は権臣宇文泰が既に掌握していた軍事的実権を背景に皇帝を強制的に廃位・弑逆した『例外4』型の事件と判断し被反乱に1件計上した（鎮圧回数には含めない＝鎮圧主体が皇帝側ではないため）。confidence mediumとし、判断の分かれ目（例外3か例外4か）を明記する。",
+            "startDate": "0554-01-01",
+            "datePrecision": "month",
+            "endDate": "0554-04-01"
+          }
+        ],
+        "note": "上記1件を計上。なお元烈自身の宇文泰暗殺未遂（553年11月、事発・伏誅のみで挙兵に至らず）は謀反計画が密告・摘発のみで終わった案件のため被反乱には含めない（そもそも標的も皇帝ではなく宇文泰個人）。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "北史魏本紀を通読。文帝の長安即位（建国時の定都）から恭帝の隋への禅譲まで長安が一貫した都、遷都の記録なし。"
+      },
+      "ages": {
+        "accessionAge": null,
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathAge": null,
+        "deathDate": null,
+        "deathDatePrecision": null,
+        "confidence": "low",
+        "note": "既存レコード(reigns/deathCause/accessionRoute等の各note)および_corpus_cache/xiwei-feidi-yuanqin.txt(北史巻五・西魏廃帝紀)を確認したが、生年月日・即位時年齢・没年齢について「時年」「年◯◯」「享年」等の直接記載が見当たらなかった。史料は即位(大統17年3月)・立太子(大統元年正月)・廃位(恭帝三年正月)・鴆殺(恭帝元年4月庚戌)の経緯のみを記し、年齢情報を含まない。年号年ラベルの差分による逆算も、比較対象となる年齢直接記載が別途存在しないため不可能。"
+      }
+    },
+    {
+      "id": "xiwei-gongdi",
+      "name": {
+        "personalName": "拓跋廓",
+        "commonName": "恭帝",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "西魏",
+        "category": "正統王朝",
+        "section": "北朝"
+      },
+      "reigns": [
+        {
+          "startYear": 554,
+          "endYear": 557,
+          "dynastyOrder": 3,
+          "isRestoration": false,
+          "note": "西魏廃帝3年正月、宇文泰により擁立され即位(独自の年号は建てず「元年」と称し、即位後に鮮卑姓「拓跋」に復姓)。即位前の封号は「斉王」(「魏王」ではない)。恭帝3年12月30日(庚子)、宇文覚に禅譲。北周孝閔帝元年正月辛丑(557年2月17日ごろ)、宋国公に封じられ、約2ヶ月後の同年二月末(ユリウス暦557年4月中旬ごろ)、宇文護により殺害(詳細はdeathCause参照)。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0554-02-01",
+          "endDate": "0557-02-14",
+          "startDateRaw": null,
+          "endDateRaw": "恭帝3年12月30日（庚子、宇文覚への禅譲の日）",
+          "datePrecision": {
+            "start": "month",
+            "end": "day"
+          },
+          "duration": {
+            "value": 1109,
+            "unit": "day",
+            "approxDays": 1109,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "北史 巻五（魏本紀第五・西魏恭帝）",
+              "lang": "zh-classical",
+              "quote": "恭皇帝諱廓，文皇之第四子也。大統十四年，封為齊王。廢帝三年正月，即皇帝位，改元。……〔恭帝〕三年……十二月庚子，帝遜位於周。",
+              "conversion": "即位日は原典に干支記載がなく月精度のまま（廃帝3年=554年正月、西暦換算で概ね554-02-18〜03-19の範囲）。譲位日は干支『庚子』（恭帝3年12月30日）が明記されており、sxtwl換算で557-02-14（西暦）。既存endDate(0556-12-01)は西暦年を旧暦年と同一視した誤りとみられ、557-02-14・day精度に訂正する。",
+              "note": "startDateは月精度のまま維持（現行プレースホルダ日『2月1日』は実際の旧暦月開始日よりやや早いが、確度低のため今回は変更しない）。譲位後の死去（周閔帝元年正月、宋国公封→まもなく殂）は既存reignsに含まれず別記述のため対象外。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 1109,
+          "displayYears": 3.04,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 554,
+        "lastEndYear": 557,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 554
+      },
+      "sources": {
+        "wikidata": "Q2665689",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "「魏王」説は誤りで正式に皇帝として即位したことを確認済み。 『北史』卷5「大統十四年，封為齊王。廢帝三年正月，即皇帝位，改元」と原典で確認。既存の「魏王」説の誤りも訂正済み（実際は齊王）。"
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "恭帝3年(556年)12月、宇文覚(宇文泰の子)に禅譲し大司馬府に退居。北周孝閔帝元年正月辛丑(557年2月17日ごろ)、宋公に封じられたが、約2ヶ月後の同年二月末(旧暦、ユリウス暦557年4月中旬ごろ)、周人に殺害された(『資治通鑑』巻167「周人殺魏恭帝」)。当時の実権者は晋公宇文護であり通説では宇文護の指示による殺害とされるが、原文は実行者名を明示しない。『北史』は「尋殂」とのみ記し殺害と明言しない点で記述に差がある。禅譲を受けた新政権(宇文氏)の実権者による前政権最後の皇帝への内部的な謀殺という構図(東晋恭帝の例と同型)のため暗殺に分類。",
+        "confidence": "medium",
+        "source": {
+          "page": "資治通鑑 巻167(陳紀一)／周書 巻三 孝閔帝紀",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "擁立",
+        "note": "文帝の第4子。大統14年(548年)に斉王に封じられていたが、兄・廃帝(元欽)が宇文泰暗殺を謀って発覚・廃位された後、恭帝3年(554年)正月、宇文泰と公卿の合議により擁立され即位した(改元、独自年号は建てず「元年」と称した)。",
+        "confidence": "high",
+        "source": {
+          "page": "周書 巻二 文帝紀下",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "廃位・追放",
+          "relationToPredecessor": "弟",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "month",
+            "note": "『廃帝三年正月、（齊王拓跋廓）即皇帝位、改元』。齊王拓跋廓が即位して恭帝となり、即位に伴い改元した（西魏最後の皇帝）。恭帝期は独自の元号を新たに立てず「元年」「二年」「三年」の形で紀年されている（周書側でも『魏恭帝元年』『魏恭帝二年』『魏恭帝三年』と表記）。在位中（元年～三年十二月の北周への禅譲まで）にこれ以外の改元記事は北史・周書いずれにも見当たらない。",
+            "source": {
+              "page": "北史卷五 魏本紀第五（西魏恭帝）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "即位に伴う建元（改元）1回のみ確認。在位中の追加の改元は確認できなかった。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "北史卷五（西魏恭帝紀、廃帝三年正月～恭帝三年十二月）を通読したが「大赦」「大赦天下」の記事は見当たらない。周書（太祖紀下）の該当期間（魏恭帝元年～三年）の記述にも大赦の記事はない。恭帝逊位後の北周孝閔帝即位に伴う大赦（周書卷三）は恭帝自身の治世の事績ではないため計上しない。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "北史卷五・周書いずれにも恭帝在位中の立后の記事は見当たらない。在位期間が短く禅譲で終わったため、皇后冊立はなかったとみられる。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "北史卷五・周書いずれにも恭帝在位中の皇太子冊立・廃立の記事は見当たらない。恭帝は在位わずか3年弱（554-556年）で北周へ禅譲しており、皇太子を立てた形跡もない。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "北史巻五恭帝紀に、在位期間中（554年正月即位〜556年12月禅譲）の軍事行動の記述は「柱国李弼追撃之（蠕蠕来寇広武を撃退）」「魏師滅梁、戕梁元帝」の2件のみで、いずれも将軍（李弼）や政権軍による行動であり「帝自将」「親征」等、皇帝本人の出陣を示す記述は無い。該当記事なし。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "在位期間中に西魏政権内部（服属する官・将軍・宗室・属国等）による離反・蜂起の記録は北史巻五・周書巻三のいずれにも見当たらない。記載のある軍事事象は(1)蠕蠕（柔然、独立の遊牧勢力で西魏に服属していない）の広武侵寇、(2)西魏軍による梁（南朝、対等な独立政権）討滅・梁元帝殺害、の2件のみで、いずれも対外戦争・独立勢力との抗争に該当し、ルール上の反乱には含めない。該当記事なし。"
+      },
+      "rebellionSufferedCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "556年12月、安定公宇文泰の死（同年10月）後まもなく恭帝は北周（宇文覚）へ禅譲した。周書巻三孝閔帝紀の記述では「魏帝詔ヲ以テ...周公ニ封ジ、庚子、禅位于帝」「魏帝臨朝、遣民部中大夫...致皇帝璽紱。固辞。公卿百辟勧進、太史陳祥瑞、乃従之。是日、魏帝逊于大司馬府」と、儀礼的な禅譲の形式で記録されており、恭帝本人に対する武力行使（挙兵・弑逆・幽閉等）を示す記述は在位期間中には見当たらない。既存データセットの先例（漢献帝：禅譲そのものは被反乱にカウントしない方針、group3-count-progress.md参照）に倣い、形式上の禅譲は被反乱に算入しない。該当記事なし。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "北史魏本紀を通読。文帝の長安即位（建国時の定都）から恭帝の隋への禅譲まで長安が一貫した都、遷都の記録なし。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathDate": null,
+        "deathDatePrecision": null,
+        "accessionAge": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "既存レコード(reigns/deathCause/accessionRoute等)および_corpus_cache/xiwei-gongdi.txt(北史卷五恭帝紀原文)を確認したが、生年月日・即位時年齢・享年(時年○○/享年○○等)の直接記載は見当たらなかった。恭帝紀は『恭皇帝讳廓，文皇之第四子也。大统十四年，封为齐王。废帝三年正月，即皇帝位，改元』で始まり、末尾も『周閔帝元年正月，封帝為宋公，尋殂』と没時年齢の記載なく終わる。文帝(西魏)の第4子であることのみ判明。調査済みだが年齢情報は不明として確定する。"
+      }
+    }
+  ]
+}

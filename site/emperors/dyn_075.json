@@ -1,0 +1,799 @@
+{
+  "meta": {
+    "dynastyName": "西燕",
+    "dynastySection": "西燕",
+    "count": 4,
+    "file": "data/emperors/dyn_075.json"
+  },
+  "emperors": [
+    {
+      "id": "xiyan-murongchong",
+      "name": {
+        "personalName": "慕容沖",
+        "commonName": "威帝",
+        "aliases": [],
+        "posthumousName": "威帝",
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "西燕",
+        "category": "並立政権",
+        "section": "西燕"
+      },
+      "reigns": [
+        {
+          "startYear": 384,
+          "endYear": 386,
+          "dynastyOrder": 2,
+          "isRestoration": false,
+          "note": "長安の阿房宮にて皇帝に即位、年号を『更始』とした。",
+          "raw": "384年 - 386年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": null,
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "year",
+            "end": "year"
+          },
+          "duration": {
+            "value": 731,
+            "unit": "day",
+            "approxDays": 731,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百十四 載記第十四（苻堅下）／資治通鑑 巻一百六 晋紀二十八（太元十一年）",
+              "lang": "zh-classical",
+              "quote": "（資治通鑑）西燕主沖樂在長安，且畏燕主垂強，不敢東歸，課農築室，為久安之計，鮮卑咸怨之。左將軍韓延因眾心不悅，攻沖，殺之，立沖將段隨為燕王，改元昌平。",
+              "conversion": "即位・崩御とも太元十一年(386年)の記事のみで日次記載なし。既存のdatePrecision(year/year)を維持、変更なし。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 731,
+          "displayYears": 2.0,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 384,
+        "lastEndYear": 386,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 384
+      },
+      "sources": {
+        "wikidata": "Q1074358",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "西燕皇帝。威帝。"
+      },
+      "accessionRoute": {
+        "category": "擁立",
+        "note": "前燕・慕容儁の子で、慕容泓の弟。泓の謀臣である高蓋・宿勤崇らが泓を殺害し、沖を皇太弟に立てて承制させた（『晋書』載記第十四「泓谋臣高盖、宿勤崇等以泓德望后冲，且持法苛峻，乃杀泓，立冲为皇太弟，承制行事」）。その後長安を占領し、阿房で皇帝位に即いた（『資治通鑑』巻106「慕容沖即皇帝位於阿房，改元更始」）。慕容泓は帝号を用いておらず、皇帝号は沖の代に初めて称された。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書/卷114 苻堅載記下、資治通鑑巻106",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "横死",
+          "relationToPredecessor": "弟",
+          "procedure": "通常の践祚"
+        }
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "更始2年（386年）、長安占領後に人心が離反する中、西燕内部の左将軍・韓延に攻め殺された（「左將軍韓延因眾心不悅，攻沖，殺之」）。同一政権内部の臣下による謀殺。",
+        "confidence": "high",
+        "source": {
+          "page": "資治通鑑巻106 晋紀二十八",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "year",
+            "note": "慕容沖、阿房にて皇帝を僭称し、元号を「更始」と改元（建元）。『資治通鑑』は太元十年（385年）春正月の記事とし、『晋書』帝紀は太元九年（384年）十二月の記事として記す（両者の間で約1ヶ月のズレがあるが、いずれも西暦385年初頭の出来事を指すとみられる）。これが西燕独立・慕容沖即位に伴う最初の建元であり、在位中に他の改元は確認できない。",
+            "source": {
+              "page": "資治通鑑 晋紀二十八（太元十年）／晋書 帝紀第九（太元九年十二月）・苻堅載記下",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中（385年即位～386年二・三月被殺）に確認できる改元は即位に伴う「更始」の1回のみ。彼の死後、部将らが擁立した段随（改元昌平）・慕容顗（改元建明）・慕容瑶（改元建平）・慕容忠（改元建武）による改元は、いずれも慕容沖の死後の出来事であり本人の在位に帰属しない。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "medium",
+        "note": "慕容沖の在位期間（太元十年正月/384年末～太元十一年二・三月、西暦385年～386年）を『晋書』苻堅載記下および『資治通鑑』晋紀二十八の該当箇所（阿房即位から許木末/韓延による殺害まで）で通読したが、「大赦」「大赦天下」等の記載は見当たらなかった。同時期に見える「大赦」の記事（資治通鑑9375行・9405行・9409行・9421行など）はいずれも東晋朝廷・後燕（慕容垂）・前秦（苻丕）・後秦（姚萇）に帰属するものであり、西燕慕容沖に帰属する大赦記事ではない。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "medium",
+        "note": "在位期間の原典記述に立后の記載は見当たらない。慕容沖は約1年強の短い在位（385年即位～386年被殺）で、阿房での稱帝後は軍事行動に終始し後宮・立后関連の記事は確認できなかった。なお『晋書』苻堅載記下には慕容沖が幼少期（12歳）に苻堅の寵愛を受けたという逸話があるが、これは即位前の話で立后とは無関係。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "medium",
+        "note": "在位期間の原典に立太子・皇太弟等の冊立および廃立の記載は見当たらない。慕容沖自身は即位前に兄泓の臣下により「皇太弟」に擁立された（資治通鑑9297行「立冲為皇太弟」、晋書8220行付近同旨）が、これは彼が即位する前段階での自身の地位であり、彼が在位中に自ら立てた皇太子・皇太弟を廃した事跡ではないため、本項目には該当しない。"
+      },
+      "personalCampaignCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "太元九年（384年）、平陽太守として自ら挙兵し蒲阪を攻めるも秦将窦冲に河東で大敗し、鮮卑騎八千を率いて兄・慕容泓の陣営に合流。泓死後、皇太弟として長安包囲を継続して指揮し（鄭西・灞上等で秦軍を破る）、太元十年（385年）正月に阿房で皇帝を自称、以後も仇班渠・雀桑・白渠・城西・驪山等で自ら秦軍と交戦を重ね、同年五月ついに長安を陥落させて苻堅を五将山へ敗走させた（苻堅本人はその後長安脱出中に後秦の姚萇に捕らえられ処刑された）。挙兵から長安占領まで同一目的（対前秦戦）の一連の軍事行動として1件に集約した。",
+            "note": "起兵は太元九年（384年）の月不明（『資治通鑑』では三月と四月の記事の間に配置）のため年精度とした。長安陥落は太元十年五月と明記。冬十月に尚書令高盖を後秦討伐に派遣した件（新平南の戦い）は冲本人が出陣した記述がないため親征に含めていない。",
+            "startDate": "0384-01-01",
+            "endDate": "0385-05-01",
+            "datePrecision": "year",
+            "target": "前秦（苻堅）"
+          }
+        ],
+        "note": "『資治通鑑』晋紀二十七〜二十八（巻105〜106）の記述に基づく。冲自身の出陣は「秦王坚与西燕主冲战于○○」という形で一貫して確認できる。",
+        "count": 1
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "在位期間（384年皇太弟就任〜386年被殺）中、慕容沖自身が主体となって鎮圧した内部反乱・服属民の蜂起は原典に確認できない。太元十年十月に尚書令高盖を派遣して後秦を討たせた件（新平南で大敗し降伏）は対等な独立政権（後秦）との戦争であり、鎮圧・被反乱いずれにも該当しない。",
+        "count": 0
+      },
+      "rebellionSufferedCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "note": "『資治通鑑』：「西燕主冲乐在长安，且畏燕主垂强，不敢东归，课农筑室，为久安之计，鲜卑咸怨之。左将军韩延因众心不悦，攻冲，杀之，立冲将段随为燕王，改元昌平。」長安に留まり続け東帰（関東・龍城への帰還）を望む鮮卑諸将の意に反したため、麾下の左将軍・韓延が兵を率いて冲を攻め殺害した。朝廷内部（自軍将領）による兵力を伴う弑逆であり、鎮圧の主体が冲側でなく反乱側であるためrebellionSuppressionCountには計上せずrebellionSufferedCountのみに計上した（判定基準4に該当）。",
+            "outcome": "殺害・敗死",
+            "name": "左将軍韓延のクーデター",
+            "startDate": "0386-01-01",
+            "endDate": "0386-01-01",
+            "datePrecision": "year",
+            "leader": "韓延（西燕左将軍）"
+          }
+        ],
+        "note": "年代は太元十一年（386年）と推定されるが、月日は原文に明記されないため年精度とした（在位終了＝崩御の時期と一致）。",
+        "count": 1
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。慕容沖ら西燕初期（長安入城まで）は建国時の定都選定過程の一部と判断。長安→長子の遷都は慕容永の代の出来事。"
+      },
+      "ages": {
+        "birthDate": "0359",
+        "birthDatePrecision": "year",
+        "deathDate": "0386",
+        "deathDatePrecision": "year",
+        "accessionAge": 26,
+        "deathAge": 28,
+        "confidence": "high",
+        "note": "『晋書』苻堅載記下（daizhigev20版晋書.txt 8221行付近）「初、坚之灭燕、冲姊为清河公主、年十四、有殊色、坚纳之、宠冠后庭。冲年十二、亦有龙阳之姿、坚又幸之。」との記載により、前燕滅亡時点（晋書帝紀・太和五年〔370年〕十一月「猛克鄴、獲慕容評」）で慕容沖は数え12歳だったことが判明。これを起点に逆算し生年を359年（370-12+1=359、数え年基準）と推定（年号年ラベル差分による逆算値、原文に生年直接記載なし）。没年齢は在位終了年386年（更始二年/太元十一年、韓延に攻め殺される）から386-359+1=28歳と算出。即位時年齢はreigns[0].startYear=384年（阿房での皇帝即位、晋書帝紀は太元九年十二月条に「慕容冲僭即皇帝位於阿房」と記す）を基準に384-359+1=26歳と算出。原文に生年月日・崩御月日の直接記載はなく、いずれも年精度にとどまる（既存reigns[0].note・duration.sourceでも同様に月日不明と明記済み）。逆算した生没年（359年-386年）は通説とも整合する。"
+      }
+    },
+    {
+      "id": "xiyan-murongyao",
+      "name": {
+        "personalName": "慕容瑤",
+        "commonName": "慕容瑤",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "西燕",
+        "category": "並立政権",
+        "section": "西燕"
+      },
+      "reigns": [
+        {
+          "startYear": 386,
+          "endYear": 386,
+          "dynastyOrder": 5,
+          "isRestoration": false,
+          "note": "西燕第4代皇帝として即位、建平と改元。まもなく慕容永に殺害。",
+          "raw": "386年 - 386年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": null,
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "month",
+            "end": "month"
+          },
+          "duration": {
+            "value": 30,
+            "unit": "day",
+            "approxDays": 30,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "資治通鑑 巻一百六 晋紀二十八（太元十一年）",
+              "lang": "zh-classical",
+              "quote": "恆立西燕主沖之子瑤為帝，改元建平，謚沖曰威皇帝。眾皆去瑤奔永，永執瑤，殺之，立慕容泓子忠為帝，改元建武。",
+              "conversion": "晋書・十六国春秋とも独立記述なし。資治通鑑（太元十一年=386年）のみが典拠で月次記載もなし。既存のdatePrecision(month/month)を維持、変更なし。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 30,
+          "displayYears": 0.08,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 386,
+        "lastEndYear": 386,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 386
+      },
+      "sources": {
+        "wikidata": "Q1155384",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "西燕皇帝。慕容瑤。"
+      },
+      "accessionRoute": {
+        "category": "擁立",
+        "note": "慕容沖の死後の短期混乱を経て、左僕射・慕容恆の主導で沖の子・瑤が皇帝に擁立され建平と改元（「恆立西燕主沖之子瑤為帝，改元建平」）。",
+        "confidence": "high",
+        "source": {
+          "page": "資治通鑑巻106 晋紀二十八",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "横死",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "人心が瑤から離れ慕容永のもとへ集まり、永が瑤を捕らえて殺害した（「眾皆去瑤奔永，永執瑤，殺之」）。西燕内部の実力者による殺害。",
+        "confidence": "high",
+        "source": {
+          "page": "資治通鑑巻106 晋紀二十八",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "year",
+            "note": "西燕左僕射慕容恆が段随殺害後に擁立された宜都王子顗（改元建明）を経て、恆が西燕主慕容沖の子・慕容瑤を帝に立て、改元建平（即位に伴う建元）。太元十一年（386年）内の出来事だが月は明記されず。まもなく人心が慕容永の下へ去り、永が瑶を捕えて殺害した。",
+            "source": {
+              "page": "資治通鑑 晋紀二十八（太元十一年）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "原文：「恆立西燕主沖之子瑤為帝，改元建平，謚沖曰威皇帝。眾皆去瑤奔永，永執瑤，殺之」。即位に伴う建元1回のみで、在位中の追加改元は確認できない。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "慕容瑤の在位期間（改元建平〜永に殺されるまでの数ヶ月）を記す該当箇所に「大赦」の語は見られない。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位期間が極めて短く、立后の記録は見られない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位期間が極めて短く、皇太子を立てた記録も廃した記録もない。"
+      },
+      "personalCampaignCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "在位は擁立から慕容永に殺されるまで数十日程度の極短期間で、資治通鑑（晋紀二十八、太元十一年）に瑤自身が軍を率いて出征した記録は見られない。即位・被弑逆の記述のみ。",
+        "count": 0
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "瑤の在位中に瑤側が鎮圧主体となった反乱の記録はない。唯一の軍事的事件は慕容永による瑤弑逆であり、これは反乱者側が主体（鎮圧されなかった）なので鎮圧回数には計上しない。",
+        "count": 0
+      },
+      "rebellionSufferedCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "note": "原文：「恆立西燕主沖之子瑤為帝，改元建平，謚沖曰威皇帝。眾皆去瑤奔永，永執瑤，殺之，立慕容泓子忠為帝，改元建武」（資治通鑑 晋紀二十八）。慕容永は西燕政権内部の将軍・尚書であり外部の独立政権ではないため、判定基準の例外4（朝廷内部の権力者による兵力を伴う弑逆・クーデター）に該当し、被反乱側にのみ計上し鎮圧側には計上しない。",
+            "outcome": "慕容恆に擁立され建平と改元した瑤だったが、まもなく人心が慕容永の下へ去り、永が瑤を捕らえて殺害した。永はその後、慕容泓の子・忠を擁立している。",
+            "name": "慕容永による慕容瑤弑逆・簒奪",
+            "startDate": "0386",
+            "endDate": "0386",
+            "datePrecision": "year",
+            "leader": "慕容永"
+          }
+        ],
+        "note": "五胡十六国期・西燕の内紛。慕容永は独立した対等政権の君主ではなく西燕内部の実力者（かつて「西燕将軍慕容永」「尚書慕容永」として同政権に属していた）であり、兵力（瑤から離反した衆）を背景に瑤を捕殺したクーデターと判断した。",
+        "count": 1
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。慕容沖ら西燕初期（長安入城まで）は建国時の定都選定過程の一部と判断。長安→長子の遷都は慕容永の代の出来事。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathDate": null,
+        "deathDatePrecision": null,
+        "accessionAge": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "既存レコード(reignData・note・raw等)および_corpus_cache/xiyan-murongyao.txt(資治通鑑晋紀二十八)を確認したが、慕容瑤の生年月日・享年・即位時年齢についての直接記載は見当たらなかった。慕容永による弑逆記事のみで年齢情報なし。調査済みだが不明。"
+      }
+    },
+    {
+      "id": "xiyan-murongzhong",
+      "name": {
+        "personalName": "慕容忠",
+        "commonName": "慕容忠",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "西燕",
+        "category": "並立政権",
+        "section": "西燕"
+      },
+      "reigns": [
+        {
+          "startYear": 386,
+          "endYear": 386,
+          "dynastyOrder": 6,
+          "isRestoration": false,
+          "note": "西燕第5代皇帝として即位、建武と改元。将軍刁雲により殺害。",
+          "raw": "386年 - 386年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": null,
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "month",
+            "end": "month"
+          },
+          "duration": {
+            "value": 213,
+            "unit": "day",
+            "approxDays": 213,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "資治通鑑 巻一百六 晋紀二十八（太元十一年）／晋書 巻一百十五 載記第十五（苻丕苻登）",
+              "lang": "zh-classical",
+              "quote": "（資治通鑑）……立慕容泓子忠為帝，改元建武。（晋書）刁雲殺慕容忠，乃推慕容永為使持節……稱藩於垂。",
+              "conversion": "即位は資治通鑑（太元十一年=386年）、敗死は晋書載記十五の一文のみでいずれも日次記載なし。既存のdatePrecision(month/month)を維持、変更なし。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 213,
+          "displayYears": 0.58,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 386,
+        "lastEndYear": 386,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 386
+      },
+      "sources": {
+        "wikidata": "Q1078592",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "西燕皇帝。慕容忠。"
+      },
+      "accessionRoute": {
+        "category": "擁立",
+        "note": "瑤を殺害した慕容永が自らは即位せず、慕容泓の子・忠を皇帝に擁立し建武と改元（「立慕容泓子忠為帝，改元建武」）。",
+        "confidence": "high",
+        "source": {
+          "page": "資治通鑑巻106 晋紀二十八",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "横死",
+          "relationToPredecessor": "従兄弟",
+          "procedure": "通常の践祚"
+        }
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "即位から約3ヶ月後、将軍・刁雲らに殺害された（「西燕刁雲等殺西燕主忠」）。西燕内部の将軍による謀殺。",
+        "confidence": "high",
+        "source": {
+          "page": "資治通鑑巻106 晋紀二十八",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0386-03",
+            "datePrecision": "month",
+            "note": "西燕左僕射慕容恒・尚書慕容永が段随を殺した後、宜都王子顗を燕王に立て建明と改元→恒が瑶（冲の子）を帝に立て建平と改元→衆が瑶を去り永に奔ったため永が瑶を捕らえて殺し、慕容泓の子・忠を帝に立てて建武と改元した。この建武への改元が忠の即位に伴う建元（最初で唯一の改元）。原文に日付の明記はないが、直前の「三月，大赦」（東晋）と直後の「夏，四月」の間に位置する記事であるため三月頃と推定。",
+            "source": {
+              "page": "資治通鑑 晉紀二十八（太元十一年）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "medium",
+        "note": "忠の在位は建武の一元号のみで、六月に刁雲らに殺されるまで改元は他に見られない。eventCount=1。日付は月単位の推定（confidence medium）。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位期間（386年3月頃〜6月）に西燕主忠自身による「大赦」の記述なし。同時期に「三月，大赦」とあるがこれは東晋の大赦であり（前後の文脈が謝玄・硃序ら東晋の人物・地名）、西燕には無関係。他に見える「大赦」は後燕（燕大赦，改元建興）、後秦（秦大赦／苌即位時の大赦）でいずれも西燕主忠とは別政権。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位期間中に立后の記述なし。原文には忠を太尉・守尚書令・河東公に封じた慕容永の処遇のみが記され、皇后に関する言及はない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位期間が数ヶ月と極めて短く、立太子・廃太子に関する記述は原文中に見当たらない。"
+      },
+      "personalCampaignCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "在位は太元十一年(386年)三月頃〜六月庚寅の約3ヶ月間。忠自身が軍を率いて敵対勢力を攻撃した記録は資治通鑑（晋紀二十八）に見られない。在位中の軍事行動としては、太尉・慕容永の主導下で長安を離れた鮮卑集団が閩喜に至り「燕熙城」を築いて留まった記事があるのみで、これは慕容垂の称帝を知って進軍を断念した退避・定着であり、皇帝自身が指揮する対敵遠征とは言えないため0回とした。",
+        "count": 0
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "在位約3ヶ月の間に忠側が反乱を鎮圧した記録はない。忠自身が刁雲らに殺害されて政権が慕容永に移ったのみで、鎮圧の主体が皇帝側であった事例は確認できない。",
+        "count": 0
+      },
+      "rebellionSufferedCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "note": "『資治通鑑』巻106 晋紀二十八・太元十一年六月庚寅条「西燕刁雲等殺西燕主忠，推慕容永為使持節、大都督中外諸軍事、大將軍、大單于、雍、秦、梁、涼四州牧、錄尚書事、河東王，稱籓於燕」。朝廷内部の武将による兵力を伴う弑逆クーデターであり、判定基準の例外4に該当するためrebellionSufferedCountにのみ計上し、rebellionSuppressionCountには含めない。",
+            "outcome": "西燕の武衛将軍・刁雲らが皇帝慕容忠を殺害し、太尉・慕容永を大都督中外諸軍事・大将軍・大単于等に推戴。永はその後、後燕の慕容垂に称藩した。忠側に鎮圧の機会はなく、政権はそのまま反乱側（永・刁雲陣営）に移った。",
+            "name": "刁雲らによる弑逆（西燕内部クーデター）",
+            "startDate": "0386-06",
+            "endDate": "0386-06",
+            "datePrecision": "month",
+            "leader": "刁雲"
+          }
+        ],
+        "note": "刁雲は先に恆・韜の内紛でも登場する武衛将軍で、忠擁立後もその地位のまま忠を弑逆した。単一の首謀者・単一の事件として1件とカウント。",
+        "count": 1
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。慕容沖ら西燕初期（長安入城まで）は建国時の定都選定過程の一部と判断。長安→長子の遷都は慕容永の代の出来事。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathDate": null,
+        "deathDatePrecision": null,
+        "accessionAge": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "既存レコード(reigns/accessionRoute/deathCause等)および_corpus_cache/xiyan-murongzhong.txt(資治通鑑晋紀二十八・晋書載記十五)を確認したが、慕容忠の生年月日・没年月日・享年に関する直接記載は見当たらなかった。在位は386年3月頃即位（建武と改元）〜386年6月庚寅に将軍刁雲らに殺害されるまでの約3ヶ月間で、この間の年齢を示す「時年」等の記述もない。調査済みだが不明。"
+      }
+    },
+    {
+      "id": "xiyan-murongyong",
+      "name": {
+        "personalName": "慕容永",
+        "commonName": "慕容永",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "西燕",
+        "category": "並立政権",
+        "section": "西燕"
+      },
+      "reigns": [
+        {
+          "startYear": 386,
+          "endYear": 394,
+          "dynastyOrder": 7,
+          "isRestoration": false,
+          "note": "苻丕の敗死後、上党の長子に進拠して皇帝を僭称し、中興と建元した（『晋書』苻丕載記「永乃進拠上党之長子、僭称大号、改元曰中興」）。394年、後燕の慕容垂に攻め滅ぼされた。",
+          "raw": "386年 - 394年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": null,
+          "startDateRaw": null,
+          "endDateRaw": null,
+          "datePrecision": {
+            "start": "year",
+            "end": "year"
+          },
+          "duration": {
+            "value": 3286,
+            "unit": "day",
+            "approxDays": 3286,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百十五 載記第十五（苻丕苻登、慕容永部分）",
+              "lang": "zh-classical",
+              "quote": "永乃進據上黨之長子，僭稱大號，改元曰中興。（同載記の慕容垂傳側）垂進圍長子，永將賈韜潛為內應。垂進軍入城，永奔北門，為前驅所獲，於是數而戮之。",
+              "conversion": "即位・敗死とも年のみ、日次記載なし。既存のdatePrecision(year/year)を維持、変更なし。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 3286,
+          "displayYears": 9.0,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 386,
+        "lastEndYear": 394,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 386
+      },
+      "sources": {
+        "wikidata": "Q1078581",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "西燕皇帝。慕容永。"
+      },
+      "accessionRoute": {
+        "category": "擁立",
+        "note": "西燕の宗室（同族の遠縁）。刁雲が慕容忠を殺害した後、諸将に使持節・大都督中外諸軍事・河東王などに推され、後燕の慕容垂に称藩した（『晋書』載記第十五「刁云杀慕容忠，乃推慕容永为使持节、大都督中外诸军事、大将军、大单于、雍、秦、梁、凉四州牧、录尚书事、河东王、称籓于垂」）。苻丕の敗死後、上党の長子に拠って皇帝号を称し中興と改元した（「丕之臣佐皆没慕容永，永乃进据上党之长子，僭称大号，改元曰中兴」）。推戴された地位は河東王であり、帝号は後に自ら称した。",
+        "confidence": "medium",
+        "source": {
+          "page": "資治通鑑巻106、通鑑紀事本末第16巻",
+          "lang": "zh",
+          "note": "zh.wikisource.org。即位までの詳細経緯は完全には確認しきれずconfidence medium"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下",
+            "軍"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "横死",
+          "relationToPredecessor": "同族（遠縁）",
+          "procedure": "通常の践祚"
+        }
+      },
+      "deathCause": {
+        "category": "処刑",
+        "note": "394年、後燕の慕容垂が長子を包囲、内応者の手引きで入城。永は逃走を図るも捕らえられ、罪状を数え上げられた上で処刑された（「垂進軍入城，永奔北門，為前驅所獲，於是數而戮之」）。公卿刁雲ら30余人も同時処刑。西燕を滅ぼした後燕（別政権）による捕縛後の公的処断のため処刑に分類。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書/卷123 慕容垂載記",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0386",
+            "datePrecision": "year",
+            "note": "資治通鑑（晉紀二十九、太元十一年条）：「永遂進據長子，即皇帝位，改元中興」。晉書載記第十五（苻登伝）にも「永乃進據上黨之長子，僭稱大號，改元曰中興」、十六國春秋卷五十慕容永伝にも「遂進據長子，僭即帝位，改元中興」と一致する記載あり。これが永が自ら皇帝として即位し建元した唯一の改元（即位に伴う最初の建元）である。",
+            "source": {
+              "page": "資治通鑑 晉紀二十九 太元十一年／晉書 載記第十五 苻登傳／十六國春秋 卷五十 後燕錄八 慕容永傳",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "永はそれ以前、段隨誅殺後に擁立された宜都王子顗（改元建明）、慕容沖の子瑶（改元建平）、慕容泓の子忠（改元建武）の3代の傀儡皇帝の下で仕えており、これらの改元は永自身のものではなく先行の各皇帝の即位に伴うもの（十六國春秋卷五十に明記）。永自身が皇帝として建元したのは太元十一年（386年）の「中興」の一度のみで、以後394年に慕容垂に滅ぼされるまで他の改元は確認されなかった。"
+      },
+      "amnestyCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "medium",
+        "note": "資治通鑑（晉紀二十九・三十）・晉書載記第十五（苻丕・苻登傳、西燕関連記事を含む）・十六國春秋卷五十「慕容永」伝を通読したが、西燕主永自身が「大赦」「大赦天下」を行ったという記載は見当たらなかった。同時期の苻丕・苻登・姚萇・呂光らの大赦は複数回記録されているのに対し、永に関する記事にはこの語が一度も現れない（十六國春秋の永伝本文にも「赦」の語なし）ため、欠落ではなく実際に大赦を行わなかった可能性が高いと判断したが、逸文の可能性もあるため confidence は medium とした。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "資治通鑑（晉紀二十九、太元十一年条）に「將以秦後楊氏為上夫人，楊氏引劍刺永，為永所殺」とあり、永は前秦苻丕の未亡人楊氏を「上夫人」（皇后より下位の妃嬪号）に立てようとしたが、その前に楊氏に刺され、逆に楊氏を殺害したため、これは実現しておらず、また称号も「皇后」ではない。終始、永が皇后を正式に冊立した記録は見当たらない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "資治通鑑（晉紀三十、太元十九年条）に「永恐晉兵不出，又遣其太子亮為質；平規追亮，及於高都，獲之」とあり、永の太子亮は魏・晉への救援要請に伴う人質として送られる途中、後燕の将平規に捕らえられたことが確認できるが、これは敵軍による捕獲であり、永自身が太子を廃したという記載ではない。他に永が皇太子を廃立したという記録は見当たらないため0回とした。"
+      },
+      "personalCampaignCount": {
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "襄陵の戦いで前秦軍を大破（『丕弗許，與永戰於襄陵，秦兵大敗』）。丕はその後敗走中に晋軍に殺害され、永はそのまま長子を占拠して皇帝に即位（改元中興）。",
+            "note": "資治通鑑 晋紀二十九、太元十一年条。行9439。",
+            "startDate": "0386-01-01",
+            "endDate": "0386-12-31",
+            "datePrecision": "year",
+            "target": "前秦（苻丕）"
+          },
+          {
+            "outcome": "兰椟を攻めたが（『西燕主永攻椟』）、椟の要請で介入した後秦主姚萇に河西で迎撃され敗走（『後秦主萇進撃西燕主永於河西，永走』）。椟はその後姚萇に捕らえられた。",
+            "note": "資治通鑑 晋紀二十九、太元十二年条。行9486、9489。",
+            "startDate": "0387-01-01",
+            "endDate": "0387-12-31",
+            "datePrecision": "year",
+            "target": "前秦残党（雍州刺史兰椟）・後秦（姚萇）"
+          },
+          {
+            "outcome": "洛陽方面へ自ら兵を率いて進軍したが（『西燕主永引兵向洛陽』）、東晋の将硃序に撃破され上党へ退却。",
+            "note": "資治通鑑 晋紀二十九、太元十五年条。行9549。",
+            "startDate": "0390-01-01",
+            "endDate": "0390-12-31",
+            "datePrecision": "year",
+            "target": "東晋（洛陽方面、硃序）"
+          },
+          {
+            "outcome": "河南に侵攻したが（『西燕主永寇河南』）、東晋の太守楊佺期に撃破された。",
+            "note": "資治通鑑 晋紀二十九、太元十六年条。行9574。",
+            "startDate": "0391-01-01",
+            "endDate": "0391-12-31",
+            "datePrecision": "year",
+            "target": "東晋（河南、楊佺期）"
+          },
+          {
+            "outcome": "台壁の戦いで自ら精鋭五万を率いて対戦したが（『永召太行軍還，自將精兵五萬以拒之』）、慕容垂の伏兵に大敗（斬首八千余級）、長子へ敗走。後燕軍が長子を包囲し、大逸豆帰配下の伐勤が開門して燕兵を引き入れたため陥落、永は捕らえられ処刑された。西燕は滅亡。",
+            "note": "資治通鑑 晋紀三十、太元十九年条。行9634、9642。",
+            "startDate": "0394-05-01",
+            "endDate": "0394-08-01",
+            "datePrecision": "month",
+            "target": "後燕（慕容垂）"
+          }
+        ],
+        "note": "資治通鑑 晋紀二十九・三十（太元十一〜十九年条）に基づく。いずれも『西燕主永攻』『永引兵』『永自將』等、永自身が軍を率いたことが明記されている。事件1・2は永が河東王として即位直後〜皇帝即位に至る一連の軍事行動、事件5は西燕滅亡に至る最終親征。",
+        "count": 5
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "medium",
+        "events": [],
+        "note": "資治通鑑 晋紀二十九・三十を通読したが、永の在位中（386-394年）に西燕領内の服属民・部将による明確な武力蜂起（挙兵）は確認できなかった。唯一該当しうるのは太元十七〜十八年条『永以釗為車騎大將軍……歲餘，釗謀反，永殺之』（翟釗の謀反計画）だが、原文は謀反発覚と誅殺のみを記し、挙兵・交戦の記述がないため『密告・摘発のみで終わった謀反計画』に該当するとみなし除外した。また太元十九年の長子陥落時に大逸豆帰配下の伐勤が開門し燕兵を引き入れた件は、後燕による外部からの征服戦争（事件5）の一部と位置づけ、独立した内乱としては計上していない。",
+        "count": 0
+      },
+      "rebellionSufferedCount": {
+        "confidence": "medium",
+        "events": [],
+        "note": "rebellionSuppressionCountと対称的に0とした。永が在位中に直面した軍事的脅威は前秦残党・後秦・東晋・後燕という互いに独立した政権との対外戦争（統一戦争）がほとんどであり、これらは服属民の反乱に該当しないため除外した。翟釗の謀反計画（太元十七〜十八年）は挙兵に至った証拠がなく除外。長子陥落時の伐勤による開門（太元十九年）も後燕の外部征服戦争の一環とみなし、独立した被反乱事件としては計上していない。",
+        "count": 0
+      },
+      "capitalRelocationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0386-01-01",
+            "datePrecision": "year",
+            "from": "長安",
+            "to": "長子（上党）",
+            "note": "『晋書』載記第十五（苻丕）：「丕之臣佐皆沒慕容永、永乃進據上党之長子、僭稱大號、改元曰中興」。載記第二十四（慕容盛伝）にも「（慕容）沖爲段木延所殺、盛隨慕容永東如長子」とあり、太元十一年（386）正月の慕容沖弑殺後の内乱（段隨・慕容顗・慕容瑤・慕容忠の相次ぐ簒奪・弑立）を経て、慕容永が長安（阿房を含む関中一帯）を離れ上党郡長子県へ東遷し、そこを恒久の都として即位・建元（中興）したことが確認できる。正確な月日は載記に記載なし。（出典: 晋書 載記第十五 苻丕／晋書 載記第二十四 慕容盛）"
+          }
+        ],
+        "confidence": "medium",
+        "note": "在位中に遷都1回（0386年 長安→長子（上党））。"
+      },
+      "ages": {
+        "birthDate": null,
+        "birthDatePrecision": null,
+        "deathDate": null,
+        "deathDatePrecision": null,
+        "accessionAge": null,
+        "deathAge": null,
+        "confidence": "low",
+        "note": "既存レコード(reigns/accessionRoute/deathCause等)および_corpus_cache/xiyan-murongyong.txtに生年月日・享年の直接記載なし。追加で晋書載記(daizhigev20版、苻丕伝・慕容垂載記・慕容盛伝を含む全文)、十六国春秋巻五十慕容永伝(「慕容永字叔明，廆弟運之孫也」で始まる完全な伝記、即位から387年の襄陵の戦い・394年の長子陥落・処刑までの経緯を含む)を通読したが、生年・即位時年齢・没時年齢（時年◯◯／享年◯◯等）を示す記載は一切見当たらなかった。慕容永は西燕の一将軍から諸将推戴により大都督等に就き、さらに長子占拠により皇帝を自称した非皇族傍系（廆の弟運の孫）であり、史書における出自記事も簡略なため、生年不明は調査不足ではなく史料の欠落と判断する。"
+      }
+    }
+  ]
+}

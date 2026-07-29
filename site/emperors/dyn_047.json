@@ -1,0 +1,1651 @@
+{
+  "meta": {
+    "dynastyName": "斉",
+    "dynastySection": "南朝",
+    "count": 7,
+    "file": "data/emperors/dyn_047.json"
+  },
+  "emperors": [
+    {
+      "id": "qi-gaodi",
+      "name": {
+        "personalName": "蕭道成",
+        "commonName": "高帝",
+        "aliases": [],
+        "posthumousName": "高帝",
+        "templeName": "太祖",
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "斉",
+        "category": "正統王朝",
+        "section": "南朝"
+      },
+      "reigns": [
+        {
+          "startYear": 479,
+          "endYear": 482,
+          "dynastyOrder": 1,
+          "isRestoration": false,
+          "note": "宋順帝より禅譲を受け即位。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0479-05-29",
+          "endDate": "0482-04-11",
+          "startDateRaw": "建元元年四月甲午",
+          "endDateRaw": "建元四年三月壬戌",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 1048,
+            "unit": "day",
+            "approxDays": 1048,
+            "exactDays": 1048,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "南斉書 本紀第二 高帝紀下",
+              "lang": "zh-classical",
+              "quote": "（即位）建元元年夏，四月，甲午，上即皇帝位于南郊，设坛柴燎告天曰：「皇帝臣道成敢用玄牡，昭告皇皇后帝。宋帝陟鉴乾序，钦若明命，以命于道成。…升坛受禅，告类上帝…」／（崩御）三月，庚申，召司徒褚渊、左仆射王俭诏曰：「吾本布衣素族，念不到此，因藉时来，遂隆大业。…」壬戌，上崩于临光殿，年五十六。四月，庚寅，上谥曰太祖高皇帝。",
+              "conversion": "即位日: 建元元年(479年)四月甲午 → sxtwl.fromLunar(479,4,23)が該当日で西暦479年5月29日と算出。在位終了日(崩御): 建元四年(482年)三月壬戌 → sxtwl.fromLunar(482,3,8)が該当日で西暦482年4月11日と算出。既存値startDate=0479-05-29/endDate=0482-04-11と完全一致したため補正なし。",
+              "note": "南斉書 高帝紀下の崩御記事は「三月，庚申，召司徒褚渊、左仆射王俭…」の後に月を改めず「壬戌，上崩于临光殿」と続くため、壬戌は同じ三月内の日と判断した（庚申→壬戌は暦上も連続する自然な間隔）。なお崩御後、南康県公華容県公らへの降爵など禅譲政権特有の記事はあるが、本人（高帝）に関しては即位(建元元年四月甲午)〜崩御(建元四年三月壬戌)が在位期間の定義と一致することを確認した。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 1048,
+          "displayYears": 2.9,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 479,
+        "lastEndYear": 482,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 479
+      },
+      "sources": {
+        "wikidata": "Q1194981",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "斉皇帝。高帝。"
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "「壬戌，上崩于臨光殿，年五十六」（南齊書卷2 高帝紀下）。発病から崩御までの経過が追え、暴力・毒殺を示唆する語なし。",
+        "confidence": "high",
+        "source": {
+          "page": "南齊書/卷2（高帝紀下）",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "accessionRoute": {
+        "category": "受禅（易姓）",
+        "note": "劉宋の実権を掌握して順帝を迎立したうえで、その禅譲を受け斉を開いた（『南斉書』巻一「太祖乃下议，备法驾诣东城，迎立」、巻二「太祖三辞，宋帝王公以下固请」）。禅譲の儀を経て即位。",
+        "confidence": "high",
+        "source": {
+          "page": "南齊書/卷1（高帝紀上）",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "他政権から受禅",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "本人"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "生前譲位",
+          "relationToPredecessor": "無血縁",
+          "procedure": "禅譲儀礼"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0479-05-29",
+            "datePrecision": "day",
+            "note": "建元元年四月甲午、南郊にて皇帝に即位。同日の詔で「改升明三年為建元元年」とあり、宋の升明三年を建元元年に改元（斉建国改元）。",
+            "source": {
+              "page": "南齊書本紀卷二 高帝下",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "斉建国に伴う建元（元号制定）1回のみ。以後、建元四年の崩御まで改元なし（次代武帝が永明に改元）。"
+      },
+      "amnestyCount": {
+        "count": 3,
+        "events": [
+          {
+            "date": "0479-05-29",
+            "datePrecision": "day",
+            "note": "建元元年四月甲午、即位の礼を終えた直後の詔に「可大赦天下。改升明三年為建元元年」とあり、建国改元と同日の大赦。",
+            "source": {
+              "page": "南齊書本紀卷二 高帝下",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0480-01-01",
+            "datePrecision": "month",
+            "note": "建元二年春正月戊戌朔、「大赦天下」。",
+            "source": {
+              "page": "南齊書本紀卷二 高帝下",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0481-06-01",
+            "datePrecision": "month",
+            "note": "建元三年六月壬子、「大赦」（逋租宿債、除減有差）。",
+            "source": {
+              "page": "南齊書本紀卷二 高帝下",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "『南齊書』高帝紀（卷一・卷二）より「大赦天下」「大赦」と明記された全国規模の恩赦のみを数えた。卷一の受禅前（相国齊公の時点）に見える「丁巳、下令赦國內殊死以下」は「大赦」の語を用いておらず、かつ即位前（劉宋末の政務）の措置のため除外。「曲赦交州部內李叔獻一人」（建元元年七月）は地域・対象限定の「曲赦」のため除外。「詔原京師囚繫有差」（建元四年二月）も京師限定の恩典で「大赦」の明記なしのため除外。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位中に皇后として正式に冊立された記事は見当たらない。建元元年五月丙寅「追尊皇考曰宣皇帝、皇妣為孝皇后、妃為昭皇后」とあるが、これは高帝の亡父母および先立って没していた正妃への追尊（追贈の称号）であり、在位中の生きた皇后を正式冊立する「立后」の儀とは異なるため計上しない。なお建元元年十一月辛亥「立皇太子妃裴氏」は皇太子（賾）の妃の冊立であり、高帝自身の皇后冊立ではない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "建元元年六月甲申「立皇太子賾」とあるが、これは立太子であり廃立ではない。以後、卷一・卷二を通じて皇太子（賾）の廃立に関する記事は見当たらない（賾は高帝崩御後にそのまま即位＝武帝）。"
+      },
+      "ages": {
+        "birthDate": "0427",
+        "birthDatePrecision": "year",
+        "deathDate": "0482-04-11",
+        "deathDatePrecision": "day",
+        "deathAge": 56,
+        "confidence": "high",
+        "note": "生年（427年、元嘉四年）・没年齢56歳（「年五十六」）はいずれも直接記載。即位時年齢の直接記載は本紀中になし。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "南斉書巻二（高帝紀下）建元元年（479年）四月即位から建元四年（482年）三月崩御までの記事を通読したが、皇帝本人が出陣したことを示す「帝自将」「親征」等の記述は見当たらない。在位中の軍事行動（建元二年の北魏の寿陽侵攻を垣崇祖が撃退、朐山侵攻を卢绍之が撃退、建元三年の淮陽での李安民らの北魏撃破）はいずれも将軍への派遣によるもので、皇帝本人の出陣ではない。該当記事なしのためcount 0。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 0,
+        "confidence": "medium",
+        "events": [],
+        "note": "在位中（479-482年）に武装蜂起を示す「挙兵」「挙義」等の記述は見当たらない。唯一該当しうる事例として、建元元年五月辛酉「阴安公刘燮等伏诛」（南斉書巻二）があり、南史列伝（原文データベース内、宋書皇子伝该当箇所）には『齐受禅、燮降封阴安县公、谋反赐死』とある。刘燮は劉宋明帝の子で晋煕王として沈攸之の乱では朝廷側として寻阳を平定した人物だが、斉建国後に「謀反」の罪で処刑された。ただし挙兵・武力行使を示す記述が一切なく、単に「謀反」の嫌疑で処刑（伏诛）されたとする記述のみであり、新王朝が旧王朝（劉宋）の宗室を粛清する典型的な政治的処刑（未然の謀反容疑、実際の挙兵なし）である可能性が高い。ルール上「密告・摘発のみで終わった謀反計画」は鎮圧・被反乱いずれにも含めないため、本件はcountに含めなかった。北魏との寿陽・朐山方面の軍事衝突は対外戦争のため除外。"
+      },
+      "rebellionSufferedCount": {
+        "count": 0,
+        "confidence": "medium",
+        "events": [],
+        "note": "在位中（479-482年）に皇帝本人への武力による反乱・クーデター未遂の記述は見当たらない。上記の阴安公刘燮の処刑（建元元年五月）についても、実際の挙兵・武力行使を示す記述がなく、旧王朝宗室に対する政治的粛清（謀反容疑での処刑）とみられるため、被反乱にも計上しなかった。崩御は病没（临光殿にて、年五十六、遘疾弥留による）であり、弑逆・クーデターによるものではない。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "南斉書本紀を通読。建国（建康定都、建国時の定都）から502年の滅亡まで建康が一貫した都、遷都の記録なし。"
+      }
+    },
+    {
+      "id": "qi-wudi",
+      "name": {
+        "personalName": "蕭賾",
+        "commonName": "武帝",
+        "aliases": [],
+        "posthumousName": "武帝",
+        "templeName": "世祖",
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "斉",
+        "category": "正統王朝",
+        "section": "南朝"
+      },
+      "reigns": [
+        {
+          "startYear": 482,
+          "endYear": 493,
+          "dynastyOrder": 2,
+          "isRestoration": false,
+          "note": "父高帝崩御と同日に即位（世襲）。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0482-04-11",
+          "endDate": "0493-08-27",
+          "startDateRaw": "建元四年三月壬戌",
+          "endDateRaw": "永明十一年七月戊寅",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 4156,
+            "unit": "day",
+            "approxDays": 4156,
+            "exactDays": 4156,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "南斉書 本紀第三 武帝紀",
+              "lang": "zh-classical",
+              "quote": "建元四年三月，壬戌，太祖崩，上即位，大赦。／（永明十一年）秋，七月……戊寅，大渐。……是日上崩，年五十四。",
+              "conversion": "建元四年(482年)三月壬戌をsxtwl.fromLunar(482,3,8,False)で換算すると西暦482-04-11となり現行startDateと完全一致。永明十一年(493年)七月戊寅をsxtwl.fromLunar(493,7,30,False)で換算すると西暦493-08-27となり現行endDateと完全一致。両日とも干支が一意に特定でき、既存値を裏付ける結果となったため補正は不要。exactDaysはdatetime.date差分で4156日と機械計算し既存値と一致。",
+              "note": "在位終了の定義は「崩御」（現行noteと整合）。即位は父太祖(高帝)崩御と同日（世襲）。原文（南斉書 本紀第三 武帝紀）の干支換算により、現行のstartDate/endDate/datePrecision/exactDaysはすべて正確と確認された。source.pageのみWikipedia由来（「蕭賾」）から正史原典（「南斉書 本紀第三 武帝紀」）へ差し替えるべき。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 4156,
+          "displayYears": 11.4,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 482,
+        "lastEndYear": 493,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 482
+      },
+      "sources": {
+        "wikidata": "Q940037",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "斉皇帝。武帝。"
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "「是日上崩，年五十四」（南齊書卷3 武帝紀）。遺詔で皇太孫昭業への政権移譲を指示。暴力的死を示す語なし。",
+        "confidence": "high",
+        "source": {
+          "page": "南齊書/卷3（武帝紀）",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "「建元四年三月壬戌，太祖崩，上即位」。高帝の嫡長子として正常な父子継承。",
+        "confidence": "high",
+        "source": {
+          "page": "南齊書/卷3（武帝紀）",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "永明元年正月辛亥、車駕南郊を祠り「大赦，改元」。先帝太祖（高帝）の年号「建元」が即位後も建元四年内は継続使用され、翌年正月に至って新年号「永明」へ正式に改元された。武帝の在位中に使用された年号は「永明」のみで、本紀本文中で改元が明記される箇所はこの1件のみ。",
+            "source": {
+              "page": "南齐书本纪卷三・武帝纪",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "建元四年三月壬戌の即位記事自体には改元の明記はなく（先帝の年号「建元」がそのまま当年内は継続）、翌永明元年正月辛亥条に「大赦，改元」と明記される。これを即位に伴う最初の（実質的な）建元相当のイベントとしてカウントし、他に改元の記事は見られないため計1回とした。"
+      },
+      "amnestyCount": {
+        "count": 5,
+        "events": [
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "建元四年三月壬戌、太祖崩御を承けて上（世祖武帝）即位、「大赦」（即位に伴う大赦）。",
+            "source": {
+              "page": "南齐书本纪卷三・武帝纪",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "永明元年正月辛亥、車駕南郊を祠り「大赦，改元」（改元と同時の大赦）。",
+            "source": {
+              "page": "南齐书本纪卷三・武帝纪",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "永明三年正月辛卯、車駕南郊を祀り「大赦」。都邑三百里内で罪が重きに入るべき者は一等を降し、その他は赦制による。",
+            "source": {
+              "page": "南齐书本纪卷三・武帝纪",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "永明七年正月辛亥、車駕南郊を祀り「大赦」。京邑の貧民に普く賑賜。",
+            "source": {
+              "page": "南齐书本纪卷三・武帝纪",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": "day",
+            "note": "永明八年七月癸卯、皇太孫（儲胤）の病を機に「可大赦天下」の詔。",
+            "source": {
+              "page": "南齐书本纪卷三・武帝纪",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "本紀本文で「大赦」の語が明記される箇所のみを対象に5件を抽出した（うち1件は明確に「大赦天下」）。永明元年六月「詔申壬戌赦恩百日」（即位時大赦の期間延長）、永明二年三月「詔申辛亥赦恩五十日」（改元時大赦の期間延長）は新規の大赦宣言ではなく既存の大赦恩恵の延長であるため対象外。永明元年四月戊寅「悉原赦」、六月「皆原宥」などの部分的恩赦・免除の詔も「大赦」と明記されないため対象外とした。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "本紀本文中に武帝在位中の生前の皇后冊立の記事は見当たらない。永明元年四月辛卯「追尊穆妃为皇后」は、既に故人であった穆妃（皇太子長懋の生母）を崩御後に皇后として追尊した記事であり、生前の正式な立后には該当しないため対象外とした。武帝の在位中、皇后は不在であったと判断される。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "建元四年六月甲申に皇太子長懋（後の文恵太子）が立てられ、永明十一年正月丙子に長懋が薨去（病没）するまで在位中一貫して皇太子の地位にあり、廃立の記事は本紀中に見られない。長懋の薨去後、永明十一年四月甲午に皇太孫昭業が立てられており、皇太子から皇太孫への継承であって廃位ではない。"
+      },
+      "ages": {
+        "deathAge": 54,
+        "confidence": "high",
+        "note": "崩御時年齢54歳は本紀地の文に「年五十四」と明記されており、この値を採用する（2026-07-16ユーザー確認）。同箇所の武帝自身の遺詔中の自称「吾行年六十」（60歳）とは食い違いがあるが、地の文（史官による記述）を優先した。生年月日・即位時年齢の直接記載はなし。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "南斉書卷三武帝紀（在位期間：建元四年三月〜永明十一年七月、482〜493年）を通読したが、「帝自将」「親征」「上親率」等、皇帝本人が出陣したことを示す記述は在位中には見られない。唐宇之（唐寓之）の乱・桓天生の乱・巴東王子響の乱・王奂の乱いずれも「遣○○討之」の形で将軍・使者を派遣する形式であり、武帝自身の出征は確認できないため0回とした。なお即位前（宋末、江州刺史晋安王子劉子勛の反乱鎮圧時など）には自ら兵を率いた記述が複数あるが、これは即位前・皇帝としての在位期間外の事績のため対象外とした。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 4,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "鎮圧成功（伏誅）",
+            "leader": "唐宇之（唐寓之）",
+            "name": "唐宇之（唐寓之）の乱",
+            "note": "永明四年正月、富陽の民・唐宇之（史料により「唐寓之」表記、事前情報の486年会稽・浙江方面反乱・自称呉王と同一事件と判断）が桐廬に集結し富陽・銭塘等の県を攻略、東陽太守蕭崇之を殺害。皇帝は宿衛兵を派遣して討伐させ、唐宇之は伏誅した（南斉書卷三本紀）。皇帝自身の出征ではなく将兵派遣による鎮圧。",
+            "startDate": "0486-01-01",
+            "datePrecision": "month",
+            "endDate": "0486-01-01"
+          },
+          {
+            "outcome": "戴僧静（永明五年、比陽で撃破）・曹虎（永明六年四月、隔城で撃破し奪還）により撃退・鎮圧",
+            "leader": "桓天生",
+            "name": "桓天生の乱（雍州・比陽・隔城方面）",
+            "note": "南斉書列伝（戴僧静伝・曹虎伝、daizhigev20版）より判明。「荒人」桓天生（斉の辺境の民）が雍・司二州境で蛮族と結び北魏の兵（虜）を引き入れて反乱・侵攻（本紀の永明五年正月「雍、司二州蛮虜屡動」の記事に対応、丹陽尹蕭景先・護軍陳顕達を派遣した記述と一致）。永明五年、戴僧静が比陽で大破、六年四月には曹虎が隔城を攻略し賊軍を撃退した。ただし桓天生本人がその後討たれたか北魏側へ逃亡したかは本紀・列伝から確認できず、鎮圧は「撃退成功」にとどまる可能性がある。また北魏の大軍（一万〜十万規模と誇張的記述あり）が介入している点で対外戦争的性格も帯びるため、服属民（斉の辺境民）による反乱として計上したが、confidence medium相当の判断が必要な事例。",
+            "startDate": "0487-01-01",
+            "datePrecision": "year",
+            "endDate": "0488-04-01"
+          },
+          {
+            "outcome": "当初台軍（尹略ら）は子響軍に敗れたが、増援の蕭順之が到着すると子響方は瓦解し子響は投降、伏誅",
+            "leader": "蕭子響（巴東王／鱼復侯、武帝第四子）",
+            "name": "巴東王蕭子響（鱼復侯子響）の乱",
+            "note": "南斉書列伝（子響伝、daizhigev20版）・本紀（永明八年条「巴東王子響有罪、遣丹陽尹蕭順之率軍討之、子響伏誅」）より。荊州刺史であった皇子・巴東王子響が長史劉寅ら僚佐を殺害し軍備を整えて拠点にこもり、皇帝が派遣した胡諧之・游撃将軍尹略・中書舎人茹法亮らの部隊と交戦（尹略戦死、台軍敗走）。その後増援の丹陽尹蕭順之が到着すると子響側は離散し、子響は白服で投降するも斬られた（享年22）。皇帝の実子による武装抵抗であり、南朝の宗室内乱として反乱鎮圧・被反乱の双方に計上。",
+            "startDate": "0490-01-01",
+            "datePrecision": "year",
+            "endDate": "0490-01-01"
+          },
+          {
+            "outcome": "王奂・王彪ら討伐され伏誅（鎮圧成功）",
+            "leader": "王奂（実際の武装抵抗は子の王彪が主導）",
+            "name": "雍州刺史王奂の乱",
+            "note": "南斉書本紀（永明十一年三月乙亥「雍州刺史王奂伏誅」）・列伝（王奂伝）より。王奂が部下の寧蛮長史劉興祖を私的に獄死させ詔勅にも従わなかったため、皇帝は中書舎人呂文顕・直閤将軍曹道剛に斎仗五百人を率いさせて王奂を捕縛に向かわせ、鎮西司馬曹虎にも襄陽への合流を命じた。王奂の子・王彪が武装して州の武器庫を開き軍を集めて閉門抵抗し官軍と交戦したが、最終的に王奂配下の司馬黄瑶起・寧蛮長史裴叔業が城内で挙兵して王奂を討ち、王奂・王彪・その弟らは伏誅した。皇帝側からの追討命令に対する現地官の武装抵抗であり、鎮圧・被反乱の双方に計上。",
+            "startDate": "0493-03-01",
+            "datePrecision": "month",
+            "endDate": "0493-03-01"
+          }
+        ],
+        "note": "南斉書本紀（china-history収録、卷三）と列伝（daizhigev20版南斉書.txt全文）を突合して4件を特定した。唐寓之の乱・巴東王子響の乱・王奂の乱は原典記述が明確で高確度。桓天生の乱は北魏軍の介入規模が大きく対外戦争的性格も帯びるため、服属民反乱としての計上妥当性についてmedium confidenceとした（全体の確信度もこれに引きずられmediumとした）。"
+      },
+      "rebellionSufferedCount": {
+        "count": 4,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "鎮圧成功（伏誅）",
+            "leader": "唐宇之（唐寓之）",
+            "name": "唐宇之（唐寓之）の乱",
+            "note": "rebellionSuppressionCountと同一事件。富陽の民衆が挙兵し東陽太守を殺害するなど実害を及ぼしたため被反乱としても計上。",
+            "startDate": "0486-01-01",
+            "datePrecision": "month",
+            "endDate": "0486-01-01"
+          },
+          {
+            "outcome": "戴僧静・曹虎により撃退",
+            "leader": "桓天生",
+            "name": "桓天生の乱（雍州・比陽・隔城方面）",
+            "note": "rebellionSuppressionCountと同一事件。斉の辺境民が北魏の兵を引き入れて侵攻・反乱した事例として被反乱にも計上。",
+            "startDate": "0487-01-01",
+            "datePrecision": "year",
+            "endDate": "0488-04-01"
+          },
+          {
+            "outcome": "台軍が一時敗北（尹略戦死）するも増援により鎮圧、子響は伏誅",
+            "leader": "蕭子響（巴東王、武帝第四子）",
+            "name": "巴東王蕭子響（鱼復侯子響）の乱",
+            "note": "rebellionSuppressionCountと同一事件。皇帝の実子による武装抵抗で、当初は官軍が敗北しており被害も大きいため被反乱に計上。",
+            "startDate": "0490-01-01",
+            "datePrecision": "year",
+            "endDate": "0490-01-01"
+          },
+          {
+            "outcome": "鎮圧成功（王奂・王彪ら伏誅）",
+            "leader": "王奂（実際の武装抵抗は子の王彪）",
+            "name": "雍州刺史王奂の乱",
+            "note": "rebellionSuppressionCountと同一事件。地方長官・その子による朝命拒否・武装抵抗のため被反乱に計上。",
+            "startDate": "0493-03-01",
+            "datePrecision": "month",
+            "endDate": "0493-03-01"
+          }
+        ],
+        "note": "rebellionSuppressionCountと対称的に同一の4件を計上した。皇帝側が鎮圧の主体であり、丞相・権臣による弑逆等の例外4に該当する事例は武帝の在位中には確認できなかった。桓天生の乱のみ対外戦争との境界が曖昧なためmedium confidenceとした。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "南斉書本紀を通読。建国（建康定都、建国時の定都）から502年の滅亡まで建康が一貫した都、遷都の記録なし。"
+      }
+    },
+    {
+      "id": "qi-yulinwang",
+      "name": {
+        "personalName": "蕭昭業",
+        "commonName": "廃帝（鬱林王）",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "斉",
+        "category": "正統王朝",
+        "section": "南朝"
+      },
+      "reigns": [
+        {
+          "startYear": 493,
+          "endYear": 494,
+          "dynastyOrder": 3,
+          "isRestoration": false,
+          "note": "祖父武帝崩御と同日に即位（父が先に死去していたため皇太孫として継承）。蕭鸞により後宮で殺害。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0493-08-27",
+          "endDate": "0494-09-05",
+          "startDateRaw": "永明十一年七月戊寅（世祖崩、太孫即位）",
+          "endDateRaw": "隆昌元年秋七月壬辰（南斉書原文の表記は「二十二日壬辰」）",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 374,
+            "unit": "day",
+            "approxDays": 374,
+            "exactDays": 374,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "南斉書 本紀第四 鬱林王（あわせて 南斉書 本紀第三 武帝紀下・資治通鑑 巻百三十九 齊紀五 を参照）",
+              "lang": "zh-classical",
+              "quote": "［即位］「文惠太子薨，立昭業為皇太孫，居東宮。世祖崩，太孫即位。」（南斉書 本紀第四 鬱林王）／「戊寅，大漸。詔曰：……是日上崩，年五十四。」（南斉書 本紀第三 武帝紀下）／［在位終了＝弑殺］「高宗慮變，定謀廢帝。二十二日壬辰，使蕭諶、坦之等於省誅曹道剛、朱隆之等，率兵自尚書入雲龍門……出西弄，殺之，時年二十一。」（南斉書 本紀第四 鬱林王）／「壬辰，鸞使蕭諶先入宮……行至西弄，弑之……癸巳，以太后令追廢帝為鬱林王，又廢何后為王妃，迎立新安王昭文。」（資治通鑑 巻百三十九 齊紀五）",
+              "conversion": "即位日：世祖（武帝）崩御と同日即位という原文（「世祖崩，太孫即位」）に基づき、武帝紀の崩御記事「戊寅，大漸……是日上崩」の干支戊寅をsxtwl.fromLunar(493,7,d,False)で永明十一年七月を走査したところ day30=戊寅=493-08-27となり、現行startDateと完全一致（補正なし）。在位終了日：南斉書は弑殺の日を「二十二日壬辰」と記すが、この日数表記（二十二日）と干支（壬辰）はsxtwl換算上一致しない（同月内で癸巳＝廿一日相当の翌日は本来甲午）。一方、資治通鑑は同じ政変を干支のみで「壬辰，鸾使萧谌先入宫……行至西弄，弑之」「癸巳，以太后令追废帝为郁林王」と独立に記述しており、壬辰＝弑殺当日、翌癸巳＝追廃の太后令、という順序で南斉書の「癸巳＝皇太后令」記事とも整合する。sxtwl.fromLunar(494,7,d,False)で隆昌元年七月を走査すると癸巳=day21=494-09-06、壬辰=day20=494-09-05となり、両書の干支が独立に一致。二重に裏付けられた干支「壬辰」を採用し、endDateを既存の0494-09-07から0494-09-05へ補正した。",
+              "note": "南斉書原文「二十二日壬辰」は、日数表記（二十二日）と干支（壬辰）が内部的に一致しない箇所である（sxtwl換算では「二十二日」に対応する干支は甲午）。この食い違いの原因（元嘉暦と現代天文暦の月境界のずれ等）は未特定だが、資治通鑑による独立した干支の裏付けがあるため、本補正では干支「壬辰」を優先して採用した。startDateについては武帝崩御日（永明十一年七月戊寅）を即位日として扱う既存の解釈（祖父武帝と同日即位）を維持し、変更していない。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 374,
+          "displayYears": 1.0,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 493,
+        "lastEndYear": 494,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 493
+      },
+      "sources": {
+        "wikidata": "Q1141013",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "斉皇帝。廃帝（鬱林王）。"
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "隆昌元年七月、蕭諶が兵を率いて宮中に侵入。昭業は自刺未遂の後、帛で首を絞められ運び出され殺害された（南齊書卷4 鬱林王紀）。蕭諶は実権を握る西昌侯蕭鸞（後の明帝）配下として動いており、宮廷内クーデターによる謀殺のため暗殺。時年二十一（原文採用、旧「享年二十二」記載から修正）。",
+        "confidence": "high",
+        "source": {
+          "page": "南齊書/卷4（鬱林王紀）",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "文惠太子の長子として皇太孫に立てられ、武帝崩御にともない正規の継承手続きで即位。",
+        "confidence": "high",
+        "source": {
+          "page": "南齊書/卷4（鬱林王紀）",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "孫",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0494-01",
+            "datePrecision": "month",
+            "note": "隆昌元年春正月丁未、改元。原文：「隆昌元年春，正月，丁未，改元，大赦。」即位（永明十一年秋）当初は先帝の永明年号をそのまま継続使用し、翌年正月に隆昌と改元した。日（丁未）は干支で判明しているが西暦日への正確な換算は未実施のためdatePrecisionはmonthとした。",
+            "source": {
+              "page": "南齊書卷四（鬱林王紀）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "本紀中に「改元」の語が明記された記事はこの1件（隆昌）のみ。即位に伴う建元は行われず（永明年号を継続）、隆昌への改元のみが該当する。"
+      },
+      "amnestyCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0494-01",
+            "datePrecision": "month",
+            "note": "隆昌元年春正月丁未、改元と同時に大赦を実施。原文：「隆昌元年春，正月，丁未，改元，大赦。」日（丁未）は干支で判明しているが西暦日への正確な換算は未実施のためdatePrecisionはmonthとした。在位中に確認できる「大赦」の記事はこの1件のみ。",
+            "source": {
+              "page": "南齊書卷四（鬱林王紀）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "本紀を通読し「大赦」の語が明記された記事はこの1件のみ確認。地域限定・部分的な恩赦（放遣・蠲除等）は含めていない。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0493-10",
+            "datePrecision": "month",
+            "note": "永明十一年（即位年）冬十月壬寅、皇太孫太妃を皇太后に尊ぶと同時に何氏を皇后に立てた。原文：「冬，十月，壬寅，尊皇太孙太妃为皇太后，立皇后何氏。」日（壬寅）は干支で判明しているが西暦日への正確な換算は未実施のためdatePrecisionはmonthとした。",
+            "source": {
+              "page": "南齊書卷四（鬱林王紀）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "本紀中に立后記事はこの1件（何氏）のみ確認。廃后・再冊立の記事は確認できなかった。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "鬱林王の在位期間中、皇太子・皇太弟・皇太孫等の法定推定継承者が廃された記事は本紀中に確認できなかった。なお本紀後半で高宗（蕭鸞）が鬱林王自身（皇帝）を廃黜する記事はあるが、これは皇帝本人の廃立であり「皇太子廃立」には該当しないため計上しない。"
+      },
+      "ages": {
+        "deathDate": "0494-09-05",
+        "deathDatePrecision": "day",
+        "deathAge": 21,
+        "confidence": "high",
+        "note": "没年齢21歳は本紀に「時年二十一」と直接記載。既存deathCauseフィールドの「享年二十二」は原文に基づき21歳に修正済み（2026-07-16ユーザー確認）。生年月日・即位時年齢の直接記載はなし。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "南斉書巻四（鬱林王紀）に親征・皇帝自ら軍を率いた記述は見られない。在位中は専ら宮中での放蕩・浪費（銭を数億費消、雞闘に耽る等）が記され、対外・対内の軍事行動を自ら指揮した形跡なし。該当記事なし。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "在位中（493年8月即位〜494年7月廃位）に鬱林王側（政権側）が主体となって鎮圧した反乱の記述は見られない。竟陵王子良・武陵王晔はいずれも薨（病死）と明記され、蜂起の記述なし。宦官徐龍駒・直閤将軍周奉叔・中書舎人綦母珍之は高宗（蕭鸞）により誅殺されたが、これは蕭鸞側による帝の側近粛清であり、帝側が鎮圧した反乱ではない。該当記事なし。"
+      },
+      "rebellionSufferedCount": {
+        "count": 1,
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "鬱林王は寿昌殿から愛姫徐氏の房へ逃げ自刺を試みるも失敗、帛で首を絞められて殺害された（時年二十一）。屍は徐龍駒宅から運び出され王礼で葬られた。蕭鸞は新安王昭文（海陵王）を擁立し、皇太后令により事後的に廃黜の形式を整えた。",
+            "leader": "蕭鸞（鎮軍将軍・西昌侯、のちの斉明帝）",
+            "name": "蕭鸞による廃位・弑逆クーデター",
+            "note": "例外4（朝廷内部の権力者による兵力を伴う弑逆・クーデター）に該当すると判断。原文に「使萧谌、坦之等于省诛曹道刚、朱隆之等，率兵自尚书入云龙门，戎服加朱衣于上」「萧谌领兵先入宫，截寿昌阁」「宿卫将士皆操弓盾欲拒战，谌谓之曰：所取自有人，卿等不须动」とあり、明確に兵力を用いたクーデターであることが確認できる。形式上は皇太后令による廃黜だが、実質は権臣蕭鸞が武力で決行した弑逆であり、帝側が鎮圧する立場ではないため rebellionSuppressionCount には計上せず、rebellionSufferedCount のみに計上した。confidence は高いが、鎮圧未遂での抵抗が宿衛将士のごく短時間の動揺にとどまり大規模な戦闘ではない点を考慮しnoteに詳記。",
+            "startDate": "0494-07-22",
+            "datePrecision": "day",
+            "endDate": "0494-07-22"
+          }
+        ],
+        "note": "南斉書巻四に基づき、蕭鸞主導の武力クーデターによる廃位・殺害を1件として計上。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "南斉書本紀を通読。建国（建康定都、建国時の定都）から502年の滅亡まで建康が一貫した都、遷都の記録なし。"
+      }
+    },
+    {
+      "id": "qi-hailingwang",
+      "name": {
+        "personalName": "蕭昭文",
+        "commonName": "廃帝（海陵王）",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "斉",
+        "category": "正統王朝",
+        "section": "南朝"
+      },
+      "reigns": [
+        {
+          "startYear": 494,
+          "endYear": 494,
+          "dynastyOrder": 4,
+          "isRestoration": false,
+          "note": "蕭鸞により擁立された傀儡。皇太后詔により廃位・海陵王に降封（翌月殺害）。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0494-09-10",
+          "endDate": "0494-11-23",
+          "startDateRaw": "延興元年七月丁酉",
+          "endDateRaw": "延興元年十月辛亥",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 74,
+            "unit": "day",
+            "approxDays": 74,
+            "exactDays": 74,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "南斉書 本紀第五 海陵王紀",
+              "lang": "zh-classical",
+              "quote": "延興元年秋，七月，丁酉，即皇帝位。／（冬，十月，癸巳…丁酉…戊戌…癸卯…）辛亥，皇太后令曰：「……太傅宣城王胤體宣皇，鍾慈太祖，識冠生民，功高造物，符表夙著，謳頌有在，宜入承寶命，式寧宗祏。帝可降封海陵王，吾當歸老別館。……」",
+              "conversion": "即位記事「延興元年七月丁酉」をsxtwl.fromLunar(494,7,d,False)で7月内の丁酉日を探索した結果、西暦494年9月10日と算出（既存startDateと完全一致）。廃位記事（皇太后令による「帝可降封海陵王」）は「冬，十月」の見出し配下にある「辛亥」の日付で、sxtwl.fromLunar(494,10,d,False)で十月内の辛亥日を探索した結果、西暦494年11月23日と算出（既存endDateと完全一致）。両日ともday精度で確定でき、既存値との差異はなし。",
+              "note": "同じ延興元年（西暦494年）の十月ブロック内で、テキスト上「十月」直下に「癸巳・丁酉・戊戌」の日付も列挙されているが、sxtwl換算ではこれらは形式上「9月（月9）」相当の範囲（10/15〜11/13頃）に落ち、直後の「癸卯・辛亥」がsxtwlの「月10」範囲（11/14〜）に落ちるという内部的な不整合が見られた（当時実用されていた元嘉暦とsxtwlの現代天文計算暦との朔日ズレによるものと推測）。ただし本タスクで必要な即位日（七月丁酉）・廃位日（十月辛亥）の2点はいずれもテキストに明記された月・日をそのままsxtwl.fromLunarに投入して算出しており、結果は既存startDate/endDateと完全一致するため、この内部不整合は結論に影響しない。廃位（海陵王への降封）翌月の十一月に「称王有疾，数遣御師占視，乃殞之」（殺害）とあり、これはnoteに記載の「翌月殺害」と整合する別イベントであり、endDateには含めていない（現行のendDate定義＝降封日を維持）。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 74,
+          "displayYears": 0.2,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 494,
+        "lastEndYear": 494,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 494
+      },
+      "sources": {
+        "wikidata": "Q1190405",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "斉皇帝。廃帝（海陵王）。"
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "「稱王有疾，數遣御師占視，乃殞之」（南齊書卷5 海陵王紀）。仮病を装った体裁で医師を繰り返し派遣した末に死に至らしめたという記述で、病死を装った謀殺を示唆。主語は明記されないが文脈上蕭鸞側の関与が推定される。享年十五。",
+        "confidence": "medium",
+        "source": {
+          "page": "南齊書/卷5（海陵王紀）",
+          "lang": "zh",
+          "note": "zh.wikisource.org。主語は原文に明記されず文脈からの推定"
+        }
+      },
+      "accessionRoute": {
+        "category": "擁立",
+        "note": "「鬱林王廢，尚書令西昌侯鸞議立昭文為帝」。蕭鸞が鬱林王を廃した後に擁立した傀儡皇帝。",
+        "confidence": "high",
+        "source": {
+          "page": "南齊書/卷5（海陵王紀）",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下",
+            "宗室"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "廃位・追放",
+          "relationToPredecessor": "弟",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0494-09-10",
+            "datePrecision": "day",
+            "note": "延兴元年秋七月丁酉、即位の詔とともに「大赦、改元」とあり、延興と改元（即位建元）。これが在位中唯一の改元。",
+            "source": {
+              "page": "南齐书本纪第五 海陵王紀",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "後継の建武への改元は、蕭昭文が海陵王に降封された後、蕭鸞（明帝）が即位して行ったものであり、蕭昭文本人の在位中の出来事ではないため計上しない。「隆昌、延兴、建武，亦三改年号」という史臣曰の記述からも、延兴が蕭昭文の在位に対応する唯一の年号であることが確認できる。"
+      },
+      "amnestyCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0494-09-10",
+            "datePrecision": "day",
+            "note": "延兴元年秋七月丁酉、即位の詔で「大赦、改元。文武賜位二等。」と明記。即位に伴う全国規模の大赦。",
+            "source": {
+              "page": "南齐书本纪第五 海陵王紀",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位期間（延兴元年七月丁酉即位～建武元年十一月殺害）中に「大赦」と明記された記事はこの即位時の1回のみ。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位期間中（在位1ヶ月半程度）に皇后冊立の記述は見られない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位期間中に皇太子・皇太弟等の法定推定継承者が立てられた記述、およびそれを廃した記述は見られない。"
+      },
+      "ages": {
+        "deathDate": "0494-12",
+        "deathDatePrecision": "month",
+        "deathAge": 15,
+        "confidence": "high",
+        "note": "没年齢15歳は本紀に「年十五」と直接記載。崩御日は月までしか特定できない（建武元年十一月）。生年月日・即位時年齢の直接記載はなし。崩御月の建武元年十一月は旧暦月番号のままの旧値（0494-11）だったため、sxtwl 換算の太陽暦多数月 0494-12 へ2026-07-23に訂正（被反乱イベントの endDate と同期）"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "在位期間（延興元年七月丁酉即位～同年十月辛亥廃位、約2ヶ月半）中、蕭昭文自身が軍を率いて出征したとする記述は南斉書卷五（海陵王紀）に見られない。「宣城王輔政，帝起居皆諮而後行」とあるように政務は実質的に驃騎大將軍蕭鸞（後の明帝）が掌握しており、軍事行動もすべて蕭鸞配下の諸将（王玄邈・王廣之等）への派遣によるもので、皇帝本人の出陣を示す「帝自将」「親征」等の記述は本紀中に確認できない。該当記事なし。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 1,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "鎮圧成功（討伐軍を派遣し、まもなく解厳）",
+            "leader": "蕭子懋（晋安王、江州刺史）",
+            "name": "晋安王蕭子懋の挙兵",
+            "note": "原文（延興元年九月）「癸未，誅新除司徒鄱陽王鏘、中軍大將軍隨郡王子隆。遣平西將軍王廣之誅南兗州刺史安陸王子敬。於是江州刺史晉安王子懋起兵，遣中護軍王玄邈討之。」実権を握る驃騎大將軍蕭鸞が宗室の粛清（鄱陽王鏘・隨郡王子隆・安陸王子敬らの誅殺）を進める中、江州刺史晉安王蕭子懋が挙兵。政府（名目上は昭文の朝廷）は王玄邈を派遣し討伐に当たらせた。同年冬十月丁酉に「解厳」（全軍戒厳の解除）と記されており、この頃までに鎮圧が完了したとみられる。挙兵の正確な日付（癸未）・解厳日（丁酉）を西暦日に厳密換算する変換表が手元になく、既に確定している即位日(0494-09-10)・廃位日(0494-11-23)の間に収まる月として月精度で概算した。",
+            "startDate": "0494-10",
+            "datePrecision": "month",
+            "endDate": "0494-10"
+          }
+        ],
+        "note": "南斉書卷五を通読し、在位期間中に「起兵」と明記された挙兵はこの1件（晉安王子懋）のみ確認。同時期に誅殺された鄱陽王鏘・隨郡王子隆・安陸王子敬・南平王銳・郢州刺史晉熙王鈱・宜都王鏗・桂陽王鑠・衡陽王鈞・江夏王鋒・建安王子真・巴陵王子倫ら多数の宗室は、いずれも挙兵・武力抵抗を示す記述がなく蕭鸞側による一方的な誅殺（粛清）と判断し反乱には含めていない。実権は蕭鸞にあったが、名目上は昭文の朝廷による鎮圧として計上した（confidence medium）。"
+      },
+      "rebellionSufferedCount": {
+        "count": 2,
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "鎮圧された",
+            "leader": "蕭子懋（晋安王、江州刺史）",
+            "name": "晋安王蕭子懋の挙兵",
+            "note": "反乱鎮圧回数側と同一事件（対称計上）。詳細はrebellionSuppressionCount参照。",
+            "startDate": "0494-10",
+            "datePrecision": "month",
+            "endDate": "0494-10"
+          },
+          {
+            "outcome": "皇太后令により海陵王に降封（廃位）、翌月（建武元年十一月）に毒殺され死去",
+            "leader": "蕭鸞（驃騎大將軍・太傅・宣城公→尚書令・録尚書事、後の明帝）",
+            "name": "蕭鸞によるクーデター的廃位・弑殺",
+            "note": "実権を握る驃騎大將軍・宣城公蕭鸞は九月の宗室粛清に際し仮黄鉞・内外纂厳を経てすでに軍事的実権を掌握。延興元年十月辛亥、皇太后令「帝可降封海陵王，吾當歸老別館」により昭文を海陵王に降封し自ら帝位に即いた（建武元年、明帝）。鬱林王の事例のような、兵を率いて宮中に直接踏み込んだという明示的な場面描写は本紀にないが、既に纂厳・仮黄鉞で軍事権を掌握していた蕭鸞が皇太后令を主導させ強制的に廃位に追い込んだ構図であり、朝廷内部の権力者による兵力を背景とした廃立（例外4パターン）と判断した。さらに建武元年十一月「稱王有疾，數遣御師占視，乃殞之」とあり、廃位の約1ヶ月後に毒殺された（deathCauseと内容重複するが規定により許容）。廃位と弑殺は同一の蕭鸞による一連の政変とみなし1件として計上。毒殺の建武元年十一月は旧暦月番号のままの旧値（0494-11）だったため、sxtwl 換算（旧暦494年十一月＝ユリウス暦494年12月13日〜495年1月11日）の太陽暦多数月 0494-12 へ2026-07-23に訂正（廃位＝十月辛亥＝494-11-23 の約1ヶ月後という記述とも整合）。南齊書に日の記載はなく月精度",
+            "startDate": "0494-11-23",
+            "datePrecision": {
+              "start": "day",
+              "end": "month"
+            },
+            "endDate": "0494-12"
+          }
+        ],
+        "note": "反乱鎮圧回数と同数（2件）で対称。蕭子懋の乱は鎮圧・被反乱の双方に同一事件として計上。蕭鸞による廃位・弑殺は、宮中への武力突入を直接描写する記述がない点で鬱林王の事例（蕭諶が兵を率いて宮殿に入り弑殺）ほど明確ではなく、太后令という体裁を取っているため、確実な兵力行使の描写を欠く判断の余地がある事案としてconfidence mediumとした。それでも蕭鸞が軍事的実権（仮黄鉞・纂厳）を背景に廃位を強行した点は明白であり、例外4（内部権力者による兵力を伴うクーデター）に該当すると判断し計上した。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "南斉書本紀を通読。建国（建康定都、建国時の定都）から502年の滅亡まで建康が一貫した都、遷都の記録なし。"
+      }
+    },
+    {
+      "id": "qi-mingdi",
+      "name": {
+        "personalName": "蕭鸞",
+        "commonName": "明帝",
+        "aliases": [],
+        "posthumousName": "明帝",
+        "templeName": "高宗",
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "斉",
+        "category": "正統王朝",
+        "section": "南朝"
+      },
+      "reigns": [
+        {
+          "startYear": 494,
+          "endYear": 498,
+          "dynastyOrder": 5,
+          "isRestoration": false,
+          "note": "蕭昭業・蕭昭文を廃位・殺害した後、自ら即位。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0494-12-05",
+          "endDate": "0498-09-01",
+          "startDateRaw": "建武元年冬十月癸亥",
+          "endDateRaw": "永泰元年秋七月己酉",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 1366,
+            "unit": "day",
+            "approxDays": 1366,
+            "exactDays": 1366,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "南斉書 本紀第六 明帝紀",
+              "lang": "zh-classical",
+              "quote": "建武元年冬，十月，癸亥，即皇帝位。／秋，七月……癸卯，以太子中庶子梁王为雍州刺史，太尉陈显达为江州刺史。己酉，帝崩于正福殿，年四十七。",
+              "conversion": "即位: 建武元年冬十月癸亥→sxtwl.fromLunar(494,10,22,False)=494-12-05(日干支癸亥で照合済み)。崩御: 永泰元年七月己酉→sxtwl.fromLunar(498,7,30,False)=498-09-01(日干支己酉で照合済み、498年に閏月なし)。既存endDate(0498-09-01)は一致したため維持。既存startDate(0494-12-22)はsxtwl逆算で日干支が庚辰・旧暦十一月十日となり原文の「十月癸亥」と不一致のため、原文換算値0494-12-05に補正。",
+              "note": "在位終了の定義は現行note「蕭昭業・蕭昭文を廃位・殺害した後、自ら即位」に対応する崩御(帝崩於正福殿)のまま変更していない。永泰元年は本紀内で正月の時点から遡及的に「永泰元年」と表記されているが、実際の改元宣言（改元）は四月甲寅と記されており、これは南朝史書に一般的な遡及的紀年慣行（改元を境に当年全体を新元号で呼ぶ）と判断し、七月己酉の崩御は永泰元年(498)として扱った。499年ではなく498年である点は_corpus_cache内の建武四年(497)→永泰元年(498)の年次連続性からも確認済み。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 1366,
+          "displayYears": 3.7,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 494,
+        "lastEndYear": 498,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 494
+      },
+      "sources": {
+        "wikidata": "Q1149132",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "斉皇帝。明帝。"
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "「帝崩于正福殿，年四十七」（南齊書卷6 明帝紀）。暴力的死や毒殺を示す語はないが、具体的病状の記述がなく確認できる精度がやや低い。",
+        "confidence": "medium",
+        "source": {
+          "page": "南齊書/卷6（明帝紀）",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "accessionRoute": {
+        "category": "簒奪",
+        "note": "高帝の甥。輔政の地位から鬱林王を廃して海陵王を立て、約2か月後には皇太后の令で海陵王を廃し自ら大統を継いだ（『南斉書』巻六「未拜，太后令废海陵王，以上入纂」「建武元年冬，十月，癸亥，即皇帝位」）。前帝を廃した行為と自らを立てた行為が同一の太后令によっており、その令を出させたのは鸞自身。",
+        "confidence": "high",
+        "source": {
+          "page": "南齊書/卷5・卷6",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "本人",
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "母后"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "廃位・追放",
+          "relationToPredecessor": "同族（遠縁）",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": "0494-12-22",
+            "datePrecision": "day",
+            "note": "建武元年冬十月癸亥、即位の詔に「大赦天下，改元。」とあり、建武と改元（即位に伴う建元）。",
+            "source": {
+              "page": "南斉書帝紀第六（明帝紀）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0498-05-09",
+            "datePrecision": "day",
+            "note": "永泰元年夏四月甲寅「改元，赦三署囚系原除各有差。」建武から永泰への改元。（旧 precision 記載: lunar-day（永泰元年四月甲寅））",
+            "source": {
+              "page": "南斉書帝紀第六（明帝紀）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "即位建元（建武）と後年の永泰改元の計2回。なお巻五（海陵王紀）史臣曰に「隆昌、延興、建武、亦三改年号」とあるが、これは郁林王・海陵王（昭文）・明帝の3代にわたる年号変遷を指すもので、明帝個人の改元回数ではない。"
+      },
+      "amnestyCount": {
+        "count": 4,
+        "events": [
+          {
+            "date": "0494-12-22",
+            "datePrecision": "day",
+            "note": "建武元年冬十月癸亥、即位の詔に「大赦天下，改元。」とあり。即位に伴う大赦天下。",
+            "source": {
+              "page": "南斉書帝紀第六（明帝紀）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0495-12-16",
+            "datePrecision": "day",
+            "note": "建武二年十一月己卯「納皇太子妃褚氏，大赦。」皇太子妃冊立に伴う大赦天下。（旧 precision 記載: lunar-day（建武二年十一月己卯））",
+            "source": {
+              "page": "南斉書帝紀第六（明帝紀）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0497-03",
+            "datePrecision": "month",
+            "note": "建武四年春正月庚午「大赦。」。（旧 precision 記載: lunar-day（建武四年正月庚午））。「建武四年春正月庚午」の庚午は sxtwl 暦表の正月内に存在せず（南斉の元嘉暦と sxtwl の閏十二月配置差とみられる。永泰元年正月癸未朔は一致）、日精度を確定できないため記載月の太陽暦多数月による月精度で収録（2026-07-22の日付正規化時に確認）",
+            "source": {
+              "page": "南斉書帝紀第六（明帝紀）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0498-02-07",
+            "datePrecision": "day",
+            "note": "永泰元年春正月癸未朔「大赦。」。（旧 precision 記載: lunar-day（永泰元年正月癸未朔））",
+            "source": {
+              "page": "南斉書帝紀第六（明帝紀）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "いずれも「大赦」「大赦天下」と明記された全国規模の恩赦のみを計上。建武二年正月辛未の「京師系囚殊死可降為五歳刑」（京師限定）、永泰元年四月甲寅の「赦三署囚系原除各有差」（三署限定）、永泰元年五月の「曲赦浙東、呉、晋陵七郡」（地域限定）は部分的恩赦のため除外した。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "在位中（建武元年～永泰元年）に皇后を正式冊立した記録は本紀中に見当たらない。乙酉条「追尊始安貞王為景皇，妃為懿后」は父母への追尊であり、皇后冊立には該当しない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "建武元年十一月戊子に皇子宝卷を皇太子に立てた記録はあるが、廃立の記録はなし。明帝崩御後、皇太子宝卷がそのまま即位（東昏侯）した。"
+      },
+      "ages": {
+        "deathDate": "0498-09-01",
+        "deathDatePrecision": "day",
+        "deathAge": 47,
+        "confidence": "high",
+        "note": "没年齢47歳は本紀に「年四十七」と直接記載（永泰元年七月己酉）。生年月日・即位時年齢の直接記載はなし。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "南齊書卷6明帝紀を通読したが、在位期間中（建武元年10月〜永泰元年7月、494-498年）に皇帝自身が「親征」「帝自将」等の形で出陣した記述はない。索虜（北魏）の司州・豫州・徐州・梁州侵攻（建武二年〜四年）に対しては、王広之・萧坦之・沈文季・陳顕達・崔慧景ら将軍への派遣（「遣」「督」）でのみ対応しており、皇帝本人の出陣は確認できない。また王敬則の乱（永泰元年）も刘山陽に「率軍東討」させており親征ではない。該当記事なしのためcount 0。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 1,
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "鎮圧成功",
+            "leader": "王敬則",
+            "name": "王敬則の乱",
+            "note": "南齊書卷6明帝紀：永泰元年（建武四年）四月丁卯「大司馬会稽太守王敬則挙兵反」。会稽太守（大司馬の位を帯びる旧臣）が挙兵し建康に迫ったが、五月壬午に辅国将軍劉山陽が東討に派遣され、乙酉（同月）に王敬則は斬首・伝首。曲赦を浙東・呉・晋陵七郡に行った。皇帝自身の親征ではなく将軍による鎮圧。既に服属していた地方長官・旧臣の武装蜂起であり、南北間の対外戦争には当たらないため反乱鎮圧に計上。",
+            "startDate": "0498-04-01",
+            "datePrecision": "month",
+            "endDate": "0498-05-01"
+          }
+        ],
+        "note": "同時期に見られる「誅萧谌・西陽王子明・南海王子罕・邵陵王子貞」（建武二年六月）「誅王晏」（建武四年二月）「誅河東王鉉ら十王」（永泰元年正月）は、原文に挙兵・軍事行動を示す語がなく、いずれも皇帝側からの一方的処刑・粛清（宗室・重臣の政治的粛清）であり武装反乱ではないため、反乱鎮圧・被反乱いずれにも計上しない（設問の参考情報どおり）。索虜（北魏）との交戦（建武二〜四年、司豫徐梁州方面）は対等な独立政権である北魏との対外戦争であり反乱には当たらないため除外。"
+      },
+      "rebellionSufferedCount": {
+        "count": 1,
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "鎮圧され王敬則は敗死（斬首・伝首）",
+            "leader": "王敬則",
+            "name": "王敬則の乱",
+            "note": "反乱鎮圧回数の事象と同一（王敬則の乱、永泰元年四月丁卯挙兵〜五月乙酉討伐完了）。会稽で挙兵し建康に迫る勢いを見せたが、劉山陽の討伐により約1ヶ月で鎮圧された。",
+            "startDate": "0498-04-01",
+            "datePrecision": "month",
+            "endDate": "0498-05-01"
+          }
+        ],
+        "note": "反乱鎮圧回数と対称（同一事象を鎮圧・被反乱の両面から計上）。粛清（萧谌・王晏・河東王鉉ら十王誅殺）は皇帝側からの一方的処刑であり武装反乱ではないため除外。索虜（北魏）との戦争は対等な独立政権間の対外戦争のため除外。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "南斉書本紀を通読。建国（建康定都、建国時の定都）から502年の滅亡まで建康が一貫した都、遷都の記録なし。"
+      }
+    },
+    {
+      "id": "qi-donghunhou",
+      "name": {
+        "personalName": "蕭宝巻",
+        "commonName": "廃帝（東昏侯）",
+        "aliases": [],
+        "posthumousName": null,
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "斉",
+        "category": "正統王朝",
+        "section": "南朝"
+      },
+      "reigns": [
+        {
+          "startYear": 498,
+          "endYear": 501,
+          "dynastyOrder": 6,
+          "isRestoration": false,
+          "note": "父明帝崩御と同日に即位。弟蕭宝融擁立側との対立の末、衛兵に殺害される。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0498-09-01",
+          "endDate": "0501-12-31",
+          "startDateRaw": "永泰元年七月己酉（高宗〔明帝〕崩御、太子即位）",
+          "endDateRaw": "永元三年十二月丙寅（王珍国・張稷が兵を率いて宮殿に入り帝を廃す。同夜、殺害される）",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 1217,
+            "unit": "day",
+            "approxDays": 1217,
+            "exactDays": 1217,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "南斉書 本紀第七 東昏侯",
+              "lang": "zh-classical",
+              "quote": "永泰元年七月，己酉，高宗崩，太子即位。／十二月，丙寅，新除雍州刺史王珍国、侍中张稷率兵入殿废帝，时年十九。……是夜，帝在含德殿吹笙歌作《女儿子》。卧未熟，闻兵入，趋出北户，欲还后宫。清曜阁已闭，阉人禁防黄泰平以刀伤其膝，仆地。顾曰：「奴反邪？」直后张齐斩首送梁王。",
+              "conversion": "「永泰元年七月，己酉」を永泰元年（498年）七月内で干支己酉を検索したところ、七月は30日まであり（498-08-03～498-09-01が七月朔日～晦日）、己酉は七月30日（晦日）=西暦498年9月1日に一致した。「（永元）三年十二月，丙寅」は南斉書東昏侯紀の記事順から永元三年（501年）十二月と特定でき、十二月内で丙寅を検索したところ十二月六日=西暦501年12月31日に一致した。python3のsxtwlで両日ともgetDayGZが一致することを確認済み。既存のstartDate=0498-09-01・endDate=0501-12-31と完全に一致した。",
+              "note": "在位終了記事は「十二月，丙寅，新除雍州刺史王珍国、侍中张稷率兵入殿废帝，时年十九」で「廃位」を明記。続く段落の「是夜，帝在含德殿吹笙歌作《女儿子》……黄泰平以刀伤其膝，仆地……直后张齐斩首送梁王」は文脈上「是夜」＝同じ丙寅の夜の出来事であり、廃位と殺害は同日（丙寅日）に発生したと解釈できる。したがって既存noteの「衛兵に殺害される」という在位終了の定義とendDate=丙寅日（501-12-31）は矛盾しない。 exactDays を 1216→1217 に訂正（2026-07-22）。旧値は日付ラベル（ユリウス暦）にグレゴリオ暦算術を適用してユリウス暦の閏世紀日（100の倍数年の2月29日）を1日取りこぼしていた。実経過日数はユリウス通日（JDN）差で再計算。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 1217,
+          "displayYears": 3.3,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 498,
+        "lastEndYear": 501,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 498
+      },
+      "sources": {
+        "wikidata": "Q1336575",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "斉皇帝。廃帝（東昏侯）。"
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "永元三年十二月、王珍國・張稷率いる兵が宮中に侵入、逃走中の東昏侯を近侍の武官・張齊が斬首（南齊書卷7 東昏侯紀）。実行犯は東昏侯自身の朝廷内の武官で、殺害時点では蕭衍側との事前共謀の記述は確認できず南斉から梁への王朝交代も未成立のため、同一政権内部の者による謀殺として暗殺に分類。",
+        "confidence": "medium",
+        "source": {
+          "page": "南齊書/卷7（東昏侯紀）",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "明帝（高宗）の第二子として皇太子に立てられ、父帝崩御にともない正規の継承手続きで即位。",
+        "confidence": "high",
+        "source": {
+          "page": "南齊書/卷7（東昏侯紀）",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0499-01-28",
+            "datePrecision": "day",
+            "note": "永元元年正月戊寅（朔）、「永泰」から「永元」への改元。原文：「永元元年春，正月，戊寅，大赦，改元。」永泰元年七月己酉（498年9月1日）の即位後、父帝の元号「永泰」をそのまま踏襲していたが、翌年正月にはじめて自身の元号「永元」を制定。在位終了（永元三年十二月丙寅＝501年12月31日、廃位・殺害）まで永元のまま改元なし。",
+            "source": {
+              "page": "南齊書/卷7（東昏侯紀）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中に確認できる改元はこの1回のみ。即位時（永泰元年七月）は先帝の元号を継続しており新元号の制定はなく、翌年正月の「永元」建元が実質的な最初の改元。"
+      },
+      "amnestyCount": {
+        "count": 5,
+        "events": [
+          {
+            "date": "0499-01-28",
+            "datePrecision": "day",
+            "note": "永元元年正月戊寅（朔）、「大赦，改元」。即位翌年最初の全国規模の大赦（改元と同日）。原文：「永元元年春，正月，戊寅，大赦，改元。」",
+            "source": {
+              "page": "南齊書/卷7（東昏侯紀）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0499-05-19",
+            "datePrecision": "day",
+            "note": "永元元年四月己巳、皇太子誦（蕭誦）を立てるとともに大赦。原文：「夏，四月，己巳，立皇太子诵，大赦，赐民为父后爵一级。」",
+            "source": {
+              "page": "南齊書/卷7（東昏侯紀）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0499-09-09",
+            "datePrecision": "day",
+            "note": "永元元年八月壬戌、相次ぐ大臣誅殺を受けての大赦天下。原文：「壬戌，以频诛大臣，大赦天下。」なお同月丙午条の「诏曲赦京邑」は京邑限定の恩赦のため対象外。",
+            "source": {
+              "page": "南齊書/卷7（東昏侯紀）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0500-06-25",
+            "datePrecision": "day",
+            "note": "永元二年五月壬子、崔慧景の乱鎮圧・江夏王宝玄伏誅後の大赦。原文：「己酉，江夏王宝玄伏诛。壬子，大赦。」直後の「乙丑，曲赦京邑、南徐兖二州」は地域限定のため対象外。四月癸酉の「诏曲赦京邑、南徐兖二州」も同様に対象外。",
+            "source": {
+              "page": "南齊書/卷7（東昏侯紀）",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0501-02-19",
+            "datePrecision": "day",
+            "note": "永元三年正月辛亥、南郊祭祀に伴う大赦天下。原文：「辛亥，车驾祀南郊，诏大赦天下，百官陈谠言。」",
+            "source": {
+              "page": "南齊書/卷7（東昏侯紀）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "『南斉書』卷七 東昏侯紀を通読し「大赦」「大赦天下」と明記された全国規模の恩赦のみを5件カウント。「曲赦」（京邑・南徐兖二州・荆雍二州・江州安成廬陵二郡等、地域限定の恩赦）は複数回記録されているが（永元元年八月丙午、永元二年四月癸酉・五月乙丑、永元三年六月戊子・七月癸巳など）、いずれも部分的恩赦のため対象外とした。日付は干支をsxtwl（授時暦系アルゴリズム）で該当年月内の唯一該当日として特定し西暦換算（既存データの在位開始日0498-09-01・終了日0501-12-31との整合を確認済み）。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0498-12-09",
+            "datePrecision": "day",
+            "note": "永泰元年十一月戊子、皇后褚氏を立后。原文：「十一月，戊子，立皇后褚氏，赐王公以下钱各有差。」同年七月己酉（498年9月1日）の高宗崩御・太子即位の後、東昏侯自身による立后。本紀中に廃后・再冊立の記録はなくこの1回のみ。",
+            "source": {
+              "page": "南齊書/卷7（東昏侯紀）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中に確認できる立后はこの1回（褚氏）のみ。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "『南斉書』卷七 東昏侯紀に、永元元年四月己巳「立皇太子诵」（子の蕭誦を皇太子に立てた）との記事はあるが、その後の廃立の記述は見当たらない。永元三年十二月丙寅、王珍国・張稷らが「率兵入殿废帝」とあるのは東昏侯自身（皇帝）の廃位であって皇太子の廃立ではないため、本項目には計上しない。"
+      },
+      "ages": {
+        "deathDate": "0501-12-31",
+        "deathDatePrecision": "day",
+        "deathAge": 19,
+        "confidence": "high",
+        "note": "没年齢19歳は本紀に「時年十九」と直接記載（永元三年十二月丙寅、廃位と同夜に殺害）。生年月日・即位時年齢の直接記載はなし。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "『南斉書』卷七 東昏侯紀を通読したが、皇帝本人が軍を率いて出征したことを示す記述（「帝自将」「亲征」「帝率」等）は見当たらない。陳顕達の乱・裴叔業の反乱・崔慧景の乱・蕭衍挙兵のいずれも「遣平西将軍崔慧景」「遣中領軍王莹」等、将軍を派遣する形で対応しており皇帝本人は建康の宮城内にとどまった。永元三年正月丙申朔の「阅武堂元会」で「帝戎服临视」（帝が軍装で観閲）とあるのは新年の閲兵儀礼であり実戦の親征ではないため計上しない。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 4,
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "鎮圧成功（蕭遥光斬首）",
+            "leader": "蕭遥光（始安王、宗室・揚州刺史）",
+            "name": "始安王蕭遥光の乱",
+            "note": "永元元年八月丙午、揚州刺史始安王遥光が東府に拠って挙兵（「据东府反」）。朝廷は京邑を曲赦し戒厳、尚書令徐孝嗣以下が宮城を守り、領軍将軍蕭坦之を派遣して討伐。戊午（12日後）に遥光を斬り首を伝う。原文：「丙午，扬州刺史始安王遥光据东府反。诏曲赦京邑，中外戒严。尚书令徐孝嗣以下屯卫宫城。遣领军将军萧坦之率六军讨之。戊午，斩遥光，传首。」宗室・地方長官による反乱で短期間で鎮圧に成功。",
+            "startDate": "0499-08-24",
+            "datePrecision": "day",
+            "endDate": "0499-09-05"
+          },
+          {
+            "outcome": "鎮圧成功（陳顕達斬首）",
+            "leader": "陳顕達（太尉・江州刺史）",
+            "name": "陳顕達の挙兵",
+            "note": "永元元年十一月丙辰、太尉・江州刺史陳顕達が尋陽で挙兵。京師に迫るも十二月甲申に京師付近で六軍が固守し迎撃、翌乙酉に陳顕達を斬り首を伝う。原文：「十一月，丙辰，太尉、江州刺史陈显达举兵于寻阳。（…）十二月，（…）甲申，陈显达至京师，宫城严警，六军固守。乙酉，斩陈显达，传首。」政権に服属する大臣・地方長官による反乱で鎮圧成功。",
+            "startDate": "0500-01-01",
+            "datePrecision": "day",
+            "endDate": "0500-01-30"
+          },
+          {
+            "outcome": "鎮圧失敗（裴叔業は討伐前に病死、甥の裴植が寿春城を北魏に献じて降伏し領土喪失）",
+            "leader": "裴叔業（豫州刺史）",
+            "name": "裴叔業の反乱（寿春の北魏降伏）",
+            "note": "永元二年正月庚午、朝廷は豫州刺史裴叔業討伐を詔（「诏讨豫州刺史裴叔业」）。しかし同年二月己丑、裴叔業は討伐が及ぶ前に病死し、兄の子・裴植が寿春城をもって北魏（虏）に降伏した。原文：「庚午，诏讨豫州刺史裴叔业。」「己丑，裴叔业病死，兄子植以寿春降虏。」朝廷側は討伐を発令したが実際の軍事的鎮圧には至らず、結果として服属地方長官の離反により寿春を北魏に奪われた失敗事例。実際に鎮圧に成功したか否かは問わない基準に従い計上。",
+            "startDate": "0500-03-15",
+            "datePrecision": "day",
+            "endDate": "0500-04-03"
+          },
+          {
+            "outcome": "鎮圧成功（崔慧景敗走・斬首）",
+            "leader": "崔慧景（護軍将軍→平南将軍）",
+            "name": "崔慧景の乱",
+            "note": "永元二年三月、朝廷は裴叔業討伐のため崔慧景を寿春に派遣したが（乙卯，遣平西将军崔慧景率众军伐寿春）、崔慧景は広陵で反転して挙兵し建康（京師）を襲撃（「崔慧景于广陵举兵袭京师」）。南徐州刺史江夏王宝玄がこれに呼応し建康城を開いて迎え入れた。崔慧景軍は宮城に迫り王莹らを撃破して京師に侵入したが（壬戌，慧景至，莹等败绩。甲子，慧景入京师）、豫州刺史蕭懿の救援もあり夏四月癸酉（0500-05-17）に崔慧景は敗走し斬首された。原文の当該箇所には「乙卯」の干支が三月内で二度出現するなど記述に不整合があり挙兵開始の正確な日は特定できなかったため月精度とした。江夏王宝玄はこの反乱に呼応した従犯として同年五月己酉（伏诛）に処刑されているが、崔慧景本人の乱の一部として扱い別件計上はしない。",
+            "startDate": "0500-03-01",
+            "datePrecision": "month",
+            "endDate": "0500-05-17"
+          }
+        ],
+        "note": "『南斉書』卷七 東昏侯紀を通読し、独立した首謀者による挙兵4件（始安王蕭遥光・陳顕達・裴叔業・崔慧景）を鎮圧回数として計上した。500年末〜501年末の蕭穎冑・蕭衍（梁王）による挙兵は、鎮圧に失敗し最終的に王珍国・張稷の宮中クーデターにより東昏侯自身が殺害され王朝実権を喪失した事件のため、鎮圧回数には計上せず被反乱回数のみに計上した（設問の指示に従う）。徐世檦は謀反者ではなく皇帝自身が先制して禁兵に殺害させた対象（例外3に該当）のため計上除外。日付はsxtwl（授時暦系アルゴリズム）で干支を該当年月内の唯一該当日として特定し西暦換算した（崔慧景挙兵開始日のみ原文の干支重複により特定不能で月精度）。"
+      },
+      "rebellionSufferedCount": {
+        "count": 5,
+        "confidence": "high",
+        "events": [
+          {
+            "outcome": "鎮圧され蕭遥光は敗死",
+            "leader": "蕭遥光（始安王、宗室・揚州刺史）",
+            "name": "始安王蕭遥光の乱",
+            "note": "鎮圧回数の同名事件と同一。服属する宗室・地方長官による蜂起。",
+            "startDate": "0499-08-24",
+            "datePrecision": "day",
+            "endDate": "0499-09-05"
+          },
+          {
+            "outcome": "鎮圧され陳顕達は敗死",
+            "leader": "陳顕達（太尉・江州刺史）",
+            "name": "陳顕達の挙兵",
+            "note": "鎮圧回数の同名事件と同一。服属する大臣・地方長官による蜂起。",
+            "startDate": "0500-01-01",
+            "datePrecision": "day",
+            "endDate": "0500-01-30"
+          },
+          {
+            "outcome": "裴叔業は討伐前に病死、甥が寿春城を北魏に献じて降伏（鎮圧失敗）",
+            "leader": "裴叔業（豫州刺史）",
+            "name": "裴叔業の反乱（寿春の北魏降伏）",
+            "note": "鎮圧回数の同名事件と同一。服属する地方長官の離反・北魏への投降。",
+            "startDate": "0500-03-15",
+            "datePrecision": "day",
+            "endDate": "0500-04-03"
+          },
+          {
+            "outcome": "鎮圧され崔慧景は敗死",
+            "leader": "崔慧景（護軍将軍→平南将軍）",
+            "name": "崔慧景の乱",
+            "note": "鎮圧回数の同名事件と同一。建康に迫るも鎮圧に成功。",
+            "startDate": "0500-03-01",
+            "datePrecision": "month",
+            "endDate": "0500-05-17"
+          },
+          {
+            "outcome": "鎮圧失敗。義軍が建康を包囲する中、東昏侯配下の将軍王珍国・張稷が保身のため兵を率いて宮中に突入し東昏侯を弑殺（首は梁王蕭衍のもとへ送られた）。王朝実権は事実上蕭衍側に移った。",
+            "leader": "蕭穎冑（西中郎長史・荊州）／蕭衍（雍州刺史、後の梁王・梁武帝）",
+            "name": "蕭穎冑・蕭衍（梁王、後の梁武帝）の挙兵と王珍国・張稷のクーデター",
+            "note": "永元二年十一月甲寅、西中郎長史蕭穎冑が荊州で挙兵（「西中郎长史萧颖胄起义兵于荆州」）、同年十二月には雍州刺史蕭衍（原文では後の爵位で「梁王」と記す）も襄陽で挙兵（「雍州刺史梁王起义兵于襄阳」）。両者は連携し永元三年三月丁未には南康王宝融（後の斉和帝）を江陵で擁立して対立政権を樹立。義軍は李居士・王珍国ら朝廷軍を各地（新亭・朱雀桁等）で撃破しつつ建康を包囲、朝廷側は最後まで軍事的に鎮圧できなかった。永元三年十二月丙寅、包囲下で王珍国・張稷が「惧祸及」（禍が身に及ぶことを恐れ）て兵を率いて宮殿に突入し東昏侯を廃し、逃げる東昏侯を近侍の武官が斬首して首級を梁王蕭衍のもとへ送った。外部勢力（蕭穎冑・蕭衍陣営）の挙兵と、包囲下での朝廷内部武将による弑逆クーデターが一連の事件として東昏侯の死・王朝実権喪失に直結したため、被反乱回数には計上するが、朝廷側が最終的に鎮圧主体たり得なかった（鎮圧失敗のうえ皇帝自身が殺害された）ため鎮圧回数には計上しない（設問の指示に明示的に従った）。",
+            "startDate": "0500-12-24",
+            "datePrecision": "day",
+            "endDate": "0501-12-31"
+          }
+        ],
+        "note": "反乱鎮圧回数と同一の4件（蕭遥光・陳顕達・裴叔業・崔慧景）に加え、蕭穎冑・蕭衍の挙兵〜王珍国・張稷のクーデターによる弑殺の1件（鎮圧に失敗し在位終了＝崩御に至った事件）を追加計上し合計5件とした。鎮圧回数（4件）との差は基準に定める正当な理由2（未鎮圧のまま在位終了）に該当する。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "南斉書本紀を通読。建国（建康定都、建国時の定都）から502年の滅亡まで建康が一貫した都、遷都の記録なし。"
+      }
+    },
+    {
+      "id": "qi-hedi",
+      "name": {
+        "personalName": "蕭宝融",
+        "commonName": "和帝",
+        "aliases": [],
+        "posthumousName": "和帝",
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "斉",
+        "category": "正統王朝",
+        "section": "南朝"
+      },
+      "reigns": [
+        {
+          "startYear": 501,
+          "endYear": 502,
+          "dynastyOrder": 7,
+          "isRestoration": false,
+          "note": "東昏侯打倒運動の盟主として擁立。蕭衍へ禅譲し斉滅亡。退位後502-05-02に自殺を強制され死去。",
+          "raw": null,
+          "durationRaw": null,
+          "startDate": "0501-04-14",
+          "endDate": "0502-04-30",
+          "startDateRaw": "中興元年（＝永元三年）三月乙巳（旧暦）",
+          "endDateRaw": "天監元年(中興二年)四月丙寅（旧暦、梁武帝蕭衍の即位日をもって和帝の在位終了とする。※南斉書自体では三月丙辰=禅位梁王、四月辛酉=禅詔至までしか確認できず、丙寅の記事は梁書武帝紀上による）",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 381,
+            "unit": "day",
+            "approxDays": 381,
+            "exactDays": 381,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "南斉書 本紀第八 和帝紀（在位終了日の確認のため梁書 本紀第一 武帝紀上も参照）",
+              "lang": "zh-classical",
+              "quote": "（即位）中兴元年春，三月，乙巳，即皇帝位，大赦，改元……即永元三年也。／（在位終了関連・南斉書）丙辰，禅位梁王。丁巳，庐陵王宝源薨。夏，四月，辛酉，禅诏至，皇太后逊外宫。丁卯，梁王奉帝为巴陵王，宫于姑熟，行齐正朔，一如故事。戊辰，薨，年十五。／（在位終了日確認・梁書）丙辰，齐帝禅位于梁王。……天监元年夏四月丙寅，高祖即皇帝位于南郊。",
+              "conversion": "即位:中興元年(=永元三年)三月乙巳をsxtwl換算すると0501-04-14となり既存startDateと一致。在位終了:『南斉書』和帝紀は禅位(三月丙辰=0502-04-20)・禅詔至(四月辛酉=0502-04-25)しか記さず既存endDate(0502-04-30)と直接一致しなかったため『梁書』武帝紀上を参照したところ「天監元年夏四月丙寅、高祖即皇帝位於南郊」とあり、丙寅をsxtwl換算すると0502-04-30となって既存endDateと厳密に一致した。これは既訂正済みの hou-han-xiandi（後漢献帝、endDateを後継者曹丕自身の即位日とする方針）と同じ処理方針であり、それに倣い梁武帝自身の即位日をもって和帝の在位終了日とする既存値を踏襲した。なお和帝の死去日(自殺強制)は『南斉書』の戊辰(四月十日)=0502-05-02で、noteの記述と一致することも確認した。exactDaysはdatetime.date差分で381日と機械計算し既存値と一致。",
+              "note": "在位終了日(0502-04-30)は『南斉書』和帝紀本文だけでは特定できず（本文が記す禅位=三月丙辰0502-04-20、禅詔至=四月辛酉0502-04-25のいずれとも一致しない）、『梁書』本紀第一 武帝紀上の「天監元年夏四月丙寅、高祖即皇帝位於南郊」（丙寅=0502-04-30）と照合して確認した。既訂正済みの hou-han-xiandi（在位終了日を後継者自身の即位日とする方針）と同一の処理方針を踏襲していると判断し、既存endDateをそのまま維持した。和帝自身の死去日（自殺強制）は南斉書の戊辰（四月十日）=0502-05-02で、note記載の「502-05-02死去」と一致することも確認済み。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 381,
+          "displayYears": 1.0,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 501,
+        "lastEndYear": 502,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 501
+      },
+      "sources": {
+        "wikidata": "Q1190420",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "斉皇帝。和帝。"
+      },
+      "deathCause": {
+        "category": "暗殺",
+        "note": "『南史』卷5原文（zh.wikisource.orgで直接確認）：「沈約曰『今古殊事，魏武所云不可慕虛名而受實禍』。梁武頷之。於是遣鄭伯禽進以生金，帝曰『我死不須金，醇酒足矣。』乃引飲一升，伯禽就加折焉。」沈約の進言により梁武帝（蕭衍）が了承、鄭伯禽が派遣され、生金（毒）を拒否し泥酔した和帝を絞殺。『南齊書』は「薨」とのみ記し自然死のように婉曲に記述している（梁の蕭子顕撰につき梁室による隠蔽の可能性）が、原典の南史記述に基づき暗殺に分類（劉宋順帝・梁敬帝と同様、政権交代後の隠密な謀殺のパターン）。",
+        "confidence": "high",
+        "source": {
+          "page": "南史/卷05 齊本紀下第五",
+          "lang": "zh",
+          "note": "zh.wikisource.org（原文直接確認）。南齊書/卷8は自然死のように婉曲表現"
+        }
+      },
+      "accessionRoute": {
+        "category": "擁立",
+        "note": "東昏侯打倒の義兵運動の中で、荊州の蕭穎冑と雍州の蕭衍が結び、南康王寶融を擁立。「西中郎將南康王宜纂承皇祚」（南齊書卷8 和帝紀）。",
+        "confidence": "high",
+        "source": {
+          "page": "南齊書/卷8（和帝紀）",
+          "lang": "zh",
+          "note": "zh.wikisource.org"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "第三者"
+          ],
+          "decidedByAgents": [
+            "臣下",
+            "母后"
+          ],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "横死",
+          "relationToPredecessor": "弟",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0501-04-14",
+            "datePrecision": "day",
+            "note": "中興元年三月乙巳、即皇帝位と同日に改元（原文:「即皇帝位，大赦，改元…即永元三年也」）。永元三年を中興元年に改めたもので、即位に伴う最初の建元。以降、中興二年（禅位年）まで新たな改元の記事は本紀中に見当たらない。",
+            "source": {
+              "page": "南齊書/卷八（和帝紀）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "和帝在位期間を通読し、年号は「中興」（元年・二年）のみで、途中改元の記事はない。即位時の建元1回のみを計上。"
+      },
+      "amnestyCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0501-04-14",
+            "datePrecision": "day",
+            "note": "中興元年三月乙巳、即皇帝位と同日に「大赦」を実施（原文:「即皇帝位，大赦，改元」）。これ以前の永元三年正月乙巳「王受命，大赦」（唯梅蟲兒・茹法珍等不在赦例）は、蕭寶融がまだ皇帝ではなく宣城王/相國の身分であった時点の恩赦のため、和帝在位期間の集計から除外した。",
+            "source": {
+              "page": "南齊書/卷八（和帝紀）",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "和帝在位期間（中興元年三月即位〜中興二年三月禅位）の本紀本文を通読し、「大赦」と明記された記事を確認した。即位当日の1回のみで、それ以外に在位中の大赦記事は見当たらない。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "和帝紀（卷八）を通読したが、皇后の冊立に関する記述は一切確認できない。和帝は在位期間が短く（1年余り）、皇后不在のまま禅位・崩御したと考えられる。よってcount:0として計上。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "和帝紀（卷八）を通読したが、皇太子・皇太弟・皇太孫等の冊立・廃立に関する記述は一切確認できない。和帝在位はわずか1年余りで、次代への継承は禅譲（梁への譲位）によるものであり、皇太子制度自体が機能していない。よってcount:0として計上。"
+      },
+      "ages": {
+        "deathDate": "0502-05-02",
+        "deathDatePrecision": "day",
+        "deathAge": 15,
+        "confidence": "high",
+        "note": "没年齢15歳は本紀末尾に「薨、年十五」と直接記載。生年月日・即位時年齢の直接記載はなし。"
+      },
+      "personalCampaignCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "南斉書巻八・和帝紀および南史巻五（斉本紀下）を確認したが、和帝（蕭宝融）自身が「帝自将」「親征」等の形で軍を率いて出陣したという記述は在位期間（中興元年三月即位〜中興二年三月禅位）を通じて一切ない。東昏侯打倒に至る軍事行動（郢州の張冲拒守、巴西太守鲁休烈・巴東太守萧惠训子璝の拒戦、吴子阳十三軍の郢州救援など）はすべて長史蕭穎胄・雍州刺史蕭衍（後の梁武帝）とその配下の将軍たちが指揮したものであり、南康王（和帝）本人は擁立された名目上の盟主・皇帝に過ぎず、車駕が東帰して姑孰に至った（車駕東帰至姑孰）以外に自ら軍を率いて戦地に赴いた記録はない。よって該当記事なしとして0件とする。"
+      },
+      "rebellionSuppressionCount": {
+        "count": 0,
+        "confidence": "medium",
+        "events": [],
+        "note": "和帝（南康王）擁立に伴う挙兵（永元二年十一月、長史蕭穎胄が刘山阳を殺し蕭衍を奉じて挙義）から建康城平定（中興元年十二月）に至る一連の軍事行動は、当時なお在位中であった東昏侯（蕭宝卷）政権への反旗・簒奪戦であり、和帝（蕭宝融）自身は南康王〜宣城王〜皇帝として擁立された対立政権（挑戦者側）の名目上の盟主である。すなわちこれは和帝が自らの政権に対する反乱を鎮圧した事例ではなく、逆に和帝側（蕭穎胄・蕭衍陣営）が正統政権（東昏侯）を攻める側であり、東昏侯配下の郢州刺史張冲・巴西太守鲁休烈・巴東太守萧惠训子璝・東軍主吴子阳らの抵抗は和帝への反乱ではなく、和帝側の進攻に対する東昏侯側の防戦にあたる（本人が親征していないためpersonalCampaignCountにも計上せず）。この整理はルール中の「対立政権の首謀者」パターンに準じるが、和帝自身は実質的な首謀者ではなく蕭穎胄・蕭衍に擁立された傀儡であるため、いずれにせよ和帝自身の鎮圧回数としては計上しない。また即位後（中興元年三月〜二年三月）に湘東王宝晊・邵陵王宝攸・晋熙王宝嵩・桂阳王宝贞らが誅殺され鄱陽王宝寅が魏へ出奔しているが、これらは「伏誅」「奔虏」とのみ記され、挙兵・武装蜂起を示す記述がなく、実権を握った蕭衍による宗室粛清（謀反の摘発・処断）とみられるため、実際の兵力行使を伴う反乱の証拠が不十分であり計上しない。confidenceはmediumとし、対立政権擁立過程の解釈に幅がある点を明記する。"
+      },
+      "rebellionSufferedCount": {
+        "count": 0,
+        "confidence": "high",
+        "events": [],
+        "note": "和帝在位中（中興元年三月乙巳即位〜中興二年三月丙辰禅位）に、和帝自身の政権に対する武装反乱・クーデターの記述は南斉書・南史とも見当たらない。中興二年三月丙辰の「禅位梁王」（南史では「逊位于梁」）は武力弑逆を伴わない形式的な禅譲として記述されており、指示文の『平和的禅譲であれば被反乱には計上しない』という基準に従い計上しない。禅位後、巴陵王として姑孰に幽閉された和帝は四月戊辰に薨去（南史によれば梁武帝の意を受けた鄭伯禽が生金を勧め、毒殺同然の死を迎えたとされる）しているが、これは既に譲位後・在位期間終了後の出来事であり、かつ在位中の軍事的反乱事件ではなく死因（弑逆・毒殺疑い）に分類されるべき事象のため、本項目には含めない。"
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "南斉書本紀を通読。建国（建康定都、建国時の定都）から502年の滅亡まで建康が一貫した都、遷都の記録なし。"
+      }
+    }
+  ]
+}

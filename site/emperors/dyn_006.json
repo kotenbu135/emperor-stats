@@ -1,0 +1,503 @@
+{
+  "meta": {
+    "dynastyName": "前燕",
+    "dynastySection": "前燕",
+    "count": 2,
+    "file": "data/emperors/dyn_006.json"
+  },
+  "emperors": [
+    {
+      "id": "qianyan-murongjun",
+      "name": {
+        "personalName": "慕容儁",
+        "commonName": "景昭帝",
+        "aliases": [],
+        "posthumousName": "景昭帝",
+        "templeName": "烈祖",
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "前燕",
+        "category": "並立政権",
+        "section": "前燕"
+      },
+      "reigns": [
+        {
+          "startYear": 352,
+          "endYear": 360,
+          "dynastyOrder": 2,
+          "isRestoration": false,
+          "note": "352年まで燕王を自称、同年11月に伝国璽獲得を大義名分として皇帝に即位。",
+          "raw": "352年 - 360年",
+          "durationRaw": null,
+          "startDate": null,
+          "endDate": "0360-02-23",
+          "startDateRaw": "元璽元年（352年）11月（日不詳）",
+          "endDateRaw": "光寿4年1月21日（旧暦、360年2月頃）",
+          "datePrecision": {
+            "start": "month",
+            "end": "day"
+          },
+          "duration": {
+            "value": 2656,
+            "unit": "day",
+            "approxDays": 2656,
+            "exactDays": null,
+            "needsPreciseDays": true,
+            "source": {
+              "page": "晋書 巻一百十 載記第十（慕容儁）",
+              "lang": "zh-classical",
+              "quote": "因以永和八年僭即皇帝位，大赦境內，建元曰元璽。……升平四年，儁死，時年四十二，在位十一年。偽謚景昭皇帝，廟號烈祖。",
+              "conversion": "崩御日(0360-02-23)=光壽4年1月21日=甲午とsxtwl換算が完全一致、変更なし。即位(352年11月、月精度)は資治通鑑の月次記載と一致、変更なし。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 2656,
+          "displayYears": 7.3,
+          "needsPreciseDays": true,
+          "isExact": false
+        },
+        "firstStartYear": 352,
+        "lastEndYear": 360,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": true,
+        "usedEmperorTitleFrom": 352
+      },
+      "sources": {
+        "wikidata": "Q1071329",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "前燕2代皇帝。父慕容皝は燕王のままで皇帝は称しておらず除外（死後追諡）。"
+      },
+      "deathCause": {
+        "category": "病死",
+        "note": "光寿4年（360年）正月、鄴城で大規模な閲兵を行った直後に病状が悪化。大司馬慕容恪・司徒慕容評・司空陽騖・領軍将軍慕輿根を召集し遺詔で後事を託した翌日（正月21日）に崩御（享年42、在位11年）。他殺を示す記述はない。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第十 慕容儁",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "前燕の建国者慕容皝の子。父の死後、燕王を継承し、352年に伝国璽の獲得を大義名分として皇帝を称した。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第十 慕容儁",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "新称",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": "0352-11",
+            "datePrecision": "month",
+            "note": "永和八年（352年）11月、伝国璽獲得を大義名分に皇帝位に即位し「建元曰元璽」と明記。称帝（皇帝号使用開始）に伴う建国改元として1回に計上（本人固有の注意事項に従う）。",
+            "source": {
+              "page": "晉書 載記第十 慕容儁",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": "0357",
+            "datePrecision": "year",
+            "note": "升平元年（357年）、太子晔の死去を受け次子を新たに皇太子に立てるとともに「改元曰光寿」と明記。元璽から光寿への改元。月日までは原文に記載なし。",
+            "source": {
+              "page": "晉書 載記第十 慕容儁",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "永和五年（349年）に燕王位に即いた際「依春秋列国故事称元年」とあるが、これは称帝以前（本データセットの在位期間352-360年より前）の出来事であり、正式な年号建元でもないため対象外とした。在位中（352-360年）の年号は元璽（352-356年頃）→光寿（357-360年）の2回のみ。"
+      },
+      "amnestyCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0352-11",
+            "datePrecision": "month",
+            "note": "永和八年（352年）11月、伝国璽の獲得を大義名分に皇帝位に即き「大赦境内」と明記。建元（元璽）と同時の全国規模の大赦。",
+            "source": {
+              "page": "晉書 載記第十 慕容儁",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "medium",
+        "note": "厳密に「大赦」と明記されるのはこの1件のみ。ほかに(1)升平元年（357年）「復立次子為皇太子、赦其境内、改元曰光寿」、(2)蓟城から鄴への遷都時「俊自蓟城迁于鄴、赦其境内」の計2件があるが、いずれも「大赦」ではなく「赦其境内」という表現（同一載記中で子の慕容暐の即位記事は「大赦境内」と明記されており、慕容儁の当該2件との表現の違いは原文上意図的な可能性がある）。全国規模の恩赦である可能性は高いが、指示基準の「大赦」等の明記に厳密には該当しないため主カウントから除外した。広義に含める場合はcount=3となる。"
+      },
+      "empressInstallationCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0352-11",
+            "datePrecision": "month",
+            "note": "永和八年（352年）11月の皇帝即位時に「立其妻可足渾氏為皇后」と明記。妻の可足渾氏を皇后に冊立。",
+            "source": {
+              "page": "晉書 載記第十 慕容儁",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中の再冊立・廃后の記事は見当たらない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "即位時に世子晔を皇太子に立てたが、晔は廃されたのではなく病死（「俊太子晔死、偽謚献懐」）。その後升平元年（357年）に次子を新たに皇太子に立てているが、これは先の皇太子の死去に伴う新規立太子であり「廃立」には該当しない。載記中に皇太子（皇太弟等含む）を廃した記事は見当たらない。"
+      },
+      "ages": {
+        "birthDatePrecision": null,
+        "deathDatePrecision": null,
+        "deathAge": 42,
+        "confidence": "high",
+        "note": "『晉書』載記第十末尾に「升平四年、俊死、時年四十二、在位十一年」と明記。没年齢42歳・在位11年が原文に直接記載されている。生年・崩御月日そのものの直接記載はない（崩御月日は既存reignsデータのendDate 0360-02-23〔光寿4年1月21日〕を参照）。即位時年齢も本文に直接記載なし。"
+      },
+      "personalCampaignCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "outcome": "俊が自ら三軍を率いて盧龍より出撃し無終に進駐、薊城を攻略して守将王他を斬った。以後薊を新たな都とした。",
+            "note": "「明年、俊率三軍南伐、出自盧龍、次於無終。石季龍幽州刺史王午弃城走、留其將王他守薊。俊攻陥其城、斬他、因而都之。」（普及頃の初年、即位翌年）",
+            "startDate": "0350-01-01",
+            "endDate": "0350-12-31",
+            "datePrecision": "year",
+            "target": "後趙幽州刺史配下の残存勢力（守将王他ほか）"
+          },
+          {
+            "outcome": "慕容恪・慕容垂らを冉閔・段勤討伐に派遣する際、俊自身も中山まで進出して両軍の後詰めとなった。冉閔は敗走の末に捕らえられ龍城で斬られ、鄴も陥落して冉魏は滅亡した。",
+            "note": "「俊遣慕容恪及相國封弋討冉閔於安喜、慕容垂討段勤於絳幕、俊如中山、為二軍声勢。閽惒、奔於常山、恪追及於泒水。　及戦、敗之、擒閽、送之、斬於龍城。」俊自身が中山に赴いたとの明記はあるが、決戦の指揮は慕容恪が行っているため、親征該当性には判断の幅がある。",
+            "startDate": "0351-01-01",
+            "endDate": "0352-12-31",
+            "datePrecision": "year",
+            "target": "冉魏（冉閔）"
+          }
+        ],
+        "note": "晋書載記第十（慕容俊）に基づく。①永和六年(350)、俊自ら三軍を率いて盧龍から出撃し薊城を攻略（対・後趙残存勢力）。②冉閔討伐戦において俊自身も中山まで進出し前線に赴いた（「俊如中山、為二軍声勢」）ため親征に含めたが、実戦の指揮は慕容恪・慕容垂ら諸将が行っており、俊自身が戦闘を直接指揮したとまでは原文から確認できない点で判断に幅がある。他の全ての遠征（冉魏残党討伐の一部、段龕討伐、丁零討伐、張平ら討伐、東晋・諸葛攸迎撃等）は諸将のみの派遣であり俊自身の出陣が明記されないため除外した。",
+        "count": 2
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "「時鮮卑段勤初附於俊、其後復叛。俊遣慕容恪及相國封弋討冉閔於安喜、慕容垂討段勤於絳幕。」　後に「恪进据常山，段勤惧而请降」とあり。",
+            "outcome": "鎮圧成功（一度俊に帰順した鮮卑段勤が離反、慕容垂を絳幕に派遣して討伐、慕容恪が常山に進出すると畏れて降伏した）",
+            "name": "段勤の離反",
+            "startDate": "0351-01-01",
+            "endDate": "0352-12-31",
+            "datePrecision": "year",
+            "leader": "段勤"
+          },
+          {
+            "note": "「常山人李犊聚众数千，反于普壁垒，俊遣慕容恪率众讨降之。」（載記の当該条に年次の明記がなく、正確な年は不詳）",
+            "outcome": "鎮圧成功（常山の李犢が数千人を集めて普壁塁で反乱、慕容恪が討伐して降伏させた）",
+            "name": "常山の李犢の反乱",
+            "startDate": "0352-01-01",
+            "endDate": "0353-12-31",
+            "datePrecision": "year",
+            "leader": "李犢"
+          },
+          {
+            "note": "「河间李黑聚众千余，攻略州郡，杀枣强令卫颜，俊长乐太守傅颜讨斩之。」（俊自薊城遷於鄴後の記述順序、357年前後と推定）",
+            "outcome": "鎮圧成功（河間の李黒が千余人を集め州郡を攻略し棗強令衛顔を殺害、長楽太守傅顔が討伐して斬った）",
+            "name": "河間の李黒の反乱",
+            "startDate": "0357-01-01",
+            "endDate": "0358-12-31",
+            "datePrecision": "year",
+            "leader": "李黒"
+          }
+        ],
+        "note": "服属民（一度帰順した部族・地方勢力）による離反・蜂起を反乱として計上した。段龕（自号斉王、東晋に称藩し俊の即位を認めず）や王午・呂護（自号安国王）、冉閔（冉魏皇帝を僭称）は燕に服属したことのない独立勢力・対等政権との抗争と判断し除外した。張平・馮鴦・高昌・李歴のクラスタ（子を人質に送り称藩していたが実質半独立で建鄴・苻堅とも通じていた）は服属民の反乱とも解釈しうるが、原文に彼らが挙兵・離反したことを示す明確な記述がなく、俊側が先制的に統合を図った可能性が高いため反乱カウントから除外した（判断に幅あり）。",
+        "count": 3
+      },
+      "rebellionSufferedCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "同上（段勤の離反。慕容垂の討伐後、慕容恪の常山進出に畏れて降伏）",
+            "outcome": "鎮圧された（俊に一度帰順していた鮮卑段勤が離反したが、諸将の討伐を受けて再び降伏）",
+            "name": "段勤の離反",
+            "startDate": "0351-01-01",
+            "endDate": "0352-12-31",
+            "datePrecision": "year",
+            "leader": "段勤"
+          },
+          {
+            "note": "同上（常山の李犢の反乱）",
+            "outcome": "鎮圧された（常山で数千人規模の反乱が起きたが慕容恪により降伏させられた）",
+            "name": "常山の李犢の反乱",
+            "startDate": "0352-01-01",
+            "endDate": "0353-12-31",
+            "datePrecision": "year",
+            "leader": "李犢"
+          },
+          {
+            "note": "同上（河間の李黒の反乱）",
+            "outcome": "鎮圧された（河間で州郡を攻略し県令を殺害する反乱が起きたが傅顔により討ち取られた）",
+            "name": "河間の李黒の反乱",
+            "startDate": "0357-01-01",
+            "endDate": "0358-12-31",
+            "datePrecision": "year",
+            "leader": "李黒"
+          }
+        ],
+        "note": "rebellionSuppressionCountと同一の3件（段勤・李犢・李黒）を対称的に計上した。段龕・王午・呂護・冉閔（いずれも独立政権・対等勢力）、および張平ら半独立クラスタ（挙兵・離反の明確な記述なし）は反乱として計上していない。俊の在位中に鎮圧が未完のまま終わった反乱は原文上確認できなかった。",
+        "count": 3
+      },
+      "capitalRelocationCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": "0350-01-01",
+            "datePrecision": "year",
+            "from": "龍城（和龍）",
+            "to": "薊城",
+            "note": "『晋書』載記第十（慕容俊）：永和五年（349）慕容俊が燕王に即位、「明年（永和六年＝350年）」南伐し薊城の守将王他を斬り「因而都之（そのまま都とした）」と明記。龍城から薊城へ正式に遷都。（出典: 晋書 載記第十 慕容俊）"
+          },
+          {
+            "date": "0357-12-01",
+            "datePrecision": "month",
+            "from": "薊城",
+            "to": "鄴城",
+            "note": "『晋書』載記第十：「俊自薊城遷於鄴、赦其境内、繕修宮殿、復銅雀臺」。同書穆帝紀升平元年（357）十二月条にも「慕容俊入屯鄴」とあり時期が符合する（載記本文には月の記載なし、帝紀の記述を併用）。（出典: 晋書 載記第十 慕容俊／晋書 帝紀第八 穆帝紀 升平元年十二月）"
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中に遷都2回（0350年 龍城（和龍）→薊城、0357年 薊城→鄴城）。※0341年 棘城→龍城 は父・慕容皝（燕王）の遷都であり本人の事績でないため2026-07-22に計上から除外した（『晋書』載記第九「皝遷都龍城」）。"
+      }
+    },
+    {
+      "id": "qianyan-murongwei",
+      "name": {
+        "personalName": "慕容暐",
+        "commonName": "幽帝",
+        "aliases": [],
+        "posthumousName": "幽帝",
+        "templeName": null,
+        "regnalTitle": "皇帝"
+      },
+      "dynasty": {
+        "name": "前燕",
+        "category": "並立政権",
+        "section": "前燕"
+      },
+      "reigns": [
+        {
+          "startYear": 360,
+          "endYear": 370,
+          "dynastyOrder": 3,
+          "isRestoration": false,
+          "note": "前秦に敗れ苻堅に降伏、前燕滅亡。",
+          "raw": "360年 - 370年",
+          "durationRaw": null,
+          "startDate": "0360-02-27",
+          "endDate": "0370-12-10",
+          "startDateRaw": "光寿4年1月25日",
+          "endDateRaw": "建熙11年11月6日",
+          "datePrecision": {
+            "start": "day",
+            "end": "day"
+          },
+          "duration": {
+            "value": 3939,
+            "unit": "day",
+            "approxDays": 3939,
+            "exactDays": 3939,
+            "needsPreciseDays": false,
+            "source": {
+              "page": "晋書 巻一百十一 載記第十一（慕容暐）",
+              "lang": "zh-classical",
+              "quote": "及儁死……升平四年，僭即皇帝位，大赦境內，改元曰建熙。……秦王堅入鄴宮。",
+              "conversion": "即位日(360-02-27)は十六国春秋輯補の戊戌換算と一致、変更なし。終了日(370-12-10)は資治通鑑の関連記事の干支『戊寅』換算(370-12-11)と1日差があるが、いずれの日を『在位終了』とみなすか解釈の余地があり確度中〜低のため既存値を維持する。",
+              "note": "資治通鑑の一族逃亡記事の干支換算では1日後(370-12-11)になる可能性があるが、確定的でないため既存値を維持。"
+            }
+          }
+        }
+      ],
+      "reignSummary": {
+        "totalReignDuration": {
+          "approxDays": 3939,
+          "displayYears": 10.8,
+          "needsPreciseDays": false,
+          "isExact": true
+        },
+        "firstStartYear": 360,
+        "lastEndYear": 370,
+        "reignCount": 1
+      },
+      "flags": {
+        "isFemale": false,
+        "selfProclaimed": false,
+        "usedEmperorTitleFrom": 360
+      },
+      "sources": {
+        "wikidata": "Q1074804",
+        "cbdb": null
+      },
+      "verification": {
+        "emperorTitleConfirmed": true,
+        "confidence": "high",
+        "notes": "前燕最後の皇帝。"
+      },
+      "deathCause": {
+        "category": "処刑",
+        "note": "前燕滅亡後、前秦に降伏し尚書・司馬に任じられ寛大な処遇を受けた。しかし建熙8年（373年、前秦紀年では建元9年）、慕容恪の子慕容粛と結託し、子の婚儀にかこつけて苻堅を招き酔わせた隙に暗殺する計画を立てたが、大雨で苻堅の到着が遅れ発覚。苻堅は慕容粛を先に殺害し、続いて慕容暐も宗族とともに処刑した（享年35）。前秦（政権交代後の勝者）側による処断のため処刑に分類。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第十一 慕容暐（附）",
+          "lang": "zh"
+        }
+      },
+      "accessionRoute": {
+        "category": "世襲",
+        "note": "景昭帝慕容儁の三男として11歳で即位、叔父の慕容恪らが後見。",
+        "confidence": "high",
+        "source": {
+          "page": "晉書 載記第十一 慕容暐",
+          "lang": "zh"
+        },
+        "axes": {
+          "throneSource": "前代君主から継承",
+          "titleOrigin": "継承",
+          "decidedBy": [
+            "先帝"
+          ],
+          "decidedByAgents": [],
+          "decidedByBasis": "原典再読",
+          "predecessorFate": "崩御",
+          "relationToPredecessor": "子",
+          "procedure": "通常の践祚"
+        }
+      },
+      "eraChangeCount": {
+        "count": 1,
+        "events": [
+          {
+            "date": "0360",
+            "datePrecision": "year",
+            "note": "升平四年（360年）、僭即皇帝位すると同時に「改元曰建熙」として建元。以後、在位終了（370年前秦への降伏）まで別の改元記事は見られない。",
+            "source": {
+              "page": "晉書 載記第十一 慕容暐",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "在位中に建熙以外への改元記載なし。なお本紀中には晋の年号（升平・興寧・太和）が編年の目安として併記される箇所があるが、これらは前燕自身の改元ではないため対象外とした。"
+      },
+      "amnestyCount": {
+        "count": 2,
+        "events": [
+          {
+            "date": "0360",
+            "datePrecision": "year",
+            "note": "升平四年（360年）、慕容儁の死を受けて即位すると同時に「大赦境内」を実施し、建熙と改元した。",
+            "source": {
+              "page": "晉書 載記第十一 慕容暐",
+              "lang": "zh"
+            }
+          },
+          {
+            "date": null,
+            "datePrecision": null,
+            "note": "慕輿根の謀反計画が発覚し禁中で斬った直後、「大赦境内」を実施（傅顔に騎二万を率いて河南に観兵させた記事の直前）。即位直後の出来事で明確な年月日の記載はないが、升平四年内の出来事とみられる。",
+            "source": {
+              "page": "晉書 載記第十一 慕容暐",
+              "lang": "zh"
+            }
+          }
+        ],
+        "confidence": "high",
+        "note": "「大赦」の語で明記された全国規模の恩赦は本紀範囲内でこの2件のみ。"
+      },
+      "empressInstallationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "即位時に生母の可足渾氏を皇太后に立てた記事はあるが（「立其母可足渾氏為皇太后」）、慕容暐自身の皇后冊立に関する記載は本紀範囲内に見当たらない。"
+      },
+      "crownPrinceDepositionCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "本紀中の「太子」「儲君」への言及は、暐自身が慕容儁の太子として立てられ即位に至る経緯（慕容恪が「国有儲君、非吾節也」と辞退する場面等）のみであり、暐の在位中に皇太子・皇太弟等を新たに立てた上で廃した記載は見られない。"
+      },
+      "ages": {
+        "birthDatePrecision": null,
+        "deathDatePrecision": null,
+        "deathAge": 35,
+        "confidence": "high",
+        "note": "苻堅暗殺計画が発覚し処刑された記事に「為堅所誅、時年三十五」と明記あり（原文中「暐」の字は㑉字化けでU+E449として出現）。即位時年齢・生年月日の直接記載は本紀範囲内には見当たらない。"
+      },
+      "personalCampaignCount": {
+        "confidence": "high",
+        "events": [],
+        "note": "晋書載記（載記第十一，慕容暐伝）に暐自身が親征した記録は見られない。「既庸弱、国事縁委之於恪」とあり、対苻堅・対東晋の全戦役（慕容恪・慕容評・慕容垂らの出征）はすべて臣下への派遣によるもので、暐本人が軍を率いて出陣した記述は皆無。",
+        "count": 0
+      },
+      "rebellionSuppressionCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "呂護は前燕の将軍（服属下の臣下）であり、独立政権との戦争ではなく服属民の離反・鎮圧として計上。載記の「自三月至八月」と帝紀の「五年七月」の年次にやや齟齬があるため年精度に留めた。",
+            "outcome": "慕容俊が任じた寧南将軍・呂護は野王に拠りつつ密かに東晋に通じていた。俊の死（360年）直後、東晋軍を引き入れて鄴を襲おうと謀ったが発覚し、慕容恪が衆五万を率いて討伐。長囲策で包囲し、部将傅顔が呂護の将張興を撃斬、（晋書帝紀では升平五年＝361年七月に）野王が陥落、呂護は南走して東晋に降った（その衆は悉く降伏）。後に呂護は東晋から離反して前燕に帰順し、傅顔と共に河陰に拠ったが、後年（隆和年間）東晋領の洛陽を攻めて流矢に当たり死んだ（この段階は前燕対東晋の対外戦であり別集計対象外）。",
+            "name": "呂護の叛乱",
+            "startDate": "0360",
+            "endDate": "0361",
+            "datePrecision": "year",
+            "leader": "呂護"
+          }
+        ],
+        "note": "慕輿根の謀反未遂（太師慕輿根が慕容恪・評誅殺と簒位を企てたが、暐自身がこれを見抜き挙兵前に禁中で誅殺された事件）は、実際の挙兵に至らず密告・摘発のみで終わったため、鎮圧・被害いずれからも除外した。",
+        "count": 1
+      },
+      "rebellionSufferedCount": {
+        "confidence": "medium",
+        "events": [
+          {
+            "note": "rebellionSuppressionCountと同一事件。粒度・結末とも一致。",
+            "outcome": "寧南将軍・呂護（野王駐屯）が東晋に通じ、慕容俊死去直後に東晋軍を引き入れて鄴襲撃を謀るも発覚。慕容恪の討伐を受け野王は陥落し、呂護は南走して東晋に投降した。",
+            "name": "呂護の叛乱",
+            "startDate": "0360",
+            "endDate": "0361",
+            "datePrecision": "year",
+            "leader": "呂護"
+          }
+        ],
+        "note": "苻堅・王猛による前秦の侵攻や東晋桓温の伐燕（枋頭の戦い等）は、いずれも対等な独立政権同士の国家間戦争であり、被反乱には含めていない（前燕の滅亡自体もこの外征の帰結）。慕輿根の謀反未遂も挙兵に至らなかったため除外。",
+        "count": 1
+      },
+      "capitalRelocationCount": {
+        "count": 0,
+        "events": [],
+        "confidence": "high",
+        "note": "晋書載記を通読。薊→鄴の遷都は父・慕容儁の代の出来事で、慕容暐期は鄴のまま追加の遷都はない。"
+      }
+    }
+  ]
+}
