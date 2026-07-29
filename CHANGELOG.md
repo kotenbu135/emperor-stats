@@ -17,9 +17,7 @@
 - **kinship.json**: `persons[].section` → `researchSection`、`eraId` を追加（section が一意に時代へ落ちない「晋」34人・「清」8人は個別判定）、`edges[].category` → `categoryId`
 - **CI**: `validate_emperors.py` に `check_catalogs`・`check_record_catalog_refs` を追加（カタログ内部整合・レコードの参照整合・`eraId` 非正規化コピーの一致・`rebel` 政権×`rival` の排他・孤児カタログ検出）。`validate_kinship.py` は語彙を ID へ移行
 
-## 2026.07 (2026-07-21)
-
-データ内容の版管理を開始した初版です。以下は開始までの主要な変更の遡及記録を含みます。
+データ内容の版管理は 2026-07-21 に開始しました。以下は開始までの主要な変更の遡及記録を含みます。
 
 ### 訂正（2026-07-23・events 混在精度44キーの解消）
 

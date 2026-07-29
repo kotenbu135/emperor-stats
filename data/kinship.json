@@ -27126,7 +27126,7 @@
     {
       "type": "kinship",
       "relation": "remote-ancestor",
-      "relationDetail": "祖父",
+      "relationDetail": "grandfather",
       "from": "p-murong-yun",
       "to": "xiyan-murongyong",
       "veracity": "verified",
@@ -27140,7 +27140,7 @@
     {
       "type": "kinship",
       "relation": "remote-ancestor",
-      "relationDetail": "曾祖父",
+      "relationDetail": "great-grandfather",
       "from": "p-murong-huang",
       "to": "houyan-murongxiang",
       "veracity": "verified",

@@ -1580,6 +1580,18 @@
       "label": "年",
       "labelEn": null
      }
+    ],
+    "kinshipRelationDetail": [
+     {
+      "id": "grandfather",
+      "label": "祖父",
+      "labelEn": null
+     },
+     {
+      "id": "great-grandfather",
+      "label": "曾祖父",
+      "labelEn": null
+     }
     ]
    }
   },

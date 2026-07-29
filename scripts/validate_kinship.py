@@ -67,6 +67,8 @@ INCLUSION_ENUM = {"on-path", "first-degree", "posthumous-emperor", "marriage-par
 EDGE_TYPE_ENUM = {"succession", "kinship", "marriage"}
 RELATION_ENUM = {"birth-father", "birth-mother", "adoptive-father", "adoptive-mother",
                  "sibling", "remote-ancestor"}
+# remote-ancestor エッジの任意フィールド relationDetail（祖先方向の続柄）
+RELATION_DETAIL_ENUM = {"grandfather", "great-grandfather"}
 PARENT_RELATIONS = {"birth-father", "birth-mother", "adoptive-father", "adoptive-mother"}
 MALE_RELATIONS = {"birth-father", "adoptive-father"}
 FEMALE_RELATIONS = {"birth-mother", "adoptive-mother"}
@@ -250,6 +252,9 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id,
             rel = e.get("relation")
             if rel not in RELATION_ENUM:
                 err(f"[edges] {label}: relation が不正: {rel!r}")
+            detail = e.get("relationDetail")
+            if detail is not None and detail not in RELATION_DETAIL_ENUM:
+                err(f"[edges] {label}: relationDetail が不正: {detail!r}")
                 continue
             if rel in PARENT_RELATIONS:
                 # 親側の gender 整合（from がブリッジ人物で gender 判明時のみ。

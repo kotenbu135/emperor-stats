@@ -482,6 +482,6 @@ U1〜U6 は §0 の D4〜D9 として確定済み（推奨案どおり）。追�
 v3 のスコープ外として明示的に切り出したもの:
 
 - `dynastyOrder` の悉皆調査（51政権・別 Issue。v3 は `dynastyOrderSurveyed` フラグまで）
-- kinship persons 415人の政権帰属（`regimeId`）
+- kinship persons 415人の政権帰属（`regimeId`）。関連して `persons[].posthumous.dynasty`（追尊した王朝名）は自由記述の王朝名のまま残している——政権への参照だが、D10 と同じ理由で v3 では ID 化しない
 - 表示用確定項目の追加（新サイトの画面設計後）
 - `labelEn` の値投入（英語版タスク）
