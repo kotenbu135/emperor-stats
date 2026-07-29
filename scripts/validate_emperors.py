@@ -942,11 +942,61 @@ def check_portraits(data):
         err(f"[portraits] 画像 MD5 重複（同一画像の使い回し疑い）: {dup_md5}")
 
 
+def check_catalogs(data):
+    """meta.catalogs（v3）の内部整合を検査する。
+
+    レコード側の参照整合（eraId/regimeId/各 ID が catalogs に存在するか）は
+    フィールド追加後に check_record_catalog_refs が担当する。ここはカタログ単体の健全性。
+    """
+    catalogs = data["meta"].get("catalogs")
+    if catalogs is None:
+        err("[catalogs] meta.catalogs が無い（v3 必須）")
+        return
+
+    eras = catalogs.get("eras") or []
+    regimes = catalogs.get("regimes") or []
+    enums = catalogs.get("enums") or {}
+
+    era_ids = [e.get("id") for e in eras]
+    if len(set(era_ids)) != len(era_ids):
+        err(f"[catalogs] eras の id が重複: {[i for i in era_ids if era_ids.count(i) > 1]}")
+    era_orders = [e.get("sortOrder") for e in eras]
+    if len(set(era_orders)) != len(era_orders):
+        err("[catalogs] eras の sortOrder が重複")
+
+    regime_ids = [r.get("id") for r in regimes]
+    if len(set(regime_ids)) != len(regime_ids):
+        err(f"[catalogs] regimes の id が重複: "
+            f"{sorted({i for i in regime_ids if regime_ids.count(i) > 1})}")
+    regime_orders = [r.get("sortOrder") for r in regimes]
+    if len(set(regime_orders)) != len(regime_orders):
+        err("[catalogs] regimes の sortOrder が重複")
+
+    category_ids = {c["id"] for c in enums.get("regimeCategory", [])}
+    for r in regimes:
+        if r.get("eraId") not in set(era_ids):
+            err(f"[catalogs] regime {r.get('id')!r}: eraId が eras にない: {r.get('eraId')!r}")
+        if r.get("category") not in category_ids:
+            err(f"[catalogs] regime {r.get('id')!r}: category が enums.regimeCategory にない: "
+                f"{r.get('category')!r}")
+
+    for name, items in enums.items():
+        ids = [i.get("id") for i in items]
+        if len(set(ids)) != len(ids):
+            err(f"[catalogs] enums.{name} の id が重複: "
+                f"{sorted({i for i in ids if ids.count(i) > 1})}")
+        labels = [i.get("label") for i in items]
+        if len(set(labels)) != len(labels):
+            err(f"[catalogs] enums.{name} の label が重複: "
+                f"{sorted({i for i in labels if labels.count(i) > 1})}")
+
+
 def main() -> int:
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
 
     check_schema(data, schema)
+    check_catalogs(data)
     check_ids(data)
     check_names(data)
     check_wikidata(data)

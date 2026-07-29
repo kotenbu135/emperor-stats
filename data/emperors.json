@@ -46,6 +46,1543 @@
   ],
   "reignDaysPolicy": "全皇帝の在位を可能な限り日数レベルで記録。即位日・崩御日から exactDays を算出。日付の判明精度は各 reign の datePrecision に明示。approxDays は年=365/月=30/週=7/日=1 で換算した概算共通尺度（グラフ主軸）。日付は西暦基準（両端が特定できれば暦系によらず日数不変）。旧暦表記は startDateRaw/endDateRaw に保持。 出典は task.md 3-1 フェーズBで、Wikipedia 記事名から正史の巻名＋日付根拠の原文引用（source.quote）＋旧暦→西暦の換算典拠（source.conversion）へ差し替え済み（2026-07-21 に全365人・12ブロックで完了。詳細は reignDurationSourceBlocks）。",
   "schemaVersion": "2.1.0",
+  "catalogs": {
+   "note": "時代・政権・enum の表示ラベルはここに集約する（レコード側は ID のみを持つ）。設計と移行手順は docs/schema/V3_MIGRATION_PLAN.md を参照。",
+   "eras": [
+    {
+     "id": "qin-han",
+     "label": "秦・漢",
+     "labelEn": null,
+     "sortOrder": 1
+    },
+    {
+     "id": "three-kingdoms-jin",
+     "label": "三国・西晋",
+     "labelEn": null,
+     "sortOrder": 2
+    },
+    {
+     "id": "eastern-jin-sixteen",
+     "label": "東晋・十六国",
+     "labelEn": null,
+     "sortOrder": 3
+    },
+    {
+     "id": "northern-southern",
+     "label": "南北朝",
+     "labelEn": null,
+     "sortOrder": 4
+    },
+    {
+     "id": "sui-tang",
+     "label": "隋・唐",
+     "labelEn": null,
+     "sortOrder": 5
+    },
+    {
+     "id": "five-dynasties",
+     "label": "五代十国",
+     "labelEn": null,
+     "sortOrder": 6
+    },
+    {
+     "id": "song-liao-jin-xia",
+     "label": "宋・遼・金・西夏",
+     "labelEn": null,
+     "sortOrder": 7
+    },
+    {
+     "id": "yuan",
+     "label": "元",
+     "labelEn": null,
+     "sortOrder": 8
+    },
+    {
+     "id": "ming",
+     "label": "明",
+     "labelEn": null,
+     "sortOrder": 9
+    },
+    {
+     "id": "qing",
+     "label": "清",
+     "labelEn": null,
+     "sortOrder": 10
+    },
+    {
+     "id": "modern",
+     "label": "近代",
+     "labelEn": null,
+     "sortOrder": 11
+    }
+   ],
+   "regimes": [
+    {
+     "id": "qin",
+     "name": "秦",
+     "label": "秦",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "orthodox",
+     "startYear": -221,
+     "endYear": -207,
+     "sortOrder": 1,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "western-han",
+     "name": "前漢",
+     "label": "前漢",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "orthodox",
+     "startYear": -202,
+     "endYear": 6,
+     "sortOrder": 2,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "xin",
+     "name": "新",
+     "label": "新",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "orthodox",
+     "startYear": 8,
+     "endYear": 23,
+     "sortOrder": 3,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "xuanhan",
+     "name": "玄漢（更始）",
+     "label": "玄漢（更始帝）",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "orthodox",
+     "startYear": 23,
+     "endYear": 25,
+     "sortOrder": 4,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "chengjia",
+     "name": "成家",
+     "label": "成家（公孫述）",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "rebel",
+     "startYear": 25,
+     "endYear": 36,
+     "sortOrder": 5,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "chimei-han",
+     "name": "漢（赤眉軍）",
+     "label": "漢（赤眉軍）",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "rebel",
+     "startYear": 25,
+     "endYear": 27,
+     "sortOrder": 6,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "eastern-han",
+     "name": "後漢",
+     "label": "後漢",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "orthodox",
+     "startYear": 25,
+     "endYear": 220,
+     "sortOrder": 7,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "liuyong-liang",
+     "name": "梁",
+     "label": "梁（劉永）",
+     "labelEn": null,
+     "eraId": "qin-han",
+     "category": "rebel",
+     "startYear": 26,
+     "endYear": 27,
+     "sortOrder": 8,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "zhongjia",
+     "name": "仲家",
+     "label": "仲家（袁術）",
+     "labelEn": null,
+     "eraId": "three-kingdoms-jin",
+     "category": "rebel",
+     "startYear": 197,
+     "endYear": 199,
+     "sortOrder": 9,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "cao-wei",
+     "name": "魏",
+     "label": "魏（曹魏）",
+     "labelEn": null,
+     "eraId": "three-kingdoms-jin",
+     "category": "orthodox",
+     "startYear": 220,
+     "endYear": 266,
+     "sortOrder": 10,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "shu-han",
+     "name": "蜀漢",
+     "label": "蜀漢",
+     "labelEn": null,
+     "eraId": "three-kingdoms-jin",
+     "category": "orthodox",
+     "startYear": 221,
+     "endYear": 263,
+     "sortOrder": 11,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "eastern-wu",
+     "name": "呉",
+     "label": "呉（孫呉）",
+     "labelEn": null,
+     "eraId": "three-kingdoms-jin",
+     "category": "orthodox",
+     "startYear": 229,
+     "endYear": 280,
+     "sortOrder": 12,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "western-jin",
+     "name": "西晋",
+     "label": "西晋",
+     "labelEn": null,
+     "eraId": "three-kingdoms-jin",
+     "category": "orthodox",
+     "startYear": 266,
+     "endYear": 316,
+     "sortOrder": 13,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "cheng-han",
+     "name": "成漢",
+     "label": "成漢",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 306,
+     "endYear": 347,
+     "sortOrder": 14,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "former-zhao",
+     "name": "前趙（漢趙）",
+     "label": "前趙（漢趙）",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 308,
+     "endYear": 329,
+     "sortOrder": 15,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "eastern-jin",
+     "name": "東晋",
+     "label": "東晋",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "orthodox",
+     "startYear": 318,
+     "endYear": 420,
+     "sortOrder": 16,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "later-zhao",
+     "name": "後趙",
+     "label": "後趙",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 330,
+     "endYear": 351,
+     "sortOrder": 17,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "former-qin",
+     "name": "前秦",
+     "label": "前秦",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 352,
+     "endYear": 394,
+     "sortOrder": 18,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "former-yan",
+     "name": "前燕",
+     "label": "前燕",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 352,
+     "endYear": 370,
+     "sortOrder": 19,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "former-liang",
+     "name": "前涼",
+     "label": "前涼",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 354,
+     "endYear": 355,
+     "sortOrder": 20,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "western-yan",
+     "name": "西燕",
+     "label": "西燕",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 384,
+     "endYear": 394,
+     "sortOrder": 21,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "later-qin",
+     "name": "後秦",
+     "label": "後秦",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 386,
+     "endYear": 417,
+     "sortOrder": 22,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "later-yan",
+     "name": "後燕",
+     "label": "後燕",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 386,
+     "endYear": 407,
+     "sortOrder": 23,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "southern-yan",
+     "name": "南燕",
+     "label": "南燕",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 400,
+     "endYear": 410,
+     "sortOrder": 24,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "huan-chu",
+     "name": "楚（桓楚）",
+     "label": "楚（桓楚）",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "rebel",
+     "startYear": 403,
+     "endYear": 404,
+     "sortOrder": 25,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "hexia",
+     "name": "夏",
+     "label": "夏（赫連夏）",
+     "labelEn": null,
+     "eraId": "eastern-jin-sixteen",
+     "category": "coexisting",
+     "startYear": 419,
+     "endYear": 431,
+     "sortOrder": 26,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "northern-wei",
+     "name": "北魏",
+     "label": "北魏",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 399,
+     "endYear": 535,
+     "sortOrder": 27,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "liu-song",
+     "name": "宋",
+     "label": "宋（劉宋）",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 420,
+     "endYear": 479,
+     "sortOrder": 28,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "southern-qi",
+     "name": "斉",
+     "label": "斉（南斉）",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 479,
+     "endYear": 502,
+     "sortOrder": 29,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "southern-liang",
+     "name": "梁",
+     "label": "梁（蕭梁）",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 502,
+     "endYear": 560,
+     "sortOrder": 30,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "eastern-wei",
+     "name": "東魏",
+     "label": "東魏",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 534,
+     "endYear": 550,
+     "sortOrder": 31,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "western-wei",
+     "name": "西魏",
+     "label": "西魏",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 535,
+     "endYear": 557,
+     "sortOrder": 32,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "northern-qi",
+     "name": "北斉",
+     "label": "北斉",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 550,
+     "endYear": 580,
+     "sortOrder": 33,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "houjing-han",
+     "name": "梁（簒奪・漢）",
+     "label": "漢（侯景）",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "rebel",
+     "startYear": 552,
+     "endYear": 552,
+     "sortOrder": 34,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "western-liang",
+     "name": "後梁",
+     "label": "後梁（西梁）",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 555,
+     "endYear": 587,
+     "sortOrder": 35,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "chen",
+     "name": "陳",
+     "label": "陳",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 557,
+     "endYear": 589,
+     "sortOrder": 36,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "northern-zhou",
+     "name": "北周",
+     "label": "北周",
+     "labelEn": null,
+     "eraId": "northern-southern",
+     "category": "orthodox",
+     "startYear": 559,
+     "endYear": 581,
+     "sortOrder": 37,
+     "dynastyOrderSurveyed": true
+    },
+    {
+     "id": "sui",
+     "name": "隋",
+     "label": "隋",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "orthodox",
+     "startYear": 581,
+     "endYear": 619,
+     "sortOrder": 38,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "dingyang",
+     "name": "定楊",
+     "label": "定楊（劉武周）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 617,
+     "endYear": 622,
+     "sortOrder": 39,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "liangshidu-liang",
+     "name": "梁",
+     "label": "梁（梁師都）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 617,
+     "endYear": 628,
+     "sortOrder": 40,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "suimo-chu",
+     "name": "楚",
+     "label": "楚（隋末）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 617,
+     "endYear": 622,
+     "sortOrder": 41,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "xiqin",
+     "name": "秦（西秦）",
+     "label": "秦（西秦・薛挙）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 617,
+     "endYear": 618,
+     "sortOrder": 42,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "liguigui-liang",
+     "name": "涼",
+     "label": "涼（李軌）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 618,
+     "endYear": 619,
+     "sortOrder": 43,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "tang",
+     "name": "唐",
+     "label": "唐",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "orthodox",
+     "startYear": 618,
+     "endYear": 907,
+     "sortOrder": 44,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "xu",
+     "name": "許",
+     "label": "許（宇文化及）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 618,
+     "endYear": 619,
+     "sortOrder": 45,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "suimo-wu",
+     "name": "呉",
+     "label": "呉（李子通）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 619,
+     "endYear": 622,
+     "sortOrder": 46,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "zheng",
+     "name": "鄭",
+     "label": "鄭（王世充）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 619,
+     "endYear": 621,
+     "sortOrder": 47,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "suimo-song",
+     "name": "宋",
+     "label": "宋（輔公祏）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 623,
+     "endYear": 624,
+     "sortOrder": 48,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "wu-zhou",
+     "name": "周",
+     "label": "周（武周）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "orthodox",
+     "startYear": 690,
+     "endYear": 705,
+     "sortOrder": 49,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "anshi-yan",
+     "name": "燕",
+     "label": "燕（安史）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 756,
+     "endYear": 763,
+     "sortOrder": 50,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "zhuci-qin",
+     "name": "秦（漢）",
+     "label": "秦→漢（朱泚）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 783,
+     "endYear": 784,
+     "sortOrder": 51,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "lixilie-chu",
+     "name": "楚",
+     "label": "楚（李希烈）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 784,
+     "endYear": 786,
+     "sortOrder": 52,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "huangchao-qi",
+     "name": "斉",
+     "label": "斉（黄巣）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 881,
+     "endYear": 884,
+     "sortOrder": 53,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "former-shu",
+     "name": "前蜀",
+     "label": "前蜀",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 907,
+     "endYear": 925,
+     "sortOrder": 54,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "later-liang",
+     "name": "後梁",
+     "label": "後梁",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "orthodox",
+     "startYear": 907,
+     "endYear": 923,
+     "sortOrder": 55,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "jie-yan",
+     "name": "桀燕",
+     "label": "桀燕（劉守光）",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 911,
+     "endYear": 914,
+     "sortOrder": 56,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "southern-han",
+     "name": "南漢",
+     "label": "南漢",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 917,
+     "endYear": 971,
+     "sortOrder": 57,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "later-tang",
+     "name": "後唐",
+     "label": "後唐",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "rebel",
+     "startYear": 923,
+     "endYear": 937,
+     "sortOrder": 58,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "yang-wu",
+     "name": "呉",
+     "label": "呉（楊呉）",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 927,
+     "endYear": 937,
+     "sortOrder": 59,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "min",
+     "name": "閩",
+     "label": "閩",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 933,
+     "endYear": 945,
+     "sortOrder": 60,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "later-shu",
+     "name": "後蜀",
+     "label": "後蜀",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 934,
+     "endYear": 965,
+     "sortOrder": 61,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "later-jin",
+     "name": "後晋",
+     "label": "後晋",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "rebel",
+     "startYear": 936,
+     "endYear": 947,
+     "sortOrder": 62,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "southern-tang",
+     "name": "南唐",
+     "label": "南唐",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 937,
+     "endYear": 958,
+     "sortOrder": 63,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "later-han",
+     "name": "後漢",
+     "label": "後漢（五代）",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "orthodox",
+     "startYear": 947,
+     "endYear": 951,
+     "sortOrder": 64,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "later-zhou",
+     "name": "後周",
+     "label": "後周",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "orthodox",
+     "startYear": 951,
+     "endYear": 960,
+     "sortOrder": 65,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "northern-han",
+     "name": "北漢",
+     "label": "北漢",
+     "labelEn": null,
+     "eraId": "five-dynasties",
+     "category": "coexisting",
+     "startYear": 951,
+     "endYear": 979,
+     "sortOrder": 66,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "liao",
+     "name": "遼",
+     "label": "遼",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "orthodox",
+     "startYear": 916,
+     "endYear": 1128,
+     "sortOrder": 67,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "northern-song",
+     "name": "北宋",
+     "label": "北宋",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "orthodox",
+     "startYear": 960,
+     "endYear": 1127,
+     "sortOrder": 68,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "western-xia",
+     "name": "西夏",
+     "label": "西夏",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "coexisting",
+     "startYear": 1038,
+     "endYear": 1227,
+     "sortOrder": 69,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "jin-jurchen",
+     "name": "金",
+     "label": "金",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "orthodox",
+     "startYear": 1115,
+     "endYear": 1234,
+     "sortOrder": 70,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "southern-song",
+     "name": "南宋",
+     "label": "南宋",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "orthodox",
+     "startYear": 1127,
+     "endYear": 1279,
+     "sortOrder": 71,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "zhangbangchang-chu",
+     "name": "楚",
+     "label": "楚（張邦昌）",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "coexisting",
+     "startYear": 1127,
+     "endYear": 1127,
+     "sortOrder": 72,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "liuyu-qi",
+     "name": "斉",
+     "label": "斉（劉豫）",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "coexisting",
+     "startYear": 1130,
+     "endYear": 1138,
+     "sortOrder": 73,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "western-liao",
+     "name": "西遼",
+     "label": "西遼",
+     "labelEn": null,
+     "eraId": "song-liao-jin-xia",
+     "category": "coexisting",
+     "startYear": 1132,
+     "endYear": 1213,
+     "sortOrder": 74,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "yuan",
+     "name": "元",
+     "label": "元",
+     "labelEn": null,
+     "eraId": "yuan",
+     "category": "orthodox",
+     "startYear": 1260,
+     "endYear": 1370,
+     "sortOrder": 75,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "tianwan",
+     "name": "天完",
+     "label": "天完（徐寿輝）",
+     "labelEn": null,
+     "eraId": "yuan",
+     "category": "coexisting",
+     "startYear": 1351,
+     "endYear": 1360,
+     "sortOrder": 76,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "hanlin-song",
+     "name": "宋",
+     "label": "宋（韓林児）",
+     "labelEn": null,
+     "eraId": "yuan",
+     "category": "coexisting",
+     "startYear": 1355,
+     "endYear": 1367,
+     "sortOrder": 77,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "chen-han",
+     "name": "陳漢",
+     "label": "陳漢（陳友諒）",
+     "labelEn": null,
+     "eraId": "yuan",
+     "category": "coexisting",
+     "startYear": 1360,
+     "endYear": 1364,
+     "sortOrder": 78,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "ming-xia",
+     "name": "夏",
+     "label": "夏（明玉珍）",
+     "labelEn": null,
+     "eraId": "yuan",
+     "category": "coexisting",
+     "startYear": 1362,
+     "endYear": 1371,
+     "sortOrder": 79,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "northern-yuan",
+     "name": "北元",
+     "label": "北元",
+     "labelEn": null,
+     "eraId": "yuan",
+     "category": "orthodox",
+     "startYear": 1370,
+     "endYear": 1378,
+     "sortOrder": 80,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "ming",
+     "name": "明",
+     "label": "明",
+     "labelEn": null,
+     "eraId": "ming",
+     "category": "orthodox",
+     "startYear": 1368,
+     "endYear": 1644,
+     "sortOrder": 81,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "shun",
+     "name": "順",
+     "label": "順（李自成）",
+     "labelEn": null,
+     "eraId": "ming",
+     "category": "rebel",
+     "startYear": 1644,
+     "endYear": 1645,
+     "sortOrder": 82,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "southern-ming",
+     "name": "南明",
+     "label": "南明",
+     "labelEn": null,
+     "eraId": "ming",
+     "category": "orthodox",
+     "startYear": 1644,
+     "endYear": 1662,
+     "sortOrder": 83,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "xi",
+     "name": "西",
+     "label": "西（張献忠）",
+     "labelEn": null,
+     "eraId": "ming",
+     "category": "rebel",
+     "startYear": 1644,
+     "endYear": 1647,
+     "sortOrder": 84,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "qing",
+     "name": "清",
+     "label": "清",
+     "labelEn": null,
+     "eraId": "qing",
+     "category": "orthodox",
+     "startYear": 1636,
+     "endYear": 1945,
+     "sortOrder": 85,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "wu-zhou-sanfan",
+     "name": "呉周",
+     "label": "周（呉三桂）",
+     "labelEn": null,
+     "eraId": "qing",
+     "category": "coexisting",
+     "startYear": 1678,
+     "endYear": 1681,
+     "sortOrder": 86,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "empire-of-china",
+     "name": "中華帝国",
+     "label": "中華帝国（袁世凱）",
+     "labelEn": null,
+     "eraId": "modern",
+     "category": "coexisting",
+     "startYear": 1915,
+     "endYear": 1916,
+     "sortOrder": 87,
+     "dynastyOrderSurveyed": false
+    }
+   ],
+   "enums": {
+    "regimeCategory": [
+     {
+      "id": "orthodox",
+      "label": "正統王朝",
+      "labelEn": null,
+      "description": "王朝の本流として歴代に数えられる政権"
+     },
+     {
+      "id": "coexisting",
+      "label": "並立政権",
+      "labelEn": null,
+      "description": "同時代に他政権と並立した政権（十六国・十国・遼金西夏など）"
+     },
+     {
+      "id": "rebel",
+      "label": "反乱・自称政権",
+      "labelEn": null,
+      "description": "既存王朝への反乱・自立により建てられた政権"
+     }
+    ],
+    "emperorStanding": [
+     {
+      "id": "regular",
+      "label": "正規の皇帝",
+      "labelEn": null,
+      "description": "その政権の歴代皇帝。即位の経緯が簒奪・自立・弑逆であっても正規に含む"
+     },
+     {
+      "id": "rival",
+      "label": "対立・僭称の皇帝",
+      "labelEn": null,
+      "description": "同じ国号のまま並立して帝号を称し、その王朝の正史が帝紀を立てない皇帝"
+     }
+    ],
+    "accessionCategory": [
+     {
+      "id": "hereditary",
+      "label": "世襲",
+      "labelEn": null
+     },
+     {
+      "id": "enthroned",
+      "label": "擁立",
+      "labelEn": null
+     },
+     {
+      "id": "self-established",
+      "label": "自立",
+      "labelEn": null
+     },
+     {
+      "id": "usurpation",
+      "label": "簒奪",
+      "labelEn": null
+     },
+     {
+      "id": "acclamation",
+      "label": "推戴",
+      "labelEn": null
+     },
+     {
+      "id": "abdication-received",
+      "label": "受禅（易姓）",
+      "labelEn": null
+     },
+     {
+      "id": "succession-unspecified",
+      "label": "継承（経緯記載なし）",
+      "labelEn": null
+     },
+     {
+      "id": "inner-abdication",
+      "label": "内禅",
+      "labelEn": null
+     }
+    ],
+    "throneSource": [
+     {
+      "id": "inherited",
+      "label": "前代君主から継承",
+      "labelEn": null
+     },
+     {
+      "id": "abdication-received",
+      "label": "他政権から受禅",
+      "labelEn": null
+     },
+     {
+      "id": "self-established",
+      "label": "自立",
+      "labelEn": null
+     }
+    ],
+    "titleOrigin": [
+     {
+      "id": "inherited",
+      "label": "継承",
+      "labelEn": null
+     },
+     {
+      "id": "new",
+      "label": "新称",
+      "labelEn": null
+     }
+    ],
+    "decidedBy": [
+     {
+      "id": "self",
+      "label": "本人",
+      "labelEn": null
+     },
+     {
+      "id": "predecessor",
+      "label": "先帝",
+      "labelEn": null
+     },
+     {
+      "id": "third-party",
+      "label": "第三者",
+      "labelEn": null
+     },
+     {
+      "id": "undetermined",
+      "label": "史料から決着不能",
+      "labelEn": null
+     }
+    ],
+    "decidedByAgent": [
+     {
+      "id": "officials",
+      "label": "臣下",
+      "labelEn": null
+     },
+     {
+      "id": "military",
+      "label": "軍",
+      "labelEn": null
+     },
+     {
+      "id": "eunuchs",
+      "label": "宦官",
+      "labelEn": null
+     },
+     {
+      "id": "consort-kin",
+      "label": "外戚",
+      "labelEn": null
+     },
+     {
+      "id": "empress-dowager",
+      "label": "母后",
+      "labelEn": null
+     },
+     {
+      "id": "imperial-clan",
+      "label": "宗室",
+      "labelEn": null
+     }
+    ],
+    "decidedByBasis": [
+     {
+      "id": "existing-note",
+      "label": "既存note",
+      "labelEn": null
+     },
+     {
+      "id": "source-reread",
+      "label": "原典再読",
+      "labelEn": null
+     }
+    ],
+    "predecessorFate": [
+     {
+      "id": "natural-death",
+      "label": "崩御",
+      "labelEn": null
+     },
+     {
+      "id": "violent-death",
+      "label": "横死",
+      "labelEn": null
+     },
+     {
+      "id": "abdicated",
+      "label": "生前譲位",
+      "labelEn": null
+     },
+     {
+      "id": "deposed",
+      "label": "廃位・追放",
+      "labelEn": null
+     },
+     {
+      "id": "none",
+      "label": "該当なし",
+      "labelEn": null
+     }
+    ],
+    "procedure": [
+     {
+      "id": "abdication-ceremony",
+      "label": "禅譲儀礼",
+      "labelEn": null
+     },
+     {
+      "id": "inner-abdication",
+      "label": "内禅",
+      "labelEn": null
+     },
+     {
+      "id": "normal",
+      "label": "通常の践祚",
+      "labelEn": null
+     },
+     {
+      "id": "no-ceremony",
+      "label": "儀礼なし・自称",
+      "labelEn": null
+     },
+     {
+      "id": "forged-edict",
+      "label": "偽詔・矯詔",
+      "labelEn": null
+     }
+    ],
+    "relationToPredecessor": [
+     {
+      "id": "son",
+      "label": "子",
+      "labelEn": null
+     },
+     {
+      "id": "adopted-son",
+      "label": "養子",
+      "labelEn": null
+     },
+     {
+      "id": "grandson",
+      "label": "孫",
+      "labelEn": null
+     },
+     {
+      "id": "great-grandson",
+      "label": "曾孫",
+      "labelEn": null
+     },
+     {
+      "id": "younger-brother",
+      "label": "弟",
+      "labelEn": null
+     },
+     {
+      "id": "elder-brother",
+      "label": "兄",
+      "labelEn": null
+     },
+     {
+      "id": "nephew",
+      "label": "甥",
+      "labelEn": null
+     },
+     {
+      "id": "niece",
+      "label": "姪",
+      "labelEn": null
+     },
+     {
+      "id": "uncle-younger",
+      "label": "叔父",
+      "labelEn": null
+     },
+     {
+      "id": "uncle-elder",
+      "label": "伯父",
+      "labelEn": null
+     },
+     {
+      "id": "cousin",
+      "label": "従兄弟",
+      "labelEn": null
+     },
+     {
+      "id": "distant-kin",
+      "label": "同族（遠縁）",
+      "labelEn": null
+     },
+     {
+      "id": "father",
+      "label": "父",
+      "labelEn": null
+     },
+     {
+      "id": "mother",
+      "label": "母",
+      "labelEn": null
+     },
+     {
+      "id": "grandfather",
+      "label": "祖父",
+      "labelEn": null
+     },
+     {
+      "id": "maternal-grandfather",
+      "label": "外祖父",
+      "labelEn": null
+     },
+     {
+      "id": "son-in-law",
+      "label": "女婿",
+      "labelEn": null
+     },
+     {
+      "id": "father-in-law",
+      "label": "舅（妻の父）",
+      "labelEn": null
+     },
+     {
+      "id": "affinal-kin",
+      "label": "外戚（その他）",
+      "labelEn": null
+     },
+     {
+      "id": "unrelated",
+      "label": "無血縁",
+      "labelEn": null
+     },
+     {
+      "id": "unknown",
+      "label": "不明",
+      "labelEn": null
+     },
+     {
+      "id": "other",
+      "label": "その他",
+      "labelEn": null
+     },
+     {
+      "id": "none",
+      "label": "該当なし",
+      "labelEn": null
+     }
+    ],
+    "deathCause": [
+     {
+      "id": "illness",
+      "label": "病死",
+      "labelEn": null
+     },
+     {
+      "id": "assassination",
+      "label": "暗殺",
+      "labelEn": null
+     },
+     {
+      "id": "execution",
+      "label": "処刑",
+      "labelEn": null
+     },
+     {
+      "id": "killed-in-battle",
+      "label": "戦死",
+      "labelEn": null
+     },
+     {
+      "id": "suicide",
+      "label": "自尽",
+      "labelEn": null
+     },
+     {
+      "id": "accident",
+      "label": "事故死",
+      "labelEn": null
+     },
+     {
+      "id": "unknown",
+      "label": "不詳",
+      "labelEn": null
+     },
+     {
+      "id": "disputed",
+      "label": "諸説あり",
+      "labelEn": null
+     }
+    ],
+    "confidence": [
+     {
+      "id": "high",
+      "label": "高",
+      "labelEn": null
+     },
+     {
+      "id": "medium",
+      "label": "中",
+      "labelEn": null
+     },
+     {
+      "id": "low",
+      "label": "低",
+      "labelEn": null
+     }
+    ],
+    "datePrecision": [
+     {
+      "id": "day",
+      "label": "日",
+      "labelEn": null
+     },
+     {
+      "id": "month",
+      "label": "月",
+      "labelEn": null
+     },
+     {
+      "id": "year",
+      "label": "年",
+      "labelEn": null
+     }
+    ]
+   }
+  },
   "generatedAt": "2026-07-22",
   "count": 365,
   "status": {

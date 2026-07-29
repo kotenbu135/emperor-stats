@@ -25,6 +25,7 @@
           "type": "integer",
           "description": "収録皇帝数。emperors 配列の長さと一致する。"
         },
+        "catalogs": { "$ref": "#/$defs/catalogs" },
         "schemaVersion": {
           "type": "string",
           "description": "データ構造の版（セマンティックバージョン）。フィールドの追加・改名時に上がる。データ内容の版とは別軸。"
@@ -92,6 +93,68 @@
         "Blocks$": {
           "type": ["array", "object"],
           "description": "調査ブロック単位の記録（内部運用フィールド）。completedBlocks・*CompletedBlocks・reignDurationSourceBlocks が該当。"
+        }
+      }
+    },
+    "catalogs": {
+      "type": "object",
+      "description": "時代（eras）・政権（regimes）・enum の表示ラベル集約カタログ（v3）。レコード側は安定 ID のみを持ち、日本語ラベル・将来の多言語ラベルはここにしか置かない。設計は docs/schema/V3_MIGRATION_PLAN.md。",
+      "required": ["eras", "regimes", "enums"],
+      "properties": {
+        "note": { "type": "string" },
+        "eras": {
+          "type": "array",
+          "description": "時代区分（11 区分）。調査ブロック（researchSection）とは独立した、時代ジャンプ・並び順のための固定カタログ。",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "sortOrder"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+              "label": { "type": "string" },
+              "labelEn": { "type": ["string", "null"] },
+              "sortOrder": { "type": "integer" }
+            }
+          }
+        },
+        "regimes": {
+          "type": "array",
+          "description": "政権カタログ。同一国号の別政権を含めて一意になる ID を持つ。startYear/endYear は表示用のヒントで、政権同士の年幅は入れ子・重複しうる（唐と武周など）。",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "label", "eraId", "category", "sortOrder"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+              "name": { "type": "string", "description": "国号（例:「梁」）。単体では一意でない。" },
+              "label": { "type": "string", "description": "一覧・凡例で使う曖昧性のない表示名（例:「梁（蕭梁）」）。" },
+              "labelEn": { "type": ["string", "null"] },
+              "eraId": { "type": "string" },
+              "category": { "type": "string", "description": "政権の性格。catalogs.enums.regimeCategory の ID。" },
+              "startYear": { "type": "integer" },
+              "endYear": { "type": "integer" },
+              "sortOrder": { "type": "integer" },
+              "dynastyOrderSurveyed": {
+                "type": "boolean",
+                "description": "reigns[].dynastyOrder（第N代）をこの政権について個別調査済みか。false の政権では dynastyOrder は全て null で、第N代は未確定（サイト側で在位順から推論しないこと）。"
+              }
+            }
+          }
+        },
+        "enums": {
+          "type": "object",
+          "description": "フィールドごとの enum カタログ。キーはフィールド名（accessionCategory・deathCause など）、値は {id,label} の配列。ID はフィールド内で一意（フィールドをまたぐ同名 ID は別物）。",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "label"],
+              "properties": {
+                "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+                "label": { "type": "string" },
+                "labelEn": { "type": ["string", "null"] },
+                "description": { "type": "string" }
+              }
+            }
+          }
         }
       }
     },
