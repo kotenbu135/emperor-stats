@@ -4,6 +4,10 @@
 
 全皇帝を親子・養子・婚姻・即位経路のエッジで結ぶグラフデータ（別ファイル `data/kinship.json`）。スキーマ・ブリッジ人物の収録基準・調査計画は **[data/schema/KINSHIP_SCHEMA.md](../../data/schema/KINSHIP_SCHEMA.md)** を参照。
 
+## v3（2026-07-29・Issue #22）
+
+`emperors.json` は `schemaVersion 3.0.0`、`kinship.json` は `2.0.0`。**レコードは安定 ID のみを持ち、日本語ラベルは `meta.catalogs` に集約**する。設計・移行手順・判定の根拠は **[V3_MIGRATION_PLAN.md](V3_MIGRATION_PLAN.md)**。
+
 ## emperors.json のスキーマ
 
 詳細な型・値域・具体例は **[data/schema/EMPERORS_SCHEMA.md](../../data/schema/EMPERORS_SCHEMA.md)** を参照してください。
@@ -42,10 +46,12 @@
   - `posthumousName`: 諡号
   - `templeName`: 廟号
   - `regnalTitle`: 常に `"皇帝"`
-- **`dynasty`**: 王朝情報
-  - `name`: 王朝名
-  - `category`: `正統王朝` / `並立政権` / `反乱・自称政権` の3値（旧値 `正統`/`十六国`/`正統（反乱・自称）` を2026-07-23にサイト表示語彙へ統一）
-  - `section`: wikitext 上の見出し
+- **所属（v3 で `dynasty` を解体）**
+  - `eraId`: 時代 ID（`meta.catalogs.eras` の11区分。時代ジャンプ・並び順用）
+  - `regimeId`: 政権 ID（`meta.catalogs.regimes` の87件。同名国号も含めて一意）
+  - `researchSection`: 調査ブロック名（旧 `dynasty.section`。表示用の区分ではない）
+  - `standing`: `regular`（歴代の皇帝）/ `rival`（同一国号内の対立・僭称。20人）
+  - 政権の性格（`orthodox`/`coexisting`/`rebel`）と国号・表示ラベルは `meta.catalogs.regimes` 側にある
 
 ### 在位期間: `reigns` 配列
 
@@ -86,8 +92,8 @@
 ### フラグ: `flags`
 
 - `isFemale`: 女性かどうか
-- `selfProclaimed`: 自称・簒奪政権かどうか
 - `usedEmperorTitleFrom`: 皇帝号の使用開始時期
+- （`selfProclaimed` は v3 で廃止。`accessionRoute.axes` と `standing` で表現する）
 
 ### 出典: `sources`
 

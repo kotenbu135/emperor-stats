@@ -8,17 +8,17 @@
 チェック内容（エラー＝CI 失敗）:
   - persons: id 一意・`p-` プレフィックス＋kebab-case・emperors.json の id と非衝突・
     enum（kind/gender/inclusionReason）・kana 必須（ひらがな）・
-    section 必須（emperors.json の dynasty.section 語彙集合に所属）・source 必須・
+    researchSection 必須（emperors.json の researchSection 語彙集合に所属）・eraId 必須・source 必須・
     birthYear/deathYear の型と前後関係・yearsApproximate は bool
   - edges: from/to が実在ノード（皇帝 id または persons）・自己ループなし・
-    enum（type/relation/category/relationToPredecessor/veracity/confidence）・source 必須・
+    enum（type/relation/categoryId/relationToPredecessor/veracity/confidence・すべて ID）・source 必須・
     重複エッジなし（marriage/兄弟姉妹は無向正規化して判定）
   - succession: to は皇帝・relationToPredecessor 必須（「その他」は note 必須）・
     主エッジ（isRestoration=false・veracity≠disputed）は皇帝ごとに最大1本
     （disputed は対立説の併記として複数可）・
-    非 disputed 主エッジの category が emperors.json の accessionRoute.category と整合
+    非 disputed 主エッジの categoryId が emperors.json の accessionRoute.categoryId と整合
     （復位は 2026-07-26 の多軸化で category から消え reigns[].isRestoration に一本化された。
-    主エッジ category=初回即位の経路、復位は category="復位" の isRestoration エッジで持つ）
+    主エッジ categoryId=初回即位の経路、復位は categoryId="restoration" の isRestoration エッジで持つ）
   - kinship: 実父/養父の from は male・実母/養母の from は female（gender 判明時のみ）・
     verified の実父エッジ・実母エッジはそれぞれ子ごとに最大1本・親子エッジ（実父/実母/養父/養母）の循環なし・
     childOrder は 1 以上の整数・primaryLineage:true は子ごとに最大1本
@@ -59,31 +59,35 @@ from detect_wikipedia_sources import is_wiki_like  # noqa: E402
 
 PERSON_ID_RE = re.compile(r"^p-[a-z0-9]+(-[a-z0-9]+)*$")
 
-KIND_ENUM = {"追尊皇帝", "宗室", "外戚", "后妃・公主", "その他"}
+# v3: 値はすべて ID（日本語ラベルは emperors.json の meta.catalogs.enums 側）
+KIND_ENUM = {"posthumous-emperor", "imperial-clan", "consort-kin", "consort-princess", "other"}
 GENDER_ENUM = {"male", "female"}
-INCLUSION_ENUM = {"経路上", "一親等", "追尊皇帝", "婚姻当事者", "政変当事者", "歴代君主"}
+INCLUSION_ENUM = {"on-path", "first-degree", "posthumous-emperor", "marriage-party",
+                  "coup-party", "ruler"}
 EDGE_TYPE_ENUM = {"succession", "kinship", "marriage"}
-RELATION_ENUM = {"実父", "実母", "養父", "養母", "兄弟姉妹", "遠祖"}
-PARENT_RELATIONS = {"実父", "実母", "養父", "養母"}
-MALE_RELATIONS = {"実父", "養父"}
-FEMALE_RELATIONS = {"実母", "養母"}
+RELATION_ENUM = {"birth-father", "birth-mother", "adoptive-father", "adoptive-mother",
+                 "sibling", "remote-ancestor"}
+PARENT_RELATIONS = {"birth-father", "birth-mother", "adoptive-father", "adoptive-mother"}
+MALE_RELATIONS = {"birth-father", "adoptive-father"}
+FEMALE_RELATIONS = {"birth-mother", "adoptive-mother"}
 # 旧 enum 9値と、多軸化（2026-07-26・ADDITIONAL_SCHEMA.md 1節）で導出される新ラベルが移行完了まで併存する
 # 2026-07-26 の多軸化完了で、emperors.json 側の旧 enum（禅譲・建国・不詳・諸説あり）は消滅した。
-# 「復位」は isRestoration=true の復位エッジ専用のラベルとして kinship 側にのみ残る
-# （emperors.accessionRoute.category には現れない）。
+# 「restoration（復位）」は isRestoration=true の復位エッジ専用の値として kinship 側にのみ残る
+# （emperors.accessionRoute.categoryId には現れない）。
 CATEGORY_ENUM = {
-    "世襲", "擁立", "簒奪", "内禅", "継承（経緯記載なし）",
-    "受禅（易姓）", "受禅（擁立）", "自立", "推戴", "復位",
+    "hereditary", "enthroned", "usurpation", "inner-abdication", "succession-unspecified",
+    "abdication-received", "self-established", "acclamation", "restoration",
 }
 REL_TO_PRED_ENUM = {
-    "子", "養子", "孫", "曾孫", "弟", "兄", "甥", "姪", "叔父", "伯父", "従兄弟",
-    "同族（遠縁）", "父", "母", "祖父", "外祖父", "女婿", "舅（妻の父）",
-    "外戚（その他）", "無血縁", "不明", "その他",
+    "son", "adopted-son", "grandson", "great-grandson", "younger-brother", "elder-brother",
+    "nephew", "niece", "uncle-younger", "uncle-elder", "cousin", "distant-kin",
+    "father", "mother", "grandfather", "maternal-grandfather", "son-in-law", "father-in-law",
+    "affinal-kin", "unrelated", "unknown", "other",
 }
 KANA_RE = re.compile(r"^[ぁ-ゖー]+$")
 # 主エッジ不在を許容する accessionRoute（新ラベルの 自立／推戴 は旧 建国 に対応）
 # 前代君主から位を受けていない＝succession エッジを持たなくてよいラベル。
-ROOT_CATEGORIES = {"自立", "推戴"}
+ROOT_CATEGORIES = {"self-established", "acclamation"}
 VERACITY_ENUM = {"verified", "claimed", "disputed"}
 CONFIDENCE_ENUM = {"high", "medium", "low"}
 
@@ -133,13 +137,9 @@ def check_persons(persons, emperor_ids, sections, era_ids=frozenset()) -> dict[s
         kana = p.get("kana")
         if not isinstance(kana, str) or not KANA_RE.match(kana):
             err(f"[persons] {label}: kana がひらがなでない/空: {kana!r}")
-        if p.get("section") not in sections:
-            err(f"[persons] {label}: section が emperors.json の dynasty.section 語彙にない: "
-                f"{p.get('section')!r}")
-        # v3: 調査ブロック名（researchSection）と時代 ID（eraId）
-        if p.get("researchSection") != p.get("section"):
-            err(f"[persons] {label}: researchSection が section と不一致: "
-                f"{p.get('researchSection')!r} ≠ {p.get('section')!r}")
+        if p.get("researchSection") not in sections:
+            err(f"[persons] {label}: researchSection が emperors.json の "
+                f"researchSection 語彙にない: {p.get('researchSection')!r}")
         if p.get("eraId") not in era_ids:
             err(f"[persons] {label}: eraId が emperors.json の catalogs.eras にない: "
                 f"{p.get('eraId')!r}")
@@ -212,14 +212,14 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id,
                 err(f"[edges] {label}: succession の to が皇帝でない")
             else:
                 succession_covered.add(t)
-            cat = e.get("category")
+            cat = e.get("categoryId")
             if cat not in CATEGORY_ENUM:
-                err(f"[edges] {label}: category が不正: {cat!r}")
+                err(f"[edges] {label}: categoryId が不正: {cat!r}")
             rel = e.get("relationToPredecessor")
             if rel not in REL_TO_PRED_ENUM:
                 err(f"[edges] {label}: relationToPredecessor が不正: {rel!r}")
-            elif rel == "その他" and not e.get("note"):
-                err(f"[edges] {label}: relationToPredecessor=その他 は note 必須")
+            elif rel == "other" and not e.get("note"):
+                err(f"[edges] {label}: relationToPredecessor=other（その他）は note 必須")
             is_rest = e.get("isRestoration")
             disputed = e.get("veracity") == "disputed"
             if not isinstance(is_rest, bool):
@@ -228,15 +228,16 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id,
                 if not disputed:
                     primary_by_emperor[t] += 1
                     route = accession_by_id.get(t)
-                    if route == "復位":
-                        if cat == "復位":
-                            err(f"[edges] {label}: 復位皇帝の主エッジ category は初回即位の経路"
+                    if route == "restoration":
+                        if cat == "restoration":
+                            err(f"[edges] {label}: 復位皇帝の主エッジ categoryId は初回即位の経路"
                                 "（復位は isRestoration:true の別エッジ）")
                     elif cat != route:
-                        err(f"[edges] {label}: category={cat!r} が accessionRoute={route!r} と不一致")
+                        err(f"[edges] {label}: categoryId={cat!r} が "
+                            f"accessionRoute.categoryId={route!r} と不一致")
             else:
-                if cat != "復位":
-                    err(f"[edges] {label}: isRestoration:true なのに category={cat!r}")
+                if cat != "restoration":
+                    err(f"[edges] {label}: isRestoration:true なのに categoryId={cat!r}")
                 restoration_by_emperor[t] += 1
             key = ("succession", f, t, e.get("isRestoration"), disputed)
             if rootless_restoration:
@@ -272,9 +273,9 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id,
                     father_covered.add(t)
                 if rel in FEMALE_RELATIONS:
                     mother_covered.add(t)
-                if rel == "実父" and e.get("veracity") == "verified":
+                if rel == "birth-father" and e.get("veracity") == "verified":
                     verified_father_by_child[t] += 1
-                if rel == "実母" and e.get("veracity") == "verified":
+                if rel == "birth-mother" and e.get("veracity") == "verified":
                     verified_mother_by_child[t] += 1
                 dedup[("kinship", rel, f, t)] += 1
             else:  # 兄弟姉妹は無向
@@ -332,7 +333,7 @@ def check_edges(edges, emperor_ids, gender_by_person, accession_by_id,
     for parent, child in parent_edges:
         parents_of.setdefault(child, set()).add(parent)
     for e in edges:
-        if e.get("type") == "kinship" and e.get("relation") == "兄弟姉妹":
+        if e.get("type") == "kinship" and e.get("relation") == "sibling":
             common = parents_of.get(e.get("from"), set()) & parents_of.get(e.get("to"), set())
             if common:
                 warn(f"[edges] 兄弟姉妹エッジ {e.get('from')}<->{e.get('to')} は共通親 "
@@ -373,7 +374,7 @@ def check_coverage(meta, emperors, emperor_ids, succession_covered, parents_of, 
         confirmed.add(cid)
     if phases.get("succession", {}).get("status") == "completed":
         for e in emperors:
-            route = e["accessionRoute"]["category"]
+            route = e["accessionRoute"]["categoryId"]
             if (e["id"] not in succession_covered and route not in ROOT_CATEGORIES
                     and e["id"] not in confirmed):
                 err(f"[coverage] succession 完了済みだが継承エッジがない: "
@@ -447,9 +448,9 @@ def check_axes_sync(edges, emperors):
         ours = axes.get("relationToPredecessor")
         edge = primary_edge.get(e["id"])
         if edge is None:
-            if ours != "該当なし":
+            if ours != "none":
                 err(f"[axes-sync] {e['id']}: succession 主エッジがないのに "
-                    f"axes.relationToPredecessor={ours!r}（該当なし であるべき）")
+                    f"axes.relationToPredecessor={ours!r}（none〈該当なし〉であるべき）")
             continue
         theirs = edge.get("relationToPredecessor")
         if ours != theirs:
@@ -462,7 +463,7 @@ def main() -> int:
     emp = json.loads(EMPERORS_PATH.read_text(encoding="utf-8"))
     emperors = emp["emperors"]
     emperor_ids = {e["id"] for e in emperors}
-    accession_by_id = {e["id"]: e["accessionRoute"]["category"] for e in emperors}
+    accession_by_id = {e["id"]: e["accessionRoute"]["categoryId"] for e in emperors}
 
     for key in ("meta", "persons", "edges", "genealogicalClaims"):
         if key not in kin:
@@ -472,7 +473,7 @@ def main() -> int:
         if ph not in phases:
             err(f"[structure] meta.status.phases に {ph} がない")
 
-    sections = {e["dynasty"]["section"] for e in emperors}
+    sections = {e["researchSection"] for e in emperors}
     era_ids = {e["id"] for e in emp["meta"].get("catalogs", {}).get("eras", [])}
     gender_by_person = check_persons(kin.get("persons", []), emperor_ids, sections, era_ids)
     restoration_reigns_by_id = {
@@ -485,7 +486,7 @@ def main() -> int:
     # 血縁・婚姻が原典に一切記されない君主（西燕第3代の段随＝慕容沖の将）がありうるため
     # 例外とする。図では代数の欠番を埋める灰ピルとして単独で置かれる。
     dynastic_only = {p["id"] for p in kin.get("persons", [])
-                     if p.get("inclusionReason") == ["歴代君主"]}
+                     if p.get("inclusionReason") == ["ruler"]}
     orphan = set(gender_by_person) - referenced - dynastic_only
     if orphan:
         err(f"[persons] 孤立ブリッジ（どのエッジからも参照されない）: {sorted(orphan)}")

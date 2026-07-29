@@ -1,6 +1,8 @@
-# `data/emperors.json` スキーマ（現行 v2.0.0）
+# `data/emperors.json` スキーマ（現行 v3.0.0）
 
-`data/emperors.json` の現行構造のリファレンス。現行 `schemaVersion` は `"2.0.0"`（2026-07-21、未使用の `sources.wikitextLines` を削除）。死因スキーマなど今後追加予定のフィールドは [DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md) を参照。
+`data/emperors.json` の現行構造のリファレンス。現行 `schemaVersion` は `"3.0.0"`（2026-07-29、Issue #22 のスキーマ改善＝時代・政権カタログの新設、全 enum の ID 化、`dynasty`・`flags.selfProclaimed` の廃止）。移行の設計と経緯は [docs/schema/V3_MIGRATION_PLAN.md](../../docs/schema/V3_MIGRATION_PLAN.md)。死因スキーマは [DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md) を参照。
+
+**v3 の原則**: レコードは**安定 ID のみ**を持ち、日本語の表示ラベルは `meta.catalogs` にしか置かない。サイトはカタログを引くだけで表示でき、優先順位ロジックを持たない。
 
 トップレベルは `meta`（データセット全体のメタ情報）と `emperors`（人物レコードの配列）の2キー。
 
@@ -20,8 +22,23 @@
 | `schemaVersion` | string | semver。スキーマに破壊的変更があれば上げる |
 | `generatedAt` | string (`YYYY-MM-DD`) | データ最終更新日 |
 | `count` | number | `emperors` 配列の件数（365件、手動同期） |
+| `catalogs` | object | **v3 で新設**。`eras`（時代11区分）・`regimes`（政権87件）・`enums`（フィールドごとの ID→ラベル14種）。下記参照 |
 | `status` | object | 調査フェーズの進捗管理（下記） |
 | `completedBlocks` | string[] | 在位データ調査が完了した王朝ブロック名の一覧（24ブロック。単純な文字列配列で、除外判断等の詳細は各人物レコードの `verification.notes` 側に記録） |
+
+### `meta.catalogs`（v3 で新設）
+
+表示ラベルの唯一の置き場。レコード側は ID だけを持つ。
+
+| フィールド | 内容 |
+|---|---|
+| `eras[]` | 時代区分11件。`id`（例 `sui-tang`）・`label`（隋・唐）・`labelEn`（未投入・null）・`sortOrder`。**調査ブロック（`researchSection`）とは独立**した、時代ジャンプ・並び順のための固定カタログ。時代は慣用区分で年代は排他区間ではない（北魏 399〜 は南北朝、遼 916〜 は宋遼金夏） |
+| `regimes[]` | 政権87件。`id`・`name`（国号）・`label`（曖昧性のない表示名）・`labelEn`・`eraId`・`category`（`orthodox`／`coexisting`／`rebel`）・`startYear`/`endYear`・`sortOrder`・`dynastyOrderSurveyed` |
+| `enums` | フィールド名 → `[{id,label,labelEn,description?}]` の14種（`regimeCategory`・`emperorStanding`・`accessionCategory`・軸6種・`relationToPredecessor`・`deathCause`・`confidence`・`datePrecision`）。**ID はフィールド内で一意**（フィールドをまたぐ同名 ID は別物） |
+
+`regimes[].startYear`/`endYear` は**表示用のヒントであって権威ある区間ではない**（唐 618〜907 の内側に武周 690〜705 が入るなど入れ子・重複しうる）。
+
+`dynastyOrderSurveyed: false` の政権（51件）は `reigns[].dynastyOrder` が全て null ＝第N代が未確定。**サイト側で在位順から推論しないこと**（悉皆調査は別 Issue）。
 
 ### `meta.status`
 
@@ -66,14 +83,20 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 | `templeName` | string \| null | 廟号 |
 | `regnalTitle` | string | 常に `"皇帝"`（収録基準そのもの） |
 
-### `dynasty`
+### 所属（`eraId` / `regimeId` / `researchSection` / `standing`）— v3
+
+旧 `dynasty`（`name`/`category`/`section`）は v3 で解体した。
+
 | フィールド | 型 | 内容 |
 |---|---|---|
-| `name` | string | 王朝名（例: `"秦"`, `"劉宋"`） |
-| `category` | string | `"正統王朝"` / `"並立政権"` / `"反乱・自称政権"` の3値（旧値 `正統`／`十六国`／`正統（反乱・自称）`。出典 wikitext 由来の内部値とサイト表示ラベルの二重管理を 2026-07-23 に表示語彙へ統一）。なお「反乱・自称政権」には独立反乱政権（公孫述等）のほか、正統王朝の皇帝だが即位・称帝の経緯が反乱・自称由来の人物（永楽帝・清太宗等）も含む＝政権の性質ではなく称帝経緯のフラグ |
-| `section` | string | 出典 wikitext 上の見出し名 |
+| `eraId` | string | 所属時代。`meta.catalogs.eras` の ID。`regimes[regimeId].eraId` の非正規化コピーで、一致はバリデータが担保する |
+| `regimeId` | string | 所属政権。`meta.catalogs.regimes` の ID。同名国号（梁・宋・呉・夏など）を含めて**一意**。国号・表示名・政権の性格はカタログ側にある |
+| `researchSection` | string | 調査ブロック名（旧 `dynasty.section`）。[SOURCE_MAPPING.md](../../docs/process/SOURCE_MAPPING.md) の索引キーで、**表示用の時代区分ではない** |
+| `standing` | string | `"regular"`（その政権の歴代皇帝）／`"rival"`（同一国号内で並立して帝号を称し、正史が帝紀を立てない対立・僭称）。365人中 rival は20人 |
 
-**将来のフィルタUIにおける同名王朝の区別について**: `梁`（蕭梁と隋末の梁師都政権）、`宋`（劉宋と元末の韓林児「宋」）、`呉`（三国の呉と五代十国の楊呉）、`夏`（十六国の赫連夏と元末の明玉珍「夏」）など、歴史上全く別の政権が同じ国号を名乗った例が365件中に複数存在する（王朝内の正統帝と反乱者・自称帝が同居するだけのケース＝`category`違いは別問題で、これは既に区別済み）。検証の結果、`(dynasty.name, dynasty.section)` の組み合わせであれば全件が政権単位で一意にグルーピングできることを確認済み（例: `("梁","南朝")`＝蕭梁 と `("梁","隋末群雄")`＝梁師都政権は別グループになる）。サイト実装時のフィルタUIは王朝名単体ではなく `name` + `section` の複合キーで選択肢を構成すること。表示ラベルは `section` を欧文修飾語的に添える（例:「梁（南朝）」「梁（隋末群雄）」）などで衝突を避けられる。
+**旧 `dynasty.category` を2つに割った理由**: 旧値は「政権の性格」と「その人の称帝経緯」が混在しており、「反乱・自称政権」45人の中に明成祖（永楽帝）・清太宗・後唐荘宗・金世宗・南宋端宗など**その政権の正規の皇帝**が多数含まれていた。v3 では政権の性格を `regimes[].category`（`orthodox`／`coexisting`／`rebel`）に、人物の位置づけを `standing` に分離し、即位の経緯は `accessionRoute` が担う。判定の詳細は [V3_MIGRATION_PLAN.md](../../docs/schema/V3_MIGRATION_PLAN.md) §5。
+
+**同名国号の区別**: `梁`（蕭梁と隋末の梁師都政権）・`宋`（劉宋と元末の韓林児「宋」）・`呉`（三国の呉と五代十国の楊呉）・`夏`（十六国の赫連夏と元末の明玉珍「夏」）など、全く別の政権が同じ国号を名乗る例が複数ある。v3 では `regimeId` が一意なのでフィルタUIはこの ID で構成し、表示は `regimes[].label`（例:「梁（蕭梁）」「梁（梁師都）」）を使う。
 
 ### `reigns[]`
 在位期間の配列。複数回即位した人物（廃位後の復位など）は同一レコード内でここに複数要素を持つ（レコードは分けない）。各要素:
@@ -114,7 +137,6 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 | フィールド | 型 | 内容 |
 |---|---|---|
 | `isFemale` | boolean | 皇帝を称した女性（例: 武則天）を示す |
-| `selfProclaimed` | boolean | 自称・簒奪政権かどうか |
 | `usedEmperorTitleFrom` | number | 皇帝号を使用開始した年。**歴史紀年ベース**（称帝時点の旧暦年に対応する西暦年。2026-07-22 規約確定）。旧暦十二月の称帝などでユリウス暦上の実日付が翌年1月になる場合、`reigns[0].startYear`（実日付の年）より1小さくなる（該当4件: liu-yong-liang・liang-houjing・beiwei-daowudi・beiqi-andewang-gaoyanzong）。それ以外は `startYear` と一致する（`validate_emperors.py` の `check_used_emperor_title_from()` で検証） |
 
 ### `sources`
@@ -129,6 +151,8 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 | `emperorTitleConfirmed` | boolean | 生前に皇帝号を使用した事実を確認済みか |
 | `confidence` | `"high"` \| `"medium"` \| `"low"` | 情報源間で不一致が残る場合は `"medium"` とし `notes` に経緯を記す |
 | `notes` | string | 判定根拠・情報源間の不一致・ユーザー承認済み事項などを自然文で記録 |
+
+**v3 で `selfProclaimed` を廃止した**: 旧 `dynasty.category` とも `accessionRoute.axes` とも整合しておらず（前者と81件不一致、`true` かつ `throneSource=前代君主から継承` が57件）、同じ情報は `axes.throneSource`＋`axes.procedure`＋`standing` で表現できる。
 
 ## 具体例
 

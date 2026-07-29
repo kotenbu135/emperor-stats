@@ -449,9 +449,9 @@ def check_event_reign_range(data):
 
 
 def check_reign_overlap(data):
-    """同一王朝内で在位期間が重複していないか（並立・対立政権は正当なので除外）。
+    """同一政権内で在位期間が重複していないか（並立・対立政権は正当なので除外）。
 
-    dynasty.name 単位で reigns を開始日順に並べ、次の reign の startDate が前の reign の endDate
+    regimeId 単位で reigns を開始日順に並べ、次の reign の startDate が前の reign の endDate
     より前なら重複。並立・対立政権（COEXIST_KEYWORDS のいずれかをレコード JSON に含む）は正当として
     除外し、キーワードを一切含まない重複のみエラーにする（内禅・禅譲で前帝 endDate と次帝 startDate が
     食い違う同期漏れ＝光宗/寧宗型を検出）。KNOWN_REIGN_OVERLAP で個別許容可。
@@ -471,7 +471,7 @@ def check_reign_overlap(data):
             st = parse_date(r.get("startDate"))
             en = parse_date(r.get("endDate"))
             if st:
-                name = (e.get("dynasty") or {}).get("name")
+                name = e.get("regimeId")
                 dyn[name].append((st, en, f"{e['id']}[{i}]", reign_kw(r)))
     for name, lst in dyn.items():
         lst.sort(key=lambda x: (x[0][0], x[0][1] or 0, x[0][2] or 0))
@@ -780,31 +780,35 @@ def check_forbidden_sources(data):
         walk(e, "", e["id"])
 
 
-THRONE_SOURCE_ENUM = {"前代君主から継承", "他政権から受禅", "自立"}
-TITLE_ORIGIN_ENUM = {"継承", "新称"}
-DECIDED_BY_ENUM = {"本人", "先帝", "第三者", "史料から決着不能"}
-DECIDED_BY_AGENT_ENUM = {"臣下", "軍", "宦官", "外戚", "母后", "宗室"}
-DECIDED_BY_BASIS_ENUM = {"既存note", "原典再読"}
-PREDECESSOR_FATE_ENUM = {"崩御", "横死", "生前譲位", "廃位・追放", "該当なし"}
-PROCEDURE_ENUM = {"禅譲儀礼", "内禅", "通常の践祚", "儀礼なし・自称", "偽詔・矯詔"}
+# v3: 値はすべて meta.catalogs.enums の ID（日本語ラベルはカタログ側にしか置かない）
+THRONE_SOURCE_ENUM = {"inherited", "abdication-received", "self-established"}
+TITLE_ORIGIN_ENUM = {"inherited", "new"}
+DECIDED_BY_ENUM = {"self", "predecessor", "third-party", "undetermined"}
+DECIDED_BY_AGENT_ENUM = {"officials", "military", "eunuchs", "consort-kin",
+                         "empress-dowager", "imperial-clan"}
+DECIDED_BY_BASIS_ENUM = {"existing-note", "source-reread"}
+PREDECESSOR_FATE_ENUM = {"natural-death", "violent-death", "abdicated", "deposed", "none"}
+PROCEDURE_ENUM = {"abdication-ceremony", "inner-abdication", "normal",
+                  "no-ceremony", "forged-edict"}
 # kinship.json の REL_TO_PRED_ENUM と同一語彙（ADDITIONAL_SCHEMA.md 軸4）＋
 # succession エッジを持たない人物（自立等）用の「該当なし」。
 # 値の一致は validate_kinship.py の check_axes_sync が突合する
 RELATION_ENUM = {
-    "子", "養子", "孫", "曾孫", "弟", "兄", "甥", "姪", "叔父", "伯父", "従兄弟",
-    "同族（遠縁）", "父", "母", "祖父", "外祖父", "女婿", "舅（妻の父）",
-    "外戚（その他）", "無血縁", "不明", "その他", "該当なし",
+    "son", "adopted-son", "grandson", "great-grandson", "younger-brother", "elder-brother",
+    "nephew", "niece", "uncle-younger", "uncle-elder", "cousin", "distant-kin",
+    "father", "mother", "grandfather", "maternal-grandfather", "son-in-law", "father-in-law",
+    "affinal-kin", "unrelated", "unknown", "other", "none",
 }
-# v3: 旧ラベル → catalogs.enums.accessionCategory の ID
-ACCESSION_CATEGORY_ID = {
-    "世襲": "hereditary",
-    "擁立": "enthroned",
-    "自立": "self-established",
-    "簒奪": "usurpation",
-    "推戴": "acclamation",
-    "受禅（易姓）": "abdication-received",
-    "継承（経緯記載なし）": "succession-unspecified",
-    "内禅": "inner-abdication",
+# note の陳腐化検出に使う日本語ラベル（表示ラベルは meta.catalogs.enums が正）
+ACCESSION_LABEL = {
+    "hereditary": "世襲",
+    "enthroned": "擁立",
+    "self-established": "自立",
+    "usurpation": "簒奪",
+    "acclamation": "推戴",
+    "abdication-received": "受禅（易姓）",
+    "succession-unspecified": "継承（経緯記載なし）",
+    "inner-abdication": "内禅",
 }
 AXES_REQUIRED = {
     "throneSource", "titleOrigin", "decidedBy", "decidedByBasis",
@@ -814,7 +818,7 @@ AXES_OPTIONAL = {"decidedByAgents"}
 
 
 def derive_category(axes):
-    """ADDITIONAL_SCHEMA.md「導出ルール」に従い axes から category を算出する。
+    """ADDITIONAL_SCHEMA.md「導出ルール」に従い axes から categoryId を算出する。
 
     判定そのものではなく、確定済みの軸値からの機械的な写像（CONSTRAINTS.md の
     「確定済み調査結果の構造チェック」の範囲）。
@@ -822,29 +826,30 @@ def derive_category(axes):
     src = axes.get("throneSource")
     # 複数値のときは 本人 > 先帝 > 第三者 の優先順位で1つに畳む
     decided = axes.get("decidedBy") or []
-    if "本人" in decided:
-        agent = "本人"
-    elif "先帝" in decided:
-        agent = "先帝"
-    elif "第三者" in decided:
-        agent = "第三者"
-    elif decided == ["史料から決着不能"]:
-        agent = "史料から決着不能"
+    if "self" in decided:
+        agent = "self"
+    elif "predecessor" in decided:
+        agent = "predecessor"
+    elif "third-party" in decided:
+        agent = "third-party"
+    elif decided == ["undetermined"]:
+        agent = "undetermined"
     else:
         return None
 
-    if src == "他政権から受禅":
-        return "受禅（易姓）" if agent == "本人" else "受禅（擁立）"
-    if src == "自立":
-        return "自立" if agent == "本人" else "推戴"
-    if src == "前代君主から継承":
-        if axes.get("procedure") == "内禅":
-            return "内禅"
+    if src == "abdication-received":
+        # 受禅（擁立）は実データ 0 件のため v3 の enum から除外済み（該当時は導出不能）
+        return "abdication-received" if agent == "self" else None
+    if src == "self-established":
+        return "self-established" if agent == "self" else "acclamation"
+    if src == "inherited":
+        if axes.get("procedure") == "inner-abdication":
+            return "inner-abdication"
         return {
-            "本人": "簒奪",
-            "先帝": "世襲",
-            "第三者": "擁立",
-            "史料から決着不能": "継承（経緯記載なし）",
+            "self": "usurpation",
+            "predecessor": "hereditary",
+            "third-party": "enthroned",
+            "undetermined": "succession-unspecified",
         }[agent]
     return None
 
@@ -893,8 +898,9 @@ def check_accession_axes(data):
                     err(f"[axes] {eid}.decidedBy: enum 外の値: {bad}")
                 if len(set(decided)) != len(decided):
                     err(f"[axes] {eid}.decidedBy: 値が重複: {decided}")
-                if "史料から決着不能" in decided and len(decided) > 1:
-                    err(f"[axes] {eid}.decidedBy: 史料から決着不能は単独でのみ使用: {decided}")
+                if "undetermined" in decided and len(decided) > 1:
+                    err(f"[axes] {eid}.decidedBy: undetermined（史料から決着不能）は単独でのみ使用: "
+                        f"{decided}")
 
         agents = axes.get("decidedByAgents") or []
         if not isinstance(agents, list):
@@ -903,31 +909,26 @@ def check_accession_axes(data):
             bad = [v for v in agents if v not in DECIDED_BY_AGENT_ENUM]
             if bad:
                 err(f"[axes] {eid}.decidedByAgents: enum 外の値: {bad}")
-            if agents and "第三者" not in (decided or []):
+            if agents and "third-party" not in (decided or []):
                 err(f"[axes] {eid}.decidedByAgents: decidedBy に第三者を含まないのに類型が指定されている")
 
         # note が旧カテゴリでの判定文言を残したままだと、表示（category は軸から導出）と
         # 説明文が食い違う。多軸化でラベルが変わった人物の note 書き換え漏れを検出する。
         note = route.get("note") or ""
+        current_label = ACCESSION_LABEL.get(route.get("categoryId"))
         for lab in ("世襲", "簒奪", "禅譲", "内禅", "擁立", "復位", "建国"):
             for pat in (f"{lab}と判定", f"{lab}に分類", f"{lab}を採用"):
-                if pat in note and route.get("category") != lab:
+                if pat in note and current_label != lab:
                     err(f"[axes] {eid}: note に旧判定文言「{pat}」が残っているが "
-                        f"category は {route.get('category')!r}")
+                        f"categoryId は {route.get('categoryId')!r}")
 
         derived = derive_category(axes)
         if derived is None:
-            err(f"[axes] {eid}: 軸の組み合わせから category を導出できない（導出ルール未該当）")
-        elif route.get("category") != derived:
-            err(
-                f"[axes] {eid}: category が軸から導出される値と不一致: "
-                f"{route.get('category')!r} ≠ {derived!r}"
-            )
-        # v3: 表示用の確定値 categoryId も同じ導出値を指していること
-        if derived is not None and route.get("categoryId") != ACCESSION_CATEGORY_ID.get(derived):
+            err(f"[axes] {eid}: 軸の組み合わせから categoryId を導出できない（導出ルール未該当）")
+        elif route.get("categoryId") != derived:
             err(
                 f"[axes] {eid}: categoryId が軸から導出される値と不一致: "
-                f"{route.get('categoryId')!r} ≠ {ACCESSION_CATEGORY_ID.get(derived)!r}"
+                f"{route.get('categoryId')!r} ≠ {derived!r}"
             )
 
 
@@ -1013,7 +1014,6 @@ def check_record_catalog_refs(data):
 
     - eraId / regimeId / standing / accessionRoute.categoryId がカタログに存在する
     - eraId は regimes[regimeId].eraId の非正規化コピーなので一致する
-    - researchSection は dynasty.section と一致（旧フィールド併存中のみ）
     - rebel 政権（政権そのものが反乱・自称）に rival（政権内の対立皇帝）は現れない
     - 1 人も所属しない政権がカタログに残っていない
     """
@@ -1043,11 +1043,6 @@ def check_record_catalog_refs(data):
             err(f"[catalog-ref] {eid}: eraId が catalogs.eras にない: {e.get('eraId')!r}")
         if e.get("standing") not in standing_ids:
             err(f"[catalog-ref] {eid}: standing が不正: {e.get('standing')!r}")
-
-        dyn = e.get("dynasty")
-        if dyn and e.get("researchSection") != dyn.get("section"):
-            err(f"[catalog-ref] {eid}: researchSection が dynasty.section と不一致: "
-                f"{e.get('researchSection')!r} ≠ {dyn.get('section')!r}")
 
         cat_id = (e.get("accessionRoute") or {}).get("categoryId")
         if cat_id not in accession_ids:

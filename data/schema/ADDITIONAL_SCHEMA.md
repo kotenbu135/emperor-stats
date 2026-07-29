@@ -31,16 +31,16 @@
 
 ```json
 "accessionRoute": {
-  "category": "世襲",
+  "categoryId": "hereditary",
   "axes": {
-    "throneSource": "前代君主から継承",
-    "titleOrigin": "継承",
-    "decidedBy": ["先帝"],
+    "throneSource": "inherited",
+    "titleOrigin": "inherited",
+    "decidedBy": ["predecessor"],
     "decidedByAgents": [],
-    "decidedByBasis": "原典再読",
-    "predecessorFate": "崩御",
-    "relationToPredecessor": "子",
-    "procedure": "通常の践祚"
+    "decidedByBasis": "source-reread",
+    "predecessorFate": "natural-death",
+    "relationToPredecessor": "son",
+    "procedure": "normal"
   },
   "note": "自然文での説明（先帝との関係、擁立者の有無など）",
   "confidence": "high",
@@ -48,7 +48,21 @@
 }
 ```
 
-- `category`: 表示用の単一ラベル。**`axes` から機械的に導出される派生値**（下記「導出ルール」）。手で書き換えず、軸を直せば追随する。
+**v3（2026-07-29）で値はすべて安定 ID になった。** 日本語ラベルは `meta.catalogs.enums` にのみ置く。以下の解説は読みやすさのため日本語ラベルで書いているので、JSON に書き込む値は次表で引く。
+
+| フィールド | ID → ラベル |
+|---|---|
+| `categoryId` | `hereditary` 世襲 / `enthroned` 擁立 / `self-established` 自立 / `usurpation` 簒奪 / `acclamation` 推戴 / `abdication-received` 受禅（易姓） / `succession-unspecified` 継承（経緯記載なし） / `inner-abdication` 内禅 |
+| `axes.throneSource` | `inherited` 前代君主から継承 / `abdication-received` 他政権から受禅 / `self-established` 自立 |
+| `axes.titleOrigin` | `inherited` 継承 / `new` 新称 |
+| `axes.decidedBy` | `self` 本人 / `predecessor` 先帝 / `third-party` 第三者 / `undetermined` 史料から決着不能 |
+| `axes.decidedByAgents` | `officials` 臣下 / `military` 軍 / `eunuchs` 宦官 / `consort-kin` 外戚 / `empress-dowager` 母后 / `imperial-clan` 宗室 |
+| `axes.decidedByBasis` | `existing-note` 既存note / `source-reread` 原典再読 |
+| `axes.predecessorFate` | `natural-death` 崩御 / `violent-death` 横死 / `abdicated` 生前譲位 / `deposed` 廃位・追放 / `none` 該当なし |
+| `axes.relationToPredecessor` | `son` 子 / `younger-brother` 弟 / `elder-brother` 兄 / `father` 父 / `grandson` 孫 / `nephew` 甥 / `uncle-younger` 叔父 / `uncle-elder` 伯父 / `mother` 母 / `cousin` 従兄弟 / `adopted-son` 養子 / `distant-kin` 同族（遠縁） / `affinal-kin` 外戚（その他） / `unrelated` 無血縁 / `other` その他 / `none` 該当なし（kinship 側の `great-grandson` 曾孫 / `niece` 姪 / `grandfather` 祖父 / `maternal-grandfather` 外祖父 / `son-in-law` 女婿 / `father-in-law` 舅（妻の父） / `unknown` 不明 を含む共有語彙） |
+| `axes.procedure` | `abdication-ceremony` 禅譲儀礼 / `inner-abdication` 内禅 / `normal` 通常の践祚 / `no-ceremony` 儀礼なし・自称 / `forged-edict` 偽詔・矯詔 |
+
+- `categoryId`: 表示用の単一ラベル（の ID）。**`axes` から機械的に導出される派生値**（下記「導出ルール」）。手で書き換えず、軸を直せば追随する。サイトはこの値をそのまま表示すればよく、優先順位ロジックを持たない。
 - `axes`: 4軸＋2補助。詳細は「軸の定義」節。
 - `note`: 経緯を自然文で記述（例：「先帝の嫡長子として遺詔により即位」「宦官○○に擁立され即位」）。
 - `confidence` / `source`: `deathCause` と同じ運用。
@@ -167,42 +181,47 @@
 
 `category` から外し、既存の `reigns[].isRestoration` に一本化する（旧スキーマは復位を経路カテゴリに混ぜていたため、初回即位の経路が note に退避していた）。表示は「復位」バッジ。
 
-### 導出ルール（`category` の算出）
+### 導出ルール（`categoryId` の算出）
 
 上から順に最初に一致したものを採る。
 
 `decidedBy` が複数値のときは **`本人` > `先帝` > `第三者`** の優先順位で1つに畳む（実力行使があれば実態は簒奪、先帝の指名が効いていれば第三者の推戴があっても世襲、先帝の意思がなく第三者のみなら擁立）。この優先順位は秦漢パイロットで漢哀帝が `["先帝","第三者"]`（成帝自身が嗣に立てたが、傅太后の賄賂と趙昭儀・王根の働きかけが本紀に明記される）となり、単値前提のルールでは導出不能になったことから確定した。畳んだ値を `decidedBy*` と書く。
 
-| # | `throneSource` | 条件 | `category` |
+| # | `throneSource` | 条件 | `categoryId` |
 |---|---|---|---|
-| 1 | `他政権から受禅` | `decidedBy*` = `本人` | `受禅（易姓）` |
-| 2 | `他政権から受禅` | それ以外 | `受禅（擁立）` |
-| 3 | `自立` | `decidedBy*` = `本人` | `自立` |
-| 4 | `自立` | それ以外 | `推戴` |
-| 5 | `前代君主から継承` | `procedure` = `内禅` | `内禅` |
-| 6 | `前代君主から継承` | `decidedBy*` = `本人` | `簒奪` |
-| 7 | `前代君主から継承` | `decidedBy*` = `先帝` | `世襲` |
-| 8 | `前代君主から継承` | `decidedBy*` = `第三者` | `擁立` |
-| 9 | `前代君主から継承` | `decidedBy*` = `史料から決着不能` | `継承（経緯記載なし）` |
+| 1 | `abdication-received`（他政権から受禅） | `decidedBy*` = `self`（本人） | `abdication-received`（受禅（易姓）） |
+| 2 | `self-established`（自立） | `decidedBy*` = `self` | `self-established`（自立） |
+| 3 | `self-established` | それ以外 | `acclamation`（推戴） |
+| 4 | `inherited`（前代君主から継承） | `procedure` = `inner-abdication` | `inner-abdication`（内禅） |
+| 5 | `inherited` | `decidedBy*` = `self` | `usurpation`（簒奪） |
+| 6 | `inherited` | `decidedBy*` = `predecessor`（先帝） | `hereditary`（世襲） |
+| 7 | `inherited` | `decidedBy*` = `third-party`（第三者） | `enthroned`（擁立） |
+| 8 | `inherited` | `decidedBy*` = `undetermined`（史料から決着不能） | `succession-unspecified`（継承（経緯記載なし）） |
+
+旧ルールにあった「`他政権から受禅` × 本人以外 → `受禅（擁立）`」は**実データ 0 件**のため v3 の enum から削除した（該当が生じたら enum ごと復活させる）。
 
 **軸1のすべてのバケットで軸2が効く**ことがこの表の要件（`内禅` のみ形式優先で軸2に依らないが、これは意図的。唐憲宗＝宦官主導の内禅と清仁宗＝先帝主導の内禅は同じラベルになり、差は軸2の表示で見せる）。当初案は軸1だけでラベルを決める行（受禅・自立）を持っていたが、秦漢パイロットで更始帝（「諸将遂共議立更始為天子」＝諸将の議立で自立政権の帝位に就いた）が本人主導の劉邦・光武帝と同一ラベルに潰れることが判明したため、全バケットを軸2で細分する形に修正した。
 
 **ラベル名の改称（2026-07-26 南朝ブロック着手時）**: 行3・4 は当初 `自立・建国` / `推戴・建国` としていたが、`自立` バケットには王朝創始者だけでなく**対抗政権の帝位僭称者**が入ることが南朝で判明したため（劉子勛＝義嘉政権・蕭正德・蕭紀・蕭荘、および後趙石祗）、`建国` の語を落として `自立` / `推戴` にした。「王朝を創始したか」は `dynasty` と在位順から導ける政権の属性であり、即位経路のラベルが担う情報ではない（旧 `建国` を軸から排除したのと同じ理由）。
 
-バッジ（`category` を置き換えない）: `titleOrigin` = `新称` → **帝号新称** ／ `reigns[].isRestoration` → **復位**。
+バッジ（`categoryId` を置き換えない）: `titleOrigin` = `新称` → **帝号新称** ／ `reigns[].isRestoration` → **復位**。
 
-このルールは軸1の3値 × 軸2の4値（＋`procedure`）で**全域**であり、かつ軸1のすべてのバケットで軸2が効く（**弁別的**）。`scripts/validate_emperors.py` が `axes` から `category` を再計算して突合する。
+このルールは軸1の3値 × 軸2の4値（＋`procedure`）で**全域**であり、かつ軸1のすべてのバケットで軸2が効く（**弁別的**）。`scripts/validate_emperors.py` が `axes` から `categoryId` を再計算して突合する。
 
 ### 移行状況
 
-**2026-07-26 完了。365人全員が `axes` を持ち、`validate_emperors.py` の `check_accession_axes` が必須化している**（`axes` の欠落・enum 外の値・`category` と導出値の不一致はすべてエラー）。旧 enum 9値（`世襲`/`簒奪`/`禅譲`/`内禅`/`擁立`/`復位`/`建国`/`不詳`/`諸説あり`）のうち **`建国`・`禅譲`・`復位`・`不詳`・`諸説あり` の5値は消滅した**。
+**2026-07-26 完了。365人全員が `axes` を持ち、`validate_emperors.py` の `check_accession_axes` が必須化している**（`axes` の欠落・enum 外の値・`categoryId` と導出値の不一致はすべてエラー）。旧 enum 9値（`世襲`/`簒奪`/`禅譲`/`内禅`/`擁立`/`復位`/`建国`/`不詳`/`諸説あり`）のうち **`建国`・`禅譲`・`復位`・`不詳`・`諸説あり` の5値は消滅した**。
 
 - `建国` は政権の属性であって君主位の出所ではないため軸から排除し、王朝創始者は受禅（易姓）／自立／推戴／世襲へ分かれた
 - `禅譲` は語のみ `受禅（易姓）` へ（王朝交代を伴う受禅であることを明示）
 - `復位` は `reigns[].isRestoration` のバッジへ一本化し、ラベルは初回即位の経緯で付け直した
 - `不詳`（使用実績0）・`諸説あり`（宋太宗のみ）は軸2の `史料から決着不能` →ラベル `継承（経緯記載なし）` へ
 
-**最終分布（365人）**: 世襲120・擁立97・自立48・簒奪28・推戴23・受禅（易姓）18・継承（経緯記載なし）17・内禅14。`受禅（擁立）` は導出ルール上は存在するが該当者なし。
+**最終分布（365人）**: 世襲120・擁立97・自立48・簒奪28・推戴23・受禅（易姓）18・継承（経緯記載なし）17・内禅14。`受禅（擁立）` は該当者ゼロのため v3 で enum ごと廃止した。
+
+### v3（2026-07-29）での変更
+
+`category`（日本語ラベル）を廃止し、表示用の確定値 `categoryId`（安定 ID）に一本化した。軸の値もすべて ID になり、ラベルは `meta.catalogs.enums` が持つ。判定内容・軸の定義・導出ルールの中身は変えていない。設計の全体像は [docs/schema/V3_MIGRATION_PLAN.md](../../docs/schema/V3_MIGRATION_PLAN.md)。
 
 サイト側の語彙（`site/src/lib/emperor-types.ts` の `AccessionRouteCategory`・表示順・説明文、`nivo-theme.ts` の配色、`/about` の説明）も同日に差し替え済み。
 
@@ -224,7 +243,7 @@
 
 以下は旧 enum 時代の境界判断。新体系では **禅譲/簒奪の境界＝軸1×軸2、内禅/世襲の境界＝軸3、内禅/擁立の境界＝軸2×補助1、復位＝`isRestoration`** に分解されており、判定者の重み付けを要する境界そのものが解消されている。
 
-- **`selfProclaimed: true` の人物でも `世襲`/`復位` になり得る**（例：ある政権内での2代目以降は父からの世襲）。`accessionRoute` は「その人物個人の即位経路」であり、`flags.selfProclaimed`（政権全体の正統性）とは独立した軸。
+- **反乱・自称政権の皇帝でも `世襲` になり得る**（例：ある政権内での2代目以降は父からの世襲）。`accessionRoute` は「その人物個人の即位経路」であり、政権の性格（`meta.catalogs.regimes[].category`）や政権内の位置づけ（`standing`）とは独立した軸（v3 で `flags.selfProclaimed` を廃止し、この3軸に整理した）。
 - **禅譲と簒奪の境界**：形式上の譲位儀礼を経ていれば `禅譲`、実力行使のみで即位すれば `簒奪`。両者が併存するケース（禅譲の形式を取った事実上の簒奪、例：曹丕・司馬炎）は `禅譲` を採用し、`note` に「実質的には簒奪」である旨を明記する（史書の記述上の建前と実態を区別して残す）。
 - **`禅譲` と `内禅` の境界（王朝交代の有無）**：譲位により即位した場合、譲位元が**別姓・別政権（前王朝）**なら `禅譲`（＝王朝交代を伴う受禅）、**同一王朝内**の先帝からの生前譲位なら `内禅`。この2つは史学的に別概念（禅譲＝堯舜・曹丕型の易姓、内禅＝父子等への生前譲位）であり、旧スキーマは両者を `禅譲` に混在させていたため2026-07-22に `内禅` を分離した。
 - **`内禅` と `世襲` の境界（先帝の生死）**：先帝が**在世のまま譲位した**（太上皇となる等）＝ `内禅`、先帝の**崩御に伴う継承**（遺詔・立太子からの践祚）＝ `世襲`。受け手が正規の皇太子・嫡子であっても、生前譲位で即位したなら `内禅` とする（例：北魏孝文帝・清仁宗は皇太子だが献文帝・乾隆の生前譲位のため `内禅`）。養子への生前譲位（南宋孝宗＝高宗の養子）も `内禅`。
@@ -278,7 +297,7 @@
 
 ## 6. 遷都回数（`capitalRelocationCount`）
 
-個人レコード単位で「自分の在位中に何回遷都したか」を持たせる（王朝単位の集計は将来サイト側で `dynasty.name` によりグループ集計する）。
+個人レコード単位で「自分の在位中に何回遷都したか」を持たせる（王朝単位の集計はサイト側で `regimeId` によりグループ集計する）。
 
 ```json
 "capitalRelocationCount": {

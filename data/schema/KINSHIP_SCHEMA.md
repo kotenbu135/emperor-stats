@@ -2,6 +2,18 @@
 
 全収録皇帝365人を親子・兄弟・養子・婚姻・即位経路のエッジで結んだ単一グラフ（系譜グラフ）のデータ設計ドキュメント。task.md 項目 6-3（系図）に対応する。2026-07-22 にユーザーと方針確定・フェーズ0（スキーマ設計）として作成。**同日、可視化方式の決定（方式③・縦時間軸）とモック検証を経てスキーマを凍結**（凍結後の変更は原則しない。調査済みデータの再訪問を避けるため、フィールド追加が必要になった場合は保存済み原文パッセージからの再抽出で賄う——「調査運用ルール」節を参照）。
 
+**v3（2026-07-29・Issue #22 / `schemaVersion` 2.0.0）**: emperors.json の v3 移行に合わせ、**キー名と語彙の ID 化のみ**行った（調査内容・エッジの意味・note・出典は不変）。日本語ラベルは emperors.json の `meta.catalogs.enums` にのみ置く。以下の解説は読みやすさのため日本語ラベルで書いているので、JSON に書く値は次表で引く。設計は [docs/schema/V3_MIGRATION_PLAN.md](../../docs/schema/V3_MIGRATION_PLAN.md)。
+
+| 変更 | 内容 |
+|---|---|
+| `persons[].section` → `researchSection` | 値はそのまま（調査ブロック名）。**表示レーンの意味は `eraId` と併用**する |
+| `persons[].eraId`（新設） | 時代 ID（emperors.json の `catalogs.eras`）。section が一意に時代へ落ちない「晋」34人・「清」8人は個別判定した |
+| `persons[].kind` | `posthumous-emperor` 追尊皇帝 / `imperial-clan` 宗室 / `consort-kin` 外戚 / `consort-princess` 后妃・公主 / `other` その他 |
+| `persons[].inclusionReason` | `on-path` 経路上 / `first-degree` 一親等 / `posthumous-emperor` 追尊皇帝 / `marriage-party` 婚姻当事者 / `coup-party` 政変当事者 / `ruler` 歴代君主 |
+| `edges[].relation`（kinship） | `birth-father` 実父 / `birth-mother` 実母 / `adoptive-father` 養父 / `adoptive-mother` 養母 / `sibling` 兄弟姉妹 / `remote-ancestor` 遠祖 |
+| `edges[].category` → `categoryId`（succession） | emperors の `accessionCategory` 8 ID ＋ `restoration`（復位・kinship 側のみ） |
+| `edges[].relationToPredecessor` | emperors の `axes.relationToPredecessor` と同じ ID 語彙（`son`/`younger-brother`/… `other`） |
+
 凍結後の変更履歴（**既存データの再調査を伴わない加算的変更のみ**）：2026-07-24 スコープルール2の転換（実母の全域収録・フェーズ `maternalLineage` 追加）／2026-07-25 スコープルール5（政変当事者）と `inclusionReason` の同名値の追加（西晋八王の収録・ユーザー決定）／2026-07-25 スコープルール2の個別例外（司馬師・司馬昭の生母 張春華の収録・ユーザー決定）。／2026-07-26 スコープルール6（歴代君主）と `inclusionReason` の同名値の追加・`kinship` の relation に `遠祖`（＋任意フィールド `relationDetail`）を追加（いずれもユーザー決定）。
 
 **データは `data/emperors.json` とは別ファイル `data/kinship.json` に置く**（ユーザー決定）。理由：emperors.json の肥大化（既に約7MB）を避ける・並行セッションでの編集衝突面を減らす・グラフ構造（ノード＋エッジ）はレコード配列と設計思想が異なる。皇帝ノードの実体は emperors.json 側にあり、kinship.json からは `id` で参照する（人物情報の重複保持はしない）。
@@ -56,14 +68,15 @@
   "name": "司馬懿",
   "kana": "しばい",
   "aliases": ["晋宣帝"],
-  "kind": "追尊皇帝",
+  "kind": "posthumous-emperor",
   "gender": "male",
-  "section": "晋",
+  "researchSection": "晋",
+  "eraId": "three-kingdoms-jin",
   "birthYear": 179,
   "deathYear": 251,
   "yearsApproximate": false,
   "posthumous": { "dynasty": "西晋", "templeName": "高祖", "posthumousName": "宣皇帝" },
-  "inclusionReason": ["追尊皇帝", "経路上"],
+  "inclusionReason": ["posthumous-emperor", "on-path"],
   "note": "曹魏の重臣。高平陵の変で実権を掌握し西晋の基礎を築いた。孫の司馬炎が受禅した後、宣帝と追尊された。",
   "wikidata": "Q9328",
   "source": { "page": "晋書 巻一 宣帝紀", "lang": "zh-classical" }
@@ -74,7 +87,7 @@
 - **`kana`**: **検索用のひらがな正規化キー**（必須・ひらがなのみ）。site のかな検索は searchKana をひらがなに正規化して照合する方式（`site/src/lib/kana.ts` の `toHiragana` がカタカナをひらがなへ変換）のため、**カタカナ名の人物もひらがなで入れる**（ヌルハチ→`ぬるはち`、チンギス・ハン→`ちんぎすはん`。表示用の読みではない——表示はカタカナ含む `name`/`aliases` を使う）。**調査時に必ず付与する**（後付けは全員再訪問になる。ブリッジ人物の読みはデータ側で完結させ、site 側 `kana-readings.ts` への追記運用は増やさない）。
 - **`kind`**: `追尊皇帝` / `宗室` / `外戚` / `后妃・公主` / `その他` の enum。境界ルール（2026-07-22 ブロック1で確定）: `追尊皇帝` は**皇帝号＋廟号の追贈がある**司馬懿・曹操・ヌルハチ型のみ。太上皇の尊号のみ・皇帝制度成立前の先行君主（荘襄王・劉太公型）は `宗室` とする。
 - **`gender`**: `male` / `female`。婚姻エッジの表示・検証に使う。
-- **`section`**: 表示レーン（必須）。emperors.json の `dynasty.section` と**同じ語彙**を使う（CI で実データの語彙集合への所属を検証。例：`三国` は不正で `三国時代` が正）。可視化のレーン配置・配色に使うため、**「その人物をどの王朝のレーンに表示したいか」で選ぶ**：追尊皇帝は**追尊した王朝の section**（司馬懿は魏の重臣だが `晋`——「西晋は司馬懿から表示」というユーザー要望の実現手段）、それ以外は主たる活動政権の section（独孤信は `北朝`）。
+- **`researchSection`**（旧 `section`）: 表示レーン（必須）。emperors.json の `researchSection` と**同じ語彙**を使う（CI で実データの語彙集合への所属を検証。例：`三国` は不正で `三国時代` が正）。可視化のレーン配置・配色に使うため、**「その人物をどの王朝のレーンに表示したいか」で選ぶ**：追尊皇帝は**追尊した王朝の section**（司馬懿は魏の重臣だが `晋`——「西晋は司馬懿から表示」というユーザー要望の実現手段）、それ以外は主たる活動政権の section（独孤信は `北朝`）。
 - **`birthYear` / `deathYear`**: 天文年規約の整数（BCE は「歴史年−1 の負数」、emperors.json のイベント年規約と同一。ADDITIONAL_SCHEMA.md 参照）。不明は `null`。可視化はノードを生没年の**中点に固定サイズで配置**するため（可視化節参照）厳密値は必須でない——概数しか得られない場合は推定値を入れ `yearsApproximate: true` を付す（表示側で「生没年推定」と明示）。両方 `null` の場合は表示側が隣接ノードから配置年を推定する。
 - **`posthumous`**: 追尊皇帝のみ。どの王朝が何と追尊したか。
 - **`inclusionReason`**: スコープルール1〜6に対応する `経路上` / `一親等` / `追尊皇帝` / `婚姻当事者` / `政変当事者` / `歴代君主` の配列（複数該当可）。収録判断の監査可能性のために必須。収録皇帝の実母は原則 `一親等` **のみ**（2026-07-24 のスコープ転換で父系限定を解除）。父↔母の marriage エッジ（生母が正妻の場合の例外規定）を持つだけでは `婚姻当事者` を付けない——`婚姻当事者` はスコープルール4の「別家系の収録ノード同士を結ぶ婚姻」に限る（ブロック1でエージェント間の揺れが出たため統一）。母が別家系との接続にも寄与する場合のみ `経路上`・`婚姻当事者` を併記する。
@@ -115,8 +128,8 @@
   "type": "succession",
   "from": "tang-gaozu",
   "to": "tang-taizong",
-  "category": "内禅",
-  "relationToPredecessor": "子",
+  "categoryId": "inner-abdication",
+  "relationToPredecessor": "son",
   "isRestoration": false,
   "veracity": "verified",
   "confidence": "high",
@@ -125,7 +138,7 @@
 }
 ```
 
-- **`category`**: ADDITIONAL_SCHEMA.md の accessionRoute の表示ラベルと同じ enum（2026-07-26 の多軸化で 世襲/擁立/簒奪/内禅/継承（経緯記載なし）/受禅（易姓）/受禅（擁立）/自立/推戴 の9値になった。旧 `禅譲`＝現 `受禅（易姓）`、旧 `建国`＝現 `自立`/`推戴`ほか、旧 `不詳`/`諸説あり`＝現 `継承（経緯記載なし）`）。**ただし復位エッジのみ `復位` を取る**（下記「本数の規約」。この値は emperors.json の `accessionRoute.category` には現れない）。
+- **`categoryId`**（旧 `category`）: ADDITIONAL_SCHEMA.md の accessionRoute と同じ ID 語彙（2026-07-26 の多軸化で 世襲/擁立/簒奪/内禅/継承（経緯記載なし）/受禅（易姓）/受禅（擁立）/自立/推戴 の9値になった。旧 `禅譲`＝現 `受禅（易姓）`、旧 `建国`＝現 `自立`/`推戴`ほか、旧 `不詳`/`諸説あり`＝現 `継承（経緯記載なし）`）。**ただし復位エッジのみ `restoration`（復位）を取る**（下記「本数の規約」。この値は emperors.json の `accessionRoute.categoryId` には現れない）。
 - **`relationToPredecessor`**: 先代との続柄（必須・enum）。**「新帝は先代の◯◯」の向きで記す**（太宗は高祖の`子`、武則天は睿宗の`母`、楊堅は静帝の`外祖父`）。語彙：`子` / `養子` / `孫` / `曾孫` / `弟` / `兄` / `甥` / `姪` / `叔父` / `伯父` / `従兄弟` / `同族（遠縁）` / `父` / `母` / `祖父` / `外祖父` / `女婿` / `舅（妻の父）` / `外戚（その他）` / `無血縁` / `不明` / `その他`（`その他` は note で説明必須）。
   - 目的：(1)「世襲134名の続柄内訳」等の統計を parentage フェーズ完了を待たず出せる (2) エッジ表示ラベル (3) kinship グラフから導出した続柄との**相互検証**（両フェーズ完了後に CI で突合し、矛盾＝どちらかの調査ミスを機械検出する）。即位記事に続柄はほぼ必ず書かれており、succession 調査時の同時取得はコストゼロに近い。
 - **本数の規約**:
@@ -142,7 +155,7 @@
 ```json
 {
   "type": "kinship",
-  "relation": "実父",
+  "relation": "birth-father",
   "from": "p-sima-zhao",
   "to": "jin-wudi",
   "childOrder": 1,
@@ -153,7 +166,7 @@
 }
 ```
 
-- **`relation`**: `実父` / `実母` / `養父` / `養母` / `兄弟姉妹` / `遠祖` の enum。
+- **`relation`**: `birth-father` 実父 / `birth-mother` 実母 / `adoptive-father` 養父 / `adoptive-mother` 養母 / `sibling` 兄弟姉妹 / `remote-ancestor` 遠祖 の enum。
   - **養子はフラグではなく独立 relation**（五代の義児継承〔李嗣源・李従珂・柴栄〕、南宋孝宗などで本質的）。実親も判明していれば実父/実母エッジを併記してよい（例：柴栄は郭威の養子かつ柴守礼の実子）。
   - **`遠祖`（2026-07-26 追加・ユーザー決定）**: **実父の名がどの史料にも伝わらない一方、祖父・曾祖父は判明している**皇帝を、その祖先へ直接つなぐエッジ（有向・祖先→子孫）。中間世代の名が原典に無い以上、ブリッジ人物を立てて実父エッジを繋ぐことはできない（名前の捏造になる）ため、世代を飛ばした1本で表す。任意フィールド **`relationDetail`** に続柄（`祖父` / `曾祖父`）を入れる。適用例は西燕の慕容永（祖父＝慕容運。『魏書』巻九十五「廆弟运，运孙永。」）と後燕の慕容詳（曾祖父＝慕容皝。『十六国春秋』後燕録の割注「详皝之曾孙也」）。**実父エッジではないので `meta.confirmedFatherUnknown` の登録は外さない**（実父は依然として不明である、という調査結果は変わらない）。表示は破線の補助線＋ツールチップ「血縁〔遠祖・曾祖父〕」。前趙の劉曜のように、祖父以上が判明していてもその祖先が当該王朝の帝系に接続しない場合は遠祖エッジを立てない（孤立した2ノードの鎖ができるだけで系譜が読めるようにならない）。
   - **`兄弟姉妹` は導出可能なら張らない**: 両者の父（または母）エッジが記録されていれば兄弟関係はグラフから導出できるため、明示エッジは張らない。親が不明・収録基準外だが兄弟関係が原典に明記されている場合のみ使う（無向として扱い、`from`/`to` の順序に意味はない）。
@@ -232,9 +245,9 @@
 kinship.json は emperors.json を参照するため専用スクリプトで検証し、`.github/workflows/validate-data.yml` に組み込む。チェック内容：
 
 **構造（常時・エラー）**:
-- persons: `id` 一意・`p-` プレフィックス・emperors.json の id と非衝突・enum（kind/gender/inclusionReason）・`kana` 必須（ひらがな）・`section` 必須（emperors.json の `dynasty.section` 語彙集合に所属）・source 必須
-- edges: `from`/`to` が実在ノード（皇帝 id または persons）・enum（type/relation/category/relationToPredecessor/veracity/confidence）・source 必須・重複エッジなし（marriage は無向正規化して判定）
-- succession: `to` は皇帝・`relationToPredecessor` 必須（`その他` は note 必須）・主エッジ（isRestoration=false・veracity≠disputed）は皇帝ごとに最大1本・非 disputed 主エッジの category が emperors.json の accessionRoute.category と整合（復位皇帝の例外規約は上記）・自己ループなし
+- persons: `id` 一意・`p-` プレフィックス・emperors.json の id と非衝突・enum（kind/gender/inclusionReason）・`kana` 必須（ひらがな）・`researchSection` 必須（emperors.json の `researchSection` 語彙集合に所属）・`eraId` 必須（catalogs.eras に所属）・source 必須
+- edges: `from`/`to` が実在ノード（皇帝 id または persons）・enum（type/relation/categoryId/relationToPredecessor/veracity/confidence・すべて ID）・source 必須・重複エッジなし（marriage は無向正規化して判定）
+- succession: `to` は皇帝・`relationToPredecessor` 必須（`その他` は note 必須）・主エッジ（isRestoration=false・veracity≠disputed）は皇帝ごとに最大1本・非 disputed 主エッジの categoryId が emperors.json の accessionRoute.categoryId と整合（復位皇帝の例外規約は上記）・自己ループなし
 - kinship: 実父/養父の from は male、実母/養母の from は female（gender 判明時のみ）・親子の循環なし（DAG 検証）・verified の実父エッジは子ごとに最大1本（disputed 併存は可）・`childOrder` は1以上の整数・`primaryLineage: true` は子ごとに最大1本
 - 孤立ブリッジ（被参照ゼロの persons）なし
 - genealogicalClaims: `claimant` の実在・source 必須

@@ -8,6 +8,8 @@
 
 **2026-07-20追記**: 通史年表の設計検討中に収録漏れが判明し、唐哀帝（李柷、`tang-aidi`、904-907年在位）を追加調査・収録しました。全12項目を原典（旧唐書・資治通鑑）で個別調査済みです。**現在の収録人数は365人**（以下のチェックリスト内の「364人」表記は2026-07-18時点の記録であり、この訂正前の値です）。
 
+**2026-07-29追記（スキーマ v3・Issue #22）**: 新サイトをゼロベースで作り直すため、データ構造を v3 へ移行した（`schemaVersion` 3.0.0 / kinship.json 2.0.0）。`meta.catalogs`（時代11区分・政権87件・enum14種）を新設し、`dynasty` を `eraId`/`regimeId`/`researchSection`/`standing` に解体、全 enum を安定 ID 化、`accessionRoute.category` と `flags.selfProclaimed` を廃止した。**判定内容（データ値）は変更していない**。設計・判定根拠・スコープ外にした項目は [docs/schema/V3_MIGRATION_PLAN.md](schema/V3_MIGRATION_PLAN.md) を参照。v3 で持ち越した宿題は「`dynastyOrder`（第N代）が51政権で未調査＝`dynastyOrderSurveyed: false`」と「kinship persons の政権帰属（`regimeId`）」の2件で、いずれも別 Issue 扱い。
+
 > **運用ルール**: このファイルは調査作業のたびに更新が滞りがちだったため、チェックリスト形式に統一した。
 > ブロック調査・スキーマフェーズを1つ完了するたびに、**このファイルのチェックボックスと `data/emperors.json` の `meta.status.phases` の両方を同じタイミングで更新すること**（片方だけ更新して終わらせない）。
 > 作業終了時に確認すべき項目は末尾の「[作業終了時チェックリスト](#作業終了時チェックリスト)」を参照。

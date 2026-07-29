@@ -74,6 +74,7 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 
 ## スキーマ・データ定義
 
+- **スキーマ v3 の設計・移行記録（2026-07-29・Issue #22）**: [docs/schema/V3_MIGRATION_PLAN.md](docs/schema/V3_MIGRATION_PLAN.md) — 時代・政権カタログ、全 enum の ID 化、`dynasty`／`flags.selfProclaimed` の廃止
 - **JSON フィールド詳細**: [data/schema/EMPERORS_SCHEMA.md](data/schema/EMPERORS_SCHEMA.md)
 - **死因スキーマ**: [data/schema/DEATH_CAUSE_SCHEMA.md](data/schema/DEATH_CAUSE_SCHEMA.md)
 - **その他スキーマ** (即位経路・改元・大赦など): [data/schema/ADDITIONAL_SCHEMA.md](data/schema/ADDITIONAL_SCHEMA.md)

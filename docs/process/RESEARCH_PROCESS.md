@@ -146,7 +146,7 @@ push は必ず落ちる。なお照合は断片ベースのため「引用がコ
 
 ### 対象人物の抽出（Workflow の `args` を作る）
 
-`jq` または `python3 -c` のワンライナーで該当ブロック（`dynasty.section`等の条件）に絞り、Workflow に渡す必要最小限のフィールド（`id`/`name`/`dynasty`/`reigns`の要点/`source.page`等）だけを抽出し、標準出力をそのまま `args` に渡します。ファイル全体をメイン会話のコンテキストに乗せません。
+`jq` または `python3 -c` のワンライナーで該当ブロック（`researchSection`・`regimeId` 等の条件）に絞り、Workflow に渡す必要最小限のフィールド（`id`/`name`/`regimeId`/`reigns`の要点/`source.page`等）だけを抽出し、標準出力をそのまま `args` に渡します。ファイル全体をメイン会話のコンテキストに乗せません。
 
 ### Workflow 結果のマージ
 

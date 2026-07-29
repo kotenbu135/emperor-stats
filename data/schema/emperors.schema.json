@@ -177,7 +177,7 @@
 
     "emperor": {
       "type": "object",
-      "required": ["id", "name", "dynasty", "reigns", "reignSummary", "flags"],
+      "required": ["id", "name", "eraId", "regimeId", "researchSection", "standing", "reigns", "reignSummary", "flags"],
       "properties": {
         "id": {
           "type": "string",
@@ -185,7 +185,6 @@
           "pattern": "^[a-z0-9-]+$"
         },
         "name": { "$ref": "#/$defs/name" },
-        "dynasty": { "$ref": "#/$defs/dynasty" },
         "eraId": {
           "type": "string",
           "description": "所属時代。meta.catalogs.eras の ID（regimes[regimeId].eraId の非正規化コピー）。時代ジャンプ・並び順に使う。"
@@ -280,26 +279,6 @@
           "type": "array",
           "description": "別名・異表記（検索用）。",
           "items": { "type": "string" }
-        }
-      }
-    },
-
-    "dynasty": {
-      "type": "object",
-      "description": "所属王朝。同一国号の別政権が複数あるため、(name, section) の複合キーで政権単位に一意となる。",
-      "required": ["name", "category", "section"],
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "王朝名・国号（例:「秦」「宋」）。同名の別政権が存在するため単体では一意でない。"
-        },
-        "category": {
-          "type": "string",
-          "description": "政権の区分（例:「正統」「十六国」「正統（反乱・自称）」）。値は固定enumではない。"
-        },
-        "section": {
-          "type": "string",
-          "description": "調査ブロック名（例:「宋遼西夏金」「秦（始皇帝以降）」）。内部管理用の区分だが、同名王朝の識別キーとして機能する。時代区分ラベルとしてそのまま表示する用途は想定していない。"
         }
       }
     },
@@ -426,10 +405,6 @@
       "type": "object",
       "properties": {
         "isFemale": { "type": "boolean", "description": "女性の皇帝か（武則天）。" },
-        "selfProclaimed": {
-          "type": "boolean",
-          "description": "政権自体が自称・反乱由来か（人物個人の即位経路とは独立した軸。accessionRoute 参照）。"
-        },
         "usedEmperorTitleFrom": {
           "type": ["integer", "null"],
           "description": "皇帝号を称し始めた年（西暦・紀元前は負数）。収録基準の根拠。"
@@ -465,8 +440,8 @@
       "properties": {
         "category": {
           "type": "string",
-          "description": "死因の分類（8種）。",
-          "enum": ["病死", "暗殺", "処刑", "戦死", "自尽", "事故死", "不詳", "諸説あり"]
+          "description": "死因の分類（8種）。値は meta.catalogs.enums.deathCause の ID。",
+          "enum": ["illness", "assassination", "execution", "killed-in-battle", "suicide", "accident", "unknown", "disputed"]
         },
         "note": {
           "type": ["string", "null"],
@@ -489,62 +464,56 @@
             "acclamation", "abdication-received", "succession-unspecified", "inner-abdication"
           ]
         },
-        "category": {
-          "type": "string",
-          "description": "即位経路の表示ラベル。axes を持つレコードでは axes からの導出値（ADDITIONAL_SCHEMA.md 1節「導出ルール」）。旧 enum 9値は多軸化の移行完了まで併存する。",
-          "enum": [
-            "世襲", "擁立", "簒奪", "内禅", "継承（経緯記載なし）",
-            "受禅（易姓）", "受禅（擁立）", "自立", "推戴",
-            "受禅（易姓）", "受禅（擁立）", "自立", "推戴", "継承（経緯記載なし）"
-          ]
-        },
         "axes": {
           "type": "object",
-          "description": "即位経路の多軸表現（2026-07-26 導入）。定義は ADDITIONAL_SCHEMA.md 1節「軸の定義」。enum・category との整合は validate_emperors.py の check_accession_axes が検査する。",
+          "description": "即位経路の多軸表現（2026-07-26 導入・v3 で値を ID 化）。定義は ADDITIONAL_SCHEMA.md 1節「軸の定義」、ラベルは meta.catalogs.enums。categoryId との整合は validate_emperors.py の check_accession_axes が検査する。",
           "properties": {
             "throneSource": {
               "type": "string",
               "description": "軸1: 君主位の出所。",
-              "enum": ["前代君主から継承", "他政権から受禅", "自立"]
+              "enum": ["inherited", "abdication-received", "self-established"]
             },
             "titleOrigin": {
               "type": "string",
               "description": "軸1b: 帝号の由来（バッジ表示）。",
-              "enum": ["継承", "新称"]
+              "enum": ["inherited", "new"]
             },
             "decidedBy": {
               "type": "array",
               "description": "軸2: 即位を決めた主体（実態）。複数値可。史料から決着不能は単独でのみ使用。",
               "minItems": 1,
-              "items": { "type": "string", "enum": ["本人", "先帝", "第三者", "史料から決着不能"] }
+              "items": { "type": "string", "enum": ["self", "predecessor", "third-party", "undetermined"] }
             },
             "decidedByAgents": {
               "type": "array",
               "description": "軸2補助: 第三者の類型。decidedBy に第三者を含むときのみ非空。",
-              "items": { "type": "string", "enum": ["臣下", "軍", "宦官", "外戚", "母后", "宗室"] }
+              "items": { "type": "string", "enum": ["officials", "military", "eunuchs", "consort-kin", "empress-dowager", "imperial-clan"] }
             },
             "decidedByBasis": {
               "type": "string",
               "description": "軸2の判定が何で決着したか（記録必須）。",
-              "enum": ["既存note", "原典再読"]
+              "enum": ["existing-note", "source-reread"]
             },
             "predecessorFate": {
               "type": "string",
               "description": "軸3: 前帝の去就。",
-              "enum": ["崩御", "横死", "生前譲位", "廃位・追放", "該当なし"]
+              "enum": ["natural-death", "violent-death", "abdicated", "deposed", "none"]
             },
             "relationToPredecessor": {
               "type": "string",
               "description": "軸4: 先帝との血縁。kinship.json の succession エッジと同一語彙。",
               "enum": [
-                "子", "弟", "兄", "父", "孫", "甥", "叔父", "伯父", "母", "従兄弟",
-                "養子", "同族（遠縁）", "外戚（その他）", "無血縁", "その他", "該当なし"
+                "son", "younger-brother", "elder-brother", "father", "grandson", "nephew",
+                "uncle-younger", "uncle-elder", "mother", "cousin", "adopted-son", "distant-kin",
+                "affinal-kin", "unrelated", "other", "none",
+                "great-grandson", "niece", "grandfather", "maternal-grandfather",
+                "son-in-law", "father-in-law", "unknown"
               ]
             },
             "procedure": {
               "type": "string",
               "description": "補助1: 手続きの形式（建前）。",
-              "enum": ["禅譲儀礼", "内禅", "通常の践祚", "儀礼なし・自称", "偽詔・矯詔"]
+              "enum": ["abdication-ceremony", "inner-abdication", "normal", "no-ceremony", "forged-edict"]
             }
           },
           "required": [

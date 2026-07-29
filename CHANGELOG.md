@@ -2,6 +2,21 @@
 
 データ内容の変更履歴です。版は `meta.version`（CalVer: `YYYY.MM`）で管理します。構造（スキーマ）の変更は `meta.schemaVersion`（semver）で別軸管理し、ここには構造変更も注記として併記します。
 
+## 2026.07 (2026-07-29 更新)
+
+### 構造変更（2026-07-29・スキーマ v3 / Issue #22）— `schemaVersion` 2.0.0 → 3.0.0（kinship.json は 1.0.0 → 2.0.0）
+
+新サイトをゼロベースで作り直すにあたり、「サイト側が優先順位ロジックを持たずに表示できる」ことを目標にデータ構造を整理した。**データ値の判定内容（在位・死因・即位経路の軸・回数系指標・note・出典）は変更していない**。設計と移行手順は [docs/schema/V3_MIGRATION_PLAN.md](docs/schema/V3_MIGRATION_PLAN.md)。
+
+- **`meta.catalogs` を新設**: `eras`（時代11区分＝秦漢／三国・西晋／東晋・十六国／南北朝／隋唐／五代十国／宋遼金西夏／元／明／清／近代）・`regimes`（政権87件。同名国号を含めて一意な ID・政権の性格・`dynastyOrderSurveyed`）・`enums`（フィールドごとの ID→ラベル14種）。**日本語の表示ラベルはここにしか置かない**
+- **`dynasty`（`name`/`category`/`section`）を解体**し、`eraId`・`regimeId`・`researchSection`・`standing` に置き換えた。`dynasty.section` は31の調査ブロック名で時代区分ではなかったため、時代は独立した enum を新設し、旧値は `researchSection` として保持
+- **`dynasty.category` の混在を解消**: 旧「反乱・自称政権」45人には明成祖（永楽帝）・清太宗・後唐荘宗・金世宗・南宋端宗などその政権の正規の皇帝が多数含まれ、政権の性格ではなく称帝経緯のフラグになっていた。政権の性格は `regimes[].category`（`orthodox`/`coexisting`/`rebel`）へ、人物の位置づけは新設 `standing`（`regular` 345人／`rival` 20人）へ分離。`rival` の確定は、調査済み政権では既存の `dynastyOrder`（正史が帝紀を立てたかの個別調査結果）を再利用し、未調査政権の6人（楊侗・楊浩・李裕・李承宏・李熅・朱友珪）は原典で帝紀の不在を確認した
+- **全 enum を安定 ID 化**: 即位経路（`accessionRoute.categoryId`）・4軸＋2補助・死因・kinship の `kind`/`inclusionReason`/`relation`/`categoryId`/`relationToPredecessor`。日本語ラベルは `meta.catalogs.enums` から引く
+- **`accessionRoute.category`（日本語ラベル）を廃止**し、表示用の確定値 `categoryId` に一本化。実データ 0 件だった `受禅（擁立）` と、スキーマ enum の重複記載4件も整理
+- **`flags.selfProclaimed` を廃止**: 旧 `dynasty.category` と81件不一致、`axes` とも不整合で、同じ情報が `axes.throneSource`＋`procedure`＋`standing` で表現できるため
+- **kinship.json**: `persons[].section` → `researchSection`、`eraId` を追加（section が一意に時代へ落ちない「晋」34人・「清」8人は個別判定）、`edges[].category` → `categoryId`
+- **CI**: `validate_emperors.py` に `check_catalogs`・`check_record_catalog_refs` を追加（カタログ内部整合・レコードの参照整合・`eraId` 非正規化コピーの一致・`rebel` 政権×`rival` の排他・孤児カタログ検出）。`validate_kinship.py` は語彙を ID へ移行
+
 ## 2026.07 (2026-07-21)
 
 データ内容の版管理を開始した初版です。以下は開始までの主要な変更の遡及記録を含みます。

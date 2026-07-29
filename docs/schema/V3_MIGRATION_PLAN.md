@@ -1,11 +1,13 @@
 # データスキーマ v3 移行設計（Issue #22）
 
-新サイト（ゼロベース再構築）で使うための `data/emperors.json` / `data/kinship.json` のスキーマ改訂設計。**この文書は設計案であり、データはまだ 1 バイトも変更していない**。
+新サイト（ゼロベース再構築）で使うための `data/emperors.json` / `data/kinship.json` のスキーマ改訂設計と、その実施記録。
+
+**状態: 実装完了（2026-07-29）**。3 コミットで移行し、`validate_emperors.py`／`validate_kinship.py`／`verify_calendar.py`／`verify_quotes.py --check-coverage` の4本すべてが 0 エラー（既存の警告2件のみ）。`emperors.json` は `schemaVersion 3.0.0`、`kinship.json` は `2.0.0`。
 
 - 起点: GitHub Issue #22「データファイルのスキーマ改善」
 - 作業ブランチ: `data-schema-v3`
 - 作成: 2026-07-29
-- 現行: `emperors.json` `schemaVersion 2.0.0` / `kinship.json` `schemaVersion 1.0.0`（移行後は `3.0.0` / `2.0.0`）
+- 版: `emperors.json` `schemaVersion 2.0.0 → 3.0.0` / `kinship.json` `1.0.0 → 2.0.0`
 
 ## 0. 確定済みの前提（2026-07-29 ユーザー決定）
 
@@ -42,14 +44,14 @@
 **(c) `flags.selfProclaimed` も第 3 の汚染軸**
 - true 116 件。`dynasty.category == 反乱・自称政権` との不一致 **81 件**
 - 多軸化済みの `accessionRoute.axes` とも整合しない（`selfProclaimed: true` かつ `throneSource: 前代君主から継承` が 57 件、逆に `selfProclaimed: false` かつ `自立` が 17 件）
-- → v3 では**廃止候補**（§12 未決 U2）
+- → v3 で**廃止した**（D5）
 
 **(d) `accessionRoute.category` の enum が壊れている**
 - schema の enum は 14 要素だが、`受禅（易姓）`・`自立`・`推戴`・`継承（経緯記載なし）` が**重複記載**、`受禅（擁立）` は**実データ 0 件**
 - 実在するのは 8 値のみ: 世襲 120 / 擁立 97 / 自立 48 / 簒奪 28 / 推戴 23 / 受禅（易姓）18 / 継承（経緯記載なし）17 / 内禅 14 ＝ 365
 
 **(e) `reigns[].dynastyOrder`（第 N 代）は 51 政権で全 null**
-- 全 365 人中 204 人が全在位 null。うち大半は「政権まるごと未調査」（隋以降のほぼ全政権）。現行仕様では「政権内に 1 つでも値があれば null＝歴代に数えない」「全部 null なら未調査＝在位順から機械導出」という**サイト側ロジック前提**の設計 → Issue の方針（サイトはロジックを持たない）と直接衝突する（§12 未決 U4）
+- 全 365 人中 204 人が全在位 null。うち大半は「政権まるごと未調査」（隋以降のほぼ全政権）。現行仕様では「政権内に 1 つでも値があれば null＝歴代に数えない」「全部 null なら未調査＝在位順から機械導出」という**サイト側ロジック前提**の設計 → Issue の方針（サイトはロジックを持たない）と直接衝突するため、v3 で `regimes[].dynastyOrderSurveyed` を追加して推論を排除した（D7。悉皆調査は別 Issue）
 
 **(f) kinship.json の依存**
 - `persons[].section` 415 件が emperors.json の section 語彙に依存。`scripts/validate_kinship.py:468` が **emperors.json から語彙集合を導出**しているため、キー名を変えた瞬間に kinship 側の CI が落ちる（両ファイル＋両バリデータは 1 コミットで移行する必要がある）
