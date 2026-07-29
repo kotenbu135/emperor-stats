@@ -795,6 +795,17 @@ RELATION_ENUM = {
     "同族（遠縁）", "父", "母", "祖父", "外祖父", "女婿", "舅（妻の父）",
     "外戚（その他）", "無血縁", "不明", "その他", "該当なし",
 }
+# v3: 旧ラベル → catalogs.enums.accessionCategory の ID
+ACCESSION_CATEGORY_ID = {
+    "世襲": "hereditary",
+    "擁立": "enthroned",
+    "自立": "self-established",
+    "簒奪": "usurpation",
+    "推戴": "acclamation",
+    "受禅（易姓）": "abdication-received",
+    "継承（経緯記載なし）": "succession-unspecified",
+    "内禅": "inner-abdication",
+}
 AXES_REQUIRED = {
     "throneSource", "titleOrigin", "decidedBy", "decidedByBasis",
     "predecessorFate", "relationToPredecessor", "procedure",
@@ -912,6 +923,12 @@ def check_accession_axes(data):
                 f"[axes] {eid}: category が軸から導出される値と不一致: "
                 f"{route.get('category')!r} ≠ {derived!r}"
             )
+        # v3: 表示用の確定値 categoryId も同じ導出値を指していること
+        if derived is not None and route.get("categoryId") != ACCESSION_CATEGORY_ID.get(derived):
+            err(
+                f"[axes] {eid}: categoryId が軸から導出される値と不一致: "
+                f"{route.get('categoryId')!r} ≠ {ACCESSION_CATEGORY_ID.get(derived)!r}"
+            )
 
 
 def check_portraits(data):
@@ -991,12 +1008,63 @@ def check_catalogs(data):
                 f"{sorted({i for i in labels if labels.count(i) > 1})}")
 
 
+def check_record_catalog_refs(data):
+    """レコード側の ID がカタログを正しく参照しているかを検査する（v3）。
+
+    - eraId / regimeId / standing / accessionRoute.categoryId がカタログに存在する
+    - eraId は regimes[regimeId].eraId の非正規化コピーなので一致する
+    - researchSection は dynasty.section と一致（旧フィールド併存中のみ）
+    - rebel 政権（政権そのものが反乱・自称）に rival（政権内の対立皇帝）は現れない
+    - 1 人も所属しない政権がカタログに残っていない
+    """
+    catalogs = data["meta"].get("catalogs") or {}
+    regimes = {r["id"]: r for r in catalogs.get("regimes", [])}
+    era_ids = {e["id"] for e in catalogs.get("eras", [])}
+    enums = catalogs.get("enums", {})
+    standing_ids = {i["id"] for i in enums.get("emperorStanding", [])}
+    accession_ids = {i["id"] for i in enums.get("accessionCategory", [])}
+    used_regimes = set()
+
+    for e in data["emperors"]:
+        eid = e["id"]
+        rid = e.get("regimeId")
+        regime = regimes.get(rid)
+        if regime is None:
+            err(f"[catalog-ref] {eid}: regimeId が catalogs.regimes にない: {rid!r}")
+        else:
+            used_regimes.add(rid)
+            if e.get("eraId") != regime["eraId"]:
+                err(f"[catalog-ref] {eid}: eraId が regime の eraId と不一致: "
+                    f"{e.get('eraId')!r} ≠ {regime['eraId']!r}")
+            if regime["category"] == "rebel" and e.get("standing") == "rival":
+                err(f"[catalog-ref] {eid}: rebel 政権に standing=rival は不整合"
+                    f"（政権そのものが反乱政権なら所属者は regular）")
+        if e.get("eraId") not in era_ids:
+            err(f"[catalog-ref] {eid}: eraId が catalogs.eras にない: {e.get('eraId')!r}")
+        if e.get("standing") not in standing_ids:
+            err(f"[catalog-ref] {eid}: standing が不正: {e.get('standing')!r}")
+
+        dyn = e.get("dynasty")
+        if dyn and e.get("researchSection") != dyn.get("section"):
+            err(f"[catalog-ref] {eid}: researchSection が dynasty.section と不一致: "
+                f"{e.get('researchSection')!r} ≠ {dyn.get('section')!r}")
+
+        cat_id = (e.get("accessionRoute") or {}).get("categoryId")
+        if cat_id not in accession_ids:
+            err(f"[catalog-ref] {eid}: accessionRoute.categoryId が不正: {cat_id!r}")
+
+    orphans = sorted(set(regimes) - used_regimes)
+    if orphans:
+        err(f"[catalog-ref] 所属者が 0 人の政権がカタログに残っている: {orphans}")
+
+
 def main() -> int:
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
 
     check_schema(data, schema)
     check_catalogs(data)
+    check_record_catalog_refs(data)
     check_ids(data)
     check_names(data)
     check_wikidata(data)

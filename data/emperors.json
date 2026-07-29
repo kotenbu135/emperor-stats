@@ -2973,6 +2973,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "qin",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -221,
@@ -3065,6 +3069,7 @@
     "note": "『史記』秦始皇本紀に長男扶蘇を正式に皇太子（太子）と冊立した記述は見当たらない（三十七年条で「少子胡亥」との対比はあるが「太子」の語は扶蘇に付されていない）。廃立の対象となる立太子の事実自体が確認できないため0回とする。"
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "父・荘襄王の崩御により、13歳で秦王を継承（「年十三歳、荘襄王死、政代立為秦王」）。前221年の天下統一後、既に秦王として在位していた政が自ら「王」から「皇帝」へ称号を変更した（丞相らの上奏「王為泰皇」に対し「去泰、著皇、采上古帝位号、号曰皇帝」と自裁）。皇位の出所は前代君主（父・荘襄王）からの継承であり、皇帝号は先行する皇帝政権から受け継いだものではなく自ら新たに称したもの（帝号新称）と判定。ただし本紀は継承の経緯を「年十三歳，庄襄王死，政代立為秦王」としか記さず、遺詔・顧命・立太子の記述がないため、即位を決めた主体は史料から決着不能とする（嫡子であることを根拠に「先帝の意思」と推定しない）。",
     "confidence": "high",
@@ -3138,6 +3143,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "qin",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -210,
@@ -3231,6 +3240,7 @@
     "note": "在位中に皇太子を立てた記述自体がなく、廃立の記述もない。（自身の即位経緯は趙高らによる偽詔「立子胡亥為太子」だが、これは即位経路の論点でありcrownPrinceDepositionCountの対象外）"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "始皇帝が沙丘で崩御した際、丞相李斯・中車府令趙高が正式な遺詔（長子扶蘇宛て「與喪會咸陽而葬」の書）を秘匿・破棄し、始皇帝の遺詔と偽って胡亥を太子に立てた（「更詐爲丞相斯受始皇遺詔沙丘、立子胡亥爲太子」）。『李斯列伝』によれば胡亥は当初「廢兄而立弟、是不義也」と拒否したが趙高の説得に折れて同意し、三者共謀で偽詔を作成、扶蘇・蒙恬に自死を命じた（沙丘の変）。計画の主導は趙高・李斯にあり、正当な遺詔に基づく世襲ではないため擁立と判定。",
     "confidence": "high",
@@ -3416,6 +3426,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -202,
@@ -3535,6 +3549,7 @@
     "events": []
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "秦末反乱・楚漢戦争を経て項羽を破り天下を平定。皇帝即位に先立ち諸侯・諸将らが「共請尊漢王為皇帝」と上尊号の推戴儀礼を行った上で「甲午、乃即皇帝位氾水之陽」と即位。先行王朝（秦・楚）から皇位を受けたのではなく実力による自立と判定（皇帝号も自ら新称）。諸侯・諸将の推戴儀礼を経ている点で、即位を決めた主体は本人と第三者の双方。",
     "confidence": "high",
@@ -3768,6 +3783,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -195,
@@ -3871,6 +3890,7 @@
     "note": "漢書恵帝紀の全条文（元年〜七年）を確認したが、恵帝が皇太子を立てた、または廃したという記述は存在しない。恵帝自身は高祖の太子として即位しており（本紀冒頭「孝惠皇帝，高祖太子也...二年，立為太子...太子即皇帝位」）、恵帝の在位中に自らが皇太子を冊立・廃立した事実は確認できない。恵帝崩御後の少帝恭・少帝弘の廃立は呂后期の出来事であり恵帝の治世中の事跡ではないため計上しない。"
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "高祖の太子として通常の手続きで即位。『漢書』恵帝紀「孝惠皇帝、高祖太子也……太子即皇帝位」、『史記』呂太后本紀も「太子襲號爲帝」と一致。",
     "confidence": "high",
@@ -3941,6 +3961,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -188,
@@ -4039,6 +4063,7 @@
     "note": "前少帝（劉恭）自身が皇太子を廃立したとする記事は本紀に見当たらない（そもそも在位中に皇太子を立てた記事も確認できない）。むしろ前少帝自身が高后四年五月丙辰に廃位された側である。『漢書』高后紀：「四年夏，少帝自知非皇后子，出怨言，皇太后幽之永巷…五月丙辰，立恆山王弘為皇帝」。これは前少帝の皇帝位からの廃位であり、皇太子という地位からの廃立には該当しないためcount=0とする。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "恵帝崩御後に太子として即位したが、『史記』呂太后本紀によれば実際には恵帝の実子ではなく、子のなかった張皇后が後宮の子を偽って自分の子とし生母を殺して太子に立てたとされる（「取美人子名之、殺其母、立所名子爲太子」）。呂后の意向による擁立であり、後に出生の秘密を知り不満を漏らしたため呂后により幽閉・殺害され廃位された。",
     "confidence": "high",
@@ -4111,6 +4136,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -184,
@@ -4213,6 +4242,7 @@
     "note": "『漢書』高后紀の高后四年〜八年（後少帝弘の在位期間）の記事に「太子」の語を含む記述は確認できなかった。後少帝弘自身は呂后擁立の幼帝で実権を持たず、彼が皇太子を立てた・廃した記録はない。なお恵帝の太子（後宮美人の子とされる、当初「太子」に擬せられた人物＝前少帝）が廃されて幽閉された事件（高后四年夏「少帝自知非皇后子、出怨言、皇太后幽之永巷」）は、恵帝没後・後少帝弘の前任である前少帝（劉恭）の廃位であり、皇帝本人の廃位であって皇太子の廃立ではないため、この項目には計上しない。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "前少帝が呂后により廃位・殺害された後、常山王義（劉義）が呂后の指名により擁立され名を弘と改めて即位した（「立常山王義爲帝、更名曰弘」）。「不稱元年者、以太后制天下事也」とあり実権は呂后が握る傀儡的即位。呂后死後、大臣らは彼を含む諸王が「皆非眞孝惠子也」と断じ、文帝擁立に際し廃され誅殺された。",
     "confidence": "high",
@@ -4314,6 +4344,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -180,
@@ -4438,6 +4472,7 @@
     "note": "『漢書』文帝紀に皇太子廃立の記事なし。元年正月に劉啟（後の景帝）を皇太子に立てて以降、在位期間を通じて交代・廃立の記載はない（原文：「子啟最長，敦厚慈仁，請建以為太子。上乃許之」）。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "高帝の子（代王）という血縁はあるが直系太子ではなく、呂氏誅滅後に丞相陳平・太尉周勃ら大臣が主導して代王を長安に迎え即位させた。群臣は「大王高帝長子、宜爲高帝嗣。願大王即天子位」と述べ、代王は三度辞退の後「遂即天子位」。本人による簒奪的行動はなく大臣主導の推戴による即位のため擁立と判定。",
     "confidence": "high",
@@ -4530,6 +4565,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -157,
@@ -4681,6 +4720,7 @@
     "note": "『漢書』景帝紀の記述により、景帝在位中に皇太子が廃されたのは劉栄の1回のみ。劉徹（後の武帝）はその後即位まで廃されていない。"
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "文帝の太子として通常の手続きで即位。『漢書』景帝紀「孝景皇帝、文帝太子也……太子即皇帝位」。",
     "confidence": "high",
@@ -4771,6 +4811,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -141,
@@ -5022,6 +5066,7 @@
     ]
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "景帝の子として、栗太子（劉栄）廃位後に皇太子に立てられ、景帝崩御に伴い太子として即位。『漢書』武帝紀「孝武皇帝、景帝中子也……太子即皇帝位」。皇太子からの正規の継承のため世襲と判定。",
     "confidence": "high",
@@ -5193,6 +5238,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -87,
@@ -5343,6 +5392,7 @@
     "events": []
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "武帝の末子。武帝崩御直前に太子に立てられ通常の手続きで即位したが、霍光ら顧命大臣の後見下にあった。『漢書』昭帝紀「遂立昭帝為太子……太子即皇帝位」。霍光伝は「帝年八歳、政事一決於光」と実権は霍光にあったと明記する。",
     "confidence": "high",
@@ -5507,6 +5557,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -74,
@@ -5598,6 +5652,7 @@
     "note": "『漢書・武五子伝』『霍光金日磾伝』のいずれにも、劉賀が在位中に皇太子を立てた記述がなく、当然その廃立の記述もない。むしろ劉賀自身が霍光ら重臣・皇太后により皇帝位を廃された側であり（在位二十七日、行淫乱により廃位）、皇太子廃立という事象自体が発生していない。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "武帝の孫、昌邑哀王の子。昭帝に子がなく崩御したため、霍光が皇太后の詔を得て昌邑王を迎立した（「即日承皇太后詔、遣……迎昌邑王賀」）。在位27日で淫乱を理由に霍光が群臣を率いて弾劾し皇太后の詔により廃位。即位・廃位とも霍光ら大臣主導の典型的な擁立。",
     "confidence": "high",
@@ -5682,6 +5737,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -74,
@@ -5876,6 +5935,7 @@
     "events": []
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "戻太子劉拠の孫、武帝の曾孫。巫蠱の禍で一族が誅されたのち民間で育ち、劉賀廃位後に霍光ら大臣が「擇支子孫賢者為嗣」として掖庭の皇曾孫を選び擁立した。血縁関係はあるが直系太子ではなく霍光ら大臣主導の擁立である点が本紀・霍光伝双方で一致。",
     "confidence": "high",
@@ -5968,6 +6028,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -49,
@@ -6137,6 +6201,7 @@
     "events": []
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "宣帝の子で8歳で皇太子に立てられ、通常の手続きで即位。『漢書』元帝紀「孝元皇帝、宣帝太子也……太子即皇帝位」。大臣による擁立の要素はない素直な直系継承。",
     "confidence": "high",
@@ -6236,6 +6301,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -33,
@@ -6411,6 +6480,7 @@
     "note": "成帝は実子に恵まれず（綏和元年二月癸丑詔に「至今未有繼嗣」と明記）、綏和元年二月癸丑に甥の定陶王劉欣を皇太子に立てて以降、崩御（綏和二年三月丙戌）までの間に皇太子が廃された記録は本紀に存在しない。劉欣はそのまま即位し哀帝となった。それ以前に成帝自身が皇太子を別に立てた記録もないため、廃立は0回。"
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "元帝の嫡長子として生まれ、元帝即位とともに太子に立てられ通常の手続きで即位。『漢書』成帝紀「孝成皇帝、元帝太子也……太子即皇帝位」。典型的な嫡子直系継承。",
     "confidence": "high",
@@ -6555,6 +6625,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -7,
@@ -6690,6 +6764,7 @@
     "note": "『漢書』哀帝紀に哀帝自身が治世中に皇太子を立てた記述がない。哀帝は成帝に子がなかったため定陶王から皇太子として迎えられ即位した経緯はあるが、これは哀帝が即位前に「立てられた」側の記事であり、哀帝自身の治世における立太子・廃立には該当しない。哀帝は実子がなく、寵臣董賢への禅譲を仄めかしたとされる逸話はあるものの正式な立太子の記録はなく、廃立の対象となる皇太子自体が存在しなかった。よってcrownPrinceDepositionCount=0。"
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "元帝の庶孫、定陶恭王の子で成帝の甥。成帝に実子がなく、祖母の傅太后が成帝の寵姫趙昭儀と外戚王根に働きかけ両者が成帝に後嗣とするよう勧めた経緯があるが、最終的には成帝自身が「持節徵定陶王、立為皇太子」として正式に皇太子に立て、崩御後「太子即皇帝位」という通常の手続きを経て即位した。血縁は甥で直系ではないが正規の立太子手続きを経ているため世襲と判定した（ただし成立過程に外戚のロビー活動が介在し擁立寄りとの見方も成立しうる境界事例）。",
     "confidence": "medium",
@@ -6763,6 +6838,10 @@
     "category": "正統王朝",
     "section": "秦（始皇帝以降）"
    },
+   "eraId": "qin-han",
+   "regimeId": "western-han",
+   "researchSection": "秦（始皇帝以降）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": -1,
@@ -6888,6 +6967,7 @@
     "note": "漢書・平帝紀原文を通読したが、皇太子の立太子・廃立に関する記述は一切見当たらない。平帝は元寿2年9月（前1年）に9歳で即位し、元始5年12月（西暦5年）に14歳で崩御しており、在位中に皇太子は立てられなかった（崩御時の議論でも「皇帝年十有四歳，宜以禮斂，加元服」とあるのみで、太子への言及なし）。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "元帝の庶孫、中山孝王の子で哀帝の従弟。哀帝が実子なく崩御すると太皇太后が実権を掌握し王莽を大司馬に任命、王莽主導で9歳の中山王を迎立した（「使迎中山王奉成帝後、是為孝平皇帝……委政於莽」）。実権は王莽が握る傀儡的即位。",
     "confidence": "high",
@@ -6981,6 +7061,10 @@
     "category": "正統王朝",
     "section": "新"
    },
+   "eraId": "qin-han",
+   "regimeId": "xuanhan",
+   "researchSection": "新",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 23,
@@ -7048,6 +7132,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "新末の混乱期、緑林軍系の新市兵・平林兵・下江兵の諸将が「衆虽多而无所统一」との状況を打開するため合議し、光武帝の族兄である劉玄（更始帝）を天子に推戴した。原文:「众虽多而无所统一，诸将遂共议立更始为天子」（後漢書・劉玄劉盆子列傳）。即位の場でも「素懦弱，羞愧流汗，举手不能言」と自ら望んで即位したのではない受動的な様子が記されている。漢室の血を引く（光武帝の族兄）者として担がれた点は世襲的要素もあるが、直系の継承ではなく、先行する君主から位を受けないまま諸将の議立によって帝位に就いた（皇位の出所は自立、即位を決めた主体は第三者＝諸将）。",
     "confidence": "high",
@@ -7227,6 +7312,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 25,
@@ -7397,6 +7486,7 @@
     ]
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "新末の混乱の中、更始帝配下として挙兵し戦功を挙げたが、河北平定後に自立（「光武辞以河北未平、不就征。自是始貳於更始」）。諸将の再三の勧進と符瑞を経て建武元年に即位。景帝の子孫という血縁を正統性の根拠として掲げたが、更始帝から皇位を受けたのではなく実力による自立と判定（皇帝号も自ら新称）。諸将の勧進を伴うため、即位を決めた主体は本人と第三者の双方。",
     "confidence": "high",
@@ -7836,6 +7926,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 57,
@@ -7956,6 +8050,7 @@
     "note": "永平三年二月甲子、貴人馬氏を皇后に、皇子炟（後の章帝）を皇太子に立てて（『立貴人馬氏為皇后，皇子炟為皇太子』）以降、劉炟は廃されることなく明帝崩御まで皇太子の地位を保持し、そのまま即位して章帝となった。本紀中の「廢」は永平十四年に楚王英が謀反により王位を廃されたもの（『楚王英謀反，廢，國除』）であり皇太子の廃立ではない。皇太子廃立の記録は本紀中に見当たらないためcount:0。"
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "光武帝の第四子として皇太子に立てられ、父帝崩御後に正規の手続きで即位（「顕宗孝明皇帝諱荘、光武第四子也……即皇帝位」）。",
     "confidence": "high",
@@ -8064,6 +8159,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 75,
@@ -8200,6 +8299,7 @@
     ]
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "明帝の第五子として皇太子となり、父帝崩御後に正規に即位（「粛宗孝章皇帝諱炟、顕宗第五子也……即皇帝位」）。",
     "confidence": "high",
@@ -8362,6 +8462,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 88,
@@ -8503,6 +8607,7 @@
     "note": "『後漢書』孝和孝殤帝紀の和帝在位期間（88年〜106年）を通読したが、皇太子を廃立した記事は存在しない。和帝自身が章帝の皇太子であった記述（建初七年立爲皇太子）は即位経路の話であり本項目の対象外。和帝在位中に別の皇子を皇太子に立てた記録もなく、崩御当日（元興元年十二月辛未）に劉隆（後の殤帝）を皇太子に立てた記事「立皇子隆爲皇太子」があるのみで、これは新規立太子であり廃立ではない。よって記録上count:0として正直に計上。"
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "章帝の第四子として皇太子となり正規に即位したが、実母は竇皇后の讒言で早世し竇皇后の養子となっており、即位時十歳のため竇太后が臨朝、後に竇憲が実権を握った。血統上の世襲だが即位当初は竇太后・竇憲の後見下にあった。",
     "confidence": "high",
@@ -8809,6 +8914,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 106,
@@ -8913,6 +9022,7 @@
     "note": "殤帝の在位中（延平元年）に皇太子が立てられ廃された記述は原典に見当たらない。なお和帝崩御時（元興元年12月）、和帝の長子で病弱だった劉勝（後の平原王）は皇太子に立てられず、生後百余日の劉隆（殤帝）が「立皇子隆爲皇太子」の上で即日即位しており、これは殤帝自身の廃立ではなく和帝代末の皇位継承者選定の経緯である。殤帝崩御後は劉勝ではなく劉祜（安帝）が擁立された（これも殤帝代の出来事ではない）。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "和帝には多くの皇子がいたが夭折が相次いだため密かに宮外で養育されており、長子の平原王（劉勝）は持病があったため、生後百日余りの末子・劉隆を鄧皇后（後の鄧太后）が選んで迎立した（「殤帝生始百日、后乃迎立之」）。太后主導の擁立的即位。",
     "confidence": "high",
@@ -8985,6 +9095,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 106,
@@ -9166,6 +9280,7 @@
     "note": "『後漢書』孝安帝紀原文で『九月丁酉，廢皇太子保為濟陰王』を直接確認。立太子は永寧元年(120)4月丙寅で、廃立は延光三年(124)9月丁酉の1回のみ。他に皇太子が廃された記事はない。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "殤帝崩御後、鄧太后が兄鄧騭と禁中で選定を決め、長安侯であった劉祜（清河孝王劉慶の子、章帝の孫）を和帝の後嗣として迎立した（「太后與兄車騎將軍鄧騭定策禁中……迎帝」）。血縁上は章帝の孫で直系ではなく太后主導の擁立。",
     "confidence": "high",
@@ -9501,6 +9616,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 125,
@@ -9592,6 +9711,7 @@
     "note": "少帝懿自身が既存の皇太子を廃した記録は本紀に存在しない。即位時点で北郷侯として擁立された経緯であり、在位中に立太子・廃太子の記事もない。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "安帝が巡狩中に崩御すると、閻皇后とその兄閻顕が禁中で協議し、章帝の孫・済北恵王劉寿の子である北郷侯劉懿（少帝懿）を擁立した。安帝の実子（後の順帝）は既に廃太子となっていたため排除され傍系から選ばれた即位で、閻氏・宦官主導の擁立。",
     "confidence": "high",
@@ -9685,6 +9805,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 125,
@@ -9840,6 +9964,7 @@
     "note": "順帝在位中（125年即位〜144年崩御）に皇太子を廃立した記録は確認されなかった。順帝自身は即位前の安帝期（延光三年、124年）に皇太子から済陰王へ廃されているが、これは即位前の出来事であり本項の対象外。順帝の在位中に立てられた皇太子は建康元年四月辛巳に立てられた皇子劉炳（後の沖帝）のみで、崩御（同年八月庚午）まで廃立された記録はない。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "安帝の子で永寧元年に皇太子となったが、延光3年に宦官の讒言により廃されて済陰王となっていた。安帝崩御後、宦官の孫程ら19人が宮中でクーデターを起こし擁立した（「中黄門孫程等十九人共斬江京……迎濟陰王於德陽殿西鐘下、即皇帝位」）。血縁上は安帝の実子だが正式な継承手続きではなく宦官主導の宮廷クーデターによる擁立。",
     "confidence": "high",
@@ -10283,6 +10408,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 144,
@@ -10381,6 +10510,7 @@
     "note": "沖帝紀（建康元年八月即位〜永嘉元年正月崩御）に皇太子廃立の記述はない。沖帝自身は順帝崩御前の建康元年に唯一の皇子として立太子され、その直後に即位しているため、在位中に別の皇太子を立てて廃するという事案は発生していない（3歳で崩御しており、自身の後継の皇太子を立てる間もなかった）。"
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "順帝の子。建康元年に皇太子となり、その年8月（順帝崩御当日）に即位（「孝沖皇帝諱炳、順帝之子也……即皇帝位」）。通常の父子継承だが2歳での幼年即位のため梁太后が臨朝。",
     "confidence": "high",
@@ -10516,6 +10646,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 145,
@@ -10619,6 +10753,7 @@
     "note": "『後漢書』孝順孝沖孝質帝紀を確認したところ、「立皇太子」の語は順帝期（永建元年・建康元年）に2回出現するが、質帝の治世（永嘉元年正月即位〜本初元年閏六月崩御）には「立皇太子」「廢太子」等の語は一度も出現しない。質帝自身は8歳で外戚梁氏により擁立され、在位約1年半で梁冀に毒殺されており、在位中に皇太子を立てた記録・廃した記録のいずれも本紀にない。0回として確定できる。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "章帝の玄孫。沖帝が病篤のとき大将軍梁冀が帝（纘）を洛陽都亭に召し出し、沖帝崩御後、皇太后と梁冀が宮中で擁立を定策した（「皇太后與冀定策禁中……即皇帝位」）。外戚梁冀主導の擁立。",
     "confidence": "high",
@@ -10820,6 +10955,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 146,
@@ -11035,6 +11174,7 @@
     "note": "『後漢書』孝桓帝紀原文全文を確認したが「太子」の語が一箇所も出現しない。桓帝は実子がなく（賛に「傾宮雖積，皇身靡續」＝後宮は多かったが後継ぎがなかった、とある）、在位中に皇太子を立てた記録自体が存在しないため、廃立も発生しようがない。count: 0が妥当。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "章帝の曾孫。質帝崩御後、梁太后と兄・大将軍梁冀が宮中で定策し擁立した（「太后遂與兄大將軍冀定策禁中……即皇帝位」）。梁冀による擁立。",
     "confidence": "high",
@@ -11668,6 +11808,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 168,
@@ -11893,6 +12037,7 @@
     "events": []
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "章帝の玄孫。桓帝は子がなく崩御し、皇太后（竇太后）と父・城門校尉竇武が宮中で定策、河間から迎立した（「皇太后與父城門校尉竇武定策禁中……奉迎」）。竇武主導の擁立。",
     "confidence": "high",
@@ -12349,6 +12494,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 189,
@@ -12463,6 +12612,7 @@
     "note": "少帝弁の在位中（189年4月〜9月）に皇太子を立てた記録・皇太子を廃した記録は『後漢書』孝霊帝紀・孝献帝紀に見当たらない。189年9月甲戌に董卓が行ったのは皇太子ではなく皇帝（少帝本人）の廃位であり、弘農王への降格である（『後漢書』孝献帝紀の即位記事、および先行研究・辞書類が一致して伝える）。この出来事はcrownPrinceDepositionCount（皇太子廃立）の定義（立てられていた皇太子を廃した回数）には該当しないためcount:0とする。"
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "霊帝の長子（何皇后所生）。霊帝末年、群臣は「辯輕佻無威儀、不可爲人主」として立太子を決めかね、王貴人所生の協を寵愛する空気もあり太子は正式に立てられなかった。霊帝崩御直前、協を宦官蹇碩に託したが、蹇碩は何進を先に誅殺し協を立てようと図って失敗し、結果として辯が即位した。霊帝は最後まで立太子せず（竇何列傳「群臣请立太子，帝以辩轻佻无威仪，不可为人主」「故久不决」）、協を立てようとした宦官蹇碩の計画も不発に終わり（「硕谋不行，皇子辩乃即位」）、本紀・列伝とも辯を立てた主体を名指ししない。先帝の意思とも第三者の擁立とも確定できないため、即位を決めた主体は史料から決着不能とする。",
     "confidence": "high",
@@ -12543,6 +12693,10 @@
     "category": "正統王朝",
     "section": "後漢"
    },
+   "eraId": "qin-han",
+   "regimeId": "eastern-han",
+   "researchSection": "後漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 189,
@@ -12733,6 +12887,7 @@
     "events": []
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "霊帝の中子。少帝弁の即位後、勃海王→陳留王に封じられていたが、董卓が宦官誅殺の混乱に乗じて上洛し実力で朝政を掌握した後、百官を集めて廃立を強行し擁立した（「遂脅太后、策廢少帝……乃立陳留王、是為獻帝」）。董卓による軍事力を背景とした廃立で本人の主体的簒奪ではないため擁立と判定。",
     "confidence": "high",
@@ -12894,6 +13049,10 @@
     "category": "正統王朝",
     "section": "新"
    },
+   "eraId": "qin-han",
+   "regimeId": "xin",
+   "researchSection": "新",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 8,
@@ -12962,6 +13121,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "居摂・仮皇帝として実権を握った後、梓潼の哀章が偽造した符命（金匱）を口実に、居摂3年（8年）戊辰の日、高廟で「金匱神嬗」を受けたと称して即真天子位に即いた。原文:「戊辰，莽至高廟拜受金匱神嬗…即真天子位，定有天下之號曰『新』」（漢書・王莽傳上）。同日、孺子嬰（宣帝玄孫、当時の皇位継承予定者）を「定安公」に降格する策命を読み上げ、王莽自ら孺子の手を執って泣きながら「昔周公摂位，終得復子明辟，今予獨迫皇天威命，不得如意」と述べた（漢書・王莽傳中）。形式上は孺子嬰から皇帝位を「禅譲」される体裁だが、その禅譲劇自体が王莽側が用意した偽造符命により主導されたものであり、実質は外戚・摂政による前漢簒奪である。形式は前漢からの受禅（易姓）、実態は本人主導の簒奪であり、両者は別の軸に併記する（皇位の出所＝他政権から受禅、即位を決めた主体＝本人、手続きの形式＝禅譲儀礼）。受禅元の孺子嬰は居摂期の皇太子で皇帝位には即いていないが、漢の帝位を保持する立場にあったため受禅として扱う。",
     "confidence": "high",
@@ -13334,6 +13494,10 @@
     "category": "反乱・自称政権",
     "section": "漢（赤眉軍）"
    },
+   "eraId": "qin-han",
+   "regimeId": "chimei-han",
+   "researchSection": "漢（赤眉軍）",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 25,
@@ -13402,6 +13566,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "赤眉軍の樊崇らが、更始帝の混乱に乗じ長安を攻めるにあたり「今将军拥百万之众，西向帝城，而无称号，名为群贼，不可以久。不如立宗室」との進言を受け入れ、城陽景王（劉章）の後裔である軍中の少年を探索。城陽景王を祀る祭壇を設け、上将軍の符を引かせるくじ引きにより劉盆子（当時15歳、牛飼いの雑用係）が選ばれた。原文:「六月，遂立盆子为帝，自号建世元年」「盆子最幼，后探得符，诸将乃皆称臣拜。盆子时年十五，被发徒跣，敝衣赭汗，见众拜，恐畏欲啼」（後漢書・劉玄劉盆子列傳）。本人の主体的意思は皆無で、赤眉軍幹部による完全な推戴（傀儡的即位）。先行する君主から位を受けておらず、皇位の出所は自立、即位を決めた主体は第三者（軍）。",
     "confidence": "high",
@@ -13504,6 +13669,10 @@
     "category": "反乱・自称政権",
     "section": "成家"
    },
+   "eraId": "qin-han",
+   "regimeId": "chengjia",
+   "researchSection": "成家",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 25,
@@ -13572,6 +13741,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "蜀の地で「公孫帝」の符瑞（掌の文様等）を口実に自ら天子を称し、国号を「成家」とした（『後漢書』隗囂公孫述列傳「会有龙出其府殿中，夜有光耀，述以为符瑞，因刻其掌，文曰『公孙帝』。建武元年四月，遂自立为天子，号成家」）。先行政権からの譲位も擁立者の記載もない。",
     "confidence": "high",
@@ -13681,6 +13851,10 @@
     "category": "反乱・自称政権",
     "section": "梁"
    },
+   "eraId": "qin-han",
+   "regimeId": "liuyong-liang",
+   "researchSection": "梁",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 26,
@@ -13749,6 +13923,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "梁孝王の八世孫。父・劉立は王莽に誅されたが、更始帝の即位後に洛陽へ赴いて梁王に再封された（『後漢書』王劉張李彭盧列傳「更始即位，永先诣洛阳，绍封为梁王，都睢阳」）。更始政権の混乱を見て挙兵し、更始帝の敗死後に自ら天子を称した（「永闻更始政乱，遂据国起兵」「及更始败，永自称天子」）。梁王位は血縁による世襲だが、帝位は誰からも受けていない。",
     "confidence": "high",
@@ -13862,6 +14037,10 @@
     "category": "正統王朝",
     "section": "三国時代"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "cao-wei",
+   "researchSection": "三国時代",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 220,
@@ -13929,6 +14108,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "延康元年（220年）冬、後漢献帝が「衆望在魏」を理由に群公卿士を召し高廟に告祠、御史大夫張音を遣わし璽綬を持たせ禅位。策文に「天命不于常、惟帰有徳……敬遜爾位……天禄永終」とあり、曹丕は繁陽に築いた壇で「升壇即阼」し、「改延康為黄初、大赦」。形式上は堯舜禅譲の故事に倣った禅譲だが、実態は建安年間からの曹操・曹丕父子による漢朝権力掌握の帰結であり、後漢皇帝に対する事実上の簒奪を儀礼的な譲位劇として完成させたものとされる（献帝はその後、山陽公に封じられ存命）。",
     "confidence": "high",
@@ -14116,6 +14296,10 @@
     "category": "正統王朝",
     "section": "三国時代"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "cao-wei",
+   "researchSection": "三国時代",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 226,
@@ -14183,6 +14367,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "「明皇帝諱叡、字元仲、文帝太子也」とあり、文帝曹丕の実子。黄初7年（226年）夏五月、文帝が病篤となり「乃立為皇太子」、同じ丁巳の日に「即皇帝位、大赦」。文帝が四人の重臣（曹真・陳群・曹休・司馬懿）に後事を託し崩御した直後に、生前既に立太子されていた実子が正常な手続きで即位しており、典型的な世襲。",
     "confidence": "high",
@@ -14487,6 +14672,10 @@
     "category": "正統王朝",
     "section": "三国時代"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "cao-wei",
+   "researchSection": "三国時代",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 239,
@@ -14554,6 +14743,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "『三国志』三少帝紀冒頭に「斉王諱芳、字蘭卿。明帝無子、養王及秦王詢。宮省事秘、莫有知其所由来者」とあり、明帝には実子がなく、曹芳と秦王曹詢を養子として宮中で養育していた。曹芳自身の出自（生家・実父母）は正史編纂時点で既に不明とされる秘史。青龍3年（235年）に斉王に封じられ、景初3年（239年）正月丁亥朔、明帝が「甚病」となった同日に「乃立為皇太子」「是日、即皇帝位」と、生前の明帝により正式に皇太子とされた上でその日のうちに即位しており、手続き上は通常の父子継承（世襲）の形式を踏む。ただし血縁上は明帝の実子ではなく養子であり、迎立ではなく既に宮中で養育されていた養子の立太子・践祚である点に注意。評曰にも「明帝既不能然、情系私愛、撫養嬰孩、伝以大器」とあり、実子なきまま養育した嬰孩に位を伝えたと総括される。",
     "confidence": "medium",
@@ -14804,6 +14994,10 @@
     "category": "正統王朝",
     "section": "三国時代"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "cao-wei",
+   "researchSection": "三国時代",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 254,
@@ -14871,6 +15065,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "斉王曹芳が嘉平6年（254年）9月、大将軍司馬師の主導下で皇太后の令により「使兼太尉高柔奉策……遣芳帰藩於斉、以避皇位」として廃位された直後、同年10月丁丑、「令曰：東海王霖、高祖文皇帝之子。霖之諸子、与国至親、高貴郷公髦有大成之量、其以為明皇帝嗣」との令が下され、文帝曹丕の孫・東海定王曹霖の子である高貴郷公曹髦が明帝の後嗣に指名された。本紀は「斉王廃、公卿議迎立公」と明記し、玄武館に到着した曹髦を群臣が西掖門南で出迎え、太極前殿で即位。当時の実権者は大将軍司馬師であり、廃立劇全体を主導したのは司馬師とみられるが、原文上は形式的に皇太后の令・公卿の合議による擁立として記述されている。曹髦自身による簒奪的行為はなく、擁立に分類。",
     "confidence": "high",
@@ -15070,6 +15265,10 @@
     "category": "正統王朝",
     "section": "三国時代"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "cao-wei",
+   "researchSection": "三国時代",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 260,
@@ -15137,6 +15336,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "甘露5年（260年）5月、高貴郷公曹髦が大将軍司馬昭打倒を試みて戦死（「高貴郷公卒、年二十」）した直後、本紀は「高貴郷公卒、公卿議迎立公」と記す。曹奐（陳留王、武帝曹操の孫、燕王曹宇の子）は甘露3年に常道郷公に封じられていたが、司馬炎（司馬昭の子）が持節して常道郷公を洛陽に迎え、皇太后に謁見の上、同日に太極前殿で即位した。曹髦弑逆の直後という政治的混乱の中、事件処理・後継擁立を主導したのは当時の大将軍・事実上の最高権力者である司馬昭であり（本紀は同時期に司馬昭が曹髦挙兵鎮圧の顛末を上言し、その後まもなく相国・晋公への進爵が重ねられる経過を記す）、原文上「公卿議迎立」と表現される形式を取りつつ実質は司馬昭主導の擁立とみられる。曹奐自身の主体的な即位行動はなく、擁立に分類。",
     "confidence": "high",
@@ -15314,6 +15514,10 @@
     "category": "正統王朝",
     "section": "三国時代"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "shu-han",
+   "researchSection": "三国時代",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 221,
@@ -15381,6 +15585,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "後漢滅亡（曹丕の禅譲受禅）を受け、群臣が上表して漢中王への即位を勧進した（「輒依旧典、封備漢中王」）。その後、献帝弑逆の誤報を受け群臣・讖緯瑞祥を根拠に再三の勧進があり「即皇帝位於成都武担之南」と即位。即位文は「操子丕、載其凶逆、窃居神器…嗣武二祖、龔行天罰」とし、漢室断絶を継ぐ形での新規建国として即位した。曹丕からの直接の譲位を受けたわけではなく、後漢の禅譲を認めず自ら漢の正統を名乗って皇帝を称したものであり、前代君主から位を受けていないため皇位の出所は自立（皇帝号も自ら新称）。群臣の再三の勧進を伴うため、即位を決めた主体は本人と第三者の双方。",
     "confidence": "high",
@@ -15535,6 +15740,10 @@
     "category": "正統王朝",
     "section": "三国時代"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "shu-han",
+   "researchSection": "三国時代",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 223,
@@ -15603,6 +15812,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "「建安二十四年、先主為漢中王、立為王太子。及即尊号…以禅為皇太子」で正規の皇太子に立てられ、先主没後「五月、後主襲位於成都、時年十七」と父の死去に伴い平常の手続きで即位した典型的な世襲。",
     "confidence": "high",
@@ -15961,6 +16171,10 @@
     "category": "正統王朝",
     "section": "三国時代"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "eastern-wu",
+   "researchSection": "三国時代",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 229,
@@ -16029,6 +16243,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "兄孫策の死により「策薨、以事授権」で江東の支配権を継承したが、当時の孫策・孫権はいずれも後漢の官職を帯びた地方軍閥であり皇帝ではない。皇帝号は孫権が自ら初めて称したもの（「黄龍元年…南郊即皇帝位…追尊父破虜将軍堅為武烈皇帝…兄討逆将軍策為長沙桓王」）。兄孫策は死後に王を追贈されたのみで皇帝ではなく、孫権が継いだ江東の支配権は君主位ではなく（孫策は後漢の将軍・呉侯）、皇帝号も自ら初めて称したため、皇位の出所は自立・帝号は新称と判定する。正統の継承を掲げたかどうかではなく、前代君主から実際に位を受けたかで軸1を決める。",
     "confidence": "high",
@@ -16419,6 +16634,10 @@
     "category": "正統王朝",
     "section": "三国時代"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "eastern-wu",
+   "researchSection": "三国時代",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 252,
@@ -16486,6 +16705,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "「赤烏十三年、和廃、権遂立亮為太子」で兄・皇太子孫和の廃位を経て孫権末子の孫亮が皇太子に立てられ、「権薨、太子即尊号」と父の死去により正規の皇太子として即位。廃立を経た太子選定だが即位そのものは通常の父子継承のため世襲と判定。",
     "confidence": "high",
@@ -16733,6 +16953,10 @@
     "category": "正統王朝",
     "section": "三国時代"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "eastern-wu",
+   "researchSection": "三国時代",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 258,
@@ -16800,6 +17024,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "権臣孫綝が孫亮を廃位（「黜亮為会稽王」）した後、「孫綝使宗正孫楷與中書郎董朝迎休」と孫権第六子の孫休を権臣主導で迎立した。「休三譲、群臣三請」の儀礼を経て即位したが、廃立・擁立の主体は孫綝にあり本人が主体的に簒奪したわけではないため擁立と判定。",
     "confidence": "high",
@@ -16970,6 +17195,10 @@
     "category": "正統王朝",
     "section": "三国時代"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "eastern-wu",
+   "researchSection": "三国時代",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 264,
@@ -17038,6 +17267,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "孫休急死後、丞相濮陽興・左将軍張布ら重臣が皇太后朱氏を説得し、孫権の孫（廃太子孫和の子）である孫晧を擁立した（「於是遂迎立皓」）。蜀滅亡・交阯反乱という危機下で年長の君主を望んだ群臣主導の擁立であることが原文に明記される。",
     "confidence": "high",
@@ -17438,6 +17668,10 @@
     "category": "反乱・自称政権",
     "section": "仲家"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "zhongjia",
+   "researchSection": "仲家",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 197,
@@ -17506,6 +17740,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "後漢末、河内の張炯による符命を口実に自ら帝号を僭称し、国号を「仲家」とした（『後漢書』劉焉袁術呂布列傳「建安二年，因河内张炯符命，遂果僭号，自称『仲家』。以九江太守为淮南尹，置公卿百官，郊祀天地」）。四世三公の家格や讖言を正統性の根拠に掲げたが、後漢皇帝からの譲位も群臣の推戴も記されない。",
     "confidence": "high",
@@ -17619,6 +17854,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "western-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 266,
@@ -17686,6 +17925,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "咸熙2年（265年）、魏の元帝曹奐から禅譲を受け即位、西晋を建国。形式は禅譲だが実質は司馬氏（祖父司馬懿・伯父司馬師・父司馬昭の代からの権力集中）による簒奪の完成であり、曹丕の魏建国と同型の禅譲劇。",
     "confidence": "high",
@@ -18061,6 +18301,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "western-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 290,
@@ -18159,6 +18403,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "武帝の嫡次子として即位。知的障害があったとされ、実権は皇后賈南風や外戚・宗室諸王が握った。",
     "confidence": "high",
@@ -18805,6 +19050,10 @@
     "category": "反乱・自称政権",
     "section": "晋"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "western-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 301,
@@ -18872,6 +19121,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "八王の乱の中、恵帝の皇后賈南風を廃し誅殺した後、恵帝を廃して太上皇に祭り上げ自ら皇帝に即位。宗室（武帝の祖父司馬懿の第九子「宣帝第九子也」＝武帝の叔祖父）による武力簒奪。",
     "confidence": "high",
@@ -19016,6 +19266,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "western-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 307,
@@ -19083,6 +19337,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "恵帝の異母弟として、恵帝の崩御（東海王司馬越による毒殺の噂あり）後、司馬越に擁立され即位。",
     "confidence": "medium",
@@ -19458,6 +19713,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "three-kingdoms-jin",
+   "regimeId": "western-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 313,
@@ -19525,6 +19784,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "懐帝が漢趙に捕らえられ殺害された後、豫州刺史閻鼎らが長安に奉じて皇太子に立て、懐帝の崩御が伝わると即位した（懐帝の甥）。晋書・愍帝紀「豫州刺史阎鼎与前抚军长史王毗、司徒长史刘畴、中书郎李昕及籓、组等同谋奉帝归于长安」「六年九月辛巳，奉秦王为皇太子」「建兴元年夏四月丙午，奉怀帝崩问」「壬申，即皇帝位」。先帝は捕囚中で意思表示がなく、立てた主体は臣下と明記されるため第三者。",
     "confidence": "high",
@@ -19737,6 +19997,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "eastern-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 318,
@@ -19804,6 +20068,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "西晋愍帝の遠縁（司馬懿の曾孫）。永嘉の乱後、建康で晋王を称し（317年）、愍帝の死（318年）を受けて皇帝に即位、東晋を建国。",
     "confidence": "high",
@@ -20070,6 +20335,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "eastern-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 323,
@@ -20137,6 +20406,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "元帝の長子として即位。",
     "confidence": "high",
@@ -20359,6 +20629,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "eastern-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 325,
@@ -20426,6 +20700,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "明帝の長子として、王導・庾亮らの補佐のもと5歳で即位。",
     "confidence": "high",
@@ -20711,6 +20986,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "eastern-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 342,
@@ -20778,6 +21057,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "成帝の同母弟。本紀は成帝の詔による立嗣と記すが（「八年六月庚寅，成帝不豫，诏以琅邪王为嗣」）、同じ康帝紀の末尾がその詔の成立事情を明記する: 「初，成帝有疾，中书令庾冰自以舅氏当朝，权侔人主，恐异世之后，戚属将疏，乃言国有强敌，宜立长君，遂以帝为嗣」。成帝には実子（のちの哀帝・廃帝）がいたにもかかわらず、外戚庾氏の権勢維持のため庾冰が弟の擁立を主導したものであり、先帝の意思の効力を覆す介入が原典に明記されるため、即位を決めた主体は第三者（外戚・臣下）と判定する。",
     "confidence": "high",
@@ -20911,6 +21191,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "eastern-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 344,
@@ -20978,6 +21262,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "康帝の子として2歳で即位（褚太后が摂政）。",
     "confidence": "high",
@@ -21300,6 +21585,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "eastern-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 361,
@@ -21367,6 +21656,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "成帝の長子。穆帝が嗣子なく崩じたため、崇徳太后（褚太后）の令により迎立された。晋書・哀帝紀「五年五月丁巳，穆帝崩」「皇太后令曰」「帝奄不救疾，胤嗣未建。琅邪王丕，中兴正统，明德懋亲」「其以王奉大统」「于是百官备法驾，迎于琅邪第」。先帝の遺詔・立太子はなく、立てた主体は皇太后と明記されるため即位を決めた主体は第三者（母后）。",
     "confidence": "high",
@@ -21546,6 +21836,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "eastern-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 365,
@@ -21613,6 +21907,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "哀帝の同母弟。哀帝が嗣子なく崩じたため、皇太后（褚太后）の詔により迎立された。晋書・廃帝紀「兴宁三年二月丙申，哀帝崩，无嗣」「皇太后诏曰」「琅邪王奕，明德茂亲，属当储嗣，宜奉祖宗，纂承大统」「于是百官奉迎于琅邪第」。先帝の意思を示す記述はなく、立てた主体は皇太后と明記されるため第三者（母后）。のちに桓温により廃され海西公に降格。",
     "confidence": "high",
@@ -21835,6 +22130,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "eastern-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 372,
@@ -21902,6 +22201,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "元帝の末子（琅邪王）。桓温が廃帝海西公を廃位させた際、司馬昱を後継に擁立した。本人の主体的な簒奪行為はなく、桓温主導の擁立。",
     "confidence": "high",
@@ -22036,6 +22336,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "eastern-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 372,
@@ -22104,6 +22408,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "簡文帝の子として、崩御当日に太子に立てられ即日即位（10歳）。",
     "confidence": "high",
@@ -22579,6 +22884,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "eastern-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 396,
@@ -22647,6 +22956,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "孝武帝の長子として即位（15歳）。知的障害があったとされ、桓玄の簒奪（403年、後述）を経て404年に劉裕により復位。",
     "confidence": "high",
@@ -23094,6 +23404,10 @@
     "category": "正統王朝",
     "section": "晋"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "eastern-jin",
+   "researchSection": "晋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 419,
@@ -23162,6 +23476,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "安帝の同母弟。安帝が劉裕により暗殺された後、劉裕が遺詔を偽って立てた。晋書・恭帝紀「十四年十二月戊寅，安帝崩」「刘裕矫称遗诏曰」「咨尔大司马、琅邪王，体自先皇，明德光懋」「是日，即帝位」。先帝の遺詔の体裁を取るが本紀自身が「矯称」と記すため、手続きの形式は偽詔・矯詔、即位を決めた主体は第三者（臣下＝劉裕）。翌年、劉裕に譲位し東晋滅亡。",
     "confidence": "high",
@@ -23285,6 +23600,10 @@
     "category": "反乱・自称政権",
     "section": "楚"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "huan-chu",
+   "researchSection": "楚",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 403,
@@ -23352,6 +23671,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "形式上は安帝の禅位を受けて即位したが実態は強制的簒奪。安帝に自ら詔を書かせることを恐れ臨川王宝を脅して手詔を書かせ璽を奪取。登壇の儀も不備で万歳を唱え忘れる等、正史自体が「篡位」の語を用いて簒奪と明記する。",
     "confidence": "high",
@@ -23510,6 +23830,10 @@
     "category": "並立政権",
     "section": "前涼"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-liang",
+   "researchSection": "前涼",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 354,
@@ -23577,6 +23901,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "張駿の庶長子で、張耀霊の伯父。趙長・尉緝らが張重華の遺令を矯めて祚を輔政に就け、尉緝の議に従った重華の母・馬氏の命により耀霊が廃されて祚が立てられた（『晋書』張軌傳「长等矫称重华遗令，以祚为持节、督中外诸军、抚军将军，辅政」「祚先烝重华母马氏，马氏遂从缉议，命废耀灵为凉宁侯而立祚」）。祚はその後、耀霊を東苑で殺害させ（「祚寻使杨秋胡害耀灵于东苑」）、永和10年に尉緝・趙長らの議を容れて帝位を僭称した（「祚纳尉缉、赵长等议，僭称帝位」）。前涼の君主は代々涼公・涼王を称しており、皇帝号は祚の代に初めて称された。",
     "confidence": "high",
@@ -23705,6 +24030,10 @@
     "category": "並立政権",
     "section": "前趙"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-zhao",
+   "researchSection": "前趙",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 308,
@@ -23772,6 +24101,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "匈奴の単于家系（前漢と縁戚関係を主張）出身。西晋の八王の乱に乗じ、304年に漢王を自称して挙兵、308年に皇帝を称し漢（前趙、漢趙）を建国。",
     "confidence": "high",
@@ -23942,6 +24272,10 @@
     "category": "並立政権",
     "section": "前趙"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-zhao",
+   "researchSection": "前趙",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 310,
@@ -24009,6 +24343,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "光文帝劉淵の長男として即位。",
     "confidence": "high",
@@ -24113,6 +24448,10 @@
     "category": "並立政権",
     "section": "前趙"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-zhao",
+   "researchSection": "前趙",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 310,
@@ -24180,6 +24519,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "光文帝劉淵の四男。兄・劉和が弟たちの粛清を図って兵を向けたのに対し、備えて迎え撃ち、宮中に攻め入って劉和を殺害した（『晋書』載記第一「聪攻西明门，克之」「斩和于光极西室」）。劉和の排除と即位は別事象で、即位は群臣の勧進と弟の北海王乂・公卿の固請を経ている（載記第二「既杀其兄和，群臣劝即尊位。聪初让其弟北海王乂，乂与公卿泣涕固请，聪久而许之」「于是以永嘉四年僭即皇帝位」）ため、軸2は授与側で取る。",
     "confidence": "high",
@@ -24472,6 +24812,10 @@
     "category": "並立政権",
     "section": "前趙"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-zhao",
+   "researchSection": "前趙",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 318,
@@ -24539,6 +24883,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "昭武帝劉聡の太子として即位。",
     "confidence": "high",
@@ -24673,6 +25018,10 @@
     "category": "並立政権",
     "section": "前趙"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-zhao",
+   "researchSection": "前趙",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 318,
@@ -24740,6 +25089,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "劉淵の族子。靳準の乱で劉粲以下の劉氏一族が殺害された後、長安から討伐に向かい、赤壁で平陽から逃れた重臣たちに尊号を奉られて即位した（『晋書』載記第三「靳准之难，自长安赴之。至于赤壁，太保呼延晏等自平阳奔之，与太傅硃纪、太尉范隆等上尊号。曜以太兴元年僭即皇帝位」）。前帝・劉粲から位を受けた記事はない。即位後に国号を「漢」から「趙」に改めた（前趙）。",
     "confidence": "high",
@@ -25024,6 +25374,10 @@
     "category": "並立政権",
     "section": "前燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-yan",
+   "researchSection": "前燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 352,
@@ -25091,6 +25445,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "前燕の建国者慕容皝の子。父の死後、燕王を継承し、352年に伝国璽の獲得を大義名分として皇帝を称した。",
     "confidence": "high",
@@ -25309,6 +25664,10 @@
     "category": "並立政権",
     "section": "前燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-yan",
+   "researchSection": "前燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 360,
@@ -25377,6 +25736,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "景昭帝慕容儁の三男として11歳で即位、叔父の慕容恪らが後見。",
     "confidence": "high",
@@ -25517,6 +25877,10 @@
     "category": "並立政権",
     "section": "成漢"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "cheng-han",
+   "researchSection": "成漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 306,
@@ -25585,6 +25949,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "巴氐族の首長として304年に成都王を自称、306年に皇帝に即位し成（成漢）を建国。",
     "confidence": "high",
@@ -25847,6 +26212,10 @@
     "category": "並立政権",
     "section": "成漢"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "cheng-han",
+   "researchSection": "成漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 334,
@@ -25914,6 +26283,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "李雄の兄李蕩の子（甥）。幼くして李雄のもとで養育され（雄の妻任氏が母となった）、太子に立てられ遺詔により即位。",
     "confidence": "high",
@@ -26015,6 +26385,10 @@
     "category": "並立政権",
     "section": "成漢"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "cheng-han",
+   "researchSection": "成漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 334,
@@ -26082,6 +26456,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "李雄の四男。兄の李越と謀って李班殺害を計画し（『晋書』載記第二十一「越时镇江阳，以班非雄所生，意甚不平。至此，奔丧，与其弟期密计图之」）、越が班を殯宮で殺害した後、越が期に位を譲るかたちで即位した（「既杀班，欲立越为主，越以期雄妻任氏所养，又多才艺，乃让位于期。于是僭即皇帝位」）。原文は即位後の期について「期自以谋大事既果，轻诸旧臣」と記す。",
     "confidence": "high",
@@ -26217,6 +26592,10 @@
     "category": "並立政権",
     "section": "成漢"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "cheng-han",
+   "researchSection": "成漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 338,
@@ -26284,6 +26663,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "李雄の従弟（李特の弟・李驤の子）。李期の専横に乗じ挙兵して成都を制圧、李期を廃位に追い込み実権を奪って即位。国号を「成」から「漢」に改号。",
     "confidence": "high",
@@ -26418,6 +26798,10 @@
     "category": "並立政権",
     "section": "成漢"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "cheng-han",
+   "researchSection": "成漢",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 343,
@@ -26485,6 +26869,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "昭文帝李寿の子として即位。",
     "confidence": "high",
@@ -26657,6 +27042,10 @@
     "category": "並立政権",
     "section": "後趙"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-zhao",
+   "researchSection": "後趙",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 330,
@@ -26724,6 +27113,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "羯族出身。奴隷から身を起こし前趙の有力部将となった後、劉曜と対立し319年に自立、329年に前趙を滅ぼし330年に皇帝を称し後趙を建国。",
     "confidence": "high",
@@ -26923,6 +27313,10 @@
     "category": "並立政権",
     "section": "後趙"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-zhao",
+   "researchSection": "後趙",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 333,
@@ -26990,6 +27384,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "石勒の次男。世子を経て、石勒の即位後に皇太子に立てられた（『晋書』載記第五「勒僭位，立为太子」）。石勒の死後、石虎が弘を軒に臨ませて群臣を制圧し（「季龙执弘使临轩」）、弘は石虎への譲位を申し出たが容れられず、逼られて即位した（「弘大惧，让位于季龙」「遂以咸和七年逼立之」）。実権は石虎が握った。",
     "confidence": "high",
@@ -27241,6 +27636,10 @@
     "category": "並立政権",
     "section": "後趙"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-zhao",
+   "researchSection": "後趙",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 349,
@@ -27308,6 +27707,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "石勒の甥（従子）。石勒崩御後、傀儡の石弘を廃位・殺害し実権を完全に掌握、334年に「居摂趙天王」を称し、349年に正式に皇帝に即位。",
     "confidence": "high",
@@ -27606,6 +28006,10 @@
     "category": "並立政権",
     "section": "後趙"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-zhao",
+   "researchSection": "後趙",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 349,
@@ -27673,6 +28077,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "石虎の末子。張豺が石虎の高齢と病を見て、世を後嗣に立てて自らが輔政となることを図り（『晋書』載記第七「豺以季龙年长多疾，规立世为嗣，刘当为太后，己得辅政，说季龙曰」）、石虎は張挙・李農と議を定めて公卿に上書させ、世を皇太子に立てた（「遂立世为皇太子，刘氏为皇后」）。石虎の死後に即位し、母の劉氏が臨朝、張豺が丞相となった（「于是世即伪位，尊刘氏为皇太后，临朝，进张豺为丞相」）。",
     "confidence": "high",
@@ -27796,6 +28201,10 @@
     "category": "並立政権",
     "section": "後趙"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-zhao",
+   "researchSection": "後趙",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 349,
@@ -27863,6 +28272,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "石虎の子。石世を武力で廃位し実権を奪い、劉太后の命と称して即位。",
     "confidence": "high",
@@ -28028,6 +28438,10 @@
     "category": "並立政権",
     "section": "後趙"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-zhao",
+   "researchSection": "後趙",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 349,
@@ -28095,6 +28509,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "石虎の子。石遵殺害後、冉閔・李農により擁立され即位した傀儡的皇帝。",
     "confidence": "high",
@@ -28231,6 +28646,10 @@
     "category": "並立政権",
     "section": "後趙"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-zhao",
+   "researchSection": "後趙",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 350,
@@ -28298,6 +28717,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "石虎の子。冉閔が石鑑を殺して鄴を握った後、襄国で帝号を称し、州郡に拠る六夷の諸勢力がこれに応じた（『晋書』載記第七「石祗闻鉴死，僭称尊号于襄国，诸六夷据州郡拥兵者皆应之」）。前帝から位を受けた記事も擁立者の記載もない。後に冉閔に攻められ皇帝号を捨てて趙王と称した（「祗大惧，去皇帝之号，称赵王」）。",
     "confidence": "medium",
@@ -28411,6 +28831,10 @@
     "category": "並立政権",
     "section": "前秦"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-qin",
+   "researchSection": "前秦",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 352,
@@ -28478,6 +28902,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "苻洪の三男で世子。苻洪が麻秋に毒殺された際、世子として麻秋を斬り（『晋書』載記第十二「秋因宴鸩洪，将并其众，世子健收而斩之」）、洪の遺言を受けて位を嗣いだ（「洪将死，谓健曰：“所以未入关者，言中州可指时而定。今见困竖子，中原非汝兄弟所能办。关中形胜，吾亡后便可鼓行而西。”」「及洪死，健嗣位，去秦王之号，称晋爵」）。その後、関中を制圧して永和7年に天王・大単于を称し（「永和七年，僭称天王、大单于」）、翌年に皇帝を称した。君主位は父から継承し、皇帝号は自ら新たに称したもの。",
     "confidence": "high",
@@ -28744,6 +29169,10 @@
     "category": "並立政権",
     "section": "前秦"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-qin",
+   "researchSection": "前秦",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 355,
@@ -28811,6 +29240,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "景明帝苻健の三男として即位。",
     "confidence": "high",
@@ -28943,6 +29373,10 @@
     "category": "並立政権",
     "section": "前秦"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-qin",
+   "researchSection": "前秦",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 385,
@@ -29010,6 +29444,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "苻堅の庶長子。淝水の戦い後、鄴から潞川を経て晋陽に入り、そこで苻堅の死を知った。幽州刺史の王永が騎兵一万を率いて合流して尊号を勧め、丕はこれに従って即位した（『晋書』載記第十四「王永留苻冲守壶关，率骑一万会丕，劝称尊号，丕从之，乃以太元十年僭即皇帝位」）。苻堅は天王を称しており、皇帝号はこの時に新たに称された。",
     "confidence": "high",
@@ -29136,6 +29571,10 @@
     "category": "並立政権",
     "section": "前秦"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-qin",
+   "researchSection": "前秦",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 386,
@@ -29203,6 +29642,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "苻丕の族子（王室の疏属）。枹罕の氐族諸将が老齢の衛平を退けて後継を議した際、啖青が苻登の擁立を提唱し、諸将が登を帥に推した（『晋書』載記第十四「狄道长苻登虽王室疏属，而志略雄明，请共立之，以赴大驾」「于是推登为帅，遣使于丕请命」）。苻丕の敗死後に尊号を称した（「苻登称尊号，伪谥丕为哀平皇帝」）。推戴された地位は当初は帥・南安王であり、帝位は丕の死後に及んだ。",
     "confidence": "high",
@@ -29391,6 +29831,10 @@
     "category": "並立政権",
     "section": "前秦"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "former-qin",
+   "researchSection": "前秦",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 394,
@@ -29458,6 +29902,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "高帝苻登の子として、父の戦死後に湟中で即位。",
     "confidence": "high",
@@ -29571,6 +30016,10 @@
     "category": "並立政権",
     "section": "夏"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "hexia",
+   "researchSection": "夏",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 419,
@@ -29639,6 +30088,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "匈奴系鉄弗部の首長として自立後、義熙3年（407年）に天王・大単于を僭称（「僭稱天王、大單于」）。その後長安を攻略し、灞上で正式に皇帝位に即いた（「為壇於灞上，僭即皇帝位」）。夏王朝の建国者。",
     "confidence": "high",
@@ -29912,6 +30362,10 @@
     "category": "並立政権",
     "section": "夏"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "hexia",
+   "researchSection": "夏",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 425,
@@ -29981,6 +30435,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "父・赫連勃勃の死後に後を継いだ（『魏書』原文「始光二年，屈孑死，昌僭立」）。勃勃末年の後継者争い（長男・赫連璝の挙兵とその鎮圧）を経て三男の赫連昌が太子に立てられ、即位した。",
     "confidence": "high",
@@ -30111,6 +30566,10 @@
     "category": "並立政権",
     "section": "夏"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "hexia",
+   "researchSection": "夏",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 428,
@@ -30180,6 +30639,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "赫連勃勃の五男。兄の赫連昌が北魏に敗れて捕らえられた後、その残衆数万を集めて平涼に拠り、自ら皇帝位に即いた（『十六国春秋』夏録「昌为魏所败定遂收其余众数万还据平凉遂僣即皇帝位」）。前帝からの伝位の記事も擁立者の記載もない。",
     "confidence": "high",
@@ -30318,6 +30778,10 @@
     "category": "並立政権",
     "section": "後燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-yan",
+   "researchSection": "後燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 386,
@@ -30376,6 +30840,7 @@
     "notes": "後燕皇帝。成武帝。"
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "前秦崩壊後、太元8年に滎陽で大将軍・大都督・燕王を自称して自立し、太元11年（386年）に正式に皇帝を僭称した後燕の建国者。",
     "confidence": "high",
@@ -30617,6 +31082,10 @@
     "category": "並立政権",
     "section": "後燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-yan",
+   "researchSection": "後燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 396,
@@ -30675,6 +31144,7 @@
     "notes": "後燕皇帝。恵愍帝。"
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "父・慕容垂の死後、太子として正式に皇位を継承（「垂死，其年宝嗣伪位」）。",
     "confidence": "high",
@@ -30904,6 +31374,10 @@
     "category": "並立政権",
     "section": "後燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-yan",
+   "researchSection": "後燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 397,
@@ -30962,6 +31436,7 @@
     "notes": "後燕皇帝。慕容詳。"
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "慕容宝が龍城へ逃れ生死不明となった混乱に乗じ、中山守備を任されていた開封公・慕容詳が自ら帝号を僭称した（「詳僭稱尊號，置百官，改年號」）。正式な冊立・禅譲の手続きを経ない自立的な即位。",
     "confidence": "medium",
@@ -31087,6 +31562,10 @@
     "category": "並立政権",
     "section": "後燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-yan",
+   "researchSection": "後燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 397,
@@ -31145,6 +31624,7 @@
     "notes": "後燕皇帝。慕容麟。"
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "慕容詳を武力で排除した後、麟自身も中山で帝位を僭称。禅譲等の形式を経ない実力による即位。",
     "confidence": "medium",
@@ -31258,6 +31738,10 @@
     "category": "並立政権",
     "section": "後燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-yan",
+   "researchSection": "後燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 398,
@@ -31316,6 +31800,7 @@
     "notes": "後燕皇帝。昭武帝。"
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "慕容宝の庶長子。父・宝を殺して位を奪った蘭汗のもとに身を寄せて油断させ、蘭穆・蘭汗を討って実権を掌握した（『晋書』載記第二十四「盛夜因如厕，袒而逾墙，入于东宫，与李旱等诛穆，众皆踊呼，进攻汗，斩之」）。当初は尊号を称さず長楽王にとどまり（「盛谦揖自卑，不称尊号」）、慕容奇の反乱を鎮圧した後に帝位に即いた（「盛于是僭即尊位」）。",
     "confidence": "high",
@@ -31529,6 +32014,10 @@
     "category": "並立政権",
     "section": "後燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-yan",
+   "researchSection": "後燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 401,
@@ -31587,6 +32076,7 @@
     "notes": "後燕皇帝。昭文帝。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "慕容盛の死後、皇太后丁氏の意向のもと群臣が熙と平原公元のいずれを推すか協議し、群臣の推戴（勸進）を受けて熙が即位（「群臣勸進，熙以讓元，元固以讓熙，熙遂僭即尊位」）。太后・群臣主導の擁立。",
     "confidence": "medium",
@@ -31796,6 +32286,10 @@
     "category": "並立政権",
     "section": "西燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "western-yan",
+   "researchSection": "西燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 384,
@@ -31854,6 +32348,7 @@
     "notes": "西燕皇帝。威帝。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "前燕・慕容儁の子で、慕容泓の弟。泓の謀臣である高蓋・宿勤崇らが泓を殺害し、沖を皇太弟に立てて承制させた（『晋書』載記第十四「泓谋臣高盖、宿勤崇等以泓德望后冲，且持法苛峻，乃杀泓，立冲为皇太弟，承制行事」）。その後長安を占領し、阿房で皇帝位に即いた（『資治通鑑』巻106「慕容沖即皇帝位於阿房，改元更始」）。慕容泓は帝号を用いておらず、皇帝号は沖の代に初めて称された。",
     "confidence": "high",
@@ -31990,6 +32485,10 @@
     "category": "並立政権",
     "section": "西燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "western-yan",
+   "researchSection": "西燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 386,
@@ -32048,6 +32547,7 @@
     "notes": "西燕皇帝。慕容瑤。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "慕容沖の死後の短期混乱を経て、左僕射・慕容恆の主導で沖の子・瑤が皇帝に擁立され建平と改元（「恆立西燕主沖之子瑤為帝，改元建平」）。",
     "confidence": "high",
@@ -32175,6 +32675,10 @@
     "category": "並立政権",
     "section": "西燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "western-yan",
+   "researchSection": "西燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 386,
@@ -32233,6 +32737,7 @@
     "notes": "西燕皇帝。慕容忠。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "瑤を殺害した慕容永が自らは即位せず、慕容泓の子・忠を皇帝に擁立し建武と改元（「立慕容泓子忠為帝，改元建武」）。",
     "confidence": "high",
@@ -32360,6 +32865,10 @@
     "category": "並立政権",
     "section": "西燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "western-yan",
+   "researchSection": "西燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 386,
@@ -32418,6 +32927,7 @@
     "notes": "西燕皇帝。慕容永。"
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "西燕の宗室（同族の遠縁）。刁雲が慕容忠を殺害した後、諸将に使持節・大都督中外諸軍事・河東王などに推され、後燕の慕容垂に称藩した（『晋書』載記第十五「刁云杀慕容忠，乃推慕容永为使持节、大都督中外诸军事、大将军、大单于、雍、秦、梁、凉四州牧、录尚书事、河东王、称籓于垂」）。苻丕の敗死後、上党の長子に拠って皇帝号を称し中興と改元した（「丕之臣佐皆没慕容永，永乃进据上党之长子，僭称大号，改元曰中兴」）。推戴された地位は河東王であり、帝号は後に自ら称した。",
     "confidence": "medium",
@@ -32585,6 +33095,10 @@
     "category": "並立政権",
     "section": "南燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "southern-yan",
+   "researchSection": "南燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 400,
@@ -32643,6 +33157,7 @@
     "notes": "南燕皇帝。献武帝。"
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "後燕崩壊の混乱の中、当初は群臣の勧めを固辞していたが（「德不從」）、滑台遷都後に瑞兆を得て皇帝を称した。先行政権からの継承ではなく南燕を新規に樹立。",
     "confidence": "high",
@@ -32895,6 +33410,10 @@
     "category": "並立政権",
     "section": "南燕"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "southern-yan",
+   "researchSection": "南燕",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 405,
@@ -32953,6 +33472,7 @@
     "notes": "南燕皇帝。慕容超。"
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "叔父慕容徳に実子がなく、兄の子である超を後継者として養育し正式に皇太子に立てた（「頃之，立為太子」）。徳の死後、太子として帝位を継承し大赦・改元。",
     "confidence": "high",
@@ -33121,6 +33641,10 @@
     "category": "並立政権",
     "section": "後秦"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-qin",
+   "researchSection": "後秦",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 386,
@@ -33179,6 +33703,7 @@
     "notes": "後秦皇帝。武昭帝。"
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "苻堅の敗死後、西州豪族らに盟主に推挙され（「咸推萇為盟主」）、太元9年（384年）に万年秦王を自称、太元11年（386年）長安で正式に皇帝を称し「大秦」（後秦）を建国（「僭即皇帝位於長安…國號大秦」）。",
     "confidence": "high",
@@ -33449,6 +33974,10 @@
     "category": "並立政権",
     "section": "後秦"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-qin",
+   "researchSection": "後秦",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 394,
@@ -33507,6 +34036,7 @@
     "notes": "後秦皇帝。文桓帝。"
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "父・姚萇の死去に際し一旦喪を秘匿し政権基盤を固めた上で対立勢力の苻登を討伐、太元19年（394年）に正式に皇帝位を継承（「僭即帝位于槐里」）。父から子への世襲。",
     "confidence": "high",
@@ -33983,6 +34513,10 @@
     "category": "並立政権",
     "section": "後秦"
    },
+   "eraId": "eastern-jin-sixteen",
+   "regimeId": "later-qin",
+   "researchSection": "後秦",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 416,
@@ -34041,6 +34575,7 @@
     "notes": "後秦皇帝。姚泓。"
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "父・姚興の死後、皇太子の地位を狙う複数の政変（姚愔・尹元の反乱、姚弼の奪嫡の謀）を鎮圧・収拾した上で正嫡の皇太子として正式に帝位を継承（義熙12年・416年）。",
     "confidence": "high",
@@ -34318,6 +34853,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "liu-song",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 420,
@@ -34387,6 +34926,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "東晋の実権を掌握したうえで恭帝の禅譲を受け、宋を開いた。恭帝の譲位表は届かず、陳留王虔嗣ら270人と宋台の群臣が勧進した（『宋書』巻二「王奉表陈让，晋帝已逊琅邪王第，表不获通。于是陈留王虔嗣等二百七十人，及宋台群臣，并上表劝进」）。禅譲の儀を経て即位。",
     "confidence": "high",
@@ -34555,6 +35095,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "liu-song",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 422,
@@ -34624,6 +35168,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "武帝の嫡子（太子）として通常の父子継承。「永初三年五月癸亥，武帝崩，是日，太子即皇帝位」（宋書卷四）。",
     "confidence": "high",
@@ -34767,6 +35312,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "liu-song",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 424,
@@ -34836,6 +35385,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "少帝廃位後、顧命大臣（徐羨之ら）に迎えられて即位。「百官備法駕奉迎，入奉皇統」「還於中堂即皇帝位」（宋書卷五 文帝）。",
     "confidence": "high",
@@ -35306,6 +35856,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "liu-song",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 453,
@@ -35375,6 +35929,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "文帝の三男。元凶劉劭の弑逆に対し征南将軍として討伐軍を率い（『宋書』巻六「上率众入讨」）、劉劭の敗北後、大将軍・江夏王劉義恭が来降して尊号を奉り、その2日後に即位した（「丁卯，大将军江夏王义恭来奔，奉表上尊号。戊辰，上至于新亭。己巳，即皇帝位」）。劉劭の排除と即位は別事象で、即位は宗室による奉表を経ている。",
     "confidence": "high",
@@ -35718,6 +36273,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "liu-song",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 464,
@@ -35787,6 +36346,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "孝武帝の太子として通常の父子継承。「八年閏五月庚申，世祖崩，其日，太子即皇帝位」（宋書卷七）。",
     "confidence": "high",
@@ -35944,6 +36504,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "liu-song",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 466,
@@ -36013,6 +36577,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "文帝の十一男。前廃帝の暴虐を受け、腹心の阮佃夫・李道兒らと密謀し、彼らが寿寂之らを結んで前廃帝を後堂で殺害した（『宋書』巻八「佃夫、道兒因结寿寂之等殒废帝于后堂」）。事後、建安王劉休仁が臣を称して西堂に導き御座に即かせ（「建安王休仁便称臣奉引升西堂，登御坐」）、翌月に即位した（「泰始元年冬十二月丙寅，上即皇帝位」）。殺害を指示した本人がそのまま座に就いた形。",
     "confidence": "high",
@@ -36304,6 +36869,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "liu-song",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 472,
@@ -36373,6 +36942,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "明帝の太子として通常の父子継承。「太子即皇帝位，大赦天下」（宋書卷九）。",
     "confidence": "high",
@@ -36598,6 +37168,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "liu-song",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 477,
@@ -36667,6 +37241,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "後廃帝暗殺の翌日、蕭道成が皇太后の名で安成王劉準を迎え即位させた。",
     "confidence": "high",
@@ -36857,6 +37432,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-qi",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 479,
@@ -36926,6 +37505,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "劉宋の実権を掌握して順帝を迎立したうえで、その禅譲を受け斉を開いた（『南斉書』巻一「太祖乃下议，备法驾诣东城，迎立」、巻二「太祖三辞，宋帝王公以下固请」）。禅譲の儀を経て即位。",
     "confidence": "high",
@@ -37058,6 +37638,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-qi",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 482,
@@ -37127,6 +37711,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "「建元四年三月壬戌，太祖崩，上即位」。高帝の嫡長子として正常な父子継承。",
     "confidence": "high",
@@ -37347,6 +37932,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-qi",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 493,
@@ -37416,6 +38005,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "文惠太子の長子として皇太孫に立てられ、武帝崩御にともない正規の継承手続きで即位。",
     "confidence": "high",
@@ -37548,6 +38138,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-qi",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 494,
@@ -37617,6 +38211,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "「鬱林王廢，尚書令西昌侯鸞議立昭文為帝」。蕭鸞が鬱林王を廃した後に擁立した傀儡皇帝。",
     "confidence": "high",
@@ -37764,6 +38359,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-qi",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 494,
@@ -37833,6 +38432,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "高帝の甥。輔政の地位から鬱林王を廃して海陵王を立て、約2か月後には皇太后の令で海陵王を廃し自ら大統を継いだ（『南斉書』巻六「未拜，太后令废海陵王，以上入纂」「建武元年冬，十月，癸亥，即皇帝位」）。前帝を廃した行為と自らを立てた行為が同一の太后令によっており、その令を出させたのは鸞自身。",
     "confidence": "high",
@@ -38004,6 +38604,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-qi",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 498,
@@ -38073,6 +38677,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "明帝（高宗）の第二子として皇太子に立てられ、父帝崩御にともない正規の継承手続きで即位。",
     "confidence": "high",
@@ -38314,6 +38919,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-qi",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 501,
@@ -38383,6 +38992,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "東昏侯打倒の義兵運動の中で、荊州の蕭穎冑と雍州の蕭衍が結び、南康王寶融を擁立。「西中郎將南康王宜纂承皇祚」（南齊書卷8 和帝紀）。",
     "confidence": "high",
@@ -38498,6 +39108,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-liang",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 502,
@@ -38567,6 +39181,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "斉の実権を掌握したうえで和帝の禅譲を受け、梁を開いた。和帝の譲位表は届かず、斉の百官819人と梁台の官117人が勧進した（『梁書』巻一「高祖抗表陈让，表不获通。于是，齐百官豫章王元琳等八百一十九人，及梁台侍中臣云等一百一十七人，并上表劝进」「天监元年夏四月丙寅，高祖即皇帝位」）。",
     "confidence": "high",
@@ -39170,6 +39785,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-liang",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 549,
@@ -39239,6 +39858,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "武帝の三男。昭明太子の薨去を受けて武帝の詔により皇太子に立てられ（『梁書』巻四「晋安王纲，文义生知」「可立为皇太子」）、武帝の崩御後に即位した（「太清三年五月丙辰，高祖崩。辛巳，即皇帝位」「谨遵先旨，顾命遗泽」）。即位時の建康は既に侯景の軍事支配下にあったが、原文に矯詔・廃立の記述はない（蕭棟の即位記事が「矯為太宗詔」と明記するのと対照的）。",
     "confidence": "medium",
@@ -39372,6 +39992,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-liang",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 551,
@@ -39441,6 +40065,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "簡文帝殺害直後、「矯為太宗詔，禪于豫章嗣王棟，大赦改年」（梁書本紀第四）。侯景による偽詔（「矯」と明記）を用いた擁立。",
     "confidence": "high",
@@ -39579,6 +40204,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-liang",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 552,
@@ -39648,6 +40277,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "侯景の乱で先帝殺害後、南平王恪・胡僧祐ら宗室・群僚数百名の勧進を経て承聖元年（552年）に江陵で即位。正式な禅譲儀礼を経たわけではなく江陵の軍事指導者による推戴。",
     "confidence": "medium",
@@ -39811,6 +40441,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-liang",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 555,
@@ -39880,6 +40514,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "西魏の江陵攻略で元帝死去後、王僧辯・陳霸先が蕭方智を擁立、いったん蕭明（貞陽侯淵明）が即位するも「陳霸先襲殺王僧辯，黜蕭明而奉帝焉」で蕭明を廃し蕭方智を擁立。軍閥（陳霸先）の実力行使による傀儡的即位。",
     "confidence": "high",
@@ -40148,6 +40783,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "western-liang",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 555,
@@ -40217,6 +40856,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "昭明太子の三男。叔父の元帝（蕭繹）と争って西魏に称藩し（『周書』巻四十八「察既与江陵构隙，恐不能自固，大统十五年，乃遣使称藩，请为附庸」）、西魏の璽命がないことを理由に自ら嗣位することを辞退した（「察以未有玺命，辞不敢当」）。西魏太祖（宇文泰）が策命して梁王とし（「太祖遂令假散骑常侍郑穆及荣权持节策命察为梁王」）、江陵平定後に梁主として立てられたうえで、自国において皇帝を称した（「及江陵平，太祖立察为梁主」「察乃称皇帝于其国，年号大定」）。君主位は西魏の策命により、帝号は自ら新たに称したもの。",
     "confidence": "high",
@@ -40339,6 +40979,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "western-liang",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 562,
@@ -40408,6 +41052,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "父・蕭詧の薨去を受け「高祖又命其太子岿嗣位，年號天保」。既に太子に立てられていた嫡子による通常の世襲継承（宗主国・北周皇帝による形式的な承認を伴う）。",
     "confidence": "high",
@@ -40510,6 +41155,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "western-liang",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 585,
@@ -40579,6 +41228,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "父・蕭巋の薨去を受け「子琮嗣」（隋書卷79）、「隋文帝又命其太子蕭琮嗣位，年號廣運」（周書卷48）。嫡子による通常の世襲継承。",
     "confidence": "high",
@@ -40694,6 +41344,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "chen",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 557,
@@ -40763,6 +41417,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "梁の実権を掌握したうえで敬帝の禅譲を受け、陳を開いた（『陳書』巻二「梁氏以天祿永終，歷數攸在，遵與能之典，集大命於朕躬」、『梁書』巻六「今便逊位别宫，敬禅于」）。禅譲の儀を経て永定元年10月に即位（「永定元年冬十月乙亥，高祖即皇帝位」）。",
     "confidence": "high",
@@ -40925,6 +41580,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "chen",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 559,
@@ -40994,6 +41653,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "武帝の甥。武帝の遺詔により召されて大統を継いだ（『陳書』巻三「永定三年六月丙午，高祖崩，遗诏征世祖入纂」）。章皇后の令が「須立長主」として蒨を指名し、本人が再三固辞した末に群公卿士の固請を受けて即位した（「世祖固让，至于再三，群公卿士固请，其日即皇帝位」）。『南史』侯安都伝には安都が剣を提げて推戴を強行したという別伝があるが、遺詔の効力を覆す介入ではなく、その実行を促した記述。",
     "confidence": "medium",
@@ -41287,6 +41947,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "chen",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 566,
@@ -41356,6 +42020,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "世祖（文帝）の嫡長子として、父の崩御と同日に即位。通常の父子継承。",
     "confidence": "high",
@@ -41527,6 +42192,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "chen",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 569,
@@ -41596,6 +42265,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "文帝の弟で、廃帝の叔父。輔政の地位から到仲舉・韓子高ら政敵を粛清したうえ、慈訓太后の令により廃帝を臨海王に落として自ら大統を継いだ（『陳書』巻四「慈訓太后令廢帝為臨海王，以高宗入纂」、巻三「中外宜依旧典，奉迎」）。前帝を廃した行為と自らを立てた行為が同一の太后令によっている。",
     "confidence": "high",
@@ -41806,6 +42476,10 @@
     "category": "正統王朝",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "chen",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 582,
@@ -41876,6 +42550,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "父・高宗（宣帝）崩御を受け、兄弟の反乱未遂（陳叔陵、即日鎮圧）を経て皇太子（陳叔寶）が正規の手続きで即位。",
     "confidence": "high",
@@ -42134,6 +42809,10 @@
     "category": "反乱・自称政権",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "liu-song",
+   "researchSection": "南朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 453,
@@ -42203,6 +42882,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "実父・文帝を弑逆して即位。宋書は「元凶」と呼び正統な皇帝として扱っていない。",
     "confidence": "high",
@@ -42356,6 +43036,10 @@
     "category": "反乱・自称政権",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "liu-song",
+   "researchSection": "南朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 466,
@@ -42425,6 +43109,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "孝武帝の三男。前廃帝に何邁との通謀を疑われ死を賜わろうとしたところ、長史の鄧琬らが子勛を奉じて挙兵し、明帝の即位に対抗して泰始2年正月に尋陽で帝位に即けた（『宋書』巻八十「琬等因奉子勋起兵，以废立为名」「泰始二年正月七日，奉子勋为帝，即伪位于寻阳城，年号义嘉元年」）。時に11歳。前帝から位を受けたのではなく尋陽で別に立てられた。",
     "confidence": "high",
@@ -42549,6 +43234,10 @@
     "category": "反乱・自称政権",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-liang",
+   "researchSection": "南朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 548,
@@ -42618,6 +43307,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "臨賀王。侯景に内応して渡江を助け、台城陥落後に侯景によって天子に推された（『梁書』巻五十五「景推正德為天子，改年為正平元年」）。梁の帝位を継いだのではなく侯景が別に立てた対抗政権。翌年、侯景は簡文帝を立てて正德を廃し、後に殺害した。",
     "confidence": "high",
@@ -42744,6 +43434,10 @@
     "category": "反乱・自称政権",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "houjing-han",
+   "researchSection": "南朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 552,
@@ -42812,6 +43506,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "梁を武力で制圧し、自ら立てた蕭棟の詔を偽って禅位を受けた（矯蕭棟詔）。南郊に壇を設けて受禅の儀を行い、国号を「漢」、元号を「太始」とした。儀式中に剣が落ちる・白虹貫日等の凶兆が記される。",
     "confidence": "high",
@@ -42973,6 +43668,10 @@
     "category": "反乱・自称政権",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-liang",
+   "researchSection": "南朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 552,
@@ -43042,6 +43741,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "武帝の八男、益州刺史。武帝の崩御後、兄・蕭繹（元帝）と対立して蜀で帝号を称した（『梁書』巻五十五「高祖崩後，紀乃僭號於蜀，改年曰天正」）。前帝から位を受けた記事も擁立者の記載もなく、成都で自ら立てた対抗政権。",
     "confidence": "medium",
@@ -43161,6 +43861,10 @@
     "category": "反乱・自称政権",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-liang",
+   "researchSection": "南朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 555,
@@ -43230,6 +43934,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "東魏・北斉に抑留されていたが555年、北斉文宣帝が送還。「僧辯納貞陽侯蕭明…甲辰入建鄴丙午即偽位」（南史卷8）。北斉と国内実力者（王僧辯）の合意による擁立。",
     "confidence": "high",
@@ -43358,6 +44063,10 @@
     "category": "反乱・自称政権",
     "section": "南朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "southern-liang",
+   "researchSection": "南朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 558,
@@ -43427,6 +44136,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "元帝の孫。北斉の文宣帝が軍を派遣して蕭荘を送り込み、郢州で帝位に即けた（『北齊書』巻三十三相当「顯祖遣兵納梁永嘉王蕭莊主梁祀」「三月，卽帝位於郢州，年號天啟」）。実権は王琳が握った。陳から位を受けたのではなく北斉の後ろ盾で別に立てられた対抗政権。",
     "confidence": "high",
@@ -43553,6 +44263,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 399,
@@ -43621,6 +44335,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "代の後裔として登国元年（386年）正月に代王として自立し、同年4月に魏王と改称。その後たびたび群臣の勧進を受け（『魏書』巻二「群臣劝进」「右司马许谦上书劝进」）、天興元年（398年）12月に皇帝を称した。前代君主から位を受けたのではなく、自ら代王・魏王・皇帝へと昇格した。",
     "confidence": "high",
@@ -43871,6 +44586,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 409,
@@ -43939,6 +44658,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "道武帝の長子。母・劉貴人の賜死に際し、道武帝自身が「汝当继统，故吾远同汉武，为长久之计」と後継に指名していた（『魏書』巻三）。清河王紹が道武帝を弑した後、宮中に入って紹を誅し即位した（「天赐六年冬十月，清河王绍作逆，太祖崩。帝入诛绍。壬申，即皇帝位」）。紹は前帝ではなく弑逆者であり、位の根拠は道武帝の指名にある。",
     "confidence": "high",
@@ -44232,6 +44952,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 423,
@@ -44300,6 +45024,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "太宗(明元帝)の長子。泰常八年11月壬申、父崩御に伴い即位。",
     "confidence": "high",
@@ -45053,6 +45778,10 @@
     "category": "反乱・自称政権",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 452,
@@ -45121,6 +45850,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "太武帝弑殺後、皇太孫(後の文成帝)擁立派(蘭延・和疋ら)と対立した宗愛が、先手を打って蘭延らを殺害し秦王翰も殺害、素より親密だった南安王余を擁立した。宦官によるクーデター擁立であることが原典で明確に確認できる。",
     "confidence": "high",
@@ -45247,6 +45977,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 452,
@@ -45315,6 +46049,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "宗愛による南安王余殺害後、殿中尚書長孫渇侯・尚書源賀・羽林郎劉尼・散騎常侍陸麗らが13歳の高宗(文成帝)を苑中から迎え擁立した重臣主導のクーデター的即位。陸麗自身は「陛下以正統之重、承基繼業」と血統的正統性も強調しており世襲的性格も併存するが、本人の主体的行動を伴わない重臣主導の推戴という実態を重視し擁立に分類する(ユーザー承認)。",
     "confidence": "high",
@@ -45604,6 +46339,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 465,
@@ -45672,6 +46411,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "文成帝の長子。和平6年(465年)5月甲辰、父崩御に伴い即位。",
     "confidence": "high",
@@ -45929,6 +46669,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 471,
@@ -45996,6 +46740,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "献文帝の長子で皇太子。皇興5年(471年)、献文帝が「昔堯舜之禪天下也…今使太保、建安王陸馛、太尉源賀持節奉皇帝璽綬、致位於爾躬」と堯舜の故事になぞらえた詔を発し生前譲位した父子間の内禅。原文が「禪」の語を用いるが、王朝交代を伴う受禅（曹丕・司馬炎の例）ではなく同一王朝内の生前譲位であるため内禅に分類する。馮太后の意向が強く働いていた可能性がある点は付記する。",
     "confidence": "high",
@@ -46731,6 +47476,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 499,
@@ -46799,6 +47548,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "孝文帝の子。太和23年(499年)4月丁巳、父の南征行宮での崩御に伴い魯陽で践祚(喪中のまま即位)。",
     "confidence": "high",
@@ -47336,6 +48086,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 515,
@@ -47404,6 +48158,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "世宗(宣武帝)の子。延昌4年(515年)正月丁巳夜、父崩御に伴い即位(幼少のため高陽王雍・任城王澄が輔政、後に生母胡太后が臨朝称制)。",
     "confidence": "high",
@@ -48221,6 +48976,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 528,
@@ -48289,6 +49048,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "粛宗孝明帝が528年2月に急逝した後、皇太后(胡太后)の詔により皇曾孫にあたる臨洮王元寶暉の世子(当時3歳)が擁立された。",
     "confidence": "high",
@@ -48404,6 +49164,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 528,
@@ -48472,6 +49236,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "彭城王元勰の第三子。河陰の変直前、爾朱栄が接触し河陽で会見後、爾朱栄に擁立されて即位した。",
     "confidence": "high",
@@ -48930,6 +49695,10 @@
     "category": "反乱・自称政権",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 530,
@@ -48998,6 +49767,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "孝荘帝が爾朱兆に殺害された後(530年10月)、爾朱世隆らが景穆帝の曾孫にあたる長広王元曄(扶風王元怡の子)を擁立した。",
     "confidence": "high",
@@ -49114,6 +49884,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 531,
@@ -49182,6 +49956,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "広陵恵王元羽の子。孝荘帝の死後、爾朱世隆らが元曄を「疏远，又非人望所推」として退け、「潜默晦身，有过人之量」と評した元恭を立てることを決め（『魏書』巻十一）、元曄からの禅譲の礼を執り行わせた（「晔进至邙南，世隆等奉王东郭之外，行禅让之礼」「太尉公尔朱度律奉进玺绶哀冕之服」）。形式は同一王朝内の生前譲位だが、廃立を決めたのは爾朱世隆らで、元曄・元恭は直系ではない。",
     "confidence": "high",
@@ -49378,6 +50153,10 @@
     "category": "反乱・自称政権",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 531,
@@ -49446,6 +50225,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "景穆帝の玄孫、章武王元融の子。爾朱氏討伐の兵を挙げた高歓が、勃海太守であった元朗を531年10月に信都で帝位に即けた（『魏書』巻十一「冬十月壬寅，齐献武王推勃海太守元朗即皇帝位」）。前帝から位を受けたのではなく、爾朱氏の立てた節閔帝に対抗して別に立てられた。",
     "confidence": "high",
@@ -49560,6 +50340,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 532,
@@ -49628,6 +50412,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "高歓が節閔帝を廃した後、平陽王元脩を推戴し中興2年(532年)東郭の外で即位させた。",
     "confidence": "high",
@@ -49879,6 +50664,10 @@
     "category": "並立政権",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 508,
@@ -49947,6 +50736,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "宣武帝の弟、冀州刺史。延昌元年（508年）、清河王の密書を得たと称して長史・司馬を殺害し、信都の南に壇を築いて自ら皇帝位に即き、年号を「建平」とした。既存政権に対する反乱による自立で、擁立者の記載はない。",
     "confidence": "high",
@@ -50085,6 +50875,10 @@
     "category": "並立政権",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 525,
@@ -50153,6 +50947,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "道武帝の玄孫。徐州刺史・彭城鎮将として孝昌元年（525年）に行台高諒を殺害して彭城で反乱を起こし、自ら皇帝を称して年号を「天啓」とした。既存政権に対する反乱による自立で、擁立者の記載はない。",
     "confidence": "high",
@@ -50273,6 +51068,10 @@
     "category": "並立政権",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-wei",
+   "researchSection": "北朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 529,
@@ -50341,6 +51140,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "献文帝の孫。528年の河陰の変の後、南朝梁に亡命。梁の武帝が顥を魏主として兵を与え、陳慶之の軍の支援で洛陽を目指した。永安2年（529年）4月、梁国城の南に壇を築いて即位し年号を「孝基」とした。北魏の前帝から位を受けたのではなく、梁が擁立した対抗政権。",
     "confidence": "high",
@@ -50485,6 +51285,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "eastern-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 534,
@@ -50553,6 +51357,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "清河文宣王元亶の世子。永熙3年(534年)、孝武帝(出帝)が長安に出奔した後、高歓が出帝を迎えられず百官と協議し、11歳の善見を粛宗の後継として推戴し即位させた。",
     "confidence": "high",
@@ -50994,6 +51799,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-qi",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 550,
@@ -51062,6 +51871,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "東魏の実権を握る高歓の次子。孝静帝の禅譲を受け、天保元年（550年）5月に即位して北斉を開いた。禅譲の儀を経ており、王朝交代を伴う受禅。",
     "confidence": "high",
@@ -51313,6 +52123,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-qi",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 559,
@@ -51381,6 +52195,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "文宣帝の嫡長子(母は李皇后)。天保元年に皇太子に立てられ、天保10年10月、文宣帝崩御に伴い即位した。",
     "confidence": "high",
@@ -51502,6 +52317,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-qi",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 560,
@@ -51570,6 +52389,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "文宣帝の実弟。輔政大臣(楊愔ら)を排除し実権を掌握、太皇太后の令で甥の廃帝を済南王に降格させたうえで自ら即位した。形式は太皇太后の令だが実態はクーデターによる奪権のため簒奪に分類。",
     "confidence": "high",
@@ -51701,6 +52521,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-qi",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 561,
@@ -51769,6 +52593,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "兄・孝昭帝の遺詔により指名され、皇太后の令と群臣(斛律金ら)三度の勧進を経て即位した。",
     "confidence": "high",
@@ -51960,6 +52785,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-qi",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 565,
@@ -52028,6 +52857,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "父武成帝より生前譲位を受けて即位した(実父からの内禅)。",
     "confidence": "high",
@@ -52361,6 +53191,10 @@
     "category": "反乱・自称政権",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-qi",
+   "researchSection": "北朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 577,
@@ -52429,6 +53263,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "晋陽陥落の危機下、後主逃亡後に将兵の推挙を受け「不得已」(やむを得ず)皇帝位に即いた。",
     "confidence": "high",
@@ -52554,6 +53389,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-qi",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 577,
@@ -52622,6 +53461,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "承光元年(577年)正月、父後主より生前譲位を受けて即位した(当時8歳)。",
     "confidence": "high",
@@ -52733,6 +53573,10 @@
     "category": "反乱・自称政権",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-qi",
+   "researchSection": "北朝",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 577,
@@ -52801,6 +53645,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "文宣帝の第三子。北斉滅亡後に突厥へ逃れ、他鉢可汗の庇護を受けた。営州の高宝寧が尊号を奉る上表を行い、これを受けて突厥領内で即位した（『北史』巻五十二「高宝宁在营州，表上尊号，绍义遂即皇帝位」）。北斉という国家組織は既に滅亡しており、前帝から位を受けたのではなく旧臣の推戴によって別に立てられた。",
     "confidence": "medium",
@@ -52916,6 +53761,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "western-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 535,
@@ -52983,6 +53832,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "孝文帝の孫・京兆王愉の子で孝武帝の従弟。永熙3年閏12月、孝武帝が宇文泰に殺害された後、丞相宇文泰が群臣を率いて即位を勧進(形式上三度辞退した後に受諾)。本人の主体的簒奪行為はなく宇文泰主導の擁立即位。",
     "confidence": "high",
@@ -53342,6 +54192,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "western-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 551,
@@ -53410,6 +54264,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "文帝の長子。大統元年(535年)正月に皇太子に立てられ、大統17年(551年)3月、父・文帝崩御を受け正式な手続きで即位した。実権は宇文泰にあったが即位経路自体は嫡長子としての通常の世襲継承。",
     "confidence": "high",
@@ -53514,6 +54369,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "western-wei",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 554,
@@ -53582,6 +54441,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "文帝の第4子。大統14年(548年)に斉王に封じられていたが、兄・廃帝(元欽)が宇文泰暗殺を謀って発覚・廃位された後、恭帝3年(554年)正月、宇文泰と公卿の合議により擁立され即位した(改元、独自年号は建てず「元年」と称した)。",
     "confidence": "high",
@@ -53688,6 +54548,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-zhou",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 559,
@@ -53756,6 +54620,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "宇文泰の庶長子。孝閔帝（宇文覚）が宇文護に廃された後、「晋公护遣使迎帝于岐州」で岐州から迎えられ、京師到着の翌日に群臣の上表・勧進を経て天王位に即いた（『周書』巻四「甲子，群臣上表劝进，备法驾奉迎。帝固让，群臣固请，是日，即天王位」）。決定権は宇文護にあった。北周は当初「天王」を称しており、皇帝号は明帝の代（武成元年）に初めて用いられた。",
     "confidence": "high",
@@ -53881,6 +54746,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-zhou",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 560,
@@ -53950,6 +54819,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "毒殺され危篤となった明帝が「遺詔傳帝位於高祖。高祖固讓、百官勸進、乃從之」と弟の魯国公邕(武帝)を後継に指名する遺詔を残し、通常の遺詔継承手続きを経て即位した。この時点で実権はなお宇文護が握っていたが、後継指名自体は先帝(明帝)の遺志による。",
     "confidence": "high",
@@ -54308,6 +55178,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-zhou",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 578,
@@ -54377,6 +55251,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "「六月丁酉、高祖崩。戊戌、皇太子即皇帝位」と、武帝崩御の翌日に皇太子であった宣帝が正式に即位した通常の父子継承。",
     "confidence": "high",
@@ -54610,6 +55485,10 @@
     "category": "正統王朝",
     "section": "北朝"
    },
+   "eraId": "northern-southern",
+   "regimeId": "northern-zhou",
+   "researchSection": "北朝",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 579,
@@ -54678,6 +55557,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "大象元年(579年)正月、魯王に封じられ、同年皇太子に立てられたのち、同年2月「宣帝於鄴宮傳位授帝、居正陽宮」と実父・宣帝が在世のまま行った内禅(生前譲位)により即位した。宣帝は譲位後も「天元皇帝」を自称して実権を保持し続けたため、父子間の内禅だが実質的権力移譲は限定的だった点に留意（同一王朝内の内禅であり、隋への禅譲＝王朝交代とは別事象）。",
     "confidence": "high",
@@ -54892,6 +55772,10 @@
     "category": "正統王朝",
     "section": "隋"
    },
+   "eraId": "sui-tang",
+   "regimeId": "sui",
+   "researchSection": "隋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 581,
@@ -54960,6 +55844,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "北周静帝の詔により正式な禅譲儀礼を経て即位、同時に隋を建国（開皇に改元）。実質は北周の外戚権臣（隋国公）による権力掌握の完成だが、形式は禅譲儀礼を経ている。",
     "confidence": "high",
@@ -55302,6 +56187,10 @@
     "category": "正統王朝",
     "section": "隋"
    },
+   "eraId": "sui-tang",
+   "regimeId": "sui",
+   "researchSection": "隋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 604,
@@ -55370,6 +56259,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "皇太子として父帝崩御を受け正規の手続きで即位（隋書帝紀三「高祖崩，上即皇帝位於仁壽宮」）。ただし即位直前の文帝崩御の経緯には異論がある（文帝の死因の記録を参照）。",
     "confidence": "high",
@@ -56375,6 +57265,10 @@
     "category": "正統王朝",
     "section": "隋"
    },
+   "eraId": "sui-tang",
+   "regimeId": "sui",
+   "researchSection": "隋",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 617,
@@ -56443,6 +57337,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "李淵（唐王）の主導により大興殿にて擁立即位。実権は李淵側にあり、恭帝は名目上の皇帝に過ぎなかった。",
     "confidence": "high",
@@ -56579,6 +57474,10 @@
     "category": "反乱・自称政権",
     "section": "隋"
    },
+   "eraId": "sui-tang",
+   "regimeId": "sui",
+   "researchSection": "隋",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 618,
@@ -56647,6 +57546,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "宇文化及による煬帝弑逆後、東都留守の元文都・段達・韋津らが血統最近として共に尊立、改元「皇泰」。",
     "confidence": "high",
@@ -56782,6 +57682,10 @@
     "category": "反乱・自称政権",
     "section": "隋"
    },
+   "eraId": "sui-tang",
+   "regimeId": "sui",
+   "researchSection": "隋",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 618,
@@ -56850,6 +57754,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "宇文化及が煬帝弑殺の際、隋室の血統として秦孝王の子・浩のみを残し「立以為帝」。完全な武力擁立で、浩自身に実権はなく別に軟禁された傀儡だった。",
     "confidence": "high",
@@ -56947,6 +57852,10 @@
     "category": "並立政権",
     "section": "隋末群雄"
    },
+   "eraId": "sui-tang",
+   "regimeId": "xu",
+   "researchSection": "隋末群雄",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 618,
@@ -57015,6 +57924,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "楊浩を鴆殺した後、禅譲儀礼を経ず「僭皇帝位」を称し、国号「許」・元号「天寿」を建てて百官を新設した。既存王朝（隋）からの継承のない新規建国。",
     "confidence": "high",
@@ -57119,6 +58029,10 @@
     "category": "並立政権",
     "section": "隋末群雄"
    },
+   "eraId": "sui-tang",
+   "regimeId": "zheng",
+   "researchSection": "隋末群雄",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 619,
@@ -57187,6 +58101,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "世充は「復子明辟」（後で位を返す）を偽って恭帝侗を懐柔した上で、侗の禅位の詔を偽造させ（「仮為侗詔策禅位」）、皇帝に即位（国号「鄭」、元号「開明」）。形式は禅譲だが詔自体が偽造されており実質は簒奪。",
     "confidence": "high",
@@ -57327,6 +58242,10 @@
     "category": "並立政権",
     "section": "隋末群雄"
    },
+   "eraId": "sui-tang",
+   "regimeId": "dingyang",
+   "researchSection": "隋末群雄",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 617,
@@ -57395,6 +58314,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "突厥・始畢可汗から先に「定楊可汗」の号を受け、その上で「因僭称皇帝」。国号「大漢」、元号「天興」を建て百官を置いた。",
     "confidence": "high",
@@ -57526,6 +58446,10 @@
     "category": "並立政権",
     "section": "隋末群雄"
    },
+   "eraId": "sui-tang",
+   "regimeId": "liangshidu-liang",
+   "researchSection": "隋末群雄",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 617,
@@ -57594,6 +58518,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "郡丞を殺して挙兵、大丞相を自称し突厥と連兵後「僭即皇帝位」、国号「梁」、元号「永隆」を建てた。即位後に突厥から「大度毗伽可汗・解事天子」の号を追加で受けている。",
     "confidence": "high",
@@ -57723,6 +58648,10 @@
     "category": "並立政権",
     "section": "隋末群雄"
    },
+   "eraId": "sui-tang",
+   "regimeId": "xiqin",
+   "researchSection": "隋末群雄",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 617,
@@ -57791,6 +58720,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "金城府校尉。大業末に郝瑗を劫かして挙兵し、西秦覇王を自称して建元した（『旧唐書』巻五十五「自称西秦霸王，建元为秦兴」）。大業13年秋7月に蘭州で帝号を僭称し、妻を皇后・母を皇太后に立て陵邑・宗廟を築いた（「十三年秋七月，举僭号于兰州，以妻鞠氏为皇后，母为皇太后，起坟茔，置陵邑，立庙于城南」）。",
     "confidence": "high",
@@ -57930,6 +58860,10 @@
     "category": "並立政権",
     "section": "隋末群雄"
    },
+   "eraId": "sui-tang",
+   "regimeId": "xiqin",
+   "researchSection": "隋末群雄",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 618,
@@ -57998,6 +58932,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "薛挙の長子。齊公・齊王・東道行軍元帥として父の軍を率いたが、『旧唐書』は立太子・遺詔を記さず、父の死に際して「举死，仁杲立于折墌城」「及嗣位，众咸猜惧」とのみ記す。諸将との不和が続いた旨は記されるが、誰の意思で位に即いたかは原典から決着しない。",
     "confidence": "high",
@@ -58092,6 +59027,10 @@
     "category": "並立政権",
     "section": "隋末群雄"
    },
+   "eraId": "sui-tang",
+   "regimeId": "liguigui-liang",
+   "researchSection": "隋末群雄",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 618,
@@ -58160,6 +59099,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "武威姑臧の人。薛挙の乱に対し曹珍・安修仁らと挙兵を謀った際、互いに譲り合って主が定まらず、曹珍が讖文「李氏当王」を挙げて李軌を主に推した（『旧唐書』巻五十五「乃谋共举兵，皆相让，莫肯为主」「遂拜贺之，推」）。李軌は河西大凉王を自称して建元し（「轨自称河西大凉王，建元安乐」）、武徳元年冬に尊号を僭称した（「武德元年冬，轨僭称尊号」）。推戴と自称の双方が原典に記される。",
     "confidence": "high",
@@ -58277,6 +59217,10 @@
     "category": "並立政権",
     "section": "隋末群雄"
    },
+   "eraId": "sui-tang",
+   "regimeId": "liangshidu-liang",
+   "researchSection": "隋末群雄",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 618,
@@ -58345,6 +59289,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "後梁宣帝（蕭詧）の曾孫。大業13年、岳州の董景珍らが隋に叛くにあたり、自らは寒賤として主となることを辞し、梁の後裔である蕭銑を主に推した（『旧唐書』巻五十六「郡县官属众欲推景珍为主，景珍曰：“吾素寒贱，虽假名号，众必不从。今若推」）。蕭銑はこれに応じて数千人を集め（「即日集得数千人」）、城南に壇を築いて梁王を自称し（「铣于是筑坛于城南，燔燎告天，自称」）、義寧2年に皇帝を僭称して百官を置いた（「义宁二年，僭称皇帝，署置百官，一准梁故事」）。既に滅亡していた南朝梁から位を受けたわけではない。",
     "confidence": "high",
@@ -58461,6 +59406,10 @@
     "category": "並立政権",
     "section": "隋末群雄"
    },
+   "eraId": "sui-tang",
+   "regimeId": "suimo-wu",
+   "researchSection": "隋末群雄",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 619,
@@ -58529,6 +59478,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "江都を陥落させ「僭即皇帝位」、国号「呉」、元号「明政」を建てた。他者からの擁立や継承ではなく武力による自立。",
     "confidence": "high",
@@ -58682,6 +59632,10 @@
     "category": "並立政権",
     "section": "隋末群雄"
    },
+   "eraId": "sui-tang",
+   "regimeId": "suimo-chu",
+   "researchSection": "隋末群雄",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 617,
@@ -58750,6 +59704,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "饒州鄱陽の人。操師乞（自号・元興王）の大将軍となり、師乞が流矢に当たって死ぬとその衆を統べた（『旧唐書』巻五十六「师乞自号元兴王，攻陷豫章郡而据之，以士弘为大将军」「师乞中矢而死。士弘代董其众」）。継いだのは軍の指揮であって君主位ではなく、大業13年に虔州へ移って南越王を自称し、まもなく国号「楚」・元号「太平」で皇帝を僭称した。",
     "confidence": "high",
@@ -58874,6 +59829,10 @@
     "category": "並立政権",
     "section": "隋末群雄"
    },
+   "eraId": "sui-tang",
+   "regimeId": "suimo-song",
+   "researchSection": "隋末群雄",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 623,
@@ -58942,6 +59901,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "杜伏威入朝後、その命と偽って挙兵。降伏を拒否した王雄誕を殺害した上で「僭即偽位」、国号「宋」を建てた。杜伏威政権からの離反という側面はあるが、独自に国号・元号を立てて皇帝を自称しており、先行する君主から君主位を受けていない自立。",
     "confidence": "high",
@@ -59055,6 +60015,10 @@
     "category": "並立政権",
     "section": "隋末群雄"
    },
+   "eraId": "sui-tang",
+   "regimeId": "suimo-chu",
+   "researchSection": "隋末群雄",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 618,
@@ -59123,6 +60087,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "亳州で挙兵し「自称迦楼羅王」（皇帝ではない称号）を経て、義寧年間の勢力再建後「僭称楚帝於冠軍」、元号「昌達」を建てた。先行する君主から君主位を受けていない純粋な自立。",
     "confidence": "high",
@@ -59256,6 +60221,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 618,
@@ -59324,6 +60293,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "隋恭帝侑からの禅譲を受けて即位し、唐を開いた（『旧唐書』巻一「高祖即皇帝位於太極殿」「改隋義寧二年為唐武德元年」）。禅譲の儀を経た王朝交代。",
     "confidence": "high",
@@ -59593,6 +60563,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 626,
@@ -59661,6 +60635,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "玄武門の変（武徳9年6月4日）で兄弟を殺害した後、父高祖から正式に譲位を受けた。同一王朝内の生前譲位（内禅）だが実質は迫られた譲位。",
     "confidence": "high",
@@ -59978,6 +60953,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 649,
@@ -60046,6 +61025,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "貞観23年6月1日、父太宗崩御に伴い正式に即位。",
     "confidence": "high",
@@ -60542,6 +61522,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 684,
@@ -60641,6 +61625,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "高宗の第七子。永隆元年に皇太子に立てられ、弘道元年12月の高宗崩御に際し遺詔により柩前で即位した（『旧唐書』巻七「弘道元年十二月，高宗崩，遗诏皇太子柩前即帝位」）。翌年2月に武則天により廬陵王に廃され（「元年二月，皇太后废帝为庐陵王，幽于别所」）、神龍元年、張柬之ら5人のクーデターで復位した（2度目の在位は reigns の isRestoration で表す）。",
     "confidence": "high",
@@ -60919,6 +61904,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 684,
@@ -61018,6 +62007,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "高宗の第八子、中宗の同母弟。嗣聖元年、臨朝した武則天が中宗を廬陵王に廃して豫王（睿宗）を帝に立て、自らは臨朝称制を続けた（『旧唐書』巻七「嗣圣元年，则天临朝，废中宗为庐陵王，立豫王为皇帝，仍临朝称制」）。武周革命で皇嗣に降された。景雲元年、李隆基の唐隆政変を経て少帝が別宮に退き再び即位した（「于是少帝逊于别宫。是日即皇帝位」。2度目の在位は isRestoration で表す）。",
     "confidence": "high",
@@ -61369,6 +62359,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 710,
@@ -61437,6 +62431,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "韋皇后により擁立され即位（16歳前後）。李隆基のクーデター（唐隆政変）により在位25日ほどで廃位、温王に降格。",
     "confidence": "high",
@@ -61592,6 +62587,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 712,
@@ -61660,6 +62659,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "先天元年8月、睿宗が皇太子隆基（玄宗）に生前譲位した正規の内禅。",
     "confidence": "high",
@@ -62174,6 +63174,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 756,
@@ -62242,6 +63246,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "安史の乱で玄宗が蜀へ逃れる中、裴冕・杜鴻漸ら朔方の将吏が六度にわたり上奏して即位を強く勧め、粛宗はやむを得ずこれに従い霊武にて即位。玄宗はこれを事後に知り追認する形で冊命した。",
     "confidence": "high",
@@ -62551,6 +63556,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 762,
@@ -62619,6 +63628,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "乾元元年に皇太子に立てられており、粛宗崩御後の柩前即位という正規の世襲。",
     "confidence": "high",
@@ -62945,6 +63955,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 779,
@@ -63013,6 +64027,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "広徳2年に皇太子に立てられており、代宗崩御後の正規の世襲。",
     "confidence": "high",
@@ -63490,6 +64505,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 805,
@@ -63558,6 +64577,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "建中元年正月に皇太子となって以来20年以上の東宮であり、発病中も正規の皇太子として柩前即位した。",
     "confidence": "high",
@@ -63672,6 +64692,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 805,
@@ -63740,6 +64764,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "順宗からの内禅（生前譲位）により即位。ただしこの内禅は宦官俱文珍が王叔文一派排除のために画策・主導したものであり、形式は内禅だが実態は宦官の政治介入を伴う即位。",
     "confidence": "high",
@@ -64101,6 +65126,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 820,
@@ -64169,6 +65198,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "元和7年に立てられていた皇太子として、憲宗崩御後に正規に即位。ただし憲宗自身の崩御に弑逆疑惑があり、即位当日に穆宗擁立派の宦官が政敵を殺害する政変的介入があったため確信度medium。",
     "confidence": "medium",
@@ -64414,6 +65444,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 824,
@@ -64482,6 +65516,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "穆宗崩御を受け、既に立太子されていた長子として通常通り柩前即位。",
     "confidence": "high",
@@ -64652,6 +65687,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 827,
@@ -64720,6 +65759,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "宦官劉克明一派が擁立した絳王悟を、対抗する宦官勢力（王守澄・梁守謙ら）が武力で排除し、江王涵（文宗）を擁立した。",
     "confidence": "high",
@@ -64919,6 +65959,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 840,
@@ -64987,6 +66031,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "文宗急逝に際し、当時の正統な皇太子（陳王成美）を仇士良・魚弘志ら宦官が矯詔で廃し、頴王瀍（武宗）を擁立。即位後、成美・安王溶は誅殺された。",
     "confidence": "high",
@@ -65240,6 +66285,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 846,
@@ -65308,6 +66357,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "武宗に実子があったにもかかわらず、左神策軍中尉馬元贄が武宗の叔父にあたる光王怡（宣宗）を擁立し皇太叔とした。",
     "confidence": "high",
@@ -65516,6 +66566,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 859,
@@ -65584,6 +66638,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "旧唐書は平穏な即位のように記すが、資治通鑑は宣宗が末子の夔王滋への譲位を密かに枢密使らに託していたところ、左軍中尉王宗実がこれを見破り長子・鄆王温（懿宗）を迎立し謀反者を誅殺したと記す。長子という正統性はあったが実際の即位決定は宦官勢力間の主導権争いの結果のため擁立と判定。",
     "confidence": "medium",
@@ -65810,6 +66865,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 873,
@@ -65878,6 +66937,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "咸通14年、懿宗大漸に際し宦官・劉行深らが普王儇（僖宗）を皇太子に立てる詔を奏請させ、懿宗崩御同日に柩前即位。宦官主導だが正式な遺詔・冊立太子の手続きを経た父子間の通常継承（僖宗は懿宗第五子）。",
     "confidence": "high",
@@ -66177,6 +67237,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 888,
@@ -66276,6 +67340,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "懿宗の第七子、僖宗の同母弟。文徳元年、僖宗が危篤となった際、群臣は吉王を立てようとしたが、軍容使の楊復恭が寿王の監国を請い、遺詔により皇太弟に立てられて柩前で即位した（『旧唐書』巻二十上「唯军容杨复恭请以寿王监国。三月六日，宣遗诏」「立为皇太弟。八日，柩前即位」）。光化3年に宦官劉季述らのクーデターで幽閉され太上皇とされたが、天復元年正月の反クーデターで復位した（2度目の在位は isRestoration で表す）。",
     "confidence": "high",
@@ -66676,6 +67741,10 @@
     "category": "正統王朝",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 904,
@@ -66735,6 +67804,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "天祐元年八月十二日、父昭宗が朱全忠配下の蒋玄暉らに弑殺された翌日、蒋玄暉が矯詔（偽の遺詔）により当時13歳の輝王祚を皇太子に立て柷と改名、同月十五日（丙午）柩前で即位させた。本人の主体的な行為ではなく、父を弑逆した朱全忠一派による擁立即位のため擁立と判定（後漢献帝・唐李裕等の先例と同型）。",
     "confidence": "high",
@@ -66840,6 +67910,10 @@
     "category": "反乱・自称政権",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 900,
@@ -66908,6 +67982,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "乾寧4年に皇太子に冊立。光化3年11月、宦官劉季述・王仲先が昭宗を幽閉するクーデターを起こし、皇太子裕を擁立して即位させた。本人の主体的簒奪行為はなく宦官主導の傀儡的即位のため擁立。天復元年正月の反クーデターで廃位、徳王に降格。",
     "confidence": "high",
@@ -67016,6 +68091,10 @@
     "category": "反乱・自称政権",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "wu-zhou",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 690,
@@ -67084,6 +68163,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "高宗の皇后。中宗・睿宗を廃立して臨朝称制した後、天授元年に睿宗から位を受け、国号を「周」に改めて自ら皇帝に即位した（睿宗は皇嗣に降された。『旧唐書』巻七「及革命，改国号为周，降帝为皇嗣」）。神龍革命により中宗へ譲位。唐から周への王朝交代を伴う受禅で、譲位側は在位中の皇帝（実子の睿宗）。",
     "confidence": "high",
@@ -67488,6 +68568,10 @@
     "category": "反乱・自称政権",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 763,
@@ -67556,6 +68640,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "邠王守禮の孫。広徳元年10月、長安を占領した吐蕃の宰相馬重英と唐の降将高暉が広武王承宏を帝に立て、改元して百官を置いた（『新唐書』「立故邠王守禮之孫廣武王承宏爲帝，改元，置百官」）。唐の前帝から位を受けたのではなく、外部勢力（吐蕃）が別に立てた。",
     "confidence": "high",
@@ -67672,6 +68757,10 @@
     "category": "反乱・自称政権",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "tang",
+   "researchSection": "唐",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 886,
@@ -67740,6 +68829,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "嗣襄王。田令孜の専横に反発した邠寧節度使朱玫が、興元へ逃れる僖宗を追いきれず、病で従駕できなかった襄王熅を拘束して「監軍国事」に推戴し、帝位に即けた。唐の前帝から位を受けたのではなく、軍閥が別に立てた。",
     "confidence": "high",
@@ -67846,6 +68936,10 @@
     "category": "並立政権",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "anshi-yan",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 756,
@@ -67914,6 +69008,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "天宝15載（至徳元載）正月、洛陽で国号「燕」・元号「聖武」を建てて即位した。唐の前帝から位を受けたのではなく、自ら新政権を樹立した。",
     "confidence": "high",
@@ -68038,6 +69133,10 @@
     "category": "並立政権",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "anshi-yan",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 757,
@@ -68106,6 +69205,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "厳荘・李猪児らが安禄山を弑逆した直後、厳荘が「禄山伝位於晋王慶緒」と偽って布告し禄山を太上皇に「尊」した体裁を取ったが、新唐書は慶緒自身が弑逆を共謀したことを明記しており、実態は父殺しによる権力奪取を禅譲の体裁で偽装したものであるため簒奪と判定。",
     "confidence": "high",
@@ -68250,6 +69350,10 @@
     "category": "並立政権",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "anshi-yan",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 759,
@@ -68318,6 +69422,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "乾元2年正月、「大聖燕王」を自称後、同年3月、安慶緒を宴に招いて拘束・処刑しその軍勢を吸収。慶緒から玉璽奉呈による禅譲の申し出があったが実際には受諾せず武力で殺害・軍を接収しており、実力による奪取のため簒奪。",
     "confidence": "high",
@@ -68476,6 +69581,10 @@
     "category": "並立政権",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "anshi-yan",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 761,
@@ -68544,6 +69653,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "史思明が朝義を折檻・処刑しようとした矢先、配下の駱悦らが挙兵を提案。朝義は当初応答しなかったが説得され同意、思明が縊殺された直後に即位。父を配下に殺害させた上での即位であり、消極的とはいえ弑逆を容認・追認した簒奪と判定。",
     "confidence": "medium",
@@ -68671,6 +69781,10 @@
     "category": "並立政権",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "zhuci-qin",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 783,
@@ -68739,6 +69853,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "涇原兵変で統率者を失った叛乱兵に迎えられて太尉を称するにとどまっていたが、源休らの勧めを受けて即位を決し、宣政殿で「僭即偽位、自稱大秦皇帝」と帝号を称した。推戴と自らの決断の双方が原典に記される。",
     "confidence": "high",
@@ -68875,6 +69990,10 @@
     "category": "並立政権",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "lixilie-chu",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 784,
@@ -68943,6 +70062,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "淮西節度使。建中3年冬に4藩鎮が相次いで王を僭称した際、李希烈も「建興王・天下都元帥」を自称し、興元元年正月に汴州を占領して「僭即皇帝位、國號楚」と帝号を称した。唐の一節度使からの自立で、擁立者の記載はない。",
     "confidence": "high",
@@ -69047,6 +70167,10 @@
     "category": "並立政権",
     "section": "唐"
    },
+   "eraId": "sui-tang",
+   "regimeId": "huangchao-qi",
+   "researchSection": "唐",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 881,
@@ -69115,6 +70239,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "広明元年12月13日、長安の含元殿で即位し、国号「大斉」・元号「金統」を建てた。唐の前帝から位を受けたのではなく、自ら新政権を樹立した。",
     "confidence": "high",
@@ -69273,6 +70398,10 @@
     "category": "正統王朝",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-liang",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 907,
@@ -69341,6 +70470,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "唐の昭宣帝（哀帝）が自ら位を降した。開平元年正月に「甲辰，天子遣御史大夫薛贻矩来传禅代之意」、四月に宰臣張文蔚らが「正押传国宝、玉册、金宝」を奉じて大梁に至り、即位して国号を大梁とした（『旧五代史』巻三）。譲位した唐主は「宜以曹州济阴之邑奉唐主，封为济阴王」と済陰王に封ぜられ、翌開平二年二月に「是月弑济阴王」と殺害された。",
     "confidence": "high",
@@ -69589,6 +70719,10 @@
     "category": "反乱・自称政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-liang",
+   "researchSection": "五代十国",
+   "standing": "rival",
    "reigns": [
     {
      "startYear": 912,
@@ -69657,6 +70791,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "実父太祖を弑殺した後、偽の詔で博王友文に謀逆の罪を着せて誅殺させ、自ら皇帝位に即いた。",
     "confidence": "high",
@@ -69833,6 +70968,10 @@
     "category": "正統王朝",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-liang",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 913,
@@ -69901,6 +71040,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "均王。兄・友珪の打倒は本人が趙巖・楊師厚らへ働きかけて謀議を主導したが、実行と即位は別事象である。洛陽の政変は袁象先が行い（「十七日，象先引禁军千人突入宫城，遂诛友珪」）、事後に「事定，象先遣赵岩赍传国宝至东京，请帝即位于洛阳」と伝国璽が東京へ届けられた。本人は洛陽行きを退けて「公等如坚推戴，册礼宜在东京」と答え、「是月，帝即位于东京」と東京で即位した（『旧五代史』巻八）。",
     "confidence": "medium",
@@ -70145,6 +71285,10 @@
     "category": "反乱・自称政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-tang",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 923,
@@ -70213,6 +71357,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "父・李克用（武皇）の死に際して晋王位を継いだ——「及武皇厌代，帝乃嗣王位于晋阳」、本人も「虽承遗命，恐未能弹压」と遺命による継承であることを述べる（『旧五代史』巻二十七）。皇帝号はその15年後、諸鎮の勧進を経て新たに称したもので（「各遣使劝进，请帝绍唐帝位，帝报书不允」、以後「诸镇凡三上章劝进」）、同光元年4月に「帝升坛，祭告昊天上帝，遂即皇帝位」と即位した。君主位は父から、帝号は新称という2段階。",
     "confidence": "high",
@@ -70476,6 +71621,10 @@
     "category": "正統王朝",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-tang",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 926,
@@ -70544,6 +71693,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "鄴都の兵変で担がれた後、荘宗が興教門の変で崩じ、群臣・諸将の推戴を経て監国・柩前即位した（『旧五代史』巻三十五「群臣诸将上笺劝进」「文武百僚三拜笺，请行监国之仪」）。先帝の遺詔・太后令はなく、荘宗を自ら弑したわけでもない。国号を改めよという霍彦威らの請いは退け「兄亡弟绍」として唐の帝号をそのまま継いだ。",
     "confidence": "medium",
@@ -70992,6 +72142,10 @@
     "category": "正統王朝",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-tang",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 933,
@@ -71060,6 +72214,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "明宗の実子として柩前即位した正規継承。排行は出典間に異同があり、旧五代史閔帝紀は「明宗第三子也」、新五代史唐本紀は「明宗第五子从厚也」とする。",
     "confidence": "high",
@@ -71194,6 +72349,10 @@
     "category": "反乱・自称政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-tang",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 934,
@@ -71262,6 +72421,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "閔帝朝廷の左遷方針に対し挙兵、討伐軍（王思同軍）が次々投降し朝廷軍が瓦解、洛陽入りして閔帝を廃し即位。旧五代史史臣の評にも「由尋戈而践阼，慙徳応深」（矛を執って即位したことは徳の疚しさが深い）と明記され、武力による帝位簒奪と評価されている。",
     "confidence": "high",
@@ -71465,6 +72625,10 @@
     "category": "反乱・自称政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-jin",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 936,
@@ -71533,6 +72697,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "後唐末帝がなお在位するなかで、契丹主（耶律徳光）が册立した。「欲徇蕃汉群议，册尔为天子」と告げ、辞退ののち「乃命筑坛于晋阳城南，册帝为大晋皇帝，契丹主解衣冠授焉」（『旧五代史』巻七十五）。後唐から位を受けた記述はなく、国号「晋」も册文中で新たに定められた。",
     "confidence": "medium",
@@ -71857,6 +73022,10 @@
     "category": "正統王朝",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-jin",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 942,
@@ -71925,6 +73094,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "高祖の甥で養子。『旧五代史』は遺制による継承とし（高祖紀「遗制齐王重贵于柩前即皇帝位」、少帝紀「承遗制命柩前即皇帝位」）、『新五代史』巻九の論賛は高祖が実子・重睿への継承を望んでいたのに大臣がこれに反して重貴を立てたとする。両書で経緯の伝えが異なるが、後継者の選定が大臣の手にあった点は『資治通鑑』も同じ立場を採る。",
     "confidence": "medium",
@@ -72147,6 +73317,10 @@
     "category": "正統王朝",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-han",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 947,
@@ -72215,6 +73389,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "契丹が後晋を滅ぼし少帝を北へ連れ去った後、河東節度使のまま自ら建号を決した（『旧五代史』巻九十九「帝知契丹政乱，乃议建号焉」）。「以中原无主，帝威望日隆，群情所属，上笺劝进」と河東行軍司馬張彦威ら文武将吏が三たび勧進し、「帝于太原宫受册，即皇帝位」。後晋から位を受けた記述はなく、契丹は逆に「契丹闻帝建号，伪制削夺帝官爵」と敵対した。",
     "confidence": "high",
@@ -72407,6 +73582,10 @@
     "category": "正統王朝",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-han",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 948,
@@ -72475,6 +73654,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "高祖の第二子として、崩御時の遺制により柩前で即位。",
     "confidence": "high",
@@ -72671,6 +73851,10 @@
     "category": "反乱・自称政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-zhou",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 951,
@@ -72739,6 +73923,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "隠帝は郭允明に弑され（「二十二日旦，郭允明弑汉隐帝于北郊」）、澶州では諸軍が兵変を起こして「或有裂黄旗以被帝体，以代赭袍」と推戴した。広順元年正月、漢の太后誥により即位する（『旧五代史』巻一百十「邃古以来，受命相继，是不一姓」「今奉符宝授监国，可即皇帝位」、「是日，帝自皋门入大内，御崇元殿，即皇帝位」）。太后誥は姓の交代と符宝の移譲を述べる王朝交代の文書だが、受禅台を築く儀の記述はない。太后の詔で一旦漢の後継に定められていた劉贇（湘陰公）は即位後に殺害された。",
     "confidence": "high",
@@ -72922,6 +74107,10 @@
     "category": "正統王朝",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-zhou",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 954,
@@ -72990,6 +74179,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "郭威の甥で養子として迎えられ、生前より開封尹・晋王として後継者の地位を確立、郭威の遺制により柩前で即位。",
     "confidence": "high",
@@ -73154,6 +74344,10 @@
     "category": "正統王朝",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-zhou",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 959,
@@ -73222,6 +74416,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "世宗の実子として、崩御時の遺制により柩前で即位。",
     "confidence": "high",
@@ -73336,6 +74531,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "yang-wu",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 927,
@@ -73404,6 +74603,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "本来の序列では兄・臨川王楊蒙が継承すべきところ、実権者の徐温が「長君」（成人した自立的な君主）を望まず、かつ蒙を忌避したため順序を無視して楊溥を擁立した。",
     "confidence": "high",
@@ -73593,6 +74793,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "former-shu",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 907,
@@ -73661,6 +74865,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "唐の滅亡後、蜀王・西川節度使のまま自ら皇帝位に即いた（『新五代史』巻六十三「建乃即皇帝位」）。『十国春秋』は将佐の勧めを記す——「王会将佐议称帝皆曰大王虽忠于唐唐已亡矣此所谓天与不取者也」。前任の君主から位を受けた記述はない。",
     "confidence": "high",
@@ -73953,6 +75158,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "former-shu",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 918,
@@ -74021,6 +75230,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "正妃腹の兄が既に死去し、父帝崩御に伴う立太子子の正規継承。",
     "confidence": "high",
@@ -74195,6 +75405,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "southern-han",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 917,
@@ -74263,6 +75477,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "兄・劉隠の死に際してその地位を継いだ。『十国春秋』は「及烈宗弥留之际陟遂奉遗命权知清海军留后」と兄の遺命によるものとし、『新五代史』巻六十五は「代立。乾化二年，除清海节度使」と記して、後梁からは兄の官爵をそのまま授けられ南海王を襲封した。帝号はその6年後に新たに称したもので（「即皇帝位，国号大越，改元曰乾亨」）、それまでは「自梁初受封爵，禀正朔而已」と後梁の正朔を奉じていた。",
     "confidence": "high",
@@ -74452,6 +75667,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "southern-han",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 942,
@@ -74520,6 +75739,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "高祖の第三子。兄の耀枢・龟図が先に死去して継承順位にあったが、高祖は右僕射王翷と謀って秦王（劉玢）・晋王（劉晟）を邕州・容州へ出し、序列を越えて越王昌を立てようとした。崇文使の蕭益が「立嫡以长」の義を説いてこれを止め、そのまま即位に至る（『十国春秋』巻五十九「益谏曰立嫡以长违之必乱少者若立祸自此始由是殇帝卒得立」、『新五代史』巻六十五「由是洪度卒得立。」）。先帝の遺詔はない。",
     "confidence": "high",
@@ -74655,6 +75875,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "southern-han",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 943,
@@ -74723,6 +75947,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "兄・殤帝を暗殺した張本人（晋王熙＝劉晟）が自ら即位した事案であり、単なる兄弟継承ではなく実力による簒奪。即位後も弟の越王昌ら王族を次々に粛清している。",
     "confidence": "high",
@@ -74858,6 +76083,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "southern-han",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 958,
@@ -74926,6 +76155,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "中宗の長子。原典は「后主名鋹初名继兴封卫王中宗长子也干和十六年八月辛巳袭位」（『十国春秋』巻六十）、「晟卒，以长子立」（『新五代史』巻六十五）と記すのみで、立太子・遺詔・顧命・群臣の推戴のいずれも記述がない。乾和11年に父の病臥に際して衛王に封ぜられた記事はあるが、後継指名には当たらない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "high",
@@ -75040,6 +76270,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-shu",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 934,
@@ -75108,6 +76342,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "後唐から蜀王に册封された剣南両川節度使。明宗の崩御後、趙季良が符瑞を上表して「率文武百官劝进」し、自ら皇帝位に即いた（『新五代史』巻六十四「明年闰正月，知祥乃即皇帝位，国号蜀」）。前任の君主から位を受けた記述はない。",
     "confidence": "high",
@@ -75225,6 +76460,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "later-shu",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 934,
@@ -75293,6 +76532,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "父・高祖の発病時に皇太子として監国し（『新五代史』巻六十四「知祥病，昶监国」）、高祖の死後、枢密使王処回と司空趙季良が遺制を宣して即位した（「处回遂与季良立昶，而后发丧」）。崩御はしばらく秘された。",
     "confidence": "high",
@@ -75437,6 +76677,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "southern-tang",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 937,
@@ -75505,6 +76749,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "呉の睿帝楊溥が位を譲った。「十月，溥遣摄太尉杨璘传位于昪，国号齐，改元升元」、本人も冊文で「受禅老臣知诰，谨上册皇帝为高尚思玄弘古让皇帝」と受禅を称する（『新五代史』巻六十二）。先立って「闽、越诸国皆遣使劝进」があり、また「周本与诸将至金陵劝进」と国内の諸将も勧進した。楊溥は譲皇帝の尊号を受けた後、潤州丹陽宮に遷されて同宮で没した。",
     "confidence": "high",
@@ -75648,6 +76893,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "southern-tang",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 943,
@@ -75716,6 +76965,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "烈祖の長子として正式に太子となり、父の崩御を受け正式に践祚。",
     "confidence": "high",
@@ -75924,6 +77174,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "min",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 933,
@@ -75992,6 +77246,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "兄・嗣王延翰の殺害の共謀者。『新五代史』巻六十八は「初，延禀与鏻之谋杀延翰也，延禀之兵先至，已执延翰而杀之」と、養子の兄・延稟と共謀したうえで延稟の兵が先に着いて延翰を殺したことを記し、続けて「延禀自以养子，推鏻而立之」と延稟が威武留後に推立したとする。後唐から閩王に封ぜられた後、龍啓元年に自ら皇帝位に即いた（帝号は新称）。",
     "confidence": "high",
@@ -76147,6 +77402,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "min",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 935,
@@ -76215,6 +77474,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "父・恵宗（王延鈞）殺害の共謀者として即位。",
     "confidence": "high",
@@ -76361,6 +77621,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "min",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 941,
@@ -76429,6 +77693,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "康宗（王継鵬）が連重遇のクーデターで殺害された後、瓦礫のなかから迎えられて立った（『十国春秋』巻九十二「重遇入直率二都兵焚长春宫作乱使人迎延羲于瓦砾中呼万嵗」）。即位時に称したのは皇帝号ではなく「及康宗遇害延羲自称威武节度使闽国王更今名」で、帝号を称したのは2年後のため軸1bは新称。",
     "confidence": "high",
@@ -76577,6 +77842,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "min",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 943,
@@ -76645,6 +77914,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "兄・景宗（王延羲）の暴政に抗して建州で兵を挙げ、景宗がなお在位するなかで別に国を立てて帝を称した（『新五代史』巻六十八「延政乃以建州建国称殷，改元天德」）。推戴・册立の記述はなく、閩の帝位を継いだのでもない。",
     "confidence": "high",
@@ -76769,6 +78039,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "northern-han",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 951,
@@ -76837,6 +78111,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "後漢の河東節度使。郭威が漢の後継に立てた実子・劉贇が帰れないと知って自ら立つ意を固め（『十国春秋』巻百四「崇知赟不得归始有自立意」）、広順元年正月に太原で即位した（『新五代史』巻七十「乃以周广顺元年正月戊寅即皇帝位于太原」）。後漢の年号「乾祐」は継続使用したが位を受けた手続きはなく、原文も「兀欲闻旻自立」と自立と記す。契丹による「大漢神武皇帝」の册尊は即位後の同年六月。",
     "confidence": "high",
@@ -76968,6 +78243,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "northern-han",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 954,
@@ -77036,6 +78315,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "父・世祖が病篤となった際「命皇子承鈞監國」で事実上の摂政となり、世祖崩御後、契丹から「子皇帝」として正式に天子に冊立された（父の死去に伴う正統な世襲継承）。",
     "confidence": "high",
@@ -77169,6 +78449,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "northern-han",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 968,
@@ -77237,6 +78521,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "睿宗劉鈞の養子（世祖の外孫）。睿宗は病床で郭無為に後事を託したが継恩を後継に指名しておらず、生前には「继恩纯孝，然非济世之才，恐不能了我家事」と本人への不安を述べていた。原典は「承钧卒，继恩告哀于契丹而后立」（『新五代史』巻七十）、『十国春秋』巻百五も「告哀于契丹后嗣皇帝位」と主語のない記述にとどまり、遺詔・太后令・群臣の推戴・契丹の册立のいずれも記されない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "medium",
@@ -77341,6 +78626,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "northern-han",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 968,
@@ -77409,6 +78698,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "劉継恩暗殺後、宰相郭無為が世祖嫡孫（契丹抑留中の劉継文）擁立論を退け「継元の方が制御しやすい（易制）」との理由で継元擁立を強行した。継元本人の主体的な行為ではなく権臣主導の傀儡的即位。",
     "confidence": "high",
@@ -77534,6 +78824,10 @@
     "category": "並立政権",
     "section": "五代十国"
    },
+   "eraId": "five-dynasties",
+   "regimeId": "jie-yan",
+   "researchSection": "五代十国",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 911,
@@ -77602,6 +78896,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "父・劉仁恭を幽閉して盧龍節度使を自称し、兄・劉守文も滅ぼした。諸鎮に働きかけたが得られたのは「尚书令、尚父」の册にとどまり、「我为尚父，谁当帝者乎？」と不満を述べ、諫めた孫鶴を殺したうえで「守光遂以梁乾化元年八月自号大燕皇帝，改元曰应天」と自ら帝号を称した（『新五代史』巻三十九）。父も帝号を持たず、帝位を受けた相手はいない。",
     "confidence": "high",
@@ -77706,6 +79001,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "northern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 960,
@@ -77773,6 +79072,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "abdication-received",
     "category": "受禅（易姓）",
     "note": "後周の殿前都点検。北漢・契丹の来寇に出兵した途上、陳橋駅で軍が推戴した（『宋史』巻一「夜五鼓，軍士集驛門，宣言策點檢為天子」「有以黃衣加太祖身，衆皆羅拜，呼萬歲」。原文の語は「黃袍」ではなく「黃衣」）。開封に戻ると「翰林承旨，陶榖出周恭帝，禪位制書于袖中」とあり、北面して拝受したうえ崇元殿で袞冕を服して即位した。譲位した恭帝は「遷恭帝及符后于西宮，易其帝號曰鄭王」と鄭王に改められ、開宝6年に房州で没した。受禅台・符宝・伝国璽・冊礼にあたる語は太祖本紀に現れない。",
     "confidence": "high",
@@ -78125,6 +79425,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "northern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 976,
@@ -78193,6 +79497,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "太祖の同母弟。即位前の地位は晋王・開封尹で、皇太弟に立てられた記録はない。『宋史』巻四の即位記事は「開寶九年冬十月癸丑，太祖崩，帝遂即皇帝位」の一文のみで、遺詔・遺制・顧命・群臣の推戴のいずれの語も伴わない。杜太后の遺命（いわゆる金匱之盟）に触れるのは太祖本紀末尾の「受命杜太后，傳位太宗。」一句だけで、これは日付を持つ編年記事ではなく人物記述部分にある。本紀の賛も「若夫太祖之崩不踰年而改元，涪陵縣公之貶死，武功王之自殺，宋后之不成喪，則後世不能無議焉」と議論の余地を認める。誰が即位を決めたかは原典から確定できない。",
     "confidence": "medium",
@@ -78596,6 +79901,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "northern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 997,
@@ -78664,6 +79973,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "太宗第三子。至道元年に立太子、太宗崩御時に遺制により柩前即位。",
     "confidence": "high",
@@ -79050,6 +80360,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "northern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1022,
@@ -79117,6 +80431,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "真宗第六子（生母は李宸妃だが章献皇后劉氏の養子として育てられた）。正式に立太子され、真宗崩御に伴い遺詔により即位。",
     "confidence": "high",
@@ -79837,6 +81152,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "northern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1063,
@@ -79904,6 +81223,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "濮安懿王允譲第十三子（仁宗に実子なく養子として立てられた皇子）。仁宗崩御時、皇后が伝えた遺詔により即位。",
     "confidence": "high",
@@ -80049,6 +81369,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "northern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1067,
@@ -80116,6 +81440,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "英宗長子。治平3年に立太子、英宗崩御時に正規に即位。",
     "confidence": "high",
@@ -80485,6 +81810,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "northern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1085,
@@ -80552,6 +81881,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "神宗第六子。神宗病重篤時に皇太子に立てられ、崩御時に正規に即位。",
     "confidence": "high",
@@ -80778,6 +82108,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "northern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1100,
@@ -80846,6 +82180,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "哲宗の弟。哲宗に子がなく、向太后が垂簾のもとで後継を決めた（『宋史』巻十九「大行皇帝無子」「於次端王當立」）。宰相章惇は「以年則申王長，以禮律則同母之弟簡王當立」と反対したが押し切られ、「乃召端王入，即皇帝位，皇太后權同處分軍國事」と即位した。",
     "confidence": "high",
@@ -81370,6 +82705,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "northern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1126,
@@ -81438,6 +82777,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "徽宗長子。政和5年に立太子、金軍侵攻の軍事的危機下、徽宗が退位を強行し本人は固辞したが即位した。父子間の正規継承だが平時の自然な譲位ではなく軍事的緊急事態下での強制的内禅。",
     "confidence": "high",
@@ -81591,6 +82931,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "southern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1127,
@@ -81690,6 +83034,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "徽宗の第九子・康王。靖康の変で徽宗・欽宗はともに在位のまま金に連行され、位を譲る行為も詔もないまま宋の朝廷は消滅した。高宗は欽宗から位を受けたのではなく、張邦昌が退いた後に垂簾していた元祐皇后の手書「俾帝嗣統」と、在京百官の三度の上表による勧進を経て応天府で即位した（『宋史』巻二十四）。苗劉の乱で一時退位させられ太后の詔で復位した件はreigns[].isRestoration で表す。",
     "confidence": "high",
@@ -83796,6 +85141,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "southern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1162,
@@ -83864,6 +85213,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "淳煕16年2月、高宗より内禅（生前譲位）を受けて即位。",
     "confidence": "high",
@@ -84512,6 +85862,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "southern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1189,
@@ -84580,6 +85934,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "淳煕16年、孝宗より内禅の礼を経て即位。",
     "confidence": "high",
@@ -84786,6 +86141,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "southern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1194,
@@ -84853,6 +86212,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "孝宗崩御後、光宗が病で喪を執れないことを理由に、知枢密院事趙汝愚が韓侂冑を介して太皇太后呉氏を動かし嘉王（寧宗）を擁立。正史は「内禅」の語を用いるが実質は大臣主導のクーデター的擁立。",
     "confidence": "high",
@@ -85395,6 +86755,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "southern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1224,
@@ -85462,6 +86826,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "寧宗危篤時、権臣史彌遠が正式に擁立されていた皇子済王竑を排除し遠縁の趙貴誠（理宗）を代わりに擁立。矯詔（偽の遺詔）を用いた点で正統性に疑義があり、即位後、済王竑は史彌遠の指示で自尽に追い込まれた。",
     "confidence": "high",
@@ -86039,6 +87404,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "southern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1264,
@@ -86107,6 +87476,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "景定元年、理宗（伯父）の皇太子に立てられ、理宗崩御に伴い遺詔により即位。理宗に実子なく度宗は理宗の甥（養子格）として立太子されており通常の立太子・即位手続きを経た世襲。",
     "confidence": "high",
@@ -86249,6 +87619,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "southern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1274,
@@ -86316,6 +87690,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "度宗崩御後「奉遺詔即皇帝位於柩前」。度宗の子（母は全皇后＝嫡出）で太后謝氏・賈似道が嫡子優先の原則で選定した通常の皇位継承手続き。",
     "confidence": "high",
@@ -86461,6 +87836,10 @@
     "category": "反乱・自称政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "southern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1276,
@@ -86528,6 +87907,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "度宗の子、恭帝の兄。恭帝は伝国璽を奉じて元に降り「削去帝號」となっており、端宗はその恭帝から位を受けたのではない。臨安脱出後、陳宜中・張世傑・陸秀夫ら遺臣が福州で立てた（『宋史』巻四十七「宜中等乃立昰于福州，以為宋主」）。太皇太后は召還の使を送ったが拒まれている。",
     "confidence": "high",
@@ -86683,6 +88063,10 @@
     "category": "反乱・自称政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "southern-song",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1278,
@@ -86751,6 +88135,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "端宗崩御後、遺臣により擁立、改元「祥興」。南宋最後の政権を継承する遺臣主導の擁立。",
     "confidence": "high",
@@ -86857,6 +88242,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "liao",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 916,
@@ -86924,6 +88313,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "遙輦氏の痕徳菫可汗が死去し、その遺命を奉じた群臣に推されて可汗位に即いた（『遼史』巻一「群臣奉遗命请立太祖」「曷鲁等劝进」「太祖三让，从之」）。痕徳菫は可汗であって皇帝号を持たず、皇帝号は元年正月に新たに称したもの。神冊元年にあらためて群臣と諸属国が壇を築いて尊号「大聖大明天皇帝」を上り、遙輦氏の世選（部族連合の輪番可汗制）は廃された。",
     "confidence": "high",
@@ -87312,6 +88702,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "liao",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 927,
@@ -87380,6 +88774,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "太祖の嫡長子で皇太子であった人皇王耶律倍を差し置き、母后（淳欽皇后述律氏）の意向で即位。正式な皇太子であった倍は即位できず後に後唐に亡命した。",
     "confidence": "medium",
@@ -87621,6 +89016,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "liao",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 947,
@@ -87689,6 +89088,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "太宗の甥（人皇王倍の子）。太宗が欒城で崩じた後、梓宮を護送する軍中で即位した（『遼史』巻五「太宗崩于栾城。戊寅，梓宫次镇阳，即皇帝位于柩前」）。位を与えた主体の記述はなく、摂政の立場にあった述律太后はこれを認めず「太后闻帝即位，遣太弟李胡率兵拒之」と兵で阻もうとして両軍が衝突した。",
     "confidence": "medium",
@@ -87847,6 +89247,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "liao",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 951,
@@ -87915,6 +89319,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "太宗の長子・寿安王。世宗が察割の乱で弑された後に即位した。『遼史』巻六の即位記事は「世宗遇害。逆臣察割等伏诛。丁卯，即皇帝位，群臣上尊号曰天顺皇帝，改元应历」の一続きのみで、遺詔・太后の令・群臣の勧進のいずれも記されず、本人が乱の鎮圧に加わったとする記述も本紀にはない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "high",
@@ -88057,6 +89462,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "liao",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 969,
@@ -88124,6 +89533,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "世宗の第二子で穆宗の許で養育された。正式な立太子・遺詔はなく、穆宗遇弑の報を受け軍を率いて駆けつけた景宗を群臣が柩前で推戴した。",
     "confidence": "medium",
@@ -88322,6 +89732,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "liao",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 982,
@@ -88390,6 +89804,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "景宗の嫡長子で正式に遺詔を受けて即位した直系世襲（即位当初は生母・承天皇太后が摂政）。",
     "confidence": "high",
@@ -88817,6 +90232,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "liao",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1031,
@@ -88884,6 +90303,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "聖宗の嫡長子で、太平元年に正式に皇太子として冊立されていた上で、聖宗崩御時に柩前で即位。",
     "confidence": "high",
@@ -89143,6 +90563,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "liao",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1055,
@@ -89211,6 +90635,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "興宗の嫡長子として遺詔を受け柩前で即位。",
     "confidence": "high",
@@ -89543,6 +90968,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "liao",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1101,
@@ -89610,6 +91039,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "道宗の孫。実父の順宗（皇太子濬）が耶律乙辛の讒言により先に廃死していたため、嫡系の孫として遺詔により即位した。",
     "confidence": "high",
@@ -90088,6 +91518,10 @@
     "category": "反乱・自称政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-liao",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1132,
@@ -90155,6 +91589,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "遼の天祚帝がなお存命のなかで西走し、自ら王を称した後、随行の百官が皇帝に册立した（『遼史』巻三十「自立为王」「文武百官册立大石为帝」）。遼の前帝から位を受けた記述はなく、天祚帝はむしろ「我在，汝何敢立淳」と責めており、位を与えた側としては現れない。",
     "confidence": "high",
@@ -90279,6 +91714,10 @@
     "category": "反乱・自称政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-liao",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1150,
@@ -90347,6 +91786,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "徳宗の子。徳宗の死後、母・感天皇后蕭塔不煙が7年間称制し、その後に即位した。『遼史』巻三十の記述は「子夷列即位，改元绍兴」のみで、徳宗の「遣命皇后权国」は皇后に国政を委ねる指示であって夷列を帝位に即けよという文言ではなく、群臣の勧進・詔・册の記載もない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "medium",
@@ -90447,6 +91887,10 @@
     "category": "反乱・自称政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-liao",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1177,
@@ -90515,6 +91959,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "仁宗の次子。仁宗の遺詔は妹の普速完に国政を委ねるもので（「遗诏以妹普速完权国」）、直魯古を帝位に即けよという文言ではない。普速完が駙馬の父・斡里剌の兵に射殺された後、『遼史』巻三十は「仁宗次子直鲁古即位，改元天禧」と記すのみで、詔・册・勧進・推戴のいずれの主体も名指ししない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "medium",
@@ -90625,6 +92070,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "jin-jurchen",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1115,
@@ -90692,6 +92141,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "兄・康宗（烏雅束）の死により部族連合の長の地位を継いだ（『金史』巻二「康宗即世，太祖袭位为都勃极烈」）。この継承について康宗の遺命・遺詔、部族長の推戴・会議を記す原文はない。皇帝号はその後に新たに称したもので、「收国元年正月壬申朔，群臣奉上尊号。是日，即皇帝位」に続けて本人が国号「大金」を定めている。君主位を継いだ時点について誰が決めたかは原典から確定できない。",
     "confidence": "high",
@@ -91011,6 +92461,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "jin-jurchen",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1123,
@@ -91079,6 +92533,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "太祖崩御後、宗室・百官の推戴（三譲の作法）を経て即位。太祖の同母弟であり兄弟継承。",
     "confidence": "high",
@@ -91288,6 +92743,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "jin-jurchen",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1135,
@@ -91355,6 +92814,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "太宗により「諳班勃極烈」（皇太子格）に定められ、太宗崩御を受け柩前で即位。正式に指名された太祖嫡孫としての継承。",
     "confidence": "high",
@@ -91537,6 +92997,10 @@
     "category": "反乱・自称政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "jin-jurchen",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1150,
@@ -91605,6 +93069,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "熙宗を弑して即位。",
     "confidence": "high",
@@ -91858,6 +93323,10 @@
     "category": "反乱・自称政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "jin-jurchen",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1161,
@@ -91925,6 +93394,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "太祖の孫、海陵王の従兄弟。海陵王が南征中で在位したまま、東京（遼陽）で官属と帰属した諸軍の勧進を受けて即位した（『金史』巻六「官属诸军劝进，固让良久」）。海陵王を排除したのは本人ではなく、即位の翌月に揚州で「完颜元宜等弑海陵于扬州」と別の場所で弑された。",
     "confidence": "high",
@@ -92134,6 +93604,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "jin-jurchen",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1189,
@@ -92202,6 +93676,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "大定29年、世宗崩御を受け皇太孫として柩前で即位。大定26年に既に皇太孫に冊立済み。",
     "confidence": "high",
@@ -92399,6 +93874,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "jin-jurchen",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1208,
@@ -92467,6 +93946,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "章宗に嫡子なく、元妃李氏・宦官李新喜・平章政事完顔匡が定策し衛王を後継に選定、章宗崩御後に柩前で即位。血統上の後継指名というより宮廷有力者による擁立の性格が強い。",
     "confidence": "medium",
@@ -92634,6 +94114,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "jin-jurchen",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1213,
@@ -92702,6 +94186,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "衛紹王弑殺後、胡沙虎が彰徳府から擁立。世宗の孫・顕宗の子で章宗の異母兄にあたる皇族だが、直系の指名継承者ではなくクーデターの実行者胡沙虎による擁立という性格が強い。",
     "confidence": "high",
@@ -93343,6 +94828,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "jin-jurchen",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1224,
@@ -93411,6 +94900,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "貞祐4年正月に皇太子に冊立済みの正統な後継者。宣宗危篤の際、異母兄の荊王守純と緊張関係にあったが、宣宗崩御の翌日、正式に柩前で即位。",
     "confidence": "medium",
@@ -93726,6 +95216,10 @@
     "category": "正統王朝",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "jin-jurchen",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1234,
@@ -93793,6 +95287,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "哀宗が蔡州陥落必至と判断し、正式な譲位の詔をもって承麟に伝位。辞退→詔→即位→百官祝賀という正式な内禅（同一王朝内の生前譲位）の手続きを踏んでいる。原典（金史）は「傳位」と記し、承麟は哀宗の子ではなく世祖の後裔にあたる宗室（傍系）である。",
     "confidence": "high",
@@ -93883,6 +95378,10 @@
     "category": "並立政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-xia",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1038,
@@ -93950,6 +95449,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "父・徳明の死により夏の君主位を継いだ（『西夏書事』巻十二「夏王赵德明卒」「子元昊嗣」）。この継承について遺命・推戴を記す原文はなく、宋は定難軍節度使・西平王を、契丹は夏国王を授けている。皇帝号は1038年に新たに称したもので、野利仁栄・楊守素らと謀って壇を築き群臣の册を受けた。君主位を継いだ時点について誰が決めたかは原典から確定できない。",
     "confidence": "high",
@@ -94185,6 +95685,10 @@
     "category": "並立政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-xia",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1048,
@@ -94253,6 +95757,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "曩霄（元昊）の子。曩霄は子の寧令哥に刺されて死に、遺命は従弟の委哥寧令を立てるものだったが、国相・没蔵訛龐が「委哥宁令非子，且无功，安得有国」としてこれを退け、生後1年の諒祚を立てた（『西夏書事』巻十八「没藏讹庞立谅祚」）。同書の按語は「谅祚书『讹庞立』，以见违命专擅，利立幼君，一人之私也」と、遺命に違背した訛龐個人の行為として記す。",
     "confidence": "high",
@@ -94497,6 +96002,10 @@
     "category": "並立政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-xia",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1068,
@@ -94565,6 +96074,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "諒祚の長子。『西夏書事』巻二十一の記述は「长子秉常立」のみで、遺詔・遺命・推戴の記載がない。即位翌年正月から母・梁氏が垂簾摂政し、その弟・梁乙埋が国相となった。誰が即位を決めたかは原典から確定できない（西夏には正史がなく、清代の私撰編年史『西夏書事』の「子○○立」という記法が記録の限界）。",
     "confidence": "high",
@@ -94705,6 +96215,10 @@
     "category": "並立政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-xia",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1086,
@@ -94773,6 +96287,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "秉常の長子。『西夏書事』巻二十六の記述は「长子乾顺立，方三岁」のみで、遺詔・遺命・推戴の記載がない。即位後は母・梁氏を皇太后とし、梁乙逋が専政した。誰が即位を決めたかは原典から確定できない。",
     "confidence": "high",
@@ -94995,6 +96510,10 @@
     "category": "並立政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-xia",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1139,
@@ -95063,6 +96582,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "乾順の長子。『西夏書事』巻三十五の記述は「长子仁孝立，时年十六」のみで、遺詔・遺命・推戴の記載がない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "high",
@@ -95315,6 +96835,10 @@
     "category": "並立政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-xia",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1193,
@@ -95382,6 +96906,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "仁孝の子。『西夏書事』巻三十八の記述は「子纯佑立」のみで、遺詔・遺命・推戴の記載がない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "high",
@@ -95504,6 +97029,10 @@
     "category": "並立政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-xia",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1206,
@@ -95571,6 +97100,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "1206年正月、桓宗純祐を廃して自立（「鎮夷郡王安全廢其主純祐自立，改元應天」）。",
     "confidence": "high",
@@ -95702,6 +97232,10 @@
     "category": "並立政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-xia",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1211,
@@ -95769,6 +97303,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "斉王。『西夏書事』は経緯が不明であることを明言する——「遵顼之立，史不详其故」。襄宗安全には実子・承禎がありながら継がず、しかも遵頊の即位は安全の死の1ヶ月前にあたる（史臣も「较安全卒前一月，安全有子承祯，不得嗣。金卫绍王无实录，莫得其故也」とする）。廃立を示す原文も推戴を示す原文もなく、誰が即位を決めたかは原典から確定できない。",
     "confidence": "medium",
@@ -95882,6 +97417,10 @@
     "category": "並立政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-xia",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1223,
@@ -95950,6 +97489,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "父・神宗遵頊がモンゴルの圧力を恐れて譲位（「遵頊懼，遜位於次子徳旺，自號上皇」）。",
     "confidence": "high",
@@ -96052,6 +97592,10 @@
     "category": "並立政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "western-xia",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1226,
@@ -96119,6 +97663,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "献宗徳旺の急死を受け、群臣・国人が清平郡王（遵頊の子で徳旺の弟）の子である南平王・見を擁立。",
     "confidence": "high",
@@ -96211,6 +97756,10 @@
     "category": "並立政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "zhangbangchang-chu",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1127,
@@ -96279,6 +97828,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "宋の太宰兼門下侍郎。金が宋の二帝を廃して連行したうえで異姓の君主を立てさせたもので、宋の前帝から位を受けたのではない。留守孫傅らが趙氏擁立を主張したのを金が退け、百官の推挙は金の使者の督促と范瓊の兵の包囲下で行われた。「適金人奉冊寶至，邦昌北向拜舞受冊」と金の冊宝を受けて即位し、国号を大楚とした（『宋史』巻四百七十五）。",
     "confidence": "high",
@@ -96399,6 +97949,10 @@
     "category": "並立政権",
     "section": "宋遼西夏金"
    },
+   "eraId": "song-liao-jin-xia",
+   "regimeId": "liuyu-qi",
+   "researchSection": "宋遼西夏金",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1130,
@@ -96467,6 +98021,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "済南知府から金に降った宋の臣。金の左監軍撻懶に重宝を贈って僭号を求め、金がこれを容れて冊命した（『宋史』巻四百七十五「金人遣大同尹高慶裔、知制誥韓昉冊豫為皇帝，國號大齊」、『金史』の詔は「今立豫为子皇帝，既为邻国之君，又为大朝之子」）。宋の前帝から位を受けたのではなく、金が新たに立てた政権。本人が積極的に働きかけた点は張邦昌と異なるが、位を授けたのはいずれも金である。",
     "confidence": "high",
@@ -96607,6 +98162,10 @@
     "category": "正統王朝",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "yuan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1260,
@@ -96674,6 +98233,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "モンゴル伝統のクリルタイ（全宗族会議）を経ず、開平（上都）で自らの支持基盤である漢地方面の諸王・重臣らに推戴される形で即位。同時期、弟アリクブケも別途カラコルムで諸侯に推戴され二重即位状態となった。実質的には限定的な支持勢力による擁立。",
     "confidence": "medium",
@@ -97242,6 +98802,10 @@
     "category": "正統王朝",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "yuan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1294,
@@ -97310,6 +98874,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "世祖の嫡孫（父は早世した皇太子裕宗真金）で、世祖存命中に皇太子宝を授けられ後継者として確立されていた。世祖崩御後、慣例儀礼を経て即位。",
     "confidence": "high",
@@ -97619,6 +99184,10 @@
     "category": "正統王朝",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "yuan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1307,
@@ -97686,6 +99255,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "成宗に実子なく崩御後、皇后伯要真氏＋安西王アナンダの称制画策という政変未遂が発生。弟仁宗と母后が政敵を粛清した上で北辺にいた武宗を迎え即位させた。軍事力を背景にした政変鎮圧後の推戴のため擁立。",
     "confidence": "high",
@@ -97933,6 +99503,10 @@
     "category": "正統王朝",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "yuan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1311,
@@ -98000,6 +99574,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "武宗即位直後に正式に皇太子として冊立され、生前に確立された継承順位に基づく正統な世襲的即位。",
     "confidence": "high",
@@ -98282,6 +99857,10 @@
     "category": "正統王朝",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "yuan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1320,
@@ -98349,6 +99928,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "延祐3年に皇太子となり、仁宗崩御を受け正常に即位。",
     "confidence": "high",
@@ -98884,6 +100464,10 @@
     "category": "正統王朝",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "yuan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1323,
@@ -98951,6 +100535,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "晋王。英宗暗殺の実行犯・鉄失が事前に密使を送って打診したが、泰定帝は使者を監禁して上都へ密告使を送った（間に合わず）。暗殺後、共謀した諸王が皇帝璽綬を奉じて北の鎮所に迎え、「即皇帝位于龙居河」（『元史』巻二十九）。即位詔は決定の主体として「众人商量着」（衆議）を挙げ、先帝の遺詔・太后の令の記載はない。即位後に鉄失らを誅している。",
     "confidence": "medium",
@@ -99221,6 +100806,10 @@
     "category": "正統王朝",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "yuan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1328,
@@ -99288,6 +100877,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "泰定帝の子で、生前に「皇子阿速吉八为皇太子」と皇太子に立てられていた。泰定帝の崩御後、左丞相の倒剌沙が上都で立て天順と改元した（『元史』巻三十「倒剌沙立皇太子为皇帝」）。先帝による立太子と権臣による擁立の双方が原典に記される。大都の燕鉄木児が擁立した文宗と対立する政権として成立し、上都陥落後の消息は原典に記されない。",
     "confidence": "high",
@@ -99400,6 +100990,10 @@
     "category": "正統王朝",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "yuan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1328,
@@ -99497,6 +101091,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "武宗の子。泰定帝の崩御後、上都では皇太子阿速吉八が立てられており、大都では燕鉄木児が「率诸王、大臣伏阙请早正大位」と迫って即位した（『元史』巻三十二）。即位詔も「协谋推戴，属于眇躬」と燕鉄木児らの推戴によるとする。前帝から位を受けた記述はない。翌年、兄の明宗に位を譲り、明宗の急死後に再び即位した（2度目の在位は reigns の isRestoration で表す）。",
     "confidence": "high",
@@ -99760,6 +101355,10 @@
     "category": "正統王朝",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "yuan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1329,
@@ -99827,6 +101426,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "文宗が燕鉄木児のクーデターで先に即位した後、兄である明宗を正統な帝位継承者として北方に迎え、天暦2年正月に明宗が即位、文宗を皇太子とした。形式は弟からの譲位だが実態は権臣主導。",
     "confidence": "high",
@@ -99921,6 +101521,10 @@
     "category": "正統王朝",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "yuan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1332,
@@ -99988,6 +101592,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "文宗の遺詔「伝位於明宗之子」を受け、皇后（文宗后）の意向のもとで権臣燕鉄木児が奏請し、明宗の次子（寧宗）が擁立された。長子妥懽帖睦爾（後の順帝）ではなく幼い次子が選ばれた背景には文宗后・燕鉄木児の政治的思惑があったとされる。",
     "confidence": "high",
@@ -100103,6 +101708,10 @@
     "category": "正統王朝",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "yuan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1333,
@@ -100170,6 +101779,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "明宗の長子で血統上は正嫡だが、実際の即位過程は権臣主導。文宗崩御後、権臣エル・テムルが幼帝擁立を渋り数ヶ月即位させず、エル・テムル急死後に皇太后が大臣（バヤン等）を招集して即位を最終決定した。血統上の正当性はあるが即位の可否・時期は権臣と皇太后の主導で決せられたため擁立。",
     "confidence": "high",
@@ -101034,6 +102644,10 @@
     "category": "反乱・自称政権",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "northern-yuan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1370,
@@ -101102,6 +102716,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "至正13年に皇太子に冊立済みの恵宗長子。恵宗崩御を受けての即位は明確な父子直系継承で、権臣による擁立や簒奪を示す記述はない。",
     "confidence": "high",
@@ -101214,6 +102829,10 @@
     "category": "並立政権",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "hanlin-song",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1355,
@@ -101282,6 +102901,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "韓山童の子。父は帝位に就かないまま「山童为吏所捕诛」と元に誅殺されており、位を継いだのではない。劉福通が探し出して亳に迎え、帝として立てた（『明史』巻一百二十二「福通物色林儿，得诸砀山夹河」「迎至亳，僣称皇帝」）。本人を主語とする即位の動詞は原典に現れない。",
     "confidence": "high",
@@ -101421,6 +103041,10 @@
     "category": "並立政権",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "tianwan",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1351,
@@ -101489,6 +103113,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "彭瑩玉・鄒普勝らが容貌を見込んで「主」に推し（『明史』巻一百二十三「奇寿辉状貌，遂推为主」）、蘄水・黄州路を陥れた後に自ら皇帝を称して国号を天完とした。推戴と自ら称帝した行為の双方が原典に記され、前任の君主から位を受けた記述はない。",
     "confidence": "medium",
@@ -101649,6 +103274,10 @@
     "category": "並立政権",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "chen-han",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1360,
@@ -101717,6 +103346,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "名目上の主君・徐寿輝を実力で謀殺し、その地位を奪って即位（国号「漢」）。典型的な簒奪。",
     "confidence": "high",
@@ -101838,6 +103468,10 @@
     "category": "並立政権",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "chen-han",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1363,
@@ -101905,6 +103539,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "succession-unspecified",
     "category": "継承（経緯記載なし）",
     "note": "陳友諒の次子。友諒が鄱陽湖の戦いで流矢に当たって戦死した後、太尉張定辺がその遺体とともに武昌へ連れ帰り、「子理既还武昌，嗣伪位」と位を嗣いだ（『明史』巻一百二十三）。立太子・遺命・推戴のいずれも記述がなく、張定辺についても武昌へ連れ帰ったことのみが記されて位に即けた行為としては書かれていない。誰が即位を決めたかは原典から確定できない。",
     "confidence": "high",
@@ -102017,6 +103652,10 @@
     "category": "並立政権",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "ming-xia",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1362,
@@ -102085,6 +103724,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "徐寿輝配下の元帥だったが、陳友諒が徐寿輝を弑すると服属を拒み瞿塘峡を封鎖して「自立为陇蜀王」、至正22年に「僣即皇帝位于重庆」して国号を夏とした（『明史』巻一百二十三）。推戴・冊立・遺詔の記載はなく、参謀劉楨の進言を受けて衆に諮ったうえで自ら称している。",
     "confidence": "high",
@@ -102198,6 +103838,10 @@
     "category": "並立政権",
     "section": "元"
    },
+   "eraId": "yuan",
+   "regimeId": "ming-xia",
+   "researchSection": "元",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1366,
@@ -102265,6 +103909,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "「（玉珍）遂卒…子升嗣，改元開熙」。実子である明昇が父の死を受けて即位した典型的な父子継承。",
     "confidence": "high",
@@ -102388,6 +104033,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1368,
@@ -102455,6 +104104,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "紅巾軍のなかで台頭し、群臣の勧進を経て呉王位に即き（『明史』巻一「李善长等率群臣劝进，不允。固请，乃即吴王位」）、洪武元年正月に皇帝位に即いた（「李善长帅百官劝进，表三上，乃许」）。奉じていた宋（龍鳳政権）の韓林児からは年号を用いたのみで位を受けた記述はなく、「十二月，韩林儿卒」と記されるにとどまる。",
     "confidence": "high",
@@ -103212,6 +104862,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1398,
@@ -103280,6 +104934,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "洪武25年9月、皇太孫に冊立（父・懿文太子早世のため嫡孫として）。太祖崩御に伴い正規の手続きで即位。",
     "confidence": "high",
@@ -103421,6 +105076,10 @@
     "category": "反乱・自称政権",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1402,
@@ -103489,6 +105148,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "usurpation",
     "category": "簒奪",
     "note": "靖難の変（建文元年〜4年）は甥である恵宗（建文帝）政権に対する燕王棣の武力反乱。最終的に南京を攻略し即位した。名目は「祖訓に基づく君側の奸討伐」だが実質は甥の帝位を武力で奪取しており簒奪が妥当。",
     "confidence": "high",
@@ -103827,6 +105487,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1424,
@@ -103894,6 +105558,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "永楽2年に皇太子冊立（成祖の長子）、監国を長年務め、成祖崩御後、正規の手続きで即位。",
     "confidence": "high",
@@ -104035,6 +105700,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1425,
@@ -104102,6 +105771,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "永楽9年に皇太孫、仁宗即位後は皇太子として冊立済み。仁宗崩御に伴い遺詔を受けて即位した正規の世襲継承。",
     "confidence": "high",
@@ -104488,6 +106158,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1435,
@@ -104586,6 +106260,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "宣宗の長子。生後まもなく皇太子に冊立され、宣徳10年の宣宗崩御に伴い遺詔により即位した（宣宗の遺詔は「遗诏国家重务白皇太后」と国政を皇太后に諮ることを定める）。正統14年の土木の変で瓦剌に捕らわれ、弟の郕王（代宗）が即位して太上皇帝と遥尊された。天順元年正月、石亨・徐有貞・曹吉祥らが「以兵迎帝于南宫」として幽閉先から迎え出し復位した（2度目の在位は reigns の isRestoration で表す）。",
     "confidence": "high",
@@ -105037,6 +106712,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1449,
@@ -105105,6 +106784,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "英宗が土木の変で捕虜となった非常事態を受け、皇太后（孫太后）の勅諭と于謙ら文武群臣の「交章勧進」により、二度辞退した末に郕王（代宗）が即位した。皇太后主導・重臣主導の非常時擁立。",
     "confidence": "high",
@@ -105320,6 +107000,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1464,
@@ -105387,6 +107071,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "英宗の長子。景泰3年に一度沂王に降封されたが天順元年に皇太子に復立、天順8年正月に英宗崩御を受け即位。",
     "confidence": "high",
@@ -105701,6 +107386,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1487,
@@ -105769,6 +107458,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "憲宗第三子。成化11年に皇太子に立てられ、憲宗崩御を受け即位。",
     "confidence": "high",
@@ -105983,6 +107673,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1505,
@@ -106051,6 +107745,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "孝宗の長子。弘治5年に皇太子に立てられ、孝宗崩御を受け即位。",
     "confidence": "high",
@@ -106295,6 +107990,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1521,
@@ -106362,6 +108061,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "武宗の従兄弟（興献王の長子）。武宗は嗣子なく崩じ、臨終の谕は後継を名指しせず「其以朕意达皇太后，天下事重，与阁臣审处之」と皇太后と閣臣に委ねるにとどまった（『明史』巻十六）。これを承けて「慈寿皇太后与大学士杨廷和定策」し、「以遗诏迎王于兴邸」として興邸から迎え、皇太后が群臣に上箋させて勧進した。皇太子として冊立されていたわけではない。",
     "confidence": "medium",
@@ -106824,6 +108524,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1567,
@@ -106891,6 +108595,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "世宗第三子。太子（庄敬太子）早薨後、事実上の継嗣として裕王に冊封され、世宗崩御時の遺詔により即位。",
     "confidence": "high",
@@ -107064,6 +108769,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1572,
@@ -107132,6 +108841,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "穆宗第三子。隆慶2年（6歳）に皇太子冊立、穆宗崩御に伴い即位。",
     "confidence": "high",
@@ -107721,6 +109431,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1620,
@@ -107788,6 +109502,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "神宗長子。「争国本」を経て皇太子の地位が確定しており、神宗崩御の遺詔により即位。",
     "confidence": "high",
@@ -107894,6 +109609,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1620,
@@ -107961,6 +109680,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "光宗長子。光宗の遺詔により皇長子として即位。",
     "confidence": "high",
@@ -108178,6 +109898,10 @@
     "category": "正統王朝",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "ming",
+   "researchSection": "明",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1627,
@@ -108246,6 +109970,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "光宗第五子、信王。兄・熹宗に実子がなく、熹宗の大漸に際し召されて顧命（遺詔）を受け即位。",
     "confidence": "high",
@@ -108510,6 +110235,7 @@
   },
   {
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "神宗の孫、福恭王の子。崇禎帝の自尽により明の朝廷は北京とともに失われ、南京の諸臣が新たに君主を立てた。呂大器・張慎言・姜曰広らは「潞王贤明，可定大计」と潞王を推したが、鳳陽総督馬士英が江北四鎮の武将と結んで福王を擁し既成事実化した。南京守備の魏国公徐宏基が「徐宏基跪进监国宝」と監国宝を進め、群臣の三度の上箋を経て即位した（『小腆紀伝』紀第一）。崇禎帝から位を受けたのではない。",
     "confidence": "high",
@@ -108594,6 +110320,10 @@
     "category": "反乱・自称政権",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "southern-ming",
+   "researchSection": "明",
+   "standing": "regular",
    "empressInstallationCount": {
     "count": 0,
     "events": [],
@@ -108733,6 +110463,7 @@
   },
   {
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "太祖の九世孫（唐王）。弘光帝が南都陥落で失われた後、鄭鴻逵・鄭彩が兵を率いて福建に戻り「与巡抚张肯堂等议奉王监国」として監国に奉じ、鄭芝龍・黄道周・張肯堂の三度の上箋による勧進を経て即位した（『小腆紀伝』紀第三）。前帝の遺詔・太后の令はなく、即位詔で弘光帝に遥かに尊号を上っている。",
     "confidence": "high",
@@ -108825,6 +110556,10 @@
     "category": "反乱・自称政権",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "southern-ming",
+   "researchSection": "明",
+   "standing": "regular",
    "empressInstallationCount": {
     "count": 1,
     "events": [
@@ -108983,6 +110718,7 @@
   },
   {
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "隆武帝の弟。隆武帝が汀州で害された後、故大学士蘇観生らが「兄終弟及」を名分に「拥王监国」して同日に帝位に即けた（『小腆紀伝』紀第三）。本人を主語とする即位の動詞は原典に現れない。両広総督丁魁楚に共同推戴を持ちかけたが拒まれ、同時期に肇慶で監国していた永暦帝と並立した。",
     "confidence": "high",
@@ -109047,6 +110783,10 @@
     "category": "反乱・自称政権",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "southern-ming",
+   "researchSection": "明",
+   "standing": "regular",
    "empressInstallationCount": {
     "count": 0,
     "events": [],
@@ -109157,6 +110897,7 @@
   },
   {
    "accessionRoute": {
+    "categoryId": "acclamation",
     "category": "推戴",
     "note": "神宗の孫（桂王）。隆武帝が汀州で陥った報を受け、両広総督丁魁楚・巡撫瞿式耜ら在地の督撫が協議し、「贤而当立」として肇慶で監国に立て、湖広督師何騰蛟らの奉表勧進を経て即位した（『小腆紀伝』紀第四）。前帝の遺詔・太后の令はない（隆武帝が生前に「朕无子，后当属诸」と語ったことは記される）。",
     "confidence": "high",
@@ -109264,6 +111005,10 @@
     "category": "反乱・自称政権",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "southern-ming",
+   "researchSection": "明",
+   "standing": "regular",
    "empressInstallationCount": {
     "count": 1,
     "events": [
@@ -109439,6 +111184,7 @@
   },
   {
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "崇禎16年に「自称曰新顺王」、17年正月に西安で国号を大順と建て、北京入城後に武英殿で帝号を称した。帝号については牛金星らの勧進が記される（『明史』巻三百九「金星率贼众三表劝进，乃从之」）。北京攻囲中に杜勲を遣わして崇禎帝に禅位を求めたが「求禅位。帝怒，叱之」と拒まれており、明の帝位を受けた事実はない。",
     "confidence": "high",
@@ -109504,6 +111250,10 @@
     "category": "反乱・自称政権",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "shun",
+   "researchSection": "明",
+   "standing": "regular",
    "empressInstallationCount": {
     "count": 1,
     "events": [
@@ -109624,6 +111374,7 @@
   },
   {
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "崇禎3年に「自称八大王」、16年に武昌で「献忠遂僭号，改武昌曰天授府」として「铸西王之宝」と西王の宝を鋳し、のち成都で大西国王を僭号して位に即いた（『明史』巻三百九）。勧進・推戴・遺詔・冊立のいずれの記載もなく、いずれも自ら号したものである。",
     "confidence": "high",
@@ -109686,6 +111437,10 @@
     "category": "反乱・自称政権",
     "section": "明"
    },
+   "eraId": "ming",
+   "regimeId": "xi",
+   "researchSection": "明",
+   "standing": "regular",
    "empressInstallationCount": {
     "count": 0,
     "events": [],
@@ -109818,6 +111573,10 @@
     "category": "反乱・自称政権",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "qing",
+   "researchSection": "清",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1636,
@@ -109885,6 +111644,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "太祖ヌルハチ崩御時、後継者未定。大貝勒代善とその子岳託・薩哈廉が皇太極の才徳を推し、諸貝勒と協議して即位を要請。再三辞退した末に受諾し即位。",
     "confidence": "high",
@@ -110054,6 +111814,10 @@
     "category": "正統王朝",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "qing",
+   "researchSection": "清",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1643,
@@ -110121,6 +111885,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "太宗ホンタイジが後継者未定のまま急逝したため、礼親王代善が諸王・貝勒・文武群臣を集めて協議し福臨（当時6歳）を擁立。ドルゴンとホーゲの権力争いの妥協案としての即位という背景もある。",
     "confidence": "high",
@@ -110492,6 +112257,10 @@
     "category": "正統王朝",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "qing",
+   "researchSection": "清",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1661,
@@ -110560,6 +112329,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "順治18年正月、世祖崩御に伴い遺詔により8歳で即位。世祖の遺詔本文に生前皇太子として明確に指名されていたことが記されている（幼少のため四大臣が輔政）。",
     "confidence": "high",
@@ -111052,6 +112822,10 @@
     "category": "正統王朝",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "qing",
+   "researchSection": "清",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1722,
@@ -111119,6 +112893,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "康熙61年11月、聖祖危篤に際し斎宮に召され「宣詔嗣位」、聖祖崩御の翌日に即位。民間には遺詔改竄説（俗説）があるが学術的通説では否定的で、正史・学界とも遺詔による正規の世襲継承として扱う。",
     "confidence": "high",
@@ -111475,6 +113250,10 @@
     "category": "正統王朝",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "qing",
+   "researchSection": "清",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1735,
@@ -111542,6 +113321,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "雍正元年8月、世宗が正大光明匾額後に密書建儲（秘密建儲制）。雍正13年8月、世宗崩御後に荘親王允祿らが密封を開封し「宣詔即皇帝位」。標準的な遺詔・秘密建儲による世襲継承。",
     "confidence": "high",
@@ -111931,6 +113711,10 @@
     "category": "正統王朝",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "qing",
+   "researchSection": "清",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1796,
@@ -111999,6 +113783,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "inner-abdication",
     "category": "内禅",
     "note": "高宗（乾隆帝）の第十五子。乾隆60年に高宗自らが勤政殿で皇太子に立てることを宣示し、嘉慶元年正月に「高宗御太和殿，授玺」として璽を授けて位を譲り、太上皇帝となった（『清史稿』巻十六）。同一王朝内で前帝自身が譲位の行為を行った生前譲位。高宗は譲位後も太上皇帝として「军国重务仍奏闻，秉训裁决」と訓政を続けた。",
     "confidence": "high",
@@ -112333,6 +114118,10 @@
     "category": "正統王朝",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "qing",
+   "researchSection": "清",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1820,
@@ -112400,6 +114189,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "嘉慶帝が熱河で急逝した際、御前大臣・軍機大臣らが鐍匣（秘密建儲の匣）を開き嘉慶4年御筆の立儲硃諭を宣示して皇太子と確定。正規の秘密建儲制度に基づく世襲。",
     "confidence": "high",
@@ -113142,6 +114932,10 @@
     "category": "正統王朝",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "qing",
+   "researchSection": "清",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1850,
@@ -113209,6 +115003,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "宣宗（道光帝）が崩御直前に硃筆で皇太子に指名し即日即位した通常の父子継承。",
     "confidence": "high",
@@ -113514,6 +115309,10 @@
     "category": "正統王朝",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "qing",
+   "researchSection": "清",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1861,
@@ -113581,6 +115380,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "hereditary",
     "category": "世襲",
     "note": "文宗（咸豊帝）が熱河行宮で臨終の際、皇長子（同治帝）を皇太子に指名する遺詔を発し正規の父子継承として即位。同時に八大臣による輔政体制が敷かれたが即位の正統性そのものには影響しない。",
     "confidence": "high",
@@ -113875,6 +115675,10 @@
     "category": "正統王朝",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "qing",
+   "researchSection": "清",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1875,
@@ -113934,6 +115738,7 @@
     "notes": ""
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "醇親王奕譞の子、同治帝の従兄弟。同治帝が嗣子なく崩じたため（『清史稿』巻二十三「十二月癸酉，穆宗崩，无嗣」）、慈安・慈禧の両皇太后が親王・御前大臣・軍機大臣らを招集して定議し、「传懿旨，以上继文宗为子，入承大统，为嗣皇帝」として文宗の子として継がせた。前帝の遺詔が後継を指名した記述はなく、遺詔の頒布は懿旨より後である。",
     "confidence": "high",
@@ -114995,6 +116800,10 @@
     "category": "正統王朝",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "qing",
+   "researchSection": "清",
+   "standing": "regular",
    "reigns": [
     {
      "startYear": 1908,
@@ -115122,6 +116931,7 @@
     }
    },
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "醇親王載灃の子、光緒帝の甥。徳宗（光緒帝）が嗣子なく崩じ、「奉太皇太后懿旨，入承大统，为嗣皇帝」として穆宗（同治帝）を嗣ぎ大行皇帝の祧を兼承する形で即位した（『清史稿』巻二十五）。前日の徳宗危篤時にすでに「太皇太后命教养宫内」として宮中に入れられており、父の載灃も「奉太皇太后懿旨监国」と懿旨を奉じる側として記される。徳宗の遺詔の頒布は懿旨より後。",
     "confidence": "high",
@@ -115506,6 +117316,7 @@
   },
   {
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "清の平西王・親王。三藩の乱で挙兵した際は「自号周王天下都招讨兵马大元帅」と自ら号し、康熙17年に配下の勧進を受けて帝位に即いた（『清史稿』巻四百七十四「其下争劝进，遂以三月朔称帝」）。清の皇帝から位を受けた記述はなく、平西王・親王はいずれも皇帝位ではない。",
     "confidence": "high",
@@ -115571,6 +117382,10 @@
     "category": "並立政権",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "wu-zhou-sanfan",
+   "researchSection": "清",
+   "standing": "regular",
    "empressInstallationCount": {
     "count": 0,
     "events": [],
@@ -115680,6 +117495,7 @@
   },
   {
    "accessionRoute": {
+    "categoryId": "enthroned",
     "category": "擁立",
     "note": "呉三桂の孫。三桂は病中に「召其孙世璠於云南」としたが「未至」のまま死去しており、対面での指名・授受の記述はない。世璠が貴陽に至ると「至贵阳，其下拥称帝，改号洪化」と旧部下が擁して帝と称させた（『清史稿』巻四百七十四）。遺詔・遺命の記載はない。",
     "confidence": "high",
@@ -115759,6 +117575,10 @@
     "category": "並立政権",
     "section": "清"
    },
+   "eraId": "qing",
+   "regimeId": "wu-zhou-sanfan",
+   "researchSection": "清",
+   "standing": "regular",
    "empressInstallationCount": {
     "count": 0,
     "events": [],
@@ -115878,6 +117698,7 @@
   },
   {
    "accessionRoute": {
+    "categoryId": "self-established",
     "category": "自立",
     "note": "中華民国大総統。1915年、参政院代行立法院が国民代表大会の推戴書を上呈し、二度の辞退の後に受諾する形で12月12日に皇帝即位を宣言し、国号「中華帝国」・元号「洪憲」を定めた。清朝や中華民国の前任者から位を受けたのではなく、共和政の体制のなかで自ら帝制を樹立したもの。正式な登極の儀は挙行されていない。本項は正史の範囲外のため、判定は近現代の学術的に信頼できる情報源による（原典引用なし）。",
     "confidence": "high",
@@ -115943,6 +117764,10 @@
     "category": "並立政権",
     "section": "清"
    },
+   "eraId": "modern",
+   "regimeId": "empire-of-china",
+   "researchSection": "清",
+   "standing": "regular",
    "empressInstallationCount": {
     "count": 0,
     "events": [],

@@ -186,6 +186,23 @@
         },
         "name": { "$ref": "#/$defs/name" },
         "dynasty": { "$ref": "#/$defs/dynasty" },
+        "eraId": {
+          "type": "string",
+          "description": "所属時代。meta.catalogs.eras の ID（regimes[regimeId].eraId の非正規化コピー）。時代ジャンプ・並び順に使う。"
+        },
+        "regimeId": {
+          "type": "string",
+          "description": "所属政権。meta.catalogs.regimes の ID。同一国号の別政権も含めて一意。"
+        },
+        "researchSection": {
+          "type": "string",
+          "description": "調査ブロック名（旧 dynasty.section）。docs/process/SOURCE_MAPPING.md の索引キーで、表示用の時代区分ではない。"
+        },
+        "standing": {
+          "type": "string",
+          "description": "その政権における位置づけ。meta.catalogs.enums.emperorStanding の ID（regular=歴代の皇帝／rival=同一国号内の対立・僭称）。即位の経緯は accessionRoute が担う。",
+          "enum": ["regular", "rival"]
+        },
         "reigns": {
           "type": "array",
           "description": "在位期間の配列。復位した皇帝は複数要素を持つ（8名）。",
@@ -462,8 +479,16 @@
 
     "accessionRoute": {
       "type": "object",
-      "description": "即位経路。4軸＋2補助（axes）が実体で、category はそこから機械導出される表示ラベル。複数回即位した人物は初回即位の経緯でラベルを付け、復位は reigns[].isRestoration が担う。定義は ADDITIONAL_SCHEMA.md 1節。",
+      "description": "即位経路。4軸＋2補助（axes）が実体で、categoryId はそこから機械導出される表示用の確定値。複数回即位した人物は初回即位の経緯でラベルを付け、復位は reigns[].isRestoration が担う。定義は ADDITIONAL_SCHEMA.md 1節。",
       "properties": {
+        "categoryId": {
+          "type": "string",
+          "description": "即位経路の表示用確定値（v3）。meta.catalogs.enums.accessionCategory の ID で、axes からの導出値と一致する（サイト側で優先順位ロジックを持たないための項目）。",
+          "enum": [
+            "hereditary", "enthroned", "self-established", "usurpation",
+            "acclamation", "abdication-received", "succession-unspecified", "inner-abdication"
+          ]
+        },
         "category": {
           "type": "string",
           "description": "即位経路の表示ラベル。axes を持つレコードでは axes からの導出値（ADDITIONAL_SCHEMA.md 1節「導出ルール」）。旧 enum 9値は多軸化の移行完了まで併存する。",

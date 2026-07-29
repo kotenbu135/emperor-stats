@@ -114,7 +114,7 @@ def check_source(owner: str, source, required: bool = True) -> None:
             f"（Wikipedia 等の禁止出典または表記不備）: {source.get('page')!r}")
 
 
-def check_persons(persons, emperor_ids, sections) -> dict[str, str]:
+def check_persons(persons, emperor_ids, sections, era_ids=frozenset()) -> dict[str, str]:
     """persons を検証し {id: gender} を返す（gender はエッジ側の整合チェックに使う）。"""
     seen: dict[str, str] = {}
     for p in persons:
@@ -136,6 +136,13 @@ def check_persons(persons, emperor_ids, sections) -> dict[str, str]:
         if p.get("section") not in sections:
             err(f"[persons] {label}: section が emperors.json の dynasty.section 語彙にない: "
                 f"{p.get('section')!r}")
+        # v3: 調査ブロック名（researchSection）と時代 ID（eraId）
+        if p.get("researchSection") != p.get("section"):
+            err(f"[persons] {label}: researchSection が section と不一致: "
+                f"{p.get('researchSection')!r} ≠ {p.get('section')!r}")
+        if p.get("eraId") not in era_ids:
+            err(f"[persons] {label}: eraId が emperors.json の catalogs.eras にない: "
+                f"{p.get('eraId')!r}")
         ya = p.get("yearsApproximate")
         if ya is not None and not isinstance(ya, bool):
             err(f"[persons] {label}: yearsApproximate が bool でない: {ya!r}")
@@ -466,7 +473,8 @@ def main() -> int:
             err(f"[structure] meta.status.phases に {ph} がない")
 
     sections = {e["dynasty"]["section"] for e in emperors}
-    gender_by_person = check_persons(kin.get("persons", []), emperor_ids, sections)
+    era_ids = {e["id"] for e in emp["meta"].get("catalogs", {}).get("eras", [])}
+    gender_by_person = check_persons(kin.get("persons", []), emperor_ids, sections, era_ids)
     restoration_reigns_by_id = {
         e["id"]: sum(1 for r in e["reigns"] if r.get("isRestoration")) for e in emperors}
     (referenced, primary_by_emperor, succession_covered, parents_of, father_covered,
