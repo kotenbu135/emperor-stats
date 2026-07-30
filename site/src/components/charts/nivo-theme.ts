@@ -60,7 +60,6 @@ export const categoryColorMaps: Record<string, Record<string, string>> = {
     自立: "#eda100",
     推戴: "#1baf7a",
     "受禅（易姓）": "#4a3aa7",
-    "受禅（擁立）": "#7a68c4",
     "継承（経緯記載なし）": "#e87ba4",
   },
 };

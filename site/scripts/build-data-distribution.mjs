@@ -9,6 +9,11 @@
 // （displayName / dynastyLabel / ERA_BY_SECTION 等）をここに複製しないこと。
 // 配布データにサイトの表示判断を焼き込むと、TSロジックの多重化と drift を招く。
 // 値の推論・補完・再計算もしない（JSON にある値をそのまま carry するだけ）。
+//
+// スキーマ v3（2026-07-29）でレコードは安定 ID だけを持ち、日本語ラベルは
+// `meta.catalogs` に移った。CSV は表計算ソフトで直接読む用途なので、ID 列と
+// **同じファイルの meta.catalogs から引いたラベル列**の両方を出す。カタログ参照は
+// 配布物の中で完結する単純な引き当てで、サイト側の表示判断ではない。
 import { readFileSync, writeFileSync, mkdirSync, rmSync, copyFileSync } from "node:fs";
 import path from "node:path";
 
@@ -17,6 +22,31 @@ const schemaPath = path.join(process.cwd(), "..", "data", "schema", "emperors.sc
 const destDir = path.join(process.cwd(), "public", "data");
 
 const SITE_URL = "https://emperorstats.com";
+
+const data = JSON.parse(readFileSync(dataPath, "utf8"));
+
+const catalogs = data.meta?.catalogs;
+if (!catalogs) {
+  throw new Error("data/emperors.json に meta.catalogs がありません（スキーマ v3 必須）");
+}
+const regimeById = new Map(catalogs.regimes.map((r) => [r.id, r]));
+const eraById = new Map(catalogs.eras.map((e) => [e.id, e]));
+
+/** meta.catalogs.enums からラベルを引く。未知の ID はビルドを落とす（黙って空欄にしない）。 */
+function enumLabel(enumName, id) {
+  if (id === null || id === undefined) return id;
+  const items = catalogs.enums?.[enumName];
+  if (!items) throw new Error(`meta.catalogs.enums に ${enumName} がありません`);
+  const hit = items.find((i) => i.id === id);
+  if (!hit) throw new Error(`enums.${enumName} に ID "${id}" がありません`);
+  return hit.label;
+}
+
+function regimeOf(e) {
+  const r = regimeById.get(e.regimeId);
+  if (!r) throw new Error(`${e.id}: regimeId "${e.regimeId}" が catalogs.regimes にありません`);
+  return r;
+}
 
 /**
  * CSV の列定義。ヘッダ名 → レコードからの値の取り出し方。
@@ -31,10 +61,16 @@ const COLUMNS = [
   ["personalName", (e) => e.name?.personalName],
   ["templeName", (e) => e.name?.templeName],
   ["posthumousName", (e) => e.name?.posthumousName],
-  ["dynastyName", (e) => e.dynasty?.name],
-  ["dynastyCategory", (e) => e.dynasty?.category],
-  ["dynastySection", (e) => e.dynasty?.section],
+  ["regimeId", (e) => e.regimeId],
+  ["dynastyName", (e) => regimeOf(e).name],
+  ["regimeLabel", (e) => regimeOf(e).label],
+  ["dynastyCategory", (e) => enumLabel("regimeCategory", regimeOf(e).category)],
+  ["eraId", (e) => e.eraId],
+  ["eraLabel", (e) => eraById.get(e.eraId)?.label],
+  ["researchSection", (e) => e.researchSection],
+  ["standing", (e) => enumLabel("emperorStanding", e.standing)],
   ["dynastyOrder", (e) => e.reigns?.[0]?.dynastyOrder],
+  ["dynastyOrderSurveyed", (e) => regimeOf(e).dynastyOrderSurveyed],
   ["reignStartYear", (e) => e.reignSummary?.firstStartYear],
   ["reignEndYear", (e) => e.reignSummary?.lastEndYear],
   ["reignCount", (e) => e.reignSummary?.reignCount],
@@ -42,10 +78,10 @@ const COLUMNS = [
   ["reignExactDays", (e) => e.reignSummary?.totalReignDuration?.exactDays],
   ["reignIsExact", (e) => e.reignSummary?.totalReignDuration?.isExact],
   ["reignNeedsPreciseDays", (e) => e.reignSummary?.totalReignDuration?.needsPreciseDays],
-  ["deathCauseCategory", (e) => e.deathCause?.category],
+  ["deathCauseCategory", (e) => enumLabel("deathCause", e.deathCause?.category)],
   ["deathCauseConfidence", (e) => e.deathCause?.confidence],
   ["deathCauseSource", (e) => e.deathCause?.source?.page],
-  ["accessionRouteCategory", (e) => e.accessionRoute?.category],
+  ["accessionRouteCategory", (e) => enumLabel("accessionCategory", e.accessionRoute?.categoryId)],
   ["accessionRouteConfidence", (e) => e.accessionRoute?.confidence],
   ["accessionRouteSource", (e) => e.accessionRoute?.source?.page],
   ["eraChangeCount", (e) => e.eraChangeCount?.count],
@@ -63,7 +99,6 @@ const COLUMNS = [
   ["accessionAge", (e) => e.ages?.accessionAge],
   ["deathAge", (e) => e.ages?.deathAge],
   ["isFemale", (e) => e.flags?.isFemale],
-  ["selfProclaimed", (e) => e.flags?.selfProclaimed],
   ["usedEmperorTitleFrom", (e) => e.flags?.usedEmperorTitleFrom],
 ];
 
@@ -73,8 +108,6 @@ function csvCell(value) {
   const text = String(value);
   return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 }
-
-const data = JSON.parse(readFileSync(dataPath, "utf8"));
 
 rmSync(destDir, { recursive: true, force: true });
 mkdirSync(destDir, { recursive: true });

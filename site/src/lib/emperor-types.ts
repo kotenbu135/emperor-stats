@@ -15,6 +15,8 @@ export type DeathCauseCategory =
 // これは軸から機械導出される表示ラベル（data/schema/ADDITIONAL_SCHEMA.md 1節の導出ルール）。
 // 旧値の「建国」「禅譲」「復位」「不詳」「諸説あり」は軸へ分解されて消滅している
 // （復位は reigns[].isRestoration、帝号の新称は axes.titleOrigin のバッジが担う）。
+// スキーマ v3（2026-07-29）で、該当0名だった「受禅（擁立）」がデータの enum から
+// 削除され、実在する 8 値になった。
 export type AccessionRouteCategory =
   | "世襲"
   | "擁立"
@@ -23,7 +25,6 @@ export type AccessionRouteCategory =
   | "自立"
   | "推戴"
   | "受禅（易姓）"
-  | "受禅（擁立）"
   | "継承（経緯記載なし）";
 
 export type CourtEventKey =
@@ -39,6 +40,13 @@ export type MilitaryEventKey =
 
 export type AgeKey = "accessionAge" | "deathAge";
 
+/**
+ * 政権の性格。スキーマ v3（2026-07-29）で `catalogs.regimes[].category` として
+ * **政権単位に一意**な値になった（それ以前は皇帝ごとの `dynasty.category` で、
+ * 同じ政権の中に「正統王朝」と「反乱・自称政権」が同居していた——タグが指していたのは
+ * 政権の性格ではなくその人の即位の経緯だったため）。人物単位の「その政権の中で
+ * 正規の皇帝か対立・僭称か」は `EmperorRecord.isRivalClaimant` が担う。
+ */
 export type DynastyCategory = "正統王朝" | "並立政権" | "反乱・自称政権";
 
 /** ある指標での全皇帝中の順位（lib/emperors.tsがビルド時に計算する）。 */
@@ -69,6 +77,11 @@ export interface EmperorRecord {
   /** 訪問者向けの時代区分ラベル（例: 五胡十六国・南北朝）。王朝フィルタのグループ見出しに使う。 */
   eraLabel: string;
   dynastyCategory: DynastyCategory;
+  /** その政権の中で正規の皇帝ではなく、並立して帝号を称し正史が帝紀を立てない皇帝
+   *  （データ側 `standing` = 対立・僭称の皇帝。20名）。政権の性格を表す
+   *  dynastyCategory とは別軸で、蕭正徳（梁）・元曄（北魏）のように
+   *  「正統王朝の中の対立皇帝」がここで区別される。 */
+  isRivalClaimant: boolean;
   reignApproxDays: number;
   reignYears: number;
   reignDurationLabel: string;
@@ -386,19 +399,25 @@ export function formatReignDuration(approxDays: number): string {
   return `${years}年${days}日`;
 }
 
-// value はデータ側のenum値。かつて内部値（"十六国"等の出典wikitext由来の歴史的経緯）と
-// 表示ラベルの二重管理だったが、2026-07-23に3値ともデータ側の語彙を表示語彙へ統一した
-// （value === label。変換表としての役割は廃止し、並び順と選択肢列挙のためだけに残す）。
+// value はデータ側のenum値（v3 では catalogs.enums.regimeCategory のラベル）。かつて
+// 内部値（"十六国"等の出典wikitext由来の歴史的経緯）と表示ラベルの二重管理だったが、
+// 2026-07-23に3値ともデータ側の語彙を表示語彙へ統一した（value === label。変換表と
+// しての役割は廃止し、並び順と選択肢列挙のためだけに残す）。
 export const dynastyCategoryOptions: { value: DynastyCategory; label: string }[] = [
   { value: "正統王朝", label: "正統王朝" },
   { value: "並立政権", label: "並立政権" },
   { value: "反乱・自称政権", label: "反乱・自称政権" },
 ];
 
+// 文言はデータ側 catalogs.enums.regimeCategory の description を、例示を添えて
+// 訪問者向けに膨らませたもの（このファイルは Client Component から import するため
+// データを読めない。カタログの説明を変えたらここも合わせる）。
 export const dynastyCategoryDescriptions: Record<DynastyCategory, string> = {
-  正統王朝: "歴代王朝の本流として続いた系譜の皇帝（例：前漢・唐・宋・明・清など）",
-  並立政権: "五胡十六国・五代十国など、複数の政権が同時に並び立った時代の各政権の皇帝",
-  "反乱・自称政権": "正統王朝の統治下で、反乱・簒奪・自称により皇帝を名乗った勢力の皇帝",
+  正統王朝: "王朝の本流として歴代に数えられる政権の皇帝（例：前漢・唐・宋・明・清など）",
+  並立政権:
+    "同時代に他政権と並び立った政権の皇帝（例：五胡十六国・十国・遼・金・西夏など）",
+  "反乱・自称政権":
+    "既存王朝への反乱・自立によって建てられた政権の皇帝（例：赤眉軍の漢・武周・李自成の順など）",
 };
 
 export const courtEventLabels: Record<CourtEventKey, string> = {
@@ -469,7 +488,6 @@ export const accessionRouteCategoryOrder: AccessionRouteCategory[] = [
   "内禅",
   "継承（経緯記載なし）",
   "受禅（易姓）",
-  "受禅（擁立）",
   "自立",
   "推戴",
 ];
@@ -481,7 +499,6 @@ export const accessionRouteDescriptions: Record<AccessionRouteCategory, string> 
   内禅: "同一政権内で、先帝が在世のまま自ら位を譲った（生前譲位。例：唐玄宗・清仁宗・金哀宗）",
   "継承（経緯記載なし）": "同一政権の前代君主から位を継いだが、誰が決めたかを原典が記していない（例：始皇帝・宋太宗）",
   "受禅（易姓）": "別姓・別政権の皇帝から位を受けた王朝交代で、本人が主導した（例：曹丕・楊堅・趙匡胤）",
-  "受禅（擁立）": "別姓・別政権の皇帝から位を受けた王朝交代だが、立てたのは第三者だった",
   自立: "先行する君主から位を受けず、自ら皇帝を称した（例：劉邦・光武帝・明太祖）",
   推戴: "先行する君主から位を受けていないが、自ら称したのではなく他者に立てられた（例：南明の諸帝）",
 };

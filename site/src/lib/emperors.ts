@@ -52,9 +52,12 @@ import {
 } from "@/lib/kinship/chapters";
 import { kanaExpansionsOf } from "@/lib/kana-readings";
 import { CARD_SUBTITLE_OVERRIDES, cardSubtitleOf } from "@/lib/card-subtitle";
+import { emperorsJson, loadKinshipJson } from "@/lib/data-source";
 
-const dataPath = path.join(process.cwd(), "..", "data", "emperors.json");
-const rawData = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+// emperors.json / kinship.json はスキーマ v3（レコードは ID のみ・ラベルは
+// meta.catalogs）なので、読み込みと表示ラベルへの解決は lib/data-source.ts が担う。
+// このファイルは従来どおり「ラベルが入った形」のデータを扱う。
+const rawData = emperorsJson;
 
 const videoMatchesPath = path.join(
   process.cwd(),
@@ -150,7 +153,17 @@ interface RawEmperor {
     templeName: string | null;
     aliases: string[];
   };
+  /** lib/data-source.ts が v3 の regimeId・researchSection から組み立てる
+   *  （name＝国号・section＝調査ブロック名・category＝政権の性格）。 */
   dynasty: { name: string; category: DynastyCategory; section: string };
+  /** 政権の一意 ID（v3 の catalogs.regimes）。 */
+  regimeId: string;
+  /** 政権の曖昧性のない表示名（catalogs.regimes[].label。例:「梁（蕭梁）」）。 */
+  regimeLabel: string;
+  /** その政権の中で正規の皇帝か、対立・僭称の皇帝か（v3 で新設）。ID。 */
+  standing: string;
+  /** 上の表示ラベル（「正規の皇帝」/「対立・僭称の皇帝」）。 */
+  standingLabel: string;
   reignSummary: {
     totalReignDuration: {
       displayYears: number;
@@ -443,6 +456,9 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     dynastyLabel: dynastyLabel(e.dynasty),
     eraLabel: eraLabelOf(e.dynasty),
     dynastyCategory: e.dynasty.category,
+    // 政権の中で正規の皇帝か対立・僭称の皇帝か（v3 の standing）。旧 dynasty.category が
+    // 政権の性格と混ぜて持っていた人物単位の情報がこちらへ分かれた。
+    isRivalClaimant: e.standing === "rival",
     reignApproxDays: e.reignSummary.totalReignDuration.approxDays,
     reignYears: e.reignSummary.totalReignDuration.approxDays / 365,
     reignDurationLabel: formatReignDuration(
@@ -1961,8 +1977,7 @@ export function getKinshipGraphData(): KinshipChapterLayout[] {
 let kinshipSourceCache: KinshipSource | null = null;
 export function getKinshipSource(): KinshipSource {
   if (kinshipSourceCache) return kinshipSourceCache;
-  const kinshipPath = path.join(process.cwd(), "..", "data", "kinship.json");
-  const kin = JSON.parse(fs.readFileSync(kinshipPath, "utf-8")) as RawKinship;
+  const kin = loadKinshipJson() as unknown as RawKinship;
 
   const enabledDefs = KINSHIP_CHAPTER_DEFS.filter((c) =>
     KINSHIP_ENABLED_CHAPTER_IDS.includes(c.id),
