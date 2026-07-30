@@ -117,49 +117,54 @@ export function SectionJumpNav({
       // モバイルは sticky なサイトヘッダーの下に着ける。
       style={{ height: SECTION_NAV_H, top: "var(--chrome-top)" }}
     >
-      <span className="mr-3 hidden shrink-0 text-xs text-muted-foreground sm:inline">
-        {label}
-      </span>
-      {/* 端フェードを絶対配置するため relative な箱で包む。バーは高さ固定なので
-          フェードは inset-y-0 でバー全高に伸びる。 */}
-      <div className="relative min-w-0 flex-1">
-        <ul
-          ref={scrollRef}
-          onScroll={onScroll}
-          className="flex min-w-0 gap-2 overflow-x-auto whitespace-nowrap py-1"
-        >
-          {items.map((item) => {
-            const active = item.id === activeId;
-            return (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  aria-current={active ? "true" : undefined}
-                  className={cn(
-                    "inline-flex items-baseline gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors",
-                    active
-                      ? "border-seal bg-seal text-seal-foreground"
-                      : "border-border bg-background text-foreground/80 hover:border-seal/50 hover:bg-accent/60 hover:text-seal",
-                  )}
-                >
-                  {item.label}
-                  {item.count !== undefined && (
-                    <span
-                      className={cn(
-                        "text-micro tabular-nums",
-                        active ? "text-seal-foreground/80" : "text-muted-foreground",
-                      )}
-                    >
-                      {item.count}
-                    </span>
-                  )}
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-        {/* 48px固定のバーではバッジがピルに重なるため端フェードだけにする。 */}
-        <HorizontalScrollHint atStart={atStart} atEnd={atEnd} showBadge={false} />
+      {/* 帯（背景・下罫）は全幅のまま、中のタブ列だけ本文と同じ max-w-content に
+          揃える。帯を上限で切ると、ワイド画面でスクロール内容が帯の左右から
+          覗いてしまう。 */}
+      <div className="mx-auto flex h-full w-full max-w-content items-center">
+        <span className="mr-3 hidden shrink-0 text-xs text-muted-foreground sm:inline">
+          {label}
+        </span>
+        {/* 端フェードを絶対配置するため relative な箱で包む。バーは高さ固定なので
+            フェードは inset-y-0 でバー全高に伸びる。 */}
+        <div className="relative min-w-0 flex-1">
+          <ul
+            ref={scrollRef}
+            onScroll={onScroll}
+            className="flex min-w-0 gap-2 overflow-x-auto whitespace-nowrap py-1"
+          >
+            {items.map((item) => {
+              const active = item.id === activeId;
+              return (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    aria-current={active ? "true" : undefined}
+                    className={cn(
+                      "inline-flex items-baseline gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors",
+                      active
+                        ? "border-seal bg-seal text-seal-foreground"
+                        : "border-border bg-background text-foreground/80 hover:border-seal/50 hover:bg-accent/60 hover:text-seal",
+                    )}
+                  >
+                    {item.label}
+                    {item.count !== undefined && (
+                      <span
+                        className={cn(
+                          "text-micro tabular-nums",
+                          active ? "text-seal-foreground/80" : "text-muted-foreground",
+                        )}
+                      >
+                        {item.count}
+                      </span>
+                    )}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+          {/* 48px固定のバーではバッジがピルに重なるため端フェードだけにする。 */}
+          <HorizontalScrollHint atStart={atStart} atEnd={atEnd} showBadge={false} />
+        </div>
       </div>
     </nav>
   );

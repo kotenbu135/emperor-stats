@@ -56,8 +56,12 @@ export default function KinshipPage() {
       {/* 凡例は各章の下に置いた長文をやめ、実際の描画と同じマークを並べた図版を
           ページ先頭に1つだけ置く(ユーザー指示・2026-07-26)。下の固定バーと枠線が
           接して二重線に見えないよう pb で離す。 */}
-      <div className="px-6 pb-4 pt-6 md:px-10">
-        <KinshipLegend />
+      <div className="px-gutter pb-4 pt-6 md:px-gutter-wide">
+        {/* 凡例は図版ではなく読み物寄りのUIなので、章見出しと同じ本文列に揃える
+            （系譜図本体だけが Section の bleed で全幅に出る）。 */}
+        <div className="mx-auto w-full max-w-content">
+          <KinshipLegend />
+        </div>
       </div>
       {/* 章ジャンプ。sticky が効く範囲は親要素の箱に限られるため、章と同じ最上位の
           並びに置く(上のヘッダー用 div の中に入れると、その div が画面外へ出た
@@ -71,6 +75,9 @@ export default function KinshipPage() {
           id={c.id}
           title={`第${i + 1}章 ${c.title}（${c.period}）`}
           description={c.range}
+          // 系譜図は manual-layout.json で凍結した固定キャンバスを横スクロールで
+          // 見せるため、本文列の上限で囲むと窓が狭くなるだけ。全幅で出す。
+          bleed
           // 固定バーの高さぴったりに合わせる(大きいと前の章の横スクロールバーが
           // ジャンプ後の画面上部に覗く。ユーザー指摘・2026-07-26)。
           scrollMt={BELOW_KINSHIP_NAV}

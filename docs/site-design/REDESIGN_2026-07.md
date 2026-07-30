@@ -376,3 +376,41 @@ SEOリンクの維持も確認済み（`out/emperors.html` に皇帝365リンク
 | Long Task | 前後とも読み込み時1〜2件（50〜129ms）。**絶対値0は変更前から満たしていない** |
 | 詳細ダイアログ（1440・375px・肖像あり/モノグラム） | 面は二重にならず、関連動画は `details` 既定閉のまま |
 
+
+## 本文列の上限とコンテナクエリ（2026-07-30）
+
+「2026年のWebのサイズトレンドを踏まえて当サイトの適切な幅を決める」というユーザー依頼から着手。**方針・規範は [LAYOUT.md](./LAYOUT.md)「本文列の幅（2026-07-30 決定）」が正**で、ここには実装時の判断と実測だけを残す。縦型に作り替える予定の通史年表は今回の対象外（`bleed` を付けて現状維持）。
+
+### 幅の決め方は「同時併存政権数」から逆算した
+
+トレンド側の目安（コンテナ1140–1280px）は複数のブログが相互に引用している慣例値で測定値ではないため、**縦型年表が必要とする横幅を `data/emperors.json` から実測して裏を取った**。`reigns[].startYear/endYear` を年ごとに展開して `regimeId` の同時併存数を数えると、ピークは **619年の9政権**（隋・唐・鄭・夏〔定楊〕・梁×2・楚・呉・徐）で次が937年の8政権。分布は 1政権=1360年・2=327・3=257・4=137・5=37・6=21・7=2・8=2・9=1（全2144年）で、**6レーン以上を要するのは26年分だけ**。現行大河ビューの群雄クラスターを全部展開してもこの9が上限なので、縦型年表は「年軸80px＋レーン120px×最大9＝1160px」で足り、1200pxの上限に収まる。1366pxノート（実効1046px）では8〜9レーンの26年分だけが年表内の横スクロールに落ちる。
+
+### 実装
+
+- 上限は `--container-content: 75rem` を `@theme inline` に追加して `max-w-content` を生やした（Tailwind v4 の `--container-*` は `max-w-*` の名前空間。同時にコンテナクエリ変種 `@content:` も生えるが未使用）。
+- **供給元は共有部品に限定**した。`PageHeader`（`contained` でないデータページも上限つき）・`Section`・`SectionJumpNav`・`KinshipChapterNav`。自前の箱で組んでいた `/emperors`（`px-6 py-8` の直書き）と `/death-accession`（2カラムグリッド）はガタートークンへ寄せ、**padding の内側に上限**を置く入れ子順に揃えた（同一要素に `px-gutter` と `max-w-content` を書くと本文幅が1120pxになり、上の h1 と左端が揃わない）。
+- **`Section` の `bleed` は「中身だけ」全幅にする**。最初は見出しごと全幅にしたが、1920px で撮ると `/timeline` の「皇帝在位タイムライン」（bleed・x=281）と「この年表の見方」（上限・x=475）で見出しの左端が食い違った。見出しは常に本文列へ残し、図だけがはみ出す形にした。
+- sticky な索引バー（`SectionJumpNav`・`KinshipChapterNav`）は**帯を全幅・中のピル列だけ上限**に揃えた。帯まで上限で切ると、ワイド画面でスクロール内容が帯の左右から覗く。
+- `/kinship` の凡例は図版でなく読み物寄りのUIなので上限側に入れ、系譜図本体だけ `bleed`。
+
+### `/emperors` のカードはコンテナクエリへ（既存の潰れも直った）
+
+上限を入れるとビューポート基準の `xl:grid-cols-6` は「列が減らずカードが細くなる」だけなので、グリッドを `@container` 化して `grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4 @5xl:grid-cols-5 @6xl:grid-cols-6` にした。副産物として**従来の潰れが直った** — サイドバー240pxが現れる md(768px) 以降は実効幅が448pxしかないのに `md:grid-cols-4` が発火し、カード1枚が103pxになっていた。`Portrait` の `sizes` も vw では表せなくなったため `(max-width: 640px) 50vw, 230px` に改めた。
+
+### 動作低減（`prefers-reduced-motion`）
+
+`globals.css` に `@media (prefers-reduced-motion: reduce)` を新設し、`animation-duration`/`transition-duration` を 0.01ms に潰した。従来は JS の `matchMedia` 分岐が2か所（`section-jump-nav.tsx`・`kinship-band-nav.tsx`）にあるだけで、Radix / tw-animate-css の開閉アニメーション（Dialog の `zoom-in-95`・Sheet の `slide-in-from-left-10`）は動作低減設定を無視して全速再生していた。`animation: none` にしないのは Radix が `animationend` を待って要素を外すため。無限ループのアニメーションは現在ゼロなので `animation-iteration-count: 1` で固まる箇所は無い。
+
+### 回帰確認
+
+`npx tsc --noEmit`・`npm run lint`・`npm run build`（1125ページ）はいずれも通過。生成CSSに `max-width:75rem`・`prefers-reduced-motion:reduce`・`clamp(1.5rem,1.142rem + 1.527vw,1.875rem)`・`@container (min-width:36rem/48rem/64rem/72rem)` が出ていることを確認済み。
+
+| 幅 | コンテナ実測 | 列数 | カード1枚 |
+|---|---|---|---|
+| 1920 | 1200（上限） | 6 | 190px |
+| 1536 | 1200（上限） | 6 | 190px |
+| 1366 | 1036 | 5 | 198px |
+| 768 | 438 | 2 | 213px（変更前は4列103px） |
+| 375 | 317 | 2 | 153px |
+
+確認に使ったスクリーンショットはリポジトリに残していない（上の実測値が結論）。撮り直す場合は `site/design-plans/tools/capture-size-cap.mjs`（5ルート×5幅・出力先 `size-cap-shots/` は `.gitignore` 済み）。

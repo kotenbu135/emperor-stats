@@ -31,6 +31,10 @@ export default function TimelinePage() {
       <Section
         id="chart"
         title="皇帝在位タイムライン"
+        // 大河ビューは前221年〜1945年を横軸に取る自前キャンバスで、横スクロールで
+        // 見せる図なので本文列の上限を外す（縦型に作り替えたら bleed は外し、
+        // 年軸＋最大9レーンを max-w-content 内に収める設計にする）。
+        bleed
         description="「全体」で統一と分裂の流れを、「拡大」「詳細」で皇帝ひとりひとりの在位を確認できます。灰色の帯は群雄・小政権のまとまりで、クリックすると構成政権に開きます。帯にマウスを載せると概要、クリックで全項目の詳細が開きます。"
       >
         <RiverTimeline river={river} timeline={timeline} records={records} />

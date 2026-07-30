@@ -15,7 +15,7 @@ export default function NotFound() {
         title="ページが見つかりません"
         description="お探しのページは移動または削除された可能性があります。"
       />
-      <div className="px-6 py-8 md:px-10">
+      <div className="px-gutter py-section md:px-gutter-wide">
         <Button variant="outline" asChild>
           <Link href="/">概要ダッシュボードへ戻る</Link>
         </Button>

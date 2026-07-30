@@ -184,7 +184,8 @@ function Figure({
           値と注記は span を block にして従来と同じ縦積みにする。 */}
       <dd className="mt-0.5">
         <span
-          className={`block font-heading text-2xl font-semibold tabular-nums md:text-3xl ${
+          // h1 と同じフルイドな大サイズ（従来の text-2xl → md:text-3xl と両端は同値）。
+          className={`block font-heading text-page-title font-semibold tabular-nums ${
             lead ? "text-seal" : "text-foreground"
           }`}
         >

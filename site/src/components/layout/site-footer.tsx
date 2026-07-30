@@ -4,7 +4,7 @@ const REPO_ISSUES_URL = "https://github.com/kotenbu135/emperor-stats/issues";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-8 border-t border-border bg-secondary/60 px-6 py-3 md:px-10">
+    <footer className="mt-8 border-t border-border bg-secondary/60 px-gutter py-3 md:px-gutter-wide">
       {/* ワイド画面では1行に収まるよう、短い句をflex-wrapで並べる */}
       <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs leading-relaxed text-muted-foreground">
         <span>数値は正史（本紀・列伝）を1件ずつ原典確認して集計</span>

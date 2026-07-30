@@ -63,43 +63,47 @@ export function KinshipChapterNav({
   return (
     <nav
       aria-label="章へジャンプ"
-      className="sticky z-30 flex items-center border-b border-border bg-background/95 px-6 backdrop-blur md:px-10"
+      className="sticky z-30 flex items-center border-b border-border bg-background/95 px-gutter backdrop-blur md:px-gutter-wide"
       // モバイルは sticky なサイトヘッダーの下に着ける。
       style={{ height: KINSHIP_NAV_H, top: "var(--chrome-top)" }}
     >
-      <span className="mr-3 hidden shrink-0 text-xs text-muted-foreground sm:inline">
-        章へジャンプ
-      </span>
-      {/* 端フェードを絶対配置するため relative な箱で包む。バーは高さ固定なので
-          フェードは inset-y-0 でバー全高に伸びる。 */}
-      <div className="relative min-w-0 flex-1">
-      <ul
-        ref={scrollRef}
-        onScroll={onScroll}
-        className="flex min-w-0 gap-2 overflow-x-auto whitespace-nowrap py-1"
-      >
-        {chapters.map((c, i) => {
-          const active = c.id === activeId;
-          return (
-            <li key={c.id}>
-              <a
-                href={`#${c.id}`}
-                aria-current={active ? "true" : undefined}
-                className={cn(
-                  "inline-block rounded-full border px-3 py-1 text-sm transition-colors",
-                  active
-                    ? "border-seal bg-seal text-seal-foreground"
-                    : "border-border bg-background text-foreground/80 hover:border-seal/50 hover:bg-accent/60 hover:text-seal",
-                )}
-              >
-                第{i + 1}章 {c.title}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-      {/* 48px固定のバーではバッジが章ピルに重なるため端フェードだけにする。 */}
-      <HorizontalScrollHint atStart={atStart} atEnd={atEnd} showBadge={false} />
+      {/* 帯は全幅のまま、中のピル列だけ本文列（max-w-content）に揃える
+          （SectionJumpNav と同じ扱い）。 */}
+      <div className="mx-auto flex h-full w-full max-w-content items-center">
+        <span className="mr-3 hidden shrink-0 text-xs text-muted-foreground sm:inline">
+          章へジャンプ
+        </span>
+        {/* 端フェードを絶対配置するため relative な箱で包む。バーは高さ固定なので
+            フェードは inset-y-0 でバー全高に伸びる。 */}
+        <div className="relative min-w-0 flex-1">
+        <ul
+          ref={scrollRef}
+          onScroll={onScroll}
+          className="flex min-w-0 gap-2 overflow-x-auto whitespace-nowrap py-1"
+        >
+          {chapters.map((c, i) => {
+            const active = c.id === activeId;
+            return (
+              <li key={c.id}>
+                <a
+                  href={`#${c.id}`}
+                  aria-current={active ? "true" : undefined}
+                  className={cn(
+                    "inline-block rounded-full border px-3 py-1 text-sm transition-colors",
+                    active
+                      ? "border-seal bg-seal text-seal-foreground"
+                      : "border-border bg-background text-foreground/80 hover:border-seal/50 hover:bg-accent/60 hover:text-seal",
+                  )}
+                >
+                  第{i + 1}章 {c.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+        {/* 48px固定のバーではバッジが章ピルに重なるため端フェードだけにする。 */}
+        <HorizontalScrollHint atStart={atStart} atEnd={atEnd} showBadge={false} />
+        </div>
       </div>
     </nav>
   );

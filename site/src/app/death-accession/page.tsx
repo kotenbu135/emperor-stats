@@ -42,67 +42,71 @@ export default function DeathAccessionPage() {
       <PageHeader
         title="死因・即位"
       />
-      <div className="grid gap-10 px-6 py-8 md:grid-cols-2 md:px-10">
-        <section id="death-cause" className="scroll-mt-20">
-          <div className="flex items-center gap-2.5">
-            <span aria-hidden className="h-5 w-1 shrink-0 rounded-full bg-seal/80" />
-            <h2 className="font-heading text-xl font-semibold text-foreground">
-              死因別分布
-            </h2>
-          </div>
-          <div className="mt-6">
-            <ChartTakeaway
-              sentences={getChartTakeaway("death-accession/death-cause")}
-            />
-            <LazyMount estimatedHeight={580}>
-              <CategoryPieChart
-                records={records}
-                dynastyOptions={dynastyOptions}
-                metricKey="deathCauseCategory"
+      {/* 2つの節を横並びにするため Section を使わず自前の箱で組んでいる。余白と
+          本文列の上限（max-w-content）は Section と同じ値に揃えること。 */}
+      <div className="px-gutter py-section md:px-gutter-wide">
+        <div className="mx-auto grid w-full max-w-content gap-10 md:grid-cols-2">
+          <section id="death-cause" className="scroll-mt-20">
+            <div className="flex items-center gap-2.5">
+              <span aria-hidden className="h-5 w-1 shrink-0 rounded-full bg-seal/80" />
+              <h2 className="font-heading text-xl font-semibold text-foreground">
+                死因別分布
+              </h2>
+            </div>
+            <div className="mt-6">
+              <ChartTakeaway
+                sentences={getChartTakeaway("death-accession/death-cause")}
+              />
+              <LazyMount estimatedHeight={580}>
+                <CategoryPieChart
+                  records={records}
+                  dynastyOptions={dynastyOptions}
+                  metricKey="deathCauseCategory"
+                  categoryOrder={deathCauseCategoryOrder}
+                  categoryDescriptions={deathCauseDescriptions}
+                  chartLabel="死因別分布"
+                />
+              </LazyMount>
+              {/* 円グラフは LazyMount 配下なので、区分名・件数・定義は画面外では
+                  DOM に出ない。8分類すべてを静的に出すのはこのリストの役割。 */}
+              <CategoryBreakdownList
+                slices={getCategoryBreakdown("deathCauseCategory")}
                 categoryOrder={deathCauseCategoryOrder}
                 categoryDescriptions={deathCauseDescriptions}
-                chartLabel="死因別分布"
+                label="死因"
               />
-            </LazyMount>
-            {/* 円グラフは LazyMount 配下なので、区分名・件数・定義は画面外では
-                DOM に出ない。8分類すべてを静的に出すのはこのリストの役割。 */}
-            <CategoryBreakdownList
-              slices={getCategoryBreakdown("deathCauseCategory")}
-              categoryOrder={deathCauseCategoryOrder}
-              categoryDescriptions={deathCauseDescriptions}
-              label="死因"
-            />
-          </div>
-        </section>
-        <section id="accession" className="scroll-mt-20">
-          <div className="flex items-center gap-2.5">
-            <span aria-hidden className="h-5 w-1 shrink-0 rounded-full bg-seal/80" />
-            <h2 className="font-heading text-xl font-semibold text-foreground">
-              即位経路別分布
-            </h2>
-          </div>
-          <div className="mt-6">
-            <ChartTakeaway
-              sentences={getChartTakeaway("death-accession/accession")}
-            />
-            <LazyMount estimatedHeight={580}>
-              <CategoryPieChart
-                records={records}
-                dynastyOptions={dynastyOptions}
-                metricKey="accessionRouteCategory"
+            </div>
+          </section>
+          <section id="accession" className="scroll-mt-20">
+            <div className="flex items-center gap-2.5">
+              <span aria-hidden className="h-5 w-1 shrink-0 rounded-full bg-seal/80" />
+              <h2 className="font-heading text-xl font-semibold text-foreground">
+                即位経路別分布
+              </h2>
+            </div>
+            <div className="mt-6">
+              <ChartTakeaway
+                sentences={getChartTakeaway("death-accession/accession")}
+              />
+              <LazyMount estimatedHeight={580}>
+                <CategoryPieChart
+                  records={records}
+                  dynastyOptions={dynastyOptions}
+                  metricKey="accessionRouteCategory"
+                  categoryOrder={accessionRouteCategoryOrder}
+                  categoryDescriptions={accessionRouteDescriptions}
+                  chartLabel="即位経路別分布"
+                />
+              </LazyMount>
+              <CategoryBreakdownList
+                slices={getCategoryBreakdown("accessionRouteCategory")}
                 categoryOrder={accessionRouteCategoryOrder}
                 categoryDescriptions={accessionRouteDescriptions}
-                chartLabel="即位経路別分布"
+                label="即位経路"
               />
-            </LazyMount>
-            <CategoryBreakdownList
-              slices={getCategoryBreakdown("accessionRouteCategory")}
-              categoryOrder={accessionRouteCategoryOrder}
-              categoryDescriptions={accessionRouteDescriptions}
-              label="即位経路"
-            />
-          </div>
-        </section>
+            </div>
+          </section>
+        </div>
       </div>
     </>
   );

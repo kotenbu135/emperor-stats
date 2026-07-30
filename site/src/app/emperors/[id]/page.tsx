@@ -110,7 +110,7 @@ export default async function EmperorPage({
         title={record.name}
         description={`${dynastyContextLabel(record)}｜在位 ${record.periodsLabel}`}
       />
-      <div className="px-6 py-8 md:px-10">
+      <div className="px-gutter py-section md:px-gutter-wide">
         <div className="mx-auto flex w-full max-w-4xl flex-col gap-4">
           {/* ページ送りは本文の長さに左右されない先頭右端の固定サイズボタンに
               置く（ページごとに位置がずれると連続で押せない）。皇帝名付きの

@@ -69,7 +69,7 @@ export default function AboutPage() {
         contained
       />
       {/* 記事型ページのためワイド画面では本文列を中央寄せにする（PageHeaderのcontainedと同じ列幅） */}
-      <div className="px-6 py-8 md:px-10">
+      <div className="px-gutter py-section md:px-gutter-wide">
         <div className="mx-auto w-full max-w-2xl">
         <Prose>
           <p>

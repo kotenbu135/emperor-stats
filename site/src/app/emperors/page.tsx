@@ -67,7 +67,9 @@ export default function EmperorsPage() {
         title="皇帝一覧"
         description={`収録している全${records.length}名の一覧です。カードを押すと在位期間・死因・各種回数などの詳細を表示します。`}
       />
-      <div className="px-6 py-8 md:px-10">
+      {/* 余白は Section と同じガタートークンで揃える。本文列の上限（max-w-content）は
+          EmperorGrid 側で内側に掛ける — 時代ジャンプバーだけは帯を全幅に保つため。 */}
+      <div className="px-gutter py-section md:px-gutter-wide">
         <EmperorGrid records={records} dynastyOptions={dynastyOptions} />
       </div>
     </>

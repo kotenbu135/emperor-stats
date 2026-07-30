@@ -15,6 +15,18 @@
      他の5段（body/caption/title/section/subsection）は text-sm/text-xs/text-2xl/
      text-xl/text-base と同値なので、同じ値に2つの名前を作らないためトークン化しない。 */
   --text-micro: 0.6875rem;
+  /* ページ見出し（h1）と概況の大数字。text-2xl(1.5rem)→md:text-3xl(1.875rem) の
+     切り替えを、同じ両端で滑らかに繋いだだけのもの（新しい段は増やしていない）。
+     768px = md でちょうど上端に達するので、サイドバーが現れる幅から先は 1.875rem
+     固定になり、vw にサイドバー幅が混ざる区間は存在しない。 */
+  --text-page-title: clamp(1.5rem, 1.142rem + 1.527vw, 1.875rem);
+  /* データページの本文列の上限（1200px）。ビューポート1536px（1920pxを125%表示・
+     最頻）でサイドバー240pxとガター40×2を引いた実効幅が1216pxなので、1536・1920・
+     2560 がすべて同じレイアウトに収束する。--container-* は Tailwind v4 の
+     max-w-* を生やす名前空間（同時にコンテナクエリ変種 @content: も生える）。
+     供給元は PageHeader / Section / SectionJumpNav に限り、ページ側へ
+     mx-auto max-w-* を散らさないこと。全幅が要る節は Section の bleed を使う。 */
+  --container-content: 75rem;
   --color-seal: var(--seal);
   --color-seal-foreground: var(--seal-foreground);
   --color-series-1: var(--series-1);
@@ -172,6 +184,31 @@
   body[data-scroll-locked][data-scroll-locked] {
     margin-right: 0 !important;
     padding-right: 0 !important;
+  }
+
+  /*
+   * 「視差効果を減らす」（prefers-reduced-motion: reduce）への配慮。
+   * Radix / tw-animate-css の開閉アニメーション（Dialog の zoom-in-95・Sheet の
+   * slide-in-from-left-10 など）はユーティリティクラスで直接 animation を当てるため、
+   * JS 側の matchMedia 分岐（section-jump-nav・kinship-band-nav のスムーススクロール
+   * 抑制）では止まらない。ここで一括して潰す。
+   * animation: none にはしないこと — Radix は animationend を待って要素を外すので、
+   * アニメーションを消すと閉じたはずのダイアログが DOM に残る。ごく短い時間に
+   * 潰して animationend は必ず発火させる。
+   * 無限ループのアニメーション（スピナー等）は現在ゼロなので
+   * animation-iteration-count: 1 で固まる箇所は無い（追加するときは要再検討）。
+   */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0s !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   /*

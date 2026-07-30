@@ -75,7 +75,9 @@ const EmperorCard = memo(function EmperorCard({
       <div className="relative aspect-[3/4] w-full overflow-hidden">
         <Portrait
           record={record}
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+          // 列数はコンテナ幅で決まり、カード1枚は狭い画面の2列を除けば概ね
+          // 180〜230pxに収まる（本文列が max-w-content で止まるため vw では表せない）。
+          sizes="(max-width: 640px) 50vw, 230px"
           priority={priority}
         />
       </div>
@@ -264,7 +266,7 @@ export function EmperorGrid({
       {/* 狭い画面ではフィルタ3つが縦に積まれ、ファーストビューをほぼ埋めていた。
           検索を1行、王朝と区分を2列に置いて3行を2行に畳む。幅は列から決まるので
           自動幅ではなく、Webフォント読込による折り返しずれ（CLS）は起きない。 */}
-      <div className="mb-4 grid grid-cols-2 items-end gap-x-3 gap-y-3 sm:flex sm:flex-wrap sm:gap-4">
+      <div className="mx-auto mb-4 grid w-full max-w-content grid-cols-2 items-end gap-x-3 gap-y-3 sm:flex sm:flex-wrap sm:gap-4">
         <div className="col-span-2 sm:col-auto">
           <FilterField label="検索">
             <div className="relative">
@@ -331,44 +333,50 @@ export function EmperorGrid({
               count: list.length,
             }))}
           />
-          {sections.map(([era, list], sectionIndex) => {
-            // ファーストビュー相当（最大6カラム×2行）だけ肖像を先行読み込みする。
-            // 先頭セクション以外は必ず画面外なので対象は先頭セクションのみでよい。
-            const priorityCount = sectionIndex === 0 ? 12 : 0;
-            return (
-              // アンカー先と「現在地」の観測対象はどちらもこの section。見出しは
-              // sticky でバーの真下に貼り付き続けるため、見出しを観測対象にすると
-              // 判定帯（画面の20%〜45%）に一度も入らず現在地が更新されない。
-              <section
-                key={era}
-                id={`era-${era}`}
-                className="mb-6 last:mb-0"
-                style={{ scrollMarginTop: BELOW_SECTION_NAV }}
-              >
-                <h2
-                  // スクロール中の現在地がわかるよう、固定した時代ジャンプバーの
-                  // 真下（SECTION_NAV_H）に貼り付ける。
-                  className="sticky z-10 -mx-2 mb-3 border-b border-border bg-background/95 px-2 py-2 font-heading text-base font-semibold text-foreground backdrop-blur-sm"
-                  style={{ top: BELOW_SECTION_NAV }}
+          {/* カードの列数はビューポート幅でなく「この箱の幅」で決める（@container）。
+              ビューポートで分岐していた頃は、サイドバー240pxが現れる md(768px) 以降で
+              実効幅が448pxしかないのに4列（1枚103px）まで詰まっていた。列数の閾値は
+              1枚あたり180〜230pxを保つ位置に置いてある。 */}
+          <div className="mx-auto w-full max-w-content @container">
+            {sections.map(([era, list], sectionIndex) => {
+              // ファーストビュー相当（最大6カラム×2行）だけ肖像を先行読み込みする。
+              // 先頭セクション以外は必ず画面外なので対象は先頭セクションのみでよい。
+              const priorityCount = sectionIndex === 0 ? 12 : 0;
+              return (
+                // アンカー先と「現在地」の観測対象はどちらもこの section。見出しは
+                // sticky でバーの真下に貼り付き続けるため、見出しを観測対象にすると
+                // 判定帯（画面の20%〜45%）に一度も入らず現在地が更新されない。
+                <section
+                  key={era}
+                  id={`era-${era}`}
+                  className="mb-6 last:mb-0"
+                  style={{ scrollMarginTop: BELOW_SECTION_NAV }}
                 >
-                  {era}
-                  <span className="ml-2 text-sm font-normal text-muted-foreground">
-                    {list.length}名
-                  </span>
-                </h2>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-                  {list.map((r, i) => (
-                    <EmperorCard
-                      key={r.id}
-                      record={r}
-                      priority={i < priorityCount}
-                      onSelect={onSelect}
-                    />
-                  ))}
-                </div>
-              </section>
-            );
-          })}
+                  <h2
+                    // スクロール中の現在地がわかるよう、固定した時代ジャンプバーの
+                    // 真下（SECTION_NAV_H）に貼り付ける。
+                    className="sticky z-10 -mx-2 mb-3 border-b border-border bg-background/95 px-2 py-2 font-heading text-base font-semibold text-foreground backdrop-blur-sm"
+                    style={{ top: BELOW_SECTION_NAV }}
+                  >
+                    {era}
+                    <span className="ml-2 text-sm font-normal text-muted-foreground">
+                      {list.length}名
+                    </span>
+                  </h2>
+                  <div className="grid grid-cols-2 gap-3 @xl:grid-cols-3 @3xl:grid-cols-4 @5xl:grid-cols-5 @6xl:grid-cols-6">
+                    {list.map((r, i) => (
+                      <EmperorCard
+                        key={r.id}
+                        record={r}
+                        priority={i < priorityCount}
+                        onSelect={onSelect}
+                      />
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
+          </div>
         </>
       )}
 
