@@ -1,0 +1,72 @@
+import { cn } from "@/lib/utils";
+
+export function PageHeader({
+  title,
+  description,
+  contained = false,
+  containedWidth = "max-w-2xl",
+}: {
+  title: string;
+  description?: string;
+  /** 本文を中央寄せにする記事型ページ（/about等）で、見出しも本文と同じ列に揃える */
+  contained?: boolean;
+  /** contained時の列幅クラス。ページ本文の列幅と必ず揃えること。 */
+  containedWidth?: string;
+}) {
+  return (
+    <div className="border-b border-border bg-background px-gutter py-section md:px-gutter-wide">
+      <div className={cn(contained && cn("mx-auto w-full", containedWidth))}>
+        <div className="flex items-center gap-3">
+          {/* 印章の朱をイメージしたアクセントバー（水墨基調に差す一点の色味） */}
+          <span aria-hidden className="h-7 w-1 shrink-0 rounded-full bg-seal" />
+          <h1 className="text-balance font-heading text-2xl font-semibold text-foreground md:text-3xl">
+            {title}
+          </h1>
+        </div>
+        {description && (
+          <p className="mt-2 max-w-2xl text-pretty text-sm text-muted-foreground">
+            {description}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export function Section({
+  id,
+  title,
+  description,
+  scrollMt,
+  children,
+}: {
+  id?: string;
+  title: string;
+  description?: string;
+  /** アンカージャンプ時に上へ空ける量。既定は80px。ページ内に固定バーが
+   *  あるページは、そのバーの高さぴったりにする（大きいと前セクションの末尾
+   *  （横スクロールバーなど）が覗き、小さいとバーに隠れる）。
+   *  モバイルでは sticky なサイトヘッダーも上端を占めるため、直値でなく
+   *  BELOW_SECTION_NAV のような calc 式（string）を渡すこと。 */
+  scrollMt?: number | string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section
+      id={id}
+      className={cn("px-gutter py-section md:px-gutter-wide", scrollMt === undefined && "scroll-mt-20")}
+      style={scrollMt === undefined ? undefined : { scrollMarginTop: scrollMt }}
+    >
+      <div className="flex items-center gap-2.5">
+        <span aria-hidden className="h-5 w-1 shrink-0 rounded-full bg-seal/80" />
+        <h2 className="text-balance font-heading text-xl font-semibold text-foreground">
+          {title}
+        </h2>
+      </div>
+      {description && (
+        <p className="mt-1 text-pretty text-sm text-muted-foreground">{description}</p>
+      )}
+      <div className="mt-6">{children}</div>
+    </section>
+  );
+}

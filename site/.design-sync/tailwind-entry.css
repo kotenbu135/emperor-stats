@@ -1,0 +1,44 @@
+/*
+ * Tailwind v4 compile entry for the claude.ai/design sync.
+ *
+ * The converter's CSS stage copies stylesheets and builds an @import list — it
+ * never runs a CSS toolchain. Shipping src/app/globals.css as-is would ship
+ * `@import "tailwindcss"` unresolved and every preview would render unstyled,
+ * so this file is compiled to .design-sync/compiled/ds.css first and THAT is
+ * what cfg.cssEntry points at.
+ *
+ * Two things this adds on top of the app's globals.css:
+ *   1. explicit @source globs — the utilities that must exist in the output are
+ *      the ones used by the synced components AND by the authored previews.
+ *      Re-run the compile after authoring/editing previews (see NOTES.md).
+ *   2. --font-sans / --font-serif — the app gets these from next/font at
+ *      runtime; outside Next they are undefined, so the brand type (Noto Serif
+ *      JP headings) would silently fall back to a system serif.
+ */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;600;700&display=swap");
+@import "../src/app/globals.css";
+
+@source "../src/components/ui";
+@source "../src/components/layout";
+@source "./previews";
+
+/*
+ * Tailwind v4 は JIT — 出力に存在するユーティリティは「スキャン対象で実際に
+ * 使われているもの」だけ。設計エージェントはこの DS の意味色を自分のレイアウトに
+ * 使うので、アプリ側でたまたま未使用の組み合わせも必ず生成しておく。
+ * ここを削ると conventions.md が「存在しないクラス名」を教えることになる。
+ */
+@source inline("bg-{background,card,popover,primary,secondary,muted,accent,destructive,seal,sidebar}");
+@source inline("bg-series-{1,2,3,4,5,6,7,8}");
+@source inline("bg-chart-{1,2,3,4,5}");
+@source inline("text-{foreground,card-foreground,popover-foreground,primary-foreground,secondary-foreground,muted-foreground,accent-foreground,destructive,seal,seal-foreground}");
+@source inline("text-series-{1,2,3,4,5,6,7,8}");
+@source inline("border-{border,input,ring,seal,destructive}");
+@source inline("ring-{ring,destructive,seal}");
+@source inline("font-{sans,mono,heading}");
+@source inline("rounded-{sm,md,lg,xl,2xl,3xl,4xl}");
+
+:root {
+  --font-sans: "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Noto Serif JP", ui-serif, Georgia, serif;
+}

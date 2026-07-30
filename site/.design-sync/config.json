@@ -1,0 +1,39 @@
+{
+  "projectId": "44a6e155-5b6d-4932-96de-22e06d5d67bd",
+  "pkg": "site",
+  "globalName": "EmperorStatsDS",
+  "shape": "package",
+  "srcDir": "src/components",
+  "tsconfig": "tsconfig.json",
+  "cssEntry": ".design-sync/compiled/ds.css",
+  "readmeHeader": ".design-sync/conventions.md",
+  "overrides": {
+    "Dialog": { "cardMode": "single", "primaryStory": "EmperorDetail", "viewport": "760x620" },
+    "Select": { "cardMode": "single", "primaryStory": "FilterRow", "viewport": "760x320" },
+    "Table": { "cardMode": "column", "viewport": "1000x760" },
+    "PageHeader": { "cardMode": "column", "viewport": "1000x700" },
+    "Section": { "cardMode": "column", "viewport": "1000x700" }
+  },
+  "componentSrcMap": {
+    "Accordion": "src/components/ui/accordion.tsx",
+    "Badge": "src/components/ui/badge.tsx",
+    "Button": "src/components/ui/button.tsx",
+    "Card": "src/components/ui/card.tsx",
+    "Command": "src/components/ui/command.tsx",
+    "Dialog": "src/components/ui/dialog.tsx",
+    "HoverCard": "src/components/ui/hover-card.tsx",
+    "Input": "src/components/ui/input.tsx",
+    "InputGroup": "src/components/ui/input-group.tsx",
+    "Popover": "src/components/ui/popover.tsx",
+    "Select": "src/components/ui/select.tsx",
+    "Separator": "src/components/ui/separator.tsx",
+    "Sheet": "src/components/ui/sheet.tsx",
+    "Table": "src/components/ui/table.tsx",
+    "Textarea": "src/components/ui/textarea.tsx",
+    "NavMenu": "src/components/layout/nav-menu.tsx",
+    "PageHeader": "src/components/layout/page-header.tsx",
+    "Section": "src/components/layout/page-header.tsx",
+    "SiteFooter": "src/components/layout/site-footer.tsx",
+    "SiteShell": "src/components/layout/site-shell.tsx"
+  }
+}
