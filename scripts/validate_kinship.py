@@ -463,6 +463,39 @@ def check_axes_sync(edges, emperors):
                 f"kinship の succession エッジ {theirs!r} と不一致")
 
 
+def check_enum_catalogs(emp: dict) -> None:
+    """kinship 側の語彙が emperors.json の meta.catalogs.enums と一致することを検査する。
+
+    v3 の原則（D3）で日本語ラベルはカタログにしか置かないため、サイトなどの消費側は
+    カタログを引いてラベルへ解決する。このスクリプトの ID 集合とカタログが食い違うと、
+    「バリデータは通るのに表示ラベルが引けない」ID が生まれるので、両者を突き合わせる。
+    """
+    enums = emp["meta"].get("catalogs", {}).get("enums", {})
+    for name, expected in (
+        ("kinshipPersonKind", KIND_ENUM),
+        ("kinshipInclusionReason", INCLUSION_ENUM),
+        ("kinshipRelation", RELATION_ENUM),
+        ("kinshipRelationDetail", RELATION_DETAIL_ENUM),
+        ("kinshipSuccessionCategory", CATEGORY_ENUM),
+        ("relationToPredecessor", REL_TO_PRED_ENUM),
+        ("veracity", VERACITY_ENUM),
+        ("confidence", CONFIDENCE_ENUM),
+    ):
+        items = enums.get(name)
+        if items is None:
+            # veracity のようにカタログ未投入の語彙は対象外（投入されたら突合が効き始める）
+            continue
+        catalog_ids = {i["id"] for i in items}
+        missing = expected - catalog_ids
+        if missing:
+            err(f"[catalog-enum] enums.{name} にラベルが無い ID: {sorted(missing)}")
+        # kinship 専用の語彙はカタログ側の余剰も誤り（共有語彙の relationToPredecessor は
+        # emperors 側だけが使う "none"（該当なし）を含むため、余剰は許す）
+        extra = catalog_ids - expected
+        if extra and name.startswith("kinship"):
+            err(f"[catalog-enum] enums.{name} に kinship で使わない ID: {sorted(extra)}")
+
+
 def main() -> int:
     kin = json.loads(KINSHIP_PATH.read_text(encoding="utf-8"))
     emp = json.loads(EMPERORS_PATH.read_text(encoding="utf-8"))
@@ -480,6 +513,7 @@ def main() -> int:
 
     sections = {e["researchSection"] for e in emperors}
     era_ids = {e["id"] for e in emp["meta"].get("catalogs", {}).get("eras", [])}
+    check_enum_catalogs(emp)
     gender_by_person = check_persons(kin.get("persons", []), emperor_ids, sections, era_ids)
     restoration_reigns_by_id = {
         e["id"]: sum(1 for r in e["reigns"] if r.get("isRestoration")) for e in emperors}

@@ -1581,6 +1581,144 @@
       "labelEn": null
      }
     ],
+    "kinshipPersonKind": [
+     {
+      "id": "imperial-clan",
+      "label": "宗室",
+      "labelEn": null
+     },
+     {
+      "id": "posthumous-emperor",
+      "label": "追尊皇帝",
+      "labelEn": null
+     },
+     {
+      "id": "consort-princess",
+      "label": "后妃・公主",
+      "labelEn": null
+     },
+     {
+      "id": "consort-kin",
+      "label": "外戚",
+      "labelEn": null
+     },
+     {
+      "id": "other",
+      "label": "その他",
+      "labelEn": null
+     }
+    ],
+    "kinshipInclusionReason": [
+     {
+      "id": "first-degree",
+      "label": "一親等",
+      "labelEn": null
+     },
+     {
+      "id": "posthumous-emperor",
+      "label": "追尊皇帝",
+      "labelEn": null
+     },
+     {
+      "id": "on-path",
+      "label": "経路上",
+      "labelEn": null
+     },
+     {
+      "id": "marriage-party",
+      "label": "婚姻当事者",
+      "labelEn": null
+     },
+     {
+      "id": "coup-party",
+      "label": "政変当事者",
+      "labelEn": null
+     },
+     {
+      "id": "ruler",
+      "label": "歴代君主",
+      "labelEn": null
+     }
+    ],
+    "kinshipRelation": [
+     {
+      "id": "birth-father",
+      "label": "実父",
+      "labelEn": null
+     },
+     {
+      "id": "birth-mother",
+      "label": "実母",
+      "labelEn": null
+     },
+     {
+      "id": "adoptive-father",
+      "label": "養父",
+      "labelEn": null
+     },
+     {
+      "id": "adoptive-mother",
+      "label": "養母",
+      "labelEn": null
+     },
+     {
+      "id": "sibling",
+      "label": "兄弟姉妹",
+      "labelEn": null
+     },
+     {
+      "id": "remote-ancestor",
+      "label": "遠祖",
+      "labelEn": null
+     }
+    ],
+    "kinshipSuccessionCategory": [
+     {
+      "id": "hereditary",
+      "label": "世襲",
+      "labelEn": null
+     },
+     {
+      "id": "enthroned",
+      "label": "擁立",
+      "labelEn": null
+     },
+     {
+      "id": "self-established",
+      "label": "自立",
+      "labelEn": null
+     },
+     {
+      "id": "usurpation",
+      "label": "簒奪",
+      "labelEn": null
+     },
+     {
+      "id": "acclamation",
+      "label": "推戴",
+      "labelEn": null
+     },
+     {
+      "id": "abdication-received",
+      "label": "受禅（易姓）",
+      "labelEn": null
+     },
+     {
+      "id": "succession-unspecified",
+      "label": "継承（経緯記載なし）",
+      "labelEn": null
+     },
+     {
+      "id": "inner-abdication",
+      "label": "内禅",
+      "labelEn": null
+     },
+     {
+      "id": "restoration",
+      "label": "復位",
+      "labelEn": null
+     }
+    ],
     "kinshipRelationDetail": [
      {
       "id": "grandfather",

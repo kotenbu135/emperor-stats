@@ -4,6 +4,8 @@
 
 **v3（2026-07-29・Issue #22 / `schemaVersion` 2.0.0）**: emperors.json の v3 移行に合わせ、**キー名と語彙の ID 化のみ**行った（調査内容・エッジの意味・note・出典は不変）。日本語ラベルは emperors.json の `meta.catalogs.enums` にのみ置く。以下の解説は読みやすさのため日本語ラベルで書いているので、JSON に書く値は次表で引く。設計は [docs/schema/V3_MIGRATION_PLAN.md](../../docs/schema/V3_MIGRATION_PLAN.md)。
 
+ラベルの引き先となるカタログのキーは `kinshipPersonKind`（`kind`）・`kinshipInclusionReason`・`kinshipRelation`・`kinshipRelationDetail`・`kinshipSuccessionCategory`（`categoryId`）・`relationToPredecessor`（emperors と共有）。`validate_kinship.py` の `check_enum_catalogs` がスクリプト側の ID 集合とカタログを突合するため、**語彙を増やすときはカタログにもラベルを足す**（足さないと消費側がラベルを引けない ID が生まれる）。
+
 | 変更 | 内容 |
 |---|---|
 | `persons[].section` → `researchSection` | 値はそのまま（調査ブロック名）。**表示レーンの意味は `eraId` と併用**する |
