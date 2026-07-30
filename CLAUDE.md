@@ -1,49 +1,37 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このリポジトリで作業する Claude Code 向けの入口です。ここには**要点と、知らずに進むと事故る点だけ**を置き、詳細は必要になった時点で開くリンク先にあります。
 
 ## プロジェクト概要
 
 中国皇帝統計プロジェクト。始皇帝から溥儀まで、実際に「皇帝」を名乗った365人の在位年数・死因・即位経路など全12項目を正史原典から調査したデータセット（`data/emperors.json`）と、それを可視化する Next.js 静的サイト（`site/`、カスタムドメイン emperorstats.com で公開）で構成されます。
 
-**現在**: データ収集・検証フェーズ（全12項目×364人、`meta.status.overall: "completed"`）とサイト実装（概要ダッシュボード〜全統計ページ・このサイトについて・免責事項）の両方が 2026-07-18 に完了。2026-07-20、収録漏れが判明した唐哀帝（`tang-aidi`）を追加調査・収録し365人に更新。以後の作業は、データ誤りの訂正（GitHub Issue 起点を想定）とサイトの改善・保守が中心です。
+データ調査（全12項目×365人・`meta.status.overall: "completed"`）とサイト実装はいずれも完了済みで、現在の作業は**データ誤りの訂正（GitHub Issue 起点）とサイトの改善・保守**が中心です。現状・進行中の作業・申し送り事項は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md)。
 
 ## コマンド
 
-ビルド・lint が存在するのは `site/` のみ（リポジトリルートに `package.json` はありません。テストはありません）。Node は nvm の v26.4.0 を使います：
+リポジトリルートに `package.json` はなく、ビルド・lint があるのは `site/` だけです（テストはありません。Node は nvm の v26.4.0 を有効にしてから使う）。開発サーバー・ビルド・型チェックの手順とサイト固有の注意点は [site/AGENTS.md](site/AGENTS.md)。
+
+`data/emperors.json` を訂正したら、コミット前に次のゲートを通します（規約の全文は [RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「引用の取り扱い規約」）：
 
 ```bash
-source ~/.nvm/nvm.sh && nvm use 26.4.0
-cd site
-npm run dev        # 開発サーバー http://localhost:3000/
-npm run build      # 静的書き出し → out/（predev/prebuild で肖像画同期 sync-portraits が走る）
-npm run lint       # ESLint
-npx tsc --noEmit   # 型チェック
+python3 scripts/validate_emperors.py   # 構造・日付整合性・reignSummary整合性・禁止出典（CI でも実行）
+
+# 引用・日付を追加・変更した場合はさらに必須
+python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py --check  # 引用照合台帳（ローカル専用・要コーパス）
+python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実経過日数（CI でも実行）
 ```
 
-サイト側の詳細（アーキテクチャ・ハマりどころ）は [site/AGENTS.md](site/AGENTS.md) を参照。
-
-`data/emperors.json` を訂正した際は、コミット前に必ず構造検証を実行する（`.github/workflows/validate-data.yml` で push 時にも自動実行される）：
-
-```bash
-python3 scripts/validate_emperors.py   # スキーマ・日付整合性・reignSummary整合性・禁止出典などをチェック
-```
-
-さらに引用・日付を追加・変更した場合は、引用実在・暦換算ゲートも必須（規約: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「引用の取り扱い規約」）：
-
-```bash
-python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py --check  # 引用照合台帳（ローカル専用）
-python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実経過日数チェック
-```
+`data/kinship.json` を触った場合は `python3 scripts/validate_kinship.py`。
 
 ## リポジトリ構成
 
-- **`data/emperors.json`** — メインデータセット本体（`meta` + `emperors` 配列）。サイトがビルド時に直接読み込む。**メイン会話でこのファイル全体を Read しない**（約7MB）。対象人物の抽出・訂正結果のマージは `jq`/`python3` を Bash 経由で行う（詳細: [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「コンテキスト効率」節）。
-- **`site/`** — Next.js サイト（静的書き出し・emperorstats.com で公開）。詳細は [site/AGENTS.md](site/AGENTS.md)。
-- **`data/images/portraits/`** — 肖像画アセット（PD/CC0 のみ・`manifest.json` で出典管理）。サイトの皇帝一覧カード・出典一覧で使用中。
-- **`china-history/`・`daizhigev20/`** — 正史原文のローカルコーパス（`.gitignore` 対象・リポジトリには含まれない、事前に `git clone --depth 1` 済み）。データ訂正時の一次情報源として最優先で参照する（詳細: [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md)）。
-- **`_corpus_cache/`** — 上記コーパスから人物ごとに抽出・整形済みの本紀原文キャッシュ（`.gitignore` 対象、`scripts/build_corpus_cache.py` で再生成可能）。キャッシュが無い人物を調査する際は、先にこのスクリプトへ書名・巻・行範囲のマッピングを追記して生成してから調査に入る（対応表: [docs/process/SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md)）。
-- **`docs/site-design/`** — サイトの設計ドキュメント群。方針・規範は [LAYOUT.md](docs/site-design/LAYOUT.md)、実装の決定事項・教訓は PERFORMANCE.md（性能）・IMPLEMENTATION_LOG.md（2026-07-18〜22）・REDESIGN_2026-07.md（2026-07-27 のデザイン再構成）に時系列で分かれている（節→ファイルの索引は LAYOUT.md）。
+- **`data/emperors.json`** — データセット本体（`meta` + `emperors` 配列・約7MB）。サイトがビルド時に直接読み込む。**メイン会話でこのファイル全体を Read しない** — 対象人物の抽出・訂正結果のマージは `jq`/`python3` を Bash 経由で行う（[RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「コンテキスト効率」節）
+- **`site/`** — Next.js サイト（静的書き出し・emperorstats.com で公開）。**触る前に [site/AGENTS.md](site/AGENTS.md) を読む** — `STREAM_DEFS`・`kana-readings`・`DYNASTY_COLOR_SLOT` のように、追記を忘れるとビルドが落ちる assert がある
+- **`china-history/`・`daizhigev20/`** — 正史原文のローカルコーパス（`.gitignore` 対象・リポジトリには含まれない、事前に `git clone --depth 1` 済み）。データ訂正時の一次情報源として最優先で参照する
+- **`_corpus_cache/`** — 上記コーパスから人物ごとに抽出・整形済みの本紀原文キャッシュ（`.gitignore` 対象・`scripts/build_corpus_cache.py` で再生成可能）。キャッシュが無い人物を調査する際は、先にこのスクリプトへ書名・巻・行範囲のマッピングを追記して生成してから調査に入る
+- **`data/images/portraits/`** — 肖像画アセット（PD/CC0 のみ・`manifest.json` で出典管理）
+- **`docs/`** — 調査プロセス・スキーマ・サイト設計の記録（索引: [docs/README.md](docs/README.md)／データ側は [data/README.md](data/README.md)）
 
 ## 重要な参考文書
 
@@ -51,32 +39,26 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 
 | 内容 | ファイル |
 |------|--------|
-| **ディレクトリ全体の案内** | [docs/README.md](docs/README.md) / [data/README.md](data/README.md) |
 | **プロジェクト現状・データ品質の申し送り** | [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) |
 | **データ調査の進め方（訂正時もこの手順）** | [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) |
 | **ローカルコーパス利用メモ（書物・王朝を問わず効く罠、着手前必読）** | [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) |
 | **史料マッピング・行番号インデックス（担当ブロックの書名・巻・行範囲）** | [docs/process/SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md) |
 | **絶対に守るべき制約** | [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md) |
-| **AI調査の知見集（設計指針・失敗事例）** | [docs/process/AI_RESEARCH_LESSONS.md](docs/process/AI_RESEARCH_LESSONS.md) |
-| **JSON スキーマ参照** | [docs/schema/SCHEMA_OVERVIEW.md](docs/schema/SCHEMA_OVERVIEW.md) |
+| **AI調査の知見集（設計指針・失敗事例・エージェント運用とドキュメントの書き方）** | [docs/process/AI_RESEARCH_LESSONS.md](docs/process/AI_RESEARCH_LESSONS.md) |
 | **サイトの設計方針・規範（＋実装記録の索引）** | [docs/site-design/LAYOUT.md](docs/site-design/LAYOUT.md) |
 
-## 最重要ルール（抜粋）
+スキーマは [docs/schema/SCHEMA_OVERVIEW.md](docs/schema/SCHEMA_OVERVIEW.md) が参照ガイドで、フィールド詳細は [data/schema/](data/schema/) 以下（[EMPERORS_SCHEMA.md](data/schema/EMPERORS_SCHEMA.md)・[DEATH_CAUSE_SCHEMA.md](data/schema/DEATH_CAUSE_SCHEMA.md)・即位経路/改元/大赦ほかの [ADDITIONAL_SCHEMA.md](data/schema/ADDITIONAL_SCHEMA.md)・[INCLUSION_CRITERIA.md](data/schema/INCLUSION_CRITERIA.md)・系譜〔調査中〕の [KINSHIP_SCHEMA.md](data/schema/KINSHIP_SCHEMA.md)）にあります。スキーマ v3（2026-07-29・Issue #22。時代・政権カタログ、全 enum の ID 化、`dynasty`／`flags.selfProclaimed` の廃止）の設計・移行記録は [docs/schema/V3_MIGRATION_PLAN.md](docs/schema/V3_MIGRATION_PLAN.md)。
 
-- **原典（正史の本紀・列伝）を第一情報源とします** — WebSearch の要約だけでは判定しません
-- **正史原典調査（データ訂正・新規ブロック着手）に入る前に、必ず [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) と [docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) を読むこと**。「存在は知っている」「前回読んだ」では不十分で、対象王朝・書物ごとに調査着手のたびに読み直す。両ファイルには「china-history の相対巻数（絶対巻数－50）」「帝紀に独立記述のない人物は列伝で代替」など、読まずに進めると誤った巻・誤った日付を採用してしまう罠が記録されている（担当ブロックの書名・巻・行範囲は [docs/process/SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md) から引く）。読まずに調査エージェント（Workflow等）を起動し、後から欠落に気づいて手戻りする事故が複数回発生している
-- **スクリプトによるデータの自動生成は禁止** — 人物ごと個別調査・判定が必須（日数計算等の機械的な計算補助や、確定済み調査結果の構造チェックはOK）
-- **データ正確性が最優先** — データに誤りが見つかった場合は個別調査で訂正するのが原則で、サイト側での場当たり的な補正はしません（表示破綻の回避のみ許容。既知の例は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) の申し送り事項を参照）
+## 守るべき運用ルール
+
+以下はいずれも**このリポジトリで実際に失敗を出した結果**として決まった運用方針で、モデルの判断力を補うための一般的な行動指示ではありません（背景と全文: [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md)）。迷った場合は自分の判断で緩めず、そのまま従ってください。
+
+- **判定の根拠は原典（正史の本紀・列伝）に置く** — WebSearch の要約だけでは判定しない
+- **スクリプトによるデータの自動生成は禁止** — 人物ごとの個別調査・判定が必須（日数計算等の機械的な計算補助や、確定済み調査結果の構造チェックはOK）
+- **原文引用の手打ち禁止** — 引用は `scripts/quote_helper.py`／grep のツール出力からコピーし、字体変換・要約・語順変更をしない。引用・日付を変更したら上記ゲートの合格がコミット条件
+- **原典調査（データ訂正・新規ブロック着手）に入る前に [CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) と [RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) を読む** — 「china-history の相対巻数」「原文ラベルなのに中身が白話訳」のように、読まずに進むと誤った巻・誤った日付を採用する罠が記録されている（担当ブロックの書名・巻・行範囲は [SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md) から引く）。読まずに調査エージェントを起動して手戻りした事故が複数回発生している
+- **コーパスに `.{0,N}KW.{0,N}` 型のコンテキスト抽出 grep を掛けない** — 素の `grep`／Grep ツールは ugrep で、単一10MBファイルでもメモリ4GB超に暴走し WSL ごと落ちる（回避策: CORPUS_NOTES の「コーパス検索のメモリ事故対策」節）
+- **並行セッション前提の read-modify-write** — 同じ作業ツリーで別セッションが `data/emperors.json` を編集していることがある。対象 id のフィールドだけ更新し、それ以外のレコード・`meta` には触らない
+- **外部 API への一括リクエストは「小規模検証 → 想定件数を提示して明示的許可 → 本実行」** の順を踏む
 - **データを訂正したら** `data/emperors.json` の該当データと関連する `meta` 情報・ドキュメントを**同じタイミングで**更新する
-- **原文引用の手打ち禁止** — 引用は `scripts/quote_helper.py`／grep のツール出力からコピーし、字体変換・要約・語順変更をしない。引用・日付の変更時は `verify_quotes.py`・`verify_calendar.py` の合格がコミット条件（[docs/process/RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md)「引用の取り扱い規約」）
-
-詳細は [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md) を参照。
-
-## スキーマ・データ定義
-
-- **スキーマ v3 の設計・移行記録（2026-07-29・Issue #22）**: [docs/schema/V3_MIGRATION_PLAN.md](docs/schema/V3_MIGRATION_PLAN.md) — 時代・政権カタログ、全 enum の ID 化、`dynasty`／`flags.selfProclaimed` の廃止
-- **JSON フィールド詳細**: [data/schema/EMPERORS_SCHEMA.md](data/schema/EMPERORS_SCHEMA.md)
-- **死因スキーマ**: [data/schema/DEATH_CAUSE_SCHEMA.md](data/schema/DEATH_CAUSE_SCHEMA.md)
-- **その他スキーマ** (即位経路・改元・大赦など): [data/schema/ADDITIONAL_SCHEMA.md](data/schema/ADDITIONAL_SCHEMA.md)
-- **収録基準**: [data/schema/INCLUSION_CRITERIA.md](data/schema/INCLUSION_CRITERIA.md)
-- **系譜・即位経路グラフ** (`data/kinship.json`・調査中): [data/schema/KINSHIP_SCHEMA.md](data/schema/KINSHIP_SCHEMA.md)。検証は `python3 scripts/validate_kinship.py`
+- **データ正確性が最優先** — 誤りは個別調査でデータ側を訂正する。サイト側での場当たり的な補正はしない（表示破綻の回避のみ許容。既知の例は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) の申し送り事項）

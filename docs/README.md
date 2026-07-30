@@ -8,7 +8,7 @@
 |---|---|
 | [PROJECT_STATUS.md](PROJECT_STATUS.md) | プロジェクト現状・進行中の作業・データ品質やサイトの申し送り事項。作業開始時に必ず確認 |
 | [QA_HISTORY.md](QA_HISTORY.md) | 完了済みのデータ QA・出典整備の作業記録（同種の QA を回すときの手順書） |
-| [process/CONSTRAINTS.md](process/CONSTRAINTS.md) | 絶対に守るべき制約（スクリプト自動生成禁止など） |
+| [process/CONSTRAINTS.md](process/CONSTRAINTS.md) | 絶対に守るべき制約（スクリプト自動生成禁止など）。冒頭に「削ってよい指示との区別」を明記 |
 
 ## process/ — 調査プロセス・実務メモ
 
@@ -20,7 +20,7 @@
 | [process/CORPUS_NOTES.md](process/CORPUS_NOTES.md) | ローカルコーパス利用メモ（書物・王朝を問わず効く罠と原則。**調査着手のたびに読む**） |
 | [process/SOURCE_MAPPING.md](process/SOURCE_MAPPING.md) | 史料マッピング・行番号インデックス（王朝ブロックごとの書名・巻・行範囲。担当ブロックの表だけを引く辞書） |
 | [process/CONSTRAINTS.md](process/CONSTRAINTS.md) | 絶対に守るべき制約 |
-| [process/AI_RESEARCH_LESSONS.md](process/AI_RESEARCH_LESSONS.md) | 史書をAIで調査する方法の知見集（なぜその方法か・失敗事例・一般化可能な設計指針） |
+| [process/AI_RESEARCH_LESSONS.md](process/AI_RESEARCH_LESSONS.md) | 史書をAIで調査する方法の知見集（なぜその方法か・失敗事例・一般化可能な設計指針）。10節はエージェント運用とドキュメントの書き方（progressive disclosure・Workflow のパターン選択） |
 
 ## schema/ — スキーマ解説
 
