@@ -413,11 +413,11 @@ export const dynastyCategoryOptions: { value: DynastyCategory; label: string }[]
 // 訪問者向けに膨らませたもの（このファイルは Client Component から import するため
 // データを読めない。カタログの説明を変えたらここも合わせる）。
 export const dynastyCategoryDescriptions: Record<DynastyCategory, string> = {
-  正統王朝: "王朝の本流として歴代に数えられる政権の皇帝（例：前漢・唐・宋・明・清など）",
+  正統王朝: "王朝の本流として歴代に数えられる政権の皇帝（例：前漢・唐・遼・金・宋・明・清など）",
   並立政権:
-    "同時代に他政権と並び立った政権の皇帝（例：五胡十六国・十国・遼・金・西夏など）",
+    "同時代に他政権と並び立った政権の皇帝（例：五胡十六国の各政権・十国・西夏・隋末の群雄など）",
   "反乱・自称政権":
-    "既存王朝への反乱・自立によって建てられた政権の皇帝（例：赤眉軍の漢・武周・李自成の順など）",
+    "既存王朝への反乱・自立によって建てられた政権の皇帝（例：赤眉軍の漢・公孫述の成家・李自成の順など）",
 };
 
 export const courtEventLabels: Record<CourtEventKey, string> = {

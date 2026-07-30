@@ -22,7 +22,7 @@
 | `schemaVersion` | string | semver。スキーマに破壊的変更があれば上げる |
 | `generatedAt` | string (`YYYY-MM-DD`) | データ最終更新日 |
 | `count` | number | `emperors` 配列の件数（365件、手動同期） |
-| `catalogs` | object | **v3 で新設**。`eras`（時代11区分）・`regimes`（政権87件）・`enums`（フィールドごとの ID→ラベル14種）。下記参照 |
+| `catalogs` | object | **v3 で新設**。`eras`（時代11区分）・`regimes`（政権87件）・`enums`（フィールドごとの ID→ラベル19種）。下記参照 |
 | `status` | object | 調査フェーズの進捗管理（下記） |
 | `completedBlocks` | string[] | 在位データ調査が完了した王朝ブロック名の一覧（24ブロック。単純な文字列配列で、除外判断等の詳細は各人物レコードの `verification.notes` 側に記録） |
 
@@ -34,7 +34,7 @@
 |---|---|
 | `eras[]` | 時代区分11件。`id`（例 `sui-tang`）・`label`（隋・唐）・`labelEn`（未投入・null）・`sortOrder`。**調査ブロック（`researchSection`）とは独立**した、時代ジャンプ・並び順のための固定カタログ。時代は慣用区分で年代は排他区間ではない（北魏 399〜 は南北朝、遼 916〜 は宋遼金夏） |
 | `regimes[]` | 政権87件。`id`・`name`（国号）・`label`（曖昧性のない表示名）・`labelEn`・`eraId`・`category`（`orthodox`／`coexisting`／`rebel`）・`startYear`/`endYear`・`sortOrder`・`dynastyOrderSurveyed` |
-| `enums` | フィールド名 → `[{id,label,labelEn,description?}]` の14種（`regimeCategory`・`emperorStanding`・`accessionCategory`・軸6種・`relationToPredecessor`・`deathCause`・`confidence`・`datePrecision`）。**ID はフィールド内で一意**（フィールドをまたぐ同名 ID は別物） |
+| `enums` | フィールド名 → `[{id,label,labelEn,description?}]` の19種（`regimeCategory`・`emperorStanding`・`accessionCategory`・軸6種・`relationToPredecessor`・`deathCause`・`confidence`・`datePrecision`、および kinship.json 用の5種 `kinshipPersonKind`・`kinshipInclusionReason`・`kinshipRelation`・`kinshipRelationDetail`・`kinshipSuccessionCategory`）。**ID はフィールド内で一意**（フィールドをまたぐ同名 ID は別物） |
 
 `regimes[].startYear`/`endYear` は**表示用のヒントであって権威ある区間ではない**（唐 618〜907 の内側に武周 690〜705 が入るなど入れ子・重複しうる）。
 

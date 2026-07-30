@@ -24,7 +24,9 @@
 | D9 | 英語ラベルは `catalogs` に **`labelEn` の枠だけ**用意（値の投入は英語版タスク）。旧 U6 |
 | D10 | `kinship.persons[].regimeId` は **v3 では入れない**（415人分の政権帰属は別調査。persons は `researchSection`＋`eraId` のみ） |
 
-サイト互換は考慮しない（旧サイトは削除済み）。
+サイト互換は考慮しない（この設計を書いた時点では旧サイトを削除済みだった）。
+
+**2026-07-30 追記**: ゼロベース再構築を取り下げ、旧サイト（`site/`）を復元して v3 に対応させた。ラベル解決は `site/src/lib/data-source.ts` の一点に閉じ、レコードの ID を `meta.catalogs` からラベルへ引いてから下流に流す方式（サイト内部は従来どおり表示ラベルで集計・分岐する）。あわせて、D3 で「カタログに集約する」としながら未投入だった kinship 側の語彙4件（`kinshipPersonKind`・`kinshipInclusionReason`・`kinshipRelation`・`kinshipSuccessionCategory`）を `meta.catalogs.enums` へ追加し、`validate_kinship.py` の `check_enum_catalogs` で語彙とカタログの突合を CI ゲートにした。サイト側の対応内容は `site/AGENTS.md` の「スキーマ v3 の ID→ラベル解決」節。`catalogs.eras`（11区分）はサイトが採っていない（通史年表の時代帯・王朝フィルタが `ERA_BY_SECTION` の15区分に合わせて作られているため。寄せるなら年表の再設計が必要）。
 
 ---
 

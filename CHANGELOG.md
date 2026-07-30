@@ -2,7 +2,13 @@
 
 データ内容の変更履歴です。版は `meta.version`（CalVer: `YYYY.MM`）で管理します。構造（スキーマ）の変更は `meta.schemaVersion`（semver）で別軸管理し、ここには構造変更も注記として併記します。
 
-## 2026.07 (2026-07-29 更新)
+## 2026.07 (2026-07-30 更新)
+
+### 加算（2026-07-30・kinship 側の語彙カタログを投入）— `schemaVersion` 3.0.0 のまま
+
+- **`meta.catalogs.enums` に `kinshipPersonKind`・`kinshipInclusionReason`・`kinshipRelation`・`kinshipSuccessionCategory` を追加**（enum カタログが14種→19種）。v3 の D3 は「全 enum を ID 化し日本語ラベルは `meta.catalogs` に集約する」としていたが、kinship.json 側の4語彙はカタログが未投入で**ラベルがどこにも無く、消費側が ID を表示ラベルへ解決できなかった**。ラベルは v1 の kinship.json の値をそのまま移した 1:1 のリネームで、**判定内容の変更はない**（`kinshipSuccessionCategory` は `accessionCategory` の8値＋`restoration`（復位）で emperors 側と語彙が異なるため独立キーにした）
+- `validate_kinship.py` に `check_enum_catalogs` を追加し、スクリプトの ID 語彙がカタログに収まっていることを検査（kinship 専用キーはカタログ側の余剰も誤り、emperors と共有する `relationToPredecessor` は emperors 専用の `none` を許す）。語彙を増やしたときにラベルの投入漏れが CI で止まる
+- 旧サイト（`site/`）を復元して v3 対応させた（詳細は [docs/schema/V3_MIGRATION_PLAN.md](docs/schema/V3_MIGRATION_PLAN.md) の 2026-07-30 追記）。配布 CSV（`public/data/emperors.csv`）の列も v3 に合わせ、`regimeId`・`eraId`・`researchSection`・`standing`・`dynastyOrderSurveyed` を追加し、廃止した `selfProclaimed` 列を削除
 
 ### 構造変更（2026-07-29・スキーマ v3 / Issue #22）— `schemaVersion` 2.0.0 → 3.0.0（kinship.json は 1.0.0 → 2.0.0）
 

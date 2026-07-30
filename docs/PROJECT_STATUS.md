@@ -8,7 +8,9 @@
 
 **2026-07-20追記**: 通史年表の設計検討中に収録漏れが判明し、唐哀帝（李柷、`tang-aidi`、904-907年在位）を追加調査・収録しました。全12項目を原典（旧唐書・資治通鑑）で個別調査済みです。**現在の収録人数は365人**（以下のチェックリスト内の「364人」表記は2026-07-18時点の記録であり、この訂正前の値です）。
 
-**2026-07-29追記（スキーマ v3・Issue #22）**: 新サイトをゼロベースで作り直すため、データ構造を v3 へ移行した（`schemaVersion` 3.0.0 / kinship.json 2.0.0）。`meta.catalogs`（時代11区分・政権87件・enum14種）を新設し、`dynasty` を `eraId`/`regimeId`/`researchSection`/`standing` に解体、全 enum を安定 ID 化、`accessionRoute.category` と `flags.selfProclaimed` を廃止した。**判定内容（データ値）は変更していない**。設計・判定根拠・スコープ外にした項目は [docs/schema/V3_MIGRATION_PLAN.md](schema/V3_MIGRATION_PLAN.md) を参照。v3 で持ち越した宿題は「`dynastyOrder`（第N代）が51政権で未調査＝`dynastyOrderSurveyed: false`」と「kinship persons の政権帰属（`regimeId`）」の2件で、いずれも別 Issue 扱い。
+**2026-07-29追記（スキーマ v3・Issue #22）**: 新サイトをゼロベースで作り直すため、データ構造を v3 へ移行した（`schemaVersion` 3.0.0 / kinship.json 2.0.0）。`meta.catalogs`（時代11区分・政権87件・enum19種〔うち5種は kinship.json 用。2026-07-30 に4種を追加投入〕）を新設し、`dynasty` を `eraId`/`regimeId`/`researchSection`/`standing` に解体、全 enum を安定 ID 化、`accessionRoute.category` と `flags.selfProclaimed` を廃止した。**判定内容（データ値）は変更していない**。設計・判定根拠・スコープ外にした項目は [docs/schema/V3_MIGRATION_PLAN.md](schema/V3_MIGRATION_PLAN.md) を参照。v3 で持ち越した宿題は「`dynastyOrder`（第N代）が51政権で未調査＝`dynastyOrderSurveyed: false`」と「kinship persons の政権帰属（`regimeId`）」の2件で、いずれも別 Issue 扱い。
+
+**2026-07-30追記（サイトのゼロベース再構築を取り下げ・v3 対応）**: ゼロベース再構築（`site/` を削除して Claude Design から作り直す方針）を取り下げ、旧サイトを復元して v3 に対応させた。ラベル解決は `site/src/lib/data-source.ts` の一点に閉じてある（詳細は [site/AGENTS.md](../site/AGENTS.md) の「スキーマ v3 の ID→ラベル解決」節）。**サイトの表示で変わったのは政権区分の人数**で、旧 `dynasty.category` の混在解消により正統王朝 214→245・反乱・自称政権 45→14 になり、人物単位の「対立・僭称の皇帝」20名は詳細ダイアログ・個別ページの1行（`isRivalClaimant`）へ移った。死因8分類・即位経路8分類・王朝87件・時代ラベルは v2 と完全一致（機械突合で確認済み）。
 
 > **運用ルール**: このファイルは調査作業のたびに更新が滞りがちだったため、チェックリスト形式に統一した。
 > ブロック調査・スキーマフェーズを1つ完了するたびに、**このファイルのチェックボックスと `data/emperors.json` の `meta.status.phases` の両方を同じタイミングで更新すること**（片方だけ更新して終わらせない）。
