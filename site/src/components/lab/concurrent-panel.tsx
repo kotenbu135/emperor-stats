@@ -38,6 +38,8 @@ export function ConcurrentPanel({
         index="year"
         series={SERIES}
         ticks={TICKS}
+        // 人数は年ごとの段なので階段で結ぶ（曲線で結ぶとデータに無い山と谷が出る）。
+        curveType="stepAfter"
         tickFormatter={yearLabel}
         labelFormatter={(v) => `${yearLabel(Number(v))}年`}
         valueFormatter={(v) => `${v}人`}

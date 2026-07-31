@@ -124,6 +124,7 @@ export function LineChart({
   labelFormatter = (v) => String(v),
   tickFormatter,
   ariaLabel,
+  curveType = "linear",
 }: {
   data: Record<string, number>[];
   /** 横軸に使うキー。 */
@@ -141,6 +142,9 @@ export function LineChart({
   tickFormatter?: (value: number) => string;
   /** 図そのものの読み上げ名。凡例と数値は下の凡例リストが担う。 */
   ariaLabel?: string;
+  /** 線の結び方。**既定は linear** — 整数を数え上げた系列に monotone を当てると、
+   *  データに無い山と谷を勝手に作る。段の系列（人数など）は "stepAfter"。 */
+  curveType?: "linear" | "stepAfter" | "monotone";
 }) {
   return (
     <div className={cn("w-full", className)}>
@@ -216,7 +220,7 @@ export function LineChart({
                 key={s.key}
                 dataKey={s.key}
                 name={s.name}
-                type="monotone"
+                type={curveType}
                 dot={false}
                 strokeWidth={2}
                 className={STROKE_CLASS[s.series]}
