@@ -27,11 +27,13 @@ const SHOTS = [
   { name: "01-top", path: "/" },
   { name: "02-emperors", path: "/emperors" },
   // 一覧の中で開く面。fullPage だとオーバーレイの外側まで撮ってしまうので画面内に限る。
-  { name: "03-emperors-dialog", path: "/emperors", viewportOnly: true, action: openDetailDialog },
-  { name: "04-emperors-jump", path: "/emperors", viewportOnly: true, action: openJumpPopover },
-  { name: "05-database", path: "/database" },
-  { name: "06-about", path: "/about" },
-  { name: "07-emperor-detail", path: "/emperors/han-wudi" },
+  { name: "03-emperors-jump", path: "/emperors", viewportOnly: true, action: openJumpPopover },
+  { name: "04-database", path: "/database" },
+  { name: "05-about", path: "/about" },
+  // 個別ページは肖像あり／なしの両方を撮る（肖像なしが221名・61%で、五胡十六国・
+  // 南北朝はほぼ全員がこちら。片方だけ見て決めると多数派の見た目を外す）。
+  { name: "06-emperor-detail", path: "/emperors/han-wudi" },
+  { name: "07-emperor-detail-noportrait", path: "/emperors/qianqin-fujian" },
   // 復位した皇帝（在位3期）。在位期間の2行化が効いている個別ページの代表。
   { name: "08-emperor-detail-restoration", path: "/emperors/qing-xuantong" },
   { name: "09-notfound", path: "/this-route-does-not-exist", expectStatus: 404 },
@@ -96,12 +98,6 @@ async function primeLazyContent(page) {
     window.scrollTo(0, 0);
     await new Promise((r) => setTimeout(r, 400));
   });
-}
-
-async function openDetailDialog(page) {
-  await page.locator('a[href="/emperors/qin-shi-huang"]').first().click();
-  await page.locator('[role="dialog"]').waitFor({ state: "visible", timeout: 10000 });
-  await sleep(600);
 }
 
 async function openJumpPopover(page) {

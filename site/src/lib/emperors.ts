@@ -573,7 +573,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
  * 皇帝一覧ページ（/emperors）専用の軽量レコード。カード表示・検索・絞り込みに
  * 必要な最小フィールド＋かな検索用のsearchKanaだけを返す（フルのEmperorRecordを
  * 365件クライアントpropsに埋め込むとRSCペイロードが数百KB太るため。全項目は
- * ダイアログ開時に /emperor-records/{id} をfetchする）。
+ * 個別ページ /emperors/{id} が Server Component で読む）。
  */
 export function getEmperorListRecords(): EmperorListRecord[] {
   const kanaById = new Map(

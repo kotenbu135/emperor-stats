@@ -6,7 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 `../data/emperors.json`（中国皇帝365人・全12項目）を可視化する統計サイト。Next.js 16（App Router / Turbopack）+ Tailwind v4 + shadcn/ui + Tremor（vendored）+ Recharts + TanStack Table。`output: "export"` で `out/` に静的書き出しし、GitHub Pages + カスタムドメイン **emperorstats.com**（`public/CNAME`）のルート直下で配信する。
 
-**2026-07-31 に作り替えて一旦完成した。** 構成は**4ページ**（概要ダッシュボード `/`・皇帝一覧 `/emperors`・データベース `/database`・このサイトについて `/about`）＋皇帝個別 `/emperors/[id]` の365ページ。ただし**詳細ダイアログ・外側のシェル（サイドバー・ヘッダー・フッター）・`/emperors/[id]` は旧実装のまま**残っている（申し送りの全文は SITE_DESIGN.md の「2. ページ構成」節）。同日、`/timeline`・`/kinship`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`・**`/reign`** はファイルごと削除した（公開済みURLは 404 に着地させる方針）。`/reign` の2節はデータベースの状態として残っていて、リンクは `/database?sort=reignApproxDays&order=desc`（在位年数ランキング）と `/database?reign=restoration`（復位者一覧）へ付け替えてある。**`@nivo/*` はこの削除で消えた** — チャートは Recharts（vendored Tremor 経由）だけ。
+**2026-07-31 に作り替えて一旦完成した。** 構成は**4ページ**（概要ダッシュボード `/`・皇帝一覧 `/emperors`・データベース `/database`・このサイトについて `/about`）＋皇帝個別 `/emperors/[id]` の365ページ。ただし**外側のシェル（サイドバー・ヘッダー・フッター）・`/emperors/[id]` は旧実装のまま**残っている（申し送りの全文は SITE_DESIGN.md の「2. ページ構成」節）。**詳細ダイアログは 2026-08-01 に廃止**し、一覧カードは個別ページへ直接遷移する（検討記録は `../docs/site-design/EMPEROR_PAGE_PLAN_2026-08-01.md`）。同日、`/timeline`・`/kinship`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`・**`/reign`** はファイルごと削除した（公開済みURLは 404 に着地させる方針）。`/reign` の2節はデータベースの状態として残っていて、リンクは `/database?sort=reignApproxDays&order=desc`（在位年数ランキング）と `/database?reign=restoration`（復位者一覧）へ付け替えてある。**`@nivo/*` はこの削除で消えた** — チャートは Recharts（vendored Tremor 経由）だけ。
 
 このファイルには**崩すとビルドが落ちる契約**だけを置いてある。ページ構成・スタックの使い分け・配色の考え方・各ページの設計判断・決着済みで再提案しないことは [../docs/site-design/SITE_DESIGN.md](../docs/site-design/SITE_DESIGN.md) が正。旧サイトの設計記録・実装ログ・デザイン契約は同日すべて削除したので、**この2本以外から方針を引かないこと**。
 
@@ -25,10 +25,9 @@ node tools/capture-site.mjs   # out/ を静的配信して全ページの確認�
 
 `tools/capture-site.mjs` は `out/` を自前の静的サーバーで配信する（`output: "export"` なので `/about` → `about.html` の解決が要り、素の静的サーバーでは 404 になる）。**ページを増減したらスクリプトの `SHOTS` も直すこと** — `page.goto` は 404 でも throw しないので、廃止済みのパスを撮ると 404 ページが「撮れた」ことになる（実装側で status を検証している）。
 
-`predev`/`prebuild` で3つの生成スクリプトが走る:
+`predev`/`prebuild` で2つの生成スクリプトが走る:
 
 - `scripts/sync-portraits.mjs` — `../docs/site-design/mockups/card-preview/` の肖像画 webp を `public/portraits/` へ同期し、sharp で 320px 幅サムネを `public/portraits/thumb/` に生成する。**`card-preview/` はビルド入力なので消さないこと。**
-- `scripts/build-emperor-notes.mjs` — 経緯 note を `public/emperor-notes/{id}.json` へ
 - `scripts/build-data-distribution.mjs` — 配布用データを `public/data/` へ
 
 # 崩してはいけない契約
@@ -51,9 +50,11 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 ## /emperors 一覧のペイロード分離
 
-一覧グリッドのクライアント props は軽量な `EmperorListRecord`（10フィールドのみ）に限定し、フルの `EmperorRecord` は詳細ダイアログを開いた時に `/emperor-records/{id}`（`app/emperor-records/[id]/route.ts` が静的書き出しする1人約2KBのJSON）を fetch して取得する。
+一覧グリッドのクライアント props は軽量な `EmperorListRecord`（10フィールドのみ）に限定する。フルの `EmperorRecord` は個別ページ `/emperors/[id]` が Server Component で読む（一覧側は持たない）。
 
 **一覧の props にフルレコードを戻すと RSC ペイロードが約420KB太る。** カードに表示項目を増やすときは `EmperorListRecord` へ必要フィールドだけ足すこと。
+
+2026-08-01 に詳細ダイアログを廃止（カードは個別ページへ素の遷移）した時点で、フルレコードを取りに行く先だった Route Handler `app/emperor-records/[id]/route.ts` と経緯 JSON `public/emperor-notes/`（`scripts/build-emperor-notes.mjs`）は消えている。**この契約は分離の理由が「ダイアログ用のfetch元を分ける」から「一覧のRSCペイロードを188KBに留める」へ変わっただけで、そのまま生きている。**
 
 `/database` も同じ理由で専用レコード `EmperorTableRecord`（`getEmperorTableRecords()`）を持つ。**`EmperorListRecord` と流用し合わないこと** — 図鑑カードの10フィールドと表の8列は一致せず、片方に必要なフィールド（`searchKana`・`portraitUrl` / `reignApproxDays`・`deathAge`）を相互に持ち込むと両方のペイロードが太る。列を足すときは `EmperorTableRecord` → `getEmperorTableRecords()` → `emperor-table.tsx` の `COLUMNS` の3箇所をそろえる。**列数は `emperor-types.ts` の `DATABASE_COLUMN_COUNT` が単一情報源**（OGP画像の事実カードがこの値を出す）で、`COLUMNS.length` との突合 assert があるため増減時は同時に直す。
 

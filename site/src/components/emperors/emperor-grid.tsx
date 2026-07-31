@@ -3,11 +3,16 @@
 // 皇帝一覧の「図鑑」グリッド。
 // **カード1枚（肖像＋名前・王朝・在位期間）の全体が3:4**・肖像はcover+topで
 // 顔を切らずにフィット、画像なしは姓一文字のモノグラムをプレースホルダー表示する。
-// カードを押すと詳細ダイアログを開く。
+// カードを押すと個別ページ（/emperors/{id}）へ遷移する。
+//
+// 2026-08-01 まではカードのクリックを preventDefault して詳細ダイアログを開いていた
+// （履歴同期・フルレコードのlazy fetch付き）。/database・ダッシュボードの行は元から
+// 個別ページ直リンクで、グリッドだけが例外だったため素の遷移へ揃えた。ダイアログの
+// 利点だった「戻るで一覧ごと離脱しない」は、Next.jsのソフトナビゲーションと下のURL
+// 同期でスクロール位置・絞り込みごと復元されることを実測して確認済み。
 
 import {
   memo,
-  useCallback,
   useDeferredValue,
   useEffect,
   useMemo,
@@ -30,16 +35,13 @@ import type {
   DynastyCategory,
   DynastyOption,
   EmperorListRecord,
-  EmperorRecord,
 } from "@/lib/emperor-types";
 import {
   dynastyCategoryOptions,
 } from "@/lib/emperor-types";
 import { toHiragana } from "@/lib/kana";
 import { dynastyColorHex, dynastyColorSlot } from "@/lib/dynasty-colors";
-import { BASE_PATH } from "@/lib/base-path";
 import { Portrait } from "@/components/emperors/portrait";
-import { EmperorDetailDialog } from "@/components/emperors/emperor-detail-dialog";
 import {
   BELOW_SECTION_NAV,
   SectionJumpNav,
@@ -71,23 +73,15 @@ function DynastyMark({ dynastyKey }: { dynastyKey: string }) {
 const EmperorCard = memo(function EmperorCard({
   record,
   priority,
-  onSelect,
 }: {
   record: EmperorListRecord;
   priority: boolean;
-  onSelect: (record: EmperorListRecord) => void;
 }) {
   return (
-    // クローラが一覧→個別365ページを辿れるよう実DOMに<a href>を出す。素の左クリックは
-    // preventDefaultして従来どおり詳細ダイアログを開き、修飾クリック（新規タブ等）は
-    // ブラウザに委ねて個別ページへ遷移させる（progressive enhancement）。
+    // 素の<a href>。クローラが一覧→個別365ページを辿れることと、修飾クリック（新規
+    // タブ等）がそのまま効くことを兼ねる。
     <Link
       href={`/emperors/${record.id}`}
-      onClick={(e) => {
-        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-        e.preventDefault();
-        onSelect(record);
-      }}
       // hoverの移動はcompositorプロパティだけに限る。365枚が全件DOMに載るグリッドなので、
       // top/marginで動かすと再レイアウトがCLSに化ける。
       // Tailwind v4 の -translate-y-* は transform ではなく translate プロパティを書くため、
@@ -149,50 +143,6 @@ export function EmperorGrid({
   const [query, setQuery] = useState("");
   const [dynastyValue, setDynastyValue] = useState("all");
   const [categoryValue, setCategoryValue] = useState<DynastyCategory | "all">("all");
-  // 一覧のpropsは軽量レコードのみ。ダイアログに出すフルEmperorRecordは、開く時に
-  // /emperor-records/{id}（Route Handlerの静的書き出し）をfetchして取得する。
-  const [selected, setSelected] = useState<EmperorRecord | null>(null);
-  const fullRecordsRef = useRef(new Map<string, EmperorRecord>());
-  // 最後に開こうとしたid。連打・閉じた直後に古いfetchが解決してダイアログを
-  // 開き直さないよう、解決時に一致確認する。
-  const wantedIdRef = useRef<string | null>(null);
-  const onSelect = useCallback(({ id }: { id: string }) => {
-    wantedIdRef.current = id;
-    const cached = fullRecordsRef.current.get(id);
-    if (cached) {
-      setSelected(cached);
-      return;
-    }
-    fetch(`${BASE_PATH}/emperor-records/${id}`)
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`${res.status}`))))
-      .then((record: EmperorRecord) => {
-        fullRecordsRef.current.set(id, record);
-        if (wantedIdRef.current === id) setSelected(record);
-      })
-      .catch(() => {
-        // 取得できない環境ではダイアログを諦めて個別ページ本体へ遷移する
-        // （カードの<a href>と同じ遷移先。内容の表示を最優先にする）。
-        if (wantedIdRef.current === id) {
-          window.location.assign(`${BASE_PATH}/emperors/${id}`);
-        }
-      });
-  }, []);
-  const onCloseDialog = useCallback(() => {
-    wantedIdRef.current = null;
-    setSelected(null);
-  }, []);
-  // 進む（popstate）での再入はダイアログが覚えているフルレコードで開き直す。
-  const onRestoreDialog = useCallback((record: EmperorRecord) => {
-    wantedIdRef.current = record.id;
-    fullRecordsRef.current.set(record.id, record);
-    setSelected(record);
-  }, []);
-  // ダイアログを開いている間はURLを個別ページに差し替える（共有・リロードで
-  // 個別ページ本体が開く）。useDialogHistoryのeffect依存になるため安定参照で渡す。
-  const dialogUrlFor = useCallback(
-    (record: EmperorRecord) => `${BASE_PATH}/emperors/${record.id}`,
-    [],
-  );
   // 入力欄の反応を優先し、グリッドの絞り込み再レンダリングは低優先度で追従させる
   // （1文字ごとに364カードの再レンダリングがキー入力をブロックしないように）。
   const deferredQuery = useDeferredValue(query);
@@ -218,26 +168,17 @@ export function EmperorGrid({
     if (category && dynastyCategoryOptions.some((o) => o.value === category)) {
       setCategoryValue(category as DynastyCategory);
     }
-    // ダイアログ内リンクで個別ページへ遷移→戻るで一覧へ帰ってきた場合、履歴
-    // エントリにはダイアログのmarkerが残ったままこのコンポーネントがマウント
-    // し直される（popstateはマウント前に発火済みで拾えない）。ここで復元して
-    // 「戻る＝ダイアログの開いた一覧」を再現する。
-    const dialogId = (
-      window.history.state as { emperorDialog?: string } | null
-    )?.emperorDialog;
-    if (dialogId) {
-      const record = records.find((r) => r.id === dialogId);
-      if (record) onSelect(record); // フルレコードをfetchして開き直す
-    }
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [dynastyOptions, records, onSelect]);
+  }, [dynastyOptions]);
   useEffect(() => {
     if (skipFirstUrlWriteRef.current) {
       skipFirstUrlWriteRef.current = false;
       return;
     }
-    // ダイアログが履歴同期でURLを個別ページに差し替えている間は書き込まない
-    // （検索入力のdeferred反映がダイアログを開いた直後に届く競合対策）。
+    // 一覧のURLでないときは書き込まない。カードを押してソフトナビゲーションが
+    // 始まった直後にdeferredQueryの反映が届くと、遷移先の /emperors/{id} に対して
+    // ?q= を replaceState してしまうため（ダイアログ時代の履歴同期対策として
+    // 入れたガードだが、直接遷移になっても理由が変わって必要）。
     const path = window.location.pathname;
     if (!(path.endsWith("/emperors") || path.endsWith("/emperors/"))) return;
     const params = new URLSearchParams();
@@ -285,14 +226,6 @@ export function EmperorGrid({
     }
     return [...byEra.entries()];
   }, [filtered]);
-  // 表示順（セクション順）で平坦化した一覧。ダイアログの前後送りに使う。
-  const flatOrder = useMemo(
-    () => sections.flatMap(([, list]) => list),
-    [sections],
-  );
-  const selectedIndex = selected
-    ? flatOrder.findIndex((r) => r.id === selected.id)
-    : -1;
 
   return (
     <div>
@@ -407,7 +340,6 @@ export function EmperorGrid({
                         key={r.id}
                         record={r}
                         priority={i < priorityCount}
-                        onSelect={onSelect}
                       />
                     ))}
                   </div>
@@ -417,20 +349,6 @@ export function EmperorGrid({
           </div>
         </>
       )}
-
-      <EmperorDetailDialog
-        record={selected}
-        onClose={onCloseDialog}
-        onRestore={onRestoreDialog}
-        historyUrlFor={dialogUrlFor}
-        prev={selectedIndex > 0 ? flatOrder[selectedIndex - 1] : null}
-        next={
-          selectedIndex >= 0 && selectedIndex < flatOrder.length - 1
-            ? flatOrder[selectedIndex + 1]
-            : null
-        }
-        onNavigate={onSelect}
-      />
     </div>
   );
 }

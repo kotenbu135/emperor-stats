@@ -134,8 +134,8 @@ export interface EmperorRecord {
 /**
  * 皇帝一覧ページ（/emperors）専用の軽量レコード。カード表示・検索・絞り込みに
  * 必要な最小フィールドだけを持つ（365件×EmperorRecordフルをRSCペイロードに
- * 埋め込むと/emperorsのHTML・payloadが数百KB太るため）。全項目は詳細ダイアログを
- * 開いた時だけ /emperor-records/{id} をfetchして取得する。
+ * 埋め込むと/emperorsのHTML・payloadが数百KB太るため）。全項目は個別ページ
+ * （/emperors/{id}）が Server Component で読む。
  */
 export interface EmperorListRecord {
   id: string;
@@ -218,12 +218,6 @@ export interface EmperorTableRecord {
   deathAge: number | null;
 }
 
-/** 詳細ダイアログの前後送りナビに必要な最小情報（一覧グリッドは軽量レコードを渡す）。 */
-export interface EmperorNavTarget {
-  id: string;
-  name: string;
-}
-
 /** 経緯1節分（即位の経緯・死因の経緯）。noteは調査時の原文ママ。 */
 export interface NarrativeSection {
   note: string;
@@ -288,17 +282,6 @@ export interface EmperorNarrative {
   memos: ResearchMemo[];
   /** 在位日付の典拠（在位期間ごと。個別ページ限定表示）。 */
   reignSources: ReignSourceNarrative[];
-}
-
-/**
- * 詳細ダイアログがlazy fetchする経緯JSON（public/emperor-notes/{id}.json）。
- * EmperorNarrativeから経緯2節だけを抜き出したもの（memos・restorationsは個別ページ限定）。
- * ダイアログはEmperorRecordにnoteを載せない方針のため、開いた時だけこれを取得する。
- */
-export interface EmperorNarrativeNotes {
-  accession: NarrativeSection | null;
-  accessionAxes: AccessionAxes | null;
-  death: NarrativeSection | null;
 }
 
 /** 在位中の出来事年表（個別ページ）の種別キー。8指標のevents[]に対応する。 */
