@@ -6,7 +6,40 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # サイト概要
 
-`../data/emperors.json`（中国皇帝365人・全12項目）を可視化する統計サイト。Next.js 16（App Router / Turbopack）+ Tailwind v4 + shadcn/ui + Nivo。`output: "export"` で `out/` に静的書き出しし、GitHub Pages + カスタムドメイン **emperorstats.com**（`public/CNAME`）のルート直下で配信する。
+`../data/emperors.json`（中国皇帝365人・全12項目）を可視化する統計サイト。Next.js 16（App Router / Turbopack）+ Tailwind v4 + shadcn/ui。`output: "export"` で `out/` に静的書き出しし、GitHub Pages + カスタムドメイン **emperorstats.com**（`public/CNAME`）のルート直下で配信する。
+
+# 現在の状態 — 再構築の途中（2026-07-31）
+
+**このサイトは作り替えの途中にある。触る前にここを読むこと。** 2026-07-31 に配色・見出しフォント・トップページを
+入れ替えた（決定と経緯: [design-plans/STACK_OPTIONS_2026-07-31.md](design-plans/STACK_OPTIONS_2026-07-31.md)）。
+下の「アーキテクチャ」以降には**新旧どちらの記述も混在している**ので、必ずこの表と突き合わせて読む。
+
+| 面 | 状態 |
+|---|---|
+| `/`（概要ダッシュボード） | **完成**（2026-07-31・ユーザー確認済み）。Tremor + recharts の新実装 |
+| 統計6ページ・ランキング11本・`/emperors`・個別365ページ・`/about` | **旧実装のまま**。Nivo。作り替えは未着手 |
+| 外側のシェル（サイドバー・ヘッダー・フッター） | **旧実装のまま** |
+| `/timeline`・`/kinship` | **廃止決定**。ナビからは外した。**ページ本体とルートはまだ残っていてビルドも通る**（`/timeline` は sitemap にも載ったまま） |
+| `/lab` | 作業用のパネル比較ページ（noindex・`SITE_SECTIONS` 外）。公開ページではない |
+
+**配色は 2026-07-31 に全面差し替えた。旧「水墨文人パレット」（背景 `#f5f1e8` の宣紙色・カード `#faf7f0`・
+`--seal` 朱 `#a6321c`）はもう使っていない。** 現在は `globals.css` の `@palette:start`〜`@palette:end`
+にあるユーザー自作ビルダー由来の oklch テーマ（背景は白 `oklch(1 0 0)`・`--primary` は深紅）。
+`--seal` は `--primary` の別名として残してある。**見出しフォントも明朝（Noto Serif JP）からサンセリフへ変えた**
+（`--font-heading: var(--font-sans)`）。
+
+`globals.css` は全ページ共通なので、**この差し替えは17面すべてに及んでいる**。一方で旧パレットの16進値は
+以下に**ハードコードされたまま**で、宣紙色の上で成立するよう作られた淡彩が白地の上に出ている
+（`/reign` 等で破綻はしていないが、意図より淡い）。**気づいたからといって単独で直さないこと** —
+面ごとの作り替えと一緒に決める:
+
+- `components/charts/nivo-theme.ts` — 軸・凡例・ツールチップ（ツールチップ背景が `#f5f1e8`）
+- `lib/dynasty-colors.ts` — `SURFACE_HEX = "#f5f1e8"`。`mixHex()` の混合先と、文字色を明暗どちらにするかの判定に使う
+- `components/charts/scroll-bar-chart.tsx`・`category-pie-chart.tsx` — SVG テキストの `fill`
+- `app/manifest.ts`（`background_color` / `theme_color`）・`lib/og-image.tsx`（OGP画像の地色と朱）
+
+`components/home/home-panels.tsx` は**旧トップページの実装で、現在どこからも参照されていない死んだコード**。
+新トップは `components/home-v2/`。旧トップの作りを参考にしないこと。
 
 # コマンド
 
@@ -26,23 +59,25 @@ npx tsc --noEmit   # 型チェック
 - **データ読み込みはビルド時のみ**: `src/lib/emperors.ts` が `fs` で `../data/emperors.json`・肖像画 `manifest.json`・`../data/emperor-videos.json`（皇帝↔YouTube動画の目視確認済みマッチング。`../data/youtube-playlist.json` と合成し `EmperorRecord.videos` を生成）を読み、集計関数群を提供する。各ページ（`src/app/*/page.tsx`）は Server Component で集計し、`"use client"` のチャート/フィルタコンポーネントへ props で渡す。この **Server/Client 境界**を崩さないこと（クライアント側から `emperors.ts` を import しない）。
 - **スキーマ v3 の ID→ラベル解決は `src/lib/data-source.ts` に閉じる**: `data/emperors.json`・`data/kinship.json`（2026-07-29 の v3・`schemaVersion` 3.0.0／2.0.0）はレコードが安定 ID しか持たず、日本語ラベルは `meta.catalogs` にある。サイトは表示ラベルで集計・分岐・配色を引くコード（`charts/nivo-theme.ts` の配色マップは日本語キー、`kinship/layout.ts` は続柄・手続きのラベルで矢印ラベルを決める）が広いため、**読み込みの一点でカタログを引いてラベルへ解決し、下流には従来どおりラベルを流す**。旧 `dynasty` オブジェクトも `regimeId`＋`researchSection` からここで組み立てる。ラベルで分岐している値は `assertLabels()` に列挙してあり、カタログのラベルを変えるとビルドが落ちる（黙って配色や分岐が外れない）。**`.mjs` のビルドスクリプト（`scripts/build-emperor-notes.mjs`・`build-data-distribution.mjs`）は TS を import できないため同じ解決を自前で持つ** — 軸や enum を増減したら両方直す。v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時代ラベルは `ERA_BY_SECTION` の15区分で、通史年表の時代帯・王朝フィルタの見出しがこの粒度に合わせて作られている。寄せるなら年表の再設計が必要）。
 - **/emperors 一覧のペイロード分離**: 一覧グリッドのクライアント props は軽量な `EmperorListRecord`（カード表示・検索・絞り込み用の10フィールドのみ）に限定し、フルの `EmperorRecord`（ranks・videos込み）は詳細ダイアログを開いた時に `/emperor-records/{id}`（`app/emperor-records/[id]/route.ts` の Route Handler が静的書き出しする1人約2KBのJSON・拡張子なし）を fetch して取得する（`emperor-grid.tsx` が `Map` キャッシュ＋最新要求idの一致確認つきで実装。経緯noteの `public/emperor-notes/{id}.json` lazy fetch と同じ方式）。**一覧の props にフルレコードを戻すと RSC ペイロードが約420KB太る**ので、カードに表示項目を増やすときは `EmperorListRecord` へ必要フィールドだけ足すこと（経緯: `../docs/site-design/IMPLEMENTATION_LOG.md`「/emperors のRSCペイロード軽量化」節）。
-- **ページ構成**: `/`（概要ダッシュボード）・`/timeline`（通史年表）・`/emperors`（一覧カード）・`/emperors/[id]`（皇帝個別ページ。`generateStaticParams` で全365名分を静的書き出し・deep-link用）・`/reign`・`/death-accession`・`/court-events`（改元・大赦・立后・皇太子廃立・遷都）・`/military`・`/ages`・`/dynasties`（王朝横断）・`/about`（収録基準・数え方・出典・免責事項）。
-- **通史年表（`/timeline`）**: 第2世代「大河ビュー」（`components/timeline/river-timeline.tsx`・SVG自前実装）。87王朝を約35本の「流れ」+群雄クラスター（クリックで構成政権に開閉）に集約し、縦=地理（上:北方/中央:統一の座/下:南方）・帯の太さ=唯一在位（統一）で描く。データは `getRiverTimelineData()`（構築ロジックは `lib/timeline-river.ts`。**キュレーション表 `STREAM_DEFS` が全dynastyKeyを被覆することをビルド時にassertするため、皇帝を追加収録したら必ずこの表へ追記する**。ラベル等の人数表記は手書きせず `emperorCount` から導出する）。座標は天文年（`astroYear`、0年なし対策）、px↔年変換を跨ぐ値は絶対astro年で持ち回す。ズーム時のストリームラベル・皇帝名は `data-clamp-min/max` 属性を scroll の rAF で transform 更新してスパン内へクランプ（React再レンダリングなし）。ツールチップ/ダイアログ分離（`useTipOutlet`/`useDetailOutlet`）・スクロール直後ホバー抑制は他チャート同様に踏襲。キーボード操作あり（`role="application"`・左右=同じ段/上下=並立/Enter=拡大・詳細・クラスター開閉。フォーカス移動のプログラムスクロールでは `suppressTipClearRef` で tip 消去を1回抑制する）。「表で見る」（`timeline-table.tsx`）は旧 `getTimelineData()` のまま。設計・実装記録は `../docs/site-design/TIMELINE.md`「第2世代（大河ビュー）」。
+- **ページ構成**: `/`（概要ダッシュボード）・`/emperors`（一覧カード）・`/emperors/[id]`（皇帝個別ページ。`generateStaticParams` で全365名分を静的書き出し・deep-link用）・`/reign`・`/death-accession`・`/court-events`（改元・大赦・立后・皇太子廃立・遷都）・`/military`・`/ages`・`/dynasties`（王朝横断）・`/about`（収録基準・数え方・出典・免責事項）。**`/timeline`・`/kinship` は廃止決定だがルートは未削除**（上の「現在の状態」参照）。ほかに `/lab`（作業用・非公開）。
+- **概要ダッシュボード（`/`）**: `components/home-v2/overview-board.tsx` が盤面本体で、集計は `lib/emperors.ts` の `getHomeHighlights()` がビルド時に作る（Server/Client 境界は他ページと同じ）。UI は **Tremor Blocks（tremorlabs/tremor-blocks・MIT）を `components/tremor/` へ vendoring** したもので、`components/ui/`（shadcn）とは別系統。**チャートは recharts で、バージョンは `2.15.4` に固定**（`^` を付けない — 3.x では vendoring したチャートが動かない）。トップだけが recharts で、**他17面は今も Nivo**。2つのチャート系統が同居している状態なので、どちらの作法で書くかは触る面で決まる。盤面の構成・採否の根拠（採らなかった図とその数値も含む）は [design-plans/STACK_OPTIONS_2026-07-31.md](design-plans/STACK_OPTIONS_2026-07-31.md)。
+- **通史年表（`/timeline`・廃止決定）**: 以下はページが残っている間の記述。第2世代「大河ビュー」（`components/timeline/river-timeline.tsx`・SVG自前実装）。87王朝を約35本の「流れ」+群雄クラスター（クリックで構成政権に開閉）に集約し、縦=地理（上:北方/中央:統一の座/下:南方）・帯の太さ=唯一在位（統一）で描く。データは `getRiverTimelineData()`（構築ロジックは `lib/timeline-river.ts`。**キュレーション表 `STREAM_DEFS` が全dynastyKeyを被覆することをビルド時にassertするため、皇帝を追加収録したら必ずこの表へ追記する**。ラベル等の人数表記は手書きせず `emperorCount` から導出する）。座標は天文年（`astroYear`、0年なし対策）、px↔年変換を跨ぐ値は絶対astro年で持ち回す。ズーム時のストリームラベル・皇帝名は `data-clamp-min/max` 属性を scroll の rAF で transform 更新してスパン内へクランプ（React再レンダリングなし）。ツールチップ/ダイアログ分離（`useTipOutlet`/`useDetailOutlet`）・スクロール直後ホバー抑制は他チャート同様に踏襲。キーボード操作あり（`role="application"`・左右=同じ段/上下=並立/Enter=拡大・詳細・クラスター開閉。フォーカス移動のプログラムスクロールでは `suppressTipClearRef` で tip 消去を1回抑制する）。「表で見る」（`timeline-table.tsx`）は旧 `getTimelineData()` のまま。設計・実装記録は `../docs/site-design/TIMELINE.md`「第2世代（大河ビュー）」。
 - **`src/lib/base-path.ts` の `BASE_PATH` が単一情報源**（`next.config.ts` の basePath と肖像画 URL が共用）。カスタムドメイン移行済みのため現在は `""`。`next/image` は `images.unoptimized` 時に basePath を自動付与しないので、`public/` 配下を参照する箇所は必ず `BASE_PATH` を明示する。
-- **チャート**: Nivo。ランキング系は 1 カラム＋グラフ内スクロールで全件表示（`charts/scroll-bar-chart.tsx`）、スクロール枠内は `position: fixed` の自前ツールチップ（`charts/emperor-tooltip.tsx`）を使う（Nivo 標準ツールチップは枠で切れる）。ホバー・クリックの当たり判定は Nivo のバー矩形でなく行全体を覆う `RowOverlay`（`scroll-bar-chart.tsx`）で受ける（バーが短い行でも操作できる。オーバーレイが SVG を覆うため Nivo 側の `onMouseEnter` 等は付けない）。皇帝ランキングは行クリック・「表で見る」の皇帝名クリックで全項目詳細ダイアログを開く（`emperors/emperor-detail-dialog.tsx` の `EmperorDetailDialog`。開閉 state は `useDetailOutlet` でチャートから分離。/emperors の一覧カードと共有）。ダイアログには `EmperorRecord.ranks`（`lib/emperors.ts` の `computeRanks` がビルド時計算）による全指標の順位が付く。ダイアログの表示本体は `emperors/emperor-detail-body.tsx`（`EmperorDetailBody`。`"use client"` なしの純表示部品）で、皇帝個別ページ `/emperors/[id]` と共用する — 項目を増減するときは必ずこの共用部品を変更する（ダイアログには個別ページへの共有リンクが付く）。個別ページは `wide` prop で lg 以上2カラム（基本情報｜回数系）の広幅表示になり、ページ送り（前後の皇帝）は本文の長さに影響されない先頭右端の固定サイズボタン+本文末尾の名前付き nav の2箇所。動画がある皇帝（40名）は `EmperorDetailBody` 内に関連動画セクションが表示される（ダイアログでは `details` 折りたたみ・既定閉、`wide` ではグリッド展開）。YouTube公式iframeを即座に埋め込むとperf影響が大きいため、`emperors/youtube-embed.tsx`（`YoutubeEmbed`）で小サムネイル+タイトルのコンパクトな行のfacadeを出し、クリック時だけ全幅のiframeに置き換える（派手なサムネイルがページを支配しないよう行型リスト。タイトルの定型プレフィックス「【ゆっくり解説】」は `emperors.ts` の `videoDisplayTitle` でビルド時に除去）。動画はすべて当サイトと無関係の外部チャンネルの制作物のため、セクション冒頭と `/about` に必ず制作者表記を出す — チャンネル名・URLの単一情報源は `lib/video-channel.ts` の `VIDEO_CHANNEL` 定数（`data/emperor-videos.json` の `meta.channel` と同内容）。**順位は同値同順位（competition ranking）で、チャートの行ラベル・表ビューも同方式** — 回数系は0回除外・年齢は判明者のみ・方向はすべて降順（2026-07-27 に即位時年齢を若い順から年長順へ揃えたため `asc` の指標は無い）という対象と方向の定義を、チャート（`collapsesZeros`/`rankDirection`）と `RANK_DIRECTIONS` で必ず一致させること。軸は `nice: false` 必須。配色は `globals.css` の水墨文人パレット（`--seal` = 朱アクセント）と意味ベースの dataviz 配色。王朝ラベルは調査ブロック名（v3 の `researchSection`）を直接表示せず `ERA_BY_SECTION` を使う。
+- **チャート（`/` 以外の17面）**: Nivo。ランキング系は 1 カラム＋グラフ内スクロールで全件表示（`charts/scroll-bar-chart.tsx`）、スクロール枠内は `position: fixed` の自前ツールチップ（`charts/emperor-tooltip.tsx`）を使う（Nivo 標準ツールチップは枠で切れる）。ホバー・クリックの当たり判定は Nivo のバー矩形でなく行全体を覆う `RowOverlay`（`scroll-bar-chart.tsx`）で受ける（バーが短い行でも操作できる。オーバーレイが SVG を覆うため Nivo 側の `onMouseEnter` 等は付けない）。皇帝ランキングは行クリック・「表で見る」の皇帝名クリックで全項目詳細ダイアログを開く（`emperors/emperor-detail-dialog.tsx` の `EmperorDetailDialog`。開閉 state は `useDetailOutlet` でチャートから分離。/emperors の一覧カードと共有）。ダイアログには `EmperorRecord.ranks`（`lib/emperors.ts` の `computeRanks` がビルド時計算）による全指標の順位が付く。ダイアログの表示本体は `emperors/emperor-detail-body.tsx`（`EmperorDetailBody`。`"use client"` なしの純表示部品）で、皇帝個別ページ `/emperors/[id]` と共用する — 項目を増減するときは必ずこの共用部品を変更する（ダイアログには個別ページへの共有リンクが付く）。個別ページは `wide` prop で lg 以上2カラム（基本情報｜回数系）の広幅表示になり、ページ送り（前後の皇帝）は本文の長さに影響されない先頭右端の固定サイズボタン+本文末尾の名前付き nav の2箇所。動画がある皇帝（40名）は `EmperorDetailBody` 内に関連動画セクションが表示される（ダイアログでは `details` 折りたたみ・既定閉、`wide` ではグリッド展開）。YouTube公式iframeを即座に埋め込むとperf影響が大きいため、`emperors/youtube-embed.tsx`（`YoutubeEmbed`）で小サムネイル+タイトルのコンパクトな行のfacadeを出し、クリック時だけ全幅のiframeに置き換える（派手なサムネイルがページを支配しないよう行型リスト。タイトルの定型プレフィックス「【ゆっくり解説】」は `emperors.ts` の `videoDisplayTitle` でビルド時に除去）。動画はすべて当サイトと無関係の外部チャンネルの制作物のため、セクション冒頭と `/about` に必ず制作者表記を出す — チャンネル名・URLの単一情報源は `lib/video-channel.ts` の `VIDEO_CHANNEL` 定数（`data/emperor-videos.json` の `meta.channel` と同内容）。**順位は同値同順位（competition ranking）で、チャートの行ラベル・表ビューも同方式** — 回数系は0回除外・年齢は判明者のみ・方向はすべて降順（2026-07-27 に即位時年齢を若い順から年長順へ揃えたため `asc` の指標は無い）という対象と方向の定義を、チャート（`collapsesZeros`/`rankDirection`）と `RANK_DIRECTIONS` で必ず一致させること。軸は `nice: false` 必須。配色は `globals.css` の `--series-1〜8`（意味ベースの dataviz 配色）と `lib/dynasty-colors.ts` の王朝色。**ただしこの17面の配色は旧パレット（宣紙色）前提で作られたまま新テーマの上に載っている** — 上の「現在の状態」を読むこと。王朝ラベルは調査ブロック名（v3 の `researchSection`）を直接表示せず `ERA_BY_SECTION` を使う。
 - **チャートのパフォーマンス**: 365行チャートの全件 SVG 描画は TBT が秒単位になるため、(1) 各ページのチャートは `lazy-mount.tsx` の `LazyMount` で包み画面外はマウントしない、(2) スクロール棒グラフは `scroll-bar-chart.tsx` の `useWindowedRows` で可視行±オーバースキャンだけ Nivo に渡す。ウィンドウ範囲は `STEP_ROWS` 境界で量子化した state で持ち、境界をまたがないスクロールでは再レンダリングしない。スライスの縦位置は **`top` でなく `transform: translateY()`** で動かす（`top` 書き換えは layout-shift として CLS に計上される）。スクロール直後 150ms はホバーを無視する（`hoverAllowed()`）。**ホバーツールチップの state をチャートコンポーネントに持たない** — `useTipOutlet`＋`TipOutlet`（`scroll-bar-chart.tsx`）で分離する（`useState` に持つとバー／セグメント通過ごとに Nivo 全体が再レンダリングされ、実機 timespan で TBT 18 秒・遅延レイアウトシフトで CLS 1.1 を記録した）。「表で見る」の開閉も `TableDetails` で分離する。スクロール枠の端フェード（`charts/horizontal-scroll-hint.tsx` の横版と縦版 `VerticalScrollHint`）のように scroll を購読する部品も、端の state を親（チャート本体）へ持ち上げず末端の小部品に閉じ込める（同じ理由）。新しいランキング系チャートを追加するときはすべて踏襲すること（経緯: `../docs/site-design/PERFORMANCE.md`「実機Lighthouse timespanレポート」2節）。フィルタ行の `SelectTrigger` は狭い画面（sm 未満）では `w-full`・sm 以上は固定幅で、`aria-label` は常に付ける（自動幅はフォント読み込みで折り返しがずれ CLS になる。狭い画面はフィルタ行がすでに1列に積まれていて折り返す余地が無いため全幅にしてよい。Nivo SVG には `ariaLabel`（pie はコンテナ `role="img"`）を付ける）。/emperors の一覧カードは `memo` 化した `EmperorCard`＋検索語 `useDeferredValue` を維持する。
 - **レイアウト**: `site-shell` + `nav-menu`（デフォルト閉・見出し自体がリンク）+ `page-header`（記事型ページは `contained` prop で本文と同じ中央寄せ列に）+ `site-footer`（1行 flex-wrap・GitHub Issue への誘導リンク）。
 - **本文列の上限は 1200px（`--container-content` = `max-w-content`・`globals.css` が単一情報源）**。供給元は `PageHeader`・`Section`・`SectionJumpNav`・`KinshipChapterNav` の4つだけで、**ページ側に `mx-auto max-w-*` を散らさない**（段が増えて揃わなくなる）。自前の箱で組む場合も `px-gutter` の**内側**に `max-w-content` を置くこと（同一要素に書くと本文幅が1120pxになり h1 と左端がずれる）。全幅が必要な図は `Section` の `bleed`（見出しは本文列に残り、図だけがはみ出す）。sticky な索引バーは帯を全幅・中のピル列だけ上限に揃える。段は 672（読み物）/896（`/emperors/[id]`）/1200（データページ）/全幅（図版）の4つ。決定の根拠と実測は `../docs/site-design/LAYOUT.md`「本文列の幅」。
 - **カードの列数はビューポート幅でなくコンテナ幅で分岐する**（`/emperors` のグリッドは `@container` + `@xl:`〜`@6xl:`）。ビューポート基準に戻すと、サイドバー240pxが現れる md 以降で実効幅448pxに4列が入りカードが103pxに潰れる。閾値は1枚180〜230pxを保つ位置に置き、`Portrait` の `sizes` も vw ではなく実寸（`230px`）で書く。
 - **`prefers-reduced-motion: reduce` は `globals.css` の一括指定で潰してある**。Radix / tw-animate-css の開閉アニメーションはクラスで直接 `animation` を当てるため JS の `matchMedia` 分岐では止まらない。`animation: none` にはしないこと（Radix は `animationend` を待って要素を外すため、閉じたダイアログが DOM に残る）。無限ループのアニメーションを追加するときは `animation-iteration-count: 1` の影響を再検討する。
-- **h1 とトップの大数字は `text-page-title`**（`clamp()`・従来の `text-2xl → md:text-3xl` と両端同値）。タイポスケールに段を増やしたのではないので、他の見出しを clamp 化するときは DESIGN.md の6段との整合を先に確認する。
+- **h1 は `text-page-title`**（`clamp()`・従来の `text-2xl → md:text-3xl` と両端同値）。供給元は `PageHeader` だけ。トップの数値カードは新実装で `text-3xl` に変わったのでこの段は使っていない。
+- **新トップのチャートは `LazyMount` で包んでいない**（世紀チャートは棒23本で、`LazyMount` が対処してきた365行チャートとは規模が違う）。**17面のランキング系チャートでは引き続き必須**。性能は未計測。
 - **SEO**: `src/lib/seo.tsx` が単一情報源（`SITE_URL`/`SITE_NAME`・`buildMetadata()`・JSON-LD生成関数・`SITE_SECTIONS`）。各ページの `metadata` はこれ経由、`layout.tsx` の `title` は template 化済み。`app/sitemap.ts`・`app/robots.ts`・`app/manifest.ts` は `export const dynamic = "force-static"` が無いと `output: "export"` でビルドが落ちる。OGP画像は `src/lib/og-image.tsx`（`next/og` の `ImageResponse`）で皇帝ごとに動的生成、フォントは `assets/fonts/`（サブセット済みNoto Sans JP。`public/`には置かない）。詳細・はまりどころは `../docs/site-design/IMPLEMENTATION_LOG.md`「SEO対策の徹底実装」節。
 
 # 皇帝を追加収録するときのチェックリスト
 
 2026-07-20 の唐哀帝追加（364→365人）の経験に基づく。データ側（`../data/emperors.json` への原典調査・`meta.count`/completedBlocks 系の更新・`python3 ../scripts/validate_emperors.py`）に加え、site 側は以下を漏れなく行う:
 
-1. **`src/lib/timeline-river.ts` の `STREAM_DEFS` に追記**（新王朝・新政権の場合）。全 dynastyKey の被覆をビルド時に assert しているため、漏れるとビルドが落ちる
+1. **`src/lib/timeline-river.ts` の `STREAM_DEFS` に追記**（新王朝・新政権の場合）。全 dynastyKey の被覆をビルド時に assert しているため、漏れるとビルドが落ちる。**`/timeline` は廃止決定だがルートを消していないので、この assert はまだ生きている**（ルートを実際に削除するまでこの項目を外さないこと）
 2. **`src/lib/kana-readings.ts` の音読みテーブルに新出漢字の読みを追記**（かな検索用・手書きテーブル）。未登録漢字はビルド時に throw するため、漏れるとビルドが落ちる
 2b. **`src/lib/dynasty-colors.ts` の `DYNASTY_COLOR_SLOT` に新しい dynastyKey を追記**（王朝→配色スロットの単一情報源・87王朝）。未割当のキーは throw するため、漏れるとランキング棒グラフ・`/dynasties`・`/emperors` のカードが落ちる。スロットの選び方は意味ベース（漢系=4金・北族=1青・晋系=7紫・宋=2緑・明=8赤・隋/梁系=5青緑）で、政権の性格（v3 の `catalogs.regimes[].category`）が「並立政権」「反乱・自称政権」の割拠政権は 0（`--kinship-minor` 藤）
 3. **人数のハードコード表記を更新**: サイト表示本体は `stats.emperorCount` から動的導出のためコード変更不要だが、ドキュメント類（`site/README.md`・`site/AGENTS.md`・`docs/site-design/METHODOLOGY.md`・ルート `README.md`/`CLAUDE.md`）と `CHANGELOG.md` の人数表記は手動更新
@@ -54,8 +89,11 @@ npx tsc --noEmit   # 型チェック
 - **Radix系ポップアップのスクロールロックは `scrollbar-gutter: stable` と二重補正になり横ずれする** — react-remove-scroll が body に `margin-right` 補正を注入するため。`globals.css` の `body[data-scroll-locked][data-scroll-locked]` 上書きで打ち消し済み（属性セレクタ2連は `!important` 同士の詳細度勝負のため）。この上書きを消さないこと。
 - **`.next` キャッシュ残存でハイドレーションが静かに失敗する**（コンソールエラーなし・画像404・フィルタ無反応）。basePath 等の設定変更後は `rm -rf .next` してから dev サーバーを再起動する。
 - `name.commonName` の `null` 混在は 2026-07-21 にデータ側で解消済み（スキーマ・`validate_emperors.py` で非null必須化）。`emperors.ts` の `displayName()` フォールバックは防御的に維持している。
-- 旧バックログ（Nivo チャートの TBT・`/emperors` の LCP・CLS・a11y 2件）は 2026-07-18 に解消済み（Lighthouse: a11y 全ページ 100・perf 66〜100）。WSL2 上の Lighthouse は TBT を実測比 10〜20 倍に増幅するので、絶対値でなく相対比較+Long Task 実測で評価する。詳細は `../docs/site-design/PERFORMANCE.md` の「Lighthouse改善の実装」節。
+- 旧バックログ（Nivo チャートの TBT・`/emperors` の LCP・CLS・a11y 2件）は 2026-07-18 に解消済み（Lighthouse: a11y 全ページ 100・perf 66〜100）。**ただしこの計測は旧実装に対するもので、2026-07-31 に作り直したトップページは性能・a11y とも未計測**。WSL2 上の Lighthouse は TBT を実測比 10〜20 倍に増幅するので、絶対値でなく相対比較+Long Task 実測で評価する。詳細は `../docs/site-design/PERFORMANCE.md` の「Lighthouse改善の実装」節。
 
 # 設計記録
 
-レイアウト・配色の**方針・規範**は `../docs/site-design/LAYOUT.md`。**実装判断の経緯と教訓**は時系列で3ファイルに分かれている — 性能・計測は `PERFORMANCE.md`、2026-07-18〜22 の実装は `IMPLEMENTATION_LOG.md`、2026-07-27 のデザイン再構成は `REDESIGN_2026-07.md`（いずれも `../docs/site-design/`）。大きめの UI 変更をしたら該当するものへ追記する（どの節がどこへ移ったかの索引は LAYOUT.md にある）。
+- **いま有効な設計判断**: 2026-07-31 の再構築は [design-plans/STACK_OPTIONS_2026-07-31.md](design-plans/STACK_OPTIONS_2026-07-31.md)（スタック選定・盤面の構成・採らなかった案とその数値）。レイアウトの**方針・規範**は `../docs/site-design/LAYOUT.md`。
+- **`site/DESIGN.md` はもう実装を表していない**。旧「水墨文人パレット」と明朝見出しの設計契約で、2026-07-31 の配色差し替えで実装から外れた。**ここから配色やフォントを引かないこと。** 廃止した理由と扱いはファイル冒頭に書いてある。
+- **過去の実装の経緯と教訓**（性能・計測は `PERFORMANCE.md`、2026-07-18〜22 は `IMPLEMENTATION_LOG.md`、2026-07-27 のデザイン再構成は `REDESIGN_2026-07.md`。いずれも `../docs/site-design/`）は、**17面が旧実装のまま残っている間は現役**。ただし配色・フォントに関する記述は上の差し替えで無効になっている。
+- 大きめの UI 変更をしたら該当するものへ追記する（どの節がどこへ移ったかの索引は LAYOUT.md にある）。

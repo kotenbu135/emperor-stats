@@ -30,17 +30,24 @@
 
 ## site-design/ — サイトレイアウト設計・実装記録
 
-Next.js サイト（`../site/`、2026-07-18実装完了）のレイアウト・メニュー構成・グラフ案の検討メモと、実装時の決定事項・教訓の時系列記録です。
+Next.js サイト（`../site/`）のレイアウト・メニュー構成・グラフ案の検討メモと、実装時の決定事項・教訓の時系列記録です。
+
+> **⚠️ このディレクトリは 2026-07-16〜30 の記録で、サイトは 2026-07-31 から作り替えの途中にあります。**
+> **いま有効な設計判断は `../site/design-plans/STACK_OPTIONS_2026-07-31.md`、現状は `../site/AGENTS.md` の
+> 「現在の状態」です。** ここのファイルは、配色（旧「水墨文人パレット」）・見出しフォント（明朝）・
+> トップページの構成・`/timeline`・`/kinship` に関する記述が失効しています（各ファイル冒頭に断り書きあり）。
+> **削除ではなく失効表示で残しているのは、旧デザインへ戻す提案を防ぐためと、17面が旧実装のまま
+> 残っている間の読み解きに要るためです。ここから新しく何かを作る根拠にはしないでください。**
 
 | ファイル | 内容 |
 |---|---|
-| [site-design/LAYOUT.md](site-design/LAYOUT.md) | **方針・規範**（基本レイアウト・メニュー構成・グラフ/表の具体案・デザイン世界観・技術スタック）＋実装記録の索引 |
-| [site-design/PERFORMANCE.md](site-design/PERFORMANCE.md) | 性能・計測の記録（Lighthouse・実機 timespan）。`site/src/` のコード内コメントが参照する計測記録はここ |
-| [site-design/IMPLEMENTATION_LOG.md](site-design/IMPLEMENTATION_LOG.md) | 実装記録（2026-07-18〜22。雛形〜MVP〜全統計ページ〜SEO〜個別ページ〜/kinship 試作） |
-| [site-design/REDESIGN_2026-07.md](site-design/REDESIGN_2026-07.md) | デザイン再構成の記録（2026-07-27。王朝色システム・トップ/一覧/ランキング再構成・共通シェル） |
-| [site-design/TIMELINE.md](site-design/TIMELINE.md) | 通史年表（`/timeline`）の設計・実装記録（第2世代「大河ビュー」） |
-| [site-design/KINSHIP.md](site-design/KINSHIP.md) | 系譜・家系図（`/kinship`）の拡張ガイド（章スコープ・レイアウト規範・手動配置編集・公開状態） |
-| [site-design/KINSHIP_LOG.md](site-design/KINSHIP_LOG.md) | `/kinship` の章ごとの実装・レビュー対応の時系列記録と、完了した追加調査タスク |
+| [site-design/LAYOUT.md](site-design/LAYOUT.md) | **方針・規範**（基本レイアウト・メニュー構成・グラフ/表の具体案・デザイン世界観・技術スタック）＋実装記録の索引。**デザイン世界観（配色・書体）・技術スタックのチャート・概要ダッシュボードの節は失効** |
+| [site-design/PERFORMANCE.md](site-design/PERFORMANCE.md) | 性能・計測の記録（Lighthouse・実機 timespan）。`site/src/` のコード内コメントが参照する計測記録はここ。**旧実装のまま残っている面については今も有効。新トップ（recharts）の計測は無い** |
+| [site-design/IMPLEMENTATION_LOG.md](site-design/IMPLEMENTATION_LOG.md) | 実装記録（2026-07-18〜22。雛形〜MVP〜全統計ページ〜SEO〜個別ページ〜/kinship 試作）。**配色・旧トップ構成の記述は失効** |
+| [site-design/REDESIGN_2026-07.md](site-design/REDESIGN_2026-07.md) | デザイン再構成の記録（2026-07-27。王朝色システム・トップ/一覧/ランキング再構成・共通シェル）。**配色・旧トップ構成・「凍結面を変えない」制約は失効** |
+| [site-design/TIMELINE.md](site-design/TIMELINE.md) | 通史年表（`/timeline`）の設計・実装記録（第2世代「大河ビュー」）。**ページは廃止決定**（ルートは未削除） |
+| [site-design/KINSHIP.md](site-design/KINSHIP.md) | 系譜・家系図（`/kinship`）の拡張ガイド。**ページは廃止決定**（ルートは未削除）。**段階的公開のロードマップは失効。`data/kinship.json` のデータ調査は継続** |
+| [site-design/KINSHIP_LOG.md](site-design/KINSHIP_LOG.md) | `/kinship` の章ごとの実装・レビュー対応の時系列記録と、完了した追加調査タスク。**ページは廃止決定** |
 | [site-design/METHODOLOGY.md](site-design/METHODOLOGY.md) | サイト掲載用の方法論文言ドラフト（収録基準・数え方の説明） |
 | [site-design/PORTRAITS.md](site-design/PORTRAITS.md) | 肖像画収集の調査結果（PD/CC0 のみ・150名分確定）＋肖像マッピングQAの手順・反映先 |
 

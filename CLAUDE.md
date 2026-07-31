@@ -6,7 +6,9 @@
 
 中国皇帝統計プロジェクト。始皇帝から溥儀まで、実際に「皇帝」を名乗った365人の在位年数・死因・即位経路など全12項目を正史原典から調査したデータセット（`data/emperors.json`）と、それを可視化する Next.js 静的サイト（`site/`、カスタムドメイン emperorstats.com で公開）で構成されます。
 
-データ調査（全12項目×365人・`meta.status.overall: "completed"`）とサイト実装はいずれも完了済みで、現在の作業は**データ誤りの訂正（GitHub Issue 起点）とサイトの改善・保守**が中心です。現状・進行中の作業・申し送り事項は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md)。
+データ調査は完了済み（全12項目×365人・`meta.status.overall: "completed"`）で、現在の作業は**データ誤りの訂正（GitHub Issue 起点）**と、**サイトの再構築**です。
+
+**サイトは 2026-07-31 から作り替えの途中にあります**（ブランチ `site-rebuild-tremor`）。トップページ（概要ダッシュボード）だけが新実装で完成し、残り17面と外側のシェルは旧実装のまま、`/timeline`・`/kinship` は廃止決定です。**配色と見出しフォントは全面差し替え済みで、旧「水墨文人パレット」の記述は各所で失効しています。** サイトを触る前に必ず [site/AGENTS.md](site/AGENTS.md) 冒頭の「現在の状態」を読んでください。現状・進行中の作業・申し送り事項は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md)。
 
 ## コマンド
 
@@ -45,7 +47,9 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 | **史料マッピング・行番号インデックス（担当ブロックの書名・巻・行範囲）** | [docs/process/SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md) |
 | **絶対に守るべき制約** | [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md) |
 | **AI調査の知見集（設計指針・失敗事例・エージェント運用とドキュメントの書き方）** | [docs/process/AI_RESEARCH_LESSONS.md](docs/process/AI_RESEARCH_LESSONS.md) |
-| **サイトの設計方針・規範（＋実装記録の索引）** | [docs/site-design/LAYOUT.md](docs/site-design/LAYOUT.md) |
+| **サイトの現状（再構築の途中・触る前に必読）** | [site/AGENTS.md](site/AGENTS.md) の「現在の状態」 |
+| **サイトのいま有効な設計判断（2026-07-31 の再構築）** | [site/design-plans/STACK_OPTIONS_2026-07-31.md](site/design-plans/STACK_OPTIONS_2026-07-31.md) |
+| **サイトの設計方針・規範（＋実装記録の索引）**<br>※ 配色・書体・トップ構成の節は 2026-07-31 に失効。冒頭の断り書きを読むこと | [docs/site-design/LAYOUT.md](docs/site-design/LAYOUT.md) |
 
 スキーマは [docs/schema/SCHEMA_OVERVIEW.md](docs/schema/SCHEMA_OVERVIEW.md) が参照ガイドで、フィールド詳細は [data/schema/](data/schema/) 以下（[EMPERORS_SCHEMA.md](data/schema/EMPERORS_SCHEMA.md)・[DEATH_CAUSE_SCHEMA.md](data/schema/DEATH_CAUSE_SCHEMA.md)・即位経路/改元/大赦ほかの [ADDITIONAL_SCHEMA.md](data/schema/ADDITIONAL_SCHEMA.md)・[INCLUSION_CRITERIA.md](data/schema/INCLUSION_CRITERIA.md)・系譜〔調査中〕の [KINSHIP_SCHEMA.md](data/schema/KINSHIP_SCHEMA.md)）にあります。スキーマ v3（2026-07-29・Issue #22。時代・政権カタログ、全 enum の ID 化、`dynasty`／`flags.selfProclaimed` の廃止）の設計・移行記録は [docs/schema/V3_MIGRATION_PLAN.md](docs/schema/V3_MIGRATION_PLAN.md)。
 
