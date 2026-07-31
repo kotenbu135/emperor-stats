@@ -1,8 +1,9 @@
 "use client";
 
 // 皇帝一覧の「図鑑」グリッド。
-// カード枠は3:4固定・肖像はcover+topで顔を切らずにフィット、画像なしは姓一文字の
-// モノグラムをプレースホルダー表示する。カードを押すと詳細ダイアログを開く。
+// **カード1枚（肖像＋名前・王朝・在位期間）の全体が3:4**・肖像はcover+topで
+// 顔を切らずにフィット、画像なしは姓一文字のモノグラムをプレースホルダー表示する。
+// カードを押すと詳細ダイアログを開く。
 
 import {
   memo,
@@ -91,9 +92,18 @@ const EmperorCard = memo(function EmperorCard({
       // top/marginで動かすと再レイアウトがCLSに化ける。
       // Tailwind v4 の -translate-y-* は transform ではなく translate プロパティを書くため、
       // 遷移対象は translate と書く(transform と書くとホバーが瞬間移動になる)。
-      className="group block overflow-hidden rounded-md border border-border bg-card text-left transition-[translate,border-color] duration-150 ease-out hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring motion-safe:hover:-translate-y-px motion-safe:hover:shadow-sm motion-reduce:transition-none"
+      // 【カード全体が3:4】2026-07-31 のユーザー決定。それまでは「肖像だけ」が3:4で、
+      // 文字ブロック(68px)が丸ごと足された結果カード全体は3:5になり、1440pxの1画面に
+      // 2行＋αしか入らなかった（実測12.7人）。比率を肖像からカードへ移すと1画面
+      // 15.5人になる。**肖像側を固定比にせず、カードを3:4にして肖像に余りを渡す**のは、
+      // 文字ブロックの高さが幅に比例しない（3行で常に68px）ため — 肖像を固定比に
+      // すると狭い画面ほどカードが縦に伸びる。この持ち方なら肖像枠は 0.98(1440px)〜
+      // 1.11(390px) のほぼ正方形に収まる。
+      className="group flex aspect-[3/4] flex-col overflow-hidden rounded-md border border-border bg-card text-left transition-[translate,border-color] duration-150 ease-out hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring motion-safe:hover:-translate-y-px motion-safe:hover:shadow-sm motion-reduce:transition-none"
     >
-      <div className="relative aspect-[3/4] w-full overflow-hidden">
+      {/* min-h-0 が無いと flex アイテムの既定 min-height:auto で肖像が縮まず、
+          カードが3:4を超えて伸びる。 */}
+      <div className="relative min-h-0 flex-1 overflow-hidden">
         <Portrait
           record={record}
           // 列数はコンテナ幅で決まり、カード1枚は狭い画面の2列を除けば概ね
@@ -103,7 +113,7 @@ const EmperorCard = memo(function EmperorCard({
         />
       </div>
       {/* 印を絶対配置するため relative。印は padding の外（左端）に立てる。 */}
-      <div className="relative px-2.5 py-2 pl-3">
+      <div className="relative shrink-0 px-2.5 py-2 pl-3">
         <DynastyMark dynastyKey={record.dynastyKey} />
         <div className="truncate text-sm font-medium text-foreground group-hover:text-seal">
           {record.name}
@@ -362,9 +372,10 @@ export function EmperorGrid({
               1枚あたり180〜230pxを保つ位置に置いてある。 */}
           <div className="mx-auto w-full max-w-content @container">
             {sections.map(([era, list], sectionIndex) => {
-              // ファーストビュー相当（最大6カラム×2行）だけ肖像を先行読み込みする。
+              // ファーストビュー相当（最大6カラム×3行）だけ肖像を先行読み込みする。
+              // カードを3:4に縮めて1画面に入る行が2→3行に増えたぶん12枚から増やした。
               // 先頭セクション以外は必ず画面外なので対象は先頭セクションのみでよい。
-              const priorityCount = sectionIndex === 0 ? 12 : 0;
+              const priorityCount = sectionIndex === 0 ? 18 : 0;
               return (
                 // アンカー先と「現在地」の観測対象はどちらもこの section。見出しは
                 // sticky でバーの真下に貼り付き続けるため、見出しを観測対象にすると
