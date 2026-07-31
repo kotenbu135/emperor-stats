@@ -113,7 +113,11 @@ export function A({
       {...(external
         ? { target: "_blank", rel: "noopener noreferrer" }
         : undefined)}
-      className="underline decoration-border underline-offset-2 transition-colors hover:text-seal hover:decoration-seal"
+      // 下線は本文より薄い程度に留める。**--border（1.1:1）まで落とさないこと** —
+      // 地の文が text-foreground/90 なので、下線が消えるとリンクが本文と見分けられなくなる。
+      // このページは外部の出典（sxtwl・Commons・スキーマ文書・CHANGELOG・コーパス）を
+      // 指すのが仕事なので、リンクが目立たないと目的を果たさない。
+      className="underline decoration-foreground/40 underline-offset-2 transition-colors hover:text-seal hover:decoration-seal"
     >
       {children}
     </a>
@@ -236,7 +240,9 @@ export function ErrataList({ items }: { items: ErratumItem[] }) {
 export function PortraitCredits({ credits }: { credits: PortraitCredit[] }) {
   return (
     <details className="group rounded-md border border-border bg-card">
-      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground">
+      {/* list-none だけでは Safari の三角（::-webkit-details-marker）が残り、
+          自前の ▼ と二重に出る。 */}
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground [&::-webkit-details-marker]:hidden">
         <span>使用画像の一覧（{credits.length}件）</span>
         <span
           aria-hidden

@@ -51,8 +51,6 @@ export const metadata = buildMetadata({
     "中国皇帝統計の収録基準・各統計項目の数え方・典拠とした史料・データセットのダウンロード（CC BY 4.0）・肖像画の出典・運営者情報・免責事項について説明します。",
 });
 
-const REPO_URL = "https://github.com/kotenbu135/emperor-stats";
-
 /** バーのラベルは短く。長いと畳んだトリガー（min-w 9.5rem）で切れる。 */
 const JUMP_ITEMS: JumpItem[] = [
   { id: "criteria", label: "収録基準" },
@@ -353,7 +351,7 @@ export default function AboutPage() {
         <Prose className="mt-5">
           <p>
             いずれも認証不要・CORS許可済みのため、プログラムから直接取得できます。JSONの構造の説明（フィールド定義・分類の意味）は上記スキーマと
-            <A href={`${REPO_URL}/tree/main/data/schema`} external>
+            <A href={`${OPERATOR.repoUrl}/tree/main/data/schema`} external>
               GitHub のスキーマ文書
             </A>
             を参照してください。
@@ -374,7 +372,7 @@ export default function AboutPage() {
                 出典: 中国皇帝統計 (emperorstats.com), CC BY 4.0
               </code>
               」。サイトのソースコードは
-              <A href={`${REPO_URL}/blob/main/LICENSE`} external>
+              <A href={`${OPERATOR.repoUrl}/blob/main/LICENSE`} external>
                 MITライセンス
               </A>
               です。
@@ -382,7 +380,7 @@ export default function AboutPage() {
           </Callout>
           <p>
             データ内容の変更履歴は
-            <A href={`${REPO_URL}/blob/main/CHANGELOG.md`} external>
+            <A href={`${OPERATOR.repoUrl}/blob/main/CHANGELOG.md`} external>
               CHANGELOG
             </A>
             に記録しています。
@@ -402,7 +400,7 @@ export default function AboutPage() {
         <Prose className="mt-5">
           <p>
             誤りにお気づきの際は
-            <A href={`${REPO_URL}/issues`} external>
+            <A href={`${OPERATOR.repoUrl}/issues`} external>
               GitHubのIssue
             </A>
             からお知らせください。
@@ -499,7 +497,7 @@ export default function AboutPage() {
           <Callout tone="muted">
             <p>
               本サイトは、AI（大規模言語モデル）を活用して調査・集計・構築しています。また、制作者は歴史学の専門家ではありません。正史の原典に1件ずつあたる方針でできる限り丁寧に作成していますが、史料の解釈を誤っている場合や、現代の歴史学の通説と異なる整理をしている場合があります。歴史の素人が作った統計サイトとして、どうか優しい目でご覧いただければ幸いです。お気づきの点は
-              <A href={`${REPO_URL}/issues`} external>
+              <A href={`${OPERATOR.repoUrl}/issues`} external>
                 GitHubのIssue
               </A>
               で教えていただけると助かります。
