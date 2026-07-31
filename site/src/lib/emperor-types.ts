@@ -341,20 +341,6 @@ export interface DynastyOption {
   kana: string[];
 }
 
-/** 復位者一覧の1行分。在位期間・復位の経緯はサーバー側で表示用文字列に整形して渡す。 */
-export interface RestorationRow {
-  id: string;
-  name: string;
-  dynastyLabel: string;
-  dynastyKey: string;
-  dynastyCategory: DynastyCategory;
-  reignCount: number;
-  /** 在位期間の表示文字列（例: "1908–1912 / 1917 / 1934–1945"）。 */
-  periodsLabel: string;
-  /** 各復位の経緯（原文noteの先頭一文）。復位ごとに1要素。 */
-  restorationReasons: string[];
-}
-
 /** ランキング棒グラフで選択できる数値指標。サーバー→クライアント境界を関数でなく
  *  文字列キーで渡すための識別子（Client Componentに関数は渡せないため）。 */
 export type RankingMetricKey =

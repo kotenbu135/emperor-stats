@@ -26,11 +26,6 @@ export const SITE_SECTIONS: SiteSection[] = [
     label: "データベース",
     description: "全365名を1つの表で。並べ替え・検索・絞り込みができる",
   },
-  {
-    href: "/reign",
-    label: "在位データ",
-    description: "在位年数ランキングと復位者（複数回即位）の一覧",
-  },
 ];
 
 /**

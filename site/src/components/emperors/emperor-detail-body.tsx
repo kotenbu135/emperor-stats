@@ -105,8 +105,8 @@ function DetailRow({
 }
 
 /** 即位経路の脇に出す補足（帝号を新たに称した・のちに復位）。
- *  復位は順位指標ではないので上の rank の仕掛けに乗らないが、/reign の復位者一覧へ
- *  送れる唯一の手掛かりなのでここからリンクする。 */
+ *  復位は順位指標ではないので上の rank の仕掛けに乗らないが、データベースの
+ *  復位者だけの絞り込みへ送れる唯一の手掛かりなのでここからリンクする。 */
 function accessionSubNote(
   record: EmperorRecord,
   linkStats: boolean,
@@ -117,7 +117,7 @@ function accessionSubNote(
     parts.push(
       withStatLink(
         "のちに復位",
-        "/reign#restoration",
+        "/database?reign=restoration",
         "復位者一覧を見る",
         linkStats,
       ),
@@ -283,7 +283,7 @@ export function EmperorDetailBody({
               value={record.reignDurationLabel}
               sub={withStatLink(
                 rankText(record.ranks.reignYears),
-                "/reign#ranking",
+                "/database?sort=reignApproxDays&order=desc",
                 "在位年数ランキングを見る",
                 linkStats,
               )}

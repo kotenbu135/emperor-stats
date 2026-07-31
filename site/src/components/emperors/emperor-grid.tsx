@@ -35,6 +35,7 @@ import {
   dynastyCategoryOptions,
 } from "@/lib/emperor-types";
 import { toHiragana } from "@/lib/kana";
+import { dynastyColorHex, dynastyColorSlot } from "@/lib/dynasty-colors";
 import { BASE_PATH } from "@/lib/base-path";
 import { Portrait } from "@/components/emperors/portrait";
 import { EmperorDetailDialog } from "@/components/emperors/emperor-detail-dialog";
@@ -42,6 +43,26 @@ import {
   BELOW_SECTION_NAV,
   SectionJumpNav,
 } from "@/components/layout/section-jump-nav";
+
+/**
+ * カードの文字列の左に立てる王朝の印（2026-07-31）。
+ *
+ * 王朝の識別色は、それまで肖像なし215枚の下地（淡彩）が担っていた。下地を無彩色へ
+ * 落とすにあたり、識別だけをこの印へ移してある（経緯は portrait.tsx の Monogram）。
+ * **肖像の有無にかかわらず全365枚に出る**ので、王朝の切れ目は肖像ありの列でも読める。
+ *
+ * 面積が小さい印なので混色せず `--series-N` の生値を使う（淡彩は面積が大きいから
+ * 混ぜていた。3pxの帯を38%まで薄めると地に溶けて印の役をしない）。
+ */
+function DynastyMark({ dynastyKey }: { dynastyKey: string }) {
+  return (
+    <span
+      aria-hidden
+      className="absolute inset-y-2 left-0 w-[3px] rounded-r-sm"
+      style={{ backgroundColor: dynastyColorHex(dynastyColorSlot(dynastyKey), 100) }}
+    />
+  );
+}
 
 /** 一覧のカード1枚。フィルタ・検索のたびに364枚を再レンダリングしないようmemo化
  *  （実機Lighthouse timespanで操作ごとの再レンダリングがTBT・遅延レイアウトシフトの
@@ -81,7 +102,9 @@ const EmperorCard = memo(function EmperorCard({
           priority={priority}
         />
       </div>
-      <div className="px-2.5 py-2">
+      {/* 印を絶対配置するため relative。印は padding の外（左端）に立てる。 */}
+      <div className="relative px-2.5 py-2 pl-3">
+        <DynastyMark dynastyKey={record.dynastyKey} />
         <div className="truncate text-sm font-medium text-foreground group-hover:text-seal">
           {record.name}
           {/* 皇帝号だけでは誰か分かりにくい人物向けの補助名（諱・通用名）。

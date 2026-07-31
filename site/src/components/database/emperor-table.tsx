@@ -216,6 +216,11 @@ const COLUMNS: ColumnDef<EmperorTableRecord>[] = [
   },
 ];
 
+/** URL の `?sort=` を照合するための列 id 集合。id 未指定の列は accessorKey が id になる。 */
+const COLUMN_IDS = new Set(
+  COLUMNS.map((c) => c.id ?? ("accessorKey" in c ? String(c.accessorKey) : "")),
+);
+
 // OGP画像の事実カードが列数を出している（lib/emperors.ts の getOgFacts("/database")）。
 // 焼かれた画像は本文とずれても訂正が届きにくいので、ずれたらビルドを落とす。
 if (COLUMNS.length !== DATABASE_COLUMN_COUNT) {
@@ -294,6 +299,49 @@ export function EmperorTable({
       return tokens.every((t) => searchTargets[i].includes(t));
     });
   }, [records, searchTargets, deferredQuery, eraValue, dynastyValue, reignFilter]);
+
+  // 絞り込みと並べ替えを URL クエリ（?q=&era=&dynasty=&reign=&sort=&order=）と同期する。
+  // 共有・リロード・戻るで状態が消えないようにするためと、**旧 `/reign` の2本のリンクの
+  // 着地点**にするため（在位年数の降順＝在位年数ランキング、`reign=restoration`＝復位者一覧）。
+  // 復元は hydration 不一致を避けてマウント後の effect で行い、書き込みはマウント直後の
+  // 1回だけスキップする（復元より先に既定値で replaceState してパラメータを消さないため）。
+  // 実装の形は /emperors のグリッドと同じ。
+  const skipFirstUrlWriteRef = useRef(true);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("q");
+    if (q) setQuery(q);
+    const era = params.get("era");
+    if (era && eraOrder.includes(era)) setEraValue(era);
+    const dynasty = params.get("dynasty");
+    if (dynasty && dynastyOptions.some((o) => o.value === dynasty)) {
+      setDynastyValue(dynasty);
+    }
+    if (params.get("reign") === "restoration") setReignFilter("restoration");
+    // 実在しない列 id を state に入れると TanStack が無言で並べ替えを落とすので、
+    // COLUMNS 側で照合してから入れる（id 未指定の列は accessorKey がそのまま id になる）。
+    const sort = params.get("sort");
+    if (sort && COLUMN_IDS.has(sort)) {
+      setSorting([{ id: sort, desc: params.get("order") !== "asc" }]);
+    }
+  }, [dynastyOptions]);
+  useEffect(() => {
+    if (skipFirstUrlWriteRef.current) {
+      skipFirstUrlWriteRef.current = false;
+      return;
+    }
+    const params = new URLSearchParams();
+    if (deferredQuery.trim()) params.set("q", deferredQuery.trim());
+    if (eraValue !== "all") params.set("era", eraValue);
+    if (dynastyValue !== "all") params.set("dynasty", dynastyValue);
+    if (reignFilter !== "all") params.set("reign", reignFilter);
+    if (sorting.length > 0) {
+      params.set("sort", sorting[0].id);
+      params.set("order", sorting[0].desc ? "desc" : "asc");
+    }
+    const qs = params.toString();
+    history.replaceState(null, "", qs ? `?${qs}` : window.location.pathname);
+  }, [deferredQuery, eraValue, dynastyValue, reignFilter, sorting]);
 
   const table = useReactTable({
     data: filtered,

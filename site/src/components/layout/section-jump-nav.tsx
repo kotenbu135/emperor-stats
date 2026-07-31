@@ -5,21 +5,29 @@
 // 「縦に長くスクロールで迷子になる」というユーザー指摘(2026-07-26)への対応。
 // /emperors（365枚のカードで全高5万px超）と節が3つ以上あるページで使う。
 //
-// - ただのテキストリンクではなく丸ピル。押せることを形で伝える
-// - 現在見ている節をハイライトする。判定はサイドバーメニュー・章ジャンプと
+// **2026-07-31 に「畳んで押したら開く」形へ変えた**（ユーザー決定）。
+// それまでは節を丸ピルで横一列に並べていたが、/emperors の15時代は
+// **1440px でも11個しか入らず**（scrollWidth 1390 / clientWidth 1015）、390px では3つ。
+// 縦にスクロールするページの中に横スクロールする帯があるのは、/database の表で
+// 「2重スクロールは操作性が悪い」として避けたのと同じ形だった。
+// いまはバーに現在地1つだけを出し、押すと全節をポップオーバーで一覧する
+// （どの幅でも全節が一度に見え、横スクロールは消える）。
+//
+// - 現在見ている節をバーに出す。判定はサイドバーメニュー・章ジャンプと
 //   同じ IntersectionObserver・同じ帯（-20%/-55%）で、強調がずれないようにする
-// - 節が多いページ（/emperors の16時代）では狭い画面に3つ分しか映らないため、
-//   現在地のピルをバーの見える範囲へ送る
 //
 // 【観測対象の注意】id は「節の本体」に付けること。見出しに付けると、見出しが
 // sticky でこのバーの真下に貼り付き続けるかぎり判定帯（画面の20%〜45%）に
 // 一度も入らず、現在地が永久に更新されない。
 
 import { useEffect, useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
-  HorizontalScrollHint,
-  useHorizontalScrollEdges,
-} from "@/components/charts/horizontal-scroll-hint";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
 /** 固定バーの高さ(px)。 */
@@ -53,8 +61,7 @@ export function SectionJumpNav({
   className?: string;
 }) {
   const [activeId, setActiveId] = useState<string>("");
-  const { scrollRef, atStart, atEnd, onScroll } =
-    useHorizontalScrollEdges<HTMLUListElement>();
+  const [open, setOpen] = useState(false);
 
   // 節の集合は絞り込みで変わりうる。並びを1本の文字列にして依存に使い、
   // 中身が同じ再レンダリングでは observer を張り直さない。
@@ -68,12 +75,25 @@ export function SectionJumpNav({
       .split(" ")
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
+    // 【交差中の集合を持つ理由】IntersectionObserver は「閾値をまたいだ節」しか
+    // entries に載せない。コールバックの entries だけを見て現在地を決めると、
+    // **判定帯から出た節の通知だけが届いた回**（帯には別の節が居座っているが、
+    // その節は状態が変わっていないので entries に載らない）で更新できず、
+    // 現在地が前の節のまま固まる。実測: 先頭→送る→先頭へ戻すと、戻したあとも
+    // 2番目の時代が出たままになる。節が全部ピルで並んでいた頃は強調のずれで済んだが、
+    // 畳んだいまは**バーに出る唯一の文字が間違う**ので、交差中の集合を自分で持つ。
+    const intersecting = new Set<string>();
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible.length > 0) setActiveId(visible[0].target.id);
+        for (const e of entries) {
+          if (e.isIntersecting) intersecting.add(e.target.id);
+          else intersecting.delete(e.target.id);
+        }
+        // 帯に複数入っていることがあるので、いちばん上の節を現在地にする。
+        const top = els
+          .filter((el) => intersecting.has(el.id))
+          .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top)[0];
+        if (top) setActiveId(top.id);
       },
       { rootMargin: "-20% 0px -55% 0px" },
     );
@@ -81,25 +101,11 @@ export function SectionJumpNav({
     return () => observer.disconnect();
   }, [idKey]);
 
-  // 現在の節のピルをバーの見える範囲へ送る。
-  useEffect(() => {
-    const ul = scrollRef.current;
-    if (!ul || !activeId) return;
-    const pill = ul.querySelector<HTMLElement>('[aria-current="true"]');
-    if (!pill) return;
-    const margin = 24; // 端フェードに隠れない余白
-    const left = pill.offsetLeft - margin;
-    const right = pill.offsetLeft + pill.offsetWidth + margin;
-    let next = ul.scrollLeft;
-    if (left < ul.scrollLeft) next = left;
-    else if (right > ul.scrollLeft + ul.clientWidth) next = right - ul.clientWidth;
-    if (next === ul.scrollLeft) return;
-    // 「視差効果を減らす」を選んでいる利用者には滑らせず即座に移す。
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    ul.scrollTo({ left: Math.max(0, next), behavior: reduce ? "auto" : "smooth" });
-  }, [activeId, scrollRef]);
-
   if (items.length === 0) return null;
+
+  // 現在地が未確定（読み込み直後・observer の初回通知前）は先頭の節を出す。
+  // 空文字のまま出すとトリガーの幅がゼロ幅から実幅へ跳ねて CLS になる。
+  const current = items.find((i) => i.id === activeId) ?? items[0];
 
   return (
     <nav
@@ -114,54 +120,58 @@ export function SectionJumpNav({
       // モバイルは sticky なサイトヘッダーの下に着ける。
       style={{ height: SECTION_NAV_H, top: "var(--chrome-top)" }}
     >
-      {/* 帯（背景・下罫）は全幅のまま、中のタブ列だけ本文と同じ max-w-content に
-          揃える。帯を上限で切ると、ワイド画面でスクロール内容が帯の左右から
-          覗いてしまう。 */}
-      <div className="mx-auto flex h-full w-full max-w-content items-center">
-        <span className="mr-3 hidden shrink-0 text-xs text-muted-foreground sm:inline">
+      {/* 帯（背景・下罫）は全幅のまま、中身だけ本文と同じ max-w-content に揃える。 */}
+      <div className="mx-auto flex h-full w-full max-w-content items-center gap-3">
+        <span className="hidden shrink-0 text-xs text-muted-foreground sm:inline">
           {label}
         </span>
-        {/* 端フェードを絶対配置するため relative な箱で包む。バーは高さ固定なので
-            フェードは inset-y-0 でバー全高に伸びる。 */}
-        <div className="relative min-w-0 flex-1">
-          <ul
-            ref={scrollRef}
-            onScroll={onScroll}
-            className="flex min-w-0 gap-2 overflow-x-auto whitespace-nowrap py-1"
-          >
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="sm" className="min-w-[9.5rem] justify-between">
+              <span className="truncate">
+                {current.label}
+                {current.count !== undefined && (
+                  <span className="ml-1.5 text-micro tabular-nums text-muted-foreground">
+                    {current.count}
+                  </span>
+                )}
+              </span>
+              <ChevronDown data-icon="inline-end" />
+            </Button>
+          </PopoverTrigger>
+          {/* 節は最大15個。2列に組めばどの幅でも一度に全部見える（縦スクロールも出ない）。 */}
+          <PopoverContent align="start" className="grid w-[22rem] grid-cols-2 gap-0.5 p-1">
             {items.map((item) => {
-              const active = item.id === activeId;
+              const active = item.id === current.id;
               return (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    aria-current={active ? "true" : undefined}
-                    className={cn(
-                      "inline-flex items-baseline gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors",
-                      active
-                        ? "border-seal bg-seal text-seal-foreground"
-                        : "border-border bg-background text-foreground/80 hover:border-seal/50 hover:bg-accent/60 hover:text-seal",
-                    )}
-                  >
-                    {item.label}
-                    {item.count !== undefined && (
-                      <span
-                        className={cn(
-                          "text-micro tabular-nums",
-                          active ? "text-seal-foreground/80" : "text-muted-foreground",
-                        )}
-                      >
-                        {item.count}
-                      </span>
-                    )}
-                  </a>
-                </li>
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  aria-current={active ? "true" : undefined}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "flex items-baseline justify-between gap-2 rounded-sm px-2.5 py-1.5 text-sm transition-colors",
+                    active
+                      ? "bg-seal text-seal-foreground"
+                      : "text-foreground/85 hover:bg-accent hover:text-seal",
+                  )}
+                >
+                  <span className="truncate">{item.label}</span>
+                  {item.count !== undefined && (
+                    <span
+                      className={cn(
+                        "shrink-0 text-micro tabular-nums",
+                        active ? "text-seal-foreground/80" : "text-muted-foreground",
+                      )}
+                    >
+                      {item.count}
+                    </span>
+                  )}
+                </a>
               );
             })}
-          </ul>
-          {/* 48px固定のバーではバッジがピルに重なるため端フェードだけにする。 */}
-          <HorizontalScrollHint atStart={atStart} atEnd={atEnd} showBadge={false} />
-        </div>
+          </PopoverContent>
+        </Popover>
       </div>
     </nav>
   );

@@ -24,7 +24,6 @@ import {
   type NarrativeSection,
   type ResearchMemo,
   type RankingMetricKey,
-  type RestorationRow,
 } from "@/lib/emperor-types";
 
 export * from "@/lib/emperor-types";
@@ -698,37 +697,11 @@ function formatPeriod(reign: RawReign): string {
     : `${formatYear(reign.startYear)}–${formatYear(reign.endYear)}年`;
 }
 
-/** noteの先頭一文（「〜。」まで）を取り出す。復位の経緯の要約として使う。 */
+/** noteの先頭一文（「〜。」まで）を取り出す。出来事の要約として使う。 */
 function firstSentence(note: string | null): string | null {
   if (!note) return null;
   const idx = note.indexOf("。");
   return idx === -1 ? note : note.slice(0, idx + 1);
-}
-
-/** 復位者（複数回即位）の一覧を、在位期間・復位の経緯つきで返す。 */
-export function getRestorationRows(): RestorationRow[] {
-  const records = new Map(getAllEmperorRecords().map((r) => [r.id, r]));
-  const rows: RestorationRow[] = [];
-  for (const e of data.emperors) {
-    if (e.reignSummary.reignCount < 2) continue;
-    const record = records.get(e.id);
-    if (!record) continue;
-    const reigns = e.reigns ?? [];
-    rows.push({
-      id: e.id,
-      name: record.name,
-      dynastyLabel: record.dynastyLabel,
-      dynastyKey: record.dynastyKey,
-      dynastyCategory: record.dynastyCategory,
-      reignCount: e.reignSummary.reignCount,
-      periodsLabel: reigns.map(formatPeriod).join(" / "),
-      restorationReasons: reigns
-        .filter((r) => r.isRestoration)
-        .map((r) => firstSentence(r.note))
-        .filter((s): s is string => s !== null),
-    });
-  }
-  return rows;
 }
 
 // ---------------------------------------------------------------------------
@@ -1435,7 +1408,7 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
       label: "在位期間",
       description: `即位から退位・崩御するまでの即位期間が長かった人物`,
       valueHeader: "在位",
-      href: "/reign#ranking",
+      href: "/database?sort=reignApproxDays&order=desc",
       linkLabel: `全${reign.total}名の順位 →`,
       rows: reign.rows,
     },
@@ -1519,61 +1492,6 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
 }
 
 // ---------------------------------------------------------------------------
-// グラフページの「読み取れること」（SSR テキスト）。クローラと未訪問ユーザーに
-// 各グラフの結論を1〜2文で言語化する（グラフ本体は LazyMount で画面外未マウント＝
-// 数値が一切 DOM に出ないため、この結論文は実質ゼロからの純増になる）。
-//
-// 【整合性の要】数値・母集団・1位はすべてチャートと同じ単一情報源から導く：
-//   - /reign は getOverviewStats（チャートと同じ集計）
-//   - 回数系・年齢は record.ranks[key]（チャート行と同じ computeRanks 由来のマップ）
-//     を使い、1位＝ranks[key].rank===1（＝チャート最上段）、母集団＝ranks[key].total
-//     （＝0回除外・年齢判明者のみの対象人数）。手書きの .filter を挟まないので、
-//     isRanked/RANK_DIRECTIONS を将来変えても本文が勝手にずれない。
-
-// 【粒度】2026-07-21 の初版は「各ページ1本（代表 Section 直下）」に限定していたが、
-// 2026-07-27 の SEO 監査で「統計6ページ16節のうち総括文があるのは7節（44%）」＝
-// 総括文の無い9節はチャートを描かないと数値がどこにも出ない状態と判明したため、
-// 全16節に1本ずつ置く方針へ改めた（キーもページ単位→節単位へ）。置き場所の規範
-// （その主張が対象とする節の中に置く・ページ先頭へ持ち上げない）は初版のまま。
-
-/** 節ごとの総括文のキー。値は各ページの Section id と一致させる（`ページ/節id`）。 */
-export type TakeawaySection = "reign/ranking" | "reign/restoration";
-
-/**
- * 節ごとの「読み取れること」総括文（その内容が対象とする節の中に置く）。
- * すべてビルド時にデータから導出する表示用の機械集計（自動生成禁止には非抵触）。
- */
-export function getChartTakeaway(section: TakeawaySection): string[] {
-  switch (section) {
-    case "reign/ranking": {
-      const s = getOverviewStats();
-      return [
-        `収録した${s.emperorCount}名の在位期間は、最長が${s.longestReign.name}（${s.longestReign.dynastyLabel}）の${s.longestReign.durationLabel}、最短が${s.shortestReign.name}（${s.shortestReign.dynastyLabel}）の${s.shortestReign.durationLabel}です。`,
-        `1人あたりの平均は${s.avgReignLabel}です。`,
-      ];
-    }
-    case "reign/restoration": {
-      // 母集団は getOverviewStats（reignCount>=2）＝この節の表の行数と同じ定義。
-      const s = getOverviewStats();
-      const rows = getRestorationRows();
-      if (rows.length === 0) return [];
-      const maxCount = Math.max(...rows.map((r) => r.reignCount));
-      const leaders = rows.filter((r) => r.reignCount === maxCount);
-      const names =
-        leaders.length === 1
-          ? `${leaders[0].name}（${leaders[0].dynastyLabel}）`
-          : leaders.length === 2
-            ? `${leaders[0].name}と${leaders[1].name}の2名`
-            : `${leaders[0].name}ら${leaders.length}名`;
-      return [
-        `廃位・退位を経て再び即位した皇帝は、${s.emperorCount}名中${s.restorationCount}名です。`,
-        `即位回数が最も多いのは${names}で、${maxCount}回です。`,
-      ];
-    }
-  }
-}
-
-// ---------------------------------------------------------------------------
 // OGP画像（SNSの共有カード）に載せる事実。
 //
 // 監査（2026-07-27）の 2-5 で Content-Type は実害なしと確認できたので、次の論点は
@@ -1596,7 +1514,7 @@ export interface OgFact {
 }
 
 /** OGP画像に事実カードを出すページ。値は各ルートのパスと一致させる。 */
-export type OgFactPage = "/" | "/emperors" | "/database" | "/reign" | "/about";
+export type OgFactPage = "/" | "/emperors" | "/database" | "/about";
 
 export function getOgFacts(page: OgFactPage): OgFact[] {
   const stats = getOverviewStats();
@@ -1633,7 +1551,7 @@ export function getOgFacts(page: OgFactPage): OgFact[] {
     }
     case "/database": {
       // 表の面なので「どれだけの行と列が1枚に載っているか」を伝える2枚にする
-      // （最長在位は /reign 側で出しているので重複させない）。
+      // （最長在位は概要ダッシュボードの盤面が出しているので重複させない）。
       // 列数は手書きせず DATABASE_COLUMN_COUNT から引く（表の実装と突合 assert がある）。
       const highlights = getHomeHighlights();
       return [
@@ -1646,20 +1564,6 @@ export function getOgFacts(page: OgFactPage): OgFact[] {
           label: "表の列",
           value: `${DATABASE_COLUMN_COUNT}列`,
           sub: "在位年数・死因・即位経路・年齢ほか",
-        },
-      ];
-    }
-    case "/reign": {
-      return [
-        {
-          label: "最長在位",
-          value: stats.longestReign.durationLabel,
-          sub: `${stats.longestReign.name}（${stats.longestReign.dynastyLabel}）`,
-        },
-        {
-          label: "復位した皇帝",
-          value: `${stats.restorationCount}名`,
-          sub: `${stats.emperorCount}名中`,
         },
       ];
     }

@@ -4,9 +4,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # サイト概要
 
-`../data/emperors.json`（中国皇帝365人・全12項目）を可視化する統計サイト。Next.js 16（App Router / Turbopack）+ Tailwind v4 + shadcn/ui + Tremor（vendored）+ Recharts。`output: "export"` で `out/` に静的書き出しし、GitHub Pages + カスタムドメイン **emperorstats.com**（`public/CNAME`）のルート直下で配信する。
+`../data/emperors.json`（中国皇帝365人・全12項目）を可視化する統計サイト。Next.js 16（App Router / Turbopack）+ Tailwind v4 + shadcn/ui + Tremor（vendored）+ Recharts + TanStack Table。`output: "export"` で `out/` に静的書き出しし、GitHub Pages + カスタムドメイン **emperorstats.com**（`public/CNAME`）のルート直下で配信する。
 
-**2026-07-31 に作り替えの途中にある。** 最終形は**4ページ**（概要ダッシュボード `/`・皇帝一覧 `/emperors`・データベース `/database`・このサイトについて `/about`）＋皇帝個別 `/emperors/[id]` の365ページ。できているのは**概要ダッシュボードとデータベース**で、`/emperors`・`/emperors/[id]`・`/about` は旧実装のまま残っている（外側のシェル＝サイドバー・ヘッダー・フッターも旧実装）。`/reign` は**データベースへ吸収して廃止する予定**（未実施）。同日、`/timeline`・`/kinship`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties` はファイルごと削除した（公開済みURLは 404 に着地させる方針）。
+**2026-07-31 に作り替えの途中にある。** 最終形は**4ページ**（概要ダッシュボード `/`・皇帝一覧 `/emperors`・データベース `/database`・このサイトについて `/about`）＋皇帝個別 `/emperors/[id]` の365ページ。できているのは**概要ダッシュボードとデータベース**で、`/emperors` は改修の途中（肖像なしカードと時代ジャンプバーまで）、`/emperors/[id]`・`/about` は旧実装のまま残っている（外側のシェル＝サイドバー・ヘッダー・フッターも旧実装）。同日、`/timeline`・`/kinship`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`・**`/reign`** はファイルごと削除した（公開済みURLは 404 に着地させる方針）。`/reign` の2節はデータベースの状態として残っていて、リンクは `/database?sort=reignApproxDays&order=desc`（在位年数ランキング）と `/database?reign=restoration`（復位者一覧）へ付け替えてある。**`@nivo/*` はこの削除で消えた** — チャートは Recharts（vendored Tremor 経由）だけ。
 
 このファイルには**崩すとビルドが落ちる契約**だけを置いてある。ページ構成・スタックの使い分け・配色・各ページの設計方針は [design-plans/SITE_PLAN.md](design-plans/SITE_PLAN.md) が正。旧サイトの設計記録・実装ログ・デザイン契約は同日すべて削除したので、**この2本以外から方針を引かないこと**。
 

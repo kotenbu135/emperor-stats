@@ -31,7 +31,7 @@
 | ページ | パス | 状態 | 中身 |
 |---|---|---|---|
 | **概要ダッシュボード** | `/` | **完成** | 数値の盤面。KPI・ランキング・内訳・世紀分布・在位年数×死因 |
-| **皇帝一覧** | `/emperors` | 改修 | 図鑑グリッド。かな検索・王朝/時代フィルタ・詳細ダイアログ・URL同期 |
+| **皇帝一覧** | `/emperors` | 改修中 | 図鑑グリッド。かな検索・王朝/時代フィルタ・詳細ダイアログ・URL同期 |
 | **データベース** | `/database` | **実装済み** | 全365名を表形式で。ソート・検索・絞り込み・列表示切替 |
 | **このサイトについて** | `/about` | 改修 | 収録基準・各項目の数え方・出典・ライセンス・免責 |
 
@@ -42,9 +42,13 @@
 
 2026-07-31 にファイルごと削除した。`output: "export"` なので出力が生まれず、公開済み URL は `out/404.html` に着地する。
 
-`/timeline`（通史年表）・`/kinship`（系譜図）・`/kinship-source`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`・`/lab`（作業用）
+`/timeline`（通史年表）・`/kinship`（系譜図）・`/kinship-source`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`・`/lab`（作業用）・
+**`/reign`（在位データ）**
 
-**`/reign`（在位データ）も廃止し、データベースへ吸収する**（2026-07-31 ユーザー決定・未実施）。
+**`/reign` はデータベースへ吸収して廃止済み**（2026-07-31）。旧2節は `/database` の状態として残っている
+（在位年数の降順＝在位年数ランキング、復位者だけの絞り込み＝復位者一覧）。**リンク2本は
+クエリ付きで付け替えた** — ダッシュボードの「全365名の順位 →」が `/database?sort=reignApproxDays&order=desc`、
+皇帝個別ページの「のちに復位」が `/database?reign=restoration`。この2本のために表へ URL 同期を入れた。
 
 **後始末は無言 404 で確定**（2026-07-31 ユーザー決定）。リダイレクトも 410 も設けない。
 `/timeline` は `SITE_SECTIONS` 経由で sitemap に載っていた＝インデックスされていた側だが、
@@ -67,18 +71,19 @@ Next.js 16（App Router / Turbopack）＋ React 19 ＋ Tailwind v4 ＋ **shadcn/
 | 層 | 供給元 | 使っている場所 |
 |---|---|---|
 | 外枠（サイドバー・ヘッダー・フッター・ナビ） | **shadcn/ui**（`Sheet`・`Accordion`・`Button`） | 全ページ・**旧実装** |
-| 操作する部品（検索・フィルタ・ダイアログ） | **shadcn/ui**（`Input`・`Select`・`Command`＋`Popover`・`HoverCard`・`Dialog`） | 皇帝一覧・`/reign`・**旧実装** |
+| 操作する部品（検索・フィルタ・ダイアログ） | **shadcn/ui**（`Input`・`Select`・`Command`＋`Popover`・`HoverCard`・`Dialog`） | 皇帝一覧・データベース |
+| 表（365行） | **shadcn/ui `ui/table.tsx`** ＋ TanStack Table | データベース・**新実装** |
 | 盤面（カード・KPI・ランキング・帯・棒グラフ） | **Tremor**（`Card`・`BarList`・`BarChart`・`Tabs`・`CategoryBar`） | 概要ダッシュボードのみ・**新実装** |
-| チャート（365行の棒グラフ） | **Nivo** | `/reign`・**旧実装**（削除予定） |
 | アイコン | `lucide-react` | 全ページ |
+
+**Nivo は 2026-07-31 の `/reign` 削除でリポジトリから消えた**（`@nivo/*` 5パッケージをアンインストール済み）。
 
 **「ブロックの分類」をしているのは Tremor 側**（KPI カード・チャート・ツールチップ・テーブル・
 ページシェル・フィルタバー）。shadcn/ui は部品の詰め合わせで、盤面の組み立て方は供給しない。
 
 **未使用の shadcn 部品**: `card`・`badge`・`separator`・`input-group`・`textarea` の5つ。
 ダッシュボードが `tremor/Card` を使っているため `ui/card.tsx` は誰も使っていない。
-`ui/table.tsx` も `/reign` の復位表だけが使っており、`/reign` を消すと未使用になる。
-**データベースを作るときにこの `ui/table.tsx` が主役になる。**
+`ui/table.tsx` はデータベースの主役になった（`Table` ラッパーだけは使わない — 「6. データベース」節）。
 
 ### shadcn/ui と Tremor の使い分け
 
@@ -149,10 +154,10 @@ Recharts 3 の API を使っている）。
 **`/lab`（比較用ページ）と `src/components/home-v2/nivo-board.tsx` は削除した。**
 チャートは Recharts（vendored Tremor 経由）で統一する。
 
-### `/reign` を削除すると落ちるもの
+### `/reign` の削除で落としたもの（2026-07-31・実施済み）
 
-`@nivo/*` を import しているのは `charts/ranking-bar-chart.tsx` と `charts/scroll-bar-chart.tsx` の2本で、
-これを使うページは **`/reign` だけ**。`/reign` を消すと次が不要になり、**`@nivo/*` 5パッケージを丸ごと落とせる**:
+`@nivo/*` を import していたのは `charts/ranking-bar-chart.tsx` と `charts/scroll-bar-chart.tsx` の2本で、
+これを使うページは `/reign` だけだった。ページごと消したので **`@nivo/*` 5パッケージも丸ごと落ちた**:
 
 ```
 src/app/reign/                       （ページ本体・opengraph-image）
@@ -163,13 +168,21 @@ src/components/charts/emperor-tooltip.tsx
 src/components/charts/chart-takeaway.tsx
 src/components/tables/restoration-table.tsx
 src/components/tables/top-ranked-table.tsx
+src/components/lazy-mount.tsx
+src/lib/ranking-metrics.ts
 ```
 
-**残すもの**: `charts/chart-filter-controls.tsx`（`emperor-grid` が使用）・
-`charts/dynasty-combobox.tsx`（同）・`charts/horizontal-scroll-hint.tsx`（`section-jump-nav` が使用）。
+`lib/emperors.ts` からは `getRestorationRows` / `getChartTakeaway`（＋ `TakeawaySection`）・
+`getOgFacts` の `/reign` 分岐が、`lib/emperor-types.ts` からは `RestorationRow` が消えた。
+`charts/horizontal-scroll-hint.tsx` は**フックだけ残した** — 端フェードの描画部品
+（`HorizontalScrollHint`・`VerticalScrollHint`）は、`/reign` の廃止と時代ジャンプバーの
+畳み込み化で呼び出し元が全部消えたため削除した。
+
+**残したもの**: `charts/chart-filter-controls.tsx`（`emperor-grid`・`emperor-table` が使用）・
+`charts/dynasty-combobox.tsx`（同）・`useHorizontalScrollEdges`（`emperor-table` が使用）。
 
 旧サイトの性能対策（`LazyMount`・行ウィンドウイング・`transform` 配置・`useTipOutlet`）は
-**365行チャート専用**なので `/reign` と一緒に役目が終わる。
+**365行チャート専用**だったので `/reign` と一緒に役目を終えた。
 
 ---
 
@@ -404,25 +417,110 @@ src/components/tables/top-ranked-table.tsx
 - lint の warning「Compilation Skipped: Use of incompatible library」は既知で消せない。
   `useReactTable()` が毎回新しい関数を返すため React Compiler が自動メモ化を諦める
 
+### URL 同期（2026-07-31 実装）
+
+`?q=` `?era=` `?dynasty=` `?reign=restoration` `?sort=<列id>&order=asc|desc` を持つ。
+**旧 `/reign` の2本のリンクの着地点**として要ったため、`/reign` の廃止と同時に入れた。
+復元は hydration 不一致を避けてマウント後の effect で行い、書き込みはマウント直後の1回だけ
+スキップする（`/emperors` のグリッドと同じ形）。`?sort=` は `COLUMN_IDS`（`COLUMNS` の
+id/accessorKey から作る集合）で照合してから state に入れる — 実在しない列 id を渡すと
+TanStack が無言で並べ替えを落とすため。
+
 ### まだやっていないこと
 
-- **絞り込み・並べ替えの URL 同期**（`/emperors` は `?q=&dynasty=&category=` を持っている）。
-  並べ替えた表を共有できるようにするなら足す
 - 死因・即位経路のファセット絞り込み（検索窓に打てば絞れるので後回しにした）
+- 列の表示切替は URL に載せていない（並べ替えと違い、共有したい状態ではないと判断）
 
 ---
 
-## 7. 皇帝一覧（改修）
+## 7. 皇帝一覧（改修中）
 
-**既存のレイアウトを活かす。** 図鑑グリッド・かな検索・王朝/時代フィルタ・詳細ダイアログ・URL同期は
-そのまま残し、見た目を shadcn/Tremor Blocks の水準へ引き上げる。
+2026-07-31 に現状を測ったうえで、**モノグラム・時代ジャンプバー・`/reign` の吸収の3点を実装した**。
+確認用スクリプトは `design-plans/tools/capture-emperors.mjs`（ショットは `rebuild-shots/emperors-now-*.png`）。
 
-崩さないもの:
+### 崩さないもの
 
 - **ペイロード分離** — グリッドの props は `EmperorListRecord`（10フィールド）に限定し、
-  フルレコードは詳細ダイアログを開いた時に `/emperor-records/{id}` から fetch する
+  フルレコードは詳細ダイアログを開いた時に `/emperor-records/{id}` から fetch する。
+  実測 188KB（RSC）。カードに項目を足すならフィールド1つ分の増分を見積もってから
 - **`?dynasty=` クエリからのフィルタ復元** — 皇帝個別ページの「◯◯の皇帝一覧（N名）」リンクがこれに依存している
 - **ダイアログの履歴同期**（`useDialogHistory`）— ブラウザバックで閉じる・URL 差し替え
+- **`EmperorCard` の memo 化**と365枚全件 DOM — 実機 Lighthouse timespan で
+  操作ごとの再レンダリングが TBT と遅延 CLS の一因だった結果の対策
+
+### 肖像なし215名のカード（2026-07-31 ユーザー決定）
+
+**カードの59%（215/365）は肖像ではなくモノグラム。** 肖像アセットは PD/CC0 のみで150枚が上限
+（増やすのは `docs/site-design/PORTRAITS.md` のデータ側作業）。時代ごとの偏りが大きい:
+
+| 時代 | 名 | 肖像 | モノグラム |
+|---|---:|---:|---:|
+| 秦・前漢 | 16 | 9 | 7（44%） |
+| 新〜後漢初 | 5 | 2 | 3（60%） |
+| 後漢 | 15 | 5 | 10（67%） |
+| 三国 | 11 | 9 | 2（18%） |
+| 晋 | 17 | 9 | 8（47%） |
+| **五胡十六国** | 43 | 7 | **36（84%）** |
+| **南北朝** | 69 | 15 | **54（78%）** |
+| 隋 | 5 | 2 | 3（60%） |
+| 隋末 | 12 | 4 | 8（67%） |
+| 唐 | 32 | 19 | 13（41%） |
+| 五代十国 | 34 | 10 | 24（71%） |
+| 宋・遼・西夏・金 | 52 | 17 | 35（67%） |
+| 元 | 18 | 11 | 7（39%） |
+| 明 | 22 | 18 | 4（18%） |
+| 清 | 14 | 13 | 1（7%） |
+| **合計** | **365** | **150** | **215（59%）** |
+
+**下地の淡彩（王朝色38%混色）をやめ、無彩色 `--muted` に落とした。**
+理由は面積ではなく重複 — モノグラムが持っていた2つの符号は、どちらも同じカードの文字と
+重複していた。色＝王朝は2行目の `dynastyLabel` が、字＝姓は1行目の諱が既に出している。
+南北朝では「劉」の桃色が7枚・「蕭」の緑が5枚続き、**カード面積の75%がその下の文字と
+同じことを言っている**状態だった。加えて `--series-1〜8` は図で系列を見分けるための
+カテゴリ識別色で、面の59%に敷く下地の役ではない。
+
+**王朝の識別は `DynastyMark`（カードの文字列の左に立てる3pxの縦帯）へ移した。**
+肖像の有無にかかわらず**全365枚**に出るので、王朝の切れ目は肖像ありの列でも読める。
+印は面積が小さいので混色せず `--series-N` の生値を使う（38%まで薄めると地に溶ける）。
+文字は `--muted-foreground`（`--muted` の上でコントラスト 4.35:1）。
+
+**`portrait.tsx` にあった「配色が現行パレットに追従していない」旨の⚠️は失効していたので消した。**
+`SLOT_HEX` の8色は `globals.css` の `--series-1〜8` と実値が一致し、`SURFACE_HEX = #ffffff` も
+`--background: oklch(1 0 0)` と一致する（2026-07-31 確認）。問題は追従ではなく用途だった。
+
+### 時代ジャンプバー（2026-07-31 ユーザー決定）
+
+**横スクロールをやめ、「押したら開く」形にした。**
+それまでは15時代を丸ピルで横一列に並べていたが、**1440px でも11個しか入らず**
+（`scrollWidth 1390 / clientWidth 1015`）、390px では3つ。縦にスクロールするページの中に
+横スクロールする帯があるのは、`/database` の表で避けたのと同じ形だった。
+
+いまはバーに**現在地の1つだけ**を出し、押すと15時代を2列のポップオーバーで一覧する
+（どの幅でも全部が一度に見え、縦にも横にもスクロールしない）。バーの高さは48pxのまま。
+現在地が未確定のあいだは先頭の節を出す — 空文字で出すとトリガーの幅がゼロから実幅へ跳ねて CLS になる。
+
+この変更で `HorizontalScrollHint`・`VerticalScrollHint`（端フェードの描画部品）の
+呼び出し元が全部消えたので削除した（`useHorizontalScrollEdges` は `/database` が使うので残る）。
+
+### 画面上端に固定される帯
+
+モバイルはサイトヘッダー（`--chrome-top` 56px）＋ ジャンプバー（`SECTION_NAV_H` 48px）＋
+時代見出しの sticky（`BELOW_SECTION_NAV`）で最大3段。`/database` は sticky の基準を
+`--chrome-top` 一本にしたが、**この面は `BELOW_SECTION_NAV` という2本目の基準を持つ**
+（ジャンプバーの下に見出しを貼るため）。統一していないのは意図的で、`BELOW_SECTION_NAV` は
+`--chrome-top` から計算する式なので二重管理にはならない。
+
+### 肖像そのものの質はそろわない
+
+彩色の絹本・白黒の線画・版本のページ（縦組みの文字が写っている）が隣り合う。150枚は
+PD/CC0 の制約下で集めた実物で、切り抜き・トリミングの作り直しはデータ側の作業。
+**枠の中で揃えられるのは背景・余白・比率まで**で、絵柄の統一は約束しない。
+
+### まだやっていないこと
+
+- **詳細ダイアログ**（`emperors-now-dialog.png`）は旧実装のまま。一覧の一部として見られる面だが未着手
+- 外枠（サイドバー・ヘッダー・フッター）も旧実装のまま
+- フィルタ行・カード自体の見た目は現状維持（モノグラムの決着を先に入れた）
 
 ---
 
@@ -437,14 +535,19 @@ src/components/tables/top-ranked-table.tsx
 
 ## 9. 着手時にやること
 
-### ビルドが落ちないので手で直す必要があるもの
+### ページを消しても型は通る（対応済みの実例）
 
-`/reign` を削除しても TypeScript は通ってしまう。次の2箇所は 404 へのリンクとして残るので**手で付け替える**:
+`/reign` を削除しても TypeScript は通ってしまい、404 へのリンクが2本残った。
+2026-07-31 に付け替え済み（`out/**.html` を grep して `/reign` が残っていないことも確認した）:
 
 | 場所 | リンク | 現在の行き先 |
 |---|---|---|
-| 概要ダッシュボード | 「全365名の順位 →」 | `/reign#ranking` |
-| 皇帝個別ページ | 「のちに復位」 | `/reign#restoration` |
+| 概要ダッシュボード | 「全365名の順位 →」 | `/database?sort=reignApproxDays&order=desc` |
+| 皇帝個別ページ | 「のちに復位」 | `/database?reign=restoration` |
+
+**ページを1枚消すときは、`SITE_SECTIONS`・`nav-data.ts`・`OgFactPage` の union と
+`getOgFacts()` の分岐から落としたうえで、本文中のリンクを `grep -rn '"/<パス>' src/` で洗う。**
+最後に `out/**.html` を grep して 404 リンクが残っていないことを見る。
 
 ### 登録の順序
 
@@ -482,6 +585,8 @@ src/components/tables/top-ranked-table.tsx
 | 統計5面（`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`）を廃止 | 2026-07-31 |
 | `/reign` を廃止しデータベースへ吸収 | 2026-07-31 |
 | **Nivo は採らない**（比較版を作った上での判断）。チャートは Recharts で統一 | 2026-07-31 |
+| 肖像なしカードの下地は**無彩色**。王朝色は文字列の左の3pxの印へ移す（淡彩は面の59%で、色も字もカードの文字と重複していた） | 2026-07-31 |
+| 時代ジャンプバーは**畳んで押したら開く**。横スクロールする帯にしない | 2026-07-31 |
 | 王朝の表示名は**国号＋時代サフィックス**（「呉・三国」）のまま。`catalogs.regimes[].label` を全政権に使う案（「呉（孫呉）」）は**採らない** — 41件の表示名が動く。同じ時代の中の同名別政権（隋末の梁2つ・楚2つ）だけ label へ落とす | 2026-07-31 |
 | Tailwind Plus（$299）は購入しない | 2026-07-31 |
 | ランキングは1カラム＋グラフ内スクロールで全件（2カラム案は却下） | — |
