@@ -52,4 +52,8 @@ site/ds-bundle/
 # 確認用スクリーンショット（site/tools/capture-site.mjs の出力・撮り直せるので履歴に入れない）
 site/tools/shots/
 
+# 系譜レイアウトの技術検証（生成物と一時依存・スクリプトから作り直せる）
+site/tools/kinship-layout-spike/node_modules/
+site/tools/kinship-layout-spike/*.json
+
 .claude/skills/
