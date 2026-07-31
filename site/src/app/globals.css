@@ -9,7 +9,9 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-heading: var(--font-serif);
+  /* 見出しも本文と同じサンセリフ。明朝（Noto Serif JP）の指定は
+     水墨文人スタイル前提のものだったので外した。 */
+  --font-heading: var(--font-sans);
   /* DESIGN.md のタイポスケール6段のうち、Tailwind 既定値に対応がない唯一の段。
      極小テキストの生px指定（9px〜13px が7種類に散っていた）を1つに集約するための名前。
      他の5段（body/caption/title/section/subsection）は text-sm/text-xs/text-2xl/
@@ -28,6 +30,9 @@
      mx-auto max-w-* を散らさないこと。全幅が要る節は Section の bleed を使う。 */
   --container-content: 75rem;
   --color-seal: var(--seal);
+  --color-bar: var(--bar);
+  --color-bar-accession: var(--bar-accession);
+  --color-bar-death: var(--bar-death);
   --color-seal-foreground: var(--seal-foreground);
   --color-series-1: var(--series-1);
   --color-series-2: var(--series-2);
@@ -112,50 +117,126 @@
 }
 
 :root {
-  --background: #f5f1e8;
-  --foreground: #3a3530;
-  /* 面は明度で3段に分ける: --sidebar(#ede7d8) < --background(#f5f1e8) < --card。
-     宣紙の上に紙を重ねた関係。カードに影は常時置かない(365枚並ぶ/emperorsで
-     画面がざらつくため)。奥行きは色で、動きはhoverにだけ与える。 */
-  --card: #faf7f0;
-  --card-foreground: #3a3530;
-  --popover: #f5f1e8;
-  --popover-foreground: #3a3530;
-  --primary: #4a4038;
-  --primary-foreground: #f5f1e8;
-  --secondary: #ede7d8;
-  --secondary-foreground: #3a3530;
-  --muted: #ede7d8;
-  --muted-foreground: #6b6258;
-  --accent: #ddd5c7;
-  --accent-foreground: #3a3530;
-  --seal: #a6321c;
-  --seal-foreground: #f5f1e8;
-  --destructive: #a6321c;
-  /* dataviz skillで検証済みのカテゴリカルパレット（8色、CVD安全、surface #F5F1E8で検証） */
+  /* @palette:start */
+  /* ユーザー自作のビルダーで生成したテーマ（2026-07-31 受領）をそのまま採用。
+     shadcn の標準トークンは受け取った値を1つも変えていない。
+     このサイト固有のトークン（--seal / --series-* / --kinship-minor）だけは
+     標準側に対応するものが無いので、下で明示的に対応付けている。 */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.514 0.222 16.935);
+  --primary-foreground: oklch(0.969 0.015 12.422);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.837 0.128 66.29);
+  --chart-2: oklch(0.705 0.213 47.604);
+  --chart-3: oklch(0.646 0.222 41.116);
+  --chart-4: oklch(0.553 0.195 38.402);
+  --chart-5: oklch(0.47 0.157 37.304);
+  --radius: 0.45rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.586 0.253 17.585);
+  --sidebar-primary-foreground: oklch(0.969 0.015 12.422);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* --- ここから下はこのサイト固有のトークン（受領CSSに対応物が無いもの） --- */
+
+  /* 朱アクセント。117箇所から参照されている。--primary と同値にする。 */
+  --seal: var(--primary);
+  --seal-foreground: var(--primary-foreground);
+
+  /* カテゴリ配色（--series-1〜8）。
+     受領テーマの --chart-1〜5 は淡い黄→濃い赤茶の連続ランプ（sequential）で、
+     「死因」「即位経路」「87王朝→8スロット」のような**分類**に使うと隣接区分が
+     見分けられない。分類には色相の離れたカテゴリカル配色を使う（2026-07-31 決定）。
+     値は dataviz スキルの検証済みリファレンス配色そのまま。面 #ffffff に対して
+     validate_palette.js を実行し、明度帯・彩度下限・CVD分離・通常視力下限がすべて
+     PASS することを確認済み（最悪隣接ペア: CVD ΔE 9.1 / 通常 19.6）。
+     コントラストは #1baf7a(2.82) #eda100(2.17) #e87ba4(2.69) が 3:1 未満のため
+     「relief（可視ラベルまたは表ビュー）」が条件になる — トップの内訳は凡例に
+     区分名と実数を必ず併記しているので満たしている。ラベルを外すときは要再検討。
+     UI のアクセント（--primary / --seal）は受領テーマのまま。ここは図の色だけ。 */
   --series-1: #2a78d6;
-  --series-2: #008300;
-  --series-3: #e87ba4;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
   --series-4: #eda100;
-  --series-5: #1baf7a;
-  --series-6: #eb6834;
+  --series-5: #e87ba4;
+  --series-6: #008300;
   --series-7: #4a3aa7;
   --series-8: #e34948;
-  /* 系譜図(/kinship)の群雄・並立政権カプセル専用色。series-1〜8のどれとも被らない
-     くすんだ藤(muted mauve)。灰だと非皇帝の破線ピルと紛らわしいため専用色にする。 */
-  --kinship-minor: #8d7c94;
-  --border: #ddd5c7;
-  --input: #ddd5c7;
-  --ring: #4a4038;
-  --radius: 0.5rem;
-  --sidebar: #ede7d8;
-  --sidebar-foreground: #3a3530;
-  --sidebar-primary: #4a4038;
-  --sidebar-primary-foreground: #f5f1e8;
-  --sidebar-accent: #ddd5c7;
-  --sidebar-accent-foreground: #3a3530;
-  --sidebar-border: #ddd5c7;
-  --sidebar-ring: #4a4038;
+
+  /* ランキングの横棒の面。名前を棒の中に置くので**黒文字が乗る明るさ**が条件。
+     朱（--seal）そのままだと白文字が必要になり、棒が名前より短い指標で破綻する。
+     15%の網掛けは淡いピンクになって浮く。--seal と同じ暖色系で色相だけずらした
+     赤茶（terracotta）にして、白地に対する存在感と黒文字の可読性を両立させる。
+     実測: 本文色(--foreground)とのコントラスト 6.57、白地との明度差 3.01。 */
+  --bar: oklch(0.68 0.115 38);
+  /* 即位年齢・没年齢タブの棒。3指標はタブで排他表示なので同時に並ばず、
+     隣接ペアのCVD分離ではなく **--bar と同じ「読みやすさ」に揃える**ことが条件
+     — 黒文字とのコントラストと白地との明度差を --bar（6.57 / 3.01）へ寄せてある。
+     明度を上げると黒文字は読みやすくなるが棒が白地に溶けるので、両方を計算で確認した
+     （目視で選ばない・OKLab→sRGB を Node で計算）。
+     実測: --bar-accession 6.46 / 3.07、--bar-death 6.63 / 2.99。 */
+  --bar-accession: oklch(0.66 0.1 240); /* 藍 */
+  --bar-death: oklch(0.66 0.095 150); /* 苔緑 */
+
+  /* 系譜図の並立政権カプセル用。無彩色寄りで系列色のどれとも被らせない。 */
+  --kinship-minor: oklch(0.708 0 0);
+  /* @palette:end */
+}
+
+/* ユーザー自作ビルダーの dark 定義（受領値そのまま）。
+ * このサイトはダークモードを実装していない（.dark を付与する導線が無い）ため
+ * 現状は不活性。実装するときはこのブロックがそのまま効く。
+ * --seal / --series-* は :root 側で var() 参照にしてあるので追従する。 */
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.455 0.188 13.697);
+  --primary-foreground: oklch(0.969 0.015 12.422);
+  --secondary: oklch(0.274 0.006 286.033);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.837 0.128 66.29);
+  --chart-2: oklch(0.705 0.213 47.604);
+  --chart-3: oklch(0.646 0.222 41.116);
+  --chart-4: oklch(0.553 0.195 38.402);
+  --chart-5: oklch(0.47 0.157 37.304);
+  --sidebar: oklch(0.21 0.006 285.885);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.645 0.246 16.439);
+  --sidebar-primary-foreground: oklch(0.969 0.015 12.422);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {

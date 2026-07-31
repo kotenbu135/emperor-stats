@@ -1,8 +1,3 @@
-import {
-  KINSHIP_CHAPTER_DEFS,
-  KINSHIP_ENABLED_CHAPTER_IDS,
-} from "@/lib/kinship/chapters";
-
 export interface NavLink {
   label: string;
   href: string;
@@ -15,9 +10,10 @@ export interface NavCategory {
   items?: NavLink[];
 }
 
+// /timeline（通史年表）と /kinship（系譜・家系図）は 2026-07-31 の決定で廃止。
+// ここからは既に外してある。ページ本体とルートの削除・公開済みURLの後始末は別工程。
 export const navCategories: NavCategory[] = [
   { label: "概要ダッシュボード", href: "/" },
-  { label: "通史年表", href: "/timeline" },
   { label: "皇帝一覧", href: "/emperors" },
   {
     label: "在位データ",
@@ -70,22 +66,6 @@ export const navCategories: NavCategory[] = [
       { label: "平均在位年数", href: "/dynasties#avg-reign" },
       { label: "死因の内訳", href: "/dynasties#death-cause" },
     ],
-  },
-  // 系譜・家系図は段階公開中(第1〜4章＝秦から南北朝まで)。全章そろうまでは
-  // SITE_SECTIONS(トップのカード一覧・sitemap.xml)には載せず、robotsもnoindexの
-  // まま、メニューからだけ辿れるようにする。ラベルの「一部公開」は、全皇帝が
-  // 載っていることを期待して開いた人が面食らわないための注記。
-  {
-    label: "系譜・家系図（一部公開）",
-    href: "/kinship",
-    // 章は他ページのセクションと同じ扱いにする(ユーザー指示・2026-07-26)。
-    // 有効な章の定義から導出するので、章を増やしてもメニューだけ古くならない。
-    items: KINSHIP_ENABLED_CHAPTER_IDS.map((id, i) => ({
-      label: `第${i + 1}章 ${
-        KINSHIP_CHAPTER_DEFS.find((d) => d.id === id)?.title ?? id
-      }`,
-      href: `/kinship#${id}`,
-    })),
   },
   { label: "このサイトについて", href: "/about" },
 ];

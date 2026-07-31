@@ -601,6 +601,8 @@ interface RawReign {
   startYear: number;
   endYear: number;
   startDate?: string | null;
+  /** 日付の精度（"day"/"month"/"year" ほか自由記述。normalizeDatePrecision を通して使う）。 */
+  datePrecision?: { start?: string | null; end?: string | null } | null;
   /** 王朝内での即位順(通し番号・復位も別カウント)。未付与の王朝あり。 */
   dynastyOrder?: number | null;
   isRestoration: boolean;
@@ -1028,11 +1030,95 @@ export interface HomeEraBand {
   share: number;
 }
 
+/** 世紀ごとの即位人数（1本＝1世紀）。 */
+export interface HomeCenturyBand {
+  /** 軸ラベル用の短い表記（"前3"・"20"）。 */
+  label: string;
+  /** ツールチップ・読み上げ用（"前3世紀"）。 */
+  fullLabel: string;
+  count: number;
+}
+
+/**
+ * 「在位年数と死因」の帯の区分。凡例・配色・件数の並びはこの1か所で決まる。
+ *
+ * 死因8区分をそのまま幅434pxの列の帯に出しても読めないので3つに畳む
+ * （8区分の内訳は同じ盤面の「死因」カードと /death-accession が持つ）。
+ * ここに挙げた死因ラベルはカタログとの一致を data-source.ts の
+ * assertLabels("deathCause") が保証するが、**カタログに区分が増えたときの
+ * 取りこぼしは reignDeathBands() が実行時に throw して知らせる**
+ * （黙って「不詳ほか」に混ぜない）。
+ */
+const REIGN_DEATH_SEGMENTS: {
+  name: string;
+  /** 畳んだ中身。凡例の title に出す（名前だけでは何が入るか分からないため）。 */
+  detail: string | null;
+  causes: string[];
+}[] = [
+  {
+    name: "非業の死",
+    detail: "暗殺・処刑・戦死・自尽",
+    causes: ["暗殺", "処刑", "戦死", "自尽"],
+  },
+  { name: "病死", detail: null, causes: ["病死"] },
+  {
+    name: "不詳ほか",
+    detail: "不詳・諸説あり・事故死",
+    causes: ["不詳", "諸説あり", "事故死"],
+  },
+];
+
+/**
+ * 在位年数の帯。境界は「以上・未満」で切る（3年ちょうどは「3〜10年」）。
+ * 各帯が最低56名になるように取ってあり、区切りを動かすと n が痩せる帯が出る。
+ */
+const REIGN_BANDS: { label: string; min: number; max: number }[] = [
+  { label: "1年未満", min: 0, max: 1 },
+  { label: "1〜3年", min: 1, max: 3 },
+  { label: "3〜10年", min: 3, max: 10 },
+  { label: "10〜20年", min: 10, max: 20 },
+  { label: "20年以上", min: 20, max: Infinity },
+];
+
+/** 在位年数帯1本分（帯＝100%積み上げ1行）。 */
+export interface HomeReignDeathBand {
+  label: string;
+  count: number;
+  /** segments と同じ並びの件数。合計は count に一致する。 */
+  values: number[];
+  /** 先頭区分（非業の死）の割合。行の右端に数値で直接出す。 */
+  violentPercent: number;
+}
+
+export interface HomeReignDeath {
+  segments: { name: string; detail: string | null }[];
+  bands: HomeReignDeathBand[];
+}
+
+/** トップのランキングパネル1枚（タブ1枚に対応）。 */
+export interface HomeRankingPanel {
+  key: string;
+  /** タブに出す短い名前。 */
+  label: string;
+  /** 見出し下の説明（母集団と数え方をここで明示する）。 */
+  description: string;
+  /** 一覧の右列の見出し。 */
+  valueHeader: string;
+  href: string;
+  linkLabel: string;
+  rows: HomeRankedEmperor[];
+}
+
 export interface HomeHighlights {
   longestReigns: HomeRankedEmperor[];
+  /** 在位期間・即位年齢・没年齢のランキング（タブ切り替え用）。 */
+  rankings: HomeRankingPanel[];
   deathCauses: HomeBreakdownSlice[];
   accessionRoutes: HomeBreakdownSlice[];
+  /** 在位年数帯 × 死因（世紀チャートの隣の1枚）。 */
+  reignDeath: HomeReignDeath;
   eras: HomeEraBand[];
+  centuries: HomeCenturyBand[];
   dynastyCount: number;
   /** 収録範囲の表示（例: "前221年〜1912年"）。 */
   yearSpanLabel: string;
@@ -1073,6 +1159,50 @@ function breakdown(
 }
 
 /**
+ * 在位年数帯ごとの死因構成。母集団は365名全員で、絞り込みを挟まない
+ * （在位0日の金末帝も「1年未満」に入る。在位年数は他のページと同じ
+ * reignYears = approxDays / 365 を使い、ここで別の割り方をしない）。
+ */
+function reignDeathBands(records: EmperorRecord[]): HomeReignDeath {
+  const segmentIndexOf = new Map<string, number>();
+  REIGN_DEATH_SEGMENTS.forEach((s, i) =>
+    s.causes.forEach((c) => segmentIndexOf.set(c, i)),
+  );
+  const bands = REIGN_BANDS.map((b) => ({
+    label: b.label,
+    count: 0,
+    values: REIGN_DEATH_SEGMENTS.map(() => 0),
+    violentPercent: 0,
+  }));
+  for (const r of records) {
+    const bandIndex = REIGN_BANDS.findIndex(
+      (b) => r.reignYears >= b.min && r.reignYears < b.max,
+    );
+    if (bandIndex < 0) {
+      throw new Error(
+        `${r.id}: 在位${r.reignYears}年が REIGN_BANDS のどの帯にも入りません`,
+      );
+    }
+    const segmentIndex = segmentIndexOf.get(r.deathCauseCategory);
+    if (segmentIndex === undefined) {
+      throw new Error(
+        `${r.id}: 死因「${r.deathCauseCategory}」が REIGN_DEATH_SEGMENTS の` +
+          "どの区分にも入りません（死因の区分を増やしたら、この表にも足してください）",
+      );
+    }
+    bands[bandIndex].count += 1;
+    bands[bandIndex].values[segmentIndex] += 1;
+  }
+  for (const b of bands) {
+    b.violentPercent = b.count === 0 ? 0 : Math.round((100 * b.values[0]) / b.count);
+  }
+  return {
+    segments: REIGN_DEATH_SEGMENTS.map((s) => ({ name: s.name, detail: s.detail })),
+    bands,
+  };
+}
+
+/**
  * 分類（死因・即位経路）の全区分の件数と割合。トップの内訳パネルと
  * /death-accession の静的一覧が同じ集計を使うための公開口で、
  * 中身は円グラフ（CategoryPieChart）の絞り込み無しの状態とまったく同じ数え方。
@@ -1084,27 +1214,178 @@ export function getCategoryBreakdown(
   return breakdown(getAllEmperorRecords(), (r) => r[metricKey]);
 }
 
-/** トップページ用の抜粋データ。ビルド時に一度だけ計算する。 */
-export function getHomeHighlights(topCount = 6): HomeHighlights {
-  const records = getAllEmperorRecords();
-  const total = records.length;
-
-  const byReign = [...records].sort(
-    (a, b) => b.reignApproxDays - a.reignApproxDays,
+/**
+ * ISO日付（"1711-09-25"・"-0086-03-29"）を通日へ。差の比較にしか使わないので
+ * 基準日は任意（先発グレゴリオ暦の通日）。`new Date()` は4桁の負の年を
+ * 受け付けないため自前で計算する。
+ */
+function toDayNumber(iso: string | null | undefined): number | null {
+  if (!iso) return null;
+  const m = /^(-?\d{1,6})-(\d{2})-(\d{2})$/.exec(iso);
+  if (!m) return null;
+  const year = Number(m[1]);
+  const month = Number(m[2]);
+  const day = Number(m[3]);
+  const a = Math.floor((14 - month) / 12);
+  const y = year + 4800 - a;
+  const mo = month + 12 * a - 3;
+  return (
+    day +
+    Math.floor((153 * mo + 2) / 5) +
+    365 * y +
+    Math.floor(y / 4) -
+    Math.floor(y / 100) +
+    Math.floor(y / 400) -
+    32045
   );
-  const maxDays = byReign[0].reignApproxDays;
-  const longestReigns: HomeRankedEmperor[] = byReign
-    .slice(0, topCount)
-    .map((r) => ({
+}
+
+/**
+ * 同じ数え年の中を「日まで」比べるための実日数。生没日・即位日が
+ * どちらも日精度のときだけ求まる（没年齢は269名中71名、即位年齢は172名中62名）。
+ * 求まらない人物は同値の並べ替えで在位日数→idへ落とす（下の topByValue）。
+ */
+function buildExactAgeDays(): {
+  life: Map<string, number>;
+  accession: Map<string, number>;
+} {
+  const life = new Map<string, number>();
+  const accession = new Map<string, number>();
+  for (const e of data.emperors) {
+    const ages = e.ages;
+    if (!ages) continue;
+    const birth =
+      normalizeDatePrecision(ages.birthDatePrecision) === "day"
+        ? toDayNumber(ages.birthDate)
+        : null;
+    if (birth === null) continue;
+    if (normalizeDatePrecision(ages.deathDatePrecision) === "day") {
+      const death = toDayNumber(ages.deathDate);
+      if (death !== null) life.set(e.id, death - birth);
+    }
+    const first = e.reigns[0];
+    if (first && normalizeDatePrecision(first.datePrecision?.start) === "day") {
+      const start = toDayNumber(first.startDate);
+      if (start !== null) accession.set(e.id, start - birth);
+    }
+  }
+  return { life, accession };
+}
+
+/**
+ * 指標の降順で上位 topCount 名ちょうどを取り出す。棒の相対長（ratio）は1位を1とした比。
+ *
+ * 年齢は同値が多く、10位に同値が並ぶと行数が増えてカードの高さが変わってしまうため、
+ * **同値は日まで下りて順序を決めて必ず topCount 名で切る**（ユーザー判断・2026-07-31）。
+ * 日数が求まらない場合は在位日数→id の順で必ず一意に決める（表示順を安定させるため）。
+ * 同率を含む正しい順位は各ランキングページ（competition ranking）が持つ。
+ */
+function topByValue(
+  records: EmperorRecord[],
+  valueOf: (r: EmperorRecord) => number | null,
+  labelOf: (r: EmperorRecord, value: number) => string,
+  topCount: number,
+  tieBreakOf?: (r: EmperorRecord) => number | null,
+): { rows: HomeRankedEmperor[]; total: number } {
+  const eligible = records
+    .map((r) => ({ r, value: valueOf(r) }))
+    .filter((e): e is { r: EmperorRecord; value: number } => e.value !== null)
+    .sort((a, b) => {
+      if (b.value !== a.value) return b.value - a.value;
+      const ta = tieBreakOf?.(a.r) ?? null;
+      const tb = tieBreakOf?.(b.r) ?? null;
+      if (ta !== tb) {
+        if (ta === null) return 1;
+        if (tb === null) return -1;
+        return tb - ta;
+      }
+      if (b.r.reignApproxDays !== a.r.reignApproxDays) {
+        return b.r.reignApproxDays - a.r.reignApproxDays;
+      }
+      return a.r.id < b.r.id ? -1 : 1;
+    });
+  if (eligible.length === 0) return { rows: [], total: 0 };
+
+  const maxValue = eligible[0].value;
+
+  return {
+    total: eligible.length,
+    rows: eligible.slice(0, topCount).map(({ r, value }) => ({
       id: r.id,
       name: r.name,
       personalName: r.personalName,
       dynastyLabel: r.dynastyLabel,
       dynastyKey: r.dynastyKey,
       portraitUrl: r.portraitUrl,
-      valueLabel: r.reignDurationLabel,
-      ratio: r.reignApproxDays / maxDays,
-    }));
+      valueLabel: labelOf(r, value),
+      ratio: value / maxValue,
+    })),
+  };
+}
+
+/** 歴史年（0年なし）を世紀番号へ。前3世紀 = -3・20世紀 = 20。 */
+function centuryOf(year: number): number {
+  const c = Math.ceil(Math.abs(year) / 100);
+  return year < 0 ? -c : c;
+}
+
+/** トップページ用の抜粋データ。ビルド時に一度だけ計算する。 */
+export function getHomeHighlights(topCount = 6): HomeHighlights {
+  const records = getAllEmperorRecords();
+  const total = records.length;
+
+  const exactDays = buildExactAgeDays();
+  const reign = topByValue(
+    records,
+    (r) => r.reignApproxDays,
+    (r) => r.reignDurationLabel,
+    topCount,
+  );
+  const accessionAge = topByValue(
+    records,
+    (r) => r.accessionAge,
+    (_r, value) => `${value}歳`,
+    topCount,
+    (r) => exactDays.accession.get(r.id) ?? null,
+  );
+  const deathAge = topByValue(
+    records,
+    (r) => r.deathAge,
+    (_r, value) => `${value}歳`,
+    topCount,
+    (r) => exactDays.life.get(r.id) ?? null,
+  );
+  const longestReigns = reign.rows;
+
+  const rankings: HomeRankingPanel[] = [
+    {
+      key: "reign",
+      label: "在位期間",
+      description: `即位から退位・崩御するまでの即位期間が長かった人物`,
+      valueHeader: "在位",
+      href: "/reign#ranking",
+      linkLabel: `全${reign.total}名の順位 →`,
+      rows: reign.rows,
+    },
+    {
+      key: "accession-age",
+      label: "即位年齢",
+      description: `数え年で即位年齢が高齢だった人物`,
+      valueHeader: "即位時",
+      href: "/ages#accession-age",
+      linkLabel: `${accessionAge.total}名の順位 →`,
+      rows: accessionAge.rows,
+    },
+    {
+      key: "death-age",
+      label: "没年齢",
+      description: `数え年で没年齢が高齢だった人物`,
+      valueHeader: "没時",
+      href: "/ages#death-age",
+      linkLabel: `${deathAge.total}名の順位 →`,
+      rows: deathAge.rows,
+    },
+  ];
 
   // 時代の並びは元データの収録順（＝時系列）をそのまま使う。ソートすると
   // 「五胡十六国」より「三国」が後ろに来るような並びになってしまう。
@@ -1120,20 +1401,46 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
 
   let minYear = Infinity;
   let maxYear = -Infinity;
+  // 世紀ごとの即位人数。復位した皇帝も「最初に即位した年」の1回だけ数える
+  // （在位期間ではなく即位という出来事の分布なので、世紀をまたぐ在位は割らない）。
+  const centuryCounts = new Map<number, number>();
   for (const e of data.emperors) {
+    let firstStart: number | null = null;
     for (const r of e.reigns) {
-      if (typeof r.startYear === "number" && r.startYear < minYear)
-        minYear = r.startYear;
+      if (typeof r.startYear === "number") {
+        if (r.startYear < minYear) minYear = r.startYear;
+        if (firstStart === null || r.startYear < firstStart)
+          firstStart = r.startYear;
+      }
       if (typeof r.endYear === "number" && r.endYear > maxYear)
         maxYear = r.endYear;
     }
+    if (firstStart !== null) {
+      const c = centuryOf(firstStart);
+      centuryCounts.set(c, (centuryCounts.get(c) ?? 0) + 1);
+    }
+  }
+
+  // 空の世紀も0本として残し、横軸を連続した時間にする（詰めると間隔が嘘になる）。
+  const centuryKeys = [...centuryCounts.keys()];
+  const centuries: HomeCenturyBand[] = [];
+  for (let c = Math.min(...centuryKeys); c <= Math.max(...centuryKeys); c += 1) {
+    if (c === 0) continue; // 0世紀は存在しない
+    centuries.push({
+      label: c < 0 ? `前${-c}` : `${c}`,
+      fullLabel: c < 0 ? `前${-c}世紀` : `${c}世紀`,
+      count: centuryCounts.get(c) ?? 0,
+    });
   }
 
   return {
     longestReigns,
+    rankings,
     deathCauses: breakdown(records, (r) => r.deathCauseCategory),
     accessionRoutes: breakdown(records, (r) => r.accessionRouteCategory),
+    reignDeath: reignDeathBands(records),
     eras,
+    centuries,
     dynastyCount: new Set(records.map((r) => r.dynastyKey)).size,
     yearSpanLabel: `${historicalYearLabel(minYear)}〜${historicalYearLabel(maxYear)}`,
   };
