@@ -12,7 +12,7 @@
 //    複数値が同居していた）は、政権単位の `catalogs.regimes[].category` と
 //    人物単位の `standing`（正規／対立・僭称）へ分割された。したがって
 //    `dynastyCategory` は**政権に対して一意**になり、区分の人数も変わる
-//    （正統王朝 214→245・反乱・自称政権 45→14。移行の判定根拠は V3_MIGRATION_PLAN.md §5）
+//    （正統王朝 214→245・反乱・自称政権 45→14。移行の判定根拠は V3_MIGRATION_PLAN.md の5節）
 //  - 旧 `flags.selfProclaimed` は廃止（`axes` と `standing` で代替）
 //
 // v3 が持つが**サイトが意図的に使っていない**もの:

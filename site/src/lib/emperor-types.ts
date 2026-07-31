@@ -156,6 +156,60 @@ export interface EmperorListRecord {
   searchKana: string;
 }
 
+/**
+ * データベースページ（/database）の列数。OGP画像の事実カードがこの数を出すため、
+ * 表の実装（emperor-table.tsx の COLUMNS）とずれないよう単一情報源にしてある
+ * （OGP はビルド時に焼かれてキャッシュも効くので、本文とずれると訂正が最も届きにくい）。
+ * COLUMNS 側にこの値との突合 assert があり、列を増減するとビルドが落ちる。
+ */
+export const DATABASE_COLUMN_COUNT = 8;
+
+/**
+ * データベースページ（/database）専用のレコード。**表が描く列＋絞り込みに要る値**だけを持つ。
+ * `eraLabel`・`dynastyKey`・`reignCount` は列としては描かず、絞り込みだけが使う。
+ *
+ * `EmperorListRecord` を流用しないこと — 図鑑グリッド用の10フィールドは表の列と
+ * 一致せず、表が使わない `searchText`／`searchKana`（1人あたり数百バイト）を
+ * 365件ぶん運ぶことになる。表の検索は行のセル値そのものを対象にするので、
+ * 検索用の連結文字列を別に持つ必要がない（かな検索は図鑑側の機能で、ここには無い）。
+ *
+ * 列を足すときは、ここへ足す → `getEmperorTableRecords()` で埋める →
+ * `emperor-table.tsx` の `COLUMNS` に定義を足す、の順で3箇所そろえる。
+ */
+export interface EmperorTableRecord {
+  id: string;
+  name: string;
+  /** 諱（本名）。列としては描かないが**検索の対象にする**（2026-07-31 ユーザー指示）—
+   *  「劉徹」で武帝を引ける。同一人物の別名なので、見えていない値で絞られても
+   *  「なぜこの行が残ったか」が分からなくならない（時代・在位回数を検索対象から
+   *  外したのとはここが違う）。 */
+  personalName: string | null;
+  dynastyLabel: string;
+  /** 王朝の絞り込み用（DynastyOption.value と同じ複合キー。列としては描かない）。 */
+  dynastyKey: string;
+  /** 時代の絞り込み用（列としては描かない）。 */
+  eraLabel: string;
+  /** 在位期間の表示文字列（例: "1908–1912年 / 1917年"）。 */
+  periodsLabel: string;
+  /** 在位期間列の**並べ替えキー**＝最初の在位の開始年（復位者も初回で位置が決まる）。
+   *  表示文字列は「前221–前210年」のように前後の年が混ざり、文字列として並べても
+   *  年代順にならない。既定順もこの値の昇順。 */
+  firstStartYear: number;
+  /** 在位年数列の**並べ替えキー**。表示は reignDurationLabel を出す
+   *  （"61年332日" のような表示文字列で並べると桁が揃わず順序が壊れる）。 */
+  reignApproxDays: number;
+  reignDurationLabel: string;
+  /** 在位回数。2以上＝復位した皇帝（旧 /reign の復位者一覧が担っていた情報）。
+   *  絞り込み専用で、列としては描かない。 */
+  reignCount: number;
+  accessionRouteCategory: AccessionRouteCategory;
+  deathCauseCategory: DeathCauseCategory;
+  /** 即位時年齢（数え年）。調査済みだが生年不詳などで算出できない場合は null。 */
+  accessionAge: number | null;
+  /** 没年齢（数え年）。同上。 */
+  deathAge: number | null;
+}
+
 /** 詳細ダイアログの前後送りナビに必要な最小情報（一覧グリッドは軽量レコードを渡す）。 */
 export interface EmperorNavTarget {
   id: string;
@@ -431,6 +485,20 @@ export const accessionRouteCategoryOrder: AccessionRouteCategory[] = [
   "自立",
   "推戴",
 ];
+
+/**
+ * 区分名の短い表示。末尾の丸括弧を落とす（「受禅（易姓）」→「受禅」・
+ * 「継承（経緯記載なし）」→「継承」・「その他（3区分）」→「その他」）。
+ * 現行のカタログでは括弧を落としても重複する区分名は無い（括弧つきは
+ * 即位経路の2つだけ）。**落とした全文は title などで必ず残すこと** —
+ * 括弧の中身は分類の根拠そのもの（「経緯記載なし」＝原典が書いていない）で、
+ * 消したままにすると別の区分に見える。
+ *
+ * 凡例（概要ダッシュボードの内訳帯）と表（データベース）が同じ短縮規則を使う。
+ */
+export function shortCategoryLabel(name: string): string {
+  return name.replace(/（[^）]*）$/, "");
+}
 
 export const accessionRouteDescriptions: Record<AccessionRouteCategory, string> = {
   世襲: "同一政権の前代君主から位を継ぎ、先帝自身が後継を定めていた（遺詔・立太子等）",

@@ -3,6 +3,7 @@ import path from "node:path";
 import { BASE_PATH } from "@/lib/base-path";
 import {
   astroYear,
+  DATABASE_COLUMN_COUNT,
   eraOrder,
   formatReignDuration,
   formatYear,
@@ -17,6 +18,7 @@ import {
   type EmperorNarrative,
   type EmperorRecord,
   type EmperorStructuredDates,
+  type EmperorTableRecord,
   type EmperorVideo,
   type MetricRank,
   type NarrativeSection,
@@ -523,6 +525,55 @@ export function getEmperorListRecords(): EmperorListRecord[] {
     }
   }
   return records;
+}
+
+/**
+ * データベースページ（/database）専用のレコード。表が描く列だけを返す。
+ * フィールドの取捨の理由は emperor-types.ts の EmperorTableRecord を参照。
+ *
+ * **並びは在位開始年の昇順**（2026-07-31 ユーザー決定）。`data/emperors.json` の
+ * 収録順は年代順ではなく**調査ブロック順**で、ブロック内は「正統政権を全部置いてから
+ * 並立政権・対立皇帝を後ろにまとめる」並びになっている。そのため収録順のまま出すと
+ * 呉周（1678–1681）が清の宣統帝（〜1945）の後ろに来るような、200年超さかのぼる
+ * 箇所が20件生じる。表は上から年代順に読まれる面なので、ここで並べ直す。
+ *
+ * 同年は収録順で安定させる（＝同じ年に立った政権どうしは調査ブロックの並びを保つ）。
+ * 復位のある皇帝は**最初の在位の開始年**で位置を決める（宣統帝は1908年の位置）。
+ */
+export function getEmperorTableRecords(): EmperorTableRecord[] {
+  const firstStartYearById = new Map(
+    data.emperors.map((e) => [
+      e.id,
+      e.reigns.reduce(
+        (min, r) => (r.startYear < min ? r.startYear : min),
+        Number.POSITIVE_INFINITY,
+      ),
+    ]),
+  );
+  return getAllEmperorRecords()
+    .map((r, i) => ({ r, i }))
+    .sort((a, b) => {
+      const ya = firstStartYearById.get(a.r.id)!;
+      const yb = firstStartYearById.get(b.r.id)!;
+      return ya !== yb ? ya - yb : a.i - b.i;
+    })
+    .map(({ r }) => ({
+      id: r.id,
+      name: r.name,
+      personalName: r.personalName,
+      dynastyLabel: r.dynastyLabel,
+      dynastyKey: r.dynastyKey,
+      eraLabel: r.eraLabel,
+      periodsLabel: r.periodsLabel,
+      firstStartYear: firstStartYearById.get(r.id)!,
+      reignApproxDays: r.reignApproxDays,
+      reignDurationLabel: r.reignDurationLabel,
+      reignCount: r.reignCount,
+      accessionRouteCategory: r.accessionRouteCategory,
+      deathCauseCategory: r.deathCauseCategory,
+      accessionAge: r.accessionAge,
+      deathAge: r.deathAge,
+    }));
 }
 
 /** 王朝(name+section複合キー)の選択肢一覧。時代グループ順→データ内初出順で並べる。 */
@@ -1490,7 +1541,7 @@ export interface OgFact {
 }
 
 /** OGP画像に事実カードを出すページ。値は各ルートのパスと一致させる。 */
-export type OgFactPage = "/" | "/emperors" | "/reign" | "/about";
+export type OgFactPage = "/" | "/emperors" | "/database" | "/reign" | "/about";
 
 export function getOgFacts(page: OgFactPage): OgFact[] {
   const stats = getOverviewStats();
@@ -1522,6 +1573,24 @@ export function getOgFacts(page: OgFactPage): OgFact[] {
           label: "在位が判明する範囲",
           value: highlights.yearSpanLabel,
           sub: "始皇帝から溥儀まで",
+        },
+      ];
+    }
+    case "/database": {
+      // 表の面なので「どれだけの行と列が1枚に載っているか」を伝える2枚にする
+      // （最長在位は /reign 側で出しているので重複させない）。
+      // 列数は手書きせず DATABASE_COLUMN_COUNT から引く（表の実装と突合 assert がある）。
+      const highlights = getHomeHighlights();
+      return [
+        {
+          label: "表の行数",
+          value: `${stats.emperorCount}行`,
+          sub: `${highlights.dynastyCount}の王朝・政権を1つの表に`,
+        },
+        {
+          label: "表の列",
+          value: `${DATABASE_COLUMN_COUNT}列`,
+          sub: "在位年数・死因・即位経路・年齢ほか",
         },
       ];
     }

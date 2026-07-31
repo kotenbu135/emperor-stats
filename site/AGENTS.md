@@ -6,7 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 `../data/emperors.json`（中国皇帝365人・全12項目）を可視化する統計サイト。Next.js 16（App Router / Turbopack）+ Tailwind v4 + shadcn/ui + Tremor（vendored）+ Recharts。`output: "export"` で `out/` に静的書き出しし、GitHub Pages + カスタムドメイン **emperorstats.com**（`public/CNAME`）のルート直下で配信する。
 
-**2026-07-31 に作り替えの途中にある。** 最終形は**4ページ**（概要ダッシュボード `/`・皇帝一覧 `/emperors`・データベース〔新規〕・このサイトについて `/about`）＋皇帝個別 `/emperors/[id]` の365ページ。完成しているのは概要ダッシュボードだけで、`/emperors`・`/emperors/[id]`・`/about` は旧実装のまま残っている（外側のシェル＝サイドバー・ヘッダー・フッターも旧実装）。`/reign` は**データベースへ吸収して廃止する予定**（未実施）。同日、`/timeline`・`/kinship`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties` はファイルごと削除した（公開済みURLは 404 に着地させる方針）。
+**2026-07-31 に作り替えの途中にある。** 最終形は**4ページ**（概要ダッシュボード `/`・皇帝一覧 `/emperors`・データベース `/database`・このサイトについて `/about`）＋皇帝個別 `/emperors/[id]` の365ページ。できているのは**概要ダッシュボードとデータベース**で、`/emperors`・`/emperors/[id]`・`/about` は旧実装のまま残っている（外側のシェル＝サイドバー・ヘッダー・フッターも旧実装）。`/reign` は**データベースへ吸収して廃止する予定**（未実施）。同日、`/timeline`・`/kinship`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties` はファイルごと削除した（公開済みURLは 404 に着地させる方針）。
 
 このファイルには**崩すとビルドが落ちる契約**だけを置いてある。ページ構成・スタックの使い分け・配色・各ページの設計方針は [design-plans/SITE_PLAN.md](design-plans/SITE_PLAN.md) が正。旧サイトの設計記録・実装ログ・デザイン契約は同日すべて削除したので、**この2本以外から方針を引かないこと**。
 
@@ -51,6 +51,16 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 **一覧の props にフルレコードを戻すと RSC ペイロードが約420KB太る。** カードに表示項目を増やすときは `EmperorListRecord` へ必要フィールドだけ足すこと。
 
+`/database` も同じ理由で専用レコード `EmperorTableRecord`（`getEmperorTableRecords()`）を持つ。**`EmperorListRecord` と流用し合わないこと** — 図鑑カードの10フィールドと表の8列は一致せず、片方に必要なフィールド（`searchKana`・`portraitUrl` / `reignApproxDays`・`deathAge`）を相互に持ち込むと両方のペイロードが太る。列を足すときは `EmperorTableRecord` → `getEmperorTableRecords()` → `emperor-table.tsx` の `COLUMNS` の3箇所をそろえる。**列数は `emperor-types.ts` の `DATABASE_COLUMN_COUNT` が単一情報源**（OGP画像の事実カードがこの値を出す）で、`COLUMNS.length` との突合 assert があるため増減時は同時に直す。
+
+## ページを1枚足すときに揃える3箇所
+
+`SITE_SECTIONS`（`src/lib/seo.tsx`）へ**先に**足してからページの `metadata` を書く。`sectionDescription()` は未登録の href で throw するので、順序を逆にするとビルドが止まる。`sitemap.xml` はここから導出される。
+
+**OGP画像も同時に足す** — `src/lib/emperors.ts` の `OgFactPage` の union にパスを足し、`getOgFacts()` に分岐を書き、`app/<path>/opengraph-image.tsx` を置く。union に足さないと `getOgFacts("/新パス")` が型エラーになる。
+
+グローバルナビは `src/lib/nav-data.ts`。
+
 ## 単一情報源
 
 - **`src/lib/base-path.ts` の `BASE_PATH`** — `next.config.ts` の basePath と肖像画 URL が共用。カスタムドメイン移行済みのため現在は `""`。`next/image` は `images.unoptimized` 時に basePath を自動付与しないので、`public/` 配下を参照する箇所は必ず `BASE_PATH` を明示する。
@@ -73,5 +83,6 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 - **Radix系ポップアップのスクロールロックは `scrollbar-gutter: stable` と二重補正になり横ずれする** — react-remove-scroll が body に `margin-right` 補正を注入するため。`globals.css` の `body[data-scroll-locked][data-scroll-locked]` 上書きで打ち消し済み（属性セレクタ2連は `!important` 同士の詳細度勝負のため）。この上書きを消さないこと。
 - **`prefers-reduced-motion: reduce` は `globals.css` の一括指定で潰してある**。Radix / tw-animate-css の開閉アニメーションはクラスで直接 `animation` を当てるため JS の `matchMedia` 分岐では止まらない。`animation: none` にはしないこと（Radix は `animationend` を待って要素を外すため、閉じたダイアログが DOM に残る）。なお **CSS アニメーションしか止まらない** ので、Recharts の JS アニメーション（`isAnimationActive`）は別途止める必要がある。
+- **`overflow-x: auto` を当てた箱は、縦に溢れていなくてもスクロールコンテナになる** — 中の `position: sticky` の基準がビューポートからその箱へ移り、**見出しの固定が静かに効かなくなる**（`overflow-y: clip` を併せても変わらない）。`/database` の表は「収まっている間は `overflow-x: clip`、溢れた幅でだけ `auto`」に切り替えてこれを避けている（経緯は SITE_PLAN の「6. データベース」節）。
 - **`.next` キャッシュ残存でハイドレーションが静かに失敗する**（コンソールエラーなし・画像404・フィルタ無反応）。設定変更後は `rm -rf .next` してから dev サーバーを再起動する。
 - **Recharts は 2.15.4 に固定**。3.x では vendored した Tremor のチャートが動かない。**shadcn の `chart` レジストリ項目は `recharts@3.8.0` を要求する**ので、Tremor のチャートを残したまま shadcn の `Chart` を足すことはできない（二者択一）。

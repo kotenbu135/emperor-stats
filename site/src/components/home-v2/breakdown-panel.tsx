@@ -1,4 +1,5 @@
 import { CategoryBar } from "@/components/tremor/CategoryBar";
+import { shortCategoryLabel } from "@/lib/emperor-types";
 
 /**
  * 内訳パネルが受け取る1区分。emperors.ts の HomeBreakdownSlice を
@@ -36,16 +37,6 @@ export const BREAKDOWN_SERIES_BG = [
 ];
 
 /**
- * 凡例に出す短い名前。末尾の丸括弧を落とす（「受禅（易姓）」→「受禅」・
- * 「その他（3区分）」→「その他」）。落とした全文は title に残す。
- * 現行のカタログでは括弧を落としても重複する区分名は無い
- * （括弧つきは「受禅（易姓）」「継承（経緯記載なし）」の2つだけ）。
- */
-function shortLabel(name: string): string {
-  return name.replace(/（[^）]*）$/, "");
-}
-
-/**
  * 積み上げ1本帯 + 凡例カード。円より割合どうしの比較がしやすく、縦を食わない。
  *
  * 帯の幅は count をそのまま渡して CategoryBar に合計で割らせる（上位N件だけを
@@ -67,7 +58,7 @@ export function BreakdownBar({ slices }: { slices: BreakdownRow[] }) {
           （ユーザー指摘・2026-07-31）。 */}
       <ul className="mt-4 grid grid-cols-2 gap-1.5">
         {slices.map((d, i) => {
-          const label = shortLabel(d.name);
+          const label = shortCategoryLabel(d.name);
           const title = d.detail ?? (label === d.name ? undefined : d.name);
           return (
             <li

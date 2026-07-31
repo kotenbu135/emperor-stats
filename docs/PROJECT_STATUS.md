@@ -20,12 +20,13 @@
 - **配色と書体を全面差し替え**。**正は `site/src/app/globals.css`**（ユーザー自作ビルダーのテーマを無改変で採用・見出しは本文と同じサンセリフ）。配色を独自に作り直さない
 - **7ページをファイルごと削除**（ユーザー決定）: `/timeline`・`/kinship`・`/kinship-source`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`。**公開済みURLは 404 に着地させる**（リダイレクト・410 は設けない）。`sitemap.xml` は `/`・`/emperors`・`/reign`・`/about`＋個別365ページだけになった。画面内でこれらを指していたリンク（皇帝個別ページの12本・トップの「詳しく →」・サイドバーメニュー）は**リンクごと削除**し、順位や分類の値そのものは残してある。**`data/kinship.json` のデータ調査は継続**（可視化ページが無くなってもデータセットとしては完成させる）
 - **旧サイトの設計ドキュメントを全削除**（ユーザー決定・「旧サイトの記述が少しでも残ると今後の開発の品質に影響が出る」）。`docs/site-design/` は8本＋モックアップを削除し、肖像画アセットの管理（`PORTRAITS.md`・`mockups/card-preview/`・`portraits-candidates.json`）だけを残した。`site/DESIGN.md`・`site/README.md` と `site/design-plans/` の旧監査2本も削除。`site/AGENTS.md` は**新サイトが今も依存する契約だけ**に絞って書き直した
-- **残っているのは `/`（新実装）・`/emperors`・`/emperors/[id]`・`/reign`・`/about`**。トップ以外と外側のシェルは旧実装のまま（Nivo）で、旧パレットの16進値が `dynasty-colors.ts`・`nivo-theme.ts` に残っている（実表示に出ている。詳細は SITE_PLAN.md §7）
-- **`/lab` は「図だけ Nivo に差し替えた概要ダッシュボード」の比較用ページとして作り直した**（`src/components/home-v2/nivo-board.tsx`・`robots: noindex`・`SITE_SECTIONS`／ナビ未登録）。当初のパネル比較版は削除し、そこだけが使っていた vendored Tremor 7部品（`Table`・`DonutChart`・`ProgressCircle`・`Badge`・`Divider`・`ProgressBar`・`Tracker`）も削除。残る vendored Tremor は `Card`・`BarList`・`BarChart`・`Tabs`・`CategoryBar`・`Tooltip` の6つ
-- **旧配色の実値をリポジトリから一掃**。OGP画像（`lib/og-image.tsx`・全ページ＋個別365枚）・ファビコン（`app/icon.svg`）・スクロールバー・王朝色（`lib/dynasty-colors.ts`）・Nivo テーマが旧パレットのままだったので、`globals.css` の現行トークンを sRGB へ換算した実値へ差し替えた。エージェント向けに旧デザインシステムを記述していたディレクトリ（17ファイル）も削除
+- **残っているのは `/`（新実装）・`/emperors`・`/emperors/[id]`・`/reign`・`/about`・`/database`（新実装）**。`/emperors`・`/emperors/[id]`・`/about` と外側のシェル（サイドバー・ヘッダー・フッター）は旧実装のまま
+- **Nivo は採らないと決定**（比較用の `/lab` を実際に作って見比べた上でのユーザー判断・再提案しない）。`/lab` は削除済み。Nivo が残っているのは `/reign` だけで、`/reign` の削除で `@nivo/*` 5パッケージが丸ごと落ちる。vendored Tremor は `Card`・`BarList`・`BarChart`・`Tabs`・`CategoryBar`・`Tooltip` の6部品だけ
+- **旧配色の実値をリポジトリから一掃**（実施済み）。OGP画像（`lib/og-image.tsx`・全ページ＋個別365枚）・ファビコン（`app/icon.svg`）・スクロールバー・王朝色（`lib/dynasty-colors.ts`）・Nivo テーマが旧パレットのままだったので、`globals.css` の現行トークンを sRGB へ換算した実値へ差し替えた。エージェント向けに旧デザインシステムを記述していたディレクトリ（17ファイル）も削除
+- **データベース（`/database`）を新規実装**。全365名を8列の表で見せ、TanStack Table でソート・検索・時代/王朝の絞り込み・列の表示切替を持つ。`/reign` の在位年数ランキングは**この表を在位年数で降順ソートしたもの**が担い、復位者一覧は「復位した皇帝だけ」の絞り込みが担う。時代・在位回数は列に出さず絞り込みだけに残した（2026-07-31 ユーザー指示）
 - 未計測: 新トップの性能（TBT/CLS）とアクセシビリティ。旧実装の計測記録（PERFORMANCE.md）は新トップを含まない
 - 技術債: `recharts` を 2.15.4 に固定している（3.x では vendoring したチャートが動かない）
-- **最終的なページ構成を4ページに確定**（ユーザー決定）: 概要ダッシュボード（完成）・皇帝一覧（改修）・**データベース（新規・全365名を表形式で・TanStack Table でソート/検索/絞り込み・主要10列前後）**・このサイトについて（改修）。**`/reign` は廃止してデータベースへ吸収する**（未実施）。皇帝個別 `/emperors/[id]` の365ページは別枠で現行のまま残す
+- **最終的なページ構成を4ページに確定**（ユーザー決定）: 概要ダッシュボード（完成）・皇帝一覧（改修）・**データベース（新規・全365名を表形式で・TanStack Table でソート/検索/絞り込み・主要8列）**・このサイトについて（改修）。**`/reign` は廃止してデータベースへ吸収する**（未実施）。皇帝個別 `/emperors/[id]` の365ページは別枠で現行のまま残す
 - 決定と経緯の正: [site/design-plans/SITE_PLAN.md](../site/design-plans/SITE_PLAN.md)。崩してはいけない契約は [site/AGENTS.md](../site/AGENTS.md)
 
 **2026-07-30追記（サイトのゼロベース再構築を取り下げ・v3 対応）**: ゼロベース再構築（`site/` を削除して Claude Design から作り直す方針）を取り下げ、旧サイトを復元して v3 に対応させた。ラベル解決は `site/src/lib/data-source.ts` の一点に閉じてある（詳細は [site/AGENTS.md](../site/AGENTS.md) の「スキーマ v3 の ID→ラベル解決」節）。**サイトの表示で変わったのは政権区分の人数**で、旧 `dynasty.category` の混在解消により正統王朝 214→245・反乱・自称政権 45→14 になり、人物単位の「対立・僭称の皇帝」20名は詳細ダイアログ・個別ページの1行（`isRivalClaimant`）へ移った。死因8分類・即位経路8分類・王朝87件・時代ラベルは v2 と完全一致（機械突合で確認済み）。
