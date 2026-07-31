@@ -49,11 +49,22 @@ export function Section({
   description,
   scrollMt,
   bleed = false,
+  contained = false,
+  containedWidth = "max-w-2xl",
+  className,
   children,
 }: {
   id?: string;
   title: string;
   description?: string;
+  /** PageHeader の contained と対。記事型ページ（/about）で、節の中身も
+   *  データページの本文列（max-w-content = 1200px）ではなく読み物幅に収める。
+   *  同じページの PageHeader・SectionJumpNav と必ず同じ幅を渡すこと。 */
+  contained?: boolean;
+  /** contained 時の列幅クラス。 */
+  containedWidth?: string;
+  /** 節の外箱に足すクラス（上下の余白の詰め・区切り線など）。 */
+  className?: string;
   /** 中身だけ本文列の上限（max-w-content = 1200px）を外して全幅に出す。自前の固定
    *  キャンバスを横スクロールで見せる図の専用で、
    *  上限で囲むと窓が狭くなるだけのものにしか付けないこと。
@@ -71,10 +82,19 @@ export function Section({
   return (
     <section
       id={id}
-      className={cn("px-gutter py-section md:px-gutter-wide", scrollMt === undefined && "scroll-mt-20")}
+      className={cn(
+        "px-gutter py-section md:px-gutter-wide",
+        scrollMt === undefined && "scroll-mt-20",
+        className,
+      )}
       style={scrollMt === undefined ? undefined : { scrollMarginTop: scrollMt }}
     >
-      <div className="mx-auto w-full max-w-content">
+      <div
+        className={cn(
+          "mx-auto w-full",
+          contained ? containedWidth : "max-w-content",
+        )}
+      >
         <div className="flex items-center gap-2.5">
           <span aria-hidden className="h-5 w-1 shrink-0 rounded-full bg-seal/80" />
           <h2 className="text-balance font-heading text-xl font-semibold text-foreground">

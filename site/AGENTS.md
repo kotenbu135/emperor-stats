@@ -6,7 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 `../data/emperors.json`（中国皇帝365人・全12項目）を可視化する統計サイト。Next.js 16（App Router / Turbopack）+ Tailwind v4 + shadcn/ui + Tremor（vendored）+ Recharts + TanStack Table。`output: "export"` で `out/` に静的書き出しし、GitHub Pages + カスタムドメイン **emperorstats.com**（`public/CNAME`）のルート直下で配信する。
 
-**2026-07-31 に作り替えの途中にある。** 最終形は**4ページ**（概要ダッシュボード `/`・皇帝一覧 `/emperors`・データベース `/database`・このサイトについて `/about`）＋皇帝個別 `/emperors/[id]` の365ページ。できているのは**概要ダッシュボードとデータベース**で、`/emperors` は改修の途中（肖像なしカード・時代ジャンプバー・カード比率3:4まで）、`/emperors/[id]`・`/about` は旧実装のまま残っている（外側のシェル＝サイドバー・ヘッダー・フッターも旧実装）。同日、`/timeline`・`/kinship`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`・**`/reign`** はファイルごと削除した（公開済みURLは 404 に着地させる方針）。`/reign` の2節はデータベースの状態として残っていて、リンクは `/database?sort=reignApproxDays&order=desc`（在位年数ランキング）と `/database?reign=restoration`（復位者一覧）へ付け替えてある。**`@nivo/*` はこの削除で消えた** — チャートは Recharts（vendored Tremor 経由）だけ。
+**2026-07-31 に作り替えの途中にある。** 最終形は**4ページ**（概要ダッシュボード `/`・皇帝一覧 `/emperors`・データベース `/database`・このサイトについて `/about`）＋皇帝個別 `/emperors/[id]` の365ページ。できているのは**概要ダッシュボード・データベース・このサイトについて**で、`/emperors` は改修の途中（肖像なしカード・時代ジャンプバー・カード比率3:4まで）、`/emperors/[id]` は旧実装のまま残っている（外側のシェル＝サイドバー・ヘッダー・フッターも旧実装）。同日、`/timeline`・`/kinship`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`・**`/reign`** はファイルごと削除した（公開済みURLは 404 に着地させる方針）。`/reign` の2節はデータベースの状態として残っていて、リンクは `/database?sort=reignApproxDays&order=desc`（在位年数ランキング）と `/database?reign=restoration`（復位者一覧）へ付け替えてある。**`@nivo/*` はこの削除で消えた** — チャートは Recharts（vendored Tremor 経由）だけ。
 
 このファイルには**崩すとビルドが落ちる契約**だけを置いてある。ページ構成・スタックの使い分け・配色・各ページの設計方針は [design-plans/SITE_PLAN.md](design-plans/SITE_PLAN.md) が正。旧サイトの設計記録・実装ログ・デザイン契約は同日すべて削除したので、**この2本以外から方針を引かないこと**。
 
@@ -68,6 +68,8 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 - **`src/lib/video-channel.ts` の `VIDEO_CHANNEL`** — 動画はすべて当サイトと無関係の外部チャンネルの制作物のため、セクション冒頭と `/about` に必ず制作者表記を出す。
 - **`src/app/globals.css`** — 配色トークン（`--series-1〜8`・`--bar*`・`--seal`）と本文列の上限 `--container-content`。
 - **`src/lib/dynasty-colors.ts` の `DYNASTY_COLOR_SLOT`** — 政権→配色スロット（**キーは政権 ID**・89政権）。未割当のキーは throw する。
+- **`src/components/about/article.tsx` の `ARTICLE_WIDTH`** — `/about` の本文列（読み物幅・768px）。データページの `max-w-content`（1200px）とは別で、`PageHeader` の `containedWidth`・`SectionJumpNav` の `innerWidth`・各 `Section` の `containedWidth` へ**同じ値を渡す**（ずらすとジャンプバーだけ本文より左へ出る）。
+- **`/about` の節の id 9つ** — `#operator` を `seo.tsx` の `OPERATOR_ID`（JSON-LD の Person）、`#dataset` を `DATASET_ID` が指している。id は見出しではなく `<section>` に付ける（`SectionJumpNav` の現在地判定が拾えなくなる）。**数え方11項目を Accordion で畳まない** — `ui/accordion.tsx` は `forceMount` を渡していないので閉じた本文が DOM から消え、サイトで唯一の「数え方」の記述が静的HTMLから落ちる。
 - **`../data/images/portraits/manifest.json` の `focusY`** — 肖像の中で顔が縦のどこにあるか（0〜1）。一覧カードの肖像枠は実体（3:4）より横長で `object-cover` が縦を切るため、この値が切る位置を決める。**肖像がある全員に無いとビルドが落ちる**（`emperors.ts`）。肖像を足したら値も入れること（読み取り方は `docs/site-design/PORTRAITS.md`）。
 
 # 皇帝を追加収録するときのチェックリスト

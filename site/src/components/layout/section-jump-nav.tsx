@@ -52,10 +52,20 @@ export function SectionJumpNav({
   items,
   label,
   className,
+  innerWidth = "max-w-content",
+  popoverColumns = 2,
 }: {
   items: JumpItem[];
   /** バー左端の見出し（例: "時代へジャンプ"）。狭い画面では出さない。 */
   label: string;
+  /** バーの中身を揃える列幅クラス。**そのページの本文列と必ず同じ値にする** —
+   *  既定のデータページ幅（max-w-content = 1200px）のまま記事型ページ（/about・
+   *  読み物幅）に置くと、トリガーだけが本文より左に飛び出す。 */
+  innerWidth?: string;
+  /** ポップオーバーの列数。既定の2列は節が10個以上あるとき（/emperors の15時代）に
+   *  縦スクロールを出さないための形で、目次として上から順に読ませたい場面
+   *  （/about の9節）では1列のほうが追いやすい。 */
+  popoverColumns?: 1 | 2;
   /** 左右の余白を打ち消す必要がある呼び出し元（既に padding された箱の中に
    *  置く場合）だけ渡す。例: "-mx-gutter md:-mx-gutter-wide" */
   className?: string;
@@ -121,7 +131,7 @@ export function SectionJumpNav({
       style={{ height: SECTION_NAV_H, top: "var(--chrome-top)" }}
     >
       {/* 帯（背景・下罫）は全幅のまま、中身だけ本文と同じ max-w-content に揃える。 */}
-      <div className="mx-auto flex h-full w-full max-w-content items-center gap-3">
+      <div className={cn("mx-auto flex h-full w-full items-center gap-3", innerWidth)}>
         <span className="hidden shrink-0 text-xs text-muted-foreground sm:inline">
           {label}
         </span>
@@ -140,7 +150,13 @@ export function SectionJumpNav({
             </Button>
           </PopoverTrigger>
           {/* 節は最大15個。2列に組めばどの幅でも一度に全部見える（縦スクロールも出ない）。 */}
-          <PopoverContent align="start" className="grid w-[22rem] grid-cols-2 gap-0.5 p-1">
+          <PopoverContent
+            align="start"
+            className={cn(
+              "grid gap-0.5 p-1",
+              popoverColumns === 2 ? "w-[22rem] grid-cols-2" : "w-[13rem] grid-cols-1",
+            )}
+          >
             {items.map((item) => {
               const active = item.id === current.id;
               return (
