@@ -56,31 +56,24 @@ function FigureCard({ figure }: { figure: Figure }) {
   );
 }
 
+/**
+ * カードの見出し。**リンクは持たない** — 2026-07-31 に下層の統計ページを廃止し、
+ * 「詳しく →」の行き先が無くなった（404 へ着地する導線は画面に残さない）。
+ * 下層ページを作ったら、この部品にリンクを戻すのではなく置いた側で足す。
+ */
 function PanelHeading({
   title,
   description,
-  href,
-  linkLabel,
 }: {
   title: string;
   description: string;
-  href: string;
-  linkLabel: string;
 }) {
   return (
-    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-      <div>
-        <h2 className="font-heading text-base font-semibold text-foreground">
-          {title}
-        </h2>
-        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
-      </div>
-      <Link
-        href={href}
-        className="shrink-0 text-sm font-medium text-seal underline-offset-4 hover:underline"
-      >
-        {linkLabel}
-      </Link>
+    <div>
+      <h2 className="font-heading text-base font-semibold text-foreground">
+        {title}
+      </h2>
+      <p className="mt-1 text-sm text-muted-foreground">{description}</p>
     </div>
   );
 }
@@ -119,14 +112,17 @@ function RankingPanel({ panel }: { panel: HomeRankingPanel }) {
 
   return (
     <>
+      {/* 行き先がある指標だけリンクを出す（年齢2指標は /ages 廃止で null）。 */}
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <p className="text-sm text-muted-foreground">{panel.description}</p>
-        <Link
-          href={panel.href}
-          className="shrink-0 text-sm font-medium text-seal underline-offset-4 hover:underline"
-        >
-          {panel.linkLabel}
-        </Link>
+        {panel.href && panel.linkLabel ? (
+          <Link
+            href={panel.href}
+            className="shrink-0 text-sm font-medium text-seal underline-offset-4 hover:underline"
+          >
+            {panel.linkLabel}
+          </Link>
+        ) : null}
       </div>
       <div className="mt-5 flex items-center justify-between px-1 text-xs font-medium text-muted-foreground">
         <span>皇帝（政権）</span>
@@ -162,7 +158,6 @@ export function OverviewBoard({
   accessionRoutes,
   reignDeath,
   centuries,
-  sections,
 }: {
   figures: Figure[];
   rankings: HomeRankingPanel[];
@@ -170,7 +165,6 @@ export function OverviewBoard({
   accessionRoutes: HomeBreakdownSlice[];
   reignDeath: HomeReignDeath;
   centuries: HomeCenturyBand[];
-  sections: { href: string; label: string; description: string }[];
 }) {
   // 凡例に出す区分と、帯に描くセグメントを必ず一致させる。
   // 上位N件だけを凡例に出して残りを描くと、「凡例に無い区分」が生まれ、色だけが
@@ -229,12 +223,7 @@ export function OverviewBoard({
             下端を揃えつつ、余った高さを2枚の「間」へ逃がす。 */}
         <div className="flex h-full flex-col justify-between gap-4 lg:col-span-2">
           <Card>
-            <PanelHeading
-              title="死因"
-              description="正史の記述を元に分類"
-              href="/death-accession#death-cause"
-              linkLabel="詳しく →"
-            />
+            <PanelHeading title="死因" description="正史の記述を元に分類" />
             <div className="mt-5">
               <BreakdownBar slices={deathData} />
             </div>
@@ -243,8 +232,6 @@ export function OverviewBoard({
             <PanelHeading
               title="即位経路"
               description="皇帝位に就いた経緯の区分"
-              href="/death-accession#accession"
-              linkLabel="詳しく →"
             />
             <div className="mt-5">
               <BreakdownBar slices={accessionData} />
@@ -255,12 +242,19 @@ export function OverviewBoard({
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
         <Card className="lg:col-span-3">
-          <PanelHeading
-            title="世紀ごとの即位人数"
-            description={`即位した年で数えた${centuryTotal}名の分布。`}
-            href="/emperors"
-            linkLabel="皇帝を一覧で見る →"
-          />
+          {/* このカードだけ行き先が残っている（/emperors）。見出し行の右端に置く。 */}
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <PanelHeading
+              title="世紀ごとの即位人数"
+              description={`即位した年で数えた${centuryTotal}名の分布。`}
+            />
+            <Link
+              href="/emperors"
+              className="shrink-0 text-sm font-medium text-seal underline-offset-4 hover:underline"
+            >
+              皇帝を一覧で見る →
+            </Link>
+          </div>
           {/* 横軸は時間なので、空の世紀も0本のまま残して間隔を保つ。
               目盛りラベルは「前3」「20」と短く、単位は xAxisLabel に出す。 */}
           <BarChart
@@ -277,9 +271,7 @@ export function OverviewBoard({
             customTooltip={CenturyTooltip}
           />
         </Card>
-        {/* 世紀チャートの隣。時間軸を持たない図を置いて軸の重複を避けている。
-            「詳しく」リンクは付けない — この集計（在位年数×死因）を持つ下層ページが
-            まだ無く、/death-accession へ送っても同じ図は無い。作ったら張る。 */}
+        {/* 世紀チャートの隣。時間軸を持たない図を置いて軸の重複を避けている。 */}
         <Card className="flex flex-col lg:col-span-2">
           <h2 className="font-heading text-base font-semibold text-foreground">
             在位年数と死因
@@ -293,31 +285,6 @@ export function OverviewBoard({
           />
         </Card>
       </div>
-
-      {/* 各セクションへのクロール可能なリンク。トップから辿れる面が
-          盤面のパネル導線だけになると、/court-events・/military・/ages・
-          /reign・/emperors への入口が消える（旧トップが持っていたSEO資産）。
-          LazyMount の外に置くこと（畳むと静的HTMLに出ない）。 */}
-      <Card>
-        <h2 className="font-heading text-base font-semibold text-foreground">
-          収録データの一覧
-        </h2>
-        <ul className="mt-4 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
-          {sections.map((s) => (
-            <li key={s.href}>
-              <Link
-                href={s.href}
-                className="font-medium text-foreground underline-offset-4 hover:text-seal hover:underline"
-              >
-                {s.label}
-              </Link>
-              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                {s.description}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </Card>
     </div>
   );
 }

@@ -1,12 +1,7 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { OverviewBoard } from "@/components/home-v2/overview-board";
 import { getHomeHighlights, getOverviewStats } from "@/lib/emperors";
-import {
-  buildMetadata,
-  JsonLd,
-  SITE_SECTIONS,
-  websiteJsonLd,
-} from "@/lib/seo";
+import { buildMetadata, JsonLd, websiteJsonLd } from "@/lib/seo";
 
 export const metadata = buildMetadata({ path: "/" });
 
@@ -15,12 +10,6 @@ export default function Home() {
   // 各ランキングの上位10名（同値が続く場合は10位と同値のところまで伸びる）。
   // 3タブとも同じ件数にすること（1つだけ増やすと切り替えでカードの高さが跳ねる）。
   const highlights = getHomeHighlights(10);
-
-  // /timeline・/kinship は廃止決定済みなのでトップの導線からは外す
-  // （SITE_SECTIONS 本体と sitemap の整理は別工程）。
-  const sections = SITE_SECTIONS.filter(
-    (s) => s.href !== "/timeline" && s.href !== "/kinship",
-  );
 
   const figures = [
     {
@@ -65,7 +54,6 @@ export default function Home() {
             accessionRoutes={highlights.accessionRoutes}
             reignDeath={highlights.reignDeath}
             centuries={highlights.centuries}
-            sections={sections}
           />
         </div>
       </div>

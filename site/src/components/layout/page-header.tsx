@@ -25,7 +25,7 @@ export function PageHeader({
         )}
       >
         <div className="flex items-center gap-3">
-          {/* 印章の朱をイメージしたアクセントバー（水墨基調に差す一点の色味） */}
+          {/* 印章の朱をイメージしたアクセントバー（--seal） */}
           <span aria-hidden className="h-7 w-1 shrink-0 rounded-full bg-seal" />
           {/* サイズは text-page-title（従来の text-2xl → md:text-3xl と両端は同値で、
               間をフルイドに繋いだもの）。 */}
@@ -55,7 +55,7 @@ export function Section({
   title: string;
   description?: string;
   /** 中身だけ本文列の上限（max-w-content = 1200px）を外して全幅に出す。自前の固定
-   *  キャンバスを横スクロールで見せる図（/kinship の系譜図・通史年表）専用で、
+   *  キャンバスを横スクロールで見せる図の専用で、
    *  上限で囲むと窓が狭くなるだけのものにしか付けないこと。
    *  見出しは全ページで同じ列に揃えるため上限側に残す（図だけが本文列の左右へ
    *  はみ出す「全幅の図版」の形）。 */

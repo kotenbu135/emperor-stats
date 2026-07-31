@@ -48,10 +48,6 @@ next-env.d.ts
 # claude.ai/design sync (staged converter scripts, build output, machine state)
 site/.ds-sync/
 site/ds-bundle/
-site/.design-sync/.cache/
-site/.design-sync/learnings/
-site/.design-sync/node_modules
-site/.design-sync/compiled/
 
 # design-plans のスクリーンショット取得ツール（ローカル専用）
 site/design-plans/tools/node_modules/

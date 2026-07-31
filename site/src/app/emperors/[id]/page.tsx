@@ -245,20 +245,16 @@ export default async function EmperorPage({
               <span />
             )}
           </nav>
-          {/* 王朝単位の比較（/dynasties）はレコードの各項目に対応する順位が無く
-              上のリンクからは辿れないため、ここで文中から送る。 */}
+          {/* 下層の統計ページへの導線は 2026-07-31 の廃止で行き先が無くなったため外した。
+              残っているのは /about（収録基準）と /emperors（一覧）の2つ。 */}
           <p className="text-xs text-muted-foreground">
             収録基準・各項目の数え方・出典は
             <Link href="/about" className="underline underline-offset-2 hover:text-seal">
               このサイトについて
             </Link>
-            を、時代の中での位置は
-            <Link href="/timeline" className="underline underline-offset-2 hover:text-seal">
-              通史年表
-            </Link>
-            を、{record.dynastyLabel}全体の平均在位年数や死因の傾向は
-            <Link href="/dynasties" className="underline underline-offset-2 hover:text-seal">
-              王朝・時代で見る
+            を、ほかの皇帝は
+            <Link href="/emperors" className="underline underline-offset-2 hover:text-seal">
+              皇帝一覧
             </Link>
             をご覧ください。
           </p>

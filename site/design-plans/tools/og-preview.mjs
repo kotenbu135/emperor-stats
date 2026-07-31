@@ -22,13 +22,14 @@ const FONTS = [
 ];
 
 const SIZE = { width: 1200, height: 630 };
+// src/lib/og-image.tsx の PALETTE と同値に保つこと。
 const P = {
-  background: "#f5f1e8",
-  foreground: "#3a3530",
-  muted: "#6b6258",
-  seal: "#a6321c",
-  sealForeground: "#f5f1e8",
-  line: "#d9d1c2",
+  background: "#ffffff",
+  foreground: "#0a0a0a",
+  muted: "#737373",
+  seal: "#c70036",
+  sealForeground: "#ffffff",
+  line: "#e5e5e5",
 };
 
 const SITE_NAME = "中国皇帝統計";
@@ -93,7 +94,7 @@ function variantA({ title, description, facts }) {
           style: {
             display: "flex", flexDirection: "column", flex: 1,
             border: `1px solid ${P.line}`, borderLeft: `6px solid ${P.seal}`,
-            borderRadius: 10, padding: "14px 18px", backgroundColor: "#fbf8f2",
+            borderRadius: 10, padding: "14px 18px", backgroundColor: "#fafafa",
           },
         },
           h("span", { style: { fontSize: 18, color: P.muted } }, f.label),
@@ -152,7 +153,7 @@ function emperorVariant({ dynasty, name, periods, duration, chips, portrait }) {
               style: {
                 display: "flex", fontSize: 20, color: P.foreground,
                 border: `1px solid ${P.line}`, borderRadius: 999, padding: "8px 18px",
-                backgroundColor: "#fbf8f2",
+                backgroundColor: "#fafafa",
               },
             }, c),
           ),

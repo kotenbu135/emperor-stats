@@ -6,9 +6,9 @@
 
 **2026-07-18、全12項目・364人全員分のデータ収集・検証が完了し、`meta.status.overall` は `"completed"` になりました。** 同日中にサイト実装も完了しています（下記「[サイト実装の状況](#サイト実装の状況2026-07-18完了)」参照）。以後の作業は、データ誤りの訂正とサイトの改善が中心です。
 
-> **サイトは 2026-07-31 から作り替えの途中です**（トップページのみ新実装で完成・残り17面は旧実装のまま・
-> `/timeline`・`/kinship` は廃止決定）。**下の「サイト実装の状況（2026-07-18完了）」節はこれより古い記録です。**
-> 最新は「2026-07-31追記」を読んでください。
+> **サイトは 2026-07-31 から作り替えの途中です**（概要ダッシュボードのみ新実装で完成。同日、
+> 7ページを削除し、旧サイトの設計ドキュメントも全削除しました）。最新は「2026-07-31追記」と
+> [site/AGENTS.md](../site/AGENTS.md) を読んでください。
 
 **2026-07-20追記**: 通史年表の設計検討中に収録漏れが判明し、唐哀帝（李柷、`tang-aidi`、904-907年在位）を追加調査・収録しました。全12項目を原典（旧唐書・資治通鑑）で個別調査済みです。**現在の収録人数は365人**（以下のチェックリスト内の「364人」表記は2026-07-18時点の記録であり、この訂正前の値です）。
 
@@ -17,13 +17,16 @@
 **2026-07-31追記（サイト再構築・トップページ完成）**: ブランチ `site-rebuild-tremor` で、**Next 16 + Tailwind v4 + shadcn/ui を土台に、見た目を Tremor Blocks（MIT・vendoring）から供給する**方式へ乗り換えた。この日に確定したのは以下。**サイトはまだ作り替えの途中で、下の「サイト実装の状況（2026-07-18完了）」節はこの追記より古い。**
 
 - **概要ダッシュボード（`/`）を全面的に作り直して完成**（ユーザー確認済み）。チャートは recharts 2.15.4（厳密固定）。集計は `getHomeHighlights()`
-- **配色と見出しフォントを全面差し替え**。旧「水墨文人パレット」（宣紙 `#f5f1e8`・朱 `#a6321c`）と明朝見出し（Noto Serif JP）は**廃止**。正は `site/src/app/globals.css`。`site/DESIGN.md` と `site-design/LAYOUT.md`「デザイン世界観決定」は**失効**
-- **`/timeline`・`/kinship` は廃止決定**。ナビからは外したが、**ページ本体とルートは未削除でビルドも通る**。`/timeline` は `SITE_SECTIONS` に残っているため **`sitemap.xml` にも載り続けている**（公開済みURLの後始末＝リダイレクトか 410 は未対応。無言の404にしないこと）。**`data/kinship.json` のデータ調査は継続**（可視化ページが無くなってもデータセットとしては完成させる）
-- **残り17面（統計6ページ・ランキング11本・`/emperors`・個別365ページ・`/about`）と外側のシェルは旧実装のまま**。Nivo。旧パレットの16進値がチャート系ファイルにハードコードされたまま新テーマの上に載っている
-- **`/lab` を新設**（パネル比較用・noindex・`SITE_SECTIONS` 外・公開ページではない）
+- **配色と書体を全面差し替え**。**正は `site/src/app/globals.css`**（ユーザー自作ビルダーのテーマを無改変で採用・見出しは本文と同じサンセリフ）。配色を独自に作り直さない
+- **7ページをファイルごと削除**（ユーザー決定）: `/timeline`・`/kinship`・`/kinship-source`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`。**公開済みURLは 404 に着地させる**（リダイレクト・410 は設けない）。`sitemap.xml` は `/`・`/emperors`・`/reign`・`/about`＋個別365ページだけになった。画面内でこれらを指していたリンク（皇帝個別ページの12本・トップの「詳しく →」・サイドバーメニュー）は**リンクごと削除**し、順位や分類の値そのものは残してある。**`data/kinship.json` のデータ調査は継続**（可視化ページが無くなってもデータセットとしては完成させる）
+- **旧サイトの設計ドキュメントを全削除**（ユーザー決定・「旧サイトの記述が少しでも残ると今後の開発の品質に影響が出る」）。`docs/site-design/` は8本＋モックアップを削除し、肖像画アセットの管理（`PORTRAITS.md`・`mockups/card-preview/`・`portraits-candidates.json`）だけを残した。`site/DESIGN.md`・`site/README.md` と `site/design-plans/` の旧監査2本も削除。`site/AGENTS.md` は**新サイトが今も依存する契約だけ**に絞って書き直した
+- **残っているのは `/`（新実装）・`/emperors`・`/emperors/[id]`・`/reign`・`/about`**。トップ以外と外側のシェルは旧実装のまま（Nivo）で、旧パレットの16進値が `dynasty-colors.ts`・`nivo-theme.ts` に残っている（実表示に出ている。詳細は SITE_PLAN.md §7）
+- **`/lab` は「図だけ Nivo に差し替えた概要ダッシュボード」の比較用ページとして作り直した**（`src/components/home-v2/nivo-board.tsx`・`robots: noindex`・`SITE_SECTIONS`／ナビ未登録）。当初のパネル比較版は削除し、そこだけが使っていた vendored Tremor 7部品（`Table`・`DonutChart`・`ProgressCircle`・`Badge`・`Divider`・`ProgressBar`・`Tracker`）も削除。残る vendored Tremor は `Card`・`BarList`・`BarChart`・`Tabs`・`CategoryBar`・`Tooltip` の6つ
+- **旧配色の実値をリポジトリから一掃**。OGP画像（`lib/og-image.tsx`・全ページ＋個別365枚）・ファビコン（`app/icon.svg`）・スクロールバー・王朝色（`lib/dynasty-colors.ts`）・Nivo テーマが旧パレットのままだったので、`globals.css` の現行トークンを sRGB へ換算した実値へ差し替えた。エージェント向けに旧デザインシステムを記述していたディレクトリ（17ファイル）も削除
 - 未計測: 新トップの性能（TBT/CLS）とアクセシビリティ。旧実装の計測記録（PERFORMANCE.md）は新トップを含まない
 - 技術債: `recharts` を 2.15.4 に固定している（3.x では vendoring したチャートが動かない）
-- 決定と経緯の正: [site/design-plans/STACK_OPTIONS_2026-07-31.md](../site/design-plans/STACK_OPTIONS_2026-07-31.md)。現状の要約は [site/AGENTS.md](../site/AGENTS.md) の「現在の状態」
+- **最終的なページ構成を4ページに確定**（ユーザー決定）: 概要ダッシュボード（完成）・皇帝一覧（改修）・**データベース（新規・全365名を表形式で・TanStack Table でソート/検索/絞り込み・主要10列前後）**・このサイトについて（改修）。**`/reign` は廃止してデータベースへ吸収する**（未実施）。皇帝個別 `/emperors/[id]` の365ページは別枠で現行のまま残す
+- 決定と経緯の正: [site/design-plans/SITE_PLAN.md](../site/design-plans/SITE_PLAN.md)。崩してはいけない契約は [site/AGENTS.md](../site/AGENTS.md)
 
 **2026-07-30追記（サイトのゼロベース再構築を取り下げ・v3 対応）**: ゼロベース再構築（`site/` を削除して Claude Design から作り直す方針）を取り下げ、旧サイトを復元して v3 に対応させた。ラベル解決は `site/src/lib/data-source.ts` の一点に閉じてある（詳細は [site/AGENTS.md](../site/AGENTS.md) の「スキーマ v3 の ID→ラベル解決」節）。**サイトの表示で変わったのは政権区分の人数**で、旧 `dynasty.category` の混在解消により正統王朝 214→245・反乱・自称政権 45→14 になり、人物単位の「対立・僭称の皇帝」20名は詳細ダイアログ・個別ページの1行（`isRivalClaimant`）へ移った。死因8分類・即位経路8分類・王朝87件・時代ラベルは v2 と完全一致（機械突合で確認済み）。
 
@@ -177,25 +180,16 @@
 - [ ] このファイルの該当チェックボックスにチェックを入れた（グループ内訳・フェーズ進捗の両方）
 - [ ] 除外理由・保留事項・原典で修正した誤りがあれば記録した（メモリまたはこのファイルの該当箇所）
 
-## サイト実装の状況（2026-07-18完了）— **2026-07-31 に一部が古くなった**
+## サイト実装の状況
 
-> **この節は 2026-07-18 時点の記録です。** 2026-07-31 の再構築で、トップページ・配色・見出しフォントが
-> 別物になり、`/timeline`・`/kinship` が廃止決定になりました。**現状は冒頭の「2026-07-31追記」と
-> `site/AGENTS.md` の「現在の状態」が正。** 以下の「実装済みページ」「品質確認済み」「既知バックログ」は
-> **旧実装のまま残っている17面については今も有効**ですが、**新トップには当てはまりません**
-> （新トップの性能・a11y は未計測）。
-
-データ確定と同日にサイト実装（`site/`）が完了した。技術構成・開発コマンドは [site/AGENTS.md](../site/AGENTS.md)、設計の方針・規範は [site-design/LAYOUT.md](site-design/LAYOUT.md)（**配色・書体・トップ構成の節は失効**）、実装の経緯は同ディレクトリの PERFORMANCE.md・IMPLEMENTATION_LOG.md・REDESIGN_2026-07.md を参照。
+**2026-07-31 の再構築が進行中です。**現状・崩してはいけない契約・皇帝追加時のチェックリストは
+[site/AGENTS.md](../site/AGENTS.md)、ページ構成・スタック・配色・各ページの設計方針は
+[site/design-plans/SITE_PLAN.md](../site/design-plans/SITE_PLAN.md) が正です。
 
 - **公開形態**: `output: "export"` の静的書き出しを GitHub Pages + カスタムドメイン emperorstats.com（ルート直下、basePath なし）で配信
-- **実装済みページ**: 概要ダッシュボード（`/`）・皇帝一覧（`/emperors`）・在位データ（`/reign`）・死因・即位（`/death-accession`）・宮廷イベント＝改元/大赦/立后/皇太子廃立/遷都（`/court-events`）・軍事（`/military`）・年齢（`/ages`）・王朝横断（`/dynasties`）・このサイトについて＋免責事項（`/about`）
-- **品質確認済み**: 全ページのコンソールエラー0件、`tsc`・ESLint・本番ビルド通過、Lighthouse 全9ページ計測・改善実装済み（[site-design/PERFORMANCE.md](site-design/PERFORMANCE.md)「Lighthouse改善の実装」節）
-
-### サイト側の既知バックログ
-
-2026-07-18 の Lighthouse 改善（チャートの遅延マウント+行ウィンドウイング・`/emperors` 先頭肖像画の priority 化・Select 幅固定と scrollbar-gutter による CLS 解消・アクセシブルネーム付与）により、初回計測時のバックログ（TBT・LCP・a11y 2件・CLS）はすべて解消済み。Lighthouse は accessibility 全9ページ 100、performance 66〜100（低スコア側は WSL2 計測環境の TBT 増幅を含み、実ブラウザの Long Task 実測では全ページ合計約100ms）。現時点で未対応バックログなし。
-
-**注意（2026-07-26）**: `site/src/lib/emperors.ts` は `reigns[].dynastyOrder` が**同一王朝内で重複したらビルド全体を throw で落とす**（`kinship: <王朝> の第N代が <id> と <id> で重複しています`）。/kinship 専用のチェックではなく全ページ共通のデータ層で走るため、**dynastyOrder を編集して重複させると emperorstats.com 全体のデプロイが止まる**。値は個別調査で決めるものなので機械的な自動採番はせず、編集したら `npm run build` まで通してから push すること。null は「歴代に数えない在位」の意味で、同じ王朝に調査済みの値が1つでもあれば導出で埋めない（判定基準は [site-design/KINSHIP.md](site-design/KINSHIP.md)）。
+- **現存するページ**: 概要ダッシュボード（`/`・新実装で完成）・皇帝一覧（`/emperors`）・皇帝個別（`/emperors/[id]`・365ページ）・在位データ（`/reign`・データベースへ吸収して廃止予定）・このサイトについて（`/about`）
+- **未計測**: 新トップの性能（TBT/CLS）とアクセシビリティ。2026-07-18 の Lighthouse 記録は削除済みで、旧実装の面についても計測をやり直す必要がある
+- **技術債**: `recharts` を 2.15.4 に固定している（3.x では vendoring したチャートが動かない）
 
 ## サイト実装で見つかったデータ品質の申し送り事項
 
@@ -228,7 +222,7 @@ note 全件検証・機械スクリーニング・ライセンス確定などの
 - **CI**: `scripts/validate_kinship.py` を新設し `validate-data.yml` に組込済み。succession エッジの category は emperors.json の `accessionRoute.category` との整合を機械検証する
 - **進捗管理**: kinship.json 側の `meta.status.phases`（succession/parentage/interdynastic/crosscheck の4フェーズ・すべて completed〔2026-07-23〜24〕。2026-07-24 新設の maternalLineage は進行中）と `meta.completedBlocks` で行う。このドキュメント冒頭のフェーズ進捗表（emperors.json 対応）とは別管理
 - **可視化ページ `/kinship` は 2026-07-31 に廃止決定（ユーザー判断）**。**データ調査は継続する** — 可視化ページが無くなっても `data/kinship.json` はデータセットとして完成させる（生母ブロック13〜23＋Wikidata P25 再突合は予定どおり）。以下は廃止までの経緯の記録で、**「全章そろったら公開する」という段階的公開の計画は失効している**
-- **可視化の再設計（v2）と暫定公開（2026-07-26・上記のとおり廃止）**: 章スタック方式（時代ごとの章を縦に積み、章内は王朝バンド×家系図パッキング）で作り直し、第1〜4章＝秦・漢／三国・西晋／東晋・十六国／南北朝（前221年〜589年）を暫定公開版として main へマージ・GitHub Pages で配信した。配置は**ユーザーがブラウザの編集モードでドラッグして決め `manual-layout.json` に凍結する**方式（自動配置では品質要求に届かなかったため。`npm run kinship-editor` ＋ `/kinship?edit=<章id>`）。2026-07-31 にメニュー（`nav-data.ts`）から削除。`SITE_SECTIONS`/`sitemap.xml` へは最後まで未登録・`robots: noindex` のまま。設計方針・規範・章追加手順は [site-design/KINSHIP.md](site-design/KINSHIP.md)
+- **可視化の再設計（v2）と暫定公開（2026-07-26・上記のとおり廃止）**: 章スタック方式（時代ごとの章を縦に積み、章内は王朝バンド×家系図パッキング）で作り直し、第1〜4章＝秦・漢／三国・西晋／東晋・十六国／南北朝（前221年〜589年）を暫定公開版として main へマージ・GitHub Pages で配信した。配置は**ユーザーがブラウザの編集モードでドラッグして決め `manual-layout.json` に凍結する**方式（自動配置では品質要求に届かなかったため。`npm run kinship-editor` ＋ `/kinship?edit=<章id>`）。2026-07-31 にメニュー（`nav-data.ts`）から削除。`SITE_SECTIONS`/`sitemap.xml` へは最後まで未登録・`robots: noindex` のまま。設計方針・章追加手順を書いた記録も 2026-07-31 に削除した
 - **コーパス下見（2026-07-22）**: 系譜「表」は china-history に無く daizhigev20 側にのみ存在（遼史皇族表・金史宗室表・明史諸王世表・元史/宋史の宗室世系表を確認済み）。新唐書宗室世系表は完全収録が未確認のため、着手時に書ごとに実在・可読性を確認すること
 
 ## 重要なファイル

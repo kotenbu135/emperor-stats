@@ -45,14 +45,20 @@ function StatLink({
   );
 }
 
+/**
+ * 順位テキストを、行き先がある指標だけリンクにする。
+ * **href が null の指標はリンクにしない** — 2026-07-31 に統計5ページを廃止したため、
+ * 在位・復位以外はランキングを載せた面が無い。404 へ着地する導線は画面に残さない
+ * （リンクを外すだけで順位そのものは従来どおり出す）。
+ */
 function withStatLink(
   text: string | null,
-  href: string,
+  href: string | null,
   label: string,
   enabled: boolean,
 ): React.ReactNode {
   if (!text) return null;
-  return enabled ? (
+  return enabled && href ? (
     <StatLink href={href} label={label}>
       {text}
     </StatLink>
@@ -297,42 +303,22 @@ export function EmperorDetailBody({
                 その2点だけは経路の脇に補足として出す（判定の4軸は「即位の経緯」節）。 */}
             <DetailRow
               label="即位経路"
-              value={withStatLink(
-                record.accessionRouteCategory,
-                "/death-accession#accession",
-                "即位経路別の分布を見る",
-                linkStats,
-              )}
+              value={record.accessionRouteCategory}
               sub={accessionSubNote(record, linkStats)}
             />
             <DetailRow
               label="死因"
-              value={withStatLink(
-                record.deathCauseCategory,
-                "/death-accession#death-cause",
-                "死因別の分布を見る",
-                linkStats,
-              )}
+              value={record.deathCauseCategory}
             />
             <DetailRow
               label="即位時年齢"
               value={ageText(record.accessionAge)}
-              sub={withStatLink(
-                rankText(record.ranks.accessionAge, "年長順"),
-                "/ages#accession-age",
-                "即位時年齢ランキングを見る",
-                linkStats,
-              )}
+              sub={rankText(record.ranks.accessionAge, "年長順")}
             />
             <DetailRow
               label="没年齢"
               value={ageText(record.deathAge)}
-              sub={withStatLink(
-                rankText(record.ranks.deathAge, "長寿順"),
-                "/ages#death-age",
-                "没年齢ランキングを見る",
-                linkStats,
-              )}
+              sub={rankText(record.ranks.deathAge, "長寿順")}
             />
           </dl>
         </div>
@@ -346,58 +332,59 @@ export function EmperorDetailBody({
               surface && "[&>*:nth-last-child(-n+2)]:border-b-0",
             )}
           >
-            {/* 4つ目はその回数のランキングが載っている節（nav-data.ts のアンカーと
-                同じ）。順位が出ている行だけリンクにする＝0回の行は順位対象外で
-                補足自体が無い。 */}
+            {/* 4つ目はその回数のランキングが載っている節。**8件とも null** —
+                2026-07-31 に /court-events・/military を廃止し、これらの回数を
+                載せた面が無くなった。順位の数字は従来どおり出し、リンクだけ外す。
+                ランキングを持つ面を作ったらここに戻す（withStatLink がそのまま効く）。 */}
             {(
               [
                 [
                   "改元",
                   record.eraChangeCount,
                   record.ranks.eraChangeCount,
-                  "/court-events#era",
+                  null,
                 ],
                 [
                   "大赦",
                   record.amnestyCount,
                   record.ranks.amnestyCount,
-                  "/court-events#amnesty",
+                  null,
                 ],
                 [
                   "立后",
                   record.empressInstallationCount,
                   record.ranks.empressInstallationCount,
-                  "/court-events#empress",
+                  null,
                 ],
                 [
                   "皇太子廃立",
                   record.crownPrinceDepositionCount,
                   record.ranks.crownPrinceDepositionCount,
-                  "/court-events#deposition",
+                  null,
                 ],
                 [
                   "親征",
                   record.personalCampaignCount,
                   record.ranks.personalCampaignCount,
-                  "/military#campaign",
+                  null,
                 ],
                 [
                   "反乱鎮圧",
                   record.rebellionSuppressionCount,
                   record.ranks.rebellionSuppressionCount,
-                  "/military#suppression",
+                  null,
                 ],
                 [
                   "被反乱",
                   record.rebellionSufferedCount,
                   record.ranks.rebellionSufferedCount,
-                  "/military#suffered",
+                  null,
                 ],
                 [
                   "遷都",
                   record.capitalRelocationCount,
                   record.ranks.capitalRelocationCount,
-                  "/court-events#capital",
+                  null,
                 ],
               ] as const
             ).map(([label, count, rank, href]) => (

@@ -17,8 +17,8 @@
 //
 // v3 が持つが**サイトが意図的に使っていない**もの:
 //  - `catalogs.eras`（11区分）: サイトの時代ラベルは `ERA_BY_SECTION`（15区分）で、
-//    通史年表の時代帯・王朝フィルタの見出しがこの粒度に合わせて作られている。
-//    11区分へ寄せるのは年表の再設計を伴うため別作業とする
+//    皇帝一覧の時代見出し・王朝フィルタがこの粒度に合わせて作られている。
+//    11区分へ寄せるかどうかは新サイトの各面を作るときに判断する
 //  - `catalogs.regimes[].label`（「梁（蕭梁）」等の曖昧性のない表示名）: サイトは
 //    同名王朝だけに時代サフィックスを付ける `dynastyLabel()` を使う
 import fs from "node:fs";
@@ -270,7 +270,7 @@ interface RawV3KinshipEdge {
 
 /**
  * kinship.json を読み、語彙 ID を表示ラベルへ解決したうえで旧キー名
- * （`section`・`edges[].category`）に戻す。系譜図（lib/kinship/）は続柄・経路の
+ * （`section`・`edges[].category`）に戻す。系譜データの利用側は続柄・経路の
  * ラベルで分岐と表示を組み立てているため、境界をここに閉じ込める。
  */
 export function loadKinshipJson() {

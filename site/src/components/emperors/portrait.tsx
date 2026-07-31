@@ -35,8 +35,10 @@ function monogramChar(record: PortraitSubject): string {
 }
 
 /** 肖像がない皇帝のプレースホルダー（姓一文字を大きく表示）。
- *  背景はその皇帝の王朝色を宣紙色に混ぜた淡彩で、同じ時代見出しの下のカードが
- *  まとまって見えるようにする。 */
+ *  背景はその皇帝の王朝色を地色に混ぜた淡彩で、同じ時代見出しの下のカードが
+ *  まとまって見えるようにする。
+ *  ⚠️ 混色の相手（dynasty-colors.ts の SURFACE_HEX）と王朝色の実値が現行パレットに
+ *  追従していない。皇帝一覧の改修で揃える（design-plans/SITE_PLAN.md §7）。 */
 function Monogram({
   char,
   dynastyKey,

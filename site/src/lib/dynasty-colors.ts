@@ -1,22 +1,17 @@
 // 王朝 → 配色スロットの単一情報源。
 //
-// このサイトの主要な軸である「王朝」を色で表す。割り当ては新規に考えたものではなく、
-// かつて2箇所に重複して存在していた意味ベースの対応表
-// （lib/kinship/chapters.ts の KINSHIP_COLOR_BY_DYNKEY 37キーと
-//   lib/timeline-river.ts の STREAM_DEFS[].colorSlot 87キー）を統合したもの。
-// 18キーで食い違っていたが、その全てが「年表では群雄バンドに束ねるため灰にする」等の
-// 描画都合の差であり、王朝そのものの識別色としては政権ごとに色を持つ系譜図側が正しい。
-// したがって kinship 側を優先し、残りを年表側から採った
-// （経緯: docs/site-design/REDESIGN_2026-07.md「王朝色システムとチャートの淡彩化」節）。
+// このサイトの主要な軸である「王朝」を色で表す。割り当ては意味ベース
+// （漢系=4金・北族=1青・晋系=7紫・宋=2緑・明=8赤・隋/梁系=5青緑）で、
+// 並立政権・反乱/自称政権はスロット0（--kinship-minor・無彩色）に落とす。
 //
-// スロット0は --kinship-minor（藤）。ここに落ちる37王朝は全て政権の性格
+// スロット0は --kinship-minor（無彩色）。ここに落ちる37王朝は全て政権の性格
 // （スキーマ v3 の `catalogs.regimes[].category`）が「並立政権」または
 // 「反乱・自称政権」で、正統王朝は1つも含まれない（逆は成り立たない——十六国・西夏・
 // 遼系のように政権ごとの識別色を持たせている非正統政権が15キーある）。
 //
 // 皇帝を追加収録したら必ずこの表に追記すること（未知のキーは throw する）。
 export const DYNASTY_COLOR_SLOT: Record<string, number> = {
-  // 藤 --kinship-minor（群雄・並立政権）
+  // 無彩色 --kinship-minor（群雄・並立政権）
   燕__唐: 0,
   南漢__五代十国: 0,
   閩__五代十国: 0,
@@ -115,33 +110,36 @@ export const DYNASTY_COLOR_SLOT: Record<string, number> = {
 };
 
 /**
- * スロット→実色。globals.css の --kinship-minor / --series-1〜8 と同値をハードコードで
- * 揃える（Nivo は CSS 変数を解決できないため。nivo-theme.ts と同じ方針）。
+ * スロット→実色。CSS 変数を解決できない箇所（Nivo・混色計算）があるためハードコードしている。
+ *
+ * **スロット番号は `--series-N` の N ではない。** 王朝の性格に色を当てる意味ベースの割り当て
+ * （`DYNASTY_COLOR_SLOT` のコメント参照）で、右に書いてあるのが対応する globals.css のトークン。
+ * 色を足す・入れ替えるときは、番号ではなく意味の側から決めること。
  */
 const SLOT_HEX = [
-  "#8d7c94", // 0: --kinship-minor
-  "#2a78d6", // 1: --series-1
-  "#008300", // 2: --series-2
-  "#e87ba4", // 3: --series-3
-  "#eda100", // 4: --series-4
-  "#1baf7a", // 5: --series-5
-  "#eb6834", // 6: --series-6
-  "#4a3aa7", // 7: --series-7
-  "#e34948", // 8: --series-8
+  "#a1a1a1", // 0: 割拠政権（無彩色・--kinship-minor 相当）
+  "#2a78d6", // 1: 青 — 北族系（--series-1）
+  "#008300", // 2: 緑 — 宋系（--series-6）
+  "#e87ba4", // 3: 桃（--series-5）
+  "#eda100", // 4: 金 — 漢系（--series-4）
+  "#1baf7a", // 5: 青緑 — 隋／南朝梁系（--series-3）
+  "#eb6834", // 6: 橙（--series-2）
+  "#4a3aa7", // 7: 紫 — 晋系（--series-7）
+  "#e34948", // 8: 赤 — 明（--series-8）
 ] as const;
 
-/** 地色（globals.css の --background）。混色の相手。 */
-export const SURFACE_HEX = "#f5f1e8";
-/** 墨色（--foreground）。 */
-const INK_HEX = "#3a3530";
+/** 地色（globals.css の --background を sRGB へ換算した実値）。混色の相手。 */
+export const SURFACE_HEX = "#ffffff";
+/** 文字色（--foreground の実値）。 */
+const INK_HEX = "#0a0a0a";
 
 /**
- * 塗りの濃度。--series-1〜8 は識別性を優先して検証した値のため彩度が高く、宣紙色の地に
- * 生のまま塗るとクロームから浮く。/timeline（塗り42%/縁82%）・/kinship（同42%/82%）と
- * 同じ「地色に混ぜてから塗る」規則を、面積に応じた比率で他のチャートにも適用する。
+ * 塗りの濃度。--series-1〜8 は識別性を優先して検証した値のため彩度が高く、地に
+ * 生のまま塗るとクロームから浮く。「地色に混ぜてから塗る」規則を、
+ * 面積に応じた比率で適用する。
  */
 export const DYNASTY_FILL_MIX = 55;
-/** 塗りより一段濃い輪郭で形を締める（kinship/style.ts の正統と同値）。 */
+/** 塗りより一段濃い輪郭で形を締める。 */
 export const DYNASTY_EDGE_MIX = 82;
 /* 肖像なしカードのモノグラム背景の濃度は、肖像ありのカードとの明度差から決めるため
  * components/emperors/portrait.tsx のローカル定数（MONOGRAM_MIX）が持つ。 */
@@ -230,7 +228,7 @@ function contrastRatio(a: string, b: string): number {
 }
 
 /**
- * 塗りの上に載せる文字色（墨 or 宣紙）をコントラスト比で選ぶ。生の彩度を前提にした
+ * 塗りの上に載せる文字色（地色 or 文字色）をコントラスト比で選ぶ。生の彩度を前提にした
  * 固定リスト（旧 darkSlices）は淡彩化後には当てはまらないため、混色後の実値で判定する。
  */
 export function readableTextOn(fillHex: string): string {

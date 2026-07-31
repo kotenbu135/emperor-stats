@@ -48,7 +48,7 @@ export function OutsideValueLabels({ bars }: BarCustomLayerProps<BarDatum>) {
           x={bar.x + bar.width + 6}
           y={bar.y + bar.height / 2}
           dominantBaseline="central"
-          fill="#3a3530"
+          fill="#0a0a0a"
           fontSize={11}
         >
           {(bar.data.data as unknown as { formatted: string }).formatted}
@@ -194,7 +194,7 @@ export function AxisHeader({
         x={marginLeft + plotWidth / 2}
         y={14}
         textAnchor="middle"
-        fill="#3a3530"
+        fill="#0a0a0a"
         fontSize={12}
       >
         {label}
@@ -205,7 +205,7 @@ export function AxisHeader({
           x={x(t)}
           y={33}
           textAnchor="middle"
-          fill="#6b6258"
+          fill="#737373"
           fontSize={11}
         >
           {t}

@@ -1,35 +1,37 @@
-// globals.css の水墨文人パレットと同値をハードコードで揃える（NivoテーマはCSS変数を解決できないため）。
+// Nivo は CSS 変数を解決できないため、globals.css のトークンを sRGB へ換算して
+// ハードコードしている（--foreground → #0a0a0a のように OKLCh から変換した実値）。
+// globals.css の値を動かしたらここも直す。
 export const nivoTheme = {
   background: "transparent",
   text: {
-    fill: "#3a3530",
+    fill: "#0a0a0a",
     fontFamily:
       "var(--font-sans), ui-sans-serif, system-ui, sans-serif",
     fontSize: 12,
   },
   axis: {
-    domain: { line: { stroke: "#ddd5c7", strokeWidth: 1 } },
+    domain: { line: { stroke: "#e5e5e5", strokeWidth: 1 } },
     ticks: {
-      line: { stroke: "#ddd5c7", strokeWidth: 1 },
-      text: { fill: "#6b6258", fontSize: 11 },
+      line: { stroke: "#e5e5e5", strokeWidth: 1 },
+      text: { fill: "#737373", fontSize: 11 },
     },
-    legend: { text: { fill: "#3a3530", fontSize: 12 } },
+    legend: { text: { fill: "#0a0a0a", fontSize: 12 } },
   },
   grid: {
-    line: { stroke: "#ddd5c7", strokeWidth: 1, strokeDasharray: "" },
+    line: { stroke: "#e5e5e5", strokeWidth: 1, strokeDasharray: "" },
   },
   legends: {
-    text: { fill: "#3a3530", fontSize: 12 },
+    text: { fill: "#0a0a0a", fontSize: 12 },
   },
   labels: {
-    text: { fill: "#3a3530", fontSize: 11 },
+    text: { fill: "#0a0a0a", fontSize: 11 },
   },
   tooltip: {
     container: {
-      background: "#f5f1e8",
-      color: "#3a3530",
+      background: "#ffffff",
+      color: "#0a0a0a",
       fontSize: 12,
-      border: "1px solid #ddd5c7",
+      border: "1px solid #e5e5e5",
       borderRadius: 6,
     },
   },
@@ -37,7 +39,7 @@ export const nivoTheme = {
 
 // dataviz skillで検証済みのカテゴリカルパレット8色を、カテゴリの意味に合わせて割り当てる。
 // 並び（＝円グラフの既定カテゴリ順で隣接する順序）は validate_palette.js で全チェックPASS済み:
-//   "#2a78d6,#e34948,#4a3aa7,#eb6834,#1baf7a,#eda100,#e87ba4,#008300" (surface #f5f1e8)
+//   "#2a78d6,#e34948,#4a3aa7,#eb6834,#1baf7a,#eda100,#e87ba4,#008300" (surface #ffffff)
 // コントラストWARNの4色（橙・青緑・黄・桃）は直接ラベル＋表ビューで緩和（dataviz skillの緩和条件）。
 export const categoryColorMaps: Record<string, Record<string, string>> = {
   deathCauseCategory: {
@@ -68,8 +70,8 @@ export const categoryColorMaps: Record<string, Record<string, string>> = {
 // （lib/dynasty-colors.ts の mixHex／DYNASTY_FILL_MIX・DYNASTY_EDGE_MIX）。
 // 塗りの上に載せる文字色も混色後の実値から選ぶ（同 readableTextOn）。
 //
-// ランキング棒グラフの色は王朝ごと（lib/dynasty-colors.ts）。かつては朱の単色
-// （--seal #a6321c）だったが、朱は印章的なワンポイントに限定する方針に戻した。
+// ランキング棒グラフの色は王朝ごと（lib/dynasty-colors.ts）。朱（--seal）は
+// 印章的なワンポイントに限定し、棒の面には使わない。
 
 /**
  * Nivoの数値軸はnice-numberアルゴリズムにより、値域が小さいと0.5刻みの目盛りを

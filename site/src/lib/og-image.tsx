@@ -24,15 +24,21 @@ const OG_FONTS = [
   { name: "Noto Sans JP", data: boldFont, style: "normal" as const, weight: 700 as const },
 ];
 
+/**
+ * OGP画像の配色。satori は CSS 変数を解決できないので、globals.css のトークンを
+ * sRGB へ変換して焼き込んである（`--background` → #ffffff のように OKLCh から換算）。
+ * globals.css の値を動かしたらここも直す（design-plans/tools/og-preview.mjs も同値）。
+ */
 const PALETTE = {
-  background: "#f5f1e8",
-  foreground: "#3a3530",
-  muted: "#6b6258",
-  seal: "#a6321c",
-  sealForeground: "#f5f1e8",
-  /** 事実カード・チップの罫と面（本文の --border / --card 相当の値を焼き込んだもの）。 */
-  line: "#d9d1c2",
-  card: "#fbf8f2",
+  background: "#ffffff", // --background
+  foreground: "#0a0a0a", // --foreground
+  muted: "#737373", // --muted-foreground
+  seal: "#c70036", // --seal (= --primary)
+  sealForeground: "#ffffff", // --primary-foreground 相当（白地に朱の面なので白抜き）
+  /** 事実カード・チップの罫と面。--card は --background と同じ純白なので、
+   *  面では分離できない。罫（--border）と、ごく薄いグレー（--sidebar と同値）で分ける。 */
+  line: "#e5e5e5", // --border
+  card: "#fafafa", // --sidebar 相当
 };
 
 /** 事実カード（ページの代表的な数値）。2枚を横に並べる前提の幅で組む。 */

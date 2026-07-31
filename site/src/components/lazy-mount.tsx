@@ -1,9 +1,9 @@
 "use client";
 
 // 画面外チャートの遅延マウント枠。Nivoチャートは1つあたりの描画コストが大きく、
-// 全セクションを初回レンダリングで一括マウントするとTBTが数秒に達するため
-// （docs/site-design/PERFORMANCE.md「全9ページ計測」節）、ビューポート手前に
-// 近づいた時点で初めて子コンポーネントをマウントする。
+// 全セクションを初回レンダリングで一括マウントするとTBTが数秒に達する（実測）ため、
+// ビューポート手前に近づいた時点で初めて子コンポーネントをマウントする。
+// **Nivo が残っている面（/reign・/emperors）はこの枠を外すと TBT が跳ねる。**
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 

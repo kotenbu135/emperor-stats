@@ -2,10 +2,6 @@ import fs from "node:fs";
 import path from "node:path";
 import { BASE_PATH } from "@/lib/base-path";
 import {
-  aggregateByGroup,
-  type GroupAggRow,
-} from "@/components/charts/dynasty-aggregate";
-import {
   astroYear,
   eraOrder,
   formatReignDuration,
@@ -27,32 +23,12 @@ import {
   type ResearchMemo,
   type RankingMetricKey,
   type RestorationRow,
-  type TimelineData,
-  type TimelineDynastyBand,
-  type TimelineEraBand,
-  type TimelineSegment,
-  type TimelineVacancy,
 } from "@/lib/emperor-types";
 
 export * from "@/lib/emperor-types";
-import { buildRiverTimeline, type RiverTimelineData } from "@/lib/timeline-river";
-import {
-  buildKinshipLayout,
-  type KinshipChapterLayout,
-  type KinshipSource,
-  type KinshipSourceClaim,
-  type KinshipSourceEdge,
-  type KinshipSourceEmperor,
-  type KinshipSourcePerson,
-} from "@/lib/kinship/layout";
-import {
-  FEMALE_EMPEROR_IDS,
-  KINSHIP_CHAPTER_DEFS,
-  KINSHIP_ENABLED_CHAPTER_IDS,
-} from "@/lib/kinship/chapters";
 import { kanaExpansionsOf } from "@/lib/kana-readings";
 import { CARD_SUBTITLE_OVERRIDES, cardSubtitleOf } from "@/lib/card-subtitle";
-import { emperorsJson, loadKinshipJson } from "@/lib/data-source";
+import { emperorsJson } from "@/lib/data-source";
 
 // emperors.json / kinship.json はスキーマ v3（レコードは ID のみ・ラベルは
 // meta.catalogs）なので、読み込みと表示ラベルへの解決は lib/data-source.ts が担う。
@@ -1043,7 +1019,6 @@ export interface HomeCenturyBand {
  * 「在位年数と死因」の帯の区分。凡例・配色・件数の並びはこの1か所で決まる。
  *
  * 死因8区分をそのまま幅434pxの列の帯に出しても読めないので3つに畳む
- * （8区分の内訳は同じ盤面の「死因」カードと /death-accession が持つ）。
  * ここに挙げた死因ラベルはカタログとの一致を data-source.ts の
  * assertLabels("deathCause") が保証するが、**カタログに区分が増えたときの
  * 取りこぼしは reignDeathBands() が実行時に throw して知らせる**
@@ -1104,8 +1079,10 @@ export interface HomeRankingPanel {
   description: string;
   /** 一覧の右列の見出し。 */
   valueHeader: string;
-  href: string;
-  linkLabel: string;
+  /** 全順位を載せた面へのリンク。**無い指標は null** —
+   *  2026-07-31 に /ages を廃止し、年齢2指標は行き先が無くなった。 */
+  href: string | null;
+  linkLabel: string | null;
   rows: HomeRankedEmperor[];
 }
 
@@ -1202,17 +1179,6 @@ function reignDeathBands(records: EmperorRecord[]): HomeReignDeath {
   };
 }
 
-/**
- * 分類（死因・即位経路）の全区分の件数と割合。トップの内訳パネルと
- * /death-accession の静的一覧が同じ集計を使うための公開口で、
- * 中身は円グラフ（CategoryPieChart）の絞り込み無しの状態とまったく同じ数え方。
- * 並びは呼び出し側が categoryOrder で決める（この関数は件数の多い順で返す）。
- */
-export function getCategoryBreakdown(
-  metricKey: "deathCauseCategory" | "accessionRouteCategory",
-): HomeBreakdownSlice[] {
-  return breakdown(getAllEmperorRecords(), (r) => r[metricKey]);
-}
 
 /**
  * ISO日付（"1711-09-25"・"-0086-03-29"）を通日へ。差の比較にしか使わないので
@@ -1372,8 +1338,8 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
       label: "即位年齢",
       description: `数え年で即位年齢が高齢だった人物`,
       valueHeader: "即位時",
-      href: "/ages#accession-age",
-      linkLabel: `${accessionAge.total}名の順位 →`,
+      href: null,
+      linkLabel: null,
       rows: accessionAge.rows,
     },
     {
@@ -1381,8 +1347,8 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
       label: "没年齢",
       description: `数え年で没年齢が高齢だった人物`,
       valueHeader: "没時",
-      href: "/ages#death-age",
-      linkLabel: `${deathAge.total}名の順位 →`,
+      href: null,
+      linkLabel: null,
       rows: deathAge.rows,
     },
   ];
@@ -1452,7 +1418,7 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
 // 数値が一切 DOM に出ないため、この結論文は実質ゼロからの純増になる）。
 //
 // 【整合性の要】数値・母集団・1位はすべてチャートと同じ単一情報源から導く：
-//   - /reign・/death-accession は getOverviewStats（チャートと同じ集計）
+//   - /reign は getOverviewStats（チャートと同じ集計）
 //   - 回数系・年齢は record.ranks[key]（チャート行と同じ computeRanks 由来のマップ）
 //     を使い、1位＝ranks[key].rank===1（＝チャート最上段）、母集団＝ranks[key].total
 //     （＝0回除外・年齢判明者のみの対象人数）。手書きの .filter を挟まないので、
@@ -1464,131 +1430,14 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
 // 全16節に1本ずつ置く方針へ改めた（キーもページ単位→節単位へ）。置き場所の規範
 // （その主張が対象とする節の中に置く・ページ先頭へ持ち上げない）は初版のまま。
 
-/** 統計6ページの節キー。値は各ページの Section id と一致させる（`ページ/節id`）。 */
-export type TakeawaySection =
-  | "reign/ranking"
-  | "reign/restoration"
-  | "ages/accession-age"
-  | "ages/death-age"
-  | "death-accession/death-cause"
-  | "death-accession/accession"
-  | "court-events/era"
-  | "court-events/amnesty"
-  | "court-events/empress"
-  | "court-events/deposition"
-  | "court-events/capital"
-  | "military/campaign"
-  | "military/suppression"
-  | "military/suffered"
-  | "dynasties/avg-reign"
-  | "dynasties/death-cause";
-
-/** 指標の生値（回数・年齢）。ranks と同じ RankingMetricKey を受け、reignYears は扱わない。 */
-function metricValueOf(r: EmperorRecord, key: RankingMetricKey): number | null {
-  return r[key] as number | null;
-}
-
-/** ある指標の1位（＝チャート最上段）の皇帝群と対象人数。0回除外・年齢判明者のみは
- *  ranks[key] 側で確定済みなので、ここでは rank===1 を拾うだけ。 */
-function topRanked(
-  records: EmperorRecord[],
-  key: RankingMetricKey,
-): { leaders: EmperorRecord[]; total: number; value: number } | null {
-  const leaders = records.filter((r) => r.ranks[key]?.rank === 1);
-  if (leaders.length === 0) return null;
-  const total = leaders[0].ranks[key]!.total;
-  const value = metricValueOf(leaders[0], key)!;
-  return { leaders, total, value };
-}
-
-/** 1位が単独か同順位かで表記を分ける（「○○（王朝）」か「○○ら2名」）。 */
-function leaderLabel(leaders: EmperorRecord[]): string {
-  if (leaders.length === 1) {
-    return `${leaders[0].name}（${leaders[0].dynastyLabel}）`;
-  }
-  if (leaders.length === 2) {
-    // 区切りは「と」を使う（名前自体が「聖祖・康熙帝」のように「・」を含むため、
-    // 「・」で繋ぐと1人か2人か判別できなくなる）。
-    return `${leaders[0].name}と${leaders[1].name}の2名`;
-  }
-  return `${leaders[0].name}ら${leaders.length}名`;
-}
-
-/** 回数系ランキング（改元・親征など）の総括文。動詞・単位は呼び出し側から与える。 */
-function countTakeaway(
-  records: EmperorRecord[],
-  key: RankingMetricKey,
-  opts: { verb: string; unit: string; populationClause: string },
-): string[] {
-  const top = topRanked(records, key);
-  if (!top) return [];
-  return [
-    `${opts.verb}が最も多いのは${leaderLabel(top.leaders)}で、${top.value}${opts.unit}です。`,
-    `${opts.populationClause}は${top.total}名です。`,
-  ];
-}
-
-/** 王朝別平均在位の小標本しきい値。これ未満は1人の在位が平均を大きく動かすため、
- *  最長平均の主張から除外する（除外することを本文にも明記する）。
- *  /dynasties の2節（平均在位・死因の内訳）で同じしきい値を使う。 */
-const DYNASTY_MIN_EMPERORS = 5;
-
-/** 小標本を除いた王朝別集計。/dynasties の2つのチャートと同じ aggregateByGroup 由来。 */
-function eligibleDynastyRows(records: EmperorRecord[]): GroupAggRow[] {
-  return aggregateByGroup(records, "dynasty", "all").filter(
-    (r) => r.emperorCount >= DYNASTY_MIN_EMPERORS,
-  );
-}
-
-/** 王朝が同率で並んだときの表記。皇帝の leaderLabel と同じく区切りは「と」を使う。 */
-function dynastyLeaderLabel(
-  rows: GroupAggRow[],
-  detail: (row: GroupAggRow) => string,
-): string {
-  const labeled = rows.map((r) => `${r.label}（${detail(r)}）`);
-  if (labeled.length === 1) return labeled[0];
-  if (labeled.length === 2) return `${labeled[0]}と${labeled[1]}の2王朝`;
-  return `${labeled[0]}ら${labeled.length}王朝`;
-}
-
-/** ある死因の割合が最も高い王朝（小標本を除く）。同率は全件返す。 */
-function topDeathCauseShare(
-  records: EmperorRecord[],
-  category: DeathCauseCategory,
-): { leaders: GroupAggRow[]; percent: number } | null {
-  const rows = eligibleDynastyRows(records);
-  if (rows.length === 0) return null;
-  const shareOf = (r: GroupAggRow) =>
-    r.deathCauseCounts[category] / r.emperorCount;
-  const max = Math.max(...rows.map(shareOf));
-  if (max <= 0) return null;
-  return {
-    leaders: rows.filter((r) => Math.abs(shareOf(r) - max) < 1e-9),
-    percent: Math.round(max * 100),
-  };
-}
-
-/** 死因の割合が最も高い王朝を述べる1文。母集団の明示（N名中M名）まで含める。 */
-function deathCauseShareSentence(
-  records: EmperorRecord[],
-  category: DeathCauseCategory,
-  lead: string,
-): string | null {
-  const top = topDeathCauseShare(records, category);
-  if (!top) return null;
-  const label = dynastyLeaderLabel(
-    top.leaders,
-    (r) => `${r.emperorCount}名中${r.deathCauseCounts[category]}名`,
-  );
-  return `${lead}${label}で、${top.percent}%です。`;
-}
+/** 節ごとの総括文のキー。値は各ページの Section id と一致させる（`ページ/節id`）。 */
+export type TakeawaySection = "reign/ranking" | "reign/restoration";
 
 /**
- * 統計6ページの各節ぶんの「読み取れること」総括文（その内容が対象とする節の中に置く）。
+ * 節ごとの「読み取れること」総括文（その内容が対象とする節の中に置く）。
  * すべてビルド時にデータから導出する表示用の機械集計（自動生成禁止には非抵触）。
  */
 export function getChartTakeaway(section: TakeawaySection): string[] {
-  const records = getAllEmperorRecords();
   switch (section) {
     case "reign/ranking": {
       const s = getOverviewStats();
@@ -1614,117 +1463,6 @@ export function getChartTakeaway(section: TakeawaySection): string[] {
         `廃位・退位を経て再び即位した皇帝は、${s.emperorCount}名中${s.restorationCount}名です。`,
         `即位回数が最も多いのは${names}で、${maxCount}回です。`,
       ];
-    }
-    case "death-accession/death-cause": {
-      const s = getOverviewStats();
-      return [
-        `${s.emperorCount}名の死因で最も多いのは「${s.topDeathCause.category}」で、${s.topDeathCause.count}名（${s.topDeathCause.percent}%）です。`,
-      ];
-    }
-    case "death-accession/accession": {
-      const s = getOverviewStats();
-      return [
-        `即位経路で最も多いのは「${s.topAccessionRoute.category}」で、${s.topAccessionRoute.count}名（${s.topAccessionRoute.percent}%）です。`,
-      ];
-    }
-    case "ages/accession-age": {
-      const top = topRanked(records, "accessionAge"); // desc=年長順が1位
-      if (!top) return [];
-      return [
-        `即位時の年齢（数え年）が判明する${top.total}名のうち、最も年長で即位したのは${leaderLabel(top.leaders)}で、${top.value}歳です。`,
-        `生年が判明しない皇帝が多く、即位時年齢を算出できたのはこの${top.total}名にとどまります。`,
-      ];
-    }
-    case "ages/death-age": {
-      const top = topRanked(records, "deathAge"); // desc=長寿順が1位
-      if (!top) return [];
-      return [
-        `没年齢（数え年）が判明する${top.total}名のうち、最も長命だったのは${leaderLabel(top.leaders)}で、${top.value}歳です。`,
-      ];
-    }
-    case "court-events/era": {
-      return countTakeaway(records, "eraChangeCount", {
-        verb: "改元回数",
-        unit: "回",
-        populationClause: "即位時の建元を含め在位中に一度でも改元した皇帝",
-      });
-    }
-    case "court-events/amnesty": {
-      return countTakeaway(records, "amnestyCount", {
-        verb: "大赦（全国規模の恩赦）の回数",
-        unit: "回",
-        populationClause: "在位中に一度でも大赦を行った皇帝",
-      });
-    }
-    case "court-events/empress": {
-      return countTakeaway(records, "empressInstallationCount", {
-        verb: "立后（皇后の冊立）の回数",
-        unit: "回",
-        populationClause: "在位中に一度でも皇后を立てた皇帝",
-      });
-    }
-    case "court-events/deposition": {
-      return countTakeaway(records, "crownPrinceDepositionCount", {
-        verb: "皇太子を廃した回数",
-        unit: "回",
-        populationClause: "在位中に一度でも皇太子を廃した皇帝",
-      });
-    }
-    case "court-events/capital": {
-      return countTakeaway(records, "capitalRelocationCount", {
-        verb: "遷都の回数",
-        unit: "回",
-        populationClause: "在位中に遷都を行った皇帝",
-      });
-    }
-    case "military/campaign": {
-      return countTakeaway(records, "personalCampaignCount", {
-        verb: "親征（皇帝自身が軍を率いた出征）の回数",
-        unit: "回",
-        populationClause: "親征の記録がある皇帝",
-      });
-    }
-    case "military/suppression": {
-      return countTakeaway(records, "rebellionSuppressionCount", {
-        verb: "政権側として鎮圧にあたった反乱の件数",
-        unit: "件",
-        populationClause: "反乱を鎮圧した記録がある皇帝",
-      });
-    }
-    case "military/suffered": {
-      return countTakeaway(records, "rebellionSufferedCount", {
-        verb: "自らに対して起こされた反乱の件数",
-        unit: "件",
-        populationClause: "反乱を起こされた記録がある皇帝",
-      });
-    }
-    case "dynasties/avg-reign": {
-      const eligible = eligibleDynastyRows(records);
-      if (eligible.length === 0) return [];
-      const top = eligible.reduce((a, b) =>
-        b.avgReignDays > a.avgReignDays ? b : a,
-      );
-      const years = (top.avgReignDays / 365).toFixed(1);
-      return [
-        `皇帝が${DYNASTY_MIN_EMPERORS}名以上いる王朝では、1人あたりの平均在位年数が最も長いのは${top.label}で、約${years}年（${top.emperorCount}名）です。`,
-        `皇帝が少ない王朝は1人の在位が平均を大きく動かすため、${DYNASTY_MIN_EMPERORS}名未満はこの比較から除いています。`,
-      ];
-    }
-    case "dynasties/death-cause": {
-      // 平均在位の節と同じ小標本しきい値を使う（1人王朝は割合が0%か100%にしかならない）。
-      const sentences = [
-        deathCauseShareSentence(
-          records,
-          "病死",
-          `皇帝が${DYNASTY_MIN_EMPERORS}名以上いる王朝のうち、病死の割合が最も高いのは`,
-        ),
-        deathCauseShareSentence(
-          records,
-          "暗殺",
-          "同じ条件で、暗殺の割合が最も高いのは",
-        ),
-      ];
-      return sentences.filter((s): s is string => s !== null);
     }
   }
 }
@@ -1752,51 +1490,9 @@ export interface OgFact {
 }
 
 /** OGP画像に事実カードを出すページ。値は各ルートのパスと一致させる。 */
-export type OgFactPage =
-  | "/"
-  | "/timeline"
-  | "/emperors"
-  | "/reign"
-  | "/death-accession"
-  | "/court-events"
-  | "/military"
-  | "/ages"
-  | "/dynasties"
-  | "/about";
-
-/** 回数系ランキングの1位を事実カード1枚にする（countTakeaway と同じ topRanked 由来）。 */
-function countFact(
-  records: EmperorRecord[],
-  key: RankingMetricKey,
-  label: string,
-  unit: string,
-): OgFact | null {
-  const top = topRanked(records, key);
-  if (!top) return null;
-  return {
-    label,
-    value: `${top.value}${unit}`,
-    sub: leaderLabel(top.leaders),
-  };
-}
-
-/** 年齢ランキングの1位を事実カード1枚にする。 */
-function ageFact(
-  records: EmperorRecord[],
-  key: RankingMetricKey,
-  label: string,
-): OgFact | null {
-  const top = topRanked(records, key);
-  if (!top) return null;
-  return {
-    label,
-    value: `${top.value}歳`,
-    sub: `${leaderLabel(top.leaders)}／${top.total}名中`,
-  };
-}
+export type OgFactPage = "/" | "/emperors" | "/reign" | "/about";
 
 export function getOgFacts(page: OgFactPage): OgFact[] {
-  const records = getAllEmperorRecords();
   const stats = getOverviewStats();
   switch (page) {
     case "/":
@@ -1814,7 +1510,6 @@ export function getOgFacts(page: OgFactPage): OgFact[] {
         },
       ];
     }
-    case "/timeline":
     case "/emperors": {
       const highlights = getHomeHighlights();
       return [
@@ -1844,77 +1539,6 @@ export function getOgFacts(page: OgFactPage): OgFact[] {
         },
       ];
     }
-    case "/death-accession": {
-      return [
-        {
-          label: "最多の死因",
-          value: `${stats.topDeathCause.category} ${stats.topDeathCause.count}名`,
-          sub: `${stats.emperorCount}名の${stats.topDeathCause.percent}%`,
-        },
-        {
-          label: "最多の即位経路",
-          value: `${stats.topAccessionRoute.category} ${stats.topAccessionRoute.count}名`,
-          sub: `${stats.emperorCount}名の${stats.topAccessionRoute.percent}%`,
-        },
-      ];
-    }
-    case "/court-events": {
-      return [
-        countFact(records, "eraChangeCount", "改元の最多", "回"),
-        countFact(records, "amnestyCount", "大赦の最多", "回"),
-      ].filter((f): f is OgFact => f !== null);
-    }
-    case "/military": {
-      return [
-        countFact(records, "personalCampaignCount", "親征の最多", "回"),
-        countFact(records, "rebellionSufferedCount", "被反乱の最多", "件"),
-      ].filter((f): f is OgFact => f !== null);
-    }
-    case "/ages": {
-      return [
-        ageFact(records, "accessionAge", "最年長での即位"),
-        ageFact(records, "deathAge", "最長寿"),
-      ].filter((f): f is OgFact => f !== null);
-    }
-    case "/dynasties": {
-      const eligible = eligibleDynastyRows(records);
-      const facts: OgFact[] = [];
-      if (eligible.length > 0) {
-        // 同率1位を黙って1件に丸めない（皇帝の leaderLabel と同じ扱い）。
-        const maxDays = Math.max(...eligible.map((r) => r.avgReignDays));
-        const leaders = eligible.filter(
-          (r) => Math.abs(r.avgReignDays - maxDays) < 1e-9,
-        );
-        const years = (maxDays / 365).toFixed(1);
-        facts.push({
-          label: "平均在位が最長の王朝",
-          value:
-            leaders.length === 1
-              ? `${leaders[0].label} 約${years}年`
-              : `${leaders[0].label}ら${leaders.length}王朝 約${years}年`,
-          sub:
-            leaders.length === 1
-              ? `皇帝${leaders[0].emperorCount}名／${DYNASTY_MIN_EMPERORS}名以上の王朝で比較`
-              : `${DYNASTY_MIN_EMPERORS}名以上の王朝で比較`,
-        });
-      }
-      const share = topDeathCauseShare(records, "病死");
-      if (share) {
-        const [first] = share.leaders;
-        facts.push({
-          label: "病死の割合が最も高い王朝",
-          value:
-            share.leaders.length === 1
-              ? `${first.label} ${share.percent}%`
-              : `${first.label}ら${share.leaders.length}王朝 ${share.percent}%`,
-          sub:
-            share.leaders.length === 1
-              ? `${first.emperorCount}名中${first.deathCauseCounts["病死"]}名`
-              : `皇帝${DYNASTY_MIN_EMPERORS}名以上の王朝で比較`,
-        });
-      }
-      return facts;
-    }
   }
 }
 
@@ -1930,531 +1554,6 @@ export function getEmperorOgChips(record: EmperorRecord): string[] {
   chips.push(`死因 ${record.deathCauseCategory}`);
   chips.push(`即位経路 ${record.accessionRouteCategory}`);
   return chips;
-}
-
-// ---------------------------------------------------------------------------
-// 通史年表（/timeline）用のデータ。設計は docs/site-design/TIMELINE.md。
-// 帯・空位・並立数はすべて収録皇帝のreigns[]の純粋な写像としてビルド時に計算する
-// （王朝の建国〜滅亡年を別途調査して持ち込まない）。
-
-/** ミニマップ・狭い時代帯用の短縮ラベル。 */
-const ERA_SHORT_LABELS: Record<string, string> = {
-  "新〜後漢初": "新",
-  五胡十六国: "五胡",
-  五代十国: "五代",
-  "宋・遼・西夏・金": "宋・遼・金",
-};
-
-/**
- * 皇帝不在期間の説明文言。期間はデータから機械的に検出し、ここは表示文言だけを
- * 与える（キーが一致しない=データが変わった場合は汎用文言にフォールバック）。
- * 文言は収録基準（INCLUSION_CRITERIA.md）の範囲内の説明に留める。
- */
-const VACANCY_LABELS: Record<string, string> = {
-  "-206:-203": "楚漢戦争期（項羽は皇帝を称さず）",
-  "7:7": "王莽の居摂期",
-  "1913:1914": "中華民国（清帝退位後）",
-  "1918:1933": "中華民国（張勲復辟の失敗後）",
-};
-
-/** 在位区間を年単位で合併する。隣接年（endの翌年がstart）は連続とみなす。 */
-function mergeYearSpans(
-  intervals: { startYear: number; endYear: number }[],
-): { startYear: number; endYear: number }[] {
-  const sorted = [...intervals].sort(
-    (a, b) => a.startYear - b.startYear || a.endYear - b.endYear,
-  );
-  const merged: { startYear: number; endYear: number }[] = [];
-  for (const iv of sorted) {
-    const last = merged[merged.length - 1];
-    if (last && astroYear(iv.startYear) <= astroYear(last.endYear) + 1) {
-      last.endYear = Math.max(last.endYear, iv.endYear);
-    } else {
-      merged.push({ ...iv });
-    }
-  }
-  return merged;
-}
-
-/** 帯の見た目を代表する区分。複数区分が混在する王朝（唐・北魏など）は正統を優先する。 */
-function bandCategory(categories: Set<DynastyCategory>): DynastyCategory {
-  if (categories.has("正統王朝")) return "正統王朝";
-  if (categories.has("並立政権")) return "並立政権";
-  return "反乱・自称政権";
-}
-
-let timelineCache: TimelineData | null = null;
-
-export function getTimelineData(): TimelineData {
-  if (timelineCache) return timelineCache;
-
-  // --- 王朝帯: name+section複合キーごとに在位区間とセグメントを収集 ---
-  const byKey = new Map<
-    string,
-    {
-      key: string;
-      label: string;
-      era: string;
-      categories: Set<DynastyCategory>;
-      intervals: { startYear: number; endYear: number }[];
-      segments: TimelineSegment[];
-      emperorIds: Set<string>;
-    }
-  >();
-  for (const e of data.emperors) {
-    const key = dynastyKey(e.dynasty);
-    let entry = byKey.get(key);
-    if (!entry) {
-      entry = {
-        key,
-        label: dynastyLabel(e.dynasty),
-        era: eraLabelOf(e.dynasty),
-        categories: new Set(),
-        intervals: [],
-        segments: [],
-        emperorIds: new Set(),
-      };
-      byKey.set(key, entry);
-    }
-    entry.categories.add(e.dynasty.category);
-    entry.emperorIds.add(e.id);
-    for (const r of e.reigns) {
-      entry.intervals.push({ startYear: r.startYear, endYear: r.endYear });
-      entry.segments.push({
-        emperorId: e.id,
-        startYear: r.startYear,
-        endYear: r.endYear,
-        isRestoration: r.isRestoration,
-      });
-    }
-  }
-
-  const categoryPriority: Record<DynastyCategory, number> = {
-    正統王朝: 0,
-    "反乱・自称政権": 1,
-    並立政権: 1,
-  };
-  const bands: TimelineDynastyBand[] = [...byKey.values()]
-    .map((w) => {
-      const spans = mergeYearSpans(w.intervals);
-      return {
-        key: w.key,
-        label: w.label,
-        era: w.era,
-        category: bandCategory(w.categories),
-        lane: 0,
-        colorSlot: 1,
-        startYear: spans[0].startYear,
-        endYear: spans[spans.length - 1].endYear,
-        spans,
-        segments: [...w.segments].sort(
-          (a, b) => a.startYear - b.startYear || a.endYear - b.endYear,
-        ),
-        emperorCount: w.emperorIds.size,
-      };
-    })
-    .sort(
-      (a, b) =>
-        a.startYear - b.startYear ||
-        categoryPriority[a.category] - categoryPriority[b.category] ||
-        b.endYear - b.startYear - (a.endYear - a.startYear),
-    );
-
-  // レーン割当（interval partitioning・開始年順の貪欲法）。正統王朝と
-  // 並立・反乱政権を別ブロックに分けて詰めることで、上ブロックのlane 0に
-  // 「秦→前漢→…→明」の本流がほぼ一列に連なる（初学者が本流を追える）。
-  // 同年の禅譲交代（後漢→魏の220年など）は同一レーンを許容する。
-  // 帯内ギャップ中もレーンは他王朝に貸さない（外接期間で占有。点線コネクタが
-  // 他王朝の帯に横切られないようにするため）。
-  const packBands = (group: TimelineDynastyBand[], laneOffset: number): number => {
-    const laneEnds: number[] = [];
-    for (const band of group) {
-      const lane = laneEnds.findIndex(
-        (end) => astroYear(band.startYear) >= astroYear(end),
-      );
-      if (lane === -1) {
-        band.lane = laneOffset + laneEnds.length;
-        laneEnds.push(band.endYear);
-      } else {
-        band.lane = laneOffset + lane;
-        laneEnds[lane] = band.endYear;
-      }
-    }
-    return laneEnds.length;
-  };
-  const mainLaneCount = packBands(
-    bands.filter((b) => b.category === "正統王朝"),
-    0,
-  );
-  const otherLaneCount = packBands(
-    bands.filter((b) => b.category !== "正統王朝"),
-    mainLaneCount,
-  );
-
-  // 配色スロット割当: 同時期に重なる帯・同一レーンで直前に隣接する帯と同じ
-  // スロットを避けて先着順に選ぶ（本流が延々と同色にならないように）。
-  // 同時並立が8色を超える期間（最大9）は同色が生じうるが、帯の太さ・濃淡
-  // （正統/並立）の差で区別できる。
-  const lastSlotInLane = new Map<number, number>();
-  for (let i = 0; i < bands.length; i++) {
-    const used = new Set<number>();
-    for (let j = 0; j < i; j++) {
-      if (
-        bands[j].endYear >= bands[i].startYear &&
-        bands[j].startYear <= bands[i].endYear
-      ) {
-        used.add(bands[j].colorSlot);
-      }
-    }
-    const prevInLane = lastSlotInLane.get(bands[i].lane);
-    if (prevInLane !== undefined) used.add(prevInLane);
-    let slot = (bands[i].lane % 8) + 1;
-    for (let s = 1; s <= 8; s++) {
-      if (!used.has(s)) {
-        slot = s;
-        break;
-      }
-    }
-    bands[i].colorSlot = slot;
-    lastSlotInLane.set(bands[i].lane, slot);
-  }
-
-  // --- 時代帯: 時代区分ラベルごとの外接期間。重なる時代はレーンを分ける ---
-  const eraSpanByLabel = new Map<string, { startYear: number; endYear: number }>();
-  for (const e of data.emperors) {
-    const era = eraLabelOf(e.dynasty);
-    for (const r of e.reigns) {
-      const span = eraSpanByLabel.get(era);
-      if (!span) {
-        eraSpanByLabel.set(era, { startYear: r.startYear, endYear: r.endYear });
-      } else {
-        span.startYear = Math.min(span.startYear, r.startYear);
-        span.endYear = Math.max(span.endYear, r.endYear);
-      }
-    }
-  }
-  const eras: TimelineEraBand[] = [...eraSpanByLabel.entries()]
-    .map(([label, span]) => ({
-      label,
-      shortLabel: ERA_SHORT_LABELS[label] ?? label,
-      startYear: span.startYear,
-      endYear: span.endYear,
-      lane: 0,
-    }))
-    .sort((a, b) => a.startYear - b.startYear || a.endYear - b.endYear);
-  // 時代帯のレーンは通史の本流（eraOrderのうち移行期・並立期でないもの）を
-  // 優先して上の段から詰める。開始年順の貪欲法だと隋末と隋に挟まれた唐などの
-  // 主要時代が3段目に落ちてしまうため、優先順に区間の空きへ差し込む方式にする。
-  const parallelEras = new Set(["新〜後漢初", "五胡十六国", "隋末"]);
-  const eraPriority = [
-    ...eras.filter((e) => !parallelEras.has(e.label)),
-    ...eras.filter((e) => parallelEras.has(e.label)),
-  ];
-  const eraLanes: { start: number; end: number }[][] = [];
-  for (const era of eraPriority) {
-    const s = astroYear(era.startYear);
-    const e = astroYear(era.endYear);
-    let lane = eraLanes.findIndex((intervals) =>
-      intervals.every((iv) => e <= iv.start || s >= iv.end),
-    );
-    if (lane === -1) {
-      lane = eraLanes.length;
-      eraLanes.push([]);
-    }
-    eraLanes[lane].push({ start: s, end: e });
-    era.lane = lane;
-  }
-
-  // --- 並立数カーブと空位期間: astro年ごとの同時在位皇帝数 ---
-  const startYear = Math.min(...bands.map((b) => b.startYear));
-  const endYear = Math.max(...bands.map((b) => b.endYear));
-  const t0 = astroYear(startYear);
-  const concurrency = new Array<number>(astroYear(endYear) - t0 + 1).fill(0);
-  for (const e of data.emperors) {
-    for (const r of e.reigns) {
-      for (let t = astroYear(r.startYear); t <= astroYear(r.endYear); t++) {
-        concurrency[t - t0] += 1;
-      }
-    }
-  }
-  const fromAstro = (t: number) => (t <= 0 ? t - 1 : t);
-  const vacancies: TimelineVacancy[] = [];
-  for (let i = 0; i < concurrency.length; i++) {
-    if (concurrency[i] > 0) continue;
-    let j = i;
-    while (j + 1 < concurrency.length && concurrency[j + 1] === 0) j++;
-    const s = fromAstro(t0 + i);
-    const e = fromAstro(t0 + j);
-    vacancies.push({
-      startYear: s,
-      endYear: e,
-      label: VACANCY_LABELS[`${s}:${e}`] ?? "皇帝不在",
-    });
-    i = j;
-  }
-
-  timelineCache = {
-    startYear,
-    endYear,
-    eras,
-    eraLaneCount: eraLanes.length,
-    bands,
-    laneCount: mainLaneCount + otherLaneCount,
-    mainLaneCount,
-    vacancies,
-    concurrency,
-    maxConcurrency: Math.max(...concurrency),
-  };
-  return timelineCache;
-}
-
-// --- 通史年表v2「大河」ビュー（構築ロジックはtimeline-river.ts） ---
-let riverCache: RiverTimelineData | null = null;
-export function getRiverTimelineData(): RiverTimelineData {
-  riverCache ??= buildRiverTimeline(data.emperors);
-  return riverCache;
-}
-
-// --- 系譜・即位経路グラフ(/kinship。構築ロジックはsrc/lib/kinship/) ---
-//
-// データはdata/kinship.json(succession/parentage/interdynastic/crosscheck完了+
-// 生母フェーズmaternalLineage進行中)。描画スコープはKINSHIP_ENABLED_CHAPTER_IDSの
-// 章のバンドが覆うdynastyKeyで決まり、スコープ外のpersons・エッジはここで除外する
-// (生母調査の進行はビルドに影響しない)。グラフ全体の整合性検証は
-// scripts/validate_kinship.pyの責務で、このローダーはスコープ内の整合性のみを扱う。
-// 章を増やすときはchapters.tsのバンド定義・配色表を更新する(被覆はassertされる)。
-
-interface RawKinshipEdge {
-  type: "succession" | "kinship" | "marriage";
-  from: string;
-  to: string;
-  /** succession のみ。 */
-  category?: string;
-  relationToPredecessor?: string;
-  isRestoration?: boolean;
-  /** kinship のみ。 */
-  relation?: string;
-  /** relation="遠祖" のときの続柄(祖父・曾祖父)。 */
-  relationDetail?: string;
-  childOrder?: number | null;
-  veracity: string;
-  confidence: string;
-  note: string;
-  source: { page: string };
-}
-
-interface RawKinship {
-  persons: {
-    id: string;
-    name: string;
-    kind: string;
-    gender: string;
-    section: string;
-    birthYear: number | null;
-    deathYear: number | null;
-    yearsApproximate: boolean;
-    inclusionReason?: string[];
-  }[];
-  edges: RawKinshipEdge[];
-  genealogicalClaims: {
-    claimant: string;
-    claimedAncestry: string;
-    note: string;
-    source: { page: string };
-  }[];
-}
-
-/** エッジnoteは長文のためRSCペイロード対策で切り詰めて渡す。 */
-function truncateNote(note: string, max = 160): string {
-  return note.length <= max ? note : `${note.slice(0, max)}…`;
-}
-
-let kinshipCache: KinshipChapterLayout[] | null = null;
-export function getKinshipGraphData(): KinshipChapterLayout[] {
-  if (kinshipCache) return kinshipCache;
-  kinshipCache = buildKinshipLayout(getKinshipSource());
-  return kinshipCache;
-}
-
-/**
- * レイアウト計算の入力(章スコープの皇帝・人物・エッジ)。ブラウザの編集モードが
- * 同じ入力でレイアウトを再計算できるよう、/kinship-source(開発時のみ実データ)から
- * 配信する。
- */
-let kinshipSourceCache: KinshipSource | null = null;
-export function getKinshipSource(): KinshipSource {
-  if (kinshipSourceCache) return kinshipSourceCache;
-  const kin = loadKinshipJson() as unknown as RawKinship;
-
-  const enabledDefs = KINSHIP_CHAPTER_DEFS.filter((c) =>
-    KINSHIP_ENABLED_CHAPTER_IDS.includes(c.id),
-  );
-  const scopeDynKeys = new Set(
-    enabledDefs.flatMap((c) => c.bands.flatMap((b) => b.dynastyKeys)),
-  );
-  const covered = data.emperors.filter((e) => scopeDynKeys.has(dynastyKey(e.dynasty)));
-
-  // 「第N代」: 調査済みの reigns[].dynastyOrder を最優先で採用し、無い在位だけ
-  // 在位開始順から導出する(表示用の機械的補完で、調査データの自動生成には
-  // 当たらない。dynastyOrderは374在位中238件がnull)。
-  // dynastyOrder は「王朝自身の代数」で、皇帝として収録した人物だけを数えた
-  // 導出値とは一致しないことが多い:
-  //  (1) 皇帝を称さなかった君主を含む代数(前涼張祚=涼王を含めて第7代・皇帝としては
-  //      1人目、成漢李雄=李特/李流を含めて第3代、前秦苻健=苻洪を含めて第2代など)。
-  //  (2) 同年に複数人が即位した王朝(後趙349年の石世/石遵/石鑑、西燕386年の3人など)は
-  //      startDate が揃わず在位開始順の機械ソートでは前後が入れ替わる。
-  // したがって両者の一致はassertしない(以前は一致を要求していたが、東晋・十六国章の
-  // 追加で上記の正当な不一致が30件超になったため方針を変更)。整合性チェックは
-  // 「同一王朝内で第N代が重複しないこと」に置き換える。
-  // 調査済みの値が1つでもある王朝では、null の在位は「代数に数えない」ものとして
-  // 扱い第N代を出さない(宋の元凶劭・義嘉政権、梁の侯景政権・益州政権など。調査で
-  // 正規の代数を1..Nと連番で与えたうえで、反乱・自称政権にだけ意図的に番号を
-  // 与えなかったもの。ここを在位開始順の導出値で埋めると正規の代数と衝突する
-  // 〔宋: 元凶劭=4が孝武帝と、梁: 侯景政権=2が簡文帝と重複〕)。
-  // 全在位が null の王朝(北朝以降)だけ、従来どおり在位開始順から導出する。
-  const ordinalsById = new Map<string, (number | null)[]>();
-  {
-    const byDynKey = new Map<
-      string,
-      { id: string; idx: number; year: number; date: string; order: number | null }[]
-    >();
-    for (const e of covered) {
-      const key = dynastyKey(e.dynasty);
-      e.reigns.forEach((r, idx) => {
-        byDynKey.set(key, [
-          ...(byDynKey.get(key) ?? []),
-          {
-            id: e.id,
-            idx,
-            year: r.startYear,
-            date: r.startDate ?? "",
-            order: typeof r.dynastyOrder === "number" ? r.dynastyOrder : null,
-          },
-        ]);
-      });
-    }
-    for (const [key, arr] of byDynKey) {
-      arr.sort((p, q) => p.year - q.year || p.date.localeCompare(q.date));
-      const investigated = arr.some((r) => r.order !== null);
-      const seen = new Map<number, string>();
-      arr.forEach((r, i) => {
-        const n = r.order ?? (investigated ? null : i + 1);
-        if (n !== null) {
-          const dup = seen.get(n);
-          if (dup !== undefined)
-            throw new Error(
-              `kinship: ${key} の第${n}代が ${dup} と ${r.id} で重複しています。dynastyOrderの個別確認が必要です`,
-            );
-          seen.set(n, r.id);
-        }
-        const list = ordinalsById.get(r.id) ?? [];
-        list[r.idx] = n;
-        ordinalsById.set(r.id, list);
-      });
-    }
-  }
-
-  const emperors: KinshipSourceEmperor[] = covered.map((e) => {
-    for (const r of e.reigns) {
-      if (typeof r.startYear !== "number" || typeof r.endYear !== "number") {
-        throw new Error(`kinship: ${e.id} の在位年が数値ではありません`);
-      }
-    }
-    return {
-      id: e.id,
-      name: displayName(e.name),
-      // 通用名(諱)は /emperors の一覧カードと同じ導出を使う(ユーザー要望・2026-07-26
-      // 「皇帝一覧ページと同様に皇帝名以外の名前のほうが有名な人物は
-      //  二世皇帝・胡亥のように表示する」)。
-      subName: cardSubtitleOf(e.id, e.name.personalName, displayName(e.name)),
-      dynastyLabel: dynastyLabel(e.dynasty),
-      portraitUrl: portraitIds.has(e.id) ? `${BASE_PATH}/portraits/${e.id}.webp` : null,
-      dynastyKey: dynastyKey(e.dynasty),
-      female: FEMALE_EMPEROR_IDS.has(e.id),
-      routeCategory: e.accessionRoute.category,
-      routeProcedure: e.accessionRoute.axes.procedure,
-      routeDecidedBy: e.accessionRoute.axes.decidedBy,
-      ordinals: ordinalsById.get(e.id)!,
-      reigns: e.reigns.map((r) => ({
-        a: astroYear(r.startYear),
-        b: astroYear(r.endYear),
-        isRestoration: r.isRestoration,
-      })),
-    };
-  });
-
-  // スコープの皇帝から「人物ノードを介して」連結する範囲だけを取り込む。章スコープ外の
-  // 王朝にしか繋がらない人物を持ち込むと、生没年不明者の配置推定(隣接からの緩和)が
-  // 年の判明したノードへ到達できずビルドが落ちるため。皇帝は通過点にしない
-  // (スコープ外皇帝の家系が芋づる式に入るのを防ぐ)。
-  const personIds = new Set(kin.persons.map((p) => p.id));
-  const included = new Set<string>(emperors.map((e) => e.id));
-  // スコープルール6(歴代君主)だけで収録した人物は、血縁・婚姻が原典に一切
-  // 記されずエッジを1本も持たないことがある(西燕第3代の段随＝慕容沖の将)。
-  // エッジの推移閉包では拾えないので先に入れておく(章への配置は
-  // chapters.ts の CHAPTER_EXTRA_PERSONS で明示する)。
-  for (const p of kin.persons) {
-    if (p.inclusionReason?.length === 1 && p.inclusionReason[0] === "歴代君主")
-      included.add(p.id);
-  }
-  for (let grew = true; grew; ) {
-    grew = false;
-    for (const e of kin.edges) {
-      for (const [a, b] of [
-        [e.from, e.to],
-        [e.to, e.from],
-      ] as const) {
-        if (included.has(a) && personIds.has(b) && !included.has(b)) {
-          included.add(b);
-          grew = true;
-        }
-      }
-    }
-  }
-
-  const persons: KinshipSourcePerson[] = kin.persons
-    .filter((p) => included.has(p.id))
-    .map((p) => ({
-      id: p.id,
-      name: p.name,
-      kind: p.kind,
-      section: p.section,
-      female: p.gender === "female",
-      // kinship.jsonの年は既に天文年(KINSHIP_SCHEMA.md)。astroYear()を重ねないこと。
-      // null(不明)はそのまま渡し、配置はlayout側が系譜エッジから推定する。
-      birthYear: p.birthYear,
-      deathYear: p.deathYear,
-      yearsApproximate: p.yearsApproximate,
-    }));
-
-  const edges: KinshipSourceEdge[] = kin.edges
-    .filter((e) => included.has(e.from) && included.has(e.to))
-    .map((e) => ({
-      type: e.type,
-      from: e.from,
-      to: e.to,
-      category: e.category,
-      relationToPredecessor: e.relationToPredecessor,
-      relation: e.relation,
-      relationDetail: e.relationDetail,
-      childOrder: e.childOrder ?? undefined,
-      veracity: e.veracity,
-      confidence: e.confidence,
-      noteExcerpt: truncateNote(e.note),
-      sourcePage: e.source.page,
-    }));
-
-  const claims: KinshipSourceClaim[] = (kin.genealogicalClaims ?? [])
-    .filter((c) => included.has(c.claimant))
-    .map((c) => ({
-      claimant: c.claimant,
-      claimedAncestry: c.claimedAncestry,
-      noteExcerpt: truncateNote(c.note),
-      sourcePage: c.source.page,
-    }));
-
-  kinshipSourceCache = { emperors, persons, edges, claims };
-  return kinshipSourceCache;
 }
 
 export interface PortraitCredit {

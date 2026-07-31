@@ -9,10 +9,10 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
-  /* 見出しも本文と同じサンセリフ。明朝（Noto Serif JP）の指定は
-     水墨文人スタイル前提のものだったので外した。 */
+  /* 見出しも本文と同じサンセリフ。書体は独自に作らない
+     （design-plans/SITE_PLAN.md「配色と書体」）。 */
   --font-heading: var(--font-sans);
-  /* DESIGN.md のタイポスケール6段のうち、Tailwind 既定値に対応がない唯一の段。
+  /* タイポスケール6段のうち、Tailwind 既定値に対応がない唯一の段。
      極小テキストの生px指定（9px〜13px が7種類に散っていた）を1つに集約するための名前。
      他の5段（body/caption/title/section/subsection）は text-sm/text-xs/text-2xl/
      text-xl/text-base と同値なので、同じ値に2つの名前を作らないためトークン化しない。 */
@@ -73,14 +73,15 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  /* DESIGN.md のスペーシングスケール。ページの左右とセクションの上下は共有部品
+  /* スペーシングスケール。ページの左右とセクションの上下は共有部品
      （PageHeader / Section）が供給する契約なので、その所有者が裸の数値クラスでなく
      名前で書けるようトークン化する。値は Tailwind 既定の px-6 / md:px-10 / py-8 と
      同一（1ピクセルも変わらない）。
      block(1.5rem) はトークン化しない: --spacing-block を足すと Tailwind の inline-*
      (inline-size) ユーティリティが名前空間を食って .inline-block{inline-size:1.5rem}
-     を生成し、display ユーティリティの .inline-block と同名衝突する（/timeline・
-     /kinship・円グラフが inline-block を使用中で描画が壊れる。実測で確認）。
+     を生成し、display ユーティリティの .inline-block と同名衝突する（実測で確認。
+     検出時に壊れたのは /timeline・/kinship・円グラフ〔いずれも 2026-07-31 に削除〕だが、
+     衝突そのものは inline-block を使う箇所すべてに効く）。
      Section の「見出しから中身まで」は同値の既定クラス mt-6 で書く。
      stack(0.5rem) と inline(0.375rem) は足さない。現在の呼び出し側がこの段に乗って
      いない（PageHeader の gap-3=0.75rem・Section の gap-2.5=0.625rem・mt-1=0.25rem）
@@ -91,11 +92,12 @@
 }
 
 /*
- * 水墨文人パレット（docs/site-design/LAYOUT.md「デザイン世界観決定」参照）。
- * ダークモードは実装しない方針のため .dark は未定義。
+ * このサイトのパレット。**ここが唯一の正**で、方針と選定理由は
+ * design-plans/SITE_PLAN.md「配色と書体」。配色を独自に作り直さない。
+ * .dark ブロックは受領テーマのまま入っているが、ダークモードは実装していない
+ * （.dark を付与する導線が無いので不活性）。
  * --series-1〜8 は死因/即位経路等のenumカテゴリ用パレット。dataviz skillの
- * デフォルト8色をsurface #F5F1E8に対しvalidate_palette.jsで検証済み（全項目PASS、
- * 4スロットはコントラストWARNのため直接ラベル表示で緩和）。
+ * 検証済み8色を surface #ffffff に対し validate_palette.js で検証済み（下のコメント参照）。
  * 王朝別の識別色は src/lib/dynasty-colors.ts が --series-1〜8 と --kinship-minor へ
  * 割り当てる（87王朝・意味ベース）。これらは生の値で塗らず、必ず color-mix で
  * 地色に混ぜた濃度で使う。
@@ -293,14 +295,15 @@
   }
 
   /*
-   * スクロールバーを水墨文人パレットに調和させる（OS既定の灰色バーは宣紙色の
-   * 背景から浮くため）。淡墨色のつまみ＋透明トラックの細身デザインで統一する。
+   * 細身のスクロールバー（つまみ＋透明トラック）で統一する。OS 既定のバーは白地から浮く。
+   * つまみは --ring の実値 #a1a1a1、ホバーで --muted-foreground の #737373 まで濃くする
+   * （scrollbar-color は CSS 変数を受けないブラウザがあるため実値で書く）。
    * Chrome/Edge/Firefoxは標準のscrollbar-*プロパティを解釈し、その場合
    * ::-webkit-scrollbar系は無視される。::-webkit-*はSafari用のフォールバック。
    */
   * {
     scrollbar-width: thin;
-    scrollbar-color: #c9bda8 transparent;
+    scrollbar-color: #a1a1a1 transparent;
   }
   *::-webkit-scrollbar {
     width: 10px;
@@ -310,12 +313,12 @@
     background: transparent;
   }
   *::-webkit-scrollbar-thumb {
-    background-color: #c9bda8;
+    background-color: #a1a1a1;
     border-radius: 5px;
     border: 2px solid transparent;
     background-clip: padding-box;
   }
   *::-webkit-scrollbar-thumb:hover {
-    background-color: #a89a80;
+    background-color: #737373;
   }
 }

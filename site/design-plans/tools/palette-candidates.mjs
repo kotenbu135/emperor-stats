@@ -39,7 +39,7 @@ export const CANDIDATES = [
   {
     id: "taupe-amber",
     label: "Taupe × Amber",
-    note: "土色のグレーに琥珀。皇帝の黄・絹本の色。紙っぽさは残るが水墨ではない。",
+    note: "土色のグレーに琥珀。皇帝の黄・絹本の色。",
     base: "taupe",
     accent: "amber",
     chart: ["amber-600", "teal-700", "rose-600", "indigo-600", "taupe-500", "lime-700", "orange-600", "sky-700"],
