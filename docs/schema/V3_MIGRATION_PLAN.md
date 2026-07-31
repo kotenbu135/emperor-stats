@@ -4,6 +4,8 @@
 
 **状態: 実装完了（2026-07-29）**。3 コミットで移行し、`validate_emperors.py`／`validate_kinship.py`／`verify_calendar.py`／`verify_quotes.py --check-coverage` の4本すべてが 0 エラー（既存の警告2件のみ）。`emperors.json` は `schemaVersion 3.0.0`、`kinship.json` は `2.0.0`。
 
+**2026-07-31 追記（Issue #27・regimes の分割）**: 本移行では regimes を旧 `dynasty` の `(section, name)` 複合キーから機械導出したが、この前提は不正確だった — **同じ調査ブロックの中で同じ国号を名乗った別勢力が1つの政権に合併する**。隋末群雄の「梁」（梁師都／蕭銑）と「楚」（林士弘／朱粲）の2組4人が該当し、原典（旧唐書 巻五十六）で別政権と確認のうえ `xiaoxian-liang`・`zhucan-chu` を新設して分割した。**政権は 87 → 89 件**、`sortOrder` は 43 以降を +2 で振り直し、`suimo-chu` の label は「楚（隋末）」→「楚（林士弘）」へ改めた。以下の本文にある「87 政権」「`(section, name)` で一意」は移行時点の記述としてそのまま残してある。
+
 - 起点: GitHub Issue #22「データファイルのスキーマ改善」
 - 作業ブランチ: `data-schema-v3`
 - 作成: 2026-07-29
@@ -36,7 +38,7 @@
 
 **(a) `dynasty.section` は調査ブロック名で、時代区分ではない**
 - 31 種。`秦（始皇帝以降）`（＝秦＋前漢）、`新`（＝新＋玄漢）、`宋遼西夏金`（52人）のように調査の都合で切られている
-- 政権単位で一意になるのは `(section, name)` の複合キーで、**87 政権**
+- 政権単位で一意になるのは `(section, name)` の複合キーで、**87 政権**（※この前提は不正確。同一 section 内の同名別政権が合併する — 冒頭の 2026-07-31 追記を参照）
 
 **(b) `dynasty.category` は「政権の性格」と「個人の称帝経緯」の混在**
 - 3 値（正統王朝 214 / 並立政権 106 / 反乱・自称政権 45）だが、**15 政権では同一政権の中に複数 category が同居**する（例: `南朝/梁` に 正統 5・反乱 4、`北朝/北魏` に 正統 12・反乱 3・並立 3）
@@ -128,7 +130,7 @@
 
 ---
 
-## 4. regimes カタログ（87 政権）
+## 4. regimes カタログ（87 政権 ※現在は89政権 — 冒頭の 2026-07-31 追記を参照）
 
 **命名規約**: 小文字 kebab-case。同名国号は方位・人名・時代で修飾（`southern-liang` / `liangshidu-liang` / `later-liang`）。既存の皇帝 `id` の接頭辞（`wudai-houliang-*` 等）とは意図的に別体系にした（皇帝 id は既存資産のため一切変更しない）。
 
@@ -199,8 +201,8 @@
 |---|---|---|---|---|---|---|
 | `sui` | 隋 | 隋 | 581〜619 | 5 | `orthodox` ※混在→§5 | 隋 |
 | `dingyang` | 定楊 | 定楊（劉武周） | 617〜622 | 1 | `coexisting` | 隋末群雄 |
-| `liangshidu-liang` | 梁 | 梁（梁師都） | 617〜628 | 2 | `coexisting` | 隋末群雄 |
-| `suimo-chu` | 楚 | 楚（隋末） | 617〜622 | 2 | `coexisting` | 隋末群雄 |
+| `liangshidu-liang` | 梁 | 梁（梁師都） | 617〜628 | 2 ※ | `coexisting` | 隋末群雄 |
+| `suimo-chu` | 楚 | 楚（隋末） | 617〜622 | 2 ※ | `coexisting` | 隋末群雄 |
 | `xiqin` | 秦（西秦） | 秦（西秦・薛挙） | 617〜618 | 2 | `coexisting` | 隋末群雄 |
 | `liguigui-liang` | 涼 | 涼（李軌） | 618〜619 | 1 | `coexisting` | 隋末群雄 |
 | `tang` | 唐 | 唐 | 618〜907 | 24 | `orthodox` ※混在→§5 | 唐 |
@@ -213,6 +215,8 @@
 | `zhuci-qin` | 秦（漢） | 秦→漢（朱泚） | 783〜784 | 1 | `coexisting` | 唐 |
 | `lixilie-chu` | 楚 | 楚（李希烈） | 784〜786 | 1 | `coexisting` | 唐 |
 | `huangchao-qi` | 斉 | 斉（黄巣） | 881〜884 | 1 | `coexisting` | 唐 |
+
+※ この2政権は同名別政権の合併だった（Issue #27）。2026-07-31 に `xiaoxian-liang`「梁（蕭銑）」618〜621・`zhucan-chu`「楚（朱粲）」618〜621 を分離し、`suimo-chu` は「楚（林士弘）」617〜622（1人）へ改めた。
 
 #### 6. `five-dynasties`（五代十国）
 
@@ -483,7 +487,7 @@ U1〜U6 は §0 の D4〜D9 として確定済み（推奨案どおり）。追�
 
 v3 のスコープ外として明示的に切り出したもの:
 
-- `dynastyOrder` の悉皆調査（51政権・別 Issue。v3 は `dynastyOrderSurveyed` フラグまで）
+- `dynastyOrder` の悉皆調査（51政権〔2026-07-31 の Issue #27 の分割で53政権〕・別 Issue。v3 は `dynastyOrderSurveyed` フラグまで）
 - kinship persons 415人の政権帰属（`regimeId`）。関連して `persons[].posthumous.dynasty`（追尊した王朝名）は自由記述の王朝名のまま残している——政権への参照だが、D10 と同じ理由で v3 では ID 化しない
 - 表示用確定項目の追加（新サイトの画面設計後）
 - `labelEn` の値投入（英語版タスク）

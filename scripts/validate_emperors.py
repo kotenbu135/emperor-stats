@@ -147,7 +147,7 @@ KNOWN_PREACCESSION_EVENTS = {
 # startDate）を検出するのが check_reign_overlap の主目的で、光宗/寧宗の2日不一致（2026-07-22
 # 訂正済み）がこの型だった。ペアは (前在位, 次在位) の "id[reignIndex]" 表記。
 KNOWN_REIGN_OVERLAP = {
-    ("suimo-liangshidu[0]", "suimo-xiaoxian[0]"),      # 同名別政権(梁師都/蕭銑・隋末群雄「梁」)
+    # 梁師都/蕭銑・林士弘/朱粲は 2026-07-31（Issue #27）に regimeId を分割したため許容不要になった
     ("beiwei-xuanwudi[0]", "beiwei-yuanyu[0]"),        # 元愉の冀州反乱称帝(建平)
     ("beizhou-xuandi[0]", "beizhou-jingdi[0]"),        # 宣帝が内禅後も天元皇帝を自称し在位計上
     ("shiguo-min-wangyanxi[0]", "shiguo-min-wangyanzheng[0]"),  # 王延政の建州称帝「殷」並立

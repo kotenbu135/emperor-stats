@@ -600,7 +600,7 @@
     {
      "id": "suimo-chu",
      "name": "楚",
-     "label": "楚（隋末）",
+     "label": "楚（林士弘）",
      "labelEn": null,
      "eraId": "sui-tang",
      "category": "coexisting",
@@ -622,6 +622,30 @@
      "dynastyOrderSurveyed": false
     },
     {
+     "id": "xiaoxian-liang",
+     "name": "梁",
+     "label": "梁（蕭銑）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 618,
+     "endYear": 621,
+     "sortOrder": 43,
+     "dynastyOrderSurveyed": false
+    },
+    {
+     "id": "zhucan-chu",
+     "name": "楚",
+     "label": "楚（朱粲）",
+     "labelEn": null,
+     "eraId": "sui-tang",
+     "category": "coexisting",
+     "startYear": 618,
+     "endYear": 621,
+     "sortOrder": 44,
+     "dynastyOrderSurveyed": false
+    },
+    {
      "id": "liguigui-liang",
      "name": "涼",
      "label": "涼（李軌）",
@@ -630,7 +654,7 @@
      "category": "coexisting",
      "startYear": 618,
      "endYear": 619,
-     "sortOrder": 43,
+     "sortOrder": 45,
      "dynastyOrderSurveyed": false
     },
     {
@@ -642,7 +666,7 @@
      "category": "orthodox",
      "startYear": 618,
      "endYear": 907,
-     "sortOrder": 44,
+     "sortOrder": 46,
      "dynastyOrderSurveyed": false
     },
     {
@@ -654,7 +678,7 @@
      "category": "coexisting",
      "startYear": 618,
      "endYear": 619,
-     "sortOrder": 45,
+     "sortOrder": 47,
      "dynastyOrderSurveyed": false
     },
     {
@@ -666,7 +690,7 @@
      "category": "coexisting",
      "startYear": 619,
      "endYear": 622,
-     "sortOrder": 46,
+     "sortOrder": 48,
      "dynastyOrderSurveyed": false
     },
     {
@@ -678,7 +702,7 @@
      "category": "coexisting",
      "startYear": 619,
      "endYear": 621,
-     "sortOrder": 47,
+     "sortOrder": 49,
      "dynastyOrderSurveyed": false
     },
     {
@@ -690,7 +714,7 @@
      "category": "coexisting",
      "startYear": 623,
      "endYear": 624,
-     "sortOrder": 48,
+     "sortOrder": 50,
      "dynastyOrderSurveyed": false
     },
     {
@@ -702,7 +726,7 @@
      "category": "orthodox",
      "startYear": 690,
      "endYear": 705,
-     "sortOrder": 49,
+     "sortOrder": 51,
      "dynastyOrderSurveyed": false
     },
     {
@@ -714,7 +738,7 @@
      "category": "coexisting",
      "startYear": 756,
      "endYear": 763,
-     "sortOrder": 50,
+     "sortOrder": 52,
      "dynastyOrderSurveyed": false
     },
     {
@@ -726,7 +750,7 @@
      "category": "coexisting",
      "startYear": 783,
      "endYear": 784,
-     "sortOrder": 51,
+     "sortOrder": 53,
      "dynastyOrderSurveyed": false
     },
     {
@@ -738,7 +762,7 @@
      "category": "coexisting",
      "startYear": 784,
      "endYear": 786,
-     "sortOrder": 52,
+     "sortOrder": 54,
      "dynastyOrderSurveyed": false
     },
     {
@@ -750,7 +774,7 @@
      "category": "coexisting",
      "startYear": 881,
      "endYear": 884,
-     "sortOrder": 53,
+     "sortOrder": 55,
      "dynastyOrderSurveyed": false
     },
     {
@@ -762,7 +786,7 @@
      "category": "coexisting",
      "startYear": 907,
      "endYear": 925,
-     "sortOrder": 54,
+     "sortOrder": 56,
      "dynastyOrderSurveyed": false
     },
     {
@@ -774,7 +798,7 @@
      "category": "orthodox",
      "startYear": 907,
      "endYear": 923,
-     "sortOrder": 55,
+     "sortOrder": 57,
      "dynastyOrderSurveyed": false
     },
     {
@@ -786,7 +810,7 @@
      "category": "coexisting",
      "startYear": 911,
      "endYear": 914,
-     "sortOrder": 56,
+     "sortOrder": 58,
      "dynastyOrderSurveyed": false
     },
     {
@@ -798,7 +822,7 @@
      "category": "coexisting",
      "startYear": 917,
      "endYear": 971,
-     "sortOrder": 57,
+     "sortOrder": 59,
      "dynastyOrderSurveyed": false
     },
     {
@@ -810,7 +834,7 @@
      "category": "rebel",
      "startYear": 923,
      "endYear": 937,
-     "sortOrder": 58,
+     "sortOrder": 60,
      "dynastyOrderSurveyed": false
     },
     {
@@ -822,7 +846,7 @@
      "category": "coexisting",
      "startYear": 927,
      "endYear": 937,
-     "sortOrder": 59,
+     "sortOrder": 61,
      "dynastyOrderSurveyed": false
     },
     {
@@ -834,7 +858,7 @@
      "category": "coexisting",
      "startYear": 933,
      "endYear": 945,
-     "sortOrder": 60,
+     "sortOrder": 62,
      "dynastyOrderSurveyed": false
     },
     {
@@ -846,7 +870,7 @@
      "category": "coexisting",
      "startYear": 934,
      "endYear": 965,
-     "sortOrder": 61,
+     "sortOrder": 63,
      "dynastyOrderSurveyed": false
     },
     {
@@ -858,7 +882,7 @@
      "category": "rebel",
      "startYear": 936,
      "endYear": 947,
-     "sortOrder": 62,
+     "sortOrder": 64,
      "dynastyOrderSurveyed": false
     },
     {
@@ -870,7 +894,7 @@
      "category": "coexisting",
      "startYear": 937,
      "endYear": 958,
-     "sortOrder": 63,
+     "sortOrder": 65,
      "dynastyOrderSurveyed": false
     },
     {
@@ -882,7 +906,7 @@
      "category": "orthodox",
      "startYear": 947,
      "endYear": 951,
-     "sortOrder": 64,
+     "sortOrder": 66,
      "dynastyOrderSurveyed": false
     },
     {
@@ -894,7 +918,7 @@
      "category": "orthodox",
      "startYear": 951,
      "endYear": 960,
-     "sortOrder": 65,
+     "sortOrder": 67,
      "dynastyOrderSurveyed": false
     },
     {
@@ -906,7 +930,7 @@
      "category": "coexisting",
      "startYear": 951,
      "endYear": 979,
-     "sortOrder": 66,
+     "sortOrder": 68,
      "dynastyOrderSurveyed": false
     },
     {
@@ -918,7 +942,7 @@
      "category": "orthodox",
      "startYear": 916,
      "endYear": 1128,
-     "sortOrder": 67,
+     "sortOrder": 69,
      "dynastyOrderSurveyed": false
     },
     {
@@ -930,7 +954,7 @@
      "category": "orthodox",
      "startYear": 960,
      "endYear": 1127,
-     "sortOrder": 68,
+     "sortOrder": 70,
      "dynastyOrderSurveyed": false
     },
     {
@@ -942,7 +966,7 @@
      "category": "coexisting",
      "startYear": 1038,
      "endYear": 1227,
-     "sortOrder": 69,
+     "sortOrder": 71,
      "dynastyOrderSurveyed": false
     },
     {
@@ -954,7 +978,7 @@
      "category": "orthodox",
      "startYear": 1115,
      "endYear": 1234,
-     "sortOrder": 70,
+     "sortOrder": 72,
      "dynastyOrderSurveyed": false
     },
     {
@@ -966,7 +990,7 @@
      "category": "orthodox",
      "startYear": 1127,
      "endYear": 1279,
-     "sortOrder": 71,
+     "sortOrder": 73,
      "dynastyOrderSurveyed": false
     },
     {
@@ -978,7 +1002,7 @@
      "category": "coexisting",
      "startYear": 1127,
      "endYear": 1127,
-     "sortOrder": 72,
+     "sortOrder": 74,
      "dynastyOrderSurveyed": false
     },
     {
@@ -990,7 +1014,7 @@
      "category": "coexisting",
      "startYear": 1130,
      "endYear": 1138,
-     "sortOrder": 73,
+     "sortOrder": 75,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1002,7 +1026,7 @@
      "category": "coexisting",
      "startYear": 1132,
      "endYear": 1213,
-     "sortOrder": 74,
+     "sortOrder": 76,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1014,7 +1038,7 @@
      "category": "orthodox",
      "startYear": 1260,
      "endYear": 1370,
-     "sortOrder": 75,
+     "sortOrder": 77,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1026,7 +1050,7 @@
      "category": "coexisting",
      "startYear": 1351,
      "endYear": 1360,
-     "sortOrder": 76,
+     "sortOrder": 78,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1038,7 +1062,7 @@
      "category": "coexisting",
      "startYear": 1355,
      "endYear": 1367,
-     "sortOrder": 77,
+     "sortOrder": 79,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1050,7 +1074,7 @@
      "category": "coexisting",
      "startYear": 1360,
      "endYear": 1364,
-     "sortOrder": 78,
+     "sortOrder": 80,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1062,7 +1086,7 @@
      "category": "coexisting",
      "startYear": 1362,
      "endYear": 1371,
-     "sortOrder": 79,
+     "sortOrder": 81,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1074,7 +1098,7 @@
      "category": "orthodox",
      "startYear": 1370,
      "endYear": 1378,
-     "sortOrder": 80,
+     "sortOrder": 82,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1086,7 +1110,7 @@
      "category": "orthodox",
      "startYear": 1368,
      "endYear": 1644,
-     "sortOrder": 81,
+     "sortOrder": 83,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1098,7 +1122,7 @@
      "category": "rebel",
      "startYear": 1644,
      "endYear": 1645,
-     "sortOrder": 82,
+     "sortOrder": 84,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1110,7 +1134,7 @@
      "category": "orthodox",
      "startYear": 1644,
      "endYear": 1662,
-     "sortOrder": 83,
+     "sortOrder": 85,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1122,7 +1146,7 @@
      "category": "rebel",
      "startYear": 1644,
      "endYear": 1647,
-     "sortOrder": 84,
+     "sortOrder": 86,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1134,7 +1158,7 @@
      "category": "orthodox",
      "startYear": 1636,
      "endYear": 1945,
-     "sortOrder": 85,
+     "sortOrder": 87,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1146,7 +1170,7 @@
      "category": "coexisting",
      "startYear": 1678,
      "endYear": 1681,
-     "sortOrder": 86,
+     "sortOrder": 88,
      "dynastyOrderSurveyed": false
     },
     {
@@ -1158,7 +1182,7 @@
      "category": "coexisting",
      "startYear": 1915,
      "endYear": 1916,
-     "sortOrder": 87,
+     "sortOrder": 89,
      "dynastyOrderSurveyed": false
     }
    ],
@@ -1733,7 +1757,7 @@
     ]
    }
   },
-  "generatedAt": "2026-07-30",
+  "generatedAt": "2026-07-31",
   "count": 365,
   "status": {
    "overall": "completed",
@@ -58047,7 +58071,7 @@
     "regnalTitle": "皇帝"
    },
    "eraId": "sui-tang",
-   "regimeId": "liangshidu-liang",
+   "regimeId": "xiaoxian-liang",
    "researchSection": "隋末群雄",
    "standing": "regular",
    "reigns": [
@@ -58817,7 +58841,7 @@
     "regnalTitle": "皇帝"
    },
    "eraId": "sui-tang",
-   "regimeId": "suimo-chu",
+   "regimeId": "zhucan-chu",
    "researchSection": "隋末群雄",
    "standing": "regular",
    "reigns": [

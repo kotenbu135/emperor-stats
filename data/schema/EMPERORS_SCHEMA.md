@@ -22,7 +22,7 @@
 | `schemaVersion` | string | semver。スキーマに破壊的変更があれば上げる |
 | `generatedAt` | string (`YYYY-MM-DD`) | データ最終更新日 |
 | `count` | number | `emperors` 配列の件数（365件、手動同期） |
-| `catalogs` | object | **v3 で新設**。`eras`（時代11区分）・`regimes`（政権87件）・`enums`（フィールドごとの ID→ラベル19種）。下記参照 |
+| `catalogs` | object | **v3 で新設**。`eras`（時代11区分）・`regimes`（政権89件）・`enums`（フィールドごとの ID→ラベル19種）。下記参照 |
 | `status` | object | 調査フェーズの進捗管理（下記） |
 | `completedBlocks` | string[] | 在位データ調査が完了した王朝ブロック名の一覧（24ブロック。単純な文字列配列で、除外判断等の詳細は各人物レコードの `verification.notes` 側に記録） |
 
@@ -33,7 +33,7 @@
 | フィールド | 内容 |
 |---|---|
 | `eras[]` | 時代区分11件。`id`（例 `sui-tang`）・`label`（隋・唐）・`labelEn`（未投入・null）・`sortOrder`。**調査ブロック（`researchSection`）とは独立**した、時代ジャンプ・並び順のための固定カタログ。時代は慣用区分で年代は排他区間ではない（北魏 399〜 は南北朝、遼 916〜 は宋遼金夏） |
-| `regimes[]` | 政権87件。`id`・`name`（国号）・`label`（曖昧性のない表示名）・`labelEn`・`eraId`・`category`（`orthodox`／`coexisting`／`rebel`）・`startYear`/`endYear`・`sortOrder`・`dynastyOrderSurveyed` |
+| `regimes[]` | 政権89件。`id`・`name`（国号）・`label`（曖昧性のない表示名）・`labelEn`・`eraId`・`category`（`orthodox`／`coexisting`／`rebel`）・`startYear`/`endYear`・`sortOrder`・`dynastyOrderSurveyed` |
 | `enums` | フィールド名 → `[{id,label,labelEn,description?}]` の19種（`regimeCategory`・`emperorStanding`・`accessionCategory`・軸6種・`relationToPredecessor`・`deathCause`・`confidence`・`datePrecision`、および kinship.json 用の5種 `kinshipPersonKind`・`kinshipInclusionReason`・`kinshipRelation`・`kinshipRelationDetail`・`kinshipSuccessionCategory`）。**ID はフィールド内で一意**（フィールドをまたぐ同名 ID は別物） |
 
 `regimes[].startYear`/`endYear` は**表示用のヒントであって権威ある区間ではない**（唐 618〜907 の内側に武周 690〜705 が入るなど入れ子・重複しうる）。
@@ -96,7 +96,9 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 
 **旧 `dynasty.category` を2つに割った理由**: 旧値は「政権の性格」と「その人の称帝経緯」が混在しており、「反乱・自称政権」45人の中に明成祖（永楽帝）・清太宗・後唐荘宗・金世宗・南宋端宗など**その政権の正規の皇帝**が多数含まれていた。v3 では政権の性格を `regimes[].category`（`orthodox`／`coexisting`／`rebel`）に、人物の位置づけを `standing` に分離し、即位の経緯は `accessionRoute` が担う。判定の詳細は [V3_MIGRATION_PLAN.md](../../docs/schema/V3_MIGRATION_PLAN.md) §5。
 
-**同名国号の区別**: `梁`（蕭梁と隋末の梁師都政権）・`宋`（劉宋と元末の韓林児「宋」）・`呉`（三国の呉と五代十国の楊呉）・`夏`（十六国の赫連夏と元末の明玉珍「夏」）など、全く別の政権が同じ国号を名乗る例が複数ある。v3 では `regimeId` が一意なのでフィルタUIはこの ID で構成し、表示は `regimes[].label`（例:「梁（蕭梁）」「梁（梁師都）」）を使う。
+**同名国号の区別**: `梁`（蕭梁・隋末の梁師都政権・隋末の蕭銑政権の三者）・`楚`（隋末の林士弘政権と朱粲政権・唐の李希烈「楚」）・`宋`（劉宋と元末の韓林児「宋」）・`呉`（三国の呉と五代十国の楊呉）・`夏`（十六国の赫連夏と元末の明玉珍「夏」）など、全く別の政権が同じ国号を名乗る例が複数ある。v3 では `regimeId` が一意なのでフィルタUIはこの ID で構成し、表示は `regimes[].label`（例:「梁（蕭梁）」「梁（梁師都）」「梁（蕭銑）」）を使う。
+
+**同じ調査ブロック内の同名国号も別政権として立てる**（2026-07-31・Issue #27）: v3 移行時、regimes は旧 `dynasty` の `(name, section)` 複合キーから機械的に導出したため、**同じ `researchSection` 内で同じ国号を名乗った別勢力が1つの `regimeId` に合併していた**。隋末群雄の「梁」（梁師都＝夏州朔方・建元永隆／蕭銑＝後梁蕭氏の後裔・江陵）と「楚」（林士弘＝虔州・建元太平／朱粲＝冠軍・建元昌達）の2組4人が該当し、旧唐書 巻五十六で出自・拠点・元号がいずれも別と確認のうえ `xiaoxian-liang`・`zhucan-chu` を新設して分割した。**国号が同じでも継承関係のない勢力は `regimeId` を分ける**（`regimes[].startYear`/`endYear` が両勢力の合併区間になる・王朝別集計が混ざる）。
 
 ### `reigns[]`
 在位期間の配列。複数回即位した人物（廃位後の復位など）は同一レコード内でここに複数要素を持つ（レコードは分けない）。各要素:

@@ -12,7 +12,7 @@
 
 **2026-07-20追記**: 通史年表の設計検討中に収録漏れが判明し、唐哀帝（李柷、`tang-aidi`、904-907年在位）を追加調査・収録しました。全12項目を原典（旧唐書・資治通鑑）で個別調査済みです。**現在の収録人数は365人**（以下のチェックリスト内の「364人」表記は2026-07-18時点の記録であり、この訂正前の値です）。
 
-**2026-07-29追記（スキーマ v3・Issue #22）**: 新サイトをゼロベースで作り直すため、データ構造を v3 へ移行した（`schemaVersion` 3.0.0 / kinship.json 2.0.0）。`meta.catalogs`（時代11区分・政権87件・enum19種〔うち5種は kinship.json 用。2026-07-30 に4種を追加投入〕）を新設し、`dynasty` を `eraId`/`regimeId`/`researchSection`/`standing` に解体、全 enum を安定 ID 化、`accessionRoute.category` と `flags.selfProclaimed` を廃止した。**判定内容（データ値）は変更していない**。設計・判定根拠・スコープ外にした項目は [docs/schema/V3_MIGRATION_PLAN.md](schema/V3_MIGRATION_PLAN.md) を参照。v3 で持ち越した宿題は「`dynastyOrder`（第N代）が51政権で未調査＝`dynastyOrderSurveyed: false`」と「kinship persons の政権帰属（`regimeId`）」の2件で、いずれも別 Issue 扱い。
+**2026-07-29追記（スキーマ v3・Issue #22）**: 新サイトをゼロベースで作り直すため、データ構造を v3 へ移行した（`schemaVersion` 3.0.0 / kinship.json 2.0.0）。`meta.catalogs`（時代11区分・政権87件〔2026-07-31 に Issue #27 の分割で89件〕・enum19種〔うち5種は kinship.json 用。2026-07-30 に4種を追加投入〕）を新設し、`dynasty` を `eraId`/`regimeId`/`researchSection`/`standing` に解体、全 enum を安定 ID 化、`accessionRoute.category` と `flags.selfProclaimed` を廃止した。**判定内容（データ値）は変更していない**。設計・判定根拠・スコープ外にした項目は [docs/schema/V3_MIGRATION_PLAN.md](schema/V3_MIGRATION_PLAN.md) を参照。v3 で持ち越した宿題は「`dynastyOrder`（第N代）が51政権で未調査＝`dynastyOrderSurveyed: false`」（2026-07-31 の Issue #27 の分割で53政権になった。新設2政権は所属1人ずつ）と「kinship persons の政権帰属（`regimeId`）」の2件で、いずれも別 Issue 扱い。
 
 **2026-07-31追記（サイト再構築・トップページ完成）**: ブランチ `site-rebuild-tremor` で、**Next 16 + Tailwind v4 + shadcn/ui を土台に、見た目を Tremor Blocks（MIT・vendoring）から供給する**方式へ乗り換えた。この日に確定したのは以下。**サイトはまだ作り替えの途中で、下の「サイト実装の状況（2026-07-18完了）」節はこの追記より古い。**
 
@@ -194,7 +194,11 @@
 
 ## サイト実装で見つかったデータ品質の申し送り事項
 
-サイト実装（`site/`）を進める中で発見した、`data/emperors.json` 側の是正が望ましい点。現時点で未対応の申し送りはなし（以下は解消記録）。
+サイト実装（`site/`）を進める中で発見した、`data/emperors.json` 側の是正が望ましい点。
+
+- **【データ側は解消済み・サイト側が未対応 2026-07-31／Issue #27】隋末群雄の同名別政権が1つの `regimeId` に合併していた**: v3 移行時に regimes を旧 `dynasty` の `(section, name)` から機械導出したため、「梁」（梁師都／蕭銑）と「楚」（林士弘／朱粲）の2組4人が合併していた。原典で別政権と確認し `xiaoxian-liang`・`zhucan-chu` を新設して分割済み（政権87→89件）。**ただしサイトの表示はまだ分離されない** — `site/src/lib/emperors.ts` の `dynastyKey` が `国号__researchSection`、`dynastyLabel` も国号ベースで、`data-source.ts` が渡す `dynasty.name` は `regimes[].label` ではなく `regimes[].name`（＝「梁」「楚」）だから。分離するには `dynastyKey`/`dynastyLabel` を `regimeId`/`regimeLabel` 基準へ移す改修が要る（`DYNASTY_COLOR_SLOT` のキーもそれに追従。逆に、分割しただけでは新しい dynastyKey は生まれないのでビルドは落ちない）。近道に見える「`data-source.ts` で `dynasty.name` に `label` を入れる」は89政権すべての表示名が変わり `assertLabels()` と `DYNASTY_COLOR_SLOT` の全キーに波及するので不可
+
+以下は解消記録。
 
 - **【解消済み 2026-07-21】`name.commonName` が `null` のレコードが2件存在する**: `xia-helianchang`（赫連昌）・`xia-heliading`（赫連定）、いずれも五胡十六国「夏（赫連夏）」。[EMPERORS_SCHEMA.md](../data/schema/EMPERORS_SCHEMA.md) 上は `commonName` は `string`（非null）のはずだが、実データではこの2件が未設定だった（2026-07-18発見）。→ 2026-07-21、データセット内で確立済みの慣行（廟号・諡号を持たない皇帝は諱を通称に用いる。曹芳・孫亮・石世など約30件で既に採用）に合わせ、両件とも `commonName` に諱（赫連昌・赫連定）を設定して解消。同時に配布スキーマ（`data/schema/emperors.schema.json`）の `commonName` を非null必須（`type: "string"`・`minLength: 1`）へ厳格化し、`scripts/validate_emperors.py` にも非空文字列チェックを追加して再発を CI で検出できるようにした。サイト側の `displayName()` フォールバックは防御的に維持している。
 
