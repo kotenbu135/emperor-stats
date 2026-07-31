@@ -131,7 +131,7 @@ zh.wikipedia のダンプ（`dumps.wikimedia.org/zhwiki/latest/`、2026-07-06時
 
 肖像画は `data/emperors.json` には一切持たせていない（ファイルの存在で決まる）ため、**データ項目の訂正ではなくサイトのアセット修正**として扱う。`meta.status` は変更しない。
 
-1. `data/images/portraits/{id}.jpg`（幅500pxサムネイル）
+1. `data/images/portraits/{id}.jpg`（幅500pxサムネイル）。**除外するときはこのファイル自体を消す** — manifest からエントリを外すだけだと `python3 scripts/validate_emperors.py` が「manifest に載っていないファイル」でエラーになり、**GitHub Pages のデプロイが gate で止まる**（2026-07-31 の6件除外はここを踏み、`main` を push した時点で初めて落ちた。サイト側のビルドは通るので site だけ検証しても見つからない）
 2. `data/images/portraits/manifest.json` のエントリ。**`focusY`（顔の位置）を必ず入れる** — 肖像がある全員に無いとサイトのビルドが落ちる（`site/src/lib/emperors.ts`）。入れ忘れを黙って上寄せに落とすと顔が下半分に沈む
 3. `docs/site-design/mockups/card-preview/{id}.webp` ← **サイトが実際に配信する実体はこちら**。360×480に`cover`＋上寄せでクロップ、WebP quality 65（**カードのどこを切るかは実体ではなく `focusY` で決まる**ので、この生成手順は変えない）
 4. `site/public/portraits/` は `site/scripts/sync-portraits.mjs` が`prebuild`で同期する（同期元から消えた肖像は public 側からも削除される）
