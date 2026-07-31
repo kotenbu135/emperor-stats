@@ -31,8 +31,8 @@
   --container-content: 75rem;
   --color-seal: var(--seal);
   --color-bar: var(--bar);
-  --color-bar-accession: var(--bar-accession);
-  --color-bar-death: var(--bar-death);
+  --color-bar-campaign: var(--bar-campaign);
+  --color-bar-era-change: var(--bar-era-change);
   --color-seal-foreground: var(--seal-foreground);
   --color-series-1: var(--series-1);
   --color-series-2: var(--series-2);
@@ -189,14 +189,18 @@
      赤茶（terracotta）にして、白地に対する存在感と黒文字の可読性を両立させる。
      実測: 本文色(--foreground)とのコントラスト 6.57、白地との明度差 3.01。 */
   --bar: oklch(0.68 0.115 38);
-  /* 即位年齢・没年齢タブの棒。3指標はタブで排他表示なので同時に並ばず、
+  /* 親征回数・改元回数タブの棒。3指標はタブで排他表示なので同時に並ばず、
      隣接ペアのCVD分離ではなく **--bar と同じ「読みやすさ」に揃える**ことが条件
      — 黒文字とのコントラストと白地との明度差を --bar（6.57 / 3.01）へ寄せてある。
      明度を上げると黒文字は読みやすくなるが棒が白地に溶けるので、両方を計算で確認した
      （目視で選ばない・OKLab→sRGB を Node で計算）。
-     実測: --bar-accession 6.46 / 3.07、--bar-death 6.63 / 2.99。 */
-  --bar-accession: oklch(0.66 0.1 240); /* 藍 */
-  --bar-death: oklch(0.66 0.095 150); /* 苔緑 */
+     実測: --bar-campaign 6.46 / 3.07、--bar-era-change 6.63 / 2.99。
+     **値は旧 --bar-accession / --bar-death（即位年齢・没年齢タブ）から動かしていない**
+     — 2026-08-01 にタブを親征・改元へ差し替えた際、名前と用途がずれたまま残さないよう
+     改名だけした（実測値はそのまま生きる）。改名は @theme の --color-bar-* 側と対で行うこと
+     （:root だけ変えると bg-bar-* ユーティリティが生成されず、棒が無色のままビルドは通る）。 */
+  --bar-campaign: oklch(0.66 0.1 240); /* 藍 */
+  --bar-era-change: oklch(0.66 0.095 150); /* 苔緑 */
 
   /* 系譜図の並立政権カプセル用。無彩色寄りで系列色のどれとも被らせない。 */
   --kinship-minor: oklch(0.708 0 0);

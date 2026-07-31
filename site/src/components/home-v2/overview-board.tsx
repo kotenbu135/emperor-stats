@@ -81,21 +81,22 @@ function PanelHeading({
 /**
  * 指標ごとの棒の色。3指標はタブで排他表示なので同時に並ばず、隣接ペアの
  * 見分けではなく「黒文字が乗る明るさ」と「白地での存在感」を --bar に揃えて選んである
- * （実測値は globals.css の --bar / --bar-accession / --bar-death のコメント）。
- * タブを増やしたらここと globals.css の両方にトークンを足す（既定は --bar に落ちる）。
+ * （実測値は globals.css の --bar / --bar-campaign / --bar-era-change のコメント）。
+ * タブを増やしたらここと globals.css の**両方**にトークンを足す
+ * （未定義キーは既定の --bar に無言で落ちる。globals.css 側は :root と @theme が対）。
  */
 const BAR_CLASS_BY_METRIC: Record<string, string> = {
   reign: "bg-bar",
-  "accession-age": "bg-bar-accession",
-  "death-age": "bg-bar-death",
+  campaign: "bg-bar-campaign",
+  "era-change": "bg-bar-era-change",
 };
 
 /**
  * ランキング1タブ分の中身（説明・リンク・横棒リスト）。
  *
- * タブごとに行数が違う（在位10・即位年齢12・没年齢11。同値を切らないため）。
- * いちばん多いタブに合わせて高さを固定すると、既定タブ（在位期間）の下に
- * 2行分の空白が戻るので、**高さは固定しない** — 切り替えでカードが伸縮する。
+ * **3タブとも10行ちょうど**（`topByValue` が同値をまたいでも切る）。行数では高さが
+ * 揃うが、説明文の折り返し行数はタブで変わるので**高さは固定しない**
+ * — 高い方に合わせると短い説明のタブで下に空白が戻る。
  */
 function RankingPanel({ panel }: { panel: HomeRankingPanel }) {
   // 棒の長さは ratio（1位を1とした相対長）をそのまま使う。
@@ -112,7 +113,8 @@ function RankingPanel({ panel }: { panel: HomeRankingPanel }) {
 
   return (
     <>
-      {/* 行き先がある指標だけリンクを出す（年齢2指標は /ages 廃止で null）。 */}
+      {/* 行き先がある指標だけリンクを出す。在位期間は /database の在位年数降順へ、
+          親征・改元は行き先が無い（/database は回数系の列を持たない）ので null。 */}
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <p className="text-sm text-muted-foreground">{panel.description}</p>
         {panel.href && panel.linkLabel ? (

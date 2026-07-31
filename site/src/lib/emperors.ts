@@ -1337,90 +1337,28 @@ function reignDeathBands(records: EmperorRecord[]): HomeReignDeath {
 
 
 /**
- * ISO日付（"1711-09-25"・"-0086-03-29"）を通日へ。差の比較にしか使わないので
- * 基準日は任意（先発グレゴリオ暦の通日）。`new Date()` は4桁の負の年を
- * 受け付けないため自前で計算する。
- */
-function toDayNumber(iso: string | null | undefined): number | null {
-  if (!iso) return null;
-  const m = /^(-?\d{1,6})-(\d{2})-(\d{2})$/.exec(iso);
-  if (!m) return null;
-  const year = Number(m[1]);
-  const month = Number(m[2]);
-  const day = Number(m[3]);
-  const a = Math.floor((14 - month) / 12);
-  const y = year + 4800 - a;
-  const mo = month + 12 * a - 3;
-  return (
-    day +
-    Math.floor((153 * mo + 2) / 5) +
-    365 * y +
-    Math.floor(y / 4) -
-    Math.floor(y / 100) +
-    Math.floor(y / 400) -
-    32045
-  );
-}
-
-/**
- * 同じ数え年の中を「日まで」比べるための実日数。生没日・即位日が
- * どちらも日精度のときだけ求まる（没年齢は269名中71名、即位年齢は172名中62名）。
- * 求まらない人物は同値の並べ替えで在位日数→idへ落とす（下の topByValue）。
- */
-function buildExactAgeDays(): {
-  life: Map<string, number>;
-  accession: Map<string, number>;
-} {
-  const life = new Map<string, number>();
-  const accession = new Map<string, number>();
-  for (const e of data.emperors) {
-    const ages = e.ages;
-    if (!ages) continue;
-    const birth =
-      normalizeDatePrecision(ages.birthDatePrecision) === "day"
-        ? toDayNumber(ages.birthDate)
-        : null;
-    if (birth === null) continue;
-    if (normalizeDatePrecision(ages.deathDatePrecision) === "day") {
-      const death = toDayNumber(ages.deathDate);
-      if (death !== null) life.set(e.id, death - birth);
-    }
-    const first = e.reigns[0];
-    if (first && normalizeDatePrecision(first.datePrecision?.start) === "day") {
-      const start = toDayNumber(first.startDate);
-      if (start !== null) accession.set(e.id, start - birth);
-    }
-  }
-  return { life, accession };
-}
-
-/**
  * 指標の降順で上位 topCount 名ちょうどを取り出す。棒の相対長（ratio）は1位を1とした比。
  *
- * 年齢は同値が多く、10位に同値が並ぶと行数が増えてカードの高さが変わってしまうため、
- * **同値は日まで下りて順序を決めて必ず topCount 名で切る**（ユーザー判断・2026-07-31）。
- * 日数が求まらない場合は在位日数→id の順で必ず一意に決める（表示順を安定させるため）。
- * 同率を含む正しい順位は各ランキングページ（competition ranking）が持つ。
+ * **同値が10位をまたいでも必ず topCount 名で切る**（ユーザー判断・2026-07-31）。
+ * 同値で行数が増えるとタブを切り替えるたびにカードの高さが変わるため。
+ * 回数系の指標は「日まで下りる」ような副次キーを持たないので、同値は
+ * 在位日数→id の順で一意に決める（表示順を安定させるためだけの順序で、
+ * 順位の主張ではない）。同率を含む正しい順位は各ランキング面が持つ。
+ *
+ * この切り捨てで枠外に出る人数は指標ごとに違う（2026-08-01 実測: 親征は10位が6回で
+ * 同値4名のうち1名、改元は10位が7回で同値5名のうち4名が枠外）。
  */
 function topByValue(
   records: EmperorRecord[],
   valueOf: (r: EmperorRecord) => number | null,
   labelOf: (r: EmperorRecord, value: number) => string,
   topCount: number,
-  tieBreakOf?: (r: EmperorRecord) => number | null,
 ): { rows: HomeRankedEmperor[]; total: number } {
   const eligible = records
     .map((r) => ({ r, value: valueOf(r) }))
     .filter((e): e is { r: EmperorRecord; value: number } => e.value !== null)
     .sort((a, b) => {
       if (b.value !== a.value) return b.value - a.value;
-      const ta = tieBreakOf?.(a.r) ?? null;
-      const tb = tieBreakOf?.(b.r) ?? null;
-      if (ta !== tb) {
-        if (ta === null) return 1;
-        if (tb === null) return -1;
-        return tb - ta;
-      }
       if (b.r.reignApproxDays !== a.r.reignApproxDays) {
         return b.r.reignApproxDays - a.r.reignApproxDays;
       }
@@ -1456,28 +1394,34 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
   const records = getAllEmperorRecords();
   const total = records.length;
 
-  const exactDays = buildExactAgeDays();
   const reign = topByValue(
     records,
     (r) => r.reignApproxDays,
     (r) => r.reignDurationLabel,
     topCount,
   );
-  const accessionAge = topByValue(
+  const campaign = topByValue(
     records,
-    (r) => r.accessionAge,
-    (_r, value) => `${value}歳`,
+    (r) => r.personalCampaignCount,
+    (_r, value) => `${value}回`,
     topCount,
-    (r) => exactDays.accession.get(r.id) ?? null,
   );
-  const deathAge = topByValue(
+  const eraChange = topByValue(
     records,
-    (r) => r.deathAge,
-    (_r, value) => `${value}歳`,
+    (r) => r.eraChangeCount,
+    (_r, value) => `${value}回`,
     topCount,
-    (r) => exactDays.life.get(r.id) ?? null,
   );
   const longestReigns = reign.rows;
+
+  // 回数系の母集団の内訳は `topByValue` の total から取れない。total は
+  // 「値が null でない人数」＝365名で、0回の人物を含むため（`computeRanks` 側の
+  // `isRanked` は0回を順位から外しており基準が違う）。説明文に出す「1回以上」は
+  // ここで数える（データ訂正で動く数字なので文言に焼き込まない）。
+  const campaignActive = records.filter(
+    (r) => r.personalCampaignCount > 0,
+  ).length;
+  const eraChangeActive = records.filter((r) => r.eraChangeCount > 0).length;
 
   const rankings: HomeRankingPanel[] = [
     {
@@ -1489,23 +1433,26 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
       linkLabel: `全${reign.total}名の順位 →`,
       rows: reign.rows,
     },
+    // 親征・改元は下層の統計ページを持たない（/database は回数系の列を持たない）ため
+    // href は null。年齢2タブと違い**0回が実在するので母集団は365名全員**で、
+    // 「判明者のみ」の但し書きは要らない代わりに0回の人数を出す。
     {
-      key: "accession-age",
-      label: "即位年齢",
-      description: `数え年で即位年齢が高齢だった人物`,
-      valueHeader: "即位時",
+      key: "campaign",
+      label: "親征回数",
+      description: `皇帝自身が軍を率いて出征した回数。${total}名全員が母集団で、1回以上が${campaignActive}名、${total - campaignActive}名は一度も親征していない`,
+      valueHeader: "回数",
       href: null,
       linkLabel: null,
-      rows: accessionAge.rows,
+      rows: campaign.rows,
     },
     {
-      key: "death-age",
-      label: "没年齢",
-      description: `数え年で没年齢が高齢だった人物`,
-      valueHeader: "没時",
+      key: "era-change",
+      label: "改元回数",
+      description: `即位に伴う建元も1回に数えた改元の回数。${total}名全員が母集団で、1回以上が${eraChangeActive}名、${total - eraChangeActive}名は一度も改元していない`,
+      valueHeader: "回数",
       href: null,
       linkLabel: null,
-      rows: deathAge.rows,
+      rows: eraChange.rows,
     },
   ];
 
