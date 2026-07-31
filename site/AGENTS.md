@@ -34,7 +34,7 @@ node tools/capture-site.mjs   # out/ を静的配信して全ページの確認�
 
 ## データ読み込みはビルド時のみ
 
-`src/lib/emperors.ts` が `fs` で `../data/emperors.json`・肖像画 `manifest.json`・`../data/emperor-videos.json`（`../data/youtube-playlist.json` と合成し `EmperorRecord.videos` を生成）を読み、集計関数群を提供する。各ページ（`src/app/*/page.tsx`）は Server Component で集計し、`"use client"` のコンポーネントへ props で渡す。
+`src/lib/emperors.ts` が `fs` で `../data/emperors.json`・肖像画 `manifest.json`・`../data/emperor-videos.json`（`../data/youtube-playlist.json` と合成し `EmperorRecord.videos` を生成）・`../data/emperor-profiles.json`（紹介文）を読み、集計関数群を提供する。各ページ（`src/app/*/page.tsx`）は Server Component で集計し、`"use client"` のコンポーネントへ props で渡す。
 
 **クライアント側から `emperors.ts` を import しない。** この Server/Client 境界を崩すと `data/emperors.json`（約7MB）がバンドルに入る。
 
@@ -57,6 +57,16 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 2026-08-01 に詳細ダイアログを廃止（カードは個別ページへ素の遷移）した時点で、フルレコードを取りに行く先だった Route Handler `app/emperor-records/[id]/route.ts` と経緯 JSON `public/emperor-notes/`（`scripts/build-emperor-notes.mjs`）は消えている。**この契約は分離の理由が「ダイアログ用のfetch元を分ける」から「一覧のRSCペイロードを188KBに留める」へ変わっただけで、そのまま生きている。**
 
 `/database` も同じ理由で専用レコード `EmperorTableRecord`（`getEmperorTableRecords()`）を持つ。**`EmperorListRecord` と流用し合わないこと** — 図鑑カードの10フィールドと表の8列は一致せず、片方に必要なフィールド（`searchKana`・`portraitUrl` / `reignApproxDays`・`deathAge`）を相互に持ち込むと両方のペイロードが太る。列を足すときは `EmperorTableRecord` → `getEmperorTableRecords()` → `emperor-table.tsx` の `COLUMNS` の3箇所をそろえる。**列数は `emperor-types.ts` の `DATABASE_COLUMN_COUNT` が単一情報源**（OGP画像の事実カードがこの値を出す）で、`COLUMNS.length` との突合 assert があるため増減時は同時に直す。
+
+## 皇帝個別ページで静的HTMLから本文を落とさない
+
+`/emperors/[id]` の365ページは**皇帝名での検索結果に出ること**が目的（GitHub Issue #16）なので、本文が静的HTMLに載っていることが前提の面。
+
+- **`ui/accordion.tsx` を本文に使わない。** `forceMount` を渡していないので閉じた本文が DOM から消える。畳むなら素の `<details>`（閉じていても DOM に残る）。在位中の出来事は「先頭20件＋残りを `<details>`」で、宋高宗（223件）でも全件が `out/emperors/nansong-gaozong.html` に載る
+- **受け入れ確認は行数ではなく末尾のテキストでとる。** 畳み方を間違えたときに落ちるのは末尾なので `grep -c` の件数では検出できない
+- **20件の境目は種別フィルタで絞ったあとの集合に対して数える**（元の集合を基準にすると `<details>` が空になる・件数表示が嘘になる）
+
+紹介文は `../data/emperor-profiles.json`（`emperors.json` とは別ファイル）。**存在しない皇帝idのキーがあるとビルドが落ちる**（`kana-readings`・`DYNASTY_COLOR_SLOT` と同じ書き間違い検出の assert）。未執筆でもページは成立する作りなので、フィールドが無い皇帝では紹介文の節が出ず `description` は機械生成文に落ちる。
 
 ## ページを1枚足すときに揃える3箇所
 

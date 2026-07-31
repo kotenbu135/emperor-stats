@@ -1,21 +1,30 @@
-// 皇帝個別ページ（deep-link先）。詳細ダイアログと同じ内容を固定URLで共有できる
-// 静的ページとして全収録皇帝分を書き出す。表示本体はemperor-detail-body.tsx（共用）。
+// 皇帝個別ページ（365ページ・静的書き出し）。
+//
+// 2026-08-01 に「ヒーロー＋盤面＋読み物」へ組み直した（EMPEROR_PAGE_PLAN_2026-08-01.md）。
+// それまでは詳細ダイアログと表示本体（emperor-detail-body.tsx）を共用する
+// deep-link 先で、先頭は名前1行・肖像は基本情報の脇の144px枠だった。
+// ダイアログの廃止で共用相手が消えたため、部品ごと個別ページ専用に割り直してある。
+//
+// 節の並び: ①ヒーロー ②紹介文 ③基本情報＋回数 ④経緯 ⑤在位中の出来事
+// ⑥関連動画・典拠と調査メモ・前後ナビ。
 
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
-import { PageHeader } from "@/components/layout/page-header";
+import { EmperorHero } from "@/components/emperors/emperor-hero";
+import { EmperorFacts } from "@/components/emperors/emperor-facts";
+import { EmperorVideosSection } from "@/components/emperors/emperor-videos";
 import {
-  EmperorDetailBody,
-  EmperorVideosSection,
-  dynastyContextLabel,
-} from "@/components/emperors/emperor-detail-body";
-import { EmperorNarrativeSections } from "@/components/emperors/emperor-narrative";
+  EmperorNarrativeSections,
+  EmperorResearchDetails,
+} from "@/components/emperors/emperor-narrative";
 import { EmperorEventTimeline } from "@/components/emperors/emperor-event-timeline";
 import {
+  dynastyContextLabel,
   getAllEmperorRecords,
   getEmperorEvents,
   getEmperorNarrative,
+  getEmperorProfile,
   getEmperorStructuredDates,
 } from "@/lib/emperors";
 import {
@@ -33,6 +42,17 @@ export function generateStaticParams(): { id: string }[] {
   return getAllEmperorRecords().map((r) => ({ id: r.id }));
 }
 
+/**
+ * 紹介文（Issue #16）があればそれを description に使う。
+ * 無い皇帝は従来の機械生成文（365ページとも同型で人物ごとの差がほぼ無い）に落ちる。
+ */
+function descriptionOf(id: string, record: ReturnType<typeof getAllEmperorRecords>[number]): string {
+  return (
+    getEmperorProfile(id)?.description ??
+    `${dynastyContextLabel(record)}の皇帝 ${record.name} の調査結果。在位${record.periodsLabel}（${record.reignDurationLabel}）、死因・即位経路・改元回数など全12項目と全皇帝中の順位を掲載しています。`
+  );
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -43,7 +63,7 @@ export async function generateMetadata({
   return buildMetadata({
     path: `/emperors/${id}`,
     title: `${record.name}（${dynastyContextLabel(record)}）`,
-    description: `${dynastyContextLabel(record)}の皇帝 ${record.name} の調査結果。在位${record.periodsLabel}（${record.reignDurationLabel}）、死因・即位経路・改元回数など全12項目と全皇帝中の順位を掲載しています。`,
+    description: descriptionOf(id, record),
   });
 }
 
@@ -57,6 +77,8 @@ export default async function EmperorPage({
   const records = getAllEmperorRecords();
   const index = records.findIndex((r) => r.id === id);
   const record = records[index];
+  const narrative = getEmperorNarrative(id);
+  const profile = getEmperorProfile(id);
   // 収録順（おおむね時代順）の前後の皇帝。端では表示しない。
   const prev = index > 0 ? records[index - 1] : null;
   const next = index < records.length - 1 ? records[index + 1] : null;
@@ -86,7 +108,9 @@ export default async function EmperorPage({
           name: record.name,
           alternateName,
           url: absoluteUrl(`/emperors/${id}`),
-          description: `${dynastyContextLabel(record)}の皇帝。在位${record.periodsLabel}（${record.reignDurationLabel}）。`,
+          description:
+            profile?.description ??
+            `${dynastyContextLabel(record)}の皇帝。在位${record.periodsLabel}（${record.reignDurationLabel}）。`,
           image: record.portraitUrl ? absoluteUrl(record.portraitUrl) : undefined,
           birthDate: structuredDates.birthDate ?? undefined,
           deathDate: structuredDates.deathDate ?? undefined,
@@ -104,14 +128,9 @@ export default async function EmperorPage({
           { name: record.name, url: absoluteUrl(`/emperors/${id}`) },
         ])}
       />
-      <PageHeader
-        contained
-        containedWidth="max-w-4xl"
-        title={record.name}
-        description={`${dynastyContextLabel(record)}｜在位 ${record.periodsLabel}`}
-      />
+      <EmperorHero record={record} />
       <div className="px-gutter py-section md:px-gutter-wide">
-        <div className="mx-auto flex w-full max-w-4xl flex-col gap-4">
+        <div className="mx-auto flex w-full max-w-4xl flex-col gap-5">
           {/* ページ送りは本文の長さに左右されない先頭右端の固定サイズボタンに
               置く（ページごとに位置がずれると連続で押せない）。皇帝名付きの
               リンクは本文末尾のnavに残す。 */}
@@ -172,27 +191,18 @@ export default async function EmperorPage({
               )}
             </nav>
           </div>
-          {/* linkStats: 順位・分類の表示を対応するランキング節へのリンクにする。
-              videoHeadingLevel は renderVideos={false} のため実際には効かないが、
-              位置だけ切り出した下の EmperorVideosSection と揃えて明示しておく。 */}
-          <EmperorDetailBody
-            record={record}
-            wide
-            surface
-            renderVideos={false}
-            linkStats
-            videoHeadingLevel="h2"
-          />
-          {/* 経緯・調査メモは個別ページ限定（詳細ダイアログには出さない）。
-              静的書き出しなのでnote全文を載せてもクライアント負荷はない。 */}
-          <EmperorNarrativeSections narrative={getEmperorNarrative(id)} />
-          {/* 関連動画は外部チャンネルの制作物で、本文（経緯の散文）より後ろに置く。
-              EmperorDetailBodyのrenderVideos={false}と対で、位置だけをここで決める。 */}
-          <EmperorVideosSection record={record} wide headingLevel="h2" />
+          {/* ②紹介文（Issue #16）。**365人中まだ大半が未執筆**なので、無い皇帝では
+              節ごと出ない。ページで唯一の16pxの文＝ここが「読ませる」文であることを
+              級数で示す（他の本文は14px）。 */}
+          {profile?.lead && (
+            <p className="max-w-prose text-base leading-loose text-foreground">
+              {profile.lead}
+            </p>
+          )}
+          <EmperorFacts record={record} />
+          <EmperorNarrativeSections narrative={narrative} />
           {events.length > 0 && (
-            <section className="mt-2 space-y-2">
-              {/* 個別ページの節見出しは h1（PageHeader）の直下なので h2。
-                  見た目の大きさは従来どおり text-base のまま。 */}
+            <section className="space-y-2">
               <h2 className="font-heading text-base font-semibold text-foreground">
                 在位中の出来事（{events.length}件）
               </h2>
@@ -202,6 +212,9 @@ export default async function EmperorPage({
               <EmperorEventTimeline rows={events} />
             </section>
           )}
+          {/* 関連動画は外部チャンネルの制作物なので、本文（経緯・出来事）より後ろ。 */}
+          <EmperorVideosSection record={record} />
+          <EmperorResearchDetails narrative={narrative} />
           <nav
             aria-label="前後の皇帝"
             className="mt-2 flex justify-between gap-4 border-t border-border pt-4 text-sm"

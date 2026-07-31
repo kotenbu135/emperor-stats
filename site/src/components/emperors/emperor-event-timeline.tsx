@@ -104,6 +104,19 @@ function EventRow({ row }: { row: EmperorEventRow }) {
   );
 }
 
+/**
+ * 既定で開いたまま出す件数（2026-08-01 ユーザー決定）。
+ *
+ * 件数は中央値9件だが宋高宗223件・光緒帝116件・煬帝101件があり、20件以上が102名。
+ * この値なら上位3名以外はほぼ全件がそのまま見え、長い人だけが畳まれる。
+ *
+ * **残りは Radix の Accordion ではなく素の `<details>` に入れる。** ui/accordion.tsx は
+ * forceMount を渡していないので閉じた本文が DOM から消え、223件の日付付きテキストが
+ * 静的HTMLから丸ごと落ちる（`<details>` は閉じていても DOM に残る）。個別ページは
+ * 皇帝名での検索結果に出ることが目的なのでここは動かせない。
+ */
+const INITIAL_VISIBLE = 20;
+
 export function EmperorEventTimeline({ rows }: { rows: EmperorEventRow[] }) {
   const [activeKind, setActiveKind] = useState<EmperorEventKind | null>(null);
   // この皇帝に存在する種別と件数（固定順）。フィルタチップに使う。
@@ -119,6 +132,10 @@ export function EmperorEventTimeline({ rows }: { rows: EmperorEventRow[] }) {
   }, [rows]);
   const visible =
     activeKind === null ? rows : rows.filter((r) => r.kind === activeKind);
+  // **20件の境目は種別で絞ったあとの集合に対して数える。** 元の集合を基準にすると、
+  // 223件を5件に絞った状態で details が空になったり「残り203件」の嘘の件数が出る。
+  const head = visible.slice(0, INITIAL_VISIBLE);
+  const rest = visible.slice(INITIAL_VISIBLE);
 
   const chipClass = (pressed: boolean) =>
     cn(
@@ -162,12 +179,34 @@ export function EmperorEventTimeline({ rows }: { rows: EmperorEventRow[] }) {
           ))}
         </div>
       )}
-      {/* 面に載せたので最終行の下罫は残さない（カード下端の余白に浮いて見える）。 */}
-      <div className="border-t border-border/60 [&>*:last-child]:border-b-0">
-        {visible.map((row, i) => (
+      {/* 面に載せたので最終行の下罫は残さない（カード下端の余白に浮いて見える）。
+          畳んだ残りがあるときは、その手前で罫を切らずに続ける。 */}
+      <div
+        className={cn(
+          "border-t border-border/60",
+          rest.length === 0 && "[&>*:last-child]:border-b-0",
+        )}
+      >
+        {head.map((row, i) => (
           <EventRow key={i} row={row} />
         ))}
       </div>
+      {rest.length > 0 && (
+        <details className="group">
+          <summary className="flex cursor-pointer list-none items-center gap-1.5 py-1.5 text-sm text-muted-foreground hover:text-foreground [&::-webkit-details-marker]:hidden">
+            <ChevronRight
+              aria-hidden
+              className="size-3.5 shrink-0 transition-transform group-open:rotate-90"
+            />
+            残り{rest.length}件を表示
+          </summary>
+          <div className="[&>*:last-child]:border-b-0">
+            {rest.map((row, i) => (
+              <EventRow key={i} row={row} />
+            ))}
+          </div>
+        </details>
+      )}
     </div>
   );
 }

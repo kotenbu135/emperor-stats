@@ -7,7 +7,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { ImageResponse } from "next/og";
 import sharp from "sharp";
-import { dynastyContextLabel } from "@/components/emperors/emperor-detail-body";
+import { dynastyContextLabel } from "@/lib/emperor-types";
 import type { EmperorRecord } from "@/lib/emperor-types";
 import { getEmperorOgChips, type OgFact } from "@/lib/emperors";
 import { SITE_NAME } from "@/lib/seo";

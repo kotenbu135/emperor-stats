@@ -122,12 +122,12 @@ export interface EmperorRecord {
   hasPortrait: boolean;
   portraitUrl: string | null;
   /** 肖像の中で顔の中心が縦方向のどこにあるか（0=上端・1=下端）。肖像なしはnull。
-   *  詳細ダイアログ・個別ページの枠は実体と同じ3:4で余りが出ないため使わないが、
+   *  個別ページのヒーローの枠は実体と同じ3:4で余りが出ないため使わないが、
    *  一覧用の軽量レコードがここから写されるので基底レコードにも持たせてある。 */
   portraitFocusY: number | null;
   /** この皇帝を扱うYouTube動画（無ければ空配列）。 */
   videos: EmperorVideo[];
-  /** 各指標の全皇帝中の順位（詳細ダイアログ用）。回数系の0回・年齢不明は対象外でnull。 */
+  /** 各指標の全皇帝中の順位（個別ページ用）。回数系の0回・年齢不明は対象外でnull。 */
   ranks: Record<RankingMetricKey, MetricRank | null>;
 }
 
@@ -511,7 +511,35 @@ export interface AccessionAxes {
   procedure: string;
 }
 
-/** 軸の表示見出し（詳細ダイアログ・個別ページの「即位の経緯」節で使う）。 */
+/**
+ * 皇帝ごとの紹介文（`data/emperor-profiles.json`・GitHub Issue #16）。
+ * 未執筆の皇帝は `getEmperorProfile()` が null を返す。
+ */
+export interface EmperorProfile {
+  /** 個別ページ本文の導入（200〜300字）。 */
+  lead: string | null;
+  /** 検索結果・OGP に出る1文（120字前後）。leadの冒頭を切り出すと文が途中で切れるため別に持つ。 */
+  description: string | null;
+}
+
+/**
+ * 「明」「呉・三国（三国）」のような、王朝名＋時代の見出し用サブラベル。
+ * 王朝名から時代が読み取れる場合は重複を避けて時代を付さない。
+ *
+ * 個別ページのヒーロー・`generateMetadata` の title/description・Person JSON-LD・
+ * OGP画像（`lib/og-image.tsx`）が同じ文字列を出すため、部品ではなくここに置く
+ * （OGP は satori 側で描くので React の表示部品を import できない）。
+ */
+export function dynastyContextLabel(
+  record: Pick<EmperorRecord, "dynastyLabel" | "eraLabel" | "dynastyName">,
+): string {
+  return record.dynastyLabel.includes(record.eraLabel) ||
+    record.eraLabel.includes(record.dynastyName)
+    ? record.dynastyLabel
+    : `${record.dynastyLabel}（${record.eraLabel}）`;
+}
+
+/** 軸の表示見出し（個別ページの「即位の経緯」節で使う）。 */
 export const accessionAxisLabels: Record<
   Exclude<keyof AccessionAxes, "decidedByAgents" | "titleOrigin">,
   string

@@ -1,8 +1,11 @@
-// 皇帝個別ページ専用の「即位の経緯」「死因の経緯」「復位の経緯」「在位日付の典拠」「調査メモ」節。
+// 皇帝個別ページ専用の「即位の経緯」「死因の経緯」「復位の経緯」（EmperorNarrativeSections）と、
+// 「在位日付の典拠」「調査メモ」（EmperorResearchDetails）。
 // noteは調査時の原文ママを表示する（サイト側での要約・書き換えはしない方針）。
 // データ量が大きいためEmperorRecordには載せず、個別ページ（Server Component
 // 静的書き出し）だけがlib/emperors.tsのgetEmperorNarrativeで取得して渡す。
-// 詳細ダイアログへの反映はtask.md第3弾（lazy fetch）で行う。
+//
+// 2026-08-01 に2つへ分けたのは、読み物としての経緯（本文）と、根拠を確かめたい人だけが
+// 開く典拠・調査メモ（ページ末尾）で置き場所が違うため。
 
 import { ChevronRight } from "lucide-react";
 import {
@@ -44,29 +47,23 @@ export function AccessionAxesTable({ axes }: { axes: AccessionAxes }) {
   );
 }
 
-// 純表示部品（hook・server専用APIなし）。詳細ダイアログ（Client Component）の
-// lazy fetch表示（emperor-narrative-dialog.tsx）でも再利用する。
-export function NarrativeBlock({
+function NarrativeBlock({
   title,
   section,
   axes = null,
-  headingLevel = "h3",
 }: {
   title: string;
   section: NarrativeSection;
   /** 即位の経緯のみ。判定ラベルの導出根拠として軸を折りたたみで添える。 */
   axes?: AccessionAxes | null;
-  /** 見出しの階層。ダイアログでは DialogTitle（h2）の下なので h3、個別ページでは
-   *  PageHeader の h1 直下なので h2（h1→h3 のレベル飛び回避・2026-07-27 の SEO 監査 2-2）。
-   *  見た目のサイズは階層に関わらず変えない。 */
-  headingLevel?: "h2" | "h3";
 }) {
-  const Heading = headingLevel;
   return (
     <section className="space-y-1.5">
-      <Heading className="font-heading text-base font-semibold text-foreground">
+      {/* 見出しはヒーローの h1 直下なので h2（h1→h3 のレベル飛び回避・
+          2026-07-27 の SEO 監査 2-2）。見た目のサイズは他の節と同じ。 */}
+      <h2 className="font-heading text-base font-semibold text-foreground">
         {title}
-      </Heading>
+      </h2>
       <p className="text-sm leading-relaxed">{section.note}</p>
       {axes && (
         <details className="group">
@@ -92,39 +89,26 @@ export function NarrativeBlock({
   );
 }
 
+/** 読み物としての経緯（即位・死因・復位）。3つとも無い皇帝はnull。 */
 export function EmperorNarrativeSections({
   narrative,
 }: {
   narrative: EmperorNarrative;
 }) {
-  const { accession, accessionAxes, death, restorations, memos, reignSources } =
-    narrative;
-  if (
-    !accession &&
-    !death &&
-    restorations.length === 0 &&
-    memos.length === 0 &&
-    reignSources.length === 0
-  ) {
-    return null;
-  }
+  const { accession, accessionAxes, death, restorations } = narrative;
+  if (!accession && !death && restorations.length === 0) return null;
   return (
-    <div className="mt-2 flex flex-col gap-5 border-t border-border pt-5">
+    <div className="flex flex-col gap-5">
       {/* 経緯2節はlg以上で左右に並べる（noteは中央値100字前後の短い叙述）。 */}
       <div className="grid gap-5 lg:grid-cols-2 lg:gap-x-10">
-        {/* この節一式は個別ページ専用（ダイアログは emperor-narrative-dialog.tsx が
-            NarrativeBlock を直接使う）。個別ページの見出しは h1 の直下なので h2。 */}
         {accession && (
           <NarrativeBlock
             title="即位の経緯"
             section={accession}
             axes={accessionAxes}
-            headingLevel="h2"
           />
         )}
-        {death && (
-          <NarrativeBlock title="死因の経緯" section={death} headingLevel="h2" />
-        )}
+        {death && <NarrativeBlock title="死因の経緯" section={death} />}
       </div>
       {restorations.length > 0 && (
         <section className="space-y-1.5">
@@ -139,6 +123,20 @@ export function EmperorNarrativeSections({
           ))}
         </section>
       )}
+    </div>
+  );
+}
+
+/** 根拠を確かめたい人だけが開く2つ（在位日付の典拠・調査メモ）。ページ末尾に置く。 */
+export function EmperorResearchDetails({
+  narrative,
+}: {
+  narrative: EmperorNarrative;
+}) {
+  const { memos, reignSources } = narrative;
+  if (memos.length === 0 && reignSources.length === 0) return null;
+  return (
+    <div className="flex flex-col gap-3 border-t border-border pt-4">
       {reignSources.length > 0 && (
         <details className="group">
           <summary className="flex cursor-pointer list-none items-center gap-1.5 font-heading text-sm font-semibold text-foreground [&::-webkit-details-marker]:hidden">

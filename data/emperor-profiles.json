@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "title": "中国皇帝統計 — 皇帝別の紹介文",
+    "description": "皇帝個別ページの導入文と検索結果用の1文。emperors.json の調査結果を読者向けに言い直したもので、新しい事実は足さない（GitHub Issue #16）。",
+    "schemaVersion": "1.0.0",
+    "updatedAt": "2026-08-01",
+    "policy": {
+      "source": "既存の調査結果（accessionRoute.note・deathCause.note・reignSummary・reigns[].duration.source・events・ages.note）の範囲内だけで書く。原典を新たに調べて治績・人物像を足さない。",
+      "quotes": "正史の直接引用を持ち込まず地の文で書く（引用は emperors.json 側の note が担い、verify_quotes.py の照合対象になっている）。",
+      "lead": "個別ページ本文の導入。200〜300字。",
+      "description": "検索結果・OGP に出る1文。120字前後。lead の冒頭を切り出すと文が途中で切れるため別に持つ。"
+    },
+    "counts": {
+      "total": 365,
+      "written": 0
+    }
+  },
+  "profiles": {}
+}

@@ -16,6 +16,7 @@ import {
   type EmperorEventRow,
   type EmperorListRecord,
   type EmperorNarrative,
+  type EmperorProfile,
   type EmperorRecord,
   type EmperorStructuredDates,
   type EmperorTableRecord,
@@ -767,6 +768,45 @@ function narrativeSectionOf(
 }
 
 const rawEmperorById = new Map(data.emperors.map((e) => [e.id, e]));
+
+/**
+ * 皇帝ごとの紹介文（`../data/emperor-profiles.json`・GitHub Issue #16）。
+ *
+ * emperors.json ではなく別ファイルなのは、紹介文が原典調査の結果ではなく編集
+ * コンテンツで、約7MBのデータセットを365回の追記で触ると並行セッションの
+ * read-modify-write と衝突するため（EMPEROR_PAGE_PLAN_2026-08-01.md の5節）。
+ *
+ * **365人分が揃うまでは大半が未執筆**。ページ側は null を受けて節ごと出さない
+ * 作りにしてあるので、書けた人物から順に反映される。
+ */
+const profilesPath = path.join(
+  process.cwd(),
+  "..",
+  "data",
+  "emperor-profiles.json",
+);
+const emperorProfiles = (
+  JSON.parse(fs.readFileSync(profilesPath, "utf-8")) as {
+    profiles: Record<string, { lead?: string; description?: string }>;
+  }
+).profiles;
+// 打ち間違えたidの紹介文が黙って表示されないようにする（kana-readings・
+// DYNASTY_COLOR_SLOT と同じ、書き足し漏れ・書き間違いをビルドで止める assert）。
+for (const key of Object.keys(emperorProfiles)) {
+  if (!rawEmperorById.has(key)) {
+    throw new Error(`emperor-profiles.json に存在しない皇帝id: ${key}`);
+  }
+}
+
+/** 紹介文（本文用の導入 lead と、metadata/JSON-LD 用の1文 description）。未執筆はnull。 */
+export function getEmperorProfile(id: string): EmperorProfile | null {
+  const p = emperorProfiles[id];
+  if (!p?.lead && !p?.description) return null;
+  return {
+    lead: p.lead ?? null,
+    description: p.description ?? null,
+  };
+}
 
 /** 個別ページ用に、経緯note全文・出典・調査メモを返す。idは収録済み前提。 */
 export function getEmperorNarrative(id: string): EmperorNarrative {
