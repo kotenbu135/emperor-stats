@@ -9,19 +9,15 @@
 // （それ以上に出すと元画像の解像度を超える）。
 //
 // **肖像なしは221名・61%**（五胡十六国84%・南北朝80%）で、こちらが多数派に近い。
-// 肖像枠の代わりに何を置くかは NO_PORTRAIT_VARIANT で切り替える。
+// **肖像が無いときは枠ごと出さず、名前主導の組みに切り替える**（2026-08-01 ユーザー決定・
+// 2案の実物を撮って判断した。tools/shots/hero-noportrait-{A-none,B-monogram}-*.png）。
+// 一覧カードと同じモノグラムを200px枠に置く案は、ページ先頭の一等地が61%の皇帝で
+// 「画像がありません」の告知になるため採らない。肖像あり／なしで左右の組みが変わる
+// 非対称は許容する。
 
 import { Portrait } from "@/components/emperors/portrait";
 import { dynastyColorHex, dynastyColorSlot } from "@/lib/dynasty-colors";
 import { dynastyContextLabel, type EmperorRecord } from "@/lib/emperor-types";
-
-/**
- * 肖像がない皇帝のヒーローの組み方。実物を撮って選ぶための切り替え。
- *
- * - `"none"` … 肖像枠ごと出さず、名前主導の1カラムに切り替える（左右非対称を許容）
- * - `"monogram"` … 肖像ありと同じ200pxの枠に姓一文字のモノグラムを置く（左右対称）
- */
-const NO_PORTRAIT_VARIANT: "none" | "monogram" = "none";
 
 /** 要約チップ。値が無い項目は呼び出し側で落とす。 */
 function Chip({ label, value }: { label: string; value: string }) {
@@ -42,13 +38,12 @@ function ageChipValue(record: EmperorRecord): string | null {
 }
 
 export function EmperorHero({ record }: { record: EmperorRecord }) {
-  const showFrame = record.portraitUrl !== null || NO_PORTRAIT_VARIANT === "monogram";
   const ageValue = ageChipValue(record);
   return (
     <header className="border-b border-border bg-background px-gutter py-section md:px-gutter-wide">
       <div className="mx-auto w-full max-w-4xl">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
-          {showFrame && (
+          {record.portraitUrl !== null && (
             // 枠は肖像の実体と同じ3:4。狭い画面では144pxに落として、名前と要約が
             // 肖像の右に残る幅を確保する（縦積みにすると先頭が肖像だけで埋まる）。
             <div className="relative aspect-[3/4] w-36 shrink-0 self-start overflow-hidden rounded-md border border-border sm:w-[200px]">
