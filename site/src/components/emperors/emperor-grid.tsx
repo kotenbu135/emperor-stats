@@ -372,10 +372,14 @@ export function EmperorGrid({
               1枚あたり180〜230pxを保つ位置に置いてある。 */}
           <div className="mx-auto w-full max-w-content @container">
             {sections.map(([era, list], sectionIndex) => {
-              // ファーストビュー相当（最大6カラム×3行）だけ肖像を先行読み込みする。
-              // カードを3:4に縮めて1画面に入る行が2→3行に増えたぶん12枚から増やした。
-              // 先頭セクション以外は必ず画面外なので対象は先頭セクションのみでよい。
-              const priorityCount = sectionIndex === 0 ? 18 : 0;
+              // ファーストビューの肖像だけ先行読み込みする（先頭セクション以外は
+              // 必ず画面外なので対象は先頭セクションのみでよい）。
+              // 15 = 1440px・5列でのファーストビュー実測値（15.6人）。カードを3:4に
+              // 縮めて1画面が12.7→15.6人になったぶん、旧値12から上げてある。
+              // **計測で出した最適値ではない**（旧12は PERFORMANCE.md の Lighthouse
+              // timespan 由来）。1920px・6列だと22人入るので足りないが、画面外の肖像を
+              // eager にすると LCP 要素の取得と競合するため、狭い側に寄せてある。
+              const priorityCount = sectionIndex === 0 ? 15 : 0;
               return (
                 // アンカー先と「現在地」の観測対象はどちらもこの section。見出しは
                 // sticky でバーの真下に貼り付き続けるため、見出しを観測対象にすると
