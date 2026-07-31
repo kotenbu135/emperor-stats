@@ -121,6 +121,10 @@ export interface EmperorRecord {
   searchText: string;
   hasPortrait: boolean;
   portraitUrl: string | null;
+  /** 肖像の中で顔の中心が縦方向のどこにあるか（0=上端・1=下端）。肖像なしはnull。
+   *  詳細ダイアログ・個別ページの枠は実体と同じ3:4で余りが出ないため使わないが、
+   *  一覧用の軽量レコードがここから写されるので基底レコードにも持たせてある。 */
+  portraitFocusY: number | null;
   /** この皇帝を扱うYouTube動画（無ければ空配列）。 */
   videos: EmperorVideo[];
   /** 各指標の全皇帝中の順位（詳細ダイアログ用）。回数系の0回・年齢不明は対象外でnull。 */
@@ -146,6 +150,10 @@ export interface EmperorListRecord {
   dynastyKey: string;
   dynastyCategory: DynastyCategory;
   portraitUrl: string | null;
+  /** 肖像の中で顔の中心が縦方向のどこにあるか（0=上端・1=下端）。肖像なしはnull。
+   *  カードの肖像枠は実体(3:4)より横長なので、この値が無いと上寄せに切られて
+   *  題字や余白が枠を占め顔が下半分に沈む。出所は肖像 manifest.json の focusY。 */
+  portraitFocusY: number | null;
   /** 在位期間の表示文字列（例: "1908–1912年 / 1917年"）。カード3行目に出す。
    *  名前と王朝しか無いカードは統計サイトの一覧として読み取れる情報が乏しく、
    *  同じ時代の中で誰がいつの人なのかを掴めないため添える。 */

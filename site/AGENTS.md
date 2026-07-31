@@ -68,6 +68,7 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 - **`src/lib/video-channel.ts` の `VIDEO_CHANNEL`** — 動画はすべて当サイトと無関係の外部チャンネルの制作物のため、セクション冒頭と `/about` に必ず制作者表記を出す。
 - **`src/app/globals.css`** — 配色トークン（`--series-1〜8`・`--bar*`・`--seal`）と本文列の上限 `--container-content`。
 - **`src/lib/dynasty-colors.ts` の `DYNASTY_COLOR_SLOT`** — 政権→配色スロット（**キーは政権 ID**・89政権）。未割当のキーは throw する。
+- **`../data/images/portraits/manifest.json` の `focusY`** — 肖像の中で顔が縦のどこにあるか（0〜1）。一覧カードの肖像枠は実体（3:4）より横長で `object-cover` が縦を切るため、この値が切る位置を決める。**肖像がある全員に無いとビルドが落ちる**（`emperors.ts`）。肖像を足したら値も入れること（読み取り方は `docs/site-design/PORTRAITS.md`）。
 
 # 皇帝を追加収録するときのチェックリスト
 

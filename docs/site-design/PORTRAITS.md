@@ -37,12 +37,12 @@ zh.wikipedia のダンプ（`dumps.wikimedia.org/zhwiki/latest/`、2026-07-06時
 | **うちCC BY-SA 4.0ライセンスのため方針により除外（下記参照）** | **2人** |
 | （2026-07-17 時点の確定数） | 153人 |
 | **うち目視QAで除外（2026-07-21・下記参照）** | **3人** |
-| **最終的な確定数** | **150人** |
+| **最終的な確定数** | **144人** |
 | 記事はあるが自由ライセンス画像なし（除外分含む） | 214人 |
 | 記事自体が見つからない | 0人 |
 
 - 全364名がzh.wikipediaの何らかの記事にマッチ（取りこぼしなし）
-- 150名分の詳細（照合したタイトル・画像ファイル名）は [`portraits-candidates.json`](./portraits-candidates.json) に記録
+- 144名分の詳細（照合したタイトル・画像ファイル名）は [`portraits-candidates.json`](./portraits-candidates.json) に記録
 - 残り214名は本調査では**「画像なし」として一旦保留**。実装時に個別確認する
 
 ### 目視確認で除外した13名（2026-07-17）
@@ -55,7 +55,7 @@ zh.wikipedia のダンプ（`dumps.wikimedia.org/zhwiki/latest/`、2026-07-06時
 
 ### CC BY-SA 4.0ライセンスを方針により除外（2026-07-17）
 
-目視確認を経て残った155件のうち、CC BY-SA 4.0（要クレジット表記）ライセンスだった2件（`beiwei-daowudi`、`shiguo-qianshu-wangjian`）は、**「CC BY-SA系ライセンスは使用しない」という方針決定**により追加で除外した。画像ファイル・`manifest.json`のエントリを削除し、`portraits-candidates.json`では`noImageIds`へ移動、除外理由は`excludedLicense`フィールドに記録。**この時点の確定数は153件**、全件Public domain/CC0のみとなり、要クレジット表記の対応は不要になった（その後2026-07-21の目視QAで150件）。
+目視確認を経て残った155件のうち、CC BY-SA 4.0（要クレジット表記）ライセンスだった2件（`beiwei-daowudi`、`shiguo-qianshu-wangjian`）は、**「CC BY-SA系ライセンスは使用しない」という方針決定**により追加で除外した。画像ファイル・`manifest.json`のエントリを削除し、`portraits-candidates.json`では`noImageIds`へ移動、除外理由は`excludedLicense`フィールドに記録。**この時点の確定数は153件**、全件Public domain/CC0のみとなり、要クレジット表記の対応は不要になった（その後2026-07-21の目視QAで150件、2026-07-31のカード表示での見直しで144件）。
 
 ## 肖像マッピングQA（2026-07-21）— 153件の全数目視確認
 
@@ -94,14 +94,47 @@ zh.wikipedia のダンプ（`dumps.wikimedia.org/zhwiki/latest/`、2026-07-06時
 
 残存リスクを潰すには外部の正解データとの突き合わせ（Wikidata P18 / Wikipedia記事のリード画像）が必要で、目視を増やしても閉じない。[../../task.md](../../task.md) 項目2-5（Wikidata QID紐付け）に合流させるのが筋。
 
+## 顔の位置（`focusY`）とカード表示での見直し（2026-07-31）
+
+皇帝一覧のカードを3:4にした結果、カード内の肖像枠は実体（360×480＝3:4）より横長のほぼ正方形になり、
+`object-cover` が縦を切るようになった。**それまでの「上寄せ」固定は誤り**で、題字が上端に入る版本
+（三才圖會の「漢武帝像」など）や顔が中央にある元の御容では、題字と余白が枠を占めて顔が下半分に沈んでいた。
+
+そこで `manifest.json` の各エントリに **`focusY`（顔の中心が画像の上端から何割の位置にあるか・0〜1）** を持たせ、
+サイト側で `object-position` へ変換している（式と丸めの意味は `site/src/components/emperors/portrait.tsx` の
+`focusObjectPositionY`）。**値は144枚を1枚ずつ実見して入れたもの**で、10%刻みの目盛を重ねた
+コンタクトシートから読み取った。実体（jpg/webp）は切り直していない — 枠が実体より横長のあいだ
+`object-cover` は縦だけを切るので、**どこを切るかを決めさえすれば切り直した場合と同じ絵が出る**ため。
+
+- `focusY` が約 **0.26 以下**の肖像（立像・全身像の多く）は変換後が0に丸まり、従来どおりの上寄せになる。
+  つまりこの仕組みは**顔が下に沈んでいる肖像だけを動かす**
+- 約 **0.51 以上**の肖像は下寄せでも狙いに届かない（webp の下端が既に切れているため）。
+  該当が出たら jpg から切り直すのが筋だが、144枚では発生していない
+
+### カード表示での見直しによる除外（6件）
+
+同じ作業の中で、144＋6件すべてを**カードに出た状態で**見直した。判定基準は2026-07-21のQAと同じ
+「どの人物が該当人物かを画像から特定できない」で、**確定数は150→144件**になった。
+題字で本人が特定できるもの（`jin-huidi`・`shiguo-beihan-liujun`・`wudai-houtang-mingzong` など）と、
+帝王図巻のように主人公が明らかに大きく描かれているもの（`chen-feidi`・`han-chengdi` など）は残している。
+
+| id | 内容 | 対応 |
+|---|---|---|
+| `beiqi-wenxuandi` | 建物内の場面図。該当人物が小さく後ろ姿寄りで、画像から本人と特定できない | 除外（場面図） |
+| `han-zhaodi` | ほぼ同じ大きさの3人が並ぶ群像。どれが昭帝かを特定できない | 除外（群像） |
+| `tang-wuzetian` | 侍者を含む群像。どれが武則天かを特定できない | 除外（群像） |
+| `wei-caofang` | 馬上の人物を含む版本の場面図。該当人物を特定できない | 除外（場面図） |
+| `wei-caomao` | 同じ大きさの人物が並ぶ版本の場面図。該当人物を特定できない | 除外（場面図） |
+| `yuan-huizong` | 剥落・退色が進み、像として人物が判読できない | 除外（判読不能） |
+
 ### 反映先（肖像画を増減するときの手順）
 
 肖像画は `data/emperors.json` には一切持たせていない（ファイルの存在で決まる）ため、**データ項目の訂正ではなくサイトのアセット修正**として扱う。`meta.status` は変更しない。
 
 1. `data/images/portraits/{id}.jpg`（幅500pxサムネイル）
-2. `data/images/portraits/manifest.json` のエントリ
-3. `docs/site-design/mockups/card-preview/{id}.webp` ← **サイトが実際に配信する実体はこちら**。360×480に`cover`＋上寄せでクロップ、WebP quality 65
-4. `site/public/portraits/` は `site/scripts/sync-portraits.mjs` が`prebuild`でコピーする（**コピーのみで削除はしない**ため、除外時はローカルの残骸を手で消す）
+2. `data/images/portraits/manifest.json` のエントリ。**`focusY`（顔の位置）を必ず入れる** — 肖像がある全員に無いとサイトのビルドが落ちる（`site/src/lib/emperors.ts`）。入れ忘れを黙って上寄せに落とすと顔が下半分に沈む
+3. `docs/site-design/mockups/card-preview/{id}.webp` ← **サイトが実際に配信する実体はこちら**。360×480に`cover`＋上寄せでクロップ、WebP quality 65（**カードのどこを切るかは実体ではなく `focusY` で決まる**ので、この生成手順は変えない）
+4. `site/public/portraits/` は `site/scripts/sync-portraits.mjs` が`prebuild`で同期する（同期元から消えた肖像は public 側からも削除される）
 5. `docs/site-design/portraits-candidates.json` の `confirmed` / `noImageIds` / 件数
 6. 本ファイルの件数と、`docs/README.md` の件数
 
@@ -109,7 +142,7 @@ zh.wikipedia のダンプ（`dumps.wikimedia.org/zhwiki/latest/`、2026-07-06時
 
 ## 画像ダウンロード（2026-07-17）
 
-機械照合の168名分の画像本体を取得し、`data/images/portraits/` に配置（目視確認で13名分、CC BY-SA方針除外で2名分を除外、この時点で**153ファイル**。2026-07-21の目視QAでさらに3件除外し現在は150ファイル）。
+機械照合の168名分の画像本体を取得し、`data/images/portraits/` に配置（目視確認で13名分、CC BY-SA方針除外で2名分を除外、この時点で**153ファイル**。2026-07-21の目視QAでさらに3件除外して150ファイル、2026-07-31にさらに6件除外し現在は144ファイル）。
 
 - **保存形式**: `{id}.jpg` / `{id}.png`（`data/emperors.json`の`id`フィールドと1対1対応、サイト側でのファイル名からの逆引きが容易）
 - **取得方法**: オリジナル画像ではなく**幅500pxのサムネイル**を取得（[Wikitech Robot policy](https://wikitech.wikimedia.org/wiki/Robot_policy)・[API:Etiquette](https://www.mediawiki.org/wiki/API:Etiquette)に基づき、原寸よりサムネイルを優先・リクエスト間隔1秒以上・同時接続数1を遵守）。オリジナルのまま取得すると数十MB級のファイルが混在することが判明したため（例: 宋徽宗43MB）、サムネイル方式に変更した
@@ -119,11 +152,11 @@ zh.wikipedia のダンプ（`dumps.wikimedia.org/zhwiki/latest/`、2026-07-06時
 
 ## ライセンス確認（2026-07-17）
 
-ダウンロード直後の168件全件について、Commons Action API（`prop=imageinfo&iiprop=extmetadata`、1リクエストで最大50件までタイトルをまとめて問い合わせ可能なため、168件でも約4リクエストのみで完了。以前レート制限で問題を起こした逐次アクセスとは異なる使い方）でライセンス種別・作者・クレジット情報を取得。その後、目視確認で非肖像画と判定した13件、およびCC BY-SA方針により2件を除外し、この時点の153件は全件`licenseVerified: true`かつPublic domain/CC0のみとなった（2026-07-21の目視QAでさらに3件除外し**現在150件**。全件`licenseVerified: true`である点は変わらない）。
+ダウンロード直後の168件全件について、Commons Action API（`prop=imageinfo&iiprop=extmetadata`、1リクエストで最大50件までタイトルをまとめて問い合わせ可能なため、168件でも約4リクエストのみで完了。以前レート制限で問題を起こした逐次アクセスとは異なる使い方）でライセンス種別・作者・クレジット情報を取得。その後、目視確認で非肖像画と判定した13件、およびCC BY-SA方針により2件を除外し、この時点の153件は全件`licenseVerified: true`かつPublic domain/CC0のみとなった（2026-07-21の目視QAでさらに3件除外、2026-07-31のカード表示での見直しでさらに6件除外し**現在144件**。全件`licenseVerified: true`である点は変わらない）。
 
-| ライセンス | 件数（2026-07-17時点・153件中） | 件数（現在・150件中） |
+| ライセンス | 件数（2026-07-17時点・153件中） | 件数（現在・144件中） |
 |---|---|---|
-| Public domain | 150 | 148 |
+| Public domain | 150 | 142 |
 | CC0 | 3 | 2 |
 
 - **要クレジット表記が必要な画像は0件**。CC BY-SA 4.0だった2件（`beiwei-daowudi`、`shiguo-qianshu-wangjian`）は「CC BY-SA系は使用しない」という方針決定により除外したため（掲載時のクレジット表記対応が不要になった）

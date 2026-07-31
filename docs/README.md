@@ -39,8 +39,8 @@ Next.js サイト（`../site/`）の**設計記録は 2026-07-31 にすべて削
 
 | ファイル | 内容 |
 |---|---|
-| [site-design/PORTRAITS.md](site-design/PORTRAITS.md) | 肖像画収集の調査結果（PD/CC0 のみ・150名分確定）＋肖像マッピングQAの手順・反映先 |
-| `site-design/mockups/card-preview/` | 肖像画 webp 150点。**`site/scripts/sync-portraits.mjs` のビルド入力なので消さないこと** |
+| [site-design/PORTRAITS.md](site-design/PORTRAITS.md) | 肖像画収集の調査結果（PD/CC0 のみ・144名分確定）＋肖像マッピングQAの手順・反映先 |
+| `site-design/mockups/card-preview/` | 肖像画 webp 144点。**`site/scripts/sync-portraits.mjs` のビルド入力なので消さないこと** |
 | `site-design/portraits-candidates.json` | 肖像画の候補調査の生データ |
 
 ## 関連

@@ -82,6 +82,41 @@ const portraitIds = new Set(
     .map((f) => f.replace(/\.webp$/, "")),
 );
 
+const portraitManifestPath = path.join(
+  process.cwd(),
+  "..",
+  "data",
+  "images",
+  "portraits",
+  "manifest.json",
+);
+interface PortraitManifestEntry {
+  id: string;
+  commonName: string;
+  dynasty: string;
+  /** 肖像の中で顔の中心が縦方向のどこにあるか（0=上端・1=下端）。150枚を1枚ずつ
+   *  目視して入れた値で、カードの中で顔をどこに置くかの唯一の入力になる。
+   *  値の意味と使い方は `components/emperors/portrait.tsx` の `focusObjectPositionY`。 */
+  focusY: number;
+  licenseShortName: string;
+  commonsPageUrl: string;
+}
+const portraitManifest = JSON.parse(
+  fs.readFileSync(portraitManifestPath, "utf-8"),
+) as PortraitManifestEntry[];
+const portraitFocusById = new Map(
+  portraitManifest.map((m) => [m.id, m.focusY] as const),
+);
+// 肖像がある全員に焦点値があること。欠けると上寄せに落ちて顔が下半分に沈むが、
+// 見た目が少し悪いだけなので実行時には気づけない（だからビルドで落とす）。
+for (const id of portraitIds) {
+  if (typeof portraitFocusById.get(id) !== "number") {
+    throw new Error(
+      `肖像 ${id} の focusY が manifest.json にありません（肖像を足したら顔の位置も入れること・docs/site-design/PORTRAITS.md）`,
+    );
+  }
+}
+
 interface RawSource {
   page: string;
   lang: string;
@@ -523,6 +558,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     searchText: searchTextOf(e, dynastyLabel(e), eraLabelOf(e.dynasty)),
     hasPortrait: portraitIds.has(e.id),
     portraitUrl: portraitIds.has(e.id) ? `${BASE_PATH}/portraits/${e.id}.webp` : null,
+    portraitFocusY: portraitFocusById.get(e.id) ?? null,
     videos: videosByEmperorId.get(e.id) ?? [],
   }));
   const ranksById = computeRanks(baseRecords);
@@ -564,6 +600,7 @@ export function getEmperorListRecords(): EmperorListRecord[] {
     dynastyKey: r.dynastyKey,
     dynastyCategory: r.dynastyCategory,
     portraitUrl: r.portraitUrl,
+    portraitFocusY: r.portraitFocusY,
     periodsLabel: r.periodsLabel,
     searchText: r.searchText,
     searchKana: kanaById.get(r.id)!,
@@ -1602,13 +1639,9 @@ export function getPortraitCredits(): PortraitCredit[] {
     "portraits",
     "manifest.json",
   );
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf-8")) as {
-    id: string;
-    commonName: string;
-    dynasty: string;
-    licenseShortName: string;
-    commonsPageUrl: string;
-  }[];
+  const manifest = JSON.parse(
+    fs.readFileSync(manifestPath, "utf-8"),
+  ) as PortraitManifestEntry[];
   return manifest
     .filter((m) => portraitIds.has(m.id))
     .map((m) => ({

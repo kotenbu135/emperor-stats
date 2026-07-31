@@ -1,16 +1,9 @@
 {
   "method": "Wikimedia zhwiki data dump (page.sql / page_props.sql / redirect.sql, 2026-07-06/08 snapshot) matched offline against candidate names generated from data/emperors.json, with Japanese shinjitai -> Chinese traditional/simplified kanji normalization",
-  "generatedNote": "page_image_free indicates the article has a freely-licensed lead image per MediaWiki PageImages extension; actual license type (PD/CC-BY/CC-BY-SA etc.) must be individually verified on the Commons file page before use. 2026-07-17: manual visual review found 13 confirmed matches were not actual portraits (landscape/monument/statue photos); moved to noImageIds and recorded in excludedNonPortrait. 追記(2026-07-17): CC BY-SA 4.0ライセンスの2件を方針により除外、confirmedは155→153件に。 追記(2026-07-21): 全153件の目視QAにより、別人肖像1件(liu-song-mingdi)と場面図切り出し2件(han-aidi/tang-jingzong)をnoImageIdsへ移動、houyan-murongchuiは同シリーズの正しい図に差し替え。confirmedは153→150件に。",
-  "confirmedCount": 150,
-  "noImageCount": 214,
+  "generatedNote": "page_image_free indicates the article has a freely-licensed lead image per MediaWiki PageImages extension; actual license type (PD/CC-BY/CC-BY-SA etc.) must be individually verified on the Commons file page before use. 2026-07-17: manual visual review found 13 confirmed matches were not actual portraits (landscape/monument/statue photos); moved to noImageIds and recorded in excludedNonPortrait. 追記(2026-07-17): CC BY-SA 4.0ライセンスの2件を方針により除外、confirmedは155→153件に。 追記(2026-07-21): 全153件の目視QAにより、別人肖像1件(liu-song-mingdi)と場面図切り出し2件(han-aidi/tang-jingzong)をnoImageIdsへ移動、houyan-murongchuiは同シリーズの正しい図に差し替え。confirmedは153→150件に。 追記(2026-07-31): 全150件をカード表示で見直し、場面図・群像図で該当人物を特定できない5件と判読不能1件をnoImageIdsへ移動。confirmedは150→144件に。",
+  "confirmedCount": 144,
+  "noImageCount": 220,
   "confirmed": [
-    {
-      "id": "beiqi-wenxuandi",
-      "commonName": "文宣帝",
-      "dynasty": "北斉",
-      "matchedTitle": "文宣帝",
-      "image": "帝鉴图说_高清_(page_131_高洋).jpg"
-    },
     {
       "id": "beisong-huizong",
       "commonName": "徽宗",
@@ -213,13 +206,6 @@
       "dynasty": "前漢",
       "matchedTitle": "汉元帝",
       "image": "Emperor_Yuan_of_Han2.jpg"
-    },
-    {
-      "id": "han-zhaodi",
-      "commonName": "昭帝",
-      "dynasty": "前漢",
-      "matchedTitle": "汉昭帝",
-      "image": "HanZhaoDiLiuFuling.jpg"
     },
     {
       "id": "hou-han-guangwudi",
@@ -768,13 +754,6 @@
       "image": "TangWenzongAlt.jpg"
     },
     {
-      "id": "tang-wuzetian",
-      "commonName": "則天大聖皇帝（武則天）",
-      "dynasty": "周",
-      "matchedTitle": "武则天",
-      "image": "唐后行從圖_(局部)_-_武則天.png"
-    },
-    {
       "id": "tang-wuzong",
       "commonName": "武宗",
       "dynasty": "唐",
@@ -850,20 +829,6 @@
       "dynasty": "新",
       "matchedTitle": "王莽",
       "image": "WUL-he21_01467_新鐫繪像東西漢全傳_01_(王莽).jpg"
-    },
-    {
-      "id": "wei-caofang",
-      "commonName": "曹芳",
-      "dynasty": "魏",
-      "matchedTitle": "曹芳",
-      "image": "曹芳.png"
-    },
-    {
-      "id": "wei-caomao",
-      "commonName": "曹髦",
-      "dynasty": "魏",
-      "matchedTitle": "曹髦",
-      "image": "曹髦.png"
     },
     {
       "id": "wei-mingdi",
@@ -971,13 +936,6 @@
       "image": "YuanEmperorAlbumTemurOljeituPortrait.jpg"
     },
     {
-      "id": "yuan-huizong",
-      "commonName": "恵宗（順帝）",
-      "dynasty": "元",
-      "matchedTitle": "元順帝",
-      "image": "元順帝妥歡帖木兒_Emperor_Shun_of_Yuan_Toghon_Temür.png"
-    },
-    {
       "id": "yuan-mingzong",
       "commonName": "明宗",
       "dynasty": "元",
@@ -1060,6 +1018,7 @@
     "beiqi-feidi-gaoyin",
     "beiqi-gaoxie",
     "beiqi-houzhu",
+    "beiqi-wenxuandi",
     "beiqi-wuchengdi",
     "beiqi-xiaozhaodi",
     "beiqi-youzhu-gaoheng",
@@ -1105,6 +1064,7 @@
     "han-liuhe",
     "han-pingdi",
     "han-qianshaodi",
+    "han-zhaodi",
     "hou-han-andi",
     "hou-han-chongdi",
     "hou-han-hedi",
@@ -1224,6 +1184,7 @@
     "tang-lige",
     "tang-shangdi",
     "tang-shunzong",
+    "tang-wuzetian",
     "tangmo-anqingxu",
     "tangmo-li-chenghong",
     "tangmo-li-yun",
@@ -1231,6 +1192,8 @@
     "tangmo-shichaoyi",
     "tangmo-shisiming",
     "tangmo-zhuci",
+    "wei-caofang",
+    "wei-caomao",
     "wei-yuandi",
     "wu-jingdi",
     "wudai-houhan-yindi",
@@ -1264,6 +1227,7 @@
     "xiyan-murongyao",
     "xiyan-murongyong",
     "xiyan-murongzhong",
+    "yuan-huizong",
     "yuanmo-chenli",
     "yuanmo-chenyouliang",
     "yuanmo-hanlin-er",
@@ -1313,6 +1277,17 @@
       "ids": [
         "houyan-murongchui"
       ]
+    }
+  },
+  "excludedQa2026_07_31": {
+    "reason": "皇帝一覧カードを3:4へ変え、顔の位置を1枚ずつ決める作業（2026-07-31）の中で全150件をカード表示で見直した結果の除外。判定基準は既存の sceneCrop と同じ「どの人物が該当人物かを画像から特定できない」",
+    "ids": {
+      "beiqi-wenxuandi": "建物内の場面図で、該当人物が小さく後ろ姿寄り。画像から本人と特定できない",
+      "han-zhaodi": "ほぼ同じ大きさの3人が並ぶ群像で、どれが昭帝かを画像から特定できない",
+      "tang-wuzetian": "侍者を含む群像で、どれが武則天かを画像から特定できない",
+      "wei-caofang": "馬上の人物を含む版本の場面図で、該当人物を特定できない",
+      "wei-caomao": "同じ大きさの人物が並ぶ版本の場面図で、該当人物を特定できない",
+      "yuan-huizong": "剥落・退色が進み、像として人物が判読できない"
     }
   }
 }
