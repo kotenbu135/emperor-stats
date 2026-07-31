@@ -308,9 +308,10 @@ export function getFacadeStats(): LabFacade {
         label: procedure,
         count: total,
         values,
-        // 「先帝が決めた」割合を右端に出す — この図の主張は「建前どおりに
-        // 前の皇帝の意思で位が動いたのはどれくらいか」なので、その1列を読ませる。
-        highlight: `先帝の意思 ${pct(values[1], total)}%`,
+        // 右端に出すのは「本人が決めた」割合。この図の主張は
+        // 「禅譲儀礼19件のうち18件は譲られる側が決めていた」で、
+        // そこが1列で読める（「先帝の意思」を出すと0%の行が3つ並んで何も言わない）。
+        highlight: `本人が決めた ${pct(values[0], total)}%`,
       };
     })
     .sort((a, b) => b.count - a.count);
@@ -590,6 +591,9 @@ export interface LabConcurrent {
   excluded: { name: string; regime: string; period: string }[];
   /** 皇帝が1人もいない年（表示範囲内）。 */
   zeroYears: number[];
+  /** 年単位では在位者がいるのに、日単位の線が0へ落ちる年（在位に日付が無い層）。
+   *  折れ線で見ると「皇帝がいなかった年」に見えるので、必ず注記する。 */
+  dayGapYears: number[];
 }
 
 /** 近代（袁世凱の洪憲・溥儀の満洲国）は収録基準の産物で、間の空白年は歴史的空位ではない。
@@ -702,6 +706,7 @@ export function getConcurrentStats(): LabConcurrent {
     range: { from, to: CONCURRENT_LAST_YEAR },
     excluded,
     zeroYears,
+    dayGapYears: points.filter((p) => p.dayBased === 0 && p.yearBased > 0).map((p) => p.year),
   };
 }
 

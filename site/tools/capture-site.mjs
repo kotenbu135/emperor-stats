@@ -37,6 +37,9 @@ const SHOTS = [
   // 復位した皇帝（在位3期）。在位期間の2行化が効いている個別ページの代表。
   { name: "08-emperor-detail-restoration", path: "/emperors/qing-xuantong" },
   { name: "09-notfound", path: "/this-route-does-not-exist", expectStatus: 404 },
+  // グラフ候補の検討面（noindex・ナビにもサイトマップにも出さない）。採否が決まったら
+  // ページごと畳むので、そのときこの行も落とす。
+  { name: "10-lab", path: "/lab" },
 ];
 
 const MIME = {
