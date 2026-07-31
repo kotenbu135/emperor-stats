@@ -176,7 +176,15 @@ src/lib/ranking-metrics.ts
 `getOgFacts` の `/reign` 分岐が、`lib/emperor-types.ts` からは `RestorationRow` が消えた。
 `charts/horizontal-scroll-hint.tsx` は**フックだけ残した** — 端フェードの描画部品
 （`HorizontalScrollHint`・`VerticalScrollHint`）は、`/reign` の廃止と時代ジャンプバーの
-畳み込み化で呼び出し元が全部消えたため削除した。
+畳み込み化で呼び出し元が全部消えたため削除した。`emperor-detail-dialog.tsx` の
+`useDetailOutlet`（チャートの行クリックからダイアログを開くためのフック）も同じ理由で削除。
+
+**`lib/dynasty-colors.ts` は「王朝の印」だけが使う表になった。** 淡彩を作る道具
+（`DYNASTY_FILL_MIX`・`DYNASTY_EDGE_MIX`・`dynastyColorVar`・`dynastyColorMix`・
+`dynastyFillHex`・`dynastyEdgeHex`・`readableTextOn`）は呼び出し元が全部消えたので削除した。
+**ESLint の `no-unused-vars` は使われていない export を報告しない**ので、ページを消したあとは
+export ごとに `grep -rn '<名前>' src/` で消費者を数えること（lint が 0 error でも死んだ export は残る）。
+残っているのは `DYNASTY_COLOR_SLOT`・`dynastyColorSlot`・`dynastyColorHex` の3つ。
 
 **残したもの**: `charts/chart-filter-controls.tsx`（`emperor-grid`・`emperor-table` が使用）・
 `charts/dynasty-combobox.tsx`（同）・`useHorizontalScrollEdges`（`emperor-table` が使用）。
@@ -587,6 +595,7 @@ PD/CC0 の制約下で集めた実物で、切り抜き・トリミングの作�
 | **Nivo は採らない**（比較版を作った上での判断）。チャートは Recharts で統一 | 2026-07-31 |
 | 肖像なしカードの下地は**無彩色**。王朝色は文字列の左の3pxの印へ移す（淡彩は面の59%で、色も字もカードの文字と重複していた） | 2026-07-31 |
 | 時代ジャンプバーは**畳んで押したら開く**。横スクロールする帯にしない | 2026-07-31 |
+| **皇帝一覧の改修に外部評価（デザイン系エージェント等）は入れない**。実物のスクリーンショットで判断する（ダッシュボードと同じ進め方） | 2026-07-31 |
 | 王朝の表示名は**国号＋時代サフィックス**（「呉・三国」）のまま。`catalogs.regimes[].label` を全政権に使う案（「呉（孫呉）」）は**採らない** — 41件の表示名が動く。同じ時代の中の同名別政権（隋末の梁2つ・楚2つ）だけ label へ落とす | 2026-07-31 |
 | Tailwind Plus（$299）は購入しない | 2026-07-31 |
 | ランキングは1カラム＋グラフ内スクロールで全件（2カラム案は却下） | — |

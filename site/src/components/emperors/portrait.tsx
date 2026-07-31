@@ -34,9 +34,11 @@ function monogramChar(record: PortraitSubject): string {
  * 王朝の識別は**カードの文字列の左に立てる細い印**（`emperor-grid.tsx` の
  * `DynastyMark`）へ移した。そちらは肖像の有無にかかわらず全365枚に出る。
  *
- * 文字は `--muted-foreground`（`--muted` の上でコントラスト 4.35:1）。淡彩をやめた分
- * 「読み込み中の枠」に見えないかは実物で確認すること（38%という値自体、22%では
- * 読み込み中に見えるという指摘を受けて上げた経緯がある）。
+ * 文字は `--muted-foreground`（`--muted` の上でコントラスト 4.35:1）。淡彩をやめると
+ * 「読み込み中の枠」に見えないかが論点だった（38%という値自体、22%では読み込み中に
+ * 見えるという指摘を受けて上げた経緯がある）が、**モノグラムが8割を占める南北朝で
+ * 実物を確認して問題なしと判断した**（2026-07-31・`rebuild-shots/emperors-now-monogram-heavy.png`）。
+ * カードの下に名前・王朝・在位期間が必ず出るので、下地だけでは読み込み中に見えない。
  */
 function Monogram({ char, large = false }: { char: string; large?: boolean }) {
   return (

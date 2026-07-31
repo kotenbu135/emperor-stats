@@ -4,7 +4,7 @@
 // 持ち、日本語ラベルは `meta.catalogs` にしか置かない設計になった
 // （docs/schema/V3_MIGRATION_PLAN.md の D3）。サイトは表示ラベルで集計・分岐・配色を
 // 引くコードが広く、ID をそのまま流すと「型は通るのに色や分岐が silently 外れる」
-// （nivo-theme.ts の配色マップは日本語キーのオブジェクト）。そこで**読み込みの一点で
+// （王朝の配色は政権 ID をキーに引く）。そこで**読み込みの一点で
 // カタログを引いてラベルへ解決**し、下流には従来どおりラベルを流す。
 //
 // v3 で意味が変わった点（サイトの表示もこれに従う）:
@@ -117,7 +117,7 @@ function labelOf(enumName: string, id: string, context: string): string {
  * 存在することを確かめる。ラベルはカタログ側で自由に変えられる建前なので、
  * 変えられたときに配色や分岐が黙って外れるのではなくビルドを落とすためのゲート。
  * （分岐箇所: kinship/layout.ts の矢印ラベル導出・emperor-narrative.tsx の軸2内訳・
- *   emperors.ts の accessionTitleNew・charts/nivo-theme.ts の配色マップ）
+ *   emperors.ts の accessionTitleNew・lib/dynasty-colors.ts の配色スロット）
  */
 function assertLabels(enumName: string, expected: string[]): void {
   const labels = new Set(labelMapOf(enumName).values());

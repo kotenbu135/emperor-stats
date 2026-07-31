@@ -117,7 +117,7 @@ export const DYNASTY_COLOR_SLOT: Record<string, number> = {
 };
 
 /**
- * スロット→実色。CSS 変数を解決できない箇所（Nivo・混色計算）があるためハードコードしている。
+ * スロット→実色。CSS 変数を解決できない箇所（混色の計算）があるためハードコードしている。
  *
  * **スロット番号は `--series-N` の N ではない。** 王朝の性格に色を当てる意味ベースの割り当て
  * （`DYNASTY_COLOR_SLOT` のコメント参照）で、右に書いてあるのが対応する globals.css のトークン。
@@ -136,20 +136,14 @@ const SLOT_HEX = [
 ] as const;
 
 /** 地色（globals.css の --background を sRGB へ換算した実値）。混色の相手。 */
-export const SURFACE_HEX = "#ffffff";
-/** 文字色（--foreground の実値）。 */
-const INK_HEX = "#0a0a0a";
+const SURFACE_HEX = "#ffffff";
 
-/**
- * 塗りの濃度。--series-1〜8 は識別性を優先して検証した値のため彩度が高く、地に
- * 生のまま塗るとクロームから浮く。「地色に混ぜてから塗る」規則を、
- * 面積に応じた比率で適用する。
- */
-export const DYNASTY_FILL_MIX = 55;
-/** 塗りより一段濃い輪郭で形を締める。 */
-export const DYNASTY_EDGE_MIX = 82;
-/* 肖像なしカードのモノグラム背景の濃度は、肖像ありのカードとの明度差から決めるため
- * components/emperors/portrait.tsx のローカル定数（MONOGRAM_MIX）が持つ。 */
+/* 2026-07-31 に、この表の消費者は「王朝の印」（emperor-grid.tsx の DynastyMark）だけになった。
+ * 淡彩を作るための道具（DYNASTY_FILL_MIX・DYNASTY_EDGE_MIX・dynastyColorVar・dynastyColorMix・
+ * dynastyFillHex・dynastyEdgeHex・readableTextOn）は、/reign の削除と肖像なしカードの
+ * 無彩色化で呼び出し元が全部消えたので削除した（経緯は SITE_PLAN の「7. 皇帝一覧」節）。
+ * 面を淡彩で塗る必要が再び出たら、混色の規則（面積が大きいほど濃く／文字を載せる下地は淡く）
+ * ごと作り直すこと。 */
 
 /** dynastyKey（＝政権 ID）→ スロット。未知のキーは throw する
  *  （政権を追加したときに気づけるようにする。eraLabelOf の既存方式に揃える）。 */
@@ -161,16 +155,6 @@ export function dynastyColorSlot(dynastyKey: string): number {
     );
   }
   return slot;
-}
-
-/** スロット→CSS変数参照。CSSで色を指定できる面（モノグラム等）で使う。 */
-export function dynastyColorVar(slot: number): string {
-  return slot === 0 ? "var(--kinship-minor)" : `var(--series-${slot})`;
-}
-
-/** スロット→CSSの color-mix 式。style.ts と同じく地色に混ぜた濃度を返す。 */
-export function dynastyColorMix(slot: number, percent: number): string {
-  return `color-mix(in srgb, ${dynastyColorVar(slot)} ${percent}%, var(--background))`;
 }
 
 function parseHex(hex: string): [number, number, number] {
@@ -187,9 +171,9 @@ const toHex = (v: number) => Math.round(v).toString(16).padStart(2, "0");
  * `color-mix(in srgb, fg P%, bg)` と同じ結果を返す。CSS Color 4 の `in srgb` は
  * ガンマ補正済みの sRGB 値をそのまま補間するため、0〜255 のチャンネルごとの
  * 線形補間で一致する（線形光空間で混ぜると値がずれ、CSS 側で塗った面と
- * Nivo に渡す面の濃度感が食い違う）。
+ * 計算で作った色の濃度感が食い違う）。
  */
-export function mixHex(hex: string, percent: number, onto = SURFACE_HEX): string {
+function mixHex(hex: string, percent: number, onto = SURFACE_HEX): string {
   const [r1, g1, b1] = parseHex(hex);
   const [r2, g2, b2] = parseHex(onto);
   const t = percent / 100;
@@ -198,7 +182,7 @@ export function mixHex(hex: string, percent: number, onto = SURFACE_HEX): string
   )}`;
 }
 
-/** スロット→地色と混ぜた16進値。Nivo に渡す色はすべてこれを通す。
+/** スロット→地色と混ぜた16進値（`percent` が 100 なら生の識別色そのもの）。
  *  範囲外のスロットは throw する（`DYNASTY_COLOR_SLOT` は `Record<string, number>` で
  *  0〜8 を型で縛れないため、追記時の書き間違いが黙って藤色になるのを防ぐ）。 */
 export function dynastyColorHex(slot: number, percent: number): string {
@@ -209,37 +193,4 @@ export function dynastyColorHex(slot: number, percent: number): string {
     );
   }
   return mixHex(hex, percent);
-}
-
-/** dynastyKey から直接、塗り／縁の色を得るショートカット。 */
-export function dynastyFillHex(dynastyKey: string): string {
-  return dynastyColorHex(dynastyColorSlot(dynastyKey), DYNASTY_FILL_MIX);
-}
-export function dynastyEdgeHex(dynastyKey: string): string {
-  return dynastyColorHex(dynastyColorSlot(dynastyKey), DYNASTY_EDGE_MIX);
-}
-
-function relativeLuminance(hex: string): number {
-  const channel = (v: number) => {
-    const s = v / 255;
-    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
-  };
-  const [r, g, b] = parseHex(hex).map(channel);
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
-
-function contrastRatio(a: string, b: string): number {
-  const [la, lb] = [relativeLuminance(a), relativeLuminance(b)];
-  const [hi, lo] = la > lb ? [la, lb] : [lb, la];
-  return (hi + 0.05) / (lo + 0.05);
-}
-
-/**
- * 塗りの上に載せる文字色（地色 or 文字色）をコントラスト比で選ぶ。生の彩度を前提にした
- * 固定リスト（旧 darkSlices）は淡彩化後には当てはまらないため、混色後の実値で判定する。
- */
-export function readableTextOn(fillHex: string): string {
-  return contrastRatio(fillHex, SURFACE_HEX) > contrastRatio(fillHex, INK_HEX)
-    ? SURFACE_HEX
-    : INK_HEX;
 }

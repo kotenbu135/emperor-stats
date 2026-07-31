@@ -1,17 +1,17 @@
 "use client";
 
 // 皇帝1人の全項目（名称・在位・死因・即位経路・年齢・回数系8項目）を表示する
-// 詳細ダイアログ。皇帝一覧カードとランキング棒グラフの行クリックの両方から開く、
-// 統計ページ横断の共通部品。表示本体はemperor-detail-body.tsx（個別ページと共用）。
+// 詳細ダイアログ。皇帝一覧のカードから開く。表示本体は emperor-detail-body.tsx
+// （個別ページと共用）。
+//
+// 2026-07-31 まではランキング棒グラフの行クリックからも開いていたため、開閉状態を
+// チャート本体から切り離す useDetailOutlet を持っていた。/reign の削除で呼び出し元が
+// 消えたので、フックごと削除した（呼び出し元は一覧グリッド1つだけになった）。
 
 import {
-  useCallback,
   useEffect,
   useRef,
-  useState,
   type KeyboardEvent,
-  type ReactNode,
-  type RefObject,
 } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
@@ -215,51 +215,5 @@ export function EmperorDetailDialog({
         )}
       </DialogContent>
     </Dialog>
-  );
-}
-
-/**
- * 詳細ダイアログの開閉状態をチャート本体から分離するフック（scroll-bar-chart.tsxの
- * useTipOutletと同じ方式）。開閉のたびにNivoチャート全体が再レンダリングされるのを
- * 避けるため、状態はDetailOutlet（ダイアログだけを描く小さな子コンポーネント）が持ち、
- * チャート側は安定参照のopenDetailを呼ぶだけにする。
- */
-export function useDetailOutlet(): {
-  /** ダイアログを開く。チャート側のクリックハンドラから呼ぶ。 */
-  openDetail: (record: EmperorRecord) => void;
-  /** ダイアログの描画位置に置くコンポーネント。 */
-  DetailOutlet: () => ReactNode;
-} {
-  const setterRef = useRef<((record: EmperorRecord | null) => void) | null>(null);
-  const openDetail = useCallback((record: EmperorRecord) => {
-    setterRef.current?.(record);
-  }, []);
-  const DetailOutlet = useCallback(
-    () => <DetailOutletInner setterRef={setterRef} />,
-    [],
-  );
-  return { openDetail, DetailOutlet };
-}
-
-function DetailOutletInner({
-  setterRef,
-}: {
-  setterRef: RefObject<((record: EmperorRecord | null) => void) | null>;
-}) {
-  const [record, setRecord] = useState<EmperorRecord | null>(null);
-  useEffect(() => {
-    setterRef.current = setRecord;
-    return () => {
-      setterRef.current = null;
-    };
-  }, [setterRef]);
-  // onRestoreを渡し、戻るで閉じたあと進むで再入したときに開き直せるようにする
-  // （URLは変えない＝履歴エントリだけの同期。urlForは一覧グリッド専用）。
-  return (
-    <EmperorDetailDialog
-      record={record}
-      onClose={() => setRecord(null)}
-      onRestore={setRecord}
-    />
   );
 }
