@@ -231,7 +231,7 @@ export function RankingBarChart({
               theme={nivoTheme}
               // role="img"のSVGに必要なアクセシブルネーム（Lighthouse svg-img-alt対応）。
               ariaLabel={`皇帝別${valueLabel}の横棒グラフ`}
-              // 棒はその皇帝の王朝色（凡例は付かない——87王朝の凡例は成立しない。
+              // 棒はその皇帝の王朝色（凡例は付かない——89政権の凡例は成立しない。
               // 各行に王朝名がラベルされているので、色は「同じ王朝がどこに固まって
               // いるか」を見せるグルーピングの手掛かりとして働く）。
               colors={(d) => String(d.data.fill)}

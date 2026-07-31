@@ -249,7 +249,7 @@ export function EmperorTable({
     return eraOrder.filter((e) => present.has(e));
   }, [records]);
 
-  // 王朝の候補は選択中の時代に絞る。87件から探すコンボボックスなので、
+  // 王朝の候補は選択中の時代に絞る。89件から探すコンボボックスなので、
   // 時代を決めた後まで全件出すと選び直しの手数が増える。
   const visibleDynastyOptions = useMemo(
     () =>

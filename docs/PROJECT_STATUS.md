@@ -194,11 +194,9 @@
 
 ## サイト実装で見つかったデータ品質の申し送り事項
 
-サイト実装（`site/`）を進める中で発見した、`data/emperors.json` 側の是正が望ましい点。
+サイト実装（`site/`）を進める中で発見した、`data/emperors.json` 側の是正が望ましい点。**現時点で未対応の申し送りはなし**（以下は解消記録）。
 
-- **【データ側は解消済み・サイト側が未対応 2026-07-31／Issue #27】隋末群雄の同名別政権が1つの `regimeId` に合併していた**: v3 移行時に regimes を旧 `dynasty` の `(section, name)` から機械導出したため、「梁」（梁師都／蕭銑）と「楚」（林士弘／朱粲）の2組4人が合併していた。原典で別政権と確認し `xiaoxian-liang`・`zhucan-chu` を新設して分割済み（政権87→89件）。**ただしサイトの表示はまだ分離されない** — `site/src/lib/emperors.ts` の `dynastyKey` が `国号__researchSection`、`dynastyLabel` も国号ベースで、`data-source.ts` が渡す `dynasty.name` は `regimes[].label` ではなく `regimes[].name`（＝「梁」「楚」）だから。分離するには `dynastyKey`/`dynastyLabel` を `regimeId`/`regimeLabel` 基準へ移す改修が要る（`DYNASTY_COLOR_SLOT` のキーもそれに追従。逆に、分割しただけでは新しい dynastyKey は生まれないのでビルドは落ちない）。近道に見える「`data-source.ts` で `dynasty.name` に `label` を入れる」は89政権すべての表示名が変わり `assertLabels()` と `DYNASTY_COLOR_SLOT` の全キーに波及するので不可
-
-以下は解消記録。
+- **【解消済み 2026-07-31／Issue #27】隋末群雄の同名別政権が1つの `regimeId` に合併していた**: v3 移行時に regimes を旧 `dynasty` の `(section, name)` から機械導出したため、「梁」（梁師都／蕭銑）と「楚」（林士弘／朱粲）の2組4人が合併していた。原典で別政権と確認し `xiaoxian-liang`・`zhucan-chu` を新設して分割（政権87→89件）。**サイト側も同日対応済み** — `dynastyKey` を政権 ID そのものに変え（旧 `国号__researchSection` は同一ブロック内の同名別政権を潰す）、`dynastyLabel` は「同じ時代の中に同名の政権が複数ある組」だけ `catalogs.regimes[].label` へ落として「梁・梁師都」「梁・蕭銑」「楚・林士弘」「楚・朱粲」と出す。`DYNASTY_COLOR_SLOT` のキーも政権 ID へ揃えた（全365名で配色スロットが変わらないことを確認済み）。label を全政権に使う案は採らなかった（「魏」→「魏（曹魏）」のように41件の表示名が動くため）
 
 - **【解消済み 2026-07-21】`name.commonName` が `null` のレコードが2件存在する**: `xia-helianchang`（赫連昌）・`xia-heliading`（赫連定）、いずれも五胡十六国「夏（赫連夏）」。[EMPERORS_SCHEMA.md](../data/schema/EMPERORS_SCHEMA.md) 上は `commonName` は `string`（非null）のはずだが、実データではこの2件が未設定だった（2026-07-18発見）。→ 2026-07-21、データセット内で確立済みの慣行（廟号・諡号を持たない皇帝は諱を通称に用いる。曹芳・孫亮・石世など約30件で既に採用）に合わせ、両件とも `commonName` に諱（赫連昌・赫連定）を設定して解消。同時に配布スキーマ（`data/schema/emperors.schema.json`）の `commonName` を非null必須（`type: "string"`・`minLength: 1`）へ厳格化し、`scripts/validate_emperors.py` にも非空文字列チェックを追加して再発を CI で検出できるようにした。サイト側の `displayName()` フォールバックは防御的に維持している。
 

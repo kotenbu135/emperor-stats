@@ -185,7 +185,7 @@ export interface EmperorTableRecord {
    *  外したのとはここが違う）。 */
   personalName: string | null;
   dynastyLabel: string;
-  /** 王朝の絞り込み用（DynastyOption.value と同じ複合キー。列としては描かない）。 */
+  /** 王朝の絞り込み用（DynastyOption.value と同じ政権 ID。列としては描かない）。 */
   dynastyKey: string;
   /** 時代の絞り込み用（列としては描かない）。 */
   eraLabel: string;

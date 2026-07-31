@@ -293,18 +293,73 @@ const ERA_SUFFIX: Record<string, string> = {
   "新〜後漢初": "後漢初",
 };
 
-function dynastyLabel(dynasty: RawEmperor["dynasty"]): string {
-  const name = toNakaguro(dynasty.name);
-  if (!duplicatedDynastyNames.has(dynasty.name)) return name;
-  const era = eraLabelOf(dynasty);
+/**
+ * **同じ時代の中に**同じ国号の政権が複数あるもの（2026-07-31・Issue #27）。
+ * 隋末の「梁」＝梁師都／蕭銑、「楚」＝林士弘／朱粲がこれにあたる。
+ * 時代サフィックスでは区別できないので、この2組だけカタログの曖昧性のない表示名
+ * （`catalogs.regimes[].label`）へ落とす。他の85政権の表示は変えない
+ * — label を全政権に使うと「魏」→「魏（曹魏）」のように41件の表示名が動く。
+ */
+const ambiguousNameInEra: Set<string> = (() => {
+  const regimesByNameEra = new Map<string, Set<string>>();
+  for (const e of data.emperors) {
+    const key = `${e.dynasty.name}__${eraLabelOf(e.dynasty)}`;
+    const set = regimesByNameEra.get(key) ?? new Set<string>();
+    set.add(e.regimeId);
+    regimesByNameEra.set(key, set);
+  }
+  return new Set(
+    [...regimesByNameEra.entries()].filter(([, s]) => s.size > 1).map(([k]) => k),
+  );
+})();
+
+function dynastyLabel(e: RawEmperor): string {
+  const era = eraLabelOf(e.dynasty);
+  if (ambiguousNameInEra.has(`${e.dynasty.name}__${era}`)) {
+    // 「梁（蕭銑）」→「梁・蕭銑」。括弧は toNakaguro がサイトの表記（中黒）へ揃える。
+    return toNakaguro(e.regimeLabel);
+  }
+  const name = toNakaguro(e.dynasty.name);
+  if (!duplicatedDynastyNames.has(e.dynasty.name)) return name;
   const suffix = ERA_SUFFIX[era] ?? era;
   // 「後漢・後漢」のような重複を避ける（光武帝の後漢はサフィックスなし、五代の後漢のみ「後漢・五代十国」）。
   return suffix === name ? name : `${name}・${suffix}`;
 }
 
-function dynastyKey(dynasty: RawEmperor["dynasty"]): string {
-  return `${dynasty.name}__${dynasty.section}`;
+/**
+ * 王朝の同一性キー。**政権 ID そのもの**（v3 の `catalogs.regimes[].id`）。
+ *
+ * 2026-07-31 まで `国号__調査ブロック` の複合キーだったが、Issue #27 で
+ * 「同じ調査ブロックの中の同名別政権」（隋末の梁2つ・楚2つ）が実在すると分かり、
+ * この組み立て方では別政権が1つのキーに潰れることが判明した。政権 ID なら
+ * 一意性がデータ側で保証される。`DYNASTY_COLOR_SLOT` のキーもこれに揃えてある。
+ */
+function dynastyKey(e: RawEmperor): string {
+  return e.regimeId;
 }
+
+// 王朝ラベルが政権と1対1であること（＝表示上どの政権か分かること）を保証する。
+// 政権を分割・追加したときに、同じ表示名の王朝が2つ並ぶ（キーは違うのに見分けが
+// つかない）状態で静かに配信されるのを防ぐ。
+(() => {
+  const regimesByLabel = new Map<string, Set<string>>();
+  for (const e of data.emperors) {
+    const label = dynastyLabel(e);
+    const set = regimesByLabel.get(label) ?? new Set<string>();
+    set.add(e.regimeId);
+    regimesByLabel.set(label, set);
+  }
+  const collisions = [...regimesByLabel.entries()].filter(([, s]) => s.size > 1);
+  if (collisions.length > 0) {
+    throw new Error(
+      `王朝の表示ラベルが複数の政権に重複しています: ` +
+        collisions
+          .map(([label, ids]) => `"${label}" ← ${[...ids].join(", ")}`)
+          .join(" / ") +
+        `（emperors.ts の dynastyLabel を見直すか、catalogs.regimes[].label で区別してください）`,
+    );
+  }
+})();
 
 /**
  * commonNameはスキーマ・validate_emperors.pyで非null必須（かつてnullが2件混在し
@@ -430,8 +485,8 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     name: displayName(e.name),
     dynastyName: e.dynasty.name,
     dynastySection: e.dynasty.section,
-    dynastyKey: dynastyKey(e.dynasty),
-    dynastyLabel: dynastyLabel(e.dynasty),
+    dynastyKey: dynastyKey(e),
+    dynastyLabel: dynastyLabel(e),
     eraLabel: eraLabelOf(e.dynasty),
     dynastyCategory: e.dynasty.category,
     // 政権の中で正規の皇帝か対立・僭称の皇帝か（v3 の standing）。旧 dynasty.category が
@@ -466,7 +521,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     posthumousName: e.name.posthumousName,
     aliases: e.name.aliases ?? [],
     wikidataId: e.sources?.wikidata ?? null,
-    searchText: searchTextOf(e, dynastyLabel(e.dynasty), eraLabelOf(e.dynasty)),
+    searchText: searchTextOf(e, dynastyLabel(e), eraLabelOf(e.dynasty)),
     hasPortrait: portraitIds.has(e.id),
     portraitUrl: portraitIds.has(e.id) ? `${BASE_PATH}/portraits/${e.id}.webp` : null,
     videos: videosByEmperorId.get(e.id) ?? [],
@@ -489,7 +544,7 @@ export function getEmperorListRecords(): EmperorListRecord[] {
   const kanaById = new Map(
     data.emperors.map((e) => [
       e.id,
-      searchKanaOf(e, dynastyLabel(e.dynasty), eraLabelOf(e.dynasty)),
+      searchKanaOf(e, dynastyLabel(e), eraLabelOf(e.dynasty)),
     ]),
   );
   // 上書きテーブルの打ち間違い・データ側のid変更に気づけるよう存在チェックする
@@ -576,7 +631,7 @@ export function getEmperorTableRecords(): EmperorTableRecord[] {
     }));
 }
 
-/** 王朝(name+section複合キー)の選択肢一覧。時代グループ順→データ内初出順で並べる。 */
+/** 王朝(政権 ID をキーにした)選択肢一覧。時代グループ順→データ内初出順で並べる。 */
 export function getDynastyOptions(): DynastyOption[] {
   const seen = new Set<string>();
   const options: DynastyOption[] = [];
