@@ -8,6 +8,9 @@
 |---|---|
 | [emperors.json](emperors.json) | 始皇帝から溥儀までの皇帝データ本体（`meta` + `emperors` 配列） |
 | [kinship.json](kinship.json) | 系譜・即位経路グラフ（ブリッジ人物 `persons` + エッジ3種 + 系譜主張。皇帝ノードは emperors.json を id 参照。調査中） |
+| [emperor-profiles.json](emperor-profiles.json) | 皇帝個別ページの紹介文（[Issue #16](https://github.com/kotenbu135/emperor-stats/issues/16)・執筆中）。**原典調査の結果ではなく編集コンテンツ**で、既存の調査結果を読者向けに言い直したもの。`emperors.json` と別ファイルなのは、性格が違うことに加えて約7MBのデータセットを365回の追記で触ると並行セッションと衝突するため |
+
+**`emperor-profiles.json` は配布物に含めていない**（`site/scripts/build-data-distribution.mjs` が `public/data/` へ出すのは emperors.json・emperors.csv・emperors.schema.json の3本のみ）。含めるかは別途の判断で、既定は「含めない」。
 
 データ・調査メモ文章のライセンスは **CC BY 4.0**（[LICENSE](LICENSE)、コードはルートの MIT と二重ライセンス構成・`meta.license` にも機械可読で記載）。変更履歴はルートの [CHANGELOG.md](../CHANGELOG.md) を参照してください。
 

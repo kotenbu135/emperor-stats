@@ -16,6 +16,7 @@
 // 非対称は許容する。
 
 import { Portrait } from "@/components/emperors/portrait";
+import { cardSubtitleOf } from "@/lib/card-subtitle";
 import { dynastyColorHex, dynastyColorSlot } from "@/lib/dynasty-colors";
 import { dynastyContextLabel, type EmperorRecord } from "@/lib/emperor-types";
 
@@ -39,6 +40,11 @@ function ageChipValue(record: EmperorRecord): string | null {
 
 export function EmperorHero({ record }: { record: EmperorRecord }) {
   const ageValue = ageChipValue(record);
+  // 皇帝号だけでは誰か分かりにくい人物向けの補助名（諱・通用名）。
+  // **諱をそのまま出すと106/365で重複する** — 「王莽」「宇文化及」のように表示名が
+  // 諱そのものの人物や、「太祖・朱全忠」のように皇帝号へ諱を併記している人物が多い。
+  // 導出規則と人物別上書き（遼の漢風名・清の愛新覚羅姓省略など）は一覧カードと共用。
+  const subtitle = cardSubtitleOf(record.id, record.personalName, record.name);
   return (
     <header className="border-b border-border bg-background px-gutter py-section md:px-gutter-wide">
       <div className="mx-auto w-full max-w-4xl">
@@ -77,11 +83,11 @@ export function EmperorHero({ record }: { record: EmperorRecord }) {
             </p>
             <h1 className="mt-1.5 flex flex-wrap items-baseline gap-x-3 text-balance font-heading text-page-title font-semibold text-foreground">
               {record.name}
-              {/* 諱を h1 の中に入れるのは、皇帝号（武帝・太宗）だけでは人物が
+              {/* 補助名を h1 の中に入れるのは、皇帝号（武帝・太宗）だけでは人物が
                   特定できず、諱（劉徹・李世民）で検索されることが多いため。 */}
-              {record.personalName && (
+              {subtitle && (
                 <span className="text-base font-normal text-muted-foreground">
-                  {record.personalName}
+                  {subtitle}
                 </span>
               )}
             </h1>
