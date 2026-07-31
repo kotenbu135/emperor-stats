@@ -27,7 +27,7 @@ const OG_FONTS = [
 /**
  * OGP画像の配色。satori は CSS 変数を解決できないので、globals.css のトークンを
  * sRGB へ変換して焼き込んである（`--background` → #ffffff のように OKLCh から換算）。
- * globals.css の値を動かしたらここも直す（design-plans/tools/og-preview.mjs も同値）。
+ * globals.css の値を動かしたらここも直す（焼き込み箇所の一覧は site/AGENTS.md）。
  */
 const PALETTE = {
   background: "#ffffff", // --background

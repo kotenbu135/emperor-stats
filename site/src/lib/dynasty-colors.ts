@@ -141,7 +141,7 @@ const SURFACE_HEX = "#ffffff";
 /* 2026-07-31 に、この表の消費者は「王朝の印」（emperor-grid.tsx の DynastyMark）だけになった。
  * 淡彩を作るための道具（DYNASTY_FILL_MIX・DYNASTY_EDGE_MIX・dynastyColorVar・dynastyColorMix・
  * dynastyFillHex・dynastyEdgeHex・readableTextOn）は、/reign の削除と肖像なしカードの
- * 無彩色化で呼び出し元が全部消えたので削除した（経緯は SITE_PLAN の「7. 皇帝一覧」節）。
+ * 無彩色化で呼び出し元が全部消えたので削除した（経緯は SITE_DESIGN.md の「7. 皇帝一覧」節）。
  * 面を淡彩で塗る必要が再び出たら、混色の規則（面積が大きいほど濃く／文字を載せる下地は淡く）
  * ごと作り直すこと。 */
 

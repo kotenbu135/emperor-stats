@@ -28,17 +28,18 @@
 |---|---|
 | [schema/SCHEMA_OVERVIEW.md](schema/SCHEMA_OVERVIEW.md) | `data/emperors.json` のスキーマ参照ガイド（詳細は [data/schema/](../data/schema/) を参照） |
 
-## site-design/ — 肖像画アセットの管理
+## site-design/ — サイトの設計記録と肖像画アセット
 
-Next.js サイト（`../site/`）の**設計記録は 2026-07-31 にすべて削除しました**（サイトを別セッションで
-ゼロから書き直すため。旧サイトの記述が残っていると新しい実装の判断がそれに引きずられる、という判断）。
-このディレクトリに残っているのは、サイトの見た目とは独立して有効な肖像画アセットの管理だけです。
+**旧サイト（2026-07-31 以前）の設計記録は同日すべて削除しました**（作り替えにあたり、旧サイトの記述が
+残っていると新しい実装の判断がそれに引きずられる、という判断）。ここにあるのは新サイトの設計記録と、
+サイトの見た目とは独立して有効な肖像画アセットの管理です。
 
-いま有効なサイト側の情報は `../site/AGENTS.md`（崩してはいけない契約・チェックリスト・ハマりどころ）と
-`../site/design-plans/`（2026-07-31 の再構築の決定記録）にあります。
+崩すとビルドが落ちる契約は `../site/AGENTS.md`（サイトを触る前に必読）。
 
 | ファイル | 内容 |
 |---|---|
+| [site-design/SITE_DESIGN.md](site-design/SITE_DESIGN.md) | **サイトの設計と決定の記録**。ページ構成・スタック・配色の考え方・各ページの設計判断・決着済みで再提案しないこと |
+| [site-design/CHART_CANDIDATES_2026-07-31.md](site-design/CHART_CANDIDATES_2026-07-31.md) | グラフにする価値のあるデータの検討（実測済み・実装は未着手の候補一覧） |
 | [site-design/PORTRAITS.md](site-design/PORTRAITS.md) | 肖像画収集の調査結果（PD/CC0 のみ・144名分確定）＋肖像マッピングQAの手順・反映先 |
 | `site-design/mockups/card-preview/` | 肖像画 webp 144点。**`site/scripts/sync-portraits.mjs` のビルド入力なので消さないこと** |
 | `site-design/portraits-candidates.json` | 肖像画の候補調査の生データ |

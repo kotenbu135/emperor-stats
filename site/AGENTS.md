@@ -6,9 +6,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 `../data/emperors.json`（中国皇帝365人・全12項目）を可視化する統計サイト。Next.js 16（App Router / Turbopack）+ Tailwind v4 + shadcn/ui + Tremor（vendored）+ Recharts + TanStack Table。`output: "export"` で `out/` に静的書き出しし、GitHub Pages + カスタムドメイン **emperorstats.com**（`public/CNAME`）のルート直下で配信する。
 
-**2026-07-31 に作り替えの途中にある。** 最終形は**4ページ**（概要ダッシュボード `/`・皇帝一覧 `/emperors`・データベース `/database`・このサイトについて `/about`）＋皇帝個別 `/emperors/[id]` の365ページ。できているのは**概要ダッシュボード・データベース・このサイトについて**で、`/emperors` は改修の途中（肖像なしカード・時代ジャンプバー・カード比率3:4まで）、`/emperors/[id]` は旧実装のまま残っている（外側のシェル＝サイドバー・ヘッダー・フッターも旧実装）。同日、`/timeline`・`/kinship`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`・**`/reign`** はファイルごと削除した（公開済みURLは 404 に着地させる方針）。`/reign` の2節はデータベースの状態として残っていて、リンクは `/database?sort=reignApproxDays&order=desc`（在位年数ランキング）と `/database?reign=restoration`（復位者一覧）へ付け替えてある。**`@nivo/*` はこの削除で消えた** — チャートは Recharts（vendored Tremor 経由）だけ。
+**2026-07-31 に作り替えて一旦完成した。** 構成は**4ページ**（概要ダッシュボード `/`・皇帝一覧 `/emperors`・データベース `/database`・このサイトについて `/about`）＋皇帝個別 `/emperors/[id]` の365ページ。ただし**詳細ダイアログ・外側のシェル（サイドバー・ヘッダー・フッター）・`/emperors/[id]` は旧実装のまま**残っている（申し送りの全文は SITE_DESIGN.md の「2. ページ構成」節）。同日、`/timeline`・`/kinship`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`・**`/reign`** はファイルごと削除した（公開済みURLは 404 に着地させる方針）。`/reign` の2節はデータベースの状態として残っていて、リンクは `/database?sort=reignApproxDays&order=desc`（在位年数ランキング）と `/database?reign=restoration`（復位者一覧）へ付け替えてある。**`@nivo/*` はこの削除で消えた** — チャートは Recharts（vendored Tremor 経由）だけ。
 
-このファイルには**崩すとビルドが落ちる契約**だけを置いてある。ページ構成・スタックの使い分け・配色・各ページの設計方針は [design-plans/SITE_PLAN.md](design-plans/SITE_PLAN.md) が正。旧サイトの設計記録・実装ログ・デザイン契約は同日すべて削除したので、**この2本以外から方針を引かないこと**。
+このファイルには**崩すとビルドが落ちる契約**だけを置いてある。ページ構成・スタックの使い分け・配色の考え方・各ページの設計判断・決着済みで再提案しないことは [../docs/site-design/SITE_DESIGN.md](../docs/site-design/SITE_DESIGN.md) が正。旧サイトの設計記録・実装ログ・デザイン契約は同日すべて削除したので、**この2本以外から方針を引かないこと**。
 
 # コマンド
 
@@ -19,7 +19,11 @@ npm run dev        # http://localhost:3000/（basePath なし）
 npm run build      # 静的書き出し → out/
 npm run lint       # ESLint
 npx tsc --noEmit   # 型チェック
+
+node tools/capture-site.mjs   # out/ を静的配信して全ページの確認用スクショを撮る（→ tools/shots/・.gitignore 対象）
 ```
+
+`tools/capture-site.mjs` は `out/` を自前の静的サーバーで配信する（`output: "export"` なので `/about` → `about.html` の解決が要り、素の静的サーバーでは 404 になる）。**ページを増減したらスクリプトの `SHOTS` も直すこと** — `page.goto` は 404 でも throw しないので、廃止済みのパスを撮ると 404 ページが「撮れた」ことになる（実装側で status を検証している）。
 
 `predev`/`prebuild` で3つの生成スクリプトが走る:
 
@@ -61,16 +65,43 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 グローバルナビは `src/lib/nav-data.ts`。
 
+## ページを1枚消すときに落とす4箇所
+
+**ページを消しても TypeScript は通る。** `/reign` を削除したときは 404 へのリンクが2本残った。
+
+`SITE_SECTIONS`・`nav-data.ts`・`OgFactPage` の union と `getOgFacts()` の分岐から落としたうえで、本文中のリンクを `grep -rn '"/<パス>' src/` で洗う。最後に `out/**.html` を grep して 404 リンクが残っていないことを見る。**`tools/capture-site.mjs` の `SHOTS` からも落とす。**
+
+**ESLint の `no-unused-vars` は使われていない export を報告しない。** ページを消したあとは export ごとに `grep -rn '<名前>' src/` で消費者を数えること（lint が 0 error でも死んだ export が残る）。
+
+## shadcn CLI を叩くときの注意
+
+**`npx shadcn init` は実行しない。** このプロジェクトは CLI から見ると未設定（`config: null`）で、`init` は `globals.css` を書き換える。パレットは受領値を無改変で入れてあるので上書きさせない。部品を足すときも `--dry-run` / `--diff` で差分を見てから。
+
 ## 単一情報源
 
 - **`src/lib/base-path.ts` の `BASE_PATH`** — `next.config.ts` の basePath と肖像画 URL が共用。カスタムドメイン移行済みのため現在は `""`。`next/image` は `images.unoptimized` 時に basePath を自動付与しないので、`public/` 配下を参照する箇所は必ず `BASE_PATH` を明示する。
 - **`src/lib/seo.tsx`** — `SITE_URL`/`SITE_NAME`・`buildMetadata()`・JSON-LD 生成関数・`SITE_SECTIONS`。各ページの `metadata` はこれ経由、`layout.tsx` の `title` は template 化済み。`app/sitemap.ts`・`app/robots.ts`・`app/manifest.ts` は `export const dynamic = "force-static"` が無いと `output: "export"` でビルドが落ちる。
 - **`src/lib/video-channel.ts` の `VIDEO_CHANNEL`** — 動画はすべて当サイトと無関係の外部チャンネルの制作物のため、セクション冒頭と `/about` に必ず制作者表記を出す。
-- **`src/app/globals.css`** — 配色トークン（`--series-1〜8`・`--bar*`・`--seal`）と本文列の上限 `--container-content`。
+- **`src/app/globals.css`** の `/* @palette:start */`〜`end` — **配色と書体の唯一の正**（`--series-1〜8`・`--bar*`・`--seal`）と本文列の上限 `--container-content`。ここ以外に色を書かない。**`--series-*` は8色で、9区分目の色を作らない**（9つ目のカテゴリは「その他」へ畳むか面を分ける）。`--series-*` の3色は面 `#ffffff` に対してコントラストが 3:1 未満で、**「可視ラベルまたは表ビューがあること」が免除条件**（現状は凡例に区分名と実数を併記して満たしている）。**凡例のラベルを外す変更をするときは必ず再確認する。**
 - **`src/lib/dynasty-colors.ts` の `DYNASTY_COLOR_SLOT`** — 政権→配色スロット（**キーは政権 ID**・89政権）。未割当のキーは throw する。
 - **`src/components/about/article.tsx` の `ARTICLE_WIDTH`** — `/about` の本文列（読み物幅・768px）。データページの `max-w-content`（1200px）とは別で、`PageHeader` の `containedWidth`・`SectionJumpNav` の `innerWidth`・各 `Section` の `containedWidth` へ**同じ値を渡す**（ずらすとジャンプバーだけ本文より左へ出る）。
 - **`/about` の節の id 9つ** — `#operator` を `seo.tsx` の `OPERATOR_ID`（JSON-LD の Person）、`#dataset` を `DATASET_ID` が指している。id は見出しではなく `<section>` に付ける（`SectionJumpNav` の現在地判定が拾えなくなる）。**数え方11項目を Accordion で畳まない** — `ui/accordion.tsx` は `forceMount` を渡していないので閉じた本文が DOM から消え、サイトで唯一の「数え方」の記述が静的HTMLから落ちる。
 - **`../data/images/portraits/manifest.json` の `focusY`** — 肖像の中で顔が縦のどこにあるか（0〜1）。一覧カードの肖像枠は実体（3:4）より横長で `object-cover` が縦を切るため、この値が切る位置を決める。**肖像がある全員に無いとビルドが落ちる**（`emperors.ts`）。肖像を足したら値も入れること（読み取り方は `docs/site-design/PORTRAITS.md`）。
+
+## 配色の実値を焼き込んでいる箇所（CSS 変数が使えないところ）
+
+`globals.css` の値を動かしたら、次も**同時に**直す。いずれも OKLCh → sRGB へ換算した実値が入っている。
+ビルドは落ちないので、忘れると画面と OGP・ファビコンだけが別の色になる。
+
+| ファイル | 何に出るか |
+|---|---|
+| `src/lib/og-image.tsx` の `PALETTE` | OGP画像（satori は CSS 変数を解決できない） |
+| `src/app/icon.svg` | ファビコン（朱 `#c70036` 地に白の「帝」） |
+| `src/app/manifest.ts` | PWA マニフェストの `background_color` / `theme_color` |
+| `globals.css` のスクロールバー | `scrollbar-color` は変数を受けないブラウザがあるため実値 |
+| `src/lib/dynasty-colors.ts` | 王朝色の計算（`SURFACE_HEX` / `INK_HEX` / `SLOT_HEX`） |
+
+**`dynasty-colors.ts` の `SLOT_HEX` の番号は `--series-N` の N ではない** — 王朝の性格に色を当てる意味ベースの割り当て（下の「皇帝を追加収録するときのチェックリスト」2番）。
 
 # 皇帝を追加収録するときのチェックリスト
 
@@ -86,7 +117,7 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 - **Radix系ポップアップのスクロールロックは `scrollbar-gutter: stable` と二重補正になり横ずれする** — react-remove-scroll が body に `margin-right` 補正を注入するため。`globals.css` の `body[data-scroll-locked][data-scroll-locked]` 上書きで打ち消し済み（属性セレクタ2連は `!important` 同士の詳細度勝負のため）。この上書きを消さないこと。
 - **`prefers-reduced-motion: reduce` は `globals.css` の一括指定で潰してある**。Radix / tw-animate-css の開閉アニメーションはクラスで直接 `animation` を当てるため JS の `matchMedia` 分岐では止まらない。`animation: none` にはしないこと（Radix は `animationend` を待って要素を外すため、閉じたダイアログが DOM に残る）。なお **CSS アニメーションしか止まらない** ので、Recharts の JS アニメーション（`isAnimationActive`）は別途止める必要がある。
-- **`overflow-x: auto` を当てた箱は、縦に溢れていなくてもスクロールコンテナになる** — 中の `position: sticky` の基準がビューポートからその箱へ移り、**見出しの固定が静かに効かなくなる**（`overflow-y: clip` を併せても変わらない）。`/database` の表は「収まっている間は `overflow-x: clip`、溢れた幅でだけ `auto`」に切り替えてこれを避けている（経緯は SITE_PLAN の「6. データベース」節）。
-- **`design-plans/tools/` の確認用スクリプトは npm の依存操作のたびに動かなくなる** — playwright は site の依存に入れておらず、`node_modules/playwright{,-core}` へ npx キャッシュから張った symlink で動いている。`npm install`/`uninstall` がこの symlink を消すため、`ERR_MODULE_NOT_FOUND: playwright` が出たら張り直す（`ln -sfn ~/.npm/_npx/<hash>/node_modules/playwright{,-core} node_modules/`・版は `~/.cache/ms-playwright` の chromium と合わせる）。
+- **`overflow-x: auto` を当てた箱は、縦に溢れていなくてもスクロールコンテナになる** — 中の `position: sticky` の基準がビューポートからその箱へ移り、**見出しの固定が静かに効かなくなる**（`overflow-y: clip` を併せても変わらない）。`/database` の表は「収まっている間は `overflow-x: clip`、溢れた幅でだけ `auto`」に切り替えてこれを避けている（経緯は SITE_DESIGN.md の「6. データベース」節）。
+- **`tools/capture-site.mjs` は npm の依存操作のたびに動かなくなる** — playwright は site の依存に入れておらず、`node_modules/playwright{,-core}` へ npx キャッシュから張った symlink で動いている。`npm install`/`uninstall` がこの symlink を消すため、`ERR_MODULE_NOT_FOUND: playwright` が出たら張り直す（`ln -sfn ~/.npm/_npx/<hash>/node_modules/playwright{,-core} node_modules/`・版は `~/.cache/ms-playwright` の chromium と合わせる）。
 - **`.next` キャッシュ残存でハイドレーションが静かに失敗する**（コンソールエラーなし・画像404・フィルタ無反応）。設定変更後は `rm -rf .next` してから dev サーバーを再起動する。
 - **Recharts は 2.15.4 に固定**。3.x では vendored した Tremor のチャートが動かない。**shadcn の `chart` レジストリ項目は `recharts@3.8.0` を要求する**ので、Tremor のチャートを残したまま shadcn の `Chart` を足すことはできない（二者択一）。

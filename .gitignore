@@ -49,14 +49,7 @@ next-env.d.ts
 site/.ds-sync/
 site/ds-bundle/
 
-# design-plans のスクリーンショット取得ツール（ローカル専用）
-site/design-plans/tools/node_modules/
-site/design-plans/tools/before*/
-site/design-plans/tools/after*/
-site/design-plans/tools/shots*/
+# 確認用スクリーンショット（site/tools/capture-site.mjs の出力・撮り直せるので履歴に入れない）
+site/tools/shots/
 
 .claude/skills/
-site/design-plans/tools/rebuild-shots/
-site/design-plans/tools/size-cap-shots/
-site/design-plans/tools/_*.mjs
-site/design-plans/tools/palette-shots/

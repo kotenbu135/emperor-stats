@@ -357,7 +357,7 @@ export function EmperorTable({
   const hiddenCount = hideableColumns.filter((c) => !c.getIsVisible()).length;
 
   // 8列の自然幅は約858px（本文列の幅＝画面幅−332px なので、1200px 以上なら収まる）。
-  // 1180px 以下でははみ出す。枠の中で横に流す設計（SITE_PLAN の「6. データベース」節）なので、
+  // 1180px 以下でははみ出す。枠の中で横に流す設計（SITE_DESIGN.md の「6. データベース」節）なので、
   // 「続きがある」ことだけは見せる。左端のフェードは出さない — 固定した先頭列の上に
   // かぶって皇帝名を薄くしてしまうため、右端だけにしてある。
   const { scrollRef, atEnd, onScroll, syncEdges } =

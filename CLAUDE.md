@@ -8,7 +8,7 @@
 
 データ調査は完了済み（全12項目×365人・`meta.status.overall: "completed"`）で、現在の作業は**データ誤りの訂正（GitHub Issue 起点）**と、**サイトの再構築**です。
 
-**サイトは 2026-07-31 から作り替えの途中にあります**（ブランチ `site-rebuild-tremor`）。最終形は**4ページ**（概要ダッシュボード・皇帝一覧・データベース〔新規〕・このサイトについて）＋皇帝個別365ページで、完成しているのは概要ダッシュボードだけです。旧サイトの設計ドキュメントは同日すべて削除し、**配色と書体は `site/src/app/globals.css` が唯一の正**です（独自に作り直さない）。サイトを触る前に [site/design-plans/SITE_PLAN.md](site/design-plans/SITE_PLAN.md)（構成と設計方針）と [site/AGENTS.md](site/AGENTS.md)（崩すとビルドが落ちる契約）を読んでください。現状・進行中の作業・申し送り事項は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md)。
+**サイトは 2026-07-31 に作り替えて一旦完成しました**（ブランチ `site-rebuild-tremor`）。構成は**4ページ**（概要ダッシュボード・皇帝一覧・データベース〔新規〕・このサイトについて）＋皇帝個別365ページで、詳細ダイアログ・外枠のシェル・皇帝個別ページは旧実装のまま残っています。旧サイトの設計ドキュメントは同日すべて削除し、**配色と書体は `site/src/app/globals.css` が唯一の正**です（独自に作り直さない）。サイトを触る前に [site/AGENTS.md](site/AGENTS.md)（崩すとビルドが落ちる契約）と [docs/site-design/SITE_DESIGN.md](docs/site-design/SITE_DESIGN.md)（設計と決定の記録・再提案しないこと）を読んでください。現状・進行中の作業・申し送り事項は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md)。
 
 ## コマンド
 
@@ -29,7 +29,7 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 ## リポジトリ構成
 
 - **`data/emperors.json`** — データセット本体（`meta` + `emperors` 配列・約7MB）。サイトがビルド時に直接読み込む。**メイン会話でこのファイル全体を Read しない** — 対象人物の抽出・訂正結果のマージは `jq`/`python3` を Bash 経由で行う（[RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「コンテキスト効率」節）
-- **`site/`** — Next.js サイト（静的書き出し・emperorstats.com で公開）。**触る前に [site/AGENTS.md](site/AGENTS.md) と [site/design-plans/SITE_PLAN.md](site/design-plans/SITE_PLAN.md) を読む** — `kana-readings`・`DYNASTY_COLOR_SLOT` のように、追記を忘れるとビルドが落ちる assert がある。2026-07-31 から作り替えの途中で、旧サイトの設計記録は同日すべて削除した
+- **`site/`** — Next.js サイト（静的書き出し・emperorstats.com で公開）。**触る前に [site/AGENTS.md](site/AGENTS.md) と [docs/site-design/SITE_DESIGN.md](docs/site-design/SITE_DESIGN.md) を読む** — `kana-readings`・`DYNASTY_COLOR_SLOT` のように、追記を忘れるとビルドが落ちる assert がある。2026-07-31 に作り替えて一旦完成し、旧サイトの設計記録と計画段階のディレクトリ（`site/design-plans/`）は削除済み。確認用スクリーンショットは `site/tools/capture-site.mjs`
 - **`china-history/`・`daizhigev20/`** — 正史原文のローカルコーパス（`.gitignore` 対象・リポジトリには含まれない、事前に `git clone --depth 1` 済み）。データ訂正時の一次情報源として最優先で参照する
 - **`_corpus_cache/`** — 上記コーパスから人物ごとに抽出・整形済みの本紀原文キャッシュ（`.gitignore` 対象・`scripts/build_corpus_cache.py` で再生成可能）。キャッシュが無い人物を調査する際は、先にこのスクリプトへ書名・巻・行範囲のマッピングを追記して生成してから調査に入る
 - **`data/images/portraits/`** — 肖像画アセット（PD/CC0 のみ・`manifest.json` で出典管理）
@@ -48,7 +48,7 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 | **絶対に守るべき制約** | [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md) |
 | **AI調査の知見集（設計指針・失敗事例・エージェント運用とドキュメントの書き方）** | [docs/process/AI_RESEARCH_LESSONS.md](docs/process/AI_RESEARCH_LESSONS.md) |
 | **サイトの現状・崩してはいけない契約（触る前に必読）** | [site/AGENTS.md](site/AGENTS.md) |
-| **サイトの構成と設計方針（ページ構成・スタック・配色・各ページの方針）** | [site/design-plans/SITE_PLAN.md](site/design-plans/SITE_PLAN.md) |
+| **サイトの設計と決定の記録（ページ構成・スタック・配色・各ページの判断・再提案しないこと）** | [docs/site-design/SITE_DESIGN.md](docs/site-design/SITE_DESIGN.md) |
 
 スキーマは [docs/schema/SCHEMA_OVERVIEW.md](docs/schema/SCHEMA_OVERVIEW.md) が参照ガイドで、フィールド詳細は [data/schema/](data/schema/) 以下（[EMPERORS_SCHEMA.md](data/schema/EMPERORS_SCHEMA.md)・[DEATH_CAUSE_SCHEMA.md](data/schema/DEATH_CAUSE_SCHEMA.md)・即位経路/改元/大赦ほかの [ADDITIONAL_SCHEMA.md](data/schema/ADDITIONAL_SCHEMA.md)・[INCLUSION_CRITERIA.md](data/schema/INCLUSION_CRITERIA.md)・系譜〔調査中〕の [KINSHIP_SCHEMA.md](data/schema/KINSHIP_SCHEMA.md)）にあります。スキーマ v3（2026-07-29・Issue #22。時代・政権カタログ、全 enum の ID 化、`dynasty`／`flags.selfProclaimed` の廃止）の設計・移行記録は [docs/schema/V3_MIGRATION_PLAN.md](docs/schema/V3_MIGRATION_PLAN.md)。
 
