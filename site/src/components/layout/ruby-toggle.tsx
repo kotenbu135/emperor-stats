@@ -55,13 +55,13 @@ export function RubyToggle({ className }: { className?: string }) {
     // 狙わせると外しやすい。
     <div
       className={cn(
-        "flex w-full items-center justify-between gap-2 rounded-md border border-border px-2.5 py-1.5 text-xs transition-colors has-[:focus-visible]:border-ring hover:bg-accent",
+        "group/ruby flex w-full items-center justify-between gap-2 rounded-md border border-border px-2.5 py-1.5 text-xs transition-colors has-[:focus-visible]:border-ring hover:bg-accent",
         className,
       )}
     >
       <Label
         htmlFor={id}
-        className="flex-1 cursor-pointer text-xs font-normal text-muted-foreground"
+        className="flex-1 text-xs font-normal text-muted-foreground transition-colors group-hover/ruby:text-foreground"
       >
         ふりがな
         {/* ラベル自身にルビを振って、何が起きるのかを見た目で示す。 */}

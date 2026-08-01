@@ -89,6 +89,7 @@ function getVariantStyles(tabVariant: TabsListVariant) {
         'ring-transparent',
         // selected
         'data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow',
+        'data-[state=active]:hover:text-seal',
         'data-[state=active]:dark:bg-gray-950 data-[state=active]:dark:text-gray-50',
         // disabled
         'data-[disabled]:pointer-events-none data-[disabled]:text-gray-400 data-[disabled]:opacity-50 data-[disabled]:dark:text-muted-foreground',

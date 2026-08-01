@@ -38,7 +38,6 @@ import {
   type FilterChip,
 } from "@/components/charts/chart-filter-controls";
 import { DynastyCombobox } from "@/components/charts/dynasty-combobox";
-import { LinkPendingOverlay } from "@/components/layout/link-pending";
 import type {
   DynastyCategory,
   DynastyOption,
@@ -104,10 +103,6 @@ const EmperorCard = memo(function EmperorCard({
       // 1.11(390px) のほぼ正方形に収まる。
       className="group relative flex aspect-[3/4] flex-col overflow-hidden rounded-md border border-border bg-card text-left transition-[translate,border-color] duration-150 ease-out hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring motion-safe:hover:-translate-y-px motion-safe:hover:shadow-sm motion-reduce:transition-none"
     >
-      {/* 押した1枚だけに出る遷移待ち（画面外のカードはプリフェッチが効かないので
-          押してから間が空く）。待っていない間は何も描かないので、365枚の
-          静的HTMLは変わらない。 */}
-      <LinkPendingOverlay />
       {/* min-h-0 が無いと flex アイテムの既定 min-height:auto で肖像が縮まず、
           カードが3:4を超えて伸びる。 */}
       <div className="relative min-h-0 flex-1 overflow-hidden">

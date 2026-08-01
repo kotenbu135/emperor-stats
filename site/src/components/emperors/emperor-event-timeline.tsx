@@ -77,7 +77,7 @@ function EventRow({ row }: { row: EmperorEventRow }) {
       {/* headとシェブロンを同じflexの兄弟にすると、狭い画面で本文が1行を占めた
           ときにシェブロンだけが次の行へ押し出される。headを折り返し可能な箱に
           まとめ、シェブロンはその外側に nowrap で並べる。 */}
-      <summary className="flex cursor-pointer list-none flex-nowrap items-start gap-x-3 py-1.5 [&::-webkit-details-marker]:hidden">
+      <summary className="flex list-none flex-nowrap items-start gap-x-3 rounded-md py-1.5 transition-colors hover:bg-accent/60 [&::-webkit-details-marker]:hidden">
         <span className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-3 gap-y-0.5">
           {head}
         </span>
@@ -141,7 +141,7 @@ export function EmperorEventTimeline({ rows }: { rows: EmperorEventRow[] }) {
     cn(
       "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs transition-colors",
       pressed
-        ? "border-seal/60 bg-seal/10 text-foreground"
+        ? "border-seal/60 bg-seal/10 text-foreground hover:bg-seal/20"
         : "border-border text-muted-foreground hover:border-seal/40 hover:text-foreground",
     );
 

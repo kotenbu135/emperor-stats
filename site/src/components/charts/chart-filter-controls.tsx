@@ -93,7 +93,7 @@ export function SearchField({
 }) {
   return (
     <FilterField label={label}>
-      <InputGroup className={widthClass}>
+      <InputGroup className={cn("transition-colors hover:bg-accent/50", widthClass)}>
         <InputGroupAddon>
           <Search />
         </InputGroupAddon>

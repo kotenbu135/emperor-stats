@@ -67,7 +67,7 @@ function NarrativeBlock({
       <p className="text-sm leading-relaxed">{section.note}</p>
       {axes && (
         <details className="group">
-          <summary className="flex cursor-pointer list-none items-center gap-1.5 text-xs text-muted-foreground [&::-webkit-details-marker]:hidden">
+          <summary className="flex list-none items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground [&::-webkit-details-marker]:hidden">
             <ChevronRight
               aria-hidden
               className="size-3 shrink-0 transition-transform group-open:rotate-90"
@@ -139,7 +139,7 @@ export function EmperorResearchDetails({
     <div className="flex flex-col gap-3 border-t border-border pt-4">
       {reignSources.length > 0 && (
         <details className="group">
-          <summary className="flex cursor-pointer list-none items-center gap-1.5 font-heading text-sm font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+          <summary className="flex list-none items-center gap-1.5 font-heading text-sm font-semibold text-foreground transition-colors hover:text-seal [&::-webkit-details-marker]:hidden">
             <ChevronRight
               aria-hidden
               className="size-3.5 shrink-0 text-muted-foreground transition-transform group-open:rotate-90"
@@ -176,7 +176,7 @@ export function EmperorResearchDetails({
       )}
       {memos.length > 0 && (
         <details className="group">
-          <summary className="flex cursor-pointer list-none items-center gap-1.5 font-heading text-sm font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+          <summary className="flex list-none items-center gap-1.5 font-heading text-sm font-semibold text-foreground transition-colors hover:text-seal [&::-webkit-details-marker]:hidden">
             <ChevronRight
               aria-hidden
               className="size-3.5 shrink-0 text-muted-foreground transition-transform group-open:rotate-90"

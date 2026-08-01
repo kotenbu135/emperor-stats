@@ -302,6 +302,34 @@
   }
 
   /*
+   * **押せるものはポインタの形を変える**（2026-08-01・実測して入れた）。
+   * Tailwind v4 の preflight は `button` の cursor を `default` にする（v3 までは
+   * ブラウザ既定の pointer だった）。このため shadcn の Button・Select・Popover・
+   * DropdownMenu・Switch・ToggleGroup・Tremor の Tabs まで、**押せる部品のほぼ全部が
+   * 矢印カーソルのまま**だった（実測 70 種類中 46 種類が不合格）。
+   * 個々のクラスで直すと必ず取りこぼすので、ここで一括して当てる。
+   * `<a href>` はブラウザ既定で pointer なので触らない。入力欄（text カーソル）も対象外。
+   */
+  button:not(:disabled),
+  summary,
+  label[for],
+  [role="button"]:not([aria-disabled="true"]),
+  [role="tab"],
+  [role="switch"],
+  [role="radio"],
+  [role="option"],
+  [role="menuitem"],
+  [role="menuitemcheckbox"],
+  [role="menuitemradio"] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  /*
    * 「視差効果を減らす」（prefers-reduced-motion: reduce）への配慮。
    * Radix / tw-animate-css の開閉アニメーション（Dialog の zoom-in-95・Sheet の
    * slide-in-from-left-10 など）はユーティリティクラスで直接 animation を当てるため、
@@ -312,7 +340,7 @@
    * 潰して animationend は必ず発火させる。
    * **無限ループのアニメーション（スピナー）はここでは救えない** —
    * animation-iteration-count: 1 が効いて1回転で止まり、中途半端な角度の
-   * 記号が残る。2026-08-01 に入れた遷移待ち・絞り込み中のスピナーは、
+   * 記号が残る。2026-08-01 に入れた「絞り込み中」のスピナーは、
    * この指定に頼らず呼び出し側で `motion-reduce:hidden` を付けて
    * 出さないようにしてある（状態は sr-only の文言と面の変化で伝える）。
    * スピナーを足すときは同じ扱いにすること。

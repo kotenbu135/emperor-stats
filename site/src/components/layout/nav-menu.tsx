@@ -9,7 +9,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { LinkPendingDot } from "@/components/layout/link-pending";
 import { cn } from "@/lib/utils";
 import { navCategories } from "@/lib/nav-data";
 
@@ -92,14 +91,11 @@ function NavAnchor({
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "block py-1.5 text-sm text-foreground/80 transition-colors hover:text-seal",
+        "-mx-2 block rounded-md px-2 py-1.5 text-sm text-foreground/80 transition-colors hover:bg-accent hover:text-seal",
         active && "font-medium text-seal",
       )}
     >
       {children}
-      {/* 押したメニュー項目だけに出る遷移待ち（/database は365行を組み立てるので
-          押してから間が空く）。待っていない間は何も描かない。 */}
-      <LinkPendingDot />
     </Link>
   );
 }
@@ -152,12 +148,11 @@ export function NavMenu({ onNavigate }: { onNavigate?: () => void }) {
                   onClick={onNavigate}
                   aria-current={pathname === category.href ? "page" : undefined}
                   className={cn(
-                    "flex-1 py-2 font-heading text-sm font-semibold text-foreground transition-colors hover:text-seal",
+                    "-mx-2 flex-1 rounded-md px-2 py-2 font-heading text-sm font-semibold text-foreground transition-colors hover:bg-accent hover:text-seal",
                     pathname === category.href && "text-seal",
                   )}
                 >
                   {category.label}
-                  <LinkPendingDot />
                 </Link>
                 {/* ナビは見出しではないので Radix 既定の h3 で包まない
                     （トリガーはシェブロンだけでテキストを持たないため、包むと

@@ -70,7 +70,7 @@ export function DynastyCombobox({
         role="combobox"
         aria-expanded={open}
         aria-label="王朝で絞り込み"
-        className={`flex h-8 ${triggerWidthClass} items-center justify-between gap-1.5 rounded-lg border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30 dark:hover:bg-input/50`}
+        className={`flex h-8 ${triggerWidthClass} items-center justify-between gap-1.5 rounded-lg border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none hover:bg-accent focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30 dark:hover:bg-input/50`}
       >
         <span className="truncate">{selectedLabel}</span>
         <ChevronDownIcon className="pointer-events-none size-4 shrink-0 text-muted-foreground" />

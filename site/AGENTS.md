@@ -84,18 +84,26 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 **ESLint の `no-unused-vars` は使われていない export を報告しない。** ページを消したあとは export ごとに `grep -rn '<名前>' src/` で消費者を数えること（lint が 0 error でも死んだ export が残る）。
 
-## 反応（pending）の作りで守ること
+## 操作の反応で守ること
 
-2026-08-01 に足した「押した／打った反応」（設計の記録は SITE_DESIGN.md の
-「インタラクションの強化」節）。壊すと**画面は動くが目的だけが消える**ので、
-触るときは次を保つ。
+2026-08-01 に直した「押せるものが押せるように見えるか」（設計の記録は SITE_DESIGN.md の
+「インタラクションの強化」節）。**部品を足したら必ず流し直す:**
 
+```bash
+npm run dev -- --port 3100     # 別のターミナルで
+node tools/hover-audit.mjs     # 各ページの操作要素の cursor と hover を実測 → NG: 0 を保つ
+```
+
+- **`button` の cursor は Tailwind v4 が `default` にする。** globals.css の base で
+  `button:not(:disabled)`・`summary`・`label[for]`・`[role=tab|switch|radio|option|menuitem*]`
+  にまとめて `cursor: pointer` を当ててある。**この規則を消すと押せる部品のほぼ全部が
+  矢印カーソルに戻る**（実測で70種類中46種類が不合格だった状態）
+- **hover の言い方は2つだけ** — 面がわずかに沈む（`hover:bg-accent`）／文字が朱になる
+  （`hover:text-seal`）。**選択中の項目は「非選択の見た目＝hover 後の見た目」になりがち**
+  （現在地のナビ・選択中のタブ／トグル・押されている種別チップ）。選択中は文字を朱にする
 - **スピナーには必ず `motion-reduce:hidden` を付ける。** `globals.css` の
   reduced-motion 一括指定は `animation-iteration-count: 1` なので、無限ループの
   スピナーは1回転して固まる。その環境では出さず `sr-only` の文言で伝える
-- **`useLinkStatus` は `<Link>` の子孫でしか使えない**（`components/layout/link-pending.tsx`）。
-  カード本体・行本体で呼ばない — `EmperorCard` の memo が外れる。**待っていない間は
-  何も描かない**（365枚ぶんのスピナーを静的HTMLへ載せない）
 - **絞り込みの deferred は「条件まとめ」1つに載せる。** `useMemo` で束ねた
   オブジェクトを `useDeferredValue` へ通し、`filters !== deferredFilters` を
   「結果が古い」の判定に使う。個別の state を deferred にすると、コントロールの

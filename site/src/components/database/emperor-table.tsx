@@ -76,7 +76,6 @@ import {
   SearchField,
   type FilterChip,
 } from "@/components/charts/chart-filter-controls";
-import { LinkPendingDot } from "@/components/layout/link-pending";
 import { useHorizontalScrollEdges } from "@/components/charts/horizontal-scroll-hint";
 import { DynastyCombobox } from "@/components/charts/dynasty-combobox";
 import {
@@ -163,8 +162,6 @@ const COLUMNS: ColumnDef<EmperorTableRecord>[] = [
         {/* ふりがな（Issue #20）。並べ替え・検索は平文の name のままで、
             ルビは描画だけに使う。 */}
         <RubyText source={row.original.nameRuby} />
-        {/* 押した行だけに出る遷移待ち（待っていない間は何も描かない）。 */}
-        <LinkPendingDot />
       </Link>
     ),
   },
@@ -241,15 +238,6 @@ const COLUMNS: ColumnDef<EmperorTableRecord>[] = [
 ];
 
 /**
- * 見出しのツールチップに出す「並べ替えの鍵」（2026-08-01）。
- *
- * この2列は**表示している文字列と並べ替えのキーが違う**。列に出ている文字を
- * そのまま並べても意図した順にならないためだが、押した側からは順番の理由が
- * 読めないので、その場で明かす。**`title` 属性の置き換えではない** —
- * 即位経路の全文・復位者の全期間はセルの `title` と読み上げ用テキストが
- * 持ち続ける（Radix のツールチップはタッチで出ないため、そちらは動かせない）。
- */
-/**
  * 見出しを押すと次に何が起きるかの文言。TanStack の並べ替えは
  * 「1回目→2回目→解除」の3周期で、1回目の向きは列ごとに違う
  * （数値列は降順から・`sortDescFirst: false` を付けた在位期間は昇順から）。
@@ -266,11 +254,6 @@ function sortActionLabel(
   if (sorted === second) return "クリックで並べ替えを解除";
   return second === "asc" ? "クリックで昇順に並べ替え" : "クリックで降順に並べ替え";
 }
-
-const SORT_HINT: Record<string, string> = {
-  periodsLabel: "並べ替えの鍵は最初の在位の開始年",
-  reignApproxDays: "並べ替えの鍵は在位日数",
-};
 
 /** URL の `?sort=` を照合するための列 id 集合。id 未指定の列は accessorKey が id になる。 */
 const COLUMN_IDS = new Set(
@@ -707,22 +690,10 @@ export function EmperorTable({
                                 )}
                               </button>
                             </TooltipTrigger>
-                            <TooltipContent
-                              side="bottom"
-                              sideOffset={6}
-                              // 既定は1行の横並び。2行出す列があるので縦に積む。
-                              className="flex-col items-start gap-0.5 text-left"
-                            >
-                              <span>
-                                {sortActionLabel(
-                                  header.column.getFirstSortDir() === "desc",
-                                  sorted,
-                                )}
-                              </span>
-                              {SORT_HINT[header.column.id] && (
-                                <span className="text-background/70">
-                                  {SORT_HINT[header.column.id]}
-                                </span>
+                            <TooltipContent side="bottom" sideOffset={6}>
+                              {sortActionLabel(
+                                header.column.getFirstSortDir() === "desc",
+                                sorted,
                               )}
                             </TooltipContent>
                           </Tooltip>
