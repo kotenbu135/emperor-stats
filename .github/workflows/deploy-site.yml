@@ -36,6 +36,7 @@ jobs:
           pip install jsonschema
           python3 scripts/validate_emperors.py
           python3 scripts/validate_readings.py
+          python3 scripts/validate_profiles.py
 
       - uses: actions/setup-node@v7
         with:

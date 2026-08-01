@@ -68,6 +68,8 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 紹介文は `../data/emperor-profiles.json`（`emperors.json` とは別ファイル）。**存在しない皇帝idのキーがあるとビルドが落ちる**（`kana-readings`・`DYNASTY_COLOR_SLOT` と同じ書き間違い検出の assert）。未執筆でもページは成立する作りなので、フィールドが無い皇帝では紹介文の節が出ず `description` は機械生成文に落ちる。
 
+**`lead` は総ルビ・`description` は平文**（Issue #20 の T2）。`lead` は `<RubyText>` に通し、行送りは `leading-loose` ではなく **`leading-ruby`**（ルビのある行だけ高くなって段落の中で行間がばらつく）。`description` は `<meta>` と Person JSON-LD にしか出ないのでルビを持たせず、**ルビ記法が混ざっていたら `emperors.ts` の読み込み時に throw する**（描画側で strip すると、呼び出し2箇所のうち片方を直し忘れる事故になる）。執筆規約は `emperor-profiles.json` の `meta.policy`、ゲートは `../scripts/validate_profiles.py`（文字数はルビを剥がした長さで数える）と `../scripts/validate_readings.py`。
+
 ## ページを1枚足すときに揃える3箇所
 
 `SITE_SECTIONS`（`src/lib/seo.tsx`）へ**先に**足してからページの `metadata` を書く。`sectionDescription()` は未登録の href で throw するので、順序を逆にするとビルドが止まる。`sitemap.xml` はここから導出される。

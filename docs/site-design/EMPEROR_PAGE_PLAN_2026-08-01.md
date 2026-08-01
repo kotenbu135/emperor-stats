@@ -7,7 +7,8 @@
 
 - **モーダル廃止 — 完了**（`bfa54fa`）
 - **個別ページの再構築 — 完了**（`60370c3`）。ユーザー決定4件を反映済み
-- **紹介文（Issue #16）— 受け口だけ完了。本文は365人中ほぼ全員が未執筆**（このファイルの後半が残作業）
+- **紹介文（Issue #16）— 執筆に着手（2026-08-01）。秦2人で全周を通した。残り363人**
+  （段取り・ゲート・素材の出し方はこのファイルの後半）
 
 **決着した設計は [SITE_DESIGN.md](SITE_DESIGN.md) の「8. 皇帝個別ページ」が正**（2節の詳細ダイアログ廃止、
 7節の皇帝一覧、12節の再提案しないことも同時に更新済み）。契約は
@@ -52,28 +53,62 @@
 
 方針（格納先・分量・出典の扱い）は SITE_DESIGN の8節に移した。ここには**執筆の段取り**を置く。
 
-### いまある受け口
+### いまある受け口（2026-08-01・秦2人の試作で全周を通した）
 
 - `data/emperor-profiles.json` — `profiles: { "<皇帝id>": { lead, description } }`。
-  現在 `profiles` は空。存在しない皇帝idを書くとビルドが落ちる
-- `getEmperorProfile(id)`（`site/src/lib/emperors.ts`）— 未執筆は null
-- ページ側 — `lead` があれば②の位置に16pxで出す。`description` があれば
-  `generateMetadata` の description と Person JSON-LD の両方に効く（無ければ機械生成文）
+  執筆規約は同ファイルの `meta.policy`（素材の範囲・引用・ルビ・文字数の数え方）。
+  存在しない皇帝idを書くとビルドが落ちる
+- `getEmperorProfile(id)`（`site/src/lib/emperors.ts`）— 未執筆は null。
+  読み込み時に `lead` のルビ記法を `assertValidRubySource` で、`description` に
+  ルビ記法が混ざっていないことを assert で見る
+- ページ側 — `lead` は `<RubyText>` 経由で②の位置に16pxで出す（**行送りは
+  `leading-ruby`**。`leading-loose` のままだとルビのある行だけ高くなって段落の中で
+  行間がばらつく）。`description` は `generateMetadata` と Person JSON-LD の両方に効く
+
+### 素材の出し方
+
+```bash
+python3 scripts/extract_profile_material.py --section '秦（始皇帝以降）'   # 区分ごと
+python3 scripts/extract_profile_material.py qin-shi-huang                 # 個別
+```
+
+`data/emperors.json`（約7MB）を会話へ読み込まずに、素材フィールド
+（`accessionRoute.note`・`deathCause.note`・`reignSummary`・`reigns[].duration.source`・
+events・ages の note・回数8項目）だけを Markdown で出す。**原典の再調査は発生しない**ので
+コーパス参照・引用ゲートの手順は要らない。ただし**素材の note には正史の直接引用が含まれる**
+（`verify_quotes.py` の照合対象）ので、紹介文へそのまま持ち出さず地の文で書く。
 
 ### 工程
 
 365人を一度には書けないので、**時代15区分（`ERA_BY_SECTION`）のブロック単位**で進める。
-1ブロック書くたびに `npm run build` を通し、`out/emperors/<id>.html` の `<meta name="description">` が
-差し替わっていることを見る。
+1ブロックごとに次を通す:
 
-素材は既に検証済みの調査結果だけ（`accessionRoute.note`・`deathCause.note`・`reignSummary`・
-`reigns[].duration.source`・events・ages の note）。**原典の再調査は発生しない**ので、
-コーパス参照・引用ゲートの手順は要らない。ただし**素材の note には正史の直接引用が含まれる**
-（`verify_quotes.py` の照合対象）ので、紹介文へそのまま持ち出さず地の文で書く。
+```bash
+python3 scripts/validate_profiles.py   # 文字数・平文・件数・定型文の n-gram
+python3 scripts/validate_readings.py   # 総ルビ充足・固有名詞の読み（Issue #20）
+cd site && npm run build
+grep -o '<meta name="description" content="[^"]*"' out/emperors/<id>.html
+```
 
-### 機械ゲート案（`scripts/validate_profiles.py`・未実装）
+ブロックは独立して完成した単位で、未執筆の皇帝はページが成立する作りなので、
+**ブロック単位で main へマージしてよい**（365本を1ブランチで抱えると並行セッションと衝突する）。
 
-- 文字数の上下限（`lead` 200〜300字・`description` 100〜140字）
-- 全員分の重複 n-gram 検出（365人分を機械的に量産していないことの担保）
-- 人物名・王朝名・在位年が `emperors.json` と矛盾しないこと
-- 空フィールド・存在しない皇帝idの検出（後者はビルド側の assert と二重）
+### 機械ゲート（`scripts/validate_profiles.py`・実装済み）
+
+- 文字数の上下限（`lead` 200〜300字・`description` 100〜140字）。**ルビを剥がした長さで数える**
+  — 記法込みだと250字の lead が600字級になり上下限が意味を失う
+- `description` が平文であること（`<meta>`・JSON-LD にしか出ないのでルビは書かない）
+- `meta.counts.written` が実数と一致すること
+- 全 lead の12-gram を数え、3本以上で共通する箇所を**報告**（エラーにはしない）。
+  Issue #16 の「一人ずつ作成する」に対する唯一の機械的な担保
+- 本文の年が `emperors.json` の在位年・生没年のどれとも一致しないときに報告
+  （在位期間外への言及はありうるのでエラーにしない）
+- 空フィールド・存在しない皇帝id（後者はビルド側の assert と二重）
+
+### ふりがなゲートの向き（2026-08-01・執筆着手時に直した）
+
+`validate_readings.py` の「固有名詞整合」は**本文で振ったルビ → 読みテーブル**の向きで照合する。
+逆向き（テーブルのキーが本文に現れたら同じ literal を要求する）は素の部分文字列一致になり、
+885キー中352キーが2字以下・**21キーが1字**（元・唐・漢・明・清…）という実データでは
+総ルビの本文がまず通らない — 「光武帝」は「武帝」キーで、「前漢」は「漢」キーで、
+一般語彙の「元号」まで「元」キーで落ちる。1字キーは照合対象から外してある。

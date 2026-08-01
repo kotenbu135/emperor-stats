@@ -30,6 +30,7 @@ import {
 export * from "@/lib/emperor-types";
 import { kanaExpansionsOf } from "@/lib/kana-readings";
 import { rubyOf } from "@/lib/name-readings";
+import { assertValidRubySource } from "@/lib/ruby";
 import { CARD_SUBTITLE_OVERRIDES, cardSubtitleOf } from "@/lib/card-subtitle";
 import { emperorsJson } from "@/lib/data-source";
 
@@ -804,6 +805,18 @@ const emperorProfiles = (
 for (const key of Object.keys(emperorProfiles)) {
   if (!rawEmperorById.has(key)) {
     throw new Error(`emperor-profiles.json に存在しない皇帝id: ${key}`);
+  }
+  const { lead, description } = emperorProfiles[key];
+  // lead は総ルビ（Issue #20 の T2）。壊れた記法をここで止める。
+  if (lead) assertValidRubySource(lead, `emperor-profiles.json「${key}」の lead`);
+  // description は <meta> と Person JSON-LD にしか出ないので**平文で持つ**
+  // （2026-08-01 決定）。ルビ記法が紛れ込むと「｜」がそのまま検索結果に出るため、
+  // 描画側で strip するのではなくデータ側を平文に固定してビルドで落とす。
+  if (description && /[｜《》]/.test(description)) {
+    throw new Error(
+      `emperor-profiles.json「${key}」の description にルビ記法があります: ` +
+        `description は <meta>・JSON-LD 専用なので平文で書きます（ルビは lead だけ）`,
+    );
   }
 }
 
