@@ -255,6 +255,26 @@ function sortActionLabel(
   return second === "asc" ? "クリックで昇順に並べ替え" : "クリックで降順に並べ替え";
 }
 
+/**
+ * 枠に収まらない幅で、既定表示に残す列の優先順位（高い順）。皇帝列は
+ * `enableHiding: false` なので常に残り、この並びには入らない。
+ *
+ * 8列の最小自然幅は 皇帝142・王朝119・在位期間114・在位年数90・即位経路90・死因72・
+ * 即位年齢90・没年齢76（合計793px。vw390/768/1024 で同値・2026-08-02 実測）。
+ * 枠の内側幅は vw390 で330px・vw768 で436px しかない（md 以上ではサイドバー240pxが
+ * 先に引かれるので、狭いのは携帯だけではない）。**1180px 以上では8列が収まる**ので
+ * この調整は働かない。
+ */
+const NARROW_COLUMN_PRIORITY = [
+  "dynastyLabel",
+  "periodsLabel",
+  "reignApproxDays",
+  "deathCauseCategory",
+  "accessionRouteCategory",
+  "deathAge",
+  "accessionAge",
+];
+
 /** URL の `?sort=` を照合するための列 id 集合。id 未指定の列は accessorKey が id になる。 */
 const COLUMN_IDS = new Set(
   COLUMNS.map((c) => c.id ?? ("accessorKey" in c ? String(c.accessorKey) : "")),
@@ -441,8 +461,10 @@ export function EmperorTable({
   const hideableColumns = table.getAllLeafColumns().filter((c) => c.getCanHide());
   const hiddenCount = hideableColumns.filter((c) => !c.getIsVisible()).length;
 
-  // 8列の自然幅は約858px（本文列の幅＝画面幅−332px なので、1200px 以上なら収まる）。
-  // 1180px 以下でははみ出す。枠の中で横に流す設計（SITE_DESIGN.md の「6. データベース」節）なので、
+  // 8列の自然幅は793px、枠の内側は vw1180 で848px（2026-08-02 実測）。**1180px 以上なら
+  // 8列が収まる**ので、横に流れるのはそれより狭いときだけ ——そこでは上の自動調整が
+  // 列を減らして収める。それでも溢れるのは利用者が列を戻したときで、
+  // 枠の中で横に流す設計（SITE_DESIGN.md の「6. データベース」節）なので、
   // 「続きがある」ことだけは見せる。左端のフェードは出さない — 固定した先頭列の上に
   // かぶって皇帝名を薄くしてしまうため、右端だけにしてある。
   const { scrollRef, atEnd, onScroll, syncEdges } =
@@ -481,6 +503,73 @@ export function EmperorTable({
     return () => ro.disconnect();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [measure, filtered.length]);
+
+  // 8列のままでは携帯・タブレットで必ず溢れ、溢れた枠はスクロールコンテナになって
+  // 見出しの固定が効かなくなる（↑ overflows のコメント）。**列見出しが最も要るのは
+  // 狭い画面**なので、収まる本数まで既定の可視列を減らして sticky が効く側へ倒す。
+  //
+  // - 決めるのは**マウント後の1回だけ**。リサイズのたびに決め直すと、幅を変えている
+  //   最中に列が勝手に増減して落ち着かない
+  // - 初期 state は `{}` のまま（SSR の HTML と一致させる。ここで幅を見た値を初期値に
+  //   すると hydration が合わない）
+  // - **`?sort=` で来た列は必ず残す** — ダッシュボードの在位年数ランキングは
+  //   `/database?sort=reignApproxDays` へ着地する。隠れた列で並べ替わった表は読めない
+  // - 減った分は列の表示切替に「n列を非表示中」として出るので、戻せば従来どおり
+  //   （横スクロール＋見出しの固定なし）に戻せる
+  const autoFittedRef = useRef(false);
+  useEffect(() => {
+    if (autoFittedRef.current) return;
+    const box = scrollRef.current;
+    const table = tableRef.current;
+    if (!box || !table) return;
+    const fit = () => {
+      if (autoFittedRef.current) return;
+      // 収まっているなら触らない（1180px 以上）。列を隠す理由が無い。
+      if (table.scrollWidth - box.clientWidth <= 1) {
+        autoFittedRef.current = true;
+        return;
+      }
+      // 溢れている＝どの列も自然幅のままなので、th の実幅がその列の最小幅になる。
+      const widths = new Map<string, number>();
+      for (const th of table.querySelectorAll<HTMLTableCellElement>(
+        "thead th[data-col-id]",
+      )) {
+        widths.set(th.dataset.colId ?? "", th.getBoundingClientRect().width);
+      }
+      const keep = new Set<string>();
+      let used = 0;
+      const lock = (id: string) => {
+        if (!widths.has(id) || keep.has(id)) return;
+        keep.add(id);
+        used += widths.get(id) ?? 0;
+      };
+      lock("name");
+      const sortParam = new URLSearchParams(window.location.search).get("sort");
+      if (sortParam && COLUMN_IDS.has(sortParam)) lock(sortParam);
+      // 入らない列は飛ばして次を見る（打ち切らない）。`?sort=` で幅の広い列を
+      // 先に確保したときに、余った隙間へ細い列（死因72px）が入る。
+      for (const id of NARROW_COLUMN_PRIORITY) {
+        if (keep.has(id)) continue;
+        const w = widths.get(id) ?? 0;
+        if (used + w > box.clientWidth) continue;
+        keep.add(id);
+        used += w;
+      }
+      autoFittedRef.current = true;
+      if (keep.size >= widths.size) return;
+      const next: VisibilityState = {};
+      for (const id of widths.keys()) if (!keep.has(id)) next[id] = false;
+      setColumnVisibility(next);
+    };
+    // Web フォントが載る前に測ると列幅が実際より狭く出る。
+    if (document.fonts && document.fonts.status !== "loaded") {
+      document.fonts.ready.then(fit);
+    } else {
+      fit();
+    }
+    // scrollRef / tableRef は useRef 由来でレンダー間で同一。
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filtered.length]);
 
   return (
     <div>
@@ -638,6 +727,9 @@ export function EmperorTable({
                     return (
                       <TableHead
                         key={header.id}
+                        // 幅を測って既定の可視列を決めるとき（NARROW_COLUMN_PRIORITY）に
+                        // th と列 id を対応づける。DOM の並び順に頼らない。
+                        data-col-id={header.column.id}
                         aria-sort={
                           sorted === "asc"
                             ? "ascending"

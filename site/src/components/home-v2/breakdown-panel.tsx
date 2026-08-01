@@ -46,7 +46,9 @@ export const BREAKDOWN_SERIES_BG = [
  */
 export function BreakdownBar({ slices }: { slices: BreakdownRow[] }) {
   return (
-    <div>
+    // 凡例の列数は**この箱の幅**で決める（@container）。盤面は lg で 3:2 に割れるため、
+    // ビューポート幅と凡例が使える幅は比例しない（1024px 幅ではむしろ 768px 幅より狭い）。
+    <div className="@container">
       <CategoryBar
         values={slices.map((s) => s.count)}
         colors={[...BREAKDOWN_SERIES]}
@@ -55,8 +57,13 @@ export function BreakdownBar({ slices }: { slices: BreakdownRow[] }) {
       {/* 区分名と数値を行の両端に振り分けると、カード幅ぶん離れて目で追えない。
           1区分＝1枚の小カードにして2列に並べる。**1枚は1行**に収める — 名前と数値を
           2行に分けると凡例だけで縦を200px以上使い、隣のランキングと高さが合わない
-          （ユーザー指摘・2026-07-31）。 */}
-      <ul className="mt-4 grid grid-cols-2 gap-1.5">
+          （ユーザー指摘・2026-07-31）。
+          **2列に並べるのは箱が広いときだけ**（`@xs` = 320px）— 1枚に要る幅は実測で149px、
+          2列の下限は約304pxで、それを下回ると区分名から先に消える。1024〜1180px 幅では
+          凡例の箱が218〜280pxしかなく、2列のままだと「病死」が幅0になる（実測・2026-08-02）。
+          区分名は `--series-*` の3色がコントラスト 3:1 未満であることの**免除条件そのもの**
+          （site/AGENTS.md）なので、切り詰まる幅では縦に伸ばしてでも名前を残す。 */}
+      <ul className="mt-4 grid grid-cols-1 gap-1.5 @xs:grid-cols-2">
         {slices.map((d, i) => {
           const label = shortCategoryLabel(d.name);
           const title = d.detail ?? (label === d.name ? undefined : d.name);
