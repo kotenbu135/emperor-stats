@@ -64,6 +64,7 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 - **原典調査（データ訂正・新規ブロック着手）に入る前に [CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) と [RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) を読む** — 「china-history の相対巻数」「原文ラベルなのに中身が白話訳」のように、読まずに進むと誤った巻・誤った日付を採用する罠が記録されている（担当ブロックの書名・巻・行範囲は [SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md) から引く）。読まずに調査エージェントを起動して手戻りした事故が複数回発生している
 - **コーパスに `.{0,N}KW.{0,N}` 型のコンテキスト抽出 grep を掛けない** — 素の `grep`／Grep ツールは ugrep で、単一10MBファイルでもメモリ4GB超に暴走し WSL ごと落ちる（回避策: CORPUS_NOTES の「コーパス検索のメモリ事故対策」節）
 - **並行セッション前提の read-modify-write** — 同じ作業ツリーで別セッションが `data/emperors.json` を編集していることがある。対象 id のフィールドだけ更新し、それ以外のレコード・`meta` には触らない
+- **primary（`/home/sakis/emperor-stats`）は main に置いたままにする** — 新しい作業は `EnterWorktree` で自分専用の worktree を作って行う。セッション開始時に primary が main 以外のブランチに載っていたら、それは**別セッションが作業中**という意味なので、そのブランチにコミット・push しない（巻き込む）。primary のそのブランチで作業する必要がある場合は先にユーザーへ確認する。起動時の状態は SessionStart フック（`.claude/session-start-branch.sh`）が毎回報告する
 - **外部 API への一括リクエストは「小規模検証 → 想定件数を提示して明示的許可 → 本実行」** の順を踏む
 - **データを訂正したら** `data/emperors.json` の該当データと関連する `meta` 情報・ドキュメントを**同じタイミングで**更新する
 - **データ正確性が最優先** — 誤りは個別調査でデータ側を訂正する。サイト側での場当たり的な補正はしない（表示破綻の回避のみ許容。既知の例は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) の申し送り事項）
