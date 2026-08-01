@@ -25,7 +25,10 @@ import sxtwl
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from apply_majority_month import COUNT_KEYS, DATA_PATH, KAN, LUNAR_RX, majority_solar_ym  # noqa: E402
 
-ISO_RX = re.compile(r'^(-?\d{4})-(\d{2})-(\d{2})$')
+# month 精度の event 日付には `YYYY-MM-DD`（日はプレースホルダ）と `YYYY-MM`（日を持たない）の
+# 2 つの表記がある。フェーズ1〜5 のスクリプトは前者しか見ておらず、後者 2464 フィールドが
+# 丸ごと検査対象から漏れていた（フェーズ6 で解消）。ここでは両方を受ける。
+ISO_RX = re.compile(r'^(-?\d{4})-(\d{2})(?:-(\d{2}))?$')
 
 
 def prec(ev, key):
@@ -61,7 +64,8 @@ def main():
                     m = ISO_RX.match(str(iso))
                     if not m:
                         continue
-                    y, mo, dd = int(m.group(1)), int(m.group(2)), int(m.group(3))
+                    y, mo = int(m.group(1)), int(m.group(2))
+                    dd = int(m.group(3)) if m.group(3) else None
                     if y < 1 or prec(ev, key) != 'month':
                         continue
                     checked += 1
@@ -73,7 +77,8 @@ def main():
                             if majority_solar_ym(ly, lm) == (y, mo):
                                 ok = True
                     # (2) 実日付まで換算済みなら、逆変換した旧暦月が note に含まれるか
-                    if not ok:
+                    #     （`YYYY-MM` は日を持たないのでこの経路には乗らない）
+                    if not ok and dd:
                         try:
                             d = sxtwl.fromSolar(y, mo, dd)
                             ok = d.getLunarMonth() in months
