@@ -89,6 +89,7 @@ function ChartTooltip({
   series,
   labelFormatter,
   valueFormatter,
+  detailFormatter,
 }: {
   active?: boolean;
   payload?: TooltipPayloadItem[];
@@ -96,8 +97,10 @@ function ChartTooltip({
   series: LineSeries[];
   labelFormatter: (value: string | number) => string;
   valueFormatter: (value: number) => string;
+  detailFormatter?: (value: string | number) => React.ReactNode;
 }) {
   if (!active || !payload || payload.length === 0) return null;
+  const detail = label === undefined ? null : detailFormatter?.(label);
   return (
     <div className="rounded-md border border-border bg-card text-sm shadow-md">
       <div className="border-b border-inherit px-4 py-2">
@@ -128,6 +131,11 @@ function ChartTooltip({
           );
         })}
       </div>
+      {/* 系列の下に添える中身（同時在位数では在位者の名前）。
+          **図の外の枠には出さない** — 指した位置で変わる値なので、ここでしか出せない。 */}
+      {detail ? (
+        <div className="border-t border-inherit px-4 py-2">{detail}</div>
+      ) : null}
     </div>
   );
 }
@@ -150,8 +158,11 @@ export function LineChart({
   markers,
   xDomain,
   onDragZoom,
+  detailFormatter,
 }: {
-  data: Record<string, number>[];
+  /** 横軸・系列は数値。**それ以外のキーを持っていてもよい**（ツールチップの
+   *  下段に出す在位者名など・`detailFormatter` が拾う）。 */
+  data: Record<string, number | string[]>[];
   /** 横軸に使うキー。 */
   index: string;
   series: LineSeries[];
@@ -180,6 +191,8 @@ export function LineChart({
    * 必ず別の手段（時代プリセット等）を併置すること。
    */
   onDragZoom?: (from: number, to: number) => void;
+  /** ツールチップの下段に足す中身（横軸の値ごと）。 */
+  detailFormatter?: (value: string | number) => React.ReactNode;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   // ドラッグ中の帯は**ピクセルで持つ**。値へ直して Recharts の ReferenceArea で
@@ -189,7 +202,7 @@ export function LineChart({
 
   const [domainMin, domainMax] = useMemo(() => {
     if (xDomain) return xDomain;
-    const xs = data.map((d) => d[index]);
+    const xs = data.map((d) => d[index] as number);
     return [Math.min(...xs), Math.max(...xs)] as [number, number];
   }, [xDomain, data, index]);
 
@@ -293,6 +306,7 @@ export function LineChart({
                   series={series}
                   labelFormatter={labelFormatter}
                   valueFormatter={valueFormatter}
+                  detailFormatter={detailFormatter}
                 />
               )}
             />
@@ -356,6 +370,7 @@ export function LineChart({
       markers,
       xDomain,
       onDragZoom,
+      detailFormatter,
     ],
   );
 

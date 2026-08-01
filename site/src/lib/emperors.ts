@@ -1627,16 +1627,25 @@ const CONCURRENT_LAST_YEAR = 1912;
 /** 同時在位数の折れ線（1本）。 */
 export interface HomeConcurrentReigns {
   /**
-   * **段が変わる年だけ**（先頭と末尾は必ず入れる）。`stepAfter` は次の点まで値を保つので、
+   * **顔ぶれが変わる年だけ**（先頭と末尾は必ず入れる）。`stepAfter` は次の点まで値を保つので、
    * 同じ人数が続く年を捨てても描画は1年刻みのときと同一になる。
    *
-   * **捨てる理由は描画ではなくツールチップ**。2133年ぶんを約650pxへ描くと1px＝3年強になり、
-   * Recharts は最寄りの点しか拾えないので**3年に2年は指せない**（618年がまさに指せなかった）。
-   * 変化点だけなら285点＝1点2px強で、すべての段に触れる。
+   * **捨てる理由は描画ではなくツールチップ**。2133年ぶんを約609pxへ描くと1px＝3.8年になり、
+   * Recharts は最寄りの点しか拾えないので指せない年ができる。
    *
-   * `endYear` はその段が続く最後の年（ツールチップに「681〜712年」と出すため）。
+   * **人数ではなく顔ぶれで切る**のは、人数が同じまま代替わりする段があるため
+   * （隋の590〜616年は1人のまま文帝→煬帝と替わる）。人数で切ると、段の途中を指したときに
+   * ツールチップの「誰が」が嘘になる。
+   *
+   * `endYear` はその段が続く最後の年（ツールチップに「590〜603年」と出すため）。
+   * `people` はその年でいちばん人数が多かった瞬間の在位者で、**必ず `count` 人**。
    */
-  points: { year: number; count: number; endYear: number }[];
+  points: {
+    year: number;
+    count: number;
+    endYear: number;
+    people: string[];
+  }[];
   /** 全期間の最大（日単位）。`year` は歴史紀年で、図に焼き付ける注記の位置に使う。 */
   peak: { count: number; year: number; dateLabel: string };
   /** 皇帝が1人だけだった年（表示範囲内）。 */
@@ -1672,7 +1681,10 @@ export function getConcurrentReigns(): HomeConcurrentReigns {
   let dated = 0;
   let filled = 0;
   let total = 0;
-  const deltas = new Map<number, number>();
+  // 在位区間の開始・終了イベント。**人数だけでなく誰かを持つ** —
+  // ツールチップに顔ぶれを出すため、区間ごとの在位者集合が要る。
+  const starts = new Map<number, string[]>();
+  const ends = new Map<number, string[]>();
   for (const e of data.emperors) {
     for (const r of e.reigns) {
       total += 1;
@@ -1686,60 +1698,87 @@ export function getConcurrentReigns(): HomeConcurrentReigns {
       }
       if (r.startDate && r.endDate) dated += 1;
       else filled += 1;
-      deltas.set(s, (deltas.get(s) ?? 0) + 1);
-      deltas.set(t + 1, (deltas.get(t + 1) ?? 0) - 1);
+      (starts.get(s) ?? starts.set(s, []).get(s)!).push(e.id);
+      (ends.get(t + 1) ?? ends.set(t + 1, []).get(t + 1)!).push(e.id);
     }
   }
 
-  // 区間の境界だけを走査して、各年へ「その年に立った最大値」を配る。
-  const boundaries = [...deltas.keys()].sort((a, b) => a - b);
-  const maxByYear = new Map<number, number>();
-  let current = 0;
+  // 境界を順に舐めて在位者集合を保ち、各年へ「その年でいちばん人数が多かった瞬間の
+  // 顔ぶれ」を配る。**人数＝顔ぶれの人数**になるので、ツールチップの数と名前が食い違わない
+  // （618年に帝号を持った人は14名だが、煬帝は4月に殺され恭帝侑は6月に譲位しているので、
+  // 同時に並んだ最大は11月26日の10名）。
+  const boundaries = [...new Set([...starts.keys(), ...ends.keys()])].sort(
+    (a, b) => a - b,
+  );
+  const peakByYear = new Map<number, string[]>();
+  const live = new Set<string>();
   let peakCount = 0;
   let peakJdn = 0;
   for (let i = 0; i < boundaries.length; i += 1) {
-    current += deltas.get(boundaries[i]) ?? 0;
-    if (current > peakCount) {
-      peakCount = current;
-      peakJdn = boundaries[i];
+    const at = boundaries[i];
+    for (const id of ends.get(at) ?? []) live.delete(id);
+    for (const id of starts.get(at) ?? []) live.add(id);
+    if (live.size > peakCount) {
+      peakCount = live.size;
+      peakJdn = at;
     }
-    if (current === 0) continue;
-    const from = jdnToYear(boundaries[i]);
+    if (live.size === 0) continue;
+    const snapshot = [...live];
+    const from = jdnToYear(at);
     const to = i + 1 < boundaries.length ? jdnToYear(boundaries[i + 1] - 1) : from;
     for (let y = from; y <= to; y += 1) {
-      maxByYear.set(y, Math.max(maxByYear.get(y) ?? 0, current));
+      const cur = peakByYear.get(y);
+      if (cur === undefined || snapshot.length > cur.length) {
+        peakByYear.set(y, snapshot);
+      }
     }
   }
 
   let firstYear = Infinity;
-  let lastYear = -Infinity;
   for (const e of data.emperors) {
     for (const r of e.reigns) {
       if (r.startYear < firstYear) firstYear = r.startYear;
-      if (r.endYear > lastYear) lastYear = r.endYear;
     }
   }
 
   // 1年刻みの全点。**注記の数（0人の年・1人だけの年・表示範囲の長さ）はこちらで数える** —
-  // 下で段の変化点へ間引くので、間引いたあとの配列で数えると全部おかしくなる。
-  const yearly: { year: number; count: number }[] = [];
+  // 下で変化点へ間引くので、間引いたあとの配列で数えると全部おかしくなる。
+  const yearly: { year: number; ids: string[] }[] = [];
   const zeroYears: number[] = [];
   let sole = 0;
   for (let y = firstYear; y <= CONCURRENT_LAST_YEAR; y += 1) {
     if (y === 0) continue; // 歴史紀年に0年は無い
-    const count = maxByYear.get(astroYear(y)) ?? 0;
-    if (count === 0) zeroYears.push(y);
-    if (count === 1) sole += 1;
-    yearly.push({ year: y, count });
+    const ids = peakByYear.get(astroYear(y)) ?? [];
+    if (ids.length === 0) zeroYears.push(y);
+    if (ids.length === 1) sole += 1;
+    yearly.push({ year: y, ids });
   }
 
-  // 段が変わる年だけ残す。**末尾は必ず入れる** — 落とすと最後の段の横線が
-  // 途中で切れ、横軸の右端（dataMax）も最後の変化点まで縮む。
+  /** 表示名。**`dynastyLabel()` を使う** — 政権と1対1であることをビルド時に検査している
+   *  唯一の王朝ラベルで、同名別政権（隋末の梁2つ・楚2つ）もここで割れる。 */
+  const byId = new Map(data.emperors.map((e) => [e.id, e]));
+  const labelOf = (id: string): string => {
+    const e = byId.get(id);
+    if (!e) throw new Error(`getConcurrentReigns: 未知の皇帝 id: ${id}`);
+    return `${e.name.commonName ?? e.id}（${dynastyLabel(e)}）`;
+  };
+
+  // **顔ぶれが変わる年**だけ残す（人数が同じでも代替わりがあれば残す）。人数は変わらないので
+  // 折れ線の形は1年刻みと同じまま、ツールチップの「誰が」が段の中で嘘にならない。
+  // **末尾は必ず入れる** — 落とすと最後の段の横線が途中で切れ、横軸の右端も縮む。
+  const sameSet = (a: string[], b: string[]) =>
+    a.length === b.length && a.every((x) => b.includes(x));
   const points: HomeConcurrentReigns["points"] = [];
   for (let i = 0; i < yearly.length; i += 1) {
     const isLast = i === yearly.length - 1;
-    if (i === 0 || isLast || yearly[i].count !== yearly[i - 1].count) {
-      points.push({ ...yearly[i], endYear: yearly[i].year });
+    if (i === 0 || isLast || !sameSet(yearly[i].ids, yearly[i - 1].ids)) {
+      points.push({
+        year: yearly[i].year,
+        count: yearly[i].ids.length,
+        endYear: yearly[i].year,
+        // 人数の多い政権から並べても意味が無いので、収録順（＝おおむね時系列）のまま。
+        people: yearly[i].ids.map(labelOf),
+      });
     }
   }
   // 各段が続く最後の年（次の変化点の1年前）。ツールチップの範囲表示に使う。

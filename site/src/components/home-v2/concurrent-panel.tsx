@@ -50,7 +50,7 @@ export function ConcurrentPanel({ data }: { data: HomeConcurrentReigns }) {
   const [range, setRange] = useState<[number, number] | null>(null);
   const [open, setOpen] = useState(false);
 
-  // 点は段の変化年だけなので、ツールチップの見出しは**その段が続く範囲**で出す
+  // 点は顔ぶれの変化年だけなので、ツールチップの見出しは**その段が続く範囲**で出す
   // （点の年だけを出すと、平らな区間の途中を指しているのに段の開始年が見出しに立つ）。
   const spanLabels = new Map(
     data.points.map((p) => [
@@ -60,6 +60,7 @@ export function ConcurrentPanel({ data }: { data: HomeConcurrentReigns }) {
         : `${yearLabel(p.year)}〜${yearLabel(p.endYear)}年`,
     ]),
   );
+  const peopleByYear = new Map(data.points.map((p) => [p.year, p.people]));
 
   const rangeLabel = range
     ? `${yearLabel(range[0])}〜${yearLabel(range[1])}年`
@@ -139,6 +140,18 @@ export function ConcurrentPanel({ data }: { data: HomeConcurrentReigns }) {
         labelFormatter={(v) =>
           spanLabels.get(Number(v)) ?? `${yearLabel(Number(v))}年`
         }
+        // 誰が帝号を持っていたか。**人数と必ず同じ数**が並ぶ（集計側が「その年で
+        // いちばん人数が多かった瞬間」の顔ぶれを持たせている）。10人並ぶ年があるので
+        // 1行1名にはせず、折り返す1段落にまとめる。
+        detailFormatter={(v) => {
+          const people = peopleByYear.get(Number(v));
+          if (!people || people.length === 0) return null;
+          return (
+            <p className="max-w-[20rem] text-xs leading-relaxed text-muted-foreground">
+              {people.join("・")}
+            </p>
+          );
+        }}
         // ピークは図の上に焼き付ける。**全体表示ではホバーで指せない** — 横軸2133年を
         // 609pxへ描くので1px＝3.8年で、618〜622年は1pxに潰れて最寄り点になれない。
         markers={
