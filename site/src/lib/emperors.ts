@@ -1681,7 +1681,17 @@ export function getConcurrentReigns(): HomeConcurrentReigns {
   let dated = 0;
   let filled = 0;
   let total = 0;
-  const spans: { id: string; from: number; to: number }[] = [];
+  interface Span {
+    id: string;
+    regimeId: string;
+    standing: string;
+    from: number;
+    to: number;
+    /** 開始日・終了日が原データに無く、在位年から埋めた値か。 */
+    fromFilled: boolean;
+    toFilled: boolean;
+  }
+  const spans: Span[] = [];
   for (const e of data.emperors) {
     for (const r of e.reigns) {
       total += 1;
@@ -1695,7 +1705,65 @@ export function getConcurrentReigns(): HomeConcurrentReigns {
       }
       if (r.startDate && r.endDate) dated += 1;
       else filled += 1;
-      spans.push({ id: e.id, from: s, to: t });
+      spans.push({
+        id: e.id,
+        regimeId: e.regimeId,
+        standing: e.standing,
+        from: s,
+        to: t,
+        fromFilled: !r.startDate,
+        toFilled: !r.endDate,
+      });
+    }
+  }
+
+  // **埋めた日付が作った重なりを畳む。**
+  //
+  // 日付の無い在位は在位年で埋めている（開始側1月1日・終了側12月28日）が、これは推測なので、
+  // **判明している日付と重なったときは推測のほうを譲る**。始皇帝の崩御は前210年9月10日と
+  // 判明しているのに、二世皇帝の即位日が無くて前210年1月1日から埋まり、253日重なって
+  // その年が2人になっていた（2026-08-01 ユーザー指摘）。
+  //
+  // 畳むのは**同じ政権の `regular` どうしだけ**。
+  //  - `rival`（同一国号内の対立・僭称）は**並び立つのが定義**なので触らない
+  //  - **両方とも日付がある重なりは実在の並立**なので触らない（北周の宣帝と静帝＝内禅後も
+  //    天元皇帝を称した449日・隋の煬帝と恭帝侑＝長安で立てられた114日・南斉の東昏侯と
+  //    和帝＝江陵で立てられた262日）。ここを潰すと本当の二重帝位が消える
+  //  - 別政権どうしの並立（魏と蜀漢など）はそもそも対象外
+  const byRegime = new Map<string, Span[]>();
+  for (const sp of spans) {
+    if (sp.standing !== "regular") continue;
+    const list = byRegime.get(sp.regimeId);
+    if (list) list.push(sp);
+    else byRegime.set(sp.regimeId, [sp]);
+  }
+  for (const list of byRegime.values()) {
+    list.sort((a, b) => a.from - b.from || a.to - b.to);
+    for (let i = 0; i < list.length; i += 1) {
+      for (let j = i + 1; j < list.length; j += 1) {
+        const a = list[i];
+        const b = list[j];
+        if (b.from > a.to) continue; // 重なっていない
+        if (!a.toFilled && !b.fromFilled) continue; // 実在の並立
+        // **どの寄せ方も、区間を裏返してはいけない。** 判明している側が推測側を
+        // まるごと覆っている場合（前帝の崩御日が、埋めた次帝の年末より後）に
+        // 開始が終了を追い越し、掃引で「消えない在位者」ができて全期間の人数が壊れる。
+        if (b.fromFilled && !a.toFilled && a.to <= b.to) {
+          b.from = a.to; // 次帝の即位日を、判明している前帝の崩御日まで下げる
+        } else if (a.toFilled && !b.fromFilled && b.from >= a.from) {
+          a.to = b.from; // 前帝の終わりを、判明している次帝の即位日まで上げる
+        } else if (a.toFilled && b.fromFilled && b.from - 1 >= a.from) {
+          a.to = b.from - 1; // どちらも推測。**移り変わりの年は次帝のもの**
+        } else if (a.toFilled && b.fromFilled && a.to + 1 <= b.to) {
+          b.from = a.to + 1; // 前帝が消えてしまう場合だけ逆へ寄せる
+        }
+      }
+    }
+  }
+
+  for (const sp of spans) {
+    if (sp.from > sp.to) {
+      throw new Error(`getConcurrentReigns: ${sp.id} の在位区間が裏返りました`);
     }
   }
 
