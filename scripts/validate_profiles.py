@@ -65,10 +65,19 @@ def years_of(e: dict) -> set[int]:
     for key in ("birthDate", "deathDate"):
         v = ages.get(key)
         if isinstance(v, str) and v:
-            # "-0258-01" / "1735-10-08"
+            # "-0258-01" / "1735-10-08"。
+            #
+            # **ages の日付は天文年表記（0年あり）で、reigns の startYear/endYear
+            # とは1年ずれる。** 始皇帝は reigns.endYear=-210（前210年）に対し
+            # ages.deathDate="-0209-09-10" で、どちらも前210年を指す。
+            # 揃えずに同じ集合へ入れると、本文の「前259年生まれ」（正しい）が
+            # 誤検知され、「前209年に没した」（天文年表記のままの誤り）が素通しする
+            # ——このリポジトリが実際に2回踏んで conversion note に記録した
+            # off-by-one を、検出するはずのゲートが逆に許すことになる。
             m = re.match(r"^(-?)0*(\d+)", v)
             if m:
-                out.add(-int(m.group(2)) if m.group(1) else int(m.group(2)))
+                n = int(m.group(2))
+                out.add(-(n + 1) if m.group(1) else n)
     return out
 
 
