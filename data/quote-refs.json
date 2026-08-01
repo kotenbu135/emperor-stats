@@ -22205,8 +22205,12 @@
    "id": "houzhao-shizhi",
    "path": "amnestyCount.note",
    "span": "僭即皇帝位于南郊、大赦",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/晋书.txt",
+   "frags": [
+    "僭即皇帝位于南郊"
+   ],
+   "line": 7895
   },
   "houzhao-shizhi|amnestyCount.note|711768c08ace": {
    "id": "houzhao-shizhi",
@@ -40929,8 +40933,13 @@
    "id": "qi-mingdi",
    "path": "amnestyCount[2].note",
    "span": "建武四年春正月庚午",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴四库.txt",
+   "frags": [
+    "建武四年春正",
+    "年春正月庚午"
+   ],
+   "line": 3477
   },
   "qi-mingdi|deathCause.note|5f060555a9c1": {
    "id": "qi-mingdi",
@@ -45628,8 +45637,12 @@
    "id": "shiguo-beihan-liuchong",
    "path": "reigns[0].quote#2",
    "span": "十国春秋「是月帝疾革命皇子承鈞監國尋殂」",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "是月帝疾革命皇子承鈞"
+   ],
+   "line": 4331
   },
   "shiguo-beihan-liuchong|reigns[0].quote#3|6846402a492f": {
    "id": "shiguo-beihan-liuchong",
@@ -46450,8 +46463,15 @@
    "id": "shiguo-houshu-mengzhixiang",
    "path": "reigns[0].quote#2",
    "span": "資治通鑑「蜀主得風疾逾年，至是增劇。甲子，立子……仁贊為太子，仍監國……受遺詔輔",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "蜀主得風疾逾年",
+    "仁贊為太子",
+    "受遺詔輔政",
+    "命太子仁贊更名昶"
+   ],
+   "line": 4647
   },
   "shiguo-jieyan-liushouguang|accessionRoute.note|046c225c146e": {
    "id": "shiguo-jieyan-liushouguang",
@@ -54936,8 +54956,12 @@
    "id": "tang-dezong",
    "path": "reigns[0].conversion",
    "span": "貞元二十一年正月癸巳",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/太平御览.txt",
+   "frags": [
+    "貞元二十一年正月癸巳"
+   ],
+   "line": 10003
   },
   "tang-dezong|reigns[0].quote#0|a9233b0c8ed0": {
    "id": "tang-dezong",
@@ -55792,8 +55816,14 @@
    "id": "tang-muzong",
    "path": "amnestyCount[0].note",
    "span": "二月丁丑、御丹鳳楼、大赦天下",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/太平御览.txt",
+   "frags": [
+    "二月丁丑御丹",
+    "丑御丹鳳楼大",
+    "鳳楼大赦天下"
+   ],
+   "line": 10009
   },
   "tang-muzong|amnestyCount[0].note|3a105f70a491": {
    "id": "tang-muzong",
@@ -56998,8 +57028,12 @@
    "id": "tang-taizong",
    "path": "reigns[0].conversion",
    "span": "貞観二十三年五月己巳",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/新唐书纠谬.txt",
+   "frags": [
+    "貞観二十三年五月己巳"
+   ],
+   "line": 284
   },
   "tang-taizong|reigns[0].conversion|d9d151268e92": {
    "id": "tang-taizong",
@@ -59739,8 +59773,18 @@
    "id": "tang-zhongzong",
    "path": "reigns[0].quote#1",
    "span": "資治通鑑 巻二百三: 「十二月，丁巳，改元，赦天下。……是夜，召裴炎入，受遺詔輔",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴四库.txt",
+   "frags": [
+    "受遺詔輔政",
+    "上崩於貞觀殿",
+    "遺詔太子柩前即位",
+    "裴炎奏太子未即位",
+    "望宣天后令於中書",
+    "尊天后為皇太后",
+    "政事咸取決焉"
+   ],
+   "line": 844
   },
   "tang-zhongzong|reigns[0].quote#2|d690891fd33c": {
    "id": "tang-zhongzong",
@@ -70517,8 +70561,19 @@
    "id": "xixia-huanzong",
    "path": "reigns[0].quote#2",
    "span": "年七十，在位五十五年，改元四，謚曰聖徳皇帝，廟號仁宗，墓號壽陵。純祐時年十七，章",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/别史/西夏书事.txt",
+   "frags": [
+    "年七十在位五",
+    "在位五十五年",
+    "十五年改元四",
+    "改元四謚曰聖",
+    "謚曰聖徳皇帝",
+    "徳皇帝廟號仁",
+    "廟號仁宗墓號",
+    "宗墓號壽陵純"
+   ],
+   "line": 6703
   },
   "xixia-huanzong|reigns[0].quote#3|987e44059c02": {
    "id": "xixia-huanzong",
@@ -75737,8 +75792,13 @@
    "id": "yuan-shizu",
    "path": "reigns[0].conversion",
    "span": "至元三十一年正月壬子朔",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/高丽史.txt",
+   "frags": [
+    "至元三十一年",
+    "十一年正月壬"
+   ],
+   "line": 64586
   },
   "yuan-shizu|reigns[0].note|140af3a1f312": {
    "id": "yuan-shizu",
@@ -76092,8 +76152,13 @@
    "id": "yuan-taidingdi",
    "path": "eraChangeCount[0].note",
    "span": "至治三年十二月丁亥",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/元史.txt",
+   "frags": [
+    "至治三年十二",
+    "年十二月丁亥"
+   ],
+   "line": 10796
   },
   "yuan-taidingdi|eraChangeCount[0].note|dddaeccf717d": {
    "id": "yuan-taidingdi",
