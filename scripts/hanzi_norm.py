@@ -86,6 +86,16 @@ def norm_for_match(s: str) -> str:
     return to_simplified(han_only(s))
 
 
+def norm_strict(s: str) -> str:
+    """底本の字体をそのまま比べる正規化（新字体表を当てない）。
+
+    照合用の norm_for_match は日本語新字体を繁体へ畳むので、引用に混入した
+    新字体（応・広・徳…）を素通りさせる。混入を検出する側はこちらを使い、
+    「表の助けなしに底本へ当たるか」を見る。
+    """
+    return _T2S.convert(han_only(s)) if _T2S else han_only(s)
+
+
 def norm_variants(s: str) -> tuple:
     """照合用の正規化候補。いずれかが底本に当たれば一致とみなす。
 

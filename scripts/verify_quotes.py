@@ -39,7 +39,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from hanzi_norm import han_only, norm_for_match, norm_variants, to_traditional  # noqa: E402
+from hanzi_norm import (AMBIGUOUS_JP, han_only, norm_for_match, norm_strict,  # noqa: E402
+                        norm_variants, to_traditional)
 
 DATA_PATH = ROOT / "data" / "emperors.json"
 REFS_PATH = ROOT / "data" / "quote-refs.json"
@@ -201,6 +202,26 @@ def normalized_file(relpath):
     return _file_cache[relpath]
 
 
+_strict_cache: dict[str, str] = {}
+
+
+def strict_file(relpath):
+    """底本本文を「新字体表なし」で正規化したもの（字体混入ゲート用）。"""
+    if relpath not in _strict_cache:
+        p = CORPUS_ROOT / relpath
+        _strict_cache[relpath] = norm_strict(p.read_text(encoding="utf-8", errors="ignore")) if p.exists() else ""
+    return _strict_cache[relpath]
+
+
+def frag_in_strict(frag, strict_text):
+    """新字体表の助けなしに断片が底本に在るか。
+
+    歳/歲 は底本側にも両方の字形が出るため候補を並べる（AMBIGUOUS_JP と同じ扱い）。
+    """
+    base = han_only(frag)
+    return any(norm_strict(v) in strict_text for v in {base, base.translate(AMBIGUOUS_JP)})
+
+
 def rg_provenance_scan(frag_list):
     """断片→初出コーパスファイル。ギャップ許容 regex を rg --json で一括走査。"""
     hits = {}
@@ -231,7 +252,7 @@ def rg_provenance_scan(frag_list):
                     if not h:
                         continue
                     seen = hits.setdefault(h, [])
-                    if rel not in seen and len(seen) < 12:
+                    if rel not in seen and len(seen) < 24:
                         seen.append(rel)
     return hits
 
@@ -275,8 +296,10 @@ def resolve_units(pending, log=print):
                     for rel in hits.get(v, ()):
                         if rel not in cands:
                             cands.append(rel)
-            cands.sort(key=source_rank)
-            hit = next((rel for rel in cands[:6]
+            # 書名まで含めて並べる。rg の返す順に任せると、同じ引用が実行ごとに
+            # 別の書へ解決したり、上限に弾かれて未解決に落ちたりする
+            cands.sort(key=lambda rel: (source_rank(rel), rel))
+            hit = next((rel for rel in cands[:12]
                         if all(frag_in(f, normalized_file(rel)) for f in fs)), None)
             if fs and hit:
                 resolved[key] = {"status": "corpus", "corpusFile": hit, "frags": fs,
@@ -330,6 +353,10 @@ def cmd_backfill(rebuild=False):
         if ent is None or ent.get("status") == "unresolved" or (
                 rebuild and ent.get("status") not in CURATED):
             pending[key] = (eid, path, span)
+    # 調査待ちの印は作り直しでも残す（印が消えると既知の残件が「新規の混入」に化ける）。
+    # 引用を直すとハッシュが変わるので id|path でも引けるようにしておく。
+    triage_by_key = {k: v["triage"] for k, v in known.items() if v.get("triage")}
+    triage_by_path = {f'{v["id"]}|{v["path"]}': v["triage"] for v in known.values() if v.get("triage")}
     if rebuild:
         # 作り直す対象の古い判定は先に落とす。残すと、新しい基準で解決できなかった
         # ユニットが古い cache/corpus 判定のまま台帳に居座る（setdefault のため）。
@@ -337,6 +364,30 @@ def cmd_backfill(rebuild=False):
         for key in list(known):
             if key in pending or key not in live:
                 known.pop(key)
+    # 字体だけを直したときはハッシュが変わらないので台帳がそのまま残る。
+    # 記録済みの span/frags が古いままだとゲートが古い字を見続けるため、ここで貼り直す。
+    refreshed = 0
+    for eid, path, span in units:
+        key = unit_key(eid, path, span)
+        ent = known.get(key)
+        if ent is None or key in pending:
+            continue
+        # 40字より後ろを直した場合は span[:40] が変わらないので、断片の側でも見る
+        cands = [fragments(span), sliding_fragments(span)]
+        if ent.get("span") == span[:40] and ent.get("frags") in cands:
+            continue
+        ent["span"] = span[:40]
+        if ent.get("status") in ("cache", "corpus") and ent.get("corpusFile"):
+            text = normalized_file(ent["corpusFile"])
+            frags = next((c for c in cands if c and all(frag_in(f, text) for f in c)), None)
+            if frags:
+                ent["frags"] = frags
+                ent["line"] = line_of(ent["corpusFile"], frags[0])
+            else:
+                pending[key] = (eid, path, span)   # 直した結果あたらなくなった＝解決し直す
+        refreshed += 1
+    if refreshed:
+        print(f"span を貼り直した既存エントリ: {refreshed} 件")
     print(f"引用ユニット {len(units)} / 台帳既存 {len(units) - len(pending)} / 解決対象 {len(pending)}")
     if not pending:
         save_refs(refs)
@@ -346,7 +397,11 @@ def cmd_backfill(rebuild=False):
         eid, path, span = pending[key]
         known[key] = {"id": eid, "path": path, "span": span[:40], **entry}
     for key, (eid, path, span) in unresolved.items():
-        known.setdefault(key, {"id": eid, "path": path, "span": span[:40], "status": "unresolved"})
+        ent = {"id": eid, "path": path, "span": span[:40], "status": "unresolved"}
+        why = triage_by_key.get(key) or triage_by_path.get(f"{eid}|{path}")
+        if why:
+            ent["triage"] = why
+        known.setdefault(key, ent)
     save_refs(refs)
     print(f"解決 {len(resolved)} / 未解決 {len(unresolved)} → {REFS_PATH.relative_to(ROOT)}")
     if unresolved:
@@ -365,6 +420,8 @@ def cmd_check(coverage_only=False):
     counts = Counter()
     seen_keys = set()
     recheck_fail = []
+    glyph_fail = []
+    glyph_allow = refs.get("glyphAllow", {})
     for eid, path, span in units:
         key = unit_key(eid, path, span)
         seen_keys.add(key)
@@ -392,11 +449,23 @@ def cmd_check(coverage_only=False):
                 warnings.append(f"[quote-refs] {eid} {path}: corpusFile が読めない: {ent.get('corpusFile')}")
             elif frags and not all(frag_in(f, text) for f in frags):
                 recheck_fail.append(f"{eid} {path} ({ent.get('corpusFile')})")
+            elif frags and f"{eid}|{path}" not in glyph_allow:
+                # 字体混入ゲート: 照合が通るのが「新字体表のおかげ」なら、引用に
+                # 底本と違う字形（応・広・徳…）が混ざっている。表の網羅性に依存せず、
+                # 底本そのものを基準に判定する（2026-08-02 に368件を訂正した際の恒久化）。
+                strict = strict_file(ent.get("corpusFile", ""))
+                bad = [f for f in frags if not frag_in_strict(f, strict)]
+                if bad:
+                    glyph_fail.append(f"{eid} {path}: {bad[0]}")
     stale = [k for k in known if k not in seen_keys]
     if stale:
         warnings.append(f"[quote-refs] 台帳の陳腐化エントリ（引用の変更・削除済み・掃除可）: {len(stale)} 件")
     if recheck_fail:
         errors.append(f"[quote-refs] 台帳の再照合失敗（コーパス変更または台帳破損）: {recheck_fail[:10]}")
+    if glyph_fail:
+        errors.append(f"[quote-refs] 底本と字体が違う引用（日本語新字体の混入）: {len(glyph_fail)} 件。"
+                      f"底本の字へ直すこと。底本側が壊れている場合のみ quote-refs.json の "
+                      f"glyphAllow に \"id|path\": \"理由\" を足す: {glyph_fail[:10]}")
     if counts.get("triaged"):
         warnings.append(f"[quote-refs] 調査待ちの未解決引用（底本で確認できず・原典の再調査が要る）: "
                         f"{counts['triaged']} 件（一覧: python3 scripts/verify_quotes.py --list-triaged）")
