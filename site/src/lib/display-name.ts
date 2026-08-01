@@ -184,8 +184,9 @@ export interface EmperorNameEntry {
 }
 
 /**
- * 個別ページの「名前」ブロックの行。諱・民族名・廟号・諡号・元号・別称・別名を
- * 種類のラベル付きで並べる。**1行目（h1）に出ている名前と同じ値は出さない。**
+ * 個別ページのヒーローに出す名前のチップ。諱・民族名・廟号・諡号・元号・別称・別名を
+ * 種類のラベル付きで並べる。**1行目（h1）に出ている名前と同じ値は出さない**
+ * （h1 の脇の補助名との重複は `emperor-hero.tsx` 側で落とす）。
  *
  * `commonName` の括弧から表示名で落とした情報の行き先がここ（「廃帝（昌邑王）」の
  * 昌邑王、「元帝（孝元帝）」の孝元帝、明清の廟号など）。
@@ -255,6 +256,25 @@ export function emperorNameEntries(r: {
   }
   for (const alias of r.aliases) push("別名", alias);
   return entries;
+}
+
+/**
+ * 同じ種類の名前を1行にまとめる（「別名 秦始皇」「別名 趙政」→「別名 秦始皇・趙政」）。
+ * 同じラベルが縦に2つ並ぶと表示の不具合に見えるため（該当は3人）。
+ *
+ * JSON-LD の `alternateName` は名前を1つずつ並べる必要があるので、まとめる前の
+ * `emperorNameEntries` をそのまま使うこと。
+ */
+export function groupEmperorNameEntries(
+  entries: EmperorNameEntry[],
+): { label: string; values: string[] }[] {
+  const groups: { label: string; values: string[] }[] = [];
+  for (const entry of entries) {
+    const group = groups.find((g) => g.label === entry.label);
+    if (group) group.values.push(entry.value);
+    else groups.push({ label: entry.label, values: [entry.value] });
+  }
+  return groups;
 }
 
 /**

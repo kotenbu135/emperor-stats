@@ -10,7 +10,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { EmperorHero } from "@/components/emperors/emperor-hero";
 import { EmperorFacts } from "@/components/emperors/emperor-facts";
 import { EmperorVideosSection } from "@/components/emperors/emperor-videos";
@@ -36,6 +36,7 @@ import {
   buildMetadata,
   JsonLd,
   personJsonLd,
+  SITE_NAME,
 } from "@/lib/seo";
 
 // output: "export"では全パスをビルド時に列挙する（365ページ）。列挙外のidは404。
@@ -139,75 +140,37 @@ export default async function EmperorPage({
         })}
       />
       <JsonLd
+        // **可視のパンくず（emperor-hero.tsx の Breadcrumb）と同じ段数にすること。**
+        // 画面に出ている階層と構造化データが食い違うのは Google の推奨から外れる。
+        // 王朝の項はクエリ付きの一覧URL（絞り込み状態を復元する先）を指す。
         data={breadcrumbJsonLd([
-          { name: "中国皇帝統計", url: absoluteUrl("/") },
+          { name: SITE_NAME, url: absoluteUrl("/") },
           { name: "皇帝一覧", url: absoluteUrl("/emperors") },
+          ...(dynastyPeerCount >= 2
+            ? [
+                {
+                  name: `${record.dynastyLabel}（${dynastyPeerCount}名）`,
+                  url: absoluteUrl(
+                    `/emperors?dynasty=${encodeURIComponent(record.dynastyKey)}`,
+                  ),
+                },
+              ]
+            : []),
+          // 最終項だけ `disambiguatedName`（可視のパンくずは h1 と同じ `record.name`）。
+          // 機械可読側は他ページの JSON-LD・`<title>` と同じく人物を一意に指す必要があり、
+          // 通用名は37種104人で重複するため。**段数と王朝の項の出し方は可視と必ず同じに保つ。**
           { name: record.disambiguatedName, url: absoluteUrl(`/emperors/${id}`) },
         ])}
       />
-      <EmperorHero record={record} lead={profile?.lead} />
+      <EmperorHero
+        record={record}
+        lead={profile?.lead}
+        dynastyPeerCount={dynastyPeerCount}
+        prev={prev}
+        next={next}
+      />
       <div className="px-gutter py-section md:px-gutter-wide">
         <div className="mx-auto flex w-full max-w-4xl flex-col gap-5">
-          {/* ページ送りは本文の長さに左右されない先頭右端の固定サイズボタンに
-              置く（ページごとに位置がずれると連続で押せない）。皇帝名付きの
-              リンクは本文末尾のnavに残す。 */}
-          <div className="flex items-center justify-between gap-4">
-            <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
-              <Link
-                href="/emperors"
-                className="inline-flex items-center gap-1 text-muted-foreground hover:text-seal"
-              >
-                <ArrowLeft aria-hidden className="size-3.5" />
-                皇帝一覧へ戻る
-              </Link>
-              {dynastyPeerCount >= 2 && (
-                // 一覧の王朝フィルタ（?dynasty=）は emperor-grid.tsx がマウント時に
-                // URLから復元するため、クエリ付きリンクだけで絞り込み状態を再現できる。
-                <Link
-                  href={`/emperors?dynasty=${encodeURIComponent(record.dynastyKey)}`}
-                  className="inline-flex items-center gap-1 text-muted-foreground underline underline-offset-2 hover:text-seal"
-                >
-                  {record.dynastyLabel}の皇帝一覧（{dynastyPeerCount}名）
-                </Link>
-              )}
-            </p>
-            <nav aria-label="前後の皇帝（ページ送り）" className="flex items-center gap-1.5">
-              {prev ? (
-                <Link
-                  href={`/emperors/${prev.id}`}
-                  title={`前の皇帝: ${prev.name}（${prev.dynastyLabel}）`}
-                  aria-label={`前の皇帝: ${prev.name}`}
-                  className="inline-flex size-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-seal/50 hover:text-seal"
-                >
-                  <ChevronLeft aria-hidden className="size-4" />
-                </Link>
-              ) : (
-                <span
-                  aria-hidden
-                  className="inline-flex size-8 items-center justify-center rounded-md border border-border/40 text-border"
-                >
-                  <ChevronLeft className="size-4" />
-                </span>
-              )}
-              {next ? (
-                <Link
-                  href={`/emperors/${next.id}`}
-                  title={`次の皇帝: ${next.name}（${next.dynastyLabel}）`}
-                  aria-label={`次の皇帝: ${next.name}`}
-                  className="inline-flex size-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-seal/50 hover:text-seal"
-                >
-                  <ChevronRight aria-hidden className="size-4" />
-                </Link>
-              ) : (
-                <span
-                  aria-hidden
-                  className="inline-flex size-8 items-center justify-center rounded-md border border-border/40 text-border"
-                >
-                  <ChevronRight className="size-4" />
-                </span>
-              )}
-            </nav>
-          </div>
           {/* ②紹介文（Issue #16）。**365人中まだ大半が未執筆**なので、無い皇帝では
               節ごと出ない。ページで唯一の16pxの文＝ここが「読ませる」文であることを
               級数で示す（他の本文は14px）。 */}

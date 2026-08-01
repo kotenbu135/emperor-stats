@@ -4,10 +4,7 @@
 // renderVideos・collapseVideos — はダイアログの廃止で全部死んだ）。
 
 import Link from "next/link";
-import { RubyText } from "@/components/ui/ruby-text";
-import { rubyOf } from "@/lib/name-readings";
 import type { EmperorRecord, MetricRank } from "@/lib/emperor-types";
-import { emperorNameEntries } from "@/lib/display-name";
 
 /**
  * データベースの該当状態への文脈内リンク（2026-07-27 の SEO 監査 2-3）。
@@ -46,22 +43,17 @@ function DetailRow({
   label,
   value,
   sub,
-  rubyRow,
 }: {
   label: string;
   value: React.ReactNode;
   /** 値の下に小さく添える補足（順位表示に使う）。 */
   sub?: React.ReactNode;
-  /** ふりがなが載る行。行間を先に確保して、トグルの ON/OFF で表が伸縮しないようにする。 */
-  rubyRow?: boolean;
 }) {
   return (
     // 補足（順位）はラベルと値の下に行いっぱいで置く。値の下に入れると、
     // 使える幅がラベルを引いた残りになり「172名中・年長順112位タイ」のような
     // 長い補足が折り返す（2カラム＋カードの内余白で最も狭くなる）。
-    <div
-      className={`grid grid-cols-[auto_1fr] gap-x-3 border-b border-border/60 py-1.5 last:border-b-0${rubyRow ? " leading-ruby" : ""}`}
-    >
+    <div className="grid grid-cols-[auto_1fr] gap-x-3 border-b border-border/60 py-1.5 last:border-b-0">
       <dt className="text-muted-foreground">{label}</dt>
       <dd className="text-right">{value}</dd>
       {sub && (
@@ -98,7 +90,10 @@ function ageText(age: number | null): string {
 }
 
 /** 順位の表示文字列（例: "364名中3位"・"327名中・年長順5位タイ"）。順位対象外はnull。 */
-function rankText(rank: MetricRank | null, directionLabel?: string): string | null {
+function rankText(
+  rank: MetricRank | null,
+  directionLabel?: string,
+): string | null {
   if (!rank) return null;
   const direction = directionLabel ? `・${directionLabel}` : "";
   return `${rank.total}名中${direction}${rank.rank}位${rank.tied ? "タイ" : ""}`;
@@ -120,109 +115,90 @@ const COUNT_METRICS = [
 ] as const;
 
 export function EmperorFacts({ record }: { record: EmperorRecord }) {
-  // 名前（諱・民族名・廟号・諡号・元号・別称）。導出は lib/display-name.ts に集約。
-  // 2026-08-02 まではこの4行が「基本情報」の在位・死因と同じ dl に混ざっていた。
-  const nameEntries = emperorNameEntries(record);
   return (
-    // items-start が無いと行の高さが揃い、行数の少ない「名前」カードが下半分
-    // 空のまま基本情報の高さまで伸びる（諱1行だけの皇帝が多数派なので目立つ）。
-    <div className="grid items-start gap-4 lg:grid-cols-2 lg:gap-x-6">
-      {nameEntries.length > 0 && (
-        <section className={SURFACE_CLASS}>
-          <h2 className="mb-2 font-heading text-base font-semibold text-foreground">
-            名前
-          </h2>
-          {/* ふりがな（Issue #20）。読みは ../data/name-readings.json で、
-              未登録の名前はルビ無しで素通しする。 */}
-          <dl className="text-sm">
-            {nameEntries.map((entry) => (
-              <DetailRow
-                key={`${entry.label}-${entry.value}`}
-                label={entry.label}
-                value={<RubyText source={rubyOf(entry.value)} />}
-                rubyRow
-              />
-            ))}
-          </dl>
-        </section>
-      )}
+    // 名前（諱・廟号・諡号・元号・別称）はここに置かない（2026-08-02 ユーザー決定）。
+    // 一度は全幅の帯として3枚目に置いたが、**多くの皇帝で行が1つしか無く**
+    // （諱だけが163人・0行が56人）帯の右側が空くだけだったため、ヒーローの
+    // 要約チップ（死因・即位・年齢＝ここの「基本情報」と同じ値を出していた）と
+    // 入れ替えた（emperor-hero.tsx）。
+    <div className="grid gap-4 lg:grid-cols-2 lg:gap-x-6">
       <section className={SURFACE_CLASS}>
-        <h2 className="mb-2 font-heading text-base font-semibold text-foreground">
-          基本情報
-        </h2>
-        <dl className="text-sm">
-          <DetailRow label="在位" value={record.periodsLabel} />
-          <DetailRow
-            label="在位期間"
-            value={record.reignDurationLabel}
-            sub={
-              rankText(record.ranks.reignYears) && (
-                <StatLink
-                  href="/database?sort=reignApproxDays&order=desc"
-                  label="在位年数ランキングを見る"
-                >
-                  {rankText(record.ranks.reignYears)}
-                </StatLink>
-              )
-            }
-          />
-          {/* スキーマ v3（2026-07-29）で、政権の位置づけ（統一王朝・分裂期の王朝・
+          <h2 className="mb-2 font-heading text-base font-semibold text-foreground">
+            基本情報
+          </h2>
+          <dl className="text-sm">
+            <DetailRow label="在位" value={record.periodsLabel} />
+            <DetailRow
+              label="在位期間"
+              value={record.reignDurationLabel}
+              sub={
+                rankText(record.ranks.reignYears) && (
+                  <StatLink
+                    href="/database?sort=reignApproxDays&order=desc"
+                    label="在位年数ランキングを見る"
+                  >
+                    {rankText(record.ranks.reignYears)}
+                  </StatLink>
+                )
+              }
+            />
+            {/* スキーマ v3（2026-07-29）で、政権の位置づけ（統一王朝・分裂期の王朝・
               反乱・自称政権）と「その政権の中で正規の皇帝か」が別の軸に分かれた。
               前者は王朝ラベル・配色・絞り込みが担うが、後者は該当20名にしか
               立たない情報なので、立つ人物にだけ1行出す。 */}
-          {record.isRivalClaimant && (
-            <DetailRow
-              label="政権内の位置"
-              value="対立・僭称の皇帝"
-              sub="同じ国号のまま並立して帝号を称し、その王朝の正史が帝紀を立てていない"
-            />
-          )}
-          {/* 旧「建国」「復位」はラベルから外して軸・在位情報へ移したため、
+            {record.isRivalClaimant && (
+              <DetailRow
+                label="政権内の位置"
+                value="対立・僭称の皇帝"
+                sub="同じ国号のまま並立して帝号を称し、その王朝の正史が帝紀を立てていない"
+              />
+            )}
+            {/* 旧「建国」「復位」はラベルから外して軸・在位情報へ移したため、
               その2点だけは経路の脇に補足として出す（判定の4軸は「即位の経緯」節）。 */}
-          <DetailRow
-            label="即位経路"
-            value={record.accessionRouteCategory}
-            sub={accessionSubNote(record)}
-          />
-          <DetailRow label="死因" value={record.deathCauseCategory} />
-          <DetailRow
-            label="即位時年齢"
-            value={ageText(record.accessionAge)}
-            sub={rankText(record.ranks.accessionAge, "年長順")}
-          />
-          <DetailRow
-            label="没年齢"
-            value={ageText(record.deathAge)}
-            sub={rankText(record.ranks.deathAge, "長寿順")}
-          />
-        </dl>
-      </section>
-      <section className={SURFACE_CLASS}>
-        <h2 className="mb-2 font-heading text-base font-semibold text-foreground">
-          回数で見る在位
-        </h2>
-        {/* 順位表示が付いたため4列だとセル幅が足りずラベルが縦に折り返す。2列固定。
+            <DetailRow
+              label="即位経路"
+              value={record.accessionRouteCategory}
+              sub={accessionSubNote(record)}
+            />
+            <DetailRow label="死因" value={record.deathCauseCategory} />
+            <DetailRow
+              label="即位時年齢"
+              value={ageText(record.accessionAge)}
+              sub={rankText(record.ranks.accessionAge, "年長順")}
+            />
+            <DetailRow
+              label="没年齢"
+              value={ageText(record.deathAge)}
+              sub={rankText(record.ranks.deathAge, "長寿順")}
+            />
+          </dl>
+        </section>
+        <section className={SURFACE_CLASS}>
+          <h2 className="mb-2 font-heading text-base font-semibold text-foreground">
+            回数で見る在位
+          </h2>
+          {/* 順位表示が付いたため4列だとセル幅が足りずラベルが縦に折り返す。2列固定。
             最終行（2列なので末尾2件）の下罫は面の下端に浮くので落とす。 */}
-        <dl className="grid grid-cols-2 content-start gap-x-6 text-sm [&>*:nth-last-child(-n+2)]:border-b-0">
-          {COUNT_METRICS.map(([label, key]) => (
-            <div
-              key={label}
-              className="flex items-start justify-between gap-2 border-b border-border/60 py-1.5"
-            >
-              <dt className="shrink-0 text-muted-foreground">{label}</dt>
-              <dd className="text-right tabular-nums">
-                {record[key]}回
-                {record.ranks[key] && (
-                  <span className="block text-micro leading-tight text-muted-foreground">
-                    {rankText(record.ranks[key])}
-                  </span>
-                )}
-              </dd>
-            </div>
-          ))}
-        </dl>
-        <p className="mt-2 text-xs text-muted-foreground">
-          順位は同数を同順位として数えています（「タイ」表示）。回数の順位は1回以上、年齢の順位は年齢が判明している皇帝のみが対象です。
+          <dl className="grid grid-cols-2 content-start gap-x-6 text-sm [&>*:nth-last-child(-n+2)]:border-b-0">
+            {COUNT_METRICS.map(([label, key]) => (
+              <div
+                key={label}
+                className="flex items-start justify-between gap-2 border-b border-border/60 py-1.5"
+              >
+                <dt className="shrink-0 text-muted-foreground">{label}</dt>
+                <dd className="text-right tabular-nums">
+                  {record[key]}回
+                  {record.ranks[key] && (
+                    <span className="block text-micro leading-tight text-muted-foreground">
+                      {rankText(record.ranks[key])}
+                    </span>
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-2 text-xs text-muted-foreground">
+            順位は同数を同順位として数えています（「タイ」表示）。回数の順位は1回以上、年齢の順位は年齢が判明している皇帝のみが対象です。
         </p>
       </section>
     </div>

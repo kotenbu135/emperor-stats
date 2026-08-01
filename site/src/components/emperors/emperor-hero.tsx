@@ -3,7 +3,8 @@
 // 2026-08-01 の作り替えまでは共通の PageHeader（名前1行＋王朝と在位の1行）で、
 // 肖像は本文の基本情報 dl の脇に幅144pxで並んでいた。一覧カードは面の7割が肖像
 // なので、カードから遷移したときに「同じ人物の面に来た」感じが出ていなかった。
-// 肖像をページ先頭の主役に上げ、王朝・在位・死因・即位経路・年齢の要約をその隣に置く。
+// 肖像をページ先頭の主役に上げ、王朝・在位と名前（諱・廟号・元号ほか）をその隣に置く。
+// 隣に出す要約は 2026-08-02 に死因・即位経路・年齢から名前へ入れ替えた（Chip 参照）。
 //
 // 肖像アセットは**全144枚が360×480**なので、引き伸ばせる上限は200px前後
 // （それ以上に出すと元画像の解像度を超える）。
@@ -15,47 +16,203 @@
 // 「画像がありません」の告知になるため採らない。肖像あり／なしで左右の組みが変わる
 // 非対称は許容する。
 
+import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Portrait } from "@/components/emperors/portrait";
 import { RubyText } from "@/components/ui/ruby-text";
 import { rubyOf } from "@/lib/name-readings";
 import { dynastyColorHex, dynastyColorSlot } from "@/lib/dynasty-colors";
+import {
+  emperorNameEntries,
+  groupEmperorNameEntries,
+} from "@/lib/display-name";
 import { dynastyContextLabel, type EmperorRecord } from "@/lib/emperor-types";
+import { SITE_NAME } from "@/lib/seo";
+import { cn } from "@/lib/utils";
 
-/** 要約チップ。値が無い項目は呼び出し側で落とす。 */
-function Chip({ label, value }: { label: string; value: string }) {
+/** ページ送りの隣接皇帝。EmperorRecord をそのまま渡せる形にしてある。 */
+export type AdjacentEmperor = { id: string; name: string; dynastyLabel: string };
+
+/**
+ * 名前のチップ（諱・廟号・諡号・元号・別称）。**行が無い皇帝では1つも出ない。**
+ *
+ * 2026-08-02 まではここに死因・即位経路・年齢を出していたが、いずれも直下の
+ * 「基本情報」に同じ値が（年齢は順位付きで）並んでおり、重複しているだけだった
+ * （ユーザー指摘）。同日に「基本情報」の隣へ足した名前ブロックのほうは、
+ * **多くの皇帝で行が1つしか無く**カードの右側が空くだけだったので、両者を入れ替えた。
+ * 名前は種類ごとに独立した短い語なので、行を並べるより粒で流れるチップが合う。
+ *
+ * ふりがな（Issue #20）。読みは ../data/name-readings.json で、未登録の名前は
+ * ルビ無しで素通しする。`leading-ruby` はトグルの ON/OFF でチップの高さが動かない
+ * よう、ルビの分の行間を先に確保するためのもの。
+ */
+function Chip({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <span className="inline-flex items-baseline gap-1.5 rounded-full border border-border bg-muted/50 px-2.5 py-1 text-xs">
+    <span className="inline-flex items-baseline gap-1.5 rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-xs leading-ruby">
       <span className="text-muted-foreground">{label}</span>
       <span className="font-medium text-foreground">{value}</span>
     </span>
   );
 }
 
-/** 「16歳で即位、70歳で没」。両方不詳なら null（チップごと出さない）。 */
-function ageChipValue(record: EmperorRecord): string | null {
-  const parts: string[] = [];
-  if (record.accessionAge !== null) parts.push(`${record.accessionAge}歳で即位`);
-  if (record.deathAge !== null) parts.push(`${record.deathAge}歳で没`);
-  return parts.length > 0 ? parts.join("、") : null;
+/**
+ * パンくず（2026-08-02）。**ページ最上部の左端**に階層を出す。
+ *
+ * それまでは本文カラムの先頭（h1 より下）に「皇帝一覧へ戻る」「◯◯の皇帝一覧（n名）」の
+ * 2本を並べていた。一般的な Web の作法（グローバルナビの直下・ページ見出しの上）から
+ * 外れていて上位階層へ戻る導線が見つけにくく、紹介文のある皇帝ではモバイル（縦積み）で
+ * 1画面ぶん下に落ちていたため、階層1本に統合してここへ上げた。
+ *
+ * - 最終項（現在の皇帝）は**リンクにしない**（NN/g・W3C APG。押せないことを
+ *   `aria-current="page"` と色で示す）
+ * - 区切りの `›` は `aria-hidden`（ol/li で階層は伝わっており、読み上げでは冗長）
+ * - **`page.tsx` の BreadcrumbList JSON-LD と同じ4段**にすること（可視のパンくずと
+ *   構造化データが食い違うと Google の推奨から外れる）
+ * - ルビは振らない。王朝名も皇帝名もヒーロー本体（王朝行・h1）に総ルビで出ており、
+ *   12px の補助行に二重で振ると行が詰まる
+ */
+function Breadcrumb({
+  record,
+  dynastyPeerCount,
+}: {
+  record: EmperorRecord;
+  dynastyPeerCount: number;
+}) {
+  const trail: {
+    label: string;
+    href?: string;
+    /** 幅が足りないときに落として良い項目（sm 未満で畳む） */
+    collapse?: boolean;
+  }[] = [
+    // シェルのロゴにもホームリンクがあるので、狭い画面ではこの項を落とす。
+    { label: SITE_NAME, href: "/", collapse: true },
+    { label: "皇帝一覧", href: "/emperors" },
+    // 王朝で絞った一覧。**同王朝が2名以上のときだけ**（1名の王朝＝自分だけの
+    // 一覧に飛ばしても回遊にならない）。一覧の王朝フィルタ（?dynasty=）は
+    // emperor-grid.tsx がマウント時に URL から復元するため、クエリ付きリンク
+    // だけで絞り込み状態を再現できる。
+    ...(dynastyPeerCount >= 2
+      ? [
+          {
+            label: `${record.dynastyLabel}（${dynastyPeerCount}名）`,
+            href: `/emperors?dynasty=${encodeURIComponent(record.dynastyKey)}`,
+          },
+        ]
+      : []),
+    { label: record.name },
+  ];
+  return (
+    <nav aria-label="パンくず" className="min-w-0">
+      <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs">
+        {trail.map((item, i) => (
+          <li
+            key={item.label}
+            className={cn(
+              "flex items-center gap-x-1.5",
+              item.collapse && "hidden sm:flex",
+            )}
+          >
+            {item.href ? (
+              <Link
+                href={item.href}
+                className="inline-block py-0.5 text-muted-foreground hover:text-seal"
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <span aria-current="page" className="py-0.5 text-foreground">
+                {item.label}
+              </span>
+            )}
+            {i < trail.length - 1 && (
+              <span aria-hidden className="text-muted-foreground/50">
+                ›
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
+/** ページ送りの1つ。端（前／次が無い側）は押せない見た目のまま枠だけ残す。 */
+function PagerButton({
+  emperor,
+  direction,
+}: {
+  emperor: AdjacentEmperor | null;
+  direction: "prev" | "next";
+}) {
+  const Icon = direction === "prev" ? ChevronLeft : ChevronRight;
+  const label = direction === "prev" ? "前の皇帝" : "次の皇帝";
+  if (!emperor) {
+    return (
+      <span
+        aria-hidden
+        className="inline-flex size-8 items-center justify-center rounded-md border border-border/40 text-border"
+      >
+        <Icon className="size-4" />
+      </span>
+    );
+  }
+  return (
+    <Link
+      href={`/emperors/${emperor.id}`}
+      title={`${label}: ${emperor.name}（${emperor.dynastyLabel}）`}
+      aria-label={`${label}: ${emperor.name}`}
+      className="inline-flex size-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-seal/50 hover:text-seal"
+    >
+      <Icon aria-hidden className="size-4" />
+    </Link>
+  );
 }
 
 export function EmperorHero({
   record,
   lead,
+  dynastyPeerCount,
+  prev,
+  next,
 }: {
   record: EmperorRecord;
   /** 紹介文（Issue #16）。段落の区切りは空行。未執筆は null。 */
   lead?: string | null;
+  /** 同じ王朝の皇帝数。2名以上でパンくずに王朝の項が出る。 */
+  dynastyPeerCount: number;
+  /** 収録順（おおむね時代順）の前後。端では null。 */
+  prev: AdjacentEmperor | null;
+  next: AdjacentEmperor | null;
 }) {
-  const ageValue = ageChipValue(record);
   // 通用名だけでは誰か分かりにくい人物向けの補助名（諱）。
   // **諱をそのまま出すと106/365で重複する** — 「王莽」「宇文化及」のように表示名が
   // 諱そのものの人物や、「太祖 朱全忠」のように通用名へ諱が入っている人物が多い。
   // 導出規則（遼の漢風名・清の愛新覚羅姓省略など）は lib/display-name.ts で一覧と共用。
   const subtitle = record.subtitle;
+  // 名前のチップ。**h1 の脇に出ている補助名と同じ値は落とす** — 諱は多くの皇帝で
+  // 補助名そのもの（「武帝 劉徹」の劉徹）なので、そのまま出すと同じ名前が
+  // 1行下に二度並ぶ。清の11人だけは補助名が姓を落とした形（載湉）で、
+  // チップは姓を含む諱（愛新覚羅載湉）なので両方残る。
+  const nameGroups = groupEmperorNameEntries(
+    emperorNameEntries(record).filter((e) => e.value !== subtitle),
+  );
   return (
     <header className="border-b border-border bg-background px-gutter py-section md:px-gutter-wide">
       <div className="mx-auto w-full max-w-4xl">
+        {/* ページ最上部の行。左にパンくず、右にページ送り。**肖像の float より前**に
+            置いて回り込みの外へ出す（float の後ろに置くと肖像の右へ食い込む）。
+            ページ送りを本文ではなくこの行に置くのは、ページごとに縦位置がずれず
+            連続で押せるため（皇帝名付きのリンクは本文末尾の nav に残してある）。 */}
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <Breadcrumb record={record} dynastyPeerCount={dynastyPeerCount} />
+          <nav
+            aria-label="前後の皇帝（ページ送り）"
+            className="flex shrink-0 items-center gap-1.5"
+          >
+            <PagerButton emperor={prev} direction="prev" />
+            <PagerButton emperor={next} direction="next" />
+          </nav>
+        </div>
         {/* 肖像は sm 以上で float。**紹介文（Issue #16）を肖像の右に置き、
             長い本文は肖像の下へ回り込ませる**ため（2026-08-01 ユーザー指示の配置）。
             flex の2カラムだと、500字級の紹介文で右カラムだけが伸びて肖像の左下に
@@ -124,11 +281,22 @@ export function EmperorHero({
                 （{record.reignDurationLabel}）
               </span>
             </p>
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              <Chip label="死因" value={record.deathCauseCategory} />
-              <Chip label="即位" value={record.accessionRouteCategory} />
-              {ageValue && <Chip label="年齢" value={ageValue} />}
-            </div>
+            {nameGroups.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {nameGroups.map((group) => (
+                  <Chip
+                    key={group.label}
+                    label={group.label}
+                    value={group.values.map((value, i) => (
+                      <span key={value}>
+                        {i > 0 && "・"}
+                        <RubyText source={rubyOf(value)} />
+                      </span>
+                    ))}
+                  />
+                ))}
+              </div>
+            )}
             {/* 紹介文（Issue #16）。ページで唯一の16pxの文＝ここが「読ませる」文で
                 あることを級数で示す（他の本文は14px）。行送りは leading-ruby
                 （総ルビの段落はルビのある行だけ高くなり、leading-loose だと
