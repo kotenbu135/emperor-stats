@@ -1681,10 +1681,7 @@ export function getConcurrentReigns(): HomeConcurrentReigns {
   let dated = 0;
   let filled = 0;
   let total = 0;
-  // 在位区間の開始・終了イベント。**人数だけでなく誰かを持つ** —
-  // ツールチップに顔ぶれを出すため、区間ごとの在位者集合が要る。
-  const starts = new Map<number, string[]>();
-  const ends = new Map<number, string[]>();
+  const spans: { id: string; from: number; to: number }[] = [];
   for (const e of data.emperors) {
     for (const r of e.reigns) {
       total += 1;
@@ -1698,9 +1695,29 @@ export function getConcurrentReigns(): HomeConcurrentReigns {
       }
       if (r.startDate && r.endDate) dated += 1;
       else filled += 1;
-      (starts.get(s) ?? starts.set(s, []).get(s)!).push(e.id);
-      (ends.get(t + 1) ?? ends.set(t + 1, []).get(t + 1)!).push(e.id);
+      spans.push({ id: e.id, from: s, to: t });
     }
+  }
+
+  // **代替わりの日は次帝のものにする。**
+  //
+  // データは「前帝の崩御日＝次帝の即位日」で入っている（光武帝 0057-03-29 崩御・
+  // 明帝 0057-03-29 即位）。そのまま重ねると**通常の父子継承でその年が2人になり**、
+  // 「同時に帝号を持っていた」という図の主張が嘘になる（2026-08-01 ユーザー指摘）。
+  // 位が動いたのはその日の中の一点であって、2人が並んだ日ではない。
+  //
+  // 対象は94在位。**1日在位で末日を譲ると消えてしまう場合だけ残す**（金の末帝＝
+  // 完顔承麟の1件。哀宗の自尽と同日に立ち同日に戦死しており、そもそも同日の2人）。
+  const startDays = new Set(spans.map((x) => x.from));
+  const starts = new Map<number, string[]>();
+  const ends = new Map<number, string[]>();
+  for (const span of spans) {
+    const to =
+      startDays.has(span.to) && span.to - 1 >= span.from ? span.to - 1 : span.to;
+    (starts.get(span.from) ?? starts.set(span.from, []).get(span.from)!).push(
+      span.id,
+    );
+    (ends.get(to + 1) ?? ends.set(to + 1, []).get(to + 1)!).push(span.id);
   }
 
   // 境界を順に舐めて在位者集合を保ち、各年へ「その年でいちばん人数が多かった瞬間の
@@ -1717,7 +1734,14 @@ export function getConcurrentReigns(): HomeConcurrentReigns {
   for (let i = 0; i < boundaries.length; i += 1) {
     const at = boundaries[i];
     for (const id of ends.get(at) ?? []) live.delete(id);
-    for (const id of starts.get(at) ?? []) live.add(id);
+    for (const id of starts.get(at) ?? []) {
+      // 同一人物の在位区間が重なると、Set では1人のまま先に来た終了で消える
+      // （復位者8名は現状どれも重なっていないが、重なった瞬間に静かに壊れる）。
+      if (live.has(id)) {
+        throw new Error(`getConcurrentReigns: ${id} の在位区間が重なっています`);
+      }
+      live.add(id);
+    }
     if (live.size > peakCount) {
       peakCount = live.size;
       peakJdn = at;
