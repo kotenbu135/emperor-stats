@@ -515,8 +515,8 @@
     },
     {
      "id": "houjing-han",
-     "name": "梁（簒奪・漢）",
-     "label": "漢（侯景）",
+     "name": "漢（侯漢）",
+     "label": "漢（侯漢）",
      "labelEn": null,
      "eraId": "northern-southern",
      "category": "rebel",
@@ -42698,7 +42698,7 @@
    "verification": {
     "emperorTitleConfirmed": true,
     "confidence": "high",
-    "notes": "梁（簒奪・漢）皇帝。漢。"
+    "notes": "漢（侯漢）皇帝。漢。"
    },
    "deathCause": {
     "category": "assassination",
