@@ -19,6 +19,7 @@ import {
   EmperorResearchDetails,
 } from "@/components/emperors/emperor-narrative";
 import { EmperorEventTimeline } from "@/components/emperors/emperor-event-timeline";
+import { RubyText } from "@/components/ui/ruby-text";
 import {
   dynastyContextLabel,
   getAllEmperorRecords,
@@ -144,7 +145,7 @@ export default async function EmperorPage({
           { name: record.name, url: absoluteUrl(`/emperors/${id}`) },
         ])}
       />
-      <EmperorHero record={record} />
+      <EmperorHero record={record} lead={profile?.lead} />
       <div className="px-gutter py-section md:px-gutter-wide">
         <div className="mx-auto flex w-full max-w-4xl flex-col gap-5">
           {/* ページ送りは本文の長さに左右されない先頭右端の固定サイズボタンに
@@ -210,10 +211,25 @@ export default async function EmperorPage({
           {/* ②紹介文（Issue #16）。**365人中まだ大半が未執筆**なので、無い皇帝では
               節ごと出ない。ページで唯一の16pxの文＝ここが「読ませる」文であることを
               級数で示す（他の本文は14px）。 */}
-          {profile?.lead && (
-            <p className="max-w-prose text-base leading-loose text-foreground">
-              {profile.lead}
-            </p>
+          {/* 「人物紹介」節（Issue #16 の body）。ヒーローには導入（lead）だけを置き、
+              逸話を含む本文はここ — **ページを開いた時点で文章だけで埋まるのを避ける**
+              ため（2026-08-01 ユーザー指示）。段落の区切りは空行、行送りは leading-ruby。 */}
+          {profile?.body && (
+            <section className="space-y-2">
+              <h2 className="font-heading text-base font-semibold text-foreground">
+                人物紹介
+              </h2>
+              <div className="space-y-4">
+                {profile.body.split("\n\n").map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className="text-base leading-ruby text-foreground"
+                  >
+                    <RubyText source={paragraph} />
+                  </p>
+                ))}
+              </div>
+            </section>
           )}
           <EmperorFacts record={record} />
           <EmperorNarrativeSections narrative={narrative} />

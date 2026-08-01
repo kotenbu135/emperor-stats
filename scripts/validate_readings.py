@@ -5,10 +5,12 @@
 
 1. 平文一致 — data/name-readings.json は「平文をキー、ルビ記法を値」に持つ。
    値からルビを剥がした結果がキーと一致すること（親文字の打ち間違いを落とす）
-2. 総ルビ充足 — 紹介文（data/emperor-profiles.json）はルビ注釈の外に漢字を
-   1文字も残さないこと（振り漏れを落とす）
-3. 固有名詞整合 — 紹介文の中に読みテーブルのキー文字列が現れる箇所は、
-   そのルビがテーブルの値と一致すること
+2. 総ルビ充足 — 紹介文の lead・body（data/emperor-profiles.json）はルビ注釈の外に
+   漢字を1文字も残さないこと（振り漏れを落とす）。**description はルビを持たず平文**
+   （<meta>・JSON-LD にしか出ないので、ルビを書いても画面に出ない）
+3. 固有名詞整合 — lead・body で振ったルビのうち、親文字が読みテーブルに載っている
+   2字以上のものは、テーブルと同じ読みであること（向きは本文→テーブル。
+   逆向きが成立しない理由は該当箇所のコメント）
 4. 記法そのもの — 裸の ｜《》 が無いこと、ルビがかなだけで書かれていること
 
 **キーが実在するかはここでは検査しない。** 画面に出る文字列の正はサイト側で、
@@ -51,6 +53,11 @@ def err(message: str) -> None:
 
 def strip_ruby(text: str) -> str:
     return RUBY.sub(r"\1", text)
+
+
+def strip_ruby_reading(annotated: str) -> str:
+    """ルビ記法から読みだけを取り出す（エラー文で「かん」だけを見せるため）。"""
+    return "".join(reading for _, reading in RUBY.findall(annotated))
 
 
 def check_notation(text: str, label: str) -> None:
@@ -104,24 +111,50 @@ def main() -> int:
     for emperor_id, profile in profiles["profiles"].items():
         if emperor_id not in emperor_ids:
             err(f"emperor-profiles.json: 存在しない皇帝id「{emperor_id}」")
-        for field in ("lead", "description"):
+
+        # description はルビを持たない（平文で保存する・2026-08-01 決定）。
+        # 出力先が <meta> と JSON-LD だけで必ず strip されるため、ルビを持たせても
+        # 画面に出ない一方、記法エラーの面積と執筆量だけが倍になる。
+        description = profile.get("description")
+        if description:
+            written += 1
+            if RUBY.search(description) or any(c in description for c in "｜《》"):
+                err(
+                    f"emperor-profiles.json「{emperor_id}」の description: "
+                    "ここはルビを振らず平文で書きます（<meta>・JSON-LD にしか出ないため）"
+                )
+
+        for field in ("lead", "body"):
             text = profile.get(field)
             if not text:
                 continue
             written += 1
-            label = f"emperor-profiles.json「{emperor_id}」の{field}"
+            label = f"emperor-profiles.json「{emperor_id}」の {field}"
             check_notation(text, label)
             # 2. 総ルビ充足: ルビ注釈の外に漢字が残っていないこと
             outside = RUBY.sub("", text)
             missed = KANJI.findall(outside)
             if missed:
                 err(f"{label}: ルビの無い漢字があります → {''.join(dict.fromkeys(missed))}")
-            # 3. 固有名詞整合: 読みテーブルにある名前は同じ読みで振ること
-            for plain, annotated in readings.items():
-                if plain in strip_ruby(text) and annotated not in text:
+            # 3. 固有名詞整合: 本文で振ったルビが読みテーブルと矛盾しないこと。
+            #
+            # **向きは「本文のルビ注釈 → テーブル」で、逆ではない。** 逆向き
+            #（テーブルのキーが本文に現れたら同じ literal を要求する）は素の部分文字列
+            # 一致になるため、885キー中352キーが2字以下・21キーが1字という実データでは
+            # 総ルビの本文がまず通らない: 「｜光武帝《こうぶてい》」は「武帝」キーで、
+            #「｜前漢《ぜんかん》」は「漢」キーで、一般語彙の「｜元号《げんごう》」まで
+            #「元」キーで落ちる。
+            #
+            # 1字キー（元・唐・漢・明・清…の21件）は一般語彙と衝突するので照合しない
+            #（王朝名1字の読みは自明で、取り違えは人手レビューで足りる）。
+            for parent, reading in RUBY.findall(text):
+                if len(parent) < 2:
+                    continue
+                expected = readings.get(parent)
+                if expected and expected != f"｜{parent}《{reading}》":
                     err(
-                        f"{label}: 「{plain}」は読みテーブルの「{annotated}」と"
-                        "同じ振り方にしてください"
+                        f"{label}: 「{parent}」の読みが読みテーブルと違います → "
+                        f"本文「{reading}」／テーブル「{strip_ruby_reading(expected)}」"
                     )
 
     total = len(displayed)

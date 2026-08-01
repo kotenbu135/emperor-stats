@@ -536,8 +536,16 @@ export interface AccessionAxes {
  * 未執筆の皇帝は `getEmperorProfile()` が null を返す。
  */
 export interface EmperorProfile {
-  /** 個別ページ本文の導入（200〜300字）。 */
+  /** ヒーロー内（要約チップの下）の導入（120〜250字）。段落の区切りは空行。 */
   lead: string | null;
+  /**
+   * 「人物紹介」節の本文（150〜700字・逸話はここ）。段落の区切りは空行。
+   *
+   * lead と分けているのは、**ページを開いた時点で文章だけで埋まるのを避ける**ため
+   * （2026-08-01 ユーザー指示）。ヒーローに500字級を置くと、初期表示で盤面
+   * （基本情報・回数）まで届かない。
+   */
+  body: string | null;
   /** 検索結果・OGP に出る1文（120字前後）。leadの冒頭を切り出すと文が途中で切れるため別に持つ。 */
   description: string | null;
 }

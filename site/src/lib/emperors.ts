@@ -30,6 +30,7 @@ import {
 export * from "@/lib/emperor-types";
 import { kanaExpansionsOf } from "@/lib/kana-readings";
 import { rubyOf } from "@/lib/name-readings";
+import { assertValidRubySource } from "@/lib/ruby";
 import { CARD_SUBTITLE_OVERRIDES, cardSubtitleOf } from "@/lib/card-subtitle";
 import { emperorsJson } from "@/lib/data-source";
 
@@ -804,7 +805,10 @@ const profilesPath = path.join(
 );
 const emperorProfiles = (
   JSON.parse(fs.readFileSync(profilesPath, "utf-8")) as {
-    profiles: Record<string, { lead?: string; description?: string }>;
+    profiles: Record<
+      string,
+      { lead?: string; body?: string; description?: string }
+    >;
   }
 ).profiles;
 // 打ち間違えたidの紹介文が黙って表示されないようにする（kana-readings・
@@ -813,14 +817,31 @@ for (const key of Object.keys(emperorProfiles)) {
   if (!rawEmperorById.has(key)) {
     throw new Error(`emperor-profiles.json に存在しない皇帝id: ${key}`);
   }
+  const { lead, body, description } = emperorProfiles[key];
+  // lead・body は総ルビ（Issue #20 の T2）。壊れた記法をここで止める。
+  if (lead) assertValidRubySource(lead, `emperor-profiles.json「${key}」の lead`);
+  if (body) assertValidRubySource(body, `emperor-profiles.json「${key}」の body`);
+  // description は <meta> と Person JSON-LD にしか出ないので**平文で持つ**
+  // （2026-08-01 決定）。ルビ記法が紛れ込むと「｜」がそのまま検索結果に出るため、
+  // 描画側で strip するのではなくデータ側を平文に固定してビルドで落とす。
+  if (description && /[｜《》]/.test(description)) {
+    throw new Error(
+      `emperor-profiles.json「${key}」の description にルビ記法があります: ` +
+        `description は <meta>・JSON-LD 専用なので平文で書きます（ルビは lead だけ）`,
+    );
+  }
 }
 
-/** 紹介文（本文用の導入 lead と、metadata/JSON-LD 用の1文 description）。未執筆はnull。 */
+/**
+ * 紹介文。ヒーロー内の導入 lead ／「人物紹介」節の本文 body ／
+ * metadata・JSON-LD 用の1文 description。未執筆はnull。
+ */
 export function getEmperorProfile(id: string): EmperorProfile | null {
   const p = emperorProfiles[id];
-  if (!p?.lead && !p?.description) return null;
+  if (!p?.lead && !p?.body && !p?.description) return null;
   return {
     lead: p.lead ?? null,
+    body: p.body ?? null,
     description: p.description ?? null,
   };
 }

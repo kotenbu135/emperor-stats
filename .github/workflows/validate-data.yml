@@ -15,6 +15,7 @@ on:
       - "scripts/hanzi_norm.py"
       - "scripts/detect_wikipedia_sources.py"
       - "scripts/validate_readings.py"
+      - "scripts/validate_profiles.py"
       - ".github/workflows/validate-data.yml"
   pull_request:
     paths:
@@ -26,6 +27,7 @@ on:
       - "scripts/hanzi_norm.py"
       - "scripts/detect_wikipedia_sources.py"
       - "scripts/validate_readings.py"
+      - "scripts/validate_profiles.py"
       - ".github/workflows/validate-data.yml"
   workflow_dispatch:
 
@@ -61,6 +63,11 @@ jobs:
       # ここから外すと振り漏れが素通しになる。
       - name: Validate name readings and ruby markup
         run: python3 scripts/validate_readings.py
+
+      # 紹介文（Issue #16）。文字数（ルビを剥がした長さ）・description が平文であること・
+      # meta.counts.written の整合。定型文検出の n-gram は報告のみでエラーにしない。
+      - name: Validate emperor profiles
+        run: python3 scripts/validate_profiles.py
 
       # 引用照合台帳カバレッジ（コーパス不要）。台帳 data/quote-refs.json を更新せずに
       # 引用を追加・改変したコミットはここで確実に落ちる（規約: RESEARCH_PROCESS.md 引用の取り扱い規約）
