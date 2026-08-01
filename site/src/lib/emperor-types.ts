@@ -128,7 +128,7 @@ export interface EmperorRecord {
    *  落としているので、「廃帝（昌邑王）」の昌邑王のような情報はここにしか残らない。
    *  個別ページの Person JSON-LD の alternateName に使う。 */
   commonName: string;
-  /** 諱・廟号・諡号。個別ページの名前ブロックに出す。 */
+  /** 諱・廟号・諡号。個別ページのヒーローに名前のチップとして出す。 */
   personalName: string | null;
   templeName: string | null;
   posthumousName: string | null;

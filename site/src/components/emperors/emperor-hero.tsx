@@ -3,7 +3,8 @@
 // 2026-08-01 の作り替えまでは共通の PageHeader（名前1行＋王朝と在位の1行）で、
 // 肖像は本文の基本情報 dl の脇に幅144pxで並んでいた。一覧カードは面の7割が肖像
 // なので、カードから遷移したときに「同じ人物の面に来た」感じが出ていなかった。
-// 肖像をページ先頭の主役に上げ、王朝・在位・死因・即位経路・年齢の要約をその隣に置く。
+// 肖像をページ先頭の主役に上げ、王朝・在位と名前（諱・廟号・元号ほか）をその隣に置く。
+// 隣に出す要約は 2026-08-02 に死因・即位経路・年齢から名前へ入れ替えた（Chip 参照）。
 //
 // 肖像アセットは**全144枚が360×480**なので、引き伸ばせる上限は200px前後
 // （それ以上に出すと元画像の解像度を超える）。
@@ -21,6 +22,10 @@ import { Portrait } from "@/components/emperors/portrait";
 import { RubyText } from "@/components/ui/ruby-text";
 import { rubyOf } from "@/lib/name-readings";
 import { dynastyColorHex, dynastyColorSlot } from "@/lib/dynasty-colors";
+import {
+  emperorNameEntries,
+  groupEmperorNameEntries,
+} from "@/lib/display-name";
 import { dynastyContextLabel, type EmperorRecord } from "@/lib/emperor-types";
 import { SITE_NAME } from "@/lib/seo";
 import { cn } from "@/lib/utils";
@@ -28,10 +33,22 @@ import { cn } from "@/lib/utils";
 /** ページ送りの隣接皇帝。EmperorRecord をそのまま渡せる形にしてある。 */
 export type AdjacentEmperor = { id: string; name: string; dynastyLabel: string };
 
-/** 要約チップ。値が無い項目は呼び出し側で落とす。 */
-function Chip({ label, value }: { label: string; value: string }) {
+/**
+ * 名前のチップ（諱・廟号・諡号・元号・別称）。**行が無い皇帝では1つも出ない。**
+ *
+ * 2026-08-02 まではここに死因・即位経路・年齢を出していたが、いずれも直下の
+ * 「基本情報」に同じ値が（年齢は順位付きで）並んでおり、重複しているだけだった
+ * （ユーザー指摘）。同日に「基本情報」の隣へ足した名前ブロックのほうは、
+ * **多くの皇帝で行が1つしか無く**カードの右側が空くだけだったので、両者を入れ替えた。
+ * 名前は種類ごとに独立した短い語なので、行を並べるより粒で流れるチップが合う。
+ *
+ * ふりがな（Issue #20）。読みは ../data/name-readings.json で、未登録の名前は
+ * ルビ無しで素通しする。`leading-ruby` はトグルの ON/OFF でチップの高さが動かない
+ * よう、ルビの分の行間を先に確保するためのもの。
+ */
+function Chip({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <span className="inline-flex items-baseline gap-1.5 rounded-full border border-border bg-muted/50 px-2.5 py-1 text-xs">
+    <span className="inline-flex items-baseline gap-1.5 rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-xs leading-ruby">
       <span className="text-muted-foreground">{label}</span>
       <span className="font-medium text-foreground">{value}</span>
     </span>
@@ -151,14 +168,6 @@ function PagerButton({
   );
 }
 
-/** 「16歳で即位、70歳で没」。両方不詳なら null（チップごと出さない）。 */
-function ageChipValue(record: EmperorRecord): string | null {
-  const parts: string[] = [];
-  if (record.accessionAge !== null) parts.push(`${record.accessionAge}歳で即位`);
-  if (record.deathAge !== null) parts.push(`${record.deathAge}歳で没`);
-  return parts.length > 0 ? parts.join("、") : null;
-}
-
 export function EmperorHero({
   record,
   lead,
@@ -175,12 +184,18 @@ export function EmperorHero({
   prev: AdjacentEmperor | null;
   next: AdjacentEmperor | null;
 }) {
-  const ageValue = ageChipValue(record);
   // 通用名だけでは誰か分かりにくい人物向けの補助名（諱）。
   // **諱をそのまま出すと106/365で重複する** — 「王莽」「宇文化及」のように表示名が
   // 諱そのものの人物や、「太祖 朱全忠」のように通用名へ諱が入っている人物が多い。
   // 導出規則（遼の漢風名・清の愛新覚羅姓省略など）は lib/display-name.ts で一覧と共用。
   const subtitle = record.subtitle;
+  // 名前のチップ。**h1 の脇に出ている補助名と同じ値は落とす** — 諱は多くの皇帝で
+  // 補助名そのもの（「武帝 劉徹」の劉徹）なので、そのまま出すと同じ名前が
+  // 1行下に二度並ぶ。清の11人だけは補助名が姓を落とした形（載湉）で、
+  // チップは姓を含む諱（愛新覚羅載湉）なので両方残る。
+  const nameGroups = groupEmperorNameEntries(
+    emperorNameEntries(record).filter((e) => e.value !== subtitle),
+  );
   return (
     <header className="border-b border-border bg-background px-gutter py-section md:px-gutter-wide">
       <div className="mx-auto w-full max-w-4xl">
@@ -266,11 +281,22 @@ export function EmperorHero({
                 （{record.reignDurationLabel}）
               </span>
             </p>
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              <Chip label="死因" value={record.deathCauseCategory} />
-              <Chip label="即位" value={record.accessionRouteCategory} />
-              {ageValue && <Chip label="年齢" value={ageValue} />}
-            </div>
+            {nameGroups.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-1.5">
+                {nameGroups.map((group) => (
+                  <Chip
+                    key={group.label}
+                    label={group.label}
+                    value={group.values.map((value, i) => (
+                      <span key={value}>
+                        {i > 0 && "・"}
+                        <RubyText source={rubyOf(value)} />
+                      </span>
+                    ))}
+                  />
+                ))}
+              </div>
+            )}
             {/* 紹介文（Issue #16）。ページで唯一の16pxの文＝ここが「読ませる」文で
                 あることを級数で示す（他の本文は14px）。行送りは leading-ruby
                 （総ルビの段落はルビのある行だけ高くなり、leading-loose だと
