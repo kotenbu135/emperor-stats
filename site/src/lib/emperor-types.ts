@@ -41,13 +41,18 @@ export type MilitaryEventKey =
 export type AgeKey = "accessionAge" | "deathAge";
 
 /**
- * 政権の性格。スキーマ v3（2026-07-29）で `catalogs.regimes[].category` として
+ * 政権の位置づけ。スキーマ v3（2026-07-29）で `catalogs.regimes[].category` として
  * **政権単位に一意**な値になった（それ以前は皇帝ごとの `dynasty.category` で、
- * 同じ政権の中に「正統王朝」と「反乱・自称政権」が同居していた——タグが指していたのは
- * 政権の性格ではなくその人の即位の経緯だったため）。人物単位の「その政権の中で
- * 正規の皇帝か対立・僭称か」は `EmperorRecord.isRivalClaimant` が担う。
+ * 同じ政権の中に別々の値が同居していた——タグが指していたのは政権の性格ではなく
+ * その人の即位の経緯だったため）。人物単位の「その政権の中で正規の皇帝か
+ * 対立・僭称か」は `EmperorRecord.isRivalClaimant` が担う。
+ *
+ * 2026-08-01 に軸そのものを「中華を統一していたか」へ入れ替えた（旧値は
+ * 正統王朝／並立政権／反乱・自称政権で、「正統」がどの政権を正統とみなすかという
+ * 歴史学上の論争を呼び込むため。判定基準は data/schema/INCLUSION_CRITERIA.md の
+ * 「政権区分の判定基準」節）。
  */
-export type DynastyCategory = "正統王朝" | "並立政権" | "反乱・自称政権";
+export type DynastyCategory = "統一王朝" | "分裂期の王朝" | "反乱・自称政権";
 
 /** ある指標での全皇帝中の順位（lib/emperors.tsがビルド時に計算する）。 */
 export interface MetricRank {
@@ -78,9 +83,9 @@ export interface EmperorRecord {
   eraLabel: string;
   dynastyCategory: DynastyCategory;
   /** その政権の中で正規の皇帝ではなく、並立して帝号を称し正史が帝紀を立てない皇帝
-   *  （データ側 `standing` = 対立・僭称の皇帝。20名）。政権の性格を表す
+   *  （データ側 `standing` = 対立・僭称の皇帝。20名）。政権の位置づけを表す
    *  dynastyCategory とは別軸で、蕭正徳（梁）・元曄（北魏）のように
-   *  「正統王朝の中の対立皇帝」がここで区別される。 */
+   *  「歴代に数えられる王朝の中の対立皇帝」がここで区別される。 */
   isRivalClaimant: boolean;
   reignApproxDays: number;
   reignYears: number;
@@ -389,8 +394,8 @@ export function formatReignDuration(approxDays: number): string {
 // 2026-07-23に3値ともデータ側の語彙を表示語彙へ統一した（value === label。変換表と
 // しての役割は廃止し、並び順と選択肢列挙のためだけに残す）。
 export const dynastyCategoryOptions: { value: DynastyCategory; label: string }[] = [
-  { value: "正統王朝", label: "正統王朝" },
-  { value: "並立政権", label: "並立政権" },
+  { value: "統一王朝", label: "統一王朝" },
+  { value: "分裂期の王朝", label: "分裂期の王朝" },
   { value: "反乱・自称政権", label: "反乱・自称政権" },
 ];
 
@@ -398,11 +403,12 @@ export const dynastyCategoryOptions: { value: DynastyCategory; label: string }[]
 // 訪問者向けに膨らませたもの（このファイルは Client Component から import するため
 // データを読めない。カタログの説明を変えたらここも合わせる）。
 export const dynastyCategoryDescriptions: Record<DynastyCategory, string> = {
-  正統王朝: "王朝の本流として歴代に数えられる政権の皇帝（例：前漢・唐・遼・金・宋・明・清など）",
-  並立政権:
-    "同時代に他政権と並び立った政権の皇帝（例：五胡十六国の各政権・十国・西夏・隋末の群雄など）",
+  統一王朝:
+    "中華を統一して支配した時期がある王朝の皇帝（例：秦・前漢・後漢・隋・唐・北宋・元・明・清など）",
+  "分裂期の王朝":
+    "中華が複数の政権に分かれていた時代に、その一角を占めた王朝・政権の皇帝（例：魏・呉・蜀漢・五胡十六国・南北朝の各王朝・五代十国・遼・金・西夏・南宋など）",
   "反乱・自称政権":
-    "既存王朝への反乱・自立によって建てられた政権の皇帝（例：赤眉軍の漢・公孫述の成家・李自成の順など）",
+    "統一が保たれていた時期に、反乱・自立によって帝号を称した政権の皇帝（例：赤眉軍の漢・公孫述の成家・李自成の順・呉三桂の周など）",
 };
 
 export const courtEventLabels: Record<CourtEventKey, string> = {

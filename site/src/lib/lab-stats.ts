@@ -463,7 +463,7 @@ export interface LabRegimeFate {
   medians: { label: string; years: number }[];
 }
 
-const REGIME_CATEGORY_ORDER = ["正統王朝", "並立政権", "反乱・自称政権"] as const;
+const REGIME_CATEGORY_ORDER = ["統一王朝", "分裂期の王朝", "反乱・自称政権"] as const;
 
 function violentPercent(group: LabEmperor[]): number {
   return pct(

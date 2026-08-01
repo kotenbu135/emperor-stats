@@ -12,7 +12,12 @@
 //    複数値が同居していた）は、政権単位の `catalogs.regimes[].category` と
 //    人物単位の `standing`（正規／対立・僭称）へ分割された。したがって
 //    `dynastyCategory` は**政権に対して一意**になり、区分の人数も変わる
-//    （正統王朝 214→245・反乱・自称政権 45→14。移行の判定根拠は V3_MIGRATION_PLAN.md の5節）
+//    （移行の判定根拠は V3_MIGRATION_PLAN.md の5節）
+//  - 2026-08-01、区分の**軸そのもの**を「中華を統一していたか」へ入れ替えた。
+//    旧値（正統王朝／並立政権／反乱・自称政権）は「正統」がどの政権を正統とみなすかの
+//    論争を呼び込むうえ、判定基準が一度も文書化されていなかった。現在は
+//    **統一王朝 113・分裂期の王朝 240・反乱・自称政権 12**
+//    （基準は data/schema/INCLUSION_CRITERIA.md の「政権区分の判定基準」節）
 //  - 旧 `flags.selfProclaimed` は廃止（`axes` と `standing` で代替）
 //
 // v3 が持つが**サイトが意図的に使っていない**もの:
@@ -130,7 +135,7 @@ function assertLabels(enumName: string, expected: string[]): void {
   }
 }
 
-assertLabels("regimeCategory", ["正統王朝", "並立政権", "反乱・自称政権"]);
+assertLabels("regimeCategory", ["統一王朝", "分裂期の王朝", "反乱・自称政権"]);
 assertLabels("emperorStanding", ["正規の皇帝", "対立・僭称の皇帝"]);
 assertLabels("titleOrigin", ["新称"]);
 assertLabels("decidedBy", ["本人", "第三者"]);

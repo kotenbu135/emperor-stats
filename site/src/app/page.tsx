@@ -22,7 +22,7 @@ export default function Home() {
     {
       label: "王朝・政権",
       value: String(highlights.dynastyCount),
-      note: "並立政権・自称政権を含む",
+      note: "分裂期の王朝・自称政権を含む",
     },
     {
       // 下限は始皇帝の即位、上限は宣統帝・溥儀の最後の在位（満洲国）。

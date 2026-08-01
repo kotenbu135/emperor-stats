@@ -33,7 +33,7 @@
 | フィールド | 内容 |
 |---|---|
 | `eras[]` | 時代区分11件。`id`（例 `sui-tang`）・`label`（隋・唐）・`labelEn`（未投入・null）・`sortOrder`。**調査ブロック（`researchSection`）とは独立**した、時代ジャンプ・並び順のための固定カタログ。時代は慣用区分で年代は排他区間ではない（北魏 399〜 は南北朝、遼 916〜 は宋遼金夏） |
-| `regimes[]` | 政権89件。`id`・`name`（国号）・`label`（曖昧性のない表示名）・`labelEn`・`eraId`・`category`（`orthodox`／`coexisting`／`rebel`）・`startYear`/`endYear`・`sortOrder`・`dynastyOrderSurveyed` |
+| `regimes[]` | 政権89件。`id`・`name`（国号）・`label`（曖昧性のない表示名）・`labelEn`・`eraId`・`category`（`unified`／`divided`／`rebel`）・`startYear`/`endYear`・`sortOrder`・`dynastyOrderSurveyed` |
 | `enums` | フィールド名 → `[{id,label,labelEn,description?}]` の19種（`regimeCategory`・`emperorStanding`・`accessionCategory`・軸6種・`relationToPredecessor`・`deathCause`・`confidence`・`datePrecision`、および kinship.json 用の5種 `kinshipPersonKind`・`kinshipInclusionReason`・`kinshipRelation`・`kinshipRelationDetail`・`kinshipSuccessionCategory`）。**ID はフィールド内で一意**（フィールドをまたぐ同名 ID は別物） |
 
 `regimes[].startYear`/`endYear` は**表示用のヒントであって権威ある区間ではない**（唐 618〜907 の内側に武周 690〜705 が入るなど入れ子・重複しうる）。
@@ -94,7 +94,7 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 | `researchSection` | string | 調査ブロック名（旧 `dynasty.section`）。[SOURCE_MAPPING.md](../../docs/process/SOURCE_MAPPING.md) の索引キーで、**表示用の時代区分ではない** |
 | `standing` | string | `"regular"`（その政権の歴代皇帝）／`"rival"`（同一国号内で並立して帝号を称し、正史が帝紀を立てない対立・僭称）。365人中 rival は20人 |
 
-**旧 `dynasty.category` を2つに割った理由**: 旧値は「政権の性格」と「その人の称帝経緯」が混在しており、「反乱・自称政権」45人の中に明成祖（永楽帝）・清太宗・後唐荘宗・金世宗・南宋端宗など**その政権の正規の皇帝**が多数含まれていた。v3 では政権の性格を `regimes[].category`（`orthodox`／`coexisting`／`rebel`）に、人物の位置づけを `standing` に分離し、即位の経緯は `accessionRoute` が担う。判定の詳細は [V3_MIGRATION_PLAN.md](../../docs/schema/V3_MIGRATION_PLAN.md) §5。
+**旧 `dynasty.category` を2つに割った理由**: 旧値は「政権の性格」と「その人の称帝経緯」が混在しており、「反乱・自称政権」45人の中に明成祖（永楽帝）・清太宗・後唐荘宗・金世宗・南宋端宗など**その政権の正規の皇帝**が多数含まれていた。v3 では政権の位置づけを `regimes[].category` に、人物の位置づけを `standing` に分離し、即位の経緯は `accessionRoute` が担う（`category` の3値は 2026-08-01 に「中華を統一していたか」の軸へ入れ替えた。判定基準は [INCLUSION_CRITERIA.md](INCLUSION_CRITERIA.md) の「政権区分の判定基準」節）。判定の詳細は [V3_MIGRATION_PLAN.md](../../docs/schema/V3_MIGRATION_PLAN.md) §5。
 
 **同名国号の区別**: `梁`（蕭梁・隋末の梁師都政権・隋末の蕭銑政権の三者）・`楚`（隋末の林士弘政権と朱粲政権・唐の李希烈「楚」）・`宋`（劉宋と元末の韓林児「宋」）・`呉`（三国の呉と五代十国の楊呉）・`夏`（十六国の赫連夏と元末の明玉珍「夏」）など、全く別の政権が同じ国号を名乗る例が複数ある。v3 では `regimeId` が一意なのでフィルタUIはこの ID で構成し、表示は `regimes[].label`（例:「梁（蕭梁）」「梁（梁師都）」「梁（蕭銑）」）を使う。
 
