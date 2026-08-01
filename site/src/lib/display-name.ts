@@ -258,6 +258,25 @@ export function emperorNameEntries(r: {
 }
 
 /**
+ * 同じ種類の名前を1行にまとめる（「別名 秦始皇」「別名 趙政」→「別名 秦始皇・趙政」）。
+ * 同じラベルが縦に2つ並ぶと表示の不具合に見えるため（該当は3人）。
+ *
+ * JSON-LD の `alternateName` は名前を1つずつ並べる必要があるので、まとめる前の
+ * `emperorNameEntries` をそのまま使うこと。
+ */
+export function groupEmperorNameEntries(
+  entries: EmperorNameEntry[],
+): { label: string; values: string[] }[] {
+  const groups: { label: string; values: string[] }[] = [];
+  for (const entry of entries) {
+    const group = groups.find((g) => g.label === entry.label);
+    if (group) group.values.push(entry.value);
+    else groups.push({ label: entry.label, values: [entry.value] });
+  }
+  return groups;
+}
+
+/**
  * 冠称形が365人で一意であることを保証する。重複したら id を並べて throw する
  * （`DYNASTY_COLOR_SLOT`・`kana-readings` と同じ、黙って壊れないための検出器）。
  *
