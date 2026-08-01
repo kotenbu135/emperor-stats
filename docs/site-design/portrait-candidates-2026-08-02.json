@@ -1,0 +1,293 @@
+{
+ "generatedAt": "2026-08-02",
+ "method": "Wikidata P18（365件・SPARQL 1リクエスト）＋ ja/zh Wikipedia のリード画像（pageimages・10リクエスト）＋ Commons ファイル名検索の全数掃き（220人・719リクエスト）。採否は目視。",
+ "contactSheet": "site/tools/shots/portrait-candidates-2026-08-02.png",
+ "candidates": [
+  {
+   "id": "hou-han-lingdi",
+   "sourceFilename": "汉灵帝 (cropped).png",
+   "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:汉灵帝_(cropped).png",
+   "kind": "新規",
+   "note": "単独・冕冠の版本像",
+   "license": null,
+   "attributionRequired": null,
+   "width": null,
+   "height": null,
+   "credit": "",
+   "decision": "採用（2026-08-02）",
+   "focusY": 0.48
+  },
+  {
+   "id": "liang-yuandi",
+   "sourceFilename": "Liang Xiao Yi.jpg",
+   "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:Liang_Xiao_Yi.jpg",
+   "kind": "新規",
+   "note": "題字「梁元帝像」＋単独像",
+   "license": null,
+   "attributionRequired": null,
+   "width": null,
+   "height": null,
+   "credit": "",
+   "decision": "採用（2026-08-02）",
+   "focusY": 0.27
+  },
+  {
+   "id": "liu-song-qianfeidi",
+   "sourceFilename": "宋前廢帝.jpg",
+   "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:宋前廢帝.jpg",
+   "kind": "新規",
+   "note": "題字「宋廢帝」＋単独肖像（Liu Ziye.jpg は同図の別版）",
+   "license": null,
+   "attributionRequired": null,
+   "width": null,
+   "height": null,
+   "credit": "",
+   "decision": "採用（2026-08-02）",
+   "focusY": 0.4
+  },
+  {
+   "id": "nansong-duanzong",
+   "sourceFilename": "ZhaoShiDuanzong.png",
+   "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:ZhaoShiDuanzong.png",
+   "kind": "新規",
+   "note": "題字「端宗 御容」",
+   "license": null,
+   "attributionRequired": null,
+   "width": null,
+   "height": null,
+   "credit": "",
+   "decision": "採用（2026-08-02）",
+   "focusY": 0.52
+  },
+  {
+   "id": "nansong-gongdi",
+   "sourceFilename": "Song Gongdi2.jpg",
+   "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:Song_Gongdi2.jpg",
+   "kind": "新規",
+   "note": "題字「恭宗 御容」",
+   "license": null,
+   "attributionRequired": null,
+   "width": null,
+   "height": null,
+   "credit": "",
+   "decision": "採用（2026-08-02）",
+   "focusY": 0.53
+  },
+  {
+   "id": "nansong-weiwang",
+   "sourceFilename": "Song Modi.jpg",
+   "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:Song_Modi.jpg",
+   "kind": "新規",
+   "note": "題字「帝昺 御容」",
+   "license": null,
+   "attributionRequired": null,
+   "width": null,
+   "height": null,
+   "credit": "",
+   "decision": "採用（2026-08-02）",
+   "focusY": 0.53
+  },
+  {
+   "id": "qi-donghunhou",
+   "sourceFilename": "Xiao Baojuan.jpg",
+   "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:Xiao_Baojuan.jpg",
+   "kind": "新規",
+   "note": "題字「東昏侯寶巻」＋単独立像（南史演義の切り抜き）",
+   "license": null,
+   "attributionRequired": null,
+   "width": null,
+   "height": null,
+   "credit": "",
+   "decision": "採用（2026-08-02）",
+   "focusY": 0.29
+  },
+  {
+   "id": "hou-han-hedi",
+   "sourceFilename": "漢和帝.png",
+   "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:漢和帝.png",
+   "kind": "要判断",
+   "note": "題字「漢和帝」＋単独だが図は上半分のみ・下半分は本文",
+   "license": null,
+   "attributionRequired": null,
+   "width": null,
+   "height": null,
+   "credit": "",
+   "decision": "不採用（3:4に切るとカード面の約1/3が版本の本文になる）"
+  },
+  {
+   "id": "tang-wuzetian",
+   "sourceFilename": "武曌像.jpg",
+   "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:武曌像.jpg",
+   "kind": "差し替え",
+   "note": "2026-07-31に群像で除外。絹本着色の単独上半身像",
+   "license": "Public domain",
+   "attributionRequired": "false",
+   "width": 640,
+   "height": 792,
+   "credit": "<a rel=\"nofollow\" class=\"external free\" href=\"https://dingyue.ws.126.net/2023/0312/85a77287j00rrdl65002uc000hs00m0g.jpg\">https://dingyue.ws.126.net/2023/0312/85a77287j00rrdl65002uc000hs00m0g.jpg</a>",
+   "decision": "採用（2026-08-02）",
+   "focusY": 0.51
+  },
+  {
+   "id": "tang-wuzetian",
+   "sourceFilename": "武曌（鏡花緣）.jpg",
+   "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:武曌（鏡花緣）.jpg",
+   "kind": "差し替え(代案)",
+   "note": "版本・題字「武曌」・図は左半分のみ",
+   "license": "Public domain",
+   "attributionRequired": "false",
+   "width": 1900,
+   "height": 3000,
+   "credit": "This image has been <b>extracted</b> from another file",
+   "decision": "不採用（武曌像.jpg を採ったため代案は見送り）"
+  },
+  {
+   "id": "shun-lichengzheng",
+   "sourceFilename": "李自成.jpg",
+   "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:李自成.jpg",
+   "kind": "差し替え",
+   "note": "2026-07-17に非肖像で除外。版本の単独立像",
+   "license": "Public domain",
+   "attributionRequired": "false",
+   "width": 3067,
+   "height": 4104,
+   "credit": "<p><a class=\"external free\" href=\"https://commons.wikimedia.org/w/index.php?title=File:CADAL06200270_%E5%8F%A4%E6%9C%AC%E5%B0%8F%E8%AA%AA%E9%9B%86%E6%88%90%EF%BC%9A%E9%90%B5%E5%86%A0%E5%9C%96.djvu&amp",
+   "decision": "採用（2026-08-02）",
+   "focusY": 0.36
+  },
+  {
+   "id": "yuan-huizong",
+   "sourceFilename": "元順帝妥歡帖木兒 Emperor Shun of Yuan Toghon Temür.png",
+   "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:元順帝妥歡帖木兒_Emperor_Shun_of_Yuan_Toghon_Temür.png",
+   "kind": "要判断",
+   "note": "2026-07-31に判読不能で除外した別ファイルの代替。中央に大きいが侍者を伴う",
+   "license": "Public domain",
+   "attributionRequired": "false",
+   "width": 1716,
+   "height": 1694,
+   "credit": "<a rel=\"nofollow\" class=\"external free\" href=\"https://digicol.dpm.org.cn/cultural/detail?id=f3ba842e50e7411b8efdf33a12605638\">https://digicol.dpm.org.cn/cultural/detail?id=f3ba842e50e7411b8efdf33a1260",
+   "decision": "不採用（侍者を伴う群像。同じ回に群像を理由に tang-wuzetian を差し替えたため基準が噛み合わない）"
+  }
+ ],
+ "rejectedAfterVisualReview": [
+  {
+   "id": "hou-han-shangdi",
+   "file": "劉隆（東漢演義評）.jpg",
+   "reason": "題字「劉隆」の成人武人像。殤帝劉隆は1歳で崩御しており後漢の武将 劉隆（慎侯）と判断"
+  },
+  {
+   "id": "hou-han-chongdi",
+   "file": "劉炳.jpg",
+   "reason": "民国期の人物写真（四川安縣・27歳）。同名の別人"
+  },
+  {
+   "id": "suimo-liqui",
+   "file": "李軌.jpg",
+   "reason": "民国期の人物写真。同名の別人"
+  },
+  {
+   "id": "qi-wudi",
+   "file": "S 7094284 武帝 蕭賾.jpg",
+   "reason": "現代の利用者による手描きイラスト（2026-04投稿・self-published CC0）。歴史的肖像画ではない"
+  },
+  {
+   "id": "qi-yulinwang",
+   "file": "S 7094285 南朝斉 鬱林王 蕭昭業.jpg",
+   "reason": "同上"
+  },
+  {
+   "id": "qi-hailingwang",
+   "file": "S 7094287 海陵王 蕭昭文.jpg",
+   "reason": "同上"
+  },
+  {
+   "id": "beiwei-yuanhao",
+   "file": "繡像三國演義續編 北海王乂.jpg",
+   "reason": "三国演義続編の司馬乂。称号「北海王」の一致のみ"
+  },
+  {
+   "id": "wei-caofang",
+   "file": "曹芳.png",
+   "reason": "2026-07-31に場面図として除外済みのものと同一"
+  },
+  {
+   "id": "wei-caomao",
+   "file": "曹髦.png",
+   "reason": "同上"
+  },
+  {
+   "id": "liu-song-mingdi",
+   "file": "宋太宗系",
+   "reason": "2026-07-21に既知の誤マッチ（北宋太宗）として除外済み"
+  },
+  {
+   "id": "jin-xizong",
+   "file": "金熙宗半身像.jpg",
+   "reason": "金上京歷史博物館の胸像（現代の彫刻）の写真。2026-07-17 に liao-taizu（耶律阿保機の銅像写真）を落としたのと同じクラス。ライセンスも CC BY 4.0 で要クレジット"
+  }
+ ],
+ "excludedByLicense": [
+  {
+   "id": "shiguo-qianshu-wangjian",
+   "file": "王建像03426.jpg / 王建像03430.jpg",
+   "license": "CC BY-SA 4.0",
+   "note": "2026-07-17に同シリーズ03425を方針除外したのと同じ扱い"
+  },
+  {
+   "id": "jin-hailingwang",
+   "file": "Wanyan Digunai.jpg",
+   "license": "CC BY-SA 3.0",
+   "note": "方針により対象外"
+  },
+  {
+   "id": "beiwei-xuanwudi",
+   "file": "Tomb of Emperor Xuanwu of Northern Wei 5.jpg",
+   "license": "CC BY-SA 4.0",
+   "note": "墓の写真・非肖像"
+  },
+  {
+   "id": "qin-er-shi",
+   "file": "Qin Er Shi.png",
+   "license": "CC BY 4.0",
+   "note": "要クレジット表記"
+  }
+ ],
+ "channels": [
+  {
+   "name": "Wikidata P18",
+   "requests": 1,
+   "scope": "365人全員",
+   "result": "肖像なし220人のうち17人が P18 を持つ（大半は既除外と同じファイル）"
+  },
+  {
+   "name": "ja/zh Wikipedia リード画像（prop=pageimages）",
+   "requests": 10,
+   "scope": "肖像なし220人",
+   "result": "ja 25件・zh 21件。**この経路が最も生産的で、新規7件はすべてここから**"
+  },
+  {
+   "name": "ja/zh 記事本文中の全画像（prop=images）",
+   "requests": 10,
+   "scope": "同上",
+   "result": "750件中、人名一致は3件のみでいずれも印璽・哀冊など非肖像。収穫なし"
+  },
+  {
+   "name": "Commons ファイル名検索（intitle・全数掃き）",
+   "requests": 719,
+   "scope": "肖像なし220人・繁簡両方＋廟号/諡号のフォールバック",
+   "result": "87人でヒットしたが目視の結果、新規採用ゼロ・差し替え候補3件のみ。intitle は CJK でゆるく当たるため大半が同名の現代人"
+  },
+  {
+   "name": "Wikidata P373（Commons カテゴリ）＋カテゴリ列挙",
+   "requests": 28,
+   "scope": "残り209人",
+   "result": "カテゴリを持つのは27人だけ。列挙した結果は墓誌・壁画・場面図・群像のみで採用ゼロ。『後漢通俗演義人物繡像圖』22件は全て5人並ぶ群像で 2026-07-31 の除外基準（han-zhaodi）に該当"
+  }
+ ],
+ "coverageNote": "Commons には Latin 表記のファイル名（例 Portrait de Song Taizong.jpg）があり intitle 検索では原理的に当たらない。その穴を埋める経路として P373 を試したが、残り209人のうちカテゴリを持つのは27人だけで、いずれも採用に至らなかった。",
+ "p18CrossCheckOfExisting145": {
+  "note": "既存145件の manifest.sourceFilename と Wikidata P18 を突合（PORTRAITS.md の『同時代の別人』残存リスク対策）。P18 を持つのは119件、うち33件が別ファイル。目視した限りいずれも同一人物の別スキャン・別版で、別人を指しているものは無い。詳細は同ディレクトリの portrait-p18-mismatch-2026-08-02.json",
+  "count": 33
+ },
+ "result": "採用9件（新規7・差し替え2）。確定数は145→154件。"
+}

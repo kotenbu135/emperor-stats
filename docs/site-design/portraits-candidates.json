@@ -1,8 +1,8 @@
 {
   "method": "Wikimedia zhwiki data dump (page.sql / page_props.sql / redirect.sql, 2026-07-06/08 snapshot) matched offline against candidate names generated from data/emperors.json, with Japanese shinjitai -> Chinese traditional/simplified kanji normalization",
-  "generatedNote": "page_image_free indicates the article has a freely-licensed lead image per MediaWiki PageImages extension; actual license type (PD/CC-BY/CC-BY-SA etc.) must be individually verified on the Commons file page before use. 2026-07-17: manual visual review found 13 confirmed matches were not actual portraits (landscape/monument/statue photos); moved to noImageIds and recorded in excludedNonPortrait. 追記(2026-07-17): CC BY-SA 4.0ライセンスの2件を方針により除外、confirmedは155→153件に。 追記(2026-07-21): 全153件の目視QAにより、別人肖像1件(liu-song-mingdi)と場面図切り出し2件(han-aidi/tang-jingzong)をnoImageIdsへ移動、houyan-murongchuiは同シリーズの正しい図に差し替え。confirmedは153→150件に。 追記(2026-07-31): 全150件をカード表示で見直し、場面図・群像図で該当人物を特定できない5件と判読不能1件をnoImageIdsへ移動。confirmedは150→144件に。 追記(2026-08-01): ming-yizong（崇禎帝）の肖像を個別発見により追加、confirmedは144→145件・noImageIdsは220→219件に。詳細は PORTRAITS.md「個別発見による追加（2026-08-01）」節",
-  "confirmedCount": 145,
-  "noImageCount": 219,
+  "generatedNote": "page_image_free indicates the article has a freely-licensed lead image per MediaWiki PageImages extension; actual license type (PD/CC-BY/CC-BY-SA etc.) must be individually verified on the Commons file page before use. 2026-07-17: manual visual review found 13 confirmed matches were not actual portraits (landscape/monument/statue photos); moved to noImageIds and recorded in excludedNonPortrait. 追記(2026-07-17): CC BY-SA 4.0ライセンスの2件を方針により除外、confirmedは155→153件に。 追記(2026-07-21): 全153件の目視QAにより、別人肖像1件(liu-song-mingdi)と場面図切り出し2件(han-aidi/tang-jingzong)をnoImageIdsへ移動、houyan-murongchuiは同シリーズの正しい図に差し替え。confirmedは153→150件に。 追記(2026-07-31): 全150件をカード表示で見直し、場面図・群像図で該当人物を特定できない5件と判読不能1件をnoImageIdsへ移動。confirmedは150→144件に。 追記(2026-08-01): ming-yizong（崇禎帝）の肖像を個別発見により追加、confirmedは144→145件・noImageIdsは220→219件に。詳細は PORTRAITS.md「個別発見による追加（2026-08-01）」節 追記(2026-08-02): 再探索で9件を追加、confirmedは145→154件。あわせて、2026-07-20に収録した唐哀帝（tang-aidi）が2026-07-17の調査対象に入っておらず confirmed / noImageIds のどちらにも無かったため noImageIds へ追加し、合計を364→365人に揃えた。",
+  "confirmedCount": 154,
+  "noImageCount": 211,
   "confirmed": [
     {
       "id": "beisong-huizong",
@@ -215,6 +215,13 @@
       "image": "Han_Guangwu_Di.jpg"
     },
     {
+      "id": "hou-han-lingdi",
+      "commonName": "霊帝",
+      "dynasty": "後漢",
+      "matchedTitle": null,
+      "image": "汉灵帝 (cropped).png"
+    },
+    {
       "id": "hou-han-mingdi",
       "commonName": "明帝",
       "dynasty": "後漢",
@@ -320,11 +327,25 @@
       "image": "Liang_Wudi.jpg"
     },
     {
+      "id": "liang-yuandi",
+      "commonName": "元帝（孝元帝）",
+      "dynasty": "梁",
+      "matchedTitle": "梁元帝",
+      "image": "Liang Xiao Yi.jpg"
+    },
+    {
       "id": "liu-song-houfeidi",
       "commonName": "後廃帝",
       "dynasty": "宋",
       "matchedTitle": "劉昱",
       "image": "宋後廢帝.jpg"
+    },
+    {
+      "id": "liu-song-qianfeidi",
+      "commonName": "前廃帝",
+      "dynasty": "宋",
+      "matchedTitle": null,
+      "image": "宋前廢帝.jpg"
     },
     {
       "id": "liu-song-wendi",
@@ -476,6 +497,13 @@
       "image": "Long-wu.jpg"
     },
     {
+      "id": "nansong-duanzong",
+      "commonName": "端宗",
+      "dynasty": "南宋",
+      "matchedTitle": "宋端宗",
+      "image": "ZhaoShiDuanzong.png"
+    },
+    {
       "id": "nansong-duzong",
       "commonName": "度宗",
       "dynasty": "南宋",
@@ -488,6 +516,13 @@
       "dynasty": "南宋",
       "matchedTitle": "宋高宗",
       "image": "Song_Gaozong.png"
+    },
+    {
+      "id": "nansong-gongdi",
+      "commonName": "恭帝",
+      "dynasty": "南宋",
+      "matchedTitle": "宋恭帝",
+      "image": "Song Gongdi2.jpg"
     },
     {
       "id": "nansong-guangzong",
@@ -511,6 +546,13 @@
       "image": "Song_Ningzong.jpg"
     },
     {
+      "id": "nansong-weiwang",
+      "commonName": "衛王（祥興帝）",
+      "dynasty": "南宋",
+      "matchedTitle": "宋末帝",
+      "image": "Song Modi.jpg"
+    },
+    {
       "id": "nansong-xiaozong",
       "commonName": "孝宗",
       "dynasty": "南宋",
@@ -523,6 +565,13 @@
       "dynasty": "南燕",
       "matchedTitle": "南燕獻武帝",
       "image": "Harvard_drs_49802792_繡像三國演義續編_v.1_(慕容德).jpg"
+    },
+    {
+      "id": "qi-donghunhou",
+      "commonName": "廃帝（東昏侯）",
+      "dynasty": "斉",
+      "matchedTitle": "蕭寶卷",
+      "image": "Xiao Baojuan.jpg"
     },
     {
       "id": "qi-gaodi",
@@ -665,6 +714,13 @@
       "image": "Liu_Bei_Tang.jpg"
     },
     {
+      "id": "shun-lichengzheng",
+      "commonName": "永昌帝（李自成）",
+      "dynasty": "順",
+      "matchedTitle": null,
+      "image": "李自成.jpg"
+    },
+    {
       "id": "sui-wendi",
       "commonName": "文帝",
       "dynasty": "隋",
@@ -761,6 +817,13 @@
       "dynasty": "唐",
       "matchedTitle": "唐文宗",
       "image": "TangWenzongAlt.jpg"
+    },
+    {
+      "id": "tang-wuzetian",
+      "commonName": "則天大聖皇帝（武則天）",
+      "dynasty": "周",
+      "matchedTitle": null,
+      "image": "武曌像.jpg"
     },
     {
       "id": "tang-wuzong",
@@ -1078,7 +1141,6 @@
     "hou-han-chongdi",
     "hou-han-hedi",
     "hou-han-huandi",
-    "hou-han-lingdi",
     "hou-han-shangdi",
     "hou-han-shaodi-bian",
     "hou-han-shaodi-yi",
@@ -1115,7 +1177,6 @@
     "liang-xiaoyuanming",
     "liang-xiaozhengde",
     "liang-xiaozhuang",
-    "liang-yuandi",
     "liang-yuzhangwang",
     "liao-daozong",
     "liao-jingzong",
@@ -1130,17 +1191,12 @@
     "liu-song-liushao",
     "liu-song-liuzixun",
     "liu-song-mingdi",
-    "liu-song-qianfeidi",
     "liu-song-shaodi",
     "liu-song-shundi",
     "liu-yong-liang",
     "nanming-shaowudi",
     "nanming-zhaozong",
-    "nansong-duanzong",
-    "nansong-gongdi",
-    "nansong-weiwang",
     "nanyan-murongchao",
-    "qi-donghunhou",
     "qi-hailingwang",
     "qi-hedi",
     "qi-mingdi",
@@ -1175,7 +1231,6 @@
     "shiguo-qianshu-wangjian",
     "shiguo-qianshu-wangyan",
     "shiguo-wu-yangpu",
-    "shun-lichengzheng",
     "sui-gongdi-tong",
     "sui-gongdi-you",
     "sui-yanghao",
@@ -1187,12 +1242,12 @@
     "suimo-xiaoxian",
     "suimo-xueju",
     "suimo-xuerengao",
+    "tang-aidi",
     "tang-gaozong",
     "tang-jingzong",
     "tang-lige",
     "tang-shangdi",
     "tang-shunzong",
-    "tang-wuzetian",
     "tangmo-anqingxu",
     "tangmo-li-chenghong",
     "tangmo-li-yun",
@@ -1296,6 +1351,20 @@
       "wei-caofang": "馬上の人物を含む版本の場面図で、該当人物を特定できない",
       "wei-caomao": "同じ大きさの人物が並ぶ版本の場面図で、該当人物を特定できない",
       "yuan-huizong": "剥落・退色が進み、像として人物が判読できない"
+    }
+  },
+  "added2026_08_02": {
+    "reason": "2026-08-02 の再探索（Wikidata P18・ja/zh Wikipedia のリード画像・Commons ファイル名の全数掃き・Wikidata P373）で見つけた9件。採否は目視で、判定基準は 2026-07-21 / 2026-07-31 の QA と同じ。詳細は PORTRAITS.md「再探索による追加（2026-08-02）」節",
+    "ids": {
+      "hou-han-lingdi": "Wikidata P18",
+      "liang-yuandi": "ja.wikipedia リード画像",
+      "liu-song-qianfeidi": "Wikidata P18",
+      "nansong-duanzong": "Wikidata P18 / ja リード画像",
+      "nansong-gongdi": "Wikidata P18 / ja リード画像",
+      "nansong-weiwang": "Wikidata P18 / ja リード画像",
+      "qi-donghunhou": "ja.wikipedia リード画像",
+      "tang-wuzetian": "Commons ファイル名検索",
+      "shun-lichengzheng": "Commons ファイル名検索"
     }
   }
 }
