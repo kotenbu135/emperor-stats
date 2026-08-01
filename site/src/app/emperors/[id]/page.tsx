@@ -29,6 +29,7 @@ import {
   getEmperorStructuredDates,
 } from "@/lib/emperors";
 import { reportReadingCoverage } from "@/lib/name-readings";
+import { emperorNameEntries } from "@/lib/display-name";
 import {
   absoluteUrl,
   breadcrumbJsonLd,
@@ -106,20 +107,15 @@ export default async function EmperorPage({
     (r) => r.dynastyKey === record.dynastyKey,
   ).length;
   const structuredDates = getEmperorStructuredDates(id);
-  // 諱・廟号・諡号・別名を alternateName に。record.name との重複と
-  // 空値は personJsonLd 側で除くが、別名同士の重複はここで畳む。
+  // 別名（alternateName）。**名前ブロックと同じ行から作る** — 表示名は括弧を
+  // 落としているので、昌邑王（爵位）・孝元帝（別諡号）・明清の廟号はここにしか残らない。
+  // 合成前の原文（「太祖（洪武帝）」）は誰も名前として使わないので入れない。
+  // record.name との重複と空値は personJsonLd 側で除く。
   const alternateName = [
-    ...new Set(
-      [
-        record.personalName,
-        record.templeName,
-        record.posthumousName,
-        // データ側の呼称の原文。表示名は括弧（爵位・別諡号・別称）を落として
-        // いるので、「廃帝（昌邑王）」の昌邑王のような情報がここだけに残る。
-        record.commonName,
-        ...record.aliases,
-      ].filter((n): n is string => !!n),
-    ),
+    ...new Set([
+      ...emperorNameEntries(record).map((e) => e.value),
+      ...record.aliases,
+    ]),
   ];
 
   return (
