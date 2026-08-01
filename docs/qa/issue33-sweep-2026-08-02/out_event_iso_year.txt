@@ -1,0 +1,236 @@
+month 精度の event 日付: 1389 件
+うち「ISO 月＝note の旧暦月」かつ実太陽暦とずれる: 1113 件
+  A: 旧暦十一月・十二月の年またぎで ISO 年が1年古い: 105 件
+  B: 十一月・十二月以外なのに年がずれる（改暦・閏月の要個別確認）: 0 件
+  C: 年は同じで月ラベルだけ実太陽暦とずれる（多数月方式の未適用）: 1008 件
+
+=== A: 旧暦十一月・十二月の年またぎ（ISO 年が1年古い）===
+- hou-han-guangwudi / rebellionSuppressionCount.events[3].startDate  ISO=0027-11-01 → 実太陽暦 0028-01  旧暦11月
+    建武三年十一月「涿郡太守張豐反。」建武四年五月「遣征虜将軍祭遵率四将軍討張豐于涿郡、斬豐。」 建武四年五月、祭遵らに討たれ斬られた 張豐（涿
+- hou-han-guangwudi / rebellionSuppressionCount.events[15].startDate  ISO=0047-12-01 → 実太陽暦 0048-01  旧暦12月
+    建武二十三年十二月「武陵蛮叛、寇掠郡県、遣劉尚討之、戦于沅水、尚軍敗殁。」建武二十四年秋、馬援らを増派。建武二十五年「馬援等破武陵蛮于臨沅。
+- hou-han-zhangdi / rebellionSuppressionCount.events[3].startDate  ISO=0078-12-01 → 実太陽暦 0079-02  旧暦12月
+    原文「武陵溇中蛮叛。」は建初三年冬十二月丁酉の記事直後、年末の記事群の中に日付なしで置かれるため月は推定（十二月頃）。建初五年の条「荆、豫诸
+- hou-han-shundi / rebellionSuppressionCount.events[4].startDate  ISO=0136-12-01 → 実太陽暦 0137-01  旧暦12月
+    永和元年十二月「象林蠻夷叛」に始まり、永和二年五月「日南叛蠻攻郡府」、七月「九真、交阯二郡兵反」と拡大、永和三年（138年、五～七月頃）に祝
+- hou-han-shundi / rebellionSuppressionCount.events[11].endDate  ISO=0143-11-01 → 実太陽暦 0144-01  旧暦11月
+    永和五年「南匈奴左部句龍大人吾斯、車紐等叛，圍美稷」に始まり、一時撃破・単于殺害を経ても句龍吾斯は東の烏桓・西の羌胡と結んで抵抗を継続、漢安
+- hou-han-shundi / rebellionSuppressionCount.events[17].startDate  ISO=0143-12-01 → 実太陽暦 0144-02  旧暦12月
+    漢安二年十二月「揚、徐盜賊攻燒城寺，殺略吏民」に始まり、建康元年八月「揚、徐盜賊范容、周生等寇掠城邑，遣御史中丞馮赦督州郡兵討之」の翌日（庚
+- hou-han-huandi / rebellionSuppressionCount.events[14].startDate  ISO=0160-12-01 → 実太陽暦 0161-01  旧暦12月
+    延熹三年十二月、泰山賊叔孫無忌が都尉侯章を攻殺、宗資に討破された。 中郎将宗資が討破 叔孫無忌 泰山賊叔孫無忌の乱
+- hou-han-huandi / rebellionSuppressionCount.events[14].endDate  ISO=0160-12-31 → 実太陽暦 0161-01  旧暦12月
+    延熹三年十二月、泰山賊叔孫無忌が都尉侯章を攻殺、宗資に討破された。 中郎将宗資が討破 叔孫無忌 泰山賊叔孫無忌の乱
+- hou-han-lingdi / rebellionSuppressionCount.events[9].endDate  ISO=0184-11-01 → 実太陽暦 0185-01  旧暦11月
+    中平元年二月、鉅鹿の張角が「黄天」を自称し36方の部帥とともに「同日反叛」（史料上一体の蜂起として記述）。南陽の張曼成・潁川の波才ら各地の部
+- hou-han-lingdi / rebellionSuppressionCount.events[11].startDate  ISO=0184-11-01 → 実太陽暦 0185-01  旧暦11月
+    中平元年十一月、湟中義従胡の北宮伯玉が先零羌と結び、金城人の辺章・韓遂を軍帥として護羌校尉伶徴・金城太守陳懿を殺害して開始。皇甫嵩（不克）、
+- hou-han-lingdi / rebellionSuppressionCount.events[15].startDate  ISO=0187-12-01 → 実太陽暦 0188-01  旧暦12月
+    中平四年十二月「休屠各胡叛」。中平五年正月に西河太守邢紀を殺害、三月に并州刺史張懿を殺害し南匈奴左部胡と合流して単于を殺害する内紛に発展。九
+- wei-wendi / personalCampaignCount.events[2].endDate  ISO=0225-11-01 → 実太陽暦 0226-01  旧暦11月
+    黄初六年三月辛未「帝為舟師東征」、五月「幸譙」、八月「帝遂以舟師自譙循渦入淮，從陸道幸徐」、十月「行幸廣陵故城，臨江觀兵，戎卒十餘萬，旌旗數
+- wei-mingdi / empressInstallationCount.events[1].date  ISO=0238-12-01 → 実太陽暦 0239-01  旧暦12月
+    景初二年十二月、帝の病篤化に際し辛巳の日に皇后を立てる。原文（明帝紀）「十二月乙丑，帝寢疾不豫。辛巳，立皇后。」后妃伝（明元郭皇后伝）に「帝
+- wei-mingdi / rebellionSuppressionCount.events[1].startDate  ISO=0227-12-01 → 実太陽暦 0228-01  旧暦12月
+    孟達 新城太守孟達が魏に反し蜀へ通じた（太和元年十二月）。驃騎将軍司馬懿に討伐を命じ、太和二年正月に新城を攻略して孟達を斬った。 新城太守孟
+- wei-yuandi / amnestyCount.events[1].date  ISO=0263-11-01 → 実太陽暦 0264-01  旧暦11月
+    景元四年十一月、大赦。原文「癸卯，立皇后卞氏，十一月，大赦。」（前月十月の立后記事に続く）。日の干支から具体的な日付までは確定できないためm
+- shuhan-zhaoliedi / rebellionSuppressionCount.events[0].startDate  ISO=0222-12-01 → 実太陽暦 0223-02  旧暦12月
+    黄元（漢嘉太守） 『三国志』蜀書・先主伝：章武二年（222）冬十二月「漢嘉太守黄元聞先主疾不豫、挙兵拒守」。翌章武三年（223）三月「黄元進
+- wu-dadi / amnestyCount.events[1].date  ISO=0231-12-01 → 実太陽暦 0232-01  旧暦12月
+    黄龍三年十二月丁卯、大赦、改明年元也（翌年の嘉禾改元を布告する大赦）。
+- wu-modi / capitalRelocationCount.events[1].date  ISO=0266-12-01 → 実太陽暦 0267-01  旧暦12月
+    武昌 建業 『三国志』呉書・三嗣主伝（孫皓）：宝鼎元年「十二月、皓還都建業、衛将軍滕牧留鎮武昌」。翌年末、孫皓は武昌から建業へ都を戻し、滕牧
+- jin-wudi / rebellionSuppressionCount.events[5].endDate  ISO=0287-12-31 → 実太陽暦 0288-02  旧暦12月
+    李豊（南康平固県の県吏） 太康八年冬十月、「南康平固縣吏李豐反、聚眾攻郡縣、自號將軍」。同年十二月の記事末尾に「州郡捕討、皆伏誅」とまとめて
+- jin-wudi / rebellionSuppressionCount.events[6].startDate  ISO=0287-11-01 → 実太陽暦 0288-01  旧暦11月
+    蕭輔（海安令） 太康八年十一月、「海安令蕭輔聚眾反」。李豐・蔣迪と併せて「州郡捕討、皆伏誅」と記され、同年内に鎮圧された。首謀者・蜂起地点が
+- jin-wudi / rebellionSuppressionCount.events[7].startDate  ISO=0287-12-01 → 実太陽暦 0288-02  旧暦12月
+    蔣迪（呉興人） 太康八年十二月、「呉興人蔣迪聚黨反、圍陽羨縣、州郡捕討、皆伏誅」と明記。李豐・蕭輔とは別の首謀者・蜂起地点として個別に計上し
+- jin-wudi / rebellionSuppressionCount.events[7].endDate  ISO=0287-12-31 → 実太陽暦 0288-02  旧暦12月
+    蔣迪（呉興人） 太康八年十二月、「呉興人蔣迪聚黨反、圍陽羨縣、州郡捕討、皆伏誅」と明記。李豐・蕭輔とは別の首謀者・蜂起地点として個別に計上し
+- jin-huidi / rebellionSufferedCount.events[9].startDate  ISO=0305-12-01 → 実太陽暦 0306-01  旧暦12月
+    陳敏（右将軍） 永興二年十二月、右将軍陳敏が挙兵し楚公を自称、揚州刺史劉機・丹楊太守王曠を追放。恵帝紀の記述範囲（〜306年11月崩御）内に
+- jin-huaidi / rebellionSuppressionCount.events[2].endDate  ISO=0307-12-01 → 実太陽暦 0308-01  旧暦12月
+    汲桑 石勒はこの反乱の当初段階では汲桑配下として服属民の反乱に含まれるが、汲桑死後（307年末）は独立して匈奴漢に帰順したため、以後の石勒の
+- dongjin-mingdi / rebellionSuppressionCount.events[2].startDate  ISO=0324-12-01 → 実太陽暦 0325-01  旧暦12月
+    顧颺 太宁二年十二月、沈充の旧部将顧颺が武康で反乱を起こし城邑を攻め焼いたが、州県の兵に討たれ斬られた（原文「州縣討斬之」）。王敦・沈充の乱
+- dongjin-mingdi / rebellionSuppressionCount.events[2].endDate  ISO=0324-12-01 → 実太陽暦 0325-01  旧暦12月
+    顧颺 太宁二年十二月、沈充の旧部将顧颺が武康で反乱を起こし城邑を攻め焼いたが、州県の兵に討たれ斬られた（原文「州縣討斬之」）。王敦・沈充の乱
+- dongjin-mingdi / rebellionSufferedCount.events[4].startDate  ISO=0324-12-01 → 実太陽暦 0325-01  旧暦12月
+    爨亮・李逷 太宁二年十二月、梁水太守爨亮・興古太守李逷が郡ごと成漢の李雄に投降した（原文「以兴古叛、降于李雄」）。理由・扱いは越巂・漢嘉太守
+- dongjin-mingdi / rebellionSufferedCount.events[4].endDate  ISO=0324-12-01 → 実太陽暦 0325-01  旧暦12月
+    爨亮・李逷 太宁二年十二月、梁水太守爨亮・興古太守李逷が郡ごと成漢の李雄に投降した（原文「以兴古叛、降于李雄」）。理由・扱いは越巂・漢嘉太守
+- dongjin-chengdi / rebellionSuppressionCount.events[3].startDate  ISO=0329-12-01 → 実太陽暦 0330-01  旧暦12月
+    郭默（右将軍） 咸和四年十二月、右将軍郭默が上官である平南将軍・江州刺史劉胤を殺害。太尉陶侃が討伐に赴き、咸和五年五月乙卯に尋陽で郭默を捕ら
+- dongjin-mudi / rebellionSuppressionCount.events[2].startDate  ISO=0348-12-01 → 実太陽暦 0349-01  旧暦12月
+    黄韬 永和四年十二月、豫章の黄韜が自ら「孝神皇帝」と号し数千人を集めて臨川に侵攻。太守庾条がこれを討平した。晋の統治下の民による蜂起として計
+- dongjin-mudi / rebellionSuppressionCount.events[2].endDate  ISO=0348-12-01 → 実太陽暦 0349-01  旧暦12月
+    黄韬 永和四年十二月、豫章の黄韜が自ら「孝神皇帝」と号し数千人を集めて臨川に侵攻。太守庾条がこれを討平した。晋の統治下の民による蜂起として計
+- dongjin-aidi / rebellionSuppressionCount.events[0].startDate  ISO=0363-11-01 → 実太陽暦 0364-01  旧暦11月
+    張駿（姚襄故将） 興寧元年（363年）十一月、「姚襄故将張駿、江州督護趙毗を殺し、武昌を焼き、府藏を略して以て叛す」。江州刺史桓温の弟・桓冲
+- dongjin-aidi / rebellionSuppressionCount.events[0].endDate  ISO=0363-11-01 → 実太陽暦 0364-01  旧暦11月
+    張駿（姚襄故将） 興寧元年（363年）十一月、「姚襄故将張駿、江州督護趙毗を殺し、武昌を焼き、府藏を略して以て叛す」。江州刺史桓温の弟・桓冲
+- dongjin-feidi / rebellionSuppressionCount.events[1].startDate  ISO=0366-12-01 → 実太陽暦 0367-01  旧暦12月
+    赵弘・赵忆 太和元年十二月、南阳人の赵弘・赵忆らが宛城に拠って反乱、太守桓澹は新野に退避。太和二年五月、右将军桓豁が赵忆を撃破しこれを敗走さ
+- dongjin-feidi / rebellionSufferedCount.events[4].startDate  ISO=0371-11-01 → 実太陽暦 0372-01  旧暦11月
+    桓温 ルール例外4（朝廷内部の権力者による兵力を伴う弑逆・クーデター）に該当すると判断し被反乱にのみ算入、鎮圧回数には含めない。原文冒頭の解
+- dongjin-feidi / rebellionSufferedCount.events[4].endDate  ISO=0371-11-01 → 実太陽暦 0372-01  旧暦11月
+    桓温 ルール例外4（朝廷内部の権力者による兵力を伴う弑逆・クーデター）に該当すると判断し被反乱にのみ算入、鎮圧回数には含めない。原文冒頭の解
+- dongjin-xiaowudi / rebellionSuppressionCount.events[1].startDate  ISO=0374-11-01 → 実太陽暦 0375-01  旧暦11月
+    不明（蜑賊、首謀者名記載なし） 寧康二年（374）十一月己酉、天門郡の蜑（南方少数民族）の賊が郡を攻め太守王匪を殺害。征西将軍桓豁が軍を派遣
+- dongjin-xiaowudi / rebellionSuppressionCount.events[1].endDate  ISO=0374-11-01 → 実太陽暦 0375-01  旧暦11月
+    不明（蜑賊、首謀者名記載なし） 寧康二年（374）十一月己酉、天門郡の蜑（南方少数民族）の賊が郡を攻め太守王匪を殺害。征西将軍桓豁が軍を派遣
+- dongjin-andi / rebellionSufferedCount.events[9].startDate  ISO=0418-12-01 → 実太陽暦 0419-01  旧暦12月
+    劉裕(実行犯は王韶之) ルール例外4(朝廷内部の権力者による兵力を伴う弑逆・クーデター)に該当。丞相・宋公として軍事権を掌握していた劉裕が配
+- dongjin-andi / rebellionSufferedCount.events[9].endDate  ISO=0418-12-01 → 実太陽暦 0419-01  旧暦12月
+    劉裕(実行犯は王韶之) ルール例外4(朝廷内部の権力者による兵力を伴う弑逆・クーデター)に該当。丞相・宋公として軍事権を掌握していた劉裕が配
+- qianyan-murongjun / capitalRelocationCount.events[1].date  ISO=0357-12-01 → 実太陽暦 0358-01  旧暦12月
+    薊城 鄴城 『晋書』載記第十：「俊自薊城遷於鄴、赦其境内、繕修宮殿、復銅雀臺」。同書穆帝紀升平元年（357）十二月条にも「慕容俊入屯鄴」とあ
+- houqin-yaochang / rebellionSuppressionCount.events[2].endDate  ISO=0390-12-31 → 実太陽暦 0391-02  旧暦12月
+    太元十五年（390年）七月、馮翊の郭質が挙兵し「姚萇凶虐」を掲げて三輔に檄を飛ばし、三輔の砦の多くが呼応した（郑県の苟曜のみ従わず後秦側に付
+- liu-song-wendi / rebellionSuppressionCount.events[5].startDate  ISO=0441-12-01 → 実太陽暦 0442-01  旧暦12月
+    鎮圧成功（寧州刺史徐循が討平） 公爨松子（晋寧太守） 晋寧太守公爨松子の反乱 元嘉十八年十二月、寧州（現雲南方面）晋寧太守の公爨松子が反叛し
+- liu-song-wendi / rebellionSuppressionCount.events[5].endDate  ISO=0441-12-01 → 実太陽暦 0442-01  旧暦12月
+    鎮圧成功（寧州刺史徐循が討平） 公爨松子（晋寧太守） 晋寧太守公爨松子の反乱 元嘉十八年十二月、寧州（現雲南方面）晋寧太守の公爨松子が反叛し
+- liu-song-mingdi / rebellionSuppressionCount.events[0].endDate  ISO=0466-12-01 → 実太陽暦 0467-01  旧暦12月
+    鎮圧成功（主要部分）。泰始二年八月己卯、司徒建安王休仁が大破し偽尚書袁顗を斬り、江・郢・荊・雍・湘五州を平定。劉子勛・安陸王子綏・臨海王子頊
+- liu-song-shundi / rebellionSuppressionCount.events[0].startDate  ISO=0477-12-01 → 実太陽暦 0478-01  旧暦12月
+    鎮圧成功 沈攸之（車騎大将軍・荊州刺史） 沈攸之の乱 昇明元年（477年）十二月丁巳、荊州刺史沈攸之が挙兵（举兵反）。将軍黄回らを南討に派遣
+- liu-song-shundi / rebellionSuppressionCount.events[1].startDate  ISO=0477-12-01 → 実太陽暦 0478-01  旧暦12月
+    鎮圧成功（首謀者は誅殺） 袁粲（司徒）ほか劉秉・劉述・王蘊 袁粲・劉秉らの石頭反乱 沈攸之挙兵と同月（昇明元年十二月）壬申日、司徒袁粲が石頭
+- liu-song-shundi / rebellionSuppressionCount.events[1].endDate  ISO=0477-12-01 → 実太陽暦 0478-01  旧暦12月
+    鎮圧成功（首謀者は誅殺） 袁粲（司徒）ほか劉秉・劉述・王蘊 袁粲・劉秉らの石頭反乱 沈攸之挙兵と同月（昇明元年十二月）壬申日、司徒袁粲が石頭
+- liu-song-shundi / rebellionSuppressionCount.events[2].startDate  ISO=0477-12-01 → 実太陽暦 0478-01  旧暦12月
+    鎮圧成功（討ち斬られる） 劉遐（呉郡太守） 呉郡太守劉遐の反乱 沈攸之・袁粲の挙兵と同時期（昇明元年十二月、乙亥前後）、呉郡太守劉遐が郡に拠
+- liu-song-shundi / rebellionSuppressionCount.events[2].endDate  ISO=0477-12-01 → 実太陽暦 0478-01  旧暦12月
+    鎮圧成功（討ち斬られる） 劉遐（呉郡太守） 呉郡太守劉遐の反乱 沈攸之・袁粲の挙兵と同時期（昇明元年十二月、乙亥前後）、呉郡太守劉遐が郡に拠
+- liang-yuandi / personalCampaignCount.events[0].startDate  ISO=0554-12-01 → 実太陽暦 0555-01  旧暦12月
+    敗北。守将胡僧祐が流矢に当たり戦死、六軍敗走、内応者が西門関を斬って西魏軍を引き入れ江陵陥落、世祖は捕縛され後に殺害された。 承聖三年（55
+- liang-yuandi / personalCampaignCount.events[0].endDate  ISO=0554-12-01 → 実太陽暦 0555-01  旧暦12月
+    敗北。守将胡僧祐が流矢に当たり戦死、六軍敗走、内応者が西門関を斬って西魏軍を引き入れ江陵陥落、世祖は捕縛され後に殺害された。 承聖三年（55
+- chen-wendi / rebellionSuppressionCount.events[5].endDate  ISO=0564-11-01 → 実太陽暦 0565-01  旧暦11月
+    鎮圧成功 陳宝応（閩州刺史） 陳宝応の乱 天嘉四年（563）正月甲申、閩州刺史陳宝応が逃亡してきた周迪を受け入れて匿い朝廷に反抗する姿勢を明
+- chen-xuandi / rebellionSuppressionCount.events[1].startDate  ISO=0578-12-01 → 実太陽暦 0579-01  旧暦12月
+    鎮圧成功 田伯興 廬江の蛮・田伯興の乱 太建十年（578）十二月乙亥、合州廬江郡の蛮（異民族属民）田伯興が挙兵して枞陽を寇し、刺史鲁広達がこ
+- chen-xuandi / rebellionSuppressionCount.events[1].endDate  ISO=0578-12-01 → 実太陽暦 0579-01  旧暦12月
+    鎮圧成功 田伯興 廬江の蛮・田伯興の乱 太建十年（578）十二月乙亥、合州廬江郡の蛮（異民族属民）田伯興が挙兵して枞陽を寇し、刺史鲁広達がこ
+- liang-houjing / rebellionSufferedCount.events[1].startDate  ISO=0550-12-01 → 実太陽暦 0551-01  旧暦12月
+    田迁らが551年正月に張彪の別働隊を一時撃破したが、張彪はその後も諸曁・永興・永嘉等を攻略して勢力を拡大し、本伝には以後の鎮圧記述がないまま
+- beiwei-daowudi / personalCampaignCount.events[1].endDate  ISO=0402-12-01 → 実太陽暦 0403-01  旧暦12月
+    柴壁の戦いで大勝（後秦将軍の義陽公平を撃破し水死させ、三万余人を捕虜とした）。姚興の追撃・蒲坂進攻は柔然の脅威を懸念して見送り、十二月に班師
+- beiwei-mingyuandi / rebellionSuppressionCount.events[4].startDate  ISO=0414-12-01 → 実太陽暦 0415-01  旧暦12月
+    最終的に鎮圧成功（劉虎・司馬順宰ら誅殺） 白亜栗斯（後に劉虎）／謀主・司馬順宰 白亜栗斯（司馬順宰擁立）・劉虎の乱 神瑞元年十二月に河内人司
+- beiwei-xiaowendi / crownPrinceDepositionCount.events[0].date  ISO=0496-12-01 → 実太陽暦 0497-01  旧暦12月
+    太和二十年十二月丙寅、皇太子恂を廃して庶人とする（丁卯、告太廟）。
+- beiwei-xiaowendi / personalCampaignCount.events[1].startDate  ISO=0494-12-01 → 実太陽暦 0495-01  旧暦12月
+    車駕自ら南伐し、鍾離・邵陽・下邳・彭城等を転戦して蕭鸞軍を破り、495年5月に『車駕至自南伐,告於太廟』で凱旋。 太和十八年十二月辛亥『詔中
+- beiwei-xiaowendi / rebellionSuppressionCount.events[8].startDate  ISO=0473-12-01 → 実太陽暦 0474-01  旧暦12月
+    原典に鎮圧結果の明記なし(蠕蠕犯塞に呼応した反乱で、その後の顛末は記載されていない) 柔玄鎮敕勒二部 柔玄鎮敕勒二部の蠕蠕呼応叛乱 延興三年
+- beiwei-xiaowendi / rebellionSuppressionCount.events[8].endDate  ISO=0473-12-01 → 実太陽暦 0474-01  旧暦12月
+    原典に鎮圧結果の明記なし(蠕蠕犯塞に呼応した反乱で、その後の顛末は記載されていない) 柔玄鎮敕勒二部 柔玄鎮敕勒二部の蠕蠕呼応叛乱 延興三年
+- beiwei-xiaowendi / rebellionSuppressionCount.events[20].startDate  ISO=0496-12-01 → 実太陽暦 0497-01  旧暦12月
+    高祖自ら平城へ赴き、任城王元澄に鎮圧させた。穆泰は伏誅、陸叡は獄中で賜死、元丕の子の元隆・元超・元業らも同謀として伏誅した 穆泰・陸叡(元隆
+- beiwei-xiaowendi / rebellionSuppressionCount.events[20].endDate  ISO=0496-12-01 → 実太陽暦 0497-01  旧暦12月
+    高祖自ら平城へ赴き、任城王元澄に鎮圧させた。穆泰は伏誅、陸叡は獄中で賜死、元丕の子の元隆・元超・元業らも同謀として伏誅した 穆泰・陸叡(元隆
+- beiwei-xiaowendi / rebellionSuppressionCount.events[22].endDate  ISO=0498-12-01 → 実太陽暦 0499-01  旧暦12月
+    平北将軍・江陽王継が都督北討諸軍事として討伐し、498年12月に平定(帝は南征からの帰途で自ら赴かず将軍に委任) 敕勒樹者(北鎮敕勒) 敕勒
+- beiwei-xuanwudi / rebellionSuppressionCount.events[1].startDate  ISO=0499-11-01 → 実太陽暦 0500-01  旧暦11月
+    suppressed 王恵定（幽州民） 王恵定の乱 太和23年十一月、幽州民王恵定が挙兵し「明法皇帝」を自称。幽州刺史李肃がこれを捕らえて斬
+- beiwei-xuanwudi / rebellionSuppressionCount.events[1].endDate  ISO=0499-11-01 → 実太陽暦 0500-01  旧暦11月
+    suppressed 王恵定（幽州民） 王恵定の乱 太和23年十一月、幽州民王恵定が挙兵し「明法皇帝」を自称。幽州刺史李肃がこれを捕らえて斬
+- beiwei-xuanwudi / rebellionSuppressionCount.events[11].endDate  ISO=0508-12-01 → 実太陽暦 0509-01  旧暦12月
+    suppressed 白早生（豫州彭城人） 白早生の乱（悬瓠占拠） 永平元年十月、豫州彭城の人白早生が刺史司馬悦を殺害し悬瓠城を占拠して南朝
+- beiwei-xiaomingdi / rebellionSuppressionCount.events[5].startDate  ISO=0523-12-01 → 実太陽暦 0524-01  旧暦12月
+    鎮圧失敗 不明（氐族、東益州・南秦州） 東益・南秦氐反（二回目） 正光三年十二月、東益・南秦の氐が再び反乱、中軍将軍河間王琛に討伐を命じたが
+- beiwei-xiaomingdi / rebellionSuppressionCount.events[13].startDate  ISO=0524-12-01 → 実太陽暦 0525-01  旧暦12月
+    鎮圧不完全 不明（汾州山胡） 汾州正平・平陽山胡叛逆 正光五年十二月、汾州正平・平陽の山胡が叛逆、章武王融を大都督として討伐を命じたが、孝昌
+- beiwei-xiaomingdi / rebellionSufferedCount.events[18].startDate  ISO=0525-12-01 → 実太陽暦 0526-01  旧暦12月
+    未鎮圧のまま在位終了 劉蠡升 山胡劉蠡升の乱 孝昌元年十二月、山胡劉蠡升が反乱し自ら天子を称し官僚を置いた（「山胡刘蠡升反，自称天子，置官僚
+- dongwei-xiaojingdi / rebellionSuppressionCount.events[5].startDate  ISO=0537-12-01 → 実太陽暦 0538-01  旧暦12月
+    鎮圧成功 邢摩納、盧仲礼 河間人邢摩納・范陽人盧仲礼らの反乱 天平四年十二月挙兵、元象元年九月に大都督賀抜仁が討ち破り平定。
+- beiqi-wuchengdi / personalCampaignCount.events[0].startDate  ISO=0564-12-01 → 実太陽暦 0565-02  旧暦12月
+    帝自ら晋陽より南討し、洛陽・武牢・滑台・黎陽を巡り北周軍の洛陽包囲を解かせ勝利、晋陽へ帰還 河清三年十二月丁巳「帝自晋阳南讨」と明記。実際の
+- beiqi-wuchengdi / personalCampaignCount.events[0].endDate  ISO=0564-12-01 → 実太陽暦 0565-02  旧暦12月
+    帝自ら晋陽より南討し、洛陽・武牢・滑台・黎陽を巡り北周軍の洛陽包囲を解かせ勝利、晋陽へ帰還 河清三年十二月丁巳「帝自晋阳南讨」と明記。実際の
+- beiqi-houzhu / rebellionSufferedCount.events[4].startDate  ISO=0576-12-01 → 実太陽暦 0577-01  旧暦12月
+    即位（改元「徳昌」）から約3日後、北周軍との晋陽の戦いに敗れ捕虜となり自然消滅。後主自身は延宗の即位に対し軍事的な鎮圧行動を取っていない 高
+- beiqi-houzhu / rebellionSufferedCount.events[4].endDate  ISO=0576-12-01 → 実太陽暦 0577-01  旧暦12月
+    即位（改元「徳昌」）から約3日後、北周軍との晋陽の戦いに敗れ捕虜となり自然消滅。後主自身は延宗の即位に対し軍事的な鎮圧行動を取っていない 高
+- xiwei-wendi / rebellionSuppressionCount.events[2].startDate  ISO=0537-12-01 → 実太陽暦 0538-01  旧暦12月
+    建昌太守賀蘭植に攻められ斬られた（鎮圧成功） 李叔仁（凉州刺史・司徒） 李叔仁の東魏内通事件 北史巻五「十二月，司徒李叔仁自凉州通使于东魏，
+- beizhou-wudi / rebellionSuppressionCount.events[5].startDate  ISO=0577-12-01 → 実太陽暦 0578-01  旧暦12月
+    衆五千を率いて并州城を襲撃したが、并州刺史・東平公宇文神挙が同月中に撃破し平定した。 不明（東寿陽の土人、首謀者名の記載なし） 東寿陽の民の
+- beizhou-wudi / rebellionSuppressionCount.events[5].endDate  ISO=0577-12-01 → 実太陽暦 0578-01  旧暦12月
+    衆五千を率いて并州城を襲撃したが、并州刺史・東平公宇文神挙が同月中に撃破し平定した。 不明（東寿陽の土人、首謀者名の記載なし） 東寿陽の民の
+- beizhou-wudi / rebellionSufferedCount.events[6].startDate  ISO=0577-12-01 → 実太陽暦 0578-01  旧暦12月
+    未鎮圧のまま武帝の在位が終了（578年6月崩御）。周書本紀には帝在世中の鎮圧記事がなく、史実として高宝寧の抵抗はその後も継続した。 高宝寧（
+- suimo-lizitong / personalCampaignCount.events[4].endDate  ISO=0621-11-01 → 実太陽暦 0622-01  旧暦11月
+    杜伏威（配下の王雄誕） 蘇州で王雄誕と大戦して敗れ余杭に退き、城下の戦いにも敗れて窮した末に降伏。伏威に捕らえられ左僕射楽伯通とともに京師へ
+- tang-gaozu / rebellionSuppressionCount.events[0].startDate  ISO=0618-12-01 → 実太陽暦 0619-01  旧暦12月
+    李密 李密の反乱 鎮圧成功（斬殺） 旧唐書本紀：武徳元年十月に李密は衆を率いて来降していたが、十二月庚子「李密反於桃林、行軍総管盛彦師追討斬
+- tang-gaozu / rebellionSuppressionCount.events[0].endDate  ISO=0618-12-01 → 実太陽暦 0619-01  旧暦12月
+    李密 李密の反乱 鎮圧成功（斬殺） 旧唐書本紀：武徳元年十月に李密は衆を率いて来降していたが、十二月庚子「李密反於桃林、行軍総管盛彦師追討斬
+- tang-gaozu / rebellionSuppressionCount.events[4].endDate  ISO=0622-12-01 → 実太陽暦 0623-01  旧暦12月
+    劉黒闥 劉黒闥の反乱 鎮圧成功（斬殺・山東平定） 武徳四年七月甲戌「建德余党劉黒闥拠漳南反」（竇建德の勢力圏＝既に唐が「河北悉平」と宣言した
+- tang-taizong / rebellionSuppressionCount.events[4].startDate  ISO=0638-12-01 → 実太陽暦 0639-01  旧暦12月
+    （記載なし、壁州の山獠） 壁州の山獠反乱 右武候将軍上官懐仁が撃破 旧唐書巻三、貞観十二年十二月辛巳「右武候将军上官怀仁大破山獠于壁州」。夜
+- tang-taizong / rebellionSuppressionCount.events[4].endDate  ISO=0638-12-01 → 実太陽暦 0639-01  旧暦12月
+    （記載なし、壁州の山獠） 壁州の山獠反乱 右武候将軍上官懐仁が撃破 旧唐書巻三、貞観十二年十二月辛巳「右武候将军上官怀仁大破山獠于壁州」。夜
+- tang-taizong / rebellionSufferedCount.events[4].startDate  ISO=0638-12-01 → 実太陽暦 0639-01  旧暦12月
+    （記載なし、壁州の山獠） 壁州の山獠反乱 上官懐仁に撃破された 旧唐書巻三、貞観十二年十二月辛巳。rebellionSuppressionC
+- tang-taizong / rebellionSufferedCount.events[4].endDate  ISO=0638-12-01 → 実太陽暦 0639-01  旧暦12月
+    （記載なし、壁州の山獠） 壁州の山獠反乱 上官懐仁に撃破された 旧唐書巻三、貞観十二年十二月辛巳。rebellionSuppressionC
+- tang-suzong / rebellionSuppressionCount.events[1].startDate  ISO=0756-12-01 → 実太陽暦 0757-01  旧暦12月
+    永王李璘（玄宗第十六子、粛宗の弟） 永王李璘の反乱 江陵より舟師を率いて広陵へ下り自立を図ったが官軍に敗れ、嶺南へ逃走中に大庾嶺で洪州刺史皇
+- tang-xizong / rebellionSuppressionCount.events[4].endDate  ISO=0886-12-01 → 実太陽暦 0887-01  旧暦12月
+    硃玫（擁立: 嗣襄王李煴） 硃玫の乱（襄王煴擁立事件） 鎮圧成功（硃玫の部将王行瑜が密詔を受けて硃玫を誅殺、擁立された李煴も河中の王重栄によ
+- tang-zhaozong / rebellionSuppressionCount.events[1].endDate  ISO=0893-12-01 → 実太陽暦 0894-01  旧暦12月
+    楊復恭・楊守亮 楊復恭（元左軍中尉）の抗命・逃亡と楊守亮による庇護 大順2年（891年）10月、致仕を命じられた宦官楊復恭が抗命し、養子楊守
+- wudai-houtang-mingzong / rebellionSuppressionCount.events[9].endDate  ISO=0929-12-31 → 実太陽暦 0930-01  旧暦12月
+    慶州刺史 竇廷琬 慶州刺史竇廷琬の乱 邠州節度使李敬周が慶州を攻略、竇廷琬は族誅 rebellionSufferedCountと同一事象。原
+- wudai-houtang-mingzong / rebellionSufferedCount.events[9].endDate  ISO=0929-12-31 → 実太陽暦 0930-01  旧暦12月
+    慶州刺史 竇廷琬 慶州刺史竇廷琬の乱 邠州節度使李敬周が慶州を攻略、竇廷琬は族誅 天成四年十月、慶州刺史竇廷琬が朝命を拒否したため邠州節度使
+- wudai-houzhou-taizu / rebellionSuppressionCount.events[1].startDate  ISO=0951-12-01 → 実太陽暦 0952-01  旧暦12月
+    慕容彦超 兖州節度使慕容彦超の反乱 鎮圧成功（太祖親征により兖州陥落、慕容彦超自殺、一族誅滅） 広順元年十二月戊申、兖州節度使慕容彦超が拠城
+- beisong-taizong / eraChangeCount.events[0].date  ISO=0976-12-01 → 実太陽暦 0977-01  旧暦12月
+    即位に伴う最初の建元。開寶九年十月癸丑に即位した後もしばらく太祖の元号「開寶」をそのまま継続使用し（十月・十一月の記事はいずれも「開寶九年」
+- beisong-taizong / amnestyCount.events[1].date  ISO=0976-12-01 → 実太陽暦 0977-01  旧暦12月
+    開寶九年十二月甲寅、大赦の上、太平興國に改元（eraChangeCountの1回目と同一事象）。原文「甲寅，御乾元殿受朝，樂縣而不作。大赦，
+- beisong-taizong / empressInstallationCount.events[0].date  ISO=0984-12-01 → 実太陽暦 0985-01  旧暦12月
+    雍熙元年十二月壬辰、德妃李氏を皇后に冊立（後の明德皇后）。原文「壬辰，立德妃李氏為皇后」。なお即位直後の開寶九年十一月甲子には太祖時代からの
+- beisong-zhenzong / empressInstallationCount.events[1].date  ISO=1012-12-01 → 実太陽暦 1013-01  旧暦12月
+    大中祥符5年（1012）十二月丁亥、『立德妃劉氏為皇后』。後の章献明粛皇后劉氏（劉娥）、真宗崩御後に皇太后として軍国事を権処分。
+- ming-xuanzong / rebellionSuppressionCount.events[3].startDate  ISO=1425-12-01 → 実太陽暦 1426-01  旧暦12月
+    宜山蛮（首領名不詳） 鎮圧・平定 宜山蛮の反乱（第1次） 洪熙元年十二月甲申「顾兴祖讨平宜山蛮」（明史本紀第九）。
+- ming-xuanzong / rebellionSuppressionCount.events[6].startDate  ISO=1428-12-01 → 実太陽暦 1429-01  旧暦12月
+    忻城蛮（首領名不詳） 討伐・捕縛 忻城蛮の反乱 宣徳三年十二月庚子「广西总兵官山云讨擒忻城蛮」（明史本紀第九）。
+- ming-xuanzong / rebellionSufferedCount.events[3].startDate  ISO=1425-12-01 → 実太陽暦 1426-01  旧暦12月
+    宜山蛮（首領名不詳） 反乱発生、顾兴祖により鎮圧され収束 宜山蛮の反乱（第1次） 洪熙元年十二月甲申「顾兴祖讨平宜山蛮」（明史本紀第九）。
+- ming-xuanzong / rebellionSufferedCount.events[6].startDate  ISO=1428-12-01 → 実太陽暦 1429-01  旧暦12月
+    忻城蛮（首領名不詳） 反乱発生、山云により討伐・捕縛され収束 忻城蛮の反乱 宣徳三年十二月庚子「广西总兵官山云讨擒忻城蛮」（明史本紀第九）。
+- ming-daizong / rebellionSuppressionCount.events[1].endDate  ISO=1456-12-30 → 実太陽暦 1457-01  旧暦12月
+    貴州・湖広諸苗（個別首領名は本紀に不記載） 累次の討伐により最終的に鎮圧（景泰七年十二月己亥、方瑛が湖広苗を大破） 西南苗族反乱（正統十四年
+- ming-daizong / rebellionSufferedCount.events[1].endDate  ISO=1456-12-30 → 実太陽暦 1457-01  旧暦12月
+    貴州・湖広諸苗（個別首領名は本紀に不記載。景泰元年七月にはその一部の酋長を生擒し献京師） 累次の討伐により最終的に鎮圧（景泰七年十二月、方瑛
+- ming-wuzong / rebellionSuppressionCount.events[4].endDate  ISO=1519-12-01 → 実太陽暦 1520-01  旧暦12月
+    朱宸濠（寧王） 鎮圧成功（王守仁が樵舎で破り擒獲、十二月に伏誅） 寧王朱宸濠の乱 正徳十四年六月丙子、寧王宸濠反、巡撫孫燧・副使許逵を殺害し
+
+=== B: 十一月・十二月以外の年ずれ（要個別確認）===
+
+=== C: 月ラベルだけのずれ（先頭15件のみ表示・計 1008 件）===
+- gengshi-di / rebellionSuppressionCount.events[1].startDate  ISO=0025-01-01 → 実太陽暦 0025-03  旧暦1月
+- gengshi-di / rebellionSuppressionCount.events[1].endDate  ISO=0025-01-01 → 実太陽暦 0025-03  旧暦1月
+- gengshi-di / rebellionSufferedCount.events[1].startDate  ISO=0025-01-01 → 実太陽暦 0025-03  旧暦1月
+- gengshi-di / rebellionSufferedCount.events[1].endDate  ISO=0025-01-01 → 実太陽暦 0025-03  旧暦1月
+- gengshi-di / capitalRelocationCount.events[1].date  ISO=0024-02-01 → 実太陽暦 0024-03  旧暦2月
+- hou-han-guangwudi / personalCampaignCount.events[0].startDate  ISO=0026-08-01 → 実太陽暦 0026-09  旧暦8月
+- hou-han-guangwudi / personalCampaignCount.events[0].endDate  ISO=0026-08-01 → 実太陽暦 0026-09  旧暦8月
+- hou-han-guangwudi / personalCampaignCount.events[2].startDate  ISO=0027-03-01 → 実太陽暦 0027-05  旧暦3月
+- hou-han-guangwudi / personalCampaignCount.events[2].endDate  ISO=0027-04-01 → 実太陽暦 0027-06  旧暦4月
+- hou-han-guangwudi / personalCampaignCount.events[3].startDate  ISO=0029-06-01 → 実太陽暦 0029-07  旧暦6月
+- hou-han-guangwudi / personalCampaignCount.events[3].endDate  ISO=0029-06-01 → 実太陽暦 0029-07  旧暦6月
+- hou-han-guangwudi / personalCampaignCount.events[4].endDate  ISO=0032-09-01 → 実太陽暦 0032-11  旧暦9月
+- hou-han-guangwudi / personalCampaignCount.events[5].startDate  ISO=0032-09-01 → 実太陽暦 0032-11  旧暦9月
+- hou-han-guangwudi / personalCampaignCount.events[5].endDate  ISO=0032-09-01 → 実太陽暦 0032-11  旧暦9月
+- hou-han-guangwudi / personalCampaignCount.events[6].startDate  ISO=0035-06-01 → 実太陽暦 0035-08  旧暦6月

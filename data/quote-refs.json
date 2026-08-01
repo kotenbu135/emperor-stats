@@ -9761,6 +9761,16 @@
     "以皇子生大赦"
    ]
   },
+  "dongjin-aidi|deathCause.note|87e9702ab1c0": {
+   "id": "dongjin-aidi",
+   "path": "deathCause.note",
+   "span": "丙申，帝崩于西堂，時年二十五。葬安平陵。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-aidi.txt",
+   "frags": [
+    "丙申帝崩于西堂时年二"
+   ]
+  },
   "dongjin-aidi|empressInstallationCount[0].note|b4804246cc28": {
    "id": "dongjin-aidi",
    "path": "empressInstallationCount[0].note",
@@ -9879,6 +9889,17 @@
    "corpusFile": "_corpus_cache/dongjin-andi.txt",
    "frags": [
     "十二月戊寅帝崩于东堂"
+   ]
+  },
+  "dongjin-chengdi|ages.note|3472baa22f2b": {
+   "id": "dongjin-chengdi",
+   "path": "ages.note",
+   "span": "朕以眇年，獲嗣洪緒，托于王公之上，於茲十有八年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-chengdi.txt",
+   "frags": [
+    "朕以眇年获嗣洪绪托于",
+    "王公之上于兹十有八年"
    ]
   },
   "dongjin-chengdi|amnestyCount.note|c63c00f8503e": {
@@ -10870,15 +10891,37 @@
     "其大赦天下与民更始"
    ]
   },
+  "dongjin-xiaowudi|deathCause.note|31abc987e48e": {
+   "id": "dongjin-xiaowudi",
+   "path": "deathCause.note",
+   "span": "竟不推其罪人",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-xiaowudi.txt",
+   "frags": [
+    "竟不推其罪人"
+   ]
+  },
   "dongjin-xiaowudi|deathCause.note|8c1578dc2043": {
    "id": "dongjin-xiaowudi",
    "path": "deathCause.note",
-   "span": "兆庶宣言夫人張氏潛行大逆",
+   "span": "兆庶宣言，夫人张氏潜行大逆",
    "status": "corpus",
-   "corpusFile": "china-history/宋书/志/第十五章-卷二十五-原文.html",
+   "corpusFile": "daizhigev20/史藏/正史/晋书.txt",
    "frags": [
     "兆庶宣言夫人张氏潜行"
-   ]
+   ],
+   "note": "2026-08-02 Issue #32: 同文が宋書 卷二十五 天文三にもあるが、note の引用は晋書 卷十二 志第二 天文中（806行）から採る"
+  },
+  "dongjin-xiaowudi|deathCause.note|a897aab2216c": {
+   "id": "dongjin-xiaowudi",
+   "path": "deathCause.note",
+   "span": "使婢以被蒙帝面，弑之",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "使婢以被蒙帝面弑之"
+   ],
+   "note": "2026-08-02 Issue #32: 自動照合が別史（江苏省通志稿大事志）を先に拾っていたため、note が名指しする資治通鑑 卷第一百八（9699行）へ差し替え"
   },
   "dongjin-xiaowudi|deathCause.note|b820f1915cc0": {
    "id": "dongjin-xiaowudi",
@@ -20763,6 +20806,37 @@
    "corpusFile": "_corpus_cache/jin-huaidi.txt",
    "frags": [
     "永嘉元年春正月癸丑朔"
+   ]
+  },
+  "jin-huaidi|personalCampaignCount.note|c39c2465cdf4": {
+   "id": "jin-huaidi",
+   "path": "personalCampaignCount.note",
+   "span": "大將軍苟晞表遷都倉垣，帝將從之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-huaidi.txt",
+   "frags": [
+    "大将军苟晞表迁都仓垣"
+   ]
+  },
+  "jin-huaidi|personalCampaignCount.note|f88f60ca6d2a": {
+   "id": "jin-huaidi",
+   "path": "personalCampaignCount.note",
+   "span": "帝開華林園門，出河陰藕池，欲幸長安，為曜等所追及",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-huaidi.txt",
+   "frags": [
+    "帝开华林园门出河阴藕",
+    "池欲幸长安为曜等所追"
+   ]
+  },
+  "jin-huaidi|personalCampaignCount.note|fc51ea38c15d": {
+   "id": "jin-huaidi",
+   "path": "personalCampaignCount.note",
+   "span": "帝步出西掖門。至銅駝街，為盜所掠，不得進而還",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/太平御览.txt",
+   "frags": [
+    "帝步出西掖门至铜驼街"
    ]
   },
   "jin-huaidi|reigns[0].quote#0|831568af8edc": {

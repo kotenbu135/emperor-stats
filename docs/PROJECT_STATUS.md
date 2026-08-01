@@ -201,7 +201,11 @@
 
 ## サイト実装で見つかったデータ品質の申し送り事項
 
-サイト実装（`site/`）を進める中で発見した、`data/emperors.json` 側の是正が望ましい点。**現時点で未対応の申し送りはなし**（以下は解消記録）。
+サイト実装（`site/`）を進める中で発見した、`data/emperors.json` 側の是正が望ましい点。
+
+- **【未対応 2026-08-02／Issue #34】`events[].date` の ISO 年に旧暦十一月・十二月の年またぎが反映されていない**: 紹介文（Issue #16）執筆中に出た note と原典の食い違い（Issue #33）を調べる過程で、機械スイープにより検出。month 精度の event 日付 1389 件のうち、**105 フィールド（82 イベント・53 人）で ISO 年が紀年ラベル年のまま**になっており、[AI_RESEARCH_LESSONS.md](process/AI_RESEARCH_LESSONS.md)「9. 元号日付の暦換算」の「旧暦十一月・十二月は年またぎする。ISO 年は必ず sxtwl の太陽暦出力から取る」に反する。実例: `dongjin-andi.rebellionSufferedCount.events[9]`（劉裕による弑逆＝義熙十四年十二月戊寅）が `0418-12-01` だが、同じレコードの `reigns[0].endDate`・`ages.deathDate` は `0419-01-28`。別に、年は合っていて月ラベルだけ多数月方式と1ヶ月ずれるものが 1008 件あり、こちらは「多数月精度の event に多数月方式を適用する方針か」の判断が先。検出スクリプトと候補一覧は [docs/qa/issue33-sweep-2026-08-02/](qa/issue33-sweep-2026-08-02/)
+
+- **【解消済み 2026-08-02／Issue #33】素材 note と本紀の食い違い5件＋横展開**: 懐帝の親征 note（五月の倉垣行きと六月の長安行きの混同・「移動記事は一件のみ」）／懐帝の遷都 event note（入城・焚焼の主体に石勒が入っていた）／哀帝の崩御地（「太極殿」→晋書・資治通鑑・建康実録がそろって「西堂」）／成帝の `accessionAge` が null なのに note は「5歳で即位」／安帝の note の西暦ラベル1年ずれ（403→404年1月1日・418→419年1月28日）を訂正。同型の矛盾を横展開で洗い、`liu-song-houfeidi`(10)・`beiwei-xiaomingdi`(6)・`beizhou-jingdi`(7) にも `accessionAge` を補い、`qianyan-murongwei`（処刑年が載記に無く逆算に1年の幅が残る）・`hou-han-shaodi-yi`（`ages.note` が年齢不明と結論済み）は値を置かず note 側の矛盾を解消した。紹介文（Issue #16）の公開分への伝播は無し。調査記録は [docs/qa/issue33-sweep-2026-08-02/FINDINGS.md](qa/issue33-sweep-2026-08-02/FINDINGS.md)
 
 - **【解消済み 2026-07-31／Issue #27】隋末群雄の同名別政権が1つの `regimeId` に合併していた**: v3 移行時に regimes を旧 `dynasty` の `(section, name)` から機械導出したため、「梁」（梁師都／蕭銑）と「楚」（林士弘／朱粲）の2組4人が合併していた。原典で別政権と確認し `xiaoxian-liang`・`zhucan-chu` を新設して分割（政権87→89件）。**サイト側も同日対応済み** — `dynastyKey` を政権 ID そのものに変え（旧 `国号__researchSection` は同一ブロック内の同名別政権を潰す）、`dynastyLabel` は「同じ時代の中に同名の政権が複数ある組」だけ `catalogs.regimes[].label` へ落として「梁・梁師都」「梁・蕭銑」「楚・林士弘」「楚・朱粲」と出す。`DYNASTY_COLOR_SLOT` のキーも政権 ID へ揃えた（全365名で配色スロットが変わらないことを確認済み）。label を全政権に使う案は採らなかった（「魏」→「魏（曹魏）」のように41件の表示名が動くため）
 
