@@ -1,0 +1,107 @@
+day精度ミスマッチのうち note の旧暦月が単一のもの: 59 件（複数月ノイズ: 11 件）
+  うち ISO日の干支が note の干支と一致: 18 件 / 不一致: 41 件
+  hou-han-shundi / eraChangeCount.events[2].date  ISO=0136-02-14(旧暦12月・干支己酉×) note旧暦1月 | 永和元年春正月己巳。陽嘉から永和に改元。「宗祀明堂，登靈臺，改元永和，大赦天下」。
+  hou-han-shundi / amnestyCount.events[0].date  ISO=0126-02-03(旧暦12月・干支丙午×) note旧暦1月 | 永建元年春正月甲寅。即位に伴う建元（延光→永建）に伴う大赦。「其大赦天下。賜男子爵，人二級，為父後、三老、孝悌、力田人三
+  hou-han-shundi / amnestyCount.events[2].date  ISO=0136-02-14(旧暦12月・干支己酉×) note旧暦1月 | 永和元年春正月己巳。「宗祀明堂，登靈臺，改元永和，大赦天下」。
+  hou-han-shundi / amnestyCount.events[5].date  ISO=0144-05-18(旧暦3月・干支乙丑×) note旧暦4月 | 建康元年夏四月辛巳。「立皇子炳爲皇太子，改年建康，大赦天下」。
+  jin-simalun / eraChangeCount.events[0].date  ISO=0301-01-09(旧暦12月・干支庚子×) note旧暦1月 | 永寧元年正月乙丑、趙王司馬倫の即位に伴い元号を「建始」に改元。『晋書』列傳第二十九（宗室傳・趙王倫傳）：「乃僭即帝位，大
+  jin-simalun / amnestyCount.events[0].date  ISO=0301-01-09(旧暦12月・干支庚子×) note旧暦1月 | 永寧元年正月乙丑、趙王司馬倫が惠帝を廃して自ら皇帝に即位した当日、大赦を実施。『晋書』列傳第二十九（宗室傳・趙王倫傳）：
+  dongjin-yuandi / eraChangeCount.events[1].date  ISO=0318-03-10(旧暦1月・干支己巳×) note旧暦3月 | 太兴元年三月丙辰、愍帝崩御の報を受けて皇帝に即位し「于是大赦，改元，文武增位二等」として「建武」から「太兴」に改元。
+  dongjin-yuandi / amnestyCount.events[0].date  ISO=0318-03-10(旧暦1月・干支己巳×) note旧暦3月 | 太兴元年三月丙辰、愍帝崩御の報を受け皇帝に即位した当日に「大赦，改元，文武增位二等」。皇帝即位に伴う全国規模の大赦。
+  dongjin-yuandi / rebellionSufferedCount.events[5].endDate  ISO=0323-01-03(旧暦11月・干支己丑○) note旧暦1月 | 王敦（大将軍、Jinの重臣・服属する将軍） 鎮圧回数の同事件と同一の反乱だが、被反乱としては帝が実際に軍事的圧迫を受け続
+  liu-song-houfeidi / rebellionSufferedCount.events[2].startDate  ISO=0477-07-07(旧暦6月・干支癸亥×) note旧暦7月 | 帝は仁寿殿にて刺殺され廃位（死後「蒼梧郡王」に追封）、蕭道成が実権掌握 蕭道成（齊王・領軍將軍・尚書左僕射）／直閤將軍王
+  liu-song-houfeidi / rebellionSufferedCount.events[2].endDate  ISO=0477-07-07(旧暦6月・干支癸亥×) note旧暦7月 | 帝は仁寿殿にて刺殺され廃位（死後「蒼梧郡王」に追封）、蕭道成が実権掌握 蕭道成（齊王・領軍將軍・尚書左僕射）／直閤將軍王
+  qi-mingdi / eraChangeCount.events[0].date  ISO=0494-12-22(旧暦11月・干支庚辰×) note旧暦10月 | 建武元年冬十月癸亥、即位の詔に「大赦天下，改元。」とあり、建武と改元（即位に伴う建元）。
+  qi-mingdi / amnestyCount.events[0].date  ISO=0494-12-22(旧暦11月・干支庚辰×) note旧暦10月 | 建武元年冬十月癸亥、即位の詔に「大赦天下，改元。」とあり。即位に伴う大赦天下。
+  liang-yuzhangwang / eraChangeCount.events[0].date  ISO=0551-08-01(旧暦6月・干支丙辰×) note旧暦8月 | 即位に伴い建元、年号を「天正」と定めた（大寶二年八月戊午）。『南史』「棟即位，改元天正」（南史卷八 梁本紀下）、『南史』
+  liang-yuzhangwang / amnestyCount.events[0].date  ISO=0551-08-01(旧暦6月・干支丙辰×) note旧暦8月 | 侯景が簡文帝を廃し矯詔して豫章王蕭棟に禅位、棟が皇帝に即位した際に「大赦」を実施（大寶二年八月戊午）。『梁書』は「矯為太
+  liang-yuandi / rebellionSuppressionCount.events[0].startDate  ISO=0552-05-16(旧暦4月・干支乙巳×) note旧暦7月 | 鎮圧成功。世祖の要請で西魏が背後（益州）を衝いたため蕭紀軍は大潰し、承聖二年七月（553年）蕭紀は敗走中に戦死した。ただ
+  liu-song-liuzixun / eraChangeCount.events[0].date  ISO=0466-01-07(旧暦12月・干支甲子×) note旧暦1月 | 鄧琬らに擁立され、寻阳城にて即位（「奉子勳為帝、即偽位於尋陽城」）。年号を「景和二年」から「義嘉元年」に改元（建元）。『
+  beiwei-daowudi / amnestyCount.events[0].date  ISO=0398-12-02(旧暦11月・干支丙申×) note旧暦12月 | 天興元年十二月己丑、帝が天文殿に臨み太尉・司徒より璽綬を受け皇帝に即位。「大赦，改年」と明記（皇帝即位に伴う全国規模の大
+  beiwei-xiaozhuangdi / amnestyCount.events[2].date  ISO=0529-08-10(旧暦6月・干支庚午○) note旧暦7月 | 永安二年秋七月庚午、「車駕入居華林園，升大夏門，大赦天下」。元顥（北海王顥の簒奪軍）を破った後の大赦。
+  beiwei-xiaowudi / rebellionSufferedCount.events[4].startDate  ISO=0535-02-03(旧暦12月・干支癸巳○) note旧暦2月 | 出帝は毒殺され、在位はここで終了した（享年25）。まもなく宇文泰は元宝炬（西魏文帝）を擁立し西魏が成立した。 宇文泰（宇
+  beiwei-xiaowudi / rebellionSufferedCount.events[4].endDate  ISO=0535-02-03(旧暦12月・干支癸巳○) note旧暦2月 | 出帝は毒殺され、在位はここで終了した（享年25）。まもなく宇文泰は元宝炬（西魏文帝）を擁立し西魏が成立した。 宇文泰（宇
+  beiqi-wuchengdi / empressInstallationCount.events[0].date  ISO=0562-03-06(旧暦2月・干支丙戌○) note旧暦1月 | 妃胡氏を皇后に冊立。原文：「河清元年春正月……丙戌、立妃胡氏為皇后、子緯為皇太子」。
+  xiwei-wendi / eraChangeCount.events[0].date  ISO=0535-02-03(旧暦12月・干支癸巳×) note旧暦1月 | 大統元年正月戊申、即位に伴い建元「大統」(「皇帝即位於城西、大赦、改元」)。文帝一代を通じ大統十七年(551年)崩御まで
+  xiwei-wendi / amnestyCount.events[0].date  ISO=0535-02-03(旧暦12月・干支癸巳×) note旧暦1月 | 大統元年正月戊申、即位に伴う大赦(「皇帝即位於城西、大赦、改元」)。
+  sui-wendi / amnestyCount.events[5].date  ISO=0589-05-08(旧暦3月・干支辛亥○) note旧暦4月 | 開皇九年四月辛亥、陳平定・凱旋献俘の直後に「大赦天下」。辛亥は sxtwl 暦表では閏三月十八日＝ユリウス暦589年5月
+  tang-gaozong / eraChangeCount.events[3].date  ISO=0664-01-24(旧暦12月・干支庚子○) note旧暦1月 | 龍朔から麟徳へ改元。龍朔3年12月庚子、「来年正月一日を麟徳元年とする」旨の詔。実施は麟徳元年正月一日。（旧 preci
+  tang-gaozong / amnestyCount.events[5].date  ISO=0662-07-20(旧暦6月・干支丁亥○) note旧暦7月 | 東宮誕育満月（皇太子弘に子誕生）につき大赦天下。龍朔2年7月丁亥朔。龍朔二年七月丁亥朔は sxtwl 天文朔（戊子）と1
+  tang-gaozong / amnestyCount.events[12].date  ISO=0678-05-18(旧暦4月・干支戊申○) note旧暦1月 | 翌年正月一日より新元号「通乾」とすることを詔した際に大赦（原文「戊申、大赦、改来年正月一日為通乾」）。この「通乾」改元自
+  tang-daizong / eraChangeCount.events[0].date  ISO=0763-07-11(旧暦5月・干支戊辰×) note旧暦7月 | 宝応二年七月壬子、宝応から広徳へ改元。旧唐書「壬子，御宣政殿宣制，改元曰廣德」、新唐書「壬子，大赦，改元」と一致。同日に
+  tang-daizong / eraChangeCount.events[1].date  ISO=0765-01-01(旧暦12月・干支戊辰×) note旧暦1月 | 広徳三年正月癸巳（朔）、広徳から永泰へ改元。旧唐書「改廣德三年爲永泰元年」、新唐書「正月癸巳，大赦，改元」と一致。同日に
+  tang-daizong / eraChangeCount.events[2].date  ISO=0766-11-12(旧暦10月・干支戊子×) note旧暦11月 | 永泰二年十一月甲子（日長至）、永泰から大暦へ改元。旧唐書「改永泰二年爲大暦元年」、新唐書「十一月甲子，大赦，改元」と一致
+  tang-daizong / amnestyCount.events[1].date  ISO=0763-07-11(旧暦5月・干支戊辰×) note旧暦7月 | 宝応二年（広徳元年）七月壬子、広徳改元と同時の大赦天下。旧唐書「壬子，御宣政殿宣制，改元曰廣德，大赦天下，常赦不原者咸赦
+  tang-daizong / amnestyCount.events[3].date  ISO=0765-01-01(旧暦12月・干支戊辰×) note旧暦1月 | 永泰元年正月癸巳（朔）、永泰改元と同時の大赦天下。旧唐書「可大赦天下，改廣德三年爲永泰元年」、新唐書「正月癸巳，大赦，改
+  tang-daizong / amnestyCount.events[4].date  ISO=0766-11-12(旧暦10月・干支戊子×) note旧暦11月 | 永泰二年（大暦元年）十一月甲子（日長至）、大暦改元と同時の大赦天下。旧唐書「甲子，日長至，上御含元殿，下制大赦天下，改永
+  tang-xianzong / amnestyCount.events[3].date  ISO=0818-01-30(旧暦12月・干支乙亥×) note旧暦1月 | 元和十三年正月己酉朔、元日朝賀の礼に伴う大赦天下。「御含元殿受朝賀、礼畢、御丹鳳楼、大赦天下」。西暦換算未実施のためda
+  tang-wuzetian / eraChangeCount.events[0].date  ISO=0690-09-09(旧暦8月・干支乙巳×) note旧暦9月 | 天授元年九月九日壬午。国号を唐から周に改め、自ら皇帝に即位すると同時に建元（即位に伴う最初の建元、皇帝即位（改元同時））
+  tang-wuzetian / amnestyCount.events[0].date  ISO=0690-09-09(旧暦8月・干支乙巳×) note旧暦9月 | 天授元年九月九日壬午、国号を周と改め称帝すると同時に大赦天下・改元天授。
+  tangmo-zhuci / eraChangeCount.events[1].date  ISO=0784-01-01(旧暦12月・干支丁未×) note旧暦1月 | 興元元年正月一日（皇帝在位中）、本封の遂寧が漢地であったことにちなみ国号を「大秦」から「漢」に改め、元号を「応天」から「
+  tangmo-huangchao / eraChangeCount.events[1].date  ISO=0880-12-13(旧暦11月・干支戊午×) note旧暦12月 | 広明元年十二月十三日（壬辰）、長安含元殿にて皇帝に即位、国号「大齊」を称すると同時に「金統」と建元。【皇帝即位（改元同時
+  tangmo-huangchao / amnestyCount.events[0].date  ISO=0880-12-13(旧暦11月・干支戊午×) note旧暦12月 | 広明元年十二月十三日（壬辰）、長安含元殿での即位と同日に大赦を宣言。新唐書「僭即位，號大齊……大赦，建元為金統」、旧唐書
+  tangmo-huangchao / empressInstallationCount.events[0].date  ISO=0880-12-13(旧暦11月・干支戊午×) note旧暦12月 | 即位（広明元年十二月十三日）に伴い妻の曹氏を皇后に立てた。新唐書「其徒上巢號承天應運啓聖睿文宣武皇帝，以妻曹為皇后」。旧
+  wudai-houliang-taizu / capitalRelocationCount.events[0].date  ISO=0909-01-12(旧暦12月・干支乙卯×) note旧暦1月 | 東都（開封） 西都（洛陽） 『旧五代史』太祖紀五：開平三年正月戊辰朔、己巳「奉迁太庙四室神主赴西京」（太廟の神主を西京へ
+  wudai-houtang-mindi / rebellionSuppressionCount.events[0].startDate  ISO=0934-04-13(旧暦2月・干支丁酉○) note旧暦3月 | 王思同（西面行営都部署）・薬彦稠（副部署）・のち康義誠（凤翔行営都招討使） 潞王李従珂反乱鎮圧の試み（鳳翔討伐） 失敗。
+  wudai-houjin-gaozu / amnestyCount.events[1].date  ISO=0937-01-14(旧暦11月・干支甲申○) note旧暦1月 | 【皇帝在位中】後唐末帝が洛陽で自焚し、高祖が洛陽入城後、文明殿にて朝賀を受け「大赦天下」の制を下す（旧廷の官吏の罪を問わ
+  beisong-renzong / rebellionSufferedCount.events[11].endDate  ISO=1048-02-18(旧暦1月・干支辛丑○) note旧暦11月 | 王則の乱（貝州） 王則 貝州の宣毅軍卒王則が城に拠って反乱、文彦博・明鎬が討伐に赴き「貝州平」・王則は都市で磔刑。 史上
+  nansong-xiaozong / eraChangeCount.events[1].date  ISO=1165-01-01(旧暦11月・干支戊辰×) note旧暦1月 | 乾道元年正月辛亥朔、圜丘にて合祀天地、「大赦，改元」。隆興から乾道への改元。
+  nansong-xiaozong / amnestyCount.events[1].date  ISO=1165-01-01(旧暦11月・干支戊辰×) note旧暦1月 | 乾道元年正月辛亥朔（元日）、圜丘にて合祀天地、「大赦，改元」。改元（隆興→乾道）と同時の大赦。
+  nansong-ningzong / eraChangeCount.events[0].date  ISO=1194-12-09(旧暦10月・干支壬午○) note旧暦1月 | 「詔改明年為慶元元年」。即位後最初の改元（建元）。翌年正月より慶元元年。日付原文: 紹熙五年（1194年）閏十月壬午（2
+  nansong-gongdi / eraChangeCount.events[0].date  ISO=1274-11-21(旧暦10月・干支甲子○) note旧暦1月 | 咸淳10年10月甲子（換算1274-11-21）、「詔以明年為德祐元年」（翌年〈1275年〉を徳祐元年とする改元の詔）。
+  nansong-duanzong / amnestyCount.events[0].date  ISO=1276-05-01(旧暦3月・干支辛亥×) note旧暦5月 | 景炎元年五月乙未朔、福州にて即位・改元と同日に「郊赦」の記事あり。原文は「大赦」「大赦天下」の明確な文言ではなく「郊赦」
+  liao-taizong / empressInstallationCount.events[0].date  ISO=0927-12-29(旧暦12月・干支庚辰○) note旧暦1月 | 天顕2年12月庚辰、即位直後に「尊皇太后爲太皇太后，皇后爲應天皇太后，立妃蕭氏爲皇后」。この蕭氏が後の靖安皇后（列伝・后
+  liao-daozong / eraChangeCount.events[0].date  ISO=1055-08-16(旧暦7月・干支丁丑×) note旧暦8月 | 重熙24年（八月己丑に興宗崩御・即位）八月辛丑、即位に伴う最初の建元として「清寧」に改元、大赦。原文「辛丑，改元清宁，大
+  liao-daozong / amnestyCount.events[0].date  ISO=1055-08-16(旧暦7月・干支丁丑×) note旧暦8月 | 重熙24年（清寧元年）八月辛丑、興宗崩御・即位（八月己丑）から12日後に改元清寧と同時に大赦。原文「辛丑，改元清宁，大赦
+  xiliao-dezong / empressInstallationCount.events[0].date  ISO=1132-02-05(旧暦1月・干支己酉×) note旧暦2月 | 皇帝即位（延慶改元）と同時に、元妃蕭氏を昭徳皇后に冊立。「又西至起児漫、文武百官冊立大石為帝、以甲辰歳二月五日即位、年三
+  yuan-huizong / capitalRelocationCount.events[0].date  ISO=1368-09-10(旧暦7月・干支丙寅○) note旧暦8月 | 大都（Dadu、現北京） 上都（Shangdu、開平） 元朝滅亡・北走の際の遷都。新元史巻二十六本紀（惠宗）至正二十八年
+  qing-shizu / eraChangeCount.events[0].date  ISO=1643-10-08(旧暦8月・干支丁亥○) note旧暦10月 | 太宗崩御ののち世祖が皇帝に即位し、翌年を「順治元年」とすることを詔した最初の建元。原文：「丁亥，上即皇帝位于笃恭殿。诏以
+  qing-gaozong / eraChangeCount.events[0].date  ISO=1735-10-08(旧暦8月・干支己丑×) note旧暦9月 | 雍正十三年九月己亥、太和殿で即位し、翌年を乾隆元年とすることを定めた（即位に伴う最初の建元）。原文：『己亥，上即位于太和
+  qing-xuanzong / eraChangeCount.events[0].date  ISO=1820-10-03(旧暦8月・干支庚戌○) note旧暦1月 | 仁宗崩御後、太和殿にて即位すると同時に建元。「庚戌，上即皇帝位于太和殿，告祭天地、太庙、社稷，颁诏天下，以明年为道光元年
+  qing-xuantong / eraChangeCount.events[1].date  ISO=1934-03-01(旧暦1月・干支辛未×) note旧暦3月 | 【満洲国康徳期1934-1945】執政溥儀が皇帝に即位すると同時に「大同」から「康徳」に改元。即位詔書に「奉天承运，皇帝
+
+day精度: note が「旧暦月＋干支」一意で、sxtwl 換算が現 ISO と食い違うもの: 6 件（解が0/複数で判定保留: 44 件）
+  beiwei-xiaozhuangdi / amnestyCount.events[2].date  現=0529-08-10 → sxtwl=0528-08-15  （note: 七月庚午）| 永安二年秋七月庚午、「車駕入居華林園，升大夏門，大赦天下」。元顥（北海王顥の簒奪軍）を破った後の大赦
+  beiqi-wuchengdi / empressInstallationCount.events[0].date  現=0562-03-06 → sxtwl=0563-03-01  （note: 正月丙戌）| 妃胡氏を皇后に冊立。原文：「河清元年春正月……丙戌、立妃胡氏為皇后、子緯為皇太子」。
+  tang-daizong / eraChangeCount.events[1].date  現=0765-01-01 → sxtwl=0765-01-26  （note: 正月癸巳）| 広徳三年正月癸巳（朔）、広徳から永泰へ改元。旧唐書「改廣德三年爲永泰元年」、新唐書「正月癸巳，大赦，
+  tang-daizong / amnestyCount.events[3].date  現=0765-01-01 → sxtwl=0765-01-26  （note: 正月癸巳）| 永泰元年正月癸巳（朔）、永泰改元と同時の大赦天下。旧唐書「可大赦天下，改廣德三年爲永泰元年」、新唐書
+  tang-xianzong / amnestyCount.events[3].date  現=0818-01-30 → sxtwl=0818-03-05  （note: 正月己酉）| 元和十三年正月己酉朔、元日朝賀の礼に伴う大赦天下。「御含元殿受朝賀、礼畢、御丹鳳楼、大赦天下」。西暦
+  wudai-houliang-taizu / capitalRelocationCount.events[0].date  現=0909-01-12 → sxtwl=0909-01-25  （note: 正月戊辰）| 東都（開封） 西都（洛陽） 『旧五代史』太祖紀五：開平三年正月戊辰朔、己巳「奉迁太庙四室神主赴西京」
+
+=== 紀年年を固定した検証（verify_day_candidates.py）===
+beiwei-xiaozhuangdi.amnestyCount.events[2].date   永安二年七月庚午
+  現行 0529-08-10 → 旧暦529年6月20日・干支庚午
+  紀年年 529 の旧暦7月朔 = 0529-08-20（朔干支 庚辰）
+  紀年年内の庚午: なし
+  → 判定不能（紀年年の当該月に干支が実在しない＝史書暦と sxtwl の朔差／史料誤記）
+
+beiqi-wuchengdi.empressInstallationCount.events[0].date 河清元年正月丙戌
+  現行 0562-03-06 → 旧暦562年2月16日・干支丙戌
+  紀年年 562 の旧暦1月朔 = 0562-01-21（朔干支 壬寅）
+  紀年年内の丙戌: なし
+  → 判定不能（紀年年の当該月に干支が実在しない＝史書暦と sxtwl の朔差／史料誤記）
+
+tang-daizong.eraChangeCount.events[1].date        広徳三年正月癸巳朔
+  現行 0765-01-01 → 旧暦764年12月5日・干支戊辰
+  紀年年 765 の旧暦1月朔 = 0765-01-26（朔干支 癸巳）
+  紀年年内の癸巳: [(1, '0765-01-26')]
+  → 確度高（朔干支一致・旧暦1日）
+
+tang-daizong.amnestyCount.events[3].date          永泰元年正月癸巳朔
+  現行 0765-01-01 → 旧暦764年12月5日・干支戊辰
+  紀年年 765 の旧暦1月朔 = 0765-01-26（朔干支 癸巳）
+  紀年年内の癸巳: [(1, '0765-01-26')]
+  → 確度高（朔干支一致・旧暦1日）
+
+tang-xianzong.amnestyCount.events[3].date         元和十三年正月己酉朔
+  現行 0818-01-30 → 旧暦817年12月20日・干支乙亥
+  紀年年 818 の旧暦1月朔 = 0818-02-09（朔干支 乙酉）
+  紀年年内の己酉: [(25, '0818-03-05')]
+  → 要確認（干支は実在するが朔＝1日でない）
+
+wudai-houliang-taizu.capitalRelocationCount.events[0].date 開平三年正月戊辰朔
+  現行 0909-01-12 → 旧暦908年12月18日・干支乙卯
+  紀年年 909 の旧暦1月朔 = 0909-01-25（朔干支 戊辰）
+  紀年年内の戊辰: [(1, '0909-01-25')]
+  → 確度高（朔干支一致・旧暦1日）
+

@@ -1,0 +1,68 @@
+=== event 日付の precision 分布（ISO実値があるもの）===
+  month: 2424
+  day: 1321
+  year: 937
+
+=== precision 別 note に旧暦月表記があるか ===
+  year: no_lunar_in_text=606, lunar_in_text=331
+  month: lunar_in_text=1455, no_lunar_in_text=969
+  day: lunar_in_text=1152, no_lunar_in_text=169
+
+=== day 精度: ISO日付を旧暦へ逆変換した月が note の旧暦月と一致するか ===
+  lunar_match: 1074
+  lunar_mismatch: 70
+  both: 52
+   ex: ('hou-han-shundi', 'eraChangeCount.events[0].date', '0126-02-03', 12, [1, 11], '永建元年春正月甲寅。即位（延光四年〔125年〕十一月丁巳、済陰王から擁立され即位）に伴う最初の建元。延光から永建に改元。')
+   ex: ('hou-han-shundi', 'eraChangeCount.events[2].date', '0136-02-14', 12, [1], '永和元年春正月己巳。陽嘉から永和に改元。「宗祀明堂，登靈臺，改元永和，大赦天下」。')
+   ex: ('hou-han-shundi', 'eraChangeCount.events[4].date', '0144-05-18', 3, [4, 8], '建康元年夏四月辛巳。漢安から建康に改元。「立皇子炳爲皇太子，改年建康，大赦天下」。同年八月に順帝崩御。')
+   ex: ('hou-han-shundi', 'amnestyCount.events[0].date', '0126-02-03', 12, [1], '永建元年春正月甲寅。即位に伴う建元（延光→永建）に伴う大赦。「其大赦天下。賜男子爵，人二級，為父後、三老、孝悌、力田人三')
+   ex: ('hou-han-shundi', 'amnestyCount.events[2].date', '0136-02-14', 12, [1], '永和元年春正月己巳。「宗祀明堂，登靈臺，改元永和，大赦天下」。')
+   ex: ('hou-han-shundi', 'amnestyCount.events[5].date', '0144-05-18', 3, [4], '建康元年夏四月辛巳。「立皇子炳爲皇太子，改年建康，大赦天下」。')
+   ex: ('jin-simalun', 'eraChangeCount.events[0].date', '0301-01-09', 12, [1], '永寧元年正月乙丑、趙王司馬倫の即位に伴い元号を「建始」に改元。『晋書』列傳第二十九（宗室傳・趙王倫傳）：「乃僭即帝位，大')
+   ex: ('jin-simalun', 'amnestyCount.events[0].date', '0301-01-09', 12, [1], '永寧元年正月乙丑、趙王司馬倫が惠帝を廃して自ら皇帝に即位した当日、大赦を実施。『晋書』列傳第二十九（宗室傳・趙王倫傳）：')
+   ex: ('jin-simalun', 'crownPrinceDepositionCount.events[0].date', '0301-01-10', 12, [1, 5], '永寧元年正月丙寅（趙王倫即位の翌日）、惠帝の皇太孫であった司馬臧（永康元年五月己巳に「立皇孫臧為皇太孫」により法定推定継')
+   ex: ('dongjin-yuandi', 'eraChangeCount.events[1].date', '0318-03-10', 1, [3], '太兴元年三月丙辰、愍帝崩御の報を受けて皇帝に即位し「于是大赦，改元，文武增位二等」として「建武」から「太兴」に改元。')
+
+=== month 精度の内訳 ===
+  iso_month == lunar_month (未換算): 1151
+  iso_month != lunar_month (換算済み扱い): 238
+    うち多数月方式と一致: 139
+    うちどちらとも不一致: 90
+    うち前年紀年の多数月と一致: 9
+=== month精度・換算済み扱い238件の内訳 ===
+  多数月方式(同年紀年): 139
+  どちらとも不一致: 82
+  朔方式(同年紀年): 9
+  多数月方式(前年紀年): 8
+
+  不一致例: ('gengshi-di', 'rebellionSufferedCount.events[0].endDate', '0023-10-01', [8], '更始元年八月、前鍾武侯劉望が汝南で自立して天子を称し武力で対抗。2026-07-16改訂基準によりrebellionSuppressionC')
+  不一致例: ('gengshi-di', 'rebellionSufferedCount.events[3].startDate', '0024-12-01', [6, 9], '既存項目・変更なし。例外事由2（未鎮圧のまま在位終了）に該当するため被反乱のみに計上。 赤眉軍の関中侵攻と長安陥落・更始弑殺 更始三年九月に')
+  不一致例: ('gengshi-di', 'rebellionSufferedCount.events[3].endDate', '0025-12-01', [6, 9], '既存項目・変更なし。例外事由2（未鎮圧のまま在位終了）に該当するため被反乱のみに計上。 赤眉軍の関中侵攻と長安陥落・更始弑殺 更始三年九月に')
+  不一致例: ('hou-han-guangwudi', 'personalCampaignCount.events[4].startDate', '0032-05-01', [8, 9], '建武八年「閏月、帝自征囂、河西大将軍竇融率五郡太守与車駕会高平。隴右潰、隗囂奔西城…進幸上邽、不降…八月、帝自上邽晨夜東馳。九月乙卯、車駕還')
+  不一致例: ('hou-han-guangwudi', 'rebellionSuppressionCount.events[6].startDate', '0032-05-01', [9], '建武八年「隗囂攻来歙、不能下。」の頃「潁川盗賊寇没属県、河東守守兵亦叛、京師騒動。」九月「庚申、帝自征潁川盗賊、皆降。」開始時期は隗囂親征中')
+  不一致例: ('hou-han-guangwudi', 'rebellionSufferedCount.events[15].startDate', '0047-12-01', [10], '【新規追加】反乱鎮圧回数と同一事件。武陵は漢の郡県、蛮は郡内の服属異民族であり、2026-07-16基準訂正に基づき追加した。 武陵蛮の叛乱')
+  不一致例: ('hou-han-zhangdi', 'rebellionSufferedCount.events[1].endDate', '0077-03-01', [9], '原文「九月，永昌哀牢夷叛。」（建初元年）、建初二年条「永昌、越巂、益州三郡民、夷讨哀牢，破平之。」永昌郡内の哀牢夷による蜂起。rebelli')
+  不一致例: ('hou-han-shundi', 'rebellionSuppressionCount.events[11].startDate', '0140-04-01', [8, 11], '永和五年「南匈奴左部句龍大人吾斯、車紐等叛，圍美稷」に始まり、一時撃破・単于殺害を経ても句龍吾斯は東の烏桓・西の羌胡と結んで抵抗を継続、漢安')
+  不一致例: ('hou-han-shundi', 'rebellionSuppressionCount.events[12].startDate', '0140-05-01', [1], '永和五年「目冻（且冻）羌寇三輔，殺令長」「且冻羌寇武都，燒隴關」を経て、永和六年正月に馬賢が且冻羌との戦いで敗死するまでを一件とした。鎮圧に')
+  不一致例: ('hou-han-shundi', 'rebellionSuppressionCount.events[13].startDate', '0141-02-01', [3, 5, 9], '永和六年閏正月「恐唐羌寇隴西，遂及三輔」に始まり、三月「武威太守趙沖討鞏唐羌，破之」で一旦破るが、五月以降「恐唐羌寇北地」、九月「諸種羌寇武')
+  不一致例: ('hou-han-shundi', 'rebellionSuppressionCount.events[14].endDate', '0142-12-01', [9], '漢安元年九月「廣陵盜賊張嬰等寇郡縣」、是歳「廣陵賊張嬰等詣太守張綱降」。 太守張綱に投降 张婴 广陵贼张婴の叛乱（第一次）')
+  不一致例: ('hou-han-shundi', 'rebellionSufferedCount.events[13].startDate', '0140-05-01', [1], '鎮圧失敗だが計上要件は成否を問わない。rebellionSuppressionCountと同一事件を被反乱側にも計上。 且冻羌の叛乱 漢側は')
+A（年またぎ未反映）の内訳
+  フィールド数 105  イベント 82  人数 53
+  キー種別: {'startDate': 52, 'endDate': 43, 'date': 10}
+  指標別: {'rebellionSuppressionCount': 69, 'rebellionSufferedCount': 18, 'personalCampaignCount': 8, 'empressInstallationCount': 3, 'amnestyCount': 3, 'capitalRelocationCount': 2, 'crownPrinceDepositionCount': 1, 'eraChangeCount': 1}
+  時代区分別: {'?': 105}
+
+同一人物の reigns/ages に訂正後の年月と同じ日付が既にある（＝レコード内で二重表記）: 12 件
+    ('wei-mingdi', 'empressInstallationCount.events[1].date', '0238-12-01', '0239-01', 'reigns.endDate', '0239-01-22')
+    ('wei-mingdi', 'empressInstallationCount.events[1].date', '0238-12-01', '0239-01', 'ages.deathDate', '0239-01-22')
+    ('dongjin-feidi', 'rebellionSufferedCount.events[4].startDate', '0371-11-01', '0372-01', 'reigns.endDate', '0372-01-06')
+    ('dongjin-feidi', 'rebellionSufferedCount.events[4].endDate', '0371-11-01', '0372-01', 'reigns.endDate', '0372-01-06')
+    ('dongjin-andi', 'rebellionSufferedCount.events[9].startDate', '0418-12-01', '0419-01', 'reigns.endDate', '0419-01-28')
+    ('dongjin-andi', 'rebellionSufferedCount.events[9].startDate', '0418-12-01', '0419-01', 'ages.deathDate', '0419-01-28')
+    ('dongjin-andi', 'rebellionSufferedCount.events[9].endDate', '0418-12-01', '0419-01', 'reigns.endDate', '0419-01-28')
+    ('dongjin-andi', 'rebellionSufferedCount.events[9].endDate', '0418-12-01', '0419-01', 'ages.deathDate', '0419-01-28')
+    ('liang-yuandi', 'personalCampaignCount.events[0].startDate', '0554-12-01', '0555-01', 'reigns.endDate', '0555-01-27')
+    ('liang-yuandi', 'personalCampaignCount.events[0].startDate', '0554-12-01', '0555-01', 'ages.deathDate', '0555-01-27')
+    ('liang-yuandi', 'personalCampaignCount.events[0].endDate', '0554-12-01', '0555-01', 'reigns.endDate', '0555-01-27')
+    ('liang-yuandi', 'personalCampaignCount.events[0].endDate', '0554-12-01', '0555-01', 'ages.deathDate', '0555-01-27')

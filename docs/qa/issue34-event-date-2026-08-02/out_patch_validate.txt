@@ -1,0 +1,19 @@
+##### baseline
+[baseline] exit=0
+WARN  [ages] deathDate > 最終 endDate（退位後死去等・正当の可能性）: 50 件
+---
+0 errors, 1 warnings (365 emperors)
+##### A
+[A] exit=0
+WARN  [ages] deathDate > 最終 endDate（退位後死去等・正当の可能性）: 50 件
+---
+0 errors, 1 warnings (365 emperors)
+##### AC
+[AC] exit=0
+WARN  [ages] deathDate > 最終 endDate（退位後死去等・正当の可能性）: 50 件
+---
+0 errors, 1 warnings (365 emperors)
+##### 在位ISO年範囲
+在位ISO年範囲外（±1年許容）: baseline 89  A適用後 88  AC適用後 88
+  A で新たに範囲外になるもの: 0
+  AC で新たに範囲外になるもの: 0
