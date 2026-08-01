@@ -72,7 +72,7 @@ function NarrativeBlock({
               aria-hidden
               className="size-3 shrink-0 transition-transform group-open:rotate-90"
             />
-            判定の軸（この区分を導いた4つの事実）
+            判定の軸
           </summary>
           <div className="mt-1.5 border-l-2 border-border pl-3">
             <AccessionAxesTable axes={axes} />

@@ -287,7 +287,7 @@ export function OverviewBoard({
             在位年数と死因
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            在位が短いほど非業の死の割合が高くなります（365名）
+            在位が短いほど非業の死の割合が高くなります
           </p>
           <ReignDeathPanel
             segments={reignDeath.segments}

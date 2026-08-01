@@ -1,0 +1,46 @@
+{
+  // ファイル監視の除外。VS Code の fileWatcher が WSL のメモリと CPU を食う主因なので、
+  // 「巨大」かつ「エディタから編集しない」ディレクトリを監視対象から外す。
+  //
+  // 注意: watcherExclude は .gitignore を参照しない。.gitignore に入っている
+  // daizhigev20 / china-history / _corpus_cache も、ここに書かない限り監視され続ける。
+  //
+  // Claude Code には影響しない（別プロセスで、Read/Grep/Bash が直接 FS を叩くため）。
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/__pycache__/**": true,
+
+    // 正史原文のローカルコーパス（git 管理外・合計約 5GB）
+    "**/daizhigev20/**": true,
+    "**/china-history/**": true,
+    "**/_corpus_cache/**": true,
+
+    // Next.js のビルド生成物（.next 約 557MB・out は書き出しのたび全置換）
+    "**/site/.next/**": true,
+    "**/site/out/**": true,
+    "**/site/tools/shots/**": true
+  },
+
+  // 検索（Ctrl+Shift+F）とクイックオープンの除外。
+  // search.useIgnoreFiles により .gitignore 済みのものは既に除外されるが、
+  // 素の grep(ugrep) でコーパスを舐めると WSL ごと落ちた実績があるため明示する
+  // （経緯: docs/process/CORPUS_NOTES.md「コーパス検索のメモリ事故対策」節）。
+  // コーパス検索は /usr/bin/grep か rg を使うこと。
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "daizhigev20": true,
+    "china-history": true,
+    "_corpus_cache": true,
+    "site/.next": true,
+    "site/out": true,
+    "site/tools/shots": true
+  },
+
+  // data/emperors.json は約 6.4MB。開いたままだと JSON language server と
+  // 拡張ホストが変更のたびに再解析する（並行セッションが書き換えるため頻発する）。
+  // 折りたたみ・アウトラインの計算量を抑える。
+  "json.maxItemsComputed": 3000
+}
