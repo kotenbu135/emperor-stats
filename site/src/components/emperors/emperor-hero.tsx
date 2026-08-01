@@ -73,7 +73,18 @@ export function EmperorHero({ record }: { record: EmperorRecord }) {
                   ),
                 }}
               />
-              {dynastyContextLabel(record)}
+              {/* 王朝（時代）にもふりがなを振る。一覧カード・データベース表の王朝名と
+                  同じ扱いにするため（Issue #20）。合成ラベルなので、読みテーブルは
+                  王朝名・時代ラベルそれぞれで引く。 */}
+              <span className="leading-ruby">
+                <RubyText
+                  source={
+                    dynastyContextLabel(record) === record.dynastyLabel
+                      ? rubyOf(record.dynastyLabel)
+                      : `${rubyOf(record.dynastyLabel)}（${rubyOf(record.eraLabel)}）`
+                  }
+                />
+              </span>
               <span aria-hidden>／</span>
               {record.dynastyCategory}
               {/* スキーマ v3 の standing。20名にしか立たないので、立つ人だけ出す。 */}
