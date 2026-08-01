@@ -5,10 +5,10 @@
 **こちらが見るのは文章としての体裁と、365本を機械的に量産していないこと。**
 
 1. 存在しない皇帝id・空フィールド（前者はサイト側のビルド assert と二重）
-2. 文字数 — lead 200〜300字・description 100〜140字。**ルビを剥がしたあと**で数える
-   （記法込みだと250字の lead が600字級になり上下限が意味を失う）
+2. 文字数 — lead 150〜600字・description 100〜140字。**ルビを剥がしたあと**で数える
+   （記法込みだと500字の lead が1200字級になり上下限が意味を失う）
 3. description が平文であること（<meta>・JSON-LD にしか出ないのでルビは書かない）
-4. meta.counts.written が profiles の実数と合っていること
+4. meta.counts.written が profiles の実数と合っていること／lead があるのに basis が空でないこと
 5. 重複 n-gram — 全 lead で 12-gram を数え、3本以上に出るものを**報告する**
    （エラーにはしない）。Issue #16 の「一人ずつ作成する」に対する唯一の機械的な担保で、
    定型文で埋めた場合ここに一気に出る。共通の言い回し（「数え50歳だった」等）も
@@ -34,10 +34,18 @@ PROFILES = ROOT / "data" / "emperor-profiles.json"
 
 RUBY = re.compile(r"｜([^｜《》]+)《([^｜《》]+)》")
 # 「前221年」「1735年」。ルビを剥がしたあとの本文に当てる。
-# 「約11年」「11年間」「3年目」は年号ではなく期間なので除外する。
-YEAR = re.compile(r"(?<!約)(前)?(?<![0-9])(\d{1,4})\s*年(?![間目])")
+#
+# 本文には期間の表現（「約11年」「7年のあいだ」「在位13年」「2年後」）が年号と
+# 同じ形で出るので、**「前」付きは何桁でも年号・「前」無しは3桁以上だけ年号**とみなす。
+# 西暦2桁の年（光武帝の25年など）は取りこぼすが、こちらは報告漏れで済む一方、
+# 誤検知を放置すると365本ぶんの通知に埋もれて本物の当たりが見えなくなる。
+YEAR = re.compile(r"(?<![0-9])(?:(前)(\d{1,4})|(?:(\d{3,4})))\s*年(?![間目後])")
 
-LEAD_MIN, LEAD_MAX = 200, 300
+# lead の幅が広いのは、書ける量が人物によって桁で違うため（2026-08-01 方針転換）。
+# 逸話を交えた人物紹介にしたので、本紀に記述の厚い皇帝は500字級になり、
+# 『遼史』が「即位し、在位13年で没した」しか伝えない西遼仁宗のような人物では
+# 200字も書けない。下限を上に置くと、素材の無い人物で骨組みの使い回しが起きる。
+LEAD_MIN, LEAD_MAX = 150, 600
 DESC_MIN, DESC_MAX = 100, 140
 NGRAM = 12
 NGRAM_REPORT_AT = 3
@@ -112,6 +120,19 @@ def main() -> int:
                     f"（{lo}〜{hi}字・ルビを剥がした長さで数える）"
                 )
 
+        # basis — その紹介文を何で裏付けたかの覚え書き（サイトには出さない）。
+        #
+        # 逸話を書くようになった時点（2026-08-01 の方針転換）で、「素材は既存の
+        # 調査結果だけ」という制約そのものが持っていた検証手段が消えた。
+        # verify_quotes.py は原文引用しか見ず、このスクリプトは文字数と n-gram しか
+        # 見ないので、**どこから来た記述かを書き手が残さないと後から追えない。**
+        # 365本書き終えてから1本ずつ裏を取り直すことはできない。
+        if profile.get("lead") and not (profile.get("basis") or "").strip():
+            errors.append(
+                f"「{emperor_id}」に basis がありません"
+                "（何を読んで書いたか。例: 史記 巻六 秦始皇本紀〔徐巿・阿房宮・焚書〕）"
+            )
+
         description = profile.get("description") or ""
         if any(c in description for c in "｜《》"):
             errors.append(
@@ -125,7 +146,8 @@ def main() -> int:
 
         known = years_of(record)
         for text in (strip_ruby(profile.get("lead") or ""), description):
-            for bc, digits in YEAR.findall(text):
+            for bc, bc_digits, ad_digits in YEAR.findall(text):
+                digits = bc_digits or ad_digits
                 year = -int(digits) if bc else int(digits)
                 if known and year not in known:
                     notices.append(

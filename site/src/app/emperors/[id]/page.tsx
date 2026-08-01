@@ -213,11 +213,20 @@ export default async function EmperorPage({
               級数で示す（他の本文は14px）。 */}
           {/* 行送りは leading-ruby（globals.css）。総ルビの本文はルビのある行と
               無い行で高さが変わるので、leading-loose のままだと段落の中で行間が
-              ばらつく（ふりがな OFF でも同じ行位置になる）。 */}
+              ばらつく（ふりがな OFF でも同じ行位置になる）。
+              lead の段落区切りは空行（\n\n）。逸話を交えるようになって1本500字級に
+              なったため、1つの <p> に流し込むと読めない。 */}
           {profile?.lead && (
-            <p className="max-w-prose text-base leading-ruby text-foreground">
-              <RubyText source={profile.lead} />
-            </p>
+            <div className="space-y-4">
+              {profile.lead.split("\n\n").map((paragraph, i) => (
+                <p
+                  key={i}
+                  className="max-w-prose text-base leading-ruby text-foreground"
+                >
+                  <RubyText source={paragraph} />
+                </p>
+              ))}
+            </div>
           )}
           <EmperorFacts record={record} />
           <EmperorNarrativeSections narrative={narrative} />
