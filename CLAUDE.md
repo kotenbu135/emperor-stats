@@ -25,7 +25,7 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 ```
 
 `data/kinship.json` を触った場合は `python3 scripts/validate_kinship.py`。
-`data/name-readings.json`（ふりがな）・`data/emperor-profiles.json`（紹介文）を触った場合は `python3 scripts/validate_readings.py`（ルビ記法・親文字一致・総ルビ充足）。紹介文（GitHub Issue #16）はさらに `python3 scripts/validate_profiles.py`（文字数・`description` が平文であること・件数・定型文の n-gram）。素材は `python3 scripts/extract_profile_material.py --section '<時代区分>'` で出す（`emperors.json` 全体を読まない）。
+`data/name-readings.json`（ふりがな）・`data/emperor-profiles.json`（紹介文）を触った場合は `python3 scripts/validate_readings.py`（ルビ記法・親文字一致・総ルビ充足）。紹介文（GitHub Issue #16）はさらに `python3 scripts/validate_profiles.py`（文字数・`description` が平文であること・件数・定型文の n-gram）。素材は `python3 scripts/extract_profile_material.py --section '<時代区分>'` で出す（`emperors.json` 全体を読まない）。**紹介文を書く前に [docs/process/profile-writing/README.md](docs/process/profile-writing/README.md) を読む**（原文先読み→引用台帳→執筆の4段手順とプロンプト雛形。1人ぶんのゲートは `scripts/check_profile_fragment.py`）。
 
 ## リポジトリ構成
 
@@ -57,7 +57,8 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 
 以下はいずれも**このリポジトリで実際に失敗を出した結果**として決まった運用方針で、モデルの判断力を補うための一般的な行動指示ではありません（背景と全文: [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md)）。迷った場合は自分の判断で緩めず、そのまま従ってください。
 
-- **判定の根拠は原典（正史の本紀・列伝）に置く** — WebSearch の要約だけでは判定しない
+- **判定の根拠は原典（正史の本紀・列伝）に置く** — WebSearch の要約だけでは判定しない。**この規則が掛かるのは `data/emperors.json` のデータ判定**で、紹介文（Issue #16）の執筆では Web を**差分検出器**として使ってよい（通説との食い違いを見つけて原典を読み直す引き金にする。根拠にはしないし、Web の文章は本文に取り込まない）
+- **規則の適用範囲が書かれていないときは、自分で狭めたり広げたりせずユーザーに聞く** — 上の1行はもともと範囲を書いておらず、紹介文の執筆にも掛かると判断して Web 照合を行わないまま76人ぶんを公開した（2026-08-02・ユーザーの想定はデータ判定のみ）
 - **スクリプトによるデータの自動生成は禁止** — 人物ごとの個別調査・判定が必須（日数計算等の機械的な計算補助や、確定済み調査結果の構造チェックはOK）
 - **原文引用の手打ち禁止** — 引用は `scripts/quote_helper.py`／grep のツール出力からコピーし、字体変換・要約・語順変更をしない。引用・日付を変更したら上記ゲートの合格がコミット条件
 - **原典調査（データ訂正・新規ブロック着手）に入る前に [CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) と [RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) を読む** — 「china-history の相対巻数」「原文ラベルなのに中身が白話訳」のように、読まずに進むと誤った巻・誤った日付を採用する罠が記録されている（担当ブロックの書名・巻・行範囲は [SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md) から引く）。読まずに調査エージェントを起動して手戻りした事故が複数回発生している
