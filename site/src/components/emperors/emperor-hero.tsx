@@ -18,7 +18,6 @@
 import { Portrait } from "@/components/emperors/portrait";
 import { RubyText } from "@/components/ui/ruby-text";
 import { rubyOf } from "@/lib/name-readings";
-import { cardSubtitleOf } from "@/lib/card-subtitle";
 import { dynastyColorHex, dynastyColorSlot } from "@/lib/dynasty-colors";
 import { dynastyContextLabel, type EmperorRecord } from "@/lib/emperor-types";
 
@@ -49,11 +48,11 @@ export function EmperorHero({
   lead?: string | null;
 }) {
   const ageValue = ageChipValue(record);
-  // 皇帝号だけでは誰か分かりにくい人物向けの補助名（諱・通用名）。
+  // 通用名だけでは誰か分かりにくい人物向けの補助名（諱）。
   // **諱をそのまま出すと106/365で重複する** — 「王莽」「宇文化及」のように表示名が
-  // 諱そのものの人物や、「太祖・朱全忠」のように皇帝号へ諱を併記している人物が多い。
-  // 導出規則と人物別上書き（遼の漢風名・清の愛新覚羅姓省略など）は一覧カードと共用。
-  const subtitle = cardSubtitleOf(record.id, record.personalName, record.name);
+  // 諱そのものの人物や、「太祖 朱全忠」のように通用名へ諱が入っている人物が多い。
+  // 導出規則（遼の漢風名・清の愛新覚羅姓省略など）は lib/display-name.ts で一覧と共用。
+  const subtitle = record.subtitle;
   return (
     <header className="border-b border-border bg-background px-gutter py-section md:px-gutter-wide">
       <div className="mx-auto w-full max-w-4xl">

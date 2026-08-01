@@ -122,8 +122,8 @@ const EmperorCard = memo(function EmperorCard({
             伸びた文字ブロックのぶん肖像側が縮む。 */}
         <div className="truncate text-sm font-medium leading-ruby text-foreground group-hover:text-seal">
           <RubyText source={record.nameRuby} />
-          {/* 皇帝号だけでは誰か分かりにくい人物向けの補助名（諱・通用名）。
-              導出規則・人物別上書きは lib/card-subtitle.ts。 */}
+          {/* 通用名だけでは誰か分かりにくい人物向けの補助名（諱）。
+              導出規則・人物別上書きは lib/display-name.ts。 */}
           {record.cardSubtitleRuby && (
             <span className="ml-1.5 text-xs font-normal text-muted-foreground">
               <RubyText source={record.cardSubtitleRuby} />

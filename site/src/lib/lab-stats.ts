@@ -19,6 +19,7 @@
 // ための面なので、突き合わせ先と同じ粒度にしてある（採用時に組み替える。南北朝69名が
 // 南朝・北朝へ割れて数字が動く）。
 import { emperorsJson, eraCatalog, type CatalogEra } from "@/lib/data-source";
+import { emperorDisplayName } from "@/lib/display-name";
 
 // ---------------------------------------------------------------- 生データの型
 //
@@ -40,6 +41,11 @@ interface LabCount {
   count: number;
   confidence?: string;
   events: { date?: string | null; startDate?: string | null }[];
+}
+
+/** 表示名は lib/display-name.ts に集約してある（commonName をそのまま出さない）。 */
+function labName(e: LabEmperor): string {
+  return emperorDisplayName(e.id, e.name.commonName ?? e.id, e.regimeId);
 }
 
 interface LabEmperor {
@@ -219,7 +225,7 @@ export function getCampaignStats(): LabCampaign {
     .sort((a, b) => b.personalCampaignCount.count - a.personalCampaignCount.count)
     .slice(0, 6)
     .map((e) => ({
-      name: e.name.commonName ?? e.id,
+      name: labName(e),
       regime: e.regimeLabel,
       count: e.personalCampaignCount.count,
     }));
@@ -357,7 +363,7 @@ export function getEraChangeStats(): LabEraChange {
     rows,
     preInstitution: {
       count: pre.length,
-      names: pre.map((e) => e.name.commonName ?? e.id),
+      names: pre.map((e) => labName(e)),
     },
     continued: zero.length - pre.length,
     preInstitutionWithCount: emperors
@@ -365,7 +371,7 @@ export function getEraChangeStats(): LabEraChange {
         (e) =>
           e.reignSummary.lastEndYear < FIRST_ERA_NAME_YEAR && e.eraChangeCount.count > 0,
       )
-      .map((e) => ({ name: e.name.commonName ?? e.id, count: e.eraChangeCount.count })),
+      .map((e) => ({ name: labName(e), count: e.eraChangeCount.count })),
   };
 }
 

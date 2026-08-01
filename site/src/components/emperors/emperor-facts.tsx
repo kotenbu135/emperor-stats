@@ -7,6 +7,7 @@ import Link from "next/link";
 import { RubyText } from "@/components/ui/ruby-text";
 import { rubyOf } from "@/lib/name-readings";
 import type { EmperorRecord, MetricRank } from "@/lib/emperor-types";
+import { emperorNameEntries } from "@/lib/display-name";
 
 /**
  * データベースの該当状態への文脈内リンク（2026-07-27 の SEO 監査 2-3）。
@@ -118,81 +119,38 @@ const COUNT_METRICS = [
   ["遷都", "capitalRelocationCount"],
 ] as const;
 
-/**
- * 金（女真）10人の諱は「漢名（女真名）」の並びでデータに入っている
- * （金史本紀の「讳亮，本讳迪古乃」。2026-08-01 に9人分をそろえた）。個別ページでは
- * 「諱（本名）」と「女真名」の行に割る。
- *
- * **括弧の汎用分解はしないこと。** 同じ「◯◯（◯◯）」を元（クビライ（忽必烈）＝
- * 原音カナと漢字音写）・清（愛新覚羅皇太極（ホンタイジ））・遼（耶律堯骨（耶律徳光）＝
- * 逆順で括弧内が漢風名）・北漢（劉崇（劉旻）＝改名）が別の意味で使っていて、
- * まとめて割るとクビライに「女真名」の行が生える。
- *
- * 末帝 承麟は金史に女真名の記載が無いので括弧が付かず、ここでも行が出ない。
- */
-const JURCHEN_NAME_IDS = new Set([
-  "jin-taizu",
-  "jin-taizong",
-  "jin-xizong",
-  "jin-hailingwang",
-  "jin-shizong",
-  "jin-zhangzong",
-  "jin-weishaowang",
-  "jin-xuanzong",
-  "jin-aizong",
-  "jin-modi",
-]);
-
-function jurchenNameOf(
-  id: string,
-  personalName: string | null,
-): { han: string; jurchen: string } | null {
-  if (!personalName || !JURCHEN_NAME_IDS.has(id)) return null;
-  const matched = /^(.+)（(.+)）$/.exec(personalName);
-  return matched ? { han: matched[1], jurchen: matched[2] } : null;
-}
-
 export function EmperorFacts({ record }: { record: EmperorRecord }) {
-  const jurchen = jurchenNameOf(record.id, record.personalName);
+  // 名前（諱・民族名・廟号・諡号・元号・別称）。導出は lib/display-name.ts に集約。
+  // 2026-08-02 まではこの4行が「基本情報」の在位・死因と同じ dl に混ざっていた。
+  const nameEntries = emperorNameEntries(record);
   return (
-    <div className="grid gap-4 lg:grid-cols-2 lg:gap-x-6">
+    // items-start が無いと行の高さが揃い、行数の少ない「名前」カードが下半分
+    // 空のまま基本情報の高さまで伸びる（諱1行だけの皇帝が多数派なので目立つ）。
+    <div className="grid items-start gap-4 lg:grid-cols-2 lg:gap-x-6">
+      {nameEntries.length > 0 && (
+        <section className={SURFACE_CLASS}>
+          <h2 className="mb-2 font-heading text-base font-semibold text-foreground">
+            名前
+          </h2>
+          {/* ふりがな（Issue #20）。読みは ../data/name-readings.json で、
+              未登録の名前はルビ無しで素通しする。 */}
+          <dl className="text-sm">
+            {nameEntries.map((entry) => (
+              <DetailRow
+                key={`${entry.label}-${entry.value}`}
+                label={entry.label}
+                value={<RubyText source={rubyOf(entry.value)} />}
+                rubyRow
+              />
+            ))}
+          </dl>
+        </section>
+      )}
       <section className={SURFACE_CLASS}>
         <h2 className="mb-2 font-heading text-base font-semibold text-foreground">
           基本情報
         </h2>
         <dl className="text-sm">
-          {/* ふりがな（Issue #20）。読みは ../data/name-readings.json で、
-              未登録の名前はルビ無しで素通しする。 */}
-          {record.personalName && (
-            <DetailRow
-              label="諱（本名）"
-              value={
-                <RubyText source={rubyOf(jurchen?.han ?? record.personalName)} />
-              }
-              rubyRow
-            />
-          )}
-          {jurchen && (
-            <DetailRow
-              label="女真名"
-              value={<RubyText source={rubyOf(jurchen.jurchen)} />}
-              rubyRow
-            />
-          )}
-          {record.templeName && (
-            <DetailRow
-              label="廟号"
-              value={<RubyText source={rubyOf(record.templeName)} />}
-              rubyRow
-            />
-          )}
-          {record.posthumousName && (
-            <DetailRow
-              label="諡号"
-              value={<RubyText source={rubyOf(record.posthumousName)} />}
-              rubyRow
-            />
-          )}
           <DetailRow label="在位" value={record.periodsLabel} />
           <DetailRow
             label="在位期間"

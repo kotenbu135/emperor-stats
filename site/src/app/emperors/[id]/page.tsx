@@ -28,7 +28,6 @@ import {
   getEmperorProfile,
   getEmperorStructuredDates,
 } from "@/lib/emperors";
-import { cardSubtitleOf } from "@/lib/card-subtitle";
 import { reportReadingCoverage } from "@/lib/name-readings";
 import {
   absoluteUrl,
@@ -48,7 +47,7 @@ export function generateStaticParams(): { id: string }[] {
   reportReadingCoverage(
     records.flatMap((r) => [
       r.name,
-      cardSubtitleOf(r.id, r.personalName, r.name) ?? "",
+      r.subtitle ?? "",
       r.personalName ?? "",
       r.templeName ?? "",
       r.posthumousName ?? "",
@@ -66,7 +65,7 @@ export function generateStaticParams(): { id: string }[] {
 function descriptionOf(id: string, record: ReturnType<typeof getAllEmperorRecords>[number]): string {
   return (
     getEmperorProfile(id)?.description ??
-    `${dynastyContextLabel(record)}の皇帝 ${record.name} の調査結果。在位${record.periodsLabel}（${record.reignDurationLabel}）、死因・即位経路・改元回数など全12項目と全皇帝中の順位を掲載しています。`
+    `${dynastyContextLabel(record)}の皇帝 ${record.disambiguatedName} の調査結果。在位${record.periodsLabel}（${record.reignDurationLabel}）、死因・即位経路・改元回数など全12項目と全皇帝中の順位を掲載しています。`
   );
 }
 
@@ -79,7 +78,9 @@ export async function generateMetadata({
   const record = getAllEmperorRecords().find((r) => r.id === id)!;
   return buildMetadata({
     path: `/emperors/${id}`,
-    title: `${record.name}（${dynastyContextLabel(record)}）`,
+    // **`disambiguatedName` を使う** — 通用名は37種104人が重複していて、
+    // 南斉の廃帝3人・後漢の少帝2人は王朝を添えても同じ title になる（諱まで添わる）。
+    title: `${record.disambiguatedName}（${dynastyContextLabel(record)}）`,
     description: descriptionOf(id, record),
   });
 }
@@ -113,6 +114,9 @@ export default async function EmperorPage({
         record.personalName,
         record.templeName,
         record.posthumousName,
+        // データ側の呼称の原文。表示名は括弧（爵位・別諡号・別称）を落として
+        // いるので、「廃帝（昌邑王）」の昌邑王のような情報がここだけに残る。
+        record.commonName,
         ...record.aliases,
       ].filter((n): n is string => !!n),
     ),
@@ -122,7 +126,7 @@ export default async function EmperorPage({
     <>
       <JsonLd
         data={personJsonLd({
-          name: record.name,
+          name: record.disambiguatedName,
           alternateName,
           url: absoluteUrl(`/emperors/${id}`),
           description:
@@ -142,7 +146,7 @@ export default async function EmperorPage({
         data={breadcrumbJsonLd([
           { name: "中国皇帝統計", url: absoluteUrl("/") },
           { name: "皇帝一覧", url: absoluteUrl("/emperors") },
-          { name: record.name, url: absoluteUrl(`/emperors/${id}`) },
+          { name: record.disambiguatedName, url: absoluteUrl(`/emperors/${id}`) },
         ])}
       />
       <EmperorHero record={record} lead={profile?.lead} />

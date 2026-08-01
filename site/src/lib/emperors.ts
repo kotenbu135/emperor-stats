@@ -31,7 +31,15 @@ export * from "@/lib/emperor-types";
 import { kanaExpansionsOf } from "@/lib/kana-readings";
 import { rubyOf } from "@/lib/name-readings";
 import { assertValidRubySource } from "@/lib/ruby";
-import { CARD_SUBTITLE_OVERRIDES, cardSubtitleOf } from "@/lib/card-subtitle";
+import {
+  DISPLAY_NAME_OVERRIDES,
+  SUBTITLE_OVERRIDES,
+  emperorDisplayName,
+  emperorSubtitle,
+  disambiguatedEmperorName,
+  qualifiedEmperorName,
+  resolveQualifiedNameCollisions,
+} from "@/lib/display-name";
 import { emperorsJson } from "@/lib/data-source";
 
 // emperors.json / kinship.json はスキーマ v3（レコードは ID のみ・ラベルは
@@ -402,18 +410,30 @@ function dynastyKey(e: RawEmperor): string {
 })();
 
 /**
+ * 表示名（カード1行目・h1）。決め方は lib/display-name.ts に集約してある。
+ *
  * commonNameはスキーマ・validate_emperors.pyで非null必須（かつてnullが2件混在し
  * 2026-07-21にデータ側で解消済み）。フォールバックは防御的に維持する。
+ *
+ * `toNakaguro` を通すのは「侯景政権（正平）」のように**括弧を残す4件**のため
+ * （display-name.ts の KEEP_RAW_NAME）。他は括弧が落ちているので素通りする。
  */
-function displayName(name: RawEmperor["name"]): string {
+function displayName(e: RawEmperor): string {
   const raw =
-    name.commonName ?? name.personalName ?? name.templeName ?? name.posthumousName ?? "名不詳";
-  return toNakaguro(raw);
+    e.name.commonName ??
+    e.name.personalName ??
+    e.name.templeName ??
+    e.name.posthumousName ??
+    "名不詳";
+  return toNakaguro(emperorDisplayName(e.id, raw, e.regimeId));
 }
 
-/** 皇帝一覧の検索対象文字列。各種名称・別名・王朝名・時代を連結する。 */
+/** 皇帝一覧の検索対象文字列。各種名称・別名・王朝名・時代を連結する。
+ *  **表示名も入れる** — 括弧を落とした形（「後廃帝（安定王）元朗」→「後廃帝元朗」）は
+ *  データのどのフィールドとも一致しないため、入れないと見えている名前で引けない。 */
 function searchTextOf(e: RawEmperor, dynastyLabelText: string, era: string): string {
   return [
+    displayName(e),
     e.name.commonName,
     e.name.personalName,
     e.name.templeName,
@@ -431,6 +451,7 @@ function searchTextOf(e: RawEmperor, dynastyLabelText: string, era: string): str
 function searchKanaOf(e: RawEmperor, dynastyLabelText: string, era: string): string {
   const kana = new Set<string>();
   const names = [
+    displayName(e),
     e.name.commonName,
     e.name.personalName,
     e.name.templeName,
@@ -448,8 +469,11 @@ function searchKanaOf(e: RawEmperor, dynastyLabelText: string, era: string): str
 
 let allRecordsCache: EmperorRecord[] | null = null;
 
-/** ranks計算前のレコード（ranksは全レコード出揃ってからでないと計算できない）。 */
-type BaseRecord = Omit<EmperorRecord, "ranks">;
+/** ranks・qualifiedName 計算前のレコード（どちらも全レコード出揃ってからでないと決まらない）。 */
+type BaseRecord = Omit<
+  EmperorRecord,
+  "ranks" | "disambiguatedName" | "qualifiedName"
+>;
 
 /** 各指標の順位方向。ランキングチャート（各ページのrankDirection指定）と揃える。 */
 const RANK_DIRECTIONS: Record<RankingMetricKey, "asc" | "desc"> = {
@@ -520,9 +544,25 @@ function computeRanks(records: BaseRecord[]): Map<string, EmperorRecord["ranks"]
 
 export function getAllEmperorRecords(): EmperorRecord[] {
   if (allRecordsCache) return allRecordsCache;
+  // 上書きテーブルの打ち間違い・データ側のid変更に気づけるよう存在チェックする
+  // （timeline-river.ts の STREAM_DEFS 被覆assertと同じ方針）。
+  const idSet = new Set(data.emperors.map((e) => e.id));
+  for (const table of [DISPLAY_NAME_OVERRIDES, SUBTITLE_OVERRIDES]) {
+    for (const key of Object.keys(table)) {
+      if (!idSet.has(key)) {
+        throw new Error(`display-name.ts の上書き表に存在しない皇帝id: ${key}`);
+      }
+    }
+  }
   const baseRecords: BaseRecord[] = data.emperors.map((e) => ({
     id: e.id,
-    name: displayName(e.name),
+    name: displayName(e),
+    subtitle: emperorSubtitle(
+      e.id,
+      e.name.personalName,
+      e.regimeId,
+      displayName(e),
+    ),
     dynastyName: e.dynasty.name,
     dynastySection: e.dynasty.section,
     dynastyKey: dynastyKey(e),
@@ -556,6 +596,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     accessionAge: e.ages?.accessionAge ?? null,
     deathAge: e.ages?.deathAge ?? null,
     periodsLabel: e.reigns.map(formatPeriod).join(" / "),
+    commonName: e.name.commonName ?? "",
     personalName: e.name.personalName,
     templeName: e.name.templeName,
     posthumousName: e.name.posthumousName,
@@ -568,10 +609,29 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     videos: videosByEmperorId.get(e.id) ?? [],
   }));
   const ranksById = computeRanks(baseRecords);
-  allRecordsCache = baseRecords.map((r) => ({
-    ...r,
-    ranks: ranksById.get(r.id)!,
-  }));
+  // 冠称形（「漢の武帝」）は全員ぶん出揃わないと一意性が判定できない。
+  // 同じ王朝の中でぶつかる組にだけ諱を添える（判定と検査は display-name.ts）。
+  const needsSubtitle = resolveQualifiedNameCollisions(
+    baseRecords.map((r) => ({
+      id: r.id,
+      displayName: r.name,
+      dynastyLabel: r.dynastyLabel,
+      subtitle: r.subtitle,
+    })),
+  );
+  allRecordsCache = baseRecords.map((r) => {
+    const disambiguatedName = disambiguatedEmperorName(
+      r.name,
+      r.subtitle,
+      needsSubtitle.has(r.id),
+    );
+    return {
+      ...r,
+      ranks: ranksById.get(r.id)!,
+      disambiguatedName,
+      qualifiedName: qualifiedEmperorName(disambiguatedName, r.dynastyLabel),
+    };
+  });
   return allRecordsCache;
 }
 
@@ -588,23 +648,13 @@ export function getEmperorListRecords(): EmperorListRecord[] {
       searchKanaOf(e, dynastyLabel(e), eraLabelOf(e.dynasty)),
     ]),
   );
-  // 上書きテーブルの打ち間違い・データ側のid変更に気づけるよう存在チェックする
-  // （timeline-river.ts の STREAM_DEFS 被覆assertと同じ方針）。
-  const idSet = new Set(data.emperors.map((e) => e.id));
-  for (const key of Object.keys(CARD_SUBTITLE_OVERRIDES)) {
-    if (!idSet.has(key)) {
-      throw new Error(`CARD_SUBTITLE_OVERRIDES に存在しない皇帝id: ${key}`);
-    }
-  }
   const records = getAllEmperorRecords().map((r) => ({
     id: r.id,
     name: r.name,
     nameRuby: rubyOf(r.name),
     personalName: r.personalName,
-    cardSubtitle: cardSubtitleOf(r.id, r.personalName, r.name),
-    cardSubtitleRuby: cardSubtitleOf(r.id, r.personalName, r.name)
-      ? rubyOf(cardSubtitleOf(r.id, r.personalName, r.name)!)
-      : null,
+    cardSubtitle: r.subtitle,
+    cardSubtitleRuby: r.subtitle ? rubyOf(r.subtitle) : null,
     dynastyLabel: r.dynastyLabel,
     dynastyLabelRuby: rubyOf(r.dynastyLabel),
     eraLabel: r.eraLabel,
@@ -625,6 +675,17 @@ export function getEmperorListRecords(): EmperorListRecord[] {
       throw new Error(
         `cardSubtitle "${r.cardSubtitle}" が searchText に無く検索でヒットしない: ${r.id}`,
       );
+    }
+    // 表示名も同じ理由で検索できること。display-name.ts の上書き表に、データの
+    // どの名称フィールドにも無い呼称を入れると「見えている名前で引けない」状態になる。
+    // **中黒で区切った断片ごとに見る** — 括弧を残す4件（「侯景政権・正平」）は
+    // 表示のときだけ括弧が中黒になるので、連結した全体では searchText に一致しない。
+    for (const part of r.name.split("・")) {
+      if (!r.searchText.includes(part)) {
+        throw new Error(
+          `表示名 "${r.name}" の "${part}" が searchText に無く検索でヒットしない: ${r.id}`,
+        );
+      }
     }
   }
   return records;
@@ -1872,13 +1933,16 @@ export function getConcurrentReigns(): HomeConcurrentReigns {
     yearly.push({ year: y, ids });
   }
 
-  /** 表示名。**`dynastyLabel()` を使う** — 政権と1対1であることをビルド時に検査している
-   *  唯一の王朝ラベルで、同名別政権（隋末の梁2つ・楚2つ）もここで割れる。 */
-  const byId = new Map(data.emperors.map((e) => [e.id, e]));
+  /** 表示名。**冠称形（「漢の武帝」）を使う** — 王朝ラベルは政権と1対1であることを
+   *  ビルド時に検査してあり、同名別政権（隋末の梁2つ・楚2つ）もここで割れる。
+   *  名前の組み立ては display-name.ts の一点に寄せてある（2026-08-02）。 */
+  const qualifiedById = new Map(
+    getAllEmperorRecords().map((r) => [r.id, r.qualifiedName]),
+  );
   const labelOf = (id: string): string => {
-    const e = byId.get(id);
-    if (!e) throw new Error(`getConcurrentReigns: 未知の皇帝 id: ${id}`);
-    return `${e.name.commonName ?? e.id}（${dynastyLabel(e)}）`;
+    const label = qualifiedById.get(id);
+    if (!label) throw new Error(`getConcurrentReigns: 未知の皇帝 id: ${id}`);
+    return label;
   };
 
   // **顔ぶれが変わる年**だけ残す（人数が同じでも代替わりがあれば残す）。人数は変わらないので

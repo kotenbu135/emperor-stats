@@ -114,7 +114,21 @@ export interface EmperorRecord {
   deathAge: number | null;
   /** 在位期間の表示文字列（例: "1908–1912年 / 1917年"）。復位者は期間ごとに区切る。 */
   periodsLabel: string;
-  /** 諱（本名）・廟号・諡号。皇帝一覧の詳細表示用。 */
+  /** 通用名の脇に小さく出す補助名（諱）。通用名に諱が含まれる人物は null。
+   *  導出は lib/display-name.ts の `emperorSubtitle`。 */
+  subtitle: string | null;
+  /** 曖昧さを解いた名前。同じ王朝の中で通用名がぶつかる組（南斉の廃帝3人・
+   *  後漢の少帝2人）にだけ諱が添わる。`<title>`・JSON-LD のように王朝は別に添えるが
+   *  名前そのものが一意である必要がある面で使う。 */
+  disambiguatedName: string;
+  /** 王朝を冠した名前（「漢の武帝」）。**名前の文字列しか置けない面**
+   *  （チャートの軸ラベル・ツールチップ）で使う。カード・表は王朝が隣に出るので使わない。 */
+  qualifiedName: string;
+  /** データ側の呼称の原文（`name.commonName`）。表示名は括弧（爵位・別諡号・別称）を
+   *  落としているので、「廃帝（昌邑王）」の昌邑王のような情報はここにしか残らない。
+   *  個別ページの Person JSON-LD の alternateName に使う。 */
+  commonName: string;
+  /** 諱・廟号・諡号。個別ページの名前ブロックに出す。 */
   personalName: string | null;
   templeName: string | null;
   posthumousName: string | null;
@@ -150,8 +164,8 @@ export interface EmperorListRecord {
   nameRuby: string;
   /** 諱（本名）。肖像なしカードのモノグラム一文字に使う。 */
   personalName: string | null;
-  /** カード1行目に皇帝号と並べる補助名（諱・通用名）。不要な人物はnull。
-   *  導出規則・人物別上書きは lib/card-subtitle.ts を参照。 */
+  /** カード1行目に通用名と並べる補助名（諱）。不要な人物はnull。
+   *  導出規則・人物別上書きは lib/display-name.ts を参照。 */
   cardSubtitle: string | null;
   /** 補助名のふりがな付き（Issue #20）。cardSubtitle が null ならこちらも null。 */
   cardSubtitleRuby: string | null;
