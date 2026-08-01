@@ -11,6 +11,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { NavMenu } from "@/components/layout/nav-menu";
+import { RubyToggle } from "@/components/layout/ruby-toggle";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { cn } from "@/lib/utils";
 
@@ -72,6 +73,9 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             </SheetHeader>
             <div className="px-4 pb-6">
               <NavMenu onNavigate={() => setOpen(false)} />
+              {/* ふりがなの切り替え（Issue #20）。モバイルはヘッダーに置く幅が
+                  無いのでメニューの中に入れる。 */}
+              <RubyToggle className="mt-6" />
             </div>
           </SheetContent>
         </Sheet>
@@ -87,6 +91,11 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
             中国皇帝統計
           </Link>
           <NavMenu />
+          {/* ふりがなの切り替え（Issue #20）はサイドバーの最下部。ナビゲーションの
+              項目ではなく表示の設定なので、mt-auto で本文リンクから離して置く。 */}
+          <div className="mt-auto pt-6">
+            <RubyToggle />
+          </div>
         </div>
       </aside>
 

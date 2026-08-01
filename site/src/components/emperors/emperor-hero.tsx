@@ -16,6 +16,8 @@
 // 非対称は許容する。
 
 import { Portrait } from "@/components/emperors/portrait";
+import { RubyText } from "@/components/ui/ruby-text";
+import { rubyOf } from "@/lib/name-readings";
 import { cardSubtitleOf } from "@/lib/card-subtitle";
 import { dynastyColorHex, dynastyColorSlot } from "@/lib/dynasty-colors";
 import { dynastyContextLabel, type EmperorRecord } from "@/lib/emperor-types";
@@ -81,13 +83,16 @@ export function EmperorHero({ record }: { record: EmperorRecord }) {
                 </span>
               )}
             </p>
-            <h1 className="mt-1.5 flex flex-wrap items-baseline gap-x-3 text-balance font-heading text-page-title font-semibold text-foreground">
-              {record.name}
+            {/* ふりがな（Issue #20）。読みは ../data/name-readings.json、未登録の名前は
+                素通しでルビが付かない。leading-ruby は ON/OFF で行の高さが動かない
+                ようにルビの分の行間を先に確保するためのもの（globals.css）。 */}
+            <h1 className="mt-1.5 flex flex-wrap items-baseline gap-x-3 text-balance font-heading text-page-title font-semibold leading-ruby text-foreground">
+              <RubyText source={rubyOf(record.name)} />
               {/* 補助名を h1 の中に入れるのは、皇帝号（武帝・太宗）だけでは人物が
                   特定できず、諱（劉徹・李世民）で検索されることが多いため。 */}
               {subtitle && (
                 <span className="text-base font-normal text-muted-foreground">
-                  {subtitle}
+                  <RubyText source={rubyOf(subtitle)} />
                 </span>
               )}
             </h1>

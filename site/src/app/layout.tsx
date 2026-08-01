@@ -50,6 +50,15 @@ export default function RootLayout({
       className={`${notoSansJP.variable} ${notoSerifJP.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* ふりがな（Issue #20）の初期状態を最初の描画前に当てる。既定は表示（ON）で、
+            OFF を選んだ人だけ localStorage から復元する。`output: "export"` の
+            静的書き出しなのでサーバー側では分岐できず、React のマウントを待つと
+            ルビが出てから消えてちらつく。 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem('emperor-stats:ruby')==='off')document.documentElement.dataset.ruby='off'}catch(e){}`,
+          }}
+        />
         <SiteShell>{children}</SiteShell>
       </body>
     </html>

@@ -27,6 +27,8 @@ import {
   getEmperorProfile,
   getEmperorStructuredDates,
 } from "@/lib/emperors";
+import { cardSubtitleOf } from "@/lib/card-subtitle";
+import { reportReadingCoverage } from "@/lib/name-readings";
 import {
   absoluteUrl,
   breadcrumbJsonLd,
@@ -39,7 +41,18 @@ import {
 export const dynamicParams = false;
 
 export function generateStaticParams(): { id: string }[] {
-  return getAllEmperorRecords().map((r) => ({ id: r.id }));
+  const records = getAllEmperorRecords();
+  // ふりがな（Issue #20）の進捗をビルドログへ出す。**未完成のまま配信しないための警報**
+  // なので消さないこと（全件そろったら name-readings.ts の rubyOf を例外へ切り替える）。
+  reportReadingCoverage(
+    records.flatMap((r) => [
+      r.name,
+      cardSubtitleOf(r.id, r.personalName, r.name) ?? "",
+      r.dynastyLabel,
+      r.eraLabel,
+    ]),
+  );
+  return records.map((r) => ({ id: r.id }));
 }
 
 /**

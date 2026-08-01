@@ -29,6 +29,11 @@
      供給元は PageHeader / Section / SectionJumpNav に限り、ページ側へ
      mx-auto max-w-* を散らさないこと。全幅が要る節は Section の bleed を使う。 */
   --container-content: 75rem;
+  /* ふりがな（Issue #20）を載せる行の行間。ルビは行の上に出るので、行間が足りないと
+     ブラウザが行の高さを勝手に広げ、トグルの ON/OFF でレイアウトが動く。
+     ルビの分（0.5em＋余白）を先に確保して、出しても消しても行が動かないようにする。
+     `leading-ruby` として使う（Tailwind v4 の --leading-* 名前空間）。 */
+  --leading-ruby: 2.1;
   --color-seal: var(--seal);
   --color-bar: var(--bar);
   --color-bar-campaign: var(--bar-campaign);
@@ -261,6 +266,29 @@
     /* 読み込み途中で縦スクロールバーが出現するとコンテンツ全体が横に
        ずれてCLSになるため、ガター分を最初から確保しておく。 */
     scrollbar-gutter: stable;
+  }
+
+  /*
+   * ふりがな（GitHub Issue #20・docs/site-design/RUBY_PLAN_2026-08-01.md）。
+   *
+   * **rt は常に DOM に置き、ここでの出し入れだけで切り替える。** 実行時に要素を
+   * 足し引きすると行の高さが変わってレイアウトシフトになる。既定は表示（ON）で、
+   * トグルが <html data-ruby="off"> を立てたときだけ消える。
+   * 初期値の当て込みは layout.tsx のインラインスクリプト（静的書き出しのため
+   * サーバー側で分岐できない）。
+   *
+   * ルビはコピーの対象から外す — このサイトは名前をコピーして引用する使い方が
+   * あるため、「拓跋燾たくばつとう」がクリップボードへ入ると実害になる
+   * （<rp> では防げない。ブラウザ差はあるが効く範囲では効く）。
+   */
+  ruby > rt {
+    font-size: 0.5em;
+    font-weight: 400;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  :root[data-ruby="off"] ruby > rt {
+    display: none;
   }
 
   /* Radix系ポップアップ（Dialog/Select等）のスクロールロック（react-remove-scroll）は
