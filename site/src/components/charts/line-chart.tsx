@@ -13,6 +13,7 @@
 //  - 系列名は必ず凡例に出す。`--series-*` の3色は面 #ffffff に対して 3:1 未満で、
 //    「可視ラベルがあること」が免除条件になっている
 
+import { useMemo, useRef, useState } from "react";
 import {
   CartesianGrid,
   Label,
@@ -25,6 +26,11 @@ import {
   YAxis,
 } from "recharts";
 import { cn } from "@/lib/utils";
+
+/** 図の右側の余白（Recharts の margin.right と同じ値。ピクセル→値の換算に使う）。 */
+const MARGIN_RIGHT = 8;
+/** これより狭いドラッグはクリックの誤爆とみなして拡大しない（横軸の単位）。 */
+const MIN_DRAG_SPAN = 2;
 
 /**
  * 図の上に直接置く点と文字（注記）。
@@ -142,6 +148,8 @@ export function LineChart({
   ariaLabel,
   curveType = "linear",
   markers,
+  xDomain,
+  onDragZoom,
 }: {
   data: Record<string, number>[];
   /** 横軸に使うキー。 */
@@ -164,21 +172,75 @@ export function LineChart({
   curveType?: "linear" | "stepAfter" | "monotone";
   /** 図に焼き付ける注記（ホバーでは指せない値を読ませるため）。 */
   markers?: LineMarker[];
+  /** 横軸の表示範囲。省略時はデータ全体。 */
+  xDomain?: [number, number];
+  /**
+   * 図の上をドラッグして範囲を選んだときに呼ばれる。渡すとドラッグ選択が有効になる。
+   * **これはマウス専用の近道**で、タッチ・キーボードでは動かない。呼び出し側は
+   * 必ず別の手段（時代プリセット等）を併置すること。
+   */
+  onDragZoom?: (from: number, to: number) => void;
 }) {
-  return (
-    <div className={cn("w-full", className)}>
-      <div className="h-full w-full" role="img" aria-label={ariaLabel}>
-        <ResponsiveContainer>
-          <RechartsLineChart
-            data={data}
-            margin={{ top: 5, right: 8, bottom: xAxisLabel ? 24 : 4, left: 0 }}
-          >
+  const wrapRef = useRef<HTMLDivElement>(null);
+  // ドラッグ中の帯は**ピクセルで持つ**。値へ直して Recharts の ReferenceArea で
+  // 描くと、マウスが1px動くたびに折れ線ごと再描画される（この図は285点ある）。
+  const [band, setBand] = useState<{ fromPx: number; toPx: number } | null>(null);
+  const dragging = useRef(false);
+
+  const [domainMin, domainMax] = useMemo(() => {
+    if (xDomain) return xDomain;
+    const xs = data.map((d) => d[index]);
+    return [Math.min(...xs), Math.max(...xs)] as [number, number];
+  }, [xDomain, data, index]);
+
+  /** チャート内 x 座標（px）→ 横軸の値。目盛りではなく実座標から出す。 */
+  const valueAtPx = (chartX: number): number => {
+    const width = wrapRef.current?.clientWidth ?? 0;
+    const left = yAxisWidth;
+    const right = width - MARGIN_RIGHT;
+    if (right <= left) return domainMin;
+    const t = Math.min(1, Math.max(0, (chartX - left) / (right - left)));
+    return domainMin + t * (domainMax - domainMin);
+  };
+
+  const endDrag = () => {
+    dragging.current = false;
+    const b = band;
+    setBand(null);
+    if (!b || !onDragZoom) return;
+    const a = valueAtPx(b.fromPx);
+    const z = valueAtPx(b.toPx);
+    const from = Math.round(Math.min(a, z));
+    const to = Math.round(Math.max(a, z));
+    if (to - from >= MIN_DRAG_SPAN) onDragZoom(from, to);
+  };
+
+  // **Recharts の部分は memo 化する。** ドラッグ中は band だけが変わるので、
+  // 同じ要素を返せば React がチャートの再描画ごと飛ばす。
+  const chart = useMemo(
+    () => (
+      <ResponsiveContainer>
+        <RechartsLineChart
+          data={data}
+          margin={{ top: 5, right: MARGIN_RIGHT, bottom: xAxisLabel ? 24 : 4, left: 0 }}
+          onMouseDown={(state) => {
+            if (!onDragZoom || state?.chartX == null) return;
+            dragging.current = true;
+            setBand({ fromPx: state.chartX, toPx: state.chartX });
+          }}
+          onMouseMove={(state) => {
+            if (!dragging.current || state?.chartX == null) return;
+            setBand((b) => (b ? { ...b, toPx: state.chartX as number } : b));
+          }}
+        >
             <CartesianGrid className="stroke-border stroke-1" vertical={false} />
             <XAxis
               dataKey={index}
               type="number"
-              domain={["dataMin", "dataMax"]}
-              ticks={ticks}
+              domain={xDomain ?? ["dataMin", "dataMax"]}
+              // 拡大時は範囲の外を描かない（既定では domain を無視して全部描く）。
+              allowDataOverflow={xDomain !== undefined}
+              ticks={xDomain ? undefined : ticks}
               tickFormatter={tickFormatter}
               tick={{ transform: "translate(0, 6)" }}
               fill=""
@@ -273,8 +335,60 @@ export function LineChart({
                 />
               </ReferenceDot>
             ))}
-          </RechartsLineChart>
-        </ResponsiveContainer>
+        </RechartsLineChart>
+      </ResponsiveContainer>
+    ),
+    // **band を依存に入れないこと。** 入れるとドラッグのたびにチャートが作り直され、
+    // Recharts の外へ帯を出した意味が無くなる（帯は下のオーバーレイが描く）。
+    [
+      data,
+      index,
+      series,
+      ticks,
+      tickFormatter,
+      valueFormatter,
+      labelFormatter,
+      xAxisLabel,
+      yAxisLabel,
+      yAxisWidth,
+      yDomain,
+      curveType,
+      markers,
+      xDomain,
+      onDragZoom,
+    ],
+  );
+
+  return (
+    <div className={cn("w-full", className)}>
+      <div
+        ref={wrapRef}
+        className={cn(
+          "relative h-full w-full",
+          // ドラッグ中に軸ラベルが選択されると帯が消えたように見える。
+          onDragZoom && "select-none",
+          band && "cursor-col-resize",
+        )}
+        role="img"
+        aria-label={ariaLabel}
+        onMouseUp={endDrag}
+        onMouseLeave={() => {
+          if (dragging.current) endDrag();
+        }}
+      >
+        {chart}
+        {/* ドラッグ中の帯。**Recharts の外に描く**（中の ReferenceArea にすると
+            1px 動くたびに折れ線ごと再描画される）。 */}
+        {band ? (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-y-0 bg-foreground/10"
+            style={{
+              left: Math.min(band.fromPx, band.toPx),
+              width: Math.abs(band.toPx - band.fromPx),
+            }}
+          />
+        ) : null}
       </div>
     </div>
   );

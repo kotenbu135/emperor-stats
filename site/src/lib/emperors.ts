@@ -1650,6 +1650,13 @@ export interface HomeConcurrentReigns {
   excluded: { name: string; periodLabel: string }[];
   /** 区間の作り方の内訳。**全在位が区間になる**ことがこの図の前提。 */
   coverage: { total: number; dated: number; filled: number };
+  /**
+   * 拡大の行き先（時代プリセット）。**時代ラベルは `ERA_BY_SECTION` の15区分**で、
+   * サイトの他の面（一覧の時代ジャンプ・個別ページ）と同じ語彙にそろえてある
+   * （`catalogs.eras` の11区分でも新しい呼び名でもない）。
+   * 年の範囲はレコードから測った実測値で、表示範囲の上限で頭を切る。
+   */
+  eraPresets: { label: string; from: number; to: number }[];
 }
 
 /**
@@ -1741,6 +1748,29 @@ export function getConcurrentReigns(): HomeConcurrentReigns {
     if (points[i].endYear === 0) points[i].endYear = -1; // 0年は無い
   }
 
+  // 時代プリセット。並びは元データの収録順（＝時系列）をそのまま使う
+  // （ソートすると「五胡十六国」より「三国」が後ろに来る）。
+  const eraSpans = new Map<string, { from: number; to: number }>();
+  for (const e of data.emperors) {
+    const label = eraLabelOf(e.dynasty);
+    const from = Math.min(...e.reigns.map((r) => r.startYear));
+    const to = Math.max(...e.reigns.map((r) => r.endYear));
+    const cur = eraSpans.get(label);
+    if (!cur) eraSpans.set(label, { from, to });
+    else {
+      cur.from = Math.min(cur.from, from);
+      cur.to = Math.max(cur.to, to);
+    }
+  }
+  const eraPresets = [...eraSpans.entries()]
+    // 表示範囲の外へはみ出す時代（清は溥儀の満洲国で1945年まで伸びる）は頭を切る。
+    .map(([label, s]) => ({
+      label,
+      from: s.from,
+      to: Math.min(s.to, CONCURRENT_LAST_YEAR),
+    }))
+    .filter((p) => p.to > p.from);
+
   const excluded = data.emperors
     .filter((e) => e.reigns.some((r) => r.endYear > CONCURRENT_LAST_YEAR))
     .map((e) => {
@@ -1769,6 +1799,7 @@ export function getConcurrentReigns(): HomeConcurrentReigns {
     },
     excluded,
     coverage: { total, dated, filled },
+    eraPresets,
   };
 }
 
