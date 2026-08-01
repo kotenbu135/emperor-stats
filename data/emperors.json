@@ -90209,9 +90209,11 @@
   {
    "id": "jin-taizu",
    "name": {
-    "personalName": "完顔阿骨打",
+    "personalName": "完顔旻（阿骨打）",
     "commonName": "太祖",
-    "aliases": [],
+    "aliases": [
+     "完顔阿骨打"
+    ],
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝"
@@ -90868,7 +90870,7 @@
   {
    "id": "jin-xizong",
    "name": {
-    "personalName": "完顔亶",
+    "personalName": "完顔亶（合剌）",
     "commonName": "熙宗",
     "aliases": [],
     "posthumousName": null,
@@ -91708,7 +91710,7 @@
   {
    "id": "jin-zhangzong",
    "name": {
-    "personalName": "完顔璟",
+    "personalName": "完顔璟（麻達葛）",
     "commonName": "章宗",
     "aliases": [],
     "posthumousName": null,
@@ -91971,7 +91973,7 @@
   {
    "id": "jin-weishaowang",
    "name": {
-    "personalName": "完顔永済",
+    "personalName": "完顔永済（興勝）",
     "commonName": "衛紹王",
     "aliases": [],
     "posthumousName": null,
@@ -92204,7 +92206,7 @@
   {
    "id": "jin-xuanzong",
    "name": {
-    "personalName": "完顔珣",
+    "personalName": "完顔珣（吾睹補）",
     "commonName": "宣宗",
     "aliases": [],
     "posthumousName": null,
@@ -92911,7 +92913,7 @@
   {
    "id": "jin-aizong",
    "name": {
-    "personalName": "完顔守緒",
+    "personalName": "完顔守緒（寧甲速）",
     "commonName": "哀宗",
     "aliases": [],
     "posthumousName": null,
