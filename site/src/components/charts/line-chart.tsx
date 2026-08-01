@@ -101,6 +101,10 @@ function ChartTooltip({
 }) {
   if (!active || !payload || payload.length === 0) return null;
   const detail = label === undefined ? null : detailFormatter?.(label);
+  // **系列が1本のときは系列名を出さない。** カードの見出しが同じことを言っており、
+  // 「同時に帝号を持っていた人数 10人」と毎回2度読ませることになる（2026-08-01 ユーザー指摘）。
+  // 色の見本も、区別する相手がいないので置かない。
+  const single = series.length === 1;
   return (
     <div className="rounded-md border border-border bg-card text-sm shadow-md">
       <div className="border-b border-inherit px-4 py-2">
@@ -112,6 +116,16 @@ function ChartTooltip({
         {payload.map((item) => {
           const s = series.find((x) => x.key === item.dataKey);
           if (!s || item.value === undefined) return null;
+          if (single) {
+            return (
+              <p
+                key={s.key}
+                className="font-medium tabular-nums text-foreground"
+              >
+                {valueFormatter(item.value)}
+              </p>
+            );
+          }
           return (
             <div
               key={s.key}
@@ -130,12 +144,10 @@ function ChartTooltip({
             </div>
           );
         })}
+        {/* 値に添える中身（同時在位数では在位者の名前）。**図の外の枠には出さない** —
+            指した位置で変わる値なので、ここでしか出せない。 */}
+        {detail}
       </div>
-      {/* 系列の下に添える中身（同時在位数では在位者の名前）。
-          **図の外の枠には出さない** — 指した位置で変わる値なので、ここでしか出せない。 */}
-      {detail ? (
-        <div className="border-t border-inherit px-4 py-2">{detail}</div>
-      ) : null}
     </div>
   );
 }

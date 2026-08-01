@@ -147,7 +147,7 @@ export function ConcurrentPanel({ data }: { data: HomeConcurrentReigns }) {
           const people = peopleByYear.get(Number(v));
           if (!people || people.length === 0) return null;
           return (
-            <p className="max-w-[20rem] text-xs leading-relaxed text-muted-foreground">
+            <p className="max-w-[20rem] pt-0.5 text-xs leading-relaxed text-muted-foreground">
               {people.join("・")}
             </p>
           );
