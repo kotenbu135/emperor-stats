@@ -5,10 +5,10 @@
 
 1. 平文一致 — data/name-readings.json は「平文をキー、ルビ記法を値」に持つ。
    値からルビを剥がした結果がキーと一致すること（親文字の打ち間違いを落とす）
-2. 総ルビ充足 — 紹介文の lead（data/emperor-profiles.json）はルビ注釈の外に漢字を
-   1文字も残さないこと（振り漏れを落とす）。**description はルビを持たず平文**
+2. 総ルビ充足 — 紹介文の lead・body（data/emperor-profiles.json）はルビ注釈の外に
+   漢字を1文字も残さないこと（振り漏れを落とす）。**description はルビを持たず平文**
    （<meta>・JSON-LD にしか出ないので、ルビを書いても画面に出ない）
-3. 固有名詞整合 — lead で振ったルビのうち、親文字が読みテーブルに載っている
+3. 固有名詞整合 — lead・body で振ったルビのうち、親文字が読みテーブルに載っている
    2字以上のものは、テーブルと同じ読みであること（向きは本文→テーブル。
    逆向きが成立しない理由は該当箇所のコメント）
 4. 記法そのもの — 裸の ｜《》 が無いこと、ルビがかなだけで書かれていること
@@ -124,10 +124,12 @@ def main() -> int:
                     "ここはルビを振らず平文で書きます（<meta>・JSON-LD にしか出ないため）"
                 )
 
-        text = profile.get("lead")
-        if text:
+        for field in ("lead", "body"):
+            text = profile.get(field)
+            if not text:
+                continue
             written += 1
-            label = f"emperor-profiles.json「{emperor_id}」の lead"
+            label = f"emperor-profiles.json「{emperor_id}」の {field}"
             check_notation(text, label)
             # 2. 総ルビ充足: ルビ注釈の外に漢字が残っていないこと
             outside = RUBY.sub("", text)

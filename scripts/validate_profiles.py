@@ -5,11 +5,11 @@
 **こちらが見るのは文章としての体裁と、365本を機械的に量産していないこと。**
 
 1. 存在しない皇帝id・空フィールド（前者はサイト側のビルド assert と二重）
-2. 文字数 — lead 150〜600字・description 100〜140字。**ルビを剥がしたあと**で数える
-   （記法込みだと500字の lead が1200字級になり上下限が意味を失う）
+2. 文字数 — lead 80〜250字・body 150〜700字（任意）・description 100〜140字。
+   **ルビを剥がしたあと**で数える（記法込みだと500字が1200字級になり上下限が意味を失う）
 3. description が平文であること（<meta>・JSON-LD にしか出ないのでルビは書かない）
 4. meta.counts.written が profiles の実数と合っていること／lead があるのに basis が空でないこと
-5. 重複 n-gram — 全 lead で 12-gram を数え、3本以上に出るものを**報告する**
+5. 重複 n-gram — 全員の lead＋body で 12-gram を数え、3本以上に出るものを**報告する**
    （エラーにはしない）。Issue #16 の「一人ずつ作成する」に対する唯一の機械的な担保で、
    定型文で埋めた場合ここに一気に出る。共通の言い回し（「数え50歳だった」等）も
    拾うので、件数ではなく中身を人が見るためのもの
@@ -41,11 +41,16 @@ RUBY = re.compile(r"｜([^｜《》]+)《([^｜《》]+)》")
 # 誤検知を放置すると365本ぶんの通知に埋もれて本物の当たりが見えなくなる。
 YEAR = re.compile(r"(?<![0-9])(?:(前)(\d{1,4})|(?:(\d{3,4})))\s*年(?![間目後])")
 
-# lead の幅が広いのは、書ける量が人物によって桁で違うため（2026-08-01 方針転換）。
-# 逸話を交えた人物紹介にしたので、本紀に記述の厚い皇帝は500字級になり、
-# 『遼史』が「即位し、在位13年で没した」しか伝えない西遼仁宗のような人物では
-# 200字も書けない。下限を上に置くと、素材の無い人物で骨組みの使い回しが起きる。
-LEAD_MIN, LEAD_MAX = 150, 600
+# lead はヒーロー内の導入で、body が「人物紹介」節の本文（逸話はこちら）。
+# **分けているのは、ページを開いた時点で文章だけで埋まるのを避けるため**
+# （2026-08-01 ユーザー指示）。ヒーローに500字級を置くと初期表示で盤面まで届かない。
+#
+# body の幅が広いのは、書ける量が人物によって桁で違うため。本紀に記述の厚い皇帝は
+# 500字級になり、『遼史』が「即位し、在位13年で没した」しか伝えない西遼仁宗のような
+# 人物では body を書かない（lead だけで終える）。下限を上に置くと、素材の無い人物で
+# 骨組みの使い回しが起きる。
+LEAD_MIN, LEAD_MAX = 80, 250
+BODY_MIN, BODY_MAX = 150, 700
 DESC_MIN, DESC_MAX = 100, 140
 NGRAM = 12
 NGRAM_REPORT_AT = 3
@@ -104,11 +109,14 @@ def main() -> int:
 
         for field, (lo, hi) in (
             ("lead", (LEAD_MIN, LEAD_MAX)),
+            ("body", (BODY_MIN, BODY_MAX)),
             ("description", (DESC_MIN, DESC_MAX)),
         ):
             text = profile.get(field)
+            # body は任意（史料が数十字しか無い人物では書かない）。
             if text is None:
-                errors.append(f"「{emperor_id}」に {field} がありません")
+                if field != "body":
+                    errors.append(f"「{emperor_id}」に {field} がありません")
                 continue
             if not text.strip():
                 errors.append(f"「{emperor_id}」の {field} が空です")
@@ -140,12 +148,15 @@ def main() -> int:
                 "（<meta>・JSON-LD 専用なので平文で書く）"
             )
 
-        lead = profile.get("lead")
-        if lead:
-            leads[emperor_id] = strip_ruby(lead)
+        # 定型文の検出は lead と body を続けた全文に掛ける。
+        written_text = "".join(
+            strip_ruby(profile.get(f) or "") for f in ("lead", "body")
+        )
+        if written_text:
+            leads[emperor_id] = written_text
 
         known = years_of(record)
-        for text in (strip_ruby(profile.get("lead") or ""), description):
+        for text in (written_text, description):
             for bc, bc_digits, ad_digits in YEAR.findall(text):
                 digits = bc_digits or ad_digits
                 year = -int(digits) if bc else int(digits)
