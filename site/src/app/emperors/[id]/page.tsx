@@ -48,6 +48,9 @@ export function generateStaticParams(): { id: string }[] {
     records.flatMap((r) => [
       r.name,
       cardSubtitleOf(r.id, r.personalName, r.name) ?? "",
+      r.personalName ?? "",
+      r.templeName ?? "",
+      r.posthumousName ?? "",
       r.dynastyLabel,
       r.eraLabel,
     ]),

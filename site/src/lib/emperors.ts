@@ -29,6 +29,7 @@ import {
 
 export * from "@/lib/emperor-types";
 import { kanaExpansionsOf } from "@/lib/kana-readings";
+import { rubyOf } from "@/lib/name-readings";
 import { CARD_SUBTITLE_OVERRIDES, cardSubtitleOf } from "@/lib/card-subtitle";
 import { emperorsJson } from "@/lib/data-source";
 
@@ -594,10 +595,16 @@ export function getEmperorListRecords(): EmperorListRecord[] {
   const records = getAllEmperorRecords().map((r) => ({
     id: r.id,
     name: r.name,
+    nameRuby: rubyOf(r.name),
     personalName: r.personalName,
     cardSubtitle: cardSubtitleOf(r.id, r.personalName, r.name),
+    cardSubtitleRuby: cardSubtitleOf(r.id, r.personalName, r.name)
+      ? rubyOf(cardSubtitleOf(r.id, r.personalName, r.name)!)
+      : null,
     dynastyLabel: r.dynastyLabel,
+    dynastyLabelRuby: rubyOf(r.dynastyLabel),
     eraLabel: r.eraLabel,
+    eraLabelRuby: rubyOf(r.eraLabel),
     dynastyKey: r.dynastyKey,
     dynastyCategory: r.dynastyCategory,
     portraitUrl: r.portraitUrl,
@@ -652,8 +659,10 @@ export function getEmperorTableRecords(): EmperorTableRecord[] {
     .map(({ r }) => ({
       id: r.id,
       name: r.name,
+      nameRuby: rubyOf(r.name),
       personalName: r.personalName,
       dynastyLabel: r.dynastyLabel,
+      dynastyLabelRuby: rubyOf(r.dynastyLabel),
       dynastyKey: r.dynastyKey,
       eraLabel: r.eraLabel,
       periodsLabel: r.periodsLabel,
@@ -1375,6 +1384,7 @@ function topByValue(
       name: r.name,
       personalName: r.personalName,
       dynastyLabel: r.dynastyLabel,
+      dynastyLabelRuby: rubyOf(r.dynastyLabel),
       dynastyKey: r.dynastyKey,
       portraitUrl: r.portraitUrl,
       valueLabel: labelOf(r, value),

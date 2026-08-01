@@ -119,11 +119,11 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 データ側（`../data/emperors.json` への原典調査・`meta.count`/completedBlocks 系の更新・`python3 ../scripts/validate_emperors.py`）に加えて:
 
 1. **`src/lib/kana-readings.ts` の音読みテーブルに新出漢字の読みを追記**（かな検索用・手書きテーブル）。未登録漢字はビルド時に throw するため、漏れるとビルドが落ちる
-1. **`../data/name-readings.json` にふりがなを追記**（Issue #20・表示用のルビ。かな検索の 1 とは別物で、こちらは読みを1つに決め打つ）。**未登録はビルドを止めず、ルビ無しで素通しする**ので落ちない — ビルドログの `ふりがな（Issue #20）: n/m 件` で気づくこと。`python3 ../scripts/validate_readings.py` で記法と親文字を検査する
+1. **`../data/name-readings.json` にふりがなを追記**（Issue #20・表示用のルビ。かな検索の 1 とは別物で、こちらは読みを1つに決め打つ）。**漢字を含む未登録の表示名は `rubyOf` が throw してビルドが落ちる。** 対象の一覧はビルドが `.ruby-displayed.json`（gitignore 対象）へ書き出すので、そこから引く — **時代ラベル15区分・王朝名の時代サフィックス（「呉・三国」）・カードの補助名は `emperors.json` に無い形**なので、data 側だけ見ても足りない。追記後は `python3 ../scripts/validate_readings.py`（記法・親文字一致）
 2. **政権が増えたら `src/lib/dynasty-colors.ts` の `DYNASTY_COLOR_SLOT` に政権 ID を追記**（既存政権に皇帝を足すだけなら不要）。未割当のキーは throw する。スロットの選び方は意味ベース（漢系=4金・北族=1青・晋系=7紫・宋=2緑・明=8赤・隋/梁系=5青緑）で、政権の性格（v3 の `catalogs.regimes[].category`）が「並立政権」「反乱・自称政権」の割拠政権は 0（`--kinship-minor`・無彩色）
 3. **人数のハードコード表記を更新**: サイト表示本体は `stats.emperorCount` から動的導出のためコード変更不要だが、ドキュメント類（`site/AGENTS.md`・ルート `README.md`/`CLAUDE.md`）と `CHANGELOG.md` の人数表記は手動更新
 4. 肖像画を載せる場合は `../docs/site-design/PORTRAITS.md` の「肖像の増減手順」に従う（PD/CC0 のみ・manifest 管理）
-5. `npx tsc --noEmit`・`npm run lint`・`npm run build` で検証（1・2 の漏れはここで検出される）
+5. `npx tsc --noEmit`・`npm run lint`・`npm run build` で検証（1〜3 の漏れはここで検出される）
 
 # ハマりどころ
 

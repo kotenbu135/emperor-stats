@@ -39,6 +39,7 @@ import type {
 import {
   dynastyCategoryOptions,
 } from "@/lib/emperor-types";
+import { RubyText } from "@/components/ui/ruby-text";
 import { toHiragana } from "@/lib/kana";
 import { dynastyColorHex, dynastyColorSlot } from "@/lib/dynasty-colors";
 import { Portrait } from "@/components/emperors/portrait";
@@ -109,18 +110,21 @@ const EmperorCard = memo(function EmperorCard({
       {/* 印を絶対配置するため relative。印は padding の外（左端）に立てる。 */}
       <div className="relative shrink-0 px-2.5 py-2 pl-3">
         <DynastyMark dynastyKey={record.dynastyKey} />
-        <div className="truncate text-sm font-medium text-foreground group-hover:text-seal">
-          {record.name}
+        {/* ふりがな（Issue #20）。leading-ruby は ON/OFF で行の高さが動かないよう
+            ルビの分の行間を先に確保するもの。カード外形は aspect-[3/4] のままで、
+            伸びた文字ブロックのぶん肖像側が縮む。 */}
+        <div className="truncate text-sm font-medium leading-ruby text-foreground group-hover:text-seal">
+          <RubyText source={record.nameRuby} />
           {/* 皇帝号だけでは誰か分かりにくい人物向けの補助名（諱・通用名）。
               導出規則・人物別上書きは lib/card-subtitle.ts。 */}
-          {record.cardSubtitle && (
+          {record.cardSubtitleRuby && (
             <span className="ml-1.5 text-xs font-normal text-muted-foreground">
-              {record.cardSubtitle}
+              <RubyText source={record.cardSubtitleRuby} />
             </span>
           )}
         </div>
-        <div className="truncate text-xs text-muted-foreground">
-          {record.dynastyLabel}
+        <div className="truncate text-xs leading-ruby text-muted-foreground">
+          <RubyText source={record.dynastyLabelRuby} />
         </div>
         {/* 在位期間。同じ時代の中で誰がいつの人かを、カードを開かずに掴めるようにする
             （名前と王朝だけでは統計サイトの一覧として読み取れる情報が乏しい）。
@@ -326,10 +330,10 @@ export function EmperorGrid({
                   <h2
                     // スクロール中の現在地がわかるよう、固定した時代ジャンプバーの
                     // 真下（SECTION_NAV_H）に貼り付ける。
-                    className="sticky z-10 -mx-2 mb-3 border-b border-border bg-background/95 px-2 py-2 font-heading text-base font-semibold text-foreground backdrop-blur-sm"
+                    className="sticky z-10 -mx-2 mb-3 border-b border-border bg-background/95 px-2 py-2 font-heading text-base font-semibold leading-ruby text-foreground backdrop-blur-sm"
                     style={{ top: BELOW_SECTION_NAV }}
                   >
-                    {era}
+                    <RubyText source={list[0].eraLabelRuby} />
                     <span className="ml-2 text-sm font-normal text-muted-foreground">
                       {list.length}名
                     </span>

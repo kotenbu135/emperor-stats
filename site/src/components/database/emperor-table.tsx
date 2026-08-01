@@ -76,6 +76,7 @@ import {
   type DynastyOption,
   type EmperorTableRecord,
 } from "@/lib/emperor-types";
+import { RubyText } from "@/components/ui/ruby-text";
 import { cn } from "@/lib/utils";
 
 declare module "@tanstack/react-table" {
@@ -147,13 +148,24 @@ const COLUMNS: ColumnDef<EmperorTableRecord>[] = [
     cell: ({ row }) => (
       <Link
         href={`/emperors/${row.original.id}`}
-        className="font-medium text-foreground underline-offset-4 hover:text-seal hover:underline"
+        className="font-medium leading-ruby text-foreground underline-offset-4 hover:text-seal hover:underline"
       >
-        {row.original.name}
+        {/* ふりがな（Issue #20）。並べ替え・検索は平文の name のままで、
+            ルビは描画だけに使う。 */}
+        <RubyText source={row.original.nameRuby} />
       </Link>
     ),
   },
-  { accessorKey: "dynastyLabel", header: "王朝" },
+  {
+    accessorKey: "dynastyLabel",
+    header: "王朝",
+    // 並べ替えは平文（accessorKey）のまま。描画だけふりがな付きにする（Issue #20）。
+    cell: ({ row }) => (
+      <span className="leading-ruby">
+        <RubyText source={row.original.dynastyLabelRuby} />
+      </span>
+    ),
+  },
   // 時代・在位回数は列に出さない（2026-07-31 ユーザー指示）。どちらも絞り込みには
   // 残してある — 時代は王朝の上位区分で王朝列から概ね読めるため、在位回数は
   // 2以上が8名しかおらず1列を専有するに見合わないため、選ぶ側だけ残す形にした。

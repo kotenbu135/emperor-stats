@@ -9,8 +9,14 @@
    1文字も残さないこと（振り漏れを落とす）
 3. 固有名詞整合 — 紹介文の中に読みテーブルのキー文字列が現れる箇所は、
    そのルビがテーブルの値と一致すること
-4. 記法そのもの — 裸の ｜《》 が無いこと、ルビがかなだけで書かれていること、
-   読みテーブルのキーが画面に出る文字列として実在すること
+4. 記法そのもの — 裸の ｜《》 が無いこと、ルビがかなだけで書かれていること
+
+**キーが実在するかはここでは検査しない。** 画面に出る文字列の正はサイト側で、
+時代ラベル15区分・王朝名の時代サフィックス（「呉・三国」）・カードの補助名は
+data/emperors.json に無い形で作られる。未登録の表示名は
+site/src/lib/name-readings.ts の rubyOf がビルド時に throw して落とす
+（＝取りこぼしの検出はビルド側が持っている）。ここでは data 由来でないキーの
+件数だけ出す。
 
 捕まえられないのは一般語彙の誤読（「行った」＝いった／おこなった）。そこは
 執筆時の人手レビューに残る（紹介文は編集コンテンツで原典調査の対象外）。
@@ -90,8 +96,7 @@ def main() -> int:
         stripped = strip_ruby(annotated)
         if stripped != plain:
             err(f"{label}: ルビを剥がすと「{stripped}」になります（キーと1文字ずつ一致させる）")
-        if plain not in displayed:
-            err(f"{label}: 画面に出ない文字列です（キーの打ち間違い、または名称の変更）")
+
 
     profiles = json.loads(PROFILES.read_text(encoding="utf-8"))
     emperor_ids = {e["id"] for e in emperors["emperors"]}
@@ -121,7 +126,9 @@ def main() -> int:
 
     total = len(displayed)
     done = len(displayed & set(readings))
-    print(f"読みテーブル: {done}/{total} 件（{len(readings)} 行）")
+    site_only = len(set(readings) - displayed)
+    print(f"読みテーブル: {len(readings)} 行（data 由来の名称 {done}/{total} 件・"
+          f"サイト固有の表示名 {site_only} 件）")
     print(f"紹介文: {written} 本ぶんのルビを検査")
 
     if errors:

@@ -140,13 +140,23 @@ export interface EmperorRecord {
 export interface EmperorListRecord {
   id: string;
   name: string;
+  /** ふりがな付きの表示名（`｜親文字《ルビ》`・Issue #20）。読みが無い名前は name と同じ。
+   *  平文は name のまま持つ — 検索・並べ替えはルビを剥がさずに済ませたい。 */
+  nameRuby: string;
   /** 諱（本名）。肖像なしカードのモノグラム一文字に使う。 */
   personalName: string | null;
   /** カード1行目に皇帝号と並べる補助名（諱・通用名）。不要な人物はnull。
    *  導出規則・人物別上書きは lib/card-subtitle.ts を参照。 */
   cardSubtitle: string | null;
+  /** 補助名のふりがな付き（Issue #20）。cardSubtitle が null ならこちらも null。 */
+  cardSubtitleRuby: string | null;
   dynastyLabel: string;
+  /** 王朝名のふりがな付き（Issue #20）。絞り込みは dynastyKey・表示だけこちらを使う。 */
+  dynastyLabelRuby: string;
   eraLabel: string;
+  /** 時代ラベルのふりがな付き（Issue #20）。グループ見出しの表示にだけ使う
+   *  （グループ化のキーは平文の eraLabel）。 */
+  eraLabelRuby: string;
   dynastyKey: string;
   dynastyCategory: DynastyCategory;
   portraitUrl: string | null;
@@ -187,12 +197,16 @@ export const DATABASE_COLUMN_COUNT = 8;
 export interface EmperorTableRecord {
   id: string;
   name: string;
+  /** ふりがな付きの表示名（`｜親文字《ルビ》`・Issue #20）。並べ替え・検索は name を使う。 */
+  nameRuby: string;
   /** 諱（本名）。列としては描かないが**検索の対象にする**（2026-07-31 ユーザー指示）—
    *  「劉徹」で武帝を引ける。同一人物の別名なので、見えていない値で絞られても
    *  「なぜこの行が残ったか」が分からなくならない（時代・在位回数を検索対象から
    *  外したのとはここが違う）。 */
   personalName: string | null;
   dynastyLabel: string;
+  /** 王朝名のふりがな付き（Issue #20）。並べ替え・絞り込みは dynastyLabel/dynastyKey。 */
+  dynastyLabelRuby: string;
   /** 王朝の絞り込み用（DynastyOption.value と同じ政権 ID。列としては描かない）。 */
   dynastyKey: string;
   /** 時代の絞り込み用（列としては描かない）。 */

@@ -42,21 +42,29 @@ for (const [plain, annotated] of Object.entries(nameReadings)) {
   }
 }
 
+/** 漢字を1文字でも含むか（かなだけの補助名「クビライ」等はルビの対象外）。 */
+const HAS_KANJI = /[\u3400-\u9fff\uf900-\ufaff]|[\u{20000}-\u{3ffff}]/u;
+
 /**
- * 平文にルビ記法を付けて返す。未登録の文字列は**そのまま返す**（ルビ無しで素通し）。
+ * 平文にルビ記法を付けて返す。
  *
- * 717文字列が揃うまではビルドを止めない代わりに、`reportReadingCoverage()` が
- * 残件数を必ず出す。揃った時点でここを例外へ切り替えること
- * （緩いまま配信すると 2026-08-01 の肖像デプロイ事故と同じ形になる）。
+ * **画面に出る漢字入りの文字列が未登録ならビルドを落とす**（2026-08-01 に全885件が
+ * そろったので、素通しの緩いモードは畳んだ）。皇帝を追加収録したときや表示名の
+ * 作り方を変えたときは data/name-readings.json に読みを足すこと。
+ * 緩いまま配信すると、肖像を manifest から外したのに画像ファイルが残った
+ * 2026-08-01 のデプロイ事故と同じ形になる。
  */
 export function rubyOf(plain: string | null | undefined): string {
   if (!plain) return "";
-  return nameReadings[plain] ?? plain;
-}
-
-/** 読みが登録済みか（未登録の一覧を数えるため）。 */
-export function hasReading(plain: string): boolean {
-  return plain in nameReadings;
+  const annotated = nameReadings[plain];
+  if (annotated) return annotated;
+  if (HAS_KANJI.test(plain)) {
+    throw new Error(
+      `ふりがな未登録の表示名です（Issue #20）: 「${plain}」。` +
+        `data/name-readings.json に「｜親文字《ルビ》」で追記してください`,
+    );
+  }
+  return plain;
 }
 
 let reported = false;
@@ -68,17 +76,27 @@ let reported = false;
 export function reportReadingCoverage(displayedNames: Iterable<string>): void {
   if (reported) return;
   reported = true;
-  const all = new Set(displayedNames);
+  // 漢字を含まない文字列（「クビライ」のようなカタカナだけの補助名）はルビの対象外。
+  const all = new Set(
+    [...displayedNames].filter((s) => /[\u3400-\u9fff\uf900-\ufaff]|[\u{20000}-\u{3ffff}]/u.test(s)),
+  );
+  // **画面に出る文字列の正はサイト側**（時代ラベル15区分・王朝名の時代サフィックス・
+  // カードの補助名は data/emperors.json には無い形で作られる）。読みを書き足す人が
+  // 対象の一覧を引けるように、ビルドのたびに書き出す（.gitignore 対象）。
+  try {
+    fs.writeFileSync(
+      path.join(process.cwd(), ".ruby-displayed.json"),
+      JSON.stringify([...all].sort(), null, 1),
+    );
+  } catch {
+    // 書けなくてもビルドは続ける（読みの解決には使っていない）。
+  }
   const missing = [...all].filter((s) => !(s in nameReadings));
   const done = all.size - missing.length;
-  const line = `ふりがな（Issue #20）: ${done}/${all.size} 件`;
-  if (missing.length === 0) {
-    console.log(`${line} — 全件そろいました。rubyOf を例外へ切り替えてください`);
-    return;
-  }
+  // rubyOf は未登録で throw するので、ここに来る時点で missing は空のはず。
+  // 数字を出し続けるのは、面を足したときに分母が増えるのを見えるようにするため。
   console.log(
-    `${line}（未登録 ${missing.length} 件・ルビ無しで素通し）例: ${missing
-      .slice(0, 8)
-      .join("・")}`,
+    `ふりがな（Issue #20）: ${done}/${all.size} 件` +
+      (missing.length > 0 ? `（未登録: ${missing.slice(0, 8).join("・")}）` : ""),
   );
 }
