@@ -62,9 +62,10 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 `/emperors/[id]` の365ページは**皇帝名での検索結果に出ること**が目的（GitHub Issue #16）なので、本文が静的HTMLに載っていることが前提の面。
 
-- **`ui/accordion.tsx` を本文に使わない。** `forceMount` を渡していないので閉じた本文が DOM から消える。畳むなら素の `<details>`（閉じていても DOM に残る）。在位中の出来事は「先頭20件＋残りを `<details>`」で、宋高宗（223件）でも全件が `out/emperors/nansong-gaozong.html` に載る
+- **`ui/accordion.tsx` を本文に使わない。** `forceMount` を渡していないので閉じた本文が DOM から消える。畳むなら素の `<details>`（閉じていても DOM に残る）。在位中の出来事は「先頭10件＋残りを `<details>`」で、宋高宗（142件）でも全件が `out/emperors/nansong-gaozong.html` に載る
 - **受け入れ確認は行数ではなく末尾のテキストでとる。** 畳み方を間違えたときに落ちるのは末尾なので `grep -c` の件数では検出できない
-- **20件の境目は種別フィルタで絞ったあとの集合に対して数える**（元の集合を基準にすると `<details>` が空になる・件数表示が嘘になる）
+- **10件の境目は種別フィルタで絞ったあとの集合に対して数える**（元の集合を基準にすると `<details>` が空になる・件数表示が嘘になる）
+- **年表に反乱鎮圧（`rebellionSuppressionCount`）を出さない** — 被反乱と同じ反乱を両面から数えたもので、両方出すと同じ事件が2行並ぶ（`emperors.ts` の `EVENT_METRICS`。件数の根拠は SITE_DESIGN.md の「反乱鎮圧は年表に出さない」節）。**回数の表（`emperor-facts.tsx`）には両方出る**ので、そちらと混同しないこと
 
 紹介文は `../data/emperor-profiles.json`（`emperors.json` とは別ファイル）。**存在しない皇帝idのキーがあるとビルドが落ちる**（`kana-readings`・`DYNASTY_COLOR_SLOT` と同じ書き間違い検出の assert）。未執筆でもページは成立する作りなので、フィールドが無い皇帝では紹介文の節が出ず `description` は機械生成文に落ちる。
 

@@ -928,7 +928,7 @@ export function getEmperorStructuredDates(id: string): EmperorStructuredDates {
 }
 
 // ---------------------------------------------------------------------------
-// 在位中の出来事年表（個別ページ）。8指標のevents[]を日付順にマージする。
+// 在位中の出来事年表（個別ページ）。7種別のevents[]を日付順にマージする。
 
 type DatePrecision = "year" | "month" | "day";
 
@@ -1017,7 +1017,14 @@ function eventDateOf(ev: RawEvent): {
   };
 }
 
-/** 8指標→出来事種別の対応（表示上の基本順序を兼ねる）。 */
+/**
+ * 出来事種別と指標の対応（表示上の基本順序を兼ねる）。
+ *
+ * **`rebellionSuppressionCount` は年表に出さない。** 反乱鎮圧と被反乱は同じ反乱を
+ * 両面から数えたもので（数え方は /about の用語説明）、1,494件のうち1,483件は
+ * 被反乱側にも同じ反乱が入っている。両方を並べると年表が同じ事件の2行で埋まる。
+ * 件数の多い被反乱（1,853件）だけを残す（回数そのものは基本情報の表に両方出る）。
+ */
 const EVENT_METRICS: {
   kind: EmperorEventKind;
   pick: (e: RawEmperor) => RawCount | undefined;
@@ -1027,7 +1034,6 @@ const EVENT_METRICS: {
   { kind: "empressInstallation", pick: (e) => e.empressInstallationCount },
   { kind: "crownPrinceDeposition", pick: (e) => e.crownPrinceDepositionCount },
   { kind: "personalCampaign", pick: (e) => e.personalCampaignCount },
-  { kind: "rebellionSuppression", pick: (e) => e.rebellionSuppressionCount },
   { kind: "rebellionSuffered", pick: (e) => e.rebellionSufferedCount },
   { kind: "capitalRelocation", pick: (e) => e.capitalRelocationCount },
 ];
@@ -1043,7 +1049,6 @@ function eventSummaryOf(
       if (ev.target) facts.push({ label: "対象", text: ev.target });
       if (ev.outcome) facts.push({ label: "結果", text: ev.outcome });
       return { summary: ev.target ?? "親征", facts };
-    case "rebellionSuppression":
     case "rebellionSuffered":
       if (ev.leader) facts.push({ label: "首謀者", text: ev.leader });
       if (ev.outcome) facts.push({ label: "結果", text: ev.outcome });
@@ -1060,7 +1065,7 @@ function eventSummaryOf(
 }
 
 /**
- * 個別ページ用に、8指標のevents[]を日付順にマージして返す。西暦換算されていない
+ * 個別ページ用に、7種別のevents[]を日付順にマージして返す。西暦換算されていない
  * 日付（元号表記）・日付不明の出来事はソートできないため、種別順・原文順のまま
  * 末尾にまとめる（sortは安定ソート）。
  */

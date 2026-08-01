@@ -303,14 +303,17 @@ export interface EmperorNarrative {
   reignSources: ReignSourceNarrative[];
 }
 
-/** 在位中の出来事年表（個別ページ）の種別キー。8指標のevents[]に対応する。 */
+/**
+ * 在位中の出来事年表（個別ページ）の種別キー。回数系8指標のうち7つに対応する
+ * （反乱鎮圧は被反乱と同じ反乱を数えたものなので年表には出さない。理由は
+ * emperors.ts の EVENT_METRICS のコメント）。
+ */
 export type EmperorEventKind =
   | "eraChange"
   | "amnesty"
   | "empressInstallation"
   | "crownPrinceDeposition"
   | "personalCampaign"
-  | "rebellionSuppression"
   | "rebellionSuffered"
   | "capitalRelocation";
 
@@ -320,7 +323,6 @@ export const emperorEventKindLabels: Record<EmperorEventKind, string> = {
   empressInstallation: "立后",
   crownPrinceDeposition: "皇太子廃立",
   personalCampaign: "親征",
-  rebellionSuppression: "反乱鎮圧",
   rebellionSuffered: "被反乱",
   capitalRelocation: "遷都",
 };

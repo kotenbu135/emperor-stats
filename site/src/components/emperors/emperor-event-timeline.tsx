@@ -1,6 +1,6 @@
 "use client";
 
-// 皇帝個別ページの「在位中の出来事」年表。8指標のevents[]を日付順にマージした
+// 皇帝個別ページの「在位中の出来事」年表。7種別のevents[]を日付順にマージした
 // EmperorEventRow[]（ビルド時にgetEmperorEventsが生成）を、種別バッジ+日付+要約の
 // 行リストで表示する。note全文・結果・出典は行ごとのネイティブdetailsに格納し、
 // クライアント状態は種別フィルタのみ（大赦が数十回ある皇帝向けの件数対策）。
@@ -22,7 +22,6 @@ const KIND_DOT_CLASS: Record<EmperorEventKind, string> = {
   empressInstallation: "bg-series-3",
   crownPrinceDeposition: "bg-series-4",
   personalCampaign: "bg-series-6",
-  rebellionSuppression: "bg-series-7",
   rebellionSuffered: "bg-series-8",
   capitalRelocation: "bg-series-2",
 };
@@ -34,7 +33,6 @@ const KIND_ORDER: EmperorEventKind[] = [
   "empressInstallation",
   "crownPrinceDeposition",
   "personalCampaign",
-  "rebellionSuppression",
   "rebellionSuffered",
   "capitalRelocation",
 ];
@@ -105,17 +103,18 @@ function EventRow({ row }: { row: EmperorEventRow }) {
 }
 
 /**
- * 既定で開いたまま出す件数（2026-08-01 ユーザー決定）。
+ * 既定で開いたまま出す件数（2026-08-01 ユーザー決定。当初20件→10件へ変更）。
  *
- * 件数は中央値9件だが宋高宗223件・光緒帝116件・煬帝101件があり、20件以上が102名。
- * この値なら上位3名以外はほぼ全件がそのまま見え、長い人だけが畳まれる。
+ * 反乱鎮圧を落としたあとの件数は中央値8件・最大142件（宋高宗）で、10件以上が161名・
+ * 20件以上が72名。10件なら半数近くはそのまま全件が見え、長い人は最初の画面で
+ * 年表が終わらないという状態にならない。
  *
  * **残りは Radix の Accordion ではなく素の `<details>` に入れる。** ui/accordion.tsx は
- * forceMount を渡していないので閉じた本文が DOM から消え、223件の日付付きテキストが
+ * forceMount を渡していないので閉じた本文が DOM から消え、142件の日付付きテキストが
  * 静的HTMLから丸ごと落ちる（`<details>` は閉じていても DOM に残る）。個別ページは
  * 皇帝名での検索結果に出ることが目的なのでここは動かせない。
  */
-const INITIAL_VISIBLE = 20;
+const INITIAL_VISIBLE = 10;
 
 export function EmperorEventTimeline({ rows }: { rows: EmperorEventRow[] }) {
   const [activeKind, setActiveKind] = useState<EmperorEventKind | null>(null);
@@ -132,8 +131,8 @@ export function EmperorEventTimeline({ rows }: { rows: EmperorEventRow[] }) {
   }, [rows]);
   const visible =
     activeKind === null ? rows : rows.filter((r) => r.kind === activeKind);
-  // **20件の境目は種別で絞ったあとの集合に対して数える。** 元の集合を基準にすると、
-  // 223件を5件に絞った状態で details が空になったり「残り203件」の嘘の件数が出る。
+  // **10件の境目は種別で絞ったあとの集合に対して数える。** 元の集合を基準にすると、
+  // 142件を5件に絞った状態で details が空になったり「残り132件」の嘘の件数が出る。
   const head = visible.slice(0, INITIAL_VISIBLE);
   const rest = visible.slice(INITIAL_VISIBLE);
 
