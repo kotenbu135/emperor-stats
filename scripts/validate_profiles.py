@@ -13,9 +13,9 @@
    （エラーにはしない）。Issue #16 の「一人ずつ作成する」に対する唯一の機械的な担保で、
    定型文で埋めた場合ここに一気に出る。共通の言い回し（「数え50歳だった」等）も
    拾うので、件数ではなく中身を人が見るためのもの
-6. 在位年 — 本文に出る「前221年」「1735年」のような年が emperors.json の在位年・
-   生没年のどれかと一致すること。**在位期間の外の年に言及することはある**
-   （即位前の経歴・後世の評価）ので、レコードのどの年とも一致しない年だけ報告する
+6. 在位年 — 本文に出る「前221年」「1735年」のような年が、emperors.json の生没年・
+   在位年から作った範囲の内側にあること。**在位期間の外の年に言及することはある**
+   （即位前の経歴・後世の評価）ので、範囲の外の年だけを報告する
 
 使い方: python3 scripts/validate_profiles.py
 """
@@ -97,6 +97,19 @@ def years_of(e: dict) -> set[int]:
     return out
 
 
+def span_of(years: set[int]) -> tuple[int, int] | None:
+    """生年から没年（または在位の端）までの範囲。
+
+    **在位のあいだの出来事は、端の年以外にも当然言及する。** 端の年しか
+    known に入れないと「前154年の呉楚七国の乱」のような正しい記述が全部
+    報告に上がり、365本ぶんが積み上がった時点で本物の当たりが埋もれる。
+    範囲の外——即位前の経歴・後世の評価——だけを報告の対象にする。
+    """
+    if not years:
+        return None
+    return min(years), max(years)
+
+
 def main() -> int:
     emperors = json.loads(EMPERORS.read_text(encoding="utf-8"))
     by_id = {e["id"]: e for e in emperors["emperors"]}
@@ -159,14 +172,15 @@ def main() -> int:
             leads[emperor_id] = written_text
 
         known = years_of(record)
+        span = span_of(known)
         for text in (written_text, description):
             for bc, bc_digits, ad_digits in YEAR.findall(text):
                 digits = bc_digits or ad_digits
                 year = -int(digits) if bc else int(digits)
-                if known and year not in known:
+                if span and not span[0] <= year <= span[1]:
                     notices.append(
                         f"「{emperor_id}」の本文にある{'前' if bc else ''}{digits}年は"
-                        f"レコードの在位年・生没年のどれとも一致しません"
+                        f"レコードの生没年・在位年の範囲の外です"
                     )
 
     written = len(profiles)
