@@ -84,6 +84,24 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 **ESLint の `no-unused-vars` は使われていない export を報告しない。** ページを消したあとは export ごとに `grep -rn '<名前>' src/` で消費者を数えること（lint が 0 error でも死んだ export が残る）。
 
+## 反応（pending）の作りで守ること
+
+2026-08-01 に足した「押した／打った反応」（設計の記録は SITE_DESIGN.md の
+「インタラクションの強化」節）。壊すと**画面は動くが目的だけが消える**ので、
+触るときは次を保つ。
+
+- **スピナーには必ず `motion-reduce:hidden` を付ける。** `globals.css` の
+  reduced-motion 一括指定は `animation-iteration-count: 1` なので、無限ループの
+  スピナーは1回転して固まる。その環境では出さず `sr-only` の文言で伝える
+- **`useLinkStatus` は `<Link>` の子孫でしか使えない**（`components/layout/link-pending.tsx`）。
+  カード本体・行本体で呼ばない — `EmperorCard` の memo が外れる。**待っていない間は
+  何も描かない**（365枚ぶんのスピナーを静的HTMLへ載せない）
+- **絞り込みの deferred は「条件まとめ」1つに載せる。** `useMemo` で束ねた
+  オブジェクトを `useDeferredValue` へ通し、`filters !== deferredFilters` を
+  「結果が古い」の判定に使う。個別の state を deferred にすると、コントロールの
+  表示まで後追いになって選んだ値が遅れて出る
+- **チップ（効いている条件）は生の state から作る**（deferred から作ると外した条件が残って見える）
+
 ## shadcn CLI を叩くときの注意
 
 **`npx shadcn init` は実行しない。** このプロジェクトは CLI から見ると未設定（`config: null`）で、`init` は `globals.css` を書き換える。パレットは受領値を無改変で入れてあるので上書きさせない。部品を足すときも `--dry-run` / `--diff` で差分を見てから。

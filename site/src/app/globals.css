@@ -310,8 +310,12 @@
    * animation: none にはしないこと — Radix は animationend を待って要素を外すので、
    * アニメーションを消すと閉じたはずのダイアログが DOM に残る。ごく短い時間に
    * 潰して animationend は必ず発火させる。
-   * 無限ループのアニメーション（スピナー等）は現在ゼロなので
-   * animation-iteration-count: 1 で固まる箇所は無い（追加するときは要再検討）。
+   * **無限ループのアニメーション（スピナー）はここでは救えない** —
+   * animation-iteration-count: 1 が効いて1回転で止まり、中途半端な角度の
+   * 記号が残る。2026-08-01 に入れた遷移待ち・絞り込み中のスピナーは、
+   * この指定に頼らず呼び出し側で `motion-reduce:hidden` を付けて
+   * 出さないようにしてある（状態は sr-only の文言と面の変化で伝える）。
+   * スピナーを足すときは同じ扱いにすること。
    */
   @media (prefers-reduced-motion: reduce) {
     *,

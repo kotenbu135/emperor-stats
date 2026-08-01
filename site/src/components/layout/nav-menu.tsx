@@ -9,6 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { LinkPendingDot } from "@/components/layout/link-pending";
 import { cn } from "@/lib/utils";
 import { navCategories } from "@/lib/nav-data";
 
@@ -96,6 +97,9 @@ function NavAnchor({
       )}
     >
       {children}
+      {/* 押したメニュー項目だけに出る遷移待ち（/database は365行を組み立てるので
+          押してから間が空く）。待っていない間は何も描かない。 */}
+      <LinkPendingDot />
     </Link>
   );
 }
@@ -153,6 +157,7 @@ export function NavMenu({ onNavigate }: { onNavigate?: () => void }) {
                   )}
                 >
                   {category.label}
+                  <LinkPendingDot />
                 </Link>
                 {/* ナビは見出しではないので Radix 既定の h3 で包まない
                     （トリガーはシェブロンだけでテキストを持たないため、包むと

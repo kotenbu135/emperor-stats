@@ -27,14 +27,7 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
-import {
-  ArrowDown,
-  ArrowUp,
-  ChevronsUpDown,
-  Columns3,
-  Check,
-  Search,
-} from "lucide-react";
+import { ArrowDown, ArrowUp, ChevronsUpDown, Columns3 } from "lucide-react";
 import {
   flexRender,
   getCoreRowModel,
@@ -46,7 +39,6 @@ import {
   type VisibilityState,
 } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -55,10 +47,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
   TableBody,
   TableCell,
@@ -66,7 +68,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { FilterField } from "@/components/charts/chart-filter-controls";
+import {
+  FilterChips,
+  FilterField,
+  NoResults,
+  ResultCount,
+  SearchField,
+  type FilterChip,
+} from "@/components/charts/chart-filter-controls";
+import { LinkPendingDot } from "@/components/layout/link-pending";
 import { useHorizontalScrollEdges } from "@/components/charts/horizontal-scroll-hint";
 import { DynastyCombobox } from "@/components/charts/dynasty-combobox";
 import {
@@ -153,6 +163,8 @@ const COLUMNS: ColumnDef<EmperorTableRecord>[] = [
         {/* ふりがな（Issue #20）。並べ替え・検索は平文の name のままで、
             ルビは描画だけに使う。 */}
         <RubyText source={row.original.nameRuby} />
+        {/* 押した行だけに出る遷移待ち（待っていない間は何も描かない）。 */}
+        <LinkPendingDot />
       </Link>
     ),
   },
@@ -228,6 +240,38 @@ const COLUMNS: ColumnDef<EmperorTableRecord>[] = [
   },
 ];
 
+/**
+ * 見出しのツールチップに出す「並べ替えの鍵」（2026-08-01）。
+ *
+ * この2列は**表示している文字列と並べ替えのキーが違う**。列に出ている文字を
+ * そのまま並べても意図した順にならないためだが、押した側からは順番の理由が
+ * 読めないので、その場で明かす。**`title` 属性の置き換えではない** —
+ * 即位経路の全文・復位者の全期間はセルの `title` と読み上げ用テキストが
+ * 持ち続ける（Radix のツールチップはタッチで出ないため、そちらは動かせない）。
+ */
+/**
+ * 見出しを押すと次に何が起きるかの文言。TanStack の並べ替えは
+ * 「1回目→2回目→解除」の3周期で、1回目の向きは列ごとに違う
+ * （数値列は降順から・`sortDescFirst: false` を付けた在位期間は昇順から）。
+ * 押す前にどちらへ回るかは画面から読めないので、その場で出す。
+ */
+function sortActionLabel(
+  firstDesc: boolean,
+  sorted: false | "asc" | "desc",
+): string {
+  if (sorted === false) {
+    return firstDesc ? "クリックで降順に並べ替え" : "クリックで昇順に並べ替え";
+  }
+  const second = firstDesc ? "asc" : "desc";
+  if (sorted === second) return "クリックで並べ替えを解除";
+  return second === "asc" ? "クリックで昇順に並べ替え" : "クリックで降順に並べ替え";
+}
+
+const SORT_HINT: Record<string, string> = {
+  periodsLabel: "並べ替えの鍵は最初の在位の開始年",
+  reignApproxDays: "並べ替えの鍵は在位日数",
+};
+
 /** URL の `?sort=` を照合するための列 id 集合。id 未指定の列は accessorKey が id になる。 */
 const COLUMN_IDS = new Set(
   COLUMNS.map((c) => c.id ?? ("accessorKey" in c ? String(c.accessorKey) : "")),
@@ -256,9 +300,22 @@ export function EmperorTable({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
-  // 入力欄の反応を優先し、365行の絞り込み再レンダリングは低優先度で追従させる
-  // （皇帝一覧のグリッドと同じ方針）。
-  const deferredQuery = useDeferredValue(query);
+  // 操作の反応を優先し、365行の絞り込み再レンダリングは低優先度で追従させる
+  // （皇帝一覧のグリッドと同じ方針・2026-08-01 に検索語だけでなく4条件まとめへ広げた）。
+  // コントロールの表示は生の state（即時）、表は deferred（後追い）。
+  const filters = useMemo(
+    () => ({ query, eraValue, dynastyValue, reignFilter }),
+    [query, eraValue, dynastyValue, reignFilter],
+  );
+  const deferredFilters = useDeferredValue(filters);
+  /** 表が1つ前の条件の結果であるあいだ true。 */
+  const stale = filters !== deferredFilters;
+  const clearAll = useCallback(() => {
+    setQuery("");
+    setEraValue("all");
+    setDynastyValue("all");
+    setReignFilter("all");
+  }, []);
 
   // 時代の選択肢は eraOrder（時代順の定数）から、実際にデータにあるものだけ出す。
   const eras = useMemo(() => {
@@ -298,11 +355,8 @@ export function EmperorTable({
   );
 
   const filtered = useMemo(() => {
-    const tokens = deferredQuery
-      .normalize("NFKC")
-      .trim()
-      .split(/\s+/)
-      .filter(Boolean);
+    const { query, eraValue, dynastyValue, reignFilter } = deferredFilters;
+    const tokens = query.normalize("NFKC").trim().split(/\s+/).filter(Boolean);
     return records.filter((r, i) => {
       if (eraValue !== "all" && r.eraLabel !== eraValue) return false;
       if (dynastyValue !== "all" && r.dynastyKey !== dynastyValue) return false;
@@ -310,7 +364,39 @@ export function EmperorTable({
       if (tokens.length === 0) return true;
       return tokens.every((t) => searchTargets[i].includes(t));
     });
-  }, [records, searchTargets, deferredQuery, eraValue, dynastyValue, reignFilter]);
+  }, [records, searchTargets, deferredFilters]);
+
+  // 効いている条件のチップ。ラベルは表の見た目（deferred）ではなく選択の
+  // 生の値から作る（外した瞬間に消えないと効いていないように見えるため）。
+  const chips: FilterChip[] = [];
+  if (query.trim()) {
+    chips.push({
+      key: "q",
+      label: `検索「${query.trim()}」`,
+      onRemove: () => setQuery(""),
+    });
+  }
+  if (eraValue !== "all") {
+    chips.push({
+      key: "era",
+      label: `時代: ${eraValue}`,
+      onRemove: () => setEraValue("all"),
+    });
+  }
+  if (dynastyValue !== "all") {
+    chips.push({
+      key: "dynasty",
+      label: `王朝: ${dynastyOptions.find((o) => o.value === dynastyValue)?.label ?? dynastyValue}`,
+      onRemove: () => setDynastyValue("all"),
+    });
+  }
+  if (reignFilter === "restoration") {
+    chips.push({
+      key: "reign",
+      label: "復位した皇帝だけ",
+      onRemove: () => setReignFilter("all"),
+    });
+  }
 
   // 絞り込みと並べ替えを URL クエリ（?q=&era=&dynasty=&reign=&sort=&order=）と同期する。
   // 共有・リロード・戻るで状態が消えないようにするためと、**旧 `/reign` の2本のリンクの
@@ -343,17 +429,21 @@ export function EmperorTable({
       return;
     }
     const params = new URLSearchParams();
-    if (deferredQuery.trim()) params.set("q", deferredQuery.trim());
-    if (eraValue !== "all") params.set("era", eraValue);
-    if (dynastyValue !== "all") params.set("dynasty", dynastyValue);
-    if (reignFilter !== "all") params.set("reign", reignFilter);
+    if (deferredFilters.query.trim())
+      params.set("q", deferredFilters.query.trim());
+    if (deferredFilters.eraValue !== "all")
+      params.set("era", deferredFilters.eraValue);
+    if (deferredFilters.dynastyValue !== "all")
+      params.set("dynasty", deferredFilters.dynastyValue);
+    if (deferredFilters.reignFilter !== "all")
+      params.set("reign", deferredFilters.reignFilter);
     if (sorting.length > 0) {
       params.set("sort", sorting[0].id);
       params.set("order", sorting[0].desc ? "desc" : "asc");
     }
     const qs = params.toString();
     history.replaceState(null, "", qs ? `?${qs}` : window.location.pathname);
-  }, [deferredQuery, eraValue, dynastyValue, reignFilter, sorting]);
+  }, [deferredFilters, sorting]);
 
   const table = useReactTable({
     data: filtered,
@@ -415,17 +505,12 @@ export function EmperorTable({
           幅は列か固定値から決まるので、Webフォント読込による折り返しずれ（CLS）は起きない。 */}
       <div className="mb-4 grid grid-cols-2 items-end gap-x-3 gap-y-3 sm:flex sm:flex-wrap sm:gap-4">
         <div className="col-span-2 sm:col-auto">
-          <FilterField label="検索">
-            <div className="relative">
-              <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="名前・王朝など"
-                className="w-full pl-8 sm:w-[220px]"
-              />
-            </div>
-          </FilterField>
+          <SearchField
+            value={query}
+            onChange={setQuery}
+            placeholder="名前・王朝など"
+            ariaLabel="表を検索"
+          />
         </div>
         <FilterField label="時代">
           <Select
@@ -464,24 +549,39 @@ export function EmperorTable({
             triggerWidthClass="w-full sm:w-[200px]"
           />
         </FilterField>
-        {/* 旧 /reign の「復位者一覧」に当たる絞り込み。在位回数2回以上＝復位した皇帝。 */}
+        {/* 旧 /reign の「復位者一覧」に当たる絞り込み。在位回数2回以上＝復位した皇帝。
+            2026-08-01: 2択のセレクト（開いて選ぶ＝2手）から地続きのトグルへ。
+            選択肢が2つしかない絞り込みは、開く前から両方見えているほうが速い。 */}
         <FilterField label="在位回数">
-          <Select
+          <ToggleGroup
+            type="single"
             value={reignFilter}
-            onValueChange={(v) => setReignFilter(v as "all" | "restoration")}
+            // 選択中の項目をもう一度押すと空文字が来る。絞り込みが「どれでもない」
+            // 状態は無いので、その場合は現在の値を保つ。
+            onValueChange={(v) => {
+              if (v) setReignFilter(v as "all" | "restoration");
+            }}
+            variant="outline"
+            spacing={0}
+            aria-label="在位回数で絞り込み"
+            className="w-full sm:w-auto"
           >
-            <SelectTrigger className="w-full sm:w-[170px]" aria-label="在位回数で絞り込み">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">すべて</SelectItem>
-              <SelectItem value="restoration">復位した皇帝だけ</SelectItem>
-            </SelectContent>
-          </Select>
+            <ToggleGroupItem value="all" className="flex-1 sm:flex-none">
+              すべて
+            </ToggleGroupItem>
+            <ToggleGroupItem value="restoration" className="flex-1 sm:flex-none">
+              復位した皇帝だけ
+            </ToggleGroupItem>
+          </ToggleGroup>
         </FilterField>
         <FilterField label="列">
-          <Popover>
-            <PopoverTrigger asChild>
+          {/* 2026-08-01: 自前の Popover ＋ aria-pressed のボタン列から
+              DropdownMenu の CheckboxItem へ。矢印キーでの移動・チェック状態の
+              読み上げ（aria-checked）が部品側に入る。**選んでも閉じない**
+              （onSelect を止める）— 2列・3列と続けて隠すのが普通の使い方なので、
+              1つ押すたびに開き直させない。 */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
                 className="w-full justify-between sm:w-[150px]"
@@ -490,39 +590,34 @@ export function EmperorTable({
                 <Columns3 data-icon="inline-start" />
                 {hiddenCount === 0 ? "すべて表示" : `${hiddenCount}列を非表示`}
               </Button>
-            </PopoverTrigger>
-            <PopoverContent align="start" className="w-[200px] p-1">
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-[200px]">
+              <DropdownMenuLabel>表示する列</DropdownMenuLabel>
+              <DropdownMenuSeparator />
               {hideableColumns.map((column) => (
-                <button
+                <DropdownMenuCheckboxItem
                   key={column.id}
-                  type="button"
-                  onClick={() => column.toggleVisibility()}
-                  aria-pressed={column.getIsVisible()}
-                  className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring"
+                  checked={column.getIsVisible()}
+                  onCheckedChange={(v) => column.toggleVisibility(!!v)}
+                  onSelect={(e) => e.preventDefault()}
                 >
-                  <Check
-                    className={cn(
-                      "size-4 shrink-0",
-                      column.getIsVisible() ? "text-seal" : "invisible",
-                    )}
-                  />
                   {columnLabel(column.id)}
-                </button>
+                </DropdownMenuCheckboxItem>
               ))}
-            </PopoverContent>
-          </Popover>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </FilterField>
-        <span className="col-span-2 text-sm text-muted-foreground sm:col-auto sm:pb-2">
+        <ResultCount pending={stale} className="col-span-2 sm:col-auto sm:pb-2">
           {filtered.length === records.length
             ? `全${records.length}名を表示中`
             : `${filtered.length}名を表示中（全${records.length}名）`}
-        </span>
+        </ResultCount>
       </div>
 
+      <FilterChips chips={chips} onClearAll={clearAll} />
+
       {filtered.length === 0 ? (
-        <p className="py-10 text-sm text-muted-foreground">
-          条件に一致する皇帝が見つかりませんでした。
-        </p>
+        <NoResults onClearAll={clearAll} />
       ) : (
         /* この箱が持つスクロールは**横だけ**（2026-07-31 ユーザー指示）。縦は
            ページのスクロールに一本化する — 箱の中に縦スクロールを作ると、
@@ -542,6 +637,11 @@ export function EmperorTable({
           )}
         >
           <table ref={tableRef} className="w-full caption-bottom text-sm">
+            {/* ツールチップを使うのは見出しの並べ替えボタン8つだけなので、
+                Provider は layout ではなくここに置く（全ページに client 境界を
+                1枚増やさない）。開くまでの待ちは既定の 0ms ではなく 300ms —
+                表の上を横切るたびに出ると読むのを邪魔する。 */}
+            <TooltipProvider delayDuration={300}>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id} className="hover:bg-transparent">
@@ -584,26 +684,48 @@ export function EmperorTable({
                         )}
                       >
                         {canSort ? (
-                          <button
-                            type="button"
-                            onClick={header.column.getToggleSortingHandler()}
-                            className={cn(
-                              "-mx-1 inline-flex items-center gap-1 rounded-md px-1 py-0.5 hover:text-seal focus-visible:outline-2 focus-visible:outline-ring",
-                              // 右寄せの列は矢印を見出しの左に置く（右端は数値の
-                              // 揃え位置なので、そこに記号を挟むと桁の縦線が濁る）。
-                              header.column.columnDef.meta?.align === "right" &&
-                                "flex-row-reverse",
-                            )}
-                          >
-                            {label}
-                            {sorted === "asc" ? (
-                              <ArrowUp className="size-3.5 text-seal" />
-                            ) : sorted === "desc" ? (
-                              <ArrowDown className="size-3.5 text-seal" />
-                            ) : (
-                              <ChevronsUpDown className="size-3.5 text-muted-foreground/60" />
-                            )}
-                          </button>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <button
+                                type="button"
+                                onClick={header.column.getToggleSortingHandler()}
+                                className={cn(
+                                  "-mx-1 inline-flex items-center gap-1 rounded-md px-1 py-0.5 hover:text-seal focus-visible:outline-2 focus-visible:outline-ring",
+                                  // 右寄せの列は矢印を見出しの左に置く（右端は数値の
+                                  // 揃え位置なので、そこに記号を挟むと桁の縦線が濁る）。
+                                  header.column.columnDef.meta?.align ===
+                                    "right" && "flex-row-reverse",
+                                )}
+                              >
+                                {label}
+                                {sorted === "asc" ? (
+                                  <ArrowUp className="size-3.5 text-seal" />
+                                ) : sorted === "desc" ? (
+                                  <ArrowDown className="size-3.5 text-seal" />
+                                ) : (
+                                  <ChevronsUpDown className="size-3.5 text-muted-foreground/60" />
+                                )}
+                              </button>
+                            </TooltipTrigger>
+                            <TooltipContent
+                              side="bottom"
+                              sideOffset={6}
+                              // 既定は1行の横並び。2行出す列があるので縦に積む。
+                              className="flex-col items-start gap-0.5 text-left"
+                            >
+                              <span>
+                                {sortActionLabel(
+                                  header.column.getFirstSortDir() === "desc",
+                                  sorted,
+                                )}
+                              </span>
+                              {SORT_HINT[header.column.id] && (
+                                <span className="text-background/70">
+                                  {SORT_HINT[header.column.id]}
+                                </span>
+                              )}
+                            </TooltipContent>
+                          </Tooltip>
                         ) : (
                           label
                         )}
@@ -613,6 +735,7 @@ export function EmperorTable({
                 </TableRow>
               ))}
             </TableHeader>
+            </TooltipProvider>
             <TableBody>
               {table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} className="group">

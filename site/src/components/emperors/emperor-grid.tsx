@@ -13,6 +13,7 @@
 
 import {
   memo,
+  useCallback,
   useDeferredValue,
   useEffect,
   useMemo,
@@ -20,8 +21,6 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -29,8 +28,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DynastyCategoryHint, FilterField } from "@/components/charts/chart-filter-controls";
+import {
+  DynastyCategoryHint,
+  FilterChips,
+  FilterField,
+  NoResults,
+  ResultCount,
+  SearchField,
+  type FilterChip,
+} from "@/components/charts/chart-filter-controls";
 import { DynastyCombobox } from "@/components/charts/dynasty-combobox";
+import { LinkPendingOverlay } from "@/components/layout/link-pending";
 import type {
   DynastyCategory,
   DynastyOption,
@@ -94,8 +102,12 @@ const EmperorCard = memo(function EmperorCard({
       // 文字ブロックの高さが幅に比例しない（3行で常に68px）ため — 肖像を固定比に
       // すると狭い画面ほどカードが縦に伸びる。この持ち方なら肖像枠は 0.98(1440px)〜
       // 1.11(390px) のほぼ正方形に収まる。
-      className="group flex aspect-[3/4] flex-col overflow-hidden rounded-md border border-border bg-card text-left transition-[translate,border-color] duration-150 ease-out hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring motion-safe:hover:-translate-y-px motion-safe:hover:shadow-sm motion-reduce:transition-none"
+      className="group relative flex aspect-[3/4] flex-col overflow-hidden rounded-md border border-border bg-card text-left transition-[translate,border-color] duration-150 ease-out hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring motion-safe:hover:-translate-y-px motion-safe:hover:shadow-sm motion-reduce:transition-none"
     >
+      {/* 押した1枚だけに出る遷移待ち（画面外のカードはプリフェッチが効かないので
+          押してから間が空く）。待っていない間は何も描かないので、365枚の
+          静的HTMLは変わらない。 */}
+      <LinkPendingOverlay />
       {/* min-h-0 が無いと flex アイテムの既定 min-height:auto で肖像が縮まず、
           カードが3:4を超えて伸びる。 */}
       <div className="relative min-h-0 flex-1 overflow-hidden">
@@ -147,9 +159,26 @@ export function EmperorGrid({
   const [query, setQuery] = useState("");
   const [dynastyValue, setDynastyValue] = useState("all");
   const [categoryValue, setCategoryValue] = useState<DynastyCategory | "all">("all");
-  // 入力欄の反応を優先し、グリッドの絞り込み再レンダリングは低優先度で追従させる
-  // （1文字ごとに364カードの再レンダリングがキー入力をブロックしないように）。
-  const deferredQuery = useDeferredValue(query);
+
+  // 操作の反応を優先し、グリッドの絞り込み再レンダリングは低優先度で追従させる。
+  // **後追いさせる対象を検索語だけでなく3条件まとめに広げた（2026-08-01）** —
+  // 王朝・区分のセレクトは即時反映で、選んだ瞬間に365枚の再レンダリングが
+  // 走ってポップオーバーの閉じ方が固まっていた。コントロールの表示は生の
+  // state（即時）、グリッドは deferred（後追い）と持ち場を分ける。
+  const filters = useMemo(
+    () => ({ query, dynastyValue, categoryValue }),
+    [query, dynastyValue, categoryValue],
+  );
+  const deferredFilters = useDeferredValue(filters);
+  /** 画面のグリッドが1つ前の条件の結果であるあいだ true。 */
+  const stale = filters !== deferredFilters;
+  const hasFilter =
+    query.trim() !== "" || dynastyValue !== "all" || categoryValue !== "all";
+  const clearAll = useCallback(() => {
+    setQuery("");
+    setDynastyValue("all");
+    setCategoryValue("all");
+  }, []);
 
   // 絞り込み状態をURLクエリ（?q=&dynasty=&category=）と同期する。共有・リロード・
   // 個別ページからの戻りで状態が消えないようにするため。復元はhydration不一致を
@@ -186,37 +215,68 @@ export function EmperorGrid({
     const path = window.location.pathname;
     if (!(path.endsWith("/emperors") || path.endsWith("/emperors/"))) return;
     const params = new URLSearchParams();
-    if (deferredQuery.trim()) params.set("q", deferredQuery.trim());
-    if (dynastyValue !== "all") params.set("dynasty", dynastyValue);
-    if (categoryValue !== "all") params.set("category", categoryValue);
+    if (deferredFilters.query.trim())
+      params.set("q", deferredFilters.query.trim());
+    if (deferredFilters.dynastyValue !== "all")
+      params.set("dynasty", deferredFilters.dynastyValue);
+    if (deferredFilters.categoryValue !== "all")
+      params.set("category", deferredFilters.categoryValue);
     const qs = params.toString();
     history.replaceState(
       null,
       "",
       qs ? `?${qs}` : window.location.pathname,
     );
-  }, [deferredQuery, dynastyValue, categoryValue]);
+  }, [deferredFilters]);
 
   // 検索は空白区切りの全語がヒットした皇帝のみ表示（名称・別名・王朝名・時代が対象）。
   // クエリはNFKC正規化（半角カナ→全角・全角英数→半角等）したうえで、かな入力は
   // searchKana（ビルド時生成の読み展開）に照合し、カタカナはひらがなに正規化して
   // 両表記どちらでも引けるようにする。
   const filtered = useMemo(() => {
-    const tokens = deferredQuery
+    const tokens = deferredFilters.query
       .normalize("NFKC")
       .trim()
       .split(/\s+/)
       .filter(Boolean);
     return records.filter(
       (r) =>
-        (dynastyValue === "all" || r.dynastyKey === dynastyValue) &&
-        (categoryValue === "all" || r.dynastyCategory === categoryValue) &&
+        (deferredFilters.dynastyValue === "all" ||
+          r.dynastyKey === deferredFilters.dynastyValue) &&
+        (deferredFilters.categoryValue === "all" ||
+          r.dynastyCategory === deferredFilters.categoryValue) &&
         tokens.every((t) => {
           const target = `${r.searchText} ${r.searchKana}`;
           return target.includes(t) || target.includes(toHiragana(t));
         }),
     );
-  }, [records, deferredQuery, dynastyValue, categoryValue]);
+  }, [records, deferredFilters]);
+
+  // 効いている条件のチップ。**ラベルはグリッドの見た目（deferred）ではなく
+  // 選択の生の値から作る** — 押した直後に消えないと、外したはずのチップが
+  // 一瞬残って「効いていない」ように見える。
+  const chips: FilterChip[] = [];
+  if (query.trim()) {
+    chips.push({
+      key: "q",
+      label: `検索「${query.trim()}」`,
+      onRemove: () => setQuery(""),
+    });
+  }
+  if (dynastyValue !== "all") {
+    chips.push({
+      key: "dynasty",
+      label: `王朝: ${dynastyOptions.find((o) => o.value === dynastyValue)?.label ?? dynastyValue}`,
+      onRemove: () => setDynastyValue("all"),
+    });
+  }
+  if (categoryValue !== "all") {
+    chips.push({
+      key: "category",
+      label: `区分: ${dynastyCategoryOptions.find((o) => o.value === categoryValue)?.label ?? categoryValue}`,
+      onRemove: () => setCategoryValue("all"),
+    });
+  }
 
   // 時代（eraLabel）ごとのセクションに分けて表示する。データ順は概ね時代順だが、
   // 「新〜後漢初」（更始帝ら）や袁術のように時代の途中へ挟まる少数例があるため、
@@ -238,17 +298,12 @@ export function EmperorGrid({
           自動幅ではなく、Webフォント読込による折り返しずれ（CLS）は起きない。 */}
       <div className="mx-auto mb-4 grid w-full max-w-content grid-cols-2 items-end gap-x-3 gap-y-3 sm:flex sm:flex-wrap sm:gap-4">
         <div className="col-span-2 sm:col-auto">
-          <FilterField label="検索">
-            <div className="relative">
-              <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="名前・王朝名など"
-                className="w-full pl-8 sm:w-[220px]"
-              />
-            </div>
-          </FilterField>
+          <SearchField
+            value={query}
+            onChange={setQuery}
+            placeholder="名前・王朝名など"
+            ariaLabel="皇帝を検索"
+          />
         </div>
         <FilterField label="王朝">
           <DynastyCombobox
@@ -279,15 +334,24 @@ export function EmperorGrid({
             </SelectContent>
           </Select>
         </FilterField>
-        <span className="col-span-2 text-sm text-muted-foreground sm:col-auto sm:pb-2">
-          全{filtered.length}名を表示中
-        </span>
+        <ResultCount
+          pending={stale}
+          className="col-span-2 sm:col-auto sm:pb-2"
+        >
+          {hasFilter
+            ? `${filtered.length}名を表示中（全${records.length}名）`
+            : `全${records.length}名を表示中`}
+        </ResultCount>
       </div>
 
+      <FilterChips
+        chips={chips}
+        onClearAll={clearAll}
+        className="mx-auto w-full max-w-content"
+      />
+
       {filtered.length === 0 ? (
-        <p className="py-10 text-sm text-muted-foreground">
-          条件に一致する皇帝が見つかりませんでした。
-        </p>
+        <NoResults onClearAll={clearAll} />
       ) : (
         <>
           {/* 時代セクションへのページ内ジャンプ。絞り込みで空になった時代は出さない。
