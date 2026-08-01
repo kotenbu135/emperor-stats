@@ -55,7 +55,14 @@ SHINJITAI_TO_TRAD = str.maketrans({
     '緑': '綠', '涙': '淚', '塁': '壘', '礼': '禮', '霊': '靈', '齢': '齡', '暦': '曆',
     '歴': '歷', '恋': '戀', '錬': '鍊', '炉': '爐', '労': '勞', '楼': '樓', '禄': '祿',
     '湾': '灣', '尭': '堯', '斗': '鬥', '晋': '晉', '并': '並',
+    # 2026-08-02 追加。引用に出る漢字3,685字種のうち「コーパスに一度も現れない」132字を
+    # 洗って拾った分（opencc t2s も変換しないため、未収録だと照合が必ず外れていた）。
+    '県': '縣', '済': '濟', '軽': '輕', '勧': '勸', '騒': '騷', '擧': '舉',
 })
+
+# 底本にも同じ字形が現れうるため、無条件に変換すると逆に照合が外れる字。
+# 変換前・変換後の両方を候補にする（norm_variants）。
+AMBIGUOUS_JP = str.maketrans({'歳': '歲'})
 
 
 def han_only(s: str) -> str:
@@ -77,3 +84,15 @@ def to_traditional(s: str) -> str:
 def norm_for_match(s: str) -> str:
     """照合用フル正規化: 漢字のみ + 簡体化。"""
     return to_simplified(han_only(s))
+
+
+def norm_variants(s: str) -> tuple:
+    """照合用の正規化候補。いずれかが底本に当たれば一致とみなす。
+
+    底本と引用のどちらにも現れうる字（AMBIGUOUS_JP）を一方向に畳むと、
+    畳んだ側だけ当たらなくなるため候補を並べる。
+    """
+    base = han_only(s)
+    a = to_simplified(base)
+    b = to_simplified(base.translate(AMBIGUOUS_JP))
+    return (a,) if a == b else (a, b)
