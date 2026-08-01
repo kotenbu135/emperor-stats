@@ -40,8 +40,8 @@
 |---|---|
 | [site-design/SITE_DESIGN.md](site-design/SITE_DESIGN.md) | **サイトの設計と決定の記録**。ページ構成・スタック・配色の考え方・各ページの設計判断・決着済みで再提案しないこと |
 | [site-design/CHART_CANDIDATES_2026-07-31.md](site-design/CHART_CANDIDATES_2026-07-31.md) | グラフにする価値のあるデータの検討（実測済み・実装は未着手の候補一覧） |
-| [site-design/PORTRAITS.md](site-design/PORTRAITS.md) | 肖像画収集の調査結果（PD/CC0 のみ・144名分確定）＋肖像マッピングQAの手順・反映先 |
-| `site-design/mockups/card-preview/` | 肖像画 webp 144点。**`site/scripts/sync-portraits.mjs` のビルド入力なので消さないこと** |
+| [site-design/PORTRAITS.md](site-design/PORTRAITS.md) | 肖像画収集の調査結果（PD/CC0 のみ・145名分確定）＋肖像マッピングQAの手順・反映先 |
+| `site-design/mockups/card-preview/` | 肖像画 webp 145点。**`site/scripts/sync-portraits.mjs` のビルド入力なので消さないこと** |
 | `site-design/portraits-candidates.json` | 肖像画の候補調査の生データ |
 
 ## 関連

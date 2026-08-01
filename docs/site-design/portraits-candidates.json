@@ -1,8 +1,8 @@
 {
   "method": "Wikimedia zhwiki data dump (page.sql / page_props.sql / redirect.sql, 2026-07-06/08 snapshot) matched offline against candidate names generated from data/emperors.json, with Japanese shinjitai -> Chinese traditional/simplified kanji normalization",
-  "generatedNote": "page_image_free indicates the article has a freely-licensed lead image per MediaWiki PageImages extension; actual license type (PD/CC-BY/CC-BY-SA etc.) must be individually verified on the Commons file page before use. 2026-07-17: manual visual review found 13 confirmed matches were not actual portraits (landscape/monument/statue photos); moved to noImageIds and recorded in excludedNonPortrait. 追記(2026-07-17): CC BY-SA 4.0ライセンスの2件を方針により除外、confirmedは155→153件に。 追記(2026-07-21): 全153件の目視QAにより、別人肖像1件(liu-song-mingdi)と場面図切り出し2件(han-aidi/tang-jingzong)をnoImageIdsへ移動、houyan-murongchuiは同シリーズの正しい図に差し替え。confirmedは153→150件に。 追記(2026-07-31): 全150件をカード表示で見直し、場面図・群像図で該当人物を特定できない5件と判読不能1件をnoImageIdsへ移動。confirmedは150→144件に。",
-  "confirmedCount": 144,
-  "noImageCount": 220,
+  "generatedNote": "page_image_free indicates the article has a freely-licensed lead image per MediaWiki PageImages extension; actual license type (PD/CC-BY/CC-BY-SA etc.) must be individually verified on the Commons file page before use. 2026-07-17: manual visual review found 13 confirmed matches were not actual portraits (landscape/monument/statue photos); moved to noImageIds and recorded in excludedNonPortrait. 追記(2026-07-17): CC BY-SA 4.0ライセンスの2件を方針により除外、confirmedは155→153件に。 追記(2026-07-21): 全153件の目視QAにより、別人肖像1件(liu-song-mingdi)と場面図切り出し2件(han-aidi/tang-jingzong)をnoImageIdsへ移動、houyan-murongchuiは同シリーズの正しい図に差し替え。confirmedは153→150件に。 追記(2026-07-31): 全150件をカード表示で見直し、場面図・群像図で該当人物を特定できない5件と判読不能1件をnoImageIdsへ移動。confirmedは150→144件に。 追記(2026-08-01): ming-yizong（崇禎帝）の肖像を個別発見により追加、confirmedは144→145件・noImageIdsは220→219件に。詳細は PORTRAITS.md「個別発見による追加（2026-08-01）」節",
+  "confirmedCount": 145,
+  "noImageCount": 219,
   "confirmed": [
     {
       "id": "beisong-huizong",
@@ -451,6 +451,15 @@
       "dynasty": "明",
       "matchedTitle": "明英宗",
       "image": "Ming_Yingzong_(1).jpg"
+    },
+    {
+      "id": "ming-yizong",
+      "commonName": "毅宗（崇禎帝）",
+      "dynasty": "明",
+      "matchedTitle": null,
+      "image": "明愍帝朱由检.jpg",
+      "addedAt": "2026-08-01",
+      "addedNote": "ダンプ照合(page_image_free)では拾えず noImageIds にあったが、ja.wikipedia「崇禎帝」記事のリード画像として個別に発見（ユーザー提供）。Commons File:明愍帝朱由检.jpg・繡像鐵冠圖(1907)・Public domain"
     },
     {
       "id": "nanming-anzong",
@@ -1125,7 +1134,6 @@
     "liu-song-shaodi",
     "liu-song-shundi",
     "liu-yong-liang",
-    "ming-yizong",
     "nanming-shaowudi",
     "nanming-zhaozong",
     "nansong-duanzong",
