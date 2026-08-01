@@ -15,14 +15,30 @@
 
 import {
   CartesianGrid,
+  Label,
   Line,
   LineChart as RechartsLineChart,
+  ReferenceDot,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
 import { cn } from "@/lib/utils";
+
+/**
+ * 図の上に直接置く点と文字（注記）。
+ *
+ * **ホバーで読ませられない値のための逃げ道。** 横軸の年数が描画幅の px 数を超えると、
+ * Recharts は最寄りの点しか拾えないので**指せない年ができる**（同時在位数は
+ * 1px＝3.8年で、618〜622年が1pxに潰れてピークに触れない）。図の主張になっている値は、
+ * ツールチップに頼らずここで焼き付ける。
+ */
+export interface LineMarker {
+  x: number;
+  y: number;
+  label: string;
+}
 
 export interface LineSeries {
   /** データのキー。 */
@@ -125,6 +141,7 @@ export function LineChart({
   tickFormatter,
   ariaLabel,
   curveType = "linear",
+  markers,
 }: {
   data: Record<string, number>[];
   /** 横軸に使うキー。 */
@@ -145,6 +162,8 @@ export function LineChart({
   /** 線の結び方。**既定は linear** — 整数を数え上げた系列に monotone を当てると、
    *  データに無い山と谷を勝手に作る。段の系列（人数など）は "stepAfter"。 */
   curveType?: "linear" | "stepAfter" | "monotone";
+  /** 図に焼き付ける注記（ホバーでは指せない値を読ませるため）。 */
+  markers?: LineMarker[];
 }) {
   return (
     <div className={cn("w-full", className)}>
@@ -228,6 +247,31 @@ export function LineChart({
                 // globals.css の reduced-motion 一括指定では止まらない（JS アニメーション）。
                 isAnimationActive={false}
               />
+            ))}
+            {markers?.map((m) => (
+              <ReferenceDot
+                key={`${m.x}-${m.y}`}
+                x={m.x}
+                y={m.y}
+                r={3}
+                // 朱（--seal）。系列色と分けて「これは注記であって系列ではない」を出す。
+                className="fill-seal stroke-card"
+                fill=""
+                stroke=""
+                strokeWidth={1.5}
+                isFront
+              >
+                {/* **`stroke="none"` を明示する** — 親の ReferenceDot に渡した
+                    stroke を文字が受け継ぎ、塗り無しの袋文字になって読めなくなる。 */}
+                <Label
+                  value={m.label}
+                  position="top"
+                  offset={8}
+                  stroke="none"
+                  fill=""
+                  className="fill-foreground text-xs font-medium"
+                />
+              </ReferenceDot>
             ))}
           </RechartsLineChart>
         </ResponsiveContainer>

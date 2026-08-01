@@ -1,6 +1,11 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { OverviewBoard } from "@/components/home-v2/overview-board";
-import { getHomeHighlights, getOverviewStats } from "@/lib/emperors";
+import {
+  getConcurrentReigns,
+  getHomeHighlights,
+  getOverviewStats,
+  getReignSurvival,
+} from "@/lib/emperors";
 import { buildMetadata, JsonLd, websiteJsonLd } from "@/lib/seo";
 
 export const metadata = buildMetadata({ path: "/" });
@@ -10,6 +15,10 @@ export default function Home() {
   // 各ランキングの上位10名（同値が続く場合は10位と同値のところまで伸びる）。
   // 3タブとも同じ件数にすること（1つだけ増やすと切り替えでカードの高さが跳ねる）。
   const highlights = getHomeHighlights(10);
+  // 3段目の2図（2026-08-01 追加・`/lab` の候補7・8）。ランキングと母集団の作り方が
+  // 違うので getHomeHighlights には入れず、独立した集計として持つ。
+  const concurrent = getConcurrentReigns();
+  const survival = getReignSurvival();
 
   const figures = [
     {
@@ -54,6 +63,8 @@ export default function Home() {
             accessionRoutes={highlights.accessionRoutes}
             reignDeath={highlights.reignDeath}
             centuries={highlights.centuries}
+            concurrent={concurrent}
+            survival={survival}
           />
         </div>
       </div>

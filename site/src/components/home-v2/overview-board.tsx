@@ -11,12 +11,16 @@ import {
   TabsTrigger,
 } from "@/components/tremor/Tabs";
 import { BreakdownBar } from "@/components/home-v2/breakdown-panel";
+import { ConcurrentPanel } from "@/components/home-v2/concurrent-panel";
 import { ReignDeathPanel } from "@/components/home-v2/reign-death-panel";
+import { SurvivalPanel } from "@/components/home-v2/survival-panel";
 import type {
   HomeBreakdownSlice,
   HomeCenturyBand,
+  HomeConcurrentReigns,
   HomeRankingPanel,
   HomeReignDeath,
+  HomeReignSurvival,
 } from "@/lib/emperors";
 
 /**
@@ -160,6 +164,8 @@ export function OverviewBoard({
   accessionRoutes,
   reignDeath,
   centuries,
+  concurrent,
+  survival,
 }: {
   figures: Figure[];
   rankings: HomeRankingPanel[];
@@ -167,6 +173,8 @@ export function OverviewBoard({
   accessionRoutes: HomeBreakdownSlice[];
   reignDeath: HomeReignDeath;
   centuries: HomeCenturyBand[];
+  concurrent: HomeConcurrentReigns;
+  survival: HomeReignSurvival;
 }) {
   // 凡例に出す区分と、帯に描くセグメントを必ず一致させる。
   // 上位N件だけを凡例に出して残りを描くと、「凡例に無い区分」が生まれ、色だけが
@@ -285,6 +293,28 @@ export function OverviewBoard({
             segments={reignDeath.segments}
             bands={reignDeath.bands}
           />
+        </Card>
+      </div>
+
+      {/* 3段目（2026-08-01 追加）。どちらも折れ線で、1段目・2段目と同じ 3:2。
+          同時在位数を左（3/5）に置くのは横軸が2000年超あるためで、入れ替えると
+          「前200」「1800」の目盛りが潰れる。継続率は横軸0〜50年なので2/5で足りる。 */}
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
+        <Card className="lg:col-span-3">
+          <PanelHeading
+            title="同時に帝号を持っていた人数"
+            description={`分裂期には帝号が並び立つ。最大は${concurrent.peak.dateLabel}の${concurrent.peak.count}人。`}
+          />
+          <ConcurrentPanel data={concurrent} />
+        </Card>
+        <Card className="lg:col-span-2">
+          {/* KPI「平均在位期間」の歪みを直す図。中央値・平均・平均以上の人数は
+              集計から出す（文言へ焼き込まない）。 */}
+          <PanelHeading
+            title="在位継続率"
+            description={`即位からN年後にまだ在位している割合。中央値${survival.medianYears}年に対し平均は${survival.meanYears}年で、平均以上に在位したのは${survival.aboveMeanCount}名（${survival.aboveMeanPercent}%）。`}
+          />
+          <SurvivalPanel data={survival} />
         </Card>
       </div>
     </div>

@@ -4,19 +4,15 @@ import { BreakdownBar } from "@/components/home-v2/breakdown-panel";
 import { LabCard, LabFigure } from "@/components/lab/lab-card";
 import { StackedRows } from "@/components/lab/stacked-rows";
 import { RateBars } from "@/components/lab/rate-bars";
-import { ConcurrentPanel } from "@/components/lab/concurrent-panel";
-import { SurvivalPanel } from "@/components/lab/survival-panel";
 import { buildMetadata } from "@/lib/seo";
 import {
   getCampaignStats,
-  getConcurrentStats,
   getConfidenceStats,
   getEraChangeStats,
   getEraNameMax,
   getFacadeStats,
   getRegimeFateStats,
   getRelationStats,
-  getSurvivalStats,
   getTitleOriginStats,
   labEmperorCount,
 } from "@/lib/lab-stats";
@@ -26,6 +22,8 @@ import {
  *
  * docs/site-design/CHART_CANDIDATES_2026-07-31.md で「形の強さ 中以上」と評価された
  * 9候補を実物にした面で、**採否を決めるための面**（公開ページではない）。
+ * **候補7（同時在位数）・候補8（在位継続率）は 2026-08-01 に採用され、集計ごと
+ * `lib/emperors.ts` へ移して概要ダッシュボードの3段目に載った**ので、ここには残り7件がある。
  * したがって:
  *  - `SITE_SECTIONS`・`nav-data.ts`・sitemap・OGP画像には登録しない。noindex を付ける
  *  - 集計は `lib/lab-stats.ts`（/lab 専用・emperors.ts とは別ファイル）
@@ -39,7 +37,7 @@ export const metadata: Metadata = {
   ...buildMetadata({
     path: "/lab",
     title: "グラフ候補の検討面",
-    description: "チャート候補9件の実装検討用（非公開・検索エンジンには出さない）",
+    description: "チャート候補7件の実装検討用（非公開・検索エンジンには出さない）",
   }),
   robots: { index: false, follow: false },
 };
@@ -58,15 +56,13 @@ export default function LabPage() {
   const titleOrigin = getTitleOriginStats();
   const regimeFate = getRegimeFateStats();
   const relation = getRelationStats();
-  const concurrent = getConcurrentStats();
-  const survival = getSurvivalStats();
   const confidence = getConfidenceStats();
 
   return (
     <>
       <PageHeader
         title="グラフ候補の検討面"
-        description="チャート候補の検討記録（CHART_CANDIDATES_2026-07-31.md）で「形の強さ 中以上」だった9件を実物にした面。採否を決めるための面で、公開ページではない。"
+        description="チャート候補の検討記録（CHART_CANDIDATES_2026-07-31.md）で「形の強さ 中以上」だった9件のうち、まだ採否が決まっていない7件（候補7・8は概要ダッシュボードへ採用済み）。公開ページではない。"
       />
       <div className="px-gutter py-section md:px-gutter-wide">
         <div className="mx-auto w-full max-w-content space-y-8">
@@ -140,153 +136,6 @@ export default function LabPage() {
               <p className="mt-1.5 text-xs leading-relaxed tabular-nums text-muted-foreground">
                 {eraNameMax.map((x) => `${x.label} ${x.max}`).join("　")}
               </p>
-            </div>
-          </LabCard>
-
-          {/* ---------------------------------------------- 形が最も強い */}
-          <LabCard
-            no={7}
-            title="同時に何人が帝号を持っていたか"
-            strength="最強"
-            description={`年単位では最大${concurrent.yearMax.value}人（${concurrent.yearMax.year}年）だが、日付で数え直すと同時在位は最大${concurrent.dayMax.value}人（${concurrent.dayMax.date}）。`}
-            population={`全${concurrent.segments.total}在位／日単位は日付で区間を作れる${concurrent.segments.usable}在位`}
-            notes={[
-              <>
-                <strong className="text-foreground">「同時に」と言うなら日単位</strong>
-                。{concurrent.yearMax.year}
-                年に在位記録を持つ14名のうち、煬帝は4月に殺され、恭帝侑は6月に譲位し、薛挙は9月に没している。
-              </>,
-              <>
-                日単位の値は月・年精度の日付を埋めて出したもの（欠けた月は開始側1月・終了側12月、
-                欠けた日は開始側1日・終了側28日）。
-                <strong className="text-foreground">埋め方は区間を伸ばす向き</strong>
-                なので上限側の見積り。618年の14在位はすべて日まで下りているので、この年は埋めの影響を受けない。
-              </>,
-              <>
-                表示は{concurrent.range.from < 0 ? `前${-concurrent.range.from}` : concurrent.range.from}年〜
-                {concurrent.range.to}年で切ってある。近代の
-                {concurrent.excluded.map((x) => `${x.name}（${x.period}）`).join("・")}
-                を含めると1913〜1933年が0人になるが、これは
-                <strong className="text-foreground">収録基準の産物であって歴史的空位ではない</strong>。
-                表示範囲内で0人なのは{concurrent.zeroYears.length}年（
-                {concurrent.zeroYears
-                  .map((y) => (y < 0 ? `前${-y}` : `${y}`))
-                  .join("・")}
-                年）。
-              </>,
-              <>
-                フィルタで山の高さが倍変わる — <code className="text-foreground">standing: rival</code>
-                を除くと618年は12人、正統王朝だけに絞ると全期間の最大は7人（559・560・577年）。
-                この図はフィルタなしの全件。
-              </>,
-              <>
-                日単位に切り替えると母集団が{concurrent.segments.usable}在位へ落ちる。落ちるのは十六国系に偏るので、
-                <strong className="text-foreground">4世紀の山は痩せるがピークの618年は影響を受けない</strong>。
-              </>,
-              <>
-                <strong className="text-foreground">
-                  日単位の線が0へ落ちる{concurrent.dayGapYears.length}年は「皇帝がいなかった年」ではない
-                </strong>
-                — 在位に日付が無くて線から落ちているだけ（前221〜前207年の始皇帝・二世皇帝と、
-                8〜24年の新、317年）。盤面へ載せるなら、この層をどう見せるかを決める必要がある。
-              </>,
-            ]}
-          >
-            <ConcurrentPanel
-              points={concurrent.points}
-              usable={concurrent.segments.usable}
-              total={concurrent.segments.total}
-            />
-            <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
-              <LabFigure
-                value={`${concurrent.dayMax.value}人`}
-                label={`同時在位の最大（${concurrent.dayMax.date}）`}
-                seal
-              />
-              <LabFigure
-                value={`${concurrent.yearMax.value}人`}
-                label={`年単位の最大（${concurrent.yearMax.year}年）`}
-              />
-              <LabFigure
-                value={`${concurrent.distribution.find((d) => d.people === 1)?.years ?? 0}年`}
-                label="皇帝が1人だけだった年（表示範囲内）"
-              />
-              <LabFigure
-                value={`${concurrent.points.length}年`}
-                label="表示範囲の長さ"
-              />
-            </div>
-          </LabCard>
-
-          <LabCard
-            no={8}
-            title="在位継続率カーブ"
-            strength="強"
-            description={`即位からN年後に、まだ在位している皇帝が何%残っているか。KPI「平均${survival.meanAll}年」の歪みを直す図でもある（中央値${survival.medianAll}年・平均以上に在位したのは${survival.aboveMean}名）。`}
-            population={`全${survival.counts.all}名／日まで確定した${survival.counts.exact}名`}
-            notes={[
-              <>
-                2本の線は5年で6ポイント離れる。日まで下りていない
-                {survival.counts.all - survival.counts.exact}名は在位が短い側に偏っており（東晋・十六国は55名中41名）、
-                除くと曲線が上へ持ち上がる。
-                <strong className="text-foreground">
-                  「欠損ゼロ」と言えるのは概算値（approxDays＝年365換算）を使う場合だけ
-                </strong>
-                。
-              </>,
-              <>
-                複数回在位の8名は合算値で描いているので、厳密には「N年後もまだ在位」の意味にならない。
-                初回在位だけで描くと中央値は{survival.medianAll}年→{survival.medianFirst}年（曲線の形はほぼ同じ）。
-                この図は<strong className="text-foreground">合算値</strong>。
-              </>,
-              <>
-                層別は入れていない。検討記録が前版の「自力で建てた71名 vs 受け継いだ294名」を
-                取り下げており、名前を正すと凡例が「位を誰からも受けずに称した71名」になる
-                — その説明が1行で済まないなら層別を入れない、という判断に従った。
-              </>,
-            ]}
-          >
-            <SurvivalPanel curve={survival.curve} />
-            <div className="mt-5 overflow-x-auto">
-              <table className="w-full min-w-[36rem] text-xs tabular-nums">
-                <caption className="pb-2 text-left text-xs text-muted-foreground">
-                  検討記録と突き合わせる目盛り（%）
-                </caption>
-                <thead>
-                  <tr className="border-b border-border text-muted-foreground">
-                    <th scope="col" className="py-1 pr-3 text-left font-medium">
-                      経過
-                    </th>
-                    {survival.marks.map((m) => (
-                      <th key={m.years} scope="col" className="py-1 text-right font-medium">
-                        {m.years}年
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-border">
-                    <th scope="row" className="py-1 pr-3 text-left font-normal text-muted-foreground">
-                      全{survival.counts.all}名
-                    </th>
-                    {survival.marks.map((m) => (
-                      <td key={m.years} className="py-1 text-right text-foreground">
-                        {m.all}
-                      </td>
-                    ))}
-                  </tr>
-                  <tr>
-                    <th scope="row" className="py-1 pr-3 text-left font-normal text-muted-foreground">
-                      日まで確定{survival.counts.exact}名
-                    </th>
-                    {survival.marks.map((m) => (
-                      <td key={m.years} className="py-1 text-right font-medium text-foreground">
-                        {m.exact}
-                      </td>
-                    ))}
-                  </tr>
-                </tbody>
-              </table>
             </div>
           </LabCard>
 

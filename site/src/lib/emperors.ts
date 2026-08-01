@@ -183,6 +183,9 @@ interface RawEmperor {
       displayYears: number;
       approxDays: number;
       needsPreciseDays: boolean;
+      /** 在位日数が日まで確定しているか（false なら approxDays は概算）。
+       *  **宣言し忘れると undefined になり、絞り込みが黙って全件0になる。** */
+      isExact: boolean;
     };
     reignCount: number;
   };
@@ -725,10 +728,15 @@ interface RawDurationSource extends RawSource {
   conversion?: string | null;
 }
 
+// **この型は JSON の部分ビューで、読み込みは `as unknown as` を通る** — 宣言し忘れた
+// フィールドは型エラーにならず undefined になる（「全部ゼロの図」が静かに出来上がる）。
+// 触る値は必ずここに書くこと。
 interface RawReign {
   startYear: number;
   endYear: number;
   startDate?: string | null;
+  /** 在位の終了日（ISO・天文年）。同時在位数の区間の右端。 */
+  endDate?: string | null;
   /** 日付の精度（"day"/"month"/"year" ほか自由記述。normalizeDatePrecision を通して使う）。 */
   datePrecision?: { start?: string | null; end?: string | null } | null;
   /** 王朝内での即位順(通し番号・復位も別カウント)。未付与の王朝あり。 */
@@ -1522,6 +1530,308 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
     centuries,
     dynastyCount: new Set(records.map((r) => r.dynastyKey)).size,
     yearSpanLabel: `${historicalYearLabel(minYear)}〜${historicalYearLabel(maxYear)}`,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// 概要ダッシュボード3段目の2図（同時在位数・在位継続率）。
+//
+// 出自は `/lab` の候補7・候補8（検討記録 docs/site-design/CHART_CANDIDATES_2026-07-31.md）で、
+// 採用にあたって `lib/lab-stats.ts` からここへ移した。**`/lab` はページごと畳む前提の面**
+// なので、公開ページが lab-stats を参照したままにしない。
+//
+// **数え方を変えると数が動く**（検討記録の実測値と突き合わせられなくなる）。特に:
+//  - 日付の埋め方（欠けた月は開始側1月・終了側12月、欠けた日は開始側1日・終了側28日）
+//  - 日付そのものが無い在位を startYear/endYear で埋める向き（下の reignRange）
+//  - 表示範囲の上限（CONCURRENT_LAST_YEAR）
+// 検証は scripts ではなくデータ側から測り直す（site/tools/chart-candidates-stats.py が
+// 日単位の最大10人＝618年11月26日を出すので、そこが動いていないことを見る）。
+
+/** 1年の日数。approxDays は年=365換算なので、年へ戻す除数はここで固定する。 */
+const DAYS_PER_YEAR = 365.2422;
+
+/**
+ * ISO 日付文字列（"-0221-01-01" / "0618-11" / "0618"）→ ユリウス通日。
+ * 欠けた月日は区間を**伸ばす向き**に埋める（開始側は1月1日・終了側は12月28日）。
+ */
+function toJdn(iso: string | null | undefined, isEnd: boolean): number | null {
+  if (!iso) return null;
+  const neg = iso.startsWith("-");
+  const parts = (neg ? iso.slice(1) : iso).split("-");
+  const y0 = Number(parts[0]);
+  if (!Number.isFinite(y0)) return null;
+  const y = neg ? -y0 : y0;
+  const m = parts.length > 1 ? Number(parts[1]) : isEnd ? 12 : 1;
+  const d = parts.length > 2 ? Number(parts[2]) : isEnd ? 28 : 1;
+  const a = Math.floor((14 - m) / 12);
+  const yy = y + 4800 - a;
+  const mm = m + 12 * a - 3;
+  return (
+    d +
+    Math.floor((153 * mm + 2) / 5) +
+    365 * yy +
+    Math.floor(yy / 4) -
+    Math.floor(yy / 100) +
+    Math.floor(yy / 400) -
+    32045
+  );
+}
+
+/** ユリウス通日 → 天文年（0年あり）。 */
+function jdnToYear(jdn: number): number {
+  const a = jdn + 32044;
+  const b = Math.floor((4 * a + 3) / 146097);
+  const c = a - Math.floor((146097 * b) / 4);
+  const d = Math.floor((4 * c + 3) / 1461);
+  const e = c - Math.floor((1461 * d) / 4);
+  const m = Math.floor((5 * e + 2) / 153);
+  return 100 * b + d - 4800 + Math.floor((m + 2) / 12);
+}
+
+/** ユリウス通日 → 歴史紀年（前221年 = -221）。天文年の0年は前1年。 */
+function jdnToHistoricalYear(jdn: number): number {
+  const y = jdnToYear(jdn);
+  return y <= 0 ? y - 1 : y;
+}
+
+/** ユリウス通日 → 「618年11月26日」。 */
+function jdnToDateLabel(jdn: number): string {
+  const a = jdn + 32044;
+  const b = Math.floor((4 * a + 3) / 146097);
+  const c = a - Math.floor((146097 * b) / 4);
+  const d = Math.floor((4 * c + 3) / 1461);
+  const e = c - Math.floor((1461 * d) / 4);
+  const m = Math.floor((5 * e + 2) / 153);
+  const year = 100 * b + d - 4800 + Math.floor((m + 2) / 12);
+  const month = m + 3 - 12 * Math.floor((m + 2) / 12);
+  const day = e - Math.floor((153 * m + 2) / 5) + 1;
+  // 天文年 → 歴史紀年（0年は前1年）。ピークは唐初だが、式を年に依存させない。
+  return `${historicalYearLabel(year <= 0 ? year - 1 : year)}${month}月${day}日`;
+}
+
+/** 歴史紀年 → 年だけの ISO 文字列（"-0220" / "0618"）。日付が無い在位の穴埋めに使う。
+ *  `startYear`/`endYear` は歴史紀年、ISO 日付は天文年なので `astroYear` を通す。 */
+function isoYearString(year: number): string {
+  const a = astroYear(year);
+  return a < 0
+    ? `-${String(-a).padStart(4, "0")}`
+    : String(a).padStart(4, "0");
+}
+
+/**
+ * 近代（袁世凱の洪憲・溥儀の満洲国）は収録基準の産物で、間の空白年は歴史的空位ではない。
+ * 折れ線に出すと「1913〜1933年に皇帝がいなかった」と読めるので表示範囲を切る。
+ */
+const CONCURRENT_LAST_YEAR = 1912;
+
+/** 同時在位数の折れ線（1本）。 */
+export interface HomeConcurrentReigns {
+  /**
+   * **段が変わる年だけ**（先頭と末尾は必ず入れる）。`stepAfter` は次の点まで値を保つので、
+   * 同じ人数が続く年を捨てても描画は1年刻みのときと同一になる。
+   *
+   * **捨てる理由は描画ではなくツールチップ**。2133年ぶんを約650pxへ描くと1px＝3年強になり、
+   * Recharts は最寄りの点しか拾えないので**3年に2年は指せない**（618年がまさに指せなかった）。
+   * 変化点だけなら285点＝1点2px強で、すべての段に触れる。
+   *
+   * `endYear` はその段が続く最後の年（ツールチップに「681〜712年」と出すため）。
+   */
+  points: { year: number; count: number; endYear: number }[];
+  /** 全期間の最大（日単位）。`year` は歴史紀年で、図に焼き付ける注記の位置に使う。 */
+  peak: { count: number; year: number; dateLabel: string };
+  /** 皇帝が1人だけだった年（表示範囲内）。 */
+  soleYears: number;
+  solePercent: number;
+  /** 帝号を持つ人が1人もいなかった年（表示範囲内）。 */
+  zeroYears: number[];
+  /** 表示範囲。 */
+  range: { fromLabel: string; toLabel: string; yearCount: number };
+  /** 表示範囲より後に在位した人（切った側を隠さないため）。 */
+  excluded: { name: string; periodLabel: string }[];
+  /** 区間の作り方の内訳。**全在位が区間になる**ことがこの図の前提。 */
+  coverage: { total: number; dated: number; filled: number };
+}
+
+/**
+ * 各年の最大同時在位数。**日付を持つ在位は日で、持たない側だけ在位年で埋める**
+ * （2026-08-01 ユーザー決定: なるべく日単位、無理なら月、それも無理なら年）。
+ *
+ * 日付が全く無い在位を落とすと、秦（前221〜前207）・新（8〜24）・317年の33年が
+ * 0人に見える（＝「皇帝がいなかった年」の嘘になる）。年で埋めれば374在位すべてが
+ * 区間になり、残る0人の年は楚漢戦争期（前206〜前203）と居摂（7年）だけになる。
+ * **埋めは区間を伸ばす向き**なので、この人数は上限側の見積り。
+ */
+export function getConcurrentReigns(): HomeConcurrentReigns {
+  let dated = 0;
+  let filled = 0;
+  let total = 0;
+  const deltas = new Map<number, number>();
+  for (const e of data.emperors) {
+    for (const r of e.reigns) {
+      total += 1;
+      const s =
+        toJdn(r.startDate, false) ??
+        toJdn(isoYearString(r.startYear), false);
+      const t =
+        toJdn(r.endDate, true) ?? toJdn(isoYearString(r.endYear), true);
+      if (s === null || t === null || t < s) {
+        throw new Error(`getConcurrentReigns: ${e.id} の在位区間を作れません`);
+      }
+      if (r.startDate && r.endDate) dated += 1;
+      else filled += 1;
+      deltas.set(s, (deltas.get(s) ?? 0) + 1);
+      deltas.set(t + 1, (deltas.get(t + 1) ?? 0) - 1);
+    }
+  }
+
+  // 区間の境界だけを走査して、各年へ「その年に立った最大値」を配る。
+  const boundaries = [...deltas.keys()].sort((a, b) => a - b);
+  const maxByYear = new Map<number, number>();
+  let current = 0;
+  let peakCount = 0;
+  let peakJdn = 0;
+  for (let i = 0; i < boundaries.length; i += 1) {
+    current += deltas.get(boundaries[i]) ?? 0;
+    if (current > peakCount) {
+      peakCount = current;
+      peakJdn = boundaries[i];
+    }
+    if (current === 0) continue;
+    const from = jdnToYear(boundaries[i]);
+    const to = i + 1 < boundaries.length ? jdnToYear(boundaries[i + 1] - 1) : from;
+    for (let y = from; y <= to; y += 1) {
+      maxByYear.set(y, Math.max(maxByYear.get(y) ?? 0, current));
+    }
+  }
+
+  let firstYear = Infinity;
+  let lastYear = -Infinity;
+  for (const e of data.emperors) {
+    for (const r of e.reigns) {
+      if (r.startYear < firstYear) firstYear = r.startYear;
+      if (r.endYear > lastYear) lastYear = r.endYear;
+    }
+  }
+
+  // 1年刻みの全点。**注記の数（0人の年・1人だけの年・表示範囲の長さ）はこちらで数える** —
+  // 下で段の変化点へ間引くので、間引いたあとの配列で数えると全部おかしくなる。
+  const yearly: { year: number; count: number }[] = [];
+  const zeroYears: number[] = [];
+  let sole = 0;
+  for (let y = firstYear; y <= CONCURRENT_LAST_YEAR; y += 1) {
+    if (y === 0) continue; // 歴史紀年に0年は無い
+    const count = maxByYear.get(astroYear(y)) ?? 0;
+    if (count === 0) zeroYears.push(y);
+    if (count === 1) sole += 1;
+    yearly.push({ year: y, count });
+  }
+
+  // 段が変わる年だけ残す。**末尾は必ず入れる** — 落とすと最後の段の横線が
+  // 途中で切れ、横軸の右端（dataMax）も最後の変化点まで縮む。
+  const points: HomeConcurrentReigns["points"] = [];
+  for (let i = 0; i < yearly.length; i += 1) {
+    const isLast = i === yearly.length - 1;
+    if (i === 0 || isLast || yearly[i].count !== yearly[i - 1].count) {
+      points.push({ ...yearly[i], endYear: yearly[i].year });
+    }
+  }
+  // 各段が続く最後の年（次の変化点の1年前）。ツールチップの範囲表示に使う。
+  for (let i = 0; i < points.length - 1; i += 1) {
+    points[i].endYear = points[i + 1].year - 1;
+    if (points[i].endYear === 0) points[i].endYear = -1; // 0年は無い
+  }
+
+  const excluded = data.emperors
+    .filter((e) => e.reigns.some((r) => r.endYear > CONCURRENT_LAST_YEAR))
+    .map((e) => {
+      const start = Math.min(...e.reigns.map((r) => r.startYear));
+      const end = Math.max(...e.reigns.map((r) => r.endYear));
+      return {
+        name: e.name.commonName ?? e.id,
+        periodLabel: `${historicalYearLabel(start)}〜${historicalYearLabel(end)}`,
+      };
+    });
+
+  return {
+    points,
+    peak: {
+      count: peakCount,
+      year: jdnToHistoricalYear(peakJdn),
+      dateLabel: jdnToDateLabel(peakJdn),
+    },
+    soleYears: sole,
+    solePercent: Math.round((100 * sole) / yearly.length),
+    zeroYears,
+    range: {
+      fromLabel: historicalYearLabel(firstYear),
+      toLabel: historicalYearLabel(CONCURRENT_LAST_YEAR),
+      yearCount: yearly.length,
+    },
+    excluded,
+    coverage: { total, dated, filled },
+  };
+}
+
+/** 在位継続率カーブ（1本）。 */
+export interface HomeReignSurvival {
+  /** 0〜50年を0.25年刻み。percent は小数1桁。 */
+  curve: { years: number; percent: number }[];
+  count: number;
+  medianYears: number;
+  meanYears: number;
+  aboveMeanCount: number;
+  aboveMeanPercent: number;
+  /** 在位が日まで下りていない人数（approxDays が概算のまま）。断り書き用。 */
+  approxOnlyCount: number;
+  /** 複数回在位した人数（合算値で数えている＝厳密には「N年後もまだ在位」ではない）。 */
+  multiReignCount: number;
+}
+
+/** カーブの右端。50年以上在位したのは5名（康熙帝61.9年・乾隆帝60.3年・西夏仁宗54.3年・
+ *  前漢武帝54.1年・西夏崇宗52.9年）で、ここから先は1%台の平坦な裾になる。 */
+const SURVIVAL_MAX_YEARS = 50;
+
+/**
+ * 即位からN年後に、まだ在位している皇帝が何%残っているか。
+ *
+ * **365名全員が母集団**。使う値は `totalReignDuration.approxDays`（年=365換算の概算で、
+ * 95名は日まで下りていない）。日まで確定した270名だけで描くと曲線は上へ持ち上がるが、
+ * その版は**「どの人物の日付が復元できたか」の分布**が混ざる（2026-08-01 ユーザー決定で1本）。
+ *
+ * 複数回在位の8名は合算値なので、厳密には「N年後もまだ在位」ではない。
+ */
+export function getReignSurvival(): HomeReignSurvival {
+  const days = data.emperors.map(
+    (e) => e.reignSummary.totalReignDuration.approxDays,
+  );
+  const sorted = [...days].sort((a, b) => a - b);
+  const mid = sorted.length >> 1;
+  const medianDays =
+    sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+  const meanDays = days.reduce((a, b) => a + b, 0) / days.length;
+  const aboveMean = days.filter((v) => v >= meanDays).length;
+
+  const curve: { years: number; percent: number }[] = [];
+  for (let y = 0; y <= SURVIVAL_MAX_YEARS + 0.0001; y += 0.25) {
+    const years = Math.round(y * 100) / 100;
+    const alive = days.filter((v) => v >= years * DAYS_PER_YEAR).length;
+    curve.push({
+      years,
+      percent: Math.round((1000 * alive) / days.length) / 10,
+    });
+  }
+
+  return {
+    curve,
+    count: days.length,
+    medianYears: Math.round((medianDays / DAYS_PER_YEAR) * 100) / 100,
+    meanYears: Math.round((meanDays / DAYS_PER_YEAR) * 100) / 100,
+    aboveMeanCount: aboveMean,
+    aboveMeanPercent: Math.round((100 * aboveMean) / days.length),
+    approxOnlyCount: data.emperors.filter(
+      (e) => !e.reignSummary.totalReignDuration.isExact,
+    ).length,
+    multiReignCount: data.emperors.filter((e) => e.reigns.length > 1).length,
   };
 }
 
