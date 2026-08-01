@@ -33,7 +33,7 @@
      ブラウザが行の高さを勝手に広げ、トグルの ON/OFF でレイアウトが動く。
      ルビの分（0.5em＋余白）を先に確保して、出しても消しても行が動かないようにする。
      `leading-ruby` として使う（Tailwind v4 の --leading-* 名前空間）。 */
-  --leading-ruby: 2.1;
+  --leading-ruby: 2.25;
   --color-seal: var(--seal);
   --color-bar: var(--bar);
   --color-bar-campaign: var(--bar-campaign);

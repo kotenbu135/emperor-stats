@@ -25,6 +25,7 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 ```
 
 `data/kinship.json` を触った場合は `python3 scripts/validate_kinship.py`。
+`data/name-readings.json`（ふりがな）・`data/emperor-profiles.json`（紹介文）を触った場合は `python3 scripts/validate_readings.py`（ルビ記法・親文字一致・総ルビ充足）。
 
 ## リポジトリ構成
 

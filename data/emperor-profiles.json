@@ -8,7 +8,8 @@
       "source": "既存の調査結果（accessionRoute.note・deathCause.note・reignSummary・reigns[].duration.source・events・ages.note）の範囲内だけで書く。原典を新たに調べて治績・人物像を足さない。",
       "quotes": "正史の直接引用を持ち込まず地の文で書く（引用は emperors.json 側の note が担い、verify_quotes.py の照合対象になっている）。",
       "lead": "個別ページ本文の導入。200〜300字。",
-      "description": "検索結果・OGP に出る1文。120字前後。lead の冒頭を切り出すと文が途中で切れるため別に持つ。"
+      "description": "検索結果・OGP に出る1文。120字前後。lead の冒頭を切り出すと文が途中で切れるため別に持つ。",
+      "ruby": "総ルビで書く（GitHub Issue #20）。記法は青空文庫式の ｜親文字《ルビ》で、｜は省略しない。本文に ｜《》 を書かない。ルビの無い漢字が残っているとゲート（scripts/validate_readings.py）が落ちる。固有名詞は data/name-readings.json と同じ振り方にそろえる。"
     },
     "counts": {
       "total": 365,

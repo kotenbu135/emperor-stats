@@ -4,6 +4,8 @@
 // renderVideos・collapseVideos — はダイアログの廃止で全部死んだ）。
 
 import Link from "next/link";
+import { RubyText } from "@/components/ui/ruby-text";
+import { rubyOf } from "@/lib/name-readings";
 import type { EmperorRecord, MetricRank } from "@/lib/emperor-types";
 
 /**
@@ -43,17 +45,22 @@ function DetailRow({
   label,
   value,
   sub,
+  rubyRow,
 }: {
   label: string;
   value: React.ReactNode;
   /** 値の下に小さく添える補足（順位表示に使う）。 */
   sub?: React.ReactNode;
+  /** ふりがなが載る行。行間を先に確保して、トグルの ON/OFF で表が伸縮しないようにする。 */
+  rubyRow?: boolean;
 }) {
   return (
     // 補足（順位）はラベルと値の下に行いっぱいで置く。値の下に入れると、
     // 使える幅がラベルを引いた残りになり「172名中・年長順112位タイ」のような
     // 長い補足が折り返す（2カラム＋カードの内余白で最も狭くなる）。
-    <div className="grid grid-cols-[auto_1fr] gap-x-3 border-b border-border/60 py-1.5 last:border-b-0">
+    <div
+      className={`grid grid-cols-[auto_1fr] gap-x-3 border-b border-border/60 py-1.5 last:border-b-0${rubyRow ? " leading-ruby" : ""}`}
+    >
       <dt className="text-muted-foreground">{label}</dt>
       <dd className="text-right">{value}</dd>
       {sub && (
@@ -119,14 +126,28 @@ export function EmperorFacts({ record }: { record: EmperorRecord }) {
           基本情報
         </h2>
         <dl className="text-sm">
+          {/* ふりがな（Issue #20）。読みは ../data/name-readings.json で、
+              未登録の名前はルビ無しで素通しする。 */}
           {record.personalName && (
-            <DetailRow label="諱（本名）" value={record.personalName} />
+            <DetailRow
+              label="諱（本名）"
+              value={<RubyText source={rubyOf(record.personalName)} />}
+              rubyRow
+            />
           )}
           {record.templeName && (
-            <DetailRow label="廟号" value={record.templeName} />
+            <DetailRow
+              label="廟号"
+              value={<RubyText source={rubyOf(record.templeName)} />}
+              rubyRow
+            />
           )}
           {record.posthumousName && (
-            <DetailRow label="諡号" value={record.posthumousName} />
+            <DetailRow
+              label="諡号"
+              value={<RubyText source={rubyOf(record.posthumousName)} />}
+              rubyRow
+            />
           )}
           <DetailRow label="在位" value={record.periodsLabel} />
           <DetailRow
