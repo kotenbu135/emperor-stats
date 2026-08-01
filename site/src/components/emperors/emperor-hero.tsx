@@ -40,7 +40,14 @@ function ageChipValue(record: EmperorRecord): string | null {
   return parts.length > 0 ? parts.join("、") : null;
 }
 
-export function EmperorHero({ record }: { record: EmperorRecord }) {
+export function EmperorHero({
+  record,
+  lead,
+}: {
+  record: EmperorRecord;
+  /** 紹介文（Issue #16）。段落の区切りは空行。未執筆は null。 */
+  lead?: string | null;
+}) {
   const ageValue = ageChipValue(record);
   // 皇帝号だけでは誰か分かりにくい人物向けの補助名（諱・通用名）。
   // **諱をそのまま出すと106/365で重複する** — 「王莽」「宇文化及」のように表示名が
@@ -50,16 +57,21 @@ export function EmperorHero({ record }: { record: EmperorRecord }) {
   return (
     <header className="border-b border-border bg-background px-gutter py-section md:px-gutter-wide">
       <div className="mx-auto w-full max-w-4xl">
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
+        {/* 肖像は sm 以上で float。**紹介文（Issue #16）を肖像の右に置き、
+            長い本文は肖像の下へ回り込ませる**ため（2026-08-01 ユーザー指示の配置）。
+            flex の2カラムだと、500字級の紹介文で右カラムだけが伸びて肖像の左下に
+            大きな空白が残る。sm 未満は float を掛けず、肖像・名前・本文の縦積み
+            （390px 幅で 144px の肖像の右に本文を流すと1行10字を切る）。 */}
+        <div className="flex flex-col gap-5 sm:block">
           {record.portraitUrl !== null && (
             // 枠は肖像の実体と同じ3:4。狭い画面では144pxに落として、名前と要約が
             // 肖像の右に残る幅を確保する（縦積みにすると先頭が肖像だけで埋まる）。
-            <div className="relative aspect-[3/4] w-36 shrink-0 self-start overflow-hidden rounded-md border border-border sm:w-[200px]">
+            <div className="relative aspect-[3/4] w-36 shrink-0 self-start overflow-hidden rounded-md border border-border sm:float-left sm:mr-6 sm:mb-4 sm:w-[200px]">
               {/* ページ先頭の肖像は LCP 要素になるので eager で取りに行く。 */}
               <Portrait record={record} sizes="200px" large priority />
             </div>
           )}
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0">
             <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted-foreground">
               {/* 一覧カードの DynastyMark と同じ王朝の印。カードから遷移した先で
                   同じ符号が出ることで、色と王朝の対応が面をまたいで繋がる。 */}
@@ -118,7 +130,25 @@ export function EmperorHero({ record }: { record: EmperorRecord }) {
               <Chip label="即位" value={record.accessionRouteCategory} />
               {ageValue && <Chip label="年齢" value={ageValue} />}
             </div>
+            {/* 紹介文（Issue #16）。ページで唯一の16pxの文＝ここが「読ませる」文で
+                あることを級数で示す（他の本文は14px）。行送りは leading-ruby
+                （総ルビの段落はルビのある行だけ高くなり、leading-loose だと
+                段落の中で行間がばらつく）。段落の区切りは空行。 */}
+            {lead && (
+              <div className="mt-5 space-y-4">
+                {lead.split("\n\n").map((paragraph, i) => (
+                  <p
+                    key={i}
+                    className="text-base leading-ruby text-foreground"
+                  >
+                    <RubyText source={paragraph} />
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
+          {/* float を閉じる。無いとヒーローの下境界が肖像を跨いで縮む。 */}
+          <div className="clear-both" />
         </div>
       </div>
     </header>

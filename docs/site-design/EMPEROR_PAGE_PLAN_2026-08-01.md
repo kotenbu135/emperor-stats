@@ -61,9 +61,11 @@
 - `getEmperorProfile(id)`（`site/src/lib/emperors.ts`）— 未執筆は null。
   読み込み時に `lead` のルビ記法を `assertValidRubySource` で、`description` に
   ルビ記法が混ざっていないことを assert で見る
-- ページ側 — `lead` は `<RubyText>` 経由で②の位置に16pxで出す（**行送りは
-  `leading-ruby`**。`leading-loose` のままだとルビのある行だけ高くなって段落の中で
-  行間がばらつく）。`description` は `generateMetadata` と Person JSON-LD の両方に効く
+- ページ側 — `lead` は `<RubyText>` 経由で**ヒーロー内（要約チップの下）**に16pxで出す
+  （2026-08-01 ユーザー指示。肖像は sm 以上で float し、長い本文は肖像の下へ回り込む）。
+  **行送りは `leading-ruby`**（`leading-loose` のままだとルビのある行だけ高くなって
+  段落の中で行間がばらつく）。段落の区切りは空行。
+  `description` は `generateMetadata` と Person JSON-LD の両方に効く
 
 ### 執筆規約（2026-08-01 確定・全文は `emperor-profiles.json` の `meta.policy`）
 
