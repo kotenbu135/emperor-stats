@@ -34,7 +34,7 @@ export function SurvivalPanel({ data }: { data: HomeReignSurvival }) {
       />
       <LineLegend series={SERIES} notes={[`全${data.count}名`]} />
       <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-        {`在位日数は年365換算の概算（${data.approxOnlyCount}名は日まで下りていない）。複数回在位した${data.multiReignCount}名は合算値で数えている。`}
+        {`在位日数は年365換算の概算です（${data.approxOnlyCount}名は日まで下りていません）。複数回在位した${data.multiReignCount}名は合算値で数えています。`}
       </p>
     </div>
   );

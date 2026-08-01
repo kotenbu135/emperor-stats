@@ -172,12 +172,12 @@ export function ConcurrentPanel({ data }: { data: HomeConcurrentReigns }) {
       />
       <LineLegend series={SERIES} notes={[rangeLabel]} />
       <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-        {`全${data.coverage.total}在位を日付で区間にして重なりを数えた（日付が無い${data.coverage.filled}件は在位年で埋めているので上限側の見積り）。1人だけだった年は${data.soleYears}年で${data.solePercent}%。${data.excluded
+        {`全${data.coverage.total}在位を日付で区間にして重なりを数えています（日付が無い${data.coverage.filled}件は在位年で埋めているため上限側の見積りです）。1人だけだった年は${data.soleYears}年で${data.solePercent}%です。${data.excluded
           .map((e) => e.name)
-          .join("・")}は${data.range.toLabel}より後にも在位しており、表示範囲の外にある。`}
+          .join("・")}は${data.range.toLabel}より後にも在位しており、表示範囲の外にあります。`}
       </p>
       <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-        図の上をドラッグすると、その範囲だけを拡大する。
+        図の上をドラッグすると、その範囲だけを拡大します。
       </p>
     </div>
   );

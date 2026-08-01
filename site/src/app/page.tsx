@@ -25,13 +25,13 @@ export default function Home() {
       label: "収録した皇帝",
       value: String(stats.emperorCount),
       unit: "名",
-      note: "生前に「皇帝」を名乗った人物のみ",
+      note: "生前に「皇帝」を名乗った人物のみを収録しています",
       seal: true,
     },
     {
       label: "王朝・政権",
       value: String(highlights.dynastyCount),
-      note: "分裂期の王朝・自称政権を含む",
+      note: "分裂期の王朝・自称政権を含みます",
     },
     {
       // 下限は始皇帝の即位、上限は宣統帝・溥儀の最後の在位（満洲国）。
@@ -43,7 +43,7 @@ export default function Home() {
     {
       label: "平均在位期間",
       value: stats.avgReignLabel.replace("約", ""),
-      note: `最長は${stats.longestReign.durationLabel}、最短は${stats.shortestReign.durationLabel}`,
+      note: `最長は${stats.longestReign.durationLabel}、最短は${stats.shortestReign.durationLabel}です`,
     },
   ];
 

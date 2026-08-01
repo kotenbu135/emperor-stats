@@ -1445,7 +1445,7 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
     {
       key: "reign",
       label: "在位期間",
-      description: `即位から退位・崩御するまでの即位期間が長かった人物`,
+      description: `即位から退位・崩御するまでの即位期間が長かった人物です`,
       valueHeader: "在位",
       href: "/database?sort=reignApproxDays&order=desc",
       linkLabel: `全${reign.total}名の順位 →`,
@@ -1457,7 +1457,7 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
     {
       key: "campaign",
       label: "親征回数",
-      description: `皇帝自身が軍を率いて出征した回数。${total}名全員が母集団で、1回以上が${campaignActive}名、${total - campaignActive}名は一度も親征していない`,
+      description: `皇帝自身が軍を率いて出征した回数です。${total}名全員が母集団で、1回以上が${campaignActive}名、${total - campaignActive}名は一度も親征していません`,
       valueHeader: "回数",
       href: null,
       linkLabel: null,
@@ -1466,7 +1466,7 @@ export function getHomeHighlights(topCount = 6): HomeHighlights {
     {
       key: "era-change",
       label: "改元回数",
-      description: `即位に伴う建元も1回に数えた改元の回数。${total}名全員が母集団で、1回以上が${eraChangeActive}名、${total - eraChangeActive}名は一度も改元していない`,
+      description: `即位に伴う建元も1回に数えた改元の回数です。${total}名全員が母集団で、1回以上が${eraChangeActive}名、${total - eraChangeActive}名は一度も改元していません`,
       valueHeader: "回数",
       href: null,
       linkLabel: null,

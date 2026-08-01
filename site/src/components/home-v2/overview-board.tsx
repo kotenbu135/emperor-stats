@@ -233,7 +233,7 @@ export function OverviewBoard({
             下端を揃えつつ、余った高さを2枚の「間」へ逃がす。 */}
         <div className="flex h-full flex-col justify-between gap-4 lg:col-span-2">
           <Card>
-            <PanelHeading title="死因" description="正史の記述を元に分類" />
+            <PanelHeading title="死因" description="正史の記述を元に分類しています" />
             <div className="mt-5">
               <BreakdownBar slices={deathData} />
             </div>
@@ -241,7 +241,7 @@ export function OverviewBoard({
           <Card>
             <PanelHeading
               title="即位経路"
-              description="皇帝位に就いた経緯の区分"
+              description="皇帝位に就いた経緯の区分です"
             />
             <div className="mt-5">
               <BreakdownBar slices={accessionData} />
@@ -256,7 +256,7 @@ export function OverviewBoard({
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <PanelHeading
               title="世紀ごとの即位人数"
-              description={`即位した年で数えた${centuryTotal}名の分布。`}
+              description={`即位した年で数えた${centuryTotal}名の分布です。`}
             />
             <Link
               href="/emperors"
@@ -287,7 +287,7 @@ export function OverviewBoard({
             在位年数と死因
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            在位が短いほど非業の死の割合が高い（365名）
+            在位が短いほど非業の死の割合が高くなります（365名）
           </p>
           <ReignDeathPanel
             segments={reignDeath.segments}
@@ -303,7 +303,7 @@ export function OverviewBoard({
         <Card className="lg:col-span-3">
           <PanelHeading
             title="同時に帝号を持っていた人数"
-            description={`分裂期には帝号が並び立つ。最大は${concurrent.peak.dateLabel}の${concurrent.peak.count}人。`}
+            description={`分裂期には帝号が並び立ちます。最大は${concurrent.peak.dateLabel}の${concurrent.peak.count}人です。内禅・復位・並立擁立では、同じ王朝で2人が並ぶ期間もあります。`}
           />
           <ConcurrentPanel data={concurrent} />
         </Card>
@@ -312,7 +312,7 @@ export function OverviewBoard({
               集計から出す（文言へ焼き込まない）。 */}
           <PanelHeading
             title="在位継続率"
-            description={`即位からN年後にまだ在位している割合。中央値${survival.medianYears}年に対し平均は${survival.meanYears}年で、平均以上に在位したのは${survival.aboveMeanCount}名（${survival.aboveMeanPercent}%）。`}
+            description={`即位からN年後にまだ在位している割合です。中央値${survival.medianYears}年に対し平均は${survival.meanYears}年で、平均以上に在位したのは${survival.aboveMeanCount}名（${survival.aboveMeanPercent}%）です。`}
           />
           <SurvivalPanel data={survival} />
         </Card>
