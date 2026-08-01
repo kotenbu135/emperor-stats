@@ -69,7 +69,7 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 紹介文は `../data/emperor-profiles.json`（`emperors.json` とは別ファイル）。**存在しない皇帝idのキーがあるとビルドが落ちる**（`kana-readings`・`DYNASTY_COLOR_SLOT` と同じ書き間違い検出の assert）。未執筆でもページは成立する作りなので、フィールドが無い皇帝では紹介文の節が出ず `description` は機械生成文に落ちる。
 
-**`lead` は総ルビ・`description` は平文**（Issue #20 の T2）。`lead` は `<RubyText>` に通し、行送りは `leading-loose` ではなく **`leading-ruby`**（ルビのある行だけ高くなって段落の中で行間がばらつく）。**置き場所は導入 `lead` がヒーローの中**（`emperor-hero.tsx` の要約チップの下）・**逸話を含む `body` が「人物紹介」節**（ページ直書き・基本情報の上）で、**肖像は sm 以上で `float`**（長い紹介文が肖像の下へ回り込む・末尾の `clear-both` を消すとヒーローの下境界が肖像を跨いで縮む）。**`lead` の段落区切りは空行（`\n\n`）で、ページ側が split して `<p>` に分ける** — 逸話を交えるようになって1本500字級になったため（`basis` はサイトに出さない編集メモ）。`description` は `<meta>` と Person JSON-LD にしか出ないのでルビを持たせず、**ルビ記法が混ざっていたら `emperors.ts` の読み込み時に throw する**（描画側で strip すると、呼び出し2箇所のうち片方を直し忘れる事故になる）。執筆規約は `emperor-profiles.json` の `meta.policy`、ゲートは `../scripts/validate_profiles.py`（文字数はルビを剥がした長さで数える）と `../scripts/validate_readings.py`。
+**`lead` は総ルビ・`description` は平文**（Issue #20 の T2）。`lead` は `<RubyText>` に通し、行送りは `leading-loose` ではなく **`leading-ruby`**（ルビのある行だけ高くなって段落の中で行間がばらつく）。**置き場所は導入 `lead` がヒーローの中**（`emperor-hero.tsx` の名前チップの下）・**逸話を含む `body` が「人物紹介」節**（ページ直書き・基本情報の上）で、**肖像は sm 以上で `float`**（長い紹介文が肖像の下へ回り込む・末尾の `clear-both` を消すとヒーローの下境界が肖像を跨いで縮む）。**`lead` の段落区切りは空行（`\n\n`）で、ページ側が split して `<p>` に分ける** — 逸話を交えるようになって1本500字級になったため（`basis` はサイトに出さない編集メモ）。`description` は `<meta>` と Person JSON-LD にしか出ないのでルビを持たせず、**ルビ記法が混ざっていたら `emperors.ts` の読み込み時に throw する**（描画側で strip すると、呼び出し2箇所のうち片方を直し忘れる事故になる）。執筆規約は `emperor-profiles.json` の `meta.policy`、ゲートは `../scripts/validate_profiles.py`（文字数はルビを剥がした長さで数える）と `../scripts/validate_readings.py`。
 
 ## ページを1枚足すときに揃える3箇所
 

@@ -4,13 +4,7 @@
 // renderVideos・collapseVideos — はダイアログの廃止で全部死んだ）。
 
 import Link from "next/link";
-import { RubyText } from "@/components/ui/ruby-text";
-import { rubyOf } from "@/lib/name-readings";
 import type { EmperorRecord, MetricRank } from "@/lib/emperor-types";
-import {
-  emperorNameEntries,
-  groupEmperorNameEntries,
-} from "@/lib/display-name";
 
 /**
  * データベースの該当状態への文脈内リンク（2026-07-27 の SEO 監査 2-3）。
@@ -121,43 +115,14 @@ const COUNT_METRICS = [
 ] as const;
 
 export function EmperorFacts({ record }: { record: EmperorRecord }) {
-  // 名前（諱・民族名・廟号・諡号・元号・別称）。導出は lib/display-name.ts に集約。
-  // 2026-08-02 まではこの4行が「基本情報」の在位・死因と同じ dl に混ざっていた。
-  const nameGroups = groupEmperorNameEntries(emperorNameEntries(record));
   return (
-    // 「名前」は2カラムの中に入れない（2026-08-02）。カードが3枚になると2列の格子に
-    // 収まらず、右下に半面ぶんの空白が空く。中身も**諱1行だけが163人・0行が56人**で、
-    // 縦のdlにすると数文字の値が幅の端まで飛ぶうえカードの下半分が空く。
-    // 全幅の帯に「ラベル＋値」を横に流す形にすれば、1行でも4行でも、
-    // 行が無い56人で帯ごと消えても穴が残らない。
-    <div className="flex flex-col gap-4">
-      {nameGroups.length > 0 && (
-        <section className={SURFACE_CLASS}>
-          <h2 className="mb-2 font-heading text-base font-semibold text-foreground">
-            名前
-          </h2>
-          {/* ふりがな（Issue #20）。読みは ../data/name-readings.json で、
-              未登録の名前はルビ無しで素通しする。leading-ruby はトグルの ON/OFF で
-              帯の高さが動かないよう、ルビの分の行間を先に確保するためのもの。 */}
-          <dl className="flex flex-wrap gap-x-8 gap-y-1 text-sm leading-ruby">
-            {nameGroups.map((group) => (
-              <div key={group.label} className="flex items-baseline gap-2">
-                <dt className="text-muted-foreground">{group.label}</dt>
-                <dd className="text-foreground">
-                  {group.values.map((value, i) => (
-                    <span key={value}>
-                      {i > 0 && "・"}
-                      <RubyText source={rubyOf(value)} />
-                    </span>
-                  ))}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-      )}
-      <div className="grid gap-4 lg:grid-cols-2 lg:gap-x-6">
-        <section className={SURFACE_CLASS}>
+    // 名前（諱・廟号・諡号・元号・別称）はここに置かない（2026-08-02 ユーザー決定）。
+    // 一度は全幅の帯として3枚目に置いたが、**多くの皇帝で行が1つしか無く**
+    // （諱だけが163人・0行が56人）帯の右側が空くだけだったため、ヒーローの
+    // 要約チップ（死因・即位・年齢＝ここの「基本情報」と同じ値を出していた）と
+    // 入れ替えた（emperor-hero.tsx）。
+    <div className="grid gap-4 lg:grid-cols-2 lg:gap-x-6">
+      <section className={SURFACE_CLASS}>
           <h2 className="mb-2 font-heading text-base font-semibold text-foreground">
             基本情報
           </h2>
@@ -234,9 +199,8 @@ export function EmperorFacts({ record }: { record: EmperorRecord }) {
           </dl>
           <p className="mt-2 text-xs text-muted-foreground">
             順位は同数を同順位として数えています（「タイ」表示）。回数の順位は1回以上、年齢の順位は年齢が判明している皇帝のみが対象です。
-          </p>
-        </section>
-      </div>
+        </p>
+      </section>
     </div>
   );
 }
