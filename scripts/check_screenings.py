@@ -15,8 +15,12 @@
 
     python3 scripts/check_screenings.py             # ゲート
     python3 scripts/check_screenings.py --scope     # 母集団 N → 要読解 M
-    python3 scripts/check_screenings.py --for <皇帝id>
+    python3 scripts/check_screenings.py --for <皇帝id> [--field <フィールドパス>]
     python3 scripts/check_screenings.py --update    # 母集団が減ったとき（件数だけ）
+
+`--field` は記録が宣言する `fields` で絞る。付けないと**別の項目の絞り込みが出てきて**、
+それを「この作業の母集団は絞ってある」と読んでしまう（2026-08-03・Issue #56 の日付訂正で、
+名前フィールドの絞り込みだけが出て役に立たないという指摘が調査エージェントから出た）。
 """
 import argparse
 import json
@@ -33,7 +37,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SCREENINGS = ROOT / "data" / "screenings.json"
 
 KINDS = {"read", "corroborated", "absent"}
-REQUIRED = ("id", "unit", "script", "population", "n", "buckets",
+REQUIRED = ("id", "unit", "fields", "script", "population", "n", "buckets",
             "establishes", "notEstablished", "screenedAt")
 
 
@@ -219,6 +223,9 @@ def main():
     ap.add_argument("--scope", action="store_true", help="母集団 N → 要読解 M を出す")
     ap.add_argument("--for", dest="for_id", metavar="皇帝id",
                     help="その人物がどのバケットに入っているか。覆う記録が無ければ 1 で終了する")
+    ap.add_argument("--field", metavar="フィールドパス",
+                    help="記録が宣言する fields で絞る（例 personalCampaignCount.events[].endDate）。"
+                         "覆う記録が無ければ 1 で終了する")
     ap.add_argument("--update", action="store_true",
                     help="件数だけを実行結果に合わせて書き直す（調査が進んで母集団が減ったとき）")
     args = ap.parse_args()
@@ -227,7 +234,7 @@ def main():
     records = data.get("screenings") or []
 
     if args.for_id:
-        return brief_for(args.for_id, records)
+        return brief_for(args.for_id, records, args.field)
     if args.update:
         return update(data, records)
 
@@ -304,35 +311,72 @@ def update(data, records):
     return 0
 
 
-def brief_for(eid, records):
+def field_matches(declared, query):
+    """宣言側のフィールドパスと問い合わせのパスを突き合わせる。
+
+    `personalCampaignCount.events[].endDate` と `personalCampaignCount.events[3].endDate`、
+    素の `endDate` のどれで来ても当たるよう、添字を落としたセグメント列の包含で見る。
+    """
+    def segs(s):
+        return [x for x in s.replace("[]", "").replace("[", ".").replace("]", "")
+                .split(".") if x and not x.isdigit()]
+    a, b = segs(declared), segs(query)
+    if not a or not b:
+        return False
+    short, long_ = (a, b) if len(a) <= len(b) else (b, a)
+    return any(long_[i:i + len(short)] == short for i in range(len(long_) - len(short) + 1))
+
+
+def brief_for(eid, records, field=None):
     """人物単位の調査に入る直前に呼ぶ。絞り込みの結果をその人物の言葉で返す。"""
     hits = []
-    for rec in records:
-        if rec.get("unit") != "person-field":
-            continue
+    scoped = [r for r in records
+              if field is None
+              or any(field_matches(f, field) for f in r.get("fields") or [])]
+    if field is not None and not scoped:
+        print(f"{field} を覆う絞り込みの記録がありません。原典を読む前に機械で母集団を絞り、"
+              f"scripts/screens/ にコミットしたうえで data/screenings.json へ"
+              f"「母集団 N → 要読解 M」を残してください"
+              f"（規則 R-SCREEN-FIRST・docs/process/RULES.yml）", file=sys.stderr)
+        return 1
+    for rec in scoped:
         errs = []
         out = run_screen(rec, errs)
         if out is None:
             continue
-        for bucket in (out.get("coverage") or {}).get(eid) or []:
-            hits.append((rec, bucket))
+        coverage = out.get("coverage") or {}
+        # 単位が person-field なら鍵は id、campaign-event なら "<id>#<n>"
+        for key, buckets in coverage.items():
+            if key != eid and not key.startswith(eid + "#"):
+                continue
+            for bucket in buckets:
+                hits.append((rec, bucket, None if key == eid else key))
     if not hits:
-        print(f"{eid} を覆うセルが絞り込みの記録に1つもありません。"
+        of_field = f"の {field} " if field else ""
+        print(f"{eid}{of_field} を覆うセルが絞り込みの記録に1つもありません。"
               f"（対象フィールドがすでに埋まっているか、この作業の絞り込みが未実施です）"
               f"原典を読む前に機械で母集団を絞り、data/screenings.json に残してください"
               f"（規則 R-SCREEN-FIRST・docs/process/RULES.yml）", file=sys.stderr)
         return 1
-    print(f"# {eid} に効く絞り込み")
-    for rec, bucket in hits:
+    print(f"# {eid} に効く絞り込み" + (f"（{field}）" if field else ""))
+    # 同じ（記録・バケット）に複数ユニットが落ちるので1ブロックへ畳む
+    grouped = {}
+    for rec, bucket, unit in hits:
+        grouped.setdefault((rec["id"], bucket), (rec, bucket, []))[2].append(unit)
+    for rec, bucket, units in grouped.values():
         b = next((x for x in rec.get("buckets") or [] if x.get("name") == bucket), {})
-        print(f"\n- 記録: {rec['id']}（Issue #{rec.get('issue')}）")
-        print(f"- バケット: {bucket}（kind={b.get('kind')}）")
+        named = [u for u in units if u]
+        print(f"\n- 記録: {rec['id']}（Issue #{rec.get('issue')}）"
+              f"／覆うフィールド: {'・'.join(rec.get('fields') or [])}")
+        print(f"- バケット: {bucket}（kind={b.get('kind')}）"
+              + (f"／該当ユニット {len(named)}件: {'・'.join(named)}" if named else ""))
         print(f"- 意味: {b.get('means')}")
         if b.get("kind") == "absent":
             print(f"- **裏付けていないこと: {b.get('notEstablished')}**")
             audit = b.get("audit") or {}
-            bad = sum(1 for f in audit.get("findings") or [] if f.get("verdict") == "反例")
-            print(f"- {bound_line(bad, len(audit.get('findings') or []))}")
+            in_sample = [f for f in audit.get("findings") or [] if not f.get("outOfSample")]
+            bad = sum(1 for f in in_sample if f.get("verdict") == "反例")
+            print(f"- {bound_line(bad, len(in_sample))}")
     return 0
 
 
