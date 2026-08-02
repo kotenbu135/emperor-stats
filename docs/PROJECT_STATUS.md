@@ -159,6 +159,16 @@
 
 **これでグループ3（親征・反乱鎮圧・被反乱）が364/364人全員完了（2026-07-18）。** グループ2と同じ王朝ブロック順・史料マッピングを踏襲。隋・唐ブロックからは、子Agentのトークン削減のためグループ3とグループ5（ages）を1エージェント1回に合算する方式を試験導入し、五代十国・宋遼西夏金・元北元元末群雄・明・清・明清交替期群雄ブロックでも継続した（宋遼西夏金は52名中エラー2件〔nansong-gaozongのcount/events不一致、范汝為の乱の計上漏れ〕を検出し単発Workflowで修正、元北元元末群雄は18名中0エラー、明は16名中1件〔ming-yingzongのcount/events不一致〕を検出し既存データからの転記で単発修正、清は11名中1件〔qing-xuantongのrebellionSuppressionCount.count(14)がevents.length(13)と不一致〕を検出しcountをevents.lengthに合わせる単発修正、明清交替期群雄は9名中0エラー、最終的にすべてid自己申告のズレも0件・suppression>suffered逆転異常も0件）。詳細な進捗・特筆事項はメモリ `group3-count-progress`・`group5-ages-method`・`group3-group5-merged-pass-decision`・`group3-block-songliaoxixiajin`・`group3-block-yuan-beiyuan-yuanmo`・`group3-block-ming`・`group3-block-qing`・`group3-block-mingqing-zhuanti` を参照。
 
+**親征イベントの日付は別途訂正中（Issue #56・2026-08-03 着手）。** 「出征〜帰還または現地での終結」という
+数え方（[ADDITIONAL_SCHEMA.md](../data/schema/ADDITIONAL_SCHEMA.md) 7節）に対し、**終期が起点と同じ値のまま**の
+イベントが42件あった（絞り込みは `scripts/screens/campaign_span.py`・記録は `data/screenings.json` の
+`campaign-span-issue56`）。42件を原典へ当て直し、24件を訂正済み・18件は現行値が正しかった。
+**同時に、機械が「読まなくてよい」と分類した spanned 側から種つき標本8件を引いて監査し、取りこぼし率
+50%（4/8・95%区間 16〜84%）を実測した — このバケットは安全側ではない。**
+残件は same-year 40件・no-dates 32件と、spanned 側の残り188件。欠陥の型は「旧暦の月番号を太陽暦の月欄へ
+直書き」「起点と終期が別の旧暦月なのに同じ多数月へ潰れる」「終期が帰還・終結の記事ではなく帝が自ら率いた
+最後の記事」「年精度の 01-01／12-31 や月末日の埋め草」「別人の行動を終期に採る」。
+
 ### グループ4（遷都回数）— ✅ 完了
 
 - [x] 判定基準・調査方法の確定（`data/schema/ADDITIONAL_SCHEMA.md` 6節、2026-07-17）
