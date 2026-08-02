@@ -43,8 +43,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from hanzi_norm import (AMBIGUOUS_JP, T2S_VARIANTS, han_only, norm_for_match,  # noqa: E402
-                        norm_strict, norm_variants, table_conflicts, to_traditional)
+from hanzi_norm import (AMBIGUOUS_JP, T2S_VARIANTS, _t2s_char, han_only,  # noqa: E402
+                        norm_for_match, norm_strict, norm_variants, table_conflicts,
+                        to_traditional)
 
 DATA_PATH = ROOT / "data" / "emperors.json"
 REFS_PATH = ROOT / "data" / "quote-refs.json"
@@ -316,8 +317,11 @@ def strict_variants(frag):
     # T2S_VARIANTS は「底本がこの字形を使っている」という異体字の対応で、
     # 新字体の混入とは別物。混入ゲート側でも候補に入れないと、正しい引用が落ちる。
     base = han_only(frag)
-    return tuple({norm_strict(v).translate(t) for v in (base, base.translate(AMBIGUOUS_JP))
-                  for t in ({}, T2S_VARIANTS)})
+    out = {norm_strict(v).translate(t) for v in (base, base.translate(AMBIGUOUS_JP))
+           for t in ({}, T2S_VARIANTS)}
+    # opencc の語彙変換で底本と結果がずれる字（乾清宮）。混入ゲート側にも候補を入れる
+    out.add(''.join(_t2s_char(c) for c in base))
+    return tuple(out)
 
 
 # 判定結果のスタンプ（2026-08-02 導入）。

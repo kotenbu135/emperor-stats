@@ -94,6 +94,22 @@ def to_traditional(s: str) -> str:
     return _S2T.convert(t) if _S2T else t
 
 
+@lru_cache(maxsize=100_000)
+def _t2s_char(c: str) -> str:
+    return _T2S.convert(c) if _T2S else c
+
+
+def to_simplified_charwise(s: str) -> str:
+    """1字ずつ簡体化する（opencc の語彙変換を通さない版）。
+
+    opencc は語彙単位で変換するため、同じ字でも周りの字で結果が変わる。
+    引用「崩於乾清宮」は t2s で「崩于乾清宫」のままだが、底本「崩于乾清宫」は
+    「崩于干清宫」になり、同じ箇所なのに一致しない（2026-08-02・Issue #38）。
+    照合の候補にこちらも並べる（norm_variants / strict_variants）。
+    """
+    return ''.join(_t2s_char(c) for c in (s or '').translate(SHINJITAI_TO_TRAD))
+
+
 def table_conflicts():
     """表を通したほうが簡体化が悪くなる字を返す（[(新字体, 表の値, 直接t2s, 表経由)]）。
 
@@ -146,4 +162,7 @@ def norm_variants(s: str) -> tuple:
         v = to_simplified(base.translate(tbl)).translate(T2S_VARIANTS)
         if v not in out:
             out.append(v)
+    cw = to_simplified_charwise(base)
+    if cw not in out:
+        out.append(cw)
     return tuple(out)
