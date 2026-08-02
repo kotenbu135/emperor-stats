@@ -212,7 +212,8 @@ A1 の効果が最も直接に測れる。#24 は自動採番禁止との兼ね�
 | 層 | 実体 | 中身 |
 |---|---|---|
 | L1 | `.claude/hooks/guard.py` ＋ `.claude/settings.json` の PreToolUse | R-CORPUS-GREP・R-GIT-ADDALL・R-GIT-STASH・R-JSON-READ-MAIN。逃げ道は `EMPSTATS_ALLOW=<規則ID>:<理由>` の1本で理由必須。発火は `.claude/hook-log.jsonl` へ（pass も含めて記録＝分母） |
-| L1 の検査 | `.claude/hooks/test_guard.py` | 20ケース（deny・pass・逃げ道・サブエージェント範囲）。**セッションを再起動せずに直接テストできる**ようフックは stdin の JSON だけで動く |
+| L1 の検査 | `.claude/hooks/test_guard.py` | 25ケース（deny・pass・逃げ道・サブエージェント範囲・複数規則・壊れた入力）。**セッションを再起動せずに直接テストできる**ようフックは stdin の JSON だけで動く |
+| 台帳の検査 | `scripts/check_rules.py` | 全規則が `scope` と `evidence` を持つか・**guard.py の実装と台帳の L1 が一致するか**・L4 だけの規則の一覧（現在は `R-API-BATCH` 1件） |
 | 台帳 | `docs/process/RULES.yml` | 15規則。`scope`（適用範囲）・`enforcement`（強制層）・`evidence`（根拠になった失敗）を持つ。**L4 だけの規則が次に破られる規則** |
 | 結合 | `docs/process/COUPLINGS.md` | データ側5・サイト側12・運用側2。site 側の行は実在する assert の `file:line` で裏を取った |
 | 出力契約 | `docs/process/CLAIMS_CONTRACT.md` ＋ `scripts/check_claims.py` | A1（claims-first）と A4（主張と作業ログの分離）・A3（史料対立の欄）を1つの契約にまとめた |
@@ -238,3 +239,20 @@ A1 の効果が最も直接に測れる。#24 は自動採番禁止との兼ね�
   置いても他の worktree・他セッションへ伝わらない。伝えたいものは
   `.claude/agents/` と `.claude/workflows/` 側に置いた
 - `scripts/patch_emperor.py`（転記ツール）は未着手。deny は掛けない方針のまま
+
+### 8-5. レビューで直したこと（ガード自身の欠陥）
+
+合成データ20件が緑でも、**ガードそのものに2つ穴があった**。どちらも「規則の内容」ではなく
+「ガードの構造」の問題で、規則を増やすほど効いてくる:
+
+- **1つ目に当たった規則で `return` していた。** `cd daizhigev20 && git add -A` は
+  コーパスの語を含むので R-CORPUS-GREP の分岐に入り、そこで打ち切られて
+  **`git add -A` が素通り**していた。当てはまる規則を**全部**評価して、
+  1つでも deny なら止める形へ直した（回帰ケースを追加）
+- **想定外の例外でガードが落ちると、このリポジトリの全セッションで Bash が止まる。**
+  しかも直すのにその Bash が要る。`main()` を包んで、例外時は理由を stderr に出して**素通し**にした
+
+最後に、**実際のセッション**（`claude -p` で別セッションを起こす）で、追跡済みの
+`.claude/settings.json` 経由のガードがメイン会話とサブエージェントの両方を止めること、
+`hook-log.jsonl` の `actor` が `main` / `general-purpose` と正しく分かれることを確認した。
+**合成データのテストは「ガードの中身」しか見ない** — 配線が繋がっているかは別に測る。

@@ -4,7 +4,8 @@ def run(payload, env=None):
     import os
     e = dict(os.environ); e["CLAUDE_PROJECT_DIR"] = "/tmp/emperor-stats-guardtest"
     if env: e.update(env)
-    p = subprocess.run([sys.executable, G], input=json.dumps(payload), capture_output=True, text=True, env=e)
+    raw = payload if isinstance(payload, str) else json.dumps(payload)
+    p = subprocess.run([sys.executable, G], input=raw, capture_output=True, text=True, env=e)
     return p.returncode, p.stderr.strip()[:70]
 def bash(cmd, sub=False):
     d = {"tool_name":"Bash","tool_input":{"command":cmd},"cwd":"."}
@@ -31,6 +32,11 @@ cases = [
  ("deny  Grepツールの抽出",      {"tool_name":"Grep","tool_input":{"pattern":".{0,40}崩御.{0,40}","path":"daizhigev20"},"cwd":"."}, 2),
  ("pass  Grep通常",             {"tool_name":"Grep","tool_input":{"pattern":"崩于","path":"daizhigev20"},"cwd":"."}, 0),
  ("pass  無関係コマンド",        bash("python3 scripts/validate_emperors.py"), 0),
+ ("deny  コーパスcd＋git add -A",  bash("cd daizhigev20 && git add -A"), 2),
+ ("deny  grepパイプ＋stash pop",   bash("rg -n '崩于' daizhigev20/a.txt | grep -c 史; git stash pop"), 2),
+ ("pass  rg|grep の連結",          bash("rg -n '崩于' daizhigev20/史藏/正史/晋书.txt | grep -c 帝"), 0),
+ ("pass  壊れた入力",              "NOT-JSON", 0),
+ ("pass  tool_input が null",     {"tool_name":"Bash","tool_input":None,"cwd":"."}, 0),
 ]
 bad=0
 for name, payload, want in cases:

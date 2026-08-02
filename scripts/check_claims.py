@@ -130,6 +130,10 @@ def main():
     if not args:
         print(__doc__)
         return 2
+    if not vq.CORPUS_ROOT:
+        print("ERROR  正史コーパスが見つかりません（china-history/・daizhigev20/・_corpus_cache/）。"
+              "このゲートはローカル専用です。引用の中身は検証していません")
+        return 2
     paths = []
     for a in args:
         p = Path(a)

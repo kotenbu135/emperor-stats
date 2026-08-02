@@ -48,56 +48,61 @@ def escape_reason(rule_id, command):
 
 
 def check(tool, ti, is_subagent, command):
-    """(規則ID, 分母に数える対象か, deny 理由) を返す。deny しないなら理由 None。"""
+    """当てはまった規則を全部返す: [(規則ID, deny 理由 or None), ...]
+
+    1つ目で return しない。`cd daizhigev20 && git add -A` のように
+    複数の規則に掛かるコマンドがあり、先に当たったほうで打ち切ると残りが素通りする。
+    """
+    hits = []
 
     # R-CORPUS-GREP — コーパスへの .{0,N} 型コンテキスト抽出 grep
     # 素の grep は ugrep で、単一 10MB ファイルでもメモリ 4GB 超に暴走し WSL ごと落ちる。
     if tool == "Bash" and CORPUS.search(command) and BARE_GREP.search(command):
+        deny = None
         if CTX_EXTRACT.search(command) and not ABS_GREP.search(command):
-            return ("R-CORPUS-GREP", True,
-                    "コーパスへの `.{0,N}` 型コンテキスト抽出 grep は ugrep がメモリ 4GB 超に暴走し "
+            deny = ("コーパスへの `.{0,N}` 型コンテキスト抽出 grep は ugrep がメモリ 4GB 超に暴走し "
                     "WSL ごと落ちます。/usr/bin/grep か rg を使うか、抽出幅を使わない検索にしてください"
                     "（docs/process/CORPUS_NOTES.md「コーパス検索のメモリ事故対策」）")
-        return ("R-CORPUS-GREP", True, None)
+        hits.append(("R-CORPUS-GREP", deny))
     if tool == "Grep" and CTX_EXTRACT.search(ti.get("pattern", "")):
         target = f"{ti.get('path','')} {ti.get('glob','')}"
+        deny = None
         if CORPUS.search(target) or not ti.get("path"):
-            return ("R-CORPUS-GREP", True,
-                    "Grep ツールは ugrep です。`.{0,N}` 型の抽出パターンをコーパスに掛けると "
+            deny = ("Grep ツールは ugrep です。`.{0,N}` 型の抽出パターンをコーパスに掛けると "
                     "WSL ごと落ちます。/usr/bin/grep か rg を Bash から使ってください")
-        return ("R-CORPUS-GREP", True, None)
+        hits.append(("R-CORPUS-GREP", deny))
 
     # R-GIT-ADDALL — 並行セッションの変更を巻き込む一括 add
     if tool == "Bash" and re.search(r"\bgit\s+add\b", command):
+        deny = None
         if re.search(r"\bgit\s+add\s+(-A|--all|-u\s*$|\.\s*($|[;&|]))", command):
-            return ("R-GIT-ADDALL", True,
-                    "同じ作業ツリーで別セッションが編集していることがあります。"
+            deny = ("同じ作業ツリーで別セッションが編集していることがあります。"
                     "`git add -A` / `git add .` は他セッションの変更を巻き込むので、"
                     "パスを明示して add してください")
-        return ("R-GIT-ADDALL", True, None)
+        hits.append(("R-GIT-ADDALL", deny))
 
     # R-GIT-STASH — stash スタックは全 worktree で共有され、他セッションの退避を pop しうる
     if tool == "Bash" and re.search(r"\bgit\s+stash\b", command):
+        deny = None
         if re.search(r"\bgit\s+stash\s*($|[;&|])", command) or \
            re.search(r"\bgit\s+stash\s+(pop|clear)\b", command):
-            return ("R-GIT-STASH", True,
-                    "stash スタックは主リポジトリと全 worktree で共有されます。"
+            deny = ("stash スタックは主リポジトリと全 worktree で共有されます。"
                     "裸の `git stash` / `git stash pop` は他セッションの退避を奪います。"
                     "`git stash push -u -m \"<タグ>\"` で積み、`git stash apply <sha>` で戻してください"
                     "（退避が要らないなら一時 WIP コミットのほうが安全）")
-        return ("R-GIT-STASH", True, None)
+        hits.append(("R-GIT-STASH", deny))
 
     # R-JSON-READ-MAIN — メイン会話で emperors.json 全体を Read しない（コンテキスト効率）
     # 規則の適用範囲は「メイン会話」なので、サブエージェントには掛けない。
     if tool == "Read" and str(ti.get("file_path", "")).endswith("data/emperors.json"):
-        if is_subagent or ti.get("offset") or ti.get("limit"):
-            return ("R-JSON-READ-MAIN", True, None)
-        return ("R-JSON-READ-MAIN", True,
-                "data/emperors.json は約 3.8MB で、メイン会話に載せると以降の全ターンで再送されます。"
-                "jq / python3 を Bash 経由で使って必要なフィールドだけ抽出してください"
-                "（docs/process/RESEARCH_PROCESS.md「コンテキスト効率」）")
+        deny = None
+        if not (is_subagent or ti.get("offset") or ti.get("limit")):
+            deny = ("data/emperors.json は約 3.8MB で、メイン会話に載せると以降の全ターンで再送されます。"
+                    "jq / python3 を Bash 経由で使って必要なフィールドだけ抽出してください"
+                    "（docs/process/RESEARCH_PROCESS.md「コンテキスト効率」）")
+        hits.append(("R-JSON-READ-MAIN", deny))
 
-    return (None, False, None)
+    return hits
 
 
 def main():
@@ -112,27 +117,36 @@ def main():
     is_subagent = bool(data.get("agent_id"))
     project_dir = os.environ.get("CLAUDE_PROJECT_DIR") or data.get("cwd") or "."
 
-    rule_id, counted, deny = check(tool, ti, is_subagent, command)
-    if not counted:
-        sys.exit(0)
+    denials = []
+    for rule_id, deny in check(tool, ti, is_subagent, command):
+        reason = escape_reason(rule_id, command) if deny else None
+        decision = "deny" if (deny and not reason) else ("escaped" if reason else "pass")
+        log(project_dir, {
+            "rule": rule_id, "decision": decision, "tool": tool,
+            "actor": data.get("agent_type") if is_subagent else "main",
+            "detail": (command or str(ti.get("file_path") or ti.get("pattern") or ""))[:160],
+            "escape_reason": reason,
+        })
+        if decision == "deny":
+            denials.append((rule_id, deny))
 
-    reason = escape_reason(rule_id, command) if deny else None
-    decision = "deny" if (deny and not reason) else ("escaped" if reason else "pass")
-    log(project_dir, {
-        "rule": rule_id, "decision": decision, "tool": tool,
-        "actor": data.get("agent_type") if is_subagent else "main",
-        "detail": (command or str(ti.get("file_path") or ti.get("pattern") or ""))[:160],
-        "escape_reason": reason,
-    })
-
-    if decision == "deny":
-        print(f"[{rule_id}] {deny}\n"
-              f"どうしても必要なら理由を添えて "
-              f"EMPSTATS_ALLOW={rule_id}:<理由> を付けて再実行してください。",
-              file=sys.stderr)
+    if denials:
+        for rule_id, deny in denials:
+            print(f"[{rule_id}] {deny}\n"
+                  f"どうしても必要なら理由を添えて "
+                  f"EMPSTATS_ALLOW={rule_id}:<理由> を付けて再実行してください。",
+                  file=sys.stderr)
         sys.exit(2)
     sys.exit(0)
 
 
 if __name__ == "__main__":
-    main()
+    # 想定外の例外でツール呼び出しを止めない。ガードが落ちると
+    # このリポジトリの全セッションで Bash が止まり、直すのにその Bash が要る。
+    try:
+        main()
+    except SystemExit:
+        raise
+    except Exception as exc:  # noqa: BLE001
+        print(f"[guard.py] 内部エラーのため素通しします: {exc}", file=sys.stderr)
+        sys.exit(0)
