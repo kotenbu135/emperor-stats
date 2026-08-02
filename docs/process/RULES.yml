@@ -151,7 +151,7 @@ rules:
     summary: 片方を変えたらもう片方も変える対を、気づいた時点で結合レジストリに登録する
     scope: データ・サイト・ドキュメントをまたぐ結合すべて
     enforcement: [L3, L4]
-    detail: 一覧は docs/process/COUPLINGS.md。**規則違反ではなく「規則が書かれていなかった」型の事故に効く唯一の手当て**
+    detail: 一覧は docs/process/COUPLINGS.md。台帳と guard.py の対は CI（validate-data.yml）で突合する。**規則違反ではなく「規則が書かれていなかった」型の事故に効く唯一の手当て**
     evidence: 肖像 manifest と実体ファイルの不一致で deploy gate が落ちた（2026-08-01）／表示名を変えて kana-readings.ts の TABLE_SOURCE を直さずビルドが落ちた（2026-08-02）
     source: docs/process/COUPLINGS.md
 

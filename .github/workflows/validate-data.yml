@@ -16,6 +16,9 @@ on:
       - "scripts/detect_wikipedia_sources.py"
       - "scripts/validate_readings.py"
       - "scripts/validate_profiles.py"
+      - "docs/process/RULES.yml"
+      - ".claude/hooks/guard.py"
+      - "scripts/check_rules.py"
       - ".github/workflows/validate-data.yml"
   pull_request:
     paths:
@@ -28,6 +31,9 @@ on:
       - "scripts/detect_wikipedia_sources.py"
       - "scripts/validate_readings.py"
       - "scripts/validate_profiles.py"
+      - "docs/process/RULES.yml"
+      - ".claude/hooks/guard.py"
+      - "scripts/check_rules.py"
       - ".github/workflows/validate-data.yml"
   workflow_dispatch:
 
@@ -45,7 +51,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install jsonschema sxtwl opencc-python-reimplemented
+        run: pip install jsonschema sxtwl opencc-python-reimplemented pyyaml
 
       - name: Validate emperors.json
         run: python3 scripts/validate_emperors.py
@@ -73,3 +79,9 @@ jobs:
       # 引用を追加・改変したコミットはここで確実に落ちる（規約: RESEARCH_PROCESS.md 引用の取り扱い規約）
       - name: Verify quote ledger coverage
         run: python3 scripts/verify_quotes.py --check-coverage
+
+      # 規則台帳（docs/process/RULES.yml）の自己検査。全規則が適用範囲と根拠を持つか、
+      # .claude/hooks/guard.py の実装と台帳の強制層 L1 が一致するかを見る。
+      # 台帳が実装より先に腐ると「掛かっているつもり」になるので、ここで落とす。
+      - name: Validate rule registry
+        run: python3 scripts/check_rules.py
