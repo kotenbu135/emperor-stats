@@ -34,6 +34,10 @@ python3 scripts/check_verification.py --for <皇帝id>    # 着手時。tier・�
 
 ブロックを終えたら `data/verification.json` の `blocks` へ **`raised`（指摘を `(field, problem)` で
 畳んだ件数）と `confirmed`（そのうち実欠陥）** を記録します。`--rate` で率の表が出ます。
+**Web 差分（3段目）の歩留まりも同じ行の `webdiff` へ**（`raised`＝Web で挙がった食い違い・
+`confirmed`＝原文へ当て直して実欠陥だった件数）。`own-annals` の3段目を落として総コストを
+中立に寄せられるかの判断がこの数字待ちです（Issue #43・2026-08-03 ユーザー決定は「落とさず測る」）。
+書き忘れると `check_verification.py` が警告します。
 
 ## 1段目に note を渡さない
 

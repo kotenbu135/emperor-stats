@@ -159,7 +159,32 @@ def check_blocks(led, tmap):
             err(f"[block] {bid}: confirmed={confirmed} が raised={raised} を超えている")
         if b.get("escapes") is None:
             warn(f"[block] {bid}: escapes が null（後から見つかった実欠陥を数えていない）")
+        check_webdiff(b, bid)
     return len(led.get("blocks", []))
+
+
+def check_webdiff(b, bid):
+    """Web 差分検出（profile-webdiff）の歩留まり。
+
+    own-annals の3段目を落として総コストを中立に寄せるかは Issue #43 の判断待ちで、
+    **落とさず歩留まりを記録し始める**のがユーザー決定（2026-08-03）。
+    「own-annals は Web の拾いも少ないはず」という期待が未検証のまま削れないので、
+    その期待を測るための欄。**tier の体数には数えない**（webdiff は全員1体のまま）。
+    """
+    w = b.get("webdiff")
+    if w is None:
+        if b.get("task") == "profiles":
+            warn(f"[block] {bid}: webdiff が null（Web 差分の歩留まりを数えていない）。"
+                 "own-annals の3段目を落とせるかの判断はこの数字待ち")
+        return
+    if not isinstance(w, dict) or set(w) - {"raised", "confirmed", "note"}:
+        err(f"[block] {bid}: webdiff は raised / confirmed / note を持つオブジェクトです: {w!r}")
+        return
+    r, c = w.get("raised"), w.get("confirmed")
+    if (r is None) != (c is None):
+        err(f"[block] {bid}: webdiff の raised と confirmed は両方書くか両方 null にする")
+    if isinstance(r, int) and isinstance(c, int) and c > r:
+        err(f"[block] {bid}: webdiff.confirmed={c} が raised={r} を超えている")
 
 
 def cmd_gate(led, emp):
@@ -269,7 +294,10 @@ def cmd_rate(led, emp):
     print("ブロック別の指摘率（規則 R-VERIFY-TIER の完了条件）\n")
     print("escapes = 検証を通過したあと別作業で見つかった実欠陥（遡及して数えられるのはこれだけ）")
     print("raised/confirmed = 検証段が挙げた指摘と、そのうち実欠陥だった件数\n")
-    hdr = f"{'ブロック':34s} {'tier':11s} {'人':>3s} {'体/人':>4s} {'指摘':>4s} {'実欠陥':>5s} {'実欠陥率':>7s} {'escapes':>8s}"
+    print("webdiff = Web 差分検出が挙げた食い違い／そのうち原文で確かめて実欠陥だった件数"
+          "（tier の体数には数えない・Issue #43）\n")
+    hdr = (f"{'ブロック':34s} {'tier':11s} {'人':>3s} {'体/人':>4s} {'指摘':>4s} {'実欠陥':>5s} "
+           f"{'実欠陥率':>7s} {'escapes':>8s} {'webdiff':>9s}")
     print(hdr)
     print("-" * len(hdr))
     for tier in TIERS:
@@ -280,10 +308,14 @@ def cmd_rate(led, emp):
             rate = "—" if not isinstance(r, int) or r == 0 else f"{c / r:.0%}"
             esc = b.get("escapes")
             esc_s = "—" if esc is None else f"{esc}（{esc / b['people']:.2f}/人）"
+            w = b.get("webdiff") or {}
+            wd = "—" if w.get("raised") is None else f"{w['confirmed']}/{w['raised']}"
             print(f"{b['id']:34s} {tier:11s} {b['people']:3d} {b['verifiersPerPerson']:4d} "
-                  f"{'—' if r is None else r:>4} {'—' if c is None else c:>5} {rate:>7s} {esc_s:>8s}")
+                  f"{'—' if r is None else r:>4} {'—' if c is None else c:>5} {rate:>7s} "
+                  f"{esc_s:>8s} {wd:>9s}")
     print("\n" + led["meta"]["confound"])
     print("\n" + led["meta"]["whichNumber"])
+    print("\n" + led["meta"]["webdiff"])
 
 
 def main():
