@@ -85,12 +85,27 @@ KNOWN_DEATH_BEFORE_END = {
     "shun-lichengzheng",      # 1645-09 < 1645-10-01
 }
 
-# confidence が空文字のまま（2-1 スキーマ検証で判明・値の確定は調査判断待ち）
-KNOWN_EMPTY_CONFIDENCE = {
-    ("yuan-shizu", "personalCampaignCount"),
-    ("yuanmo-xushouhui", "personalCampaignCount"),
-    ("yuanmo-xushouhui", "rebellionSuppressionCount"),
-    ("yuanmo-xushouhui", "rebellionSufferedCount"),
+# confidence が空文字のまま（現状該当なし。2-1 スキーマ検証で判明した4セル
+# 〈yuan-shizu の親征・yuanmo-xushouhui の親征/反乱鎮圧/被反乱〉は 2026-08-02 の
+# Issue #42 で原典に当て直して high/medium を確定済み）。
+KNOWN_EMPTY_CONFIDENCE = set()
+
+# 被反乱 event の日付が最終 reign の endDate と食い違うが正当なもの（check_death_event_date）。
+# 「在位終了 ≠ 没日」（廃位・禅譲のあとで殺された）が主因で、これは食い違って当然。
+# 未トリアージのものは Issue #50 で原典に当て直す。
+# 鍵は (皇帝 id, events の添字) — 同じ人物に該当 event が2つあるとき、id だけだと
+# 1つ目で許可リストを消費して2つ目が「新しいずれ」として警告に出てしまう
+# （KNOWN_PREACCESSION_EVENTS が同じ理由で添字まで持っている）。
+KNOWN_DEATH_EVENT_DATE = {
+    # 廃位・禅譲後に殺害された（在位終了日と没日が別なのが正しい）
+    ("hou-han-shaodi-bian", 0),    # 0189-09-28 廃位 → 0190-03-06 鴆殺
+    ("sui-gongdi-tong", 0),        # 0619-05-23 禅譲 → 0619-07-19 弑逆
+    # 未トリアージ（Issue #50）。在位終了日と event 日付が2日〜45日ずれる
+    ("liu-song-houfeidi", 2),      # event 0477-07-07 刺殺 / reigns 0477-08-01
+    ("qi-yulinwang", 0),           # event 0494-07-22 / reigns 0494-09-05
+    ("liang-xiaoyuanming", 0),     # event 0555-10-29 / reigns 0555-10-27
+    ("tangmo-shisiming", 0),       # event 0761-04-18 縊殺 / reigns 0761-04-22
+    ("shiguo-beihan-liujien", 0),  # event 0968-11-01 刺殺 / reigns 0968-10-23
 }
 
 # reignSummary と reigns の不一致（現状該当なし。
@@ -741,6 +756,66 @@ def check_reign_summary(data):
                     )
 
 
+DEATH_OUTCOME_RE = re.compile(
+    "弑逆|弑殺|弑され|被弑|崩御|殺害され|謀殺され|鴆殺|毒殺され|絞殺され|縊殺|刺殺され"
+)
+
+
+def check_death_event_date(data):
+    """本人の死を結末とする被反乱 event の日付が、最終 reign の endDate と一致するか（警告）。
+
+    2026-08-02（Issue #42）追加。`yuanmo-xushouhui` で、`reigns[0].endDate` を 2026-07-21 に
+    1360-07-29 → 1360-06-16 へ訂正した際に `rebellionSufferedCount.events[1].endDate` が旧値の
+    まま取り残されていた（event の note は「既存 deathCause/reigns と一致」と書いており、その
+    記述自体が偽になっていた）。**構造フィールド同士の突合**なので、在位 ISO 年範囲を見る
+    check_event_reign_range も、note の散文を見る check_note_value_sync も拾わない領域。
+
+    絞り込みは3つ。(1) `rebellionSufferedCount` だけを見る — 親征・鎮圧の outcome は他人の死を
+    書くのが普通で、主語の判別が機械ではできない。(2) 両端とも day 精度のものだけ比べる
+    （year/month 精度の "-01" は埋め草で、日の一致を問えない）。(3) outcome が本人の死を述べて
+    いるものだけ（note まで広げると「〜のまま崩御」の言及で誤検出が10倍になる）。
+
+    それでも「在位終了 ≠ 没日」（廃位・禅譲のあとで殺された）は正当に食い違うので、
+    KNOWN_DEATH_EVENT_DATE で除外する。
+    """
+    hits = []
+    evaluated = 0
+    for e in data["emperors"]:
+        reigns = e.get("reigns") or []
+        if not reigns:
+            continue
+        end = reigns[-1].get("endDate")
+        rp = reigns[-1].get("datePrecision")
+        rp = rp.get("end") if isinstance(rp, dict) else rp
+        if not end or len(end) != 10 or rp != "day":
+            continue
+        for i, ev in enumerate(e.get("rebellionSufferedCount", {}).get("events", []) or []):
+            if not DEATH_OUTCOME_RE.search(str(ev.get("outcome") or "")):
+                continue
+            for key in ("endDate", "date"):
+                val = ev.get(key)
+                if not val or len(val) != 10:
+                    continue
+                p = ev.get("datePrecision")
+                p = p.get("end" if key == "endDate" else "start") if isinstance(p, dict) else p
+                if p != "day":
+                    continue
+                evaluated += 1
+                if val == end:
+                    continue
+                if (e["id"], i) in KNOWN_DEATH_EVENT_DATE:
+                    KNOWN_DEATH_EVENT_DATE.discard((e["id"], i))
+                else:
+                    hits.append(
+                        f"{e['id']}.rebellionSufferedCount.events[{i}].{key}={val} "
+                        f"≠ reigns[-1].endDate={end}"
+                    )
+    if hits:
+        warn(f"[death-event-date] 本人の死を結末とする被反乱 event の日付が在位終了日と食い違う"
+             f"（在位終了≠没日なら正当・許可リストへ）: {len(hits)}件 {hits}")
+    return evaluated
+
+
 def check_confidence(data):
     nonstandard_precision = Counter()
 
@@ -1147,6 +1222,7 @@ def main() -> int:
     check_ages(data)
     check_reign_summary(data)
     check_confidence(data)
+    death_event_n = check_death_event_date(data)
     check_event_date_format(data)
     check_forbidden_sources(data)
     check_accession_axes(data)
@@ -1163,6 +1239,7 @@ def main() -> int:
         ("KNOWN_REIGN_OVERLAP", KNOWN_REIGN_OVERLAP),
         ("KNOWN_COUNTING_AGE", KNOWN_COUNTING_AGE),
         ("KNOWN_NULL_SAID", KNOWN_NULL_SAID),
+        ("KNOWN_DEATH_EVENT_DATE", KNOWN_DEATH_EVENT_DATE),
     ):
         # 消費されなかった（=データ側が既に正しい）エントリが残っていれば陳腐化
         if left:
@@ -1173,7 +1250,8 @@ def main() -> int:
     for e in errors:
         print(f"ERROR {e}")
     print(f"---\n{len(errors)} errors, {len(warnings)} warnings "
-          f"({data['meta'].get('count')} emperors)")
+          f"({data['meta'].get('count')} emperors"
+          f"／death-event-date の評価件数 {death_event_n})")
     return 1 if errors else 0
 
 

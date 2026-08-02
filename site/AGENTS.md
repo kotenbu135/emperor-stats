@@ -50,13 +50,13 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 ## /emperors 一覧のペイロード分離
 
-一覧グリッドのクライアント props は軽量な `EmperorListRecord`（10フィールドのみ）に限定する。フルの `EmperorRecord` は個別ページ `/emperors/[id]` が Server Component で読む（一覧側は持たない）。
+一覧グリッドのクライアント props は軽量な `EmperorListRecord`（カードに出る項目だけ）に限定する。フルの `EmperorRecord` は個別ページ `/emperors/[id]` が Server Component で読む（一覧側は持たない）。
 
 **一覧の props にフルレコードを戻すと RSC ペイロードが約420KB太る。** カードに表示項目を増やすときは `EmperorListRecord` へ必要フィールドだけ足すこと。
 
 2026-08-01 に詳細ダイアログを廃止（カードは個別ページへ素の遷移）した時点で、フルレコードを取りに行く先だった Route Handler `app/emperor-records/[id]/route.ts` と経緯 JSON `public/emperor-notes/`（`scripts/build-emperor-notes.mjs`）は消えている。**この契約は分離の理由が「ダイアログ用のfetch元を分ける」から「一覧のRSCペイロードを188KBに留める」へ変わっただけで、そのまま生きている。**
 
-`/database` も同じ理由で専用レコード `EmperorTableRecord`（`getEmperorTableRecords()`）を持つ。**`EmperorListRecord` と流用し合わないこと** — 図鑑カードの10フィールドと表の8列は一致せず、片方に必要なフィールド（`searchKana`・`portraitUrl` / `reignApproxDays`・`deathAge`）を相互に持ち込むと両方のペイロードが太る。列を足すときは `EmperorTableRecord` → `getEmperorTableRecords()` → `emperor-table.tsx` の `COLUMNS` の3箇所をそろえる。**列数は `emperor-types.ts` の `DATABASE_COLUMN_COUNT` が単一情報源**（OGP画像の事実カードがこの値を出す）で、`COLUMNS.length` との突合 assert があるため増減時は同時に直す。
+`/database` も同じ理由で専用レコード `EmperorTableRecord`（`getEmperorTableRecords()`）を持つ。**`EmperorListRecord` と流用し合わないこと** — 図鑑カードのフィールドと表の8列は一致せず、片方に必要なフィールド（`searchKana`・`portraitUrl` / `reignApproxDays`・`deathAge`）を相互に持ち込むと両方のペイロードが太る。列を足すときは `EmperorTableRecord` → `getEmperorTableRecords()` → `emperor-table.tsx` の `COLUMNS` の3箇所をそろえる。**列数は `emperor-types.ts` の `DATABASE_COLUMN_COUNT` が単一情報源**（OGP画像の事実カードがこの値を出す）で、`COLUMNS.length` との突合 assert があるため増減時は同時に直す。
 
 ## 皇帝個別ページで静的HTMLから本文を落とさない
 
@@ -160,6 +160,7 @@ node tools/hover-audit.mjs     # 各ページの操作要素の cursor と hover
 - **Radix系ポップアップのスクロールロックは `scrollbar-gutter: stable` と二重補正になり横ずれする** — react-remove-scroll が body に `margin-right` 補正を注入するため。`globals.css` の `body[data-scroll-locked][data-scroll-locked]` 上書きで打ち消し済み（属性セレクタ2連は `!important` 同士の詳細度勝負のため）。この上書きを消さないこと。
 - **`prefers-reduced-motion: reduce` は `globals.css` の一括指定で潰してある**。Radix / tw-animate-css の開閉アニメーションはクラスで直接 `animation` を当てるため JS の `matchMedia` 分岐では止まらない。`animation: none` にはしないこと（Radix は `animationend` を待って要素を外すため、閉じたダイアログが DOM に残る）。なお **CSS アニメーションしか止まらない** ので、Recharts の JS アニメーション（`isAnimationActive`）は別途止める必要がある。
 - **`overflow-x: auto` を当てた箱は、縦に溢れていなくてもスクロールコンテナになる** — 中の `position: sticky` の基準がビューポートからその箱へ移り、**見出しの固定が静かに効かなくなる**（`overflow-y: clip` を併せても変わらない）。`/database` の表は「収まっている間は `overflow-x: clip`、溢れた幅でだけ `auto`」に切り替えてこれを避けている（経緯は SITE_DESIGN.md の「6. データベース」節）。
+- **worktree の `site/node_modules` を primary から symlink すると Turbopack が拒否する** — `Symlink [project]/node_modules is invalid, it points out of the filesystem root`。用意するのは `scripts/setup_worktree.sh` で、`npm run dev`／`npm run build` の `predev`/`prebuild` が自動で呼ぶ（primary からの `cp -al` ハードリンク複製・約0.75秒・ファイル実体は共有するのでディスクはほぼ増えない。下の playwright symlink もそのまま複製されるので `capture-site.mjs` が動く）。**このエラーを見たということは、そのスクリプトが走っていない**（手で symlink を張った、など）ので、`bash ../scripts/setup_worktree.sh --site` を流す。**ハードリンクなので worktree での `npm install` は primary 側の実体にも及びうる**（npm は unlink→作成なので通常は安全だが、in-place で書き換えるパッチ系ツールは primary を壊す）
 - **`tools/capture-site.mjs` は npm の依存操作のたびに動かなくなる** — playwright は site の依存に入れておらず、`node_modules/playwright{,-core}` へ npx キャッシュから張った symlink で動いている。`npm install`/`uninstall` がこの symlink を消すため、`ERR_MODULE_NOT_FOUND: playwright` が出たら張り直す（`ln -sfn ~/.npm/_npx/<hash>/node_modules/playwright{,-core} node_modules/`・版は `~/.cache/ms-playwright` の chromium と合わせる）。
 - **`.next` キャッシュ残存でハイドレーションが静かに失敗する**（コンソールエラーなし・画像404・フィルタ無反応）。設定変更後は `rm -rf .next` してから dev サーバーを再起動する。
 - **Recharts は 2.15.4 に固定**。3.x では vendored した Tremor のチャートが動かない。**shadcn の `chart` レジストリ項目は `recharts@3.8.0` を要求する**ので、Tremor のチャートを残したまま shadcn の `Chart` を足すことはできない（二者択一）。

@@ -105,7 +105,7 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 
 | フィールド | 型 | 内容 |
 |---|---|---|
-| `startYear` / `endYear` | number | 人間可読の西暦年。紀元前は `"前n年 → -n"` 変換（天文年ではない） |
+| `startYear` / `endYear` | number | 人間可読の西暦年。紀元前は `"前n年 → -n"` 変換（天文年ではない）。**実日付（太陽暦）の年を採る**（2026-07-22 規約確定・`validate_emperors.py` の `check_reigns()` が `startDate`/`endDate` の年と一致を要求）。旧暦十二月の即位のように実日付が翌年1月へ食い込む場合も太陽暦年に合わせ、**旧暦年（通説の「403年即位」など歴史紀年）は `flags.usedEmperorTitleFrom` と `raw`・`startDateRaw` が保持する**（該当6件は `usedEmperorTitleFrom` の欄を参照）。この向きは Issue #44 で再確認済みで、再提案しない |
 | `dynastyOrder` | number \| null | 王朝自身が数える歴代の通し番号（復位も別カウント）。**その王朝の正史が帝紀を立てた君主**を歴代とし、皇帝を称さなかった君主（前涼の涼王・北周の孝閔帝＝天王など）も番号に含めるため、365人の収録者だけを数えた値とは一致しないのが普通。歴代に数えない在位（宋の元凶劭・梁の蕭正徳・北魏の南安王余など、帝紀を立てられていない僭称・並立の在位）は `null`。**同じ王朝に1つでも調査済みの値があれば、その王朝の `null` は「歴代に数えない」の意**（サイト側は第N代を表示しない）。王朝の全在位が `null`（＝未調査）の場合のみ在位開始順から機械導出した値を表示する |
 | `isRestoration` | boolean | 復位（廃位後の再即位）かどうか |
 | `note` | string | 即位・退位の経緯を自然文で記述（死因の手がかりが記されている場合もある） |
@@ -139,7 +139,7 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 | フィールド | 型 | 内容 |
 |---|---|---|
 | `isFemale` | boolean | 皇帝を称した女性（例: 武則天）を示す |
-| `usedEmperorTitleFrom` | number | 皇帝号を使用開始した年。**歴史紀年ベース**（称帝時点の旧暦年に対応する西暦年。2026-07-22 規約確定）。旧暦十二月の称帝などでユリウス暦上の実日付が翌年1月になる場合、`reigns[0].startYear`（実日付の年）より1小さくなる（該当4件: liu-yong-liang・liang-houjing・beiwei-daowudi・beiqi-andewang-gaoyanzong）。それ以外は `startYear` と一致する（`validate_emperors.py` の `check_used_emperor_title_from()` で検証） |
+| `usedEmperorTitleFrom` | number | 皇帝号を使用開始した年。**歴史紀年ベース**（称帝時点の旧暦年に対応する西暦年。2026-07-22 規約確定）。旧暦十二月の称帝などでユリウス暦上の実日付が翌年1月になる場合、`reigns[0].startYear`（実日付の年）より1小さくなる（該当6件: wang-mang・liu-yong-liang・huan-xuan・liang-houjing・beiwei-daowudi・beiqi-andewang-gaoyanzong）。それ以外は `startYear` と一致する（`validate_emperors.py` の `check_used_emperor_title_from()` で検証） |
 
 ### `sources`
 | フィールド | 型 | 内容 |

@@ -42,6 +42,7 @@
 
 | 触るもの | 一緒に触るもの | 検査 |
 |---|---|---|
+| worktree を作る | コーパス4本（`china-history`・`daizhigev20`・`_corpus_cache`・`_norm_cache`）の symlink と、site を動かすなら `site/node_modules` のハードリンク複製 | `scripts/setup_worktree.sh` が自動で流れる（PostToolUse フック＝コーパス／`npm run dev`・`build` の `predev`/`prebuild`＝node_modules）。**コーパス漏れはエラーにならずゲートが黙ってスキップされる** |
 | `.claude/hooks/guard.py` の規則 | `docs/process/RULES.yml` の `enforcement` 欄 | `python3 scripts/check_rules.py`（実装と台帳の突合・**CI でも実行**）＋ `python3 .claude/hooks/test_guard.py`（規則を足したらケースも足す・ローカル専用） |
 | `extract_profile_material.py` の note 抑止を変える | `VERIFIER.md`（`--notes on` を付ける側）・`guard.py` の `NOTES_ON_ALLOWED` | `python3 .claude/hooks/test_guard.py`（ローカル専用） |
 | 新しいゲートスクリプトを足す | `.claude/hooks/stop_gate.py` の `LIGHT_GATES`（対応表に無いゲートは turn の終わりに流れない） | `python3 .claude/hooks/test_stop_gate.py`（ローカル専用） |

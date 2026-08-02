@@ -256,6 +256,19 @@
       "escapes": 28,
       "measuredAt": "2026-08-02",
       "note": "Issue #36。1.56件/人。**同じ2体で回してこの差が出た**のが体数を段差に合わせる根拠"
+    },
+    {
+      "id": "issue42-confidence",
+      "task": "correction",
+      "section": "元・元末群雄（元世祖・徐寿輝の2人）",
+      "people": 2,
+      "tier": "dependent",
+      "verifiersPerPerson": 2,
+      "raised": 9,
+      "confirmed": 8,
+      "escapes": 0,
+      "measuredAt": "2026-08-02",
+      "note": "Issue #42（confidence 4セルの確定）。体数は人物ごとに違う — 元世祖（own-annals）に facts 1体、徐寿輝（dependent）に facts・dates の2体で、kinship は今回の変更が続柄に触れないため立てていない。指摘9件のうち1件は2体が同じ欠陥（弑逆日の置き去り）を挙げた重複で、ユニーク8件はすべて実欠陥だった。うち2件は件数・典拠の判定変更が要るため Issue #48・#49 へ分離。**確度を確定するだけの小さな作業でも、note の断定・出典ラベル・横展開漏れが出る**"
     }
   ]
 }
