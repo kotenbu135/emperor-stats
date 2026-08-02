@@ -93,7 +93,12 @@ def brief_for(eid):
     for r in hits:
         ex = next((x for x in r.get("exceptions") or [] if x.get("id") == eid), None)
         print(f"\n- 書: {r['book']}／項目: {'・'.join(r['fields'])}")
-        print(f"- 判定: {r['verdict']} → 人物単位の作業は {r['personScope']}")
+        if ex:
+            print(f"- 判定: {r['verdict']} だが**この人物は例外**"
+                  f" → 人物単位の作業は {ex.get('personScope')}"
+                  f"（政権の {r['personScope']} を被せない）")
+        else:
+            print(f"- 判定: {r['verdict']} → 人物単位の作業は {r['personScope']}")
         print(f"- 所在: {ex['locator'] + '（この人物は例外）' if ex else r['locator']}")
         print(f"- 書式: {r['form']}")
         if r.get("variants"):
@@ -130,6 +135,7 @@ def main():
     records = data.get("conventions") or []
     seen = {}          # (regimeId, field) → (verdict, tag)
     covered = {}       # (regimeId, field) → verdict
+    ex_scope = {}      # (emperorId, field) → personScope（例外は政権の判定を被らない）
 
     for i, rec in enumerate(records):
         tag = f"{rec.get('book', '?')}／{'・'.join(rec.get('regimeIds') or []) or '?'}"
@@ -186,8 +192,18 @@ def main():
             counters["exceptions"] += 1
             if ex.get("id") not in persons:
                 errors.append(f"{tag}: exceptions に emperors.json に無い id があります: {ex.get('id')!r}")
-            elif not ex.get("locator"):
+                continue
+            if not ex.get("locator"):
                 errors.append(f"{tag}: exceptions[{ex['id']}] に locator がありません")
+            # 例外は「所在が違う人物」なので、政権の personScope をそのまま被せると
+            # 書き写すだけで済むかのように読める。自分の personScope を必ず持たせる
+            if ex.get("personScope") not in SCOPE_OF.values():
+                errors.append(f"{tag}: exceptions[{ex['id']}] に personScope がありません"
+                              f"（所在が違うので政権の {rec.get('personScope')} を被せない）: "
+                              f"{'／'.join(sorted(set(SCOPE_OF.values())))}")
+            else:
+                for f in rec.get("fields") or []:
+                    ex_scope[(ex["id"], f)] = ex["personScope"]
 
     for e in errors:
         print(f"ERROR  {e}")
@@ -204,14 +220,20 @@ def main():
           f"（{surveyed_persons} / {total}人）")
 
     if args.scope:
+        untouched = sorted(f for f in FIELDS if not any(k[1] == f for k in covered))
         print("\n--- 項目別の母集団 → 要調査 ---")
+        # 記録の無い項目を黙って落とすと、表に出た数項目が対象の全部だと読める
+        print(f"未着手（記録が1件も無い項目）: {'・'.join(untouched) or 'なし'}")
         for field in sorted(FIELDS):
             rows = {rid: v for (rid, f), v in covered.items() if f == field}
             if not rows:
                 continue
             by = defaultdict(int)
-            for rid, v in rows.items():
-                by[SCOPE_OF[v]] += person_count[rid]
+            for eid, rid in persons.items():
+                if rid not in rows:
+                    continue
+                # 例外は所在が違うので、政権の判定ではなく自分の personScope で数える
+                by[ex_scope.get((eid, field)) or SCOPE_OF[rows[rid]]] += 1
             done = sum(person_count[rid] for rid in rows)
             rest = total - done
             detail = "・".join(f"{k} {n}人" for k, n in sorted(by.items()))

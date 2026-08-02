@@ -16,13 +16,20 @@
       "other-source": "その書では取れない。別史料に当たるか「調査済みだが不明」で確定する",
       "per-person": "絞り込めない。人物単位の調査をそのまま行う"
     },
-    "asymmetry": "『書式がある』を誤ると余分に読むだけだが、『無い』を誤るとその政権の空欄を全件まとめて正しいと結論する。打ち切り側（absent-by-institution・biography-only）の根拠だけは厚く取る"
+    "asymmetry": "『書式がある』を誤ると余分に読むだけだが、『無い』を誤るとその政権の空欄を全件まとめて正しいと結論する。打ち切り側（absent-by-institution・biography-only）の根拠だけは厚く取る",
+    "exceptions": "帝紀に独立記述が無いなど**所在が違う人物**。政権の personScope を被せると『書き写すだけ』と読まれるので、例外は必ず自分の personScope を持つ（ゲートが要求する）"
   },
   "conventions": [
     {
       "book": "舊唐書",
-      "regimeIds": ["tang"],
-      "fields": ["templeName", "posthumousName", "personalName"],
+      "regimeIds": [
+        "tang"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName",
+        "personalName"
+      ],
       "locator": "本紀 卷1〜20 各帝の冒頭1行（china-history 旧唐书/本纪。複数皇帝が同居する巻はマーカー分割・SOURCE_MAPPING.md 参照）",
       "verdict": "form-found",
       "personScope": "transcribe",
@@ -44,21 +51,25 @@
         {
           "id": "tang-shangdi",
           "locator": "舊唐書 列傳（帝紀に独立記述が無い）",
+          "personScope": "per-person",
           "note": "冒頭は「殇皇帝重茂，中宗第四子也」で諡号＋諱の形はあるが本紀の定型ではない"
         },
         {
           "id": "tang-lige",
           "locator": "新唐書（daizhigev20）",
+          "personScope": "per-person",
           "note": "帝紀に独立記述が無く列傳側のみ"
         },
         {
           "id": "tangmo-li-chenghong",
           "locator": "新唐書（daizhigev20）",
+          "personScope": "per-person",
           "note": "同上"
         },
         {
           "id": "tangmo-li-yun",
           "locator": "新唐書（daizhigev20）",
+          "personScope": "per-person",
           "note": "独立伝が見当たらず僖宗紀の当該期間で代替。他の事件記事が混在する"
         }
       ],
@@ -66,8 +77,14 @@
     },
     {
       "book": "明史",
-      "regimeIds": ["ming"],
-      "fields": ["templeName", "posthumousName", "personalName"],
+      "regimeIds": [
+        "ming"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName",
+        "personalName"
+      ],
       "locator": "本紀 各帝の冒頭1行（china-history 明史・章単位HTML）",
       "verdict": "form-found",
       "personScope": "transcribe",
@@ -89,8 +106,13 @@
     },
     {
       "book": "漢書",
-      "regimeIds": ["western-han"],
-      "fields": ["templeName", "personalName"],
+      "regimeIds": [
+        "western-han"
+      ],
+      "fields": [
+        "templeName",
+        "personalName"
+      ],
       "locator": "帝紀 各帝の冒頭1行（china-history 汉书/帝纪）",
       "verdict": "no-form",
       "personScope": "per-person",
@@ -113,8 +135,12 @@
     },
     {
       "book": "史記",
-      "regimeIds": ["qin"],
-      "fields": ["posthumousName"],
+      "regimeIds": [
+        "qin"
+      ],
+      "fields": [
+        "posthumousName"
+      ],
       "locator": "秦始皇本紀（史記 卷六）",
       "verdict": "absent-by-institution",
       "personScope": "skip",
@@ -137,8 +163,15 @@
     },
     {
       "book": "漢書・後漢書",
-      "regimeIds": ["xin", "xuanhan", "chengjia"],
-      "fields": ["templeName", "posthumousName"],
+      "regimeIds": [
+        "xin",
+        "xuanhan",
+        "chengjia"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
       "locator": "漢書 傳（王莽傳上中下）／後漢書 列傳（劉玄劉盆子列傳・隗囂公孫述列傳）",
       "verdict": "biography-only",
       "personScope": "other-source",
@@ -166,8 +199,13 @@
     },
     {
       "book": "後漢書",
-      "regimeIds": ["zhongjia"],
-      "fields": ["templeName", "posthumousName"],
+      "regimeIds": [
+        "zhongjia"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
       "locator": "後漢書 列傳（劉焉袁術呂布列傳）",
       "verdict": "biography-only",
       "personScope": "other-source",
