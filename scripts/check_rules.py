@@ -52,6 +52,23 @@ def main():
     for rid in sorted(declared - implemented - soft):
         errors.append(f"{rid}: 台帳は L1 と言っていますが {where} に実装がありません")
 
+    # 4. CLAUDE.md の要点一覧と台帳がずれていない
+    #    — CLAUDE.md は毎ターン読み込まれる唯一の面で、台帳（RULES.yml）は読まれない。
+    #      規則が一覧から落ちれば実質的に消えるし、★（＝hook が実行の直前に止める）の
+    #      印がずれると「守らなくても止まらない」規則を止まると誤読する。
+    claude_md = ROOT / "CLAUDE.md"
+    text = claude_md.read_text(encoding="utf-8")
+    mentioned = set(re.findall(r"`(R-[A-Z0-9\-]+)`", text))
+    starred = set(re.findall(r"★`(R-[A-Z0-9\-]+)`", text))
+    for rid in sorted(set(ids) - mentioned):
+        errors.append(f"{rid}: CLAUDE.md の「守るべき運用ルール」に出てきません")
+    for rid in sorted(mentioned - set(ids)):
+        errors.append(f"{rid}: CLAUDE.md にありますが台帳に規則がありません")
+    for rid in sorted(implemented - starred):
+        errors.append(f"{rid}: {where} が止める規則なのに CLAUDE.md で ★ が付いていません")
+    for rid in sorted(starred - implemented):
+        errors.append(f"{rid}: CLAUDE.md で ★ が付いていますが {where} に実装がありません")
+
     memory_only = [r["id"] for r in rules if (r.get("enforcement") or []) == ["L4"]]
     for e in errors:
         print(f"ERROR  {e}")

@@ -95,7 +95,7 @@ python3 scripts/relation_path.py           --for <皇帝id>                     
 - **`R-PRIMARY-SOURCE`** 判定の根拠は正史の本紀・列伝の原文に置く。WebSearch の要約だけで判定しない — 掛かるのは **`emperors.json`・`kinship.json` のフィールド判定だけ**。紹介文（Issue #16）では Web を**差分検出器**として使ってよい（通説との食い違いを原典の読み直しの引き金にする。根拠にはせず、Web の文章は本文へ取り込まない）
 - **`R-SCOPE-ASK`** 規則の適用範囲が書かれていないときは、自分で狭めたり広げたりせずユーザーに聞く — 上の1行はもともと範囲を書いておらず、紹介文にも掛かると解釈して Web 照合をしないまま76人ぶんを公開した（2026-08-02）
 - **`R-NO-AUTOGEN`** スクリプトによるデータの自動生成は禁止。人物ごとの個別調査・判定が必須 — 日数計算などの計算補助・確定済み結果の転記・構造チェックは対象外
-- **`R-CLAIMS-FIRST`** 原文を先に読み、引用台帳 `claims` を作り、note は照合として読む。台帳に無い事実は書かない
+- **★`R-CLAIMS-FIRST`** 原文を先に読み、引用台帳 `claims` を作り、note は照合として読む。台帳に無い事実は書かない
 - **`R-COVERAGE-MEASURED`** 完了は宣言せず `python3 scripts/coverage.py` で実測する（グループ2の「364人完了」は自己申告で実測355人だった）。数えるのは**フィールドが在るか**ではなく**確定したか**で、`判別不能` は誤りではなく「完了の主張が機械では確かめられない」の意。**note の散文からは確定を読み取らない**
 
 ### 引用・note
@@ -131,6 +131,6 @@ python3 scripts/relation_path.py           --for <皇帝id>                     
 - **`R-RMW`** 並行セッション前提の read-modify-write。同じ作業ツリーで別セッションが `data/emperors.json` を編集していることがあるので、対象 id のフィールドだけ更新し `meta`・他レコードには触らない
 - **`R-PRIMARY-ON-MAIN`** primary（`/home/sakis/emperor-stats`）は main に置いたままにし、新しい作業は `EnterWorktree` で自分専用の worktree を作る。primary が main 以外に載っていたら**別セッションが作業中**なので、そのブランチにコミット・push しない（起動時の状態は SessionStart フックが報告する）
 - **`R-WORKTREE-SETUP`** worktree は primary と揃える。コーパスの symlink は `EnterWorktree` 直後にフックが自動で流す（**漏れるとコーパス依存のゲートが黙ってスキップされる**）。`git worktree add` で自分で作った場合は手で `bash scripts/setup_worktree.sh <パス>`
-- **`R-GATES-BEFORE-COMMIT`** データを変更したら該当ゲートの合格をコミット条件にする。`data/*.json` に未コミット差分があるまま turn を終えると `.claude/hooks/stop_gate.py` が軽いゲート（約1秒・引用や日付を触っていれば `verify_quotes.py --check` も）をその場で流し、落ちていれば止まる。「台帳に未登録の引用」で落ちたら `--backfill` を先に流す。**止めるのは1回だけ**なので、意図的に途中の状態で終えたいときはその旨を述べてもう一度終える
+- **★`R-GATES-BEFORE-COMMIT`** データを変更したら該当ゲートの合格をコミット条件にする。`data/*.json` に未コミット差分があるまま turn を終えると `.claude/hooks/stop_gate.py` が軽いゲート（約1秒・引用や日付を触っていれば `verify_quotes.py --check` も）をその場で流し、落ちていれば止まる。「台帳に未登録の引用」で落ちたら `--backfill` を先に流す。**止めるのは1回だけ**なので、意図的に途中の状態で終えたいときはその旨を述べてもう一度終える
 
 **データ正確性が最優先** — 誤りは個別調査でデータ側を訂正し、サイト側での場当たり的な補正はしない（表示破綻の回避のみ許容。既知の例は [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) の申し送り事項）。
