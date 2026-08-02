@@ -30,6 +30,8 @@ import time
 from pathlib import Path
 
 RULE_ID = "R-GATES-BEFORE-COMMIT"
+# 引用・日付を触ったときだけ流す 2 本（--check は R-QUOTE-GLYPH、--check-books は R-QUOTE-BOOK）
+QUOTE_RULE_IDS = ("R-QUOTE-GLYPH", "R-QUOTE-BOOK")
 
 # 変更されたファイル → 必ず流す軽いゲート（いずれも 1 秒未満）
 LIGHT_GATES = [
@@ -150,6 +152,17 @@ def main():
                     "--check` の合格がコミット条件ですが、このフックからは終わりませんでした"
                     f"（{QUOTE_TIMEOUT}秒で打ち切り＝初回のキャッシュ構築中の可能性）。"
                     "手で1回流してください")
+        # 書名の整合（Issue #40 G1）。--check と同じくコーパスが要るが2回目以降は数秒で、
+        # 流さないと「名乗る書に引用が無い 0 件」は次に書名を書き足した瞬間に黙って腐る
+        scripts.append("verify_quotes.py --check-books")
+        rc, out = run(["python3", "scripts/verify_quotes.py", "--check-books"], root,
+                      timeout=QUOTE_TIMEOUT)
+        if rc == 1:
+            tail = "\n".join([ln for ln in out.strip().splitlines() if ln.strip()][-6:])
+            failures.append("■ scripts/verify_quotes.py --check-books（引用・書名を変更したため実行）\n"
+                            "note が名乗る書に引用が無いユニットがあります。書名の誤りなら note を直し、"
+                            "コーパス側の欠陥なら quote-refs.json の bookAllow に理由を書いてください。\n"
+                            + tail)
     log(root, {
         "decision": "block" if failures else ("note" if note else "pass"),
         "tool": "Stop", "actor": "main",
