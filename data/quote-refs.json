@@ -76332,6 +76332,83 @@
    ],
    "line": 71
   },
+  "yuan-shizu|personalCampaignCount.note|46b3783076c6": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount.note",
+   "span": "帝自将征乃颜，发上都",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "帝自将征乃颜"
+   ],
+   "line": 339
+  },
+  "yuan-shizu|personalCampaignCount.note|66a42abf83f4": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount.note",
+   "span": "帝亲率诸军以蹑其后",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "帝亲率诸军以蹑其后"
+   ],
+   "line": 36
+  },
+  "yuan-shizu|personalCampaignCount.note|7eb9fcac132c": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount.note",
+   "span": "帝亲将诸万户汉军及武卫军",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "帝亲将诸万户汉军及武"
+   ],
+   "line": 36
+  },
+  "yuan-shizu|personalCampaignCount.note|b609f2d5743d": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount.note",
+   "span": "帝自将讨阿里不哥",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "帝自将讨阿里不哥"
+   ],
+   "line": 21
+  },
+  "yuan-shizu|personalCampaignCount.note|bae4bf924040": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount.note",
+   "span": "阿术亲率百余骑驰去",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "阿术亲率百余骑驰去"
+   ],
+   "line": 195
+  },
+  "yuan-shizu|personalCampaignCount.note|c7611a336559": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount.note",
+   "span": "海都兵犯边，帝亲征",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "海都兵犯边"
+   ],
+   "line": 360
+  },
+  "yuan-shizu|personalCampaignCount.note|ffcb91baf0f4": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount.note",
+   "span": "亲征／親征／自将／自將／亲率／亲将／亲讨／车驾亲征／帝征／躬",
+   "status": "corpus",
+   "corpusFile": "china-history/宋史/志/第九十八章-卷九十八-原文.html",
+   "frags": [
+    "车驾亲征"
+   ],
+   "line": 22
+  },
   "yuan-shizu|personalCampaignCount[0].note|66a42abf83f4": {
    "id": "yuan-shizu",
    "path": "personalCampaignCount[0].note",
@@ -79279,6 +79356,121 @@
    ],
    "line": 1854
   },
+  "yuanmo-xushouhui|personalCampaignCount.note|127c68f89c54": {
+   "id": "yuanmo-xushouhui",
+   "path": "personalCampaignCount.note",
+   "span": "明年为元师所破，寿辉走免",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuanmo-xushouhui.txt",
+   "frags": [
+    "明年为元师所破"
+   ],
+   "line": 3
+  },
+  "yuanmo-xushouhui|personalCampaignCount.note|5fcfea966091": {
+   "id": "yuanmo-xushouhui",
+   "path": "personalCampaignCount.note",
+   "span": "寿辉出战，大败，遁入黄梅山",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/新元史.txt",
+   "frags": [
+    "遁入黄梅山"
+   ],
+   "line": 35849
+  },
+  "yuanmo-xushouhui|personalCampaignCount.note|708feada0ee1": {
+   "id": "yuanmo-xushouhui",
+   "path": "personalCampaignCount.note",
+   "span": "徐寿辉遣伪将丁普郎、徐明远陷汉阳",
+   "status": "corpus",
+   "corpusFile": "china-history/元史/本纪/第四十二章-卷四十二-原文.html",
+   "frags": [
+    "徐寿辉遣伪将丁普郎",
+    "徐明远陷汉阳"
+   ],
+   "line": 53
+  },
+  "yuanmo-xushouhui|personalCampaignCount.note|9abd926b9a39": {
+   "id": "yuanmo-xushouhui",
+   "path": "personalCampaignCount.note",
+   "span": "徐寿辉兵陷江州",
+   "status": "corpus",
+   "corpusFile": "china-history/元史/本纪/第四十二章-卷四十二-原文.html",
+   "frags": [
+    "徐寿辉兵陷江州"
+   ],
+   "line": 54
+  },
+  "yuanmo-xushouhui|personalCampaignCount.note|bf4a7c1ef571": {
+   "id": "yuanmo-xushouhui",
+   "path": "personalCampaignCount.note",
+   "span": "败之，寿辉遁走",
+   "status": "corpus",
+   "corpusFile": "china-history/元史/本纪/第四十三章-卷四十三-原文.html",
+   "frags": [
+    "败之寿辉遁走"
+   ],
+   "line": 32
+  },
+  "yuanmo-xushouhui|personalCampaignCount.note|f65240f4a07b": {
+   "id": "yuanmo-xushouhui",
+   "path": "personalCampaignCount.note",
+   "span": "徐寿辉伪将鲁法兴陷安陆府",
+   "status": "corpus",
+   "corpusFile": "china-history/元史/本纪/第四十二章-卷四十二-原文.html",
+   "frags": [
+    "徐寿辉伪将鲁法兴陷安"
+   ],
+   "line": 53
+  },
+  "yuanmo-xushouhui|rebellionSufferedCount.note|44c13e761202": {
+   "id": "yuanmo-xushouhui",
+   "path": "rebellionSufferedCount.note",
+   "span": "陈友谅以江州为都，迎伪主徐寿辉居之，自称汉王",
+   "status": "corpus",
+   "corpusFile": "china-history/元史/本纪/第四十五章-卷四十五-原文.html",
+   "frags": [
+    "陈友谅以江州为都",
+    "迎伪主徐寿辉居之"
+   ],
+   "line": 53
+  },
+  "yuanmo-xushouhui|rebellionSufferedCount.note|4985fe71d650": {
+   "id": "yuanmo-xushouhui",
+   "path": "rebellionSufferedCount.note",
+   "span": "倪文俊谋杀其主徐寿辉，不果，自汉阳奔黄州，寿辉伪将陈友谅袭杀之",
+   "status": "corpus",
+   "corpusFile": "china-history/元史/本纪/第四十五章-卷四十五-原文.html",
+   "frags": [
+    "倪文俊谋杀其主徐寿辉",
+    "自汉阳奔黄州",
+    "寿辉伪将陈友谅袭杀之"
+   ],
+   "line": 29
+  },
+  "yuanmo-xushouhui|rebellionSufferedCount.note|c9c6dde93ee0": {
+   "id": "yuanmo-xushouhui",
+   "path": "rebellionSufferedCount.note",
+   "span": "友谅袭杀文俊，自称平章，寿辉因而命之",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/新元史.txt",
+   "frags": [
+    "友谅袭杀文俊",
+    "寿辉因而命之"
+   ],
+   "line": 35865
+  },
+  "yuanmo-xushouhui|rebellionSufferedCount.note|f61ac5bb3de6": {
+   "id": "yuanmo-xushouhui",
+   "path": "rebellionSufferedCount.note",
+   "span": "陈友谅杀其伪主徐寿辉于太平路，遂称皇帝，国号大汉，改元大义",
+   "status": "corpus",
+   "corpusFile": "china-history/元史/本纪/第四十五章-卷四十五-原文.html",
+   "frags": [
+    "陈友谅杀其伪主徐寿辉"
+   ],
+   "line": 58
+  },
   "yuanmo-xushouhui|rebellionSufferedCount[0].note|a0581b537154": {
    "id": "yuanmo-xushouhui",
    "path": "rebellionSufferedCount[0].note",
@@ -79344,6 +79536,43 @@
     "自稱宣慰使"
    ],
    "line": 332
+  },
+  "yuanmo-xushouhui|rebellionSuppressionCount.note|4985fe71d650": {
+   "id": "yuanmo-xushouhui",
+   "path": "rebellionSuppressionCount.note",
+   "span": "倪文俊谋杀其主徐寿辉，不果，自汉阳奔黄州，寿辉伪将陈友谅袭杀之",
+   "status": "corpus",
+   "corpusFile": "china-history/元史/本纪/第四十五章-卷四十五-原文.html",
+   "frags": [
+    "倪文俊谋杀其主徐寿辉",
+    "自汉阳奔黄州",
+    "寿辉伪将陈友谅袭杀之"
+   ],
+   "line": 29
+  },
+  "yuanmo-xushouhui|rebellionSuppressionCount.note|a0581b537154": {
+   "id": "yuanmo-xushouhui",
+   "path": "rebellionSuppressionCount.note",
+   "span": "文俊怙侈自專、謀殺壽輝不果、奔黃州",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/新元史.txt",
+   "frags": [
+    "文俊怙侈自專",
+    "謀殺壽輝不果"
+   ],
+   "line": 35857
+  },
+  "yuanmo-xushouhui|rebellionSuppressionCount.note|c1126255e2c7": {
+   "id": "yuanmo-xushouhui",
+   "path": "rebellionSuppressionCount.note",
+   "span": "十七年九月、文俊謀弑壽輝、不克、奔黃州",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuanmo-xushouhui.txt",
+   "frags": [
+    "十七年九月",
+    "文俊謀弑壽輝"
+   ],
+   "line": 4
   },
   "yuanmo-xushouhui|reigns[0].conversion|562771e44362": {
    "id": "yuanmo-xushouhui",

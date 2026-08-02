@@ -85,13 +85,10 @@ KNOWN_DEATH_BEFORE_END = {
     "shun-lichengzheng",      # 1645-09 < 1645-10-01
 }
 
-# confidence が空文字のまま（2-1 スキーマ検証で判明・値の確定は調査判断待ち）
-KNOWN_EMPTY_CONFIDENCE = {
-    ("yuan-shizu", "personalCampaignCount"),
-    ("yuanmo-xushouhui", "personalCampaignCount"),
-    ("yuanmo-xushouhui", "rebellionSuppressionCount"),
-    ("yuanmo-xushouhui", "rebellionSufferedCount"),
-}
+# confidence が空文字のまま（現状該当なし。2-1 スキーマ検証で判明した4セル
+# 〈yuan-shizu の親征・yuanmo-xushouhui の親征/反乱鎮圧/被反乱〉は 2026-08-02 の
+# Issue #42 で原典に当て直して high/medium を確定済み）。
+KNOWN_EMPTY_CONFIDENCE = set()
 
 # reignSummary と reigns の不一致（現状該当なし。
 # qianzhao-liuyuanのfirstStartYear不一致はブロック3〈2026-07-21〉のreignSummary再計算で解消済み）。
