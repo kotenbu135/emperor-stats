@@ -77,6 +77,11 @@ tools: Read, Write, Bash, Grep, Glob
   `scripts/relation_path.py` が導きます（Issue #36 の A類型6件は、同じレコードの
   別フィールドが正しい関係を持っていながら、呼称へ落とす段で外したものでした）
 - 「現行 X → Y に訂正した」のような**捨てた側の記録は `noteLog`** へ。`findings` は現在の主張だけ
+- 走査の途中で**担当外の同型の疑い**や「母集団 N のうち M 件が未読」が出たら、
+  `processSuggestion` に **「残量表 <系統名> N件（未読 M）」** の形で1行書く。
+  **Issue を立てるよう勧めない** — 量は Issue の本数ではなく `docs/process/RESIDUAL.md` の
+  行数で増やす決まりです（規則 `R-RESIDUAL-TABLE`）。判定を誤って足りない側へ寄せないよう、
+  **走査していない範囲は「未走査」と書く**（0件と未走査は別物）
 
 書き終えたら `python3 scripts/check_claims.py <出力.json>` を自分で走らせ、
 エラー0にしてから返すこと（REPORT 行はエラーでなくても読む）。

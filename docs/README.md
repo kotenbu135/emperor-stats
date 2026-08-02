@@ -20,6 +20,7 @@
 | [process/CORPUS_NOTES.md](process/CORPUS_NOTES.md) | ローカルコーパス利用メモ（書物・王朝を問わず効く罠と原則。**調査着手のたびに読む**） |
 | [process/SOURCE_MAPPING.md](process/SOURCE_MAPPING.md) | 史料マッピング・行番号インデックス（王朝ブロックごとの書名・巻・行範囲。担当ブロックの表だけを引く辞書） |
 | [process/CONSTRAINTS.md](process/CONSTRAINTS.md) | 絶対に守るべき制約 |
+| [process/RESIDUAL.md](process/RESIDUAL.md) | 残量表。走査・横展開で出た「残り何件」の置き場（**新しい Issue を立てずここへ行を足す**・規則 `R-RESIDUAL-TABLE`） |
 | [process/AI_RESEARCH_LESSONS.md](process/AI_RESEARCH_LESSONS.md) | 史書をAIで調査する方法の知見集（なぜその方法か・失敗事例・一般化可能な設計指針）。10節はエージェント運用とドキュメントの書き方（progressive disclosure・Workflow のパターン選択） |
 
 ## schema/ — スキーマ解説

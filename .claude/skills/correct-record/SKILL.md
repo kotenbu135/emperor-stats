@@ -104,4 +104,7 @@ python3 scripts/coverage.py --write   # 値を増減させたら進捗表記を�
 - 訂正したら `data/emperors.json` の `meta` と `docs/PROJECT_STATUS.md` を**同じタイミングで**更新
 - 素材 note 自体が誤っていた場合は、直して終わりにせず**同型の誤りが他にもないか**を機械で数える
   （1件の訂正から横展開で105件・1937件が出た前例がある）
+- **その横展開の結果は Issue を立てず `docs/process/RESIDUAL.md` に行を足す**（規則 `R-RESIDUAL-TABLE`）。
+  母集団・確定した欠陥・未読・推定・記録の在りかを1行に書く。**未走査なら「未走査」**と書く。
+  Issue を立てるのは直し方・定義・設計の判断が要るときだけ（`gh issue create` はフックが一度止める）
 - 手順の改善に気づいたら**その場でユーザーへ提案**する（規則 `R-PROCESS-FEEDBACK`）

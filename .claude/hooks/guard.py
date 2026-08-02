@@ -86,6 +86,11 @@ def external_http(command):
     return any(not LOCAL_HOST.match(h) for h in hosts)
 
 
+# R-RESIDUAL-TABLE — 既にある系統の走査結果は Issue でなく docs/process/RESIDUAL.md へ。
+# **止めるのは「新しい系統か」ではなく形**（同系統かは機械には判定できない）。
+# `gh issue create` を一度だけ止めて、判定を人にさせる速度制限帯。
+GH_ISSUE_CREATE = re.compile(r"\bgh\s+issue\s+create\b")
+
 MATERIAL_NOTES_ON = re.compile(
     r"extract_(?:profile|event)_material\.py.*?--notes[= ]on")
 # note を見てよいのは検証段だけ。1段目（執筆・調査）に渡すと、note の筋書きに合う
@@ -150,6 +155,16 @@ def check(tool, ti, is_subagent, command, agent_type=None):
                     "（紹介文は docs/process/profile-writing/README.md・"
                     "データ訂正は .claude/skills/correct-record/SKILL.md）")
         hits.append(("R-CLAIMS-FIRST", deny))
+
+    # R-RESIDUAL-TABLE — 走査の残量を Issue の本数で増やさない
+    if tool == "Bash" and GH_ISSUE_CREATE.search(command):
+        hits.append(("R-RESIDUAL-TABLE",
+                     "既にある系統の走査結果・横展開で出た同型の疑い・標本監査の取りこぼし率は、"
+                     "新しい Issue ではなく docs/process/RESIDUAL.md に行を足してください"
+                     "（2026-08-02〜03 に #40 の訂正1件から Issue が28本に増え、うち6本は"
+                     "同じ穴が別の場所から顔を出しただけでした）。"
+                     "直し方・定義・設計の判断が要るものなら Issue が正しい器なので、"
+                     "そう書いて通してください"))
 
     # R-API-BATCH — 外部 API への一括リクエストは「小規模検証 → 件数を提示して許可 → 本実行」
     if tool == "Bash" and external_http(command):
