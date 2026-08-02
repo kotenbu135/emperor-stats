@@ -149,6 +149,18 @@
 **既存 note には遡及しません。** したがって `claim` が無いことは根拠の不在を意味せず、
 `coverage.py` は `claim` を確定の根拠にしません。
 
+## `conflicts`（史料対立）
+
+**[data/schema/EMPERORS_SCHEMA.md](../../data/schema/EMPERORS_SCHEMA.md) の「`conflicts`」節が正。**
+
+原典同士が食い違うとき、いままでは note の散文に書くしかなく、**書かなければ
+「気づかなかった」のか「対立が無い」のかを区別できません**でした。2026-08-03（Issue #51 P3）
+から、`note`・`claim` と同じ位置に任意の `conflicts` 配列を置けます（`events[]` にも置ける）。
+採用値・対立値・**採否理由**を持ち、`quote` には引用規約の全項が掛かります。
+
+「対立なし」は `conflicts: []`、**未確認はキー自体を置かない**——この区別ができることが
+この欄の値打ちです。`claim` と同じく**遡及しません**。
+
 ## 収録基準
 
 **[data/schema/INCLUSION_CRITERIA.md](../../data/schema/INCLUSION_CRITERIA.md)** を参照してください。

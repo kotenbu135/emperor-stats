@@ -27,7 +27,17 @@ description: データ誤り1〜数件を訂正するときの入口（GitHub Is
 python3 scripts/brief_block.py <書名> --id <皇帝id>     # 罠とキャッシュの有無
 python3 scripts/quote_helper.py <皇帝id> <検索語>        # 引用はこの出力からコピーする
 python3 scripts/quote_diff.py <皇帝id>                  # 当たらない引用は先にこれで底本との差分を見る
+
+# 対象レコードの抽出は**このコマンドを渡す**（jq / python3 -c の抽出式を書き起こさない）
+python3 scripts/extract_event_material.py <皇帝id> --field personalCampaignCount
+python3 scripts/extract_event_material.py <皇帝id> --field <フィールド> --index 0 3
 ```
+
+**素材抽出は既定で note を落とします**（規則 R-CLAIMS-FIRST）。1段目が note を読むと、
+note の筋書きに合う原文句を探すことになります。`--notes on` はフックが検証段以外で止めます。
+**その場で書いたワンライナーだとこれが黙って破れる** — 2026-08-03 の Issue #56 で、
+親セッションが配った `python3 -c` が `note` を print していて、調査エージェント4体が
+「1段目なのに既存 note を見てしまった」と申告しました。
 
 **互いに依存しない呼び出しは1メッセージにまとめる**（対象レコードの `jq` 抽出・罠・
 キャッシュの有無は同時に出せます。実測の並列化率は 0.2% でした）。

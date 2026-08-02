@@ -376,6 +376,50 @@
   あわせて、傍証を別の書へ取りに行く前に**同じ書の列伝を先に読み切る**手順を1段入れる
 - **採否**: 未決（ユーザー判断待ち）
 
+### 2026-08-03 events に原表記と換算を持たせ、朔日アンカーで月精度も暦ゲートに載せる
+
+- **気づいた場面**: Issue #56 で親征イベントの終期42件を原典へ当て直したところ24件が誤りで、
+  最多の型が「旧暦の月番号をそのまま太陽暦の月欄へ書いた」だった（西夏襄宗 `1211-05` は旧暦五月の
+  直書きで、旧暦五月＝1211-06-13〜07-11 は西暦5月と1日も重ならない）。`reigns` は
+  `startDateRaw`／`endDateRaw`／`duration.source.conversion` を持つのに **`events` だけが
+  原表記を持たない**ため、保存値が換算済みか直書きかを機械で区別できず、Issue #34 で1,937件を
+  換算したときも母集団に入らなかった
+- **提案**: 回数系8フィールドの `events[]` に `*Raw` と `source`（`conversion` を含む）を任意欄として
+  足し、`verify_calendar.py` に B-5 を新設して `conversion` の `fromLunar` を再演する。
+  **記法は増やさず、朔日アンカー `fromLunar(y,m,1)` を「月精度の主張」と読んで多数月を計算し
+  照合する**（第2の記法を作ると `FROMLUNAR` 正規表現・許可リスト・B-3 の近傍判定を全部分岐させる
+  ことになる）。実データは当面 B5=0 なので、発火は合成レコードのテストで測る
+- **採否**: 採用（反映先: `data/schema/emperors.schema.json`・`EMPERORS_SCHEMA.md`「events の
+  原表記と換算」節・`scripts/verify_calendar.py` の B-5・`scripts/test_event_conversion_gate.py`・
+  `RULES.yml` の `R-EVENT-DATE-RAW`・`COUPLINGS.md`・`scripts/patch_emperor.py` のヒント・
+  CI の検出力テスト。ユーザー承認 2026-08-03）
+
+### 2026-08-03 素材抽出はコマンドで渡す（プロンプト内のワンライナーが規則の抜け道になっていた）
+
+- **気づいた場面**: 同じ Issue #56 で、親セッションが調査エージェントへ配った
+  `python3 -c "..."` の抽出式が `note` を print していた。R-CLAIMS-FIRST は
+  「素材抽出スクリプトの既定を `--notes off` にする」＋「1段目が `--notes on` を打つと hook が
+  止める」で守られていたが、**抽出式をその場で書く経路には既定も hook も掛からない**。
+  調査エージェント4体が「1段目なのに既存 note を見てしまった」と自己申告した
+- **提案**: データ訂正側にも素材抽出コマンドを用意し（`scripts/extract_event_material.py`）、
+  hook の対象に加える。そのうえで **`corpus-researcher` と `/correct-record` に
+  「抽出式を書き起こさずこのコマンドを渡す」と明記**する。道具があっても指し示さなければ
+  次も同じようにワンライナーが書かれる
+- **採否**: 採用（反映先: `scripts/extract_event_material.py`・`.claude/hooks/guard.py`・
+  `.claude/agents/corpus-researcher.md`・`.claude/skills/correct-record/SKILL.md`・
+  `RULES.yml` の `R-CLAIMS-FIRST`。ユーザー承認 2026-08-03）
+
+### 2026-08-03 `--for` を足止めにしないため、規則の適用範囲をフィールドで問えるようにする
+
+- **気づいた場面**: Issue #56 の日付訂正で、`check_regime_conventions.py --for <id>` が
+  「政権の慣行が未確定」、`check_screenings.py --for <id>` が Issue #37 の名前フィールドの
+  絞り込みだけを返し、どちらも日付の作業には無関係だった。調査エージェント3体が
+  「着手可否の判断に使えない」と同じ指摘を出した
+- **提案**: 両方の `--for` に `--field` を足す。政権慣行は**名前系にしか掛からない**ので
+  適用外なら 0 を返す。絞り込みは記録に `fields` を宣言させ（`REQUIRED` に追加）、
+  覆う記録が無ければ 1 を返す — **別の項目の絞り込みを「母集団は絞ってある」と読ませない**
+- **採否**: 採用（反映先: `scripts/check_regime_conventions.py`・`scripts/check_screenings.py`・
+  `data/screenings.json` の `fields`・`.claude/agents/corpus-researcher.md`。ユーザー承認 2026-08-03）
 ### 2026-08-03 訂正したフィールドの「兄弟」を機械で洗う（同じ原文の一文が典拠の別フィールド）
 
 - **気づいた場面**: Issue #55 で events の日精度 ISO 日付74件を訂正したあと、検証段の13体のうち

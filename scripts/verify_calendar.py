@@ -13,6 +13,11 @@
   B-3 conversion 本文の「→YYYY-MM-DD」主張のうち、保存日付と±3日以内で食い違うもの
       （内禅・即位日の同期漏れ＝光宗/寧宗・遼景宗型の検出。±4日以上は別事象言及とみなし対象外）
   B-4 ages.note 本文の「→YYYY-MM-DD」主張が birthDate/deathDate と一致するか
+  B-5 回数系 events の source.conversion にある fromLunar(y,m,d[,leap]) を再演し、保存日付・
+      conversion 本文の主張と突き合わせる（2026-08-03 新設・Issue #56）。**朔日アンカー
+      fromLunar(y,m,1) は月精度の主張として扱い、多数月を計算して「→YYYY-MM」や保存された
+      月精度の値と照合する** — 旧暦の月番号を太陽暦の欄へ直書きした型の誤りはここで落ちる。
+      events は reigns と違って原表記を持たず、この欄が無いうちは機械で区別できなかった
 
 KNOWN_* は 2026-07-22 検証時のトリアージ済み事項:
   - *_PENDING = 誤りと確定・訂正待ち（警告として件数を出し続ける。訂正されたら陳腐化警告）
@@ -32,6 +37,13 @@ DATA_PATH = ROOT / "data" / "emperors.json"
 ISO = re.compile(r"^(-?\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$")
 FROMLUNAR = re.compile(r"fromLunar\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(True|False)\s*)?\)")
 ARROW_DATE = re.compile(r"[→=]\s*(-?\d{3,4})[-年](\d{1,2})[-月](\d{1,2})日?")
+# B-5 の月精度主張。ISO の「→YYYY-MM」だけを拾う（日まで続く形は ARROW_DATE の担当）
+ARROW_MONTH = re.compile(r"[→=]\s*(-?\d{3,4})-(\d{2})(?!\s*-?\d)")
+# events を持つ回数系フィールド（B-5 の走査対象）
+COUNT_GROUPS = ("eraChangeCount", "amnestyCount", "empressInstallationCount",
+                "crownPrinceDepositionCount", "personalCampaignCount",
+                "rebellionSuppressionCount", "rebellionSufferedCount",
+                "capitalRelocationCount")
 
 # ---------------------------------------------------------------------------
 # B-2: exactDays が実経過日数と食い違う既知例（2026-07-22 検出の19件は同日訂正済み・現在は空）。
@@ -49,6 +61,12 @@ KNOWN_FROMLUNAR_CONTEXT = {
 }
 # B-1: 誤りと確定・訂正待ち（conversion 本文の引数誤記等。2026-07-22 検出の1件は同日訂正済み）
 KNOWN_FROMLUNAR_PENDING = set()
+
+# B-5: events の source.conversion で、リプレイ結果が主張・保存値と一致しないが文脈上正当なもの。
+# **この欄は 2026-08-03 新設で遡及しない**ので、既存 2,000 件超の events には conversion が無く、
+# 検査件数は 0 から増えていく。0 件を「綺麗」と読まないため件数は必ず出す（B5=…）。
+KNOWN_EVENTCONV_CONTEXT = set()
+KNOWN_EVENTCONV_PENDING = set()
 
 # B-3: 保存日付と±3日以内で食い違う conversion 主張のうち、別事象・検討過程と確認済みの正当例
 KNOWN_NEARMISS_CONTEXT = {
@@ -112,6 +130,24 @@ def J(t):
     return jdn(*t, t < (1582, 10, 15))
 
 
+def majority_month(sxtwl, y, m, leap):
+    """旧暦の1ヶ月が最も多く重なる太陽暦の月（多数月方式）を返す。
+
+    月精度の日付はこの方式で作る決まりなので、朔日アンカー fromLunar(y,m,1) を
+    「その旧暦月の主張」と読んで保存値と突き合わせられる。日精度と違って
+    別の記法を増やさずに済む。
+    """
+    d = sxtwl.fromLunar(y, m, 1, leap)
+    counts = {}
+    while True:
+        k = (d.getSolarYear(), d.getSolarMonth())
+        counts[k] = counts.get(k, 0) + 1
+        d = d.after(1)
+        if d.getLunarDay() == 1:
+            break
+    return max(counts, key=lambda k: counts[k])
+
+
 def main() -> int:
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     try:
@@ -120,8 +156,8 @@ def main() -> int:
         sxtwl = None
         warnings.append("[B1] sxtwl 未導入のため fromLunar リプレイをスキップ（pip install sxtwl）")
 
-    pend_counts = {"B1": 0, "B2": 0, "B3": 0, "B4": 0}
-    n_checked = {"B1": 0, "B2": 0, "B3": 0, "B4": 0}
+    pend_counts = {"B1": 0, "B2": 0, "B3": 0, "B4": 0, "B5": 0}
+    n_checked = {"B1": 0, "B2": 0, "B3": 0, "B4": 0, "B5": 0}
 
     for e in data["emperors"]:
         eid = e["id"]
@@ -188,6 +224,55 @@ def main() -> int:
                     errors.append(f"[B3] {eid}.reigns[{i}]: conversion 主張 {key[2]} が保存日付と"
                                   f"±3日以内で食い違う（同期漏れの疑い＝光宗/寧宗・遼景宗型）")
 
+        # B-5 events の source.conversion リプレイ（2026-08-03・Issue #56）
+        if sxtwl:
+            for g in COUNT_GROUPS:
+                o = e.get(g)
+                if not isinstance(o, dict):
+                    continue
+                for i, ev in enumerate(o.get("events") or []):
+                    conv = ((ev.get("source") or {}) if isinstance(ev.get("source"), dict)
+                            else {}).get("conversion") or ""
+                    if not conv:
+                        continue
+                    stored_d = {t for t in (pd(ev.get("date")), pd(ev.get("startDate")),
+                                            pd(ev.get("endDate"))) if full(t)}
+                    stored_m = {(t[0], t[1]) for t in
+                                (pd(ev.get("date")), pd(ev.get("startDate")), pd(ev.get("endDate")))
+                                if t is not None and t[1] is not None}
+                    claims_d = {(int(a), int(b), int(c)) for a, b, c in ARROW_DATE.findall(conv)}
+                    claims_m = {(int(a), int(b)) for a, b in ARROW_MONTH.findall(conv)}
+                    for ly, lm, ld, leap in FROMLUNAR.findall(conv):
+                        ly, lm, ld = int(ly), int(lm), int(ld)
+                        n_checked["B5"] += 1
+                        key = (eid, g, i, (ly, lm, ld))
+                        try:
+                            if ld == 1:
+                                # 朔日アンカー＝月精度の主張。多数月を計算して突き合わせる
+                                got = majority_month(sxtwl, ly, lm, leap == "True")
+                                ok = got in claims_m or got in stored_m
+                                shown = f"{got[0]:04d}-{got[1]:02d}（多数月）"
+                            else:
+                                day = sxtwl.fromLunar(ly, lm, ld, leap == "True")
+                                got = (day.getSolarYear(), day.getSolarMonth(), day.getSolarDay())
+                                ok = got in claims_d or got in stored_d
+                                shown = f"{got[0]:04d}-{got[1]:02d}-{got[2]:02d}"
+                        except Exception as ex:
+                            errors.append(f"[B5] {eid}.{g}[{i}]: fromLunar({ly},{lm},{ld}) 実行エラー {ex}")
+                            continue
+                        if ok:
+                            continue
+                        if key in KNOWN_EVENTCONV_PENDING:
+                            KNOWN_EVENTCONV_PENDING.discard(key)
+                            pend_counts["B5"] += 1
+                        elif key in KNOWN_EVENTCONV_CONTEXT:
+                            KNOWN_EVENTCONV_CONTEXT.discard(key)
+                        else:
+                            errors.append(
+                                f"[B5] {eid}.{g}[{i}]: fromLunar({ly},{lm},{ld})→{shown} が "
+                                f"conversion 主張にも保存日付にも一致しない"
+                                f"（旧暦月番号の直書き・引数誤記・同期漏れの疑い）")
+
         # B-4 ages.note の日付主張
         a = e.get("ages") or {}
         note = a.get("note") or ""
@@ -218,7 +303,9 @@ def main() -> int:
                        ("KNOWN_NEARMISS_PENDING", KNOWN_NEARMISS_PENDING),
                        ("KNOWN_NEARMISS_CONTEXT", KNOWN_NEARMISS_CONTEXT),
                        ("KNOWN_AGES_CLAIM_PENDING", KNOWN_AGES_CLAIM_PENDING),
-                       ("KNOWN_AGES_CLAIM_CONTEXT", KNOWN_AGES_CLAIM_CONTEXT)):
+                       ("KNOWN_AGES_CLAIM_CONTEXT", KNOWN_AGES_CLAIM_CONTEXT),
+                       ("KNOWN_EVENTCONV_PENDING", KNOWN_EVENTCONV_PENDING),
+                       ("KNOWN_EVENTCONV_CONTEXT", KNOWN_EVENTCONV_CONTEXT)):
         if left and not (name == "KNOWN_FROMLUNAR_CONTEXT" and sxtwl is None) \
                 and not (name == "KNOWN_FROMLUNAR_PENDING" and sxtwl is None):
             warnings.append(f"[allowlist] {name} の陳腐化エントリ（解消済み・削除可）: {sorted(left)[:6]}")
@@ -228,7 +315,8 @@ def main() -> int:
     for e_ in errors:
         print(f"ERROR {e_}")
     print(f"---\n{len(errors)} errors, {len(warnings)} warnings "
-          f"(checked: B1={n_checked['B1']} B2={n_checked['B2']} B3={n_checked['B3']} B4={n_checked['B4']})")
+          f"(checked: B1={n_checked['B1']} B2={n_checked['B2']} B3={n_checked['B3']} "
+          f"B4={n_checked['B4']} B5={n_checked['B5']})")
     return 1 if errors else 0
 
 

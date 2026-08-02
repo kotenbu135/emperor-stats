@@ -59,6 +59,11 @@ SHINJITAI_TO_TRAD = str.maketrans({
     # 2026-08-02 追加。引用に出る漢字3,685字種のうち「コーパスに一度も現れない」132字を
     # 洗って拾った分（opencc t2s も変換しないため、未収録だと照合が必ず外れていた）。
     '県': '縣', '済': '濟', '軽': '輕', '勧': '勸', '騒': '騷', '擧': '舉',
+    # 収録しない字（2026-08-02・Issue #38）:
+    #   衛→衞・併→倂 は opencc t2s が字そのものを 卫・并 へ簡体化できるのに、
+    #   表が先に異体字（衞・倂）へ写すため t2s が変換をやめ、底本の「卫」「并」に
+    #   当たらなくなっていた。表は「t2s が知らない新字体」だけを載せる場所であって、
+    #   t2s が扱える字を載せると照合を壊す（table_conflicts() が同型を検出する）。
 })
 
 # opencc の t2s が知らない異体字。2026-08-02（Issue #40 G1）まで新字体表が
@@ -71,6 +76,13 @@ VARIANT_TO_STD = str.maketrans({'衞': '衛', '倂': '併'})
 # 底本にも同じ字形が現れうるため、無条件に変換すると逆に照合が外れる字。
 # 変換前・変換後の両方を候補にする（norm_variants）。
 AMBIGUOUS_JP = str.maketrans({'歳': '歲'})
+
+# opencc t2s の写す先と、底本が実際に使っている字形が食い違う異体字（2026-08-02・Issue #38）。
+#   諮 → t2s は「咨」だが南斉書・周書のこの版は「谘」
+#   鍾 → t2s は「钟」だが南疆繹史のこの版は「锺」
+# 混入の判定は norm_strict（表を当てない側）が担うので、照合の候補をここで増やしても
+# 字体ゲートは緩まない。
+T2S_VARIANTS = str.maketrans({'諮': '谘', '咨': '谘', '鍾': '锺', '钟': '锺'})
 
 
 def han_only(s: str) -> str:
@@ -87,6 +99,41 @@ def to_simplified(s: str) -> str:
 def to_traditional(s: str) -> str:
     t = (s or '').translate(SHINJITAI_TO_TRAD).translate(VARIANT_TO_STD)
     return _S2T.convert(t) if _S2T else t
+
+
+@lru_cache(maxsize=100_000)
+def _t2s_char(c: str) -> str:
+    return _T2S.convert(c) if _T2S else c
+
+
+def to_simplified_charwise(s: str) -> str:
+    """1字ずつ簡体化する（opencc の語彙変換を通さない版）。
+
+    opencc は語彙単位で変換するため、同じ字でも周りの字で結果が変わる。
+    引用「崩於乾清宮」は t2s で「崩于乾清宫」のままだが、底本「崩于乾清宫」は
+    「崩于干清宫」になり、同じ箇所なのに一致しない（2026-08-02・Issue #38）。
+    照合の候補にこちらも並べる（norm_variants / strict_variants）。
+    """
+    return ''.join(_t2s_char(c) for c in (s or '').translate(SHINJITAI_TO_TRAD))
+
+
+def table_conflicts():
+    """表を通したほうが簡体化が悪くなる字を返す（[(新字体, 表の値, 直接t2s, 表経由)]）。
+
+    新字体表は「opencc が知らない字を繁体へ寄せる」ためにあるので、t2s が単独で
+    正しく簡体化できる字を載せると、値の異体字で t2s が止まり照合が外れる。
+    衛→衞（底本は卫）・併→倂（底本は并）で実際に8件が未解決になっていた。
+    表を足したときにここで気づけるよう、verify_quotes.py --check が毎回呼ぶ。
+    """
+    if _T2S is None:
+        return []
+    out = []
+    for k, v in SHINJITAI_TO_TRAD.items():
+        kc = chr(k)
+        direct, via = _T2S.convert(kc), _T2S.convert(v)
+        if direct != kc and direct != via:
+            out.append((kc, v, direct, via))
+    return out
 
 
 def norm_for_match(s: str) -> str:
@@ -118,5 +165,12 @@ def norm_variants(s: str) -> tuple:
     """
     base = han_only(s)
     a = to_simplified(base)
-    b = to_simplified(base.translate(AMBIGUOUS_JP))
-    return (a,) if a == b else (a, b)
+    out = [a]
+    for tbl in (AMBIGUOUS_JP, T2S_VARIANTS):
+        v = to_simplified(base.translate(tbl)).translate(T2S_VARIANTS)
+        if v not in out:
+            out.append(v)
+    cw = to_simplified_charwise(base)
+    if cw not in out:
+        out.append(cw)
+    return tuple(out)

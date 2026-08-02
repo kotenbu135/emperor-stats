@@ -971,6 +971,87 @@ def check_claim_fields(data):
          "0件でも異常ではない。0エラーを「綺麗」と読まないための分母）")
 
 
+def check_conflicts(data):
+    """史料対立の構造フィールド `conflicts` の形を見る（Issue #51 P3）。
+
+    **「対立を書け」というゲートではない。** 書かれていないことが「気づかなかった」なのか
+    「対立が無い」なのかは機械では決まらないので、検査するのは書かれたものの形だけ。
+    `conflicts: []` は「確認して対立なし」・キー自体が無いのは「未確認」で、この2つが
+    区別できることが P3 の値打ちそのもの（Issue #43 の「測れない」と「書き忘れた」を
+    区別する形で null を置く）。
+
+    `conflicts: []` を「確定」と読まないこと（`coverage.py` は conflicts を見ない）。
+    """
+    seen = with_items = 0
+
+    def walk(node, path, eid):
+        nonlocal seen, with_items
+        if isinstance(node, dict):
+            if "conflicts" in node:
+                seen += 1
+                if check_one(node, path, eid):
+                    with_items += 1
+            for k, v in node.items():
+                walk(v, f"{path}.{k}" if path else k, eid)
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                walk(v, f"{path}[{i}]", eid)
+
+    def check_one(node, path, eid) -> bool:
+        conflicts = node["conflicts"]
+        label = f"{eid}.{path}.conflicts" if path else f"{eid}.conflicts"
+        if not isinstance(conflicts, list):
+            err(f"[conflicts] {label}: 配列でない: {type(conflicts).__name__}"
+                "（対立が無いと確認したなら [] を置く）")
+            return False
+        for i, c in enumerate(conflicts):
+            at = f"{label}[{i}]"
+            if not isinstance(c, dict):
+                err(f"[conflicts] {at}: object でない")
+                continue
+            field = c.get("field")
+            if not isinstance(field, str) or field not in node:
+                err(f"[conflicts] {at}: field={field!r} が同じコンテナに実在しません"
+                    f"（隣: {'・'.join(k for k in node if k != 'conflicts') or '（空）'}）")
+            reason = c.get("reason")
+            if not isinstance(reason, str) or not reason.strip():
+                err(f"[conflicts] {at}: reason が非空文字列でない。"
+                    "**なぜその値を採ったか**が無いと、対立を書いた意味がありません")
+            adopted = c.get("adopted")
+            if not isinstance(adopted, dict) or "value" not in adopted:
+                err(f"[conflicts] {at}.adopted: value を持つ object でない"
+                    "（採用側にも出典が要る — 片側だけだと採用と未記入が区別できません）")
+            else:
+                if not isinstance(adopted.get("source"), dict):
+                    err(f"[conflicts] {at}.adopted: source が object でない")
+                if isinstance(field, str) and field in node and node[field] != adopted["value"]:
+                    err(f"[conflicts] {at}.adopted.value={adopted['value']!r} が "
+                        f"{field}={node[field]!r} と食い違います"
+                        "（採用値を訂正したときに conflicts が置き去りになった形）")
+            alts = c.get("alternatives")
+            if not isinstance(alts, list) or not alts:
+                err(f"[conflicts] {at}.alternatives: 非空の配列でない"
+                    "（対立値が無いなら conflicts の要素を作らない。"
+                    "「確認して対立なし」は conflicts: [] で表します）")
+                continue
+            for j, a in enumerate(alts):
+                if not isinstance(a, dict) or "value" not in a:
+                    err(f"[conflicts] {at}.alternatives[{j}]: value を持つ object でない")
+                    continue
+                if not isinstance(a.get("source"), dict):
+                    err(f"[conflicts] {at}.alternatives[{j}]: source が object でない"
+                        "（どの書がそう言っているかが対立の実体です）")
+                if isinstance(adopted, dict) and a["value"] == adopted.get("value"):
+                    err(f"[conflicts] {at}.alternatives[{j}]: 採用値と同じ値 {a['value']!r} "
+                        "が対立値に入っています")
+        return bool(conflicts)
+
+    for e in data["emperors"]:
+        walk(e, "", e["id"])
+    info(f"[conflicts] conflicts を持つコンテナ {seen} 件を評価（うち対立あり {with_items} 件）。"
+         "欄は任意・既存 note に遡及しないため0件でも異常ではない")
+
+
 def check_forbidden_sources(data):
     """emperor レコード全体を再帰走査し、キー名 `source` の出典をすべて判定する。
 
@@ -1032,7 +1113,11 @@ AXES_REQUIRED = {
     "throneSource", "titleOrigin", "decidedBy", "decidedByBasis",
     "predecessorFate", "relationToPredecessor", "procedure",
 }
-AXES_OPTIONAL = {"decidedByAgents"}
+# conflicts は note・claim と同じ位置に置ける史料対立の置き場（Issue #51 P3）。
+# 続柄（relationToPredecessor）のように **軸の中にしか実フィールドが無い**対立があり、
+# check_conflicts は field が同じコンテナに実在することを要求するので axes 内に置けないと
+# 書く場所が無くなる（Issue #53 の曹髦）。中身の検査は check_conflicts が行う。
+AXES_OPTIONAL = {"decidedByAgents", "conflicts"}
 
 
 def derive_category(axes):
@@ -1297,6 +1382,7 @@ def main() -> int:
     check_event_date_format(data)
     check_forbidden_sources(data)
     check_claim_fields(data)
+    check_conflicts(data)
     check_accession_axes(data)
     check_portraits(data)
 

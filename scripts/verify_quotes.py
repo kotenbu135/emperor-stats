@@ -43,8 +43,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from hanzi_norm import (AMBIGUOUS_JP, HAN_RE, han_only, norm_for_match,  # noqa: E402
-                        norm_strict, norm_variants, to_simplified, to_traditional)
+from hanzi_norm import (AMBIGUOUS_JP, HAN_RE, T2S_VARIANTS, _t2s_char,  # noqa: E402
+                        han_only, norm_for_match, norm_strict, norm_variants,
+                        table_conflicts, to_simplified, to_traditional)
 
 DATA_PATH = ROOT / "data" / "emperors.json"
 REFS_PATH = ROOT / "data" / "quote-refs.json"
@@ -100,6 +101,44 @@ def extract_units(data):
                 units.append((eid, f"{f}.note", span))
         for span in quoted_spans((e.get("ages") or {}).get("note")):
             units.append((eid, "ages.note", span))
+        units.extend(conflict_units(e, eid))
+    return units
+
+
+def conflict_units(record, eid):
+    """史料対立フィールド `conflicts` の引用を拾う（Issue #51 P3）。
+
+    `conflicts` はどのコンテナにも置ける任意の欄なので、パスを列挙せず走査する。
+    ここを拾わないと、対立値の原文が照合台帳を素通りする（`claim` に引用を書けない
+    のと同じ理由で、規約の掛からない場所を作らない）。
+    """
+    units = []
+
+    def walk(node, path):
+        if isinstance(node, dict):
+            if isinstance(node.get("conflicts"), list):
+                base = f"{path}.conflicts" if path else "conflicts"
+                for i, c in enumerate(node["conflicts"]):
+                    if not isinstance(c, dict):
+                        continue
+                    holders = [("adopted", c.get("adopted"))]
+                    holders += [(f"alternatives[{j}]", a)
+                                for j, a in enumerate(c.get("alternatives") or [])]
+                    for name, h in holders:
+                        if not isinstance(h, dict):
+                            continue
+                        q = h.get("quote")
+                        if isinstance(q, str) and len(han_only(q)) >= 6:
+                            units.append((eid, f"{base}[{i}].{name}.quote", q))
+                        for span in quoted_spans(h.get("note")):
+                            units.append((eid, f"{base}[{i}].{name}.note", span))
+            for k, v in node.items():
+                walk(v, f"{path}.{k}" if path else k)
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                walk(v, f"{path}[{i}]")
+
+    walk(record, "")
     return units
 
 
@@ -109,7 +148,16 @@ def unit_key(eid, path, span):
 
 
 ELLIPSIS_RE = re.compile(r"[…⋯‥・]+|\.{2,}|。{2,}|——|／|/")
-PUNCT_RE = re.compile(r"[、。，,；;：:！!？?（）()「」『』〔〕【】\s]")
+PUNCT_RE = re.compile(r"[、。，,；;：:！!？?（）()「」『』〔〕【】［］\[\]《》〈〉※\s]")
+
+# 調査者が引用へ添えた注記。原文の一部ではないので断片にしない（2026-08-02・Issue #38）。
+#   ［即位］九月甲辰…／是月(大宝元年十二月)、張彪起義…／上元[=貞元]二十一年正月癸巳
+# 除かないと「即位九月甲辰」「是月大宝元年十二月張彪」のような原文に無い並びができ、
+# 底本に在る引用が「日付を合成している」ように見える（234件中18件がこれだった）。
+# 注意: `reigns[].quote` は extract_units 側でも （）【】 を落としている（span を変えると
+# 台帳キーが変わるため一本化していない）。括弧除去の規則はこの2箇所にある。
+EDITORIAL_RE = re.compile(r"［[^］]{0,24}］|\[[^\]]{0,24}\]|〔[^〕]{0,24}〕"
+                          r"|（[^）]{0,40}）|\([^)]{0,40}\)|【[^】]{0,24}】")
 
 
 def fragments(span, size=10, min_len=5):
@@ -118,17 +166,39 @@ def fragments(span, size=10, min_len=5):
     句読点をまたいで機械的に10字取ると原文に無い並びが生まれ（「…冬十月戊辰帝崩…」）、
     実在する引用まで不検出になる。節の内側だけを見ること。
     """
-    frags = []
-    for seg in ELLIPSIS_RE.split(span or ""):
-        for part in PUNCT_RE.split(seg):
-            h = han_only(part)
-            if len(h) >= min_len:
-                frags.append(h[:size])
-    return frags[:8]
+    # 注記を落とすと断片が1つも残らない引用は、括弧の中身のほうが原文だった
+    #（「（康熙六十一年十一月）」など）。その場合は落とす前の姿で取り直す。
+    for text in (EDITORIAL_RE.sub("　", span or ""), span or ""):
+        frags = []
+        for seg in ELLIPSIS_RE.split(text):
+            for part in PUNCT_RE.split(seg):
+                h = han_only(part)
+                if len(h) >= min_len:
+                    frags.append(h[:size])
+        if frags:
+            return frags[:8]
+    return []
+
+
+def quoted_fragments(span, size=10, min_len=5):
+    """鉤括弧の中だけを引用とみなして断片を取る（2026-08-02・Issue #38）。
+
+    `同伝：「岿在位二十三載…」（「五年」は…開皇五年〔585年〕を指す）` のように、
+    括弧の外が書名の名乗りと日本語の注記になっている引用がある。逆に外が本体で
+    中が別の書の補足という引用もあるので、fragments を置き換えず**別の候補**として
+    並べる（resolve_units が順に試す）。
+    """
+    inner = "……".join(re.findall(r"「([^」]+)」", span or ""))
+    return fragments(inner, size, min_len) if inner else []
 
 
 def sliding_fragments(span, size=6, step=3, cap=8):
-    """節分割で断片が取れない短い引用の救済。中略はまたがない。"""
+    """節分割で断片が取れない短い引用の救済。中略はまたがない。
+
+    こちらは注記を落とさない。落とすと「（康熙六十一年十一月）」のように括弧の中身が
+    原文だった引用で断片が消える。節で割れなかったものの救済という役どころなので、
+    素の並びを見るほうが取りこぼしが少ない。
+    """
     segs = [han_only(s) for s in ELLIPSIS_RE.split(span or "")]
     s = max(segs, key=len) if segs else ""
     out = [s[i:i + size] for i in range(0, max(1, len(s) - size + 1), step)]
@@ -294,8 +364,14 @@ def strict_file(relpath):
 
 @lru_cache(maxsize=200_000)
 def strict_variants(frag):
+    # T2S_VARIANTS は「底本がこの字形を使っている」という異体字の対応で、
+    # 新字体の混入とは別物。混入ゲート側でも候補に入れないと、正しい引用が落ちる。
     base = han_only(frag)
-    return tuple({norm_strict(v) for v in (base, base.translate(AMBIGUOUS_JP))})
+    out = {norm_strict(v).translate(t) for v in (base, base.translate(AMBIGUOUS_JP))
+           for t in ({}, T2S_VARIANTS)}
+    # opencc の語彙変換で底本と結果がずれる字（乾清宮）。混入ゲート側にも候補を入れる
+    out.add(''.join(_t2s_char(c) for c in base))
+    return tuple(out)
 
 
 # 判定結果のスタンプ（2026-08-02 導入）。
@@ -424,14 +500,17 @@ def resolve_units(pending, log=print):
         rel = f"_corpus_cache/{eid}.txt"
         # 全断片が当たることを要求する。半数一致で通していた頃は、断片が節をまたいで
         # 切られていたぶんの取りこぼしを「半分当たれば良い」で吸収してしまっていた。
-        if frags and all(frag_in(f, cache_text(eid)) for f in frags):
-            resolved[key] = {"status": "cache", "corpusFile": rel, "frags": frags,
-                             "line": line_of(rel, frags[0])}
+        hit = next((fs for fs in (frags, quoted_fragments(span))
+                    if fs and all(frag_in(f, cache_text(eid)) for f in fs)), None)
+        if hit:
+            resolved[key] = {"status": "cache", "corpusFile": rel, "frags": hit,
+                             "line": line_of(rel, hit[0])}
         else:
             still.append((key, eid, path, span))
     log(f"  cache 照合: {len(resolved)} / 残 {len(still)}")
 
-    for size_name, frag_fn in (("節", fragments), ("6字", sliding_fragments)):
+    for size_name, frag_fn in (("節", fragments), ("引用符内", quoted_fragments),
+                               ("6字", sliding_fragments)):
         if not still:
             break
         frag_map = {key: frag_fn(span) for key, _, _, span in still}
@@ -579,6 +658,39 @@ def join_texts(*parts):
     return "／".join(vals) if vals else None
 
 
+CONFLICT_PATH_RE = re.compile(
+    r"^(?P<owner>.+)\.conflicts\[(?P<ci>\d+)\]\."
+    r"(?:adopted|alternatives\[(?P<ai>\d+)\])\.(?:quote|note)$")
+
+
+def conflict_holder(record, m):
+    """`…conflicts[i].adopted|alternatives[j]` のオブジェクトを引く（無ければ None）。"""
+    node = record
+    for part in m.group("owner").split("."):
+        key = re.match(r"^([A-Za-z]+)((?:\[\d+\])*)$", part)
+        if not key or not isinstance(node, dict):
+            return None
+        node = node.get(key.group(1))
+        for idx in re.findall(r"\[(\d+)\]", key.group(2)):
+            if not isinstance(node, list) or int(idx) >= len(node):
+                return None
+            node = node[int(idx)]
+    if not isinstance(node, dict):
+        return None
+    conflicts = node.get("conflicts")
+    if not isinstance(conflicts, list) or int(m.group("ci")) >= len(conflicts):
+        return None
+    c = conflicts[int(m.group("ci"))]
+    if not isinstance(c, dict):
+        return None
+    if m.group("ai") is None:
+        holder = c.get("adopted")
+    else:
+        alts = c.get("alternatives") or []
+        holder = alts[int(m.group("ai"))] if int(m.group("ai")) < len(alts) else None
+    return holder if isinstance(holder, dict) else None
+
+
 def source_text(e, path):
     """引用ユニットの path から「書名が書かれている本文」を取り出す。
 
@@ -587,6 +699,12 @@ def source_text(e, path):
     （十国春秋・旧五代史で頻出）が全部「名乗る書に無い」になる。散文より
     `source.page` のほうが「どこを読んだか」の主張としては確かなので、和集合を採る。
     """
+    m = CONFLICT_PATH_RE.match(path)
+    if m:
+        holder = conflict_holder(e, m)
+        if holder is None:
+            return None
+        return join_texts(holder.get("note"), (holder.get("source") or {}).get("page"))
     m = re.match(r"^reigns\[(\d+)\]\.(.+)$", path)
     if m:
         i, rest = int(m.group(1)), m.group(2)
@@ -782,12 +900,44 @@ def cmd_triage(reason):
 
 
 def cmd_list_triaged():
+    """調査待ちの一覧。いま emperors.json に在る引用だけを数える。
+
+    台帳には引用を直したときの古いキーが残る（ハッシュが変わると別エントリになり、
+    通常の --backfill は消さない）。台帳を素で数えると、既に直した引用の古い姿まで
+    「残件」に混ざる（2026-08-02 の実測で 236 件のうち 17 件が陳腐化エントリだった）。
+    """
     refs = load_refs()
-    rows = [(v.get("id"), v.get("path"), v.get("span", ""), v.get("triage"))
-            for v in refs["refs"].values() if v.get("triage")]
+    live = {unit_key(eid, path, span)
+            for eid, path, span in extract_units(json.loads(DATA_PATH.read_text(encoding="utf-8")))}
+    rows, stale = [], 0
+    for key, v in refs["refs"].items():
+        if not v.get("triage"):
+            continue
+        if key in live:
+            rows.append((v.get("id"), v.get("path"), v.get("span", ""), v.get("triage")))
+        else:
+            stale += 1
     for eid, path, span, why in sorted(rows):
         print(f"{eid}\t{path}\t{span}\t{why}")
-    print(f"--- {len(rows)} 件")
+    print(f"--- {len(rows)} 件" + (f"（ほかに陳腐化エントリ {stale} 件。引用を直した際の古いキー）" if stale else ""))
+    return 0
+
+
+def cmd_prune():
+    """実データに無くなった台帳エントリを落とす。
+
+    引用を直すと span のハッシュが変わって別のキーになり、古いエントリは
+    --backfill では消えない（--rebuild は機械判定を全部作り直すので普段は使えない）。
+    残っていても照合の判定は変わらないが、残件を数えるときに紛れる。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    refs = load_refs()
+    live = {unit_key(eid, path, span) for eid, path, span in extract_units(data)}
+    stale = [k for k in refs["refs"] if k not in live]
+    for k in stale:
+        refs["refs"].pop(k)
+    save_refs(refs)
+    print(f"陳腐化エントリを落とした: {len(stale)} 件 / 残 {len(refs['refs'])}")
     return 0
 
 
@@ -837,7 +987,7 @@ def cmd_backfill(rebuild=False, retry_unresolved=False):
         if ent is None or key in pending:
             continue
         # 40字より後ろを直した場合は span[:40] が変わらないので、断片の側でも見る
-        cands = [fragments(span), sliding_fragments(span)]
+        cands = [fragments(span), quoted_fragments(span), sliding_fragments(span)]
         if ent.get("span") == span[:40] and ent.get("frags") in cands:
             continue
         ent["span"] = span[:40]
@@ -888,6 +1038,9 @@ def cmd_check(coverage_only=False):
     recheck_fail = []
     glyph_fail = []
     glyph_allow = refs.get("glyphAllow", {})
+    for kc, v, direct, via in table_conflicts():
+        errors.append(f"[hanzi_norm] 新字体表の {kc}→{v} が照合を壊す（t2s 単独なら {direct} に"
+                      f"なるのに表経由で {via} で止まる）。t2s が扱える字は表に載せない")
     verdicts = None if coverage_only else load_verdicts()
     keep = set()
     for eid, path, span in units:
@@ -981,6 +1134,8 @@ def main():
     ap.add_argument("--triage", metavar="REASON",
                     help="未解決のうち印の無いものへ調査待ちの印を付ける（REASON に経緯・Issue番号）")
     ap.add_argument("--list-triaged", action="store_true", help="調査待ちの一覧を出す")
+    ap.add_argument("--prune", action="store_true",
+                    help="実データに無くなった台帳エントリ（引用を直した際の古いキー）を落とす")
     ap.add_argument("--check-books", action="store_true",
                     help="note が名乗る書名と引用の実在する書を突合して一覧を出す（Issue #40 G1・要コーパス）")
     ap.add_argument("--rebuild", action="store_true",
@@ -1001,6 +1156,8 @@ def main():
         return cmd_list_triaged()
     if args.triage:
         return cmd_triage(args.triage)
+    if args.prune:
+        return cmd_prune()
     if args.check_coverage:
         return cmd_check(coverage_only=True)
     if CORPUS_ROOT is None:

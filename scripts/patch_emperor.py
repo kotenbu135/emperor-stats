@@ -75,10 +75,22 @@ HINTS = [
     (re.compile(r"(?:^|\.)(?:note|quote)(?:$|\.|\[)"),
      "python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py --check",
      "原文引用を足した・変えたなら照合台帳 data/quote-refs.json も動く（R-QUOTE-NO-TYPE / R-QUOTE-GLYPH）"),
+    (re.compile(r"(?:^|\.)conflicts(?:$|\.|\[)"),
+     "python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py --check",
+     "conflicts の adopted / alternatives が持つ quote は照合台帳の対象（引用規約の全項が掛かる）。"
+     "採用値を訂正したら conflicts[].adopted.value も動く（validate_emperors.py が突合する）"),
     (re.compile(r"[Dd]ate|Year|raw|fromLunar|exactDays|duration"),
      "python3 scripts/verify_calendar.py",
      "日付は隣接フィールドに散る（reigns[].endDate ↔ ages.deathDate ↔ events[].date ↔ note 内の日付引用）。"
      "旧値の文字列でレコード全体を grep して残存参照を列挙する"),
+    (re.compile(r"^\w+Count\.events\[\d+\]\.(?:date|startDate|endDate|datePrecision)$"),
+     "python3 scripts/verify_calendar.py",
+     "**events の日付を新しく確定・訂正したら原表記と換算も同じ要素に残す**（R-EVENT-DATE-RAW）: "
+     "`<field>.events[n].startDateRaw`（原典の紀年表記そのまま）と "
+     "`<field>.events[n].source.conversion`（`fromLunar(y,m,d[,leap])`。月精度なら朔日アンカー "
+     "`fromLunar(y,m,1)`）。これが無いと、保存値が旧暦の月番号の直書きか換算済みかを機械で"
+     "区別できない（Issue #56 で24件が誤りだった型）。verify_calendar の B-5 が再演する。"
+     "**遡及しない任意欄なので、既存 events に無いことは欠陥ではない**"),
     (re.compile(r"^reigns|reignSummary"), "python3 scripts/validate_emperors.py",
      "reignSummary は reigns の合計と機械照合される"),
     (re.compile(r"relationToPredecessor|kinship"), "python3 scripts/validate_kinship.py",
