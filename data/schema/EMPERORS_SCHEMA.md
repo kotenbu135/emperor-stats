@@ -34,6 +34,7 @@
 |---|---|
 | `eras[]` | 時代区分11件。`id`（例 `sui-tang`）・`label`（隋・唐）・`labelEn`（未投入・null）・`sortOrder`。**調査ブロック（`researchSection`）とは独立**した、時代ジャンプ・並び順のための固定カタログ。時代は慣用区分で年代は排他区間ではない（北魏 399〜 は南北朝、遼 916〜 は宋遼金夏） |
 | `regimes[]` | 政権89件。`id`・`name`（国号）・`label`（曖昧性のない表示名）・`labelEn`・`eraId`・`category`（`unified`／`divided`／`rebel`）・`startYear`/`endYear`・`sortOrder`・`dynastyOrderSurveyed` |
+| `books[]` | 引用・出典が名乗ってよい書89件（2026-08-03・Issue #69）。`id`（コーパス索引の鍵）・`volumeIndex`・`volumeScope`・`corpusVolumeMax`・`corpusVolumeCount`。**表示ラベルではなく実体への鍵**なので他のカタログと性格が違う（下の「出典と引用の器」節が正） |
 | `enums` | フィールド名 → `[{id,label,labelEn,description?}]` の19種（`regimeCategory`・`emperorStanding`・`accessionCategory`・軸6種・`relationToPredecessor`・`deathCause`・`confidence`・`datePrecision`、および kinship.json 用の5種 `kinshipPersonKind`・`kinshipInclusionReason`・`kinshipRelation`・`kinshipRelationDetail`・`kinshipSuccessionCategory`）。**ID はフィールド内で一意**（フィールドをまたぐ同名 ID は別物） |
 
 `regimes[].startYear`/`endYear` は**表示用のヒントであって権威ある区間ではない**（唐 618〜907 の内側に武周 690〜705 が入るなど入れ子・重複しうる）。
@@ -416,6 +417,66 @@ Issue #43 の「**測れない**」と「**書き忘れた**」を区別する�
 - 検査件数を `B5=…` で必ず出します（**当面 0 件なので、0 エラーを「守れている」と読まないため**）。
   発火そのものは `python3 scripts/test_event_conversion_gate.py` が合成レコードで測ります
 - **`quote` を書くなら引用の取り扱い規約の全項が掛かります**（底本の字体のまま・手打ち禁止）
+
+## 出典と引用の器（2026-08-03・Issue #69・計画7節の4）
+
+出典 `source` に**書と巻を機械で引ける欄**を足し、引用を置く器 `quotes[]` を作りました。
+どちらも**任意で、既存には遡及しません**。
+
+| 欄 | 中身 |
+|---|---|
+| `source.bookId` | 出典の書。`meta.catalogs.books` の `id` を指す |
+| `source.volume` | 出典の巻（整数）。**その書が巻の索引を持つときだけ**書けます |
+| `quotes[]`（`{bookId, volume?, text}`） | 構造化引用。1要素＝**1つの巻から採った1続きの断片** |
+
+`source.page`（「宋書 本紀第三 武帝紀下」のような散文）は**そのまま残します**。CSV の
+`deathCauseSource`／`accessionRouteSource` 列はこの `page` を出しているので、列は増減しません。
+
+### なぜ足したか
+
+`page` は散文なので、**巻番号が間違っていても全ゲートが緑で通りました**（Issue #53）。
+`bookId` ＋ `volume` にすると巻をコーパスの実体に当てられます。実測では効きます —
+元世祖の即位記事の引用は `元史` 巻4 で 8/8 断片が一致し、**巻5・巻6・巻17 では 0/8** でした。
+
+`source.quote`（1本の文字列に「即位／崩御」を `／` で詰めた旧い器）と `quotes[]` は
+**同じ容器に併存させません**（引用の在りかが2つあると、どちらが主張か決まらない）。
+旧い器で `／` の左右が別の巻から来ている例が実在します（梁武帝の引用は `梁书` 巻2 に4断片・
+巻3 に3断片）。**巻を主張するには引用を要素へ割る必要がある**、というのがこの器の理由です。
+
+### `meta.catalogs.books` — 書のカタログ
+
+`bookId` が指す先で、`scripts/build_books_catalog.py` が**ローカルコーパスの実ファイルから
+生成します**。`id` は書名を人がローマ字 slug へ振り直したものではなく、**コーパス索引の鍵
+そのもの**です（slug→書 の対応表を手で作ると、間違えたときに黙って別の書の巻を読みに行く）。
+
+| 欄 | 中身 |
+|---|---|
+| `volumeIndex` | `daizhige-heading`／`china-history-file`／`null`。**`null` はその書に `volume` を書けない** |
+| `volumeScope` | `all`／`benji`。china-history は**列伝・志の巻番号が1から振り直されている**ため、本紀だけを索引にした書は `benji` |
+| `corpusVolumeMax`／`corpusVolumeCount` | コーパスの**収録**であって、その書の巻数ではありません（上限のゲートに使わない） |
+
+データが名乗る 89書のうち、巻を引けるのは **29書**です。組版を読み切れた書だけを索引にしています
+（半分だけ引ける索引は、引けなかった巻を「存在しない巻」と誤って弾く）。残りは
+`RESIDUAL.md` の「巻を主張できない書」の行。
+
+### 機械が見ること
+
+- `validate_emperors.py` の `check_quote_containers`（**コーパス不要・CI で走る**）
+  … カタログ単体の健全性／`bookId` がカタログに在る／**巻の索引を持たない書に `volume` を書けない**／
+    `quotes[]` の形／`source.quote` との同居禁止／床のラチェット
+- `verify_quotes.py --check-volumes`（**ローカル専用・要コーパス**）
+  … カタログをコーパスから作り直して突合／`(bookId, volume)` の巻が引ける／
+    **`quotes[].text` がその巻の中に在る**（書のどこかに在る、より強い）
+- `verify_quotes.py --check` … `quotes[].text` も引用照合台帳の対象です（散文 note の引用と同じ扱い）
+- 発火そのものは `python3 scripts/test_quote_containers.py`（合成レコード24件）と
+  `--check-volumes` の中の**巻の切り出しの標本4件**が測ります。
+  **配布物側にはまだ1容器しか構造化引用が無いので、実データの「0 errors」は証拠になりません**
+
+### 床（まだ強制していない）
+
+集計に効く判定（在位日・死因・即位経路・8つの `count`＝4,024容器）は、最終的に
+「構造化引用を1断片以上持つこと」をゲート条件にします。**いまは条件を強制せず**、
+ラチェット（充足数が減ったら落ちる）だけを掛けています。不足は残量表の行です。
 
 ## 具体例
 

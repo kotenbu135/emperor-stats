@@ -101,7 +101,35 @@ def extract_units(data):
                 units.append((eid, f"{f}.note", span))
         for span in quoted_spans((e.get("ages") or {}).get("note")):
             units.append((eid, "ages.note", span))
+        units.extend(structured_quote_units(e, eid))
         units.extend(conflict_units(e, eid))
+    return units
+
+
+def structured_quote_units(record, eid):
+    """構造化引用 `quotes[]` の断片を拾う（Issue #69・計画7節の4）。
+
+    `conflicts` と同じく置ける場所を列挙せず走査する。ここを拾わないと、
+    **新しい器へ移した引用が照合台帳から静かに抜ける**（`source.quote` は
+    extract_units が拾うので、移した瞬間に覆いが外れる）。
+    """
+    units = []
+
+    def walk(node, path):
+        if isinstance(node, dict):
+            if isinstance(node.get("quotes"), list):
+                base = f"{path}.quotes" if path else "quotes"
+                for i, q in enumerate(node["quotes"]):
+                    if isinstance(q, dict) and isinstance(q.get("text"), str) \
+                            and len(han_only(q["text"])) >= 6:
+                        units.append((eid, f"{base}[{i}]", q["text"]))
+            for k, v in node.items():
+                walk(v, f"{path}.{k}" if path else k)
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                walk(v, f"{path}[{i}]")
+
+    walk(record, "")
     return units
 
 
@@ -844,6 +872,134 @@ def cmd_check_books():
     return 0
 
 
+def cmd_check_volumes():
+    """`meta.catalogs.books` と `(bookId, volume)` をコーパスの実体に当てる（Issue #69）。
+
+    **CI では走らない**（コーパスは .gitignore）。`validate_emperors.py` 側は形と
+    カタログ参照だけを見るので、巻が実在するか・引用がその巻の中に在るかはここが唯一の
+    証人になる。#53 の「巻番号の誤りが全ゲートを緑で通る」はこの照合で閉じる。
+
+    見るのは3つ:
+
+    1. カタログがコーパスの実体と食い違っていないか（生成し直して比べる）
+    2. データが名乗る `(bookId, volume)` の巻が引けるか
+    3. `quotes[].text` がその**巻の中**に在るか（書のどこかに在る、より強い）
+    """
+    import book_volumes as BV
+    import build_books_catalog as BBC
+
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    catalog = {b["id"]: b for b in
+               (data["meta"].get("catalogs") or {}).get("books") or []}
+    errors = 0
+
+    fresh = {b["id"]: b for b in BBC.build(data)}
+    only_data = sorted(set(catalog) - set(fresh))
+    only_corpus = sorted(set(fresh) - set(catalog))
+    drift = [k for k in set(catalog) & set(fresh) if catalog[k] != fresh[k]]
+    if only_data:
+        print(f"ERROR カタログにあってコーパスから作り直すと消える書: {only_data}")
+        errors += len(only_data)
+    if only_corpus:
+        print(f"WARN  データが名乗るのにカタログに無い書（--write で入る）: {only_corpus}")
+    for k in sorted(drift):
+        print(f"ERROR {k}: カタログの巻の索引がコーパスと食い違う\n"
+              f"      カタログ={catalog[k]}\n      コーパス={fresh[k]}")
+        errors += len(drift)
+
+    errors += _probe_volume_index(catalog)
+
+    checked = quoted = 0
+    for eid, path, unit, _floor in _iter_units_for_volumes(data):
+        refs = []
+        src = unit.get("source")
+        if isinstance(src, dict) and src.get("volume"):
+            refs.append(("source", src, None))
+        for i, q in enumerate(unit.get("quotes") or []):
+            if isinstance(q, dict):
+                refs.append((f"quotes[{i}]", q, q.get("text")))
+        for label, obj, text in refs:
+            bid, vol = obj.get("bookId"), obj.get("volume")
+            book = catalog.get(bid)
+            if not book:
+                continue  # カタログ参照の検査は validate_emperors 側の担当
+            if vol:
+                checked += 1
+                lines = BV.volume_lines(CORPUS_ROOT, book, vol)
+                if lines is None:
+                    print(f"ERROR {eid}.{path}.{label}: {bid} 巻{vol} をコーパスから引けない"
+                          f"（収録 {book.get('corpusVolumeCount')}巻・"
+                          f"最大 {book.get('corpusVolumeMax')}巻）")
+                    errors += 1
+                    continue
+                if text:
+                    quoted += 1
+                    body = norm_for_match("".join(lines))
+                    frags = fragments(text) or [han_only(text)]
+                    miss = [f for f in frags if not frag_in(f, body)]
+                    # quotes[] の1要素は1つの巻から採った1続きの断片なので、
+                    # 「どれか1つ当たれば可」にしない（巻をまたいで合成した引用を通す）
+                    if miss:
+                        print(f"ERROR {eid}.{path}.{label}: 引用が {bid} 巻{vol} の中に無い"
+                              f"（書のどこかに在っても巻が違えば誤り）"
+                              f"／未検出 {len(miss)}/{len(frags)} 断片: {miss[0]}")
+                        errors += 1
+    print(f"\n巻の実在を確かめた参照 {checked}件（うち引用の所在まで確かめたもの {quoted}件）"
+          f"／カタログ {len(catalog)}書"
+          f"（巻を引ける {sum(1 for b in catalog.values() if b['volumeIndex'])}書）"
+          f"／巻の切り出しの標本 {len(VOLUME_PROBES)}件（在る巻と無い巻の両方を見る）")
+    if errors:
+        print(f"ERROR {errors} 件")
+        return 1
+    return 0
+
+
+# 巻の切り出しが効いていることを確かめる標本（Issue #69）。
+# (書, 巻, その巻に在る断片, その断片が**無い**別の巻)。
+# データ側に volume を書いたレコードがまだ1件も無いので、これが無いと
+# --check-volumes は「0件を検査して合格」になる。切り出しが壊れて巻が本文全体を
+# 指すようになると、外れの巻でも当たるようになって不合格側で気づける。
+VOLUME_PROBES = [
+    ("元史", 4, "中统元年春三月戊辰朔", 5),
+    ("宋书", 3, "永初元年夏六月丁卯", 5),
+    ("旧唐书", 1, "高祖即皇帝位於太極殿", 2),
+    ("金史", 3, "九月乙卯，葬太祖于宮城西", 4),
+]
+
+
+def _probe_volume_index(catalog):
+    """標本の断片が「在る巻」に当たり「無い巻」に当たらないことを確かめる。"""
+    import book_volumes as BV
+    bad = 0
+    for book, vol, frag, other in VOLUME_PROBES:
+        b = catalog.get(book)
+        if not b or not b.get("volumeIndex"):
+            print(f"ERROR 標本の書がカタログから消えた／巻を引けなくなった: {book}")
+            bad += 1
+            continue
+        f = fragments(frag)[0] if fragments(frag) else han_only(frag)
+        hit = frag_in(f, norm_for_match("".join(BV.volume_lines(CORPUS_ROOT, b, vol) or [])))
+        miss = frag_in(f, norm_for_match("".join(BV.volume_lines(CORPUS_ROOT, b, other) or [])))
+        if not hit:
+            print(f"ERROR 標本: {book} 巻{vol} に在るはずの断片が見つからない（{frag}）")
+            bad += 1
+        if miss:
+            print(f"ERROR 標本: {book} 巻{other} に無いはずの断片が見つかった（{frag}）。"
+                  f"巻の切り出しが壊れて本文全体を指している疑い")
+            bad += 1
+    return bad
+
+
+def _iter_units_for_volumes(data):
+    """validate_emperors の走査をそのまま使う（容器の列挙を2箇所に書かない）。"""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "ve_for_volumes", ROOT / "scripts" / "validate_emperors.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.iter_quote_containers(data)
+
+
 def cmd_prune_stale():
     """引用を書き換えた後、参照されなくなった台帳エントリを消す。
 
@@ -1138,6 +1294,9 @@ def main():
                     help="実データに無くなった台帳エントリ（引用を直した際の古いキー）を落とす")
     ap.add_argument("--check-books", action="store_true",
                     help="note が名乗る書名と引用の実在する書を突合して一覧を出す（Issue #40 G1・要コーパス）")
+    ap.add_argument("--check-volumes", action="store_true",
+                    help="meta.catalogs.books と (bookId, volume) をコーパスの巻に当てる"
+                         "（Issue #69 計画7節の4・要コーパス。#53 の巻番号の穴はここで閉じる）")
     ap.add_argument("--rebuild", action="store_true",
                     help="--backfill と併用。照合器を変えたとき機械判定を作り直す"
                          "（manual/external/defect の curation は残す）")
@@ -1168,6 +1327,8 @@ def main():
         return cmd_prune_stale()
     if args.check_books:
         return cmd_check_books()
+    if args.check_volumes:
+        return cmd_check_volumes()
     if args.backfill:
         return cmd_backfill(rebuild=args.rebuild, retry_unresolved=args.retry_unresolved)
     return cmd_check()

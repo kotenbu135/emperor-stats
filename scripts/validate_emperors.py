@@ -1588,6 +1588,179 @@ def check_event_date_claim_residual(data):
     return claimed, witnessed
 
 
+# ---------------------------------------------------------------------------
+# 引用の器（Issue #69・計画7節の4）
+# ---------------------------------------------------------------------------
+
+VOLUME_INDEX_KINDS = ("daizhige-heading", "china-history-file")
+VOLUME_SCOPES = ("all", "benji")
+
+# 床＝集計に効く判定。最終的に「構造化引用 quotes[] を1断片以上持つ」をゲート条件に
+# する容器（計画5-3）。**いまは条件を強制していない**（転記が別段のため）。
+# ここが数えるのは充足数で、不足は docs/process/RESIDUAL.md の行として持つ。
+# 主張する日付 1,173件の witness（*Raw ＋ conversion）は
+# check_event_date_claim_residual が別に数えるので、ここには入れない。
+FLOOR_UNITS = ("reigns[].duration", "deathCause", "accessionRoute") + tuple(COUNT_GROUPS)
+
+# 床の充足数の基準線（ラチェット）。**下げるのは床の定義を変えるときだけ**で、
+# それはユーザー決定が要る。転記を進めたら上げる。
+QUOTE_FLOOR_BASELINE = dict({name: 0 for name in FLOOR_UNITS},
+                            **{"reigns[].duration": 1})
+
+# 散文寄りの引用（`source.quote` の1本の文字列）は**増やさない**。
+# quotes[] へ移したぶんだけこの数を下げる。増える形の変更はここで落ちる。
+LEGACY_SOURCE_QUOTE_MAX = 373
+
+
+def iter_quote_containers(data):
+    """`source` か `quotes` を持ちうる容器を (皇帝id, パス, 容器, 床の名前) で列挙する。
+
+    床の名前は FLOOR_UNITS のどれか。床の外（conflicts の中など）は None。
+    """
+    for e in data["emperors"]:
+        eid = e["id"]
+        for i, r in enumerate(e.get("reigns") or []):
+            dur = r.get("duration")
+            if isinstance(dur, dict):
+                yield eid, f"reigns[{i}].duration", dur, "reigns[].duration"
+        for name in ("deathCause", "accessionRoute"):
+            o = e.get(name)
+            if isinstance(o, dict):
+                yield eid, name, o, name
+        # ages は床ではないが quotes を置ける容器なので、器の検査だけは掛ける
+        # （スキーマが通す形をこちらが見ないと、bookId がカタログ外でも素通りする）
+        if isinstance(e.get("ages"), dict):
+            yield eid, "ages", e["ages"], None
+        for g in COUNT_GROUPS:
+            o = e.get(g)
+            if not isinstance(o, dict):
+                continue
+            yield eid, g, o, g
+            for ev in o.get("events") or []:
+                if isinstance(ev, dict):
+                    yield eid, f"{g}.{ev.get('id') or '?'}", ev, None
+                    for j, c in enumerate(ev.get("conflicts") or []):
+                        for side in ("adopted",):
+                            if isinstance(c.get(side), dict):
+                                yield eid, f"{g}.{ev.get('id')}.conflicts[{j}].{side}", \
+                                    c[side], None
+                        for k, alt in enumerate(c.get("alternatives") or []):
+                            if isinstance(alt, dict):
+                                yield eid, (f"{g}.{ev.get('id')}.conflicts[{j}]"
+                                            f".alternatives[{k}]"), alt, None
+        axes = (e.get("accessionRoute") or {}).get("axes") or {}
+        for j, c in enumerate(axes.get("conflicts") or []):
+            if isinstance(c.get("adopted"), dict):
+                yield eid, f"accessionRoute.axes.conflicts[{j}].adopted", c["adopted"], None
+            for k, alt in enumerate(c.get("alternatives") or []):
+                if isinstance(alt, dict):
+                    yield eid, (f"accessionRoute.axes.conflicts[{j}]"
+                                f".alternatives[{k}]"), alt, None
+
+
+def check_quote_containers(data):
+    """書カタログと構造化引用の器を検査する（Issue #69・計画7節の4）。
+
+    ここは**コーパスを必要としない側**だけを見る（CI にコーパスは無い）。
+    `(bookId, volume)` が実在の巻を指すか・引用がその巻の中に在るかは
+    `verify_quotes.py --check-volumes`（ローカル専用）が見る。
+
+    戻り値は (床の充足数, 散文寄り source.quote の件数)。
+    """
+    books = (data["meta"].get("catalogs") or {}).get("books")
+    if books is None:
+        err("[books] meta.catalogs.books が無い（scripts/build_books_catalog.py で作る）")
+        return {}, 0
+
+    ids = [b.get("id") for b in books]
+    dup = sorted({i for i in ids if ids.count(i) > 1})
+    if dup:
+        err(f"[books] カタログの id が重複: {dup}")
+    catalog = {}
+    for b in books:
+        bid = b.get("id")
+        if not isinstance(bid, str) or not bid:
+            err(f"[books] id が文字列でない: {b!r}")
+            continue
+        catalog[bid] = b
+        kind = b.get("volumeIndex")
+        if kind is not None and kind not in VOLUME_INDEX_KINDS:
+            err(f"[books] {bid}: volumeIndex が不正: {kind!r}"
+                f"（{VOLUME_INDEX_KINDS} か null）")
+        has_detail = any(k in b for k in
+                         ("volumePath", "volumeScope", "corpusVolumeMax", "corpusVolumeCount"))
+        if kind is None and has_detail:
+            err(f"[books] {bid}: volumeIndex が null なのに巻の索引の詳細が在る")
+        if kind is not None:
+            if b.get("volumeScope") not in VOLUME_SCOPES:
+                err(f"[books] {bid}: volumeScope が不正: {b.get('volumeScope')!r}")
+            for k in ("volumePath", "corpusVolumeMax", "corpusVolumeCount"):
+                if not b.get(k):
+                    err(f"[books] {bid}: volumeIndex が在るのに {k} が無い")
+
+    floor = {name: 0 for name in FLOOR_UNITS}
+    legacy = 0
+    for eid, path, unit, floor_name in iter_quote_containers(data):
+        where = f"{eid}.{path}"
+        src = unit.get("source")
+        if isinstance(src, dict):
+            if src.get("quote"):
+                legacy += 1
+            _check_book_ref(where + ".source", src, catalog)
+        quotes = unit.get("quotes")
+        if quotes is not None:
+            if not isinstance(quotes, list) or not quotes:
+                err(f"[quotes] {where}: quotes は1件以上の配列（空なら欄を置かない）")
+                continue
+            if isinstance(src, dict) and src.get("quote"):
+                err(f"[quotes] {where}: source.quote と quotes[] が同居している。"
+                    f"引用の在りかを2つ持たない（移したら source.quote を消す）")
+            for i, q in enumerate(quotes):
+                if not isinstance(q, dict):
+                    err(f"[quotes] {where}.quotes[{i}]: オブジェクトでない")
+                    continue
+                if not isinstance(q.get("text"), str) or not q["text"].strip():
+                    err(f"[quotes] {where}.quotes[{i}]: text が空")
+                if not q.get("bookId"):
+                    err(f"[quotes] {where}.quotes[{i}]: bookId が無い"
+                        f"（どの書に在ると主張するのかを書く）")
+                _check_book_ref(f"{where}.quotes[{i}]", q, catalog)
+            if floor_name:
+                floor[floor_name] += 1
+
+    for name, n in sorted(floor.items()):
+        base = QUOTE_FLOOR_BASELINE.get(name, 0)
+        if n < base:
+            err(f"[quote-floor] {name}: 構造化引用を持つ容器が {n}件で、"
+                f"基準線 {base}件を下回った（床は減らさない・Issue #69）")
+    if legacy > LEGACY_SOURCE_QUOTE_MAX:
+        err(f"[quotes] source.quote（引用の在りかが散文寄りの旧い器）が {legacy}件で、"
+            f"上限 {LEGACY_SOURCE_QUOTE_MAX}件を超えた。新しい引用は quotes[] へ書く")
+    return floor, legacy
+
+
+def _check_book_ref(where, obj, catalog):
+    """`bookId` と `volume` の対がカタログと整合するか（コーパスは見ない）。"""
+    bid = obj.get("bookId")
+    if bid is not None:
+        if not isinstance(bid, str) or bid not in catalog:
+            err(f"[books] {where}: bookId が meta.catalogs.books にない: {bid!r}")
+            return
+    vol = obj.get("volume")
+    if vol is None:
+        return
+    if bid is None:
+        err(f"[books] {where}: volume だけ在って bookId が無い（どの書の巻か決まらない）")
+        return
+    if not isinstance(vol, int) or isinstance(vol, bool) or vol < 1:
+        err(f"[books] {where}: volume は1以上の整数: {vol!r}")
+        return
+    book = catalog.get(bid) or {}
+    if book.get("volumeIndex") is None:
+        err(f"[books] {where}: {bid} はコーパスに巻の索引が無いので volume を主張できない"
+            f"（巻番号を機械で確かめられない・Issue #69）")
+
+
 def main() -> int:
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
@@ -1616,6 +1789,7 @@ def main() -> int:
     check_event_date_format(data)
     archive_n = check_event_date_archive(data)
     claimed_n, witnessed_n = check_event_date_claim_residual(data)
+    floor, legacy_quote_n = check_quote_containers(data)
     check_forbidden_sources(data)
     check_claim_fields(data)
     check_conflicts(data)
@@ -1651,7 +1825,9 @@ def main() -> int:
           f"／第N代が未調査の在位 {unsurveyed_n}件（欄なし）"
           f"／退避した月日 {archive_n}値を配布物と照合"
           f"／月日を主張する event {claimed_n}件のうち *Raw＋conversion を持つのは "
-          f"{witnessed_n}件)")
+          f"{witnessed_n}件"
+          f"／構造化引用を持つ床の容器 {sum(floor.values())}件"
+          f"（旧い器 source.quote は {legacy_quote_n}件）)")
     return 1 if errors else 0
 
 

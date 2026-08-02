@@ -102,6 +102,30 @@
       "required": ["eras", "regimes", "enums"],
       "properties": {
         "note": { "type": "string" },
+        "books": {
+          "type": "array",
+          "description": "引用・出典が名乗ってよい書のカタログ（Issue #69・計画7節の4）。id はローカルコーパスの索引の鍵（正規化済みの書名）そのもので、人がローマ字 slug を振らない — slug→書 の対応表を手で作ると、間違えたときに黙って別の書の巻を読みに行く（#53 と同じ形）。scripts/build_books_catalog.py が実ファイルから生成する。",
+          "items": {
+            "type": "object",
+            "required": ["id", "volumeIndex"],
+            "properties": {
+              "id": { "type": "string", "description": "コーパス索引の鍵（正規化済みの書名）。source.bookId・quotes[].bookId が指す先。" },
+              "volumeIndex": {
+                "type": ["string", "null"],
+                "enum": ["daizhige-heading", "china-history-file", null],
+                "description": "巻の索引の引き方。null＝コーパスから巻を機械で引けない書で、この書には volume を書けない（巻番号を確かめられない主張は配布物に置かない）。"
+              },
+              "volumePath": { "type": "string", "description": "巻を引く実体（daizhige の txt か china-history の節ディレクトリ）。" },
+              "volumeScope": {
+                "type": "string",
+                "enum": ["all", "benji"],
+                "description": "引ける巻の範囲。china-history は列伝・志の巻番号が書頭からの絶対値でなく1から振り直されている（CORPUS_NOTES の「相対巻数」）ため、本紀だけを索引にした書は benji。"
+              },
+              "corpusVolumeMax": { "type": "integer", "description": "コーパスに収録がある最大の巻番号。**その書の巻数ではない**ので上限のゲートに使わない。" },
+              "corpusVolumeCount": { "type": "integer", "description": "コーパスに収録がある巻の数（欠けがあるので Max と一致しないことがある）。" }
+            }
+          }
+        },
         "eras": {
           "type": "array",
           "description": "時代区分（11 区分）。調査ブロック（researchSection）とは独立した、時代ジャンプ・並び順のための固定カタログ。",
@@ -367,7 +391,8 @@
           "type": "boolean",
           "description": "true の場合、日精度の確定調査が未了で approxDays が推定値であることを示す精度フラグ。"
         },
-        "source": { "$ref": "#/$defs/source" }
+        "source": { "$ref": "#/$defs/source" },
+        "quotes": { "$ref": "#/$defs/quotes" }
       }
     },
 
@@ -460,7 +485,8 @@
         },
         "conflicts": { "$ref": "#/$defs/conflicts" },
         "confidence": { "$ref": "#/$defs/confidence" },
-        "source": { "$ref": "#/$defs/source" }
+        "source": { "$ref": "#/$defs/source" },
+        "quotes": { "$ref": "#/$defs/quotes" }
       }
     },
 
@@ -546,7 +572,8 @@
         },
         "conflicts": { "$ref": "#/$defs/conflicts" },
         "confidence": { "$ref": "#/$defs/confidence" },
-        "source": { "$ref": "#/$defs/source" }
+        "source": { "$ref": "#/$defs/source" },
+        "quotes": { "$ref": "#/$defs/quotes" }
       }
     },
 
@@ -573,6 +600,7 @@
           "description": "没時の数え年。調査済みだが確定できない場合は null。"
         },
         "confidence": { "$ref": "#/$defs/confidence" },
+        "quotes": { "$ref": "#/$defs/quotes" },
         "note": { "type": ["string", "null"], "description": "算出根拠・原典の年齢記載。" },
         "claim": {
           "type": "string",
@@ -603,11 +631,13 @@
               "datePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
               "note": { "type": ["string", "null"], "description": "内容・原典の記述。" },
               "source": { "$ref": "#/$defs/source" },
+              "quotes": { "$ref": "#/$defs/quotes" },
               "conflicts": { "$ref": "#/$defs/conflicts" }
             }
           }
         },
         "confidence": { "$ref": "#/$defs/confidence" },
+        "quotes": { "$ref": "#/$defs/quotes" },
         "note": {
           "type": ["string", "null"],
           "description": "指標レベルの注記。典拠とした書名・巻や、数え方の判断を含む。"
@@ -639,11 +669,13 @@
               "to": { "type": ["string", "null"], "description": "遷都先の都城名。" },
               "note": { "type": ["string", "null"] },
               "conflicts": { "$ref": "#/$defs/conflicts" },
-              "source": { "$ref": "#/$defs/source" }
+              "source": { "$ref": "#/$defs/source" },
+              "quotes": { "$ref": "#/$defs/quotes" }
             }
           }
         },
         "confidence": { "$ref": "#/$defs/confidence" },
+        "quotes": { "$ref": "#/$defs/quotes" },
         "note": { "type": ["string", "null"] },
         "claim": {
           "type": "string",
@@ -677,11 +709,13 @@
               "outcome": { "type": ["string", "null"], "description": "結果。" },
               "note": { "type": ["string", "null"] },
               "conflicts": { "$ref": "#/$defs/conflicts" },
-              "source": { "$ref": "#/$defs/source" }
+              "source": { "$ref": "#/$defs/source" },
+              "quotes": { "$ref": "#/$defs/quotes" }
             }
           }
         },
         "confidence": { "$ref": "#/$defs/confidence" },
+        "quotes": { "$ref": "#/$defs/quotes" },
         "note": { "type": ["string", "null"] },
         "claim": {
           "type": "string",
@@ -716,11 +750,13 @@
               "outcome": { "type": ["string", "null"], "description": "結果。" },
               "note": { "type": ["string", "null"] },
               "conflicts": { "$ref": "#/$defs/conflicts" },
-              "source": { "$ref": "#/$defs/source" }
+              "source": { "$ref": "#/$defs/source" },
+              "quotes": { "$ref": "#/$defs/quotes" }
             }
           }
         },
         "confidence": { "$ref": "#/$defs/confidence" },
+        "quotes": { "$ref": "#/$defs/quotes" },
         "note": { "type": ["string", "null"] },
         "claim": {
           "type": "string",
@@ -746,6 +782,7 @@
             "properties": {
               "value": { "description": "採用した値。実フィールドの値と一致すること。" },
               "source": { "$ref": "#/$defs/source" },
+              "quotes": { "$ref": "#/$defs/quotes" },
               "quote": { "type": "string", "description": "原文。引用の取り扱い規約の全項が掛かる（底本の字体のまま・手打ち禁止・verify_quotes.py の抽出対象）。" },
               "note": { "type": "string" }
             }
@@ -760,6 +797,7 @@
               "properties": {
                 "value": { "description": "採らなかった値。" },
                 "source": { "$ref": "#/$defs/source" },
+                "quotes": { "$ref": "#/$defs/quotes" },
                 "quote": { "type": "string", "description": "原文。引用の取り扱い規約の全項が掛かる。" },
                 "note": { "type": "string" }
               }
@@ -776,7 +814,16 @@
       "properties": {
         "page": {
           "type": "string",
-          "description": "出典の書名・巻名（例:「史記・秦始皇本紀」）。"
+          "description": "出典の書名・巻名の散文（例:「史記・秦始皇本紀」）。書と巻を機械で引きたい側は bookId・volume を使う。"
+        },
+        "bookId": {
+          "type": ["string", "null"],
+          "description": "出典の書（meta.catalogs.books の id）。page の散文と違い、コーパスの実体に当たる主張。"
+        },
+        "volume": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "出典の巻。その書が巻の索引を持つときだけ書ける（verify_quotes.py --check-volumes が実体と突き合わせる）。#53 の「巻番号の誤りが全ゲートを緑で通る」穴はここで閉じる。"
         },
         "lang": {
           "type": ["string", "null"],
@@ -793,6 +840,21 @@
         "conversion": {
           "type": ["string", "null"],
           "description": "旧暦（干支日）→西暦の換算典拠と既存日付との照合結果。正史に日次記述がない場合はその旨を記す。reigns[].duration.source で使用（task.md 3-1 フェーズBで新設）。"
+        }
+      }
+    },
+
+    "quotes": {
+      "type": "array",
+      "minItems": 1,
+      "description": "構造化引用（Issue #69・計画7節の4）。散文 note に埋めた引用と違い、どの書のどの巻に在ると主張しているかが機械で読める。引用の取り扱い規約の全項が掛かる（底本の字体のまま・手打ち禁止・要約や語順変更をしない）。同じ容器で source.quote と併存させない。",
+      "items": {
+        "type": "object",
+        "required": ["bookId", "text"],
+        "properties": {
+          "bookId": { "type": "string", "description": "meta.catalogs.books の id。" },
+          "volume": { "type": "integer", "minimum": 1, "description": "巻。その書が巻の索引を持つときだけ書ける。" },
+          "text": { "type": "string", "minLength": 1, "description": "原文の断片。底本の字体のまま。" }
         }
       }
     },

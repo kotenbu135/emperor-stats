@@ -1755,7 +1755,481 @@
       "labelEn": null
      }
     ]
-   }
+   },
+   "books": [
+    {
+     "id": "三国志",
+     "volumeIndex": null
+    },
+    {
+     "id": "三朝北盟会编",
+     "volumeIndex": null
+    },
+    {
+     "id": "东南纪闻",
+     "volumeIndex": null
+    },
+    {
+     "id": "东观汉记",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/别史/东观汉记.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 22,
+     "corpusVolumeCount": 22
+    },
+    {
+     "id": "五代会要",
+     "volumeIndex": null
+    },
+    {
+     "id": "五国故事",
+     "volumeIndex": null
+    },
+    {
+     "id": "元史",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/正史/元史.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 210,
+     "corpusVolumeCount": 210
+    },
+    {
+     "id": "元史纪事本末",
+     "volumeIndex": null
+    },
+    {
+     "id": "前汉纪",
+     "volumeIndex": null
+    },
+    {
+     "id": "北史",
+     "volumeIndex": "china-history-file",
+     "volumePath": "china-history/北史/原文版北史",
+     "volumeScope": "all",
+     "corpusVolumeMax": 12,
+     "corpusVolumeCount": 12
+    },
+    {
+     "id": "北梦琐言",
+     "volumeIndex": null
+    },
+    {
+     "id": "北齐书",
+     "volumeIndex": "china-history-file",
+     "volumePath": "china-history/北齐书/原文版北齐书",
+     "volumeScope": "all",
+     "corpusVolumeMax": 8,
+     "corpusVolumeCount": 8
+    },
+    {
+     "id": "十六国春秋",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/载记/十六国春秋.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 100,
+     "corpusVolumeCount": 99
+    },
+    {
+     "id": "十国春秋",
+     "volumeIndex": null
+    },
+    {
+     "id": "华阳国志",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/载记/华阳国志.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 10,
+     "corpusVolumeCount": 5
+    },
+    {
+     "id": "南史",
+     "volumeIndex": "china-history-file",
+     "volumePath": "china-history/南史/原文版南史",
+     "volumeScope": "all",
+     "corpusVolumeMax": 10,
+     "corpusVolumeCount": 10
+    },
+    {
+     "id": "南唐书",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/载记/南唐书.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 18,
+     "corpusVolumeCount": 18
+    },
+    {
+     "id": "南明野史",
+     "volumeIndex": null
+    },
+    {
+     "id": "南齐书",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/正史/南齐书.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 59,
+     "corpusVolumeCount": 59
+    },
+    {
+     "id": "历代建元考",
+     "volumeIndex": null
+    },
+    {
+     "id": "史记",
+     "volumeIndex": null
+    },
+    {
+     "id": "后汉书",
+     "volumeIndex": null
+    },
+    {
+     "id": "后汉纪",
+     "volumeIndex": null
+    },
+    {
+     "id": "周世宗实录",
+     "volumeIndex": null
+    },
+    {
+     "id": "周书",
+     "volumeIndex": "china-history-file",
+     "volumePath": "china-history/周书/原文版周书",
+     "volumeScope": "all",
+     "corpusVolumeMax": 8,
+     "corpusVolumeCount": 8
+    },
+    {
+     "id": "唐会要",
+     "volumeIndex": null
+    },
+    {
+     "id": "国初群雄事略",
+     "volumeIndex": null
+    },
+    {
+     "id": "国语",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/别史/国语.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 21,
+     "corpusVolumeCount": 21
+    },
+    {
+     "id": "图书编",
+     "volumeIndex": null
+    },
+    {
+     "id": "大宋宣和遗事",
+     "volumeIndex": null
+    },
+    {
+     "id": "大明太祖高皇帝实录",
+     "volumeIndex": null
+    },
+    {
+     "id": "天顺日录",
+     "volumeIndex": null
+    },
+    {
+     "id": "契丹国志",
+     "volumeIndex": null
+    },
+    {
+     "id": "宋书",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/正史/宋书.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 100,
+     "corpusVolumeCount": 100
+    },
+    {
+     "id": "宋史",
+     "volumeIndex": "china-history-file",
+     "volumePath": "china-history/宋史/本纪",
+     "volumeScope": "benji",
+     "corpusVolumeMax": 47,
+     "corpusVolumeCount": 47
+    },
+    {
+     "id": "宋史全文",
+     "volumeIndex": null
+    },
+    {
+     "id": "宋史纪事本末",
+     "volumeIndex": null
+    },
+    {
+     "id": "小腆纪传",
+     "volumeIndex": null
+    },
+    {
+     "id": "小腆纪年",
+     "volumeIndex": null
+    },
+    {
+     "id": "帝王世纪",
+     "volumeIndex": null
+    },
+    {
+     "id": "平汉录",
+     "volumeIndex": null
+    },
+    {
+     "id": "平胡录",
+     "volumeIndex": null
+    },
+    {
+     "id": "庚申外史",
+     "volumeIndex": null
+    },
+    {
+     "id": "建康实录",
+     "volumeIndex": null
+    },
+    {
+     "id": "建炎以来系年要录",
+     "volumeIndex": null
+    },
+    {
+     "id": "御批历代通鉴辑览",
+     "volumeIndex": null
+    },
+    {
+     "id": "新五代史",
+     "volumeIndex": null
+    },
+    {
+     "id": "新元史",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/正史/新元史.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 257,
+     "corpusVolumeCount": 257
+    },
+    {
+     "id": "新唐书",
+     "volumeIndex": "china-history-file",
+     "volumePath": "china-history/新唐书/本纪",
+     "volumeScope": "benji",
+     "corpusVolumeMax": 10,
+     "corpusVolumeCount": 10
+    },
+    {
+     "id": "旧五代史",
+     "volumeIndex": null
+    },
+    {
+     "id": "旧唐书",
+     "volumeIndex": "china-history-file",
+     "volumePath": "china-history/旧唐书/本纪",
+     "volumeScope": "benji",
+     "corpusVolumeMax": 20,
+     "corpusVolumeCount": 20
+    },
+    {
+     "id": "明史",
+     "volumeIndex": "china-history-file",
+     "volumePath": "china-history/明史/本纪",
+     "volumeScope": "benji",
+     "corpusVolumeMax": 24,
+     "corpusVolumeCount": 24
+    },
+    {
+     "id": "明史纪事本末",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/纪事本末/明史纪事本末.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 80,
+     "corpusVolumeCount": 80
+    },
+    {
+     "id": "明太祖实录",
+     "volumeIndex": null
+    },
+    {
+     "id": "明季南略",
+     "volumeIndex": null
+    },
+    {
+     "id": "明实录太祖实录",
+     "volumeIndex": null
+    },
+    {
+     "id": "晋书",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/正史/晋书.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 130,
+     "corpusVolumeCount": 130
+    },
+    {
+     "id": "梁书",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/正史/梁书.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 56,
+     "corpusVolumeCount": 56
+    },
+    {
+     "id": "水经",
+     "volumeIndex": null
+    },
+    {
+     "id": "永历实录",
+     "volumeIndex": null
+    },
+    {
+     "id": "汉书",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/正史/汉书.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 100,
+     "corpusVolumeCount": 100
+    },
+    {
+     "id": "汉晋春秋",
+     "volumeIndex": null
+    },
+    {
+     "id": "江城名迹",
+     "volumeIndex": null
+    },
+    {
+     "id": "涑水记闻",
+     "volumeIndex": null
+    },
+    {
+     "id": "清史稿",
+     "volumeIndex": null
+    },
+    {
+     "id": "湘山野录",
+     "volumeIndex": null
+    },
+    {
+     "id": "续资治通鉴",
+     "volumeIndex": null
+    },
+    {
+     "id": "续资治通鉴长编",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/编年/续资治通鉴长编.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 520,
+     "corpusVolumeCount": 520
+    },
+    {
+     "id": "罪惟录选辑",
+     "volumeIndex": null
+    },
+    {
+     "id": "臣轨",
+     "volumeIndex": null
+    },
+    {
+     "id": "蕲黄四十八砦纪事",
+     "volumeIndex": null
+    },
+    {
+     "id": "蜀梼杌",
+     "volumeIndex": null
+    },
+    {
+     "id": "西夏书事",
+     "volumeIndex": null
+    },
+    {
+     "id": "资治通鉴",
+     "volumeIndex": null
+    },
+    {
+     "id": "资治通鉴注",
+     "volumeIndex": null
+    },
+    {
+     "id": "资治通鉴考异",
+     "volumeIndex": null
+    },
+    {
+     "id": "辽史",
+     "volumeIndex": "china-history-file",
+     "volumePath": "china-history/辽史/本纪",
+     "volumeScope": "benji",
+     "corpusVolumeMax": 30,
+     "corpusVolumeCount": 30
+    },
+    {
+     "id": "辽史拾遗",
+     "volumeIndex": null
+    },
+    {
+     "id": "通典",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/政书/通典.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 200,
+     "corpusVolumeCount": 155
+    },
+    {
+     "id": "通志",
+     "volumeIndex": null
+    },
+    {
+     "id": "通鉴纪事本末",
+     "volumeIndex": null
+    },
+    {
+     "id": "酌中志",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/志存记录/酌中志.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 24,
+     "corpusVolumeCount": 23
+    },
+    {
+     "id": "金史",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/正史/金史.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 135,
+     "corpusVolumeCount": 135
+    },
+    {
+     "id": "锦里耆旧传",
+     "volumeIndex": null
+    },
+    {
+     "id": "陈书",
+     "volumeIndex": "daizhige-heading",
+     "volumePath": "daizhigev20/史藏/正史/陈书.txt",
+     "volumeScope": "all",
+     "corpusVolumeMax": 36,
+     "corpusVolumeCount": 36
+    },
+    {
+     "id": "隋书",
+     "volumeIndex": "china-history-file",
+     "volumePath": "china-history/隋书/帝纪",
+     "volumeScope": "benji",
+     "corpusVolumeMax": 5,
+     "corpusVolumeCount": 5
+    },
+    {
+     "id": "靖康要录",
+     "volumeIndex": null
+    },
+    {
+     "id": "高丽史",
+     "volumeIndex": null
+    },
+    {
+     "id": "魏书",
+     "volumeIndex": "china-history-file",
+     "volumePath": "china-history/魏书/帝纪",
+     "volumeScope": "benji",
+     "corpusVolumeMax": 12,
+     "corpusVolumeCount": 12
+    }
+   ]
   },
   "generatedAt": "2026-07-31",
   "count": 365,
@@ -36024,10 +36498,23 @@
       "source": {
        "page": "宋書 本紀第三 武帝紀下",
        "lang": "zh-classical",
-       "quote": "永初元年夏六月丁卯，設壇於南郊，即皇帝位（『宋書』本紀第三）／三年……五月，上疾甚……癸亥，上崩於西殿，時年六十（同）",
        "conversion": "『宋書』武帝紀により即位日は永初元年六月丁卯、崩御日は永初三年五月癸亥。sxtwl.fromLunar(420,6,x,False)で干支丁卯(tg=3,dz=3)となる日を探索したところ旧暦六月十四日=西暦420年7月10日、同様にsxtwl.fromLunar(422,5,x,False)で癸亥(tg=9,dz=11)を探索したところ旧暦五月二十一日=西暦422年6月26日となり、いずれも現行データのstartDate/endDateと完全一致した。日数差もdatetime.date差分で716日と一致（既存exactDays=716と一致）。",
-       "note": "endDateは崩御日（在位終了=崩御、note記載の通り）。禅譲による即位は永初元年六月丁卯、南郊にて壇を設け皇帝位に即く記事を採用。sourceは既存のWikipedia由来「劉裕」から正史原典（宋書）へ差し替え済み。"
-      }
+       "note": "endDateは崩御日（在位終了=崩御、note記載の通り）。禅譲による即位は永初元年六月丁卯、南郊にて壇を設け皇帝位に即く記事を採用。sourceは既存のWikipedia由来「劉裕」から正史原典（宋書）へ差し替え済み。",
+       "bookId": "宋书",
+       "volume": 3
+      },
+      "quotes": [
+       {
+        "bookId": "宋书",
+        "volume": 3,
+        "text": "永初元年夏六月丁卯，設壇於南郊，即皇帝位"
+       },
+       {
+        "bookId": "宋书",
+        "volume": 3,
+        "text": "三年……五月，上疾甚……癸亥，上崩於西殿，時年六十"
+       }
+      ]
      }
     }
    ],

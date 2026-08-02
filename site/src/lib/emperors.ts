@@ -789,8 +789,21 @@ export function getDynastyOptions(): DynastyOption[] {
 
 /** reigns[].duration.source。quote/conversionはtask.md 3-1フェーズBで整備（一部未付与）。 */
 interface RawDurationSource extends RawSource {
+  /** 旧い器。構造化引用 `quotes[]` へ移した容器では消える（Issue #69・計画7節の4）。 */
   quote?: string | null;
   conversion?: string | null;
+}
+
+/**
+ * 構造化引用（Issue #69・計画7節の4）。どの書のどの巻に在るかを機械で読める形。
+ * **サイトにはまだ出していない**（型だけ宣言してある）。出すときは
+ * `getEmperor*` 側がフィールドを列挙して拾う作りなので、拾う場所も足すこと
+ * — 宣言し忘れは型エラーにならず undefined になる。
+ */
+interface RawQuote {
+  bookId: string;
+  volume?: number | null;
+  text: string;
 }
 
 // **この型は JSON の部分ビューで、読み込みは `as unknown as` を通る** — 宣言し忘れた
@@ -808,7 +821,7 @@ interface RawReign {
   dynastyOrder?: number | null;
   isRestoration: boolean;
   note: string | null;
-  duration?: { source?: RawDurationSource | null } | null;
+  duration?: { source?: RawDurationSource | null; quotes?: RawQuote[] | null } | null;
 }
 
 function formatPeriod(reign: RawReign): string {

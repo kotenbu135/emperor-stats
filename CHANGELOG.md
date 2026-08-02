@@ -56,6 +56,29 @@
   **埋め草の副作用**でした（`0452-10-01` → `0452-10` で月精度の比較が一致し、既知リストから外れた）
 - 移行は `scripts/migrations/trim_ages_and_dynasty_order.py`（一度きり）
 
+### 構造変更（2026-08-03・出典と引用を機械で引ける形にする / Issue #69 の続き）— `schemaVersion` **4.0.0** のまま
+
+出典 `source` に `bookId`・`volume` を、引用の器 `quotes[]`（`{bookId, volume?, text}`）を足しました。
+**どちらも任意で既存には遡及しません**。`source.page`（散文）はそのまま残るので、
+配布 CSV の列は増減しません。
+
+- **`meta.catalogs.books`（89書）を新設**しました。`id` はローカルコーパスの索引の鍵そのもので、
+  `scripts/build_books_catalog.py` が**実ファイルから生成**します（書名を人が slug へ振り直すと、
+  その対応表を間違えたときに黙って別の書の巻を読みに行く）
+- **巻を主張できるのは 29書だけ**です。コーパスから巻の本文を引ける書に限り、
+  引けない書（`volumeIndex: null`・`资治通鉴`・`三国志`・`清史稿` など60書）に `volume` を書くと落ちます
+- なぜ足したか: `page` は散文なので**巻番号が間違っていても全ゲートが緑で通っていました**（Issue #53）。
+  実測では効きます — 元世祖の即位記事の引用は `元史` 巻4 で 8/8 断片が一致し、**巻5・6・17 では 0/8**
+- ゲートを同じ変更で足しました。`validate_emperors.py` の `check_quote_containers`（**CI・コーパス不要**。
+  形・カタログ参照・巻を引けない書に `volume` を書けない・`source.quote` との同居禁止）と、
+  `verify_quotes.py --check-volumes`（**ローカル専用**。巻が引けるか・**引用がその巻の中に在るか**）。
+  検出力は `python3 scripts/test_quote_containers.py`（合成24件）と巻の切り出しの標本4件が測ります
+- **床（集計に効く判定は構造化引用を1断片以上持つ）はまだ強制していません。** 転記は別段なので、
+  入れたのはラチェット（充足数が減ったら落ちる・`source.quote` が増えたら落ちる）だけです。
+  不足 4,023容器は `docs/process/RESIDUAL.md` の行にしました
+- データの変更は1件（パイロット）: `liu-song-wudi` の `reigns[0].duration` の引用を `quotes[]` へ移し、
+  `宋书` 巻3 に在ることを機械で確かめました
+
 ### 訂正（2026-08-03・events の日精度 ISO 日付79件 / Issue #55）— `schemaVersion` 3.0.0 のまま
 
 Issue #50 の横展開。絞り込み `scripts/screens/lunar_date_as_iso.py` が挙げた**要読解100件・53人**を

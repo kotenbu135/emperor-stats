@@ -33743,9 +33743,9 @@
    ],
    "line": 110
   },
-  "liu-song-wudi|reigns[0].quote#0|6c7016e8bf8a": {
+  "liu-song-wudi|reigns[0].duration.quotes[0]|6c7016e8bf8a": {
    "id": "liu-song-wudi",
-   "path": "reigns[0].quote#0",
+   "path": "reigns[0].duration.quotes[0]",
    "span": "永初元年夏六月丁卯，設壇於南郊，即皇帝位",
    "status": "cache",
    "corpusFile": "_corpus_cache/liu-song-wudi.txt",
@@ -33755,9 +33755,9 @@
    ],
    "line": 100
   },
-  "liu-song-wudi|reigns[0].quote#1|c2048b301581": {
+  "liu-song-wudi|reigns[0].duration.quotes[1]|c2048b301581": {
    "id": "liu-song-wudi",
-   "path": "reigns[0].quote#1",
+   "path": "reigns[0].duration.quotes[1]",
    "span": "三年……五月，上疾甚……癸亥，上崩於西殿，時年六十",
    "status": "cache",
    "corpusFile": "_corpus_cache/liu-song-wudi.txt",

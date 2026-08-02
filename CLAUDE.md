@@ -42,7 +42,7 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py --check
 ```
 
-初回だけ重い（`_norm_cache/` を作る `--check` が約6分・`--backfill` が数分）。2回目以降はどちらも1秒未満なので訂正ループの中で回してよい。コーパスを入れ替えた・書を足したときだけ `--backfill --retry-unresolved`（付けないと前回の走査結果を据え置く）。note に**書名を書き足した・出典を差し替えた**ときはさらに `--check-books`（名乗る書に引用が1断片も無いユニットが残ればエラー。規約の全文と `bookAllow` の足し方は [RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「引用の取り扱い規約」）。
+初回だけ重い（`_norm_cache/` を作る `--check` が約6分・`--backfill` が数分）。2回目以降はどちらも1秒未満なので訂正ループの中で回してよい。コーパスを入れ替えた・書を足したときだけ `--backfill --retry-unresolved`（付けないと前回の走査結果を据え置く）。構造化引用 `quotes[]`・`source.bookId`/`volume` を触ったときは `--check-volumes`（**巻がコーパスに実在するか・引用がその巻の中に在るか**。書名しか見ない `--check-books` では巻番号の誤りが素通りする）。カタログに無い書を名乗るときは先に `python3 scripts/build_books_catalog.py --write`。note に**書名を書き足した・出典を差し替えた**ときはさらに `--check-books`（名乗る書に引用が1断片も無いユニットが残ればエラー。規約の全文と `bookAllow` の足し方は [RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) の「引用の取り扱い規約」）。
 
 着手前に引く問い合わせ（**`--field` を必ず付ける** — 付けないと別項目の絞り込みが出てきて、それを「この作業の母集団は絞ってある」と読み違える）:
 
