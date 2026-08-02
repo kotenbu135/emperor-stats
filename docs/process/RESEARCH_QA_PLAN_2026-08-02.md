@@ -388,7 +388,13 @@ C=513 の分解（記録された `corpusFile` を無視し、正史・編年・
    G3/G4 は既存データにもそのまま掛かるので、**遡及スイープは追加調査コストなしで可能**。
    出た矛盾だけ原典に当てるのが最も安い。
 
-## 5-2. P3（史料対立の置き場）の設計案 — 2026-08-03・ユーザー判断待ち
+## 5-2. P3（史料対立の置き場）— 2026-08-03・**ユーザー決定により実装済み**
+
+**採用: コンテナ直下の `conflicts`・遡及なし。**
+スキーマは [EMPERORS_SCHEMA.md](../../data/schema/EMPERORS_SCHEMA.md) の「`conflicts`」節が正で、
+検査は `validate_emperors.py` の `check_conflicts`（CI でも実行）、
+検出力は `python3 scripts/test_conflicts_field.py`（合成レコード15件）。
+実データは 0 件から始まる（遡及しないため）。以下は決定に至った設計の記録。
 
 **エージェントの出力契約には既に `conflicts[]` がある**（`CLAIMS_CONTRACT.md`・採用値／対立値／
 採否理由を持ち、`reason` が無ければ `check_claims.py` がエラーにする）。
