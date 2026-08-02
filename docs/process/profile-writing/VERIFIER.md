@@ -6,7 +6,9 @@
 ## 対象
 
 - 断片: `{{WORK}}/{{FRAG}}/{{ID}}.json`
-- 素材: `python3 scripts/extract_profile_material.py {{ID}}`（既存の調査結果）
+- 素材: `python3 scripts/extract_profile_material.py {{ID}} --notes on`（既存の調査結果＋note）
+  — **`--notes on` を付けるのはこの段だけ**です。執筆段には note を渡していないので、
+  **note と原文・本文の突き合わせはあなたの担当**です
 - 原文: `_corpus_cache/{{ID}}.txt`（**簡体字**・{{CACHE_SIZE}}）
 
 ## やること
@@ -44,9 +46,14 @@
      "suggestion": "どう直すべきか"}
   ],
   "dataDoubts": [{"field": "emperors.json のどのフィールドか", "problem": "note と原文の食い違い", "evidence": "原文の所在"}],
+  "missed": [{"what": "note にあるが本文に無い出来事", "evidence": "原文で裏が取れる所在", "worth": "紹介文に足す価値があるか"}],
   "checked": "突き合わせた事実の件数と、確認できた主な項目の短い列挙"
 }
 ```
+
+- `missed` は**執筆段に note を渡さなくなった代わり**の欄です（2026-08-02）。note にあって本文に
+  無い出来事のうち、**原文で裏が取れたもの**だけを挙げる。note にしか無いものは挙げない
+- `dataDoubts` は「note が原文と食い違う」＝**データ側の疑い**。紹介文の誤りとは分けて出す
 
 - **severity は誤りの重さで付ける**。「low だから直さない」運用ではないので、**事実に触れる誤りは小さくても必ず挙げる**。文体の好みは挙げない
 - 誤りが無ければ `findings` を空配列にする。`dataDoubts` も無ければ空配列

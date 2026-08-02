@@ -51,7 +51,13 @@ def escape_reason(rule_id, command):
     return None
 
 
-def check(tool, ti, is_subagent, command):
+MATERIAL_NOTES_ON = re.compile(r"extract_profile_material\.py.*?--notes[= ]on")
+# note を見てよいのは検証段だけ。1段目（執筆・調査）に渡すと、note の筋書きに合う
+# 原文句を探すことになる（紹介文の誤りの多くが note 由来だった）。
+NOTES_ON_ALLOWED = {"adversarial-verifier", "profile-webdiff"}
+
+
+def check(tool, ti, is_subagent, command, agent_type=None):
     """当てはまった規則を全部返す: [(規則ID, deny 理由 or None), ...]
 
     1つ目で return しない。`cd daizhigev20 && git add -A` のように
@@ -96,6 +102,18 @@ def check(tool, ti, is_subagent, command):
                     "（退避が要らないなら一時 WIP コミットのほうが安全）")
         hits.append(("R-GIT-STASH", deny))
 
+    # R-CLAIMS-FIRST — 1段目に素材 note を渡さない
+    if tool == "Bash" and MATERIAL_NOTES_ON.search(command):
+        deny = None
+        if is_subagent and agent_type not in NOTES_ON_ALLOWED:
+            deny = ("`--notes on` を付けてよいのは検証段だけです（"
+                    + "・".join(sorted(NOTES_ON_ALLOWED)) + "）。"
+                    "1段目が既存 note を読むと、note の筋書きに合う原文句を探すことになり、"
+                    "note の誤りがそのまま成果物へ流れます。既定の `--notes off` で出した"
+                    "構造フィールドと原文だけで進めてください"
+                    "（docs/process/profile-writing/README.md）")
+        hits.append(("R-CLAIMS-FIRST", deny))
+
     # R-JSON-READ-MAIN — メイン会話で emperors.json 全体を Read しない（コンテキスト効率）
     # 規則の適用範囲は「メイン会話」なので、サブエージェントには掛けない。
     if tool == "Read" and str(ti.get("file_path", "")).endswith("data/emperors.json"):
@@ -129,7 +147,7 @@ def main():
         })
 
     denials = []
-    for rule_id, deny in check(tool, ti, is_subagent, command):
+    for rule_id, deny in check(tool, ti, is_subagent, command, data.get("agent_type")):
         reason = escape_reason(rule_id, command) if deny else None
         decision = "deny" if (deny and not reason) else ("escaped" if reason else "pass")
         log(project_dir, {

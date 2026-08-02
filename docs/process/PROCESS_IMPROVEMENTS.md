@@ -84,7 +84,12 @@
   紹介文で見つかった誤りの多くは note 由来だった
 - **提案**: 順序ではなく**誰が見るかで分ける** — 1段目（執筆・調査）には原文だけを渡し、
   note との照合は2段目（検証）に回す。パイロットで note 由来の誤り件数を比較して判断する
-- **採否**: 採用（実施順 2／管理は Issue #41・2026-08-02 ユーザー決定）
+- **採否**: 採用・実装済み（実施順 2／反映先: `scripts/extract_profile_material.py` の
+  `--notes`（既定 off）・`profile-writing/README.md`・`WRITER.md`・`VERIFIER.md`・
+  `.claude/agents/profile-writer.md`・`adversarial-verifier.md`・`corpus-researcher.md`・
+  `CLAIMS_CONTRACT.md`・`guard.py`（R-CLAIMS-FIRST を L1 へ））
+- **測る**: 次のブロック（後趙7人）の検証段で `dataDoubts` と `missed` の件数を記録し、
+  note を渡していた晋15人（6件・0.40/人）と比べる
 
 ### 2026-08-02 ゲートの走らせ忘れを Stop フックで止める
 

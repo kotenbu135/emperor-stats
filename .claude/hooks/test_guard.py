@@ -11,6 +11,8 @@ def bash(cmd, sub=False):
     d = {"tool_name":"Bash","tool_input":{"command":cmd},"cwd":"."}
     if sub: d["agent_id"]="a1"; d["agent_type"]="corpus-researcher"
     return d
+def dict(d, **kw):  # noqa: A001 — ケース表で agent_type を差し替えるだけの薄い糖衣
+    d.update(kw); return d
 cases = [
  ("deny  コーパス抽出grep",      bash("grep -o '.{0,40}崩御.{0,40}' daizhigev20/史藏/正史/晋书.txt"), 2),
  ("pass  /usr/bin/grep",        bash("/usr/bin/grep -o '.{0,40}崩御.{0,40}' daizhigev20/史藏/正史/晋书.txt"), 0),
@@ -35,6 +37,11 @@ cases = [
  ("deny  コーパスcd＋git add -A",  bash("cd daizhigev20 && git add -A"), 2),
  ("deny  grepパイプ＋stash pop",   bash("rg -n '崩于' daizhigev20/a.txt | grep -c 史; git stash pop"), 2),
  ("pass  rg|grep の連結",          bash("rg -n '崩于' daizhigev20/史藏/正史/晋书.txt | grep -c 帝"), 0),
+ ("deny  1段目が --notes on",     dict(bash("python3 scripts/extract_profile_material.py x --notes on", sub=True)), 2),
+ ("deny  執筆段が --notes=on",     dict(bash("python3 scripts/extract_profile_material.py x --notes=on", sub=True), agent_type="profile-writer"), 2),
+ ("pass  検証段は --notes on 可",  dict(bash("python3 scripts/extract_profile_material.py x --notes on", sub=True), agent_type="adversarial-verifier"), 0),
+ ("pass  メイン会話は --notes on 可", bash("python3 scripts/extract_profile_material.py x --notes on"), 0),
+ ("pass  既定(off)の素材抽出",      bash("python3 scripts/extract_profile_material.py x", sub=True), 0),
  ("pass  壊れた入力",              "NOT-JSON", 0),
  ("pass  tool_input が null",     {"tool_name":"Bash","tool_input":None,"cwd":"."}, 0),
 ]
