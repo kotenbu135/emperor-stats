@@ -30,6 +30,7 @@ python3 scripts/check_verification.py --for <皇帝id>    # 着手時。tier・�
 本紀・帝紀が独立して立つ王朝（`own-annals`）は1体（`facts`）、載記・類書・別史・地方志に依存する
 政権（`dependent`）は**3体**（`facts`・`kinship`・`dates`）。実測の欠陥密度が 0件/人 と 1.56件/人 で
 段になっているためです（規則 `R-VERIFY-TIER`）。**記録に無い政権は厚い側**。体数を自分で決めない。
+政権が薄い側でも**所在が違う人物は例外**（舊唐書の殤帝ら4人）なので、**政権ではなく人物 id で引く**。
 
 ブロックを終えたら `data/verification.json` の `blocks` へ **`raised`（指摘を `(field, problem)` で
 畳んだ件数）と `confirmed`（そのうち実欠陥）** を記録します。`--rate` で率の表が出ます。

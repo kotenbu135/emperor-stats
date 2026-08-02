@@ -59,8 +59,11 @@ const LENSES = {
 }
 
 // 記録から読み取れなければ厚い側へ倒す（載せ忘れ・書き損じが薄い側へ倒れると誤りを通す）
+// **部分一致にしない** — 調査段は自由記述で返すので、`dependent（own-annals の記録なし）`
+// のような文字列が薄い側に当たると、その政権の誤りを1体で通してしまう
 function lensesFor(tier) {
-  return /own-annals/.test(String(tier || '')) ? ['facts'] : ['facts', 'kinship', 'dates']
+  const t = String(tier || '').trim()
+  return /^own-annals\b/.test(t) && !/dependent/.test(t) ? ['facts'] : ['facts', 'kinship', 'dates']
 }
 
 const VERIFY_SCHEMA = {
@@ -130,7 +133,9 @@ const results = await pipeline(
         schema: VERIFY_SCHEMA },
     ))).then((vs) => {
       // 3体だと同じ欠陥を複数が挙げる。指摘率を数えるときの分母は畳んだ一意件数
-      const all = vs.filter(Boolean).flatMap((v, i) => (v.issues || []).map((x) => ({ ...x, lens: lenses[i] })))
+      // filter(Boolean) を挟むと i がずれる（死んだエージェントは null で返るので、
+      // facts が落ちると kinship の指摘に facts の札が付く）。元の並びのまま添字を取る
+      const all = vs.flatMap((v, i) => ((v && v.issues) || []).map((x) => ({ ...x, lens: lenses[i] })))
       const uniq = []
       const seen = new Set()
       for (const x of all) {

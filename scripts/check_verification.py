@@ -84,6 +84,31 @@ def regime_tier_map(led, valid_regimes):
     return out
 
 
+def person_exceptions(led, valid_persons):
+    """人物 id → (tier, 理由)。**政権の判定を所在の違う人物に被せない**（R-REGIME-FIRST と同じ形）。
+
+    薄い側（own-annals）へ移す例外にだけ理由を要求する。厚い側へ移すのは損がトークンだけ。
+    """
+    out = {}
+    for i, t in enumerate(led.get("tiers", [])):
+        for j, ex in enumerate(t.get("exceptions") or []):
+            tier = ex.get("tier")
+            if tier not in TIERS:
+                err(f"[例外] tiers[{i}].exceptions[{j}]: 未知の tier {tier!r}")
+                continue
+            if tier == "own-annals" and not ex.get("reason"):
+                err(f"[例外] tiers[{i}].exceptions[{j}]: own-annals へ移す例外には reason が要る"
+                    f"（1体へ減らす側の根拠）")
+            for pid in ex.get("personIds") or []:
+                if pid not in valid_persons:
+                    err(f"[例外] tiers[{i}].exceptions[{j}]: 皇帝 id {pid!r} が emperors.json に無い")
+                    continue
+                if pid in out:
+                    err(f"[例外] 皇帝 {pid!r} が複数の例外に載っている")
+                out[pid] = (tier, ex.get("reason", ""))
+    return out
+
+
 def check_locators(tmap):
     """own-annals が名指しした所在が実在するか。**コーパスはリポジトリに無い**ので
     手元にあるときだけ見る（CI では飛ばす。verify_quotes.py --check-books と同じ扱い）。"""
@@ -140,6 +165,7 @@ def check_blocks(led, tmap):
 def cmd_gate(led, emp):
     regimes = {r["id"]: r for r in emp["meta"]["catalogs"]["regimes"]}
     tmap = regime_tier_map(led, regimes)
+    pex = person_exceptions(led, {e["id"] for e in emp["emperors"]})
     checked_loc = check_locators(tmap)
     nblocks = check_blocks(led, tmap)
 
@@ -150,7 +176,8 @@ def cmd_gate(led, emp):
     used = Counter(e["regimeId"] for e in emp["emperors"])
     defaulted = [r for r in regimes if r not in tmap and used.get(r)]
     print(f"\n評価件数: 記録 {len(led.get('tiers', []))}行 / 政権 {len(tmap)}件を明示・"
-          f"{len(defaulted)}件が既定（{DEFAULT_TIER}）へ / ブロック {nblocks}件")
+          f"{len(defaulted)}件が既定（{DEFAULT_TIER}）へ / 人物単位の例外 {len(pex)}件 / "
+          f"ブロック {nblocks}件")
     if checked_loc is None:
         print("所在の実在確認: コーパスが無いので飛ばしました（ローカルでのみ検査）")
     else:
@@ -164,15 +191,20 @@ def cmd_scope(led, emp):
     tmap = regime_tier_map(led, regimes)
     used = Counter(e["regimeId"] for e in emp["emperors"])
 
+    pex = person_exceptions(led, {e["id"] for e in emp["emperors"]})
     people = Counter()
+    for e in emp["emperors"]:
+        tier = tmap.get(e["regimeId"], (DEFAULT_TIER, None))[0]
+        if e["id"] in pex:
+            tier = pex[e["id"]][0]
+        people[tier] += 1
     rows = defaultdict(list)
     for rid, n in used.items():
         tier = tmap.get(rid, (DEFAULT_TIER, None))[0]
-        people[tier] += n
         rows[tier].append((n, rid, regimes[rid]["name"], rid in tmap))
 
     total = sum(people.values())
-    print(f"母集団 {total}人 / {len(used)}政権\n")
+    print(f"母集団 {total}人 / {len(used)}政権（うち人物単位の例外 {len(pex)}人）\n")
     verifiers = 0
     for tier, (n_ver, lenses) in TIERS.items():
         n = people.get(tier, 0)
@@ -206,14 +238,21 @@ def cmd_for(led, emp, eid):
         return 1
     regimes = {r["id"]: r for r in emp["meta"]["catalogs"]["regimes"]}
     tmap = regime_tier_map(led, regimes)
+    pex = person_exceptions(led, {x["id"] for x in emp["emperors"]})
     rid = e["regimeId"]
     tier, entry = tmap.get(rid, (DEFAULT_TIER, None))
+    exc = pex.get(eid)
+    if exc:
+        # 政権の判定を所在の違う人物に被せない
+        tier, entry = exc[0], None
     n_ver, lenses = TIERS[tier]
     nm = e.get("name")
     label = nm.get("commonName") or nm.get("personalName") if isinstance(nm, dict) else nm
     print(f"{eid}（{label}）政権 {rid}（{regimes[rid]['name']}）")
     print(f"tier: {tier}    検証体数: {n_ver}    観点: {'・'.join(lenses)}")
-    if entry:
+    if exc:
+        print(f"根拠: **この政権の判定は被らない（人物単位の例外）** — {exc[1]}")
+    elif entry:
         print(f"根拠: {entry['book']} {entry['form']} — {entry['locator']}")
         if entry.get("note"):
             print(f"注: {entry['note']}")
@@ -244,6 +283,7 @@ def cmd_rate(led, emp):
             print(f"{b['id']:34s} {tier:11s} {b['people']:3d} {b['verifiersPerPerson']:4d} "
                   f"{'—' if r is None else r:>4} {'—' if c is None else c:>5} {rate:>7s} {esc_s:>8s}")
     print("\n" + led["meta"]["confound"])
+    print("\n" + led["meta"]["whichNumber"])
 
 
 def main():
