@@ -197,9 +197,6 @@ export function EmperorFacts({ record }: { record: EmperorRecord }) {
               </div>
             ))}
           </dl>
-          <p className="mt-2 text-xs text-muted-foreground">
-            順位は同数を同順位として数えています（「タイ」表示）。回数の順位は1回以上、年齢の順位は年齢が判明している皇帝のみが対象です。
-        </p>
       </section>
     </div>
   );
