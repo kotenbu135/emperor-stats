@@ -62,6 +62,7 @@
 | `axes.relationToPredecessor` | `son` 子 / `younger-brother` 弟 / `elder-brother` 兄 / `father` 父 / `grandson` 孫 / `nephew` 甥 / `uncle-younger` 叔父 / `uncle-elder` 伯父 / `mother` 母 / `cousin` 従兄弟 / `adopted-son` 養子 / `distant-kin` 同族（遠縁） / `affinal-kin` 外戚（その他） / `unrelated` 無血縁 / `other` その他 / `none` 該当なし（kinship 側の `great-grandson` 曾孫 / `niece` 姪 / `grandfather` 祖父 / `maternal-grandfather` 外祖父 / `son-in-law` 女婿 / `father-in-law` 舅（妻の父） / `unknown` 不明 を含む共有語彙） |
 | `axes.procedure` | `abdication-ceremony` 禅譲儀礼 / `inner-abdication` 内禅 / `normal` 通常の践祚 / `no-ceremony` 儀礼なし・自称 / `forged-edict` 偽詔・矯詔 |
 
+- `axes.conflicts`: 任意。軸の値が史料で割れるときの置き場（[EMPERORS_SCHEMA.md](EMPERORS_SCHEMA.md) の「`conflicts`」節）。`field` は同じコンテナに実在するフィールド名でなければならないため、続柄（`relationToPredecessor`）のように軸の中にしか実フィールドが無い対立は `accessionRoute` 直下ではなくここに置く。
 - `categoryId`: 表示用の単一ラベル（の ID）。**`axes` から機械的に導出される派生値**（下記「導出ルール」）。手で書き換えず、軸を直せば追随する。サイトはこの値をそのまま表示すればよく、優先順位ロジックを持たない。
 - `axes`: 4軸＋2補助。詳細は「軸の定義」節。
 - `note`: 経緯を自然文で記述（例：「先帝の嫡長子として遺詔により即位」「宦官○○に擁立され即位」）。

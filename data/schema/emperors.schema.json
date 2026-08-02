@@ -344,7 +344,8 @@
           "type": "string",
           "minLength": 1,
           "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
-        }
+        },
+        "conflicts": { "$ref": "#/$defs/conflicts" }
       }
     },
 
@@ -457,6 +458,7 @@
           "minLength": 1,
           "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
         },
+        "conflicts": { "$ref": "#/$defs/conflicts" },
         "confidence": { "$ref": "#/$defs/confidence" },
         "source": { "$ref": "#/$defs/source" }
       }
@@ -524,7 +526,8 @@
               "type": "string",
               "description": "補助1: 手続きの形式（建前）。",
               "enum": ["abdication-ceremony", "inner-abdication", "normal", "no-ceremony", "forged-edict"]
-            }
+            },
+            "conflicts": { "$ref": "#/$defs/conflicts" }
           },
           "required": [
             "throneSource", "titleOrigin", "decidedBy", "decidedByBasis",
@@ -541,6 +544,7 @@
           "minLength": 1,
           "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
         },
+        "conflicts": { "$ref": "#/$defs/conflicts" },
         "confidence": { "$ref": "#/$defs/confidence" },
         "source": { "$ref": "#/$defs/source" }
       }
@@ -574,7 +578,8 @@
           "type": "string",
           "minLength": 1,
           "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
-        }
+        },
+        "conflicts": { "$ref": "#/$defs/conflicts" }
       }
     },
 
@@ -595,7 +600,8 @@
               "date": { "type": ["string", "null"], "description": "発生日（ISO 8601 拡張形式）。" },
               "datePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
               "note": { "type": ["string", "null"], "description": "内容・原典の記述。" },
-              "source": { "$ref": "#/$defs/source" }
+              "source": { "$ref": "#/$defs/source" },
+              "conflicts": { "$ref": "#/$defs/conflicts" }
             }
           }
         },
@@ -608,7 +614,8 @@
           "type": "string",
           "minLength": 1,
           "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
-        }
+        },
+        "conflicts": { "$ref": "#/$defs/conflicts" }
       }
     },
 
@@ -626,7 +633,8 @@
               "datePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
               "from": { "type": ["string", "null"], "description": "遷都元の都城名。" },
               "to": { "type": ["string", "null"], "description": "遷都先の都城名。" },
-              "note": { "type": ["string", "null"] }
+              "note": { "type": ["string", "null"] },
+              "conflicts": { "$ref": "#/$defs/conflicts" }
             }
           }
         },
@@ -636,7 +644,8 @@
           "type": "string",
           "minLength": 1,
           "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
-        }
+        },
+        "conflicts": { "$ref": "#/$defs/conflicts" }
       }
     },
 
@@ -658,7 +667,8 @@
               },
               "target": { "type": ["string", "null"], "description": "遠征対象（勢力名・地域名）。" },
               "outcome": { "type": ["string", "null"], "description": "結果。" },
-              "note": { "type": ["string", "null"] }
+              "note": { "type": ["string", "null"] },
+              "conflicts": { "$ref": "#/$defs/conflicts" }
             }
           }
         },
@@ -668,7 +678,8 @@
           "type": "string",
           "minLength": 1,
           "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
-        }
+        },
+        "conflicts": { "$ref": "#/$defs/conflicts" }
       }
     },
 
@@ -691,7 +702,8 @@
               "name": { "type": ["string", "null"], "description": "反乱の名称。" },
               "leader": { "type": ["string", "null"], "description": "反乱の首謀者。" },
               "outcome": { "type": ["string", "null"], "description": "結果。" },
-              "note": { "type": ["string", "null"] }
+              "note": { "type": ["string", "null"] },
+              "conflicts": { "$ref": "#/$defs/conflicts" }
             }
           }
         },
@@ -701,6 +713,46 @@
           "type": "string",
           "minLength": 1,
           "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
+        },
+        "conflicts": { "$ref": "#/$defs/conflicts" }
+      }
+    },
+
+    "conflicts": {
+      "type": "array",
+      "description": "史料対立の置き場（Issue #51 P3）。note・claim と同じ位置に置ける任意の配列。「確認して対立が無い」は空配列、**未確認はキー自体を置かない**。中身の整合（field が同じコンテナに実在するか・adopted.value が実フィールドの値と一致するか）は scripts/validate_emperors.py の check_conflicts が見る。data/schema/EMPERORS_SCHEMA.md「conflicts」節が正。",
+      "items": {
+        "type": "object",
+        "required": ["field", "adopted", "alternatives", "reason"],
+        "properties": {
+          "field": { "type": "string", "description": "**同じコンテナ内**のフィールド名。どの値が割れているか。" },
+          "adopted": {
+            "type": "object",
+            "required": ["value", "source"],
+            "description": "採用値。片側だけだと「採用した」と「書き忘れた」が区別できないため、採用側にも出典を持たせる。",
+            "properties": {
+              "value": { "description": "採用した値。実フィールドの値と一致すること。" },
+              "source": { "$ref": "#/$defs/source" },
+              "quote": { "type": "string", "description": "原文。引用の取り扱い規約の全項が掛かる（底本の字体のまま・手打ち禁止・verify_quotes.py の抽出対象）。" },
+              "note": { "type": "string" }
+            }
+          },
+          "alternatives": {
+            "type": "array",
+            "minItems": 1,
+            "description": "採らなかった値。対立値が無いなら conflicts の要素自体を作らない。",
+            "items": {
+              "type": "object",
+              "required": ["value", "source"],
+              "properties": {
+                "value": { "description": "採らなかった値。" },
+                "source": { "$ref": "#/$defs/source" },
+                "quote": { "type": "string", "description": "原文。引用の取り扱い規約の全項が掛かる。" },
+                "note": { "type": "string" }
+              }
+            }
+          },
+          "reason": { "type": "string", "minLength": 1, "description": "**なぜその値を採ったか**。これが無いと対立を書いた意味がない。" }
         }
       }
     },
