@@ -76421,17 +76421,6 @@
    ],
    "line": 13
   },
-  "yuan-shizu|personalCampaignCount.note|46b3783076c6": {
-   "id": "yuan-shizu",
-   "path": "personalCampaignCount.note",
-   "span": "帝自将征乃颜，发上都",
-   "status": "cache",
-   "corpusFile": "_corpus_cache/yuan-shizu.txt",
-   "frags": [
-    "帝自将征乃颜"
-   ],
-   "line": 339
-  },
   "yuan-shizu|personalCampaignCount.note|540739368577": {
    "id": "yuan-shizu",
    "path": "personalCampaignCount.note",
@@ -76443,17 +76432,6 @@
     "岂可无功遽还"
    ],
    "line": 13
-  },
-  "yuan-shizu|personalCampaignCount.note|66a42abf83f4": {
-   "id": "yuan-shizu",
-   "path": "personalCampaignCount.note",
-   "span": "帝亲率诸军以蹑其后",
-   "status": "cache",
-   "corpusFile": "_corpus_cache/yuan-shizu.txt",
-   "frags": [
-    "帝亲率诸军以蹑其后"
-   ],
-   "line": 36
   },
   "yuan-shizu|personalCampaignCount.note|77c2c02ed983": {
    "id": "yuan-shizu",
@@ -76467,17 +76445,6 @@
     "其人户月给米万七千五"
    ],
    "line": 126
-  },
-  "yuan-shizu|personalCampaignCount.note|7eb9fcac132c": {
-   "id": "yuan-shizu",
-   "path": "personalCampaignCount.note",
-   "span": "帝亲将诸万户汉军及武卫军",
-   "status": "cache",
-   "corpusFile": "_corpus_cache/yuan-shizu.txt",
-   "frags": [
-    "帝亲将诸万户汉军及武"
-   ],
-   "line": 36
   },
   "yuan-shizu|personalCampaignCount.note|846d38f4522f": {
    "id": "yuan-shizu",
@@ -76525,17 +76492,6 @@
    ],
    "line": 7
   },
-  "yuan-shizu|personalCampaignCount.note|b609f2d5743d": {
-   "id": "yuan-shizu",
-   "path": "personalCampaignCount.note",
-   "span": "帝自将讨阿里不哥",
-   "status": "cache",
-   "corpusFile": "_corpus_cache/yuan-shizu.txt",
-   "frags": [
-    "帝自将讨阿里不哥"
-   ],
-   "line": 21
-  },
   "yuan-shizu|personalCampaignCount.note|bae4bf924040": {
    "id": "yuan-shizu",
    "path": "personalCampaignCount.note",
@@ -76546,28 +76502,6 @@
     "阿术亲率百余骑驰去"
    ],
    "line": 195
-  },
-  "yuan-shizu|personalCampaignCount.note|c7611a336559": {
-   "id": "yuan-shizu",
-   "path": "personalCampaignCount.note",
-   "span": "海都兵犯边，帝亲征",
-   "status": "cache",
-   "corpusFile": "_corpus_cache/yuan-shizu.txt",
-   "frags": [
-    "海都兵犯边"
-   ],
-   "line": 360
-  },
-  "yuan-shizu|personalCampaignCount.note|ffcb91baf0f4": {
-   "id": "yuan-shizu",
-   "path": "personalCampaignCount.note",
-   "span": "亲征／親征／自将／自將／亲率／亲将／亲讨／车驾亲征／帝征／躬",
-   "status": "corpus",
-   "corpusFile": "china-history/宋史/志/第九十八章-卷九十八-原文.html",
-   "frags": [
-    "车驾亲征"
-   ],
-   "line": 22
   },
   "yuan-shizu|personalCampaignCount[0].note|66a42abf83f4": {
    "id": "yuan-shizu",
