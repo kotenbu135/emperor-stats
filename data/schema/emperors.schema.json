@@ -339,6 +339,11 @@
         "note": {
           "type": ["string", "null"],
           "description": "この在位期間についての注記（起点の取り方など）。"
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
         }
       }
     },
@@ -447,6 +452,11 @@
           "type": ["string", "null"],
           "description": "死の経緯。原典の引用と判定理由を含む。"
         },
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
+        },
         "confidence": { "$ref": "#/$defs/confidence" },
         "source": { "$ref": "#/$defs/source" }
       }
@@ -526,6 +536,11 @@
           "type": ["string", "null"],
           "description": "即位の経緯。原典の引用と判定理由を含む。"
         },
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
+        },
         "confidence": { "$ref": "#/$defs/confidence" },
         "source": { "$ref": "#/$defs/source" }
       }
@@ -554,7 +569,12 @@
           "description": "没時の数え年。調査済みだが確定できない場合は null。"
         },
         "confidence": { "$ref": "#/$defs/confidence" },
-        "note": { "type": ["string", "null"], "description": "算出根拠・原典の年齢記載。" }
+        "note": { "type": ["string", "null"], "description": "算出根拠・原典の年齢記載。" },
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
+        }
       }
     },
 
@@ -583,6 +603,11 @@
         "note": {
           "type": ["string", "null"],
           "description": "指標レベルの注記。典拠とした書名・巻や、数え方の判断を含む。"
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
         }
       }
     },
@@ -606,7 +631,12 @@
           }
         },
         "confidence": { "$ref": "#/$defs/confidence" },
-        "note": { "type": ["string", "null"] }
+        "note": { "type": ["string", "null"] },
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
+        }
       }
     },
 
@@ -633,7 +663,12 @@
           }
         },
         "confidence": { "$ref": "#/$defs/confidence" },
-        "note": { "type": ["string", "null"] }
+        "note": { "type": ["string", "null"] },
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
+        }
       }
     },
 
@@ -661,7 +696,12 @@
           }
         },
         "confidence": { "$ref": "#/$defs/confidence" },
-        "note": { "type": ["string", "null"] }
+        "note": { "type": ["string", "null"] },
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
+        }
       }
     },
 

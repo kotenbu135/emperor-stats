@@ -60,6 +60,12 @@ python3 scripts/patch_emperor.py <皇帝id> --from-json patch.json          # �
   note 内の引用が置き去りになっていないか確認する（`reigns[].endDate` ↔ `ages.deathDate` ↔
   `events[].date` の同期漏れが公開サイトまで出た実例がある）
 - 捨てた側の値は note（作業ログ）へ、現在の主張は構造フィールドへ
+- **新しく note を書いたら、同じコンテナに `claim` を1〜2文添える**（任意・遡及なし）。
+  note は「現行 X → Y に訂正」と**捨てた側**を書くので突合の向きが反転する。claim は
+  いま正しいと判断している内容だけを前向きに書く欄で、**引用は書かず**（照合台帳が
+  claim を見ない）、**件数は算用数字**で書く（`count` と機械照合される）。
+  新設なので `patch_emperor.py` では `--allow-new-key` が要る。詳細は
+  `data/schema/EMPERORS_SCHEMA.md` の「note と claim」節
 
 ## 4. ゲートと結合
 

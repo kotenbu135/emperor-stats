@@ -18,6 +18,7 @@
 | ある日付フィールドの訂正 | 同じ日付を持つ**隣接フィールド**（`reigns[].endDate` ↔ `ages.deathDate` ↔ `events[].date` ↔ note 内の日付引用） | 一部（`validate_emperors.py` の整合検査）。**旧値の文字列でレコード全体を grep して残存参照を列挙するのが訂正手順の定型**（2026-07-21 に JSON-LD へ旧値が出たまま公開された） |
 | `dynastyOrder` の調査完了 | `meta.catalogs.regimes[].dynastyOrderSurveyed` | **無い**（Issue #24 に「調査完了時に追加すると再発防止になる」と記載） |
 | データの訂正 | `meta.status` と `docs/PROJECT_STATUS.md` | 無い（同時更新の運用ルール） |
+| 新しく `note` を書く（訂正・新規調査） | 同じコンテナの `claim`（**任意**。note は作業ログで捨てた側の値が残るため、突合の向きが反転する） | `validate_emperors.py` の `check_claim_fields`（claim を持つコンテナだけ・評価件数を INFO で出す）。**書かなくても落ちない** — 遡及しない欄なので検出できるのは「書いたのに後ろ向き」だけ |
 | `data/kinship.json` のエッジ | `accessionRoute.axes.relationToPredecessor` | `validate_kinship.py`（G3 `check_relation_edges`・継承エッジ216件） |
 | 政権を増やす／`regimeId` を変える | `data/regime-conventions.json` の `regimeIds`（未確定の政権では人物単位の調査が立てられない） | `check_regime_conventions.py`（存在しない政権 id をエラー） |
 

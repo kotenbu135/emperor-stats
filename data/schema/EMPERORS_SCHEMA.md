@@ -156,6 +156,51 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 
 **v3 で `selfProclaimed` を廃止した**: 旧 `dynasty.category` とも `accessionRoute.axes` とも整合しておらず（前者と81件不一致、`true` かつ `throneSource=前代君主から継承` が57件）、同じ情報は `axes.throneSource`＋`axes.procedure`＋`standing` で表現できる。
 
+## `note` と `claim`（2026-08-03・Issue #43）
+
+`note` は**作業ログ**です。訂正の経緯として「現行 X → Y に訂正」のように**捨てた側の値**が
+本文に残るため、**フィールドとの突合は向きが反転します**。散文は witness になりません
+（Issue #40 の G2/G3 の当初案が測定で否定されたのがこの経路で、#33・#36 の食い違いも全部この形）。
+
+そこで、同じコンテナに置ける**任意**の欄として `claim` を足しました。
+
+| | `note`（従来どおり） | `claim`（任意・新規） |
+|---|---|---|
+| 何を書くか | 作業ログ。判定の根拠・**捨てた側の値**・訂正の経緯・保留の理由・**原文引用** | **いま正しいと判断している内容だけ**を前向きに書いた1〜2文 |
+| 向き | 反転する（過去の値が本文に残る） | 反転しない |
+| 原文引用 | ここに書く | **書かない**（`verify_quotes.py` の抽出対象は `note` と `quote` だけなので、`claim` の引用は照合台帳を素通りする） |
+| 件数の書き方 | 自由 | **算用数字**（`count` と機械照合する） |
+| サイト表示 | 出る（note をサイトに出さない案は Issue #39 で「対応しない」と決定） | 出さない |
+
+置ける場所は**判定の単位**にあたる8つの `$defs` だけです —
+`reign`・`deathCause`・`accessionRoute`・`ages`・`datedEventCount`・
+`capitalRelocationCountObject`・`campaignCountObject`・`rebellionCountObject`。
+`events[]` の各要素には置きません（`date`／`outcome`／`target`／`leader` という構造フィールド自身が
+その event の witness なので、主張欄は重複になる）。`source` にも置きません
+（出典帰属の経緯であってフィールド値の主張ではない）。
+
+### 遡及しない
+
+既存の note は 10,912 件あり、**書き足すのは新しく書く note にだけ**です。したがって:
+
+- **`claim` が無いことは「根拠が無い」を意味しません。** 無いのが既定です
+- **`coverage.py` は `claim` を確定の根拠にしません**（`absent` の根拠にもしない）。
+  進捗は構造フィールドで測ります
+- 突合ゲート（`validate_emperors.py` の `check_claim_fields`）は **`claim` を持つコンテナだけ**を
+  評価し、**評価件数を `INFO` で必ず出します**。0 エラーが「守れている」なのか
+  「そもそも何も見ていない」なのかを区別するためです。検出力そのものは
+  `python3 scripts/test_claim_field.py` が合成レコードで測ります
+
+### 機械が見ること
+
+- `claim` に作業ログの印（`訂正`・`現行`・`旧値`・`→`・`->`・`に改め`・`差し替え`・`から変更`）が出たらエラー
+- `claim` に原文引用らしいスパン（かな無し・漢字6字以上の `「…」`）が出たらエラー
+- 同じコンテナに `count` があるとき、その数が算用数字で `claim` に出なければエラー
+  — **これがフィールドとの突合そのもの**です（存在検査なので弱い witness ですが、向きは反転しません）
+
+`deathCause.category` のような enum は日本語の `claim` に ID が現れないので、機械照合はありません。
+そこは人が読む前提の前向きな記述です。
+
 ## 具体例
 
 - 複数回即位（復位）: `jin-huidi`（司馬衷、八王の乱で廃位後に復位。`reigns` に2要素、`isRestoration: true` が2件目） — 詳細調査は [DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md) 側でも参照可能。
