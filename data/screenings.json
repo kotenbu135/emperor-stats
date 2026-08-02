@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "purpose": "原典を読む前に機械で母集団を絞った記録（Issue #41 の実施順3・規則 R-SCREEN-FIRST）。ブロック着手時に「母集団 N → 要読解 M」を出してから読み始めるための簿記で、絞り込みの根拠と、その絞り込みがどこまで言えるかを残す",
+    "notForBuild": "サイトのビルドもバリデータもこれを読まない。読むのは scripts/check_screenings.py と調査の段取りだけ。数字は記録ではなく scripts/screens/*.py の実行結果と突き合わせる（データが動けば数字も動くので、古い数字はゲートで落ちる）",
+    "updated": "2026-08-02",
+    "rule": "**絞り込みは読む順序と量を変えるだけ**で、判定を機械にさせるわけではない（規則 R-NO-AUTOGEN）。バケットに入れることは値を決めることではない",
+    "kinds": {
+      "read": "要読解。原典に当たる側。ここに余計に入れても損はトークンだけ",
+      "corroborated": "独立した計算か原典の明文が前提を**積極的に裏付けた**側。裏付けの中身を establishes に書く。標本監査は要らない",
+      "absent": "機械が**何も見つけなかっただけ**の側。不在の証拠ではないので、種つき無作為標本を原典で読んで誤り率を測る（audit）"
+    },
+    "asymmetry": "read を広く取りすぎても損はトークンだが、absent を「値が無い」と読むとその分の空欄を全件まとめて『正しい』と結論する。前漢14人が冒頭3行に「讳」を持たないのは廟号が無いからではなく漢書が並べないから、という失敗が実際にあった（規則 R-REGIME-FIRST の evidence）",
+    "audit": "標本は screen スクリプトが種から引き、ゲートが同じ種で引き直して突き合わせる。**選ぶ人が決めた標本では誤り率の区間は言えない**。反例0件のときに言えるのは誤り率 ≦ 3/k（95%）だけで、k=5 で60%・k=29 で10%・k=59 で5%",
+    "verdicts": {
+      "一致": "原典を読んでも screen の判定どおりだった。checked に「何を見て無いと言ったか」を書く",
+      "反例": "screen が取りこぼしていた。file・line・quote で原文を示す"
+    }
+  },
+  "screenings": [
+    {
+      "id": "name-fields-issue37",
+      "issue": 37,
+      "unit": "person-field",
+      "script": "scripts/screens/name_fields.py",
+      "population": "365人 × {templeName, posthumousName} のうち**値が空のセル**（埋まっているセルの訂正は別作業）",
+      "n": 562,
+      "buckets": [
+        {
+          "name": "templeName:transcribe",
+          "kind": "read",
+          "count": 113,
+          "means": "commonName が廟号形（〜祖／〜宗）なのに templeName が空。**取りこぼしと言い切れる**ので、本紀冒頭の1行を転記する作業に落ちる"
+        },
+        {
+          "name": "posthumousName:transcribe",
+          "kind": "read",
+          "count": 58,
+          "means": "commonName が諡号形（〜帝）なのに posthumousName が空。同上。ただし「天順帝（通称）」のように元号由来の通称が混じるので、転記先の判定は人が行う"
+        },
+        {
+          "name": "posthumousName:institution-skip",
+          "kind": "corroborated",
+          "count": 2,
+          "means": "秦の2人。regime-conventions.json が史記の明文（「自今已来，除谥法」）で personScope=skip と確定済み",
+          "establishes": "諡法そのものが廃止されたという原典の明文がある。ここは空欄が正しい",
+          "notEstablished": "秦の templeName については何も言っていない（別レコード扱い）"
+        },
+        {
+          "name": "templeName:unknown",
+          "kind": "absent",
+          "count": 182,
+          "means": "commonName が廟号形で立っていないだけ。**「廟号が無い」ではない**",
+          "notEstablished": "値の不在。commonName は名乗りの1つを写しただけなので、廟号が別の形で原典にある人物がここに残る",
+          "audit": {
+            "seed": 37,
+            "size": 6,
+            "checkedAt": "2026-08-02",
+            "findings": [
+              {
+                "id": "chenghan-liqi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/chenghan-liqi.txt:4 の「谥曰幽公」は公としての諡で、廟号の記述は無い"
+              },
+              {
+                "id": "dongjin-kangdi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/dongjin-kangdi.txt（晉書 康帝紀・全6行）に「庙号」「谥」の語が無い"
+              },
+              {
+                "id": "qi-donghunhou",
+                "verdict": "一致",
+                "checked": "_corpus_cache/qi-donghunhou.txt（南齊書 東昏侯紀）に「庙号」「谥」の語が無い"
+              },
+              {
+                "id": "shiguo-beihan-liujiyuan",
+                "verdict": "一致",
+                "checked": "_corpus_cache/shiguo-beihan-liujiyuan.txt に「庙号」「谥」の語が無い"
+              },
+              {
+                "id": "suimo-liangshidu",
+                "verdict": "一致",
+                "checked": "_corpus_cache/suimo-liangshidu.txt（全2行）に「庙号」「谥」の語が無い"
+              },
+              {
+                "id": "suimo-xuerengao",
+                "verdict": "一致",
+                "checked": "_corpus_cache/suimo-xuerengao.txt（全3行）に「庙号」「谥」の語が無い"
+              },
+              {
+                "id": "xiliao-renzong",
+                "verdict": "反例",
+                "outOfSample": true,
+                "file": "_corpus_cache/xiliao-renzong.txt",
+                "line": 1,
+                "quote": "在位十三年殁，庙号仁宗",
+                "note": "抽出方式を変える前の引きで見つけた反例。取りこぼし率の計算には入れない（今の種では標本に入らない）。commonName「仁宗正徳皇帝」は廟号＋諡号が続いた形で、末尾が「帝」なので廟号形の検査に当たらない"
+              }
+            ]
+          }
+        },
+        {
+          "name": "posthumousName:unknown",
+          "kind": "absent",
+          "count": 207,
+          "means": "commonName が諡号形で立っていないだけ。**「諡号が無い」ではない**",
+          "notEstablished": "値の不在。廟号で呼ばれる皇帝（〜祖／〜宗）は諡号を別に持つのが普通なので、ここには取りこぼしが厚く残る",
+          "audit": {
+            "seed": 37,
+            "size": 6,
+            "checkedAt": "2026-08-02",
+            "findings": [
+              {
+                "id": "beisong-shenzong",
+                "verdict": "反例",
+                "file": "_corpus_cache/beisong-shenzong.txt",
+                "line": 233,
+                "quote": "謚曰英文烈武聖孝皇帝，廟號神宗",
+                "note": "廟号で呼ばれるため commonName が「神宗」になり、諡号が検査へ当たらない"
+              },
+              {
+                "id": "chenghan-liqi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/chenghan-liqi.txt:4 の「谥曰幽公」は廃位後に公として与えられた諡で、皇帝の諡号ではない。人物単位の判定に委ねる境界事例"
+              },
+              {
+                "id": "jin-aizong",
+                "verdict": "反例",
+                "file": "_corpus_cache/jin-aizong.txt",
+                "line": 71,
+                "quote": "谥曰哀宗",
+                "note": "金史は諡として「哀宗」を与えたと書く。廟号形の語なので諡号形の検査に当たらない（廟号か諡号かの判定自体は人物単位）"
+              },
+              {
+                "id": "ming-yingzong",
+                "verdict": "反例",
+                "file": "_corpus_cache/ming-yingzong.txt",
+                "line": 110,
+                "quote": "上尊谥，庙号英宗，葬裕陵",
+                "note": "諡号があること自体は明文。諡号の全形は明史のこの行には無く別所を読む必要がある"
+              },
+              {
+                "id": "suimo-liangshidu",
+                "verdict": "一致",
+                "checked": "_corpus_cache/suimo-liangshidu.txt（全2行）に「谥」の語が無い"
+              },
+              {
+                "id": "yuan-huizong",
+                "verdict": "一致",
+                "checked": "_corpus_cache/yuan-huizong.txt（元史 順帝紀）の「谥」はいずれも臣下への追諡で、順帝自身の諡号は元史に無い（惠宗は北元の追諡）"
+              }
+            ]
+          }
+        }
+      ],
+      "establishes": "transcribe の171セルは、commonName という別の名乗りが同じ人物にその形で立っていることを根拠に、**取りこぼしと言い切れる**（Issue #37 本文の113件・58件と同じ数え方）",
+      "notEstablished": "unknown の389セルが空でよいということ。監査のとおり取りこぼしが混じる。**171 は作業量の下限であって総量ではない**",
+      "screenedAt": "2026-08-02"
+    }
+  ]
+}

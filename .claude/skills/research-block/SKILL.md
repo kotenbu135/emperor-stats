@@ -17,6 +17,7 @@ description: 新しい調査ブロック（王朝・時代・項目のまとま�
 - `jq '...' data/emperors.json` — 対象レコードの現状（**全体を Read しない**）
 - `ls _corpus_cache/<id>.txt` — 原文キャッシュの有無
 - `python3 scripts/check_regime_conventions.py --scope` — 政権単位で確定済みの範囲（0.5 節）
+- `python3 scripts/check_screenings.py --scope` — 母集団 N → 要読解 M（0.6 節）
 
 **worktree にはコーパスが無い**（`.gitignore` 対象なので primary にしか実体がない）。
 無ければ `ln -s /home/sakis/emperor-stats/{_corpus_cache,china-history,daizhigev20} .` で通す。
@@ -48,6 +49,38 @@ python3 scripts/check_regime_conventions.py --for <皇帝id>  # その人物に�
 
 **機械の書式当たりは絞り込みであって判定ではありません** — 前漢14人は冒頭3行に「讳」が0件ですが、
 これは廟号が無いのではなく漢書が冒頭に並べないだけです。
+
+## 0.6. 原典を読む前に、機械で母集団を絞る
+
+**原典読解のトークンは母集団に比例します。**先に機械で前提を検査すると読む量が桁で変わります
+（#34 は note の干支が旧暦年月に実在するかを sxtwl で検査して293件中282件を裏付け、
+残り20件だけを本紀で読みました。#38 は `quote_diff.py` で234件を仕分けました）。
+
+絞り込みは**その場の一発コマンドにせず** `scripts/screens/<名前>.py` にコミットし、
+結果を `data/screenings.json` に残します。
+
+```bash
+python3 scripts/check_screenings.py --scope        # 母集団 N → 要読解 M
+python3 scripts/check_screenings.py --for <皇帝id>  # その人物がどのバケットか
+python3 scripts/check_screenings.py --update       # 調査が進んで母集団が減ったとき（件数だけ）
+```
+
+バケットは3種です。
+
+| kind | 意味 | 要るもの |
+|---|---|---|
+| `read` | 要読解。原典に当たる | — |
+| `corroborated` | 独立した計算か原典の明文が前提を**積極的に裏付けた** | `establishes`（何を裏付けたか） |
+| `absent` | 機械が**何も見つけなかっただけ** | **種つき無作為標本の監査**（`audit`） |
+
+**`absent` を「値が無い」と読まないでください。**Issue #37 の名前データで実際に測ったところ、
+諡号の absent 側は標本6件中3件が取りこぼしでした（廟号で呼ばれる皇帝は commonName が
+「神宗」になるので、諡号が本紀冒頭に並んでいても検査に当たらない）。
+
+標本は**スクリプトが種から引き**、ゲートが同じ種で引き直して突き合わせます。
+自分で選んだ標本では取りこぼし率の区間は言えません（ゲートが落とします）。
+
+**絞り込みは読む順序と量を変えるだけです。**判定を機械にさせるわけではありません（`R-NO-AUTOGEN`）。
 
 ## 1. 罠を出す（読むのは全文ではなくこの出力）
 

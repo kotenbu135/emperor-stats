@@ -23,7 +23,8 @@ if (!ids.length) {
 
 const RESEARCH_SCHEMA = {
   type: 'object',
-  required: ['id', 'wroteTo', 'claimCount', 'fields', 'regimeConvention', 'discrepancies'],
+  required: ['id', 'wroteTo', 'claimCount', 'fields', 'regimeConvention', 'screenBucket',
+             'discrepancies'],
   properties: {
     id: { type: 'string' },
     wroteTo: { type: 'string' },
@@ -34,6 +35,10 @@ const RESEARCH_SCHEMA = {
     // 自由記述にせず必須にしてあるのは、「先に政権単位で確定する」を文書に書くだけだと
     // 守られないため（規則 R-REGIME-FIRST）
     regimeConvention: { type: 'string' },
+    // 機械の絞り込みでこの人物がどのバケットに入っていたか（規則 R-SCREEN-FIRST）。
+    // 必須にしてあるのは、絞り込みの結果を見ずに読み始めるのを止めるためと、
+    // **absent バケットを「値が無い」と読む**のを止めるため（実測で17〜50%が取りこぼし）
+    screenBucket: { type: 'string' },
     discrepancies: { type: 'string' },                      // 既存データとの食い違い。無ければ「なし」
     processSuggestion: { type: 'string' },                  // 手順そのものの改善案（任意・R-PROCESS-FEEDBACK）
   },
@@ -73,6 +78,10 @@ const results = await pipeline(
     `  **1 で終わったらその政権は慣行が未確定です。人物単位の調査に入らず、\n` +
     `  regimeConvention に \`blocked: <政権id>\` と書いて claims を空のまま返してください**\n` +
     `- 判定が \`skip\` / \`other-source\` の項目は、この書の冒頭では取れません。無理に埋めない\n` +
+    `- **次に \`python3 scripts/check_screenings.py --for ${id}\` を走らせ、出力を screenBucket に書く。**\n` +
+    `  \`transcribe\` は取りこぼしと分かっている側なので、所在の1行を読んで転記します。\n` +
+    `  **\`unknown\` は「機械が何も見つけなかった」だけで「値が無い」ではありません**\n` +
+    `  （標本監査の実測で廟号17%・諡号50%が取りこぼしでした）。unknown を理由に空欄で閉じないこと\n` +
     `- 既存レコードは自分で取る: \`jq '.emperors[]|select(.id=="${id}")|{id,name,regimeId,reigns:[.reigns[]|{startYear,endYear}]}' data/emperors.json\`\n` +
     `- 本紀冒頭の1行（「太宗孝武惠文皇帝，讳德光」形式）でほぼ取れます。取れない場合は無理に埋めず\n` +
     `  「調査済みだが不明」として unknown に入れてください。**空欄が正しい場合があります**\n` +
