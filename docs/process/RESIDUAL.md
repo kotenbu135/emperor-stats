@@ -44,6 +44,8 @@
 | 訂正済みフィールドの兄弟に残る旧暦直書き | 未確定 | — | **走査していない。**#67 は 2026-08-03 に閉じてこの行へ吸収した | 未作成 |
 | `*Raw`／`conversion` の充足 | **1,173**（月日を主張する event。移行前は 6,026） | — | **1件充足・残 1,172**（`verify_calendar.py` が `B5=1`）。人が原典から写す作業で、**有界な残量** | `verify_calendar.py` の件数出力・`validate_emperors.py` の末尾 |
 | 丸めてアーカイブへ移した月日 | 6,258値（4,170 events） | — | **追わない**（2026-08-03 ユーザー決定）。誤りと分かっている値も入ったまま固定。戻すときは下の #62 の節を先に読む | `data/internal/event-date-archive.json` の `meta` |
+| 第N代（`reigns[].dynastyOrder`）の未調査 | **198在位／190人／53政権** | — | 2026-08-03（計画7節の3）に `null` を欄ごと落として「未調査」を表から外した。**在位順から機械導出して埋めない**（導出値は主張ではない）。旧 Issue #24 はこの行に置き換えて close | `validate_emperors.py` の末尾「第N代が未調査の在位」 |
+| `ages` の日付を `reigns` から日精度へ上げられる候補 | **8件** | — | `ages.deathDate` が最終在位の `endDate` より浅く、`endDate` が日精度を名乗り、かつ同じ年月日を接頭辞に持つ在位。**機械転記はしない** — `ming-huizong` の `1402-07-13` は南京陥落の日で崩御日ではなく、`ming-daizong` の `endDate` は廃位日というように、**在位終期と崩御が同じ事象とは限らない**。原典で1件ずつ確かめる | 下の「引き上げ候補8件」節 |
 
 **「年精度の埋め草（1,412・未走査）」の行は消しました** — 深さそのものが主張になったので、
 `-01-01` が埋め草か本当に元日かを走査で区別する必要がなくなりました（規則 `R-DATE-CLAIM-SCOPE`）。
@@ -112,6 +114,46 @@
 
 数字は `python3 scripts/screens/date_claim_scope.py` が出す（`--before` で移行前の定義）。
 移行は `scripts/migrations/round_event_dates.py`（一度きり）、規則は `R-DATE-CLAIM-SCOPE`。
+
+### 続き（計画7節の3・同日）— `ages` と `dynastyOrder`
+
+`ages.birthDate`／`deathDate` の深さも precision に揃えた（**42値**を切り詰め・
+`scripts/migrations/trim_ages_and_dynasty_order.py`）。**アーカイブは作っていない** — 超過分は
+`-01-01`／`-01` の埋め草40値と、note 自身が「参考値」「通説により補完」と書いている2値
+（`tang-shunzong`・`qing-dezong`）だけで、**原典から読んだ月日は1件も無い**。着手前に42値ぶんの
+`ages.note` を月日の語彙で走査してこれを確かめた（note は witness にならないので、**当たった10人は
+原典側の確認の引き金**として扱った）。
+
+副作用が1件: `beiwei-tuobayu` の「`deathDate` が最終 `endDate` より前」という既知の矛盾
+（`validate_emperors.py` の `KNOWN_DEATH_BEFORE_END`）は**埋め草の副作用だった**。
+`0452-10-01` が `0452-10` になり、月精度で比べると `0452-10-29` と食い違わない。
+
+`reigns[].dynastyOrder` は `null` が「未調査」と「調べた上で歴代に数えない」を兼ねていたので、
+**未調査側（198在位）を欄ごと落とした**。残る `null` 14在位は主張（liu-song 2・northern-qi 2・
+northern-wei 6・southern-liang 4）。**移行前から2つの意味は
+`meta.catalogs.regimes[].dynastyOrderSurveyed` で例外0件で分離できていた**ので、
+これは情報の追加ではなく「レコード単体で読めるようにした」だけ。
+ゲート `check_dynasty_order` を同じ変更で足した（`R-CLAIM-GATED`）。
+
+### `ages` の日付を `reigns` から引き上げられる候補8件
+
+`ages.deathDate` が最終在位の `endDate` より浅く、その `endDate` が日精度を名乗り、かつ同じ
+年月日を接頭辞に持つもの。**機械転記はしない**（在位終期と崩御は同じ事象とは限らない）。
+
+| 皇帝 | `ages.deathDate` | 最終 `endDate` |
+|---|---|---|
+| `jin-simalun` | `0301` | `0301-05-30` |
+| `chenghan-lixiong` | `0334` | `0334-08-11` |
+| `houyan-murongchui` | `0396` | `0396-06-02` |
+| `beiwei-tuobayu` | `0452-10` | `0452-10-29` |
+| `beiwei-jiemindi` | `0532` | `0532-06-06` |
+| `shiguo-beihan-liujun` | `0968-08` | `0968-08-23` |
+| `ming-huizong` | `1402` | `1402-07-13` |
+| `ming-xianzong` | `1487-09` | `1487-09-09` |
+
+`ming-huizong`（建文帝）の `1402-07-13` は南京陥落・失踪の日で崩御日ではなく、
+`beiwei-tuobayu` は原文「冬十月**丙午朔**、余為宗愛所賊」が日を言っているのに `ages` 側が
+月精度のまま、というように**中身は1件ずつ違う**。
 
 親 Issue は **#68**（`events[]` の日付に原表記と換算を行き渡らせる）。畳んだ #55・#56・#57・#62 の
 working knowledge — 検出器の件数・検出力・未訂正候補の一覧・原典の根拠 — は #68 の6節にあります。

@@ -32,6 +32,30 @@
 - 数え直し: `python3 scripts/screens/date_claim_scope.py`（`--before` で移行前の定義）。
   移行そのものは `scripts/migrations/round_event_dates.py`（一度きり・アーカイブは追記しない）
 
+### 構造変更（2026-08-03・`ages` の深さと `dynastyOrder` の欄 / Issue #69 の続き）— `schemaVersion` **4.0.0** のまま
+
+上の移行と同じ「検査できない主張を配布物から外す」を `ages` と `dynastyOrder` に当てたものです。
+**破壊的変更です**（`emperors.csv` の `birthDate`・`deathDate` 列の文字列が短くなり、
+`dynastyOrder` 列は未調査の190人ぶんが `null` から空欄になります。列の増減はありません）。
+
+- **`ages.birthDate`／`deathDate` の深さも `birthDatePrecision`／`deathDatePrecision` 以下**に
+  揃えました（**42値**を切り詰め。年精度で深さ3が31・月精度で深さ3が11）。
+  **アーカイブは作っていません** — 超過分は `-01-01`／`-01` の埋め草40値と、note 自身が
+  「参考値」「通説により補完」と書いている2値（`tang-shunzong` の上元2年正月**朔日**換算
+  `0761-02-10` → `0761-02`、`qing-dezong` の通説の六月二十八日 `1871-08-14` → `1871-08`）で、
+  **原典から読んだ月日は1件もありません**。捨てた値はいずれも note に残っています
+- **`reigns[].dynastyOrder` の欄の在り方で3値を分けます**: 数値＝第N代／`null`＝**調べた上で
+  歴代に数えない**在位（14在位）／**欄が無い**＝その政権が未調査（53政権・198在位・190人）。
+  移行前は `null` が未調査と該当なしを兼ねていて、`meta.catalogs.regimes[].dynastyOrderSurveyed`
+  を引かないとレコード単体では区別できませんでした。**未調査ぶんを在位順から機械導出して
+  埋めないでください**（導出値は主張ではありません）
+- ゲートを同じ変更で足しました: `check_ages`（`ages` の深さ ≤ precision）と
+  `check_dynasty_order`（surveyed false ⇒ 欄なし／true ⇒ 欄あり）。
+  検出力テストは `python3 scripts/test_date_claim_scope.py` に11件追加
+- 副作用1件: `beiwei-tuobayu` の「`deathDate` が最終 `endDate` より前」という既知の矛盾は
+  **埋め草の副作用**でした（`0452-10-01` → `0452-10` で月精度の比較が一致し、既知リストから外れた）
+- 移行は `scripts/migrations/trim_ages_and_dynasty_order.py`（一度きり）
+
 ### 訂正（2026-08-03・events の日精度 ISO 日付79件 / Issue #55）— `schemaVersion` 3.0.0 のまま
 
 Issue #50 の横展開。絞り込み `scripts/screens/lunar_date_as_iso.py` が挙げた**要読解100件・53人**を

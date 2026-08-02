@@ -4119,7 +4119,7 @@
     "note": "漢書紀（高帝紀〜平帝紀）を通読。高帝が即位直後（前202年）に洛陽から長安へ都を定めた（婁敬の進言による是正、建国時の定都選定過程の一部と判断し対象外）のち、恵帝〜平帝まで一貫して長安が首都であり、遷都の記録はない。"
    },
    "ages": {
-    "birthDate": "-0209-01-01",
+    "birthDate": "-0209",
     "birthDatePrecision": "year",
     "deathDate": "-0187-09-26",
     "deathDatePrecision": "day",
@@ -5430,7 +5430,7 @@
     "note": "漢書紀（高帝紀〜平帝紀）を通読。高帝が即位直後（前202年）に洛陽から長安へ都を定めた（婁敬の進言による是正、建国時の定都選定過程の一部と判断し対象外）のち、恵帝〜平帝まで一貫して長安が首都であり、遷都の記録はない。"
    },
    "ages": {
-    "birthDate": "-0155-01-01",
+    "birthDate": "-0155",
     "birthDatePrecision": "year",
     "deathDate": "-0086-03-29",
     "deathDatePrecision": "day",
@@ -5761,7 +5761,7 @@
     "note": "漢書紀（高帝紀〜平帝紀）を通読。高帝が即位直後（前202年）に洛陽から長安へ都を定めた（婁敬の進言による是正、建国時の定都選定過程の一部と判断し対象外）のち、恵帝〜平帝まで一貫して長安が首都であり、遷都の記録はない。"
    },
    "ages": {
-    "birthDate": "-0093-01-01",
+    "birthDate": "-0093",
     "birthDatePrecision": "year",
     "deathDate": "-0073-06-05",
     "deathDatePrecision": "day",
@@ -6243,7 +6243,7 @@
     "note": "漢書紀（高帝紀〜平帝紀）を通読。高帝が即位直後（前202年）に洛陽から長安へ都を定めた（婁敬の進言による是正、建国時の定都選定過程の一部と判断し対象外）のち、恵帝〜平帝まで一貫して長安が首都であり、遷都の記録はない。"
    },
    "ages": {
-    "birthDate": "-0090-01-01",
+    "birthDate": "-0090",
     "birthDatePrecision": "year",
     "deathDate": "-0047-01-10",
     "deathDatePrecision": "day",
@@ -6868,7 +6868,7 @@
     "note": "漢書紀（高帝紀〜平帝紀）を通読。高帝が即位直後（前202年）に洛陽から長安へ都を定めた（婁敬の進言による是正、建国時の定都選定過程の一部と判断し対象外）のち、恵帝〜平帝まで一貫して長安が首都であり、遷都の記録はない。"
    },
    "ages": {
-    "birthDate": "-0050-01-01",
+    "birthDate": "-0050",
     "birthDatePrecision": "year",
     "deathDate": "-0006-04-17",
     "deathDatePrecision": "day",
@@ -9257,7 +9257,7 @@
     "note": "後漢書本紀を通読。洛陽が建国から一貫した都で、在位中に追加の遷都記録はない（献帝期の洛陽→長安→許昌の遷都は献帝自身の代の出来事として計上済み）。"
    },
    "ages": {
-    "birthDate": "0079-01-01",
+    "birthDate": "0079",
     "birthDatePrecision": "year",
     "deathDate": "0106-02-13",
     "deathDatePrecision": "day",
@@ -9990,7 +9990,7 @@
     "note": "後漢書本紀を通読。洛陽が建国から一貫した都で、在位中に追加の遷都記録はない（献帝期の洛陽→長安→許昌の遷都は献帝自身の代の出来事として計上済み）。"
    },
    "ages": {
-    "birthDate": "0094-01-01",
+    "birthDate": "0094",
     "birthDatePrecision": "year",
     "deathDate": "0125-04-30",
     "deathDatePrecision": "day",
@@ -10825,7 +10825,7 @@
     "note": "後漢書本紀を通読。洛陽が建国から一貫した都で、在位中に追加の遷都記録はない（献帝期の洛陽→長安→許昌の遷都は献帝自身の代の出来事として計上済み）。"
    },
    "ages": {
-    "birthDate": "0115-01-01",
+    "birthDate": "0115",
     "birthDatePrecision": "year",
     "deathDate": "0144-09-20",
     "deathDatePrecision": "day",
@@ -12314,7 +12314,7 @@
     "note": "後漢書本紀を通読。洛陽が建国から一貫した都で、在位中に追加の遷都記録はない（献帝期の洛陽→長安→許昌の遷都は献帝自身の代の出来事として計上済み）。"
    },
    "ages": {
-    "birthDate": "0132-01-01",
+    "birthDate": "0132",
     "birthDatePrecision": "year",
     "deathDate": "0168-01-25",
     "deathDatePrecision": "day",
@@ -13636,7 +13636,7 @@
     "note": "在位中に遷都2回（0190年 雒陽（洛陽）→長安、0196年 雒陽（洛陽）→許（許昌））。"
    },
    "ages": {
-    "birthDate": "0181-01-01",
+    "birthDate": "0181",
     "birthDatePrecision": "year",
     "deathDate": "0234-03",
     "deathDatePrecision": "month",
@@ -14111,7 +14111,7 @@
    },
    "ages": {
     "confidence": "high",
-    "birthDate": "-0044-01-01",
+    "birthDate": "-0044",
     "birthDatePrecision": "year",
     "deathDate": "0023-10-06",
     "deathDatePrecision": "day",
@@ -14282,7 +14282,7 @@
    },
    "ages": {
     "accessionAge": 15,
-    "birthDate": "0011-01-01",
+    "birthDate": "0011",
     "birthDatePrecision": "year",
     "deathAge": null,
     "deathDate": null,
@@ -14807,7 +14807,7 @@
     "confidence": "medium"
    },
    "ages": {
-    "birthDate": "0187-01-01",
+    "birthDate": "0187",
     "birthDatePrecision": "year",
     "deathDate": "0226-06-29",
     "deathDatePrecision": "day",
@@ -15571,7 +15571,7 @@
     "confidence": "high"
    },
    "ages": {
-    "deathDate": "0274-01-01",
+    "deathDate": "0274",
     "deathDatePrecision": "year",
     "deathAge": 43,
     "accessionAge": 8,
@@ -16734,7 +16734,7 @@
     "accessionAge": 17,
     "confidence": "high",
     "note": "三國志 蜀書三 後主傳「五月，後主襲位於成都，時年十七」（数え年、章武3年223年5月即位時）。没年齢は原典に明記なし。 没年齢は逆算値：即位時「時年十七」（章武3年=223年）と没年（泰始7年=271年、deathCause参照）の年号差48年から数え年で65歳と算出。",
-    "deathDate": "0271-01-01",
+    "deathDate": "0271",
     "deathDatePrecision": "year",
     "deathAge": 65
    },
@@ -26366,7 +26366,7 @@
    "ages": {
     "birthDate": null,
     "birthDatePrecision": null,
-    "deathDate": "0329-01-01",
+    "deathDate": "0329",
     "deathDatePrecision": "year",
     "accessionAge": null,
     "deathAge": null,
@@ -28028,7 +28028,7 @@
    "ages": {
     "birthDate": null,
     "birthDatePrecision": null,
-    "deathDate": "0361-01-01",
+    "deathDate": "0361",
     "deathDatePrecision": "year",
     "accessionAge": null,
     "deathAge": null,
@@ -29019,7 +29019,7 @@
     "note": "在位中に遷都1回（0335年 襄国→鄴）。"
    },
    "ages": {
-    "birthDate": "0295-01-01",
+    "birthDate": "0295",
     "birthDatePrecision": "year",
     "deathDate": "0349-05-26",
     "deathDatePrecision": "day",
@@ -31026,7 +31026,7 @@
    "ages": {
     "birthDate": null,
     "birthDatePrecision": null,
-    "deathDate": "0394-10-01",
+    "deathDate": "0394-10",
     "deathDatePrecision": "month",
     "accessionAge": null,
     "deathAge": null,
@@ -33267,7 +33267,7 @@
    },
    "ages": {
     "birthDatePrecision": null,
-    "deathDate": "0407-01-01",
+    "deathDate": "0407",
     "deathDatePrecision": "year",
     "deathAge": 23,
     "confidence": "high",
@@ -44308,7 +44308,7 @@
     "note": "宋書本紀を通読。劉宋建国（建康定都、建国時の定都）から479年の滅亡まで建康が一貫した都、遷都の記録なし。"
    },
    "ages": {
-    "birthDate": "0424-01-01",
+    "birthDate": "0424",
     "birthDatePrecision": "year",
     "deathDate": "0453-05-27",
     "deathDatePrecision": "day",
@@ -44726,7 +44726,6 @@
     {
      "startYear": 552,
      "endYear": 552,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "蕭棟から禅譲を受ける形で即位、国号「漢」年号「太始」。陳霸先・王僧弁の討伐軍に建康を追われ逃亡中、部下の羊鵾に殺害される。",
      "raw": null,
@@ -47320,7 +47319,7 @@
    "ages": {
     "birthDate": null,
     "birthDatePrecision": null,
-    "deathDate": "0452-10-01",
+    "deathDate": "0452-10",
     "deathDatePrecision": "month",
     "accessionAge": null,
     "deathAge": null,
@@ -57462,7 +57461,6 @@
     {
      "startYear": 581,
      "endYear": 604,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "北周静帝から禅譲を受け即位、隋建国。仁寿4年7月13日崩御。暗殺説（皇太子楊広の関与を示唆する記録あり）が根強いが正史に明確な他殺記録なし。",
      "raw": null,
@@ -57897,7 +57895,6 @@
     {
      "startYear": 604,
      "endYear": 618,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "仁寿4年7月21日即位。大業14年3月11日、宇文化及・宇文智及らのクーデターにより縊殺。",
      "raw": null,
@@ -58098,7 +58095,7 @@
     "events": []
    },
    "ages": {
-    "birthDate": "0569-01-01",
+    "birthDate": "0569",
     "birthDatePrecision": "year",
     "deathDate": "0618-04-11",
     "deathDatePrecision": "day",
@@ -59069,7 +59066,6 @@
     {
      "startYear": 617,
      "endYear": 618,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "李淵に擁立され大興殿にて即位。武徳元年5月14日、李淵に禅譲し隋滅亡。退位後、619年9月14日に死去(唐の一藩王として)。正史(唐朝官修『隋書』)は楊侑のみを正統皇帝と認定しているが、これは正統性評価であり本収録基準には影響しない。",
      "raw": null,
@@ -59275,7 +59271,6 @@
     {
      "startYear": 618,
      "endYear": 619,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "王世充・元文都・盧楚らに擁立され洛陽で即位、年号「皇泰」。義寧2年4月5日、王世充に禅譲を強制される。619年7月19日、毒殺未遂の後、縊殺。唐の官修『隋書』は「越王」と記し皇帝性を否定するが、これは死後の政治的評価であり、本人は生前実際に皇帝として即位・統治し追尊等の皇帝権能を行使していたため含める。",
      "raw": null,
@@ -59480,7 +59475,6 @@
     {
      "startYear": 618,
      "endYear": 618,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "宇文化及が煬帝殺害後、蕭皇后の名義を騙って「立以為帝」(隋書巻85宇文化及伝/資治通鑑巻185)。先代からの禅譲ではなく武力擁立だが、実際に「帝」の称号を用いて即位した事実は原典で確認できる。即位後も別宮に軟禁され、詔勅への署名のみを行う完全な傀儡だった。大業14年9月29日、宇文化及の毒殺により死去。宇文化及はその後、自ら「僭皇帝位」して国号「許」・元号「天寿」を建てており、従来「楊浩の元号」としていた「天寿」は誤りで、実際は宇文化及自身の即位後の元号だった。",
      "raw": null,
@@ -59643,7 +59637,6 @@
     {
      "startYear": 618,
      "endYear": 619,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "煬帝を弑殺し楊浩を傀儡に立てた後、楊浩を毒殺し自ら皇帝に即位。国号「許」、元号「天寿」。竇建徳に捕らえられ大陸県で斬首。",
      "raw": null,
@@ -59814,7 +59807,6 @@
     {
      "startYear": 619,
      "endYear": 621,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "楊侗（皇泰主）から禅譲を受け皇帝に即位。国号「鄭」、元号「開明」。武徳4年5月、唐へ降伏、その後長安護送中に定州刺史独孤修徳に殺害(正確な殺害日は未特定)。",
      "raw": null,
@@ -60025,7 +60017,6 @@
     {
      "startYear": 617,
      "endYear": 622,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "東突厥の始畢可汗から「定楊可汗」に冊封された後、自ら皇帝を称し、国号「大漢」、年号「天興」を建てた(可汗号は突厥藩属的称号、皇帝号は自称の国内向け称号として並存)。李世民に敗れ突厥へ北奔後、馬邑への帰還を試みたことが発覚し622年8月頃処刑。",
      "raw": null,
@@ -60226,7 +60217,6 @@
     {
      "startYear": 617,
      "endYear": 628,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "皇帝を称し国号「梁」、元号「永隆」。突厥からは「大度毗伽可汗・解事天子」の号も併称。貞観2年3月28日、堂弟の梁洛仁に殺害され朔方城が唐に降伏。",
      "raw": null,
@@ -60425,7 +60415,6 @@
     {
      "startYear": 617,
      "endYear": 618,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "「西秦覇王」から進み大業13年7月、蘭州で皇帝を僭称。皇后・皇太子を立て帝制を整備(旧唐書原文で確認)。武徳元年8月、病死。死亡日について旧唐書は「壬午」、資治通鑑は「辛巳」と干支が不一致のため、二次資料の「八月初九日」は採用せずmonth精度に留める。",
      "raw": null,
@@ -60635,7 +60624,6 @@
     {
      "startYear": 618,
      "endYear": 618,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "父・薛挙の死後、皇帝位を継承(折墌城)。浅水原の戦いで敗北・降伏後、長安に護送され618年11月頃斬首(正確な日は未特定)。",
      "raw": null,
@@ -60795,7 +60783,6 @@
     {
      "startYear": 618,
      "endYear": 619,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "大業13年、武威にて「河西大凉王」を称し「安楽」と建元。武徳元年、唐の冊封使到着前に「大凉皇帝」を自称(梁の蕭詧の故事に倣い、唐へは「従弟」と称する二重外交)。安興貴・安脩仁の内応クーデターで敗北、武徳2年5月、諸弟・諸子とともに長安で斬首。",
      "raw": null,
@@ -60980,7 +60967,6 @@
     {
      "startYear": 618,
      "endYear": 621,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "大業13年10月19日「梁公」、12月20日「王」を称し「鳳鳴」と改元。翌年(義寧2年/武徳元年)皇帝を称するが具体的月日は未特定。武徳4年10月21日、江陵開城し唐軍に降伏。その後長安で処刑(正確な処刑日は未確定。ja版に見える「11月10日」説は降伏日とは別の処刑日を指す可能性が高いが原典未確認)。",
      "raw": null,
@@ -61164,7 +61150,6 @@
     {
      "startYear": 619,
      "endYear": 622,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "武徳2年、江都を落とし皇帝を称する。国号「呉」、元号「明政」。武徳4年11月、蘇州の戦いで王雄誕に敗れ余杭で投降(処刑されず厚遇される)。武徳5年7月、再挙兵を企図し逃亡するも藍田関で捕縛・処刑。",
      "raw": null,
@@ -61390,7 +61375,6 @@
     {
      "startYear": 617,
      "endYear": 622,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "虔州にて南越王を称した後、楚の皇帝を僭称。私年号「太平」。唐に敗れ降伏後も再度反抗、武徳5年、山中に逃れて病死。",
      "raw": null,
@@ -61583,7 +61567,6 @@
     {
      "startYear": 623,
      "endYear": 624,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "武徳6年8月、王雄誕を殺害し丹陽で挙兵、「宋帝」を自称。元号「天明」。武徳7年3月28日に捕縛、その後まもなく丹陽で処刑(正確な処刑日は未特定、捕縛日で終了日を代用)。",
      "raw": null,
@@ -61764,7 +61747,6 @@
     {
      "startYear": 618,
      "endYear": 621,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "大業11年12月に起兵した時点では「迦楼羅王」を自称(皇帝ではない)。617年に瓦岗軍の李密に一時臣従。武徳元年、冠軍県にて再挙兵後「楚帝」を自称、年号「昌達」に改元。これが皇帝を称した最初の時点であり、reignsのstartYearは起兵年(615年)ではなく称帝年(618年)を採用。武徳4年、王世充討伐に伴い李世民に洛水にて捕らえられ斬首。",
      "raw": null,
@@ -61967,7 +61949,6 @@
     {
      "startYear": 618,
      "endYear": 626,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "武徳元年5月20日即位(隋恭帝侑からの禅譲)。武徳9年8月9日、玄武門の変後、太宗へ譲位。",
      "raw": null,
@@ -62321,7 +62302,6 @@
     {
      "startYear": 626,
      "endYear": 649,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "武徳9年8月9日即位。貞観23年5月26日崩御。",
      "raw": null,
@@ -62728,7 +62708,6 @@
     {
      "startYear": 649,
      "endYear": 683,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "貞観23年6月1日即位。弘道元年12月4日崩御。",
      "raw": null,
@@ -63334,7 +63313,6 @@
     {
      "startYear": 684,
      "endYear": 684,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "弘道元年12月11日、高宗崩御を受け即位。嗣聖元年2月6日、武則天により廃位(廬陵王に降格)。",
      "raw": null,
@@ -63365,7 +63343,6 @@
     {
      "startYear": 705,
      "endYear": 710,
-     "dynastyOrder": null,
      "isRestoration": true,
      "note": "神龍元年正月25日(丙午)、神龍革命により復位(武則天からの譲位と同日)。景龍4年6月2日、韋皇后・安楽公主らにより毒殺。",
      "raw": null,
@@ -63729,7 +63706,6 @@
     {
      "startYear": 684,
      "endYear": 690,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "文明元年2月7日、中宗廃位の翌日に即位(武則天の傀儡)。載初元年9月9日、武則天への譲位を強制される。",
      "raw": null,
@@ -63760,7 +63736,6 @@
     {
      "startYear": 710,
      "endYear": 712,
-     "dynastyOrder": null,
      "isRestoration": true,
      "note": "景龍4年6月24日、殤帝廃位と同日に復位(李隆基のクーデター後)。延和元年8月3日、玄宗へ譲位。",
      "raw": null,
@@ -64205,7 +64180,6 @@
     {
      "startYear": 710,
      "endYear": 710,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "唐隆元年6月7日頃、韋皇后により擁立され即位、改元「唐隆」。『資治通鑑』巻209に即位・改元の明記あり。唐隆元年6月24日、李隆基のクーデターにより廃位(温王に降格)。在位18日間。",
      "raw": null,
@@ -64432,7 +64406,6 @@
     {
      "startYear": 712,
      "endYear": 756,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "先天元年8月3日即位。天宝15載7月12日、安史の乱により蜀へ逃れる途中、粛宗の即位を事後承諾する形で譲位(太上皇)。上元2年4月5日崩御。",
      "raw": null,
@@ -65058,7 +65031,6 @@
     {
      "startYear": 756,
      "endYear": 762,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至徳元載7月12日即位(霊武にて)。宝応元年4月18日崩御(李輔国のクーデターの混乱の中)。",
      "raw": null,
@@ -65272,7 +65244,7 @@
     "note": "乾元元年五月庚寅に成王俶（後の代宗）が皇太子に立てられて以降、粛宗崩御（宝応元年）まで廃立の記事は本紀中に見当たらない。原文中の「废」字は嗣岐王珍（粛宗の子ではなく宗室の一員）が庶人に廃された記事のみで、皇太子の廃立とは無関係。"
    },
    "ages": {
-    "birthDate": "0711-01-01",
+    "birthDate": "0711",
     "birthDatePrecision": "year",
     "deathDate": "0762-05-16",
     "deathDatePrecision": "day",
@@ -65456,7 +65428,6 @@
     {
      "startYear": 762,
      "endYear": 779,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "宝応元年4月20日即位(粛宗崩御時の政変処理・柩前即位の儀礼手順により数日のタイムラグ)。大暦14年5月21日崩御。",
      "raw": null,
@@ -65873,7 +65844,6 @@
     {
      "startYear": 779,
      "endYear": 805,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "大暦14年5月23日即位。貞元21年1月23日崩御。",
      "raw": null,
@@ -66458,7 +66428,6 @@
     {
      "startYear": 805,
      "endYear": 805,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "貞元21年1月26日即位。永貞元年8月4日、憲宗へ譲位。806年2月11日、譲位後に死去。",
      "raw": null,
@@ -66588,7 +66557,7 @@
     "note": "順宗在位中（貞元21年1月〜永貞元年8月、約半年間）に皇太子の廃立の記録はない。貞元21年3月癸巳に広陵郡王李淳（のち李純、憲宗）を皇太子に立てた記事はあるが新規立太子であり廃立ではない。この皇太子はそのまま廃されず順宗からの譲位を受けて即位した。"
    },
    "ages": {
-    "birthDate": "0761-02-10",
+    "birthDate": "0761-02",
     "birthDatePrecision": "month",
     "deathDate": "0806-02-11",
     "deathDatePrecision": "day",
@@ -66640,7 +66609,6 @@
     {
      "startYear": 805,
      "endYear": 820,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "永貞元年8月9日即位。元和15年1月27日崩御(暗殺説あり)。",
      "raw": null,
@@ -67096,7 +67064,6 @@
     {
      "startYear": 820,
      "endYear": 824,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "元和15年閏1月3日即位。長慶4年1月22日崩御。",
      "raw": null,
@@ -67423,7 +67390,6 @@
     {
      "startYear": 824,
      "endYear": 827,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "長慶4年1月26日即位。宝暦2年12月8日、劉克明らにより暗殺。",
      "raw": null,
@@ -67667,7 +67633,6 @@
     {
      "startYear": 827,
      "endYear": 840,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "宝暦2年12月12日、絳王李悟の監国期間(数日)を経て樞密使王守澄らに擁立され即位(『資治通鑑』巻243に即位の明記あり)。開成5年1月4日崩御。",
      "raw": null,
@@ -67943,7 +67908,6 @@
     {
      "startYear": 840,
      "endYear": 846,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "開成5年1月14日即位。会昌6年3月23日、丹薬中毒により崩御。",
      "raw": null,
@@ -68279,7 +68243,6 @@
     {
      "startYear": 846,
      "endYear": 859,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "会昌6年3月23日、武宗崩御と同日に即位。大中13年8月10日崩御。",
      "raw": null,
@@ -68565,7 +68528,6 @@
     {
      "startYear": 859,
      "endYear": 873,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "大中13年8月13日即位。咸通14年7月19日崩御。",
      "raw": null,
@@ -68871,7 +68833,6 @@
     {
      "startYear": 873,
      "endYear": 888,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "咸通14年7月20日即位。文徳元年3月6日崩御。",
      "raw": null,
@@ -69258,7 +69219,6 @@
     {
      "startYear": 888,
      "endYear": 900,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "文徳元年3月8日即位。光化3年11月、宦官劉季述らのクーデターにより幽閉され太上皇にされる(正式な譲位の詔ではなく矯詔によるクーデター)。",
      "raw": null,
@@ -69289,7 +69249,6 @@
     {
      "startYear": 901,
      "endYear": 904,
-     "dynastyOrder": null,
      "isRestoration": true,
      "note": "天復元年正月、孫徳昭らの反クーデターにより復位。天祐元年8月11日夜、朱全忠配下により弑殺。",
      "raw": null,
@@ -69789,7 +69748,6 @@
     {
      "startYear": 904,
      "endYear": 907,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "昭宗第九子（母は積善皇后何氏）。初名祚、輝王に封ぜられていた。天祐元年八月十二日、父昭宗が朱全忠配下の蒋玄暉らに弑殺された翌日、蒋玄暉が矯詔（偽の遺詔）により当時13歳の輝王を皇太子に立て「柷」と改名、監軍国事とした。同月十五日（丙午）、柩前にて即位（『旧唐書』「帝時年十三」）。天祐四年（開平元年）四月十八日（甲子）、朱全忠（後梁太祖）へ禅譲し退位、済陰王に降封された。崩御後の諡号は当初「昭宣光烈孝皇帝」・廟号「景宗」が提案されたが、「少帝の行事は宗を称するにふさわしくない」として却下され、本諡「哀皇帝」のみが正式に採用された。",
      "raw": null,
@@ -69951,7 +69909,6 @@
     {
      "startYear": 900,
      "endYear": 901,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "光化3年、宦官劉季述らのクーデターにより皇太子から皇帝に擁立され改名「縝」。『資治通鑑』巻262に「即皇帝位」と明記。天復元年正月、孫徳昭らの反クーデターにより廃位、徳王に降格。その後905年2月、朱全忠の命により絞殺。",
      "raw": null,
@@ -70126,7 +70083,6 @@
     {
      "startYear": 690,
      "endYear": 705,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天授元年9月9日、国号を「周」に改め自ら皇帝に即位(中国史上唯一の女性皇帝)。神龍元年正月25日(丙午)、神龍革命により中宗へ譲位。同年11月26日崩御。",
      "raw": null,
@@ -70630,7 +70586,6 @@
     {
      "startYear": 763,
      "endYear": 763,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "広徳元年、長安を一時占領した吐蕃により皇帝に擁立される(百官設置・改元を伴う実質的な即位)。吐蕃軍撤退とともに廃位。その後郭子儀軍に捕らえられ流罪、まもなく死去(死亡日不明)。",
      "raw": null,
@@ -70815,7 +70770,6 @@
     {
      "startYear": 886,
      "endYear": 887,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "朱玫に擁立され光啓2年10月、紫宸殿にて皇帝を称し、元号「建貞」を建てた。朱玫誅殺後、王重栄に処刑(斬首)。",
      "raw": null,
@@ -70988,7 +70942,6 @@
     {
      "startYear": 756,
      "endYear": 757,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至徳元載正月、洛陽にて皇帝に即位、国号「燕」、元号「聖武」。安史の乱を起こす。至徳2載正月甲寅、次子安慶緒の指示で宦官李猪児に暗殺。",
      "raw": null,
@@ -71181,7 +71134,6 @@
     {
      "startYear": 757,
      "endYear": 759,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至徳2載正月、父・安禄山を殺害し皇帝として即位、元号「載初」→「天成」。一覧wikitextでは即位前の封号「晋王」と表記されるが、実際は皇帝を称した。乾元2年2月5日、史思明に殺害される。",
      "raw": null,
@@ -71396,7 +71348,6 @@
     {
      "startYear": 759,
      "endYear": 761,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "乾元2年正月「大聖燕王」を自称後、同年4月、范陽にて正式に「大燕皇帝」(応天皇帝)を称し元号「順天」。安慶緒を殺害し帝位を奪う。上元2年3月甲午、子の史朝義配下に絞殺される。",
      "raw": null,
@@ -71630,7 +71581,6 @@
     {
      "startYear": 761,
      "endYear": 763,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "上元2年、父・史思明を殺害し皇帝として即位、元号「顕聖」。一覧wikitextでは即位前の封号「懐王」と表記されるが、実際は皇帝を称した。763年、洛陽陥落後に自害(自殺説と誘殺説が併存)。",
      "raw": null,
@@ -71826,7 +71776,6 @@
     {
      "startYear": 783,
      "endYear": 784,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "建中4年9月甲午、涇原兵変を受け長安で皇帝に即位、国号「大秦」、元号「応天」。興元元年正月頃、国号を「漢」に改め元号「天皇」。長安収復(5月28日)後の逃亡中、部将梁庭芬・韓旻らに殺害される(正確な殺害日は未特定)。",
      "raw": null,
@@ -71961,7 +71910,7 @@
    "ages": {
     "birthDate": null,
     "birthDatePrecision": null,
-    "deathDate": "0784-06-01",
+    "deathDate": "0784-06",
     "deathDatePrecision": "month",
     "accessionAge": null,
     "deathAge": 43,
@@ -72032,7 +71981,6 @@
     {
      "startYear": 784,
      "endYear": 786,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "興元元年正月初一(癸酉朔)、汴州にて「楚帝」を称した。国号「楚」、元号「武成」。貞元2年4月丙寅、部将陳仙奇に毒殺される。",
      "raw": null,
@@ -72203,7 +72151,6 @@
     {
      "startYear": 881,
      "endYear": 884,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "広明元年12月13日(壬辰)、長安含元殿にて皇帝に即位、国号「大斉」、元号「金統」。金統5年6月17日(丙午)、狼虎谷にて甥の林言の介錯により自害。",
      "raw": null,
@@ -72434,7 +72381,6 @@
     {
      "startYear": 907,
      "endYear": 912,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "開平元年4月18日、唐の哀帝から禅譲を受け即位。乾化2年6月2日、実子朱友珪に殺害される。",
      "raw": null,
@@ -72765,7 +72711,6 @@
     {
      "startYear": 912,
      "endYear": 913,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "乾化2年6月(辛巳)、父・朱全忠を殺害し即位、大赦・改元(鳳暦)を実施。一覧wikitextの「郢王」表記は即位前の封爵であり、即位後は皇帝として統治した実態がある。鳳暦元年2月17日、廃位・自害。",
      "raw": null,
@@ -73016,7 +72961,6 @@
     {
      "startYear": 913,
      "endYear": 923,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "乾化3年2月17日、兄・朱友珪を殺害し即位。龍徳3年10月8日、後唐軍の攻撃を受け開封府城内で自害。",
      "raw": null,
@@ -73342,7 +73286,6 @@
     {
      "startYear": 923,
      "endYear": 926,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "同光元年4月25日、唐の後継を称し即位。同光4年4月1日、興教門の変で殺害。",
      "raw": null,
@@ -73689,7 +73632,6 @@
     {
      "startYear": 926,
      "endYear": 933,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天成元年4月20日即位。長興4年11月26日崩御。",
      "raw": null,
@@ -74243,7 +74185,6 @@
     {
      "startYear": 933,
      "endYear": 934,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "長興4年12月1日即位。清泰元年4月頃、廃位され鄂王に降格、まもなく殺害(廃位・殺害の正確な日付は情報源間で不一致)。",
      "raw": null,
@@ -74447,7 +74388,6 @@
     {
      "startYear": 934,
      "endYear": 937,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "清泰元年4月6日即位(4月3日洛陽入城、4月4日太后令で李従厚を鄂王に降格し監国、4月6日正式即位という経緯)。清泰3年閏11月26日、石敬瑭の反乱により玄武楼で焼身自殺。",
      "raw": null,
@@ -74727,7 +74667,6 @@
     {
      "startYear": 936,
      "endYear": 942,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天福元年11月12日、契丹の支援を受け即位。天福7年6月13日崩御。",
      "raw": null,
@@ -75142,7 +75081,6 @@
     {
      "startYear": 942,
      "endYear": 947,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天福7年6月13日即位。開運3年12月17日、契丹に降伏し捕らえられる。",
      "raw": null,
@@ -75444,7 +75382,6 @@
     {
      "startYear": 947,
      "endYear": 948,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天福12年2月15日即位。乾祐元年1月27日崩御。",
      "raw": null,
@@ -75712,7 +75649,6 @@
     {
      "startYear": 948,
      "endYear": 951,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "乾祐元年2月1日即位。乾祐3年11月22日、郭威の反乱により郭允明に殺害。",
      "raw": null,
@@ -75985,7 +75921,6 @@
     {
      "startYear": 951,
      "endYear": 954,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "広順元年1月5日即位。顕徳元年1月17日崩御。",
      "raw": null,
@@ -76243,7 +76178,6 @@
     {
      "startYear": 954,
      "endYear": 959,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "顕徳元年1月21日即位。顕徳6年6月19日崩御。",
      "raw": null,
@@ -76481,7 +76415,6 @@
     {
      "startYear": 959,
      "endYear": 960,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "顕徳6年6月20日即位。顕徳7年1月4日、陳橋の変により趙匡胤に禅譲、後周滅亡。",
      "raw": null,
@@ -76663,7 +76596,6 @@
     {
      "startYear": 927,
      "endYear": 937,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "呉王として920年即位。順義7年(927年)11月(庚戌、927年11月29日)、文明殿にて皇帝に即位、同月甲子(927年12月13日)に大赦とともに改元(乾貞)を実施。天祚3年10月5日(937年11月10日)、李昪へ禅譲。楊行密・楊渥・楊隆演の先代3名は「呉王」のまま皇帝を称しておらず除外。",
      "raw": null,
@@ -76928,7 +76860,6 @@
     {
      "startYear": 907,
      "endYear": 918,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天復7年9月25日、皇帝に即位(諡号「神武聖文孝德明惠皇帝」)。光天元年6月1日崩御。",
      "raw": null,
@@ -77307,7 +77238,6 @@
     {
      "startYear": 918,
      "endYear": 925,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "光天元年6月2日即位(諡号「聖德明孝皇帝」)。咸康元年11月27日、後唐へ降伏。降伏後、長安護送中に秦川駅で一族もろとも殺害。",
      "raw": null,
@@ -77555,7 +77485,6 @@
     {
      "startYear": 917,
      "endYear": 942,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "乾亨元年8月16日、皇帝に即位、国号「大越」(翌年「漢」に改称)。一覧wikitextの「911年-942年」は誤り(911年は兄・劉隠の死去に伴う家督相続の年で王号のまま、皇帝即位は917年)。大有15年4月24日崩御。",
      "raw": null,
@@ -77820,7 +77749,6 @@
     {
      "startYear": 942,
      "endYear": 943,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "大有15年4月24日、先代崩御と同日に即位。光天2年3月8日、廃位・殺害。",
      "raw": null,
@@ -78025,7 +77953,6 @@
     {
      "startYear": 943,
      "endYear": 958,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "応乾元年3月9日即位。乾和16年8月3日崩御。",
      "raw": null,
@@ -78180,7 +78107,7 @@
    "ages": {
     "birthDate": null,
     "birthDatePrecision": null,
-    "deathDate": "0958-08-01",
+    "deathDate": "0958-08",
     "deathDatePrecision": "month",
     "accessionAge": null,
     "deathAge": 39,
@@ -78230,7 +78157,6 @@
     {
      "startYear": 958,
      "endYear": 971,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "乾和16年8月3日、先代崩御と同日に即位。大宝14年2月5日、北宋へ降伏し南漢滅亡。",
      "raw": null,
@@ -78412,7 +78338,6 @@
     {
      "startYear": 934,
      "endYear": 934,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "応順元年閏正月(己巳、934年3月16日)、成都で皇帝に即位、国号「大蜀」(諡号「文武聖德英烈明孝皇帝」)。同年七月(甲子、934年9月7日)病死。即位から約175日(6ヶ月弱)。",
      "raw": null,
@@ -78597,7 +78522,6 @@
     {
      "startYear": 934,
      "endYear": 965,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "明徳元年7月29日即位。広政28年1月19日、北宋に降伏し後蜀滅亡。",
      "raw": null,
@@ -78812,7 +78736,6 @@
     {
      "startYear": 937,
      "endYear": 943,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "昇元元年10月(甲申、937年11月10日)、呉の楊溥から禅譲を受け皇帝に即位、国号「大齊」(939年に「唐」へ改号)。諡号「光文肅武孝高皇帝」。昇元7年2月(庚午、943年3月30日)崩御。",
      "raw": null,
@@ -79026,7 +78949,6 @@
     {
      "startYear": 943,
      "endYear": 958,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "保大元年3月(己卯朔、943年4月8日)、即位と同時に建元(保大)。顕德5年5月(958年6月頃)、後周への大敗を受け帝号を廃し「唐国主」に改称、独自年号(保大・中興・交泰)も放棄し後周の年号(顕德)を奉じるようになった。皇帝としての在位期間は943-958年のみとし、958年〜961年崩御までの「国主」期間は皇帝在位に含めない。",
      "raw": null,
@@ -79220,7 +79142,7 @@
    "ages": {
     "birthDate": null,
     "birthDatePrecision": null,
-    "deathDate": "0961-06-01",
+    "deathDate": "0961-06",
     "deathDatePrecision": "month",
     "accessionAge": 28,
     "deathAge": 46,
@@ -79312,7 +79234,6 @@
     {
      "startYear": 933,
      "endYear": 935,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "927年に王として即位、933年(長興4年)に帝号を称し国号「大閩」に改める(諡号「齊肅明孝皇帝」)。永和元年10月19日崩御。皇帝在位期間は933年〜935年。",
      "raw": null,
@@ -79539,7 +79460,6 @@
     {
      "startYear": 935,
      "endYear": 939,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "永和元年10月20日、即位と同時に皇帝号使用開始(諡号「聖神英睿文明廣武應道大弘孝皇帝」)。通文4年閏7月12日、酒に酔わされ絞殺。",
      "raw": null,
@@ -79756,7 +79676,6 @@
     {
      "startYear": 941,
      "endYear": 944,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "通文4年閏7月13日、即位時は「閩国王」を自称。永隆3年10月(941年)に「大閩皇帝」へ改称。永隆6年3月13日、暗殺。皇帝在位は941年10月〜944年4月。",
      "raw": null,
@@ -79975,7 +79894,6 @@
     {
      "startYear": 943,
      "endYear": 945,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "永隆5年2月、建州で皇帝に即位、国号「殷」。945年2〜3月に国号を「閩」に戻す。天徳3年8月27日、建州陥落・南唐へ降伏。",
      "raw": null,
@@ -80168,7 +80086,6 @@
     {
      "startYear": 951,
      "endYear": 954,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "後漢滅亡を受け951年2月24日、皇帝に即位(諡号「神武帝」)。遼から「大漢神武皇帝」に冊封され遼帝を「叔皇帝」、自らを「姪皇帝」と称する臣従外交を行うが、国内的には一貫して皇帝号を使用。乾祐7年11月、太原にて病死(月日不詳)。",
      "raw": null,
@@ -80287,9 +80204,9 @@
     "note": "十国春秋巻104・新五代史巻70とも、世祖(劉旻)在位中に皇太子・皇太弟等の法定推定継承者を立てた記述自体がなく(次子承鈞を「太原尹」「侍衛親軍都指揮使」に任じたのみで正式立太子の記録なし)、したがって廃立の記録も存在しない。なお隠帝期に高祖の養子として立てられ後漢の後継候補となった湘陰公劉贇(世祖の実子)は、世祖自身が皇帝に即位する前・後漢滅亡の過程で郭威(後周太祖)により降格・誅殺されたものであり、世祖自身による皇太子廃立行為ではないため計上しない。"
    },
    "ages": {
-    "birthDate": "0895-01-01",
+    "birthDate": "0895",
     "birthDatePrecision": "year",
-    "deathDate": "0954-11-01",
+    "deathDate": "0954-11",
     "deathDatePrecision": "month",
     "accessionAge": 57,
     "deathAge": 60,
@@ -80369,7 +80286,6 @@
     {
      "startYear": 954,
      "endYear": 968,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "954年11月、父・劉崇の病篤により監国を命じられ、まもなく即位(諡号「孝和帝」)。遼帝を「父皇帝」として仰ぐ臣従関係だが皇帝号は保持。天会12年7月27日崩御。",
      "raw": null,
@@ -80572,7 +80488,6 @@
     {
      "startYear": 968,
      "endYear": 968,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天会12年、養父・劉鈞の死後「嗣位」(『宋史』巻482)。改元せず先代の年号「天会」を継続使用。正史に諡号・廟号の記載なく「少主」と通称されるが、劉贇(即位前に廃されたケース)とは異なり実際に61日間北漢の統治者として機能した(実権は宰相郭無為が掌握)。天会12年9月29日(己酉、968年10月23日)、酒宴の後、侯霸栄に暗殺される。",
      "raw": null,
@@ -80743,7 +80658,6 @@
     {
      "startYear": 968,
      "endYear": 979,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天会12年9月、劉継恩暗殺後に宰相郭無為らに擁立され即位(諡号「英武帝」)。広運6年5月6日、北宋へ降伏し北漢滅亡(十国最後の政権)。",
      "raw": null,
@@ -80937,7 +80851,6 @@
     {
      "startYear": 911,
      "endYear": 914,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "応天元年8月13日(甲子日)、幽州で皇帝に即位、国号「大燕」(「河北天子」を自称し反対者を処刑してまで即位を強行)。914年2月16日処刑(捕縛は913年11月〜914年1月頃)。",
      "raw": null,
@@ -81108,7 +81021,6 @@
     {
      "startYear": 960,
      "endYear": 976,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "建隆元年1月5日、後周から禅譲を受け即位。開宝9年10月20日崩御。",
      "raw": null,
@@ -81553,7 +81465,6 @@
     {
      "startYear": 976,
      "endYear": 997,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "開宝9年10月21日即位。至道3年3月29日崩御。",
      "raw": null,
@@ -82056,7 +81967,6 @@
     {
      "startYear": 997,
      "endYear": 1022,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至道3年3月29日即位。乾興元年2月19日崩御。",
      "raw": null,
@@ -82540,7 +82450,6 @@
     {
      "startYear": 1022,
      "endYear": 1063,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "乾興元年2月19日即位。嘉祐8年3月29日崩御。",
      "raw": null,
@@ -83394,7 +83303,6 @@
     {
      "startYear": 1063,
      "endYear": 1067,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "嘉祐8年4月1日即位(仁宗崩御の翌日、旧暦月替わりで整合)。治平4年1月8日崩御。",
      "raw": null,
@@ -83609,7 +83517,6 @@
     {
      "startYear": 1067,
      "endYear": 1085,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "治平4年1月8日即位。元豊8年3月5日崩御。",
      "raw": null,
@@ -84073,7 +83980,6 @@
     {
      "startYear": 1085,
      "endYear": 1100,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "元豊8年3月5日即位。元符3年1月12日崩御。",
      "raw": null,
@@ -84378,7 +84284,6 @@
     {
      "startYear": 1100,
      "endYear": 1126,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "元符3年1月12日即位。宣和7年12月23日、欽宗へ譲位。金の五国城にて1135年6月4日(紹興5年4月21日)崩御。",
      "raw": null,
@@ -85015,7 +84920,6 @@
     {
      "startYear": 1126,
      "endYear": 1127,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "宣和7年12月24日即位。靖康2年2月6日、靖康の変により金軍に捕らえられ北宋滅亡。崩御は金史原典に基づき正隆元年6月(1156年6月、完顔亮の治世下で死去)。infoboxに見られる「1161年」は訃報が南宋・臨安に伝わった年であり崩御年ではないため不採用。",
      "raw": null,
@@ -85156,9 +85060,9 @@
     "note": "靖康元年四月癸卯、子の趙諶を皇太子に立てた記載はあるが、廃立の記載はない。靖康2年、金軍に捕らえられ北送される際も皇太子のまま帝・皇后と共に同行しており、在位中に皇太子廃立は確認されない。"
    },
    "ages": {
-    "birthDate": "1100-01-01",
+    "birthDate": "1100",
     "birthDatePrecision": "year",
-    "deathDate": "1156-06-01",
+    "deathDate": "1156-06",
     "deathDatePrecision": "month",
     "accessionAge": 26,
     "deathAge": 57,
@@ -85240,7 +85144,6 @@
     {
      "startYear": 1127,
      "endYear": 1129,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "靖康2年5月1日(庚寅)、南京応天府にて即位、建炎に改元(南宋建国)。建炎3年3月5日、苗劉の乱により趙旉に譲位。",
      "raw": null,
@@ -85271,7 +85174,6 @@
     {
      "startYear": 1129,
      "endYear": 1162,
-     "dynastyOrder": null,
      "isRestoration": true,
      "note": "明受元年4月1日、苗劉の乱鎮圧を受け復位(建炎年号は4月22日に正式回復)。紹興32年6月11日、孝宗へ譲位。1187年11月9日(淳熙14年10月8日)崩御。",
      "raw": null,
@@ -87666,7 +87568,6 @@
     {
      "startYear": 1162,
      "endYear": 1189,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "紹興32年6月11日即位。淳熙16年2月2日、光宗へ譲位。",
      "raw": null,
@@ -87967,9 +87868,9 @@
     "note": "在位中に皇太子は2人立てられた（乾道元年8月乙酉、長子愭を立太子＝荘文太子。乾道7年2月癸丑、三子惇を立太子）。愭は乾道3年7月乙巳に病没（謚荘文、廃立ではなく死去）、惇はそのまま在位を継続し淳熙16年の譲位により光宗として即位した。本紀中に皇太子廃立（廃す）の記述は見当たらず、該当なし。"
    },
    "ages": {
-    "birthDate": "1127-10-01",
+    "birthDate": "1127-10",
     "birthDatePrecision": "month",
-    "deathDate": "1194-06-01",
+    "deathDate": "1194-06",
     "deathDatePrecision": "month",
     "deathAge": 68,
     "confidence": "medium",
@@ -88441,7 +88342,6 @@
     {
      "startYear": 1189,
      "endYear": 1194,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "淳熙16年2月2日即位。紹熙5年7月5日、強制退位。1200年9月17日崩御。",
      "raw": null,
@@ -88725,7 +88625,6 @@
     {
      "startYear": 1194,
      "endYear": 1224,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "紹熙5年7月5日（甲子）即位。嘉定17年閏8月3日崩御。",
      "raw": null,
@@ -89381,7 +89280,6 @@
     {
      "startYear": 1224,
      "endYear": 1264,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "嘉定17年閏8月3日即位。景定5年10月26日崩御。",
      "raw": null,
@@ -90076,7 +89974,6 @@
     {
      "startYear": 1264,
      "endYear": 1274,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "景定5年10月26日即位。咸淳10年7月9日崩御。",
      "raw": null,
@@ -90289,7 +90186,6 @@
     {
      "startYear": 1274,
      "endYear": 1276,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "咸淳10年7月9日即位。徳祐2年1月18日、元への降伏により南宋(臨安政権)滅亡。1323年5月頃、元により自尽を命じられる。",
      "raw": null,
@@ -90504,7 +90400,6 @@
     {
      "startYear": 1276,
      "endYear": 1278,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "景炎元年、福州にて即位・改元(南宋残存政権)。1278年5月8日崩御。",
      "raw": null,
@@ -90730,7 +90625,6 @@
     {
      "startYear": 1278,
      "endYear": 1279,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "景炎3年4月17日、祥興に改元し即位。祥興2年2月6日、崖山の戦いで元軍に敗れ入水自殺、南宋完全滅亡。",
      "raw": null,
@@ -90903,7 +90797,6 @@
     {
      "startYear": 916,
      "endYear": 926,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "神冊元年2月11日、皇帝に即位(遼建国、可汗即位は907年1月13日だが皇帝号確立はこちら)。天顕元年7月27日崩御。",
      "raw": null,
@@ -91389,7 +91282,6 @@
     {
      "startYear": 927,
      "endYear": 947,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天顕2年11月15日即位。大同元年4月22日崩御。",
      "raw": null,
@@ -91712,7 +91604,6 @@
     {
      "startYear": 947,
      "endYear": 951,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "大同元年4月23日即位。天禄5年9月4日、暗殺。",
      "raw": null,
@@ -91944,7 +91835,6 @@
     {
      "startYear": 951,
      "endYear": 969,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天禄5年9月8日即位。応暦19年2月22日、暗殺。",
      "raw": null,
@@ -92157,7 +92047,6 @@
     {
      "startYear": 969,
      "endYear": 982,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "応暦19年2月22日即位。乾亨4年9月24日崩御。",
      "raw": null,
@@ -92431,7 +92320,6 @@
     {
      "startYear": 982,
      "endYear": 1031,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "乾亨4年9月25日即位。太平11年6月3日崩御。",
      "raw": null,
@@ -92962,7 +92850,6 @@
     {
      "startYear": 1031,
      "endYear": 1055,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "景福元年6月3日即位(聖宗崩御と同日)。重熙24年8月4日崩御。",
      "raw": null,
@@ -93304,7 +93191,6 @@
     {
      "startYear": 1055,
      "endYear": 1101,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "重熙24年8月4日即位(興宗崩御と同日)。寿昌7年1月13日崩御。",
      "raw": null,
@@ -93728,7 +93614,6 @@
     {
      "startYear": 1101,
      "endYear": 1128,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "寿昌7年1月13日即位(道宗崩御と同日)。保大5年2月20日、金軍に捕らえられ遼滅亡。金・天会6年(1128年)8月、病死(享年54、月日不詳)。1156年に馬球試合で射殺されたという説は元代の通俗小説『大宋宣和遺事』による俗説であり、正史(遼史)に基づく1128年説を採用。",
      "raw": null,
@@ -94315,7 +94200,6 @@
     {
      "startYear": 1132,
      "endYear": 1143,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "1124年に可敦城で「王」を自称(皇帝ではない)。1132年2月5日(甲辰歳2月5日)、葉密立にて突厥式称号「菊児汗」と漢式尊号「天祐皇帝」を称し、「延慶」に改元(これが正式な称帝)。1143年崩御(月日不詳)。一覧wikitextの1124年始まりは王号即位年であり誤り、1132年に修正。",
      "raw": null,
@@ -94507,7 +94391,6 @@
     {
      "startYear": 1150,
      "endYear": 1163,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "咸清7年(1150年)、母・感天蕭太后からの還政を受け即位(月日不詳)。1163年(紹興13年)崩御(月日不詳)。",
      "raw": null,
@@ -94674,7 +94557,6 @@
     {
      "startYear": 1177,
      "endYear": 1213,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "崇福14年(1177年、プスワン殺害後)、皇帝に即位、年号「天禧」(月日不詳)。1211年秋、屈出律のクーデターにより実権喪失し「太上皇」に。1213年、憤懣の中で死去(月日不詳)。",
      "raw": null,
@@ -94828,7 +94710,7 @@
     "note": "原文が極めて簡略なため事件の内実（屈出律がどの程度朝廷内部に組み込まれていたか）の詳細は確認できないが、指示に基づきexception4（朝廷内部の権力者による兵力を伴うクーデター）としてsufferedに1件計上した。rebellionSuppressionCountとは非対称（suppression=0, suffered=1）となるが、これはexception4のパターン（クーデターはsufferedのみ計上）に該当するため正当な食い違いである。"
    },
    "ages": {
-    "deathDate": "1213-01-01",
+    "deathDate": "1213",
     "deathDatePrecision": "year",
     "confidence": "low",
     "note": "遼史巻30付録（西遼末尾記事）の該当箇所「仁宗次子直鲁古即位，改元天禧，在位三十四年。时秋出猎，乃蛮王屈出律以伏兵八千擒之，而据其位。遂袭辽衣冠，尊直鲁古为太上皇，皇后为皇太后，朝夕问起居，以侍终焉。直鲁古死，辽绝。」を確認したが、原文自体が極めて簡略で「時年」「年◯◯」等の生年・即位時年齢・没年齢に関する直接記載は一切ない。既存のdeathCause.note／accessionRoute.noteにも年齢記載はなく、王朝の摂政期（塔不烟・普速完）の記事にも直魯古本人の生年情報はない。没年（1213年）は既存reigns[].noteの記載（月日不詳）をdeathDateとして転記したが、享年自体は不明のため調査済み・判明せずとして確定する。"
@@ -94854,7 +94736,6 @@
     {
      "startYear": 1115,
      "endYear": 1123,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "収国元年1月1日、皇帝に即位、金建国。天輔7年8月28日崩御。",
      "raw": null,
@@ -95263,7 +95144,6 @@
     {
      "startYear": 1123,
      "endYear": 1135,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天会元年9月、太祖崩御を受け即位。天会13年1月即位式。",
      "raw": null,
@@ -95550,7 +95430,6 @@
     {
      "startYear": 1135,
      "endYear": 1150,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天会13年1月26日即位。皇統9年12月9日、海陵王(完顔亮)に殺害される。",
      "raw": null,
@@ -95806,7 +95685,6 @@
     {
      "startYear": 1150,
      "endYear": 1161,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "皇統9年12月9日、熙宗を殺害し即位、天徳に改元。正隆6年10月、世宗(完顔雍)が遼陽で即位を宣言するが、金史は完顔亮を殺害まで一貫して「帝」と呼称しており、廃位は事後的・段階的(郡王への降封は翌年4月)だったため、在位終了日は本人が実際に殺害された正隆6年11月27日(1161年12月15日)を採用。「海陵王」は死後の降封・改諡による呼称。",
      "raw": null,
@@ -96142,7 +96020,6 @@
     {
      "startYear": 1161,
      "endYear": 1189,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "正隆6年10月7日、遼陽でクーデターにより即位、大定に改元。大定29年1月2日崩御。",
      "raw": null,
@@ -96428,7 +96305,6 @@
     {
      "startYear": 1189,
      "endYear": 1208,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "大定29年1月2日即位。泰和9年11月20日崩御。",
      "raw": null,
@@ -96702,7 +96578,6 @@
     {
      "startYear": 1208,
      "endYear": 1213,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "泰和9年11月20日即位。至寧元年8月25日、殺害される。「衛紹王」は死後の格下げ諡号で、皇帝在位中は皇帝を称していた(死後、皇帝としての廟号諡号は与えられず、即位前の「衛王」位に復され「紹」と諡された)。",
      "raw": null,
@@ -96943,7 +96818,6 @@
     {
      "startYear": 1213,
      "endYear": 1224,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "貞祐元年9月7日即位。元光2年12月22日崩御。",
      "raw": null,
@@ -97710,7 +97584,6 @@
     {
      "startYear": 1224,
      "endYear": 1234,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "元光2年12月23日即位。天興3年正月9日夜、末帝(完顔承麟)へ譲位の詔を発す。翌10日、蔡州幽蘭軒にて自縊。ja版の一部記述に「1月7日」とあるが、同記事内でinfoboxと本文が矛盾しており出典もない誤記と判断、zh版・金史原典に基づく「正月10日」系列を採用。",
      "raw": null,
@@ -98115,7 +97988,6 @@
     {
      "startYear": 1234,
      "endYear": 1234,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天興3年正月10日朝、哀宗より譲位を受け即位。宣徽使らが即位大典を主宰し、甲冑を着用し百官の朝拝を受けたと明記あり(正式な即位儀礼を実施)。即位式終了直後、蔡州城壁陥落・乱軍の中で戦死、金朝滅亡(東アジア史上最短在位皇帝、在位数時間)。",
      "raw": null,
@@ -98270,7 +98142,6 @@
     {
      "startYear": 1038,
      "endYear": 1048,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "大慶2年10月11日、皇帝を自称、西夏建国。延祚11年正月2日（正月辛未）、子・寧令哥に鼻を切られた傷がもとで死去。『西夏書事』は望日(15日)に刺され翌日(16日)死去と記すが、『続資治通鑑長編』巻162の明示的な干支（正月辛未＝2日）を優先し、この日付を採用。",
      "raw": null,
@@ -98587,7 +98458,6 @@
     {
      "startYear": 1048,
      "endYear": 1068,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "景宗死去当日、1歳で即位。拱化5年12月頃崩御(享年21)。",
      "raw": null,
@@ -98913,7 +98783,6 @@
     {
      "startYear": 1068,
      "endYear": 1086,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "毅宗崩御を受け即位。崩御(享年26)。",
      "raw": null,
@@ -99124,7 +98993,6 @@
     {
      "startYear": 1086,
      "endYear": 1139,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "恵宗崩御と同日、3歳で即位。大徳5年6月4日崩御(享年56)。",
      "raw": null,
@@ -99427,7 +99295,6 @@
     {
      "startYear": 1139,
      "endYear": 1193,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "崇宗崩御と同日、16歳で即位。崩御(享年69)。",
      "raw": null,
@@ -99762,7 +99629,6 @@
     {
      "startYear": 1193,
      "endYear": 1206,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "仁宗崩御と同日、17歳で即位。1206年3月、李安全の政変により廃位、直後に急死(享年29、正確な死去日は不詳)。",
      "raw": null,
@@ -99952,7 +99818,6 @@
     {
      "startYear": 1206,
      "endYear": 1211,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "1206年3月、政変により桓宗を廃し即位。1211年8月12日、李遵頊のクーデターにより廃位、まもなく死去(1211年9月13日頃という記述もあり、廃位日と死亡日の関係に不確定要素あり)。",
      "raw": null,
@@ -100153,7 +100018,6 @@
     {
      "startYear": 1211,
      "endYear": 1223,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "李安全を廃するクーデターにより即位。光定13年12月、次子・李徳旺へ禅位し太上皇となる(正確な日は史料に記載なし)。1226年、太上皇として死去(月日不詳)。",
      "raw": null,
@@ -100333,7 +100197,6 @@
     {
      "startYear": 1223,
      "endYear": 1226,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "父・神宗の禅位を受け即位。乾定4年7月、病篤・驚憂の中で死去(正確な日は不詳)。",
      "raw": null,
@@ -100502,7 +100365,6 @@
     {
      "startYear": 1226,
      "endYear": 1227,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "乾定3年7月、献宗死去を受け群臣に推戴され即位。西夏書事巻四十二「見以国勢瀕危、即位不改元、仍称乾定」（国勢が危ういため即位しても改元せず、なお乾定を称した）と明記されており、「宝義」への改元は行っていない（旧記述の誤り、原典に基づき2026-07-16修正）。1227年6月、モンゴル軍に半年包囲された末に投降。投降後も廃位された形跡はなく「西夏主」として記録が続く。成吉思汗の死(1227年8月25日)を三日間秘匿した後、その遺命により乾定4年7月15日(1227年8月28日)、皇帝のまま処刑され西夏滅亡。",
      "raw": null,
@@ -100659,7 +100521,6 @@
     {
      "startYear": 1127,
      "endYear": 1127,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "靖康2年3月7日、金により「大楚皇帝」に擁立され即位。本人は消極的で「不御正殿、不受常朝」（三朝北盟會編 靖康中帙六十八。宋史 張邦昌傳にこの句は無い）など皇帝としての権能行使を避けた形跡がある。靖康2年4月11日、退位(在位約33日)。",
      "raw": null,
@@ -100848,7 +100709,6 @@
     {
      "startYear": 1130,
      "endYear": 1138,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天会8年7月27日、金より冊封の詔書を受け(冊封日は1130年9月1日)、9月9日、皇帝として正式即位、「大斉皇帝」を称する。阜昌8年11月丙午、金により廃位。",
      "raw": null,
@@ -101059,7 +100919,6 @@
     {
      "startYear": 1260,
      "endYear": 1294,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "即位詔書で既に「朕」と自称する(中統元年3月24日)。至元8年11月、国号を「大元」と定め中国式皇帝号を確立(1271年12月18日)。至元31年1月22日崩御。チンギス・カン以下4代とは異なり、即位当初から漢制「皇帝」号を自称していた点を優先し在位起点を1260年とする。(2026-08-03 訂正: 現行の「即位詔書で……「大蒙古国皇帝」を名乗る」からこの称号の記述を削除した。元史 巻四 世祖紀一の即位詔本文は「朕惟祖宗肇造区宇，奄有四方」で始まり、当該の称号は現れない。元史でこの称号が出るのは巻二百八 日本傳が載せる至元三年の国書「大蒙古国皇帝奉书日本国王」だけで、即位詔の自称としては原文の裏付けが取れないため。在位起点を1260年とする根拠は世祖紀一の即位記事と建元中統であって、この称号ではないので起点は動かさない。)",
      "raw": null,
@@ -101753,7 +101612,6 @@
     {
      "startYear": 1294,
      "endYear": 1307,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至元31年4月14日即位。大徳11年1月8日崩御。",
      "raw": null,
@@ -102151,7 +102009,6 @@
     {
      "startYear": 1307,
      "endYear": 1311,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "大徳11年5月21日即位。至大4年1月8日崩御。",
      "raw": null,
@@ -102479,7 +102336,6 @@
     {
      "startYear": 1311,
      "endYear": 1320,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至大4年3月18日即位。延祐7年1月21日崩御。",
      "raw": null,
@@ -102846,7 +102702,6 @@
     {
      "startYear": 1320,
      "endYear": 1323,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "延祐7年3月11日即位。至治3年8月4日、南坡の変で暗殺。",
      "raw": null,
@@ -103494,7 +103349,6 @@
     {
      "startYear": 1323,
      "endYear": 1328,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至治3年9月4日即位(廟号なし、通称)。致和元年7月10日崩御。",
      "raw": null,
@@ -103848,7 +103702,6 @@
     {
      "startYear": 1328,
      "endYear": 1328,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天順元年9月1日、上都にて即位(廟号なし、通称)。正式に戴冠式を実施。天順元年10月13日、大都の文宗に敗れ死亡。在位約41日。",
      "raw": null,
@@ -104027,7 +103880,6 @@
     {
      "startYear": 1328,
      "endYear": 1329,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天暦元年9月13日即位。天暦2年3月4日、兄・コシラへ譲位。",
      "raw": null,
@@ -104057,7 +103909,6 @@
     {
      "startYear": 1329,
      "endYear": 1332,
-     "dynastyOrder": null,
      "isRestoration": true,
      "note": "コシラの急死(毒殺説あり)を受け、天暦2年8月15日に復位。至順3年8月12日崩御。",
      "raw": null,
@@ -104403,7 +104254,6 @@
     {
      "startYear": 1329,
      "endYear": 1329,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天暦2年1月28日即位(トク・テムルから譲位)。天暦2年8月6日死去(エル・テムルによる毒殺説あり)。",
      "raw": null,
@@ -104562,7 +104412,6 @@
     {
      "startYear": 1332,
      "endYear": 1332,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至順3年10月4日即位(トク・テムルの子、幼少)。至順3年11月26日死去。在位約53日。",
      "raw": null,
@@ -104744,7 +104593,6 @@
     {
      "startYear": 1333,
      "endYear": 1370,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至順4年6月8日、上都にて即位。至正28年閏7月28日(1368年9月10日)夜、明軍の北伐により大都を放棄、上都・応昌へ撤退(北元)。撤退後も「至正」の年号・皇帝号を放棄せず単なる遷都として継続使用したためreignsは分割せず1期のまま。至正30年4月28日、応昌にて崩御。「順皇帝」は明の洪武帝による死後の諡号。",
      "raw": null,
@@ -105758,7 +105606,6 @@
     {
      "startYear": 1370,
      "endYear": 1378,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至正30年5月2日、恵宗崩御を受け応昌にて即位。翌年、漢式年号「宣光」を建元。高麗への璽書(1373年2月25日付)で「朕」の一人称を使用するなど皇帝としての統治体制を継続。宣光8年4月13日崩御。廟号「昭宗」は明代の私撰史書(王世貞『北虜始末志』)による後代の呼称で北元内での正式追号ではない可能性が高い。",
      "raw": null,
@@ -105938,7 +105785,6 @@
     {
      "startYear": 1355,
      "endYear": 1367,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至正15年2月、亳州にて紅巾軍に「皇帝」として擁立され即位(「小明王」は俗称・尊称で皇帝位を否定するものではない、『元史』に「立為皇帝、又号小明王」と明記)。国号「宋」、年号「龍鳳」。龍鳳12年12月、瓜歩の渡江中に船が難破し溺死(朱元璋配下による謀殺説あり)。",
      "raw": null,
@@ -106148,7 +105994,6 @@
     {
      "startYear": 1351,
      "endYear": 1360,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至正11年9月、国号を「天完」として皇帝を称する(諡号「応天啓運献武皇帝」)。至正20年閏5月3日、陳友諒に采石の五通神廟にて謀殺される(明太祖実録により陳友諒の即位と同日と確定)。",
      "raw": null,
@@ -106381,7 +106226,6 @@
     {
      "startYear": 1360,
      "endYear": 1363,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至正20年閏5月3日、徐寿輝を殺害し采石の五通廟にて即位。国号「漢」、年号「大義」。至正23年8月、鄱陽湖の戦いで流れ矢を受け戦死。",
      "raw": null,
@@ -106571,7 +106415,6 @@
     {
      "startYear": 1363,
      "endYear": 1364,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "父・陳友諒の死後、武昌にて帝位を継承(大定3年)。至正24年2月頃、朱元璋の武昌攻略により投降(降伏月は2月説と3月説あり)。その後帰徳侯に封じられ、1372年高麗へ移送、1408年没。",
      "raw": null,
@@ -106750,7 +106593,6 @@
     {
      "startYear": 1362,
      "endYear": 1366,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "至正22年春、重慶にて皇帝を称する(正確な月日は明史列伝に記載なし)。国号「大夏」、年号「天統」(廟号「太祖」、諡号「欽文昭武皇帝」)。天統4年2月6日、病死(享年36)。",
      "raw": null,
@@ -106931,7 +106773,6 @@
     {
      "startYear": 1366,
      "endYear": 1371,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "父・明玉珍の死去を受け即位(天統4年2月)。洪武4年6月、明軍の重慶攻略により降伏、夏滅亡。その後帰義侯に封じられ、1372年高麗へ移送。",
      "raw": null,
@@ -107122,7 +106963,6 @@
     {
      "startYear": 1368,
      "endYear": 1398,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "洪武元年1月4日、明建国。洪武31年閏5月10日崩御。",
      "raw": null,
@@ -108019,7 +107859,6 @@
     {
      "startYear": 1398,
      "endYear": 1402,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "洪武31年閏5月16日即位。建文4年6月13日、靖難の変で南京陥落・建文帝失踪（永楽帝の正式即位は同月17日で別日）。建文帝本人の最終的運命は焼死説・逃亡説など諸説あり確定困難なため、南京陥落・建文帝失踪日を在位終了日として採用。",
      "raw": null,
@@ -108232,7 +108071,6 @@
     {
      "startYear": 1402,
      "endYear": 1424,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "建文4年6月17日、靖難の変により即位。永楽22年7月18日崩御。",
      "raw": null,
@@ -108642,7 +108480,7 @@
     "confidence": "high",
     "accessionAge": 43,
     "birthDatePrecision": "year",
-    "birthDate": "1360-01-01",
+    "birthDate": "1360",
     "deathDatePrecision": "day"
    }
   },
@@ -108664,7 +108502,6 @@
     {
      "startYear": 1424,
      "endYear": 1425,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "永楽22年8月15日即位。洪熙元年5月12日崩御。",
      "raw": null,
@@ -108854,7 +108691,7 @@
     "confidence": "high",
     "accessionAge": 47,
     "birthDatePrecision": "year",
-    "birthDate": "1378-01-01",
+    "birthDate": "1378",
     "deathDatePrecision": "day"
    }
   },
@@ -108876,7 +108713,6 @@
     {
      "startYear": 1425,
      "endYear": 1435,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "洪熙元年6月12日即位。宣徳10年1月3日崩御。",
      "raw": null,
@@ -109364,7 +109200,6 @@
     {
      "startYear": 1435,
      "endYear": 1449,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "宣徳10年1月10日即位(正統帝)。正統14年9月6日、土木の変で瓦剌の捕虜となり、弟の景泰帝(代宗)が即位。",
      "raw": null,
@@ -109395,7 +109230,6 @@
     {
      "startYear": 1457,
      "endYear": 1464,
-     "dynastyOrder": null,
      "isRestoration": true,
      "note": "景泰8年1月17日、奪門の変により復位(天順帝)。代宗の廃位(1457年2月24日)より前に復位しており、約2週間の過渡期に両者が並存する形となった(史実通り記録)。天順8年1月17日崩御。",
      "raw": null,
@@ -109960,7 +109794,6 @@
     {
      "startYear": 1449,
      "endYear": 1457,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "正統14年9月6日、英宗が土木の変で捕虜となったことを受け即位。天順元年1月17日の奪門の変(英宗復位)後も約2週間在位が続き、天順元年2月1日に郕王へ格下げ・廃位。同年2月19日崩御(暗殺説あり)。",
      "raw": null,
@@ -110235,7 +110068,7 @@
     "confidence": "medium",
     "accessionAge": 22,
     "birthDatePrecision": "year",
-    "birthDate": "1428-01-01",
+    "birthDate": "1428",
     "deathDatePrecision": "day"
    }
   },
@@ -110257,7 +110090,6 @@
     {
      "startYear": 1464,
      "endYear": 1487,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天順8年1月22日即位。成化23年8月22日崩御。",
      "raw": null,
@@ -110663,7 +110495,6 @@
     {
      "startYear": 1487,
      "endYear": 1505,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "成化23年9月6日即位。弘治18年5月7日崩御。",
      "raw": null,
@@ -110958,7 +110789,6 @@
     {
      "startYear": 1505,
      "endYear": 1521,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "弘治18年5月18日即位。正徳16年3月14日崩御。",
      "raw": null,
@@ -111287,7 +111117,6 @@
     {
      "startYear": 1521,
      "endYear": 1567,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "正徳16年4月22日即位。嘉靖45年12月14日崩御。",
      "raw": null,
@@ -111840,7 +111669,7 @@
     "confidence": "high",
     "accessionAge": 15,
     "birthDatePrecision": "year",
-    "birthDate": "1507-01-01",
+    "birthDate": "1507",
     "deathDatePrecision": "day"
    }
   },
@@ -111862,7 +111691,6 @@
     {
      "startYear": 1567,
      "endYear": 1572,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "嘉靖45年12月26日即位。隆慶6年5月26日崩御。",
      "raw": null,
@@ -112088,7 +111916,7 @@
     "confidence": "high",
     "accessionAge": 30,
     "birthDatePrecision": "year",
-    "birthDate": "1537-01-01",
+    "birthDate": "1537",
     "deathDatePrecision": "day"
    }
   },
@@ -112110,7 +111938,6 @@
     {
      "startYear": 1572,
      "endYear": 1620,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "隆慶6年6月10日即位。万暦48年7月20日崩御。",
      "raw": null,
@@ -112823,7 +112650,6 @@
     {
      "startYear": 1620,
      "endYear": 1620,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "泰昌元年8月1日即位。泰昌元年9月1日崩御(在位約1ヶ月、「紅丸案」で有名)。",
      "raw": null,
@@ -112996,7 +112822,6 @@
     {
      "startYear": 1620,
      "endYear": 1627,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "泰昌元年9月6日即位。天啓7年8月21日崩御。",
      "raw": null,
@@ -113271,7 +113096,7 @@
     "confidence": "high",
     "accessionAge": 16,
     "birthDatePrecision": "year",
-    "birthDate": "1605-01-01",
+    "birthDate": "1605",
     "deathDatePrecision": "day"
    }
   },
@@ -113293,7 +113118,6 @@
     {
      "startYear": 1627,
      "endYear": 1644,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "天啓7年8月24日即位。崇禎17年3月19日、李自成の乱により北京陥落。明史本紀は崩御を「帝崩于万岁山」と記すのみで「自縊」の語は本紀本文になく、景山での自縊は通説（列伝等）による。明滅亡。",
      "raw": null,
@@ -113828,7 +113652,6 @@
     {
      "startYear": 1644,
      "endYear": 1646,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "1644年、南京にて監国を経て皇帝に即位、元号「弘光」。1645年、清軍に南京陥落、蕪湖で捕縛。清・順治3年5月甲子(1646年7月1日)、処刑。ja版に見られる「1645年」処刑説・「隆武2年4月9日(1646年5月23日)」説は密告(告発)日であり処刑日ではないため不採用。",
      "raw": null,
@@ -114085,7 +113908,6 @@
     {
      "startYear": 1645,
      "endYear": 1646,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "隆武元年閏6月27日、福州にて皇帝に即位、元号「隆武」(廟号「紹宗」・諡号「襄皇帝」は永暦帝による死後の追尊だが、生前の皇帝在位・建元は本人の事実)。隆武2年8月、清軍の追撃を受け延平から出奔、8月28日、汀州にて清軍に襲われ死去(矢創説・絶食説など死因は複数説あり、小腆紀傳は汀州府大堂での遇害と記す)。",
      "raw": null,
@@ -114258,7 +114080,6 @@
     {
      "startYear": 1646,
      "endYear": 1647,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "隆武2年11月5日、広州にて皇帝に即位(廟号・諡号は成立せず、元号「紹武」も翌年からの予定のまま未改元)。生前皇帝を称した実態は明確。隆武2年12月15日、広州陥落時に自縊(在位「四十日」と正確に記録)。一覧wikitextの「12月12日」はzh版(12月11日)と1日の差異があり誤りと判断、12月11日に修正。",
      "raw": null,
@@ -114552,7 +114373,6 @@
     {
      "startYear": 1646,
      "endYear": 1662,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "1646年、肇慶にて皇帝に即位、元号「永暦」(廟号「昭宗」・諡号「匡皇帝」は鄭成功による死後の追尊だが、生前の皇帝在位・建元は本人の事実)。南明最後の皇帝。永暦16年4月25日(1662年4月14日)、ビルマから清軍(呉三桂)に引き渡され、同年4月15日(1662年6月1日)、昆明篦子坡にて絞殺、焚屍揚灰。一覧wikitextの「1661年8月13日」は随行員虐殺事件「咒水之難」(1661年8月12日)との混同と判明したため修正。",
      "raw": null,
@@ -114736,7 +114556,6 @@
     {
      "startYear": 1644,
      "endYear": 1645,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "崇禎17年正月、西安にて「稱王」し国号「大順」、元号「永昌」を建元。同年4月29日、北京・武英殿にて「僭帝號」(皇帝号使用、丙戌の日)、この日を皇帝としての即位日に採用。北京占領・崇禎帝自尽は3月。清軍・呉三桂に敗れ敗走中、順治2年秋9月(明史原典)、九宮山にて村民に殺害される(死没月は清実録「閏六月」説・現代学術の「五月」説との対立があるが、原典優先で明史の九月説を採用)。",
      "raw": null,
@@ -114918,7 +114737,6 @@
     {
      "startYear": 1644,
      "endYear": 1647,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "崇禎17年11月、成都にて皇帝を称し、国号「大西」、元号「大順」(李自成の国号「大順」とは別物)を建元。順治3年11月己巳、四川省西充県鳳凰山にて清軍(豪格配下)との戦闘中に射殺され戦死。",
      "raw": null,
@@ -114974,7 +114792,6 @@
     {
      "startYear": 1636,
      "endYear": 1643,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "崇徳元年4月11日、盛京にて皇帝に即位、国号を「大清」と改める。1626年-1636年の後金ハーン期(「セチェン・ハーン」)は「ハーン」号のみで皇帝を称しておらず含めない。崇徳8年8月9日崩御。",
      "raw": null,
@@ -115216,7 +115033,6 @@
     {
      "startYear": 1643,
      "endYear": 1661,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "崇徳8年8月26日即位。順治18年1月7日崩御。",
      "raw": null,
@@ -115682,7 +115498,6 @@
     {
      "startYear": 1661,
      "endYear": 1722,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "順治18年1月7日即位。康熙61年11月13日崩御(清史稿原典の干支「甲午」に基づく。ja版本文の「11月14日」は同記事内のinfoboxとも矛盾する算術上の誤りと判断)。",
      "raw": null,
@@ -116289,7 +116104,6 @@
     {
      "startYear": 1722,
      "endYear": 1735,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "康熙61年11月20日即位。雍正13年8月23日崩御。",
      "raw": null,
@@ -116742,7 +116556,6 @@
     {
      "startYear": 1735,
      "endYear": 1796,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "雍正13年8月23日即位。乾隆60年12月30日、子・嘉慶帝へ譲位し太上皇となる(実権は保持)。皇帝在位はこの譲位日までとし、太上皇期間(1799年崩御まで)は含めない。",
      "raw": null,
@@ -117230,7 +117043,6 @@
     {
      "startYear": 1796,
      "endYear": 1820,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "嘉慶元年1月1日即位(形式上の即位、実権掌握は1799年乾隆帝崩御後)。嘉慶25年7月25日崩御。",
      "raw": null,
@@ -117659,7 +117471,6 @@
     {
      "startYear": 1820,
      "endYear": 1850,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "嘉慶25年8月27日即位。道光30年1月14日崩御。",
      "raw": null,
@@ -118537,7 +118348,6 @@
     {
      "startYear": 1850,
      "endYear": 1861,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "道光30年1月26日即位。咸豊11年7月17日崩御。",
      "raw": null,
@@ -118930,7 +118740,6 @@
     {
      "startYear": 1861,
      "endYear": 1875,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "咸豊11年10月9日即位。同治13年12月5日崩御。",
      "raw": null,
@@ -119309,7 +119118,6 @@
     {
      "startYear": 1875,
      "endYear": 1908,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "光緒元年1月20日即位。光緒34年10月21日崩御。",
      "raw": null,
@@ -120517,7 +120325,7 @@
    "ages": {
     "confidence": "high",
     "note": "即位時年齢: 清史稿本紀一冒頭「同治十年六月，诞于太平湖邸第」（1871年生、月のみ判明、日は通説〔同治十年六月二十八日＝西暦1871年8月14日〕により補完、confidence medium扱い）。即位は光緒元年正月戊午（1875-02-25）で、数え年5歳（1871年生まれを1歳とし1875年で5歳）。没年齢: 清史稿本紀二末尾に「上疾大漸，崩于瀛台涵元殿，年三十有八」と明記（数え年38歳、原文に直接記載のため高確度）。崩御日は光緒三十四年十月二十一日（西暦1908-11-14）で既存reigns.endDateと一致。",
-    "birthDate": "1871-08-14",
+    "birthDate": "1871-08",
     "birthDatePrecision": "month",
     "deathDate": "1908-11-14",
     "deathDatePrecision": "day",
@@ -120543,7 +120351,6 @@
     {
      "startYear": 1908,
      "endYear": 1912,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "光緒34年即位。宣統3年12月25日、辛亥革命により退位、清朝滅亡。",
      "raw": null,
@@ -120573,7 +120380,6 @@
     {
      "startYear": 1917,
      "endYear": 1917,
-     "dynastyOrder": null,
      "isRestoration": true,
      "note": "張勲復辟。太和殿にて即位の儀礼を行い上諭を発布、清朝再興を宣言。段祺瑞率いる討逆軍により鎮圧され12日間で退位(在位約12日間)。",
      "raw": null,
@@ -120603,7 +120409,6 @@
     {
      "startYear": 1934,
      "endYear": 1945,
-     "dynastyOrder": null,
      "isRestoration": true,
      "note": "満洲国執政(1932年)を経て皇帝に即位、元号「康徳」。満洲国崩壊(ソ連対日参戦・日本敗戦)に伴い退位、満洲国滅亡。",
      "raw": null,
@@ -121215,7 +121020,6 @@
     {
      "startYear": 1678,
      "endYear": 1678,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "康熙17年3月1日(朔)、湖南衡州にて皇帝に即位、国号「大周」、元号「昭武」。康熙17年8月17日(乙酉)崩御(西暦換算1678年10月2日)。",
      "raw": null,
@@ -121415,7 +121219,6 @@
     {
      "startYear": 1678,
      "endYear": 1681,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "康熙17年、貴陽にて祖父・呉三桂の死を受け帝位を継承(即位の正確な月日は史料上未特定)。改元「洪化」は即位翌年(康熙18年/1679年)から使用開始。康熙20年10月丁未、昆明陥落に伴い自刎。",
      "raw": null,
@@ -121599,7 +121402,6 @@
     {
      "startYear": 1915,
      "endYear": 1916,
-     "dynastyOrder": null,
      "isRestoration": false,
      "note": "中華民国大総統から皇帝への即位を宣言、「中華帝国大皇帝」を称する(正式な登極の儀は挙行されず)。元号「洪憲」は1916年1月1日より使用開始。国内外の反発(護国戦争)を受け1916年3月22日、帝政取消・退位を宣言(在位101日間、中国語圏の通説では両端日を含む数え方で「102日」とも)。",
      "raw": null,

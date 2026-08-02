@@ -197,7 +197,20 @@ data/internal/（配布しない・ゲート対象外・追記しない）
      配布物側だけを見ると母集団が半減し、原典を読んで積み上げた標本監査29件が
      まとめて「標本の外」へ落ちる（＝抽選の凍結と同じ理由）。**残量として意味があるのは
      主張する側**で、`scripts/screens/date_claim_scope.py` が数える
-3. `ages` の深さを揃える（B）・`dynastyOrder` の `null` を落とす（D）
+3. ~~`ages` の深さを揃える（B）・`dynastyOrder` の `null` を落とす（D）~~
+   → **2026-08-03 完了**。`ages` は42値を切り詰め（**アーカイブなし** — 超過分は埋め草40値と、
+   note 自身が「参考値」「通説により補完」と書いている2値だけで原典から読んだ月日は無い）。
+   `dynastyOrder` は未調査の198在位（190人・53政権）を**欄ごと削除**し、残る `null` 14在位を
+   「歴代に数えない」の主張に一本化。ゲート `check_ages`（深さ）と `check_dynasty_order` を同じ変更で追加
+   - **D の前提はすでに古かった**。「`null` が未調査と該当なしを兼ねる」は
+     `meta.catalogs.regimes[].dynastyOrderSurveyed` で**例外0件で分離できていた**ので、
+     この段でやったのは情報の追加ではなく「**レコード単体で読めるようにした**」だけ。
+     また `dynastyOrder` は皇帝直下ではなく **`reigns[]` の中**にある（計画の書き方が曖昧だった）
+   - **`EMPERORS_SCHEMA.md` の2箇所が矛盾していた** — 41行の「サイト側で在位順から推論しないこと」と
+     109行の「王朝の全在位が null の場合のみ在位開始順から機械導出した値を表示する」。
+     サイト側に描画経路は無く（型定義だけ）、欄を落とすと後者は成立もしないので前者に寄せた
+   - 副産物: `beiwei-tuobayu` の既知矛盾（`deathDate` < 最終 `endDate`）は**埋め草の副作用**だった。
+     `ages` の日付を `reigns` から日精度へ上げられる候補**8件**は RESIDUAL の行にした
 4. `source` と `quotes` の器・`meta.catalogs.books`・床のゲート（E・F）
 5. サイト（日付パーサ・年表の1行化）・CSV・`emperors.schema.json`・CalVer 繰り上げ・`/about` の1文
 6. `R-CLAIM-GATED` を RULES.yml ＋ CLAUDE.md ＋ `data/schema/` のチェックリストへ

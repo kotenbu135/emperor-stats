@@ -16,7 +16,7 @@
 |---|---|---|
 | `data/emperors.json` の引用・日付 | `data/quote-refs.json`（照合台帳） | `verify_quotes.py --backfill && --check`・`verify_calendar.py`。**引用を変えるとハッシュが合わず落ちる＝迂回できない** |
 | ある日付フィールドの訂正 | 同じ日付を持つ**隣接フィールド**（`reigns[].endDate` ↔ `ages.deathDate` ↔ `events[].date` ↔ note 内の日付引用） | 一部（`validate_emperors.py` の整合検査）。**旧値の文字列でレコード全体を grep して残存参照を列挙するのが訂正手順の定型**（2026-07-21 に JSON-LD へ旧値が出たまま公開された） |
-| `dynastyOrder` の調査完了 | `meta.catalogs.regimes[].dynastyOrderSurveyed` | **無い**（Issue #24 に「調査完了時に追加すると再発防止になる」と記載） |
+| `dynastyOrder` の調査完了（`dynastyOrderSurveyed` を false → true にする） | その政権に属する**全在位の `reigns[].dynastyOrder` の欄**（値、または「歴代に数えない」の `null`） | `validate_emperors.py` の `check_dynasty_order`（surveyed false ⇒ 欄なし／true ⇒ 欄あり）。**双方向で落ちる** — フラグだけ立てても、欄だけ埋めても通らない（2026-08-03・Issue #69） |
 | データの訂正 | `meta.status` と `docs/PROJECT_STATUS.md` | 無い（同時更新の運用ルール） |
 | 新しく `note` を書く（訂正・新規調査） | 同じコンテナの `claim`（**任意**。note は作業ログで捨てた側の値が残るため、突合の向きが反転する） | `validate_emperors.py` の `check_claim_fields`（claim を持つコンテナだけ・評価件数を INFO で出す）。**書かなくても落ちない** — 遡及しない欄なので検出できるのは「書いたのに後ろ向き」だけ |
 | `events[]` の日付を**新しく確定・訂正する** | 同じ要素の `*Raw`（原典の紀年表記）と `source.conversion`（`fromLunar(y,m,d[,leap])`・月精度は朔日アンカー `fromLunar(y,m,1)`）（**任意**・遡及しない） | `verify_calendar.py` の **B-5** が再演し、月精度は多数月を計算して照合する。**書かなくても落ちない** — 検出できるのは「書いたのに合わない」だけ。`patch_emperor.py` が該当パスでこの結合を出す |

@@ -240,7 +240,10 @@ rules:
       data/emperors.json の回数系8フィールドの `events[]` の日付
       （date・startDate・endDate）。**`reigns[]` は対象外** — 在位日は集計の根
       （exactDays・reignSummary・B-1〜B-4）なので、フル ISO ＋ `datePrecision` のまま据え置く。
-      `ages` の日付は同じ「深さ＝主張」の規約に揃える（Issue #69 の計画7節の3）
+      `ages.birthDate`／`deathDate` も同じ「深さ＝主張」に揃えた（2026-08-03・計画7節の3）。
+      ただし**在位境界年の規則が掛かるのは `events` だけ** — 生没日は在位の外にあるのが普通で、
+      境界年で絞ると意味を持たない。`ages` 側にアーカイブは無い（超過分は埋め草と、
+      note 自身が「参考値」「通説により補完」と書いている2値だけで、原典から読んだ月日は1件も無い）
     enforcement: [L0, L3]
     detail: >-
       2026-08-03 のユーザー決定（Issue #69）。**埋め草を廃止**し、値の形から主張が読めるようにする
@@ -253,7 +256,8 @@ rules:
       L0＝`data/schema/emperors.schema.json` と EMPERORS_SCHEMA.md／L3＝
       `validate_emperors.py` の `check_event_date_format`（深さ ≤ datePrecision・境界年の外に
       月日を置かない）と `check_event_date_archive`（退避した値の鍵が実在の event を指し、
-      配布物の値がその接頭辞であること）。検出力は `python3 scripts/test_date_claim_scope.py`。
+      配布物の値がその接頭辞であること）と `check_ages`（`ages` 側の深さ ≤ precision）。
+      検出力は `python3 scripts/test_date_claim_scope.py`。
       **違反 0 件を保つことが主張範囲の凍結**で、新しい event を足したときに黙って主張が
       広がるのを止めるのがこの規則の役目
     evidence: >-

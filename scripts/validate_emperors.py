@@ -80,7 +80,9 @@ KNOWN_REIGN_ORDER = set()
 # 旧暦月表記と西暦換算日の混在が主因とみられ、フェーズBの ages 同期で個別解消予定
 KNOWN_DEATH_BEFORE_END = {
     "chen-wendi",             # 0566-04-01 < 0566-05-31
-    "beiwei-tuobayu",         # 0452-10-01 < 0452-10-29
+    # beiwei-tuobayu は 2026-08-03 に解消。deathDate は月精度なのに `0452-10-01` と
+    # 埋め草を持っていたため endDate `0452-10-29` より前に見えていた（Issue #69 の7節の3で
+    # `0452-10` へ切り詰め、月精度で比較すると一致する）。**矛盾ではなく埋め草の副作用だった**
     "shiguo-qianshu-wangjian",  # 0918-06 < 0918-07-11
     "shiguo-nanhan-liusheng",   # 0958-08-01 < 0958-09-18
     "liao-jingzong",          # 0982-09-24 < 0982-10-13
@@ -680,6 +682,15 @@ def check_ages(data):
         for k in ("birthDate", "deathDate"):
             if a.get(k) is not None and parse_date(a.get(k)) is None:
                 non_iso += 1
+        # 深さ＝主張（events と同じ規則・Issue #69 の計画7節の3）。埋め草は置かない。
+        # 非 ISO 値（元号・自由記述）は上の non_iso が別に数えているのでここでは飛ばす
+        for k, pk in (("birthDate", "birthDatePrecision"), ("deathDate", "deathDatePrecision")):
+            v, tok = a.get(k), a.get(pk)
+            t = parse_date(v)
+            want = PRECISION_DEPTH.get(tok) if isinstance(tok, str) else None
+            if t is not None and want is not None and date_depth(t) > want:
+                err(f"[ages] {eid}.{k}: {pk}={tok} に対し日付 {v} が深すぎる"
+                    f"（深さ＝主張。埋め草は置かない・Issue #69）")
         if bd and dd and cmp_truncated(bd, dd) > 0:
             err(f"[ages] {eid}: birthDate {a['birthDate']} > deathDate {a['deathDate']}")
         reigns = e.get("reigns", [])
@@ -703,6 +714,43 @@ def check_ages(data):
         )
     if non_iso:
         warn(f"[ages] 非 ISO 日付（元号・歴史年表記のまま）: {non_iso} 件（フェーズBで順次解消）")
+
+
+def check_dynasty_order(data):
+    """`reigns[].dynastyOrder` の欄の在り方が `dynastyOrderSurveyed` と噛み合うか（Issue #69）。
+
+    2026-08-03 に「未調査は欄を持たない」へ寄せた（計画7節の3・D）。それまでは `null` が
+    「その政権をまだ調べていない」と「調べた上で歴代に数えない在位」の**両方**を意味していて、
+    レコード単体からは区別できなかった（`meta.catalogs.regimes` を引いて初めて分かる）。
+
+      - `dynastyOrderSurveyed: false` の政権 … `dynastyOrder` の欄そのものが無い（未調査）
+      - `dynastyOrderSurveyed: true`  の政権 … 欄が必ず在り、値か `null`。
+        **`null` は「歴代に数えない」の主張**（僭称・並立で帝紀を立てられていない在位）
+
+    このゲートが無いと、欄を落としただけで「未調査と該当なしを区別できる」保証は残らない
+    （`R-CLAIM-GATED`：新しい主張の欄を作るときは検査するゲートを同じ変更で足す）。
+    未調査の残量は Issue の器ではなく docs/process/RESIDUAL.md の行で持つ。
+    """
+    surveyed = {r["id"]: r.get("dynastyOrderSurveyed")
+                for r in (data["meta"].get("catalogs") or {}).get("regimes") or []}
+    unsurveyed_reigns = 0
+    for e in data["emperors"]:
+        s = surveyed.get(e.get("regimeId"))
+        for i, r in enumerate(e.get("reigns") or []):
+            where = f"{e['id']}.reigns[{i}]"
+            has = "dynastyOrder" in r
+            if s is False:
+                if has:
+                    err(f"[dynasty-order] {where}: dynastyOrderSurveyed: false の政権"
+                        f"（{e.get('regimeId')}）なのに dynastyOrder の欄が在る"
+                        f"（値 {r['dynastyOrder']!r}）。未調査は欄を持たない・Issue #69")
+                else:
+                    unsurveyed_reigns += 1
+            elif s is True and not has:
+                err(f"[dynasty-order] {where}: dynastyOrderSurveyed: true の政権"
+                    f"（{e.get('regimeId')}）なのに dynastyOrder の欄が無い。"
+                    f"歴代に数えないなら null を明示する・Issue #69")
+    return unsurveyed_reigns
 
 
 def check_reign_summary(data):
@@ -1561,6 +1609,7 @@ def main() -> int:
     check_note_arrow_sync(data)
     check_used_emperor_title_from(data)
     check_ages(data)
+    unsurveyed_n = check_dynasty_order(data)
     check_reign_summary(data)
     check_confidence(data)
     death_event_n = check_death_event_date(data)
@@ -1599,6 +1648,7 @@ def main() -> int:
     print(f"---\n{len(errors)} errors, {len(warnings)} warnings "
           f"({data['meta'].get('count')} emperors"
           f"／death-event-date の評価件数 {death_event_n}"
+          f"／第N代が未調査の在位 {unsurveyed_n}件（欄なし）"
           f"／退避した月日 {archive_n}値を配布物と照合"
           f"／月日を主張する event {claimed_n}件のうち *Raw＋conversion を持つのは "
           f"{witnessed_n}件)")

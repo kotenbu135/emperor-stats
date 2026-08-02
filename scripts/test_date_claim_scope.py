@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""日付の主張範囲のゲート2本の検出力を合成データで測る（Issue #69）。
+"""主張範囲のゲート4本の検出力を合成データで測る（Issue #69）。
 
 見るのは:
 
@@ -8,6 +8,12 @@
 - `check_event_date_archive`
   … 退避した月日（data/internal/event-date-archive.json）の鍵が実在の event を指し、
     **配布物の値がその接頭辞**になっていること
+- `check_ages` の**深さの規則**（2026-08-03 に events から広げた）
+  … `ages.birthDate`／`deathDate` の深さ ≤ `birthDatePrecision`／`deathDatePrecision`
+- `check_dynasty_order`（同日・計画7節の3）
+  … `dynastyOrderSurveyed: false` の政権は `reigns[].dynastyOrder` の**欄を持たない**（未調査）／
+    `true` の政権は必ず持つ（値、または「歴代に数えない」の `null`）。
+    **`null` の意味を1つに保つのがこのゲートの役目**で、欄を落としただけでは保証が残らない
 
 **移行直後の実データは違反 0 件**なので、本番の「0 errors」は守れているのか何も
 見ていないのかを区別できない（`test_event_ids.py` と同じ理由）。とくにスコープの
@@ -131,6 +137,48 @@ check("退避値が現在値より細かくなければ落ちる（退避する�
 check("配布物側に値が無ければ落ちる",
       any("値がありません" in e for e in
           run_archive([{"id": ID}], {ID: {"date": "1212-05-07"}})))
+
+
+# --- ages の深さ＝主張（7節の3・埋め草の廃止を events から ages へ広げた） -----
+def run_ages(ages):
+    VE.errors.clear()
+    VE.check_ages({"emperors": [{"id": "test-emperor", "ages": ages, "reigns": []}]})
+    return [e for e in VE.errors if "深すぎる" in e]
+
+
+check("ages: 年精度は年だけの値で通る",
+      run_ages({"birthDate": "1212", "birthDatePrecision": "year"}) == [])
+check("ages: 年精度なのに日まで書いてあれば落ちる（埋め草）",
+      run_ages({"birthDate": "1212-01-01", "birthDatePrecision": "year"}) != [])
+check("ages: 月精度なのに日まで書いてあれば落ちる",
+      run_ages({"deathDate": "1212-05-07", "deathDatePrecision": "month"}) != [])
+check("ages: 精度より浅いのは通る",
+      run_ages({"deathDate": "1212", "deathDatePrecision": "day"}) == [])
+check("ages: precision が無ければ深さは検査しない（判定できない）",
+      run_ages({"birthDate": "1212-05-07"}) == [])
+
+# --- dynastyOrder の欄の在り方（未調査は欄を持たない） -------------------------
+def run_dynasty(regime_surveyed, reign):
+    VE.errors.clear()
+    VE.check_dynasty_order({
+        "meta": {"catalogs": {"regimes": [
+            {"id": "test-regime", "dynastyOrderSurveyed": regime_surveyed}]}},
+        "emperors": [{"id": "test-emperor", "regimeId": "test-regime", "reigns": [reign]}],
+    })
+    return [e for e in VE.errors if e.startswith("[dynasty-order]")]
+
+
+check("dynastyOrder: 未調査の政権は欄が無いのが正しい",
+      run_dynasty(False, {"startYear": 1210}) == [])
+check("dynastyOrder: 未調査の政権に null の欄が残っていれば落ちる",
+      any("欄が在る" in e for e in run_dynasty(False, {"dynastyOrder": None})))
+check("dynastyOrder: 未調査の政権に値が入っていても落ちる",
+      any("欄が在る" in e for e in run_dynasty(False, {"dynastyOrder": 3})))
+check("dynastyOrder: 調査済みの政権は値でも null でも通る（null＝歴代に数えない）",
+      run_dynasty(True, {"dynastyOrder": 3}) == []
+      and run_dynasty(True, {"dynastyOrder": None}) == [])
+check("dynastyOrder: 調査済みの政権で欄が無ければ落ちる（書き忘れと該当なしを分ける）",
+      any("欄が無い" in e for e in run_dynasty(True, {"startYear": 1210})))
 
 print()
 if fails:

@@ -18,7 +18,7 @@
 | 2026-07-31 | サイト再構築（Next 16 + Tailwind v4 + shadcn/ui + vendored Tremor）。7ページ削除・旧サイトの設計記録を全削除・`/database` を新規実装 |
 | 2026-08-01 | 政権区分の軸を「中華を統一していたか」へ入れ替え（`統一王朝`／`分裂期の王朝`／`反乱・自称政権` ＝ 113／240／12人）。判定基準は [INCLUSION_CRITERIA.md](../data/schema/INCLUSION_CRITERIA.md) の「政権区分の判定基準」節 |
 
-v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調査」と「kinship persons の政権帰属（`regimeId`）」の2件で、いずれも別 Issue 扱い。
+v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調査」と「kinship persons の政権帰属（`regimeId`）」の2件。前者は 2026-08-03（Issue #69）に**未調査の欄を落として** [残量表](process/RESIDUAL.md) の行（198在位／190人／53政権）にした（旧 Issue #24 は close）。後者は別 Issue 扱いのまま。
 
 > **運用ルール**: ブロック調査・スキーマフェーズを1つ完了するたびに、**このファイルのチェックボックスと `data/emperors.json` の `meta.status.phases` の両方を同じタイミングで更新する**（片方だけ更新して終わらせない）。終了時の確認項目は末尾の「[作業終了時チェックリスト](#作業終了時チェックリスト)」。
 

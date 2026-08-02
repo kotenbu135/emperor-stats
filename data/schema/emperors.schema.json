@@ -321,7 +321,7 @@
         },
         "dynastyOrder": {
           "type": ["integer", "null"],
-          "description": "王朝内の代数（初代=1）。"
+          "description": "王朝内の代数（初代=1）。null は「調べた上で歴代に数えない在位」。欄そのものが無い場合は meta.catalogs.regimes[].dynastyOrderSurveyed: false の政権＝未調査で、在位順から機械導出して埋めないこと（Issue #69）。"
         },
         "isRestoration": {
           "type": "boolean",
@@ -556,12 +556,12 @@
       "properties": {
         "birthDate": {
           "type": ["string", "null"],
-          "description": "生年月日（ISO 8601 拡張形式。紀元前は4桁ゼロ埋めの負年）。精度は birthDatePrecision が示す。"
+          "description": "生年月日（ISO 8601 拡張形式。紀元前は4桁ゼロ埋めの負年）。保存値の深さそのものが主張で、年だけなら \"-0259\"、月までなら \"-0259-06\"（埋め草は置かない・Issue #69）。深さは birthDatePrecision 以下。"
         },
         "birthDatePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
         "deathDate": {
           "type": ["string", "null"],
-          "description": "没年月日（形式は birthDate と同じ）。"
+          "description": "没年月日（形式・深さの規約は birthDate と同じ）。深さは deathDatePrecision 以下。"
         },
         "deathDatePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
         "accessionAge": {
