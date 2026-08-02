@@ -79704,11 +79704,11 @@
   "yuanmo-xushouhui|rebellionSuppressionCount.note|0e77aa71c035": {
    "id": "yuanmo-xushouhui",
    "path": "rebellionSuppressionCount.note",
-   "span": "丁酉九月文俊谋弑寿辉事觉惧奔黄州",
+   "span": "丁酉九月，文俊谋弑寿辉，事觉，惧，奔黄州",
    "status": "corpus",
    "corpusFile": "daizhigev20/史藏/别史/明实录太祖实录.txt",
    "frags": [
-    "丁酉九月文俊谋弑寿辉"
+    "文俊谋弑寿辉"
    ],
    "line": 515
   },
