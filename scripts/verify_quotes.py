@@ -142,6 +142,18 @@ def fragments(span, size=10, min_len=5):
     return []
 
 
+def quoted_fragments(span, size=10, min_len=5):
+    """鉤括弧の中だけを引用とみなして断片を取る（2026-08-02・Issue #38）。
+
+    `同伝：「岿在位二十三載…」（「五年」は…開皇五年〔585年〕を指す）` のように、
+    括弧の外が書名の名乗りと日本語の注記になっている引用がある。逆に外が本体で
+    中が別の書の補足という引用もあるので、fragments を置き換えず**別の候補**として
+    並べる（resolve_units が順に試す）。
+    """
+    inner = "……".join(re.findall(r"「([^」]+)」", span or ""))
+    return fragments(inner, size, min_len) if inner else []
+
+
 def sliding_fragments(span, size=6, step=3, cap=8):
     """節分割で断片が取れない短い引用の救済。中略はまたがない。
 
@@ -450,14 +462,17 @@ def resolve_units(pending, log=print):
         rel = f"_corpus_cache/{eid}.txt"
         # 全断片が当たることを要求する。半数一致で通していた頃は、断片が節をまたいで
         # 切られていたぶんの取りこぼしを「半分当たれば良い」で吸収してしまっていた。
-        if frags and all(frag_in(f, cache_text(eid)) for f in frags):
-            resolved[key] = {"status": "cache", "corpusFile": rel, "frags": frags,
-                             "line": line_of(rel, frags[0])}
+        hit = next((fs for fs in (frags, quoted_fragments(span))
+                    if fs and all(frag_in(f, cache_text(eid)) for f in fs)), None)
+        if hit:
+            resolved[key] = {"status": "cache", "corpusFile": rel, "frags": hit,
+                             "line": line_of(rel, hit[0])}
         else:
             still.append((key, eid, path, span))
     log(f"  cache 照合: {len(resolved)} / 残 {len(still)}")
 
-    for size_name, frag_fn in (("節", fragments), ("6字", sliding_fragments)):
+    for size_name, frag_fn in (("節", fragments), ("引用符内", quoted_fragments),
+                               ("6字", sliding_fragments)):
         if not still:
             break
         frag_map = {key: frag_fn(span) for key, _, _, span in still}
@@ -773,7 +788,7 @@ def cmd_backfill(rebuild=False, retry_unresolved=False):
         if ent is None or key in pending:
             continue
         # 40字より後ろを直した場合は span[:40] が変わらないので、断片の側でも見る
-        cands = [fragments(span), sliding_fragments(span)]
+        cands = [fragments(span), quoted_fragments(span), sliding_fragments(span)]
         if ent.get("span") == span[:40] and ent.get("frags") in cands:
             continue
         ent["span"] = span[:40]

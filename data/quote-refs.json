@@ -1365,9 +1365,14 @@
    "id": "beiqi-youzhu-gaoheng",
    "path": "reigns[0].quote#1",
    "span": "乙未，齐上皇渡河入济州。是日，幼主禅位于大丞相任城王湝。（資治通鑑。北齊書「乙亥",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiqi-youzhu-gaoheng.txt",
+   "frags": [
+    "渡河入济州",
+    "幼主禅位于大丞相",
+    "幼主为守国天王"
+   ],
+   "line": 1
   },
   "beisong-huizong|accessionRoute.note|39579149fc99": {
    "id": "beisong-huizong",
@@ -4923,10 +4928,15 @@
   "beiwei-daowudi|reigns[0].quote#1|d613cf90dfa8": {
    "id": "beiwei-daowudi",
    "path": "reigns[0].quote#1",
-   "span": "天赐六年冬十月戊辰，帝崩于天安殿，时年三十九。",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "span": "天赐六年……冬十月戊辰，帝崩于天安殿，时年三十九。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-daowudi.txt",
+   "frags": [
+    "冬十月戊辰",
+    "帝崩于天安殿",
+    "时年三十九"
+   ],
+   "line": 83
   },
   "beiwei-houfeidi-yuanlang|accessionRoute.note|a86e560e4f33": {
    "id": "beiwei-houfeidi-yuanlang",
@@ -5464,10 +5474,15 @@
   "beiwei-mingyuandi|reigns[0].quote#1|806b8b1d9215": {
    "id": "beiwei-mingyuandi",
    "path": "reigns[0].quote#1",
-   "span": "泰常八年十有一月己巳，帝崩于西宫，时年三十二。",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "span": "泰常八年……十有一月己巳，帝崩于西宫，时年三十二。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-mingyuandi.txt",
+   "frags": [
+    "十有一月己巳",
+    "帝崩于西宫",
+    "时年三十二"
+   ],
+   "line": 47
   },
   "beiwei-taiwudi|amnestyCount.note|24799105022f": {
    "id": "beiwei-taiwudi",
@@ -6328,10 +6343,13 @@
   "beiwei-taiwudi|reigns[0].quote#0|4320a81f37f0": {
    "id": "beiwei-taiwudi",
    "path": "reigns[0].quote#0",
-   "span": "泰常八年十有一月壬申，即皇帝位，大赦天下。",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "span": "泰常八年……十有一月壬申，即皇帝位，大赦天下。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-taiwudi.txt",
+   "frags": [
+    "十有一月壬申"
+   ],
+   "line": 48
   },
   "beiwei-taiwudi|reigns[0].quote#1|4178eaa1137b": {
    "id": "beiwei-taiwudi",
@@ -6719,10 +6737,14 @@
   "beiwei-wenchengdi|reigns[0].quote#1|417743e8a403": {
    "id": "beiwei-wenchengdi",
    "path": "reigns[0].quote#1",
-   "span": "和平六年五月癸卯，帝崩于太华殿，时年二十六。",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "span": "和平六年……五月癸卯，帝崩于太华殿，时年二十六。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-wenchengdi.txt",
+   "frags": [
+    "帝崩于太华殿",
+    "时年二十六"
+   ],
+   "line": 43
   },
   "beiwei-xiandi|amnestyCount[0].note|89c4747ce44f": {
    "id": "beiwei-xiandi",
@@ -20756,9 +20778,15 @@
    "id": "houliang-mingdi",
    "path": "reigns[0].quote#1",
    "span": "同伝：「岿在位二十三載，年四十四，五年五月薨。其群臣葬之於顯陵，謚曰孝〔文→明〕",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houliang-mingdi.txt",
+   "frags": [
+    "岿在位二十三載",
+    "五年五月薨",
+    "其群臣葬之於顯陵",
+    "岿來朝長安"
+   ],
+   "line": 15
   },
   "houliang-xuandi|accessionRoute.note|0c569120d8f8": {
    "id": "houliang-xuandi",
@@ -27318,9 +27346,17 @@
    "id": "liang-houjing",
    "path": "reigns[0].quote#0",
    "span": "資治通鑑巻164:「己卯，加侯景九錫，漢國置丞相以下官。己丑，豫章王棟禪位於景，",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "加侯景九錫",
+    "漢國置丞相以下官",
+    "豫章王棟禪位於景",
+    "景即皇帝位於南郊",
+    "皆吹脣呼噪而上",
+    "封棟為淮陰王"
+   ],
+   "line": 15516
   },
   "liang-houjing|reigns[0].quote#1|e82b3e45da2e": {
    "id": "liang-houjing",
@@ -32302,9 +32338,14 @@
    "id": "liu-song-houfeidi",
    "path": "reigns[0].quote#1",
    "span": "七月戊子夜，帝殒于仁寿殿，时年十五。（在位終了＝殺害〔弑逆〕記事。同段に「七月七",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-song-houfeidi.txt",
+   "frags": [
+    "晚至新安寺就昙度道人",
+    "夕扶还于仁寿殿东阿毡",
+    "以昱防身刀斩之"
+   ],
+   "line": 17
   },
   "liu-song-liushao|ages.note|54f881192a8c": {
    "id": "liu-song-liushao",
@@ -38917,13 +38958,22 @@
    ],
    "line": 15
   },
-  "nanming-zhaozong|reigns[0].quote#0|dd456f70d0ca": {
+  "nanming-zhaozong|reigns[0].quote#0|5a79ed7b301d": {
    "id": "nanming-zhaozong",
    "path": "reigns[0].quote#0",
    "span": "丁未，前大学士苏观生奉唐王聿■〈金粤〉称帝于广州。事闻，魁楚谓不即位无以厌人心而",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "cache",
+   "corpusFile": "_corpus_cache/nanming-zhaozong.txt",
+   "frags": [
+    "前大学士苏观生奉唐王",
+    "称帝于广州",
+    "魁楚谓不即位无以厌人",
+    "奉王以甲寅日十二日还",
+    "以十八日庚申即皇帝位",
+    "仍称隆武二年",
+    "以明年为永历元年"
+   ],
+   "line": 15
   },
   "nanming-zhaozong|reigns[0].quote#1|6a4c5722d128": {
    "id": "nanming-zhaozong",
@@ -48447,17 +48497,24 @@
    "id": "shiguo-min-wangyanzheng",
    "path": "reigns[0].quote#1",
    "span": "資治通鑑 天福八年(943)二月己未条〜三月己卯朔条の間「閩富沙王延政稱帝於建州",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "閩富沙王延政稱帝於建"
+   ],
+   "line": 4317
   },
   "shiguo-min-wangyanzheng|reigns[0].quote#2|a7b6930575fc": {
    "id": "shiguo-min-wangyanzheng",
    "path": "reigns[0].quote#2",
    "span": "終了: 資治通鑑 開運二年(945)八月甲子朔条〜九月条の間「丁亥，唐先鋒橋道使",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "唐先鋒橋道使上元王建",
+    "閩主延政降"
+   ],
+   "line": 4319
   },
   "shiguo-nanhan-liubin|accessionRoute.note|4e535da0c97a": {
    "id": "shiguo-nanhan-liubin",
@@ -49463,9 +49520,12 @@
    "id": "shiguo-nantang-libian",
    "path": "reigns[0].quote#3",
    "span": "資治通鑑同年同条「庚午，疾亟，太医吴廷裕遣亲信召齐王璟入侍疾……是夕，殂。」",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/御批历代通鉴辑览.txt",
+   "frags": [
+    "太医吴廷裕遣亲信召齐"
+   ],
+   "line": 16557
   },
   "shiguo-nantang-lijing|ages.note|9c0f552747ed": {
    "id": "shiguo-nantang-lijing",
@@ -53052,9 +53112,12 @@
    "id": "sui-yangdi",
    "path": "reigns[0].quote#0",
    "span": "〔即位〕隋書帝紀第三煬帝上「四年七月、高祖崩、上即皇帝位於仁寿宮。」",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "cache",
+   "corpusFile": "_corpus_cache/sui-yangdi.txt",
+   "frags": [
+    "上即皇帝位於仁寿宮"
+   ],
+   "line": 3
   },
   "sui-yangdi|reigns[0].quote#1|d61078ff3e7b": {
    "id": "sui-yangdi",
@@ -53416,9 +53479,13 @@
    "id": "suimo-liangshidu",
    "path": "reigns[0].quote#3",
    "span": "資治通鑑 貞觀二年四月「壬寅，師都從父弟洛仁殺師都，以城降，以其地為夏州」",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "師都從父弟洛仁殺師都",
+    "以其地為夏州"
+   ],
+   "line": 2892
   },
   "suimo-linshihong|accessionRoute.note|677803a557aa": {
    "id": "suimo-linshihong",
@@ -53990,9 +54057,15 @@
    "id": "suimo-lizitong",
    "path": "reigns[0].quote#1",
    "span": "「遂相与亡至蓝田关，为吏所获，俱伏诛。」。旧唐書は同内容を「因僭即皇帝位，国称吴",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-lizitong.txt",
+   "frags": [
+    "遂相与亡至蓝田关",
+    "因僭即皇帝位",
+    "建元为明政",
+    "与伯通俱伏诛"
+   ],
+   "line": 3
   },
   "suimo-wangshichong|accessionRoute.note|c7be90a89676": {
    "id": "suimo-wangshichong",
@@ -54326,9 +54399,15 @@
    "id": "suimo-xiaoxian",
    "path": "reigns[0].quote#2",
    "span": "資治通鑑 武德四年冬十月「乙巳，銑以太牢告於太廟，下令開門出降，守城者皆哭」。［",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "銑以太牢告於太廟",
+    "下令開門出降",
+    "守城者皆哭",
+    "竟斬於都市"
+   ],
+   "line": 2827
   },
   "suimo-xueju|accessionRoute.note|26ac7052e21d": {
    "id": "suimo-xueju",
@@ -54616,21 +54695,35 @@
    ],
    "line": 39
   },
-  "suimo-yuwenhuaji|reigns[0].quote#0|9134fb65a114": {
+  "suimo-yuwenhuaji|reigns[0].quote#0|13b8dd7428b1": {
    "id": "suimo-yuwenhuaji",
    "path": "reigns[0].quote#0",
-   "span": "隋書「人生故当死，岂不一日为帝乎！于是鸩杀秦王浩，僭皇帝位于魏县，国号许，建元为",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "span": "隋書「人生故当死，岂不一日为帝乎！于是鸩杀浩，僭皇帝位于魏县，国号许，建元为天寿",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-yuwenhuaji.txt",
+   "frags": [
+    "人生故当死",
+    "岂不一日为帝乎",
+    "于是鸩杀浩",
+    "僭皇帝位于魏县",
+    "建元为天寿"
+   ],
+   "line": 4
   },
   "suimo-yuwenhuaji|reigns[0].quote#1|6b4150fa6104": {
    "id": "suimo-yuwenhuaji",
    "path": "reigns[0].quote#1",
    "span": "旧唐書高祖本紀「九月乙巳，亲录囚徒，改银菟符为铜鱼符。辛未，追谥隋太上皇为炀帝。",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "corpus",
+   "corpusFile": "china-history/旧唐书/本纪/第一章-卷一-原文.html",
+   "frags": [
+    "改银菟符为铜鱼符",
+    "追谥隋太上皇为炀帝",
+    "宇文化及至魏州",
+    "鸩杀秦王浩",
+    "窦建德攻宇文化及于聊"
+   ],
+   "line": 37
   },
   "suimo-zhucan|accessionRoute.note|81f8822619b2": {
    "id": "suimo-zhucan",
@@ -56367,9 +56460,13 @@
    "id": "tang-gaozong",
    "path": "reigns[0].quote#2",
    "span": "同事件の異文：「十二月丁巳，改元，大赦。是夕，皇帝崩于贞观殿，年五十六。」",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "corpus",
+   "corpusFile": "china-history/新唐书/本纪/第三章-卷三·高宗-原文.html",
+   "frags": [
+    "十二月丁巳",
+    "皇帝崩于贞观殿"
+   ],
+   "line": 43
   },
   "tang-gaozong|reigns[0].quote#3|a9fa772511c6": {
    "id": "tang-gaozong",
@@ -61200,9 +61297,14 @@
    "id": "tangmo-anlushan",
    "path": "reigns[0].quote#0",
    "span": "〔即位〕旧唐書本紀第九玄宗下「十五載春正月乙卯，御宣政殿受朝。其日，禄山僭號於東",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "corpus",
+   "corpusFile": "china-history/旧唐书/本纪/第九章-卷九-原文.html",
+   "frags": [
+    "十五載春正月乙卯",
+    "御宣政殿受朝",
+    "禄山僭號於東京"
+   ],
+   "line": 65
   },
   "tangmo-anlushan|reigns[0].quote#1|b861525f345c": {
    "id": "tangmo-anlushan",
@@ -61529,9 +61631,12 @@
    "id": "tangmo-huangchao",
    "path": "reigns[0].quote#2",
    "span": "新唐書僖宗紀「七月辛酉、楊師立伏誅。壬午、黄巢伏誅」。資治通鑑考異は「今從新傳」",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "corpus",
+   "corpusFile": "china-history/新唐书/本纪/第九章-卷九·懿宗 僖宗-原文.html",
+   "frags": [
+    "楊師立伏誅"
+   ],
+   "line": 50
   },
   "tangmo-li-chenghong|accessionRoute.note|6b194b6b832c": {
    "id": "tangmo-li-chenghong",
@@ -66807,9 +66912,15 @@
    "id": "wudai-houliang-modi",
    "path": "reigns[0].quote#0",
    "span": "乾化三年二月十五日「衆踊躍曰『王言是也』，皆呼萬歳，請帝爲主」→十七日「象先引禁",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houliang-modi.txt",
+   "frags": [
+    "象先引禁軍千人突入宮",
+    "帝即位於東京",
+    "乃去鳳曆之號",
+    "稱乾化三年"
+   ],
+   "line": 3
   },
   "wudai-houliang-modi|reigns[0].quote#1|a1ac74ddd910": {
    "id": "wudai-houliang-modi",
@@ -68790,10 +68901,13 @@
   "wudai-houtang-zhuangzong|ages.note|0f6e2ba9758a": {
    "id": "wudai-houtang-zhuangzong",
    "path": "ages.note",
-   "span": "光啓元年十月二十二日癸亥",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "0697b0ea"
+   "span": "光啓元年……十月二十二日癸亥",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+   "frags": [
+    "十月二十二日癸亥"
+   ],
+   "line": 1
   },
   "wudai-houtang-zhuangzong|ages.note|71bf671f452a": {
    "id": "wudai-houtang-zhuangzong",
