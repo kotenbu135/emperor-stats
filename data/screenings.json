@@ -220,7 +220,7 @@
             "note": "標本は本作業の訂正**後**のデータから引き直したもの。houyan-murongchui#2 は着手時点では instant バケットに在り、本作業で起点と終期が分かれた結果 spanned へ移って標本に入った（＝この絞り込みの absent 側の証拠にはならない）。着手時点の種で引いた suimo-lizitong#3 は outOfSample として残してある。取りこぼし率は着手時点の標本8件でも 反例4件で同じだった",
             "findings": [
               {
-                "id": "jin-huidi#0",
+                "id": "jin-huidi.personalCampaignCount.e001",
                 "verdict": "反例",
                 "file": "_corpus_cache/jin-huidi.txt",
                 "line": 15,
@@ -228,7 +228,7 @@
                 "note": "終期 0304-08-31 は旧暦七月の多数月 0304-08 の月末日を当てた埋め草で、証人が無かった。実際の終結は蕩陰の敗績と帝の捕捉で 0304-09-09"
               },
               {
-                "id": "shuhan-zhaoliedi#0",
+                "id": "shuhan-zhaoliedi.personalCampaignCount.e001",
                 "verdict": "反例",
                 "file": "_corpus_cache/shuhan-zhaoliedi.txt",
                 "line": 24,
@@ -236,7 +236,7 @@
                 "note": "終期 0222-10-01 は同じ行の「秋八月，收兵还巫」に対応するが、その主語は呉の追撃部隊で先主の帰着ではない。正しくは閏六月の魚復帰着＝0222-08"
               },
               {
-                "id": "houqin-yaoxing#7",
+                "id": "houqin-yaoxing.personalCampaignCount.e008",
                 "verdict": "反例",
                 "file": "daizhigev20/史藏/载记/十六国春秋.txt",
                 "line": 985,
@@ -244,7 +244,7 @@
                 "note": "起点 0409-01-01 が1年早い。十六国春秋の後秦録が弘始十二年三月、夏録が龍昇四年三月と別々の年号で同じ410年三月を指し、資治通鑑も義熙六年に置く。終期 0410-12-31 は証人の無い年精度の埋め草"
               },
               {
-                "id": "beizhou-wudi#1",
+                "id": "beizhou-wudi.personalCampaignCount.e002",
                 "verdict": "反例",
                 "file": "daizhigev20/史藏/正史/周书.txt",
                 "line": 847,
@@ -252,32 +252,33 @@
                 "note": "終期 0577-05-01（建徳六年四月乙巳の至自）は、十一月丁酉の再出発に対応する帰還。十月己酉に始まる出征はこの癸巳で終わっている。日付だけ詰めると北斉を滅ぼした遠征がデータから落ちるため、区間を分けるか1回のままにするかの判断つきで別途訂正する"
               },
               {
-                "id": "beiwei-taiwudi#6",
+                "id": "beiwei-taiwudi.personalCampaignCount.e007",
                 "verdict": "一致",
                 "checked": "_corpus_cache/beiwei-taiwudi.txt:32 の「十有一月乙巳，车驾至自伐和龙。」が終期 0432-12 の証人。九月乙卯の「车驾西还」は撤収の開始で終期には採らない"
               },
               {
-                "id": "beisong-zhenzong#1",
+                "id": "beisong-zhenzong.personalCampaignCount.e002",
                 "verdict": "一致",
                 "checked": "_corpus_cache/beisong-zhenzong.txt:108 の「戊戌，至自澶州。」が終期 1005-01 の証人（戊戌＝1005-01-31 で同月内）。日精度へ上げられる余地はあるが値は誤っていない"
               },
               {
-                "id": "jin-taizu#2",
+                "id": "jin-taizu.personalCampaignCount.e003",
                 "verdict": "一致",
                 "checked": "_corpus_cache/jin-taizu.txt:18 の「萧特末等焚营遁去，遂班师。」が終期 1116-01 の証人。同じ人物の1件目が採る「师还」と基準がそろう"
               },
               {
-                "id": "houyan-murongchui#2",
+                "id": "houyan-murongchui.personalCampaignCount.e003",
                 "verdict": "一致",
                 "checked": "晋書 孝武帝紀 太元十七年条の黎陽の記事が終期 0392-07 の証人。**ただしこのユニットは本作業で instant から移ってきたもの**で、絞り込みの absent 側を裏付ける標本ではない（上の note を参照）"
               },
               {
-                "id": "suimo-lizitong#3",
+                "id": "suimo-lizitong.personalCampaignCount.e004",
                 "verdict": "一致",
                 "outOfSample": true,
                 "checked": "着手時点の種で引いた標本。資治通鑑 武徳三年の是岁枠が沈法興の滅亡と餘杭遷都までを記し、旧唐書・新唐書の列伝も滅亡を武徳三年で一致させる。月次は3系統いずれにも無く年精度が上限"
               }
-            ]
+            ],
+            "sampleKey": "legacy-index"
           }
         }
       ]
@@ -340,17 +341,17 @@
             "method": "1件ずつ原典の該当記事を特定し、原文の日付表現（元号年・月・日干支）を引用として採って太陽暦へ換算し、現行値と同じ日を指すかを見た。原文に日の情報が無く現行値を否定できないものは一致側に入れている",
             "findings": [
               {
-                "id": "beisong-renzong.amnestyCount[2].date",
+                "id": "beisong-renzong.amnestyCount.e003.date",
                 "verdict": "一致",
                 "checked": "宋史 巻九（仁宗一）天聖五年十一月の条（_corpus_cache/beisong-renzong.txt 行72）に「十一月丁酉朔」とあり、同月内に「癸丑，祀天地于圜丘，大赦。」がある。天聖五年＝1027年で、直前の年頭記事（行63）が「五年春正月壬寅朔」。sxtwl で 1027年旧11月は朔＝丁酉（原文の朔と一致）、癸丑＝17日＝1027-12-17（ユリウス暦）となり現行値と同日。data/emperors.json の amnestyCount.events[2].date も 1027-12-17・datePrecision day で、原文と食い違わない。"
               },
               {
-                "id": "beisong-renzong.amnestyCount[4].date",
+                "id": "beisong-renzong.amnestyCount.e005.date",
                 "verdict": "一致",
                 "checked": "宋史 巻九（仁宗一）天聖八年十一月の条（行109）に「十一月丙寅，朝饗景靈宮。丁卯，饗太廟。戊辰，祀天地于圜丘，大赦。」。天聖八年＝1030年で年頭記事は行100「八年春正月甲戌」。この月だけ原文に朔の明記が無いが、sxtwl の 1030年旧11月（朔＝庚戌・29日で末日戊寅）は前後の月の記事とも整合する — 行108の十月壬辰・丙申・壬寅、行110の十二月癸未・辛丑がいずれもその月境界の中で順に並ぶ。同月内で丙寅＝17日・丁卯＝18日・戊辰＝19日＝1030-12-16（ユリウス暦）となり、大赦の日は現行値と同日。data/emperors.json の amnestyCount.events[4].date も 1030-12-16・datePrecision day。"
               },
               {
-                "id": "beisong-renzong.rebellionSufferedCount[15].startDate",
+                "id": "beisong-renzong.rebellionSufferedCount.e016.startDate",
                 "verdict": "反例",
                 "file": "_corpus_cache/beisong-renzong.txt",
                 "line": 421,
@@ -358,132 +359,132 @@
                 "correct": "1055-11-20"
               },
               {
-                "id": "hou-han-andi.amnestyCount[5].date",
+                "id": "hou-han-andi.amnestyCount.e006.date",
                 "verdict": "一致",
                 "checked": "後漢書 孝安帝紀（china-history/后汉书/本纪/第六章-孝安帝纪-原文.html）を通読し、元初元年（114年）の改元記事（c1）から数えた「四年」＝元初四年＝117年の条に「二月乙巳朔，日有食之。乙卯，大赦天下。」とあるのを確認した（c2）。原文の朔干支「二月乙巳朔」は sxtwl の 117年旧暦2月1日＝乙巳と一致し、この一致が年次（元初四年＝117年）を暦の側から独立に裏づける。乙卯は同月11日で太陽暦 117-03-31（ユリウス暦）。現行値と同日。なお114年から120年までの間に本紀が載せる「大赦天下」はこの1件のみで、前後の amnestyCount[4]（0114-05-28＝元初元年夏四月丁酉の大赦）・[6]（0120-05-25＝永寧改元の大赦）との並び順とも矛盾しない"
               },
               {
-                "id": "hou-han-shundi.amnestyCount[2].date",
+                "id": "hou-han-shundi.amnestyCount.e003.date",
                 "verdict": "一致",
                 "checked": "後漢書 孝順帝紀の永和元年春正月己巳（宗祀明堂・改元永和・大赦）を読んで確定した値。この欄は Issue #55 の要読解100件の1つとして原典に当て直し、訂正後に干支が一致するようになって absent 側へ移ったもの。したがって取りこぼしの標本としては保守的な側（既に読まれている）に寄っている。"
               },
               {
-                "id": "jin-aizong.amnestyCount[1].date",
+                "id": "jin-aizong.amnestyCount.e002.date",
                 "verdict": "一致",
                 "checked": "金史 巻十七（哀宗本紀上・_corpus_cache/jin-aizong.txt 行4）正大元年の条に「夏四月癸酉，宣宗祔庙，大赦中外。」。正大元年＝1224年で、年頭記事（行3）「正大元年春正月戊戌朔」は sxtwl の 1224年旧正月朔（戊戌）と一致し、暦の対応が確認できる。sxtwl で 1224年旧4月は朔＝丁卯、癸酉＝7日＝1224-04-26（ユリウス暦）となり現行値と同日。"
               },
               {
-                "id": "jin-huidi.eraChangeCount[4].date",
+                "id": "jin-huidi.eraChangeCount.e005.date",
                 "verdict": "一致",
                 "checked": "晋書 帝紀第四 孝惠帝紀（china-history/晋书/帝纪/第四章--原文.html・文言文であることを本文で確認）の永寧元年の条を読み、閏月（三月と四月の間）の朔が丙戌であること（c2）を確認。sxtwl でも 301年閏3月1日＝丙戌となり、四月の位置が閏月ぶんずれていないことが裏づけられる。その四月の中で癸亥は第9日＝太陽暦 301-06-01（ユリウス暦）。原文は癸亥の詔（c4）に続けて「于是大赦，改元」と記し、次の日付標識は「五月」なので、改元は癸亥の日付で読むほかない。2日前の辛酉（四月7日＝0301-05-30）は孫秀誅殺と「即日乘輿反正」＝恵帝復位の日で（c3）、改元の日ではない。現行値と同日"
               },
               {
-                "id": "ming-xianzong.rebellionSufferedCount[6].endDate",
+                "id": "ming-xianzong.rebellionSufferedCount.e007.endDate",
                 "verdict": "一致",
                 "checked": "明史 卷十四（本紀第十四 宪宗二）成化十二年の条（daizhigev20/史藏/正史/明史.txt 599行）に「三月壬子，减内府供用物。壬戌，李震大破靖州苗。」とあり、靖州苗の鎮圧記事は三月壬戌の1件のみ。卷十三の「以明年为成化元年」から十二年＝成化十二年＝1476年。sxtwl で成化十二年三月は1476-03-25（甲辰朔）〜1476-04-23で、壬戌は19日＝1476-04-12。現行値と同日。"
               },
               {
-                "id": "ming-yizong.amnestyCount[2].date",
+                "id": "ming-yizong.amnestyCount.e003.date",
                 "verdict": "一致",
                 "checked": "明史 卷二十三（本紀第二十三 庄烈帝一）崇禎三年の条（daizhigev20/史藏/正史/明史.txt 847行）に「二月庚申，立皇长子慈烺为皇太子，大赦。」とある。同巻845行の「崇祯元年春正月辛巳」から三年＝崇禎三年＝1630年。sxtwl で崇禎三年二月は1630-03-14（辛亥朔）〜1630-04-12で、庚申は10日＝1630-03-23。現行値と同日。"
               },
               {
-                "id": "nanming-zhaozong.empressInstallationCount[0].date",
+                "id": "nanming-zhaozong.empressInstallationCount.e001.date",
                 "verdict": "一致",
                 "checked": "小腆紀傳 紀第四（永暦上・daizhigev20/史藏/传记/小腆纪传.txt 1022行）に「以十八日（庚申）即皇帝位。仍称隆武二年…册妃王氏为皇后。」とあり、王氏の立后は即位当日の隆武二年十一月十八日庚申の記事に含まれる。1020行の「十一月癸卯朔」と本文の「仍称隆武二年」から隆武二年（1646年）十一月。sxtwl で1646年十一月は癸卯朔＝1646-12-07、十八日庚申＝1646-12-24。現行値と同日。"
               },
               {
-                "id": "nansong-gaozong.amnestyCount[14].date",
+                "id": "nansong-gaozong.amnestyCount.e015.date",
                 "verdict": "一致",
                 "checked": "宋史 高宗本紀（_corpus_cache/nansong-gaozong.txt 行300）紹興十九年十一月の条に「十一月壬辰，合祀天地于圜丘，大赦。」。紹興十九年＝1149年で、年頭記事（行290）は「十九年春正月甲申朔」＝sxtwl の 1149年旧正月朔（甲申）と一致。sxtwl で 1149年旧11月は朔＝己卯、壬辰＝14日＝1149-12-15（ユリウス暦）となり現行値と同日。"
               },
               {
-                "id": "nansong-lizong.amnestyCount[8].date",
+                "id": "nansong-lizong.amnestyCount.e009.date",
                 "verdict": "一致",
                 "checked": "宋史 理宗本紀（_corpus_cache/nansong-lizong.txt 行141）端平三年九月の条に「辛未，祀明堂，大赦。」。端平三年＝1236年で、年頭記事（行133）「三年春正月己未朔」は sxtwl の 1236年旧正月朔（己未）と一致。sxtwl で 1236年旧9月は朔＝乙卯、庚申＝6日・庚午＝16日・辛未＝17日＝1236-10-18（ユリウス暦）となり、段内の干支の順序とも整合し現行値と同日。"
               },
               {
-                "id": "nansong-ningzong.amnestyCount[7].date",
+                "id": "nansong-ningzong.amnestyCount.e008.date",
                 "verdict": "一致",
                 "checked": "宋史 寧宗本紀（_corpus_cache/nansong-ningzong.txt 行203）嘉定二年九月の条に「辛丑，合祭天地于明堂，大赦。」。嘉定二年＝1209年で、年頭記事は行195「二年春正月庚子」、同年の朔記事（行200「六月癸亥朔」）は sxtwl の 1209年旧6月朔（癸亥）と一致。sxtwl で 1209年旧9月は朔＝壬辰、己亥＝8日・庚子＝9日・辛丑＝10日＝1209-10-10（ユリウス暦）となり現行値と同日。"
               },
               {
-                "id": "qing-shizong.eraChangeCount[0].date",
+                "id": "qing-shizong.eraChangeCount.e001.date",
                 "verdict": "一致",
                 "checked": "清史稿 本紀九 世宗本紀（daizhigev20/史藏/正史/清史稿.txt 1372行）に「辛丑，上即位，以明年为雍正元年。」とあり、雍正への改元を定めた記事は康熙六十一年十一月辛丑。sxtwl で康熙六十一年十一月は壬午朔＝1722-12-08、辛丑は20日＝1722-12-27。現行値と同日。"
               },
               {
-                "id": "shiguo-min-wangjipeng.amnestyCount[0].date",
+                "id": "shiguo-min-wangjipeng.amnestyCount.e001.date",
                 "verdict": "一致",
                 "checked": "十国春秋 康宗本紀（巻の見出しは同ファイル3867行で確認。康宗本紀の見出しは3881行。daizhigev20/史藏/载记/十国春秋.txt 3882行）に「恵宗既殂明日辛巳继鹏称皇太后令监国是日即皇帝位…大赦境内」とあり、即位・大赦の日付表現は「辛巳」のみ。直前の惠宗本紀（同3880行）に永和元年「冬十月…庚辰帝疾少间…乱兵刺之不殊」とあって惠宗の弑逆は十月庚辰、その翌日が辛巳。永和元年は同紀の注記「恵宗改元永和实在唐清泰二年」により清泰2年＝935年。935年十月を sxtwl で列挙すると庚辰＝19日＝0935-11-17、辛巳＝20日＝0935-11-18 で、現行値と同じ日を指す。"
               },
               {
-                "id": "shiguo-qianshu-wangjian.amnestyCount[10].date",
+                "id": "shiguo-qianshu-wangjian.amnestyCount.e011.date",
                 "verdict": "一致",
                 "checked": "十国春秋 前蜀二・高祖本紀下（巻の見出しは同ファイル2017行、篇の見出しは2020行で確認。2019行は前蜀二。daizhigev20/史藏/载记/十国春秋.txt 2030行）に「光天元年春正月乙亥朔大赦复国号曰蜀」とある。光天元年は同紀末の「时梁贞明四年也」から918年で、918年正月を sxtwl で列挙すると朔日（1日）が乙亥＝0918-02-14。原文の朔日干支と一致し、現行値と同じ日を指す。前年末の大赦（天汉元年十二月癸丑＝現行 amnestyCount[9]=0918-01-23）とは別記事で、索引の対応も崩れていない。"
               },
               {
-                "id": "shiguo-qianshu-wangjian.eraChangeCount[3].date",
+                "id": "shiguo-qianshu-wangjian.eraChangeCount.e004.date",
                 "verdict": "一致",
                 "checked": "同紀 2028行の通正元年条に「己亥大赦十二月戊申再大赦改明年元曰天汉国号大汉」とあり、天漢への改元を布告した日は通正元年十二月戊申。通正元年は光天元年＝918年から遡って916年で、916年十二月を sxtwl で列挙すると戊申＝27日＝0917-01-23。現行値と同じ日を指す。"
               },
               {
-                "id": "tang-ruizong.eraChangeCount[6].date",
+                "id": "tang-ruizong.eraChangeCount.e007.date",
                 "verdict": "一致",
                 "checked": "旧唐書 巻七（中宗睿宗）の睿宗紀は景雲改元（c1）から年次が起こされ、景雲元年=710・二年=711・三年=712。その「三年春正月辛未朔」（c2）と同じ段に「己丑，大赦天下，改元为太极」（c3）がある。sxtwl で景雲三年正月の朔は辛未＝712-02-12、己丑は旧暦正月19日＝712-03-01 で現行値と同日。新唐書 睿宗紀は同じ年を（後の元号で）先天元年正月とし、朔日の辛未（c4）と「己丑，大赦，改元曰太极」（c5）を同じ日順で載せる。"
               },
               {
-                "id": "tang-xianzong.amnestyCount[4].date",
+                "id": "tang-xianzong.amnestyCount.e005.date",
                 "verdict": "一致",
                 "checked": "出典に挙がる旧唐書 巻十五（憲宗紀下・元和七年から始まる巻・xa1）で、元和元年＝806（xa2）から数えて「十四年春正月庚辰朔」（xa3）は元和十四年＝819年。その年の「秋七月丁丑。戊寅…乙酉夜…辛巳，群臣上尊号曰元和圣文神武法天应道皇帝。是日，御宣政殿受册，礼毕，御丹凤楼，大赦天下」（xa5）が該当記事で、前後の「六月丁未朔」「八月丁未朔」（xa4・xa6）から七月は丁丑朔30日で、辛巳は旧暦七月5日＝819-07-30。sxtwl でも819年旧暦七月朔＝丁丑（819-07-26）・辛巳＝819-07-30 で、出典の旧唐書の読みは現行値と同日。同定は循環でなく、憲宗の amnestyCount は count=5 で旧唐書 憲宗紀の大赦記事も5件（元和元年正月丁卯・二年正月辛卯・三年正月癸巳・十三年正月己酉朔・十四年七月）と1対1に対応し、index 4 がこの七月の記事にあたることによる。ただし新唐書・資治通鑑は同じ記事を七月己丑（819-08-07）とするため conflicts に記した。"
               },
               {
-                "id": "tang-xuanzong.eraChangeCount[1].date",
+                "id": "tang-xuanzong.eraChangeCount.e002.date",
                 "verdict": "一致",
                 "checked": "旧唐書 巻八 玄宗紀上（c1）で、当該段の年次は同巻内の「先天二年七月三日」（c2）が与える先天二年＝713年。その後に続く段に「十二月庚寅朔，大赦天下，改元为开元」（c3）があり、次の年次見出しは「二年春正月」＝開元二年（c4）なので、この十二月は先天二年十二月。sxtwl で先天二年十二月の朔は庚寅＝713-12-22 で、原文の「庚寅朔」と一致し現行値と同日。新唐書 玄宗紀も「戊子，群臣上尊号曰开元神武皇帝。十二月庚寅，大赦，改元」（c5）で同じ日干支。"
               },
               {
-                "id": "tang-zhongzong.amnestyCount[3].date",
+                "id": "tang-zhongzong.amnestyCount.e004.date",
                 "verdict": "一致",
                 "checked": "旧唐書 巻七（中宗睿宗）の中宗紀は神龍元年（705）から始まり（c1）、次の年次見出しが「二年春正月丙申」（c4）なので、その間にある「十一月戊寅…壬午，皇帝、皇后亲谒太庙，告受徽号之意」「大赦天下，赐酺三日」（c2・c3）は神龍元年十一月壬午の大赦。sxtwl で神龍元年十一月の朔は丁丑＝705-11-21、壬午は旧暦11月6日＝705-11-26 となり現行値と同日。新唐書 中宗紀（c5・c6）も同じ神龍元年十一月に戊寅の上尊号と壬午の大赦を載せ、日干支が一致する。同定は「元号年＋月＋日干支」が現行値の干支（壬午）と旧暦月（705年11月）にそろうことによる。"
               },
               {
-                "id": "wudai-houhan-gaozu.amnestyCount[1].date",
+                "id": "wudai-houhan-gaozu.amnestyCount.e002.date",
                 "verdict": "一致",
                 "checked": "旧五代史 巻一百（漢書・高祖紀下、china-history/旧五代史/后汉/第二章-高祖纪下-原文.html 31行）に「乾祐元年正月辛亥朔」「乙卯，制：“大赦天下，改天福十三年为乾祐元年。自正月五日昧爽已前…」とある。正月朔が辛亥なので乙卯は正月5日で、赦文自身も「自正月五日」と日を明記する。乾祐元年正月5日を sxtwl で換算すると 0948-02-17（日干支 乙卯）で現行値と同じ日を指す。"
               },
               {
-                "id": "yuan-chengzong.rebellionSufferedCount[7].endDate",
+                "id": "yuan-chengzong.rebellionSufferedCount.e008.endDate",
                 "verdict": "一致",
                 "checked": "元史 巻二十一 line 65。「癸亥，琼州临高县那蓬洞主王文何等作乱伏诛。」は大德十年（1306）十二月の段にあり、sxtwl で 1306年旧暦12月27日＝1307-01-31 癸亥。段中の干支（壬寅6日・乙巳9日・壬子16日・乙卯19日・丙辰20日・戊午22日・癸亥27日）が単調増加で1か月に収まり、直後の「十一年春正月丙寅朔」＝1307-02-03 丙寅とも整合する。現行値と一致。"
               },
               {
-                "id": "yuan-shizu.amnestyCount[1].date",
+                "id": "yuan-shizu.amnestyCount.e002.date",
                 "verdict": "一致",
                 "checked": "元史 巻五（世祖二）line 54〜55。中統五年八月は壬寅朔（sxtwl でも 1264年旧暦8月1日＝1264-08-23 壬寅）で、大赦の詔が出た丁巳はその月の16日＝1264-09-07。詔本文が「改中统五年为至元元年」と述べており年も確定する。現行値と一致。"
               },
               {
-                "id": "yuan-shizu.personalCampaignCount[2].endDate",
+                "id": "yuan-shizu.personalCampaignCount.e003.endDate",
                 "verdict": "一致",
                 "checked": "元史 巻十五 line 45「闰十月戊寅，车驾还大都。」。至元二十六年（1289）は閏十月があり、sxtwl で閏10月1日＝1289-11-15 丁丑、閏10月2日＝1289-11-16 戊寅。したがって戊寅＝1289-11-16 で現行値と一致。同巻 line 41 の親征開始「秋七月戊寅朔」も 1289年旧暦7月1日＝1289-07-19 戊寅で現行 startDate 1289-07-19 と整合し、月の朔が2つとも原文どおりであることから 60日周期の別解（同じ戊寅が九月・十二月に来る解）は排除される。"
               },
               {
-                "id": "yuan-taidingdi.eraChangeCount[0].date",
+                "id": "yuan-taidingdi.eraChangeCount.e001.date",
                 "verdict": "一致",
                 "checked": "元史 巻二十九 line 28〜29。改元の詔は至治三年（1323）十二月の丁亥に下されている。sxtwl で 1323年旧暦11月1日＝己丑（原文「十一月己丑朔」と一致）、12月1日＝戊午、12月30日＝丁亥＝1324-01-26。十二月段の干支（己未2日・庚申3日・壬戌5日・戊辰11日…乙酉28日・丙戌29日・丁亥30日）が単調増加で1か月に収まり、翌段の泰定元年正月乙未（正月朔戊子＝1324-01-27 の八日）とも連続する。現行値と一致。"
               },
               {
-                "id": "yuan-wenzong.rebellionSufferedCount[4].startDate",
+                "id": "yuan-wenzong.rebellionSufferedCount.e005.startDate",
                 "verdict": "一致",
                 "checked": "元史 巻三十五 line 28。「丁亥，海南黎贼作乱，诏江西、湖广两省合兵捕之。」は至順二年（1331）秋七月甲戌朔の段にあり、sxtwl で 1331年旧暦7月1日＝1331-08-04 甲戌、7月14日＝1331-08-17 丁亥。前の月見出し「六月乙巳朔」も 1331年旧暦6月1日＝乙巳と一致し、年月が確定する。／どの記事に結び付くかの確認: 文宗紀に海南の黎の記事は c1（至順二年七月・作乱）・c2（同九月・王周纠、移剌四奴に討伐を統領させる）・c3（至順三年正月・王奴罗）・c4（至順三年七月・黎贼势猖獗、移剌四奴に進兵を促す）の4つが並び、この間に鎮圧・平定の記事は一つも無い。同じ討伐責任者（移剌四奴）が c2 と c4 をまたいで継続していることから、4記事は決着しないまま続く同一の海南黎の乱であり、event の endDate が null で outcome が「未鎮圧のまま文宗崩御」であることとも合う。したがって startDate が指すべき記事は最初の作乱記事 c1 で、現行値と一致する。"
               },
               {
-                "id": "yuan-yingzong.rebellionSufferedCount[11].startDate",
+                "id": "yuan-yingzong.rebellionSufferedCount.e012.startDate",
                 "verdict": "一致",
                 "checked": "元史 巻二十八 line 27。「丙寅，辰州沅陵县洞蛮为寇，遣兵捕之。」は至治二年（1322）閏五月の段末にあり、直後が「六月丁卯朔」。sxtwl で 1322年閏5月は丁酉朔・30日まであり、丙寅＝閏5月30日＝1322-07-14。同段の「闰月戊戌」＝閏5月2日、「甲子」＝閏5月28日、直後の六月丁卯朔＝1322-07-15 とも整合する。現行値と一致。"
               },
               {
-                "id": "yuan-yingzong.rebellionSuppressionCount[3].startDate",
+                "id": "yuan-yingzong.rebellionSuppressionCount.e004.startDate",
                 "verdict": "反例",
                 "file": "china-history/元史/本纪/第二十七章-卷二十七-原文.html",
                 "line": 36,
@@ -492,12 +493,13 @@
                 "note": "同じ行の月見出しは十一月丙子朔で、次の月見出しが十二月乙巳朔。丙子朔から数えて戊戌は23日にあたる。年は同巻の改元詔が延祐七年十一月丙子と明示しており、sxtwl でも1320年の8月丁未朔・11月丙子朔・12月乙巳朔が巻中の記載と全て一致する（1321年は一致しない）。現行値 1321-12-18 も干支は戊戌だが1321年の旧暦11月29日で、60日周期＋1年ずれの別解を採った型"
               },
               {
-                "id": "sui-wendi.eraChangeCount[0].date",
+                "id": "sui-wendi.eraChangeCount.e001.date",
                 "verdict": "一致",
                 "checked": "隋書 帝紀第一 高祖上（china-history/隋书/帝纪/第一章-卷一-原文.html）に「开皇元年二月甲子，上自相府常服入宫，备礼即皇帝位于临光殿」（c1）とあり、続けて「是日，告庙，大赦，改元」（c2）と即位当日に改元したことを明記する。開皇元年＝581年、その旧暦2月に甲子は1日しか無く（60干支の周期上、1ヶ月に同じ干支は1度）、sxtwl では 581年旧暦2月14日＝甲子＝太陽暦 581-03-04（ユリウス暦）。現行値と同日",
                 "outOfSample": true
               }
-            ]
+            ],
+            "sampleKey": "legacy-index"
           }
         }
       ],

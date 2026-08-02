@@ -47,14 +47,23 @@ def end_precision(ev):
 
 
 def run():
+    """戻り値は (ユニット→バケット, ユニット→移行前の位置文字列)。
+
+    ユニットの鍵は `events[].id`（`R-CLAIM-GATED` の移行で焼いた安定 id）。
+    移行前は `<皇帝id>#<添字>` で、添字は event を1件挿入すると全部ずれた。
+    """
     data = json.loads(EMPERORS.read_text(encoding="utf-8"))
-    units = {}      # "<id>#<n>" → bucket
+    units, legacy = {}, {}
     for e in data["emperors"]:
         v = e.get(FIELD)
         if not isinstance(v, dict):
             continue
         for i, ev in enumerate(v.get("events") or []):
-            key = f"{e['id']}#{i}"
+            key = ev.get("id")
+            if not key:
+                sys.exit(f"{e['id']}.{FIELD}[{i}] に id がありません"
+                         f"（python3 scripts/migrations/bake_event_ids.py --fill）")
+            legacy[key] = f"{e['id']}#{i}"
             s, t = ev.get("startDate"), ev.get("endDate")
             if not s or not t:
                 units[key] = "no-dates"
@@ -64,16 +73,19 @@ def run():
                 units[key] = "instant"
             else:
                 units[key] = "same-year"
-    return units
+    return units, legacy
 
 
-def sample(keys, seed, size):
+def sample(keys, seed, size, rank_key=None):
     """種つきの無作為抽出（name_fields.py と同じハッシュ順の上位 k）。
 
     母集団が動いても既存の標本の当落が変わらないので、訂正が進んでも
-    監査をやり直さずに済む。
+    監査をやり直さずに済む。**ただし鍵の文字列そのものを変えると引き直しになる**ので、
+    2026-08-03 の id 移行より前に引いた標本は `rank_key` に移行前の位置文字列を渡して
+    抽選を凍結する（data/screenings.json の `audit.sampleKey: "legacy-index"`）。
     """
-    rank = sorted(keys, key=lambda k: hashlib.md5(f"{seed}:{k}".encode()).hexdigest())
+    kf = rank_key or (lambda k: k)
+    rank = sorted(keys, key=lambda k: hashlib.md5(f"{seed}:{kf(k)}".encode()).hexdigest())
     return sorted(rank[:size])
 
 
@@ -82,19 +94,22 @@ def main():
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--sample", type=int, default=0, help="absent バケットから引く標本数")
+    ap.add_argument("--sample-key", choices=("event-id", "legacy-index"), default="event-id",
+                    help="抽選の鍵。移行前に引いた標本を再現するときだけ legacy-index")
     args = ap.parse_args()
 
-    units = run()
+    units, legacy = run()
     buckets = {}
     for key, b in units.items():
         buckets.setdefault(b, []).append(key)
+    rank_key = legacy.get if args.sample_key == "legacy-index" else None
 
     if args.json:
         print(json.dumps({
             "unit": "campaign-event",
             "n": len(units),
             "buckets": {k: len(v) for k, v in sorted(buckets.items())},
-            "samples": {k: sample(v, args.seed, args.sample)
+            "samples": {k: sample(v, args.seed, args.sample, rank_key)
                         for k, v in sorted(buckets.items())
                         if k == "spanned" and args.sample},
             "coverage": {k: [b] for k, b in sorted(units.items())},

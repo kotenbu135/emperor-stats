@@ -103,10 +103,15 @@ def precision_for(ev: dict, key: str):
 
 
 def run():
+    """フィールドの鍵は `<events[].id>.<日付キー>`（2026-08-03 の id 移行より前は
+    `<皇帝id>.<容器>[<添字>].<日付キー>` で、event を1件挿入すると全部ずれた）。
+    `legacy` は移行前の文字列で、凍結した標本を引き直さないためだけに使う。
+    """
     sxtwl = load_sxtwl()
     data = json.loads(DATA.read_text(encoding="utf-8"))
     population = 0
     all_fields = []
+    legacy = {}
     hits_a, hits_b = [], []
     for e in data["emperors"]:
         for g in COUNT_GROUPS:
@@ -127,26 +132,34 @@ def run():
                     mo = ISO_DAY_RE.match(val)
                     if not mo or precision_for(ev, key) != "day":
                         continue
+                    if not ev.get("id"):
+                        sys.exit(f"{e['id']}.{g}[{i}] に id がありません"
+                                 f"（python3 scripts/migrations/bake_event_ids.py --fill）")
                     population += 1
-                    all_fields.append(f"{e['id']}.{g}[{i}].{key}")
+                    where = f"{ev['id']}.{key}"
+                    all_fields.append(where)
+                    legacy[where] = f"{e['id']}.{g}[{i}].{key}"
                     y, mm, dd = int(mo.group(1)), int(mo.group(2)), int(mo.group(3))
-                    where = f"{e['id']}.{g}[{i}].{key}"
                     if written_gz and sxtwl is not None:
                         gz = day_ganzhi(sxtwl, y, mm, dd)
                         if gz not in written_gz:
                             hits_a.append((where, val, gz, "/".join(sorted(written_gz))))
                     if (mm, dd) in lunar_md:
                         hits_b.append((where, val, f"{mm}月{dd}日"))
-    return population, hits_a, hits_b, sxtwl is not None, all_fields
+    return population, hits_a, hits_b, sxtwl is not None, all_fields, legacy
 
 
-def sample(ids, seed, size):
+def sample(ids, seed, size, rank_key=None):
     """種つきの無作為抽出（scripts/screens/name_fields.py と同じ流儀）。
 
     ハッシュ順の上位 k を取る。母集団が動いても他のフィールドの増減が既存の標本の
-    当落を変えないので、訂正が進んでも監査をやり直さずに済む。
+    当落を変えないので、訂正が進んでも監査をやり直さずに済む。**ただし鍵の文字列を
+    変えると引き直しになる**ので、2026-08-03 の id 移行より前に引いた標本は
+    `rank_key` に移行前の位置文字列を渡して抽選を凍結する
+    （data/screenings.json の `audit.sampleKey: "legacy-index"`）。
     """
-    rank = sorted(ids, key=lambda i: hashlib.md5(f"{seed}:{i}".encode()).hexdigest())
+    kf = rank_key or (lambda i: i)
+    rank = sorted(ids, key=lambda i: hashlib.md5(f"{seed}:{kf(i)}".encode()).hexdigest())
     return sorted(rank[:size])
 
 
@@ -156,8 +169,11 @@ def main():
     ap.add_argument("--detail", action="store_true")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--sample", type=int, default=0, help="absent バケットから引く標本数")
+    ap.add_argument("--sample-key", choices=("event-id", "legacy-index"), default="event-id",
+                    help="抽選の鍵。移行前に引いた標本を再現するときだけ legacy-index")
     args = ap.parse_args()
-    population, hits_a, hits_b, has_sxtwl, all_fields = run()
+    population, hits_a, hits_b, has_sxtwl, all_fields, legacy = run()
+    rank_key = legacy.get if args.sample_key == "legacy-index" else None
     both = {h[0] for h in hits_a} & {h[0] for h in hits_b}
     flagged = {h[0] for h in hits_a} | {h[0] for h in hits_b}
     read = len(flagged)
@@ -173,7 +189,7 @@ def main():
             "unit": "event-date-field",
             "n": population,
             "buckets": {k: len(v) for k, v in sorted(buckets.items())},
-            "samples": {k: sample(v, args.seed, args.sample)
+            "samples": {k: sample(v, args.seed, args.sample, rank_key)
                         for k, v in sorted(buckets.items())
                         if k == "no-witness" and args.sample},
             "overlap": len(both),

@@ -273,6 +273,45 @@ Issue #43 の「**測れない**」と「**書き忘れた**」を区別する�
   `conflicts[].adopted.quote`・`alternatives[].quote` を抽出対象に含めるので、
   底本の字体のまま書き、手打ちしない（`claim` に引用を書かないのとは逆で、ここは書く場所です）
 
+## `events[].id` — 参照の宛先（2026-08-03・Issue #69）
+
+回数系8フィールドの `events[]` は全件が `id` を持ちます。**全件必須で、任意欄ではありません。**
+
+    "id": "beisong-renzong.amnestyCount.e003"
+
+形は `<皇帝id>.<容器>.e<3桁以上の連番>`。連番は**1始まり**で、0始まりの配列添字とわざと1ずれます。
+
+### なぜ足したか
+
+移行前、この配列を外から指す手段は添字だけでした（`beisong-renzong.amnestyCount[2].date`）。
+添字は**その容器に event を1件挿入した瞬間に全部ずれる**のに、参照する側は形が同じままなので
+**別の event を指したまま全ゲートが緑で通ります**。実際に添字で書かれていた参照が3系統ありました。
+
+- `data/screenings.json` の `audit.findings[].id`（原典を読んで積み上げた標本監査39件）
+- `scripts/validate_emperors.py` の `KNOWN_PREACCESSION_EVENTS`／`KNOWN_DEATH_EVENT_DATE`
+  （ずれると**別の event の誤りを黙って許可する**）
+- `docs/process/RESIDUAL.md` の #62 の未訂正9件
+
+### 作り直さない
+
+**id は一度だけ焼いたもので、添字から再生成してはいけません。** 焼いた直後は連番と添字が
+1ずれで対応するため、再生成するコードを書いても検査は全部通ります。壊れるのは最初の1件を
+挿入したときで、そのとき上の3系統が**静かに別の event を指します**。
+
+新しく event を足したときは `python3 scripts/migrations/bake_event_ids.py --fill`
+（その容器で使った最大の連番＋1を振る。添字は見ない）。`patch_emperor.py --append` は
+値を作れないので id は空のまま出ますが、`validate_emperors.py` が落として気づけます。
+
+### 機械が見ること（`validate_emperors.py` の `check_event_ids`）
+
+1. 全 event が `id` を持つ・形が `<皇帝id>.<容器>.eNNN`・**id の中の皇帝と容器が所在と一致する**
+2. `id` がデータセット全体で一意
+3. **`data/screenings.json` の参照が1つの event に解決する** — これが「id が宛先として
+   機能している」ことの実際の証拠で、ここを見ないなら id は増えただけの欄です（規則案 `R-CLAIM-GATED`）
+
+検出力は `scripts/test_event_ids.py` が合成レコードで測ります（実データは全件が正しいので、
+本番の「0 errors」だけでは守れているのか何も見ていないのか区別できない）。
+
 ## `events` の原表記と換算（2026-08-03・Issue #56）
 
 回数系8フィールドの `events[]` に、`reigns` が前から持っていた2つを足しました。**どちらも

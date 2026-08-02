@@ -91,6 +91,13 @@ HINTS = [
      "`fromLunar(y,m,1)`）。これが無いと、保存値が旧暦の月番号の直書きか換算済みかを機械で"
      "区別できない（Issue #56 で24件が誤りだった型）。verify_calendar の B-5 が再演する。"
      "**遡及しない任意欄なので、既存 events に無いことは欠陥ではない**"),
+    # events 要素そのものを足す・置き換えるときだけ（葉の note・date の編集では鳴らさない）
+    (re.compile(r"^\w+Count\.events\[\d+\]$"),
+     "python3 scripts/migrations/bake_event_ids.py --fill",
+     "**events に要素を足したら安定 id を振る**（`<皇帝id>.<容器>.eNNN`）。このツールは値を"
+     "作れないので id は空のまま出る。`validate_emperors.py` の `check_event_ids` が落ちる。"
+     "要素を**消した**ときは先に外部参照を見る（data/screenings.json の audit.findings[].id・"
+     "validate_emperors.py の許可リスト・docs/process/RESIDUAL.md）"),
     (re.compile(r"^reigns|reignSummary"), "python3 scripts/validate_emperors.py",
      "reignSummary は reigns の合計と機械照合される"),
     (re.compile(r"relationToPredecessor|kinship"), "python3 scripts/validate_kinship.py",

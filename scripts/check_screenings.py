@@ -97,6 +97,11 @@ def run_screen(rec, errors):
              if b.get("kind") == "absent"} - {None}
     sizes = {(b.get("audit") or {}).get("size") for b in rec.get("buckets") or []
              if b.get("kind") == "absent"} - {None}
+    # 抽選の鍵。2026-08-03 の id 移行より前に引いた標本は legacy-index で凍結してある
+    # （鍵の文字列が変わると引き直しになり、積み上げた原典監査が全部標本の外へ落ちる）。
+    # 宣言が無ければ event-id＝安定 id で引く（フラグを渡さない＝各 screen の既定）
+    keys = {(b.get("audit") or {}).get("sampleKey") for b in rec.get("buckets") or []
+            if b.get("kind") == "absent"} - {None}
     cmd = ["python3", str(path), "--json"]
     if len(seeds) == 1 and len(sizes) == 1:
         cmd += ["--seed", str(seeds.pop()), "--sample", str(sizes.pop())]
@@ -104,6 +109,12 @@ def run_screen(rec, errors):
         errors.append(f"{rec.get('id')}: absent バケットで seed/size が揃っていません"
                       f"（同じ実行から引く必要があります）")
         return None
+    if len(keys) > 1:
+        errors.append(f"{rec.get('id')}: absent バケットで audit.sampleKey が揃っていません"
+                      f"（{'・'.join(sorted(keys))}）。同じ実行から引く必要があります")
+        return None
+    if keys:
+        cmd += ["--sample-key", keys.pop()]
     p = subprocess.run(cmd, capture_output=True, text=True, cwd=ROOT)
     if p.returncode != 0:
         errors.append(f"{rec.get('id')}: script が落ちました: {p.stderr.strip()[:200]}")
@@ -345,9 +356,10 @@ def brief_for(eid, records, field=None):
         if out is None:
             continue
         coverage = out.get("coverage") or {}
-        # 単位が person-field なら鍵は id、campaign-event なら "<id>#<n>"
+        # 単位が person-field なら鍵は皇帝 id、event 単位なら events[].id
+        # （`<皇帝id>.<容器>.eNNN`。2026-08-03 の移行前は `<皇帝id>#<添字>` だった）
         for key, buckets in coverage.items():
-            if key != eid and not key.startswith(eid + "#"):
+            if key != eid and not key.startswith((eid + "#", eid + ".")):
                 continue
             for bucket in buckets:
                 hits.append((rec, bucket, None if key == eid else key))

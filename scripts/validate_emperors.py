@@ -92,16 +92,16 @@ KNOWN_EMPTY_CONFIDENCE = set()
 
 # 被反乱 event の日付が最終 reign の endDate と食い違うが正当なもの（check_death_event_date）。
 # 「在位終了 ≠ 没日」（廃位・禅譲のあとで殺された）が主因で、これは食い違って当然。
-# 鍵は (皇帝 id, events の添字) — 同じ人物に該当 event が2つあるとき、id だけだと
-# 1つ目で許可リストを消費して2つ目が「新しいずれ」として警告に出てしまう
-# （KNOWN_PREACCESSION_EVENTS が同じ理由で添字まで持っている）。
+# 鍵は **events[].id**（2026-08-03 の Issue #69 で焼いた安定 id）。同じ人物に該当 event が
+# 2つあるとき id だけでは足りず、以前は添字まで持っていたが、添字は event を1件挿入すると
+# 全部ずれて**別の event を黙って許可する**。安定 id はずれない。
 # 未トリアージだった5件は Issue #50 で原典に当て直し、いずれも event 側の欠陥
 # （旧暦の月日を西暦欄へ直書き2件・在位終了日を訂正した際の取り残し3件）と確定して
 # データを訂正したため、2026-08-03 にリストから外した。
 KNOWN_DEATH_EVENT_DATE = {
     # 廃位・禅譲後に殺害された（在位終了日と没日が別なのが正しい）
-    ("hou-han-shaodi-bian", 0),    # 0189-09-28 廃位 → 0190-03-06 鴆殺
-    ("sui-gongdi-tong", 0),        # 0619-05-23 禅譲 → 0619-07-19 弑逆
+    "hou-han-shaodi-bian.rebellionSufferedCount.e001",  # 0189-09-28 廃位 → 0190-03-06 鴆殺
+    "sui-gongdi-tong.rebellionSufferedCount.e001",      # 0619-05-23 禅譲 → 0619-07-19 弑逆
 }
 
 # reignSummary と reigns の不一致（現状該当なし。
@@ -118,37 +118,39 @@ KNOWN_DISPLAY_YEARS = set()
 # あることを 2026-07-22 に確認済み（他者＝父・慕容皝の行為だった qianyan-murongjun の 0341 龍城遷都は
 # 同日に計上から削除）。ここに載る＝在位範囲チェックの既知の正当例。
 # （BCE イベントの範囲チェックは check_bce_event_years が別途担当）
+# 鍵は **events[].id**（2026-08-03・Issue #69。以前は (皇帝id, 容器, 添字) で、
+# 容器に event を1件挿入すると以降の許可が1つずつ隣へずれた）。
 KNOWN_PREACCESSION_EVENTS = {
-    ("wu-dadi", "capitalRelocationCount", 0),             # 0221 呉王冊命前の遷都
-    ("qianzhao-liuyuan", "eraChangeCount", 0),            # 0304 漢王期の建元
-    ("qianzhao-liuyuan", "capitalRelocationCount", 0),    # 0305 漢王期の遷都
-    ("qianyan-murongjun", "capitalRelocationCount", 0),   # 0350 燕王期(即位前)の遷都。父・慕容皝の0341は2026-07-22に他者事績として削除済み
-    ("houzhao-shile", "eraChangeCount", 0),               # 0319 趙王期の建元（趙王元年）
-    ("houzhao-shile", "eraChangeCount", 1),               # 0328 趙王期の太和改元
-    ("houzhao-shile", "amnestyCount", 0),                 # 0328 趙王期の大赦
-    ("xia-helianbobo", "eraChangeCount", 0),              # 0407 天王・大単于期の龍昇建元
-    ("xia-helianbobo", "amnestyCount", 0),                # 0407 天王期の赦其境内
-    ("nanyan-murongde", "eraChangeCount", 0),             # 0398 燕王自立の称元
-    ("nanyan-murongde", "amnestyCount", 0),               # 0398 燕王期の大赦境内
-    ("houqin-yaochang", "eraChangeCount", 0),             # 0384 万年秦王期の白雀建元
-    ("houqin-yaochang", "amnestyCount", 0),               # 0384 万年秦王期の大赦境内
-    ("houyan-murongchui", "eraChangeCount", 0),           # 0384 燕王自立の燕元建元
-    ("houzhao-shihu", "eraChangeCount", 0),               # 0335 趙天王期
-    ("houzhao-shihu", "amnestyCount", 0),                 # 0335 趙天王期
-    ("houzhao-shihu", "amnestyCount", 1),                 # 0337 大趙天王期
-    ("houzhao-shihu", "empressInstallationCount", 0),     # 0337 天王皇后
-    ("houzhao-shihu", "empressInstallationCount", 1),     # 0337 天王皇后
-    ("houzhao-shihu", "crownPrinceDepositionCount", 0),   # 0337 天王期
-    ("houzhao-shihu", "capitalRelocationCount", 0),       # 0335 趙天王期
-    ("tangmo-huangchao", "eraChangeCount", 0),            # 0878 王霸建元(称帝前)
-    ("shiguo-wu-yangpu", "eraChangeCount", 0),            # 0921 呉王期の改元
-    ("shiguo-wu-yangpu", "amnestyCount", 0),              # 0921 呉王期の大赦
-    ("shiguo-min-wangyanxi", "eraChangeCount", 0),        # 0939 閩国王期(称帝は941)
-    ("liao-taizu", "empressInstallationCount", 0),        # 0907 可汗即位期(公式在位は916-)
-    ("xixia-jingzong", "eraChangeCount", 0),              # 1033 西平王期
-    ("xixia-jingzong", "eraChangeCount", 1),              # 1034 西平王期
-    ("xixia-jingzong", "eraChangeCount", 2),              # 1035 西平王期
-    ("xixia-jingzong", "amnestyCount", 0),                # 1034 西平王期
+    "wu-dadi.capitalRelocationCount.e001",             # 0221 呉王冊命前の遷都
+    "qianzhao-liuyuan.eraChangeCount.e001",            # 0304 漢王期の建元
+    "qianzhao-liuyuan.capitalRelocationCount.e001",    # 0305 漢王期の遷都
+    "qianyan-murongjun.capitalRelocationCount.e001",   # 0350 燕王期(即位前)の遷都。父・慕容皝の0341は2026-07-22に他者事績として削除済み
+    "houzhao-shile.eraChangeCount.e001",               # 0319 趙王期の建元（趙王元年）
+    "houzhao-shile.eraChangeCount.e002",               # 0328 趙王期の太和改元
+    "houzhao-shile.amnestyCount.e001",                 # 0328 趙王期の大赦
+    "xia-helianbobo.eraChangeCount.e001",              # 0407 天王・大単于期の龍昇建元
+    "xia-helianbobo.amnestyCount.e001",                # 0407 天王期の赦其境内
+    "nanyan-murongde.eraChangeCount.e001",             # 0398 燕王自立の称元
+    "nanyan-murongde.amnestyCount.e001",               # 0398 燕王期の大赦境内
+    "houqin-yaochang.eraChangeCount.e001",             # 0384 万年秦王期の白雀建元
+    "houqin-yaochang.amnestyCount.e001",               # 0384 万年秦王期の大赦境内
+    "houyan-murongchui.eraChangeCount.e001",           # 0384 燕王自立の燕元建元
+    "houzhao-shihu.eraChangeCount.e001",               # 0335 趙天王期
+    "houzhao-shihu.amnestyCount.e001",                 # 0335 趙天王期
+    "houzhao-shihu.amnestyCount.e002",                 # 0337 大趙天王期
+    "houzhao-shihu.empressInstallationCount.e001",     # 0337 天王皇后
+    "houzhao-shihu.empressInstallationCount.e002",     # 0337 天王皇后
+    "houzhao-shihu.crownPrinceDepositionCount.e001",   # 0337 天王期
+    "houzhao-shihu.capitalRelocationCount.e001",       # 0335 趙天王期
+    "tangmo-huangchao.eraChangeCount.e001",            # 0878 王霸建元(称帝前)
+    "shiguo-wu-yangpu.eraChangeCount.e001",            # 0921 呉王期の改元
+    "shiguo-wu-yangpu.amnestyCount.e001",              # 0921 呉王期の大赦
+    "shiguo-min-wangyanxi.eraChangeCount.e001",        # 0939 閩国王期(称帝は941)
+    "liao-taizu.empressInstallationCount.e001",        # 0907 可汗即位期(公式在位は916-)
+    "xixia-jingzong.eraChangeCount.e001",              # 1033 西平王期
+    "xixia-jingzong.eraChangeCount.e002",              # 1034 西平王期
+    "xixia-jingzong.eraChangeCount.e003",              # 1035 西平王期
+    "xixia-jingzong.amnestyCount.e001",                # 1034 西平王期
 }
 
 # 同一王朝内で在位期間が重複するが正当なもの（並立・対立政権の非対称処理・母后称制の空位挟み・
@@ -461,11 +463,11 @@ def check_event_reign_range(data):
                 if not t or t[0] <= 0:
                     continue
                 if not (lo <= t[0] <= hi):
-                    key = (e["id"], g, i)
+                    key = ev.get("id") or f"{e['id']}.{g}[{i}]"
                     if key in KNOWN_PREACCESSION_EVENTS:
                         KNOWN_PREACCESSION_EVENTS.discard(key)
                     else:
-                        err(f"[event-range] {e['id']}.{g}[{i}]: date={ev['date']} が在位 ISO 年範囲 "
+                        err(f"[event-range] {key}: date={ev['date']} が在位 ISO 年範囲 "
                             f"[{lo+1}, {hi-1}] 外（誤変換または称帝前イベントの疑い）")
 
 
@@ -805,13 +807,11 @@ def check_death_event_date(data):
                 evaluated += 1
                 if val == end:
                     continue
-                if (e["id"], i) in KNOWN_DEATH_EVENT_DATE:
-                    KNOWN_DEATH_EVENT_DATE.discard((e["id"], i))
+                ref = ev.get("id") or f"{e['id']}.rebellionSufferedCount[{i}]"
+                if ref in KNOWN_DEATH_EVENT_DATE:
+                    KNOWN_DEATH_EVENT_DATE.discard(ref)
                 else:
-                    hits.append(
-                        f"{e['id']}.rebellionSufferedCount.events[{i}].{key}={val} "
-                        f"≠ reigns[-1].endDate={end}"
-                    )
+                    hits.append(f"{ref}.{key}={val} ≠ reigns[-1].endDate={end}")
     if hits:
         warn(f"[death-event-date] 本人の死を結末とする被反乱 event の日付が在位終了日と食い違う"
              f"（在位終了≠没日なら正当・許可リストへ）: {len(hits)}件 {hits}")
@@ -1356,6 +1356,83 @@ def check_record_catalog_refs(data):
         err(f"[catalog-ref] 所属者が 0 人の政権がカタログに残っている: {orphans}")
 
 
+EVENT_ID = re.compile(r"^(?P<emperor>[a-z0-9-]+)\.(?P<group>[A-Za-z]+Count)\.e(?P<n>\d{3,})$")
+# 外部から event を指す参照（`<event id>` か `<event id>.<日付キー>`）
+EVENT_REF_TAIL = ("date", "startDate", "endDate")
+
+
+def check_event_ids(data):
+    """events[].id が「配布物の中の安定した宛先」として使えることを検査する（Issue #69）。
+
+    id は 2026-08-03 に一度だけ焼いたもので、**添字から作り直してはいけない**。
+    焼いた直後は `eNNN` の連番と添字が1ずれで対応するので、再生成しても全てのテストが
+    通ってしまい、**最初の1件を挿入した瞬間に黙って番号が振り直される** — id を置いた
+    目的そのものが消える型の失敗になる。だから「形・一意・外部参照が解決する」の3つを見る。
+
+    外部参照は `data/screenings.json` の `audit.findings[].id`。ここが解決することが
+    「id が参照の宛先として機能している」ことの実際の証拠で、これを見ないなら
+    id は増えただけの欄になる（規則案 R-CLAIM-GATED）。
+    """
+    seen: dict[str, str] = {}
+    missing = []
+    for e in data["emperors"]:
+        for g in COUNT_GROUPS:
+            o = e.get(g)
+            if not isinstance(o, dict):
+                continue
+            for i, ev in enumerate(o.get("events") or []):
+                if not isinstance(ev, dict):
+                    continue
+                where = f"{e['id']}.{g}[{i}]"
+                eid = ev.get("id")
+                if not eid:
+                    missing.append(where)
+                    continue
+                m = EVENT_ID.match(eid)
+                if not m:
+                    err(f"[event-id] {where}: id の形が違います: {eid!r}"
+                        f"（<皇帝id>.<容器>.eNNN）")
+                elif m.group("emperor") != e["id"] or m.group("group") != g:
+                    err(f"[event-id] {where}: id が所在と食い違います: {eid!r}")
+                if eid in seen:
+                    err(f"[event-id] id が重複しています: {eid!r}"
+                        f"（{seen[eid]} と {where}）")
+                else:
+                    seen[eid] = where
+    if missing:
+        err(f"[event-id] id の無い event が {len(missing)}件（新しく足した event には "
+            f"`python3 scripts/migrations/bake_event_ids.py --fill` で振る）: "
+            f"{missing[:5]}{' …' if len(missing) > 5 else ''}")
+
+    # 外部参照が1つの event に解決するか
+    path = ROOT / "data" / "screenings.json"
+    if not path.exists():
+        return
+    refs = []
+
+    def collect(node):
+        if isinstance(node, dict):
+            for k, v in node.items():
+                if k == "findings" and isinstance(v, list):
+                    refs.extend(f.get("id") for f in v if isinstance(f, dict))
+                else:
+                    collect(v)
+        elif isinstance(node, list):
+            for v in node:
+                collect(v)
+
+    collect(json.loads(path.read_text(encoding="utf-8")))
+    emperor_ids = {e["id"] for e in data["emperors"]}
+    for ref in refs:
+        if not isinstance(ref, str) or ref in emperor_ids:
+            continue    # person-field 単位の絞り込みは event を指していない
+        head, _, tail = ref.rpartition(".")
+        target = head if tail in EVENT_REF_TAIL else ref
+        if target not in seen:
+            err(f"[event-id] data/screenings.json の参照が解決しません: {ref!r}"
+                f"（指す event が無い。id を振り直したか event を消した）")
+
+
 def main() -> int:
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
@@ -1364,6 +1441,7 @@ def main() -> int:
     check_catalogs(data)
     check_record_catalog_refs(data)
     check_ids(data)
+    check_event_ids(data)
     check_names(data)
     check_wikidata(data)
     check_reigns(data)

@@ -47,15 +47,34 @@
 
 ### 旧暦月番号の直書きが疑われる9件（#62・2026-08-03 に現値を確認）
 
-`beiqi-wenxuandi.personalCampaignCount` の #3 start・#4 両端・#6 両端・#7 両端（計7値）／
-`qing-shengzu` #1 両端・#2 end（4値）／`xixia-xiangzong` #0（年が嘉定二年とずれる疑い）／
-`houqin-yaoxing` #6（十六国春秋 後秦録は弘始十一年七月に置く）／`suimo-lizitong` #1（起点に原文の裏付けが無い）／
-`hou-han-guangwudi` #4（終期を九月乙卯「车驾还宫」で日精度化できる）／`xixia-jingzong` #0・#5／
-`jin-taizu` #4（`datePrecision:"month"` のまま `endDate` が日精度）。**いずれも原典の根拠は #68 の6節にある。**
+**2026-08-03（Issue #69）に `events[].id` を焼いたので、参照は添字ではなく id で書く。**
+以前の `#3` 形式は event を1件挿入すると隣の event を指すようになる（連番は1始まり＝添字＋1）。
+
+`beiqi-wenxuandi.personalCampaignCount` の `e004` start・`e005` 両端・`e007` 両端・`e008` 両端（計7値）／
+`qing-shengzu.personalCampaignCount` `e002` 両端・`e003` end（4値）／
+`xixia-xiangzong.personalCampaignCount.e001`（年が嘉定二年とずれる疑い）／
+`houqin-yaoxing.personalCampaignCount.e007`（十六国春秋 後秦録は弘始十一年七月に置く）／
+`suimo-lizitong.personalCampaignCount.e002`（起点に原文の裏付けが無い）／
+`hou-han-guangwudi.personalCampaignCount.e005`（終期を九月乙卯「车驾还宫」で日精度化できる）／
+`xixia-jingzong.personalCampaignCount` `e001`・`e006`／
+`jin-taizu.personalCampaignCount.e005`（`datePrecision:"month"` のまま `endDate` が日精度）。
+**いずれも原典の根拠は #68 の6節にある。**
 
 **2026-08-03 ユーザー決定: この9件は訂正せずアーカイブへ入れる。** 主張範囲を絞る移行（下）で、
 これらの多くは「主張しない月日」に落ちてアーカイブ側へ移る。**誤りと分かったまま移る**ので、
 後でアーカイブから精度を戻すときは、この節を先に読むこと（#67 もここへ吸収して閉じた）。
+
+### 走査そのものの穴: `lunar_date_as_iso.py` が皇太子廃立を見ていない（2026-08-03 検出・未対応）
+
+`scripts/screens/lunar_date_as_iso.py` の `COUNT_GROUPS` に **`crownPrinceChangeCount` という
+存在しない容器名**が入っており（実際の名前は `crownPrinceDepositionCount`）、その容器は
+**黙って母集団から外れていました**。漏れているのは event 34件・日精度の日付フィールド **15値**。
+
+**いま直さない**理由は、母集団 `n` が動くと `data/screenings.json` の記録が落ち、
+標本監査29件を引き直すことになるためです（#69 の移行で母集団の定義自体を書き換えるので、
+**そのときに一緒に直す**）。教訓は `R-SCREEN-FIRST` 側の話で、
+**絞り込みスクリプトのフィールド名は実在しなくてもエラーにならない** — 走査対象の容器名は
+データ側の実在キーと突き合わせるべきでした。
 
 ## 2026-08-03 の決定（Issue #69）— この表の日付系の行は移行後に畳める
 
