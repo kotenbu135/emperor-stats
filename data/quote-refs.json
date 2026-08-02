@@ -76421,6 +76421,17 @@
    ],
    "line": 13
   },
+  "yuan-shizu|personalCampaignCount.note|23130309966a": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount.note",
+   "span": "遂缚乃颜以献",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/元史.txt",
+   "frags": [
+    "遂缚乃颜以献"
+   ],
+   "line": 23188
+  },
   "yuan-shizu|personalCampaignCount.note|540739368577": {
    "id": "yuan-shizu",
    "path": "personalCampaignCount.note",
@@ -76548,6 +76559,17 @@
    ],
    "line": 21
   },
+  "yuan-shizu|personalCampaignCount[1].note|23130309966a": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount[1].note",
+   "span": "遂缚乃颜以献",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/元史.txt",
+   "frags": [
+    "遂缚乃颜以献"
+   ],
+   "line": 23188
+  },
   "yuan-shizu|personalCampaignCount[1].note|46b3783076c6": {
    "id": "yuan-shizu",
    "path": "personalCampaignCount[1].note",
@@ -76558,6 +76580,17 @@
     "帝自将征乃颜"
    ],
    "line": 339
+  },
+  "yuan-shizu|personalCampaignCount[1].note|7117beb65d8c": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount[1].note",
+   "span": "前军获乃颜，诛之",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/新元史.txt",
+   "frags": [
+    "前军获乃颜"
+   ],
+   "line": 1857
   },
   "yuan-shizu|personalCampaignCount[1].note|d5b1ff60e534": {
    "id": "yuan-shizu",
@@ -76571,6 +76604,54 @@
    ],
    "line": 340
   },
+  "yuan-shizu|personalCampaignCount[1].note|e694bdaf04f1": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount[1].note",
+   "span": "擒乃颜诛之，并获其辎重千余乘",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/新元史.txt",
+   "frags": [
+    "擒乃颜诛之",
+    "并获其辎重千余乘"
+   ],
+   "line": 23941
+  },
+  "yuan-shizu|personalCampaignCount[2].note|3974f1f0593e": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount[2].note",
+   "span": "还至京师，大宴群臣",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/元史.txt",
+   "frags": [
+    "还至京师大宴"
+   ],
+   "line": 20980
+  },
+  "yuan-shizu|personalCampaignCount[2].note|5d22e5cc2410": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount[2].note",
+   "span": "二十六年，海都寇北边，又扈从世祖亲征，至杭海，置西北驿传而还",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/新元史.txt",
+   "frags": [
+    "海都寇北边",
+    "又扈从世祖亲征",
+    "置西北驿传而还"
+   ],
+   "line": 1874
+  },
+  "yuan-shizu|personalCampaignCount[2].note|9c67f929d901": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount[2].note",
+   "span": "秋七月，世祖巡幸北边，召见慰谕之",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/元史.txt",
+   "frags": [
+    "世祖巡幸北边",
+    "召见慰谕之"
+   ],
+   "line": 20980
+  },
   "yuan-shizu|personalCampaignCount[2].note|c7611a336559": {
    "id": "yuan-shizu",
    "path": "personalCampaignCount[2].note",
@@ -76581,6 +76662,17 @@
     "海都兵犯边"
    ],
    "line": 360
+  },
+  "yuan-shizu|personalCampaignCount[2].note|e163416c0721": {
+   "id": "yuan-shizu",
+   "path": "personalCampaignCount[2].note",
+   "span": "二十六年，帝讨叛者于杭海",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/元史.txt",
+   "frags": [
+    "帝讨叛者于杭海"
+   ],
+   "line": 20244
   },
   "yuan-shizu|rebellionSufferedCount[0].note|04ce0349b629": {
    "id": "yuan-shizu",
@@ -76724,6 +76816,17 @@
     "潮州民蔡猛等拒杀官军"
    ],
    "line": 359
+  },
+  "yuan-shizu|rebellionSuppressionCount[13].note|23130309966a": {
+   "id": "yuan-shizu",
+   "path": "rebellionSuppressionCount[13].note",
+   "span": "遂缚乃颜以献",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/元史.txt",
+   "frags": [
+    "遂缚乃颜以献"
+   ],
+   "line": 23188
   },
   "yuan-shizu|rebellionSuppressionCount[13].note|ebb0559eb948": {
    "id": "yuan-shizu",
