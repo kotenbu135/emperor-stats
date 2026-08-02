@@ -1,7 +1,13 @@
-# Issue #35 の調査結果（2026-08-02・データ未変更）
+# Issue #35 の調査結果（2026-08-02）
 
 [Issue #35](https://github.com/kotenbu135/emperor-stats/issues/35) の3つの対応案について原典で確認した。
-**この時点ではデータ・スキーマ文書とも変更していない**（判定の承認待ち）。
+
+> **2026-08-02 追記: 下の結論はすべて実施済み。** `commonName` 5件の改名、`rival` 定義の書き換え
+> （[INCLUSION_CRITERIA.md](../../../data/schema/INCLUSION_CRITERIA.md)・`EMPERORS_SCHEMA.md`・`SCHEMA_OVERVIEW.md`）、
+> 蕭淵明の据え置きを反映した。サイト側は `display-name.ts` の `KEEP_RAW_NAME` を削除し、
+> 爵位5件のふりがな（`data/name-readings.json`）と「陽」のかな検索読みを追加した。
+> 経緯は [NAME_DISPLAY_PLAN_2026-08-02.md](../../site-design/NAME_DISPLAY_PLAN_2026-08-02.md) の 3-6。
+> **未対応で残したもの**: 一覧カードに「対立・僭称」の印が無い（同 3-6 の末尾）。
 
 結論を先に書く。
 

@@ -415,8 +415,9 @@ function dynastyKey(e: RawEmperor): string {
  * commonNameはスキーマ・validate_emperors.pyで非null必須（かつてnullが2件混在し
  * 2026-07-21にデータ側で解消済み）。フォールバックは防御的に維持する。
  *
- * `toNakaguro` を通すのは「侯景政権（正平）」のように**括弧を残す4件**のため
- * （display-name.ts の KEEP_RAW_NAME）。他は括弧が落ちているので素通りする。
+ * `toNakaguro` は防御用に残してある。2026-08-02（Issue #35）に `KEEP_RAW_NAME` の
+ * 4件をデータ側で解消したので、現在は365人すべてが括弧の落ちた形で通り**素通りする**。
+ * `commonName` に新しく括弧つきの表示名が入ったときだけ効く。
  */
 function displayName(e: RawEmperor): string {
   const raw =
@@ -678,8 +679,10 @@ export function getEmperorListRecords(): EmperorListRecord[] {
     }
     // 表示名も同じ理由で検索できること。display-name.ts の上書き表に、データの
     // どの名称フィールドにも無い呼称を入れると「見えている名前で引けない」状態になる。
-    // **中黒で区切った断片ごとに見る** — 括弧を残す4件（「侯景政権・正平」）は
-    // 表示のときだけ括弧が中黒になるので、連結した全体では searchText に一致しない。
+    // **中黒で区切った断片ごとに見る** — 表示のときだけ括弧が中黒になる名前
+    //（かつての「侯景政権・正平」型）は、連結した全体では searchText に一致しない。
+    // 2026-08-02（Issue #35）に該当4件が消えて現在は断片＝全体だが、`commonName` に
+    // 括弧つきの表示名が入れば再び効くので検査はこのまま残す。
     for (const part of r.name.split("・")) {
       if (!r.searchText.includes(part)) {
         throw new Error(

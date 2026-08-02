@@ -50,7 +50,7 @@
   - `eraId`: 時代 ID（`meta.catalogs.eras` の11区分。時代ジャンプ・並び順用）
   - `regimeId`: 政権 ID（`meta.catalogs.regimes` の89件。同名国号も含めて一意）
   - `researchSection`: 調査ブロック名（旧 `dynasty.section`。表示用の区分ではない）
-  - `standing`: `regular`（歴代の皇帝）/ `rival`（同一国号内の対立・僭称。20人）
+  - `standing`: `regular`（歴代の皇帝）/ `rival`（同じ政権の正統な帝統の外側で帝号を称した対立・僭称。20人。帝紀の有無は傍証で判定基準ではない）
   - 政権の位置づけ（`unified` 統一王朝 / `divided` 分裂期の王朝 / `rebel` 反乱・自称政権）と国号・表示ラベルは `meta.catalogs.regimes` 側にある
 
 ### 在位期間: `reigns` 配列

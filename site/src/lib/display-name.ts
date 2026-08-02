@@ -50,20 +50,11 @@ export const DISPLAY_NAME_OVERRIDES: Record<string, string> = {
   "wuzhou-wusangui": "昭武帝", // 太祖昭武帝（呉三桂）。諱は補助スロットへ
 };
 
-/**
- * 括弧を落とさず原文のまま出す id。
- *
- * 「侯景政権（正平）」型は**名前ではなく政権の説明**で、この文法から外れている。
- * ただし2行目の王朝ラベルは `regimeId` 由来の「梁（蕭梁）」なので、括弧を落として
- * 諱にすると**対立政権であることがどこにも出なくなる**。受け皿（王朝行かバッジ）を
- * 作るまで動かさない（NAME_DISPLAY_PLAN の「3-6. 手を付けないもの」）。
- */
-const KEEP_RAW_NAME = new Set([
-  "liang-xiaozhengde", // 侯景政権（正平）
-  "liang-xiaoji", // 益州政権（天正）
-  "liang-xiaoyuanming", // 北斉擁立政権（天成）
-  "liang-xiaozhuang", // 北斉擁立政権（天啓）
-]);
+// かつてここに `KEEP_RAW_NAME`（梁の4件）があった。「侯景政権（正平）」型の
+// commonName は名前ではなく政権の説明で、括弧を落とすと対立政権であることが
+// どこにも出なくなるため表示規則の例外にしていた。**2026-08-02（Issue #35）に
+// データ側を人物名基準（「蕭正徳（臨賀王）」）へ直したので例外は不要**になり、
+// 爵位は R3 で落ちて個別ページの「別称」チップに出る。
 
 /**
  * カード1行目・h1 に出す通用名。
@@ -78,7 +69,6 @@ export function emperorDisplayName(
 ): string {
   const override = DISPLAY_NAME_OVERRIDES[id];
   if (override) return override;
-  if (KEEP_RAW_NAME.has(id)) return commonName;
   const inner = /（(.+?)）/.exec(commonName)?.[1];
   // R2: 明・南明・清の「廟号（元号＋帝）」は元号＋帝を主にする。
   if (inner && ERA_NAME_REGIMES.has(regimeId) && inner.endsWith("帝")) {
@@ -246,14 +236,14 @@ export function emperorNameEntries(r: {
   if (isEraName) {
     // 「正統帝/天順帝」→「正統・天順」。元号そのものを出すので「帝」は落とす。
     push("元号", inner.split("/").map((s) => s.replace(/帝$/, "")).join("・"));
-  } else if (inner && !KEEP_RAW_NAME.has(r.id)) {
+  } else if (inner) {
     for (const part of inner.split("、")) {
       // 諱の再掲（「少帝（懿）」）と注記（「泰定帝（通称）」）は行にしない。
       if (part === "通称" || (r.personalName ?? "").includes(part)) continue;
       push("別称", part);
     }
   }
-  if (!isEraName && !KEEP_RAW_NAME.has(r.id)) {
+  if (!isEraName) {
     // 「承天応運啓聖睿文宣武皇帝黄巣」のように**自称の帝号に諱が連なっている**形は、
     // 帝号の部分だけを別称にする（諱は上の行に出ているので二重になる）。
     push("別称", r.name && outer.endsWith(r.name) ? outer.slice(0, -r.name.length) : outer);
