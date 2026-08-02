@@ -32,6 +32,7 @@ LIGHT_GATES = [
     ("data/kinship.json", ["validate_kinship.py"]),
     ("data/name-readings.json", ["validate_readings.py"]),
     ("data/emperor-profiles.json", ["validate_readings.py", "validate_profiles.py"]),
+    ("data/regime-conventions.json", ["check_regime_conventions.py"]),
 ]
 
 # 引用・日付を触ったときだけ必要になる重いゲート（344 秒・走らせない）

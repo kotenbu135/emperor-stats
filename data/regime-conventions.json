@@ -1,0 +1,186 @@
+{
+  "meta": {
+    "purpose": "政権単位で決まることを人物単位で365回やらないための調査簿記。「この書はこの政権のこの項目をどこに・どういう書式で載せるか」を原典から先に確定し、人物単位の調査対象を絞る（Issue #41 の実施順1・規則 R-REGIME-FIRST）",
+    "notForBuild": "サイトのビルドもバリデータもこれを読まない。読むのは調査の段取り（.claude/workflows/name-block.js）と scripts/check_regime_conventions.py だけ。emperors.json の meta へ入れないのは、meta の read-modify-write が並行セッション規則（R-RMW）に当たるため",
+    "updated": "2026-08-02",
+    "rule": "**値を書かない。** ここに書けるのは「書式・所在」と、原典が制度そのものを明言している場合のその明文だけ。『唐は全員に廟号がある』は人物単位の主張で、24人読まないと言えない。書いてよいのは『舊唐書は本紀冒頭に廟号＋諡号＋諱を並べる書式をとる』まで。書こうとしている記述が特定の人物の値を含意していないか、投入前に確かめること",
+    "verdicts": {
+      "form-found": "その書のその位置に定型で載る。人物単位の作業は**判定ではなく転記**になり、同じ1行から複数項目が同時に取れる",
+      "absent-by-institution": "原典がその制度の不設置・廃止を明言している。**打ち切り側の判定なので根拠は2件以上**（明文＋書式の両方）",
+      "biography-only": "その書はこの政権の君主を列伝で扱い、列伝の定型（「〈姓名〉字〈字〉，〈本貫〉」）には該当項目の欄が構造上ない。空欄は取りこぼしではなく**所在が違う**",
+      "no-form": "帝紀はあるが冒頭の定型に該当項目が含まれない。絞り込めないので**従来どおり人物単位で判定する**"
+    },
+    "personScope": {
+      "transcribe": "全員が対象。読むのは locator の1行だけ",
+      "skip": "人物単位の調査を打ち切る",
+      "other-source": "その書では取れない。別史料に当たるか「調査済みだが不明」で確定する",
+      "per-person": "絞り込めない。人物単位の調査をそのまま行う"
+    },
+    "asymmetry": "『書式がある』を誤ると余分に読むだけだが、『無い』を誤るとその政権の空欄を全件まとめて正しいと結論する。打ち切り側（absent-by-institution・biography-only）の根拠だけは厚く取る"
+  },
+  "conventions": [
+    {
+      "book": "舊唐書",
+      "regimeIds": ["tang"],
+      "fields": ["templeName", "posthumousName", "personalName"],
+      "locator": "本紀 卷1〜20 各帝の冒頭1行（china-history 旧唐书/本纪。複数皇帝が同居する巻はマーカー分割・SOURCE_MAPPING.md 参照）",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡号〉皇帝，讳〈諱〉，〈父〉第N子也」。廟号・諡号・諱が1行に並ぶので3項目が1回の読みで取れる",
+      "variants": "「讳」を挟まず諱が直接続く異形がある（懿宗）。機械で「讳」を当てると外れるが書式は同じ",
+      "evidence": [
+        {
+          "file": "_corpus_cache/tang-gaozong.txt",
+          "line": 2,
+          "quote": "高宗天皇大圣大弘孝皇帝，讳治，太宗第九子也"
+        },
+        {
+          "file": "_corpus_cache/tang-yizong.txt",
+          "line": 2,
+          "quote": "懿宗昭圣恭惠孝皇帝漼，宣宗长子"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "tang-shangdi",
+          "locator": "舊唐書 列傳（帝紀に独立記述が無い）",
+          "note": "冒頭は「殇皇帝重茂，中宗第四子也」で諡号＋諱の形はあるが本紀の定型ではない"
+        },
+        {
+          "id": "tang-lige",
+          "locator": "新唐書（daizhigev20）",
+          "note": "帝紀に独立記述が無く列傳側のみ"
+        },
+        {
+          "id": "tangmo-li-chenghong",
+          "locator": "新唐書（daizhigev20）",
+          "note": "同上"
+        },
+        {
+          "id": "tangmo-li-yun",
+          "locator": "新唐書（daizhigev20）",
+          "note": "独立伝が見当たらず僖宗紀の当該期間で代替。他の事件記事が混在する"
+        }
+      ],
+      "surveyedAt": "2026-08-02"
+    },
+    {
+      "book": "明史",
+      "regimeIds": ["ming"],
+      "fields": ["templeName", "posthumousName", "personalName"],
+      "locator": "本紀 各帝の冒頭1行（china-history 明史・章単位HTML）",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡号〉皇帝，讳〈諱〉，字〈字〉，姓〈姓〉氏」。舊唐書と同型で、さらに字・姓まで並ぶ",
+      "evidence": [
+        {
+          "file": "_corpus_cache/ming-taizu.txt",
+          "line": 2,
+          "quote": "太祖开天行道肇纪立极大圣至神仁文义武俊德成功高皇帝，讳元璋，字国瑞，姓朱氏"
+        },
+        {
+          "file": "_corpus_cache/ming-shenzong.txt",
+          "line": 2,
+          "quote": "神宗范天合道哲肃敦简光文章武安仁止孝显皇帝，讳翊钧，穆宗第三子也"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-02"
+    },
+    {
+      "book": "漢書",
+      "regimeIds": ["western-han"],
+      "fields": ["templeName", "personalName"],
+      "locator": "帝紀 各帝の冒頭1行（china-history 汉书/帝纪）",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "冒頭は「〈通用名〉，〈本貫または続柄〉也」で、**廟号も諱も冒頭には出ない**。諡号形（孝武皇帝）が通用名として立つだけで、廟号は帝紀冒頭の外（本紀末の贊・禮樂志の廟制記事など）を当たる必要がある",
+      "evidence": [
+        {
+          "file": "_corpus_cache/han-gaozu.txt",
+          "line": 1,
+          "quote": "高祖，沛丰邑中阳里人也，姓刘氏"
+        },
+        {
+          "file": "_corpus_cache/han-wudi.txt",
+          "line": 1,
+          "quote": "孝武皇帝，景帝中子也，母曰王美人"
+        }
+      ],
+      "exceptions": [],
+      "note": "機械の書式当たり（冒頭3行に「讳/諱」）は前漢14人で0件。**これは『廟号が無い』の証拠ではなく『この書は冒頭に並べない』の証拠**。前漢の廟号が7/14 で止まっているのは、漢が廟号を限られた皇帝にしか立てなかったためで、取りこぼしとは限らない（Issue #37 本文も同じ見立て）",
+      "surveyedAt": "2026-08-02"
+    },
+    {
+      "book": "史記",
+      "regimeIds": ["qin"],
+      "fields": ["posthumousName"],
+      "locator": "秦始皇本紀（史記 卷六）",
+      "verdict": "absent-by-institution",
+      "personScope": "skip",
+      "form": "本紀冒頭は「秦始皇帝者，秦庄襄王子也」で諡号形を持たない。加えて帝号を定めた制詔そのものが諡法の廃止を明言する",
+      "evidence": [
+        {
+          "file": "_corpus_cache/qin-shi-huang.txt",
+          "line": 14,
+          "quote": "朕闻太古有号毋谥，中古有号，死而以行为谥。如此，则子议父，臣议君也，甚无谓，朕弗取焉。自今已来，除谥法"
+        },
+        {
+          "file": "_corpus_cache/qin-shi-huang.txt",
+          "line": 1,
+          "quote": "秦始皇帝者，秦庄襄王子也"
+        }
+      ],
+      "exceptions": [],
+      "note": "秦の templeName は別レコード扱い（この明文は諡法についてのみ述べている）。制度の明文があるのはこの1件だけなので、他政権へ横展開しないこと",
+      "surveyedAt": "2026-08-02"
+    },
+    {
+      "book": "漢書・後漢書",
+      "regimeIds": ["xin", "xuanhan", "chengjia"],
+      "fields": ["templeName", "posthumousName"],
+      "locator": "漢書 傳（王莽傳上中下）／後漢書 列傳（劉玄劉盆子列傳・隗囂公孫述列傳）",
+      "verdict": "biography-only",
+      "personScope": "other-source",
+      "form": "列伝の定型「〈姓〉〈名〉字〈字〉，〈本貫または続柄〉也」。帝紀が立たないので、廟号・諡号を記す欄が構造上ない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/wang-mang.txt",
+          "line": 1,
+          "quote": "王莽字巨君，孝元皇后之弟子也"
+        },
+        {
+          "file": "_corpus_cache/gengshi-di.txt",
+          "line": 1,
+          "quote": "刘玄字圣公，光武族兄也"
+        },
+        {
+          "file": "_corpus_cache/gongsun-shu.txt",
+          "line": 1,
+          "quote": "公孙述字子阳，扶风茂陵人也"
+        }
+      ],
+      "exceptions": [],
+      "note": "**空欄が正しいという結論ではない**。更始帝には後漢が諡を与えた記事が列伝側にあるように、値が別の場所に出ることがある。ここで確定したのは『冒頭1行では取れない』ことだけで、人物単位では列伝本文を読むか「調査済みだが不明」で閉じる",
+      "surveyedAt": "2026-08-02"
+    },
+    {
+      "book": "後漢書",
+      "regimeIds": ["zhongjia"],
+      "fields": ["templeName", "posthumousName"],
+      "locator": "後漢書 列傳（劉焉袁術呂布列傳）",
+      "verdict": "biography-only",
+      "personScope": "other-source",
+      "form": "同上の列伝定型",
+      "evidence": [
+        {
+          "file": "_corpus_cache/yuan-shu.txt",
+          "line": 1,
+          "quote": "袁术字公路，汝南汝阳人，司空逢之子也"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-02"
+    }
+  ]
+}

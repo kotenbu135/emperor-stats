@@ -27,6 +27,7 @@ python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実�
 
 note に**書名を書き足した・引用の出典を差し替えた**ときは `python3 scripts/verify_quotes.py --check-books`（ローカル専用・約1分40秒。名乗る書名とその書の実ファイルを突き合わせる。未トリアージの残件があるためエラーにはしない＝出力を読む）。
 
+`data/regime-conventions.json`（政権単位の慣行）を触った場合は `python3 scripts/check_regime_conventions.py`（構造・政権 id の実在・引用が実ファイルの該当行にあるか。CI でも実行）。悉皆調査に入る前に `--scope` で確定済みの範囲を、人物単位の調査を立てる前に `--for <皇帝id>` を見る。
 `data/kinship.json` を触った場合は `python3 scripts/validate_kinship.py`（続柄と血縁エッジの実体整合・世代パリティ・親子の生没年もここで見る）。
 `data/name-readings.json`（ふりがな）・`data/emperor-profiles.json`（紹介文）を触った場合は `python3 scripts/validate_readings.py`（ルビ記法・親文字一致・総ルビ充足）。紹介文（GitHub Issue #16）はさらに `python3 scripts/validate_profiles.py`（文字数・`description` が平文であること・件数・定型文の n-gram）。素材は `python3 scripts/extract_profile_material.py --section '<時代区分>'` で出す（`emperors.json` 全体を読まない）。**既存 note は既定で出さない** — 1段目に渡すと note の誤りが本文へ流れるため、`--notes on` を付けてよいのは検証段だけ（フックが止める）。**紹介文を書く前に [docs/process/profile-writing/README.md](docs/process/profile-writing/README.md) を読む**（原文先読み→引用台帳→執筆の4段手順とプロンプト雛形。1人ぶんのゲートは `scripts/check_profile_fragment.py`）。
 
@@ -71,6 +72,7 @@ note に**書名を書き足した・引用の出典を差し替えた**とき�
 - **調査エージェントは `.claude/agents/` の定義を使う**（`corpus-researcher`・`adversarial-verifier`・`profile-*`）。素の Agent を立てると引用規約・出力契約がプロンプトに写し漏れる。Workflow からは `agent(prompt, {agentType: '...'})`。段構成も `.claude/workflows/` に置いて毎回書き直さない
 - **一部の規則は `.claude/hooks/guard.py` が実行の直前に止める**（コーパスへの `.{0,N}` grep・`git add -A`・裸の `git stash`・メイン会話での `emperors.json` 全体 Read）。**サブエージェントと Workflow エージェントにも掛かる**。逃げ道は `EMPSTATS_ALLOW=<規則ID>:<理由>` の1本だけで、理由は必須。規則の一覧と適用範囲は [docs/process/RULES.yml](docs/process/RULES.yml)
 - **`data/*.json` に未コミット差分があるまま turn を終えると `.claude/hooks/stop_gate.py` が軽いゲートをその場で流す**（1秒未満）。落ちていれば止まる。`verify_quotes.py --check` は344秒かかるので流さず「今回の変更より後に起動されていない」ことだけ告げる。**止めるのは1回だけ**なので、意図的に途中の状態で終えたいときはその旨を述べてもう一度終える
+- **悉皆調査では、政権単位で決まることを人物単位で365回やらない** — 「この政権は廟号を立てるか」「どの位置にどんな書式で載るか」は政権の慣行なので、`data/regime-conventions.json` に**書式・所在だけ**を原典から先に確定する（**値は書かない**。「唐は全員に廟号がある」は24人読まないと言えない人物単位の主張）。絞り込みの誤りは非対称で、「書式がある」の誤りはトークンを損するだけだが、「無い」の誤りはその政権の空欄を全件まとめて「正しい」と結論する
 - **スクリプトによるデータの自動生成は禁止** — 人物ごとの個別調査・判定が必須（日数計算等の機械的な計算補助や、確定済み調査結果の構造チェックはOK）
 - **原文引用の手打ち禁止** — 引用は `scripts/quote_helper.py`／grep のツール出力からコピーし、字体変換・要約・語順変更をしない。引用・日付を変更したら上記ゲートの合格がコミット条件
 - **原典調査（データ訂正・新規ブロック着手）に入る前に [CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) と [RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) を読む** — 「china-history の相対巻数」「原文ラベルなのに中身が白話訳」のように、読まずに進むと誤った巻・誤った日付を採用する罠が記録されている（担当ブロックの書名・巻・行範囲は [SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md) から引く）。読まずに調査エージェントを起動して手戻りした事故が複数回発生している

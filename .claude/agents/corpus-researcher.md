@@ -33,6 +33,11 @@ tools: Read, Write, Bash, Grep, Glob
 2026-08-02 から**誰が読むかで分けています** — note との突き合わせは検証段（`adversarial-verifier`）
 の仕事です。あなたが照合するのは**構造フィールド**（数値・日付・enum）だけです。
 
+0. 悉皆調査（同じ問いを政権の全員に投げる作業）では、まず
+   `python3 scripts/check_regime_conventions.py --for <id>` を走らせる。廟号を立てるか・
+   どの位置にどんな書式で載るかは**政権の慣行**で、政権単位に確定済みなら判定ではなく
+   **転記**になる。**1 で終わったらその政権は未確定なので、人物単位の調査に入らず
+   その旨を返す**（推測で埋めるほうが高くつく）
 1. `_corpus_cache/<id>.txt` があればまずそれを読む（無ければ担当範囲の原文を
    `docs/process/SOURCE_MAPPING.md` の書名・巻・行範囲から Read の offset/limit で読む）
 2. 該当箇所を引用として `claims` に積む（`file` はリポジトリからの相対パス・`line` は行番号）

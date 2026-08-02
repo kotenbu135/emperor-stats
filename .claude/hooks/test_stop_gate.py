@@ -26,7 +26,7 @@ def make_repo(tmp, gates):
     (root / "data").mkdir()
     (root / "scripts").mkdir()
     (root / ".claude").mkdir()
-    for name in ("emperors.json", "kinship.json"):
+    for name in ("emperors.json", "kinship.json", "regime-conventions.json"):
         (root / "data" / name).write_text('{"emperors": []}\n', encoding="utf-8")
     for name, body in gates.items():
         (root / "scripts" / name).write_text(body, encoding="utf-8")
@@ -59,7 +59,7 @@ def main():
             fails.append(label)
 
     gates_ok = {"validate_emperors.py": GATE_OK, "verify_calendar.py": GATE_OK,
-                "validate_kinship.py": GATE_OK}
+                "validate_kinship.py": GATE_OK, "check_regime_conventions.py": GATE_OK}
     gates_ng = {**gates_ok, "validate_emperors.py": GATE_NG}
 
     print("差分が無ければ何もしない")
@@ -103,6 +103,13 @@ def main():
         check("kinship の差分 → validate_kinship が落ちる", rc == 2 and "validate_kinship" in err,
               f"{rc} {err}")
         check("emperors 用のゲートは流れない", "validate_emperors" not in err, err)
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_repo(tmp, {**gates_ok, "check_regime_conventions.py": GATE_NG})
+        dirty(root, "regime-conventions.json", '{"conventions": [1]}\n')
+        rc, out, err = fire(root)
+        check("政権慣行の差分 → check_regime_conventions が落ちる",
+              rc == 2 and "check_regime_conventions" in err, f"{rc} {err}")
 
     print("重いゲートは走らせず、走っていないことだけ告げる")
     with tempfile.TemporaryDirectory() as tmp:

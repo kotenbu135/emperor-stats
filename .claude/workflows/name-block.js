@@ -23,13 +23,17 @@ if (!ids.length) {
 
 const RESEARCH_SCHEMA = {
   type: 'object',
-  required: ['id', 'wroteTo', 'claimCount', 'fields', 'discrepancies'],
+  required: ['id', 'wroteTo', 'claimCount', 'fields', 'regimeConvention', 'discrepancies'],
   properties: {
     id: { type: 'string' },
     wroteTo: { type: 'string' },
     claimCount: { type: 'integer' },
     fields: { type: 'array', items: { type: 'string' } },   // 埋めた欄（空欄が正しい場合は空配列）
     unknown: { type: 'array', items: { type: 'string' } },  // 「調査済みだが不明」と確定した欄
+    // 政権単位の慣行（書式・所在）を実際に使ったことの証拠。未確定なら "blocked: <政権id>" と返す。
+    // 自由記述にせず必須にしてあるのは、「先に政権単位で確定する」を文書に書くだけだと
+    // 守られないため（規則 R-REGIME-FIRST）
+    regimeConvention: { type: 'string' },
     discrepancies: { type: 'string' },                      // 既存データとの食い違い。無ければ「なし」
     processSuggestion: { type: 'string' },                  // 手順そのものの改善案（任意・R-PROCESS-FEEDBACK）
   },
@@ -62,6 +66,13 @@ const results = await pipeline(
   (id) => agent(
     `皇帝 id \`${id}\` の名前データ（廟号 templeName・諡号 posthumousName・別称 aliases・元号）を` +
     `正史の本紀から確定してください。返す JSON の id は \`${id}\` を一字一句そのまま使うこと。\n\n` +
+    `- **最初に \`python3 scripts/check_regime_conventions.py --for ${id}\` を走らせる。**\n` +
+    `  廟号を立てるか・どの位置にどんな書式で載るかは人物の属性ではなく**政権の慣行**なので、\n` +
+    `  政権単位で先に確定してあります。出力の「所在」「書式」に従って読み、\n` +
+    `  使った慣行（書名・判定・所在）を regimeConvention にそのまま書いてください。\n` +
+    `  **1 で終わったらその政権は慣行が未確定です。人物単位の調査に入らず、\n` +
+    `  regimeConvention に \`blocked: <政権id>\` と書いて claims を空のまま返してください**\n` +
+    `- 判定が \`skip\` / \`other-source\` の項目は、この書の冒頭では取れません。無理に埋めない\n` +
     `- 既存レコードは自分で取る: \`jq '.emperors[]|select(.id=="${id}")|{id,name,regimeId,reigns:[.reigns[]|{startYear,endYear}]}' data/emperors.json\`\n` +
     `- 本紀冒頭の1行（「太宗孝武惠文皇帝，讳德光」形式）でほぼ取れます。取れない場合は無理に埋めず\n` +
     `  「調査済みだが不明」として unknown に入れてください。**空欄が正しい場合があります**\n` +
@@ -84,9 +95,13 @@ const results = await pipeline(
 )
 
 const ok = results.filter(Boolean)
+// 政権単位の慣行が未確定で立てられなかった人物。握りつぶすと「調査したが空欄だった」と
+// 見分けが付かなくなるので、別枠で返す（規則 R-REGIME-FIRST）
+const blocked = ok.filter((r) => /^blocked:/.test(r.regimeConvention || ''))
 const withIssues = ok.filter((r) => r.issues && r.issues.length)
 const suggestions = ok.filter((r) => r.processSuggestion).map((r) => `${r.id}: ${r.processSuggestion}`)
-log(`検証完了: ${ok.length}/${ids.length}人。指摘ありは ${withIssues.length}人・手順の提案 ${suggestions.length}件`)
+log(`検証完了: ${ok.length}/${ids.length}人。指摘ありは ${withIssues.length}人・` +
+    `慣行未確定で立てられなかったのが ${blocked.length}人・手順の提案 ${suggestions.length}件`)
 
 // 本体（data/emperors.json）への投入は親セッションが行う。並行セッションがあるため
 // エージェントには書かせない。
@@ -94,6 +109,7 @@ return {
   workDir,
   verified: ok.length,
   missing: ids.filter((id) => !ok.some((r) => r.id === id)),
+  blockedByRegime: blocked.map((r) => `${r.id}: ${r.regimeConvention}`),
   issues: withIssues,
   // 手順の改善提案は握りつぶさずユーザーへ上げる（採否は PROCESS_IMPROVEMENTS.md へ）
   processSuggestions: suggestions,

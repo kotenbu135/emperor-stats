@@ -19,6 +19,7 @@
 | `dynastyOrder` の調査完了 | `meta.catalogs.regimes[].dynastyOrderSurveyed` | **無い**（Issue #24 に「調査完了時に追加すると再発防止になる」と記載） |
 | データの訂正 | `meta.status` と `docs/PROJECT_STATUS.md` | 無い（同時更新の運用ルール） |
 | `data/kinship.json` のエッジ | `accessionRoute.axes.relationToPredecessor` | `validate_kinship.py`（G3 `check_relation_edges`・継承エッジ216件） |
+| 政権を増やす／`regimeId` を変える | `data/regime-conventions.json` の `regimeIds`（未確定の政権では人物単位の調査が立てられない） | `check_regime_conventions.py`（存在しない政権 id をエラー） |
 
 ## サイト側（欠けるとビルドか deploy gate が落ちる）
 
@@ -44,4 +45,5 @@
 | `.claude/hooks/guard.py` の規則 | `docs/process/RULES.yml` の `enforcement` 欄 | `python3 scripts/check_rules.py`（実装と台帳の突合・**CI でも実行**）＋ `python3 .claude/hooks/test_guard.py`（規則を足したらケースも足す・ローカル専用） |
 | `extract_profile_material.py` の note 抑止を変える | `VERIFIER.md`（`--notes on` を付ける側）・`guard.py` の `NOTES_ON_ALLOWED` | `python3 .claude/hooks/test_guard.py`（ローカル専用） |
 | 新しいゲートスクリプトを足す | `.claude/hooks/stop_gate.py` の `LIGHT_GATES`（対応表に無いゲートは turn の終わりに流れない） | `python3 .claude/hooks/test_stop_gate.py`（ローカル専用） |
+| `data/regime-conventions.json` の verdict を変える | `.claude/workflows/name-block.js` の調査プロンプト（`skip`／`other-source` の項目は埋めさせない） | `check_regime_conventions.py`（verdict と personScope の1対1を検査） |
 | 判定基準を変える | **その基準で調査済みのブロックの遡及監査** | 無い。基準変更時に対象人数を先に出す（被反乱回数の基準訂正時は35名を監査した） |
