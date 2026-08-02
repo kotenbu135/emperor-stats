@@ -92,20 +92,16 @@ KNOWN_EMPTY_CONFIDENCE = set()
 
 # 被反乱 event の日付が最終 reign の endDate と食い違うが正当なもの（check_death_event_date）。
 # 「在位終了 ≠ 没日」（廃位・禅譲のあとで殺された）が主因で、これは食い違って当然。
-# 未トリアージのものは Issue #50 で原典に当て直す。
 # 鍵は (皇帝 id, events の添字) — 同じ人物に該当 event が2つあるとき、id だけだと
 # 1つ目で許可リストを消費して2つ目が「新しいずれ」として警告に出てしまう
 # （KNOWN_PREACCESSION_EVENTS が同じ理由で添字まで持っている）。
+# 未トリアージだった5件は Issue #50 で原典に当て直し、いずれも event 側の欠陥
+# （旧暦の月日を西暦欄へ直書き2件・在位終了日を訂正した際の取り残し3件）と確定して
+# データを訂正したため、2026-08-03 にリストから外した。
 KNOWN_DEATH_EVENT_DATE = {
     # 廃位・禅譲後に殺害された（在位終了日と没日が別なのが正しい）
     ("hou-han-shaodi-bian", 0),    # 0189-09-28 廃位 → 0190-03-06 鴆殺
     ("sui-gongdi-tong", 0),        # 0619-05-23 禅譲 → 0619-07-19 弑逆
-    # 未トリアージ（Issue #50）。在位終了日と event 日付が2日〜45日ずれる
-    ("liu-song-houfeidi", 2),      # event 0477-07-07 刺殺 / reigns 0477-08-01
-    ("qi-yulinwang", 0),           # event 0494-07-22 / reigns 0494-09-05
-    ("liang-xiaoyuanming", 0),     # event 0555-10-29 / reigns 0555-10-27
-    ("tangmo-shisiming", 0),       # event 0761-04-18 縊殺 / reigns 0761-04-22
-    ("shiguo-beihan-liujien", 0),  # event 0968-11-01 刺殺 / reigns 0968-10-23
 }
 
 # reignSummary と reigns の不一致（現状該当なし。
@@ -816,6 +812,11 @@ def check_death_event_date(data):
     if hits:
         warn(f"[death-event-date] 本人の死を結末とする被反乱 event の日付が在位終了日と食い違う"
              f"（在位終了≠没日なら正当・許可リストへ）: {len(hits)}件 {hits}")
+    if KNOWN_DEATH_EVENT_DATE:
+        # 消費されずに残ったエントリ＝ずれが解消した・event が消えた・添字がずれた。
+        # 黙って残すと、同じ (id, 添字) で将来ずれが出ても許可リストが吸って通してしまう。
+        warn(f"[death-event-date] 許可リストの未消費エントリ（ずれが解消したか対象が動いた・"
+             f"外すか鍵を直す）: {sorted(KNOWN_DEATH_EVENT_DATE)}")
     return evaluated
 
 
