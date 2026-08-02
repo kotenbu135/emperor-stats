@@ -178,6 +178,10 @@ export interface EmperorListRecord {
   eraLabelRuby: string;
   dynastyKey: string;
   dynastyCategory: DynastyCategory;
+  /** その政権の中で正規の皇帝ではなく、並立して帝号を称した皇帝（20名・
+   *  `EmperorRecord.isRivalClaimant` と同じ値）。カード2行目の王朝ラベルは
+   *  本体政権（「梁（蕭梁）」）なので、これが無いとカードからは対立皇帝だと読めない。 */
+  isRivalClaimant: boolean;
   portraitUrl: string | null;
   /** 肖像の中で顔の中心が縦方向のどこにあるか（0=上端・1=下端）。肖像なしはnull。
    *  カードの肖像枠は実体(3:4)より横長なので、この値が無いと上寄せに切られて
@@ -205,7 +209,7 @@ export const DATABASE_COLUMN_COUNT = 8;
  * データベースページ（/database）専用のレコード。**表が描く列＋絞り込みに要る値**だけを持つ。
  * `eraLabel`・`dynastyKey`・`reignCount` は列としては描かず、絞り込みだけが使う。
  *
- * `EmperorListRecord` を流用しないこと — 図鑑グリッド用の10フィールドは表の列と
+ * `EmperorListRecord` を流用しないこと — 図鑑グリッド用のフィールドは表の列と
  * 一致せず、表が使わない `searchText`／`searchKana`（1人あたり数百バイト）を
  * 365件ぶん運ぶことになる。表の検索は行のセル値そのものを対象にするので、
  * 検索用の連結文字列を別に持つ必要がない（かな検索は図鑑側の機能で、ここには無い）。

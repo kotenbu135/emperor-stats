@@ -130,8 +130,24 @@ const EmperorCard = memo(function EmperorCard({
             </span>
           )}
         </div>
-        <div className="truncate text-xs leading-ruby text-muted-foreground">
-          <RubyText source={record.dynastyLabelRuby} />
+        {/* 2行目は王朝ラベル。対立・僭称の皇帝（20名）はここに小さな印を添える
+            （Issue #45）。**印は RubyText の外側・truncate の外側**に置く —
+            ルビ記法の文字列に混ぜないこと、王朝ラベルが長い人物で印のほうが
+            先に切れないことの両方が要る。truncate 側に min-w-0 が要るのは、
+            flex アイテムの既定 min-width:auto が min-content 未満への収縮を
+            止めて省略が効かなくなるため（代わりに印が箱から押し出される）。
+            文言は個別ページのバッジ（emperor-hero.tsx）から「の皇帝」を落とした形。 */}
+        <div className="flex items-center gap-1 text-xs leading-ruby text-muted-foreground">
+          <span className="min-w-0 truncate">
+            <RubyText source={record.dynastyLabelRuby} />
+          </span>
+          {record.isRivalClaimant && (
+            // カード全体が aspect-[3/4] 固定で文字ブロックが伸びると肖像側が縮むため、
+            // 印には縦の padding を持たせない（rival の20枚だけ肖像が低くなる）。
+            <span className="shrink-0 rounded-sm border border-border px-1 text-micro leading-none">
+              対立・僭称
+            </span>
+          )}
         </div>
         {/* 在位期間。同じ時代の中で誰がいつの人かを、カードを開かずに掴めるようにする
             （名前と王朝だけでは統計サイトの一覧として読み取れる情報が乏しい）。
