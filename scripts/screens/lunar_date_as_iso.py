@@ -18,11 +18,15 @@ Issue #50 でトリアージした5件のうち2件は「旧暦の月日をそ�
         その旧暦の月・日と数字として一致する。旧暦の月日を西暦欄に書いた形。
         Issue #50 の2件はここに掛かる（＝検出力の実測がある）。
 
-使い方: python3 scripts/screens/lunar_date_as_iso.py [--json] [--detail]
+使い方: python3 scripts/screens/lunar_date_as_iso.py [--detail]
+        python3 scripts/screens/lunar_date_as_iso.py --json [--seed N --sample K]
+          → check_screenings.py が読む形（n / buckets / samples）。data/screenings.json への
+            記録は Issue #55 に着手する時点で行う（読み始める前に「母集団 N → 要読解 M」を残す）。
 """
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -102,6 +106,7 @@ def run():
     sxtwl = load_sxtwl()
     data = json.loads(DATA.read_text(encoding="utf-8"))
     population = 0
+    all_fields = []
     hits_a, hits_b = [], []
     for e in data["emperors"]:
         for g in COUNT_GROUPS:
@@ -123,6 +128,7 @@ def run():
                     if not mo or precision_for(ev, key) != "day":
                         continue
                     population += 1
+                    all_fields.append(f"{e['id']}.{g}[{i}].{key}")
                     y, mm, dd = int(mo.group(1)), int(mo.group(2)), int(mo.group(3))
                     where = f"{e['id']}.{g}[{i}].{key}"
                     if written_gz and sxtwl is not None:
@@ -131,24 +137,46 @@ def run():
                             hits_a.append((where, val, gz, "/".join(sorted(written_gz))))
                     if (mm, dd) in lunar_md:
                         hits_b.append((where, val, f"{mm}月{dd}日"))
-    return population, hits_a, hits_b, sxtwl is not None
+    return population, hits_a, hits_b, sxtwl is not None, all_fields
+
+
+def sample(ids, seed, size):
+    """種つきの無作為抽出（scripts/screens/name_fields.py と同じ流儀）。
+
+    ハッシュ順の上位 k を取る。母集団が動いても他のフィールドの増減が既存の標本の
+    当落を変えないので、訂正が進んでも監査をやり直さずに済む。
+    """
+    rank = sorted(ids, key=lambda i: hashlib.md5(f"{seed}:{i}".encode()).hexdigest())
+    return sorted(rank[:size])
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--detail", action="store_true")
+    ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--sample", type=int, default=0, help="absent バケットから引く標本数")
     args = ap.parse_args()
-    population, hits_a, hits_b, has_sxtwl = run()
+    population, hits_a, hits_b, has_sxtwl, all_fields = run()
     both = {h[0] for h in hits_a} & {h[0] for h in hits_b}
-    read = len({h[0] for h in hits_a} | {h[0] for h in hits_b})
+    flagged = {h[0] for h in hits_a} | {h[0] for h in hits_b}
+    read = len(flagged)
     if args.json:
+        # check_screenings.py が読む形（n / buckets / samples）。バケットは
+        # ganzhi-mismatch と lunar-as-iso が {len(both)} 件だけ重なる。
+        buckets = {
+            "ganzhi-mismatch": [h[0] for h in hits_a],
+            "lunar-as-iso": [h[0] for h in hits_b],
+            "no-witness": [f for f in all_fields if f not in flagged],
+        }
         print(json.dumps({
-            "population": population,
-            "ganzhiMismatch": len(hits_a),
-            "lunarWrittenAsIso": len(hits_b),
-            "both": len(both),
-            "read": read,
+            "unit": "event-date-field",
+            "n": population,
+            "buckets": {k: len(v) for k, v in sorted(buckets.items())},
+            "samples": {k: sample(v, args.seed, args.sample)
+                        for k, v in sorted(buckets.items())
+                        if k == "no-witness" and args.sample},
+            "overlap": len(both),
             "sxtwl": has_sxtwl,
         }, ensure_ascii=False))
         return 0
