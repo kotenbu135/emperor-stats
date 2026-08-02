@@ -325,13 +325,23 @@ def load_verdicts():
 
 
 def save_verdicts(stamps):
+    """合格スタンプを積む。前回ぶんと足し合わせる（消さない）。
+
+    スタンプは「底本も引用も正規化も同じなら結果も同じ」を丸ごと符号化しているので、
+    古いものが残っていても誤って当たることはない（当たるならその判定は今も正しい）。
+    今回見たぶんだけに刈り込むと、worktree ごとに `data/quote-refs.json` が違うぶん
+    _norm_cache を共有する別セッションの合格を毎回捨て合うことになる。
+    """
     if VERDICT_PATH is None or stamps is None:
         return
+    merged = set(stamps) | (load_verdicts() or set())
+    if len(merged) > 500_000:   # 際限なく積まないための保険（今回ぶんまで戻す）
+        merged = set(stamps)
     try:
         NORM_CACHE_DIR.mkdir(parents=True, exist_ok=True)
         tmp = VERDICT_PATH.with_name(f"verdicts.json.tmp{os.getpid()}")
         try:
-            tmp.write_text(json.dumps(sorted(stamps)), encoding="utf-8")
+            tmp.write_text(json.dumps(sorted(merged)), encoding="utf-8")
             os.replace(tmp, VERDICT_PATH)
         finally:
             if tmp.exists():
@@ -831,7 +841,6 @@ def cmd_check(coverage_only=False):
     for e in errors:
         print(f"ERROR {e}")
     if verdicts is not None:
-        # 今回合格したぶんだけを残す（消えた引用・落ちた引用のスタンプは落ちる）。
         # 他の引用が落ちた回でも保存する: 訂正ループは「1件直す→まだ別が落ちる」を
         # 繰り返すので、合格が確定した引用まで毎回読み直すと目的の場面で効かなくなる
         save_verdicts(keep)

@@ -10,11 +10,14 @@
 - **走ったかどうかを帳簿で追わず、その場で走らせる。**「実行済みか」を記録から judge すると
   「走ったが落ちていた」を通してしまう。軽いゲートは全部合わせて 1 秒未満なので、
   差分があるときだけ実際に流したほうが正確で安い。
-- **重いゲートは走らせず、走っていないことだけ告げる。** 最後の実行がデータの更新より古いときに
-  「まだ走っていない」と言うに留める（合格したとは言えない。PreToolUse は起動しか見ていない）。
-  この設計は verify_quotes.py --check が 344 秒かかることを前提にしていた。2026-08-02 に
-  判定結果のスタンプを入れて 1 秒未満（初回のキャッシュ構築のみ数分）になったので、
-  ここで流すように変えられる — 変えるかどうかはユーザーの判断待ち。
+- **引用照合ゲートもここで流す（2026-08-02 変更）。** もとは verify_quotes.py --check が
+  344 秒かかるため「走っていないことだけ告げる」設計だったが、判定結果のスタンプで
+  1 秒未満になったので実際に流して落ちていれば止める。ただし初回（キャッシュ構築）は
+  数分かかりうるので QUOTE_TIMEOUT で打ち切り、**打ち切ったときは止めずに旧来の
+  「まだ走っていない」通知へ落とす**（turn の終了をキャッシュ構築で人質に取らない）。
+- **--backfill はここから流さない。** 台帳（data/quote-refs.json）を書き換えるフックは
+  「止めるために data を触る」ことになる。台帳が未更新なら --check が
+  「台帳に未登録の引用」で落ちるので、検出はそちらで足りる。
 - **stop_hook_active なら素通しする。** 意図的に途中で止める turn（ユーザーへの質問など）が
   あるので、止めるのは1回だけ。忘れを防ぐには1回で足り、2回目以降は作業妨害になる。
 """
@@ -42,9 +45,10 @@ LIGHT_GATES = [
     ("data/screenings.json", ["check_screenings.py"]),
 ]
 
-# 引用・日付を触ったときだけ必要になるゲート（このフックからは走らせない）
-HEAVY_TRIGGER = re.compile(r'"(quote|date|startDate|endDate|deathDate|birthDate|note)"')
-HEAVY_RAN = re.compile(r"verify_quotes\.py.*?--check(?![-\w])")
+# 引用・日付を触ったときだけ必要になるゲート
+QUOTE_TRIGGER = re.compile(r'"(quote|date|startDate|endDate|deathDate|birthDate|note)"')
+# キャッシュが温まっていれば 0.3 秒。初回のキャッシュ構築だけは数分かかるので打ち切る
+QUOTE_TIMEOUT = 40
 
 
 def log(root, rec):
@@ -84,36 +88,13 @@ def changed_data_files(root):
     return files
 
 
-def heavy_gate_note(root, changed):
-    """重いゲートが「今回の変更より後に起動されていない」ときだけ一言返す。"""
+def quote_gate_needed(root, changed):
+    """引用・日付を触ったか（触っていなければ照合ゲートは要らない）。"""
     if not any(f in ("data/emperors.json", "data/quote-refs.json") for f in changed):
-        return None
+        return False
     rc, diff = run(["git", "diff", "-U0", "HEAD", "--", "data/emperors.json",
                     "data/quote-refs.json"], root, timeout=60)
-    if rc != 0 or not HEAVY_TRIGGER.search(diff):
-        return None   # 引用・日付は触っていない
-
-    target = Path(root) / "data" / "emperors.json"
-    mtime = target.stat().st_mtime if target.exists() else 0
-    log = Path(root) / ".claude" / "hook-log.jsonl"
-    if log.exists():
-        try:
-            for line in reversed(log.read_text(encoding="utf-8").splitlines()):
-                rec = json.loads(line)
-                if not HEAVY_RAN.search(rec.get("detail") or ""):
-                    continue
-                ts = time.mktime(time.strptime(rec["ts"], "%Y-%m-%dT%H:%M:%S"))
-                return None if ts >= mtime else _heavy_msg(rec["ts"])
-        except Exception:  # noqa: BLE001
-            pass
-    return _heavy_msg(None)
-
-
-def _heavy_msg(last):
-    when = f"最後の起動は {last} で、その後にデータが変わっています" if last else "起動の記録がありません"
-    return ("引用または日付を変更しています。`python3 scripts/verify_quotes.py --backfill && "
-            "--check` の合格がコミット条件です（"
-            f"{when}）。キャッシュが温まっていれば1秒未満で終わります")
+    return rc == 0 and bool(QUOTE_TRIGGER.search(diff))
 
 
 def main():
@@ -152,7 +133,22 @@ def main():
             tail = "\n".join([ln for ln in out.strip().splitlines() if ln.strip()][-12:])
             failures.append(f"■ scripts/{g}（{why[g]} を変更したため実行）\n{tail}")
 
-    note = heavy_gate_note(root, changed)
+    note = None
+    if quote_gate_needed(root, changed):
+        scripts.append("verify_quotes.py --check")
+        rc, out = run(["python3", "scripts/verify_quotes.py", "--check"], root,
+                      timeout=QUOTE_TIMEOUT)
+        if rc == 1:
+            tail = "\n".join([ln for ln in out.strip().splitlines() if ln.strip()][-12:])
+            failures.append("■ scripts/verify_quotes.py --check（引用・日付を変更したため実行）\n"
+                            "台帳が古いだけなら `python3 scripts/verify_quotes.py --backfill` "
+                            "を先に流してください。\n" + tail)
+        elif rc != 0:
+            # 打ち切り・起動失敗では止めない（キャッシュ構築で turn を人質に取らない）
+            note = ("引用または日付を変更しています。`python3 scripts/verify_quotes.py --backfill && "
+                    "--check` の合格がコミット条件ですが、このフックからは終わりませんでした"
+                    f"（{QUOTE_TIMEOUT}秒で打ち切り＝初回のキャッシュ構築中の可能性）。"
+                    "手で1回流してください")
     log(root, {
         "decision": "block" if failures else ("note" if note else "pass"),
         "tool": "Stop", "actor": "main",
@@ -168,7 +164,7 @@ def main():
         sys.exit(2)
 
     if note:
-        # 重い側は止めない。走っていないことだけ伝える。
+        # 流しきれなかった側は止めない。走っていないことだけ伝える。
         print(json.dumps({"continue": True, "systemMessage": note}, ensure_ascii=False))
     sys.exit(0)
 
