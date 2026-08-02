@@ -61,6 +61,14 @@ rules:
     evidence: 字体混入684字・431フィールド・181人（2026-08-02）。範囲を書かずに直したため日本語の地の文2件まで旧字体にしてしまい戻した
     source: docs/process/RESEARCH_PROCESS.md 規約2
 
+  - id: R-QUOTE-BOOK
+    summary: 引用は「その note・source.page が名乗る書」に実在すること（出典の取り違えを残さない）
+    scope: 書名を名乗っている引用ユニットだけ。書名を名乗らない引用・断片が日付表現だけのものは対象外
+    enforcement: [L3]
+    detail: verify_quotes.py --check-books（ローカル専用・要コーパス）。note 本文・source.page・conversion 本文の和集合を名乗りとして読み、名乗ったどれか1書に全断片が在れば合格。逃げ道は quote-refs.json の bookAllow のみ・理由必須で、**使えるのはコーパス側の欠陥（一書の中で1箇所だけ字が壊れている等）・内篇名の誤読・引用の作り方が原因のときだけ**。書名が実際に違うなら note を直す
+    evidence: 99件（72人）を原典に当て直して残件0へ（2026-08-03・Issue #40 G1）。書名そのものの誤りは20件で、残りは検出器・正規化・引用の作り方の側だった。名乗りを note の散文だけから採っていたため、source.page にだけ書名がある形（十国春秋・旧五代史）が全部誤検出になっていた
+    source: docs/process/RESEARCH_QA_PLAN_2026-08-02.md 4-4
+
   - id: R-CLAIMS-FIRST
     summary: 原文を先に読み、引用台帳 claims を作り、note は照合として読む。台帳に無い事実は書かない
     scope: 調査エージェントの出力（新規調査・訂正の両方）

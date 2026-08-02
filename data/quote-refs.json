@@ -1165,16 +1165,16 @@
    ],
    "line": 4
   },
-  "beiqi-wuchengdi|personalCampaignCount.note|b90b0cef00ee": {
+  "beiqi-wuchengdi|personalCampaignCount.note|8378c7f7e3e1": {
    "id": "beiqi-wuchengdi",
    "path": "personalCampaignCount.note",
-   "span": "周軍至城下而阵、战于城西",
-   "status": "corpus",
-   "corpusFile": "daizhigev20/史藏/地理/山西通志.txt",
+   "span": "周軍至城下而陳、战于城西",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiqi-wuchengdi.txt",
    "frags": [
-    "周軍至城下而阵"
+    "周軍至城下而陳"
    ],
-   "line": 18076
+   "line": 6
   },
   "beiqi-wuchengdi|personalCampaignCount.note|e5e11c7a69b5": {
    "id": "beiqi-wuchengdi",
@@ -1367,7 +1367,7 @@
    "span": "乙未，齐上皇渡河入济州。是日，幼主禅位于大丞相任城王湝。（資治通鑑。北齊書「乙亥",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beisong-huizong|accessionRoute.note|39579149fc99": {
    "id": "beisong-huizong",
@@ -2127,7 +2127,7 @@
    "span": "嘉祐八年三月廿九日",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beisong-renzong|ages.note|485ad255e138": {
    "id": "beisong-renzong",
@@ -2319,7 +2319,7 @@
    ],
    "line": 22
   },
-  "beisong-renzong|rebellionSuppressionCount[10].note|165cca101d88": {
+  "beisong-renzong|rebellionSuppressionCount[10].note|17adb9432167": {
    "id": "beisong-renzong",
    "path": "rebellionSuppressionCount[10].note",
    "span": "辛酉，親從官顏秀等四人夜入禁中謀為變，宿衞兵捕殺之",
@@ -2893,7 +2893,7 @@
    "span": "命林廣代韓存寶經制瀘夷",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beisong-shenzong|rebellionSuppressionCount[4].note|900778cf31c4": {
    "id": "beisong-shenzong",
@@ -4562,7 +4562,7 @@
    "span": "見百官称『予』、手詔曰『手書』",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beisongmo-zhangbangchang|eraChangeCount.note|5f499f1a09b0": {
    "id": "beisongmo-zhangbangchang",
@@ -4923,7 +4923,7 @@
    "span": "天赐六年冬十月戊辰，帝崩于天安殿，时年三十九。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beiwei-houfeidi-yuanlang|accessionRoute.note|a86e560e4f33": {
    "id": "beiwei-houfeidi-yuanlang",
@@ -5242,7 +5242,7 @@
    "span": "太祖晩有子、聞而大悦、乃大赦天下",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beiwei-mingyuandi|amnestyCount.note|d6c0144781bb": {
    "id": "beiwei-mingyuandi",
@@ -5465,7 +5465,7 @@
    "span": "泰常八年十有一月己巳，帝崩于西宫，时年三十二。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beiwei-taiwudi|amnestyCount.note|24799105022f": {
    "id": "beiwei-taiwudi",
@@ -5586,7 +5586,7 @@
    "span": "誅叛民耿青、孫温二塁与蓋呉通謀者",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beiwei-taiwudi|personalCampaignCount[10].note|74e50a169f4d": {
    "id": "beiwei-taiwudi",
@@ -5950,7 +5950,7 @@
    "span": "慕容渇悉邻反於北平、攻破郡治、太守与守将撃敗之",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beiwei-taiwudi|rebellionSuppressionCount[10].note|82b73e95cee4": {
    "id": "beiwei-taiwudi",
@@ -6015,7 +6015,7 @@
    "span": "蓋呉為其下人所殺、伝首京師、永昌王仁平其遺燼",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beiwei-taiwudi|rebellionSuppressionCount[14].note|c9d4ff75d480": {
    "id": "beiwei-taiwudi",
@@ -6317,7 +6317,7 @@
    "span": "泰常八年十有一月壬申，即皇帝位，大赦天下。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beiwei-taiwudi|reigns[0].quote#1|4178eaa1137b": {
    "id": "beiwei-taiwudi",
@@ -6580,17 +6580,19 @@
    ],
    "line": 12
   },
-  "beiwei-wenchengdi|amnestyCount[3].note|a2558bdc94f5": {
+  "beiwei-wenchengdi|amnestyCount[3].note|9e4d0bac7a4c": {
    "id": "beiwei-wenchengdi",
    "path": "amnestyCount[3].note",
-   "span": "太華殿成、饗群臣、大赦天下",
+   "span": "辛亥，太華殿成。丙寅，饗群臣，大赦天下",
    "status": "corpus",
-   "corpusFile": "daizhigev20/子藏/类书/册府元龟.txt",
+   "corpusFile": "china-history/魏书/帝纪/第五章-卷五-原文.html",
    "frags": [
-    "太華殿成饗群",
-    "成饗群臣大赦"
+    "辛亥太華殿成",
+    "華殿成丙寅饗",
+    "丙寅饗群臣大",
+    "群臣大赦天下"
    ],
-   "line": 7293
+   "line": 39
   },
   "beiwei-wenchengdi|crownPrinceDepositionCount.note|5f8af8277899": {
    "id": "beiwei-wenchengdi",
@@ -6708,7 +6710,7 @@
    "span": "和平六年五月癸卯，帝崩于太华殿，时年二十六。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beiwei-xiandi|amnestyCount[0].note|89c4747ce44f": {
    "id": "beiwei-xiandi",
@@ -7544,7 +7546,7 @@
    "span": "以骠骑大将军、开府仪同三司、尚书右仆射樊子鹄为青胶大使，督济州刺史、大都督蔡俊讨",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beiwei-xiaowudi|rebellionSuppressionCount[2].note|a6bdaa4f6fef": {
    "id": "beiwei-xiaowudi",
@@ -7601,7 +7603,7 @@
    "span": "闰十有二月癸巳，帝为宇文黑獭所害，时年二十五。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beiwei-xiaozhuangdi|amnestyCount[0].note|5d64560f9eff": {
    "id": "beiwei-xiaozhuangdi",
@@ -8372,7 +8374,7 @@
    "span": "太昌元年11月甲辰、安定王朗及東海王曄坐事死",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beiwei-yuanye|amnestyCount.note|00845250e2c3": {
    "id": "beiwei-yuanye",
@@ -8803,7 +8805,7 @@
    "span": "甲子，随王杨坚称尊号，帝逊于别宫。（周書。隋書高祖紀「开皇元年二月甲子，上自相府",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "beizhou-mingdi|accessionRoute.note|0a1e440e98d7": {
    "id": "beizhou-mingdi",
@@ -9343,16 +9345,16 @@
    ],
    "line": 36
   },
-  "beizhou-xuandi|deathCause.note|7a17226a77cd": {
+  "beizhou-xuandi|deathCause.note|f2feb80f1b90": {
    "id": "beizhou-xuandi",
    "path": "deathCause.note",
-   "span": "彌復驕奢、躭酗於後宮",
-   "status": "corpus",
-   "corpusFile": "daizhigev20/史藏/别史/通志.txt",
+   "span": "彌復驕奢、耽酗於後宮",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beizhou-xuandi.txt",
    "frags": [
-    "躭酗於後宮"
+    "耽酗於後宮"
    ],
-   "line": 2936
+   "line": 40
   },
   "beizhou-xuandi|empressInstallationCount.note|b148dbdbfe8b": {
    "id": "beizhou-xuandi",
@@ -9615,7 +9617,7 @@
    "span": "光大元年二月辛亥，宣毅将軍、南豫州刺史余孝頃謀反伏誅",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "chen-feidi|rebellionSuppressionCount[0].note|b8539faae80a": {
    "id": "chen-feidi",
@@ -9623,7 +9625,7 @@
    "span": "光大元年二月辛亥，宣毅将軍、南豫州刺史余孝頃謀反伏誅",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "chen-feidi|rebellionSuppressionCount[1].note|01af1bf7ce8b": {
    "id": "chen-feidi",
@@ -9660,7 +9662,7 @@
    "span": "是月，周将長胡公拓跋定率歩騎二萬入郢州，与華皎水陸倶進，都督淳于量、呉明徹等与戦",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "chen-feidi|reigns[0].conversion|518bef6ec2ac": {
    "id": "chen-feidi",
@@ -10421,18 +10423,6 @@
    ],
    "line": 2
   },
-  "chenghan-liban|ages.note|f92c7984dd4a": {
-   "id": "chenghan-liban",
-   "path": "ages.note",
-   "span": "(李班)咸和九年、班因夜哭、越殺班於殯宮、時年四十七、在位一年",
-   "status": "cache",
-   "corpusFile": "_corpus_cache/chenghan-liban.txt",
-   "frags": [
-    "越殺班於殯宮",
-    "時年四十七"
-   ],
-   "line": 2
-  },
   "chenghan-liban|rebellionSufferedCount[0].note|0669916c524b": {
    "id": "chenghan-liban",
    "path": "rebellionSufferedCount[0].note",
@@ -10540,7 +10530,7 @@
    "span": "咸和九年，班因夜哭，越殺班於殯宮，時年四十七，在位一年。冬，十月，癸亥朔，越因班",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "chenghan-liqi|accessionRoute.note|76e5636df543": {
    "id": "chenghan-liqi",
@@ -11721,7 +11711,7 @@
    "span": "済岷太守劉閩杀下邳内史夏侯嘉、叛降石勒",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "dongjin-chengdi|rebellionSuppressionCount.note|133dda809aa4": {
    "id": "dongjin-chengdi",
@@ -13065,7 +13055,7 @@
    "span": "更始将北都洛陽、以光武行司隷校尉、使前整修宮府",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "gengshi-di|capitalRelocationCount[0].note|c1ba819381d9": {
    "id": "gengshi-di",
@@ -13089,19 +13079,6 @@
     "圣公降者封长"
    ],
    "line": 40
-  },
-  "gengshi-di|deathCause.note|6f2057708fba": {
-   "id": "gengshi-di",
-   "path": "deathCause.note",
-   "span": "張卬等以為慮…於是禄使從兵与更始共牧馬于郊下、因令縊殺之",
-   "status": "cache",
-   "corpusFile": "_corpus_cache/gengshi-di.txt",
-   "frags": [
-    "張卬等以為慮",
-    "於是禄使從兵与更始共",
-    "因令縊殺之"
-   ],
-   "line": 21
   },
   "gengshi-di|deathCause.note|912c09a24eee": {
    "id": "gengshi-di",
@@ -13293,7 +13270,7 @@
    "span": "述兵大亂，被刺洞胸，墯馬",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "gongsun-shu|deathCause.note|fce958bd5615": {
    "id": "gongsun-shu",
@@ -14386,7 +14363,7 @@
    "span": "代王独幸竇姫、生女嫖。孝惠七年、生景帝",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "han-jingdi|ages.note|b34d2641fe23": {
    "id": "han-jingdi",
@@ -14928,7 +14905,7 @@
    ],
    "line": 2
   },
-  "han-pingdi|rebellionSufferedCount.note|1934a284bea2": {
+  "han-pingdi|rebellionSufferedCount.note|18b7b379c836": {
    "id": "han-pingdi",
    "path": "rebellionSufferedCount.note",
    "span": "安漢公世子宇與帝外家衛氏有謀",
@@ -14951,7 +14928,7 @@
    ],
    "line": 47
   },
-  "han-pingdi|rebellionSuppressionCount.note|1ba15ed171ec": {
+  "han-pingdi|rebellionSuppressionCount.note|ec5508071afe": {
    "id": "han-pingdi",
    "path": "rebellionSuppressionCount.note",
    "span": "安漢公世子宇與帝外家衛氏有謀。宇下獄死，誅衛氏",
@@ -15427,13 +15404,17 @@
    ],
    "line": 46
   },
-  "han-wudi|empressInstallationCount.note|b87a24684f1b": {
+  "han-wudi|empressInstallationCount.note|52b68b676817": {
    "id": "han-wudi",
    "path": "empressInstallationCount.note",
    "span": "元朔元年春三月甲子，立皇后衛氏",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/宫闱典皇后部.txt",
+   "frags": [
+    "元朔元年春三月甲子",
+    "立皇后衛氏"
+   ],
+   "line": 21
   },
   "han-wudi|eraChangeCount[5].note|341293cbb375": {
    "id": "han-wudi",
@@ -16567,7 +16548,7 @@
    "span": "大赦天下。復嬴、博、梁父、奉高，勿出今年田租芻稾。改年為中元",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "hou-han-guangwudi|crownPrinceDepositionCount[0].note|436ce1dc5192": {
    "id": "hou-han-guangwudi",
@@ -16725,7 +16706,7 @@
    "span": "郡県支配下・服属下",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "hou-han-guangwudi|rebellionSuppressionCount[0].note|67d7144b3a69": {
    "id": "hou-han-guangwudi",
@@ -16767,7 +16748,7 @@
    "span": "蜀郡守将史歆叛、遣大司馬呉漢率二将軍討之、囲成都。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "hou-han-guangwudi|rebellionSuppressionCount[11].note|24afa13f4e39": {
    "id": "hou-han-guangwudi",
@@ -16775,7 +16756,7 @@
    "span": "呉漢拔成都、斬史歆等。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "hou-han-guangwudi|rebellionSuppressionCount[12].note|9244db68a05e": {
    "id": "hou-han-guangwudi",
@@ -16931,7 +16912,7 @@
    "span": "大司馬呉漢拔朐、獲董憲・龐萌、山東悉平。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "hou-han-guangwudi|rebellionSuppressionCount[4].note|f1a8821ef70b": {
    "id": "hou-han-guangwudi",
@@ -17828,7 +17809,7 @@
    "span": "帝御前殿、詔司隷校尉張彪将兵囲冀第",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "hou-han-huandi|reigns[0].quote#0|4afbb3f979b1": {
    "id": "hou-han-huandi",
@@ -18083,7 +18064,7 @@
    "span": "黒山賊張牛角等十余輩並起，所在寇鈔",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "hou-han-lingdi|rebellionSuppressionCount[15].note|ef6cfd6fe0db": {
    "id": "hou-han-lingdi",
@@ -19002,7 +18983,7 @@
    "span": "改易年號五：永建、陽嘉、永和、漢安、建康",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "hou-han-shundi|eraChangeCount[1].note|f41837b3648c": {
    "id": "hou-han-shundi",
@@ -19106,7 +19087,7 @@
    "span": "目冻（且冻）羌寇三輔，殺令長",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "hou-han-shundi|rebellionSuppressionCount[12].note|57bded736d8a": {
    "id": "hou-han-shundi",
@@ -19243,16 +19224,16 @@
    ],
    "line": 161
   },
-  "hou-han-shundi|rebellionSuppressionCount[19].note|edab2b1eed84": {
+  "hou-han-shundi|rebellionSuppressionCount[19].note|57b23022b068": {
    "id": "hou-han-shundi",
    "path": "rebellionSuppressionCount[19].note",
    "span": "領護羌校尉衞琚追討叛羌，破之",
-   "status": "corpus",
-   "corpusFile": "daizhigev20/史藏/正史/后汉书四库.txt",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-shundi.txt",
    "frags": [
     "領護羌校尉衞琚追討叛"
    ],
-   "line": 1097
+   "line": 161
   },
   "hou-han-shundi|rebellionSuppressionCount[1].note|641ec0043f9e": {
    "id": "hou-han-shundi",
@@ -20732,7 +20713,7 @@
    "span": "同伝：「岿在位二十三載，年四十四，五年五月薨。其群臣葬之於顯陵，謚曰孝〔文→明〕",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "houliang-xuandi|accessionRoute.note|0c569120d8f8": {
    "id": "houliang-xuandi",
@@ -20845,7 +20826,7 @@
    "span": "詧乃追悔曰『恨不用尹德毅之言，以至于是。』…常懐憂憤",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "houliang-xuandi|empressInstallationCount[0].note|564a2a3c6532": {
    "id": "houliang-xuandi",
@@ -20899,7 +20880,7 @@
    "span": "察時以誉危急、乃留諮議参軍蔡大宝守襄陽、率衆二萬、騎千匹伐江陵以救之",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "houliang-xuandi|personalCampaignCount.note|ca0e3cf5bb4a": {
    "id": "houliang-xuandi",
@@ -21165,7 +21146,7 @@
    "span": "泓遣姚裕率步骑八千距之，泓躬将大众继发",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "houqin-yaohong|rebellionSuppressionCount[0].note|caf6e58b5bdb": {
    "id": "houqin-yaohong",
@@ -21223,7 +21204,7 @@
    "span": "泓發喪，以義熙十二年僭即帝位，大赦殊死已下，改元永和，廬於諮議堂。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "houqin-yaohong|reigns[0].quote#1|94e7bdc5870e": {
    "id": "houqin-yaohong",
@@ -21275,7 +21256,7 @@
    "span": "義熙十二年二月丁未（416年）",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "houqin-yaoxing|ages.note|711ebebafe0d": {
    "id": "houqin-yaoxing",
@@ -21461,7 +21442,7 @@
    "span": "悉発其衆歩卒十二万騎三万七千屯於曲陽之柏肆…宝恐為魏軍所及，命士卒皆棄袍仗、兵器",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "houyan-murongbao|personalCampaignCount[1].note|261b4c78382e": {
    "id": "houyan-murongbao",
@@ -21538,13 +21519,13 @@
    ],
    "line": 14842
   },
-  "houyan-murongbao|rebellionSufferedCount[3].note|f97e7e011656": {
+  "houyan-murongbao|rebellionSufferedCount[3].note|b96e4898b709": {
    "id": "houyan-murongbao",
    "path": "rebellionSufferedCount[3].note",
    "span": "麟以兵劫左衛将軍北地王精，使帥禁旅弑宝。精以義拒之，麟怒，殺精，出奔西山，依丁零",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "houyan-murongbao|rebellionSufferedCount[4].note|2edbf2ba57ee": {
    "id": "houyan-murongbao",
@@ -21621,7 +21602,7 @@
    "span": "城中将士皆憤怒，向暮出戦，大破之…侍御郎高雲夜帥敢死士百餘人襲会軍，会衆皆潰。会",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "houyan-murongbao|rebellionSuppressionCount[2].note|9e29b9d216c7": {
    "id": "houyan-murongbao",
@@ -22974,7 +22955,7 @@
    "span": "赦揚・豫・徐・兗・青・冀六州",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "huan-xuan|amnestyCount[0].note|5af847dc8aa6": {
    "id": "huan-xuan",
@@ -24751,13 +24732,20 @@
    ],
    "line": 23
   },
-  "jin-shizong|reigns[0].quote#0|51bc09913ccb": {
+  "jin-shizong|reigns[0].quote#0|3a6834f043a6": {
    "id": "jin-shizong",
    "path": "reigns[0].quote#0",
    "span": "十月辛丑…乙巳，諸軍入城，共擊殺存福等。是夜，諸軍被甲環衛皇城。丙午，慶雲見，官",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-shizong.txt",
+   "frags": [
+    "共擊殺存福等",
+    "諸軍被甲環衛皇城",
+    "官屬諸軍勸進",
+    "於是親告天太祖廟",
+    "還御宣政殿"
+   ],
+   "line": 6
   },
   "jin-shizong|reigns[0].quote#1|a95189d7c0d3": {
    "id": "jin-shizong",
@@ -24911,18 +24899,19 @@
    ],
    "line": 1
   },
-  "jin-simalun|reigns[0].quote#1|673ee4941ffb": {
+  "jin-simalun|reigns[0].quote#1|90201e0eaa90": {
    "id": "jin-simalun",
    "path": "reigns[0].quote#1",
    "span": "閏月丙戌朔……夏四月……辛酉，左衛將軍王輿與尚書……禽倫黨孫秀……皆斬之。逐倫歸",
-   "status": "corpus",
-   "corpusFile": "china-history/晋书/帝纪/第四章--原文.html",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-simalun.txt",
    "frags": [
-    "皆斬之逐倫歸",
-    "逐倫歸第即日",
-    "第即日乘輿反"
+    "閏月丙戌朔",
+    "左衛將軍王輿與尚書",
+    "禽倫黨孫秀",
+    "即日乘輿反正"
    ],
-   "line": 33
+   "line": 1
   },
   "jin-taizong|ages.note|63ce83c85ef9": {
    "id": "jin-taizong",
@@ -25712,13 +25701,16 @@
    ],
    "line": 20
   },
-  "jin-weishaowang|deathCause.note|88b3daea7981": {
+  "jin-weishaowang|deathCause.note|e59acd8b1395": {
    "id": "jin-weishaowang",
    "path": "deathCause.note",
    "span": "金九主，遇弑者三…衛紹王之弑曰胡沙虎",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "status": "corpus",
+   "corpusFile": "china-history/金史/列传/第七十章-卷七十-原文.html",
+   "frags": [
+    "衛紹王之弑曰胡沙虎"
+   ],
+   "line": 95
   },
   "jin-weishaowang|empressInstallationCount[0].note|603610b208b8": {
    "id": "jin-weishaowang",
@@ -26072,16 +26064,16 @@
    ],
    "line": 36
   },
-  "jin-wudi|personalCampaignCount.note|288237c70fe4": {
+  "jin-wudi|personalCampaignCount.note|0441b933ca76": {
    "id": "jin-wudi",
    "path": "personalCampaignCount.note",
-   "span": "馬隆西伐、王濬南征",
+   "span": "馬隆西伐、王浚南征",
    "status": "corpus",
-   "corpusFile": "daizhigev20/子藏/类书/御定渊鉴类函.txt",
+   "corpusFile": "china-history/晋书/帝纪/第三章--原文.html",
    "frags": [
-    "馬隆西伐王濬"
+    "馬隆西伐王浚"
    ],
-   "line": 4414
+   "line": 51
   },
   "jin-wudi|rebellionSuppressionCount[0].note|7029094a6531": {
    "id": "jin-wudi",
@@ -26166,7 +26158,7 @@
    "span": "呉故将莞恭、帛奉舉兵反、攻害建鄴令、遂圍揚州、徐州刺史嵇喜討平之",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "jin-wudi|rebellionSuppressionCount[5].note|922f490f7084": {
    "id": "jin-wudi",
@@ -26219,7 +26211,7 @@
    "span": "呉興人蔣迪聚黨反、圍陽羨縣、州郡捕討、皆伏誅",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "jin-wudi|reigns[0].quote#0|12c4de13ecb8": {
    "id": "jin-wudi",
@@ -26398,6 +26390,18 @@
    "status": "manual",
    "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
   },
+  "jin-xizong|rebellionSufferedCount[1].note|251663c18854": {
+   "id": "jin-xizong",
+   "path": "rebellionSufferedCount[1].note",
+   "span": "衛士覺，抽刃劫之，莫敢動",
+   "status": "corpus",
+   "corpusFile": "china-history/金史/本纪/第四章-卷四-原文.html",
+   "frags": [
+    "衛士覺抽刃劫",
+    "抽刃劫之莫敢"
+   ],
+   "line": 74
+  },
   "jin-xizong|rebellionSufferedCount[1].note|9963aa17473a": {
    "id": "jin-xizong",
    "path": "rebellionSufferedCount[1].note",
@@ -26409,14 +26413,6 @@
     "亮復前手刃之"
    ],
    "line": 53
-  },
-  "jin-xizong|rebellionSufferedCount[1].note|9e06593fdedc": {
-   "id": "jin-xizong",
-   "path": "rebellionSufferedCount[1].note",
-   "span": "衛士覚，抽刃劫之，莫敢動",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
   },
   "jin-xizong|rebellionSuppressionCount[0].note|06729e83d7c7": {
    "id": "jin-xizong",
@@ -26847,16 +26843,18 @@
    ],
    "line": 50
   },
-  "jin-zhangzong|amnestyCount[1].note|717dc752baa7": {
+  "jin-zhangzong|amnestyCount[1].note|8ed7e3e54461": {
    "id": "jin-zhangzong",
    "path": "amnestyCount[1].note",
-   "span": "（明昌四年）八月己亥朔…是日，岁星、太白昼见。庚子，大赦",
+   "span": "（明昌四年）八月己亥…是日，岁星、太白昼见。庚子，大赦",
    "status": "corpus",
-   "corpusFile": "china-history/元史/本纪/第八章-卷八-原文.html",
+   "corpusFile": "china-history/金史/本纪/第十章-卷十-原文.html",
    "frags": [
-    "八月己亥朔"
+    "是日岁星太白",
+    "星太白昼见庚",
+    "昼见庚子大赦"
    ],
-   "line": 49
+   "line": 28
   },
   "jin-zhangzong|amnestyCount[2].note|e0c824337854": {
    "id": "jin-zhangzong",
@@ -26992,7 +26990,7 @@
    "span": "上以宋叛盟出师，告于天地太庙社稷。丁亥，亲告于衍庆宫",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "jin-zhangzong|rebellionSufferedCount[0].note|281c6481bb1b": {
    "id": "jin-zhangzong",
@@ -27129,7 +27127,7 @@
    "span": "是月(大宝元年十二月)、張彪起義於會稽、攻破上虞、景太守蔡台樂討之、不能禁。至是",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-houjing|rebellionSufferedCount[1].note|add609d7d114": {
    "id": "liang-houjing",
@@ -27137,7 +27135,7 @@
    "span": "(天正元年十月頃)張彪攻永嘉、永嘉太守秦遠降彪",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-houjing|rebellionSufferedCount[2].note|1312396011b3": {
    "id": "liang-houjing",
@@ -27175,7 +27173,7 @@
    "span": "王僧辯遣侯瑱率軍追景…景與腹心數十人單舸走、推墮二子於水、自滬瀆入海。至壺豆洲、",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-houjing|rebellionSuppressionCount[0].note|7e93354f957a": {
    "id": "liang-houjing",
@@ -27195,7 +27193,7 @@
    "span": "是月(天正元年十月)、景司空東道行台劉神茂、儀同尹思合、劉歸義、王曄、雲麾將軍桑",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-houjing|rebellionSuppressionCount[0].note|cd93a95c3fb3": {
    "id": "liang-houjing",
@@ -27242,15 +27240,15 @@
    "span": "資治通鑑巻164:「己卯，加侯景九錫，漢國置丞相以下官。己丑，豫章王棟禪位於景，",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
-  "liang-houjing|reigns[0].quote#1|7366300e8dd5": {
+  "liang-houjing|reigns[0].quote#1|e82b3e45da2e": {
    "id": "liang-houjing",
    "path": "reigns[0].quote#1",
    "span": "梁書巻四:「戊午，侯景遣衛尉卿彭俊、廂公王僧貴率兵入殿，廢帝為晉安王…矯為太宗詔",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-houjing|reigns[0].quote#2|1743ed82d560": {
    "id": "liang-houjing",
@@ -27348,7 +27346,7 @@
    "span": "王偉、彭儁進土囊，王修纂坐其上，於是太宗崩於永福省",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-jianwendi|reigns[0].quote#0|0392b2b918cc": {
    "id": "liang-jianwendi",
@@ -27544,7 +27542,7 @@
    "span": "［即位］九月甲辰，司空陳霸先舉義，襲殺王僧辯，黜蕭淵明。丙午，帝即皇帝位。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-jingdi|reigns[0].quote#1|d6ca33fab76e": {
    "id": "liang-jingdi",
@@ -27567,7 +27565,7 @@
    "span": "［陳側の即位で交替完了］永定元年冬十月乙亥，高祖即皇帝位於南郊……詔曰：「……改",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-wudi|accessionRoute.note|b7517895d893": {
    "id": "liang-wudi",
@@ -28190,7 +28188,7 @@
    "span": "〔在位終了＝崩御〕三年……夏四月己酉，高祖以所求不供，忧愤寝疾。……五月丙辰，高",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-xiaoji|accessionRoute.note|c41bf066a5e1": {
    "id": "liang-xiaoji",
@@ -28380,7 +28378,7 @@
    "span": "［在位終了=公孫晃討死・硤口諸城降伏・蕭紀敗死］梁書 本紀第五 元帝紀:「秋七月",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-xiaoji|reigns[0].quote#2|aae686c5a2c6": {
    "id": "liang-xiaoji",
@@ -28484,7 +28482,7 @@
    "span": "七月辛丑(渡江)→甲辰(入建鄴)→丙午(即偽位)",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-xiaoyuanming|reigns[0].quote#0|67b6345e00a5": {
    "id": "liang-xiaoyuanming",
@@ -28682,7 +28680,7 @@
    "span": "庚午，诏征镇牧守可复本任。…景更以正德为侍中、大司马，百官皆复旧职。（資治通鑑巻",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-xiaozhuang|accessionRoute.note|0d37e2934348": {
    "id": "liang-xiaozhuang",
@@ -28899,7 +28897,7 @@
    "span": "武陵之平，議者欲因其舟艦遷都建鄴，宗懍・黄羅漢皆楚人，不願移，帝及胡僧祐亦倶未欲",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-yuandi|capitalRelocationCount[0].note|598ccbb901cc": {
    "id": "liang-yuandi",
@@ -28929,7 +28927,7 @@
    "span": "時朝議遷都，但元帝再臨荊陝，前後二十餘年，情所安戀，不欲歸建業…並欲即都江陵",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liang-yuandi|crownPrinceDepositionCount.note|8ba7b55e71a1": {
    "id": "liang-yuandi",
@@ -29222,29 +29220,37 @@
    ],
    "line": 15516
   },
-  "liang-yuzhangwang|reigns[0].quote#0|4ccc04b2ab92": {
+  "liang-yuzhangwang|reigns[0].quote#0|b72af0022ce5": {
    "id": "liang-yuzhangwang",
    "path": "reigns[0].quote#0",
    "span": "［即位］梁書 太宗簡文帝紀「八月丙午…戊午，侯景遣衞尉卿彭俊、廂公王僧貴率兵入殿",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "status": "corpus",
+   "corpusFile": "china-history/梁书/原文版梁书/-卷四-原文.html",
+   "frags": [
+    "戊午侯景遣衞",
+    "景遣衞尉卿彭",
+    "尉卿彭俊廂公",
+    "俊廂公王僧貴",
+    "王僧貴率兵入",
+    "率兵入殿廢太",
+    "殿廢太宗為晉",
+    "宗為晉安王幽"
+   ],
+   "line": 26
   },
-  "liang-yuzhangwang|reigns[0].quote#1|5507b26cc9ef": {
+  "liang-yuzhangwang|reigns[0].quote#1|c6c82545c9e7": {
    "id": "liang-yuzhangwang",
    "path": "reigns[0].quote#1",
    "span": "資治通鑑 梁紀二十「戊午，景遣衞尉卿彭雋等帥兵入殿，廢帝為晉安王，幽於永福省…庚",
    "status": "corpus",
    "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
    "frags": [
-    "棟時幽拘廩餼",
-    "拘廩餼甚薄仰",
-    "甚薄仰蔬茹為",
-    "蔬茹為食方與",
-    "食方與妃張氏",
-    "妃張氏鉏葵法",
-    "鉏葵法駕奄至",
-    "駕奄至棟驚不"
+    "景遣衞尉卿彭雋等帥兵",
+    "廢帝為晉安王",
+    "幽於永福省",
+    "下詔迎豫章王棟",
+    "仰蔬茹為食",
+    "方與妃張氏鉏葵"
    ],
    "line": 2461
   },
@@ -31714,7 +31720,7 @@
    "span": "皇太后不豫，上馳往視疾。丙午，皇太后愈，復如黒水濼。丁卯，肆赦",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liao-xingzong|amnestyCount[8].note|3973fbabb384": {
    "id": "liao-xingzong",
@@ -32094,7 +32100,7 @@
    "span": "〔元徽二年五月〕丁酉，詔京邑二縣埋藏所殺賊，並戰亡者，復同京城。是日解嚴，大赦天",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liu-song-houfeidi|amnestyCount[3].note|703600707ce0": {
    "id": "liu-song-houfeidi",
@@ -32125,7 +32131,7 @@
    "span": "〔元徽四年秋七月〕乙未，克京城，斬景素，同逆皆伏誅；其日解嚴。丙申，大赦天下，封",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liu-song-houfeidi|amnestyCount[6].note|fae8559490ca": {
    "id": "liu-song-houfeidi",
@@ -32158,7 +32164,7 @@
    "span": "〔泰豫元年六月〕乙巳，尊皇后曰皇太后，立皇后江氏",
    "status": "unresolved",
    "triage": "2026-08-02 字体訂正後の再構築で表面化。元号を補うなど原文に無い形へ合成された引用（Issue #33 と同型）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liu-song-houfeidi|eraChangeCount[0].note|8fe92f661466": {
    "id": "liu-song-houfeidi",
@@ -32189,7 +32195,7 @@
    "span": "七月戊子夜，帝殒于仁寿殿，时年十五。（在位終了＝殺害〔弑逆〕記事。同段に「七月七",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liu-song-liushao|ages.note|54f881192a8c": {
    "id": "liu-song-liushao",
@@ -32333,7 +32339,7 @@
    "span": "〔即位〕「其月二十一日夜、詐りて上詔して云く、『魯秀謀反す、汝平明に闕を守り、衆",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liu-song-liushao|reigns[0].quote#1|b4e9873895ae": {
    "id": "liu-song-liushao",
@@ -32775,27 +32781,28 @@
    ],
    "line": 4
   },
-  "liu-song-qianfeidi|personalCampaignCount.note|9a289c8d9267": {
+  "liu-song-qianfeidi|personalCampaignCount.note|476d48b18053": {
    "id": "liu-song-qianfeidi",
    "path": "personalCampaignCount.note",
-   "span": "戊午、是日解严、车驾幸瓜步",
+   "span": "冬十月癸亥，曲赦徐州。丙寅，车驾还宫",
    "status": "cache",
    "corpusFile": "_corpus_cache/liu-song-qianfeidi.txt",
    "frags": [
-    "车驾幸瓜步"
+    "冬十月癸亥"
    ],
    "line": 4
   },
-  "liu-song-qianfeidi|personalCampaignCount.note|d8eab72ebfa9": {
+  "liu-song-qianfeidi|personalCampaignCount.note|69d95dbc01f9": {
    "id": "liu-song-qianfeidi",
    "path": "personalCampaignCount.note",
-   "span": "冬十月丙寅、车驾还宫",
-   "status": "corpus",
-   "corpusFile": "china-history/元史/本纪/第二十章-卷二十-原文.html",
+   "span": "戊午、以左民尚书刘思考为益州刺史。是日解严，车驾幸瓜步",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-song-qianfeidi.txt",
    "frags": [
-    "冬十月丙寅"
+    "以左民尚书刘思考为益",
+    "车驾幸瓜步"
    ],
-   "line": 52
+   "line": 4
   },
   "liu-song-qianfeidi|personalCampaignCount.note|e0841688d751": {
    "id": "liu-song-qianfeidi",
@@ -33081,13 +33088,18 @@
    ],
    "line": 5
   },
-  "liu-song-shundi|deathCause.note|cdb43c292a46": {
+  "liu-song-shundi|deathCause.note|44115ccdb462": {
    "id": "liu-song-shundi",
    "path": "deathCause.note",
    "span": "或走馬過汝陰王之門、衛士恐有爲亂者奔入殺王、而以疾聞、上不罪而賞之",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "或走馬過汝陰王之門",
+    "衛士恐有爲亂者奔入殺",
+    "上不罪而賞之"
+   ],
+   "line": 12735
   },
   "liu-song-shundi|rebellionSuppressionCount.note|44f8ff53dd9d": {
    "id": "liu-song-shundi",
@@ -33181,7 +33193,7 @@
    "span": "曲赦益・梁・秦三州",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "liu-song-wendi|amnestyCount.note|cec2bfeb9732": {
    "id": "liu-song-wendi",
@@ -33715,29 +33727,6 @@
    ],
    "line": 2
   },
-  "liu-yong-liang|reigns[0].conversion|640393040be5": {
-   "id": "liu-yong-liang",
-   "path": "reigns[0].conversion",
-   "span": "十一月甲午，幸怀。刘永自称天子。",
-   "status": "corpus",
-   "corpusFile": "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html",
-   "frags": [
-    "十一月甲午",
-    "刘永自称天子"
-   ],
-   "line": 61
-  },
-  "liu-yong-liang|reigns[0].conversion|a42eae2bd965": {
-   "id": "liu-yong-liang",
-   "path": "reigns[0].conversion",
-   "span": "六月己未，即皇帝位",
-   "status": "corpus",
-   "corpusFile": "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html",
-   "frags": [
-    "六月己未即皇"
-   ],
-   "line": 49
-  },
   "liu-yong-liang|reigns[0].conversion|b38fa3584fec": {
    "id": "liu-yong-liang",
    "path": "reigns[0].conversion",
@@ -33936,7 +33925,7 @@
    "span": "于谦提督诸营，石亨及诸将分守九门",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-daizong|rebellionSufferedCount[0].note|2ce6a039c22d": {
    "id": "ming-daizong",
@@ -34411,7 +34400,7 @@
    "span": "崩于乾清宮，年三十有六",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-muzong|amnestyCount[0].note|513f720383fe": {
    "id": "ming-muzong",
@@ -34479,7 +34468,7 @@
    "span": "辛巳，大漸，遺詔傳位皇太子。是日，崩於欽安殿，年四十有八",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-renzong|amnestyCount.note|c490ac6aeea9": {
    "id": "ming-renzong",
@@ -34520,7 +34509,7 @@
    "span": "庚辰，帝不豫…辛巳，大漸，遺詔傳位皇太子。是日，崩於欽安殿，年四十有八",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-renzong|empressInstallationCount[0].note|ebb346c049d1": {
    "id": "ming-renzong",
@@ -34618,9 +34607,15 @@
    "id": "ming-renzong",
    "path": "reigns[0].quote#0",
    "span": "即位: 「〔永乐二十二年〕八月甲辰，遗诏至，遣皇太孙迎丧开平。丁未，出夏原吉等于",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/明史.txt",
+   "frags": [
+    "永乐二十二年",
+    "遣皇太孙迎丧开平",
+    "出夏原吉等于狱",
+    "以明年为洪熙元年"
+   ],
+   "line": 2816
   },
   "ming-renzong|reigns[0].quote#1|f7b9c2c53ff4": {
    "id": "ming-renzong",
@@ -34628,7 +34623,7 @@
    "span": " 崩御: 「〔洪熙元年五月〕辛巳，大渐，遗诏传位皇太子。是日，崩于饮安殿，年四十",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-shenzong|ages.note|b0462843edfe": {
    "id": "ming-shenzong",
@@ -35739,7 +35734,7 @@
    "span": "即位: 「〔建文四年六月〕己巳，王谒孝陵。群臣备法驾，奉宝玺，迎呼万岁。王升辇，",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-taizong|reigns[0].quote#1|0c4da6063407": {
    "id": "ming-taizong",
@@ -35863,7 +35858,7 @@
    "span": "太祖自将舟師征陳友諒",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-taizu|personalCampaignCount.note|914f78d518f2": {
    "id": "ming-taizu",
@@ -36043,7 +36038,7 @@
    "span": "湖廣千戸夏得忠結九溪蛮作乱，靖寧侯葉升討平之，得忠伏誅",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-taizu|rebellionSufferedCount[18].note|02c2dfa5c788": {
    "id": "ming-taizu",
@@ -36147,13 +36142,17 @@
    ],
    "line": 121
   },
-  "ming-taizu|rebellionSufferedCount[24].note|4b3bfc76a4a8": {
+  "ming-taizu|rebellionSufferedCount[24].note|1ce1842cb989": {
    "id": "ming-taizu",
    "path": "rebellionSufferedCount[24].note",
-   "span": "建昌衛指揮月魯帖木児叛，指揮魯毅敗之",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "span": "建昌衛指揮月魯帖木兒叛，指揮魯毅敗之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/ming-taizu.txt",
+   "frags": [
+    "建昌衛指揮月魯帖木兒",
+    "指揮魯毅敗之"
+   ],
+   "line": 122
   },
   "ming-taizu|rebellionSufferedCount[24].note|e7cf3f11cd5b": {
    "id": "ming-taizu",
@@ -36283,7 +36282,7 @@
    "span": "古州蛮叛，龍里千戸呉得、鎮撫井孚戦死",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-taizu|rebellionSufferedCount[32].note|de2809d54129": {
    "id": "ming-taizu",
@@ -36574,7 +36573,7 @@
    "span": "湖廣千戸夏得忠結九溪蛮作乱，靖寧侯葉升討平之，得忠伏誅",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-taizu|rebellionSuppressionCount[18].note|02c2dfa5c788": {
    "id": "ming-taizu",
@@ -36678,13 +36677,17 @@
    ],
    "line": 121
   },
-  "ming-taizu|rebellionSuppressionCount[24].note|4b3bfc76a4a8": {
+  "ming-taizu|rebellionSuppressionCount[24].note|1ce1842cb989": {
    "id": "ming-taizu",
    "path": "rebellionSuppressionCount[24].note",
-   "span": "建昌衛指揮月魯帖木児叛，指揮魯毅敗之",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "span": "建昌衛指揮月魯帖木兒叛，指揮魯毅敗之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/ming-taizu.txt",
+   "frags": [
+    "建昌衛指揮月魯帖木兒",
+    "指揮魯毅敗之"
+   ],
+   "line": 122
   },
   "ming-taizu|rebellionSuppressionCount[24].note|ade6e348f461": {
    "id": "ming-taizu",
@@ -36825,7 +36828,7 @@
    "span": "古州蛮叛，龍里千戸呉得、鎮撫井孚戦死",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-taizu|rebellionSuppressionCount[32].note|de2809d54129": {
    "id": "ming-taizu",
@@ -37039,7 +37042,7 @@
    "span": "崩於乾清宮、年三十有六",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-xiaozong|amnestyCount[0].note|1fecd6d8f76c": {
    "id": "ming-xiaozong",
@@ -37096,13 +37099,16 @@
    ],
    "line": 3
   },
-  "ming-xiaozong|rebellionSuppressionCount.note|3e5b481616af": {
+  "ming-xiaozong|rebellionSuppressionCount.note|5362d527fac5": {
    "id": "ming-xiaozong",
    "path": "rebellionSuppressionCount.note",
    "span": "泰寧衛賊犯遼東",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "status": "cache",
+   "corpusFile": "_corpus_cache/ming-xiaozong.txt",
+   "frags": [
+    "泰寧衛賊犯遼東"
+   ],
+   "line": 20
   },
   "ming-xiaozong|rebellionSuppressionCount[2].note|b2cdc8bec386": {
    "id": "ming-xiaozong",
@@ -37165,7 +37171,7 @@
    "span": "二十三年八月，宪宗崩。九月壬寅，即皇帝位。……夏四月甲申，帝不豫。五月庚寅，大渐",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-xizong|ages.note|5e8fd697f437": {
    "id": "ming-xizong",
@@ -37173,7 +37179,7 @@
    "span": "崩于乾清宮，年二十三",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-xizong|amnestyCount.note|4df6a74f053b": {
    "id": "ming-xizong",
@@ -37549,7 +37555,7 @@
    "span": "亲征高煦，命郑王瞻埮、襄王瞻墡居守",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "ming-xuanzong|personalCampaignCount[1].note|ac4b70445d66": {
    "id": "ming-xuanzong",
@@ -37618,16 +37624,27 @@
    ],
    "line": 43
   },
-  "ming-xuanzong|rebellionSufferedCount[12].note|f657389f8a24": {
+  "ming-xuanzong|rebellionSufferedCount[12].note|ca596ba72129": {
    "id": "ming-xuanzong",
    "path": "rebellionSufferedCount[12].note",
-   "span": "山云讨平思恩叛蛮",
-   "status": "corpus",
-   "corpusFile": "daizhigev20/史藏/编年/御定资治通鉴纲目三编.txt",
+   "span": "山云讨症思恩叛蛮",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/ming-xuanzong.txt",
    "frags": [
-    "山云讨平思恩"
+    "山云讨症思恩叛蛮"
    ],
-   "line": 1925
+   "line": 47
+  },
+  "ming-xuanzong|rebellionSufferedCount[12].note|dc64f7cf3de8": {
+   "id": "ming-xuanzong",
+   "path": "rebellionSufferedCount[12].note",
+   "span": "山云讨平柳、浔蛮",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/ming-xuanzong.txt",
+   "frags": [
+    "山云讨平柳"
+   ],
+   "line": 24
   },
   "ming-xuanzong|rebellionSufferedCount[13].note|a7cf29feff30": {
    "id": "ming-xuanzong",
@@ -37798,34 +37815,16 @@
    ],
    "line": 43
   },
-  "ming-xuanzong|rebellionSuppressionCount[12].note|2af875314f7c": {
+  "ming-xuanzong|rebellionSuppressionCount[12].note|ca596ba72129": {
    "id": "ming-xuanzong",
    "path": "rebellionSuppressionCount[12].note",
-   "span": "讨症思恩叛蛮",
+   "span": "山云讨症思恩叛蛮",
    "status": "cache",
    "corpusFile": "_corpus_cache/ming-xuanzong.txt",
    "frags": [
-    "讨症思恩叛蛮"
+    "山云讨症思恩叛蛮"
    ],
    "line": 47
-  },
-  "ming-xuanzong|rebellionSuppressionCount[12].note|a76643b3bc52": {
-   "id": "ming-xuanzong",
-   "path": "rebellionSuppressionCount[12].note",
-   "span": "讨平思恩叛蛮",
-   "status": "manual",
-   "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
-  },
-  "ming-xuanzong|rebellionSuppressionCount[12].note|f657389f8a24": {
-   "id": "ming-xuanzong",
-   "path": "rebellionSuppressionCount[12].note",
-   "span": "山云讨平思恩叛蛮",
-   "status": "corpus",
-   "corpusFile": "daizhigev20/史藏/编年/御定资治通鉴纲目三编.txt",
-   "frags": [
-    "山云讨平思恩"
-   ],
-   "line": 1925
   },
   "ming-xuanzong|rebellionSuppressionCount[13].note|a7cf29feff30": {
    "id": "ming-xuanzong",
@@ -38621,7 +38620,7 @@
    "span": "有番禺梁朝鍾、南海關捷先倡「兄終弟及」議，觀生遂與舊輔何吾騶、侍郎王應華、曾道唯",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "nanming-zhaozong|accessionRoute.note|024719606781": {
    "id": "nanming-zhaozong",
@@ -38772,7 +38771,7 @@
    "span": "丁未，前大学士苏观生奉唐王聿■〈金粤〉称帝于广州。事闻，魁楚谓不即位无以厌人心而",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "nanming-zhaozong|reigns[0].quote#1|6a4c5722d128": {
    "id": "nanming-zhaozong",
@@ -39478,7 +39477,7 @@
    ],
    "line": 9
   },
-  "nansong-gongdi|reigns[0].quote#0|83fc9b8a720a": {
+  "nansong-gongdi|reigns[0].quote#0|1e1b4c68fb42": {
    "id": "nansong-gongdi",
    "path": "reigns[0].quote#0",
    "span": "咸淳六年九月己丑，生於臨安府之大內。九年十一月授左衞上將軍，封嘉國公。十年七月癸",
@@ -40236,7 +40235,7 @@
    "span": "赦西和・階・成・鳳四州",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "nansong-ningzong|amnestyCount.note|d5157811e744": {
    "id": "nansong-ningzong",
@@ -40394,7 +40393,7 @@
    ],
    "line": 5
   },
-  "nansong-ningzong|reigns[0].quote#1|045f78cc7d22": {
+  "nansong-ningzong|reigns[0].quote#1|83e364548db7": {
    "id": "nansong-ningzong",
    "path": "reigns[0].quote#1",
    "span": "七月辛酉，留正以疾辭去。知樞密院事趙汝愚見正去，乃遣韓侂冑因內侍張宗尹以禪位嘉王",
@@ -40480,7 +40479,7 @@
    ],
    "line": 2
   },
-  "nansong-weiwang|reigns[0].conversion|8606d002b1a2": {
+  "nansong-weiwang|reigns[0].conversion|9c8458694080": {
    "id": "nansong-weiwang",
    "path": "reigns[0].conversion",
    "span": "庚午，衆又立衞王昺為主",
@@ -40491,7 +40490,7 @@
    ],
    "line": 1
   },
-  "nansong-weiwang|reigns[0].quote#0|0f7f99dd5c33": {
+  "nansong-weiwang|reigns[0].quote#0|38d86533be82": {
    "id": "nansong-weiwang",
    "path": "reigns[0].quote#0",
    "span": "庚午，衆又立衞王昺為主，以陸秀夫為左丞相",
@@ -40514,7 +40513,7 @@
    ],
    "line": 2
   },
-  "nansong-weiwang|reigns[0].quote#2|10c2d4531e4a": {
+  "nansong-weiwang|reigns[0].quote#2|917a02e04aba": {
    "id": "nansong-weiwang",
    "path": "reigns[0].quote#2",
    "span": "二月戊寅朔，世傑部將陳寶降。己卯，都統張達以夜襲大軍營，亡失甚衆。癸未……世傑乃",
@@ -41404,7 +41403,7 @@
    "span": "宣城王輔政，帝起居皆諮而後行",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "qi-hailingwang|rebellionSufferedCount[1].note|7bd2ea7b04f3": {
    "id": "qi-hailingwang",
@@ -41640,7 +41639,7 @@
    "span": "曲赦浙東、呉、晋陵七郡",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "qi-mingdi|amnestyCount[0].note|3ff885f69b38": {
    "id": "qi-mingdi",
@@ -41807,7 +41806,7 @@
    "span": "詔申辛亥赦恩五十日",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "qi-wudi|deathCause.note|bd989d4d8e65": {
    "id": "qi-wudi",
@@ -42053,7 +42052,7 @@
    "span": "［在位終了＝弑殺］「高宗慮變，定謀廢帝。二十二日壬辰，使蕭諶、坦之等於省誅曹道剛",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "qi-yulinwang|reigns[0].quote#3|105af5e479cc": {
    "id": "qi-yulinwang",
@@ -42519,16 +42518,16 @@
    ],
    "line": 10
   },
-  "qianqin-fudeng|personalCampaignCount[0].note|ffe198024a23": {
+  "qianqin-fudeng|personalCampaignCount[0].note|a791a3f3f859": {
    "id": "qianqin-fudeng",
    "path": "personalCampaignCount[0].note",
-   "span": "登率騎萬餘圍苌營",
-   "status": "corpus",
-   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/人事典悲欢部.txt",
+   "span": "率騎萬餘圍苌營",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianqin-fudeng.txt",
    "frags": [
-    "登率騎萬餘圍苌營"
+    "率騎萬餘圍苌營"
    ],
-   "line": 39
+   "line": 8
   },
   "qianqin-fudeng|personalCampaignCount[1].note|da984beb4f08": {
    "id": "qianqin-fudeng",
@@ -43018,7 +43017,7 @@
    "span": "俊遣慕容恪及相國封弋討冉閔於安喜、慕容垂討段勤於絳幕、俊如中山、為二軍声勢。閽惒",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "qianyan-murongjun|rebellionSuppressionCount[0].note|0388e87b4ab8": {
    "id": "qianyan-murongjun",
@@ -43038,7 +43037,7 @@
    "span": "時鮮卑段勤初附於俊、其後復叛。俊遣慕容恪及相國封弋討冉閔於安喜、慕容垂討段勤於絳",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "qianyan-murongjun|rebellionSuppressionCount[1].note|f548daebd165": {
    "id": "qianyan-murongjun",
@@ -43246,7 +43245,7 @@
    "span": "既嗣偽位……改元漢昌。……準遂勒兵入宮，升其光極前殿，下使甲士執粲，數而殺之。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "qianzhao-liucong|accessionRoute.note|3e00c6347c14": {
    "id": "qianzhao-liucong",
@@ -43705,13 +43704,6 @@
     "身長八尺四寸"
    ],
    "line": 2
-  },
-  "qianzhao-liuyuan|ages.note|c908b3028269": {
-   "id": "qianzhao-liuyuan",
-   "path": "ages.note",
-   "span": "河瑞2年7月8日＝310年8月19日",
-   "status": "unresolved",
-   "nv": "23eba471"
   },
   "qianzhao-liuyuan|ages.note|f0a47ac33225": {
    "id": "qianzhao-liuyuan",
@@ -44795,17 +44787,6 @@
    ],
    "line": 3
   },
-  "qing-shengzu|ages.note|42bab19e9199": {
-   "id": "qing-shengzu",
-   "path": "ages.note",
-   "span": "（康熙六十一年十一月）甲午、上大漸…上崩、年六十九",
-   "status": "corpus",
-   "corpusFile": "daizhigev20/史藏/纪事本末/平定准噶尔方略.txt",
-   "frags": [
-    "康熙六十一年十一月"
-   ],
-   "line": 125
-  },
   "qing-shengzu|ages.note|43fc69050b11": {
    "id": "qing-shengzu",
    "path": "ages.note",
@@ -44817,6 +44798,19 @@
     "順治十一年三月戊申誕"
    ],
    "line": 2
+  },
+  "qing-shengzu|ages.note|6197c7de9435": {
+   "id": "qing-shengzu",
+   "path": "ages.note",
+   "span": "甲午，上大渐，日加戌，上崩，年六十九",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/清史稿.txt",
+   "frags": [
+    "甲午上大渐日",
+    "大渐日加戌上",
+    "加戌上崩年六"
+   ],
+   "line": 1367
   },
   "qing-shengzu|ages.note|c1453078d0c9": {
    "id": "qing-shengzu",
@@ -45200,7 +45194,7 @@
    "span": "上不豫。上大漸…上崩，年五十八",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "qing-shizong|empressInstallationCount[0].note|32694f71a02c": {
    "id": "qing-shizong",
@@ -45480,7 +45474,7 @@
    "span": "金声桓、王得仁进讨福建",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "qing-shizu|rebellionSuppressionCount[2].note|4e7b4d53eab6": {
    "id": "qing-shizu",
@@ -45499,7 +45493,7 @@
    "span": "广东叛将李成栋据南雄，结瑶蛮犯赣州",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "qing-shizu|rebellionSuppressionCount[3].note|306d811f162f": {
    "id": "qing-shizu",
@@ -45907,7 +45901,7 @@
    "span": "奉天承运，皇帝诏曰……以大同三年三月一日，即皇帝位，改为康德元年，仍用满洲国号",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "qing-xuantong|eraChangeCount[0].note|22bc6f2baff8": {
    "id": "qing-xuantong",
@@ -45927,7 +45921,7 @@
    "span": "奉天承运，皇帝诏曰……以大同三年三月一日，即皇帝位，改为康德元年，仍用满洲国号",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "qing-xuantong|rebellionSufferedCount[14].note|04c93791c5a9": {
    "id": "qing-xuantong",
@@ -46414,16 +46408,16 @@
    ],
    "line": 56
   },
-  "shiguo-beihan-liuchong|crownPrinceDepositionCount.note|1c12e7f4ff98": {
+  "shiguo-beihan-liuchong|crownPrinceDepositionCount.note|fbce6a06f59d": {
    "id": "shiguo-beihan-liuchong",
    "path": "crownPrinceDepositionCount.note",
    "span": "侍衛親軍都指揮使",
    "status": "corpus",
-   "corpusFile": "daizhigev20/史藏/正史/旧五代史四库.txt",
+   "corpusFile": "china-history/金史/列传/第七十章-卷七十-原文.html",
    "frags": [
     "侍衛親軍都指揮使"
    ],
-   "line": 2137
+   "line": 89
   },
   "shiguo-beihan-liuchong|empressInstallationCount[0].note|132c7742ad03": {
    "id": "shiguo-beihan-liuchong",
@@ -46444,7 +46438,7 @@
    "span": "兀欲遣燕王述軋、政事令髙勲以冊尊旻為大漢神武皇帝,並冊旻妻為皇后",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-beihan-liuchong|empressInstallationCount[0].note|b2b6d4f76529": {
    "id": "shiguo-beihan-liuchong",
@@ -46560,7 +46554,7 @@
    "span": "［即位］新五代史「乃以周広順元年正月戊寅即皇帝位於太原」",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-beihan-liuchong|reigns[0].quote#1|20c75deffd44": {
    "id": "shiguo-beihan-liuchong",
@@ -46568,7 +46562,7 @@
    "span": "十国春秋「干祐四年春正月戊寅帝即位於晋陽仍用干祐年号」　　［崩御］新五代史「旻自",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-beihan-liuchong|reigns[0].quote#2|a74da7d09599": {
    "id": "shiguo-beihan-liuchong",
@@ -46741,7 +46735,7 @@
    "span": "　「帝欲逐郭无为、月余不能决……己酉、供奉官侯霸荣率十余人挺刃入阁、反扃其户。帝",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-beihan-liujiyuan|ages.note|16d6c9b5057d": {
    "id": "shiguo-beihan-liujiyuan",
@@ -46883,7 +46877,7 @@
    "span": "[即位] 十國春秋 北漢世家：「己酉，供奉官侯霸榮率十餘人挺刃入閤，反扃其戶，帝",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-beihan-liujiyuan|reigns[0].quote#1|19ed9c719176": {
    "id": "shiguo-beihan-liujiyuan",
@@ -46988,6 +46982,17 @@
    ],
    "line": 1
   },
+  "shiguo-beihan-liujun|personalCampaignCount[0].note|243667c519f1": {
+   "id": "shiguo-beihan-liujun",
+   "path": "personalCampaignCount[0].note",
+   "span": "帝即率本國兵自將出團柏谷",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/辽史拾遗.txt",
+   "frags": [
+    "帝即率本國兵自將出團"
+   ],
+   "line": 387
+  },
   "shiguo-beihan-liujun|personalCampaignCount[0].note|37f6e9f86096": {
    "id": "shiguo-beihan-liujun",
    "path": "personalCampaignCount[0].note",
@@ -46999,17 +47004,17 @@
    ],
    "line": 3
   },
-  "shiguo-beihan-liujun|rebellionSufferedCount.note|fa1e42107f88": {
+  "shiguo-beihan-liujun|rebellionSufferedCount.note|1ca7b73ff176": {
    "id": "shiguo-beihan-liujun",
    "path": "rebellionSufferedCount.note",
-   "span": "宿衛殿直行首王隠・劉紹・趙鸞等謀作乱、事覺被誅",
+   "span": "宿衛殿直行首王隱・劉紹・趙鸞…等謀乱事覺伏誅",
    "status": "corpus",
-   "corpusFile": "china-history/新五代史/世家/第十章-东汉世家第十-原文.html",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
    "frags": [
-    "趙鸞等謀作乱",
-    "謀作乱事覺被"
+    "宿衛殿直行首王隱",
+    "等謀乱事覺伏誅"
    ],
-   "line": 37
+   "line": 4349
   },
   "shiguo-beihan-liujun|reigns[0].conversion|7c99fb7ff602": {
    "id": "shiguo-beihan-liujun",
@@ -47066,7 +47071,7 @@
    "span": "終了:「秋七月……戊申遂殂年四十三，養子繼恩立，上諡曰孝和皇帝，廟號睿宗」",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-beihan-liujun|reigns[0].quote#3|683a7cee6213": {
    "id": "shiguo-beihan-liujun",
@@ -47235,13 +47240,19 @@
    ],
    "line": 14
   },
-  "shiguo-houshu-mengchang|reigns[0].quote#0|b20ef7a434a8": {
+  "shiguo-houshu-mengchang|reigns[0].quote#0|6e262def9e72": {
    "id": "shiguo-houshu-mengchang",
    "path": "reigns[0].quote#0",
    "span": "「蜀主得風疾逾年，至是增劇。甲子，立子東川節度使、同平章事、親衛馬步都指揮使仁贊",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "蜀主得風疾逾年",
+    "立子東川節度使",
+    "親衛馬步都指揮使仁贊",
+    "命太子仁贊更名昶"
+   ],
+   "line": 4647
   },
   "shiguo-houshu-mengchang|reigns[0].quote#1|194140d2a24b": {
    "id": "shiguo-houshu-mengchang",
@@ -47290,7 +47301,7 @@
    "span": "（明徳元年秋七月甲子）是夕殂【二十六日】年六十一",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-houshu-mengzhixiang|ages.note|8e937d291c9b": {
    "id": "shiguo-houshu-mengzhixiang",
@@ -47309,7 +47320,7 @@
    "span": "辛巳，受玉冊玉寶，御得賢門，大赦，改元曰明德",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-houshu-mengzhixiang|crownPrinceDepositionCount.note|bd7db71b74a2": {
    "id": "shiguo-houshu-mengzhixiang",
@@ -47361,7 +47372,7 @@
    "span": "辛巳，受玉冊玉寶，御得賢門，大赦，改元曰明德【錦里耆舊傳云改唐長興五年爲明德元年",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-houshu-mengzhixiang|reigns[0].conversion|33e4841ecfb8": {
    "id": "shiguo-houshu-mengzhixiang",
@@ -47369,7 +47380,7 @@
    "span": "即位（明徳元年閏正月二十八日己巳＝934年3月16日）",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-houshu-mengzhixiang|reigns[0].note|d12322875c8d": {
    "id": "shiguo-houshu-mengzhixiang",
@@ -47400,7 +47411,7 @@
    "span": "資治通鑑「蜀將吏勸蜀王知祥稱帝。己巳，知祥即皇帝位於成都。」新五代史「六月，虔釗",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-houshu-mengzhixiang|reigns[0].quote#2|1d14a013be24": {
    "id": "shiguo-houshu-mengzhixiang",
@@ -47741,7 +47752,7 @@
    "span": "遂詣寶皇宮受冊備儀入府即皇帝位，國號大閩，大赦…改元龍啓",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-min-wangyanjun|amnestyCount[1].note|932950b8e6ae": {
    "id": "shiguo-min-wangyanjun",
@@ -47761,7 +47772,7 @@
    "span": "封繼鵬為福王，充寶皇宮使",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-min-wangyanjun|crownPrinceDepositionCount.note|5a7990ff1454": {
    "id": "shiguo-min-wangyanjun",
@@ -47816,7 +47827,7 @@
    "span": "遂詣寶皇宮受冊備儀入府即皇帝位，國號大閩，大赦…改元龍啓",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-min-wangyanjun|eraChangeCount[0].note|9ba5ba68b8cb": {
    "id": "shiguo-min-wangyanjun",
@@ -47901,7 +47912,7 @@
    "span": "龍啓元年春正月……即皇帝位",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-min-wangyanjun|reigns[0].note|787d3d3774f1": {
    "id": "shiguo-min-wangyanjun",
@@ -47927,7 +47938,7 @@
    ],
    "line": 3
   },
-  "shiguo-min-wangyanjun|reigns[0].quote#1|fdae4cc6b3f6": {
+  "shiguo-min-wangyanjun|reigns[0].quote#1|fa91e3d1c15d": {
    "id": "shiguo-min-wangyanjun",
    "path": "reigns[0].quote#1",
    "span": "即位「遂詣寶皇宮受冊，備儀衛，入府，即皇帝位，國號大閩，大赦，改元龍啓；更名璘」",
@@ -48022,17 +48033,6 @@
     "永隆四年冊立為皇后"
    ],
    "line": 3961
-  },
-  "shiguo-min-wangyanxi|eraChangeCount.note|0bdd803c1b09": {
-   "id": "shiguo-min-wangyanxi",
-   "path": "eraChangeCount.note",
-   "span": "皇帝即位（改元同時）",
-   "status": "corpus",
-   "corpusFile": "daizhigev20/史藏/纪事本末/三朝北盟会编.txt",
-   "frags": [
-    "皇帝即位改元"
-   ],
-   "line": 9452
   },
   "shiguo-min-wangyanxi|personalCampaignCount.note|0de36a706429": {
    "id": "shiguo-min-wangyanxi",
@@ -48266,7 +48266,7 @@
    "span": "資治通鑑 天福八年(943)二月己未条〜三月己卯朔条の間「閩富沙王延政稱帝於建州",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-min-wangyanzheng|reigns[0].quote#2|a7b6930575fc": {
    "id": "shiguo-min-wangyanzheng",
@@ -48274,7 +48274,7 @@
    "span": "終了: 資治通鑑 開運二年(945)八月甲子朔条〜九月条の間「丁亥，唐先鋒橋道使",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-nanhan-liubin|accessionRoute.note|4e535da0c97a": {
    "id": "shiguo-nanhan-liubin",
@@ -48655,7 +48655,7 @@
    ],
    "line": 2773
   },
-  "shiguo-nanhan-liusheng|amnestyCount[1].note|225abe1fb245": {
+  "shiguo-nanhan-liusheng|amnestyCount[1].note|127432c6823d": {
    "id": "shiguo-nanhan-liusheng",
    "path": "amnestyCount[1].note",
    "span": "秋九月帝寝疾立子繼興為衛王…癸亥大赦",
@@ -49050,7 +49050,7 @@
    "span": "資治通鑑(貞明三年八月)「癸巳，清海、建武節度使劉岩即皇帝位於番禺，国号大越，大",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-nanhan-liuyan|reigns[0].quote#2|1800ab9fbd74": {
    "id": "shiguo-nanhan-liuyan",
@@ -49278,7 +49278,7 @@
    "span": "資治通鑑同年同条「庚午，疾亟，太医吴廷裕遣亲信召齐王璟入侍疾……是夕，殂。」",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-nantang-lijing|ages.note|9c0f552747ed": {
    "id": "shiguo-nantang-lijing",
@@ -49286,7 +49286,7 @@
    "span": "帝殂于長春殿…年四十六",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-nantang-lijing|ages.note|e02a86284fbd": {
    "id": "shiguo-nantang-lijing",
@@ -49506,7 +49506,7 @@
    "span": "「保大元年春三月己卯朔，烈祖殂已旬日，帝猶未嗣位，方泣讓諸弟。奉化節度使周宗手取",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-nantang-lijing|reigns[0].quote#2|093df2ebd36b": {
    "id": "shiguo-nantang-lijing",
@@ -49704,6 +49704,17 @@
     "詔追廢太子元膺为庶人"
    ],
    "line": 2026
+  },
+  "shiguo-qianshu-wangjian|rebellionSufferedCount[0].note|92f877a10a50": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "rebellionSufferedCount[0].note",
+   "span": "下詔廢太子元膺為庶人",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "下詔廢太子元膺為庶人"
+   ],
+   "line": 4552
   },
   "shiguo-qianshu-wangjian|rebellionSuppressionCount.note|c416cd933818": {
    "id": "shiguo-qianshu-wangjian",
@@ -50041,7 +50052,7 @@
    "span": "〔即位〕七年，大丞相徐温率吴文、武上表劝溥即皇帝位，溥未许而温病卒。十一月庚戌，",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shiguo-wu-yangpu|reigns[0].quote#1|ddde1f2f6e8e": {
    "id": "shiguo-wu-yangpu",
@@ -50049,7 +50060,7 @@
    "span": "〔在位終了〕七年九月……三年……冬十月，溥遣江夏王璘奉册禅位于齐王。十二月，溥卒",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shuhan-liushan|accessionRoute.note|0d924d3006d2": {
    "id": "shuhan-liushan",
@@ -50247,7 +50258,7 @@
    "span": "後主太子璿，字文衡。母王貴人…延熙元年正月策曰：『…今以璿為皇太子…』時年十五。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shuhan-liushan|deathCause.note|551b0e7050bc": {
    "id": "shuhan-liushan",
@@ -50705,7 +50716,7 @@
    "span": "三年夏四月癸巳，先主殂於永安宮，時年六十三。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "shun-lichengzheng|accessionRoute.note|0970cd6b5256": {
    "id": "shun-lichengzheng",
@@ -52853,22 +52864,23 @@
    "span": "〔即位〕隋書帝紀第三煬帝上「四年七月、高祖崩、上即皇帝位於仁寿宮。」",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
-  "sui-yangdi|reigns[0].quote#1|d61078ff3e7b": {
+  "sui-yangdi|reigns[0].quote#1|d201b72e1b7d": {
    "id": "sui-yangdi",
    "path": "reigns[0].quote#1",
    "span": "資治通鑑卷一百八十(仁寿四年)「乙卯、發喪、太子即皇帝位。」〔在位終了＝弑殺〕隋",
-   "status": "manual",
-   "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
+   "status": "unresolved",
+   "nv": "846f029b",
+   "triage": "Issue #38（底本で確認できない引用の再調査）"
   },
-  "sui-yangdi|reigns[0].quote#2|071c45555f9c": {
+  "sui-yangdi|reigns[0].quote#2|fb68ba46fbaf": {
    "id": "sui-yangdi",
    "path": "reigns[0].quote#2",
    "span": "資治通鑑卷一百八十五(武徳元年三月)「丙辰、天未明、德戡授虔通兵、以代諸門衞士。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "sui-yanghao|amnestyCount.note|599ee306d5cf": {
    "id": "sui-yanghao",
@@ -52926,21 +52938,26 @@
    "status": "manual",
    "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
   },
-  "sui-yanghao|reigns[0].quote#0|30388779b566": {
+  "sui-yanghao|reigns[0].quote#0|6394998a0030": {
    "id": "sui-yanghao",
    "path": "reigns[0].quote#0",
    "span": "「三月丙辰，右屯衞將軍宇文化及弑隋太上皇於江都宮，立秦王浩爲帝，自稱大丞相。」",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "status": "corpus",
+   "corpusFile": "china-history/北史/原文版北史/-卷十二-原文.html",
+   "frags": [
+    "右屯衞將軍宇文化及弑",
+    "立秦王浩爲帝",
+    "自稱大丞相"
+   ],
+   "line": 56
   },
-  "sui-yanghao|reigns[0].quote#1|9945e63493e4": {
+  "sui-yanghao|reigns[0].quote#1|5089bbe73ec3": {
    "id": "sui-yanghao",
    "path": "reigns[0].quote#1",
    "span": "「丙辰，隋右屯衞將軍宇文化及弑太上皇於江都，立秦王浩爲皇帝。」※隋書 帝紀第五に",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "sui-yanghao|reigns[0].quote#2|e843e6081389": {
    "id": "sui-yanghao",
@@ -53004,7 +53021,7 @@
    "span": "時呉興賊帥沈法興拠毗陵、公祏撃破之",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-fugongshi|personalCampaignCount[0].note|cc101aac6641": {
    "id": "suimo-fugongshi",
@@ -53109,7 +53126,7 @@
    "span": "師都又以歩騎五千来寇、徳操撃之、俘斬略尽",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-liangshidu|personalCampaignCount.note|608a7ccce64f": {
    "id": "suimo-liangshidu",
@@ -53184,7 +53201,7 @@
    "span": "［起兵］旧唐書「大業末，罷歸。屬盜賊群起，師都陰結徒黨數千人，殺郡丞唐宗，據郡反",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-liangshidu|reigns[0].quote#1|1e5f9d640faf": {
    "id": "suimo-liangshidu",
@@ -53192,7 +53209,7 @@
    "span": "資治通鑑 義寧元年二月「壬午，朔方鷹揚郎將梁師都殺郡丞唐世宗，據郡，自稱大丞相，",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-liangshidu|reigns[0].quote#2|f69027d59d61": {
    "id": "suimo-liangshidu",
@@ -53200,7 +53217,7 @@
    "span": "資治通鑑 同年「梁師都略定雕陰、弘化、延安等郡，遂即皇帝位，國號梁，改元永隆」。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-liangshidu|reigns[0].quote#3|8d2e4448b65c": {
    "id": "suimo-liangshidu",
@@ -53208,7 +53225,7 @@
    "span": "資治通鑑 貞觀二年四月「壬寅，師都從父弟洛仁殺師都，以城降，以其地為夏州」",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-linshihong|accessionRoute.note|677803a557aa": {
    "id": "suimo-linshihong",
@@ -53286,7 +53303,7 @@
    "span": "「十二月，壬辰，士弘自称皇帝，国号楚，建元太平」。旧唐書「大业十三年，徙据虔州，",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-liqui|accessionRoute.note|0a3209a69ea8": {
    "id": "suimo-liqui",
@@ -53432,7 +53449,7 @@
    "span": "軌率歩騎千余出城拒戦",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-liqui|rebellionSufferedCount[0].note|5b5660640513": {
    "id": "suimo-liqui",
@@ -53727,7 +53744,7 @@
    "span": "（李子通）自号楚王、建元明政",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-lizitong|eraChangeCount[0].note|5152c131f5d3": {
    "id": "suimo-lizitong",
@@ -53779,7 +53796,7 @@
    "span": "「遂相与亡至蓝田关，为吏所获，俱伏诛。」。旧唐書は同内容を「因僭即皇帝位，国称吴",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-wangshichong|accessionRoute.note|c7be90a89676": {
    "id": "suimo-wangshichong",
@@ -53892,7 +53909,7 @@
    "span": "旧唐書高祖本紀「夏四月乙巳，王世充篡越王侗位，僭称天子，国号郑。」旧唐書高祖本紀",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-xiaoxian|accessionRoute.note|082b5d094365": {
    "id": "suimo-xiaoxian",
@@ -54092,7 +54109,7 @@
    "span": "［挙兵］旧唐書「大業十三年，岳州校尉董景珍…同謀叛隋…羅川令蕭銑，梁氏之後…請以",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-xiaoxian|reigns[0].quote#1|e5cc7af600f7": {
    "id": "suimo-xiaoxian",
@@ -54100,7 +54117,7 @@
    "span": "資治通鑑 武德元年夏四月「蕭銑即皇帝位，置百官，準梁室故事」。［出降］旧唐書「銑",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-xiaoxian|reigns[0].quote#2|1675c4d83ac0": {
    "id": "suimo-xiaoxian",
@@ -54108,7 +54125,7 @@
    "span": "資治通鑑 武德四年冬十月「乙巳，銑以太牢告於太廟，下令開門出降，守城者皆哭」。［",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-xueju|accessionRoute.note|26ac7052e21d": {
    "id": "suimo-xueju",
@@ -54266,7 +54283,7 @@
    "span": "挙又遣仁杲進囲寧州",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-xuerengao|reigns[0].quote#0|b00c5dfcf585": {
    "id": "suimo-xuerengao",
@@ -54402,7 +54419,7 @@
    "span": "隋書「人生故当死，岂不一日为帝乎！于是鸩杀秦王浩，僭皇帝位于魏县，国号许，建元为",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-yuwenhuaji|reigns[0].quote#1|6b4150fa6104": {
    "id": "suimo-yuwenhuaji",
@@ -54410,7 +54427,7 @@
    "span": "旧唐書高祖本紀「九月乙巳，亲录囚徒，改银菟符为铜鱼符。辛未，追谥隋太上皇为炀帝。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-zhucan|accessionRoute.note|81f8822619b2": {
    "id": "suimo-zhucan",
@@ -54451,7 +54468,7 @@
    "span": "俄而収輯余衆，兵又大盛，僭称楚帝於冠軍，建元為昌達",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "suimo-zhucan|eraChangeCount[0].note|a9ec6b33a5ae": {
    "id": "suimo-zhucan",
@@ -54499,7 +54516,7 @@
    "span": "「既而粲收集余众，兵复大振，自称楚帝于冠军，改元昌达，进攻邓州。」。旧唐書「僭称",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-aidi|ages.note|2a53a4d6a9f4": {
    "id": "tang-aidi",
@@ -55439,7 +55456,7 @@
    "span": "上以奉天隘…乱兵已陈于丹凤阙下…上与太子诸王妃主百余人出苑北门",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-dezong|rebellionSufferedCount[7].note|a926c9bd85fe": {
    "id": "tang-dezong",
@@ -56146,7 +56163,7 @@
    "span": "同事件の異文：「十二月丁巳，改元，大赦。是夕，皇帝崩于贞观殿，年五十六。」",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-gaozong|reigns[0].quote#3|a9fa772511c6": {
    "id": "tang-gaozong",
@@ -56416,7 +56433,7 @@
    "span": "皇太子破劉黒闥於魏州、斬之、山東平",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-gaozu|rebellionSuppressionCount[5].note|7b235a03ad6a": {
    "id": "tang-gaozu",
@@ -56930,7 +56947,7 @@
    "span": "安南都護桂仲武奏誅賊首楊清、収復安南府",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-muzong|reigns[0].quote#0|3c32053312f2": {
    "id": "tang-muzong",
@@ -57394,7 +57411,7 @@
    "span": "上元[=貞元]二十一年正月癸巳，德宗崩，丙申，即位于太极殿。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-shunzong|reigns[0].quote#1|c4962124c818": {
    "id": "tang-shunzong",
@@ -58389,7 +58406,7 @@
    "span": "（開成五年正月）十四日、受冊於正殿、時年二十七",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-wuzong|amnestyCount.note|2b9a83e969b2": {
    "id": "tang-wuzong",
@@ -58413,16 +58430,16 @@
    ],
    "line": 20
   },
-  "tang-wuzong|amnestyCount.note|91782e109d10": {
+  "tang-wuzong|amnestyCount.note|6b5948987a3d": {
    "id": "tang-wuzong",
    "path": "amnestyCount.note",
-   "span": "四月丁亥、大赦",
+   "span": "四月丁亥，群臣上尊号曰仁圣文武至神大孝皇帝。大赦",
    "status": "corpus",
-   "corpusFile": "daizhigev20/子藏/类书/册府元龟.txt",
+   "corpusFile": "china-history/新唐书/本纪/第八章-卷八·穆宗 敬宗 文-原文.html",
    "frags": [
-    "四月丁亥大赦"
+    "群臣上尊号曰仁圣文武"
    ],
-   "line": 14829
+   "line": 51
   },
   "tang-wuzong|amnestyCount.note|9ee78e41fe25": {
    "id": "tang-wuzong",
@@ -58676,7 +58693,7 @@
    "span": "〔旧唐書・在位終了〕三月二十三日，宣遺詔，以皇太叔光王柩前即位。是日崩，時年三十",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-wuzong|reigns[0].quote#3|bc4d59fc8451": {
    "id": "tang-wuzong",
@@ -58938,7 +58955,7 @@
    "span": "李愬率师入蔡州、执吴元济以献、淮西平",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-xianzong|rebellionSuppressionCount[5].note|f0f539013fa5": {
    "id": "tang-xianzong",
@@ -59538,7 +59555,7 @@
    "span": "即位:「是月二十三日，宣遺詔，以皇太叔光王柩前即位。是日崩，時年三十三。」",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-xuanzong-2|reigns[0].quote#1|1140c94109e2": {
    "id": "tang-xuanzong-2",
@@ -59546,7 +59563,7 @@
    "span": "即位:「會昌六年，武宗疾大漸，左神策軍護軍中尉馬元贄立光王為皇太叔。三月甲子，即",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-xuanzong-2|reigns[0].quote#2|c47940a233bf": {
    "id": "tang-xuanzong-2",
@@ -59567,7 +59584,7 @@
    "span": "崩御:「大中十三年己卯八月七日。崩于大明宮。年五十。」（cf. 新唐書は「八月壬",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-xuanzong|ages.note|54250c3bc4c3": {
    "id": "tang-xuanzong",
@@ -59886,7 +59903,7 @@
    "span": "旧唐書 玄宗紀「上意惶懼，馳見叩頭，請所以傳位之旨。睿宗曰：『吾因汝功業得宗社。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-xuanzong|reigns[0].quote#2|7832f321d367": {
    "id": "tang-xuanzong",
@@ -60376,24 +60393,6 @@
    ],
    "line": 102
   },
-  "tang-zhaozong|rebellionSuppressionCount[1].note|35a75030eb15": {
-   "id": "tang-zhaozong",
-   "path": "rebellionSuppressionCount[1].note",
-   "span": "天威軍使李順節率禁兵討楊復恭，復恭假子玉山軍使楊守信以兵拒之…擁其衆衛復恭出京師",
-   "status": "corpus",
-   "corpusFile": "china-history/旧唐书/本纪/第二十章-卷二十-原文.html",
-   "frags": [
-    "天威軍使李順",
-    "使李順節率禁",
-    "節率禁兵討楊",
-    "兵討楊復恭復",
-    "復恭復恭假子",
-    "恭假子玉山軍",
-    "玉山軍使楊守",
-    "使楊守信以兵"
-   ],
-   "line": 51
-  },
   "tang-zhaozong|rebellionSuppressionCount[1].note|4ddea3d2c2f8": {
    "id": "tang-zhaozong",
    "path": "rebellionSuppressionCount[1].note",
@@ -60404,6 +60403,19 @@
     "邠寧之衆攻興元府"
    ],
    "line": 34
+  },
+  "tang-zhaozong|rebellionSuppressionCount[1].note|8f1ebe53c0df": {
+   "id": "tang-zhaozong",
+   "path": "rebellionSuppressionCount[1].note",
+   "span": "天威軍使李順節率禁兵討楊復恭，復恭假子玉山軍使楊守信以兵拒之…擁其衆衛復恭出京師",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-zhaozong.txt",
+   "frags": [
+    "天威軍使李順節率禁兵",
+    "復恭假子玉山軍使楊守",
+    "擁其衆衛復恭出京師"
+   ],
+   "line": 29
   },
   "tang-zhaozong|rebellionSuppressionCount[1].note|91bcb0631470": {
    "id": "tang-zhaozong",
@@ -60516,7 +60528,7 @@
    "span": "制以内官第五可範已下七百人並賜死",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-zhaozong|reigns[0].quote#0|7ed21046dcee": {
    "id": "tang-zhaozong",
@@ -60638,16 +60650,27 @@
    ],
    "line": 2
   },
-  "tang-zhongzong|amnestyCount[6].note|d245d38d8650": {
+  "tang-zhongzong|amnestyCount[6].note|10bc11f829da": {
    "id": "tang-zhongzong",
    "path": "amnestyCount[6].note",
-   "span": "應天神龍皇帝",
+   "span": "上尊号曰应天神龙皇帝",
    "status": "corpus",
    "corpusFile": "china-history/新唐书/本纪/第四章-卷四·则天皇后 中宗-原文.html",
    "frags": [
-    "應天神龍皇帝"
+    "上尊号曰应天神龙皇帝"
    ],
    "line": 52
+  },
+  "tang-zhongzong|amnestyCount[6].note|7277e60940d0": {
+   "id": "tang-zhongzong",
+   "path": "amnestyCount[6].note",
+   "span": "上皇帝尊号曰应天神龙",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-zhongzong.txt",
+   "frags": [
+    "上皇帝尊号曰应天神龙"
+   ],
+   "line": 15
   },
   "tang-zhongzong|capitalRelocationCount[0].note|124a45b007b5": {
    "id": "tang-zhongzong",
@@ -60790,7 +60813,7 @@
    "span": "同書: 「二月，戊午，太后集百官於乾元殿，裴炎與中書侍郎劉禕之、羽林將軍程務挺、",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tang-zhongzong|reigns[1].quote#0|0cf748397b2b": {
    "id": "tang-zhongzong",
@@ -60821,7 +60844,7 @@
    "span": "腹腸潰於床、即死、年五十餘",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tangmo-anlushan|crownPrinceDepositionCount.note|51ccf5e1ef3e": {
    "id": "tangmo-anlushan",
@@ -60829,7 +60852,7 @@
    "span": "厳荘與慶緒夜持兵立帳外",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tangmo-anlushan|crownPrinceDepositionCount.note|850a06f9aee2": {
    "id": "tangmo-anlushan",
@@ -60966,7 +60989,7 @@
    "span": "〔即位〕旧唐書本紀第九玄宗下「十五載春正月乙卯，御宣政殿受朝。其日，禄山僭號於東",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tangmo-anlushan|reigns[0].quote#1|b861525f345c": {
    "id": "tangmo-anlushan",
@@ -61000,7 +61023,7 @@
    "span": "列傳第一百五十「猪兒以大刀斫其腹……腹腸已數斗流在床上，言訖氣絕……嚴莊即宣言於",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tangmo-anqingxu|accessionRoute.note|c374e450fc5f": {
    "id": "tangmo-anqingxu",
@@ -61086,7 +61109,7 @@
    "span": "旧唐書 安禄山伝「庄即宣言于外，言禄山传位于晋王庆绪，尊禄山为太上皇。庆绪纵乐饮",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tangmo-anqingxu|reigns[0].quote#3|a3fd265d9efa": {
    "id": "tangmo-anqingxu",
@@ -61285,7 +61308,7 @@
    "span": "新唐書僖宗紀「七月辛酉、楊師立伏誅。壬午、黄巢伏誅」。資治通鑑考異は「今從新傳」",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tangmo-li-chenghong|accessionRoute.note|6b194b6b832c": {
    "id": "tangmo-li-chenghong",
@@ -61349,7 +61372,7 @@
    "span": "即位: 旧唐書 本紀第十一 代宗「戊寅，吐蕃入京师，立广武王承宏为帝，仍逼前翰林",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tangmo-li-chenghong|reigns[0].quote#1|5171934767a4": {
    "id": "tangmo-li-chenghong",
@@ -61357,7 +61380,7 @@
    "span": " 在位終了(吐蕃撤退・廃位): 旧唐書 本紀第十一 代宗「庚寅，子仪收京城。」(",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tangmo-li-yun|ages.note|f2301aae207f": {
    "id": "tangmo-li-yun",
@@ -61576,13 +61599,18 @@
    ],
    "line": 59
   },
-  "tangmo-shichaoyi|reigns[0].quote#0|50a1964f5b0f": {
+  "tangmo-shichaoyi|reigns[0].quote#0|0b21be3b2a15": {
    "id": "tangmo-shichaoyi",
    "path": "reigns[0].quote#0",
-   "span": "「三月甲子，史朝義率衆夜襲我陝州，衛伯玉逆撃，敗之。戊戌，史思明爲其子朝義所殺。",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "span": "「三月甲子，史朝義率衆夜襲我陝州，衛伯玉逆擊，敗之。戊戌，史思明爲其子朝義所殺。",
+   "status": "corpus",
+   "corpusFile": "china-history/旧唐书/本纪/第十章-卷十-原文.html",
+   "frags": [
+    "史朝義率衆夜襲我陝州",
+    "衛伯玉逆擊",
+    "史思明爲其子朝義所殺"
+   ],
+   "line": 56
   },
   "tangmo-shichaoyi|reigns[0].quote#1|2295c1855c03": {
    "id": "tangmo-shichaoyi",
@@ -61630,7 +61658,7 @@
    "span": "(史思明)尝入奏、玄宗賜坐、與語、甚奇之。問其年、曰四十矣",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tangmo-shisiming|crownPrinceDepositionCount.note|c1ea4f31ca3c": {
    "id": "tangmo-shisiming",
@@ -61962,7 +61990,7 @@
    "span": "丙午・丁未・戊申・己酉・庚戌・辛亥・壬子・癸丑",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "tangmo-zhuci|reigns[0].conversion|506db13a1406": {
    "id": "tangmo-zhuci",
@@ -62722,7 +62750,7 @@
    "span": "令曰：東海王霖、高祖文皇帝之子。霖之諸子、与国至親、高貴郷公髦有大成之量、其以為",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wei-caomao|ages.note|eb5eb04894e8": {
    "id": "wei-caomao",
@@ -62741,7 +62769,7 @@
    "span": "復特赦淮南士民諸為儉、欽所誖誤者",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wei-caomao|amnestyCount.note|cbcec17564f6": {
    "id": "wei-caomao",
@@ -62921,20 +62949,27 @@
    ],
    "line": 23
   },
-  "wei-caomao|rebellionSufferedCount.note|55a76804186a": {
-   "id": "wei-caomao",
-   "path": "rebellionSufferedCount.note",
-   "span": "…直欲因際會舉兵入西宮殺吾，出取大將軍…此兒便將左右出雲龍門，雷戦鼓，躬自拔刃，",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
-  },
   "wei-caomao|rebellionSufferedCount.note|7d3920f5ec4b": {
    "id": "wei-caomao",
    "path": "rebellionSufferedCount.note",
    "span": "五月己丑，高貴郷公卒，年二十",
    "status": "manual",
    "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
+  },
+  "wei-caomao|rebellionSufferedCount.note|d0aedd971bb8": {
+   "id": "wei-caomao",
+   "path": "rebellionSufferedCount.note",
+   "span": "…直欲因際會舉兵入西宮殺吾，出取大將軍…此兒便將左右出雲龍門，雷戦鼓，躬自拔刃，",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wei-caomao.txt",
+   "frags": [
+    "直欲因際會舉兵入西宮",
+    "出取大將軍",
+    "此兒便將左右出雲龍門",
+    "與左右雜衛共入兵陳間",
+    "為前鋒所害"
+   ],
+   "line": 31
   },
   "wei-caomao|rebellionSufferedCount[2].note|f5bf2629b64e": {
    "id": "wei-caomao",
@@ -62957,7 +62992,7 @@
    "span": "正元二年春正月乙丑，鎮東将軍毌丘俭、揚州刺史文欽反。戊寅，大将軍司馬景王征之。…",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wei-caomao|rebellionSuppressionCount[1].note|47d155608133": {
    "id": "wei-caomao",
@@ -63569,7 +63604,7 @@
    "span": "高貴郷公卒、公卿議迎立公",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wei-yuandi|amnestyCount.note|996191a9f16b": {
    "id": "wei-yuandi",
@@ -64320,17 +64355,17 @@
    ],
    "line": 2604
   },
-  "wu-modi|capitalRelocationCount[1].note|29c60e98a5e0": {
+  "wu-modi|capitalRelocationCount[1].note|f728b1b991eb": {
    "id": "wu-modi",
    "path": "capitalRelocationCount[1].note",
    "span": "十二月、皓還都建業、衞将軍滕牧留鎮武昌",
-   "status": "corpus",
-   "corpusFile": "daizhigev20/史藏/别史/郝氏续后汉书.txt",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wu-modi.txt",
    "frags": [
     "皓還都建業",
     "衞将軍滕牧留鎮武昌"
    ],
-   "line": 1759
+   "line": 4
   },
   "wu-modi|crownPrinceDepositionCount.note|1b9d9959bb6f": {
    "id": "wu-modi",
@@ -64516,12 +64551,16 @@
    ],
    "line": 15
   },
-  "wu-modi|rebellionSuppressionCount[2].note|c7459c168e6d": {
+  "wu-modi|rebellionSuppressionCount[2].note|03977bad4c66": {
    "id": "wu-modi",
    "path": "rebellionSuppressionCount[2].note",
-   "span": "発兵自衛、断絶海道",
-   "status": "manual",
-   "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
+   "span": "發兵自衛、斷絕海道",
+   "status": "corpus",
+   "corpusFile": "china-history/三国志/吴书/第三章-三嗣主传-原文.html",
+   "frags": [
+    "發兵自衛斷絕"
+   ],
+   "line": 23
   },
   "wu-modi|reigns[0].conversion|a35d598b1f8c": {
    "id": "wu-modi",
@@ -64752,6 +64791,17 @@
    ],
    "line": 7
   },
+  "wudai-houhan-gaozu|eraChangeCount[0].note|4b901de26c33": {
+   "id": "wudai-houhan-gaozu",
+   "path": "eraChangeCount[0].note",
+   "span": "余未忍忘晋也",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "余未忍忘晋也"
+   ],
+   "line": 4687
+  },
   "wudai-houhan-gaozu|eraChangeCount[0].note|d165dd7ee148": {
    "id": "wudai-houhan-gaozu",
    "path": "eraChangeCount[0].note",
@@ -64886,7 +64936,7 @@
    "span": "乾祐三年十一月二十二日（乙酉）",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wudai-houhan-yindi|ages.note|9600f6bf3546": {
    "id": "wudai-houhan-yindi",
@@ -65061,7 +65111,7 @@
    "span": "劉景巖與郷軍指揮使高志，結集草寇，欲取臘辰窺圖州城…劉景巖果出兵鬥敵，時即殺敗，",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wudai-houhan-yindi|reigns[0].conversion|292b39d5e816": {
    "id": "wudai-houhan-yindi",
@@ -65231,6 +65281,17 @@
    ],
    "line": 36
   },
+  "wudai-houjin-gaozu|crownPrinceDepositionCount.note|2e35ec7a3b91": {
+   "id": "wudai-houjin-gaozu",
+   "path": "crownPrinceDepositionCount.note",
+   "span": "以皇太子右金吾衛上將軍重貴為檢校太傅、開封尹、封鄭王",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houjin-gaozu.txt",
+   "frags": [
+    "以皇太子右金吾衛上將"
+   ],
+   "line": 54
+  },
   "wudai-houjin-gaozu|crownPrinceDepositionCount.note|4e54a6b15ceb": {
    "id": "wudai-houjin-gaozu",
    "path": "crownPrinceDepositionCount.note",
@@ -65242,14 +65303,6 @@
     "封子重貴為鄭王"
    ],
    "line": 30
-  },
-  "wudai-houjin-gaozu|crownPrinceDepositionCount.note|552dba46b81b": {
-   "id": "wudai-houjin-gaozu",
-   "path": "crownPrinceDepositionCount.note",
-   "span": "以皇太子右金吾衛上將軍重貴為檢校太傅、開封尹、封鄭王",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
   },
   "wudai-houjin-gaozu|crownPrinceDepositionCount.note|d15e8f84931e": {
    "id": "wudai-houjin-gaozu",
@@ -65391,23 +65444,32 @@
    "span": "収下汜水関、破賊千人、張従宾及其残党奔投入河",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
-  "wudai-houjin-gaozu|rebellionSuppressionCount[2].note|ed5c4cbfc199": {
+  "wudai-houjin-gaozu|rebellionSuppressionCount[2].note|45e62142cf2a": {
    "id": "wudai-houjin-gaozu",
    "path": "rebellionSuppressionCount[2].note",
    "span": "滑州節度使符彦饒作乱、屠害侍衛馬軍都指揮使白奉進…寻以所部兵擒到彦饒…賜死于路",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houjin-gaozu.txt",
+   "frags": [
+    "滑州節度使符彦饒作乱",
+    "屠害侍衛馬軍都指揮使",
+    "寻以所部兵擒到彦饒"
+   ],
+   "line": 35
   },
-  "wudai-houjin-gaozu|rebellionSuppressionCount[3].note|9ad9ff18ec4f": {
+  "wudai-houjin-gaozu|rebellionSuppressionCount[3].note|7475cb0fc441": {
    "id": "wudai-houjin-gaozu",
    "path": "rebellionSuppressionCount[3].note",
    "span": "安州軍乱、指揮使王暉害節度使周瑰於理所。遣右衛上将軍李金全領千騎赴安州",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houjin-gaozu.txt",
+   "frags": [
+    "指揮使王暉害節度使周",
+    "遣右衛上将軍李金全領"
+   ],
+   "line": 36
   },
   "wudai-houjin-gaozu|rebellionSuppressionCount[3].note|e005dbdba285": {
    "id": "wudai-houjin-gaozu",
@@ -65489,7 +65551,7 @@
    "span": "北面招討使杜重威奏、今月二日収復鎮州、斬安重栄、伝首闕下",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wudai-houjin-gaozu|rebellionSuppressionCount[8].note|b5932cfbf471": {
    "id": "wudai-houjin-gaozu",
@@ -66525,7 +66587,7 @@
    "span": "乾化三年二月十五日「衆踊躍曰『王言是也』，皆呼萬歳，請帝爲主」→十七日「象先引禁",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wudai-houliang-modi|reigns[0].quote#1|a1ac74ddd910": {
    "id": "wudai-houliang-modi",
@@ -66809,7 +66871,7 @@
    "span": "帝以夾寨・柏郷屢失利、故力疾北巡、思一雪其恥",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wudai-houliang-taizu|rebellionSuppressionCount[0].note|2c2c401cc823": {
    "id": "wudai-houliang-taizu",
@@ -66888,7 +66950,7 @@
    "span": "［即位］己未，赐文武百官一百六十人本色衣一副。戊辰，即位。制曰：……可改唐天祐四",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wudai-houliang-taizu|reigns[0].quote#1|6dc8e3da0e6a": {
    "id": "wudai-houliang-taizu",
@@ -66924,7 +66986,7 @@
    "span": "天宝六年春正月梁友珪改元凤历肆赦",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wudai-houliang-zhuyougui|capitalRelocationCount[0].note|13032f288940": {
    "id": "wudai-houliang-zhuyougui",
@@ -66958,7 +67020,7 @@
    "span": "天宝六年春正月梁友珪改元凤历",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wudai-houliang-zhuyougui|eraChangeCount.note|7752f9a9106c": {
    "id": "wudai-houliang-zhuyougui",
@@ -68504,7 +68566,7 @@
    "span": "光啓元年十月二十二日癸亥",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wudai-houtang-zhuangzong|ages.note|71bf671f452a": {
    "id": "wudai-houtang-zhuangzong",
@@ -68525,7 +68587,7 @@
    "span": "同光四年四月一日丁丑",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wudai-houtang-zhuangzong|ages.note|8d5e762319e0": {
    "id": "wudai-houtang-zhuangzong",
@@ -68931,13 +68993,17 @@
    ],
    "line": 67
   },
-  "wudai-houzhou-shizong|empressInstallationCount[0].note|c7ed756b1c93": {
+  "wudai-houzhou-shizong|empressInstallationCount[0].note|085b64a15486": {
    "id": "wudai-houzhou-shizong",
    "path": "empressInstallationCount[0].note",
    "span": "制立衛國夫人符氏爲皇后，仍令有司擇日備禮冊命",
-   "status": "unresolved",
-   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wudai-houzhou-shizong.txt",
+   "frags": [
+    "制立衛國夫人符氏爲皇",
+    "仍令有司擇日備禮冊命"
+   ],
+   "line": 8
   },
   "wudai-houzhou-shizong|empressInstallationCount[1].note|33280737f0b3": {
    "id": "wudai-houzhou-shizong",
@@ -69406,7 +69472,7 @@
    "span": "是歳，三桂年六十有七，兵興六年，地日蹙，援日寡，思竊號自娯。其下爭勸進，遂以三月",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "wuzhou-wushifan|accessionRoute.note|345b26fec449": {
    "id": "wuzhou-wushifan",
@@ -69761,7 +69827,7 @@
    "span": "昌為魏所敗，定遂收其餘眾數萬還據平涼，遂僭即皇帝位，大赦境內殊死已下，改承光四年",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xia-helianbobo|accessionRoute.note|cb8dd98b0610": {
    "id": "xia-helianbobo",
@@ -70693,7 +70759,7 @@
    "span": "魏帝臨朝、遣民部中大夫...致皇帝璽紱。固辞。公卿百辟勧進、太史陳祥瑞、乃従之。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xiwei-gongdi|reigns[0].quote#0|328ed72ee986": {
    "id": "xiwei-gongdi",
@@ -71307,7 +71373,7 @@
    "span": "乾顺遣兵/遣使",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xixia-chongzong|personalCampaignCount[0].note|60ae6f345609": {
    "id": "xixia-chongzong",
@@ -71454,7 +71520,7 @@
    "span": "泰和六年三月…廢純祐自立，再閲月死於廢所",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xixia-huanzong|ages.note|977ac5ecf2e3": {
    "id": "xixia-huanzong",
@@ -71615,7 +71681,7 @@
    "span": "鎮夷郡王安全廢其主純祐自立，改元應天。安全久專國政，是月二十日，與純祐母羅氏廢純",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xixia-huanzong|reigns[0].quote#4|018b8cd9980e": {
    "id": "xixia-huanzong",
@@ -71786,7 +71852,7 @@
    "span": "宋哲宗元祐元年、夏天安礼定元年春正月",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xixia-huizong|personalCampaignCount.note|0a75554aa612": {
    "id": "xixia-huizong",
@@ -72290,7 +72356,7 @@
    "span": "［即位］冬十月，元昊称帝，建国号「大夏」，改元「天授礼法延祚」。……于是月十一日",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xixia-jingzong|reigns[0].quote#1|6dd62b455365": {
    "id": "xixia-jingzong",
@@ -72298,7 +72364,7 @@
    "span": "［崩御］春正月辛未，夏国主曩霄卒。……宁令哥愤而杀曩霄，不死，劓其鼻而去，匿黄芦",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xixia-jingzong|reigns[0].quote#2|e2e6a23a25bd": {
    "id": "xixia-jingzong",
@@ -72578,16 +72644,16 @@
    ],
    "line": 22
   },
-  "xixia-renzong|empressInstallationCount[0].note|acd93a2adadf": {
+  "xixia-renzong|empressInstallationCount[0].note|0f9fe0632116": {
    "id": "xixia-renzong",
    "path": "empressInstallationCount[0].note",
-   "span": "紹興九年十二月，納后罔氏",
+   "span": "十一月，仁孝尊其母曹氏為國母。十二月，納后罔氏",
    "status": "corpus",
-   "corpusFile": "daizhigev20/史藏/编年/建炎以来系年要录.txt",
+   "corpusFile": "daizhigev20/史藏/正史/宋史.txt",
    "frags": [
-    "紹興九年十二月"
+    "仁孝尊其母曹氏為國母"
    ],
-   "line": 5995
+   "line": 102905
   },
   "xixia-renzong|empressInstallationCount[1].note|40c341e112cc": {
    "id": "xixia-renzong",
@@ -72696,7 +72762,7 @@
    "span": "夏乾佑二十四年〕秋九月，使贺金天寿节。〔金主始御大安殿…〕国主仁孝卒，子纯佑立。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xixia-renzong|reigns[0].quote#5|5b4c2aa53f8c": {
    "id": "xixia-renzong",
@@ -73066,7 +73132,7 @@
    "span": "八月，安全死。年四十二",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xixia-xiangzong|deathCause.note|feaea75214b9": {
    "id": "xixia-xiangzong",
@@ -73107,7 +73173,7 @@
    "span": "安全久専国政，是月二十日，与純祐母羅氏廃純祐自立，改天慶十三年為應天元年",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xixia-xiangzong|eraChangeCount[0].note|cbd45f13df52": {
    "id": "xixia-xiangzong",
@@ -73231,7 +73297,7 @@
    "span": "安全久専國政，是月二十日，與純祐母羅氏廢純祐自立，改天慶十三年爲應天元年。",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xixia-xiangzong|reigns[0].quote#3|379bb11a2c64": {
    "id": "xixia-xiangzong",
@@ -73619,7 +73685,7 @@
    "span": "皇祐二年、夏天祐垂聖元年春正月、使獻契丹捷",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xixia-yizong|eraChangeCount[2].note|07349550e60d": {
    "id": "xixia-yizong",
@@ -73650,7 +73716,7 @@
    "span": "嘉祐二年、夏奲都元年春三月、以國母遺物入獻",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "xixia-yizong|eraChangeCount[4].note|dbffd8b74753": {
    "id": "xixia-yizong",
@@ -74238,7 +74304,7 @@
    "span": "十一年（大徳十一年）春正月丙寅朔、帝大漸。癸酉、崩於玉徳殿、在位十有三年、壽四十",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuan-chengzong|amnestyCount.note|5965b50c1eb3": {
    "id": "yuan-chengzong",
@@ -75875,7 +75941,7 @@
    "span": "至順三年十一月壬辰",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuan-ningzong|empressInstallationCount.note|5b1a8e5bc736": {
    "id": "yuan-ningzong",
@@ -76841,7 +76907,7 @@
    "span": "至元三十一年正月壬子朔",
    "status": "unresolved",
    "triage": "2026-08-02 字体訂正後の再構築で表面化。元号を補うなど原文に無い形へ合成された引用（Issue #33 と同型）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuan-shizu|reigns[0].note|140af3a1f312": {
    "id": "yuan-shizu",
@@ -76995,7 +77061,7 @@
    "span": "「二年春，袁术自称天子。」、「建安二年，因河内张炯符命，遂果僭号，自称『仲家』」",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuan-shu|reigns[0].quote#1|5d627fd49534": {
    "id": "yuan-shu",
@@ -77003,7 +77069,7 @@
    "span": "「夏六月，袁术死。」、「术因欲北至青州从袁谭…复走还寿春。六月，至江亭。坐簧床而",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuan-taidingdi|accessionRoute.note|b4c4c8d76697": {
    "id": "yuan-taidingdi",
@@ -77091,7 +77157,7 @@
    "span": "泰定二年閏正月壬子朔",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuan-taidingdi|amnestyCount[2].note|a9371335e432": {
    "id": "yuan-taidingdi",
@@ -77106,7 +77172,7 @@
    "span": "泰定三年十二月庚寅",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuan-taidingdi|amnestyCount[3].note|318ef4488d88": {
    "id": "yuan-taidingdi",
@@ -77114,7 +77180,7 @@
    "span": "泰定四年閏九月壬申",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuan-taidingdi|amnestyCount[3].note|63b7d8016dbb": {
    "id": "yuan-taidingdi",
@@ -77535,7 +77601,7 @@
    "span": "倒剌沙乃奉皇帝宝出降，少帝不知所终",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuan-tianshundi|deathCause.note|b5ee79dda805": {
    "id": "yuan-tianshundi",
@@ -77576,7 +77642,7 @@
    "span": "冬十月辛丑，齐王月鲁帖木儿等以兵犯上都，左丞相倒剌沙奉皇帝宝出降，少帝不知所终",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuan-tianshundi|rebellionSufferedCount[0].note|707bdb26560d": {
    "id": "yuan-tianshundi",
@@ -78510,7 +78576,7 @@
    "span": "是冬(太祖親征、至正23年/1363年冬)",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuanmo-chenli|reigns[0].conversion|68238f2aac5d": {
    "id": "yuanmo-chenli",
@@ -78518,7 +78584,7 @@
    "span": "(陳友諒死後)還武昌、嗣偽位、改元德寿",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuanmo-chenli|reigns[0].conversion|b5a7596a1582": {
    "id": "yuanmo-chenli",
@@ -78562,7 +78628,7 @@
    "span": "至是敗，年四十四，稱帝僭號凡四年",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuanmo-chenyouliang|crownPrinceDepositionCount.note|c5794b735548": {
    "id": "yuanmo-chenyouliang",
@@ -78581,7 +78647,7 @@
    "span": "驟中流矢，貫睛及顱死",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuanmo-chenyouliang|deathCause.note|e9a6f50c489a": {
    "id": "yuanmo-chenyouliang",
@@ -78779,7 +78845,7 @@
    "span": "或曰太祖命廖永忠迎林児歸應天，至瓜歩，覆舟沈於江云",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuanmo-hanlin-er|deathCause.note|c86527426924": {
    "id": "yuanmo-hanlin-er",
@@ -78787,7 +78853,7 @@
    "span": "至瓜歩覆其舟死，帝以咎永忠",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuanmo-hanlin-er|deathCause.note|ca3d55900f97": {
    "id": "yuanmo-hanlin-er",
@@ -79050,7 +79116,7 @@
    "span": "呉友仁自保寧移檄、以清君側為名。升命戴寿討之。友仁遺寿書謂：『不誅昭、則国必不安",
    "status": "unresolved",
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
-   "nv": "23eba471"
+   "nv": "846f029b"
   },
   "yuanmo-mingsheng|reigns[0].quote#0|a37f865f6171": {
    "id": "yuanmo-mingsheng",
@@ -79423,5 +79489,19 @@
   "xia-heliading|deathCause.note": "北魏の元号「神䴥」。底本（魏書）は䴥が落ちて「神四年」になっている",
   "shiguo-nantang-lijing|eraChangeCount.note": "引用の「顯德」が正字。底本（陸氏南唐書）の側が「顕徳」の字形を使っている",
   "tang-gaozong|reigns[0].quote#3": "引用の「乘馬」が正字。底本（通鑑紀事本末）の側が「乗」の字形を使っている"
+ },
+ "bookAllow": {
+  "beiwei-houfeidi-yuanlang|personalCampaignCount.note": "note が「齊献武王（高歡）」と括弧付きで書いたため断片が「齊献武王高歡」に合成された。魏書 巻11 後廢帝紀の原文は「齊献武王」単独",
+  "beiwei-taiwudi|eraChangeCount[4].note": "魏書 巻4下 世祖紀下に「六月丁丑，皇孙浚生，大赦，改年」として実在。コーパスの魏書は文成帝の諱を全篇「浚」で通し、引用の正字「濬」と字形が違う",
+  "houliang-xuandi|empressInstallationCount[0].note": "周書 巻48 蕭詧傳に実在。コーパスの周书.txt は「詧」を全篇「察」へ置換しており（「外示助察備禦」が非文）引用の正字では当たらない。同文は北史 巻93 で確認",
+  "houliang-xuandi|eraChangeCount[0].note": "周書 巻48 蕭詧傳に実在。コーパスの周书.txt は「詧」を全篇「察」へ置換しており（「外示助察備禦」が非文）引用の正字では当たらない。同文は北史 巻93 で確認",
+  "qianyan-murongjun|capitalRelocationCount[1].note": "晋書 巻13 志第三（天文志下）の当該箇所が両コーパスとも「慕容ＪＩ入屯鄴」と1字だけ全角ラテンに化けている（同書内の他23例は「慕容俊」）",
+  "qin-er-shi|ages.note": "「二世三年八月」は原文引用ではなく崩御年月のラベルで、史記 巻6 秦始皇本紀の「三年」と「八月己亥」から組み立てたもの。書名の名乗り「史記」自体は正しい",
+  "shiguo-houshu-mengchang|eraChangeCount.note": "新五代史 後蜀世家第四の電子底本が「廣政」を「庆政」と誤植している（同じ書の別行は「广政九年」と正しく書く）",
+  "shiguo-nantang-lijing|reigns[0].conversion": "陸游『南唐書』の底本が「己卯朔」を「已卯朔」と誤字（已は干支として成立しない）。十国春秋が「己卯朔」で一致し引用側が正しい",
+  "wei-caomao|rebellionSufferedCount.note": "断片は三國志 魏書四 三少帝紀の大將軍文王上言。note が名乗る『漢晉春秋』は成濟への指示者に関する別主張の出典で、逸文は三國志裴注に引かれる形で残る",
+  "wei-mingdi|amnestyCount[4].note": "三國志 魏書三 明帝紀に実在するが、両コーパスとも「虹」の直後に音注「洨音胡交反。虹音绛。」が挿入され正文の連続断片が取れない。名乗りの「魏書」は三國志の内篇名",
+  "wudai-houliang-taizu|crownPrinceDepositionCount.note": "note の「梁書」は旧五代史の内篇（巻七・梁書七 太祖紀七）で南朝梁の正史『梁書』ではない。断片は旧五代史 巻七に実在",
+  "yuan-shizu|reigns[0].note": "「皇帝登寶位詔」は元史が題名を載せない後世の詔題で、詔の本文は元史 巻4 世祖紀一「辛丑，以即位詔天下。詔曰…」として在る。題名を載せる元文類はコーパス未収録"
  }
 }

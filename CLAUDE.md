@@ -28,7 +28,7 @@ python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py 
 python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実経過日数（CI でも実行）
 ```
 
-note に**書名を書き足した・引用の出典を差し替えた**ときは `python3 scripts/verify_quotes.py --check-books`（ローカル専用・初回のみ約1分40秒〔名乗られた書ぶんの `_norm_cache/` を作る〕・2回目以降は約4秒。名乗る書名とその書の実ファイルを突き合わせる。未トリアージの残件があるためエラーにはしない＝出力を読む）。
+note に**書名を書き足した・引用の出典を差し替えた**ときは `python3 scripts/verify_quotes.py --check-books`（ローカル専用・初回のみ数分〔名乗られた書ぶんの `_norm_cache/` を作る〕・2回目以降は数秒）。note・`source.page`・`conversion` が名乗る書名と、その書の実ファイルを突き合わせる。**名乗るどの書にも引用が1断片も無いユニットが残っていればエラー**で、コーパス側の欠陥（一書の中で1箇所だけ字が壊れている等）・内篇名（三国志魏書・旧五代史梁書）・引用の作り方が原因のものだけ、`data/quote-refs.json` の `bookAllow` に `"id|path": "理由"` を足して許可する（理由は必須）。「断片が日付表現だけ」「一部の書だけに在る」は別枠で一覧に出るだけでエラーにしない。
 
 `data/regime-conventions.json`（政権単位の慣行）を触った場合は `python3 scripts/check_regime_conventions.py`（構造・政権 id の実在・引用が実ファイルの該当行にあるか。CI でも実行）。悉皆調査に入る前に `--scope` で確定済みの範囲を、人物単位の調査を立てる前に `--for <皇帝id>` を見る。
 `data/screenings.json`（原典を読む前の機械の絞り込み）を触った場合は `python3 scripts/check_screenings.py`（`scripts/screens/*.py` を実行して記録の件数と突き合わせる・標本監査の有無。CI でも実行）。着手前に `--scope` で「母集団 N → 要読解 M」を、調査が進んで母集団が減ったら `--update` で件数だけ引き直す。

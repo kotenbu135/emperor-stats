@@ -167,14 +167,11 @@ KNOWN_COUNTING_AGE = {
 # ages.note が「〜は null とした」と明記しているのにフィールドに値が入っている既知の矛盾
 # （後続パスで値を埋めた際の note 同期漏れ。2026-07-22 検出の9件は同日、値を規定10節の
 #  逆算値として立証したうえで note 側を訂正済み・現在は空。新規検出をここに登録する）
-KNOWN_NULL_SAID = {
-    # 2026-08-02（Issue #40 G2）検出。いずれも「グレゴリオ暦換算が未実施なので birthDate は
-    # null」と note が書いたあと、後続パスが換算値を入れて note を直し忘れたもの。
-    # 値の側が正しいかは個別調査（換算の裏取り）が要るため note の訂正は保留し、警告で残す。
-    ("tang-wuzong", "birthDate"),
-    ("beisong-zhenzong", "birthDate"),
-    ("yuan-wenzong", "birthDate"),
-}
+# 2026-08-02（Issue #40 G2）に検出した3件（tang-wuzong・beisong-zhenzong・yuan-wenzong の
+# birthDate）は、いずれも「暦換算が未実施なので null」と note が書いたあと後続パスが換算値を
+# 入れて note を直し忘れたもの。3件とも sxtwl で換算を裏取りして値が正しいことを確かめ、
+# note の側を訂正したので登録は空になった（残す場合は個別調査の理由を書くこと）。
+KNOWN_NULL_SAID: set = set()
 
 # 在位重複判定に使う並立・対立政権系キーワード（レコード JSON 全体を対象に部分一致）。
 # これらのいずれも含まない同王朝内重複は継承同期バグの疑いとしてエラーにする。

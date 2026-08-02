@@ -43,8 +43,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from hanzi_norm import (AMBIGUOUS_JP, han_only, norm_for_match, norm_strict,  # noqa: E402
-                        norm_variants, to_traditional)
+from hanzi_norm import (AMBIGUOUS_JP, HAN_RE, han_only, norm_for_match,  # noqa: E402
+                        norm_strict, norm_variants, to_simplified, to_traditional)
 
 DATA_PATH = ROOT / "data" / "emperors.json"
 REFS_PATH = ROOT / "data" / "quote-refs.json"
@@ -483,11 +483,24 @@ def build_book_index():
         # 白話訳は書名としては同じ書。原文側だけを索引に入れる
         if d.is_dir() and not d.name.endswith("-白话"):
             idx.setdefault(norm_for_match(d.name), []).append(str(d.relative_to(CORPUS_ROOT)))
-    return {k: v for k, v in idx.items() if len(k) >= 2}
+    idx = {k: v for k, v in idx.items() if len(k) >= 2}
+    for alias, real in FILE_NAME_ALIASES.items():
+        if norm_for_match(real) in idx:
+            idx.setdefault(norm_for_match(alias), []).extend(idx[norm_for_match(real)])
+    return idx
 
 
 # 同一の書の別名。前漢書＝漢書
 BOOK_ALIAS = {"汉书": ("汉书", "前汉书"), "前汉书": ("汉书", "前汉书")}
+
+# note が名乗る書名と、コーパスのファイル名が別名の関係にあるもの。
+# 網羅を目指さない（辞書を膨らませると「別の書を名乗っている」の誤読が戻る）。
+# --check-books のトリアージで実在が確かめられたものだけを足す。
+FILE_NAME_ALIASES = {
+    # 2026-08-02（Issue #40 G1）: yuanmo-xushouhui の source.page が名乗る正式名
+    "大明太祖高皇帝実録": "明实录太祖实录",
+    "明太祖実録": "明实录太祖实录",
+}
 
 
 def book_of_file(rel):
@@ -504,10 +517,15 @@ def claimed_books(text, book_re):
     """本文が名乗る書名。地続きの書名（三国志魏書）は外側だけを採る。
 
     「三国志魏書武帝紀」を2書に割ると、魏書（北魏の正史）を名乗っていることになる。
+    ただし漢字だけへ潰してから隣接を見ると、『魏書』『北史』のような**並記**まで
+    地続きに化けて後ろの名乗りが消える（2026-08-02 のトリアージで、99件のうち
+    27件がこれによる誤検出だった）。漢字以外は長さを保つ区切りへ潰して、
+    「間に何も無い」ときだけ地続きと見る。
     """
+    marked = to_simplified(HAN_RE.sub("\x00", text or ""))
     out, prev_end = [], -99
-    for m in book_re.finditer(text or ""):
-        if m.start() - prev_end <= 1:
+    for m in book_re.finditer(marked):
+        if m.start() == prev_end:
             prev_end = m.end()
             continue
         out.append(m.group(0))
@@ -530,13 +548,44 @@ def book_files(book, index):
     return out
 
 
+# 日付を組み立てるのに使う字（数詞・干支・季節・朔閏・年月日）。元号名だけがこの外に残る
+DATE_CHARS = set("一二三四五六七八九十百千元正閏年月日時朔晦望春夏秋冬歲歳次載"
+                 "甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥")
+
+
+def is_date_expression(frag):
+    """断片が「年号＋年月日＋干支」だけで組み立てられた日付表現か。
+
+    conversion や note の換算メモに書かれる「光大二年十一月甲寅」は、原文の引用ではなく
+    調査側が組み立てた表現のことがある（原文は年号と干支を離れた位置に書く）。
+    ただし**母集団から落としてはいけない**: 落とすと決めて測ると、日付表現 213 件のうち
+    173 件は名乗る書にそのまま在って合格しており、残り 40 件だけが消える＝書名誤りが
+    紛れていても見えなくなる。判定はそのまま行い、報告を別枠にするだけに使う。
+    """
+    han = han_only(frag)
+    if not han or not ({"年", "月", "日"} & set(han)):
+        return False
+    rest = "".join(c for c in han if c not in DATE_CHARS)
+    # 元号名は先頭に来る。真ん中に残る字は日付以外の語なので引用として扱う
+    return len(rest) <= 2 and han.startswith(rest)
+
+
 GROUP_EVENT_RE = re.compile(r"^([A-Za-z]+)\[(\d+)\]\.note$")
+
+
+def join_texts(*parts):
+    """名乗りを読む対象の文字列を連結する（書名が地続きにならないよう区切る）。"""
+    vals = [p for p in parts if isinstance(p, str) and p]
+    return "／".join(vals) if vals else None
 
 
 def source_text(e, path):
     """引用ユニットの path から「書名が書かれている本文」を取り出す。
 
-    note 系はその note 自身、reigns の quote/conversion は duration.source.page。
+    note 本文と、同じ欄の `source.page`（読んだ場所の構造フィールド）を併せて見る。
+    note だけを見ると、note が書名を書かずに引いて `source.page` にだけ書名がある形
+    （十国春秋・旧五代史で頻出）が全部「名乗る書に無い」になる。散文より
+    `source.page` のほうが「どこを読んだか」の主張としては確かなので、和集合を採る。
     """
     m = re.match(r"^reigns\[(\d+)\]\.(.+)$", path)
     if m:
@@ -544,16 +593,28 @@ def source_text(e, path):
         reigns = e.get("reigns") or []
         if i >= len(reigns):
             return None
+        src = ((reigns[i].get("duration") or {}).get("source") or {})
+        page = src.get("page")
         if rest == "note":
-            return reigns[i].get("note")
-        return ((reigns[i].get("duration") or {}).get("source") or {}).get("page")
+            return join_texts(reigns[i].get("note"), page)
+        # conversion は換算の根拠を散文で書く欄で、書名は source.page ではなくそこに出る
+        return join_texts(page, src.get("conversion") if rest == "conversion" else None)
     m = GROUP_EVENT_RE.match(path)
     if m:
-        events = (e.get(m.group(1)) or {}).get("events") or []
+        owner = e.get(m.group(1)) or {}
+        events = owner.get("events") or []
         k = int(m.group(2))
-        return events[k].get("note") if k < len(events) else None
+        if k >= len(events):
+            return None
+        return join_texts(events[k].get("note"), (events[k].get("source") or {}).get("page"),
+                          (owner.get("source") or {}).get("page"))
     m = re.match(r"^([A-Za-z]+)\.note$", path)
-    return (e.get(m.group(1)) or {}).get("note") if m else None
+    if not m:
+        return None
+    owner = e.get(m.group(1)) or {}
+    # 欄全体の note は個々の事件を横断して書くので、events 側の source.page も読んだ場所に含める
+    pages = [(ev.get("source") or {}).get("page") for ev in (owner.get("events") or [])]
+    return join_texts(owner.get("note"), (owner.get("source") or {}).get("page"), *pages)
 
 
 def scan_claimed_books(data, refs, log=print):
@@ -580,7 +641,7 @@ def scan_claimed_books(data, refs, log=print):
         text = source_text(by_id[eid], path)
         if not isinstance(text, str):
             continue
-        claimed = claimed_books(norm_for_match(text), book_re)
+        claimed = claimed_books(text, book_re)
         if not claimed:
             skipped["書名を名乗っていない"] += 1
             continue
@@ -593,7 +654,8 @@ def scan_claimed_books(data, refs, log=print):
             continue
         key = f"{eid}|{path}|{span[:20]}"
         units[key] = {"id": eid, "path": path, "actual": actual or rel, "claimed": claimed,
-                      "frags": frags, "span": span[:30], "found": None, "best": 0, "bestbook": None}
+                      "frags": frags, "span": span[:30], "fullspan": span,
+                      "found": None, "best": 0, "bestbook": None}
         for c in claimed:
             by_book.setdefault(c, []).append(key)
 
@@ -630,16 +692,55 @@ def scan_claimed_books(data, refs, log=print):
 
 def cmd_check_books():
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
-    rows = scan_claimed_books(data, load_refs())
-    zero = [u for u in rows if not u["best"]]
-    partial = [u for u in rows if u["best"]]
+    refs = load_refs()
+    allow = refs.get("bookAllow", {})
+    rows = scan_claimed_books(data, refs)
+    for u in rows:
+        # 断片ではなく引用そのもので見る。断片は5字未満の節を落とすので、
+        # 「冬十月丙寅、车驾还宫」のような文まで日付表現に見えてしまう
+        u["dateonly"] = is_date_expression(u["fullspan"])
+        u["allowed"] = f"{u['id']}|{u['path']}" in allow
+    zero = [u for u in rows if not u["best"] and not u["dateonly"] and not u["allowed"]]
+    allowed = [u for u in rows if u["allowed"]]
+    dateonly = [u for u in rows if not u["best"] and u["dateonly"] and not u["allowed"]]
+    partial = [u for u in rows if u["best"] and not u["allowed"]]
     print(f"\n=== 名乗る書に引用が1断片も無い: {len(zero)} 件 / 人物 {len(set(u['id'] for u in zero))} ===")
     for u in zero:
+        print(f"{u['id']} | {u['path']} | 実={u['actual']} | 名乗り={'/'.join(u['claimed'])} | {u['span']}")
+    print(f"\n=== 断片が日付表現だけ（書名の整合を問えない・組み立てた表記の疑い）: {len(dateonly)} 件 ===")
+    for u in dateonly:
         print(f"{u['id']} | {u['path']} | 実={u['actual']} | 名乗り={'/'.join(u['claimed'])} | {u['span']}")
     print(f"\n=== 名乗る書に一部だけ在る（複数書から合成した引用の疑い）: {len(partial)} 件 ===")
     for u in partial:
         print(f"{u['id']} | {u['path']} | 実={u['actual']} | 名乗り={'/'.join(u['claimed'])} "
               f"| {u['best']}/{len(u['frags'])}@{u['bestbook']} | {u['span']}")
+    print(f"\nbookAllow で許可済み（理由付き・トリアージ済み）: {len(allowed)} 件 / 登録 {len(allow)} 件")
+    stale = sorted(set(allow) - {f"{u['id']}|{u['path']}" for u in rows})
+    if stale:
+        print(f"WARN  bookAllow の陳腐化エントリ（もう検出されない・掃除可）: {stale}")
+    if zero:
+        print(f"\nERROR 名乗る書に引用が無いユニットが {len(zero)} 件ある。note の書名を原典で確かめ、"
+              f"書名の誤りなら note を直す。主張は正しくコーパス・書名辞書の側の事情なら "
+              f"quote-refs.json の bookAllow に \"id|path\": \"理由\" を足す（理由は必須）")
+        return 1
+    return 0
+
+
+def cmd_prune_stale():
+    """引用を書き換えた後、参照されなくなった台帳エントリを消す。
+
+    ユニットのキーは引用そのもののハッシュなので、note の引用を1字直すと
+    旧エントリが宙に浮く。放っておくと「掃除可」の警告が積み上がって、
+    次に引用を触った人が自分の出した差分を見分けられなくなる。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    refs = load_refs()
+    live = {unit_key(eid, path, span) for eid, path, span in extract_units(data)}
+    stale = [k for k in refs["refs"] if k not in live]
+    for k in stale:
+        del refs["refs"][k]
+    save_refs(refs)
+    print(f"参照されなくなった台帳エントリを消した: {len(stale)} 件 / 残り {len(refs['refs'])} 件")
     return 0
 
 
@@ -867,6 +968,8 @@ def main():
     ap.add_argument("--retry-unresolved", action="store_true",
                     help="--backfill と併用。走査済みの未解決ユニットもコーパスへ当て直す"
                          "（コーパスを入れ替えた・書を足したとき）")
+    ap.add_argument("--prune-stale", action="store_true",
+                    help="どの引用からも参照されなくなった台帳エントリを消す（引用を書き換えた後）")
     args = ap.parse_args()
     import hanzi_norm
     if hanzi_norm._T2S is None:
@@ -883,6 +986,8 @@ def main():
         print("NOTICE: ローカルコーパス（_corpus_cache 等）が見つからないため --backfill/--check を"
               "スキップ（コーパス不要の検証は --check-coverage を使う。CI はそちらを実行する）")
         return 0
+    if args.prune_stale:
+        return cmd_prune_stale()
     if args.check_books:
         return cmd_check_books()
     if args.backfill:
