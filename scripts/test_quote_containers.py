@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """書カタログと構造化引用の器の検出力を合成データで測る（Issue #69・計画7節の4）。
 
-**このゲートは実データで一度も発火しない。** 移行した時点では `quotes[]` を持つ容器が
-0件で、`bookId`・`volume` を書いたレコードも無いためで、本番の「0 errors」は
-守れているのか何も見ていないのかを区別できない。器だけ先に入れる段では、
+**実データではほとんど発火しない。** 構造化引用を持つ容器は 4,024中1件（パイロット）で、
+本番の「0 errors」は守れているのか何も見ていないのかを区別できない。器だけ先に入れる段では、
 発火の証拠は合成レコードにしか無い（`test_date_claim_scope.py` と同じ理由）。
 
 見るのは:
@@ -17,10 +16,14 @@
 - **`source.quote` と `quotes[]` の同居禁止**（引用の在りかを2つ持たない）
 - 床のラチェット（構造化引用を持つ容器の数が基準線を下回ったら落ちる）
 - 旧い器 `source.quote` の件数が上限を超えたら落ちる（散文側を増やさない）
+- **スキーマが `quotes` を許す14箇所を走査が全部見ていること**
+  … ここが空くと `bookId` がカタログの検査を素通りする（`conflicts` は
+    どのコンテナにも置けるので、置ける場所を数え上げる書き方だと必ず漏れる）
 
     python3 scripts/test_quote_containers.py
 """
 import importlib.util
+import json
 import sys
 from pathlib import Path
 
@@ -158,6 +161,60 @@ def with_legacy_max(value, unit):
 check("旧い器: source.quote が上限を超えると落ちる（散文側を増やさない）",
       any("上限" in e for e in
           with_legacy_max(0, {"source": {"quote": "丁未，帝崩于西殿"}})))
+
+# --- スキーマが許す場所を走査が全部見ているか -------------------------------
+# **これが空くと bookId がカタログの検査を素通りする。** スキーマ側にだけ
+# `quotes` を足して走査を直し忘れる、が起きうる形なので機械で突き合わせる。
+def schema_quote_locations():
+    schema = json.loads((ROOT / "data/schema/emperors.schema.json").read_text(encoding="utf-8"))
+    out = []
+
+    def walk(node, path):
+        if isinstance(node, dict):
+            for k, v in node.items():
+                if k == "quotes" and isinstance(v, dict) \
+                        and v.get("$ref") == "#/$defs/quotes":
+                    out.append(path)
+                walk(v, f"{path}/{k}")
+        elif isinstance(node, list):
+            for i, x in enumerate(node):
+                walk(x, f"{path}[{i}]")
+
+    walk(schema, "")
+    return out
+
+
+def walker_sees(record):
+    """レコードのどこかに置いた quotes を走査が拾うか（bookId をわざと外して測る）。"""
+    VE.errors.clear()
+    VE.check_quote_containers({
+        "meta": {"catalogs": {"books": BOOKS}},
+        "emperors": [dict(record, id="test-emperor")],
+    })
+    return any("架空書" in e for e in VE.errors)
+
+
+BAD = [{"bookId": "架空書", "text": "丁未，帝崩于西殿"}]
+CONFLICT = [{"adopted": {"quotes": BAD}, "alternatives": [{"quotes": BAD}]}]
+PLACES = {
+    "reigns[].duration": {"reigns": [{"duration": {"quotes": BAD}}]},
+    "deathCause": {"reigns": [], "deathCause": {"quotes": BAD}},
+    "accessionRoute": {"reigns": [], "accessionRoute": {"quotes": BAD}},
+    "ages": {"reigns": [], "ages": {"quotes": BAD}},
+    "count 容器": {"reigns": [], "amnestyCount": {"quotes": BAD}},
+    "count の events[]": {"reigns": [], "amnestyCount": {"events": [{"quotes": BAD}]}},
+    "events[].conflicts": {"reigns": [],
+                           "amnestyCount": {"events": [{"conflicts": CONFLICT}]}},
+    "accessionRoute.axes.conflicts": {"reigns": [],
+                                      "accessionRoute": {"axes": {"conflicts": CONFLICT}}},
+    # スキーマは conflicts をどのコンテナにも許すので、床の容器の直下も見えていること
+    "deathCause.conflicts": {"reigns": [], "deathCause": {"conflicts": CONFLICT}},
+    "reigns[].conflicts": {"reigns": [{"conflicts": CONFLICT}]},
+}
+for label, rec in PLACES.items():
+    check(f"走査が届く: {label}", walker_sees(rec))
+check("スキーマが quotes を許す箇所は14（増やしたら上の表も足す）",
+      len(schema_quote_locations()) == 14)
 
 # --- 床の単位が実データの容器名と合っているか -------------------------------
 check("床の単位に8つの count 容器がすべて入っている",

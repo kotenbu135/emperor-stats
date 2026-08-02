@@ -71,16 +71,38 @@ def _spans_from_starts(starts, n_lines):
     return spans
 
 
-def daizhige_spans(corpus: Path, rel: str):
-    """daizhige の txt から {巻番号: (開始行, 終了行)} を作る。組版は2通りある。
+def _named_head_spans(lines, book_id):
+    """本文の見出しが「<書名>卷N」型（四庫本）のときの区間。
+
+    十国春秋・唐会要は行頭が「十国春秋卷一」で、目次のほうは書名の付かない「卷一」。
+    書名の有無で目次と本文を分けられるので、**書名つきだけ**を見出しに採る。
+    書名を外して「なにか＋卷N」まで許すと目次まで拾って、最後の巻が本文の8割を指す。
+    """
+    pat = re.compile(r"^[\s　]*" + re.escape(book_id) + r"[卷巻]"
+                     r"([一二三四五六七八九十百千零〇\d]+)[\s　]*$")
+    first = {}
+    for i, line in enumerate(lines):
+        m = pat.match(line)
+        if m:
+            n = cn_number(m.group(1))
+            if n and n not in first:
+                first[n] = i
+    order = sorted(first.items(), key=lambda kv: kv[1])
+    return _spans_from_starts([(v, i) for v, i in order], len(lines))
+
+
+def daizhige_spans(corpus: Path, rel: str, book_id: str | None = None):
+    """daizhige の txt から {巻番号: (開始行, 終了行)} を作る。組版は3通りある。
 
     - **本文の見出しが「卷N …」**（元史など）… そのまま次の見出しまでが1巻
     - **「卷N …」は目次だけ**（宋书など）… 本文の見出しは「本纪第三　武帝下」のように
       節名で巻番号を持たない。素朴に「卷N」から次の「卷N」まで切ると目次の1行しか
       取れず、**最後の巻だけが本文全部を指す**（どんな引用でも当たる巻ができる）。
       目次の「卷N <節名>」で 巻→節名 を作り、本文の見出しを目次の順にたどる
+    - **本文の見出しが「<書名>卷N」**（四庫本の十国春秋・唐会要など）… 目次側は書名の付かない
+      「卷N」なので、書名つきだけを見出しに採れば目次と本文が分かれる
 
-    **どちらの読み方でも目次の全巻がそろわない書は、巻を引けないものとして扱う**
+    **どの読み方でも目次の全巻がそろわない書は、巻を引けないものとして扱う**
     （空の辞書を返す）。半分だけ引ける索引は、引けなかった巻を「存在しない巻」と
     誤って弾くうえ、当たった側も組版を読み違えている疑いが残る。
     """
@@ -98,13 +120,19 @@ def daizhige_spans(corpus: Path, rel: str):
     if not heads:
         return {}, lines
 
-    # 1) 本文の見出しが「卷N」型か: 1行しか持たない区間が少なければそちら
+    # 1) 本文の見出しが「<書名>卷N」型か（目次に無い形なので取り違えが起きない）
+    if book_id:
+        named = _named_head_spans(lines, book_id)
+        if len(named) >= 4 and _balanced(named, len(lines)):
+            return named, lines
+
+    # 2) 本文の見出しが「卷N」型か: 1行しか持たない区間が少なければそちら
     inline = _spans_from_starts([(n, i) for i, n, _ in heads], len(lines))
     thin = sum(1 for a, b in inline.values() if b - a <= 1)
     if thin <= len(inline) * 0.1 and _balanced(inline, len(lines)):
         return inline, lines
 
-    # 2) 目次型: 目次の並び順で本文の節見出しを追う
+    # 3) 目次型: 目次の並び順で本文の節見出しを追う
     toc = [(n, label) for _, n, label in heads if label]
     toc_end = heads[-1][0]
     starts, k = [], 0
@@ -132,13 +160,13 @@ def _balanced(spans, n_lines):
     return max(b - a for a, b in spans.values()) <= n_lines * 0.3
 
 
-def volumes_from_daizhige(corpus: Path, rels):
+def volumes_from_daizhige(corpus: Path, rels, book_id=None):
     """daizhige の単一 txt から**本文まで引ける**巻番号の集合を採る。"""
     best = (set(), None)
     for rel in rels:
         if not rel.endswith(".txt"):
             continue
-        spans, _ = daizhige_spans(corpus, rel)
+        spans, _ = daizhige_spans(corpus, rel, book_id)
         if len(spans) > len(best[0]):
             best = (set(spans), rel)
     return best
@@ -175,7 +203,7 @@ def volumes_from_china_history(rels):
 
 def entry_for(corpus: Path, book_id: str, rels):
     """カタログの1行を作る。巻を引けない書は volumeIndex: null だけを持つ。"""
-    dz_vols, dz_path = volumes_from_daizhige(corpus, rels)
+    dz_vols, dz_path = volumes_from_daizhige(corpus, rels, book_id)
     ch_vols, ch_root, ch_scope = volumes_from_china_history(rels)
     if len(dz_vols) >= len(ch_vols) and dz_vols:
         kind, path, vols, scope = "daizhige-heading", dz_path, dz_vols, "all"
@@ -202,7 +230,7 @@ def volume_lines(corpus: Path, book: dict, volume: int):
     if not kind or not path:
         return None
     if kind == "daizhige-heading":
-        spans, lines = daizhige_spans(corpus, path)
+        spans, lines = daizhige_spans(corpus, path, book.get("id"))
         span = spans.get(volume)
         return lines[span[0]:span[1]] if span else None
     if kind == "china-history-file":

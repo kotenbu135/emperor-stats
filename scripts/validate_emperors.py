@@ -1612,50 +1612,57 @@ QUOTE_FLOOR_BASELINE = dict({name: 0 for name in FLOOR_UNITS},
 LEGACY_SOURCE_QUOTE_MAX = 373
 
 
-def iter_quote_containers(data):
-    """`source` か `quotes` を持ちうる容器を (皇帝id, パス, 容器, 床の名前) で列挙する。
+# 床の単位になるパス（添字を落とした形）。ここに無いパスも器の検査は受ける。
+_FLOOR_BY_PATH = dict({g: g for g in COUNT_GROUPS},
+                      **{"reigns[].duration": "reigns[].duration",
+                         "deathCause": "deathCause",
+                         "accessionRoute": "accessionRoute"})
+_INDEX = re.compile(r"\[\d+\]")
 
-    床の名前は FLOOR_UNITS のどれか。床の外（conflicts の中など）は None。
+
+def iter_quote_containers(data):
+    """`source` か `quotes` を持つ容器を (皇帝id, パス, 容器, 床の名前) で列挙する。
+
+    **置ける場所を列挙せずレコード全体を走査する**（`conflicts` の拾い方と同じ理由）。
+    `conflicts` はどのコンテナにも置けるので、パスを数え上げると
+    「スキーマは通すのにこの走査からは見えない」場所が残り、そこでは `bookId` が
+    カタログの検査を素通りする。**この関数が唯一の入口**で、
+    `verify_quotes.py --check-volumes` も同じものを使う。
+
+    床の名前は FLOOR_UNITS のどれか。床の外（events の各要素・conflicts の中など）は None。
+    """
+    for e in data["emperors"]:
+        eid = e["id"]
+
+        def walk(node, path):
+            if isinstance(node, dict):
+                if isinstance(node.get("source"), dict) or "quotes" in node:
+                    yield eid, path, node, _FLOOR_BY_PATH.get(_INDEX.sub("[]", path))
+                for k, v in node.items():
+                    yield from walk(v, f"{path}.{k}" if path else k)
+            elif isinstance(node, list):
+                for i, v in enumerate(node):
+                    yield from walk(v, f"{path}[{i}]")
+
+        yield from walk(e, "")
+
+
+def iter_floor_units(data):
+    """床の単位を (皇帝id, パス, 容器, 床の名前) で列挙する。
+
+    **`source` も `quotes` も持たない容器も数える。** 床は「これから引用を持つべき器」の
+    母集団なので、いま何も持っていない容器こそが残量そのもの
+    （`iter_quote_containers` は持っているものしか通らないので分けてある）。
     """
     for e in data["emperors"]:
         eid = e["id"]
         for i, r in enumerate(e.get("reigns") or []):
-            dur = r.get("duration")
-            if isinstance(dur, dict):
-                yield eid, f"reigns[{i}].duration", dur, "reigns[].duration"
-        for name in ("deathCause", "accessionRoute"):
+            if isinstance(r.get("duration"), dict):
+                yield eid, f"reigns[{i}].duration", r["duration"], "reigns[].duration"
+        for name in ("deathCause", "accessionRoute", *COUNT_GROUPS):
             o = e.get(name)
             if isinstance(o, dict):
                 yield eid, name, o, name
-        # ages は床ではないが quotes を置ける容器なので、器の検査だけは掛ける
-        # （スキーマが通す形をこちらが見ないと、bookId がカタログ外でも素通りする）
-        if isinstance(e.get("ages"), dict):
-            yield eid, "ages", e["ages"], None
-        for g in COUNT_GROUPS:
-            o = e.get(g)
-            if not isinstance(o, dict):
-                continue
-            yield eid, g, o, g
-            for ev in o.get("events") or []:
-                if isinstance(ev, dict):
-                    yield eid, f"{g}.{ev.get('id') or '?'}", ev, None
-                    for j, c in enumerate(ev.get("conflicts") or []):
-                        for side in ("adopted",):
-                            if isinstance(c.get(side), dict):
-                                yield eid, f"{g}.{ev.get('id')}.conflicts[{j}].{side}", \
-                                    c[side], None
-                        for k, alt in enumerate(c.get("alternatives") or []):
-                            if isinstance(alt, dict):
-                                yield eid, (f"{g}.{ev.get('id')}.conflicts[{j}]"
-                                            f".alternatives[{k}]"), alt, None
-        axes = (e.get("accessionRoute") or {}).get("axes") or {}
-        for j, c in enumerate(axes.get("conflicts") or []):
-            if isinstance(c.get("adopted"), dict):
-                yield eid, f"accessionRoute.axes.conflicts[{j}].adopted", c["adopted"], None
-            for k, alt in enumerate(c.get("alternatives") or []):
-                if isinstance(alt, dict):
-                    yield eid, (f"accessionRoute.axes.conflicts[{j}]"
-                                f".alternatives[{k}]"), alt, None
 
 
 def check_quote_containers(data):
@@ -1670,7 +1677,7 @@ def check_quote_containers(data):
     books = (data["meta"].get("catalogs") or {}).get("books")
     if books is None:
         err("[books] meta.catalogs.books が無い（scripts/build_books_catalog.py で作る）")
-        return {}, 0
+        return {}, 0, 0
 
     ids = [b.get("id") for b in books]
     dup = sorted({i for i in ids if ids.count(i) > 1})
@@ -1699,8 +1706,14 @@ def check_quote_containers(data):
                     err(f"[books] {bid}: volumeIndex が在るのに {k} が無い")
 
     floor = {name: 0 for name in FLOOR_UNITS}
+    floor_total = 0
+    for _eid, _path, unit, name in iter_floor_units(data):
+        floor_total += 1
+        if unit.get("quotes"):
+            floor[name] += 1
+
     legacy = 0
-    for eid, path, unit, floor_name in iter_quote_containers(data):
+    for eid, path, unit, _floor_name in iter_quote_containers(data):
         where = f"{eid}.{path}"
         src = unit.get("source")
         if isinstance(src, dict):
@@ -1725,8 +1738,6 @@ def check_quote_containers(data):
                     err(f"[quotes] {where}.quotes[{i}]: bookId が無い"
                         f"（どの書に在ると主張するのかを書く）")
                 _check_book_ref(f"{where}.quotes[{i}]", q, catalog)
-            if floor_name:
-                floor[floor_name] += 1
 
     for name, n in sorted(floor.items()):
         base = QUOTE_FLOOR_BASELINE.get(name, 0)
@@ -1736,7 +1747,7 @@ def check_quote_containers(data):
     if legacy > LEGACY_SOURCE_QUOTE_MAX:
         err(f"[quotes] source.quote（引用の在りかが散文寄りの旧い器）が {legacy}件で、"
             f"上限 {LEGACY_SOURCE_QUOTE_MAX}件を超えた。新しい引用は quotes[] へ書く")
-    return floor, legacy
+    return floor, legacy, floor_total
 
 
 def _check_book_ref(where, obj, catalog):
@@ -1789,7 +1800,7 @@ def main() -> int:
     check_event_date_format(data)
     archive_n = check_event_date_archive(data)
     claimed_n, witnessed_n = check_event_date_claim_residual(data)
-    floor, legacy_quote_n = check_quote_containers(data)
+    floor, legacy_quote_n, floor_total_n = check_quote_containers(data)
     check_forbidden_sources(data)
     check_claim_fields(data)
     check_conflicts(data)
@@ -1826,7 +1837,7 @@ def main() -> int:
           f"／退避した月日 {archive_n}値を配布物と照合"
           f"／月日を主張する event {claimed_n}件のうち *Raw＋conversion を持つのは "
           f"{witnessed_n}件"
-          f"／構造化引用を持つ床の容器 {sum(floor.values())}件"
+          f"／構造化引用を持つ床の容器 {sum(floor.values())}/{floor_total_n}件"
           f"（旧い器 source.quote は {legacy_quote_n}件）)")
     return 1 if errors else 0
 
