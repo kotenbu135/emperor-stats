@@ -66,6 +66,13 @@ SHINJITAI_TO_TRAD = str.maketrans({
     #   t2s が扱える字を載せると照合を壊す（table_conflicts() が同型を検出する）。
 })
 
+# opencc の t2s が知らない異体字。2026-08-02（Issue #40 G1）まで新字体表が
+# 「衛→衞」「併→倂」と**異体字の側へ**写しており、t2s がそこから先へ進めないため
+# 簡体コーパスの「卫」「并」に永久に当たらなかった（台帳の未解決引用の生成源）。
+# 写す向きを逆にし、照合用の正規化だけでなく字体ゲート（norm_strict）でも畳む
+# ——引用が「衞」と書いていること自体は日本語新字体の混入ではないため。
+VARIANT_TO_STD = str.maketrans({'衞': '衛', '倂': '併'})
+
 # 底本にも同じ字形が現れうるため、無条件に変換すると逆に照合が外れる字。
 # 変換前・変換後の両方を候補にする（norm_variants）。
 AMBIGUOUS_JP = str.maketrans({'歳': '歲'})
@@ -85,12 +92,12 @@ def han_only(s: str) -> str:
 
 def to_simplified(s: str) -> str:
     """新字体→繁体→簡体の正規化（照合の共通土俵）。"""
-    t = (s or '').translate(SHINJITAI_TO_TRAD)
+    t = (s or '').translate(SHINJITAI_TO_TRAD).translate(VARIANT_TO_STD)
     return _T2S.convert(t) if _T2S else t
 
 
 def to_traditional(s: str) -> str:
-    t = (s or '').translate(SHINJITAI_TO_TRAD)
+    t = (s or '').translate(SHINJITAI_TO_TRAD).translate(VARIANT_TO_STD)
     return _S2T.convert(t) if _S2T else t
 
 
@@ -141,7 +148,8 @@ def norm_strict(s: str) -> str:
     新字体（応・広・徳…）を素通りさせる。混入を検出する側はこちらを使い、
     「表の助けなしに底本へ当たるか」を見る。
     """
-    return _T2S.convert(han_only(s)) if _T2S else han_only(s)
+    base = han_only(s).translate(VARIANT_TO_STD)
+    return _T2S.convert(base) if _T2S else base
 
 
 @lru_cache(maxsize=200_000)

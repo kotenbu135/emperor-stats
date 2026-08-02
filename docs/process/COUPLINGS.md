@@ -18,13 +18,18 @@
 | ある日付フィールドの訂正 | 同じ日付を持つ**隣接フィールド**（`reigns[].endDate` ↔ `ages.deathDate` ↔ `events[].date` ↔ note 内の日付引用） | 一部（`validate_emperors.py` の整合検査）。**旧値の文字列でレコード全体を grep して残存参照を列挙するのが訂正手順の定型**（2026-07-21 に JSON-LD へ旧値が出たまま公開された） |
 | `dynastyOrder` の調査完了 | `meta.catalogs.regimes[].dynastyOrderSurveyed` | **無い**（Issue #24 に「調査完了時に追加すると再発防止になる」と記載） |
 | データの訂正 | `meta.status` と `docs/PROJECT_STATUS.md` | 無い（同時更新の運用ルール） |
+| 新しく `note` を書く（訂正・新規調査） | 同じコンテナの `claim`（**任意**。note は作業ログで捨てた側の値が残るため、突合の向きが反転する） | `validate_emperors.py` の `check_claim_fields`（claim を持つコンテナだけ・評価件数を INFO で出す）。**書かなくても落ちない** — 遡及しない欄なので検出できるのは「書いたのに後ろ向き」だけ |
 | `data/kinship.json` のエッジ | `accessionRoute.axes.relationToPredecessor` | `validate_kinship.py`（G3 `check_relation_edges`・継承エッジ216件） |
+| `data/kinship.json` のエッジ／`relationToPredecessor` | note・紹介文に書いた**続柄の呼称**（「従叔父」「甥」…） | `relation_path.py --check`（**報告専用・CI に載せない**。不一致は「エッジと記録値のどちらかが誤り」までしか言えないため） |
+| 史料対立のあるフィールドの**採用値**を訂正する | 同じコンテナの `conflicts[].adopted.value`（採用値を動かすと置き去りになる） | `validate_emperors.py` の `check_conflicts`（`adopted.value` と実フィールド値を突合・**CI でも実行**） |
+| `conflicts[]` に引用を書く | `data/quote-refs.json`（`adopted.quote`・`alternatives[].quote` は照合台帳の対象） | `verify_quotes.py --backfill && --check`。**引用規約の全項が掛かる**（`claim` に引用を書けないのとは逆で、ここは書く場所） |
 | 政権を増やす／`regimeId` を変える | `data/regime-conventions.json` の `regimeIds`（未確定の政権では人物単位の調査が立てられない） | `check_regime_conventions.py`（存在しない政権 id をエラー） |
 
 ## サイト側（欠けるとビルドか deploy gate が落ちる）
 
 | 触るもの | 一緒に触るもの | 検査 |
 |---|---|---|
+| `emperors.json` のコンテナに**新しいキー**を足す（`claim`・`conflicts` など） | `site/src/lib/emperor-types.ts`（**表示に出すなら**型と描画。出さないなら何も要らない） | **無い**。サイトは `data-source.ts` で `as unknown as` してから読み、実行時のスキーマ検証（zod 等）が無いので、**未知キーは黙って無視される＝ビルドは落ちない**。裏を返すと、追加したキーがサイトに出ていないことも検出されない |
 | 皇帝を追加する | `site/src/lib/kana-readings.ts` の `TABLE_SOURCE`（1漢字ずつの読み） | `kana-readings.ts:629`「かな検索テーブルに未登録の漢字です」 |
 | `name.commonName` ・表示名の上書きを変える | 同上（新しい漢字が入る） | 同上。**2026-08-02 に金太祖・遼太祖の表示名を変えてビルドが落ちた** |
 | ルビ（`data/name-readings.json`）を直す | かな検索テーブル（1漢字1音節・前から切り捨て・上限16） | `validate_readings.py` |
@@ -42,6 +47,8 @@
 
 | 触るもの | 一緒に触るもの | 検査 |
 |---|---|---|
+| worktree を作る | コーパス4本（`china-history`・`daizhigev20`・`_corpus_cache`・`_norm_cache`）の symlink と、site を動かすなら `site/node_modules` のハードリンク複製 | `scripts/setup_worktree.sh` が自動で流れる（PostToolUse フック＝コーパス／`npm run dev`・`build` の `predev`/`prebuild`＝node_modules）。**コーパス漏れはエラーにならずゲートが黙ってスキップされる** |
+| `scripts/patch_emperor.py` の `HINTS`（触ったパス→要求するゲート・結合の案内） | この表そのもの（案内が古いと「ゲートを出したのに漏れる」＝**表より悪い**） | `python3 scripts/test_patch_emperor.py`（ローカル専用） |
 | `.claude/hooks/guard.py` の規則 | `docs/process/RULES.yml` の `enforcement` 欄 | `python3 scripts/check_rules.py`（実装と台帳の突合・**CI でも実行**）＋ `python3 .claude/hooks/test_guard.py`（規則を足したらケースも足す・ローカル専用） |
 | `extract_profile_material.py` の note 抑止を変える | `VERIFIER.md`（`--notes on` を付ける側）・`guard.py` の `NOTES_ON_ALLOWED` | `python3 .claude/hooks/test_guard.py`（ローカル専用） |
 | 新しいゲートスクリプトを足す | `.claude/hooks/stop_gate.py` の `LIGHT_GATES`（対応表に無いゲートは turn の終わりに流れない） | `python3 .claude/hooks/test_stop_gate.py`（ローカル専用） |

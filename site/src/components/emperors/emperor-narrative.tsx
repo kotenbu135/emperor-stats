@@ -1,11 +1,10 @@
-// 皇帝個別ページ専用の「即位の経緯」「死因の経緯」「復位の経緯」（EmperorNarrativeSections）と、
-// 「在位日付の典拠」「調査メモ」（EmperorResearchDetails）。
+// 皇帝個別ページ専用の「即位の経緯」「死因の経緯」「復位の経緯」（EmperorNarrativeSections）。
 // noteは調査時の原文ママを表示する（サイト側での要約・書き換えはしない方針）。
 // データ量が大きいためEmperorRecordには載せず、個別ページ（Server Component
 // 静的書き出し）だけがlib/emperors.tsのgetEmperorNarrativeで取得して渡す。
 //
-// 2026-08-01 に2つへ分けたのは、読み物としての経緯（本文）と、根拠を確かめたい人だけが
-// 開く典拠・調査メモ（ページ末尾）で置き場所が違うため。
+// 2026-08-01 にページ末尾へ分けた「在位日付の典拠」「調査メモ」（EmperorResearchDetails）は
+// 2026-08-02 に廃止した。根拠は配布データ（data/emperors.json）に同じものが入っている。
 
 import { ChevronRight } from "lucide-react";
 import {
@@ -122,82 +121,6 @@ export function EmperorNarrativeSections({
             </p>
           ))}
         </section>
-      )}
-    </div>
-  );
-}
-
-/** 根拠を確かめたい人だけが開く2つ（在位日付の典拠・調査メモ）。ページ末尾に置く。 */
-export function EmperorResearchDetails({
-  narrative,
-}: {
-  narrative: EmperorNarrative;
-}) {
-  const { memos, reignSources } = narrative;
-  if (memos.length === 0 && reignSources.length === 0) return null;
-  return (
-    <div className="flex flex-col gap-3 border-t border-border pt-4">
-      {reignSources.length > 0 && (
-        <details className="group">
-          <summary className="flex list-none items-center gap-1.5 font-heading text-sm font-semibold text-foreground transition-colors hover:text-seal [&::-webkit-details-marker]:hidden">
-            <ChevronRight
-              aria-hidden
-              className="size-3.5 shrink-0 text-muted-foreground transition-transform group-open:rotate-90"
-            />
-            在位日付の典拠（正史原文と暦換算）
-          </summary>
-          <div className="mt-2 space-y-3">
-            <p className="text-xs leading-relaxed text-muted-foreground">
-              在位の開始日・終了日の根拠にした正史原文の引用と、旧暦（干支日）から西暦への換算の調査記録を原文のまま掲載しています（換算方法は「このサイトについて」参照）。
-            </p>
-            {reignSources.map((s, i) => (
-              <div key={i} className="space-y-0.5">
-                <p className="text-xs font-semibold text-muted-foreground">
-                  {reignSources.length > 1 && `${s.periodLabel}｜`}
-                  {s.sourceLabel}
-                </p>
-                {s.quote && (
-                  <p className="text-sm leading-relaxed">「{s.quote}」</p>
-                )}
-                {s.conversion && (
-                  <p className="text-xs leading-relaxed text-muted-foreground">
-                    換算: {s.conversion}
-                  </p>
-                )}
-                {s.note && (
-                  <p className="text-xs leading-relaxed text-muted-foreground">
-                    補記: {s.note}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </details>
-      )}
-      {memos.length > 0 && (
-        <details className="group">
-          <summary className="flex list-none items-center gap-1.5 font-heading text-sm font-semibold text-foreground transition-colors hover:text-seal [&::-webkit-details-marker]:hidden">
-            <ChevronRight
-              aria-hidden
-              className="size-3.5 shrink-0 text-muted-foreground transition-transform group-open:rotate-90"
-            />
-            調査メモ（回数・年齢の数え方と判定根拠）
-          </summary>
-          <div className="mt-2 space-y-3">
-            <p className="text-xs leading-relaxed text-muted-foreground">
-              各項目の回数・年齢を確定した際の調査記録を、原文のまま掲載しています（数え方の基準は
-              「このサイトについて」参照）。
-            </p>
-            {memos.map((memo) => (
-              <div key={memo.label} className="space-y-0.5">
-                <p className="text-xs font-semibold text-muted-foreground">
-                  {memo.label}
-                </p>
-                <p className="text-sm leading-relaxed">{memo.note}</p>
-              </div>
-            ))}
-          </div>
-        </details>
       )}
     </div>
   );

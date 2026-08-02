@@ -19,7 +19,7 @@
 # 使用は .claude/hook-log.jsonl に残る。
 
 meta:
-  updated: 2026-08-02
+  updated: 2026-08-03
   layers:
     L0: 構造で消す（選ぶ工程そのものを無くす）
     L1: hook で実行の直前に止める（サブエージェント・Workflow エージェントにも掛かる）
@@ -41,9 +41,38 @@ rules:
     summary: スクリプトによるデータの自動生成は禁止。人物ごとの個別調査・判定が必須
     scope: data/*.json の**値の判定**。日数計算などの機械的な計算補助・確定済み結果の転記・構造チェックは対象外
     enforcement: [L2, L4]
-    detail: 機械で「これは判定か転記か」を判別できないため L1 は無い。scripts/patch_emperor.py 的な転記ツールを作る場合は、判定を含まないことを設計で担保する
+    detail: >-
+      機械で「これは判定か転記か」を判別できないため L1（deny）は無い。**境界は禁止を増やすのではなく
+      道具の設計で持たせる** — 転記は `scripts/patch_emperor.py` が担当し、不変条件は
+      「**出力に現れる値は、入力に literally 書かれていた値だけ**」の1つ。そのために
+      計算をしない（`datetime`・`math` を import しない）／コーパスも他の JSON も読まない／
+      既定値を入れない・兄弟フィールドから写さない／**1回の起動で触れるのは皇帝1人だけ**
+      （「同じ規則を複数の対象へ当てる」は判定であって転記ではない）／中間コンテナを作らない
+      （構造を決めるのは判定）。検査は `python3 scripts/test_patch_emperor.py`（ローカル専用）
     evidence: 過去2回失敗（docs/process/CONSTRAINTS.md）
     source: docs/process/CONSTRAINTS.md
+
+  - id: R-NOTE-CLAIM
+    summary: note は作業ログ。新しく書くときは同じコンテナに前向きな主張だけの claim を添える
+    scope: >-
+      data/emperors.json の判定コンテナ8つ（reign・deathCause・accessionRoute・ages・
+      datedEventCount・capitalRelocationCountObject・campaignCountObject・rebellionCountObject）に
+      **新しく書く note**。**既存 10,912件には遡及しない**（欄は任意）。events[] の各要素と
+      source は対象外 — 前者は構造フィールド自身が witness、後者は出典帰属の経緯であって値の主張ではない
+    enforcement: [L3, L4]
+    detail: >-
+      L3＝validate_emperors.py の `check_claim_fields`。claim を持つコンテナだけを評価し、
+      作業ログの印（訂正・現行・旧値・→。**史実の日本語と衝突しない語だけ** — 「に改め」「差し替え」「から変更」は改元・遷都・皇太子廃立の主張そのものに出るので入れない）／原文引用らしいスパン
+      （かな無し・漢字6字以上の「」。引用照合台帳は claim を見ないので素通りする）／
+      `count` の数が算用数字で出ないこと、をエラーにする。**評価件数を INFO で必ず出す**
+      （0エラーが「守れている」か「何も見ていない」かを区別するため）。検出力は
+      `python3 scripts/test_claim_field.py` が合成レコードで測る。
+      **L4 が残るのは「書いたか」のほう** — 遡及しない任意の欄なので、書かなかったことは
+      検出できない。機械が見られるのは「書いたのに後ろ向き」だけ。
+      **claim は coverage.py の確定の根拠にしない**（無いのが既定なので、根拠に使うと
+      書いた人物だけが確定に見える）
+    evidence: Issue #40 の G2/G3（note とフィールドの突合ゲート）が測定で否定された。note は作業ログで「現行 X → Y に訂正」と捨てた側を書くため突合の向きが反転する。#33・#36 の食い違いも全部この形（2026-08-02）
+    source: data/schema/EMPERORS_SCHEMA.md「note と claim」
 
   - id: R-QUOTE-NO-TYPE
     summary: 原文引用の手打ち禁止。quote_helper.py / grep のツール出力からコピーする
@@ -56,10 +85,18 @@ rules:
   - id: R-QUOTE-GLYPH
     summary: 引用は底本の字体のまま保存する（新字体・繁体への変換をモデルが行わない）
     scope: "**原文引用の断片だけ**。同じ note の中でも日本語の地の文・換算メモは新字体で書く"
-    enforcement: [L3]
-    detail: verify_quotes.py --check（新字体表の助けなしに底本へ当たるか）。逃げ道は quote-refs.json の glyphAllow のみ・理由必須
+    enforcement: [L1, L3]
+    detail: L1＝.claude/hooks/stop_gate.py（引用・日付を触っていれば流す）／L3＝verify_quotes.py --check（新字体表の助けなしに底本へ当たるか）。逃げ道は quote-refs.json の glyphAllow のみ・理由必須。**照合そのものが失敗しているユニットにはこのゲートが掛からない**ので、正規化を直して照合が通るようになると混入が新たに表へ出る（2026-08-03 に5件）
     evidence: 字体混入684字・431フィールド・181人（2026-08-02）。範囲を書かずに直したため日本語の地の文2件まで旧字体にしてしまい戻した
     source: docs/process/RESEARCH_PROCESS.md 規約2
+
+  - id: R-QUOTE-BOOK
+    summary: 引用は「その note・source.page が名乗る書」に実在すること（出典の取り違えを残さない）
+    scope: 書名を名乗っている引用ユニットだけ。書名を名乗らない引用・断片が日付表現だけのものは対象外
+    enforcement: [L1, L3]
+    detail: L1＝.claude/hooks/stop_gate.py（引用・日付を触っていれば --check と一緒に流す。2回目以降は数秒）／L3＝verify_quotes.py --check-books（ローカル専用・要コーパス。CI は回せない）。note 本文・source.page・conversion 本文の和集合を名乗りとして読み、名乗ったどれか1書に全断片が在れば合格。逃げ道は quote-refs.json の bookAllow のみ・理由必須で、**使えるのはコーパス側の欠陥（一書の中で1箇所だけ字が壊れている等）・内篇名の誤読・引用の作り方が原因のときだけ**。書名が実際に違うなら note を直す。**底本の字をそのまま採るとデータが誤りになるなら引用は正字を保って bookAllow へ倒す**（南唐書の「已卯」・明史の「讨症」はどちらも語として成立しない）。bookAllow のキーは `id|path` なので、**同じ note に後から足した引用も黙って許可される**——理由文が説明していない引用が相乗りしていないか、足すときに見る
+    evidence: 99件（72人）を原典に当て直して残件0へ（2026-08-03・Issue #40 G1）。書名そのものの誤りは20件で、残りは検出器・正規化・引用の作り方の側だった。名乗りを note の散文だけから採っていたため、source.page にだけ書名がある形（十国春秋・旧五代史）が全部誤検出になっていた
+    source: docs/process/RESEARCH_QA_PLAN_2026-08-02.md 4-4
 
   - id: R-CLAIMS-FIRST
     summary: 原文を先に読み、引用台帳 claims を作り、note は照合として読む。台帳に無い事実は書かない
@@ -81,7 +118,12 @@ rules:
     summary: 並行セッション前提の read-modify-write。対象 id のフィールドだけ更新し meta・他レコードに触らない
     scope: 同じ作業ツリー／worktree 群で共有される data/*.json と進捗ドキュメント
     enforcement: [L1, L4]
-    detail: L1 は R-GIT-ADDALL・R-GIT-STASH として実装済み（巻き込みの主経路）。ファイル全体を読んで丸ごと書き戻す方式そのものは機械で止められない
+    detail: >-
+      L1 は R-GIT-ADDALL・R-GIT-STASH として実装済み（巻き込みの主経路）。
+      `data/emperors.json` への転記は `scripts/patch_emperor.py` を通す — **読み込み時点の
+      sha256 を書き込む直前にもう一度照合し、変わっていたら書かずに落ちる**。その場の
+      `python3 -c` にはできない防護がこれで、道具を経由しない書き方そのものは機械で止められない
+      （経由しなかったことは検出できないので L4 が残る）
     evidence: 2026-07-21 のフェーズB調査で複数回発生
     source: docs/process/CONSTRAINTS.md
 
@@ -117,10 +159,23 @@ rules:
 
   - id: R-API-BATCH
     summary: 外部 API への一括リクエストは「小規模検証 → 想定件数を提示して明示的許可 → 本実行」
-    scope: Wikimedia・Wikidata ほか外部 API。ローカルコーパスは対象外
-    enforcement: [L4]
-    detail: "**L4 のみ＝人の記憶頼り。** 次に破られる候補"
-    evidence: 肖像画調査で364件を並列実行し429と乱用警告（2026-07-20 以前）
+    scope: >-
+      Wikimedia・Wikidata ほか**外部ホスト**への HTTP 取得。ローカルコーパスと
+      localhost／127.0.0.1（開発サーバー・`site/tools/capture-site.mjs`）は対象外。
+      **`gh` は形では止めない** — GitHub 側がトークン単位でレート管理し、`--paginate` の
+      ような正当な連続取得と事故の形が同じになるため。分母としては数える
+    enforcement: [L1, L4]
+    detail: >-
+      L1＝guard.py。**止めるのは件数ではなく「扇形に広げる形」** — 反復構文
+      （`for … in` / `while … ; do` / `xargs` / `parallel` / `seq`）か curl の URL グロブ
+      （`{a,b,c}`・`[1-100]`）に curl／wget を差した Bash を deny する。閾値を決め打ちすると
+      正当な調査を止めるので件数は見ない（Issue #43 の3番）。**1本ずつの curl・WebFetch・
+      WebSearch・`gh api` は通すが log には残す** — 0件の deny を「守られている」と読まない
+      ための分母。**逃げ道の理由には件数を書く**（許可を得た本実行がこの形になるため、
+      escaped がそのまま「許可済みの一括実行」の記録になる）。
+      **L4 が残るのは WebFetch の連打** — 1回の呼び出しに形が無く、間隔と件数でしか
+      判別できない。閾値は分母（log の pass 件数）が溜まってから決める
+    evidence: 肖像画調査で364件を並列実行し429と乱用警告（2026-07-20 以前）。台帳20件のうち L4 だけの規則がこれ1件になっていた（2026-08-02・Issue #43 で L1 を足した）
     source: docs/process/CONSTRAINTS.md
 
   - id: R-PRIMARY-ON-MAIN
@@ -130,6 +185,14 @@ rules:
     detail: SessionStart フックが毎回報告する（弱い L1）。ブランチ判定はコミット時の文脈依存なので deny にはしていない
     evidence: 他セッションのブランチ上でコミットした（2026-08-02）
     source: CLAUDE.md「守るべき運用ルール」
+
+  - id: R-WORKTREE-SETUP
+    summary: worktree の作業場所は primary と揃える — コーパス4本は symlink、site/node_modules は `cp -al` のハードリンク複製（symlink は Turbopack が拒否する）
+    scope: .claude/worktrees/ 以下の作業場所を作ったとき。**primary では何もしない**。node_modules を触るのは site を動かすときだけ（データ専用の worktree には作らない）
+    enforcement: [L0, L4]
+    detail: 実体は `scripts/setup_worktree.sh`。L0 は2経路で、どちらも人が思い出す必要が無い — (1) `.claude/settings.json` の PostToolUse フック（matcher `EnterWorktree`・`tool_response.worktreePath` を受けてコーパス4本を symlink・7ミリ秒）、(2) `site/package.json` の `predev`/`prebuild` が `site/scripts/ensure-node-modules.mjs` を先に流し、node_modules が無い／symlink なら primary から `cp -al`（約0.75秒・3506ディレクトリぶんの実消費だけでファイル実体は共有）。**(2) は worktree の作られ方に依らない**（EnterWorktree でも `git worktree add` でもサブエージェントの worktree 隔離でも効く）。**node_modules はハードリンクなので、worktree での `npm install`／in-place のパッチ当ては primary 側の実体も書き換える**（npm は unlink→作成なので通常は安全）
+    evidence: site/node_modules を primary から symlink したら Turbopack が `Symlink [project]/node_modules is invalid, it points out of the filesystem root` で拒否した（2026-08-02）。コーパス4本の symlink 漏れは**エラーにならず**、コーパス依存のゲート（verify_quotes・quote_helper）が黙ってスキップされる（Issue #36 の作業中に発覚）
+    source: site/AGENTS.md「ハマりどころ」・docs/process/COUPLINGS.md「運用側」
 
   - id: R-SCOPE-ASK
     summary: 規則の適用範囲が書かれていないときは、自分で狭めたり広げたりせずユーザーに聞く
@@ -171,6 +234,14 @@ rules:
     evidence: 前例では #34 の sxtwl 検査が293件中282件の前提を裏付けて残り20件だけを読めば済み、#38 の quote_diff.py が234件を仕分けた。一方 Issue #37 の名前データで絞り込みを記録して標本監査を掛けたところ、**absent 側の取りこぼしは廟号6件中1件・諡号6件中3件**で、「機械が見つけなかった＝値が無い」は成り立たなかった（2026-08-02）
     source: .claude/skills/research-block/SKILL.md の 0.6 節・Issue #41 の実施順3
 
+  - id: R-SWEEP-DETECTION
+    summary: 語彙走査の結果を「悉皆だ」の根拠にするときは、その語彙に掛からない該当記事を1件探して検出力を測る
+    scope: 原典への機械走査（grep・キーワード列挙）の結果を、**値や確度の根拠として主張する**とき。訂正・確度確定・悉皆調査のいずれでも掛かる。走査を読む順序の道具として使うだけなら R-SCREEN-FIRST の側
+    enforcement: [L2, L4]
+    detail: 「この語で全文を走査し、該当は N 件だけだった」は**走査の結果**であって不在の証拠ではない。主張に使う前に、**その語彙に掛からない該当記事を1件探しに行く**（見つかれば走査は検出器として機能しておらず、別の根拠＝判定基準の適用範囲などに置き換える）。R-SCREEN-FIRST の「機械が何も見つけなかった側（`absent`）は種つき標本で取りこぼし率を測る」の**陽性側の版**で、狙いは同じ「機械の沈黙を証拠に格上げしない」。L2＝`.claude/agents/adversarial-verifier.md` が渡された悉皆性の主張に対してこの検定を掛ける
+    evidence: Issue #42（2026-08-02）で元世祖の親征3件を「元史 巻4〜17 に『亲征／自将／亲率／亲将／亲讨／车驾亲征』を掛けて帝主語は4箇所だけ」を根拠に high としたところ、検証段が**同じ本紀の中から**語彙に掛からない出征記事を2件（1253 大理「帝由中道」「帝既入大理」・1259 鄂州「帝驻浒黄洲」「围鄂」）一発で見つけた。件数は動かなかった（どちらも実権掌握期の外で、原文が「吾奉命南来」「我奉命南征」と憲宗の命による出征だと明記）が、**根拠の立て方が誤っていた**
+    source: Issue #42 の検証段・docs/process/PROCESS_IMPROVEMENTS.md（2026-08-02）
+
   - id: R-COVERAGE-MEASURED
     summary: 悉皆作業の完了判定は自己申告ではなくデータ本体からの実測に置き、進捗表記はスクリプトの出力そのものにする
     scope: 悉皆調査の進捗表記（docs/PROJECT_STATUS.md のフェーズ進捗・`meta.status.phases`）とブロック完了の宣言。**個々の値が正しいかは見ない**（それは validate_emperors.py と原典調査の担当）
@@ -183,10 +254,19 @@ rules:
     summary: 検証段の体数はブロックごとの判断ではなく政権の史料形態から引く（本紀が立つ王朝は1体・載記/類書/別史/地方志に依存する政権は3体）
     scope: 調査・執筆の**検証段**（`adversarial-verifier` を立てる段）の体数と観点。**指摘の中身が正しいかは見ない**（それは検証エージェント自身と親セッションの担当）。Web 差分検出（`profile-webdiff`）は別機能なので tier の対象外で全員1体のまま
     enforcement: [L2, L3, L4]
-    detail: 記録は `data/verification.json`。tier は `own-annals`（正史が一代通しの独立記述を立てる。本紀・帝紀、および三国志の主傳のように体裁は伝でも一代を通すもの）＝1体〔`facts`〕と、`dependent`（載記・類書・別史・地方志・他政権の列伝に散る）＝3体〔`facts`・`kinship`・`dates`〕の2つだけ。**体数は tier から一意に決まり、行ごとに書き換えられない**（`check_verification.py` が突き合わせる）。**記録に無い政権は既定で `dependent`（厚い側）** — 載せ忘れが薄い側へ倒れるとその政権の誤りをまとめて通すため。**1体へ減らす側にだけ書名・所在・体裁の根拠を要求する**。**政権の判定を人物に被せない** — 所在が違う人物は tier 行の `exceptions`（`personIds`・`tier`・`reason`）で外す（舊唐書の殤帝ら4人）。L2＝`.claude/workflows/name-block.js` が調査段の返した tier で体数を変える／`.claude/agents/adversarial-verifier.md` が観点の指定に従う、L3＝`check_verification.py`（CI・Stop フック）。**紹介文の側は L2 が無い**（`profile-block.js` が無く、親セッションが `--for` を見て体数を決める＝実質 L4）。**指摘率の記録そのものも L4** で、ブロックを終えて `blocks` に1行足さなかったことは誰も検出しない — 完了条件が強制力ゼロの手順にぶら下がっている
+    detail: 記録は `data/verification.json`。tier は `own-annals`（正史が一代通しの独立記述を立てる。本紀・帝紀、および三国志の主傳のように体裁は伝でも一代を通すもの）＝1体〔`facts`〕と、`dependent`（載記・類書・別史・地方志・他政権の列伝に散る）＝3体〔`facts`・`kinship`・`dates`〕の2つだけ。**体数は tier から一意に決まり、行ごとに書き換えられない**（`check_verification.py` が突き合わせる）。**記録に無い政権は既定で `dependent`（厚い側）** — 載せ忘れが薄い側へ倒れるとその政権の誤りをまとめて通すため。**1体へ減らす側にだけ書名・所在・体裁の根拠を要求する**。**政権の判定を人物に被せない** — 所在が違う人物は tier 行の `exceptions`（`personIds`・`tier`・`reason`）で外す（舊唐書の殤帝ら4人）。L2＝`.claude/workflows/name-block.js` が調査段の返した tier で体数を変える／`.claude/agents/adversarial-verifier.md` が観点の指定に従う。**0件・低件数の主張を渡すときは、原典の当たり直しと並行して当該フィールドの除外規定を条文単位で当てさせる**（欠陥が原文の不在ではなく条文の未適用として現れるため。Issue #42 → #48 の倪文俊件）、L3＝`check_verification.py`（CI・Stop フック）。**紹介文の側は L2 が無い**（`profile-block.js` が無く、親セッションが `--for` を見て体数を決める＝実質 L4）。**指摘率の記録そのものも L4** で、ブロックを終えて `blocks` に1行足さなかったことは誰も検出しない — 完了条件が強制力ゼロの手順にぶら下がっている。**Web 差分（`profile-webdiff`）は `own-annals` でも落とさない**（2026-08-03 ユーザー決定・Issue #43）— 再配分は 365→627体（+72%）で「総コストをほぼ変えずに」を満たしておらず、中立に寄せる余地は `own-annals` の3段目を落とすことだけだが、「本紀が立つ政権なら Web の拾いも少ない」という期待は未検証だった。落とさずに歩留まり（`blocks[].webdiff` の `raised`／`confirmed`）を測り始め、`own-annals` 側で1〜2ブロック溜まってから決める。**書き忘れは `check_verification.py` が警告する**（`raised`／`confirmed` 本体より一段強い）
     evidence: 紹介文76人の欠陥密度が一様でなく3段の階段だった（2026-08-02 実測）— 前漢・後漢・三国 43人＝0件／晋 15人＝6件・0.40件/人（Issue #32・#33）／小政権6＋五胡十六国12の18人＝28件・**1.56件/人**（Issue #36）。**同じ2段で回してこの差が出た**。ただし晋も本紀を持つ政権なので、史料形態が説明するのは3段のうち下2段だけ（残りは同一レコード内の食い違い・note の陳腐化で、Issue #40 のゲートの担当）
     limits: 体数と欠陥密度は交絡するので、体数の効果は**同じ tier のブロック同士**でしか読めない。tier をまたいで指摘率を比べても体数の効果は出ない。**読む数字を取り違えない** — `confirmed/raised` は検証段の精度で、観点を2つ足せば下がってもおかしくない。再配分が効いたかを示すのは **`dependent` ブロックの `escapes` が下がるか**（2体で 1.56件/人 が基準。次の後趙7人は4体）
     source: Issue #41 の実施順5
+
+
+  - id: R-RELATION-PATH
+    summary: 続柄は呼称を選ばず「誰の子の子か」で返し、呼称はグラフから導く
+    scope: 調査エージェントの `findings` に書く続柄と、note・紹介文に書く続柄の呼称。**血縁エッジそのものの正しさは対象外**（それは `validate_kinship.py` の担当）
+    enforcement: [L2, L4]
+    detail: 呼称は `scripts/relation_path.py` が `data/kinship.json` の血縁エッジから導く（`--for <皇帝id>`／`--between A B`）。L2＝`.claude/agents/corpus-researcher.md`・`docs/process/CLAIMS_CONTRACT.md`（出力契約）／L4＝`CLAUDE.md`・`COUPLINGS.md`。**L0 にはなっていない** — エージェントが呼称を書けてしまう経路は残るので、消えたのは「選ばなければならない」だけで「選べる」ではない。**機械で止める層も作らない** — 散文中の続柄語を拾って突き合わせる案は Issue #40 G3 で測って捨てた（否定・第三者・連鎖が多数を占め、続柄語354件のうち先代を指すものが2割に満たない）。`--check` は記録値との突合を報告するだけで **CI に載せない**（不一致は「エッジと記録値のどちらかが誤り」までしか言えず、非ゼロで返すと抑制リストが足されて読まれなくなる）。**導出の出力を根拠にデータを書き換えない** — 誤っているのがエッジの側のことがある
+    evidence: Issue #36 の A類型6件は、同一レコードの別フィールドが正しい関係を持ちながら散文へ落とす段で呼称を取り違えていた（`deathCause.note` は張耀霊を「従兄弟」と書くが、同じレコードの軸は `uncle-elder`）。導出器を succession エッジ全件へ掛けると255件中254件が一致し、残る1件（曹芳→曹髦が `cousin` だが再従兄弟）は Issue #53 へ落とした
+    source: docs/process/RESEARCH_QA_PLAN_2026-08-02.md 4-2b
 
 measurement:
   # 0件の deny は「守られている」と「そもそも掛かっていない」を区別しない。

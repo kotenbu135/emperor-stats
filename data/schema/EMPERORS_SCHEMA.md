@@ -105,7 +105,7 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 
 | フィールド | 型 | 内容 |
 |---|---|---|
-| `startYear` / `endYear` | number | 人間可読の西暦年。紀元前は `"前n年 → -n"` 変換（天文年ではない） |
+| `startYear` / `endYear` | number | 人間可読の西暦年。紀元前は `"前n年 → -n"` 変換（天文年ではない）。**実日付（太陽暦）の年を採る**（2026-07-22 規約確定・`validate_emperors.py` の `check_reigns()` が `startDate`/`endDate` の年と一致を要求）。旧暦十二月の即位のように実日付が翌年1月へ食い込む場合も太陽暦年に合わせ、**旧暦年（通説の「403年即位」など歴史紀年）は `flags.usedEmperorTitleFrom` と `raw`・`startDateRaw` が保持する**（該当6件は `usedEmperorTitleFrom` の欄を参照）。この向きは Issue #44 で再確認済みで、再提案しない |
 | `dynastyOrder` | number \| null | 王朝自身が数える歴代の通し番号（復位も別カウント）。**その王朝の正史が帝紀を立てた君主**を歴代とし、皇帝を称さなかった君主（前涼の涼王・北周の孝閔帝＝天王など）も番号に含めるため、365人の収録者だけを数えた値とは一致しないのが普通。歴代に数えない在位（宋の元凶劭・梁の蕭正徳・北魏の南安王余など、帝紀を立てられていない僭称・並立の在位）は `null`。**同じ王朝に1つでも調査済みの値があれば、その王朝の `null` は「歴代に数えない」の意**（サイト側は第N代を表示しない）。王朝の全在位が `null`（＝未調査）の場合のみ在位開始順から機械導出した値を表示する |
 | `isRestoration` | boolean | 復位（廃位後の再即位）かどうか |
 | `note` | string | 即位・退位の経緯を自然文で記述（死因の手がかりが記されている場合もある） |
@@ -139,7 +139,7 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 | フィールド | 型 | 内容 |
 |---|---|---|
 | `isFemale` | boolean | 皇帝を称した女性（例: 武則天）を示す |
-| `usedEmperorTitleFrom` | number | 皇帝号を使用開始した年。**歴史紀年ベース**（称帝時点の旧暦年に対応する西暦年。2026-07-22 規約確定）。旧暦十二月の称帝などでユリウス暦上の実日付が翌年1月になる場合、`reigns[0].startYear`（実日付の年）より1小さくなる（該当4件: liu-yong-liang・liang-houjing・beiwei-daowudi・beiqi-andewang-gaoyanzong）。それ以外は `startYear` と一致する（`validate_emperors.py` の `check_used_emperor_title_from()` で検証） |
+| `usedEmperorTitleFrom` | number | 皇帝号を使用開始した年。**歴史紀年ベース**（称帝時点の旧暦年に対応する西暦年。2026-07-22 規約確定）。旧暦十二月の称帝などでユリウス暦上の実日付が翌年1月になる場合、`reigns[0].startYear`（実日付の年）より1小さくなる（該当6件: wang-mang・liu-yong-liang・huan-xuan・liang-houjing・beiwei-daowudi・beiqi-andewang-gaoyanzong）。それ以外は `startYear` と一致する（`validate_emperors.py` の `check_used_emperor_title_from()` で検証） |
 
 ### `sources`
 | フィールド | 型 | 内容 |
@@ -155,6 +155,116 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 | `notes` | string | 判定根拠・情報源間の不一致・ユーザー承認済み事項などを自然文で記録 |
 
 **v3 で `selfProclaimed` を廃止した**: 旧 `dynasty.category` とも `accessionRoute.axes` とも整合しておらず（前者と81件不一致、`true` かつ `throneSource=前代君主から継承` が57件）、同じ情報は `axes.throneSource`＋`axes.procedure`＋`standing` で表現できる。
+
+## `note` と `claim`（2026-08-03・Issue #43）
+
+`note` は**作業ログ**です。訂正の経緯として「現行 X → Y に訂正」のように**捨てた側の値**が
+本文に残るため、**フィールドとの突合は向きが反転します**。散文は witness になりません
+（Issue #40 の G2/G3 の当初案が測定で否定されたのがこの経路で、#33・#36 の食い違いも全部この形）。
+
+そこで、同じコンテナに置ける**任意**の欄として `claim` を足しました。
+
+| | `note`（従来どおり） | `claim`（任意・新規） |
+|---|---|---|
+| 何を書くか | 作業ログ。判定の根拠・**捨てた側の値**・訂正の経緯・保留の理由・**原文引用** | **いま正しいと判断している内容だけ**を前向きに書いた1〜2文 |
+| 向き | 反転する（過去の値が本文に残る） | 反転しない |
+| 原文引用 | ここに書く | **書かない**（`verify_quotes.py` の抽出対象は `note` と `quote` だけなので、`claim` の引用は照合台帳を素通りする） |
+| 件数の書き方 | 自由 | **算用数字**（`count` と機械照合する） |
+| サイト表示 | 出る（note をサイトに出さない案は Issue #39 で「対応しない」と決定） | 出さない |
+
+置ける場所は**判定の単位**にあたる8つの `$defs` だけです —
+`reign`・`deathCause`・`accessionRoute`・`ages`・`datedEventCount`・
+`capitalRelocationCountObject`・`campaignCountObject`・`rebellionCountObject`。
+`events[]` の各要素には置きません（`date`／`outcome`／`target`／`leader` という構造フィールド自身が
+その event の witness なので、主張欄は重複になる）。`source` にも置きません
+（出典帰属の経緯であってフィールド値の主張ではない）。
+
+### 遡及しない
+
+既存の note は 10,912 件あり、**書き足すのは新しく書く note にだけ**です。したがって:
+
+- **`claim` が無いことは「根拠が無い」を意味しません。** 無いのが既定です
+- **`coverage.py` は `claim` を確定の根拠にしません**（`absent` の根拠にもしない）。
+  進捗は構造フィールドで測ります
+- 突合ゲート（`validate_emperors.py` の `check_claim_fields`）は **`claim` を持つコンテナだけ**を
+  評価し、**評価件数を `INFO` で必ず出します**。0 エラーが「守れている」なのか
+  「そもそも何も見ていない」なのかを区別するためです。検出力そのものは
+  `python3 scripts/test_claim_field.py` が合成レコードで測ります
+
+### 機械が見ること
+
+- `claim` に作業ログの印（`訂正`・`現行`・`旧値`・`→`・`->`）が出たらエラー。**印は史実の日本語と衝突しない語だけ**にしてある — 「に改め」「差し替え」「から変更」は改元・遷都・皇太子廃立の主張そのものに出る自然な語なので入れない（最初に claim を書いた人が誤検出に当たると「このゲートは壊れている」と結論する）
+- `claim` に原文引用らしいスパン（かな無し・漢字6字以上の `「…」`）が出たらエラー
+- 同じコンテナに `count` があるとき、その数が算用数字で `claim` に出なければエラー
+  — **これがフィールドとの突合そのもの**です（存在検査なので弱い witness ですが、向きは反転しません）
+
+`deathCause.category` のような enum は日本語の `claim` に ID が現れないので、機械照合はありません。
+そこは人が読む前提の前向きな記述です。
+
+## `conflicts` — 史料対立の置き場（2026-08-03・Issue #51 P3）
+
+原典同士が食い違うとき、いままでは**気づいた調査者が note の散文に書く**しかありませんでした。
+書かなければ「気づかなかった」のか「対立が無い」のかを区別できず、**空欄が検出できない**。
+一方、調査エージェントの出力契約（[CLAIMS_CONTRACT.md](../../docs/process/CLAIMS_CONTRACT.md)）には
+`conflicts[]` が最初からあります。**受け皿がデータ側に無かっただけ**なので、`note`・`claim` と
+同じ位置に任意の `conflicts` 配列を置きます。
+
+```json
+"ages": {
+  "deathAge": 47,
+  "confidence": "medium",
+  "conflicts": [
+    {
+      "field": "deathAge",
+      "adopted": {"value": 47, "source": {"page": "晋書 載記第二十一"},
+                  "quote": "时年四十七，在位一年"},
+      "alternatives": [
+        {"value": 38, "source": {"page": "華陽国志 巻九"}, "quote": "年二十六，立为太子",
+         "note": "永昌元年（322年）の太子冊立を年二十六とするため崩御時は数え38歳になる（逆算値）"}
+      ],
+      "reason": "晋書載記と十六国春秋がともに「时年四十七」と直接記す。華陽国志の38は逆算で直接記載ではない"
+    }
+  ]
+}
+```
+
+| 欄 | 必須 | 中身 |
+|---|---|---|
+| `field` | ○ | **同じコンテナ内**のフィールド名。どの値が割れているか |
+| `adopted` | ○ | 採用値。`value` と `source` は必須で、`quote` は原文があるなら書く。**採用側にも出典を持たせる** — 片側だけだと「採用した」と「書き忘れた」が区別できない |
+| `alternatives[]` | ○（非空） | 採らなかった値。各要素に `value` と `source`。`quote`・`note` は任意 |
+| `reason` | ○ | **なぜその値を採ったか**。これが無いと対立を書いた意味がない |
+
+置ける場所は `claim` より広く、**`events[]` の各要素にも置けます**。個々の事件の日付が史料で
+割れる形が実在し（Issue #50）、`events[].date` は `reigns` と違って `raw`・`conversion` を
+持たないので、対立を書く場所が他にありません。
+
+### 「対立なし」と「未確認」を区別する
+
+| 状態 | 書き方 |
+|---|---|
+| 確認して対立が無い | `"conflicts": []` |
+| 対立がある | `"conflicts": [ … ]` |
+| **未確認**（既存データはすべてこれ） | **キー自体を置かない** |
+
+Issue #43 の「**測れない**」と「**書き忘れた**」を区別する形で null を置く、と同じ考え方です。
+`claim` と同じく**遡及しません** — `conflicts` が無いことは対立の不在を意味せず、
+`coverage.py` は `conflicts: []` を確定の根拠にしません。
+
+### 機械が見ること（`validate_emperors.py` の `check_conflicts`）
+
+- 構造だけを見ます。**「対立を書け」というゲートは作りません** — 書かれていないことが
+  「気づかなかった」なのか「無い」なのかは機械では決まらないからです
+- `field` が同じコンテナに実在しない／`reason` が空／`adopted` に `value`・`source` が無い／
+  `alternatives` が空／対立値が採用値と同じ、はエラー
+- **`adopted.value` が実フィールドの値と食い違ったらエラー** — 採用値を訂正したときに
+  `conflicts` が置き去りになる形を止めます
+- `conflicts` を持つコンテナの件数を `INFO` で出します（0 エラーが「守れている」なのか
+  「そもそも何も見ていない」なのかを区別するため）。検出力そのものは
+  `python3 scripts/test_conflicts_field.py` が合成レコードで測ります（`claim` と同じ扱い）
+- **`quote` には引用の取り扱い規約の全項が掛かります**。`verify_quotes.py` が
+  `conflicts[].adopted.quote`・`alternatives[].quote` を抽出対象に含めるので、
+  底本の字体のまま書き、手打ちしない（`claim` に引用を書かないのとは逆で、ここは書く場所です）
 
 ## 具体例
 

@@ -178,6 +178,10 @@ export interface EmperorListRecord {
   eraLabelRuby: string;
   dynastyKey: string;
   dynastyCategory: DynastyCategory;
+  /** その政権の中で正規の皇帝ではなく、並立して帝号を称した皇帝（20名・
+   *  `EmperorRecord.isRivalClaimant` と同じ値）。カード2行目の王朝ラベルは
+   *  本体政権（「梁（蕭梁）」）なので、これが無いとカードからは対立皇帝だと読めない。 */
+  isRivalClaimant: boolean;
   portraitUrl: string | null;
   /** 肖像の中で顔の中心が縦方向のどこにあるか（0=上端・1=下端）。肖像なしはnull。
    *  カードの肖像枠は実体(3:4)より横長なので、この値が無いと上寄せに切られて
@@ -205,7 +209,7 @@ export const DATABASE_COLUMN_COUNT = 8;
  * データベースページ（/database）専用のレコード。**表が描く列＋絞り込みに要る値**だけを持つ。
  * `eraLabel`・`dynastyKey`・`reignCount` は列としては描かず、絞り込みだけが使う。
  *
- * `EmperorListRecord` を流用しないこと — 図鑑グリッド用の10フィールドは表の列と
+ * `EmperorListRecord` を流用しないこと — 図鑑グリッド用のフィールドは表の列と
  * 一致せず、表が使わない `searchText`／`searchKana`（1人あたり数百バイト）を
  * 365件ぶん運ぶことになる。表の検索は行のセル値そのものを対象にするので、
  * 検索用の連結文字列を別に持つ必要がない（かな検索は図鑑側の機能で、ここには無い）。
@@ -268,29 +272,6 @@ export interface RestorationNarrative {
   note: string;
 }
 
-/** 調査メモ1項目分（回数系指標のcount.note・年齢のages.note）。 */
-export interface ResearchMemo {
-  label: string;
-  note: string;
-}
-
-/**
- * 在位日付の典拠1件分（reigns[].duration.source）。quote/conversionは
- * task.md 3-1フェーズBで整備した正史原文引用・暦換算記録（一部の先行調査分は未付与でnull）。
- */
-export interface ReignSourceNarrative {
-  /** 対象の在位期間（例: "前221–前210年"）。 */
-  periodLabel: string;
-  /** 出典（正史の書名・巻名）。 */
-  sourceLabel: string;
-  /** 即位・退位日付の根拠になった正史原文の直接引用（即位／退位を「／」で区切る）。 */
-  quote: string | null;
-  /** 旧暦（干支日）→西暦の換算典拠・既存日付との照合結果の調査記録。 */
-  conversion: string | null;
-  /** 出典側の補足note（異説の所在・採否判断など。無ければnull）。 */
-  note: string | null;
-}
-
 /**
  * 構造化データ（Person JSON-LD）用の生年月日・没年月日。ages.birthDate/deathDateが
  * ISO風の解析可能な値かつ実際に日付を示す場合のみ値が入る（不明・推定不能はnull）。
@@ -302,9 +283,12 @@ export interface EmperorStructuredDates {
 }
 
 /**
- * 皇帝個別ページ専用の経緯・調査メモ（lib/emperors.tsのgetEmperorNarrativeが返す）。
+ * 皇帝個別ページ専用の経緯（lib/emperors.tsのgetEmperorNarrativeが返す）。
  * note全文は総量が大きいため、全統計ページのクライアントpropsに埋め込まれる
  * EmperorRecordには含めず、個別ページ（Server Component静的書き出し）だけが使う。
+ *
+ * 2026-08-02 に memos（調査メモ）と reignSources（在位日付の典拠）を落とした
+ * ——ページ末尾の畳んだ2節を廃止したため（根拠は配布データに入っている）。
  */
 export interface EmperorNarrative {
   accession: NarrativeSection | null;
@@ -312,9 +296,6 @@ export interface EmperorNarrative {
   accessionAxes: AccessionAxes | null;
   death: NarrativeSection | null;
   restorations: RestorationNarrative[];
-  memos: ResearchMemo[];
-  /** 在位日付の典拠（在位期間ごと。個別ページ限定表示）。 */
-  reignSources: ReignSourceNarrative[];
 }
 
 /**

@@ -42,6 +42,18 @@ cases = [
  ("pass  検証段は --notes on 可",  dict(bash("python3 scripts/extract_profile_material.py x --notes on", sub=True), agent_type="adversarial-verifier"), 0),
  ("pass  メイン会話は --notes on 可", bash("python3 scripts/extract_profile_material.py x --notes on"), 0),
  ("pass  既定(off)の素材抽出",      bash("python3 scripts/extract_profile_material.py x", sub=True), 0),
+ # R-API-BATCH — 止めるのは件数ではなく「扇形に広げる形」
+ ("deny  forループ＋curl",        bash("for id in $(cat ids.txt); do curl -s https://api.wikimedia.org/x/$id; done"), 2),
+ ("deny  xargs＋curl",            bash("cat ids.txt | xargs -P8 -I{} curl -s 'https://www.wikidata.org/w/api.php?id={}'"), 2),
+ ("deny  curlのURLグロブ",         bash("curl -s https://api.example.org/item/[1-100].json -o '#1.json'"), 2),
+ ("deny  curlのブレース展開",       bash("curl -s https://api.example.org/{alpha,beta,gamma}"), 2),
+ ("deny  whileループ＋wget",       bash("while read -r u; do wget -q \"$u\"; done < urls.txt\n# https://commons.wikimedia.org/"), 2),
+ ("pass  単発のcurl",             bash("curl -s https://api.wikimedia.org/core/v1/commons/page/X"), 0),
+ ("pass  localhostへのforループ",  bash("for p in 3000 3001; do curl -sI http://localhost:$p/ ; done"), 0),
+ ("pass  ローカルのforループのみ",  bash("for f in data/*.json; do jq -c .meta \"$f\"; done"), 0),
+ ("pass  gh api（形では止めない）", bash("gh api repos/x/y/issues --paginate"), 0),
+ ("pass  WebFetch単発",           {"tool_name":"WebFetch","tool_input":{"url":"https://example.org/a"},"cwd":"."}, 0),
+ ("esc   逃げ道つきの一括実行",     bash("EMPSTATS_ALLOW=R-API-BATCH:12件で許可済み for i in 1 2; do curl -s https://api.wikimedia.org/$i; done"), 0),
  ("pass  壊れた入力",              "NOT-JSON", 0),
  ("pass  tool_input が null",     {"tool_name":"Bash","tool_input":None,"cwd":"."}, 0),
 ]

@@ -85,12 +85,23 @@ KNOWN_DEATH_BEFORE_END = {
     "shun-lichengzheng",      # 1645-09 < 1645-10-01
 }
 
-# confidence が空文字のまま（2-1 スキーマ検証で判明・値の確定は調査判断待ち）
-KNOWN_EMPTY_CONFIDENCE = {
-    ("yuan-shizu", "personalCampaignCount"),
-    ("yuanmo-xushouhui", "personalCampaignCount"),
-    ("yuanmo-xushouhui", "rebellionSuppressionCount"),
-    ("yuanmo-xushouhui", "rebellionSufferedCount"),
+# confidence が空文字のまま（現状該当なし。2-1 スキーマ検証で判明した4セル
+# 〈yuan-shizu の親征・yuanmo-xushouhui の親征/反乱鎮圧/被反乱〉は 2026-08-02 の
+# Issue #42 で原典に当て直して high/medium を確定済み）。
+KNOWN_EMPTY_CONFIDENCE = set()
+
+# 被反乱 event の日付が最終 reign の endDate と食い違うが正当なもの（check_death_event_date）。
+# 「在位終了 ≠ 没日」（廃位・禅譲のあとで殺された）が主因で、これは食い違って当然。
+# 鍵は (皇帝 id, events の添字) — 同じ人物に該当 event が2つあるとき、id だけだと
+# 1つ目で許可リストを消費して2つ目が「新しいずれ」として警告に出てしまう
+# （KNOWN_PREACCESSION_EVENTS が同じ理由で添字まで持っている）。
+# 未トリアージだった5件は Issue #50 で原典に当て直し、いずれも event 側の欠陥
+# （旧暦の月日を西暦欄へ直書き2件・在位終了日を訂正した際の取り残し3件）と確定して
+# データを訂正したため、2026-08-03 にリストから外した。
+KNOWN_DEATH_EVENT_DATE = {
+    # 廃位・禅譲後に殺害された（在位終了日と没日が別なのが正しい）
+    ("hou-han-shaodi-bian", 0),    # 0189-09-28 廃位 → 0190-03-06 鴆殺
+    ("sui-gongdi-tong", 0),        # 0619-05-23 禅譲 → 0619-07-19 弑逆
 }
 
 # reignSummary と reigns の不一致（現状該当なし。
@@ -167,14 +178,11 @@ KNOWN_COUNTING_AGE = {
 # ages.note が「〜は null とした」と明記しているのにフィールドに値が入っている既知の矛盾
 # （後続パスで値を埋めた際の note 同期漏れ。2026-07-22 検出の9件は同日、値を規定10節の
 #  逆算値として立証したうえで note 側を訂正済み・現在は空。新規検出をここに登録する）
-KNOWN_NULL_SAID = {
-    # 2026-08-02（Issue #40 G2）検出。いずれも「グレゴリオ暦換算が未実施なので birthDate は
-    # null」と note が書いたあと、後続パスが換算値を入れて note を直し忘れたもの。
-    # 値の側が正しいかは個別調査（換算の裏取り）が要るため note の訂正は保留し、警告で残す。
-    ("tang-wuzong", "birthDate"),
-    ("beisong-zhenzong", "birthDate"),
-    ("yuan-wenzong", "birthDate"),
-}
+# 2026-08-02（Issue #40 G2）に検出した3件（tang-wuzong・beisong-zhenzong・yuan-wenzong の
+# birthDate）は、いずれも「暦換算が未実施なので null」と note が書いたあと後続パスが換算値を
+# 入れて note を直し忘れたもの。3件とも sxtwl で換算を裏取りして値が正しいことを確かめ、
+# note の側を訂正したので登録は空になった（残す場合は個別調査の理由を書くこと）。
+KNOWN_NULL_SAID: set = set()
 
 # 在位重複判定に使う並立・対立政権系キーワード（レコード JSON 全体を対象に部分一致）。
 # これらのいずれも含まない同王朝内重複は継承同期バグの疑いとしてエラーにする。
@@ -204,6 +212,7 @@ STANDARD_PRECISION_TOKENS = {"year", "month", "day", "unknown", "none"}
 
 errors: list[str] = []
 warnings: list[str] = []
+infos: list[str] = []
 
 
 def err(msg: str) -> None:
@@ -212,6 +221,11 @@ def err(msg: str) -> None:
 
 def warn(msg: str) -> None:
     warnings.append(msg)
+
+
+def info(msg: str) -> None:
+    """0 エラーが「綺麗」なのか「そもそも評価していない」のかを見せるための実測値。"""
+    infos.append(msg)
 
 
 def parse_date(v):
@@ -744,6 +758,71 @@ def check_reign_summary(data):
                     )
 
 
+DEATH_OUTCOME_RE = re.compile(
+    "弑逆|弑殺|弑され|被弑|崩御|殺害され|謀殺され|鴆殺|毒殺され|絞殺され|縊殺|刺殺され"
+)
+
+
+def check_death_event_date(data):
+    """本人の死を結末とする被反乱 event の日付が、最終 reign の endDate と一致するか（警告）。
+
+    2026-08-02（Issue #42）追加。`yuanmo-xushouhui` で、`reigns[0].endDate` を 2026-07-21 に
+    1360-07-29 → 1360-06-16 へ訂正した際に `rebellionSufferedCount.events[1].endDate` が旧値の
+    まま取り残されていた（event の note は「既存 deathCause/reigns と一致」と書いており、その
+    記述自体が偽になっていた）。**構造フィールド同士の突合**なので、在位 ISO 年範囲を見る
+    check_event_reign_range も、note の散文を見る check_note_value_sync も拾わない領域。
+
+    絞り込みは3つ。(1) `rebellionSufferedCount` だけを見る — 親征・鎮圧の outcome は他人の死を
+    書くのが普通で、主語の判別が機械ではできない。(2) 両端とも day 精度のものだけ比べる
+    （year/month 精度の "-01" は埋め草で、日の一致を問えない）。(3) outcome が本人の死を述べて
+    いるものだけ（note まで広げると「〜のまま崩御」の言及で誤検出が10倍になる）。
+
+    それでも「在位終了 ≠ 没日」（廃位・禅譲のあとで殺された）は正当に食い違うので、
+    KNOWN_DEATH_EVENT_DATE で除外する。
+    """
+    hits = []
+    evaluated = 0
+    for e in data["emperors"]:
+        reigns = e.get("reigns") or []
+        if not reigns:
+            continue
+        end = reigns[-1].get("endDate")
+        rp = reigns[-1].get("datePrecision")
+        rp = rp.get("end") if isinstance(rp, dict) else rp
+        if not end or len(end) != 10 or rp != "day":
+            continue
+        for i, ev in enumerate(e.get("rebellionSufferedCount", {}).get("events", []) or []):
+            if not DEATH_OUTCOME_RE.search(str(ev.get("outcome") or "")):
+                continue
+            for key in ("endDate", "date"):
+                val = ev.get(key)
+                if not val or len(val) != 10:
+                    continue
+                p = ev.get("datePrecision")
+                p = p.get("end" if key == "endDate" else "start") if isinstance(p, dict) else p
+                if p != "day":
+                    continue
+                evaluated += 1
+                if val == end:
+                    continue
+                if (e["id"], i) in KNOWN_DEATH_EVENT_DATE:
+                    KNOWN_DEATH_EVENT_DATE.discard((e["id"], i))
+                else:
+                    hits.append(
+                        f"{e['id']}.rebellionSufferedCount.events[{i}].{key}={val} "
+                        f"≠ reigns[-1].endDate={end}"
+                    )
+    if hits:
+        warn(f"[death-event-date] 本人の死を結末とする被反乱 event の日付が在位終了日と食い違う"
+             f"（在位終了≠没日なら正当・許可リストへ）: {len(hits)}件 {hits}")
+    if KNOWN_DEATH_EVENT_DATE:
+        # 消費されずに残ったエントリ＝ずれが解消した・event が消えた・添字がずれた。
+        # 黙って残すと、同じ (id, 添字) で将来ずれが出ても許可リストが吸って通してしまう。
+        warn(f"[death-event-date] 許可リストの未消費エントリ（ずれが解消したか対象が動いた・"
+             f"外すか鍵を直す）: {sorted(KNOWN_DEATH_EVENT_DATE)}")
+    return evaluated
+
+
 def check_confidence(data):
     nonstandard_precision = Counter()
 
@@ -826,6 +905,151 @@ def check_event_date_format(data):
                             f"[event-date] {e['id']}.{g}[{i}].{k}: datePrecision={tok} に対し"
                             f"日付 {v} の深さが不足"
                         )
+
+
+# --- claim（主張）欄 ---------------------------------------------------------
+# note は**作業ログ**で、訂正の経緯として「現行 X → Y に訂正」のように**捨てた側の値**が
+# 本文に残る。だからフィールドとの突合は向きが反転し、散文は witness にならない
+# （Issue #40 の G2/G3 の当初案が測定で否定された経路がこれ）。claim は同じコンテナに
+# 置く**前向きだけの1〜2文**で、突合の向きが反転しない witness になる。
+#
+# **claim が無いことは根拠の不在を意味しない** — 既存 10,912件の note には遡及しないので、
+# 無いのが既定。したがって coverage.py は claim を確定の根拠にせず、ここでも
+# 「claim を持つコンテナ」だけを評価して**評価件数を必ず出す**。
+CLAIM_REVERSAL = (
+    # 「捨てた側」を書いた印。claim にこれが出たら、その文は作業ログであって主張ではない。
+    # **史実の日本語と衝突しない語だけを置く。** 「に改め」「差し替え」「から変更」は
+    # 改元・遷都・皇太子廃立の主張そのものに出る自然な語で、入れると最初に claim を
+    # 書いた人が誤検出に当たり「このゲートは壊れている」と結論する。
+    "訂正", "現行", "旧値", "→", "->",
+)
+# verify_quotes.py の引用ユニットと同じ形（かな無し・漢字6字以上の「」スパン）。
+# claim は照合台帳の抽出対象外なので、ここに引用を書くと照合を素通りする
+KANA_RE = re.compile(r"[ぁ-んァ-ヶー]")
+HAN_RE = re.compile(r"[㐀-䶿一-鿿豈-﫿]")
+
+
+def check_claim_fields(data):
+    seen = 0
+
+    def walk(node, path, eid):
+        nonlocal seen
+        if isinstance(node, dict):
+            if "claim" in node:
+                seen += 1
+                check_one(node, path, eid)
+            for k, v in node.items():
+                walk(v, f"{path}.{k}" if path else k, eid)
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                walk(v, f"{path}[{i}]", eid)
+
+    def check_one(node, path, eid):
+        claim = node["claim"]
+        if not isinstance(claim, str) or not claim.strip():
+            err(f"[claim] {eid}.{path}: claim が非空文字列でない: {claim!r}")
+            return
+        for marker in CLAIM_REVERSAL:
+            if marker in claim:
+                err(f"[claim] {eid}.{path}: claim に作業ログの印「{marker}」があります。"
+                    "捨てた側の値・訂正の経緯は note へ。claim はいま正しいと判断している"
+                    "内容だけを前向きに書く欄です")
+        for m in re.finditer(r"「([^」]+)」", claim):
+            span = m.group(1)
+            if not KANA_RE.search(span) and len(HAN_RE.findall(span)) >= 6:
+                err(f"[claim] {eid}.{path}: claim に原文引用らしい「{span[:20]}…」があります。"
+                    "引用は note へ — verify_quotes.py の抽出対象は note と quote だけなので、"
+                    "claim に書いた引用は照合台帳を素通りします")
+        count = node.get("count")
+        if isinstance(count, int) and str(count) not in claim:
+            err(f"[claim] {eid}.{path}: count={count} ですが claim に「{count}」が出ません。"
+                "件数は算用数字で書いてください（これがフィールドとの突合そのものです）")
+
+    for e in data["emperors"]:
+        walk(e, "", e["id"])
+    info(f"[claim] claim を持つコンテナ {seen} 件を評価（欄は任意・既存 note に遡及しないため"
+         "0件でも異常ではない。0エラーを「綺麗」と読まないための分母）")
+
+
+def check_conflicts(data):
+    """史料対立の構造フィールド `conflicts` の形を見る（Issue #51 P3）。
+
+    **「対立を書け」というゲートではない。** 書かれていないことが「気づかなかった」なのか
+    「対立が無い」なのかは機械では決まらないので、検査するのは書かれたものの形だけ。
+    `conflicts: []` は「確認して対立なし」・キー自体が無いのは「未確認」で、この2つが
+    区別できることが P3 の値打ちそのもの（Issue #43 の「測れない」と「書き忘れた」を
+    区別する形で null を置く）。
+
+    `conflicts: []` を「確定」と読まないこと（`coverage.py` は conflicts を見ない）。
+    """
+    seen = with_items = 0
+
+    def walk(node, path, eid):
+        nonlocal seen, with_items
+        if isinstance(node, dict):
+            if "conflicts" in node:
+                seen += 1
+                if check_one(node, path, eid):
+                    with_items += 1
+            for k, v in node.items():
+                walk(v, f"{path}.{k}" if path else k, eid)
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                walk(v, f"{path}[{i}]", eid)
+
+    def check_one(node, path, eid) -> bool:
+        conflicts = node["conflicts"]
+        label = f"{eid}.{path}.conflicts" if path else f"{eid}.conflicts"
+        if not isinstance(conflicts, list):
+            err(f"[conflicts] {label}: 配列でない: {type(conflicts).__name__}"
+                "（対立が無いと確認したなら [] を置く）")
+            return False
+        for i, c in enumerate(conflicts):
+            at = f"{label}[{i}]"
+            if not isinstance(c, dict):
+                err(f"[conflicts] {at}: object でない")
+                continue
+            field = c.get("field")
+            if not isinstance(field, str) or field not in node:
+                err(f"[conflicts] {at}: field={field!r} が同じコンテナに実在しません"
+                    f"（隣: {'・'.join(k for k in node if k != 'conflicts') or '（空）'}）")
+            reason = c.get("reason")
+            if not isinstance(reason, str) or not reason.strip():
+                err(f"[conflicts] {at}: reason が非空文字列でない。"
+                    "**なぜその値を採ったか**が無いと、対立を書いた意味がありません")
+            adopted = c.get("adopted")
+            if not isinstance(adopted, dict) or "value" not in adopted:
+                err(f"[conflicts] {at}.adopted: value を持つ object でない"
+                    "（採用側にも出典が要る — 片側だけだと採用と未記入が区別できません）")
+            else:
+                if not isinstance(adopted.get("source"), dict):
+                    err(f"[conflicts] {at}.adopted: source が object でない")
+                if isinstance(field, str) and field in node and node[field] != adopted["value"]:
+                    err(f"[conflicts] {at}.adopted.value={adopted['value']!r} が "
+                        f"{field}={node[field]!r} と食い違います"
+                        "（採用値を訂正したときに conflicts が置き去りになった形）")
+            alts = c.get("alternatives")
+            if not isinstance(alts, list) or not alts:
+                err(f"[conflicts] {at}.alternatives: 非空の配列でない"
+                    "（対立値が無いなら conflicts の要素を作らない。"
+                    "「確認して対立なし」は conflicts: [] で表します）")
+                continue
+            for j, a in enumerate(alts):
+                if not isinstance(a, dict) or "value" not in a:
+                    err(f"[conflicts] {at}.alternatives[{j}]: value を持つ object でない")
+                    continue
+                if not isinstance(a.get("source"), dict):
+                    err(f"[conflicts] {at}.alternatives[{j}]: source が object でない"
+                        "（どの書がそう言っているかが対立の実体です）")
+                if isinstance(adopted, dict) and a["value"] == adopted.get("value"):
+                    err(f"[conflicts] {at}.alternatives[{j}]: 採用値と同じ値 {a['value']!r} "
+                        "が対立値に入っています")
+        return bool(conflicts)
+
+    for e in data["emperors"]:
+        walk(e, "", e["id"])
+    info(f"[conflicts] conflicts を持つコンテナ {seen} 件を評価（うち対立あり {with_items} 件）。"
+         "欄は任意・既存 note に遡及しないため0件でも異常ではない")
 
 
 def check_forbidden_sources(data):
@@ -1150,8 +1374,11 @@ def main() -> int:
     check_ages(data)
     check_reign_summary(data)
     check_confidence(data)
+    death_event_n = check_death_event_date(data)
     check_event_date_format(data)
     check_forbidden_sources(data)
+    check_claim_fields(data)
+    check_conflicts(data)
     check_accession_axes(data)
     check_portraits(data)
 
@@ -1166,17 +1393,21 @@ def main() -> int:
         ("KNOWN_REIGN_OVERLAP", KNOWN_REIGN_OVERLAP),
         ("KNOWN_COUNTING_AGE", KNOWN_COUNTING_AGE),
         ("KNOWN_NULL_SAID", KNOWN_NULL_SAID),
+        ("KNOWN_DEATH_EVENT_DATE", KNOWN_DEATH_EVENT_DATE),
     ):
         # 消費されなかった（=データ側が既に正しい）エントリが残っていれば陳腐化
         if left:
             warn(f"[allowlist] {name} の陳腐化エントリ（訂正済み・削除可）: {sorted(left)}")
 
+    for i in infos:
+        print(f"INFO  {i}")
     for w in warnings:
         print(f"WARN  {w}")
     for e in errors:
         print(f"ERROR {e}")
     print(f"---\n{len(errors)} errors, {len(warnings)} warnings "
-          f"({data['meta'].get('count')} emperors)")
+          f"({data['meta'].get('count')} emperors"
+          f"／death-event-date の評価件数 {death_event_n})")
     return 1 if errors else 0
 
 

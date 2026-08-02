@@ -23,7 +23,6 @@ import {
   type EmperorVideo,
   type MetricRank,
   type NarrativeSection,
-  type ResearchMemo,
   type RankingMetricKey,
 } from "@/lib/emperor-types";
 
@@ -662,6 +661,7 @@ export function getEmperorListRecords(): EmperorListRecord[] {
     eraLabelRuby: rubyOf(r.eraLabel),
     dynastyKey: r.dynastyKey,
     dynastyCategory: r.dynastyCategory,
+    isRivalClaimant: r.isRivalClaimant,
     portraitUrl: r.portraitUrl,
     portraitFocusY: r.portraitFocusY,
     periodsLabel: r.periodsLabel,
@@ -910,21 +910,16 @@ export function getEmperorProfile(id: string): EmperorProfile | null {
   };
 }
 
-/** 個別ページ用に、経緯note全文・出典・調査メモを返す。idは収録済み前提。 */
+/**
+ * 個別ページ用に、経緯note全文と出典を返す。idは収録済み前提。
+ *
+ * 2026-08-02 に「在位日付の典拠」（reigns[].duration.source）と「調査メモ」
+ * （回数系8項目・agesのnote）を返すのをやめた。ページ末尾の畳んだ2節を廃止した
+ * ためで、根拠そのものは配布データ（data/emperors.json）に入っている。
+ */
 export function getEmperorNarrative(id: string): EmperorNarrative {
   const e = rawEmperorById.get(id);
   if (!e) throw new Error(`未収録の皇帝idです: ${id}`);
-  const memoEntries: [string, string | null | undefined][] = [
-    ["改元回数", e.eraChangeCount?.note],
-    ["大赦回数", e.amnestyCount?.note],
-    ["立后回数", e.empressInstallationCount?.note],
-    ["皇太子廃立回数", e.crownPrinceDepositionCount?.note],
-    ["親征回数", e.personalCampaignCount?.note],
-    ["反乱鎮圧回数", e.rebellionSuppressionCount?.note],
-    ["被反乱回数", e.rebellionSufferedCount?.note],
-    ["遷都回数", e.capitalRelocationCount?.note],
-    ["即位時年齢・没年齢", e.ages?.note],
-  ];
   return {
     accession: narrativeSectionOf(e.accessionRoute),
     accessionAxes: e.accessionRoute.axes,
@@ -932,22 +927,6 @@ export function getEmperorNarrative(id: string): EmperorNarrative {
     restorations: e.reigns
       .filter((r) => r.isRestoration && r.note)
       .map((r) => ({ periodLabel: formatPeriod(r), note: r.note! })),
-    reignSources: e.reigns.flatMap((r) => {
-      const source = r.duration?.source;
-      if (!source) return [];
-      return [
-        {
-          periodLabel: formatPeriod(r),
-          sourceLabel: source.page,
-          quote: nonEmptyOrNull(source.quote),
-          conversion: nonEmptyOrNull(source.conversion),
-          note: nonEmptyOrNull(source.note),
-        },
-      ];
-    }),
-    memos: memoEntries
-      .filter((entry): entry is [string, string] => !!entry[1])
-      .map(([label, note]): ResearchMemo => ({ label, note })),
   };
 }
 
