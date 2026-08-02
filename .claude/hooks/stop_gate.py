@@ -28,7 +28,9 @@ RULE_ID = "R-GATES-BEFORE-COMMIT"
 
 # 変更されたファイル → 必ず流す軽いゲート（いずれも 1 秒未満）
 LIGHT_GATES = [
-    ("data/emperors.json", ["validate_emperors.py", "verify_calendar.py"]),
+    # 絞り込みの母集団は emperors.json から出るので、値を埋めれば記録の数字が古くなる
+    ("data/emperors.json", ["validate_emperors.py", "verify_calendar.py",
+                            "check_screenings.py"]),
     ("data/kinship.json", ["validate_kinship.py"]),
     ("data/name-readings.json", ["validate_readings.py"]),
     ("data/emperor-profiles.json", ["validate_readings.py", "validate_profiles.py"]),

@@ -21,6 +21,7 @@ on:
       - "scripts/check_rules.py"
       - "scripts/check_regime_conventions.py"
       - "scripts/check_screenings.py"
+      - "scripts/screens/**"
       - ".github/workflows/validate-data.yml"
   pull_request:
     paths:
@@ -38,6 +39,7 @@ on:
       - "scripts/check_rules.py"
       - "scripts/check_regime_conventions.py"
       - "scripts/check_screenings.py"
+      - "scripts/screens/**"
       - ".github/workflows/validate-data.yml"
   workflow_dispatch:
 

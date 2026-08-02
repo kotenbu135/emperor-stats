@@ -120,6 +120,14 @@ def main():
         check("絞り込みの差分 → check_screenings が落ちる",
               rc == 2 and "check_screenings" in err, f"{rc} {err}")
 
+    # 母集団は emperors.json から出るので、値を埋めれば絞り込みの記録が古くなる
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_repo(tmp, {**gates_ok, "check_screenings.py": GATE_NG})
+        dirty(root, "emperors.json", '{"emperors": [1]}\n')
+        rc, out, err = fire(root)
+        check("emperors の差分 → check_screenings も流れる",
+              rc == 2 and "check_screenings" in err, f"{rc} {err}")
+
     print("重いゲートは走らせず、走っていないことだけ告げる")
     with tempfile.TemporaryDirectory() as tmp:
         root = make_repo(tmp, gates_ok)
