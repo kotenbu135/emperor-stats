@@ -41,7 +41,14 @@ rules:
     summary: スクリプトによるデータの自動生成は禁止。人物ごとの個別調査・判定が必須
     scope: data/*.json の**値の判定**。日数計算などの機械的な計算補助・確定済み結果の転記・構造チェックは対象外
     enforcement: [L2, L4]
-    detail: 機械で「これは判定か転記か」を判別できないため L1 は無い。scripts/patch_emperor.py 的な転記ツールを作る場合は、判定を含まないことを設計で担保する
+    detail: >-
+      機械で「これは判定か転記か」を判別できないため L1（deny）は無い。**境界は禁止を増やすのではなく
+      道具の設計で持たせる** — 転記は `scripts/patch_emperor.py` が担当し、不変条件は
+      「**出力に現れる値は、入力に literally 書かれていた値だけ**」の1つ。そのために
+      計算をしない（`datetime`・`math` を import しない）／コーパスも他の JSON も読まない／
+      既定値を入れない・兄弟フィールドから写さない／**1回の起動で触れるのは皇帝1人だけ**
+      （「同じ規則を複数の対象へ当てる」は判定であって転記ではない）／中間コンテナを作らない
+      （構造を決めるのは判定）。検査は `python3 scripts/test_patch_emperor.py`（ローカル専用）
     evidence: 過去2回失敗（docs/process/CONSTRAINTS.md）
     source: docs/process/CONSTRAINTS.md
 
@@ -81,7 +88,12 @@ rules:
     summary: 並行セッション前提の read-modify-write。対象 id のフィールドだけ更新し meta・他レコードに触らない
     scope: 同じ作業ツリー／worktree 群で共有される data/*.json と進捗ドキュメント
     enforcement: [L1, L4]
-    detail: L1 は R-GIT-ADDALL・R-GIT-STASH として実装済み（巻き込みの主経路）。ファイル全体を読んで丸ごと書き戻す方式そのものは機械で止められない
+    detail: >-
+      L1 は R-GIT-ADDALL・R-GIT-STASH として実装済み（巻き込みの主経路）。
+      `data/emperors.json` への転記は `scripts/patch_emperor.py` を通す — **読み込み時点の
+      sha256 を書き込む直前にもう一度照合し、変わっていたら書かずに落ちる**。その場の
+      `python3 -c` にはできない防護がこれで、道具を経由しない書き方そのものは機械で止められない
+      （経由しなかったことは検出できないので L4 が残る）
     evidence: 2026-07-21 のフェーズB調査で複数回発生
     source: docs/process/CONSTRAINTS.md
 

@@ -39,6 +39,19 @@ python3 scripts/quote_diff.py <皇帝id>                  # 当たらない引�
 
 ## 3. 書く
 
+**転記ツールを通す**（その場の `python3 -c` を書かない）:
+
+```bash
+python3 scripts/patch_emperor.py <皇帝id> --set 'deathCause.category="poisoning"' --dry-run
+python3 scripts/patch_emperor.py <皇帝id> --set-str 'ages.note=…'        # 引用の多い長文
+python3 scripts/patch_emperor.py <皇帝id> --from-json patch.json          # 複数フィールド
+```
+
+読み込み時点の sha256 を書き込み直前に照合するので、**別セッションが割り込んでいたら
+書かずに落ちます**。前後差分と、触ったパスが要求するゲート・結合も出ます。
+`--set` の右辺は JSON、まだ無い欄を新設するときだけ `--allow-new-key`
+（既定では綴り間違いとして落ちます）。
+
 - **対象 id のフィールドだけ**を更新する。`meta`・他レコードには触らない
   （同じ作業ツリーで別セッションが編集しています）
 - **実行直前に最新のファイルを読み込む。** ファイル全体をメモリに読んで丸ごと書き戻さない

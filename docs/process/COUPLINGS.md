@@ -43,6 +43,7 @@
 | 触るもの | 一緒に触るもの | 検査 |
 |---|---|---|
 | worktree を作る | コーパス4本（`china-history`・`daizhigev20`・`_corpus_cache`・`_norm_cache`）の symlink と、site を動かすなら `site/node_modules` のハードリンク複製 | `scripts/setup_worktree.sh` が自動で流れる（PostToolUse フック＝コーパス／`npm run dev`・`build` の `predev`/`prebuild`＝node_modules）。**コーパス漏れはエラーにならずゲートが黙ってスキップされる** |
+| `scripts/patch_emperor.py` の `HINTS`（触ったパス→要求するゲート・結合の案内） | この表そのもの（案内が古いと「ゲートを出したのに漏れる」＝**表より悪い**） | `python3 scripts/test_patch_emperor.py`（ローカル専用） |
 | `.claude/hooks/guard.py` の規則 | `docs/process/RULES.yml` の `enforcement` 欄 | `python3 scripts/check_rules.py`（実装と台帳の突合・**CI でも実行**）＋ `python3 .claude/hooks/test_guard.py`（規則を足したらケースも足す・ローカル専用） |
 | `extract_profile_material.py` の note 抑止を変える | `VERIFIER.md`（`--notes on` を付ける側）・`guard.py` の `NOTES_ON_ALLOWED` | `python3 .claude/hooks/test_guard.py`（ローカル専用） |
 | 新しいゲートスクリプトを足す | `.claude/hooks/stop_gate.py` の `LIGHT_GATES`（対応表に無いゲートは turn の終わりに流れない） | `python3 .claude/hooks/test_stop_gate.py`（ローカル専用） |
