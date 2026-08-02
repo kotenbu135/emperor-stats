@@ -219,6 +219,53 @@
       ],
       "exceptions": [],
       "surveyedAt": "2026-08-02"
+    },
+    {
+      "book": "晉書",
+      "regimeIds": [
+        "cheng-han"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "載記第二十一（巻百二十一）各君主の記事**末尾**1行（_corpus_cache/chenghan-*.txt の最終段落）。冒頭ではないので本紀型の書式で探すと当たらない",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "在位年数・享年を述べたあとに「（伪）谥〈諡号〉，庙曰〈廟号〉，墓号〈陵名〉」が並ぶ。諡号と廟号が同じ1行から同時に取れる",
+      "variants": "「墓号」「墓曰」の両形がある。また廟号を伴わず諡号だけを記す形（「谥曰〈諡号〉」）もあるため、廟号の欄が空でも書式から外れたわけではない。成漢は君主が「王」「公」の諡で終わる場合があり、諡号の語形も帝号に限らない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/chenghan-lixiong.txt",
+          "line": 15,
+          "quote": "伪谥武帝，庙曰太宗，墓号安都陵"
+        },
+        {
+          "file": "_corpus_cache/chenghan-lishou.txt",
+          "line": 9,
+          "quote": "伪谥昭文帝，庙曰中宗，墓曰安昌陵"
+        },
+        {
+          "file": "_corpus_cache/chenghan-liqi.txt",
+          "line": 4,
+          "quote": "谥曰幽公"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "chenghan-liban",
+          "locator": "晉書 載記第二十一 李班条の末尾は「遂立雄之子期嗣位焉」で終わり、上記の定型が付かない。追諡の所在は『華陽国志』巻九側",
+          "personScope": "other-source",
+          "note": "載記の定型が及ばない人物。空欄を「諡号・廟号が無い」と読まず、華陽国志で当たり直す"
+        },
+        {
+          "id": "chenghan-lishi",
+          "locator": "晉書 載記第二十一 李勢条の末尾は「升平五年，死于建康。在位五年而败」で終わり、上記の定型が付かない（東晋に降って建康で死去したため）",
+          "personScope": "per-person",
+          "note": "定型が無いので絞り込めない。他史料も含めて人物単位で判定する"
+        }
+      ],
+      "surveyedAt": "2026-08-02"
     }
   ]
 }

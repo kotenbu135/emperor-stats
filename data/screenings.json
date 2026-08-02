@@ -23,7 +23,7 @@
       "unit": "person-field",
       "script": "scripts/screens/name_fields.py",
       "population": "365人 × {templeName, posthumousName} のうち**値が空のセル**（埋まっているセルの訂正は別作業）",
-      "n": 562,
+      "n": 560,
       "buckets": [
         {
           "name": "templeName:transcribe",
@@ -48,7 +48,7 @@
         {
           "name": "templeName:unknown",
           "kind": "absent",
-          "count": 182,
+          "count": 180,
           "means": "commonName が廟号形で立っていないだけ。**「廟号が無い」ではない**",
           "notEstablished": "値の不在。commonName は名乗りの1つを写しただけなので、廟号が別の形で原典にある人物がここに残る",
           "audit": {

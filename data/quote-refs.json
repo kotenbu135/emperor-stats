@@ -10374,6 +10374,42 @@
    ],
    "line": 16
   },
+  "chenghan-liban|ages.note|4831187e5ab4": {
+   "id": "chenghan-liban",
+   "path": "ages.note",
+   "span": "永昌元年冬，立班为太子",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十六国春秋.txt",
+   "frags": [
+    "永昌元年冬",
+    "立班为太子"
+   ],
+   "line": 370
+  },
+  "chenghan-liban|ages.note|5b7f516db066": {
+   "id": "chenghan-liban",
+   "path": "ages.note",
+   "span": "班字世文，荡第四子也。少见养于雄，年二十六，立为太子",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/华阳国志.txt",
+   "frags": [
+    "荡第四子也",
+    "少见养于雄"
+   ],
+   "line": 584
+  },
+  "chenghan-liban|ages.note|6f8b9919a760": {
+   "id": "chenghan-liban",
+   "path": "ages.note",
+   "span": "咸和九年，班因夜哭，越杀班于殡宫，时年四十七，在位一年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-liban.txt",
+   "frags": [
+    "越杀班于殡宫",
+    "时年四十七"
+   ],
+   "line": 2
+  },
   "chenghan-liban|ages.note|f92c7984dd4a": {
    "id": "chenghan-liban",
    "path": "ages.note",
@@ -10405,6 +10441,51 @@
    "corpusFile": "_corpus_cache/chenghan-liban.txt",
    "frags": [
     "越殺班於殯宮"
+   ],
+   "line": 2
+  },
+  "chenghan-liban|reigns[0].note|5b17a2d4b653": {
+   "id": "chenghan-liban",
+   "path": "reigns[0].note",
+   "span": "六月，李雄死，其兄子班嗣伪位",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/帝纪/第七章--原文.html",
+   "frags": [
+    "其兄子班嗣伪位"
+   ],
+   "line": 31
+  },
+  "chenghan-liban|reigns[0].note|8196445ccd84": {
+   "id": "chenghan-liban",
+   "path": "reigns[0].note",
+   "span": "雄妻任无子，养含弟班为子",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/华阳国志.txt",
+   "frags": [
+    "雄妻任无子",
+    "养含弟班为子"
+   ],
+   "line": 574
+  },
+  "chenghan-liban|reigns[0].note|c5ecca524061": {
+   "id": "chenghan-liban",
+   "path": "reigns[0].note",
+   "span": "丁卯，雄卒，太子班即位",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "太子班即位"
+   ],
+   "line": 1563
+  },
+  "chenghan-liban|reigns[0].note|eaa2fd1b3bd8": {
+   "id": "chenghan-liban",
+   "path": "reigns[0].note",
+   "span": "以班非雄所生",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-liban.txt",
+   "frags": [
+    "以班非雄所生"
    ],
    "line": 2
   },
@@ -10465,6 +10546,18 @@
    ],
    "line": 4
   },
+  "chenghan-liqi|amnestyCount[0].note|69169c25f42b": {
+   "id": "chenghan-liqi",
+   "path": "amnestyCount[0].note",
+   "span": "咸康元年春正月，立妻阎氏为后，下赦，改元玉恒",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/华阳国志.txt",
+   "frags": [
+    "咸康元年春正月",
+    "立妻阎氏为后"
+   ],
+   "line": 587
+  },
   "chenghan-liqi|crownPrinceDepositionCount.note|15988f624455": {
    "id": "chenghan-liqi",
    "path": "crownPrinceDepositionCount.note",
@@ -10477,6 +10570,40 @@
    ],
    "line": 4
   },
+  "chenghan-liqi|deathCause.note|22bb3b937809": {
+   "id": "chenghan-liqi",
+   "path": "deathCause.note",
+   "span": "初，废期为邛都县公；五月，乃杀期及诛李始等",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/华阳国志.txt",
+   "frags": [
+    "废期为邛都县公",
+    "乃杀期及诛李始等"
+   ],
+   "line": 589
+  },
+  "chenghan-liqi|deathCause.note|2eb99e324380": {
+   "id": "chenghan-liqi",
+   "path": "deathCause.note",
+   "span": "咸康三年，自缢而死，时年二十五，在位三年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-liqi.txt",
+   "frags": [
+    "时年二十五"
+   ],
+   "line": 4
+  },
+  "chenghan-liqi|deathCause.note|e5cde7b3ebad": {
+   "id": "chenghan-liqi",
+   "path": "deathCause.note",
+   "span": "夏四月，李寿弑李期",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/帝纪/第七章--原文.html",
+   "frags": [
+    "李寿弑李期"
+   ],
+   "line": 35
+  },
   "chenghan-liqi|empressInstallationCount[0].note|673f536dd29f": {
    "id": "chenghan-liqi",
    "path": "empressInstallationCount[0].note",
@@ -10487,6 +10614,52 @@
     "立妻阎氏为皇后"
    ],
    "line": 2
+  },
+  "chenghan-liqi|empressInstallationCount[0].note|69169c25f42b": {
+   "id": "chenghan-liqi",
+   "path": "empressInstallationCount[0].note",
+   "span": "咸康元年春正月，立妻阎氏为后，下赦，改元玉恒",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/华阳国志.txt",
+   "frags": [
+    "咸康元年春正月",
+    "立妻阎氏为后"
+   ],
+   "line": 587
+  },
+  "chenghan-liqi|eraChangeCount[0].note|69169c25f42b": {
+   "id": "chenghan-liqi",
+   "path": "eraChangeCount[0].note",
+   "span": "咸康元年春正月，立妻阎氏为后，下赦，改元玉恒",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/华阳国志.txt",
+   "frags": [
+    "咸康元年春正月",
+    "立妻阎氏为后"
+   ],
+   "line": 587
+  },
+  "chenghan-liqi|rebellionSuppressionCount.note|31667b1a3b2f": {
+   "id": "chenghan-liqi",
+   "path": "rebellionSuppressionCount.note",
+   "span": "尚書僕射、武陵公李載",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-liqi.txt",
+   "frags": [
+    "武陵公李載"
+   ],
+   "line": 2
+  },
+  "chenghan-liqi|rebellionSuppressionCount.note|7533e9b74b8f": {
+   "id": "chenghan-liqi",
+   "path": "rebellionSuppressionCount.note",
+   "span": "忌从子载多才艺，他事诛之",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/华阳国志.txt",
+   "frags": [
+    "忌从子载多才艺"
+   ],
+   "line": 588
   },
   "chenghan-liqi|reigns[0].quote#0|2eb99e324380": {
    "id": "chenghan-liqi",
@@ -10539,6 +10712,18 @@
    ],
    "line": 8561
   },
+  "chenghan-lishi|crownPrinceDepositionCount.note|50a2aba7e348": {
+   "id": "chenghan-lishi",
+   "path": "crownPrinceDepositionCount.note",
+   "span": "势弟大将军、汉王广以势无子，求为太弟，势弗许",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-lishi.txt",
+   "frags": [
+    "势弟大将军",
+    "汉王广以势无子"
+   ],
+   "line": 3
+  },
   "chenghan-lishi|crownPrinceDepositionCount.note|5e592f10c3fd": {
    "id": "chenghan-lishi",
    "path": "crownPrinceDepositionCount.note",
@@ -10550,6 +10735,40 @@
    ],
    "line": 3
   },
+  "chenghan-lishi|crownPrinceDepositionCount.note|5f735d3ff0c2": {
+   "id": "chenghan-lishi",
+   "path": "crownPrinceDepositionCount.note",
+   "span": "以势无子，求为太弟，势不许",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/晋书.txt",
+   "frags": [
+    "以势无子求为",
+    "子求为太弟势"
+   ],
+   "line": 8560
+  },
+  "chenghan-lishi|crownPrinceDepositionCount.note|85d1c0937da1": {
+   "id": "chenghan-lishi",
+   "path": "crownPrinceDepositionCount.note",
+   "span": "汉王广以势无子求为太弟势不许",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-lishi.txt",
+   "frags": [
+    "汉王广以势无子求为太"
+   ],
+   "line": 3
+  },
+  "chenghan-lishi|crownPrinceDepositionCount.note|cf54bf861242": {
+   "id": "chenghan-lishi",
+   "path": "crownPrinceDepositionCount.note",
+   "span": "求为太弟，势不许",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "求为太弟势不"
+   ],
+   "line": 1568
+  },
   "chenghan-lishi|empressInstallationCount[0].note|a1cbf8446a90": {
    "id": "chenghan-lishi",
    "path": "empressInstallationCount[0].note",
@@ -10560,6 +10779,17 @@
     "妻李氏为皇后"
    ],
    "line": 1
+  },
+  "chenghan-lishi|eraChangeCount[1].note|5ce35e66d0c1": {
+   "id": "chenghan-lishi",
+   "path": "eraChangeCount[1].note",
+   "span": "贬广为临邛侯，广自杀",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-lishi.txt",
+   "frags": [
+    "贬广为临邛侯"
+   ],
+   "line": 3
   },
   "chenghan-lishi|eraChangeCount[1].note|f4518a4679d2": {
    "id": "chenghan-lishi",
@@ -10584,6 +10814,29 @@
     "势于是悉众与温战于笮"
    ],
    "line": 66
+  },
+  "chenghan-lishi|personalCampaignCount.note|955c146c96d5": {
+   "id": "chenghan-lishi",
+   "path": "personalCampaignCount.note",
+   "span": "势使其叔父福及从兄权等攻彭模",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/列传/第六十八章--原文.html",
+   "frags": [
+    "势使其叔父福及从兄权"
+   ],
+   "line": 66
+  },
+  "chenghan-lishi|personalCampaignCount.note|a4a7ec9cd358": {
+   "id": "chenghan-lishi",
+   "path": "personalCampaignCount.note",
+   "span": "迁势及弟福、从兄权亲族十余人于健康",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-lishi.txt",
+   "frags": [
+    "迁势及弟福",
+    "从兄权亲族十余人于健"
+   ],
+   "line": 6
   },
   "chenghan-lishi|personalCampaignCount.note|aaeb6785269b": {
    "id": "chenghan-lishi",
@@ -10680,6 +10933,40 @@
    ],
    "line": 3
   },
+  "chenghan-lishou|eraChangeCount[0].note|15988f624455": {
+   "id": "chenghan-lishou",
+   "path": "eraChangeCount[0].note",
+   "span": "寿矫任氏令，废期为邛都县公，幽之别宫",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/晋书.txt",
+   "frags": [
+    "寿矫任氏令",
+    "废期为邛都县公"
+   ],
+   "line": 8547
+  },
+  "chenghan-lishou|eraChangeCount[0].note|b1c3491d7cd2": {
+   "id": "chenghan-lishou",
+   "path": "eraChangeCount[0].note",
+   "span": "咸康三年，自缢而死",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/晋书.txt",
+   "frags": [
+    "咸康三年自缢"
+   ],
+   "line": 8547
+  },
+  "chenghan-lishou|eraChangeCount[0].note|e5cde7b3ebad": {
+   "id": "chenghan-lishou",
+   "path": "eraChangeCount[0].note",
+   "span": "夏四月，李寿弑李期",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/帝纪/第七章--原文.html",
+   "frags": [
+    "李寿弑李期"
+   ],
+   "line": 35
+  },
   "chenghan-lishou|eraChangeCount[0].note|fd647890f7c5": {
    "id": "chenghan-lishou",
    "path": "eraChangeCount[0].note",
@@ -10754,12 +11041,12 @@
   "chenghan-lixiong|ages.note|32459c7d47ae": {
    "id": "chenghan-lixiong",
    "path": "ages.note",
-   "span": "咸和八年、雄生疡於頭、六日死、時年六十一、在位三十年",
+   "span": "咸和八年，雄生疡于头，六日死，时年六十一，在位三十年",
    "status": "cache",
    "corpusFile": "_corpus_cache/chenghan-lixiong.txt",
    "frags": [
-    "雄生疡於頭",
-    "時年六十一",
+    "雄生疡于头",
+    "时年六十一",
     "在位三十年"
    ],
    "line": 15
@@ -10786,6 +11073,19 @@
     "使班討平寧州夷"
    ],
    "line": 14
+  },
+  "chenghan-lixiong|deathCause.note|19cbb8f3bab2": {
+   "id": "chenghan-lixiong",
+   "path": "deathCause.note",
+   "span": "夏六月癸亥，雄疾病卒，时年六十一",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/华阳国志.txt",
+   "frags": [
+    "夏六月癸亥雄",
+    "癸亥雄疾病卒",
+    "疾病卒时年六"
+   ],
+   "line": 583
   },
   "chenghan-lixiong|empressInstallationCount[0].note|0d81099e33ab": {
    "id": "chenghan-lixiong",
@@ -10831,6 +11131,31 @@
     "以巴西歸順"
    ],
    "line": 27
+  },
+  "chenghan-lixiong|reigns[0].note|a1e5e2b65bd2": {
+   "id": "chenghan-lixiong",
+   "path": "reigns[0].note",
+   "span": "成都王雄即皇帝位，大赦，改元曰晏平",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "成都王雄即皇帝位",
+    "改元曰晏平"
+   ],
+   "line": 1360
+  },
+  "chenghan-lixiong|reigns[0].note|f2753f1791c1": {
+   "id": "chenghan-lixiong",
+   "path": "reigns[0].note",
+   "span": "光熙元年，雄称皇帝，改元晏平",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/华阳国志.txt",
+   "frags": [
+    "光熙元年雄称",
+    "年雄称皇帝改",
+    "皇帝改元晏平"
+   ],
+   "line": 566
   },
   "chenghan-lixiong|reigns[0].quote#0|5082b028edd9": {
    "id": "chenghan-lixiong",
@@ -12687,6 +13012,17 @@
    ],
    "line": 6
   },
+  "gengshi-di|deathCause.note|0ad9e96f31c4": {
+   "id": "gengshi-di",
+   "path": "deathCause.note",
+   "span": "圣公降者，封长沙王",
+   "status": "corpus",
+   "corpusFile": "china-history/后汉书/列传/第一章-刘玄刘盆子列传-原文.html",
+   "frags": [
+    "圣公降者封长"
+   ],
+   "line": 40
+  },
   "gengshi-di|deathCause.note|6f2057708fba": {
    "id": "gengshi-di",
    "path": "deathCause.note",
@@ -12699,6 +13035,52 @@
     "因令縊殺之"
    ],
    "line": 21
+  },
+  "gengshi-di|deathCause.note|912c09a24eee": {
+   "id": "gengshi-di",
+   "path": "deathCause.note",
+   "span": "刘恭复为固请，竟得封长沙王",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/gengshi-di.txt",
+   "frags": [
+    "刘恭复为固请",
+    "竟得封长沙王"
+   ],
+   "line": 20
+  },
+  "gengshi-di|deathCause.note|bcbced93735f": {
+   "id": "gengshi-di",
+   "path": "deathCause.note",
+   "span": "於是禄使從兵与更始共牧馬于郊下、因令縊殺之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/gengshi-di.txt",
+   "frags": [
+    "於是禄使從兵与更始共",
+    "因令縊殺之"
+   ],
+   "line": 21
+  },
+  "gengshi-di|deathCause.note|dc48aaea0654": {
+   "id": "gengshi-di",
+   "path": "deathCause.note",
+   "span": "乃赦更始，封为畏威侯",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/gengshi-di.txt",
+   "frags": [
+    "封为畏威侯"
+   ],
+   "line": 20
+  },
+  "gengshi-di|deathCause.note|fe71aee00cd4": {
+   "id": "gengshi-di",
+   "path": "deathCause.note",
+   "span": "卫尉大将军张卬为淮阳王",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/gengshi-di.txt",
+   "frags": [
+    "卫尉大将军张卬为淮阳"
+   ],
+   "line": 8
   },
   "gengshi-di|empressInstallationCount.note|039e5ae1f703": {
    "id": "gengshi-di",
@@ -12754,6 +13136,39 @@
     "更始自洛陽而西"
    ],
    "line": 6
+  },
+  "gengshi-di|reigns[0].note|0ad9e96f31c4": {
+   "id": "gengshi-di",
+   "path": "reigns[0].note",
+   "span": "圣公降者，封长沙王",
+   "status": "corpus",
+   "corpusFile": "china-history/后汉书/列传/第一章-刘玄刘盆子列传-原文.html",
+   "frags": [
+    "圣公降者封长"
+   ],
+   "line": 40
+  },
+  "gengshi-di|reigns[0].note|f9a69a604a5e": {
+   "id": "gengshi-di",
+   "path": "reigns[0].note",
+   "span": "竟得封长沙王",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/gengshi-di.txt",
+   "frags": [
+    "竟得封长沙王"
+   ],
+   "line": 20
+  },
+  "gengshi-di|reigns[0].note|fe71aee00cd4": {
+   "id": "gengshi-di",
+   "path": "reigns[0].note",
+   "span": "卫尉大将军张卬为淮阳王",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/gengshi-di.txt",
+   "frags": [
+    "卫尉大将军张卬为淮阳"
+   ],
+   "line": 8
   },
   "gengshi-di|reigns[0].quote#0|529a27da78ff": {
    "id": "gengshi-di",
@@ -22451,6 +22866,30 @@
    ],
    "line": 7900
   },
+  "huan-xuan|accessionRoute.note|41121a77ade1": {
+   "id": "huan-xuan",
+   "path": "accessionRoute.note",
+   "span": "恐帝不肯為手詔",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/huan-xuan.txt",
+   "frags": [
+    "恐帝不肯為手詔"
+   ],
+   "line": 21
+  },
+  "huan-xuan|accessionRoute.note|dd8ec802056a": {
+   "id": "huan-xuan",
+   "path": "accessionRoute.note",
+   "span": "初，玄恐帝不肯为手诏，又虑玺不可得，逼临川王宝请帝自为手诏，因夺取玺",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/huan-xuan.txt",
+   "frags": [
+    "玄恐帝不肯为手诏",
+    "又虑玺不可得",
+    "逼临川王宝请帝自为手"
+   ],
+   "line": 21
+  },
   "huan-xuan|amnestyCount.note|a257f0d5a2c3": {
    "id": "huan-xuan",
    "path": "amnestyCount.note",
@@ -22482,6 +22921,31 @@
     "鰥寡孤独不能自存者穀"
    ],
    "line": 21
+  },
+  "huan-xuan|amnestyCount[0].note|63687915a75c": {
+   "id": "huan-xuan",
+   "path": "amnestyCount[0].note",
+   "span": "自以水德，壬辰，腊于祖",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/列传/第六十九章--原文.html",
+   "frags": [
+    "自以水德壬辰",
+    "德壬辰腊于祖"
+   ],
+   "line": 43
+  },
+  "huan-xuan|amnestyCount[0].note|b84e2d5d3614": {
+   "id": "huan-xuan",
+   "path": "amnestyCount[0].note",
+   "span": "十二月壬辰，玄篡位，以帝为平固王",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/晋书.txt",
+   "frags": [
+    "十二月壬辰玄",
+    "壬辰玄篡位以",
+    "篡位以帝为平"
+   ],
+   "line": 406
   },
   "huan-xuan|amnestyCount[0].note|ee8a1ef43e8f": {
    "id": "huan-xuan",
@@ -22561,6 +23025,31 @@
    ],
    "line": 22
   },
+  "huan-xuan|eraChangeCount[0].note|63687915a75c": {
+   "id": "huan-xuan",
+   "path": "eraChangeCount[0].note",
+   "span": "自以水德，壬辰，腊于祖",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/列传/第六十九章--原文.html",
+   "frags": [
+    "自以水德壬辰",
+    "德壬辰腊于祖"
+   ],
+   "line": 43
+  },
+  "huan-xuan|eraChangeCount[0].note|b84e2d5d3614": {
+   "id": "huan-xuan",
+   "path": "eraChangeCount[0].note",
+   "span": "十二月壬辰，玄篡位，以帝为平固王",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/晋书.txt",
+   "frags": [
+    "十二月壬辰玄",
+    "壬辰玄篡位以",
+    "篡位以帝为平"
+   ],
+   "line": 406
+  },
   "huan-xuan|personalCampaignCount.note|f50034e63f12": {
    "id": "huan-xuan",
    "path": "personalCampaignCount.note",
@@ -22619,6 +23108,19 @@
     "斩桓弘于广陵"
    ],
    "line": 23
+  },
+  "huan-xuan|reigns[0].conversion|b84e2d5d3614": {
+   "id": "huan-xuan",
+   "path": "reigns[0].conversion",
+   "span": "十二月壬辰，玄篡位，以帝为平固王",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/晋书.txt",
+   "frags": [
+    "十二月壬辰玄",
+    "壬辰玄篡位以",
+    "篡位以帝为平"
+   ],
+   "line": 406
   },
   "huan-xuan|reigns[0].quote#0|be95cc09a8ad": {
    "id": "huan-xuan",
@@ -33135,6 +33637,17 @@
    ],
    "line": 4
   },
+  "liu-yong-liang|reigns[0].conversion|09f43c3a26e7": {
+   "id": "liu-yong-liang",
+   "path": "reigns[0].conversion",
+   "span": "及更始败，永自称天子",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-yong-liang.txt",
+   "frags": [
+    "永自称天子"
+   ],
+   "line": 2
+  },
   "liu-yong-liang|reigns[0].conversion|640393040be5": {
    "id": "liu-yong-liang",
    "path": "reigns[0].conversion",
@@ -33158,10 +33671,43 @@
    ],
    "line": 49
   },
+  "liu-yong-liang|reigns[0].conversion|b38fa3584fec": {
+   "id": "liu-yong-liang",
+   "path": "reigns[0].conversion",
+   "span": "十二月丙戌，至自怀。",
+   "status": "corpus",
+   "corpusFile": "china-history/北史/原文版北史/-卷一-原文.html",
+   "frags": [
+    "十二月丙戌"
+   ],
+   "line": 101
+  },
+  "liu-yong-liang|reigns[0].conversion|cc703a73ea31": {
+   "id": "liu-yong-liang",
+   "path": "reigns[0].conversion",
+   "span": "刘永自称天子。",
+   "status": "corpus",
+   "corpusFile": "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html",
+   "frags": [
+    "刘永自称天子"
+   ],
+   "line": 62
+  },
+  "liu-yong-liang|reigns[0].conversion|e99b0f4028f0": {
+   "id": "liu-yong-liang",
+   "path": "reigns[0].conversion",
+   "span": "十一月甲午，幸怀。",
+   "status": "corpus",
+   "corpusFile": "china-history/北史/原文版北史/-卷七-原文.html",
+   "frags": [
+    "十一月甲午"
+   ],
+   "line": 34
+  },
   "liu-yong-liang|reigns[0].quote#0|640393040be5": {
    "id": "liu-yong-liang",
    "path": "reigns[0].quote#0",
-   "span": "「十一月甲午，幸怀。刘永自称天子。」",
+   "span": "「十一月甲午，幸怀。」「刘永自称天子。」",
    "status": "corpus",
    "corpusFile": "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html",
    "frags": [
@@ -41456,6 +42002,29 @@
    ],
    "line": 13230
   },
+  "qianliang-zhangzuo|accessionRoute.note|487741541c53": {
+   "id": "qianliang-zhangzuo",
+   "path": "accessionRoute.note",
+   "span": "祚遣杨秋胡将曜灵于东苑，拉其腰而杀之",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "祚遣杨秋胡将曜灵于东",
+    "拉其腰而杀之"
+   ],
+   "line": 8688
+  },
+  "qianliang-zhangzuo|accessionRoute.note|5cdbd66ee05e": {
+   "id": "qianliang-zhangzuo",
+   "path": "accessionRoute.note",
+   "span": "寻为宋混等所攻乃使杨秋胡将灵耀于东苑拉其腰而杀之",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十六国春秋.txt",
+   "frags": [
+    "寻为宋混等所攻乃使杨"
+   ],
+   "line": 1284
+  },
   "qianliang-zhangzuo|accessionRoute.note|7453cd72672e": {
    "id": "qianliang-zhangzuo",
    "path": "accessionRoute.note",
@@ -41495,6 +42064,17 @@
    ],
    "line": 74
   },
+  "qianliang-zhangzuo|accessionRoute.note|c80cebebcb2c": {
+   "id": "qianliang-zhangzuo",
+   "path": "accessionRoute.note",
+   "span": "是月，张祚弑耀灵而自称凉州牧",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/帝纪/第八章--原文.html",
+   "frags": [
+    "张祚弑耀灵而自称凉州"
+   ],
+   "line": 31
+  },
   "qianliang-zhangzuo|accessionRoute.note|f74f43466397": {
    "id": "qianliang-zhangzuo",
    "path": "accessionRoute.note",
@@ -41516,6 +42096,83 @@
     "祚篡立三年而亡"
    ],
    "line": 4
+  },
+  "qianliang-zhangzuo|deathCause.note|039e72c2c851": {
+   "id": "qianliang-zhangzuo",
+   "path": "deathCause.note",
+   "span": "伯父长宁侯祚性倾巧",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/列传/第五十六章--原文.html",
+   "frags": [
+    "伯父长宁侯祚性倾巧"
+   ],
+   "line": 74
+  },
+  "qianliang-zhangzuo|deathCause.note|6d6ea570ad8d": {
+   "id": "qianliang-zhangzuo",
+   "path": "deathCause.note",
+   "span": "先是骁骑将军炖煌宋混兄修素与祚有隙",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十六国春秋.txt",
+   "frags": [
+    "先是骁骑将军炖煌宋混"
+   ],
+   "line": 1288
+  },
+  "qianliang-zhangzuo|deathCause.note|b1d59d4d7c66": {
+   "id": "qianliang-zhangzuo",
+   "path": "deathCause.note",
+   "span": "骁骑将军敦煌宋混兄修",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "骁骑将军敦煌宋混兄修"
+   ],
+   "line": 1612
+  },
+  "qianliang-zhangzuo|deathCause.note|da3db01d4b98": {
+   "id": "qianliang-zhangzuo",
+   "path": "deathCause.note",
+   "span": "华子耀灵　灵伯父祚",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/晋书.txt",
+   "frags": [
+    "华子耀灵灵伯"
+   ],
+   "line": 6563
+  },
+  "qianliang-zhangzuo|deathCause.note|e2630f0dee62": {
+   "id": "qianliang-zhangzuo",
+   "path": "deathCause.note",
+   "span": "祚奔入万秋阁为厨士徐黒所杀",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十六国春秋.txt",
+   "frags": [
+    "祚奔入万秋阁为厨士徐"
+   ],
+   "line": 1288
+  },
+  "qianliang-zhangzuo|deathCause.note|f36d863e93cd": {
+   "id": "qianliang-zhangzuo",
+   "path": "deathCause.note",
+   "span": "以宋混为尚书仆射",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "以宋混为尚书仆射"
+   ],
+   "line": 1612
+  },
+  "qianliang-zhangzuo|deathCause.note|fef5b3346760": {
+   "id": "qianliang-zhangzuo",
+   "path": "deathCause.note",
+   "span": "凉骠骑大将军宋混疾甚",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "凉骠骑大将军宋混疾甚"
+   ],
+   "line": 1615
   },
   "qianliang-zhangzuo|empressInstallationCount[0].note|58e40b3198e8": {
    "id": "qianliang-zhangzuo",
@@ -41549,6 +42206,30 @@
     "涼州牧張祚僭"
    ],
    "line": 32
+  },
+  "qianliang-zhangzuo|personalCampaignCount.note|1deb528661a7": {
+   "id": "qianliang-zhangzuo",
+   "path": "personalCampaignCount.note",
+   "span": "又遣其将易揣、张玲帅步骑万三千以袭瓘",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "又遣其将易揣",
+    "张玲帅步骑万三千以袭"
+   ],
+   "line": 8688
+  },
+  "qianliang-zhangzuo|personalCampaignCount.note|85e631219e70": {
+   "id": "qianliang-zhangzuo",
+   "path": "personalCampaignCount.note",
+   "span": "遣其将易揣、张玲率步骑万三千以袭之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianliang-zhangzuo.txt",
+   "frags": [
+    "遣其将易揣",
+    "张玲率步骑万三千以袭"
+   ],
+   "line": 4
   },
   "qianliang-zhangzuo|reigns[0].quote#0|df07981950fa": {
    "id": "qianliang-zhangzuo",
@@ -42470,6 +43151,17 @@
    ],
    "line": 2
   },
+  "qianzhao-liucan|rebellionSufferedCount.note|e0c4faadff46": {
+   "id": "qianzhao-liucan",
+   "path": "rebellionSufferedCount.note",
+   "span": "八月，冀、徐、青三州蝗。靳准弑刘粲，自号汉王",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/帝纪/第六章--原文.html",
+   "frags": [
+    "靳准弑刘粲"
+   ],
+   "line": 29
+  },
   "qianzhao-liucan|rebellionSufferedCount[0].note|55f52dcbc013": {
    "id": "qianzhao-liucan",
    "path": "rebellionSufferedCount[0].note",
@@ -42647,6 +43339,17 @@
     "廢乂為北部王"
    ],
    "line": 40
+  },
+  "qianzhao-liucong|deathCause.note|22bb9e5ae8b5": {
+   "id": "qianzhao-liucong",
+   "path": "deathCause.note",
+   "span": "吾寝疾惙顿，怪异特甚",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianzhao-liucong.txt",
+   "frags": [
+    "吾寝疾惙顿"
+   ],
+   "line": 47
   },
   "qianzhao-liucong|empressInstallationCount.note|59a009b2d525": {
    "id": "qianzhao-liucong",
@@ -42842,6 +43545,31 @@
    ],
    "line": 30
   },
+  "qianzhao-liuyao|deathCause.note|61738f7427b5": {
+   "id": "qianzhao-liuyao",
+   "path": "deathCause.note",
+   "span": "追之，及于高候，大战，败之",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/晋书.txt",
+   "frags": [
+    "追之及于高候",
+    "于高候大战败"
+   ],
+   "line": 7661
+  },
+  "qianzhao-liuyao|deathCause.note|6627cf335263": {
+   "id": "qianzhao-liuyao",
+   "path": "deathCause.note",
+   "span": "勒谕曜与其太子熙书，令速降之，曜但敕熙：『与诸大臣匡维社稷，勿以吾易意也。』",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianzhao-liuyao.txt",
+   "frags": [
+    "勒谕曜与其太子熙书",
+    "与诸大臣匡维社稷",
+    "勿以吾易意也"
+   ],
+   "line": 42
+  },
   "qianzhao-liuyao|empressInstallationCount[0].note|8c2d10569a79": {
    "id": "qianzhao-liuyao",
    "path": "empressInstallationCount[0].note",
@@ -42910,6 +43638,13 @@
     "身長八尺四寸"
    ],
    "line": 2
+  },
+  "qianzhao-liuyuan|ages.note|c908b3028269": {
+   "id": "qianzhao-liuyuan",
+   "path": "ages.note",
+   "span": "河瑞2年7月8日＝310年8月19日",
+   "status": "unresolved",
+   "nv": "23eba471"
   },
   "qianzhao-liuyuan|ages.note|f0a47ac33225": {
    "id": "qianzhao-liuyuan",
