@@ -33,7 +33,7 @@ note に**書名を書き足した・引用の出典を差し替えた**とき�
 `data/regime-conventions.json`（政権単位の慣行）を触った場合は `python3 scripts/check_regime_conventions.py`（構造・政権 id の実在・引用が実ファイルの該当行にあるか。CI でも実行）。悉皆調査に入る前に `--scope` で確定済みの範囲を、人物単位の調査を立てる前に `--for <皇帝id>` を見る。
 `data/screenings.json`（原典を読む前の機械の絞り込み）を触った場合は `python3 scripts/check_screenings.py`（`scripts/screens/*.py` を実行して記録の件数と突き合わせる・標本監査の有無。CI でも実行）。着手前に `--scope` で「母集団 N → 要読解 M」を、調査が進んで母集団が減ったら `--update` で件数だけ引き直す。
 `data/verification.json`（検証段の体数）を触った場合は `python3 scripts/check_verification.py`（体数が tier から一意か・1体へ減らす側の根拠・指摘率の記録。CI でも実行）。エージェントを立てる前に `--for <皇帝id>` で体数と観点を、ブロック全体の内訳は `--scope`、指摘率の表は `--rate`。
-`data/kinship.json` を触った場合は `python3 scripts/validate_kinship.py`（続柄と血縁エッジの実体整合・世代パリティ・親子の生没年もここで見る）。
+`data/kinship.json` を触った場合は `python3 scripts/validate_kinship.py`（続柄と血縁エッジの実体整合・世代パリティ・親子の生没年もここで見る）。**続柄の呼称（「従叔父」「甥」…）は選ばずに `python3 scripts/relation_path.py --for <皇帝id>` で引く**（`--check` で記録値との突合。報告専用でゲートではない）。
 `data/name-readings.json`（ふりがな）・`data/emperor-profiles.json`（紹介文）を触った場合は `python3 scripts/validate_readings.py`（ルビ記法・親文字一致・総ルビ充足）。紹介文（GitHub Issue #16）はさらに `python3 scripts/validate_profiles.py`（文字数・`description` が平文であること・件数・定型文の n-gram）。素材は `python3 scripts/extract_profile_material.py --section '<時代区分>'` で出す（`emperors.json` 全体を読まない）。**既存 note は既定で出さない** — 1段目に渡すと note の誤りが本文へ流れるため、`--notes on` を付けてよいのは検証段だけ（フックが止める）。**紹介文を書く前に [docs/process/profile-writing/README.md](docs/process/profile-writing/README.md) を読む**（原文先読み→引用台帳→執筆の4段手順とプロンプト雛形。1人ぶんのゲートは `scripts/check_profile_fragment.py`）。
 
 ## リポジトリ構成

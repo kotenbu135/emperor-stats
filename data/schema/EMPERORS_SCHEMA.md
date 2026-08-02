@@ -201,6 +201,71 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 `deathCause.category` のような enum は日本語の `claim` に ID が現れないので、機械照合はありません。
 そこは人が読む前提の前向きな記述です。
 
+## `conflicts` — 史料対立の置き場（2026-08-03・Issue #51 P3）
+
+原典同士が食い違うとき、いままでは**気づいた調査者が note の散文に書く**しかありませんでした。
+書かなければ「気づかなかった」のか「対立が無い」のかを区別できず、**空欄が検出できない**。
+一方、調査エージェントの出力契約（[CLAIMS_CONTRACT.md](../../docs/process/CLAIMS_CONTRACT.md)）には
+`conflicts[]` が最初からあります。**受け皿がデータ側に無かっただけ**なので、`note`・`claim` と
+同じ位置に任意の `conflicts` 配列を置きます。
+
+```json
+"ages": {
+  "deathAge": 47,
+  "confidence": "medium",
+  "conflicts": [
+    {
+      "field": "deathAge",
+      "adopted": {"value": 47, "source": {"page": "晋書 載記第二十一"},
+                  "quote": "时年四十七，在位一年"},
+      "alternatives": [
+        {"value": 38, "source": {"page": "華陽国志 巻九"}, "quote": "年二十六，立为太子",
+         "note": "永昌元年（322年）の太子冊立を年二十六とするため崩御時は数え38歳になる（逆算値）"}
+      ],
+      "reason": "晋書載記と十六国春秋がともに「时年四十七」と直接記す。華陽国志の38は逆算で直接記載ではない"
+    }
+  ]
+}
+```
+
+| 欄 | 必須 | 中身 |
+|---|---|---|
+| `field` | ○ | **同じコンテナ内**のフィールド名。どの値が割れているか |
+| `adopted` | ○ | 採用値。`value` と `source` は必須で、`quote` は原文があるなら書く。**採用側にも出典を持たせる** — 片側だけだと「採用した」と「書き忘れた」が区別できない |
+| `alternatives[]` | ○（非空） | 採らなかった値。各要素に `value` と `source`。`quote`・`note` は任意 |
+| `reason` | ○ | **なぜその値を採ったか**。これが無いと対立を書いた意味がない |
+
+置ける場所は `claim` より広く、**`events[]` の各要素にも置けます**。個々の事件の日付が史料で
+割れる形が実在し（Issue #50）、`events[].date` は `reigns` と違って `raw`・`conversion` を
+持たないので、対立を書く場所が他にありません。
+
+### 「対立なし」と「未確認」を区別する
+
+| 状態 | 書き方 |
+|---|---|
+| 確認して対立が無い | `"conflicts": []` |
+| 対立がある | `"conflicts": [ … ]` |
+| **未確認**（既存データはすべてこれ） | **キー自体を置かない** |
+
+Issue #43 の「**測れない**」と「**書き忘れた**」を区別する形で null を置く、と同じ考え方です。
+`claim` と同じく**遡及しません** — `conflicts` が無いことは対立の不在を意味せず、
+`coverage.py` は `conflicts: []` を確定の根拠にしません。
+
+### 機械が見ること（`validate_emperors.py` の `check_conflicts`）
+
+- 構造だけを見ます。**「対立を書け」というゲートは作りません** — 書かれていないことが
+  「気づかなかった」なのか「無い」なのかは機械では決まらないからです
+- `field` が同じコンテナに実在しない／`reason` が空／`adopted` に `value`・`source` が無い／
+  `alternatives` が空／対立値が採用値と同じ、はエラー
+- **`adopted.value` が実フィールドの値と食い違ったらエラー** — 採用値を訂正したときに
+  `conflicts` が置き去りになる形を止めます
+- `conflicts` を持つコンテナの件数を `INFO` で出します（0 エラーが「守れている」なのか
+  「そもそも何も見ていない」なのかを区別するため）。検出力そのものは
+  `python3 scripts/test_conflicts_field.py` が合成レコードで測ります（`claim` と同じ扱い）
+- **`quote` には引用の取り扱い規約の全項が掛かります**。`verify_quotes.py` が
+  `conflicts[].adopted.quote`・`alternatives[].quote` を抽出対象に含めるので、
+  底本の字体のまま書き、手打ちしない（`claim` に引用を書かないのとは逆で、ここは書く場所です）
+
 ## 具体例
 
 - 複数回即位（復位）: `jin-huidi`（司馬衷、八王の乱で廃位後に復位。`reigns` に2要素、`isRestoration: true` が2件目） — 詳細調査は [DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md) 側でも参照可能。

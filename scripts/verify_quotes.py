@@ -100,6 +100,44 @@ def extract_units(data):
                 units.append((eid, f"{f}.note", span))
         for span in quoted_spans((e.get("ages") or {}).get("note")):
             units.append((eid, "ages.note", span))
+        units.extend(conflict_units(e, eid))
+    return units
+
+
+def conflict_units(record, eid):
+    """史料対立フィールド `conflicts` の引用を拾う（Issue #51 P3）。
+
+    `conflicts` はどのコンテナにも置ける任意の欄なので、パスを列挙せず走査する。
+    ここを拾わないと、対立値の原文が照合台帳を素通りする（`claim` に引用を書けない
+    のと同じ理由で、規約の掛からない場所を作らない）。
+    """
+    units = []
+
+    def walk(node, path):
+        if isinstance(node, dict):
+            if isinstance(node.get("conflicts"), list):
+                base = f"{path}.conflicts" if path else "conflicts"
+                for i, c in enumerate(node["conflicts"]):
+                    if not isinstance(c, dict):
+                        continue
+                    holders = [("adopted", c.get("adopted"))]
+                    holders += [(f"alternatives[{j}]", a)
+                                for j, a in enumerate(c.get("alternatives") or [])]
+                    for name, h in holders:
+                        if not isinstance(h, dict):
+                            continue
+                        q = h.get("quote")
+                        if isinstance(q, str) and len(han_only(q)) >= 6:
+                            units.append((eid, f"{base}[{i}].{name}.quote", q))
+                        for span in quoted_spans(h.get("note")):
+                            units.append((eid, f"{base}[{i}].{name}.note", span))
+            for k, v in node.items():
+                walk(v, f"{path}.{k}" if path else k)
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                walk(v, f"{path}[{i}]")
+
+    walk(record, "")
     return units
 
 
@@ -579,6 +617,39 @@ def join_texts(*parts):
     return "／".join(vals) if vals else None
 
 
+CONFLICT_PATH_RE = re.compile(
+    r"^(?P<owner>.+)\.conflicts\[(?P<ci>\d+)\]\."
+    r"(?:adopted|alternatives\[(?P<ai>\d+)\])\.(?:quote|note)$")
+
+
+def conflict_holder(record, m):
+    """`…conflicts[i].adopted|alternatives[j]` のオブジェクトを引く（無ければ None）。"""
+    node = record
+    for part in m.group("owner").split("."):
+        key = re.match(r"^([A-Za-z]+)((?:\[\d+\])*)$", part)
+        if not key or not isinstance(node, dict):
+            return None
+        node = node.get(key.group(1))
+        for idx in re.findall(r"\[(\d+)\]", key.group(2)):
+            if not isinstance(node, list) or int(idx) >= len(node):
+                return None
+            node = node[int(idx)]
+    if not isinstance(node, dict):
+        return None
+    conflicts = node.get("conflicts")
+    if not isinstance(conflicts, list) or int(m.group("ci")) >= len(conflicts):
+        return None
+    c = conflicts[int(m.group("ci"))]
+    if not isinstance(c, dict):
+        return None
+    if m.group("ai") is None:
+        holder = c.get("adopted")
+    else:
+        alts = c.get("alternatives") or []
+        holder = alts[int(m.group("ai"))] if int(m.group("ai")) < len(alts) else None
+    return holder if isinstance(holder, dict) else None
+
+
 def source_text(e, path):
     """引用ユニットの path から「書名が書かれている本文」を取り出す。
 
@@ -587,6 +658,12 @@ def source_text(e, path):
     （十国春秋・旧五代史で頻出）が全部「名乗る書に無い」になる。散文より
     `source.page` のほうが「どこを読んだか」の主張としては確かなので、和集合を採る。
     """
+    m = CONFLICT_PATH_RE.match(path)
+    if m:
+        holder = conflict_holder(e, m)
+        if holder is None:
+            return None
+        return join_texts(holder.get("note"), (holder.get("source") or {}).get("page"))
     m = re.match(r"^reigns\[(\d+)\]\.(.+)$", path)
     if m:
         i, rest = int(m.group(1)), m.group(2)
