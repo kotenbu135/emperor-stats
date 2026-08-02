@@ -10,6 +10,7 @@
 | [kinship.json](kinship.json) | 系譜・即位経路グラフ（ブリッジ人物 `persons` + エッジ3種 + 系譜主張。皇帝ノードは emperors.json を id 参照。調査中） |
 | [regime-conventions.json](regime-conventions.json) | **調査の簿記であってデータセットではない**。「この正史はこの政権のこの項目をどこに・どんな書式で載せるか」を原典から政権単位に確定した記録で、人物単位の調査対象を絞るために使う（規則 `R-REGIME-FIRST`）。**値は書かない** — 書けるのは書式・所在と、原典が制度そのものを明言している場合のその明文だけ。サイトのビルドもバリデータも読まない |
 | [screenings.json](screenings.json) | **調査の簿記であってデータセットではない**。原典を読む前に機械で母集団を絞った記録（「母集団 N → 要読解 M」）で、絞り込み自体は `scripts/screens/*.py`（規則 `R-SCREEN-FIRST`）。**記録の数字はゲートがスクリプトを実行して突き合わせる**ので、データが動けば落ちる（`check_screenings.py --update` で件数だけ引き直す）。**機械が何も見つけなかった側は「値が無い」ではない**ので種つき標本の監査を持つ。サイトのビルドもバリデータも読まない |
+| [verification.json](verification.json) | **調査の簿記であってデータセットではない**。検証段に何体立てるかを政権の史料形態から引くための記録（規則 `R-VERIFY-TIER`）。正史が一代通しの独立記述を立てる政権は1体、載記・類書・別史・地方志に依存する政権は3体。**記録に無い政権は厚い側（3体）**で、1体へ減らす側にだけ書名・所在の根拠が要る。ブロック別の指摘率（`raised`／`confirmed`）もここに残す。サイトのビルドもバリデータも読まない |
 | [emperor-profiles.json](emperor-profiles.json) | 皇帝個別ページの紹介文（[Issue #16](https://github.com/kotenbu135/emperor-stats/issues/16)・執筆中）。**原典調査の結果ではなく編集コンテンツ**で、既存の調査結果を読者向けに言い直したもの。`emperors.json` と別ファイルなのは、性格が違うことに加えて約7MBのデータセットを365回の追記で触ると並行セッションと衝突するため |
 
 **`emperor-profiles.json` は配布物に含めていない**（`site/scripts/build-data-distribution.mjs` が `public/data/` へ出すのは emperors.json・emperors.csv・emperors.schema.json の3本のみ）。含めるかは別途の判断で、既定は「含めない」。

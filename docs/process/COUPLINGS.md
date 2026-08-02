@@ -50,4 +50,6 @@
 | `data/emperors.json` の対象フィールドを埋める | 同上（母集団が減るので記録の数字が古くなる） | 同上 |
 | `data/emperors.json`・`kinship.json`・`emperor-profiles.json` の値を増やす | `docs/PROJECT_STATUS.md` の実測カバレッジ（生成領域）を `python3 scripts/coverage.py --write` で引き直す | `coverage.py --check`（**CI でも実行**・Stop フックでも流れる） |
 | `coverage.py` の測り方（`FIELDS`・`absent` の条件）を変える | 同上。**`absent` を足すのは構造的な根拠があるときだけ** — 散文を根拠にすると「確定した」が水増しされる | 同上＋`scripts/screens/*.py` との突き合わせ（同じ母集団を測る道具が2つあるので合わなければどちらかが誤り） |
+| `data/verification.json` の tier を動かす | `.claude/workflows/*.js` が立てる検証の体数（tier から引くので記録が正）。**own-annals へ移すときは書名・所在・体裁の根拠が要る**（1体へ減らす側だけ非対称に厚く） | `check_verification.py`（**CI でも実行**・Stop フックでも流れる。所在の実在確認はコーパスのあるローカルだけ） |
+| 検証段を回してブロックを終える | `data/verification.json` の `blocks` に `raised`／`confirmed` を記録（**記録しないと体数を動かした効果が読めない**＝規則の完了条件が消える） | 同上＋`check_verification.py --rate` |
 | 判定基準を変える | **その基準で調査済みのブロックの遡及監査** | 無い。基準変更時に対象人数を先に出す（被反乱回数の基準訂正時は35名を監査した） |

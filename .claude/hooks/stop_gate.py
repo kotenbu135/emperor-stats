@@ -43,6 +43,7 @@ LIGHT_GATES = [
                                     "coverage.py --check"]),
     ("data/regime-conventions.json", ["check_regime_conventions.py"]),
     ("data/screenings.json", ["check_screenings.py"]),
+    ("data/verification.json", ["check_verification.py"]),
 ]
 
 # 引用・日付を触ったときだけ必要になるゲート

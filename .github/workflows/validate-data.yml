@@ -21,6 +21,7 @@ on:
       - "scripts/check_rules.py"
       - "scripts/check_regime_conventions.py"
       - "scripts/check_screenings.py"
+      - "scripts/check_verification.py"
       - "scripts/screens/**"
       - "scripts/coverage.py"
       - "docs/PROJECT_STATUS.md"
@@ -41,6 +42,7 @@ on:
       - "scripts/check_rules.py"
       - "scripts/check_regime_conventions.py"
       - "scripts/check_screenings.py"
+      - "scripts/check_verification.py"
       - "scripts/screens/**"
       - "scripts/coverage.py"
       - "docs/PROJECT_STATUS.md"
@@ -101,6 +103,12 @@ jobs:
       # 引用の実在検査だけは上と同じ理由でコーパスが無く飛ぶ。
       - name: Validate screenings
         run: python3 scripts/check_screenings.py
+
+      # 検証段の体数（data/verification.json）。体数が tier から一意に決まっているか、
+      # 1体へ減らす側に書名・所在の根拠があるか、指摘率の記録が confirmed <= raised を
+      # 満たすかを見る。所在の実在確認だけはコーパスが無いので飛ぶ。
+      - name: Validate verification tiers
+        run: python3 scripts/check_verification.py
 
       # 規則台帳（docs/process/RULES.yml）の自己検査。全規則が適用範囲と根拠を持つか、
       # .claude/hooks/guard.py の実装と台帳の強制層 L1 が一致するかを見る。

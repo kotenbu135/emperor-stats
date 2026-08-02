@@ -33,7 +33,7 @@ def make_repo(tmp, gates):
     (root / "scripts").mkdir()
     (root / ".claude").mkdir()
     for name in ("emperors.json", "kinship.json", "regime-conventions.json",
-                 "screenings.json"):
+                 "screenings.json", "verification.json"):
         (root / "data" / name).write_text('{"emperors": []}\n', encoding="utf-8")
     for name, body in gates.items():
         (root / "scripts" / name).write_text(body, encoding="utf-8")
@@ -67,7 +67,7 @@ def main():
 
     gates_ok = {"validate_emperors.py": GATE_OK, "verify_calendar.py": GATE_OK,
                 "validate_kinship.py": GATE_OK, "check_regime_conventions.py": GATE_OK,
-                "check_screenings.py": GATE_OK}
+                "check_screenings.py": GATE_OK, "check_verification.py": GATE_OK}
     gates_ng = {**gates_ok, "validate_emperors.py": GATE_NG}
 
     print("差分が無ければ何もしない")
@@ -133,6 +133,15 @@ def main():
         rc, out, err = fire(root)
         check("emperors の差分 → check_screenings も流れる",
               rc == 2 and "check_screenings" in err, f"{rc} {err}")
+
+    # 検証段の体数の記録。emperors.json 側には紐づけない（政権の史料形態は
+    # データを直しても変わらないので、値を埋めるたびに流す理由がない）
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_repo(tmp, {**gates_ok, "check_verification.py": GATE_NG})
+        dirty(root, "verification.json", '{"tiers": [1]}\n')
+        rc, out, err = fire(root)
+        check("検証体数の差分 → check_verification が落ちる",
+              rc == 2 and "check_verification" in err, f"{rc} {err}")
 
     # coverage.py は既定の動作が検査ではない（報告を出して 0 で返る）。
     # 引数が渡っていなければ素通しになるので、渡っていることを直接見る

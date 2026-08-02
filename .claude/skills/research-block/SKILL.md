@@ -108,6 +108,17 @@ python3 scripts/brief_block.py <書名や時代区分> [--id <皇帝id>]
 - **id はプロンプトに直接埋め、「一字一句そのまま返す」と書く**
 - 段構成が2段以上になるなら `.claude/workflows/` に名前つきで置く（毎回書き直さない。
   既存: `name-block.js`）。**検証段を省かない** — 自分の出力を自分で検証させると通ってしまう
+- **検証段の体数はブロックごとに決めない**（規則 `R-VERIFY-TIER`）。政権の史料形態から引く:
+
+  ```bash
+  python3 scripts/check_verification.py --for <皇帝id>   # tier・体数・観点
+  python3 scripts/check_verification.py --scope          # ブロック全体の内訳
+  ```
+
+  本紀・帝紀が独立して立つ王朝は1体（`facts`）、載記・類書・別史・地方志に依存する政権は
+  **3体**（`facts`・`kinship`・`dates`）。欠陥密度が実測で 0件/人 と 1.56件/人 の段になっていて、
+  どのブロックも同じ厚みで回すと薄い側に無駄が出て厚い側で漏れます。
+  **記録に無い政権は厚い側（3体）**。3体の指摘は `(field, problem)` で畳んでから数える
 
 ## 4. 受け取る
 
@@ -136,6 +147,21 @@ python3 scripts/coverage.py --write         # PROJECT_STATUS.md の進捗表記�
 `--write` を忘れたコミットは CI と turn 終了時のゲートが落とします。**残ったセルは
 `--field <項目>` で id が出る**ので、そのまま次のブロックの母集団になります
 （0.6 節の絞り込みへ戻る）。
+
+## 4.6. 検証段の指摘率を記録する
+
+ブロックを終えたら `data/verification.json` の `blocks` に1行足します（規則 `R-VERIFY-TIER` の完了条件）:
+
+```bash
+python3 scripts/check_verification.py          # ゲート
+python3 scripts/check_verification.py --rate   # ブロック別の指摘率
+```
+
+- `raised` = 検証段の指摘を `(field, problem)` で畳んだ一意件数（**体ごとに数えると3体で水増し**）
+- `confirmed` = そのうち**親セッションが原文で確かめて実欠陥だった**件数。検証段に自己採点させない
+- `escapes` = 後日、別作業の途中で見つかった実欠陥（あとから足す）
+
+**体数を動かした効果は同じ tier の中でしか読めません**（tier をまたぐと政権の密度と交絡する）。
 
 ## 5. 手順の改善を提案する
 

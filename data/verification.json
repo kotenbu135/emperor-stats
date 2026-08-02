@@ -1,0 +1,252 @@
+{
+  "meta": {
+    "purpose": "検証段に何体立てるかを、ブロックごとの勘ではなく**政権の史料形態**から決めるための簿記（Issue #41 の実施順5・規則 R-VERIFY-TIER）。欠陥密度は一様ではなく、正史が一代通しの独立記述を立てる政権ではほぼ出ず、載記・類書・地方志に依存する政権で集中する。体数をその段差に合わせる",
+    "notForBuild": "サイトのビルドもバリデータもこれを読まない。読むのは scripts/check_verification.py と調査の段取り（.claude/workflows/*.js・.claude/skills/*）だけ。emperors.json の meta へ入れないのは、meta の read-modify-write が並行セッション規則（R-RMW）に当たるため",
+    "updated": "2026-08-02",
+    "rule": "**体数は政権の属性から引く。ブロックごとに人が決めない。** 史料形態は政権単位で決まっていて人物単位では変わらないので、着手のたびに判断し直すと判断が揺れる（規則 R-REGIME-FIRST と同じ理由）",
+    "default": "**ここに載っていない政権はすべて dependent（3体）として扱う。** 載せ忘れが厚い側へ倒れる形にしてある。scripts/check_verification.py --scope が既定へ落ちた政権を必ず名指しで出すので、黙って薄くなることはない",
+    "tiers": {
+      "own-annals": "正史がその政権の君主を**一代通しの独立記述**で扱う（本紀・帝紀。三国志の先主傳・吳主傳のように、体裁は伝でも一代を通す記述を含む）。検証は1体（事実）",
+      "dependent": "**載記・類書・別史・地方志・他政権の列伝**の断片に依存する。記事が複数の書に散り、日付と続柄が書ごとに割れる。検証は3体（事実・続柄・日付）"
+    },
+    "lenses": {
+      "facts": "主張を1つずつ原文へ当て直す。人物の取り違え・出来事の主体・数値",
+      "kinship": "続柄と世代。**原文が直接述べていない関係を推してないか**。同名・避諱・追尊による取り違え",
+      "dates": "年号年と西暦の対応・旧暦の月・干支日。複数箇所を1つの記述へ合成していないか"
+    },
+    "asymmetry": "**1体に減らす側だけ根拠が要る。** 3体に増やす誤りはトークンを損するだけだが、1体に減らす誤りはその政権の誤りを通す。だから own-annals には書名と所在の証拠を必須にし、dependent は既定として無根拠で置ける",
+    "metrics": {
+      "escapes": "**検証段を通過したあとで、別作業の途中に見つかった実欠陥**。tier を分ける根拠になった数字はこれ（Issue #32・#33・#36 の34件）。遡及して数えられるのはこの列だけ",
+      "raised": "検証段が**挙げた**指摘の件数。体ごとに数えると3体で重複するので、(field, problem) で畳んだ一意の件数を書く",
+      "confirmed": "raised のうち親セッションが原文で確かめて**実欠陥だった**件数。raised が0のとき率は未定義（null）"
+    },
+    "limits": "**史料形態は3段の階段のうち2段しか説明しない。** 前漢・後漢・三国（0件）と晋（6件・0.40/人）はどちらも own-annals なのに差がある。晋の6件（Issue #32・#33）は西晋・東晋の帝紀を持つ人物で出ており、内訳は出典ラベルの取り違え1件と、記事の合成・主体の誤り・崩御地の相違といった事実の誤り。つまり **own-annals でも欠陥は出る**。この tier が説明するのは「原典から取れるかどうか」の側だけで、同一レコード内の食い違いや note の陳腐化は Issue #40 のゲート（G1〜G4）の担当。**モデルが階段を全部説明できていないことを承知のうえで体数を振っている**ので、raised/confirmed を記録して後から反証できるようにしてある",
+    "confound": "**体数と欠陥密度は交絡している。** dependent を3体にすると raised は増えるが、それが体数のせいか政権の密度のせいかは、この表だけでは割れない。読むときは **tier の中で**（同じ tier のブロック同士で）比べる。tier をまたいで率を比べても体数の効果は出ない"
+  },
+  "tiers": [
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["qin"],
+      "book": "史記",
+      "locator": "china-history/史记/十二本纪（秦始皇本紀。二世皇帝の記事も同紀内）",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["western-han"],
+      "book": "漢書",
+      "locator": "china-history/汉书/纪",
+      "form": "紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["eastern-han"],
+      "book": "後漢書",
+      "locator": "china-history/后汉书/本纪",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["cao-wei"],
+      "book": "三国志",
+      "locator": "china-history/三国志/魏书（武帝紀〜陳留王紀）",
+      "form": "紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["shu-han", "eastern-wu"],
+      "book": "三国志",
+      "locator": "china-history/三国志/蜀书（先主傳・後主傳）・china-history/三国志/吴书（吳主傳〜）",
+      "form": "伝（一代通し）",
+      "note": "体裁は伝だが一代を編年で通すので、断片依存にはならない。**形式ではなく「一代を通す独立記述があるか」で割る**（形式だけで割ると蜀漢・呉が dependent へ落ちるが、実測の欠陥密度は0だった）"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["western-jin", "eastern-jin"],
+      "book": "晋書",
+      "locator": "china-history/晋书/帝纪",
+      "form": "帝紀",
+      "note": "同じ晋書でも五胡十六国は載記（列伝の後）で、そちらは dependent。**書が同じでも所在が違えば tier は違う**"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["northern-wei", "eastern-wei"],
+      "book": "魏書",
+      "locator": "china-history/魏书/帝纪",
+      "form": "帝紀",
+      "note": "西魏の3帝は魏書が東魏を正統に置くため帝紀を持たない。西魏は既定（dependent）のまま"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["liu-song"],
+      "book": "宋書",
+      "locator": "china-history/宋书/本纪",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["southern-qi"],
+      "book": "南斉書",
+      "locator": "china-history/南齐书/本纪",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["southern-liang"],
+      "book": "梁書",
+      "locator": "china-history/梁书/原文版梁书（卷一〜六が本紀）",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["chen"],
+      "book": "陳書",
+      "locator": "china-history/陈书/原文版陈书（卷一〜六が本紀）",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["northern-qi"],
+      "book": "北斉書",
+      "locator": "china-history/北齐书/原文版北齐书（卷一〜八が帝紀）",
+      "form": "帝紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["northern-zhou"],
+      "book": "周書",
+      "locator": "china-history/周书/原文版周书（卷一〜八が帝紀）",
+      "form": "帝紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["sui"],
+      "book": "隋書",
+      "locator": "china-history/隋书/帝纪",
+      "form": "帝紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["tang", "wu-zhou"],
+      "book": "舊唐書",
+      "locator": "china-history/旧唐书/本纪（則天皇后は本紀第六）",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["later-liang", "later-tang", "later-jin", "later-han", "later-zhou"],
+      "book": "舊五代史",
+      "locator": "china-history/旧五代史/{后梁,后唐,后晋,后汉,后周}",
+      "form": "本紀",
+      "note": "十国は同じ五代期でも十国春秋・地方志に依存するので既定（dependent）のまま"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["liao"],
+      "book": "遼史",
+      "locator": "china-history/辽史/本纪",
+      "form": "本紀",
+      "note": "西遼は天祚帝紀の末尾に付される扱いで一代通しの紀を持たないため、既定（dependent）のまま"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["northern-song", "southern-song"],
+      "book": "宋史",
+      "locator": "china-history/宋史/本纪",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["jin-jurchen"],
+      "book": "金史",
+      "locator": "china-history/金史/本纪",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["yuan"],
+      "book": "元史",
+      "locator": "china-history/元史/本纪",
+      "form": "本紀",
+      "note": "北元・元末群雄は明史の列伝と新元史に散るので既定（dependent）のまま"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["ming"],
+      "book": "明史",
+      "locator": "china-history/明史/本纪",
+      "form": "本紀",
+      "note": "南明4人は明史に本紀を持たず小腆紀傳に依存するので既定（dependent）のまま"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": ["qing"],
+      "book": "清史稿",
+      "locator": "daizhigev20/史藏/正史/清史稿.txt（本紀二〜二十五・行102〜3881。SOURCE_MAPPING.md の行番号表）",
+      "form": "本紀"
+    }
+  ],
+  "blocks": [
+    {
+      "id": "profiles-han-sanguo",
+      "task": "profiles",
+      "section": "前漢・後漢・三国",
+      "people": 43,
+      "tier": "own-annals",
+      "verifiersPerPerson": 2,
+      "raised": null,
+      "confirmed": null,
+      "escapes": 0,
+      "measuredAt": "2026-08-02",
+      "note": "Issue 化された欠陥は0件（コミット 03d1976 で魏の立后日など少数を直接訂正）。**raised/confirmed は遡及して数えられない** — 検証段の指摘件数を記録し始めたのがこの Issue から。escapes だけが遡及値"
+    },
+    {
+      "id": "profiles-jin",
+      "task": "profiles",
+      "section": "西晋・東晋",
+      "people": 15,
+      "tier": "own-annals",
+      "verifiersPerPerson": 2,
+      "raised": null,
+      "confirmed": null,
+      "escapes": 6,
+      "measuredAt": "2026-08-02",
+      "note": "Issue #32・#33。0.40件/人"
+    },
+    {
+      "id": "profiles-xiaozhengquan-shiliuguo",
+      "task": "profiles",
+      "section": "小政権6＋五胡十六国12",
+      "people": 18,
+      "tier": "dependent",
+      "verifiersPerPerson": 2,
+      "raised": null,
+      "confirmed": null,
+      "escapes": 28,
+      "measuredAt": "2026-08-02",
+      "note": "Issue #36。1.56件/人。**同じ2体で回してこの差が出た**のが体数を段差に合わせる根拠"
+    }
+  ]
+}
