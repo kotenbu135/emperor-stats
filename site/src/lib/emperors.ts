@@ -661,6 +661,7 @@ export function getEmperorListRecords(): EmperorListRecord[] {
     eraLabelRuby: rubyOf(r.eraLabel),
     dynastyKey: r.dynastyKey,
     dynastyCategory: r.dynastyCategory,
+    isRivalClaimant: r.isRivalClaimant,
     portraitUrl: r.portraitUrl,
     portraitFocusY: r.portraitFocusY,
     periodsLabel: r.periodsLabel,
