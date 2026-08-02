@@ -56,16 +56,16 @@ rules:
   - id: R-QUOTE-GLYPH
     summary: 引用は底本の字体のまま保存する（新字体・繁体への変換をモデルが行わない）
     scope: "**原文引用の断片だけ**。同じ note の中でも日本語の地の文・換算メモは新字体で書く"
-    enforcement: [L3]
-    detail: verify_quotes.py --check（新字体表の助けなしに底本へ当たるか）。逃げ道は quote-refs.json の glyphAllow のみ・理由必須
+    enforcement: [L1, L3]
+    detail: L1＝.claude/hooks/stop_gate.py（引用・日付を触っていれば流す）／L3＝verify_quotes.py --check（新字体表の助けなしに底本へ当たるか）。逃げ道は quote-refs.json の glyphAllow のみ・理由必須。**照合そのものが失敗しているユニットにはこのゲートが掛からない**ので、正規化を直して照合が通るようになると混入が新たに表へ出る（2026-08-03 に5件）
     evidence: 字体混入684字・431フィールド・181人（2026-08-02）。範囲を書かずに直したため日本語の地の文2件まで旧字体にしてしまい戻した
     source: docs/process/RESEARCH_PROCESS.md 規約2
 
   - id: R-QUOTE-BOOK
     summary: 引用は「その note・source.page が名乗る書」に実在すること（出典の取り違えを残さない）
     scope: 書名を名乗っている引用ユニットだけ。書名を名乗らない引用・断片が日付表現だけのものは対象外
-    enforcement: [L3]
-    detail: verify_quotes.py --check-books（ローカル専用・要コーパス）。note 本文・source.page・conversion 本文の和集合を名乗りとして読み、名乗ったどれか1書に全断片が在れば合格。逃げ道は quote-refs.json の bookAllow のみ・理由必須で、**使えるのはコーパス側の欠陥（一書の中で1箇所だけ字が壊れている等）・内篇名の誤読・引用の作り方が原因のときだけ**。書名が実際に違うなら note を直す
+    enforcement: [L1, L3]
+    detail: L1＝.claude/hooks/stop_gate.py（引用・日付を触っていれば --check と一緒に流す。2回目以降は数秒）／L3＝verify_quotes.py --check-books（ローカル専用・要コーパス。CI は回せない）。note 本文・source.page・conversion 本文の和集合を名乗りとして読み、名乗ったどれか1書に全断片が在れば合格。逃げ道は quote-refs.json の bookAllow のみ・理由必須で、**使えるのはコーパス側の欠陥（一書の中で1箇所だけ字が壊れている等）・内篇名の誤読・引用の作り方が原因のときだけ**。書名が実際に違うなら note を直す。**底本の字をそのまま採るとデータが誤りになるなら引用は正字を保って bookAllow へ倒す**（南唐書の「已卯」・明史の「讨症」はどちらも語として成立しない）。bookAllow のキーは `id|path` なので、**同じ note に後から足した引用も黙って許可される**——理由文が説明していない引用が相乗りしていないか、足すときに見る
     evidence: 99件（72人）を原典に当て直して残件0へ（2026-08-03・Issue #40 G1）。書名そのものの誤りは20件で、残りは検出器・正規化・引用の作り方の側だった。名乗りを note の散文だけから採っていたため、source.page にだけ書名がある形（十国春秋・旧五代史）が全部誤検出になっていた
     source: docs/process/RESEARCH_QA_PLAN_2026-08-02.md 4-4
 

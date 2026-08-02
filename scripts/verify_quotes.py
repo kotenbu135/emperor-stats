@@ -735,12 +735,33 @@ def cmd_prune_stale():
     """
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     refs = load_refs()
-    live = {unit_key(eid, path, span) for eid, path, span in extract_units(data)}
-    stale = [k for k in refs["refs"] if k not in live]
+    known = refs["refs"]
+    live = {unit_key(eid, path, span): (eid, path, span)
+            for eid, path, span in extract_units(data)}
+    # 正規化のしかたを変えるとキーのハッシュも変わる。span がそのままなら**同じ引用**なので、
+    # 人手の判定（manual/external/defect とその理由）を新しいキーへ移してから消す
+    # ——移さずに消すと、引用を1字も触っていないユニットの人手判断が黙って失われる。
+    by_span = {}
+    for k, (eid, path, span) in live.items():
+        by_span[(eid, path, norm_for_match(span))] = k
+    stale = [k for k in known if k not in live]
+    carried = 0
     for k in stale:
-        del refs["refs"][k]
+        ent = known[k]
+        if ent.get("status") not in CURATED:
+            continue
+        tgt = by_span.get((ent.get("id"), ent.get("path"), norm_for_match(ent.get("span") or "")))
+        if tgt and known[tgt].get("status") not in CURATED:
+            for f in ("status", "note"):
+                if ent.get(f) is not None:
+                    known[tgt][f] = ent[f]
+            known[tgt].pop("triage", None)
+            carried += 1
+    for k in stale:
+        del known[k]
     save_refs(refs)
-    print(f"参照されなくなった台帳エントリを消した: {len(stale)} 件 / 残り {len(refs['refs'])} 件")
+    print(f"参照されなくなった台帳エントリを消した: {len(stale)} 件 / 残り {len(known)} 件"
+          f"（人手の判定を新しいキーへ引き継いだ: {carried} 件）")
     return 0
 
 

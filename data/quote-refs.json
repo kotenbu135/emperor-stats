@@ -26064,16 +26064,16 @@
    ],
    "line": 36
   },
-  "jin-wudi|personalCampaignCount.note|0441b933ca76": {
+  "jin-wudi|personalCampaignCount.note|288237c70fe4": {
    "id": "jin-wudi",
    "path": "personalCampaignCount.note",
-   "span": "馬隆西伐、王浚南征",
+   "span": "馬隆西伐、王濬南征",
    "status": "corpus",
-   "corpusFile": "china-history/晋书/帝纪/第三章--原文.html",
+   "corpusFile": "daizhigev20/子藏/类书/御定渊鉴类函.txt",
    "frags": [
-    "馬隆西伐王浚"
+    "馬隆西伐王濬"
    ],
-   "line": 51
+   "line": 4414
   },
   "jin-wudi|rebellionSuppressionCount[0].note|7029094a6531": {
    "id": "jin-wudi",
@@ -37624,17 +37624,6 @@
    ],
    "line": 43
   },
-  "ming-xuanzong|rebellionSufferedCount[12].note|ca596ba72129": {
-   "id": "ming-xuanzong",
-   "path": "rebellionSufferedCount[12].note",
-   "span": "山云讨症思恩叛蛮",
-   "status": "cache",
-   "corpusFile": "_corpus_cache/ming-xuanzong.txt",
-   "frags": [
-    "山云讨症思恩叛蛮"
-   ],
-   "line": 47
-  },
   "ming-xuanzong|rebellionSufferedCount[12].note|dc64f7cf3de8": {
    "id": "ming-xuanzong",
    "path": "rebellionSufferedCount[12].note",
@@ -37645,6 +37634,17 @@
     "山云讨平柳"
    ],
    "line": 24
+  },
+  "ming-xuanzong|rebellionSufferedCount[12].note|f657389f8a24": {
+   "id": "ming-xuanzong",
+   "path": "rebellionSufferedCount[12].note",
+   "span": "山云讨平思恩叛蛮",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/御定资治通鉴纲目三编.txt",
+   "frags": [
+    "山云讨平思恩"
+   ],
+   "line": 1925
   },
   "ming-xuanzong|rebellionSufferedCount[13].note|a7cf29feff30": {
    "id": "ming-xuanzong",
@@ -37815,16 +37815,16 @@
    ],
    "line": 43
   },
-  "ming-xuanzong|rebellionSuppressionCount[12].note|ca596ba72129": {
+  "ming-xuanzong|rebellionSuppressionCount[12].note|f657389f8a24": {
    "id": "ming-xuanzong",
    "path": "rebellionSuppressionCount[12].note",
-   "span": "山云讨症思恩叛蛮",
-   "status": "cache",
-   "corpusFile": "_corpus_cache/ming-xuanzong.txt",
+   "span": "山云讨平思恩叛蛮",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/御定资治通鉴纲目三编.txt",
    "frags": [
-    "山云讨症思恩叛蛮"
+    "山云讨平思恩"
    ],
-   "line": 47
+   "line": 1925
   },
   "ming-xuanzong|rebellionSuppressionCount[13].note|a7cf29feff30": {
    "id": "ming-xuanzong",
@@ -52870,9 +52870,9 @@
    "id": "sui-yangdi",
    "path": "reigns[0].quote#1",
    "span": "資治通鑑卷一百八十(仁寿四年)「乙卯、發喪、太子即皇帝位。」〔在位終了＝弑殺〕隋",
-   "status": "unresolved",
+   "status": "manual",
    "nv": "846f029b",
-   "triage": "Issue #38（底本で確認できない引用の再調査）"
+   "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
   },
   "sui-yangdi|reigns[0].quote#2|fb68ba46fbaf": {
    "id": "sui-yangdi",
@@ -79495,11 +79495,14 @@
   "beiwei-taiwudi|eraChangeCount[4].note": "魏書 巻4下 世祖紀下に「六月丁丑，皇孙浚生，大赦，改年」として実在。コーパスの魏書は文成帝の諱を全篇「浚」で通し、引用の正字「濬」と字形が違う",
   "houliang-xuandi|empressInstallationCount[0].note": "周書 巻48 蕭詧傳に実在。コーパスの周书.txt は「詧」を全篇「察」へ置換しており（「外示助察備禦」が非文）引用の正字では当たらない。同文は北史 巻93 で確認",
   "houliang-xuandi|eraChangeCount[0].note": "周書 巻48 蕭詧傳に実在。コーパスの周书.txt は「詧」を全篇「察」へ置換しており（「外示助察備禦」が非文）引用の正字では当たらない。同文は北史 巻93 で確認",
+  "jin-wudi|personalCampaignCount.note": "晋書 巻三 武帝紀の底本が王濬を「浚」と作る（同じ晋書でも巻四十二 王濬傳は「濬」）。同一人物の異体で、引用は正字を保つ",
+  "ming-xuanzong|rebellionSufferedCount[12].note": "明史 巻九 宣宗本紀の底本（daizhigev20・china-history とも）が「讨平」を「讨症」と誤植している（同巻の並行記事は「山云讨平柳、浔蛮」）。讨症は語として成立しないため引用は讨平を保つ",
+  "ming-xuanzong|rebellionSuppressionCount[12].note": "明史 巻九 宣宗本紀の底本（daizhigev20・china-history とも）が「讨平」を「讨症」と誤植している（同巻の並行記事は「山云讨平柳、浔蛮」）。讨症は語として成立しないため引用は讨平を保つ",
   "qianyan-murongjun|capitalRelocationCount[1].note": "晋書 巻13 志第三（天文志下）の当該箇所が両コーパスとも「慕容ＪＩ入屯鄴」と1字だけ全角ラテンに化けている（同書内の他23例は「慕容俊」）",
   "qin-er-shi|ages.note": "「二世三年八月」は原文引用ではなく崩御年月のラベルで、史記 巻6 秦始皇本紀の「三年」と「八月己亥」から組み立てたもの。書名の名乗り「史記」自体は正しい",
   "shiguo-houshu-mengchang|eraChangeCount.note": "新五代史 後蜀世家第四の電子底本が「廣政」を「庆政」と誤植している（同じ書の別行は「广政九年」と正しく書く）",
   "shiguo-nantang-lijing|reigns[0].conversion": "陸游『南唐書』の底本が「己卯朔」を「已卯朔」と誤字（已は干支として成立しない）。十国春秋が「己卯朔」で一致し引用側が正しい",
-  "wei-caomao|rebellionSufferedCount.note": "断片は三國志 魏書四 三少帝紀の大將軍文王上言。note が名乗る『漢晉春秋』は成濟への指示者に関する別主張の出典で、逸文は三國志裴注に引かれる形で残る",
+  "wei-caomao|rebellionSufferedCount.note": "2ユニットとも断片は三國志 魏書四 三少帝紀（大將軍文王上言と、曹髦が「舉兵入西宮殺吾」と述べる条）に実在する。note が名乗る『漢晉春秋』は成濟への指示者に関する別主張の出典で、逸文は三國志裴注に引かれる形で残る",
   "wei-mingdi|amnestyCount[4].note": "三國志 魏書三 明帝紀に実在するが、両コーパスとも「虹」の直後に音注「洨音胡交反。虹音绛。」が挿入され正文の連続断片が取れない。名乗りの「魏書」は三國志の内篇名",
   "wudai-houliang-taizu|crownPrinceDepositionCount.note": "note の「梁書」は旧五代史の内篇（巻七・梁書七 太祖紀七）で南朝梁の正史『梁書』ではない。断片は旧五代史 巻七に実在",
   "yuan-shizu|reigns[0].note": "「皇帝登寶位詔」は元史が題名を載せない後世の詔題で、詔の本文は元史 巻4 世祖紀一「辛丑，以即位詔天下。詔曰…」として在る。題名を載せる元文類はコーパス未収録"
