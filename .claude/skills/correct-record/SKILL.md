@@ -39,6 +39,19 @@ python3 scripts/quote_diff.py <皇帝id>                  # 当たらない引�
 
 ## 3. 書く
 
+**転記ツールを通す**（その場の `python3 -c` を書かない）:
+
+```bash
+python3 scripts/patch_emperor.py <皇帝id> --set 'deathCause.category="poisoning"' --dry-run
+python3 scripts/patch_emperor.py <皇帝id> --set-str 'ages.note=…'        # 引用の多い長文
+python3 scripts/patch_emperor.py <皇帝id> --from-json patch.json          # 複数フィールド
+```
+
+読み込み時点の sha256 を書き込み直前に照合するので、**別セッションが割り込んでいたら
+書かずに落ちます**。前後差分と、触ったパスが要求するゲート・結合も出ます。
+`--set` の右辺は JSON、まだ無い欄を新設するときだけ `--allow-new-key`
+（既定では綴り間違いとして落ちます）。
+
 - **対象 id のフィールドだけ**を更新する。`meta`・他レコードには触らない
   （同じ作業ツリーで別セッションが編集しています）
 - **実行直前に最新のファイルを読み込む。** ファイル全体をメモリに読んで丸ごと書き戻さない
@@ -50,6 +63,12 @@ python3 scripts/quote_diff.py <皇帝id>                  # 当たらない引�
   旧値のままだった実例が Issue #42 にある（`validate_emperors.py` の `check_death_event_date`
   は、そのうち**被反乱 event の没日だけ**を機械で見ます）
 - 捨てた側の値は note（作業ログ）へ、現在の主張は構造フィールドへ
+- **新しく note を書いたら、同じコンテナに `claim` を1〜2文添える**（任意・遡及なし）。
+  note は「現行 X → Y に訂正」と**捨てた側**を書くので突合の向きが反転する。claim は
+  いま正しいと判断している内容だけを前向きに書く欄で、**引用は書かず**（照合台帳が
+  claim を見ない）、**件数は算用数字**で書く（`count` と機械照合される）。
+  新設なので `patch_emperor.py` では `--allow-new-key` が要る。詳細は
+  `data/schema/EMPERORS_SCHEMA.md` の「note と claim」節
 
 ## 4. ゲートと結合
 

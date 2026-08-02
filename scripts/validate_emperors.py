@@ -178,14 +178,11 @@ KNOWN_COUNTING_AGE = {
 # ages.note が「〜は null とした」と明記しているのにフィールドに値が入っている既知の矛盾
 # （後続パスで値を埋めた際の note 同期漏れ。2026-07-22 検出の9件は同日、値を規定10節の
 #  逆算値として立証したうえで note 側を訂正済み・現在は空。新規検出をここに登録する）
-KNOWN_NULL_SAID = {
-    # 2026-08-02（Issue #40 G2）検出。いずれも「グレゴリオ暦換算が未実施なので birthDate は
-    # null」と note が書いたあと、後続パスが換算値を入れて note を直し忘れたもの。
-    # 値の側が正しいかは個別調査（換算の裏取り）が要るため note の訂正は保留し、警告で残す。
-    ("tang-wuzong", "birthDate"),
-    ("beisong-zhenzong", "birthDate"),
-    ("yuan-wenzong", "birthDate"),
-}
+# 2026-08-02（Issue #40 G2）に検出した3件（tang-wuzong・beisong-zhenzong・yuan-wenzong の
+# birthDate）は、いずれも「暦換算が未実施なので null」と note が書いたあと後続パスが換算値を
+# 入れて note を直し忘れたもの。3件とも sxtwl で換算を裏取りして値が正しいことを確かめ、
+# note の側を訂正したので登録は空になった（残す場合は個別調査の理由を書くこと）。
+KNOWN_NULL_SAID: set = set()
 
 # 在位重複判定に使う並立・対立政権系キーワード（レコード JSON 全体を対象に部分一致）。
 # これらのいずれも含まない同王朝内重複は継承同期バグの疑いとしてエラーにする。
@@ -215,6 +212,7 @@ STANDARD_PRECISION_TOKENS = {"year", "month", "day", "unknown", "none"}
 
 errors: list[str] = []
 warnings: list[str] = []
+infos: list[str] = []
 
 
 def err(msg: str) -> None:
@@ -223,6 +221,11 @@ def err(msg: str) -> None:
 
 def warn(msg: str) -> None:
     warnings.append(msg)
+
+
+def info(msg: str) -> None:
+    """0 エラーが「綺麗」なのか「そもそも評価していない」のかを見せるための実測値。"""
+    infos.append(msg)
 
 
 def parse_date(v):
@@ -904,6 +907,70 @@ def check_event_date_format(data):
                         )
 
 
+# --- claim（主張）欄 ---------------------------------------------------------
+# note は**作業ログ**で、訂正の経緯として「現行 X → Y に訂正」のように**捨てた側の値**が
+# 本文に残る。だからフィールドとの突合は向きが反転し、散文は witness にならない
+# （Issue #40 の G2/G3 の当初案が測定で否定された経路がこれ）。claim は同じコンテナに
+# 置く**前向きだけの1〜2文**で、突合の向きが反転しない witness になる。
+#
+# **claim が無いことは根拠の不在を意味しない** — 既存 10,912件の note には遡及しないので、
+# 無いのが既定。したがって coverage.py は claim を確定の根拠にせず、ここでも
+# 「claim を持つコンテナ」だけを評価して**評価件数を必ず出す**。
+CLAIM_REVERSAL = (
+    # 「捨てた側」を書いた印。claim にこれが出たら、その文は作業ログであって主張ではない。
+    # **史実の日本語と衝突しない語だけを置く。** 「に改め」「差し替え」「から変更」は
+    # 改元・遷都・皇太子廃立の主張そのものに出る自然な語で、入れると最初に claim を
+    # 書いた人が誤検出に当たり「このゲートは壊れている」と結論する。
+    "訂正", "現行", "旧値", "→", "->",
+)
+# verify_quotes.py の引用ユニットと同じ形（かな無し・漢字6字以上の「」スパン）。
+# claim は照合台帳の抽出対象外なので、ここに引用を書くと照合を素通りする
+KANA_RE = re.compile(r"[ぁ-んァ-ヶー]")
+HAN_RE = re.compile(r"[㐀-䶿一-鿿豈-﫿]")
+
+
+def check_claim_fields(data):
+    seen = 0
+
+    def walk(node, path, eid):
+        nonlocal seen
+        if isinstance(node, dict):
+            if "claim" in node:
+                seen += 1
+                check_one(node, path, eid)
+            for k, v in node.items():
+                walk(v, f"{path}.{k}" if path else k, eid)
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                walk(v, f"{path}[{i}]", eid)
+
+    def check_one(node, path, eid):
+        claim = node["claim"]
+        if not isinstance(claim, str) or not claim.strip():
+            err(f"[claim] {eid}.{path}: claim が非空文字列でない: {claim!r}")
+            return
+        for marker in CLAIM_REVERSAL:
+            if marker in claim:
+                err(f"[claim] {eid}.{path}: claim に作業ログの印「{marker}」があります。"
+                    "捨てた側の値・訂正の経緯は note へ。claim はいま正しいと判断している"
+                    "内容だけを前向きに書く欄です")
+        for m in re.finditer(r"「([^」]+)」", claim):
+            span = m.group(1)
+            if not KANA_RE.search(span) and len(HAN_RE.findall(span)) >= 6:
+                err(f"[claim] {eid}.{path}: claim に原文引用らしい「{span[:20]}…」があります。"
+                    "引用は note へ — verify_quotes.py の抽出対象は note と quote だけなので、"
+                    "claim に書いた引用は照合台帳を素通りします")
+        count = node.get("count")
+        if isinstance(count, int) and str(count) not in claim:
+            err(f"[claim] {eid}.{path}: count={count} ですが claim に「{count}」が出ません。"
+                "件数は算用数字で書いてください（これがフィールドとの突合そのものです）")
+
+    for e in data["emperors"]:
+        walk(e, "", e["id"])
+    info(f"[claim] claim を持つコンテナ {seen} 件を評価（欄は任意・既存 note に遡及しないため"
+         "0件でも異常ではない。0エラーを「綺麗」と読まないための分母）")
+
+
 def check_forbidden_sources(data):
     """emperor レコード全体を再帰走査し、キー名 `source` の出典をすべて判定する。
 
@@ -1229,6 +1296,7 @@ def main() -> int:
     death_event_n = check_death_event_date(data)
     check_event_date_format(data)
     check_forbidden_sources(data)
+    check_claim_fields(data)
     check_accession_axes(data)
     check_portraits(data)
 
@@ -1249,6 +1317,8 @@ def main() -> int:
         if left:
             warn(f"[allowlist] {name} の陳腐化エントリ（訂正済み・削除可）: {sorted(left)}")
 
+    for i in infos:
+        print(f"INFO  {i}")
     for w in warnings:
         print(f"WARN  {w}")
     for e in errors:
