@@ -73,7 +73,7 @@ rules:
     summary: データを変更したら該当ゲートの合格をコミット条件にする
     scope: data/emperors.json・kinship.json・name-readings.json・emperor-profiles.json
     enforcement: [L3, L4]
-    detail: 「走らせ忘れ」を止める Stop フックは未実装（検討中）。肖像アセットのように site 側の検証が全部緑でも deploy gate で落ちる経路がある
+    detail: 「走らせ忘れ」を止める Stop フックは未実装（Issue #41 の実施順8）。肖像アセットのように site 側の検証が全部緑でも deploy gate で落ちる経路がある
     evidence: 遼景宗の即位日1日ズレが note に埋もれて放置。肖像6件を manifest から外して実体ファイルを消さず deploy gate が落ちた（2026-08-01）
     source: CLAUDE.md「コマンド」
 
