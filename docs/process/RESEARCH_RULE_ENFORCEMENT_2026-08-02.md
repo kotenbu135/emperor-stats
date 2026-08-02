@@ -235,10 +235,24 @@ A1 の効果が最も直接に測れる。#24 は自動採番禁止との兼ね�
 ### 8-4. 積み残し
 
 - **Stop / SubagentStop フック**（`data/*.json` に差分があるのにゲート未実行なら止める）は未実装
-- **skill（`/research-block`）は作っていない** — `.gitignore` が `.claude/skills/` を除外しており、
-  置いても他の worktree・他セッションへ伝わらない。伝えたいものは
-  `.claude/agents/` と `.claude/workflows/` 側に置いた
+- ~~skill は作っていない（`.gitignore` が `.claude/skills/` を除外している）~~
+  → **ユーザー判断で除外を外し、スキル3本を入れた**（`research-block`・`correct-record`・`profile-block`）。
+  型1（読まれない）への手当ては「読め」ではなく `scripts/brief_block.py` で
+  **その回に効く数十行だけを抽出して渡す**形にした。表に無い書なら
+  「罠が未調査である」と明示的に出す
 - `scripts/patch_emperor.py`（転記ツール）は未着手。deny は掛けない方針のまま
+
+### 8-6. 手順の改善を提案として上げる経路（2026-08-02 ユーザー指示）
+
+規則 `R-PROCESS-FEEDBACK` を足した。**手順の穴は調査中に一番よく見えるのに、
+終わってからは思い出せない**ので、気づいた時点で提案させる。**提案であって、
+手順を勝手に変えることではない**（適用範囲を勝手に広げた事故があるため、ここは明示した）。
+
+経路は3つとも塞がないようにした: 調査エージェントの出力に任意欄 `processSuggestion`（→
+`check_claims.py` が REPORT として親へ上げ、件数も出す）／検証・Web 差分の各エージェントは
+報告末尾に「手順の提案:」／`name-block.js` は全員ぶんを集めて返す。
+採否の記録先は `docs/process/PROCESS_IMPROVEMENTS.md`（**却下も理由つきで残す** —
+残さないと同じ提案が繰り返し挙がる）。
 
 ### 8-5. レビューで直したこと（ガード自身の欠陥）
 

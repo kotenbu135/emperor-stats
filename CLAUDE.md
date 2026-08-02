@@ -64,6 +64,8 @@ note に**書名を書き足した・引用の出典を差し替えた**とき�
 
 - **判定の根拠は原典（正史の本紀・列伝）に置く** — WebSearch の要約だけでは判定しない。**この規則が掛かるのは `data/emperors.json` のデータ判定**で、紹介文（Issue #16）の執筆では Web を**差分検出器**として使ってよい（通説との食い違いを見つけて原典を読み直す引き金にする。根拠にはしないし、Web の文章は本文に取り込まない）
 - **規則の適用範囲が書かれていないときは、自分で狭めたり広げたりせずユーザーに聞く** — 上の1行はもともと範囲を書いておらず、紹介文の執筆にも掛かると判断して Web 照合を行わないまま76人ぶんを公開した（2026-08-02・ユーザーの想定はデータ判定のみ）
+- **作業の入口はスキル**（`/research-block` ブロック着手・`/correct-record` データ訂正・`/profile-block` 紹介文）。着手前の罠は `python3 scripts/brief_block.py <書名>` が該当箇所だけを出す
+- **調査中により良い手順に気づいたら、その場でユーザーへ提案する**（自分で手順を変えない）。採否は [docs/process/PROCESS_IMPROVEMENTS.md](docs/process/PROCESS_IMPROVEMENTS.md) に残す。エージェントの出力には `processSuggestion` の欄がある
 - **調査エージェントは `.claude/agents/` の定義を使う**（`corpus-researcher`・`adversarial-verifier`・`profile-*`）。素の Agent を立てると引用規約・出力契約がプロンプトに写し漏れる。Workflow からは `agent(prompt, {agentType: '...'})`。段構成も `.claude/workflows/` に置いて毎回書き直さない
 - **一部の規則は `.claude/hooks/guard.py` が実行の直前に止める**（コーパスへの `.{0,N}` grep・`git add -A`・裸の `git stash`・メイン会話での `emperors.json` 全体 Read）。**サブエージェントと Workflow エージェントにも掛かる**。逃げ道は `EMPSTATS_ALLOW=<規則ID>:<理由>` の1本だけで、理由は必須。規則の一覧と適用範囲は [docs/process/RULES.yml](docs/process/RULES.yml)
 - **スクリプトによるデータの自動生成は禁止** — 人物ごとの個別調査・判定が必須（日数計算等の機械的な計算補助や、確定済み調査結果の構造チェックはOK）

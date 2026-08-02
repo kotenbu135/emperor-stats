@@ -31,6 +31,7 @@ const RESEARCH_SCHEMA = {
     fields: { type: 'array', items: { type: 'string' } },   // 埋めた欄（空欄が正しい場合は空配列）
     unknown: { type: 'array', items: { type: 'string' } },  // 「調査済みだが不明」と確定した欄
     discrepancies: { type: 'string' },                      // 既存データとの食い違い。無ければ「なし」
+    processSuggestion: { type: 'string' },                  // 手順そのものの改善案（任意・R-PROCESS-FEEDBACK）
   },
 }
 
@@ -78,12 +79,14 @@ const results = await pipeline(
     `- 諡号と廟号の取り違え・追諡と即位時の号の混同・別政権の同名君主との取り違えを特に見る\n` +
     `- **修正はしない。報告だけ**。指摘が無いときは issues を空配列で返す`,
     { label: `verify:${id}`, phase: '検証', agentType: 'adversarial-verifier', schema: VERIFY_SCHEMA },
-  ),
+  // 検証段の戻り値だけにすると調査段の fields・processSuggestion が消えるので畳んで返す
+  ).then((v) => ({ ...res, issues: (v && v.issues) || [] })),
 )
 
 const ok = results.filter(Boolean)
 const withIssues = ok.filter((r) => r.issues && r.issues.length)
-log(`検証完了: ${ok.length}/${ids.length}人。指摘ありは ${withIssues.length}人`)
+const suggestions = ok.filter((r) => r.processSuggestion).map((r) => `${r.id}: ${r.processSuggestion}`)
+log(`検証完了: ${ok.length}/${ids.length}人。指摘ありは ${withIssues.length}人・手順の提案 ${suggestions.length}件`)
 
 // 本体（data/emperors.json）への投入は親セッションが行う。並行セッションがあるため
 // エージェントには書かせない。
@@ -92,5 +95,7 @@ return {
   verified: ok.length,
   missing: ids.filter((id) => !ok.some((r) => r.id === id)),
   issues: withIssues,
+  // 手順の改善提案は握りつぶさずユーザーへ上げる（採否は PROCESS_IMPROVEMENTS.md へ）
+  processSuggestions: suggestions,
   next: `断片は ${workDir}/claims/ にあります。親セッションが check_claims.py でまとめて確認し、指摘を潰してから投入してください`,
 }

@@ -21,3 +21,7 @@ tools: Read, Write, Bash, Grep, Glob
 
 書き終えたら `python3 scripts/check_profile_fragment.py <断片.json> --basis-corpus` を走らせ、
 **エラーだけでなく報告欄も読んで**から返してください。
+
+## 手順の改善に気づいたら
+
+作業の最中は手順のどこが効いていないかが一番よく見えます。手順を自分で変えず、**提案として上げて**ください — 断片の `processSuggestion` 欄に1〜2文で書いてください（無ければ省略）。

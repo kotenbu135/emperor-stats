@@ -99,6 +99,11 @@ def check_one(path, errors, reports, counters):
             counters["line_off"] += 1
             reports.append(f"{tag}/{cid}: line の記録が実際と違います（記録 {want} / 実際 {got}）")
 
+    sug = str(data.get("processSuggestion") or "").strip()
+    if sug:
+        counters["suggestions"] += 1
+        reports.append(f"{tag}: 手順の改善提案 → {sug}")
+
     findings = data.get("findings")
     if not isinstance(findings, list) or not findings:
         errors.append(f"{tag}: findings が空です")
@@ -141,7 +146,7 @@ def main():
 
     errors, reports = [], []
     counters = {"checked": 0, "unresolved": 0, "glyph": 0, "spliced": 0,
-                "line_off": 0, "findings": 0, "conflicts": 0}
+                "line_off": 0, "findings": 0, "conflicts": 0, "suggestions": 0}
     for p in paths:
         check_one(p, errors, reports, counters)
 
@@ -154,6 +159,9 @@ def main():
           f"（主張 {counters['findings']}・対立 {counters['conflicts']}／"
           f"未解決 {counters['unresolved']}・字体 {counters['glyph']}・"
           f"合成疑い {counters['spliced']}・行ズレ {counters['line_off']}）")
+    if counters["suggestions"]:
+        print(f"手順の改善提案が {counters['suggestions']}件あります。"
+              f"ユーザーへ上げ、採否を docs/process/PROCESS_IMPROVEMENTS.md に残してください")
     return 1 if errors else 0
 
 

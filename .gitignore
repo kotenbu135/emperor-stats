@@ -52,7 +52,6 @@ site/ds-bundle/
 # 確認用スクリーンショット（site/tools/capture-site.mjs の出力・撮り直せるので履歴に入れない）
 site/tools/shots/
 
-.claude/skills/
 
 # Claude Code フックの発火ログ（ローカル計測用・docs/process/RULES.yml の「測定」節）
 .claude/hook-log.jsonl

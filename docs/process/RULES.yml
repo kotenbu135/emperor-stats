@@ -139,6 +139,14 @@ rules:
     evidence: Web 照合の要否を自己解釈して76人ぶんを公開（2026-08-02）
     source: docs/process/AI_RESEARCH_LESSONS.md 11-5
 
+  - id: R-PROCESS-FEEDBACK
+    summary: 調査中により良い手順に気づいたら、その場でユーザーへ提案する。採否を PROCESS_IMPROVEMENTS.md に残す
+    scope: 調査・訂正・執筆のすべての作業（エージェントも含む）。**提案であって、手順を勝手に変えることではない**
+    enforcement: [L2, L4]
+    detail: L2＝.claude/agents/*.md と .claude/skills/*/SKILL.md に明記。調査エージェントの出力契約に任意欄 processSuggestion があり、check_claims.py が REPORT として親へ上げる
+    evidence: 手順の穴は調査中に一番よく見えるのに、終わってからは思い出せない。境界事例の都度ルール化が効いた前例（判定基準）と同じ構造
+    source: docs/process/PROCESS_IMPROVEMENTS.md
+
   - id: R-COUPLING
     summary: 片方を変えたらもう片方も変える対を、気づいた時点で結合レジストリに登録する
     scope: データ・サイト・ドキュメントをまたぐ結合すべて
