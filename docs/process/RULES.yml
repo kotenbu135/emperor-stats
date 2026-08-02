@@ -117,10 +117,23 @@ rules:
 
   - id: R-API-BATCH
     summary: 外部 API への一括リクエストは「小規模検証 → 想定件数を提示して明示的許可 → 本実行」
-    scope: Wikimedia・Wikidata ほか外部 API。ローカルコーパスは対象外
-    enforcement: [L4]
-    detail: "**L4 のみ＝人の記憶頼り。** 次に破られる候補"
-    evidence: 肖像画調査で364件を並列実行し429と乱用警告（2026-07-20 以前）
+    scope: >-
+      Wikimedia・Wikidata ほか**外部ホスト**への HTTP 取得。ローカルコーパスと
+      localhost／127.0.0.1（開発サーバー・`site/tools/capture-site.mjs`）は対象外。
+      **`gh` は形では止めない** — GitHub 側がトークン単位でレート管理し、`--paginate` の
+      ような正当な連続取得と事故の形が同じになるため。分母としては数える
+    enforcement: [L1, L4]
+    detail: >-
+      L1＝guard.py。**止めるのは件数ではなく「扇形に広げる形」** — 反復構文
+      （`for … in` / `while … ; do` / `xargs` / `parallel` / `seq`）か curl の URL グロブ
+      （`{a,b,c}`・`[1-100]`）に curl／wget を差した Bash を deny する。閾値を決め打ちすると
+      正当な調査を止めるので件数は見ない（Issue #43 の3番）。**1本ずつの curl・WebFetch・
+      WebSearch・`gh api` は通すが log には残す** — 0件の deny を「守られている」と読まない
+      ための分母。**逃げ道の理由には件数を書く**（許可を得た本実行がこの形になるため、
+      escaped がそのまま「許可済みの一括実行」の記録になる）。
+      **L4 が残るのは WebFetch の連打** — 1回の呼び出しに形が無く、間隔と件数でしか
+      判別できない。閾値は分母（log の pass 件数）が溜まってから決める
+    evidence: 肖像画調査で364件を並列実行し429と乱用警告（2026-07-20 以前）。台帳20件のうち L4 だけの規則がこれ1件になっていた（2026-08-02・Issue #43 で L1 を足した）
     source: docs/process/CONSTRAINTS.md
 
   - id: R-PRIMARY-ON-MAIN
