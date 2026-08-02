@@ -10,6 +10,12 @@
 
     python3 scripts/check_regime_conventions.py            # ゲート
     python3 scripts/check_regime_conventions.py --scope    # 母集団 N → 要調査 M の内訳
+    python3 scripts/check_regime_conventions.py --for <皇帝id> [--field <フィールド>]
+
+`--field` は「その項目が政権単位の慣行で決まるのか」を先に判定する。R-REGIME-FIRST が
+掛かるのは名前系（FIELDS）だけで、日付・回数のような人物単位の事実には掛からない。
+これを付けずに `--for` だけを呼ぶと、無関係な作業でも「政権の慣行が未確定」で 1 を返して
+足止めになる（2026-08-03・Issue #56 の日付訂正で調査エージェント3体が同じ指摘を出した）。
 
 エラー0は「綺麗」と「空回り」を区別しないので、照合した件数を必ず出す。
 コーパス（_corpus_cache/）が無い環境では引用の実在検査だけ飛ばし、飛ばした件数を出す。
@@ -69,13 +75,34 @@ def check_quote(ev, tag, errors, counters):
                       f"{str(ev.get('quote'))[:24]}…")
 
 
-def brief_for(eid):
+def field_matches(declared, query):
+    """宣言側のフィールド名と、問い合わせのフィールドパスを突き合わせる。
+
+    宣言は素の名前（"templeName"）、問い合わせはパス（"name.templeName" や
+    "personalCampaignCount.events[].endDate"）で来ることがあるので、区切りで割って
+    セグメントの一致を見る。片側だけの書き方に縛らないための緩い一致。
+    """
+    segs = [s for s in query.replace("[]", "").replace("[", ".").replace("]", "")
+            .split(".") if s]
+    return declared == query or declared in segs
+
+
+def brief_for(eid, field=None):
     """人物単位の調査に入る直前に呼ぶ。政権の慣行が未確定なら 1 で終わる。
 
     「先に政権単位で確定する」を文書に書くだけだと守られない。調査プロンプトが
     この出力（書名・locator・書式）を要求する形にしておくと、未確定の政権では
     そもそも人物単位の調査を立てられない。
+
+    ただし**掛かるのは名前系（FIELDS）だけ**なので、`--field` でそれ以外を問われたら
+    適用外として 0 で返す（日付・回数は政権の慣行から転記できない人物単位の事実）。
     """
+    if field is not None and not any(field_matches(f, field) for f in FIELDS):
+        print(f"{field} は政権単位の慣行では決まりません（R-REGIME-FIRST の適用外）。"
+              f"この規則が掛かるのは {'・'.join(sorted(FIELDS))} です。"
+              f"人物単位の事実（日付・回数・結末）は政権の書式から転記できないので、"
+              f"そのまま人物単位の調査に入って構いません")
+        return 0
     _, persons, _ = load_emperors()
     if eid not in persons:
         print(f"存在しない皇帝id: {eid}", file=sys.stderr)
@@ -83,8 +110,12 @@ def brief_for(eid):
     rid = persons[eid]
     data = json.loads(CONVENTIONS.read_text(encoding="utf-8"))
     hits = [r for r in data.get("conventions") or [] if rid in (r.get("regimeIds") or [])]
+    if field is not None:
+        hits = [r for r in hits
+                if any(field_matches(f, field) for f in r.get("fields") or [])]
     if not hits:
-        print(f"{eid}（政権 {rid}）は政権単位の慣行が未確定です。"
+        of_field = f"の {field} " if field else ""
+        print(f"{eid}（政権 {rid}）は政権単位{of_field}の慣行が未確定です。"
               f"人物単位の調査に入る前に、その政権の本紀・列伝の書式を原典で確かめて "
               f"data/regime-conventions.json に足してください"
               f"（規則 R-REGIME-FIRST・docs/process/RULES.yml）", file=sys.stderr)
@@ -117,10 +148,15 @@ def main():
     ap.add_argument("--scope", action="store_true", help="母集団 N → 要調査 M の内訳を出す")
     ap.add_argument("--for", dest="for_id", metavar="皇帝id",
                     help="その人物に効く慣行を出す。未確定なら 1 で終了する（人物調査に入らせない）")
+    ap.add_argument("--field", metavar="フィールド",
+                    help="対象フィールドで絞る。この規則の適用外なら 0 で返す"
+                         "（日付・回数のような人物単位の事実で足止めしないため）")
     args = ap.parse_args()
 
     if args.for_id:
-        return brief_for(args.for_id)
+        return brief_for(args.for_id, args.field)
+    if args.field:
+        ap.error("--field は --for と一緒に使ってください")
 
     errors = []
     counters = defaultdict(int)

@@ -598,6 +598,7 @@
             "type": "object",
             "properties": {
               "date": { "type": ["string", "null"], "description": "発生日（ISO 8601 拡張形式）。" },
+              "dateRaw": { "type": ["string", "null"], "description": "原典の紀年表記そのまま（例:「建武二年秋八月」）。**任意・遡及しない**（2026-08-03 新設・Issue #56）。無いことは根拠の不在を意味しない。EMPERORS_SCHEMA.md「events の原表記と換算」節が正。" },
               "datePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
               "note": { "type": ["string", "null"], "description": "内容・原典の記述。" },
               "source": { "$ref": "#/$defs/source" },
@@ -630,11 +631,13 @@
             "type": "object",
             "properties": {
               "date": { "type": ["string", "null"] },
+              "dateRaw": { "type": ["string", "null"], "description": "原典の紀年表記そのまま。**任意・遡及しない**（2026-08-03 新設・Issue #56）。EMPERORS_SCHEMA.md「events の原表記と換算」節が正。" },
               "datePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
               "from": { "type": ["string", "null"], "description": "遷都元の都城名。" },
               "to": { "type": ["string", "null"], "description": "遷都先の都城名。" },
               "note": { "type": ["string", "null"] },
-              "conflicts": { "$ref": "#/$defs/conflicts" }
+              "conflicts": { "$ref": "#/$defs/conflicts" },
+              "source": { "$ref": "#/$defs/source" }
             }
           }
         },
@@ -665,10 +668,13 @@
                 "type": ["object", "string", "null"],
                 "description": "日付精度。start/end の対、または単一値。"
               },
+              "startDateRaw": { "type": ["string", "null"], "description": "出征の原典表記そのまま（例:「建徳五年十月己酉」）。**任意・遡及しない**（2026-08-03 新設・Issue #56）。EMPERORS_SCHEMA.md「events の原表記と換算」節が正。" },
+              "endDateRaw": { "type": ["string", "null"], "description": "帰還・終結の原典表記そのまま（例:「十一月癸巳」）。**任意・遡及しない**（同上）。" },
               "target": { "type": ["string", "null"], "description": "遠征対象（勢力名・地域名）。" },
               "outcome": { "type": ["string", "null"], "description": "結果。" },
               "note": { "type": ["string", "null"] },
-              "conflicts": { "$ref": "#/$defs/conflicts" }
+              "conflicts": { "$ref": "#/$defs/conflicts" },
+              "source": { "$ref": "#/$defs/source" }
             }
           }
         },
@@ -699,11 +705,14 @@
                 "type": ["object", "string", "null"],
                 "description": "日付精度。start/end の対、または単一値。"
               },
+              "startDateRaw": { "type": ["string", "null"], "description": "蜂起の原典表記そのまま（例:「至元二十四年夏四月」）。**任意・遡及しない**（2026-08-03 新設・Issue #56）。EMPERORS_SCHEMA.md「events の原表記と換算」節が正。" },
+              "endDateRaw": { "type": ["string", "null"], "description": "終結の原典表記そのまま。**任意・遡及しない**（同上）。" },
               "name": { "type": ["string", "null"], "description": "反乱の名称。" },
               "leader": { "type": ["string", "null"], "description": "反乱の首謀者。" },
               "outcome": { "type": ["string", "null"], "description": "結果。" },
               "note": { "type": ["string", "null"] },
-              "conflicts": { "$ref": "#/$defs/conflicts" }
+              "conflicts": { "$ref": "#/$defs/conflicts" },
+              "source": { "$ref": "#/$defs/source" }
             }
           }
         },

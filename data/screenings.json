@@ -14,13 +14,18 @@
     "verdicts": {
       "一致": "原典を読んでも screen の判定どおりだった。checked に「何を見て無いと言ったか」を書く",
       "反例": "screen が取りこぼしていた。file・line・quote で原文を示す"
-    }
+    },
+    "fields": "この絞り込みが覆うフィールドのパス。`--field` はこれで絞る。**宣言していないフィールドは覆われていない** — 別の項目の絞り込みを流用して「母集団は絞ってある」と読まないため"
   },
   "screenings": [
     {
       "id": "name-fields-issue37",
       "issue": 37,
       "unit": "person-field",
+      "fields": [
+        "name.templeName",
+        "name.posthumousName"
+      ],
       "script": "scripts/screens/name_fields.py",
       "population": "365人 × {templeName, posthumousName} のうち**値が空のセル**（埋まっているセルの訂正は別作業）",
       "n": 558,
@@ -172,6 +177,11 @@
       "id": "campaign-span-issue56",
       "issue": 56,
       "unit": "campaign-event",
+      "fields": [
+        "personalCampaignCount.events[].startDate",
+        "personalCampaignCount.events[].endDate",
+        "personalCampaignCount.events[].datePrecision"
+      ],
       "script": "scripts/screens/campaign_span.py",
       "population": "365人の personalCampaignCount.events 全件（親征イベント）。**日付だけを見る**（親征の認定＝count には踏み込まない）",
       "n": 291,

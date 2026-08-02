@@ -75,6 +75,17 @@ jobs:
       - name: Verify calendar conversions
         run: python3 scripts/verify_calendar.py
 
+      # 検出力テスト（合成レコード）。claim・conflicts・events の source.conversion は
+      # いずれも**遡及しない任意欄**なので、実データでは 0 件に掛かる期間が長い。
+      # 「0 errors」が守れているのか何も見ていないのかを実データでは区別できないため、
+      # 発火そのものをここで測る（R-NOTE-CLAIM・R-EVENT-DATE-RAW の detail を参照）。
+      - name: Measure gate detection power
+        run: |
+          python3 scripts/test_claim_field.py
+          python3 scripts/test_conflicts_field.py
+          python3 scripts/test_patch_emperor.py
+          python3 scripts/test_event_conversion_gate.py
+
       # ふりがな（Issue #20）。記法・親文字一致に加えて、紹介文の**総ルビ充足**と
       # 固有名詞整合はこのスクリプトにしか無い（サイトのビルドは name-readings.json
       # 側の取りこぼししか見ない）。紹介文365本を書くときに効くゲートなので、

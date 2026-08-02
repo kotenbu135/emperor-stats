@@ -19,6 +19,7 @@
 | `dynastyOrder` の調査完了 | `meta.catalogs.regimes[].dynastyOrderSurveyed` | **無い**（Issue #24 に「調査完了時に追加すると再発防止になる」と記載） |
 | データの訂正 | `meta.status` と `docs/PROJECT_STATUS.md` | 無い（同時更新の運用ルール） |
 | 新しく `note` を書く（訂正・新規調査） | 同じコンテナの `claim`（**任意**。note は作業ログで捨てた側の値が残るため、突合の向きが反転する） | `validate_emperors.py` の `check_claim_fields`（claim を持つコンテナだけ・評価件数を INFO で出す）。**書かなくても落ちない** — 遡及しない欄なので検出できるのは「書いたのに後ろ向き」だけ |
+| `events[]` の日付を**新しく確定・訂正する** | 同じ要素の `*Raw`（原典の紀年表記）と `source.conversion`（`fromLunar(y,m,d[,leap])`・月精度は朔日アンカー `fromLunar(y,m,1)`）（**任意**・遡及しない） | `verify_calendar.py` の **B-5** が再演し、月精度は多数月を計算して照合する。**書かなくても落ちない** — 検出できるのは「書いたのに合わない」だけ。`patch_emperor.py` が該当パスでこの結合を出す |
 | `data/kinship.json` のエッジ | `accessionRoute.axes.relationToPredecessor` | `validate_kinship.py`（G3 `check_relation_edges`・継承エッジ216件） |
 | `data/kinship.json` のエッジ／`relationToPredecessor` | note・紹介文に書いた**続柄の呼称**（「従叔父」「甥」…） | `relation_path.py --check`（**報告専用・CI に載せない**。不一致は「エッジと記録値のどちらかが誤り」までしか言えないため） |
 | 史料対立のあるフィールドの**採用値**を訂正する | 同じコンテナの `conflicts[].adopted.value`（採用値を動かすと置き去りになる） | `validate_emperors.py` の `check_conflicts`（`adopted.value` と実フィールド値を突合・**CI でも実行**） |

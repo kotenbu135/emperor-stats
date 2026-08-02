@@ -102,8 +102,8 @@ rules:
     summary: 原文を先に読み、引用台帳 claims を作り、note は照合として読む。台帳に無い事実は書かない
     scope: 調査エージェントの出力（新規調査・訂正の両方）
     enforcement: [L0, L1, L2, L3]
-    detail: L0＝出力スキーマが claims を必須にするので順序を選べない／L1＝.claude/hooks/guard.py（1段目のサブエージェントが extract_profile_material.py --notes on を打つと止める）／L2＝.claude/agents/corpus-researcher.md・profile-writer.md・Workflow の schema／L3＝scripts/check_claims.py。**2026-08-02 に順序から分離へ変えた** — 順序を守っても同じ文脈に note が入れば筋書きは効くので、1段目には note を渡さず、突き合わせを検証段の担当にした（extract_profile_material.py の既定を --notes off に）
-    evidence: 素材 note を先に読むと note の筋書きに合う原文句を探すことになる。紹介文の誤りの多くが note 由来だった（Issue #32・#33・#36）
+    detail: L0＝出力スキーマが claims を必須にするので順序を選べない／L1＝.claude/hooks/guard.py（1段目のサブエージェントが extract_profile_material.py・extract_event_material.py に --notes on を打つと止める）／L2＝.claude/agents/corpus-researcher.md・profile-writer.md・Workflow の schema／L3＝scripts/check_claims.py。**2026-08-02 に順序から分離へ変えた** — 順序を守っても同じ文脈に note が入れば筋書きは効くので、1段目には note を渡さず、突き合わせを検証段の担当にした（素材抽出の既定を --notes off に）。**2026-08-03、規則の穴が「素材抽出コマンドを通さない経路」だと分かった** — 親セッションがプロンプトの中でその場の `python3 -c` を書くと、既定 off も L1 も掛からない。データ訂正側の素材に scripts/extract_event_material.py を用意し、抽出式を書き起こさず**このコマンドを渡す**ことを corpus-researcher と /correct-record に明記した
+    evidence: 素材 note を先に読むと note の筋書きに合う原文句を探すことになる。紹介文の誤りの多くが note 由来だった（Issue #32・#33・#36）。Issue #56 では親セッションのワンライナーが note を print しており、調査エージェント4体が「1段目なのに既存 note を見た」と申告した（2026-08-03）
     source: docs/process/profile-writing/README.md「なぜこの順序なのか」
 
   - id: R-GATES-BEFORE-COMMIT
@@ -233,6 +233,32 @@ rules:
     detail: 絞り込みは `scripts/screens/<名前>.py` にコミットして残す（その場の一発コマンドにしない）。記録は data/screenings.json で、**数字はゲートがスクリプトを実行して突き合わせる**ので、データが動けば古い数字は落ちる。バケットは3種 — `read`（要読解）／`corroborated`（独立した計算か原典の明文が前提を積極的に裏付けた）／`absent`（機械が何も見つけなかっただけ）。**absent は不在の証拠ではない**ので、種つき無作為標本を原典で読んで取りこぼし率を測る（標本はスクリプトが引き、ゲートが同じ種で引き直して突き合わせる。人が選んだ標本では区間を言えない）。L0＝調査プロンプトが `check_screenings.py --for <id>` の出力を screenBucket に要求する（.claude/workflows/name-block.js）／L3＝scripts/check_screenings.py
     evidence: 前例では #34 の sxtwl 検査が293件中282件の前提を裏付けて残り20件だけを読めば済み、#38 の quote_diff.py が234件を仕分けた。一方 Issue #37 の名前データで絞り込みを記録して標本監査を掛けたところ、**absent 側の取りこぼしは廟号6件中1件・諡号6件中3件**で、「機械が見つけなかった＝値が無い」は成り立たなかった（2026-08-02）
     source: .claude/skills/research-block/SKILL.md の 0.6 節・Issue #41 の実施順3
+
+  - id: R-EVENT-DATE-RAW
+    summary: events の日付を新しく確定・訂正したら、原典の紀年表記（*Raw）と換算（source.conversion）を同じ要素に残す
+    scope: >-
+      data/emperors.json の回数系8フィールドの `events[]` に**新しく書く日付**
+      （date・startDate・endDate）。**既存の約2,000件には遡及しない**（欄は任意）。
+      reigns は 2026-07 から `startDateRaw`／`endDateRaw`／`duration.source.conversion` を
+      持っており、events だけが持っていなかった
+    enforcement: [L0, L3, L4]
+    detail: >-
+      L0＝スキーマに `dateRaw`／`startDateRaw`／`endDateRaw` と `source`（`conversion` を含む）を
+      置いた（data/schema/emperors.schema.json・2026-08-03）。L3＝verify_calendar.py の **B-5** が
+      `source.conversion` の `fromLunar(y,m,d[,leap])` を再演する。**朔日アンカー
+      `fromLunar(y,m,1)` は月精度の主張として扱い、多数月を計算して `→YYYY-MM` や保存値と
+      照合する** — 記法を増やさずに月精度の誤りを機械化できる。検出力は
+      `python3 scripts/test_event_conversion_gate.py` が合成レコードで測る（**実データでは
+      当面 B5=0 なので、0エラーを「守れている」と読まないための分母**）。
+      **L4 が残るのは「書いたか」のほう** — 遡及しない任意の欄なので、書かなかったことは
+      検出できない。機械が見られるのは「書いたのに合わない」だけ
+    evidence: >-
+      Issue #56（2026-08-03）で親征イベントの終期42件を原典へ当て直したところ24件が誤りで、
+      最も多い型が「旧暦の月番号を太陽暦の月欄へ直書き」だった（西夏襄宗 1211-05←旧暦五月は
+      西暦5月と1日も重ならない・夏赫連定2件・後燕慕容盛・西夏景宗）。events は原表記を持たない
+      ため、**保存値が旧暦の月番号のままか換算済みかを機械で区別できず**、Issue #34 の
+      1,937件の換算からも漏れて残った。同じ型は北斉文宣帝に7値・清聖祖に4値が未訂正で残っている（#62）
+    source: data/schema/EMPERORS_SCHEMA.md「events の原表記と換算」・Issue #56
 
   - id: R-SWEEP-DETECTION
     summary: 語彙走査の結果を「悉皆だ」の根拠にするときは、その語彙に掛からない該当記事を1件探して検出力を測る
