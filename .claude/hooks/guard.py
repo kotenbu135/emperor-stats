@@ -25,6 +25,10 @@ CORPUS = re.compile(r"china-history|daizhigev20|_corpus_cache|史藏")
 CTX_EXTRACT = re.compile(r"\.\{\d+,\d+\}")
 BARE_GREP = re.compile(r"(?:^|[|;&(]\s*|\s)grep\b")
 ABS_GREP = re.compile(r"/usr/bin/grep\b")
+# ゲートの起動を記録する。止めるためではなく、Stop フック（stop_gate.py）が
+# 「重いゲートが今回の変更より後に走ったか」を見るため。起動しか分からないので
+# 「合格した」とは扱わない。
+GATE_RUN = re.compile(r"scripts/(?:validate|verify|check)_[a-z_]+\.py")
 
 
 def log(project_dir, rec):
@@ -116,6 +120,13 @@ def main():
     command = ti.get("command", "") or ""
     is_subagent = bool(data.get("agent_id"))
     project_dir = os.environ.get("CLAUDE_PROJECT_DIR") or data.get("cwd") or "."
+
+    if tool == "Bash" and GATE_RUN.search(command):
+        log(project_dir, {
+            "rule": "R-GATES-BEFORE-COMMIT", "decision": "gate", "tool": tool,
+            "actor": data.get("agent_type") if is_subagent else "main",
+            "detail": command[:160], "escape_reason": None,
+        })
 
     denials = []
     for rule_id, deny in check(tool, ti, is_subagent, command):

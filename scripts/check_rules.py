@@ -5,7 +5,7 @@
 
   1. 全規則が scope（適用範囲）と evidence（根拠になった失敗）を持つ
      — scope が空だったために規則を自己解釈で広げた事故がある
-  2. guard.py が実装している規則 ID と、台帳で enforcement に L1 を持つ規則が一致する
+  2. .claude/hooks/ が実装している規則 ID と、台帳で enforcement に L1 を持つ規則が一致する
      — 片方だけ増えると「掛かっているつもり」になる
   3. L4 だけの規則（＝人の記憶頼り・次に破られる候補）を必ず出力する
      — 0 件の deny は「守られている」と「掛かっていない」を区別しない
@@ -18,7 +18,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 RULES = ROOT / "docs" / "process" / "RULES.yml"
-GUARD = ROOT / ".claude" / "hooks" / "guard.py"
+HOOKS = ROOT / ".claude" / "hooks"
 
 
 def main():
@@ -40,13 +40,17 @@ def main():
             errors.append(f"{rid}: id が重複しています")
 
     declared = {r["id"] for r in rules if "L1" in (r.get("enforcement") or [])}
-    implemented = set(re.findall(r'"(R-[A-Z0-9\-]+)"', GUARD.read_text(encoding="utf-8")))
-    # SessionStart フックの報告だけの規則は guard.py に実装が無い（弱い L1）
+    implemented = set()
+    hook_files = sorted(p for p in HOOKS.glob("*.py") if not p.name.startswith("test_"))
+    for p in hook_files:
+        implemented |= set(re.findall(r'"(R-[A-Z0-9\-]+)"', p.read_text(encoding="utf-8")))
+    # SessionStart フックの報告だけの規則はフックに実装が無い（弱い L1）
     soft = {"R-PRIMARY-ON-MAIN", "R-RMW"}
+    where = "/".join(p.name for p in hook_files)
     for rid in sorted(implemented - declared):
-        errors.append(f"{rid}: guard.py にあるのに台帳の enforcement に L1 がありません")
+        errors.append(f"{rid}: {where} にあるのに台帳の enforcement に L1 がありません")
     for rid in sorted(declared - implemented - soft):
-        errors.append(f"{rid}: 台帳は L1 と言っていますが guard.py に実装がありません")
+        errors.append(f"{rid}: 台帳は L1 と言っていますが {where} に実装がありません")
 
     memory_only = [r["id"] for r in rules if (r.get("enforcement") or []) == ["L4"]]
     for e in errors:

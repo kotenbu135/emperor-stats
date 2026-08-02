@@ -72,8 +72,8 @@ rules:
   - id: R-GATES-BEFORE-COMMIT
     summary: データを変更したら該当ゲートの合格をコミット条件にする
     scope: data/emperors.json・kinship.json・name-readings.json・emperor-profiles.json
-    enforcement: [L3, L4]
-    detail: 「走らせ忘れ」を止める Stop フックは未実装（Issue #41 の実施順8）。肖像アセットのように site 側の検証が全部緑でも deploy gate で落ちる経路がある
+    enforcement: [L1, L3, L4]
+    detail: L1＝.claude/hooks/stop_gate.py。data/*.json に未コミット差分があるまま turn を終えようとしたら軽いゲート（1秒未満）をその場で流し、落ちていれば止める。**走ったかを帳簿で追わず実際に流す**（記録から judge すると「走ったが落ちていた」を通す）。verify_quotes.py --check は344秒かかるので流さず「今回の変更より後に起動されていない」ことだけ告げる。止めるのは1回だけ（stop_hook_active）。肖像アセットのように site 側の検証が全部緑でも deploy gate で落ちる経路は残る
     evidence: 遼景宗の即位日1日ズレが note に埋もれて放置。肖像6件を manifest から外して実体ファイルを消さず deploy gate が落ちた（2026-08-01）
     source: CLAUDE.md「コマンド」
 
