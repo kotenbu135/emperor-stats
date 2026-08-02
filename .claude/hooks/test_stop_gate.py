@@ -159,33 +159,38 @@ def main():
         check("紹介文の差分 → coverage.py も流れる",
               rc == 2 and "coverage.py --check" in err, f"{rc} {err}")
 
-    print("重いゲートは走らせず、走っていないことだけ告げる")
+    # 2026-08-02 に「帳簿で走ったかを追う」設計をやめ、その場で流すようにした。
+    # 帳簿を見るケースはもう無いので、見るのは「流した結果どうなったか」だけ。
+    print("引用照合ゲートも流す（落ちれば止める・終わらなければ告げるだけ）")
     with tempfile.TemporaryDirectory() as tmp:
+        root = make_repo(tmp, {**gates_ok, "verify_quotes.py": GATE_OK})
+        dirty(root, body='{"emperors": [{"quote": "崩于西堂"}]}\n')
+        rc, out, err = fire(root)
+        check("引用を触った → verify_quotes が通れば黙る", rc == 0 and not out.strip(), f"{rc} {out}")
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_repo(tmp, {**gates_ok, "verify_quotes.py": GATE_NG})
+        dirty(root, body='{"emperors": [{"quote": "崩于西堂"}]}\n')
+        rc, out, err = fire(root)
+        check("verify_quotes が落ちれば止める", rc == 2 and "verify_quotes" in err, f"{rc} {err}")
+        check("台帳が古いだけの場合の逃げ道を出す", "--backfill" in err, err)
+
+    with tempfile.TemporaryDirectory() as tmp:
+        # verify_quotes.py が無い＝起動できない。初回のキャッシュ構築で打ち切った場合と同じ経路で、
+        # **turn の終了を人質に取らない**（止めずに告げるだけ）
         root = make_repo(tmp, gates_ok)
         dirty(root, body='{"emperors": [{"quote": "崩于西堂"}]}\n')
         rc, out, err = fire(root)
         msg = json.loads(out) if out.strip() else {}
-        check("引用を触った → verify_quotes 未起動を告げる",
+        check("流しきれなければ止めずに告げる",
               rc == 0 and "verify_quotes" in (msg.get("systemMessage") or ""), f"{rc} {out}")
         check("告げるだけで止めない", msg.get("continue") is True, out)
 
     with tempfile.TemporaryDirectory() as tmp:
-        root = make_repo(tmp, gates_ok)
+        root = make_repo(tmp, {**gates_ok, "verify_quotes.py": GATE_NG})
         dirty(root, body='{"emperors": [{"posthumousName": "武帝"}]}\n')
         rc, out, err = fire(root)
-        check("引用・日付を触っていなければ黙る", rc == 0 and not out.strip(), f"{rc} {out}")
-
-    with tempfile.TemporaryDirectory() as tmp:
-        root = make_repo(tmp, gates_ok)
-        dirty(root, body='{"emperors": [{"quote": "崩于西堂"}]}\n')
-        time.sleep(1.1)   # ts は秒精度なので、確実に mtime より後になるようにする
-        (root / ".claude" / "hook-log.jsonl").write_text(json.dumps({
-            "rule": "R-GATES-BEFORE-COMMIT", "decision": "gate",
-            "detail": "python3 scripts/verify_quotes.py --check",
-            "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
-        }, ensure_ascii=False) + "\n", encoding="utf-8")
-        rc, out, err = fire(root)
-        check("変更より後に起動されていれば黙る", rc == 0 and not out.strip(), f"{rc} {out}")
+        check("引用・日付を触っていなければ流さない", rc == 0 and not out.strip(), f"{rc} {out}")
 
     with tempfile.TemporaryDirectory() as tmp:
         root = make_repo(tmp, gates_ok)
