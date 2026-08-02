@@ -6,6 +6,8 @@
                                                      # 全引用ユニットが台帳にハッシュ一致で登録済みかを検証し、
                                                      # 台帳未更新の引用追加・改変をコミット段階で確実に検出する
   python3 scripts/verify_quotes.py --backfill        # 未解決ユニットをコーパス走査で解決し台帳を更新
+  python3 scripts/verify_quotes.py --backfill --retry-unresolved
+                                                     # 走査済みの未解決も当て直す（コーパスを入れ替えた・書を足したとき）
 
 注意: 台帳キーのハッシュは正規化（hanzi_norm）に opencc を使うため、CI にも
 opencc-python-reimplemented を導入すること（無いとハッシュがずれ全件不一致になる）。
@@ -36,6 +38,7 @@ import re
 import subprocess
 import sys
 from collections import Counter
+from functools import lru_cache
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -266,7 +269,14 @@ def _cached_norm(relpath, kind, fn):
 _file_cache: dict[str, str] = {}
 
 
-def normalized_file(relpath):
+def normalized_file(relpath, memo=True):
+    """底本1ファイルの照合用正規化本文。
+
+    memo=False は「一度しか見ないファイルを大量に舐める」用（--check-books の
+    書まるごと走査）。全部を辞書に溜めると数百MBが常駐するので持ち回らない。
+    """
+    if not memo:
+        return _file_cache.get(relpath) or _cached_norm(relpath, "match", norm_for_match)
     if relpath not in _file_cache:
         _file_cache[relpath] = _cached_norm(relpath, "match", norm_for_match)
     return _file_cache[relpath]
@@ -282,13 +292,74 @@ def strict_file(relpath):
     return _strict_cache[relpath]
 
 
+@lru_cache(maxsize=200_000)
+def strict_variants(frag):
+    base = han_only(frag)
+    return tuple({norm_strict(v) for v in (base, base.translate(AMBIGUOUS_JP))})
+
+
+# 判定結果のスタンプ（2026-08-02 導入）。
+#
+# --check は台帳 6,432 件を底本へ当て直すが、そのために _norm_cache 1.5GB を読む。
+# ページキャッシュが生きていれば数秒、落ちていれば 168 秒（WSL2 実測）で、
+# 落ちるのは直前にコーパス全文を走査したとき＝訂正ループのまさに最中だった。
+#
+# 同じ断片を同じ底本に同じ正規化で当てれば結果は同じなので、合格したことを
+# 「引用ユニットのキー＋底本の mtime/size＋断片＋正規化の版＋glyphAllow の状態」の
+# ハッシュで覚えておき、次回はその1件を読まずに済ませる。どれか1つでも動けば
+# スタンプが変わって必ず読み直す。合格したものだけを覚える（不合格は毎回出す）。
+#
+# 覚えた件数は要約行に出す（0エラーが「綺麗」なのか「空回り」なのかを見えるようにする）。
+# 全件を実際に読み直させるには EMPSTATS_NORM_CACHE=0。
+VERDICT_PATH = (NORM_CACHE_DIR / "verdicts.json") if NORM_CACHE_DIR else None
+
+
+def load_verdicts():
+    """前回まで合格していたスタンプ集合。無効時は None（＝毎回読み直す）。"""
+    if VERDICT_PATH is None or os.environ.get("EMPSTATS_NORM_CACHE") == "0":
+        return None
+    try:
+        return set(json.loads(VERDICT_PATH.read_text(encoding="utf-8")))
+    except (OSError, ValueError):
+        return set()
+
+
+def save_verdicts(stamps):
+    if VERDICT_PATH is None or stamps is None:
+        return
+    try:
+        NORM_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        tmp = VERDICT_PATH.with_name(f"verdicts.json.tmp{os.getpid()}")
+        try:
+            tmp.write_text(json.dumps(sorted(stamps)), encoding="utf-8")
+            os.replace(tmp, VERDICT_PATH)
+        finally:
+            if tmp.exists():
+                tmp.unlink()
+    except OSError:
+        pass
+
+
+def verdict_stamp(key, ent, glyph_allowed):
+    rel = ent.get("corpusFile") or ""
+    try:
+        st = (CORPUS_ROOT / rel).stat()
+    except OSError:
+        return None
+    h = hashlib.sha1(f"{_NORM_VERSION}\t{st.st_mtime_ns}:{st.st_size}\t{rel}\t"
+                     f"{glyph_allowed}\t{key}".encode())
+    for f in ent.get("frags") or []:
+        h.update(b"\t")
+        h.update(f.encode())
+    return h.hexdigest()[:16]
+
+
 def frag_in_strict(frag, strict_text):
     """新字体表の助けなしに断片が底本に在るか。
 
     歳/歲 は底本側にも両方の字形が出るため候補を並べる（AMBIGUOUS_JP と同じ扱い）。
     """
-    base = han_only(frag)
-    return any(norm_strict(v) in strict_text for v in {base, base.translate(AMBIGUOUS_JP)})
+    return any(v in strict_text for v in strict_variants(frag))
 
 
 def rg_provenance_scan(frag_list):
@@ -434,20 +505,19 @@ def claimed_books(text, book_re):
     return out
 
 
-def book_text(book, index):
-    """書名に対応する本文（複数版がある書は連結する）。"""
+def book_files(book, index):
+    """書名に対応する実ファイルの相対パス一覧。"""
     # 同じ書が daizhigev20 の単一ファイルと china-history の章分割 HTML の両方にあるとき、
     # 版が違って一方にしか無い記事がある。片方だけを読むと 67 件が誤検出になったので全部読む
-    buf = []
+    out = []
     for name in BOOK_ALIAS.get(book, (book,)):
         for rel in index.get(name) or []:
             p = CORPUS_ROOT / rel
             if p.is_dir():
-                buf += [f.read_text(encoding="utf-8", errors="ignore")
-                        for f in sorted(p.rglob("*")) if f.is_file()]
+                out += [str(f.relative_to(CORPUS_ROOT)) for f in sorted(p.rglob("*")) if f.is_file()]
             else:
-                buf.append(p.read_text(encoding="utf-8", errors="ignore"))
-    return norm_for_match("\n".join(buf))
+                out.append(rel)
+    return out
 
 
 GROUP_EVENT_RE = re.compile(r"^([A-Za-z]+)\[(\d+)\]\.note$")
@@ -521,15 +591,27 @@ def scan_claimed_books(data, refs, log=print):
         keys = [k for k in keys if units[k]["found"] is None]
         if not keys or (book not in index and book not in BOOK_ALIAS):
             continue
-        text = book_text(book, index)
+        # 書はファイル単位で見て「どれかのファイルに在る」を採る。全ファイルを "\n" で
+        # 連結してから正規化すると han_only が改行を落とし、ファイル境界をまたぐ並びが
+        # 生まれて実在しない一致を作る（連結方式の欠陥）。ファイル単位なら
+        # _norm_cache がそのまま効くので、書ごとの再正規化（約100秒）も消える。
+        found = {k: set() for k in keys}
+        for rel in book_files(book, index):
+            text = normalized_file(rel, memo=False)
+            if not text:
+                continue
+            for k in keys:
+                frags = units[k]["frags"]
+                for i in range(len(frags)):
+                    if i not in found[k] and frag_in(frags[i], text):
+                        found[k].add(i)
         for k in keys:
             u = units[k]
-            n = sum(1 for f in u["frags"] if frag_in(f, text))
+            n = len(found[k])
             if n == len(u["frags"]):
                 u["found"] = book
             elif n > u["best"]:
                 u["best"], u["bestbook"] = n, book
-        del text
     rows = [u for u in units.values() if u["found"] is None]
     log(f"照合対象 {len(units)} 件 / 名乗る書に無い {len(rows)} 件 "
         f"（判定不能 {dict(skipped)}）")
@@ -577,20 +659,30 @@ def cmd_list_triaged():
     return 0
 
 
-def cmd_backfill(rebuild=False):
+def cmd_backfill(rebuild=False, retry_unresolved=False):
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     units = extract_units(data)
     refs = load_refs()
     known = refs["refs"]
     pending = {}
+    skipped_unresolved = 0
     for eid, path, span in units:
         key = unit_key(eid, path, span)
         ent = known.get(key)
         # --rebuild は照合器を変えたときに機械判定だけを作り直す。
         # 人が curation した status（manual/external/defect）は残す。
-        if ent is None or ent.get("status") == "unresolved" or (
-                rebuild and ent.get("status") not in CURATED):
+        if ent is None or (rebuild and ent.get("status") not in CURATED):
             pending[key] = (eid, path, span)
+        elif ent.get("status") == "unresolved":
+            # 未解決の再走査は 5GB のコーパス全文 grep を2周する（本文の 9割以上を
+            # 占める）。同じ引用を同じ正規化で同じコーパスに当てれば結果も同じなので、
+            # 正規化の版（_NORM_VERSION）が変わったときだけやり直す。引用を直せば
+            # ハッシュが変わって別のキーになるため、直した分は必ず再走査される。
+            # コーパス側を入れ替えたときは --retry-unresolved で明示的に回す。
+            if retry_unresolved or ent.get("nv") != _NORM_VERSION:
+                pending[key] = (eid, path, span)
+            else:
+                skipped_unresolved += 1
     # 調査待ちの印は作り直しでも残す（印が消えると既知の残件が「新規の混入」に化ける）。
     # 引用を直すとハッシュが変わるので id|path でも引けるようにしておく。
     # 注意: id|path での引き継ぎは「同じフィールドの別の引用」にも印を渡してしまう。
@@ -628,7 +720,8 @@ def cmd_backfill(rebuild=False):
         refreshed += 1
     if refreshed:
         print(f"span を貼り直した既存エントリ: {refreshed} 件")
-    print(f"引用ユニット {len(units)} / 台帳既存 {len(units) - len(pending)} / 解決対象 {len(pending)}")
+    print(f"引用ユニット {len(units)} / 台帳既存 {len(units) - len(pending)} / 解決対象 {len(pending)}"
+          f"{f' / 走査済みの未解決を据え置き {skipped_unresolved}' if skipped_unresolved else ''}")
     if not pending:
         save_refs(refs)
         return 0
@@ -641,7 +734,8 @@ def cmd_backfill(rebuild=False):
         why = triage_by_key.get(key) or triage_by_path.get(f"{eid}|{path}")
         if why:
             ent["triage"] = why
-        known.setdefault(key, ent)
+        # 「この正規化の版では走査済み」の印。次回はここを見て再走査を省く
+        known.setdefault(key, ent)["nv"] = _NORM_VERSION
     save_refs(refs)
     print(f"解決 {len(resolved)} / 未解決 {len(unresolved)} → {REFS_PATH.relative_to(ROOT)}")
     if unresolved:
@@ -662,6 +756,8 @@ def cmd_check(coverage_only=False):
     recheck_fail = []
     glyph_fail = []
     glyph_allow = refs.get("glyphAllow", {})
+    verdicts = None if coverage_only else load_verdicts()
+    keep = set()
     for eid, path, span in units:
         key = unit_key(eid, path, span)
         seen_keys.add(key)
@@ -683,13 +779,20 @@ def cmd_check(coverage_only=False):
         elif coverage_only:
             pass  # カバレッジ検査ではコーパス再照合を行わない
         elif st in ("cache", "corpus"):
+            allowed = f"{eid}|{path}" in glyph_allow
+            stamp = verdict_stamp(key, ent, allowed) if verdicts is not None else None
+            if stamp is not None and stamp in verdicts:
+                keep.add(stamp)
+                counts["再照合を省略"] += 1
+                continue
             frags = ent.get("frags") or []
             text = normalized_file(ent.get("corpusFile", ""))
+            passed = False
             if not text:
                 warnings.append(f"[quote-refs] {eid} {path}: corpusFile が読めない: {ent.get('corpusFile')}")
             elif frags and not all(frag_in(f, text) for f in frags):
                 recheck_fail.append(f"{eid} {path} ({ent.get('corpusFile')})")
-            elif frags and f"{eid}|{path}" not in glyph_allow:
+            elif frags and not allowed:
                 # 字体混入ゲート: 照合が通るのが「新字体表のおかげ」なら、引用に
                 # 底本と違う字形（応・広・徳…）が混ざっている。表の網羅性に依存せず、
                 # 底本そのものを基準に判定する（2026-08-02 に368件を訂正した際の恒久化）。
@@ -697,6 +800,14 @@ def cmd_check(coverage_only=False):
                 bad = [f for f in frags if not frag_in_strict(f, strict)]
                 if bad:
                     glyph_fail.append(f"{eid} {path}: {bad[0]}")
+                else:
+                    passed = True
+            else:
+                passed = True
+            if passed:
+                counts["再照合した"] += 1
+                if stamp is not None:
+                    keep.add(stamp)
     stale = [k for k in known if k not in seen_keys]
     if stale:
         warnings.append(f"[quote-refs] 台帳の陳腐化エントリ（引用の変更・削除済み・掃除可）: {len(stale)} 件")
@@ -719,6 +830,11 @@ def cmd_check(coverage_only=False):
         print(f"WARN  {w}")
     for e in errors:
         print(f"ERROR {e}")
+    if verdicts is not None:
+        # 今回合格したぶんだけを残す（消えた引用・落ちた引用のスタンプは落ちる）。
+        # 他の引用が落ちた回でも保存する: 訂正ループは「1件直す→まだ別が落ちる」を
+        # 繰り返すので、合格が確定した引用まで毎回読み直すと目的の場面で効かなくなる
+        save_verdicts(keep)
     mode = "coverage" if coverage_only else "full"
     print(f"---\n{len(errors)} errors, {len(warnings)} warnings / units={len(units)} mode={mode} "
           f"status={dict(counts)}")
@@ -739,6 +855,9 @@ def main():
     ap.add_argument("--rebuild", action="store_true",
                     help="--backfill と併用。照合器を変えたとき機械判定を作り直す"
                          "（manual/external/defect の curation は残す）")
+    ap.add_argument("--retry-unresolved", action="store_true",
+                    help="--backfill と併用。走査済みの未解決ユニットもコーパスへ当て直す"
+                         "（コーパスを入れ替えた・書を足したとき）")
     args = ap.parse_args()
     import hanzi_norm
     if hanzi_norm._T2S is None:
@@ -758,7 +877,7 @@ def main():
     if args.check_books:
         return cmd_check_books()
     if args.backfill:
-        return cmd_backfill(rebuild=args.rebuild)
+        return cmd_backfill(rebuild=args.rebuild, retry_unresolved=args.retry_unresolved)
     return cmd_check()
 
 

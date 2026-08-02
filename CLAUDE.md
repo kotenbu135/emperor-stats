@@ -22,11 +22,13 @@ python3 scripts/coverage.py --write    # 進捗表記をデータ本体から引
 
 # 引用・日付を追加・変更した場合はさらに必須
 python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py --check  # 引用照合台帳（ローカル専用・要コーパス）
-# ↑ --check は初回のみ約6分（`_norm_cache/` を作る）。2回目以降は数秒なので訂正ループの中で回してよい
+# ↑ 初回のみ重い（`_norm_cache/` を作る --check が約6分、--backfill が未解決分をコーパスへ当て直して数分）。
+#   2回目以降はどちらも1秒未満なので訂正ループの中で回してよい。コーパスを入れ替えた・書を足したときだけ
+#   `--backfill --retry-unresolved`（未解決ユニットをコーパスへ当て直す。付けないと前回の走査結果を据え置く）
 python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実経過日数（CI でも実行）
 ```
 
-note に**書名を書き足した・引用の出典を差し替えた**ときは `python3 scripts/verify_quotes.py --check-books`（ローカル専用・約1分40秒。名乗る書名とその書の実ファイルを突き合わせる。未トリアージの残件があるためエラーにはしない＝出力を読む）。
+note に**書名を書き足した・引用の出典を差し替えた**ときは `python3 scripts/verify_quotes.py --check-books`（ローカル専用・初回のみ約1分40秒〔名乗られた書ぶんの `_norm_cache/` を作る〕・2回目以降は約4秒。名乗る書名とその書の実ファイルを突き合わせる。未トリアージの残件があるためエラーにはしない＝出力を読む）。
 
 `data/regime-conventions.json`（政権単位の慣行）を触った場合は `python3 scripts/check_regime_conventions.py`（構造・政権 id の実在・引用が実ファイルの該当行にあるか。CI でも実行）。悉皆調査に入る前に `--scope` で確定済みの範囲を、人物単位の調査を立てる前に `--for <皇帝id>` を見る。
 `data/screenings.json`（原典を読む前の機械の絞り込み）を触った場合は `python3 scripts/check_screenings.py`（`scripts/screens/*.py` を実行して記録の件数と突き合わせる・標本監査の有無。CI でも実行）。着手前に `--scope` で「母集団 N → 要読解 M」を、調査が進んで母集団が減ったら `--update` で件数だけ引き直す。
@@ -73,7 +75,7 @@ note に**書名を書き足した・引用の出典を差し替えた**とき�
 - **調査中により良い手順に気づいたら、その場でユーザーへ提案する**（自分で手順を変えない）。採否は [docs/process/PROCESS_IMPROVEMENTS.md](docs/process/PROCESS_IMPROVEMENTS.md) に残す。エージェントの出力には `processSuggestion` の欄がある
 - **調査エージェントは `.claude/agents/` の定義を使う**（`corpus-researcher`・`adversarial-verifier`・`profile-*`）。素の Agent を立てると引用規約・出力契約がプロンプトに写し漏れる。Workflow からは `agent(prompt, {agentType: '...'})`。段構成も `.claude/workflows/` に置いて毎回書き直さない
 - **一部の規則は `.claude/hooks/guard.py` が実行の直前に止める**（コーパスへの `.{0,N}` grep・`git add -A`・裸の `git stash`・メイン会話での `emperors.json` 全体 Read）。**サブエージェントと Workflow エージェントにも掛かる**。逃げ道は `EMPSTATS_ALLOW=<規則ID>:<理由>` の1本だけで、理由は必須。規則の一覧と適用範囲は [docs/process/RULES.yml](docs/process/RULES.yml)
-- **`data/*.json` に未コミット差分があるまま turn を終えると `.claude/hooks/stop_gate.py` が軽いゲートをその場で流す**（1秒未満）。落ちていれば止まる。`verify_quotes.py --check` は344秒かかるので流さず「今回の変更より後に起動されていない」ことだけ告げる。**止めるのは1回だけ**なので、意図的に途中の状態で終えたいときはその旨を述べてもう一度終える
+- **`data/*.json` に未コミット差分があるまま turn を終えると `.claude/hooks/stop_gate.py` が軽いゲートをその場で流す**（1秒未満）。落ちていれば止まる。`verify_quotes.py --check` は流さず「今回の変更より後に起動されていない」ことだけ告げる（2026-08-02 に344秒→1秒未満へ短縮したので、フックで流すように変えるかは別途判断する）。**止めるのは1回だけ**なので、意図的に途中の状態で終えたいときはその旨を述べてもう一度終える
 - **完了は宣言せず実測する** — 「このブロックは完了」と書く前に `python3 scripts/coverage.py` を通し、進捗表記は `--write` が生成する [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md) の領域そのものにする（グループ2の「364人完了」は自己申告で実測355人だった）。数えるのは**フィールドが在るか**ではなく**確定したか**で、`判別不能` は誤りではなく「完了の主張が機械では確かめられない」の意。**note の散文からは確定を読み取らない**
 - **悉皆調査では、政権単位で決まることを人物単位で365回やらない** — 「この政権は廟号を立てるか」「どの位置にどんな書式で載るか」は政権の慣行なので、`data/regime-conventions.json` に**書式・所在だけ**を原典から先に確定する（**値は書かない**。「唐は全員に廟号がある」は24人読まないと言えない人物単位の主張）。絞り込みの誤りは非対称で、「書式がある」の誤りはトークンを損するだけだが、「無い」の誤りはその政権の空欄を全件まとめて「正しい」と結論する
 - **原典を読む前に、機械で前提を検証して母集団を絞る** — 絞り込みは `scripts/screens/<名前>.py` にコミットして残し、結果を `data/screenings.json` に「母集団 N → 要読解 M」の形で記録してから読み始める。**絞り込みは読む順序と量を変えるだけ**で判定を機械にさせるわけではない。**機械が何も見つけなかった側（`absent`）を「値が無い」と読まない** — 種つき無作為標本を原典で読んで取りこぼし率を測る（Issue #37 の名前データでは諡号の absent 側で6件中3件が取りこぼしだった）

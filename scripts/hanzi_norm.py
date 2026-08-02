@@ -6,6 +6,7 @@ opencc の python パッケージには jp2t 設定が無いため、常用漢�
 過半の原因」と判明した教訓の恒久化。詳細: docs/qa/note-verification-2026-07-22/）。
 """
 import re
+from functools import lru_cache
 
 try:
     import opencc
@@ -96,11 +97,16 @@ def norm_strict(s: str) -> str:
     return _T2S.convert(han_only(s)) if _T2S else han_only(s)
 
 
+@lru_cache(maxsize=200_000)
 def norm_variants(s: str) -> tuple:
     """照合用の正規化候補。いずれかが底本に当たれば一致とみなす。
 
     底本と引用のどちらにも現れうる字（AMBIGUOUS_JP）を一方向に畳むと、
     畳んだ側だけ当たらなくなるため候補を並べる。
+
+    引数は断片（数十字）に限られ、照合ループから同じ断片が何万回も渡るので
+    結果を持ち回る。純関数なので判定は変わらない（底本のような巨大文字列は
+    ここを通らない＝norm_for_match を直接呼ぶ）。
     """
     base = han_only(s)
     a = to_simplified(base)
