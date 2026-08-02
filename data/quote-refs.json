@@ -16621,6 +16621,17 @@
    ],
    "line": 62
   },
+  "hou-han-guangwudi|personalCampaignCount[1].note|844980540bbd": {
+   "id": "hou-han-guangwudi",
+   "path": "personalCampaignCount[1].note",
+   "span": "戊申，至自宜阳。",
+   "status": "corpus",
+   "corpusFile": "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html",
+   "frags": [
+    "戊申至自宜阳"
+   ],
+   "line": 97
+  },
   "hou-han-guangwudi|personalCampaignCount[1].note|f21ac2cea54c": {
    "id": "hou-han-guangwudi",
    "path": "personalCampaignCount[1].note",
@@ -16676,6 +16687,17 @@
     "帝自上邽晨夜東馳"
    ],
    "line": 153
+  },
+  "hou-han-guangwudi|personalCampaignCount[5].note|78c454e84829": {
+   "id": "hou-han-guangwudi",
+   "path": "personalCampaignCount[5].note",
+   "span": "戊寅，至自颍川。",
+   "status": "corpus",
+   "corpusFile": "china-history/后汉书/本纪/第二章-光武帝纪下-原文.html",
+   "frags": [
+    "戊寅至自颍川"
+   ],
+   "line": 57
   },
   "hou-han-guangwudi|personalCampaignCount[5].note|c3152247e8d8": {
    "id": "hou-han-guangwudi",
@@ -21304,6 +21326,17 @@
    ],
    "line": 93
   },
+  "houqin-yaoxing|personalCampaignCount[7].note|62f4d832a8e5": {
+   "id": "houqin-yaoxing",
+   "path": "personalCampaignCount[7].note",
+   "span": "至寿渠川，不及而还",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/晋书.txt",
+   "frags": [
+    "至寿渠川不及"
+   ],
+   "line": 8433
+  },
   "houqin-yaoxing|reigns[0].quote#0|9b85b43353fb": {
    "id": "houqin-yaoxing",
    "path": "reigns[0].quote#0",
@@ -21736,6 +21769,29 @@
    ],
    "line": 40
   },
+  "houyan-murongchui|personalCampaignCount[2].note|14701b8cbd7b": {
+   "id": "houyan-murongchui",
+   "path": "personalCampaignCount[2].note",
+   "span": "垂引兵南击钊",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "垂引兵南击钊"
+   ],
+   "line": 9594
+  },
+  "houyan-murongchui|personalCampaignCount[2].note|40324bf075f3": {
+   "id": "houyan-murongchui",
+   "path": "personalCampaignCount[2].note",
+   "span": "戊午，梁王薨。慕容垂袭翟钊于黎阳，败之，钊奔于慕容永。",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/帝纪/第九章--原文.html",
+   "frags": [
+    "慕容垂袭翟钊于黎阳",
+    "钊奔于慕容永"
+   ],
+   "line": 46
+  },
   "houyan-murongchui|personalCampaignCount[2].note|da3a81a383c8": {
    "id": "houyan-murongchui",
    "path": "personalCampaignCount[2].note",
@@ -21758,6 +21814,28 @@
     "慕容垂击慕容永于长子"
    ],
    "line": 48
+  },
+  "houyan-murongchui|personalCampaignCount[3].note|3e950d0a7f9a": {
+   "id": "houyan-murongchui",
+   "path": "personalCampaignCount[3].note",
+   "span": "垂自出沙庭，以击西燕",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "垂自出沙庭"
+   ],
+   "line": 1678
+  },
+  "houyan-murongchui|personalCampaignCount[3].note|d7d95dc93d72": {
+   "id": "houyan-murongchui",
+   "path": "personalCampaignCount[3].note",
+   "span": "垂顿于鄴之西南，月余不进。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houyan-murongchui.txt",
+   "frags": [
+    "垂顿于鄴之西南"
+   ],
+   "line": 32
   },
   "houyan-murongchui|personalCampaignCount[4].note|168ffffe9029": {
    "id": "houyan-murongchui",
@@ -21985,6 +22063,18 @@
    "frags": [
     "燕王盛自将兵三万袭之",
     "以骠骑大将国熙为前锋"
+   ],
+   "line": 9936
+  },
+  "houyan-murongsheng|personalCampaignCount[1].note|b8c1e2485c3b": {
+   "id": "houyan-murongsheng",
+   "path": "personalCampaignCount[1].note",
+   "span": "拔新城、南苏二城，开境七百馀里，徙五千馀户而还",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "开境七百馀里",
+    "徙五千馀户而还"
    ],
    "line": 9936
   },
@@ -30122,6 +30212,17 @@
    ],
    "line": 24
   },
+  "liao-shengzong|personalCampaignCount[3].note|02d854f757dd": {
+   "id": "liao-shengzong",
+   "path": "personalCampaignCount[3].note",
+   "span": "次满城，以泥淖班师",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liao-shengzong.txt",
+   "frags": [
+    "以泥淖班师"
+   ],
+   "line": 30
+  },
   "liao-shengzong|rebellionSufferedCount[1].note|2b2365025849": {
    "id": "liao-shengzong",
    "path": "rebellionSufferedCount[1].note",
@@ -30266,6 +30367,17 @@
     "遣諸将率兵攻"
    ],
    "line": 5
+  },
+  "liao-shizong|personalCampaignCount[1].note|128795878f9e": {
+   "id": "liao-shizong",
+   "path": "personalCampaignCount[1].note",
+   "span": "未及师还，变起沉湎",
+   "status": "corpus",
+   "corpusFile": "china-history/辽史/本纪/第五章-卷五-原文.html",
+   "frags": [
+    "未及师还变起"
+   ],
+   "line": 29
   },
   "liao-shizong|personalCampaignCount[1].note|635c07f61ca6": {
    "id": "liao-shizong",
@@ -42694,6 +42806,17 @@
    ],
    "line": 6
   },
+  "qianqin-fujian|personalCampaignCount[2].note|97d2cba4b020": {
+   "id": "qianqin-fujian",
+   "path": "personalCampaignCount[2].note",
+   "span": "甲申，秦主健还长安。",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "秦主健还长安"
+   ],
+   "line": 8596
+  },
   "qianqin-fujian|rebellionSufferedCount[5].note|f60e007a46bb": {
    "id": "qianqin-fujian",
    "path": "rebellionSufferedCount[5].note",
@@ -50661,6 +50784,31 @@
     "惟建安二十六年四月丙"
    ],
    "line": 22
+  },
+  "shuhan-zhaoliedi|personalCampaignCount[0].note|c0cb048990d7": {
+   "id": "shuhan-zhaoliedi",
+   "path": "personalCampaignCount[0].note",
+   "span": "自正月至闰月",
+   "status": "corpus",
+   "corpusFile": "china-history/三国志/吴书/第二章-吴主传-原文.html",
+   "frags": [
+    "自正月至闰月"
+   ],
+   "line": 23
+  },
+  "shuhan-zhaoliedi|personalCampaignCount[0].note|c4c95a50a3fc": {
+   "id": "shuhan-zhaoliedi",
+   "path": "personalCampaignCount[0].note",
+   "span": "先主自猇亭还秭归，收合离散兵，遂弃船舫，由步道还鱼复，改鱼复县曰永安",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shuhan-zhaoliedi.txt",
+   "frags": [
+    "先主自猇亭还秭归",
+    "收合离散兵",
+    "由步道还鱼复",
+    "改鱼复县曰永安"
+   ],
+   "line": 24
   },
   "shuhan-zhaoliedi|personalCampaignCount[0].note|eba8dc4c29ab": {
    "id": "shuhan-zhaoliedi",
@@ -69800,12 +69948,12 @@
   "xia-heliading|personalCampaignCount[0].note|9da83a9542f5": {
    "id": "xia-heliading",
    "path": "personalCampaignCount[0].note",
-   "span": "定知斤軍無糧乏水，乃邀斤前後",
+   "span": "定知斤军无粮乏水，乃邀斤前后。",
    "status": "corpus",
    "corpusFile": "china-history/魏书/列传/第十七章-卷十七-原文.html",
    "frags": [
-    "定知斤軍無糧乏水",
-    "乃邀斤前後"
+    "定知斤军无粮乏水",
+    "乃邀斤前后"
    ],
    "line": 27
   },
@@ -72297,6 +72445,17 @@
     "大敗於河湟"
    ],
    "line": 143
+  },
+  "xixia-jingzong|personalCampaignCount[2].note|ed5c2a0154b2": {
+   "id": "xixia-jingzong",
+   "path": "personalCampaignCount[2].note",
+   "span": "春正月，还自西蕃",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/别史/西夏书事.txt",
+   "frags": [
+    "春正月还自西"
+   ],
+   "line": 2039
   },
   "xixia-jingzong|personalCampaignCount[3].note|a4db1cd78950": {
    "id": "xixia-jingzong",
@@ -76695,6 +76854,17 @@
     "以阿里不哥反"
    ],
    "line": 19
+  },
+  "yuan-shizu|rebellionSufferedCount[13].note|0394119d1dd7": {
+   "id": "yuan-shizu",
+   "path": "rebellionSufferedCount[13].note",
+   "span": "是月，诸王乃颜反",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "诸王乃颜反"
+   ],
+   "line": 338
   },
   "yuan-shizu|rebellionSufferedCount[16].note|77c9d2439d94": {
    "id": "yuan-shizu",
