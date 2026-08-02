@@ -182,8 +182,14 @@ data/internal/（配布しない・ゲート対象外・追記しない）
 
 ## 7. 実装順序（同梱ぶん）
 
-1. `events[].id` を焼き、`screenings.json`・`RESIDUAL.md`・`check_screenings.py` の参照を移す（A）
+1. ~~`events[].id` を焼き、`screenings.json`・`RESIDUAL.md`・`check_screenings.py` の参照を移す（A）~~
+   → **2026-08-03 完了**（`4a33c8e`）。`validate_emperors.py` の許可リスト2本も同じ型のずれを
+   持っていたので一緒に移した。抽選の鍵は `audit.sampleKey: "legacy-index"` で凍結してある
 2. 日付の主張範囲を絞る（#69 本体）— 丸め・アーカイブ・深さの規約反転・`verify_calendar` B-5 の対象変更
+   - **ここで一緒に直す**: `scripts/screens/lunar_date_as_iso.py` の `COUNT_GROUPS` に
+     存在しない容器名 `crownPrinceChangeCount` が入っており、皇太子廃立の34 events・
+     日精度15値が母集団から黙って外れている（2026-08-03 検出）。**単独で直すと母集団 `n` が
+     動いて標本監査29件を引き直すことになる**ので、母集団の定義を書き換えるこの段でまとめる
 3. `ages` の深さを揃える（B）・`dynastyOrder` の `null` を落とす（D）
 4. `source` と `quotes` の器・`meta.catalogs.books`・床のゲート（E・F）
 5. サイト（日付パーサ・年表の1行化）・CSV・`emperors.schema.json`・CalVer 繰り上げ・`/about` の1文
