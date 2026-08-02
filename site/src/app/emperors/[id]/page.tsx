@@ -6,7 +6,10 @@
 // ダイアログの廃止で共用相手が消えたため、部品ごと個別ページ専用に割り直してある。
 //
 // 節の並び: ①ヒーロー ②紹介文 ③基本情報＋回数 ④経緯 ⑤在位中の出来事
-// ⑥関連動画・典拠と調査メモ・前後ナビ。
+// ⑥関連動画・前後ナビ。
+//
+// 2026-08-02 に末尾の「在位日付の典拠」「調査メモ」（畳んだ2節）を廃止した。
+// 根拠は配布データ（data/emperors.json）に同じものが入っている。
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -14,10 +17,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { EmperorHero } from "@/components/emperors/emperor-hero";
 import { EmperorFacts } from "@/components/emperors/emperor-facts";
 import { EmperorVideosSection } from "@/components/emperors/emperor-videos";
-import {
-  EmperorNarrativeSections,
-  EmperorResearchDetails,
-} from "@/components/emperors/emperor-narrative";
+import { EmperorNarrativeSections } from "@/components/emperors/emperor-narrative";
 import { EmperorEventTimeline } from "@/components/emperors/emperor-event-timeline";
 import { RubyText } from "@/components/ui/ruby-text";
 import {
@@ -209,7 +209,6 @@ export default async function EmperorPage({
           )}
           {/* 関連動画は外部チャンネルの制作物なので、本文（経緯・出来事）より後ろ。 */}
           <EmperorVideosSection record={record} />
-          <EmperorResearchDetails narrative={narrative} />
           <nav
             aria-label="前後の皇帝"
             className="mt-2 flex justify-between gap-4 border-t border-border pt-4 text-sm"
