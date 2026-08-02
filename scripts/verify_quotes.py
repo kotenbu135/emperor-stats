@@ -355,6 +355,8 @@ def cmd_backfill(rebuild=False):
             pending[key] = (eid, path, span)
     # 調査待ちの印は作り直しでも残す（印が消えると既知の残件が「新規の混入」に化ける）。
     # 引用を直すとハッシュが変わるので id|path でも引けるようにしておく。
+    # 注意: id|path での引き継ぎは「同じフィールドの別の引用」にも印を渡してしまう。
+    # 新規の未解決を確実にエラーへ落としたいときは --rebuild 後に印を見直すこと。
     triage_by_key = {k: v["triage"] for k, v in known.items() if v.get("triage")}
     triage_by_path = {f'{v["id"]}|{v["path"]}': v["triage"] for v in known.values() if v.get("triage")}
     if rebuild:
