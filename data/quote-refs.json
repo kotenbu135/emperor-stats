@@ -72446,6 +72446,17 @@
    ],
    "line": 143
   },
+  "xixia-jingzong|personalCampaignCount[2].note|ed5c2a0154b2": {
+   "id": "xixia-jingzong",
+   "path": "personalCampaignCount[2].note",
+   "span": "春正月，还自西蕃",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/别史/西夏书事.txt",
+   "frags": [
+    "春正月还自西"
+   ],
+   "line": 2039
+  },
   "xixia-jingzong|personalCampaignCount[3].note|a4db1cd78950": {
    "id": "xixia-jingzong",
    "path": "personalCampaignCount[3].note",
