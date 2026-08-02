@@ -95,14 +95,16 @@ def main():
     dist = Counter()
     shown = 0
     for ent in rows:
-        rel = ent.get("corpusFile")
         span = ent.get("span") or ""
-        if not rel:
+        # 未解決ユニットは底本が記録されていない。本人の本紀キャッシュを既定の相手にする
+        # （調査待ちの大半はここに記事があり、日付や語句だけが合っていない）
+        rel = ent.get("corpusFile") or f'_corpus_cache/{ent["id"]}.txt'
+        if not (CORPUS_ROOT / rel).exists():
             dist["底本の記録なし"] += 1
             if shown < args.limit:
                 shown += 1
-                print(f'{ent["id"]} {ent["path"]}\n  引用 {span}\n  → 底本の記録が無い'
-                      f'（status={ent.get("status")}）\n')
+                print(f'{ent["id"]} {ent["path"]}\n  引用 {span}\n  → 底本の記録が無く'
+                      f'本紀キャッシュも無い（status={ent.get("status")}）\n')
             continue
         text = strict_text(rel)
         worst = None
