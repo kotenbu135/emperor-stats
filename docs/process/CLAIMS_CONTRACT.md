@@ -40,9 +40,13 @@
     { "field": "name.templeName", "value": "太宗", "basis": ["c1"], "confidence": "high" }
   ],
   "conflicts": [
-    { "field": "ages.deathAge", "adopted": 47, "alternatives": [
-        { "value": 38, "source": "華陽国志", "note": "永昌元年に年二十六とする" } ],
-      "reason": "晋書載記の「時年四十七」を採る" }
+    { "field": "ages.deathAge",
+      "adopted": { "value": 47, "source": {"page": "晋書 載記第二十一"},
+                   "quote": "时年四十七，在位一年" },
+      "alternatives": [
+        { "value": 38, "source": {"page": "華陽国志 巻九"}, "quote": "年二十六，立为太子",
+          "note": "永昌元年（322年）の太子冊立を年二十六とするため崩御時は数え38歳（逆算値）" } ],
+      "reason": "晋書載記と十六国春秋がともに「时年四十七」と直接記す。38は逆算で直接記載ではない" }
   ],
   "noteLog": "既存 note は『養子として即位』としていたが載記は『兄李蕩の子』。捨てた側の値を記録する。",
   "discrepancies": "なし",
@@ -55,7 +59,7 @@
 | `id` | ○ | **指定された id を一字一句そのまま。**独自生成は禁止（別ブロックで35名中20件超が不一致になった） |
 | `claims[]` | ○ | 原文の引用。`quote` は grep / Read / `quote_helper.py` の**出力からコピー**し、字体変換・要約・語順変更をしない。`file` はリポジトリからの相対パス、`line` はその行番号 |
 | `findings[]` | ○ | 欄の**主張**。`basis` は `claims[].cid` の配列で、**空は許さない**。原文が言っていないことは書けない |
-| `conflicts[]` | ○（空配列可） | 史料同士の対立。採用値・対立値・**採否理由**を持つ |
+| `conflicts[]` | ○（空配列可） | 史料同士の対立。採用値・対立値・**採否理由**を持つ。**`emperors.json` の `conflicts` と同じ形**（2026-08-03・Issue #51 P3）なので、そのままコンテナへ入る。`adopted` は `{value, source, quote}` のオブジェクト——採用側にも出典が要る（片側だけだと「採用した」と「書き忘れた」が区別できない）。`quote` には引用規約の全項が掛かる |
 | `noteLog` | — | 作業ログ。捨てた側の値・経緯・換算メモ。**主張はここに書かない** |
 | `discrepancies` | ○ | 既存の**構造フィールド**（数値・日付・enum）と原文の食い違い。**無ければ「なし」と明記する** — 無言を「照合した」と読まないため。**note との突き合わせは検証段の担当**（1段目には note を渡さない・2026-08-02〜） |
 | `processSuggestion` | — | **手順そのものの改善案**。調査中に気づいたことを書く（規則 `R-PROCESS-FEEDBACK`）。親セッションがユーザーへ上げ、採否を `PROCESS_IMPROVEMENTS.md` に残す |

@@ -75,6 +75,10 @@ HINTS = [
     (re.compile(r"(?:^|\.)(?:note|quote)(?:$|\.|\[)"),
      "python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py --check",
      "原文引用を足した・変えたなら照合台帳 data/quote-refs.json も動く（R-QUOTE-NO-TYPE / R-QUOTE-GLYPH）"),
+    (re.compile(r"(?:^|\.)conflicts(?:$|\.|\[)"),
+     "python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py --check",
+     "conflicts の adopted / alternatives が持つ quote は照合台帳の対象（引用規約の全項が掛かる）。"
+     "採用値を訂正したら conflicts[].adopted.value も動く（validate_emperors.py が突合する）"),
     (re.compile(r"[Dd]ate|Year|raw|fromLunar|exactDays|duration"),
      "python3 scripts/verify_calendar.py",
      "日付は隣接フィールドに散る（reigns[].endDate ↔ ages.deathDate ↔ events[].date ↔ note 内の日付引用）。"
