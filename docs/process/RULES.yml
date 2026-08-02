@@ -234,6 +234,32 @@ rules:
     evidence: 前例では #34 の sxtwl 検査が293件中282件の前提を裏付けて残り20件だけを読めば済み、#38 の quote_diff.py が234件を仕分けた。一方 Issue #37 の名前データで絞り込みを記録して標本監査を掛けたところ、**absent 側の取りこぼしは廟号6件中1件・諡号6件中3件**で、「機械が見つけなかった＝値が無い」は成り立たなかった（2026-08-02）
     source: .claude/skills/research-block/SKILL.md の 0.6 節・Issue #41 の実施順3
 
+  - id: R-EVENT-DATE-RAW
+    summary: events の日付を新しく確定・訂正したら、原典の紀年表記（*Raw）と換算（source.conversion）を同じ要素に残す
+    scope: >-
+      data/emperors.json の回数系8フィールドの `events[]` に**新しく書く日付**
+      （date・startDate・endDate）。**既存の約2,000件には遡及しない**（欄は任意）。
+      reigns は 2026-07 から `startDateRaw`／`endDateRaw`／`duration.source.conversion` を
+      持っており、events だけが持っていなかった
+    enforcement: [L0, L3, L4]
+    detail: >-
+      L0＝スキーマに `dateRaw`／`startDateRaw`／`endDateRaw` と `source`（`conversion` を含む）を
+      置いた（data/schema/emperors.schema.json・2026-08-03）。L3＝verify_calendar.py の **B-5** が
+      `source.conversion` の `fromLunar(y,m,d[,leap])` を再演する。**朔日アンカー
+      `fromLunar(y,m,1)` は月精度の主張として扱い、多数月を計算して `→YYYY-MM` や保存値と
+      照合する** — 記法を増やさずに月精度の誤りを機械化できる。検出力は
+      `python3 scripts/test_event_conversion_gate.py` が合成レコードで測る（**実データでは
+      当面 B5=0 なので、0エラーを「守れている」と読まないための分母**）。
+      **L4 が残るのは「書いたか」のほう** — 遡及しない任意の欄なので、書かなかったことは
+      検出できない。機械が見られるのは「書いたのに合わない」だけ
+    evidence: >-
+      Issue #56（2026-08-03）で親征イベントの終期42件を原典へ当て直したところ24件が誤りで、
+      最も多い型が「旧暦の月番号を太陽暦の月欄へ直書き」だった（西夏襄宗 1211-05←旧暦五月は
+      西暦5月と1日も重ならない・夏赫連定2件・後燕慕容盛・西夏景宗）。events は原表記を持たない
+      ため、**保存値が旧暦の月番号のままか換算済みかを機械で区別できず**、Issue #34 の
+      1,937件の換算からも漏れて残った。同じ型は北斉文宣帝に7値・清聖祖に4値が未訂正で残っている（#62）
+    source: data/schema/EMPERORS_SCHEMA.md「events の原表記と換算」・Issue #56
+
   - id: R-SWEEP-DETECTION
     summary: 語彙走査の結果を「悉皆だ」の根拠にするときは、その語彙に掛からない該当記事を1件探して検出力を測る
     scope: 原典への機械走査（grep・キーワード列挙）の結果を、**値や確度の根拠として主張する**とき。訂正・確度確定・悉皆調査のいずれでも掛かる。走査を読む順序の道具として使うだけなら R-SCREEN-FIRST の側
