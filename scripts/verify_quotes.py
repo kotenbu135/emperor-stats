@@ -31,6 +31,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -192,13 +193,82 @@ def save_refs(refs):
 
 # ---------------------------------------------------------------------------
 
+# 正規化結果のディスクキャッシュ（2026-08-02 導入）。
+#
+# --check の実行時間の 99.6% は「台帳が指すコーパス 789ファイル・472MB を opencc で
+# 2通り（照合用・字体ゲート用）に正規化する」ことに費やされていた（純 Python の
+# opencc-python-reimplemented は 0.918 秒/MB。断片の照合そのものは全体の 0.3%）。
+# 底本が変わらなければ正規化結果も変わらないので、結果をそのまま持ち越す。
+#
+# 判定は変わらない: 保存するのは norm_for_match / norm_strict の出力そのもので、
+# 鍵に mtime+size を含めるため底本を差し替えれば必ず作り直される。壊れた・読めない
+# キャッシュは黙って捨てて計算し直すので、キャッシュの有無で結論は動かない。
+# 検証を外部から切るには EMPSTATS_NORM_CACHE=0（現行実装との突き合わせ用）。
+NORM_CACHE_DIR = (CORPUS_ROOT / "_norm_cache") if CORPUS_ROOT else None
+
+
+def _norm_version():
+    """正規化のしかたが変わったらキャッシュを捨てるための版。
+
+    鍵を底本の mtime+size だけにすると、hanzi_norm.py の新字体表を足したときに
+    キャッシュが生き残り、古い正規化のまま照合し続ける（表は 2026-08-02 にも
+    132字を追加している＝実際に変わる）。表の中身と opencc の版を鍵へ混ぜておく。
+    """
+    h = hashlib.sha1((ROOT / "scripts" / "hanzi_norm.py").read_bytes())
+    try:
+        import importlib.metadata as md
+        h.update(md.version("opencc-python-reimplemented").encode())
+    except Exception:
+        pass
+    return h.hexdigest()[:8]
+
+
+_NORM_VERSION = _norm_version()
+
+
+def _cache_path(relpath, kind):
+    return NORM_CACHE_DIR / f"{hashlib.sha1(relpath.encode()).hexdigest()[:16]}.{kind}"
+
+
+def _cached_norm(relpath, kind, fn):
+    p = CORPUS_ROOT / relpath
+    if not p.exists():
+        return ""
+    if os.environ.get("EMPSTATS_NORM_CACHE") == "0" or NORM_CACHE_DIR is None:
+        return fn(p.read_text(encoding="utf-8", errors="ignore"))
+    st = p.stat()
+    stamp = f"{_NORM_VERSION}\t{st.st_mtime_ns}:{st.st_size}\t{relpath}"
+    cp = _cache_path(relpath, kind)
+    try:
+        with cp.open(encoding="utf-8") as fh:
+            # 1行目が鍵、2行目以降が本文。正規化結果は漢字だけになる（han_only が
+            # 改行も落とす）ので、この1行で本文と混ざる余地がない
+            if fh.readline().rstrip("\n") == stamp:
+                return fh.read()
+    except OSError:
+        pass
+    text = fn(p.read_text(encoding="utf-8", errors="ignore"))
+    try:
+        NORM_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        # 別セッションが同じ底本を書いている最中でも半端なファイルを読ませない
+        tmp = cp.with_name(f"{cp.name}.tmp{os.getpid()}")
+        try:
+            tmp.write_text(f"{stamp}\n{text}", encoding="utf-8")
+            os.replace(tmp, cp)
+        finally:
+            if tmp.exists():   # 書けなかったぶんを置き去りにしない
+                tmp.unlink()
+    except OSError:
+        pass
+    return text
+
+
 _file_cache: dict[str, str] = {}
 
 
 def normalized_file(relpath):
     if relpath not in _file_cache:
-        p = CORPUS_ROOT / relpath
-        _file_cache[relpath] = norm_for_match(p.read_text(encoding="utf-8", errors="ignore")) if p.exists() else ""
+        _file_cache[relpath] = _cached_norm(relpath, "match", norm_for_match)
     return _file_cache[relpath]
 
 
@@ -208,8 +278,7 @@ _strict_cache: dict[str, str] = {}
 def strict_file(relpath):
     """底本本文を「新字体表なし」で正規化したもの（字体混入ゲート用）。"""
     if relpath not in _strict_cache:
-        p = CORPUS_ROOT / relpath
-        _strict_cache[relpath] = norm_strict(p.read_text(encoding="utf-8", errors="ignore")) if p.exists() else ""
+        _strict_cache[relpath] = _cached_norm(relpath, "strict", norm_strict)
     return _strict_cache[relpath]
 
 

@@ -21,6 +21,7 @@ python3 scripts/validate_emperors.py   # 構造・日付整合性・reignSummary
 
 # 引用・日付を追加・変更した場合はさらに必須
 python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py --check  # 引用照合台帳（ローカル専用・要コーパス）
+# ↑ --check は初回のみ約6分（`_norm_cache/` を作る）。2回目以降は数秒なので訂正ループの中で回してよい
 python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実経過日数（CI でも実行）
 ```
 
@@ -35,6 +36,7 @@ note に**書名を書き足した・引用の出典を差し替えた**とき�
 - **`site/`** — Next.js サイト（静的書き出し・emperorstats.com で公開）。**触る前に [site/AGENTS.md](site/AGENTS.md) と [docs/site-design/SITE_DESIGN.md](docs/site-design/SITE_DESIGN.md) を読む** — `kana-readings`・`DYNASTY_COLOR_SLOT` のように、追記を忘れるとビルドが落ちる assert がある。2026-07-31 に作り替えて一旦完成し、旧サイトの設計記録と計画段階のディレクトリ（`site/design-plans/`）は削除済み。確認用スクリーンショットは `site/tools/capture-site.mjs`
 - **`china-history/`・`daizhigev20/`** — 正史原文のローカルコーパス（`.gitignore` 対象・リポジトリには含まれない、事前に `git clone --depth 1` 済み）。データ訂正時の一次情報源として最優先で参照する
 - **`_corpus_cache/`** — 上記コーパスから人物ごとに抽出・整形済みの本紀原文キャッシュ（`.gitignore` 対象・`scripts/build_corpus_cache.py` で再生成可能）。キャッシュが無い人物を調査する際は、先にこのスクリプトへ書名・巻・行範囲のマッピングを追記して生成してから調査に入る
+- **`_norm_cache/`** — 上記コーパスを引用照合用に正規化した結果のキャッシュ（`.gitignore` 対象・約800MB・`verify_quotes.py` が必要になった時点で自動生成する）。**人が触るものではない**。底本の mtime/size が変われば作り直されるので、消しても次の `--check` が作り直すだけ（そのぶん遅くなる）
 - **`data/images/portraits/`** — 肖像画アセット（PD/CC0 のみ・`manifest.json` で出典管理）
 - **`docs/`** — 調査プロセス・スキーマの記録（索引: [docs/README.md](docs/README.md)／データ側は [data/README.md](data/README.md)）。`docs/site-design/` に残っているのは肖像画アセットの管理だけ
 
