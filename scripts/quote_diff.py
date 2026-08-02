@@ -26,7 +26,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from hanzi_norm import han_only, norm_strict  # noqa: E402
-from verify_quotes import CORPUS_ROOT, REFS_PATH, fragments, normalized_lines  # noqa: E402
+from verify_quotes import (CORPUS_ROOT, DATA_PATH, REFS_PATH, extract_units,  # noqa: E402
+                           fragments, normalized_lines, sliding_fragments, unit_key)
 
 WINDOW = 4
 
@@ -80,8 +81,14 @@ def main():
     args = ap.parse_args()
 
     refs = json.loads(REFS_PATH.read_text(encoding="utf-8"))["refs"]
+    # 台帳の span は40字で切って保存されている。そのまま照合すると41字目以降の
+    # 食い違いが見えず「一致」に数えてしまう（2026-08-02 の実測で 8件がこれだった）。
+    # emperors.json の実データを引き当てて全長で見る。
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    live = {unit_key(eid, path, sp): sp for eid, path, sp in extract_units(data)}
     rows = []
-    for ent in refs.values():
+    stale = 0
+    for key, ent in refs.items():
         if args.id and ent.get("id") != args.id:
             continue
         if args.status:
@@ -89,13 +96,15 @@ def main():
                 continue
         elif not ent.get("triage"):
             continue
-        rows.append(ent)
-    rows.sort(key=lambda e: (e.get("id"), e.get("path")))
+        if key not in live:
+            stale += 1     # 引用を直した際に残った古いキー。実データに無いので見ない
+            continue
+        rows.append((ent, live[key]))
+    rows.sort(key=lambda r: (r[0].get("id"), r[0].get("path")))
 
     dist = Counter()
     shown = 0
-    for ent in rows:
-        span = ent.get("span") or ""
+    for ent, span in rows:
         # 未解決ユニットは底本が記録されていない。本人の本紀キャッシュを既定の相手にする
         # （調査待ちの大半はここに記事があり、日付や語句だけが合っていない）
         rel = ent.get("corpusFile") or f'_corpus_cache/{ent["id"]}.txt'
@@ -108,7 +117,10 @@ def main():
             continue
         text = strict_text(rel)
         worst = None
-        for f in fragments(span):
+        # 節で割れない引用は照合側も6字ずらしの断片で見ている。ここで fragments だけを
+        # 見ると断片0個＝「一致」に化ける（照合器は落としているのに差分が出ない）。
+        frags = fragments(span) or sliding_fragments(span)
+        for f in frags:
             nf = norm_strict(f)
             if nf in text:
                 continue
@@ -116,7 +128,7 @@ def main():
             if worst is None or mis > worst[0]:
                 worst = (mis, nf, seg)
         if worst is None:
-            dist["一致（字体もそのまま）"] += 1
+            dist["一致（字体もそのまま）" if frags else "断片が取れない（引用が短すぎる）"] += 1
             continue
         mis, nf, seg = worst
         dist[f"{mis}字違い" if seg else "底本に近い箇所なし"] += 1
@@ -133,7 +145,8 @@ def main():
             print("  底本 （近い箇所が見つからない＝書名の取り違えを疑う）")
         print()
 
-    print("--- 分布:", dict(sorted(dist.items())), f"/ 対象 {len(rows)} 件")
+    print("--- 分布:", dict(sorted(dist.items())), f"/ 対象 {len(rows)} 件"
+          + (f"（陳腐化エントリ {stale} 件は除外）" if stale else ""))
     return 0
 
 

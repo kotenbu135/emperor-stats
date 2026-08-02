@@ -43,8 +43,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from hanzi_norm import (AMBIGUOUS_JP, han_only, norm_for_match, norm_strict,  # noqa: E402
-                        norm_variants, to_traditional)
+from hanzi_norm import (AMBIGUOUS_JP, T2S_VARIANTS, han_only, norm_for_match,  # noqa: E402
+                        norm_strict, norm_variants, table_conflicts, to_traditional)
 
 DATA_PATH = ROOT / "data" / "emperors.json"
 REFS_PATH = ROOT / "data" / "quote-refs.json"
@@ -109,7 +109,16 @@ def unit_key(eid, path, span):
 
 
 ELLIPSIS_RE = re.compile(r"[…⋯‥・]+|\.{2,}|。{2,}|——|／|/")
-PUNCT_RE = re.compile(r"[、。，,；;：:！!？?（）()「」『』〔〕【】\s]")
+PUNCT_RE = re.compile(r"[、。，,；;：:！!？?（）()「」『』〔〕【】［］\[\]《》〈〉※\s]")
+
+# 調査者が引用へ添えた注記。原文の一部ではないので断片にしない（2026-08-02・Issue #38）。
+#   ［即位］九月甲辰…／是月(大宝元年十二月)、張彪起義…／上元[=貞元]二十一年正月癸巳
+# 除かないと「即位九月甲辰」「是月大宝元年十二月張彪」のような原文に無い並びができ、
+# 底本に在る引用が「日付を合成している」ように見える（234件中18件がこれだった）。
+# 注意: `reigns[].quote` は extract_units 側でも （）【】 を落としている（span を変えると
+# 台帳キーが変わるため一本化していない）。括弧除去の規則はこの2箇所にある。
+EDITORIAL_RE = re.compile(r"［[^］]{0,24}］|\[[^\]]{0,24}\]|〔[^〕]{0,24}〕"
+                          r"|（[^）]{0,40}）|\([^)]{0,40}\)|【[^】]{0,24}】")
 
 
 def fragments(span, size=10, min_len=5):
@@ -118,17 +127,27 @@ def fragments(span, size=10, min_len=5):
     句読点をまたいで機械的に10字取ると原文に無い並びが生まれ（「…冬十月戊辰帝崩…」）、
     実在する引用まで不検出になる。節の内側だけを見ること。
     """
-    frags = []
-    for seg in ELLIPSIS_RE.split(span or ""):
-        for part in PUNCT_RE.split(seg):
-            h = han_only(part)
-            if len(h) >= min_len:
-                frags.append(h[:size])
-    return frags[:8]
+    # 注記を落とすと断片が1つも残らない引用は、括弧の中身のほうが原文だった
+    #（「（康熙六十一年十一月）」など）。その場合は落とす前の姿で取り直す。
+    for text in (EDITORIAL_RE.sub("　", span or ""), span or ""):
+        frags = []
+        for seg in ELLIPSIS_RE.split(text):
+            for part in PUNCT_RE.split(seg):
+                h = han_only(part)
+                if len(h) >= min_len:
+                    frags.append(h[:size])
+        if frags:
+            return frags[:8]
+    return []
 
 
 def sliding_fragments(span, size=6, step=3, cap=8):
-    """節分割で断片が取れない短い引用の救済。中略はまたがない。"""
+    """節分割で断片が取れない短い引用の救済。中略はまたがない。
+
+    こちらは注記を落とさない。落とすと「（康熙六十一年十一月）」のように括弧の中身が
+    原文だった引用で断片が消える。節で割れなかったものの救済という役どころなので、
+    素の並びを見るほうが取りこぼしが少ない。
+    """
     segs = [han_only(s) for s in ELLIPSIS_RE.split(span or "")]
     s = max(segs, key=len) if segs else ""
     out = [s[i:i + size] for i in range(0, max(1, len(s) - size + 1), step)]
@@ -294,8 +313,11 @@ def strict_file(relpath):
 
 @lru_cache(maxsize=200_000)
 def strict_variants(frag):
+    # T2S_VARIANTS は「底本がこの字形を使っている」という異体字の対応で、
+    # 新字体の混入とは別物。混入ゲート側でも候補に入れないと、正しい引用が落ちる。
     base = han_only(frag)
-    return tuple({norm_strict(v) for v in (base, base.translate(AMBIGUOUS_JP))})
+    return tuple({norm_strict(v).translate(t) for v in (base, base.translate(AMBIGUOUS_JP))
+                  for t in ({}, T2S_VARIANTS)})
 
 
 # 判定結果のスタンプ（2026-08-02 導入）。
@@ -660,12 +682,44 @@ def cmd_triage(reason):
 
 
 def cmd_list_triaged():
+    """調査待ちの一覧。いま emperors.json に在る引用だけを数える。
+
+    台帳には引用を直したときの古いキーが残る（ハッシュが変わると別エントリになり、
+    通常の --backfill は消さない）。台帳を素で数えると、既に直した引用の古い姿まで
+    「残件」に混ざる（2026-08-02 の実測で 236 件のうち 17 件が陳腐化エントリだった）。
+    """
     refs = load_refs()
-    rows = [(v.get("id"), v.get("path"), v.get("span", ""), v.get("triage"))
-            for v in refs["refs"].values() if v.get("triage")]
+    live = {unit_key(eid, path, span)
+            for eid, path, span in extract_units(json.loads(DATA_PATH.read_text(encoding="utf-8")))}
+    rows, stale = [], 0
+    for key, v in refs["refs"].items():
+        if not v.get("triage"):
+            continue
+        if key in live:
+            rows.append((v.get("id"), v.get("path"), v.get("span", ""), v.get("triage")))
+        else:
+            stale += 1
     for eid, path, span, why in sorted(rows):
         print(f"{eid}\t{path}\t{span}\t{why}")
-    print(f"--- {len(rows)} 件")
+    print(f"--- {len(rows)} 件" + (f"（ほかに陳腐化エントリ {stale} 件。引用を直した際の古いキー）" if stale else ""))
+    return 0
+
+
+def cmd_prune():
+    """実データに無くなった台帳エントリを落とす。
+
+    引用を直すと span のハッシュが変わって別のキーになり、古いエントリは
+    --backfill では消えない（--rebuild は機械判定を全部作り直すので普段は使えない）。
+    残っていても照合の判定は変わらないが、残件を数えるときに紛れる。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    refs = load_refs()
+    live = {unit_key(eid, path, span) for eid, path, span in extract_units(data)}
+    stale = [k for k in refs["refs"] if k not in live]
+    for k in stale:
+        refs["refs"].pop(k)
+    save_refs(refs)
+    print(f"陳腐化エントリを落とした: {len(stale)} 件 / 残 {len(refs['refs'])}")
     return 0
 
 
@@ -766,6 +820,9 @@ def cmd_check(coverage_only=False):
     recheck_fail = []
     glyph_fail = []
     glyph_allow = refs.get("glyphAllow", {})
+    for kc, v, direct, via in table_conflicts():
+        errors.append(f"[hanzi_norm] 新字体表の {kc}→{v} が照合を壊す（t2s 単独なら {direct} に"
+                      f"なるのに表経由で {via} で止まる）。t2s が扱える字は表に載せない")
     verdicts = None if coverage_only else load_verdicts()
     keep = set()
     for eid, path, span in units:
@@ -859,6 +916,8 @@ def main():
     ap.add_argument("--triage", metavar="REASON",
                     help="未解決のうち印の無いものへ調査待ちの印を付ける（REASON に経緯・Issue番号）")
     ap.add_argument("--list-triaged", action="store_true", help="調査待ちの一覧を出す")
+    ap.add_argument("--prune", action="store_true",
+                    help="実データに無くなった台帳エントリ（引用を直した際の古いキー）を落とす")
     ap.add_argument("--check-books", action="store_true",
                     help="note が名乗る書名と引用の実在する書を突合して一覧を出す（Issue #40 G1・要コーパス）")
     ap.add_argument("--rebuild", action="store_true",
@@ -877,6 +936,8 @@ def main():
         return cmd_list_triaged()
     if args.triage:
         return cmd_triage(args.triage)
+    if args.prune:
+        return cmd_prune()
     if args.check_coverage:
         return cmd_check(coverage_only=True)
     if CORPUS_ROOT is None:
