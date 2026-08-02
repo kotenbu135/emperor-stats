@@ -57,6 +57,8 @@ ENUM_GROUP = {
     "nephew": "nephew",
     "uncle-elder": "uncle", "uncle-younger": "uncle",
     "cousin": "cousin",
+    # `grandfather` を distant-kin へ潰すと 4世祖のパスでも一致してしまう（偽の一致）。
+    # 実データでの出現が 0 件なので今は放置している。使われ始めたら固有の段へ割ること。
     "grandfather": "distant-kin", "maternal-grandfather": "maternal-grandparent",
     "great-grandson": "distant-kin", "niece": "nephew",
     "distant-kin": "distant-kin", "affinal-kin": "affinal-kin",
