@@ -89,7 +89,11 @@ def external_http(command):
 # R-RESIDUAL-TABLE — 既にある系統の走査結果は Issue でなく docs/process/RESIDUAL.md へ。
 # **止めるのは「新しい系統か」ではなく形**（同系統かは機械には判定できない）。
 # `gh issue create` を一度だけ止めて、判定を人にさせる速度制限帯。
+# **`gh api repos/.../issues -f title=…` は形が違うので掛からない。** 意図した逃げ道ではないが、
+# 塞ぐと gh api 全般の誤検出が増えるので塞いでいない（適用範囲は RULES.yml の scope が正）。
 GH_ISSUE_CREATE = re.compile(r"\bgh\s+issue\s+create\b")
+# 分母を数えるためだけに拾う（deny はしない）。0件の deny を「守られている」と読まないため。
+GH_ISSUE_OTHER = re.compile(r"\bgh\s+issue\s+(?:list|view|edit|comment|close|reopen)\b")
 
 MATERIAL_NOTES_ON = re.compile(
     r"extract_(?:profile|event)_material\.py.*?--notes[= ]on")
@@ -165,6 +169,9 @@ def check(tool, ti, is_subagent, command, agent_type=None):
                      "同じ穴が別の場所から顔を出しただけでした）。"
                      "直し方・定義・設計の判断が要るものなら Issue が正しい器なので、"
                      "そう書いて通してください"))
+    # 分母（Issue を触る操作が何回起きたか）。deny 0件を「守られている」と読まないために数える
+    elif tool == "Bash" and GH_ISSUE_OTHER.search(command):
+        hits.append(("R-RESIDUAL-TABLE", None))
 
     # R-API-BATCH — 外部 API への一括リクエストは「小規模検証 → 件数を提示して許可 → 本実行」
     if tool == "Bash" and external_http(command):
