@@ -35,6 +35,7 @@ python3 scripts/check_profile_fragment.py <断片.json> --basis-corpus
 python3 scripts/check_profile_ngram.py <断片.json> --frag-dir <断片ディレクトリ>
 python3 scripts/add_profile.py <断片.json>        # 投入は親セッションだけ
 python3 scripts/validate_profiles.py && python3 scripts/validate_readings.py
+python3 scripts/coverage.py --write   # 本数が増えたら進捗表記を引き直す（忘れると CI が落ちる）
 ```
 
 `check_profile_fragment.py` の**報告欄はエラーと同じくらい重要**です（台帳の裏取り・台帳に無い数値・

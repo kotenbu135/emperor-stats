@@ -22,6 +22,8 @@ on:
       - "scripts/check_regime_conventions.py"
       - "scripts/check_screenings.py"
       - "scripts/screens/**"
+      - "scripts/coverage.py"
+      - "docs/PROJECT_STATUS.md"
       - ".github/workflows/validate-data.yml"
   pull_request:
     paths:
@@ -40,6 +42,8 @@ on:
       - "scripts/check_regime_conventions.py"
       - "scripts/check_screenings.py"
       - "scripts/screens/**"
+      - "scripts/coverage.py"
+      - "docs/PROJECT_STATUS.md"
       - ".github/workflows/validate-data.yml"
   workflow_dispatch:
 
@@ -101,5 +105,11 @@ jobs:
       # 規則台帳（docs/process/RULES.yml）の自己検査。全規則が適用範囲と根拠を持つか、
       # .claude/hooks/guard.py の実装と台帳の強制層 L1 が一致するかを見る。
       # 台帳が実装より先に腐ると「掛かっているつもり」になるので、ここで落とす。
+      # 進捗表記の実測（docs/PROJECT_STATUS.md の生成領域）。**自己申告と実測がずれたら落ちる**。
+      # 「364人完了」がチェックリスト上の申告で実測は355人だった前例（2026-07-18）の再発防止で、
+      # データを動かして `--write` を忘れたコミットはここで確実に落ちる。
+      - name: Verify measured coverage
+        run: python3 scripts/coverage.py --check
+
       - name: Validate rule registry
         run: python3 scripts/check_rules.py

@@ -171,6 +171,14 @@ rules:
     evidence: 前例では #34 の sxtwl 検査が293件中282件の前提を裏付けて残り20件だけを読めば済み、#38 の quote_diff.py が234件を仕分けた。一方 Issue #37 の名前データで絞り込みを記録して標本監査を掛けたところ、**absent 側の取りこぼしは廟号6件中1件・諡号6件中3件**で、「機械が見つけなかった＝値が無い」は成り立たなかった（2026-08-02）
     source: .claude/skills/research-block/SKILL.md の 0.6 節・Issue #41 の実施順3
 
+  - id: R-COVERAGE-MEASURED
+    summary: 悉皆作業の完了判定は自己申告ではなくデータ本体からの実測に置き、進捗表記はスクリプトの出力そのものにする
+    scope: 悉皆調査の進捗表記（docs/PROJECT_STATUS.md のフェーズ進捗・`meta.status.phases`）とブロック完了の宣言。**個々の値が正しいかは見ない**（それは validate_emperors.py と原典調査の担当）
+    enforcement: [L3, L4]
+    detail: 進捗は `scripts/coverage.py` が data/emperors.json・kinship.json・emperor-profiles.json から測り、docs/PROJECT_STATUS.md の `<!-- coverage:begin -->` … `:end` へ `--write` で書き込む。**「フィールドが在るか」ではなく「確定したか」**を数え、セルは3状態（`filled`／構造的な根拠のある `absent`／`unknown`）。**note の散文からは確定を読み取らない**（note は作業ログで向きが反転する。Issue #40 の G2/G3 が測定で否定された経路）ので、確定の根拠が散文にしか無い項目は unknown 側へ落ちる — それが所見であって、スクリプトがどちらかへ寄せるものではない。L3＝`coverage.py --check`（CI・Stop フック。data/emperors.json・kinship.json・emperor-profiles.json のいずれかを触れば流れる）
+    evidence: グループ2の「364人完了」がチェックリスト上の自己申告で、実測は355人だった（2026-07-18・明清交替期群雄9名がブロック一覧から漏れていた）。唐哀帝の収録漏れを見つけたのもエージェントではなく在位年カバレッジの機械集計。導入時の実測では、`completed` の16項目5858セルのうち637セル（10.9%）が構造だけでは確定と読めなかった（`ages` 4項目557セル・在位日80セル）
+    source: Issue #41 の実施順4
+
 measurement:
   # 0件の deny は「守られている」と「そもそも掛かっていない」を区別しない。
   # 規則ごとに分母（守るべき操作が何回起きたか）を数える。

@@ -48,4 +48,6 @@
 | `data/regime-conventions.json` の verdict を変える | `.claude/workflows/name-block.js` の調査プロンプト（`skip`／`other-source` の項目は埋めさせない） | `check_regime_conventions.py`（verdict と personScope の1対1を検査） |
 | `scripts/screens/*.py` の絞り込み方を変える | `data/screenings.json` の件数・`absent` バケットの標本監査（**種が同じでも母集団が変われば引かれる id が変わる**） | `check_screenings.py`（スクリプトを実行して記録と突き合わせる・標本 id を引き直す） |
 | `data/emperors.json` の対象フィールドを埋める | 同上（母集団が減るので記録の数字が古くなる） | 同上 |
+| `data/emperors.json`・`kinship.json`・`emperor-profiles.json` の値を増やす | `docs/PROJECT_STATUS.md` の実測カバレッジ（生成領域）を `python3 scripts/coverage.py --write` で引き直す | `coverage.py --check`（**CI でも実行**・Stop フックでも流れる） |
+| `coverage.py` の測り方（`FIELDS`・`absent` の条件）を変える | 同上。**`absent` を足すのは構造的な根拠があるときだけ** — 散文を根拠にすると「確定した」が水増しされる | 同上＋`scripts/screens/*.py` との突き合わせ（同じ母集団を測る道具が2つあるので合わなければどちらかが誤り） |
 | 判定基準を変える | **その基準で調査済みのブロックの遡及監査** | 無い。基準変更時に対象人数を先に出す（被反乱回数の基準訂正時は35名を監査した） |

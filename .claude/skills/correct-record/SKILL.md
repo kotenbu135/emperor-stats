@@ -54,6 +54,7 @@ python3 scripts/quote_diff.py <皇帝id>                  # 当たらない引�
 python3 scripts/validate_emperors.py
 python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py --check   # 引用・日付を変えたら必須
 python3 scripts/verify_calendar.py
+python3 scripts/coverage.py --write   # 値を増減させたら進捗表記を引き直す（忘れると CI が落ちる）
 ```
 
 `docs/process/COUPLINGS.md` で、触ったものに紐づく**もう片方**を確認します

@@ -18,6 +18,12 @@ HOOK = Path(__file__).resolve().parent / "stop_gate.py"
 
 GATE_OK = "import sys\nprint('0 errors')\nsys.exit(0)\n"
 GATE_NG = "import sys\nprint('ERROR  reigns[0].endDate が没年と食い違います')\nsys.exit(1)\n"
+# 引数が渡ったときだけ落ちる贋物。引数なしで呼ばれたら 0 で返るので、
+# 「--check が渡っている」ことだけを見分ける
+ARGV_NG = ("import sys\n"
+           "if '--check' in sys.argv:\n"
+           "    print('PROJECT_STATUS.md の進捗表記が実測とずれています')\n"
+           "    sys.exit(1)\n")
 
 
 def make_repo(tmp, gates):
@@ -127,6 +133,22 @@ def main():
         rc, out, err = fire(root)
         check("emperors の差分 → check_screenings も流れる",
               rc == 2 and "check_screenings" in err, f"{rc} {err}")
+
+    # coverage.py は既定の動作が検査ではない（報告を出して 0 で返る）。
+    # 引数が渡っていなければ素通しになるので、渡っていることを直接見る
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_repo(tmp, {**gates_ok, "coverage.py": ARGV_NG})
+        dirty(root, "emperors.json", '{"emperors": [1]}\n')
+        rc, out, err = fire(root)
+        check("emperors の差分 → coverage.py に --check が渡る",
+              rc == 2 and "進捗表記が実測とずれています" in err, f"{rc} {err}")
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = make_repo(tmp, {**gates_ok, "coverage.py": ARGV_NG})
+        dirty(root, "emperor-profiles.json", '{"profiles": {}}\n')
+        rc, out, err = fire(root)
+        check("紹介文の差分 → coverage.py も流れる",
+              rc == 2 and "coverage.py --check" in err, f"{rc} {err}")
 
     print("重いゲートは走らせず、走っていないことだけ告げる")
     with tempfile.TemporaryDirectory() as tmp:

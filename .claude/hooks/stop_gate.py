@@ -28,12 +28,14 @@ RULE_ID = "R-GATES-BEFORE-COMMIT"
 
 # 変更されたファイル → 必ず流す軽いゲート（いずれも 1 秒未満）
 LIGHT_GATES = [
-    # 絞り込みの母集団は emperors.json から出るので、値を埋めれば記録の数字が古くなる
+    # 絞り込みの母集団も進捗表記も emperors.json から出るので、値を埋めれば
+    # 記録の数字が古くなる（coverage.py --check は PROJECT_STATUS.md の生成領域を見る）
     ("data/emperors.json", ["validate_emperors.py", "verify_calendar.py",
-                            "check_screenings.py"]),
-    ("data/kinship.json", ["validate_kinship.py"]),
+                            "check_screenings.py", "coverage.py --check"]),
+    ("data/kinship.json", ["validate_kinship.py", "coverage.py --check"]),
     ("data/name-readings.json", ["validate_readings.py"]),
-    ("data/emperor-profiles.json", ["validate_readings.py", "validate_profiles.py"]),
+    ("data/emperor-profiles.json", ["validate_readings.py", "validate_profiles.py",
+                                    "coverage.py --check"]),
     ("data/regime-conventions.json", ["check_regime_conventions.py"]),
     ("data/screenings.json", ["check_screenings.py"]),
 ]
@@ -134,13 +136,16 @@ def main():
     for path, gates in LIGHT_GATES:
         if path in changed:
             for g in gates:
-                if g not in scripts and (Path(root) / "scripts" / g).exists():
+                # 引数つきで書ける（"coverage.py --check" のように、既定の動作が
+                # 検査ではないスクリプトがある）
+                if g not in scripts and (Path(root) / "scripts" / g.split()[0]).exists():
                     scripts.append(g)
                     why.setdefault(g, path)
 
     failures = []
     for g in scripts:
-        rc, out = run(["python3", f"scripts/{g}"], root)
+        head, *rest = g.split()
+        rc, out = run(["python3", f"scripts/{head}", *rest], root)
         if rc != 0:
             tail = "\n".join([ln for ln in out.strip().splitlines() if ln.strip()][-12:])
             failures.append(f"■ scripts/{g}（{why[g]} を変更したため実行）\n{tail}")
