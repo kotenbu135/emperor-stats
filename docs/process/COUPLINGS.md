@@ -20,6 +20,7 @@
 | データの訂正 | `meta.status` と `docs/PROJECT_STATUS.md` | 無い（同時更新の運用ルール） |
 | 新しく `note` を書く（訂正・新規調査） | 同じコンテナの `claim`（**任意**。note は作業ログで捨てた側の値が残るため、突合の向きが反転する） | `validate_emperors.py` の `check_claim_fields`（claim を持つコンテナだけ・評価件数を INFO で出す）。**書かなくても落ちない** — 遡及しない欄なので検出できるのは「書いたのに後ろ向き」だけ |
 | `data/kinship.json` のエッジ | `accessionRoute.axes.relationToPredecessor` | `validate_kinship.py`（G3 `check_relation_edges`・継承エッジ216件） |
+| `data/kinship.json` のエッジ／`relationToPredecessor` | note・紹介文に書いた**続柄の呼称**（「従叔父」「甥」…） | `relation_path.py --check`（**報告専用・CI に載せない**。不一致は「エッジと記録値のどちらかが誤り」までしか言えないため） |
 | 政権を増やす／`regimeId` を変える | `data/regime-conventions.json` の `regimeIds`（未確定の政権では人物単位の調査が立てられない） | `check_regime_conventions.py`（存在しない政権 id をエラー） |
 
 ## サイト側（欠けるとビルドか deploy gate が落ちる）

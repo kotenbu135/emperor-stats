@@ -11,7 +11,9 @@
   python3 scripts/relation_path.py --between A B       # 任意の2人（A から見た B）
   python3 scripts/relation_path.py --check             # succession エッジ全件を記録値と突合
 
-終了コード: 0=合格 / 1=不一致あり（--check のみ）
+終了コードは常に 0（**報告専用でゲートではない**）。`--check` の不一致は
+「エッジと記録値のどちらかが誤り」を意味するだけで機械では決着しないため、
+CI へ載せない（Issue #51 の「判断が要るものはゲートにしない」）。
 
 **このスクリプトは値を作らない**（規則 R-NO-AUTOGEN）。出すのは既に kinship.json に
 入っているエッジの読み替えだけで、エッジが無ければ「導出不能」と言う。
@@ -22,6 +24,9 @@
 の build_generations と同じ理由 — 石虎は実系では石勒の従子だが、石勒の父・周曷朱の
 養子でもあるため養系では石弘の一世代上になり、原典も「或称勒弟焉」と両様に記す）。
 実系で到達できないときだけ養系を通し、呼称に「養」を冠する。
+
+**この出力を根拠にデータを書き換えない。** 出るのは kinship.json のエッジの読み替え
+なので、記録値と食い違ったときに誤っているのはエッジの側かもしれない。
 """
 
 from __future__ import annotations
@@ -299,19 +304,38 @@ def render(graph, base, subject, nodes, steps, mode):
     return word, enum, arrows, f"up={up} down={down} spouse={spouse} 母系={maternal} 系統={mode}"
 
 
-def cmd_between(graph, base, subject):
+def cmd_between(graph, base, subject, recorded=None):
+    """base から見た subject の続柄を出す。recorded を渡すと記録値との異同も言う。
+
+    異同を黙っていると、出力の1行目をそのまま note へ写した人が、記録値と食い違う
+    呼称を書いてしまう。導出と記録が割れているときは「どちらが誤りかは原典で決める」
+    ところまで出力に書く。
+    """
     bn, sn = graph.name.get(base, base), graph.name.get(subject, subject)
+    derived = []
     if base in graph.adoptive_parents.get(subject, set()):
         print(f"{sn} は {bn} の【養子】   （relationToPredecessor 相当: adopted-son）")
         print(f"  パス: {bn} →養子(adoptive-father/mother) {sn}")
+        derived.append("adopted-son")
     nodes, steps, mode = graph.find(base, subject)
     if nodes is None:
         print(f"{sn} は {bn} の … 実系での導出不能（血縁・婚姻エッジで到達しない）")
-        return 0
-    word, enum, arrows, meta = render(graph, base, subject, nodes, steps, mode)
-    print(f"{sn} は {bn} の【{word}】   （relationToPredecessor 相当: {enum}）")
-    print(f"  パス: {' / '.join(arrows)}")
-    print(f"  {meta}")
+    else:
+        word, enum, arrows, meta = render(graph, base, subject, nodes, steps, mode)
+        print(f"{sn} は {bn} の【{word}】   （relationToPredecessor 相当: {enum}）")
+        print(f"  パス: {' / '.join(arrows)}")
+        print(f"  {meta}")
+        derived.append(enum)
+    if recorded is not None:
+        expected = ENUM_GROUP.get(recorded, "?")
+        groups = {ENUM_GROUP.get(d, d) if d != "adopted-son" else "adopted-son"
+                  for d in derived}
+        ok = (recorded in groups) or (expected is not None and expected in groups)
+        if not derived:
+            print("  ※ 記録値と突き合わせられない（パスが引けない）")
+        elif not ok:
+            print(f"  ※ 記録値 {recorded} と食い違う。"
+                  "どちらが誤りかは原典で決める（この出力を根拠に書き換えない）")
     return 0
 
 
@@ -325,7 +349,7 @@ def cmd_for(graph, kinship, emperor_id):
         tag = "（復位）" if e.get("isRestoration") else ""
         rec = e.get("relationToPredecessor")
         print(f"■ 先代 {graph.name.get(e['from'], e['from'])}{tag} / 記録値: {rec}")
-        cmd_between(graph, e["from"], emperor_id)
+        cmd_between(graph, e["from"], emperor_id, recorded=rec)
         print()
     return 0
 
@@ -372,7 +396,10 @@ def cmd_check(graph, kinship):
           f"・判定外 {out_of_scope} 件")
     if disagree:
         print("不一致はエッジと記録値のどちらかが誤り。どちらかは原典で決める。")
-    return 1 if disagree else 0
+    # 報告専用。不一致は「どちらかが誤り」を意味するだけで、機械では決着しないので
+    # 終了コードには出さない（Issue #51 の「ゲートにしない」）。非ゼロで返すと
+    # CI へ載せた誰かが抑制リストを足すことになり、その時点で読まれなくなる。
+    return 0
 
 
 def main():
