@@ -86,7 +86,8 @@ def external_http(command):
     return any(not LOCAL_HOST.match(h) for h in hosts)
 
 
-MATERIAL_NOTES_ON = re.compile(r"extract_profile_material\.py.*?--notes[= ]on")
+MATERIAL_NOTES_ON = re.compile(
+    r"extract_(?:profile|event)_material\.py.*?--notes[= ]on")
 # note を見てよいのは検証段だけ。1段目（執筆・調査）に渡すと、note の筋書きに合う
 # 原文句を探すことになる（紹介文の誤りの多くが note 由来だった）。
 NOTES_ON_ALLOWED = {"adversarial-verifier", "profile-webdiff"}
@@ -146,7 +147,8 @@ def check(tool, ti, is_subagent, command, agent_type=None):
                     "1段目が既存 note を読むと、note の筋書きに合う原文句を探すことになり、"
                     "note の誤りがそのまま成果物へ流れます。既定の `--notes off` で出した"
                     "構造フィールドと原文だけで進めてください"
-                    "（docs/process/profile-writing/README.md）")
+                    "（紹介文は docs/process/profile-writing/README.md・"
+                    "データ訂正は .claude/skills/correct-record/SKILL.md）")
         hits.append(("R-CLAIMS-FIRST", deny))
 
     # R-API-BATCH — 外部 API への一括リクエストは「小規模検証 → 件数を提示して許可 → 本実行」

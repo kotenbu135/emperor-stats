@@ -102,8 +102,8 @@ rules:
     summary: 原文を先に読み、引用台帳 claims を作り、note は照合として読む。台帳に無い事実は書かない
     scope: 調査エージェントの出力（新規調査・訂正の両方）
     enforcement: [L0, L1, L2, L3]
-    detail: L0＝出力スキーマが claims を必須にするので順序を選べない／L1＝.claude/hooks/guard.py（1段目のサブエージェントが extract_profile_material.py --notes on を打つと止める）／L2＝.claude/agents/corpus-researcher.md・profile-writer.md・Workflow の schema／L3＝scripts/check_claims.py。**2026-08-02 に順序から分離へ変えた** — 順序を守っても同じ文脈に note が入れば筋書きは効くので、1段目には note を渡さず、突き合わせを検証段の担当にした（extract_profile_material.py の既定を --notes off に）
-    evidence: 素材 note を先に読むと note の筋書きに合う原文句を探すことになる。紹介文の誤りの多くが note 由来だった（Issue #32・#33・#36）
+    detail: L0＝出力スキーマが claims を必須にするので順序を選べない／L1＝.claude/hooks/guard.py（1段目のサブエージェントが extract_profile_material.py・extract_event_material.py に --notes on を打つと止める）／L2＝.claude/agents/corpus-researcher.md・profile-writer.md・Workflow の schema／L3＝scripts/check_claims.py。**2026-08-02 に順序から分離へ変えた** — 順序を守っても同じ文脈に note が入れば筋書きは効くので、1段目には note を渡さず、突き合わせを検証段の担当にした（素材抽出の既定を --notes off に）。**2026-08-03、規則の穴が「素材抽出コマンドを通さない経路」だと分かった** — 親セッションがプロンプトの中でその場の `python3 -c` を書くと、既定 off も L1 も掛からない。データ訂正側の素材に scripts/extract_event_material.py を用意し、抽出式を書き起こさず**このコマンドを渡す**ことを corpus-researcher と /correct-record に明記した
+    evidence: 素材 note を先に読むと note の筋書きに合う原文句を探すことになる。紹介文の誤りの多くが note 由来だった（Issue #32・#33・#36）。Issue #56 では親セッションのワンライナーが note を print しており、調査エージェント4体が「1段目なのに既存 note を見た」と申告した（2026-08-03）
     source: docs/process/profile-writing/README.md「なぜこの順序なのか」
 
   - id: R-GATES-BEFORE-COMMIT
