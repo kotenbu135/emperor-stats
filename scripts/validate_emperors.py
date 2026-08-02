@@ -167,7 +167,14 @@ KNOWN_COUNTING_AGE = {
 # ages.note が「〜は null とした」と明記しているのにフィールドに値が入っている既知の矛盾
 # （後続パスで値を埋めた際の note 同期漏れ。2026-07-22 検出の9件は同日、値を規定10節の
 #  逆算値として立証したうえで note 側を訂正済み・現在は空。新規検出をここに登録する）
-KNOWN_NULL_SAID = set()
+KNOWN_NULL_SAID = {
+    # 2026-08-02（Issue #40 G2）検出。いずれも「グレゴリオ暦換算が未実施なので birthDate は
+    # null」と note が書いたあと、後続パスが換算値を入れて note を直し忘れたもの。
+    # 値の側が正しいかは個別調査（換算の裏取り）が要るため note の訂正は保留し、警告で残す。
+    ("tang-wuzong", "birthDate"),
+    ("beisong-zhenzong", "birthDate"),
+    ("yuan-wenzong", "birthDate"),
+}
 
 # 在位重複判定に使う並立・対立政権系キーワード（レコード JSON 全体を対象に部分一致）。
 # これらのいずれも含まない同王朝内重複は継承同期バグの疑いとしてエラーにする。
@@ -527,36 +534,104 @@ def check_counting_age(data):
              f"{len(hits)}件 {hits}")
 
 
+# null 宣言の対象になりうるフィールド（ages 側と reigns 側）
+NULL_SAID_FIELDS = ("accessionAge", "deathAge", "birthDate", "deathDate", "startDate", "endDate")
+NULL_SAID_FIELD_RE = re.compile("|".join(NULL_SAID_FIELDS))
+# 「birthDate は年精度のみとし、月日は null」型。欄そのものではなく欄の一部を指す宣言
+NULL_SAID_PARTIAL = re.compile(r"月日|時刻|精度|干支")
+
+
 def check_note_value_sync(data):
-    """ages.note の「〜は null とした」記述とフィールド値の矛盾検出（2026-07-22 note 全件検証の恒久化）。
+    """note の「〜は null とした」宣言とフィールド値の矛盾検出（2026-07-22 note 全件検証の恒久化）。
 
     調査 note が「原文明記なしのため null とした」と宣言しているのに後続パスが値を埋めると、
-    note と値が矛盾したまま残る（beisong-shenzong 等 7 レコード 9 件で実在）。null 直前 40 字以内に
-    現れるフィールド名を「null 宣言されたフィールド」とみなし、そのフィールドに値が入っていれば検出。
-    既知分は KNOWN_NULL_SAID（訂正待ち・警告で件数を出し続ける）。新規発生はエラー。
+    note と値が矛盾したまま残る（beisong-shenzong 等 7 レコード 9 件で実在）。
+    2026-08-02（Issue #40 G2）に対象を ages 以外の note と日付フィールドへ広げた。
+
+    null 直前 40 字以内に現れる**直近の**フィールド名だけを見る。「deathDate に反映したが
+    享年不明のため deathAge は null」のように1文に2つ出るとき、遠いほうを拾うと誤検出になる。
+
+    note の散文をこれ以上フィールドへ突き合わせる案（西暦年・ISO 日付・年齢語の全面突合）は
+    測って捨てた。これらの note は作業ログで、「現行 X → Y に訂正した」という**捨てた側の値**を
+    書くのが主用途のため、素朴に突き合わせると訂正前の値を主張として読む
+    （ISO 日付 306件で不一致10件・年齢語 260件で不一致57件、いずれもほぼ全部が誤検出）。
+    宣言の形をとる「null とした」「旧→新」だけが突合できる。
     """
     pending = 0
     for e in data["emperors"]:
         a = e.get("ages") or {}
-        note = a.get("note") or ""
+        reigns = e.get("reigns") or []
+        targets = [(a.get("note"), None), ((e.get("deathCause") or {}).get("note"), None)]
+        for i, r in enumerate(reigns):
+            targets.append((r.get("note"), i))
+            targets.append((((r.get("duration") or {}).get("source") or {}).get("conversion"), i))
         claimed = set()
-        for m in re.finditer(r"null", note):
-            back = note[max(0, m.start() - 40):m.start()]
-            for f in ("accessionAge", "deathAge"):
-                if f in back:
-                    claimed.add(f)
-        for f in claimed:
-            if a.get(f) is None:
-                continue  # note どおり null → 矛盾なし
+        for note, ridx in targets:
+            if not isinstance(note, str):
+                continue
+            for m in re.finditer(r"null", note):
+                back = note[max(0, m.start() - 40):m.start()]
+                names = list(NULL_SAID_FIELD_RE.finditer(back))
+                if not names or NULL_SAID_PARTIAL.search(back[names[-1].end():]):
+                    continue
+                f = names[-1].group(0)
+                if f in ("startDate", "endDate"):
+                    if ridx is not None and reigns[ridx].get(f) is not None:
+                        claimed.add((f, f"reigns[{ridx}]", reigns[ridx][f]))
+                elif a.get(f) is not None:
+                    claimed.add((f, "ages", a[f]))
+        for f, owner, value in sorted(claimed):
             if (e["id"], f) in KNOWN_NULL_SAID:
                 KNOWN_NULL_SAID.discard((e["id"], f))
                 pending += 1
             else:
-                err(f"[note-sync] {e['id']}.ages: note は {f}=null と明記しているが値 {a[f]} が入っている"
-                    f"（note と値を同時に更新すること）")
+                err(f"[note-sync] {e['id']}.{owner}: note は {f}=null と明記しているが値 {value} が"
+                    f"入っている（note と値を同時に更新すること）")
     if pending:
         warn(f"[note-sync] note「null とした」と値の矛盾（検出済み・訂正待ち）: {pending} 件"
-             f"（docs/qa/note-verification-2026-07-22/REPORT.md）")
+             f"（docs/qa/note-verification-2026-07-22/REPORT.md・Issue #40）")
+
+
+ARROW_VALUE = re.compile(
+    r"(?:reigns\[(\d+)\]\.)?(startDate|endDate|birthDate|deathDate)[^。\n]{0,20}?"
+    r"[「(]?(-?\d{1,4}-\d{2}-\d{2})[」)]?\s*(?:→|->|から)\s*[「(]?(-?\d{1,4}-\d{2}-\d{2})[」)]?")
+
+
+def _pad_iso(s: str) -> str:
+    neg = s.startswith("-")
+    y, m, d = s.lstrip("-").split("-")
+    return ("-" if neg else "") + y.zfill(4) + f"-{m}-{d}"
+
+
+def check_note_arrow_sync(data):
+    """note の「欄名 旧→新」表記の**新しいほうの値**とフィールドの一致（Issue #40 G2）。
+
+    訂正の記録は「deathDate 705-11-26→0705-12-16」の形で書かれる。矢印の右は
+    「いまこの欄はこの値である」という宣言なので、これだけは突合できる。
+    左（捨てた値）と突き合わせてはいけない。
+    """
+    for e in data["emperors"]:
+        a = e.get("ages") or {}
+        reigns = e.get("reigns") or []
+        targets = [a.get("note"), (e.get("deathCause") or {}).get("note")]
+        for r in reigns:
+            targets.append(r.get("note"))
+            targets.append(((r.get("duration") or {}).get("source") or {}).get("conversion"))
+        for note in targets:
+            if not isinstance(note, str):
+                continue
+            for m in ARROW_VALUE.finditer(note):
+                idx, field, _, new = m.groups()
+                new = _pad_iso(new)
+                if field in ("birthDate", "deathDate"):
+                    current = {a.get(field)}
+                elif idx is not None:
+                    current = {reigns[int(idx)].get(field)} if int(idx) < len(reigns) else set()
+                else:
+                    current = {r.get(field) for r in reigns}
+                if new not in current - {None}:
+                    err(f"[note-sync] {e['id']}: note が「{field} …→{new}」と訂正を記録しているが、"
+                        f"欄の値は {sorted(x for x in current if x)} （note か値のどちらかが古い）")
 
 
 def check_used_emperor_title_from(data):
@@ -1070,6 +1145,7 @@ def main() -> int:
     check_reign_overlap(data)
     check_counting_age(data)
     check_note_value_sync(data)
+    check_note_arrow_sync(data)
     check_used_emperor_title_from(data)
     check_ages(data)
     check_reign_summary(data)

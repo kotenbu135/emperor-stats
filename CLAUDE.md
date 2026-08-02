@@ -24,7 +24,9 @@ python3 scripts/verify_quotes.py --backfill && python3 scripts/verify_quotes.py 
 python3 scripts/verify_calendar.py     # fromLunar リプレイ・exactDays 実経過日数（CI でも実行）
 ```
 
-`data/kinship.json` を触った場合は `python3 scripts/validate_kinship.py`。
+note に**書名を書き足した・引用の出典を差し替えた**ときは `python3 scripts/verify_quotes.py --check-books`（ローカル専用・約1分40秒。名乗る書名とその書の実ファイルを突き合わせる。未トリアージの残件があるためエラーにはしない＝出力を読む）。
+
+`data/kinship.json` を触った場合は `python3 scripts/validate_kinship.py`（続柄と血縁エッジの実体整合・世代パリティ・親子の生没年もここで見る）。
 `data/name-readings.json`（ふりがな）・`data/emperor-profiles.json`（紹介文）を触った場合は `python3 scripts/validate_readings.py`（ルビ記法・親文字一致・総ルビ充足）。紹介文（GitHub Issue #16）はさらに `python3 scripts/validate_profiles.py`（文字数・`description` が平文であること・件数・定型文の n-gram）。素材は `python3 scripts/extract_profile_material.py --section '<時代区分>'` で出す（`emperors.json` 全体を読まない）。**紹介文を書く前に [docs/process/profile-writing/README.md](docs/process/profile-writing/README.md) を読む**（原文先読み→引用台帳→執筆の4段手順とプロンプト雛形。1人ぶんのゲートは `scripts/check_profile_fragment.py`）。
 
 ## リポジトリ構成

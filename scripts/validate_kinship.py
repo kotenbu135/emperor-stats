@@ -22,6 +22,12 @@
   - kinship: 実父/養父の from は male・実母/養母の from は female（gender 判明時のみ）・
     verified の実父エッジ・実母エッジはそれぞれ子ごとに最大1本・親子エッジ（実父/実母/養父/養母）の循環なし・
     childOrder は 1 以上の整数・primaryLineage:true は子ごとに最大1本
+  - 続柄の実体整合（Issue #40 G3）: relationToPredecessor（子・養子・孫・兄弟・甥）が
+    名指す相手が、血縁エッジから導ける親・祖父母・兄弟・オジに実在する
+  - グラフ内部整合（Issue #40 G4）: 親子・兄弟エッジから割り当てた相対世代の無矛盾・
+    succession の relationToPredecessor が主張する世代差と血縁エッジの一致・
+    実親と子の生年差（12〜70年）と「親の没後に生まれた子」・養親が子より年下・
+    復位でない継承エッジの双方向重複
   - 孤立ブリッジ（どのエッジからも参照されない persons）なし
   - genealogicalClaims: claimant の実在・source 必須
   - 出典禁止語（detect_wikipedia_sources.is_wiki_like を共用。正史書名ホワイトリスト方式の
@@ -463,6 +469,208 @@ def check_axes_sync(edges, emperors):
                 f"kinship の succession エッジ {theirs!r} と不一致")
 
 
+# ---------------------------------------------------------------------------
+# G4: 系譜グラフの内部整合（Issue #40）
+# ---------------------------------------------------------------------------
+
+# relationToPredecessor が主張する世代差（先代を 0 としたときの当人の世代。下が正）。
+# 姻族・遠縁・不明（distant-kin / affinal-kin / son-in-law / father-in-law / unrelated /
+# unknown / other）は血縁の世代差が定まらないので入れない＝検査対象外。
+GENERATION_DELTA = {
+    "son": 1, "adopted-son": 1, "grandson": 2, "great-grandson": 3,
+    "nephew": 1, "niece": 1,
+    "younger-brother": 0, "elder-brother": 0, "cousin": 0,
+    "uncle-younger": -1, "uncle-elder": -1,
+    "father": -1, "mother": -1, "grandfather": -2, "maternal-grandfather": -2,
+}
+BIRTH_PARENT_RELATIONS = {"birth-father", "birth-mother"}
+# 実父の最小年齢差。北魏文成帝（440年生）と実父・拓跋晃（428年生）の12差が現存最小で、
+# これは原典どおり。12を下回る＝入力ミスか人物の取り違えとみなす。
+MIN_PARENT_GAP = 12
+MAX_PARENT_GAP = 70
+
+
+def _year(v):
+    """ISO 日付・年から西暦年を取り出す（BCE の先頭マイナスを含む）。"""
+    if v is None:
+        return None
+    m = re.match(r"^(-?\d{1,4})", str(v))
+    return int(m.group(1)) if m else None
+
+
+def build_generations(edges):
+    """親子・兄弟エッジから相対世代を割り当てる: (世代, 連結成分, 矛盾ペア)。
+
+    養親エッジは「実親エッジを持たない人物」の接続にだけ使う。養子縁組は世代をまたぐ
+    ことがあり（石虎は実系では石勒の従子＝石弘と同世代だが、石勒の父・周曷朱の養子でも
+    あるため養子系では石弘の一世代上になる。原典も「或称勒弟焉」と両様に記す）、
+    実系を優先しないと原典どおりの続柄が矛盾に見える。
+    """
+    has_birth = {e.get("to") for e in edges
+                 if e.get("type") == "kinship" and e.get("relation") in BIRTH_PARENT_RELATIONS}
+    adj: dict[str, list[tuple[str, int]]] = {}
+
+    def link(a, b, d):
+        adj.setdefault(a, []).append((b, d))
+        adj.setdefault(b, []).append((a, -d))
+
+    for e in edges:
+        if e.get("type") != "kinship":
+            continue
+        r, f, t = e.get("relation"), e.get("from"), e.get("to")
+        if f is None or t is None:
+            continue
+        if r in BIRTH_PARENT_RELATIONS or (r in PARENT_RELATIONS and t not in has_birth):
+            link(f, t, 1)
+        elif r == "sibling":
+            link(f, t, 0)
+
+    gen: dict[str, int] = {}
+    comp: dict[str, str] = {}
+    conflicts: list[tuple[str, str]] = []
+    for root in list(adj):
+        if root in gen:
+            continue
+        gen[root], comp[root] = 0, root
+        stack = [root]
+        while stack:
+            n = stack.pop()
+            for m, d in adj[n]:
+                if m not in gen:
+                    gen[m], comp[m] = gen[n] + d, root
+                    stack.append(m)
+                elif gen[m] != gen[n] + d:
+                    conflicts.append((n, m))
+    return gen, comp, conflicts
+
+
+def check_relation_edges(edges) -> None:
+    """relationToPredecessor が名指す続柄が、血縁エッジの実体と合うか（Issue #40 G3）。
+
+    世代差だけを見る check_graph_integrity より強い。「子」なら先代が本人の親エッジに
+    実在すること、「甥」なら先代が親の兄弟であることまで確かめるので、世代は合っている
+    別人を先代に置いた取り違えが残らない。
+
+    続柄語を note の地の文から拾う案（Issue #40 G3 の当初案）は測って捨てた。
+    「桓帝は子がなく崩御し」「明帝の実子ではなく養子」のように否定・第三者・連鎖
+    （「李雄の兄李蕩の子」）が多数を占め、続柄語 354件のうち先代を指すものは
+    2割に満たない。判定材料は散文でなくエッジに置く。
+    """
+    parents: dict[str, set[str]] = {}
+    adoptive: dict[str, set[str]] = {}
+    siblings: dict[str, set[str]] = {}
+    children: dict[str, set[str]] = {}
+    for e in edges:
+        if e.get("type") != "kinship":
+            continue
+        r, f, t = e.get("relation"), e.get("from"), e.get("to")
+        if f is None or t is None:
+            continue
+        if r in BIRTH_PARENT_RELATIONS:
+            parents.setdefault(t, set()).add(f)
+            children.setdefault(f, set()).add(t)
+        elif r in PARENT_RELATIONS:
+            adoptive.setdefault(t, set()).add(f)
+            children.setdefault(f, set()).add(t)
+        elif r == "sibling":
+            siblings.setdefault(f, set()).add(t)
+            siblings.setdefault(t, set()).add(f)
+
+    def all_parents(x):
+        return parents.get(x, set()) | adoptive.get(x, set())
+
+    def brothers(x):
+        """明示の兄弟エッジ＋同じ親を持つ者。"""
+        out = set(siblings.get(x, set()))
+        for p in all_parents(x):
+            out |= children.get(p, set()) - {x}
+        return out
+
+    for i, e in enumerate(edges):
+        if (e.get("type") != "succession" or e.get("isRestoration")
+                or e.get("veracity") == "disputed"):
+            continue
+        r, f, t = e.get("relationToPredecessor"), e.get("from"), e.get("to")
+        if f is None:
+            continue
+        if r == "son":
+            expected, what = parents.get(t, set()), "実親"
+        elif r == "adopted-son":
+            expected, what = all_parents(t), "親"
+        elif r == "grandson":
+            expected = {gp for p in all_parents(t) for gp in all_parents(p)}
+            what = "祖父母"
+        elif r in ("younger-brother", "elder-brother"):
+            expected, what = brothers(t), "兄弟"
+        elif r == "nephew":
+            expected = {u for p in all_parents(t) for u in brothers(p)}
+            what = "オジ・オバ"
+        else:
+            continue
+        # エッジが未収録で導けないものは判定しない（網羅性は check_coverage の担当）
+        if expected and f not in expected:
+            err(f"[graph] edges[{i}]({f}->{t}): relationToPredecessor={r!r} だが、"
+                f"血縁エッジから導ける{what}は {sorted(expected)} で先代を含まない")
+
+
+def check_graph_integrity(edges, emperors, persons) -> None:
+    """世代パリティ・親子の生没年・相互継承（Issue #40 G4）。
+
+    どれも「片方だけ直した」ときに落ちる型の検査で、系譜調査を進めるあいだ
+    エッジと続柄がずれていくのを機械で止めるためにある。判定そのもの
+    （誰が誰の子か）は検査しない。
+    """
+    gen, comp, conflicts = build_generations(edges)
+    for a, b in conflicts:
+        err(f"[graph] 親子・兄弟エッジの世代が矛盾: {a} と {b}"
+            "（同一人物を別世代に置く重複ノード・向き違いの疑い）")
+
+    for i, e in enumerate(edges):
+        if e.get("type") != "succession" or e.get("veracity") == "disputed":
+            continue
+        f, t = e.get("from"), e.get("to")
+        exp = GENERATION_DELTA.get(e.get("relationToPredecessor"))
+        if exp is None or f not in gen or t not in gen or comp[f] != comp[t]:
+            continue
+        actual = gen[t] - gen[f]
+        if actual != exp:
+            err(f"[graph] edges[{i}]({f}->{t}): relationToPredecessor="
+                f"{e.get('relationToPredecessor')!r} は世代差 {exp} を主張するが、"
+                f"親子エッジから導かれる世代差は {actual}"
+                "（続柄と血縁エッジのどちらかが誤り）")
+
+    years = {p["id"]: (p.get("birthYear"), p.get("deathYear")) for p in persons}
+    for e in emperors:
+        a = e.get("ages") or {}
+        years[e["id"]] = (_year(a.get("birthDate")), _year(a.get("deathDate")))
+    for i, e in enumerate(edges):
+        if e.get("type") != "kinship" or e.get("relation") not in PARENT_RELATIONS:
+            continue
+        r, f, t = e.get("relation"), e.get("from"), e.get("to")
+        pb, pd = years.get(f, (None, None))
+        cb, _ = years.get(t, (None, None))
+        if pb is None or cb is None:
+            continue
+        label = f"[graph] edges[{i}]({f}->{t} {r})"
+        if r in BIRTH_PARENT_RELATIONS:
+            gap = cb - pb
+            if gap < MIN_PARENT_GAP or gap > MAX_PARENT_GAP:
+                err(f"{label}: 実親と子の生年差が {gap}（許容 {MIN_PARENT_GAP}〜{MAX_PARENT_GAP}）: "
+                    f"親 {pb} / 子 {cb}")
+            # 遺腹子があるので父は1年、母は0年まで許容する
+            slack = 1 if r == "birth-father" else 0
+            if pd is not None and cb > pd + slack:
+                err(f"{label}: 実親の没年 {pd} より後に子が生まれている（子 {cb}）")
+        elif cb <= pb:
+            err(f"{label}: 養親が子より後（または同年）に生まれている: 親 {pb} / 子 {cb}")
+
+    # 復位でない継承が双方向に立つ＝どちらかの向きが誤り（復位は isRestoration で持つ）
+    forward = {(e.get("from"), e.get("to")) for e in edges
+               if e.get("type") == "succession" and not e.get("isRestoration")}
+    for f, t in sorted(p for p in forward if (p[1], p[0]) in forward and p[0] < p[1]):
+        err(f"[graph] 復位でない継承エッジが双方向にある: {f} <-> {t}")
+
+
 def check_enum_catalogs(emp: dict) -> None:
     """kinship 側の語彙が emperors.json の meta.catalogs.enums と一致することを検査する。
 
@@ -530,6 +738,8 @@ def main() -> int:
     if orphan:
         err(f"[persons] 孤立ブリッジ（どのエッジからも参照されない）: {sorted(orphan)}")
     check_axes_sync(kin.get("edges", []), emperors)
+    check_relation_edges(kin.get("edges", []))
+    check_graph_integrity(kin.get("edges", []), emperors, kin.get("persons", []))
     check_claims(kin.get("genealogicalClaims", []), emperor_ids)
     check_coverage(kin.get("meta", {}), emperors, emperor_ids, succession_covered, parents_of,
                    father_covered, mother_covered)

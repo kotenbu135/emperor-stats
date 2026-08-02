@@ -313,6 +313,175 @@ def resolve_units(pending, log=print):
 
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# G1: note が名乗る書名と、引用が実在する書の突合（Issue #40）
+# ---------------------------------------------------------------------------
+
+def build_book_index():
+    """コーパスのファイル名から書名→実体パスの索引を作る。
+
+    書名を手で列挙すると、辞書に無い書（元史紀事本末）を「別の書を名乗っている」と
+    誤読する。実体のファイル名だけを根拠にする。
+    """
+    idx: dict[str, list[str]] = {}
+    for p in (CORPUS_ROOT / "daizhigev20/史藏").rglob("*.txt"):
+        stem = p.stem[:-2] if p.stem.endswith("四库") else p.stem
+        idx.setdefault(norm_for_match(stem), []).append(str(p.relative_to(CORPUS_ROOT)))
+    for p in (CORPUS_ROOT / "daizhigev20/子藏/类书").glob("*.txt"):
+        idx.setdefault(norm_for_match(p.stem), []).append(str(p.relative_to(CORPUS_ROOT)))
+    for d in (CORPUS_ROOT / "china-history").iterdir():
+        # 白話訳は書名としては同じ書。原文側だけを索引に入れる
+        if d.is_dir() and not d.name.endswith("-白话"):
+            idx.setdefault(norm_for_match(d.name), []).append(str(d.relative_to(CORPUS_ROOT)))
+    return {k: v for k, v in idx.items() if len(k) >= 2}
+
+
+# 同一の書の別名。前漢書＝漢書
+BOOK_ALIAS = {"汉书": ("汉书", "前汉书"), "前汉书": ("汉书", "前汉书")}
+
+
+def book_of_file(rel):
+    """コーパスの相対パスから書名（正規化済み）。本紀キャッシュは書が特定できない。"""
+    if rel.startswith("_corpus_cache"):
+        return None
+    if rel.startswith("china-history/"):
+        return norm_for_match(rel.split("/")[1].replace("-白话", ""))
+    stem = Path(rel).stem
+    return norm_for_match(stem[:-2] if stem.endswith("四库") else stem)
+
+
+def claimed_books(text, book_re):
+    """本文が名乗る書名。地続きの書名（三国志魏書）は外側だけを採る。
+
+    「三国志魏書武帝紀」を2書に割ると、魏書（北魏の正史）を名乗っていることになる。
+    """
+    out, prev_end = [], -99
+    for m in book_re.finditer(text or ""):
+        if m.start() - prev_end <= 1:
+            prev_end = m.end()
+            continue
+        out.append(m.group(0))
+        prev_end = m.end()
+    return out
+
+
+def book_text(book, index):
+    """書名に対応する本文（複数版がある書は連結する）。"""
+    # 同じ書が daizhigev20 の単一ファイルと china-history の章分割 HTML の両方にあるとき、
+    # 版が違って一方にしか無い記事がある。片方だけを読むと 67 件が誤検出になったので全部読む
+    buf = []
+    for name in BOOK_ALIAS.get(book, (book,)):
+        for rel in index.get(name) or []:
+            p = CORPUS_ROOT / rel
+            if p.is_dir():
+                buf += [f.read_text(encoding="utf-8", errors="ignore")
+                        for f in sorted(p.rglob("*")) if f.is_file()]
+            else:
+                buf.append(p.read_text(encoding="utf-8", errors="ignore"))
+    return norm_for_match("\n".join(buf))
+
+
+GROUP_EVENT_RE = re.compile(r"^([A-Za-z]+)\[(\d+)\]\.note$")
+
+
+def source_text(e, path):
+    """引用ユニットの path から「書名が書かれている本文」を取り出す。
+
+    note 系はその note 自身、reigns の quote/conversion は duration.source.page。
+    """
+    m = re.match(r"^reigns\[(\d+)\]\.(.+)$", path)
+    if m:
+        i, rest = int(m.group(1)), m.group(2)
+        reigns = e.get("reigns") or []
+        if i >= len(reigns):
+            return None
+        if rest == "note":
+            return reigns[i].get("note")
+        return ((reigns[i].get("duration") or {}).get("source") or {}).get("page")
+    m = GROUP_EVENT_RE.match(path)
+    if m:
+        events = (e.get(m.group(1)) or {}).get("events") or []
+        k = int(m.group(2))
+        return events[k].get("note") if k < len(events) else None
+    m = re.match(r"^([A-Za-z]+)\.note$", path)
+    return (e.get(m.group(1)) or {}).get("note") if m else None
+
+
+def scan_claimed_books(data, refs, log=print):
+    """名乗る書名のどれにも引用が無いユニットを返す（#32 型の検出）。
+
+    note が複数の書を挙げること自体は正常なので、「名乗ったどれか1つに在る」を合格とする。
+    引用の位置に一番近い書名だけを見る案は測って捨てた（「三国志魏書」の分断や、
+    複数書から合成した引用で誤検出が3倍になる）。
+    コーパスに無い書・断片が1つも無いユニットは判定不能として黙って飛ばす。
+    """
+    index = build_book_index()
+    book_re = re.compile("|".join(sorted((re.escape(b) for b in index), key=len, reverse=True)))
+    known = refs["refs"]
+    units: dict[str, dict] = {}
+    by_book: dict[str, list[str]] = {}
+    skipped = Counter()
+    by_id = {e["id"]: e for e in data["emperors"]}
+    for eid, path, span in extract_units(data):
+        ent = known.get(unit_key(eid, path, span))
+        rel = (ent or {}).get("corpusFile")
+        if not rel:
+            skipped["底本が未解決"] += 1
+            continue
+        text = source_text(by_id[eid], path)
+        if not isinstance(text, str):
+            continue
+        claimed = claimed_books(norm_for_match(text), book_re)
+        if not claimed:
+            skipped["書名を名乗っていない"] += 1
+            continue
+        actual = book_of_file(rel)
+        if actual and any(actual == c or c in actual or actual in c for c in claimed):
+            continue
+        frags = [f for f in (ent.get("frags") or []) if len(han_only(f)) >= 5]
+        if not frags:
+            skipped["断片が取れない"] += 1
+            continue
+        key = f"{eid}|{path}|{span[:20]}"
+        units[key] = {"id": eid, "path": path, "actual": actual or rel, "claimed": claimed,
+                      "frags": frags, "span": span[:30], "found": None, "best": 0, "bestbook": None}
+        for c in claimed:
+            by_book.setdefault(c, []).append(key)
+
+    for book, keys in sorted(by_book.items(), key=lambda kv: -len(kv[1])):
+        keys = [k for k in keys if units[k]["found"] is None]
+        if not keys or (book not in index and book not in BOOK_ALIAS):
+            continue
+        text = book_text(book, index)
+        for k in keys:
+            u = units[k]
+            n = sum(1 for f in u["frags"] if frag_in(f, text))
+            if n == len(u["frags"]):
+                u["found"] = book
+            elif n > u["best"]:
+                u["best"], u["bestbook"] = n, book
+        del text
+    rows = [u for u in units.values() if u["found"] is None]
+    log(f"照合対象 {len(units)} 件 / 名乗る書に無い {len(rows)} 件 "
+        f"（判定不能 {dict(skipped)}）")
+    return sorted(rows, key=lambda u: (u["id"], u["path"]))
+
+
+def cmd_check_books():
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    rows = scan_claimed_books(data, load_refs())
+    zero = [u for u in rows if not u["best"]]
+    partial = [u for u in rows if u["best"]]
+    print(f"\n=== 名乗る書に引用が1断片も無い: {len(zero)} 件 / 人物 {len(set(u['id'] for u in zero))} ===")
+    for u in zero:
+        print(f"{u['id']} | {u['path']} | 実={u['actual']} | 名乗り={'/'.join(u['claimed'])} | {u['span']}")
+    print(f"\n=== 名乗る書に一部だけ在る（複数書から合成した引用の疑い）: {len(partial)} 件 ===")
+    for u in partial:
+        print(f"{u['id']} | {u['path']} | 実={u['actual']} | 名乗り={'/'.join(u['claimed'])} "
+              f"| {u['best']}/{len(u['frags'])}@{u['bestbook']} | {u['span']}")
+    return 0
+
+
 CURATED = ("manual", "external", "defect")
 
 
@@ -496,6 +665,8 @@ def main():
     ap.add_argument("--triage", metavar="REASON",
                     help="未解決のうち印の無いものへ調査待ちの印を付ける（REASON に経緯・Issue番号）")
     ap.add_argument("--list-triaged", action="store_true", help="調査待ちの一覧を出す")
+    ap.add_argument("--check-books", action="store_true",
+                    help="note が名乗る書名と引用の実在する書を突合して一覧を出す（Issue #40 G1・要コーパス）")
     ap.add_argument("--rebuild", action="store_true",
                     help="--backfill と併用。照合器を変えたとき機械判定を作り直す"
                          "（manual/external/defect の curation は残す）")
@@ -515,6 +686,8 @@ def main():
         print("NOTICE: ローカルコーパス（_corpus_cache 等）が見つからないため --backfill/--check を"
               "スキップ（コーパス不要の検証は --check-coverage を使う。CI はそちらを実行する）")
         return 0
+    if args.check_books:
+        return cmd_check_books()
     if args.backfill:
         return cmd_backfill(rebuild=args.rebuild)
     return cmd_check()
