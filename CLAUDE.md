@@ -49,6 +49,9 @@ note に**書名を書き足した・引用の出典を差し替えた**とき�
 | **ローカルコーパス利用メモ（書物・王朝を問わず効く罠、着手前必読）** | [docs/process/CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) |
 | **史料マッピング・行番号インデックス（担当ブロックの書名・巻・行範囲）** | [docs/process/SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md) |
 | **絶対に守るべき制約** | [docs/process/CONSTRAINTS.md](docs/process/CONSTRAINTS.md) |
+| **規則の台帳（適用範囲・強制層・根拠になった失敗）** | [docs/process/RULES.yml](docs/process/RULES.yml) |
+| **結合レジストリ（Xを触ったらYも触る）** | [docs/process/COUPLINGS.md](docs/process/COUPLINGS.md) |
+| **調査エージェントの出力契約（claims-first）** | [docs/process/CLAIMS_CONTRACT.md](docs/process/CLAIMS_CONTRACT.md) |
 | **AI調査の知見集（設計指針・失敗事例・エージェント運用とドキュメントの書き方）** | [docs/process/AI_RESEARCH_LESSONS.md](docs/process/AI_RESEARCH_LESSONS.md) |
 | **サイトの現状・崩してはいけない契約（触る前に必読）** | [site/AGENTS.md](site/AGENTS.md) |
 | **サイトの設計と決定の記録（ページ構成・スタック・配色・各ページの判断・再提案しないこと）** | [docs/site-design/SITE_DESIGN.md](docs/site-design/SITE_DESIGN.md) |
@@ -61,6 +64,8 @@ note に**書名を書き足した・引用の出典を差し替えた**とき�
 
 - **判定の根拠は原典（正史の本紀・列伝）に置く** — WebSearch の要約だけでは判定しない。**この規則が掛かるのは `data/emperors.json` のデータ判定**で、紹介文（Issue #16）の執筆では Web を**差分検出器**として使ってよい（通説との食い違いを見つけて原典を読み直す引き金にする。根拠にはしないし、Web の文章は本文に取り込まない）
 - **規則の適用範囲が書かれていないときは、自分で狭めたり広げたりせずユーザーに聞く** — 上の1行はもともと範囲を書いておらず、紹介文の執筆にも掛かると判断して Web 照合を行わないまま76人ぶんを公開した（2026-08-02・ユーザーの想定はデータ判定のみ）
+- **調査エージェントは `.claude/agents/` の定義を使う**（`corpus-researcher`・`adversarial-verifier`・`profile-*`）。素の Agent を立てると引用規約・出力契約がプロンプトに写し漏れる。Workflow からは `agent(prompt, {agentType: '...'})`。段構成も `.claude/workflows/` に置いて毎回書き直さない
+- **一部の規則は `.claude/hooks/guard.py` が実行の直前に止める**（コーパスへの `.{0,N}` grep・`git add -A`・裸の `git stash`・メイン会話での `emperors.json` 全体 Read）。**サブエージェントと Workflow エージェントにも掛かる**。逃げ道は `EMPSTATS_ALLOW=<規則ID>:<理由>` の1本だけで、理由は必須。規則の一覧と適用範囲は [docs/process/RULES.yml](docs/process/RULES.yml)
 - **スクリプトによるデータの自動生成は禁止** — 人物ごとの個別調査・判定が必須（日数計算等の機械的な計算補助や、確定済み調査結果の構造チェックはOK）
 - **原文引用の手打ち禁止** — 引用は `scripts/quote_helper.py`／grep のツール出力からコピーし、字体変換・要約・語順変更をしない。引用・日付を変更したら上記ゲートの合格がコミット条件
 - **原典調査（データ訂正・新規ブロック着手）に入る前に [CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) と [RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) を読む** — 「china-history の相対巻数」「原文ラベルなのに中身が白話訳」のように、読まずに進むと誤った巻・誤った日付を採用する罠が記録されている（担当ブロックの書名・巻・行範囲は [SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md) から引く）。読まずに調査エージェントを起動して手戻りした事故が複数回発生している

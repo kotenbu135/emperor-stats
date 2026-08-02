@@ -1,6 +1,6 @@
 # 調査プロセスで誤りを減らす／規則を必ず届かせる（検討・2026-08-02）
 
-**状態: 検討案。実装は一切していない。ユーザーの判断待ち（最終節）。**
+**状態: 6節までは検討時の記録。7節がユーザー判断、8節が実装結果（2026-08-02）。**
 
 Issue #40 のゲート G1〜G4 で「作業のあとで誤りに気づく」網はできた。ここで扱うのはその手前、
 **(1) 調査プロセス自体で誤りの発生を減らす** ことと、
@@ -104,8 +104,9 @@ primary と同一のものが入っている（現在 worktree は9本）。
 
 **見送るもの**:
 
-- **`emperors.json` の Read 遮断** — 規則は「**メイン会話で**全体を Read しない」と範囲つきだが、
-  hook は主会話とサブエージェントを綺麗に区別できない。**規則より広く当たる**ので入れない
+- ~~**`emperors.json` の Read 遮断** — 規則は「**メイン会話で**全体を Read しない」と範囲つきだが、
+  hook は主会話とサブエージェントを綺麗に区別できない。**規則より広く当たる**ので入れない~~
+  → **この前提は 8節の実測で覆った。**フック入力に `agent_id` が入るので主／従は区別できる。実装した
 - **`emperors.json` の Write/Edit 遮断** — worktree が9本同時に生きている状態で冷たい deny を
   出すと迂回される。書き込み口を `scripts/patch_emperor.py`（id ＋ フィールドパス指定の
   read-modify-write・`meta` は対象外）へ寄せる案自体は筋がよいが、**opt-in で導入し deny はしない**。
@@ -115,7 +116,10 @@ primary と同一のものが入っている（現在 worktree は9本）。
 ### 3-5. 結合レジストリ（型5・小・単独で価値がある）
 
 型5は hook でもエージェント定義でも直らない。**「X を触ったら Y も触る＋それを証明する検査」**を
-1か所に登録するだけで消える。いま散在している既知の結合:
+1か所に登録するだけで消える。いま散在している既知の結合（**実体は
+[COUPLINGS.md](COUPLINGS.md)**。下表の `timeline-river.ts` はサイトの作り替えで消えており、
+`STREAM_DEFS` は `emperors.ts`・`kana-readings.ts` へ移っている — この表自体が
+「散在した1行は古くなる」の実例になった）:
 
 | 触るもの | 一緒に触るもの | 検査 |
 |---|---|---|
@@ -176,3 +180,61 @@ A1 の効果が最も直接に測れる。#24 は自動採番禁止との兼ね�
    だがスキーマ変更で #39 とも干渉する。入れるなら**新規のみ・遡及なし**を提案する
 3. **パイロットは #37 でよいか** — 別の Issue を先にしたい場合はそちらへ合わせる
 4. **A1（claims-first の出力契約）の適用範囲** — これから走る調査だけか、#36 の訂正にも掛けるか
+
+---
+
+## 8. 実装（2026-08-02・ユーザー判断は 1・2・3 とも可、4 は #36 にも掛ける）
+
+### 8-1. C0 の実測 — hook はサブエージェントにも Workflow エージェントにも掛かる
+
+この節が 3-4 の前提だったので、先に測った。**測り方**: 一時フックを
+`.claude/settings.local.json`（git 追跡外）に置き、`claude -p` で**別セッション**を起こして
+(a) 主会話 (b) Task で立てたサブエージェント (c) Workflow の `agent()` の3経路から
+同じ Bash コマンドを叩かせ、フック側のログと deny の効きを見た。
+
+| 経路 | 発火 | deny（終了コード2）| 入力 JSON |
+|---|---|---|---|
+| メイン会話 | ○ | ○ | `agent_id` なし |
+| サブエージェント（Task） | ○ | ○ | **`agent_id`・`agent_type` あり** |
+| Workflow の `agent()` | ○ | ○ | **`agent_id`・`agent_type` あり** |
+
+分かったことが2つある。
+
+- **`agent_id` の有無で主会話とサブエージェントを区別できる。** これで
+  「**メイン会話で** emperors.json 全体を Read しない」のような**範囲つきの規則を、
+  範囲どおりに**掛けられる。3-4 で見送った理由（規則より広く当たる）は消えた
+- **フックはセッション開始時に読み込まれる。** 追加・変更しても**走っているセッションには効かない**
+  （このセッションで control が発火しなかったのはそれが理由で、別セッションを起こして初めて測れた）。
+  9本ある worktree の作業中セッションを、途中から壊すことはない
+
+### 8-2. 入れたもの
+
+| 層 | 実体 | 中身 |
+|---|---|---|
+| L1 | `.claude/hooks/guard.py` ＋ `.claude/settings.json` の PreToolUse | R-CORPUS-GREP・R-GIT-ADDALL・R-GIT-STASH・R-JSON-READ-MAIN。逃げ道は `EMPSTATS_ALLOW=<規則ID>:<理由>` の1本で理由必須。発火は `.claude/hook-log.jsonl` へ（pass も含めて記録＝分母） |
+| L1 の検査 | `.claude/hooks/test_guard.py` | 20ケース（deny・pass・逃げ道・サブエージェント範囲）。**セッションを再起動せずに直接テストできる**ようフックは stdin の JSON だけで動く |
+| 台帳 | `docs/process/RULES.yml` | 15規則。`scope`（適用範囲）・`enforcement`（強制層）・`evidence`（根拠になった失敗）を持つ。**L4 だけの規則が次に破られる規則** |
+| 結合 | `docs/process/COUPLINGS.md` | データ側5・サイト側12・運用側2。site 側の行は実在する assert の `file:line` で裏を取った |
+| 出力契約 | `docs/process/CLAIMS_CONTRACT.md` ＋ `scripts/check_claims.py` | A1（claims-first）と A4（主張と作業ログの分離）・A3（史料対立の欄）を1つの契約にまとめた |
+| L2 | `.claude/agents/` 5本 | `corpus-researcher`・`adversarial-verifier`・`profile-writer`・`profile-webdiff`・`profile-reviser`。規則は system prompt 側に置き、手順の本文は既存ドキュメントへリンクする（同じ規則を2か所に書かない） |
+| L2 | `.claude/workflows/name-block.js` | #37 のパイロット。1人1エージェントで claims-first → **別コンテキストで検証**の2段。段構成を毎回書き直さない |
+
+`check_claims.py` は3つの合成データで動作を確認した（正常＝0エラー／不正＝id 形式・
+`discrepancies` 空・存在しない引用・`basis` 空・未定義 cid・対立の理由なしを7件検出／
+底本の複数箇所を1つに繋いだ引用＝**合成**を検出）。字体だけ違う引用は
+エラーではなく REPORT で出す（「そこをコピーせず打ち直した」印）。
+
+### 8-3. A4（`note` を作業ログと主張に割る）の残り
+
+契約側（エージェントの出力）は `findings` / `conflicts` / `noteLog` として分けた。
+**`data/emperors.json` 側の欄はまだ足していない** — 新規のみ・遡及なしと決めたので、
+足すのは #37 の投入時が自然で、そこで `V3_MIGRATION_PLAN.md` の作法に従う。
+#39（note をサイトに出さない）と同じ範囲に触るため、先に #39 の方針を確定させたほうが安い。
+
+### 8-4. 積み残し
+
+- **Stop / SubagentStop フック**（`data/*.json` に差分があるのにゲート未実行なら止める）は未実装
+- **skill（`/research-block`）は作っていない** — `.gitignore` が `.claude/skills/` を除外しており、
+  置いても他の worktree・他セッションへ伝わらない。伝えたいものは
+  `.claude/agents/` と `.claude/workflows/` 側に置いた
+- `scripts/patch_emperor.py`（転記ツール）は未着手。deny は掛けない方針のまま

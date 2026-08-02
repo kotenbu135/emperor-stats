@@ -1,0 +1,157 @@
+# 運用規則の台帳（2026-08-02 新設）
+#
+# この台帳は規則の本文を持たない。本文は散文のドキュメント側が正で、ここが持つのは
+# 「その規則はどこまで掛かるのか」と「守られなかったことを誰が検出するのか」の2つ。
+#
+#   scope       … 適用範囲。ここが空白だったために、データ判定の規則を紹介文にも掛かると
+#                 解釈して Web 照合をしないまま76人ぶんを公開した（2026-08-02）。
+#                 新しい規則を書くときは本文より先にこの欄を書く。
+#   enforcement … 強制層。L0 構造で消す／L1 hook（実行の直前に止める）／
+#                 L2 エージェント定義・名前つき Workflow（プロンプトに運ばれる）／
+#                 L3 事後ゲート（スクリプト）／L4 ドキュメントのみ＝強制力ゼロ。
+#   evidence    … その規則を書かせた実際の失敗。無い規則は「一般的な行動指示」であり、
+#                 モデル世代に合わせて削ってよい（docs/process/CONSTRAINTS.md 冒頭）。
+#
+# **enforcement が L4 だけの規則が、次に破られる規則である。** 台帳の値はその一覧性にある。
+#
+# L1 の実装は .claude/hooks/guard.py（テスト: python3 .claude/hooks/test_guard.py）。
+# 逃げ道は全規則共通で EMPSTATS_ALLOW="<規則ID>:<理由>" の1本だけ。理由は必須で、
+# 使用は .claude/hook-log.jsonl に残る。
+
+meta:
+  updated: 2026-08-02
+  layers:
+    L0: 構造で消す（選ぶ工程そのものを無くす）
+    L1: hook で実行の直前に止める（サブエージェント・Workflow エージェントにも掛かる）
+    L2: エージェント定義・名前つき Workflow に埋め込む
+    L3: 事後ゲート（validate_*.py / verify_*.py）
+    L4: ドキュメントのみ（強制力ゼロ）
+
+rules:
+
+  - id: R-PRIMARY-SOURCE
+    summary: 判定の根拠は正史の本紀・列伝の原文に置く。WebSearch の要約だけで判定しない
+    scope: data/emperors.json・data/kinship.json のフィールド判定。**紹介文（Issue #16）の執筆には掛からない** — そちらでは Web を差分検出器として使ってよい（2026-08-02 ユーザー決定）
+    enforcement: [L2, L3]
+    detail: L2＝.claude/agents/corpus-researcher.md／L3＝verify_quotes.py（引用の実在のみ。判定の当否は機械では見ない）
+    evidence: 後漢沖帝の死因で次代の記述と混同した要約を採用（2026-07-15）。適用範囲を書かなかったため紹介文76人ぶんが Web 未照合のまま公開（2026-08-02）
+    source: docs/process/RESEARCH_PROCESS.md「大原則」
+
+  - id: R-NO-AUTOGEN
+    summary: スクリプトによるデータの自動生成は禁止。人物ごとの個別調査・判定が必須
+    scope: data/*.json の**値の判定**。日数計算などの機械的な計算補助・確定済み結果の転記・構造チェックは対象外
+    enforcement: [L2, L4]
+    detail: 機械で「これは判定か転記か」を判別できないため L1 は無い。scripts/patch_emperor.py 的な転記ツールを作る場合は、判定を含まないことを設計で担保する
+    evidence: 過去2回失敗（docs/process/CONSTRAINTS.md）
+    source: docs/process/CONSTRAINTS.md
+
+  - id: R-QUOTE-NO-TYPE
+    summary: 原文引用の手打ち禁止。quote_helper.py / grep のツール出力からコピーする
+    scope: note・quote に入る正史原文の引用。日本語の地の文・換算メモは対象外
+    enforcement: [L2, L3]
+    detail: 引用を変えると照合台帳のハッシュが合わず verify_quotes.py --check が落ちる＝**迂回したことが機械に分かる**。この形が本台帳のお手本
+    evidence: 全件検証6,504件で転記誤字・圧縮改変・帰属誤り22件（約0.4%・2026-07-22）
+    source: docs/process/RESEARCH_PROCESS.md「引用の取り扱い規約」
+
+  - id: R-QUOTE-GLYPH
+    summary: 引用は底本の字体のまま保存する（新字体・繁体への変換をモデルが行わない）
+    scope: "**原文引用の断片だけ**。同じ note の中でも日本語の地の文・換算メモは新字体で書く"
+    enforcement: [L3]
+    detail: verify_quotes.py --check（新字体表の助けなしに底本へ当たるか）。逃げ道は quote-refs.json の glyphAllow のみ・理由必須
+    evidence: 字体混入684字・431フィールド・181人（2026-08-02）。範囲を書かずに直したため日本語の地の文2件まで旧字体にしてしまい戻した
+    source: docs/process/RESEARCH_PROCESS.md 規約2
+
+  - id: R-CLAIMS-FIRST
+    summary: 原文を先に読み、引用台帳 claims を作り、note は照合として読む。台帳に無い事実は書かない
+    scope: 調査エージェントの出力（新規調査・訂正の両方）
+    enforcement: [L0, L2, L3]
+    detail: L0＝出力スキーマが claims を必須にするので順序を選べない／L2＝.claude/agents/corpus-researcher.md・Workflow の schema／L3＝scripts/check_claims.py
+    evidence: 素材 note を先に読むと note の筋書きに合う原文句を探すことになる。紹介文の誤りの多くが note 由来だった（Issue #32・#33・#36）
+    source: docs/process/profile-writing/README.md「なぜこの順序なのか」
+
+  - id: R-GATES-BEFORE-COMMIT
+    summary: データを変更したら該当ゲートの合格をコミット条件にする
+    scope: data/emperors.json・kinship.json・name-readings.json・emperor-profiles.json
+    enforcement: [L3, L4]
+    detail: 「走らせ忘れ」を止める Stop フックは未実装（検討中）。肖像アセットのように site 側の検証が全部緑でも deploy gate で落ちる経路がある
+    evidence: 遼景宗の即位日1日ズレが note に埋もれて放置。肖像6件を manifest から外して実体ファイルを消さず deploy gate が落ちた（2026-08-01）
+    source: CLAUDE.md「コマンド」
+
+  - id: R-RMW
+    summary: 並行セッション前提の read-modify-write。対象 id のフィールドだけ更新し meta・他レコードに触らない
+    scope: 同じ作業ツリー／worktree 群で共有される data/*.json と進捗ドキュメント
+    enforcement: [L1, L4]
+    detail: L1 は R-GIT-ADDALL・R-GIT-STASH として実装済み（巻き込みの主経路）。ファイル全体を読んで丸ごと書き戻す方式そのものは機械で止められない
+    evidence: 2026-07-21 のフェーズB調査で複数回発生
+    source: docs/process/CONSTRAINTS.md
+
+  - id: R-CORPUS-GREP
+    summary: コーパスに `.{0,N}KW.{0,N}` 型のコンテキスト抽出 grep を掛けない
+    scope: china-history/・daizhigev20/・_corpus_cache/ に対する素の grep と Grep ツール（どちらも ugrep）
+    enforcement: [L1]
+    detail: guard.py。/usr/bin/grep・rg は無劣化なので通す
+    evidence: 単一10MBファイルでメモリ4GB超に暴走し WSL ごと落ちた（2026-07-23）
+    source: docs/process/CORPUS_NOTES.md「コーパス検索のメモリ事故対策」
+
+  - id: R-GIT-ADDALL
+    summary: git add -A / git add . を使わない。パスを明示する
+    scope: すべての git 操作
+    enforcement: [L1]
+    evidence: 他セッションの並行編集を巻き込む。site 側でも同じ規則
+    source: メモリ concurrent-sessions-same-repo
+
+  - id: R-GIT-STASH
+    summary: 裸の git stash / git stash pop を使わない。push -u -m でタグを付け apply <sha> で戻す
+    scope: すべての git 操作（stash スタックは主リポジトリと全 worktree で共有される）
+    enforcement: [L1]
+    evidence: 他セッションの退避を奪う経路。現在 worktree は9本
+    source: CLAUDE.md「環境」
+
+  - id: R-JSON-READ-MAIN
+    summary: メイン会話で data/emperors.json 全体を Read しない。jq / python3 で抽出する
+    scope: "**メイン会話のみ**。サブエージェントは対象外（フック入力の agent_id の有無で判別している）"
+    enforcement: [L1]
+    detail: offset/limit つきの Read は通す
+    evidence: トークン消費の96.6%が cache_read。序盤の大きな Read は残り全ターンに複利で効く
+    source: docs/process/AI_RESEARCH_LESSONS.md 5節
+
+  - id: R-API-BATCH
+    summary: 外部 API への一括リクエストは「小規模検証 → 想定件数を提示して明示的許可 → 本実行」
+    scope: Wikimedia・Wikidata ほか外部 API。ローカルコーパスは対象外
+    enforcement: [L4]
+    detail: "**L4 のみ＝人の記憶頼り。** 次に破られる候補"
+    evidence: 肖像画調査で364件を並列実行し429と乱用警告（2026-07-20 以前）
+    source: docs/process/CONSTRAINTS.md
+
+  - id: R-PRIMARY-ON-MAIN
+    summary: primary（/home/sakis/emperor-stats）は main に置いたままにする。新しい作業は worktree
+    scope: リポジトリの作業場所の選択
+    enforcement: [L1, L4]
+    detail: SessionStart フックが毎回報告する（弱い L1）。ブランチ判定はコミット時の文脈依存なので deny にはしていない
+    evidence: 他セッションのブランチ上でコミットした（2026-08-02）
+    source: CLAUDE.md「守るべき運用ルール」
+
+  - id: R-SCOPE-ASK
+    summary: 規則の適用範囲が書かれていないときは、自分で狭めたり広げたりせずユーザーに聞く
+    scope: このリポジトリの全規則（メタ規則）
+    enforcement: [L0]
+    detail: "**この台帳の scope 欄がこの規則の実装である。** 欄が埋まっていれば聞く必要が無く、空なら聞く"
+    evidence: Web 照合の要否を自己解釈して76人ぶんを公開（2026-08-02）
+    source: docs/process/AI_RESEARCH_LESSONS.md 11-5
+
+  - id: R-COUPLING
+    summary: 片方を変えたらもう片方も変える対を、気づいた時点で結合レジストリに登録する
+    scope: データ・サイト・ドキュメントをまたぐ結合すべて
+    enforcement: [L3, L4]
+    detail: 一覧は docs/process/COUPLINGS.md。**規則違反ではなく「規則が書かれていなかった」型の事故に効く唯一の手当て**
+    evidence: 肖像 manifest と実体ファイルの不一致で deploy gate が落ちた（2026-08-01）／表示名を変えて kana-readings.ts の TABLE_SOURCE を直さずビルドが落ちた（2026-08-02）
+    source: docs/process/COUPLINGS.md
+
+measurement:
+  # 0件の deny は「守られている」と「そもそも掛かっていない」を区別しない。
+  # 規則ごとに分母（守るべき操作が何回起きたか）を数える。
+  log: .claude/hook-log.jsonl   # decision は pass / deny / escaped の3値。pass の件数が分母
+  watch:
+    - guard.py が対象にしている操作の発生件数が0のままなら、規則が掛かっていないか記法が変わった疑い
+    - escaped が続く規則は、規則のほうが実態に合っていない
+    - 調査エージェントの起動のうち .claude/agents/ の定義を経由した割合（L2 が外れていないか）
