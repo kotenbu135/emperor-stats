@@ -131,6 +131,14 @@ rules:
     evidence: 他セッションのブランチ上でコミットした（2026-08-02）
     source: CLAUDE.md「守るべき運用ルール」
 
+  - id: R-WORKTREE-SETUP
+    summary: worktree の作業場所は primary と揃える — コーパス4本は symlink、site/node_modules は `cp -al` のハードリンク複製（symlink は Turbopack が拒否する）
+    scope: .claude/worktrees/ 以下の作業場所を作ったとき。**primary では何もしない**。node_modules を触るのは site を動かすときだけ（データ専用の worktree には作らない）
+    enforcement: [L0, L4]
+    detail: 実体は `scripts/setup_worktree.sh`。L0 は2経路で、どちらも人が思い出す必要が無い — (1) `.claude/settings.json` の PostToolUse フック（matcher `EnterWorktree`・`tool_response.worktreePath` を受けてコーパス4本を symlink・7ミリ秒）、(2) `site/package.json` の `predev`/`prebuild` が `site/scripts/ensure-node-modules.mjs` を先に流し、node_modules が無い／symlink なら primary から `cp -al`（約0.75秒・3506ディレクトリぶんの実消費だけでファイル実体は共有）。**(2) は worktree の作られ方に依らない**（EnterWorktree でも `git worktree add` でもサブエージェントの worktree 隔離でも効く）。**node_modules はハードリンクなので、worktree での `npm install`／in-place のパッチ当ては primary 側の実体も書き換える**（npm は unlink→作成なので通常は安全）
+    evidence: site/node_modules を primary から symlink したら Turbopack が `Symlink [project]/node_modules is invalid, it points out of the filesystem root` で拒否した（2026-08-02）。コーパス4本の symlink 漏れは**エラーにならず**、コーパス依存のゲート（verify_quotes・quote_helper）が黙ってスキップされる（Issue #36 の作業中に発覚）
+    source: site/AGENTS.md「ハマりどころ」・docs/process/COUPLINGS.md「運用側」
+
   - id: R-SCOPE-ASK
     summary: 規則の適用範囲が書かれていないときは、自分で狭めたり広げたりせずユーザーに聞く
     scope: このリポジトリの全規則（メタ規則）
