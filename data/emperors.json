@@ -23335,44 +23335,44 @@
    "standing": "regular",
    "reigns": [
     {
-     "startYear": 403,
+     "startYear": 404,
      "endYear": 404,
      "dynastyOrder": 1,
      "isRestoration": false,
      "note": "安帝より禅譲を受け即位、国号を楚（桓楚）とした。劉裕らのクーデターで殺害。",
      "raw": "403年 - 404年",
      "durationRaw": null,
-     "startDate": null,
+     "startDate": "0404-01-01",
      "endDate": "0404-06-19",
-     "startDateRaw": "元興2年（403年）12月（日不詳。日次は『晋書』安帝紀に壬辰＝十二月三日とあるが、採ると startYear を 404 へ動かす年またぎ処理が要るため保留）",
+     "startDateRaw": "元興2年12月3日（壬辰、404年1月1日）",
      "endDateRaw": "永始元年5月26日（404年6月19日）",
      "datePrecision": {
-      "start": "month",
+      "start": "day",
       "end": "day"
      },
      "duration": {
-      "value": 187,
+      "value": 170,
       "unit": "day",
-      "approxDays": 187,
-      "exactDays": null,
-      "needsPreciseDays": true,
+      "approxDays": 170,
+      "exactDays": 170,
+      "needsPreciseDays": false,
       "source": {
        "page": "晋書 巻九十九 列伝第六十九 桓玄伝",
        "lang": "zh-classical",
        "quote": "百官到姑孰勸玄僭偽位……玄乃於城南七里立郊，登壇篡位……於是大赦，改元永始……／……達枚回洲，恬與祐之迎擊玄……益州督護馮遷……遂斬之，時年三十六。",
-       "conversion": "即位（登壇篡位）の日次は列伝（桓玄伝）原文に無く月精度を維持する。『晋書』巻十 安帝紀 元興二年条には「十二月壬辰，玄篡位，以帝为平固王」と日次があり、壬辰＝十二月三日は sxtwl 換算で 404-01-01（eraChangeCount・amnestyCount の event 側はこれを採る）。reigns 側で採ると startYear=403 と startDate の年が食い違う年またぎ処理（Issue #34 と同型）が要るため、ここでは月精度のまま据え置く。既存endDate(404-06-19)=永始元年5月26日=壬午は資治通鑑『壬午，遇玄於枚回洲……遂斬之』とsxtwl換算で一致、変更なし。（2026-08-02・Issue #36 F3: 従来 conversion は「列伝原文に記載がなく」とだけ書いて帝紀に日次があることに触れていなかったため追記した。）"
+       "conversion": "即位（登壇篡位）の日次は『晋書』巻十 安帝紀 元興二年条「十二月壬辰，玄篡位，以帝为平固王」により元興二年十二月三日（壬辰）で、fromLunar(403,12,3) → 404-01-01。eraChangeCount・amnestyCount の event 側と同じ日である。列伝（桓玄伝）に登壇篡位の日次はなく、同伝に出る干支「自以水德，壬辰，腊于祖」は建康宮入城後の臘祭で即位日ではない。startYear は実日付（太陽暦）の年を採る規約（2026-07-22 確定・EMPERORS_SCHEMA.md）に従い 403 → 404 へ動かした。歴史紀年（旧暦年）側は flags.usedEmperorTitleFrom=403 が保持する。raw の 403年 - 404年 という表記、および note 各所の 403年12月即位 は旧暦年基準の通説表記としてそのまま正しい。既存endDate(404-06-19)=永始元年5月26日=壬午は資治通鑑『壬午，遇玄於枚回洲……遂斬之』とsxtwl換算で一致、変更なし。exactDays=170 は 404-01-01〜404-06-19 の実経過日数。（2026-08-02・Issue #44: Issue #36 F3 で保留していた月精度→日精度への引き上げ。従来は開始日を立てず月精度（datePrecision.start=month）で、approxDays=187 の推定値だった。）"
       }
      }
     }
    ],
    "reignSummary": {
     "totalReignDuration": {
-     "approxDays": 187,
+     "approxDays": 170,
      "displayYears": 0.5,
-     "needsPreciseDays": true,
-     "isExact": false
+     "needsPreciseDays": false,
+     "isExact": true
     },
-    "firstStartYear": 403,
+    "firstStartYear": 404,
     "lastEndYear": 404,
     "reignCount": 1
    },

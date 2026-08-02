@@ -23176,6 +23176,18 @@
    ],
    "line": 23
   },
+  "huan-xuan|reigns[0].conversion|63687915a75c": {
+   "id": "huan-xuan",
+   "path": "reigns[0].conversion",
+   "span": "自以水德，壬辰，腊于祖",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/列传/第六十九章--原文.html",
+   "frags": [
+    "自以水德壬辰",
+    "德壬辰腊于祖"
+   ],
+   "line": 43
+  },
   "huan-xuan|reigns[0].conversion|b84e2d5d3614": {
    "id": "huan-xuan",
    "path": "reigns[0].conversion",

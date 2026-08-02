@@ -4,6 +4,27 @@
 
 ## 2026.08 (2026-08-02 更新)
 
+### 精度向上（2026-08-02・桓玄の即位日を日精度へ / Issue #44）— `schemaVersion` 3.0.0 のまま
+
+Issue #36 F3 で「旧暦年またぎの `startYear` をどちらの流儀で通すか未決」として保留していた1件。
+**規約は 2026-07-22 に決着済み**（`reigns[].startYear` は実日付＝太陽暦の年・歴史紀年は
+`flags.usedEmperorTitleFrom` が持つ。`data/schema/EMPERORS_SCHEMA.md` の `reigns` 表と
+`flags` 表に明記し、`validate_emperors.py` の `check_reigns()`／`check_used_emperor_title_from()`
+が両側から強制している）と確認できたため、保留を解いて日精度へ上げた。
+
+- `huan-xuan.reigns[0]`: `startDate` null → **`0404-01-01`**（`datePrecision.start` month → **day**）、
+  `startYear` 403 → **404**、`duration` 187日（月精度の推定）→ **170日（`exactDays` 確定）**、
+  `reignSummary` も連動（`isExact` false → **true**）。典拠は『晋書』巻十 安帝紀 元興二年条
+  「十二月壬辰，玄篡位，以帝为平固王」＝元興二年十二月三日、`fromLunar(403,12,3)` → 404-01-01 で、
+  `eraChangeCount`・`amnestyCount` の event 側が既に採っていた日と同じ
+- `raw`（`"403年 - 404年"`）と note 各所の「403年12月即位」は**旧暦年基準の通説表記として正しい**ので
+  変更しない（同型の `liu-yong-liang` も `raw` を `"25年 - 27年"` のまま `startYear` 26 で通している）。
+  `usedEmperorTitleFrom` = `startYear` - 1 の該当は4件 → **5件**
+- **横展開**: 日次の標識（干支・日）を持ちながら `datePrecision` が day でない端点を全374在位で数え、
+  6件を検分した。うち5件は史料側に即位・崩御の日次が無い（`chenghan-liban`・`beiwei-yuanyu`・
+  `tangmo-zhuci`・`tangmo-lixilie`・`houliang-xuandi`）。**桓玄と同型で残るのは `wang-mang` の1件**
+  （初始元年十一月戊辰・旧暦年またぎ）で、原典の再読が要るため Issue #46 へ分けた
+
 ### 訂正（2026-08-02・素材 note と原典の食い違い30件 / Issue #36）— `schemaVersion` 3.0.0 のまま
 
 紹介文（Issue #16）の執筆・敵対的検証で上がった後漢初の小政権・五胡十六国（楚／前涼／前趙／成漢）の
