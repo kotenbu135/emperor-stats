@@ -1113,7 +1113,11 @@ AXES_REQUIRED = {
     "throneSource", "titleOrigin", "decidedBy", "decidedByBasis",
     "predecessorFate", "relationToPredecessor", "procedure",
 }
-AXES_OPTIONAL = {"decidedByAgents"}
+# conflicts は note・claim と同じ位置に置ける史料対立の置き場（Issue #51 P3）。
+# 続柄（relationToPredecessor）のように **軸の中にしか実フィールドが無い**対立があり、
+# check_conflicts は field が同じコンテナに実在することを要求するので axes 内に置けないと
+# 書く場所が無くなる（Issue #53 の曹髦）。中身の検査は check_conflicts が行う。
+AXES_OPTIONAL = {"decidedByAgents", "conflicts"}
 
 
 def derive_category(axes):

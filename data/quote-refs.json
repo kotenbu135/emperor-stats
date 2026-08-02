@@ -21857,6 +21857,31 @@
    ],
    "line": 40
   },
+  "houyan-murongchui|personalCampaignCount.events[4].conflicts[0].adopted.quote|6f22f5bbd6fe": {
+   "id": "houyan-murongchui",
+   "path": "personalCampaignCount.events[4].conflicts[0].adopted.quote",
+   "span": "闰月，乙卯，燕军至平城，虔乃觉之，帅麾下出战，败死，燕军尽收其部落",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "燕军至平城",
+    "帅麾下出战",
+    "燕军尽收其部落"
+   ],
+   "line": 1756
+  },
+  "houyan-murongchui|personalCampaignCount.events[4].conflicts[0].alternatives[0].quote|796450b1cfae": {
+   "id": "houyan-murongchui",
+   "path": "personalCampaignCount.events[4].conflicts[0].alternatives[0].quote",
+   "span": "二十一年春正月，造清暑殿。三月，慕容垂攻平城，拔之",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/帝纪/第九章--原文.html",
+   "frags": [
+    "二十一年春正月",
+    "慕容垂攻平城"
+   ],
+   "line": 50
+  },
   "houyan-murongchui|personalCampaignCount[2].note|14701b8cbd7b": {
    "id": "houyan-murongchui",
    "path": "personalCampaignCount[2].note",
@@ -21913,16 +21938,42 @@
    ],
    "line": 32
   },
-  "houyan-murongchui|personalCampaignCount[4].note|168ffffe9029": {
+  "houyan-murongchui|personalCampaignCount[4].note|6f22f5bbd6fe": {
    "id": "houyan-murongchui",
    "path": "personalCampaignCount[4].note",
-   "span": "三月、慕容垂攻平城，拔之",
+   "span": "闰月，乙卯，燕军至平城，虔乃觉之，帅麾下出战，败死，燕军尽收其部落",
    "status": "corpus",
-   "corpusFile": "china-history/晋书/帝纪/第九章--原文.html",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
    "frags": [
-    "慕容垂攻平城"
+    "燕军至平城",
+    "帅麾下出战",
+    "燕军尽收其部落"
    ],
-   "line": 50
+   "line": 1756
+  },
+  "houyan-murongchui|personalCampaignCount[4].note|74b530aff834": {
+   "id": "houyan-murongchui",
+   "path": "personalCampaignCount[4].note",
+   "span": "三月，庚子，燕主垂留范阳王德守中山，引兵密发",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "燕主垂留范阳王德守中"
+   ],
+   "line": 9679
+  },
+  "houyan-murongchui|personalCampaignCount[4].note|81377f166023": {
+   "id": "houyan-murongchui",
+   "path": "personalCampaignCount[4].note",
+   "span": "垂在平城积十日，疾转笃，乃筑燕昌城而还。夏，四月，癸未，卒于上谷之沮阳，秘不发丧",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "垂在平城积十日",
+    "乃筑燕昌城而还",
+    "卒于上谷之沮阳"
+   ],
+   "line": 1756
   },
   "houyan-murongchui|reigns[0].quote#0|278f21b08f85": {
    "id": "houyan-murongchui",
@@ -61830,6 +61881,50 @@
    ],
    "line": 3518
   },
+  "tangmo-li-chenghong|accessionRoute.note|7fbae0447c83": {
+   "id": "tangmo-li-chenghong",
+   "path": "accessionRoute.note",
+   "span": "承宏，守礼之子也",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "守礼之子也"
+   ],
+   "line": 21733
+  },
+  "tangmo-li-chenghong|accessionRoute.note|7ff6990100d7": {
+   "id": "tangmo-li-chenghong",
+   "path": "accessionRoute.note",
+   "span": "立故邠王男广武王承宏为帝",
+   "status": "corpus",
+   "corpusFile": "china-history/旧唐书/列传/第一百四十六章-卷一百四十六-原文.html",
+   "frags": [
+    "立故邠王男广武王承宏"
+   ],
+   "line": 67
+  },
+  "tangmo-li-chenghong|accessionRoute.note|c881f8c736da": {
+   "id": "tangmo-li-chenghong",
+   "path": "accessionRoute.note",
+   "span": "子承宏，开元初封广武郡王",
+   "status": "corpus",
+   "corpusFile": "china-history/旧唐书/列传/第三十六章-卷三十六-原文.html",
+   "frags": [
+    "开元初封广武郡王"
+   ],
+   "line": 50
+  },
+  "tangmo-li-chenghong|accessionRoute.note|d1255566dcd2": {
+   "id": "tangmo-li-chenghong",
+   "path": "accessionRoute.note",
+   "span": "子承宏、承宁、承寀可记者",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/古今图书集成/明伦汇编/官常典宗藩部.txt",
+   "frags": [
+    "承寀可记者"
+   ],
+   "line": 4826
+  },
   "tangmo-li-chenghong|amnestyCount[0].note|649010722818": {
    "id": "tangmo-li-chenghong",
    "path": "amnestyCount[0].note",
@@ -63229,6 +63324,28 @@
     "遣芳歸藩於齊"
    ],
    "line": 26
+  },
+  "wei-caomao|accessionRoute.axes.conflicts[0].adopted.quote|975b864887d9": {
+   "id": "wei-caomao",
+   "path": "accessionRoute.axes.conflicts[0].adopted.quote",
+   "span": "明帝无子养王及秦王询宫省事秘莫有知其所由来者",
+   "status": "corpus",
+   "corpusFile": "china-history/三国志/魏书/第四章-少帝纪-原文.html",
+   "frags": [
+    "明帝无子养王及秦王询"
+   ],
+   "line": 23
+  },
+  "wei-caomao|accessionRoute.axes.conflicts[0].alternatives[0].quote|c116db1a34ec": {
+   "id": "wei-caomao",
+   "path": "accessionRoute.axes.conflicts[0].alternatives[0].quote",
+   "span": "或云任城王楷子",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/三国志.txt",
+   "frags": [
+    "或云任城王楷子"
+   ],
+   "line": 488
   },
   "wei-caomao|accessionRoute.note|12f499161108": {
    "id": "wei-caomao",
@@ -77676,27 +77793,27 @@
    "triage": "2026-08-02 字体訂正後の再構築で表面化。元号を補うなど原文に無い形へ合成された引用（Issue #33 と同型）",
    "nv": "339aa5e9"
   },
-  "yuan-shizu|reigns[0].note|140af3a1f312": {
+  "yuan-shizu|reigns[0].note|490aa3dfac3f": {
    "id": "yuan-shizu",
    "path": "reigns[0].note",
-   "span": "皇帝登宝位詔",
-   "status": "corpus",
-   "corpusFile": "daizhigev20/史藏/编年/续资治通鉴长编拾补.txt",
-   "frags": [
-    "皇帝登宝位詔"
-   ],
-   "line": 5534
-  },
-  "yuan-shizu|reigns[0].note|cf277f185506": {
-   "id": "yuan-shizu",
-   "path": "reigns[0].note",
-   "span": "大蒙古国皇帝",
+   "span": "大蒙古国皇帝奉书日本国王",
    "status": "corpus",
    "corpusFile": "daizhigev20/史藏/正史/元史.txt",
    "frags": [
-    "大蒙古国皇帝"
+    "大蒙古国皇帝奉书日本"
    ],
    "line": 26814
+  },
+  "yuan-shizu|reigns[0].note|d17d0403618c": {
+   "id": "yuan-shizu",
+   "path": "reigns[0].note",
+   "span": "朕惟祖宗肇造区宇，奄有四方",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/yuan-shizu.txt",
+   "frags": [
+    "朕惟祖宗肇造区宇"
+   ],
+   "line": 15
   },
   "yuan-shizu|reigns[0].quote#0|b3c0a0645004": {
    "id": "yuan-shizu",
@@ -80536,7 +80653,6 @@
   "shiguo-nantang-lijing|reigns[0].conversion": "陸游『南唐書』の底本が「己卯朔」を「已卯朔」と誤字（已は干支として成立しない）。十国春秋が「己卯朔」で一致し引用側が正しい",
   "wei-caomao|rebellionSufferedCount.note": "2ユニットとも断片は三國志 魏書四 三少帝紀（大將軍文王上言と、曹髦が「舉兵入西宮殺吾」と述べる条）に実在する。note が名乗る『漢晉春秋』は成濟への指示者に関する別主張の出典で、逸文は三國志裴注に引かれる形で残る",
   "wei-mingdi|amnestyCount[4].note": "三國志 魏書三 明帝紀に実在するが、両コーパスとも「虹」の直後に音注「洨音胡交反。虹音绛。」が挿入され正文の連続断片が取れない。名乗りの「魏書」は三國志の内篇名",
-  "wudai-houliang-taizu|crownPrinceDepositionCount.note": "note の「梁書」は旧五代史の内篇（巻七・梁書七 太祖紀七）で南朝梁の正史『梁書』ではない。断片は旧五代史 巻七に実在",
-  "yuan-shizu|reigns[0].note": "「皇帝登寶位詔」は元史が題名を載せない後世の詔題で、詔の本文は元史 巻4 世祖紀一「辛丑，以即位詔天下。詔曰…」として在る。題名を載せる元文類はコーパス未収録"
+  "wudai-houliang-taizu|crownPrinceDepositionCount.note": "note の「梁書」は旧五代史の内篇（巻七・梁書七 太祖紀七）で南朝梁の正史『梁書』ではない。断片は旧五代史 巻七に実在"
  }
 }

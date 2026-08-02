@@ -239,6 +239,13 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 割れる形が実在し（Issue #50）、`events[].date` は `reigns` と違って `raw`・`conversion` を
 持たないので、対立を書く場所が他にありません。
 
+**`accessionRoute.axes` の中にも置けます**（2026-08-03・Issue #53）。`field` は同じコンテナに
+実在するフィールド名でなければならないので、続柄（`relationToPredecessor`）のように
+**軸の中にしか実フィールドが無い**対立は、`accessionRoute` の直下に置くと落ちます。
+実例は曹髦（`wei-caomao`）— 正史本文が曹芳の実父を伝えず、実父を任城王曹楷とするのは
+裴注引『魏氏春秋』の「或云」にとどまるため、法的系統（明帝の養子）で数えて `cousin` を採り、
+血縁系統で数えた `distant-kin` を `alternatives` に置いています。
+
 ### 「対立なし」と「未確認」を区別する
 
 | 状態 | 書き方 |
