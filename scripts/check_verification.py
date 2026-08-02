@@ -310,7 +310,10 @@ def cmd_rate(led, emp):
             esc_s = "—" if esc is None else f"{esc}（{esc / b['people']:.2f}/人）"
             w = b.get("webdiff") or {}
             wd = "—" if w.get("raised") is None else f"{w['confirmed']}/{w['raised']}"
-            print(f"{b['id']:34s} {tier:11s} {b['people']:3d} {b['verifiersPerPerson']:4d} "
+            # 体/人 は None を取りうる（1人1体ではなくパッケージ単位で立てた回）
+            vpp = b.get("verifiersPerPerson")
+            vpp_s = f"{b.get('verifiersPerPackage')}/束" if vpp is None else f"{vpp}"
+            print(f"{b['id']:34s} {tier:11s} {b['people']:3d} {vpp_s:>4s} "
                   f"{'—' if r is None else r:>4} {'—' if c is None else c:>5} {rate:>7s} "
                   f"{esc_s:>8s} {wd:>9s}")
     print("\n" + led["meta"]["confound"])
