@@ -17,7 +17,8 @@
   - `qianzhao-liucan` 被反乱 `events[0]` の日付 null/`year` → **`0318-09`/`month`**。
     『晋書』元帝紀 太興元年の月見出し「八月」の配下に靳準の弑逆が置かれる
   - `chenghan-lishou.name.templeName` → **中宗**、`chenghan-lixiong.name.templeName` → **太宗**
-    （載記末尾「庙曰中宗」「庙曰太宗」）
+    （載記末尾「庙曰中宗」「庙曰太宗」）。同じ調査で `chenghan-liqi.name.posthumousName` → **幽公**、
+    `chenghan-liban.name.posthumousName` → **哀皇帝** も確定（諡号 98 → 100・廟号 70 → 72）
   - `liu-yong-liang.reigns[0].startDate` `0026-01-07`/`day` → **null/`year`**。
     『後漢書』光武帝紀上は「十一月甲午，幸怀。」と「刘永自称天子。」を別段落に置き、
     干支は光武帝の行幸に付く。年（26）は記事の位置から維持し、`reignSummary` も引き直した

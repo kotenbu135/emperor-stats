@@ -20,6 +20,7 @@
 - **B2** `chenghan-lishi.crownPrinceDepositionCount` 1 → **0**
 - **F1** `qianzhao-liucan` 被反乱 `events[0]` の日付 null/`year` → **`0318-09`/`month`**
 - **F5** `chenghan-lishou.name.templeName` null → **中宗**／`chenghan-lixiong.name.templeName` null → **太宗**
+  （付随して `chenghan-liban.name.posthumousName` null → **哀皇帝**、`chenghan-liqi.name.posthumousName` null → **幽公**）
 - **コメント2** `liu-yong-liang.reigns[0].startDate` `0026-01-07`/`day` → **null/`year`**
 
 ## 30行の台帳
@@ -74,8 +75,26 @@
 - 5人を読んだ結果、定型が付いていたのは李雄・李寿の2人で、李期は諡号のみ（「谥曰幽公」）。
   **「成漢は全員に廟号がある」のような値の主張は記録に書いていない**
 
+記録の `fields` に `posthumousName` を宣言した以上、諡号も同じ5人で決着させた:
+
+- `chenghan-liqi.posthumousName` → **幽公**（載記「谥曰幽公」・華陽国志「期死时年二十四，谥曰幽公」・
+  十六国春秋「期年二十五在位三年谥曰幽公」の3史料一致）。皇帝の諡ではなく公の諡だが、
+  データセットは張祚「威王」・苻生「厲王」と非「帝」の諡号を既に持つ
+- `chenghan-liban.posthumousName` → **哀皇帝**（華陽国志「期伪谥班曰戾太子，寿追谥曰哀皇帝」・
+  十六国春秋も同じ二段階）。最終の追諡を採り、戾太子は `reigns[0].note` に残した
+- 李雄・李寿は既に武帝・昭文帝で埋まっており、李勢（`per-person`）は触っていない
+
+これは `data/screenings.json` の `posthumousName:unknown` 標本監査で
+「人物単位の判定に委ねる境界事例」として保留されていた李期を、人物単位で決着させたことにあたる。
+決着で母集団から外れたので `outOfSample: true` を付け、代わりに標本へ入ってきた `ming-xuanzong` を
+監査した（明史「上尊谥，庙号宣宗，葬景陵」＝明英宗と同型の反例）。
+その結果、諡号側の取りこぼし率の推定は 50% → **67%（95%区間 22〜96%）** に上がった。
+
 `check_regime_conventions.py` は 0 errors（引用15件を原文と照合）。
-`check_screenings.py` の母集団は 562 → 560、`templeName:unknown` は 182 → 180 へ `--update` で引き直した。
+`check_screenings.py` の母集団は 562 → 558（`templeName:unknown` 182 → 180・
+`posthumousName:unknown` 207 → 205）へ `--update` で引き直した。
+`data/name-readings.json` に「幽公」のふりがなを追加（「哀皇帝」は既存）。
+`site/` のビルドは exit 0（365人の個別ページを含め全ページ生成）。
 
 ## 通したゲート
 

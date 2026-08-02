@@ -23,7 +23,7 @@
       "unit": "person-field",
       "script": "scripts/screens/name_fields.py",
       "population": "365人 × {templeName, posthumousName} のうち**値が空のセル**（埋まっているセルの訂正は別作業）",
-      "n": 560,
+      "n": 558,
       "buckets": [
         {
           "name": "templeName:transcribe",
@@ -101,7 +101,7 @@
         {
           "name": "posthumousName:unknown",
           "kind": "absent",
-          "count": 207,
+          "count": 205,
           "means": "commonName が諡号形で立っていないだけ。**「諡号が無い」ではない**",
           "notEstablished": "値の不在。廟号で呼ばれる皇帝（〜祖／〜宗）は諡号を別に持つのが普通なので、ここには取りこぼしが厚く残る",
           "audit": {
@@ -119,8 +119,12 @@
               },
               {
                 "id": "chenghan-liqi",
-                "verdict": "一致",
-                "checked": "_corpus_cache/chenghan-liqi.txt:4 の「谥曰幽公」は廃位後に公として与えられた諡で、皇帝の諡号ではない。人物単位の判定に委ねる境界事例"
+                "verdict": "反例",
+                "outOfSample": true,
+                "file": "_corpus_cache/chenghan-liqi.txt",
+                "line": 4,
+                "quote": "谥曰幽公",
+                "note": "Issue #36 の成漢一括で人物単位に読み直し、境界事例を「値あり」として決着させた（posthumousName=幽公）。データセットは張祚「威王」・苻生「厲王」と非「帝」の諡号を既に持つため、公の諡もこの欄に入る。決着によりこの人物は母集団から外れたので取りこぼし率の計算には入れない"
               },
               {
                 "id": "jin-aizong",
@@ -147,6 +151,14 @@
                 "id": "yuan-huizong",
                 "verdict": "一致",
                 "checked": "_corpus_cache/yuan-huizong.txt（元史 順帝紀）の「谥」22件はすべて他者への追諡（文宗・寧宗・臣下）で、紀は「大明兵入京城，国亡」で終わり順帝自身の諡号記事が無い。惠宗は北元の追諡"
+              },
+              {
+                "id": "ming-xuanzong",
+                "verdict": "反例",
+                "file": "_corpus_cache/ming-xuanzong.txt",
+                "line": 52,
+                "quote": "上尊谥，庙号宣宗，葬景陵",
+                "note": "母集団が 207→205 に動いて標本に入ってきた分の監査（Issue #36 で成漢2人の諡号を埋めたため）。明英宗と同型で、諡号があること自体は明文だが全形はこの行に無く別所を読む必要がある。commonName「宣宗（宣徳帝）」は廟号＋元号由来の通称で、諡号形の検査に当たらない"
               }
             ]
           }

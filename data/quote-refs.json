@@ -10374,6 +10374,17 @@
    ],
    "line": 16
   },
+  "chenghan-liban|ages.note|0ec184d57ed8": {
+   "id": "chenghan-liban",
+   "path": "ages.note",
+   "span": "时年四十七在位一年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-liban.txt",
+   "frags": [
+    "时年四十七在位一年"
+   ],
+   "line": 2
+  },
   "chenghan-liban|ages.note|4831187e5ab4": {
    "id": "chenghan-liban",
    "path": "ages.note",
@@ -10455,6 +10466,17 @@
    ],
    "line": 31
   },
+  "chenghan-liban|reigns[0].note|72a996cc24ec": {
+   "id": "chenghan-liban",
+   "path": "reigns[0].note",
+   "span": "遂立雄之子期嗣位焉",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-liban.txt",
+   "frags": [
+    "遂立雄之子期嗣位焉"
+   ],
+   "line": 2
+  },
   "chenghan-liban|reigns[0].note|8196445ccd84": {
    "id": "chenghan-liban",
    "path": "reigns[0].note",
@@ -10466,6 +10488,29 @@
     "养含弟班为子"
    ],
    "line": 574
+  },
+  "chenghan-liban|reigns[0].note|9ea8831d1d71": {
+   "id": "chenghan-liban",
+   "path": "reigns[0].note",
+   "span": "期伪谥班曰戾太子，寿追谥曰哀皇帝",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/华阳国志.txt",
+   "frags": [
+    "期伪谥班曰戾太子",
+    "寿追谥曰哀皇帝"
+   ],
+   "line": 585
+  },
+  "chenghan-liban|reigns[0].note|c5df431c1f4a": {
+   "id": "chenghan-liban",
+   "path": "reigns[0].note",
+   "span": "期既即位谥班曰戾太子及寿立追谥曰哀皇帝",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十六国春秋.txt",
+   "frags": [
+    "期既即位谥班曰戾太子"
+   ],
+   "line": 1447
   },
   "chenghan-liban|reigns[0].note|c5ecca524061": {
    "id": "chenghan-liban",
@@ -10570,6 +10615,17 @@
    ],
    "line": 4
   },
+  "chenghan-liqi|deathCause.note|0895a681a666": {
+   "id": "chenghan-liqi",
+   "path": "deathCause.note",
+   "span": "期死时年二十四，谥曰幽公",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/华阳国志.txt",
+   "frags": [
+    "期死时年二十四"
+   ],
+   "line": 589
+  },
   "chenghan-liqi|deathCause.note|22bb3b937809": {
    "id": "chenghan-liqi",
    "path": "deathCause.note",
@@ -10592,6 +10648,17 @@
     "时年二十五"
    ],
    "line": 4
+  },
+  "chenghan-liqi|deathCause.note|6f8a0030c0d1": {
+   "id": "chenghan-liqi",
+   "path": "deathCause.note",
+   "span": "期年二十五在位三年谥曰幽公",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十六国春秋.txt",
+   "frags": [
+    "期年二十五在位三年谥"
+   ],
+   "line": 1452
   },
   "chenghan-liqi|deathCause.note|e5cde7b3ebad": {
    "id": "chenghan-liqi",
