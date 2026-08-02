@@ -13,6 +13,22 @@
 | [verification.json](verification.json) | **調査の簿記であってデータセットではない**。検証段に何体立てるかを政権の史料形態から引くための記録（規則 `R-VERIFY-TIER`）。正史が一代通しの独立記述を立てる政権は1体、載記・類書・別史・地方志に依存する政権は3体。**記録に無い政権は厚い側（3体）**で、1体へ減らす側にだけ書名・所在の根拠が要る。ブロック別の指摘率（`raised`／`confirmed`）もここに残す。サイトのビルドもバリデータも読まない |
 | [emperor-profiles.json](emperor-profiles.json) | 皇帝個別ページの紹介文（[Issue #16](https://github.com/kotenbu135/emperor-stats/issues/16)・執筆中）。**原典調査の結果ではなく編集コンテンツ**で、既存の調査結果を読者向けに言い直したもの。`emperors.json` と別ファイルなのは、性格が違うことに加えて約7MBのデータセットを365回の追記で触ると並行セッションと衝突するため |
 
+### internal/ — 配布物が主張しない値の置き場（2026-08-03・Issue #69）
+
+| ファイル | 内容 |
+|---|---|
+| [internal/event-date-archive.json](internal/event-date-archive.json) | `events[]` の日付を「年精度 ＋ 在位境界年の月日」へ絞ったときに**丸めた月日**（6,258値・4,170 events）。鍵は `events[].id` |
+
+**「内部」は隠す場所ではありません**（リポジトリは public でコミットもしています）。意味は
+**引用され得る配布物の主張に含めない**ことです。3つの性質で成り立っています:
+
+- **追記しない。** 分割時に1回書いたきりで、読むのは精度を戻すときだけ。2ファイル目が編集され続けると
+  そこだけ `patch_emperor.py`（sha256 照合とゲート案内を持つ唯一の正規経路）の外になる
+- **中身をゲートで検査しない。** 見るのは配布物との対応だけ（鍵が実在の event を指すか・
+  配布物の値が退避値の接頭辞か＝`validate_emperors.py` の `check_event_date_archive`）
+- **これ以上精度を追求しない**（ユーザー決定）。誤りと分かっている値も入ったまま固定されている
+  （`docs/process/RESIDUAL.md` の #62 の9件）。戻すときはその節を先に読む
+
 **`emperor-profiles.json` は配布物に含めていない**（`site/scripts/build-data-distribution.mjs` が `public/data/` へ出すのは emperors.json・emperors.csv・emperors.schema.json の3本のみ）。含めるかは別途の判断で、既定は「含めない」。
 
 データ・調査メモ文章のライセンスは **CC BY 4.0**（[LICENSE](LICENSE)、コードはルートの MIT と二重ライセンス構成・`meta.license` にも機械可読で記載）。変更履歴はルートの [CHANGELOG.md](../CHANGELOG.md) を参照してください。

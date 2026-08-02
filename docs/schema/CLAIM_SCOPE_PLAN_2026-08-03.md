@@ -185,11 +185,18 @@ data/internal/（配布しない・ゲート対象外・追記しない）
 1. ~~`events[].id` を焼き、`screenings.json`・`RESIDUAL.md`・`check_screenings.py` の参照を移す（A）~~
    → **2026-08-03 完了**（`4a33c8e`）。`validate_emperors.py` の許可リスト2本も同じ型のずれを
    持っていたので一緒に移した。抽選の鍵は `audit.sampleKey: "legacy-index"` で凍結してある
-2. 日付の主張範囲を絞る（#69 本体）— 丸め・アーカイブ・深さの規約反転・`verify_calendar` B-5 の対象変更
-   - **ここで一緒に直す**: `scripts/screens/lunar_date_as_iso.py` の `COUNT_GROUPS` に
-     存在しない容器名 `crownPrinceChangeCount` が入っており、皇太子廃立の34 events・
-     日精度15値が母集団から黙って外れている（2026-08-03 検出）。**単独で直すと母集団 `n` が
-     動いて標本監査29件を引き直すことになる**ので、母集団の定義を書き換えるこの段でまとめる
+2. ~~日付の主張範囲を絞る（#69 本体）— 丸め・アーカイブ・深さの規約反転・`verify_calendar` B-5 の対象変更~~
+   → **2026-08-03 完了**。値 6,258（event 4,170件）を丸めて `data/internal/event-date-archive.json` へ
+   退避し、月日を主張する event は 4,337 → **1,173**。規則 `R-DATE-CLAIM-SCOPE` を台帳へ、
+   `schemaVersion` は 3.0.0 → **4.0.0**
+   - `lunar_date_as_iso.py` の存在しない容器名（`crownPrinceChangeCount`）も同じ段で直した。
+     出た該当1件は**実際に誤り**で訂正（`jin-simalun` の旧暦正月十日の直書き → `0301-02-04`）。
+     容器名の定数は `scripts/event_date_scope.py` へ寄せ、`assert_count_groups()` が
+     データ側の実在キーと突き合わせる
+   - **絞り込みスクリプトは「記録された日付」を見る**ようにした（アーカイブの退避値を戻す）。
+     配布物側だけを見ると母集団が半減し、原典を読んで積み上げた標本監査29件が
+     まとめて「標本の外」へ落ちる（＝抽選の凍結と同じ理由）。**残量として意味があるのは
+     主張する側**で、`scripts/screens/date_claim_scope.py` が数える
 3. `ages` の深さを揃える（B）・`dynastyOrder` の `null` を落とす（D）
 4. `source` と `quotes` の器・`meta.catalogs.books`・床のゲート（E・F）
 5. サイト（日付パーサ・年表の1行化）・CSV・`emperors.schema.json`・CalVer 繰り上げ・`/about` の1文

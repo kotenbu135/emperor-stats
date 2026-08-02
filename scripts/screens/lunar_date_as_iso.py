@@ -33,13 +33,13 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
-DATA = ROOT / "data" / "emperors.json"
+sys.path.insert(0, str(ROOT / "scripts"))
 
-COUNT_GROUPS = [
-    "eraChangeCount", "amnestyCount", "empressInstallationCount",
-    "crownPrinceChangeCount", "personalCampaignCount", "rebellionSuppressionCount",
-    "rebellionSufferedCount", "capitalRelocationCount",
-]
+from event_date_scope import (  # noqa: E402
+    COUNT_GROUPS, assert_count_groups, load_archive, recorded_dates,
+)
+
+DATA = ROOT / "data" / "emperors.json"
 
 GAN = "甲乙丙丁戊己庚辛壬癸"
 ZHI = "子丑寅卯辰巳午未申酉戌亥"
@@ -106,9 +106,18 @@ def run():
     """フィールドの鍵は `<events[].id>.<日付キー>`（2026-08-03 の id 移行より前は
     `<皇帝id>.<容器>[<添字>].<日付キー>` で、event を1件挿入すると全部ずれた）。
     `legacy` は移行前の文字列で、凍結した標本を引き直さないためだけに使う。
+
+    **母集団は「記録された日付」で、配布物が主張する日付ではない**（Issue #69）。
+    主張範囲を絞る移行で日精度の値の半分以上が年へ丸まったが、この検出器が問う
+    「その日付は旧暦の月日を西暦欄へ書いたものではないか」は**記録に対する問い**で、
+    丸めたかどうかとは別の軸にある。丸めた値を母集団から外すと、原典を読んで積み上げた
+    標本監査29件がまとめて「標本の外」へ落ちる（＝抽選の凍結と同じ理由）。
+    退避した値は data/internal/event-date-archive.json から読む。
     """
     sxtwl = load_sxtwl()
     data = json.loads(DATA.read_text(encoding="utf-8"))
+    assert_count_groups(data)
+    archive = load_archive()
     population = 0
     all_fields = []
     legacy = {}
@@ -125,8 +134,9 @@ def run():
                 lunar_md = [(cn_num(m.group(2)), cn_num(m.group(3)))
                             for m in LUNAR_MD_RE.finditer(text)]
                 written_gz = set(GANZHI_RE.findall(text))
+                dates = recorded_dates(ev, archive)
                 for key in ("date", "startDate", "endDate"):
-                    val = ev.get(key)
+                    val = dates.get(key)
                     if not isinstance(val, str):
                         continue
                     mo = ISO_DAY_RE.match(val)

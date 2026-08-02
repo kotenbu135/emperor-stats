@@ -86,6 +86,7 @@ jobs:
           python3 scripts/test_patch_emperor.py
           python3 scripts/test_event_conversion_gate.py
           python3 scripts/test_event_ids.py
+          python3 scripts/test_date_claim_scope.py
 
       # ふりがな（Issue #20）。記法・親文字一致に加えて、紹介文の**総ルビ充足**と
       # 固有名詞整合はこのスクリプトにしか無い（サイトのビルドは name-readings.json

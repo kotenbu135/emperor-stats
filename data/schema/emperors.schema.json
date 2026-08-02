@@ -632,7 +632,7 @@
             "type": "object",
             "properties": {
               "id": { "type": "string", "pattern": "^[a-z0-9-]+\\.[A-Za-z]+Count\\.e[0-9]{3,}$", "description": "この event の安定 id（`<皇帝id>.<容器>.eNNN`）。2026-08-03（Issue #69）に一度だけ焼いたもので、**添字から作り直さない** — 焼いた直後は連番と添字が1ずれで対応するので再生成しても検査は通るが、event を1件挿入した瞬間に黙って番号が振り直され、外部からの参照が別の event を指す。新しく足した event には `python3 scripts/migrations/bake_event_ids.py --fill` で振る。参照する側: data/screenings.json の audit.findings[].id・scripts/validate_emperors.py の許可リスト・docs/process/RESIDUAL.md" },
-              "date": { "type": ["string", "null"] },
+              "date": { "type": ["string", "null"], "description": "ISO 8601（紀元前は4桁ゼロ埋めの負年）。**保存値の深さそのものが主張する粒度**（年 `\"1211\"`・月 `\"1211-05\"`・日 `\"1211-05-07\"`）で、埋め草は置かない。月日を主張できるのは**在位の境界年**に在る event だけで、それ以外の月日は data/internal/event-date-archive.json へ退避してある（2026-08-03・Issue #69）。深さは datePrecision 以下。EMPERORS_SCHEMA.md「events の日付が主張する範囲」節が正。" },
               "dateRaw": { "type": ["string", "null"], "description": "原典の紀年表記そのまま。**任意・遡及しない**（2026-08-03 新設・Issue #56）。EMPERORS_SCHEMA.md「events の原表記と換算」節が正。" },
               "datePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
               "from": { "type": ["string", "null"], "description": "遷都元の都城名。" },
@@ -665,8 +665,8 @@
             "type": "object",
             "properties": {
               "id": { "type": "string", "pattern": "^[a-z0-9-]+\\.[A-Za-z]+Count\\.e[0-9]{3,}$", "description": "この event の安定 id（`<皇帝id>.<容器>.eNNN`）。2026-08-03（Issue #69）に一度だけ焼いたもので、**添字から作り直さない** — 焼いた直後は連番と添字が1ずれで対応するので再生成しても検査は通るが、event を1件挿入した瞬間に黙って番号が振り直され、外部からの参照が別の event を指す。新しく足した event には `python3 scripts/migrations/bake_event_ids.py --fill` で振る。参照する側: data/screenings.json の audit.findings[].id・scripts/validate_emperors.py の許可リスト・docs/process/RESIDUAL.md" },
-              "startDate": { "type": ["string", "null"] },
-              "endDate": { "type": ["string", "null"] },
+              "startDate": { "type": ["string", "null"], "description": "ISO 8601（紀元前は4桁ゼロ埋めの負年）。**保存値の深さそのものが主張する粒度**（年 `\"1211\"`・月 `\"1211-05\"`・日 `\"1211-05-07\"`）で、埋め草は置かない。月日を主張できるのは**在位の境界年**に在る event だけで、それ以外の月日は data/internal/event-date-archive.json へ退避してある（2026-08-03・Issue #69）。深さは datePrecision 以下。EMPERORS_SCHEMA.md「events の日付が主張する範囲」節が正。" },
+              "endDate": { "type": ["string", "null"], "description": "ISO 8601（紀元前は4桁ゼロ埋めの負年）。**保存値の深さそのものが主張する粒度**（年 `\"1211\"`・月 `\"1211-05\"`・日 `\"1211-05-07\"`）で、埋め草は置かない。月日を主張できるのは**在位の境界年**に在る event だけで、それ以外の月日は data/internal/event-date-archive.json へ退避してある（2026-08-03・Issue #69）。深さは datePrecision 以下。EMPERORS_SCHEMA.md「events の日付が主張する範囲」節が正。" },
               "datePrecision": {
                 "type": ["object", "string", "null"],
                 "description": "日付精度。start/end の対、または単一値。"
@@ -703,8 +703,8 @@
             "type": "object",
             "properties": {
               "id": { "type": "string", "pattern": "^[a-z0-9-]+\\.[A-Za-z]+Count\\.e[0-9]{3,}$", "description": "この event の安定 id（`<皇帝id>.<容器>.eNNN`）。2026-08-03（Issue #69）に一度だけ焼いたもので、**添字から作り直さない** — 焼いた直後は連番と添字が1ずれで対応するので再生成しても検査は通るが、event を1件挿入した瞬間に黙って番号が振り直され、外部からの参照が別の event を指す。新しく足した event には `python3 scripts/migrations/bake_event_ids.py --fill` で振る。参照する側: data/screenings.json の audit.findings[].id・scripts/validate_emperors.py の許可リスト・docs/process/RESIDUAL.md" },
-              "startDate": { "type": ["string", "null"] },
-              "endDate": { "type": ["string", "null"] },
+              "startDate": { "type": ["string", "null"], "description": "ISO 8601（紀元前は4桁ゼロ埋めの負年）。**保存値の深さそのものが主張する粒度**（年 `\"1211\"`・月 `\"1211-05\"`・日 `\"1211-05-07\"`）で、埋め草は置かない。月日を主張できるのは**在位の境界年**に在る event だけで、それ以外の月日は data/internal/event-date-archive.json へ退避してある（2026-08-03・Issue #69）。深さは datePrecision 以下。EMPERORS_SCHEMA.md「events の日付が主張する範囲」節が正。" },
+              "endDate": { "type": ["string", "null"], "description": "ISO 8601（紀元前は4桁ゼロ埋めの負年）。**保存値の深さそのものが主張する粒度**（年 `\"1211\"`・月 `\"1211-05\"`・日 `\"1211-05-07\"`）で、埋め草は置かない。月日を主張できるのは**在位の境界年**に在る event だけで、それ以外の月日は data/internal/event-date-archive.json へ退避してある（2026-08-03・Issue #69）。深さは datePrecision 以下。EMPERORS_SCHEMA.md「events の日付が主張する範囲」節が正。" },
               "datePrecision": {
                 "type": ["object", "string", "null"],
                 "description": "日付精度。start/end の対、または単一値。"

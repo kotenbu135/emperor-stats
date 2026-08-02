@@ -1,6 +1,6 @@
-# `data/emperors.json` スキーマ（現行 v3.0.0）
+# `data/emperors.json` スキーマ（現行 v4.0.0）
 
-`data/emperors.json` の現行構造のリファレンス。現行 `schemaVersion` は `"3.0.0"`（2026-07-29、Issue #22 のスキーマ改善＝時代・政権カタログの新設、全 enum の ID 化、`dynasty`・`flags.selfProclaimed` の廃止）。移行の設計と経緯は [docs/schema/V3_MIGRATION_PLAN.md](../../docs/schema/V3_MIGRATION_PLAN.md)。死因スキーマは [DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md) を参照。
+`data/emperors.json` の現行構造のリファレンス。現行 `schemaVersion` は `"4.0.0"`（2026-08-03、Issue #69 の**日付の主張範囲**＝`events` の日付は「年精度 ＋ 在位境界年の月日」だけを主張し、保存値の深さそのものが粒度になった。丸めた月日は `data/internal/event-date-archive.json`。**`reigns` は据え置き**）。v3.0.0 は 2026-07-29、Issue #22 のスキーマ改善＝時代・政権カタログの新設、全 enum の ID 化、`dynasty`・`flags.selfProclaimed` の廃止。移行の設計と経緯は [docs/schema/V3_MIGRATION_PLAN.md](../../docs/schema/V3_MIGRATION_PLAN.md)。死因スキーマは [DEATH_CAUSE_SCHEMA.md](DEATH_CAUSE_SCHEMA.md) を参照。
 
 **v3 の原則**: レコードは**安定 ID のみ**を持ち、日本語の表示ラベルは `meta.catalogs` にしか置かない。サイトはカタログを引くだけで表示でき、優先順位ロジックを持たない。
 
@@ -311,6 +311,59 @@ Issue #43 の「**測れない**」と「**書き忘れた**」を区別する�
 
 検出力は `scripts/test_event_ids.py` が合成レコードで測ります（実データは全件が正しいので、
 本番の「0 errors」だけでは守れているのか何も見ていないのか区別できない）。
+
+## `events` の日付が主張する範囲（2026-08-03・Issue #69）
+
+**配布物（`data/emperors.json`）が主張する `events` の日付は「年精度 ＋ 在位境界年の月日」だけです。**
+それ以外の月日は年へ丸め、丸める前の値を `data/internal/event-date-archive.json` へ退避しました
+（値は消していません。**内部側はこれ以上精度を追求しません**）。
+
+### 深さそのものが主張（埋め草の廃止）
+
+| 主張 | 保存形 |
+|---|---|
+| 年 | `"1211"` / `"-0208"` |
+| 月 | `"1211-05"` |
+| 日 | `"1211-05-07"` |
+
+移行前はどの精度でもフル ISO で保存していたため、`-01-01` の埋め草と「本当に元日」の区別が
+値の形からできず、走査でしか分けられませんでした（残量表に「母集団1,412・未走査」の行が立っていた）。
+いまは**形が主張**なので、`datePrecision` より深い値はエラーになります。
+
+**`datePrecision` は触っていません。** これは「原典が何を言っているか」の欄で、「配布物が何を
+主張するか」とは別軸です。深さは `datePrecision` 以下になります（浅い側は自由＝主張を弱めるだけ）。
+
+### `reigns[]` は対象外（据え置き）
+
+在位日は集計の根（`exactDays`・`reignSummary`・`verify_calendar` の B-1〜B-4）なので、
+**フル ISO ＋ `datePrecision`** のままです。埋め草も669値中10件しかありません。
+**1つのファイルに2つの規約が同居する**ので、`reigns` を読むときにこの節の規則を当てないでください。
+
+### なぜ絞ったか
+
+月日を主張していた 4,337件のうち、原表記 `*Raw` と換算 `source.conversion` を持つものは **0件**で、
+機械では真偽を区別できませんでした。検出器を作るたびに母集団が現れ（#34 の1,937件・#55 の1,336件・
+#56 の291件・#62 の9件）、「主張している以上ゼロにするしかない」ので終わりませんでした。
+**発散していたのは欠陥ではなく主張の面積**です。絞ると残量は **1,173件**（有界）になります。
+
+### 機械が見ること（`validate_emperors.py`）
+
+- `check_event_date_format` … 深さ ≤ `datePrecision` の深さ／**月日の深さを持てるのは在位の
+  境界年に在る event だけ**。境界年は `reigns[]` の `startYear`・`endYear`（歴史年）と
+  `startDate`・`endDate` の年（天文年）の union で、**片端でも境界年なら event 全体が境界年**
+  （年をまたぐ event を割らない）。判定の実装は `scripts/event_date_scope.py` に1つだけ
+- `check_event_date_archive` … 退避した値の鍵が実在の event を指し、**配布物の値がその接頭辞**
+  であること（丸めた結果でない値が入っていたら、アーカイブと配布物が別の日付を持っている）
+- 検出力は `python3 scripts/test_date_claim_scope.py`（合成レコード）。**移行直後の実データは
+  違反0件**なので、本番の「0 errors」だけでは何も見ていない場合と区別できません
+- 数え直しは `python3 scripts/screens/date_claim_scope.py`（`--before` で移行前の定義）
+
+### 精度を戻すとき
+
+アーカイブから `patch_emperor.py` で `emperors.json` へ昇格させ、**アーカイブ側から消します**。
+アーカイブは分割時に1回書いたきりで、**追記する経路を作りません**（2ファイル目が編集され続けると
+そこだけ `patch_emperor.py` の外になるため）。誤りと分かっている値もそのまま入っています
+（`RESIDUAL.md` の #62 の9件）。
 
 ## `events` の原表記と換算（2026-08-03・Issue #56）
 

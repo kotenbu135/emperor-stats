@@ -234,6 +234,36 @@ rules:
     evidence: 前例では #34 の sxtwl 検査が293件中282件の前提を裏付けて残り20件だけを読めば済み、#38 の quote_diff.py が234件を仕分けた。一方 Issue #37 の名前データで絞り込みを記録して標本監査を掛けたところ、**absent 側の取りこぼしは廟号6件中1件・諡号6件中3件**で、「機械が見つけなかった＝値が無い」は成り立たなかった（2026-08-02）
     source: .claude/skills/research-block/SKILL.md の 0.6 節・Issue #41 の実施順3
 
+  - id: R-DATE-CLAIM-SCOPE
+    summary: events の日付が主張するのは「年精度 ＋ 在位境界年の月日」だけで、保存値の深さそのものが主張になる
+    scope: >-
+      data/emperors.json の回数系8フィールドの `events[]` の日付
+      （date・startDate・endDate）。**`reigns[]` は対象外** — 在位日は集計の根
+      （exactDays・reignSummary・B-1〜B-4）なので、フル ISO ＋ `datePrecision` のまま据え置く。
+      `ages` の日付は同じ「深さ＝主張」の規約に揃える（Issue #69 の計画7節の3）
+    enforcement: [L0, L3]
+    detail: >-
+      2026-08-03 のユーザー決定（Issue #69）。**埋め草を廃止**し、値の形から主張が読めるようにする
+      （年 `"1211"`・月 `"1211-05"`・日 `"1211-05-07"`）。月日を主張できるのは在位の境界年に在る
+      event だけで、それ以外の月日は `data/internal/event-date-archive.json` へ退避してある
+      （値は消していない・**内部側はこれ以上精度を追求しない**）。判定は
+      `scripts/event_date_scope.py` に1つだけ置き、移行・バリデータ・`verify_calendar`・
+      絞り込みが同じ関数を呼ぶ（BCE では `startYear`〈歴史年〉と `startDate` の年〈天文年〉が
+      1年ずれるので、2実装に分かれると「移行では丸めたのにゲートが違反と言う」が起きる）。
+      L0＝`data/schema/emperors.schema.json` と EMPERORS_SCHEMA.md／L3＝
+      `validate_emperors.py` の `check_event_date_format`（深さ ≤ datePrecision・境界年の外に
+      月日を置かない）と `check_event_date_archive`（退避した値の鍵が実在の event を指し、
+      配布物の値がその接頭辞であること）。検出力は `python3 scripts/test_date_claim_scope.py`。
+      **違反 0 件を保つことが主張範囲の凍結**で、新しい event を足したときに黙って主張が
+      広がるのを止めるのがこの規則の役目
+    evidence: >-
+      月日を主張していた 4,337件のうち、原表記 `*Raw` と換算 `source.conversion` を持つものが
+      **0件**で、機械では真偽を区別できなかった（`verify_calendar` が B5=0）。検出器を作るたびに
+      母集団が現れ（#34 の1,937件・#55 の1,336件・#56 の291件・#62 の9件）、
+      「主張している以上ゼロにするしかない」ので終わらなかった。**発散していたのは欠陥ではなく
+      主張の面積**で、絞ると 4,337 → 1,173 件の有界な残量になる（2026-08-03）
+    source: docs/schema/CLAIM_SCOPE_PLAN_2026-08-03.md・Issue #69
+
   - id: R-EVENT-DATE-RAW
     summary: events の日付を新しく確定・訂正したら、原典の紀年表記（*Raw）と換算（source.conversion）を同じ要素に残す
     scope: >-

@@ -33,6 +33,10 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+
+from event_date_scope import load_archive, recorded_dates  # noqa: E402
+
 EMPERORS = ROOT / "data" / "emperors.json"
 
 FIELD = "personalCampaignCount"
@@ -51,8 +55,15 @@ def run():
 
     ユニットの鍵は `events[].id`（`R-CLAIM-GATED` の移行で焼いた安定 id）。
     移行前は `<皇帝id>#<添字>` で、添字は event を1件挿入すると全部ずれた。
+
+    **見るのは「記録された日付」で、配布物が主張する日付ではない**（Issue #69）。
+    主張範囲を絞る移行で非境界年の月日は年へ丸まり、そのままだと起点と終期が同じ
+    `"1211"` に潰れて **spanned が instant に化ける**（196 → 97 件に見えた）。
+    「終期を別の記事から立てたか」という問いは記録に対するものなので、
+    退避した値（data/internal/event-date-archive.json）を戻してから分類する。
     """
     data = json.loads(EMPERORS.read_text(encoding="utf-8"))
+    archive = load_archive()
     units, legacy = {}, {}
     for e in data["emperors"]:
         v = e.get(FIELD)
@@ -64,7 +75,8 @@ def run():
                 sys.exit(f"{e['id']}.{FIELD}[{i}] に id がありません"
                          f"（python3 scripts/migrations/bake_event_ids.py --fill）")
             legacy[key] = f"{e['id']}#{i}"
-            s, t = ev.get("startDate"), ev.get("endDate")
+            dates = recorded_dates(ev, archive)
+            s, t = dates.get("startDate"), dates.get("endDate")
             if not s or not t:
                 units[key] = "no-dates"
             elif s != t:

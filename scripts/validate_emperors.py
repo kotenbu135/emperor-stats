@@ -63,6 +63,9 @@ PORTRAITS_DIR = ROOT / "data" / "images" / "portraits"
 
 sys.path.insert(0, str(ROOT / "scripts"))
 from detect_wikipedia_sources import is_wiki_like  # noqa: E402
+from event_date_scope import (  # noqa: E402
+    ARCHIVE_PATH, boundary_years, depth_of, is_boundary_event,
+)
 
 # ---------------------------------------------------------------------------
 # 既知の未解決データ問題（個別調査待ち）。訂正されたら該当エントリを削除する。
@@ -862,8 +865,23 @@ def check_event_date_format(data):
     datePrecision は単一トークン（year/month/day/null）に加え、startDate/endDate で実確認精度が
     異なるイベントに限り reigns[] と同形式の {"start": ..., "end": ...} オブジェクトを許可
     （2026-07-23 混在精度44キー解消・ユーザー確定。語彙自体は check_confidence が検査）。
-    precision に対する日付深さ不足は全キーでエラー（旧実装の startDate/endDate 警告を格上げ）。"""
+
+    **2026-08-03（Issue #69）に深さの規則を反転した。** 旧実装は「深さは datePrecision 以上」を
+    要求していた（＝年精度でもフル ISO で保存し、`-01-01` の埋め草が入る）。反転後は:
+
+      1. **深さは datePrecision を超えない** — 埋め草を廃止し、**保存値の深さそのものが主張**
+         （年 `"1211"`・月 `"1211-05"`・日 `"1211-05-07"`）。値の形から主張が読める
+      2. **月日の深さを持てるのは在位の境界年に在る event だけ** — 配布物が主張するのは
+         「年精度 ＋ 在位境界年の月日」で、それ以外の月日は
+         `data/internal/event-date-archive.json` に退避してある
+
+    2 は移行直後 0 件で、**0 件を保つことが主張範囲の凍結**（新しい event を足したときに
+    黙って主張が広がるのを止める）。判定は scripts/event_date_scope.py に1つだけ置き、
+    移行スクリプト・verify_calendar・絞り込みも同じ関数を呼ぶ（BCE で歴史年と天文年が
+    1年ずれるので、2実装に分かれると「移行では丸めたのにゲートが違反と言う」が起きる）。
+    """
     for e in data["emperors"]:
+        years = boundary_years(e)
         for g in COUNT_GROUPS:
             o = e.get(g)
             if not isinstance(o, dict):
@@ -888,22 +906,30 @@ def check_event_date_format(data):
                             f"[event-date] {e['id']}.{g}[{i}]: 単一日付 date にオブジェクト形式 "
                             f"datePrecision は使えない"
                         )
+                where = ev.get("id") or f"{e['id']}.{g}[{i}]"
+                boundary = is_boundary_event(years, ev)
                 for k in ("date", "startDate", "endDate"):
                     v = ev.get(k)
                     if v is None:
                         continue
                     if not isinstance(v, str) or not ISO_DATE.match(v):
-                        err(f"[event-date] {e['id']}.{g}[{i}].{k}: 非ISO形式 {str(v)[:40]!r}")
+                        err(f"[event-date] {where}.{k}: 非ISO形式 {str(v)[:40]!r}")
                         continue
                     if isinstance(prec, dict):
                         tok = prec.get("end" if k == "endDate" else "start")
                     else:
                         tok = prec
                     depth = len(v.lstrip("-").split("-"))
-                    if isinstance(tok, str) and tok in PRECISION_DEPTH and depth < PRECISION_DEPTH[tok]:
+                    if isinstance(tok, str) and tok in PRECISION_DEPTH and depth > PRECISION_DEPTH[tok]:
                         err(
-                            f"[event-date] {e['id']}.{g}[{i}].{k}: datePrecision={tok} に対し"
-                            f"日付 {v} の深さが不足"
+                            f"[event-date] {where}.{k}: datePrecision={tok} に対し日付 {v} が"
+                            f"深すぎる（深さ＝主張。埋め草は置かない・Issue #69）"
+                        )
+                    if depth > 1 and not boundary:
+                        err(
+                            f"[event-date] {where}.{k}: 在位の境界年でない {v} が月日の深さを"
+                            f"持っている。配布物が主張するのは「年精度 ＋ 在位境界年の月日」だけ"
+                            f"（丸めた月日は data/internal/event-date-archive.json）"
                         )
 
 
@@ -1433,6 +1459,87 @@ def check_event_ids(data):
                 f"（指す event が無い。id を振り直したか event を消した）")
 
 
+def check_event_date_archive(data):
+    """退避した月日（data/internal/event-date-archive.json）と配布物の対応（Issue #69）。
+
+    アーカイブは**配布しない・ゲートで中身を検査しない・追記しない**置き場だが、
+    「配布物の値を丸めた結果である」という関係だけは機械で確かめる。見るのは2つ:
+
+      1. 鍵が実在の event を指すか（id を振り直したり event を消したりすると宙に浮く）
+      2. **いま保存されている値が、退避した値の接頭辞になっているか**
+         （`"1211"` ← `"1211-05-07"`）。丸めた結果でない値が入っていたら、
+         アーカイブと配布物が別の日付を持っていることになる
+
+    2 が成り立たない例: 配布物の日付を後から訂正したのにアーカイブが旧値のまま。
+    そのとき「精度を戻す」と誤った月日が復活するので、**戻せることが可逆性の主張**である以上
+    ここは検査対象になる（欄を作るならゲートも作る＝ R-CLAIM-GATED）。
+
+    返り値は評価件数（0 件を「綺麗」と読まないため main が必ず出す）。
+    """
+    if not ARCHIVE_PATH.exists():
+        return 0
+    doc = json.loads(ARCHIVE_PATH.read_text(encoding="utf-8"))
+    entries = doc.get("events") or {}
+    index = {}
+    for e in data["emperors"]:
+        for g in COUNT_GROUPS:
+            o = e.get(g)
+            if not isinstance(o, dict):
+                continue
+            for ev in o.get("events") or []:
+                if isinstance(ev, dict) and ev.get("id"):
+                    index[ev["id"]] = ev
+    checked = 0
+    for key, saved in sorted(entries.items()):
+        ev = index.get(key)
+        if ev is None:
+            err(f"[event-archive] {key}: 退避した月日の鍵が実在の event を指していません")
+            continue
+        for k in ("date", "startDate", "endDate"):
+            old = saved.get(k)
+            if not isinstance(old, str):
+                continue
+            checked += 1
+            now = ev.get(k)
+            if not isinstance(now, str):
+                err(f"[event-archive] {key}.{k}: 退避 {old!r} に対し配布物側の値がありません")
+            elif not old.startswith(now):
+                err(f"[event-archive] {key}.{k}: 配布物の {now!r} が退避した {old!r} の"
+                    f"接頭辞になっていません（丸めた結果ではない＝どちらかが後から動いた）")
+            elif depth_of(now) >= depth_of(old):
+                err(f"[event-archive] {key}.{k}: 退避 {old!r} が配布物の {now!r} より"
+                    f"細かくありません（退避する必要が無かった値）")
+    return checked
+
+
+def check_event_date_claim_residual(data):
+    """月日を主張する event のうち、原表記と換算を持つものの割合（Issue #69 の有界な残量）。
+
+    **エラーにしない。** 移行直後は 1,173件すべてが未充足で、error にすると CI が
+    真っ赤になるだけで何も測れない。ここは弱いゲートではなく**残量の計器**で、
+    `docs/process/RESIDUAL.md` の行と同じ数字を出すのが役目
+    （規則 R-EVENT-DATE-RAW を満たすと `verify_calendar.py` の B-5 が再演できるようになる）。
+    """
+    claimed = witnessed = 0
+    for e in data["emperors"]:
+        for g in COUNT_GROUPS:
+            o = e.get(g)
+            if not isinstance(o, dict):
+                continue
+            for ev in o.get("events") or []:
+                if not isinstance(ev, dict):
+                    continue
+                if not any(depth_of(ev[k]) > 1 for k in ("date", "startDate", "endDate")
+                           if isinstance(ev.get(k), str)):
+                    continue
+                claimed += 1
+                src = ev.get("source")
+                if (any(str(k).endswith("Raw") and ev.get(k) for k in ev)
+                        and isinstance(src, dict) and src.get("conversion")):
+                    witnessed += 1
+    return claimed, witnessed
+
+
 def main() -> int:
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
@@ -1458,6 +1565,8 @@ def main() -> int:
     check_confidence(data)
     death_event_n = check_death_event_date(data)
     check_event_date_format(data)
+    archive_n = check_event_date_archive(data)
+    claimed_n, witnessed_n = check_event_date_claim_residual(data)
     check_forbidden_sources(data)
     check_claim_fields(data)
     check_conflicts(data)
@@ -1489,7 +1598,10 @@ def main() -> int:
         print(f"ERROR {e}")
     print(f"---\n{len(errors)} errors, {len(warnings)} warnings "
           f"({data['meta'].get('count')} emperors"
-          f"／death-event-date の評価件数 {death_event_n})")
+          f"／death-event-date の評価件数 {death_event_n}"
+          f"／退避した月日 {archive_n}値を配布物と照合"
+          f"／月日を主張する event {claimed_n}件のうち *Raw＋conversion を持つのは "
+          f"{witnessed_n}件)")
     return 1 if errors else 0
 
 

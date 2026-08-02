@@ -91,6 +91,12 @@ HINTS = [
      "`fromLunar(y,m,1)`）。これが無いと、保存値が旧暦の月番号の直書きか換算済みかを機械で"
      "区別できない（Issue #56 で24件が誤りだった型）。verify_calendar の B-5 が再演する。"
      "**遡及しない任意欄なので、既存 events に無いことは欠陥ではない**"),
+    (re.compile(r"^\w+Count\.events\[\d+\]\.(?:date|startDate|endDate)$"),
+     "python3 scripts/screens/date_claim_scope.py",
+     "**深さそのものが主張**（年 \"1211\"・月 \"1211-05\"・日 \"1211-05-07\"・R-DATE-CLAIM-SCOPE）で、"
+     "月日を書けるのは**在位の境界年**に在る event だけ。境界年の外に月日を書くと "
+     "validate_emperors.py が落ちる。その event が data/internal/event-date-archive.json に"
+     "在るなら、**アーカイブ側の値も同じタイミングで直すか消す**（配布物の値は退避値の接頭辞）"),
     # events 要素そのものを足す・置き換えるときだけ（葉の note・date の編集では鳴らさない）
     (re.compile(r"^\w+Count\.events\[\d+\]$"),
      "python3 scripts/migrations/bake_event_ids.py --fill",

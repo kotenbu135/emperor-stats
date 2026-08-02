@@ -4,6 +4,34 @@
 
 ## 2026.08 (2026-08-03 更新)
 
+### 構造変更（2026-08-03・events の日付が主張する範囲を絞る / Issue #69）— `schemaVersion` 3.0.0 → **4.0.0**
+
+**破壊的変更です。** `data/emperors.json` の `events[]` の日付（`date`・`startDate`・`endDate`）が
+主張するのは「**年精度 ＋ 在位境界年の月日**」だけになりました。それ以外の月日は年へ丸め、
+丸める前の値は **`data/internal/event-date-archive.json`** に全件残してあります（値は消していません）。
+
+- **保存値の深さそのものが主張**になりました（年 `"1211"`・月 `"1211-05"`・日 `"1211-05-07"`）。
+  埋め草（`-01-01`／`-12-31`）を廃止したので、**日付文字列の長さが変わります**。
+  `datePrecision` は「原典が何を言っているか」の欄なので触っていません（深さは `datePrecision` 以下）
+- **`reigns[]` は据え置き**（フル ISO ＋ `datePrecision`）。在位日は `exactDays`・`reignSummary` の
+  根なので、主張を絞る対象にしていません。**1ファイルに2つの規約が同居します**
+- 移行の実測: 値 **6,258**（event 4,170件）を丸めた。月日を主張する event は **4,337 → 1,173**、
+  日精度の値 1,351 → **582**、月精度の値 4,933 → **1,023**
+- なぜ絞ったか: 月日を主張していた4,337件のうち原表記 `*Raw` と換算 `source.conversion` を持つものが
+  **0件**で、機械では真偽を区別できなかった。検出器を作るたびに母集団が現れ（#34・#55・#56・#62）、
+  「主張している以上ゼロにするしかない」ので終わらなかった。**発散していたのは欠陥ではなく主張の面積**
+- ゲートを同じ変更で足した（規則 `R-DATE-CLAIM-SCOPE`）: `validate_emperors.py` の
+  `check_event_date_format`（深さ ≤ `datePrecision`・**境界年の外に月日を置かない**）と
+  `check_event_date_archive`（退避した値の鍵が実在の event を指し、配布物の値がその接頭辞）。
+  検出力は `python3 scripts/test_date_claim_scope.py` が合成レコードで測る
+- 訂正1件: `jin-simalun.crownPrinceDepositionCount.e001` の `0301-01-10` → **`0301-02-04`**。
+  絞り込み `lunar_date_as_iso.py` が**存在しない容器名**（`crownPrinceChangeCount`）を見ていて
+  皇太子廃立34件が母集団から外れていたのを直したところ出た。旧暦正月十日を西暦欄へ書いた形で、
+  原文（晋書 帝紀第四）の丙寅＝趙王倫の即位（乙丑・`0301-02-03`）の翌日と合う。
+  `dateRaw`／`source.conversion` を入れたので `verify_calendar` の **B-5 が再演する最初の1件**になった
+- 数え直し: `python3 scripts/screens/date_claim_scope.py`（`--before` で移行前の定義）。
+  移行そのものは `scripts/migrations/round_event_dates.py`（一度きり・アーカイブは追記しない）
+
 ### 訂正（2026-08-03・events の日精度 ISO 日付79件 / Issue #55）— `schemaVersion` 3.0.0 のまま
 
 Issue #50 の横展開。絞り込み `scripts/screens/lunar_date_as_iso.py` が挙げた**要読解100件・53人**を

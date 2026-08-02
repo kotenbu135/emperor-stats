@@ -65,6 +65,15 @@ KNOWN_FROMLUNAR_PENDING = set()
 # B-5: events の source.conversion で、リプレイ結果が主張・保存値と一致しないが文脈上正当なもの。
 # **この欄は 2026-08-03 新設で遡及しない**ので、既存 2,000 件超の events には conversion が無く、
 # 検査件数は 0 から増えていく。0 件を「綺麗」と読まないため件数は必ず出す（B5=…）。
+#
+# **鍵は `(events[].id, (旧暦年, 月, 日))`。** 2026-08-03 の主張範囲の移行までは
+# `(皇帝id, 容器, 添字, 旧暦)` で、event を1件挿入すると**別の event の食い違いを黙って
+# 許可する**形だった（validate_emperors.py の許可リスト2本と同型の穴。中身が空のうちに
+# 形だけ直しておく — 埋まってから直すと添字で焼き付いた参照ごと移すことになる）。
+#
+# 対象は「月日の深さを持つ日付」＝配布物が主張する 1,173件（Issue #69）。丸めて年精度に
+# なった event の conversion は主張の外なので、リプレイ結果は保存値ではなく
+# conversion 本文の「→」主張とだけ突き合わせることになる。
 KNOWN_EVENTCONV_CONTEXT = set()
 KNOWN_EVENTCONV_PENDING = set()
 
@@ -245,7 +254,7 @@ def main() -> int:
                     for ly, lm, ld, leap in FROMLUNAR.findall(conv):
                         ly, lm, ld = int(ly), int(lm), int(ld)
                         n_checked["B5"] += 1
-                        key = (eid, g, i, (ly, lm, ld))
+                        key = (ev.get("id") or f"{eid}.{g}[{i}]", (ly, lm, ld))
                         try:
                             if ld == 1:
                                 # 朔日アンカー＝月精度の主張。多数月を計算して突き合わせる
@@ -258,7 +267,7 @@ def main() -> int:
                                 ok = got in claims_d or got in stored_d
                                 shown = f"{got[0]:04d}-{got[1]:02d}-{got[2]:02d}"
                         except Exception as ex:
-                            errors.append(f"[B5] {eid}.{g}[{i}]: fromLunar({ly},{lm},{ld}) 実行エラー {ex}")
+                            errors.append(f"[B5] {key[0]}: fromLunar({ly},{lm},{ld}) 実行エラー {ex}")
                             continue
                         if ok:
                             continue
@@ -269,7 +278,7 @@ def main() -> int:
                             KNOWN_EVENTCONV_CONTEXT.discard(key)
                         else:
                             errors.append(
-                                f"[B5] {eid}.{g}[{i}]: fromLunar({ly},{lm},{ld})→{shown} が "
+                                f"[B5] {key[0]}: fromLunar({ly},{lm},{ld})→{shown} が "
                                 f"conversion 主張にも保存日付にも一致しない"
                                 f"（旧暦月番号の直書き・引数誤記・同期漏れの疑い）")
 
