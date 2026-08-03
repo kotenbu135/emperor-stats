@@ -9268,6 +9268,28 @@
    ],
    "line": 6
   },
+  "beizhou-wudi|personalCampaignCount[1].note|5e335062cdc0": {
+   "id": "beizhou-wudi",
+   "path": "personalCampaignCount[1].note",
+   "span": "己酉，帝总戎东伐",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beizhou-wudi.txt",
+   "frags": [
+    "帝总戎东伐"
+   ],
+   "line": 198
+  },
+  "beizhou-wudi|personalCampaignCount[1].note|5f30ab1a2b81": {
+   "id": "beizhou-wudi",
+   "path": "personalCampaignCount[1].note",
+   "span": "乃诏诸军班师",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beizhou-wudi.txt",
+   "frags": [
+    "乃诏诸军班师"
+   ],
+   "line": 201
+  },
   "beizhou-wudi|reigns[0].note|7a98fbd1d3ff": {
    "id": "beizhou-wudi",
    "path": "reigns[0].note",
