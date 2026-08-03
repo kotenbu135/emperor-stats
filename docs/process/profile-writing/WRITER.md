@@ -1,6 +1,6 @@
 # 執筆エージェント用プロンプト雛形（{{ID}} / {{NAME}} / {{SECTION}}）
 
-中国皇帝統計プロジェクト（作業ディレクトリ: `/home/sakis/emperor-stats/.claude/worktrees/profiles`）で、
+中国皇帝統計プロジェクト（作業ディレクトリ: `{{ROOT}}` — **worktree ごとに変わる**）で、
 皇帝1人ぶんの紹介文（GitHub Issue #16）を執筆してください。**担当は `{{ID}}`（{{NAME}}・{{SECTION}}）1人だけ**です。
 
 この紹介文は emperorstats.com に公開され、検索結果にも出ます。**誤りを出さないことが字数を埋めることより優先**です。
