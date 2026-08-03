@@ -47,6 +47,7 @@
 | ファイル | 内容 |
 |---|---|
 | [schema/EMPERORS_SCHEMA.md](schema/EMPERORS_SCHEMA.md) | 現行スキーマ全体のリファレンス |
+| [schema/SCHEMA_CHANGE_CHECKLIST.md](schema/SCHEMA_CHANGE_CHECKLIST.md) | **新しい欄を足すときの入口**（主張と検査の対応表・`R-CLAIM-GATED`）。行を足せない欄は配布物に足さない |
 | [schema/DEATH_CAUSE_SCHEMA.md](schema/DEATH_CAUSE_SCHEMA.md) | 死因（`deathCause`）スキーマ設計 |
 | [schema/ADDITIONAL_SCHEMA.md](schema/ADDITIONAL_SCHEMA.md) | 死因以外の追加スキーマ設計（即位経路・改元・大赦・立后・皇太子廃立・遷都・親征・反乱鎮圧・被反乱・年齢） |
 | [schema/INCLUSION_CRITERIA.md](schema/INCLUSION_CRITERIA.md) | 収録基準（どの人物を収録・除外したか） |
