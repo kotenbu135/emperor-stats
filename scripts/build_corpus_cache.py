@@ -876,8 +876,10 @@ def build_wuhu_shiliuguo():
     # 前秦 苻崇・夏 赫連昌・赫連定: 晋書に記述なし(または一文のみ)のため十六国春秋で補う
     slgcq_lines = SHILIUGUO_CHUNQIU_FILE.read_text(encoding="utf-8").splitlines()
     out["qianqin-fuchong"] = slgcq_lines[598].strip()  # 巻四十 前秦録九、行599(1-indexed)
-    out["xia-helianchang"] = "\n".join(slgcq_lines[1186:1190]).strip()  # 巻六十七 夏録二、行1187-1190
-    out["xia-heliading"] = "\n".join(slgcq_lines[1193:1197]).strip()  # 巻六十八 夏録三、行1194-1197
+    # 末尾の行(承光四年・勝光四年)は当人が捕らえられて政権が終わる回。ここを落とすと
+    # キャッシュだけでは在位の終わりが読めない(Issue #65)。
+    out["xia-helianchang"] = "\n".join(slgcq_lines[1186:1191]).strip()  # 巻六十七 夏録二、行1187-1191
+    out["xia-heliading"] = "\n".join(slgcq_lines[1193:1198]).strip()  # 巻六十八 夏録三、行1194-1198
 
     return out
 
