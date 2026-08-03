@@ -79715,6 +79715,17 @@
    ],
    "line": 28
   },
+  "yuanmo-chenyouliang|eraChangeCount[0].note|f61ac5bb3de6": {
+   "id": "yuanmo-chenyouliang",
+   "path": "eraChangeCount[0].note",
+   "span": "陈友谅杀其伪主徐寿辉于太平路，遂称皇帝，国号大汉，改元大义",
+   "status": "corpus",
+   "corpusFile": "china-history/元史/本纪/第四十五章-卷四十五-原文.html",
+   "frags": [
+    "陈友谅杀其伪主徐寿辉"
+   ],
+   "line": 58
+  },
   "yuanmo-chenyouliang|personalCampaignCount[0].note|8af8c151855e": {
    "id": "yuanmo-chenyouliang",
    "path": "personalCampaignCount[0].note",
