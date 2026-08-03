@@ -1,410 +1,417 @@
 {
- "meta": {
-  "purpose": "検証段に何体立てるかを、ブロックごとの勘ではなく**政権の史料形態**から決めるための簿記（Issue #41 の実施順5・規則 R-VERIFY-TIER）。欠陥密度は一様ではなく、正史が一代通しの独立記述を立てる政権ではほぼ出ず、載記・類書・地方志に依存する政権で集中する。体数をその段差に合わせる",
-  "notForBuild": "サイトのビルドもバリデータもこれを読まない。読むのは scripts/check_verification.py と調査の段取り（.claude/workflows/*.js・.claude/skills/*）だけ。emperors.json の meta へ入れないのは、meta の read-modify-write が並行セッション規則（R-RMW）に当たるため",
-  "updated": "2026-08-03",
-  "rule": "**体数は政権の属性から引く。ブロックごとに人が決めない。** 史料形態は政権単位で決まっていて人物単位では変わらないので、着手のたびに判断し直すと判断が揺れる（規則 R-REGIME-FIRST と同じ理由）",
-  "default": "**ここに載っていない政権はすべて dependent（3体）として扱う。** 載せ忘れが厚い側へ倒れる形にしてある。scripts/check_verification.py --scope が既定へ落ちた政権を必ず名指しで出すので、黙って薄くなることはない",
-  "tiers": {
-   "own-annals": "正史がその政権の君主を**一代通しの独立記述**で扱う（本紀・帝紀。三国志の先主傳・吳主傳のように、体裁は伝でも一代を通す記述を含む）。検証は1体（事実）",
-   "dependent": "**載記・類書・別史・地方志・他政権の列伝**の断片に依存する。記事が複数の書に散り、日付と続柄が書ごとに割れる。検証は3体（事実・続柄・日付）"
+  "meta": {
+    "purpose": "検証段に何体立てるかを、ブロックごとの勘ではなく**政権の史料形態**から決めるための簿記（Issue #41 の実施順5・規則 R-VERIFY-TIER）。欠陥密度は一様ではなく、正史が一代通しの独立記述を立てる政権ではほぼ出ず、載記・類書・地方志に依存する政権で集中する。体数をその段差に合わせる",
+    "notForBuild": "サイトのビルドもバリデータもこれを読まない。読むのは scripts/check_verification.py と調査の段取り（.claude/workflows/*.js・.claude/skills/*）だけ。emperors.json の meta へ入れないのは、meta の read-modify-write が並行セッション規則（R-RMW）に当たるため",
+    "updated": "2026-08-03",
+    "rule": "**体数は政権の属性から引く。ブロックごとに人が決めない。** 史料形態は政権単位で決まっていて人物単位では変わらないので、着手のたびに判断し直すと判断が揺れる（規則 R-REGIME-FIRST と同じ理由）",
+    "default": "**ここに載っていない政権はすべて dependent（3体）として扱う。** 載せ忘れが厚い側へ倒れる形にしてある。scripts/check_verification.py --scope が既定へ落ちた政権を必ず名指しで出すので、黙って薄くなることはない",
+    "tiers": {
+      "own-annals": "正史がその政権の君主を**一代通しの独立記述**で扱う（本紀・帝紀。三国志の先主傳・吳主傳のように、体裁は伝でも一代を通す記述を含む）。検証は1体（事実）",
+      "dependent": "**載記・類書・別史・地方志・他政権の列伝**の断片に依存する。記事が複数の書に散り、日付と続柄が書ごとに割れる。検証は3体（事実・続柄・日付）"
+    },
+    "lenses": {
+      "facts": "主張を1つずつ原文へ当て直す。人物の取り違え・出来事の主体・数値",
+      "kinship": "続柄と世代。**原文が直接述べていない関係を推してないか**。同名・避諱・追尊による取り違え",
+      "dates": "年号年と西暦の対応・旧暦の月・干支日。複数箇所を1つの記述へ合成していないか"
+    },
+    "exceptions": "**政権の判定を人物に被せない。** 同じ政権でも所在が違う人物がいる（舊唐書は本紀に定型を持つが、殤帝ら4人は帝紀に独立記述が無く列傳側にしかない）。tier 行の `exceptions` に `personIds`・`tier`・`reason` を書くと、その人物だけ別の tier になる。**薄い側（own-annals）へ移す例外には理由が要る**のは政権の場合と同じ",
+    "asymmetry": "**1体に減らす側だけ根拠が要る。** 3体に増やす誤りはトークンを損するだけだが、1体に減らす誤りはその政権の誤りを通す。だから own-annals には書名と所在の証拠を必須にし、dependent は既定として無根拠で置ける",
+    "metrics": {
+      "escapes": "**検証段を通過したあとで、別作業の途中に見つかった実欠陥**。tier を分ける根拠になった数字はこれ（Issue #32・#33・#36 の34件）。遡及して数えられるのはこの列だけ",
+      "raised": "検証段が**挙げた**指摘の件数。体ごとに数えると3体で重複するので、(field, problem) で畳んだ一意の件数を書く",
+      "confirmed": "raised のうち親セッションが原文で確かめて**実欠陥だった**件数。raised が0のとき率は未定義（null）"
+    },
+    "limits": "**史料形態は3段の階段のうち2段しか説明しない。** 前漢・後漢・三国（0件）と晋（6件・0.40/人）はどちらも own-annals なのに差がある。晋の6件（Issue #32・#33）は西晋・東晋の帝紀を持つ人物で出ており、内訳は出典ラベルの取り違え1件と、記事の合成・主体の誤り・崩御地の相違といった事実の誤り。つまり **own-annals でも欠陥は出る**。この tier が説明するのは「原典から取れるかどうか」の側だけで、同一レコード内の食い違いや note の陳腐化は Issue #40 のゲート（G1〜G4）の担当。**モデルが階段を全部説明できていないことを承知のうえで体数を振っている**ので、raised/confirmed を記録して後から反証できるようにしてある",
+    "confound": "**体数と欠陥密度は交絡している。** dependent を3体にすると raised は増えるが、それが体数のせいか政権の密度のせいかは、この表だけでは割れない。読むときは **tier の中で**（同じ tier のブロック同士で）比べる。tier をまたいで率を比べても体数の効果は出ない",
+    "whichNumber": "**再配分が効いたかを示すのは `escapes` のほう。** `confirmed/raised` は検証段の精度で、観点を2つ足せば拾う網が広がるぶん下がってもおかしくない（下がったことは失敗を意味しない）。見るのは **dependent ブロックの escapes が 1.56件/人 から下がるか**で、次に測れるのは後趙7人（2体→4体）",
+    "webdiff": "**Web 差分検出（profile-webdiff）の歩留まりを数える欄**（2026-08-03・Issue #43 の判断待ちへの回答）。tier の再配分は 365体→627体（+72%）で、Issue #41 が想定した「総コストをほぼ変えずに」を満たしていない。中立に寄せる唯一の余地は own-annals の Web 差分（3段目）を落とすこと（758体・+4%）だが、**「own-annals は Web 差分の拾いも少ないはず」という期待は未検証**だった — 歩留まりをどこにも記録していなかったので、落とす判断の根拠が無い。**落とさず記録し始める**のがユーザー決定（2026-08-03）。ブロックごとに `webdiff.raised`（Web で挙がった食い違いの件数）と `webdiff.confirmed`（原文へ当て直して実欠陥だった件数）を書き、own-annals 側で1〜2ブロック溜まってから落とすかを決める。**Web は差分検出器であって根拠ではない**（2026-08-02 ユーザー決定）ので、confirmed には必ず原文で確かめた件数を書く。**tier の体数には数えない** — webdiff は tier の対象外で全員1体のまま。遡及して数えられないのは raised/confirmed と同じで、既存4ブロックは null",
+    "webdiffDecision": "**この判断の入口はこのファイルで、Issue ではない。** Issue #54 は 2026-08-03 に close した — 単体で着手できる作業ではなく、紹介文の次ブロックの検証段に乗るだけだったため。**引き金**: `task: \"profiles\"` かつ `tier: \"own-annals\"` のブロックが1〜2本溜まって `webdiff.confirmed` が入ったら、`confirmed/人` を見て3段目（`profile-webdiff`）を own-annals から落とすかを決める。**既存4ブロックは遡及して数えられないので母数に入れない。** 落とすと決めたら、同じ変更で直す先が3つある — (1) `docs/process/RULES.yml` の `R-VERIFY-TIER` の scope にある「Web 差分検出（profile-webdiff）は別機能なので tier の対象外で全員1体のまま」の一文、(2) `docs/process/profile-writing/README.md` の段構成、(3) `.claude/skills/profile-block` と `.claude/workflows/` の段数。**落とさないと決めた場合もこの欄に日付と理由を書く** — 判断したことが残らないと、次の人が同じ測定をやり直す。 **2026-08-04 追記: この引き金は `confirmed` だけでは読めなくなった。** 文体改訂で STYLE.md 3節が「通説と史書のずれ自体を本文に1文で書く」へ変わり、**Web 差分の主産物が `confirmed`（紹介文の誤り）から「原典どおり」の側（＝本文の素材）へ移った。** 最初の own-annals ブロック `profile-qin-newstyle`（2人）の実測は raised 15／confirmed 2 で、confirmed 2件はどちらも facts 側と重複しており**独自の欠陥検出はゼロ**だったが、「原典どおり」13件のうち3件（呉広の名が本紀に無い・指鹿為馬の主客が通説と逆・兄弟姉妹20余人は李斯列伝の数字）は本文へ入れる素材として採用に値する。**`confirmed/人` だけを見て落とすと、欠陥検出がゼロなので落とす判断になり、素材の供給が同時に止まる。** 落とすかを決めるときは `webdiff.raised` のうち**本文へ採用したずれの件数**も併せて見ること（次のブロックから `webdiff.adopted` を書き足す）"
   },
-  "lenses": {
-   "facts": "主張を1つずつ原文へ当て直す。人物の取り違え・出来事の主体・数値",
-   "kinship": "続柄と世代。**原文が直接述べていない関係を推してないか**。同名・避諱・追尊による取り違え",
-   "dates": "年号年と西暦の対応・旧暦の月・干支日。複数箇所を1つの記述へ合成していないか"
-  },
-  "exceptions": "**政権の判定を人物に被せない。** 同じ政権でも所在が違う人物がいる（舊唐書は本紀に定型を持つが、殤帝ら4人は帝紀に独立記述が無く列傳側にしかない）。tier 行の `exceptions` に `personIds`・`tier`・`reason` を書くと、その人物だけ別の tier になる。**薄い側（own-annals）へ移す例外には理由が要る**のは政権の場合と同じ",
-  "asymmetry": "**1体に減らす側だけ根拠が要る。** 3体に増やす誤りはトークンを損するだけだが、1体に減らす誤りはその政権の誤りを通す。だから own-annals には書名と所在の証拠を必須にし、dependent は既定として無根拠で置ける",
-  "metrics": {
-   "escapes": "**検証段を通過したあとで、別作業の途中に見つかった実欠陥**。tier を分ける根拠になった数字はこれ（Issue #32・#33・#36 の34件）。遡及して数えられるのはこの列だけ",
-   "raised": "検証段が**挙げた**指摘の件数。体ごとに数えると3体で重複するので、(field, problem) で畳んだ一意の件数を書く",
-   "confirmed": "raised のうち親セッションが原文で確かめて**実欠陥だった**件数。raised が0のとき率は未定義（null）"
-  },
-  "limits": "**史料形態は3段の階段のうち2段しか説明しない。** 前漢・後漢・三国（0件）と晋（6件・0.40/人）はどちらも own-annals なのに差がある。晋の6件（Issue #32・#33）は西晋・東晋の帝紀を持つ人物で出ており、内訳は出典ラベルの取り違え1件と、記事の合成・主体の誤り・崩御地の相違といった事実の誤り。つまり **own-annals でも欠陥は出る**。この tier が説明するのは「原典から取れるかどうか」の側だけで、同一レコード内の食い違いや note の陳腐化は Issue #40 のゲート（G1〜G4）の担当。**モデルが階段を全部説明できていないことを承知のうえで体数を振っている**ので、raised/confirmed を記録して後から反証できるようにしてある",
-  "confound": "**体数と欠陥密度は交絡している。** dependent を3体にすると raised は増えるが、それが体数のせいか政権の密度のせいかは、この表だけでは割れない。読むときは **tier の中で**（同じ tier のブロック同士で）比べる。tier をまたいで率を比べても体数の効果は出ない",
-  "whichNumber": "**再配分が効いたかを示すのは `escapes` のほう。** `confirmed/raised` は検証段の精度で、観点を2つ足せば拾う網が広がるぶん下がってもおかしくない（下がったことは失敗を意味しない）。見るのは **dependent ブロックの escapes が 1.56件/人 から下がるか**で、次に測れるのは後趙7人（2体→4体）",
-  "webdiff": "**Web 差分検出（profile-webdiff）の歩留まりを数える欄**（2026-08-03・Issue #43 の判断待ちへの回答）。tier の再配分は 365体→627体（+72%）で、Issue #41 が想定した「総コストをほぼ変えずに」を満たしていない。中立に寄せる唯一の余地は own-annals の Web 差分（3段目）を落とすこと（758体・+4%）だが、**「own-annals は Web 差分の拾いも少ないはず」という期待は未検証**だった — 歩留まりをどこにも記録していなかったので、落とす判断の根拠が無い。**落とさず記録し始める**のがユーザー決定（2026-08-03）。ブロックごとに `webdiff.raised`（Web で挙がった食い違いの件数）と `webdiff.confirmed`（原文へ当て直して実欠陥だった件数）を書き、own-annals 側で1〜2ブロック溜まってから落とすかを決める。**Web は差分検出器であって根拠ではない**（2026-08-02 ユーザー決定）ので、confirmed には必ず原文で確かめた件数を書く。**tier の体数には数えない** — webdiff は tier の対象外で全員1体のまま。遡及して数えられないのは raised/confirmed と同じで、既存4ブロックは null",
-  "webdiffDecision": "**この判断の入口はこのファイルで、Issue ではない。** Issue #54 は 2026-08-03 に close した — 単体で着手できる作業ではなく、紹介文の次ブロックの検証段に乗るだけだったため。**引き金**: `task: \"profiles\"` かつ `tier: \"own-annals\"` のブロックが1〜2本溜まって `webdiff.confirmed` が入ったら、`confirmed/人` を見て3段目（`profile-webdiff`）を own-annals から落とすかを決める。**既存4ブロックは遡及して数えられないので母数に入れない。** 落とすと決めたら、同じ変更で直す先が3つある — (1) `docs/process/RULES.yml` の `R-VERIFY-TIER` の scope にある「Web 差分検出（profile-webdiff）は別機能なので tier の対象外で全員1体のまま」の一文、(2) `docs/process/profile-writing/README.md` の段構成、(3) `.claude/skills/profile-block` と `.claude/workflows/` の段数。**落とさないと決めた場合もこの欄に日付と理由を書く** — 判断したことが残らないと、次の人が同じ測定をやり直す。 **2026-08-04 追記: この引き金は `confirmed` だけでは読めなくなった。** 文体改訂で STYLE.md 3節が「通説と史書のずれ自体を本文に1文で書く」へ変わり、**Web 差分の主産物が `confirmed`（紹介文の誤り）から「原典どおり」の側（＝本文の素材）へ移った。** 最初の own-annals ブロック `profile-qin-newstyle`（2人）の実測は raised 15／confirmed 2 で、confirmed 2件はどちらも facts 側と重複しており**独自の欠陥検出はゼロ**だったが、「原典どおり」13件のうち3件（呉広の名が本紀に無い・指鹿為馬の主客が通説と逆・兄弟姉妹20余人は李斯列伝の数字）は本文へ入れる素材として採用に値する。**`confirmed/人` だけを見て落とすと、欠陥検出がゼロなので落とす判断になり、素材の供給が同時に止まる。** 落とすかを決めるときは `webdiff.raised` のうち**本文へ採用したずれの件数**も併せて見ること（次のブロックから `webdiff.adopted` を書き足す）"
- },
- "tiers": [
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "qin"
-   ],
-   "book": "史記",
-   "locator": "china-history/史记/十二本纪（秦始皇本紀。二世皇帝の記事も同紀内）",
-   "form": "本紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "western-han"
-   ],
-   "book": "漢書",
-   "locator": "china-history/汉书/纪",
-   "form": "紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "eastern-han"
-   ],
-   "book": "後漢書",
-   "locator": "china-history/后汉书/本纪",
-   "form": "本紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "cao-wei"
-   ],
-   "book": "三国志",
-   "locator": "china-history/三国志/魏书（武帝紀〜陳留王紀）",
-   "form": "紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "shu-han",
-    "eastern-wu"
-   ],
-   "book": "三国志",
-   "locator": "china-history/三国志/蜀书（先主傳・後主傳）・china-history/三国志/吴书（吳主傳〜）",
-   "form": "伝（一代通し）",
-   "note": "体裁は伝だが一代を編年で通すので、断片依存にはならない。**形式ではなく「一代を通す独立記述があるか」で割る**（形式だけで割ると蜀漢・呉が dependent へ落ちるが、実測の欠陥密度は0だった）"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "western-jin",
-    "eastern-jin"
-   ],
-   "book": "晋書",
-   "locator": "china-history/晋书/帝纪",
-   "form": "帝紀",
-   "note": "同じ晋書でも五胡十六国は載記（列伝の後）で、そちらは dependent。**書が同じでも所在が違えば tier は違う**"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "northern-wei",
-    "eastern-wei"
-   ],
-   "book": "魏書",
-   "locator": "china-history/魏书/帝纪",
-   "form": "帝紀",
-   "note": "西魏の3帝は魏書が東魏を正統に置くため帝紀を持たない。西魏は既定（dependent）のまま"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "liu-song"
-   ],
-   "book": "宋書",
-   "locator": "china-history/宋书/本纪",
-   "form": "本紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "southern-qi"
-   ],
-   "book": "南斉書",
-   "locator": "china-history/南齐书/本纪",
-   "form": "本紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "southern-liang"
-   ],
-   "book": "梁書",
-   "locator": "china-history/梁书/原文版梁书（卷一〜六が本紀）",
-   "form": "本紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "chen"
-   ],
-   "book": "陳書",
-   "locator": "china-history/陈书/原文版陈书（卷一〜六が本紀）",
-   "form": "本紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "northern-qi"
-   ],
-   "book": "北斉書",
-   "locator": "china-history/北齐书/原文版北齐书（卷一〜八が帝紀）",
-   "form": "帝紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "northern-zhou"
-   ],
-   "book": "周書",
-   "locator": "china-history/周书/原文版周书（卷一〜八が帝紀）",
-   "form": "帝紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "sui"
-   ],
-   "book": "隋書",
-   "locator": "china-history/隋书/帝纪",
-   "form": "帝紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "tang",
-    "wu-zhou"
-   ],
-   "book": "舊唐書",
-   "locator": "china-history/旧唐书/本纪（則天皇后は本紀第六）",
-   "form": "本紀",
-   "exceptions": [
+  "tiers": [
     {
-     "personIds": [
-      "tang-shangdi",
-      "tang-lige",
-      "tangmo-li-chenghong",
-      "tangmo-li-yun"
-     ],
-     "tier": "dependent",
-     "reason": "帝紀に独立記述が無く列傳側のみ（regime-conventions.json の舊唐書の例外4人と同じ。殤帝は冒頭が本紀の定型でなく、李重茂以外の3人は新唐書の列傳。李熅は独立伝が見当たらず僖宗紀の当該期間で代替するので他の事件記事が混在する）"
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "qin"
+      ],
+      "book": "史記",
+      "locator": "china-history/史记/十二本纪（秦始皇本紀。二世皇帝の記事も同紀内）",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "western-han"
+      ],
+      "book": "漢書",
+      "locator": "china-history/汉书/纪",
+      "form": "紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "eastern-han"
+      ],
+      "book": "後漢書",
+      "locator": "china-history/后汉书/本纪",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "cao-wei"
+      ],
+      "book": "三国志",
+      "locator": "china-history/三国志/魏书（武帝紀〜陳留王紀）",
+      "form": "紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "shu-han",
+        "eastern-wu"
+      ],
+      "book": "三国志",
+      "locator": "china-history/三国志/蜀书（先主傳・後主傳）・china-history/三国志/吴书（吳主傳〜）",
+      "form": "伝（一代通し）",
+      "note": "体裁は伝だが一代を編年で通すので、断片依存にはならない。**形式ではなく「一代を通す独立記述があるか」で割る**（形式だけで割ると蜀漢・呉が dependent へ落ちるが、実測の欠陥密度は0だった）"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "western-jin",
+        "eastern-jin"
+      ],
+      "book": "晋書",
+      "locator": "china-history/晋书/帝纪",
+      "form": "帝紀",
+      "note": "同じ晋書でも五胡十六国は載記（列伝の後）で、そちらは dependent。**書が同じでも所在が違えば tier は違う**"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "northern-wei",
+        "eastern-wei"
+      ],
+      "book": "魏書",
+      "locator": "china-history/魏书/帝纪",
+      "form": "帝紀",
+      "note": "西魏の3帝は魏書が東魏を正統に置くため帝紀を持たない。西魏は既定（dependent）のまま"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "liu-song"
+      ],
+      "book": "宋書",
+      "locator": "china-history/宋书/本纪",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "southern-qi"
+      ],
+      "book": "南斉書",
+      "locator": "china-history/南齐书/本纪",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "southern-liang"
+      ],
+      "book": "梁書",
+      "locator": "china-history/梁书/原文版梁书（卷一〜六が本紀）",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "chen"
+      ],
+      "book": "陳書",
+      "locator": "china-history/陈书/原文版陈书（卷一〜六が本紀）",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "northern-qi"
+      ],
+      "book": "北斉書",
+      "locator": "china-history/北齐书/原文版北齐书（卷一〜八が帝紀）",
+      "form": "帝紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "northern-zhou"
+      ],
+      "book": "周書",
+      "locator": "china-history/周书/原文版周书（卷一〜八が帝紀）",
+      "form": "帝紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "sui"
+      ],
+      "book": "隋書",
+      "locator": "china-history/隋书/帝纪",
+      "form": "帝紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "tang",
+        "wu-zhou"
+      ],
+      "book": "舊唐書",
+      "locator": "china-history/旧唐书/本纪（則天皇后は本紀第六）",
+      "form": "本紀",
+      "exceptions": [
+        {
+          "personIds": [
+            "tang-shangdi",
+            "tang-lige",
+            "tangmo-li-chenghong",
+            "tangmo-li-yun"
+          ],
+          "tier": "dependent",
+          "reason": "帝紀に独立記述が無く列傳側のみ（regime-conventions.json の舊唐書の例外4人と同じ。殤帝は冒頭が本紀の定型でなく、李重茂以外の3人は新唐書の列傳。李熅は独立伝が見当たらず僖宗紀の当該期間で代替するので他の事件記事が混在する）"
+        }
+      ]
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "later-liang",
+        "later-tang",
+        "later-jin",
+        "later-han",
+        "later-zhou"
+      ],
+      "book": "舊五代史",
+      "locator": "china-history/旧五代史/{后梁,后唐,后晋,后汉,后周}",
+      "form": "本紀",
+      "note": "十国は同じ五代期でも十国春秋・地方志に依存するので既定（dependent）のまま"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "liao"
+      ],
+      "book": "遼史",
+      "locator": "china-history/辽史/本纪",
+      "form": "本紀",
+      "note": "西遼は天祚帝紀の末尾に付される扱いで一代通しの紀を持たないため、既定（dependent）のまま"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "northern-song",
+        "southern-song"
+      ],
+      "book": "宋史",
+      "locator": "china-history/宋史/本纪",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "jin-jurchen"
+      ],
+      "book": "金史",
+      "locator": "china-history/金史/本纪",
+      "form": "本紀"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "yuan"
+      ],
+      "book": "元史",
+      "locator": "china-history/元史/本纪",
+      "form": "本紀",
+      "note": "北元・元末群雄は明史の列伝と新元史に散るので既定（dependent）のまま"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "ming"
+      ],
+      "book": "明史",
+      "locator": "china-history/明史/本纪",
+      "form": "本紀",
+      "note": "南明4人は明史に本紀を持たず小腆紀傳に依存するので既定（dependent）のまま"
+    },
+    {
+      "tier": "own-annals",
+      "verifiers": 1,
+      "regimeIds": [
+        "qing"
+      ],
+      "book": "清史稿",
+      "locator": "daizhigev20/史藏/正史/清史稿.txt（本紀二〜二十五・行102〜3881。SOURCE_MAPPING.md の行番号表）",
+      "form": "本紀"
     }
-   ]
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "later-liang",
-    "later-tang",
-    "later-jin",
-    "later-han",
-    "later-zhou"
-   ],
-   "book": "舊五代史",
-   "locator": "china-history/旧五代史/{后梁,后唐,后晋,后汉,后周}",
-   "form": "本紀",
-   "note": "十国は同じ五代期でも十国春秋・地方志に依存するので既定（dependent）のまま"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "liao"
-   ],
-   "book": "遼史",
-   "locator": "china-history/辽史/本纪",
-   "form": "本紀",
-   "note": "西遼は天祚帝紀の末尾に付される扱いで一代通しの紀を持たないため、既定（dependent）のまま"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "northern-song",
-    "southern-song"
-   ],
-   "book": "宋史",
-   "locator": "china-history/宋史/本纪",
-   "form": "本紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "jin-jurchen"
-   ],
-   "book": "金史",
-   "locator": "china-history/金史/本纪",
-   "form": "本紀"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "yuan"
-   ],
-   "book": "元史",
-   "locator": "china-history/元史/本纪",
-   "form": "本紀",
-   "note": "北元・元末群雄は明史の列伝と新元史に散るので既定（dependent）のまま"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "ming"
-   ],
-   "book": "明史",
-   "locator": "china-history/明史/本纪",
-   "form": "本紀",
-   "note": "南明4人は明史に本紀を持たず小腆紀傳に依存するので既定（dependent）のまま"
-  },
-  {
-   "tier": "own-annals",
-   "verifiers": 1,
-   "regimeIds": [
-    "qing"
-   ],
-   "book": "清史稿",
-   "locator": "daizhigev20/史藏/正史/清史稿.txt（本紀二〜二十五・行102〜3881。SOURCE_MAPPING.md の行番号表）",
-   "form": "本紀"
-  }
- ],
- "blocks": [
-  {
-   "id": "profiles-han-sanguo",
-   "task": "profiles",
-   "section": "前漢・後漢・三国",
-   "people": 43,
-   "tier": "own-annals",
-   "verifiersPerPerson": 2,
-   "raised": null,
-   "confirmed": null,
-   "escapes": 0,
-   "webdiff": {
-    "raised": null,
-    "confirmed": null,
-    "note": "遡及して数えられない — 歩留まりを記録し始めたのが 2026-08-03（Issue #43）から"
-   },
-   "measuredAt": "2026-08-02",
-   "note": "Issue 化された欠陥は0件（コミット 03d1976 で魏の立后日など少数を直接訂正）。**raised/confirmed は遡及して数えられない** — 検証段の指摘件数を記録し始めたのがこの Issue から。escapes だけが遡及値"
-  },
-  {
-   "id": "profiles-jin",
-   "task": "profiles",
-   "section": "西晋・東晋",
-   "people": 15,
-   "tier": "own-annals",
-   "verifiersPerPerson": 2,
-   "raised": null,
-   "confirmed": null,
-   "escapes": 6,
-   "webdiff": {
-    "raised": null,
-    "confirmed": null,
-    "note": "遡及して数えられない — 歩留まりを記録し始めたのが 2026-08-03（Issue #43）から"
-   },
-   "measuredAt": "2026-08-02",
-   "note": "Issue #32・#33。0.40件/人"
-  },
-  {
-   "id": "profiles-xiaozhengquan-shiliuguo",
-   "task": "profiles",
-   "section": "小政権6＋五胡十六国12",
-   "people": 18,
-   "tier": "dependent",
-   "verifiersPerPerson": 2,
-   "raised": null,
-   "confirmed": null,
-   "escapes": 28,
-   "webdiff": {
-    "raised": null,
-    "confirmed": null,
-    "note": "遡及して数えられない — 歩留まりを記録し始めたのが 2026-08-03（Issue #43）から"
-   },
-   "measuredAt": "2026-08-02",
-   "note": "Issue #36。1.56件/人。**同じ2体で回してこの差が出た**のが体数を段差に合わせる根拠"
-  },
-  {
-   "id": "issue42-confidence",
-   "task": "correction",
-   "section": "元・元末群雄（元世祖・徐寿輝の2人）",
-   "people": 2,
-   "tier": "dependent",
-   "verifiersPerPerson": 2,
-   "raised": 9,
-   "confirmed": 8,
-   "escapes": 0,
-   "webdiff": {
-    "raised": null,
-    "confirmed": null,
-    "note": "遡及して数えられない — 歩留まりを記録し始めたのが 2026-08-03（Issue #43）から"
-   },
-   "measuredAt": "2026-08-02",
-   "note": "Issue #42（confidence 4セルの確定）。体数は人物ごとに違う — 元世祖（own-annals）に facts 1体、徐寿輝（dependent）に facts・dates の2体で、kinship は今回の変更が続柄に触れないため立てていない。指摘9件のうち1件は2体が同じ欠陥（弑逆日の置き去り）を挙げた重複で、ユニーク8件はすべて実欠陥だった。うち2件は件数・典拠の判定変更が要るため Issue #48・#49 へ分離。**確度を確定するだけの小さな作業でも、note の断定・出典ラベル・横展開漏れが出る**"
-  },
-  {
-   "id": "issue49-naiyan",
-   "task": "correction",
-   "section": "元（元世祖の親征イベント2件）",
-   "people": 1,
-   "tier": "own-annals",
-   "verifiersPerPerson": 1,
-   "raised": 2,
-   "confirmed": 2,
-   "escapes": 0,
-   "webdiff": {
-    "raised": null,
-    "confirmed": null,
-    "note": "データ判定なので Web 差分検出は掛けていない（Web を差分検出器として使ってよいのは紹介文まで）"
-   },
-   "measuredAt": "2026-08-03",
-   "note": "Issue #49（乃颜親征の結末・終期の典拠）。facts 1体。引用の実在・巻・人物、干支の同定と換算、本紀に捕縛記事が無いことの確認はすべて陰性で、指摘2件はどちらも**原文の不在を論拠にした側**に出た — (1) 海都親征の終期を「本紀が間に車駕を記さない」という沈黙で支えていたが、同じ本紀は至元二十四年の大都帰還も記さないので沈黙は根拠にならない。代わりの積極的な証言は元史の列伝の中にあった（巻一二八 土土哈伝・巻一一九 月赤察儿伝。新元史へ傍証を取りに行く前に元史の列伝を読み切っていなかった）。(2) 季節移動との比較を「一月半以上遅い」と書いたが実測41日。**走査が空回りしていないことと、沈黙が証拠になることは別**"
-  },
-  {
-   "id": "issue55-event-date-ganzhi",
-   "task": "correction",
-   "section": "events の日精度 ISO 日付（53人・13正史ブロック）",
-   "people": 53,
-   "tier": "dependent",
-   "verifiersPerPerson": null,
-   "verifiersPerPackage": 1,
-   "raised": 10,
-   "confirmed": 5,
-   "escapes": 0,
-   "webdiff": {
-    "raised": null,
-    "confirmed": null,
-    "note": "データ判定なので Web 差分は使わない（規則どおり）"
-   },
-   "measuredAt": "2026-08-03",
-   "note": "**体数を人物単位から下げた回。** 53人のうち dependent（3体＝facts/kinship/dates）に当たる政権が多く、tier どおりなら100体を超えるが、この訂正は `dates` の1軸しか触っておらず kinship・facts は動かない。正史ごとに束ねた13パッケージへ1体ずつ（合計13体）を割り、観点を dates に限った。**減らした側の根拠は「触った軸が1つであること」**で、政権の史料形態を否定したわけではない。実測: 指摘10件のうち値の変更に至ったのは5件（兄弟フィールドの取り残し3件＋訂正の向きの誤り2件）で、残る5件は note・出典ラベル・規約の指摘。**13パッケージ中8つが raised 0** だったが、raised 0 のパッケージからも note の食い違いが計25件出ており、`raised` は値の指摘だけを数えている"
-  },
-  {
-   "id": "profile-qin-newstyle",
-   "task": "profiles",
-   "section": "秦（紹介文の新文体・始皇帝と二世皇帝）",
-   "people": 2,
-   "tier": "own-annals",
-   "verifiersPerPerson": 1,
-   "raised": 20,
-   "confirmed": 18,
-   "escapes": 0,
-   "webdiff": {
-    "raised": 15,
-    "confirmed": 2,
-    "note": "**「原典どおり」を差分として数えている回。** 15件のうち13件は紹介文が原文どおりで通説の側が誤っていたもの（呂不韋実子説・半両銭・水銀中毒説・鮑魚＝アワビ・「陳勝呉広の乱」の呉広・指鹿為馬の主客・兄弟姉妹20余人・第18子ほか）。2026-08-04 に3節が「ずれ自体を本文に1文で書く」へ変わったので、**これらは却下ではなく本文の素材**になる。`confirmed` 2件は蒙恬の長城（本紀の範囲外）と沙丘の主導者の配分で、どちらも facts 側と重複している（重複を除いた実欠陥の総数は18件）"
-   },
-   "measuredAt": "2026-08-04",
-   "confirmedBreakdown": "**18件の内訳＝本文の誤り16件／引用台帳の欠落2件。** 台帳側の2件は件数ではなく指摘の数で、中身は「claims に無い直接話法7箇所」と「text が quote の範囲を超えている claim 3件」。**この2種を混ぜたまま他ブロックの `confirmed/raised` と比べないこと** — `issue55` の 50% は値の指摘だけを数えており、母数の定義が違う",
-   "note": "**機械ゲートを全部緑で通った2本から実欠陥18件が出た回。** 字数・n-gram・年の範囲・総ルビ・読みの一致はすべて合格した状態で、内心の断定1件（STYLE 2節）・原文にない帰属1件・引用符の裏付け無し8件（うち7件は claims の欠落）・時制の混在2件・主語落ち2件・年や順序のずれ4件が残っていた。**ゲートが見ているのは体裁だけで、文体規約と事実は人（エージェント）が読まないと出てこない。** 18件のうち10件は 2026-08-04 に自分で書いた STYLE.md の規約違反で、規約を書いた当人の原稿でも型は見えない。webdiff 側で危うく誤報になりかけたのは即位年齢21歳（通説は前209年に付けるが**秦の歳首は十月**で二世元年は前210年十月に始まる）で、歳首が正月でない政権では年齢・年次の差分を挙げる前に歳首を確かめる。副産物としてデータ側の欠陥を1件検出（qin-er-shi.amnestyCount が count 0・confidence high で note が「『大赦』の語は見当たらない」とするが、本紀に「二世乃大赦天下」が在る）"
-  }
- ]
+  ],
+  "blocks": [
+    {
+      "id": "profiles-han-sanguo",
+      "task": "profiles",
+      "section": "前漢・後漢・三国",
+      "people": 43,
+      "tier": "own-annals",
+      "verifiersPerPerson": 2,
+      "raised": null,
+      "confirmed": null,
+      "escapes": 0,
+      "webdiff": {
+        "raised": null,
+        "confirmed": null,
+        "note": "遡及して数えられない — 歩留まりを記録し始めたのが 2026-08-03（Issue #43）から"
+      },
+      "measuredAt": "2026-08-02",
+      "note": "Issue 化された欠陥は0件（コミット 03d1976 で魏の立后日など少数を直接訂正）。**raised/confirmed は遡及して数えられない** — 検証段の指摘件数を記録し始めたのがこの Issue から。escapes だけが遡及値"
+    },
+    {
+      "id": "profiles-jin",
+      "task": "profiles",
+      "section": "西晋・東晋",
+      "people": 15,
+      "tier": "own-annals",
+      "verifiersPerPerson": 2,
+      "raised": null,
+      "confirmed": null,
+      "escapes": 6,
+      "webdiff": {
+        "raised": null,
+        "confirmed": null,
+        "note": "遡及して数えられない — 歩留まりを記録し始めたのが 2026-08-03（Issue #43）から"
+      },
+      "measuredAt": "2026-08-02",
+      "note": "Issue #32・#33。0.40件/人"
+    },
+    {
+      "id": "profiles-xiaozhengquan-shiliuguo",
+      "task": "profiles",
+      "section": "小政権6＋五胡十六国12",
+      "people": 18,
+      "tier": "dependent",
+      "verifiersPerPerson": 2,
+      "raised": null,
+      "confirmed": null,
+      "escapes": 28,
+      "webdiff": {
+        "raised": null,
+        "confirmed": null,
+        "note": "遡及して数えられない — 歩留まりを記録し始めたのが 2026-08-03（Issue #43）から"
+      },
+      "measuredAt": "2026-08-02",
+      "note": "Issue #36。1.56件/人。**同じ2体で回してこの差が出た**のが体数を段差に合わせる根拠"
+    },
+    {
+      "id": "issue42-confidence",
+      "task": "correction",
+      "section": "元・元末群雄（元世祖・徐寿輝の2人）",
+      "people": 2,
+      "tier": "dependent",
+      "verifiersPerPerson": 2,
+      "raised": 9,
+      "confirmed": 8,
+      "escapes": 0,
+      "webdiff": {
+        "raised": null,
+        "confirmed": null,
+        "note": "遡及して数えられない — 歩留まりを記録し始めたのが 2026-08-03（Issue #43）から"
+      },
+      "measuredAt": "2026-08-02",
+      "note": "Issue #42（confidence 4セルの確定）。体数は人物ごとに違う — 元世祖（own-annals）に facts 1体、徐寿輝（dependent）に facts・dates の2体で、kinship は今回の変更が続柄に触れないため立てていない。指摘9件のうち1件は2体が同じ欠陥（弑逆日の置き去り）を挙げた重複で、ユニーク8件はすべて実欠陥だった。うち2件は件数・典拠の判定変更が要るため Issue #48・#49 へ分離。**確度を確定するだけの小さな作業でも、note の断定・出典ラベル・横展開漏れが出る**"
+    },
+    {
+      "id": "issue49-naiyan",
+      "task": "correction",
+      "section": "元（元世祖の親征イベント2件）",
+      "people": 1,
+      "tier": "own-annals",
+      "verifiersPerPerson": 1,
+      "raised": 2,
+      "confirmed": 2,
+      "escapes": 0,
+      "webdiff": {
+        "raised": null,
+        "confirmed": null,
+        "note": "データ判定なので Web 差分検出は掛けていない（Web を差分検出器として使ってよいのは紹介文まで）"
+      },
+      "measuredAt": "2026-08-03",
+      "note": "Issue #49（乃颜親征の結末・終期の典拠）。facts 1体。引用の実在・巻・人物、干支の同定と換算、本紀に捕縛記事が無いことの確認はすべて陰性で、指摘2件はどちらも**原文の不在を論拠にした側**に出た — (1) 海都親征の終期を「本紀が間に車駕を記さない」という沈黙で支えていたが、同じ本紀は至元二十四年の大都帰還も記さないので沈黙は根拠にならない。代わりの積極的な証言は元史の列伝の中にあった（巻一二八 土土哈伝・巻一一九 月赤察儿伝。新元史へ傍証を取りに行く前に元史の列伝を読み切っていなかった）。(2) 季節移動との比較を「一月半以上遅い」と書いたが実測41日。**走査が空回りしていないことと、沈黙が証拠になることは別**"
+    },
+    {
+      "id": "issue55-event-date-ganzhi",
+      "task": "correction",
+      "section": "events の日精度 ISO 日付（53人・13正史ブロック）",
+      "people": 53,
+      "tier": "dependent",
+      "verifiersPerPerson": null,
+      "verifiersPerPackage": 1,
+      "raised": 10,
+      "confirmed": 5,
+      "escapes": 0,
+      "webdiff": {
+        "raised": null,
+        "confirmed": null,
+        "note": "データ判定なので Web 差分は使わない（規則どおり）"
+      },
+      "measuredAt": "2026-08-03",
+      "note": "**体数を人物単位から下げた回。** 53人のうち dependent（3体＝facts/kinship/dates）に当たる政権が多く、tier どおりなら100体を超えるが、この訂正は `dates` の1軸しか触っておらず kinship・facts は動かない。正史ごとに束ねた13パッケージへ1体ずつ（合計13体）を割り、観点を dates に限った。**減らした側の根拠は「触った軸が1つであること」**で、政権の史料形態を否定したわけではない。実測: 指摘10件のうち値の変更に至ったのは5件（兄弟フィールドの取り残し3件＋訂正の向きの誤り2件）で、残る5件は note・出典ラベル・規約の指摘。**13パッケージ中8つが raised 0** だったが、raised 0 のパッケージからも note の食い違いが計25件出ており、`raised` は値の指摘だけを数えている"
+    },
+    {
+      "id": "profile-qin-newstyle",
+      "task": "profiles",
+      "section": "秦（紹介文の新文体・始皇帝と二世皇帝）",
+      "people": 2,
+      "tier": "own-annals",
+      "verifiersPerPerson": 1,
+      "raised": 20,
+      "confirmed": 18,
+      "escapes": 0,
+      "webdiff": {
+        "raised": 15,
+        "confirmed": 2,
+        "note": "**「原典どおり」を差分として数えている回。** 15件のうち13件は紹介文が原文どおりで通説の側が誤っていたもの（呂不韋実子説・半両銭・水銀中毒説・鮑魚＝アワビ・「陳勝呉広の乱」の呉広・指鹿為馬の主客・兄弟姉妹20余人・第18子ほか）。2026-08-04 に3節が「ずれ自体を本文に1文で書く」へ変わったので、**これらは却下ではなく本文の素材**になる。`confirmed` 2件は蒙恬の長城（本紀の範囲外）と沙丘の主導者の配分で、どちらも facts 側と重複している（重複を除いた実欠陥の総数は18件）。**2026-08-04 の修正段で `adopted` を実測した — 「原典どおり」13件のうち本文へ1文として採ったのは4件**（呂不韋実子説・貨幣の統一が3点セットに入らないこと・「陳勝呉広の乱」の呉広が本紀に出ないこと・指鹿為馬の主客が通説と逆であること）。採れなかったのは兄弟姉妹20余人の1件だけで、理由は本文の欠陥ではなく **body の残余が27字しかなかったこと**（本紀の6人＋3人を示すには足りず半端になる）。残り8件は史料内部の異同なので `basis` 行き。**`confirmed` 2件に対して `adopted` 4件で、この段の産物は欠陥検出より素材のほうが多い**",
+        "adopted": 4
+      },
+      "measuredAt": "2026-08-04",
+      "confirmedBreakdown": "**18件の内訳＝本文の誤り16件／引用台帳の欠落2件。** 台帳側の2件は件数ではなく指摘の数で、中身は「claims に無い直接話法7箇所」と「text が quote の範囲を超えている claim 3件」。**この2種を混ぜたまま他ブロックの `confirmed/raised` と比べないこと** — `issue55` の 50% は値の指摘だけを数えており、母数の定義が違う",
+      "note": "**機械ゲートを全部緑で通った2本から実欠陥18件が出た回。** 字数・n-gram・年の範囲・総ルビ・読みの一致はすべて合格した状態で、内心の断定1件（STYLE 2節）・原文にない帰属1件・引用符の裏付け無し8件（うち7件は claims の欠落）・時制の混在2件・主語落ち2件・年や順序のずれ4件が残っていた。**ゲートが見ているのは体裁だけで、文体規約と事実は人（エージェント）が読まないと出てこない。** 18件のうち10件は 2026-08-04 に自分で書いた STYLE.md の規約違反で、規約を書いた当人の原稿でも型は見えない。webdiff 側で危うく誤報になりかけたのは即位年齢21歳（通説は前209年に付けるが**秦の歳首は十月**で二世元年は前210年十月に始まる）で、歳首が正月でない政権では年齢・年次の差分を挙げる前に歳首を確かめる。副産物としてデータ側の欠陥を1件検出（qin-er-shi.amnestyCount が count 0・confidence high で note が「『大赦』の語は見当たらない」とするが、本紀に「二世乃大赦天下」が在る）。**修正段でデータ側の疑いがもう1件出た** — `qin-er-shi.ages.note` が「二世元年＝前209年」と書くが、秦の歳首は十月なので二世元年は前210年十月に始まる（フィールドの `accessionAge` 21・`reigns[0].startYear` -210 は正しく、**散文だけがずれている**）。`amnestyCount` の件とあわせて、この2本で見つかったデータ欠陥は2件とも note の散文側だった",
+      "revision": {
+        "appliedAt": "2026-08-04",
+        "findingsApplied": 20,
+        "findingsDropped": 0,
+        "note": "**4段目（修正）の実測。** 指摘20件は1件も落ちず、修正段が原文に当て直したうえで全部反映した（検証側の誤りは0件だった＝この2本では検証段の空振りが無い）。副産物として**引用台帳が2本とも厚くなった** — 始皇帝は0件から60件（台帳をこの段で1から起こした）、胡亥は19件から37件。字数は body 2050→2292字・2228→2373字で、**上限2400字に対する残りは108字と27字**。365本の展開では、**3節の素材を入れる余地は修正段には残っていない**ことになるので、執筆段のうちに通説とのずれを織り込ませるほうが安い"
+      }
+    }
+  ]
 }
