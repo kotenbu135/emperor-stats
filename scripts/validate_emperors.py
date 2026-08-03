@@ -995,7 +995,12 @@ def check_event_date_format(data):
 ERA_NAME_BASELINE = 5
 
 # 元号の名だけを書く欄なので、記事の一節を丸ごと入れた形（「改元康熙」「為天啓元年」）を弾く。
+# **「建元」は実在する元号**（漢武帝の最初の元号・東晋康帝・前秦苻堅・南斉高帝）なので、
+# **それ単体のときだけ通す**（「改元建元」「建元元年」は弾いたまま）。史実の日本語と衝突する語を
+# 印に入れると、最初に転記する人が誤検出に当たって「このゲートは壊れている」と結論する
+# （claim 欄で実際に起きかけた型。test_claim_field.py の同じコメントを参照）。
 ERA_NAME_FORBIDDEN = ("元年", "改元", "建元", "年号", "年號", "改號", "改号")
+ERA_NAME_ALLOW_EXACT = ("建元",)
 ERA_NAME_RE = re.compile(r"^[㐀-鿿]{2,4}$")
 
 
@@ -1048,7 +1053,8 @@ def check_era_names(data):
                         err(f"[era-name] {where}.{label}: 漢字2〜4字でない {str(v)[:40]!r}")
                         ok = ok and label != "eraName"
                         continue
-                    bad = [w for w in ERA_NAME_FORBIDDEN if w in v]
+                    bad = [w for w in ERA_NAME_FORBIDDEN
+                           if w in v and not (v in ERA_NAME_ALLOW_EXACT and v == w)]
                     if bad:
                         err(f"[era-name] {where}.{label}: 記事の語 {'／'.join(bad)} を含む"
                             f"（元号の名だけを書く）: {v!r}")
