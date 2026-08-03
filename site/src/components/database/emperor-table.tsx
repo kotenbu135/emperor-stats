@@ -336,9 +336,10 @@ export function EmperorTable({
     [dynastyOptions, eraValue],
   );
 
-  // 検索対象は「表に出ている値」＋**諱**（2026-07-31 ユーザー指示。「劉徹」で
-  // 武帝を引ける）。諱は列に出ていないが同一人物の別名なので、当たっても
-  // なぜその行が残ったのか分からなくならない。時代・在位回数は入れない —
+  // 検索対象は「表に出ている値」＋**諱と民族名**（2026-07-31 ユーザー指示。「劉徹」で
+  // 武帝を引ける）。どちらも列に出ていないが同一人物の別名なので、当たっても
+  // なぜその行が残ったのか分からなくならない（民族名は分ける前は諱の括弧の中に
+  // あって当たっていた・Issue #37 単位3）。時代・在位回数は入れない —
   // そちらは行の属性で、見えないまま当たると絞り込みの理由が読めなくなる
   //（時代で絞るのは上のセレクトの担当）。
   //
@@ -350,7 +351,7 @@ export function EmperorTable({
     () =>
       records.map((r) =>
         // 即位経路は短縮形（「受禅」）でも全文（「受禅（易姓）」）でも当たるよう両方入れる。
-        `${r.name} ${r.personalName ?? ""} ${r.dynastyLabel} ${r.periodsLabel} ${r.reignDurationLabel} ${r.accessionRouteCategory} ${shortCategoryLabel(r.accessionRouteCategory)} ${r.deathCauseCategory}`.normalize(
+        `${r.name} ${r.personalName ?? ""} ${r.ethnicName ?? ""} ${r.dynastyLabel} ${r.periodsLabel} ${r.reignDurationLabel} ${r.accessionRouteCategory} ${shortCategoryLabel(r.accessionRouteCategory)} ${r.deathCauseCategory}`.normalize(
           "NFKC",
         ),
       ),

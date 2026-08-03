@@ -188,7 +188,7 @@ interface RawEmperor {
     aliases: string[];
     /** 民族名（契丹名・女真名・モンゴル語名・満洲語名）。ラベルは
      *  `lib/data-source.ts` が `meta.catalogs.ethnicNameKinds` から解決済み。
-     *  **移行中で、まだ括弧つきの `personalName` に畳まれたままの人物のほうが多い。** */
+     *  持つのは30人で、**無いのは「民族名が無い」の意**（2026-08-03 に移行完了）。 */
     ethnicName?: EthnicName;
   };
   /** lib/data-source.ts が v3 の regimeId・researchSection から組み立てる
@@ -591,6 +591,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
       e.name.personalName,
       e.regimeId,
       displayName(e),
+      e.name.ethnicName,
     ),
     dynastyName: e.dynasty.name,
     dynastySection: e.dynasty.section,
@@ -759,6 +760,7 @@ export function getEmperorTableRecords(): EmperorTableRecord[] {
       name: r.name,
       nameRuby: rubyOf(r.name),
       personalName: r.personalName,
+      ethnicName: r.ethnicName?.value ?? null,
       dynastyLabel: r.dynastyLabel,
       dynastyLabelRuby: rubyOf(r.dynastyLabel),
       dynastyKey: r.dynastyKey,

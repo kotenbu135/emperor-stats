@@ -1102,9 +1102,11 @@ def check_era_names(data):
 # 転記と同じく条件は強制しない（32件を1件ずつ原典で確かめる作業なので一度に終わらない）。
 # ここが強制するのは形・政権との整合・**組み直し**・括弧の天井だけ。
 ETHNIC_ORIGINALS_PATH = ROOT / "data" / "internal" / "personal-name-originals.json"
-# 移行前の括弧つき件数。**単位2のラチェットと向きが逆**（あちらは床・こちらは天井）で、
-# 移行が進むと減る。増えたら「括弧つきの形を新しく書いた」なので落とす。
-ETHNIC_PAREN_CEILING = 32
+# 括弧つき personalName の天井。**単位2のラチェットと向きが逆**（あちらは床・こちらは
+# 天井）で、移行が進むと減る。**2026-08-03 に32件すべてを分けたので0**。
+# この0が、サイト側から括弧を割る経路（display-name.ts の ETHNIC_NAME_LABEL・
+# RENAMED_NAME_IDS）を消せる根拠 — 括弧つきのレコードはもう入って来られない。
+ETHNIC_PAREN_CEILING = 0
 ETHNIC_VALUE_RE = {
     "han": re.compile(r"^[㐀-鿿]{1,12}$"),
     "kana": re.compile(r"^[ァ-ヶー・]{2,20}$"),

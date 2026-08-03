@@ -51,6 +51,8 @@ export function generateStaticParams(): { id: string }[] {
       r.name,
       r.subtitle ?? "",
       r.personalName ?? "",
+      // 民族名も名前チップとして画面に出る（rubyOf を通る）ので残件に数える。
+      r.ethnicName?.value ?? "",
       r.templeName ?? "",
       r.posthumousName ?? "",
       r.dynastyLabel,

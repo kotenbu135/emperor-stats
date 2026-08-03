@@ -243,6 +243,10 @@ export interface EmperorTableRecord {
    *  「なぜこの行が残ったか」が分からなくならない（時代・在位回数を検索対象から
    *  外したのとはここが違う）。 */
   personalName: string | null;
+  /** 民族名（Issue #37 単位3）。**列ではなく検索の対象**なので `COLUMNS` と
+   *  `DATABASE_COLUMN_COUNT` は動かさない。分ける前は `personalName` の括弧の中に
+   *  入っていて検索に当たっていたので、無いと「クビライ」で元世祖が引けなくなる。 */
+  ethnicName: string | null;
   dynastyLabel: string;
   /** 王朝名のふりがな付き（Issue #20）。並べ替え・絞り込みは dynastyLabel/dynastyKey。 */
   dynastyLabelRuby: string;

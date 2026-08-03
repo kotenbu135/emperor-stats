@@ -100,9 +100,11 @@ CASES = [
     ("並びを取り違えた形は F が落ちる（金を「民族名（漢字名）」で入れる）",
      [rec("jin-shizong", "jin-jurchen", "烏禄",
           {"kind": "jurchen", "value": "完顔雍"})], 1),
+    # 括弧の重複・組み直しの不一致・天井超過の3つが同時に鳴る（天井が 0 になった
+    # 2026-08-03 以降。重なって鳴るのは正しい＝どれか1つを外しても検出は残る）
     ("括弧を残したまま ethnicName を足すと落ちる（在りかが2つになる）",
      [rec("jin-shizong", "jin-jurchen", "完顔雍（烏禄）",
-          {"kind": "jurchen", "value": "烏禄"})], 2),
+          {"kind": "jurchen", "value": "烏禄"})], 3),
     # 対の検査。天井だけなら「（烏禄）を消す」で満たせてしまう
     ("括弧だけ消して民族名の行き先が無い形は落ちる",
      [rec("jin-shizong", "jin-jurchen", "完顔雍")], 1),
@@ -123,13 +125,16 @@ for label, records, want in CASES:
             print(f"       {e[:160]}")
 
 # --- E 天井 -------------------------------------------------------------------
-orig_ceiling = V.ETHNIC_PAREN_CEILING
-V.ETHNIC_PAREN_CEILING = 0
-errs = run([rec("jin-shizong", "jin-jurchen", "完顔雍（烏禄）")])
+# **本番の天井は 0**（32件すべてを分けた 2026-08-03 以降）なので、ここは値を下げずに
+# そのまま production の不変条件を試す。凍結標本に無い人物で試すのは、E が F と
+# 独立に働くことを見るため（標本に在る id だと括弧が残っている＝未移行としても通る）。
+ok = V.ETHNIC_PAREN_CEILING == 0
+bad += 0 if ok else 1
+print(f"{'OK ' if ok else 'NG '} 天井が 0（括弧つきの personalName はもう入れない）")
+errs = run([rec("han-wudi", "western-han", "劉徹（劉彘）")])
 ok = any("天井" in e for e in errs)
 bad += 0 if ok else 1
-print(f"{'OK ' if ok else 'NG '} 括弧つきが天井を超えると E が落ちる  ({len(errs)}件)")
-V.ETHNIC_PAREN_CEILING = orig_ceiling
+print(f"{'OK ' if ok else 'NG '} 凍結標本に無い人物でも括弧つきなら E が落ちる  ({len(errs)}件)")
 
 # 分母（評価件数）が出ているか。出ていないと 0 エラーの意味が読めない
 run([rec(*JIN[:3], {"kind": "jurchen", "value": JIN[3]})])

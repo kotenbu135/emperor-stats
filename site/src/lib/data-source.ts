@@ -82,7 +82,7 @@ interface Catalogs {
   eras: CatalogEra[];
   regimes: CatalogRegime[];
   enums: Record<string, CatalogEnumItem[]>;
-  /** 2026-08-03 新設。移行中のデータには無い人物のほうが多いので任意。 */
+  /** 2026-08-03 新設（4種類）。旧いデータでも読めるよう任意にしてある。 */
   ethnicNameKinds?: CatalogEthnicNameKind[];
 }
 

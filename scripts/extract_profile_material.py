@@ -81,6 +81,10 @@ def render(e: dict, catalogs: dict, max_events: int, notes: bool) -> str:
             posthumousName=name.get("posthumousName") or "—",
         )
     )
+    # 民族名（Issue #37 単位3）。2026-08-03 に personalName の括弧から分けたので、
+    # ここで出さないと元・北元の12人は執筆者から「クビライ」が見えなくなる。
+    if name.get("ethnicName"):
+        add(f"- 民族名: {name['ethnicName']['value']}（{name['ethnicName']['kind']}）")
     if name.get("aliases"):
         add(f"- 別名: {'・'.join(name['aliases'])}")
     if e.get("flags", {}).get("isFemale"):
