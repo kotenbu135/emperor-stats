@@ -181,15 +181,30 @@ export default async function EmperorPage({
               <h2 className="font-heading text-base font-semibold text-foreground">
                 人物紹介
               </h2>
+              {/* 節見出しは行頭 `## `（2026-08-04 の文体変更）。空行で区切った塊の
+                  うち、この形のものだけ h3 にする。**判定の形は
+                  ../scripts/validate_profiles.py の HEADING と同じ**で、
+                  片方だけ変えると n-gram の除外と表示がずれる。
+                  見出しは h2「人物紹介」の下なので h3。ルビが乗るので
+                  行送りは本文と同じ leading-ruby。 */}
               <div className="space-y-4">
-                {profile.body.split("\n\n").map((paragraph, i) => (
-                  <p
-                    key={i}
-                    className="text-base leading-ruby text-foreground"
-                  >
-                    <RubyText source={paragraph} />
-                  </p>
-                ))}
+                {profile.body.split("\n\n").map((block, i) =>
+                  block.startsWith("## ") ? (
+                    <h3
+                      key={i}
+                      className="pt-2 font-heading text-base font-semibold leading-ruby text-foreground"
+                    >
+                      <RubyText source={block.slice(3)} />
+                    </h3>
+                  ) : (
+                    <p
+                      key={i}
+                      className="text-base leading-ruby text-foreground"
+                    >
+                      <RubyText source={block} />
+                    </p>
+                  ),
+                )}
               </div>
             </section>
           )}

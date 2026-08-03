@@ -52,8 +52,13 @@ YEAR = re.compile(r"(?<![0-9])(?:(前)(\d{1,4})|(?:(\d{3,4})))\s*年(?![間目�
 # lead の上限110字は**肖像の右で3行に収まる長さ**（2026-08-01 ユーザー指示）。
 # 200px の肖像を除いた幅で1行およそ40字（総ルビの字間で半角換算より詰まる）。
 # 超えると4行目が肖像の下へ回り込み、1行だけがぶら下がる。
-LEAD_MIN, LEAD_MAX = 70, 110
-BODY_MIN, BODY_MAX = 100, 700
+# 2026-08-04 の文体変更で lead は「概要」節になった（見出しの下ではなくヒーロー内に
+# 出る導入で、人物の一生を200字前後にまとめる）。上限110字は**肖像の右で3行**という
+# 旧レイアウトの制約だったが、概要は肖像の下へ回り込んで読ませる形に変えた。
+# **下限は旧文体（70〜110字）の本が残っているあいだ 70 のまま**にしてある。
+# 365本の書き直しが終わったら 150 へ引き上げること（下限が無いと短い導入に戻る）。
+LEAD_MIN, LEAD_MAX = 70, 260
+BODY_MIN, BODY_MAX = 100, 2000
 DESC_MIN, DESC_MAX = 100, 140
 NGRAM = 12
 NGRAM_REPORT_AT = 3
@@ -64,6 +69,15 @@ notices: list[str] = []
 
 def strip_ruby(text: str) -> str:
     return RUBY.sub(r"\1", text)
+
+
+# body の節見出し。段落と同じく空行で区切り、行頭を `## ` にする
+# （site/src/app/emperors/[id]/page.tsx の分岐と同じ形。片方だけ変えないこと）。
+HEADING = re.compile(r"^##\s.*$", re.MULTILINE)
+
+
+def strip_headings(text: str) -> str:
+    return HEADING.sub("", text)
 
 
 def years_of(e: dict) -> set[int]:
@@ -164,9 +178,12 @@ def main() -> int:
                 "（<meta>・JSON-LD 専用なので平文で書く）"
             )
 
-        # 定型文の検出は lead と body を続けた全文に掛ける。
+        # 定型文の検出は lead と body を続けた全文に掛ける。**見出し行は外す** —
+        # 2026-08-04 の文体変更で body に節見出し（`## ` 始まり）が入り、
+        # 「生い立ちと即位」「不老不死と最期」のような見出しは365本で共通して構わない。
+        # 外さないと本物の定型文が見出しの重複に埋もれる。
         written_text = "".join(
-            strip_ruby(profile.get(f) or "") for f in ("lead", "body")
+            strip_ruby(strip_headings(profile.get(f) or "")) for f in ("lead", "body")
         )
         if written_text:
             leads[emperor_id] = written_text

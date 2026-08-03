@@ -26,8 +26,14 @@ PROFILES = ROOT / "data" / "emperor-profiles.json"
 RUBY = re.compile(r"｜([^｜《》]+)《([^｜《》]+)》")
 
 
+# body の節見出し（`## ` 始まり）。見出しは365本で共通してよいので n-gram から外す
+# — scripts/validate_profiles.py の HEADING と同じもの。
+HEADING = re.compile(r"^##\s.*$", re.MULTILINE)
+
+
 def plain(profile: dict) -> str:
-    return RUBY.sub(r"\1", " ".join(filter(None, (profile.get("lead"), profile.get("body")))))
+    joined = " ".join(filter(None, (profile.get("lead"), profile.get("body"))))
+    return RUBY.sub(r"\1", HEADING.sub("", joined))
 
 
 def grams(text: str, n: int) -> set[str]:
