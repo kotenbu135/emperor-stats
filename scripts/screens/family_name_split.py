@@ -112,7 +112,12 @@ def run(use_corpus=True):
     rows = {}
     cands = {}
     for e in data["emperors"]:
-        personal = ((e.get("name") or {}).get("personalName") or "").strip()
+        name = e.get("name") or {}
+        # **移行後も同じ母集団を出すために姓＋諱へ戻してから割る**（Issue #37 単位6）。
+        # 分けたあとの `personalName` は諱だけなので、そのまま割ると「胡亥」→
+        # 姓 胡／諱 亥 になり、**落ちずに違う数字を出す**（記録した件数と突き合わなくなる）。
+        personal = (f"{name.get('familyName') or ''}"
+                    f"{name.get('personalName') or ''}").strip()
         if not personal:
             continue
         cands[e["id"]] = split_candidate(personal)
@@ -207,6 +212,19 @@ def main():
     for b in BUCKETS:
         print(f"  {b:<11} {counts[b]:>4}")
     print(f"要読解 {counts['unattested']}人")
+
+    # 移行後は**保存値との突合**にもなる（絞り込みが出す切れ目と、データが持つ姓のずれ）。
+    # 判定はしない — ずれた人物を読む対象として出すだけ。
+    data = json.loads(EMPERORS.read_text(encoding="utf-8"))
+    diff = [(e["id"], (e.get("name") or {}).get("familyName"), rows[e["id"]][1])
+            for e in data["emperors"]
+            if e["id"] in rows and "familyName" in (e.get("name") or {})
+            and ((e.get("name") or {}).get("familyName") or "") != (
+                "" if rows[e["id"]][0] == "kana-name" else rows[e["id"]][1])]
+    if diff:
+        print(f"\n保存値と切れ目がずれる {len(diff)}人（要読解）")
+        for eid, stored, cand in diff:
+            print(f"  {eid}\t保存 {stored}\t候補 {cand}")
 
 
 if __name__ == "__main__":
