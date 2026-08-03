@@ -138,6 +138,9 @@ def main():
     if args.json:
         print(json.dumps({
             "unit": "person",
+            # コーパスが無い環境（CI）では件数が再現しない。**検査側へそれを伝える**
+            # ための旗で、値そのものではない（引用の実在検査が飛ぶのと同じ理由）
+            "corpus": CACHE.is_dir() and any(CACHE.glob("*.txt")),
             "n": len(rows),
             "buckets": {b: len(buckets.get(b, [])) for b in BUCKETS},
             "samples": ({"unknown": sample(buckets.get("unknown", []), args.seed, args.sample)}

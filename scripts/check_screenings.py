@@ -150,6 +150,15 @@ def check_record(rec, errors, counters, notes):
     out = run_screen(rec, errors)
     if out is None:
         return
+    # **コーパスが無い環境では件数を突き合わせない**（CI・引用の実在検査が飛ぶのと同じ理由）。
+    # 本人の原文キャッシュや底本を読む絞り込みは、コーパスが無いと全件が no-corpus 側へ
+    # 落ちて記録と必ずずれる。**旗を出さない screen は従来どおり突き合わせる**ので、
+    # コーパスを使わない絞り込みの検査は緩まない。
+    if out.get("corpus") is False:
+        counters["count_skipped"] += 1
+        notes.append(f"{tag}: コーパスが無いため件数の突合を飛ばした"
+                     f"（記録 n={rec.get('n')}。ローカルで引き直すこと）")
+        return
     if out.get("n") != rec.get("n"):
         errors.append(f"{tag}: 母集団が記録と違います（記録 {rec.get('n')} / 実行 {out.get('n')}）。"
                       f"データが動いたので絞り込みを引き直してください")
@@ -262,7 +271,9 @@ def main():
           f"（反例 {counters['counterexamples']}件・うち標本外 {counters['outOfSample']}件）・"
           f"引用 {counters['quote_checked']}件を原文と照合"
           + (f"（コーパスが無く {counters['quote_skipped']}件は未照合）"
-             if counters["quote_skipped"] else ""))
+             if counters["quote_skipped"] else "")
+          + (f"／コーパスが無く {counters['count_skipped']}件の記録は件数を突合していない"
+             if counters["count_skipped"] else ""))
     if notes:
         print("\n--- 絞り込みがどこまで言えるか ---")
         for n in notes:

@@ -42,6 +42,7 @@
     python3 scripts/screens/family_name_split.py            # 人が読む形
     python3 scripts/screens/family_name_split.py --json     # ゲート（check_screenings.py）用
     python3 scripts/screens/family_name_split.py --list <バケット>  # そのバケットの全件
+    python3 scripts/screens/family_name_split.py --audit-sample xing   # 監査の標本
 """
 import argparse
 import hashlib
@@ -132,6 +133,9 @@ def run(use_corpus=True):
     }
     attested, corpus_ok = (corpus_family_names(families | prefixes)
                            if use_corpus else (set(), False))
+    # **両方そろって初めて「コーパスあり」**。`hui` は原文キャッシュ・`xing` はコーパス本体を
+    # 見るので、片方だけの環境で旗を立てると件数が再現しないまま突合されてしまう。
+    corpus_ok = corpus_ok and CACHE.is_dir() and any(CACHE.glob("*.txt"))
 
     for e in data["emperors"]:
         if e["id"] not in cands:
@@ -179,7 +183,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--list", metavar="バケット", choices=BUCKETS)
-    ap.add_argument("--sample", metavar="バケット", choices=BUCKETS,
+    ap.add_argument("--audit-sample", metavar="バケット", choices=BUCKETS,
+                    dest="audit_sample",
                     help="そのバケットから種つき無作為標本を出す（監査用）")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--size", type=int, default=6)
@@ -191,7 +196,9 @@ def main():
     counts = {b: sum(1 for v in rows.values() if v[0] == b) for b in BUCKETS}
 
     if args.json:
-        print(json.dumps({"population": len(rows), "buckets": counts,
+        # 契約は check_screenings.py（n・buckets）。**corpus は「コーパスの有無」**で、
+        # 無い環境（CI）では件数が再現しないことを検査側へ伝えるためのもの。
+        print(json.dumps({"unit": "person", "n": len(rows), "buckets": counts,
                           "corpus": corpus_ok}, ensure_ascii=False))
         return
     if args.list:
@@ -199,8 +206,8 @@ def main():
             if bucket == args.list:
                 print(f"{eid}\t{family}\t{given}")
         return
-    if args.sample:
-        picked = sample([i for i, v in rows.items() if v[0] == args.sample],
+    if args.audit_sample:
+        picked = sample([i for i, v in rows.items() if v[0] == args.audit_sample],
                         args.seed, args.size)
         for eid in picked:
             _, family, given = rows[eid]
