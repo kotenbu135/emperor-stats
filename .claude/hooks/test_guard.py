@@ -54,6 +54,14 @@ cases = [
  ("pass  gh api（形では止めない）", bash("gh api repos/x/y/issues --paginate"), 0),
  ("pass  WebFetch単発",           {"tool_name":"WebFetch","tool_input":{"url":"https://example.org/a"},"cwd":"."}, 0),
  ("esc   逃げ道つきの一括実行",     bash("EMPSTATS_ALLOW=R-API-BATCH:12件で許可済み for i in 1 2; do curl -s https://api.wikimedia.org/$i; done"), 0),
+ # R-CI-BACKGROUND — 止めるのは「前景で待つ形」だけ
+ ("deny  gh run watch",           bash("gh run watch 123456"), 2),
+ ("deny  untilループでポーリング",  bash("until gh run list --json status -q '.[0].status' | grep -q completed; do sleep 10; done"), 2),
+ ("deny  sleep＋gh run list",      bash("sleep 30 && gh run list --limit 3"), 2),
+ ("pass  gh run list 単発",        bash("gh run list --limit 5"), 0),
+ ("pass  背景で流す gh run watch",  {"tool_name":"Bash","tool_input":{"command":"gh run watch 123456","run_in_background":True},"cwd":"."}, 0),
+ ("pass  gh run と無関係な sleep",  bash("sleep 2 && python3 scripts/coverage.py"), 0),
+ ("esc   逃げ道つきの CI 待ち",     bash("EMPSTATS_ALLOW=R-CI-BACKGROUND:直後にマージ判断が要る gh run watch 123"), 0),
  ("pass  壊れた入力",              "NOT-JSON", 0),
  ("pass  tool_input が null",     {"tool_name":"Bash","tool_input":None,"cwd":"."}, 0),
 ]
