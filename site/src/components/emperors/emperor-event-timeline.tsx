@@ -2,8 +2,10 @@
 
 // 皇帝個別ページの「在位中の出来事」年表。7種別のevents[]を日付順にマージした
 // EmperorEventRow[]（ビルド時にgetEmperorEventsが生成）を、種別バッジ+日付+要約の
-// 行リストで表示する。note全文・結果・出典は行ごとのネイティブdetailsに格納し、
-// クライアント状態は種別フィルタのみ（大赦が数十回ある皇帝向けの件数対策）。
+// 行リストで表示する。**1行がその出来事の全部**で、行は開かない（2026-08-03
+// ユーザー決定・Issue #69）。以前は行ごとのネイティブdetailsに首謀者・結果・
+// note全文・出典を入れていた。クライアント状態は種別フィルタのみ（大赦が数十回
+// ある皇帝向けの件数対策）。
 // このデータは個別ページ専用で、統計ページのEmperorRecordには含まれない。
 
 import { useMemo, useState } from "react";
@@ -49,11 +51,10 @@ function KindBadge({ kind }: { kind: EmperorEventKind }) {
   );
 }
 
+// 行は開かないので、ホバーの面や cursor-pointer のような「押せる」合図は付けない。
 function EventRow({ row }: { row: EmperorEventRow }) {
-  const hasDetails =
-    row.facts.length > 0 || row.note !== null || row.sourceLabel !== null;
-  const head = (
-    <>
+  return (
+    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 border-b border-border/60 py-1.5">
       <KindBadge kind={row.kind} />
       <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
         {row.dateLabel ?? "日付不詳"}
@@ -61,44 +62,7 @@ function EventRow({ row }: { row: EmperorEventRow }) {
       <span className="min-w-0 flex-1 basis-48 truncate text-sm">
         {row.summary}
       </span>
-    </>
-  );
-  if (!hasDetails) {
-    return (
-      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 border-b border-border/60 py-1.5">
-        {head}
-      </div>
-    );
-  }
-  return (
-    <details className="group border-b border-border/60">
-      {/* headとシェブロンを同じflexの兄弟にすると、狭い画面で本文が1行を占めた
-          ときにシェブロンだけが次の行へ押し出される。headを折り返し可能な箱に
-          まとめ、シェブロンはその外側に nowrap で並べる。 */}
-      <summary className="flex list-none flex-nowrap items-start gap-x-3 rounded-md py-1.5 transition-colors hover:bg-accent/60 [&::-webkit-details-marker]:hidden">
-        <span className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-3 gap-y-0.5">
-          {head}
-        </span>
-        <ChevronRight
-          aria-hidden
-          className="mt-1 size-3.5 shrink-0 text-muted-foreground transition-transform group-open:rotate-90"
-        />
-      </summary>
-      <div className="space-y-1 pb-2 pl-2 text-sm">
-        {row.facts.map((fact) => (
-          <p key={fact.label} className="leading-relaxed">
-            <span className="text-muted-foreground">{fact.label}: </span>
-            {fact.text}
-          </p>
-        ))}
-        {row.note && <p className="leading-relaxed">{row.note}</p>}
-        {row.sourceLabel && (
-          <p className="text-xs leading-relaxed text-muted-foreground">
-            出典: {row.sourceLabel}
-          </p>
-        )}
-      </div>
-    </details>
+    </div>
   );
 }
 

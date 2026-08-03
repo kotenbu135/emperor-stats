@@ -331,14 +331,13 @@ export interface EmperorEventRow {
    *  西暦に換算されていないもの（元号+旧暦表記）は原文ママ。不明はnull。 */
   dateLabel: string | null;
   /** 1行要約。構造化フィールド優先（親征=対象、反乱=事件名、遷都=旧都→新都、
-   *  その他=noteの先頭一文）。 */
+   *  その他=noteの先頭一文）。
+   *
+   *  **年表の行はこれで終わり**（2026-08-03 ユーザー決定・Issue #69）。以前は行を開くと
+   *  首謀者・結果・note全文・出典を出していたが、note は調査の作業ログで訪問者に
+   *  読ませる文章ではなく、そこに含まれる引用も「原文を読んだ形跡」であって
+   *  配布データが底本に実在すると主張するものではない（線引きは /about）。 */
   summary: string;
-  /** 対象・首謀者・結果など構造化フィールドの内訳（折りたたみ内に表示）。 */
-  facts: { label: string; text: string }[];
-  /** note全文（要約と同一の場合はnull）。 */
-  note: string | null;
-  /** 出典表示ラベル（events[].sourceがあるもののみ）。 */
-  sourceLabel: string | null;
 }
 
 export interface DynastyOption {

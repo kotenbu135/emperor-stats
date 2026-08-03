@@ -1079,28 +1079,17 @@ const EVENT_METRICS: {
 ];
 
 /** 種別ごとの1行要約と構造化フィールドの内訳。 */
-function eventSummaryOf(
-  kind: EmperorEventKind,
-  ev: RawEvent,
-): { summary: string; facts: { label: string; text: string }[] } {
-  const facts: { label: string; text: string }[] = [];
+function eventSummaryOf(kind: EmperorEventKind, ev: RawEvent): string {
   switch (kind) {
     case "personalCampaign":
-      if (ev.target) facts.push({ label: "対象", text: ev.target });
-      if (ev.outcome) facts.push({ label: "結果", text: ev.outcome });
-      return { summary: ev.target ?? "親征", facts };
+      return ev.target ?? "親征";
     case "rebellionSuffered":
-      if (ev.leader) facts.push({ label: "首謀者", text: ev.leader });
-      if (ev.outcome) facts.push({ label: "結果", text: ev.outcome });
-      return {
-        summary: ev.name ?? (ev.leader ? `${ev.leader}の反乱` : "反乱"),
-        facts,
-      };
+      return ev.name ?? (ev.leader ? `${ev.leader}の反乱` : "反乱");
     case "capitalRelocation":
-      return { summary: `${ev.from ?? "?"} → ${ev.to ?? "?"}`, facts };
+      return `${ev.from ?? "?"} → ${ev.to ?? "?"}`;
     default:
       // 改元・大赦・立后・皇太子廃立はnoteの先頭一文を要約に使う。
-      return { summary: firstSentence(ev.note ?? null) ?? "（記録なし）", facts };
+      return firstSentence(ev.note ?? null) ?? "（記録なし）";
   }
 }
 
@@ -1108,6 +1097,12 @@ function eventSummaryOf(
  * 個別ページ用に、7種別のevents[]を日付順にマージして返す。西暦換算されていない
  * 日付（元号表記）・日付不明の出来事はソートできないため、種別順・原文順のまま
  * 末尾にまとめる（sortは安定ソート）。
+ *
+ * **1行＝種別・日付・要約だけを返す**（2026-08-03 ユーザー決定・Issue #69）。
+ * 首謀者・結果・note全文・出典（`source.page`）は返さない。note は調査の作業ログで、
+ * その中の引用は配布データが底本に実在すると主張するものではない（線引きは /about）。
+ * 出典が消えるのは note と同じ理由で、`source.page` が散文＝巻を機械で照合できないため
+ * （書名と巻を欄として持つ `source.bookId`／`volume` へ移す作業は途中）。
  */
 export function getEmperorEvents(id: string): EmperorEventRow[] {
   const e = rawEmperorById.get(id);
@@ -1116,14 +1111,10 @@ export function getEmperorEvents(id: string): EmperorEventRow[] {
   for (const { kind, pick } of EVENT_METRICS) {
     for (const ev of pick(e)?.events ?? []) {
       const { label, sortKey } = eventDateOf(ev);
-      const { summary, facts } = eventSummaryOf(kind, ev);
       rows.push({
         kind,
         dateLabel: label,
-        summary,
-        facts,
-        note: ev.note && ev.note !== summary ? ev.note : null,
-        sourceLabel: ev.source?.page ?? null,
+        summary: eventSummaryOf(kind, ev),
         sortKey,
       });
     }
