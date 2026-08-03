@@ -144,7 +144,15 @@ interface RawEvent {
   date?: string | null;
   startDate?: string | null;
   endDate?: string | null;
-  /** 単一トークン、または開始・終了で精度が異なる場合の {start, end} オブジェクト（reigns[] と同形式）。 */
+  /**
+   * 単一トークン、または開始・終了で精度が異なる場合の {start, end} オブジェクト（reigns[] と同形式）。
+   *
+   * **表示には使わない**（2026-08-03・Issue #69）。`events` の日付は保存値の深さ
+   * そのものが主張（年 `"1211"`・月 `"1211-05"`・日 `"1211-05-07"`）で、
+   * `datePrecision` は「原典が何を言っているか」を記録する別の欄。両方を見て
+   * 浅いほうへ丸めると、原典が年までしか言っていない日付を後から確定できたときに
+   * **確定した値を表示側が黙って捨てる**。
+   */
   datePrecision?: string | { start?: string | null; end?: string | null } | null;
   note?: string | null;
   source?: RawSource | null;
@@ -815,7 +823,9 @@ interface RawReign {
   startDate?: string | null;
   /** 在位の終了日（ISO・天文年）。同時在位数の区間の右端。 */
   endDate?: string | null;
-  /** 日付の精度（"day"/"month"/"year" ほか自由記述。normalizeDatePrecision を通して使う）。 */
+  /** 日付の精度（"day"/"month"/"year" ほか自由記述）。**表示には使わない**（読む箇所は無い）。
+   *  `reigns[]` だけは集計の根なのでフル ISO ＋ `datePrecision` の規約のまま据え置かれており、
+   *  `events`・`ages`（深さ＝主張）とは別の規約であることの目印としてここに残す。 */
   datePrecision?: { start?: string | null; end?: string | null } | null;
   /** 王朝内での即位順(通し番号・復位も別カウント)。未付与の王朝あり。 */
   dynastyOrder?: number | null;
@@ -943,7 +953,7 @@ export function getEmperorNarrative(id: string): EmperorNarrative {
   };
 }
 
-/** clampToPrecision後の年月日をISO 8601形式の文字列に整形する（負の年＝紀元前）。 */
+/** parseEventDateが読み取った年月日をISO 8601形式の文字列に整形する（負の年＝紀元前）。 */
 function isoDateOf(parts: {
   year: number;
   month: number | null;
@@ -961,16 +971,17 @@ function isoDateOf(parts: {
 /**
  * Person構造化データ用の日付整形。ages.birthDate/deathDateがISO風の解析可能な
  * 値の場合のみ返す（"unknown"等の自由記述・null・not_foundはnullを返し捏造しない）。
- * 丸めはイベント日付と同じparseEventDate/normalizeDatePrecision/clampToPrecisionを流用する。
+ * 読み取りはイベント日付と同じparseEventDateを流用する。
+ *
+ * **保存値の深さをそのまま出す**（`ages` も 2026-08-03 に深さ＝主張へ揃えた）。
+ * 年精度の値は "1211"、月精度は "1211-05" のまま返る。schema.org は部分日付を
+ * 認めているので、桁を埋めて日まで在るように見せない。
  */
-function structuredDateOf(
-  raw: string | null | undefined,
-  precisionRaw: string | null | undefined,
-): string | null {
+function structuredDateOf(raw: string | null | undefined): string | null {
   if (!raw) return null;
   const parsed = parseEventDate(raw);
   if (!parsed) return null;
-  return isoDateOf(clampToPrecision(parsed, normalizeDatePrecision(precisionRaw)));
+  return isoDateOf(parsed);
 }
 
 /** 個別ページの構造化データ（Person JSON-LD）用の生年月日・没年月日。idは収録済み前提。 */
@@ -978,37 +989,25 @@ export function getEmperorStructuredDates(id: string): EmperorStructuredDates {
   const e = rawEmperorById.get(id);
   if (!e) throw new Error(`未収録の皇帝idです: ${id}`);
   return {
-    birthDate: structuredDateOf(e.ages?.birthDate, e.ages?.birthDatePrecision),
-    deathDate: structuredDateOf(e.ages?.deathDate, e.ages?.deathDatePrecision),
+    birthDate: structuredDateOf(e.ages?.birthDate),
+    deathDate: structuredDateOf(e.ages?.deathDate),
   };
 }
 
 // ---------------------------------------------------------------------------
 // 在位中の出来事年表（個別ページ）。7種別のevents[]を日付順にマージする。
 
-type DatePrecision = "year" | "month" | "day";
-
 /**
- * datePrecisionの正規化。実データは "day"/"month"/"year" のほかに
- * "day（干支のみ：…、グレゴリオ暦未換算）"・"lunar-month（…）"・"月まで特定" 等の
- * 自由記述が混在するため、接頭辞で判別する。判別できないもの（unknown・和文注記）は
- * 年精度に落とす（date値の月日が01埋めのことがあり、実日付と誤表示しないため）。
+ * **日付は保存値の深さをそのまま出す**（2026-08-03・Issue #69）。
+ *
+ * 以前はここで `datePrecision` を正規化し、それを超える細かさを捨てていた。
+ * 埋め草（`-01-01`）が入っていた時代は、深い値が実日付とは限らなかったためで、
+ * 2026-08-03 の移行で埋め草を廃止し**深さそのものが主張**になったので役目が終わった。
+ * 移行後の実データでは丸めが働く値は**イベント・`ages` とも0件**（保存値の深さは
+ * `datePrecision` 以下であることを `validate_emperors.py` の `check_event_date_format`
+ * ／`check_ages` が保証する）。**残しておくと害のほうが大きい** — 原典が年までしか
+ * 言っていない出来事の日付を別の証人から確定できたとき、表示側が黙って年へ戻す。
  */
-function normalizeDatePrecision(p: string | null | undefined): DatePrecision {
-  if (!p) return "year";
-  if (/^(day|lunar-day|sexagenary-day|year-month-day)/.test(p)) return "day";
-  if (/^(year-month|month|lunar-month)/.test(p)) return "month";
-  return "year";
-}
-
-/** 開始・終了で精度が異なるイベントの {start, end} オブジェクト形式に対応した側別の解決。 */
-function precisionOf(
-  p: RawEvent["datePrecision"],
-  side: "start" | "end",
-): DatePrecision {
-  if (p && typeof p === "object") return normalizeDatePrecision(p[side]);
-  return normalizeDatePrecision(p);
-}
 
 /** "-0202-07-01"・"-0143"・"0627-01" 形式のみ受け付ける（元号表記等はnull）。 */
 const ISO_LIKE_DATE = /^(-?\d{1,4})(?:-(\d{2}))?(?:-(\d{2}))?$/;
@@ -1029,18 +1028,6 @@ function parseEventDate(s: string): EventDateParts | null {
   };
 }
 
-/** datePrecisionを超える細かさを捨てる（月精度なら日を表示しない）。 */
-function clampToPrecision(
-  parts: EventDateParts,
-  precision: DatePrecision,
-): EventDateParts {
-  return {
-    year: parts.year,
-    month: precision === "year" ? null : parts.month,
-    day: precision !== "day" ? null : parts.day,
-  };
-}
-
 function formatEventDate(parts: EventDateParts): string {
   let label = `${formatYear(parts.year)}年`;
   if (parts.month !== null) label += `${parts.month}月`;
@@ -1055,15 +1042,12 @@ function eventDateOf(ev: RawEvent): {
 } {
   const startRaw = ev.date ?? ev.startDate ?? null;
   if (!startRaw) return { label: null, sortKey: null };
-  const start = parseEventDate(startRaw);
-  if (!start) return { label: startRaw, sortKey: null };
-  const s = clampToPrecision(start, precisionOf(ev.datePrecision, "start"));
+  const s = parseEventDate(startRaw);
+  if (!s) return { label: startRaw, sortKey: null };
   let label = formatEventDate(s);
   const end = ev.endDate ? parseEventDate(ev.endDate) : null;
   if (end) {
-    const endLabel = formatEventDate(
-      clampToPrecision(end, precisionOf(ev.datePrecision, "end")),
-    );
+    const endLabel = formatEventDate(end);
     if (endLabel !== label) label = `${label}〜${endLabel}`;
   }
   return {

@@ -325,7 +325,9 @@ export const emperorEventKindLabels: Record<EmperorEventKind, string> = {
 /** 在位中の出来事1件分（lib/emperors.tsのgetEmperorEventsが日付順に整列して返す）。 */
 export interface EmperorEventRow {
   kind: EmperorEventKind;
-  /** 表示用日付。datePrecisionに応じ年/月/日で丸め済み（例: "前202年7月〜前202年9月"）。
+  /** 表示用日付。**保存値の深さをそのまま出す**（年/月/日。例: "前202年7月〜前202年9月"）。
+   *  データ側で「年精度 ＋ 在位境界年の月日」に絞ってあり、深さそのものが主張なので
+   *  表示側で丸め直さない（2026-08-03・Issue #69）。
    *  西暦に換算されていないもの（元号+旧暦表記）は原文ママ。不明はnull。 */
   dateLabel: string | null;
   /** 1行要約。構造化フィールド優先（親征=対象、反乱=事件名、遷都=旧都→新都、
