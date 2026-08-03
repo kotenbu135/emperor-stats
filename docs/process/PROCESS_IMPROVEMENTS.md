@@ -693,3 +693,8 @@
 - **気づいた場面**: Issue #64 で liao-shizong の note に「後漢（劉知遠政権）」と捨てた側の値をラベルとして書いたら、verify_quotes.py --backfill が唯一の未解決ユニットとして落とした。RESEARCH_PROCESS.md 134行は「原文が確認できないときは「」に入れない」と既に書いているが、破ったことが分かるのは書き込んだ後に backfill を回したときで、そこから note を書き直して backfill をやり直す往復が要る。
 - **提案**: 「」で囲んだ span の中に、正史コーパスの本文には出ない文字（かな・全角（）・中黒・算用数字）が1字でも入っていれば、それは引用ではなく日本語のラベルだと機械で断定できる。patch_emperor.py の --dry-run が note 系のパスを書き換えるときにこの検査を出せば、書き込む前に気づける（判定でなく警告でよい。「」の中に和暦の換算メモを入れる既存の書き方があるなら誤検出になるので、まず既存 note で何件当たるかを測ってから強制層を決める）。
 - **採否**: 未提示（ユーザーへ上げていない）
+
+### 2026-08-03 patch_emperor.py のゲート一覧に check_screenings.py を出す条件を足す <!-- auto:68ffb1193712 -->
+- **気づいた場面**: Issue #64 で note と target だけを直したところ、日付パスではないので patch_emperor.py のゲート一覧に check_screenings.py が出ず、push 後の CI が6件で落ちた。絞り込みのバケットは note の中の干支と target の一致で決まるので、日付を1つも触らなくても母集団が動く（beiqi-wuchengdi の note に帰還記事の干支を書き足した2値が A から absent へ・liao-shizong の target を後漢→後周に直したペアが same-target-apart から different-target へ）。
+- **提案**: data/screenings.json の各記録は自分が見るパスを fields で宣言しているので、patch_emperor.py が触ったパスをそれと突き合わせて、掛かるなら check_screenings.py をゲート一覧へ出せる。note・target・outcome は検出器の入力なので、日付パスの条件では拾えない。あわせて、バケットが動いたときに標本が種から引き直されて未監査の id が入る（今回 beiqi-wuchengdi の endDate が入った）ことも一覧の注記に出したい — これは「値を戻す」のではなく「原典で1件監査して記録する」で解く形なので、落ちてから調べると手戻りが大きい。
+- **採否**: 未提示（ユーザーへ上げていない）
