@@ -111,6 +111,18 @@ HINTS = [
      "組み直して原文字列に戻ることを validate_emperors.py が見る（**括弧ごと消す形の欠落は"
      "これだけが落とす**）。表示名が変わる政権（遼・元）では name-readings.json・"
      "kana-readings.ts の追記が要る"),
+    (re.compile(r"^name\.courtesyName"),
+     "python3 scripts/verify_quotes.py --check-courtesy-names",
+     "字は本人の原文で「字〈値〉」と隣り合うことまで見るゲートが要る（R-CLAIM-GATED・"
+     "Issue #37 単位4）。**値だけを本文に探す形では実在検査にならず、小字を字の欄へ"
+     "入れた取り違えが素通りする**（遼太祖は「字阿保機，小字啜里只」で両方を持つ）。"
+     "サイトの名前チップに出るので data/name-readings.json への追記も要る"),
+    (re.compile(r"^name\.childhoodName"),
+     "python3 scripts/verify_quotes.py --check-childhood-names",
+     "幼名（小字）は本人の原文で「小字〈値〉」と隣り合うことまで見る（R-CLAIM-GATED・"
+     "Issue #37 単位5）。**民族名と同じ値でも誤りではない**（金章宗の麻達葛は女真名かつ"
+     "小字）ので、validate_emperors.py の分離検査は字の欄と非対称になっている。"
+     "サイトの名前チップに出るので data/name-readings.json への追記も要る"),
     # events 要素そのものを足す・置き換えるときだけ（葉の note・date の編集では鳴らさない）
     (re.compile(r"^\w+Count\.events\[\d+\]$"),
      "python3 scripts/migrations/bake_event_ids.py --fill",

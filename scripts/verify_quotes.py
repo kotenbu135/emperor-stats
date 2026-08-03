@@ -1231,6 +1231,69 @@ def cmd_check_courtesy_names():
     return 1 if bad else 0
 
 
+# 底本側の事情で当たらない人物と理由（現在なし・仕組みは COURTESY_ALLOW と同じ）。
+CHILDHOOD_ALLOW = {}
+
+
+def childhood_hit(value, hay):
+    """幼名が本人の原文に**定型で**在るか。当たった前後を返す（無ければ None）。
+
+    見るのは「小字〈値〉」という並び。字のゲートCと違って直前の1字を見ない
+    （「小字」の2字がそれ自体で名乗りの種類を決めており、他の名乗りの後半に来ない）。
+    """
+    v = norm_for_match(value)
+    if not v:
+        return None
+    needle = "小字" + v
+    i = hay.find(needle)
+    return hay[max(0, i - 8):i + len(needle) + 6] if i != -1 else None
+
+
+def cmd_check_childhood_names():
+    """幼名 `name.childhoodName` が本人の原文キャッシュに定型で在るか（ゲートC）。
+
+    見るのは「小字〈値〉」という並び。字のゲートCと違って**直前の1字を見る必要が無い**
+    （「小字」の2字がそれ自体で名乗りの種類を決めており、他の名乗りの後半に来ない）。
+
+    **この隣接を要求する代償**として、動詞をはさむ書き方は入れられない。南漢の劉玢は
+    高祖の遺言が「呼洪度、洪熙小字曰：『寿、俊虽长…』」で、読めば小字が「寿」だと
+    分かるが「小字寿」の並びにはならない（残量表の行・絞り込みの nodelim バケット）。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    checked = ok = bad = 0
+    skipped = []
+    allowed = []
+    for e in data["emperors"]:
+        value = (e.get("name") or {}).get("childhoodName")
+        if not value:
+            continue
+        cache = CORPUS_ROOT / "_corpus_cache" / f"{e['id']}.txt"
+        if not cache.is_file():
+            skipped.append(e["id"])
+            continue
+        checked += 1
+        hay = norm_for_match(cache.read_text(encoding="utf-8"))
+        if childhood_hit(value, hay):
+            ok += 1
+            if e["id"] in CHILDHOOD_ALLOW:
+                print(f"NOTICE {e['id']}: 免除に挙げてあるが当たった（免除を消せる）")
+            continue
+        if e["id"] in CHILDHOOD_ALLOW:
+            allowed.append(e["id"])
+            continue
+        bad += 1
+        print(f"ERROR {e['id']}: 幼名「{value}」が本人の原文キャッシュに"
+              f"「小字{value}」の形で現れない（値だけが在っても定型でなければ"
+              f"小字の証拠にならない）")
+    if skipped:
+        print(f"NOTICE 原文キャッシュが無いため未照合: {len(skipped)}人 {skipped}")
+    for eid in allowed:
+        print(f"NOTICE {eid}: 底本側の事情で免除 — {CHILDHOOD_ALLOW[eid]}")
+    print(f"---\n{bad} errors / childhoodName を持つ {checked}人のうち "
+          f"{ok}人が本人の原文に「小字〈値〉」の形で実在（免除 {len(allowed)}人）")
+    return 1 if bad else 0
+
+
 def _iter_units_for_volumes(data):
     """validate_emperors の走査をそのまま使う（容器の列挙を2箇所に書かない）。"""
     import importlib.util
@@ -1548,6 +1611,9 @@ def main():
                     help="name.courtesyName を本人の原文キャッシュに当てる"
                          "（Issue #37 単位4・要コーパス。「字〈値〉」の隣接まで見るので"
                          "小字を字の欄へ入れた形はここで落ちる）")
+    ap.add_argument("--check-childhood-names", action="store_true",
+                    help="name.childhoodName を本人の原文キャッシュに当てる"
+                         "（Issue #37 単位5・要コーパス。「小字〈値〉」の隣接まで見る）")
     ap.add_argument("--rebuild", action="store_true",
                     help="--backfill と併用。照合器を変えたとき機械判定を作り直す"
                          "（manual/external/defect の curation は残す）")
@@ -1586,6 +1652,8 @@ def main():
         return cmd_check_ethnic_names()
     if args.check_courtesy_names:
         return cmd_check_courtesy_names()
+    if args.check_childhood_names:
+        return cmd_check_childhood_names()
     if args.backfill:
         return cmd_backfill(rebuild=args.rebuild, retry_unresolved=args.retry_unresolved)
     return cmd_check()

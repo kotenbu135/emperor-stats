@@ -190,6 +190,12 @@ interface RawEmperor {
      *  `lib/data-source.ts` が `meta.catalogs.ethnicNameKinds` から解決済み。
      *  持つのは30人で、**無いのは「民族名が無い」の意**（2026-08-03 に移行完了）。 */
     ethnicName?: EthnicName;
+    /** 字（Issue #37 単位4・92人）。**無いのは「字が無い」ではない**
+     *  （唐以降の帝紀は冒頭定型に字を書かない）。 */
+    courtesyName?: string;
+    /** 幼名＝原文の「小字」（Issue #37 単位5・30人）。同じく**無いのは
+     *  「小字が無い」ではない**（載せる書が字よりさらに少ない）。 */
+    childhoodName?: string;
   };
   /** lib/data-source.ts が v3 の regimeId・researchSection から組み立てる
    *  （name＝国号・section＝調査ブロック名・category＝政権の性格）。 */
@@ -629,6 +635,8 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     commonName: e.name.commonName ?? "",
     personalName: e.name.personalName,
     ethnicName: e.name.ethnicName ?? null,
+    courtesyName: e.name.courtesyName ?? null,
+    childhoodName: e.name.childhoodName ?? null,
     templeName: e.name.templeName,
     posthumousName: e.name.posthumousName,
     aliases: e.name.aliases ?? [],

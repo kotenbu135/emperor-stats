@@ -32225,7 +32225,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "childhoodName": "直獖"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "hexia",
@@ -36874,7 +36875,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "childhoodName": "車兵"
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -37089,7 +37091,8 @@
     "aliases": [],
     "posthumousName": "文帝",
     "templeName": "太祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "childhoodName": "車児"
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -37668,7 +37671,8 @@
     "posthumousName": "孝武帝",
     "templeName": "世祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "休龍"
+    "courtesyName": "休龍",
+    "childhoodName": "道民"
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -38105,7 +38109,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "childhoodName": "法師"
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -38337,7 +38342,8 @@
     "posthumousName": "明帝",
     "templeName": "太宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "休炳"
+    "courtesyName": "休炳",
+    "childhoodName": "栄期"
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -38717,7 +38723,8 @@
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "徳融"
+    "courtesyName": "徳融",
+    "childhoodName": "慧震"
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -39025,7 +39032,8 @@
     "posthumousName": "順帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "仲謀"
+    "courtesyName": "仲謀",
+    "childhoodName": "智観"
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -40980,7 +40988,8 @@
     "posthumousName": "武帝",
     "templeName": "高祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "叔達"
+    "courtesyName": "叔達",
+    "childhoodName": "練児"
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",
@@ -41707,7 +41716,8 @@
     "posthumousName": "簡文帝",
     "templeName": "太宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "世纘"
+    "courtesyName": "世纘",
+    "childhoodName": "六通"
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",
@@ -42121,7 +42131,8 @@
     "posthumousName": "元帝",
     "templeName": "世祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "世誠"
+    "courtesyName": "世誠",
+    "childhoodName": "七符"
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",
@@ -42360,7 +42371,8 @@
     "posthumousName": "敬帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "慧相"
+    "courtesyName": "慧相",
+    "childhoodName": "法真"
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",
@@ -43879,7 +43891,8 @@
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "奉業"
+    "courtesyName": "奉業",
+    "childhoodName": "薬王"
    },
    "eraId": "northern-southern",
    "regimeId": "chen",
@@ -44126,7 +44139,8 @@
     "posthumousName": "宣帝",
     "templeName": "高宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "紹世"
+    "courtesyName": "紹世",
+    "childhoodName": "師利"
    },
    "eraId": "northern-southern",
    "regimeId": "chen",
@@ -44416,7 +44430,8 @@
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "元秀"
+    "courtesyName": "元秀",
+    "childhoodName": "黄奴"
    },
    "eraId": "northern-southern",
    "regimeId": "chen",
@@ -58567,7 +58582,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": "世祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "childhoodName": "阿摐"
    },
    "eraId": "sui-tang",
    "regimeId": "sui",
@@ -74860,7 +74876,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "childhoodName": "菩薩奴"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-tang",
@@ -75063,7 +75080,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "childhoodName": "二十三"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-tang",
@@ -91483,7 +91501,8 @@
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "阿保機"
+    "courtesyName": "阿保機",
+    "childhoodName": "啜里只"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -91973,7 +91992,8 @@
      "kind": "khitan",
      "value": "耶律堯骨"
     },
-    "courtesyName": "徳謹"
+    "courtesyName": "徳謹",
+    "childhoodName": "堯骨"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -92299,7 +92319,8 @@
     "ethnicName": {
      "kind": "khitan",
      "value": "耶律兀欲"
-    }
+    },
+    "childhoodName": "兀欲"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -92534,7 +92555,8 @@
     "ethnicName": {
      "kind": "khitan",
      "value": "耶律述律"
-    }
+    },
+    "childhoodName": "述律"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -92751,7 +92773,8 @@
      "kind": "khitan",
      "value": "耶律明扆"
     },
-    "courtesyName": "賢寧"
+    "courtesyName": "賢寧",
+    "childhoodName": "明扆"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -93028,7 +93051,8 @@
     "ethnicName": {
      "kind": "khitan",
      "value": "耶律文殊奴"
-    }
+    },
+    "childhoodName": "文殊奴"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -93563,7 +93587,8 @@
      "kind": "khitan",
      "value": "耶律只骨"
     },
-    "courtesyName": "夷不堇"
+    "courtesyName": "夷不堇",
+    "childhoodName": "只骨"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -93909,7 +93934,8 @@
      "kind": "khitan",
      "value": "耶律査剌"
     },
-    "courtesyName": "涅隣"
+    "courtesyName": "涅隣",
+    "childhoodName": "査剌"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -94337,7 +94363,8 @@
      "kind": "khitan",
      "value": "耶律阿果"
     },
-    "courtesyName": "延寧"
+    "courtesyName": "延寧",
+    "childhoodName": "阿果"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -97093,7 +97120,8 @@
     "ethnicName": {
      "kind": "jurchen",
      "value": "麻達葛"
-    }
+    },
+    "childhoodName": "麻達葛"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -97370,7 +97398,8 @@
     "ethnicName": {
      "kind": "jurchen",
      "value": "興勝"
-    }
+    },
+    "childhoodName": "興勝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -114691,7 +114720,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "childhoodName": "長寿"
    },
    "personalCampaignCount": {
     "count": 1,

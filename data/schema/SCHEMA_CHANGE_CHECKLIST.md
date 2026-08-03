@@ -57,6 +57,8 @@ Issue #69 で洗ったところ、再調査が終わらなくなった系統は*
 | （同上・底本照合） | **漢字側**（契丹名・女真名は `value`／モンゴル語名・満洲語名は相手側 `personalName`）が本人の原文に在る。**カナは原典に無いので照合の外** | `verify_quotes.py::cmd_check_ethnic_names` | `test_ethnic_name.py` |
 | `name.courtesyName` | この人物の字は値のとおりである（**任意・遡及しない** — 欄が無いのは「字が無い」ではなく、唐以降の帝紀が冒頭定型に字を書かないことと未読を含む。機械が何も見つけなかった248人の取りこぼし率は 17%と実測） | `validate_emperors.py::check_courtesy_names` | `test_courtesy_name.py` |
 | （同上・底本照合） | その字が**本人の原文に「字〈値〉」の形で**在る。**隣接まで見る**ので、小字（幼名）を字の欄へ入れた形はここで落ちる | `verify_quotes.py::cmd_check_courtesy_names` | `test_courtesy_name.py` |
+| `name.childhoodName` | この人物の幼名（原文の語は「小字」）は値のとおりである（**任意・遡及しない** — 欄が無いのは「小字が無い」ではない。小字を冒頭定型に載せる書が字よりさらに少なく30人で止まる。**民族名と同値でも誤りではない**ので分離検査は字の欄と非対称） | `validate_emperors.py::check_childhood_names` | `test_childhood_name.py` |
+| （同上・底本照合） | その幼名が**本人の原文に「小字〈値〉」の形で**在る。**隣接を要求する代償**として、動詞をはさむ書き方（南漢劉玢の「小字曰：寿」）は欄に入れられない | `verify_quotes.py::cmd_check_childhood_names` | `test_childhood_name.py` |
 | `source.bookId`／`volume` | 出典はこの書のこの巻（カタログに実在し、巻の索引を持つ書だけ） | `validate_emperors.py::check_quote_containers` | `test_quote_containers.py` |
 | （同上・実体照合） | 名乗る巻がコーパスに実在し、引用が**その巻の中**に在る | `verify_quotes.py::cmd_check_volumes` | `test_quote_containers.py` |
 | `quotes[]` | この断片が底本に実在する（`bookId` ＋ 任意の `volume` を持つ） | `verify_quotes.py::cmd_check` | `test_quote_containers.py` |
