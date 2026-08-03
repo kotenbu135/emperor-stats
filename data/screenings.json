@@ -315,12 +315,12 @@
       ],
       "script": "scripts/screens/lunar_date_as_iso.py",
       "population": "すべての count グループの events のうち、date / startDate / endDate が**日精度**（datePrecision が day）で**記録されている**フィールド。2026-08-03（Issue #69）に主張範囲を絞ってからは、配布物の値が年へ丸まっていても data/internal/event-date-archive.json の退避値を戻して数える（**記録に対する検出器**であって、配布物が主張する日付だけを見る道具ではない）。同日に走査の穴を1つ塞いだ — COUNT_GROUPS に存在しない容器名 crownPrinceChangeCount が入っており、皇太子廃立の34 events・日精度15値が母集団から黙って外れていた（母集団 1,336 → 1,351 の増分はこれ）",
-      "n": 1351,
+      "n": 1349,
       "buckets": [
         {
           "name": "ganzhi-mismatch",
           "kind": "read",
-          "count": 25,
+          "count": 23,
           "means": "event の name/outcome/note に干支が1つ以上書かれているのに、ISO 日付の干支がそのどれとも一致しない。干支は日の絶対的な鍵なので換算の食い違いの強い候補になる。**着手時（2026-08-03）は92件で、原典に当て直して訂正した結果ここまで減った**。残る25件は、書かれている干支が年干支・事件名（戊戌政変・辛亥革命）だったり、同じ段の別の記事の干支だったりして、そもそも日の witness になっていないもの"
         },
         {
