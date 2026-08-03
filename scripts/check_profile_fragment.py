@@ -44,7 +44,7 @@ RUBY = re.compile(r"｜([^｜《》]+)《([^｜《》]+)》")
 KANJI = re.compile(r"[㐀-鿿豈-﫿]|[\U00020000-\U0003ffff]")
 
 # scripts/validate_profiles.py の LEAD_MIN/BODY_MAX と同じ値。片方だけ変えないこと。
-LIMITS = {"lead": (70, 260), "body": (100, 2200), "description": (100, 140)}
+LIMITS = {"lead": (70, 260), "body": (100, 2400), "description": (100, 140)}
 
 EMPERORS = ROOT / "data" / "emperors.json"
 

@@ -16,7 +16,7 @@
 - **通説と史書の食い違いを本文に書く**（紹介文が要約サイトと違う価値を持つのはここだけ）
 - **`lead` は「概要」・`body` は節見出し（`## `）つきの時系列**（字数の上限も上がりました）
 
-見本は `data/emperor-profiles.json` の `qin-shi-huang` と `qin-er-shi`（2026-08-04 承認）です。
+見本は `data/emperor-profiles.json` の `qin-shi-huang`（ユーザー承認）と `qin-er-shi`（同じ手順で執筆）です。
 **書き始める前にこの2本を読んでください。**
 
 ## 4段
