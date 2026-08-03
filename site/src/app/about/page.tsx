@@ -41,6 +41,7 @@ import {
   getOverviewStats,
 } from "@/lib/emperors";
 import { BASE_PATH } from "@/lib/base-path";
+import { quoteVerificationStats } from "@/lib/quote-verification";
 import { VIDEO_CHANNEL } from "@/lib/video-channel";
 import { buildMetadata, datasetJsonLd, JsonLd, OPERATOR } from "@/lib/seo";
 
@@ -480,6 +481,37 @@ export default function AboutPage() {
             名の全員について、在位の開始日・終了日は正史原文の該当箇所を引用したうえで暦換算の計算過程まで記録しています。死因と即位の経緯には判定の根拠を述べた調査メモと出典（書名・巻）を、改元・大赦・親征などの回数系8項目には数え方と判定根拠を記した調査メモを付けています（回数系は出典欄を独立させておらず、典拠にした書名・巻は調査メモの本文に記しています）。死因と即位の経緯はサイトの各皇帝の個別ページで読め、これらすべては
             <A href={`${BASE_PATH}/data/emperors.json`}>配布データ</A>
             に収録しています。集計結果に疑問があれば、根拠にした原文まで遡って確かめられます。
+          </p>
+          {/* 引用の全件照合（GitHub Issue #38）を完走しないと決めた（2026-08-03）。
+              取り下げを黙って行わないための節で、件数は data/quote-refs.json から
+              引く（直書きすると台帳が動いたときに説明のほうが嘘になる）。 */}
+          <p>
+            ただし、<strong>引用のうち底本と機械で突き合わせているのは</strong>、
+            {quoteVerificationStats.total.toLocaleString()}件中
+            <strong>
+              {quoteVerificationStats.verified.toLocaleString()}件です
+            </strong>
+            （底本は下の免責事項に挙げた公開コーパス）。残りは、人が個別に確認したもの
+            {quoteVerificationStats.manual}件、手元の底本に無い資料からの引用
+            {quoteVerificationStats.external}件、そして
+            <strong>
+              底本で該当箇所を確認できていないもの
+              {quoteVerificationStats.unresolved}件
+            </strong>
+            です。確認できていない分は、引用の切り方・字体・版の違いによるものと見られ、誤りと確定したものではありません。値は削除しておらず、確認できたことにもしていません。
+          </p>
+          <p>
+            この{quoteVerificationStats.unresolved}
+            件をゼロにすることは目指していません。データが「底本のこの巻に実在する」と主張するのは、書名と巻をデータの欄として持つ引用（機械で巻まで照合できる形）に限り、調査メモの本文の中に書かれている引用は
+            <strong>原文を読んだ形跡</strong>
+            として残す、という線引きに改めたためです。確かめられる範囲を超えて主張しないという点で、上の「出来事の日付」と同じ考え方です。引用をこの形へ移す作業は途中で、残りの件数は
+            <A
+              href={`${OPERATOR.repoUrl}/blob/main/docs/process/RESIDUAL.md`}
+              external
+            >
+              リポジトリの残量表
+            </A>
+            に記録しています。
           </p>
           <p>
             ソースコード・データの変更履歴・調査手順の記録は
