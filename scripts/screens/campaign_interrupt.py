@@ -19,7 +19,11 @@
    │                       1か月未満。**この条項で count が動きうる唯一の形**。kind=read
    ├ same-target-apart   … 相手が同じで間隔が1か月以上。「年を空けて再度出征」側に
    │                       落ちるので count は動かない。kind=corroborated
-   ├ same-target-unknown … 相手は同じだが、記録が年精度どまりで間隔が読めない。kind=read
+   ├ same-target-unknown … 相手は同じだが、間隔が読めない。**年精度の埋め草をここへ落とす**
+   │                       のが肝で、`datePrecision` が year のイベントは
+   │                       `0390-01-01`／`0390-12-31` という**両端が年の輪郭**の値を持つため、
+   │                       月として引き算すると「1か月で再出発した」ように見える。
+   │                       埋め草は witness ではないので、間隔は測れていない。kind=read
    └ different-target    … 相手キーが違う。表記の揺れで同一相手を取りこぼしている
                            可能性は**未測定**なので、absent とは名乗らない。kind=read
 
@@ -68,6 +72,14 @@ def target_key(t):
     return re.split(r"[（(・、]", t)[0].strip() or t
 
 
+def precision(ev, side):
+    """`datePrecision` は文字列と {start,end} の2形式がある（campaign_span.py と同じ）。"""
+    dp = ev.get("datePrecision")
+    if isinstance(dp, dict):
+        return dp.get(side)
+    return dp
+
+
 def month_index(s):
     """`YYYY-MM…` を通し月に。年精度どまり（`YYYY`）は None。"""
     if not s:
@@ -103,9 +115,13 @@ def run():
             if target_key(a.get("target")) != target_key(b.get("target")):
                 pairs[key] = ("different-target", None)
                 continue
+            # 年精度のイベントは両端に年の輪郭（-01-01／-12-31）が入っており、
+            # 月として引くと測っていない間隔が出てしまう。**埋め草は witness ではない**
+            measurable = (precision(a, "end") in ("month", "day")
+                          and precision(b, "start") in ("month", "day"))
             end = month_index(recorded_dates(a, archive).get("endDate"))
             start = month_index(recorded_dates(b, archive).get("startDate"))
-            if end is None or start is None:
+            if not measurable or end is None or start is None:
                 pairs[key] = ("same-target-unknown", None)
             elif start - end < 1:
                 pairs[key] = ("same-target-close", start - end)
