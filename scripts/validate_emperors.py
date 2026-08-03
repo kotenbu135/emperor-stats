@@ -62,7 +62,9 @@ SCHEMA_PATH = ROOT / "data" / "schema" / "emperors.schema.json"
 PORTRAITS_DIR = ROOT / "data" / "images" / "portraits"
 
 sys.path.insert(0, str(ROOT / "scripts"))
+import hanzi_norm  # noqa: E402
 from detect_wikipedia_sources import is_wiki_like  # noqa: E402
+from hanzi_norm import norm_for_match  # noqa: E402
 from event_date_scope import (  # noqa: E402
     ARCHIVE_PATH, boundary_years, depth_of, is_boundary_event,
 )
@@ -981,6 +983,107 @@ def check_event_date_format(data):
                         )
 
 
+# --- 元号名（Issue #37 単位2・2026-08-03 新設）--------------------------------
+# 主張は「**この改元 event が建てた元号の名は eraName である**」。
+# 転記は原典を読む作業で一度に終わらないので、条件（全 event が eraName を持つ）は
+# **強制しない**。ここが強制するのは形と根拠と**ラチェット**だけで、不足は
+# docs/process/RESIDUAL.md の行として持つ（SCHEMA_CHANGE_CHECKLIST.md 手順5）。
+#
+# **eraName が空であることは「元号が無い」ではない。** 前漢初期のように元号制以前で
+# 名前そのものが無い改元と、まだ読んでいない改元の両方が空になる。埋め草を書かせると
+# R-DATE-CLAIM-SCOPE が日付で捨てた形をここで作り直すので、任意のままにしてある。
+ERA_NAME_BASELINE = 5
+
+# 元号の名だけを書く欄なので、記事の一節を丸ごと入れた形（「改元康熙」「為天啓元年」）を弾く。
+ERA_NAME_FORBIDDEN = ("元年", "改元", "建元", "年号", "年號", "改號", "改号")
+ERA_NAME_RE = re.compile(r"^[㐀-鿿]{2,4}$")
+
+
+def check_era_names(data):
+    """改元 event の元号名 eraName / eraNameRaw（Issue #37 単位2）。
+
+    A 形         … 漢字2〜4字・記事の語を含まない
+    B 再演       … eraNameRaw があるとき norm_for_match(eraName) == norm_for_match(eraNameRaw)。
+                    **「表示の字体を勝手に作った」を落とす**
+    C 根拠       … norm_for_match(eraName) が同じ event の note・quotes・dateRaw の
+                    正規化本文に在る
+    E ラチェット … eraName を持つ改元 event の数が基準線を下回ったら落ちる
+
+    **C は「建てた側」と「捨てた側」を区別しない。** 「章武から建興へ改元」の note では
+    章武（捨てた側）を入れても C は通る。区別できるのは改元アンカーと同じ行を見る
+    verify_quotes.py --check-era-names（ゲートD）だけで、C はそこまでは言っていない
+    （scripts/test_era_name.py にこの限界を測るケースを置いてある）。
+    """
+    total = named = 0
+    can_norm = hanzi_norm._T2S is not None
+    for e in data["emperors"]:
+        for g in COUNT_GROUPS:
+            o = e.get(g)
+            if not isinstance(o, dict):
+                continue
+            for i, ev in enumerate(o.get("events") or []):
+                if not isinstance(ev, dict):
+                    continue
+                if g == "eraChangeCount":
+                    total += 1
+                name, raw = ev.get("eraName"), ev.get("eraNameRaw")
+                if name is None and raw is None:
+                    continue
+                where = ev.get("id") or f"{e['id']}.{g}[{i}]"
+                # 型で禁じている（eraChangeCountObject を別定義にした）が、
+                # 合成レコードでも同じ判定が要るのでここでも見る
+                if g != "eraChangeCount":
+                    err(f"[era-name] {where}: eraName を持てるのは改元 event だけ")
+                    continue
+                if name is None:
+                    err(f"[era-name] {where}: eraNameRaw だけがあり eraName が無い"
+                        f"（底本の字体は新字体の側と対で持つ）")
+                    continue
+                # A 形
+                ok = True
+                for label, v in (("eraName", name), ("eraNameRaw", raw)):
+                    if v is None:
+                        continue
+                    if not isinstance(v, str) or not ERA_NAME_RE.match(v):
+                        err(f"[era-name] {where}.{label}: 漢字2〜4字でない {str(v)[:40]!r}")
+                        ok = ok and label != "eraName"
+                        continue
+                    bad = [w for w in ERA_NAME_FORBIDDEN if w in v]
+                    if bad:
+                        err(f"[era-name] {where}.{label}: 記事の語 {'／'.join(bad)} を含む"
+                            f"（元号の名だけを書く）: {v!r}")
+                        ok = ok and label != "eraName"
+                if not ok:
+                    continue
+                named += 1
+                if not can_norm:
+                    continue
+                key = norm_for_match(name)
+                # B 新字体変換の再演
+                if isinstance(raw, str) and ERA_NAME_RE.match(raw) and norm_for_match(raw) != key:
+                    err(f"[era-name] {where}: eraName {name!r} と eraNameRaw {raw!r} が"
+                        f"別の元号（新字体への書き換えが再演できない）")
+                # C 同じ event の中に根拠がある
+                hay = [ev.get("note") or "", ev.get("dateRaw") or ""]
+                for q in ev.get("quotes") or []:
+                    if isinstance(q, dict):
+                        hay.append(q.get("text") or "")
+                if key not in norm_for_match("　".join(hay)):
+                    err(f"[era-name] {where}: eraName {name!r} が同じ event の note・quotes に"
+                        f"見当たらない（原典を読んで根拠と一緒に入れる）")
+    if not can_norm:
+        warn("[era-name] opencc が無いため B（字体の再演）と C（note に根拠がある）を"
+             "評価していない。形とラチェットだけが掛かっている")
+    info(f"[era-name] 改元 event {total}件のうち eraName を持つのは {named}件"
+         f"（基準線 {ERA_NAME_BASELINE}・残りは docs/process/RESIDUAL.md の行）")
+    # E ラチェット。**条件は強制していない**（転記は別段）ので、減らないことだけを見る
+    if named < ERA_NAME_BASELINE:
+        err(f"[era-name] eraName を持つ改元 event が {named}件で基準線 "
+            f"{ERA_NAME_BASELINE} を下回った（転記を消した／ERA_NAME_BASELINE を"
+            f"下げるなら理由を書く）")
+    return total, named
+
+
 # --- claim（主張）欄 ---------------------------------------------------------
 # note は**作業ログ**で、訂正の経緯として「現行 X → Y に訂正」のように**捨てた側の値**が
 # 本文に残る。だからフィールドとの突合は向きが反転し、散文は witness にならない
@@ -1798,6 +1901,7 @@ def main() -> int:
     check_confidence(data)
     death_event_n = check_death_event_date(data)
     check_event_date_format(data)
+    era_total_n, era_named_n = check_era_names(data)
     archive_n = check_event_date_archive(data)
     claimed_n, witnessed_n = check_event_date_claim_residual(data)
     floor, legacy_quote_n, floor_total_n = check_quote_containers(data)
@@ -1837,6 +1941,7 @@ def main() -> int:
           f"／退避した月日 {archive_n}値を配布物と照合"
           f"／月日を主張する event {claimed_n}件のうち *Raw＋conversion を持つのは "
           f"{witnessed_n}件"
+          f"／改元 event {era_total_n}件のうち eraName を持つのは {era_named_n}件"
           f"／構造化引用を持つ床の容器 {sum(floor.values())}/{floor_total_n}件"
           f"（旧い器 source.quote は {legacy_quote_n}件）)")
     return 1 if errors else 0

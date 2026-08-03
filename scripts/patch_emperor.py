@@ -97,6 +97,12 @@ HINTS = [
      "月日を書けるのは**在位の境界年**に在る event だけ。境界年の外に月日を書くと "
      "validate_emperors.py が落ちる。その event が data/internal/event-date-archive.json に"
      "在るなら、**アーカイブ側の値も同じタイミングで直すか消す**（配布物の値は退避値の接頭辞）"),
+    (re.compile(r"^eraChangeCount\.events\[\d+\]\.eraName"),
+     "python3 scripts/verify_quotes.py --check-era-names",
+     "元号名は**建てた側**を書く欄（R-CLAIM-GATED・Issue #37 単位2）。"
+     "validate_emperors.py の C（同じ event の note に在る）は捨てた側の元号でも通るので、"
+     "**建てたことの証人はこのゲートだけ**（本人の原文キャッシュで改元の定型句と隣り合うかを見る）。"
+     "底本の字体が hanzi_norm の変換で出てこないときだけ `eraNameRaw` も併記する"),
     # events 要素そのものを足す・置き換えるときだけ（葉の note・date の編集では鳴らさない）
     (re.compile(r"^\w+Count\.events\[\d+\]$"),
      "python3 scripts/migrations/bake_event_ids.py --fill",

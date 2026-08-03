@@ -166,6 +166,9 @@ interface RawEvent {
   /** 遷都のみ。 */
   from?: string | null;
   to?: string | null;
+  /** 改元のみ。この改元が**建てた**元号の名（Issue #37 単位2・2026-08-03 新設）。
+   *  **任意・転記の途中**なので、無いことは「元号が無い」ではない。 */
+  eraName?: string | null;
 }
 
 interface RawCount {
@@ -436,9 +439,15 @@ function displayName(e: RawEmperor): string {
   return toNakaguro(emperorDisplayName(e.id, raw, e.regimeId));
 }
 
-/** 皇帝一覧の検索対象文字列。各種名称・別名・王朝名・時代を連結する。
+/** 皇帝一覧の検索対象文字列。各種名称・別名・元号・王朝名・時代を連結する。
  *  **表示名も入れる** — 括弧を落とした形（「後廃帝（安定王）元朗」→「後廃帝元朗」）は
- *  データのどのフィールドとも一致しないため、入れないと見えている名前で引けない。 */
+ *  データのどのフィールドとも一致しないため、入れないと見えている名前で引けない。
+ *
+ *  **元号は改元 event の `eraName` から入れる**（Issue #35 の回収・2026-08-03）。
+ *  `commonName` を政権名から人物名へ直したとき、括弧の中にしか無かった元号
+ *  （義嘉・正平・天正・天成・天啓）が検索から落ちた。`aliases` へ逃がすと
+ *  個別ページで「別称」チップとして出て名前の種類が合わないので、この欄で受ける。
+ *  **転記は途中**（681件中5件）なので、元号で引ける皇帝は転記が進んだぶんだけ増える。 */
 function searchTextOf(e: RawEmperor, dynastyLabelText: string, era: string): string {
   return [
     displayName(e),
@@ -447,6 +456,7 @@ function searchTextOf(e: RawEmperor, dynastyLabelText: string, era: string): str
     e.name.templeName,
     e.name.posthumousName,
     ...(e.name.aliases ?? []),
+    ...(e.eraChangeCount?.events ?? []).map((ev) => ev.eraName),
     e.dynasty.name,
     dynastyLabelText,
     era,

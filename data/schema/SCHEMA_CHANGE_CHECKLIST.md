@@ -49,6 +49,9 @@ Issue #69 で洗ったところ、再調査が終わらなくなった系統は*
 | `events[].id` | 添字が動いても同じ event を指す（外部参照の宛先） | `validate_emperors.py::check_event_ids` | `test_event_ids.py` |
 | `ages.birthDate`／`deathDate` | 生没日。深さそのものが主張（深さ ≤ precision） | `validate_emperors.py::check_ages` | `test_date_claim_scope.py` |
 | `reigns[].dynastyOrder` | 第N代である／**調べた上で歴代に数えない**（`null`）。欄が無い＝政権ごと未調査 | `validate_emperors.py::check_dynasty_order` | `test_date_claim_scope.py` |
+| `eraChangeCount[].events[].eraName` | **この改元 event が建てた元号の名**（日本語の新字体。**任意** — 前漢初期のように元号制以前で名前が無い改元があり、空は「まだ読んでいない」も含む） | `validate_emperors.py::check_era_names` | `test_era_name.py` |
+| （同上・底本照合） | その元号名が**本人の原文に改元の定型句と隣り合って**在る（＝捨てた側の元号ではない） | `verify_quotes.py::cmd_check_era_names` | `test_era_name.py` |
+| `eraChangeCount[].events[].eraNameRaw` | 底本の字体（**任意** — `hanzi_norm` の変換で出てこないときだけ書く。opencc で機械的に出る形は導出値であって主張ではない） | `validate_emperors.py::check_era_names` | `test_era_name.py` |
 | `source.bookId`／`volume` | 出典はこの書のこの巻（カタログに実在し、巻の索引を持つ書だけ） | `validate_emperors.py::check_quote_containers` | `test_quote_containers.py` |
 | （同上・実体照合） | 名乗る巻がコーパスに実在し、引用が**その巻の中**に在る | `verify_quotes.py::cmd_check_volumes` | `test_quote_containers.py` |
 | `quotes[]` | この断片が底本に実在する（`bookId` ＋ 任意の `volume` を持つ） | `verify_quotes.py::cmd_check` | `test_quote_containers.py` |

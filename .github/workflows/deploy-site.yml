@@ -33,7 +33,9 @@ jobs:
 
       - name: Validate emperors.json (deploy gate)
         run: |
-          pip install jsonschema
+          # opencc は元号名ゲート（check_era_names の B・C）が正規化に使う。
+          # 無いと新字体と底本の字体が別文字列のままになり、検査が黙って外れる
+          pip install jsonschema opencc-python-reimplemented
           python3 scripts/validate_emperors.py
           python3 scripts/validate_readings.py
           python3 scripts/validate_profiles.py
