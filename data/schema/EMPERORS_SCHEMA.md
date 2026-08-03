@@ -77,7 +77,7 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 ### `name`
 | フィールド | 型 | 内容 |
 |---|---|---|
-| `personalName` | string \| null | 諱（本名） |
+| `personalName` | string \| null | **姓＋諱**（「劉邦」「司馬紹」）。諱そのものは姓を含まない名の部分だが、この欄は姓を付けた形で保存する（2026-08-03 ユーザー決定・Issue #37）。**姓と諱を別欄に分けない** — 紹介文で「諱は◯」と書くときだけ姓を外す（[WRITER.md](../../docs/process/profile-writing/WRITER.md)）。括弧つきの32件は民族名（遼・金・元・清の31人）と改名（`shiguo-beihan-liuchong`「劉崇（劉旻）」1人） |
 | `commonName` | string | 一般に知られる呼称（表示名として使用・非null必須）。廟号・諡号を持たない皇帝は諱をそのまま用いる（例: 曹芳・赫連昌） |
 | `aliases` | string[] | 別名・異表記 |
 | `posthumousName` | string \| null | 諡号 |
