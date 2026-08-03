@@ -47,6 +47,9 @@
 | 紹介文を入れる | `description` は平文（ルビ記法は `lead` だけ） | `emperors.ts:889`・`validate_profiles.py` |
 | 動画を紐づける | `youtube-playlist.json` | `emperors.ts:75` |
 | ページを増減する | `SITE_SECTIONS` | `seo.tsx:65`「SITE_SECTIONSに存在しないhrefです」 |
+| **配布物が主張する範囲を狭める**（引用・日付・欄の取り下げ） | `/about` の該当節（`site/src/app/about/page.tsx`）。**取り下げを無言でやらない**のは 2026-08-03 ユーザー決定で、push した瞬間にサイトが再配信されるため**同じコミットに入れる** | **無い**（文章なので機械では判定できない）。件数は直書きせず台帳・データから引く（`site/src/lib/quote-verification.ts` が `data/quote-refs.json` を読む）ことで、少なくとも**数のずれ**は起きない形にしてある |
+| `data/quote-refs.json` を消す・鍵の構造を変える | `site/src/lib/quote-verification.ts`（`/about` のビルド入力） | ビルドが落ちる（`refs` が読めない）。**台帳は内部 QA 用だがサイトのビルド入力でもある** |
+| 年表に note・出典を戻す | `/about` の引用の主張範囲の節（散文の引用を「読んだ形跡」と書いてある） | **無い**。`getEmperorEvents` が返さない形にしてあるので、戻すには型と描画を両方触ることになる |
 
 ## 運用側
 

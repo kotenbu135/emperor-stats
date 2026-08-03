@@ -36,6 +36,8 @@ node tools/capture-site.mjs   # out/ を静的配信して全ページの確認�
 
 `src/lib/emperors.ts` が `fs` で `../data/emperors.json`・肖像画 `manifest.json`・`../data/emperor-videos.json`（`../data/youtube-playlist.json` と合成し `EmperorRecord.videos` を生成）・`../data/emperor-profiles.json`（紹介文）を読み、集計関数群を提供する。各ページ（`src/app/*/page.tsx`）は Server Component で集計し、`"use client"` のコンポーネントへ props で渡す。
 
+**`src/lib/quote-verification.ts` は `../data/quote-refs.json`（引用照合台帳・配布物ではない）もビルド時に読む。** `/about` が出す「底本と機械で照合した件数・確認できていない件数」の出どころで、**数を直書きしない**ため（Issue #69・引用の全件照合を完走しない決定を明示する文なので、件数がずれると説明そのものが嘘になる）。クライアントに載るのは5つの数値だけ。
+
 **クライアント側から `emperors.ts` を import しない。** この Server/Client 境界を崩すと `data/emperors.json`（約7MB）がバンドルに入る。
 
 ## スキーマ v3 の ID→ラベル解決は `src/lib/data-source.ts` に閉じる
@@ -66,6 +68,8 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 - **受け入れ確認は行数ではなく末尾のテキストでとる。** 畳み方を間違えたときに落ちるのは末尾なので `grep -c` の件数では検出できない
 - **10件の境目は種別フィルタで絞ったあとの集合に対して数える**（元の集合を基準にすると `<details>` が空になる・件数表示が嘘になる）
 - **年表に反乱鎮圧（`rebellionSuppressionCount`）を出さない** — 被反乱と同じ反乱を両面から数えたもので、両方出すと同じ事件が2行並ぶ（`emperors.ts` の `EVENT_METRICS`。件数の根拠は SITE_DESIGN.md の「反乱鎮圧は年表に出さない」節）。**回数の表（`emperor-facts.tsx`）には両方出る**ので、そちらと混同しないこと
+- **年表の行は開かない**（2026-08-03 ユーザー決定・Issue #69）。1行＝種別・日付・要約で、`getEmperorEvents` は首謀者・結果・note全文・出典（`source.page`）を**返さない**。理由は主張の範囲（note は作業ログ・その中の引用は「読んだ形跡」で、配布データが底本に実在すると主張するものではない）で、線引きは `/about` の運営者の節に出してある。**note を年表へ戻すときは `/about` の文と対で動かすこと**
+- **出来事の日付は保存値の深さをそのまま出す**（`datePrecision` で丸め直さない・同上）。`events` と `ages` は深さそのものが主張なので、表示側で丸めると**あとから確定した日付を黙って捨てる**。`reigns[]` だけは別規約（フル ISO ＋ `datePrecision`）で据え置き
 
 紹介文は `../data/emperor-profiles.json`（`emperors.json` とは別ファイル）。**存在しない皇帝idのキーがあるとビルドが落ちる**（`kana-readings`・`DYNASTY_COLOR_SLOT` と同じ書き間違い検出の assert）。未執筆でもページは成立する作りなので、フィールドが無い皇帝では紹介文の節が出ず `description` は機械生成文に落ちる。
 

@@ -234,7 +234,32 @@ data/internal/（配布しない・ゲート対象外・追記しない）
    - 実データを1件だけ新しい器へ移した（`liu-song-wudi`・パイロット）。**移すと照合台帳の
      キーが `reigns[0].quote#0` → `reigns[0].duration.quotes[0]` へ動く**ので、
      `extract_units` に `quotes[]` を足さないと引用が台帳から静かに抜ける
-5. サイト（日付パーサ・年表の1行化）・CSV・`emperors.schema.json`・CalVer 繰り上げ・`/about` の1文
+5. ~~サイト（日付パーサ・年表の1行化）・CSV・`emperors.schema.json`・CalVer 繰り上げ・`/about` の1文~~
+   → **2026-08-03 完了**。`/about` の主張範囲を**最初のコミット**に入れた（push した瞬間に
+   サイトが再配信されるので、順番どおり後回しにすると取り下げが無言になる）
+   - **`/about` の件数は直書きせず `data/quote-refs.json` から引く**（`site/src/lib/quote-verification.ts`）。
+     取り下げの説明に書いた数がずれると説明そのものが嘘になる。実測は
+     6,948件中 **6,657件が機械照合済み**・人手確認114・底本の外65・**確認できていない112**
+     （計画の「234＋57」は triage 前の数で、いま書くと嘘になる）
+   - **日付パーサの変更は死んだコードの削除だった。** `datePrecision` による丸めが働く値は
+     移行後の実データで**0件**（events 8,536値・ages 458値を実測）。**`npm run build` が
+     通ることは証拠にならない**ので、`out/emperors/*.html` から RSC ペイロードと style を
+     除いた**表示テキストの before/after 差分**で確かめた（4体で差分なし）。
+     残す害のほうが大きい — 原典が年までしか言っていない日付を別の証人から確定できたとき、
+     表示側が黙って年へ戻す
+   - **年表の1行化で消える情報を数えてから入れた**（年表に出る events 4,532件のうち
+     `outcome` 2,144・`source.page` 1,940・`note` 全文 4,273・`leader` 1,820）。
+     差分は**削除だけで追加0行**＝残る行は1文字も変わっていない。宋高宗142行は静的HTMLに
+     全件載ったまま、`<details>` が 144個 → 2個
+   - **CSV は変更なし**（`site/public/data/` は gitignore 対象のビルド成果物・46列365行のまま）。
+     ただし `dynastyOrder` 列は**null も欄なしも空欄**になるので、`dynastyOrderSurveyed` 列で
+     意味が分かれることを生成スクリプトに書いた
+   - **CalVer は繰り上げ不要**（`meta.version` は `2026.08` で当月。`YYYY.MM` は同じ月の
+     2つの破壊的変更を表せないが、その軸は `schemaVersion` 4.0.0 が持っている）
+   - **`emperors.schema.json` は7節の2・3でほぼ書けていた**が2箇所欠けていた —
+     単一日付の容器（改元・大赦・立后・皇太子廃立）の `date` だけ「発生日（ISO 8601 拡張形式）」
+     のままで深さ＝主張を書いておらず、`datePrecision`（3箇所）は**「原典が何を言っているか」
+     であって主張ではない**ことを書いていなかった。サイトが丸めていたのと同じ取り違え
 6. `R-CLAIM-GATED` を RULES.yml ＋ CLAUDE.md ＋ `data/schema/` のチェックリストへ
 
 **1〜3 はデータを動かすので `patch_emperor.py` を通し、各段でゲートを緑にしてからコミットする**（`R-GATES-BEFORE-COMMIT`）。

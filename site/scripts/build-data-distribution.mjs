@@ -69,6 +69,9 @@ const COLUMNS = [
   ["eraLabel", (e) => eraById.get(e.eraId)?.label],
   ["researchSection", (e) => e.researchSection],
   ["standing", (e) => enumLabel("emperorStanding", e.standing)],
+  // JSON 側は3値（数値＝第N代／null＝調べた上で歴代に数えない／欄が無い＝政権ごと未調査）
+  // だが、CSV は null も欄なしも空欄になる。**空欄の意味は dynastyOrderSurveyed 列で分かれる**
+  // （true なら「歴代に数えない」・false なら未調査）。空欄を在位順から埋めないこと。
   ["dynastyOrder", (e) => e.reigns?.[0]?.dynastyOrder],
   ["dynastyOrderSurveyed", (e) => regimeOf(e).dynastyOrderSurveyed],
   ["reignStartYear", (e) => e.reignSummary?.firstStartYear],
