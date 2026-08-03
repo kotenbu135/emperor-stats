@@ -34,6 +34,12 @@
             "command": "g=\"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}/.claude/hooks/stop_gate.py\"; [ -f \"$g\" ] || exit 0; exec python3 \"$g\"",
             "statusMessage": "データのゲートを確認しています",
             "timeout": 240
+          },
+          {
+            "type": "command",
+            "command": "g=\"${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}/.claude/hooks/suggestion_capture.py\"; [ -f \"$g\" ] || exit 0; exec python3 \"$g\"",
+            "statusMessage": "手順の提案を提案ノートへ写しています",
+            "timeout": 30
           }
         ]
       }

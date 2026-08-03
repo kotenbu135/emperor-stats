@@ -23,6 +23,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 RULES = ROOT / "docs" / "process" / "RULES.yml"
+NON_BLOCKING = {"R-PROCESS-FEEDBACK"}  # L1 だが止めない（記録するだけ）フック
 HOOKS = ROOT / ".claude" / "hooks"
 CHECKLIST = ROOT / "data" / "schema" / "SCHEMA_CHANGE_CHECKLIST.md"
 
@@ -114,10 +115,16 @@ def main():
         errors.append(f"{rid}: CLAUDE.md の「守るべき運用ルール」に出てきません")
     for rid in sorted(mentioned - set(ids)):
         errors.append(f"{rid}: CLAUDE.md にありますが台帳に規則がありません")
-    for rid in sorted(implemented - starred):
+    # ☆＝L1 だが止めない（フックが記録するだけ）。★と混ぜると「止まる」を誤読するので分ける
+    ringed = set(re.findall(r"☆`(R-[A-Z0-9\-]+)`", text))
+    for rid in sorted(implemented - starred - NON_BLOCKING):
         errors.append(f"{rid}: {where} が止める規則なのに CLAUDE.md で ★ が付いていません")
     for rid in sorted(starred - implemented):
         errors.append(f"{rid}: CLAUDE.md で ★ が付いていますが {where} に実装がありません")
+    for rid in sorted(NON_BLOCKING & implemented - ringed):
+        errors.append(f"{rid}: 止めない L1 なのに CLAUDE.md で ☆ が付いていません")
+    for rid in sorted(ringed & starred):
+        errors.append(f"{rid}: CLAUDE.md で ★ と ☆ の両方が付いています")
 
     checklist_errors, checklist_rows = check_schema_checklist()
     errors += checklist_errors

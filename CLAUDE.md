@@ -88,7 +88,7 @@ python3 scripts/relation_path.py           --for <皇帝id>                     
 
 以下はいずれも**このリポジトリで実際に失敗を出した結果**として決まった運用方針で、モデルの判断力を補うための一般的な行動指示ではない。迷った場合は自分の判断で緩めず、そのまま従う。
 
-各行の `R-*` は [docs/process/RULES.yml](docs/process/RULES.yml) の規則 ID で、**適用範囲・強制層・その規則を書かせた実際の失敗**は台帳側にある。ここに置くのは要点と、範囲を取り違えると事故る境界だけ。**★は強制層 L1**（`.claude/hooks/guard.py` が実行の直前に止める。サブエージェントと Workflow エージェントにも掛かる）で、逃げ道は `EMPSTATS_ALLOW=<規則ID>:<理由>` の1本だけ（理由は必須・`.claude/hook-log.jsonl` に残る）。
+各行の `R-*` は [docs/process/RULES.yml](docs/process/RULES.yml) の規則 ID で、**適用範囲・強制層・その規則を書かせた実際の失敗**は台帳側にある。ここに置くのは要点と、範囲を取り違えると事故る境界だけ。**★は強制層 L1**（`.claude/hooks/guard.py` が実行の直前に止める。サブエージェントと Workflow エージェントにも掛かる）、**☆は L1 だが止めない**（フックが記録するだけ）で、逃げ道は `EMPSTATS_ALLOW=<規則ID>:<理由>` の1本だけ（理由は必須・`.claude/hook-log.jsonl` に残る）。
 
 ### 判定と証拠
 
@@ -121,7 +121,7 @@ python3 scripts/relation_path.py           --for <皇帝id>                     
 
 - 調査エージェントは `.claude/agents/` の定義を使う（`corpus-researcher`・`adversarial-verifier`・`profile-*`）。素の Agent を立てると引用規約・出力契約がプロンプトに写し漏れる。Workflow からは `agent(prompt, {agentType: '...'})` で、段構成も `.claude/workflows/` に置いて毎回書き直さない
 - 調査エージェントへ渡す素材は抽出コマンドで渡す（プロンプトの中に `jq`／`python3 -c` の抽出式を書き起こさない）。その場のワンライナーだと既定もフックも掛からず、2026-08-03 に実際に破れた
-- **`R-PROCESS-FEEDBACK`** より良い手順に気づいたら、自分で手順を変えずその場でユーザーへ提案する。採否は [PROCESS_IMPROVEMENTS.md](docs/process/PROCESS_IMPROVEMENTS.md) に残す（エージェント出力には `processSuggestion` の欄がある）
+- **☆`R-PROCESS-FEEDBACK`** より良い手順に気づいたら、自分で手順を変えずその場でユーザーへ提案する。採否は [PROCESS_IMPROVEMENTS.md](docs/process/PROCESS_IMPROVEMENTS.md) に残す。**エージェント発の提案（出力契約の `processSuggestion`・報告本文の「手順の提案:」節）は `.claude/hooks/suggestion_capture.py` が turn の終わりに同ファイルの「自動採取」節へ自動で写す**（止めないので☆）。**自分が地の文で出した提案は拾われない** — `python3 scripts/add_suggestion.py --auto --title … --scene … --body …` を自分で呼ぶ
 - **★`R-RESIDUAL-TABLE`** 横展開・走査で出た「残り何件」は Issue を立てず [RESIDUAL.md](docs/process/RESIDUAL.md) に行を足す。**Issue は直し方・定義・設計の判断が要るときだけ**の器で、量を持つには向かない（訂正1件から Issue が28本に増え、うち6本は同じ穴が別の場所から顔を出しただけだった）
 - **`R-COUPLING`** 片方を変えたらもう片方も変える対は、気づいた時点で [COUPLINGS.md](docs/process/COUPLINGS.md) へ登録する。データを訂正したら関連する `meta`・ドキュメントも**同じタイミングで**更新する
 

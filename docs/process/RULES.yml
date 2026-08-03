@@ -223,8 +223,17 @@ rules:
   - id: R-PROCESS-FEEDBACK
     summary: 調査中により良い手順に気づいたら、その場でユーザーへ提案する。採否を PROCESS_IMPROVEMENTS.md に残す
     scope: 調査・訂正・執筆のすべての作業（エージェントも含む）。**提案であって、手順を勝手に変えることではない**
-    enforcement: [L2, L4]
-    detail: L2＝.claude/agents/*.md と .claude/skills/*/SKILL.md に明記。調査エージェントの出力契約に任意欄 processSuggestion があり、check_claims.py が REPORT として親へ上げる
+    enforcement: [L1, L2, L4]
+    detail: >-
+      L1＝.claude/hooks/suggestion_capture.py（Stop）。turn の transcript から、出力契約の
+      processSuggestion と報告本文の「手順の提案:」節を拾い、PROCESS_IMPROVEMENTS.md の
+      「自動採取」節へ採否 未提示 で書き足す（止めない・重複は本文の sha で弾く）。
+      **親セッション自身が地の文で出した提案は機械が読める印が無いので拾えない** —
+      そこは python3 scripts/add_suggestion.py --auto を手で呼ぶ。
+      検出力は .claude/hooks/test_suggestion_capture.py が合成 transcript で測る
+      （誤検出のほうが害が大きいので、拾ってはいけないケースを4件置いてある）。
+      L2＝.claude/agents/*.md と .claude/skills/*/SKILL.md に明記。調査エージェントの出力契約に
+      任意欄 processSuggestion があり、check_claims.py が REPORT として親へ上げる
     evidence: 手順の穴は調査中に一番よく見えるのに、終わってからは思い出せない。境界事例の都度ルール化が効いた前例（判定基準）と同じ構造
     source: docs/process/PROCESS_IMPROVEMENTS.md
 

@@ -17,7 +17,7 @@ on:
       - "scripts/validate_readings.py"
       - "scripts/validate_profiles.py"
       - "docs/process/RULES.yml"
-      - ".claude/hooks/guard.py"
+      - ".claude/hooks/**"
       - "scripts/check_rules.py"
       - "scripts/check_regime_conventions.py"
       - "scripts/check_screenings.py"
@@ -38,7 +38,7 @@ on:
       - "scripts/validate_readings.py"
       - "scripts/validate_profiles.py"
       - "docs/process/RULES.yml"
-      - ".claude/hooks/guard.py"
+      - ".claude/hooks/**"
       - "scripts/check_rules.py"
       - "scripts/check_regime_conventions.py"
       - "scripts/check_screenings.py"
@@ -135,3 +135,9 @@ jobs:
 
       - name: Validate rule registry
         run: python3 scripts/check_rules.py
+
+      # フックの検出力。**「0件で通った」を合格と読まない**ための器で、
+      # 拾ってはいけないケースを含む合成入力で測る（規則 RULES.yml の L1 実装ぶん）
+      - name: Test hooks
+        run: |
+          for t in .claude/hooks/test_*.py; do python3 "$t"; done
