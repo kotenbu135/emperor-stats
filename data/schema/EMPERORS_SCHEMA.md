@@ -303,6 +303,13 @@ Issue #43 の「**測れない**」と「**書き忘れた**」を区別する�
 （その容器で使った最大の連番＋1を振る。添字は見ない）。`patch_emperor.py --append` は
 値を作れないので id は空のまま出ますが、`validate_emperors.py` が落として気づけます。
 
+**凍結した標本の鍵（`audit.sampleKey: "legacy-index"`）も添字から作ってはいけません。**
+絞り込みスクリプトが `enumerate` の添字で移行前の位置文字列を組み立てていたため、
+2026-08-03（Issue #59）に `hou-han-shundi.amnestyCount` へ2件挿入したところ後続の鍵が
+ずれ、抽選が引き直しになって CI が落ちました（標本に `e002` が入り `e003` が外れた）。
+復元は id の連番から行います — `event_date_scope.legacy_index()` の1実装だけを使い、
+`lunar_date_as_iso.py`・`campaign_span.py` はそれを import します。
+
 ### 機械が見ること（`validate_emperors.py` の `check_event_ids`）
 
 1. 全 event が `id` を持つ・形が `<皇帝id>.<容器>.eNNN`・**id の中の皇帝と容器が所在と一致する**

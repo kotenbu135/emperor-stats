@@ -9268,6 +9268,28 @@
    ],
    "line": 6
   },
+  "beizhou-wudi|personalCampaignCount[1].note|5e335062cdc0": {
+   "id": "beizhou-wudi",
+   "path": "personalCampaignCount[1].note",
+   "span": "己酉，帝总戎东伐",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beizhou-wudi.txt",
+   "frags": [
+    "帝总戎东伐"
+   ],
+   "line": 198
+  },
+  "beizhou-wudi|personalCampaignCount[1].note|5f30ab1a2b81": {
+   "id": "beizhou-wudi",
+   "path": "personalCampaignCount[1].note",
+   "span": "乃诏诸军班师",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beizhou-wudi.txt",
+   "frags": [
+    "乃诏诸军班师"
+   ],
+   "line": 201
+  },
   "beizhou-wudi|reigns[0].note|7a98fbd1d3ff": {
    "id": "beizhou-wudi",
    "path": "reigns[0].note",
@@ -18985,6 +19007,41 @@
    ],
    "line": 165
   },
+  "hou-han-shundi|amnestyCount.events[1].quotes[0]|c8a76867122d": {
+   "id": "hou-han-shundi",
+   "path": "amnestyCount.events[1].quotes[0]",
+   "span": "其赦天下。从甲寅赦令已来复秩属籍，三年正月已来还赎",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-shundi.txt",
+   "frags": [
+    "从甲寅赦令已来复秩属",
+    "三年正月已来还赎"
+   ],
+   "line": 31
+  },
+  "hou-han-shundi|amnestyCount.events[3].quotes[0]|137910264ed6": {
+   "id": "hou-han-shundi",
+   "path": "amnestyCount.events[3].quotes[0]",
+   "span": "其大赦天下，自殊死以下谋反大逆诸犯不当得赦者，皆赦除之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-shundi.txt",
+   "frags": [
+    "其大赦天下",
+    "自殊死以下谋反大逆诸"
+   ],
+   "line": 6
+  },
+  "hou-han-shundi|amnestyCount.events[5].quotes[0]|b4dccface267": {
+   "id": "hou-han-shundi",
+   "path": "amnestyCount.events[5].quotes[0]",
+   "span": "戊午，大赦天下。赐民爵及粟、帛各有差",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-shundi.txt",
+   "frags": [
+    "赐民爵及粟"
+   ],
+   "line": 119
+  },
   "hou-han-shundi|amnestyCount.note|b27c01ae229f": {
    "id": "hou-han-shundi",
    "path": "amnestyCount.note",
@@ -19007,6 +19064,18 @@
     "力田人三級"
    ],
    "line": 6
+  },
+  "hou-han-shundi|amnestyCount[1].note|c8a76867122d": {
+   "id": "hou-han-shundi",
+   "path": "amnestyCount[1].note",
+   "span": "其赦天下。从甲寅赦令已来复秩属籍，三年正月已来还赎",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-shundi.txt",
+   "frags": [
+    "从甲寅赦令已来复秩属",
+    "三年正月已来还赎"
+   ],
+   "line": 31
   },
   "hou-han-shundi|amnestyCount[1].note|f41837b3648c": {
    "id": "hou-han-shundi",
@@ -19033,6 +19102,29 @@
    ],
    "line": 110
   },
+  "hou-han-shundi|amnestyCount[2].note|f41837b3648c": {
+   "id": "hou-han-shundi",
+   "path": "amnestyCount[2].note",
+   "span": "帝臨辟雍饗射，大赦天下，改元陽嘉",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-shundi.txt",
+   "frags": [
+    "帝臨辟雍饗射"
+   ],
+   "line": 55
+  },
+  "hou-han-shundi|amnestyCount[3].note|137910264ed6": {
+   "id": "hou-han-shundi",
+   "path": "amnestyCount[3].note",
+   "span": "其大赦天下，自殊死以下谋反大逆诸犯不当得赦者，皆赦除之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-shundi.txt",
+   "frags": [
+    "其大赦天下",
+    "自殊死以下谋反大逆诸"
+   ],
+   "line": 6
+  },
   "hou-han-shundi|amnestyCount[3].note|68b79cd26e12": {
    "id": "hou-han-shundi",
    "path": "amnestyCount[3].note",
@@ -19043,6 +19135,20 @@
     "賜民爵及粟帛各有差"
    ],
    "line": 119
+  },
+  "hou-han-shundi|amnestyCount[4].note|0df523abfc77": {
+   "id": "hou-han-shundi",
+   "path": "amnestyCount[4].note",
+   "span": "宗祀明堂，登靈臺，改元永和，大赦天下",
+   "status": "corpus",
+   "corpusFile": "china-history/后汉书/本纪/第七章-孝顺孝冲孝质帝纪-原文.html",
+   "frags": [
+    "宗祀明堂登靈",
+    "堂登靈臺改元",
+    "臺改元永和大",
+    "永和大赦天下"
+   ],
+   "line": 110
   },
   "hou-han-shundi|amnestyCount[4].note|6a18e8f712a0": {
    "id": "hou-han-shundi",
@@ -19060,6 +19166,41 @@
   "hou-han-shundi|amnestyCount[5].note|ac28d755ec21": {
    "id": "hou-han-shundi",
    "path": "amnestyCount[5].note",
+   "span": "立皇子炳爲皇太子，改年建康，大赦天下",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-shundi.txt",
+   "frags": [
+    "立皇子炳爲皇太子"
+   ],
+   "line": 162
+  },
+  "hou-han-shundi|amnestyCount[5].note|b4dccface267": {
+   "id": "hou-han-shundi",
+   "path": "amnestyCount[5].note",
+   "span": "戊午，大赦天下。赐民爵及粟、帛各有差",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-shundi.txt",
+   "frags": [
+    "赐民爵及粟"
+   ],
+   "line": 119
+  },
+  "hou-han-shundi|amnestyCount[6].note|6a18e8f712a0": {
+   "id": "hou-han-shundi",
+   "path": "amnestyCount[6].note",
+   "span": "宗祀明堂，大赦天下，改元漢安",
+   "status": "corpus",
+   "corpusFile": "china-history/后汉书/本纪/第七章-孝顺孝冲孝质帝纪-原文.html",
+   "frags": [
+    "宗祀明堂大赦",
+    "堂大赦天下改",
+    "天下改元漢安"
+   ],
+   "line": 164
+  },
+  "hou-han-shundi|amnestyCount[7].note|ac28d755ec21": {
+   "id": "hou-han-shundi",
+   "path": "amnestyCount[7].note",
    "span": "立皇子炳爲皇太子，改年建康，大赦天下",
    "status": "cache",
    "corpusFile": "_corpus_cache/hou-han-shundi.txt",
@@ -79811,6 +79952,17 @@
     "位國號漢改元"
    ],
    "line": 28
+  },
+  "yuanmo-chenyouliang|eraChangeCount[0].note|f61ac5bb3de6": {
+   "id": "yuanmo-chenyouliang",
+   "path": "eraChangeCount[0].note",
+   "span": "陈友谅杀其伪主徐寿辉于太平路，遂称皇帝，国号大汉，改元大义",
+   "status": "corpus",
+   "corpusFile": "china-history/元史/本纪/第四十五章-卷四十五-原文.html",
+   "frags": [
+    "陈友谅杀其伪主徐寿辉"
+   ],
+   "line": 58
   },
   "yuanmo-chenyouliang|personalCampaignCount[0].note|8af8c151855e": {
    "id": "yuanmo-chenyouliang",
