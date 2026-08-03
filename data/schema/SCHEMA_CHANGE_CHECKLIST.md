@@ -55,7 +55,7 @@ Issue #69 で洗ったところ、再調査が終わらなくなった系統は*
 | `claim` | いま正しいと判断している内容（前向き・**任意**） | `validate_emperors.py::check_claim_fields` | `test_claim_field.py` |
 | `conflicts[]` | 採用値が実フィールドと一致し、対立が記録されている | `validate_emperors.py::check_conflicts` | `test_conflicts_field.py` |
 | `deathCause.category`／`accessionRoute.categoryId` ほか ID 参照 | `meta.catalogs` に実在する ID である | `validate_emperors.py::check_record_catalog_refs` | （カタログ側の実在で担保） |
-| `confidence` | **欄ごとの定義がまだ書けていない**（#48 と一緒に片づける・語彙の検査だけが在る） | `validate_emperors.py::check_confidence` | （無し） |
+| `confidence` | **欄ごとの定義がまだ書けていない**（語彙の検査だけが在る。かつて #48 と一緒に片づける想定だったが #48 は 2026-08-03 に現状維持で close） | `validate_emperors.py::check_confidence` | （無し） |
 
 **`confidence` の行は、この表の使い方の例でもある** — 語彙（high/medium/low）は検査できているが
 「何に対する確信か」が欄で違うので、**主張の列がまだ書けていない**。書けるまでは新しい欄を
