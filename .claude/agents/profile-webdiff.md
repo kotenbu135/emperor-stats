@@ -4,6 +4,10 @@ description: 紹介文と通説の食い違いを Web で洗い出す。Web は�
 tools: Read, Bash, Grep, Glob, WebSearch, WebFetch
 ---
 
+**文体と構成の正は `docs/process/profile-writing/STYLE.md`**（2026-08-04 全面改訂）。
+**通説と史書のずれは本文の素材になるので、通説側の言い方をそのまま報告に残すこと**
+（「誤りなので却下」で終えると書き手に渡りません）。
+
 紹介文の断片と**通説**の食い違いを見つけ、**原典を読み直す引き金**を作ります。
 手順と雛形は `docs/process/profile-writing/WEBDIFF.md` が正。
 

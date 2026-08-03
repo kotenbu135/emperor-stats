@@ -170,6 +170,11 @@ def check_webdiff(b, bid):
     **落とさず歩留まりを記録し始める**のがユーザー決定（2026-08-03）。
     「own-annals は Web の拾いも少ないはず」という期待が未検証のまま削れないので、
     その期待を測るための欄。**tier の体数には数えない**（webdiff は全員1体のまま）。
+
+    `adopted` は 2026-08-04 に足した欄で、**「原典どおり」のうち本文の素材として
+    採用した件数**を数える。文体改訂（STYLE.md 3節）でこの段の主産物が
+    `confirmed`（紹介文の誤り）から素材の側へ移ったため、`confirmed/人` だけを見て
+    own-annals から3段目を落とすと、欠陥検出がゼロでも素材の供給が同時に止まる。
     """
     w = b.get("webdiff")
     if w is None:
@@ -177,14 +182,20 @@ def check_webdiff(b, bid):
             warn(f"[block] {bid}: webdiff が null（Web 差分の歩留まりを数えていない）。"
                  "own-annals の3段目を落とせるかの判断はこの数字待ち")
         return
-    if not isinstance(w, dict) or set(w) - {"raised", "confirmed", "note"}:
-        err(f"[block] {bid}: webdiff は raised / confirmed / note を持つオブジェクトです: {w!r}")
+    if not isinstance(w, dict) or set(w) - {"raised", "confirmed", "note", "adopted"}:
+        err(f"[block] {bid}: webdiff は raised / confirmed / note（任意で adopted）を"
+            f"持つオブジェクトです: {w!r}")
         return
-    r, c = w.get("raised"), w.get("confirmed")
+    r, c, a = w.get("raised"), w.get("confirmed"), w.get("adopted")
     if (r is None) != (c is None):
         err(f"[block] {bid}: webdiff の raised と confirmed は両方書くか両方 null にする")
     if isinstance(r, int) and isinstance(c, int) and c > r:
         err(f"[block] {bid}: webdiff.confirmed={c} が raised={r} を超えている")
+    if a is not None:
+        if not isinstance(a, int):
+            err(f"[block] {bid}: webdiff.adopted は件数（整数）です: {a!r}")
+        elif isinstance(r, int) and a > r:
+            err(f"[block] {bid}: webdiff.adopted={a} が raised={r} を超えている")
 
 
 def cmd_gate(led, emp):
@@ -294,8 +305,9 @@ def cmd_rate(led, emp):
     print("ブロック別の指摘率（規則 R-VERIFY-TIER の完了条件）\n")
     print("escapes = 検証を通過したあと別作業で見つかった実欠陥（遡及して数えられるのはこれだけ）")
     print("raised/confirmed = 検証段が挙げた指摘と、そのうち実欠陥だった件数\n")
-    print("webdiff = Web 差分検出が挙げた食い違い／そのうち原文で確かめて実欠陥だった件数"
-          "（tier の体数には数えない・Issue #43）\n")
+    print("webdiff = Web 差分検出が挙げた食い違い／実欠陥だった件数／本文の素材として採った件数"
+          "（tier の体数には数えない・Issue #43）")
+    print("  — 3段目を落とすかは confirmed だけで読まない。素材（adopted）の供給が同時に止まる\n")
     hdr = (f"{'ブロック':34s} {'tier':11s} {'人':>3s} {'体/人':>4s} {'指摘':>4s} {'実欠陥':>5s} "
            f"{'実欠陥率':>7s} {'escapes':>8s} {'webdiff':>9s}")
     print(hdr)
@@ -309,7 +321,9 @@ def cmd_rate(led, emp):
             esc = b.get("escapes")
             esc_s = "—" if esc is None else f"{esc}（{esc / b['people']:.2f}/人）"
             w = b.get("webdiff") or {}
-            wd = "—" if w.get("raised") is None else f"{w['confirmed']}/{w['raised']}"
+            wd = ("—" if w.get("raised") is None
+                  else f"{w['confirmed']}/{w['raised']}"
+                       + ("" if w.get("adopted") is None else f"+{w['adopted']}"))
             # 体/人 は None を取りうる（1人1体ではなくパッケージ単位で立てた回）
             vpp = b.get("verifiersPerPerson")
             vpp_s = f"{b.get('verifiersPerPackage')}/束" if vpp is None else f"{vpp}"
