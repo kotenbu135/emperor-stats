@@ -20,10 +20,10 @@
 //          元号が在位と1対1になり、日本では廟号よりこちらが通用するため）
 //
 // ■ 補助名（諱）
-// 非漢族の政権は民族名と漢名の両方を持ち、**データ上の並び順が政権ごとに逆**なので
-// 政権単位の規則で「日本で通用する側」を選ぶ（遼＝括弧内の漢風名、金・元＝括弧前、
-// 清＝「愛新覚羅」を落とした諱）。**括弧の汎用分解はしない** — 北漢の
-// 「劉崇（劉旻）」は改名であって民族名ではない。
+// 非漢族の政権は民族名と漢名の両方を持つ。**2026-08-03（Issue #37 単位3）に
+// データ側が `name.ethnicName` へ分けた**ので、ここで括弧を割る必要はなくなった
+// （分ける前は「◯◯（◯◯）」の並びが政権ごとに逆で、割り方を政権で分岐していた）。
+// 残るのは「どちらを補助名に出すか」の編集判断だけで、下の `ETHNIC_SUBTITLE_KINDS`。
 
 /** 明・南明・清。R2（元号＋帝を1行目に上げる）の対象。 */
 const ERA_NAME_REGIMES = new Set(["ming", "southern-ming", "qing"]);
@@ -83,15 +83,27 @@ export function emperorDisplayName(
  * 政権単位の規則（下の `emperorSubtitle`）で決まらないものだけを置く。
  */
 export const SUBTITLE_OVERRIDES: Record<string, string | null> = {
-  // 金太祖: データの諱は金史本紀の「讳旻，本讳阿骨打」にそろえて「旻（阿骨打）」だが、
+  // 金太祖: データの諱は「完顔旻（阿骨打）」（金史本紀は「讳旻，本讳阿骨打」で姓を連ねないが、
+  // 同じ金の他8人〈完顔晟…完顔守緒〉と姓＋諱で揃える表記方針・2026-08-03 ユーザー決定）。
   // 日本で通っているのは女真名を姓に付けた「完顔阿骨打」（他の9人は漢名が通用名なので規則どおり）。
   "jin-taizu": "完顔阿骨打",
-  // 遼太祖: 遼史は「姓耶律氏，讳亿，字阿保机」で阿保機は字。データは他の8人と同じ
-  //「契丹名（漢風名）」の並びだが、通用するのは括弧の中（耶律億）ではなく外の耶律阿保機。
+  // 遼太祖: 遼史は「姓耶律氏，讳亿，字阿保机，小字啜里只」で、阿保機は**字**（契丹名の
+  // 枠＝小字は啜里只）。民族名の欄では受けられないのでデータ側は諱 耶律億 ＋ 別名
+  // 耶律阿保機だが、通用するのは阿保機のほう。
   "liao-taizu": "耶律阿保機",
   // 「嬴胡亥」表記は一般的でなく「胡亥」が通用。
   "qin-er-shi": "胡亥",
 };
+
+/**
+ * 補助名に**民族名のほうを出す** kind（`meta.catalogs.ethnicNameKinds` の id）。
+ *
+ * 日本でどちらが通用するかの編集判断で、データからは決まらない
+ * （遼＝漢風名の耶律徳光・金＝漢名の完顔雍・清＝諱の皇太極が通用し、
+ * **元だけカナのクビライ**が通用する）。分ける前は「括弧の前を採る／遼だけ中」で
+ * 同じ結果を出していたので、**移行の前後で画面は変わらない**。
+ */
+const ETHNIC_SUBTITLE_KINDS = new Set(["mongol"]);
 
 /**
  * カード1行目・h1 で通用名の脇に小さく出す補助名（諱）。無い場合は null。
@@ -101,26 +113,26 @@ export const SUBTITLE_OVERRIDES: Record<string, string | null> = {
  * （「王莽」「太祖 朱全忠」のような重複表示を避ける）。
  *
  * @param id 皇帝id
- * @param personalName 諱（データ原文。民族名の併記を含むことがある）
- * @param regimeId データの `regimeId`（民族名の並びが政権ごとに違う）
+ * @param personalName 諱（データ原文）
+ * @param regimeId データの `regimeId`（清の姓の落としに使う）
  * @param displayName 1行目（重複判定に使う）
+ * @param ethnicName 分けて持っている民族名（Issue #37 単位3）
  */
 export function emperorSubtitle(
   id: string,
   personalName: string | null,
   regimeId: string,
   displayName: string,
+  ethnicName: { kind: string; value: string } | null | undefined,
 ): string | null {
   if (id in SUBTITLE_OVERRIDES) return SUBTITLE_OVERRIDES[id];
+  if (ethnicName && ETHNIC_SUBTITLE_KINDS.has(ethnicName.kind)) {
+    return displayName.includes(ethnicName.value) ? null : ethnicName.value;
+  }
   if (!personalName) return null;
-  const inner = /（(.+?)）/.exec(personalName)?.[1];
-  // 遼だけが「契丹名（漢風名）」の並びで、通用するのは括弧の中の漢風名
-  //（耶律堯骨ではなく耶律徳光）。太祖だけは括弧の外が通用名なので上書き表で外し、
-  // 西遼3人は括弧が無くそのまま通る。
-  // 金は「漢名（女真名）」、元は「原音カナ（漢字音写）」で括弧の前が通用名。
-  let name = regimeId === "liao" && inner ? inner : personalName.split("（")[0];
   // 清の11人は「愛新覚羅」＋諱。姓を落として諱だけを出す。
-  if (regimeId === "qing") name = name.replace(/^愛新覚羅/, "");
+  const name =
+    regimeId === "qing" ? personalName.replace(/^愛新覚羅/, "") : personalName;
   if (!name || displayName.includes(name)) return null;
   return name;
 }
@@ -154,23 +166,12 @@ export function qualifiedEmperorName(
   return `${dynastyLabel}の${disambiguatedName}`;
 }
 
-/**
- * 民族名のラベル（政権 ID → その政権で括弧に入っている名前の種類）。
- *
- * **括弧の汎用分解はしないこと。** 同じ「◯◯（◯◯）」を政権ごとに別の意味で使っていて、
- * まとめて割るとクビライに「女真名」の行が生える。遼だけは並びが逆（契丹名（漢風名））
- * なので下の `emperorNameEntries` で個別に扱う。
- */
-const ETHNIC_NAME_LABEL: Record<string, string> = {
-  liao: "契丹名",
-  "jin-jurchen": "女真名",
-  yuan: "漢字音写", // クビライ（忽必烈）＝原音カナと漢字音写
-  "northern-yuan": "漢字音写",
-  qing: "満洲語名", // 愛新覚羅皇太極（ホンタイジ）
-};
-
-/** `personalName` の括弧が民族名ではなく改名を表す（北漢の劉崇＝のちの劉旻）。 */
-const RENAMED_NAME_IDS = new Set(["shiguo-beihan-liuchong"]);
+// かつてここに `ETHNIC_NAME_LABEL`（政権 ID → 括弧の中の名前の種類）と
+// `RENAMED_NAME_IDS`（北漢の劉崇＝のちの劉旻）があった。**2026-08-03 に32件すべてを
+// `name.ethnicName` へ分けた**（Issue #37 単位3）ので、サイト側で括弧を割る経路は無い。
+// ラベルは `meta.catalogs.ethnicNameKinds`、改名は `aliases`（「別名」の行）が持つ。
+// 括弧つきの `personalName` はゲートE（validate_emperors.py・天井 0）が止めるので、
+// この経路が要る形はもうデータに入って来られない。
 
 export interface EmperorNameEntry {
   label: string;
@@ -190,11 +191,12 @@ export interface EmperorNameEntry {
  * （docs/site-design/NAME_DISPLAY_PLAN_2026-08-02.md の5節）。
  */
 export function emperorNameEntries(r: {
-  id: string;
   dynastyKey: string;
   name: string;
   commonName: string;
   personalName: string | null;
+  /** 民族名（Issue #37 単位3）。ラベルは `kind` が決めるので政権を見ない。 */
+  ethnicName: { value: string; label: string; counterpartLabel: string } | null;
   templeName: string | null;
   posthumousName: string | null;
   aliases: string[];
@@ -207,22 +209,13 @@ export function emperorNameEntries(r: {
     entries.push({ label, value: v });
   };
 
-  // 諱と民族名。並びは政権ごとに違う（遼だけ「契丹名（漢風名）」で逆）。
-  const personalInner = /（(.+?)）/.exec(r.personalName ?? "")?.[1] ?? null;
-  const personalOuter = (r.personalName ?? "").split("（")[0];
-  if (r.personalName && !personalInner) {
+  // 諱と民族名。ラベルは kind から決まっている（相手側 personalName のラベルも
+  // counterpartLabel）ので、**ここで政権を見る必要がない**（Issue #37 単位3）。
+  if (r.personalName && r.ethnicName) {
+    push(r.ethnicName.counterpartLabel, r.personalName);
+    push(r.ethnicName.label, r.ethnicName.value);
+  } else if (r.personalName) {
     push("諱", r.personalName);
-  } else if (r.personalName && personalInner) {
-    if (r.dynastyKey === "liao") {
-      push("諱", personalInner); // 漢風名（耶律徳光）
-      push("契丹名", personalOuter); // 耶律堯骨
-    } else if (RENAMED_NAME_IDS.has(r.id)) {
-      push("諱", personalOuter);
-      push("別称", personalInner);
-    } else {
-      push("諱", personalOuter);
-      push(ETHNIC_NAME_LABEL[r.dynastyKey] ?? "別称", personalInner);
-    }
   }
 
   // 呼称（commonName）側。R2 で1行目に上げた元号＋帝の裏で落ちた廟号をここで拾う

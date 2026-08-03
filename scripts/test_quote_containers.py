@@ -213,8 +213,11 @@ PLACES = {
 }
 for label, rec in PLACES.items():
     check(f"走査が届く: {label}", walker_sees(rec))
-check("スキーマが quotes を許す箇所は14（増やしたら上の表も足す）",
-      len(schema_quote_locations()) == 14)
+# 2026-08-03（Issue #37 単位2）に 14 → 16 へ。改元だけ eraChangeCountObject という
+# 別定義になり（元号名 eraName を大赦・立后・皇太子廃立の event に生やさないため）、
+# 容器と events[] の2箇所が増えた。**走査の側は容器名で回るので上の PLACES は増えない。**
+check("スキーマが quotes を許す箇所は16（増やしたら上の表も足す）",
+      len(schema_quote_locations()) == 16)
 
 # --- 床の単位が実データの容器名と合っているか -------------------------------
 check("床の単位に8つの count 容器がすべて入っている",

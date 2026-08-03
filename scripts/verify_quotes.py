@@ -990,6 +990,164 @@ def _probe_volume_index(catalog):
     return bad
 
 
+# 元号名が「建てた側」であることの証人になる定型句（正規化＝簡体・漢字のみで持つ）。
+# 元号名は2字が多く、**単独ではどこにでも当たる**ので、この定型句と隣り合っていることを
+# 条件にする（同じ行に在るだけでは、その帝が使っただけの前帝の元号と区別できない）。
+ERA_ANCHOR_PREFIX = ("改元", "建元", "改年", "年号", "号", "曰")
+ERA_ANCHOR_SUFFIX = ("元年",)
+
+
+def era_anchor_hit(key, lines):
+    """正規化済みの行 lines の中で、元号名 key が改元の定型句と隣り合っているか。
+
+    当たった形を返す（無ければ None）。**コーパスを読まずに判定だけを試せるよう
+    切り出してある**（scripts/test_era_name.py がここを直接呼ぶ）。
+    """
+    forms = [p + key for p in ERA_ANCHOR_PREFIX] + [key + s for s in ERA_ANCHOR_SUFFIX]
+    return next((f for ln in lines for f in forms if f in ln), None)
+
+
+def cmd_check_era_names():
+    """改元 event の `eraName` が**本人の原文キャッシュ**に改元の定型句と隣り合って在るか。
+
+    **照合先が `source.page` の名乗る巻でないのは実測の結果**（2026-08-03）:
+    改元 event 681件のうち `source.bookId` ＋ `source.volume` を持つものは **0件**で、
+    巻を機械で引ける器がまだ無い（`source.page` は日本語ラベルで、`--check-volumes` の
+    対象外。RESIDUAL.md「`events[].source.page` が名乗る巻と実所在の食い違い」の行）。
+    そこで `_corpus_cache/<皇帝id>.txt`（人物ごとに抽出済みの本紀・列伝）に当てる。
+    **巻の主張ではなく「その人物の原文に在る」ことの証人**で、`quotes[]` が入ったら
+    `--check-volumes` と同じ強さへ上げられる。
+
+    `validate_emperors.py::check_era_names` の C（同じ event の note に在る）は
+    **建てた側と捨てた側を区別しない**。区別するのはこの定型句の隣接だけなので、
+    このゲートが単位2の主張（「この event が**建てた**元号」）の主力になる。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    checked = ok = 0
+    skipped = []
+    bad = 0
+    for e in data["emperors"]:
+        o = e.get("eraChangeCount")
+        if not isinstance(o, dict):
+            continue
+        events = [ev for ev in (o.get("events") or [])
+                  if isinstance(ev, dict) and ev.get("eraName")]
+        if not events:
+            continue
+        cache = CORPUS_ROOT / "_corpus_cache" / f"{e['id']}.txt"
+        if not cache.is_file():
+            skipped.append(e["id"])
+            continue
+        lines = [norm_for_match(ln) for ln in cache.read_text(encoding="utf-8").splitlines()]
+        for ev in events:
+            checked += 1
+            where = ev.get("id") or e["id"]
+            key = norm_for_match(ev["eraName"])
+            if era_anchor_hit(key, lines):
+                ok += 1
+                continue
+            bare = sum(1 for ln in lines if key in ln)
+            bad += 1
+            print(f"ERROR {where}: eraName「{ev['eraName']}」が本人の原文キャッシュに"
+                  f"改元の定型句と隣り合って現れない"
+                  f"（元号名だけなら {bare} 行に在る／定型句 {'・'.join(ERA_ANCHOR_PREFIX)}◯◯・◯◯元年）")
+    if skipped:
+        print(f"NOTICE 原文キャッシュが無いため未照合: {len(skipped)}人 {skipped}"
+              f"（キャッシュを作れない政権はこのゲートの外にある）")
+    print(f"---\n{bad} errors / eraName を持つ改元 event {checked}件のうち "
+          f"{ok}件が本人の原文で定型句と隣り合って実在")
+    return 1 if bad else 0
+
+
+# 本紀は「姓耶律氏，讳德光，字德谨，小字尧骨」のように**氏族名を別に述べて諱には連ねない**。
+# データ側は姓＋諱で揃えてあるので、氏族名を落とした形も候補にしないと全件が外れる
+# （実測: 落とさないと遼9・金9・清1のすべてが 0 ヒット・落とすと 18/19 が当たる）。
+ETHNIC_CLAN_PREFIX = ("耶律", "完顔", "愛新覚羅", "孛児只斤")
+
+
+def ethnic_han_hit(value, hay):
+    """漢字側の名が本人の原文に在るか。当たった形を返す（無ければ None）。"""
+    # 氏族名を落とした残りが1字（「完顔雍」→「雍」）だと、どの巻にも出てくる字に
+    # 当たって証拠にならない。2字以上の残りだけを候補にする
+    for cand in (value, *(value[len(p):] for p in ETHNIC_CLAN_PREFIX
+                          if value.startswith(p) and len(value) - len(p) >= 2)):
+        n = norm_for_match(cand)
+        if n and n in hay:
+            return cand
+    return None
+
+
+# 漢字側が本人の原文キャッシュに当たらない人物と、その理由。**データの誤りではなく
+# 底本・符号化の側の事情**だけをここに置く（当たらないことを黙って見逃さないため、
+# 件数と理由を毎回出す）。
+ETHNIC_HAN_ALLOW = {
+    "yuan-tianshundi":
+        "元史に独立紀が無く、泰定帝紀末尾の1文と新元史でも「皇太子」「少帝」としか"
+        "書かれない（本人の名が本人の原文に1度も出てこない）",
+    "yuan-mingzong":
+        "底本が「讳和世〈王束〉」と合字の注記で書いており、㻋 の符号が原文側に無い",
+    "yuan-huizong":
+        "底本は「妥欢帖睦尔」＝歡で、データの懽と別字。**版の異同として要確認**"
+        "（RESIDUAL.md「民族名の漢字側が底本に当たらない」の行。単位3の移行では"
+        "値を変えられない＝組み直しのゲートFが落ちるので、直すなら別の訂正）",
+}
+
+
+def cmd_check_ethnic_names():
+    """民族名 `name.ethnicName` の**漢字側**が本人の原文キャッシュに在るか（ゲートD）。
+
+    4種類のどれも**片側は必ず漢字**なので、照合する側を kind の `script` で決める:
+    契丹名・女真名は `ethnicName.value` そのもの、モンゴル語名・満洲語名は相手側の
+    `personalName`（漢字音写・漢字諱）。
+
+    **カナは底本に在り得ないので kind 単位で免除する。**「クビライ」が「忽必烈」の
+    正しいカナかどうかは**どのゲートも見ていない** — カナ表記は原典に無い編集上の
+    読み下しで、このゲートが担保するのは漢字側の実在までである。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    kinds = {k["id"]: k for k in
+             (data.get("meta", {}).get("catalogs", {}) or {}).get("ethnicNameKinds") or []}
+    checked = ok = bad = 0
+    skipped = []
+    allowed = []
+    for e in data["emperors"]:
+        en = (e.get("name") or {}).get("ethnicName")
+        if not isinstance(en, dict):
+            continue
+        spec = kinds.get(en.get("kind")) or {}
+        han = (en.get("value") if spec.get("script") == "han"
+               else (e.get("name") or {}).get("personalName"))
+        if not han:
+            continue
+        cache = CORPUS_ROOT / "_corpus_cache" / f"{e['id']}.txt"
+        if not cache.is_file():
+            skipped.append(e["id"])
+            continue
+        checked += 1
+        hay = norm_for_match(cache.read_text(encoding="utf-8"))
+        form = ethnic_han_hit(han, hay)
+        if form:
+            ok += 1
+            if e["id"] in ETHNIC_HAN_ALLOW:
+                print(f"NOTICE {e['id']}: 免除に挙げてあるが当たった（免除を消せる）")
+            continue
+        if e["id"] in ETHNIC_HAN_ALLOW:
+            allowed.append(e["id"])
+            continue
+        bad += 1
+        print(f"ERROR {e['id']}: {spec.get('label')} の漢字側「{han}」が本人の原文キャッシュに"
+              f"現れない（{spec.get('script')} の欄なので照合しているのは"
+              f"{'民族名そのもの' if spec.get('script') == 'han' else '相手側の personalName'}）")
+    if skipped:
+        print(f"NOTICE 原文キャッシュが無いため未照合: {len(skipped)}人 {skipped}")
+    for eid in allowed:
+        print(f"NOTICE {eid}: 底本側の事情で免除 — {ETHNIC_HAN_ALLOW[eid]}")
+    print(f"---\n{bad} errors / ethnicName を持つ {checked}人のうち "
+          f"{ok}人の漢字側が本人の原文に実在（免除 {len(allowed)}人・"
+          f"カナ側は原典に無いので照合の外）")
+    return 1 if bad else 0
+
+
 def _iter_units_for_volumes(data):
     """validate_emperors の走査をそのまま使う（容器の列挙を2箇所に書かない）。"""
     import importlib.util
@@ -1297,6 +1455,12 @@ def main():
     ap.add_argument("--check-volumes", action="store_true",
                     help="meta.catalogs.books と (bookId, volume) をコーパスの巻に当てる"
                          "（Issue #69 計画7節の4・要コーパス。#53 の巻番号の穴はここで閉じる）")
+    ap.add_argument("--check-era-names", action="store_true",
+                    help="改元 event の eraName を本人の原文キャッシュに当てる"
+                         "（Issue #37 単位2・要コーパス。改元の定型句と隣り合うことまで見る）")
+    ap.add_argument("--check-ethnic-names", action="store_true",
+                    help="name.ethnicName の漢字側を本人の原文キャッシュに当てる"
+                         "（Issue #37 単位3・要コーパス。カナ側は原典に無いので照合の外）")
     ap.add_argument("--rebuild", action="store_true",
                     help="--backfill と併用。照合器を変えたとき機械判定を作り直す"
                          "（manual/external/defect の curation は残す）")
@@ -1329,6 +1493,10 @@ def main():
         return cmd_check_books()
     if args.check_volumes:
         return cmd_check_volumes()
+    if args.check_era_names:
+        return cmd_check_era_names()
+    if args.check_ethnic_names:
+        return cmd_check_ethnic_names()
     if args.backfill:
         return cmd_backfill(rebuild=args.rebuild, retry_unresolved=args.retry_unresolved)
     return cmd_check()

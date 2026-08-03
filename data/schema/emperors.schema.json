@@ -126,6 +126,40 @@
             }
           }
         },
+        "ethnicNameKinds": {
+          "type": "array",
+          "description": "民族名の種類カタログ（2026-08-03・Issue #37 単位3）。name.ethnicName.kind が指す先。**同じ「◯◯（◯◯）」が政権ごとに別の現象を指している**（遼の耶律徳光は契丹名とは別の漢風の諱・元の忽必烈は同じ名前の漢字音写）ため、相手側 personalName のラベルと並び順を kind から一意に決める表にしてある。設計は docs/schema/NAME_FIELDS_PLAN_2026-08-03.md の 2-2。",
+          "items": {
+            "type": "object",
+            "required": ["id", "label", "regimes", "script", "counterpartLabel", "order"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+              "label": { "type": "string", "description": "民族名の側のラベル（例:「契丹名」）。" },
+              "labelEn": { "type": ["string", "null"] },
+              "regimes": {
+                "type": "array",
+                "description": "この種類を名乗れる政権 ID（meta.catalogs.regimes）。**取り違えを落とす主力**で、クビライに「女真名」が生える形をここで落とす。",
+                "items": { "type": "string" },
+                "minItems": 1
+              },
+              "script": {
+                "type": "string",
+                "enum": ["han", "kana"],
+                "description": "value の字種。han＝漢字のみ／kana＝カタカナのみ（原音のカナ表記）。底本照合ができるのは han の側だけ。"
+              },
+              "counterpartLabel": {
+                "type": "string",
+                "description": "相手側 name.personalName のラベル（例: 契丹名に対する「漢風名」・モンゴル語名に対する「漢字音写」）。"
+              },
+              "order": {
+                "type": "string",
+                "enum": ["ethnic-first", "personal-first"],
+                "description": "移行前の personalName で括弧の外に出ていた側。ethnic-first＝「民族名（漢字名）」（遼・元）／personal-first＝「漢字名（民族名）」（金・清）。移行が元の文字列を復元できることの検査（validate_emperors.py の check_ethnic_names）に使う。"
+              },
+              "description": { "type": "string" }
+            }
+          }
+        },
         "eras": {
           "type": "array",
           "description": "時代区分（11 区分）。調査ブロック（researchSection）とは独立した、時代ジャンプ・並び順のための固定カタログ。",
@@ -240,8 +274,8 @@
         "accessionRoute": { "$ref": "#/$defs/accessionRoute" },
         "ages": { "$ref": "#/$defs/ages" },
         "eraChangeCount": {
-          "description": "改元回数。events[] は改元1件ごとの記録。",
-          "$ref": "#/$defs/datedEventCount"
+          "description": "改元回数。events[] は改元1件ごとの記録。events[].eraName を持つのはこの容器だけ（datedEventCount と別定義にしてあるのはそのため）。",
+          "$ref": "#/$defs/eraChangeCountObject"
         },
         "amnestyCount": {
           "description": "大赦回数。恩赦のうち原典が「大赦」と明記するものを数える。",
@@ -280,7 +314,23 @@
       "properties": {
         "personalName": {
           "type": ["string", "null"],
-          "description": "諱（本名）。"
+          "description": "諱（本名）。漢字で書かれた名で、政権によって姓を含む形・音写のみの形がある（元の12人は姓を持たない）。**民族名は ethnicName へ分ける**（2026-08-03・Issue #37 単位3）。移行前のレコードは「漢字名（民族名）」の括弧つきで、括弧の並びが政権ごとに逆になっている。"
+        },
+        "ethnicName": {
+          "type": ["object", "null"],
+          "description": "漢字名とは別に伝わる**民族語の名**（契丹名・女真名・モンゴル語名・満洲語名）。**任意で、遡及しない** — 欄が無いことは「その人物に民族名が無い」ではなく「まだ分けていない・調べていない」を含む（西夏のタングート名・北魏の鮮卑名はデータに無い）。personalName との**並び順は kind から決まる**（catalogs.ethnicNameKinds の order）ので、レコード側は順序を持たない。",
+          "required": ["kind", "value"],
+          "properties": {
+            "kind": {
+              "type": "string",
+              "description": "民族名の種類。meta.catalogs.ethnicNameKinds の ID。ラベル（「契丹名」）と、相手側 personalName のラベル（「漢風名」）はカタログ側にある。"
+            },
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "description": "民族名そのもの。字種は kind ごとに決まる（契丹名・女真名は漢字／モンゴル語名・満洲語名はカタカナ）。**カナは原典に無い編集上の読み下し**なので底本照合の対象外で、その人物の底本照合は相手側の漢字名が担う。"
+            }
+          }
         },
         "commonName": {
           "type": "string",
@@ -629,6 +679,48 @@
               "date": { "type": ["string", "null"], "description": "発生日。ISO 8601（紀元前は4桁ゼロ埋めの負年）。**保存値の深さそのものが主張する粒度**（年 `\"1211\"`・月 `\"1211-05\"`・日 `\"1211-05-07\"`）で、埋め草は置かない。月日を主張できるのは**在位の境界年**に在る event だけで、それ以外の月日は data/internal/event-date-archive.json へ退避してある（2026-08-03・Issue #69）。深さは datePrecision 以下。EMPERORS_SCHEMA.md「events の日付が主張する範囲」節が正。" },
               "dateRaw": { "type": ["string", "null"], "description": "原典の紀年表記そのまま（例:「建武二年秋八月」）。**任意・遡及しない**（2026-08-03 新設・Issue #56）。無いことは根拠の不在を意味しない。EMPERORS_SCHEMA.md「events の原表記と換算」節が正。" },
               "datePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
+              "note": { "type": ["string", "null"], "description": "内容・原典の記述。" },
+              "source": { "$ref": "#/$defs/source" },
+              "quotes": { "$ref": "#/$defs/quotes" },
+              "conflicts": { "$ref": "#/$defs/conflicts" }
+            }
+          }
+        },
+        "confidence": { "$ref": "#/$defs/confidence" },
+        "quotes": { "$ref": "#/$defs/quotes" },
+        "note": {
+          "type": ["string", "null"],
+          "description": "指標レベルの注記。典拠とした書名・巻や、数え方の判断を含む。"
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1,
+          "description": "任意。いま正しいと判断している内容だけを前向きに書いた1〜2文。note は作業ログで、訂正の経緯として捨てた側の値が本文に残るためフィールドとの突合は向きが反転する。捨てた値・経緯・保留・原文引用は note へ。件数は算用数字で書く（count と突き合わせる）。**無いことは根拠の不在を意味しない**（既存 note へは遡及しない）。data/schema/EMPERORS_SCHEMA.md「note と claim」節が正。"
+        },
+        "conflicts": { "$ref": "#/$defs/conflicts" }
+      }
+    },
+
+    "eraChangeCountObject": {
+      "type": "object",
+      "description": "改元回数。datedEventCount と同じ形だが、events[] に元号名 eraName／eraNameRaw を持つ（2026-08-03 新設・Issue #37 単位2）。**共有の datedEventCount へ足さないのは、大赦・立后・皇太子廃立の event に元号名が生えるのを型で禁じるため**（check_schema が additionalProperties:false を機械付与するので、別定義にすること自体がゲートになる）。",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "description": "回数。原則 events 配列の長さと一致する（一致しない場合の理由は note に記す）。",
+          "minimum": 0
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-z0-9-]+\\.[A-Za-z]+Count\\.e[0-9]{3,}$", "description": "この event の安定 id（`<皇帝id>.<容器>.eNNN`）。2026-08-03（Issue #69）に一度だけ焼いたもので、**添字から作り直さない** — 焼いた直後は連番と添字が1ずれで対応するので再生成しても検査は通るが、event を1件挿入した瞬間に黙って番号が振り直され、外部からの参照が別の event を指す。新しく足した event には `python3 scripts/migrations/bake_event_ids.py --fill` で振る。参照する側: data/screenings.json の audit.findings[].id・scripts/validate_emperors.py の許可リスト・docs/process/RESIDUAL.md" },
+              "date": { "type": ["string", "null"], "description": "発生日。ISO 8601（紀元前は4桁ゼロ埋めの負年）。**保存値の深さそのものが主張する粒度**（年 `\"1211\"`・月 `\"1211-05\"`・日 `\"1211-05-07\"`）で、埋め草は置かない。月日を主張できるのは**在位の境界年**に在る event だけで、それ以外の月日は data/internal/event-date-archive.json へ退避してある（2026-08-03・Issue #69）。深さは datePrecision 以下。改元の日は**本紀がその改元という行為に日付を付けている条の日**（規則 R-ERA-DATE-DECLARED）。EMPERORS_SCHEMA.md「events の日付が主張する範囲」節が正。" },
+              "dateRaw": { "type": ["string", "null"], "description": "原典の紀年表記そのまま（例:「建武二年秋八月」）。**任意・遡及しない**（2026-08-03 新設・Issue #56）。無いことは根拠の不在を意味しない。EMPERORS_SCHEMA.md「events の原表記と換算」節が正。" },
+              "datePrecision": { "$ref": "#/$defs/datePrecisionAnnotated" },
+              "eraName": { "type": ["string", "null"], "description": "**この改元 event が建てた元号の名**（日本語の新字体・漢字2〜4字）。改元されて捨てられた側の元号は書かない。**任意**（前漢初期のように元号制以前の建元・改元には名前が無い。無いことは「調べていない」も含み、根拠の不在を意味しない）。検査は validate_emperors.py::check_era_names（形・note に根拠がある）と verify_quotes.py --check-era-names（本人の原文キャッシュに改元アンカーと同行で在る）。2026-08-03 新設・Issue #37 単位2。" },
+              "eraNameRaw": { "type": ["string", "null"], "description": "同じ元号の**底本の字体**。**任意・遡及しない**。新字体への書き換えを再演できるようにするための欄で、`R-EVENT-DATE-RAW` の *Raw と同じ作法。**書くのは底本の字体が hanzi_norm の変換で出てこないときだけ**（例: 繁体の版が「曆」「啟」と「歷」「啓」で割れる字）。简体コーパスの「天启」のように opencc で機械的に出る形は導出値であって主張ではないので書かない。" },
               "note": { "type": ["string", "null"], "description": "内容・原典の記述。" },
               "source": { "$ref": "#/$defs/source" },
               "quotes": { "$ref": "#/$defs/quotes" },

@@ -21,6 +21,7 @@ import {
   type EmperorStructuredDates,
   type EmperorTableRecord,
   type EmperorVideo,
+  type EthnicName,
   type MetricRank,
   type NarrativeSection,
   type RankingMetricKey,
@@ -166,6 +167,9 @@ interface RawEvent {
   /** 遷都のみ。 */
   from?: string | null;
   to?: string | null;
+  /** 改元のみ。この改元が**建てた**元号の名（Issue #37 単位2・2026-08-03 新設）。
+   *  **任意・転記の途中**なので、無いことは「元号が無い」ではない。 */
+  eraName?: string | null;
 }
 
 interface RawCount {
@@ -182,6 +186,10 @@ interface RawEmperor {
     posthumousName: string | null;
     templeName: string | null;
     aliases: string[];
+    /** 民族名（契丹名・女真名・モンゴル語名・満洲語名）。ラベルは
+     *  `lib/data-source.ts` が `meta.catalogs.ethnicNameKinds` から解決済み。
+     *  持つのは30人で、**無いのは「民族名が無い」の意**（2026-08-03 に移行完了）。 */
+    ethnicName?: EthnicName;
   };
   /** lib/data-source.ts が v3 の regimeId・researchSection から組み立てる
    *  （name＝国号・section＝調査ブロック名・category＝政権の性格）。 */
@@ -436,9 +444,15 @@ function displayName(e: RawEmperor): string {
   return toNakaguro(emperorDisplayName(e.id, raw, e.regimeId));
 }
 
-/** 皇帝一覧の検索対象文字列。各種名称・別名・王朝名・時代を連結する。
+/** 皇帝一覧の検索対象文字列。各種名称・別名・元号・王朝名・時代を連結する。
  *  **表示名も入れる** — 括弧を落とした形（「後廃帝（安定王）元朗」→「後廃帝元朗」）は
- *  データのどのフィールドとも一致しないため、入れないと見えている名前で引けない。 */
+ *  データのどのフィールドとも一致しないため、入れないと見えている名前で引けない。
+ *
+ *  **元号は改元 event の `eraName` から入れる**（Issue #35 の回収・2026-08-03）。
+ *  `commonName` を政権名から人物名へ直したとき、括弧の中にしか無かった元号
+ *  （義嘉・正平・天正・天成・天啓）が検索から落ちた。`aliases` へ逃がすと
+ *  個別ページで「別称」チップとして出て名前の種類が合わないので、この欄で受ける。
+ *  **転記は途中**（681件中5件）なので、元号で引ける皇帝は転記が進んだぶんだけ増える。 */
 function searchTextOf(e: RawEmperor, dynastyLabelText: string, era: string): string {
   return [
     displayName(e),
@@ -447,6 +461,10 @@ function searchTextOf(e: RawEmperor, dynastyLabelText: string, era: string): str
     e.name.templeName,
     e.name.posthumousName,
     ...(e.name.aliases ?? []),
+    // 民族名は移行前 personalName の括弧の中にあった（Issue #37 単位3）。
+    // 欄を分けた人物で検索から落とさないためにここで受ける
+    e.name.ethnicName?.value,
+    ...(e.eraChangeCount?.events ?? []).map((ev) => ev.eraName),
     e.dynasty.name,
     dynastyLabelText,
     era,
@@ -465,6 +483,9 @@ function searchKanaOf(e: RawEmperor, dynastyLabelText: string, era: string): str
     e.name.templeName,
     e.name.posthumousName,
     ...(e.name.aliases ?? []),
+    // 移行前は personalName の括弧の中に入っていた文字列なので、読みは既に
+    // TABLE_SOURCE に在る（新しい親文字は増えない）。落とすとかな検索だけが縮む
+    e.name.ethnicName?.value,
   ].filter((s): s is string => !!s);
   for (const name of names) {
     for (const k of kanaExpansionsOf(name)) kana.add(k);
@@ -570,6 +591,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
       e.name.personalName,
       e.regimeId,
       displayName(e),
+      e.name.ethnicName,
     ),
     dynastyName: e.dynasty.name,
     dynastySection: e.dynasty.section,
@@ -606,6 +628,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     periodsLabel: e.reigns.map(formatPeriod).join(" / "),
     commonName: e.name.commonName ?? "",
     personalName: e.name.personalName,
+    ethnicName: e.name.ethnicName ?? null,
     templeName: e.name.templeName,
     posthumousName: e.name.posthumousName,
     aliases: e.name.aliases ?? [],
@@ -737,6 +760,7 @@ export function getEmperorTableRecords(): EmperorTableRecord[] {
       name: r.name,
       nameRuby: rubyOf(r.name),
       personalName: r.personalName,
+      ethnicName: r.ethnicName?.value ?? null,
       dynastyLabel: r.dynastyLabel,
       dynastyLabelRuby: rubyOf(r.dynastyLabel),
       dynastyKey: r.dynastyKey,

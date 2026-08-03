@@ -71,6 +71,20 @@ export interface EmperorVideo {
   thumbnailUrl: string;
 }
 
+/**
+ * 民族名（Issue #37 単位3）。ラベルは `lib/data-source.ts` が
+ * `meta.catalogs.ethnicNameKinds` から解決済みで、**相手側 `personalName` の
+ * ラベル（`counterpartLabel`）も kind から決まる** — 遼は「契丹名／漢風名」、
+ * 元は「モンゴル語名／漢字音写」のように、括弧が指す現象が政権ごとに違うため。
+ */
+export interface EthnicName {
+  kind: string;
+  value: string;
+  label: string;
+  counterpartLabel: string;
+  order: "ethnic-first" | "personal-first";
+}
+
 export interface EmperorRecord {
   id: string;
   name: string;
@@ -130,6 +144,8 @@ export interface EmperorRecord {
   commonName: string;
   /** 諱・廟号・諡号。個別ページのヒーローに名前のチップとして出す。 */
   personalName: string | null;
+  /** 民族名。分けていない人物は null（**「民族名が無い」ではない**・移行が別段のため）。 */
+  ethnicName: EthnicName | null;
   templeName: string | null;
   posthumousName: string | null;
   /** 別名（秦始皇・趙政など）。個別ページの Person JSON-LD の alternateName に使う。 */
@@ -227,6 +243,10 @@ export interface EmperorTableRecord {
    *  「なぜこの行が残ったか」が分からなくならない（時代・在位回数を検索対象から
    *  外したのとはここが違う）。 */
   personalName: string | null;
+  /** 民族名（Issue #37 単位3）。**列ではなく検索の対象**なので `COLUMNS` と
+   *  `DATABASE_COLUMN_COUNT` は動かさない。分ける前は `personalName` の括弧の中に
+   *  入っていて検索に当たっていたので、無いと「クビライ」で元世祖が引けなくなる。 */
+  ethnicName: string | null;
   dynastyLabel: string;
   /** 王朝名のふりがな付き（Issue #20）。並べ替え・絞り込みは dynastyLabel/dynastyKey。 */
   dynastyLabelRuby: string;

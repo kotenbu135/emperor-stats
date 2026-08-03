@@ -2241,6 +2241,58 @@
      "corpusVolumeMax": 12,
      "corpusVolumeCount": 12
     }
+   ],
+   "ethnicNameKinds": [
+    {
+     "id": "khitan",
+     "label": "契丹名",
+     "labelEn": null,
+     "regimes": [
+      "liao",
+      "western-liao"
+     ],
+     "script": "han",
+     "counterpartLabel": "漢風名",
+     "order": "ethnic-first",
+     "description": "契丹語の名。遼史は「姓耶律氏，讳德光，字德谨，小字尧骨」のように「小字」として載せる。相手側の personalName は同じ人物の別の諱（漢風名）で、同じ名前の音写ではない。"
+    },
+    {
+     "id": "jurchen",
+     "label": "女真名",
+     "labelEn": null,
+     "regimes": [
+      "jin-jurchen"
+     ],
+     "script": "han",
+     "counterpartLabel": "漢名",
+     "order": "personal-first",
+     "description": "女真語の名。金史の書き方は一定しない（太祖・太宗・熙宗・世宗は「本讳」、章宗・衛紹王は「小字」、宣宗は「本名」、哀宗は「又讳」）。相手側の personalName は同じ人物の別の諱（漢名）。"
+    },
+    {
+     "id": "mongol",
+     "label": "モンゴル語名",
+     "labelEn": null,
+     "regimes": [
+      "yuan",
+      "northern-yuan"
+     ],
+     "script": "kana",
+     "counterpartLabel": "漢字音写",
+     "order": "ethnic-first",
+     "description": "モンゴル語の名のカナ表記。相手側の personalName は**同じ名前の漢字音写**（クビライ＝忽必烈）で、別の諱ではない。"
+    },
+    {
+     "id": "manchu",
+     "label": "満洲語名",
+     "labelEn": null,
+     "regimes": [
+      "qing"
+     ],
+     "script": "kana",
+     "counterpartLabel": "諱",
+     "order": "personal-first",
+     "description": "満洲語の名のカナ表記。相手側の personalName は漢字の諱。"
+    }
    ]
   },
   "generatedAt": "2026-07-31",
@@ -8400,7 +8452,7 @@
      },
      {
       "id": "hou-han-guangwudi.rebellionSuppressionCount.e005",
-      "note": "建武五年三月「平狄将軍龐萌反、殺楚郡太守孫萌而東附董憲。」建武六年二月「大司馬呉漢拔朐、獲董憲・龐萌、山東悉平。」帝自身も六年（原文では五年）六月に桃城救援で親征した。",
+      "note": "建武五年三月「平狄将軍龐萌反、殺楚郡太守孫萌而東附董憲。」建武六年二月「大司馬吳漢拔朐、獲董憲・龐萌、山東悉平。」帝自身も六年（原文では五年）六月に桃城救援で親征した。",
       "outcome": "董憲に合流したが建武六年二月に呉漢により董憲ともども捕らえられ、山東平定",
       "datePrecision": "month",
       "startDate": "0029",
@@ -16896,7 +16948,7 @@
      {
       "id": "shuhan-zhaoliedi.personalCampaignCount.e001",
       "startDate": "0221-08",
-      "note": "『三国志』蜀書・先主伝：章武元年（221）秋七月「先主忿孫權之襲關羽、将東征……遂帥諸軍伐呉」とあり、先主自ら諸軍を率いて呉を討伐（夷陵の戦い）。翌章武二年（222）二月には自ら秭帰から進軍し猇亭に駐営、閏六月に陸遜に大破された。呉は蜀漢に服属しない対等な独立政権であり本来は統一戦争・対外戦争の性格が強いが、皇帝本人が親征した点で personalCampaignCount の定義（皇帝本人の出陣）に合致するためここに計上した（rebellion系のカウントには含めない）。終期を現行 0222-10-01 から 0222-08-01 へ訂正した（Issue #56）。従来は呉軍の追撃が終わる秋八月「收兵还巫」を目安にしていたが、この記事の主語は呉の追撃部隊で、先主本人の帰着ではない。終期は先主伝「先主自猇亭还秭归，收合离散兵，遂弃船舫，由步道还鱼复，改鱼复县曰永安」に置き、呉主伝が決戦を「自正月至闰月」とし陸遜伝が敗戦当夜の白帝入城を記すことから閏六月（多数月 0222-08）と定めた。",
+      "note": "『三国志』蜀書・先主伝：章武元年（221）秋七月「先主忿孫權之襲關羽、将東征……遂帥諸軍伐吳」とあり、先主自ら諸軍を率いて呉を討伐（夷陵の戦い）。翌章武二年（222）二月には自ら秭帰から進軍し猇亭に駐営、閏六月に陸遜に大破された。呉は蜀漢に服属しない対等な独立政権であり本来は統一戦争・対外戦争の性格が強いが、皇帝本人が親征した点で personalCampaignCount の定義（皇帝本人の出陣）に合致するためここに計上した（rebellion系のカウントには含めない）。終期を現行 0222-10-01 から 0222-08-01 へ訂正した（Issue #56）。従来は呉軍の追撃が終わる秋八月「收兵还巫」を目安にしていたが、この記事の主語は呉の追撃部隊で、先主本人の帰着ではない。終期は先主伝「先主自猇亭还秭归，收合离散兵，遂弃船舫，由步道还鱼复，改鱼复县曰永安」に置き、呉主伝が決戦を「自正月至闰月」とし陸遜伝が敗戦当夜の白帝入城を記すことから閏六月（多数月 0222-08）と定めた。",
       "datePrecision": "month",
       "endDate": "0222-08",
       "outcome": "大敗（夷陵・猇亭の戦い）。将軍冯習・張南らを失い、先主自身は秭帰を経て歩道で魚復（永安と改称）まで撤退した",
@@ -44985,7 +45037,8 @@
       "source": {
        "page": "宋书卷八十 列传第四十（晋安王子勋伝）／卷八十四 列传第四十四（邓琬传）",
        "lang": "zh"
-      }
+      },
+      "eraName": "義嘉"
      }
     ],
     "confidence": "high",
@@ -45178,7 +45231,8 @@
       "source": {
        "page": "梁書/卷56 侯景傳；南史/卷80 賊臣傳",
        "lang": "zh"
-      }
+      },
+      "eraName": "正平"
      }
     ],
     "confidence": "high",
@@ -45605,7 +45659,8 @@
       "source": {
        "page": "梁书卷五十五列传第四十九（武陵王纪）／南史卷五十三列传第四十三（梁武帝诸子）",
        "lang": "zh"
-      }
+      },
+      "eraName": "天正"
      }
     ],
     "confidence": "high",
@@ -45797,7 +45852,8 @@
       "source": {
        "page": "南史巻八 梁本紀下第八",
        "lang": "zh"
-      }
+      },
+      "eraName": "天成"
      }
     ],
     "confidence": "high",
@@ -45994,7 +46050,8 @@
       "source": {
        "page": "南史巻五十五 列伝第四十五（元帝諸子伝）／北斉書巻三十二 陸法和王琳伝（北史より補訂）",
        "lang": "zh"
-      }
+      },
+      "eraName": "天啓"
      }
     ],
     "confidence": "high",
@@ -47202,7 +47259,7 @@
      {
       "id": "beiwei-taiwudi.personalCampaignCount.e011",
       "outcome": "薛永宗を撃破・全滅、蓋呉本隊は敗走（本体討滅は八月）、関中の一部叛民も討伐",
-      "note": "太平真君七年正月戊辰「車駕次東雍州」、庚午「圍薛永宗營壘、永宗出戰、大敗、六軍乘之、永宗衆潰」で薛永宗を親征により殲滅。二月、長安・盩厔等を巡り「誅叛民耿青、孫温二塁与蓋呉通謀者」と蓋呉与党を親ら誅す。蓋呉本人は乙抜等が杏城で撃破（帝は関中巡撫）。四月甲申「車駕至自長安」で帰還。",
+      "note": "太平真君七年正月戊辰「車駕次東雍州」、庚午「圍薛永宗營壘、永宗出戰、大敗、六軍乘之、永宗衆潰」で薛永宗を親征により殲滅。二月、長安・盩厔等を巡り「誅叛民耿青、孫温二壘与蓋吳通謀者」と蓋呉与党を親ら誅す。蓋呉本人は乙抜等が杏城で撃破（帝は関中巡撫）。四月甲申「車駕至自長安」で帰還。",
       "target": "盧水胡蓋呉・河東蜀薛永宗の乱（内乱）",
       "startDate": "0446",
       "datePrecision": "month",
@@ -58324,7 +58381,7 @@
       "leader": "汪文進・高智慧・沈玄懀（自称天子）、蔡道人・李稜・呉代華・沈孝澈・王国慶・楊宝英・李春（自称大都督）ほか",
       "name": "開皇十年江南遺民反乱",
       "outcome": "上柱国・内史令・越国公楊素に討伐を命じ討平（討平の完了時期は原文に明記なし）",
-      "note": "『隋書』帝紀二・開皇十年十一月条「是月、婺州人汪文進、会稽人高智慧、蘇州人沈玄懀皆舉兵反、自称天子、署置百官。樂安蔡道人、蒋山李稜、饒州呉代華、永嘉沈孝澈、泉州王国慶、馀杭楊宝英、交阯李春等皆自称大都督、攻陥州県。詔上柱国、内史令、越国公楊素討平之」。旧陳領（江南）の郡県官民による大規模同時多発蜂起で、首謀者は複数（10名前後）だが、同月に発生し楊素の単一の討伐命令で一括鎮圧された一連の反乱として1件に集約した（各地の首謀者が独立していた可能性もあり、地域・首謀者ごとに分割集計する余地も残るためconfidence medium）。"
+      "note": "『隋書』帝紀二・開皇十年十一月条「是月、婺州人汪文進、会稽人高智慧、蘇州人沈玄懀皆舉兵反、自称天子、署置百官。樂安蔡道人、蒋山李稜、饒州吳代華、永嘉沈孝澈、泉州王国慶、馀杭楊宝英、交阯李春等皆自称大都督、攻陥州県。詔上柱国、内史令、越国公楊素討平之」。旧陳領（江南）の郡県官民による大規模同時多発蜂起で、首謀者は複数（10名前後）だが、同月に発生し楊素の単一の討伐命令で一括鎮圧された一連の反乱として1件に集約した（各地の首謀者が独立していた可能性もあり、地域・首謀者ごとに分割集計する余地も残るためconfidence medium）。"
      },
      {
       "id": "sui-wendi.rebellionSuppressionCount.e002",
@@ -62251,7 +62308,7 @@
       "datePrecision": null,
       "target": "呉興の賊帥・沈法興（毗陵に拠る）",
       "outcome": "撃破し毗陵から駆逐した",
-      "note": "旧唐書巻五十六輔公祏伝「時呉興賊帥沈法興拠毗陵、公祏撃破之」。武徳6年8月の即位・大修兵甲の直後に位置する記述で、公祏自身の在位期間中の出来事と読める。直後の文で他の武将派遣は「又遣其将冯惠亮屯於博望山…」と明示的に「遣」の語で区別されているのに対し、この一文では公祏自身を主語として「撃破之」としており、本人が軍を率いた親征と解釈した（ただし「自将」「親征」等の直接的な文言はなく、確度は中程度に留める）。"
+      "note": "旧唐書巻五十六輔公祏伝「時吳興賊帥沈法興據毗陵、公祏擊破之」。武徳6年8月の即位・大修兵甲の直後に位置する記述で、公祏自身の在位期間中の出来事と読める。直後の文で他の武将派遣は「又遣其将冯惠亮屯於博望山…」と明示的に「遣」の語で区別されているのに対し、この一文では公祏自身を主語として「擊破之」としており、本人が軍を率いた親征と解釈した（ただし「自将」「親征」等の直接的な文言はなく、確度は中程度に留める）。"
      }
     ],
     "confidence": "medium",
@@ -80623,9 +80680,11 @@
   {
    "id": "shiguo-beihan-liuchong",
    "name": {
-    "personalName": "劉崇（劉旻）",
+    "personalName": "劉崇",
     "commonName": "世祖（劉崇）",
-    "aliases": [],
+    "aliases": [
+     "劉旻"
+    ],
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝"
@@ -91334,9 +91393,11 @@
   {
    "id": "liao-taizu",
    "name": {
-    "personalName": "耶律阿保機（耶律億）",
+    "personalName": "耶律億",
     "commonName": "太祖",
-    "aliases": [],
+    "aliases": [
+     "耶律阿保機"
+    ],
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝"
@@ -91819,12 +91880,16 @@
   {
    "id": "liao-taizong",
    "name": {
-    "personalName": "耶律堯骨（耶律徳光）",
+    "personalName": "耶律徳光",
     "commonName": "太宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "khitan",
+     "value": "耶律堯骨"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -92141,12 +92206,16 @@
   {
    "id": "liao-shizong",
    "name": {
-    "personalName": "耶律兀欲（耶律阮）",
+    "personalName": "耶律阮",
     "commonName": "世宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "khitan",
+     "value": "耶律兀欲"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -92372,12 +92441,16 @@
   {
    "id": "liao-muzong",
    "name": {
-    "personalName": "耶律述律（耶律璟）",
+    "personalName": "耶律璟",
     "commonName": "穆宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "khitan",
+     "value": "耶律述律"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -92584,12 +92657,16 @@
   {
    "id": "liao-jingzong",
    "name": {
-    "personalName": "耶律明扆（耶律賢）",
+    "personalName": "耶律賢",
     "commonName": "景宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "khitan",
+     "value": "耶律明扆"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -92857,12 +92934,16 @@
   {
    "id": "liao-shengzong",
    "name": {
-    "personalName": "耶律文殊奴（耶律隆緒）",
+    "personalName": "耶律隆緒",
     "commonName": "聖宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "khitan",
+     "value": "耶律文殊奴"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -93387,12 +93468,16 @@
   {
    "id": "liao-xingzong",
    "name": {
-    "personalName": "耶律只骨（耶律宗真）",
+    "personalName": "耶律宗真",
     "commonName": "興宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "khitan",
+     "value": "耶律只骨"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -93728,12 +93813,16 @@
   {
    "id": "liao-daozong",
    "name": {
-    "personalName": "耶律査剌（耶律洪基）",
+    "personalName": "耶律洪基",
     "commonName": "道宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "khitan",
+     "value": "耶律査剌"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -94151,12 +94240,16 @@
   {
    "id": "liao-tianzuodi",
    "name": {
-    "personalName": "耶律阿果（耶律延禧）",
+    "personalName": "耶律延禧",
     "commonName": "天祚帝",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "khitan",
+     "value": "耶律阿果"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -95311,14 +95404,18 @@
   {
    "id": "jin-taizu",
    "name": {
-    "personalName": "旻（阿骨打）",
+    "personalName": "完顔旻",
     "commonName": "太祖",
     "aliases": [
      "完顔阿骨打"
     ],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "jurchen",
+     "value": "阿骨打"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -95721,12 +95818,16 @@
   {
    "id": "jin-taizong",
    "name": {
-    "personalName": "完顔晟（呉乞買）",
+    "personalName": "完顔晟",
     "commonName": "太宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "jurchen",
+     "value": "呉乞買"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -96007,12 +96108,16 @@
   {
    "id": "jin-xizong",
    "name": {
-    "personalName": "完顔亶（合剌）",
+    "personalName": "完顔亶",
     "commonName": "熙宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "jurchen",
+     "value": "合剌"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -96262,12 +96367,16 @@
   {
    "id": "jin-hailingwang",
    "name": {
-    "personalName": "完顔亮（迪古乃）",
+    "personalName": "完顔亮",
     "commonName": "海陵王",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "jurchen",
+     "value": "迪古乃"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -96597,12 +96706,16 @@
   {
    "id": "jin-shizong",
    "name": {
-    "personalName": "完顔雍（烏禄）",
+    "personalName": "完顔雍",
     "commonName": "世宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "jurchen",
+     "value": "烏禄"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -96882,12 +96995,16 @@
   {
    "id": "jin-zhangzong",
    "name": {
-    "personalName": "完顔璟（麻達葛）",
+    "personalName": "完顔璟",
     "commonName": "章宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "jurchen",
+     "value": "麻達葛"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -97155,12 +97272,16 @@
   {
    "id": "jin-weishaowang",
    "name": {
-    "personalName": "完顔永済（興勝）",
+    "personalName": "完顔永済",
     "commonName": "衛紹王",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "jurchen",
+     "value": "興勝"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -97395,12 +97516,16 @@
   {
    "id": "jin-xuanzong",
    "name": {
-    "personalName": "完顔珣（吾睹補）",
+    "personalName": "完顔珣",
     "commonName": "宣宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "jurchen",
+     "value": "吾睹補"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -98161,12 +98286,16 @@
   {
    "id": "jin-aizong",
    "name": {
-    "personalName": "完顔守緒（寧甲速）",
+    "personalName": "完顔守緒",
     "commonName": "哀宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "jurchen",
+     "value": "寧甲速"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -101496,12 +101625,16 @@
   {
    "id": "yuan-shizu",
    "name": {
-    "personalName": "クビライ（忽必烈）",
+    "personalName": "忽必烈",
     "commonName": "世祖",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "mongol",
+     "value": "クビライ"
+    }
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -102189,12 +102322,16 @@
   {
    "id": "yuan-chengzong",
    "name": {
-    "personalName": "テムル（鉄穆耳）",
+    "personalName": "鉄穆耳",
     "commonName": "成宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "mongol",
+     "value": "テムル"
+    }
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -102586,12 +102723,16 @@
   {
    "id": "yuan-wuzong",
    "name": {
-    "personalName": "カイシャン（海山）",
+    "personalName": "海山",
     "commonName": "武宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "mongol",
+     "value": "カイシャン"
+    }
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -102913,12 +103054,16 @@
   {
    "id": "yuan-renzong",
    "name": {
-    "personalName": "アユルバルワダ（愛育黎抜力八達）",
+    "personalName": "愛育黎抜力八達",
     "commonName": "仁宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "mongol",
+     "value": "アユルバルワダ"
+    }
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -103279,12 +103424,16 @@
   {
    "id": "yuan-yingzong",
    "name": {
-    "personalName": "シデバラ（碩徳八剌）",
+    "personalName": "碩徳八剌",
     "commonName": "英宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "mongol",
+     "value": "シデバラ"
+    }
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -103926,12 +104075,16 @@
   {
    "id": "yuan-taidingdi",
    "name": {
-    "personalName": "イェスン・テムル（也孫鉄木児）",
+    "personalName": "也孫鉄木児",
     "commonName": "泰定帝（通称）",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "mongol",
+     "value": "イェスン・テムル"
+    }
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -104279,12 +104432,16 @@
   {
    "id": "yuan-tianshundi",
    "name": {
-    "personalName": "アリギバ（阿剌吉八）",
+    "personalName": "阿剌吉八",
     "commonName": "天順帝（通称）",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "mongol",
+     "value": "アリギバ"
+    }
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -104457,12 +104614,16 @@
   {
    "id": "yuan-wenzong",
    "name": {
-    "personalName": "トク・テムル（図帖睦爾）",
+    "personalName": "図帖睦爾",
     "commonName": "文宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "mongol",
+     "value": "トク・テムル"
+    }
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -104831,12 +104992,16 @@
   {
    "id": "yuan-mingzong",
    "name": {
-    "personalName": "コシラ（和世㻋）",
+    "personalName": "和世㻋",
     "commonName": "明宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "mongol",
+     "value": "コシラ"
+    }
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -104989,12 +105154,16 @@
   {
    "id": "yuan-ningzong",
    "name": {
-    "personalName": "イリンジバル（懿璘質班）",
+    "personalName": "懿璘質班",
     "commonName": "寧宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "mongol",
+     "value": "イリンジバル"
+    }
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -105170,12 +105339,16 @@
   {
    "id": "yuan-huizong",
    "name": {
-    "personalName": "トゴン・テムル（妥懽帖睦爾）",
+    "personalName": "妥懽帖睦爾",
     "commonName": "恵宗（順帝）",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "mongol",
+     "value": "トゴン・テムル"
+    }
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -106183,12 +106356,16 @@
   {
    "id": "beiyuan-zhaozong",
    "name": {
-    "personalName": "アユルシリダラ（愛猷識理達臘）",
+    "personalName": "愛猷識理達臘",
     "commonName": "昭宗",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "mongol",
+     "value": "アユルシリダラ"
+    }
    },
    "eraId": "yuan",
    "regimeId": "northern-yuan",
@@ -115369,12 +115546,16 @@
   {
    "id": "qing-taizong",
    "name": {
-    "personalName": "愛新覚羅皇太極（ホンタイジ）",
+    "personalName": "愛新覚羅皇太極",
     "commonName": "太宗（崇徳帝）",
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "ethnicName": {
+     "kind": "manchu",
+     "value": "ホンタイジ"
+    }
    },
    "eraId": "qing",
    "regimeId": "qing",

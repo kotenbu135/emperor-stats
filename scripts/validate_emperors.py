@@ -62,7 +62,9 @@ SCHEMA_PATH = ROOT / "data" / "schema" / "emperors.schema.json"
 PORTRAITS_DIR = ROOT / "data" / "images" / "portraits"
 
 sys.path.insert(0, str(ROOT / "scripts"))
+import hanzi_norm  # noqa: E402
 from detect_wikipedia_sources import is_wiki_like  # noqa: E402
+from hanzi_norm import norm_for_match  # noqa: E402
 from event_date_scope import (  # noqa: E402
     ARCHIVE_PATH, boundary_years, depth_of, is_boundary_event,
 )
@@ -981,6 +983,225 @@ def check_event_date_format(data):
                         )
 
 
+# --- 元号名（Issue #37 単位2・2026-08-03 新設）--------------------------------
+# 主張は「**この改元 event が建てた元号の名は eraName である**」。
+# 転記は原典を読む作業で一度に終わらないので、条件（全 event が eraName を持つ）は
+# **強制しない**。ここが強制するのは形と根拠と**ラチェット**だけで、不足は
+# docs/process/RESIDUAL.md の行として持つ（SCHEMA_CHANGE_CHECKLIST.md 手順5）。
+#
+# **eraName が空であることは「元号が無い」ではない。** 前漢初期のように元号制以前で
+# 名前そのものが無い改元と、まだ読んでいない改元の両方が空になる。埋め草を書かせると
+# R-DATE-CLAIM-SCOPE が日付で捨てた形をここで作り直すので、任意のままにしてある。
+ERA_NAME_BASELINE = 5
+
+# 元号の名だけを書く欄なので、記事の一節を丸ごと入れた形（「改元康熙」「為天啓元年」）を弾く。
+# **「建元」は実在する元号**（漢武帝の最初の元号・東晋康帝・前秦苻堅・南斉高帝）なので、
+# **それ単体のときだけ通す**（「改元建元」「建元元年」は弾いたまま）。史実の日本語と衝突する語を
+# 印に入れると、最初に転記する人が誤検出に当たって「このゲートは壊れている」と結論する
+# （claim 欄で実際に起きかけた型。test_claim_field.py の同じコメントを参照）。
+ERA_NAME_FORBIDDEN = ("元年", "改元", "建元", "年号", "年號", "改號", "改号")
+ERA_NAME_ALLOW_EXACT = ("建元",)
+ERA_NAME_RE = re.compile(r"^[㐀-鿿]{2,4}$")
+
+
+def check_era_names(data):
+    """改元 event の元号名 eraName / eraNameRaw（Issue #37 単位2）。
+
+    A 形         … 漢字2〜4字・記事の語を含まない
+    B 再演       … eraNameRaw があるとき norm_for_match(eraName) == norm_for_match(eraNameRaw)。
+                    **「表示の字体を勝手に作った」を落とす**
+    C 根拠       … norm_for_match(eraName) が同じ event の note・quotes・dateRaw の
+                    正規化本文に在る
+    E ラチェット … eraName を持つ改元 event の数が基準線を下回ったら落ちる
+
+    **C は「建てた側」と「捨てた側」を区別しない。** 「章武から建興へ改元」の note では
+    章武（捨てた側）を入れても C は通る。区別できるのは改元アンカーと同じ行を見る
+    verify_quotes.py --check-era-names（ゲートD）だけで、C はそこまでは言っていない
+    （scripts/test_era_name.py にこの限界を測るケースを置いてある）。
+    """
+    total = named = 0
+    can_norm = hanzi_norm._T2S is not None
+    for e in data["emperors"]:
+        for g in COUNT_GROUPS:
+            o = e.get(g)
+            if not isinstance(o, dict):
+                continue
+            for i, ev in enumerate(o.get("events") or []):
+                if not isinstance(ev, dict):
+                    continue
+                if g == "eraChangeCount":
+                    total += 1
+                name, raw = ev.get("eraName"), ev.get("eraNameRaw")
+                if name is None and raw is None:
+                    continue
+                where = ev.get("id") or f"{e['id']}.{g}[{i}]"
+                # 型で禁じている（eraChangeCountObject を別定義にした）が、
+                # 合成レコードでも同じ判定が要るのでここでも見る
+                if g != "eraChangeCount":
+                    err(f"[era-name] {where}: eraName を持てるのは改元 event だけ")
+                    continue
+                if name is None:
+                    err(f"[era-name] {where}: eraNameRaw だけがあり eraName が無い"
+                        f"（底本の字体は新字体の側と対で持つ）")
+                    continue
+                # A 形
+                ok = True
+                for label, v in (("eraName", name), ("eraNameRaw", raw)):
+                    if v is None:
+                        continue
+                    if not isinstance(v, str) or not ERA_NAME_RE.match(v):
+                        err(f"[era-name] {where}.{label}: 漢字2〜4字でない {str(v)[:40]!r}")
+                        ok = ok and label != "eraName"
+                        continue
+                    bad = [w for w in ERA_NAME_FORBIDDEN
+                           if w in v and not (v in ERA_NAME_ALLOW_EXACT and v == w)]
+                    if bad:
+                        err(f"[era-name] {where}.{label}: 記事の語 {'／'.join(bad)} を含む"
+                            f"（元号の名だけを書く）: {v!r}")
+                        ok = ok and label != "eraName"
+                if not ok:
+                    continue
+                named += 1
+                if not can_norm:
+                    continue
+                key = norm_for_match(name)
+                # B 新字体変換の再演
+                if isinstance(raw, str) and ERA_NAME_RE.match(raw) and norm_for_match(raw) != key:
+                    err(f"[era-name] {where}: eraName {name!r} と eraNameRaw {raw!r} が"
+                        f"別の元号（新字体への書き換えが再演できない）")
+                # C 同じ event の中に根拠がある
+                hay = [ev.get("note") or "", ev.get("dateRaw") or ""]
+                for q in ev.get("quotes") or []:
+                    if isinstance(q, dict):
+                        hay.append(q.get("text") or "")
+                if key not in norm_for_match("　".join(hay)):
+                    err(f"[era-name] {where}: eraName {name!r} が同じ event の note・quotes に"
+                        f"見当たらない（原典を読んで根拠と一緒に入れる）")
+    if not can_norm:
+        warn("[era-name] opencc が無いため B（字体の再演）と C（note に根拠がある）を"
+             "評価していない。形とラチェットだけが掛かっている")
+    info(f"[era-name] 改元 event {total}件のうち eraName を持つのは {named}件"
+         f"（基準線 {ERA_NAME_BASELINE}・残りは docs/process/RESIDUAL.md の行）")
+    # E ラチェット。**条件は強制していない**（転記は別段）ので、減らないことだけを見る
+    if named < ERA_NAME_BASELINE:
+        err(f"[era-name] eraName を持つ改元 event が {named}件で基準線 "
+            f"{ERA_NAME_BASELINE} を下回った（転記を消した／ERA_NAME_BASELINE を"
+            f"下げるなら理由を書く）")
+    return total, named
+
+
+# --- 民族名（Issue #37 単位3・2026-08-03 新設）--------------------------------
+# 主張は「**この人物の name.ethnicName.value は kind の言語・民族の名である**」。
+#
+# 移行前は「漢字名（民族名）」の1文字列に畳んであり、**括弧の並びが政権ごとに逆**
+# （遼＝契丹名（漢風名）／金＝漢名（女真名）／元＝カナ（漢字音写）／清＝漢字諱（カナ））。
+# 分けるだけの作業に見えるが、**括弧ごと消す形の欠落は「分けた」と区別できない**ので、
+# 移行前の32件を data/internal/personal-name-originals.json に凍結し、
+# kind が決める並び（catalogs.ethnicNameKinds[].order）で組み直して原文字列に戻ることを見る。
+#
+# 転記と同じく条件は強制しない（32件を1件ずつ原典で確かめる作業なので一度に終わらない）。
+# ここが強制するのは形・政権との整合・**組み直し**・括弧の天井だけ。
+ETHNIC_ORIGINALS_PATH = ROOT / "data" / "internal" / "personal-name-originals.json"
+# 括弧つき personalName の天井。**単位2のラチェットと向きが逆**（あちらは床・こちらは
+# 天井）で、移行が進むと減る。**2026-08-03 に32件すべてを分けたので0**。
+# この0が、サイト側から括弧を割る経路（display-name.ts の ETHNIC_NAME_LABEL・
+# RENAMED_NAME_IDS）を消せる根拠 — 括弧つきのレコードはもう入って来られない。
+ETHNIC_PAREN_CEILING = 0
+ETHNIC_VALUE_RE = {
+    "han": re.compile(r"^[㐀-鿿]{1,12}$"),
+    "kana": re.compile(r"^[ァ-ヶー・]{2,20}$"),
+}
+
+
+def check_ethnic_names(data):
+    """民族名 name.ethnicName（Issue #37 単位3）。
+
+    A kind の実在   … meta.catalogs.ethnicNameKinds に在る
+    B 政権との整合   … その kind を名乗れる政権（カタログの regimes）である。
+                      **取り違えを落とす主力**（クビライに「女真名」が生える形）
+    C 字種           … kind の script（han＝漢字のみ／kana＝カナのみ）
+    F 組み直し       … 凍結標本の原文字列へ戻る（**括弧ごとの欠落を落とす唯一の検査**）
+    E 括弧の天井     … personalName に「（」を含むレコードが基準線を超えたら落ちる
+
+    **底本照合はここには無い**（ローカルコーパスが要るため
+    verify_quotes.py --check-ethnic-names に置いた＝ゲートD）。
+    """
+    kinds = {}
+    for k in (data.get("meta", {}).get("catalogs", {}) or {}).get("ethnicNameKinds") or []:
+        if isinstance(k, dict) and k.get("id"):
+            kinds[k["id"]] = k
+    try:
+        originals = json.loads(ETHNIC_ORIGINALS_PATH.read_text(encoding="utf-8"))["records"]
+    except (OSError, KeyError, ValueError):
+        originals = {}
+        warn("[ethnic-name] data/internal/personal-name-originals.json が読めないため"
+             "組み直し（F）を評価していない")
+
+    named = paren = 0
+    for e in data["emperors"]:
+        name = e.get("name") or {}
+        personal = name.get("personalName") or ""
+        if "（" in personal:
+            paren += 1
+        en = name.get("ethnicName")
+        orig = (originals.get(e["id"]) or {}).get("personalName")
+        if en is None:
+            # 凍結標本の id から括弧が消えたのに民族名も別名も無い＝**値を捨てた形**。
+            # 天井だけだと「（阿骨打）を消す」で満たせてしまうので対で見る。
+            # **ただしこの対は既存の aliases でも満たせる**（移行前から別名を持つ人物が
+            # いる）ので、値が保たれたことの証人は下の F だけ
+            if orig and "（" not in personal and not (name.get("aliases") or []):
+                err(f"[ethnic-name] {e['id']}: personalName から括弧が消えたのに"
+                    f"ethnicName も aliases も無い（{orig!r} の民族名・別名の行き先が無い）")
+            continue
+        if not isinstance(en, dict):
+            err(f"[ethnic-name] {e['id']}: ethnicName が object でない")
+            continue
+        kind, value = en.get("kind"), en.get("value")
+        if not isinstance(value, str) or not value.strip():
+            err(f"[ethnic-name] {e['id']}: ethnicName.value が空")
+            continue
+        named += 1
+        # A
+        if kind not in kinds:
+            err(f"[ethnic-name] {e['id']}: kind {kind!r} が"
+                f"meta.catalogs.ethnicNameKinds に無い")
+            continue
+        spec = kinds[kind]
+        # B **取り違えの主力**
+        if e.get("regimeId") not in (spec.get("regimes") or []):
+            err(f"[ethnic-name] {e['id']}: 政権 {e.get('regimeId')!r} は kind {kind!r}"
+                f"（{spec.get('label')}）を名乗れない"
+                f"（名乗れるのは {'／'.join(spec.get('regimes') or [])}）")
+        # C 字種
+        rx = ETHNIC_VALUE_RE.get(spec.get("script"))
+        if rx is None:
+            err(f"[ethnic-name] {e['id']}: kind {kind!r} の script が不正 "
+                f"{spec.get('script')!r}")
+        elif not rx.match(value):
+            err(f"[ethnic-name] {e['id']}: ethnicName.value {value!r} が "
+                f"{spec.get('script')}（{spec.get('label')}）の字種でない")
+        if "（" in personal:
+            err(f"[ethnic-name] {e['id']}: ethnicName を分けたのに personalName に"
+                f"括弧が残っている {personal!r}")
+        # F 組み直し。移行が値を作り替えていないことの証人
+        if orig:
+            order = spec.get("order")
+            rebuilt = (f"{value}（{personal}）" if order == "ethnic-first"
+                       else f"{personal}（{value}）")
+            if rebuilt != orig:
+                err(f"[ethnic-name] {e['id']}: 組み直すと {rebuilt!r} で、移行前の"
+                    f"{orig!r} に戻らない（分ける以外のことをしている）")
+    info(f"[ethnic-name] ethnicName を持つ人物 {named}人"
+         f"／personalName に括弧が残るのは {paren}人（天井 {ETHNIC_PAREN_CEILING}・"
+         f"移行の残りは docs/process/RESIDUAL.md の行）")
+    # E 天井
+    if paren > ETHNIC_PAREN_CEILING:
+        err(f"[ethnic-name] personalName に括弧を含む人物が {paren}人で天井 "
+            f"{ETHNIC_PAREN_CEILING} を超えた（民族名は ethnicName へ分ける）")
+    return named, paren
+
+
 # --- claim（主張）欄 ---------------------------------------------------------
 # note は**作業ログ**で、訂正の経緯として「現行 X → Y に訂正」のように**捨てた側の値**が
 # 本文に残る。だからフィールドとの突合は向きが反転し、散文は witness にならない
@@ -1798,6 +2019,8 @@ def main() -> int:
     check_confidence(data)
     death_event_n = check_death_event_date(data)
     check_event_date_format(data)
+    era_total_n, era_named_n = check_era_names(data)
+    ethnic_n, ethnic_paren_n = check_ethnic_names(data)
     archive_n = check_event_date_archive(data)
     claimed_n, witnessed_n = check_event_date_claim_residual(data)
     floor, legacy_quote_n, floor_total_n = check_quote_containers(data)
@@ -1837,6 +2060,8 @@ def main() -> int:
           f"／退避した月日 {archive_n}値を配布物と照合"
           f"／月日を主張する event {claimed_n}件のうち *Raw＋conversion を持つのは "
           f"{witnessed_n}件"
+          f"／改元 event {era_total_n}件のうち eraName を持つのは {era_named_n}件"
+          f"／ethnicName {ethnic_n}人・括弧が残る personalName {ethnic_paren_n}人"
           f"／構造化引用を持つ床の容器 {sum(floor.values())}/{floor_total_n}件"
           f"（旧い器 source.quote は {legacy_quote_n}件）)")
     return 1 if errors else 0

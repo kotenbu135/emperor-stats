@@ -97,6 +97,20 @@ HINTS = [
      "月日を書けるのは**在位の境界年**に在る event だけ。境界年の外に月日を書くと "
      "validate_emperors.py が落ちる。その event が data/internal/event-date-archive.json に"
      "在るなら、**アーカイブ側の値も同じタイミングで直すか消す**（配布物の値は退避値の接頭辞）"),
+    (re.compile(r"^eraChangeCount\.events\[\d+\]\.eraName"),
+     "python3 scripts/verify_quotes.py --check-era-names",
+     "元号名は**建てた側**を書く欄（R-CLAIM-GATED・Issue #37 単位2）。"
+     "validate_emperors.py の C（同じ event の note に在る）は捨てた側の元号でも通るので、"
+     "**建てたことの証人はこのゲートだけ**（本人の原文キャッシュで改元の定型句と隣り合うかを見る）。"
+     "底本の字体が hanzi_norm の変換で出てこないときだけ `eraNameRaw` も併記する"),
+    (re.compile(r"^name\.(?:ethnicName|personalName)"),
+     "python3 scripts/verify_quotes.py --check-ethnic-names",
+     "民族名は `name.ethnicName {kind, value}` へ分ける（R-CLAIM-GATED・Issue #37 単位3）。"
+     "**括弧つき personalName から分けるときは同じ起動で両方を set する** — 移行前の32件は "
+     "data/internal/personal-name-originals.json に凍結してあり、kind が決める並びで"
+     "組み直して原文字列に戻ることを validate_emperors.py が見る（**括弧ごと消す形の欠落は"
+     "これだけが落とす**）。表示名が変わる政権（遼・元）では name-readings.json・"
+     "kana-readings.ts の追記が要る"),
     # events 要素そのものを足す・置き換えるときだけ（葉の note・date の編集では鳴らさない）
     (re.compile(r"^\w+Count\.events\[\d+\]$"),
      "python3 scripts/migrations/bake_event_ids.py --fill",

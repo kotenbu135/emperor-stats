@@ -59,6 +59,12 @@ const COLUMNS = [
   ["wikidataId", (e) => e.sources?.wikidata],
   ["commonName", (e) => e.name?.commonName],
   ["personalName", (e) => e.name?.personalName],
+  // 民族名（Issue #37 単位3）。**2026-08-03 に `personalName` の括弧から分けた**ので、
+  // この列が無いと配布 CSV から契丹名・女真名・モンゴル語名・満洲語名が丸ごと落ちる
+  //（分ける前は「クビライ（忽必烈）」と1つの列に入っていた）。種類のラベルは
+  // JSON 側 meta.catalogs.ethnicNameKinds を引く。
+  ["ethnicName", (e) => e.name?.ethnicName?.value],
+  ["ethnicNameKind", (e) => e.name?.ethnicName?.kind],
   ["templeName", (e) => e.name?.templeName],
   ["posthumousName", (e) => e.name?.posthumousName],
   ["regimeId", (e) => e.regimeId],

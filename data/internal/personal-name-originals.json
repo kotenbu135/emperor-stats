@@ -1,0 +1,143 @@
+{
+ "meta": {
+  "purpose": "name.ethnicName へ分ける前の personalName の原文字列（2026-08-03・Issue #37 単位3）。移行が値を作り替えていないことを機械で確かめるための凍結標本で、配布物ではない",
+  "invariant": "各 id について「personalName が原文字列のまま（未移行）」か「ethnicName の kind が決める並び（catalogs.ethnicNameKinds[].order）で組み直すと原文字列に戻る（移行済み）」のどちらかであること。**括弧ごと消す形の欠落をこれだけが落とす**",
+  "gate": "scripts/validate_emperors.py の check_ethnic_names",
+  "writeOnce": "移行の開始時に1回書いたきりで、追記しない。ここに無い id へ ethnicName を足すのは自由（凍結標本は「移行で動いた32件」の証人であって、欄の母集団ではない）",
+  "exceptions": {
+   "shiguo-beihan-liuchong": "括弧が民族名ではなく改名（劉崇＝のちの劉旻）。ethnicName では受けられず aliases へ入れるため、組み直しの検査は掛からない",
+   "liao-taizu": "遼史は「姓耶律氏，讳亿，字阿保机，小字啜里只」で、阿保機は**字**・契丹名の枠（小字）は啜里只。他の8人（「小字尧骨」等）と同じ欄では受けられないので 2026-08-03 に aliases へ入れた。ethnicName に入れるとゲートA〜F はすべて通るが遼史が否定する主張になる。字の欄を立てるかは未決"
+  },
+  "records": 32
+ },
+ "records": {
+  "shiguo-beihan-liuchong": {
+   "personalName": "劉崇（劉旻）",
+   "regimeId": "northern-han"
+  },
+  "liao-taizu": {
+   "personalName": "耶律阿保機（耶律億）",
+   "regimeId": "liao"
+  },
+  "liao-taizong": {
+   "personalName": "耶律堯骨（耶律徳光）",
+   "regimeId": "liao"
+  },
+  "liao-shizong": {
+   "personalName": "耶律兀欲（耶律阮）",
+   "regimeId": "liao"
+  },
+  "liao-muzong": {
+   "personalName": "耶律述律（耶律璟）",
+   "regimeId": "liao"
+  },
+  "liao-jingzong": {
+   "personalName": "耶律明扆（耶律賢）",
+   "regimeId": "liao"
+  },
+  "liao-shengzong": {
+   "personalName": "耶律文殊奴（耶律隆緒）",
+   "regimeId": "liao"
+  },
+  "liao-xingzong": {
+   "personalName": "耶律只骨（耶律宗真）",
+   "regimeId": "liao"
+  },
+  "liao-daozong": {
+   "personalName": "耶律査剌（耶律洪基）",
+   "regimeId": "liao"
+  },
+  "liao-tianzuodi": {
+   "personalName": "耶律阿果（耶律延禧）",
+   "regimeId": "liao"
+  },
+  "jin-taizu": {
+   "personalName": "完顔旻（阿骨打）",
+   "regimeId": "jin-jurchen"
+  },
+  "jin-taizong": {
+   "personalName": "完顔晟（呉乞買）",
+   "regimeId": "jin-jurchen"
+  },
+  "jin-xizong": {
+   "personalName": "完顔亶（合剌）",
+   "regimeId": "jin-jurchen"
+  },
+  "jin-hailingwang": {
+   "personalName": "完顔亮（迪古乃）",
+   "regimeId": "jin-jurchen"
+  },
+  "jin-shizong": {
+   "personalName": "完顔雍（烏禄）",
+   "regimeId": "jin-jurchen"
+  },
+  "jin-zhangzong": {
+   "personalName": "完顔璟（麻達葛）",
+   "regimeId": "jin-jurchen"
+  },
+  "jin-weishaowang": {
+   "personalName": "完顔永済（興勝）",
+   "regimeId": "jin-jurchen"
+  },
+  "jin-xuanzong": {
+   "personalName": "完顔珣（吾睹補）",
+   "regimeId": "jin-jurchen"
+  },
+  "jin-aizong": {
+   "personalName": "完顔守緒（寧甲速）",
+   "regimeId": "jin-jurchen"
+  },
+  "yuan-shizu": {
+   "personalName": "クビライ（忽必烈）",
+   "regimeId": "yuan"
+  },
+  "yuan-chengzong": {
+   "personalName": "テムル（鉄穆耳）",
+   "regimeId": "yuan"
+  },
+  "yuan-wuzong": {
+   "personalName": "カイシャン（海山）",
+   "regimeId": "yuan"
+  },
+  "yuan-renzong": {
+   "personalName": "アユルバルワダ（愛育黎抜力八達）",
+   "regimeId": "yuan"
+  },
+  "yuan-yingzong": {
+   "personalName": "シデバラ（碩徳八剌）",
+   "regimeId": "yuan"
+  },
+  "yuan-taidingdi": {
+   "personalName": "イェスン・テムル（也孫鉄木児）",
+   "regimeId": "yuan"
+  },
+  "yuan-tianshundi": {
+   "personalName": "アリギバ（阿剌吉八）",
+   "regimeId": "yuan"
+  },
+  "yuan-wenzong": {
+   "personalName": "トク・テムル（図帖睦爾）",
+   "regimeId": "yuan"
+  },
+  "yuan-mingzong": {
+   "personalName": "コシラ（和世㻋）",
+   "regimeId": "yuan"
+  },
+  "yuan-ningzong": {
+   "personalName": "イリンジバル（懿璘質班）",
+   "regimeId": "yuan"
+  },
+  "yuan-huizong": {
+   "personalName": "トゴン・テムル（妥懽帖睦爾）",
+   "regimeId": "yuan"
+  },
+  "beiyuan-zhaozong": {
+   "personalName": "アユルシリダラ（愛猷識理達臘）",
+   "regimeId": "northern-yuan"
+  },
+  "qing-taizong": {
+   "personalName": "愛新覚羅皇太極（ホンタイジ）",
+   "regimeId": "qing"
+  }
+ }
+}
