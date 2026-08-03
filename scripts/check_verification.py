@@ -319,6 +319,10 @@ def cmd_rate(led, emp):
     print("\n" + led["meta"]["confound"])
     print("\n" + led["meta"]["whichNumber"])
     print("\n" + led["meta"]["webdiff"])
+    # 判断の入口をデータ側に置いたので、率を読む場所で必ず一緒に出す（Issue #54 を
+    # close した代わり。「いつ決めるか・決めたらどこを直すか」が表と離れると読まれない）
+    if led["meta"].get("webdiffDecision"):
+        print("\n" + led["meta"]["webdiffDecision"])
 
 
 def main():
