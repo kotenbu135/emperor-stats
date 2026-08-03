@@ -113,13 +113,15 @@ const ETHNIC_SUBTITLE_KINDS = new Set(["mongol"]);
  * （「王莽」「太祖 朱全忠」のような重複表示を避ける）。
  *
  * @param id 皇帝id
- * @param personalName 諱（データ原文）
+ * @param fullPersonalName 姓＋諱（人物を特定するための形）
+ * @param personalName 諱だけ（清で姓を落とすのに使う）
  * @param regimeId データの `regimeId`（清の姓の落としに使う）
  * @param displayName 1行目（重複判定に使う）
  * @param ethnicName 分けて持っている民族名（Issue #37 単位3）
  */
 export function emperorSubtitle(
   id: string,
+  fullPersonalName: string | null,
   personalName: string | null,
   regimeId: string,
   displayName: string,
@@ -129,10 +131,10 @@ export function emperorSubtitle(
   if (ethnicName && ETHNIC_SUBTITLE_KINDS.has(ethnicName.kind)) {
     return displayName.includes(ethnicName.value) ? null : ethnicName.value;
   }
-  if (!personalName) return null;
-  // 清の11人は「愛新覚羅」＋諱。姓を落として諱だけを出す。
-  const name =
-    regimeId === "qing" ? personalName.replace(/^愛新覚羅/, "") : personalName;
+  // **ここは姓＋諱**（「武帝 劉徹」）。諱だけでは人物が特定できない。
+  // 清の11人だけは姓（愛新覚羅）が長く1行目を圧迫するので諱だけを出す
+  // — 姓と諱を分ける前は正規表現で姓を落としていた場所（Issue #37 単位6）。
+  const name = regimeId === "qing" ? personalName : fullPersonalName;
   if (!name || displayName.includes(name)) return null;
   return name;
 }
@@ -194,7 +196,12 @@ export function emperorNameEntries(r: {
   dynastyKey: string;
   name: string;
   commonName: string;
+  /** 姓（複姓を含む）。null は姓を持たない形で伝わる人物（Issue #37 単位6）。 */
+  familyName: string | null;
+  /** 諱（姓を含まない）。 */
   personalName: string | null;
+  /** 姓＋諱。民族名の相手側（漢風名・漢名・漢字音写）に使う。 */
+  fullPersonalName: string | null;
   /** 民族名（Issue #37 単位3）。ラベルは `kind` が決めるので政権を見ない。 */
   ethnicName: { value: string; label: string; counterpartLabel: string } | null;
   /** 字（Issue #37 単位4・92人）。 */
@@ -213,13 +220,24 @@ export function emperorNameEntries(r: {
     entries.push({ label, value: v });
   };
 
-  // 諱と民族名。ラベルは kind から決まっている（相手側 personalName のラベルも
+  // 姓・諱と民族名。ラベルは kind から決まっている（相手側のラベルも
   // counterpartLabel）ので、**ここで政権を見る必要がない**（Issue #37 単位3）。
-  if (r.personalName && r.ethnicName) {
-    push(r.ethnicName.counterpartLabel, r.personalName);
+  //
+  // **「諱」の行には諱だけを出す**（Issue #37 単位6）。姓＋諱を「諱」と名乗るのは
+  // 慣習に合わない、という 2026-08-03 のユーザー指摘がこの分割の発端で、
+  // ここがその指摘の当たっていた場所そのもの。姓は独立した行にする。
+  //
+  // 民族名の相手側は**姓を冠したまま**（「漢風名 耶律徳光」）— `ethnicName.value` が
+  // 姓を冠した契丹名（耶律堯骨）なので、片方だけ姓を落とすと対にならない。
+  // 満洲語名だけは相手側のラベルが「諱」なので、下の諱・姓の行と同じ扱いになる。
+  const counterpart = r.ethnicName?.counterpartLabel;
+  if (r.ethnicName && counterpart && counterpart !== "諱") {
+    push(counterpart, r.fullPersonalName);
     push(r.ethnicName.label, r.ethnicName.value);
-  } else if (r.personalName) {
+  } else {
     push("諱", r.personalName);
+    push("姓", r.familyName);
+    if (r.ethnicName) push(r.ethnicName.label, r.ethnicName.value);
   }
 
   // 字と幼名（Issue #37 単位4・5）。**諱のすぐ後ろ**に置く — 原典の書き出しが

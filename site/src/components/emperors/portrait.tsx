@@ -26,7 +26,7 @@ import type { EmperorRecord } from "@/lib/emperor-types";
 /** 肖像表示に必要な最小フィールド（一覧の軽量レコード・フルレコードの両方が満たす）。 */
 type PortraitSubject = Pick<
   EmperorRecord,
-  "name" | "personalName" | "portraitUrl" | "portraitFocusY"
+  "name" | "familyName" | "portraitUrl" | "portraitFocusY"
 >;
 
 /** 肖像アセットの縦横比（360×480）。 */
@@ -61,9 +61,11 @@ function focusObjectPositionY(focusY: number): number {
   return Math.min(1, Math.max(0, p));
 }
 
-/** モノグラムに使う一文字。姓（諱の頭文字）を優先し、なければ通称の頭文字を使う。 */
+/** モノグラムに使う一文字。姓を優先し、なければ通称の頭文字を使う。
+ *  **姓を別欄に分ける前は諱の頭文字を取っていた**（諱が姓＋諱だったので同じ字が出る・
+ *  Issue #37 単位6）。姓を持たない12人（モンゴル語名の漢字音写）はここで通称に落ちる。 */
 function monogramChar(record: PortraitSubject): string {
-  return (record.personalName ?? record.name).charAt(0);
+  return (record.familyName ?? record.name).charAt(0);
 }
 
 /**

@@ -189,12 +189,17 @@ export function EmperorHero({
   // 諱そのものの人物や、「太祖 朱全忠」のように通用名へ諱が入っている人物が多い。
   // 導出規則（遼の漢風名・清の愛新覚羅姓省略など）は lib/display-name.ts で一覧と共用。
   const subtitle = record.subtitle;
-  // 名前のチップ。**h1 の脇に出ている補助名と同じ値は落とす** — 諱は多くの皇帝で
-  // 補助名そのもの（「武帝 劉徹」の劉徹）なので、そのまま出すと同じ名前が
-  // 1行下に二度並ぶ。清の11人だけは補助名が姓を落とした形（載湉）で、
-  // チップは姓を含む諱（愛新覚羅載湉）なので両方残る。
+  // 名前のチップ。**h1 の脇に出ている補助名と同じ値は落とす** — 補助名は多くの皇帝で
+  // 姓＋諱（「武帝 劉徹」の劉徹）なので、そのまま出すと同じ名前が1行下に二度並ぶ。
+  //
+  // **諱の行だけは落とさない**（Issue #37 単位6）。補助名が諱そのものになる人物
+  // （清の11人＝載湉・上書きした二世皇帝＝胡亥）で落とすと、**姓の行だけが残って
+  // 対にならない**。ここは同じ文字列がもう一度出ることより、「諱はどこまでか」が
+  // ラベル付きで読めることを採る。
   const nameGroups = groupEmperorNameEntries(
-    emperorNameEntries(record).filter((e) => e.value !== subtitle),
+    emperorNameEntries(record).filter(
+      (e) => e.label === "諱" || e.value !== subtitle,
+    ),
   );
   return (
     <header className="border-b border-border bg-background px-gutter py-section md:px-gutter-wide">

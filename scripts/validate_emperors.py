@@ -1184,11 +1184,14 @@ def check_ethnic_names(data):
         if "（" in personal:
             err(f"[ethnic-name] {e['id']}: ethnicName を分けたのに personalName に"
                 f"括弧が残っている {personal!r}")
-        # F 組み直し。移行が値を作り替えていないことの証人
+        # F 組み直し。移行が値を作り替えていないことの証人。
+        # **姓を分けた後（Issue #37 単位6）は familyName を戻してから組む** —
+        # 遼の凍結標本は「耶律兀欲（耶律阮）」で、諱だけを入れると括弧の中が姓を失う。
         if orig:
             order = spec.get("order")
-            rebuilt = (f"{value}（{personal}）" if order == "ethnic-first"
-                       else f"{personal}（{value}）")
+            full = f"{name.get('familyName') or ''}{personal}"
+            rebuilt = (f"{value}（{full}）" if order == "ethnic-first"
+                       else f"{full}（{value}）")
             if rebuilt != orig:
                 err(f"[ethnic-name] {e['id']}: 組み直すと {rebuilt!r} で、移行前の"
                     f"{orig!r} に戻らない（分ける以外のことをしている）")
@@ -1200,6 +1203,99 @@ def check_ethnic_names(data):
         err(f"[ethnic-name] personalName に括弧を含む人物が {paren}人で天井 "
             f"{ETHNIC_PAREN_CEILING} を超えた（民族名は ethnicName へ分ける）")
     return named, paren
+
+
+# --- 姓 name.familyName（Issue #37 単位6）------------------------------------
+# 移行前は `personalName` が**姓＋諱**を1つの文字列に持っていた（「嬴胡亥」）。
+# 分けるだけの作業に見えるが、**誤った切れ目（複姓を1字で切る・姓を持たない音写名を切る）は
+# 分けた形と区別できない**ので、移行前の365件を
+# data/internal/family-name-split-originals.json に凍結し、連結して原文字列に戻ることを見る。
+# 設計は docs/schema/FAMILY_NAME_SPLIT_2026-08-03.md。
+FAMILY_ORIGINALS_PATH = ROOT / "data" / "internal" / "family-name-split-originals.json"
+FAMILY_VALUE_RE = re.compile(r"^[㐀-鿿]{1,4}$")
+# familyName が null になる政権＝**姓を持たない形で伝わる**（モンゴル語名の漢字音写）。
+# 未記入ではないので、宣言した政権は**全員 null**であることまで見る。
+FAMILY_NULL_REGIMES = {"yuan", "northern-yuan"}
+# 政権内で姓が割れてよい所（ゲートD の例外）。**理由が要る**ので集合ではなく表にする。
+FAMILY_MIXED_REGIMES = {
+    "northern-wei": "孝文帝の改姓（拓跋→元）",
+    "western-wei": "北魏から続く拓跋と元",
+    "later-zhou": "郭威と、養子で柴姓の世宗・恭帝",
+    "anshi-yan": "安禄山・安慶緒と史思明・史朝義",
+}
+
+
+def check_family_names(data):
+    """姓 name.familyName（Issue #37 単位6）。
+
+    A 形            … 漢字1〜4字か null。諱（personalName）は非空で姓を含まない
+    B 分割の同一性   … 凍結標本の移行前値へ `familyName + personalName` で戻る。
+                      **字を落とす・順を変える形を落とす唯一の検査**
+    C null の所在    … null は宣言済み政権だけ・その政権は全員 null
+    D 政権内の一貫性 … 同じ政権の姓は1種類（宣言済みの5政権を除く）。**誤分割の主力** —
+                      姓を1字ずらすと必ず政権内で割れる。**ただし政権まるごと同じ誤り方
+                      （一覧に無い複姓を全員1字で切る）はここでは見えない**ので、
+                      そちらは絞り込みの ambiguous 検出器が受け持つ
+
+    **底本照合はここには無い**（ローカルコーパスが要るため
+    verify_quotes.py --check-family-names に置いた＝ゲートE）。
+    """
+    try:
+        originals = json.loads(
+            FAMILY_ORIGINALS_PATH.read_text(encoding="utf-8"))["records"]
+    except (OSError, KeyError, ValueError):
+        originals = {}
+        warn("[family-name] data/internal/family-name-split-originals.json が"
+             "読めないため分割の同一性（B）を評価していない")
+
+    named = 0
+    by_regime = {}
+    for e in data["emperors"]:
+        name = e.get("name") or {}
+        family = name.get("familyName")
+        given = name.get("personalName")
+        regime = e.get("regimeId")
+        # A
+        if not isinstance(given, str) or not given.strip():
+            err(f"[family-name] {e['id']}: personalName（諱）が空")
+            continue
+        if family is not None:
+            if not isinstance(family, str) or not FAMILY_VALUE_RE.match(family):
+                err(f"[family-name] {e['id']}: familyName {family!r} が漢字1〜4字でない")
+                continue
+            named += 1
+            if given.startswith(family):
+                err(f"[family-name] {e['id']}: personalName {given!r} が姓 {family!r} で"
+                    f"始まっている（諱の欄に姓が残っている）")
+            by_regime.setdefault(regime, {}).setdefault(family, []).append(e["id"])
+        # C
+        if family is None and regime not in FAMILY_NULL_REGIMES:
+            err(f"[family-name] {e['id']}: familyName が null だが政権 {regime!r} は"
+                f"姓を持たない政権として宣言されていない"
+                f"（宣言済み: {'／'.join(sorted(FAMILY_NULL_REGIMES))}）")
+        if family is not None and regime in FAMILY_NULL_REGIMES:
+            err(f"[family-name] {e['id']}: 政権 {regime!r} は姓を持たない形で伝わるのに"
+                f"familyName {family!r} が入っている")
+        # B
+        orig = (originals.get(e["id"]) or {}).get("personalName")
+        if orig:
+            rebuilt = f"{family or ''}{given}"
+            if rebuilt != orig:
+                err(f"[family-name] {e['id']}: 連結すると {rebuilt!r} で、移行前の"
+                    f"{orig!r} に戻らない（分ける以外のことをしている）")
+    # D
+    for regime, families in sorted(by_regime.items()):
+        if len(families) > 1 and regime not in FAMILY_MIXED_REGIMES:
+            detail = "／".join(f"{f}（{'・'.join(ids)}）" for f, ids in sorted(families.items()))
+            err(f"[family-name] 政権 {regime!r} の familyName が割れている: {detail}"
+                f"（正しければ FAMILY_MIXED_REGIMES に理由つきで宣言する）")
+    stale = sorted(set(FAMILY_MIXED_REGIMES) - {r for r, f in by_regime.items() if len(f) > 1})
+    if stale:
+        warn(f"[family-name] FAMILY_MIXED_REGIMES の陳腐化エントリ（もう割れていない）: {stale}")
+    info(f"[family-name] familyName を持つ人物 {named}人"
+         f"／姓を持たない形で伝わる人物 {len(data['emperors']) - named}人"
+         f"（政権 {'／'.join(sorted(FAMILY_NULL_REGIMES))}）")
+    return named
 
 
 # --- 字（あざな）name.courtesyName（Issue #37 単位4）--------------------------
@@ -1214,6 +1310,14 @@ def check_ethnic_names(data):
 COURTESY_VALUE_RE = re.compile(r"^[㐀-鿿]{1,4}$")
 # 値に含まれていたら定型ごと写した印になる字（「字德輿」「讳裕字德輿」のような形）。
 COURTESY_BAD = ("字", "諱", "讳")
+# **諱と字が同じ人物**（B の免除）。晋書がその形で書いており、写し間違いではない。
+# 姓を分ける前（personalName が「司馬徳宗」）はここが同値にならず、B は**理由の違う
+# 通り方**をしていた（2026-08-03・Issue #37 単位6 で顕在化）。
+COURTESY_SAME_AS_PERSONAL = {
+    "dongjin-andi": "晋書 安帝紀「安皇帝諱德宗，字德宗」（コーパスに5件）",
+    "dongjin-gongdi": "晋書 恭帝紀「恭皇帝諱德文，字德文」（コーパスに4件）",
+}
+COURTESY_SAME_SEEN = set()
 
 
 def check_courtesy_names(data):
@@ -1256,9 +1360,17 @@ def check_courtesy_names(data):
                      if isinstance(name.get("ethnicName"), dict) else None),
         }
         for label, other in others.items():
-            if other and other == value:
-                err(f"[courtesy-name] {e['id']}: courtesyName が{label} {other!r} と同じ"
-                    f"（別の名乗りを写している）")
+            if not other or other != value:
+                continue
+            if label == "諱" and e["id"] in COURTESY_SAME_AS_PERSONAL:
+                COURTESY_SAME_SEEN.add(e["id"])
+                continue
+            err(f"[courtesy-name] {e['id']}: courtesyName が{label} {other!r} と同じ"
+                f"（別の名乗りを写している）")
+    stale = sorted(set(COURTESY_SAME_AS_PERSONAL) - COURTESY_SAME_SEEN)
+    if stale:
+        warn(f"[courtesy-name] COURTESY_SAME_AS_PERSONAL の陳腐化エントリ"
+             f"（もう同値ではない）: {stale}")
     info(f"[courtesy-name] courtesyName を持つ人物 {named}人"
          f"（**任意・遡及しない** — 欄が無いのは「字が無い」ではない。"
          f"残りは docs/process/RESIDUAL.md の行）")
@@ -2140,6 +2252,7 @@ def main() -> int:
     check_event_date_format(data)
     era_total_n, era_named_n = check_era_names(data)
     ethnic_n, ethnic_paren_n = check_ethnic_names(data)
+    family_n = check_family_names(data)
     courtesy_n = check_courtesy_names(data)
     childhood_n = check_childhood_names(data)
     archive_n = check_event_date_archive(data)
@@ -2183,6 +2296,7 @@ def main() -> int:
           f"{witnessed_n}件"
           f"／改元 event {era_total_n}件のうち eraName を持つのは {era_named_n}件"
           f"／ethnicName {ethnic_n}人・括弧が残る personalName {ethnic_paren_n}人"
+          f"／familyName {family_n}人"
           f"／courtesyName {courtesy_n}人・childhoodName {childhood_n}人"
           f"／構造化引用を持つ床の容器 {sum(floor.values())}/{floor_total_n}件"
           f"（旧い器 source.quote は {legacy_quote_n}件）)")

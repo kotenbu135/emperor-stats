@@ -58,6 +58,10 @@ const COLUMNS = [
   ["url", (e) => `${SITE_URL}/emperors/${e.id}`],
   ["wikidataId", (e) => e.sources?.wikidata],
   ["commonName", (e) => e.name?.commonName],
+  // 姓（単位6・2026-08-03）と諱。**2026-08-03 に `personalName`（姓＋諱）を割った**ので、
+  // `familyName` が無いと配布 CSV だけが姓を失う（「劉徹」→「徹」になる）。
+  // **空欄は「姓が無い」**（モンゴル語名の漢字音写12人）で、未記入ではない。
+  ["familyName", (e) => e.name?.familyName],
   ["personalName", (e) => e.name?.personalName],
   // 民族名（Issue #37 単位3）。**2026-08-03 に `personalName` の括弧から分けた**ので、
   // この列が無いと配布 CSV から契丹名・女真名・モンゴル語名・満洲語名が丸ごと落ちる

@@ -312,9 +312,13 @@
       "type": "object",
       "description": "各種名称。中国の皇帝は諱・廟号・諡号・通称が併存するため、用途別に保持する。",
       "properties": {
+        "familyName": {
+          "type": ["string", "null"],
+          "description": "姓（複姓を含む）。**null は「姓を持たない形で伝わる」**で未記入ではない — モンゴル語名の漢字音写12人（元11・北元1。「忽必烈」は姓ではない）だけが null になる。2026-08-03・Issue #37 単位6 で personalName（姓＋諱）から分けた。移行前の値は data/internal/family-name-split-originals.json に凍結してあり、familyName + personalName で戻ることを validate_emperors.py::check_family_names が見る。設計は docs/schema/FAMILY_NAME_SPLIT_2026-08-03.md。"
+        },
         "personalName": {
           "type": ["string", "null"],
-          "description": "諱（本名）。漢字で書かれた名で、政権によって姓を含む形・音写のみの形がある（元の12人は姓を持たない）。**民族名は ethnicName へ分ける**（2026-08-03・Issue #37 単位3）。移行前のレコードは「漢字名（民族名）」の括弧つきで、括弧の並びが政権ごとに逆になっている。"
+          "description": "諱（姓を含まない名の部分）。**2026-08-03・Issue #37 単位6 で意味が変わった欄**で、それ以前は姓＋諱を1つの文字列に持っていた（「嬴胡亥」）。姓は familyName、民族名は ethnicName（2026-08-03・Issue #37 単位3）。元の12人は姓を持たない漢字音写なのでこの欄が音写名そのものになる。"
         },
         "ethnicName": {
           "type": ["object", "null"],

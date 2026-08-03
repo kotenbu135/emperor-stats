@@ -3670,7 +3670,8 @@
   {
    "id": "qin-shi-huang",
    "name": {
-    "personalName": "嬴政",
+    "familyName": "嬴",
+    "personalName": "政",
     "commonName": "始皇帝",
     "aliases": [
      "秦始皇",
@@ -3833,7 +3834,8 @@
   {
    "id": "qin-er-shi",
    "name": {
-    "personalName": "嬴胡亥",
+    "familyName": "嬴",
+    "personalName": "胡亥",
     "commonName": "二世皇帝",
     "aliases": [
      "秦二世",
@@ -4122,7 +4124,8 @@
   {
    "id": "han-gaozu",
    "name": {
-    "personalName": "劉邦",
+    "familyName": "劉",
+    "personalName": "邦",
     "commonName": "高帝",
     "aliases": [
      "漢高祖"
@@ -4497,7 +4500,8 @@
   {
    "id": "han-huidi",
    "name": {
-    "personalName": "劉盈",
+    "familyName": "劉",
+    "personalName": "盈",
     "commonName": "恵帝",
     "aliases": [],
     "posthumousName": "恵帝",
@@ -4670,7 +4674,8 @@
   {
    "id": "han-qianshaodi",
    "name": {
-    "personalName": "劉恭",
+    "familyName": "劉",
+    "personalName": "恭",
     "commonName": "前少帝",
     "aliases": [],
     "posthumousName": null,
@@ -4839,7 +4844,8 @@
   {
    "id": "han-houshaodi",
    "name": {
-    "personalName": "劉弘",
+    "familyName": "劉",
+    "personalName": "弘",
     "commonName": "後少帝",
     "aliases": [],
     "posthumousName": null,
@@ -5045,7 +5051,8 @@
   {
    "id": "han-wendi",
    "name": {
-    "personalName": "劉恒",
+    "familyName": "劉",
+    "personalName": "恒",
     "commonName": "文帝",
     "aliases": [],
     "posthumousName": "文帝",
@@ -5267,7 +5274,8 @@
   {
    "id": "han-jingdi",
    "name": {
-    "personalName": "劉啓",
+    "familyName": "劉",
+    "personalName": "啓",
     "commonName": "景帝",
     "aliases": [],
     "posthumousName": "景帝",
@@ -5519,7 +5527,8 @@
   {
    "id": "han-wudi",
    "name": {
-    "personalName": "劉徹",
+    "familyName": "劉",
+    "personalName": "徹",
     "commonName": "武帝",
     "aliases": [],
     "posthumousName": "武帝",
@@ -5981,7 +5990,8 @@
   {
    "id": "han-zhaodi",
    "name": {
-    "personalName": "劉弗陵",
+    "familyName": "劉",
+    "personalName": "弗陵",
     "commonName": "昭帝",
     "aliases": [],
     "posthumousName": "昭帝",
@@ -6312,7 +6322,8 @@
   {
    "id": "han-liuhe",
    "name": {
-    "personalName": "劉賀",
+    "familyName": "劉",
+    "personalName": "賀",
     "commonName": "廃帝（昌邑王）",
     "aliases": [
      "海昏侯"
@@ -6486,7 +6497,8 @@
   {
    "id": "han-xuandi",
    "name": {
-    "personalName": "劉詢",
+    "familyName": "劉",
+    "personalName": "詢",
     "commonName": "宣帝",
     "aliases": [
      "劉病已"
@@ -6794,7 +6806,8 @@
   {
    "id": "han-yuandi",
    "name": {
-    "personalName": "劉奭",
+    "familyName": "劉",
+    "personalName": "奭",
     "commonName": "元帝",
     "aliases": [],
     "posthumousName": "元帝",
@@ -7078,7 +7091,8 @@
   {
    "id": "han-chengdi",
    "name": {
-    "personalName": "劉驁",
+    "familyName": "劉",
+    "personalName": "驁",
     "commonName": "成帝",
     "aliases": [],
     "posthumousName": "成帝",
@@ -7419,7 +7433,8 @@
   {
    "id": "han-aidi",
    "name": {
-    "personalName": "劉欣",
+    "familyName": "劉",
+    "personalName": "欣",
     "commonName": "哀帝",
     "aliases": [],
     "posthumousName": "哀帝",
@@ -7633,7 +7648,8 @@
   {
    "id": "han-pingdi",
    "name": {
-    "personalName": "劉衎",
+    "familyName": "劉",
+    "personalName": "衎",
     "commonName": "平帝",
     "aliases": [],
     "posthumousName": "平帝",
@@ -7857,7 +7873,8 @@
   {
    "id": "gengshi-di",
    "name": {
-    "personalName": "劉玄",
+    "familyName": "劉",
+    "personalName": "玄",
     "commonName": "更始帝",
     "aliases": [],
     "posthumousName": null,
@@ -8111,7 +8128,8 @@
   {
    "id": "hou-han-guangwudi",
    "name": {
-    "personalName": "劉秀",
+    "familyName": "劉",
+    "personalName": "秀",
     "commonName": "光武帝",
     "aliases": [],
     "posthumousName": "光武帝",
@@ -8782,7 +8800,8 @@
   {
    "id": "hou-han-mingdi",
    "name": {
-    "personalName": "劉荘",
+    "familyName": "劉",
+    "personalName": "荘",
     "commonName": "明帝",
     "aliases": [],
     "posthumousName": "明帝",
@@ -9017,7 +9036,8 @@
   {
    "id": "hou-han-zhangdi",
    "name": {
-    "personalName": "劉炟",
+    "familyName": "劉",
+    "personalName": "炟",
     "commonName": "章帝",
     "aliases": [],
     "posthumousName": "章帝",
@@ -9331,7 +9351,8 @@
   {
    "id": "hou-han-hedi",
    "name": {
-    "personalName": "劉肇",
+    "familyName": "劉",
+    "personalName": "肇",
     "commonName": "和帝",
     "aliases": [],
     "posthumousName": "和帝",
@@ -9809,7 +9830,8 @@
   {
    "id": "hou-han-shangdi",
    "name": {
-    "personalName": "劉隆",
+    "familyName": "劉",
+    "personalName": "隆",
     "commonName": "殤帝",
     "aliases": [],
     "posthumousName": "殤帝",
@@ -9985,7 +10007,8 @@
   {
    "id": "hou-han-andi",
    "name": {
-    "personalName": "劉祜",
+    "familyName": "劉",
+    "personalName": "祜",
     "commonName": "安帝",
     "aliases": [],
     "posthumousName": "安帝",
@@ -10542,7 +10565,8 @@
   {
    "id": "hou-han-shaodi-yi",
    "name": {
-    "personalName": "劉懿",
+    "familyName": "劉",
+    "personalName": "懿",
     "commonName": "少帝（懿）",
     "aliases": [
      "少帝懿"
@@ -10728,7 +10752,8 @@
   {
    "id": "hou-han-shundi",
    "name": {
-    "personalName": "劉保",
+    "familyName": "劉",
+    "personalName": "保",
     "commonName": "順帝",
     "aliases": [],
     "posthumousName": "順帝",
@@ -11426,7 +11451,8 @@
   {
    "id": "hou-han-chongdi",
    "name": {
-    "personalName": "劉炳",
+    "familyName": "劉",
+    "personalName": "炳",
     "commonName": "沖帝",
     "aliases": [],
     "posthumousName": "沖帝",
@@ -11665,7 +11691,8 @@
   {
    "id": "hou-han-zhidi",
    "name": {
-    "personalName": "劉纘",
+    "familyName": "劉",
+    "personalName": "纘",
     "commonName": "質帝",
     "aliases": [],
     "posthumousName": "質帝",
@@ -11983,7 +12010,8 @@
   {
    "id": "hou-han-huandi",
    "name": {
-    "personalName": "劉志",
+    "familyName": "劉",
+    "personalName": "志",
     "commonName": "桓帝",
     "aliases": [],
     "posthumousName": "桓帝",
@@ -12915,7 +12943,8 @@
   {
    "id": "hou-han-lingdi",
    "name": {
-    "personalName": "劉宏",
+    "familyName": "劉",
+    "personalName": "宏",
     "commonName": "霊帝",
     "aliases": [],
     "posthumousName": "霊帝",
@@ -13659,7 +13688,8 @@
   {
    "id": "hou-han-shaodi-bian",
    "name": {
-    "personalName": "劉辯",
+    "familyName": "劉",
+    "personalName": "辯",
     "commonName": "少帝（弁）",
     "aliases": [
      "少帝弁",
@@ -13859,7 +13889,8 @@
   {
    "id": "hou-han-xiandi",
    "name": {
-    "personalName": "劉協",
+    "familyName": "劉",
+    "personalName": "協",
     "commonName": "献帝",
     "aliases": [],
     "posthumousName": "献帝",
@@ -14237,7 +14268,8 @@
   {
    "id": "wang-mang",
    "name": {
-    "personalName": "王莽",
+    "familyName": "王",
+    "personalName": "莽",
     "commonName": "王莽",
     "aliases": [],
     "posthumousName": null,
@@ -14711,7 +14743,8 @@
   {
    "id": "liu-penzi",
    "name": {
-    "personalName": "劉盆子",
+    "familyName": "劉",
+    "personalName": "盆子",
     "commonName": "建世帝",
     "aliases": [
      "劉盆子"
@@ -14883,7 +14916,8 @@
   {
    "id": "gongsun-shu",
    "name": {
-    "personalName": "公孫述",
+    "familyName": "公孫",
+    "personalName": "述",
     "commonName": "公孫述",
     "aliases": [],
     "posthumousName": null,
@@ -15060,7 +15094,8 @@
   {
    "id": "liu-yong-liang",
    "name": {
-    "personalName": "劉永",
+    "familyName": "劉",
+    "personalName": "永",
     "commonName": "劉永",
     "aliases": [],
     "posthumousName": null,
@@ -15241,7 +15276,8 @@
   {
    "id": "wei-wendi",
    "name": {
-    "personalName": "曹丕",
+    "familyName": "曹",
+    "personalName": "丕",
     "commonName": "文帝",
     "aliases": [],
     "posthumousName": "文帝",
@@ -15504,7 +15540,8 @@
   {
    "id": "wei-mingdi",
    "name": {
-    "personalName": "曹叡",
+    "familyName": "曹",
+    "personalName": "叡",
     "commonName": "明帝",
     "aliases": [],
     "posthumousName": "明帝",
@@ -15897,7 +15934,8 @@
   {
    "id": "wei-caofang",
    "name": {
-    "personalName": "曹芳",
+    "familyName": "曹",
+    "personalName": "芳",
     "commonName": "曹芳",
     "aliases": [],
     "posthumousName": null,
@@ -16230,7 +16268,8 @@
   {
    "id": "wei-caomao",
    "name": {
-    "personalName": "曹髦",
+    "familyName": "曹",
+    "personalName": "髦",
     "commonName": "曹髦",
     "aliases": [],
     "posthumousName": null,
@@ -16531,7 +16570,8 @@
   {
    "id": "wei-yuandi",
    "name": {
-    "personalName": "曹奐",
+    "familyName": "曹",
+    "personalName": "奐",
     "commonName": "元帝",
     "aliases": [],
     "posthumousName": "元帝",
@@ -16783,7 +16823,8 @@
   {
    "id": "shuhan-zhaoliedi",
    "name": {
-    "personalName": "劉備",
+    "familyName": "劉",
+    "personalName": "備",
     "commonName": "昭烈帝",
     "aliases": [],
     "posthumousName": "昭烈帝",
@@ -17010,7 +17051,8 @@
   {
    "id": "shuhan-liushan",
    "name": {
-    "personalName": "劉禅",
+    "familyName": "劉",
+    "personalName": "禅",
     "commonName": "懐帝",
     "aliases": [],
     "posthumousName": "懐帝",
@@ -17464,7 +17506,8 @@
   {
    "id": "wu-dadi",
    "name": {
-    "personalName": "孫権",
+    "familyName": "孫",
+    "personalName": "権",
     "commonName": "大帝",
     "aliases": [],
     "posthumousName": "大帝",
@@ -17953,7 +17996,8 @@
   {
    "id": "wu-sunliang",
    "name": {
-    "personalName": "孫亮",
+    "familyName": "孫",
+    "personalName": "亮",
     "commonName": "孫亮",
     "aliases": [],
     "posthumousName": null,
@@ -18282,7 +18326,8 @@
   {
    "id": "wu-jingdi",
    "name": {
-    "personalName": "孫休",
+    "familyName": "孫",
+    "personalName": "休",
     "commonName": "景帝",
     "aliases": [],
     "posthumousName": "景帝",
@@ -18525,7 +18570,8 @@
   {
    "id": "wu-modi",
    "name": {
-    "personalName": "孫晧",
+    "familyName": "孫",
+    "personalName": "晧",
     "commonName": "末帝",
     "aliases": [],
     "posthumousName": "末帝",
@@ -19026,7 +19072,8 @@
   {
    "id": "yuan-shu",
    "name": {
-    "personalName": "袁術",
+    "familyName": "袁",
+    "personalName": "術",
     "commonName": "袁術",
     "aliases": [],
     "posthumousName": null,
@@ -19207,7 +19254,8 @@
   {
    "id": "jin-wudi",
    "name": {
-    "personalName": "司馬炎",
+    "familyName": "司馬",
+    "personalName": "炎",
     "commonName": "武帝",
     "aliases": [],
     "posthumousName": "武帝",
@@ -19679,7 +19727,8 @@
   {
    "id": "jin-huidi",
    "name": {
-    "personalName": "司馬衷",
+    "familyName": "司馬",
+    "personalName": "衷",
     "commonName": "恵帝",
     "aliases": [],
     "posthumousName": "恵帝",
@@ -20484,7 +20533,8 @@
   {
    "id": "jin-simalun",
    "name": {
-    "personalName": "司馬倫",
+    "familyName": "司馬",
+    "personalName": "倫",
     "commonName": "司馬倫",
     "aliases": [],
     "posthumousName": null,
@@ -20701,7 +20751,8 @@
   {
    "id": "jin-huaidi",
    "name": {
-    "personalName": "司馬熾",
+    "familyName": "司馬",
+    "personalName": "熾",
     "commonName": "懐帝",
     "aliases": [],
     "posthumousName": "懐帝",
@@ -21173,7 +21224,8 @@
   {
    "id": "jin-mindi",
    "name": {
-    "personalName": "司馬鄴",
+    "familyName": "司馬",
+    "personalName": "鄴",
     "commonName": "愍帝",
     "aliases": [],
     "posthumousName": "愍帝",
@@ -21464,7 +21516,8 @@
   {
    "id": "dongjin-yuandi",
    "name": {
-    "personalName": "司馬睿",
+    "familyName": "司馬",
+    "personalName": "睿",
     "commonName": "元帝",
     "aliases": [],
     "posthumousName": "元帝",
@@ -21814,7 +21867,8 @@
   {
    "id": "dongjin-mingdi",
    "name": {
-    "personalName": "司馬紹",
+    "familyName": "司馬",
+    "personalName": "紹",
     "commonName": "明帝",
     "aliases": [],
     "posthumousName": "明帝",
@@ -22120,7 +22174,8 @@
   {
    "id": "dongjin-chengdi",
    "name": {
-    "personalName": "司馬衍",
+    "familyName": "司馬",
+    "personalName": "衍",
     "commonName": "成帝",
     "aliases": [],
     "posthumousName": "成帝",
@@ -22493,7 +22548,8 @@
   {
    "id": "dongjin-kangdi",
    "name": {
-    "personalName": "司馬岳",
+    "familyName": "司馬",
+    "personalName": "岳",
     "commonName": "康帝",
     "aliases": [],
     "posthumousName": "康帝",
@@ -22696,7 +22752,8 @@
   {
    "id": "dongjin-mudi",
    "name": {
-    "personalName": "司馬聃",
+    "familyName": "司馬",
+    "personalName": "聃",
     "commonName": "穆帝",
     "aliases": [],
     "posthumousName": "穆帝",
@@ -23109,7 +23166,8 @@
   {
    "id": "dongjin-aidi",
    "name": {
-    "personalName": "司馬丕",
+    "familyName": "司馬",
+    "personalName": "丕",
     "commonName": "哀帝",
     "aliases": [],
     "posthumousName": "哀帝",
@@ -23363,7 +23421,8 @@
   {
    "id": "dongjin-feidi",
    "name": {
-    "personalName": "司馬奕",
+    "familyName": "司馬",
+    "personalName": "奕",
     "commonName": "廃帝（海西公）",
     "aliases": [],
     "posthumousName": null,
@@ -23665,7 +23724,8 @@
   {
    "id": "dongjin-jianwendi",
    "name": {
-    "personalName": "司馬昱",
+    "familyName": "司馬",
+    "personalName": "昱",
     "commonName": "簡文帝",
     "aliases": [],
     "posthumousName": "簡文帝",
@@ -23869,7 +23929,8 @@
   {
    "id": "dongjin-xiaowudi",
    "name": {
-    "personalName": "司馬曜",
+    "familyName": "司馬",
+    "personalName": "曜",
     "commonName": "孝武帝",
     "aliases": [],
     "posthumousName": "孝武帝",
@@ -24453,7 +24514,8 @@
   {
    "id": "dongjin-andi",
    "name": {
-    "personalName": "司馬徳宗",
+    "familyName": "司馬",
+    "personalName": "徳宗",
     "commonName": "安帝",
     "aliases": [],
     "posthumousName": "安帝",
@@ -25006,7 +25068,8 @@
   {
    "id": "dongjin-gongdi",
    "name": {
-    "personalName": "司馬徳文",
+    "familyName": "司馬",
+    "personalName": "徳文",
     "commonName": "恭帝",
     "aliases": [],
     "posthumousName": "恭帝",
@@ -25199,7 +25262,8 @@
   {
    "id": "huan-xuan",
    "name": {
-    "personalName": "桓玄",
+    "familyName": "桓",
+    "personalName": "玄",
     "commonName": "桓玄",
     "aliases": [],
     "posthumousName": null,
@@ -25430,7 +25494,8 @@
   {
    "id": "qianliang-zhangzuo",
    "name": {
-    "personalName": "張祚",
+    "familyName": "張",
+    "personalName": "祚",
     "commonName": "張祚",
     "aliases": [],
     "posthumousName": "威王",
@@ -25626,7 +25691,8 @@
   {
    "id": "qianzhao-liuyuan",
    "name": {
-    "personalName": "劉淵",
+    "familyName": "劉",
+    "personalName": "淵",
     "commonName": "光文帝",
     "aliases": [],
     "posthumousName": "光文帝",
@@ -25869,7 +25935,8 @@
   {
    "id": "qianzhao-liuhe",
    "name": {
-    "personalName": "劉和",
+    "familyName": "劉",
+    "personalName": "和",
     "commonName": "劉和",
     "aliases": [],
     "posthumousName": null,
@@ -26039,7 +26106,8 @@
   {
    "id": "qianzhao-liucong",
    "name": {
-    "personalName": "劉聡",
+    "familyName": "劉",
+    "personalName": "聡",
     "commonName": "昭武帝",
     "aliases": [],
     "posthumousName": "昭武帝",
@@ -26418,7 +26486,8 @@
   {
    "id": "qianzhao-liucan",
    "name": {
-    "personalName": "劉粲",
+    "familyName": "劉",
+    "personalName": "粲",
     "commonName": "隠帝",
     "aliases": [],
     "posthumousName": "隠帝",
@@ -26621,7 +26690,8 @@
   {
    "id": "qianzhao-liuyao",
    "name": {
-    "personalName": "劉曜",
+    "familyName": "劉",
+    "personalName": "曜",
     "commonName": "劉曜",
     "aliases": [],
     "posthumousName": null,
@@ -26992,7 +27062,8 @@
   {
    "id": "qianyan-murongjun",
    "name": {
-    "personalName": "慕容儁",
+    "familyName": "慕容",
+    "personalName": "儁",
     "commonName": "景昭帝",
     "aliases": [],
     "posthumousName": "景昭帝",
@@ -27290,7 +27361,8 @@
   {
    "id": "qianyan-murongwei",
    "name": {
-    "personalName": "慕容暐",
+    "familyName": "慕容",
+    "personalName": "暐",
     "commonName": "幽帝",
     "aliases": [],
     "posthumousName": "幽帝",
@@ -27502,7 +27574,8 @@
   {
    "id": "chenghan-lixiong",
    "name": {
-    "personalName": "李雄",
+    "familyName": "李",
+    "personalName": "雄",
     "commonName": "武帝",
     "aliases": [],
     "posthumousName": "武帝",
@@ -27849,7 +27922,8 @@
   {
    "id": "chenghan-liban",
    "name": {
-    "personalName": "李班",
+    "familyName": "李",
+    "personalName": "班",
     "commonName": "李班",
     "aliases": [],
     "posthumousName": "哀皇帝",
@@ -28016,7 +28090,8 @@
   {
    "id": "chenghan-liqi",
    "name": {
-    "personalName": "李期",
+    "familyName": "李",
+    "personalName": "期",
     "commonName": "李期",
     "aliases": [],
     "posthumousName": "幽公",
@@ -28220,7 +28295,8 @@
   {
    "id": "chenghan-lishou",
    "name": {
-    "personalName": "李寿",
+    "familyName": "李",
+    "personalName": "寿",
     "commonName": "昭文帝",
     "aliases": [],
     "posthumousName": "昭文帝",
@@ -28423,7 +28499,8 @@
   {
    "id": "chenghan-lishi",
    "name": {
-    "personalName": "李勢",
+    "familyName": "李",
+    "personalName": "勢",
     "commonName": "後主",
     "aliases": [],
     "posthumousName": "後主",
@@ -28658,7 +28735,8 @@
   {
    "id": "houzhao-shile",
    "name": {
-    "personalName": "石勒",
+    "familyName": "石",
+    "personalName": "勒",
     "commonName": "明帝",
     "aliases": [],
     "posthumousName": "明帝",
@@ -28933,7 +29011,8 @@
   {
    "id": "houzhao-shihong",
    "name": {
-    "personalName": "石弘",
+    "familyName": "石",
+    "personalName": "弘",
     "commonName": "石弘",
     "aliases": [],
     "posthumousName": null,
@@ -29266,7 +29345,8 @@
   {
    "id": "houzhao-shihu",
    "name": {
-    "personalName": "石虎",
+    "familyName": "石",
+    "personalName": "虎",
     "commonName": "武帝",
     "aliases": [],
     "posthumousName": "武帝",
@@ -29651,7 +29731,8 @@
   {
    "id": "houzhao-shishi",
    "name": {
-    "personalName": "石世",
+    "familyName": "石",
+    "personalName": "世",
     "commonName": "石世",
     "aliases": [],
     "posthumousName": null,
@@ -29842,7 +29923,8 @@
   {
    "id": "houzhao-shizun",
    "name": {
-    "personalName": "石遵",
+    "familyName": "石",
+    "personalName": "遵",
     "commonName": "石遵",
     "aliases": [],
     "posthumousName": null,
@@ -30079,7 +30161,8 @@
   {
    "id": "houzhao-shijian",
    "name": {
-    "personalName": "石鑑",
+    "familyName": "石",
+    "personalName": "鑑",
     "commonName": "石鑑",
     "aliases": [],
     "posthumousName": null,
@@ -30284,7 +30367,8 @@
   {
    "id": "houzhao-shizhi",
    "name": {
-    "personalName": "石祗",
+    "familyName": "石",
+    "personalName": "祗",
     "commonName": "石祗",
     "aliases": [],
     "posthumousName": null,
@@ -30464,7 +30548,8 @@
   {
    "id": "qianqin-fujian",
    "name": {
-    "personalName": "苻健",
+    "familyName": "苻",
+    "personalName": "健",
     "commonName": "景明帝",
     "aliases": [],
     "posthumousName": "景明帝",
@@ -30819,7 +30904,8 @@
   {
    "id": "qianqin-fusheng",
    "name": {
-    "personalName": "苻生",
+    "familyName": "苻",
+    "personalName": "生",
     "commonName": "厲王",
     "aliases": [],
     "posthumousName": "厲王",
@@ -31020,7 +31106,8 @@
   {
    "id": "qianqin-fupi",
    "name": {
-    "personalName": "苻丕",
+    "familyName": "苻",
+    "personalName": "丕",
     "commonName": "哀平帝",
     "aliases": [],
     "posthumousName": "哀平帝",
@@ -31215,7 +31302,8 @@
   {
    "id": "qianqin-fudeng",
    "name": {
-    "personalName": "苻登",
+    "familyName": "苻",
+    "personalName": "登",
     "commonName": "高帝",
     "aliases": [],
     "posthumousName": "高帝",
@@ -31478,7 +31566,8 @@
   {
    "id": "qianqin-fuchong",
    "name": {
-    "personalName": "苻崇",
+    "familyName": "苻",
+    "personalName": "崇",
     "commonName": "末帝",
     "aliases": [],
     "posthumousName": "末帝",
@@ -31658,7 +31747,8 @@
   {
    "id": "xia-helianbobo",
    "name": {
-    "personalName": "赫連勃勃",
+    "familyName": "赫連",
+    "personalName": "勃勃",
     "commonName": "武烈帝",
     "aliases": [],
     "posthumousName": "武烈帝",
@@ -32018,7 +32108,8 @@
   {
    "id": "xia-helianchang",
    "name": {
-    "personalName": "赫連昌",
+    "familyName": "赫連",
+    "personalName": "昌",
     "commonName": "赫連昌",
     "aliases": [],
     "posthumousName": null,
@@ -32220,7 +32311,8 @@
   {
    "id": "xia-heliading",
    "name": {
-    "personalName": "赫連定",
+    "familyName": "赫連",
+    "personalName": "定",
     "commonName": "赫連定",
     "aliases": [],
     "posthumousName": null,
@@ -32432,7 +32524,8 @@
   {
    "id": "houyan-murongchui",
    "name": {
-    "personalName": "慕容垂",
+    "familyName": "慕容",
+    "personalName": "垂",
     "commonName": "成武帝",
     "aliases": [],
     "posthumousName": "成武帝",
@@ -32771,7 +32864,8 @@
   {
    "id": "houyan-murongbao",
    "name": {
-    "personalName": "慕容宝",
+    "familyName": "慕容",
+    "personalName": "宝",
     "commonName": "恵愍帝",
     "aliases": [],
     "posthumousName": "恵愍帝",
@@ -33072,7 +33166,8 @@
   {
    "id": "houyan-murongxiang",
    "name": {
-    "personalName": "慕容詳",
+    "familyName": "慕容",
+    "personalName": "詳",
     "commonName": "慕容詳",
     "aliases": [],
     "posthumousName": null,
@@ -33255,7 +33350,8 @@
   {
    "id": "houyan-muronglin",
    "name": {
-    "personalName": "慕容麟",
+    "familyName": "慕容",
+    "personalName": "麟",
     "commonName": "慕容麟",
     "aliases": [],
     "posthumousName": null,
@@ -33425,7 +33521,8 @@
   {
    "id": "houyan-murongsheng",
    "name": {
-    "personalName": "慕容盛",
+    "familyName": "慕容",
+    "personalName": "盛",
     "commonName": "昭武帝",
     "aliases": [],
     "posthumousName": "昭武帝",
@@ -33710,7 +33807,8 @@
   {
    "id": "houyan-murongxi",
    "name": {
-    "personalName": "慕容熙",
+    "familyName": "慕容",
+    "personalName": "熙",
     "commonName": "昭文帝",
     "aliases": [],
     "posthumousName": "昭文帝",
@@ -33986,7 +34084,8 @@
   {
    "id": "xiyan-murongchong",
    "name": {
-    "personalName": "慕容沖",
+    "familyName": "慕容",
+    "personalName": "沖",
     "commonName": "威帝",
     "aliases": [],
     "posthumousName": "威帝",
@@ -34181,7 +34280,8 @@
   {
    "id": "xiyan-murongyao",
    "name": {
-    "personalName": "慕容瑤",
+    "familyName": "慕容",
+    "personalName": "瑤",
     "commonName": "慕容瑤",
     "aliases": [],
     "posthumousName": null,
@@ -34366,7 +34466,8 @@
   {
    "id": "xiyan-murongzhong",
    "name": {
-    "personalName": "慕容忠",
+    "familyName": "慕容",
+    "personalName": "忠",
     "commonName": "慕容忠",
     "aliases": [],
     "posthumousName": null,
@@ -34551,7 +34652,8 @@
   {
    "id": "xiyan-murongyong",
    "name": {
-    "personalName": "慕容永",
+    "familyName": "慕容",
+    "personalName": "永",
     "commonName": "慕容永",
     "aliases": [],
     "posthumousName": null,
@@ -34781,7 +34883,8 @@
   {
    "id": "nanyan-murongde",
    "name": {
-    "personalName": "慕容徳",
+    "familyName": "慕容",
+    "personalName": "徳",
     "commonName": "献武帝",
     "aliases": [],
     "posthumousName": "献武帝",
@@ -35106,7 +35209,8 @@
   {
    "id": "nanyan-murongchao",
    "name": {
-    "personalName": "慕容超",
+    "familyName": "慕容",
+    "personalName": "超",
     "commonName": "慕容超",
     "aliases": [],
     "posthumousName": null,
@@ -35337,7 +35441,8 @@
   {
    "id": "houqin-yaochang",
    "name": {
-    "personalName": "姚萇",
+    "familyName": "姚",
+    "personalName": "萇",
     "commonName": "武昭帝",
     "aliases": [],
     "posthumousName": "武昭帝",
@@ -35681,7 +35786,8 @@
   {
    "id": "houqin-yaoxing",
    "name": {
-    "personalName": "姚興",
+    "familyName": "姚",
+    "personalName": "興",
     "commonName": "文桓帝",
     "aliases": [],
     "posthumousName": "文桓帝",
@@ -36260,7 +36366,8 @@
   {
    "id": "houqin-yaohong",
    "name": {
-    "personalName": "姚泓",
+    "familyName": "姚",
+    "personalName": "泓",
     "commonName": "姚泓",
     "aliases": [],
     "posthumousName": null,
@@ -36613,7 +36720,8 @@
   {
    "id": "liu-song-wudi",
    "name": {
-    "personalName": "劉裕",
+    "familyName": "劉",
+    "personalName": "裕",
     "commonName": "武帝",
     "aliases": [],
     "posthumousName": "武帝",
@@ -36870,7 +36978,8 @@
   {
    "id": "liu-song-shaodi",
    "name": {
-    "personalName": "劉義符",
+    "familyName": "劉",
+    "personalName": "義符",
     "commonName": "少帝",
     "aliases": [],
     "posthumousName": null,
@@ -37086,7 +37195,8 @@
   {
    "id": "liu-song-wendi",
    "name": {
-    "personalName": "劉義隆",
+    "familyName": "劉",
+    "personalName": "義隆",
     "commonName": "文帝",
     "aliases": [],
     "posthumousName": "文帝",
@@ -37665,7 +37775,8 @@
   {
    "id": "liu-song-xiaowudi",
    "name": {
-    "personalName": "劉駿",
+    "familyName": "劉",
+    "personalName": "駿",
     "commonName": "孝武帝",
     "aliases": [],
     "posthumousName": "孝武帝",
@@ -38104,7 +38215,8 @@
   {
    "id": "liu-song-qianfeidi",
    "name": {
-    "personalName": "劉子業",
+    "familyName": "劉",
+    "personalName": "子業",
     "commonName": "前廃帝",
     "aliases": [],
     "posthumousName": null,
@@ -38336,7 +38448,8 @@
   {
    "id": "liu-song-mingdi",
    "name": {
-    "personalName": "劉彧",
+    "familyName": "劉",
+    "personalName": "彧",
     "commonName": "明帝",
     "aliases": [],
     "posthumousName": "明帝",
@@ -38715,7 +38828,8 @@
   {
    "id": "liu-song-houfeidi",
    "name": {
-    "personalName": "劉昱",
+    "familyName": "劉",
+    "personalName": "昱",
     "commonName": "後廃帝",
     "aliases": [
      "蒼梧王"
@@ -39026,7 +39140,8 @@
   {
    "id": "liu-song-shundi",
    "name": {
-    "personalName": "劉準",
+    "familyName": "劉",
+    "personalName": "準",
     "commonName": "順帝",
     "aliases": [],
     "posthumousName": "順帝",
@@ -39295,7 +39410,8 @@
   {
    "id": "qi-gaodi",
    "name": {
-    "personalName": "蕭道成",
+    "familyName": "蕭",
+    "personalName": "道成",
     "commonName": "高帝",
     "aliases": [],
     "posthumousName": "高帝",
@@ -39499,7 +39615,8 @@
   {
    "id": "qi-wudi",
    "name": {
-    "personalName": "蕭賾",
+    "familyName": "蕭",
+    "personalName": "賾",
     "commonName": "武帝",
     "aliases": [],
     "posthumousName": "武帝",
@@ -39801,7 +39918,8 @@
   {
    "id": "qi-yulinwang",
    "name": {
-    "personalName": "蕭昭業",
+    "familyName": "蕭",
+    "personalName": "昭業",
     "commonName": "廃帝（鬱林王）",
     "aliases": [],
     "posthumousName": null,
@@ -40005,7 +40123,8 @@
   {
    "id": "qi-hailingwang",
    "name": {
-    "personalName": "蕭昭文",
+    "familyName": "蕭",
+    "personalName": "昭文",
     "commonName": "廃帝（海陵王）",
     "aliases": [],
     "posthumousName": null,
@@ -40225,7 +40344,8 @@
   {
    "id": "qi-mingdi",
    "name": {
-    "personalName": "蕭鸞",
+    "familyName": "蕭",
+    "personalName": "鸞",
     "commonName": "明帝",
     "aliases": [],
     "posthumousName": "明帝",
@@ -40472,7 +40592,8 @@
   {
    "id": "qi-donghunhou",
    "name": {
-    "personalName": "蕭宝巻",
+    "familyName": "蕭",
+    "personalName": "宝巻",
     "commonName": "廃帝（東昏侯）",
     "aliases": [],
     "posthumousName": null,
@@ -40797,7 +40918,8 @@
   {
    "id": "qi-hedi",
    "name": {
-    "personalName": "蕭宝融",
+    "familyName": "蕭",
+    "personalName": "宝融",
     "commonName": "和帝",
     "aliases": [],
     "posthumousName": "和帝",
@@ -40982,7 +41104,8 @@
   {
    "id": "liang-wudi",
    "name": {
-    "personalName": "蕭衍",
+    "familyName": "蕭",
+    "personalName": "衍",
     "commonName": "武帝",
     "aliases": [],
     "posthumousName": "武帝",
@@ -41710,7 +41833,8 @@
   {
    "id": "liang-jianwendi",
    "name": {
-    "personalName": "蕭綱",
+    "familyName": "蕭",
+    "personalName": "綱",
     "commonName": "簡文帝",
     "aliases": [],
     "posthumousName": "簡文帝",
@@ -41916,7 +42040,8 @@
   {
    "id": "liang-yuzhangwang",
    "name": {
-    "personalName": "蕭棟",
+    "familyName": "蕭",
+    "personalName": "棟",
     "commonName": "廃帝（豫章王）",
     "aliases": [],
     "posthumousName": null,
@@ -42125,7 +42250,8 @@
   {
    "id": "liang-yuandi",
    "name": {
-    "personalName": "蕭繹",
+    "familyName": "蕭",
+    "personalName": "繹",
     "commonName": "元帝（孝元帝）",
     "aliases": [],
     "posthumousName": "元帝",
@@ -42365,7 +42491,8 @@
   {
    "id": "liang-jingdi",
    "name": {
-    "personalName": "蕭方智",
+    "familyName": "蕭",
+    "personalName": "方智",
     "commonName": "敬帝（孝敬帝）",
     "aliases": [],
     "posthumousName": "敬帝",
@@ -42721,7 +42848,8 @@
   {
    "id": "houliang-xuandi",
    "name": {
-    "personalName": "蕭詧",
+    "familyName": "蕭",
+    "personalName": "詧",
     "commonName": "宣帝",
     "aliases": [],
     "posthumousName": "宣帝",
@@ -42913,7 +43041,8 @@
   {
    "id": "houliang-mingdi",
    "name": {
-    "personalName": "蕭巋",
+    "familyName": "蕭",
+    "personalName": "巋",
     "commonName": "明帝",
     "aliases": [],
     "posthumousName": "孝明皇帝",
@@ -43083,7 +43212,8 @@
   {
    "id": "houliang-houzhu",
    "name": {
-    "personalName": "蕭琮",
+    "familyName": "蕭",
+    "personalName": "琮",
     "commonName": "後主",
     "aliases": [],
     "posthumousName": null,
@@ -43267,7 +43397,8 @@
   {
    "id": "chen-wudi",
    "name": {
-    "personalName": "陳霸先",
+    "familyName": "陳",
+    "personalName": "霸先",
     "commonName": "武帝",
     "aliases": [],
     "posthumousName": "武帝",
@@ -43503,7 +43634,8 @@
   {
    "id": "chen-wendi",
    "name": {
-    "personalName": "陳蒨",
+    "familyName": "陳",
+    "personalName": "蒨",
     "commonName": "文帝",
     "aliases": [],
     "posthumousName": "文帝",
@@ -43885,7 +44017,8 @@
   {
    "id": "chen-feidi",
    "name": {
-    "personalName": "陳伯宗",
+    "familyName": "陳",
+    "personalName": "伯宗",
     "commonName": "廃帝（臨海王）",
     "aliases": [],
     "posthumousName": null,
@@ -44133,7 +44266,8 @@
   {
    "id": "chen-xuandi",
    "name": {
-    "personalName": "陳頊",
+    "familyName": "陳",
+    "personalName": "頊",
     "commonName": "宣帝",
     "aliases": [],
     "posthumousName": "宣帝",
@@ -44424,7 +44558,8 @@
   {
    "id": "chen-houzhu",
    "name": {
-    "personalName": "陳叔宝",
+    "familyName": "陳",
+    "personalName": "叔宝",
     "commonName": "後主",
     "aliases": [],
     "posthumousName": null,
@@ -44770,7 +44905,8 @@
   {
    "id": "liu-song-liushao",
    "name": {
-    "personalName": "劉劭",
+    "familyName": "劉",
+    "personalName": "劭",
     "commonName": "元凶劭",
     "aliases": [],
     "posthumousName": null,
@@ -44997,7 +45133,8 @@
   {
    "id": "liu-song-liuzixun",
    "name": {
-    "personalName": "劉子勛",
+    "familyName": "劉",
+    "personalName": "子勛",
     "commonName": "劉子勛（晋安王）",
     "aliases": [],
     "posthumousName": null,
@@ -45193,7 +45330,8 @@
   {
    "id": "liang-xiaozhengde",
    "name": {
-    "personalName": "蕭正徳",
+    "familyName": "蕭",
+    "personalName": "正徳",
     "commonName": "蕭正徳（臨賀王）",
     "aliases": [],
     "posthumousName": null,
@@ -45391,7 +45529,8 @@
   {
    "id": "liang-houjing",
    "name": {
-    "personalName": "侯景",
+    "familyName": "侯",
+    "personalName": "景",
     "commonName": "侯景",
     "aliases": [],
     "posthumousName": null,
@@ -45625,7 +45764,8 @@
   {
    "id": "liang-xiaoji",
    "name": {
-    "personalName": "蕭紀",
+    "familyName": "蕭",
+    "personalName": "紀",
     "commonName": "蕭紀（武陵王）",
     "aliases": [],
     "posthumousName": null,
@@ -45816,7 +45956,8 @@
   {
    "id": "liang-xiaoyuanming",
    "name": {
-    "personalName": "蕭淵明",
+    "familyName": "蕭",
+    "personalName": "淵明",
     "commonName": "蕭淵明（貞陽侯）",
     "aliases": [],
     "posthumousName": null,
@@ -46015,7 +46156,8 @@
   {
    "id": "liang-xiaozhuang",
    "name": {
-    "personalName": "蕭荘",
+    "familyName": "蕭",
+    "personalName": "荘",
     "commonName": "蕭荘（永嘉王）",
     "aliases": [],
     "posthumousName": null,
@@ -46212,7 +46354,8 @@
   {
    "id": "beiwei-daowudi",
    "name": {
-    "personalName": "拓跋珪",
+    "familyName": "拓跋",
+    "personalName": "珪",
     "commonName": "道武帝",
     "aliases": [],
     "posthumousName": "道武帝",
@@ -46545,7 +46688,8 @@
   {
    "id": "beiwei-mingyuandi",
    "name": {
-    "personalName": "拓跋嗣",
+    "familyName": "拓跋",
+    "personalName": "嗣",
     "commonName": "明元帝",
     "aliases": [],
     "posthumousName": "明元帝",
@@ -46926,7 +47070,8 @@
   {
    "id": "beiwei-taiwudi",
    "name": {
-    "personalName": "拓跋燾",
+    "familyName": "拓跋",
+    "personalName": "燾",
     "commonName": "太武帝",
     "aliases": [],
     "posthumousName": "太武帝",
@@ -47820,7 +47965,8 @@
   {
    "id": "beiwei-tuobayu",
    "name": {
-    "personalName": "拓跋余",
+    "familyName": "拓跋",
+    "personalName": "余",
     "commonName": "拓跋余（南安王）",
     "aliases": [],
     "posthumousName": null,
@@ -48015,7 +48161,8 @@
   {
    "id": "beiwei-wenchengdi",
    "name": {
-    "personalName": "拓跋濬",
+    "familyName": "拓跋",
+    "personalName": "濬",
     "commonName": "文成帝",
     "aliases": [],
     "posthumousName": "文成帝",
@@ -48391,7 +48538,8 @@
   {
    "id": "beiwei-xiandi",
    "name": {
-    "personalName": "拓跋弘",
+    "familyName": "拓跋",
+    "personalName": "弘",
     "commonName": "献文帝",
     "aliases": [],
     "posthumousName": "献文帝",
@@ -48733,7 +48881,8 @@
   {
    "id": "beiwei-xiaowendi",
    "name": {
-    "personalName": "元宏",
+    "familyName": "元",
+    "personalName": "宏",
     "commonName": "孝文帝",
     "aliases": [],
     "posthumousName": "孝文帝",
@@ -49604,7 +49753,8 @@
   {
    "id": "beiwei-xuanwudi",
    "name": {
-    "personalName": "元恪",
+    "familyName": "元",
+    "personalName": "恪",
     "commonName": "宣武帝",
     "aliases": [],
     "posthumousName": "宣武帝",
@@ -50256,7 +50406,8 @@
   {
    "id": "beiwei-xiaomingdi",
    "name": {
-    "personalName": "元詡",
+    "familyName": "元",
+    "personalName": "詡",
     "commonName": "孝明帝",
     "aliases": [],
     "posthumousName": "孝明帝",
@@ -51220,7 +51371,8 @@
   {
    "id": "beiwei-youzhu-yuanzhao",
    "name": {
-    "personalName": "元釗",
+    "familyName": "元",
+    "personalName": "釗",
     "commonName": "幼主元釗",
     "aliases": [],
     "posthumousName": null,
@@ -51403,7 +51555,8 @@
   {
    "id": "beiwei-xiaozhuangdi",
    "name": {
-    "personalName": "元子攸",
+    "familyName": "元",
+    "personalName": "子攸",
     "commonName": "孝荘帝",
     "aliases": [],
     "posthumousName": "孝荘帝",
@@ -51967,7 +52120,8 @@
   {
    "id": "beiwei-yuanye",
    "name": {
-    "personalName": "元曄",
+    "familyName": "元",
+    "personalName": "曄",
     "commonName": "東海王元曄",
     "aliases": [],
     "posthumousName": null,
@@ -52151,7 +52305,8 @@
   {
    "id": "beiwei-jiemindi",
    "name": {
-    "personalName": "元恭",
+    "familyName": "元",
+    "personalName": "恭",
     "commonName": "節閔帝（前廃帝）",
     "aliases": [],
     "posthumousName": null,
@@ -52425,7 +52580,8 @@
   {
    "id": "beiwei-houfeidi-yuanlang",
    "name": {
-    "personalName": "元朗",
+    "familyName": "元",
+    "personalName": "朗",
     "commonName": "後廃帝（安定王）元朗",
     "aliases": [],
     "posthumousName": null,
@@ -52608,7 +52764,8 @@
   {
    "id": "beiwei-xiaowudi",
    "name": {
-    "personalName": "元脩",
+    "familyName": "元",
+    "personalName": "脩",
     "commonName": "孝武帝（出帝）",
     "aliases": [],
     "posthumousName": null,
@@ -52943,7 +53100,8 @@
   {
    "id": "beiwei-yuanyu",
    "name": {
-    "personalName": "元愉",
+    "familyName": "元",
+    "personalName": "愉",
     "commonName": "元愉（京兆王）",
     "aliases": [],
     "posthumousName": null,
@@ -53153,7 +53311,8 @@
   {
    "id": "beiwei-yuanfasheng",
    "name": {
-    "personalName": "元法僧",
+    "familyName": "元",
+    "personalName": "法僧",
     "commonName": "元法僧",
     "aliases": [],
     "posthumousName": null,
@@ -53346,7 +53505,8 @@
   {
    "id": "beiwei-yuanhao",
    "name": {
-    "personalName": "元顥",
+    "familyName": "元",
+    "personalName": "顥",
     "commonName": "元顥（北海王）",
     "aliases": [],
     "posthumousName": null,
@@ -53562,7 +53722,8 @@
   {
    "id": "dongwei-xiaojingdi",
    "name": {
-    "personalName": "元善見",
+    "familyName": "元",
+    "personalName": "善見",
     "commonName": "孝静帝",
     "aliases": [],
     "posthumousName": null,
@@ -54107,7 +54268,8 @@
   {
    "id": "beiqi-wenxuandi",
    "name": {
-    "personalName": "高洋",
+    "familyName": "高",
+    "personalName": "洋",
     "commonName": "文宣帝",
     "aliases": [],
     "posthumousName": null,
@@ -54443,7 +54605,8 @@
   {
    "id": "beiqi-feidi-gaoyin",
    "name": {
-    "personalName": "高殷",
+    "familyName": "高",
+    "personalName": "殷",
     "commonName": "廃帝",
     "aliases": [],
     "posthumousName": null,
@@ -54634,7 +54797,8 @@
   {
    "id": "beiqi-xiaozhaodi",
    "name": {
-    "personalName": "高演",
+    "familyName": "高",
+    "personalName": "演",
     "commonName": "孝昭帝",
     "aliases": [],
     "posthumousName": null,
@@ -54836,7 +55000,8 @@
   {
    "id": "beiqi-wuchengdi",
    "name": {
-    "personalName": "高湛",
+    "familyName": "高",
+    "personalName": "湛",
     "commonName": "武成帝",
     "aliases": [],
     "posthumousName": null,
@@ -55104,7 +55269,8 @@
   {
    "id": "beiqi-houzhu",
    "name": {
-    "personalName": "高緯",
+    "familyName": "高",
+    "personalName": "緯",
     "commonName": "後主",
     "aliases": [],
     "posthumousName": null,
@@ -55530,7 +55696,8 @@
   {
    "id": "beiqi-andewang-gaoyanzong",
    "name": {
-    "personalName": "高延宗",
+    "familyName": "高",
+    "personalName": "延宗",
     "commonName": "安徳王高延宗",
     "aliases": [],
     "posthumousName": null,
@@ -55724,7 +55891,8 @@
   {
    "id": "beiqi-youzhu-gaoheng",
    "name": {
-    "personalName": "高恒",
+    "familyName": "高",
+    "personalName": "恒",
     "commonName": "幼主",
     "aliases": [],
     "posthumousName": null,
@@ -55903,7 +56071,8 @@
   {
    "id": "beiqi-gaoxie",
    "name": {
-    "personalName": "高紹義",
+    "familyName": "高",
+    "personalName": "紹義",
     "commonName": "高紹義",
     "aliases": [],
     "posthumousName": null,
@@ -56086,7 +56255,8 @@
   {
    "id": "xiwei-wendi",
    "name": {
-    "personalName": "元宝炬",
+    "familyName": "元",
+    "personalName": "宝炬",
     "commonName": "文帝",
     "aliases": [],
     "posthumousName": null,
@@ -56539,7 +56709,8 @@
   {
    "id": "xiwei-feidi-yuanqin",
    "name": {
-    "personalName": "元欽",
+    "familyName": "元",
+    "personalName": "欽",
     "commonName": "廃帝",
     "aliases": [],
     "posthumousName": null,
@@ -56710,7 +56881,8 @@
   {
    "id": "xiwei-gongdi",
    "name": {
-    "personalName": "拓跋廓",
+    "familyName": "拓跋",
+    "personalName": "廓",
     "commonName": "恭帝",
     "aliases": [],
     "posthumousName": null,
@@ -56883,7 +57055,8 @@
   {
    "id": "beizhou-mingdi",
    "name": {
-    "personalName": "宇文毓",
+    "familyName": "宇文",
+    "personalName": "毓",
     "commonName": "明帝",
     "aliases": [],
     "posthumousName": null,
@@ -57077,7 +57250,8 @@
   {
    "id": "beizhou-wudi",
    "name": {
-    "personalName": "宇文邕",
+    "familyName": "宇文",
+    "personalName": "邕",
     "commonName": "武帝",
     "aliases": [],
     "posthumousName": null,
@@ -57533,7 +57707,8 @@
   {
    "id": "beizhou-xuandi",
    "name": {
-    "personalName": "宇文贇",
+    "familyName": "宇文",
+    "personalName": "贇",
     "commonName": "宣帝",
     "aliases": [],
     "posthumousName": null,
@@ -57849,7 +58024,8 @@
   {
    "id": "beizhou-jingdi",
    "name": {
-    "personalName": "宇文闡",
+    "familyName": "宇文",
+    "personalName": "闡",
     "commonName": "静帝",
     "aliases": [],
     "posthumousName": null,
@@ -58143,7 +58319,8 @@
   {
    "id": "sui-wendi",
    "name": {
-    "personalName": "楊堅",
+    "familyName": "楊",
+    "personalName": "堅",
     "commonName": "文帝",
     "aliases": [],
     "posthumousName": null,
@@ -58577,7 +58754,8 @@
   {
    "id": "sui-yangdi",
    "name": {
-    "personalName": "楊広",
+    "familyName": "楊",
+    "personalName": "広",
     "commonName": "煬帝",
     "aliases": [],
     "posthumousName": null,
@@ -59749,7 +59927,8 @@
   {
    "id": "sui-gongdi-you",
    "name": {
-    "personalName": "楊侑",
+    "familyName": "楊",
+    "personalName": "侑",
     "commonName": "恭帝侑",
     "aliases": [],
     "posthumousName": null,
@@ -59954,7 +60133,8 @@
   {
    "id": "sui-gongdi-tong",
    "name": {
-    "personalName": "楊侗",
+    "familyName": "楊",
+    "personalName": "侗",
     "commonName": "恭帝侗（皇泰主）",
     "aliases": [],
     "posthumousName": null,
@@ -60158,7 +60338,8 @@
   {
    "id": "sui-yanghao",
    "name": {
-    "personalName": "楊浩",
+    "familyName": "楊",
+    "personalName": "浩",
     "commonName": "秦王楊浩",
     "aliases": [],
     "posthumousName": null,
@@ -60320,7 +60501,8 @@
   {
    "id": "suimo-yuwenhuaji",
    "name": {
-    "personalName": "宇文化及",
+    "familyName": "宇文",
+    "personalName": "化及",
     "commonName": "宇文化及",
     "aliases": [],
     "posthumousName": null,
@@ -60490,7 +60672,8 @@
   {
    "id": "suimo-wangshichong",
    "name": {
-    "personalName": "王世充",
+    "familyName": "王",
+    "personalName": "世充",
     "commonName": "王世充",
     "aliases": [],
     "posthumousName": null,
@@ -60701,7 +60884,8 @@
   {
    "id": "suimo-liuwuzhou",
    "name": {
-    "personalName": "劉武周",
+    "familyName": "劉",
+    "personalName": "武周",
     "commonName": "劉武周",
     "aliases": [],
     "posthumousName": null,
@@ -60901,7 +61085,8 @@
   {
    "id": "suimo-liangshidu",
    "name": {
-    "personalName": "梁師都",
+    "familyName": "梁",
+    "personalName": "師都",
     "commonName": "梁師都",
     "aliases": [],
     "posthumousName": null,
@@ -61099,7 +61284,8 @@
   {
    "id": "suimo-xueju",
    "name": {
-    "personalName": "薛挙",
+    "familyName": "薛",
+    "personalName": "挙",
     "commonName": "薛挙",
     "aliases": [],
     "posthumousName": null,
@@ -61308,7 +61494,8 @@
   {
    "id": "suimo-xuerengao",
    "name": {
-    "personalName": "薛仁杲",
+    "familyName": "薛",
+    "personalName": "仁杲",
     "commonName": "薛仁杲",
     "aliases": [],
     "posthumousName": null,
@@ -61467,7 +61654,8 @@
   {
    "id": "suimo-liqui",
    "name": {
-    "personalName": "李軌",
+    "familyName": "李",
+    "personalName": "軌",
     "commonName": "李軌",
     "aliases": [],
     "posthumousName": null,
@@ -61652,7 +61840,8 @@
   {
    "id": "suimo-xiaoxian",
    "name": {
-    "personalName": "蕭銑",
+    "familyName": "蕭",
+    "personalName": "銑",
     "commonName": "蕭銑",
     "aliases": [],
     "posthumousName": null,
@@ -61835,7 +62024,8 @@
   {
    "id": "suimo-lizitong",
    "name": {
-    "personalName": "李子通",
+    "familyName": "李",
+    "personalName": "子通",
     "commonName": "李子通",
     "aliases": [],
     "posthumousName": null,
@@ -62060,7 +62250,8 @@
   {
    "id": "suimo-linshihong",
    "name": {
-    "personalName": "林士弘",
+    "familyName": "林",
+    "personalName": "士弘",
     "commonName": "林士弘",
     "aliases": [],
     "posthumousName": null,
@@ -62252,7 +62443,8 @@
   {
    "id": "suimo-fugongshi",
    "name": {
-    "personalName": "輔公祏",
+    "familyName": "輔",
+    "personalName": "公祏",
     "commonName": "輔公祏",
     "aliases": [],
     "posthumousName": null,
@@ -62432,7 +62624,8 @@
   {
    "id": "suimo-zhucan",
    "name": {
-    "personalName": "朱粲",
+    "familyName": "朱",
+    "personalName": "粲",
     "commonName": "朱粲",
     "aliases": [],
     "posthumousName": null,
@@ -62634,7 +62827,8 @@
   {
    "id": "tang-gaozu",
    "name": {
-    "personalName": "李淵",
+    "familyName": "李",
+    "personalName": "淵",
     "commonName": "高祖",
     "aliases": [],
     "posthumousName": null,
@@ -62987,7 +63181,8 @@
   {
    "id": "tang-taizong",
    "name": {
-    "personalName": "李世民",
+    "familyName": "李",
+    "personalName": "世民",
     "commonName": "太宗",
     "aliases": [],
     "posthumousName": null,
@@ -63453,7 +63648,8 @@
   {
    "id": "tang-gaozong",
    "name": {
-    "personalName": "李治",
+    "familyName": "李",
+    "personalName": "治",
     "commonName": "高宗",
     "aliases": [],
     "posthumousName": null,
@@ -64058,7 +64254,8 @@
   {
    "id": "tang-zhongzong",
    "name": {
-    "personalName": "李顕",
+    "familyName": "李",
+    "personalName": "顕",
     "commonName": "中宗",
     "aliases": [],
     "posthumousName": null,
@@ -64451,7 +64648,8 @@
   {
    "id": "tang-ruizong",
    "name": {
-    "personalName": "李旦",
+    "familyName": "李",
+    "personalName": "旦",
     "commonName": "睿宗",
     "aliases": [],
     "posthumousName": null,
@@ -64925,7 +65123,8 @@
   {
    "id": "tang-shangdi",
    "name": {
-    "personalName": "李重茂",
+    "familyName": "李",
+    "personalName": "重茂",
     "commonName": "殤帝",
     "aliases": [],
     "posthumousName": null,
@@ -65151,7 +65350,8 @@
   {
    "id": "tang-xuanzong",
    "name": {
-    "personalName": "李隆基",
+    "familyName": "李",
+    "personalName": "隆基",
     "commonName": "玄宗",
     "aliases": [],
     "posthumousName": null,
@@ -65776,7 +65976,8 @@
   {
    "id": "tang-suzong",
    "name": {
-    "personalName": "李亨",
+    "familyName": "李",
+    "personalName": "亨",
     "commonName": "粛宗",
     "aliases": [],
     "posthumousName": null,
@@ -66173,7 +66374,8 @@
   {
    "id": "tang-daizong",
    "name": {
-    "personalName": "李豫",
+    "familyName": "李",
+    "personalName": "豫",
     "commonName": "代宗",
     "aliases": [],
     "posthumousName": null,
@@ -66589,7 +66791,8 @@
   {
    "id": "tang-dezong",
    "name": {
-    "personalName": "李适",
+    "familyName": "李",
+    "personalName": "适",
     "commonName": "徳宗",
     "aliases": [],
     "posthumousName": null,
@@ -67173,7 +67376,8 @@
   {
    "id": "tang-shunzong",
    "name": {
-    "personalName": "李誦",
+    "familyName": "李",
+    "personalName": "誦",
     "commonName": "順宗",
     "aliases": [],
     "posthumousName": null,
@@ -67355,7 +67559,8 @@
   {
    "id": "tang-xianzong",
    "name": {
-    "personalName": "李純",
+    "familyName": "李",
+    "personalName": "純",
     "commonName": "憲宗",
     "aliases": [],
     "posthumousName": null,
@@ -67810,7 +68015,8 @@
   {
    "id": "tang-muzong",
    "name": {
-    "personalName": "李恒",
+    "familyName": "李",
+    "personalName": "恒",
     "commonName": "穆宗",
     "aliases": [],
     "posthumousName": null,
@@ -68136,7 +68342,8 @@
   {
    "id": "tang-jingzong",
    "name": {
-    "personalName": "李湛",
+    "familyName": "李",
+    "personalName": "湛",
     "commonName": "敬宗",
     "aliases": [],
     "posthumousName": null,
@@ -68379,7 +68586,8 @@
   {
    "id": "tang-wenzong",
    "name": {
-    "personalName": "李昂",
+    "familyName": "李",
+    "personalName": "昂",
     "commonName": "文宗",
     "aliases": [],
     "posthumousName": null,
@@ -68654,7 +68862,8 @@
   {
    "id": "tang-wuzong",
    "name": {
-    "personalName": "李瀍",
+    "familyName": "李",
+    "personalName": "瀍",
     "commonName": "武宗",
     "aliases": [],
     "posthumousName": null,
@@ -68989,7 +69198,8 @@
   {
    "id": "tang-xuanzong-2",
    "name": {
-    "personalName": "李忱",
+    "familyName": "李",
+    "personalName": "忱",
     "commonName": "宣宗",
     "aliases": [],
     "posthumousName": null,
@@ -69274,7 +69484,8 @@
   {
    "id": "tang-yizong",
    "name": {
-    "personalName": "李漼",
+    "familyName": "李",
+    "personalName": "漼",
     "commonName": "懿宗",
     "aliases": [],
     "posthumousName": null,
@@ -69579,7 +69790,8 @@
   {
    "id": "tang-xizong",
    "name": {
-    "personalName": "李儇",
+    "familyName": "李",
+    "personalName": "儇",
     "commonName": "僖宗",
     "aliases": [],
     "posthumousName": null,
@@ -69965,7 +70177,8 @@
   {
    "id": "tang-zhaozong",
    "name": {
-    "personalName": "李曄",
+    "familyName": "李",
+    "personalName": "曄",
     "commonName": "昭宗",
     "aliases": [],
     "posthumousName": null,
@@ -70494,7 +70707,8 @@
   {
    "id": "tang-aidi",
    "name": {
-    "personalName": "李柷",
+    "familyName": "李",
+    "personalName": "柷",
     "commonName": "哀帝",
     "aliases": [],
     "posthumousName": "哀皇帝",
@@ -70655,7 +70869,8 @@
   {
    "id": "tang-lige",
    "name": {
-    "personalName": "李裕",
+    "familyName": "李",
+    "personalName": "裕",
     "commonName": "李裕（李縝）",
     "aliases": [],
     "posthumousName": null,
@@ -70827,7 +71042,8 @@
   {
    "id": "tang-wuzetian",
    "name": {
-    "personalName": "武曌",
+    "familyName": "武",
+    "personalName": "曌",
     "commonName": "則天大聖皇帝（武則天）",
     "aliases": [
      "則天武后"
@@ -71332,7 +71548,8 @@
   {
    "id": "tangmo-li-chenghong",
    "name": {
-    "personalName": "李承宏",
+    "familyName": "李",
+    "personalName": "承宏",
     "commonName": "李承宏",
     "aliases": [],
     "posthumousName": null,
@@ -71516,7 +71733,8 @@
   {
    "id": "tangmo-li-yun",
    "name": {
-    "personalName": "李熅",
+    "familyName": "李",
+    "personalName": "熅",
     "commonName": "襄王李熅",
     "aliases": [],
     "posthumousName": null,
@@ -71688,7 +71906,8 @@
   {
    "id": "tangmo-anlushan",
    "name": {
-    "personalName": "安禄山",
+    "familyName": "安",
+    "personalName": "禄山",
     "commonName": "雄武皇帝安禄山",
     "aliases": [],
     "posthumousName": null,
@@ -71880,7 +72099,8 @@
   {
    "id": "tangmo-anqingxu",
    "name": {
-    "personalName": "安慶緒",
+    "familyName": "安",
+    "personalName": "慶緒",
     "commonName": "安慶緒",
     "aliases": [],
     "posthumousName": null,
@@ -72094,7 +72314,8 @@
   {
    "id": "tangmo-shisiming",
    "name": {
-    "personalName": "史思明",
+    "familyName": "史",
+    "personalName": "思明",
     "commonName": "応天皇帝史思明",
     "aliases": [],
     "posthumousName": null,
@@ -72327,7 +72548,8 @@
   {
    "id": "tangmo-shichaoyi",
    "name": {
-    "personalName": "史朝義",
+    "familyName": "史",
+    "personalName": "朝義",
     "commonName": "史朝義",
     "aliases": [],
     "posthumousName": null,
@@ -72522,7 +72744,8 @@
   {
    "id": "tangmo-zhuci",
    "name": {
-    "personalName": "朱泚",
+    "familyName": "朱",
+    "personalName": "泚",
     "commonName": "朱泚",
     "aliases": [],
     "posthumousName": null,
@@ -72727,7 +72950,8 @@
   {
    "id": "tangmo-lixilie",
    "name": {
-    "personalName": "李希烈",
+    "familyName": "李",
+    "personalName": "希烈",
     "commonName": "李希烈",
     "aliases": [],
     "posthumousName": null,
@@ -72897,7 +73121,8 @@
   {
    "id": "tangmo-huangchao",
    "name": {
-    "personalName": "黄巣",
+    "familyName": "黄",
+    "personalName": "巣",
     "commonName": "承天応運啓聖睿文宣武皇帝黄巣",
     "aliases": [],
     "posthumousName": null,
@@ -73127,7 +73352,8 @@
   {
    "id": "wudai-houliang-taizu",
    "name": {
-    "personalName": "朱全忠",
+    "familyName": "朱",
+    "personalName": "全忠",
     "commonName": "太祖（朱全忠）",
     "aliases": [],
     "posthumousName": null,
@@ -73457,7 +73683,8 @@
   {
    "id": "wudai-houliang-zhuyougui",
    "name": {
-    "personalName": "朱友珪",
+    "familyName": "朱",
+    "personalName": "友珪",
     "commonName": "朱友珪",
     "aliases": [],
     "posthumousName": null,
@@ -73707,7 +73934,8 @@
   {
    "id": "wudai-houliang-modi",
    "name": {
-    "personalName": "朱友貞",
+    "familyName": "朱",
+    "personalName": "友貞",
     "commonName": "末帝（朱友貞）",
     "aliases": [],
     "posthumousName": null,
@@ -74032,7 +74260,8 @@
   {
    "id": "wudai-houtang-zhuangzong",
    "name": {
-    "personalName": "李存勗",
+    "familyName": "李",
+    "personalName": "存勗",
     "commonName": "荘宗（李存勗）",
     "aliases": [],
     "posthumousName": null,
@@ -74378,7 +74607,8 @@
   {
    "id": "wudai-houtang-mingzong",
    "name": {
-    "personalName": "李嗣源",
+    "familyName": "李",
+    "personalName": "嗣源",
     "commonName": "明宗（李嗣源）",
     "aliases": [],
     "posthumousName": null,
@@ -74931,7 +75161,8 @@
   {
    "id": "wudai-houtang-mindi",
    "name": {
-    "personalName": "李従厚",
+    "familyName": "李",
+    "personalName": "従厚",
     "commonName": "閔帝（李従厚）",
     "aliases": [],
     "posthumousName": null,
@@ -75135,7 +75366,8 @@
   {
    "id": "wudai-houtang-modi2",
    "name": {
-    "personalName": "李従珂",
+    "familyName": "李",
+    "personalName": "従珂",
     "commonName": "末帝（李従珂）",
     "aliases": [],
     "posthumousName": null,
@@ -75415,7 +75647,8 @@
   {
    "id": "wudai-houjin-gaozu",
    "name": {
-    "personalName": "石敬瑭",
+    "familyName": "石",
+    "personalName": "敬瑭",
     "commonName": "高祖（石敬瑭）",
     "aliases": [],
     "posthumousName": null,
@@ -75829,7 +76062,8 @@
   {
    "id": "wudai-houjin-shaodi",
    "name": {
-    "personalName": "石重貴",
+    "familyName": "石",
+    "personalName": "重貴",
     "commonName": "少帝（石重貴、出帝）",
     "aliases": [],
     "posthumousName": null,
@@ -76130,7 +76364,8 @@
   {
    "id": "wudai-houhan-gaozu",
    "name": {
-    "personalName": "劉知遠",
+    "familyName": "劉",
+    "personalName": "知遠",
     "commonName": "高祖（劉知遠）",
     "aliases": [],
     "posthumousName": null,
@@ -76397,7 +76632,8 @@
   {
    "id": "wudai-houhan-yindi",
    "name": {
-    "personalName": "劉承祐",
+    "familyName": "劉",
+    "personalName": "承祐",
     "commonName": "隠帝（劉承祐）",
     "aliases": [],
     "posthumousName": null,
@@ -76669,7 +76905,8 @@
   {
    "id": "wudai-houzhou-taizu",
    "name": {
-    "personalName": "郭威",
+    "familyName": "郭",
+    "personalName": "威",
     "commonName": "太祖（郭威）",
     "aliases": [],
     "posthumousName": null,
@@ -76927,7 +77164,8 @@
   {
    "id": "wudai-houzhou-shizong",
    "name": {
-    "personalName": "柴栄",
+    "familyName": "柴",
+    "personalName": "栄",
     "commonName": "世宗（柴栄）",
     "aliases": [],
     "posthumousName": null,
@@ -77164,7 +77402,8 @@
   {
    "id": "wudai-houzhou-gongdi",
    "name": {
-    "personalName": "柴宗訓",
+    "familyName": "柴",
+    "personalName": "宗訓",
     "commonName": "恭帝（柴宗訓）",
     "aliases": [],
     "posthumousName": null,
@@ -77345,7 +77584,8 @@
   {
    "id": "shiguo-wu-yangpu",
    "name": {
-    "personalName": "楊溥",
+    "familyName": "楊",
+    "personalName": "溥",
     "commonName": "睿帝（楊溥）",
     "aliases": [],
     "posthumousName": null,
@@ -77609,7 +77849,8 @@
   {
    "id": "shiguo-qianshu-wangjian",
    "name": {
-    "personalName": "王建",
+    "familyName": "王",
+    "personalName": "建",
     "commonName": "高祖（王建）",
     "aliases": [],
     "posthumousName": null,
@@ -77988,7 +78229,8 @@
   {
    "id": "shiguo-qianshu-wangyan",
    "name": {
-    "personalName": "王衍",
+    "familyName": "王",
+    "personalName": "衍",
     "commonName": "後主（王衍）",
     "aliases": [],
     "posthumousName": null,
@@ -78235,7 +78477,8 @@
   {
    "id": "shiguo-nanhan-liuyan",
    "name": {
-    "personalName": "劉龑",
+    "familyName": "劉",
+    "personalName": "龑",
     "commonName": "高祖（劉龑）",
     "aliases": [],
     "posthumousName": null,
@@ -78499,7 +78742,8 @@
   {
    "id": "shiguo-nanhan-liubin",
    "name": {
-    "personalName": "劉玢",
+    "familyName": "劉",
+    "personalName": "玢",
     "commonName": "殤帝（劉玢）",
     "aliases": [],
     "posthumousName": null,
@@ -78703,7 +78947,8 @@
   {
    "id": "shiguo-nanhan-liusheng",
    "name": {
-    "personalName": "劉晟",
+    "familyName": "劉",
+    "personalName": "晟",
     "commonName": "中宗（劉晟）",
     "aliases": [],
     "posthumousName": null,
@@ -78907,7 +79152,8 @@
   {
    "id": "shiguo-nanhan-liuchang",
    "name": {
-    "personalName": "劉鋹",
+    "familyName": "劉",
+    "personalName": "鋹",
     "commonName": "後主（劉鋹）",
     "aliases": [],
     "posthumousName": null,
@@ -79088,7 +79334,8 @@
   {
    "id": "shiguo-houshu-mengzhixiang",
    "name": {
-    "personalName": "孟知祥",
+    "familyName": "孟",
+    "personalName": "知祥",
     "commonName": "高祖（孟知祥）",
     "aliases": [],
     "posthumousName": null,
@@ -79273,7 +79520,8 @@
   {
    "id": "shiguo-houshu-mengchang",
    "name": {
-    "personalName": "孟昶",
+    "familyName": "孟",
+    "personalName": "昶",
     "commonName": "後主（孟昶）",
     "aliases": [],
     "posthumousName": null,
@@ -79487,7 +79735,8 @@
   {
    "id": "shiguo-nantang-libian",
    "name": {
-    "personalName": "李昪",
+    "familyName": "李",
+    "personalName": "昪",
     "commonName": "烈祖（李昪）",
     "aliases": [],
     "posthumousName": null,
@@ -79701,7 +79950,8 @@
   {
    "id": "shiguo-nantang-lijing",
    "name": {
-    "personalName": "李璟",
+    "familyName": "李",
+    "personalName": "璟",
     "commonName": "元宗（李璟）",
     "aliases": [],
     "posthumousName": null,
@@ -79986,7 +80236,8 @@
   {
    "id": "shiguo-min-wangyanjun",
    "name": {
-    "personalName": "王延鈞",
+    "familyName": "王",
+    "personalName": "延鈞",
     "commonName": "恵宗（王延鈞）",
     "aliases": [],
     "posthumousName": null,
@@ -80212,7 +80463,8 @@
   {
    "id": "shiguo-min-wangjipeng",
    "name": {
-    "personalName": "王継鵬",
+    "familyName": "王",
+    "personalName": "継鵬",
     "commonName": "康宗（王継鵬）",
     "aliases": [],
     "posthumousName": null,
@@ -80428,7 +80680,8 @@
   {
    "id": "shiguo-min-wangyanxi",
    "name": {
-    "personalName": "王延羲",
+    "familyName": "王",
+    "personalName": "延羲",
     "commonName": "景宗（王延羲）",
     "aliases": [],
     "posthumousName": null,
@@ -80646,7 +80899,8 @@
   {
    "id": "shiguo-min-wangyanzheng",
    "name": {
-    "personalName": "王延政",
+    "familyName": "王",
+    "personalName": "延政",
     "commonName": "殷帝（王延政）",
     "aliases": [],
     "posthumousName": null,
@@ -80838,7 +81092,8 @@
   {
    "id": "shiguo-beihan-liuchong",
    "name": {
-    "personalName": "劉崇",
+    "familyName": "劉",
+    "personalName": "崇",
     "commonName": "世祖（劉崇）",
     "aliases": [
      "劉旻"
@@ -81040,7 +81295,8 @@
   {
    "id": "shiguo-beihan-liujun",
    "name": {
-    "personalName": "劉鈞",
+    "familyName": "劉",
+    "personalName": "鈞",
     "commonName": "睿宗（劉鈞）",
     "aliases": [],
     "posthumousName": null,
@@ -81242,7 +81498,8 @@
   {
    "id": "shiguo-beihan-liujien",
    "name": {
-    "personalName": "劉継恩",
+    "familyName": "劉",
+    "personalName": "継恩",
     "commonName": "劉継恩",
     "aliases": [],
     "posthumousName": null,
@@ -81412,7 +81669,8 @@
   {
    "id": "shiguo-beihan-liujiyuan",
    "name": {
-    "personalName": "劉継元",
+    "familyName": "劉",
+    "personalName": "継元",
     "commonName": "英武帝（劉継元）",
     "aliases": [],
     "posthumousName": null,
@@ -81605,7 +81863,8 @@
   {
    "id": "shiguo-jieyan-liushouguang",
    "name": {
-    "personalName": "劉守光",
+    "familyName": "劉",
+    "personalName": "守光",
     "commonName": "劉守光",
     "aliases": [],
     "posthumousName": null,
@@ -81775,7 +82034,8 @@
   {
    "id": "beisong-taizu",
    "name": {
-    "personalName": "趙匡胤",
+    "familyName": "趙",
+    "personalName": "匡胤",
     "commonName": "太祖",
     "aliases": [],
     "posthumousName": null,
@@ -82219,7 +82479,8 @@
   {
    "id": "beisong-taizong",
    "name": {
-    "personalName": "趙炅",
+    "familyName": "趙",
+    "personalName": "炅",
     "commonName": "太宗",
     "aliases": [],
     "posthumousName": null,
@@ -82721,7 +82982,8 @@
   {
    "id": "beisong-zhenzong",
    "name": {
-    "personalName": "趙恒",
+    "familyName": "趙",
+    "personalName": "恒",
     "commonName": "真宗",
     "aliases": [],
     "posthumousName": null,
@@ -83204,7 +83466,8 @@
   {
    "id": "beisong-renzong",
    "name": {
-    "personalName": "趙禎",
+    "familyName": "趙",
+    "personalName": "禎",
     "commonName": "仁宗",
     "aliases": [],
     "posthumousName": null,
@@ -84057,7 +84320,8 @@
   {
    "id": "beisong-yingzong",
    "name": {
-    "personalName": "趙曙",
+    "familyName": "趙",
+    "personalName": "曙",
     "commonName": "英宗",
     "aliases": [],
     "posthumousName": null,
@@ -84271,7 +84535,8 @@
   {
    "id": "beisong-shenzong",
    "name": {
-    "personalName": "趙頊",
+    "familyName": "趙",
+    "personalName": "頊",
     "commonName": "神宗",
     "aliases": [],
     "posthumousName": null,
@@ -84734,7 +84999,8 @@
   {
    "id": "beisong-zhezong",
    "name": {
-    "personalName": "趙煦",
+    "familyName": "趙",
+    "personalName": "煦",
     "commonName": "哲宗",
     "aliases": [],
     "posthumousName": null,
@@ -85038,7 +85304,8 @@
   {
    "id": "beisong-huizong",
    "name": {
-    "personalName": "趙佶",
+    "familyName": "趙",
+    "personalName": "佶",
     "commonName": "徽宗",
     "aliases": [],
     "posthumousName": null,
@@ -85674,7 +85941,8 @@
   {
    "id": "beisong-qinzong",
    "name": {
-    "personalName": "趙桓",
+    "familyName": "趙",
+    "personalName": "桓",
     "commonName": "欽宗",
     "aliases": [],
     "posthumousName": null,
@@ -85898,7 +86166,8 @@
   {
    "id": "nansong-gaozong",
    "name": {
-    "personalName": "趙構",
+    "familyName": "趙",
+    "personalName": "構",
     "commonName": "高宗",
     "aliases": [],
     "posthumousName": null,
@@ -88323,7 +88592,8 @@
   {
    "id": "nansong-xiaozong",
    "name": {
-    "personalName": "趙眘",
+    "familyName": "趙",
+    "personalName": "眘",
     "commonName": "孝宗",
     "aliases": [],
     "posthumousName": null,
@@ -89098,7 +89368,8 @@
   {
    "id": "nansong-guangzong",
    "name": {
-    "personalName": "趙惇",
+    "familyName": "趙",
+    "personalName": "惇",
     "commonName": "光宗",
     "aliases": [],
     "posthumousName": null,
@@ -89381,7 +89652,8 @@
   {
    "id": "nansong-ningzong",
    "name": {
-    "personalName": "趙拡",
+    "familyName": "趙",
+    "personalName": "拡",
     "commonName": "寧宗",
     "aliases": [],
     "posthumousName": null,
@@ -90036,7 +90308,8 @@
   {
    "id": "nansong-lizong",
    "name": {
-    "personalName": "趙昀",
+    "familyName": "趙",
+    "personalName": "昀",
     "commonName": "理宗",
     "aliases": [],
     "posthumousName": null,
@@ -90730,7 +91003,8 @@
   {
    "id": "nansong-duzong",
    "name": {
-    "personalName": "趙禥",
+    "familyName": "趙",
+    "personalName": "禥",
     "commonName": "度宗",
     "aliases": [],
     "posthumousName": null,
@@ -90942,7 +91216,8 @@
   {
    "id": "nansong-gongdi",
    "name": {
-    "personalName": "趙㬎",
+    "familyName": "趙",
+    "personalName": "㬎",
     "commonName": "恭帝",
     "aliases": [],
     "posthumousName": null,
@@ -91156,7 +91431,8 @@
   {
    "id": "nansong-duanzong",
    "name": {
-    "personalName": "趙昰",
+    "familyName": "趙",
+    "personalName": "昰",
     "commonName": "端宗",
     "aliases": [],
     "posthumousName": null,
@@ -91381,7 +91657,8 @@
   {
    "id": "nansong-weiwang",
    "name": {
-    "personalName": "趙昺",
+    "familyName": "趙",
+    "personalName": "昺",
     "commonName": "衛王（祥興帝）",
     "aliases": [],
     "posthumousName": null,
@@ -91553,7 +91830,8 @@
   {
    "id": "liao-taizu",
    "name": {
-    "personalName": "耶律億",
+    "familyName": "耶律",
+    "personalName": "億",
     "commonName": "太祖",
     "aliases": [
      "耶律阿保機"
@@ -92042,7 +92320,8 @@
   {
    "id": "liao-taizong",
    "name": {
-    "personalName": "耶律徳光",
+    "familyName": "耶律",
+    "personalName": "徳光",
     "commonName": "太宗",
     "aliases": [],
     "posthumousName": null,
@@ -92370,7 +92649,8 @@
   {
    "id": "liao-shizong",
    "name": {
-    "personalName": "耶律阮",
+    "familyName": "耶律",
+    "personalName": "阮",
     "commonName": "世宗",
     "aliases": [],
     "posthumousName": null,
@@ -92606,7 +92886,8 @@
   {
    "id": "liao-muzong",
    "name": {
-    "personalName": "耶律璟",
+    "familyName": "耶律",
+    "personalName": "璟",
     "commonName": "穆宗",
     "aliases": [],
     "posthumousName": null,
@@ -92823,7 +93104,8 @@
   {
    "id": "liao-jingzong",
    "name": {
-    "personalName": "耶律賢",
+    "familyName": "耶律",
+    "personalName": "賢",
     "commonName": "景宗",
     "aliases": [],
     "posthumousName": null,
@@ -93102,7 +93384,8 @@
   {
    "id": "liao-shengzong",
    "name": {
-    "personalName": "耶律隆緒",
+    "familyName": "耶律",
+    "personalName": "隆緒",
     "commonName": "聖宗",
     "aliases": [],
     "posthumousName": null,
@@ -93637,7 +93920,8 @@
   {
    "id": "liao-xingzong",
    "name": {
-    "personalName": "耶律宗真",
+    "familyName": "耶律",
+    "personalName": "宗真",
     "commonName": "興宗",
     "aliases": [],
     "posthumousName": null,
@@ -93984,7 +94268,8 @@
   {
    "id": "liao-daozong",
    "name": {
-    "personalName": "耶律洪基",
+    "familyName": "耶律",
+    "personalName": "洪基",
     "commonName": "道宗",
     "aliases": [],
     "posthumousName": null,
@@ -94413,7 +94698,8 @@
   {
    "id": "liao-tianzuodi",
    "name": {
-    "personalName": "耶律延禧",
+    "familyName": "耶律",
+    "personalName": "延禧",
     "commonName": "天祚帝",
     "aliases": [],
     "posthumousName": null,
@@ -95005,7 +95291,8 @@
   {
    "id": "xiliao-dezong",
    "name": {
-    "personalName": "耶律大石",
+    "familyName": "耶律",
+    "personalName": "大石",
     "commonName": "徳宗天祐皇帝",
     "aliases": [],
     "posthumousName": null,
@@ -95236,7 +95523,8 @@
   {
    "id": "xiliao-renzong",
    "name": {
-    "personalName": "耶律夷列",
+    "familyName": "耶律",
+    "personalName": "夷列",
     "commonName": "仁宗正徳皇帝",
     "aliases": [],
     "posthumousName": null,
@@ -95402,7 +95690,8 @@
   {
    "id": "xiliao-tianxi",
    "name": {
-    "personalName": "耶律直魯古",
+    "familyName": "耶律",
+    "personalName": "直魯古",
     "commonName": "天禧皇帝",
     "aliases": [],
     "posthumousName": null,
@@ -95579,7 +95868,8 @@
   {
    "id": "jin-taizu",
    "name": {
-    "personalName": "完顔旻",
+    "familyName": "完顔",
+    "personalName": "旻",
     "commonName": "太祖",
     "aliases": [
      "完顔阿骨打"
@@ -95993,7 +96283,8 @@
   {
    "id": "jin-taizong",
    "name": {
-    "personalName": "完顔晟",
+    "familyName": "完顔",
+    "personalName": "晟",
     "commonName": "太宗",
     "aliases": [],
     "posthumousName": null,
@@ -96283,7 +96574,8 @@
   {
    "id": "jin-xizong",
    "name": {
-    "personalName": "完顔亶",
+    "familyName": "完顔",
+    "personalName": "亶",
     "commonName": "熙宗",
     "aliases": [],
     "posthumousName": null,
@@ -96542,7 +96834,8 @@
   {
    "id": "jin-hailingwang",
    "name": {
-    "personalName": "完顔亮",
+    "familyName": "完顔",
+    "personalName": "亮",
     "commonName": "海陵王",
     "aliases": [],
     "posthumousName": null,
@@ -96882,7 +97175,8 @@
   {
    "id": "jin-shizong",
    "name": {
-    "personalName": "完顔雍",
+    "familyName": "完顔",
+    "personalName": "雍",
     "commonName": "世宗",
     "aliases": [],
     "posthumousName": null,
@@ -97171,7 +97465,8 @@
   {
    "id": "jin-zhangzong",
    "name": {
-    "personalName": "完顔璟",
+    "familyName": "完顔",
+    "personalName": "璟",
     "commonName": "章宗",
     "aliases": [],
     "posthumousName": null,
@@ -97449,7 +97744,8 @@
   {
    "id": "jin-weishaowang",
    "name": {
-    "personalName": "完顔永済",
+    "familyName": "完顔",
+    "personalName": "永済",
     "commonName": "衛紹王",
     "aliases": [],
     "posthumousName": null,
@@ -97694,7 +97990,8 @@
   {
    "id": "jin-xuanzong",
    "name": {
-    "personalName": "完顔珣",
+    "familyName": "完顔",
+    "personalName": "珣",
     "commonName": "宣宗",
     "aliases": [],
     "posthumousName": null,
@@ -98464,7 +98761,8 @@
   {
    "id": "jin-aizong",
    "name": {
-    "personalName": "完顔守緒",
+    "familyName": "完顔",
+    "personalName": "守緒",
     "commonName": "哀宗",
     "aliases": [],
     "posthumousName": null,
@@ -98872,7 +99170,8 @@
   {
    "id": "jin-modi",
    "name": {
-    "personalName": "完顔承麟",
+    "familyName": "完顔",
+    "personalName": "承麟",
     "commonName": "末帝",
     "aliases": [],
     "posthumousName": null,
@@ -99026,7 +99325,8 @@
   {
    "id": "xixia-jingzong",
    "name": {
-    "personalName": "李元昊",
+    "familyName": "李",
+    "personalName": "元昊",
     "commonName": "景宗",
     "aliases": [],
     "posthumousName": null,
@@ -99342,7 +99642,8 @@
   {
    "id": "xixia-yizong",
    "name": {
-    "personalName": "李諒祚",
+    "familyName": "李",
+    "personalName": "諒祚",
     "commonName": "毅宗",
     "aliases": [],
     "posthumousName": null,
@@ -99667,7 +99968,8 @@
   {
    "id": "xixia-huizong",
    "name": {
-    "personalName": "李秉常",
+    "familyName": "李",
+    "personalName": "秉常",
     "commonName": "恵宗",
     "aliases": [],
     "posthumousName": null,
@@ -99877,7 +100179,8 @@
   {
    "id": "xixia-chongzong",
    "name": {
-    "personalName": "李乾順",
+    "familyName": "李",
+    "personalName": "乾順",
     "commonName": "崇宗",
     "aliases": [],
     "posthumousName": null,
@@ -100179,7 +100482,8 @@
   {
    "id": "xixia-renzong",
    "name": {
-    "personalName": "李仁孝",
+    "familyName": "李",
+    "personalName": "仁孝",
     "commonName": "仁宗",
     "aliases": [],
     "posthumousName": null,
@@ -100513,7 +100817,8 @@
   {
    "id": "xixia-huanzong",
    "name": {
-    "personalName": "李純祐",
+    "familyName": "李",
+    "personalName": "純祐",
     "commonName": "桓宗",
     "aliases": [],
     "posthumousName": null,
@@ -100702,7 +101007,8 @@
   {
    "id": "xixia-xiangzong",
    "name": {
-    "personalName": "李安全",
+    "familyName": "李",
+    "personalName": "安全",
     "commonName": "襄宗",
     "aliases": [],
     "posthumousName": null,
@@ -100902,7 +101208,8 @@
   {
    "id": "xixia-shenzong",
    "name": {
-    "personalName": "李遵頊",
+    "familyName": "李",
+    "personalName": "遵頊",
     "commonName": "神宗",
     "aliases": [],
     "posthumousName": null,
@@ -101081,7 +101388,8 @@
   {
    "id": "xixia-xianzong",
    "name": {
-    "personalName": "李徳旺",
+    "familyName": "李",
+    "personalName": "徳旺",
     "commonName": "献宗",
     "aliases": [],
     "posthumousName": null,
@@ -101249,7 +101557,8 @@
   {
    "id": "xixia-mozhu",
    "name": {
-    "personalName": "李睍",
+    "familyName": "李",
+    "personalName": "睍",
     "commonName": "末主",
     "aliases": [],
     "posthumousName": null,
@@ -101405,7 +101714,8 @@
   {
    "id": "beisongmo-zhangbangchang",
    "name": {
-    "personalName": "張邦昌",
+    "familyName": "張",
+    "personalName": "邦昌",
     "commonName": "張邦昌",
     "aliases": [],
     "posthumousName": null,
@@ -101593,7 +101903,8 @@
   {
    "id": "beisongmo-liuyu",
    "name": {
-    "personalName": "劉豫",
+    "familyName": "劉",
+    "personalName": "豫",
     "commonName": "劉豫",
     "aliases": [],
     "posthumousName": null,
@@ -101804,6 +102115,7 @@
   {
    "id": "yuan-shizu",
    "name": {
+    "familyName": null,
     "personalName": "忽必烈",
     "commonName": "世祖",
     "aliases": [],
@@ -102501,6 +102813,7 @@
   {
    "id": "yuan-chengzong",
    "name": {
+    "familyName": null,
     "personalName": "鉄穆耳",
     "commonName": "成宗",
     "aliases": [],
@@ -102902,6 +103215,7 @@
   {
    "id": "yuan-wuzong",
    "name": {
+    "familyName": null,
     "personalName": "海山",
     "commonName": "武宗",
     "aliases": [],
@@ -103233,6 +103547,7 @@
   {
    "id": "yuan-renzong",
    "name": {
+    "familyName": null,
     "personalName": "愛育黎抜力八達",
     "commonName": "仁宗",
     "aliases": [],
@@ -103603,6 +103918,7 @@
   {
    "id": "yuan-yingzong",
    "name": {
+    "familyName": null,
     "personalName": "碩徳八剌",
     "commonName": "英宗",
     "aliases": [],
@@ -104254,6 +104570,7 @@
   {
    "id": "yuan-taidingdi",
    "name": {
+    "familyName": null,
     "personalName": "也孫鉄木児",
     "commonName": "泰定帝（通称）",
     "aliases": [],
@@ -104611,6 +104928,7 @@
   {
    "id": "yuan-tianshundi",
    "name": {
+    "familyName": null,
     "personalName": "阿剌吉八",
     "commonName": "天順帝（通称）",
     "aliases": [],
@@ -104793,6 +105111,7 @@
   {
    "id": "yuan-wenzong",
    "name": {
+    "familyName": null,
     "personalName": "図帖睦爾",
     "commonName": "文宗",
     "aliases": [],
@@ -105171,6 +105490,7 @@
   {
    "id": "yuan-mingzong",
    "name": {
+    "familyName": null,
     "personalName": "和世㻋",
     "commonName": "明宗",
     "aliases": [],
@@ -105333,6 +105653,7 @@
   {
    "id": "yuan-ningzong",
    "name": {
+    "familyName": null,
     "personalName": "懿璘質班",
     "commonName": "寧宗",
     "aliases": [],
@@ -105518,6 +105839,7 @@
   {
    "id": "yuan-huizong",
    "name": {
+    "familyName": null,
     "personalName": "妥懽帖睦爾",
     "commonName": "恵宗（順帝）",
     "aliases": [],
@@ -106535,6 +106857,7 @@
   {
    "id": "beiyuan-zhaozong",
    "name": {
+    "familyName": null,
     "personalName": "愛猷識理達臘",
     "commonName": "昭宗",
     "aliases": [],
@@ -106718,7 +107041,8 @@
   {
    "id": "yuanmo-hanlin-er",
    "name": {
-    "personalName": "韓林児",
+    "familyName": "韓",
+    "personalName": "林児",
     "commonName": "韓林児（小明王）",
     "aliases": [],
     "posthumousName": null,
@@ -106927,7 +107251,8 @@
   {
    "id": "yuanmo-xushouhui",
    "name": {
-    "personalName": "徐寿輝",
+    "familyName": "徐",
+    "personalName": "寿輝",
     "commonName": "徐寿輝",
     "aliases": [],
     "posthumousName": null,
@@ -107159,7 +107484,8 @@
   {
    "id": "yuanmo-chenyouliang",
    "name": {
-    "personalName": "陳友諒",
+    "familyName": "陳",
+    "personalName": "友諒",
     "commonName": "陳友諒",
     "aliases": [],
     "posthumousName": null,
@@ -107348,7 +107674,8 @@
   {
    "id": "yuanmo-chenli",
    "name": {
-    "personalName": "陳理",
+    "familyName": "陳",
+    "personalName": "理",
     "commonName": "陳理",
     "aliases": [],
     "posthumousName": null,
@@ -107526,7 +107853,8 @@
   {
    "id": "yuanmo-mingyuzhen",
    "name": {
-    "personalName": "明玉珍",
+    "familyName": "明",
+    "personalName": "玉珍",
     "commonName": "明玉珍",
     "aliases": [],
     "posthumousName": null,
@@ -107706,7 +108034,8 @@
   {
    "id": "yuanmo-mingsheng",
    "name": {
-    "personalName": "明昇",
+    "familyName": "明",
+    "personalName": "昇",
     "commonName": "明昇",
     "aliases": [],
     "posthumousName": null,
@@ -107896,7 +108225,8 @@
   {
    "id": "ming-taizu",
    "name": {
-    "personalName": "朱元璋",
+    "familyName": "朱",
+    "personalName": "元璋",
     "commonName": "太祖（洪武帝）",
     "aliases": [],
     "posthumousName": null,
@@ -108793,7 +109123,8 @@
   {
    "id": "ming-huizong",
    "name": {
-    "personalName": "朱允炆",
+    "familyName": "朱",
+    "personalName": "允炆",
     "commonName": "恵宗（建文帝）",
     "aliases": [],
     "posthumousName": null,
@@ -109005,7 +109336,8 @@
   {
    "id": "ming-taizong",
    "name": {
-    "personalName": "朱棣",
+    "familyName": "朱",
+    "personalName": "棣",
     "commonName": "太宗/成祖（永楽帝）",
     "aliases": [],
     "posthumousName": null,
@@ -109436,7 +109768,8 @@
   {
    "id": "ming-renzong",
    "name": {
-    "personalName": "朱高熾",
+    "familyName": "朱",
+    "personalName": "高熾",
     "commonName": "仁宗（洪熙帝）",
     "aliases": [],
     "posthumousName": null,
@@ -109647,7 +109980,8 @@
   {
    "id": "ming-xuanzong",
    "name": {
-    "personalName": "朱瞻基",
+    "familyName": "朱",
+    "personalName": "瞻基",
     "commonName": "宣宗（宣徳帝）",
     "aliases": [],
     "posthumousName": null,
@@ -110134,7 +110468,8 @@
   {
    "id": "ming-yingzong",
    "name": {
-    "personalName": "朱祁鎮",
+    "familyName": "朱",
+    "personalName": "祁鎮",
     "commonName": "英宗（正統帝/天順帝）",
     "aliases": [],
     "posthumousName": null,
@@ -110728,7 +111063,8 @@
   {
    "id": "ming-daizong",
    "name": {
-    "personalName": "朱祁鈺",
+    "familyName": "朱",
+    "personalName": "祁鈺",
     "commonName": "代宗（景泰帝）",
     "aliases": [],
     "posthumousName": null,
@@ -111024,7 +111360,8 @@
   {
    "id": "ming-xianzong",
    "name": {
-    "personalName": "朱見深",
+    "familyName": "朱",
+    "personalName": "見深",
     "commonName": "憲宗（成化帝）",
     "aliases": [],
     "posthumousName": null,
@@ -111429,7 +111766,8 @@
   {
    "id": "ming-xiaozong",
    "name": {
-    "personalName": "朱祐樘",
+    "familyName": "朱",
+    "personalName": "祐樘",
     "commonName": "孝宗（弘治帝）",
     "aliases": [],
     "posthumousName": null,
@@ -111723,7 +112061,8 @@
   {
    "id": "ming-wuzong",
    "name": {
-    "personalName": "朱厚照",
+    "familyName": "朱",
+    "personalName": "厚照",
     "commonName": "武宗（正徳帝）",
     "aliases": [],
     "posthumousName": null,
@@ -112051,7 +112390,8 @@
   {
    "id": "ming-shizong",
    "name": {
-    "personalName": "朱厚熜",
+    "familyName": "朱",
+    "personalName": "厚熜",
     "commonName": "世宗（嘉靖帝）",
     "aliases": [],
     "posthumousName": null,
@@ -112625,7 +112965,8 @@
   {
    "id": "ming-muzong",
    "name": {
-    "personalName": "朱載坖",
+    "familyName": "朱",
+    "personalName": "載坖",
     "commonName": "穆宗（隆慶帝）",
     "aliases": [],
     "posthumousName": null,
@@ -112872,7 +113213,8 @@
   {
    "id": "ming-shenzong",
    "name": {
-    "personalName": "朱翊鈞",
+    "familyName": "朱",
+    "personalName": "翊鈞",
     "commonName": "神宗（万暦帝）",
     "aliases": [],
     "posthumousName": null,
@@ -113584,7 +113926,8 @@
   {
    "id": "ming-guangzong",
    "name": {
-    "personalName": "朱常洛",
+    "familyName": "朱",
+    "personalName": "常洛",
     "commonName": "光宗（泰昌帝）",
     "aliases": [],
     "posthumousName": null,
@@ -113756,7 +114099,8 @@
   {
    "id": "ming-xizong",
    "name": {
-    "personalName": "朱由校",
+    "familyName": "朱",
+    "personalName": "由校",
     "commonName": "熹宗（天啓帝）",
     "aliases": [],
     "posthumousName": null,
@@ -114052,7 +114396,8 @@
   {
    "id": "ming-yizong",
    "name": {
-    "personalName": "朱由検",
+    "familyName": "朱",
+    "personalName": "由検",
     "commonName": "毅宗（崇禎帝）",
     "aliases": [],
     "posthumousName": null,
@@ -114529,7 +114874,8 @@
    },
    "id": "nanming-anzong",
    "name": {
-    "personalName": "朱由崧",
+    "familyName": "朱",
+    "personalName": "由崧",
     "commonName": "安宗（弘光帝）",
     "aliases": [],
     "posthumousName": null,
@@ -114775,7 +115121,8 @@
    },
    "id": "nanming-zongzong",
    "name": {
-    "personalName": "朱聿鍵",
+    "familyName": "朱",
+    "personalName": "聿鍵",
     "commonName": "紹宗（隆武帝）",
     "aliases": [],
     "posthumousName": null,
@@ -114990,7 +115337,8 @@
    },
    "id": "nanming-shaowudi",
    "name": {
-    "personalName": "朱聿𨮁",
+    "familyName": "朱",
+    "personalName": "聿𨮁",
     "commonName": "紹武帝",
     "aliases": [],
     "posthumousName": null,
@@ -115221,7 +115569,8 @@
    },
    "id": "nanming-zhaozong",
    "name": {
-    "personalName": "朱由榔",
+    "familyName": "朱",
+    "personalName": "由榔",
     "commonName": "昭宗（永暦帝）",
     "aliases": [],
     "posthumousName": null,
@@ -115466,7 +115815,8 @@
    },
    "id": "shun-lichengzheng",
    "name": {
-    "personalName": "李自成",
+    "familyName": "李",
+    "personalName": "自成",
     "commonName": "永昌帝（李自成）",
     "aliases": [],
     "posthumousName": null,
@@ -115636,7 +115986,8 @@
    },
    "id": "xi-zhangxianzhong",
    "name": {
-    "personalName": "張献忠",
+    "familyName": "張",
+    "personalName": "献忠",
     "commonName": "大順帝（張献忠）",
     "aliases": [],
     "posthumousName": null,
@@ -115727,7 +116078,8 @@
   {
    "id": "qing-taizong",
    "name": {
-    "personalName": "愛新覚羅皇太極",
+    "familyName": "愛新覚羅",
+    "personalName": "皇太極",
     "commonName": "太宗（崇徳帝）",
     "aliases": [],
     "posthumousName": null,
@@ -115972,7 +116324,8 @@
   {
    "id": "qing-shizu",
    "name": {
-    "personalName": "愛新覚羅福臨",
+    "familyName": "愛新覚羅",
+    "personalName": "福臨",
     "commonName": "世祖（順治帝）",
     "aliases": [],
     "posthumousName": null,
@@ -116437,7 +116790,8 @@
   {
    "id": "qing-shengzu",
    "name": {
-    "personalName": "愛新覚羅玄燁",
+    "familyName": "愛新覚羅",
+    "personalName": "玄燁",
     "commonName": "聖祖（康熙帝）",
     "aliases": [],
     "posthumousName": null,
@@ -117043,7 +117397,8 @@
   {
    "id": "qing-shizong",
    "name": {
-    "personalName": "愛新覚羅胤禛",
+    "familyName": "愛新覚羅",
+    "personalName": "胤禛",
     "commonName": "世宗（雍正帝）",
     "aliases": [],
     "posthumousName": null,
@@ -117495,7 +117850,8 @@
   {
    "id": "qing-gaozong",
    "name": {
-    "personalName": "愛新覚羅弘暦",
+    "familyName": "愛新覚羅",
+    "personalName": "弘暦",
     "commonName": "高宗（乾隆帝）",
     "aliases": [],
     "posthumousName": null,
@@ -117982,7 +118338,8 @@
   {
    "id": "qing-renzong",
    "name": {
-    "personalName": "愛新覚羅顒琰",
+    "familyName": "愛新覚羅",
+    "personalName": "顒琰",
     "commonName": "仁宗（嘉慶帝）",
     "aliases": [],
     "posthumousName": null,
@@ -118410,7 +118767,8 @@
   {
    "id": "qing-xuanzong",
    "name": {
-    "personalName": "愛新覚羅旻寧",
+    "familyName": "愛新覚羅",
+    "personalName": "旻寧",
     "commonName": "宣宗（道光帝）",
     "aliases": [],
     "posthumousName": null,
@@ -119287,7 +119645,8 @@
   {
    "id": "qing-wenzong",
    "name": {
-    "personalName": "愛新覚羅奕詝",
+    "familyName": "愛新覚羅",
+    "personalName": "奕詝",
     "commonName": "文宗（咸豊帝）",
     "aliases": [],
     "posthumousName": null,
@@ -119679,7 +120038,8 @@
   {
    "id": "qing-muzong",
    "name": {
-    "personalName": "愛新覚羅載淳",
+    "familyName": "愛新覚羅",
+    "personalName": "載淳",
     "commonName": "穆宗（同治帝）",
     "aliases": [],
     "posthumousName": null,
@@ -120057,7 +120417,8 @@
   {
    "id": "qing-dezong",
    "name": {
-    "personalName": "愛新覚羅載湉",
+    "familyName": "愛新覚羅",
+    "personalName": "載湉",
     "commonName": "徳宗（光緒帝）",
     "aliases": [],
     "posthumousName": null,
@@ -121290,7 +121651,8 @@
   {
    "id": "qing-xuantong",
    "name": {
-    "personalName": "愛新覚羅溥儀",
+    "familyName": "愛新覚羅",
+    "personalName": "溥儀",
     "commonName": "恭宗（宣統帝）",
     "aliases": [],
     "posthumousName": null,
@@ -121934,7 +122296,8 @@
    },
    "id": "wuzhou-wusangui",
    "name": {
-    "personalName": "呉三桂",
+    "familyName": "呉",
+    "personalName": "三桂",
     "commonName": "太祖昭武帝（呉三桂）",
     "aliases": [],
     "posthumousName": null,
@@ -122123,7 +122486,8 @@
    },
    "id": "wuzhou-wushifan",
    "name": {
-    "personalName": "呉世璠",
+    "familyName": "呉",
+    "personalName": "世璠",
     "commonName": "洪化帝（呉世璠）",
     "aliases": [],
     "posthumousName": null,
@@ -122306,7 +122670,8 @@
    },
    "id": "zhonghuadiguo-yuanshikai",
    "name": {
-    "personalName": "袁世凱",
+    "familyName": "袁",
+    "personalName": "世凱",
     "commonName": "洪憲帝（袁世凱）",
     "aliases": [],
     "posthumousName": null,

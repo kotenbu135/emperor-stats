@@ -180,6 +180,11 @@ interface RawEmperor {
   id: string;
   name: {
     commonName: string | null;
+    /** 姓（複姓を含む）。**null は「姓を持たない形で伝わる」**で未記入ではない
+     *  （モンゴル語名の漢字音写12人・Issue #37 単位6）。 */
+    familyName: string | null;
+    /** 諱（姓を含まない）。**2026-08-03 に意味が変わった欄**で、それ以前は
+     *  姓＋諱を1つの文字列に持っていた（「嬴胡亥」）。姓は `familyName`。 */
     personalName: string | null;
     posthumousName: string | null;
     templeName: string | null;
@@ -438,10 +443,19 @@ function dynastyKey(e: RawEmperor): string {
  * 4件をデータ側で解消したので、現在は365人すべてが括弧の落ちた形で通り**素通りする**。
  * `commonName` に新しく括弧つきの表示名が入ったときだけ効く。
  */
+/** 姓＋諱（「劉徹」）。**データは姓と諱を別に持つ**（Issue #37 単位6）ので、
+ *  人物を特定するための1つの文字列が要る面（補助名・検索・モノグラム）はここを通す。
+ *  姓を持たない12人では諱そのものを返す。 */
+function fullPersonalName(e: RawEmperor): string | null {
+  const given = e.name.personalName;
+  if (!given) return null;
+  return `${e.name.familyName ?? ""}${given}`;
+}
+
 function displayName(e: RawEmperor): string {
   const raw =
     e.name.commonName ??
-    e.name.personalName ??
+    fullPersonalName(e) ??
     e.name.templeName ??
     e.name.posthumousName ??
     "名不詳";
@@ -461,6 +475,8 @@ function searchTextOf(e: RawEmperor, dynastyLabelText: string, era: string): str
   return [
     displayName(e),
     e.name.commonName,
+    // **姓＋諱と諱の両方**を入れる（Issue #37 単位6）。「劉徹」でも「徹」でも当たる
+    fullPersonalName(e),
     e.name.personalName,
     e.name.templeName,
     e.name.posthumousName,
@@ -483,6 +499,9 @@ function searchKanaOf(e: RawEmperor, dynastyLabelText: string, era: string): str
   const names = [
     displayName(e),
     e.name.commonName,
+    // 姓＋諱と諱の両方（Issue #37 単位6）。**新しい親文字は増えない**ので
+    // かな検索テーブルへの追記は要らない（同じ文字を短く切っただけ）
+    fullPersonalName(e),
     e.name.personalName,
     e.name.templeName,
     e.name.posthumousName,
@@ -592,6 +611,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     name: displayName(e),
     subtitle: emperorSubtitle(
       e.id,
+      fullPersonalName(e),
       e.name.personalName,
       e.regimeId,
       displayName(e),
@@ -631,7 +651,9 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     deathAge: e.ages?.deathAge ?? null,
     periodsLabel: e.reigns.map(formatPeriod).join(" / "),
     commonName: e.name.commonName ?? "",
+    familyName: e.name.familyName,
     personalName: e.name.personalName,
+    fullPersonalName: fullPersonalName(e),
     ethnicName: e.name.ethnicName ?? null,
     courtesyName: e.name.courtesyName ?? null,
     childhoodName: e.name.childhoodName ?? null,
@@ -689,6 +711,7 @@ export function getEmperorListRecords(): EmperorListRecord[] {
     id: r.id,
     name: r.name,
     nameRuby: rubyOf(r.name),
+    familyName: r.familyName,
     personalName: r.personalName,
     cardSubtitle: r.subtitle,
     cardSubtitleRuby: r.subtitle ? rubyOf(r.subtitle) : null,
@@ -765,6 +788,7 @@ export function getEmperorTableRecords(): EmperorTableRecord[] {
       id: r.id,
       name: r.name,
       nameRuby: rubyOf(r.name),
+      familyName: r.familyName,
       personalName: r.personalName,
       ethnicName: r.ethnicName?.value ?? null,
       dynastyLabel: r.dynastyLabel,
@@ -1199,6 +1223,8 @@ export function getOverviewStats(): OverviewStats {
 export interface HomeRankedEmperor {
   id: string;
   name: string;
+  /** モノグラム一文字に使う姓（Issue #37 単位6）。姓を持たない12人は null。 */
+  familyName: string | null;
   personalName: string | null;
   dynastyLabel: string;
   dynastyKey: string;
@@ -1439,6 +1465,7 @@ function topByValue(
     rows: eligible.slice(0, topCount).map(({ r, value }) => ({
       id: r.id,
       name: r.name,
+      familyName: r.familyName,
       personalName: r.personalName,
       dynastyLabel: r.dynastyLabel,
       dynastyLabelRuby: rubyOf(r.dynastyLabel),
