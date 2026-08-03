@@ -486,7 +486,8 @@ export default function AboutPage() {
               取り下げを黙って行わないための節で、件数は data/quote-refs.json から
               引く（直書きすると台帳が動いたときに説明のほうが嘘になる）。 */}
           <p>
-            ただし、<strong>引用のうち底本と機械で突き合わせているのは</strong>、
+            ただし、
+            <strong>引用のうち底本と機械で突き合わせているのは</strong>、照合台帳に登録した
             {quoteVerificationStats.total.toLocaleString()}件中
             <strong>
               {quoteVerificationStats.verified.toLocaleString()}件です
