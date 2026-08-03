@@ -40,6 +40,9 @@ python3 scripts/check_verification.py --for <皇帝id>    # 着手時にこれ�
 `blocks[].webdiff` に `raised`（Web で挙がった食い違い）と `confirmed`（原文へ当て直して実欠陥
 だった件数）を書きます。`own-annals` 側で1〜2ブロック溜まってから落とすかを決めます。
 書き忘れは `check_verification.py` が警告します（`--rate` に列があります）。
+**この判断の入口は `data/verification.json` の `meta.webdiffDecision`** です（引き金と、落とすと
+決めたときに同じ変更で直す3箇所が書いてあります）。追跡用の Issue #54 は 2026-08-03 に close
+しました — 単体で着手できる作業ではなく、この段に乗るだけだったためです。
 
 **記録に無い政権はすべて `dependent`（厚い側）**です。載せ忘れが薄い側へ倒れると、その政権の
 誤りをまとめて通してしまうため、既定を厚い側にしてあります。**体数を自分で決めないこと。**

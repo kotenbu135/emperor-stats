@@ -307,17 +307,23 @@ rules:
       `source.conversion` の `fromLunar(y,m,d[,leap])` を再演する。**朔日アンカー
       `fromLunar(y,m,1)` は月精度の主張として扱い、多数月を計算して `→YYYY-MM` や保存値と
       照合する** — 記法を増やさずに月精度の誤りを機械化できる。検出力は
-      `python3 scripts/test_event_conversion_gate.py` が合成レコードで測る（**実データでは
-      当面 B5=0 なので、0エラーを「守れている」と読まないための分母**）。
+      `python3 scripts/test_event_conversion_gate.py` が合成レコードで測る（**実データは
+      2026-08-03 時点で B5=1・残 1,172 なので、0エラーを「守れている」と読まないための分母**）。
       **L4 が残るのは「書いたか」のほう** — 遡及しない任意の欄なので、書かなかったことは
-      検出できない。機械が見られるのは「書いたのに合わない」だけ
+      検出できない。機械が見られるのは「書いたのに合わない」だけ。
+      **これを L1／L2 へ上げるか（`patch_emperor.py` が `*Raw` 同時指定なしの `--set` を通さない）は
+      未決**で、賛否は PROCESS_IMPROVEMENTS.md の同名の節にある（強制すると
+      「ゲートを通すための偽の原表記」が入りうるのが反対側の論拠）
     evidence: >-
       Issue #56（2026-08-03）で親征イベントの終期42件を原典へ当て直したところ24件が誤りで、
       最も多い型が「旧暦の月番号を太陽暦の月欄へ直書き」だった（西夏襄宗 1211-05←旧暦五月は
       西暦5月と1日も重ならない・夏赫連定2件・後燕慕容盛・西夏景宗）。events は原表記を持たない
       ため、**保存値が旧暦の月番号のままか換算済みかを機械で区別できず**、Issue #34 の
       1,937件の換算からも漏れて残った。同じ型は北斉文宣帝に7値・清聖祖に4値が未訂正で残っている（#62）
-    source: data/schema/EMPERORS_SCHEMA.md「events の原表記と換算」・Issue #56
+    source: >-
+      data/schema/EMPERORS_SCHEMA.md「events の原表記と換算」・Issue #56。
+      親 Issue #68 は 2026-08-03 に close（設計上閉じられない器だった）。残量は
+      docs/process/RESIDUAL.md、working knowledge は AI_RESEARCH_LESSONS.md の 9-1
 
   - id: R-ERA-DATE-DECLARED
     summary: 改元 event の date は「本紀がその改元という行為に日付を付けている条の日」。元号が施行される日を採らない
