@@ -55,6 +55,10 @@ Issue #69 で洗ったところ、再調査が終わらなくなった系統は*
 | `name.ethnicName` | この人物の `value` は `kind` の言語・民族の名である（**任意・遡及しない** — 欄が無いのは「民族名が無い」ではなく「まだ分けていない」を含む） | `validate_emperors.py::check_ethnic_names` | `test_ethnic_name.py` |
 | （同上・移行の同一性） | 移行前の `personalName`（`data/internal/personal-name-originals.json` に凍結）へ `kind` の並びで組み直すと戻る＝**括弧ごと消す欠落を落とす** | `validate_emperors.py::check_ethnic_names` | `test_ethnic_name.py` |
 | （同上・底本照合） | **漢字側**（契丹名・女真名は `value`／モンゴル語名・満洲語名は相手側 `personalName`）が本人の原文に在る。**カナは原典に無いので照合の外** | `verify_quotes.py::cmd_check_ethnic_names` | `test_ethnic_name.py` |
+| `name.familyName` | この人物の姓（複姓を含む）。**`null` は「姓を持たない形で伝わる」**（モンゴル語名の漢字音写12人）で、未記入ではない。同時に `personalName` の意味が「姓＋諱」から「諱」へ変わっている | `validate_emperors.py::check_family_names` | `test_family_name.py` |
+| （同上・分割の同一性） | 移行前の `personalName`（`data/internal/family-name-split-originals.json` に凍結）へ `familyName + personalName` で戻る＝**字を落とす・順を変える形を落とす** | `validate_emperors.py::check_family_names` | `test_family_name.py` |
+| （同上・政権内の一貫性） | 同じ政権の姓は1種類（割れてよい4政権はコードに理由つきで宣言）。**誤分割は姓を1字ずらすので必ず政権内で割れる** — ただし政権まるごと同じ誤り方は落ちない（そこは絞り込みの `ambiguous` 検出器） | `validate_emperors.py::check_family_names` | `test_family_name.py` |
+| （同上・底本照合） | 姓が「姓〈姓〉氏」で底本に在る／諱が「讳〈諱〉」で本人の原文に在る（**ラチェット**・充足数が減ったら落ちる。当たらないこと自体は誤りではない） | `verify_quotes.py::cmd_check_family_names` | `test_family_name.py` |
 | `name.courtesyName` | この人物の字は値のとおりである（**任意・遡及しない** — 欄が無いのは「字が無い」ではなく、唐以降の帝紀が冒頭定型に字を書かないことと未読を含む。機械が何も見つけなかった248人の取りこぼし率は 17%と実測） | `validate_emperors.py::check_courtesy_names` | `test_courtesy_name.py` |
 | （同上・底本照合） | その字が**本人の原文に「字〈値〉」の形で**在る。**隣接まで見る**ので、小字（幼名）を字の欄へ入れた形はここで落ちる | `verify_quotes.py::cmd_check_courtesy_names` | `test_courtesy_name.py` |
 | `name.childhoodName` | この人物の幼名（原文の語は「小字」）は値のとおりである（**任意・遡及しない** — 欄が無いのは「小字が無い」ではない。小字を冒頭定型に載せる書が字よりさらに少なく30人で止まる。**民族名と同値でも誤りではない**ので分離検査は字の欄と非対称） | `validate_emperors.py::check_childhood_names` | `test_childhood_name.py` |

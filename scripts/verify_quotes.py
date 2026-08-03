@@ -1294,6 +1294,67 @@ def cmd_check_childhood_names():
     return 1 if bad else 0
 
 
+# --- 姓 name.familyName（Issue #37 単位6・ゲートE）-----------------------------
+# 分けた切れ目そのものを本人の原文へ当てる。**ラチェット**（充足数が減ったら落ちる）で、
+# 「本人の原文に姓も諱も出て来ない人物」は正しくても在る（漢書は前漢の諱を冒頭に
+# 並べない）ため強制はできない。設計は docs/schema/FAMILY_NAME_SPLIT_2026-08-03.md。
+#
+# 床は移行時（2026-08-03・365人）の実測。**減ったら落ちる**ので、切れ目をずらす訂正が
+# 入ると必ずここに出る。
+FAMILY_NAME_FLOOR = 181  # 2026-08-03 の実測（姓 21人・諱 173人・どちらか 181人／364人）
+
+
+def family_name_hit(hay, family, given):
+    """(姓が「姓〈姓〉氏」で在るか, 諱が「讳〈諱〉」で在るか) を返す。
+
+    **どちらも切れ目の検査**であって、名前が正しいことの検査ではない。複姓を1字で
+    切ると「姓耶氏」になって当たらなくなる、という向きで効く。
+    """
+    x = bool(family) and f"姓{norm_for_match(family)}氏" in hay
+    h = bool(given) and f"讳{norm_for_match(given)}" in hay
+    return x, h
+
+
+def cmd_check_family_names():
+    """姓と諱の切れ目を本人の原文キャッシュに当てる（ゲートE・ラチェット）。
+
+    **当たらないことは誤りではない** — 前漢のように帝紀が諱を冒頭に並べない書がある。
+    見ているのは「当たっていた人物が当たらなくなること」で、切れ目をずらす訂正を捕まえる。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    checked = xing = hui = either = 0
+    skipped = []
+    for e in data["emperors"]:
+        name = e.get("name") or {}
+        family, given = name.get("familyName"), name.get("personalName")
+        if not given:
+            continue
+        cache = CORPUS_ROOT / "_corpus_cache" / f"{e['id']}.txt"
+        if not cache.is_file():
+            skipped.append(e["id"])
+            continue
+        checked += 1
+        hay = norm_for_match(cache.read_text(encoding="utf-8"))
+        x, h = family_name_hit(hay, family, given)
+        xing += x
+        hui += h
+        either += x or h
+    if skipped:
+        print(f"NOTICE 原文キャッシュが無いため未照合: {len(skipped)}人 {skipped}")
+    bad = 0
+    if FAMILY_NAME_FLOOR is None:
+        print("NOTICE 床が未設定のため合否を出していない"
+              "（FAMILY_NAME_FLOOR に下の実測を書く）")
+    elif either < FAMILY_NAME_FLOOR:
+        bad = 1
+        print(f"ERROR 切れ目が本人の原文に当たる人物が {either}人で床 "
+              f"{FAMILY_NAME_FLOOR} を下回った（姓と諱の切れ目をずらす訂正が入った疑い）")
+    print(f"---\n{bad} errors / 照合した {checked}人のうち "
+          f"姓が「姓〈姓〉氏」で在る {xing}人・諱が「讳〈諱〉」で在る {hui}人・"
+          f"どちらかが在る {either}人（床 {FAMILY_NAME_FLOOR}）")
+    return bad
+
+
 def _iter_units_for_volumes(data):
     """validate_emperors の走査をそのまま使う（容器の列挙を2箇所に書かない）。"""
     import importlib.util
@@ -1614,6 +1675,10 @@ def main():
     ap.add_argument("--check-childhood-names", action="store_true",
                     help="name.childhoodName を本人の原文キャッシュに当てる"
                          "（Issue #37 単位5・要コーパス。「小字〈値〉」の隣接まで見る）")
+    ap.add_argument("--check-family-names", action="store_true",
+                    help="name.familyName と諱の切れ目を本人の原文キャッシュに当てる"
+                         "（Issue #37 単位6・要コーパス。「姓〈姓〉氏」「讳〈諱〉」の"
+                         "充足数が減ったら落ちるラチェット）")
     ap.add_argument("--rebuild", action="store_true",
                     help="--backfill と併用。照合器を変えたとき機械判定を作り直す"
                          "（manual/external/defect の curation は残す）")
@@ -1654,6 +1719,8 @@ def main():
         return cmd_check_courtesy_names()
     if args.check_childhood_names:
         return cmd_check_childhood_names()
+    if args.check_family_names:
+        return cmd_check_family_names()
     if args.backfill:
         return cmd_backfill(rebuild=args.rebuild, retry_unresolved=args.retry_unresolved)
     return cmd_check()

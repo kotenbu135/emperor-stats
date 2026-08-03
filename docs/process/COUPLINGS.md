@@ -38,6 +38,7 @@
 |---|---|---|
 | `emperors.json` のコンテナに**新しいキー**を足す（`claim`・`conflicts` など） | `site/src/lib/emperor-types.ts`（**表示に出すなら**型と描画。出さないなら何も要らない） | **無い**。サイトは `data-source.ts` で `as unknown as` してから読み、実行時のスキーマ検証（zod 等）が無いので、**未知キーは黙って無視される＝ビルドは落ちない**。裏を返すと、追加したキーがサイトに出ていないことも検出されない |
 | 皇帝を追加する | `site/src/lib/kana-readings.ts` の `TABLE_SOURCE`（1漢字ずつの読み） | `kana-readings.ts:629`「かな検索テーブルに未登録の漢字です」 |
+| `name.familyName` / `name.personalName` の**切れ目**を変える | `data/internal/family-name-split-originals.json`（移行前の姓＋諱）・`data/name-readings.json`（姓と諱それぞれの読み）・`site/src/lib/display-name.ts` の名前チップ | **有る。** 連結が凍結標本に戻らなければ `validate_emperors.py::check_family_names` が落ち、読みが無ければ `rubyOf` がビルドを落とす。**凍結標本は移行前の値なので更新しない** — 切れ目を直すときは `familyName` と `personalName` を同じ起動で set する（片方だけ動かすと必ず落ちる） |
 | `name.commonName` ・表示名の上書きを変える | 同上（新しい漢字が入る） | 同上。**2026-08-02 に金太祖・遼太祖の表示名を変えてビルドが落ちた** |
 | ルビ（`data/name-readings.json`）を直す | かな検索テーブル（1漢字1音節・前から切り捨て・上限16） | `validate_readings.py` |
 | 皇帝を追加する | `emperor-types.ts` の `eraOrder` | `emperors.ts:771`「eraOrder 未登録の時代ラベルです」 |

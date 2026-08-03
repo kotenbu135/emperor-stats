@@ -1,0 +1,1101 @@
+{
+ "purpose": "姓と諱を分ける移行（Issue #37 単位6）の前の personalName（姓＋諱）。validate_emperors.py::check_family_names が familyName + personalName を連結してここへ戻ることを見る（ゲートB）",
+ "migratedAt": "2026-08-03",
+ "records": {
+  "qin-shi-huang": {
+   "personalName": "嬴政"
+  },
+  "qin-er-shi": {
+   "personalName": "嬴胡亥"
+  },
+  "han-gaozu": {
+   "personalName": "劉邦"
+  },
+  "han-huidi": {
+   "personalName": "劉盈"
+  },
+  "han-qianshaodi": {
+   "personalName": "劉恭"
+  },
+  "han-houshaodi": {
+   "personalName": "劉弘"
+  },
+  "han-wendi": {
+   "personalName": "劉恒"
+  },
+  "han-jingdi": {
+   "personalName": "劉啓"
+  },
+  "han-wudi": {
+   "personalName": "劉徹"
+  },
+  "han-zhaodi": {
+   "personalName": "劉弗陵"
+  },
+  "han-liuhe": {
+   "personalName": "劉賀"
+  },
+  "han-xuandi": {
+   "personalName": "劉詢"
+  },
+  "han-yuandi": {
+   "personalName": "劉奭"
+  },
+  "han-chengdi": {
+   "personalName": "劉驁"
+  },
+  "han-aidi": {
+   "personalName": "劉欣"
+  },
+  "han-pingdi": {
+   "personalName": "劉衎"
+  },
+  "gengshi-di": {
+   "personalName": "劉玄"
+  },
+  "hou-han-guangwudi": {
+   "personalName": "劉秀"
+  },
+  "hou-han-mingdi": {
+   "personalName": "劉荘"
+  },
+  "hou-han-zhangdi": {
+   "personalName": "劉炟"
+  },
+  "hou-han-hedi": {
+   "personalName": "劉肇"
+  },
+  "hou-han-shangdi": {
+   "personalName": "劉隆"
+  },
+  "hou-han-andi": {
+   "personalName": "劉祜"
+  },
+  "hou-han-shaodi-yi": {
+   "personalName": "劉懿"
+  },
+  "hou-han-shundi": {
+   "personalName": "劉保"
+  },
+  "hou-han-chongdi": {
+   "personalName": "劉炳"
+  },
+  "hou-han-zhidi": {
+   "personalName": "劉纘"
+  },
+  "hou-han-huandi": {
+   "personalName": "劉志"
+  },
+  "hou-han-lingdi": {
+   "personalName": "劉宏"
+  },
+  "hou-han-shaodi-bian": {
+   "personalName": "劉辯"
+  },
+  "hou-han-xiandi": {
+   "personalName": "劉協"
+  },
+  "wang-mang": {
+   "personalName": "王莽"
+  },
+  "liu-penzi": {
+   "personalName": "劉盆子"
+  },
+  "gongsun-shu": {
+   "personalName": "公孫述"
+  },
+  "liu-yong-liang": {
+   "personalName": "劉永"
+  },
+  "wei-wendi": {
+   "personalName": "曹丕"
+  },
+  "wei-mingdi": {
+   "personalName": "曹叡"
+  },
+  "wei-caofang": {
+   "personalName": "曹芳"
+  },
+  "wei-caomao": {
+   "personalName": "曹髦"
+  },
+  "wei-yuandi": {
+   "personalName": "曹奐"
+  },
+  "shuhan-zhaoliedi": {
+   "personalName": "劉備"
+  },
+  "shuhan-liushan": {
+   "personalName": "劉禅"
+  },
+  "wu-dadi": {
+   "personalName": "孫権"
+  },
+  "wu-sunliang": {
+   "personalName": "孫亮"
+  },
+  "wu-jingdi": {
+   "personalName": "孫休"
+  },
+  "wu-modi": {
+   "personalName": "孫晧"
+  },
+  "yuan-shu": {
+   "personalName": "袁術"
+  },
+  "jin-wudi": {
+   "personalName": "司馬炎"
+  },
+  "jin-huidi": {
+   "personalName": "司馬衷"
+  },
+  "jin-simalun": {
+   "personalName": "司馬倫"
+  },
+  "jin-huaidi": {
+   "personalName": "司馬熾"
+  },
+  "jin-mindi": {
+   "personalName": "司馬鄴"
+  },
+  "dongjin-yuandi": {
+   "personalName": "司馬睿"
+  },
+  "dongjin-mingdi": {
+   "personalName": "司馬紹"
+  },
+  "dongjin-chengdi": {
+   "personalName": "司馬衍"
+  },
+  "dongjin-kangdi": {
+   "personalName": "司馬岳"
+  },
+  "dongjin-mudi": {
+   "personalName": "司馬聃"
+  },
+  "dongjin-aidi": {
+   "personalName": "司馬丕"
+  },
+  "dongjin-feidi": {
+   "personalName": "司馬奕"
+  },
+  "dongjin-jianwendi": {
+   "personalName": "司馬昱"
+  },
+  "dongjin-xiaowudi": {
+   "personalName": "司馬曜"
+  },
+  "dongjin-andi": {
+   "personalName": "司馬徳宗"
+  },
+  "dongjin-gongdi": {
+   "personalName": "司馬徳文"
+  },
+  "huan-xuan": {
+   "personalName": "桓玄"
+  },
+  "qianliang-zhangzuo": {
+   "personalName": "張祚"
+  },
+  "qianzhao-liuyuan": {
+   "personalName": "劉淵"
+  },
+  "qianzhao-liuhe": {
+   "personalName": "劉和"
+  },
+  "qianzhao-liucong": {
+   "personalName": "劉聡"
+  },
+  "qianzhao-liucan": {
+   "personalName": "劉粲"
+  },
+  "qianzhao-liuyao": {
+   "personalName": "劉曜"
+  },
+  "qianyan-murongjun": {
+   "personalName": "慕容儁"
+  },
+  "qianyan-murongwei": {
+   "personalName": "慕容暐"
+  },
+  "chenghan-lixiong": {
+   "personalName": "李雄"
+  },
+  "chenghan-liban": {
+   "personalName": "李班"
+  },
+  "chenghan-liqi": {
+   "personalName": "李期"
+  },
+  "chenghan-lishou": {
+   "personalName": "李寿"
+  },
+  "chenghan-lishi": {
+   "personalName": "李勢"
+  },
+  "houzhao-shile": {
+   "personalName": "石勒"
+  },
+  "houzhao-shihong": {
+   "personalName": "石弘"
+  },
+  "houzhao-shihu": {
+   "personalName": "石虎"
+  },
+  "houzhao-shishi": {
+   "personalName": "石世"
+  },
+  "houzhao-shizun": {
+   "personalName": "石遵"
+  },
+  "houzhao-shijian": {
+   "personalName": "石鑑"
+  },
+  "houzhao-shizhi": {
+   "personalName": "石祗"
+  },
+  "qianqin-fujian": {
+   "personalName": "苻健"
+  },
+  "qianqin-fusheng": {
+   "personalName": "苻生"
+  },
+  "qianqin-fupi": {
+   "personalName": "苻丕"
+  },
+  "qianqin-fudeng": {
+   "personalName": "苻登"
+  },
+  "qianqin-fuchong": {
+   "personalName": "苻崇"
+  },
+  "xia-helianbobo": {
+   "personalName": "赫連勃勃"
+  },
+  "xia-helianchang": {
+   "personalName": "赫連昌"
+  },
+  "xia-heliading": {
+   "personalName": "赫連定"
+  },
+  "houyan-murongchui": {
+   "personalName": "慕容垂"
+  },
+  "houyan-murongbao": {
+   "personalName": "慕容宝"
+  },
+  "houyan-murongxiang": {
+   "personalName": "慕容詳"
+  },
+  "houyan-muronglin": {
+   "personalName": "慕容麟"
+  },
+  "houyan-murongsheng": {
+   "personalName": "慕容盛"
+  },
+  "houyan-murongxi": {
+   "personalName": "慕容熙"
+  },
+  "xiyan-murongchong": {
+   "personalName": "慕容沖"
+  },
+  "xiyan-murongyao": {
+   "personalName": "慕容瑤"
+  },
+  "xiyan-murongzhong": {
+   "personalName": "慕容忠"
+  },
+  "xiyan-murongyong": {
+   "personalName": "慕容永"
+  },
+  "nanyan-murongde": {
+   "personalName": "慕容徳"
+  },
+  "nanyan-murongchao": {
+   "personalName": "慕容超"
+  },
+  "houqin-yaochang": {
+   "personalName": "姚萇"
+  },
+  "houqin-yaoxing": {
+   "personalName": "姚興"
+  },
+  "houqin-yaohong": {
+   "personalName": "姚泓"
+  },
+  "liu-song-wudi": {
+   "personalName": "劉裕"
+  },
+  "liu-song-shaodi": {
+   "personalName": "劉義符"
+  },
+  "liu-song-wendi": {
+   "personalName": "劉義隆"
+  },
+  "liu-song-xiaowudi": {
+   "personalName": "劉駿"
+  },
+  "liu-song-qianfeidi": {
+   "personalName": "劉子業"
+  },
+  "liu-song-mingdi": {
+   "personalName": "劉彧"
+  },
+  "liu-song-houfeidi": {
+   "personalName": "劉昱"
+  },
+  "liu-song-shundi": {
+   "personalName": "劉準"
+  },
+  "qi-gaodi": {
+   "personalName": "蕭道成"
+  },
+  "qi-wudi": {
+   "personalName": "蕭賾"
+  },
+  "qi-yulinwang": {
+   "personalName": "蕭昭業"
+  },
+  "qi-hailingwang": {
+   "personalName": "蕭昭文"
+  },
+  "qi-mingdi": {
+   "personalName": "蕭鸞"
+  },
+  "qi-donghunhou": {
+   "personalName": "蕭宝巻"
+  },
+  "qi-hedi": {
+   "personalName": "蕭宝融"
+  },
+  "liang-wudi": {
+   "personalName": "蕭衍"
+  },
+  "liang-jianwendi": {
+   "personalName": "蕭綱"
+  },
+  "liang-yuzhangwang": {
+   "personalName": "蕭棟"
+  },
+  "liang-yuandi": {
+   "personalName": "蕭繹"
+  },
+  "liang-jingdi": {
+   "personalName": "蕭方智"
+  },
+  "houliang-xuandi": {
+   "personalName": "蕭詧"
+  },
+  "houliang-mingdi": {
+   "personalName": "蕭巋"
+  },
+  "houliang-houzhu": {
+   "personalName": "蕭琮"
+  },
+  "chen-wudi": {
+   "personalName": "陳霸先"
+  },
+  "chen-wendi": {
+   "personalName": "陳蒨"
+  },
+  "chen-feidi": {
+   "personalName": "陳伯宗"
+  },
+  "chen-xuandi": {
+   "personalName": "陳頊"
+  },
+  "chen-houzhu": {
+   "personalName": "陳叔宝"
+  },
+  "liu-song-liushao": {
+   "personalName": "劉劭"
+  },
+  "liu-song-liuzixun": {
+   "personalName": "劉子勛"
+  },
+  "liang-xiaozhengde": {
+   "personalName": "蕭正徳"
+  },
+  "liang-houjing": {
+   "personalName": "侯景"
+  },
+  "liang-xiaoji": {
+   "personalName": "蕭紀"
+  },
+  "liang-xiaoyuanming": {
+   "personalName": "蕭淵明"
+  },
+  "liang-xiaozhuang": {
+   "personalName": "蕭荘"
+  },
+  "beiwei-daowudi": {
+   "personalName": "拓跋珪"
+  },
+  "beiwei-mingyuandi": {
+   "personalName": "拓跋嗣"
+  },
+  "beiwei-taiwudi": {
+   "personalName": "拓跋燾"
+  },
+  "beiwei-tuobayu": {
+   "personalName": "拓跋余"
+  },
+  "beiwei-wenchengdi": {
+   "personalName": "拓跋濬"
+  },
+  "beiwei-xiandi": {
+   "personalName": "拓跋弘"
+  },
+  "beiwei-xiaowendi": {
+   "personalName": "元宏"
+  },
+  "beiwei-xuanwudi": {
+   "personalName": "元恪"
+  },
+  "beiwei-xiaomingdi": {
+   "personalName": "元詡"
+  },
+  "beiwei-youzhu-yuanzhao": {
+   "personalName": "元釗"
+  },
+  "beiwei-xiaozhuangdi": {
+   "personalName": "元子攸"
+  },
+  "beiwei-yuanye": {
+   "personalName": "元曄"
+  },
+  "beiwei-jiemindi": {
+   "personalName": "元恭"
+  },
+  "beiwei-houfeidi-yuanlang": {
+   "personalName": "元朗"
+  },
+  "beiwei-xiaowudi": {
+   "personalName": "元脩"
+  },
+  "beiwei-yuanyu": {
+   "personalName": "元愉"
+  },
+  "beiwei-yuanfasheng": {
+   "personalName": "元法僧"
+  },
+  "beiwei-yuanhao": {
+   "personalName": "元顥"
+  },
+  "dongwei-xiaojingdi": {
+   "personalName": "元善見"
+  },
+  "beiqi-wenxuandi": {
+   "personalName": "高洋"
+  },
+  "beiqi-feidi-gaoyin": {
+   "personalName": "高殷"
+  },
+  "beiqi-xiaozhaodi": {
+   "personalName": "高演"
+  },
+  "beiqi-wuchengdi": {
+   "personalName": "高湛"
+  },
+  "beiqi-houzhu": {
+   "personalName": "高緯"
+  },
+  "beiqi-andewang-gaoyanzong": {
+   "personalName": "高延宗"
+  },
+  "beiqi-youzhu-gaoheng": {
+   "personalName": "高恒"
+  },
+  "beiqi-gaoxie": {
+   "personalName": "高紹義"
+  },
+  "xiwei-wendi": {
+   "personalName": "元宝炬"
+  },
+  "xiwei-feidi-yuanqin": {
+   "personalName": "元欽"
+  },
+  "xiwei-gongdi": {
+   "personalName": "拓跋廓"
+  },
+  "beizhou-mingdi": {
+   "personalName": "宇文毓"
+  },
+  "beizhou-wudi": {
+   "personalName": "宇文邕"
+  },
+  "beizhou-xuandi": {
+   "personalName": "宇文贇"
+  },
+  "beizhou-jingdi": {
+   "personalName": "宇文闡"
+  },
+  "sui-wendi": {
+   "personalName": "楊堅"
+  },
+  "sui-yangdi": {
+   "personalName": "楊広"
+  },
+  "sui-gongdi-you": {
+   "personalName": "楊侑"
+  },
+  "sui-gongdi-tong": {
+   "personalName": "楊侗"
+  },
+  "sui-yanghao": {
+   "personalName": "楊浩"
+  },
+  "suimo-yuwenhuaji": {
+   "personalName": "宇文化及"
+  },
+  "suimo-wangshichong": {
+   "personalName": "王世充"
+  },
+  "suimo-liuwuzhou": {
+   "personalName": "劉武周"
+  },
+  "suimo-liangshidu": {
+   "personalName": "梁師都"
+  },
+  "suimo-xueju": {
+   "personalName": "薛挙"
+  },
+  "suimo-xuerengao": {
+   "personalName": "薛仁杲"
+  },
+  "suimo-liqui": {
+   "personalName": "李軌"
+  },
+  "suimo-xiaoxian": {
+   "personalName": "蕭銑"
+  },
+  "suimo-lizitong": {
+   "personalName": "李子通"
+  },
+  "suimo-linshihong": {
+   "personalName": "林士弘"
+  },
+  "suimo-fugongshi": {
+   "personalName": "輔公祏"
+  },
+  "suimo-zhucan": {
+   "personalName": "朱粲"
+  },
+  "tang-gaozu": {
+   "personalName": "李淵"
+  },
+  "tang-taizong": {
+   "personalName": "李世民"
+  },
+  "tang-gaozong": {
+   "personalName": "李治"
+  },
+  "tang-zhongzong": {
+   "personalName": "李顕"
+  },
+  "tang-ruizong": {
+   "personalName": "李旦"
+  },
+  "tang-shangdi": {
+   "personalName": "李重茂"
+  },
+  "tang-xuanzong": {
+   "personalName": "李隆基"
+  },
+  "tang-suzong": {
+   "personalName": "李亨"
+  },
+  "tang-daizong": {
+   "personalName": "李豫"
+  },
+  "tang-dezong": {
+   "personalName": "李适"
+  },
+  "tang-shunzong": {
+   "personalName": "李誦"
+  },
+  "tang-xianzong": {
+   "personalName": "李純"
+  },
+  "tang-muzong": {
+   "personalName": "李恒"
+  },
+  "tang-jingzong": {
+   "personalName": "李湛"
+  },
+  "tang-wenzong": {
+   "personalName": "李昂"
+  },
+  "tang-wuzong": {
+   "personalName": "李瀍"
+  },
+  "tang-xuanzong-2": {
+   "personalName": "李忱"
+  },
+  "tang-yizong": {
+   "personalName": "李漼"
+  },
+  "tang-xizong": {
+   "personalName": "李儇"
+  },
+  "tang-zhaozong": {
+   "personalName": "李曄"
+  },
+  "tang-aidi": {
+   "personalName": "李柷"
+  },
+  "tang-lige": {
+   "personalName": "李裕"
+  },
+  "tang-wuzetian": {
+   "personalName": "武曌"
+  },
+  "tangmo-li-chenghong": {
+   "personalName": "李承宏"
+  },
+  "tangmo-li-yun": {
+   "personalName": "李熅"
+  },
+  "tangmo-anlushan": {
+   "personalName": "安禄山"
+  },
+  "tangmo-anqingxu": {
+   "personalName": "安慶緒"
+  },
+  "tangmo-shisiming": {
+   "personalName": "史思明"
+  },
+  "tangmo-shichaoyi": {
+   "personalName": "史朝義"
+  },
+  "tangmo-zhuci": {
+   "personalName": "朱泚"
+  },
+  "tangmo-lixilie": {
+   "personalName": "李希烈"
+  },
+  "tangmo-huangchao": {
+   "personalName": "黄巣"
+  },
+  "wudai-houliang-taizu": {
+   "personalName": "朱全忠"
+  },
+  "wudai-houliang-zhuyougui": {
+   "personalName": "朱友珪"
+  },
+  "wudai-houliang-modi": {
+   "personalName": "朱友貞"
+  },
+  "wudai-houtang-zhuangzong": {
+   "personalName": "李存勗"
+  },
+  "wudai-houtang-mingzong": {
+   "personalName": "李嗣源"
+  },
+  "wudai-houtang-mindi": {
+   "personalName": "李従厚"
+  },
+  "wudai-houtang-modi2": {
+   "personalName": "李従珂"
+  },
+  "wudai-houjin-gaozu": {
+   "personalName": "石敬瑭"
+  },
+  "wudai-houjin-shaodi": {
+   "personalName": "石重貴"
+  },
+  "wudai-houhan-gaozu": {
+   "personalName": "劉知遠"
+  },
+  "wudai-houhan-yindi": {
+   "personalName": "劉承祐"
+  },
+  "wudai-houzhou-taizu": {
+   "personalName": "郭威"
+  },
+  "wudai-houzhou-shizong": {
+   "personalName": "柴栄"
+  },
+  "wudai-houzhou-gongdi": {
+   "personalName": "柴宗訓"
+  },
+  "shiguo-wu-yangpu": {
+   "personalName": "楊溥"
+  },
+  "shiguo-qianshu-wangjian": {
+   "personalName": "王建"
+  },
+  "shiguo-qianshu-wangyan": {
+   "personalName": "王衍"
+  },
+  "shiguo-nanhan-liuyan": {
+   "personalName": "劉龑"
+  },
+  "shiguo-nanhan-liubin": {
+   "personalName": "劉玢"
+  },
+  "shiguo-nanhan-liusheng": {
+   "personalName": "劉晟"
+  },
+  "shiguo-nanhan-liuchang": {
+   "personalName": "劉鋹"
+  },
+  "shiguo-houshu-mengzhixiang": {
+   "personalName": "孟知祥"
+  },
+  "shiguo-houshu-mengchang": {
+   "personalName": "孟昶"
+  },
+  "shiguo-nantang-libian": {
+   "personalName": "李昪"
+  },
+  "shiguo-nantang-lijing": {
+   "personalName": "李璟"
+  },
+  "shiguo-min-wangyanjun": {
+   "personalName": "王延鈞"
+  },
+  "shiguo-min-wangjipeng": {
+   "personalName": "王継鵬"
+  },
+  "shiguo-min-wangyanxi": {
+   "personalName": "王延羲"
+  },
+  "shiguo-min-wangyanzheng": {
+   "personalName": "王延政"
+  },
+  "shiguo-beihan-liuchong": {
+   "personalName": "劉崇"
+  },
+  "shiguo-beihan-liujun": {
+   "personalName": "劉鈞"
+  },
+  "shiguo-beihan-liujien": {
+   "personalName": "劉継恩"
+  },
+  "shiguo-beihan-liujiyuan": {
+   "personalName": "劉継元"
+  },
+  "shiguo-jieyan-liushouguang": {
+   "personalName": "劉守光"
+  },
+  "beisong-taizu": {
+   "personalName": "趙匡胤"
+  },
+  "beisong-taizong": {
+   "personalName": "趙炅"
+  },
+  "beisong-zhenzong": {
+   "personalName": "趙恒"
+  },
+  "beisong-renzong": {
+   "personalName": "趙禎"
+  },
+  "beisong-yingzong": {
+   "personalName": "趙曙"
+  },
+  "beisong-shenzong": {
+   "personalName": "趙頊"
+  },
+  "beisong-zhezong": {
+   "personalName": "趙煦"
+  },
+  "beisong-huizong": {
+   "personalName": "趙佶"
+  },
+  "beisong-qinzong": {
+   "personalName": "趙桓"
+  },
+  "nansong-gaozong": {
+   "personalName": "趙構"
+  },
+  "nansong-xiaozong": {
+   "personalName": "趙眘"
+  },
+  "nansong-guangzong": {
+   "personalName": "趙惇"
+  },
+  "nansong-ningzong": {
+   "personalName": "趙拡"
+  },
+  "nansong-lizong": {
+   "personalName": "趙昀"
+  },
+  "nansong-duzong": {
+   "personalName": "趙禥"
+  },
+  "nansong-gongdi": {
+   "personalName": "趙㬎"
+  },
+  "nansong-duanzong": {
+   "personalName": "趙昰"
+  },
+  "nansong-weiwang": {
+   "personalName": "趙昺"
+  },
+  "liao-taizu": {
+   "personalName": "耶律億"
+  },
+  "liao-taizong": {
+   "personalName": "耶律徳光"
+  },
+  "liao-shizong": {
+   "personalName": "耶律阮"
+  },
+  "liao-muzong": {
+   "personalName": "耶律璟"
+  },
+  "liao-jingzong": {
+   "personalName": "耶律賢"
+  },
+  "liao-shengzong": {
+   "personalName": "耶律隆緒"
+  },
+  "liao-xingzong": {
+   "personalName": "耶律宗真"
+  },
+  "liao-daozong": {
+   "personalName": "耶律洪基"
+  },
+  "liao-tianzuodi": {
+   "personalName": "耶律延禧"
+  },
+  "xiliao-dezong": {
+   "personalName": "耶律大石"
+  },
+  "xiliao-renzong": {
+   "personalName": "耶律夷列"
+  },
+  "xiliao-tianxi": {
+   "personalName": "耶律直魯古"
+  },
+  "jin-taizu": {
+   "personalName": "完顔旻"
+  },
+  "jin-taizong": {
+   "personalName": "完顔晟"
+  },
+  "jin-xizong": {
+   "personalName": "完顔亶"
+  },
+  "jin-hailingwang": {
+   "personalName": "完顔亮"
+  },
+  "jin-shizong": {
+   "personalName": "完顔雍"
+  },
+  "jin-zhangzong": {
+   "personalName": "完顔璟"
+  },
+  "jin-weishaowang": {
+   "personalName": "完顔永済"
+  },
+  "jin-xuanzong": {
+   "personalName": "完顔珣"
+  },
+  "jin-aizong": {
+   "personalName": "完顔守緒"
+  },
+  "jin-modi": {
+   "personalName": "完顔承麟"
+  },
+  "xixia-jingzong": {
+   "personalName": "李元昊"
+  },
+  "xixia-yizong": {
+   "personalName": "李諒祚"
+  },
+  "xixia-huizong": {
+   "personalName": "李秉常"
+  },
+  "xixia-chongzong": {
+   "personalName": "李乾順"
+  },
+  "xixia-renzong": {
+   "personalName": "李仁孝"
+  },
+  "xixia-huanzong": {
+   "personalName": "李純祐"
+  },
+  "xixia-xiangzong": {
+   "personalName": "李安全"
+  },
+  "xixia-shenzong": {
+   "personalName": "李遵頊"
+  },
+  "xixia-xianzong": {
+   "personalName": "李徳旺"
+  },
+  "xixia-mozhu": {
+   "personalName": "李睍"
+  },
+  "beisongmo-zhangbangchang": {
+   "personalName": "張邦昌"
+  },
+  "beisongmo-liuyu": {
+   "personalName": "劉豫"
+  },
+  "yuan-shizu": {
+   "personalName": "忽必烈"
+  },
+  "yuan-chengzong": {
+   "personalName": "鉄穆耳"
+  },
+  "yuan-wuzong": {
+   "personalName": "海山"
+  },
+  "yuan-renzong": {
+   "personalName": "愛育黎抜力八達"
+  },
+  "yuan-yingzong": {
+   "personalName": "碩徳八剌"
+  },
+  "yuan-taidingdi": {
+   "personalName": "也孫鉄木児"
+  },
+  "yuan-tianshundi": {
+   "personalName": "阿剌吉八"
+  },
+  "yuan-wenzong": {
+   "personalName": "図帖睦爾"
+  },
+  "yuan-mingzong": {
+   "personalName": "和世㻋"
+  },
+  "yuan-ningzong": {
+   "personalName": "懿璘質班"
+  },
+  "yuan-huizong": {
+   "personalName": "妥懽帖睦爾"
+  },
+  "beiyuan-zhaozong": {
+   "personalName": "愛猷識理達臘"
+  },
+  "yuanmo-hanlin-er": {
+   "personalName": "韓林児"
+  },
+  "yuanmo-xushouhui": {
+   "personalName": "徐寿輝"
+  },
+  "yuanmo-chenyouliang": {
+   "personalName": "陳友諒"
+  },
+  "yuanmo-chenli": {
+   "personalName": "陳理"
+  },
+  "yuanmo-mingyuzhen": {
+   "personalName": "明玉珍"
+  },
+  "yuanmo-mingsheng": {
+   "personalName": "明昇"
+  },
+  "ming-taizu": {
+   "personalName": "朱元璋"
+  },
+  "ming-huizong": {
+   "personalName": "朱允炆"
+  },
+  "ming-taizong": {
+   "personalName": "朱棣"
+  },
+  "ming-renzong": {
+   "personalName": "朱高熾"
+  },
+  "ming-xuanzong": {
+   "personalName": "朱瞻基"
+  },
+  "ming-yingzong": {
+   "personalName": "朱祁鎮"
+  },
+  "ming-daizong": {
+   "personalName": "朱祁鈺"
+  },
+  "ming-xianzong": {
+   "personalName": "朱見深"
+  },
+  "ming-xiaozong": {
+   "personalName": "朱祐樘"
+  },
+  "ming-wuzong": {
+   "personalName": "朱厚照"
+  },
+  "ming-shizong": {
+   "personalName": "朱厚熜"
+  },
+  "ming-muzong": {
+   "personalName": "朱載坖"
+  },
+  "ming-shenzong": {
+   "personalName": "朱翊鈞"
+  },
+  "ming-guangzong": {
+   "personalName": "朱常洛"
+  },
+  "ming-xizong": {
+   "personalName": "朱由校"
+  },
+  "ming-yizong": {
+   "personalName": "朱由検"
+  },
+  "nanming-anzong": {
+   "personalName": "朱由崧"
+  },
+  "nanming-zongzong": {
+   "personalName": "朱聿鍵"
+  },
+  "nanming-shaowudi": {
+   "personalName": "朱聿𨮁"
+  },
+  "nanming-zhaozong": {
+   "personalName": "朱由榔"
+  },
+  "shun-lichengzheng": {
+   "personalName": "李自成"
+  },
+  "xi-zhangxianzhong": {
+   "personalName": "張献忠"
+  },
+  "qing-taizong": {
+   "personalName": "愛新覚羅皇太極"
+  },
+  "qing-shizu": {
+   "personalName": "愛新覚羅福臨"
+  },
+  "qing-shengzu": {
+   "personalName": "愛新覚羅玄燁"
+  },
+  "qing-shizong": {
+   "personalName": "愛新覚羅胤禛"
+  },
+  "qing-gaozong": {
+   "personalName": "愛新覚羅弘暦"
+  },
+  "qing-renzong": {
+   "personalName": "愛新覚羅顒琰"
+  },
+  "qing-xuanzong": {
+   "personalName": "愛新覚羅旻寧"
+  },
+  "qing-wenzong": {
+   "personalName": "愛新覚羅奕詝"
+  },
+  "qing-muzong": {
+   "personalName": "愛新覚羅載淳"
+  },
+  "qing-dezong": {
+   "personalName": "愛新覚羅載湉"
+  },
+  "qing-xuantong": {
+   "personalName": "愛新覚羅溥儀"
+  },
+  "wuzhou-wusangui": {
+   "personalName": "呉三桂"
+  },
+  "wuzhou-wushifan": {
+   "personalName": "呉世璠"
+  },
+  "zhonghuadiguo-yuanshikai": {
+   "personalName": "袁世凱"
+  }
+ }
+}

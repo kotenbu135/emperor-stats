@@ -74,7 +74,8 @@ def render(e: dict, catalogs: dict, max_events: int, notes: bool) -> str:
     add("")
     add(f"- 政権: {regime}／区分: {e.get('researchSection')}")
     add(
-        "- 名: 諱 {personalName}／通用名 {commonName}／廟号 {templeName}／諡号 {posthumousName}".format(
+        "- 名: 姓 {familyName}／諱 {personalName}／通用名 {commonName}／廟号 {templeName}／諡号 {posthumousName}".format(
+            familyName=name.get("familyName") or "（無し）",
             personalName=name.get("personalName") or "—",
             commonName=name.get("commonName") or "—",
             templeName=name.get("templeName") or "—",

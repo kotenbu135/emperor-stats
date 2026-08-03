@@ -16,6 +16,7 @@
 | 2026-07-26 | 即位経路を単一 enum 9値から「4軸＋2補助」の多軸構造へ全面移行（旧判定22件を訂正） |
 | 2026-07-29 | スキーマ v3 へ移行（Issue #22）。時代・政権カタログ新設、全 enum の ID 化、`dynasty`／`flags.selfProclaimed` の廃止。**判定内容は変更なし**。記録は [V3_MIGRATION_PLAN.md](schema/V3_MIGRATION_PLAN.md) |
 | 2026-07-31 | サイト再構築（Next 16 + Tailwind v4 + shadcn/ui + vendored Tremor）。7ページ削除・旧サイトの設計記録を全削除・`/database` を新規実装 |
+| 2026-08-03 | 姓と諱を別の欄へ分けた（`name.familyName` 新設・`personalName` は諱だけ・365件／Issue #37 単位6）。同じ日の「分けない」決定を見直したもので、経緯と検査は [FAMILY_NAME_SPLIT_2026-08-03.md](schema/FAMILY_NAME_SPLIT_2026-08-03.md) |
 | 2026-08-01 | 政権区分の軸を「中華を統一していたか」へ入れ替え（`統一王朝`／`分裂期の王朝`／`反乱・自称政権` ＝ 113／240／12人）。判定基準は [INCLUSION_CRITERIA.md](../data/schema/INCLUSION_CRITERIA.md) の「政権区分の判定基準」節 |
 
 v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調査」と「kinship persons の政権帰属（`regimeId`）」の2件。前者は 2026-08-03（Issue #69）に**未調査の欄を落として** [残量表](process/RESIDUAL.md) の行（198在位／190人／53政権）にした（旧 Issue #24 は close）。後者は別 Issue 扱いのまま。

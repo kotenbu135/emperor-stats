@@ -111,6 +111,15 @@ HINTS = [
      "組み直して原文字列に戻ることを validate_emperors.py が見る（**括弧ごと消す形の欠落は"
      "これだけが落とす**）。表示名が変わる政権（遼・元）では name-readings.json・"
      "kana-readings.ts の追記が要る"),
+    (re.compile(r"^name\.(?:familyName|personalName)"),
+     "python3 scripts/verify_quotes.py --check-family-names",
+     "姓は `name.familyName`・諱は `name.personalName` で、**片方だけを直すと連結が"
+     "移行前の値に戻らなくなる**（R-CLAIM-GATED・Issue #37 単位6）。365件は "
+     "data/internal/family-name-split-originals.json に凍結してあり、"
+     "validate_emperors.py::check_family_names が連結して戻ることと政権内で姓が"
+     "割れないことを見る。**姓を持たない形（元・北元の12人）は null** で、未記入ではない。"
+     "表示名が変わるので site/src/lib/kana-readings.ts・data/name-readings.json も"
+     "同じタイミングで（COUPLINGS.md）"),
     (re.compile(r"^name\.courtesyName"),
      "python3 scripts/verify_quotes.py --check-courtesy-names",
      "字は本人の原文で「字〈値〉」と隣り合うことまで見るゲートが要る（R-CLAIM-GATED・"

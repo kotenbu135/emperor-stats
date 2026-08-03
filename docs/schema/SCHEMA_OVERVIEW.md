@@ -40,7 +40,8 @@
 - **`id`**: kebab-case の一意識別子
   - 例: `qin-shi-huang`, `liu-song-wudi`
 - **`name`**: 複数の名前形式
-  - `personalName`: 諱
+  - `familyName`: 姓（複姓を含む。**null は「姓を持たない形で伝わる」**＝モンゴル語名の漢字音写12人）
+  - `personalName`: 諱（姓を含まない。2026-08-03 に姓を分けた＝Issue #37 単位6）
   - `commonName`: 一般に知られる呼称
   - `aliases`: 別名
   - `posthumousName`: 諡号
