@@ -275,23 +275,6 @@ export interface EmperorTableRecord {
   deathAge: number | null;
 }
 
-/** 経緯1節分（即位の経緯・死因の経緯）。noteは調査時の原文ママ。 */
-export interface NarrativeSection {
-  note: string;
-  /** 出典の表示ラベル（source.pageそのまま）。原則は正史巻名（例: "旧唐書 巻二（太宗上）"）。
-   *  Wikipedia記事名の出典はtask.md 3-1で一掃済み。 */
-  sourceLabel: string;
-  /** 出典側の補足note（異説の所在・出典帰属の修正経緯など。無ければnull）。 */
-  sourceNote: string | null;
-}
-
-/** 復位1回分の経緯（reigns[].noteの原文ママ）。 */
-export interface RestorationNarrative {
-  /** 復位後の在位期間（例: "705–710年"）。 */
-  periodLabel: string;
-  note: string;
-}
-
 /**
  * 構造化データ（Person JSON-LD）用の生年月日・没年月日。ages.birthDate/deathDateが
  * ISO風の解析可能な値かつ実際に日付を示す場合のみ値が入る（不明・推定不能はnull）。
@@ -302,21 +285,9 @@ export interface EmperorStructuredDates {
   deathDate: string | null;
 }
 
-/**
- * 皇帝個別ページ専用の経緯（lib/emperors.tsのgetEmperorNarrativeが返す）。
- * note全文は総量が大きいため、全統計ページのクライアントpropsに埋め込まれる
- * EmperorRecordには含めず、個別ページ（Server Component静的書き出し）だけが使う。
- *
- * 2026-08-02 に memos（調査メモ）と reignSources（在位日付の典拠）を落とした
- * ——ページ末尾の畳んだ2節を廃止したため（根拠は配布データに入っている）。
- */
-export interface EmperorNarrative {
-  accession: NarrativeSection | null;
-  /** 即位経路の4軸＋補助（表示ラベルの導出根拠）。 */
-  accessionAxes: AccessionAxes | null;
-  death: NarrativeSection | null;
-  restorations: RestorationNarrative[];
-}
+// 個別ページ専用の経緯（EmperorNarrative・RestorationNarrative）は
+// 2026-08-03 に表示ごと廃止した。即位の経緯・死因の経緯・判定の軸・復位の経緯の
+// いずれもサイトには出さず、note・出典・軸は配布データ（data/emperors.json）にある。
 
 /**
  * 在位中の出来事年表（個別ページ）の種別キー。回数系8指標のうち7つに対応する
@@ -528,9 +499,9 @@ export const accessionRouteDescriptions: Record<AccessionRouteCategory, string> 
 
 /**
  * 即位経路の多軸表現（2026-07-26 導入。data/schema/ADDITIONAL_SCHEMA.md 1節が正典）。
- * 表示ラベル accessionRouteCategory はこの軸から機械導出した値なので、
- * 「なぜそのラベルなのか」を読者に見せるにはこちらを出す必要がある。
- * 経緯noteと同じくデータ量があるため、EmperorRecord ではなく経緯JSON側で運ぶ。
+ * 表示ラベル accessionRouteCategory はこの軸から機械導出した値。
+ * 2026-08-03 以降サイトには出さない（「即位の経緯」節ごと廃止）ので、
+ * ここに残っているのは data/emperors.json を読むときの生レコードの型としてだけ。
  */
 export interface AccessionAxes {
   /** 軸1: 君主位の出所。 */
@@ -585,14 +556,5 @@ export function dynastyContextLabel(
     : `${record.dynastyLabel}（${record.eraLabel}）`;
 }
 
-/** 軸の表示見出し（個別ページの「即位の経緯」節で使う）。 */
-export const accessionAxisLabels: Record<
-  Exclude<keyof AccessionAxes, "decidedByAgents" | "titleOrigin">,
-  string
-> = {
-  throneSource: "君主位の出所",
-  decidedBy: "即位を決めた主体",
-  predecessorFate: "先帝の去就",
-  relationToPredecessor: "先帝との血縁",
-  procedure: "手続きの形式",
-};
+// 軸の表示見出し（accessionAxisLabels）は、それを出していた個別ページの
+// 「即位の経緯」節ごと 2026-08-03 に廃止した。軸そのものは data 側に残っている。
