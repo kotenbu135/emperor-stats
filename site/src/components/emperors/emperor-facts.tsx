@@ -154,7 +154,9 @@ export function EmperorFacts({ record }: { record: EmperorRecord }) {
               />
             )}
             {/* 旧「建国」「復位」はラベルから外して軸・在位情報へ移したため、
-              その2点だけは経路の脇に補足として出す（判定の4軸は「即位の経緯」節）。 */}
+              その2点だけは経路の脇に補足として出す。判定の4軸は 2026-08-03 に
+              「即位の経緯」節ごとページから外したので、サイトには出ない
+              （配布データ data/emperors.json の accessionRoute.axes にある）。 */}
             <DetailRow
               label="即位経路"
               value={record.accessionRouteCategory}

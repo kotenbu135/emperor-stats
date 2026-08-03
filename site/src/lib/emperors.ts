@@ -15,7 +15,6 @@ import {
   type EmperorEventKind,
   type EmperorEventRow,
   type EmperorListRecord,
-  type EmperorNarrative,
   type EmperorProfile,
   type EmperorRecord,
   type EmperorStructuredDates,
@@ -23,7 +22,6 @@ import {
   type EmperorVideo,
   type EthnicName,
   type MetricRank,
-  type NarrativeSection,
   type RankingMetricKey,
 } from "@/lib/emperor-types";
 
@@ -880,29 +878,11 @@ function firstSentence(note: string | null): string | null {
 }
 
 // ---------------------------------------------------------------------------
-// 皇帝個別ページ専用の経緯・調査メモ（getEmperorNarrative）。
-// note全文は総量が大きいため、EmperorRecord（全統計ページのクライアントpropsに
-// 埋め込まれる）には含めない。ダイアログへの反映はtask.md第3弾（lazy fetch）。
-
-// 出典ラベルはsource.pageをそのまま使う（Wikipedia記事名の残存はtask.md 3-1で
-// 一掃済み・CIの禁止出典チェックで担保。旧Wikipedia判別ヒューリスティックは
-// 簡体字巻名やJACAR等の非正史学術典拠を誤ってWikipedia表示していたため撤去）。
-
-/** 空文字列の出典noteをnullに正規化する（一部レコードに `note: ""` が実在する）。 */
-function nonEmptyOrNull(s: string | null | undefined): string | null {
-  return s ? s : null;
-}
-
-function narrativeSectionOf(
-  field: RawNarrativeField | undefined,
-): NarrativeSection | null {
-  if (!field?.note || !field.source) return null;
-  return {
-    note: field.note,
-    sourceLabel: field.source.page,
-    sourceNote: nonEmptyOrNull(field.source.note),
-  };
-}
+// 個別ページが読む生レコード（rawEmperorById）。
+//
+// 2026-08-03 に個別ページの経緯3節（即位・死因・復位）を表示ごと廃止した
+// （ユーザー指示）ので、それを返していた getEmperorNarrative は無くなった。
+// note・出典・即位経路の4軸は配布データ（data/emperors.json）側に残る。
 
 const rawEmperorById = new Map(data.emperors.map((e) => [e.id, e]));
 
@@ -962,26 +942,6 @@ export function getEmperorProfile(id: string): EmperorProfile | null {
     lead: p.lead ?? null,
     body: p.body ?? null,
     description: p.description ?? null,
-  };
-}
-
-/**
- * 個別ページ用に、経緯note全文と出典を返す。idは収録済み前提。
- *
- * 2026-08-02 に「在位日付の典拠」（reigns[].duration.source）と「調査メモ」
- * （回数系8項目・agesのnote）を返すのをやめた。ページ末尾の畳んだ2節を廃止した
- * ためで、根拠そのものは配布データ（data/emperors.json）に入っている。
- */
-export function getEmperorNarrative(id: string): EmperorNarrative {
-  const e = rawEmperorById.get(id);
-  if (!e) throw new Error(`未収録の皇帝idです: ${id}`);
-  return {
-    accession: narrativeSectionOf(e.accessionRoute),
-    accessionAxes: e.accessionRoute.axes,
-    death: narrativeSectionOf(e.deathCause),
-    restorations: e.reigns
-      .filter((r) => r.isRestoration && r.note)
-      .map((r) => ({ periodLabel: formatPeriod(r), note: r.note! })),
   };
 }
 
