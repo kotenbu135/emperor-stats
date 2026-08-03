@@ -70811,17 +70811,33 @@
    ],
    "line": 5
   },
-  "xiliao-dezong|ages.note|089394df5275": {
+  "xiliao-dezong|ages.note|3702ecfdbe67": {
    "id": "xiliao-dezong",
    "path": "ages.note",
-   "span": "以甲辰歳二月五日即位、年三十八",
-   "status": "manual",
-   "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
+   "span": "以甲辰岁二月五日即位，年三十八",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "以甲辰岁二月五日即位"
+   ],
+   "line": 5
   },
-  "xiliao-dezong|ages.note|a4be2e81d2a8": {
+  "xiliao-dezong|ages.note|513ae6f24a13": {
    "id": "xiliao-dezong",
    "path": "ages.note",
-   "span": "康国十年殁、在位二十年",
+   "span": "皇统四年，回纥遣使入贡，言大石与其国相邻，大石已死。",
+   "status": "corpus",
+   "corpusFile": "china-history/金史/列传/第五十九章-卷五十九-原文.html",
+   "frags": [
+    "回纥遣使入贡",
+    "言大石与其国相邻"
+   ],
+   "line": 30
+  },
+  "xiliao-dezong|ages.note|ee24b0fc2af1": {
+   "id": "xiliao-dezong",
+   "path": "ages.note",
+   "span": "康国十年殁，在位二十年，庙号德宗。",
    "status": "cache",
    "corpusFile": "_corpus_cache/xiliao-dezong.txt",
    "frags": [
@@ -70854,23 +70870,93 @@
    ],
    "line": 6
   },
-  "xiliao-dezong|empressInstallationCount[0].note|396bb137c8d1": {
+  "xiliao-dezong|empressInstallationCount[0].note|a2960db840a3": {
    "id": "xiliao-dezong",
    "path": "empressInstallationCount[0].note",
-   "span": "又西至起兒漫、文武百官冊立大石為帝、以甲辰歲二月五日即位、年三十八、号葛兒罕。復",
-   "status": "corpus",
-   "corpusFile": "china-history/辽史/本纪/第三十章-卷三十-原文.html",
+   "span": "追谥祖父为嗣元皇帝，祖母为宣义皇后，册元妃萧氏为昭德皇后。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
    "frags": [
-    "又西至起兒漫",
-    "起兒漫文武百",
-    "文武百官冊立",
-    "官冊立大石為",
-    "大石為帝以甲",
-    "帝以甲辰歲二",
-    "辰歲二月五日",
-    "月五日即位年"
+    "追谥祖父为嗣元皇帝",
+    "祖母为宣义皇后",
+    "册元妃萧氏为昭德皇后"
+   ],
+   "line": 5
+  },
+  "xiliao-dezong|empressInstallationCount[0].note|cb22c0800dbe": {
+   "id": "xiliao-dezong",
+   "path": "empressInstallationCount[0].note",
+   "span": "甲辰岁二月五日",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "甲辰岁二月五日"
+   ],
+   "line": 5
+  },
+  "xiliao-dezong|eraChangeCount[0].note|0a556da7f4f5": {
+   "id": "xiliao-dezong",
+   "path": "eraChangeCount[0].note",
+   "span": "又西至起儿漫，文武百官册立大石为帝，以甲辰岁二月五日即位，年三十八，号葛儿罕。复",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "又西至起儿漫",
+    "文武百官册立大石为帝",
+    "以甲辰岁二月五日即位",
+    "复上汉尊号曰天佑皇帝"
+   ],
+   "line": 5
+  },
+  "xiliao-dezong|eraChangeCount[0].note|23d073545beb": {
+   "id": "xiliao-dezong",
+   "path": "eraChangeCount[0].note",
+   "span": "延庆三年，班师东归，马行二十日，得善地，遂建都城，号虎思斡耳朵，改延庆为康国元年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "马行二十日",
+    "号虎思斡耳朵",
+    "改延庆为康国元年"
+   ],
+   "line": 6
+  },
+  "xiliao-dezong|eraChangeCount[0].note|c7be843c00e1": {
+   "id": "xiliao-dezong",
+   "path": "eraChangeCount[0].note",
+   "span": "天会二年，辽详稳挞不野来降，言大石称王于北方，署置南北面官僚，有战马万匹，畜产甚",
+   "status": "corpus",
+   "corpusFile": "china-history/金史/列传/第五十九章-卷五十九-原文.html",
+   "frags": [
+    "辽详稳挞不野来降",
+    "言大石称王于北方",
+    "署置南北面官僚",
+    "有战马万匹"
    ],
    "line": 30
+  },
+  "xiliao-dezong|eraChangeCount[0].note|cb22c0800dbe": {
+   "id": "xiliao-dezong",
+   "path": "eraChangeCount[0].note",
+   "span": "甲辰岁二月五日",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "甲辰岁二月五日"
+   ],
+   "line": 5
+  },
+  "xiliao-dezong|eraChangeCount[0].note|ee24b0fc2af1": {
+   "id": "xiliao-dezong",
+   "path": "eraChangeCount[0].note",
+   "span": "康国十年殁，在位二十年，庙号德宗。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "康国十年殁",
+    "在位二十年"
+   ],
+   "line": 6
   },
   "xiliao-dezong|eraChangeCount[1].note|23d073545beb": {
    "id": "xiliao-dezong",
@@ -70894,6 +70980,158 @@
    "frags": [
     "以六院司大王萧斡里剌",
     "率七万騎東征"
+   ],
+   "line": 6
+  },
+  "xiliao-dezong|reigns[0].conflicts[0].adopted.quote|23d073545beb": {
+   "id": "xiliao-dezong",
+   "path": "reigns[0].conflicts[0].adopted.quote",
+   "span": "延庆三年，班师东归，马行二十日，得善地，遂建都城，号虎思斡耳朵，改延庆为康国元年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "马行二十日",
+    "号虎思斡耳朵",
+    "改延庆为康国元年"
+   ],
+   "line": 6
+  },
+  "xiliao-dezong|reigns[0].conflicts[0].alternatives[0].quote|3702ecfdbe67": {
+   "id": "xiliao-dezong",
+   "path": "reigns[0].conflicts[0].alternatives[0].quote",
+   "span": "以甲辰岁二月五日即位，年三十八",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "以甲辰岁二月五日即位"
+   ],
+   "line": 5
+  },
+  "xiliao-dezong|reigns[0].conflicts[0].alternatives[1].quote|0a556da7f4f5": {
+   "id": "xiliao-dezong",
+   "path": "reigns[0].conflicts[0].alternatives[1].quote",
+   "span": "又西至起儿漫，文武百官册立大石为帝，以甲辰岁二月五日即位，年三十八，号葛儿罕。复",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "又西至起儿漫",
+    "文武百官册立大石为帝",
+    "以甲辰岁二月五日即位",
+    "复上汉尊号曰天佑皇帝"
+   ],
+   "line": 5
+  },
+  "xiliao-dezong|reigns[0].conversion|23d073545beb": {
+   "id": "xiliao-dezong",
+   "path": "reigns[0].conversion",
+   "span": "延庆三年，班师东归，马行二十日，得善地，遂建都城，号虎思斡耳朵，改延庆为康国元年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "马行二十日",
+    "号虎思斡耳朵",
+    "改延庆为康国元年"
+   ],
+   "line": 6
+  },
+  "xiliao-dezong|reigns[0].conversion|ee24b0fc2af1": {
+   "id": "xiliao-dezong",
+   "path": "reigns[0].conversion",
+   "span": "康国十年殁，在位二十年，庙号德宗。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "康国十年殁",
+    "在位二十年"
+   ],
+   "line": 6
+  },
+  "xiliao-dezong|reigns[0].note|0a556da7f4f5": {
+   "id": "xiliao-dezong",
+   "path": "reigns[0].note",
+   "span": "又西至起儿漫，文武百官册立大石为帝，以甲辰岁二月五日即位，年三十八，号葛儿罕。复",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "又西至起儿漫",
+    "文武百官册立大石为帝",
+    "以甲辰岁二月五日即位",
+    "复上汉尊号曰天佑皇帝"
+   ],
+   "line": 5
+  },
+  "xiliao-dezong|reigns[0].note|23d073545beb": {
+   "id": "xiliao-dezong",
+   "path": "reigns[0].note",
+   "span": "延庆三年，班师东归，马行二十日，得善地，遂建都城，号虎思斡耳朵，改延庆为康国元年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "马行二十日",
+    "号虎思斡耳朵",
+    "改延庆为康国元年"
+   ],
+   "line": 6
+  },
+  "xiliao-dezong|reigns[0].note|3add374a1750": {
+   "id": "xiliao-dezong",
+   "path": "reigns[0].note",
+   "span": "八年，遣耶律余睹、石家奴、拔离速追讨大石，征兵诸部，诸部不从，石家奴至兀纳水而还",
+   "status": "corpus",
+   "corpusFile": "china-history/金史/列传/第五十九章-卷五十九-原文.html",
+   "frags": [
+    "遣耶律余睹",
+    "拔离速追讨大石",
+    "石家奴至兀纳水而还"
+   ],
+   "line": 30
+  },
+  "xiliao-dezong|reigns[0].note|513ae6f24a13": {
+   "id": "xiliao-dezong",
+   "path": "reigns[0].note",
+   "span": "皇统四年，回纥遣使入贡，言大石与其国相邻，大石已死。",
+   "status": "corpus",
+   "corpusFile": "china-history/金史/列传/第五十九章-卷五十九-原文.html",
+   "frags": [
+    "回纥遣使入贡",
+    "言大石与其国相邻"
+   ],
+   "line": 30
+  },
+  "xiliao-dezong|reigns[0].note|c7be843c00e1": {
+   "id": "xiliao-dezong",
+   "path": "reigns[0].note",
+   "span": "天会二年，辽详稳挞不野来降，言大石称王于北方，署置南北面官僚，有战马万匹，畜产甚",
+   "status": "corpus",
+   "corpusFile": "china-history/金史/列传/第五十九章-卷五十九-原文.html",
+   "frags": [
+    "辽详稳挞不野来降",
+    "言大石称王于北方",
+    "署置南北面官僚",
+    "有战马万匹"
+   ],
+   "line": 30
+  },
+  "xiliao-dezong|reigns[0].note|cb22c0800dbe": {
+   "id": "xiliao-dezong",
+   "path": "reigns[0].note",
+   "span": "甲辰岁二月五日",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "甲辰岁二月五日"
+   ],
+   "line": 5
+  },
+  "xiliao-dezong|reigns[0].note|ee24b0fc2af1": {
+   "id": "xiliao-dezong",
+   "path": "reigns[0].note",
+   "span": "康国十年殁，在位二十年，庙号德宗。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-dezong.txt",
+   "frags": [
+    "康国十年殁",
+    "在位二十年"
    ],
    "line": 6
   },
