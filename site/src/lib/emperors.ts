@@ -21,6 +21,7 @@ import {
   type EmperorStructuredDates,
   type EmperorTableRecord,
   type EmperorVideo,
+  type EthnicName,
   type MetricRank,
   type NarrativeSection,
   type RankingMetricKey,
@@ -185,6 +186,10 @@ interface RawEmperor {
     posthumousName: string | null;
     templeName: string | null;
     aliases: string[];
+    /** 民族名（契丹名・女真名・モンゴル語名・満洲語名）。ラベルは
+     *  `lib/data-source.ts` が `meta.catalogs.ethnicNameKinds` から解決済み。
+     *  **移行中で、まだ括弧つきの `personalName` に畳まれたままの人物のほうが多い。** */
+    ethnicName?: EthnicName;
   };
   /** lib/data-source.ts が v3 の regimeId・researchSection から組み立てる
    *  （name＝国号・section＝調査ブロック名・category＝政権の性格）。 */
@@ -456,6 +461,9 @@ function searchTextOf(e: RawEmperor, dynastyLabelText: string, era: string): str
     e.name.templeName,
     e.name.posthumousName,
     ...(e.name.aliases ?? []),
+    // 民族名は移行前 personalName の括弧の中にあった（Issue #37 単位3）。
+    // 欄を分けた人物で検索から落とさないためにここで受ける
+    e.name.ethnicName?.value,
     ...(e.eraChangeCount?.events ?? []).map((ev) => ev.eraName),
     e.dynasty.name,
     dynastyLabelText,
@@ -475,6 +483,9 @@ function searchKanaOf(e: RawEmperor, dynastyLabelText: string, era: string): str
     e.name.templeName,
     e.name.posthumousName,
     ...(e.name.aliases ?? []),
+    // 移行前は personalName の括弧の中に入っていた文字列なので、読みは既に
+    // TABLE_SOURCE に在る（新しい親文字は増えない）。落とすとかな検索だけが縮む
+    e.name.ethnicName?.value,
   ].filter((s): s is string => !!s);
   for (const name of names) {
     for (const k of kanaExpansionsOf(name)) kana.add(k);
@@ -616,6 +627,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     periodsLabel: e.reigns.map(formatPeriod).join(" / "),
     commonName: e.name.commonName ?? "",
     personalName: e.name.personalName,
+    ethnicName: e.name.ethnicName ?? null,
     templeName: e.name.templeName,
     posthumousName: e.name.posthumousName,
     aliases: e.name.aliases ?? [],

@@ -62,10 +62,28 @@ export interface CatalogRegime {
   dynastyOrderSurveyed?: boolean;
 }
 
+/**
+ * 民族名の種類（Issue #37 単位3）。**同じ「◯◯（◯◯）」が政権ごとに別の現象**
+ * （遼の耶律徳光は契丹名とは別の漢風の諱・元の忽必烈は同じ名前の漢字音写）なので、
+ * 相手側 personalName のラベルもカタログが持つ。
+ */
+interface CatalogEthnicNameKind {
+  id: string;
+  label: string;
+  /** この種類を名乗れる政権 ID。 */
+  regimes: string[];
+  script: "han" | "kana";
+  /** 相手側 `name.personalName` のラベル（「漢風名」「漢字音写」など）。 */
+  counterpartLabel: string;
+  order: "ethnic-first" | "personal-first";
+}
+
 interface Catalogs {
   eras: CatalogEra[];
   regimes: CatalogRegime[];
   enums: Record<string, CatalogEnumItem[]>;
+  /** 2026-08-03 新設。移行中のデータには無い人物のほうが多いので任意。 */
+  ethnicNameKinds?: CatalogEthnicNameKind[];
 }
 
 const rawEmperors = JSON.parse(
@@ -88,6 +106,9 @@ export const eraCatalog: CatalogEra[] = catalogs.eras;
 export const regimeCatalog: CatalogRegime[] = catalogs.regimes;
 
 const regimeById = new Map(catalogs.regimes.map((r) => [r.id, r]));
+const ethnicKindById = new Map(
+  (catalogs.ethnicNameKinds ?? []).map((k) => [k.id, k]),
+);
 
 /** enum カタログ 1 つ分の ID→ラベル表。カタログに無い enum 名はビルド時に落とす。 */
 function labelMapOf(enumName: string): Map<string, string> {
@@ -169,6 +190,7 @@ interface RawV3AccessionAxes {
 
 interface RawV3Emperor {
   id: string;
+  name: { ethnicName?: { kind: string; value: string } } & Record<string, unknown>;
   regimeId: string;
   eraId: string;
   researchSection: string;
@@ -201,6 +223,32 @@ function resolveAxes(axes: RawV3AccessionAxes, context: string): RawV3AccessionA
 }
 
 /**
+ * `name.ethnicName` の kind をラベルへ解決する（Issue #37 単位3）。
+ *
+ * **相手側 personalName のラベルもここで付ける** — 「契丹名 耶律堯骨／漢風名 耶律徳光」の
+ * 2行は政権ではなく kind で決まるので、表示側に政権別のテーブルを持たせない。
+ */
+function resolveEthnicName(e: RawV3Emperor) {
+  const en = e.name?.ethnicName;
+  if (!en) return e.name;
+  const kind = ethnicKindById.get(en.kind);
+  if (!kind) {
+    throw new Error(
+      `${e.id}: name.ethnicName.kind "${en.kind}" が meta.catalogs.ethnicNameKinds にありません`,
+    );
+  }
+  return {
+    ...e.name,
+    ethnicName: {
+      ...en,
+      label: kind.label,
+      counterpartLabel: kind.counterpartLabel,
+      order: kind.order,
+    },
+  };
+}
+
+/**
  * v3 レコードを表示ラベル解決済みの形へ変換する。旧スキーマ互換のために
  * `dynasty`（name＝国号・section＝researchSection・category＝政権の性格）を組み立て、
  * `standingLabel` を足す。ID フィールド（regimeId・eraId・standing）はそのまま残す。
@@ -221,6 +269,7 @@ function resolveEmperor(e: RawV3Emperor) {
   }
   return {
     ...e,
+    name: resolveEthnicName(e),
     dynasty: {
       name: regime.name,
       section: e.researchSection,

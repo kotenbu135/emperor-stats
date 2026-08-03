@@ -1090,6 +1090,116 @@ def check_era_names(data):
     return total, named
 
 
+# --- 民族名（Issue #37 単位3・2026-08-03 新設）--------------------------------
+# 主張は「**この人物の name.ethnicName.value は kind の言語・民族の名である**」。
+#
+# 移行前は「漢字名（民族名）」の1文字列に畳んであり、**括弧の並びが政権ごとに逆**
+# （遼＝契丹名（漢風名）／金＝漢名（女真名）／元＝カナ（漢字音写）／清＝漢字諱（カナ））。
+# 分けるだけの作業に見えるが、**括弧ごと消す形の欠落は「分けた」と区別できない**ので、
+# 移行前の32件を data/internal/personal-name-originals.json に凍結し、
+# kind が決める並び（catalogs.ethnicNameKinds[].order）で組み直して原文字列に戻ることを見る。
+#
+# 転記と同じく条件は強制しない（32件を1件ずつ原典で確かめる作業なので一度に終わらない）。
+# ここが強制するのは形・政権との整合・**組み直し**・括弧の天井だけ。
+ETHNIC_ORIGINALS_PATH = ROOT / "data" / "internal" / "personal-name-originals.json"
+# 移行前の括弧つき件数。**単位2のラチェットと向きが逆**（あちらは床・こちらは天井）で、
+# 移行が進むと減る。増えたら「括弧つきの形を新しく書いた」なので落とす。
+ETHNIC_PAREN_CEILING = 32
+ETHNIC_VALUE_RE = {
+    "han": re.compile(r"^[㐀-鿿]{1,12}$"),
+    "kana": re.compile(r"^[ァ-ヶー・]{2,20}$"),
+}
+
+
+def check_ethnic_names(data):
+    """民族名 name.ethnicName（Issue #37 単位3）。
+
+    A kind の実在   … meta.catalogs.ethnicNameKinds に在る
+    B 政権との整合   … その kind を名乗れる政権（カタログの regimes）である。
+                      **取り違えを落とす主力**（クビライに「女真名」が生える形）
+    C 字種           … kind の script（han＝漢字のみ／kana＝カナのみ）
+    F 組み直し       … 凍結標本の原文字列へ戻る（**括弧ごとの欠落を落とす唯一の検査**）
+    E 括弧の天井     … personalName に「（」を含むレコードが基準線を超えたら落ちる
+
+    **底本照合はここには無い**（ローカルコーパスが要るため
+    verify_quotes.py --check-ethnic-names に置いた＝ゲートD）。
+    """
+    kinds = {}
+    for k in (data.get("meta", {}).get("catalogs", {}) or {}).get("ethnicNameKinds") or []:
+        if isinstance(k, dict) and k.get("id"):
+            kinds[k["id"]] = k
+    try:
+        originals = json.loads(ETHNIC_ORIGINALS_PATH.read_text(encoding="utf-8"))["records"]
+    except (OSError, KeyError, ValueError):
+        originals = {}
+        warn("[ethnic-name] data/internal/personal-name-originals.json が読めないため"
+             "組み直し（F）を評価していない")
+
+    named = paren = 0
+    for e in data["emperors"]:
+        name = e.get("name") or {}
+        personal = name.get("personalName") or ""
+        if "（" in personal:
+            paren += 1
+        en = name.get("ethnicName")
+        orig = (originals.get(e["id"]) or {}).get("personalName")
+        if en is None:
+            # 凍結標本の id から括弧が消えたのに民族名も別名も無い＝**値を捨てた形**。
+            # 天井だけだと「（阿骨打）を消す」で満たせてしまうので対で見る。
+            # **ただしこの対は既存の aliases でも満たせる**（移行前から別名を持つ人物が
+            # いる）ので、値が保たれたことの証人は下の F だけ
+            if orig and "（" not in personal and not (name.get("aliases") or []):
+                err(f"[ethnic-name] {e['id']}: personalName から括弧が消えたのに"
+                    f"ethnicName も aliases も無い（{orig!r} の民族名・別名の行き先が無い）")
+            continue
+        if not isinstance(en, dict):
+            err(f"[ethnic-name] {e['id']}: ethnicName が object でない")
+            continue
+        kind, value = en.get("kind"), en.get("value")
+        if not isinstance(value, str) or not value.strip():
+            err(f"[ethnic-name] {e['id']}: ethnicName.value が空")
+            continue
+        named += 1
+        # A
+        if kind not in kinds:
+            err(f"[ethnic-name] {e['id']}: kind {kind!r} が"
+                f"meta.catalogs.ethnicNameKinds に無い")
+            continue
+        spec = kinds[kind]
+        # B **取り違えの主力**
+        if e.get("regimeId") not in (spec.get("regimes") or []):
+            err(f"[ethnic-name] {e['id']}: 政権 {e.get('regimeId')!r} は kind {kind!r}"
+                f"（{spec.get('label')}）を名乗れない"
+                f"（名乗れるのは {'／'.join(spec.get('regimes') or [])}）")
+        # C 字種
+        rx = ETHNIC_VALUE_RE.get(spec.get("script"))
+        if rx is None:
+            err(f"[ethnic-name] {e['id']}: kind {kind!r} の script が不正 "
+                f"{spec.get('script')!r}")
+        elif not rx.match(value):
+            err(f"[ethnic-name] {e['id']}: ethnicName.value {value!r} が "
+                f"{spec.get('script')}（{spec.get('label')}）の字種でない")
+        if "（" in personal:
+            err(f"[ethnic-name] {e['id']}: ethnicName を分けたのに personalName に"
+                f"括弧が残っている {personal!r}")
+        # F 組み直し。移行が値を作り替えていないことの証人
+        if orig:
+            order = spec.get("order")
+            rebuilt = (f"{value}（{personal}）" if order == "ethnic-first"
+                       else f"{personal}（{value}）")
+            if rebuilt != orig:
+                err(f"[ethnic-name] {e['id']}: 組み直すと {rebuilt!r} で、移行前の"
+                    f"{orig!r} に戻らない（分ける以外のことをしている）")
+    info(f"[ethnic-name] ethnicName を持つ人物 {named}人"
+         f"／personalName に括弧が残るのは {paren}人（天井 {ETHNIC_PAREN_CEILING}・"
+         f"移行の残りは docs/process/RESIDUAL.md の行）")
+    # E 天井
+    if paren > ETHNIC_PAREN_CEILING:
+        err(f"[ethnic-name] personalName に括弧を含む人物が {paren}人で天井 "
+            f"{ETHNIC_PAREN_CEILING} を超えた（民族名は ethnicName へ分ける）")
+    return named, paren
+
+
 # --- claim（主張）欄 ---------------------------------------------------------
 # note は**作業ログ**で、訂正の経緯として「現行 X → Y に訂正」のように**捨てた側の値**が
 # 本文に残る。だからフィールドとの突合は向きが反転し、散文は witness にならない
@@ -1908,6 +2018,7 @@ def main() -> int:
     death_event_n = check_death_event_date(data)
     check_event_date_format(data)
     era_total_n, era_named_n = check_era_names(data)
+    ethnic_n, ethnic_paren_n = check_ethnic_names(data)
     archive_n = check_event_date_archive(data)
     claimed_n, witnessed_n = check_event_date_claim_residual(data)
     floor, legacy_quote_n, floor_total_n = check_quote_containers(data)
@@ -1948,6 +2059,7 @@ def main() -> int:
           f"／月日を主張する event {claimed_n}件のうち *Raw＋conversion を持つのは "
           f"{witnessed_n}件"
           f"／改元 event {era_total_n}件のうち eraName を持つのは {era_named_n}件"
+          f"／ethnicName {ethnic_n}人・括弧が残る personalName {ethnic_paren_n}人"
           f"／構造化引用を持つ床の容器 {sum(floor.values())}/{floor_total_n}件"
           f"（旧い器 source.quote は {legacy_quote_n}件）)")
     return 1 if errors else 0

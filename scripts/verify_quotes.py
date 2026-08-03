@@ -1059,6 +1059,70 @@ def cmd_check_era_names():
     return 1 if bad else 0
 
 
+# 本紀は「姓耶律氏，讳德光，字德谨，小字尧骨」のように**氏族名を別に述べて諱には連ねない**。
+# データ側は姓＋諱で揃えてあるので、氏族名を落とした形も候補にしないと全件が外れる
+# （実測: 落とさないと遼9・金9・清1のすべてが 0 ヒット・落とすと 18/19 が当たる）。
+ETHNIC_CLAN_PREFIX = ("耶律", "完顔", "愛新覚羅", "孛児只斤")
+
+
+def ethnic_han_hit(value, hay):
+    """漢字側の名が本人の原文に在るか。当たった形を返す（無ければ None）。"""
+    # 氏族名を落とした残りが1字（「完顔雍」→「雍」）だと、どの巻にも出てくる字に
+    # 当たって証拠にならない。2字以上の残りだけを候補にする
+    for cand in (value, *(value[len(p):] for p in ETHNIC_CLAN_PREFIX
+                          if value.startswith(p) and len(value) - len(p) >= 2)):
+        n = norm_for_match(cand)
+        if n and n in hay:
+            return cand
+    return None
+
+
+def cmd_check_ethnic_names():
+    """民族名 `name.ethnicName` の**漢字側**が本人の原文キャッシュに在るか（ゲートD）。
+
+    4種類のどれも**片側は必ず漢字**なので、照合する側を kind の `script` で決める:
+    契丹名・女真名は `ethnicName.value` そのもの、モンゴル語名・満洲語名は相手側の
+    `personalName`（漢字音写・漢字諱）。
+
+    **カナは底本に在り得ないので kind 単位で免除する。**「クビライ」が「忽必烈」の
+    正しいカナかどうかは**どのゲートも見ていない** — カナ表記は原典に無い編集上の
+    読み下しで、このゲートが担保するのは漢字側の実在までである。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    kinds = {k["id"]: k for k in
+             (data.get("meta", {}).get("catalogs", {}) or {}).get("ethnicNameKinds") or []}
+    checked = ok = bad = 0
+    skipped = []
+    for e in data["emperors"]:
+        en = (e.get("name") or {}).get("ethnicName")
+        if not isinstance(en, dict):
+            continue
+        spec = kinds.get(en.get("kind")) or {}
+        han = (en.get("value") if spec.get("script") == "han"
+               else (e.get("name") or {}).get("personalName"))
+        if not han:
+            continue
+        cache = CORPUS_ROOT / "_corpus_cache" / f"{e['id']}.txt"
+        if not cache.is_file():
+            skipped.append(e["id"])
+            continue
+        checked += 1
+        hay = norm_for_match(cache.read_text(encoding="utf-8"))
+        form = ethnic_han_hit(han, hay)
+        if form:
+            ok += 1
+            continue
+        bad += 1
+        print(f"ERROR {e['id']}: {spec.get('label')} の漢字側「{han}」が本人の原文キャッシュに"
+              f"現れない（{spec.get('script')} の欄なので照合しているのは"
+              f"{'民族名そのもの' if spec.get('script') == 'han' else '相手側の personalName'}）")
+    if skipped:
+        print(f"NOTICE 原文キャッシュが無いため未照合: {len(skipped)}人 {skipped}")
+    print(f"---\n{bad} errors / ethnicName を持つ {checked}人のうち "
+          f"{ok}人の漢字側が本人の原文に実在（カナ側は原典に無いので照合の外）")
+    return 1 if bad else 0
+
+
 def _iter_units_for_volumes(data):
     """validate_emperors の走査をそのまま使う（容器の列挙を2箇所に書かない）。"""
     import importlib.util
@@ -1369,6 +1433,9 @@ def main():
     ap.add_argument("--check-era-names", action="store_true",
                     help="改元 event の eraName を本人の原文キャッシュに当てる"
                          "（Issue #37 単位2・要コーパス。改元の定型句と隣り合うことまで見る）")
+    ap.add_argument("--check-ethnic-names", action="store_true",
+                    help="name.ethnicName の漢字側を本人の原文キャッシュに当てる"
+                         "（Issue #37 単位3・要コーパス。カナ側は原典に無いので照合の外）")
     ap.add_argument("--rebuild", action="store_true",
                     help="--backfill と併用。照合器を変えたとき機械判定を作り直す"
                          "（manual/external/defect の curation は残す）")
@@ -1403,6 +1470,8 @@ def main():
         return cmd_check_volumes()
     if args.check_era_names:
         return cmd_check_era_names()
+    if args.check_ethnic_names:
+        return cmd_check_ethnic_names()
     if args.backfill:
         return cmd_backfill(rebuild=args.rebuild, retry_unresolved=args.retry_unresolved)
     return cmd_check()

@@ -161,6 +161,11 @@ export function qualifiedEmperorName(
  * **括弧の汎用分解はしないこと。** 同じ「◯◯（◯◯）」を政権ごとに別の意味で使っていて、
  * まとめて割るとクビライに「女真名」の行が生える。遼だけは並びが逆（契丹名（漢風名））
  * なので下の `emperorNameEntries` で個別に扱う。
+ *
+ * **2026-08-03（Issue #37 単位3）から、データ側が `name.ethnicName` を持つ人物では
+ * この表を通らない**（ラベルは `meta.catalogs.ethnicNameKinds` が持つ）。移行が済んで
+ * いない政権（遼9・元/北元12・北漢1）が残っている間だけ生きている表で、
+ * **32件すべてが分かれたら消す**。
  */
 const ETHNIC_NAME_LABEL: Record<string, string> = {
   liao: "契丹名",
@@ -196,6 +201,8 @@ export function emperorNameEntries(r: {
   name: string;
   commonName: string;
   personalName: string | null;
+  /** 分けて持っている民族名（Issue #37 単位3）。無い人物は括弧つき `personalName` を割る。 */
+  ethnicName?: { value: string; label: string; counterpartLabel: string } | null;
   templeName: string | null;
   posthumousName: string | null;
   aliases: string[];
@@ -208,10 +215,15 @@ export function emperorNameEntries(r: {
     entries.push({ label, value: v });
   };
 
-  // 諱と民族名。並びは政権ごとに違う（遼だけ「契丹名（漢風名）」で逆）。
+  // 諱と民族名。**データが分けて持っていればそれをそのまま出す**（Issue #37 単位3）。
+  // ラベルは kind から決まっている（相手側 personalName のラベルも counterpartLabel）ので、
+  // ここで政権を見る必要がない。分けていない人物だけが下の括弧の分解へ落ちる。
   const personalInner = /（(.+?)）/.exec(r.personalName ?? "")?.[1] ?? null;
   const personalOuter = (r.personalName ?? "").split("（")[0];
-  if (r.personalName && !personalInner) {
+  if (r.personalName && r.ethnicName) {
+    push(r.ethnicName.counterpartLabel, r.personalName);
+    push(r.ethnicName.label, r.ethnicName.value);
+  } else if (r.personalName && !personalInner) {
     push("諱", r.personalName);
   } else if (r.personalName && personalInner) {
     if (r.dynastyKey === "liao") {
