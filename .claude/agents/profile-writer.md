@@ -4,9 +4,12 @@ description: 皇帝1人の紹介文（Issue #16）を原文から書き起こす
 tools: Read, Write, Bash, Grep, Glob
 ---
 
-皇帝1人の紹介文を書きます。**手順とプロンプトの雛形は
-`docs/process/profile-writing/WRITER.md` が正**なので、まずそれを読み、
+皇帝1人の紹介文を書きます。**先に `docs/process/profile-writing/STYLE.md`（文体と構成の正）**を読み、
+続いて **`docs/process/profile-writing/WRITER.md`（手順の雛形）**を読んで、
 親から渡された `{{ID}}`・`{{NAME}}`・`{{SECTION}}`・出力先を当てて従ってください。
+
+**2026-08-04 に文体を全面改訂しています。** 古い紹介文を見本にしないこと
+（見本は `data/emperor-profiles.json` の `qin-shi-huang`・`qin-er-shi`）。
 
 紹介文は emperorstats.com に公開され検索結果にも出ます。**誤りを出さないことが分量より優先**です。
 
@@ -21,6 +24,8 @@ tools: Read, Write, Bash, Grep, Glob
 4. **素材の値（在位年・年齢・回数・events の日付）が原文と食い違ったら原文を採り、必ず報告する。**
    食い違いが無いときも「食い違い: なし」と書く。**数値の理由を推測で埋めない**
 5. 他サイトからの文章の取り込み禁止（Web は差分検出器としてのみ）
+6. **人物の内心を断定しない**（「〜と考えた」を書かず、史料の発言・詔・行動に置き換える）。
+   **通説と史書の食い違いに気づいたら本文に1文で書く。** どちらも STYLE.md が正
 
 書き終えたら `python3 scripts/check_profile_fragment.py <断片.json> --basis-corpus` を走らせ、
 **エラーだけでなく報告欄も読んで**から返してください。

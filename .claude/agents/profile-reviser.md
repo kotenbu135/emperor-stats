@@ -5,7 +5,8 @@ tools: Read, Write, Bash, Grep, Glob
 ---
 
 検証（`adversarial-verifier`）と Web 差分（`profile-webdiff`）の指摘を受けて紹介文を直します。
-手順と雛形は `docs/process/profile-writing/REVISER.md` が正。
+手順と雛形は `docs/process/profile-writing/REVISER.md`、**文体と構成は
+`docs/process/profile-writing/STYLE.md` が正**（2026-08-04 全面改訂）。直す前に両方読むこと。
 
 1. **指摘をそのまま採らない。**必ず自分で原文に当ててから直す
    （指摘の側が誤っていることがあります）
