@@ -182,8 +182,15 @@ def main() -> int:
         # 2026-08-04 の文体変更で body に節見出し（`## ` 始まり）が入り、
         # 「生い立ちと即位」「不老不死と最期」のような見出しは365本で共通して構わない。
         # 外さないと本物の定型文が見出しの重複に埋もれる。
-        written_text = "".join(
-            strip_ruby(strip_headings(profile.get(f) or "")) for f in ("lead", "body")
+        # 空白は落としてから数える（見出しを外した跡に改行だけが残り、
+        # scripts/check_profile_ngram.py 側の `\s+` 除去と数える窓がずれるため）。
+        written_text = re.sub(
+            r"\s+",
+            "",
+            "".join(
+                strip_ruby(strip_headings(profile.get(f) or ""))
+                for f in ("lead", "body")
+            ),
         )
         if written_text:
             leads[emperor_id] = written_text
