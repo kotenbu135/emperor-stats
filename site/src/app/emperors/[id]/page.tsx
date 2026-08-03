@@ -17,14 +17,12 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { EmperorHero } from "@/components/emperors/emperor-hero";
 import { EmperorFacts } from "@/components/emperors/emperor-facts";
 import { EmperorVideosSection } from "@/components/emperors/emperor-videos";
-import { EmperorNarrativeSections } from "@/components/emperors/emperor-narrative";
 import { EmperorEventTimeline } from "@/components/emperors/emperor-event-timeline";
 import { RubyText } from "@/components/ui/ruby-text";
 import {
   dynastyContextLabel,
   getAllEmperorRecords,
   getEmperorEvents,
-  getEmperorNarrative,
   getEmperorProfile,
   getEmperorStructuredDates,
 } from "@/lib/emperors";
@@ -99,7 +97,6 @@ export default async function EmperorPage({
   const records = getAllEmperorRecords();
   const index = records.findIndex((r) => r.id === id);
   const record = records[index];
-  const narrative = getEmperorNarrative(id);
   const profile = getEmperorProfile(id);
   // 収録順（おおむね時代順）の前後の皇帝。端では表示しない。
   const prev = index > 0 ? records[index - 1] : null;
@@ -197,7 +194,6 @@ export default async function EmperorPage({
             </section>
           )}
           <EmperorFacts record={record} />
-          <EmperorNarrativeSections narrative={narrative} />
           {events.length > 0 && (
             <section className="space-y-2">
               <h2 className="font-heading text-base font-semibold text-foreground">
