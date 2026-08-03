@@ -77,7 +77,7 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 ### `name`
 | フィールド | 型 | 内容 |
 |---|---|---|
-| `personalName` | string \| null | **姓＋諱**（「劉邦」「司馬紹」）。諱そのものは姓を含まない名の部分だが、この欄は姓を付けた形で保存する（2026-08-03 ユーザー決定・Issue #37）。**姓と諱を別欄に分けない** — 紹介文で「諱は◯」と書くときだけ姓を外す（[WRITER.md](../../docs/process/profile-writing/WRITER.md)）。括弧つきの32件は民族名（遼・金・元・清の31人）と改名（`shiguo-beihan-liuchong`「劉崇（劉旻）」1人） |
+| `personalName` | string \| null | 人物本人の名。漢人政権では**姓＋諱**（「劉邦」「司馬紹」）で保存する。諱そのものは姓を含まない名の部分だが、この欄は姓を付けた形にする（2026-08-03 ユーザー決定・Issue #37。**姓と諱を別欄に分けない** — 紹介文で「諱は◯」と書くときだけ姓を外す＝[WRITER.md](../../docs/process/profile-writing/WRITER.md)）。**非漢人政権では姓を持たない形がある** — 元・北元の12人は音写名のみ（「クビライ（忽必烈）」）、`jin-taizu` は姓を欠く（「旻（阿骨打）」・同じ金の他8人は「完顔◯」）。括弧つき32件の内訳は民族名31（遼10・金9・元12〔北元1を含む〕・清1）と改名1（`shiguo-beihan-liuchong`「劉崇（劉旻）」） |
 | `commonName` | string | 一般に知られる呼称（表示名として使用・非null必須）。廟号・諡号を持たない皇帝は諱をそのまま用いる（例: 曹芳・赫連昌） |
 | `aliases` | string[] | 別名・異表記 |
 | `posthumousName` | string \| null | 諡号 |
