@@ -36,7 +36,7 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from event_date_scope import (  # noqa: E402
-    COUNT_GROUPS, assert_count_groups, load_archive, recorded_dates,
+    COUNT_GROUPS, assert_count_groups, legacy_index, load_archive, recorded_dates,
 )
 
 DATA = ROOT / "data" / "emperors.json"
@@ -148,7 +148,7 @@ def run():
                     population += 1
                     where = f"{ev['id']}.{key}"
                     all_fields.append(where)
-                    legacy[where] = f"{e['id']}.{g}[{i}].{key}"
+                    legacy[where] = f"{e['id']}.{g}[{legacy_index(ev['id'])}].{key}"
                     y, mm, dd = int(mo.group(1)), int(mo.group(2)), int(mo.group(3))
                     if written_gz and sxtwl is not None:
                         gz = day_ganzhi(sxtwl, y, mm, dd)

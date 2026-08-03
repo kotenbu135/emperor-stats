@@ -35,7 +35,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from event_date_scope import load_archive, recorded_dates  # noqa: E402
+from event_date_scope import legacy_index, load_archive, recorded_dates  # noqa: E402
 
 EMPERORS = ROOT / "data" / "emperors.json"
 
@@ -74,7 +74,7 @@ def run():
             if not key:
                 sys.exit(f"{e['id']}.{FIELD}[{i}] に id がありません"
                          f"（python3 scripts/migrations/bake_event_ids.py --fill）")
-            legacy[key] = f"{e['id']}#{i}"
+            legacy[key] = f"{e['id']}#{legacy_index(key)}"
             dates = recorded_dates(ev, archive)
             s, t = dates.get("startDate"), dates.get("endDate")
             if not s or not t:

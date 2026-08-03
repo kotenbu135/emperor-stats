@@ -124,6 +124,21 @@ def claimed_depth(ev, key: str, years: set[int]) -> int:
     return PRECISION_DEPTH.get(precision_of(ev, key), 1)
 
 
+def legacy_index(event_id: str) -> int:
+    """凍結した標本を引くための「移行前の添字」を **id の連番から**復元する。
+
+    連番は 2026-08-03 の移行で添字順に1始まりで焼いたので、移行時に在った event は
+    `連番 - 1` が移行前の添字にそのまま一致する。**絞り込みスクリプトが live な
+    `enumerate` の添字を鍵に使ってはいけない** — 既存 event の前に1件挿入した瞬間に
+    後続の鍵が全部ずれ、`audit.sampleKey: "legacy-index"` の凍結が破れて抽選が
+    引き直しになり、積み上げた原典監査が標本の外へ落ちる（2026-08-03・Issue #59 で
+    `hou-han-shundi.amnestyCount` に2件挿入して実際に起きた。CI が「e002 が未監査／
+    e003 は標本に無い」で落ちた）。移行後に足した event は連番が最大値より大きく、
+    移行前には無かった位置を指す＝新しい鍵になるのが正しい。
+    """
+    return int(event_id.rsplit(".e", 1)[1]) - 1
+
+
 def truncate(value: str, depth: int) -> str:
     """ISO 日付を深さ分だけ残して切り詰める（負年の先頭 `-` は年の一部）。"""
     neg = value.startswith("-")
