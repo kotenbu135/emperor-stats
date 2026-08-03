@@ -131,6 +131,7 @@ python3 scripts/relation_path.py           --for <皇帝id>                     
 - **★`R-CORPUS-GREP`** コーパスに `.{0,N}KW.{0,N}` 型のコンテキスト抽出 grep を掛けない — 素の `grep`／Grep ツールは ugrep で、メモリ4GB超に暴走し WSL ごと落ちる（回避策は CORPUS_NOTES の「コーパス検索のメモリ事故対策」節）
 - **★`R-GIT-ADDALL`・★`R-GIT-STASH`** `git add -A` を使わずパスを明示する。裸の `git stash` を使わず `push -u -m` でタグを付け `apply <sha>` で戻す（stash スタックは primary と全 worktree で共有される）
 - **★`R-API-BATCH`** 外部 API への一括リクエストは「小規模検証 → 想定件数を提示して明示的許可 → 本実行」。フックが止めるのは**件数ではなく形**（ループ・`xargs`・curl の URL グロブに curl／wget を差した形）で、`gh` は形では止めない
+- **★`R-CI-BACKGROUND`** push 後の CI 待ちは `run_in_background` で流す（完了時に呼び戻される）。**見届けるのをやめる規則ではなく待ち方の規則**で、止まるのは `gh run watch`・ループ・`sleep` を挟んだ前景ポーリングだけ
 - **`R-RMW`** 並行セッション前提の read-modify-write。同じ作業ツリーで別セッションが `data/emperors.json` を編集していることがあるので、対象 id のフィールドだけ更新し `meta`・他レコードには触らない
 - **`R-PRIMARY-ON-MAIN`** primary（`/home/sakis/emperor-stats`）は main に置いたままにし、新しい作業は `EnterWorktree` で自分専用の worktree を作る。primary が main 以外に載っていたら**別セッションが作業中**なので、そのブランチにコミット・push しない（起動時の状態は SessionStart フックが報告する）
 - **`R-WORKTREE-SETUP`** worktree は primary と揃える。コーパスの symlink は `EnterWorktree` 直後にフックが自動で流す（**漏れるとコーパス依存のゲートが黙ってスキップされる**）。`git worktree add` で自分で作った場合は手で `bash scripts/setup_worktree.sh <パス>`

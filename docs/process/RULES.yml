@@ -178,6 +178,24 @@ rules:
     evidence: 肖像画調査で364件を並列実行し429と乱用警告（2026-07-20 以前）。台帳20件のうち L4 だけの規則がこれ1件になっていた（2026-08-02・Issue #43 で L1 を足した）
     source: docs/process/CONSTRAINTS.md
 
+  - id: R-CI-BACKGROUND
+    summary: CI の完了待ちは前景で回さず run_in_background で流す
+    scope: >-
+      push 後の GitHub Actions を待つ操作（`gh run watch`・`until`／`while` ループ・
+      `sleep` を挟んだ `gh run`）。**`gh run list` の単発は対象外**で、待つ形だけを見る。
+      **「見届けなくてよい」ではない** — 見届ける手順（feedback-merge-to-main-includes-push）は
+      そのままで、待ち方だけを変える規則
+    enforcement: [L1, L4]
+    detail: >-
+      L1＝guard.py。`gh run` を含む Bash のうち、`gh run watch` かポーリングの形
+      （ループ・`sleep`）を持ち、かつ `run_in_background` が付いていないものを deny する。
+      背景で流せば完了時に呼び戻されるので、待ち時間ぶんがそのまま消える。
+      **止めるのは形であって待つこと自体ではない** — 直後にマージ判断が要るなど前景で
+      待つ理由があるなら逃げ道（EMPSTATS_ALLOW）に書いて通す。
+      L4 が残るのは「ターンの中で結果を待たずに次へ進む」判断そのもので、これは形が無い
+    evidence: 2026-08-03 のターン所要時間の実測で、15分超のターンにおける `gh run` の待ちが合計103分・1ターン最大7分あった（待っている間は何も進んでいない）
+    source: CLAUDE.md「守るべき運用ルール」
+
   - id: R-PRIMARY-ON-MAIN
     summary: primary（/home/sakis/emperor-stats）は main に置いたままにする。新しい作業は worktree
     scope: リポジトリの作業場所の選択

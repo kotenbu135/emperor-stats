@@ -95,6 +95,16 @@ GH_ISSUE_CREATE = re.compile(r"\bgh\s+issue\s+create\b")
 # 分母を数えるためだけに拾う（deny はしない）。0件の deny を「守られている」と読まないため。
 GH_ISSUE_OTHER = re.compile(r"\bgh\s+issue\s+(?:list|view|edit|comment|close|reopen)\b")
 
+# R-CI-BACKGROUND — CI の完了待ちで前景を塞がない。
+# 2026-08-03 の実測で `gh run` の待ちは15分超ターンの合計103分（1ターン最大7分）あり、
+# 待っている間は何も進まない。run_in_background なら完了時に呼び戻されるので、
+# 「push 後に結果まで見届ける」（feedback-merge-to-main-includes-push）を落とさずに
+# 待ち時間だけが消える。**止めるのは待つ形だけで、`gh run list` の単発は通す。**
+GH_RUN = re.compile(r"\bgh\s+run\b")
+GH_RUN_WATCH = re.compile(r"\bgh\s+run\s+watch\b")
+# ポーリングの形。ループで回すか sleep を挟むかのどちらかが「待ち」を意味する
+POLL_FORM = re.compile(r"\b(?:until|while)\b[\s\S]{0,200}?\bdo\b|\bsleep\s+[\d$]")
+
 MATERIAL_NOTES_ON = re.compile(
     r"extract_(?:profile|event)_material\.py.*?--notes[= ]on")
 # note を見てよいのは検証段だけ。1段目（執筆・調査）に渡すと、note の筋書きに合う
@@ -172,6 +182,17 @@ def check(tool, ti, is_subagent, command, agent_type=None):
     # 分母（Issue を触る操作が何回起きたか）。deny 0件を「守られている」と読まないために数える
     elif tool == "Bash" and GH_ISSUE_OTHER.search(command):
         hits.append(("R-RESIDUAL-TABLE", None))
+
+    # R-CI-BACKGROUND — CI の完了待ちは前景で回さず run_in_background へ
+    if tool == "Bash" and GH_RUN.search(command):
+        deny = None
+        waiting = GH_RUN_WATCH.search(command) or POLL_FORM.search(command)
+        if waiting and not ti.get("run_in_background"):
+            deny = ("CI の完了待ちを前景で回しています。`run_in_background: true` で流すと"
+                    "完了した時点で自動的に呼び戻されるので、待っている間ぶんの時間が丸ごと消えます"
+                    "（2026-08-03 実測で `gh run` の待ちは15分超ターンの合計103分・1ターン最大7分）。"
+                    "結果を見届ける手順自体は変わりません")
+        hits.append(("R-CI-BACKGROUND", deny))
 
     # R-API-BATCH — 外部 API への一括リクエストは「小規模検証 → 件数を提示して許可 → 本実行」
     if tool == "Bash" and external_http(command):
