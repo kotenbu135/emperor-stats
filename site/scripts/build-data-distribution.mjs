@@ -65,6 +65,11 @@ const COLUMNS = [
   // JSON 側 meta.catalogs.ethnicNameKinds を引く。
   ["ethnicName", (e) => e.name?.ethnicName?.value],
   ["ethnicNameKind", (e) => e.name?.ethnicName?.kind],
+  // 字（単位4）と幼名＝原文の「小字」（単位5）。いずれも Issue #37・2026-08-03。
+  // **空欄は「無い」ではなく「原典が書いていない・未読」。** 唐以降の帝紀は冒頭定型に
+  // 字を書かず、小字を載せる書はさらに少ない（字92人・幼名30人）。
+  ["courtesyName", (e) => e.name?.courtesyName],
+  ["childhoodName", (e) => e.name?.childhoodName],
   ["templeName", (e) => e.name?.templeName],
   ["posthumousName", (e) => e.name?.posthumousName],
   ["regimeId", (e) => e.regimeId],

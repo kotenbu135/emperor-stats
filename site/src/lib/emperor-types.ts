@@ -146,6 +146,12 @@ export interface EmperorRecord {
   personalName: string | null;
   /** 民族名。分けていない人物は null（**「民族名が無い」ではない**・移行が別段のため）。 */
   ethnicName: EthnicName | null;
+  /** 字（92人）。**null は「字が無い」ではない** — 唐以降の帝紀が冒頭定型に字を
+   *  書かないためで、空欄の意味がデータ側で「無い」と確定していない。 */
+  courtesyName: string | null;
+  /** 幼名＝原文の「小字」（30人）。同じく **null は「小字が無い」ではない**。
+   *  金章宗・衛紹王は民族名と同じ値を持つ（女真語の名を金史が「小字」として載せる）。 */
+  childhoodName: string | null;
   templeName: string | null;
   posthumousName: string | null;
   /** 別名（秦始皇・趙政など）。個別ページの Person JSON-LD の alternateName に使う。 */

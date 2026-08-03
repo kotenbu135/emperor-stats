@@ -1148,6 +1148,152 @@ def cmd_check_ethnic_names():
     return 1 if bad else 0
 
 
+# 「字」が別の名乗りの後半に来る形。**小字は字ではない**（遼太祖は「字阿保機，小字啜里只」で
+# 両方を持つ）ので、ここを見ないと小字を字の欄へ入れた誤りが底本照合を素通りする。
+#
+# **ここに一般語（名字・文字）を足してはいけない。** 正規化本文は漢字だけになって句読点が
+# 落ちるため、「字」の直前の1字はたいてい**諱の末字**になる（「恭帝讳德文，字德文」→
+# 「…德文字德文」で直前は「文」）。実測で、文を入れていたあいだ東晋恭帝と南斉海陵王の
+# 2件が正しい字なのに落ちていた。**この表は名乗りの種類を作る接頭字だけ**に絞る。
+COURTESY_BAD_PREV = "小表别別"
+
+# 底本側の事情で当たらない人物と理由。**データの誤りではない**ものだけをここに置く
+# （黙って見逃さないよう、件数と理由を毎回出す）。
+COURTESY_ALLOW = {
+    "wei-mingdi":
+        "本人のキャッシュ（china-history 三国志）が「明皇帝讳叡，字符仲」と**符**で写しており、"
+        "daizhigev20 の三国志は「明皇帝讳叡字元仲」で**元**。元仲が通行の字で、"
+        "符仲はこちらのコーパス側の誤植（同じ字は他に1件も無い）。"
+        "**コーパスを入れ替えたらこの免除を消せる**",
+}
+
+
+def courtesy_hit(value, hay):
+    """字が本人の原文に**定型で**在るか。当たった前後を返す（無ければ None）。
+
+    見るのは「字〈値〉」という並びで、`value` が本文のどこかに在るだけでは足りない
+    （2字の断片は本紀のどこにでも当たる — 改元名のゲートDと同じ理由で隣接が要る）。
+    """
+    v = norm_for_match(value)
+    if not v:
+        return None
+    needle = "字" + v
+    i = hay.find(needle)
+    while i != -1:
+        # 先頭に来る形（本文が「字景茂，俊第三子也」で始まる慕容暐）では直前が無い。
+        # 空文字は**どの文字列にも含まれる**ので、番兵を置かないと先頭が必ず弾かれる
+        prev = hay[i - 1] if i else "\0"
+        if prev not in COURTESY_BAD_PREV:
+            return hay[max(0, i - 8):i + len(needle) + 6]
+        i = hay.find(needle, i + 1)
+    return None
+
+
+def cmd_check_courtesy_names():
+    """字 `name.courtesyName` が本人の原文キャッシュに定型で在るか（ゲートC）。
+
+    **「字」と隣り合っていることまで見る。** 値だけを本文に探すと2字の断片が
+    どこにでも当たって実在検査にならず、さらに「小字」を字の欄へ入れた取り違えが
+    素通りする（遼太祖は字＝阿保機・小字＝啜里只で、両方が同じ1行に在る）。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    checked = ok = bad = 0
+    skipped = []
+    allowed = []
+    for e in data["emperors"]:
+        value = (e.get("name") or {}).get("courtesyName")
+        if not value:
+            continue
+        cache = CORPUS_ROOT / "_corpus_cache" / f"{e['id']}.txt"
+        if not cache.is_file():
+            skipped.append(e["id"])
+            continue
+        checked += 1
+        hay = norm_for_match(cache.read_text(encoding="utf-8"))
+        if courtesy_hit(value, hay):
+            ok += 1
+            if e["id"] in COURTESY_ALLOW:
+                print(f"NOTICE {e['id']}: 免除に挙げてあるが当たった（免除を消せる）")
+            continue
+        if e["id"] in COURTESY_ALLOW:
+            allowed.append(e["id"])
+            continue
+        bad += 1
+        print(f"ERROR {e['id']}: 字「{value}」が本人の原文キャッシュに"
+              f"「字{value}」の形で現れない（値だけが在っても定型でなければ字の証拠にならない。"
+              f"「小字{value}」しか無い場合もここで落ちる＝それは字ではない）")
+    if skipped:
+        print(f"NOTICE 原文キャッシュが無いため未照合: {len(skipped)}人 {skipped}")
+    for eid in allowed:
+        print(f"NOTICE {eid}: 底本側の事情で免除 — {COURTESY_ALLOW[eid]}")
+    print(f"---\n{bad} errors / courtesyName を持つ {checked}人のうち "
+          f"{ok}人が本人の原文に「字〈値〉」の形で実在（免除 {len(allowed)}人）")
+    return 1 if bad else 0
+
+
+# 底本側の事情で当たらない人物と理由（現在なし・仕組みは COURTESY_ALLOW と同じ）。
+CHILDHOOD_ALLOW = {}
+
+
+def childhood_hit(value, hay):
+    """幼名が本人の原文に**定型で**在るか。当たった前後を返す（無ければ None）。
+
+    見るのは「小字〈値〉」という並び。字のゲートCと違って直前の1字を見ない
+    （「小字」の2字がそれ自体で名乗りの種類を決めており、他の名乗りの後半に来ない）。
+    """
+    v = norm_for_match(value)
+    if not v:
+        return None
+    needle = "小字" + v
+    i = hay.find(needle)
+    return hay[max(0, i - 8):i + len(needle) + 6] if i != -1 else None
+
+
+def cmd_check_childhood_names():
+    """幼名 `name.childhoodName` が本人の原文キャッシュに定型で在るか（ゲートC）。
+
+    見るのは「小字〈値〉」という並び。字のゲートCと違って**直前の1字を見る必要が無い**
+    （「小字」の2字がそれ自体で名乗りの種類を決めており、他の名乗りの後半に来ない）。
+
+    **この隣接を要求する代償**として、動詞をはさむ書き方は入れられない。南漢の劉玢は
+    高祖の遺言が「呼洪度、洪熙小字曰：『寿、俊虽长…』」で、読めば小字が「寿」だと
+    分かるが「小字寿」の並びにはならない（残量表の行・絞り込みの nodelim バケット）。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    checked = ok = bad = 0
+    skipped = []
+    allowed = []
+    for e in data["emperors"]:
+        value = (e.get("name") or {}).get("childhoodName")
+        if not value:
+            continue
+        cache = CORPUS_ROOT / "_corpus_cache" / f"{e['id']}.txt"
+        if not cache.is_file():
+            skipped.append(e["id"])
+            continue
+        checked += 1
+        hay = norm_for_match(cache.read_text(encoding="utf-8"))
+        if childhood_hit(value, hay):
+            ok += 1
+            if e["id"] in CHILDHOOD_ALLOW:
+                print(f"NOTICE {e['id']}: 免除に挙げてあるが当たった（免除を消せる）")
+            continue
+        if e["id"] in CHILDHOOD_ALLOW:
+            allowed.append(e["id"])
+            continue
+        bad += 1
+        print(f"ERROR {e['id']}: 幼名「{value}」が本人の原文キャッシュに"
+              f"「小字{value}」の形で現れない（値だけが在っても定型でなければ"
+              f"小字の証拠にならない）")
+    if skipped:
+        print(f"NOTICE 原文キャッシュが無いため未照合: {len(skipped)}人 {skipped}")
+    for eid in allowed:
+        print(f"NOTICE {eid}: 底本側の事情で免除 — {CHILDHOOD_ALLOW[eid]}")
+    print(f"---\n{bad} errors / childhoodName を持つ {checked}人のうち "
+          f"{ok}人が本人の原文に「小字〈値〉」の形で実在（免除 {len(allowed)}人）")
+    return 1 if bad else 0
+
+
 def _iter_units_for_volumes(data):
     """validate_emperors の走査をそのまま使う（容器の列挙を2箇所に書かない）。"""
     import importlib.util
@@ -1461,6 +1607,13 @@ def main():
     ap.add_argument("--check-ethnic-names", action="store_true",
                     help="name.ethnicName の漢字側を本人の原文キャッシュに当てる"
                          "（Issue #37 単位3・要コーパス。カナ側は原典に無いので照合の外）")
+    ap.add_argument("--check-courtesy-names", action="store_true",
+                    help="name.courtesyName を本人の原文キャッシュに当てる"
+                         "（Issue #37 単位4・要コーパス。「字〈値〉」の隣接まで見るので"
+                         "小字を字の欄へ入れた形はここで落ちる）")
+    ap.add_argument("--check-childhood-names", action="store_true",
+                    help="name.childhoodName を本人の原文キャッシュに当てる"
+                         "（Issue #37 単位5・要コーパス。「小字〈値〉」の隣接まで見る）")
     ap.add_argument("--rebuild", action="store_true",
                     help="--backfill と併用。照合器を変えたとき機械判定を作り直す"
                          "（manual/external/defect の curation は残す）")
@@ -1497,6 +1650,10 @@ def main():
         return cmd_check_era_names()
     if args.check_ethnic_names:
         return cmd_check_ethnic_names()
+    if args.check_courtesy_names:
+        return cmd_check_courtesy_names()
+    if args.check_childhood_names:
+        return cmd_check_childhood_names()
     if args.backfill:
         return cmd_backfill(rebuild=args.rebuild, retry_unresolved=args.retry_unresolved)
     return cmd_check()

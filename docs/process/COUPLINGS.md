@@ -15,6 +15,8 @@
 | 触るもの | 一緒に触るもの | 検査 |
 |---|---|---|
 | `data/emperors.json` の引用・日付 | `data/quote-refs.json`（照合台帳） | `verify_quotes.py --backfill && --check`・`verify_calendar.py`。**引用を変えるとハッシュが合わず落ちる＝迂回できない** |
+| `data/emperors.json` の `name.*` に**欄を足す** | `site/scripts/build-data-distribution.mjs` の `COLUMNS`（配布 CSV の列） | **無い。ビルドは通ってしまう。** 2026-08-03 に `ethnicName`（単位3）と `courtesyName`（単位4）で**2回続けて手で思い出した**ので行にした。CSV は `emperors.json` の純射影なので、足さないと**配布物からその名乗りが丸ごと落ちる**（単位3では「クビライ（忽必烈）」を分けた結果、足すまで民族名がどの列にも無かった）。`emperors.json` 自体は無加工コピーなので影響しない |
+| `name.*` の欄を**サイトの画面に出す** | `data/name-readings.json`（ふりがな） | **有る（ビルドが落ちる）。** `rubyOf` が漢字を含む未登録の表示名で throw する。2026-08-03 に字92人ぶん・幼名30人ぶんを出したとき116文字列の追記が要った。**対象の一覧は自分で数えず `site/.ruby-displayed.json`（ビルドが書き出す）から引く** — 時代ラベル・王朝名のサフィックス・補助名は `emperors.json` に無い形で作られる |
 | ある日付フィールドの訂正 | 同じ日付を持つ**隣接フィールド**（`reigns[].endDate` ↔ `ages.deathDate` ↔ `events[].date` ↔ note 内の日付引用） | 一部（`validate_emperors.py` の整合検査）。**旧値の文字列でレコード全体を grep して残存参照を列挙するのが訂正手順の定型**（2026-07-21 に JSON-LD へ旧値が出たまま公開された） |
 | `dynastyOrder` の調査完了（`dynastyOrderSurveyed` を false → true にする） | その政権に属する**全在位の `reigns[].dynastyOrder` の欄**（値、または「歴代に数えない」の `null`） | `validate_emperors.py` の `check_dynasty_order`（surveyed false ⇒ 欄なし／true ⇒ 欄あり）。**双方向で落ちる** — フラグだけ立てても、欄だけ埋めても通らない（2026-08-03・Issue #69） |
 | データの訂正 | `meta.status` と `docs/PROJECT_STATUS.md` | 無い（同時更新の運用ルール） |

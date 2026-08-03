@@ -85,6 +85,13 @@ def render(e: dict, catalogs: dict, max_events: int, notes: bool) -> str:
     # ここで出さないと元・北元の12人は執筆者から「クビライ」が見えなくなる。
     if name.get("ethnicName"):
         add(f"- 民族名: {name['ethnicName']['value']}（{name['ethnicName']['kind']}）")
+    # 字（単位4）と幼名＝原文の「小字」（単位5）。**空でも「無い」ではない**（唐以降の
+    # 帝紀は冒頭定型に字を書かず、小字を載せる書はさらに少ない）ので、無いことを
+    # 紹介文に書かない。
+    if name.get("courtesyName"):
+        add(f"- 字: {name['courtesyName']}")
+    if name.get("childhoodName"):
+        add(f"- 幼名（原文は「小字」）: {name['childhoodName']}")
     if name.get("aliases"):
         add(f"- 別名: {'・'.join(name['aliases'])}")
     if e.get("flags", {}).get("isFemale"):

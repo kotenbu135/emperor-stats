@@ -197,6 +197,10 @@ export function emperorNameEntries(r: {
   personalName: string | null;
   /** 民族名（Issue #37 単位3）。ラベルは `kind` が決めるので政権を見ない。 */
   ethnicName: { value: string; label: string; counterpartLabel: string } | null;
+  /** 字（Issue #37 単位4・92人）。 */
+  courtesyName: string | null;
+  /** 幼名＝原文の「小字」（Issue #37 単位5・30人）。 */
+  childhoodName: string | null;
   templeName: string | null;
   posthumousName: string | null;
   aliases: string[];
@@ -217,6 +221,16 @@ export function emperorNameEntries(r: {
   } else if (r.personalName) {
     push("諱", r.personalName);
   }
+
+  // 字と幼名（Issue #37 単位4・5）。**諱のすぐ後ろ**に置く — 原典の書き出しが
+  // 「諱〈諱〉，字〈字〉，小字〈小字〉」の順で並べており、廟号・諡号（死後に贈られる名）
+  // より前に来るのが本人が名乗った名前の並びとして自然なため。
+  //
+  // **金章宗・衛紹王では幼名が出ない。** 女真語の名を金史が「小字」として載せており
+  // 民族名と同じ値になるので、上の `push` が値の重複として落とす（同じ名前が
+  // ラベル違いで2つ並ぶのを避ける既存の作り。落ちるのは2人だけ）。
+  push("字", r.courtesyName);
+  push("幼名", r.childhoodName);
 
   // 呼称（commonName）側。R2 で1行目に上げた元号＋帝の裏で落ちた廟号をここで拾う
   // （明清は templeName が空のことが多く、この経路でしか出せない）。

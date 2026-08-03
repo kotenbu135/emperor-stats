@@ -1202,6 +1202,125 @@ def check_ethnic_names(data):
     return named, paren
 
 
+# --- 字（あざな）name.courtesyName（Issue #37 単位4）--------------------------
+# 主張は「この人物の字は value である」。**任意・遡及しない** — 欄が無いのは
+# 「字が無い」ではなく「まだ読んでいない」を含む。実際、絞り込みで機械が何も
+# 見つけなかった248人の取りこぼし率は 17%（95%区間 0〜64%）と実測されている
+# （data/screenings.json の courtesy-name-issue37・帝紀の冒頭定型に字の欄を持たない
+# 書が多く、南史の蕭淵明のように列伝側に在る形を機械が拾えない）。
+#
+# ここが強制するのは形と**他の名乗りとの分離**だけで、底本に在るかは
+# verify_quotes.py --check-courtesy-names（ローカル専用・要コーパス）に置いた＝ゲートC。
+COURTESY_VALUE_RE = re.compile(r"^[㐀-鿿]{1,4}$")
+# 値に含まれていたら定型ごと写した印になる字（「字德輿」「讳裕字德輿」のような形）。
+COURTESY_BAD = ("字", "諱", "讳")
+
+
+def check_courtesy_names(data):
+    """字 name.courtesyName（Issue #37 単位4）。
+
+    A 形          … 漢字1〜4字で、「字」「諱」を含まない（定型を丸ごと入れた形を弾く）
+    B 名乗りの分離 … 諱・民族名・廟号・諡号のいずれとも同一でない。**主力**で、
+                    「諱を字の欄へ写した」「小字を字として入れた」の大半がここで落ちる
+                    （遼太祖は「字阿保機，小字啜里只」で、阿保機＝字・啜里只＝小字と
+                    別々の名乗りを持つ。ethnicName へ阿保機を入れると民族名のゲートは
+                    全部通ってしまうので、**分離は欄をまたいで見る**）
+
+    **底本照合はここには無い**（ローカルコーパスが要るため
+    verify_quotes.py --check-courtesy-names に置いた＝ゲートC）。
+    """
+    named = 0
+    for e in data["emperors"]:
+        name = e.get("name") or {}
+        value = name.get("courtesyName")
+        if value is None:
+            continue
+        if not isinstance(value, str) or not value.strip():
+            err(f"[courtesy-name] {e['id']}: courtesyName が空")
+            continue
+        named += 1
+        # A 形
+        if not COURTESY_VALUE_RE.match(value):
+            err(f"[courtesy-name] {e['id']}: courtesyName {value!r} が漢字1〜4字でない")
+        for bad in COURTESY_BAD:
+            if bad in value:
+                err(f"[courtesy-name] {e['id']}: courtesyName {value!r} に {bad!r} が"
+                    f"入っている（原文の定型ごと写した形）")
+        # B 名乗りの分離
+        others = {
+            "諱": name.get("personalName"),
+            "廟号": name.get("templeName"),
+            "諡号": name.get("posthumousName"),
+            "幼名": name.get("childhoodName"),
+            "民族名": ((name.get("ethnicName") or {}).get("value")
+                     if isinstance(name.get("ethnicName"), dict) else None),
+        }
+        for label, other in others.items():
+            if other and other == value:
+                err(f"[courtesy-name] {e['id']}: courtesyName が{label} {other!r} と同じ"
+                    f"（別の名乗りを写している）")
+    info(f"[courtesy-name] courtesyName を持つ人物 {named}人"
+         f"（**任意・遡及しない** — 欄が無いのは「字が無い」ではない。"
+         f"残りは docs/process/RESIDUAL.md の行）")
+    return named
+
+
+# --- 幼名（小字）name.childhoodName（Issue #37 単位5）------------------------
+# 主張は「この人物の小字は value である」。字と同じく**任意・遡及しない**。
+#
+# **民族名と同値でも誤りではない**のがこの欄の固有の事情。契丹・女真の名は
+# 本紀が「小字」として載せる形があり（遼史「讳德光，字德谨，小字尧骨」・
+# 金史「讳璟，小字麻达葛」）、`ethnicName` はその名が何語かを、この欄は本紀が
+# どの名乗りの枠に置いたかを言う**別の軸**になる。だから B の突合から民族名を外す
+# （字の側は逆に、民族名と同じなら取り違えなので突合に残す）。
+CHILDHOOD_VALUE_RE = re.compile(r"^[㐀-鿿]{1,4}$")
+# 値に含まれていたら定型ごと写した印になる字。
+CHILDHOOD_BAD = ("字", "諱", "讳")
+
+
+def check_childhood_names(data):
+    """幼名 name.childhoodName（Issue #37 単位5）。
+
+    A 形          … 漢字1〜4字で、「字」「諱」を含まない
+    B 名乗りの分離 … 諱・字・廟号・諡号のいずれとも同一でない（**民族名は除く**・上の註）
+
+    **底本照合はここには無い**（ローカルコーパスが要るため
+    verify_quotes.py --check-childhood-names に置いた＝ゲートC）。
+    """
+    named = 0
+    for e in data["emperors"]:
+        name = e.get("name") or {}
+        value = name.get("childhoodName")
+        if value is None:
+            continue
+        if not isinstance(value, str) or not value.strip():
+            err(f"[childhood-name] {e['id']}: childhoodName が空")
+            continue
+        named += 1
+        # A 形
+        if not CHILDHOOD_VALUE_RE.match(value):
+            err(f"[childhood-name] {e['id']}: childhoodName {value!r} が漢字1〜4字でない")
+        for bad in CHILDHOOD_BAD:
+            if bad in value:
+                err(f"[childhood-name] {e['id']}: childhoodName {value!r} に {bad!r} が"
+                    f"入っている（原文の定型ごと写した形）")
+        # B 名乗りの分離（民族名は突き合わせない — 上の註）
+        others = {
+            "諱": name.get("personalName"),
+            "字": name.get("courtesyName"),
+            "廟号": name.get("templeName"),
+            "諡号": name.get("posthumousName"),
+        }
+        for label, other in others.items():
+            if other and other == value:
+                err(f"[childhood-name] {e['id']}: childhoodName が{label} {other!r} と同じ"
+                    f"（別の名乗りを写している）")
+    info(f"[childhood-name] childhoodName を持つ人物 {named}人"
+         f"（**任意・遡及しない** — 欄が無いのは「小字が無い」ではない。"
+         f"残りは docs/process/RESIDUAL.md の行）")
+    return named
+
+
 # --- claim（主張）欄 ---------------------------------------------------------
 # note は**作業ログ**で、訂正の経緯として「現行 X → Y に訂正」のように**捨てた側の値**が
 # 本文に残る。だからフィールドとの突合は向きが反転し、散文は witness にならない
@@ -2021,6 +2140,8 @@ def main() -> int:
     check_event_date_format(data)
     era_total_n, era_named_n = check_era_names(data)
     ethnic_n, ethnic_paren_n = check_ethnic_names(data)
+    courtesy_n = check_courtesy_names(data)
+    childhood_n = check_childhood_names(data)
     archive_n = check_event_date_archive(data)
     claimed_n, witnessed_n = check_event_date_claim_residual(data)
     floor, legacy_quote_n, floor_total_n = check_quote_containers(data)
@@ -2062,6 +2183,7 @@ def main() -> int:
           f"{witnessed_n}件"
           f"／改元 event {era_total_n}件のうち eraName を持つのは {era_named_n}件"
           f"／ethnicName {ethnic_n}人・括弧が残る personalName {ethnic_paren_n}人"
+          f"／courtesyName {courtesy_n}人・childhoodName {childhood_n}人"
           f"／構造化引用を持つ床の容器 {sum(floor.values())}/{floor_total_n}件"
           f"（旧い器 source.quote は {legacy_quote_n}件）)")
     return 1 if errors else 0
