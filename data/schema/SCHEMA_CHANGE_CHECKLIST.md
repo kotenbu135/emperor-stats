@@ -55,6 +55,8 @@ Issue #69 で洗ったところ、再調査が終わらなくなった系統は*
 | `name.ethnicName` | この人物の `value` は `kind` の言語・民族の名である（**任意・遡及しない** — 欄が無いのは「民族名が無い」ではなく「まだ分けていない」を含む） | `validate_emperors.py::check_ethnic_names` | `test_ethnic_name.py` |
 | （同上・移行の同一性） | 移行前の `personalName`（`data/internal/personal-name-originals.json` に凍結）へ `kind` の並びで組み直すと戻る＝**括弧ごと消す欠落を落とす** | `validate_emperors.py::check_ethnic_names` | `test_ethnic_name.py` |
 | （同上・底本照合） | **漢字側**（契丹名・女真名は `value`／モンゴル語名・満洲語名は相手側 `personalName`）が本人の原文に在る。**カナは原典に無いので照合の外** | `verify_quotes.py::cmd_check_ethnic_names` | `test_ethnic_name.py` |
+| `name.courtesyName` | この人物の字は値のとおりである（**任意・遡及しない** — 欄が無いのは「字が無い」ではなく、唐以降の帝紀が冒頭定型に字を書かないことと未読を含む。機械が何も見つけなかった248人の取りこぼし率は 17%と実測） | `validate_emperors.py::check_courtesy_names` | `test_courtesy_name.py` |
+| （同上・底本照合） | その字が**本人の原文に「字〈値〉」の形で**在る。**隣接まで見る**ので、小字（幼名）を字の欄へ入れた形はここで落ちる | `verify_quotes.py::cmd_check_courtesy_names` | `test_courtesy_name.py` |
 | `source.bookId`／`volume` | 出典はこの書のこの巻（カタログに実在し、巻の索引を持つ書だけ） | `validate_emperors.py::check_quote_containers` | `test_quote_containers.py` |
 | （同上・実体照合） | 名乗る巻がコーパスに実在し、引用が**その巻の中**に在る | `verify_quotes.py::cmd_check_volumes` | `test_quote_containers.py` |
 | `quotes[]` | この断片が底本に実在する（`bookId` ＋ 任意の `volume` を持つ） | `verify_quotes.py::cmd_check` | `test_quote_containers.py` |

@@ -85,6 +85,11 @@ def render(e: dict, catalogs: dict, max_events: int, notes: bool) -> str:
     # ここで出さないと元・北元の12人は執筆者から「クビライ」が見えなくなる。
     if name.get("ethnicName"):
         add(f"- 民族名: {name['ethnicName']['value']}（{name['ethnicName']['kind']}）")
+    # 字（Issue #37 単位4）。2026-08-03 に立てた欄で、サイトの画面には出ていないので
+    # ここで出さないと執筆者からは見えない。**空でも「字が無い」ではない**（唐以降の
+    # 帝紀は冒頭定型に字を書かない）ので、無いことを紹介文に書かない。
+    if name.get("courtesyName"):
+        add(f"- 字: {name['courtesyName']}")
     if name.get("aliases"):
         add(f"- 別名: {'・'.join(name['aliases'])}")
     if e.get("flags", {}).get("isFemale"):
