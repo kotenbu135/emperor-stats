@@ -1187,6 +1187,39 @@
    ],
    "line": 6
   },
+  "beiqi-wuchengdi|personalCampaignCount[0].note|357085eb876e": {
+   "id": "beiqi-wuchengdi",
+   "path": "personalCampaignCount[0].note",
+   "span": "四年春正月……辛未，幸晋阳",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiqi-wuchengdi.txt",
+   "frags": [
+    "四年春正月"
+   ],
+   "line": 8
+  },
+  "beiqi-wuchengdi|personalCampaignCount[0].note|4925acb05dc6": {
+   "id": "beiqi-wuchengdi",
+   "path": "personalCampaignCount[0].note",
+   "span": "车驾至自晋阳",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiqi-wuchengdi.txt",
+   "frags": [
+    "车驾至自晋阳"
+   ],
+   "line": 4
+  },
+  "beiqi-wuchengdi|personalCampaignCount[0].note|7c93c3babbe1": {
+   "id": "beiqi-wuchengdi",
+   "path": "personalCampaignCount[0].note",
+   "span": "丙子，车驾至自洛阳",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiqi-wuchengdi.txt",
+   "frags": [
+    "车驾至自洛阳"
+   ],
+   "line": 7
+  },
   "beiqi-wuchengdi|personalCampaignCount[0].note|dd161ad04aa8": {
    "id": "beiqi-wuchengdi",
    "path": "personalCampaignCount[0].note",
@@ -30641,6 +30674,17 @@
    ],
    "line": 29
   },
+  "liao-shizong|personalCampaignCount[1].note|19b1c013ac34": {
+   "id": "liao-shizong",
+   "path": "personalCampaignCount[1].note",
+   "span": "帝伐周，至详古山",
+   "status": "corpus",
+   "corpusFile": "china-history/辽史/列传/第四十二章-卷四十二-原文.html",
+   "frags": [
+    "帝伐周至详古"
+   ],
+   "line": 30
+  },
   "liao-shizong|personalCampaignCount[1].note|635c07f61ca6": {
    "id": "liao-shizong",
    "path": "personalCampaignCount[1].note",
@@ -30652,6 +30696,24 @@
     "祭讓國皇帝於行宮"
    ],
    "line": 7
+  },
+  "liao-shizong|personalCampaignCount[1].note|b22978d1af35": {
+   "id": "liao-shizong",
+   "path": "personalCampaignCount[1].note",
+   "span": "汉郭威弑其主自立，国号周",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liao-shizong.txt",
+   "frags": [
+    "汉郭威弑其主自立"
+   ],
+   "line": 7
+  },
+  "liao-shizong|personalCampaignCount[1].note|fe999605a811": {
+   "id": "liao-shizong",
+   "path": "personalCampaignCount[1].note",
+   "span": "後漢（劉知遠政権）",
+   "status": "unresolved",
+   "nv": "f1546990"
   },
   "liao-shizong|rebellionSufferedCount[0].note|e3a02bc5ca8b": {
    "id": "liao-shizong",
@@ -58447,6 +58509,45 @@
    ],
    "line": 93
   },
+  "tang-taizong|amnestyCount.events[0].conflicts[0].adopted.quote|82dda82e3214": {
+   "id": "tang-taizong",
+   "path": "amnestyCount.events[0].conflicts[0].adopted.quote",
+   "span": "八月癸亥，高祖传位于皇太子，太宗即位于东宫显德殿。遣司空、魏国公裴寂柴告于南郊。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-taizong.txt",
+   "frags": [
+    "高祖传位于皇太子",
+    "太宗即位于东宫显德殿",
+    "魏国公裴寂柴告于南郊"
+   ],
+   "line": 18
+  },
+  "tang-taizong|amnestyCount.events[0].conflicts[0].alternatives[0].quote|686826dc7859": {
+   "id": "tang-taizong",
+   "path": "amnestyCount.events[0].conflicts[0].alternatives[0].quote",
+   "span": "八月甲子，即皇帝位于东宫显德殿。遣裴寂告于南效。大赦，武德流人还之",
+   "status": "corpus",
+   "corpusFile": "china-history/新唐书/本纪/第二章-卷二·太宗-原文.html",
+   "frags": [
+    "即皇帝位于东宫显德殿",
+    "遣裴寂告于南效",
+    "武德流人还之"
+   ],
+   "line": 34
+  },
+  "tang-taizong|amnestyCount.events[0].quotes[0]|82dda82e3214": {
+   "id": "tang-taizong",
+   "path": "amnestyCount.events[0].quotes[0]",
+   "span": "八月癸亥，高祖传位于皇太子，太宗即位于东宫显德殿。遣司空、魏国公裴寂柴告于南郊。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-taizong.txt",
+   "frags": [
+    "高祖传位于皇太子",
+    "太宗即位于东宫显德殿",
+    "魏国公裴寂柴告于南郊"
+   ],
+   "line": 18
+  },
   "tang-taizong|amnestyCount[2].note|2f3c5560a8c0": {
    "id": "tang-taizong",
    "path": "amnestyCount[2].note",
@@ -58654,6 +58755,29 @@
     "右卫将军梁建方讨平之"
    ],
    "line": 91
+  },
+  "tang-taizong|reigns[0].conflicts[0].adopted.quote|0bd2e02eb27a": {
+   "id": "tang-taizong",
+   "path": "reigns[0].conflicts[0].adopted.quote",
+   "span": "八月癸亥，高祖传位于皇太子，太宗即位于东宫显德殿",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-taizong.txt",
+   "frags": [
+    "高祖传位于皇太子",
+    "太宗即位于东宫显德殿"
+   ],
+   "line": 18
+  },
+  "tang-taizong|reigns[0].conflicts[0].alternatives[0].quote|85c992a37b90": {
+   "id": "tang-taizong",
+   "path": "reigns[0].conflicts[0].alternatives[0].quote",
+   "span": "八月甲子，即皇帝位于东宫显德殿",
+   "status": "corpus",
+   "corpusFile": "china-history/新唐书/本纪/第二章-卷二·太宗-原文.html",
+   "frags": [
+    "即皇帝位于东宫显德殿"
+   ],
+   "line": 34
   },
   "tang-taizong|reigns[0].conversion|18944d0b7832": {
    "id": "tang-taizong",
@@ -73328,6 +73452,28 @@
     "曩霄親率兵掩擊"
    ],
    "line": 701
+  },
+  "xixia-jingzong|personalCampaignCount[6].note|d777eca0a16c": {
+   "id": "xixia-jingzong",
+   "path": "personalCampaignCount[6].note",
+   "span": "遂以左厢兵潜屯贺兰山北",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-jingzong.txt",
+   "frags": [
+    "遂以左厢兵潜屯贺兰山"
+   ],
+   "line": 701
+  },
+  "xixia-jingzong|personalCampaignCount[6].note|db44eb79d197": {
+   "id": "xixia-jingzong",
+   "path": "personalCampaignCount[6].note",
+   "span": "冬十月，契丹来伐，拒战于贺兰山，败绩",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-jingzong.txt",
+   "frags": [
+    "拒战于贺兰山"
+   ],
+   "line": 699
   },
   "xixia-jingzong|rebellionSufferedCount[0].note|a2f4fdfc869b": {
    "id": "xixia-jingzong",
