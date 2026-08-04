@@ -104,7 +104,9 @@ async function primeLazyContent(page) {
 }
 
 async function openJumpPopover(page) {
-  await page.locator('nav[aria-label="時代へジャンプ"] button').first().click();
+  // 帯の aria-label はページによって後ろに続きがある（/emperors は絞り込みも
+  // 載せているので「時代へジャンプと絞り込み」）。前方一致で拾う。
+  await page.locator('nav[aria-label^="時代へジャンプ"] button').first().click();
   await page.locator('[data-slot="popover-content"], [role="dialog"]').first().waitFor({
     state: "visible",
     timeout: 10000,

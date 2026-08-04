@@ -21,6 +21,7 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
+import { SlidersHorizontal } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -28,6 +29,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   DynastyCategoryHint,
   FilterChips,
@@ -160,6 +167,41 @@ const EmperorCard = memo(function EmperorCard({
   );
 });
 
+/**
+ * 王朝の区分セレクト。**帯の中（ラベル無し）と絞り込みパネルの中（ラベル有り）の
+ * 2箇所に出る**ので、選択肢の文言がずれないよう1つにまとめてある。
+ * 未選択の表示が「すべて」ではなく「すべての区分」なのは、帯の中には見えるラベルが
+ * 無く、値だけで何のセレクトか読めなければならないため。
+ */
+function CategorySelect({
+  value,
+  onChange,
+  className,
+}: {
+  value: DynastyCategory | "all";
+  onChange: (value: DynastyCategory | "all") => void;
+  className: string;
+}) {
+  return (
+    <Select
+      value={value}
+      onValueChange={(v) => onChange(v as DynastyCategory | "all")}
+    >
+      <SelectTrigger className={className} aria-label="王朝の区分で絞り込み">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="all">すべての区分</SelectItem>
+        {dynastyCategoryOptions.map((o) => (
+          <SelectItem key={o.value} value={o.value}>
+            {o.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+}
+
 export function EmperorGrid({
   records,
   dynastyOptions,
@@ -170,6 +212,8 @@ export function EmperorGrid({
   const [query, setQuery] = useState("");
   const [dynastyValue, setDynastyValue] = useState("all");
   const [categoryValue, setCategoryValue] = useState<DynastyCategory | "all">("all");
+  /** 帯に入りきらない操作を畳んだ「絞り込み」ポップオーバーの開閉。 */
+  const [filterOpen, setFilterOpen] = useState(false);
 
   // 操作の反応を優先し、グリッドの絞り込み再レンダリングは低優先度で追従させる。
   // **後追いさせる対象を検索語だけでなく3条件まとめに広げた（2026-08-01）** —
@@ -302,82 +346,145 @@ export function EmperorGrid({
     return [...byEra.entries()];
   }, [filtered]);
 
-  return (
-    <div>
-      {/* 狭い画面ではフィルタ3つが縦に積まれ、ファーストビューをほぼ埋めていた。
-          検索を1行、王朝と区分を2列に置いて3行を2行に畳む。幅は列から決まるので
-          自動幅ではなく、Webフォント読込による折り返しずれ（CLS）は起きない。 */}
-      <div className="mx-auto mb-4 grid w-full max-w-content grid-cols-2 items-end gap-x-3 gap-y-3 sm:flex sm:flex-wrap sm:gap-4">
-        <div className="col-span-2 sm:col-auto">
+  /** 「絞り込み」ボタンに添える効いている条件の数。**生の state から数える**
+   *  （deferred から数えると、外した直後に数字だけ残って見える）。 */
+  const activeFilterCount = chips.length;
+
+  // 帯（時代へジャンプ）に載せる絞り込み一式（2026-08-04 ユーザー指示）。
+  // それまでは本文先頭の1〜2行に置いていて、少しスクロールすると画面から消え、
+  // 5万px級の一覧の途中で条件を変えるには先頭まで戻る必要があった。
+  //
+  // **帯は1行48pxで固定**（SECTION_NAV_H が節見出しの sticky top を兼ねる）なので、
+  // 幅が足りない側から順に「絞り込み」ポップオーバーへ畳む。分岐は帯の内幅
+  // （@container/bar）で、ビューポート幅ではない — md 以上はサイドバー240pxのぶん
+  // 実効幅が狭く、768pxの画面でも帯の内幅は448pxしかないため。
+  //   〜@xl(36rem)  : 検索・王朝・区分をすべてポップオーバーへ
+  //   @xl〜@4xl     : 検索は帯へ、王朝・区分はポップオーバー
+  //   @4xl(56rem)〜 : すべて帯に並ぶ（ポップオーバーのボタンは消える）
+  const filterControls = (
+    <>
+      <div className="hidden min-w-0 flex-1 @min-[26rem]/bar:block @xl/bar:max-w-[12rem]">
+        <SearchField
+          bare
+          value={query}
+          onChange={setQuery}
+          placeholder="名前・王朝名など"
+          ariaLabel="皇帝を検索"
+          widthClass="w-full"
+        />
+      </div>
+      <div className="hidden shrink-0 items-center gap-2 @4xl/bar:flex">
+        <DynastyCombobox
+          options={dynastyOptions}
+          value={dynastyValue}
+          onChange={setDynastyValue}
+          triggerWidthClass="w-[10rem]"
+        />
+        {/* 区分の説明。帯にはラベルが無いのでヒントだけ単独で並ぶ（@4xl 未満では
+            パネル側のラベルに付く）。**セレクトとの間隔を他より詰める** — 等間隔だと
+            右隣の件数に付いた印に見える。 */}
+        <div className="flex items-center gap-1">
+          <CategorySelect
+            value={categoryValue}
+            onChange={setCategoryValue}
+            className="w-[9rem]"
+          />
+          <DynastyCategoryHint />
+        </div>
+      </div>
+      <Popover open={filterOpen} onOpenChange={setFilterOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            // 検索窓すら出ない幅ではアイコンだけにする。文字を残すと、条件が
+            // 効いたときの縮み代がジャンプのトリガーからしか出せない。
+            // 読み上げ名は aria-label が持つので、文字が消えても名前は残る。
+            aria-label="絞り込み"
+            className="shrink-0 @4xl/bar:hidden"
+          >
+            <SlidersHorizontal data-icon="inline-start" />
+            <span className="hidden @xl/bar:inline">絞り込み</span>
+            {activeFilterCount > 0 && (
+              <span className="rounded-full bg-seal px-1.5 text-micro tabular-nums text-seal-foreground">
+                {activeFilterCount}
+              </span>
+            )}
+          </Button>
+        </PopoverTrigger>
+        {/* **ポップオーバーはポータルで帯の外に出る**ので @container/bar の変種は
+            効かない。中身は幅にかかわらず3つとも載せる（@xl〜@4xl では検索が帯と
+            ここの2箇所に出るが、同じ state を指しているので食い違わない）。 */}
+        <PopoverContent align="end" className="w-[16rem] space-y-3">
           <SearchField
             value={query}
             onChange={setQuery}
             placeholder="名前・王朝名など"
-            ariaLabel="皇帝を検索"
+            ariaLabel="皇帝を検索（絞り込みパネル）"
+            widthClass="w-full"
           />
-        </div>
-        <FilterField label="王朝">
-          <DynastyCombobox
-            options={dynastyOptions}
-            value={dynastyValue}
-            onChange={setDynastyValue}
-            triggerWidthClass="w-full sm:w-[200px]"
-          />
-        </FilterField>
-        <FilterField label="王朝の区分" hint={<DynastyCategoryHint />}>
-          <Select
-            value={categoryValue}
-            onValueChange={(v) => setCategoryValue(v as DynastyCategory | "all")}
-          >
-            <SelectTrigger
-              className="w-full sm:w-[170px]"
-              aria-label="王朝の区分で絞り込み"
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">すべて</SelectItem>
-              {dynastyCategoryOptions.map((o) => (
-                <SelectItem key={o.value} value={o.value}>
-                  {o.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </FilterField>
-        <ResultCount
-          pending={stale}
-          className="col-span-2 sm:col-auto sm:pb-2"
-        >
-          {hasFilter
-            ? `${filtered.length}名を表示中（全${records.length}名）`
-            : `全${records.length}名を表示中`}
-        </ResultCount>
-      </div>
+          <FilterField label="王朝">
+            <DynastyCombobox
+              options={dynastyOptions}
+              value={dynastyValue}
+              onChange={setDynastyValue}
+              triggerWidthClass="w-full"
+            />
+          </FilterField>
+          <FilterField label="王朝の区分" hint={<DynastyCategoryHint />}>
+            <CategorySelect
+              value={categoryValue}
+              onChange={setCategoryValue}
+              className="w-full"
+            />
+          </FilterField>
+        </PopoverContent>
+      </Popover>
+      <ResultCount
+        pending={stale}
+        className="shrink-0 whitespace-nowrap text-xs @2xl/bar:text-sm"
+      >
+        {/* ResultCount は flex（スピナーとの間隔）なので、文言は1つの要素に
+            まとめる — 分けると数字と単位の間に gap が入って「365 名」になる。
+            狭い帯では「を表示中」を落として数字だけにする。 */}
+        <span>
+          <span className="tabular-nums">
+            {hasFilter ? `${filtered.length}/${records.length}` : records.length}
+          </span>
+          名<span className="hidden @xl/bar:inline">を表示中</span>
+        </span>
+      </ResultCount>
+    </>
+  );
+
+  return (
+    <div>
+      {/* 時代セクションへのページ内ジャンプ＋絞り込み。絞り込みで空になった時代は
+          出さない。画面上部に固定して、5万px級のスクロールのどこからでも他の時代へ
+          飛べる・条件を変えられるようにする。**0件でも帯は残る**（節が0個になっても
+          絞り込みを外す手段が画面から消えないように）。 */}
+      <SectionJumpNav
+        label="時代へジャンプ"
+        ariaLabel="時代へジャンプと絞り込み"
+        // 一覧本文は既に px-gutter された箱の中なので、バーだけ全幅に戻す。
+        className="-mx-gutter md:-mx-gutter-wide"
+        items={sections.map(([era, list]) => ({
+          id: `era-${era}`,
+          label: era,
+          count: list.length,
+        }))}
+        trailing={filterControls}
+      />
 
       <FilterChips
         chips={chips}
         onClearAll={clearAll}
-        className="mx-auto w-full max-w-content"
+        className="mx-auto mt-4 w-full max-w-content"
       />
 
       {filtered.length === 0 ? (
         <NoResults onClearAll={clearAll} />
       ) : (
         <>
-          {/* 時代セクションへのページ内ジャンプ。絞り込みで空になった時代は出さない。
-              画面上部に固定して、5万px級のスクロールのどこからでも他の時代へ飛べる
-              ようにする（従来は本文先頭の素のテキストリンクで、少し送ると消えた）。 */}
-          <SectionJumpNav
-            label="時代へジャンプ"
-            // 一覧本文は既に px-gutter された箱の中なので、バーだけ全幅に戻す。
-            className="-mx-gutter md:-mx-gutter-wide"
-            items={sections.map(([era, list]) => ({
-              id: `era-${era}`,
-              label: era,
-              count: list.length,
-            }))}
-          />
           {/* カードの列数はビューポート幅でなく「この箱の幅」で決める（@container）。
               ビューポートで分岐していた頃は、サイドバー240pxが現れる md(768px) 以降で
               実効幅が448pxしかないのに4列（1枚103px）まで詰まっていた。列数の閾値は
