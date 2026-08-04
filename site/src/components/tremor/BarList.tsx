@@ -22,6 +22,27 @@ interface BarListProps<T = unknown>
   barClassName?: string;
 }
 
+/**
+ * ラベルの直後に置く読み上げ・抽出用の値（Tremor 既定には無い追加・Issue #77）。
+ *
+ * BarList は名前の列と値の列を**別の DOM 列**として描くため、テキストとして
+ * 線形化すると「名前×10 → 値×10」の順に並び、「康熙帝（清）は61年332日」という
+ * 文字列がページ上のどこにも存在しない。視覚的な位置でしか対応が取れないので、
+ * 抽出側（生成エンジン・読み上げ）が対応関係を保つ保証がない。
+ *
+ * - **`aria-label` で足さない** — アクセシブル名を置き換えるので可視テキストが消え、
+ *   WCAG 2.5.3 Label in Name 違反になる（2026-07-27 の実装で踏んだ罠）。
+ *   `sr-only` の追記なら可視ラベルが名前の前方一致で残る
+ * - 値の列（右側）は**そのまま残す** — 可視の内容を a11y ツリーから消さない。
+ *   読み上げで値が2回出るほうが、列ごと消えるより安い
+ * - `valueFormatter` を通した表示文字列を入れる。生の `item.value` を入れると、
+ *   ランキングのように value が内部値（`ratio * 1_000_000`）の呼び出しで
+ *   `1000000` が出る（見た目は変わらないので気づけない）
+ */
+function ValueForText({ value }: { value: string }) {
+  return <span className="sr-only">{` ${value}`}</span>;
+}
+
 function BarListInner<T>(
   {
     data = [],
@@ -117,11 +138,14 @@ function BarListInner<T>(
                       // focus
                       focusRing,
                     )}
-                    target="_blank"
-                    rel="noreferrer"
+                    // Tremor 既定の target="_blank" rel="noreferrer" は外してある
+                    // （Issue #77・2026-08-05 ユーザー決定）。この BarList のリンク先は
+                    // サイト内の皇帝個別ページだけで、新規タブを開くのは既定の巻き添え。
+                    // Tremor を上げ直すときに戻さないこと。
                     onClick={(event) => event.stopPropagation()}
                   >
                     {item.name}
+                    <ValueForText value={valueFormatter(item.value)} />
                   </a>
                 ) : (
                   <p
@@ -133,6 +157,7 @@ function BarListInner<T>(
                     )}
                   >
                     {item.name}
+                    <ValueForText value={valueFormatter(item.value)} />
                   </p>
                 )}
               </div>
