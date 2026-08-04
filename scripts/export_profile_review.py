@@ -42,8 +42,10 @@ CACHE_DIRS = [ROOT / "_corpus_cache", Path("/home/sakis/emperor-stats/_corpus_ca
 
 RUBY = re.compile(r"｜([^｜《》]+)《([^｜《》]+)》")
 
-# レビュー依頼文。**docs/process/profile-writing/STYLE.md の要約**で、
-# 片方だけ変えないこと（外部レビューが我々の規約ではなく一般論で採点し始める）。
+# レビュー依頼文。もとは docs/process/profile-writing/STYLE.md の要約だったが、
+# **2026-08-04 に STYLE.md ごと文体規範を削除した**（紹介文76本も全削除）。
+# 規範を立て直したら、この文もその要約に差し替えること
+# （ずれたまま使うと外部レビューが我々の規約ではなく一般論で採点し始める）。
 BRIEF = """\
 # 紹介文レビューのお願い
 

@@ -22,7 +22,6 @@
 | [process/CONSTRAINTS.md](process/CONSTRAINTS.md) | 絶対に守るべき制約（冒頭に「削ってよい指示との区別」） |
 | [process/COUPLINGS.md](process/COUPLINGS.md) | 結合レジストリ（Xを触ったらYも触る）。実体は `scripts/patch_emperor.py` が触ったパスから出す |
 | [process/CLAIMS_CONTRACT.md](process/CLAIMS_CONTRACT.md) | 調査エージェントの出力契約（claims-first） |
-| [process/profile-writing/](process/profile-writing/) | 紹介文（Issue #16）の4段手順とプロンプト雛形（README・WRITER・VERIFIER・WEBDIFF・REVISER） |
 | [process/PROCESS_IMPROVEMENTS.md](process/PROCESS_IMPROVEMENTS.md) | 手順改善の提案と採否。**通読しない** — 新しい提案を末尾へ足すための台帳 |
 | [process/AI_RESEARCH_LESSONS.md](process/AI_RESEARCH_LESSONS.md) | 史書をAIで調査する方法の知見集（なぜその方法か・失敗事例・一般化できる設計指針）。10節はエージェント運用とドキュメントの書き方 |
 

@@ -5,17 +5,24 @@ description: 皇帝の紹介文（GitHub Issue #16）を1ブロック書くと�
 
 # 紹介文を1ブロック書く
 
-**手順の本文は `docs/process/profile-writing/README.md` が正**です（4段の雛形もそこ）。
-このスキルは「毎回同じ形で回す」ための入口で、規則を写し直すためのものではありません。
+> **2026-08-04: このスキルは着手できません。** 手順の本文と4段の雛形を置いていた
+> `docs/process/profile-writing/`（README・STYLE・WRITER・VERIFIER・WEBDIFF・REVISER）と、
+> 執筆規約 `data/emperor-profiles.json` の `meta.policy` を削除し、
+> **既存の紹介文76本も全削除して白紙から書き直す**ことになりました
+> （サイトに掲載する方針自体は変わっていません）。
+> **規範と手順を立て直すまで1ブロックも起こさず、ユーザーに方針を確認してください。**
+> 削除前の状態は git の `f1311ff` から読めます。
+
+以下は道具立て（エージェント・ゲート・記録先）の覚え書きで、そのまま残してあります。
 
 ## 段ごとに別エージェント
 
-| 段 | エージェント | 雛形 | 体数 |
-|---|---|---|---|
-| 1. 執筆 | `profile-writer` | `WRITER.md` | 1 |
-| 2. 敵対的検証 | `adversarial-verifier` | `VERIFIER.md` | **1 か 3**（下記） |
-| 3. Web 差分検出 | `profile-webdiff` | `WEBDIFF.md` | 1 |
-| 4. 修正 | `profile-reviser` | `REVISER.md` | 1 |
+| 段 | エージェント | 体数 |
+|---|---|---|
+| 1. 執筆 | `profile-writer` | 1 |
+| 2. 敵対的検証 | `adversarial-verifier` | **1 か 3**（下記） |
+| 3. Web 差分検出 | `profile-webdiff` | 1 |
+| 4. 修正 | `profile-reviser` | 1 |
 
 **同じエージェントに続けてやらせない**（自分の書いたものを自分で検証することになる）。
 段構成を書くときは `.claude/workflows/` の既存スクリプトに倣い、**検証段を省かない**

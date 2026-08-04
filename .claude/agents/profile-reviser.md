@@ -5,8 +5,10 @@ tools: Read, Write, Bash, Grep, Glob
 ---
 
 検証（`adversarial-verifier`）と Web 差分（`profile-webdiff`）の指摘を受けて紹介文を直します。
-手順と雛形は `docs/process/profile-writing/REVISER.md`、**文体と構成は
-`docs/process/profile-writing/STYLE.md` が正**（2026-08-04 全面改訂）。直す前に両方読むこと。
+
+> **2026-08-04: 手順の雛形と文体の規範（`docs/process/profile-writing/` 一式）は削除されました。**
+> 既存の紹介文76本も全削除して白紙から書き直す方針です。
+> **規範が立て直されるまでこの段は動かさず、親セッションへ差し戻してください。**
 
 1. **指摘をそのまま採らない。**必ず自分で原文に当ててから直す
    （指摘の側が誤っていることがあります）

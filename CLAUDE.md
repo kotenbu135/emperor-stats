@@ -16,7 +16,7 @@
 |---|---|
 | データ誤りの訂正 | `/correct-record` |
 | 新しい調査ブロックの着手 | `/research-block`（着手前の罠は `python3 scripts/brief_block.py <書名>`） |
-| 紹介文（Issue #16） | `/profile-block` ＋ [docs/process/profile-writing/README.md](docs/process/profile-writing/README.md) |
+| 紹介文（Issue #16） | **着手できない。** 2026-08-04 に既存76本・手順書 `docs/process/profile-writing/`・執筆規約 `meta.policy` をすべて削除した（サイトに掲載する方針は変えていない）。規範を立て直すまで `/profile-block` は差し戻し状態 |
 | 名前データの補充（Issue #37） | `/name-block` |
 | サイトを触る | [site/AGENTS.md](site/AGENTS.md)（崩すとビルドが落ちる契約）と [docs/site-design/SITE_DESIGN.md](docs/site-design/SITE_DESIGN.md)（決着済み・再提案しない）を先に読む |
 
