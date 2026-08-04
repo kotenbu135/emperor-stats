@@ -363,7 +363,7 @@ export function EmperorGrid({
   //   @4xl(56rem)〜 : すべて帯に並ぶ（ポップオーバーのボタンは消える）
   const filterControls = (
     <>
-      <div className="hidden min-w-0 flex-1 @xl/bar:block @xl/bar:max-w-[12rem]">
+      <div className="hidden min-w-0 flex-1 @min-[26rem]/bar:block @xl/bar:max-w-[12rem]">
         <SearchField
           bare
           value={query}
@@ -394,9 +394,16 @@ export function EmperorGrid({
       </div>
       <Popover open={filterOpen} onOpenChange={setFilterOpen}>
         <PopoverTrigger asChild>
-          <Button variant="outline" className="shrink-0 @4xl/bar:hidden">
+          <Button
+            variant="outline"
+            // 検索窓すら出ない幅ではアイコンだけにする。文字を残すと、条件が
+            // 効いたときの縮み代がジャンプのトリガーからしか出せない。
+            // 読み上げ名は aria-label が持つので、文字が消えても名前は残る。
+            aria-label="絞り込み"
+            className="shrink-0 @4xl/bar:hidden"
+          >
             <SlidersHorizontal data-icon="inline-start" />
-            絞り込み
+            <span className="hidden @xl/bar:inline">絞り込み</span>
             {activeFilterCount > 0 && (
               <span className="rounded-full bg-seal px-1.5 text-micro tabular-nums text-seal-foreground">
                 {activeFilterCount}

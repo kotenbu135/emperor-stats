@@ -74,10 +74,22 @@ const server = useOwnServer ? await serveExport(ROOT, PORT) : null;
 const browser = await chromium.launch();
 let ng = 0;
 
+// 絞り込みが効いている状態は帯の右側がいちばん太る（件数が「42/365名」になり、
+// 「絞り込み」ボタンに件数の印が付く）。太った分は縮む側＝ジャンプのトリガーが
+// 全部かぶるので、**溢れないことだけでは足りない**（時代名が1〜2文字に潰れる）。
+// 素の状態と絞り込み後の両方を、同じ幅で測る。
+const CASES = [
+  ["素", ""],
+  ["絞込", `?q=${encodeURIComponent("武")}&dynasty=tang`],
+];
+/** ジャンプのトリガーがこれを下回ったら時代名が読めない（chevron と padding で36px使う）。 */
+const MIN_TRIGGER_W = 90;
+
+for (const [caseName, qs] of CASES)
 for (const width of WIDTHS) {
   const ctx = await browser.newContext({ viewport: { width, height: 900 }, locale: "ja-JP" });
   const page = await ctx.newPage();
-  await page.goto(`${BASE}/emperors`, { waitUntil: "networkidle" });
+  await page.goto(`${BASE}/emperors${qs}`, { waitUntil: "networkidle" });
   await sleep(400);
   const m = await page.evaluate((sel) => {
     const nav = document.querySelector(sel);
@@ -88,11 +100,13 @@ for (const width of WIDTHS) {
       const el = nav.querySelector(q);
       return !!el && el.getBoundingClientRect().width > 0;
     };
+    const trigger = nav.querySelector('[data-slot="popover-trigger"]');
     return {
       height: nav.getBoundingClientRect().height,
       innerWidth: Math.round(inner.getBoundingClientRect().width),
       scrollWidth: row.scrollWidth,
       clientWidth: row.clientWidth,
+      triggerWidth: Math.round(trigger?.getBoundingClientRect().width ?? 0),
       search: shown('input[aria-label="皇帝を検索"]'),
       dynasty: shown('[aria-label="王朝で絞り込み"]'),
       category: shown('[aria-label="王朝の区分で絞り込み"]'),
@@ -100,16 +114,18 @@ for (const width of WIDTHS) {
   }, NAV);
   await ctx.close();
   if (!m) {
-    console.log(`${String(width).padStart(4)}px  帯が無い  ← NG`);
+    console.log(`${caseName}\t${String(width).padStart(4)}px  帯が無い  ← NG`);
     ng++;
     continue;
   }
   const overflow = m.scrollWidth > m.clientWidth + 1;
-  const bad = m.height !== BAR_H || overflow;
+  const narrowTrigger = m.triggerWidth < MIN_TRIGGER_W;
+  const bad = m.height !== BAR_H || overflow || narrowTrigger;
   if (bad) ng++;
   console.log(
-    `${String(width).padStart(4)}px  内幅${String(m.innerWidth).padStart(4)}  高さ${m.height}` +
+    `${caseName}\t${String(width).padStart(4)}px  内幅${String(m.innerWidth).padStart(4)}  高さ${m.height}` +
       `  溢れ${overflow ? `YES(${m.scrollWidth}>${m.clientWidth})` : "no"}` +
+      `  ジャンプ幅${String(m.triggerWidth).padStart(3)}${narrowTrigger ? "!" : " "}` +
       `  [検索${m.search ? "○" : "-"} 王朝${m.dynasty ? "○" : "-"} 区分${m.category ? "○" : "-"}]` +
       `${bad ? "  ← NG" : ""}`,
   );

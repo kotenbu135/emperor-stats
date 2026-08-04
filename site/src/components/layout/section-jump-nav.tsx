@@ -177,7 +177,10 @@ export function SectionJumpNav({
                 <Button
                   variant="outline"
                   // 帯に並ぶ他の操作（検索窓・セレクト）が h-8 なので高さを揃える。
-                  className="min-w-0 shrink justify-between @xl/bar:min-w-[9.5rem]"
+                  // **幅に下限を置く** — 右に絞り込みが載る面では、条件が効いた
+                  // 瞬間に右側が太り（件数が「42/365名」になり印が付く）、縮み代を
+                  // 全部かぶるここが2文字まで潰れる（下限が無いと実測68px）。
+                  className="min-w-[6.5rem] shrink justify-between @xl/bar:min-w-[9.5rem]"
                 >
                   <span className="truncate">
                     {current.label}
