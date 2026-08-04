@@ -300,6 +300,9 @@ function toNakaguro(text: string): string {
  * そのまま画面に出すと訪問者には意味が通らない。ここで訪問者向けの時代区分ラベルへ変換する。
  * ここに無いsectionが現れた場合は eraLabelOf が throw してビルド時に検出される
  * （皇帝を追加収録したらこの表への追記が必要）。
+ *
+ * **調査ブロックと時代ラベルは1対1ではない** — 「宋遼西夏金」だけは政権単位で
+ * 2つの時代ラベルへ割る（下の `ERA_BY_REGIME`）。
  */
 const ERA_BY_SECTION: Record<string, string> = {
   "秦（始皇帝以降）": "秦・前漢",
@@ -329,17 +332,30 @@ const ERA_BY_SECTION: Record<string, string> = {
   隋末群雄: "隋末",
   唐: "唐",
   五代十国: "五代十国",
-  宋遼西夏金: "宋・遼・西夏・金",
+  宋遼西夏金: "遼・西夏・金",
   元: "元",
   明: "明",
   清: "清",
 };
 
-function eraLabelOf(dynasty: RawEmperor["dynasty"]): string {
-  const era = ERA_BY_SECTION[dynasty.section];
+/**
+ * 調査ブロックより細かく時代ラベルを割る上書き（**キーは政権 ID**）。
+ *
+ * 「宋遼西夏金」は52人＝1見出しで、一覧の時代ジャンプでは宋の帝と並立政権の帝が
+ * 同じ行き先になっていた。2026-08-04 に「宋」（北宋・南宋の18人）と
+ * 「遼・西夏・金」（遼・西遼・金・西夏＋金が立てた傀儡の楚・斉の34人）へ分けた。
+ * 傀儡2政権（張邦昌の楚・劉豫の斉）は金側に置いてある。
+ */
+const ERA_BY_REGIME: Record<string, string> = {
+  "northern-song": "宋",
+  "southern-song": "宋",
+};
+
+function eraLabelOf(e: Pick<RawEmperor, "dynasty" | "regimeId">): string {
+  const era = ERA_BY_REGIME[e.regimeId] ?? ERA_BY_SECTION[e.dynasty.section];
   if (!era) {
     throw new Error(
-      `未対応の調査ブロック名です: "${dynasty.section}"（ERA_BY_SECTIONに時代ラベルを追加してください）`,
+      `未対応の調査ブロック名です: "${e.dynasty.section}"（ERA_BY_SECTIONに時代ラベルを追加してください）`,
     );
   }
   return era;
@@ -360,7 +376,9 @@ const duplicatedDynastyNames: Set<string> = (() => {
 
 /** 同名王朝の区別に付す時代サフィックス。長い時代名は短縮する。 */
 const ERA_SUFFIX: Record<string, string> = {
-  "宋・遼・西夏・金": "宋金代",
+  // 「遼・西夏・金」の時代でサフィックスが付くのは傀儡の楚（張邦昌）・斉（劉豫）だけ
+  // なので、時代を分ける前と同じ「楚・宋金代」「斉・宋金代」を保つ。
+  "遼・西夏・金": "宋金代",
   五胡十六国: "五胡",
   "新〜後漢初": "後漢初",
 };
@@ -375,7 +393,7 @@ const ERA_SUFFIX: Record<string, string> = {
 const ambiguousNameInEra: Set<string> = (() => {
   const regimesByNameEra = new Map<string, Set<string>>();
   for (const e of data.emperors) {
-    const key = `${e.dynasty.name}__${eraLabelOf(e.dynasty)}`;
+    const key = `${e.dynasty.name}__${eraLabelOf(e)}`;
     const set = regimesByNameEra.get(key) ?? new Set<string>();
     set.add(e.regimeId);
     regimesByNameEra.set(key, set);
@@ -386,7 +404,7 @@ const ambiguousNameInEra: Set<string> = (() => {
 })();
 
 function dynastyLabel(e: RawEmperor): string {
-  const era = eraLabelOf(e.dynasty);
+  const era = eraLabelOf(e);
   if (ambiguousNameInEra.has(`${e.dynasty.name}__${era}`)) {
     // 「梁（蕭銑）」→「梁・蕭銑」。括弧は toNakaguro がサイトの表記（中黒）へ揃える。
     return toNakaguro(e.regimeLabel);
@@ -621,7 +639,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     dynastySection: e.dynasty.section,
     dynastyKey: dynastyKey(e),
     dynastyLabel: dynastyLabel(e),
-    eraLabel: eraLabelOf(e.dynasty),
+    eraLabel: eraLabelOf(e),
     dynastyCategory: e.dynasty.category,
     // 政権の中で正規の皇帝か対立・僭称の皇帝か（v3 の standing）。旧 dynasty.category が
     // 政権の性格と混ぜて持っていた人物単位の情報がこちらへ分かれた。
@@ -661,7 +679,7 @@ export function getAllEmperorRecords(): EmperorRecord[] {
     posthumousName: e.name.posthumousName,
     aliases: e.name.aliases ?? [],
     wikidataId: e.sources?.wikidata ?? null,
-    searchText: searchTextOf(e, dynastyLabel(e), eraLabelOf(e.dynasty)),
+    searchText: searchTextOf(e, dynastyLabel(e), eraLabelOf(e)),
     hasPortrait: portraitIds.has(e.id),
     portraitUrl: portraitIds.has(e.id) ? `${BASE_PATH}/portraits/${e.id}.webp` : null,
     portraitFocusY: portraitFocusById.get(e.id) ?? null,
@@ -704,7 +722,7 @@ export function getEmperorListRecords(): EmperorListRecord[] {
   const kanaById = new Map(
     data.emperors.map((e) => [
       e.id,
-      searchKanaOf(e, dynastyLabel(e), eraLabelOf(e.dynasty)),
+      searchKanaOf(e, dynastyLabel(e), eraLabelOf(e)),
     ]),
   );
   const records = getAllEmperorRecords().map((r) => ({
@@ -1736,7 +1754,7 @@ export interface HomeConcurrentReigns {
   /** 区間の作り方の内訳。**全在位が区間になる**ことがこの図の前提。 */
   coverage: { total: number; dated: number; filled: number };
   /**
-   * 拡大の行き先（時代プリセット）。**時代ラベルは `ERA_BY_SECTION` の15区分**で、
+   * 拡大の行き先（時代プリセット）。**時代ラベルは `ERA_BY_SECTION` の16区分**で、
    * サイトの他の面（一覧の時代ジャンプ・個別ページ）と同じ語彙にそろえてある
    * （`catalogs.eras` の11区分でも新しい呼び名でもない）。
    * 年の範囲はレコードから測った実測値で、表示範囲の上限で頭を切る。
@@ -1962,7 +1980,7 @@ export function getConcurrentReigns(): HomeConcurrentReigns {
   // （ソートすると「五胡十六国」より「三国」が後ろに来る）。
   const eraSpans = new Map<string, { from: number; to: number }>();
   for (const e of data.emperors) {
-    const label = eraLabelOf(e.dynasty);
+    const label = eraLabelOf(e);
     const from = Math.min(...e.reigns.map((r) => r.startYear));
     const to = Math.max(...e.reigns.map((r) => r.endYear));
     const cur = eraSpans.get(label);

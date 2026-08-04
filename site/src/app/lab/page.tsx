@@ -29,7 +29,7 @@ import {
  *  - 集計は `lib/lab-stats.ts`（/lab 専用・emperors.ts とは別ファイル）
  *  - 数値は `site/tools/chart-candidates-stats.py` の出力と一致させてある。
  *    検討記録の表と突き合わせるため、時代は `catalogs.eras` の11区分
- *    （サイト本体の `ERA_BY_SECTION` 15区分ではない）
+ *    （サイト本体の `ERA_BY_SECTION` 16区分ではない）
  *
  * 採用が決まった候補はここから公開ページへ移し、この面ごと畳む。
  */
@@ -77,7 +77,7 @@ export default function LabPage() {
               <code className="text-xs text-foreground">meta.catalogs.eras</code>{" "}
               の11区分で、
               <strong className="text-foreground">
-                サイト本体の15区分ではない
+                サイト本体の16区分ではない
               </strong>
               — 盤面へ載せるときは組み替えが要り、南北朝69名が南朝・北朝へ割れて数字が動く。
               検討記録の表が11区分のうち近代（1名・袁世凱）を落として364名になっている箇所は、
