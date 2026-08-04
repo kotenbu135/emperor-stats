@@ -191,20 +191,28 @@ export function OverviewBoard({
 
   return (
     <div className="space-y-6">
-      <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {/* 4枚を横に並べるのは xl から（2026-08-04）— lg で4列にすると1枚が実測145px
+          （文字が入るのは padding を引いた105px）まで痩せ、「前221年〜1945年」が
+          「前 / 221年〜 / 1945年」の3行に割れる。数値は text-3xl のまま動かさない
+          （盤面の見出し数値なので、幅に合わせて縮めると段ごとに大きさが変わる）。 */}
+      <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {figures.map((f) => (
           <FigureCard key={f.label} figure={f} />
         ))}
       </dl>
 
-      {/* 左（3/5）にランキング、右（2/5）に内訳2枚。右列は justify-between なので、
-          余った高さは2枚のカードの「間」に入る（カードの中に空白を作らない）。
-          **下端を揃えるのは右列が短いときだけ**（2026-08-02）— 凡例が幅に応じて
-          1列へ落ちるようになり、1024〜1180px では右列のほうが約280px 長くなった。
-          そこで左を伸ばすと、10行のランキングの下に同じだけの空白ができる。
-          長短が入れ替わったので、左は内容の高さで止める（`lg:self-start`）。 */}
+      {/* 左（3/5）にランキング、右（2/5）に内訳2枚。**3:2 に割るのは xl から**
+          （2026-08-04）— lg（1024〜1279px）では右列の幅が 268〜364px しかなく、
+          凡例が1列へ落ちて右列だけが 848px まで伸びる（左は568px・差280px）。
+          2026-08-02 はこれを `lg:self-start` で受けたが、**空白がカードの中から
+          外へ移るだけ**で、左の下に280pxの穴が空いたままだった（ユーザー指摘・
+          2026-08-04）。lg では段を割らず、ランキングを全幅・内訳2枚を横並びにする。
+          右列が2列凡例に届くのは幅368px＝ビューポート約1276pxからなので、
+          切り替えの境目は xl（1280px）に合わせてある。
+          **`self-start` は付けない**（2026-08-04）— xl 以上で左は544px・右は568pxと
+          差が24pxしかなく、伸ばして下端を揃えるほうを採った。3タブとも実測で差0px。 */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
-        <Card className="lg:col-span-3 lg:self-start">
+        <Card className="lg:col-span-5 xl:col-span-3">
           {/* 3指標とも「上位N名を1本ずつの横棒で並べる」同じ型なので、
               カードを3枚並べずタブで切り替える。説明文は指標ごとに母集団が
               違う（年齢は判明者のみ）ため、見出しではなく各タブの中に置く。 */}
@@ -232,9 +240,11 @@ export function OverviewBoard({
           </Tabs>
         </Card>
 
-        {/* 死因と即位経路は別々のカード。h-full + justify-between で、左のランキングと
-            下端を揃えつつ、余った高さを2枚の「間」へ逃がす。 */}
-        <div className="flex h-full flex-col justify-between gap-4 lg:col-span-2">
+        {/* 死因と即位経路は別々のカード。lg では横に2枚（上のランキングが全幅なので
+            段の下端は自然に揃う）、xl から縦2枚に戻す。xl の h-full + content-between は
+            ランキングと下端を揃えつつ余った高さを2枚の「間」へ逃がすためで、
+            カードの中には空白を作らない。 */}
+        <div className="grid gap-4 lg:col-span-5 lg:grid-cols-2 xl:col-span-2 xl:h-full xl:grid-cols-1 xl:content-between">
           <Card>
             <PanelHeading title="死因" description="正史の記述を元に分類しています" />
             <div className="mt-5">
