@@ -14,7 +14,8 @@
 //     （件数が「42/365名」になり印が付く）、その増分を1つの要素が全部かぶる。
 //     **溢れてはいないので scrollWidth の検査では拾えない**（/emperors で実際に
 //     時代名が2文字まで潰れた）
-//  4. 0件のときも帯が残り、絞り込みを外せること
+//  4. 0件のときも帯が残り、絞り込みを外せること。**/emperors は逆に、ジャンプ側
+//     （トリガー・見出し・群の罫線）が丸ごと消えていること**
 //  5. /database は送った先で表見出しが帯の下に貼り付くこと（帯の裏へ潜らない）
 //
 // 幅の分岐は帯の内幅（container query）で決まるので、ビューポート幅は md 以上で
@@ -67,7 +68,11 @@ function serveExport(root, port) {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const BAR_H = 48;
-const WIDTHS = [360, 390, 640, 768, 900, 1024, 1280, 1440, 1920];
+// 1000/1008 は**/emperors の内幅 42rem(672px) の境目を挟むため**（内幅 ≈ ビューポート
+// − 330px なので境目はビューポート1002px）。ここで「時代へジャンプ」の見出しと群を
+// 仕切る罫線が現れる。900→1024 だけを測っていると、**中身が増える瞬間の幅がどの
+// ケースにも当たらない**。
+const WIDTHS = [360, 390, 640, 768, 900, 1000, 1008, 1024, 1280, 1440, 1920];
 
 const PAGES = [
   {
@@ -78,7 +83,10 @@ const PAGES = [
     cases: [["素", ""], ["絞込", `?q=${encodeURIComponent("武")}&dynasty=tang`]],
     // 縮み代を全部かぶる要素と、そこを下回ったら読めなくなる幅
     // （時代名＋chevron＋padding で36px使う）。
-    floor: { name: "ジャンプ", sel: '[data-slot="popover-trigger"]', min: 90 },
+    // **ジャンプのトリガーは data-jump-trigger で引く。** 帯には王朝コンボボックスと
+    // 「絞り込み」パネルも同じ data-slot="popover-trigger" で載っているので、slot で
+    // 引くと節が0個の場面で別のトリガーを拾う（下の gone 検査が素通りした）。
+    floor: { name: "ジャンプ", sel: "[data-jump-trigger]", min: 90 },
     probes: [
       ["検索", 'input[aria-label="皇帝を検索"]'],
       ["王朝", '[aria-label="王朝で絞り込み"]'],
@@ -88,6 +96,16 @@ const PAGES = [
       qs: `?q=${encodeURIComponent("存在しない名前")}`,
       value: 'input[aria-label="皇帝を検索"]',
       text: "条件に一致する皇帝がいません",
+      // **節が0個になったらジャンプ側は丸ごと消えていること。** トリガーが消えても
+      // 見出しと群を仕切る罫線は別の要素なので、ガードを書き忘れると「指す相手の
+      // いない見出し」と「片側が空の群を仕切る罫線」が帯の左端に残る（高さも溢れも
+      // 変わらないので他の検査では拾えない）。
+      gone: [
+        ["ジャンプ", "[data-jump-trigger]"],
+        ["見出し", "[data-jump-label]"],
+      ],
+      // 残ってよい罫線は件数の手前の1本だけ（操作と結果の仕切りは節が無くても要る）。
+      rules: 1,
     },
     stickyHead: null,
   },
@@ -229,23 +247,36 @@ for (const p of PAGES) {
     await page.goto(`${BASE}${p.path}${p.empty.qs}`, { waitUntil: "networkidle" });
     await sleep(600);
     const r = await page.evaluate(
-      ({ sel, valueSel, text }) => {
+      ({ sel, valueSel, text, gone }) => {
         const bar = document.querySelector(sel);
+        const visible = (el) => !!el && el.getBoundingClientRect().width > 0;
         return {
           bar: !!bar,
           height: bar?.getBoundingClientRect().height,
           query: bar?.querySelector(valueSel)?.value,
           noResults: document.body.textContent.includes(text),
+          left: gone.map(([, q]) => visible(bar?.querySelector(q))),
+          rules: bar
+            ? [...bar.querySelectorAll("[data-bar-rule]")].filter(visible).length
+            : 0,
         };
       },
-      { sel: p.bar, valueSel: p.empty.value, text: p.empty.text },
+      { sel: p.bar, valueSel: p.empty.value, text: p.empty.text, gone: p.empty.gone ?? [] },
     );
     await ctx.close();
-    const bad = !r.bar || r.height !== BAR_H || !r.noResults || errors.length > 0;
+    const leftovers = r.left.some(Boolean);
+    const wrongRules = p.empty.rules !== undefined && r.rules !== p.empty.rules;
+    const bad =
+      !r.bar || r.height !== BAR_H || !r.noResults || leftovers || wrongRules || errors.length > 0;
     if (bad) ng++;
     console.log(
       `${p.label}\t0件      帯${r.bar ? "有" : "無"} 高さ${r.height} 検索欄「${r.query}」` +
-        ` 0件表示${r.noResults ? "有" : "無"} JSエラー${errors.length}${bad ? "  ← NG" : ""}`,
+        ` 0件表示${r.noResults ? "有" : "無"}` +
+        (p.empty.gone
+          ? ` ${p.empty.gone.map(([n], i) => `${n}${r.left[i] ? "残" : "無"}`).join(" ")}`
+          : "") +
+        (p.empty.rules === undefined ? "" : ` 罫線${r.rules}本${wrongRules ? "!" : ""}`) +
+        ` JSエラー${errors.length}${bad ? "  ← NG" : ""}`,
     );
   }
 }

@@ -439,20 +439,32 @@ export function EmperorGrid({
           </FilterField>
         </PopoverContent>
       </Popover>
-      <ResultCount
-        pending={stale}
-        className="shrink-0 whitespace-nowrap text-xs @2xl/bar:text-sm"
-      >
-        {/* ResultCount は flex（スピナーとの間隔）なので、文言は1つの要素に
-            まとめる — 分けると数字と単位の間に gap が入って「365 名」になる。
-            狭い帯では「を表示中」を落として数字だけにする。 */}
-        <span>
-          <span className="tabular-nums">
-            {hasFilter ? `${filtered.length}/${records.length}` : records.length}
+      {/* 件数は帯の右端。**ml-auto はこの箱が持つ**（SectionJumpNav 側は
+          trailing を右詰めしない）ので、帯の余りは「操作の並び」と「結果の表示」の
+          間に集まる。罫線と件数を1つの箱にまとめてあるのは、罫線が消える狭い帯でも
+          件数が右端に残るようにするため（罫線側に ml-auto を持たせると、消えた
+          瞬間に件数が絞り込みへくっつく）。 */}
+      <div className="ml-auto flex shrink-0 items-center gap-2">
+        <span
+          aria-hidden
+          data-bar-rule=""
+          className="hidden h-5 w-px bg-border @2xl/bar:block"
+        />
+        <ResultCount
+          pending={stale}
+          className="shrink-0 whitespace-nowrap text-xs @2xl/bar:text-sm"
+        >
+          {/* ResultCount は flex（スピナーとの間隔）なので、文言は1つの要素に
+              まとめる — 分けると数字と単位の間に gap が入って「365 名」になる。
+              狭い帯では「を表示中」を落として数字だけにする。 */}
+          <span>
+            <span className="tabular-nums">
+              {hasFilter ? `${filtered.length}/${records.length}` : records.length}
+            </span>
+            名<span className="hidden @xl/bar:inline">を表示中</span>
           </span>
-          名<span className="hidden @xl/bar:inline">を表示中</span>
-        </span>
-      </ResultCount>
+        </ResultCount>
+      </div>
     </>
   );
 
@@ -466,7 +478,11 @@ export function EmperorGrid({
         label="時代へジャンプ"
         ariaLabel="時代へジャンプと絞り込み"
         // 一覧本文は既に px-gutter された箱の中なので、バーだけ全幅に戻す。
-        className="-mx-gutter md:-mx-gutter-wide"
+        // **上の余白も打ち消してページヘッダーの罫線に密着させる**（2026-08-04）。
+        // py-section の 32px が帯の上に残っていたため、初期表示ではヘッダーの
+        // 下罫と帯の下罫に挟まれた 80px の中でコントロールが下寄り（上40px・下8px）
+        // に見えていた。帯そのものは 48px の中で上下 7.5px の中央にある。
+        className="-mx-gutter -mt-section md:-mx-gutter-wide"
         items={sections.map(([era, list]) => ({
           id: `era-${era}`,
           label: era,

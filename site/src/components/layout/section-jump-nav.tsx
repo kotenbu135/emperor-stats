@@ -83,6 +83,9 @@ export function SectionJumpNav({
    * 240px のぶん実効幅が狭く、768px の画面で内幅は448pxしかない）ため、
    * 中身は `@container/bar` の container query 変種（`@xl/bar:` など）で書く。
    * **ポップオーバーの中身はポータルで帯の外へ出る**ので `/bar` の変種は効かない。
+   * **この箱は右詰めしない**（2026-08-04）ので、帯の右端に置きたいもの（件数など）
+   * には渡す側が `ml-auto` を付ける — 余りを右端の1箇所に集めるための持ち方で、
+   * 箱ごと右詰めすると余りがジャンプとの間（帯の中央）に戻る。
    */
   trailing?: ReactNode;
   /** バーの中身を揃える列幅クラス。**そのページの本文列と必ず同じ値にする** —
@@ -155,84 +158,116 @@ export function SectionJumpNav({
       innerWidth={innerWidth}
       className={className}
     >
-      {/* 見出しは帯に収まるときだけ出す。絞り込みを載せる面では帯がいちばん
-          広いときに限る（出したままにすると右端の件数が押し出される）。 */}
-      <span
-        className={cn(
-          "hidden shrink-0 text-xs text-muted-foreground",
-          trailing ? "@5xl/bar:inline" : "@md/bar:inline",
-        )}
-      >
-        {label}
-      </span>
+      {/* **見出しはジャンプ本体と同じ条件でしか出さない。** 0件（節が0個）でも
+          絞り込みのために帯は残るので、`current` の外に置くと「時代へジャンプ」
+          だけが独りで立つ（指すトリガーが無い見出し）。
+          幅の閾値は、絞り込みを載せる面では **@2xl/bar（内幅672px）**（2026-08-04）
+          — 帯の中身が両群に分かれて中央が空くのが内幅694px（ビューポート1024px）
+          からで、そこには見出しの91pxを置く余地がある。それ未満（内幅570px以下）は
+          群の間が8pxしかないので出さない。**見出しが無い幅では、ジャンプのトリガーが
+          右の「すべての王朝」「すべての区分」と同型・同高で並び、3つ目の絞り込みに
+          見える**（王朝で絞ると帯に同じ王朝名が2箇所出て、どちらが条件か読めない）。 */}
       {current && (
-        <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              // 帯に並ぶ他の操作（検索窓・セレクト）が h-8 なので高さを揃える。
-              // **幅に下限を置く** — 右に絞り込みが載る面では、条件が効いた
-              // 瞬間に右側が太り（件数が「42/365名」になり印が付く）、縮み代を
-              // 全部かぶるここが2文字まで潰れる（下限が無いと実測68px）。
-              className="min-w-[6.5rem] shrink justify-between @xl/bar:min-w-[9.5rem]"
-            >
-              <span className="truncate">
-                {current.label}
-                {current.count !== undefined && (
-                  <span className="ml-1.5 text-micro tabular-nums text-muted-foreground">
-                    {current.count}
-                  </span>
-                )}
-              </span>
-              <ChevronDown data-icon="inline-end" />
-            </Button>
-          </PopoverTrigger>
-          {/* 節は最大15個。2列に組めばどの幅でも一度に全部見える（縦スクロールも出ない）。 */}
-          <PopoverContent
-            align="start"
+        <>
+          <span
+            data-jump-label=""
             className={cn(
-              "grid gap-0.5 p-1",
-              popoverColumns === 2 ? "w-[22rem] grid-cols-2" : "w-[13rem] grid-cols-1",
+              "hidden shrink-0 text-xs text-muted-foreground",
+              trailing ? "@2xl/bar:inline" : "@md/bar:inline",
             )}
           >
-            {items.map((item) => {
-              const active = item.id === current.id;
-              return (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  aria-current={active ? "true" : undefined}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "flex items-baseline justify-between gap-2 rounded-sm px-2.5 py-1.5 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal",
-                    active
-                      ? "bg-seal text-seal-foreground"
-                      : "text-foreground/85 hover:bg-accent hover:text-seal",
-                  )}
-                >
-                  <span className="truncate">{item.label}</span>
-                  {item.count !== undefined && (
-                    <span
-                      className={cn(
-                        "shrink-0 text-micro tabular-nums",
-                        active ? "text-seal-foreground/80" : "text-muted-foreground",
-                      )}
-                    >
-                      {item.count}
+            {label}
+          </span>
+          <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                // 実測用の目印（`tools/bar-audit.mjs`）。**`[data-slot="popover-trigger"]`
+                // では特定できない** — 帯には王朝コンボボックスと「絞り込み」パネルも
+                // 同じ slot で載っていて、節が0個でジャンプが消えた場面では別の
+                // トリガーを拾って「ジャンプが残っている」と誤検出する。
+                data-jump-trigger=""
+                // 帯に並ぶ他の操作（検索窓・セレクト）が h-8 なので高さを揃える。
+                // **幅に下限を置く** — 右に絞り込みが載る面では、条件が効いた
+                // 瞬間に右側が太り（件数が「42/365名」になり印が付く）、縮み代を
+                // 全部かぶるここが2文字まで潰れる（下限が無いと実測68px）。
+                className="min-w-[6.5rem] shrink justify-between @xl/bar:min-w-[9.5rem]"
+              >
+                <span className="truncate">
+                  {current.label}
+                  {current.count !== undefined && (
+                    <span className="ml-1.5 text-micro tabular-nums text-muted-foreground">
+                      {current.count}
                     </span>
                   )}
-                </a>
-              );
-            })}
-          </PopoverContent>
-        </Popover>
+                </span>
+                <ChevronDown data-icon="inline-end" />
+              </Button>
+            </PopoverTrigger>
+            {/* 節は最大15個。2列に組めばどの幅でも一度に全部見える（縦スクロールも出ない）。 */}
+            <PopoverContent
+              align="start"
+              className={cn(
+                "grid gap-0.5 p-1",
+                popoverColumns === 2 ? "w-[22rem] grid-cols-2" : "w-[13rem] grid-cols-1",
+              )}
+            >
+              {items.map((item) => {
+                const active = item.id === current.id;
+                return (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    aria-current={active ? "true" : undefined}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "flex items-baseline justify-between gap-2 rounded-sm px-2.5 py-1.5 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal",
+                      active
+                        ? "bg-seal text-seal-foreground"
+                        : "text-foreground/85 hover:bg-accent hover:text-seal",
+                    )}
+                  >
+                    <span className="truncate">{item.label}</span>
+                    {item.count !== undefined && (
+                      <span
+                        className={cn(
+                          "shrink-0 text-micro tabular-nums",
+                          active ? "text-seal-foreground/80" : "text-muted-foreground",
+                        )}
+                      >
+                        {item.count}
+                      </span>
+                    )}
+                  </a>
+                );
+              })}
+            </PopoverContent>
+          </Popover>
+        </>
       )}
       {trailing && (
-        // 絞り込みは右詰め。縮む側（検索窓）が min-w-0 を効かせられるよう、
-        // この箱自体も min-w-0 で受ける。
-        <div className="ml-auto flex min-w-0 flex-1 items-center justify-end gap-2">
-          {trailing}
-        </div>
+        <>
+          {/* ジャンプと絞り込みの境界（2026-08-04）。**帯全体を右詰めにしていた
+              頃は余りが必ず中央1箇所に集まり**（実測: ビューポート1920で321px・
+              1440で231px・1280で166px・1024で142px）、どちらの群にも属さない
+              空白が「詰め忘れ」に見えていた。余りは件数の手前へ送り（渡す側が
+              件数に `ml-auto` を付ける）、ここは群の切れ目だけを示す。
+              **狭い帯（内幅570px以下・群の間が8px）では出さない** — 1pxでも
+              足すと縮み代をジャンプのトリガーがかぶる。**ジャンプが無い
+              （0件で節が0個の）ときも出さない** — 片側が空の群を仕切ると、
+              帯の左端に理由の無い罫線が立つ。 */}
+          {current && (
+            <span
+              aria-hidden
+              data-bar-rule=""
+              className="hidden h-5 w-px shrink-0 bg-border @2xl/bar:block"
+            />
+          )}
+          {/* 縮む側（検索窓）が min-w-0 を効かせられるよう、この箱自体も min-w-0 で
+              受ける。**justify-end は持たせない** — 右詰めは件数だけの役目で、
+              ここで詰めると余りが帯の中央へ戻る。 */}
+          <div className="flex min-w-0 flex-1 items-center gap-2">{trailing}</div>
+        </>
       )}
     </StickyBar>
   );
