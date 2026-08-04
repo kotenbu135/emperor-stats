@@ -101,7 +101,7 @@ const EmperorCard = memo(function EmperorCard({
       // 文字ブロックの高さが幅に比例しない（3行で常に68px）ため — 肖像を固定比に
       // すると狭い画面ほどカードが縦に伸びる。この持ち方なら肖像枠は 0.98(1440px)〜
       // 1.11(390px) のほぼ正方形に収まる。
-      className="group relative flex aspect-[3/4] flex-col overflow-hidden rounded-md border border-border bg-card text-left transition-[translate,border-color] duration-150 ease-out hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring motion-safe:hover:-translate-y-px motion-safe:hover:shadow-sm motion-reduce:transition-none"
+      className="group relative flex aspect-[3/4] flex-col overflow-hidden rounded-md border border-border bg-card text-left transition-[translate,border-color] duration-150 ease-out hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-seal motion-safe:hover:-translate-y-px motion-safe:hover:shadow-sm motion-reduce:transition-none"
     >
       {/* min-h-0 が無いと flex アイテムの既定 min-height:auto で肖像が縮まず、
           カードが3:4を超えて伸びる。 */}

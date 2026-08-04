@@ -768,3 +768,8 @@
 - **気づいた場面**: サブエージェントの報告
 - **提案**: - `claims` 要素のキー名が3箇所で食い違う（親プロンプト `line`／見本 `qin-er-shi.json` と `check_profile_fragment.py` の docstring は `src`）。雛形と見本のどちらかに揃え、ゲート側で未知キーを報告すると次回迷わない。
 - **採否**: 採用（2026-08-04・`src` へ統一済み。REVISER.md 29行目に明記）
+
+### 2026-08-04 hover-audit.mjs に focus 版を足す <!-- auto:ad6046361115 -->
+- **気づいた場面**: Web Interface Guidelines のレビューで、自作UIのリンク19箇所に focus-visible が無いことが分かった（/database の皇帝名リンク365行ぶんを含む）
+- **提案**: tools/hover-audit.mjs は hover の前後で計算済みスタイルを比べる実測ツールで、focus は見ていない。今回の抜けは 'hover はあるのに focus が無い' 形だったので、同じ枠組みで el.focus() 前後を比べれば機械で拾える。加えて globals.css の base が `*` に outline-ring/50 を当てているため、focus-visible を書き忘れた要素はブラウザ既定の輪郭ごと 1.7:1 まで落ちる（--ring 単体でも白地 2.59:1 で 3:1 未満）。当座の検出は grep（AGENTS.md の「操作の反応で守ること」に書いた）だが、hover-audit と同じ実測に寄せたほうが漏れない。
+- **採否**: 未提示（ユーザーへ上げていない）

@@ -229,7 +229,7 @@ export default async function EmperorPage({
             {prev ? (
               <Link
                 href={`/emperors/${prev.id}`}
-                className="group inline-flex min-w-0 items-center gap-1.5 hover:text-seal"
+                className="group inline-flex min-w-0 items-center gap-1.5 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
               >
                 <ChevronLeft
                   aria-hidden
@@ -248,7 +248,7 @@ export default async function EmperorPage({
             {next ? (
               <Link
                 href={`/emperors/${next.id}`}
-                className="group inline-flex min-w-0 items-center gap-1.5 text-right hover:text-seal"
+                className="group inline-flex min-w-0 items-center gap-1.5 text-right hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
               >
                 <span className="min-w-0">
                   <span className="block truncate">{next.name}</span>
@@ -269,11 +269,17 @@ export default async function EmperorPage({
               残っているのは /about（収録基準）と /emperors（一覧）の2つ。 */}
           <p className="text-xs text-muted-foreground">
             収録基準・各項目の数え方・出典は
-            <Link href="/about" className="underline underline-offset-2 hover:text-seal">
+            <Link
+              href="/about"
+              className="underline underline-offset-2 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+            >
               このサイトについて
             </Link>
             を、ほかの皇帝は
-            <Link href="/emperors" className="underline underline-offset-2 hover:text-seal">
+            <Link
+              href="/emperors"
+              className="underline underline-offset-2 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+            >
               皇帝一覧
             </Link>
             をご覧ください。

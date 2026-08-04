@@ -117,7 +117,7 @@ export function A({
       // 地の文が text-foreground/90 なので、下線が消えるとリンクが本文と見分けられなくなる。
       // このページは外部の出典（sxtwl・Commons・スキーマ文書・CHANGELOG・コーパス）を
       // 指すのが仕事なので、リンクが目立たないと目的を果たさない。
-      className="underline decoration-foreground/40 underline-offset-2 transition-colors hover:text-seal hover:decoration-seal"
+      className="underline decoration-foreground/40 underline-offset-2 transition-colors hover:text-seal hover:decoration-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
     >
       {children}
     </a>
@@ -180,7 +180,7 @@ export function DownloadCards({ items }: { items: DownloadItem[] }) {
         <li key={item.file} className="flex">
           <a
             href={item.href}
-            className="group flex w-full flex-col gap-2 rounded-md border border-border bg-card p-4 transition-colors hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-ring"
+            className="group flex w-full flex-col gap-2 rounded-md border border-border bg-card p-4 transition-colors hover:border-seal/60 focus-visible:outline-2 focus-visible:outline-seal"
           >
             <div className="flex items-baseline justify-between gap-2">
               <span className="rounded-sm bg-muted px-1.5 py-0.5 text-micro font-medium uppercase tracking-wide text-muted-foreground">
@@ -251,7 +251,10 @@ export function PortraitCredits({ credits }: { credits: PortraitCredit[] }) {
           ▼
         </span>
       </summary>
-      <div className="max-h-[28rem] overflow-y-auto border-t border-border">
+      {/* overscroll-contain: 154行の表を端まで送ったスクロールがページへ
+          抜けないようにする（この表は /about の末尾にあり、抜けるとフッターまで
+          一気に飛ぶ）。 */}
+      <div className="max-h-[28rem] overflow-y-auto overscroll-contain border-t border-border">
         <table className="w-full text-sm">
           <thead className="sticky top-0 bg-secondary text-left">
             <tr>
@@ -276,7 +279,7 @@ export function PortraitCredits({ credits }: { credits: PortraitCredit[] }) {
                     href={c.commonsPageUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground underline underline-offset-2 hover:text-seal"
+                    className="text-muted-foreground underline underline-offset-2 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
                   >
                     Commons
                   </a>

@@ -205,7 +205,7 @@ export function FilterChips({
             type="button"
             onClick={chip.onRemove}
             aria-label={`${chip.label}を解除`}
-            className="rounded-sm p-0.5 text-muted-foreground transition-colors hover:bg-background/70 hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring"
+            className="rounded-sm p-0.5 text-muted-foreground transition-colors hover:bg-background/70 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
           >
             <X className="size-3" />
           </button>

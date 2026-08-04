@@ -109,6 +109,15 @@ node tools/hover-audit.mjs     # 各ページの操作要素の cursor と hover
 - **hover の言い方は2つだけ** — 面がわずかに沈む（`hover:bg-accent`）／文字が朱になる
   （`hover:text-seal`）。**選択中の項目は「非選択の見た目＝hover 後の見た目」になりがち**
   （現在地のナビ・選択中のタブ／トグル・押されている種別チップ）。選択中は文字を朱にする
+- **フォーカスリングは `focus-visible:outline-2 focus-visible:outline-seal`**（インライン
+  のリンクとポップオーバー内の項目は `focus-visible:outline-offset-2` も付ける。カードの
+  ように隣と接する箱は offset なし）。**`outline-ring` を使わないこと** — `--ring`
+  （`oklch(0.708 0 0)` = `#a1a1a1`）は白地でコントラスト **2.59:1** で、非テキストの
+  3:1 に届かない。`globals.css` の base は `*` に `outline-ring/50` を当てているので、
+  **focus-visible を書き忘れた要素はブラウザ既定の輪郭ごと 1.7:1 まで落ちる**（＝
+  「フォーカスが見えない」の既定値になる）。hover を足したら focus も足す
+  （`tools/hover-audit.mjs` は hover しか見ないので、これは grep で確かめる:
+  `grep -rn "hover:text-seal\|hover:bg-accent" src/ | grep -v focus-visible`）
 - **スピナーには必ず `motion-reduce:hidden` を付ける。** `globals.css` の
   reduced-motion 一括指定は `animation-iteration-count: 1` なので、無限ループの
   スピナーは1回転して固まる。その環境では出さず `sr-only` の文言で伝える
