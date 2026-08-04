@@ -63,11 +63,22 @@ export function generateStaticParams(): { id: string }[] {
 /**
  * 紹介文（Issue #16）があればそれを description に使う。
  * 無い皇帝は従来の機械生成文（365ページとも同型で人物ごとの差がほぼ無い）に落ちる。
+ *
+ * 機械生成文には**在位年数の順位と死因ラベルを織り込む**（Issue #78）。可変部が
+ * 王朝名・名前・在位年だけだと365ページで枠が完全に固定され、スニペットの
+ * 多様性で不利になる。**足すのはページに既に出ている値だけ**（順位は回数の表、
+ * 死因は基本情報の行。どちらも OGP チップ `getEmperorOgChips` と同じ材料）で、
+ * ここで新しい主張を作らない。順位は 0 回を除いた母数で数えるため
+ * `total` を直に書き（365 と決め打たない）、順位なしの指標では句ごと落とす。
  */
 function descriptionOf(id: string, record: ReturnType<typeof getAllEmperorRecords>[number]): string {
+  const reignRank = record.ranks.reignYears;
+  const rankPhrase = reignRank
+    ? `で在位年数は${reignRank.total}名中${reignRank.rank}位`
+    : "";
   return (
     getEmperorProfile(id)?.description ??
-    `${dynastyContextLabel(record)}の皇帝 ${record.disambiguatedName} の調査結果。在位${record.periodsLabel}（${record.reignDurationLabel}）、死因・即位経路・改元回数など全12項目と全皇帝中の順位を掲載しています。`
+    `${dynastyContextLabel(record)}の皇帝 ${record.disambiguatedName} の調査結果。在位${record.periodsLabel}（${record.reignDurationLabel}）${rankPhrase}、死因は${record.deathCauseCategory}。即位経路・改元回数など全12項目を掲載しています。`
   );
 }
 

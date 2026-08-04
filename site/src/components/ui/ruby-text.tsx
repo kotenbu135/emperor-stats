@@ -5,6 +5,12 @@
 // `:root[data-ruby="off"]`）。実行時に要素を足し引きすると、その行の高さが変わって
 // レイアウトシフトになる。トグルは components/layout/ruby-toggle.tsx。
 //
+// **rt は <rp>（）</rp> で挟む**（Issue #78）。タグを剥がすテキスト抽出（AI クローラ・
+// プレーンテキスト変換）では rt の中身がそのまま地の文に続いて `太宗たいそう李り世民せいみん`
+// になるため、括弧で親文字と読みの境目を残す。**画面には出さない** — globals.css の
+// `ruby > rp { display: none }` で ruby の対応・非対応にかかわらず常に消しており、
+// ふりがな OFF（rt が消える）でも括弧だけが現れることはない。
+//
 // Server / Client のどちらからも使えるように "use client" は付けない
 // （lib/ruby.ts が React 非依存の純粋関数だけで出来ている）。
 
@@ -25,7 +31,9 @@ export function RubyText({ source }: { source: string }) {
         ) : (
           <ruby key={i}>
             {segment.text}
+            <rp>（</rp>
             <rt>{segment.ruby}</rt>
+            <rp>）</rp>
           </ruby>
         ),
       )}
