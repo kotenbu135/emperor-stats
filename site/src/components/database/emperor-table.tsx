@@ -801,6 +801,15 @@ export function EmperorTable({
           </FilterField>
         </PopoverContent>
       </Popover>
+      {/* 絞り込みと表示設定（列）の境界（2026-08-04・/emperors と同じ言い方）。
+          帯の余りは件数の手前へ集め、群の切れ目はここで示す。**狭い帯（内幅
+          42rem未満）では出さない** — そこは検索窓が伸びて余りが0pxなので、
+          1pxでも足すと縮み代を検索窓が全部かぶる。 */}
+      <span
+        aria-hidden
+        data-bar-rule=""
+        className="hidden h-5 w-px shrink-0 bg-border @2xl/bar:block"
+      />
       {/* 列の表示切替。絞り込みではないが**同じ帯に残す** — 表の上に1つだけ
           取り残すと、送った先で列を戻せなくなる（自動で減らした列を戻す唯一の導線）。
           2026-08-01: 自前の Popover ＋ aria-pressed のボタン列から DropdownMenu の
@@ -841,26 +850,38 @@ export function EmperorTable({
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      <ResultCount
-        pending={stale}
-        className="shrink-0 whitespace-nowrap text-xs @2xl/bar:text-sm"
-      >
-        {/* ResultCount は flex（スピナーとの間隔）なので、文言は1つの要素に
-            まとめる — 分けると数字と単位の間に gap が入って「365 名」になる。
-            狭い帯では「を表示中」を落として数字だけにする。 */}
-        <span>
-          <span className="tabular-nums">{filtered.length}</span>
-          {/* いちばん狭い帯（内幅320px未満＝360pxの画面）では母数を落とす。ここは
-              縮まない側なので、残すとその30pxぶんを検索窓が全部かぶる
-              （実測で入力欄が72pxまで潰れた）。390pxの画面では母数を出す。 */}
-          {filtered.length !== records.length && (
-            <span className="hidden tabular-nums @min-[20rem]/bar:inline">
-              /{records.length}
-            </span>
-          )}
-          名<span className="hidden @xl/bar:inline">を表示中</span>
-        </span>
-      </ResultCount>
+      {/* 件数は帯の右端。**ml-auto はこの箱が持つ**（2026-08-04・/emperors と同じ）。
+          持たせる前は余りが最後の要素の後ろに残り、件数が右端から離れていた
+          （実測: ビューポート1920で241px・1440で151px・1024で210px。900px以下は
+          検索窓が伸びて0）。罫線と件数を1つの箱にまとめてあるのは、罫線が消える
+          狭い帯でも件数が右端に残るようにするため。 */}
+      <div className="ml-auto flex shrink-0 items-center gap-2">
+        <span
+          aria-hidden
+          data-bar-rule=""
+          className="hidden h-5 w-px bg-border @2xl/bar:block"
+        />
+        <ResultCount
+          pending={stale}
+          className="shrink-0 whitespace-nowrap text-xs @2xl/bar:text-sm"
+        >
+          {/* ResultCount は flex（スピナーとの間隔）なので、文言は1つの要素に
+              まとめる — 分けると数字と単位の間に gap が入って「365 名」になる。
+              狭い帯では「を表示中」を落として数字だけにする。 */}
+          <span>
+            <span className="tabular-nums">{filtered.length}</span>
+            {/* いちばん狭い帯（内幅320px未満＝360pxの画面）では母数を落とす。ここは
+                縮まない側なので、残すとその30pxぶんを検索窓が全部かぶる
+                （実測で入力欄が72pxまで潰れた）。390pxの画面では母数を出す。 */}
+            {filtered.length !== records.length && (
+              <span className="hidden tabular-nums @min-[20rem]/bar:inline">
+                /{records.length}
+              </span>
+            )}
+            名<span className="hidden @xl/bar:inline">を表示中</span>
+          </span>
+        </ResultCount>
+      </div>
     </>
   );
 
@@ -869,7 +890,11 @@ export function EmperorTable({
       <StickyBar
         ariaLabel="表の絞り込みと表示"
         // 本文は既に px-gutter された箱の中なので、帯だけ全幅に戻す。
-        className="-mx-gutter mb-4 md:-mx-gutter-wide"
+        // **上の余白も打ち消してページヘッダーの罫線に密着させる**（2026-08-04・
+        // /emperors と同じ）。py-section の 32px が帯の上に残っていると、初期表示で
+        // ヘッダーの下罫と帯の下罫に挟まれた 80px の中でコントロールが下寄り
+        // （上40px・下8px）に見える。帯そのものは 48px の中で上下 7.5px の中央。
+        className="-mx-gutter -mt-section mb-4 md:-mx-gutter-wide"
       >
         {filterControls}
       </StickyBar>
