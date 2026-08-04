@@ -128,7 +128,7 @@ v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調
 
 **2026-07-31 の再構築で一旦完成。** 現状・崩してはいけない契約・皇帝追加時のチェックリストは [site/AGENTS.md](../site/AGENTS.md)、ページ構成・スタック・配色・各ページの設計判断・再提案しないことは [docs/site-design/SITE_DESIGN.md](site-design/SITE_DESIGN.md) が正。
 
-- **公開形態**: `output: "export"` の静的書き出しを GitHub Pages ＋ カスタムドメイン emperorstats.com（ルート直下・basePath なし）で配信
+- **公開形態**: `output: "export"` の静的書き出しを GitHub Pages ＋ カスタムドメイン emperorstats.com（ルート直下・basePath なし）で配信。**前段に Cloudflare（Free）が立っており、末尾スラッシュの301・セキュリティヘッダ・`/_next/static/` の1年キャッシュ・HSTS はそこで設定している**（2026-08-05・Issue #74）。**この設定はダッシュボードにしか無くリポジトリからは追えない** — 応答ヘッダやリダイレクトの挙動を調べるときは `curl -sI` の実測を根拠にする
 - **現存するページ**: `/`・`/emperors`・`/database`・`/about` の4面と `/emperors/[id]`（365ページ）。**廃止した7ページの URL は無言で 404 に着地させる**（リダイレクト・410 は設けない）
 - **旧実装のまま残っている面**: 皇帝一覧の詳細ダイアログ・外枠のシェル（サイドバー・ヘッダー・フッター）・皇帝個別ページ
 - **未計測**: 新実装の性能（TBT/CLS）とアクセシビリティ。2026-07-18 の Lighthouse 記録は削除済み
