@@ -115,7 +115,7 @@ function Breadcrumb({
             {item.href ? (
               <Link
                 href={item.href}
-                className="inline-block py-0.5 text-muted-foreground hover:text-seal"
+                className="inline-block py-0.5 text-muted-foreground hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
               >
                 {item.label}
               </Link>
@@ -161,7 +161,7 @@ function PagerButton({
       href={`/emperors/${emperor.id}`}
       title={`${label}: ${emperor.name}（${emperor.dynastyLabel}）`}
       aria-label={`${label}: ${emperor.name}`}
-      className="inline-flex size-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-seal/50 hover:text-seal"
+      className="inline-flex size-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-seal/50 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
     >
       <Icon aria-hidden className="size-4" />
     </Link>

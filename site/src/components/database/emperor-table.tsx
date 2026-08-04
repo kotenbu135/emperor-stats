@@ -157,7 +157,7 @@ const COLUMNS: ColumnDef<EmperorTableRecord>[] = [
     cell: ({ row }) => (
       <Link
         href={`/emperors/${row.original.id}`}
-        className="font-medium leading-ruby text-foreground underline-offset-4 hover:text-seal hover:underline"
+        className="font-medium leading-ruby text-foreground underline-offset-4 hover:text-seal hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
       >
         {/* ふりがな（Issue #20）。並べ替え・検索は平文の name のままで、
             ルビは描画だけに使う。 */}
@@ -206,11 +206,21 @@ const COLUMNS: ColumnDef<EmperorTableRecord>[] = [
     // （2026-07-31 ユーザー指示）。この2つだけが突出して長く、列幅を押し広げる。
     // 括弧の中身は分類の根拠なので title に全文を残す（概要ダッシュボードの
     // 内訳凡例と同じ扱い）。並べ替え・検索は全文のままで効く。
-    cell: ({ row }) => (
-      <span title={row.original.accessionRouteCategory}>
-        {shortCategoryLabel(row.original.accessionRouteCategory)}
-      </span>
-    ),
+    // **title だけに置かない** — title はキーボード・タッチ・読み上げのどれでも
+    // 出ない。PeriodsCell と同じで、短い表示を aria-hidden にして全文を sr-only へ
+    // 併記する（`relative` が要る理由も同じ）。
+    cell: ({ row }) =>
+      shortCategoryLabel(row.original.accessionRouteCategory) ===
+      row.original.accessionRouteCategory ? (
+        row.original.accessionRouteCategory
+      ) : (
+        <span className="relative" title={row.original.accessionRouteCategory}>
+          <span aria-hidden>
+            {shortCategoryLabel(row.original.accessionRouteCategory)}
+          </span>
+          <span className="sr-only">{row.original.accessionRouteCategory}</span>
+        </span>
+      ),
   },
   {
     accessorKey: "deathCauseCategory",
@@ -706,7 +716,12 @@ export function EmperorTable({
           onScroll={onScroll}
           className={cn(
             "w-full overflow-y-clip rounded-lg border border-border bg-card",
-            overflows ? "overflow-x-auto" : "overflow-x-clip",
+            // 横に溢れている間だけスクロールコンテナになるので、overscroll-x-contain
+            // もその側に付ける（clip の側はスクロールコンテナですらない）。
+            // これが無いと、表を右端まで送った先の慣性が「戻る」ジェスチャへ抜ける。
+            overflows
+              ? "overflow-x-auto overscroll-x-contain"
+              : "overflow-x-clip",
           )}
         >
           <table ref={tableRef} className="w-full caption-bottom text-sm">
@@ -766,7 +781,7 @@ export function EmperorTable({
                                 type="button"
                                 onClick={header.column.getToggleSortingHandler()}
                                 className={cn(
-                                  "-mx-1 inline-flex items-center gap-1 rounded-md px-1 py-0.5 hover:text-seal focus-visible:outline-2 focus-visible:outline-ring",
+                                  "-mx-1 inline-flex items-center gap-1 rounded-md px-1 py-0.5 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal",
                                   // 右寄せの列は矢印を見出しの左に置く（右端は数値の
                                   // 揃え位置なので、そこに記号を挟むと桁の縦線が濁る）。
                                   header.column.columnDef.meta?.align ===

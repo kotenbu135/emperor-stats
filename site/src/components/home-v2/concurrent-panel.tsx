@@ -93,7 +93,7 @@ export function ConcurrentPanel({ data }: { data: HomeConcurrentReigns }) {
                     setOpen(false);
                   }}
                   className={cn(
-                    "flex items-baseline justify-between gap-2 rounded-sm px-2.5 py-1.5 text-left text-sm transition-colors",
+                    "flex items-baseline justify-between gap-2 rounded-sm px-2.5 py-1.5 text-left text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal",
                     active
                       ? "bg-seal text-seal-foreground"
                       : "text-foreground/85 hover:bg-accent hover:text-seal",

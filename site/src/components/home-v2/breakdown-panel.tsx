@@ -70,7 +70,8 @@ export function BreakdownBar({ slices }: { slices: BreakdownRow[] }) {
           return (
             <li
               key={d.name}
-              className="flex items-baseline gap-2 rounded-md border border-border px-2.5 py-1.5"
+              // sr-only（絶対配置）の基準をこの枠にする。
+              className="relative flex items-baseline gap-2 rounded-md border border-border px-2.5 py-1.5"
               title={title}
             >
               <span
@@ -80,6 +81,11 @@ export function BreakdownBar({ slices }: { slices: BreakdownRow[] }) {
                 aria-hidden
               />
               <span className="truncate text-sm text-foreground">{label}</span>
+              {/* 畳んだ区分名・省いた括弧は title だけに置かない（title は
+                  キーボード・タッチ・読み上げのどれでも出ない）。可視の区分名は
+                  そのまま — **`--series-*` の 3:1 未満の免除条件は「可視ラベル」**
+                  なので、ここを sr-only へ移し替えないこと（AGENTS.md）。 */}
+              {title && <span className="sr-only">（{title}）</span>}
               <span className="ml-auto shrink-0 text-sm font-medium tabular-nums text-foreground">
                 {d.count}名
               </span>

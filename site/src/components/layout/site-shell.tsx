@@ -53,7 +53,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-border bg-sidebar px-4 md:hidden">
         <Link
           href="/"
-          className="flex items-center gap-2 font-heading text-lg font-semibold text-foreground transition-colors hover:text-seal"
+          className="flex items-center gap-2 font-heading text-lg font-semibold text-foreground transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
         >
           <SiteMark className="size-6 text-sm" />
           中国皇帝統計
@@ -67,7 +67,13 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           >
             <Menu />
           </Button>
-          <SheetContent side="left" className="w-3/4 overflow-y-auto bg-sidebar">
+          {/* overscroll-contain: メニューの端まで来たスクロールを裏のページへ
+              渡さない（/emperors は全高5万px級なので、渡すと閉じたあとに
+              まったく違う位置に居ることになる）。 */}
+          <SheetContent
+            side="left"
+            className="w-3/4 overflow-y-auto overscroll-contain bg-sidebar"
+          >
             <SheetHeader>
               <SheetTitle>メニュー</SheetTitle>
             </SheetHeader>
@@ -82,10 +88,10 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       </header>
 
       <aside className="hidden shrink-0 border-r border-border bg-sidebar md:block md:w-60">
-        <div className="sticky top-0 flex h-dvh flex-col overflow-y-auto px-4 py-6">
+        <div className="sticky top-0 flex h-dvh flex-col overflow-y-auto overscroll-contain px-4 py-6">
           <Link
             href="/"
-            className="mb-6 flex items-center gap-2.5 font-heading text-xl font-semibold text-foreground transition-colors hover:text-seal"
+            className="mb-6 flex items-center gap-2.5 font-heading text-xl font-semibold text-foreground transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
           >
             <SiteMark className="size-7 text-base" />
             中国皇帝統計
