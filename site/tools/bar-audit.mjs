@@ -1,15 +1,21 @@
-// /emperors の固定バー（時代へジャンプ＋絞り込み）が契約を守っているか実測する。
+// 画面上端に固定される帯（/emperors の時代ジャンプ＋絞り込み、/database の絞り込み）が
+// 契約を守っているか実測する。
 //
 //   cd site && npm run build && node tools/bar-audit.mjs
 //   BASE_URL=http://localhost:3100 node tools/bar-audit.mjs   # dev サーバーに当てる
 //
-// 見ているのは3つ。**どれも tsc・lint・build では落ちない。**
+// 見ているのは5つ。**どれも tsc・lint・build では落ちない。**
 //
-//  1. 帯の高さが常に 48px（SECTION_NAV_H）であること。この値は節見出しの sticky top と
-//     節の scrollMarginTop を兼ねているので、中身が折り返して2行になると15個の見出しと
-//     全ジャンプ先が黙ってずれる
+//  1. 帯の高さが常に 48px（STICKY_BAR_H）であること。この値は /emperors の節見出しの
+//     sticky top と節の scrollMarginTop、/database の表見出しの sticky top を兼ねている
+//     ので、中身が折り返して2行になると見出しと着地位置が黙ってずれる
 //  2. 帯の中身が横に溢れていないこと（1行に収まる形で畳めているか）
-//  3. 0件のときも帯が残り、絞り込みを外せること（節が0個になっても消えない）
+//  3. **縮み代を全部かぶる要素**が潰れていないこと。条件が効くと帯の右側が太り
+//     （件数が「42/365名」になり印が付く）、その増分を1つの要素が全部かぶる。
+//     **溢れてはいないので scrollWidth の検査では拾えない**（/emperors で実際に
+//     時代名が2文字まで潰れた）
+//  4. 0件のときも帯が残り、絞り込みを外せること
+//  5. /database は送った先で表見出しが帯の下に貼り付くこと（帯の裏へ潜らない）
 //
 // 幅の分岐は帯の内幅（container query）で決まるので、ビューポート幅は md 以上で
 // サイドバー240pxが挟まる点に注意（768px の画面でも内幅は438pxしかない）。
@@ -60,9 +66,69 @@ function serveExport(root, port) {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const NAV = 'nav[aria-label^="時代へジャンプ"]';
 const BAR_H = 48;
 const WIDTHS = [360, 390, 640, 768, 900, 1024, 1280, 1440, 1920];
+
+const PAGES = [
+  {
+    label: "一覧",
+    path: "/emperors",
+    bar: 'nav[aria-label^="時代へジャンプ"]',
+    // 絞り込みが効いている状態は帯の右側がいちばん太る。素の状態と両方を同じ幅で測る。
+    cases: [["素", ""], ["絞込", `?q=${encodeURIComponent("武")}&dynasty=tang`]],
+    // 縮み代を全部かぶる要素と、そこを下回ったら読めなくなる幅
+    // （時代名＋chevron＋padding で36px使う）。
+    floor: { name: "ジャンプ", sel: '[data-slot="popover-trigger"]', min: 90 },
+    probes: [
+      ["検索", 'input[aria-label="皇帝を検索"]'],
+      ["王朝", '[aria-label="王朝で絞り込み"]'],
+      ["区分", '[aria-label="王朝の区分で絞り込み"]'],
+    ],
+    empty: {
+      qs: `?q=${encodeURIComponent("存在しない名前")}`,
+      value: 'input[aria-label="皇帝を検索"]',
+      text: "条件に一致する皇帝がいません",
+    },
+    stickyHead: null,
+  },
+  {
+    label: "DB  ",
+    path: "/database",
+    bar: 'section[aria-label^="表の絞り込み"]',
+    cases: [["素", ""], ["絞込", `?q=${encodeURIComponent("武")}&dynasty=tang`]],
+    // /database で縮むのは検索窓ひとつ。ここが潰れると入力中の語が読めない。
+    // 下限は CSS 側の min-w-[8.5rem]（＝入力欄で約96px）と対にしてある。
+    // ここを割る前に帯が溢れるので、上の溢れ検査と二重に掛かる。
+    floor: { name: "検索  ", sel: 'input[aria-label="表を検索"]', min: 95 },
+    probes: [
+      ["時代", '[aria-label="時代で絞り込み"]'],
+      ["王朝", '[aria-label="王朝で絞り込み"]'],
+      ["回数", '[aria-label="在位回数で絞り込み"]'],
+      ["列", '[aria-label="表示する列を選ぶ"]'],
+    ],
+    empty: {
+      qs: `?q=${encodeURIComponent("存在しない名前")}`,
+      value: 'input[aria-label="表を検索"]',
+      text: "条件に一致する皇帝がいません",
+    },
+    // 表見出しは帯の真下（--chrome-top + 48px）に貼り付く。横に溢れている幅では
+    // 枠がスクロールコンテナになって sticky 自体を諦めているので、その回は測らない。
+    stickyHead: "thead th",
+  },
+  {
+    // /about も同じ帯を使う（節ジャンプだけ・本文列は記事幅）。中身は薄いが、
+    // 外枠を共有している以上ここも1行48pxで、`innerWidth` を取り違えると
+    // トリガーだけ本文より左へ出る。高さと溢れだけ見る。
+    label: "About",
+    path: "/about",
+    bar: 'nav[aria-label^="節へジャンプ"]',
+    cases: [["素", ""]],
+    floor: { name: "ジャンプ", sel: '[data-slot="popover-trigger"]', min: 90 },
+    probes: [],
+    empty: null,
+    stickyHead: null,
+  },
+];
 
 const useOwnServer = !process.env.BASE_URL;
 const BASE = process.env.BASE_URL ?? `http://localhost:${PORT}`;
@@ -74,89 +140,114 @@ const server = useOwnServer ? await serveExport(ROOT, PORT) : null;
 const browser = await chromium.launch();
 let ng = 0;
 
-// 絞り込みが効いている状態は帯の右側がいちばん太る（件数が「42/365名」になり、
-// 「絞り込み」ボタンに件数の印が付く）。太った分は縮む側＝ジャンプのトリガーが
-// 全部かぶるので、**溢れないことだけでは足りない**（時代名が1〜2文字に潰れる）。
-// 素の状態と絞り込み後の両方を、同じ幅で測る。
-const CASES = [
-  ["素", ""],
-  ["絞込", `?q=${encodeURIComponent("武")}&dynasty=tang`],
-];
-/** ジャンプのトリガーがこれを下回ったら時代名が読めない（chevron と padding で36px使う）。 */
-const MIN_TRIGGER_W = 90;
+for (const p of PAGES) {
+  for (const [caseName, qs] of p.cases)
+    for (const width of WIDTHS) {
+      const ctx = await browser.newContext({
+        viewport: { width, height: 900 },
+        locale: "ja-JP",
+      });
+      const page = await ctx.newPage();
+      await page.goto(`${BASE}${p.path}${qs}`, { waitUntil: "networkidle" });
+      await sleep(400);
+      const m = await page.evaluate(
+        ({ sel, floorSel, probes, stickyHead }) => {
+          const bar = document.querySelector(sel);
+          if (!bar) return null;
+          const inner = bar.querySelector(":scope > div");
+          const row = inner.querySelector(":scope > div");
+          const shown = (q) => {
+            const el = bar.querySelector(q);
+            return !!el && el.getBoundingClientRect().width > 0;
+          };
+          const out = {
+            height: bar.getBoundingClientRect().height,
+            innerWidth: Math.round(inner.getBoundingClientRect().width),
+            scrollWidth: row.scrollWidth,
+            clientWidth: row.clientWidth,
+            floorWidth: Math.round(
+              bar.querySelector(floorSel)?.getBoundingClientRect().width ?? 0,
+            ),
+            probes: probes.map(([, q]) => shown(q)),
+            headGap: null,
+          };
+          if (stickyHead) {
+            // 送った先で見出しが帯の裏へ潜らないこと。溢れている幅では見出しの
+            // 固定を諦めている（枠がスクロールコンテナになる）ので測らない。
+            // **`position: sticky` だけで判定しない** — 先頭列は横スクロール中も
+            // 残すため常に sticky で、`top` は当てていない。縦に貼っているかは
+            // `top` が入っているかで見る。
+            window.scrollTo(0, 2000);
+            const th = document.querySelector(stickyHead);
+            const cs = th && getComputedStyle(th);
+            if (cs && cs.position === "sticky" && cs.top !== "auto") {
+              out.headGap = Math.round(
+                th.getBoundingClientRect().top - bar.getBoundingClientRect().bottom,
+              );
+            }
+          }
+          return out;
+        },
+        {
+          sel: p.bar,
+          floorSel: p.floor.sel,
+          probes: p.probes,
+          stickyHead: p.stickyHead,
+        },
+      );
+      await ctx.close();
+      if (!m) {
+        console.log(`${p.label}\t${caseName}\t${String(width).padStart(4)}px  帯が無い  ← NG`);
+        ng++;
+        continue;
+      }
+      const overflow = m.scrollWidth > m.clientWidth + 1;
+      const crushed = m.floorWidth < p.floor.min;
+      // 見出しが帯の裏へ潜っていたら NG（測れた回だけ見る）。
+      const headUnder = m.headGap !== null && m.headGap < -1;
+      const bad = m.height !== BAR_H || overflow || crushed || headUnder;
+      if (bad) ng++;
+      console.log(
+        `${p.label}\t${caseName}\t${String(width).padStart(4)}px  内幅${String(m.innerWidth).padStart(4)}  高さ${m.height}` +
+          `  溢れ${overflow ? `YES(${m.scrollWidth}>${m.clientWidth})` : "no"}` +
+          `  ${p.floor.name}幅${String(m.floorWidth).padStart(3)}${crushed ? "!" : " "}` +
+          (m.headGap === null ? "" : `  見出し差${String(m.headGap).padStart(3)}${headUnder ? "!" : " "}`) +
+          `  [${p.probes.map(([n], i) => `${n}${m.probes[i] ? "○" : "-"}`).join(" ")}]` +
+          `${bad ? "  ← NG" : ""}`,
+      );
+    }
 
-for (const [caseName, qs] of CASES)
-for (const width of WIDTHS) {
-  const ctx = await browser.newContext({ viewport: { width, height: 900 }, locale: "ja-JP" });
-  const page = await ctx.newPage();
-  await page.goto(`${BASE}/emperors${qs}`, { waitUntil: "networkidle" });
-  await sleep(400);
-  const m = await page.evaluate((sel) => {
-    const nav = document.querySelector(sel);
-    if (!nav) return null;
-    const inner = nav.querySelector(":scope > div");
-    const row = inner.querySelector(":scope > div");
-    const shown = (q) => {
-      const el = nav.querySelector(q);
-      return !!el && el.getBoundingClientRect().width > 0;
-    };
-    const trigger = nav.querySelector('[data-slot="popover-trigger"]');
-    return {
-      height: nav.getBoundingClientRect().height,
-      innerWidth: Math.round(inner.getBoundingClientRect().width),
-      scrollWidth: row.scrollWidth,
-      clientWidth: row.clientWidth,
-      triggerWidth: Math.round(trigger?.getBoundingClientRect().width ?? 0),
-      search: shown('input[aria-label="皇帝を検索"]'),
-      dynasty: shown('[aria-label="王朝で絞り込み"]'),
-      category: shown('[aria-label="王朝の区分で絞り込み"]'),
-    };
-  }, NAV);
-  await ctx.close();
-  if (!m) {
-    console.log(`${caseName}\t${String(width).padStart(4)}px  帯が無い  ← NG`);
-    ng++;
-    continue;
+  // 0件でも帯と絞り込みが残ること。
+  if (p.empty) {
+    const ctx = await browser.newContext({
+      viewport: { width: 1440, height: 900 },
+      locale: "ja-JP",
+    });
+    const page = await ctx.newPage();
+    const errors = [];
+    page.on("pageerror", (e) => errors.push(String(e)));
+    await page.goto(`${BASE}${p.path}${p.empty.qs}`, { waitUntil: "networkidle" });
+    await sleep(600);
+    const r = await page.evaluate(
+      ({ sel, valueSel, text }) => {
+        const bar = document.querySelector(sel);
+        return {
+          bar: !!bar,
+          height: bar?.getBoundingClientRect().height,
+          query: bar?.querySelector(valueSel)?.value,
+          noResults: document.body.textContent.includes(text),
+        };
+      },
+      { sel: p.bar, valueSel: p.empty.value, text: p.empty.text },
+    );
+    await ctx.close();
+    const bad = !r.bar || r.height !== BAR_H || !r.noResults || errors.length > 0;
+    if (bad) ng++;
+    console.log(
+      `${p.label}\t0件      帯${r.bar ? "有" : "無"} 高さ${r.height} 検索欄「${r.query}」` +
+        ` 0件表示${r.noResults ? "有" : "無"} JSエラー${errors.length}${bad ? "  ← NG" : ""}`,
+    );
   }
-  const overflow = m.scrollWidth > m.clientWidth + 1;
-  const narrowTrigger = m.triggerWidth < MIN_TRIGGER_W;
-  const bad = m.height !== BAR_H || overflow || narrowTrigger;
-  if (bad) ng++;
-  console.log(
-    `${caseName}\t${String(width).padStart(4)}px  内幅${String(m.innerWidth).padStart(4)}  高さ${m.height}` +
-      `  溢れ${overflow ? `YES(${m.scrollWidth}>${m.clientWidth})` : "no"}` +
-      `  ジャンプ幅${String(m.triggerWidth).padStart(3)}${narrowTrigger ? "!" : " "}` +
-      `  [検索${m.search ? "○" : "-"} 王朝${m.dynasty ? "○" : "-"} 区分${m.category ? "○" : "-"}]` +
-      `${bad ? "  ← NG" : ""}`,
-  );
-}
-
-// 0件でも帯と絞り込みが残ること。
-{
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "ja-JP" });
-  const page = await ctx.newPage();
-  const errors = [];
-  page.on("pageerror", (e) => errors.push(String(e)));
-  await page.goto(`${BASE}/emperors?q=${encodeURIComponent("存在しない名前")}`, {
-    waitUntil: "networkidle",
-  });
-  await sleep(600);
-  const r = await page.evaluate((sel) => {
-    const nav = document.querySelector(sel);
-    return {
-      nav: !!nav,
-      height: nav?.getBoundingClientRect().height,
-      query: nav?.querySelector('input[aria-label="皇帝を検索"]')?.value,
-      noResults: document.body.textContent.includes("条件に一致する皇帝がいません"),
-    };
-  }, NAV);
-  await ctx.close();
-  const bad = !r.nav || r.height !== BAR_H || !r.noResults || errors.length > 0;
-  if (bad) ng++;
-  console.log(
-    `0件      帯${r.nav ? "有" : "無"} 高さ${r.height} 検索欄「${r.query}」` +
-      ` 0件表示${r.noResults ? "有" : "無"} JSエラー${errors.length}${bad ? "  ← NG" : ""}`,
-  );
 }
 
 console.log(`\nNG: ${ng}`);
