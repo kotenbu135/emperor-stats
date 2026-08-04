@@ -380,7 +380,7 @@ export function astroYear(year: number): number {
   return year < 0 ? year + 1 : year;
 }
 
-/** 訪問者向け時代区分ラベルの期間（`ERA_BY_SECTION` の15区分）。 */
+/** 訪問者向け時代区分ラベルの期間（`ERA_BY_SECTION` の16区分）。 */
 
 /** 概算日数(365/30/7/1換算の共通尺度)を「○年○日」表記に変換する。 */
 export function formatReignDuration(approxDays: number): string {
@@ -446,7 +446,8 @@ export const eraOrder: string[] = [
   "隋末",
   "唐",
   "五代十国",
-  "宋・遼・西夏・金",
+  "宋",
+  "遼・西夏・金",
   "元",
   "明",
   "清",

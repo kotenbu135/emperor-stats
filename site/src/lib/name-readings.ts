@@ -80,7 +80,7 @@ export function reportReadingCoverage(displayedNames: Iterable<string>): void {
   const all = new Set(
     [...displayedNames].filter((s) => /[\u3400-\u9fff\uf900-\ufaff]|[\u{20000}-\u{3ffff}]/u.test(s)),
   );
-  // **画面に出る文字列の正はサイト側**（時代ラベル15区分・王朝名の時代サフィックス・
+  // **画面に出る文字列の正はサイト側**（時代ラベル16区分・王朝名の時代サフィックス・
   // カードの補助名は data/emperors.json には無い形で作られる）。読みを書き足す人が
   // 対象の一覧を引けるように、ビルドのたびに書き出す（.gitignore 対象）。
   try {

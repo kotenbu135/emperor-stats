@@ -15,7 +15,7 @@
 // count==0 の切り分けの3つは「同じやり方をしないと数が変わる」と明記されている）。
 //
 // 集計単位の時代は **`meta.catalogs.eras`（11区分）** を使う。サイト本体の時代ラベルは
-// `emperors.ts` の `ERA_BY_SECTION`（15区分）だが、/lab は検討記録の数値と突き合わせる
+// `emperors.ts` の `ERA_BY_SECTION`（16区分）だが、/lab は検討記録の数値と突き合わせる
 // ための面なので、突き合わせ先と同じ粒度にしてある（採用時に組み替える。南北朝69名が
 // 南朝・北朝へ割れて数字が動く）。
 import { emperorsJson, eraCatalog, type CatalogEra } from "@/lib/data-source";
