@@ -218,18 +218,34 @@ export function EmperorHero({
             <PagerButton emperor={next} direction="next" />
           </nav>
         </div>
-        {/* 肖像は sm 以上で float。**紹介文（Issue #16）を肖像の右に置き、
+        {/* 肖像は**全幅で float**。**紹介文（Issue #16）を肖像の右に置き、
             長い本文は肖像の下へ回り込ませる**ため（2026-08-01 ユーザー指示の配置）。
             flex の2カラムだと、500字級の紹介文で右カラムだけが伸びて肖像の左下に
-            大きな空白が残る。sm 未満は float を掛けず、肖像・名前・本文の縦積み
-            （390px 幅で 144px の肖像の右に本文を流すと1行10字を切る）。 */}
-        <div className="flex flex-col gap-5 sm:block">
+            大きな空白が残る。
+            **sm 未満も 2026-08-04 に float へ変えた**（それまでは縦積み）。縦積みだと
+            肖像の行に並ぶものが無く、390px 幅で右に約200px×190pxの空白が空いていた
+            （ユーザー指摘）。ただし**480px 未満では回り込ませるのを王朝・名前・在位と
+            名前チップまで**にし、紹介文は下の `clear-both min-[480px]:hidden` で肖像の
+            下へ落とす — 128px の肖像の右に 500字級の本文を流すと1行13字で、狭い画面では
+            読み物にならない（16pxの本文は1行16字＝約256pxを下限と置き、肖像128px＋余白16px＋
+            左右の gutter 48px を引くと画面幅448pxから満たす）。
+            **この換算をビューポート幅で書けるのは 640px 未満＝サイドバーが出ない帯だけ**。
+            md 以上は240pxのサイドバーが挟まるので、768pxの画面でもヒーローの内幅は448pxで、
+            200pxの肖像を引いた本文は224px しかない（sm 以上の回り込みは 2026-08-01 からの
+            据え置きで、ここでは変えていない）。 */}
+        <div>
           {record.portraitUrl !== null && (
-            // 枠は肖像の実体と同じ3:4。狭い画面では144pxに落として、名前と要約が
-            // 肖像の右に残る幅を確保する（縦積みにすると先頭が肖像だけで埋まる）。
-            <div className="relative aspect-[3/4] w-36 shrink-0 self-start overflow-hidden rounded-md border border-border sm:float-left sm:mr-6 sm:mb-4 sm:w-[200px]">
+            // 枠は肖像の実体と同じ3:4。狭い画面では128pxに落として、名前と在位が
+            // 肖像の右に残る幅（390px 画面で198px）を確保する。**幅は3段**で、
+            // 480px から紹介文も回り込むので肖像も160pxへ上げる。
+            <div className="relative float-left mr-4 mb-4 aspect-[3/4] w-32 overflow-hidden rounded-md border border-border min-[480px]:w-40 sm:mr-6 sm:w-[200px]">
               {/* ページ先頭の肖像は LCP 要素になるので eager で取りに行く。 */}
-              <Portrait record={record} sizes="200px" large priority />
+              <Portrait
+                record={record}
+                sizes="(min-width: 640px) 200px, (min-width: 480px) 160px, 128px"
+                large
+                priority
+              />
             </div>
           )}
           <div className="min-w-0">
@@ -282,7 +298,11 @@ export function EmperorHero({
             </h1>
             <p className="mt-2.5 text-sm tabular-nums text-foreground">
               在位 {record.periodsLabel}
-              <span className="ml-2 text-muted-foreground">
+              {/* 在位期間は肖像の右の狭い段でも割らない（`word-break: auto-phrase` は
+                  「（54年」「33日）」で改行してしまう）。**在位年のほうは割ってよい** —
+                  復位した皇帝は「1908–1912年 / 1917年 / 1934–1945年」と3期並ぶので、
+                  こちらを nowrap にすると狭い画面で溢れる。 */}
+              <span className="ml-2 whitespace-nowrap text-muted-foreground">
                 （{record.reignDurationLabel}）
               </span>
             </p>
@@ -302,6 +322,8 @@ export function EmperorHero({
                 ))}
               </div>
             )}
+            {/* 480px 未満でだけ紹介文を肖像の回り込みから外す（上の肖像のコメント）。 */}
+            <div className="clear-both min-[480px]:hidden" />
             {/* 紹介文（Issue #16）。ページで唯一の16pxの文＝ここが「読ませる」文で
                 あることを級数で示す（他の本文は14px）。行送りは leading-ruby
                 （総ルビの段落はルビのある行だけ高くなり、leading-loose だと
