@@ -27,7 +27,13 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowUp, ChevronsUpDown, Columns3 } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  ChevronsUpDown,
+  Columns3,
+  SlidersHorizontal,
+} from "lucide-react";
 import {
   flexRender,
   getCoreRowModel,
@@ -54,6 +60,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
   Tooltip,
@@ -78,6 +89,10 @@ import {
 } from "@/components/charts/chart-filter-controls";
 import { useHorizontalScrollEdges } from "@/components/charts/horizontal-scroll-hint";
 import { DynastyCombobox } from "@/components/charts/dynasty-combobox";
+import {
+  BELOW_STICKY_BAR,
+  StickyBar,
+} from "@/components/layout/sticky-bar";
 import {
   DATABASE_COLUMN_COUNT,
   eraOrder,
@@ -299,6 +314,94 @@ if (COLUMNS.length !== DATABASE_COLUMN_COUNT) {
   );
 }
 
+/**
+ * 時代の絞り込み。**帯（1行）と絞り込みパネル（縦積み）の2箇所に出る**ので、
+ * 見た目の違いは幅だけにして中身をここに1本化する。
+ *
+ * 帯にはラベルが無いので、「すべて」ではなく**「すべての時代」**と出す
+ * （/emperors の区分セレクトと同じ理由）。読み上げ名は aria-label が持つが、
+ * 2箇所に同じ名前が同時に出ることになるため、パネル側は語尾を変える。
+ */
+function EraSelect({
+  eras,
+  value,
+  onChange,
+  className,
+  inPanel = false,
+}: {
+  eras: string[];
+  value: string;
+  onChange: (value: string) => void;
+  className?: string;
+  inPanel?: boolean;
+}) {
+  return (
+    <Select value={value} onValueChange={onChange}>
+      <SelectTrigger
+        className={className}
+        aria-label={inPanel ? "時代で絞り込み（絞り込みパネル）" : "時代で絞り込み"}
+      >
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="all">すべての時代</SelectItem>
+        {eras.map((e) => (
+          <SelectItem key={e} value={e}>
+            {e}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+}
+
+/**
+ * 旧 /reign の「復位者一覧」に当たる絞り込み。在位回数2回以上＝復位した皇帝。
+ * 2026-08-01: 2択のセレクト（開いて選ぶ＝2手）から地続きのトグルへ。
+ * 選択肢が2つしかない絞り込みは、開く前から両方見えているほうが速い。
+ *
+ * **帯でもパネルでも文言は変えない**（「復位のみ」等に詰めない）— 同じ操作が
+ * 2箇所に出るので、片方だけ短くすると別の絞り込みに見える。
+ */
+function ReignToggle({
+  value,
+  onChange,
+  className,
+  itemClassName,
+  inPanel = false,
+}: {
+  value: "all" | "restoration";
+  onChange: (value: "all" | "restoration") => void;
+  className?: string;
+  itemClassName?: string;
+  inPanel?: boolean;
+}) {
+  return (
+    <ToggleGroup
+      type="single"
+      value={value}
+      // 選択中の項目をもう一度押すと空文字が来る。絞り込みが「どれでもない」
+      // 状態は無いので、その場合は現在の値を保つ。
+      onValueChange={(v) => {
+        if (v) onChange(v as "all" | "restoration");
+      }}
+      variant="outline"
+      spacing={0}
+      aria-label={
+        inPanel ? "在位回数で絞り込み（絞り込みパネル）" : "在位回数で絞り込み"
+      }
+      className={className}
+    >
+      <ToggleGroupItem value="all" className={itemClassName}>
+        すべて
+      </ToggleGroupItem>
+      <ToggleGroupItem value="restoration" className={itemClassName}>
+        復位した皇帝だけ
+      </ToggleGroupItem>
+    </ToggleGroup>
+  );
+}
+
 export function EmperorTable({
   records,
   dynastyOptions,
@@ -312,6 +415,8 @@ export function EmperorTable({
   const [reignFilter, setReignFilter] = useState<"all" | "restoration">("all");
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  /** 帯に入りきらない絞り込みを畳むポップオーバー（狭い帯でだけ出る）。 */
+  const [filterOpen, setFilterOpen] = useState(false);
 
   // 操作の反応を優先し、365行の絞り込み再レンダリングは低優先度で追従させる
   // （皇帝一覧のグリッドと同じ方針・2026-08-01 に検索語だけでなく4条件まとめへ広げた）。
@@ -329,6 +434,21 @@ export function EmperorTable({
     setDynastyValue("all");
     setReignFilter("all");
   }, []);
+
+  // 時代を変えたら、その時代に属さない王朝の選択は落とす（残すと必ず0件になる）。
+  // 帯とパネルの2箇所から呼ばれるのでコールバックにまとめる。
+  const onEraChange = useCallback(
+    (v: string) => {
+      setEraValue(v);
+      setDynastyValue((current) =>
+        v !== "all" &&
+        !dynastyOptions.some((o) => o.value === current && o.era === v)
+          ? "all"
+          : current,
+      );
+    },
+    [dynastyOptions],
+  );
 
   // 時代の選択肢は eraOrder（時代順の定数）から、実際にデータにあるものだけ出す。
   const eras = useMemo(() => {
@@ -582,125 +702,188 @@ export function EmperorTable({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtered.length]);
 
+  /** 「絞り込み」ボタンに添える効いている条件の数。**生の state から数える**
+   *  （deferred から数えると、外した直後に数字だけ残って見える）。 */
+  const activeFilterCount = chips.length;
+
+  // 帯に載せる絞り込み一式（2026-08-04 ユーザー指示・/emperors と同じ移動）。
+  // それまでは表の上に置いていて、365行を少し送ると条件を変える手段が画面から
+  // 消えていた（表見出しだけが貼り付いて残る）。
+  //
+  // **帯は1行48pxで固定**（STICKY_BAR_H が表見出しの sticky top を兼ねる）ので、
+  // 幅が足りない側から順に「絞り込み」ポップオーバーへ畳む。分岐は帯の内幅
+  // （@container/bar）で、ビューポート幅ではない — md 以上はサイドバー240pxのぶん
+  // 実効幅が狭く、768pxの画面でも帯の内幅は438pxしかないため。
+  //   〜@4xl(56rem)  : 時代・王朝・在位回数をすべてポップオーバーへ
+  //   @4xl〜@5xl     : 時代・王朝は帯へ、在位回数はポップオーバー
+  //   @5xl(64rem)〜  : すべて帯に並ぶ（ポップオーバーのボタンは消える）
+  // 検索・列・件数はどの幅でも帯に出す（狭い側では文字を落としてアイコンだけにする）。
+  const filterControls = (
+    <>
+      {/* 縮む側は検索窓ひとつなので、**幅の下限を置く** — 条件が効くと右側が
+          太り（件数が「42/365名」になり印が2つ付く）、その増分をここが全部かぶる。
+          溢れてはいないので `scrollWidth` の検査では拾えない（/emperors で実際に
+          ジャンプのトリガーが68pxまで潰れた）。 */}
+      <div className="min-w-[8.5rem] flex-1 @xl/bar:max-w-[13rem]">
+        <SearchField
+          bare
+          value={query}
+          onChange={setQuery}
+          placeholder="名前・王朝など"
+          ariaLabel="表を検索"
+          widthClass="w-full"
+        />
+      </div>
+      <div className="hidden shrink-0 items-center gap-2 @4xl/bar:flex">
+        <EraSelect
+          eras={eras}
+          value={eraValue}
+          onChange={onEraChange}
+          className="w-[9rem]"
+        />
+        <DynastyCombobox
+          options={visibleDynastyOptions}
+          value={dynastyValue}
+          onChange={setDynastyValue}
+          triggerWidthClass="w-[10rem]"
+        />
+      </div>
+      <div className="hidden shrink-0 @5xl/bar:block">
+        <ReignToggle value={reignFilter} onChange={setReignFilter} />
+      </div>
+      <Popover open={filterOpen} onOpenChange={setFilterOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            // 狭い帯では文字を落としてアイコンだけにする。残すと縮み代が
+            // 検索窓からしか出せない。読み上げ名は aria-label が持つ。
+            aria-label="絞り込み"
+            className="shrink-0 @5xl/bar:hidden"
+          >
+            <SlidersHorizontal data-icon="inline-start" />
+            <span className="hidden @xl/bar:inline">絞り込み</span>
+            {activeFilterCount > 0 && (
+              <span className="rounded-full bg-seal px-1.5 text-micro tabular-nums text-seal-foreground">
+                {activeFilterCount}
+              </span>
+            )}
+          </Button>
+        </PopoverTrigger>
+        {/* **ポップオーバーはポータルで帯の外に出る**ので @container/bar の変種は
+            効かない。中身は幅にかかわらず3つとも載せる（@4xl〜@5xl では時代・王朝が
+            帯とここの2箇所に出るが、同じ state を指しているので食い違わない）。 */}
+        <PopoverContent align="end" className="w-[17rem] space-y-3">
+          <FilterField label="時代">
+            <EraSelect
+              inPanel
+              eras={eras}
+              value={eraValue}
+              onChange={onEraChange}
+              className="w-full"
+            />
+          </FilterField>
+          <FilterField label="王朝">
+            <DynastyCombobox
+              options={visibleDynastyOptions}
+              value={dynastyValue}
+              onChange={setDynastyValue}
+              triggerWidthClass="w-full"
+            />
+          </FilterField>
+          <FilterField label="在位回数">
+            <ReignToggle
+              inPanel
+              value={reignFilter}
+              onChange={setReignFilter}
+              className="w-full"
+              itemClassName="flex-1"
+            />
+          </FilterField>
+        </PopoverContent>
+      </Popover>
+      {/* 列の表示切替。絞り込みではないが**同じ帯に残す** — 表の上に1つだけ
+          取り残すと、送った先で列を戻せなくなる（自動で減らした列を戻す唯一の導線）。
+          2026-08-01: 自前の Popover ＋ aria-pressed のボタン列から DropdownMenu の
+          CheckboxItem へ。矢印キーでの移動・チェック状態の読み上げ（aria-checked）が
+          部品側に入る。**選んでも閉じない**（onSelect を止める）— 2列・3列と続けて
+          隠すのが普通の使い方なので、1つ押すたびに開き直させない。 */}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="outline"
+            className="shrink-0"
+            aria-label="表示する列を選ぶ"
+          >
+            <Columns3 data-icon="inline-start" />
+            <span className="hidden @3xl/bar:inline">
+              {hiddenCount === 0 ? "すべて表示" : `${hiddenCount}列を非表示`}
+            </span>
+            {/* 文字を落とした幅でも「何列か隠れている」ことは残す。 */}
+            {hiddenCount > 0 && (
+              <span className="text-micro tabular-nums text-muted-foreground @3xl/bar:hidden">
+                {hiddenCount}
+              </span>
+            )}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-[200px]">
+          <DropdownMenuLabel>表示する列</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          {hideableColumns.map((column) => (
+            <DropdownMenuCheckboxItem
+              key={column.id}
+              checked={column.getIsVisible()}
+              onCheckedChange={(v) => column.toggleVisibility(!!v)}
+              onSelect={(e) => e.preventDefault()}
+            >
+              {columnLabel(column.id)}
+            </DropdownMenuCheckboxItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <ResultCount
+        pending={stale}
+        className="shrink-0 whitespace-nowrap text-xs @2xl/bar:text-sm"
+      >
+        {/* ResultCount は flex（スピナーとの間隔）なので、文言は1つの要素に
+            まとめる — 分けると数字と単位の間に gap が入って「365 名」になる。
+            狭い帯では「を表示中」を落として数字だけにする。 */}
+        <span>
+          <span className="tabular-nums">{filtered.length}</span>
+          {/* いちばん狭い帯（内幅320px未満＝360pxの画面）では母数を落とす。ここは
+              縮まない側なので、残すとその30pxぶんを検索窓が全部かぶる
+              （実測で入力欄が72pxまで潰れた）。390pxの画面では母数を出す。 */}
+          {filtered.length !== records.length && (
+            <span className="hidden tabular-nums @min-[20rem]/bar:inline">
+              /{records.length}
+            </span>
+          )}
+          名<span className="hidden @xl/bar:inline">を表示中</span>
+        </span>
+      </ResultCount>
+    </>
+  );
+
   return (
     <div>
-      {/* 絞り込み一式。狭い画面では検索を1行、残りを2列に畳む（皇帝一覧と同じ組み方）。
-          幅は列か固定値から決まるので、Webフォント読込による折り返しずれ（CLS）は起きない。 */}
-      <div className="mb-4 grid grid-cols-2 items-end gap-x-3 gap-y-3 sm:flex sm:flex-wrap sm:gap-4">
-        <div className="col-span-2 sm:col-auto">
-          <SearchField
-            value={query}
-            onChange={setQuery}
-            placeholder="名前・王朝など"
-            ariaLabel="表を検索"
-          />
-        </div>
-        <FilterField label="時代">
-          <Select
-            value={eraValue}
-            onValueChange={(v) => {
-              setEraValue(v);
-              // 選んだ時代に属さない王朝が選ばれたままだと0件になる。
-              if (
-                v !== "all" &&
-                !dynastyOptions.some(
-                  (o) => o.value === dynastyValue && o.era === v,
-                )
-              ) {
-                setDynastyValue("all");
-              }
-            }}
-          >
-            <SelectTrigger className="w-full sm:w-[160px]" aria-label="時代で絞り込み">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">すべての時代</SelectItem>
-              {eras.map((e) => (
-                <SelectItem key={e} value={e}>
-                  {e}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </FilterField>
-        <FilterField label="王朝">
-          <DynastyCombobox
-            options={visibleDynastyOptions}
-            value={dynastyValue}
-            onChange={setDynastyValue}
-            triggerWidthClass="w-full sm:w-[200px]"
-          />
-        </FilterField>
-        {/* 旧 /reign の「復位者一覧」に当たる絞り込み。在位回数2回以上＝復位した皇帝。
-            2026-08-01: 2択のセレクト（開いて選ぶ＝2手）から地続きのトグルへ。
-            選択肢が2つしかない絞り込みは、開く前から両方見えているほうが速い。 */}
-        <FilterField label="在位回数">
-          <ToggleGroup
-            type="single"
-            value={reignFilter}
-            // 選択中の項目をもう一度押すと空文字が来る。絞り込みが「どれでもない」
-            // 状態は無いので、その場合は現在の値を保つ。
-            onValueChange={(v) => {
-              if (v) setReignFilter(v as "all" | "restoration");
-            }}
-            variant="outline"
-            spacing={0}
-            aria-label="在位回数で絞り込み"
-            className="w-full sm:w-auto"
-          >
-            <ToggleGroupItem value="all" className="flex-1 sm:flex-none">
-              すべて
-            </ToggleGroupItem>
-            <ToggleGroupItem value="restoration" className="flex-1 sm:flex-none">
-              復位した皇帝だけ
-            </ToggleGroupItem>
-          </ToggleGroup>
-        </FilterField>
-        <FilterField label="列">
-          {/* 2026-08-01: 自前の Popover ＋ aria-pressed のボタン列から
-              DropdownMenu の CheckboxItem へ。矢印キーでの移動・チェック状態の
-              読み上げ（aria-checked）が部品側に入る。**選んでも閉じない**
-              （onSelect を止める）— 2列・3列と続けて隠すのが普通の使い方なので、
-              1つ押すたびに開き直させない。 */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                className="w-full justify-between sm:w-[150px]"
-                aria-label="表示する列を選ぶ"
-              >
-                <Columns3 data-icon="inline-start" />
-                {hiddenCount === 0 ? "すべて表示" : `${hiddenCount}列を非表示`}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-[200px]">
-              <DropdownMenuLabel>表示する列</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {hideableColumns.map((column) => (
-                <DropdownMenuCheckboxItem
-                  key={column.id}
-                  checked={column.getIsVisible()}
-                  onCheckedChange={(v) => column.toggleVisibility(!!v)}
-                  onSelect={(e) => e.preventDefault()}
-                >
-                  {columnLabel(column.id)}
-                </DropdownMenuCheckboxItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </FilterField>
-        <ResultCount pending={stale} className="col-span-2 sm:col-auto sm:pb-2">
-          {filtered.length === records.length
-            ? `全${records.length}名を表示中`
-            : `${filtered.length}名を表示中（全${records.length}名）`}
-        </ResultCount>
-      </div>
+      <StickyBar
+        ariaLabel="表の絞り込みと表示"
+        // 本文は既に px-gutter された箱の中なので、帯だけ全幅に戻す。
+        className="-mx-gutter mb-4 md:-mx-gutter-wide"
+      >
+        {filterControls}
+      </StickyBar>
 
-      <FilterChips chips={chips} onClearAll={clearAll} />
+      <FilterChips
+        chips={chips}
+        onClearAll={clearAll}
+        className="mx-auto w-full max-w-content"
+      />
 
       {filtered.length === 0 ? (
-        <NoResults onClearAll={clearAll} />
+        <div className="mx-auto w-full max-w-content">
+          <NoResults onClearAll={clearAll} />
+        </div>
       ) : (
         /* この箱が持つスクロールは**横だけ**（2026-07-31 ユーザー指示）。縦は
            ページのスクロールに一本化する — 箱の中に縦スクロールを作ると、
@@ -710,7 +893,11 @@ export function EmperorTable({
            （↑ overflows のコメント）。`visible` にはできない — 片方が visible だと
            もう片方に引きずられて実質 auto になる。
            仮想化はまだ入れない（先に実測する方針）。 */
-        <div className="relative">
+        // **`isolate`（＝独立した重ね合わせ文脈）が要る** — この中には右端フェード
+        // (z-40) と固定した先頭列 (z-30) が居て、素の `relative` のままだと帯 (z-30) と
+        // 同じ文脈に並ぶ。表は帯の下を通り抜けるので、表の全高に伸びるフェードが
+        // 帯の右側（件数・列）の上に重なって描かれる。
+        <div className="relative isolate mx-auto w-full max-w-content">
         <div
           ref={scrollRef}
           onScroll={onScroll}
@@ -746,6 +933,9 @@ export function EmperorTable({
                         // 幅を測って既定の可視列を決めるとき（NARROW_COLUMN_PRIORITY）に
                         // th と列 id を対応づける。DOM の並び順に頼らない。
                         data-col-id={header.column.id}
+                        style={
+                          overflows ? undefined : { top: BELOW_STICKY_BAR }
+                        }
                         aria-sort={
                           sorted === "asc"
                             ? "ascending"
@@ -763,9 +953,10 @@ export function EmperorTable({
                           "z-20 bg-[color-mix(in_oklch,var(--seal)_7%,var(--card))] shadow-[inset_0_-2px_0_var(--seal)]",
                           // 表が収まっている幅では、見出しを**ページのスクロール**に
                           // 対して貼り付ける（枠がスクロールコンテナでないときだけ
-                          // 効く）。モバイルはサイトヘッダーが画面上端を占めるので、
-                          // 直値でなく --chrome-top から止め位置を取る。
-                          !overflows && "sticky top-[var(--chrome-top)]",
+                          // 効く）。止め位置は**固定した絞り込みの帯の真下**
+                          // （BELOW_STICKY_BAR）で、直値では書かない — モバイルは
+                          // サイトヘッダー（--chrome-top）も画面上端を占めるため。
+                          !overflows && "sticky",
                           ALIGN_CLASS[header.column.columnDef.meta?.align ?? "left"],
                           // 先頭列は横スクロール中も残す（狭い画面で行の主語が消えないように）。
                           // 右側にも境界線を敷く — 敷かないと2列目の文字が地色の下へ

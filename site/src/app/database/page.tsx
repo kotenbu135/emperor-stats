@@ -33,10 +33,11 @@ export default function DatabasePage() {
         title={PAGE_TITLE}
         description={`全${records.length}名の皇帝のデータベースの表。行の名前から個別ページへ移動できます。`}
       />
+      {/* 余白は Section と同じガタートークンで揃える。本文列の上限（max-w-content）は
+          EmperorTable 側で内側に掛ける — 絞り込みの帯だけは全幅に保つため
+          （/emperors と同じ組み方）。 */}
       <div className="px-gutter py-section md:px-gutter-wide">
-        <div className="mx-auto w-full max-w-content">
-          <EmperorTable records={records} dynastyOptions={dynastyOptions} />
-        </div>
+        <EmperorTable records={records} dynastyOptions={dynastyOptions} />
       </div>
     </>
   );

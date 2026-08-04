@@ -34,17 +34,22 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  BELOW_STICKY_BAR,
+  STICKY_BAR_H,
+  StickyBar,
+} from "@/components/layout/sticky-bar";
 import { cn } from "@/lib/utils";
 
-/** 固定バーの高さ(px)。 */
-export const SECTION_NAV_H = 48;
+/** 固定バーの高さ(px)。実体は `StickyBar` と共有（/database の帯と同じ寸法・同じ契約）。 */
+export const SECTION_NAV_H = STICKY_BAR_H;
 
 /**
  * ジャンプ先の scroll-margin-top / 節見出しを sticky にする場合の top。
  * モバイルはサイトヘッダー(--chrome-top = 56px)も画面上端に固定されているため、
  * バーの高さだけでは足りない。直値ではなくこの式を使うこと。
  */
-export const BELOW_SECTION_NAV = `calc(var(--chrome-top) + ${SECTION_NAV_H}px)`;
+export const BELOW_SECTION_NAV = BELOW_STICKY_BAR;
 
 export interface JumpItem {
   /** 節本体の要素id。 */
@@ -144,104 +149,91 @@ export function SectionJumpNav({
   const current = items.find((i) => i.id === activeId) ?? items[0];
 
   return (
-    <nav
-      aria-label={ariaLabel ?? label}
-      // ページ全体を横断するスティッキーな索引の段（z-30）。節見出し・横スクロールの
-      // 端フェード（z-10）と図の中で位置を保つラベル（z-20）より上、画面に固定される
-      // 要素（z-50）より下。
-      className={cn(
-        "sticky z-30 flex items-center border-b border-border bg-background/95 px-gutter backdrop-blur md:px-gutter-wide",
-        className,
-      )}
-      // モバイルは sticky なサイトヘッダーの下に着ける。
-      style={{ height: SECTION_NAV_H, top: "var(--chrome-top)" }}
+    <StickyBar
+      as="nav"
+      ariaLabel={ariaLabel ?? label}
+      innerWidth={innerWidth}
+      className={className}
     >
-      {/* 帯（背景・下罫）は全幅のまま、中身だけ本文と同じ max-w-content に揃える。
-          container query の基準はこの内側の箱にする（nav は全幅＋左右 gutter で、
-          そちらを基準にすると内幅と最大80pxずれて分岐が狂う）。 */}
-      <div className={cn("@container/bar mx-auto h-full w-full", innerWidth)}>
-        <div className="flex h-full items-center gap-2 @xl/bar:gap-3">
-          {/* 見出しは帯に収まるときだけ出す。絞り込みを載せる面では帯がいちばん
-              広いときに限る（出したままにすると右端の件数が押し出される）。 */}
-          <span
+      {/* 見出しは帯に収まるときだけ出す。絞り込みを載せる面では帯がいちばん
+          広いときに限る（出したままにすると右端の件数が押し出される）。 */}
+      <span
+        className={cn(
+          "hidden shrink-0 text-xs text-muted-foreground",
+          trailing ? "@5xl/bar:inline" : "@md/bar:inline",
+        )}
+      >
+        {label}
+      </span>
+      {current && (
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              // 帯に並ぶ他の操作（検索窓・セレクト）が h-8 なので高さを揃える。
+              // **幅に下限を置く** — 右に絞り込みが載る面では、条件が効いた
+              // 瞬間に右側が太り（件数が「42/365名」になり印が付く）、縮み代を
+              // 全部かぶるここが2文字まで潰れる（下限が無いと実測68px）。
+              className="min-w-[6.5rem] shrink justify-between @xl/bar:min-w-[9.5rem]"
+            >
+              <span className="truncate">
+                {current.label}
+                {current.count !== undefined && (
+                  <span className="ml-1.5 text-micro tabular-nums text-muted-foreground">
+                    {current.count}
+                  </span>
+                )}
+              </span>
+              <ChevronDown data-icon="inline-end" />
+            </Button>
+          </PopoverTrigger>
+          {/* 節は最大15個。2列に組めばどの幅でも一度に全部見える（縦スクロールも出ない）。 */}
+          <PopoverContent
+            align="start"
             className={cn(
-              "hidden shrink-0 text-xs text-muted-foreground",
-              trailing ? "@5xl/bar:inline" : "@md/bar:inline",
+              "grid gap-0.5 p-1",
+              popoverColumns === 2 ? "w-[22rem] grid-cols-2" : "w-[13rem] grid-cols-1",
             )}
           >
-            {label}
-          </span>
-          {current && (
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  // 帯に並ぶ他の操作（検索窓・セレクト）が h-8 なので高さを揃える。
-                  // **幅に下限を置く** — 右に絞り込みが載る面では、条件が効いた
-                  // 瞬間に右側が太り（件数が「42/365名」になり印が付く）、縮み代を
-                  // 全部かぶるここが2文字まで潰れる（下限が無いと実測68px）。
-                  className="min-w-[6.5rem] shrink justify-between @xl/bar:min-w-[9.5rem]"
+            {items.map((item) => {
+              const active = item.id === current.id;
+              return (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  aria-current={active ? "true" : undefined}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "flex items-baseline justify-between gap-2 rounded-sm px-2.5 py-1.5 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal",
+                    active
+                      ? "bg-seal text-seal-foreground"
+                      : "text-foreground/85 hover:bg-accent hover:text-seal",
+                  )}
                 >
-                  <span className="truncate">
-                    {current.label}
-                    {current.count !== undefined && (
-                      <span className="ml-1.5 text-micro tabular-nums text-muted-foreground">
-                        {current.count}
-                      </span>
-                    )}
-                  </span>
-                  <ChevronDown data-icon="inline-end" />
-                </Button>
-              </PopoverTrigger>
-              {/* 節は最大15個。2列に組めばどの幅でも一度に全部見える（縦スクロールも出ない）。 */}
-              <PopoverContent
-                align="start"
-                className={cn(
-                  "grid gap-0.5 p-1",
-                  popoverColumns === 2 ? "w-[22rem] grid-cols-2" : "w-[13rem] grid-cols-1",
-                )}
-              >
-                {items.map((item) => {
-                  const active = item.id === current.id;
-                  return (
-                    <a
-                      key={item.id}
-                      href={`#${item.id}`}
-                      aria-current={active ? "true" : undefined}
-                      onClick={() => setOpen(false)}
+                  <span className="truncate">{item.label}</span>
+                  {item.count !== undefined && (
+                    <span
                       className={cn(
-                        "flex items-baseline justify-between gap-2 rounded-sm px-2.5 py-1.5 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal",
-                        active
-                          ? "bg-seal text-seal-foreground"
-                          : "text-foreground/85 hover:bg-accent hover:text-seal",
+                        "shrink-0 text-micro tabular-nums",
+                        active ? "text-seal-foreground/80" : "text-muted-foreground",
                       )}
                     >
-                      <span className="truncate">{item.label}</span>
-                      {item.count !== undefined && (
-                        <span
-                          className={cn(
-                            "shrink-0 text-micro tabular-nums",
-                            active ? "text-seal-foreground/80" : "text-muted-foreground",
-                          )}
-                        >
-                          {item.count}
-                        </span>
-                      )}
-                    </a>
-                  );
-                })}
-              </PopoverContent>
-            </Popover>
-          )}
-          {trailing && (
-            // 絞り込みは右詰め。縮む側（検索窓）が min-w-0 を効かせられるよう、
-            // この箱自体も min-w-0 で受ける。
-            <div className="ml-auto flex min-w-0 flex-1 items-center justify-end gap-2">
-              {trailing}
-            </div>
-          )}
+                      {item.count}
+                    </span>
+                  )}
+                </a>
+              );
+            })}
+          </PopoverContent>
+        </Popover>
+      )}
+      {trailing && (
+        // 絞り込みは右詰め。縮む側（検索窓）が min-w-0 を効かせられるよう、
+        // この箱自体も min-w-0 で受ける。
+        <div className="ml-auto flex min-w-0 flex-1 items-center justify-end gap-2">
+          {trailing}
         </div>
-      </div>
-    </nav>
+      )}
+    </StickyBar>
   );
 }
