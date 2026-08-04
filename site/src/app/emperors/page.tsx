@@ -65,7 +65,7 @@ export default function EmperorsPage() {
       />
       <PageHeader
         title="皇帝一覧"
-        description={`収録している全${records.length}名の一覧です。カードを押すと在位期間・死因・各種回数などの詳細を表示します。`}
+        description={`収録している全${records.length}名の一覧です。`}
       />
       {/* 余白は Section と同じガタートークンで揃える。本文列の上限（max-w-content）は
           EmperorGrid 側で内側に掛ける — 時代ジャンプバーだけは帯を全幅に保つため。 */}
