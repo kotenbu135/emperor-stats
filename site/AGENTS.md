@@ -102,6 +102,24 @@ npm run dev -- --port 3100     # 別のターミナルで
 node tools/hover-audit.mjs     # 各ページの操作要素の cursor と hover を実測 → NG: 0 を保つ
 ```
 
+## /emperors の固定バーは1行48pxを超えない
+
+`SectionJumpNav` の帯には時代ジャンプに加えて**絞り込み一式（検索・王朝・区分・件数）**が
+載っている（2026-08-04）。**`SECTION_NAV_H`（48px）は節見出しの sticky `top` と節の
+`scrollMarginTop` を兼ねている**ので、中身が折り返して2行になると15個の時代見出しと
+全ジャンプ先が黙ってずれる（tsc・lint・build はどれも落ちない）。
+
+- 帯に部品を足すときは**幅の分岐を `@container/bar`**（帯の内幅）で書く。ビューポート幅で
+  分岐しないこと — md 以上はサイドバー240pxが挟まり、768pxの画面でも内幅は438pxしかない
+- **ポップオーバーの中身はポータルで帯の外に出る**ので `@xl/bar:` 等の変種は効かない
+- **0件でも帯は残す**（`items` が空でも `trailing` があれば描く）。消すと絞り込みを外す
+  導線が `NoResults` の1本だけになる
+- 触ったら実測し直す:
+
+```bash
+npm run build && node tools/bar-audit.mjs   # 高さ48px・横溢れ・0件時 → NG: 0 を保つ
+```
+
 - **`button` の cursor は Tailwind v4 が `default` にする。** globals.css の base で
   `button:not(:disabled)`・`summary`・`label[for]`・`[role=tab|switch|radio|option|menuitem*]`
   にまとめて `cursor: pointer` を当ててある。**この規則を消すと押せる部品のほぼ全部が

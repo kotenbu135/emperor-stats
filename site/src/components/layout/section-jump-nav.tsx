@@ -16,11 +16,17 @@
 // - 現在見ている節をバーに出す。判定はサイドバーメニュー・章ジャンプと
 //   同じ IntersectionObserver・同じ帯（-20%/-55%）で、強調がずれないようにする
 //
+// **2026-08-04 に `trailing` を足した**（ユーザー指示）。/emperors はこの帯に
+// 絞り込み一式（検索・王朝・区分・件数）も載せる — 本文先頭に置いていた頃は、
+// 少し送ると条件を変える手段が画面から消えていた。**帯は1行48pxのまま**なので、
+// 渡す側が幅に応じて畳む（`trailing` の JSDoc と SITE_DESIGN.md の
+// 「絞り込みは帯の中へ移した」節）。
+//
 // 【観測対象の注意】id は「節の本体」に付けること。見出しに付けると、見出しが
 // sticky でこのバーの真下に貼り付き続けるかぎり判定帯（画面の20%〜45%）に
 // 一度も入らず、現在地が永久に更新されない。
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -51,13 +57,29 @@ export interface JumpItem {
 export function SectionJumpNav({
   items,
   label,
+  ariaLabel,
   className,
   innerWidth = "max-w-content",
   popoverColumns = 2,
+  trailing,
 }: {
   items: JumpItem[];
   /** バー左端の見出し（例: "時代へジャンプ"）。狭い画面では出さない。 */
   label: string;
+  /** nav のアクセシブルネーム。`trailing` に絞り込みを載せる面では帯の役目が
+   *  「ジャンプ」だけではなくなるので、そのページの言い方を渡す。 */
+  ariaLabel?: string;
+  /**
+   * ジャンプの右に並べる操作（/emperors の絞り込み一式）。**帯は1行48pxで固定**
+   * （`SECTION_NAV_H` が節見出しの sticky top と節の scrollMarginTop を兼ねるため、
+   * 折り返して2行になると15個の見出しと全ジャンプ先が黙ってずれる）。渡す側は
+   * 折り返さない形（`whitespace-nowrap` と、縮む側の `min-w-0`）で組むこと。
+   * 幅の分岐は**ビューポートではなくこの帯の内幅**で決める（md 以上はサイドバー
+   * 240px のぶん実効幅が狭く、768px の画面で内幅は448pxしかない）ため、
+   * 中身は `@container/bar` の container query 変種（`@xl/bar:` など）で書く。
+   * **ポップオーバーの中身はポータルで帯の外へ出る**ので `/bar` の変種は効かない。
+   */
+  trailing?: ReactNode;
   /** バーの中身を揃える列幅クラス。**そのページの本文列と必ず同じ値にする** —
    *  既定のデータページ幅（max-w-content = 1200px）のまま記事型ページ（/about・
    *  読み物幅）に置くと、トリガーだけが本文より左に飛び出す。 */
@@ -111,15 +133,19 @@ export function SectionJumpNav({
     return () => observer.disconnect();
   }, [idKey]);
 
-  if (items.length === 0) return null;
+  // 節が無くても trailing（絞り込み）があるときは帯を残す。/emperors は 0 件に
+  // なると節も 0 個になるが、そこで帯ごと消すと絞り込みを外す手段が画面から
+  // 消える（NoResults の「すべて解除」しか残らない）。
+  if (items.length === 0 && !trailing) return null;
 
   // 現在地が未確定（読み込み直後・observer の初回通知前）は先頭の節を出す。
   // 空文字のまま出すとトリガーの幅がゼロ幅から実幅へ跳ねて CLS になる。
+  // **items が空のときは undefined になる**ので、下のジャンプ部分ごと出さない。
   const current = items.find((i) => i.id === activeId) ?? items[0];
 
   return (
     <nav
-      aria-label={label}
+      aria-label={ariaLabel ?? label}
       // ページ全体を横断するスティッキーな索引の段（z-30）。節見出し・横スクロールの
       // 端フェード（z-10）と図の中で位置を保つラベル（z-20）より上、画面に固定される
       // 要素（z-50）より下。
@@ -130,64 +156,88 @@ export function SectionJumpNav({
       // モバイルは sticky なサイトヘッダーの下に着ける。
       style={{ height: SECTION_NAV_H, top: "var(--chrome-top)" }}
     >
-      {/* 帯（背景・下罫）は全幅のまま、中身だけ本文と同じ max-w-content に揃える。 */}
-      <div className={cn("mx-auto flex h-full w-full items-center gap-3", innerWidth)}>
-        <span className="hidden shrink-0 text-xs text-muted-foreground sm:inline">
-          {label}
-        </span>
-        <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button variant="outline" size="sm" className="min-w-[9.5rem] justify-between">
-              <span className="truncate">
-                {current.label}
-                {current.count !== undefined && (
-                  <span className="ml-1.5 text-micro tabular-nums text-muted-foreground">
-                    {current.count}
-                  </span>
-                )}
-              </span>
-              <ChevronDown data-icon="inline-end" />
-            </Button>
-          </PopoverTrigger>
-          {/* 節は最大15個。2列に組めばどの幅でも一度に全部見える（縦スクロールも出ない）。 */}
-          <PopoverContent
-            align="start"
+      {/* 帯（背景・下罫）は全幅のまま、中身だけ本文と同じ max-w-content に揃える。
+          container query の基準はこの内側の箱にする（nav は全幅＋左右 gutter で、
+          そちらを基準にすると内幅と最大80pxずれて分岐が狂う）。 */}
+      <div className={cn("@container/bar mx-auto h-full w-full", innerWidth)}>
+        <div className="flex h-full items-center gap-2 @xl/bar:gap-3">
+          {/* 見出しは帯に収まるときだけ出す。絞り込みを載せる面では帯がいちばん
+              広いときに限る（出したままにすると右端の件数が押し出される）。 */}
+          <span
             className={cn(
-              "grid gap-0.5 p-1",
-              popoverColumns === 2 ? "w-[22rem] grid-cols-2" : "w-[13rem] grid-cols-1",
+              "hidden shrink-0 text-xs text-muted-foreground",
+              trailing ? "@5xl/bar:inline" : "@md/bar:inline",
             )}
           >
-            {items.map((item) => {
-              const active = item.id === current.id;
-              return (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  aria-current={active ? "true" : undefined}
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "flex items-baseline justify-between gap-2 rounded-sm px-2.5 py-1.5 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal",
-                    active
-                      ? "bg-seal text-seal-foreground"
-                      : "text-foreground/85 hover:bg-accent hover:text-seal",
-                  )}
+            {label}
+          </span>
+          {current && (
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  // 帯に並ぶ他の操作（検索窓・セレクト）が h-8 なので高さを揃える。
+                  className="min-w-0 shrink justify-between @xl/bar:min-w-[9.5rem]"
                 >
-                  <span className="truncate">{item.label}</span>
-                  {item.count !== undefined && (
-                    <span
+                  <span className="truncate">
+                    {current.label}
+                    {current.count !== undefined && (
+                      <span className="ml-1.5 text-micro tabular-nums text-muted-foreground">
+                        {current.count}
+                      </span>
+                    )}
+                  </span>
+                  <ChevronDown data-icon="inline-end" />
+                </Button>
+              </PopoverTrigger>
+              {/* 節は最大15個。2列に組めばどの幅でも一度に全部見える（縦スクロールも出ない）。 */}
+              <PopoverContent
+                align="start"
+                className={cn(
+                  "grid gap-0.5 p-1",
+                  popoverColumns === 2 ? "w-[22rem] grid-cols-2" : "w-[13rem] grid-cols-1",
+                )}
+              >
+                {items.map((item) => {
+                  const active = item.id === current.id;
+                  return (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      aria-current={active ? "true" : undefined}
+                      onClick={() => setOpen(false)}
                       className={cn(
-                        "shrink-0 text-micro tabular-nums",
-                        active ? "text-seal-foreground/80" : "text-muted-foreground",
+                        "flex items-baseline justify-between gap-2 rounded-sm px-2.5 py-1.5 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal",
+                        active
+                          ? "bg-seal text-seal-foreground"
+                          : "text-foreground/85 hover:bg-accent hover:text-seal",
                       )}
                     >
-                      {item.count}
-                    </span>
-                  )}
-                </a>
-              );
-            })}
-          </PopoverContent>
-        </Popover>
+                      <span className="truncate">{item.label}</span>
+                      {item.count !== undefined && (
+                        <span
+                          className={cn(
+                            "shrink-0 text-micro tabular-nums",
+                            active ? "text-seal-foreground/80" : "text-muted-foreground",
+                          )}
+                        >
+                          {item.count}
+                        </span>
+                      )}
+                    </a>
+                  );
+                })}
+              </PopoverContent>
+            </Popover>
+          )}
+          {trailing && (
+            // 絞り込みは右詰め。縮む側（検索窓）が min-w-0 を効かせられるよう、
+            // この箱自体も min-w-0 で受ける。
+            <div className="ml-auto flex min-w-0 flex-1 items-center justify-end gap-2">
+              {trailing}
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );

@@ -83,6 +83,7 @@ export function SearchField({
   label = "検索",
   ariaLabel,
   widthClass = "w-full sm:w-[220px]",
+  bare = false,
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -90,39 +91,41 @@ export function SearchField({
   label?: string;
   ariaLabel: string;
   widthClass?: string;
+  /** ラベルを持たない置き場（固定バーの中など）向けに、入力だけを返す。
+   *  読み上げ名は `ariaLabel` が持つので、見えるラベルが無くても名前は残る。 */
+  bare?: boolean;
 }) {
-  return (
-    <FilterField label={label}>
-      <InputGroup className={cn("transition-colors hover:bg-accent/50", widthClass)}>
-        <InputGroupAddon>
-          <Search />
+  const field = (
+    <InputGroup className={cn("transition-colors hover:bg-accent/50", widthClass)}>
+      <InputGroupAddon>
+        <Search />
+      </InputGroupAddon>
+      <InputGroupInput
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        aria-label={ariaLabel}
+        // 検索窓に入れたまま Enter を押しても何も起きない（絞り込みは入力に
+        // 追従する）ので、囲いのフォームは持たない。
+        type="search"
+        // ブラウザ標準の×（Safari/Chrome の search キャンセル）は高さが
+        // 合わないので殺し、下の InputGroupButton に一本化する。
+        className="[&::-webkit-search-cancel-button]:appearance-none"
+      />
+      {value !== "" && (
+        <InputGroupAddon align="inline-end">
+          <InputGroupButton
+            size="icon-xs"
+            aria-label="検索語を消す"
+            onClick={() => onChange("")}
+          >
+            <X />
+          </InputGroupButton>
         </InputGroupAddon>
-        <InputGroupInput
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder={placeholder}
-          aria-label={ariaLabel}
-          // 検索窓に入れたまま Enter を押しても何も起きない（絞り込みは入力に
-          // 追従する）ので、囲いのフォームは持たない。
-          type="search"
-          // ブラウザ標準の×（Safari/Chrome の search キャンセル）は高さが
-          // 合わないので殺し、下の InputGroupButton に一本化する。
-          className="[&::-webkit-search-cancel-button]:appearance-none"
-        />
-        {value !== "" && (
-          <InputGroupAddon align="inline-end">
-            <InputGroupButton
-              size="icon-xs"
-              aria-label="検索語を消す"
-              onClick={() => onChange("")}
-            >
-              <X />
-            </InputGroupButton>
-          </InputGroupAddon>
-        )}
-      </InputGroup>
-    </FilterField>
+      )}
+    </InputGroup>
   );
+  return bare ? field : <FilterField label={label}>{field}</FilterField>;
 }
 
 /**
