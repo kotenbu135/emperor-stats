@@ -44,14 +44,18 @@ export const OPERATOR = {
 /** 運営者ノードのIRI。Dataset の creator と /about の記載が同じ主体を指すよう @id で結ぶ。 */
 export const OPERATOR_ID = `${SITE_URL}/about#operator`;
 
-/** 運営者（Person）ノード。sameAs は本人が管理していると確認できる URL のみ。 */
+/**
+ * 運営者（Person）ノード。sameAs は本人が管理していると確認できる URL のみ。
+ * リポジトリ URL はここに書かない — sameAs は「同一実体を指す別 URL」で、
+ * リポジトリは運営者本人ではなくデータセット（成果物）なので Dataset.sameAs に置く（Issue #76）。
+ */
 export function operatorNode(): Record<string, unknown> {
   return {
     "@type": "Person",
     "@id": OPERATOR_ID,
     name: OPERATOR.handle,
     url: absoluteUrl("/about"),
-    sameAs: [OPERATOR.profileUrl, OPERATOR.repoUrl],
+    sameAs: [OPERATOR.profileUrl],
   };
 }
 
@@ -178,6 +182,8 @@ export function collectionPageJsonLd({
     description,
     url: absoluteUrl(path),
     inLanguage: "ja",
+    // 統計ページの WebPage と同じく、同一データセットのビューであることを機械可読にする。
+    isPartOf: datasetRef(),
     mainEntity: {
       "@type": "ItemList",
       numberOfItems,
@@ -208,6 +214,24 @@ export function websiteJsonLd(): Record<string, unknown> {
  */
 export const DATASET_ID = `${SITE_URL}/about#dataset`;
 
+/** Dataset を記述しているページ＝ /about。本体の url と参照側の url を同じ値にする。 */
+const DATASET_URL = `${SITE_URL}/about`;
+
+/**
+ * Dataset ノードへの参照（本体は /about の datasetJsonLd）。統計ページの WebPage と
+ * 一覧ページの CollectionPage の isPartOf が同じ形を指すよう1箇所にまとめる。
+ * url は「そのデータセットを説明したページ」＝マークアップが載っている /about
+ * （Dataset 本体の url と同じ値になる）。
+ */
+function datasetRef(): Record<string, unknown> {
+  return {
+    "@type": "Dataset",
+    "@id": DATASET_ID,
+    name: SITE_NAME,
+    url: DATASET_URL,
+  };
+}
+
 export function datasetJsonLd({
   description,
   dateModified,
@@ -227,7 +251,11 @@ export function datasetJsonLd({
     "@id": DATASET_ID,
     name: SITE_NAME,
     description,
-    url: SITE_URL,
+    // データセットを説明しているページ自身（/about）を指す。トップは WebSite であって
+    // Dataset の説明ページではない（Issue #76）。
+    url: DATASET_URL,
+    // 成果物としてのリポジトリ。creator（人物）の sameAs ではなくこちらに置く。
+    sameAs: OPERATOR.repoUrl,
     dateModified,
     version,
     temporalCoverage,
@@ -303,12 +331,7 @@ export function statsPageJsonLd({
     description,
     url: absoluteUrl(path),
     inLanguage: "ja",
-    isPartOf: {
-      "@type": "Dataset",
-      "@id": DATASET_ID,
-      name: SITE_NAME,
-      url: absoluteUrl("/about"),
-    },
+    isPartOf: datasetRef(),
   };
 }
 

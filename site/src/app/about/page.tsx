@@ -43,7 +43,13 @@ import {
 import { BASE_PATH } from "@/lib/base-path";
 import { quoteVerificationStats } from "@/lib/quote-verification";
 import { VIDEO_CHANNEL } from "@/lib/video-channel";
-import { buildMetadata, datasetJsonLd, JsonLd, OPERATOR } from "@/lib/seo";
+import {
+  BreadcrumbJsonLd,
+  buildMetadata,
+  datasetJsonLd,
+  JsonLd,
+  OPERATOR,
+} from "@/lib/seo";
 
 export const metadata = buildMetadata({
   path: "/about",
@@ -241,6 +247,7 @@ export default function AboutPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd label="このサイトについて" path="/about" />
       <JsonLd
         data={datasetJsonLd({
           description:
