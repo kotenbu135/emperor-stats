@@ -18,7 +18,7 @@
 import type { ReactNode } from "react";
 // 型だけの import（コンパイルで消える）。この部品は Server Component なので
 // AGENTS.md の「クライアント側から emperors.ts を import しない」には触れない。
-import type { PortraitCredit } from "@/lib/emperors";
+import type { PortraitCredit, PortraitCoverageRow } from "@/lib/emperors";
 import { cn } from "@/lib/utils";
 
 /** 記事の本文列。PageHeader の containedWidth・SectionJumpNav の innerWidth と同値。 */
@@ -290,5 +290,61 @@ export function PortraitCredits({ credits }: { credits: PortraitCredit[] }) {
         </table>
       </div>
     </details>
+  );
+}
+
+/**
+ * 時代別の肖像の掲載率（Issue #81 の2番・2026-08-05）。
+ *
+ * **`/lab` の `RateBars`（Tremor `BarList`）を持ってこないこと。** あちらは
+ * `"use client"` で、この面は上から下まで読ませるだけの記事型ページなので、
+ * 静止した16本の棒のためにクライアント JS を足す理由が無い。棒の言い方
+ * （面は `--bar`・名前は棒の上に重ねて左寄せ・値は右の列）は BarList に合わせてある。
+ *
+ * **棒の長さの基準は 100%**（BarList の既定である「最大値＝全幅」ではない）。
+ * ここで見せたいのは時代どうしの相対差ではなく「その時代の何割か」で、最大値
+ * 基準にすると 100% の宋が居なくなった瞬間に全部の棒が黙って伸びる。
+ *
+ * 名前に実数（`17/69名`）を併記するのは読みやすさのためだけではない
+ * — `--bar` は白地とのコントラストが 3.01 で、可視ラベルの併記が非テキストの
+ * 3:1 の免除条件そのもの（site/AGENTS.md の globals.css の項）。
+ */
+export function PortraitCoverage({ rows }: { rows: PortraitCoverageRow[] }) {
+  return (
+    <div className="flex justify-between gap-6">
+      <div className="w-full space-y-1.5">
+        {rows.map((row) => (
+          <div key={row.eraLabel} className="relative flex h-8 items-center">
+            <div
+              className="h-full rounded bg-bar"
+              // 0% の時代は現時点で無いが、将来出たときに棒が消えて行の意味が
+              // 読めなくなるのを避けるため下限2%（BarList と同じ扱い）。
+              style={{ width: `${Math.max(row.percent, 2)}%` }}
+            />
+            {/* 実数を `text-muted-foreground` に落とさないこと — 名前は棒の上に
+                重なるので、棒の面（`--bar`）に対して 1.9:1 まで落ちる。棒の面は
+                黒文字が乗る明るさで選んである（globals.css）。 */}
+            <p className="absolute left-2 truncate whitespace-nowrap pr-2 text-sm text-foreground">
+              {row.eraLabel}
+              <span className="ml-2">
+                {row.withPortrait}/{row.total}名
+              </span>
+            </p>
+          </div>
+        ))}
+      </div>
+      <div className="shrink-0">
+        {rows.map((row) => (
+          <div
+            key={row.eraLabel}
+            className="mb-1.5 flex h-8 items-center justify-end last:mb-0"
+          >
+            <p className="whitespace-nowrap text-sm leading-none tabular-nums text-foreground">
+              {row.percent}%
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

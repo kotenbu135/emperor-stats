@@ -2263,3 +2263,50 @@ export function getPortraitCredits(): PortraitCredit[] {
       commonsPageUrl: m.commonsPageUrl,
     }));
 }
+
+/** 時代1区分ぶんの肖像の掲載率。 */
+export interface PortraitCoverageRow {
+  eraLabel: string;
+  /** その時代の皇帝数。 */
+  total: number;
+  /** うち肖像を掲載できた人数。 */
+  withPortrait: number;
+  /** withPortrait / total（整数%）。 */
+  percent: number;
+}
+
+/**
+ * 時代別の肖像の掲載率（`/about` の「肖像画の出典」節・Issue #81 の2番）。
+ *
+ * **これは「現存する肖像の割合」ではなく「当サイトが掲載できた割合」**。母集団の
+ * 定義（PD/CC0 のみ・zh.wikipedia の自由ライセンス画像からの照合）は同じ節の本文が
+ * 出しているので、**この図を母集団の説明から引き離して別の面へ移さないこと**
+ * （トップの数字カードに単独で出すと「史料に残っている割合」と読まれる）。
+ *
+ * ライセンス方針で落ちたのは2名だけ（`docs/site-design/PORTRAITS.md`）なので、
+ * 時代差の中身はほぼ「自由に使える肖像が流通しているか」。
+ *
+ * 並びは `eraOrder`（16区分）の時代順で、率の降順に並べ替えない — 横に並ぶのは
+ * 時間なので、並べ替えると「南北朝の低さ」が時代の話に見えなくなる。
+ */
+export function getPortraitCoverageByEra(): PortraitCoverageRow[] {
+  const records = getAllEmperorRecords();
+  const rows = new Map<string, { total: number; withPortrait: number }>();
+  for (const r of records) {
+    const row = rows.get(r.eraLabel) ?? { total: 0, withPortrait: 0 };
+    row.total += 1;
+    if (r.hasPortrait) row.withPortrait += 1;
+    rows.set(r.eraLabel, row);
+  }
+  return eraOrder
+    .filter((era) => rows.has(era))
+    .map((era) => {
+      const row = rows.get(era)!;
+      return {
+        eraLabel: era,
+        total: row.total,
+        withPortrait: row.withPortrait,
+        percent: Math.round((row.withPortrait / row.total) * 100),
+      };
+    });
+}

@@ -26,6 +26,7 @@ import {
   DownloadCards,
   ErrataList,
   Lead,
+  PortraitCoverage,
   PortraitCredits,
   Prose,
   TermList,
@@ -37,6 +38,7 @@ import {
   datasetGeneratedAt,
   datasetTemporalCoverage,
   datasetVersion,
+  getPortraitCoverageByEra,
   getPortraitCredits,
   getOverviewStats,
 } from "@/lib/emperors";
@@ -109,6 +111,7 @@ const ERRATA: ErratumItem[] = [
 export default function AboutPage() {
   const stats = getOverviewStats();
   const credits = getPortraitCredits();
+  const portraitCoverage = getPortraitCoverageByEra();
 
   // 11項目の数え方。文章は元のまま、h3 の見出しを用語の桁へ移しただけ。
   const countingItems: TermItem[] = [
@@ -439,6 +442,26 @@ export default function AboutPage() {
             名分使用しています（主にWikimedia
             Commons経由。『歴代帝后像』『帝鑑図説』など）。著作権保護期間内の画像や、クレジット表示が必要なライセンス（CC
             BY-SA等）の画像は使用していません。
+          </p>
+          {/* 肖像を出せていないこと自体を統計として出す（Issue #81 の2番・2026-08-05）。
+              母集団の定義を出しているのが直前の段落なので、**この図を節の外へ
+              出さないこと**（トップの数字カードへ単独で移すと「史料に残っている
+              割合」と読まれる。判断の経緯は SITE_DESIGN.md の同名の節）。 */}
+          <p>
+            掲載できたのは{stats.emperorCount}人中{credits.length}人で、残る
+            {stats.emperorCount - credits.length}人（
+            {Math.round(
+              ((stats.emperorCount - credits.length) / stats.emperorCount) * 100,
+            )}
+            %）のページには肖像が出ません。この割合は時代によって大きく違います。
+          </p>
+        </Prose>
+        <div className="mt-5">
+          <PortraitCoverage rows={portraitCoverage} />
+        </div>
+        <Prose className="mt-5">
+          <p>
+            肖像が出ない皇帝の大半は、ライセンスの制約で見送ったのではなく、パブリックドメインまたはCC0で使える肖像そのものが見つからなかった皇帝です。したがってこの割合は「肖像画が現存する割合」ではなく「当サイトが掲載できた割合」です。
           </p>
         </Prose>
         <div className="mt-5">
