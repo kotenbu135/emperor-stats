@@ -39,6 +39,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import profile_prose  # noqa: E402  （ルビ漏れ・訓読調。check_profile_fragment.py と共有）
+
 ROOT = Path(__file__).resolve().parent.parent
 EMPERORS = ROOT / "data" / "emperors.json"
 READINGS = ROOT / "data" / "name-readings.json"
@@ -112,6 +115,7 @@ def main() -> int:
 
 
     profiles = json.loads(PROFILES.read_text(encoding="utf-8"))
+    lexicon = profile_prose.load_lexicon()
     emperor_ids = {e["id"] for e in emperors["emperors"]}
     written = 0
     ruby_counts: dict[str, int] = {}
@@ -164,6 +168,20 @@ def main() -> int:
                         f"{label}: 「{parent}」の読みが読みテーブルと違います → "
                         f"本文「{reading}」／テーブル「{strip_ruby_reading(expected)}」"
                     )
+
+        # 5. ルビの振り漏れ・6. 漢文訓読調（2026-08-05・実装は scripts/profile_prose.py）。
+        #
+        # **lead と body をつないで見る**（欄が違っても同じ1本の紹介文で、実際に
+        # 「挟書律」は lead に振って body で素通りしていた）。断片側の
+        # check_profile_fragment.py と同じ関数を呼ぶので、片方だけ直さないこと。
+        joined = f"{profile.get('lead') or ''}\n{profile.get('body') or ''}"
+        if joined.strip():
+            label = f"emperor-profiles.json「{emperor_id}」"
+            for term, n, how in profile_prose.missing_ruby(joined, lexicon):
+                err(f"{label}: 「{term}」にルビがありません（{n}箇所）→ {how} を"
+                    f"**{n}箇所すべて**に振る（2回目以降も振る）")
+            for word, n, how in profile_prose.archaic_hits(joined):
+                err(f"{label}: 漢文訓読調の「{word}」（{n}箇所）→ {how} に書き換える")
 
     total = len(displayed)
     done = len(displayed & set(readings))

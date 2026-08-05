@@ -44,6 +44,9 @@ import sys
 from difflib import SequenceMatcher
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import profile_prose  # noqa: E402  （ルビ漏れ・訓読調。validate_readings.py と共有）
+
 ROOT = Path(__file__).resolve().parent.parent
 READINGS = ROOT / "data" / "name-readings.json"
 # _corpus_cache はメインの作業ツリーにしか無い（.gitignore 対象・worktree へは複製されない）。
@@ -151,6 +154,29 @@ def check_readings(text: str, label: str, readings: dict) -> None:
                 "data/name-readings.json が読みの正本で、**先に grep しなくてよい**"
                 "（食い違えばここが正解を出す）",
             )
+
+
+def check_prose(emperor_id: str, lead: str, body: str, lexicon: dict) -> None:
+    """ルビの振り漏れと漢文訓読調（2026-08-05・実装は scripts/profile_prose.py）。
+
+    **lead と body をつないで見る。** 欄が違っても同じ1本の紹介文で、実際に
+    「挟書律」は lead に振って body で素通りしていた。
+    """
+    text = f"{lead}\n{body}"
+    for term, n, how in profile_prose.missing_ruby(text, lexicon):
+        err(
+            f"{emperor_id}: 「{term}」にルビがありません（{n}箇所）",
+            f"{how} の形で **{n}箇所すべて** に振る。2回目以降も振る"
+            "（初出だけにしない・2026-08-05 ユーザー決定）。"
+            "読みは data/profile-ruby-lexicon.json と data/name-readings.json が正本",
+        )
+    for word, n, how in profile_prose.archaic_hits(text):
+        err(
+            f"{emperor_id}: 漢文訓読調の「{word}」（{n}箇所）",
+            f"{how} に書き換える。**現代の日本語で書く** — 原文の言い回しを"
+            "訓読しただけの語は使わない（史書の語そのものを話題にするときは"
+            "「薨」のようにカギ括弧に入れる。そこは数えない）",
+        )
 
 
 def cache_path(emperor_id: str) -> Path | None:
@@ -485,6 +511,7 @@ def main() -> int:
     fragment_path = Path(args.fragment)
     fragment = json.loads(fragment_path.read_text(encoding="utf-8"))
     readings = json.loads(READINGS.read_text(encoding="utf-8"))["names"]
+    lexicon = profile_prose.load_lexicon()
 
     for emperor_id, profile in fragment.items():
         unknown = set(profile) - {"lead", "body", "description", "basis", "claims"}
@@ -509,6 +536,10 @@ def main() -> int:
                 continue
             check_ruby_notation(text, f"{emperor_id} の {field}")
             check_readings(text, f"{emperor_id} の {field}", readings)
+
+        if profile.get("lead") or profile.get("body"):
+            check_prose(emperor_id, profile.get("lead") or "",
+                        profile.get("body") or "", lexicon)
 
         desc = profile.get("description", "")
         if RUBY.search(desc) or "｜" in desc or "《" in desc:
