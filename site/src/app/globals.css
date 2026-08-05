@@ -133,7 +133,8 @@
 :root {
   /* @palette:start */
   /* ユーザー自作のビルダーで生成したテーマ（2026-07-31 受領）をそのまま採用。
-     shadcn の標準トークンは受け取った値を1つも変えていない。
+     shadcn の標準トークンで受領値から変えたのは --muted-foreground の1つだけ
+     （2026-08-05・Issue #83・理由は下のコメント）。
      このサイト固有のトークン（--seal / --series-* / --kinship-minor）だけは
      標準側に対応するものが無いので、下で明示的に対応付けている。 */
   --background: oklch(1 0 0);
@@ -147,7 +148,12 @@
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
+  /* 補助テキスト。受領値は oklch(0.556 0 0) = #737373 で、白地では 4.74 で通るが
+     薄い灰の面に乗ると 4.5 を割った（Issue #83 の実測: 非選択タブの --muted #f5f5f5 で
+     4.35・フッターの bg-secondary/60 #f8f8f9 で 4.47）。#707070 まで濃くして両方を
+     満たす（muted 4.54 / secondary60 4.67 / 白地 4.95）。**Issue 本文の候補値
+     oklch(0.547 0 0) = #717171 では足りない** — タブ側が 4.48 で 4.5 に届かない。 */
+  --muted-foreground: oklch(0.545 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -222,6 +228,9 @@
 /* ユーザー自作ビルダーの dark 定義（受領値そのまま）。
  * このサイトはダークモードを実装していない（.dark を付与する導線が無い）ため
  * 現状は不活性。実装するときはこのブロックがそのまま効く。
+ * ダーク側の --muted-foreground は受領値のまま（2026-08-05・Issue #83 で確認）。
+ * #a1a1a1 は地 #0a0a0a で 7.66・--muted #262626 で 5.86・--secondary #27272a で 5.76 と
+ * どの面でも 4.5 を満たすので、明側のような引き下げは要らない。
  * --seal / --series-* は :root 側で var() 参照にしてあるので追従する。 */
 .dark {
   --background: oklch(0.145 0 0);
@@ -378,7 +387,7 @@
 
   /*
    * 細身のスクロールバー（つまみ＋透明トラック）で統一する。OS 既定のバーは白地から浮く。
-   * つまみは --ring の実値 #a1a1a1、ホバーで --muted-foreground の #737373 まで濃くする
+   * つまみは --ring の実値 #a1a1a1、ホバーで --muted-foreground の #707070 まで濃くする
    * （scrollbar-color は CSS 変数を受けないブラウザがあるため実値で書く）。
    * Chrome/Edge/Firefoxは標準のscrollbar-*プロパティを解釈し、その場合
    * ::-webkit-scrollbar系は無視される。::-webkit-*はSafari用のフォールバック。
@@ -401,6 +410,6 @@
     background-clip: padding-box;
   }
   *::-webkit-scrollbar-thumb:hover {
-    background-color: #737373;
+    background-color: #707070;
   }
 }
