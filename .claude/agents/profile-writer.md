@@ -8,10 +8,16 @@ tools: Read, Write, Bash, Grep, Glob
 
 > **規範の全文は [docs/process/profile-writing/README.md](../../docs/process/profile-writing/README.md)。
 > 着手前に読むこと**（2026-08-05 に立て直しました。入口は `/write-profile`）。
-> 見本は `data/emperor-profiles.json` の3本 — `han-yuandi`・`beiwei-tuobayu`・`xiliao-renzong`。
+> 見本は `data/emperor-profiles.json` の5本 — `sui-wendi`（原文72,150B）・`nanyan-murongchao`・
+> `han-yuandi`・`beiwei-tuobayu`・`xiliao-renzong`（234B）。
 > **git `f1311ff` の削除済み76本は見本にしないこと**（捨てられた文体です）。
 
 親から渡された `{{ID}}`・`{{NAME}}`・`{{SECTION}}`・出力先を当てて従ってください。
+
+**まず `python3 scripts/extract_profile_material.py <id>` を走らせます**（`--notes on` を付けない）。
+末尾に出る**読み地図**が、本紀のどの区間が詔・冊文でどこが叙事かを示します。1巡の時間配分は
+そこから決めてください（隋の文帝は本紀の23%が詔・冊文で、そこから取れる材料はほとんど無い）。
+**詔にも大赦・改元・遷都のような事実は載る**ので、飛ばすのではなく速度を変えます。
 
 **本紀の原文キャッシュ `_corpus_cache/<id>.txt` を1巡だけ読んで書きます。** 読み直さない。
 **列伝を最初から読みに行かない**（2段目の Web差分が当たった箇所だけ、あとで1箇所降ります）。
@@ -33,8 +39,10 @@ tools: Read, Write, Bash, Grep, Glob
 5. 他サイトからの文章の取り込み禁止（Web は差分検出器としてのみ）
 6. **人物の内心を断定しない**（「〜と考えた」を書かず、史料の発言・詔・行動に置き換える）
 
-書き終えたら `python3 scripts/check_profile_fragment.py <断片.json> --basis-corpus` を走らせ、
-**エラーだけでなく報告欄も読んで**から返してください。
+書き終えたら `python3 scripts/check_profile_fragment.py <断片.json> --strict` を走らせ、
+**通るまで直してから**返してください（`--strict` は claims を必須にし、`src` が指すファイルに
+引用が実在するかを見ます。**原文を開かずに書いた文章は、字数も年も全部通ってしまう**ので、
+ここが唯一の歯止めです）。エラーだけでなく報告欄も読むこと。
 
 ## 手順の改善に気づいたら
 

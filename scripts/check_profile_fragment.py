@@ -81,18 +81,22 @@ RELATION_RE = re.compile("の(" + "|".join(w for w, _ in RELATION_WORDS) + ")")
 errors: list[str] = []
 notices: list[str] = []
 warnings: list[str] = []
+ruby_counts: dict[str, int] = {}
 
 
 def strip_ruby(text: str) -> str:
     return RUBY.sub(r"\1", text)
 
 
-def check_ruby_coverage(text: str, label: str) -> None:
-    """ルビの付いていない漢字が残っていないか（総ルビ・Issue #20）。"""
+def check_ruby_notation(text: str, label: str) -> None:
+    """ルビの記法だけを見る（2026-08-05）。
+
+    **総ルビはやめた**ので「ルビの無い漢字が残っている」はもう誤りではない
+    （難読かどうかは語ごとの判断で、機械では決まらない）。ここで落とすのは
+    かなの前に付いた裸の ｜ だけ。本数は最後にまとめて出す。
+    """
+    ruby_counts[label] = len(RUBY.findall(text))
     rest = RUBY.sub("", text)
-    bare = sorted({c for c in rest if KANJI.match(c)})
-    if bare:
-        errors.append(f"{label}: ルビの無い漢字 {len(bare)}種 → {'・'.join(bare[:20])}")
     for m in re.finditer(r"｜(?!.{0,40}?《)", rest):
         nxt = rest[m.end() : m.end() + 1]
         errors.append(f"{label}: 裸の ｜（次の文字「{nxt}」）")
@@ -163,6 +167,54 @@ def coverage(fragment: str, haystack: str) -> float:
     )
 
 
+# basis のポインタ。「_corpus_cache/han-yuandi.txt（漢書 巻九）L16-17 蕭望之と…」の形。
+POINTER = re.compile(
+    r"(?P<path>(?:_corpus_cache|china-history|daizhigev20|data)/[^\s（(）)，、。]+)"
+    r"[^L]{0,60}?L(?P<start>\d+)(?:[-–](?P<end>\d+))?"
+)
+
+
+def resolve(rel: str) -> Path | None:
+    for base in (ROOT, Path("/home/sakis/emperor-stats")):
+        p = base / rel
+        if p.exists():
+            return p
+    return None
+
+
+def check_basis_pointers(emperor_id: str, basis: str) -> None:
+    """basis の「ファイル＋行番号」が実在するか（2026-08-05 の形）。
+
+    前の手順では basis に原文断片を並べていたので、断片が本紀に在るかを照合していた。
+    いまの basis は**ポインタ**（ファイル名＋行番号＋そこに何があるか）なので、
+    照合の対象も変わる。**これは書いた事実の裏取りではない** — 実在するファイルの
+    実在する行を指しているだけの当てずっぽうも通る。事実の裏取りは claims 側の仕事。
+    """
+    pointers = list(POINTER.finditer(basis))
+    if not pointers:
+        errors.append(
+            f"{emperor_id}: basis にポインタ（ファイル名＋L行番号）がありません — "
+            "散文の覚え書きではなく、読んだ場所を指す"
+        )
+        return
+    ok = 0
+    for m in pointers:
+        rel = m.group("path")
+        path = resolve(rel)
+        if path is None:
+            errors.append(f"{emperor_id}: basis が指すファイルが無い → {rel}")
+            continue
+        n_lines = len(path.read_text(encoding="utf-8", errors="replace").split("\n"))
+        last = int(m.group("end") or m.group("start"))
+        if last > n_lines:
+            errors.append(
+                f"{emperor_id}: basis の行番号が範囲外 → {rel} L{last}（実際は {n_lines}行）"
+            )
+            continue
+        ok += 1
+    notices.append(f"{emperor_id}: basis のポインタ {ok}/{len(pointers)} 件が実在")
+
+
 def check_basis_corpus(emperor_id: str, basis: str) -> None:
     """basis に並べた原文断片が本紀キャッシュに実在するか（報告のみ）。"""
     haystack = haystack_for(emperor_id)
@@ -183,7 +235,20 @@ def check_basis_corpus(emperor_id: str, basis: str) -> None:
         notices.append(f"    未検出: {r} — 本紀の外（列伝・裴注・他書）なら出所を basis に明記。心当たりが無ければ書いた事実を疑う")
 
 
-def check_claims(emperor_id: str, profile: dict, use_corpus: bool) -> None:
+_file_cache: dict[str, str] = {}
+
+
+def haystack_of_file(rel: str) -> str | None:
+    """claims の src が名乗るファイルそのものを引く（本紀キャッシュの外も照合する）。"""
+    if rel in _file_cache:
+        return _file_cache[rel] or None
+    path = resolve(rel)
+    text = "" if path is None else _norm()(path.read_text(encoding="utf-8", errors="replace"))
+    _file_cache[rel] = text
+    return text or None
+
+
+def check_claims(emperor_id: str, profile: dict, use_corpus: bool, strict: bool = False) -> None:
     """引用台帳（claims）— 本文の事実1つずつに原文句が付いているか。
 
     台帳そのものは構造をエラーで見るが、**本文との突き合わせは報告**にとどめる。
@@ -192,16 +257,17 @@ def check_claims(emperor_id: str, profile: dict, use_corpus: bool) -> None:
     """
     claims = profile.get("claims")
     if not claims:
-        warnings.append(
+        msg = (
             f"{emperor_id}: claims（引用台帳）がありません — "
-            "本文を書く前に原文から作る手順です（WRITER_TEMPLATE.md）"
+            "本文を書く前に原文から作る（R-CLAIMS-FIRST）"
         )
+        (errors if strict else warnings).append(msg)
         return
     if not isinstance(claims, list):
         errors.append(f"{emperor_id}: claims は配列で書きます")
         return
 
-    haystack = haystack_for(emperor_id) if use_corpus else None
+    haystack = haystack_for(emperor_id) if (use_corpus or strict) else None
     unbacked: list[str] = []
     outside: list[str] = []
     for i, c in enumerate(claims):
@@ -212,22 +278,32 @@ def check_claims(emperor_id: str, profile: dict, use_corpus: bool) -> None:
         if not quote:
             unbacked.append(c["text"][:24])
             continue
-        if haystack is None:
-            continue
         runs = re.findall(r"[㐀-鿿]{6,}", quote)
         if not runs:
             continue
-        if max(coverage(r, haystack) for r in runs) < 0.5:
-            outside.append(f"{quote[:20]} → {c['text'][:20]}")
+        # src が「ファイル:行」を名乗っていればそのファイルで照合する。
+        # 本紀キャッシュだけを見ていると、列伝・他書から引いた正しい句が全部
+        # 「未検出」になり、報告が読めなくなる（隋の文帝は后妃伝から2場面採った）。
+        src = str(c.get("src") or "")
+        m = re.search(r"(?:_corpus_cache|china-history|daizhigev20|data)/[^\s:：,，]+", src)
+        target = haystack_of_file(m.group(0)) if m else haystack
+        where = m.group(0) if m else "本紀キャッシュ"
+        if target is None:
+            if strict:
+                errors.append(f"{emperor_id}: claims[{i}] の src が引けない → {src or '（無し）'}")
+            continue
+        if max(coverage(r, target) for r in runs) < 0.5:
+            outside.append(f"{quote[:20]} → {c['text'][:20]}（src: {where}）")
 
     notices.append(f"{emperor_id}: claims {len(claims)} 件")
     for t in unbacked:
         errors.append(f"{emperor_id}: 原文句の無い claim「{t}」— 書かないか、出所を付ける")
     for t in outside[:12]:
-        notices.append(
-            f"    本紀キャッシュ外の引用: {t} — 列伝・他書なら src に書名を明記。"
+        line = (
+            f"    src に無い引用: {t} — 出所を直す。"
             "心当たりが無ければ書いた事実を疑う"
         )
+        (errors if strict else notices).append(line)
 
     # 本文の年・回数が台帳のどこにも出てこないもの（報告）。
     ledger = "".join((c.get("text") or "") + (c.get("quote") or "") for c in claims if isinstance(c, dict))
@@ -277,7 +353,12 @@ def check_relation(emperor_id: str, lead: str, body: str) -> None:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("fragment")
-    ap.add_argument("--basis-corpus", action="store_true")
+    ap.add_argument("--basis-corpus", action="store_true",
+                    help="basis に並べた原文断片の照合（旧 basis 形式の名残・報告のみ）")
+    ap.add_argument("--strict", action="store_true",
+                    help="claims を必須にし、src が指すファイルに引用が無ければ落とす。"
+                         "**Workflow で書かせるときは必ず付ける**（原文を開かずに"
+                         "それらしい文章を書いても、他のゲートは全部通るため）")
     args = ap.parse_args()
 
     fragment = json.loads(Path(args.fragment).read_text(encoding="utf-8"))
@@ -296,7 +377,7 @@ def main() -> int:
             text = profile.get(field)
             if not text:
                 continue
-            check_ruby_coverage(text, f"{emperor_id} の {field}")
+            check_ruby_notation(text, f"{emperor_id} の {field}")
             check_readings(text, f"{emperor_id} の {field}", readings)
 
         desc = profile.get("description", "")
@@ -316,11 +397,19 @@ def main() -> int:
         if desc:
             print(f"{emperor_id}: description 先頭70字 → {desc[:70]}")
 
-        if args.basis_corpus and profile.get("basis"):
-            check_basis_corpus(emperor_id, profile["basis"])
-        check_claims(emperor_id, profile, args.basis_corpus)
+        if profile.get("basis"):
+            check_basis_pointers(emperor_id, profile["basis"])
+            if args.basis_corpus:
+                check_basis_corpus(emperor_id, profile["basis"])
+        check_claims(emperor_id, profile, args.basis_corpus, strict=args.strict)
         if profile.get("lead"):
             check_relation(emperor_id, profile["lead"], profile.get("body") or "")
+
+    if ruby_counts:
+        total = sum(ruby_counts.values())
+        print(f"\nルビ {total}件（{'／'.join(f'{k}={v}' for k, v in ruby_counts.items())}）")
+        if total == 0:
+            print("  ルビが0件。難読語・中国史特有の語が本当に無いか見ること")
 
     if notices:
         print("\n報告:")

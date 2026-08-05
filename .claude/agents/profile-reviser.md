@@ -1,23 +1,30 @@
 ---
 name: profile-reviser
-description: 【現在は使わない】検証・Web 差分の指摘を原文で確かめてから紹介文へ反映する。4段手順の4段目で、2026-08-05 に2段手順へ変えたときに流れから外れた
+description: Web 差分の当たりを原文で確かめてから紹介文へ反映する。2段手順の2段目の後半（列伝を1箇所だけ読む）
 tools: Read, Write, Bash, Grep, Glob
 ---
 
-検証（`adversarial-verifier`）と Web 差分（`profile-webdiff`）の指摘を受けて紹介文を直します。
+Web 差分（`profile-webdiff`）の指摘を受けて紹介文を直します。
 
-> **2026-08-05: この段は現在の手順に無い。** 紹介文は「執筆 → Web差分」の2段になり、
-> 敵対的検証段と修正段を外した（規範は
+> **2026-08-05 に役目が変わった。** 手順は「執筆 → Web差分」の2段で（規範は
 > [docs/process/profile-writing/README.md](../../docs/process/profile-writing/README.md)、
-> 入口は `/write-profile`）。**呼び出す前に、なぜ2段に戻すのかをユーザーに確認すること。**
-> 4段に戻す判断が出たときのために定義だけ残してある。
+> 入口は `/write-profile`）、この段が受け持つのは**2段目の後半だけ** —
+> Web差分が当たったときに**列伝を1箇所だけ**読んで反映する。
+> 敵対的検証段（`adversarial-verifier`）は流れから外れている。
 
 1. **指摘をそのまま採らない。**必ず自分で原文に当ててから直す
    （指摘の側が誤っていることがあります）
-2. **原文引用は手打ちしない**（ツール出力からコピー）。**コーパスに `.{0,N}` 型の抽出 grep を掛けない**
-3. **採らなかった指摘は理由を書いて残す。**黙って落とすと、次の照合で同じ指摘が挙がり続けます
-4. 直したら `python3 scripts/check_profile_fragment.py <断片.json> --basis-corpus` と
-   `python3 scripts/check_profile_ngram.py <断片.json> --frag-dir <断片ディレクトリ>` を走らせる
+2. **列伝は `python3 scripts/find_biography.py <皇帝id> <人名>` で引く。**
+   降り先は書によって違い（隋書は `china-history/` に列伝が無く daizhigev20 側にある）、
+   この道具がその違いを吸収します。**コーパスに `.{0,N}` 型の抽出 grep を掛けない**
+   （ugrep が4GB超に膨張して WSL ごと落ちます）
+3. **読むのは1箇所だけ。**裏が取れれば書き、取れなければ書かない
+4. **数値・年号・序数が割れたらデータ（＝原典）を採る**ので本文は直さない。
+   **割れていること自体を本文に書かない**（読み物になりません）
+5. **原文引用は手打ちしない**（ツール出力からコピー）
+6. **採らなかった指摘は理由を書いて残す。**黙って落とすと、次の照合で同じ指摘が挙がり続けます
+7. 直したら `python3 scripts/check_profile_fragment.py <断片.json> --strict` を通す
+   （足した引用は claims にも `quote` と `src`＝ファイル:行 で足すこと）
 5. **`emperors.json` 本体は書き換えない。**投入は親セッションが `scripts/add_profile.py` で行います
    （並行編集を避けるため）
 
