@@ -51,7 +51,9 @@
 | 表示名・カード副題を変える | `searchText`（検索に載らなくなる） | `emperors.ts:675`・`:685` |
 | 政権の表示ラベルを変える | 他政権とのラベル重複 | `emperors.ts:402` |
 | 肖像を増やす／減らす | 実体ファイル・`manifest.json` の `focusY`・件数の記載 | `emperors.ts:125`（focusY 欠落）。**manifest から外して実体ファイルを消し忘れると site 側は全部緑のまま deploy gate が落ちる**（2026-08-01） |
-| 紹介文を入れる | `description` は平文（ルビ記法は `lead` だけ） | `emperors.ts:889`・`validate_profiles.py` |
+| 紹介文を入れる | `description` は平文（ルビ記法は `lead`・`body` だけ） | `emperors.ts:889`・`validate_profiles.py` |
+| 紹介文で**新しい難読語にルビを振る** | `data/profile-ruby-lexicon.json` に足す（**本をまたいで必須にする語の台帳**）。振り直しは `scripts/reapply_profile_ruby.py --write` | **有る**（片側だけ）。辞書に載せた語の振り漏れは `check_profile_fragment.py`・`validate_readings.py` が落とすが、**辞書に足し忘れたことは機械では出ない**（次の本で同じ語が素通りする） |
+| 紹介文の**ルビ・文体の規則を変える** | `scripts/profile_prose.py`（実装の1本）・`docs/process/profile-writing/README.md` の7〜8節・`.claude/agents/profile-writer.md`・`profile-reviser.md`・`.claude/workflows/write-profile.js`・`.claude/skills/write-profile/SKILL.md` | **無い。** 実装は1本にまとめてあるが、**エージェントへ届くのは定義とプロンプトの文言だけ**なので、規範だけ直しても執筆は変わらない。**しかも `.claude/` は primary からしか読まれない**（worktree で直しても効かない・2026-08-05 実測） |
 | 動画を紐づける | `youtube-playlist.json` | `emperors.ts:75` |
 | ページを増減する | `SITE_SECTIONS` | `seo.tsx:65`「SITE_SECTIONSに存在しないhrefです」 |
 | **配布物が主張する範囲を狭める**（引用・日付・欄の取り下げ） | `/about` の該当節（`site/src/app/about/page.tsx`）。**取り下げを無言でやらない**のは 2026-08-03 ユーザー決定で、push した瞬間にサイトが再配信されるため**同じコミットに入れる** | **無い**（文章なので機械では判定できない）。件数は直書きせず台帳・データから引く（`site/src/lib/quote-verification.ts` が `data/quote-refs.json` を読む）ことで、少なくとも**数のずれ**は起きない形にしてある |

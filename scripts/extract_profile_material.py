@@ -231,10 +231,18 @@ def writing_kit(emperor_id: str) -> str:
     lines.append("")
     lines.append("### ルビ")
     lines.append(
-        "読みの正本は `data/name-readings.json`。**先に grep しなくてよい** — "
-        "テーブルと違う振り方をすれば `check_profile_fragment.py` が落として正解を出す。"
+        "読みの正本は `data/name-readings.json` と `data/profile-ruby-lexicon.json`。"
+        "**先に grep しなくてよい** — テーブルと違う振り方をすれば "
+        "`check_profile_fragment.py` が落として正解を出す。"
         "難読語・中国史特有の語だけに振り、`description` には振らない"
         "（記法は `｜親文字《ルビ》`・`｜` を省略しない）。"
+    )
+    lines.append(
+        "**2回目以降の出現にも振る**（初出だけにしない・2026-08-05 ユーザー決定）。"
+        "書き終えてから `python3 scripts/reapply_profile_ruby.py <断片.json> --write` を"
+        "1回流せば、辞書の語と自分が振った語を全出現へ機械が付ける。"
+        "地名・官職・故事・干支（「丙寅」）も対象で、**読みだけでは意味が分からない語"
+        "（「奇貨居くべし」「仲父」）は、ルビに加えて地の文で意味が分かるように書く**。"
     )
 
     lines.append("")
