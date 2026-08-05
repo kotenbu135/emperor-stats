@@ -920,3 +920,8 @@
 - **気づいた場面**: Issue #83 のコントラスト修正で、site/ を cwd にして lighthouse を回したところ、次の npm run build が globals.css の CSS パースエラーで落ちた
 - **提案**: WSL では TMP が Windows パス文字列（C:\Users\...）のままなので、Lighthouse がそれを**相対パスのディレクトリ名として cwd に作る**（'C:\Users\sakis\AppData\Local\lighthouse.24416378' という名前のディレクトリが site/ 直下に5個できた）。中身は Chrome のユーザーデータで、Tailwind v4 のソース走査がそれを読み、壊れたクラス候補を拾って生成CSSが構文エラーになる（エラーは globals.css の行を指すので原因が全く見えない・.next を消しても直らない）。対策は cwd をリポジトリの外に置くだけでよい。TMPDIR/TMP/TEMP を Linux パスへ差し替える方向は Chrome が起動時にクラッシュするので採らない。site/AGENTS.md の『ハマりどころ』に1行置くのが妥当か判断を仰ぎたい。
 - **採否**: 未提示（ユーザーへ上げていない）
+
+### 2026-08-05 PSI の再計測は pagespeed.web.dev をブラウザで開く経路で行う <!-- auto:09d2bbf73ed2 -->
+- **気づいた場面**: 配信後の PSI 再計測（2026-08-05）で、キーなしの PageSpeed Insights API とローカル lighthouse がどちらも使えなかった
+- **提案**: キーなしの `pagespeedonline.googleapis.com` は共有クォータが枯れていて 'Quota exceeded ... Queries per day' で即エラーになる。global の lighthouse v13.4.0 は WSL で 'Unable to connect to Chrome' で起動しない（headless の Chrome が見えない）。通ったのは Claude in Chrome で pagespeed.web.dev を開く経路で、URL の `?form_factor=mobile|desktop` で面を切り替え、値は `.lh-metric` / `.lh-audit` を javascript_tool で拾える（画面のスクロールは効かないことがあるので JS で読むほうが確実）。PSI を測る手順として site/AGENTS.md か PROJECT_STATUS に1行置くべきか判断を仰ぎたい。
+- **採否**: 未提示（ユーザーへ上げていない）
