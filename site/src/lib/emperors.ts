@@ -17,6 +17,7 @@ import {
   type EmperorListRecord,
   type EmperorProfile,
   type EmperorRecord,
+  type EmperorSourceEntry,
   type EmperorStructuredDates,
   type EmperorTableRecord,
   type EmperorVideo,
@@ -1026,6 +1027,50 @@ export function getEmperorStructuredDates(id: string): EmperorStructuredDates {
     birthDate: structuredDateOf(e.ages?.birthDate),
     deathDate: structuredDateOf(e.ages?.deathDate),
   };
+}
+
+// ---------------------------------------------------------------------------
+// 出典（個別ページの折りたたみブロック・Issue #75）
+
+/**
+ * 個別ページの「出典」ブロックに出す欄の**登録表**（2026-08-05・Issue #75）。
+ *
+ * **レコードを走査して `source` を持つ欄を全部集めない。** `source.page` は
+ * `reigns[].duration`（374件）と回数系8項目の `events[]`（計1,943件）にもあるが、
+ * どちらも出さないことが決まっている欄で、自動収集にすると次に欄が増えたときに
+ * 黙って反転する:
+ *
+ * - `getEmperorEvents` が出典を返さないのは 2026-08-03 のユーザー決定（Issue #69）
+ * - `reigns[].duration` の典拠は「在位日付の典拠」節ごと 2026-08-02 に廃止
+ *
+ * 露出する欄を増やすときはこの表へ1行足す（＝何を出しているかがここだけで分かる）。
+ * ラベルは基本情報の行名と同じにする（訪問者が値と出典を結び付けられなくなる）。
+ */
+const SOURCE_ENTRIES: {
+  label: string;
+  pick: (e: RawEmperor) => RawSource | null | undefined;
+}[] = [
+  { label: "死因", pick: (e) => e.deathCause?.source },
+  { label: "即位経路", pick: (e) => e.accessionRoute.source },
+];
+
+/**
+ * 個別ページの出典ブロック用に、書名・巻（`source.page`）を項目名付きで返す。
+ *
+ * **出すのは `source.page` だけで、`note`（判定根拠の散文）は返さない**
+ * （2026-08-05 ユーザー決定。note は作業ログで「現行 X → Y に訂正」のように
+ * 捨てた側の値が残るため、そのままでは訪問者に出せない）。
+ *
+ * 実データでは死因・即位経路とも365/365人が値を持つが、空の欄は行ごと落とす
+ * （欄が空でも「出典」の見出しだけ出る状態を作らない）。
+ */
+export function getEmperorSources(id: string): EmperorSourceEntry[] {
+  const e = rawEmperorById.get(id);
+  if (!e) throw new Error(`未収録の皇帝idです: ${id}`);
+  return SOURCE_ENTRIES.flatMap(({ label, pick }) => {
+    const page = pick(e)?.page?.trim();
+    return page ? [{ label, page }] : [];
+  });
 }
 
 // ---------------------------------------------------------------------------
