@@ -2089,5 +2089,458 @@
    "stele inscription china"
   ],
   "note": "カテゴリ名前空間（ns=14）だけを検索し、そこから列挙対象9件を選んだ（下の rawCrossCategoryEnumeration）。ヒットの生ログは残していない — クラス側の入口はここで選んだ9件に尽きており、「墓誌銘」「墓志铭」は0件、残りは臣下・后妃・僧の墓誌だった。"
- }
+ },
+ "rematchWithHanziNormalization": {
+  "why": "最初の突合は新字体→繁体/簡体の変換を掛けておらず7件しか当たらなかった。PORTRAITS.md 11行が「この変換で取りこぼしが18件→0件になった」と記録している罠を踏んでいる（R-SWEEP-DETECTION: 見つかった側を全部と読まない）。scripts/hanzi_norm.py の norm_for_match を両側に掛けて同じ 1,685 件のプールを引き直した。外部リクエストは0。",
+  "hits": 67,
+  "newEmperorOwnEpitaph": {
+   "id": "xiwei-feidi-yuanqin",
+   "file": "File:北魏《元钦墓志铭》.png",
+   "license": "CC BY-SA 4.0",
+   "note": "2023年撮影の実物写真で方針外。題は「北魏」で、西魏 廃帝 元欽と同名の北魏の別人の可能性が高い（人名一致だけで採らない — 同じプールに「元恪嫔李氏墓志」＝宣武帝の妃の墓誌も混じっている）。いずれにせよ PD/CC0 で通る拓本が遼道宗の1件だけである点は変わらない"
+  },
+  "byproductPortraitCandidates": [
+   {
+    "id": "tang-jingzong",
+    "file": "File:帝鉴图说.Recueil Historique des Principaux Traits de la Vie des Empereurs Chinois.95帧图.彩绘册页.约18世纪 (唐敬宗) (cropped).jpg",
+    "license": "CC0",
+    "note": "彩絵帝鑑図説（フランス国立図書館蔵・18世紀）の唐敬宗を切り出したもの。単独の騎馬人物で、カード枠には人物だけが入る。採否は未判断（Issue #81 の3 の範囲外）"
+   },
+   {
+    "id": "tang-jingzong",
+    "file": "File:便殿擊毬唐敬宗.jpg",
+    "license": "Public domain",
+    "note": "同じ故事の版本（帝鑑圖說・純忠堂藏板）。題字「唐敬宗」はあるが人物が小さく複数で、2026-07-31 に wei-caofang を落とした基準（版本の場面図）に該当する"
+   }
+  ],
+  "byproductNote": "この2件は 2026-08-02 の全数探索が拾えなかったもので、経路は Wikidata P373 の英語カテゴリ（Emperor Jingzong of Tang）。当時は intitle の CJK 検索と ja/zh のリード画像しか持っておらず、Latin 表記のカテゴリ側に入口が無かった（portrait-candidates-2026-08-02.json の coverageNote が予告していた穴）。",
+  "licenseChecks": [
+   {
+    "file": "File:便殿擊毬唐敬宗.jpg",
+    "license": "Public domain",
+    "attributionRequired": "false",
+    "date": "清乾隆嘉慶間, 1736至1820年間",
+    "description": "帝鑑圖說，純忠堂藏板https://open.library.ubc.ca/collections/chineserare/items/1.0368754?o=1"
+   },
+   {
+    "file": "File:帝鉴图说.Recueil Historique des Principaux Traits de la Vie des Empereurs Chinois.95帧图.彩绘册页.约18世纪 (唐敬宗) (cropped).jpg",
+    "license": "CC0",
+    "attributionRequired": "false",
+    "date": "18世纪",
+    "description": "​此本《Recueil Historique des Principaux Traits de la Vie des Empereurs Chinois》（彩绘帝鉴图说）共两册，内含彩绘故事画95帧（有中文题签）。其中插图大致绘制于清早期，传入欧洲后添加了法文注释，并按照西方图书装订方法粘合成册。此套为法国国家图书馆藏本。"
+   },
+   {
+    "file": "File:北魏《元钦墓志铭》.png",
+    "license": "CC BY-SA 4.0",
+    "attributionRequired": "true",
+    "date": "2023-07-30",
+    "description": "北魏《元钦墓志铭》"
+   }
+  ],
+  "rawHits": [
+   {
+    "id": "han-huidi",
+    "key": "恵帝",
+    "file": "File:西汉惠帝刘盈安陵.png",
+    "category": "Anling"
+   },
+   {
+    "id": "han-huidi",
+    "key": "恵帝",
+    "file": "File:西汉惠帝刘盈安陵（雪景）.png",
+    "category": "Anling"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "劉賀",
+    "file": "File:刘贺墓精品文物展.jpeg",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "海昏侯",
+    "file": "File:海昏侯墓出土文物.png",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "海昏侯",
+    "file": "File:海昏侯墓出土文物1.png",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "海昏侯",
+    "file": "File:海昏侯墓出土文物2.png",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "海昏侯",
+    "file": "File:海昏侯墓出土文物3.png",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "海昏侯",
+    "file": "File:海昏侯墓褭蹏金1.jpg",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "海昏侯",
+    "file": "File:海昏侯墓褭蹏金2.jpg",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "海昏侯",
+    "file": "File:海昏侯墓褭蹏金3.jpg",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "海昏侯",
+    "file": "File:海昏侯墓褭蹏金4.jpg",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "海昏侯",
+    "file": "File:海昏侯墓麟趾金1.jpg",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "海昏侯",
+    "file": "File:海昏侯墓麟趾金2.jpg",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "海昏侯",
+    "file": "File:海昏侯墓麟趾金3.jpg",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-liuhe",
+    "key": "海昏侯",
+    "file": "File:海昏侯墓麟趾金4.jpg",
+    "category": "Tomb of Marquis Haihun"
+   },
+   {
+    "id": "han-aidi",
+    "key": "哀帝",
+    "file": "File:Dong Xian (汉哀帝).jpg",
+    "category": "Emperor Ai of Han"
+   },
+   {
+    "id": "hou-han-hedi",
+    "key": "和帝",
+    "file": "File:漢和帝 (cropped).png",
+    "category": "Emperor He of Han"
+   },
+   {
+    "id": "hou-han-hedi",
+    "key": "和帝",
+    "file": "File:漢和帝.png",
+    "category": "Emperor He of Han"
+   },
+   {
+    "id": "hou-han-shundi",
+    "key": "順帝",
+    "file": "File:元順帝妥歡帖木兒 Emperor Shun of Yuan Toghon Temür (cropped).png",
+    "category": "Toghon Temür"
+   },
+   {
+    "id": "hou-han-shundi",
+    "key": "順帝",
+    "file": "File:元順帝妥歡帖木兒 Emperor Shun of Yuan Toghon Temür.png",
+    "category": "Toghon Temür"
+   },
+   {
+    "id": "hou-han-shundi",
+    "key": "敬宗",
+    "file": "File:便殿擊毬唐敬宗.jpg",
+    "category": "Emperor Jingzong of Tang"
+   },
+   {
+    "id": "hou-han-shundi",
+    "key": "敬宗",
+    "file": "File:帝鉴图说.Recueil Historique des Principaux Traits de la Vie des Empereurs Chinois.95帧图.彩绘册页.约18世纪 (唐敬宗) (cropped).jpg",
+    "category": "Emperor Jingzong of Tang"
+   },
+   {
+    "id": "dongjin-jianwendi",
+    "key": "簡文帝",
+    "file": "Category:梁簡文帝御製集",
+    "category": "Xiao Gang"
+   },
+   {
+    "id": "dongjin-jianwendi",
+    "key": "簡文帝",
+    "file": "Category:梁簡文帝集",
+    "category": "Xiao Gang"
+   },
+   {
+    "id": "qianqin-fujian",
+    "key": "高祖",
+    "file": "File:20250515 高祖神武聖文孝德明惠皇帝謚寶.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "liu-song-shundi",
+    "key": "順帝",
+    "file": "File:元順帝妥歡帖木兒 Emperor Shun of Yuan Toghon Temür (cropped).png",
+    "category": "Toghon Temür"
+   },
+   {
+    "id": "liu-song-shundi",
+    "key": "順帝",
+    "file": "File:元順帝妥歡帖木兒 Emperor Shun of Yuan Toghon Temür.png",
+    "category": "Toghon Temür"
+   },
+   {
+    "id": "qi-hedi",
+    "key": "和帝",
+    "file": "File:漢和帝 (cropped).png",
+    "category": "Emperor He of Han"
+   },
+   {
+    "id": "qi-hedi",
+    "key": "和帝",
+    "file": "File:漢和帝.png",
+    "category": "Emperor He of Han"
+   },
+   {
+    "id": "liang-jianwendi",
+    "key": "簡文帝",
+    "file": "Category:梁簡文帝御製集",
+    "category": "Xiao Gang"
+   },
+   {
+    "id": "liang-jianwendi",
+    "key": "簡文帝",
+    "file": "Category:梁簡文帝集",
+    "category": "Xiao Gang"
+   },
+   {
+    "id": "houliang-mingdi",
+    "key": "世宗",
+    "file": "File:北魏《元恪嫔李氏墓志》(魏故世宗宣武皇帝嫔墓志).png",
+    "category": "Epitaphs in China"
+   },
+   {
+    "id": "beiwei-xiaowendi",
+    "key": "高祖",
+    "file": "File:20250515 高祖神武聖文孝德明惠皇帝謚寶.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "beiwei-xuanwudi",
+    "key": "世宗",
+    "file": "File:北魏《元恪嫔李氏墓志》(魏故世宗宣武皇帝嫔墓志).png",
+    "category": "Epitaphs in China"
+   },
+   {
+    "id": "beiwei-xuanwudi",
+    "key": "元恪",
+    "file": "File:北魏《元恪贵华夫人王普贤墓志铭》.png",
+    "category": "Epitaphs in China"
+   },
+   {
+    "id": "beiwei-yuanye",
+    "key": "元曄",
+    "file": "File:元曄墓誌（洛陽博物館藏）.jpg",
+    "category": "Epitaphs in China"
+   },
+   {
+    "id": "beiqi-wenxuandi",
+    "key": "高洋",
+    "file": "File:帝鉴图说 高清 (page 131 高洋).jpg",
+    "category": "Emperor Wenxuan of Northern Qi"
+   },
+   {
+    "id": "xiwei-wendi",
+    "key": "文帝",
+    "file": "Category:梁簡文帝御製集",
+    "category": "Xiao Gang"
+   },
+   {
+    "id": "xiwei-wendi",
+    "key": "文帝",
+    "file": "Category:梁簡文帝集",
+    "category": "Xiao Gang"
+   },
+   {
+    "id": "xiwei-feidi-yuanqin",
+    "key": "元欽",
+    "file": "File:北魏《元钦墓志铭》.png",
+    "category": "Epitaphs in China"
+   },
+   {
+    "id": "beizhou-mingdi",
+    "key": "世宗",
+    "file": "File:北魏《元恪嫔李氏墓志》(魏故世宗宣武皇帝嫔墓志).png",
+    "category": "Epitaphs in China"
+   },
+   {
+    "id": "tang-jingzong",
+    "key": "敬宗",
+    "file": "File:便殿擊毬唐敬宗.jpg",
+    "category": "Emperor Jingzong of Tang"
+   },
+   {
+    "id": "tang-jingzong",
+    "key": "敬宗",
+    "file": "File:帝鉴图说.Recueil Historique des Principaux Traits de la Vie des Empereurs Chinois.95帧图.彩绘册页.约18世纪 (唐敬宗) (cropped).jpg",
+    "category": "Emperor Jingzong of Tang"
+   },
+   {
+    "id": "tang-aidi",
+    "key": "哀帝",
+    "file": "File:Dong Xian (汉哀帝).jpg",
+    "category": "Emperor Ai of Han"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓 - 文保碑 - 2024-05-25.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓03424.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓03427.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓03446.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓国保碑 2024-05-25.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓国保碑.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓地宫 02.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓地宫.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓地宫通道.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓墓室测绘图.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓墓门03423.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓室平面图.svg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓棺床 01.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓棺床 02.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓棺床浮雕03445.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓棺床浮雕03450.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓棺床浮雕03451.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓棺床浮雕03478.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-qianshu-wangjian",
+    "key": "王建",
+    "file": "File:王建墓照片.jpg",
+    "category": "Tomb of Wang Jian"
+   },
+   {
+    "id": "shiguo-houshu-mengzhixiang",
+    "key": "孟知祥",
+    "file": "File:孟知祥墓.png",
+    "category": "Tomb of Meng Zhixiang"
+   },
+   {
+    "id": "liao-shizong",
+    "key": "世宗",
+    "file": "File:北魏《元恪嫔李氏墓志》(魏故世宗宣武皇帝嫔墓志).png",
+    "category": "Epitaphs in China"
+   },
+   {
+    "id": "yuanmo-chenyouliang",
+    "key": "友諒",
+    "file": "File:明祖鄱陽滅友諒（廿一史通俗衍義）.jpg",
+    "category": "Chen Youliang"
+   },
+   {
+    "id": "yuanmo-mingyuzhen",
+    "key": "明玉珍",
+    "file": "File:20250522 明玉珍子孫祭祖留言簿.jpg",
+    "category": "Rui Mausoleum of Ming Yuzhen"
+   }
+  ]
+ },
+ "conclusionRevised": "繁簡正規化を掛けた再突合（リクエスト0）で当たりは7件→67件に増えたが、増えたぶんは陵墓の現代写真・出土文物・別人・肖像で、皇帝本人の墓誌は1件（元欽・CC BY-SA 4.0）だけ増えた。PD/CC0 で通る拓本は遼道宗の哀冊1件のままで、A-2 を閉じる結論は変わらない。"
 }
