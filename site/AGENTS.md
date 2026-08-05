@@ -22,6 +22,8 @@ npx tsc --noEmit   # 型チェック
 
 node tools/capture-site.mjs   # out/ を静的配信して全ページの確認用スクショを撮る（→ tools/shots/・.gitignore 対象）
 node tools/font-audit.mjs     # 主要4面のフォント本数・転送量・総転送量に占める比率（Issue #79 の指標）
+
+python3 tools/build-font-subset.py   # 書体のサブセットを作り直す（out/ が要る。下の「書体は自前で配る」）
 ```
 
 `tools/capture-site.mjs` は `out/` を自前の静的サーバーで配信する（`output: "export"` なので `/about` → `about.html` の解決が要り、素の静的サーバーでは 404 になる）。**ページを増減したらスクリプトの `SHOTS` も直すこと** — `page.goto` は 404 でも throw しないので、廃止済みのパスを撮ると 404 ページが「撮れた」ことになる（実装側で status を検証している）。
@@ -34,6 +36,40 @@ node tools/font-audit.mjs     # 主要4面のフォント本数・転送量・�
 - `scripts/build-data-distribution.mjs` — 配布用データを `public/data/` へ
 
 # 崩してはいけない契約
+
+## 書体は自前で配る（`next/font/google` に戻さない）
+
+2026-08-05 に `next/font/google` をやめ、Noto Sans JP を**このサイトが実際に描く文字だけ**に
+絞って自前で配っている。理由は PSI の実測で、`next/font/google` は全 17,936 グリフの
+unicode-range 割り当て表を出すため **@font-face だけで 283KB（gz 98KB）のレンダーブロッキング
+CSS** になり、モバイルのパフォーマンスが 56・レンダリングブロックの推定削減が 9,090ms だった
+（Issue #79 で明朝を落としたときに消したのと同じ構造の負債がサンセリフ側に残っていた）。
+実際に描く文字は 3,404 字しかない。
+
+| | 差し替え前 | 後 |
+|---|---|---|
+| レンダーブロッキング CSS | 400.6KB / gz 118KB | 195.8KB / **gz 31.5KB** |
+| `/` のフォント | 50本 1,180KB | **34本 661KB** |
+| `/emperors` のフォント | 102本 4,189KB | **38本 753KB** |
+
+構成は4つ。**どれか1つでも欠けると静かに壊れる。**
+
+- **`tools/build-font-subset.py`** — 生成器。設計の理由（なぜ頻度順に切るのか・
+  なぜ `out/data/` を数えないのか）はこのファイルの docstring が正
+- **`src/app/fonts/*.woff2`（87本）と `src/app/fonts.css`** — 生成物で、**commit する**。
+  CSS は `globals.css` の `@import "./fonts.css"` で読む（この1行を消すと書体が全部落ちる）。
+  woff2 は Next が `_next/static/media` へ指紋つきで吐くので `BASE_PATH` に依存しない
+- **`tools/font-coverage.json`** — 検査用の台帳。サブセットに入れた字と、**底本の cmap 全体**を
+  持つ。2つ要るのは「取り直せば入る字（＝直せる）」と「底本 Noto Sans JP がそもそも
+  持っていない字（原文引用の簡体字など・231字・差し替え前から同じ）」を分けるため
+- **`tools/check-font-coverage.mjs`** — `postbuild` で自動的に走る。フォントに無い字は
+  **豆腐にならず次の書体へ落ちる**ので、目視では気づけない。だから機械で見る
+
+**紹介文（Issue #16）が入るたびに新しい漢字が出るので、そのたびにここが落ちる。**
+直し方は `npm run build`（out/ を作る）→ `python3 tools/build-font-subset.py` → `npm run build`。
+`--font-sans` は `globals.css` が `"Noto Sans JP", "Noto Sans JP Fallback"` で持っていて、
+**Fallback 側の `size-adjust` / `ascent-override` を消すと swap の瞬間に行が動く**（CLS 0 を
+守っている1行。値は差し替え前に Next が出していたものをそのまま引き継いでいる）。
 
 ## データ読み込みはビルド時のみ
 

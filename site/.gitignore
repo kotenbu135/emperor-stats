@@ -26,6 +26,10 @@
 # data/emperors.json・data/schema から build-data-distribution で生成される配布物（git管理はソース側のみ）
 /public/data/
 
+# 自前サブセットの底本（NotoSansJP[wght].ttf・9.6MB）。tools/build-font-subset.py が
+# 無ければ取ってくるだけなので置かない。**生成物の src/app/fonts/*.woff2 は commit する。**
+/tools/.font-cache/
+
 # production
 /build
 

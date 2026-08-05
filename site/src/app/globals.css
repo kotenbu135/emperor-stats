@@ -1,13 +1,20 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+/* 書体は自前で配る（2026-08-05）。`next/font/google` は全 17,936 グリフの
+   割り当て表を出すので @font-face だけで 283KB（gz 98KB）のレンダーブロッキング
+   CSS になり、PSI モバイルのパフォーマンスが 56 だった。中身の作り方と数字は
+   tools/build-font-subset.py の docstring。**この1行を消すと書体が全部落ちる。** */
+@import "./fonts.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
+  /* 実体は fonts.css の @font-face（自前サブセット）。代替書体の指標は
+     `Noto Sans JP Fallback` が持っていて、これを外すと swap の瞬間に行が動く。 */
+  --font-sans: "Noto Sans JP", "Noto Sans JP Fallback";
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   /* 見出しも本文と同じサンセリフ。書体は独自に作らない
      （design-plans/SITE_PLAN.md「配色と書体」）。 */

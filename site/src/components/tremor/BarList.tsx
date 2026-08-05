@@ -79,7 +79,11 @@ function BarListInner<T>(
     <div
       ref={forwardedRef}
       className={cx('flex justify-between space-x-6', className)}
-      aria-sort={sortOrder}
+      // 上流 Tremor は `aria-sort={sortOrder}` をこの div に直付けしていたが、
+      // aria-sort は columnheader / rowheader 専用の属性で、role の無い div では
+      // 「role と一致しない ARIA」として Lighthouse が落ちる（PSI 実測・2026-08-05）。
+      // ランキングは表ではなく並んだリンクの列なので、role を足すのではなく属性を
+      // 落とす。`sortOrder` は実際の並び替え（上の useMemo）でそのまま効いている。
       tremor-id="tremor-raw"
       {...props}
     >
