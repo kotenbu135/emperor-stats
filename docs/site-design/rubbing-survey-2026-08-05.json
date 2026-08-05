@@ -2104,7 +2104,7 @@
     "id": "tang-jingzong",
     "file": "File:帝鉴图说.Recueil Historique des Principaux Traits de la Vie des Empereurs Chinois.95帧图.彩绘册页.约18世纪 (唐敬宗) (cropped).jpg",
     "license": "CC0",
-    "note": "彩絵帝鑑図説（フランス国立図書館蔵・18世紀）の唐敬宗を切り出したもの。単独の騎馬人物で、カード枠には人物だけが入る。採否は未判断（Issue #81 の3 の範囲外）"
+    "note": "彩絵帝鑑図説（フランス国立図書館蔵・18世紀）の唐敬宗を切り出したもの。単独の騎馬人物で、カード枠には人物だけが入る。**2026-08-05 にユーザーの判断で採用**（確定数 154→155人・focusY 0.28）。反映先は PORTRAITS.md の「副産物による追加（2026-08-05）」節"
    },
    {
     "id": "tang-jingzong",
@@ -2113,7 +2113,7 @@
     "note": "同じ故事の版本（帝鑑圖說・純忠堂藏板）。題字「唐敬宗」はあるが人物が小さく複数で、2026-07-31 に wei-caofang を落とした基準（版本の場面図）に該当する"
    }
   ],
-  "byproductNote": "この2件は 2026-08-02 の全数探索が拾えなかったもので、経路は Wikidata P373 の英語カテゴリ（Emperor Jingzong of Tang）。当時は intitle の CJK 検索と ja/zh のリード画像しか持っておらず、Latin 表記のカテゴリ側に入口が無かった（portrait-candidates-2026-08-02.json の coverageNote が予告していた穴）。",
+  "byproductNote": "この2件は 2026-08-02 の全数探索が拾えなかったもので、経路は Wikidata P373 の英語カテゴリ（Emperor Jingzong of Tang）。当時は intitle の CJK 検索と ja/zh のリード画像しか持っておらず、Latin 表記のカテゴリ側に入口が無かった（portrait-candidates-2026-08-02.json の coverageNote が予告していた穴）。 2026-08-05: この1件目はユーザーの判断で採用した（2件目の版本『帝鑑圖說』は不採用のまま）。",
   "licenseChecks": [
    {
     "file": "File:便殿擊毬唐敬宗.jpg",

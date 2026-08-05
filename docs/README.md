@@ -41,8 +41,8 @@
 | ファイル | 中身 |
 |---|---|
 | [site-design/SITE_DESIGN.md](site-design/SITE_DESIGN.md) | **サイトの設計と決定の記録**。ページ構成・スタック・配色・各ページの設計判断・再提案しないこと |
-| [site-design/PORTRAITS.md](site-design/PORTRAITS.md) | 肖像画の収集結果（PD/CC0 のみ・154名分）と増減手順 |
-| `site-design/mockups/card-preview/` | 肖像画 webp 154点。**`site/scripts/sync-portraits.mjs` のビルド入力なので消さないこと** |
+| [site-design/PORTRAITS.md](site-design/PORTRAITS.md) | 肖像画の収集結果（PD/CC0 のみ・155名分）と増減手順 |
+| `site-design/mockups/card-preview/` | 肖像画 webp 155点。**`site/scripts/sync-portraits.mjs` のビルド入力なので消さないこと** |
 | `site-design/portraits-candidates.json` | 肖像画の候補調査の生データ |
 | `site-design/rubbing-survey-2026-08-05.json` | 拓本・碑刻（Issue #81 の3・A-2）の実在調査の生データ。**入口ごと閉じた結論の裏**で、カテゴリ列挙をファイル名まで残してある |
 | [site-design/CHART_CANDIDATES_2026-07-31.md](site-design/CHART_CANDIDATES_2026-07-31.md) | グラフにする価値のあるデータの検討（実測済み・未実装の候補一覧） |

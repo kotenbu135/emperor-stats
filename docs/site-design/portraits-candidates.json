@@ -1,8 +1,8 @@
 {
   "method": "Wikimedia zhwiki data dump (page.sql / page_props.sql / redirect.sql, 2026-07-06/08 snapshot) matched offline against candidate names generated from data/emperors.json, with Japanese shinjitai -> Chinese traditional/simplified kanji normalization",
-  "generatedNote": "page_image_free indicates the article has a freely-licensed lead image per MediaWiki PageImages extension; actual license type (PD/CC-BY/CC-BY-SA etc.) must be individually verified on the Commons file page before use. 2026-07-17: manual visual review found 13 confirmed matches were not actual portraits (landscape/monument/statue photos); moved to noImageIds and recorded in excludedNonPortrait. 追記(2026-07-17): CC BY-SA 4.0ライセンスの2件を方針により除外、confirmedは155→153件に。 追記(2026-07-21): 全153件の目視QAにより、別人肖像1件(liu-song-mingdi)と場面図切り出し2件(han-aidi/tang-jingzong)をnoImageIdsへ移動、houyan-murongchuiは同シリーズの正しい図に差し替え。confirmedは153→150件に。 追記(2026-07-31): 全150件をカード表示で見直し、場面図・群像図で該当人物を特定できない5件と判読不能1件をnoImageIdsへ移動。confirmedは150→144件に。 追記(2026-08-01): ming-yizong（崇禎帝）の肖像を個別発見により追加、confirmedは144→145件・noImageIdsは220→219件に。詳細は PORTRAITS.md「個別発見による追加（2026-08-01）」節 追記(2026-08-02): 再探索で9件を追加、confirmedは145→154件。あわせて、2026-07-20に収録した唐哀帝（tang-aidi）が2026-07-17の調査対象に入っておらず confirmed / noImageIds のどちらにも無かったため noImageIds へ追加し、合計を364→365人に揃えた。",
-  "confirmedCount": 154,
-  "noImageCount": 211,
+  "generatedNote": "page_image_free indicates the article has a freely-licensed lead image per MediaWiki PageImages extension; actual license type (PD/CC-BY/CC-BY-SA etc.) must be individually verified on the Commons file page before use. 2026-07-17: manual visual review found 13 confirmed matches were not actual portraits (landscape/monument/statue photos); moved to noImageIds and recorded in excludedNonPortrait. 追記(2026-07-17): CC BY-SA 4.0ライセンスの2件を方針により除外、confirmedは155→153件に。 追記(2026-07-21): 全153件の目視QAにより、別人肖像1件(liu-song-mingdi)と場面図切り出し2件(han-aidi/tang-jingzong)をnoImageIdsへ移動、houyan-murongchuiは同シリーズの正しい図に差し替え。confirmedは153→150件に。 追記(2026-07-31): 全150件をカード表示で見直し、場面図・群像図で該当人物を特定できない5件と判読不能1件をnoImageIdsへ移動。confirmedは150→144件に。 追記(2026-08-01): ming-yizong（崇禎帝）の肖像を個別発見により追加、confirmedは144→145件・noImageIdsは220→219件に。詳細は PORTRAITS.md「個別発見による追加（2026-08-01）」節 追記(2026-08-02): 再探索で9件を追加、confirmedは145→154件。あわせて、2026-07-20に収録した唐哀帝（tang-aidi）が2026-07-17の調査対象に入っておらず confirmed / noImageIds のどちらにも無かったため noImageIds へ追加し、合計を364→365人に揃えた。 追記(2026-08-05): Issue #81 の3（別クラスの画像の実在調査）の副産物として tang-jingzong の肖像（彩絵帝鑑図説・CC0）を追加、confirmed は 154→155 件・noImageIds は 211→210 件に。2026-07-21 に同 id を場面図切り出しで除外しているが、それは別ファイル（版本『帝鑑圖說』の撃鞠図）で、今回のものは単独人物の切り出し。",
+  "confirmedCount": 155,
+  "noImageCount": 210,
   "confirmed": [
     {
       "id": "beisong-huizong",
@@ -784,6 +784,13 @@
       "image": "TangGaozu.jpg"
     },
     {
+      "id": "tang-jingzong",
+      "commonName": "敬宗",
+      "dynasty": "唐",
+      "matchedTitle": null,
+      "image": "帝鉴图说.Recueil_Historique_des_Principaux_Traits_de_la_Vie_des_Empereurs_Chinois.95帧图.彩绘册页.约18世纪_(唐敬宗)_(cropped).jpg"
+    },
+    {
       "id": "tang-muzong",
       "commonName": "穆宗",
       "dynasty": "唐",
@@ -1244,7 +1251,6 @@
     "suimo-xuerengao",
     "tang-aidi",
     "tang-gaozong",
-    "tang-jingzong",
     "tang-lige",
     "tang-shangdi",
     "tang-shunzong",
@@ -1333,7 +1339,8 @@
       "ids": [
         "han-aidi",
         "tang-jingzong"
-      ]
+      ],
+      "note2026_08_05": "tang-jingzong は 2026-08-05 に別ファイル（彩絵帝鑑図説の単独人物クロップ・CC0）で再採用した。ここに残るのは版本『帝鑑圖說』の撃鞠場面図を落とした記録。"
     },
     "corrected": {
       "reason": "別人（成漢武帝 李雄）の画像が割り当てられていたため、同シリーズの正しい図（題字「慕容垂」）へ差し替え",
@@ -1365,6 +1372,12 @@
       "qi-donghunhou": "ja.wikipedia リード画像",
       "tang-wuzetian": "Commons ファイル名検索",
       "shun-lichengzheng": "Commons ファイル名検索"
+    }
+  },
+  "added2026_08_05": {
+    "reason": "Issue #81 の3（拓本・碑刻の実在調査）で Wikidata P373 の英語カテゴリを列挙したときの副産物。2026-08-02 の再探索は intitle の CJK 検索と ja/zh のリード画像・P18 しか持っておらず、Latin 表記のカテゴリに入口が無かった。記録は docs/site-design/rubbing-survey-2026-08-05.json の rematchWithHanziNormalization.byproductPortraitCandidates",
+    "ids": {
+      "tang-jingzong": "Wikidata P373（Emperor Jingzong of Tang）のカテゴリ列挙"
     }
   }
 }

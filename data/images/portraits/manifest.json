@@ -1776,6 +1776,22 @@
     "credit": "Digitized by NPM; image is directly from <a rel=\"nofollow\" class=\"external text\" href=\"https://new.shuge.org/view/li_dai_di_hou_xiang_zhou/\">Shuge</a>"
   },
   {
+    "id": "tang-jingzong",
+    "commonName": "敬宗",
+    "dynasty": "唐",
+    "localFile": "tang-jingzong.jpg",
+    "focusY": 0.28,
+    "sourceFilename": "帝鉴图说.Recueil_Historique_des_Principaux_Traits_de_la_Vie_des_Empereurs_Chinois.95帧图.彩绘册页.约18世纪_(唐敬宗)_(cropped).jpg",
+    "commonsPageUrl": "https://commons.wikimedia.org/wiki/File:%E5%B8%9D%E9%89%B4%E5%9B%BE%E8%AF%B4.Recueil_Historique_des_Principaux_Traits_de_la_Vie_des_Empereurs_Chinois.95%E5%B8%A7%E5%9B%BE.%E5%BD%A9%E7%BB%98%E5%86%8C%E9%A1%B5.%E7%BA%A618%E4%B8%96%E7%BA%AA_%28%E5%94%90%E6%95%AC%E5%AE%97%29_%28cropped%29.jpg",
+    "matchedWikiTitle": null,
+    "licenseVerified": true,
+    "license": "cc0",
+    "licenseShortName": "CC0",
+    "attributionRequired": "false",
+    "artist": "<a href=\"//commons.wikimedia.org/wiki/User:Zeroiszen\" title=\"User:Zeroiszen\">书格</a>",
+    "credit": "<span class=\"int-own-work\" lang=\"en\">Own work</span>"
+  },
+  {
     "id": "tang-muzong",
     "commonName": "穆宗",
     "dynasty": "唐",
