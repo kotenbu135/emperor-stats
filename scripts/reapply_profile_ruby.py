@@ -64,6 +64,13 @@ def annotate(text: str, forms: dict[str, str]) -> tuple[str, int]:
 
     work = RUBY.sub(stash, text)
 
+    # 一般語（「広い」「陳列」）を先に退避する。1字の人名断片を辞書に載せた副作用で
+    # ここへ当たるため、**必ず語より先**（profile_prose.mask_not_terms と同じ順序）。
+    for word in profile_prose.NOT_TERMS:
+        if word in work:
+            slots.append(word)
+            work = work.replace(word, f"\x00{len(slots) - 1}\x01")
+
     added = 0
     for plain in sorted(forms, key=len, reverse=True):
         if plain not in work:

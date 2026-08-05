@@ -41,9 +41,11 @@ QUOTED = re.compile(r"[「『][^」』]*[」』]")
 
 # 漢文訓読調 → 言い換え。**明白なものだけ**を落とす（「即位」「封じる」「詔」は
 # 歴史用語として要るので入れない）。増やすときは、既存の紹介文に当ててから足す。
+#
+# **「没した」は入れない**（2026-08-05 ユーザー指摘）。現代の日本語でも広く通用する。
+# 訓読調かどうかは「原文の語を訓読でそのまま持ってきたか」で見て、**見慣れない語かどうかで
+# 決めない**。
 ARCHAIC: list[tuple[str, str]] = [
-    ("没し", "「死んだ」。皇帝の死も「死んだ」で書く"),
-    ("没す", "「死んだ」。皇帝の死も「死んだ」で書く"),
     ("崩じ", "「死んだ」"),
     ("薨じ", "「死んだ」"),
     ("身罷", "「死んだ」"),
@@ -75,9 +77,23 @@ ARCHAIC: list[tuple[str, str]] = [
 # 上の語を含んでしまう普通の日本語。数えるときに差し引く（「見せしめ」で実際に誤爆した）。
 NOT_ARCHAIC: dict[str, tuple[str, ...]] = {
     "せしめ": ("見せしめ",),
-    "没し": ("埋没し", "沈没し"),
-    "没す": ("埋没す", "沈没す"),
 }
+
+# 辞書の語を**含んでしまう普通の日本語**。ルビの検査より先に伏せる。
+#
+# 1字の人名断片（「楊広」の「広」・「陳叔宝」の「陳」）を辞書に載せた副作用で、
+# 「広い」「陳列」のような一般語まで当たる。**人名として使われているかは機械では
+# 決まらない**ので、当たってしまう一般語をここへ足していく（見つけ次第・運用で育てる）。
+# 固有名詞のほうは辞書へ長い語として載せれば勝つ（長い語から当てる）ので、ここには要らない。
+NOT_TERMS: tuple[str, ...] = (
+    "広い", "広く", "広が", "広げ", "広ま", "広め", "広大", "広範", "広場", "幅広",
+    "陳列", "陳述", "陳謝", "陳情", "陳腐",
+    "憲法", "官憲", "立憲",
+    "湛え",
+    "戯れ", "悪戯",
+    "沛然",
+    "妍を",
+)
 
 
 def load_lexicon() -> dict[str, list[str]]:
@@ -102,6 +118,14 @@ def outside_ruby(text: str) -> str:
     return RUBY.sub("", text)
 
 
+def mask_not_terms(text: str) -> str:
+    """一般語（NOT_TERMS）を伏せる。**辞書の語を当てる前に必ず通す。**"""
+    for word in NOT_TERMS:
+        if word in text:
+            text = text.replace(word, "\x02" * len(word))
+    return text
+
+
 def missing_ruby(text: str, lexicon: dict[str, list[str]]) -> list[tuple[str, int, str]]:
     """ルビを振るべき語がルビ無しで出ている箇所。→ [(語, 回数, 直し方)]
 
@@ -109,7 +133,7 @@ def missing_ruby(text: str, lexicon: dict[str, list[str]]) -> list[tuple[str, in
     - 辞書に載る語（本をまたぐ）
     - **この本文の中で1度でもルビを振った語**（初出だけにしない）
     """
-    rest = outside_ruby(text)
+    rest = mask_not_terms(outside_ruby(text))
     required: dict[str, str] = {}
     for parent, _reading in RUBY.findall(text):
         # 本文で実際に振った形をそのまま正解として使う（読みの正しさは
