@@ -30,7 +30,7 @@ const SHOTS = [
   { name: "03-emperors-jump", path: "/emperors", viewportOnly: true, action: openJumpPopover },
   { name: "04-database", path: "/database" },
   { name: "05-about", path: "/about" },
-  // 個別ページは肖像あり／なしの両方を撮る（肖像なしが220名・60%で、五胡十六国・
+  // 個別ページは肖像あり／なしの両方を撮る（肖像なしが211名・58%で、五胡十六国・
   // 南北朝はほぼ全員がこちら。片方だけ見て決めると多数派の見た目を外す）。
   { name: "06-emperor-detail", path: "/emperors/han-wudi" },
   { name: "07-emperor-detail-noportrait", path: "/emperors/qianqin-fujian" },
