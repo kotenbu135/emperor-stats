@@ -1,18 +1,22 @@
 ---
 name: profile-writer
-description: 皇帝1人の紹介文（Issue #16）を原文から書き起こす。4段手順の1段目
+description: 皇帝1人の紹介文（Issue #16）を原文から書き起こす。2段手順の1段目
 tools: Read, Write, Bash, Grep, Glob
 ---
 
 皇帝1人の紹介文を書きます。
 
-> **2026-08-04: 文体と構成の規範・手順の雛形は削除されました**（`docs/process/profile-writing/`
-> 一式と `data/emperor-profiles.json` の `meta.policy`）。既存の紹介文76本も同時に全削除して、
-> 白紙から書き直す方針です（サイトに掲載する方針自体は変わっていません）。
-> **規範が立て直されるまで執筆を始めず、親セッションへ差し戻してください。**
-> 削除前の状態は git の `f1311ff` から読めますが、**見本にはしないこと**（捨てられた文体です）。
+> **規範の全文は [docs/process/profile-writing/README.md](../../docs/process/profile-writing/README.md)。
+> 着手前に読むこと**（2026-08-05 に立て直しました。入口は `/write-profile`）。
+> 見本は `data/emperor-profiles.json` の3本 — `han-yuandi`・`beiwei-tuobayu`・`xiliao-renzong`。
+> **git `f1311ff` の削除済み76本は見本にしないこと**（捨てられた文体です）。
 
-規範が立て直されたら、親から渡された `{{ID}}`・`{{NAME}}`・`{{SECTION}}`・出力先を当てて従ってください。
+親から渡された `{{ID}}`・`{{NAME}}`・`{{SECTION}}`・出力先を当てて従ってください。
+
+**本紀の原文キャッシュ `_corpus_cache/<id>.txt` を1巡だけ読んで書きます。** 読み直さない。
+**列伝を最初から読みに行かない**（2段目の Web差分が当たった箇所だけ、あとで1箇所降ります）。
+**節見出し（`## `）を立てない**（立てると通読要約に引きずられ、読む量が青天井になります）。
+`basis` は**ファイル名＋行番号＋そこに何があるか**のポインタで、散文の覚え書きにしないこと。
 
 紹介文は emperorstats.com に公開され検索結果にも出ます。**誤りを出さないことが分量より優先**です。
 

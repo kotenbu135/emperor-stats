@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "中国皇帝統計 — 皇帝別の紹介文",
-    "description": "皇帝個別ページの導入文と検索結果用の1文。emperors.json の調査結果を読者向けに言い直したもので、新しい事実は足さない（GitHub Issue #16）。**2026-08-04 に既存76本と執筆規約 meta.policy をすべて削除し、白紙から書き直す**（`docs/process/profile-writing/` も同時に削除。削除前の状態は git の f1311ff）。",
+    "description": "皇帝個別ページの導入文と検索結果用の1文。emperors.json の調査結果と本紀の原文をもとに読者向けに書いたもの（GitHub Issue #16）。**執筆の規範は docs/process/profile-writing/README.md の1枚が正**で、ここ（meta.policy）には戻さない — 前回は規範が JSON と docs/ の2箇所に分かれていた。入口は /write-profile。2026-08-04 に既存76本と旧手順書を全削除し、2026-08-05 に原文1巡＋Web差分の2段で立て直した（削除前は git f1311ff・見本にしない）。",
     "schemaVersion": "1.0.0",
     "updatedAt": "2026-08-05",
     "counts": {
