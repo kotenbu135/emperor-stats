@@ -1,7 +1,7 @@
 ---
 name: profile-reviser
 description: Web 差分の当たりを原文で確かめてから紹介文へ反映する。2段手順の2段目の後半（列伝を1箇所だけ読む）
-tools: Read, Write, Bash, Grep, Glob
+tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
 Web 差分（`profile-webdiff`）の指摘を受けて紹介文を直します。
