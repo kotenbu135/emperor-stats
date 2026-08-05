@@ -44,6 +44,7 @@
 | [site-design/PORTRAITS.md](site-design/PORTRAITS.md) | 肖像画の収集結果（PD/CC0 のみ・154名分）と増減手順 |
 | `site-design/mockups/card-preview/` | 肖像画 webp 154点。**`site/scripts/sync-portraits.mjs` のビルド入力なので消さないこと** |
 | `site-design/portraits-candidates.json` | 肖像画の候補調査の生データ |
+| `site-design/rubbing-survey-2026-08-05.json` | 拓本・碑刻（Issue #81 の3・A-2）の実在調査の生データ。**入口ごと閉じた結論の裏**で、カテゴリ列挙をファイル名まで残してある |
 | [site-design/CHART_CANDIDATES_2026-07-31.md](site-design/CHART_CANDIDATES_2026-07-31.md) | グラフにする価値のあるデータの検討（実測済み・未実装の候補一覧） |
 | [site-design/EMPEROR_PAGE_PLAN_2026-08-01.md](site-design/EMPEROR_PAGE_PLAN_2026-08-01.md)・[RUBY_PLAN_2026-08-01.md](site-design/RUBY_PLAN_2026-08-01.md)・[NAME_DISPLAY_PLAN_2026-08-02.md](site-design/NAME_DISPLAY_PLAN_2026-08-02.md) | **実装済みの設計記録**。コードから参照されているので消さない。現状は SITE_DESIGN.md と AGENTS.md が正 |
 
