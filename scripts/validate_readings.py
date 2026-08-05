@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ふりがな（ルビ）データの機械ゲート。GitHub Issue #20。
 
-方針の全文は docs/site-design/RUBY_PLAN_2026-08-01.md。検査するのは次の4つ。
+方針の全文は docs/site-design/RUBY_PLAN_2026-08-01.md。検査するのは次の8つ。
 
 1. 平文一致 — data/name-readings.json は「平文をキー、ルビ記法を値」に持つ。
    値からルビを剥がした結果がキーと一致すること（親文字の打ち間違いを落とす）
@@ -18,6 +18,12 @@
    2字以上のものは、テーブルと同じ読みであること（向きは本文→テーブル。
    逆向きが成立しない理由は該当箇所のコメント）
 4. 記法そのもの — 裸の ｜《》 が無いこと、ルビがかなだけで書かれていること
+5. ルビの振り漏れ・6. 漢文訓読調 — scripts/profile_prose.py と共有（断片側の
+   check_profile_fragment.py と同じ関数を呼ぶ）
+7. 本をまたぐ読みの割れ — 同じ親文字が本ごとに違う読みで書かれていないこと
+   （**同じ本の中の揃いは 5 が本文から引く**ので、ここが見るのは本と本のあいだだけ）
+8. 辞書との整合 — data/profile-ruby-lexicon.json に載る語は、その読みで
+   書かれていること（5 は「振ってあるか」しか見ず、読みが辞書と違っても素通りする）
 
 **キーが実在するかはここでは検査しない。** 画面に出る文字列の正はサイト側で、
 時代ラベル15区分・王朝名の時代サフィックス（「呉・三国」）・カードの補助名は
@@ -119,6 +125,8 @@ def main() -> int:
     emperor_ids = {e["id"] for e in emperors["emperors"]}
     written = 0
     ruby_counts: dict[str, int] = {}
+    # 7. 本をまたぐ読みの割れ（親文字 → 読み → その読みで書いた皇帝id）。
+    across_books: dict[str, dict[str, list[str]]] = {}
     for emperor_id, profile in profiles["profiles"].items():
         if emperor_id not in emperor_ids:
             err(f"emperor-profiles.json: 存在しない皇帝id「{emperor_id}」")
@@ -160,6 +168,9 @@ def main() -> int:
             # 1字キー（元・唐・漢・明・清…の21件）は一般語彙と衝突するので照合しない
             #（王朝名1字の読みは自明で、取り違えは人手レビューで足りる）。
             for parent, reading in RUBY.findall(text):
+                across_books.setdefault(parent, {}).setdefault(reading, [])
+                if emperor_id not in across_books[parent][reading]:
+                    across_books[parent][reading].append(emperor_id)
                 if len(parent) < 2:
                     continue
                 expected = readings.get(parent)
@@ -182,6 +193,40 @@ def main() -> int:
                     f"**{n}箇所すべて**に振る（2回目以降も振る）")
             for word, n, how in profile_prose.archaic_hits(joined):
                 err(f"{label}: 漢文訓読調の「{word}」（{n}箇所）→ {how} に書き換える")
+
+    # 7. 本をまたぐ読みの割れ。**同じ本の中の揃いは missing_ruby が本文から引く**ので、
+    # ここが見るのは本と本のあいだだけ。2026-08-06 に「北匈奴」（ほくきょうど／
+    # きたきょうど）と「北郷侯」（ほくきょうこう／ほっきょうこう）が3本・3本に
+    # 割れているのが人手の点検で見つかったので、機械側へ移した。
+    for parent, by_reading in sorted(across_books.items()):
+        if len(by_reading) < 2:
+            continue
+        shown = "／".join(
+            f"{reading}〔{'・'.join(ids)}〕" for reading, ids in sorted(by_reading.items())
+        )
+        err(f"emperor-profiles.json: 「{parent}」の読みが本ごとに割れています → {shown}"
+            "（どちらかへ寄せ、本をまたぐ語なら profile-ruby-lexicon.json へ足す）")
+
+    # 8. 辞書に載る語は、その読みで書かれていること。**振ってあるかどうかは
+    # missing_ruby が見るが、読みが辞書と違っても素通りしていた**（「北郷侯」は
+    # 辞書に ほくきょうこう で載ったまま順帝の本文だけ ほっきょうこう だった）。
+    for parent, by_reading in sorted(across_books.items()):
+        candidates = lexicon.get(parent)
+        if not candidates:
+            continue
+        allowed = {
+            m.group(2)
+            for c in candidates
+            for m in [RUBY.fullmatch(c)]
+            if m and m.group(1) == parent
+        }
+        if not allowed:  # 「｜高《こう》｜宗《そう》」のように親文字を割ってある値
+            continue
+        for reading, ids in sorted(by_reading.items()):
+            if reading not in allowed:
+                err(f"emperor-profiles.json: 「{parent}」の読み「{reading}」"
+                    f"〔{'・'.join(ids)}〕が profile-ruby-lexicon.json の"
+                    f"「{'／'.join(sorted(allowed))}」と違います")
 
     total = len(displayed)
     done = len(displayed & set(readings))
