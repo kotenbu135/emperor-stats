@@ -1,7 +1,7 @@
 ---
 name: profile-writer
 description: 皇帝1人の紹介文（Issue #16）を原文から書き起こす。2段手順の1段目
-tools: Read, Write, Bash, Grep, Glob
+tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 
 皇帝1人の紹介文を書きます。emperorstats.com に公開され検索結果にも出るので、

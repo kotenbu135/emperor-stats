@@ -44,6 +44,7 @@
 | `name.familyName` / `name.personalName` の**切れ目**を変える | `data/internal/family-name-split-originals.json`（移行前の姓＋諱）・`data/name-readings.json`（姓と諱それぞれの読み）・`site/src/lib/display-name.ts` の名前チップ | **有る。** 連結が凍結標本に戻らなければ `validate_emperors.py::check_family_names` が落ち、読みが無ければ `rubyOf` がビルドを落とす。**凍結標本は移行前の値なので更新しない** — 切れ目を直すときは `familyName` と `personalName` を同じ起動で set する（片方だけ動かすと必ず落ちる） |
 | `name.commonName` ・表示名の上書きを変える | 同上（新しい漢字が入る） | 同上。**2026-08-02 に金太祖・遼太祖の表示名を変えてビルドが落ちた** |
 | ルビ（`data/name-readings.json`）を直す | かな検索テーブル（1漢字1音節・前から切り捨て・上限16） | `validate_readings.py` |
+| **紹介文・note・表示文字列を足す**（サイトに出る日本語の文字種が増える） | 自前フォントサブセット（`cd site && python3 tools/build-font-subset.py` → `npm run build`。生成物 `src/app/fonts/*.woff2` 90本・`fonts.css`・`tools/font-coverage.json` はコミット対象） | **有る。** `npm run build` の postbuild `check-font-coverage.mjs` が「サブセットに無い字」を並べてビルドを落とす。**2026-08-05 に紹介文10本と自前サブセット化が別ブランチで進み、マージ後に100字超で落ちた** |
 | 皇帝を追加する | `emperor-types.ts` の `eraOrder` | `emperors.ts:771`「eraOrder 未登録の時代ラベルです」 |
 | 新しい調査ブロック名が出る | `ERA_BY_SECTION` | `emperors.ts:317`「未対応の調査ブロック名です」 |
 | 在位年数の帯を変える | `REIGN_BANDS` | `emperors.ts:1419`「REIGN_BANDS のどの帯にも入りません」 |
