@@ -181,8 +181,125 @@ def render(e: dict, catalogs: dict, max_events: int, notes: bool) -> str:
     v = e.get("verification") or {}
     if notes and v.get("notes"):
         add(f"- 収録メモ: {v['notes']}")
+
+    add("")
+    add(reading_map(e["id"]))
+    add("")
+    add(writing_kit(e["id"]))
     add("")
     return "\n".join(out)
+
+
+PROFILES = ROOT / "data" / "emperor-profiles.json"
+# 見本は1本だけ出す。3本読ませると分量が増えるうえ、実測では執筆エージェントが
+# 毎回 python3 -c で emperor-profiles.json の構造を探るところからやり直していた。
+# nanyan-murongchao を選ぶのは body が目安（800〜1,500字）の内側に収まっている唯一の
+# 中規模の本で、「上限まで書かない」を字数でなく現物で見せられるため。
+SAMPLE_ID = "nanyan-murongchao"
+
+
+def writing_kit(emperor_id: str) -> str:
+    """見本1本・断片の作り方・ゲートの走らせ方（2026-08-05）。
+
+    **形の再発見をここで潰す。** Workflow の実測では十数ターンが
+    「emperor-profiles.json のキー構造を探る」「name-readings.json を grep する」
+    「見本を3本引き直す」に使われていた。読み地図と同じ扱いで、執筆段が必ず通る
+    素材の末尾へ出す。
+    """
+    lines = ["### 見本（1本だけ・これ以上は引かない）"]
+    try:
+        profiles = json.loads(PROFILES.read_text(encoding="utf-8"))["profiles"]
+        s = profiles.get(SAMPLE_ID)
+        if s is None:
+            lines.append(f"- 見本 {SAMPLE_ID} が emperor-profiles.json に無い")
+        else:
+            lines.append(
+                f"`data/emperor-profiles.json` は `profiles.<皇帝id>."
+                "{lead,body,description,basis}`。**構造を探らない。**"
+            )
+            lines.append(f"以下は {SAMPLE_ID}（南燕 慕容超）の全文。")
+            for k in ("lead", "body", "description", "basis"):
+                if s.get(k):
+                    lines.append("")
+                    lines.append(f"**{k}**")
+                    lines.append("```")
+                    lines.append(s[k])
+                    lines.append("```")
+    except Exception as exc:
+        lines.append(f"- 見本を引けなかった: {exc}")
+
+    lines.append("")
+    lines.append("### ルビ")
+    lines.append(
+        "読みの正本は `data/name-readings.json`。**先に grep しなくてよい** — "
+        "テーブルと違う振り方をすれば `check_profile_fragment.py` が落として正解を出す。"
+        "難読語・中国史特有の語だけに振り、`description` には振らない"
+        "（記法は `｜親文字《ルビ》`・`｜` を省略しない）。"
+    )
+
+    lines.append("")
+    lines.append("### 断片とゲート（この順に走らせる）")
+    lines.append("```bash")
+    lines.append(f"python3 scripts/new_profile_fragment.py {emperor_id} --out <workDir>")
+    lines.append("#   骨格 <workDir>/%s.json と空の台帳 <workDir>/%s.claims.jsonl を作る"
+                 % (emperor_id, emperor_id))
+    lines.append(f"python3 scripts/check_profile_fragment.py <workDir>/{emperor_id}.json --strict")
+    lines.append(f"python3 scripts/check_profile_ngram.py    <workDir>/{emperor_id}.json")
+    lines.append("```")
+    lines.append(
+        "**Write は骨格を埋める1回だけで、以降は Edit で直す**"
+        "（`build.py` の類を書かない — 本文を1文直すたびに台帳ごと再送されて費用が跳ねる）。"
+        "引用台帳は読みながら `.claims.jsonl` へ1行1件で足す。"
+    )
+    return "\n".join(lines)
+
+
+def reading_map(emperor_id: str) -> str:
+    """本紀キャッシュの読み地図と、列伝の在り処。
+
+    **別コマンドにすると忘れる。** 執筆段が必ず通るここへ出す。中身の判定は
+    `corpus_reading_map.py`（詔・冊文の区間）と `find_biography.py`（列伝の在り処）の
+    1実装で、ここは呼ぶだけ。どちらも 2026-08-05 の試作で人が毎回つまずいた点
+    （隋書の列伝が china-history に無い・大物は本紀の大半が詔）を機械側へ移したもの。
+    """
+    sys.path.insert(0, str(ROOT / "scripts"))
+    lines = ["### 本紀の読み地図（1巡の配分）"]
+    try:
+        from corpus_reading_map import build, render  # noqa: PLC0415
+
+        path, rows = build(emperor_id)
+        if path is None:
+            lines.append(f"- `_corpus_cache/{emperor_id}.txt` が無い。先にキャッシュを作る")
+        else:
+            lines.append("```")
+            lines.append(render(emperor_id, rows, per_line=False))
+            lines.append("```")
+            lines.append(
+                "詔・冊文の割合は**下限**（「詔曰：“…”」と1行に収まる形は叙事として数える）。"
+            )
+    except Exception as exc:  # 素材の抽出そのものは止めない
+        lines.append(f"- 読み地図を作れなかった: {exc}")
+
+    lines.append("")
+    lines.append("### 列伝の在り処（Web差分が当たったときだけ降りる）")
+    try:
+        from find_biography import books_for, targets_for  # noqa: PLC0415
+
+        books = books_for(emperor_id)
+        if not books:
+            lines.append("- レコードから書名を引けなかった。`--book` で書名を渡す")
+        for b in books:
+            _, notes_ = targets_for(b)
+            lines.append(f"- **{b}**")
+            for n in notes_:
+                lines.append(f"  - {n}")
+        lines.append(
+            "  - 引くのは `python3 scripts/find_biography.py "
+            f"{emperor_id} <人名>`（**コーパスに素の grep を掛けない**）"
+        )
+    except Exception as exc:
+        lines.append(f"- 在り処を引けなかった: {exc}")
+    return "\n".join(lines)
 
 
 def main() -> int:

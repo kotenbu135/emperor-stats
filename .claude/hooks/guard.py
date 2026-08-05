@@ -167,7 +167,7 @@ def check(tool, ti, is_subagent, command, agent_type=None):
                     "note の誤りがそのまま成果物へ流れます。既定の `--notes off` で出した"
                     "構造フィールドと原文だけで進めてください"
                     "（データ訂正は .claude/skills/correct-record/SKILL.md。"
-                    "紹介文の手順書 docs/process/profile-writing/ は 2026-08-04 に削除した）")
+                    "紹介文は docs/process/profile-writing/README.md の1枚が正）")
         hits.append(("R-CLAIMS-FIRST", deny))
 
     # R-RESIDUAL-TABLE — 走査の残量を Issue の本数で増やさない
