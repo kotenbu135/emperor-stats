@@ -9,7 +9,12 @@
 かなの前の裸の ｜・読みテーブルと違う切り方・description にルビ）。ここで先に落とす。
 
 使い方:
-    python3 scripts/check_profile_fragment.py <断片.json> [--basis-corpus]
+    python3 scripts/check_profile_fragment.py <断片.json> --strict
+
+**`--strict` が既定の運用**（2026-08-05）。claims を必須にし、`quote` が `src` の指すファイルに
+実在するかと、`basis` のポインタ（ファイル＋行番号）の実在を見る。`--basis-corpus` は
+**旧 basis 形式（原文断片を並べる書き方）向けの報告**で、いまの basis はポインタなので
+通常は付けない（列伝・志へ降りた断片では必ず「本紀キャッシュに未検出」と出て、欠陥に見える）。
 
 断片は {"<皇帝id>": {"lead": ..., "body": ..., "description": ..., "basis": ..., "claims": [...]}}。
 --basis-corpus を付けると basis に並べた原文断片が本紀キャッシュに実在するかを
@@ -54,6 +59,11 @@ EMPERORS = ROOT / "data" / "emperors.json"
 # その型を執筆段のうちに見せるためだけの表。**照合は報告で、判定はしない**
 # ——本文の続柄語が前任者を指しているとは限らない（別人の弟・別人の子を書いていることがある）。
 RELATION_WORDS: list[tuple[str, str]] = [
+    # 「長男」「長子」は本紀の定型（「穆宗长子」）をそのまま日本語にした形で、実際に
+    # 正しく書いた本文が「続柄語なし」と報告された（2026-08-05・唐敬宗）
+    ("長男", "son"),
+    ("長子", "son"),
+    ("次男", "son"),
     ("兄の子", "nephew"),
     ("弟の子", "nephew"),
     ("従兄弟", "cousin"),

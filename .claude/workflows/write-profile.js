@@ -15,8 +15,15 @@ export const meta = {
 // **並行して data/emperor-profiles.json を書かせない。** 断片は workDir へ1人1ファイルで置き、
 // 本体への転記は呼び出し側が `scripts/add_profile.py` で1本ずつ流す（R-RMW）。
 
-const ids = (args && args.ids) || []
-const workDir = (args && args.workDir) || '/tmp/write-profile'
+// args は JSON 文字列で渡ってくることがある（Workflow ツールの入力が文字列化される経路）。
+// 素直に args.ids を読むと undefined になり「no ids」で即終了する。実際に踏んだ。
+let a = args
+if (typeof a === 'string') {
+  try { a = JSON.parse(a) } catch (e) { a = {} }
+}
+
+const ids = (a && a.ids) || []
+const workDir = (a && a.workDir) || '/tmp/write-profile'
 
 if (!ids.length) {
   log('args.ids が空です。{ids:[...], workDir:"..."} を渡してください')
@@ -65,7 +72,10 @@ const DIFF_SCHEMA = {
     },
     // 列伝へ降りる必要があるか。true のときだけ3段目のエージェントを立てる
     needsBiography: { type: 'boolean' },
-    biographyTarget: { type: 'string' },   // 誰の伝を探すか（人名）
+    // 誰の伝を探すか（人名）。**順位順の配列**で返す — 咸豊帝で杜受田伝と粛順伝の2つが
+    // 当たり、文字列1本の契約では片方が報告本文へ逃げた（2026-08-05）。
+    // **降りるのは1箇所**という規範は変えない。候補が複数あることと、何箇所読むかは別
+    biographyTargets: { type: 'array', items: { type: 'string' } },
   },
 }
 
@@ -129,16 +139,18 @@ function diffPrompt(id, frag) {
   ].join('\n')
 }
 
-function revisePrompt(id, frag, target, diffs) {
+function revisePrompt(id, frag, target, diffs, rest) {
   return [
     `皇帝 ${id} の紹介文（${frag}）へ、Web差分の当たりを反映する。${NORM}`,
     '',
     `Web差分の指摘: ${diffs}`,
+    rest && rest.length ? `候補は他にもある（順位順・降りるのは1箇所だけ）: ${rest.join('・')}` : '',
     '',
     '手順:',
     `1. python3 scripts/find_biography.py ${id} ${target}`,
     '   （**書ごとに降り先が違うのを吸収する道具。素の grep を掛けない**）',
-    '2. **列伝は1箇所だけ**読む。裏が取れれば本文へ入れ、取れなければ入れない',
+    '2. **本紀の外は1箇所だけ**読む（列伝でも志でもよい。唐の敬宗では張韶の乱の手口が',
+    '   本紀に無く五行志にあった）。裏が取れれば本文へ入れ、取れなければ入れない',
     '3. claims に足す（quote と src＝ファイル:行）。basis にも「Web差分の何に当たって降りたか」を1句添える',
     `4. python3 scripts/check_profile_fragment.py ${frag} --strict を通す`,
     '',
@@ -169,12 +181,13 @@ const results = await pipeline(
     if (!diff || !diff.needsBiography) {
       return { id, wrote, diff, revise: { id, changed: '変更なし（Web差分の当たりなし）', gate: wrote.gate, readFrom: '読まず' } }
     }
-    const target = diff.biographyTarget || ''
+    const targets = diff.biographyTargets || []
+    const target = targets[0] || ''
     const summary = (diff.divergences || [])
       .filter((d) => d.action === 'read-biography')
       .map((d) => `${d.topic}: 通説「${d.web}」／本文「${d.ours}」`)
       .join('／')
-    return agent(revisePrompt(id, `${workDir}/${id}.json`, target, summary), {
+    return agent(revisePrompt(id, `${workDir}/${id}.json`, target, summary, targets.slice(1)), {
       label: `反映:${id}`, phase: '反映', agentType: 'profile-reviser', schema: REVISE_SCHEMA,
     }).then((revise) => ({ id, wrote, diff, revise }))
   },

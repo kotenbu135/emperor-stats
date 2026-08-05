@@ -17,7 +17,8 @@
 | 2026-07-29 | スキーマ v3 へ移行（Issue #22）。時代・政権カタログ新設、全 enum の ID 化、`dynasty`／`flags.selfProclaimed` の廃止。**判定内容は変更なし**。記録は [V3_MIGRATION_PLAN.md](schema/V3_MIGRATION_PLAN.md) |
 | 2026-07-31 | サイト再構築（Next 16 + Tailwind v4 + shadcn/ui + vendored Tremor）。7ページ削除・旧サイトの設計記録を全削除・`/database` を新規実装 |
 | 2026-08-03 | 姓と諱を別の欄へ分けた（`name.familyName` 新設・`personalName` は諱だけ・365件／Issue #37 単位6）。同じ日の「分けない」決定を見直したもので、経緯と検査は [FAMILY_NAME_SPLIT_2026-08-03.md](schema/FAMILY_NAME_SPLIT_2026-08-03.md) |
-| 2026-08-04 | **紹介文（Issue #16）を白紙に戻した** — 既存76本・手順書 `docs/process/profile-writing/` 一式・執筆規約 `emperor-profiles.json` の `meta.policy` をすべて削除（ユーザー指示）。**サイトに掲載する方針は変えていない**ので、道具立て（`profile-*` エージェント・`/profile-block`・`validate_profiles.py`・サイト側の表示）は残してある。削除前の状態は git の `f1311ff`。**規範を立て直すまで執筆は着手できない** |
+| 2026-08-04 | **紹介文（Issue #16）を白紙に戻した** — 既存76本・手順書 `docs/process/profile-writing/` 一式・執筆規約 `emperor-profiles.json` の `meta.policy` をすべて削除（ユーザー指示）。**サイトに掲載する方針は変えていない**ので、道具立て（`profile-*` エージェント・`/profile-block`・`validate_profiles.py`・サイト側の表示）は残してある。削除前の状態は git の `f1311ff`。**この行の「着手できない」は 2026-08-05 に解除済み**（下の行） |
+| 2026-08-05 | **紹介文の規範を立て直した** — 置き場所は [profile-writing/README.md](process/profile-writing/README.md) の1枚、入口は `/write-profile`（旧 `/profile-block` は削除）。**原文1巡＋Web差分の2段**・総ルビ廃止・`basis` はポインタ。まとめて進める段構成は `.claude/workflows/write-profile.js`。**執筆は再開している**（見本8本） |
 | 2026-08-01 | 政権区分の軸を「中華を統一していたか」へ入れ替え（`統一王朝`／`分裂期の王朝`／`反乱・自称政権` ＝ 113／240／12人）。判定基準は [INCLUSION_CRITERIA.md](../data/schema/INCLUSION_CRITERIA.md) の「政権区分の判定基準」節 |
 
 v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調査」と「kinship persons の政権帰属（`regimeId`）」の2件。前者は 2026-08-03（Issue #69）に**未調査の欄を落として** [残量表](process/RESIDUAL.md) の行（198在位／190人／53政権）にした（旧 Issue #24 は close）。後者は別 Issue 扱いのまま。
@@ -75,7 +76,7 @@ v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調
 | 廟号（Issue #37） | 人 | 365 | 72 | 0 | 293 | 19.7% |
 | 諡号（Issue #37） | 人 | 365 | 100 | 2 | 263 | 27.9% |
 | 第N代（Issue #24） | 在位 | 374 | 162 | 14 | 198 | 47.1% |
-| 紹介文（Issue #16） | 人 | 365 | 5 | 0 | 360 | 1.4% |
+| 紹介文（Issue #16） | 人 | 365 | 8 | 0 | 357 | 2.2% |
 | 生母（kinship） | 人 | 365 | 178 | 0 | 187 | 48.8% |
 
 **`meta.status.phases` が `completed` なのに判別不能セルが残っている項目**（完了が誤りとは限らず、**構造からは確かめられない**という意味）:
