@@ -5,9 +5,15 @@
 
 1. 平文一致 — data/name-readings.json は「平文をキー、ルビ記法を値」に持つ。
    値からルビを剥がした結果がキーと一致すること（親文字の打ち間違いを落とす）
-2. 総ルビ充足 — 紹介文の lead・body（data/emperor-profiles.json）はルビ注釈の外に
-   漢字を1文字も残さないこと（振り漏れを落とす）。**description はルビを持たず平文**
+2. ルビの本数 — 紹介文の lead・body（data/emperor-profiles.json）に振られたルビの
+   **本数を数えて出すだけ**で、エラーにはしない。**description はルビを持たず平文**
    （<meta>・JSON-LD にしか出ないので、ルビを書いても画面に出ない）
+
+   **2026-08-05 に「総ルビ充足」（ルビ注釈の外に漢字を1文字も残さない）をやめた**
+   （ユーザー決定）。ルビは難読語・中国史特有の語に限り、日本人が普通に読める漢字には
+   振らない。**どの語が難読かは機械では決まらない**ので、ここで検査できるのは記法（4）と
+   読みの整合（3）だけになる。件数を必ず出すのは、0件が「振る語が無かった」のか
+   「振り忘れた」のかを人が見て区別できるようにするため。
 3. 固有名詞整合 — lead・body で振ったルビのうち、親文字が読みテーブルに載っている
    2字以上のものは、テーブルと同じ読みであること（向きは本文→テーブル。
    逆向きが成立しない理由は該当箇所のコメント）
@@ -108,6 +114,7 @@ def main() -> int:
     profiles = json.loads(PROFILES.read_text(encoding="utf-8"))
     emperor_ids = {e["id"] for e in emperors["emperors"]}
     written = 0
+    ruby_counts: dict[str, int] = {}
     for emperor_id, profile in profiles["profiles"].items():
         if emperor_id not in emperor_ids:
             err(f"emperor-profiles.json: 存在しない皇帝id「{emperor_id}」")
@@ -131,11 +138,12 @@ def main() -> int:
             written += 1
             label = f"emperor-profiles.json「{emperor_id}」の {field}"
             check_notation(text, label)
-            # 2. 総ルビ充足: ルビ注釈の外に漢字が残っていないこと
-            outside = RUBY.sub("", text)
-            missed = KANJI.findall(outside)
-            if missed:
-                err(f"{label}: ルビの無い漢字があります → {''.join(dict.fromkeys(missed))}")
+            # 2. ルビの本数を数える（エラーにはしない・2026-08-05）。
+            #
+            # 総ルビをやめた以上、「振り漏れ」は機械では定義できない — 難読かどうかは
+            # 語ごとの判断で、ルビの無い漢字が残っているのが正常な状態になった。
+            # ここで数えた本数は最後にまとめて出す（0件を人が見て気づけるように）。
+            ruby_counts[f"{emperor_id}/{field}"] = len(RUBY.findall(text))
             # 3. 固有名詞整合: 本文で振ったルビが読みテーブルと矛盾しないこと。
             #
             # **向きは「本文のルビ注釈 → テーブル」で、逆ではない。** 逆向き
@@ -163,6 +171,14 @@ def main() -> int:
     print(f"読みテーブル: {len(readings)} 行（data 由来の名称 {done}/{total} 件・"
           f"サイト固有の表示名 {site_only} 件）")
     print(f"紹介文: {written} 本ぶんのルビを検査")
+    if ruby_counts:
+        total_ruby = sum(ruby_counts.values())
+        zero = [k for k, v in ruby_counts.items() if v == 0]
+        print(f"  ルビ本数: 合計 {total_ruby} 件 / {len(ruby_counts)} 欄"
+              f"（1欄あたり平均 {total_ruby / len(ruby_counts):.1f} 件）")
+        if zero:
+            print(f"  ルビ0件の欄 {len(zero)} 件: {'、'.join(sorted(zero)[:10])}"
+                  + ("…" if len(zero) > 10 else ""))
 
     if errors:
         print(f"\n{len(errors)} 件のエラー:", file=sys.stderr)
