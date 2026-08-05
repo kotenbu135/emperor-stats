@@ -5,11 +5,17 @@
 // deep-link 先で、先頭は名前1行・肖像は基本情報の脇の144px枠だった。
 // ダイアログの廃止で共用相手が消えたため、部品ごと個別ページ専用に割り直してある。
 //
-// 節の並び: ①ヒーロー ②紹介文 ③基本情報＋回数 ④経緯 ⑤在位中の出来事
+// 節の並び: ①ヒーロー ②紹介文 ③基本情報＋回数 ④出典 ⑤在位中の出来事
 // ⑥関連動画・前後ナビ。
 //
-// 2026-08-02 に末尾の「在位日付の典拠」「調査メモ」（畳んだ2節）を廃止した。
-// 根拠は配布データ（data/emperors.json）に同じものが入っている。
+// 2026-08-02 に末尾の「在位日付の典拠」「調査メモ」（畳んだ2節）を、2026-08-03 に
+// ④の経緯3節（即位・死因・復位）を廃止した。根拠は配布データ（data/emperors.json）に
+// 同じものが入っている。
+//
+// 2026-08-05（Issue #75）に④の位置へ「出典」を置いた。**戻したのは書名・巻
+// （source.page）だけ**で、note と原文引用は配布データ側のまま。/about の運営者の節が
+// 「調査メモと原文引用は画面に出していない」と線引きしているので、出す範囲を広げる
+// ときはその文と対で動かすこと。
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -18,12 +24,14 @@ import { EmperorHero } from "@/components/emperors/emperor-hero";
 import { EmperorFacts } from "@/components/emperors/emperor-facts";
 import { EmperorVideosSection } from "@/components/emperors/emperor-videos";
 import { EmperorEventTimeline } from "@/components/emperors/emperor-event-timeline";
+import { EmperorSources } from "@/components/emperors/emperor-sources";
 import { RubyText } from "@/components/ui/ruby-text";
 import {
   dynastyContextLabel,
   getAllEmperorRecords,
   getEmperorEvents,
   getEmperorProfile,
+  getEmperorSources,
   getEmperorStructuredDates,
 } from "@/lib/emperors";
 import { reportReadingCoverage } from "@/lib/name-readings";
@@ -118,6 +126,7 @@ export default async function EmperorPage({
     (r) => r.dynastyKey === record.dynastyKey,
   ).length;
   const structuredDates = getEmperorStructuredDates(id);
+  const sources = getEmperorSources(id);
   // 別名（alternateName）。**名前ブロックと同じ行から作る** — 表示名は括弧を
   // 落としているので、昌邑王（爵位）・孝元帝（別諡号）・明清の廟号はここにしか残らない。
   // 合成前の原文（「太祖（洪武帝）」）は誰も名前として使わないので入れない。
@@ -220,6 +229,9 @@ export default async function EmperorPage({
             </section>
           )}
           <EmperorFacts record={record} />
+          {/* ④出典（Issue #75）。基本情報の「死因」「即位経路」の直後に置く
+              — この2行の判定根拠なので、離すと値と出典が結び付かない。 */}
+          <EmperorSources entries={sources} />
           {events.length > 0 && (
             <section className="space-y-2">
               <h2 className="font-heading text-base font-semibold text-foreground">

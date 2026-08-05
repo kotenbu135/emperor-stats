@@ -302,7 +302,21 @@ export interface EmperorStructuredDates {
 
 // 個別ページ専用の経緯（EmperorNarrative・RestorationNarrative）は
 // 2026-08-03 に表示ごと廃止した。即位の経緯・死因の経緯・判定の軸・復位の経緯の
-// いずれもサイトには出さず、note・出典・軸は配布データ（data/emperors.json）にある。
+// いずれもサイトには出さず、note・軸は配布データ（data/emperors.json）にある。
+// **出典（source.page）だけは 2026-08-05 に個別ページへ戻した**（Issue #75）。
+
+/**
+ * 個別ページの「出典」ブロックの1行（Issue #75・2026-08-05）。
+ *
+ * `label` は判定した項目名（「死因」「即位経路」）、`page` は `source.page` の
+ * 文字列そのまま（例:「旧唐書 巻二（太宗上）／旧唐書 巻八十四（郝処俊伝）」）。
+ * **書名・巻は散文の1文字列**で、機械で巻まで照合できる形（`source.bookId`／
+ * `volume`）へ移す作業は途中。加工せずそのまま出す。
+ */
+export interface EmperorSourceEntry {
+  label: string;
+  page: string;
+}
 
 /**
  * 在位中の出来事年表（個別ページ）の種別キー。回数系8指標のうち7つに対応する
