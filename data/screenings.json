@@ -2,7 +2,7 @@
   "meta": {
     "purpose": "原典を読む前に機械で母集団を絞った記録（Issue #41 の実施順3・規則 R-SCREEN-FIRST）。ブロック着手時に「母集団 N → 要読解 M」を出してから読み始めるための簿記で、絞り込みの根拠と、その絞り込みがどこまで言えるかを残す",
     "notForBuild": "サイトのビルドもバリデータもこれを読まない。読むのは scripts/check_screenings.py と調査の段取りだけ。数字は記録ではなく scripts/screens/*.py の実行結果と突き合わせる（データが動けば数字も動くので、古い数字はゲートで落ちる）",
-    "updated": "2026-08-03",
+    "updated": "2026-08-05",
     "rule": "**絞り込みは読む順序と量を変えるだけ**で、判定を機械にさせるわけではない（規則 R-NO-AUTOGEN）。バケットに入れることは値を決めることではない",
     "kinds": {
       "read": "要読解。原典に当たる側。ここに余計に入れても損はトークンだけ",
@@ -814,6 +814,105 @@
           "kind": "read",
           "count": 0,
           "means": "どの裏付けも当たらない。**0件**"
+        }
+      ]
+    },
+    {
+      "id": "era-name-issue37",
+      "issue": 37,
+      "unit": "era-change-event",
+      "fields": [
+        "eraChangeCount.events[].eraName"
+      ],
+      "script": "scripts/screens/era_name.py",
+      "population": "`eraChangeCount.events[]` のうち **まだ `eraName` を持たない** 改元 event。埋まった event は母集団の外（訂正は別作業）なので、転記が進むと n は減る。**初回の実行（2026-08-05・転記前）は 676 event** で、内訳は unique 451・note-only 132・multi 70・absent 22・no-cache 1 だった",
+      "n": 240,
+      "screenedAt": "2026-08-05",
+      "establishes": "note から立てた元号名の候補のうち、**本人の原文キャッシュで改元の定型句と隣り合うもの**が 451 event で1つに絞れる（`改元◯◯`／`建元◯◯`／`◯◯元年` などの隣接。note 側とコーパス側の両方に在ることを条件にしているので、日本語の地の文〈「同時」「相当」〉も、その人物の紀に載る**他の帝の改元**も落ちる）。2026-08-05 にこの unique 側から 441件を転記し、**主力ゲート（verify_quotes.py --check-era-names）は 441/441 が通った**",
+      "notEstablished": "**候補が建てた元号か捨てた元号かは絞り込みでは決まらない。** unique は「候補が1つに絞れた」だけで、実際に 2026-08-05 の転記では note が『前帝の元号』『玉杯の銘』を指していた形が十数件あり、人が note を読んで別の値に直した（han-yuandi の『黄龍』→初元、han-wendi の『人主』→元号名なし、など）。また **unique に入っても書けるとは限らない** — 本人の紀が改元の元号名を書かない（晋書 恵帝紀「大赦，改元」）・キャッシュが別の書に依る（十国春秋・明史列伝）形が 14件あり、いずれもゲートで落ちて撤回した（RESIDUAL.md の同じ行）",
+      "buckets": [
+        {
+          "name": "unique",
+          "kind": "read",
+          "count": 15,
+          "means": "note から立てた候補のうち**ちょうど1つ**が本人の原文キャッシュで改元の定型句と隣り合う。転記として読む側。**残り 15件は 2026-08-05 に一度転記してゲートが証人を立てられず撤回したもの**（本人の紀が元号名を書かない・キャッシュが別の書・opencc の文脈変換で単独語の正規化が文中と食い違う〈応乾→应干／文中は应乾〉）"
+        },
+        {
+          "name": "multi",
+          "kind": "read",
+          "count": 70,
+          "means": "候補が2つ以上とも原文で定型句と隣り合う。建てた元号と捨てた元号がどちらも本人の紀に在る形（「章武から建興へ改元」）。どちらを採るかは note と原文を読んで決める"
+        },
+        {
+          "name": "note-only",
+          "kind": "read",
+          "count": 132,
+          "means": "note に候補はあるが、本人の原文キャッシュで定型句と隣り合わない。底本の字体・note の語順・別の書からの引用など。**書けるとは限らない側**"
+        },
+        {
+          "name": "no-cache",
+          "kind": "read",
+          "count": 1,
+          "means": "本人の原文キャッシュが無く照合そのものができない（`zhonghuadiguo-yuanshikai`＝正史範囲外）。候補「洪憲」は note に在るが、主力ゲートの外にある"
+        },
+        {
+          "name": "absent",
+          "kind": "absent",
+          "count": 22,
+          "means": "note から候補を1つも立てられなかった。**「元号名が無い」の証拠ではない**",
+          "notEstablished": "この 22件に元号名が無いこと。実測では標本6件のうち5件が取りこぼしで、note の書き方が抽出の形（「◯◯に改元」「改元◯◯」「◯◯元年」）から外れているだけだった。**3〜4字の元号（大中祥符）はそもそも拾えない**",
+          "audit": {
+            "seed": 0,
+            "size": 6,
+            "checkedAt": "2026-08-05",
+            "findings": [
+              {
+                "id": "beisong-huizong.eraChangeCount.e004",
+                "verdict": "反例",
+                "file": "_corpus_cache/beisong-huizong.txt",
+                "line": 145,
+                "quote": "政和元年春正月己巳",
+                "note": "note は「翌政和元年正月より新元号「政和」施行」と書いており元号名は在る。抽出が当たらないのは「新元号「政和」施行」が『◯◯に改元』『改元◯◯』のどちらでもないため"
+              },
+              {
+                "id": "beisong-zhenzong.eraChangeCount.e003",
+                "verdict": "反例",
+                "file": "_corpus_cache/beisong-zhenzong.txt",
+                "line": 150,
+                "quote": "大中祥符元年春正月乙丑",
+                "note": "4字の元号。候補を2字に固定してあるので**構造的に拾えない**（絞り込みの既知の穴で、note の書き方の問題ではない）"
+              },
+              {
+                "id": "hou-han-xiandi.eraChangeCount.e002",
+                "verdict": "一致",
+                "checked": "「詔除光熹、昭寧、永漢三號，還復中平六年」＝三つの年号を廃して旧年号へ復す記事で、**新しい元号を建てていない**。候補が立たないのは取りこぼしではない"
+              },
+              {
+                "id": "liao-daozong.eraChangeCount.e005",
+                "verdict": "反例",
+                "file": "_corpus_cache/liao-daozong.txt",
+                "line": 53,
+                "quote": "寿昌元年春正月己亥",
+                "note": "note は「翌年（1095年）を「寿昌」元年とする改元」。鉤括弧が『◯◯元年』の間に入って抽出が当たらない"
+              },
+              {
+                "id": "tangmo-zhuci.eraChangeCount.e001",
+                "verdict": "反例",
+                "file": "_corpus_cache/tangmo-zhuci.txt",
+                "line": 9,
+                "quote": "号应天元年",
+                "note": "note は「元号を「応天」と建元」。『と建元』の語順が抽出の形から外れている"
+              },
+              {
+                "id": "wu-sunliang.eraChangeCount.e001",
+                "verdict": "反例",
+                "file": "_corpus_cache/wu-sunliang.txt",
+                "line": 4,
+                "quote": "建兴元年闰月",
+                "note": "note は「建興と改元」。『と改元』の語順が抽出の形から外れている"
+              }
+            ]
+          }
         }
       ]
     }
