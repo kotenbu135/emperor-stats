@@ -198,8 +198,24 @@ def main() -> int:
     # ここが見るのは本と本のあいだだけ。2026-08-06 に「北匈奴」（ほくきょうど／
     # きたきょうど）と「北郷侯」（ほくきょうこう／ほっきょうこう）が3本・3本に
     # 割れているのが人手の点検で見つかったので、機械側へ移した。
+    def lexicon_readings(parent: str) -> set[str]:
+        """辞書がその親文字に許している読み。値を配列で持つ語（`meta.values` の
+        「送り仮名で読みが変わる語」）は複数返る。親文字を割ってある値
+        （「｜高《こう》｜宗《そう》」）は1語として当たらないので空。"""
+        out: set[str] = set()
+        for candidate in lexicon.get(parent, []):
+            m = RUBY.fullmatch(candidate)
+            if m and m.group(1) == parent:
+                out.add(m.group(2))
+        return out
+
     for parent, by_reading in sorted(across_books.items()):
         if len(by_reading) < 2:
+            continue
+        # **辞書がわざと2読み以上を認めている語は割れではない。** ここで辞書を見ないと、
+        # 「寄せろ」という誤った指摘で正しい側を落とす（残量表が挙げている失敗の形）。
+        # 辞書に無い読みが混じっていれば検査8が別に落とす。
+        if by_reading.keys() <= lexicon_readings(parent):
             continue
         shown = "／".join(
             f"{reading}〔{'・'.join(ids)}〕" for reading, ids in sorted(by_reading.items())
