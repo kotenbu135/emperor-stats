@@ -32,7 +32,7 @@ const OG_FONTS = [
 const PALETTE = {
   background: "#ffffff", // --background
   foreground: "#0a0a0a", // --foreground
-  muted: "#737373", // --muted-foreground
+  muted: "#707070", // --muted-foreground
   seal: "#c70036", // --seal (= --primary)
   sealForeground: "#ffffff", // --primary-foreground 相当（白地に朱の面なので白抜き）
   /** 事実カード・チップの罫と面。--card は --background と同じ純白なので、

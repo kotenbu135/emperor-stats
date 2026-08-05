@@ -159,7 +159,11 @@ const EmperorCard = memo(function EmperorCard({
         {/* 在位期間。同じ時代の中で誰がいつの人かを、カードを開かずに掴めるようにする
             （名前と王朝だけでは統計サイトの一覧として読み取れる情報が乏しい）。
             復位者は期間が複数連なって長くなるため truncate に任せ、全体は詳細で読ませる。 */}
-        <div className="truncate text-micro tabular-nums text-muted-foreground/85">
+        {/* 色は --muted-foreground をそのまま使う（2026-08-05・Issue #83）。
+            以前は /85 で薄めていたが、11px の通常ウェイトで白地に対し 3.69 しかなく
+            4.5 を割っていた（透明度は面と混ざるので、トークンを濃くしても届かない）。
+            王朝ラベルとの階層は文字サイズ（text-xs / text-micro）が担う。 */}
+        <div className="truncate text-micro tabular-nums text-muted-foreground">
           {record.periodsLabel}
         </div>
       </div>
