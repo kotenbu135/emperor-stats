@@ -34,10 +34,14 @@ export function EmperorSources({ entries }: { entries: EmperorSourceEntry[] }) {
               **何の出典かは畳んだまま見せる** — 「出典」だけだとページ全体の典拠に
               読め、開くまで死因・即位経路の2項目に限る話だと分からない。項目名は
               entries から作るので、出す欄を増やせばここも自動で追従する。 */}
-          <h2 className="font-heading text-base font-semibold">出典</h2>
-          <span className="text-xs">
-            （{entries.map((e) => e.label).join("・")}）
-          </span>
+          {/* 項目名は h2 の**中**に入れる（summary の内容モデルは phrasing content
+              か見出し1つで、h2 と span を兄弟に並べる形は版によって不正になる）。 */}
+          <h2 className="flex items-baseline gap-1.5 font-heading text-base font-semibold">
+            出典
+            <span className="text-xs font-normal">
+              （{entries.map((e) => e.label).join("・")}）
+            </span>
+          </h2>
         </summary>
         <div className="mt-2 space-y-2 border-t border-border/60 pt-2">
           <dl className="text-sm">
@@ -53,9 +57,13 @@ export function EmperorSources({ entries }: { entries: EmperorSourceEntry[] }) {
               </div>
             ))}
           </dl>
+          {/* **「原文の引用は画面に出していない」と書かない。** 同じページの年表は
+              出来事の要約に note の先頭一文を使っていて、そこに原文の断片が出る
+              （「大赦天下」「立妃長孫氏為皇后」）。不在の主張はこの箱の1〜2ブロック
+              下で破れるので、置き場所の申告だけにする（線引きの説明は /about）。 */}
           <p className="text-xs leading-relaxed text-muted-foreground">
             この{entries.length}
-            項目の判定に用いた正史の書名・巻です。判定の根拠を述べた調査メモと原文の引用は、サイトの画面には出しておらず配布データに収録しています。
+            項目の判定に用いた正史の書名・巻です。判定の根拠を述べた調査メモは配布データに収録しています。
           </p>
         </div>
       </details>
