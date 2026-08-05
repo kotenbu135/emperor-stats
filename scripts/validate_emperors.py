@@ -992,7 +992,7 @@ def check_event_date_format(data):
 # **eraName が空であることは「元号が無い」ではない。** 前漢初期のように元号制以前で
 # 名前そのものが無い改元と、まだ読んでいない改元の両方が空になる。埋め草を書かせると
 # R-DATE-CLAIM-SCOPE が日付で捨てた形をここで作り直すので、任意のままにしてある。
-ERA_NAME_BASELINE = 5
+ERA_NAME_BASELINE = 441
 
 # 元号の名だけを書く欄なので、記事の一節を丸ごと入れた形（「改元康熙」「為天啓元年」）を弾く。
 # **「建元」は実在する元号**（漢武帝の最初の元号・東晋康帝・前秦苻堅・南斉高帝）なので、
@@ -1001,7 +1001,12 @@ ERA_NAME_BASELINE = 5
 # （claim 欄で実際に起きかけた型。test_claim_field.py の同じコメントを参照）。
 ERA_NAME_FORBIDDEN = ("元年", "改元", "建元", "年号", "年號", "改號", "改号")
 ERA_NAME_ALLOW_EXACT = ("建元",)
-ERA_NAME_RE = re.compile(r"^[㐀-鿿]{2,4}$")
+# 上限が6字なのは西夏の実在する元号（「天授禮法延祚」6字・「天賜禮盛國慶」6字・
+# 「天儀治平」4字）が2〜4字の前提を反証したため（2026-08-05・転記のときに落ちた）。
+# **緩めても主張の強さは落ちない** — 建てた元号であることの証人は長さではなく
+# verify_quotes.py --check-era-names（本人の原文で改元の定型句と隣り合う）で、
+# 記事の一節を丸ごと入れた形は ERA_NAME_FORBIDDEN が別に弾いている。
+ERA_NAME_RE = re.compile(r"^[㐀-鿿]{2,6}$")
 
 
 def check_era_names(data):
