@@ -227,6 +227,9 @@ export function emperorNameEntries(r: {
   // 慣習に合わない、という 2026-08-03 のユーザー指摘がこの分割の発端で、
   // ここがその指摘の当たっていた場所そのもの。姓は独立した行にする。
   //
+  // **並びは姓が先・諱が後**（2026-08-05 ユーザー指示）。「劉」「邦」と読める順に
+  // 揃えたもので、逆順に戻さないこと。
+  //
   // 民族名の相手側は**姓を冠したまま**（「漢風名 耶律徳光」）— `ethnicName.value` が
   // 姓を冠した契丹名（耶律堯骨）なので、片方だけ姓を落とすと対にならない。
   // 満洲語名だけは相手側のラベルが「諱」なので、下の諱・姓の行と同じ扱いになる。
@@ -235,8 +238,8 @@ export function emperorNameEntries(r: {
     push(counterpart, r.fullPersonalName);
     push(r.ethnicName.label, r.ethnicName.value);
   } else {
-    push("諱", r.personalName);
     push("姓", r.familyName);
+    push("諱", r.personalName);
     if (r.ethnicName) push(r.ethnicName.label, r.ethnicName.value);
   }
 

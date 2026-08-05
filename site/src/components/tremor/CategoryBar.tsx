@@ -156,12 +156,28 @@ const CategoryBar = React.forwardRef<HTMLDivElement, CategoryBarProps>(
       [adjustedMarkerValue, maxValue],
     );
 
+    // 上流 Tremor は role の無い div に `aria-label="category bar"` と
+    // `aria-valuenow` を直付けしていた。どちらも role が無い要素には許されない属性で、
+    // Lighthouse のユーザー補助が「禁止された ARIA 属性」で落ちる（PSI 実測 85 点・
+    // 2026-08-05）。読み上げ名としても英語の "category bar" が呼び出し側の title に
+    // 勝ってしまい、5本並ぶ帯が全部「category bar」としか読まれなかった。
+    //
+    // 帯そのものは色しか持たない図なので、**呼び出し側が名前を付けたときだけ図として
+    // 見せ、付けていないときは装飾として隠す**（名前が無い role="img" は「代替テキストが
+    // 無い画像」で別の失格になる。名前を持たない呼び出しは直下の凡例が区分名と実数を
+    // 併記しているので、隠しても情報は落ちない）。
+    // `aria-valuenow` は範囲系 role 専用なので落とした（marker はこのリポジトリの
+    // 3箇所の呼び出しすべてで未使用）。
+    const labelled =
+      props['aria-label'] !== undefined ||
+      props['aria-labelledby'] !== undefined;
+
     return (
       <div
         ref={forwardedRef}
         className={cx(className)}
-        aria-label="category bar"
-        aria-valuenow={marker?.value}
+        role={labelled ? 'img' : undefined}
+        aria-hidden={labelled ? undefined : true}
         tremor-id="tremor-raw"
         {...props}
       >

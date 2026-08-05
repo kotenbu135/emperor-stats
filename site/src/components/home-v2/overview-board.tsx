@@ -55,7 +55,10 @@ function FigureCard({ figure }: { figure: Figure }) {
           </span>
         ) : null}
       </dd>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{figure.note}</p>
+      {/* 注記も `<dd>` で出す（`<p>` にしない）— この Card は `<dl>` 直下の div として
+          並ぶので、中に置けるのは dt / dd だけ。p を混ぜると Lighthouse のユーザー補助が
+          「dl に許されない子要素」で落ちる（PSI 実測・2026-08-05）。見た目は同じ。 */}
+      <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">{figure.note}</dd>
     </Card>
   );
 }

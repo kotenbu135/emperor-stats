@@ -10,6 +10,7 @@
     "dev": "next dev",
     "kinship-editor": "node ../scripts/kinship-editor-server.mjs",
     "build": "next build",
+    "postbuild": "node tools/check-font-coverage.mjs",
     "start": "next start",
     "lint": "eslint"
   },
