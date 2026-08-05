@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP, Noto_Serif_JP } from "next/font/google";
+import { Noto_Sans_JP } from "next/font/google";
 import { SiteShell } from "@/components/layout/site-shell";
 import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
+// 書体はサンセリフ1本（SITE_DESIGN.md「4. 配色と書体」— 見出しも本文も同じ）。
+// 明朝は読み込むだけで一度も参照しておらず、@font-face 373件・約280KB（gz 98KB）の
+// レンダーブロッキング CSS を1本まるごと増やしていたので落とした（Issue #79）。
+// weight の 700 は font-semibold(600) の解決先なので消さないこと（600 の実体が無く、
+// CSS の重み照合が上方向に歩いて 700 に当たる）。
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-});
-
-const notoSerifJP = Noto_Serif_JP({
-  variable: "--font-serif",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -47,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${notoSansJP.variable} ${notoSerifJP.variable} h-full antialiased`}
+      className={`${notoSansJP.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {/* ふりがな（Issue #20）の初期状態を最初の描画前に当てる。既定は表示（ON）で、

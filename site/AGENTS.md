@@ -21,9 +21,12 @@ npm run lint       # ESLint
 npx tsc --noEmit   # 型チェック
 
 node tools/capture-site.mjs   # out/ を静的配信して全ページの確認用スクショを撮る（→ tools/shots/・.gitignore 対象）
+node tools/font-audit.mjs     # 主要4面のフォント本数・転送量・総転送量に占める比率（Issue #79 の指標）
 ```
 
 `tools/capture-site.mjs` は `out/` を自前の静的サーバーで配信する（`output: "export"` なので `/about` → `about.html` の解決が要り、素の静的サーバーでは 404 になる）。**ページを増減したらスクリプトの `SHOTS` も直すこと** — `page.goto` は 404 でも throw しないので、廃止済みのパスを撮ると 404 ページが「撮れた」ことになる（実装側で status を検証している）。
+
+`tools/font-audit.mjs` は同じ静的配信を使ってフォントの転送を測る（引数に別ビルドの `out/` を渡せば突き合わせられる）。**ページごとに新しいブラウザコンテキストで開いている** — フォントは4面で共通なので、使い回すと2ページ目以降がキャッシュに当たって「0本」に見える。**capture-site.mjs と同じく playwright の symlink に依存する**ので、`ERR_MODULE_NOT_FOUND` が出たら下の「ハマりどころ」を見る。
 
 `predev`/`prebuild` で2つの生成スクリプトが走る:
 
