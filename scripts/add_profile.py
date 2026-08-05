@@ -15,10 +15,11 @@
 使い方:
     python3 scripts/add_profile.py <断片.json>
 
-断片は {"<皇帝id>": {"lead": ..., "body": ..., "description": ..., "basis": ..., "claims": [...]}}。
+断片は {"<皇帝id>": {"lead": ..., "body": ..., "description": ..., "basis": ...}}。
 body は任意（史料が数十字しか無い人物では書かない）。
-`claims`（引用台帳）は断片の中だけのもので、ここでは転記しない — 配布物へ入るのは
-FIELDS の4つだけ。**入れる前に `check_profile_fragment.py --strict` を通す**
+引用台帳は断片の隣の `<断片名>.claims.jsonl`（1行1件）か、断片の中の `claims`（古い形）。
+どちらもここでは転記しない — 配布物へ入るのは FIELDS の4つだけ。
+**入れる前に `check_profile_fragment.py --strict` を通す**
 （原文を開かずに書いた文章は、字数も年も通ってしまう）。
 """
 

@@ -185,7 +185,73 @@ def render(e: dict, catalogs: dict, max_events: int, notes: bool) -> str:
     add("")
     add(reading_map(e["id"]))
     add("")
+    add(writing_kit(e["id"]))
+    add("")
     return "\n".join(out)
+
+
+PROFILES = ROOT / "data" / "emperor-profiles.json"
+# 見本は1本だけ出す。3本読ませると分量が増えるうえ、実測では執筆エージェントが
+# 毎回 python3 -c で emperor-profiles.json の構造を探るところからやり直していた。
+# nanyan-murongchao を選ぶのは body が目安（800〜1,500字）の内側に収まっている唯一の
+# 中規模の本で、「上限まで書かない」を字数でなく現物で見せられるため。
+SAMPLE_ID = "nanyan-murongchao"
+
+
+def writing_kit(emperor_id: str) -> str:
+    """見本1本・断片の作り方・ゲートの走らせ方（2026-08-05）。
+
+    **形の再発見をここで潰す。** Workflow の実測では十数ターンが
+    「emperor-profiles.json のキー構造を探る」「name-readings.json を grep する」
+    「見本を3本引き直す」に使われていた。読み地図と同じ扱いで、執筆段が必ず通る
+    素材の末尾へ出す。
+    """
+    lines = ["### 見本（1本だけ・これ以上は引かない）"]
+    try:
+        profiles = json.loads(PROFILES.read_text(encoding="utf-8"))["profiles"]
+        s = profiles.get(SAMPLE_ID)
+        if s is None:
+            lines.append(f"- 見本 {SAMPLE_ID} が emperor-profiles.json に無い")
+        else:
+            lines.append(
+                f"`data/emperor-profiles.json` は `profiles.<皇帝id>."
+                "{lead,body,description,basis}`。**構造を探らない。**"
+            )
+            lines.append(f"以下は {SAMPLE_ID}（南燕 慕容超）の全文。")
+            for k in ("lead", "body", "description", "basis"):
+                if s.get(k):
+                    lines.append("")
+                    lines.append(f"**{k}**")
+                    lines.append("```")
+                    lines.append(s[k])
+                    lines.append("```")
+    except Exception as exc:
+        lines.append(f"- 見本を引けなかった: {exc}")
+
+    lines.append("")
+    lines.append("### ルビ")
+    lines.append(
+        "読みの正本は `data/name-readings.json`。**先に grep しなくてよい** — "
+        "テーブルと違う振り方をすれば `check_profile_fragment.py` が落として正解を出す。"
+        "難読語・中国史特有の語だけに振り、`description` には振らない"
+        "（記法は `｜親文字《ルビ》`・`｜` を省略しない）。"
+    )
+
+    lines.append("")
+    lines.append("### 断片とゲート（この順に走らせる）")
+    lines.append("```bash")
+    lines.append(f"python3 scripts/new_profile_fragment.py {emperor_id} --out <workDir>")
+    lines.append("#   骨格 <workDir>/%s.json と空の台帳 <workDir>/%s.claims.jsonl を作る"
+                 % (emperor_id, emperor_id))
+    lines.append(f"python3 scripts/check_profile_fragment.py <workDir>/{emperor_id}.json --strict")
+    lines.append(f"python3 scripts/check_profile_ngram.py    <workDir>/{emperor_id}.json")
+    lines.append("```")
+    lines.append(
+        "**Write は骨格を埋める1回だけで、以降は Edit で直す**"
+        "（`build.py` の類を書かない — 本文を1文直すたびに台帳ごと再送されて費用が跳ねる）。"
+        "引用台帳は読みながら `.claims.jsonl` へ1行1件で足す。"
+    )
+    return "\n".join(lines)
 
 
 def reading_map(emperor_id: str) -> str:

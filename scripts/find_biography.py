@@ -19,6 +19,11 @@
     python3 scripts/find_biography.py sui-wendi 宣華夫人 --window 300
     python3 scripts/find_biography.py tang-jingzong 劉克明 --book 旧唐书
     python3 scripts/find_biography.py sui-wendi --where          # 在り処だけ出す
+    python3 scripts/find_biography.py shiguo-nanhan-liuchang 劉鋹 --dump   # 当たった巻を丸ごと
+
+**`--dump` を使う。** 窓（前後160字）だけ渡すと、書き手は結局その巻を自分で切り出しに
+行く（2026-08-05・劉鋹の反映段が `scan.py`・`dump.py` を書いて宋史列伝のファイル命名を
+総当たりした）。降りるのは1箇所と決まっているのだから、その1箇所は最初から丸ごと渡す。
 """
 from __future__ import annotations
 
@@ -154,7 +159,47 @@ def load_lines(path: Path) -> list[str]:
     return raw.split("\n")
 
 
-def search(files: list[Path], needle: str, window: int, limit: int) -> int:
+def dump_around(path: Path, lines: list[str], hit: int, vols: dict[int, int], budget: int) -> None:
+    """当たった箇所を含む区間をそのまま出す（2026-08-05）。
+
+    **窓だけ渡すと、書き手は結局その巻を自分で切り出しに行く。** 実測では劉鋹の反映段が
+    ここでヒットを得たあと `scan.py`・`dump.py` を書いて宋史列伝のファイル命名を
+    総当たりしていた。降りるのは1箇所なのだから、その1箇所は最初から丸ごと渡す。
+
+    巻の範囲が引ける txt はその巻、引けない書と html（1ファイル＝1巻）はファイル全体を、
+    `budget` 字で頭打ちにして出す。
+    """
+    starts = sorted(vols)
+    lo, hi = 1, len(lines)
+    for s in starts:
+        if s <= hit:
+            lo = s
+        elif hi == len(lines):
+            hi = s - 1
+            break
+    # html はタグを改行へ潰しているので空行と画面の飾り（目次・前後の章・CSS の破片）が
+    # 混じる。渡す前に畳む（中身は変えない。行番号は元のままなので basis には元の L を使う）
+    CHROME = ("首页", "：目录", ":目录", "上一节", "下一节", "text-decoration", "{", "}")
+    body = [l for l in lines[lo - 1 : hi] if l.strip()]
+    if path.suffix == ".html":
+        body = [l for l in body if not any(c in l for c in CHROME)]
+    text = "\n".join(body)
+    label = f"{path.relative_to(ROOT)} L{lo}-{hi}"
+    if vols:
+        label += f"（巻{vols.get(lo, '?')}）"
+    print(f"\n=== 全文 {label} ===")
+    if len(text) > budget:
+        # 当たった行を中心に切る。頭から切ると当たりが落ちる
+        center = sum(len(l) + 1 for l in lines[lo - 1 : hit - 1] if l.strip())
+        a = max(0, center - budget // 2)
+        print(f"（{len(text)}字あるので当たりの前後 {budget}字だけ・全部要るなら --dump-budget を上げる）")
+        print(("…" if a else "") + text[a : a + budget] + "…")
+    else:
+        print(text)
+
+
+def search(files: list[Path], needle: str, window: int, limit: int,
+           dump: bool = False, dump_budget: int = 12000) -> int:
     key = norm_for_match(needle)
     if not key:
         print("検索語に漢字がありません", file=sys.stderr)
@@ -183,6 +228,10 @@ def search(files: list[Path], needle: str, window: int, limit: int) -> int:
             center = int(at * ratio)
             lo = max(0, center - window)
             print(("…" if lo else "") + line[lo : center + window] + "…")
+            if dump:
+                dump_around(path, lines, i, vols, dump_budget)
+                print("\n（--dump なので最初の当たりだけ出した）")
+                return found
             if found >= limit:
                 print(f"\n（{limit} 件で打ち切り。--max で増やせる）")
                 return found
@@ -197,6 +246,11 @@ def main() -> int:
     ap.add_argument("--max", type=int, default=5)
     ap.add_argument("--window", type=int, default=160, help="前後に出す字数")
     ap.add_argument("--where", action="store_true", help="在り処だけ出して検索しない")
+    ap.add_argument("--dump", action="store_true",
+                    help="最初に当たった箇所を含む巻（html は1ファイル）を丸ごと出す。"
+                         "降りるのは1箇所なので、自分で切り出しに行かずここで受け取る")
+    ap.add_argument("--dump-budget", type=int, default=12000,
+                    help="--dump で出す最大字数（既定 12000）")
     args = ap.parse_args()
 
     books = [args.book] if args.book else books_for(args.emperor_id)
@@ -222,7 +276,7 @@ def main() -> int:
         return 1
 
     print(f"\n# 「{args.needle}」を {len(files)} ファイルから探す")
-    n = search(files, args.needle, args.window, args.max)
+    n = search(files, args.needle, args.window, args.max, args.dump, args.dump_budget)
     if not n:
         print(
             "\n0 件。**「原文に記事が無い」は証拠にならない**（別の呼称・避諱・PUA文字で"

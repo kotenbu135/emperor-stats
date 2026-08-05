@@ -25,9 +25,14 @@
 `claims` は 2026-08-02 に足した**引用台帳**（断片の中だけで使う。`add_profile.py` は
 FIELDS しか転記しないので `data/emperor-profiles.json` には入らない）。
 [{"text": "本文で書いた事実", "quote": "根拠の原文句", "src": "ファイル:行"}] の配列で、
-**本文を書く前に原文から作る**のが執筆手順（`WRITER_TEMPLATE.md`）。ここでは
+**本文を書く前に原文から作る**のが執筆手順。ここでは
 quote の実在照合と、本文に出てくる年・数値が台帳にあるかを**報告**する。
 台帳の無い断片は警告のみ（2026-08-02 以前に書いた断片を落とさないため）。
+
+台帳は**断片の隣の `<断片名>.claims.jsonl`（1行1件）でもよい**（2026-08-05）。
+断片の中に持つと、本文を1文直すたびに40〜53件の台帳ごと再送することになり、
+出力トークンが跳ねていた（`new_profile_fragment.py` の説明を見よ）。
+断片の中に `claims` があればそちらを使い、無ければ隣の jsonl を読む。
 """
 
 from __future__ import annotations
@@ -50,6 +55,10 @@ KANJI = re.compile(r"[㐀-鿿豈-﫿]|[\U00020000-\U0003ffff]")
 
 # scripts/validate_profiles.py の LEAD_MIN/BODY_MAX と同じ値。片方だけ変えないこと。
 LIMITS = {"lead": (70, 260), "body": (100, 2400), "description": (100, 140)}
+# body の**目安**（2026-08-05 ユーザー決定）。機械は目安で落とさない — 上限は 2400 のまま。
+# 報告に出すだけ。Workflow の3本が原文の量と無関係に2,000字級へ揃ったので、
+# 「上限に合わせて書かない」を書き手に見せるためだけの値。
+BODY_GUIDE = (800, 1500)
 
 EMPERORS = ROOT / "data" / "emperors.json"
 
@@ -94,6 +103,16 @@ warnings: list[str] = []
 ruby_counts: dict[str, int] = {}
 
 
+def err(msg: str, how: str = "") -> None:
+    """エラーは**直し方を添えて**出す（2026-08-05）。
+
+    Workflow の実測で、落ちたエージェントがこのファイルを全文 Read する・grep + sed で
+    該当箇所を追う・`--help` を叩く、をやっていた。1ターンあたり6〜13万トークンの文脈を
+    読み直す地点なので、ターン数がそのまま費用になる。**落とすなら直し方まで言う。**
+    """
+    errors.append(msg + (f"\n      直し方: {how}" if how else ""))
+
+
 def strip_ruby(text: str) -> str:
     return RUBY.sub(r"\1", text)
 
@@ -109,7 +128,11 @@ def check_ruby_notation(text: str, label: str) -> None:
     rest = RUBY.sub("", text)
     for m in re.finditer(r"｜(?!.{0,40}?《)", rest):
         nxt = rest[m.end() : m.end() + 1]
-        errors.append(f"{label}: 裸の ｜（次の文字「{nxt}」）")
+        err(
+            f"{label}: 裸の ｜（次の文字「{nxt}」）",
+            "ルビは ｜親文字《ルビ》 で書く。かなの前に付いた ｜ は消す"
+            "（《》の無い ｜ はそのまま画面に出る）",
+        )
         break
 
 
@@ -121,9 +144,12 @@ def check_readings(text: str, label: str, readings: dict) -> None:
             continue
         expected = readings.get(parent)
         if expected and expected != m.group(0):
-            errors.append(
+            err(
                 f"{label}: 「{parent}」の振り方がテーブルと違う "
-                f"（本文 {m.group(0)} / テーブル {expected}）"
+                f"（本文 {m.group(0)} / テーブル {expected}）",
+                f"本文を {expected} に直す。"
+                "data/name-readings.json が読みの正本で、**先に grep しなくてよい**"
+                "（食い違えばここが正解を出す）",
             )
 
 
@@ -202,9 +228,11 @@ def check_basis_pointers(emperor_id: str, basis: str) -> None:
     """
     pointers = list(POINTER.finditer(basis))
     if not pointers:
-        errors.append(
+        err(
             f"{emperor_id}: basis にポインタ（ファイル名＋L行番号）がありません — "
-            "散文の覚え書きではなく、読んだ場所を指す"
+            "散文の覚え書きではなく、読んだ場所を指す",
+            f"「_corpus_cache/{emperor_id}.txt L12-40 即位から改元まで／"
+            "china-history/宋史/列传/…:88 降伏後の九年」の形で並べる",
         )
         return
     ok = 0
@@ -212,13 +240,17 @@ def check_basis_pointers(emperor_id: str, basis: str) -> None:
         rel = m.group("path")
         path = resolve(rel)
         if path is None:
-            errors.append(f"{emperor_id}: basis が指すファイルが無い → {rel}")
+            err(
+                f"{emperor_id}: basis が指すファイルが無い → {rel}",
+                "パスを実在するものに直す（`python3 scripts/find_biography.py <id> --where` で在り処が出る）",
+            )
             continue
         n_lines = len(path.read_text(encoding="utf-8", errors="replace").split("\n"))
         last = int(m.group("end") or m.group("start"))
         if last > n_lines:
-            errors.append(
-                f"{emperor_id}: basis の行番号が範囲外 → {rel} L{last}（実際は {n_lines}行）"
+            err(
+                f"{emperor_id}: basis の行番号が範囲外 → {rel} L{last}（実際は {n_lines}行）",
+                f"{rel} は {n_lines}行しかない。実際に読んだ行に直す",
             )
             continue
         ok += 1
@@ -258,7 +290,38 @@ def haystack_of_file(rel: str) -> str | None:
     return text or None
 
 
-def check_claims(emperor_id: str, profile: dict, use_corpus: bool, strict: bool = False) -> None:
+def load_ledger(fragment_path: Path, emperor_id: str) -> tuple[list | None, Path | None]:
+    """引用台帳を断片の隣の jsonl から読む（1行1件・2026-08-05）。
+
+    断片の中に `claims` を持たせると、本文を1文直すたびに台帳ごと再送することになる。
+    別ファイルなら本文の直しは断片の Edit だけ、台帳の直しは1行の Edit だけで済む。
+    候補は `<断片名>.claims.jsonl` と `<皇帝id>.claims.jsonl` の2つ。
+    """
+    for cand in (
+        fragment_path.with_suffix("") .with_name(fragment_path.stem + ".claims.jsonl"),
+        fragment_path.parent / f"{emperor_id}.claims.jsonl",
+    ):
+        if not cand.exists():
+            continue
+        rows: list = []
+        for n, line in enumerate(cand.read_text(encoding="utf-8").splitlines(), 1):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rows.append(json.loads(line))
+            except json.JSONDecodeError as exc:
+                err(
+                    f"{emperor_id}: 引用台帳 {cand.name} の {n}行目が JSON として読めない（{exc.msg}）",
+                    "1行1件の JSON で書く。改行を含めない。"
+                    '{"text": "…", "quote": "…", "src": "ファイル:行"}',
+                )
+        return rows, cand
+    return None, None
+
+
+def check_claims(emperor_id: str, profile: dict, use_corpus: bool, strict: bool = False,
+                 fragment_path: Path | None = None) -> None:
     """引用台帳（claims）— 本文の事実1つずつに原文句が付いているか。
 
     台帳そのものは構造をエラーで見るが、**本文との突き合わせは報告**にとどめる。
@@ -266,15 +329,28 @@ def check_claims(emperor_id: str, profile: dict, use_corpus: bool, strict: bool 
     目的で、ここは列挙もれを見せる窓口。
     """
     claims = profile.get("claims")
+    where = "断片の claims"
+    if not claims and fragment_path is not None:
+        claims, ledger_path = load_ledger(fragment_path, emperor_id)
+        if ledger_path is not None:
+            where = ledger_path.name
     if not claims:
         msg = (
             f"{emperor_id}: claims（引用台帳）がありません — "
             "本文を書く前に原文から作る（R-CLAIMS-FIRST）"
         )
-        (errors if strict else warnings).append(msg)
+        how = (
+            f"読みながら {(fragment_path.parent if fragment_path else Path('.'))}/"
+            f"{emperor_id}.claims.jsonl へ1行1件で書く: "
+            '{"text": "本文で書く事実", "quote": "根拠の原文句", "src": "ファイル:行"}'
+        )
+        if strict:
+            err(msg, how)
+        else:
+            warnings.append(msg)
         return
     if not isinstance(claims, list):
-        errors.append(f"{emperor_id}: claims は配列で書きます")
+        err(f"{emperor_id}: claims は配列で書きます", "1行1件の jsonl にするか、配列で持つ")
         return
 
     haystack = haystack_for(emperor_id) if (use_corpus or strict) else None
@@ -282,7 +358,10 @@ def check_claims(emperor_id: str, profile: dict, use_corpus: bool, strict: bool 
     outside: list[str] = []
     for i, c in enumerate(claims):
         if not isinstance(c, dict) or not c.get("text"):
-            errors.append(f"{emperor_id}: claims[{i}] に text がありません")
+            err(
+                f"{emperor_id}: claims[{i}] に text がありません",
+                "text は**本文で書く事実**を日本語で1文。quote（原文句）とは別",
+            )
             continue
         quote = (c.get("quote") or "").strip()
         if not quote:
@@ -297,23 +376,36 @@ def check_claims(emperor_id: str, profile: dict, use_corpus: bool, strict: bool 
         src = str(c.get("src") or "")
         m = re.search(r"(?:_corpus_cache|china-history|daizhigev20|data)/[^\s:：,，]+", src)
         target = haystack_of_file(m.group(0)) if m else haystack
-        where = m.group(0) if m else "本紀キャッシュ"
+        at = m.group(0) if m else "本紀キャッシュ"
         if target is None:
             if strict:
-                errors.append(f"{emperor_id}: claims[{i}] の src が引けない → {src or '（無し）'}")
+                err(
+                    f"{emperor_id}: claims[{i}] の src が引けない → {src or '（無し）'}",
+                    "src は「ファイル:行」（例 _corpus_cache/"
+                    f"{emperor_id}.txt:123）。実在するパスを書く",
+                )
             continue
         if max(coverage(r, target) for r in runs) < 0.5:
-            outside.append(f"{quote[:20]} → {c['text'][:20]}（src: {where}）")
+            outside.append(f"{quote[:20]} → {c['text'][:20]}（src: {at}）")
 
-    notices.append(f"{emperor_id}: claims {len(claims)} 件")
+    notices.append(f"{emperor_id}: claims {len(claims)} 件（{where}）")
     for t in unbacked:
-        errors.append(f"{emperor_id}: 原文句の無い claim「{t}」— 書かないか、出所を付ける")
-    for t in outside[:12]:
-        line = (
-            f"    src に無い引用: {t} — 出所を直す。"
-            "心当たりが無ければ書いた事実を疑う"
+        err(
+            f"{emperor_id}: 原文句の無い claim「{t}」— 書かないか、出所を付ける",
+            "quote に原文句をツール出力からコピーする（手打ち禁止・字体を変えない）。"
+            "原文に無いなら本文からその事実を落とす",
         )
-        (errors if strict else notices).append(line)
+    for t in outside[:12]:
+        line = f"    src に無い引用: {t} — 出所を直す。心当たりが無ければ書いた事実を疑う"
+        if strict:
+            err(
+                line.strip(),
+                "quote が src の指すファイルに無い。(1) 引用を引き直す"
+                "（`scripts/quote_helper.py`・`scripts/find_biography.py` の出力からコピー）"
+                " (2) src を実際に読んだファイルへ直す (3) どちらでもなければ本文から落とす",
+            )
+        else:
+            notices.append(line)
 
     # 本文の年・回数が台帳のどこにも出てこないもの（報告）。
     ledger = "".join((c.get("text") or "") + (c.get("quote") or "") for c in claims if isinstance(c, dict))
@@ -360,8 +452,27 @@ def check_relation(emperor_id: str, lead: str, body: str) -> None:
     notices.append(line)
 
 
+EPILOG = """\
+断片の形:
+  {"<皇帝id>": {"lead": …, "body": …, "description": …, "basis": …}}
+  引用台帳は隣の <断片名>.claims.jsonl に**1行1件**
+  （{"text": 本文で書く事実, "quote": 根拠の原文句, "src": "ファイル:行"}）。
+  骨格は `python3 scripts/new_profile_fragment.py <id> --out <dir>` が作る。
+
+字数（ルビを剥がして数える）:
+  lead 70〜260 ／ body 100〜2400（**目安 800〜1500**）／ description 100〜140
+
+落ちたときは、このファイルを読みに来る前にエラー行の「直し方」を読む。
+**Write は骨格を埋める1回だけ。以降は Edit で直す**（build.py の類を書かない）。
+"""
+
+
 def main() -> int:
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(
+        description="紹介文の断片を data/emperor-profiles.json へ入れる前に見る",
+        epilog=EPILOG,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
     ap.add_argument("fragment")
     ap.add_argument("--basis-corpus", action="store_true",
                     help="basis に並べた原文断片の照合（旧 basis 形式の名残・報告のみ）")
@@ -371,17 +482,26 @@ def main() -> int:
                          "それらしい文章を書いても、他のゲートは全部通るため）")
     args = ap.parse_args()
 
-    fragment = json.loads(Path(args.fragment).read_text(encoding="utf-8"))
+    fragment_path = Path(args.fragment)
+    fragment = json.loads(fragment_path.read_text(encoding="utf-8"))
     readings = json.loads(READINGS.read_text(encoding="utf-8"))["names"]
 
     for emperor_id, profile in fragment.items():
         unknown = set(profile) - {"lead", "body", "description", "basis", "claims"}
         if unknown:
-            errors.append(f"{emperor_id}: 知らないフィールド {sorted(unknown)}")
+            err(
+                f"{emperor_id}: 知らないフィールド {sorted(unknown)}",
+                "断片に置けるのは lead・body・description・basis・claims だけ。"
+                "覚え書きは basis のポインタに畳む",
+            )
         if not profile.get("lead"):
-            errors.append(f"{emperor_id}: lead がありません")
+            err(f"{emperor_id}: lead がありません", "70〜260字。誰の何にあたる人か・どう即位したか")
         if profile.get("lead") and not profile.get("basis"):
-            errors.append(f"{emperor_id}: basis が空です（何を読んで書いたかを残す）")
+            err(
+                f"{emperor_id}: basis が空です（何を読んで書いたかを残す）",
+                f"「_corpus_cache/{emperor_id}.txt L12-40 即位から改元まで」の形で、"
+                "ファイル名＋L行番号＋そこに何があるかを並べる",
+            )
 
         for field in ("lead", "body"):
             text = profile.get(field)
@@ -392,7 +512,10 @@ def main() -> int:
 
         desc = profile.get("description", "")
         if RUBY.search(desc) or "｜" in desc or "《" in desc:
-            errors.append(f"{emperor_id}: description にルビ記法（平文で書く）")
+            err(
+                f"{emperor_id}: description にルビ記法（平文で書く）",
+                "description は検索結果に出る一文なので ｜《》 を全部外す",
+            )
 
         for field, (lo, hi) in LIMITS.items():
             text = profile.get(field)
@@ -400,9 +523,20 @@ def main() -> int:
                 continue
             n = len(strip_ruby(text))
             mark = "OK" if lo <= n <= hi else f"**範囲外 {lo}〜{hi}**"
+            if field == "body" and lo <= n <= hi and n > BODY_GUIDE[1]:
+                mark += f"（目安 {BODY_GUIDE[0]}〜{BODY_GUIDE[1]}字は超えている）"
             print(f"{emperor_id}: {field} = {n}字 {mark}")
             if not (lo <= n <= hi):
-                errors.append(f"{emperor_id}: {field} が {n}字（{lo}〜{hi}字）")
+                over = n > hi
+                how = (
+                    f"{n - hi}字ぶん削る。**上限に合わせて書かない**"
+                    f"（body の目安は {BODY_GUIDE[0]}〜{BODY_GUIDE[1]}字）。"
+                    "弱い段落を丸ごと落とすほうが、削り取るより読める"
+                    if over
+                    else f"あと{lo - n}字。材料が足りないなら無理に埋めず、"
+                    "原文で取れる場面をもう1つ探す（水増しはしない）"
+                )
+                err(f"{emperor_id}: {field} が {n}字（{lo}〜{hi}字）", how)
 
         if desc:
             print(f"{emperor_id}: description 先頭70字 → {desc[:70]}")
@@ -411,7 +545,8 @@ def main() -> int:
             check_basis_pointers(emperor_id, profile["basis"])
             if args.basis_corpus:
                 check_basis_corpus(emperor_id, profile["basis"])
-        check_claims(emperor_id, profile, args.basis_corpus, strict=args.strict)
+        check_claims(emperor_id, profile, args.basis_corpus, strict=args.strict,
+                     fragment_path=fragment_path)
         if profile.get("lead"):
             check_relation(emperor_id, profile["lead"], profile.get("body") or "")
 
