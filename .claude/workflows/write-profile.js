@@ -51,7 +51,10 @@ const WRITE_SCHEMA = {
 
 const DIFF_SCHEMA = {
   type: 'object',
-  required: ['id', 'divergences', 'needsBiography'],
+  // biographyTargets を必須にしてある。needsBiography: true で候補が空だと、
+  // 3段目が `find_biography.py <id>`（探す語なし）を成功で回してしまい、
+  // 「引いたが当たらなかった」と見分けが付かない
+  required: ['id', 'divergences', 'needsBiography', 'biographyTargets'],
   properties: {
     id: { type: 'string' },
     // 通説との食い違い。**数値・年号・序数はデータ（＝原典）を採る**ので、
@@ -181,12 +184,12 @@ const results = await pipeline(
     if (!diff || !diff.needsBiography) {
       return { id, wrote, diff, revise: { id, changed: '変更なし（Web差分の当たりなし）', gate: wrote.gate, readFrom: '読まず' } }
     }
-    const targets = diff.biographyTargets || []
-    const target = targets[0] || ''
-    const summary = (diff.divergences || [])
-      .filter((d) => d.action === 'read-biography')
-      .map((d) => `${d.topic}: 通説「${d.web}」／本文「${d.ours}」`)
-      .join('／')
+    const hits = (diff.divergences || []).filter((d) => d.action === 'read-biography')
+    // 候補が空で返ってきたら、当たった差分の topic を探す語に使う（空文字で
+    // find_biography.py を回すと「引いた」ように見えて何も当たらない）
+    const targets = (diff.biographyTargets || []).filter(Boolean)
+    const target = targets[0] || (hits[0] && hits[0].topic) || ''
+    const summary = hits.map((d) => `${d.topic}: 通説「${d.web}」／本文「${d.ours}」`).join('／')
     return agent(revisePrompt(id, `${workDir}/${id}.json`, target, summary, targets.slice(1)), {
       label: `反映:${id}`, phase: '反映', agentType: 'profile-reviser', schema: REVISE_SCHEMA,
     }).then((revise) => ({ id, wrote, diff, revise }))
