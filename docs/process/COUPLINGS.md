@@ -60,6 +60,7 @@
 | 紹介文の**ルビ・文体の規則を変える** | `scripts/profile_prose.py`（実装の1本）・`docs/process/profile-writing/README.md` の7〜8節・`.claude/agents/profile-writer.md`・`profile-reviser.md`・`.claude/workflows/write-profile.js`・`.claude/skills/write-profile/SKILL.md` | **無い。** 実装は1本にまとめてあるが、**エージェントへ届くのは定義とプロンプトの文言だけ**なので、規範だけ直しても執筆は変わらない。**しかも `.claude/` は primary からしか読まれない**（worktree で直しても効かない・2026-08-05 実測） |
 | 動画を紐づける | `youtube-playlist.json` | `emperors.ts:75` |
 | ページを増減する | `SITE_SECTIONS` | `seo.tsx:65`「SITE_SECTIONSに存在しないhrefです」 |
+| **モバイルヘッダーの中身を触る**（`site-shell.tsx` の `md:hidden` の帯・`nav-data.ts` の `shortLabel`・`RubyToggle` の compact） | `site/tools/header-audit.mjs`（320/360/390px の実測）。高さ 56px は `globals.css` の `--chrome-top` と対で、下の帯の `BELOW_STICKY_BAR` が /emperors の節見出しと /database の表見出しの止め位置に使う | **有る**（`node tools/header-audit.mjs` → NG: 0・**手で流す**）。tsc・lint・build はどれも通る。2026-08-06 に3項目を置いた時点で 320px の余りは **7px** しかなく、リンクの左右余白を1段戻すだけでふりがなトグルと重なった |
 | **配布物が主張する範囲を狭める**（引用・日付・欄の取り下げ） | `/about` の該当節（`site/src/app/about/page.tsx`）。**取り下げを無言でやらない**のは 2026-08-03 ユーザー決定で、push した瞬間にサイトが再配信されるため**同じコミットに入れる** | **無い**（文章なので機械では判定できない）。件数は直書きせず台帳・データから引く（`site/src/lib/quote-verification.ts` が `data/quote-refs.json` を読む）ことで、少なくとも**数のずれ**は起きない形にしてある |
 | `data/quote-refs.json` を消す・鍵の構造を変える | `site/src/lib/quote-verification.ts`（`/about` のビルド入力） | ビルドが落ちる（`refs` が読めない）。**台帳は内部 QA 用だがサイトのビルド入力でもある** |
 | 年表に note・出典を戻す | `/about` の引用の主張範囲の節（散文の引用を「読んだ形跡」と書いてある） | **無い**。`getEmperorEvents` が返さない形にしてあるので、戻すには型と描画を両方触ることになる |

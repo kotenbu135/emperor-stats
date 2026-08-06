@@ -127,7 +127,8 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 **OGP画像も同時に足す** — `src/lib/emperors.ts` の `OgFactPage` の union にパスを足し、`getOgFacts()` に分岐を書き、`app/<path>/opengraph-image.tsx` を置く。union に足さないと `getOgFacts("/新パス")` が型エラーになる。
 
-グローバルナビは `src/lib/nav-data.ts`。
+グローバルナビは `src/lib/nav-data.ts`。**モバイルヘッダーには出さない**（`shortLabel` を
+付けない） — 3項目で 320px の余りが7pxしかないため。上の「モバイルヘッダーは56pxの1行」を見る。
 
 ## ページを1枚消すときに落とす4箇所
 
@@ -171,6 +172,31 @@ node tools/hover-audit.mjs     # 各ページの操作要素の cursor と hover
   「結果が古い」の判定に使う。個別の state を deferred にすると、コントロールの
   表示まで後追いになって選んだ値が遅れて出る
 - **チップ（効いている条件）は生の state から作る**（deferred から作ると外した条件が残って見える）
+
+## モバイルヘッダーは56pxの1行・行き先は3つ
+
+`src/components/layout/site-shell.tsx` の `<header ... md:hidden>`。2026-08-06（Issue #92）に
+ハンバーガー＋Sheet をやめ、`nav-data.ts` の **`shortLabel` を持つ3項目**（概要／皇帝一覧／
+データベース）を直接置いた。理由と測った数字は SITE_DESIGN.md の
+「モバイルヘッダーは行き先を文字で出す」節。
+
+- **高さ 56px は寸法ではなく契約** — `globals.css` の `--chrome-top: 3.5rem` と対で、
+  下の帯の `BELOW_STICKY_BAR` がこれを足して /emperors の節見出しと /database の表見出しの
+  止め位置を決める。中身が折り返すと黙ってずれる（`flex-nowrap`・`whitespace-nowrap` を崩さない）
+- **項目を4つ目にしない。** 320px での余りは **7px** しかなく、リンクの左右余白を `px-1.5` から
+  `px-2` に戻すだけでふりがなトグルと重なる。**ページを1枚足しても `shortLabel` は付けない**
+  （出口を増やしたいときは畳む・短くするではなく、まず 320px で測る）
+- **ふりがなトグル（Issue #20）はこの帯の右端**（`RubyToggle` の `variant="compact"`）。
+  状態の持ち主は `<html data-ruby>` ひとつのままで、`variant` は見た目だけ。**別のボタンを
+  書いて `dataset.ruby` を直接触らないこと**（`RUBY_STORAGE_KEY` と layout.tsx の
+  初期化スクリプトが1つの持ち主を前提にしている）
+- **現在地の朱は前方一致**（`isCurrentSection`）で、皇帝個別365ページでは「皇帝一覧」に付く。
+  `aria-current="page"` はそのページ自身にだけ
+- 触ったら実測し直す（`hover-audit.mjs` はデスクトップ幅で走るのでこの帯を見ない）:
+
+```bash
+npm run build && node tools/header-audit.mjs   # 高さ56px・溢れ・折り返し・押せる高さ・現在地・cursor → NG: 0
+```
 
 ## 画面上端に固定される帯は1行48pxを超えない
 

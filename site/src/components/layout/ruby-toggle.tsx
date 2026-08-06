@@ -31,7 +31,18 @@ function isRubyOn(): boolean {
   return document.documentElement.dataset.ruby !== "off";
 }
 
-export function RubyToggle({ className }: { className?: string }) {
+export function RubyToggle({
+  className,
+  variant = "block",
+}: {
+  className?: string;
+  /**
+   * `block` = ラベル付きの行（サイドバー最下部）。
+   * `compact` = 36px の四角ひとつ（モバイルヘッダー・2026-08-06）。
+   * **状態の持ち主は同じ**（下の toggle と <html data-ruby>）で、見た目だけが違う。
+   */
+  variant?: "block" | "compact";
+}) {
   // SSR とハイドレーション直後は既定の ON で描く。OFF を選んでいる人はこのボタンの
   // ラベルだけが一瞬 ON になる（ルビ自体はインラインスクリプトが先に消している）。
   const on = useSyncExternalStore(subscribe, isRubyOn, () => true);
@@ -45,6 +56,36 @@ export function RubyToggle({ className }: { className?: string }) {
     } catch {
       // プライベートモード等で保存できなくても、そのセッションの表示は切り替わる。
     }
+  }
+
+  if (variant === "compact") {
+    return (
+      // モバイルヘッダーはナビの3項目でほぼ埋まるため、ラベルと Switch の並びは
+      // 入らない。押すと何が起きるかは見た目そのもの（ふりがなの付いた「字」）で
+      // 示し、読み上げには aria-label と role="switch" の状態で伝える。
+      // ルビが消えても字が動かないよう、下端で揃えて上へ伸ばす（items-end）。
+      <button
+        type="button"
+        role="switch"
+        aria-checked={on}
+        aria-label="ふりがな"
+        onClick={() => toggle(!on)}
+        className={cn(
+          "flex size-9 shrink-0 items-end justify-center rounded-md border border-border pb-2.5 text-sm leading-none transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-seal",
+          // 選択中（＝ふりがな表示）は朱。非選択を hover 後の見た目にしない。
+          on ? "text-seal" : "text-muted-foreground hover:text-foreground",
+          className,
+        )}
+      >
+        {/* rt は <rp>（）</rp> で挟む（Issue #78）。画面には出ないが、タグを剥がす
+            テキスト抽出で「字じ」にならないための決まり（SITE_DESIGN.md 12節）。 */}
+        <ruby>
+          字<rp>（</rp>
+          <rt>じ</rt>
+          <rp>）</rp>
+        </ruby>
+      </button>
+    );
   }
 
   return (
