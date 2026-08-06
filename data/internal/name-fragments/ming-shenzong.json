@@ -1,0 +1,92 @@
+{
+  "id": "ming-shenzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-shenzong.txt",
+      "line": 2,
+      "quote": "神宗范天合道哲肃敦简光文章武安仁止孝显皇帝，讳翊钧，穆宗第三子也"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "_corpus_cache/ming-shenzong.txt",
+      "line": 56,
+      "quote": "九月甲申，上尊谥，庙号神宗，葬定陵"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/ming-shenzong.txt",
+      "line": 3,
+      "quote": "甲子，即皇帝位。以明年为万历元年，诏赦天下"
+    },
+    {
+      "cid": "c4",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 769,
+      "quote": "神宗范天合道哲肃敦简光文章武安仁止孝显皇帝，讳翊钧，穆宗第三子也"
+    },
+    {
+      "cid": "c5",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 823,
+      "quote": "丙申，崩，年五十有八"
+    },
+    {
+      "cid": "c6",
+      "book": "明史",
+      "file": "_corpus_cache/ming-shenzong.txt",
+      "line": 56,
+      "quote": "四十八年春正月庚子"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "神宗",
+      "basis": [
+        "c1",
+        "c2",
+        "c4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "範天合道哲粛敦簡光文章武安仁止孝顕皇帝",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "翊鈞",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "eraName",
+      "value": [
+        "万暦"
+      ],
+      "basis": [
+        "c3",
+        "c6"
+      ],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "字体について: 底本（china-history 明史・daizhigev20 明史）はいずれも簡体字なので claims は簡体のまま置いた。findings の値は既存データの表記（例 han-huidi の posthumousName 「恵帝」・hou-han-mingdi の templeName 「顕宗」）に合わせて日本新字体に直した。簡体「范」の繁体形は scripts/hanzi_norm.py の to_traditional で「範」と出たものを採り、手で当て推量していない。posthumousName は明史が冒頭で挙げる全長形を採ったが、既存データで4字を超える posthumousName は houliang-mingdi の「孝明皇帝」1件だけなので、短縮形「顕皇帝」で持つ方針なら親セッション側で切り替える余地がある（原文が言っているのは全長形）。なお eraName はスキーマに容器が無い（eraId は時代区分のグループで年号ではない）ので、そのままのパスへ patch できない。aliases: 明史 本紀の冒頭1行には字・小字・別称の記載が無く（舊唐書型の「字○○」が神宗の条には無い）、通称「万暦帝」は元号からの呼称で本紀の語ではないため、原文からは追加できるものが無い＝調査済みだが不明として空のままにした。",
+  "discrepancies": "なし（既存の構造フィールドと原文の食い違いは無い）。照合したもの: eraChangeCount=1 は本紀に立つ改元が「以明年为万历元年」（c3）の1回のみで、以後の紀年は四十八年（c6）まで万历が続き一致。reigns.startYear=1572 は隆慶六年六月甲子の即位（c3）と、reigns.endYear=1620 は万历四十八年七月丙申の崩（c5）と一致。name.personalName「翊鈞」は原文「讳翊钧」（c1）と一致。name.templeName・name.posthumousName は現行 null だが、これは食い違いではなく未記入（本作業で埋める対象）。ages.deathAge=58 は c5「丙申，崩，年五十有八」と一致。",
+  "processSuggestion": "check_screenings.py に name.aliases を覆う絞り込みの記録が無く（「記録がありません」で止まる）、廟号・諡号と同じ1回の走査で当たる欄なのに母集団が出ない。aliases も name-fields-issue37 の覆うフィールドに足すか、適用外なら明示してほしい。"
+}

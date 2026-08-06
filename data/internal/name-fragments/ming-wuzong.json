@@ -1,0 +1,109 @@
+{
+  "id": "ming-wuzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-wuzong.txt",
+      "line": 2,
+      "quote": "武宗承天达道英肃睿哲昭德显功弘文思孝毅皇帝，讳厚照，孝宗长子也。母孝康敬皇后。"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "_corpus_cache/ming-wuzong.txt",
+      "line": 3,
+      "quote": "即皇帝位。以明年为正德元年，大赦天下"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/ming-wuzong.txt",
+      "line": 18,
+      "quote": "五月己未，上尊谥，庙号武宗，葬康陵。"
+    },
+    {
+      "cid": "c4",
+      "book": "明史",
+      "file": "_corpus_cache/ming-wuzong.txt",
+      "line": 8,
+      "quote": "六月庚子，帝自号大庆法王，所司铸印以进。"
+    },
+    {
+      "cid": "c5",
+      "book": "明史",
+      "file": "_corpus_cache/ming-wuzong.txt",
+      "line": 14,
+      "quote": "壬辰，如阳和，自称总督军务威武大将军总兵官。"
+    },
+    {
+      "cid": "c6",
+      "book": "明史",
+      "file": "_corpus_cache/ming-wuzong.txt",
+      "line": 15,
+      "quote": "总督军务威武大将军总兵官朱寿亲统六师，肃清边境，特加封镇国公，岁支禄米五千石。"
+    },
+    {
+      "cid": "c7",
+      "book": "明史",
+      "file": "_corpus_cache/ming-wuzong.txt",
+      "line": 16,
+      "quote": "总督军务威武大将军总兵官太师镇国公朱寿将巡两畿、山东，祀神祈福"
+    },
+    {
+      "cid": "c8",
+      "book": "明史",
+      "file": "_corpus_cache/ming-wuzong.txt",
+      "line": 19,
+      "quote": "赞曰：明自正统以来，国势浸弱。毅皇手除逆瑾，躬御边寇"
+    },
+    {
+      "cid": "c9",
+      "book": "明史",
+      "file": "_corpus_cache/ming-wuzong.txt",
+      "line": 18,
+      "quote": "丙寅，崩于豹房，年三十有一。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "武宗",
+      "basis": ["c1", "c3"],
+      "confidence": "high",
+      "comment": "本紀冒頭1行の廟号部分と、崩後の「上尊谥，庙号武宗」が一致する"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "承天達道英粛睿哲昭徳顕功弘文思孝毅皇帝",
+      "basis": ["c1"],
+      "confidence": "high",
+      "comment": "本紀冒頭「武宗〈諡〉皇帝，讳厚照」の廟号を除いた全部。短縮形は賛の「毅皇」（c8）で、通用形は毅皇帝。値は既存レコードの表記慣行（新字体）に合わせた"
+    },
+    {
+      "field": "name.personalName",
+      "value": "厚照",
+      "basis": ["c1"],
+      "confidence": "high",
+      "comment": "「讳厚照」。既存値と一致（姓 朱 は武宗の本紀冒頭には出ない）"
+    },
+    {
+      "field": "name.aliases",
+      "value": ["朱寿"],
+      "basis": ["c5", "c6", "c7"],
+      "confidence": "medium",
+      "comment": "自ら「総督軍務威武大将軍総兵官」を称し、勅では自身を「朱寿」と呼ばせている（十三年・十四年の2条）。のちに名乗った名として aliases に当たるが、称号部分（威武大将軍・鎮国公・太師）は名ではないので入れていない"
+    },
+    {
+      "field": "eraNames",
+      "value": ["正徳"],
+      "basis": ["c2"],
+      "confidence": "high",
+      "comment": "即位の翌年を正徳元年とし、以後正徳十六年の崩御まで改元記事は本紀に無い。在位中の元号は正徳の1つ。なお現行レコードに元号名の欄は無く、eraId は王朝区分の catalog 値"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "五年六月の「帝自号大庆法王」（c4）は自ら称した法王号で、名（別名・異表記）ではないと判断し aliases から外した。十三年九月の「镇国公」・十四年二月の「太师」も同様に自封の官爵として外している。判断の材料として claims には残す。",
+  "discrepancies": "なし。既存の構造フィールドと原文は次のとおり一致する — reigns[0].startYear 1505 は「（弘治）十八年五月，孝宗崩…即皇帝位」、endYear 1521 は「（正徳）十六年…三月…丙寅，崩于豹房」に対応。eraChangeCount.count 1 は在位中の元号が正徳のみ（c2・以後の改元記事なし）と整合。name.personalName 厚照 は「讳厚照」と一致。name.templeName・name.posthumousName は現行 null で、値の食い違いではなく未転記。",
+  "processSuggestion": "残量表 明史 本紀 templeName/posthumousName 未転記 16件（未読 15）— 明の16人は全員 commonName が廟号形で、本紀冒頭1行の書式も同一なので、同じ書の中は1人ずつでなくまとめて読むほうが安い。"
+}

@@ -1,0 +1,79 @@
+{
+  "id": "ming-xiaozong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-xiaozong.txt",
+      "line": 2,
+      "quote": "孝宗达天明道纯诚中正圣文神武至仁大德敬皇帝，讳祐堂，宪宗第三子也"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "_corpus_cache/ming-xiaozong.txt",
+      "line": 25,
+      "quote": "六月庚申，上尊谥，庙号孝宗，葬泰陵"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/ming-xiaozong.txt",
+      "line": 3,
+      "quote": "九月壬寅，即皇帝位。大赦天下，以明年为弘治元年"
+    },
+    {
+      "cid": "c4",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 659,
+      "quote": "孝宗达天明道纯诚中正圣文神武至仁大德敬皇帝，讳祐堂，宪宗第三子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "孝宗",
+      "basis": [
+        "c1",
+        "c2",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "本紀冒頭1行の冒頭が「孝宗」で始まり（政権慣行の書式どおり）、崩御条にも「庙号孝宗」と明記される二重の証人。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "敬皇帝",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "本紀冒頭1行の廟号「孝宗」に続く部分が諡号で、底本（简体）は「达天明道纯诚中正圣文神武至仁大德敬皇帝」の全字。既存100件の posthumousName は2字68件・3字31件・4字1件で全て短縮形なので、その書式に合わせ原文末尾の3字「敬皇帝」を値に採る（全字は原文の attestation として本欄に残す）。崩御条（c2）の「上尊谥」はこの諡号を上ったことを言うが字面は挙げない。"
+    },
+    {
+      "field": "name.aliases",
+      "value": [],
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "明史 本紀第十五は廟号・諡号・諱・世系しか載せず、別称の記載は無い。調査済みの空欄で、未調査ではない。commonName の「弘治帝」は元号による日本側の呼称で原文に無い。"
+    },
+    {
+      "field": "eraChangeCount.events[0].eraName",
+      "value": "弘治",
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "在位中の元号は弘治のみ。即位条に「以明年为弘治元年」と立ち、以後の紀年は弘治元年〜十八年で連続する（崩御は弘治十八年五月辛卯）。"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "諡号の全字「達天明道純誠中正聖文神武至仁大徳敬皇帝」は原文の attestation だが、既存100件が全て短縮形（2〜4字）なので値としては捨て、短縮形「敬皇帝」を採る。personalName（本作業の対象外）について、両コーパスとも「讳祐堂」と作る一方レコードは「祐樘」。両コーパスは同じ简体デジタル化に由来し独立の証人ではないため、字形崩れとして扱い変更は提案しない。",
+  "discrepancies": "(1) name.templeName・name.posthumousName は現行 null。原文に値が在るので空欄の埋め戻しになる（値の食い違いではない）。(2) eraChangeCount.count=1・events[0].eraName=\"弘治\"・events[0].date=\"1487-09-22\" は原文と一致（c3 の即位条＝成化二十三年九月壬寅と同条で改元宣言）。(3) name.aliases=[] は原文と一致。(4) 対象外の欄だが name.personalName=\"祐樘\" に対し china-history 明史 本纪 卷十五・daizhigev20 明史.txt:659 とも「讳祐堂」と作る。两者は同一の简体デジタル化由来で独立の証人ではなく、稀用字「樘」の字形崩れと判断。原文優先の対象とせず変更は提案しない。",
+  "processSuggestion": "元号名は人物レコードに欄が無く eraChangeCount.events[].eraName にしか置けないため、名前ブロックの出力契約に「元号は改元 event の欄へ返す」と1行書いておくと、findings の field パスを発明せずに済む。"
+}

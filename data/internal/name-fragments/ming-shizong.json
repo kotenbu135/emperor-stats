@@ -1,0 +1,66 @@
+{
+  "id": "ming-shizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-shizong.txt",
+      "line": 2,
+      "quote": "世宗钦天履道英毅神圣宣文广武洪仁大孝肃皇帝，讳厚，宪宗孙也。"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "_corpus_cache/ming-shizong.txt",
+      "line": 50,
+      "quote": "隆庆元年正月，上尊谥，庙号世宗，葬永陵。"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/ming-shizong.txt",
+      "line": 3,
+      "quote": "以明年为嘉靖元年，大赦天下。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "世宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "钦天履道英毅神圣宣文广武洪仁大孝肃皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.aliases",
+      "value": [],
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "field": "eraName（emperors.json に該当欄なし・格納先は親判断）",
+      "value": "嘉靖",
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "諡号の形について: 明史本紀冒頭は「〈廟号〉〈諡号〉皇帝，讳〈諱〉」の書式（政権慣行 form-found）で、廟号「世宗」を除いた残りが諡号にあたる。データセット既存の posthumousName 100件はいずれも短形（高帝・恵帝・文帝…）なので、全形で格納するか短形へ落とすかは親の判断。こちらは原文が言う全形をそのまま返し、短縮はしない。/ 廟号の第2証人（c2）は「上尊谥，庙号世宗」とのみ記して諡号の字面を挙げないので、諡号の全文は c1 のみに依る。/ コーパスの字体メモ: 冒頭の諱の2字目が U+E407（PUA）で入っており Read の表示では脱落する。諱は本作業の対象外なので値の主張はしない。/ 同じ本紀の「芝生睿宗原庙柱」（四十四年六月）の睿宗は追尊された父・献皇帝であって当人ではない。/ 元号「嘉靖」は c3 で確認できるが、name の下位キーは aliases・childhoodName・commonName・courtesyName・ethnicName・familyName・personalName・posthumousName・regnalTitle・templeName の10種で元号を置く欄が無く、top-level の eraId は政権id（ming）。欄を新設するかは親の判断（R-CLAIM-GATED）。",
+  "discrepancies": "なし（既存の構造フィールド〔reigns 1521〜1567・eraId=ming・regimeId=ming〕と原文に食い違いは無い。name.templeName・name.posthumousName はいずれも null だが、これは絞り込みが transcribe／unknown として挙げた空欄であって値の対立ではない）",
+  "processSuggestion": "Read ツールの出力は PUA 文字（明史本紀の諱に実在）を黙って落とすので、PUA を含む巻では引用をファイルから python でスライスして JSON を組むと、手打ちと脱落の両方を同時に避けられる。"
+}

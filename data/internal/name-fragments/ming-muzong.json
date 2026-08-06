@@ -1,0 +1,88 @@
+{
+  "id": "ming-muzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-muzong.txt",
+      "line": 2,
+      "quote": "穆宗契天隆道渊懿宽仁显文光武纯德弘孝庄皇帝，讳载垕，世宗第三子也"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "china-history/明史/本纪/第十九章-卷十九-原文.html",
+      "line": 23,
+      "quote": "穆宗契天隆道渊懿宽仁显文光武纯德弘孝庄皇帝，讳载垕，世宗第三子也"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/ming-muzong.txt",
+      "line": 8,
+      "quote": "七月丙戌，上尊谥，庙号穆宗，葬昭陵"
+    },
+    {
+      "cid": "c4",
+      "book": "明史",
+      "file": "_corpus_cache/ming-muzong.txt",
+      "line": 3,
+      "quote": "以明年为隆庆元年，大赦天下"
+    },
+    {
+      "cid": "c5",
+      "book": "明史",
+      "file": "_corpus_cache/ming-muzong.txt",
+      "line": 4,
+      "quote": "隆庆元年春正月丙寅，罢睿宗明堂配享"
+    },
+    {
+      "cid": "c6",
+      "book": "明史",
+      "file": "_corpus_cache/ming-muzong.txt",
+      "line": 2,
+      "quote": "嘉靖十八年二月封裕王"
+    },
+    {
+      "cid": "c7",
+      "book": "明史",
+      "file": "_corpus_cache/ming-muzong.txt",
+      "line": 8,
+      "quote": "庚戌，崩于乾清宫，年三十有六"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "穆宗",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "契天隆道淵懿寛仁顕文光武純徳弘孝荘皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "eraChangeCount.events[0].eraName",
+      "value": "隆慶",
+      "basis": [
+        "c4",
+        "c5"
+      ],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "廟号は本紀冒頭（c1・c2）と崩御後の追尊記事（c3「上尊谥，庙号穆宗」）の2箇所で一致する。諡号は本紀冒頭が全長形で記すため、value も全長形（新字体）を採った。慣用の短縮形「荘皇帝」は同じ句の末尾要素から導ける略称で、原文がその形で記しているわけではないので採らなかった。既存 posthumousName 100件はいずれも2〜4字だが、それらは漢書・後漢書・三国志が短い諡号をそのまま記すためで、書式を短縮する規約ではないと解した（採用しなかった側＝「荘皇帝」を記録として残す）。元号は「以明年为隆庆元年」（c4）と隆慶元年〜六年の紀年（c5・c3）から隆慶1つのみ。ただし現行レコードには元号を格納する欄が無い（トップレベル eraNames も reigns[].eraName も改元 event の eraName も未設定）ので、格納先は親側の判断に委ねる。aliases は明史の政権慣行が未確定（check_regime_conventions.py --for ming-muzong --field aliases が exit 1）のため人物単位の調査に入らず空のままにした。封王号「裕王」は本紀に在る（c6）ので、慣行を確定するときの材料として claim だけ残す。作業上の事故として、eraChangeCount の構造フィールドを jq で引いた際に events の note が画面に出た（del(.note) をトップレベルにしか掛けていなかった）。元号の判定は note を見る前に読んだ c4・c5 に依拠しており、note は判定に使っていない。（字体の確認）諡号 value の新字体化は手打ちのままにせず、scripts/hanzi_norm.py を通して簡体原文と突き合わせた。淵・純・顕・徳・荘は norm_for_match で原文の渊・纯・显・德・庄へ落ち、懿は同字。寛だけは正規化表・opencc とも知らない日本語専用の新字体だが、data/emperors.json の地の文が寛6件・寬2件（寬は引用側）で、寛が家内の書式にあたる。元号「隆慶」も norm_for_match で原文「隆庆」と一致する。格納先は EMPERORS_SCHEMA.md 439行の定義（eraName は改元 event の欄・新字体2〜4字）に合わせ eraChangeCount.events[0].eraName とした。同440行の除外規定により eraNameRaw は付けない（隆庆は opencc が導ける導出値）。諡号の全長形採用は EMPERORS_SCHEMA.md 86〜87行が「諡号」「廟号」としか書かず書式を規定しないことも確認したうえでの判断。",
+  "discrepancies": "(1) name.templeName・name.posthumousName がともに null だが、明史 本紀は「穆宗契天隆道渊懿宽仁显文光武纯德弘孝庄皇帝」と両方を記す（c1・c2・c3）。原文を採って上記 findings の値とした（screenings の templeName:transcribe バケットの想定どおり、posthumousName:unknown も取りこぼし）。(2) name.personalName は「載坖」だが、明史 本紀は「讳载垕」（c1・c2）＝繁体「載垕」で字が異なる。担当項目外なので値は変更提案せず、原文の側を報告のみ（明史の底本が「垕」を用いる一方、通行の表記が「坖」であることによる字体・異体の問題で、別途の判断が要る）。(3) 一致を確認した構造フィールド: ages.deathAge=36 は「年三十有六」（c7）と一致、ages.deathDate=1572-07-05 は隆慶六年五月庚戌の崩御（c7）と整合、reigns[0].startYear=1567／endYear=1572 は「以明年为隆庆元年」（c4）〜隆慶六年（c3・c7）と整合、eraChangeCount.count=1 は在位中の元号が隆慶のみである本紀の紀年（c4・c5・c3）と整合。以上のほかに食い違いなし。",
+  "processSuggestion": "残量表 明史・名前欄（templeName／posthumousName）16件（未読 未走査） — ming 政権16人のうち本セッションで読んだのは ming-muzong 1人だけで、他15人は未走査。あわせて、既存レコードの構造フィールドを引くとき `jq 'del(.note?)'` をトップレベルにしか掛けないと events 側の note が出てしまうので、素材抽出コマンド（extract_event_material.py）を回数系フィールド以外の照合でも使えるよう、単純な構造フィールド閲覧用の入口を1本用意すると事故が減る。"
+}

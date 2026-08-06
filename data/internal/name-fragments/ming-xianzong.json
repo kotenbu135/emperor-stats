@@ -1,0 +1,93 @@
+{
+  "id": "ming-xianzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-xianzong.txt",
+      "line": 2,
+      "quote": "宪宗继天凝道诚明仁敬崇文肃武宏德圣孝纯皇帝，讳见深，英宗长子也。母贵妃周氏。初名见浚。英宗留瓦剌，皇太后命立为皇太子。景泰三年，废为沂王。天顺元年，复立为皇太子，改名见深。"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "_corpus_cache/ming-xianzong.txt",
+      "line": 3,
+      "quote": "天顺八年正月，英宗崩。乙亥，即皇帝位。以明年为成化元年，大赦天下。"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/ming-xianzong.txt",
+      "line": 118,
+      "quote": "己丑，崩，年四十有一。九月乙卯，上尊谥，庙号宪宗，葬茂陵。"
+    },
+    {
+      "cid": "c4",
+      "book": "明史",
+      "file": "china-history/明史/本纪/第十三章-卷十三-原文.html",
+      "line": 23,
+      "quote": "宪宗继天凝道诚明仁敬崇文肃武宏德圣孝纯皇帝，讳见深，英宗长子也。"
+    },
+    {
+      "cid": "c5",
+      "book": "明史",
+      "file": "china-history/明史/本纪/第十四章-卷十四-原文.html",
+      "line": 79,
+      "quote": "九月乙卯，上尊谥，庙号宪宗，葬茂陵。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "憲宗",
+      "basis": [
+        "c1",
+        "c3",
+        "c4",
+        "c5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "継天凝道誠明仁敬崇文粛武宏徳聖孝純皇帝",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "見深",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.aliases",
+      "value": [
+        "朱見浚"
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "field": "eraName",
+      "value": "成化",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "字体: 台帳の quote は底本（简体）のまま。findings の値は scripts/hanzi_norm.py の SHINJITAI_TO_TRAD を反転して机械変換した形で、手打ちしていない（继天凝道诚明仁敬崇文肃武宏德圣孝纯皇帝 → 繁体 繼天凝道誠明仁敬崇文肅武宏德聖孝純皇帝 → 新字体 継天凝道誠明仁敬崇文粛武宏徳聖孝純皇帝・19字で一致）。諡号の短形は「純皇帝」で、漢代の記録（高帝・文帝など）に合わせるならこちらだが、明史の冒頭1行・崩御条（上尊谥）が挙げるのは全称なので findings には全称を置いた。採否は親側で決められる。alias 朱見浚 の「朱」は原文ではなく既存レコードの familyName から補ったもの（原文は「初名见浚」のみ・劉病已／劉旻の先例に合わせて姓を付けた形）。沂王 は即位前の封（景泰三年に廃されて沂王）なので、既存 alias の先例（弘農懐王・蒼梧王・海昏侯＝いずれも廃位後の号）と性格が違う。低確度で挙げるだけにした。元号「成化」は原文で確定できるが、レコードに年号を入れる容器が無い（eraId は王朝の \"ming\"）ので、欄への書き込みは提案しない。 字（あざな）は明史の書式が並べる位置にあたる箇所が「讳见深，英宗长子也」で、この1行には載らない（調査済み・記載なし）。",
+  "discrepancies": "eraChangeCount.events[0].date が \"1465\" だが、原文で改元という行為に日付が付いている条は「天顺八年正月……乙亥，即皇帝位。以明年为成化元年」（c2）＝天順八年正月＝1464年で、1465 は元号が施行される年（成化元年）にあたる。R-ERA-DATE-DECLARED の規約では宣言の条を採るので、原文側は 1464（月日まで採るなら天順八年正月乙亥）。同型は明の他の皇帝にも見え、ming-wuzong が 1506（即位 1505）・ming-shenzong が 1573（即位 1572）と施行年側を持つ一方、ming-xiaozong 1487-09-22・ming-muzong 1567-02-04 などは宣言条側を持っており、明政権内で扱いが割れている。ほかの構造フィールド（name.familyName=朱・name.personalName=見深・reigns 1464〜1487・commonName 憲宗（成化帝））は原文と食い違いなし。",
+  "processSuggestion": "残量表 明の改元 events[].date（宣言条 vs 施行年）16件（未読 15） — ming-xianzong だけを原文と突き合わせた。ming-wuzong 1506・ming-shenzong 1573 は施行年側、ming-xiaozong 1487-09-22・ming-muzong 1567-02-04 は宣言条側で割れており、ming-huizong・ming-renzong は count 1 なのに events の date が無い（型の違う欠け・同じ行で数える）。明以外の政権は未走査。"
+}

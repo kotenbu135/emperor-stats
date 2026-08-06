@@ -1,0 +1,111 @@
+{
+  "id": "ming-daizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-daizong.txt",
+      "line": 2,
+      "quote": "恭仁康定景皇帝，讳祁钰，宣宗次子也。母贤妃吴氏。英宗即位，封郕王。"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "_corpus_cache/ming-daizong.txt",
+      "line": 3,
+      "quote": "九月癸未，王即皇帝位，遥尊皇帝为太上皇帝，以明年为景泰元年，大赦天下"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/ming-daizong.txt",
+      "line": 6,
+      "quote": "景泰元年春正月丁丑朔，罢朝贺。"
+    },
+    {
+      "cid": "c4",
+      "book": "明史",
+      "file": "_corpus_cache/ming-daizong.txt",
+      "line": 41,
+      "quote": "二月乙未，废帝为郕王，迁西内。"
+    },
+    {
+      "cid": "c5",
+      "book": "明史",
+      "file": "_corpus_cache/ming-daizong.txt",
+      "line": 41,
+      "quote": "癸丑，王薨于西宫，年三十。谥曰戾。"
+    },
+    {
+      "cid": "c6",
+      "book": "明史",
+      "file": "_corpus_cache/ming-daizong.txt",
+      "line": 42,
+      "quote": "可仍皇帝之号，其议谥以闻。"
+    },
+    {
+      "cid": "c7",
+      "book": "明史",
+      "file": "_corpus_cache/ming-daizong.txt",
+      "line": 43,
+      "quote": "赞曰：景帝当倥偬之时，奉命居摄"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": "恭仁康定景皇帝",
+      "basis": [
+        "c1",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "明史 本紀第十一の冒頭が廟号を置かずこの諡号から始まる。成化十一年に帝号を復し諡を議上した結果の諡（c6）"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "明史は本紀冒頭（c1）でも贊（c7）でも「景帝」と呼び、廟号を載せない。明史 本紀24巻に「代宗」の語は1件も無く、列伝・志の「代宗」は代王宗室・唐代宗・「一代宗工」で景帝を指さない。廟号は明史では取れない（other-source）"
+    },
+    {
+      "field": "name.aliases",
+      "value": [
+        "郕王"
+      ],
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "即位前の封（c1「英宗即位，封郕王」）と復辟後の廃位（c4）でともに「郕王」。廃位後の王としての諡は「戾」（c5）だが、明史は「郕戾王」の形では呼ばないので合成しない"
+    },
+    {
+      "field": "name.personalName",
+      "value": "祁鈺",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "原文（簡体底本）は「讳祁钰」。表示欄の字体規約に合わせた正字表記で、現行値と一致"
+    },
+    {
+      "field": "eraChangeCount.events[0].eraName",
+      "value": "景泰",
+      "basis": [
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "正統十四年九月癸未の即位条に「以明年为景泰元年」（c2）、翌年から「景泰元年」（c3）。在位中の元号は景泰のみで count=1 と整合"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "廟号「代宗」は明史に無い（南明・弘光朝の追上とされるが、本作業で読んだ明史本紀・列伝・志には現れない）ため、明史からは確定できない側として捨てた。諡号は成化十一年の復号時のもので、南明が加えたとされる長諡も明史には無い。廃位後の王諡「戾」（c5）は皇帝としての諡ではないので posthumousName には採らない。",
+  "discrepancies": "name.commonName が「代宗（景泰帝）」と廟号形で立っているが、明史は本紀冒頭・贊とも「景帝」で廟号を載せず、明史全体でも景帝を「代宗」と呼ぶ箇所が無い（原文を採り、templeName は明史では取れない＝other-source として空のまま報告する）。name.templeName / name.posthumousName / name.aliases は現行 null・null・空配列で、諡号と別称は原文から補充できる。name.personalName「祁鈺」・eraChangeCount.count=1・events[0].eraName「景泰」は原文と一致。",
+  "processSuggestion": "check_screenings の templeName:transcribe は commonName の字形（〜祖／〜宗）から「取りこぼしと言い切れる」と断じるが、明代宗のように廟号が当該正史に無く後代政権の追上である人物では前提が崩れる。transcribe バケットにも「本紀に無ければ other-source として空で閉じてよい」と明記してほしい。"
+}

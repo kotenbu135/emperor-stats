@@ -1,0 +1,82 @@
+{
+  "id": "ming-xuanzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-xuanzong.txt",
+      "line": 2,
+      "quote": "宣宗宪天崇道英明神圣钦文昭武宽仁纯孝章皇帝，讳瞻基，仁宗长子也。"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "_corpus_cache/ming-xuanzong.txt",
+      "line": 4,
+      "quote": "庚戌，即皇帝位。大赦天下，以明年为宣德元年。"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/ming-xuanzong.txt",
+      "line": 52,
+      "quote": "丁酉，上尊谥，庙号宣宗，葬景陵。"
+    },
+    {
+      "cid": "c4",
+      "book": "明史",
+      "file": "china-history/明史/本纪/第十章-卷十-原文.html",
+      "line": 25,
+      "quote": "辛酉，葬章皇帝于景陵。"
+    },
+    {
+      "cid": "c5",
+      "book": "明史",
+      "file": "_corpus_cache/ming-xuanzong.txt",
+      "line": 52,
+      "quote": "十年春正月癸酉朔，不视朝，命群臣谒皇太子于文华殿。甲戌，大渐。罢买、营造诸使。乙亥，崩于乾清宫，年三十有八。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "宣宗",
+      "basis": ["c1", "c3"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "憲天崇道英明神聖欽文昭武寛仁純孝章皇帝",
+      "basis": ["c1"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.aliases",
+      "value": ["章皇帝"],
+      "basis": ["c4"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "瞻基",
+      "basis": ["c1"],
+      "confidence": "high"
+    },
+    {
+      "field": "eraName",
+      "value": "宣徳",
+      "basis": ["c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "ages.deathAge",
+      "value": 38,
+      "basis": ["c5"],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "諡号は本紀冒頭が書く全体（憲天崇道英明神聖欽文昭武寛仁純孝章皇帝・19字）を採った。schema の説明は「諡号（例:「文帝」）」で長短を規定しておらず、既存72件の記入済みレコードは元の史料側が短い諡号だった政権ばかり（唐・明のような長い諡号を持つ政権は tang-gaozu・ming-taizu を含めすべて posthumousName が null）なので前例では決まらない。候補は3つある — (a) 採用した19字、(b) 政権慣行の書式が『〈廟号〉〈諡号〉皇帝』と「皇帝」を諡号の外に置くことから読める17字「憲天崇道英明神聖欽文昭武寛仁純孝章」、(c) 短縮形「章皇帝」。本紀が書かない形を自分で作らない方を採ったが、明ブロック内で揃えるなら一括で決め直せるよう3案を残す。/ 別称は本紀第九（卷九・全53行を通読）に諱以外の呼称（字・小字）が無いため、卷十（英宗紀）の「辛酉，葬章皇帝于景陵」で原文に現れる短い呼称「章皇帝」だけを採った。宣徳帝は元号からの派生で本紀に無いので採らない。/ 元号「宣徳」（底本の字体は c2 の通り「宣德」）は本紀に明記があるが emperors.json に元号名を持つフィールドが無い（eraId は政権識別子で値は「ming」）ため、記録のみで転記先は提案しない。/ 底本の確認: china-history/明史/本纪/第九章-卷九-原文.html に冒頭句・改元句・上尊謚句の3つがそろって存在することを grep で確かめ、文言文であること（白話訳でないこと）と巻九＝本紀第九 宣宗であることを目視した。同 HTML は本文がほぼ1行なので claims の file/line にはキャッシュ側を使った。",
+  "discrepancies": "なし。既存の構造フィールドと原文の食い違いは見つからなかった。templeName・posthumousName・aliases は現行 null／空で、原文が値を持つので「食い違い」ではなく未記入の補充にあたる。照合したもの: ages.deathAge=38 は「年三十有八」（c5）と一致。reigns[0] は startYear 1425（洪熙元年六月即位・c2 の即位条）・endYear 1435（宣徳十年正月崩御・c5）と一致。eraChangeCount=1 は卷九（本紀第九・全53行）を通読した範囲で改元記事が「以明年为宣德元年」（c2）の1件のみであることと一致。卷九の外（他巻）は未走査。",
+  "processSuggestion": "check_regime_conventions の「書式」に諡号の保存形（本紀が書く全体か・「皇帝」を含めるか・短縮形か）を1行足せると、明・唐のように長い諡号を持つ政権で人物ごとに同じ判断を繰り返さずに済む。現状は書式が『〈廟号〉〈諡号〉皇帝』の並びだけを言い、どこまでを posthumousName へ入れるかは各人物の判断になっている。"
+}

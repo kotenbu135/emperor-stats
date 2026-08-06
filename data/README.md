@@ -18,9 +18,12 @@
 | ファイル | 内容 |
 |---|---|
 | [internal/event-date-archive.json](internal/event-date-archive.json) | `events[]` の日付を「年精度 ＋ 在位境界年の月日」へ絞ったときに**丸めた月日**（6,258値・4,170 events）。鍵は `events[].id` |
+| [internal/profile-fragments/](internal/profile-fragments/) | 紹介文（Issue #16）の断片と引用台帳。2026-08-06 のバッチから |
+| [internal/name-fragments/](internal/name-fragments/) | 名前欄（Issue #37 単位1）の調査断片。2026-08-06 の明16人から |
 
 **「内部」は隠す場所ではありません**（リポジトリは public でコミットもしています）。意味は
-**引用され得る配布物の主張に含めない**ことです。3つの性質で成り立っています:
+**引用され得る配布物の主張に含めない**ことです。1ファイル目（`event-date-archive.json`）は
+3つの性質で成り立っています:
 
 - **追記しない。** 分割時に1回書いたきりで、読むのは精度を戻すときだけ。2ファイル目が編集され続けると
   そこだけ `patch_emperor.py`（sha256 照合とゲート案内を持つ唯一の正規経路）の外になる
@@ -28,6 +31,11 @@
   配布物の値が退避値の接頭辞か＝`validate_emperors.py` の `check_event_date_archive`）
 - **これ以上精度を追求しない**（ユーザー決定）。誤りと分かっている値も入ったまま固定されている
   （`docs/process/RESIDUAL.md` の #62 の9件）。戻すときはその節を先に読む
+
+**断片の2ディレクトリは1つ目とは性格が違います。** どちらも**バッチごとに増え、
+中身をゲートが見ます**（`check_profile_fragment.py --strict`／`check_claims.py`）。
+配布物との対応ではなく**引用が底本に実在するか**を見るので、`patch_emperor.py` の外にある
+ことが穴になりません。共通しているのは「引用され得る主張に含めない」の1点だけです。
 
 **`emperor-profiles.json` は配布物に含めていない**（`site/scripts/build-data-distribution.mjs` が `public/data/` へ出すのは emperors.json・emperors.csv・emperors.schema.json の3本のみ）。含めるかは別途の判断で、既定は「含めない」。
 

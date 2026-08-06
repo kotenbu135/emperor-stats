@@ -1,0 +1,117 @@
+{
+  "id": "ming-taizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-taizong.txt",
+      "line": 2,
+      "quote": "成祖启天弘道高明肇运圣武神功纯仁至孝文皇帝讳棣，太祖第四子也"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "_corpus_cache/ming-taizong.txt",
+      "line": 2,
+      "quote": "洪武三年，封燕王"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/ming-taizong.txt",
+      "line": 133,
+      "quote": "九月壬午，上尊谥曰体天弘道高明广运圣武神功纯仁至孝文皇帝，庙号太宗，葬长陵。嘉靖十七年九月，改上尊谥曰启天弘道高明肇运圣武神功纯仁至孝文皇帝，庙号成祖"
+    },
+    {
+      "cid": "c4",
+      "book": "明史",
+      "file": "_corpus_cache/ming-taizong.txt",
+      "line": 19,
+      "quote": "今年以洪武三十五年为纪，明年为永乐元年"
+    },
+    {
+      "cid": "c5",
+      "book": "明史",
+      "file": "_corpus_cache/ming-taizong.txt",
+      "line": 24,
+      "quote": "永乐元年春正月己卯朔，御奉天殿受朝贺"
+    },
+    {
+      "cid": "c6",
+      "book": "明史",
+      "file": "_corpus_cache/ming-taizu.txt",
+      "line": 2,
+      "quote": "太祖开天行道肇纪立极大圣至神仁文义武俊德成功高皇帝，讳元璋，字国瑞，姓朱氏"
+    },
+    {
+      "cid": "c7",
+      "book": "明史",
+      "file": "_corpus_cache/ming-taizong.txt",
+      "line": 18,
+      "quote": "王升辇，诣奉天殿即皇帝位"
+    },
+    {
+      "cid": "c8",
+      "book": "明史",
+      "file": "_corpus_cache/ming-taizong.txt",
+      "line": 131,
+      "quote": "二十二年春正月甲申"
+    },
+    {
+      "cid": "c9",
+      "book": "明史",
+      "file": "_corpus_cache/ming-taizong.txt",
+      "line": 133,
+      "quote": "辛卯，崩，年六十有五"
+    },
+    {
+      "cid": "c10",
+      "book": "明史",
+      "file": "_corpus_cache/ming-taizong.txt",
+      "line": 19,
+      "quote": "秋七月壬午朔，大祀天地于南郊，奉太祖配"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "成祖",
+      "basis": ["c1", "c3"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "启天弘道高明肇运圣武神功纯仁至孝文皇帝",
+      "basis": ["c1", "c3"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.aliases",
+      "value": ["太宗", "体天弘道高明广运圣武神功纯仁至孝文皇帝", "燕王"],
+      "basis": ["c2", "c3"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "棣",
+      "basis": ["c1"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.familyName",
+      "value": "朱",
+      "basis": ["c1", "c6"],
+      "confidence": "high"
+    },
+    {
+      "field": "eraChangeCount.events[0].eraName",
+      "value": "永乐",
+      "basis": ["c4", "c5"],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "廟号・諡号は明史が2段階で記す。崩御直後（永楽22年9月）が「体天弘道高明广运圣武神功纯仁至孝文皇帝／庙号太宗」、嘉靖17年9月の改上で「启天弘道高明肇运圣武神功纯仁至孝文皇帝／庙号成祖」（c3）。明史は巻頭見出し「◎成祖一」と冒頭1行（c1）で改上後の形を採るため、findings は改上後を主値とし、当初の廟号「太宗」と当初の諡号を aliases に置いた。史料同士の対立ではなく同一書が時系列で記す改上なので conflicts には入れていない。字体は底本（china-history 明史・簡体）のまま写しており、繁体への変換はしていない。元号は既存の eraChangeCount.events[0].eraName に器があるためそこへ当てた（新しい欄は提案しない）。「永楽帝」の呼称は本紀原文に現れないので aliases に加えていない。",
+  "discrepancies": "字体のみ1件、実質の食い違いなし。(1) eraChangeCount.events[0].eraName の現行値は「永樂」（繁体）で、底本（china-history 明史・簡体）の表記は「永乐」（c4・c5）。同字の字体差なので実質の食い違いではないが、同じレコードの name 側が底本どおりの簡体（ming-taizu の courtesyName「国瑞」など）で揃っているため、欄ごとに字体規約が割れている点として報告する。値の訂正は求めない。(2) eraChangeCount.count=1・events[0].date=1402-08（月精度）は、改元を宣言した条（洪武35年秋七月の詔、c10・c4）と一致し、施行日である永楽元年正月己卯朔（c5）ではない＝R-ERA-DATE-DECLARED に適合。本紀に現れる改元も永楽の1回のみで count と整合。(3) reigns[0].startYear=1402 は建文4年6月己巳の即位記事（c7）と、endYear=1424 は永楽22年（c8）7月辛卯の崩御（c9）と整合。(4) name.familyName=朱・name.personalName=棣 は c1・c6 と一致。(5) name.templeName・name.posthumousName は現行 null だが、これは未記入であって原文との食い違いではなく、本作業で埋める対象。",
+  "processSuggestion": "check_regime_conventions の書式行に「改上（廟号・諡号の後日変更）がある政権では、冒頭1行が改上後の形・巻末の崩御条が当初と改上後の両方を記す」型を1行足したい。明史の慣行は「本紀冒頭1行を転記」だけを指しており、そのとおり閉じると成祖では当初廟号「太宗」と当初諡号を落とす（本件で実際に巻末を読んで初めて出た）。残量表 明史・廟号諡号の改上（冒頭1行と巻末で値が割れる人物）（未走査 — 成祖1人しか読んでおらず、他の明の皇帝は走査していない）"
+}

@@ -1,0 +1,87 @@
+{
+  "id": "ming-renzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-renzong.txt",
+      "line": 2,
+      "quote": "仁宗敬天体道纯诚至德弘文钦武章圣达孝昭皇帝，讳高炽，成祖长子也。"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "china-history/明史/本纪/第八章-卷八-原文.html",
+      "line": 23,
+      "quote": "仁宗敬天体道纯诚至德弘文钦武章圣达孝昭皇帝，讳高炽，成祖长子也。"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/ming-renzong.txt",
+      "line": 12,
+      "quote": "秋七月己巳，上尊谥，庙号仁宗，葬献陵。"
+    },
+    {
+      "cid": "c4",
+      "book": "明史",
+      "file": "_corpus_cache/ming-renzong.txt",
+      "line": 7,
+      "quote": "丁巳，即皇帝位。大赦天下，以明年为洪熙元年。"
+    },
+    {
+      "cid": "c5",
+      "book": "明史",
+      "file": "_corpus_cache/ming-renzong.txt",
+      "line": 10,
+      "quote": "洪熙元年春正月壬申朔，御奉天门受朝，不举乐。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "仁宗",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "本紀冒頭の1行が「仁宗〈諡号〉皇帝」の形で立ち、崩後の条にも「上尊谥，庙号仁宗」と直書される。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "敬天体道純誠至徳弘文欽武章聖達孝昭",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "底本（簡体）は「敬天体道纯诚至德弘文钦武章圣达孝昭皇帝」。政権慣行の書式「〈廟号〉〈諡号〉皇帝，讳〈諱〉…」で末尾の「皇帝」は literal なので〈諡号〉スロットには含めない（ming-taizu「太祖／开天行道肇纪立极大圣至神仁文义武俊德成功高／皇帝」・ming-shenzong「神宗／范天合道哲肃敦简光文章武安仁止孝显／皇帝」も同じ分解になる）。字体は既存レコードの運用（日本語新字体・徳/純/聖）に合わせた。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "高熾",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "底本は「讳高炽」。既存値 高熾 と一致（食い違いなし）。"
+    },
+    {
+      "field": "eraChangeCount.events[0].eraName",
+      "value": "洪熙",
+      "basis": [
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "即位条に「以明年为洪熙元年」、翌年正月朔条が「洪熙元年春正月壬申朔」。既存値 洪熙 と一致（食い違いなし）。"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "",
+  "discrepancies": "なし。原文と既存の構造フィールドの食い違いは見つからなかった（name.personalName「高熾」＝底本「讳高炽」、eraChangeCount.events[0].eraName「洪熙」＝底本「以明年为洪熙元年」）。name.templeName・name.posthumousName は現行 null で、値の対立ではなく未記入。reigns の年（1424〜1425）は今回の照合対象外。 別件で1つ: eraChangeCount.events[0] は datePrecision=\"day\" なのに date が null。原文は同じ条に日を持つ（「丁巳，即皇帝位。大赦天下，以明年为洪熙元年」・c4）ので enum と保存値が噛み合っていない。名前の作業範囲外なので日付は算出しない。",
+  "processSuggestion": "残量表 明史本紀の名前欄（templeName・posthumousName） 未走査"
+}

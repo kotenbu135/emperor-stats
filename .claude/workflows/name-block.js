@@ -190,5 +190,7 @@ return {
   processSuggestions: suggestions,
   next: `断片は ${workDir}/claims/ にあります。親セッションが check_claims.py でまとめて確認し、` +
         `指摘を潰してから投入してください。**指摘のうち実欠陥だった件数を数えて ` +
-        `data/verification.json の blocks へ記録**（raised=${raised}）`,
+        `data/verification.json の blocks へ記録**（raised=${raised}）。` +
+        `投入が済んだら **cp ${workDir}/claims/*.json data/internal/name-fragments/** で断片を保存する ` +
+        `— workDir は /tmp なので、諡号の全長形や加諡の経緯（保存値に入らない部分）は保存しないと消える`,
 }
