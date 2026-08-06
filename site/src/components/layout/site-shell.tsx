@@ -1,18 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+import { usePathname } from "next/navigation";
 import { NavMenu } from "@/components/layout/nav-menu";
 import { RubyToggle } from "@/components/layout/ruby-toggle";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { isCurrentSection, mobileNavCategories } from "@/lib/nav-data";
 import { cn } from "@/lib/utils";
 
 /** サイトの印章風ロゴ（篆刻の朱印をイメージした「帝」の一文字）。 */
@@ -31,12 +24,13 @@ function SiteMark({ className }: { className?: string }) {
 }
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
-  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <div className="flex min-h-full flex-1 flex-col md:flex-row">
-      {/* キーボード操作でナビゲーション（デスクトップは11項目・モバイルはメニュー
-          ボタン）を飛ばして本文へ入るための導線。フォーカスされたときだけ現れる。 */}
+      {/* キーボード操作でナビゲーション（デスクトップはサイドバー・モバイルは
+          ヘッダーの3項目）を飛ばして本文へ入るための導線。フォーカスされたときだけ
+          現れる。 */}
       <a
         href="#main"
         className="sr-only z-50 rounded-md border border-seal bg-background px-3 py-2 text-sm text-seal focus:not-sr-only focus:absolute focus:left-3 focus:top-3"
@@ -50,41 +44,47 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
           重なりは「画面に固定される要素」の段(z-50)。ページ内の固定索引(z-30)より
           上に出す必要があり、ダイアログ等はポータルでこの後ろのDOMに出るため
           同じ段でも上に描かれる。 */}
-      <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-border bg-sidebar px-4 md:hidden">
+      {/* 2026-08-06（Issue #92）: ハンバーガー＋Sheet をやめ、行き先を文字で出す。
+          `/emperors`・`/database` は本文の中に他ページへの出口が最下部のフッター
+          1本しか無く、メニューボタンに気づかないと移動できなかった。
+          **項目は nav-data.ts の shortLabel を持つ3つだけ**（4つ目は320〜360pxで
+          溢れる・理由と `/about` の扱いは nav-data.ts のコメント）。
+          折り返すと帯の高さが 56px を超えるので nowrap を崩さないこと。 */}
+      <header className="sticky top-0 z-50 flex h-14 items-center gap-1 border-b border-border bg-sidebar px-3 md:hidden">
         <Link
           href="/"
-          className="flex items-center gap-2 font-heading text-lg font-semibold text-foreground transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+          aria-label="中国皇帝統計 トップページ"
+          className="flex shrink-0 items-center rounded-md p-0.5 transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-seal"
         >
           <SiteMark className="size-6 text-sm" />
-          中国皇帝統計
         </Link>
-        <Sheet open={open} onOpenChange={setOpen}>
-          <Button
-            variant="outline"
-            size="icon"
-            aria-label="メニューを開く"
-            onClick={() => setOpen(true)}
-          >
-            <Menu />
-          </Button>
-          {/* overscroll-contain: メニューの端まで来たスクロールを裏のページへ
-              渡さない（/emperors は全高5万px級なので、渡すと閉じたあとに
-              まったく違う位置に居ることになる）。 */}
-          <SheetContent
-            side="left"
-            className="w-3/4 overflow-y-auto overscroll-contain bg-sidebar"
-          >
-            <SheetHeader>
-              <SheetTitle>メニュー</SheetTitle>
-            </SheetHeader>
-            <div className="px-4 pb-6">
-              <NavMenu onNavigate={() => setOpen(false)} />
-              {/* ふりがなの切り替え（Issue #20）。モバイルはヘッダーに置く幅が
-                  無いのでメニューの中に入れる。 */}
-              <RubyToggle className="mt-6" />
-            </div>
-          </SheetContent>
-        </Sheet>
+        <nav
+          aria-label="サイト内のページ"
+          className="flex min-w-0 flex-1 flex-nowrap items-center gap-1"
+        >
+          {mobileNavCategories.map((category) => {
+            const current = isCurrentSection(pathname, category.href);
+            return (
+              <Link
+                key={category.href}
+                href={category.href}
+                // 現在地の強調は皇帝個別ページ（365枚）でも「皇帝一覧」に付くよう
+                // 前方一致で見るが、aria-current はそのページ自身にだけ付ける。
+                aria-current={pathname === category.href ? "page" : undefined}
+                className={cn(
+                  // px-1.5 は 320px（iPhone SE 相当）で3項目＋印＋ふりがなが
+                  // 収まる下限。px-2 に戻すと 320px でトグルと重なる（tools/header-audit.mjs）。
+                  "flex h-11 shrink-0 items-center rounded-md px-1.5 font-heading text-sm font-semibold whitespace-nowrap transition-colors hover:bg-accent hover:text-seal focus-visible:outline-2 focus-visible:outline-seal",
+                  current ? "text-seal" : "text-foreground",
+                )}
+              >
+                {category.shortLabel}
+              </Link>
+            );
+          })}
+        </nav>
+        {/* ふりがなの切り替え（Issue #20）。Sheet を畳んだので置き場所がここへ移った。 */}
+        <RubyToggle variant="compact" />
       </header>
 
       <aside className="hidden shrink-0 border-r border-border bg-sidebar md:block md:w-60">
