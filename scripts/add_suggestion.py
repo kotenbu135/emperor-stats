@@ -24,13 +24,24 @@ import sys
 from pathlib import Path
 
 DOC = Path("docs/process/PROCESS_IMPROVEMENTS.md")
-AUTO_HEADING = "## 自動採取（エージェント発・ユーザーへ未提示）"
+# **本文の見出しと一字一句そろえる。** ずれると同じ節をもう1つ作る
+# （2026-08-06 に見出しを短くしたとき実際にそうなりかけた）。
+AUTO_HEADING = "## 自動採取（エージェント発）"
 AUTO_INTRO = """
 **この節は `.claude/hooks/suggestion_capture.py` が turn の終わりに書き足します。**
 調査エージェントが出力契約の `processSuggestion` で返したもの、および報告本文に
-「手順の提案」と書いたものを、そのまま写しています。**採否は決まっていません**
-（ユーザーへ上げて決まったら、上の本文へ節ごと昇格させてここから消してください）。
+「手順の提案」と書いたものを、そのまま写しています。
+
+**2026-08-06 ユーザー決定「今までの提案を自動採用」** — ここに足されるものは
+**既定で採用**（ユーザーへ諮らずに実装してよい）。ただし**一度に全部実装しない**。
+次にその工程へ触るときに反映し、実装したら採否行に反映先を書く。
 """
+
+# 既定の採否。**「未提示」に戻さない**（2026-08-06 のユーザー決定）。
+DEFAULT_VERDICT = (
+    "採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。"
+    "**未実装** — 次にその工程へ触るときに反映する"
+)
 
 MAX_LEN = 1500
 
@@ -69,7 +80,7 @@ def append_auto(root, title, scene, body):
     sha = digest(body)
     if sha in existing_digests(text):
         return False
-    entry = render(title, scene, body, "未提示（ユーザーへ上げていない）", sha)
+    entry = render(title, scene, body, DEFAULT_VERDICT, sha)
     if AUTO_HEADING not in text:
         text = text.rstrip("\n") + "\n\n---\n\n" + AUTO_HEADING + "\n" + AUTO_INTRO + "\n" + entry
     else:

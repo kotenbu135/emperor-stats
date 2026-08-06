@@ -52,6 +52,13 @@ def repo_root():
     return None
 
 
+# 値の中に「…","<キー>":"…」が現れたら、そこから先は隣の欄が紛れ込んでいる。
+# 背景エージェントの <result> は長いと途中で切り詰められて JSON が壊れるので、
+# raw_decode が閉じ引用符を見誤って隣の欄まで1つの文字列として読むことがある
+# （2026-08-06 に find_biography の提案が discrepancies ごと取り込まれた）。
+SPILL_RE = re.compile(r'","[A-Za-z][A-Za-z0-9_]*":')
+
+
 def json_string_after(text, pos):
     """text[pos:] の先頭にある JSON 文字列を1つ読む（エスケープを解く）。"""
     dec = json.JSONDecoder()
@@ -62,7 +69,10 @@ def json_string_after(text, pos):
         value, _ = dec.raw_decode(text, m.end())
     except ValueError:
         return None
-    return value if isinstance(value, str) else None
+    if not isinstance(value, str):
+        return None
+    spill = SPILL_RE.search(value)
+    return value[: spill.start()] if spill else value
 
 
 def agent_results(obj):
