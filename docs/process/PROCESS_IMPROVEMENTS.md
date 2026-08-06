@@ -1164,3 +1164,8 @@
 - **気づいた場面**: ming-muzong の名前データ検証（facts 観点）
 - **提案**: check_claims.py は line_of の結果と記録値の差が2行以内なら行ズレとして数えない（scripts/check_claims.py:98 の abs(int(want) - got) > 2）。_corpus_cache の本紀テキストは1行＝1年分の編年なので、1行のズレがそのまま別の年の条を指すことになる。実例: ming-muzong の claims c3・c7 は line 8（隆慶五年の条）と記録しているが、引用「七月丙戌，上尊谥，庙号穆宗，葬昭陵」「庚戌，崩于乾清宫，年三十有六」は line 9（隆慶六年の条）にある。それでもゲートは「行ズレ 0」で通る。許容幅を固定の2行でなく「同一行に当たるか」で判定するか、1行が長いファイル（改行が段落単位のもの）では許容を0にすると、年をまたぐ取り違えを機械で拾える。
 - **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
+
+### 2026-08-06 名前欄の転記が要求するゲートに check_screenings.py が入っていない <!-- auto:beb0080d242f -->
+- **気づいた場面**: Issue #37 単位1・明ブロックのコミット後（2026-08-06）
+- **提案**: patch_emperor.py が name.templeName / name.posthumousName に対して出すゲートは validate_emperors・coverage --write・validate_readings の3本で、check_screenings.py が入っていない。名前欄を埋めると絞り込み name-fields-issue37 の母集団とバケットが動くため、ローカルの軽いゲートは全部緑のままコミットでき、CI で初めて落ちる（実際に明16人で 558→530・templeName:transcribe 113→101・posthumousName:unknown 205→189 と動き、種つき標本の顔ぶれまで入れ替わった）。絞り込みが覆うフィールドを触ったら check_screenings.py を要求ゲートに足す（screenings.json の fields から逆引きできる）。同型は eraName（era-name-issue37）でも起きた。
+- **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
