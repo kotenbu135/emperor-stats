@@ -12,9 +12,17 @@ export const meta = {
 // 規則を書き写し忘れたりする。規則そのものは .claude/agents/*.md 側が持っているので、
 // ここは「誰に何をさせるか」だけを固定する。
 
-const ids = (args && args.ids) || []
-const workDir = (args && args.workDir) || '/tmp/name-block'
-const section = (args && args.section) || ''
+// args は JSON 文字列で渡ってくることがある（Workflow ツールの入力が文字列化される経路）。
+// 素直に args.ids を読むと undefined になり「no ids」で即終了する。write-profile.js は
+// 同じ対処を持っており、こちらだけ漏れていた（2026-08-06 に明ブロックで2回踏んだ）。
+let a = args
+if (typeof a === 'string') {
+  try { a = JSON.parse(a) } catch (e) { a = {} }
+}
+
+const ids = (a && a.ids) || []
+const workDir = (a && a.workDir) || '/tmp/name-block'
+const section = (a && a.section) || ''
 
 if (!ids.length) {
   log('args.ids が空です。{ids:[...], workDir:"...", section:"..."} を渡してください')
