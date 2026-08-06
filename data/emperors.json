@@ -108641,7 +108641,7 @@
     "personalName": "元璋",
     "commonName": "太祖（洪武帝）",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "高皇帝",
     "templeName": "太祖",
     "regnalTitle": "皇帝",
     "courtesyName": "国瑞"
@@ -109540,7 +109540,7 @@
     "personalName": "允炆",
     "commonName": "恵宗（建文帝）",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "恭閔恵皇帝",
     "templeName": null,
     "regnalTitle": "皇帝"
    },
@@ -109754,8 +109754,8 @@
     "personalName": "棣",
     "commonName": "太宗/成祖（永楽帝）",
     "aliases": [],
-    "posthumousName": null,
-    "templeName": null,
+    "posthumousName": "文皇帝",
+    "templeName": "成祖",
     "regnalTitle": "皇帝"
    },
    "eraId": "ming",
@@ -110187,8 +110187,8 @@
     "personalName": "高熾",
     "commonName": "仁宗（洪熙帝）",
     "aliases": [],
-    "posthumousName": null,
-    "templeName": null,
+    "posthumousName": "昭皇帝",
+    "templeName": "仁宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "ming",
@@ -110400,8 +110400,8 @@
     "personalName": "瞻基",
     "commonName": "宣宗（宣徳帝）",
     "aliases": [],
-    "posthumousName": null,
-    "templeName": null,
+    "posthumousName": "章皇帝",
+    "templeName": "宣宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "ming",
@@ -110889,8 +110889,8 @@
     "personalName": "祁鎮",
     "commonName": "英宗（正統帝/天順帝）",
     "aliases": [],
-    "posthumousName": null,
-    "templeName": null,
+    "posthumousName": "睿皇帝",
+    "templeName": "英宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "ming",
@@ -111020,13 +111020,15 @@
       "id": "ming-yingzong.eraChangeCount.e001",
       "datePrecision": "month",
       "date": "1435-02",
-      "note": "宣徳十年正月壬午、宣宗崩御を受け即位。「遵遗诏大事白皇太后行。大赦天下，以明年为正统元年。」により翌年を正統元年とする建元（即位に伴う最初の建元）。卷十より。"
+      "note": "宣徳十年正月壬午、宣宗崩御を受け即位。「遵遗诏大事白皇太后行。大赦天下，以明年为正统元年。」により翌年を正統元年とする建元（即位に伴う最初の建元）。卷十より。",
+      "eraName": "正統"
      },
      {
       "id": "ming-yingzong.eraChangeCount.e002",
       "datePrecision": "month",
       "date": "1457-02",
-      "note": "天順元年正月丙戌、奪門の変（南宮復辟）を経て「诏赦天下，改景泰八年为天顺元年」と詔し、景泰八年を天順元年に改める建元。卷十二より。"
+      "note": "天順元年正月丙戌、奪門の変（南宮復辟）を経て「诏赦天下，改景泰八年为天顺元年」と詔し、景泰八年を天順元年に改める建元。卷十二より。",
+      "eraName": "天順"
      }
     ],
     "confidence": "high"
@@ -111484,7 +111486,7 @@
     "personalName": "祁鈺",
     "commonName": "代宗（景泰帝）",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "恭仁康定景皇帝",
     "templeName": null,
     "regnalTitle": "皇帝"
    },
@@ -111782,8 +111784,8 @@
     "personalName": "見深",
     "commonName": "憲宗（成化帝）",
     "aliases": [],
-    "posthumousName": null,
-    "templeName": null,
+    "posthumousName": "純皇帝",
+    "templeName": "憲宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "ming",
@@ -112189,8 +112191,8 @@
     "personalName": "祐樘",
     "commonName": "孝宗（弘治帝）",
     "aliases": [],
-    "posthumousName": null,
-    "templeName": null,
+    "posthumousName": "敬皇帝",
+    "templeName": "孝宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "ming",
@@ -112485,8 +112487,8 @@
     "personalName": "厚照",
     "commonName": "武宗（正徳帝）",
     "aliases": [],
-    "posthumousName": null,
-    "templeName": null,
+    "posthumousName": "毅皇帝",
+    "templeName": "武宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "ming",
@@ -112815,8 +112817,8 @@
     "personalName": "厚熜",
     "commonName": "世宗（嘉靖帝）",
     "aliases": [],
-    "posthumousName": null,
-    "templeName": null,
+    "posthumousName": "粛皇帝",
+    "templeName": "世宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "ming",
@@ -113391,8 +113393,8 @@
     "personalName": "載坖",
     "commonName": "穆宗（隆慶帝）",
     "aliases": [],
-    "posthumousName": null,
-    "templeName": null,
+    "posthumousName": "荘皇帝",
+    "templeName": "穆宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "ming",
@@ -113492,7 +113494,8 @@
       "id": "ming-muzong.eraChangeCount.e001",
       "datePrecision": "day",
       "date": "1567-02-04",
-      "note": "世宗崩御を承け即位、同日「以明年为隆庆元年，大赦天下」と布告し翌年を隆慶元年と定めた（即位に伴う建元）。在位中（隆慶元年～六年）を通じ隆慶の元号のみを使用し、改元は行われていない。"
+      "note": "世宗崩御を承け即位、同日「以明年为隆庆元年，大赦天下」と布告し翌年を隆慶元年と定めた（即位に伴う建元）。在位中（隆慶元年～六年）を通じ隆慶の元号のみを使用し、改元は行われていない。",
+      "eraName": "隆慶"
      }
     ],
     "confidence": "high"
@@ -113639,8 +113642,8 @@
     "personalName": "翊鈞",
     "commonName": "神宗（万暦帝）",
     "aliases": [],
-    "posthumousName": null,
-    "templeName": null,
+    "posthumousName": "顕皇帝",
+    "templeName": "神宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "ming",
@@ -114353,8 +114356,8 @@
     "personalName": "常洛",
     "commonName": "光宗（泰昌帝）",
     "aliases": [],
-    "posthumousName": null,
-    "templeName": null,
+    "posthumousName": "貞皇帝",
+    "templeName": "光宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "ming",
@@ -114527,8 +114530,8 @@
     "personalName": "由校",
     "commonName": "熹宗（天啓帝）",
     "aliases": [],
-    "posthumousName": null,
-    "templeName": null,
+    "posthumousName": "悊皇帝",
+    "templeName": "熹宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "ming",
@@ -114825,7 +114828,7 @@
     "personalName": "由検",
     "commonName": "毅宗（崇禎帝）",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "荘烈愍皇帝",
     "templeName": null,
     "regnalTitle": "皇帝"
    },
