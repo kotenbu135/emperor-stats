@@ -71,6 +71,16 @@ def json_string_after(text, pos):
         return None
     if not isinstance(value, str):
         return None
+    return trim_spill(value)
+
+
+def trim_spill(value):
+    """隣の欄がこぼれ込んでいたら、そこから先を捨てる。
+
+    **JSON を解いた側（(a)）だけでなく、報告本文から拾った側（(b)）にも掛ける。**
+    「手順の提案: …」は JSON の値の中に埋まっていることがあり、その場合 PROSE_RE は
+    行末まで＝隣の欄まで取ってしまう（2026-08-06 に (a) だけ直して取りこぼした）。
+    """
     spill = SPILL_RE.search(value)
     return value[: spill.start()] if spill else value
 
@@ -118,7 +128,7 @@ def harvest_from_line(line):
                 found.append(val)
         # (b) 報告本文の「手順の提案:」節（検証エージェントは JSON を返さない）
         for m in PROSE_RE.finditer(text):
-            found.append(m.group(1))
+            found.append(trim_spill(m.group(1)))
     return [f for f in (html.unescape(s).strip() for s in found) if len(f) >= 20]
 
 
