@@ -19,15 +19,19 @@
 名前が同じでも別の局面を指している場合がある。原典で条を読むまでは差の意味は決まらない。
 
 **片方にしか無い反乱は見ていない**（`name` の表記が揺れているだけの取りこぼしを含む・
-規則 `R-SWEEP-DETECTION`）。取りこぼし率は**未測定**。
+規則 `R-SWEEP-DETECTION`）。取りこぼし率は**未測定**。ただし揺れのうち
+「鎮圧側の名前の末尾に『鎮圧』が付いているだけ」の形は `--loose` で測れる（2026-08-06 に
+18ペアが増え、うち2件が食い違った）。**それ以外の揺れ（言い換え・表記差）は依然として未測定。**
 
 出力:
     python3 scripts/screens/rebellion_pair_dates.py            # 人が読む形
     python3 scripts/screens/rebellion_pair_dates.py --json     # 件数だけ
+    python3 scripts/screens/rebellion_pair_dates.py --loose    # 接尾辞を落として突き合わせる
 """
 import argparse
 import json
 import pathlib
+import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 DATA = ROOT / "data" / "emperors.json"
@@ -41,7 +45,18 @@ def _events(record, field):
     return container.get("events") or []
 
 
-def scan():
+def _stem(name):
+    """鎮圧側の名前に付く接尾辞を落とす（`--loose` のときだけ使う）。
+
+    2026-08-06 の紹介文（東晋5人）で、明帝の顧颺の武康挙兵が被反乱 0324 ／ 鎮圧 0325-01 と
+    割れているのに既定の突き合わせに出てこなかった。鎮圧側の `name` が
+    「顧颺（沈充旧部将）の武康挙兵**鎮圧**」で、被反乱側と1字違いだったため。
+    上の「片方にしか無い反乱は見ていない」の取りこぼしが、実際に出た形。
+    """
+    return re.sub(r"(の)?(鎮圧|平定|討伐)$", "", name)
+
+
+def scan(loose=False):
     emperors = json.loads(DATA.read_text(encoding="utf-8"))["emperors"]
     pairs, differ = 0, []
     for record in emperors:
@@ -50,6 +65,8 @@ def scan():
             name = event.get("name")
             if name:
                 by_name.setdefault(name, event)
+                if loose:
+                    by_name.setdefault(_stem(name), event)
         for event in _events(record, SUFFERED):
             other = by_name.get(event.get("name"))
             if other is None:
@@ -79,9 +96,14 @@ def scan():
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="件数だけ出す")
+    parser.add_argument(
+        "--loose",
+        action="store_true",
+        help="鎮圧側の名前の末尾「鎮圧／平定／討伐」を落として突き合わせる（既定は完全一致）",
+    )
     args = parser.parse_args()
 
-    pairs, differ = scan()
+    pairs, differ = scan(loose=args.loose)
     if args.json:
         counts = {"pairs": pairs, "differ": len(differ)}
         for kind in ("start", "end", "start+end"):
