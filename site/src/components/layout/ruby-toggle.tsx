@@ -77,8 +77,12 @@ export function RubyToggle({
           className,
         )}
       >
+        {/* rt は <rp>（）</rp> で挟む（Issue #78）。画面には出ないが、タグを剥がす
+            テキスト抽出で「字じ」にならないための決まり（SITE_DESIGN.md 12節）。 */}
         <ruby>
-          字<rt>じ</rt>
+          字<rp>（</rp>
+          <rt>じ</rt>
+          <rp>）</rp>
         </ruby>
       </button>
     );

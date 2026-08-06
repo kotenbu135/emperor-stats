@@ -141,6 +141,12 @@ for (const width of WIDTHS) {
               checked: toggle.getAttribute("aria-checked"),
               label: toggle.getAttribute("aria-label"),
               cursor: window.getComputedStyle(toggle).cursor,
+              // rt を <rp>（）</rp> で挟んでいるか（Issue #78・タグを剥がしたときに
+              // 「字じ」にならないための決まり）。画面には出ない（rp は display:none）。
+              text: toggle.textContent,
+              rpShown: [...toggle.querySelectorAll("rp")].some(
+                (rp) => window.getComputedStyle(rp).display !== "none",
+              ),
               ...box(toggle),
             }
           : null,
@@ -203,6 +209,10 @@ for (const width of WIDTHS) {
       fail(label, `ふりがなトグルの aria-label が "${m.toggle.label}"`);
     } else if (m.toggle.cursor !== "pointer") {
       fail(label, `ふりがなトグルの cursor が ${m.toggle.cursor}`);
+    } else if (m.toggle.text !== "字（じ）") {
+      fail(label, `ふりがなトグルの中身が "${m.toggle.text}"（rp で挟んだ「字（じ）」）`);
+    } else if (m.toggle.rpShown) {
+      fail(label, "ふりがなトグルの rp が画面に出ている（display:none のはず）");
     }
 
     // 5. 現在地は朱1本だけ・aria-current はそのページ自身にだけ
