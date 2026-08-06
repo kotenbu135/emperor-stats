@@ -1,0 +1,13 @@
+{"text": "中山で皇帝の称号を名乗り、百官を置き、元号を改めた（晋書は「僭称」と書く）", "quote": "详僭称尊号，置百官，改年号。", "src": "_corpus_cache/houyan-murongxiang.txt:1"}
+{"text": "原文は「改年号」とだけ書き、その元号の名を記さない", "quote": "改年号", "src": "_corpus_cache/houyan-murongxiang.txt:1"}
+{"text": "酒に溺れ贅沢に耽り、際限なく人を殺し、王公以下500余人を処刑した", "quote": "荒酒奢淫，杀戮无度，诛其王公以下五百余人", "src": "_corpus_cache/houyan-murongxiang.txt:1"}
+{"text": "内外が震え上がり、誰も逆らって顔を上げることができなかった", "quote": "内外震局，莫敢忤视", "src": "_corpus_cache/houyan-murongxiang.txt:1"}
+{"text": "城内は大飢饉になり、高官のうちでも数十人が餓死した", "quote": "城中大饥，公卿饿死者数十人", "src": "_corpus_cache/houyan-murongxiang.txt:1"}
+{"text": "慕容麟が丁零の軍勢を率いて中山に入り、詳とその一党300余人を殺した", "quote": "麟率丁零之众入中山，斩详及其亲党三百余人，", "src": "_corpus_cache/houyan-murongxiang.txt:1"}
+{"text": "詳の即位・治世・最期を伝える原文は、この一続きの数十字しかない（原文全体が1行）", "quote": "详僭称尊号，置百官，改年号。荒酒奢淫，杀戮无度，诛其王公以下五百余人，内外震局，莫敢忤视。城中大饥，公卿饿死者数十人。麟率丁零之众入中山，斩详及其亲党三百余人，", "src": "_corpus_cache/houyan-murongxiang.txt:1"}
+{"text": "詳には独立した載記が立たず、記事は慕容宝の載記（晋書 巻百二十四）の中に置かれている", "quote": "晋書 巻一百二十四 載記第二十四（慕容寶・盛・熙・雲合巻、慕容詳部分）", "src": "data/emperors.json:houyan-murongxiang.reigns[0].source.page"}
+{"text": "在位は397年のうちに始まって同年に終わり、通算は概算で約183日", "quote": "詳僭稱尊號，置百官，改年號。荒酒奢淫，殺戮無度，誅其王公以下五百餘人，內外震局，莫敢忤視。城中大饑，公卿餓死者數十人。麟率丁零之眾入中山，斬詳及其親黨三百餘人。", "src": "data/emperors.json:houyan-murongxiang.reigns[0]"}
+{"text": "死因は処刑、即位経路は簒奪、被反乱1件は397年9月の慕容麟による中山攻撃", "quote": "麟率丁零之众入中山，斩详及其亲党三百余人，", "src": "data/emperors.json:houyan-murongxiang.deathCause/accessionRoute/rebellionSufferedCount.e001"}
+{"text": "原文は詳の父・生年・没年齢・慕容氏のどの枝かを一切書かない（データ側も廟号・諡号・年齢が空）", "quote": "详僭称尊号，置百官，改年号。", "src": "_corpus_cache/houyan-murongxiang.txt:1"}
+{"text": "詳は開封公で、魏の攻勢のさなか慕容宝が薊へ向かうときに中山の守備を任されていた", "quote": "宝与其太子策及农、隆等万余骑迎会于蓟，以开封公慕容详守中山", "src": "daizhigev20/史藏/正史/晋书.txt:8662"}
+{"text": "父の慕容宝に背いて龍城を囲んだ慕容会は、夜襲に敗れて単騎で中山へ逃げ帰り、囲みを越えて城内に入ったところを慕容詳に殺された", "quote": "会围龙城，侍御郎高云夜率敢死士百余人袭会，败之，众悉逃散，单马奔还中山，乃逾围而入，为慕容详所杀", "src": "daizhigev20/史藏/正史/晋书.txt:8662"}

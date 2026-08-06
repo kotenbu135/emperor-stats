@@ -1,0 +1,13 @@
+{"text": "西燕の左僕射・慕容恒と尚書・慕容永が段随を襲って殺し、宜都王の子・顗を燕王に立てて建明と改元し、鮮卑の男女四十余万人を率いて長安を離れ東へ向かった", "quote": "西燕左仆射慕容恒、尚书慕容永袭段随，杀之；立宜都王子顗为燕王，改元建明，帅鲜卑男女四十馀万口去长安而东", "src": "_corpus_cache/xiyan-murongyao.txt:1"}
+{"text": "恒の弟で護軍将軍の慕容韜が臨晋で顗を誘い出し、恒は怒って韜を見捨て永のもとへ移り、武衛将軍の刁雲とともに兵を率いて韜を攻めた。韜は敗れて恒の陣営へ逃げ込んだ", "quote": "恒弟护军将军韬，诱顗于临晋，恒怒，舍韬去咏与武卫将军刁云帅众攻韬。韬败，奔恒营", "src": "_corpus_cache/xiyan-murongyao.txt:1"}
+{"text": "慕容恒が西燕の主・慕容沖の子である瑤を皇帝に立て、建平と改元した", "quote": "恒立西燕主冲之子瑶为帝，改元建平", "src": "_corpus_cache/xiyan-murongyao.txt:1"}
+{"text": "瑤の代に父の慕容沖へ威皇帝という諡が贈られた", "quote": "谥冲曰威皇帝", "src": "_corpus_cache/xiyan-murongyao.txt:1"}
+{"text": "人々はみな瑤のもとを去って慕容永へ走り、永は瑤を捕らえて殺した", "quote": "众皆去瑶奔永，永执瑶，杀之", "src": "_corpus_cache/xiyan-murongyao.txt:1"}
+{"text": "永は慕容泓の子・忠を帝に立て、建武と改元した", "quote": "立慕容泓子忠为帝，改元建武", "src": "_corpus_cache/xiyan-murongyao.txt:1"}
+{"text": "忠は永を太尉・守尚書令とし、河東公に封じた", "quote": "忠以永为太尉，守尚书令，封河东公", "src": "_corpus_cache/xiyan-murongyao.txt:1"}
+{"text": "永は法をゆるやかにかたよりなく用いたので、鮮卑は落ち着いた", "quote": "永持法宽平，鲜卑安之", "src": "_corpus_cache/xiyan-murongyao.txt:1"}
+{"text": "一行は聞喜まで来たところで、燕主・慕容垂がすでに皇帝の号を称したと聞いて進めなくなり、燕熙城を築いてそこに住んだ", "quote": "至闻喜，闻燕主垂已称尊号，不敢进，筑燕熙城而居之", "src": "_corpus_cache/xiyan-murongyao.txt:1"}
+{"text": "瑤の在位は386年のうちの一か月ほど（約30日・日数は概算）", "quote": "恆立西燕主沖之子瑤為帝，改元建平，謚沖曰威皇帝。眾皆去瑤奔永，永執瑤，殺之，立慕容泓子忠為帝，改元建武。", "src": "data/emperors.json:xiyan-murongyao.reigns/reignSummary（典拠 資治通鑑 巻一百六 晋紀二十八 太元十一年）"}
+{"text": "死因は殺害（assassination）、廟号・諡号はなく、生年・没年・年齢も記録がない", "quote": "众皆去瑶奔永，永执瑶，杀之", "src": "data/emperors.json:xiyan-murongyao.deathCause/names/ages ＋ _corpus_cache/xiyan-murongyao.txt:1"}
+{"text": "恒の弟で護軍将軍の慕容韜が顗を誘い出し、臨晋で殺した", "quote": "恒弟护军将军韬诱顗，杀之于临晋", "src": "daizhigev20/史藏/编年/资治通鉴注.txt:10569"}
+{"text": "恒は怒って韜を見捨てて去り、永が武衛将軍の刁雲とともに兵を率いて韜を攻めた。韜は敗れて恒の陣営へ逃げ込んだ", "quote": "恒怒，拾韬去。永与武卫将军刁云帅众攻韬，韬败，奔恒营", "src": "daizhigev20/史藏/编年/资治通鉴注.txt:10569"}

@@ -1,0 +1,34 @@
+{"text": "平陽太守だった慕容沖が河東で挙兵し、二万を集めて蒲阪を攻めた", "quote": "平阳太守慕容冲起兵河东，有众二万，进攻蒲坂", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "苻堅は竇冲に慕容沖を討たせた", "quote": "坚命窦冲讨之", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "苻睿は敵を軽んじて慕容泓を追い、華澤で敗れて殺された", "quote": "苻睿勇果轻敌，不恤士众……战于华泽，睿败绩，被杀", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "姚萇は苻堅の怒りを見て処刑を恐れ、離反した", "quote": "坚大怒。苌惧诛，遂叛", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "慕容沖は竇冲に河東で大敗し、騎兵八千を率いて慕容泓の軍へ逃げ込んだ", "quote": "窦冲击慕容冲于河东，大破之，冲率骑八千奔于泓军", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "慕容泓の軍勢は十余万に達した", "quote": "泓众至十余万", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "慕容泓は苻堅への使者に、秦が燕の社稷を滅ぼしたこと・大燕を復興することを言わせた", "quote": "秦为无道，灭我社稷。今天诱其衷，使秦师倾败，将欲兴复大燕", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "慕容泓は長安にいた兄の皇帝と宗室を送り返すよう求め、自分は関中の燕人を率いると告げた", "quote": "可速资备大驾，奉送家兄皇帝并宗室功臣之家。泓当率关中燕人", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "苻堅は慕容暐を呼びつけ、一族を人面獣心と罵った", "quote": "卿之宗族，可谓人面兽心，殆不可以国士期也", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "苻堅は慕容垂・慕容泓・慕容沖の三人を名指しして責めた", "quote": "垂为长蛇于关东，泓、冲称兵内侮", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "慕容暐は額を地に打ちつけて血を流し、泣いて詫びた", "quote": "叩头流血，泣涕陈谢", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "苻堅は慕容暐を元の位に戻し、垂・泓・沖に兵を収めて長安へ戻れという手紙を書かせた", "quote": "复其位而待之如初。命以书招喻垂及泓、冲，使息兵还长安，恕其反叛之咎", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "慕容暐は同時に密使を慕容泓へ送り、自分の死を聞いたら位に即けと伝えた", "quote": "而密遣使者谓泓曰……吾既笼中之人，必无还理……听吾死问，汝使即尊位", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "慕容泓は長安へ向けて進み、燕興と改元した", "quote": "泓于是进向长安，改年曰燕兴", "src": "_corpus_cache/xiyan-murongchong.txt:1"}
+{"text": "慕容沖は長安の暮らしを気に入り、慕容垂の強大さを恐れて東へ帰らなかった", "quote": "西燕主冲乐在长安，且畏燕主垂强，不敢东归", "src": "_corpus_cache/xiyan-murongchong.txt:4"}
+{"text": "農耕を課し家屋を建てさせて長く住み着く計画を立てたため、鮮卑はみなこれを怨んだ", "quote": "课农筑室，为久安之计，鲜卑咸怨之", "src": "_corpus_cache/xiyan-murongchong.txt:4"}
+{"text": "左将軍の韓延が兵の不満に乗じて慕容沖を攻め、殺した", "quote": "左将军韩延因众心不悦，攻冲，杀之", "src": "_corpus_cache/xiyan-murongchong.txt:4"}
+{"text": "韓延は慕容沖の部将だった段隨を燕王に立て、昌平と改元した", "quote": "立冲将段随为燕王，改元昌平", "src": "_corpus_cache/xiyan-murongchong.txt:4"}
+{"text": "在位は384年から386年", "quote": "在位: 384〜386年／通算 約731日（2.0年）／1期", "src": "data/emperors.json:xiyan-murongchong.reigns"}
+{"text": "即位したとき26歳、死んだとき28歳（数え年）", "quote": "年齢: 即位 26／没 28（生 0359／没 0386・数え年）", "src": "data/emperors.json:xiyan-murongchong.ages"}
+{"text": "前任者は兄で、その兄は非業の死をとげ、慕容沖を立てたのは第三者だった", "quote": "軸: 皇位の出所 inherited／称号の由来 new／決定者 third-party／前任者の末路 violent-death／前任者との関係 younger-brother", "src": "data/emperors.json:xiyan-murongchong.accessionRoute"}
+{"text": "死因は暗殺", "quote": "死因: assassination", "src": "data/emperors.json:xiyan-murongchong.deathCause"}
+{"text": "諡は威帝（廟号は無い）", "quote": "名: 姓 慕容／諱 沖／通用名 威帝／廟号 —／諡号 威帝", "src": "data/emperors.json:xiyan-murongchong.names"}
+{"text": "謀臣の高蓋らは慕容泓を殺し、慕容沖を皇太弟に立てて詔を待たずに事を決めさせた", "quote": "泓谋臣高盖、宿勤崇等以泓德望后冲，且持法苛峻，乃杀泓，立冲为皇太弟，承制行事，自相署置", "src": "daizhigev20/史藏/正史/晋书.txt:8219"}
+{"text": "慕容沖は婦人を牛馬に乗せて兵に見せかけ、竿を旗とし土埃を立てて鄭西の苻暉を破った", "quote": "冲乃令妇人乘牛马为众，揭竿为旗，扬土为尘，督厉其众，晨攻晖营于郑西。晖出距战，冲扬尘鼓噪，晖师败绩", "src": "daizhigev20/史藏/正史/晋书.txt:8221"}
+{"text": "灞上で姜宇を敗死させ、阿房城を手に入れた", "quote": "与苻琳率众三万，击冲于灞上，为冲所败，宇死之，琳中流矢，冲遂据阿房城", "src": "daizhigev20/史藏/正史/晋书.txt:8221"}
+{"text": "前燕滅亡のとき十四歳の姉の清河公主と十二歳の沖がともに苻堅の寵愛を受け、王猛の諫めで沖は宮の外へ出された", "quote": "初，坚之灭燕，冲姊为清河公主，年十四，有殊色，坚纳之，宠冠后庭。冲年十二，亦有龙阳之姿，坚又幸之……王猛切谏，坚乃出冲", "src": "daizhigev20/史藏/正史/晋书.txt:8221"}
+{"text": "長安に鳳皇の謡が流れ、苻堅は阿房城に桐と竹を数十万株植えて待った。沖の幼名が鳳皇だった", "quote": "长安又谣曰：“凤皇凤皇止阿房。”坚以凤皇非梧桐不栖，非竹实不食，乃植桐竹数十万株于阿房城以待之。冲小字凤皇", "src": "daizhigev20/史藏/正史/晋书.txt:8221"}
+{"text": "城壁の苻堅が奴隷の輩と罵ると、慕容沖は奴隷の苦しみに飽きたので代わろうと答えた", "quote": "尔辈群奴正可牧牛羊，何为送死！”冲曰：“奴则奴矣，既厌奴苦，复欲取尔见代", "src": "daizhigev20/史藏/正史/晋书.txt:8225"}
+{"text": "苻堅が錦の袍を贈ると、沖は詹事に皇太弟の令として答えさせ、心は天下にあると言わせた", "quote": "坚遣使送锦袍一领遗冲……冲命詹事答之，亦称“皇太弟有令：孤今心在天下，岂顾一袍小惠", "src": "daizhigev20/史藏/正史/晋书.txt:8225"}
+{"text": "慕容沖は阿房で皇帝号を称し、更始と改元した", "quote": "慕容冲僭称尊号于阿房，改年更始", "src": "daizhigev20/史藏/正史/晋书.txt:8230"}
+{"text": "慕容沖の支配下で関中の人は流れ散り、千里に煙が絶えた", "quote": "冲毒暴关中，人皆流散，道路断绝，千里无烟", "src": "daizhigev20/史藏/正史/晋书.txt:8235"}
+{"text": "苻堅が五将山へ逃れたあと慕容沖は長安に入り、従う兵が大いに掠奪した", "quote": "坚弥惧，付宏以后事，将中山公诜、张夫人率骑数百出如五将……慕容冲入据长安，从兵大掠，死者不可胜计", "src": "daizhigev20/史藏/正史/晋书.txt:8236"}
+{"text": "苻堅が長安を離れて五将山へ移り、姚萇に殺されたのは太元十年（385年）", "quote": "坚至五将山，姚苌遣将军吴忠围之……苌乃缢坚于新平佛寺中，时年四十八……是岁太元十年也", "src": "daizhigev20/史藏/正史/晋书.txt:8238"}

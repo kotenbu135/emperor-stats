@@ -1,0 +1,15 @@
+{"text": "397年、慕容麟は再び皇帝の位を称した（『晋書』は「復」と書き、一度目については触れない）", "quote": "复僭称尊号。", "src": "_corpus_cache/houyan-muronglin.txt:1"}
+{"text": "そのとき首都中山の飢えは激しかった", "quote": "中山饥甚，", "src": "_corpus_cache/houyan-muronglin.txt:1"}
+{"text": "麟は新市へ出て拠点を構えた", "quote": "麟出据新市，", "src": "_corpus_cache/houyan-muronglin.txt:1"}
+{"text": "義台で北魏軍と戦い、麟の軍は大敗した", "quote": "与魏师战于义台，麟军败绩。", "src": "_corpus_cache/houyan-muronglin.txt:1"}
+{"text": "北魏軍はそのまま中山に入り、麟は鄴へ逃げた", "quote": "魏师遂人中山，麟乃奔鄴。", "src": "_corpus_cache/houyan-muronglin.txt:1"}
+{"text": "慕容麟は何かを自分に向けられた瑞兆と受け取った（何を指すかは記述に無い）", "quote": "慕容麟以为已瑞。", "src": "_corpus_cache/houyan-muronglin.txt:3"}
+{"text": "ひそかに反乱を謀ったが発覚し、死を命じられた", "quote": "及此，潜谋为乱，事觉，赐死。", "src": "_corpus_cache/houyan-muronglin.txt:3"}
+{"text": "在位は397〜398年・1期・通算約151日（概算）", "quote": "復僭稱尊號。中山饑甚，麟出據新市，與魏師戰於義台，麟軍敗績。魏師遂入中山，麟乃奔鄴。", "src": "data/emperors.json:houyan-muronglin.reigns/reignSummary（typica 晋書 巻一百二十四 載記第二十四）"}
+{"text": "義台の敗戦は397年9月", "quote": "復僭稱尊號。中山饑甚，麟出據新市，與魏師戰於義台，麟軍敗績。魏師遂入中山，麟乃奔鄴。", "src": "data/emperors.json:houyan-muronglin.events.personalCampaignCount.e001"}
+{"text": "死因は自死（命じられての死）", "quote": "（載記二十七）慕容麟以為已瑞，及此，潛謀為亂，事覺，賜死。", "src": "data/emperors.json:houyan-muronglin.deathCause（晋書 巻一百二十七 載記第二十七 慕容徳）"}
+{"text": "麟についての記述は慕容徳の載記など他人の載記の中にあり、彼自身の載記は立っていない", "quote": "（載記二十七）慕容麟以為已瑞，及此，潛謀為亂，事覺，賜死。", "src": "data/emperors.json:houyan-muronglin.reigns[0].source.page（晋書 巻一百二十四・巻一百二十七）"}
+{"text": "慕容宝を殺して慕容麟を立てようとする企てが露見し、麟は禁軍をあずかる北地王精を兵で脅して宝を襲おうとしたが、応じない精を殺して丁零のもとへ逃げた", "quote": "其夜尚书慕容皓谋杀宝，立慕容麟。皓妻兄苏泥告之，宝使慕容隆收皓，皓与同谋数十人斩关奔魏。麟惧不自安，以兵劫左卫将军、北地王精，谋率禁旅弑宝。精以义距之，麟怒，杀精，出奔丁零。", "src": "daizhigev20/史藏/正史/晋书.txt:8661"}
+{"text": "慕容宝は中山を出るとき、留守を開封公慕容詳に任せた", "quote": "以开封公慕容详守中山。", "src": "daizhigev20/史藏/正史/晋书.txt:8662"}
+{"text": "慕容詳が先に中山で皇帝を称して官を置き改元し、王公以下500人あまりを殺し、城中は飢えて重臣数十人が餓死した", "quote": "详僭称尊号，置百官，改年号。荒酒奢淫，杀戮无度，诛其王公以下五百余人，内外震局，莫敢忤视。城中大饥，公卿饿死者数十人。", "src": "daizhigev20/史藏/正史/晋书.txt:8663"}
+{"text": "慕容麟は丁零の兵を率いて中山に入り、慕容詳とその一党300人あまりを殺したうえで皇帝の位に就いた（『晋書』の「復」はこの経緯を指す）", "quote": "麟率丁零之众入中山，斩详及其亲党三百余人，复僭称尊号。", "src": "daizhigev20/史藏/正史/晋书.txt:8663"}

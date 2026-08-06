@@ -1,0 +1,17 @@
+{"text": "梁の将軍王琳が長江の上で陳霸先と対抗していた", "quote": "梁将王琳在江上与霸先相抗", "src": "_corpus_cache/liang-xiaozhuang.txt:1"}
+{"text": "北斉の顕祖が兵を送り、梁の永嘉王蕭荘を送り込んで梁の祭祀を主宰させた", "quote": "显祖遣兵纳梁永嘉王萧庄主梁祀", "src": "_corpus_cache/liang-xiaozhuang.txt:1"}
+{"text": "天保九年（558年）二月に湓城から長江を渡り、三月に郢州で帝位に即き、年号を天啓とした", "quote": "九年二月，自湓城济江，三月，即帝位于郢州，年号天启", "src": "_corpus_cache/liang-xiaozhuang.txt:1"}
+{"text": "軍事も国政もすべて王琳が統括した", "quote": "王琳总其军国", "src": "_corpus_cache/liang-xiaozhuang.txt:1"}
+{"text": "蕭淵明（蕭明）に閔皇帝の諡が追贈された", "quote": "追谥明曰闵皇帝", "src": "_corpus_cache/liang-xiaozhuang.txt:1"}
+{"text": "翌年、蕭荘は陳に敗れ、そのまま北斉へ入朝して侯に封じられた", "quote": "明年庄为陈人所败，遂入朝，封为侯", "src": "_corpus_cache/liang-xiaozhuang.txt:1"}
+{"text": "北斉の朝廷は梁の復興を約束したが、ついに実現しなかった", "quote": "朝廷许以兴复，竟不果", "src": "_corpus_cache/liang-xiaozhuang.txt:1"}
+{"text": "後主が滅んだ日、蕭荘は鄴で死んだ", "quote": "后主亡之日，庄在邺饮气而死", "src": "_corpus_cache/liang-xiaozhuang.txt:1"}
+{"text": "560年2月、陳の太尉侯瑱が梁山で王琳を、博望で北斉軍を破り、斉将劉伯球を生け捕りにし、船と物資をすべて奪った。捕虜は万を数え、王琳とその主蕭荘は北斉へ逃げた", "quote": "丙申，太尉侯瑱败王琳于梁山，攻齐兵于博望，生擒齐将刘伯球，尽收其资储船舰，俘馘以万计，王琳及其主萧庄奔于齐", "src": "data/emperors.json:liang-xiaozhuang.reigns[0].source.quote（陳書 卷三 世祖本紀・天嘉元年二月）"}
+{"text": "陳書は永定二年三月の条に、王琳が梁の永嘉王蕭荘を郢州に立てたと記す", "quote": "是月，王琳立梁永嘉王萧庄于郢州", "src": "data/emperors.json:liang-xiaozhuang.reigns[0].source.quote（陳書 卷二 高祖本紀下・永定二年三月）"}
+{"text": "蕭荘の記事は『北齊書』巻三十三の蕭明伝に付されたもので、全体で111字しかない", "quote": "北齊書 卷三十三 補列傳第二十五（蕭明傳附蕭莊）", "src": "data/emperors.json:liang-xiaozhuang.reigns[0].source.page"}
+{"text": "廟号も諡号も伝わらず、死因も不明", "quote": "廟号 —／諡号 —／死因: unknown", "src": "data/emperors.json:liang-xiaozhuang.name,deathCause"}
+{"text": "蕭荘は梁元帝の孫で、武烈世子と改諡された蕭方等の子であり、永嘉王に封じられた", "quote": "元帝即位，改諡武烈世子。封子庄为永嘉王。", "src": "daizhigev20/史藏/正史/南史.txt:4709"}
+{"text": "父の蕭方等は討伐に出て軍が敗れ、麻溪で溺れて死んだ", "quote": "及至麻溪，军败溺死，求尸不得。", "src": "daizhigev20/史藏/正史/南史.txt:4707"}
+{"text": "554年に西魏が江陵を落としたとき蕭荘は七歳で、ある家にかくまわれた。のちに王琳が建康へ送り届け、敬帝が立つと人質として北斉へ渡った", "quote": "及魏克江陵，庄年甫七岁，为人家所匿。后王琳迎送建邺。及敬帝立，出质于齐。", "src": "daizhigev20/史藏/正史/南史.txt:4709"}
+{"text": "陳武帝が禅譲を受けようとしたとき、王琳は梁を継がせるためとして北斉へ蕭荘の返還を願い出て、盆城から長江を渡らせた", "quote": "敬帝太平二年，陈武帝将受禅，王琳请庄于齐以主梁嗣，自盆城济江。", "src": "daizhigev20/史藏/正史/南史.txt:4709"}
+{"text": "郢州での即位に際して百官が置かれたが、軍事も国政も王琳が統括した", "quote": "置百官。王琳总其军国。", "src": "daizhigev20/史藏/正史/南史.txt:4709"}

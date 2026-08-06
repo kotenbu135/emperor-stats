@@ -313,6 +313,10 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("emperor_id")
     ap.add_argument("needle", nargs="?", help="探す語（人名など）。新字体でも簡体字でもよい")
+    # 「晋書 巻六十七 郗超伝」のように書名・巻・注記まで渡されることが実際にあり、
+    # argparse の usage error で落ちると1往復ぶん無駄になる（2026-08-06・東晋バッチで2体）。
+    # 余分な語は落とし、先頭だけを needle にして進む（落としたことは stderr に出す）。
+    ap.add_argument("extra", nargs="*", help=argparse.SUPPRESS)
     ap.add_argument("--book", help="書名を明示する（既定はレコードの source.page から引く）")
     ap.add_argument("--max", type=int, default=5)
     ap.add_argument("--window", type=int, default=160, help="前後に出す字数")
@@ -325,6 +329,14 @@ def main() -> int:
     ap.add_argument("--no-head", action="store_true",
                     help="人名を伝首「<名>字…」へ言い換えずに、そのまま引く")
     args = ap.parse_args()
+
+    if args.extra:
+        print(
+            f"（needle は1語だけ受け取る。{'・'.join(args.extra)} は落として "
+            f"「{args.needle}」で引く。当たらないときは、Web差分が挙げた特徴句"
+            "そのもの〔例: 地不能载〕を needle にすると巻を一発で絞れる）",
+            file=sys.stderr,
+        )
 
     books = [args.book] if args.book else books_for(args.emperor_id)
     if not books:
