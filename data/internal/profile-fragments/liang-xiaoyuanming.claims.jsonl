@@ -1,0 +1,27 @@
+{"text": "王僧辯が貞陽侯蕭明（蕭淵明）を受け入れ、采石から長江を渡らせた（七月辛丑）", "quote": "七月辛丑，僧辩纳贞阳侯萧明，自采石济江。", "src": "_corpus_cache/liang-xiaoyuanming.txt:1"}
+{"text": "甲辰に建鄴へ入った", "quote": "甲辰，入建邺。", "src": "_corpus_cache/liang-xiaoyuanming.txt:1"}
+{"text": "丙午に位に就き、年号を天成とし、蕭方智（のちの敬帝）を皇太子とした", "quote": "丙午，即僞位。年号天成，以帝爲皇太子。", "src": "_corpus_cache/liang-xiaoyuanming.txt:1"}
+{"text": "『南史』はこの即位を「偽位に即く」と書き、正統な皇帝として数えない", "quote": "丙午，即僞位。", "src": "_corpus_cache/liang-xiaoyuanming.txt:1"}
+{"text": "司空の陳霸先が王僧辯を襲って殺し、蕭淵明を廃して蕭方智を奉じた", "quote": "司空陈霸先袭杀王僧辩，黜萧明而奉帝焉。", "src": "_corpus_cache/liang-xiaoyuanming.txt:1"}
+{"text": "在位中の事績として本紀が書くのは渡江・入京・即位・改元・立太子の1行だけで、それ以外は何も記されない", "quote": "七月辛丑，僧辩纳贞阳侯萧明，自采石济江。甲辰，入建邺。丙午，即僞位。年号天成，以帝爲皇太子。司空陈霸先袭杀王僧辩，黜萧明而奉帝焉。", "src": "_corpus_cache/liang-xiaoyuanming.txt:1"}
+{"text": "九月丙午に蕭方智が皇帝の位に就いた", "quote": "绍泰元年秋九月丙午，皇帝即位。", "src": "_corpus_cache/liang-xiaoyuanming.txt:2"}
+{"text": "この本紀は555年を紹泰元年として数え、天成の年号は即位の条に一度出るだけである", "quote": "绍泰元年秋九月丙午，皇帝即位。冬十月己巳，大赦，改元。", "src": "_corpus_cache/liang-xiaoyuanming.txt:2"}
+{"text": "廃位後、貞陽侯蕭明は司徒とされ、建安郡公に封じられた", "quote": "以贞阳侯萧明爲司徒，封建安郡公。", "src": "_corpus_cache/liang-xiaoyuanming.txt:2"}
+{"text": "癸丑に司徒から太傅へ移された", "quote": "癸丑，以太尉萧循爲太保，以司徒萧明爲太傅", "src": "_corpus_cache/liang-xiaoyuanming.txt:2"}
+{"text": "翌年五月癸未、太傅・建安公として死んだ。本紀は死の様子を書かない", "quote": "五月癸未，太傅建安公萧明薨。", "src": "_corpus_cache/liang-xiaoyuanming.txt:9"}
+{"text": "在位は555年8月30日から10月27日までの58日", "quote": "reigns[0] startDate 0555-08-30 / endDate 0555-10-27 / duration.exactDays 58", "src": "data/emperors.json:liang-xiaoyuanming.reigns[0]"}
+{"text": "前任者（元帝）とは従兄弟にあたる", "quote": "accessionRoute.axes.relationToPredecessor = cousin", "src": "data/emperors.json:liang-xiaoyuanming.accessionRoute.axes"}
+{"text": "生年・没年齢は伝わらない", "quote": "ages.birthDate = null / ages.accessionAge = null / ages.deathAge = null", "src": "data/emperors.json:liang-xiaoyuanming.ages"}
+{"text": "廟号も諡号も無い", "quote": "name.templeName = null / name.posthumousName = null", "src": "data/emperors.json:liang-xiaoyuanming.name"}
+{"text": "擁立を決めたのは本人ではなく第三者（王僧辯ら）である", "quote": "accessionRoute.axes.decidedBy = [third-party]", "src": "data/emperors.json:liang-xiaoyuanming.accessionRoute.axes"}
+{"text": "太清元年（547年）に豫州刺史となった", "quote": "太清元年，为豫州刺史", "src": "daizhigev20/史藏/正史/南史.txt:4506"}
+{"text": "武帝が北へ兵を出したとき、自分から従軍を願い出て許された", "quote": "明乃拜表求行。固请，乃许之。", "src": "daizhigev20/史藏/正史/南史.txt:4507"}
+{"text": "寒山に堰を築いて彭城へ水を引いた", "quote": "作寒山堰以灌彭城", "src": "daizhigev20/史藏/正史/南史.txt:4507"}
+{"text": "東魏の慕容紹宗が到着して堰を切った", "quote": "绍宗至，决堰水", "src": "daizhigev20/史藏/正史/南史.txt:4508"}
+{"text": "蕭淵明は酔って起き上がれず、軍は敗れて彼は捕虜になった", "quote": "明醉不能兴，F军大败，明见俘执。", "src": "daizhigev20/史藏/正史/南史.txt:4509"}
+{"text": "江陵が落ちたのち、北斉の文宣帝が蕭淵明を梁へ送り返した", "quote": "魏平江陵，齐文宣使送明至梁", "src": "daizhigev20/史藏/正史/南史.txt:4510"}
+{"text": "王僧辯ははじめ迎えを断ったが、送りとどけた北斉軍が東関を破って裴之横を斬ると、恐れて受け入れた", "quote": "明与僧辩书求迎，僧辩不从。及涣破东关，斩裴之横，僧辩惧，乃纳明。", "src": "daizhigev20/史藏/正史/南史.txt:4510"}
+{"text": "建鄴に着いたとき、朱雀門を望んで泣き出した", "quote": "明至，望朱雀门便长恸", "src": "daizhigev20/史藏/正史/南史.txt:4511"}
+{"text": "即位して承聖四年を天成元年と改め、境内に大赦した（在位中の記事は列伝の側にある）", "quote": "及称尊号，改承圣四年为天成元年，大赦境内。", "src": "daizhigev20/史藏/正史/南史.txt:4511"}
+{"text": "北斉が送還を求め、陳霸先が送り出そうとした矢先に、背に腫れ物が出て死んだ", "quote": "明年，齐人征明，霸先犹称蕃，将遣使送明，疽发背死。", "src": "daizhigev20/史藏/正史/南史.txt:4511"}
+{"text": "のちに蕭荘が梁の祭祀を継いだとき、閔皇帝と追諡された", "quote": "齐文宣遣兵纳永嘉王庄主梁祀，追諡明曰闵皇帝。", "src": "daizhigev20/史藏/正史/南史.txt:4511"}
