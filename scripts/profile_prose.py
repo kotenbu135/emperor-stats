@@ -36,6 +36,9 @@ LEXICON = ROOT / "data" / "profile-ruby-lexicon.json"
 
 # site/src/lib/ruby.ts の RUBY_PATTERN と同じもの。片方だけ変えないこと。
 RUBY = re.compile(r"｜([^｜《》]+)《([^｜《》]+)》")
+# 1字の親文字を「熟語の中」に限るための漢字クラス。
+# **reapply_profile_ruby.py の KANJI_CLASS と同じ規則で動かす**（片方だけ変えない）。
+KANJI = r"[㐀-鿿豈-﫿\U00020000-\U0003ffff\x00]"
 # 史書の語そのものを話題にしている箇所（「薨」とだけ書く）。訓読調の検査から外す。
 QUOTED = re.compile(r"[「『][^」』]*[」』]")
 
@@ -148,6 +151,25 @@ def missing_ruby(text: str, lexicon: dict[str, list[str]]) -> list[tuple[str, in
     # 「侯」を二重に数えない。辞書に短い語が入っていても部分一致で暴発しない）。
     hits: list[tuple[str, int, str]] = []
     for plain in sorted(required, key=len, reverse=True):
+        if len(plain) == 1:
+            # **1字の親文字は熟語の中だけ要求する**（2026-08-06）。
+            # reapply_profile_ruby.py が写すのも熟語の中だけなので、ここで単独の
+            # 出現まで要求すると**道具では直せない指摘**になる（「孫晧」に振った
+            # ｜孫《そん》 が、地の文の「…の孫が継いだ」＝まご にも要求される）。
+            # 両者は同じ規則で動かす。片方だけ変えないこと。
+            pat = re.compile(
+                f"(?<={KANJI}){re.escape(plain)}|{re.escape(plain)}(?={KANJI})"
+            )
+            spans = [m.span() for m in pat.finditer(rest)]
+            n = len(spans)
+            if n:
+                hits.append((plain, n, required[plain]))
+                chars = list(rest)
+                for lo, hi in spans:
+                    for j in range(lo, hi):
+                        chars[j] = "\x00"
+                rest = "".join(chars)
+            continue
         n = rest.count(plain)
         if n:
             hits.append((plain, n, required[plain]))
