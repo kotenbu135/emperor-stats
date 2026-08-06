@@ -248,6 +248,20 @@ def source_scale(emperor_id: str, body_len: int) -> str:
     return f"／原文キャッシュ {src:,}字の {body_len / src:.0%}"
 
 
+def paragraph_lengths(text: str) -> list[int]:
+    """body を空行で割って、**ルビを外した**段落ごとの字数を出す（2026-08-06）。
+
+    総字数しか出していなかったので、「目安を超えた」を解消するのに書き手が段落長を
+    自分で測っていた。実測（2026-08-06・晋10人）では反映段が `count.py`・`lines.py`・
+    `lines2.py`・`cmp.py` をスクラッチパッドに書いており、規範の「build.py の類を書かない」が
+    ここで破れている。**字数は strip_ruby を通さないと合わない**（｜親文字《ルビ》の
+    ルビぶんが乗る）ので、手で測ると値そのものが違う。
+
+    段落の切り方は書き手への指示（「段落は空行で分ける」）と同じ。
+    """
+    return [len(strip_ruby(p)) for p in re.split(r"\n\s*\n", text.strip()) if p.strip()]
+
+
 def coverage(fragment: str, haystack: str) -> float:
     """原文断片が haystack にどれだけ乗っているか（最長共通部分列の被覆率）。
 
@@ -639,6 +653,14 @@ def main() -> int:
                     + "）"
                 )
             print(f"{emperor_id}: {field} = {n}字 {mark}")
+            if field == "body":
+                paras = paragraph_lengths(text)
+                if len(paras) > 1:
+                    print(
+                        f"{emperor_id}: body の段落ごとの字数（{len(paras)}段落）= "
+                        + "／".join(f"{p}字" for p in paras)
+                        + "（削るなら段落ごと。刈り取るより読める）"
+                    )
             if not (lo <= n <= hi):
                 over = n > hi
                 how = (

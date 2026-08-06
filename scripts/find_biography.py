@@ -24,6 +24,12 @@
 **`--dump` を使う。** 窓（前後160字）だけ渡すと、書き手は結局その巻を自分で切り出しに
 行く（2026-08-05・劉鋹の反映段が `scan.py`・`dump.py` を書いて宋史列伝のファイル命名を
 総当たりした）。降りるのは1箇所と決まっているのだから、その1箇所は最初から丸ごと渡す。
+
+**人名 ＋ `--dump` のときは伝首「<名>字…」へ言い換えてから引く**（2026-08-06・`head_keys`）。
+人名だけで引くと**他人の伝の中の言及**が先に当たり、`--dump` が外れた巻を丸ごと出す。
+言い換えたことは1行出るので、外したときはそこで分かる（`--no-head` でそのまま引ける）。
+言い換えの候補は「姓を落とした形」まで下りるので、**人名でない語を人名として渡すと
+`往字` のような無関係な形に当たることが理屈のうえでは有りうる** — 出た1行を読む。
 """
 from __future__ import annotations
 
@@ -198,6 +204,53 @@ def dump_around(path: Path, lines: list[str], hit: int, vols: dict[int, int], bu
         print(text)
 
 
+HAN_NAME = re.compile(r"^[㐀-鿿豈-﫿]{2,4}$")
+
+
+def head_keys(needle: str) -> list[str]:
+    """人名で引かれたとき、**その人の伝の書き出し**を先に狙う候補（優先順）。
+
+    2026-08-06 の東晋バッチで、反映段が3人とも人名だけでは降り先へ届かず引き直していた
+    （何充 → `--help` → 字次道 → 字次道 --dump ／ 庾冰 → 庾冰字季坚 → 冰字季坚 --dump）。
+    列伝は「何充，字次道，庐江灊人」で始まるが、**同じ人名は他人の伝の中にも何度も出る**ので
+    ファイル順の最初の当たりは他人の巻になる（晋书で「何充」を引くと第一章・第三十七章・
+    第五十三章…と続き、本人の伝＝第四十七章は先頭に来ない）。`--dump` はその最初の当たりを
+    丸ごと出すため、**降り先そのものが外れる**。
+
+    付伝（家伝の中に続けて立つ伝）は姓を落として「冰字季坚。兄亮以名德流训…」と書き出すので、
+    姓を1字・2字落とした形も候補に入れる（司馬・慕容・拓跋のような複姓のため）。
+    """
+    if not HAN_NAME.match(needle) or "字" in needle:
+        return []
+    keys = [needle + "字"]
+    for cut in (1, 2):
+        if len(needle) - cut >= 1:
+            keys.append(needle[cut:] + "字")
+    return keys
+
+
+def find_head(files: list[Path], keys: list[str]) -> tuple[int, Path, int] | None:
+    """候補のうち**もっとも優先の高いもの**が当たる場所を1巡で探す。
+
+    先頭候補（姓を落としていない形）が当たった時点で打ち切る。当たらなければ最後まで走って、
+    姓を落とした形の当たりを返す。返すのは (候補の順位, ファイル, 行) だけで、本文は出さない。
+    """
+    norm_keys = [norm_for_match(k) for k in keys]
+    best: tuple[int, Path, int] | None = None
+    for path in files:
+        for i, line in enumerate(load_lines(path), 1):
+            n = norm_for_match(line)
+            for rank, k in enumerate(norm_keys):
+                if not k or k not in n:
+                    continue
+                if best is None or rank < best[0]:
+                    best = (rank, path, i)
+                if rank == 0:
+                    return best
+                break
+    return best
+
+
 def is_toc_line(line: str) -> bool:
     """目録・目次の行か（本文の行は数千字あるので、短い行だけを疑う）。
 
@@ -269,6 +322,8 @@ def main() -> int:
                          "降りるのは1箇所なので、自分で切り出しに行かずここで受け取る")
     ap.add_argument("--dump-budget", type=int, default=12000,
                     help="--dump で出す最大字数（既定 12000）")
+    ap.add_argument("--no-head", action="store_true",
+                    help="人名を伝首「<名>字…」へ言い換えずに、そのまま引く")
     args = ap.parse_args()
 
     books = [args.book] if args.book else books_for(args.emperor_id)
@@ -293,8 +348,26 @@ def main() -> int:
         print("列伝の実体が見つからない", file=sys.stderr)
         return 1
 
-    print(f"\n# 「{args.needle}」を {len(files)} ファイルから探す")
-    n = search(files, args.needle, args.window, args.max, args.dump, args.dump_budget)
+    needle = args.needle
+    # **人名で `--dump` するときだけ**、伝首の形へ言い換える（窓だけ出すときは
+    # 「その人名がどこに出るか」を見る用途があるので触らない）。
+    keys = [] if (args.no_head or not args.dump) else head_keys(needle)
+    if keys:
+        hit = find_head(files, keys)
+        if hit is None:
+            print(
+                f"\n（伝首「{keys[0]}…」は当たらなかった。人名のまま引く — "
+                "本人の伝が立っていないか、避諱・PUA文字で当たらない可能性がある）"
+            )
+        elif norm_for_match(keys[hit[0]]) != norm_for_match(needle):
+            needle = keys[hit[0]]
+            print(
+                f"\n（人名「{args.needle}」は他人の伝の中にも出るので、伝首「{needle}」で引く"
+                f" — {hit[1].relative_to(ROOT)}:{hit[2]}。そのまま引くなら --no-head）"
+            )
+
+    print(f"\n# 「{needle}」を {len(files)} ファイルから探す")
+    n = search(files, needle, args.window, args.max, args.dump, args.dump_budget)
     if not n:
         print(
             "\n0 件。**「原文に記事が無い」は証拠にならない**（別の呼称・避諱・PUA文字で"
