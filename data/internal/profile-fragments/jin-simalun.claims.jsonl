@@ -1,0 +1,36 @@
+{"text": "301年（永寧元年）正月乙丑、趙王倫が帝位を奪った", "quote": "永宁元年春正月乙丑，赵王伦篡帝位", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "翌丙寅、恵帝を金墉城へ移して太上皇の号を与え、金墉を永昌宮と改名した", "quote": "丙寅，迁帝于金墉城，号曰太上皇，改金墉曰永昌宫", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "皇太孫の臧を廃して濮陽王とした", "quote": "废皇太孙臧为濮阳王", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "五星が天を渡り、その並びが縦横に定まらなかったと記される", "quote": "五星经天，纵横无常", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "癸酉、倫が濮陽王臧を殺した", "quote": "癸酉，伦害濮阳王臧", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "李特が趙廞を殺し、その首を都へ送った", "quote": "洛阳流人李特杀赵廞，传首京师", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "三月、平東将軍・斉王冏が倫を討つとして挙兵し、檄を州郡へ回して陽翟に陣取った", "quote": "三月，平东将军、齐王冏起兵以讨伦，传檄州郡，屯于阳翟", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "成都王穎・河間王顒・常山王乂・豫州刺史李毅・兗州刺史王彦・新野公歆が呼応し、兵は数十万になった", "quote": "征北大将军、成都王颖，征西大将军、河间王颙，常山王乂，豫州刺史李毅，兗州刺史王彦，南中朗将、新野公歆，皆举兵应之，众数十万", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "倫は閭和を伊闕へ、張泓・孫輔を堮坂へ出して冏に当て、孫会・士猗・許超を黄橋へ出して穎を防がせた", "quote": "伦遣其将闾和出伊阙，张泓、孙辅出堮坂以距冏，孙会、士猗、许超出黄桥以距颍", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "孫会らは穎の将趙驤・石超と溴水で戦って大敗し、軍を捨てて逃げた", "quote": "及颖将赵骧、石超战于溴水，会等大败，弃军走", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "閏月丙戌朔に日食があった", "quote": "闰月丙戌朔，日有蚀之", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "夏四月、歳星が昼に見えた", "quote": "夏四月，岁星昼见", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "冏の将何勖らが陽翟で張泓を大破し、孫輔らを斬った", "quote": "冏将何勖等击张泓于阳翟，大破之，斩孙辅等", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "辛酉、左衛将軍王輿と尚書・淮陵王漼が兵を率いて宮中に入り、倫の側近の孫秀・孫会・許超・士猗・駱休らを捕らえてすべて斬った", "quote": "辛酉，左卫将军王舆与尚书、淮陵王漼勒兵入宫，禽伦党孙秀、孙会、许超、士猗、骆休等，皆斩之", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "倫は邸第へ追い出され、その日のうちに恵帝が位に戻った", "quote": "逐伦归第，即日乘舆反正", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "群臣が額を地につけて謝ると、恵帝は「諸卿の過ちではない」と答えた", "quote": "群臣顿首谢罪，帝曰：“非诸卿之过也", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "復位の詔は、逆臣の孫秀が王室をうかがい、趙王倫を担いで帝位を占めさせたと述べる", "quote": "至使逆臣孙秀敢肆凶虐，窥间王室，遂奉赵王伦饕据天位", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "詔は倫を「孫秀に誤られた」とし、倫父子が金墉へ来て恵帝を迎えたと述べる", "quote": "前赵王伦为秀所误，与其子等已诣金墉迎朕幽宫，旋轸阊阖", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "趙王倫・義陽王威・九門侯質らと倫に与した者たちが殺された", "quote": "诛赵王伦、义阳王威、九门侯质等及伦之党与", "src": "_corpus_cache/jin-simalun.txt:1"}
+{"text": "在位は301年の1期・通算約116日", "quote": "在位: 301〜301年／通算 約116日（0.32年）／1期", "src": "extract_profile_material.py jin-simalun:reignSummary"}
+{"text": "生年・没年齢は伝わらない（即位 None／没 None／生 None）", "quote": "年齢: 即位 None／没 None（生 None／没 0301・数え年）", "src": "extract_profile_material.py jin-simalun:ages"}
+{"text": "廟号・諡号を持たない", "quote": "名: 姓 司馬／諱 倫／通用名 司馬倫／廟号 —／諡号 —", "src": "extract_profile_material.py jin-simalun:names"}
+{"text": "司馬倫は司馬懿（宣帝）の子で、母は柏夫人", "quote": "赵王伦，字子彝，宣帝第九子也，母曰柏夫人", "src": "china-history/晋书/列传/第二十九章--原文.html:43"}
+{"text": "咸寧年間に趙へ改封された", "quote": "咸宁中，改封于赵", "src": "china-history/晋书/列传/第二十九章--原文.html:43"}
+{"text": "愍懐太子が殺されたのち、倫は孫秀とともに事を起こし、賈后を庶人に落として幽閉した", "quote": "遂废贾后为庶人，幽之于建始殿", "src": "china-history/晋书/列传/第二十九章--原文.html:45"}
+{"text": "張華・裴頠らを殿前で殺し、賈庶人を金墉へ送った", "quote": "执张华、裴頠、解结、杜斌等，于殿前杀之", "src": "china-history/晋书/列传/第二十九章--原文.html:45"}
+{"text": "倫は詔を偽って自ら相国となった", "quote": "伦寻矫诏自为使持节、大都督、督中外诸军事、相国", "src": "china-history/晋书/列传/第二十九章--原文.html:45"}
+{"text": "淮南王允の挙兵をつぶしたのち、九錫を加えて封を五万戸増やした", "quote": "允既败灭，伦加九锡，增封五万户", "src": "china-history/晋书/列传/第二十九章--原文.html:47"}
+{"text": "禅譲の詔は偽って作らせたものだった", "quote": "矫作禅让之诏，使使持节、尚书令满奋，仆射崔随为副，奉皇帝玺绶以禅位于伦", "src": "china-history/晋书/列传/第二十九章--原文.html:49"}
+{"text": "倫は兵五千を率いて端門から入り太極殿に登って位に就き、大赦して建始と改元した", "quote": "伦从兵五千人，入自端门，登太极殿，满奋、崔随、乐广进玺绶于伦，乃僭即帝位，大赦，改元建始", "src": "china-history/晋书/列传/第二十九章--原文.html:50"}
+{"text": "共謀した者は順を飛び越えて昇り、召使いにまで爵位が回った", "quote": "其余同谋者咸超阶越次，不可胜纪，至于奴卒斯役亦加以爵位", "src": "china-history/晋书/列传/第二十九章--原文.html:50"}
+{"text": "朝会のたびに貂蝉の冠が座に満ち、人々は「貂が足りず犬の尾で継ぐ」と言い合った", "quote": "每朝会，貂蝉盈坐，时人为之颜曰：“貂不足，狗尾续。”", "src": "china-history/晋书/列传/第二十九章--原文.html:50"}
+{"text": "印を鋳る金銀も足りなかった", "quote": "金银冶铸不给于印", "src": "china-history/晋书/列传/第二十九章--原文.html:50"}
+{"text": "梁王肜が倫父子の罪を上奏し、百官の会議もその通りに決まった", "quote": "梁王肜表伦父子凶逆，宜伏诛。百官会议于朝堂，皆如肜表", "src": "china-history/晋书/列传/第二十九章--原文.html:57"}
+{"text": "尚書袁敞が送られ、金屑苦酒を倫に飲ませた", "quote": "遣尚书袁敞持节赐伦死，饮以金屑苦酒", "src": "china-history/晋书/列传/第二十九章--原文.html:57"}
+{"text": "倫は恥じて布で顔を覆い「孫秀に誤られた」と繰り返した", "quote": "伦惭，以巾覆面，曰：“孙秀误我！孙秀误我！”", "src": "china-history/晋书/列传/第二十九章--原文.html:57"}
