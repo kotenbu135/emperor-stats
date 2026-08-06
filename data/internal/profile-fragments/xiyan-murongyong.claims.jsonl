@@ -1,0 +1,18 @@
+{"text": "刁云が慕容忠を殺したのち、慕容永が推し立てられ、使持節・大都督中外諸軍事・大将軍・大単于・雍秦梁涼四州の牧・録尚書事・河東王の位に就き、慕容垂に対して臣従を表明した", "quote": "刁云杀慕容忠，乃推慕容永为使持节、大都督中外诸军事、大将军、大单于、雍、秦、梁、凉四州牧、录尚书事、河东王、称籓于垂。", "src": "_corpus_cache/xiyan-murongyong.txt:1"}
+{"text": "前秦の苻丕が平陽まで進んできたとき、慕容永は東へ帰る道を通してほしいと使者を出したが、苻丕は認めなかった", "quote": "慕容永以丕至平阳，恐不自固，乃遣使求假道还东，丕弗许。", "src": "_corpus_cache/xiyan-murongyong.txt:4"}
+{"text": "苻丕は王永と苻纂に慕容永を攻めさせ、襄陵の戦いで苻丕方が大敗し、王永と俱石子が戦死した", "quote": "遣王永及苻纂攻之，以俱石子为前锋都督，与慕容永战于襄陵。王永大败，永及石子皆死之。", "src": "_corpus_cache/xiyan-murongyong.txt:4"}
+{"text": "苻丕は数千騎で南へ逃げたが、東晋の揚威将軍馮該に迎え撃たれて首を斬られた", "quote": "率骑数千南奔东垣。晋扬威将军冯该自陕要击，败之，斩丕首", "src": "_corpus_cache/xiyan-murongyong.txt:5"}
+{"text": "慕容永は徐義を捕らえて足に械をはめ土に埋め、殺そうとした。徐義は『観世音経』を唱え、夜半に土がゆるんで械が外れ、脱け出して楊佺期のもとへ走り、洛陽の令になった", "quote": "徐义为慕容永所获，械埋其足，将杀之。义诵《观世音经》，至夜中，土开械脱，于重禁之中若有人导之者，遂奔杨佺期，佺期以为洛阳令。", "src": "_corpus_cache/xiyan-murongyong.txt:5"}
+{"text": "苻丕の臣下たちがそろって慕容永のもとへ降り、永は上党の長子に拠って皇帝を称し、中興と改元した", "quote": "丕之臣佐皆没慕容永，永乃进据上党之长子，僭称大号，改元曰中兴。", "src": "_corpus_cache/xiyan-murongyong.txt:5"}
+{"text": "394年、慕容垂が長子を包囲し、永の部将賈韜が内応した。垂が入城すると永は北門へ逃げたが先鋒に捕らえられ、罪を数え上げられて処刑された", "quote": "垂進圍長子，永將賈韜潛為內應。垂進軍入城，永奔北門，為前驅所獲，於是數而戮之。", "src": "data/emperors.json:xiyan-murongyong.reigns[0].source（晋書 巻一百十五 載記第十五・慕容垂傳側）"}
+{"text": "394年5月、慕容永は太行に出していた軍を呼び戻し、自ら精鋭五万を率いて台壁で後燕軍を迎え撃ったが大敗し、長子へ逃げ帰った", "quote": "永召太行軍還，自將精兵五萬以拒之", "src": "data/emperors.json:xiyan-murongyong.personalCampaignCount.e005"}
+{"text": "387年、慕容永は前秦残党の兰椟を攻めたが、後秦の姚萇に河西で迎え撃たれて敗走した", "quote": "後秦主萇進撃西燕主永於河西，永走", "src": "data/emperors.json:xiyan-murongyong.personalCampaignCount.e002"}
+{"text": "390年、慕容永は自ら兵を率いて洛陽方面へ向かったが、東晋の将朱序に破られて上党へ退いた", "quote": "西燕主永引兵向洛陽", "src": "data/emperors.json:xiyan-murongyong.personalCampaignCount.e003"}
+{"text": "391年、慕容永は河南へ侵攻したが、東晋の太守楊佺期に破られた", "quote": "西燕主永寇河南", "src": "data/emperors.json:xiyan-murongyong.personalCampaignCount.e004"}
+{"text": "386年、本拠を長安から上党の長子へ移した", "quote": "（capitalRelocationCount.e001: from 長安 / to 長子（上党））", "src": "data/emperors.json:xiyan-murongyong.capitalRelocationCount.e001"}
+{"text": "在位は386年から394年まで、死因は処刑（execution）", "quote": "（reigns 386-394 / deathCause: execution）", "src": "data/emperors.json:xiyan-murongyong.reigns,deathCause"}
+{"text": "慕容永には独立した伝が立てられておらず、記事は前秦の苻丕・苻登を扱う載記と、後燕の慕容垂を扱う載記の中にある", "quote": "晋書 巻一百十五 載記第十五（苻丕苻登、慕容永部分）", "src": "data/emperors.json:xiyan-murongyong.reigns[0].source.page"}
+{"text": "廟号・諡号はデータ側も原文側も伝えない", "quote": "（載記の慕容永の記事に「偽謚曰…」の類は無い）", "src": "_corpus_cache/xiyan-murongyong.txt:1-5"}
+{"text": "慕容盛は慕容永に従って東の長子まで行った", "quote": "盛随慕容永东如长子", "src": "daizhigev20/史藏/正史/晋书.txt:8666"}
+{"text": "慕容盛は叔父の慕容柔・弟の慕容会とともに間道を抜けて東の慕容垂のもとへ帰った", "quote": "于是与柔及弟会间行东归于慕容垂", "src": "daizhigev20/史藏/正史/晋书.txt:8666"}
+{"text": "一年あまりのち、慕容永は慕容儁（載記の表記は俊）と慕容垂の子孫を男女の別なく殺した", "quote": "岁余，永诛俊、垂之子孙，男女无遗。", "src": "daizhigev20/史藏/正史/晋书.txt:8666"}
