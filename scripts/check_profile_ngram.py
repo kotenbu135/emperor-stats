@@ -10,8 +10,14 @@ wu-modi・shuhan-liushan と共有していた（同じ280年の孫晧降伏を�
 使い方:
     python3 scripts/check_profile_ngram.py <断片.json> [--frag-dir <dir>] [-n 12]
 
-比較先は data/emperor-profiles.json の既存分と、--frag-dir にある他の断片
-（並行して書かれている同じブロックの原稿）。**報告だけで、エラーにはしない。**
+比較先は data/emperor-profiles.json の既存分と、**同じディレクトリに並ぶ他の断片**
+（並行して書かれている同じバッチの原稿。`--frag-dir` で別の場所も指せる。
+`--no-siblings` で切れる）。**報告だけで、エラーにはしない。**
+
+兄弟断片を既定で見るのは 2026-08-06 から。それまでは `--frag-dir` を渡さないと
+同一バッチ内の衝突が誰にも見えず、「1本 add → 残りを検査し直す」を人が手で
+並べていた（三国7人で3件・後漢9人で4件が実際に出た。同じ問いに全員が答える
+規範なので、同系列が続くバッチでは構造的に起きる）。
 """
 
 from __future__ import annotations
@@ -44,21 +50,38 @@ def grams(text: str, n: int) -> set[str]:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("fragment")
-    ap.add_argument("--frag-dir")
+    ap.add_argument("--frag-dir", help="兄弟断片の在り処（既定は断片と同じディレクトリ）")
+    ap.add_argument("--no-siblings", action="store_true", help="兄弟断片を見ない")
     ap.add_argument("-n", type=int, default=12)
     args = ap.parse_args()
 
-    fragment = json.loads(Path(args.fragment).read_text(encoding="utf-8"))
+    target = Path(args.fragment)
+    fragment = json.loads(target.read_text(encoding="utf-8"))
     others: dict[str, str] = {
         i: plain(p)
         for i, p in json.loads(PROFILES.read_text(encoding="utf-8"))["profiles"].items()
     }
-    if args.frag_dir:
-        for path in sorted(Path(args.frag_dir).glob("*.json")):
-            if path.name.startswith("_"):
+    written = len(others)
+    siblings = 0
+    frag_dir = Path(args.frag_dir) if args.frag_dir else target.parent
+    if not args.no_siblings and frag_dir.is_dir():
+        for path in sorted(frag_dir.glob("*.json")):
+            if path.name.startswith("_") or path.resolve() == target.resolve():
                 continue
-            for i, p in json.loads(path.read_text(encoding="utf-8")).items():
-                others.setdefault(i, plain(p))
+            try:
+                loaded = json.loads(path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue  # 断片以外の JSON が同居していても止めない
+            for i, p in loaded.items():
+                if not isinstance(p, dict) or not (p.get("lead") or p.get("body")):
+                    continue
+                if i not in others:
+                    siblings += 1
+                others[i] = plain(p)
+
+    where = f"既存 {written}本"
+    if siblings:
+        where += f" ＋ 同じ場所の断片 {siblings}本"
 
     hits = 0
     for emperor_id, profile in fragment.items():
@@ -69,7 +92,7 @@ def main() -> int:
             for g in mine & grams(text, args.n):
                 shared.setdefault(g, []).append(other_id)
         if not shared:
-            print(f"{emperor_id}: 既存 {len(others)}本と共通する{args.n}-gram なし")
+            print(f"{emperor_id}: {where}と共通する{args.n}-gram なし")
             continue
         hits += len(shared)
         print(f"{emperor_id}: {len(shared)}件の{args.n}-gram が他の本と共通")

@@ -13,7 +13,12 @@
    書き直しは早いほど安い
 
 使い方:
-    python3 scripts/add_profile.py <断片.json>
+    python3 scripts/add_profile.py <断片.json> [--allow-ngram]
+
+**書き込む前に 12-gram の重複を見て、当たったら入れない**（2026-08-06 から）。
+入れてから気づくと、配布物に入った本を戻す形になる（並行セッションが同じ
+ファイルを触っているので R-RMW の観点で避けたい）。比較先は既存の全本と、
+断片と同じディレクトリに並ぶ兄弟断片。どうしても入れるときだけ --allow-ngram。
 
 断片は {"<皇帝id>": {"lead": ..., "body": ..., "description": ..., "basis": ...}}。
 body は任意（史料が数十字しか無い人物では書かない）。
@@ -64,11 +69,36 @@ def clean(text: str, label: str) -> str:
     return "".join(out)
 
 
+def ngram_gate(path: Path) -> None:
+    """12-gram が既存本・兄弟断片と共通していたら、書き込まずに止める。"""
+    import subprocess
+
+    proc = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "check_profile_ngram.py"), str(path)],
+        capture_output=True,
+        text=True,
+    )
+    out = (proc.stdout or "") + (proc.stderr or "")
+    print(out, end="" if out.endswith("\n") else "\n")
+    if re.search(r"件の\d+-gram が他の本と共通", out):
+        raise SystemExit(
+            "12-gram が他の本と共通しているので入れません。\n"
+            "直し方: 上に出た句を書き換えてから add し直す"
+            "（骨組みの使い回しでなく固有名詞の偶然一致なら --allow-ngram）。"
+        )
+
+
 def main() -> int:
-    if len(sys.argv) != 2:
+    argv = [a for a in sys.argv[1:] if a != "--allow-ngram"]
+    allow_ngram = "--allow-ngram" in sys.argv[1:]
+    if len(argv) != 1:
         raise SystemExit(__doc__)
 
-    fragment = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+    path = Path(argv[0])
+    if not allow_ngram:
+        ngram_gate(path)
+
+    fragment = json.loads(path.read_text(encoding="utf-8"))
     data = json.loads(TARGET.read_text(encoding="utf-8"))
 
     for emperor_id, profile in fragment.items():

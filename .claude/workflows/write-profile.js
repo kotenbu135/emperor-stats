@@ -25,6 +25,27 @@ if (typeof a === 'string') {
 const ids = (a && a.ids) || []
 const workDir = (a && a.workDir) || '/tmp/write-profile'
 
+// **バッチ固有の前提を渡す口**（2026-08-06）。王朝によって史料の形が変わるのに、
+// 段のプロンプトは1つしかない。三国では帝紀が魏にしか無く、蜀・呉・袁術は伝が
+// そのまま一次史料なので、1段目の「列伝を読みに行かない」が自己矛盾する。
+// このスクリプトを複製して書き換えると本体との差分が追えなくなるので、
+// args.notes で足す。文字列なら3段すべてへ、{write, diff, revise} なら段ごとに。
+//   notes: '三国志は帝紀が魏だけ。1巡の対象は原文キャッシュ1本で、他の巻へ降りない'
+//   notes: { write: '…', diff: '『三国志演義』由来の逸話は差分として扱わない' }
+const rawNotes = (a && a.notes) || ''
+const notes = typeof rawNotes === 'string'
+  ? { write: rawNotes, diff: rawNotes, revise: rawNotes }
+  : { write: rawNotes.write || '', diff: rawNotes.diff || '', revise: rawNotes.revise || '' }
+
+function withNote(lines, note) {
+  if (!note) return lines
+  return lines.concat([
+    '',
+    '**このバッチだけの前提**（王朝ごとの史料の形。上の一般則より優先する）:',
+    note,
+  ])
+}
+
 if (!ids.length) {
   log('args.ids が空です。{ids:[...], workDir:"..."} を渡してください')
   return { error: 'no ids' }
@@ -105,7 +126,7 @@ const NORM = [
 ].join('')
 
 function writePrompt(id) {
-  return [
+  return withNote([
     `皇帝 ${id} の紹介文を書く。${NORM}`,
     '',
     '手順:',
@@ -150,13 +171,15 @@ function writePrompt(id) {
     '  ルビは読みの手当てでしかなく、ここは機械が見ない',
     '- **原文を訓読しただけの語を書かない**（崩じた→死んだ／尊んだ→位に就けた／',
     '  併せた→併合した／監させた→監督させた／賜った→与えた／請う→願い出た）。ゲートが落とす',
-    '- **列伝を読みに行かない**（この段では本紀だけ）',
+    '- **列伝を読みに行かない**（この段では本紀だけ。**ただし帝紀が立たない政権では',
+    '  素材コマンドが指す原文キャッシュ＝その人の伝が一次史料**で、それを1巡する。',
+    '  どちらにしても読むのはキャッシュ1本で、他の巻へは降りない）',
     '- コーパスに素の grep を掛けない（R-CORPUS-GREP。WSL ごと落ちる）',
-  ].join('\n')
+  ], notes.write).join('\n')
 }
 
 function diffPrompt(id, frag) {
-  return [
+  return withNote([
     `皇帝 ${id} の紹介文（${frag}）と現代の通説を突き合わせる。報告だけで、断片は直さない。`,
     'Web は**差分検出器であって根拠ではない**（R-PRIMARY-SOURCE は紹介文には掛からないが、',
     'Web の文章を本文へ取り込むことはしない）。',
@@ -167,12 +190,15 @@ function diffPrompt(id, frag) {
     '- 通説にしかない逸話・場面があり、本文に無いなら **action: "read-biography"** とし、',
     '  biographyTarget に誰の伝を見ればよいかを書く',
     '- 呼び名・表記ゆれのような実害の無い差は **action: "ignore"**',
+    '- **小説・演義・後代の物語だけに在る場面は差分として扱わない**（`ignore`）。',
+    '  三国志演義の桃園の誓い・草船借箭のように、正史に無い創作は「食い違い」ではない。',
+    '  read-biography に挙げてよいのは、**正史のどこかに在ると見込める場面**だけ',
     '- 食い違いが1件も無ければ divergences を空配列にし、needsBiography を false にする',
-  ].join('\n')
+  ], notes.diff).join('\n')
 }
 
 function revisePrompt(id, frag, target, diffs, rest) {
-  return [
+  return withNote([
     `皇帝 ${id} の紹介文（${frag}）へ、Web差分の当たりを反映する。${NORM}`,
     '',
     `Web差分の指摘: ${diffs}`,
@@ -202,7 +228,7 @@ function revisePrompt(id, frag, target, diffs, rest) {
     '  この段が 1,647→1,983／1,676→1,897／1,488→2,008 と平均+359字して目安を壊した。',
     '  上限2,400は「ここまでなら機械が通す」であって書いてよい長さではない。',
     '  入れる場面のほうが良ければ、弱い段落を落として入れ替える（差し引きゼロ）',
-  ].join('\n')
+  ], notes.revise).join('\n')
 }
 
 log(`${ids.length}人ぶん: ${ids.join('・')}`)

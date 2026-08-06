@@ -125,10 +125,23 @@ def check_ruby_notation(text: str, label: str) -> None:
 
     **総ルビはやめた**ので「ルビの無い漢字が残っている」はもう誤りではない
     （難読かどうかは語ごとの判断で、機械では決まらない）。ここで落とすのは
-    かなの前に付いた裸の ｜ だけ。本数は最後にまとめて出す。
+    かなの前に付いた裸の ｜ と、**対にならない《》**（2026-08-06 追加）。
+    後者はここで見ていなかったため、--strict を通った断片が本体へ入ったあとの
+    validate_readings.py で落ちたことがある（山括弧を舞の名の引用符に使った形。
+    落ちる位置が add_profile.py の後なので、配布物に不正な値が一度入る）。
+    本数は最後にまとめて出す。
     """
     ruby_counts[label] = len(RUBY.findall(text))
     rest = RUBY.sub("", text)
+    for bracket in ("《", "》"):
+        if bracket in rest:
+            i = rest.index(bracket)
+            err(
+                f"{label}: 対にならない「{bracket}」があります（…{rest[max(0, i - 12):i + 12]}…）",
+                "山括弧はルビ専用で、引用符に使わない。"
+                "ルビなら ｜親文字《ルビ》 の形に直し、引用なら「」にする",
+            )
+            break
     for m in re.finditer(r"｜(?!.{0,40}?《)", rest):
         nxt = rest[m.end() : m.end() + 1]
         err(
@@ -206,10 +219,33 @@ def haystack_for(emperor_id: str) -> str | None:
     # ——黙って通ると「確かめた」と読めてしまう。
     if len(text) < 2000:
         notices.append(
-            f"{emperor_id}: 本紀キャッシュが {len(text)}字しか無く、原文照合はほとんど効きません"
-            "（載記が他人の巻に同居している人物）。未検出が並ぶのは想定内で、出所は自分で確かめること"
+            f"{emperor_id}: 本紀キャッシュが {len(text)}字しかありません。"
+            "**短い理由は2つあり、意味が正反対です** —"
+            "(a) 載記が他人（父・兄）の巻に同居していて本人の記事を切り出せていない"
+            "（この場合は未検出が並ぶのが想定内で、出所は自分で確かめる）／"
+            "(b) 伝そのものが短く、これで**全文**が入っている"
+            "（三国志の蜀・呉、後漢書の群雄のように伝が一次史料の人物。"
+            "この場合は他の巻へ降りる理由が無い）。"
+            "キャッシュの冒頭が本人の名で始まっているかで見分ける"
         )
     return _norm()(text)
+
+
+def source_scale(emperor_id: str, body_len: int) -> str:
+    """原文の量に対して body が何%かを併記する（2026-08-06）。
+
+    字数は文言では止まらない。実測では原文の叙事量が6倍違うバッチ（三国7人）で
+    body の幅は1.2倍しかなく、**最長の原文がいちばん短い body になった**。
+    目安を超えたときに「材料相応の超過か・原文量と無関係に伸びたか」を書き手が
+    自分で判断できるよう、比を出すだけ（**落とさない**）。
+    """
+    path = cache_path(emperor_id)
+    if path is None:
+        return ""
+    src = len(path.read_text(encoding="utf-8"))
+    if not src:
+        return ""
+    return f"／原文キャッシュ {src:,}字の {body_len / src:.0%}"
 
 
 def coverage(fragment: str, haystack: str) -> float:
@@ -436,9 +472,51 @@ def check_claims(emperor_id: str, profile: dict, use_corpus: bool, strict: bool 
     # 本文の年・回数が台帳のどこにも出てこないもの（報告）。
     ledger = "".join((c.get("text") or "") + (c.get("quote") or "") for c in claims if isinstance(c, dict))
     text = strip_ruby((profile.get("lead") or "") + (profile.get("body") or ""))
-    loose = sorted({m for m in re.findall(r"\d+年|\d+歳|\d+人|\d+回|\d+か月", text) if m not in ledger})
+    # 在位年・生没年の西暦は reignSummary・ages が出所なので、台帳に無くて当たり前
+    # （2026-08-06。これが毎回鳴るせいで、reignSummary 由来のダミー claim を足す
+    # 作業になっていた）。除くのは**データ側に同じ年がある西暦4桁だけ**で、
+    # 事件の年・年齢・回数は従来どおり見る。
+    from_record = record_years(emperor_id)
+    loose = sorted(
+        {
+            m
+            for m in re.findall(r"\d+年|\d+歳|\d+人|\d+回|\d+か月", text)
+            if m not in ledger and m not in from_record
+        }
+    )
     if loose:
-        notices.append(f"    台帳に無い数値: {'・'.join(loose[:15])} — 出所を claims に足すか本文から落とす")
+        notices.append(
+            f"    台帳に無い数値: {'・'.join(loose[:15])}"
+            " — **basis に出所を書く**（構造フィールド由来ならそれで済む）。"
+            "原文から取った事実なら claims へ足し、どちらでもなければ本文から落とす"
+        )
+
+
+def record_years(emperor_id: str) -> set[str]:
+    """在位・生没としてデータ側に在る西暦（「NNNN年」の形）。"""
+    if not EMPERORS.exists():
+        return set()
+    for e in json.loads(EMPERORS.read_text(encoding="utf-8"))["emperors"]:
+        if e["id"] != emperor_id:
+            continue
+        years: set[int] = set()
+        summary = e.get("reignSummary") or {}
+        for key in ("firstStartYear", "lastEndYear"):
+            if isinstance(summary.get(key), int):
+                years.add(summary[key])
+        for r in e.get("reigns") or []:
+            for key in ("startYear", "endYear"):
+                if isinstance(r.get(key), int):
+                    years.add(r[key])
+        ages = e.get("ages") or {}
+        for key in ("birthDate", "deathDate"):
+            v = ages.get(key)
+            if isinstance(v, str) and v[:4].isdigit():
+                years.add(int(v[:4]))
+        # 在位の始まりと終わりは旧暦→太陽暦で1年ずれることがある（歳首が正月でない
+        # 政権では特に）。隣接年まで許すと事件の年を取りこぼすので、ここは動かさない。
+        return {f"{y}年" for y in years if y > 0}
+    return set()
 
 
 def check_relation(emperor_id: str, lead: str, body: str) -> None:
@@ -555,7 +633,11 @@ def main() -> int:
             n = len(strip_ruby(text))
             mark = "OK" if lo <= n <= hi else f"**範囲外 {lo}〜{hi}**"
             if field == "body" and lo <= n <= hi and n > BODY_GUIDE[1]:
-                mark += f"（目安 {BODY_GUIDE[0]}〜{BODY_GUIDE[1]}字は超えている）"
+                mark += (
+                    f"（目安 {BODY_GUIDE[0]}〜{BODY_GUIDE[1]}字を **+{n - BODY_GUIDE[1]}字** 超過"
+                    + source_scale(emperor_id, n)
+                    + "）"
+                )
             print(f"{emperor_id}: {field} = {n}字 {mark}")
             if not (lo <= n <= hi):
                 over = n > hi

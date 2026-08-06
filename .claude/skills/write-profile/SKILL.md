@@ -20,12 +20,24 @@ description: 皇帝の紹介文（GitHub Issue #16）を書く入口。原文1�
 ## まとめて進めるとき（Workflow）
 
 ```
-Workflow({ name: 'write-profile', args: { ids: [...], workDir: '/tmp/write-profile-<日付>' } })
+Workflow({ name: 'write-profile', args: { ids: [...], workDir: '/tmp/write-profile-<日付>',
+           notes: '<このバッチだけの前提>' } })
 ```
 
 段構成は `.claude/workflows/write-profile.js`（執筆 → Web差分 → 反映）。
 **エージェントに `data/emperor-profiles.json` を書かせない** — 断片は `workDir` へ1人1ファイルで
 置かせ、本体への転記は戻ってきてから `scripts/add_profile.py` で1本ずつ流す（`R-RMW`）。
+
+**`notes` にバッチ固有の前提を渡す**（2026-08-06）。文字列なら3段すべてへ、
+`{write, diff, revise}` なら段ごとにプロンプト末尾へ入る。**史料の形が王朝で変わる**のに
+段のプロンプトは1つしかない — 三国志は帝紀が魏にしか無く、蜀・呉・袁術は伝がそのまま
+一次史料なので、この口が無かったときはスクリプトを複製して書き換えることになった。
+晋書の載記・十六国も同じ形になる。
+
+**バッチが終わったら断片と引用台帳を `data/internal/profile-fragments/` へ入れる**
+（`<id>.json` と `<id>.claims.jsonl`）。配布物に入るのは4フィールドだけで `claims` は
+入らないので、スクラッチパッドに置いたままだと**セッションが終わった時点で
+「この文はどの原文句に拠るのか」を引く手立てが消える**（`R-CLAIMS-FIRST` の唯一の証人）。
 `isolation: 'worktree'` を付けない（コーパスの symlink が無い worktree ではコーパス依存の
 検査が**黙ってスキップ**される・`R-WORKTREE-SETUP`）。
 
@@ -146,8 +158,13 @@ CI も落ちる。新しい難読語に振ったら**2冊以上に出る語だ�
 ```bash
 python3 scripts/reapply_profile_ruby.py   <断片.json> --write    # ルビを全出現へ写す
 python3 scripts/check_profile_fragment.py <断片.json> --strict   # claims 必須・引用の実在照合
-python3 scripts/check_profile_ngram.py    <断片.json>            # 既存本との12-gram重複
+python3 scripts/check_profile_ngram.py    <断片.json>            # 12-gram重複（既存本＋兄弟断片）
 ```
+
+**12-gram は既定で同じディレクトリの兄弟断片も見る**（2026-08-06）。同じ問いに全員が
+答える規範なので、同系列が続くバッチでは衝突が構造的に起きる（三国7人で3件・後漢9人で4件）。
+`add_profile.py` も**書き込む前に**同じ検査を通すので、衝突したまま本体へ入ることはない
+（それでも入れるときだけ `--allow-ngram`）。
 
 **`--strict` を外さない。** 外すと claims が無くても通り、原文を開かずに書いた文章と
 区別が付かなくなる（字数・年・ルビは全部通る）。`basis` のポインタも実在照合される。
@@ -162,7 +179,20 @@ python3 scripts/validate_profiles.py
 python3 scripts/validate_readings.py
 cd site && npm run build
 python3 scripts/coverage.py --write     # 本数が増えたら。忘れると CI が落ちる
+cp <workDir>/<id>.json <workDir>/<id>.claims.jsonl data/internal/profile-fragments/
 ```
+
+**配布済みの本のルビの読みを直すとき**は本体を直接いじらず:
+
+```bash
+python3 scripts/fix_profile_ruby.py --from '｜元和《げんな》' --to '｜元和《げんわ》' --dry-run
+python3 scripts/fix_profile_ruby.py --from '…' --to '…' --expect <件数> --write
+```
+
+`--expect` の宣言が合わなければ書かずに落ちる。**この宣言が、置換が途中で消えたことに
+気づく唯一の証人**（使い捨ての置換スクリプトを書いていた頃、`git checkout` を打った
+拍子に訂正が丸ごと消え、ゲートは緑のまま、という一歩手前まで行った）。
+辞書に載る語なら `data/profile-ruby-lexicon.json` も同じ変更で直す（`COUPLINGS.md`）。
 
 ## 素材の誤りは起票する
 

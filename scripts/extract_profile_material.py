@@ -177,6 +177,19 @@ def render(e: dict, catalogs: dict, max_events: int, notes: bool) -> str:
                     # 「何も無い」と「見せていない」は違う（改元は元号名が note にしか無い）
                     rest = "（内容は note のみ・原文で確かめる）"
                 add(f"      - {date} {rest}")
+            if len(events) > max_events:
+                # 省略した件の**日付だけは全部出す**（2026-08-06）。回数の多い項目では
+                # 打ち切られた件が原文との突き合わせから丸ごと落ち、「素材と原文は
+                # 一致した」を件数の一部だけで言うことになっていた（孫権の大赦9件中
+                # 9件目が見えなかった）。詳細が要るときは --max-events を上げる。
+                dropped = [
+                    (ev.get("startDate") or ev.get("date") or ev.get("dateRaw") or "日付不明")
+                    for ev in events[max_events:]
+                ]
+                add(
+                    f"      - （残り{len(dropped)}件の日付: {'・'.join(dropped)}"
+                    f" — 中身は --max-events {len(events)} で出る）"
+                )
 
     v = e.get("verification") or {}
     if notes and v.get("notes"):

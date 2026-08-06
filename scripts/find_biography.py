@@ -198,6 +198,16 @@ def dump_around(path: Path, lines: list[str], hit: int, vols: dict[int, int], bu
         print(text)
 
 
+def is_toc_line(line: str) -> bool:
+    """目録・目次の行か（本文の行は数千字あるので、短い行だけを疑う）。
+
+    daizhige の正史は1巻＝1行で、実文の行は数千〜数万字。目録は
+    「诸葛亮【子乔　瞻董厥　樊建】」のような数十字の行が並ぶ。
+    """
+    stripped = line.strip()
+    return len(stripped) < 300 and ("【" in stripped or "目录" in stripped)
+
+
 def search(files: list[Path], needle: str, window: int, limit: int,
            dump: bool = False, dump_budget: int = 12000) -> int:
     key = norm_for_match(needle)
@@ -213,6 +223,14 @@ def search(files: list[Path], needle: str, window: int, limit: int,
             if i in vols:
                 vol = f"巻{vols[i]}"
             if key not in norm_for_match(line):
+                continue
+            if dump and is_toc_line(line):
+                # **目録・目次の行を --dump の当たりにしない**（2026-08-06）。
+                # daizhige の正史は巻頭に「诸葛亮【子乔　瞻董厥　樊建】」形式の目録を
+                # 持っていて、人名で引くと必ずそこが最初に当たる。丸ごと出しても
+                # 目録の周辺しか出ず、実文へ届かない（2026-08-06・劉備の反映段が
+                # 「凡三往」のような本文中の語で引き直す羽目になった）。
+                print(f"（目録行 {path.relative_to(ROOT)}:{i} は飛ばした — 実文を探す）")
                 continue
             found += 1
             where = f"{path.relative_to(ROOT)}:{i}"

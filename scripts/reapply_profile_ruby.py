@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -32,6 +33,8 @@ import profile_prose  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 PROFILES = ROOT / "data" / "emperor-profiles.json"
 RUBY = profile_prose.RUBY
+# 1字の親文字を熟語の中だけへ写すための漢字クラス（add_profile.py の KANJI と同じ範囲）。
+KANJI_CLASS = r"[㐀-鿿豈-﫿\U00020000-\U0003ffff]"
 
 
 def forms_for(joined: str, lexicon: dict[str, list[str]]) -> dict[str, str]:
@@ -75,9 +78,26 @@ def annotate(text: str, forms: dict[str, str]) -> tuple[str, int]:
     for plain in sorted(forms, key=len, reverse=True):
         if plain not in work:
             continue
-        added += work.count(plain)
         slots.append(forms[plain])
-        work = work.replace(plain, f"\x00{len(slots) - 1}\x01")
+        token = f"\x00{len(slots) - 1}\x01"
+        if len(plain) == 1:
+            # **1字の親文字は熟語の中だけへ写す**（2026-08-06）。name-readings が
+            # 2字名を1字ずつに割る指定を持つ人物（孫晧 → ｜孫《そん》｜晧《こう》）で、
+            # 単独の「孫」＝まご にまで そん が付いた。単独で立っている1字は
+            # 一般語のことが多く、熟語の中の1字は人名・官職の断片であることが多い。
+            # 隣が既に置換済み（\x01 で終わる／\x00 で始まるプレースホルダ）の場合も
+            # 「熟語の中」に数える。数えないと ｜孫《そん》｜晧《こう》 の2字目が
+            # 落ちる（1字目を置換した時点で隣が漢字でなくなるため）。
+            left = KANJI_CLASS[:-1] + "\x01]"
+            right = KANJI_CLASS[:-1] + "\x00]"
+            pattern = re.compile(
+                f"(?<={left}){re.escape(plain)}|{re.escape(plain)}(?={right})"
+            )
+            work, n = pattern.subn(token, work)
+            added += n
+            continue
+        added += work.count(plain)
+        work = work.replace(plain, token)
 
     while "\x00" in work:
         for i, s in enumerate(slots):
