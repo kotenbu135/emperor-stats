@@ -70,8 +70,10 @@ def main() -> int:
                 continue
             try:
                 loaded = json.loads(path.read_text(encoding="utf-8"))
-            except json.JSONDecodeError:
+            except (json.JSONDecodeError, OSError):
                 continue  # 断片以外の JSON が同居していても止めない
+            if not isinstance(loaded, dict):
+                continue  # 配列やスカラの JSON（断片ではない）
             for i, p in loaded.items():
                 if not isinstance(p, dict) or not (p.get("lead") or p.get("body")):
                     continue

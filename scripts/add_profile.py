@@ -80,6 +80,16 @@ def ngram_gate(path: Path) -> None:
     )
     out = (proc.stdout or "") + (proc.stderr or "")
     print(out, end="" if out.endswith("\n") else "\n")
+    # **検査が落ちたら通さない。** check_profile_ngram.py は当たりが在っても 0 で終わる
+    # ので、非ゼロは検査そのものが動かなかったことを意味する。ここを素通りさせると
+    # 「出力が空 → 正規表現に当たらない → 書き込む」で、**落ちたゲートが緑に見える**
+    # （このリポジトリで何度も出た型 — 母集団が空のまま出荷されると誰も気づかない）。
+    if proc.returncode != 0:
+        raise SystemExit(
+            "12-gram の検査が落ちたので入れません。\n"
+            "      直し方: 上の出力を読んで検査を通してから add し直す"
+            "（断片の置き場に壊れた JSON が混ざっていることが多い）。"
+        )
     if re.search(r"件の\d+-gram が他の本と共通", out):
         raise SystemExit(
             "12-gram が他の本と共通しているので入れません。\n"
