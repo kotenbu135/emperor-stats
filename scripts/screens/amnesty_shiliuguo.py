@@ -82,7 +82,11 @@ def main() -> int:
         rows.append((e["id"], count, len(cands), b, light, cands))
 
     if args.json:
-        out = {"n": len(rows), "buckets": {k: len(v) for k, v in buckets.items()}}
+        # 原文キャッシュを読む絞り込みなので、コーパスが無い環境（CI）では
+        # 全員が nocache へ落ちて記録と必ずずれる。旗を出して件数の突合を飛ばさせる
+        cache_dir = ROOT / "_corpus_cache"
+        out = {"n": len(rows), "buckets": {k: len(v) for k, v in buckets.items()},
+               "corpus": cache_dir.is_dir() and any(cache_dir.glob("*.txt"))}
         if args.seed is not None and args.sample:
             rnd = random.Random(args.seed)
             out["samples"] = {k: sorted(rnd.sample(v, min(args.sample, len(v))))
