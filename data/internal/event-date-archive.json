@@ -10,18 +10,15 @@
       "datePrecision": "退避した時点の datePrecision（原典が何を言っているか。移行では触っていない）",
       "noteHead": "人が突き合わせるための note の先頭20字（機械は id で引く）"
     },
-    "events": 4153,
-    "values": 6224,
-    "removed": "2026-08-07・Issue #82: han-gaozu の親征・鎮圧・被反乱 16 event を退避側から消した。配布物側を原表記 startDateRaw/endDateRaw と source.conversion 付きで訂正したので、埋め草だけの退避値（-01 を足した形）は原表記に置き換わっている／同日・Issue #89: shuhan-zhaoliedi.rebellionSufferedCount.e001 も同じ理由で削除"
+    "events": 4098,
+    "values": 6145,
+    "removed": [
+      "2026-08-07・Issue #82: han-gaozu の親征・鎮圧・被反乱 16 event を退避側から消した。配布物側を原表記 startDateRaw/endDateRaw と source.conversion 付きで訂正したので、埋め草だけの退避値（-01 を足した形）は原表記に置き換わっている／同日・Issue #89: shuhan-zhaoliedi.rebellionSufferedCount.e001 も同じ理由で削除",
+      "2026-08-07（Issue #91）: 皇帝即位前の event 53件ぶんの鍵を削除した。event 自体を data/internal/preaccession-events.json へ退避したため、退避していた月日もそちらの archivedDate に移してある。",
+      "2026-08-07・Issue #91: beiqi-andewang-gaoyanzong.personalCampaignCount.e001（0576-01-01 の埋め草）と jin-hailingwang.empressInstallationCount.e001（1149-10-18）を削除した。どちらも配布物側の年が誤りで、0577-01（隆化元年十二月の多数月）・1150-10-13（天德二年九月甲午）へ原表記と conversion 付きで訂正したため、退避していた値は上書きされている。"
+    ]
   },
   "events": {
-    "beiqi-andewang-gaoyanzong.personalCampaignCount.e001": {
-      "startDate": "0576-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "北斉書巻11列伝（安徳王延宗伝）：後主が",
-      "endDate": "0576-01-01"
-    },
     "beiqi-feidi-gaoyin.rebellionSufferedCount.e001": {
       "startDate": "0560-03-01",
       "datePrecision": "month",
@@ -1588,12 +1585,6 @@
       "datePrecision": "day",
       "reason": "out-of-scope",
       "noteHead": "天賜元年冬十月辛巳、「大赦，改元」と明記"
-    },
-    "beiwei-daowudi.capitalRelocationCount.e001": {
-      "date": "0398-08-01",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "太祖道武帝（拓跋珪）天興元年（398年）"
     },
     "beiwei-daowudi.empressInstallationCount.e001": {
       "date": "0400-04-17",
@@ -5548,12 +5539,6 @@
       "reason": "out-of-scope",
       "noteHead": "永昌元年四月辛未、王敦の挙兵・石頭城攻略"
     },
-    "dongjin-yuandi.eraChangeCount.e001": {
-      "date": "0317-04",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "建武元年三月辛卯、群臣に推されて晋王に即"
-    },
     "dongjin-yuandi.eraChangeCount.e003": {
       "date": "0322-02",
       "datePrecision": "month",
@@ -9449,13 +9434,6 @@
       "reason": "filler",
       "noteHead": "承聖三年十一月(554年)、西魏軍により"
     },
-    "houqin-yaochang.personalCampaignCount.e001": {
-      "startDate": "0384-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "太元九年（384年）四月頃、万年秦王・大",
-      "endDate": "0385-12-31"
-    },
     "houqin-yaochang.personalCampaignCount.e002": {
       "startDate": "0386-05-01",
       "datePrecision": "month",
@@ -9874,40 +9852,12 @@
       "noteHead": "『晋書』孝武帝紀に「八月己巳……慕容垂击",
       "endDate": "0394-09-01"
     },
-    "houyan-murongchui.rebellionSufferedCount.e001": {
-      "startDate": "0384-01-01",
-      "datePrecision": "year",
-      "reason": "filler",
-      "noteHead": "rebellionSuppression",
-      "endDate": "0386-01-01"
-    },
-    "houyan-murongchui.rebellionSufferedCount.e002": {
-      "startDate": "0385-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "rebellionSuppression",
-      "endDate": "0385-12-31"
-    },
     "houyan-murongchui.rebellionSufferedCount.e003": {
       "startDate": "0386-01-01",
       "datePrecision": "year",
       "reason": "filler",
       "noteHead": "rebellionSuppression",
       "endDate": "0387-12-31"
-    },
-    "houyan-murongchui.rebellionSuppressionCount.e001": {
-      "startDate": "0384-01-01",
-      "datePrecision": "year",
-      "reason": "filler",
-      "noteHead": "鄴城包囲戦（対苻丕）と同時進行の内乱。垂",
-      "endDate": "0386-01-01"
-    },
-    "houyan-murongchui.rebellionSuppressionCount.e002": {
-      "startDate": "0385-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "載記では丁零翟真の乱の鎮圧記事の直前・鄴",
-      "endDate": "0385-12-31"
     },
     "houyan-murongchui.rebellionSuppressionCount.e003": {
       "startDate": "0386-01-01",
@@ -9990,113 +9940,17 @@
       "noteHead": "光始二年十一月辛未。『晋書』載記・『十六",
       "endDate": "0402-12"
     },
-    "houzhao-shihu.amnestyCount.e001": {
-      "date": "0335-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "咸康元年（335年）、石弘を廃した後、群"
-    },
-    "houzhao-shihu.amnestyCount.e002": {
-      "date": "0337-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "咸康三年（337年）、殷周の制に依り「大"
-    },
     "houzhao-shihu.amnestyCount.e003": {
       "date": "0349-02-01",
       "datePrecision": "month",
       "reason": "filler",
       "noteHead": "永和五年（349年）正月、病が癒えたのを"
     },
-    "houzhao-shihu.capitalRelocationCount.e001": {
-      "date": "0335-10-01",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "石虎(石季龙)が石弘を廃して趙天王を称し"
-    },
-    "houzhao-shihu.crownPrinceDepositionCount.e001": {
-      "date": "0337-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "皇太子石邃が父の殺害・簒奪（「冒頓の事」"
-    },
-    "houzhao-shihu.crownPrinceDepositionCount.e002": {
-      "date": "0348-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "皇太子石宣が弟石韜への嫉妬から刺客（楊柸"
-    },
-    "houzhao-shihu.empressInstallationCount.e001": {
-      "date": "0337-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "咸康三年（337年）、大趙天王即位時に「"
-    },
-    "houzhao-shihu.empressInstallationCount.e002": {
-      "date": "0337-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "皇太子石邃を誅殺し鄭氏を東海太妃に廃した"
-    },
-    "houzhao-shihu.empressInstallationCount.e003": {
-      "date": "0348-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "石宣が弟石韜を殺害させた事件の発覚・処刑"
-    },
-    "houzhao-shihu.eraChangeCount.e001": {
-      "date": "0335-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "【皇帝即位前】咸康元年（335年）、石弘"
-    },
     "houzhao-shihu.eraChangeCount.e002": {
       "date": "0349-02-01",
       "datePrecision": "month",
       "reason": "filler",
       "noteHead": "【皇帝即位（改元同時）】永和五年（349"
-    },
-    "houzhao-shihu.personalCampaignCount.e001": {
-      "startDate": "0335-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "『資治通鑑』咸康元年条は「趙王虎南游、臨",
-      "endDate": "0335-01-01"
-    },
-    "houzhao-shihu.personalCampaignCount.e002": {
-      "startDate": "0338-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "『資治通鑑』咸康四年（338年）春正月〜",
-      "endDate": "0338-01-01"
-    },
-    "houzhao-shihu.personalCampaignCount.e003": {
-      "startDate": "0338-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "『資治通鑑』は咸康四年（338年）中の出",
-      "endDate": "0338-01-01"
-    },
-    "houzhao-shihu.rebellionSufferedCount.e001": {
-      "startDate": "0335-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "鎮圧回数と同一事象。",
-      "endDate": "0335-01-01"
-    },
-    "houzhao-shihu.rebellionSufferedCount.e002": {
-      "startDate": "0336-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "鎮圧回数と同一事象。",
-      "endDate": "0337-01-01"
-    },
-    "houzhao-shihu.rebellionSufferedCount.e003": {
-      "startDate": "0348-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "宮廷内部の権力者（皇太子）による兵力を伴",
-      "endDate": "0348-01-01"
     },
     "houzhao-shihu.rebellionSufferedCount.e004": {
       "startDate": "0349-01-01",
@@ -10105,52 +9959,12 @@
       "noteHead": "鎮圧回数と同一事象。",
       "endDate": "0349-03-01"
     },
-    "houzhao-shihu.rebellionSuppressionCount.e001": {
-      "startDate": "0335-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "『資治通鑑』は咸和九年（334年）十二月",
-      "endDate": "0335-01-01"
-    },
-    "houzhao-shihu.rebellionSuppressionCount.e002": {
-      "startDate": "0336-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "載記・資治通鑑ともに咸康年間（337年頃",
-      "endDate": "0337-01-01"
-    },
-    "houzhao-shihu.rebellionSuppressionCount.e003": {
-      "startDate": "0348-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "宮廷内の権力者（皇太子）による兵力を用い",
-      "endDate": "0348-01-01"
-    },
     "houzhao-shihu.rebellionSuppressionCount.e004": {
       "startDate": "0349-01-01",
       "datePrecision": "month",
       "reason": "filler",
       "noteHead": "石虎の崩御（349年5月26日）以前に鎮",
       "endDate": "0349-03-01"
-    },
-    "houzhao-shile.personalCampaignCount.e001": {
-      "startDate": "0328-11",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "晋書載記第五・資治通鑑晋紀ともに石勒自身",
-      "endDate": "0329-01"
-    },
-    "houzhao-shile.rebellionSufferedCount.e001": {
-      "endDate": "0322-07",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "反乱鎮圧回数と同一事象（対称計上）。"
-    },
-    "houzhao-shile.rebellionSuppressionCount.e001": {
-      "endDate": "0322-07",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "討伐の実務は一貫して石季龍が担当し、石勒"
     },
     "houzhao-shishi.rebellionSufferedCount.e001": {
       "startDate": "0349-01-01",
@@ -10233,12 +10047,6 @@
       "datePrecision": "month",
       "reason": "out-of-scope",
       "noteHead": "海陵王（完顔亮）は天徳三年（1151年）"
-    },
-    "jin-hailingwang.empressInstallationCount.e001": {
-      "date": "1149-10-18",
-      "datePrecision": "day",
-      "reason": "out-of-scope",
-      "noteHead": "天德元年九月甲午、惠妃徒単氏を皇后に冊立"
     },
     "jin-hailingwang.eraChangeCount.e002": {
       "date": "1153-04-21",
@@ -11662,13 +11470,6 @@
       "datePrecision": "day",
       "reason": "out-of-scope",
       "noteHead": "承安から泰和に改元。承安五年十二月癸未朔"
-    },
-    "liang-houjing.personalCampaignCount.e001": {
-      "startDate": "0551-04-01",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "梁書列伝第五十(侯景伝)に「三月、景自率",
-      "endDate": "0551-05-01"
     },
     "liang-houjing.rebellionSufferedCount.e001": {
       "startDate": "0551-10-01",
@@ -16976,19 +16777,6 @@
       "noteHead": "窦冲は登により車騎大将軍・南秦州牧、のち",
       "endDate": "0393-12-31"
     },
-    "qianqin-fujian.personalCampaignCount.e001": {
-      "endDate": "0350-11",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "即位（351年天王・352年皇帝）以前、"
-    },
-    "qianqin-fujian.personalCampaignCount.e002": {
-      "startDate": "0351-05",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "資治通鑑永和七年（351年）四月条「秦王",
-      "endDate": "0351-05"
-    },
     "qianqin-fujian.personalCampaignCount.e004": {
       "startDate": "0354-02",
       "datePrecision": "month",
@@ -17066,38 +16854,11 @@
       "noteHead": "原文に呼延毒本人の生死・捕縛の明記はなく",
       "endDate": "0354-06"
     },
-    "qianyan-murongjun.capitalRelocationCount.e001": {
-      "date": "0350-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "『晋書』載記第十（慕容俊）：永和五年（3"
-    },
     "qianyan-murongjun.capitalRelocationCount.e002": {
       "date": "0358-01-01",
       "datePrecision": "month",
       "reason": "out-of-scope",
       "noteHead": "『晋書』載記第十：「俊自薊城遷於鄴、赦其"
-    },
-    "qianyan-murongjun.personalCampaignCount.e001": {
-      "startDate": "0350-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "「明年、俊率三軍南伐、出自盧龍、次於無終",
-      "endDate": "0350-12-31"
-    },
-    "qianyan-murongjun.personalCampaignCount.e002": {
-      "startDate": "0351-01-01",
-      "datePrecision": "year",
-      "reason": "filler",
-      "noteHead": "「俊遣慕容恪及相國封弈討冉閔於安喜、慕容",
-      "endDate": "0352-12-31"
-    },
-    "qianyan-murongjun.rebellionSufferedCount.e001": {
-      "startDate": "0351-01-01",
-      "datePrecision": "year",
-      "reason": "filler",
-      "noteHead": "同上（段勤の離反。慕容垂の討伐後、慕容恪",
-      "endDate": "0352-12-31"
     },
     "qianyan-murongjun.rebellionSufferedCount.e002": {
       "startDate": "0352-01-01",
@@ -17112,13 +16873,6 @@
       "reason": "out-of-scope",
       "noteHead": "同上（河間の李黒の反乱）",
       "endDate": "0358-12-31"
-    },
-    "qianyan-murongjun.rebellionSuppressionCount.e001": {
-      "startDate": "0351-01-01",
-      "datePrecision": "year",
-      "reason": "filler",
-      "noteHead": "「時鮮卑段勤初附於俊、其後復叛。俊遣慕容",
-      "endDate": "0352-12-31"
     },
     "qianyan-murongjun.rebellionSuppressionCount.e002": {
       "startDate": "0352-01-01",
@@ -17158,12 +16912,6 @@
       "datePrecision": "year",
       "reason": "filler",
       "noteHead": "劉曜在位中。晋書載記第三（劉曜載記）: "
-    },
-    "qianzhao-liuyuan.capitalRelocationCount.e001": {
-      "date": "0305-01-01",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "劉元海（光文帝）在位中。晋書載記第一（刘"
     },
     "qianzhao-liuyuan.capitalRelocationCount.e002": {
       "date": "0308-01-01",
@@ -19946,12 +19694,6 @@
       "reason": "out-of-scope",
       "noteHead": "光天元年十二月辛酉、来年正月に南郊祭祀を"
     },
-    "shiguo-wu-yangpu.amnestyCount.e001": {
-      "date": "0921-11",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "順義元年冬十月、南郊で天を祀った後、乙丑"
-    },
     "shiguo-wu-yangpu.amnestyCount.e003": {
       "date": "0928-09",
       "datePrecision": "month",
@@ -19975,12 +19717,6 @@
       "datePrecision": "month",
       "reason": "out-of-scope",
       "noteHead": "太和五年九月甲戌朔、德妃王氏を皇后に立て"
-    },
-    "shiguo-wu-yangpu.eraChangeCount.e001": {
-      "date": "0921-02",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "武義二年（920年）六月に呉王位に即いて"
     },
     "shiguo-wu-yangpu.eraChangeCount.e003": {
       "date": "0929-11",
@@ -20981,12 +20717,6 @@
       "reason": "out-of-scope",
       "noteHead": "大業十三年（617年）、虔州に拠って自ら"
     },
-    "suimo-liqui.eraChangeCount.e001": {
-      "date": "0617-08",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "【皇帝即位前】大業十三年（617年）七月"
-    },
     "suimo-liuwuzhou.personalCampaignCount.e001": {
       "startDate": "0617-01-01",
       "datePrecision": "year",
@@ -21047,12 +20777,6 @@
       "datePrecision": "year",
       "reason": "filler",
       "noteHead": "蕭銑は罗川で挙兵後、董景珍らに推されて巴"
-    },
-    "suimo-xiaoxian.eraChangeCount.e001": {
-      "date": "0617-11",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "大業十三年（617年）十月丙申、岳州の董"
     },
     "suimo-xueju.capitalRelocationCount.e001": {
       "date": "0617-01-01",
@@ -23244,12 +22968,6 @@
       "reason": "filler",
       "noteHead": "至德二載九月、唐軍が長安（西京）を回復。"
     },
-    "tangmo-huangchao.personalCampaignCount.e002": {
-      "endDate": "0880-12-13",
-      "datePrecision": "year",
-      "reason": "out-of-scope",
-      "noteHead": "疫病により嶺南から北帰を決意し、広明元年"
-    },
     "tangmo-huangchao.personalCampaignCount.e003": {
       "endDate": "0884-07-13",
       "datePrecision": "year",
@@ -23365,12 +23083,6 @@
       "datePrecision": "month",
       "reason": "filler",
       "noteHead": "先の皇后（王氏）が地皇二年正月に死去（「"
-    },
-    "wang-mang.eraChangeCount.e001": {
-      "date": "0008-12-01",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "居摂三年（8年）十一月、「初始」に改元。"
     },
     "wang-mang.eraChangeCount.e002": {
       "date": "0009-01-01",
@@ -23967,12 +23679,6 @@
       "datePrecision": "month",
       "reason": "filler",
       "noteHead": "太元二年二月、大赦、改元為神鳳（太元→神"
-    },
-    "wu-dadi.capitalRelocationCount.e001": {
-      "date": "0221-05-01",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "『三国志』呉書・呉主伝：「（黄初）二年四"
     },
     "wu-dadi.capitalRelocationCount.e002": {
       "date": "0229-10-01",
@@ -25361,24 +25067,6 @@
       "noteHead": "一連の防衛戦（対隗歸出撃→平涼救援→籠城",
       "endDate": "0430-11"
     },
-    "xia-helianbobo.personalCampaignCount.e003": {
-      "startDate": "0407-12",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "『晋書』安帝紀「冬十一月、赫連勃勃大敗秃"
-    },
-    "xia-helianbobo.personalCampaignCount.e009": {
-      "startDate": "0416-07",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "『晋書』安帝紀「夏六月、赫連勃勃攻姚泓秦"
-    },
-    "xia-helianbobo.personalCampaignCount.e010": {
-      "startDate": "0418-12",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "『晋書』安帝紀「十一月、赫連勃勃大敗王師"
-    },
     "xia-helianchang.personalCampaignCount.e001": {
       "startDate": "0426-11",
       "datePrecision": "month",
@@ -25578,49 +25266,11 @@
       "noteHead": "朝廷内部の権力者（秉常自身の外戚・摂政で",
       "endDate": "1083-06"
     },
-    "xixia-jingzong.amnestyCount.e001": {
-      "date": "1034-01",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "策士楊守素の建言により顕道三年を開運元年"
-    },
     "xixia-jingzong.empressInstallationCount.e002": {
       "date": "1047-06",
       "datePrecision": "month",
       "reason": "out-of-scope",
       "noteHead": "皇太子寧令哥の妃として迎えられた没移氏の"
-    },
-    "xixia-jingzong.eraChangeCount.e002": {
-      "date": "1034-02",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "【皇帝即位前】策士楊守素の建言により、顕"
-    },
-    "xixia-jingzong.eraChangeCount.e003": {
-      "date": "1035-02",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "【皇帝即位前】『開運』が後晋（石晋）滅亡"
-    },
-    "xixia-jingzong.eraChangeCount.e004": {
-      "date": "1037-02",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "【皇帝即位前】西夏文字（蕃書）制定を機に"
-    },
-    "xixia-jingzong.personalCampaignCount.e002": {
-      "startDate": "1036-08",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "「秋七月，攻回鶻，取瓜、沙、粛三州……元",
-      "endDate": "1036-08"
-    },
-    "xixia-jingzong.personalCampaignCount.e003": {
-      "startDate": "1035-12",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "「十一月，自將攻西蕃，敗角厮羅將安子羅。",
-      "endDate": "1036-02"
     },
     "xixia-jingzong.personalCampaignCount.e005": {
       "startDate": "1041-03",

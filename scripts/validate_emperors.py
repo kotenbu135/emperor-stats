@@ -119,46 +119,15 @@ KNOWN_REIGN_SUMMARY = set()
 # 2026-07-22 の 0-3 対応（qin-shi-huang / qin-er-shi の算出基準統一）で全件解消済み
 KNOWN_DISPLAY_YEARS = set()
 
-# CE イベント日付が在位 ISO 年範囲外（min-1〜max+1）だが正当なもの＝称帝前（王号・天王・僭号期）に
-# 本人が君主として行った行為で、ADDITIONAL_SCHEMA.md「回数系指標の計上期間（本人の実権掌握期）」
-# の方針により意図的に計上しているもの（各 note に【皇帝即位前】等を明示）。全件が本人自身の行為で
-# あることを 2026-07-22 に確認済み（他者＝父・慕容皝の行為だった qianyan-murongjun の 0341 龍城遷都は
-# 同日に計上から削除）。ここに載る＝在位範囲チェックの既知の正当例。
+# CE イベント日付が在位 ISO 年範囲外（min-1〜max+1）だが正当なもの。
+# **2026-08-07（Issue #91）に空になった。** 王・天王・可汗・摂皇帝など皇帝位に即く前の
+# 称号のもとで行った行為は数えないというユーザー決定で、ここに載っていた30件は配布物から
+# 外して data/internal/preaccession-events.json へ退避した。つまり check_event_reign_range は
+# 例外を1件も持たない実効ゲートになっている — 新しく在位範囲外の date を書くとその場で落ちる。
+# **足す前に、それが本当に在位中の行為かを疑う**（2026-07-22 に「実権掌握期」で許容を広げた
+# のがこの許可リストの由来で、その方針自体が覆っている）。
 # （BCE イベントの範囲チェックは check_bce_event_years が別途担当）
-# 鍵は **events[].id**（2026-08-03・Issue #69。以前は (皇帝id, 容器, 添字) で、
-# 容器に event を1件挿入すると以降の許可が1つずつ隣へずれた）。
-KNOWN_PREACCESSION_EVENTS = {
-    "wu-dadi.capitalRelocationCount.e001",             # 0221 呉王冊命前の遷都
-    "qianzhao-liuyuan.eraChangeCount.e001",            # 0304 漢王期の建元
-    "qianzhao-liuyuan.capitalRelocationCount.e001",    # 0305 漢王期の遷都
-    "qianyan-murongjun.capitalRelocationCount.e001",   # 0350 燕王期(即位前)の遷都。父・慕容皝の0341は2026-07-22に他者事績として削除済み
-    "houzhao-shile.eraChangeCount.e001",               # 0319 趙王期の建元（趙王元年）
-    "houzhao-shile.eraChangeCount.e002",               # 0328 趙王期の太和改元
-    "houzhao-shile.amnestyCount.e001",                 # 0328 趙王期の大赦
-    "xia-helianbobo.eraChangeCount.e001",              # 0407 天王・大単于期の龍昇建元
-    "xia-helianbobo.amnestyCount.e001",                # 0407 天王期の赦其境内
-    "nanyan-murongde.eraChangeCount.e001",             # 0398 燕王自立の称元
-    "nanyan-murongde.amnestyCount.e001",               # 0398 燕王期の大赦境内
-    "houqin-yaochang.eraChangeCount.e001",             # 0384 万年秦王期の白雀建元
-    "houqin-yaochang.amnestyCount.e001",               # 0384 万年秦王期の大赦境内
-    "houyan-murongchui.eraChangeCount.e001",           # 0384 燕王自立の燕元建元
-    "houzhao-shihu.eraChangeCount.e001",               # 0335 趙天王期
-    "houzhao-shihu.amnestyCount.e001",                 # 0335 趙天王期
-    "houzhao-shihu.amnestyCount.e002",                 # 0337 大趙天王期
-    "houzhao-shihu.empressInstallationCount.e001",     # 0337 天王皇后
-    "houzhao-shihu.empressInstallationCount.e002",     # 0337 天王皇后
-    "houzhao-shihu.crownPrinceDepositionCount.e001",   # 0337 天王期
-    "houzhao-shihu.capitalRelocationCount.e001",       # 0335 趙天王期
-    "tangmo-huangchao.eraChangeCount.e001",            # 0878 王霸建元(称帝前)
-    "shiguo-wu-yangpu.eraChangeCount.e001",            # 0921 呉王期の改元
-    "shiguo-wu-yangpu.amnestyCount.e001",              # 0921 呉王期の大赦
-    "shiguo-min-wangyanxi.eraChangeCount.e001",        # 0939 閩国王期(称帝は941)
-    "liao-taizu.empressInstallationCount.e001",        # 0907 可汗即位期(公式在位は916-)
-    "xixia-jingzong.eraChangeCount.e001",              # 1033 西平王期
-    "xixia-jingzong.eraChangeCount.e002",              # 1034 西平王期
-    "xixia-jingzong.eraChangeCount.e003",              # 1035 西平王期
-    "xixia-jingzong.amnestyCount.e001",                # 1034 西平王期
-}
+KNOWN_PREACCESSION_EVENTS: set[str] = set()
 
 # 同一王朝内で在位期間が重複するが正当なもの（並立・対立政権の非対称処理・母后称制の空位挟み・
 # 同名別政権・year/month 精度プレースホルダ由来の見かけの重複）で、重複する2在位の note/
@@ -992,7 +961,10 @@ def check_event_date_format(data):
 # **eraName が空であることは「元号が無い」ではない。** 前漢初期のように元号制以前で
 # 名前そのものが無い改元と、まだ読んでいない改元の両方が空になる。埋め草を書かせると
 # R-DATE-CLAIM-SCOPE が日付で捨てた形をここで作り直すので、任意のままにしてある。
-ERA_NAME_BASELINE = 441
+# 2026-08-07（Issue #91）: 441 → 437。皇帝即位前の改元 event 19件を配布物から外し
+# （data/internal/preaccession-events.json へ退避）、うち4件が eraName を持っていた。
+# 転記を消したのではなく母集団そのものが 681 → 662 に減ったぶんの引き下げ。
+ERA_NAME_BASELINE = 437
 
 # 元号の名だけを書く欄なので、記事の一節を丸ごと入れた形（「改元康熙」「為天啓元年」）を弾く。
 # **「建元」は実在する元号**（漢武帝の最初の元号・東晋康帝・前秦苻堅・南斉高帝）なので、

@@ -35,6 +35,8 @@
 | `quotes[]`（構造化引用）を書く・`source.bookId`/`volume` を足す | `meta.catalogs.books`（`bookId` の指す先。無い書は `python3 scripts/build_books_catalog.py --write` で入る）と `data/quote-refs.json`（`quotes[].text` は照合台帳の対象） | `validate_emperors.py` の `check_quote_containers`（形・カタログ参照・**巻の索引を持たない書に `volume` を書けない**）＋ `verify_quotes.py --check-volumes`（**要コーパス**・巻が引けるか／引用が**その巻の中**に在るか）＋ `--backfill && --check`（台帳） |
 | `source.quote` の引用を `quotes[]` へ移す | 同じ容器の `source.quote` を**消す**（同居禁止）・`validate_emperors.py` の `LEGACY_SOURCE_QUOTE_MAX` を下げる・`QUOTE_FLOOR_BASELINE` を上げる・照合台帳の陳腐化キー（`verify_quotes.py --prune-stale`） | `check_quote_containers`（同居はエラー・ラチェットは**減る方向で落ちる**）。移し忘れたまま `source.quote` を消すと**引用が台帳から静かに抜ける**ので、`--check` の units 数を見る |
 | 政権を増やす／`regimeId` を変える | `data/regime-conventions.json` の `regimeIds`（未確定の政権では人物単位の調査が立てられない） | `check_regime_conventions.py`（存在しない政権 id をエラー） |
+| 回数系8指標の `events` を**消す** | (1) `data/internal/event-date-archive.json` の同じ鍵（消した event を指したまま残ると `check_event_date_archive` が落ちる）、(2) `data/screenings.json` の件数（`check_screenings.py --update`）、(3) `validate_emperors.py` の `ERA_NAME_BASELINE`（`eraName` を持つ event を消すとラチェットが落ちる）、(4) 同ファイルの `KNOWN_PREACCESSION_EVENTS`（陳腐化エントリが WARN で出る）、(5) **同じ容器の他の event が引用の書名を支えていなかったか**（容器で唯一の引用ユニットになった note が `--check-books` で初めて落ちる。2026-08-07 に `qianyan-murongjun` で実際に出た） | `validate_emperors.py`＋`check_screenings.py`＋`verify_quotes.py --backfill && --check-books` |
+| `events[].id` を消す | **id は振り直さない**（`e001` を消して `e002` を残すのが正しい形）。参照先は `data/screenings.json` の `audit.findings[].id` | `validate_emperors.py` の `check_event_ids`（形・一意・外部参照が解決するか） |
 
 ## サイト側（欠けるとビルドか deploy gate が落ちる）
 
