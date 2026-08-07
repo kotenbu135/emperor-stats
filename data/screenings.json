@@ -930,6 +930,85 @@
           }
         }
       ]
+    },
+    {
+      "id": "amnesty-shiliuguo-issue98",
+      "issue": 98,
+      "unit": "person",
+      "fields": [
+        "amnestyCount.count"
+      ],
+      "script": "scripts/screens/amnesty_shiliuguo.py",
+      "population": "十六国系の政権（researchSection が 後趙・後燕・前趙・成漢・前秦・西燕・夏・後秦・前燕・南燕・前涼）の43人。2026-08-07 の Issue #98 で「大赦したという行為で数える」（定型句や赦免の深さで計上を割らない）と決まったので、それ以前に語で切っていた可能性のあるレコードを洗うためのもの。原文キャッシュの中で**版図全体を対象にした赦の形**（大赦天下・赦天下・大赦境内・赦其境内・赦于境内・大赦殊死已下・赦境内死罪・太赦境内）を数え、`amnestyCount.count` と突き合わせる。曲赦／特赦（地域限定）と刑期の軽い側から線を引く形（赦三歲刑已下）は候補から外す",
+      "n": 43,
+      "screenedAt": "2026-08-07",
+      "establishes": "原文の候補が count より多い人物が13人いること。**13人とも 2026-08-07 に原典で読み切り、count が動いた人物は0人だった**（内訳は下の over バケット）",
+      "notEstablished": "match の30人が正しいこと。候補の件数が偶然一致しているだけの形（1条を2件に割った上で別の1件を落としている等）はこの絞り込みでは出ない。また候補が在位中の行為かどうかも見ていない — 在位の判定は人が原典を読んで行う",
+      "buckets": [
+        {
+          "name": "over",
+          "kind": "read",
+          "count": 13,
+          "means": "原文の候補が count より多い。**13人とも読み終えており、count は1人も動かなかった**。内訳は (a) 皇帝即位より前の赦が原文キャッシュに含まれている 9人（houqin-yaochang・houzhao-shihu・houzhao-shile・nanyan-murongde・qianqin-fujian・qianzhao-liuyuan・xia-helianbobo・qianyan-murongjun・houyan-murongsheng。2026-08-07・Issue #91 で計上期間を皇帝在位中に限ったので対象外）、(b) キャッシュが隣の人物の記事を含む 2人（houzhao-shishi は石遵の即位の赦・qianqin-fuchong は苻登の赦で、どちらも当の人物の側で既に計上済み）、(c) 引用された進言の中の語 1人（qianzhao-liuyao の「大赦与之更始」は游子遠の進言の一部で、実際に行われた「大赦境内」は別に計上済み）、(d) 赦の及ぶ範囲が版図の一部に限られる 1人（houzhao-shihong。石虎が魏王を受けた条の「赦其境内」は魏王国の版図に限る）"
+        },
+        {
+          "name": "match",
+          "kind": "absent",
+          "count": 30,
+          "means": "候補と count が同数。**機械が食い違いを見つけなかっただけ**",
+          "notEstablished": "count の正しさ。1条を2件に割った上で別の1件を落としている形・候補の正規表現に掛からない書き方（「其赦…」「原免…」等）はここに落ちる。**取りこぼし率は未測定**",
+          "audit": {
+            "seed": 98,
+            "size": 6,
+            "sampleKey": "id",
+            "checkedAt": "2026-08-07",
+            "findings": [
+              {
+                "id": "chenghan-lishi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/chenghan-lishi.txt の赦は「寿死，势嗣伪位，赦其境内，改元曰太和」（343年・即位）と「势既诛奕，大赦境内，改年嘉宁」の2件で、どちらも在位（343〜347年）の内側。count=2 と一致（この2件目は 2026-08-07 に Issue #98 で足した）"
+              },
+              {
+                "id": "houyan-muronglin",
+                "verdict": "一致",
+                "checked": "_corpus_cache/houyan-muronglin.txt（全2行）に「赦」の字が0件。count=0 と一致"
+              },
+              {
+                "id": "qianqin-fudeng",
+                "verdict": "一致",
+                "checked": "_corpus_cache/qianqin-fudeng.txt の赦は「登于是以太元十一年僭即皇帝位，大赦境内，改元曰太初」（386年）・「于是大赦境内，百僚进位二等」・「于是大赦，尽众而东」の3件で、いずれも在位（386〜394年）の内側。count=3 と一致"
+              },
+              {
+                "id": "xia-heliading",
+                "verdict": "一致",
+                "checked": "十六国春秋 卷六十八 夏録三の「遂僣即皇帝位大赦境内殊死已下改承光四年为胜光元年」（428年・即位）の1件で、在位（428〜431年）の内側。count=1 と一致（2026-08-07 に Issue #98 で0から足した）"
+              },
+              {
+                "id": "xiyan-murongchong",
+                "verdict": "一致",
+                "checked": "_corpus_cache/xiyan-murongchong.txt（全3行）に「赦」の字が0件。count=0 と一致"
+              },
+              {
+                "id": "xiyan-murongyong",
+                "verdict": "一致",
+                "checked": "_corpus_cache/xiyan-murongyong.txt（全4行）の「赦」は「朝廷赦而不诛」1件のみで、東晋朝廷が個人を赦した記事。全国規模の赦ではない。count=0 と一致"
+              }
+            ]
+          }
+        },
+        {
+          "name": "under",
+          "kind": "read",
+          "count": 0,
+          "means": "候補より count が多い（載記の外の書で数えている・1条を分けている）。現在0人"
+        },
+        {
+          "name": "nocache",
+          "kind": "read",
+          "count": 0,
+          "means": "原文キャッシュが無い。現在0人"
+        }
+      ]
     }
   ]
 }

@@ -10950,6 +10950,17 @@
    ],
    "line": 8563
   },
+  "chenghan-lishi|amnestyCount.note|0430bf04ff08": {
+   "id": "chenghan-lishi",
+   "path": "amnestyCount.note",
+   "span": "寿死，势嗣伪位，赦其境内，改元曰太和",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-lishi.txt",
+   "frags": [
+    "改元曰太和"
+   ],
+   "line": 1
+  },
   "chenghan-lishi|amnestyCount.note|f4518a4679d2": {
    "id": "chenghan-lishi",
    "path": "amnestyCount.note",
@@ -10962,6 +10973,17 @@
     "境内改年嘉宁"
    ],
    "line": 8561
+  },
+  "chenghan-lishi|amnestyCount[1].note|0430bf04ff08": {
+   "id": "chenghan-lishi",
+   "path": "amnestyCount[1].note",
+   "span": "寿死，势嗣伪位，赦其境内，改元曰太和",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-lishi.txt",
+   "frags": [
+    "改元曰太和"
+   ],
+   "line": 1
   },
   "chenghan-lishi|crownPrinceDepositionCount.note|50a2aba7e348": {
    "id": "chenghan-lishi",
@@ -22459,6 +22481,18 @@
    ],
    "line": 3
   },
+  "houyan-murongsheng|amnestyCount.note|c6ea774ac7de": {
+   "id": "houyan-murongsheng",
+   "path": "amnestyCount.note",
+   "span": "以长乐王称制，赦其境内，改元曰建平",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houyan-murongsheng.txt",
+   "frags": [
+    "以长乐王称制",
+    "改元曰建平"
+   ],
+   "line": 2
+  },
   "houyan-murongsheng|amnestyCount[0].note|ab6550e2e49b": {
    "id": "houyan-murongsheng",
    "path": "amnestyCount[0].note",
@@ -22872,6 +22906,28 @@
    ],
    "line": 7
   },
+  "houzhao-shihong|amnestyCount.note|da2775deb290": {
+   "id": "houzhao-shihong",
+   "path": "amnestyCount.note",
+   "span": "赦其境内殊死已下",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houzhao-shihong.txt",
+   "frags": [
+    "赦其境内殊死已下"
+   ],
+   "line": 3
+  },
+  "houzhao-shihong|amnestyCount.note|ea3dc6a35eba": {
+   "id": "houzhao-shihong",
+   "path": "amnestyCount.note",
+   "span": "立季龙妻郑氏为魏王后",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houzhao-shihong.txt",
+   "frags": [
+    "立季龙妻郑氏为魏王后"
+   ],
+   "line": 3
+  },
   "houzhao-shihong|amnestyCount[0].note|98c6d2b3f535": {
    "id": "houzhao-shihong",
    "path": "amnestyCount[0].note",
@@ -23175,6 +23231,32 @@
     "在位十五年"
    ],
    "line": 130
+  },
+  "houzhao-shile|capitalRelocationCount.note|413b068156c4": {
+   "id": "houzhao-shile",
+   "path": "capitalRelocationCount.note",
+   "span": "勒既将营鄴宫，又欲以其世子弘为镇，密与程遐谋之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houzhao-shile.txt",
+   "frags": [
+    "勒既将营鄴宫",
+    "又欲以其世子弘为镇",
+    "密与程遐谋之"
+   ],
+   "line": 99
+  },
+  "houzhao-shile|capitalRelocationCount.note|e2ed6acdd525": {
+   "id": "houzhao-shile",
+   "path": "capitalRelocationCount.note",
+   "span": "勒乃僭即皇帝位，大赦境内，改元曰建平，自襄国都临漳",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/houzhao-shile.txt",
+   "frags": [
+    "勒乃僭即皇帝位",
+    "改元曰建平",
+    "自襄国都临漳"
+   ],
+   "line": 114
   },
   "houzhao-shile|empressInstallationCount[0].note|9e11d5907fc2": {
    "id": "houzhao-shile",
@@ -43669,6 +43751,17 @@
     "時年三十九"
    ],
    "line": 12
+  },
+  "qianqin-fujian|amnestyCount.note|e5f51938240c": {
+   "id": "qianqin-fujian",
+   "path": "amnestyCount.note",
+   "span": "永和七年，僭称天王、大单于，赦境内死罪，建元皇始",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianqin-fujian.txt",
+   "frags": [
+    "赦境内死罪"
+   ],
+   "line": 3
   },
   "qianqin-fujian|empressInstallationCount[0].note|2a1fed786062": {
    "id": "qianqin-fujian",
@@ -71438,6 +71531,17 @@
    ],
    "line": 1198
   },
+  "xia-heliading|amnestyCount[0].note|1abc8641e654": {
+   "id": "xia-heliading",
+   "path": "amnestyCount[0].note",
+   "span": "遂僣即皇帝位大赦境内殊死已下改承光四年为胜光元年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xia-heliading.txt",
+   "frags": [
+    "遂僣即皇帝位大赦境内"
+   ],
+   "line": 2
+  },
   "xia-heliading|deathCause.note|2d08fa507e93": {
    "id": "xia-heliading",
    "path": "deathCause.note",
@@ -71665,6 +71769,17 @@
    "span": "屈孑(赫連勃勃)之第三子",
    "status": "manual",
    "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
+  },
+  "xia-helianchang|amnestyCount[0].note|3b1f79f8243a": {
+   "id": "xia-helianchang",
+   "path": "amnestyCount[0].note",
+   "span": "昌即伪位于永安殿大赦境内殊死已下改元承光",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xia-helianchang.txt",
+   "frags": [
+    "昌即伪位于永安殿大赦"
+   ],
+   "line": 2
   },
   "xia-helianchang|crownPrinceDepositionCount.note|4cc8a6f7e9bb": {
    "id": "xia-helianchang",
