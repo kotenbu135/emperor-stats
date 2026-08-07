@@ -54,7 +54,6 @@ KNOWN_EXACTDAYS_PENDING = {}
 
 # B-1: 朔日以外の fromLunar 呼び出しで結果が主張・保存値と一致しないが、文脈上正当と確認済みのもの
 KNOWN_FROMLUNAR_CONTEXT = {
-    ("liu-yong-liang", 0, (25, 6, 22)),      # 検討過程の候補日計算
     ("liang-xiaoji", 0, (553, 7, 26)),       # 別事象（記事日）の換算
     ("suimo-fugongshi", 0, (623, 8, 9)),     # 前後干支のブラケット計算
     ("suimo-fugongshi", 0, (624, 3, 28)),    # 同上

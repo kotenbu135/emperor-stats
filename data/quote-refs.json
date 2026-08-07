@@ -12104,6 +12104,70 @@
    ],
    "line": 7
   },
+  "dongjin-feidi|deathCause.note|01b2c2cbcae7": {
+   "id": "dongjin-feidi",
+   "path": "deathCause.note",
+   "span": "太元十一年十月甲申，薨于吴，时年四十五",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-feidi.txt",
+   "frags": [
+    "太元十一年十月甲申",
+    "时年四十五"
+   ],
+   "line": 9
+  },
+  "dongjin-feidi|deathCause.note|1cf1982013fd": {
+   "id": "dongjin-feidi",
+   "path": "deathCause.note",
+   "span": "诬帝在籓夙有痿疾",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-feidi.txt",
+   "frags": [
+    "诬帝在籓夙有痿疾"
+   ],
+   "line": 7
+  },
+  "dongjin-feidi|deathCause.note|bd8c25e0a8d9": {
+   "id": "dongjin-feidi",
+   "path": "deathCause.note",
+   "span": "杜塞聪明，无思无虑，终日酣暢，耽于内宠，有子不育，庶保天年",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/帝纪/第八章--原文.html",
+   "frags": [
+    "杜塞聪明无思",
+    "明无思无虑终",
+    "无虑终日酣暢",
+    "日酣暢耽于内",
+    "耽于内宠有子",
+    "宠有子不育庶",
+    "不育庶保天年"
+   ],
+   "line": 55
+  },
+  "dongjin-feidi|deathCause.note|caa44442a47c": {
+   "id": "dongjin-feidi",
+   "path": "deathCause.note",
+   "span": "太元十一年，海西公薨于吴",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/列传/第二章--原文.html",
+   "frags": [
+    "太元十一年",
+    "海西公薨于吴"
+   ],
+   "line": 44
+  },
+  "dongjin-feidi|deathCause.note|f33459167b3b": {
+   "id": "dongjin-feidi",
+   "path": "deathCause.note",
+   "span": "所谓柔弱胜刚强，得尽于天年者也",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-feidi.txt",
+   "frags": [
+    "所谓柔弱胜刚强",
+    "得尽于天年者也"
+   ],
+   "line": 10
+  },
   "dongjin-feidi|empressInstallationCount[0].note|26dff0dbd7f7": {
    "id": "dongjin-feidi",
    "path": "empressInstallationCount[0].note",
@@ -12377,6 +12441,18 @@
     "振恤鰥寡孤独"
    ],
    "line": 2
+  },
+  "dongjin-kangdi|deathCause.note|a3fb215bdd5f": {
+   "id": "dongjin-kangdi",
+   "path": "deathCause.note",
+   "span": "及帝崩，充奉遗旨，便立太子",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/列传/第四十七章--原文.html",
+   "frags": [
+    "及帝崩充奉遗",
+    "充奉遗旨便立"
+   ],
+   "line": 35
   },
   "dongjin-kangdi|reigns[0].quote#0|74eb236a09d9": {
    "id": "dongjin-kangdi",
@@ -24564,6 +24640,40 @@
    ],
    "line": 33
   },
+  "jin-mindi|capitalRelocationCount[0].note|05af45bd7ae5": {
+   "id": "jin-mindi",
+   "path": "capitalRelocationCount[0].note",
+   "span": "登壇告類、建宗廟社稷、大赦",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-mindi.txt",
+   "frags": [
+    "建宗廟社稷"
+   ],
+   "line": 1
+  },
+  "jin-mindi|capitalRelocationCount[0].note|a071cd8b8e15": {
+   "id": "jin-mindi",
+   "path": "capitalRelocationCount[0].note",
+   "span": "曜等遂焚燒宮廟…帝蒙塵於平陽",
+   "status": "corpus",
+   "corpusFile": "china-history/晋书/帝纪/第五章--原文.html",
+   "frags": [
+    "曜等遂焚燒宮廟",
+    "帝蒙塵於平陽"
+   ],
+   "line": 28
+  },
+  "jin-mindi|capitalRelocationCount[0].note|e19b14876c4e": {
+   "id": "jin-mindi",
+   "path": "capitalRelocationCount[0].note",
+   "span": "即皇帝位，大赦，改元",
+   "status": "corpus",
+   "corpusFile": "china-history/宋书/本纪/第七章-卷七-原文.html",
+   "frags": [
+    "即皇帝位大赦"
+   ],
+   "line": 23
+  },
   "jin-mindi|eraChangeCount[0].note|d69b5090bf40": {
    "id": "jin-mindi",
    "path": "eraChangeCount[0].note",
@@ -34308,6 +34418,18 @@
     "永自称天子"
    ],
    "line": 2
+  },
+  "liu-yong-liang|reigns[0].conversion|5e7af6b9bc28": {
+   "id": "liu-yong-liang",
+   "path": "reigns[0].conversion",
+   "span": "九月，赤眉入长安，更始奔高陵",
+   "status": "corpus",
+   "corpusFile": "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html",
+   "frags": [
+    "赤眉入长安",
+    "更始奔高陵"
+   ],
+   "line": 56
   },
   "liu-yong-liang|reigns[0].conversion|b38fa3584fec": {
    "id": "liu-yong-liang",
@@ -63267,6 +63389,18 @@
     "臨為統義陽王"
    ],
    "line": 197
+  },
+  "wang-mang|deathCause.note|36fdfd2775ca": {
+   "id": "wang-mang",
+   "path": "deathCause.note",
+   "span": "王邑昼夜战，罢极，士死伤略尽",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wang-mang.txt",
+   "frags": [
+    "王邑昼夜战",
+    "士死伤略尽"
+   ],
+   "line": 250
   },
   "wang-mang|deathCause.note|63c47169eeaf": {
    "id": "wang-mang",
