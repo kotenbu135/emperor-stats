@@ -28,6 +28,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import profile_name  # noqa: E402
 import profile_prose  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -37,16 +38,22 @@ RUBY = profile_prose.RUBY
 KANJI_CLASS = r"[㐀-鿿豈-﫿\U00020000-\U0003ffff]"
 
 
-def forms_for(joined: str, lexicon: dict[str, list[str]]) -> dict[str, str]:
+def forms_for(joined: str, lexicon: dict[str, list[str]],
+              extra: dict[str, str] | None = None) -> dict[str, str]:
     """この1本で使うルビの形。**lead と body をつないだ側から拾う。**
 
     欄ごとに拾うと、lead でしか振っていない語（「宣帝」「挟書律」）が body で
     埋まらない。実際にそれで取りこぼした。
+
+    `extra` は**その本の主人公の名前**（2026-08-07）。辞書には載らない
+    （365人ぶん載せる欄ではない）が、本人の名前にルビが無い本が実際にあった
+    （「劉邦」5箇所・「楊堅」4箇所）ので、ここで必ず振る。
     """
     forms: dict[str, str] = {}
     for plain, candidates in lexicon.items():
         if len(candidates) == 1:  # 候補が割れる語（送り仮名で読みが変わる）は機械で決めない
             forms[plain] = candidates[0]
+    forms.update(extra or {})
     for m in RUBY.finditer(joined):  # 本文で実際に振った形が辞書より優先
         forms[m.group(1)] = m.group(0)
     return forms
@@ -119,9 +126,19 @@ def main() -> int:
     doc = json.loads(path.read_text(encoding="utf-8"))
     profiles = doc["profiles"] if "profiles" in doc else doc
 
+    emperors = profile_name.load_emperors()
+    readings = profile_name.load_readings()
+
     total = 0
     for emperor_id, profile in profiles.items():
-        forms = forms_for(f"{profile.get('lead') or ''}\n{profile.get('body') or ''}", lexicon)
+        extra = None
+        if emperor_id in emperors:
+            r = profile_name.resolve(emperors[emperor_id], readings)
+            if r["annotated"] != r["plain"]:  # カタカナ名（クビライ）にはルビが要らない
+                extra = {r["plain"]: r["annotated"]}
+        forms = forms_for(
+            f"{profile.get('lead') or ''}\n{profile.get('body') or ''}", lexicon, extra
+        )
         for field in ("lead", "body"):
             text = profile.get(field)
             if not text:

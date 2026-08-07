@@ -28,6 +28,9 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import profile_name  # noqa: E402  （本文で使う人物名）
+
 ROOT = Path(__file__).resolve().parent.parent
 EMPERORS = ROOT / "data" / "emperors.json"
 
@@ -81,6 +84,15 @@ def render(e: dict, catalogs: dict, max_events: int, notes: bool) -> str:
             templeName=name.get("templeName") or "—",
             posthumousName=name.get("posthumousName") or "—",
         )
+    )
+    # 本文で使う名前（2026-08-07）。**書き手に選ばせない** — 原文は諱1字で人物を
+    # 指すので、そのまま持ってくると「垂は」「勒は」になる。既存148本のうち91本が
+    # そうなっていた。姓を繋げれば済む話でもない（耶律阿保機・クビライ）ので、
+    # scripts/profile_name.py の1実装から引いてここへ配る（形を探させない）。
+    resolved = profile_name.resolve(e, profile_name.load_readings())
+    add(
+        f"- **本文で使う名前: {resolved['annotated']}**"
+        f"（諱「{name.get('personalName')}」だけで指さない・ルビも振る）"
     )
     # 民族名（Issue #37 単位3）。2026-08-03 に personalName の括弧から分けたので、
     # ここで出さないと元・北元の12人は執筆者から「クビライ」が見えなくなる。
