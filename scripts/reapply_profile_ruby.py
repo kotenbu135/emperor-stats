@@ -36,6 +36,8 @@ PROFILES = ROOT / "data" / "emperor-profiles.json"
 RUBY = profile_prose.RUBY
 # 1字の親文字を熟語の中だけへ写すための漢字クラス（add_profile.py の KANJI と同じ範囲）。
 KANJI_CLASS = r"[㐀-鿿豈-﫿\U00020000-\U0003ffff]"
+KANJI_RE = re.compile(KANJI_CLASS)
+TOKEN = re.compile("\x00(\\d+)\x01")
 
 
 def forms_for(joined: str, lexicon: dict[str, list[str]],
@@ -59,11 +61,20 @@ def forms_for(joined: str, lexicon: dict[str, list[str]],
     return forms
 
 
-def annotate(text: str, forms: dict[str, str]) -> tuple[str, int]:
+def annotate(text: str, forms: dict[str, str],
+             undone: list[str] | None = None) -> tuple[str, int]:
     """ルビ注釈の外に出ている対象語へルビを付ける。→ (新しい本文, 付けた数)
 
     既存の注釈は**一度プレースホルダへ退避**してから語を置換する。退避しないと、
     付けたばかりの `｜邯鄲《かんたん》` の中の「邯」に次の語が食い込む。
+
+    **左右に未置換の漢字が残る位置には振らない**（2026-08-07）。北斉・西魏・北周の
+    15本で執筆エージェント8体が同じ事故を報告した — 「神武帝」→「神｜武帝《ぶてい》」・
+    「西魏」→「西｜魏《ぎ》」・「詔勅」→「｜詔《みことのり》勅」・「高祖父」→
+    「｜高祖《こうそ》父」・「永平陵」→「｜永平《えいへい》陵」・「陳王純」→
+    「｜陳《ちん》王純」、および漢文引用「竟死蜀中」の内側。いずれも書き手が手で
+    本文を書き換えて回避していた。**隣り合う語がどちらも対象語なら互いに
+    プレースホルダになる**（「安定公宇文泰」）ので、この検査には掛からない。
     """
     # 既存の注釈を退避
     slots: list[str] = []
@@ -81,11 +92,15 @@ def annotate(text: str, forms: dict[str, str]) -> tuple[str, int]:
             slots.append(word)
             work = work.replace(word, f"\x00{len(slots) - 1}\x01")
 
+    protected = len(slots)  # ここまでは本文が元から持っていたもので、取り消さない
+    plains: dict[int, str] = {}
+
     added = 0
     for plain in sorted(forms, key=len, reverse=True):
         if plain not in work:
             continue
         slots.append(forms[plain])
+        plains[len(slots) - 1] = plain
         token = f"\x00{len(slots) - 1}\x01"
         if len(plain) == 1:
             # **1字の親文字は熟語の中だけへ写す**（2026-08-06）。name-readings が
@@ -105,6 +120,27 @@ def annotate(text: str, forms: dict[str, str]) -> tuple[str, int]:
             continue
         added += work.count(plain)
         work = work.replace(plain, token)
+
+    # 左右に未置換の漢字が残った置換を1件ずつ取り消す。取り消すと隣の判定が変わる
+    # （「神武帝」の「武帝」を戻すと「神」の右が漢字に戻る）ので、安定するまで回す。
+    while True:
+        hit = None
+        for m in TOKEN.finditer(work):
+            index = int(m.group(1))
+            if index < protected:
+                continue
+            left = work[m.start() - 1] if m.start() else ""
+            right = work[m.end()] if m.end() < len(work) else ""
+            if (left and KANJI_RE.match(left)) or (right and KANJI_RE.match(right)):
+                hit = (m, index)
+                break
+        if hit is None:
+            break
+        m, index = hit
+        work = work[:m.start()] + plains[index] + work[m.end():]
+        added -= 1
+        if undone is not None:
+            undone.append(plains[index])
 
     while "\x00" in work:
         for i, s in enumerate(slots):
@@ -130,6 +166,7 @@ def main() -> int:
     readings = profile_name.load_readings()
 
     total = 0
+    skipped: list[str] = []
     for emperor_id, profile in profiles.items():
         extra = None
         if emperor_id in emperors:
@@ -143,11 +180,23 @@ def main() -> int:
             text = profile.get(field)
             if not text:
                 continue
-            new, added = annotate(text, forms)
+            undone: list[str] = []
+            new, added = annotate(text, forms, undone)
+            if undone:
+                skipped.extend(f"{emperor_id}/{field}: {w}" for w in undone)
             if added:
                 total += added
                 print(f"{emperor_id}/{field}: +{added}件")
                 profile[field] = new
+
+    if skipped:
+        print(f"\n左右に漢字が続くので振らなかった箇所 {len(skipped)}件"
+              "（熟語・固有名詞・漢文引用の内側。長い語のほうを辞書へ足すか、"
+              "本文で手当てする）:")
+        for line in skipped[:20]:
+            print(f"  {line}")
+        if len(skipped) > 20:
+            print(f"  … 他 {len(skipped) - 20}件")
 
     print(f"\n合計 {total} 件のルビを追加"
           + ("（--dry-run なので書いていない）" if not args.write else ""))

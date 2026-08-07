@@ -39,6 +39,9 @@ RUBY = re.compile(r"｜([^｜《》]+)《([^｜《》]+)》")
 # 1字の親文字を「熟語の中」に限るための漢字クラス。
 # **reapply_profile_ruby.py の KANJI_CLASS と同じ規則で動かす**（片方だけ変えない）。
 KANJI = r"[㐀-鿿豈-﫿\U00020000-\U0003ffff\x00]"
+# 伏せ字 \x00 を含まない側。「隣が生の漢字か（＝まだどの対象語にも数えられていないか）」
+# を見るのに使う。KANJI と取り違えると、処理済みの隣接語まで未処理と読んでしまう。
+KANJI_RE = re.compile(r"[㐀-鿿豈-﫿\U00020000-\U0003ffff]")
 # 史書の語そのものを話題にしている箇所（「薨」とだけ書く）。訓読調の検査から外す。
 QUOTED = re.compile(r"[「『][^」』]*[」』]")
 
@@ -162,29 +165,32 @@ def missing_ruby(text: str, lexicon: dict[str, list[str]]) -> list[tuple[str, in
     # 「侯」を二重に数えない。辞書に短い語が入っていても部分一致で暴発しない）。
     hits: list[tuple[str, int, str]] = []
     for plain in sorted(required, key=len, reverse=True):
-        if len(plain) == 1:
-            # **1字の親文字は熟語の中だけ要求する**（2026-08-06）。
-            # reapply_profile_ruby.py が写すのも熟語の中だけなので、ここで単独の
-            # 出現まで要求すると**道具では直せない指摘**になる（「孫晧」に振った
-            # ｜孫《そん》 が、地の文の「…の孫が継いだ」＝まご にも要求される）。
-            # 両者は同じ規則で動かす。片方だけ変えないこと。
-            pat = re.compile(
-                f"(?<={KANJI}){re.escape(plain)}|{re.escape(plain)}(?={KANJI})"
-            )
-            spans = [m.span() for m in pat.finditer(rest)]
-            n = len(spans)
-            if n:
-                hits.append((plain, n, required[plain]))
-                chars = list(rest)
-                for lo, hi in spans:
-                    for j in range(lo, hi):
-                        chars[j] = "\x00"
-                rest = "".join(chars)
+        spans = []
+        for m in re.finditer(re.escape(plain), rest):
+            left = rest[m.start() - 1] if m.start() else ""
+            right = rest[m.end()] if m.end() < len(rest) else ""
+            # **左右に未処理の漢字が残る出現は要求しない**（2026-08-07）。
+            # reapply_profile_ruby.py もそこには振らない（「神武帝」の中の「武帝」・
+            # 「詔勅」の中の「詔」・漢文引用の内側）ので、要求すると**道具では
+            # 直せない指摘**になる。振らせたいなら長い語のほうを辞書へ足す。
+            # 隣が \x00 なら、そこは既に別の対象語として数えた場所なので数える
+            # （「安定公宇文泰」は両方が対象語）。
+            if (left and KANJI_RE.match(left)) or (right and KANJI_RE.match(right)):
+                continue
+            # **1字の親文字は熟語の中だけ要求する**（2026-08-06）。単独の出現まで
+            # 要求すると、「孫晧」に振った ｜孫《そん》 が地の文の「…の孫が継いだ」
+            # ＝まご にも要求される。上の条件と合わせて「隣が対象語」だけが残る。
+            if len(plain) == 1 and "\x00" not in (left, right):
+                continue
+            spans.append(m.span())
+        if not spans:
             continue
-        n = rest.count(plain)
-        if n:
-            hits.append((plain, n, required[plain]))
-            rest = rest.replace(plain, "\x00" * len(plain))
+        hits.append((plain, len(spans), required[plain]))
+        chars = list(rest)
+        for lo, hi in spans:
+            for j in range(lo, hi):
+                chars[j] = "\x00"
+        rest = "".join(chars)
     return sorted(hits, key=lambda h: -h[1])
 
 
