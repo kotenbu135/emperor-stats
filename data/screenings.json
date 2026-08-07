@@ -330,12 +330,12 @@
       ],
       "script": "scripts/screens/lunar_date_as_iso.py",
       "population": "すべての count グループの events のうち、date / startDate / endDate が**日精度**（datePrecision が day）で**記録されている**フィールド。2026-08-03（Issue #69）に主張範囲を絞ってからは、配布物の値が年へ丸まっていても data/internal/event-date-archive.json の退避値を戻して数える（**記録に対する検出器**であって、配布物が主張する日付だけを見る道具ではない）。同日に走査の穴を1つ塞いだ — COUNT_GROUPS に存在しない容器名 crownPrinceChangeCount が入っており、皇太子廃立の34 events・日精度15値が母集団から黙って外れていた（母集団 1,336 → 1,351 の増分はこれ）",
-      "n": 1349,
+      "n": 1348,
       "buckets": [
         {
           "name": "ganzhi-mismatch",
           "kind": "read",
-          "count": 21,
+          "count": 20,
           "means": "event の name/outcome/note に干支が1つ以上書かれているのに、ISO 日付の干支がそのどれとも一致しない。干支は日の絶対的な鍵なので換算の食い違いの強い候補になる。**着手時（2026-08-03）は92件で、原典に当て直して訂正した結果ここまで減った**。残る25件は、書かれている干支が年干支・事件名（戊戌政変・辛亥革命）だったり、同じ段の別の記事の干支だったりして、そもそも日の witness になっていないもの"
         },
         {
@@ -841,7 +841,7 @@
       ],
       "script": "scripts/screens/era_name.py",
       "population": "`eraChangeCount.events[]` のうち **まだ `eraName` を持たない** 改元 event。埋まった event は母集団の外（訂正は別作業）なので、転記が進むと n は減る。**初回の実行（2026-08-05・転記前）は 676 event** で、内訳は unique 451・note-only 132・multi 70・absent 22・no-cache 1 だった／同日・Issue #91 で皇帝即位前の改元 event 19件を配布物から外したため母集団が減った。**外した19件は誤りだったのではなく対象範囲から出た**ので、標本監査の反例の顔ぶれは変わらない",
-      "n": 225,
+      "n": 222,
       "screenedAt": "2026-08-05",
       "establishes": "note から立てた元号名の候補のうち、**本人の原文キャッシュで改元の定型句と隣り合うもの**が 451 event で1つに絞れる（`改元◯◯`／`建元◯◯`／`◯◯元年` などの隣接。note 側とコーパス側の両方に在ることを条件にしているので、日本語の地の文〈「同時」「相当」〉も、その人物の紀に載る**他の帝の改元**も落ちる）。2026-08-05 にこの unique 側から 441件を転記し、**主力ゲート（verify_quotes.py --check-era-names）は 441/441 が通った**",
       "notEstablished": "**候補が建てた元号か捨てた元号かは絞り込みでは決まらない。** unique は「候補が1つに絞れた」だけで、実際に 2026-08-05 の転記では note が『前帝の元号』『玉杯の銘』を指していた形が十数件あり、人が note を読んで別の値に直した（han-yuandi の『黄龍』→初元、han-wendi の『人主』→元号名なし、など）。また **unique に入っても書けるとは限らない** — 本人の紀が改元の元号名を書かない（晋書 恵帝紀「大赦，改元」）・キャッシュが別の書に依る（十国春秋・明史列伝）形が 14件あり、いずれもゲートで落ちて撤回した（RESIDUAL.md の同じ行）",
@@ -861,7 +861,7 @@
         {
           "name": "note-only",
           "kind": "read",
-          "count": 129,
+          "count": 126,
           "means": "note に候補はあるが、本人の原文キャッシュで定型句と隣り合わない。底本の字体・note の語順・別の書からの引用など。**書けるとは限らない側**"
         },
         {
@@ -942,19 +942,19 @@
       "population": "十六国系の政権（researchSection が 後趙・後燕・前趙・成漢・前秦・西燕・夏・後秦・前燕・南燕・前涼）の43人。2026-08-07 の Issue #98 で「大赦したという行為で数える」（定型句や赦免の深さで計上を割らない）と決まったので、それ以前に語で切っていた可能性のあるレコードを洗うためのもの。原文キャッシュの中で**版図全体を対象にした赦の形**（大赦天下・赦天下・大赦境内・赦其境内・赦于境内・大赦殊死已下・赦境内死罪・太赦境内）を数え、`amnestyCount.count` と突き合わせる。曲赦／特赦（地域限定）と刑期の軽い側から線を引く形（赦三歲刑已下）は候補から外す",
       "n": 43,
       "screenedAt": "2026-08-07",
-      "establishes": "原文の候補が count より多い人物が13人いること。**13人とも 2026-08-07 に原典で読み切り、count が動いた人物は0人だった**（内訳は下の over バケット）",
+      "establishes": "原文の候補が count より多い人物が14人いること。**14人とも 2026-08-07 に原典で読み切り、count が動いたのは chenghan-lixiong の1人だけだった**（永興元年＝304年・成都王期の「赦其境内」を Issue #91 の追走査で外して 4 → 3。この event は日付欄が空だったので最初の走査を素通りしていた）",
       "notEstablished": "match の30人が正しいこと。候補の件数が偶然一致しているだけの形（1条を2件に割った上で別の1件を落としている等）はこの絞り込みでは出ない。また候補が在位中の行為かどうかも見ていない — 在位の判定は人が原典を読んで行う",
       "buckets": [
         {
           "name": "over",
           "kind": "read",
-          "count": 13,
-          "means": "原文の候補が count より多い。**13人とも読み終えており、count は1人も動かなかった**。内訳は (a) 皇帝即位より前の赦が原文キャッシュに含まれている 9人（houqin-yaochang・houzhao-shihu・houzhao-shile・nanyan-murongde・qianqin-fujian・qianzhao-liuyuan・xia-helianbobo・qianyan-murongjun・houyan-murongsheng。2026-08-07・Issue #91 で計上期間を皇帝在位中に限ったので対象外）、(b) キャッシュが隣の人物の記事を含む 2人（houzhao-shishi は石遵の即位の赦・qianqin-fuchong は苻登の赦で、どちらも当の人物の側で既に計上済み）、(c) 引用された進言の中の語 1人（qianzhao-liuyao の「大赦与之更始」は游子遠の進言の一部で、実際に行われた「大赦境内」は別に計上済み）、(d) 赦の及ぶ範囲が版図の一部に限られる 1人（houzhao-shihong。石虎が魏王を受けた条の「赦其境内」は魏王国の版図に限る）"
+          "count": 14,
+          "means": "原文の候補が count より多い。**14人とも読み終えており、count が動いたのは1人だけ**。内訳は (a) 皇帝即位より前の赦が原文キャッシュに含まれている10人（houqin-yaochang・houzhao-shihu・houzhao-shile・nanyan-murongde・qianqin-fujian・qianzhao-liuyuan・xia-helianbobo・qianyan-murongjun・houyan-murongsheng・chenghan-lixiong。2026-08-07・Issue #91 で計上期間を皇帝在位中に限ったので対象外。**このうち chenghan-lixiong だけは当時まだ count に入っていて、同日の追走査で外した**）、(b) キャッシュが隣の人物の記事を含む2人（houzhao-shishi は石遵の即位の赦・qianqin-fuchong は苻登の赦で、どちらも当の人物の側で既に計上済み）、(c) 引用された進言の中の語1人（qianzhao-liuyao の「大赦与之更始」は游子遠の進言の一部で、実際に行われた「大赦境内」は別に計上済み）、(d) 赦の及ぶ範囲が版図の一部に限られる1人（houzhao-shihong。石虎が魏王を受けた条の「赦其境内」は魏王国の版図に限る）"
         },
         {
           "name": "match",
           "kind": "absent",
-          "count": 30,
+          "count": 29,
           "means": "候補と count が同数。**機械が食い違いを見つけなかっただけ**",
           "notEstablished": "count の正しさ。1条を2件に割った上で別の1件を落としている形・候補の正規表現に掛からない書き方（「其赦…」「原免…」等）はここに落ちる。**取りこぼし率は未測定**",
           "audit": {
@@ -964,34 +964,52 @@
             "checkedAt": "2026-08-07",
             "findings": [
               {
-                "id": "chenghan-lishi",
+                "id": "houyan-murongchui",
                 "verdict": "一致",
-                "checked": "_corpus_cache/chenghan-lishi.txt の赦は「寿死，势嗣伪位，赦其境内，改元曰太和」（343年・即位）と「势既诛奕，大赦境内，改年嘉宁」の2件で、どちらも在位（343〜347年）の内側。count=2 と一致（この2件目は 2026-08-07 に Issue #98 で足した）"
+                "checked": "_corpus_cache/houyan-murongchui.txt の赦は「以太元十一年僭即位。赦其境内，改元曰建兴」1件で、386年の皇帝即位。在位（386〜396年）の内側。count=1 と一致"
               },
               {
-                "id": "houyan-muronglin",
+                "id": "houyan-murongxi",
                 "verdict": "一致",
-                "checked": "_corpus_cache/houyan-muronglin.txt（全2行）に「赦」の字が0件。count=0 と一致"
+                "checked": "_corpus_cache/houyan-murongxi.txt の赦は「熙遂僭即尊位…赦殊死已下，改元曰光始」と「立其贵嫔苻氏为皇后，赦殊死已下」の2件で、どちらも在位（401〜407年）の内側。count=2 と一致"
+              },
+              {
+                "id": "houzhao-shizun",
+                "verdict": "一致",
+                "checked": "_corpus_cache/houzhao-shizun.txt の赦は「僭即尊位于太武前殿，大赦殊死已下」1件で、349年の即位。在位（349年）の内側。count=1 と一致"
+              },
+              {
+                "id": "qianzhao-liucong",
+                "verdict": "一致",
+                "checked": "_corpus_cache/qianzhao-liucong.txt の候補6件（永嘉四年の即位「大赦境内」・嘉平・「大赦境内殊死已下」・建元・麟嘉・立太子の「大赦殊死已下」）はすべて在位（310〜318年）の内側。個別赦免の「聪乃赦彰」は候補から外れている。count=6 と一致"
+              },
+              {
+                "id": "xia-helianchang",
+                "verdict": "一致",
+                "checked": "十六国春秋 卷六十七 夏録二の「昌即伪位于永安殿大赦境内殊死已下改元承光」（425年・即位）1件で、在位（425〜428年）の内側。count=1 と一致（2026-08-07 に Issue #98 で0から足した）"
+              },
+              {
+                "id": "xiyan-murongyao",
+                "verdict": "一致",
+                "checked": "_corpus_cache/xiyan-murongyao.txt に「赦」の字が0件。count=0 と一致"
+              },
+              {
+                "id": "chenghan-lishi",
+                "verdict": "一致",
+                "outOfSample": true,
+                "checked": "標本の入れ替え前に監査したもの。赦は即位の「赦其境内」と「势既诛奕，大赦境内，改年嘉宁」の2件で、どちらも在位（343〜347年）の内側。count=2 と一致"
               },
               {
                 "id": "qianqin-fudeng",
                 "verdict": "一致",
-                "checked": "_corpus_cache/qianqin-fudeng.txt の赦は「登于是以太元十一年僭即皇帝位，大赦境内，改元曰太初」（386年）・「于是大赦境内，百僚进位二等」・「于是大赦，尽众而东」の3件で、いずれも在位（386〜394年）の内側。count=3 と一致"
+                "outOfSample": true,
+                "checked": "標本の入れ替え前に監査したもの。赦は「僭即皇帝位，大赦境内，改元曰太初」（386年）・「于是大赦境内，百僚进位二等」・「于是大赦，尽众而东」の3件で、いずれも在位（386〜394年）の内側。count=3 と一致"
               },
               {
                 "id": "xia-heliading",
                 "verdict": "一致",
-                "checked": "十六国春秋 卷六十八 夏録三の「遂僣即皇帝位大赦境内殊死已下改承光四年为胜光元年」（428年・即位）の1件で、在位（428〜431年）の内側。count=1 と一致（2026-08-07 に Issue #98 で0から足した）"
-              },
-              {
-                "id": "xiyan-murongchong",
-                "verdict": "一致",
-                "checked": "_corpus_cache/xiyan-murongchong.txt（全3行）に「赦」の字が0件。count=0 と一致"
-              },
-              {
-                "id": "xiyan-murongyong",
-                "verdict": "一致",
-                "checked": "_corpus_cache/xiyan-murongyong.txt（全4行）の「赦」は「朝廷赦而不诛」1件のみで、東晋朝廷が個人を赦した記事。全国規模の赦ではない。count=0 と一致"
+                "outOfSample": true,
+                "checked": "標本の入れ替え前に監査したもの。十六国春秋 卷六十八 夏録三の即位の条1件で、在位（428〜431年）の内側。count=1 と一致"
               }
             ]
           }
