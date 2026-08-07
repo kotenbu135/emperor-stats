@@ -1,0 +1,17 @@
+{"text": "煬帝が即位すると楊浩を秦王に立て、孝王の後嗣とした", "quote": "炀帝即位，立浩为秦王，以奉孝王嗣。", "src": "_corpus_cache/sui-yanghao.txt:1"}
+{"text": "楊湛は済北侯に封じられた", "quote": "封湛为济北侯。", "src": "_corpus_cache/sui-yanghao.txt:1"}
+{"text": "のちに楊浩は河陽都尉となった", "quote": "后以浩为河阳都尉。", "src": "_corpus_cache/sui-yanghao.txt:1"}
+{"text": "楊玄感が挙兵したとき、左翊衛大将軍の宇文述が兵を率いて討伐に向かった", "quote": "杨玄感作逆之际，左翊卫大将军宇文述勒兵讨之。", "src": "_corpus_cache/sui-yanghao.txt:1"}
+{"text": "宇文述は河陽まで来て楊浩へ書状を送り、楊浩も述の陣営へ出向いて、双方の兵が行き来した", "quote": "至河阳，修启于浩，浩复诣述营，兵相往复。", "src": "_corpus_cache/sui-yanghao.txt:1"}
+{"text": "担当官が楊浩を弾劾し、諸侯が中央の臣と私的に通じたという理由で、官も王位も取り上げられた", "quote": "有司劾浩，以诸侯交通内臣，竟坐废免。", "src": "_corpus_cache/sui-yanghao.txt:1"}
+{"text": "宇文化及が煬帝を殺したとき、楊浩を帝に立てた", "quote": "宇文化及杀逆之始，立浩为帝。", "src": "_corpus_cache/sui-yanghao.txt:1"}
+{"text": "化及は黎陽で敗れて北の魏県へ走り、自ら帝号を名乗って楊浩を殺した", "quote": "化及败于黎阳，北走魏县，自僭伪号，因而害之。", "src": "_corpus_cache/sui-yanghao.txt:1"}
+{"text": "同じ伝に名の並ぶ楊湛は勇猛で胆力があり、大業の初めに滎陽太守となったが、楊浩の件に連座して免ぜられ、化及にも殺された", "quote": "湛骁果，有胆烈。大业初，为荥阳太守，坐浩免，亦为化及所害。", "src": "_corpus_cache/sui-yanghao.txt:1"}
+{"text": "618年3月丙辰、宇文化及は江都宮で太上皇（煬帝）を殺し、秦王浩を帝に立て、自らは大丞相を称した", "quote": "三月丙辰，右屯衞將軍宇文化及弑隋太上皇於江都宮，立秦王浩爲帝，自稱大丞相。", "src": "data/emperors.json:60289"}
+{"text": "宇文化及は魏州で楊浩を毒殺し、天子を僭称して国号を許とした", "quote": "宇文化及至魏州，鴆殺秦王浩，僭稱天子，國號許。", "src": "data/emperors.json:60289"}
+{"text": "在位は618年の1期・通算約195日", "quote": "（構造フィールド）在位 618〜618年／通算 約195日（0.53年）／1期", "src": "data/emperors.json（sui-yanghao reignSummary）"}
+{"text": "死因は暗殺", "quote": "（構造フィールド）死因: assassination", "src": "data/emperors.json（sui-yanghao deathCause）"}
+{"text": "前任者（煬帝）との関係は甥・皇位は第三者の決定による", "quote": "（構造フィールド）前任者との関係 nephew／決定者 third-party", "src": "data/emperors.json（sui-yanghao accessionRoute）"}
+{"text": "隋書は楊浩に帝紀を立てず、父の秦孝王の伝の末尾に弟の楊湛と並べて数行を置くだけである", "quote": "炀帝即位，立浩为秦王，以奉孝王嗣。封湛为济北侯。……湛骁果，有胆烈。大业初，为荥阳太守，坐浩免，亦为化及所害。", "src": "_corpus_cache/sui-yanghao.txt:1"}
+{"text": "宇文化及は自分に従わない朝臣数十人と外戚を年齢を問わず殺し、秦孝王の子である浩だけを残して帝に立てた", "quote": "又执朝臣不同己者数十人及诸外戚，无少长害之，唯留秦孝王子浩，立以为帝。", "src": "daizhigev20/史藏/正史/隋书.txt:7326"}
+{"text": "化及は江都の後宮に入り、暮らしぶりを煬帝の先例どおりにし、南を向いて座って報告に黙って答えず、後から書面を受け取って側近たちと決めた", "quote": "化及于是入据六宫，其自奉养，一如炀帝故事。每于帐中南面端坐，人有白事者，默然不对。下牙时，方收取启状，共奉义、方裕、良、恺等参决之。", "src": "daizhigev20/史藏/正史/隋书.txt:7326"}
