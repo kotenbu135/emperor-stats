@@ -30708,13 +30708,6 @@
    ],
    "line": 7
   },
-  "liao-shizong|personalCampaignCount[1].note|fe999605a811": {
-   "id": "liao-shizong",
-   "path": "personalCampaignCount[1].note",
-   "span": "後漢（劉知遠政権）",
-   "status": "unresolved",
-   "nv": "f1546990"
-  },
   "liao-shizong|rebellionSufferedCount[0].note|e3a02bc5ca8b": {
    "id": "liao-shizong",
    "path": "rebellionSufferedCount[0].note",

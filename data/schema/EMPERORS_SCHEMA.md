@@ -183,6 +183,11 @@ kebab-case の一意識別子。例: `"qin-shi-huang"`, `"liu-song-wudi"`。
 その event の witness なので、主張欄は重複になる）。`source` にも置きません
 （出典帰属の経緯であってフィールド値の主張ではない）。
 
+**`outcome` がこの並びに入れるのは、主張範囲が原典に縛られているからです**（2026-08-07・Issue #97）。
+`date` は `*Raw`＋`conversion` で再演でき、`target`・`leader` は固有名詞なので原文に当てられますが、
+`outcome` は自然文なので、範囲の制約が外れると**それ自身では何の witness にもなりません**。
+制約の全文は [ADDITIONAL_SCHEMA.md](ADDITIONAL_SCHEMA.md) の「`events[].outcome` の主張範囲」。
+
 ### 遡及しない
 
 既存の note は 10,912 件あり、**書き足すのは新しく書く note にだけ**です。したがって:
