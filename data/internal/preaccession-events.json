@@ -5,8 +5,9 @@
     "keptInDistribution": "在位開始より前に始まり在位中まで続いた事象（継続中の反乱・即位をまたぐ親征）は配布物に残してある。ここに在るのは在位開始より前に完結した行為だけ。",
     "movedAt": "2026-08-07",
     "issue": "https://github.com/kotenbu135/emperor-stats/issues/91",
-    "events": 89,
-    "emperors": 22
+    "events": 96,
+    "emperors": 24,
+    "secondPass": "2026-08-07 の追走査で7件を追加した（22人89件 → 25人96件）。最初の走査は date／startDate が在位開始年より前かを見たので、**日付欄が空の即位前 event を素通りしていた** （chenghan-lixiong の永興元年＝304年・成都王期がその型）。note の散文に出る西暦年で洗い直して見つけたぶん。散文に年が出ない即位前 event はこの2回目でも出ないので、docs/process/RESIDUAL.md の行に残してある。"
   },
   "events": {
     "beiwei-daowudi.capitalRelocationCount.e001": {
@@ -32,6 +33,48 @@
         "datePrecision": "month",
         "reason": "out-of-scope",
         "noteHead": "太祖道武帝（拓跋珪）天興元年（398年）"
+      }
+    },
+    "chenghan-lixiong.amnestyCount.e001": {
+      "emperor": "chenghan-lixiong",
+      "container": "amnestyCount",
+      "reigns": [
+        [
+          306,
+          334
+        ]
+      ],
+      "phase": "成都王期（永興元年＝304年・皇帝即位は306年）",
+      "event": {
+        "id": "chenghan-lixiong.amnestyCount.e001",
+        "date": null,
+        "datePrecision": "year",
+        "note": "永興元年（304年）成都王を僭称した際に「赦其境内」とあり、境内（成漢の支配域）全域への恩赦。建元「建興」と同時。",
+        "source": {
+          "page": "晉書 載記第二十一 李雄",
+          "lang": "zh"
+        }
+      }
+    },
+    "chenghan-lixiong.eraChangeCount.e001": {
+      "emperor": "chenghan-lixiong",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          306,
+          334
+        ]
+      ],
+      "phase": "成都王期（永興元年＝304年・皇帝即位は306年）",
+      "event": {
+        "id": "chenghan-lixiong.eraChangeCount.e001",
+        "date": null,
+        "datePrecision": "year",
+        "note": "【皇帝即位前】永興元年（304年）成都王を僭称した際、「建元為建興」とあり最初の建元。固有指示により成都王即位時の建元をeraChangeCountに含める。",
+        "source": {
+          "page": "晉書 載記第二十一 李雄",
+          "lang": "zh"
+        }
       }
     },
     "chenghan-lixiong.personalCampaignCount.e001": {
@@ -1338,6 +1381,28 @@
         "leader": "李辯"
       }
     },
+    "qianqin-fujian.eraChangeCount.e001": {
+      "emperor": "qianqin-fujian",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          352,
+          355
+        ]
+      ],
+      "phase": "天王期（永和七年＝351年・皇帝即位は352年）",
+      "event": {
+        "id": "qianqin-fujian.eraChangeCount.e001",
+        "date": null,
+        "datePrecision": "year",
+        "note": "【皇帝即位前】永和七年（351年）、苻健が天王・大単于を僭称し、元号「皇始」を建元（即位に伴う最初の建元）。「僭称天王、大單于、赦境内死罪、建元皇始、繕宗廟社稷、置百官於長安」",
+        "source": {
+          "page": "晋書載記第十二（苻健）",
+          "lang": "zh"
+        },
+        "eraName": "皇始"
+      }
+    },
     "qianqin-fujian.personalCampaignCount.e001": {
       "emperor": "qianqin-fujian",
       "container": "personalCampaignCount",
@@ -1706,6 +1771,54 @@
         "noteHead": "大業十三年（617年）十月丙申、岳州の董"
       }
     },
+    "suimo-xueju.eraChangeCount.e001": {
+      "emperor": "suimo-xueju",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          617,
+          618
+        ]
+      ],
+      "phase": "西秦霸王期（大業十三年四月＝617年5月・皇帝僭称は同年七月）",
+      "event": {
+        "id": "suimo-xueju.eraChangeCount.e001",
+        "date": "0617-05",
+        "datePrecision": "month",
+        "note": "【皇帝即位前】大業十三年（617年）四月癸未、金城で挙兵し「西秦霸王」を自称した際に「秦興」と建元。『隋書』煬帝紀下：「夏四月癸未、金城校尉薛舉率衆反、自稱西秦霸王、建元秦興」。同年七月頃（旧唐書・新唐書の記述順）に蘭州で皇帝を僭称した際には、両史書とも新たな建元（改元）の記事はなく、そのまま「秦興」の年号が用いられ続けたとみられる（皇帝即位に伴う別建元は確認できず）。したがって、この人物が実際に用いた年号は「秦興」の1つのみであり、これを即位（覇王僭称）に伴う最初の建元として1回とカウントする。",
+        "source": {
+          "page": "隋書 巻四 帝紀第四（煬帝紀下）",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0617-05-01",
+        "datePrecision": "month",
+        "reason": "filler",
+        "noteHead": "【皇帝即位前】大業十三年（617年）四月"
+      }
+    },
+    "tang-shangdi.amnestyCount.e001": {
+      "emperor": "tang-shangdi",
+      "container": "amnestyCount",
+      "reigns": [
+        [
+          710,
+          710
+        ]
+      ],
+      "phase": "即位3日前（唐隆元年六月甲申＝710-07-05・正式践祚は丁亥＝710-07-08）",
+      "event": {
+        "id": "tang-shangdi.amnestyCount.e001",
+        "date": "0710-07-05",
+        "datePrecision": "day",
+        "note": "【皇帝即位前（太后摂政による発喪・改元と同時の大赦）】韋皇后（皇太后）臨朝のもと、中宗の遺制を宣し発喪、「大赦天下，改元爲唐隆」。重茂はこの時点ではまだ皇太子で正式には即位していない（正式践祚は3日後の丁亥）。傀儡的な形式であるが、本人名義の治世元年（唐隆元年）の起点となる大赦のため参考記録。",
+        "source": {
+          "page": "旧唐書本紀第七（中宗睿宗）",
+          "lang": "zh"
+        }
+      }
+    },
     "tangmo-huangchao.eraChangeCount.e001": {
       "emperor": "tangmo-huangchao",
       "container": "eraChangeCount",
@@ -1843,6 +1956,27 @@
         }
       }
     },
+    "xia-helianbobo.amnestyCount.e002": {
+      "emperor": "xia-helianbobo",
+      "container": "amnestyCount",
+      "reigns": [
+        [
+          419,
+          425
+        ]
+      ],
+      "phase": "天王期（鳳翔改元・通説では義熙九年＝413年頃・皇帝即位は418〜419年）",
+      "event": {
+        "id": "xia-helianbobo.amnestyCount.e002",
+        "date": null,
+        "datePrecision": null,
+        "note": "都城統万の造営開始に伴い「赦其境内」のうえ改元して鳳翔とした。原文に具体的年次記載なし（通説では義熙九年＝413年頃）。",
+        "source": {
+          "page": "晋書載記第三十（赫連勃勃）",
+          "lang": "zh"
+        }
+      }
+    },
     "xia-helianbobo.eraChangeCount.e001": {
       "emperor": "xia-helianbobo",
       "container": "eraChangeCount",
@@ -1863,6 +1997,27 @@
           "lang": "zh"
         },
         "eraName": "龍昇"
+      }
+    },
+    "xia-helianbobo.eraChangeCount.e002": {
+      "emperor": "xia-helianbobo",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          419,
+          425
+        ]
+      ],
+      "phase": "天王期（鳳翔改元・通説では義熙九年＝413年頃・皇帝即位は418〜419年）",
+      "event": {
+        "id": "xia-helianbobo.eraChangeCount.e002",
+        "date": null,
+        "datePrecision": null,
+        "note": "【皇帝即位前】都城統万の造営開始に伴い改元して鳳翔とした。原文に具体的年次記載なし（通説では義熙九年＝413年頃）。",
+        "source": {
+          "page": "晋書載記第三十（赫連勃勃）",
+          "lang": "zh"
+        }
       }
     },
     "xia-helianbobo.personalCampaignCount.e001": {

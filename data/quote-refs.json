@@ -11359,6 +11359,17 @@
    ],
    "line": 15
   },
+  "chenghan-lixiong|amnestyCount[1].note|6c7fd6b96f59": {
+   "id": "chenghan-lixiong",
+   "path": "amnestyCount[1].note",
+   "span": "雄大悦、赦其境内、改元曰玉衡",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-lixiong.txt",
+   "frags": [
+    "改元曰玉衡"
+   ],
+   "line": 6
+  },
   "chenghan-lixiong|amnestyCount[2].note|6c7fd6b96f59": {
    "id": "chenghan-lixiong",
    "path": "amnestyCount[2].note",
@@ -11369,6 +11380,18 @@
     "改元曰玉衡"
    ],
    "line": 6
+  },
+  "chenghan-lixiong|amnestyCount[2].note|e785af084c58": {
+   "id": "chenghan-lixiong",
+   "path": "amnestyCount[2].note",
+   "span": "雄於是赦其境内、使班討平寧州夷",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chenghan-lixiong.txt",
+   "frags": [
+    "雄於是赦其境内",
+    "使班討平寧州夷"
+   ],
+   "line": 14
   },
   "chenghan-lixiong|amnestyCount[3].note|e785af084c58": {
    "id": "chenghan-lixiong",
@@ -43774,6 +43797,17 @@
    ],
    "line": 3
   },
+  "qianqin-fujian|eraChangeCount[0].note|6ee94bd42d3d": {
+   "id": "qianqin-fujian",
+   "path": "eraChangeCount[0].note",
+   "span": "健僭即皇帝位於太極前殿",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianqin-fujian.txt",
+   "frags": [
+    "健僭即皇帝位於太極前"
+   ],
+   "line": 5
+  },
   "qianqin-fujian|eraChangeCount[0].note|e3580a5067b2": {
    "id": "qianqin-fujian",
    "path": "eraChangeCount[0].note",
@@ -58718,6 +58752,19 @@
    ],
    "line": 47
   },
+  "tang-shangdi|amnestyCount[0].note|86b354c29e78": {
+   "id": "tang-shangdi",
+   "path": "amnestyCount[0].note",
+   "span": "皇太子即帝位於柩前，時年十六。皇太后韋氏臨朝稱制，大赦天下，常赦所不原者咸赦除之",
+   "status": "corpus",
+   "corpusFile": "china-history/旧唐书/本纪/第七章-卷七-原文.html",
+   "frags": [
+    "皇太子即帝位於柩前",
+    "皇太后韋氏臨朝稱制",
+    "常赦所不原者咸赦除之"
+   ],
+   "line": 47
+  },
   "tang-shangdi|amnestyCount[0].note|b59c2d969aca": {
    "id": "tang-shangdi",
    "path": "amnestyCount[0].note",
@@ -58728,6 +58775,17 @@
     "改元爲唐隆"
    ],
    "line": 47
+  },
+  "tang-shangdi|amnestyCount[1].note|601d5f4cd0e2": {
+   "id": "tang-shangdi",
+   "path": "amnestyCount[1].note",
+   "span": "帝（睿宗＝相王）挾少帝御安福門樓慰諭百姓，大赦天下",
+   "status": "corpus",
+   "corpusFile": "china-history/旧唐书/本纪/第七章-卷七-原文.html",
+   "frags": [
+    "挾少帝御安福門樓慰諭"
+   ],
+   "line": 50
   },
   "tang-shangdi|amnestyCount[1].note|86b354c29e78": {
    "id": "tang-shangdi",
@@ -58741,6 +58799,17 @@
     "常赦所不原者咸赦除之"
    ],
    "line": 47
+  },
+  "tang-shangdi|amnestyCount[1].note|c3014b4c4762": {
+   "id": "tang-shangdi",
+   "path": "amnestyCount[1].note",
+   "span": "睿宗奉皇帝御安福門，大赦",
+   "status": "corpus",
+   "corpusFile": "china-history/新唐书/本纪/第五章-卷五·睿宗 玄宗-原文.html",
+   "frags": [
+    "睿宗奉皇帝御安福門"
+   ],
+   "line": 24
   },
   "tang-shangdi|amnestyCount[2].note|601d5f4cd0e2": {
    "id": "tang-shangdi",

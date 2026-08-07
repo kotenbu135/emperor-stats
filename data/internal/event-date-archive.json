@@ -10,12 +10,13 @@
       "datePrecision": "退避した時点の datePrecision（原典が何を言っているか。移行では触っていない）",
       "noteHead": "人が突き合わせるための note の先頭20字（機械は id で引く）"
     },
-    "events": 4098,
-    "values": 6145,
+    "events": 4097,
+    "values": 6144,
     "removed": [
       "2026-08-07・Issue #82: han-gaozu の親征・鎮圧・被反乱 16 event を退避側から消した。配布物側を原表記 startDateRaw/endDateRaw と source.conversion 付きで訂正したので、埋め草だけの退避値（-01 を足した形）は原表記に置き換わっている／同日・Issue #89: shuhan-zhaoliedi.rebellionSufferedCount.e001 も同じ理由で削除",
       "2026-08-07（Issue #91）: 皇帝即位前の event 53件ぶんの鍵を削除した。event 自体を data/internal/preaccession-events.json へ退避したため、退避していた月日もそちらの archivedDate に移してある。",
-      "2026-08-07・Issue #91: beiqi-andewang-gaoyanzong.personalCampaignCount.e001（0576-01-01 の埋め草）と jin-hailingwang.empressInstallationCount.e001（1149-10-18）を削除した。どちらも配布物側の年が誤りで、0577-01（隆化元年十二月の多数月）・1150-10-13（天德二年九月甲午）へ原表記と conversion 付きで訂正したため、退避していた値は上書きされている。"
+      "2026-08-07・Issue #91: beiqi-andewang-gaoyanzong.personalCampaignCount.e001（0576-01-01 の埋め草）と jin-hailingwang.empressInstallationCount.e001（1149-10-18）を削除した。どちらも配布物側の年が誤りで、0577-01（隆化元年十二月の多数月）・1150-10-13（天德二年九月甲午）へ原表記と conversion 付きで訂正したため、退避していた値は上書きされている。",
+      "2026-08-07・Issue #91 の追走査: 皇帝即位前の event 1件ぶんの鍵を削除した（event 自体は data/internal/preaccession-events.json へ退避）。"
     ]
   },
   "events": {
@@ -20789,12 +20790,6 @@
       "datePrecision": "month",
       "reason": "filler",
       "noteHead": "大業十三年（617年）七月、薛擧が蘭州で"
-    },
-    "suimo-xueju.eraChangeCount.e001": {
-      "date": "0617-05-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "【皇帝即位前】大業十三年（617年）四月"
     },
     "suimo-xueju.personalCampaignCount.e002": {
       "endDate": "0618-08",
