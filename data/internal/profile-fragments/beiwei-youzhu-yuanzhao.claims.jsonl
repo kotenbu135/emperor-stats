@@ -1,0 +1,22 @@
+{"text": "詔は前帝の死を、思いがけず一朝にして失われたと述べ、その血統が絶えたとする", "quote": "何图一旦，弓剑莫追，国道中微，大行绝祀。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1"}
+{"text": "前の皇帝が死んだあと、まず「皇子」が即位して大赦が行われた", "quote": "甲寅，皇子即位，大赦天下。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1"}
+{"text": "皇太后の詔が、潘充華の産んだ子は男子ではなく女子だったと述べる（熊の兆しはなく蛇の兆しが現れた）", "quote": "自潘充华有孕椒宫，冀诞储两，而熊罴无兆，维虺遂彰。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1"}
+{"text": "国内が落ち着かないため跡継ぎと偽って人心を落ち着けようとした、と詔が認める", "quote": "于时直以国步未康，假称统胤，欲以底定物情，系仰宸极。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1"}
+{"text": "元釗は皇帝の曾孫で、故臨洮王元宝暉の世子、高祖の血筋を引くと詔が述べる", "quote": "皇曾孙故临洮王宝晖世子钊，体自高祖，天表卓异", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1"}
+{"text": "前帝が日ごろ特にかわいがり、実の子のように扱っていたと詔が述べる", "quote": "大行平日养爱特深，义齐若子，事符当璧。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1"}
+{"text": "詔は、前帝の危篤にあたって元釗を寝所へ招き入れ、脇息のもとで遺命を受けたと述べる", "quote": "及翊日弗愈，大渐弥留，乃延入青蒲，受命玉几。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1"}
+{"text": "詔は在位の百官すべてを昇進させ、内外の文武官・出征中の将兵に軍功二階を加えるとした", "quote": "内外百官文武、督将征人，遭艰解府，普加军功二阶", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1"}
+{"text": "詔は官爵を失った者の復位と清議禁錮の解除を命じ、謀反大逆で除かれた者は除外した", "quote": "其亡官失爵，听复封位。谋反大逆削除者，不在斯限。清议禁锢，亦悉蠲除。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1"}
+{"text": "翌日に幼主（元釗）が即位した", "quote": "乙卯，幼主即位。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1"}
+{"text": "儀同三司・大都督の爾朱栄が上表して洛陽へ駆けつけることを願い出て、兵を率いて南下した", "quote": "仪同三司、大都督尔朱荣抗表请入奔赴，勒兵而南。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1"}
+{"text": "同じ月に杜洛周が葛栄に併合された", "quote": "是月，杜洛周为葛荣所并。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1"}
+{"text": "三月、葛栄が滄州を攻め落とし刺史薛慶之を捕らえ、住民の八九割が死んだ", "quote": "三月癸未，葛荣攻陷沧州，执刺史薛庆之，居民死者十八九。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:2"}
+{"text": "前帝に孝明皇帝の諡号を贈り、定陵に葬り、廟号を粛宗とした", "quote": "甲申，上尊谥曰孝明皇帝。乙酉，葬于定陵，庙号肃宗。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:2"}
+{"text": "四月、爾朱栄が黄河を渡り、その二日後に皇太后と幼主が死んだ", "quote": "夏四月戊戌，尔朱荣济河。庚子，皇太后、幼主崩。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:3"}
+{"text": "爾朱栄は兵権を握って異心を抱き、霊太后と幼主を殺し、公卿以下二千余人に及んだ（河陰の変）", "quote": "荣以兵权在己，遂有异志，乃害灵太后及幼主…公卿已下二千余人", "src": "data/emperors.json:beiwei-youzhu-yuanzhao.rebellionSufferedCount.e002（魏書 巻十 孝荘紀）"}
+{"text": "在位は528年の約45日、没年齢は数え三歳、死因は殺害", "quote": "在位: 528〜528年／通算 約45日（0.12年）／年齢: 即位 3／没 3（没 0528-05-17・数え年）／死因: assassination", "src": "素材（reignSummary・ages・deathCause）"}
+{"text": "諡号も廟号も無い", "quote": "名: 姓 元／諱 釗／通用名 幼主元釗／廟号 —／諡号 —", "src": "素材（names）"}
+{"text": "本紀が元釗の在位に充てるのは3行だけで、記事はすべて他者の動きである", "quote": "乙卯，幼主即位。仪同三司、大都督尔朱荣抗表请入奔赴，勒兵而南。是月，杜洛周为葛荣所并。", "src": "_corpus_cache/beiwei-youzhu-yuanzhao.txt:1-3"}
+{"text": "偽りの皇子は鄭儼が身の危うさから皇太后に持ちかけた計で、孝明帝の急死も当時の議論はみな鄭儼・徐紇の計だと言い、朝野は憤り嘆いた", "quote": "郑俨虑祸，乃与太后计，因潘充华生女，太后诈以为男，便大赦改年。肃宗之崩，事出仓卒，时论咸言郑俨、徐纥之计。于是朝野愤叹。", "src": "china-history/魏书/列传/第一章-卷一-原文.html:1"}
+{"text": "三歳の元釗を主に立てたので天下は愕然とした", "quote": "遂立临洮王子钊为主，年始三岁，天下愕然。", "src": "china-history/魏书/列传/第一章-卷一-原文.html:1"}
+{"text": "爾朱栄の渡河にあたり皇太后は肅宗の六宮をすべて出家させ自らも髪を下ろし、騎兵が皇太后と幼主を河陰へ送り、皇太后の弁明に爾朱栄は衣を払って立ち、二人は黄河に沈められた", "quote": "太后尽召肃宗六宫皆令入道，太后亦自落发。荣遣骑拘送太后及幼主于河阴。太后对荣多所陈说，荣拂衣而起。太后及幼主并沉于河。", "src": "china-history/魏书/列传/第一章-卷一-原文.html:1"}
