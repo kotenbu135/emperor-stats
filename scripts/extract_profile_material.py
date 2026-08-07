@@ -208,7 +208,7 @@ def render(e: dict, catalogs: dict, max_events: int, notes: bool) -> str:
         add(f"- 収録メモ: {v['notes']}")
 
     add("")
-    add(reading_map(e["id"]))
+    add(reading_map(e["id"], cache_kind(e), primary_source_label(e)))
     add("")
     add(writing_kit(e["id"]))
     add("")
@@ -287,8 +287,55 @@ def writing_kit(emperor_id: str) -> str:
     return "\n".join(lines)
 
 
-def reading_map(emperor_id: str) -> str:
-    """本紀キャッシュの読み地図と、列伝の在り処。
+# キャッシュの実体が本紀とは限らない。三国の蜀・呉、晋書の載記、隋末群雄のように
+# 帝紀が立たない政権では、`_corpus_cache/<id>.txt` は列伝・載記そのものが一次史料になる。
+# 見出しが「本紀の読み地図」で固定だと、書き手は在りもしない本紀を探しに行く（実測で
+# 3体が同じ提案を出した・2026-08-08）。判定は原典の名乗り `source.page` の1箇所から引く。
+CACHE_KINDS = (
+    ("載記", ("載記", "载记")),
+    ("本紀", ("本紀", "本纪", "帝紀", "帝纪")),
+    ("列伝", ("列傳", "列伝", "列传", "世家", "傳", "伝")),
+)
+
+
+def source_pages(e: dict) -> list[str]:
+    pages = []
+    for r in e.get("reigns") or []:
+        src = ((r.get("duration") or {}).get("source") or {})
+        if src.get("page"):
+            pages.append(str(src["page"]))
+    for src in e.get("sources") or []:
+        if isinstance(src, dict) and src.get("page"):
+            pages.append(str(src["page"]))
+    return pages
+
+
+def primary_source_label(e: dict) -> str:
+    """レコードが先頭で名乗る典拠（`／` の1本目）。判定を誤ったとき書き手が気づける証人。"""
+    pages = source_pages(e)
+    return pages[0].split("／")[0].strip() if pages else ""
+
+
+def cache_kind(e: dict) -> str:
+    """`_corpus_cache/<id>.txt` が何の原文か（本紀／列伝／載記）を source.page から引く。
+
+    **見るのは先頭の1本だけ**（`／` で継ぎ足された2本目以降は補助の典拠で、他人の本紀が
+    並ぶことがある — 南漢の劉鋹は「資治通鑑…／続資治通鑑長編…／宋史 太祖本紀／新五代史
+    南漢世家」で、3本目を読むと宋の太祖の本紀を本人の本紀と取り違える）。秦の二世は
+    「史記 巻六 秦始皇本紀／史記 巻八十七 李斯列傳」で先頭が本紀、隋末群雄は
+    「旧唐書 巻五十五 …列傳／旧唐書 巻一 高祖本紀」で先頭が列伝。
+    先頭から読めなければ**「原文」と中立に出す**（誤って本紀と名乗るより弱く出す）。
+    """
+    for page in source_pages(e):
+        head = page.split("／")[0]
+        for label, needles in CACHE_KINDS:
+            if any(n in head for n in needles):
+                return label
+    return "原文"
+
+
+def reading_map(emperor_id: str, kind: str = "原文", source_label: str = "") -> str:
+    """原文キャッシュの読み地図と、列伝の在り処。
 
     **別コマンドにすると忘れる。** 執筆段が必ず通るここへ出す。中身の判定は
     `corpus_reading_map.py`（詔・冊文の区間）と `find_biography.py`（列伝の在り処）の
@@ -296,7 +343,16 @@ def reading_map(emperor_id: str) -> str:
     （隋書の列伝が china-history に無い・大物は本紀の大半が詔）を機械側へ移したもの。
     """
     sys.path.insert(0, str(ROOT / "scripts"))
-    lines = ["### 本紀の読み地図（1巡の配分）"]
+    lines = [f"### {kind}の読み地図（1巡の配分）"]
+    if source_label:
+        lines.append(
+            f"- レコードが先頭で名乗る典拠は **{source_label}**。"
+            f"1巡の対象は `_corpus_cache/{emperor_id}.txt` の1本だけ"
+            + ("" if kind == "原文" else f"（{kind}）")
+            + "。"
+            "**本紀が立たない政権では列伝・載記そのものが一次史料**なので、"
+            "在りもしない本紀を探しに行かない"
+        )
     try:
         from corpus_reading_map import build, render  # noqa: PLC0415
 
