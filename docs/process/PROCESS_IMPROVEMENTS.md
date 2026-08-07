@@ -1504,3 +1504,8 @@
 - **気づいた場面**: 紹介文Web差分の段（beiqi-andewang-gaoyanzong）。Web（百度百科・中文Wikipedia）が「草人で武成帝を鞭打ったのは河間王高孝琬の死後」と書き、手元の素材 _corpus_cache/beiqi-andewang-gaoyanzong.txt も「河间死…又为草人以像武成」だったのに、断片の本文は「兄の蘭陵王が死んだあと」としていた。
 - **提案**: action の enum は data-wins／read-biography／ignore の3値で、いずれも「Webと原典が割れたときどちらを採るか」の軸しか持たない。今回のように Web と原典が一致していて本文だけが原典と食い違う場合、data-wins（本文は直さない）でも ignore（実害なし）でも意味が反転し、read-biography（次段が原文へ降りる）に寄せるしかなかった。body-contradicts-source のような4値目を足すか、read-biography に「本文の記述が原典と食い違うので当該条を読み直す」用途を明記すると、次段が直すべき箇所を取り違えない。
 - **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
+
+### 2026-08-08 font サブセットの再生成漏れが次のバッチまで発覚しない <!-- auto:a46b41ec18d7 -->
+- **気づいた場面**: 隋4本のバッチで最後に npm run build を流したところ、落ちた原因が今回の4本ではなく前回（北朝34人）の字だった
+- **提案**: 紹介文を本体へ入れたあとの npm run build は、site/tools/build-font-subset.py を流し忘れると font coverage の postbuild で落ちる。落ちるのは次にビルドした人（＝次のバッチ）で、原因の字も前回ぶんなので、切り分けに1往復かかる。data/emperor-profiles.json に差分があるまま turn を終えたときに走る stop_gate.py の軽いゲートへ font coverage の字だけの検査（tools/check-font-coverage.mjs 相当を .next 無しで走らせる／もしくは build-font-subset.py --check）を足すと、書いた本人の turn で気づける。書き手側の手順（/write-profile のゲート節）に build-font-subset.py を1行足すだけでも同じ効果がある
+- **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
