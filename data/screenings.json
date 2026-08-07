@@ -198,9 +198,9 @@
         "personalCampaignCount.events[].datePrecision"
       ],
       "script": "scripts/screens/campaign_span.py",
-      "population": "365人の personalCampaignCount.events 全件（親征イベント）。**日付だけを見る**（親征の認定＝count には踏み込まない）。2026-08-03（Issue #69）以降は**記録された日付**で分類する — 配布物側は非境界年の月日が年へ丸まっており、そのまま見ると起点と終期が同じ値に潰れて spanned が instant に化ける",
-      "n": 291,
-      "screenedAt": "2026-08-03",
+      "population": "365人の personalCampaignCount.events 全件（親征イベント）。**日付だけを見る**（親征の認定＝count には踏み込まない）。2026-08-03（Issue #69）以降は**記録された日付**で分類する — 配布物側は非境界年の月日が年へ丸まっており、そのまま見ると起点と終期が同じ値に潰れて spanned が instant に化ける（2026-08-07・Issue #102 で beiwei-mingyuandi に3件・beiwei-wenchengdi に1件の親征 event が入ったので母集団を引き直した。増えた4件は同日に原典から確定したもので、標本監査の対象は動かない）",
+      "n": 295,
+      "screenedAt": "2026-08-07",
       "establishes": "起点と終期が同じ値でしかも日・月の精度というユニットが42件あること（一日／一月で終わる遠征の形）。Issue #49 の元世祖・海都イベントが実際にこの形だった",
       "notEstablished": "どのユニットの終期が誤りかは何も言っていない。**instant であること自体は欠陥ではない** — 帝がその場で死んだ・捕虜になった・敵が去った型は本当に同じ月に収まる（実測で42件中18件が ok だった）。逆に spanned 側が正しいことも言っていない",
       "buckets": [
@@ -213,7 +213,7 @@
         {
           "name": "same-year",
           "kind": "read",
-          "count": 40,
+          "count": 44,
           "means": "起点＝終期で年精度。同年に始まって終わったのか、終期を調べていないのかを機械では区別できない。広く取る側の誤りはトークンしか損しない。**未着手**"
         },
         {
@@ -539,9 +539,9 @@
         "personalCampaignCount.events[].endDate"
       ],
       "script": "scripts/screens/campaign_interrupt.py",
-      "population": "365人の personalCampaignCount.events を皇帝ごとに並べた**隣接ペア**（291 event → 179ペア）。2026-08-03 に7節へ足した中断条項（一時帰還を挟んでも相手が同じなら1回）が、既存データの count を動かすかを見るためのもの。**1つの event の内側にある中断は原理的に掛からない** — 検出器が拾えるのは中断が別々の event として割れている形だけで、Issue #63 の起点になった北周武帝の建徳五年の班師と4日後の再出発はまさに内側にあって掛からない。日付は Issue #69 で年へ丸めた配布物の値ではなく、data/internal/event-date-archive.json を戻した**記録された日付**で測る",
-      "n": 179,
-      "screenedAt": "2026-08-03",
+      "population": "365人の personalCampaignCount.events を皇帝ごとに並べた**隣接ペア**（295 event → 181ペア）。2026-08-03 に7節へ足した中断条項（一時帰還を挟んでも相手が同じなら1回）が、既存データの count を動かすかを見るためのもの。**1つの event の内側にある中断は原理的に掛からない** — 検出器が拾えるのは中断が別々の event として割れている形だけで、Issue #63 の起点になった北周武帝の建徳五年の班師と4日後の再出発はまさに内側にあって掛からない。日付は Issue #69 で年へ丸めた配布物の値ではなく、data/internal/event-date-archive.json を戻した**記録された日付**で測る（2026-08-07・Issue #102 で beiwei-mingyuandi に3件・beiwei-wenchengdi に1件の親征 event が入ったので母集団を引き直した。増えた4件は同日に原典から確定したもので、標本監査の対象は動かない）",
+      "n": 181,
+      "screenedAt": "2026-08-07",
       "establishes": "相手が同じで再出発間隔が1か月未満という隣接ペアが、記録された日付の上では1件も無いこと（同一相手60ペアのうち間隔が測れる38ペアの最短は2か月＝金太祖の対契丹 1115-10→1115-12）。つまり中断条項は、間隔の測れるぶんについては既存の count を1件も動かさない",
       "notEstablished": "**中断条項の影響が無いこと**は言っていない。(1) 同一相手ペアのうち22件は間隔が測れず未読（年精度の埋め草を含む）、(2) different-target は target の表記揺れを吸収する別名表が薄いので同一相手の取りこぼしを含みうるが**取りこぼし率は未測定**（だから absent とは名乗らず read に置いてある）、(3) 1つの event の内側に畳まれた中断は検出器の外にある。残りは docs/process/RESIDUAL.md の行",
       "buckets": [
@@ -561,13 +561,13 @@
         {
           "name": "same-target-unknown",
           "kind": "read",
-          "count": 22,
+          "count": 23,
           "means": "相手は同じだが、再出発間隔が測れない。年精度どまりで月が無いもの（遼太宗の対後晋、北宋太宗の対契丹、赫連勃勃の対姚興など）に加えて、**`datePrecision` が year で両端に年の輪郭が入っているぶん**（西燕慕容永・隋煬帝・呉大帝の4ペア）もここへ落とす。**未着手** — 間隔が1か月未満なら中断条項で count が動く"
         },
         {
           "name": "different-target",
           "kind": "read",
-          "count": 120,
+          "count": 121,
           "means": "相手キーが違うので中断条項の対象外。ただし `target` の表記揺れを吸収する別名表（柔然＝蠕蠕＝茹茹、契丹＝遼 など）が薄いぶん、同一相手を取りこぼしてここへ落ちている可能性がある。**取りこぼし率は未測定**なので absent とは名乗らない"
         }
       ]

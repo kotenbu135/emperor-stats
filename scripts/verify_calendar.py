@@ -35,7 +35,9 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_PATH = ROOT / "data" / "emperors.json"
 
 ISO = re.compile(r"^(-?\d{4})(?:-(\d{2}))?(?:-(\d{2}))?$")
-FROMLUNAR = re.compile(r"fromLunar\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(True|False)\s*)?\)")
+# 年は BCE を負で書く（天文年）。`(\d+)` のままだと fromLunar(-201,7,1) が黙って
+# 素通りし、BCE の conversion が1件も再演されない（2026-08-07・Issue #82 で実際に起きた）
+FROMLUNAR = re.compile(r"fromLunar\(\s*(-?\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(True|False)\s*)?\)")
 ARROW_DATE = re.compile(r"[→=]\s*(-?\d{3,4})[-年](\d{1,2})[-月](\d{1,2})日?")
 # B-5 の月精度主張。ISO の「→YYYY-MM」だけを拾う（日まで続く形は ARROW_DATE の担当）
 ARROW_MONTH = re.compile(r"[→=]\s*(-?\d{3,4})-(\d{2})(?!\s*-?\d)")
