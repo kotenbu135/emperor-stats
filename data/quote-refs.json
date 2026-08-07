@@ -5412,6 +5412,81 @@
    ],
    "line": 4
   },
+  "beiwei-mingyuandi|personalCampaignCount[0].note|15dac08ac81f": {
+   "id": "beiwei-mingyuandi",
+   "path": "personalCampaignCount[0].note",
+   "span": "夏五月，长孙嵩等自大漠还，蠕蠕追围之于牛川。壬申，帝北伐。蠕蠕闻而遁走，车驾还幸",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-mingyuandi.txt",
+   "frags": [
+    "长孙嵩等自大漠还",
+    "蠕蠕追围之于牛川",
+    "蠕蠕闻而遁走",
+    "车驾还幸参合陂"
+   ],
+   "line": 4
+  },
+  "beiwei-mingyuandi|personalCampaignCount[0].note|61f62d98e744": {
+   "id": "beiwei-mingyuandi",
+   "path": "personalCampaignCount[0].note",
+   "span": "秋七月……乙丑，车驾至自北伐",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-mingyuandi.txt",
+   "frags": [
+    "车驾至自北伐"
+   ],
+   "line": 5
+  },
+  "beiwei-mingyuandi|personalCampaignCount[1].note|1804a7f95c29": {
+   "id": "beiwei-mingyuandi",
+   "path": "personalCampaignCount[1].note",
+   "span": "十二月丙戌朔，蠕蠕犯塞。丙申，帝北伐蠕蠕",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-mingyuandi.txt",
+   "frags": [
+    "十二月丙戌朔",
+    "帝北伐蠕蠕"
+   ],
+   "line": 16
+  },
+  "beiwei-mingyuandi|personalCampaignCount[1].note|2745f5f9e19b": {
+   "id": "beiwei-mingyuandi",
+   "path": "personalCampaignCount[1].note",
+   "span": "春正月丙辰，车驾至自北伐，赐从征将士布帛各有差",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-mingyuandi.txt",
+   "frags": [
+    "春正月丙辰",
+    "车驾至自北伐",
+    "赐从征将士布帛各有差"
+   ],
+   "line": 17
+  },
+  "beiwei-mingyuandi|personalCampaignCount[2].note|24e5addc9ce3": {
+   "id": "beiwei-mingyuandi",
+   "path": "personalCampaignCount[2].note",
+   "span": "幸成皋城，观虎牢。而城内乏水，悬绠汲河。帝令连舰上施贲辒，绝其汲路，又穿地道以夺",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-mingyuandi.txt",
+   "frags": [
+    "而城内乏水",
+    "帝令连舰上施贲辒",
+    "又穿地道以夺其井"
+   ],
+   "line": 45
+  },
+  "beiwei-mingyuandi|personalCampaignCount[2].note|4a09634a0b22": {
+   "id": "beiwei-mingyuandi",
+   "path": "personalCampaignCount[2].note",
+   "span": "奚斤伐滑台不克，帝怒，议亲南讨，为其声援。壬辰，车驾南巡，自出天门关，逾恆岭",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-mingyuandi.txt",
+   "frags": [
+    "奚斤伐滑台不克",
+    "自出天门关"
+   ],
+   "line": 43
+  },
   "beiwei-mingyuandi|rebellionSufferedCount.note|95eaf9f6f3cc": {
    "id": "beiwei-mingyuandi",
    "path": "rebellionSufferedCount.note",
@@ -6684,6 +6759,21 @@
     "詔名皇子曰弘"
    ],
    "line": 9
+  },
+  "beiwei-wenchengdi|personalCampaignCount[0].note|99719360a054": {
+   "id": "beiwei-wenchengdi",
+   "path": "personalCampaignCount[0].note",
+   "span": "冬十月甲戌，北巡。至阴山……辛卯，车驾次于车轮山，累石记行。十一月……车驾度漠，",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-wenchengdi.txt",
+   "frags": [
+    "冬十月甲戌",
+    "车驾次于车轮山",
+    "蠕蠕绝迹远遁",
+    "其别部乌朱贺颓",
+    "库世颓率众来降"
+   ],
+   "line": 19
   },
   "beiwei-wenchengdi|rebellionSuppressionCount[0].note|bf34ac30d714": {
    "id": "beiwei-wenchengdi",
@@ -43460,6 +43550,40 @@
    ],
    "line": 23
   },
+  "qianyan-murongjun|amnestyCount[1].note|5b3d6d4a7ef5": {
+   "id": "qianyan-murongjun",
+   "path": "amnestyCount[1].note",
+   "span": "复立次子为皇太子，赦其境内，改元曰光寿",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianyan-murongjun.txt",
+   "frags": [
+    "复立次子为皇太子",
+    "改元曰光寿"
+   ],
+   "line": 18
+  },
+  "qianyan-murongjun|amnestyCount[2].note|b3fb3970e796": {
+   "id": "qianyan-murongjun",
+   "path": "amnestyCount[2].note",
+   "span": "慕容俊入屯鄴",
+   "status": "corpus",
+   "corpusFile": "china-history/宋书/志/第十四章-卷二十四-原文.html",
+   "frags": [
+    "慕容俊入屯鄴"
+   ],
+   "line": 67
+  },
+  "qianyan-murongjun|amnestyCount[2].note|ca9430dfc82d": {
+   "id": "qianyan-murongjun",
+   "path": "amnestyCount[2].note",
+   "span": "俊自蓟城迁于邺，赦其境内",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianyan-murongjun.txt",
+   "frags": [
+    "俊自蓟城迁于邺"
+   ],
+   "line": 23
+  },
   "qianyan-murongjun|capitalRelocationCount[0].note|0fb8aef79749": {
    "id": "qianyan-murongjun",
    "path": "capitalRelocationCount[0].note",
@@ -64672,6 +64796,17 @@
    "corpusFile": "_corpus_cache/wu-dadi.txt",
    "frags": [
     "劉備称帝於蜀",
+    "權自公安都鄂"
+   ],
+   "line": 19
+  },
+  "wu-dadi|capitalRelocationCount[0].note|e1be8dbbc5d8": {
+   "id": "wu-dadi",
+   "path": "capitalRelocationCount[0].note",
+   "span": "權自公安都鄂、改名武昌",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wu-dadi.txt",
+   "frags": [
     "權自公安都鄂"
    ],
    "line": 19
