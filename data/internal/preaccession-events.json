@@ -1,0 +1,2192 @@
+{
+  "meta": {
+    "purpose": "皇帝在位中に限る計上規約（2026-08-07・Issue #91 のユーザー決定）で data/emperors.json から外した、皇帝即位前の回数系 event の退避先。配布物ではない — ここに置いた値は emperors.json の count に入らない。",
+    "decision": "回数系8指標（改元・大赦・立后・皇太子廃立・遷都・親征・反乱鎮圧・被反乱）は皇帝位に即いてからの行為だけを数える。王・天王・可汗・摂皇帝などの称号のもとで行った行為は数えない（2026-07-22 に明文化した「実権掌握期」の規約を2026-08-07 に覆した）。",
+    "keptInDistribution": "在位開始より前に始まり在位中まで続いた事象（継続中の反乱・即位をまたぐ親征）は配布物に残してある。ここに在るのは在位開始より前に完結した行為だけ。",
+    "movedAt": "2026-08-07",
+    "issue": "https://github.com/kotenbu135/emperor-stats/issues/91",
+    "events": 89,
+    "emperors": 22
+  },
+  "events": {
+    "beiwei-daowudi.capitalRelocationCount.e001": {
+      "emperor": "beiwei-daowudi",
+      "container": "capitalRelocationCount",
+      "reigns": [
+        [
+          399,
+          409
+        ]
+      ],
+      "phase": "皇帝即位より前（天興元年七月の遷都は同年十二月の即位より前）",
+      "event": {
+        "id": "beiwei-daowudi.capitalRelocationCount.e001",
+        "date": "0398",
+        "datePrecision": "month",
+        "from": "盛楽",
+        "to": "平城",
+        "note": "太祖道武帝（拓跋珪）天興元年（398年）秋七月「迁都平城，始营宫室，建宗庙，立社稷。」（魏書卷二・太祖紀）。同年六月に国号を「魏」と定め、七月に平城へ遷都、十二月に皇帝に即位（大赦、改元）。盛楽は登国元年（386年）二月「幸定襄之盛乐。息众课农」以来、拓跋珪の代・魏国の都として12年間機能していた既存の都であり（『後金→清』瀋陽→北京と同型の「自王朝がすでに持っていた前の都からの移転」）、建国時の最初の定都（例外規定）には該当しないと判断した。（出典: 魏書 巻二 太祖紀（天興元年））"
+      },
+      "archivedDate": {
+        "date": "0398-08-01",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "太祖道武帝（拓跋珪）天興元年（398年）"
+      }
+    },
+    "chenghan-lixiong.personalCampaignCount.e001": {
+      "emperor": "chenghan-lixiong",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          306,
+          334
+        ]
+      ],
+      "phase": "成都王僭称の前後（皇帝即位より前）",
+      "event": {
+        "id": "chenghan-lixiong.personalCampaignCount.e001",
+        "outcome": "李流の死後、雄が大都督・大将軍・益州牧を自称し郫城に拠った直後、羅尚が将を遣わして雄を攻めたが、雄自らこれを撃退した（「羅尚遣將攻雄，雄擊走之」）。",
+        "note": "永興元年（304年）の成都王僭称の直前後の出来事とみられ、正確な年次は載記本文に明記されない。晋書本紀等での裏付けは取れていない。",
+        "startDate": "0303",
+        "endDate": "0304",
+        "datePrecision": "year",
+        "target": "羅尚（西晋益州刺史）配下の攻撃部隊"
+      }
+    },
+    "dongjin-yuandi.eraChangeCount.e001": {
+      "emperor": "dongjin-yuandi",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          318,
+          323
+        ]
+      ],
+      "phase": "晋王期",
+      "event": {
+        "id": "dongjin-yuandi.eraChangeCount.e001",
+        "date": "0317",
+        "datePrecision": "month",
+        "note": "建武元年三月辛卯、群臣に推されて晋王に即位し「即王位，大赦，改元」として「建武」の元号を建てた。皇帝即位（太兴元年）に先立つ晋王時代の建元だが、東晋建国に伴う最初の改元として固有注意事項に従いeraChangeCountに含める。",
+        "source": {
+          "page": "晉書 帝紀第六 中宗元帝",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0317-04",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "建武元年三月辛卯、群臣に推されて晋王に即"
+      }
+    },
+    "houqin-yaochang.amnestyCount.e001": {
+      "emperor": "houqin-yaochang",
+      "container": "amnestyCount",
+      "reigns": [
+        [
+          386,
+          393
+        ]
+      ],
+      "phase": "万年秦王期",
+      "event": {
+        "id": "houqin-yaochang.amnestyCount.e001",
+        "date": "0384",
+        "datePrecision": "year",
+        "note": "太元九年、大将軍・大単于・万年秦王を自称した際に「大赦境内」（境内に大赦す）と明記。年号を白雀と建元。",
+        "source": {
+          "page": "晉書 巻116 姚萇載記",
+          "lang": "zh"
+        }
+      }
+    },
+    "houqin-yaochang.eraChangeCount.e001": {
+      "emperor": "houqin-yaochang",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          386,
+          393
+        ]
+      ],
+      "phase": "万年秦王期",
+      "event": {
+        "id": "houqin-yaochang.eraChangeCount.e001",
+        "date": "0384",
+        "datePrecision": "year",
+        "note": "【皇帝即位前】太元九年、苻堅敗死後に西州豪族らに推され、大将軍・大単于・万年秦王を自称し「称制行事」、年号を白雀と建元（最初の建元）。",
+        "source": {
+          "page": "晉書 巻116 姚萇載記",
+          "lang": "zh"
+        }
+      }
+    },
+    "houqin-yaochang.personalCampaignCount.e001": {
+      "emperor": "houqin-yaochang",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          386,
+          393
+        ]
+      ],
+      "phase": "万年秦王期",
+      "event": {
+        "id": "houqin-yaochang.personalCampaignCount.e001",
+        "outcome": "宋方の軍を貳県で撃破、新平を包囲・攻略（抵抗した守将苟輔らを降伏後に生き埋め）、安定を攻略。最終的に部将呉忠に命じて五将山に逃れた苻堅を捕らえさせ、太元十年八月（385年）に弑殺した。",
+        "note": "太元九年（384年）四月頃、万年秦王・大単于を自称した直後からの一連の対苻堅（前秦本宗）戦役。同年、苻堅自身も反撃のため趙氏坞に親征し姚萇軍を追い詰めたが、大雨に助けられ姚萇側が持ちこたえた（『資治通鑑』太元九年条）。討伐の一部（新平攻略・苻堅捕縛）は部将に委ねられたが、萇自身も貳県での宋方撃破・七万の兵を率いた楊璧撃破など要所で親征しているため一連の親征として1件に計上した。",
+        "startDate": "0384",
+        "endDate": "0385",
+        "datePrecision": "year",
+        "target": "苻堅（前秦）"
+      },
+      "archivedDate": {
+        "startDate": "0384-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "太元九年（384年）四月頃、万年秦王・大",
+        "endDate": "0385-12-31"
+      }
+    },
+    "houyan-murongchui.eraChangeCount.e001": {
+      "emperor": "houyan-murongchui",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          386,
+          396
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "houyan-murongchui.eraChangeCount.e001",
+        "date": "0384",
+        "datePrecision": "year",
+        "note": "【皇帝即位前】荥阳にて「自称大将军、大都督、燕王，承制行事，建元曰燕元」と、燕王自立とともに「燕元」の元号を建てた（建国者の最初の建元）。載記原文は「以太元八年」と記すが、通行の紀年（『晋書』孝武帝紀・『資治通鑑』等）では慕容垂の燕王自立・挙兵は太元九年（384年）とされ、本紀側の記述（太元十一年に皇帝僭称）とも整合する。原典の年次表記に一年のずれの可能性があるため日付precisionはuncertainとした。日付原文: 太元八～九年(384年頃)（2026-07-22にISO表記へ正規化）",
+        "source": {
+          "page": "晉書/卷123 慕容垂載記（載記第二十三）",
+          "lang": "zh"
+        }
+      }
+    },
+    "houyan-murongchui.rebellionSufferedCount.e001": {
+      "emperor": "houyan-murongchui",
+      "container": "rebellionSufferedCount",
+      "reigns": [
+        [
+          386,
+          396
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "houyan-murongchui.rebellionSufferedCount.e001",
+        "note": "rebellionSuppressionCountと同一事象を反対側から計上（対称基準）。太元九〜十年（384〜385年）頃と推定。",
+        "outcome": "垂の統府下で建義大将軍・河南王に封じられていた丁零族の翟斌が前秦の苻丕に内通して謀反を企てたが発覚し誅殺された。甥の翟真がこれを継いで邯鄲・行唐で抵抗を続けたが、味方内部の内紛を経て弱体化し、最終的に垂みずから行唐に入り残党を悉く坑殺して完全に鎮圧した。",
+        "name": "丁零翟斌・翟真・翟成の乱",
+        "startDate": "0384",
+        "endDate": "0386",
+        "datePrecision": "year",
+        "leader": "翟斌（のち甥の翟真、翟真の族弟の翟成が継承）"
+      },
+      "archivedDate": {
+        "startDate": "0384-01-01",
+        "datePrecision": "year",
+        "reason": "filler",
+        "noteHead": "rebellionSuppression",
+        "endDate": "0386-01-01"
+      }
+    },
+    "houyan-murongchui.rebellionSufferedCount.e002": {
+      "emperor": "houyan-murongchui",
+      "container": "rebellionSufferedCount",
+      "reigns": [
+        [
+          386,
+          396
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "houyan-murongchui.rebellionSufferedCount.e002",
+        "note": "rebellionSuppressionCountと同一事象を反対側から計上（対称基準）。太元十年（385年）頃と推定。",
+        "outcome": "後燕の建節将軍徐巌が武邑で反乱を起こし民衆を掠奪して幽州方面へ逃走、垂配下の平規を破って薊・令支を占拠したが、最終的に慕容農が攻略し徐巌兄弟を斬って鎮圧した。",
+        "name": "建節将軍徐巌の乱",
+        "startDate": "0385",
+        "endDate": "0385",
+        "datePrecision": "year",
+        "leader": "徐巌"
+      },
+      "archivedDate": {
+        "startDate": "0385-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "rebellionSuppression",
+        "endDate": "0385-12-31"
+      }
+    },
+    "houyan-murongchui.rebellionSuppressionCount.e001": {
+      "emperor": "houyan-murongchui",
+      "container": "rebellionSuppressionCount",
+      "reigns": [
+        [
+          386,
+          396
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "houyan-murongchui.rebellionSuppressionCount.e001",
+        "note": "鄴城包囲戦（対苻丕）と同時進行の内乱。垂の皇帝即位（太元十一年正月）以前に鎮圧完了と読める載記の記事順から、太元九〜十年（384〜385年）頃と推定した。",
+        "outcome": "垂の統府下で建義大将軍・河南王に封じられていた丁零族の翟斌が、尚書令の地位を求めて容れられなかったことに怒り前秦の苻丕に内通、丁零に命じて堤防を決壊させる謀反を企てたが事前に発覚し垂に誅殺された。甥の翟真がこれを継いで邯鄲・承営・行唐で抵抗を続けたが（一時は慕容楷の追撃軍を下邑で破るなど抵抗）、味方内部の内紛（司馬鮮于乞による翟真殺害と自立、その鮮于乞誅殺後の翟成擁立）を経て弱体化し、最終的に翟成配下の長史鮮于得が翟成を斬って投降。垂みずから行唐に入り残党を悉く坑殺して完全に鎮圧した。",
+        "name": "丁零翟斌・翟真・翟成の乱",
+        "startDate": "0384",
+        "endDate": "0386",
+        "datePrecision": "year",
+        "leader": "翟斌（のち甥の翟真、翟真の族弟の翟成が継承）"
+      },
+      "archivedDate": {
+        "startDate": "0384-01-01",
+        "datePrecision": "year",
+        "reason": "filler",
+        "noteHead": "鄴城包囲戦（対苻丕）と同時進行の内乱。垂",
+        "endDate": "0386-01-01"
+      }
+    },
+    "houyan-murongchui.rebellionSuppressionCount.e002": {
+      "emperor": "houyan-murongchui",
+      "container": "rebellionSuppressionCount",
+      "reigns": [
+        [
+          386,
+          396
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "houyan-murongchui.rebellionSuppressionCount.e002",
+        "note": "載記では丁零翟真の乱の鎮圧記事の直前・鄴城陥落前（皇帝即位前）に置かれており、太元十年（385年）頃と推定した。垂本人ではなく慕容農による鎮圧。",
+        "outcome": "後燕の建節将軍徐巌が武邑で反乱を起こし、民衆四千余人を掠奪して幽州方面へ逃走した。垂配下の平規は垂の「固守して戦わず、丁零を破ってから自ら討伐する」との命令に反して迎撃し敗北、徐巌は薊を陥として千余戸を掠め令支に拠った。最終的に慕容農が令支を攻略し徐巌兄弟を斬って鎮圧した。",
+        "name": "建節将軍徐巌の乱",
+        "startDate": "0385",
+        "endDate": "0385",
+        "datePrecision": "year",
+        "leader": "徐巌"
+      },
+      "archivedDate": {
+        "startDate": "0385-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "載記では丁零翟真の乱の鎮圧記事の直前・鄴",
+        "endDate": "0385-12-31"
+      }
+    },
+    "houzhao-shihu.amnestyCount.e001": {
+      "emperor": "houzhao-shihu",
+      "container": "amnestyCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.amnestyCount.e001",
+        "date": "0335",
+        "datePrecision": "year",
+        "note": "咸康元年（335年）、石弘を廃した後、群臣の勧進により「居摂趙天王」を称した際、「於是赦其境内、改年曰建武」（境内＝全領域を対象とした恩赦）。",
+        "source": {
+          "page": "晉書 載記第六 石季龍上",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0335-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "咸康元年（335年）、石弘を廃した後、群"
+      }
+    },
+    "houzhao-shihu.amnestyCount.e002": {
+      "emperor": "houzhao-shihu",
+      "container": "amnestyCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.amnestyCount.e002",
+        "date": "0337",
+        "datePrecision": "year",
+        "note": "咸康三年（337年）、殷周の制に依り「大趙天王」を僭称し南郊で即位した際、「大赦殊死已下」。",
+        "source": {
+          "page": "晉書 載記第六 石季龍上",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0337-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "咸康三年（337年）、殷周の制に依り「大"
+      }
+    },
+    "houzhao-shihu.capitalRelocationCount.e001": {
+      "emperor": "houzhao-shihu",
+      "container": "capitalRelocationCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.capitalRelocationCount.e001",
+        "date": "0335",
+        "datePrecision": "month",
+        "from": "襄国",
+        "to": "鄴",
+        "note": "石虎(石季龙)が石弘を廃して趙天王を称した直後、咸康元年(335)九月に国都を襄国から鄴へ遷した。晋書載記第六(石季龙上)「季龙将迁于鄴，尚书请太常告庙…及入鄴宫，澍雨周洽，季龙大悦，赦殊死已下」。月次は資治通鑑巻九十五・咸康元年条「九月，赵王虎迁都于鄴，大赦」で確認。なお石勒期にも鄴宮を造営し洛陽を「南都」に位置付ける動きはあったが(「勒以成周土中，汉晋旧京，复欲有移都之意，乃命洛阳为南都」)、実際の遷都には至らず石勒は襄国のまま没しており、正式な遷都には数えない。（出典: 晋書 巻一百六 載記第六（石季龍上）；資治通鑑 巻九十五 咸康元年九月条）"
+      },
+      "archivedDate": {
+        "date": "0335-10-01",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "石虎(石季龙)が石弘を廃して趙天王を称し"
+      }
+    },
+    "houzhao-shihu.crownPrinceDepositionCount.e001": {
+      "emperor": "houzhao-shihu",
+      "container": "crownPrinceDepositionCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.crownPrinceDepositionCount.e001",
+        "date": "0337",
+        "datePrecision": "year",
+        "note": "皇太子石邃が父の殺害・簒奪（「冒頓の事」）を謀っていることが露見し、朝見の礼を欠いたことにも激怒した季龍が「廃邃為庶人」。その夜、邃とその妻子ら26人を殺害した。咸康三年（337年）の大趙天王即位記事の直後に配置されており、同年～翌年頃と推定。",
+        "source": {
+          "page": "晉書 載記第六 石季龍上",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0337-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "皇太子石邃が父の殺害・簒奪（「冒頓の事」"
+      }
+    },
+    "houzhao-shihu.crownPrinceDepositionCount.e002": {
+      "emperor": "houzhao-shihu",
+      "container": "crownPrinceDepositionCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.crownPrinceDepositionCount.e002",
+        "date": "0348",
+        "datePrecision": "year",
+        "note": "皇太子石宣が弟石韜への嫉妬から刺客（楊柸ら）を放って殺害させたことが発覚し、季龍は宣を席庫に幽閉のうえ顎に鉄環を通して猪犬同様に扱い、最終的に火刑に処した。廃立を明示する語は宣本人には使われていない（母の杜氏には「廢宣母杜氏為庶人」の語あり）が、皇太子の地位はこの処刑により実質的に喪失したため廃立事象として計上した（前漢武帝期の皇太子劉拠が正式な廃太子の詔なく自殺により皇太子位を喪失した事例の既存判定に準拠）。永和三年（347年）～五年（349年）の間の記事群中で、永和四年（348年）頃と推定。",
+        "source": {
+          "page": "晉書 載記第七 石季龍下",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0348-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "皇太子石宣が弟石韜への嫉妬から刺客（楊柸"
+      }
+    },
+    "houzhao-shihu.empressInstallationCount.e001": {
+      "emperor": "houzhao-shihu",
+      "container": "empressInstallationCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.empressInstallationCount.e001",
+        "date": "0337",
+        "datePrecision": "year",
+        "note": "咸康三年（337年）、大趙天王即位時に「立其鄭氏為天王皇后」（鄭氏を天王皇后に冊立）。",
+        "source": {
+          "page": "晉書 載記第六 石季龍上",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0337-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "咸康三年（337年）、大趙天王即位時に「"
+      }
+    },
+    "houzhao-shihu.empressInstallationCount.e002": {
+      "emperor": "houzhao-shihu",
+      "container": "empressInstallationCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.empressInstallationCount.e002",
+        "date": "0337",
+        "datePrecision": "year",
+        "note": "皇太子石邃を誅殺し鄭氏を東海太妃に廃した後、「立其子宣為天王皇太子、宣母杜昭儀為天王皇后」（宣の母・杜昭儀を天王皇后に冊立）。記事の配置（咸康三年の即位記事の直後）から咸康三～四年（337～338年）頃と推定されるが、原文に確定的な年次記載はない。",
+        "source": {
+          "page": "晉書 載記第六 石季龍上",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0337-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "皇太子石邃を誅殺し鄭氏を東海太妃に廃した"
+      }
+    },
+    "houzhao-shihu.empressInstallationCount.e003": {
+      "emperor": "houzhao-shihu",
+      "container": "empressInstallationCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.empressInstallationCount.e003",
+        "date": "0348",
+        "datePrecision": "year",
+        "note": "石宣が弟石韜を殺害させた事件の発覚・処刑（杜氏を庶人に廃す）の後、石世を皇太子に立てるのと同時に「劉氏為皇后」（劉曜の娘・劉氏を皇后に冊立）。永和三年（347年）～五年（349年）の間の記事群中に配置されており、永和四年（348年）頃と推定。",
+        "source": {
+          "page": "晉書 載記第七 石季龍下",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0348-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "石宣が弟石韜を殺害させた事件の発覚・処刑"
+      }
+    },
+    "houzhao-shihu.eraChangeCount.e001": {
+      "emperor": "houzhao-shihu",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.eraChangeCount.e001",
+        "date": "0335",
+        "datePrecision": "year",
+        "note": "【皇帝即位前】咸康元年（335年）、石弘を廃した後、群臣の勧進を受けて「居摂趙天王」を称し、「於是赦其境内、改年曰建武」（建武に改元）。即位に伴う最初の建元。",
+        "source": {
+          "page": "晉書 載記第六 石季龍上",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0335-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "【皇帝即位前】咸康元年（335年）、石弘"
+      }
+    },
+    "houzhao-shihu.personalCampaignCount.e001": {
+      "emperor": "houzhao-shihu",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.personalCampaignCount.e001",
+        "outcome": "自ら軍を率いて南下し歴陽に至り、長江に臨んだところで引き返した（『晋書載記』「季龍自率衆南寇歴陽、臨江而旋」）。晋の朝廷は震撼したが、正面からの大規模交戦には至らなかった。",
+        "note": "『資治通鑑』咸康元年条は「趙王虎南游、臨江而還」とし、三月〜四月頃の出来事と推定される（載記には月日の記載なし）。",
+        "startDate": "0335",
+        "endDate": "0335",
+        "datePrecision": "year",
+        "target": "東晋（歴陽方面）"
+      },
+      "archivedDate": {
+        "startDate": "0335-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "『資治通鑑』咸康元年条は「趙王虎南游、臨",
+        "endDate": "0335-01-01"
+      }
+    },
+    "houzhao-shihu.personalCampaignCount.e002": {
+      "emperor": "houzhao-shihu",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.personalCampaignCount.e002",
+        "outcome": "桃豹・支雄・姚弋仲らを率いて段遼を攻撃、自らも金台に進駐し令支まで進んだ。段遼は密雲山へ逃れて降伏を申し出、石虎はその民二万余戸を司・雍・兗・豫四州へ移し、令支の宮に入って論功行賞を行った。段遼側の勝利。",
+        "note": "『資治通鑑』咸康四年（338年）春正月〜三月の記事に対応。載記では段遼戦と後続の慕容皝（棘城）戦がひと続きに記述されるが、対象・結果が異なるため別件としてカウントした。",
+        "startDate": "0338",
+        "endDate": "0338",
+        "datePrecision": "year",
+        "target": "段遼（遼西鮮卑）"
+      },
+      "archivedDate": {
+        "startDate": "0338-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "『資治通鑑』咸康四年（338年）春正月〜",
+        "endDate": "0338-01-01"
+      }
+    },
+    "houzhao-shihu.personalCampaignCount.e003": {
+      "emperor": "houzhao-shihu",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.personalCampaignCount.e003",
+        "outcome": "段遼討伐の勢いに乗じ、燕王慕容皝が軍を出さなかったことを咎めて棘城を攻めたが、旬余り包囲しても落とせず、慕容皝の子・慕容恪の奇襲を受けて大敗、鎧を捨てて敗走した（『晋書載記』「季龍大驚、棄甲而遁」）。趙軍の敗北。",
+        "note": "『資治通鑑』は咸康四年（338年）中の出来事とし、慕容恪の追撃で趙軍に三万余の戦死者が出たと記す。",
+        "startDate": "0338",
+        "endDate": "0338",
+        "datePrecision": "year",
+        "target": "前燕（慕容皝・棘城）"
+      },
+      "archivedDate": {
+        "startDate": "0338-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "『資治通鑑』は咸康四年（338年）中の出",
+        "endDate": "0338-01-01"
+      }
+    },
+    "houzhao-shihu.rebellionSufferedCount.e001": {
+      "emperor": "houzhao-shihu",
+      "container": "rebellionSufferedCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.rebellionSufferedCount.e001",
+        "note": "鎮圧回数と同一事象。",
+        "outcome": "配下の徐州従事硃縱が刺史郭祥を殺害し彭城を挙げて東晋に帰順、討伐軍を派遣したが本人は淮南へ逃走し捕縛できなかった。",
+        "name": "硃縱（朱縱）の彭城帰順事件",
+        "startDate": "0335",
+        "endDate": "0335",
+        "datePrecision": "year",
+        "leader": "硃縱（徐州従事）"
+      },
+      "archivedDate": {
+        "startDate": "0335-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "鎮圧回数と同一事象。",
+        "endDate": "0335-01-01"
+      }
+    },
+    "houzhao-shihu.rebellionSufferedCount.e002": {
+      "emperor": "houzhao-shihu",
+      "container": "rebellionSufferedCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.rebellionSufferedCount.e002",
+        "note": "鎮圧回数と同一事象。",
+        "outcome": "「仏太子」「大黄帝」を自称し数千人規模で挙兵したが、討伐され斬殺された。",
+        "name": "侯子光の乱",
+        "startDate": "0336",
+        "endDate": "0337",
+        "datePrecision": "year",
+        "leader": "侯子光"
+      },
+      "archivedDate": {
+        "startDate": "0336-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "鎮圧回数と同一事象。",
+        "endDate": "0337-01-01"
+      }
+    },
+    "houzhao-shihu.rebellionSufferedCount.e003": {
+      "emperor": "houzhao-shihu",
+      "container": "rebellionSufferedCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.rebellionSufferedCount.e003",
+        "note": "宮廷内部の権力者（皇太子）による兵力を伴う弑逆未遂であり、被反乱側にカウントした。",
+        "outcome": "皇太子石宣が弟石韜を刺客に殺害させ、続けて石虎本人の弑逆も計画していたが未遂に終わり、石宣は捕らえられ火刑に処された。",
+        "name": "石宣の弑逆計画・石韜殺害事件",
+        "startDate": "0348",
+        "endDate": "0348",
+        "datePrecision": "year",
+        "leader": "石宣（皇太子、石虎の子）"
+      },
+      "archivedDate": {
+        "startDate": "0348-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "宮廷内部の権力者（皇太子）による兵力を伴",
+        "endDate": "0348-01-01"
+      }
+    },
+    "houzhao-shihu.rebellionSuppressionCount.e001": {
+      "emperor": "houzhao-shihu",
+      "container": "rebellionSuppressionCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.rebellionSuppressionCount.e001",
+        "note": "『資治通鑑』は咸和九年（334年）十二月の出来事とする（載記は咸康元年の記事群中に配置）。",
+        "outcome": "配下の徐州従事硃縱が刺史郭祥を殺害し、彭城を挙げて東晋に帰順した。石虎は将軍王朗を派遣して攻撃させたが、硃縱本人は淮南（晋領）へ逃走し捕縛に失敗した。",
+        "name": "硃縱（朱縱）の彭城帰順事件",
+        "startDate": "0335",
+        "endDate": "0335",
+        "datePrecision": "year",
+        "leader": "硃縱（徐州従事）"
+      },
+      "archivedDate": {
+        "startDate": "0335-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "『資治通鑑』は咸和九年（334年）十二月",
+        "endDate": "0335-01-01"
+      }
+    },
+    "houzhao-shihu.rebellionSuppressionCount.e002": {
+      "emperor": "houzhao-shihu",
+      "container": "rebellionSuppressionCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.rebellionSuppressionCount.e002",
+        "note": "載記・資治通鑑ともに咸康年間（337年頃）の記事として配置。",
+        "outcome": "安定の侯子光が「大秦国から来た仏太子」を自称し、年号「龍興」を建てて杜南山で数千人を集めて挙兵したが、鎮西将軍石広に討たれ斬殺された。",
+        "name": "侯子光の乱",
+        "startDate": "0336",
+        "endDate": "0337",
+        "datePrecision": "year",
+        "leader": "侯子光（安定の人、「仏太子」「大黄帝」を自称）"
+      },
+      "archivedDate": {
+        "startDate": "0336-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "載記・資治通鑑ともに咸康年間（337年頃",
+        "endDate": "0337-01-01"
+      }
+    },
+    "houzhao-shihu.rebellionSuppressionCount.e003": {
+      "emperor": "houzhao-shihu",
+      "container": "rebellionSuppressionCount",
+      "reigns": [
+        [
+          349,
+          349
+        ]
+      ],
+      "phase": "趙天王・大趙天王期",
+      "event": {
+        "id": "houzhao-shihu.rebellionSuppressionCount.e003",
+        "note": "宮廷内の権力者（皇太子）による兵力を用いた弑逆計画だが未遂に終わり、皇帝側（石虎）が主体となって鎮圧・処罰しているため、鎮圧・被反乱の両方にカウントした（成功したクーデターを鎮圧側から除外する例外4には該当しない）。",
+        "outcome": "皇太子石宣が弟の秦公石韜を刺客（楊柸ら）に暗殺させ、続いて父石虎の弔問時を狙って弑逆する計画を立てたが、密告により発覚。石虎は石宣を捕らえて顎に鉄環を通し猪犬同然に扱った上で鄴北で火刑に処し、関与した東宮衛士・宦官ら数百人も誅殺した。",
+        "name": "石宣の弑逆計画・石韜殺害事件",
+        "startDate": "0348",
+        "endDate": "0348",
+        "datePrecision": "year",
+        "leader": "石宣（皇太子、石虎の子）"
+      },
+      "archivedDate": {
+        "startDate": "0348-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "宮廷内の権力者（皇太子）による兵力を用い",
+        "endDate": "0348-01-01"
+      }
+    },
+    "houzhao-shile.amnestyCount.e001": {
+      "emperor": "houzhao-shile",
+      "container": "amnestyCount",
+      "reigns": [
+        [
+          330,
+          333
+        ]
+      ],
+      "phase": "趙王期",
+      "event": {
+        "id": "houzhao-shile.amnestyCount.e001",
+        "date": "0328",
+        "datePrecision": "year",
+        "note": "茌平令が黒兎を献上した祥瑞を機に「大赦」を行い、同年（咸和三年）年号を「太和」に改める。趙王時代の出来事。",
+        "source": {
+          "page": "晋書載記第五",
+          "lang": "zh"
+        }
+      }
+    },
+    "houzhao-shile.eraChangeCount.e001": {
+      "emperor": "houzhao-shile",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          330,
+          333
+        ]
+      ],
+      "phase": "趙王期",
+      "event": {
+        "id": "houzhao-shile.eraChangeCount.e001",
+        "date": "0319",
+        "datePrecision": "year",
+        "note": "【皇帝即位前】太興二年、石勒が趙王を自称し、「春秋列国・漢初侯王の毎世称元に依り、改めて趙王元年と称す」として建元（在位年数を趙王元年として起算）。この人物固有の注意事項に従い、趙王即位に伴う最初の建元として1回とカウント。",
+        "source": {
+          "page": "晋書載記第五",
+          "lang": "zh"
+        }
+      }
+    },
+    "houzhao-shile.eraChangeCount.e002": {
+      "emperor": "houzhao-shile",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          330,
+          333
+        ]
+      ],
+      "phase": "趙王期",
+      "event": {
+        "id": "houzhao-shile.eraChangeCount.e002",
+        "date": "0328",
+        "datePrecision": "year",
+        "note": "【皇帝即位前】咸和三年、黒兎献上の祥瑞を機に大赦を行い、年号を「太和」に改める（趙王としての正式な年号制定）。",
+        "source": {
+          "page": "晋書載記第五",
+          "lang": "zh"
+        },
+        "eraName": "太和"
+      }
+    },
+    "houzhao-shile.personalCampaignCount.e001": {
+      "emperor": "houzhao-shile",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          330,
+          333
+        ]
+      ],
+      "phase": "趙王期",
+      "event": {
+        "id": "houzhao-shile.personalCampaignCount.e001",
+        "outcome": "咸和三年（328年）冬、前趙の劉曜が洛陽・金墉城を包囲すると、群臣の反対（程遐ら「親征すべきでない」との諫言）を退け石勒自ら歩騎四万を率いて出陣。成皋関に諸軍を集め洛陽に突入、十二月に西陽門で劉曜軍を大破し劉曜自身を生け捕りにした（斬首五万余級）。前趙の主力は事実上壊滅し、劉曜は後に処刑された。",
+        "note": "晋書載記第五・資治通鑑晋紀ともに石勒自身が出陣した経緯（程遐らの制止を振り切り自ら統軍）を明記。",
+        "startDate": "0328",
+        "endDate": "0329",
+        "datePrecision": "month",
+        "target": "前趙（劉曜）"
+      },
+      "archivedDate": {
+        "startDate": "0328-11",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "晋書載記第五・資治通鑑晋紀ともに石勒自身",
+        "endDate": "0329-01"
+      }
+    },
+    "houzhao-shile.rebellionSufferedCount.e001": {
+      "emperor": "houzhao-shile",
+      "container": "rebellionSufferedCount",
+      "reigns": [
+        [
+          330,
+          333
+        ]
+      ],
+      "phase": "趙王期",
+      "event": {
+        "id": "houzhao-shile.rebellionSufferedCount.e001",
+        "note": "反乱鎮圧回数と同一事象（対称計上）。",
+        "outcome": "太興3年（320年）に後趙将王伏都の軍を殺害して離反、その後再降伏と再離反を繰り返したが、太興5年（322年）7月に石季龍により泰山を陥落させられ捕縛・処刑され鎮圧された。",
+        "name": "徐龛の反乱（兗州・泰山方面）",
+        "startDate": "0320",
+        "endDate": "0322",
+        "datePrecision": "year",
+        "leader": "徐龛"
+      },
+      "archivedDate": {
+        "endDate": "0322-07",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "反乱鎮圧回数と同一事象（対称計上）。"
+      }
+    },
+    "houzhao-shile.rebellionSuppressionCount.e001": {
+      "emperor": "houzhao-shile",
+      "container": "rebellionSuppressionCount",
+      "reigns": [
+        [
+          330,
+          333
+        ]
+      ],
+      "phase": "趙王期",
+      "event": {
+        "id": "houzhao-shile.rebellionSuppressionCount.e001",
+        "note": "討伐の実務は一貫して石季龍が担当し、石勒自身は親征していない。",
+        "outcome": "もと晋の泰山太守で太興2年（319年）に後趙へ帰順していた徐龛が、太興3年（320年）に後趙将王伏都の軍を疑って殺害し離反。以後、石季龍らの討伐と徐龛の再降伏・再離反を繰り返したが、太興5年（322年）7月に石季龍が泰山を陥落させて徐龛を捕らえ、襄国で焼殺（配下将士の妻子に肉を食わせる等の過酷な処置）し、降卒3千を生き埋めにして鎮圧した。",
+        "name": "徐龛の反乱（兗州・泰山方面）",
+        "startDate": "0320",
+        "endDate": "0322",
+        "datePrecision": "year",
+        "leader": "徐龛"
+      },
+      "archivedDate": {
+        "endDate": "0322-07",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "討伐の実務は一貫して石季龍が担当し、石勒"
+      }
+    },
+    "liang-houjing.personalCampaignCount.e001": {
+      "emperor": "liang-houjing",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          552,
+          552
+        ]
+      ],
+      "phase": "皇帝を称する前",
+      "event": {
+        "id": "liang-houjing.personalCampaignCount.e001",
+        "outcome": "西陽で徐文盛を破るも、巴陵で王僧辯の防衛と疫病により大敗し、任約も陸法和に捕らえられたため夜間に撤退した（敗北）",
+        "note": "梁書列伝第五十(侯景伝)に「三月、景自率衆二萬、西上援約。四月、景次西陽、徐文盛率水軍邀戰、大破之」「(巴陵で)景設長圍、築土山、晝夜攻擊、不克。軍中疾疫、死傷太半」「(任約が)大破之、生擒約。景聞之、夜遁」とあり、侯景自身が率いた親征と明記される。撤退の正確な月日は本文に明記されないため終了日は概算（簡文帝廃立＝8月以前と推定）。",
+        "target": "荆州刺史湘东王萧绎（後の梁元帝）配下の徐文盛・王僧辯の軍（巴陵の戦い）",
+        "startDate": "0551",
+        "datePrecision": "month",
+        "endDate": "0551"
+      },
+      "archivedDate": {
+        "startDate": "0551-04-01",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "梁書列伝第五十(侯景伝)に「三月、景自率",
+        "endDate": "0551-05-01"
+      }
+    },
+    "liao-taizu.empressInstallationCount.e001": {
+      "emperor": "liao-taizu",
+      "container": "empressInstallationCount",
+      "reigns": [
+        [
+          916,
+          926
+        ]
+      ],
+      "phase": "可汗期（916年の皇帝即位より前）",
+      "event": {
+        "id": "liao-taizu.empressInstallationCount.e001",
+        "date": "0907",
+        "datePrecision": "year",
+        "note": "皇后蕭氏（後の應天皇后・述律平）を立后。原文（元年＝907年春正月庚寅）：「命有司設壇於如迂王集會埚，燔柴告天，即皇帝位。尊母蕭氏爲皇太后，立皇后蕭氏。」この即位・立后は本データセットの公式在位期間（916-926年、皇帝号確立）より前（可汗即位期）の出来事だが、太祖の生涯を通じて確認できる立后記録はこの1件のみであり、後年（916年神冊建元時）に「后曰應天大明地皇后」と尊号を追加されているのも同一人物への尊号加上（再冊立ではない）。他に立后・再冊立の記述は巻一・巻二に見当たらないため1回とした。",
+        "source": {
+          "page": "遼史 巻一（太祖紀上）",
+          "lang": "zh"
+        }
+      }
+    },
+    "liao-taizu.personalCampaignCount.e001": {
+      "emperor": "liao-taizu",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          916,
+          926
+        ]
+      ],
+      "phase": "可汗期（916年の皇帝即位より前）",
+      "event": {
+        "id": "liao-taizu.personalCampaignCount.e001",
+        "target": "奚（西部奚・東部奚）",
+        "startDate": "0911",
+        "endDate": "0911",
+        "datePrecision": "year",
+        "outcome": "西部奚・東部奚とも平定し、奚・霫の地を尽く版籍に編入（新規服属・征服）",
+        "note": "原文（太祖紀上・五年正月）：「丙申，上亲征西部奚。奚阻险，叛服不常，数招谕弗听。是役所向辄下，遂分兵讨东部奚，亦平之…于是尽有奚、霫之地…凡五部，咸入版籍。」既存の服属済み集団の離反（同年前の910年乌马山奚の乱）とは別に、これは新規領域の完全編入を意味するため対外征服として計上した。"
+      }
+    },
+    "liao-taizu.personalCampaignCount.e002": {
+      "emperor": "liao-taizu",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          916,
+          926
+        ]
+      ],
+      "phase": "可汗期（916年の皇帝即位より前）",
+      "event": {
+        "id": "liao-taizu.personalCampaignCount.e002",
+        "target": "劉守光（幽州節度使）",
+        "startDate": "0912",
+        "endDate": "0912",
+        "datePrecision": "year",
+        "outcome": "幽州へ親征し帰還（具体的戦果の詳細記載なし）",
+        "note": "原文（太祖紀上・六年二月）：「二月戊午，亲征刘守光。三月，至自幽州。」劉守光は独立の幽州藩鎮勢力で契丹の服属民ではないため対外遠征として計上。"
+      }
+    },
+    "liao-taizu.personalCampaignCount.e003": {
+      "emperor": "liao-taizu",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          916,
+          926
+        ]
+      ],
+      "phase": "可汗期（916年の皇帝即位より前）",
+      "event": {
+        "id": "liao-taizu.personalCampaignCount.e003",
+        "target": "術不姑（東北方の未服属部族）",
+        "startDate": "0912",
+        "endDate": "0912",
+        "datePrecision": "year",
+        "outcome": "降伏させ数万人を捕獲",
+        "note": "原文（太祖紀上・六年七月）：「秋七月丙午，亲征术不姑，降之，俘获以数万计，命弟剌葛分兵攻平州。」"
+      }
+    },
+    "liao-taizu.personalCampaignCount.e004": {
+      "emperor": "liao-taizu",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          916,
+          926
+        ]
+      ],
+      "phase": "可汗期（916年の皇帝即位より前）",
+      "event": {
+        "id": "liao-taizu.personalCampaignCount.e004",
+        "target": "皇弟剌葛・迭剌・寅底石・安端の武装反乱鎮圧",
+        "startDate": "0912",
+        "endDate": "0914",
+        "datePrecision": "year",
+        "outcome": "剌葛・涅里衮阿钵らを捕縛、関係者300余人を処断（首謀者剌葛・迭剌哥は減刑）",
+        "note": "911年5月の初期謀反（密告により発覚、太祖が誓約のみで赦免、兵力行使なし）は除外し、912年10月に剌葛が再度兵を率いて反乱・行宮を焼き討ちした武装蜂起以降を対象とした。原文（太祖紀上・六年～八年）多数、例：「剌葛遣其党寅底石引兵径趋行宫，焚其辎重、庐帐，纵兵大杀」「上以兵追之」「秋七月丙申朔，有司上诸帐族与谋逆者三百馀人罪状，皆弃市」。太祖自身が追撃を指揮したためrebellionSuppression/Sufferedとも重複計上。"
+      }
+    },
+    "liao-taizu.rebellionSufferedCount.e001": {
+      "emperor": "liao-taizu",
+      "container": "rebellionSufferedCount",
+      "reigns": [
+        [
+          916,
+          926
+        ]
+      ],
+      "phase": "可汗期（916年の皇帝即位より前）",
+      "event": {
+        "id": "liao-taizu.rebellionSufferedCount.e001",
+        "name": "烏馬山奚の乱",
+        "leader": "烏馬山奚 庫支・査剌底・鋤勃徳ら",
+        "startDate": "0910",
+        "endDate": "0910",
+        "datePrecision": "year",
+        "outcome": "討平",
+        "note": "rebellionSuppressionCountと同一事象。原文：「乌马山奚库支及查剌底、锄勃德等叛，讨平之。」"
+      }
+    },
+    "liao-taizu.rebellionSufferedCount.e002": {
+      "emperor": "liao-taizu",
+      "container": "rebellionSufferedCount",
+      "reigns": [
+        [
+          916,
+          926
+        ]
+      ],
+      "phase": "可汗期（916年の皇帝即位より前）",
+      "event": {
+        "id": "liao-taizu.rebellionSufferedCount.e002",
+        "name": "諸弟の乱（剌葛の乱）",
+        "leader": "皇弟 剌葛・迭剌・寅底石・安端",
+        "startDate": "0912",
+        "endDate": "0914",
+        "datePrecision": "year",
+        "outcome": "捕縛・処断（首謀者は減刑）",
+        "note": "rebellionSuppressionCount・personalCampaignCountと同一事象。太祖の行宮が焼かれるなど直接被害を受けた。"
+      }
+    },
+    "liao-taizu.rebellionSufferedCount.e003": {
+      "emperor": "liao-taizu",
+      "container": "rebellionSufferedCount",
+      "reigns": [
+        [
+          916,
+          926
+        ]
+      ],
+      "phase": "可汗期（916年の皇帝即位より前）",
+      "event": {
+        "id": "liao-taizu.rebellionSufferedCount.e003",
+        "name": "烏古部の乱（915年）",
+        "leader": "烏古部（首謀者不詳）",
+        "startDate": "0915",
+        "endDate": "0915",
+        "datePrecision": "year",
+        "outcome": "討平",
+        "note": "rebellionSuppressionCountと同一事象。"
+      }
+    },
+    "liao-taizu.rebellionSuppressionCount.e001": {
+      "emperor": "liao-taizu",
+      "container": "rebellionSuppressionCount",
+      "reigns": [
+        [
+          916,
+          926
+        ]
+      ],
+      "phase": "可汗期（916年の皇帝即位より前）",
+      "event": {
+        "id": "liao-taizu.rebellionSuppressionCount.e001",
+        "name": "烏馬山奚の乱",
+        "leader": "烏馬山奚 庫支・査剌底・鋤勃徳ら",
+        "startDate": "0910",
+        "endDate": "0910",
+        "datePrecision": "year",
+        "outcome": "討平（原文「讨平之」）",
+        "note": "原文（太祖紀上・四年）：「冬十月，乌马山奚库支及查剌底、锄勃德等叛，讨平之。」既に服属していた奚部族の一部離反。"
+      }
+    },
+    "liao-taizu.rebellionSuppressionCount.e002": {
+      "emperor": "liao-taizu",
+      "container": "rebellionSuppressionCount",
+      "reigns": [
+        [
+          916,
+          926
+        ]
+      ],
+      "phase": "可汗期（916年の皇帝即位より前）",
+      "event": {
+        "id": "liao-taizu.rebellionSuppressionCount.e002",
+        "name": "諸弟の乱（剌葛の乱）",
+        "leader": "皇弟 剌葛・迭剌・寅底石・安端",
+        "startDate": "0912",
+        "endDate": "0914",
+        "datePrecision": "year",
+        "outcome": "剌葛・涅里衮阿钵ら捕縛、関係者300余人処断（首謀者剌葛・迭剌哥は太祖により減刑）",
+        "note": "原文（太祖紀上・六年～八年）多数。行宮焼き討ち・大規模な追撃戦を伴う武装反乱で太祖自ら鎮圧を指揮したためpersonalCampaignCountとも重複計上。"
+      }
+    },
+    "liao-taizu.rebellionSuppressionCount.e003": {
+      "emperor": "liao-taizu",
+      "container": "rebellionSuppressionCount",
+      "reigns": [
+        [
+          916,
+          926
+        ]
+      ],
+      "phase": "可汗期（916年の皇帝即位より前）",
+      "event": {
+        "id": "liao-taizu.rebellionSuppressionCount.e003",
+        "name": "烏古部の乱（915年）",
+        "leader": "烏古部（首謀者不詳）",
+        "startDate": "0915",
+        "endDate": "0915",
+        "datePrecision": "year",
+        "outcome": "討平（原文「讨平之」）",
+        "note": "原文（太祖紀上・九年）：「春正月，乌古部叛，讨平之。」太祖自身の親征は明記されないため将軍派遣による鎮圧と判断。919年の烏古部遠征（personalCampaignCount側）は「自是举部来附」＝全部族の初帰順と明記され対外征服として別途区別した。"
+      }
+    },
+    "nanyan-murongde.amnestyCount.e001": {
+      "emperor": "nanyan-murongde",
+      "container": "amnestyCount",
+      "reigns": [
+        [
+          400,
+          405
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "nanyan-murongde.amnestyCount.e001",
+        "date": "0398",
+        "datePrecision": "year",
+        "note": "隆安二年、滑台に遷都後「德依燕元故事、称元年、大赦境内殊死已下、置百官」。燕王自立に伴う建元と同時の大赦（死罪を除く）。",
+        "source": {
+          "page": "晋書載記第二十七",
+          "lang": "zh"
+        }
+      }
+    },
+    "nanyan-murongde.eraChangeCount.e001": {
+      "emperor": "nanyan-murongde",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          400,
+          405
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "nanyan-murongde.eraChangeCount.e001",
+        "date": "0398",
+        "datePrecision": "year",
+        "note": "【皇帝即位前】隆安二年、滑台到達後「德依燕元故事、称元年」と、燕王自立（自らの紀年を開始）した最初の建元。",
+        "source": {
+          "page": "晋書載記第二十七",
+          "lang": "zh"
+        }
+      }
+    },
+    "nanyan-murongde.personalCampaignCount.e001": {
+      "emperor": "nanyan-murongde",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          400,
+          405
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "nanyan-murongde.personalCampaignCount.e001",
+        "outcome": "徳は滑台を慕容和に守らせ、自ら軍を率いて苻広を討伐し斬殺した（「徳乃留鲁阳王和守滑台、自帅众讨广、斩之」＝晋書載記「德乃留慕容和守滑台，親率衆討廣，斬之」）。討伐成功。",
+        "note": "『晋書』慕容徳載記および『資治通鑑』晋紀三十三（隆安三年・399年）条に拠る。皇帝号を称する前（燕王・自紀元年の段階）の親征だが在位期間内として計上。",
+        "startDate": "0399",
+        "endDate": "0399",
+        "datePrecision": "year",
+        "target": "苻広（前秦苻登の弟。徳に降伏し冠軍将軍に任じられていたが自立して秦王を自称した勢力）"
+      }
+    },
+    "nanyan-murongde.personalCampaignCount.e002": {
+      "emperor": "nanyan-murongde",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          400,
+          405
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "nanyan-murongde.personalCampaignCount.e002",
+        "outcome": "徳自ら軍を南下させ琅邪・莒城に進駐し、辟閭浑は広固を放棄して魏へ逃亡する途上で徳の追討軍（劉綱）に斬られた。徳はそのまま広固に入城し新都と定めた。",
+        "note": "辟閭浑は東晋任命の地方官で徳への服属関係になかったため、この一件はrebellionSuppression/Sufferedには含めず親征のみに計上した。",
+        "startDate": "0399",
+        "endDate": "0399",
+        "datePrecision": "year",
+        "target": "辟閭浑（東晋朝廷が任じた幽州刺史・広固鎮守。徳の服属下にはなかった独立地方勢力）"
+      }
+    },
+    "nanyan-murongde.rebellionSufferedCount.e001": {
+      "emperor": "nanyan-murongde",
+      "container": "rebellionSufferedCount",
+      "reigns": [
+        [
+          400,
+          405
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "nanyan-murongde.rebellionSufferedCount.e001",
+        "note": "rebellionSuppressionCountと対称の同一事案。",
+        "outcome": "服属していた苻広が離反・自立し徳の将・慕容鍾を破ったが、徳の親征により討伐され鎮圧された。",
+        "name": "苻広の乱",
+        "startDate": "0399",
+        "endDate": "0399",
+        "datePrecision": "year",
+        "leader": "苻広"
+      }
+    },
+    "nanyan-murongde.rebellionSufferedCount.e002": {
+      "emperor": "nanyan-murongde",
+      "container": "rebellionSufferedCount",
+      "reigns": [
+        [
+          400,
+          405
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "nanyan-murongde.rebellionSufferedCount.e002",
+        "note": "rebellionSuppressionCountと対称の同一事案。",
+        "outcome": "配下の李辯が徳の任じた鲁陽王慕容和を殺害し、根拠地の滑台を魏へ引き渡した。首謀者は徳側の将・慕容雲に討たれたが、滑台の地は結局回復されず徳は拠点を放棄して南方へ移った。",
+        "name": "李辯の乱（滑台失陥）",
+        "startDate": "0399",
+        "endDate": "0399",
+        "datePrecision": "year",
+        "leader": "李辯"
+      }
+    },
+    "nanyan-murongde.rebellionSuppressionCount.e001": {
+      "emperor": "nanyan-murongde",
+      "container": "rebellionSuppressionCount",
+      "reigns": [
+        [
+          400,
+          405
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "nanyan-murongde.rebellionSuppressionCount.e001",
+        "note": "服属していた降将による離反のため服属民の反乱として計上。",
+        "outcome": "徳に降伏していた苻広が自称秦王として離反し徳の将・慕容鍾を破ったが、徳自ら親征し斬殺して鎮圧に成功した。",
+        "name": "苻広の乱",
+        "startDate": "0399",
+        "endDate": "0399",
+        "datePrecision": "year",
+        "leader": "苻広"
+      }
+    },
+    "nanyan-murongde.rebellionSuppressionCount.e002": {
+      "emperor": "nanyan-murongde",
+      "container": "rebellionSuppressionCount",
+      "reigns": [
+        [
+          400,
+          405
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "nanyan-murongde.rebellionSuppressionCount.e002",
+        "note": "徳の配下（南燕政権側）である慕容雲が首謀者を討ち取った点をもって鎮圧側に計上。徳自身は出撃を取りやめている。",
+        "outcome": "徳の親征（苻広討伐）中に、滑台を守る鲁陽王慕容和の長史・李辯が慕容和を殺害し滑台を魏へ降した。徳配下の右衛将軍慕容雲が李辯を斬り将士・家族を率いて脱出させたが、滑台の地自体は魏に奪われたまま徳側は奪還せず（徳は韓範の諫言で攻撃を断念し南方の広固へ拠点を移した）。首謀者は討たれたが領土回復には至らなかった不完全な鎮圧。",
+        "name": "李辯の乱（滑台失陥）",
+        "startDate": "0399",
+        "endDate": "0399",
+        "datePrecision": "year",
+        "leader": "李辯"
+      }
+    },
+    "qianqin-fujian.personalCampaignCount.e001": {
+      "emperor": "qianqin-fujian",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          352,
+          355
+        ]
+      ],
+      "phase": "天王即位より前",
+      "event": {
+        "id": "qianqin-fujian.personalCampaignCount.e001",
+        "outcome": "苻健は自ら大軍を率いて盟津を渡り関中へ西征。潼関で杜洪配下の張先を撃破し、渭北も平定して長安に迫った。杜洪は司竹へ逃走し（後に部下の張琚に殺される）、苻健は入城して長安を本拠とした。",
+        "note": "即位（351年天王・352年皇帝）以前、351年の載記調査時の起点である苻洪死後の家督継承（350年）に伴う軍事行動。晋書載記・資治通鑑永和六年（350年）条に基づく。",
+        "startDate": "0350",
+        "endDate": "0350",
+        "datePrecision": {
+          "start": "year",
+          "end": "month"
+        },
+        "target": "杜洪（長安を拠点とした独立勢力。名目上は東晋の征北将軍・雍州刺史を自称）"
+      },
+      "archivedDate": {
+        "endDate": "0350-11",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "即位（351年天王・352年皇帝）以前、"
+      }
+    },
+    "qianqin-fujian.personalCampaignCount.e002": {
+      "emperor": "qianqin-fujian",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          352,
+          355
+        ]
+      ],
+      "phase": "天王即位より前",
+      "event": {
+        "id": "qianqin-fujian.personalCampaignCount.e002",
+        "outcome": "杜洪・張琚の要請で秦川に侵入した司馬勲の3万の兵を、苻健が自ら五丈原で迎撃して撃退。勲は南鄭へ敗走した。",
+        "note": "資治通鑑永和七年（351年）四月条「秦王健御之於五丈原」。",
+        "startDate": "0351",
+        "endDate": "0351",
+        "datePrecision": "month",
+        "target": "司馬勲（東晋梁州刺史）"
+      },
+      "archivedDate": {
+        "startDate": "0351-05",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "資治通鑑永和七年（351年）四月条「秦王",
+        "endDate": "0351-05"
+      }
+    },
+    "qianyan-murongjun.capitalRelocationCount.e001": {
+      "emperor": "qianyan-murongjun",
+      "container": "capitalRelocationCount",
+      "reigns": [
+        [
+          352,
+          360
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "qianyan-murongjun.capitalRelocationCount.e001",
+        "date": "0350",
+        "datePrecision": "year",
+        "from": "龍城（和龍）",
+        "to": "薊城",
+        "note": "『晋書』載記第十（慕容俊）：永和五年（349）慕容俊が燕王に即位、「明年（永和六年＝350年）」南伐し薊城の守将王他を斬り「因而都之（そのまま都とした）」と明記。龍城から薊城へ正式に遷都。（出典: 晋書 載記第十 慕容俊）"
+      },
+      "archivedDate": {
+        "date": "0350-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "『晋書』載記第十（慕容俊）：永和五年（3"
+      }
+    },
+    "qianyan-murongjun.personalCampaignCount.e001": {
+      "emperor": "qianyan-murongjun",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          352,
+          360
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "qianyan-murongjun.personalCampaignCount.e001",
+        "outcome": "俊が自ら三軍を率いて盧龍より出撃し無終に進駐、薊城を攻略して守将王他を斬った。以後薊を新たな都とした。",
+        "note": "「明年、俊率三軍南伐、出自盧龍、次於無終。石季龍幽州刺史王午弃城走、留其將王他守薊。俊攻陷其城、斬他、因而都之。」（普及頃の初年、即位翌年）",
+        "startDate": "0350",
+        "endDate": "0350",
+        "datePrecision": "year",
+        "target": "後趙幽州刺史配下の残存勢力（守将王他ほか）"
+      },
+      "archivedDate": {
+        "startDate": "0350-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "「明年、俊率三軍南伐、出自盧龍、次於無終",
+        "endDate": "0350-12-31"
+      }
+    },
+    "qianyan-murongjun.personalCampaignCount.e002": {
+      "emperor": "qianyan-murongjun",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          352,
+          360
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "qianyan-murongjun.personalCampaignCount.e002",
+        "outcome": "慕容恪・慕容垂らを冉閔・段勤討伐に派遣する際、俊自身も中山まで進出して両軍の後詰めとなった。冉閔は敗走の末に捕らえられ龍城で斬られ、鄴も陥落して冉魏は滅亡した。",
+        "note": "「俊遣慕容恪及相國封弈討冉閔於安喜、慕容垂討段勤於繹幕、俊如中山、為二軍声勢。閽惒、奔於常山、恪追及於泒水。　及戦、敗之、擒閽、送之、斬於龍城。」俊自身が中山に赴いたとの明記はあるが、決戦の指揮は慕容恪が行っているため、親征該当性には判断の幅がある。",
+        "startDate": "0351",
+        "endDate": "0352",
+        "datePrecision": "year",
+        "target": "冉魏（冉閔）"
+      },
+      "archivedDate": {
+        "startDate": "0351-01-01",
+        "datePrecision": "year",
+        "reason": "filler",
+        "noteHead": "「俊遣慕容恪及相國封弈討冉閔於安喜、慕容",
+        "endDate": "0352-12-31"
+      }
+    },
+    "qianyan-murongjun.rebellionSufferedCount.e001": {
+      "emperor": "qianyan-murongjun",
+      "container": "rebellionSufferedCount",
+      "reigns": [
+        [
+          352,
+          360
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "qianyan-murongjun.rebellionSufferedCount.e001",
+        "note": "同上（段勤の離反。慕容垂の討伐後、慕容恪の常山進出に畏れて降伏）",
+        "outcome": "鎮圧された（俊に一度帰順していた鮮卑段勤が離反したが、諸将の討伐を受けて再び降伏）",
+        "name": "段勤の離反",
+        "startDate": "0351",
+        "endDate": "0352",
+        "datePrecision": "year",
+        "leader": "段勤"
+      },
+      "archivedDate": {
+        "startDate": "0351-01-01",
+        "datePrecision": "year",
+        "reason": "filler",
+        "noteHead": "同上（段勤の離反。慕容垂の討伐後、慕容恪",
+        "endDate": "0352-12-31"
+      }
+    },
+    "qianyan-murongjun.rebellionSuppressionCount.e001": {
+      "emperor": "qianyan-murongjun",
+      "container": "rebellionSuppressionCount",
+      "reigns": [
+        [
+          352,
+          360
+        ]
+      ],
+      "phase": "燕王期",
+      "event": {
+        "id": "qianyan-murongjun.rebellionSuppressionCount.e001",
+        "note": "「時鮮卑段勤初附於俊、其後復叛。俊遣慕容恪及相國封弈討冉閔於安喜、慕容垂討段勤於繹幕。」　後に「恪进据常山，段勤惧而请降」とあり。",
+        "outcome": "鎮圧成功（一度俊に帰順した鮮卑段勤が離反、慕容垂を絳幕に派遣して討伐、慕容恪が常山に進出すると畏れて降伏した）",
+        "name": "段勤の離反",
+        "startDate": "0351",
+        "endDate": "0352",
+        "datePrecision": "year",
+        "leader": "段勤"
+      },
+      "archivedDate": {
+        "startDate": "0351-01-01",
+        "datePrecision": "year",
+        "reason": "filler",
+        "noteHead": "「時鮮卑段勤初附於俊、其後復叛。俊遣慕容",
+        "endDate": "0352-12-31"
+      }
+    },
+    "qianzhao-liuyuan.capitalRelocationCount.e001": {
+      "emperor": "qianzhao-liuyuan",
+      "container": "capitalRelocationCount",
+      "reigns": [
+        [
+          308,
+          310
+        ]
+      ],
+      "phase": "漢王期",
+      "event": {
+        "id": "qianzhao-liuyuan.capitalRelocationCount.e001",
+        "date": "0305",
+        "datePrecision": "year",
+        "from": "離石",
+        "to": "蒲子",
+        "note": "劉元海（光文帝）在位中。晋書載記第一（刘元海載記）: 永興元年（304）左国城で漢王を称し離石に都した後、「二年（永興二年＝305年）……是歲、離石大饑、遷於黎亭、以就邸閣穀……遂進據河東、攻寇蒲坂・平陽、皆陥之。元海遂入都蒲子」とあり、離石の飢饉により黎亭へ一時移動した後、蒲坂・平陽を攻略して正式に蒲子に都を定めた（「入都蒲子」の明記）。離石自体は建国当初の定都（永興元年の漢王即位に伴う最初の定都）にあたるため対象外とし、その後の蒲子への移転を遷都イベントとしてカウントした。（出典: 晋書 巻百一 載記第一 劉元海）"
+      },
+      "archivedDate": {
+        "date": "0305-01-01",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "劉元海（光文帝）在位中。晋書載記第一（刘"
+      }
+    },
+    "qianzhao-liuyuan.eraChangeCount.e001": {
+      "emperor": "qianzhao-liuyuan",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          308,
+          310
+        ]
+      ],
+      "phase": "漢王期",
+      "event": {
+        "id": "qianzhao-liuyuan.eraChangeCount.e001",
+        "date": "0304",
+        "datePrecision": "year",
+        "note": "【皇帝即位前】南郊に壇を設けて漢王に即位し、境内を赦して年号を「元熙」と建元した（「乃为坛于南郊、僭即汉王位…乃赦其境内、年号元熙」）。永興元年（304年）の出来事。人物固有の注意事項により、建国に伴う最初の建元としてeraChangeCountに含めた。",
+        "source": {
+          "page": "晋書載記第一（劉元海）",
+          "lang": "zh"
+        }
+      }
+    },
+    "shiguo-min-wangyanxi.eraChangeCount.e001": {
+      "emperor": "shiguo-min-wangyanxi",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          941,
+          944
+        ]
+      ],
+      "phase": "閩国王期",
+      "event": {
+        "id": "shiguo-min-wangyanxi.eraChangeCount.e001",
+        "date": "0939",
+        "datePrecision": "year",
+        "note": "康宗（王継鵬）が連重遇らのクーデターで殺害された直後、王延羲（後の曦）が自ら威武節度使・閩国王を称し即位。同月（通文四年閏七月壬午）、通文四年を永隆元年に改める建元を実施。この時点では「閩国王」を称しているのみで正式に皇帝を称してはいない（皇帝への正式即位は永隆三年〔941年〕十月の「即皇帝位」）。【皇帝即位前】",
+        "source": {
+          "page": "十国春秋 巻九十二（景宗本紀）",
+          "lang": "zh"
+        },
+        "eraName": "永隆"
+      }
+    },
+    "shiguo-wu-yangpu.amnestyCount.e001": {
+      "emperor": "shiguo-wu-yangpu",
+      "container": "amnestyCount",
+      "reigns": [
+        [
+          927,
+          937
+        ]
+      ],
+      "phase": "呉王期",
+      "event": {
+        "id": "shiguo-wu-yangpu.amnestyCount.e001",
+        "date": "0921",
+        "datePrecision": "month",
+        "note": "順義元年冬十月、南郊で天を祀った後、乙丑の日に天興楼に御して大赦。原文『甲子王祀天於南郊配以太祖乙丑御天興樓大赦』（十国春秋巻三）。この時点で溥はまだ皇帝ではなく呉王（王）の身分であったため【皇帝即位前】の事績。",
+        "source": {
+          "page": "十国春秋 巻三（呉三・睿帝本紀）",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0921-11",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "順義元年冬十月、南郊で天を祀った後、乙丑"
+      }
+    },
+    "shiguo-wu-yangpu.eraChangeCount.e001": {
+      "emperor": "shiguo-wu-yangpu",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          927,
+          937
+        ]
+      ],
+      "phase": "呉王期",
+      "event": {
+        "id": "shiguo-wu-yangpu.eraChangeCount.e001",
+        "date": "0921",
+        "datePrecision": "month",
+        "note": "武義二年（920年）六月に呉王位に即いてからは前代の元号『武義』をそのまま継続使用していたが、翌順義元年（921年）二月、初めて自ら改元し『順義』を建てた。原文『二年宣帝既薨六月戊申溥即吳王位…順義元年春正月王遣使勸晉王稱帝二月改元赦境内』（十国春秋巻三）。この時点では溥はまだ皇帝ではなく呉王（王）の身分であったため【皇帝即位前】の事績。",
+        "source": {
+          "page": "十国春秋 巻三（呉三・睿帝本紀）",
+          "lang": "zh"
+        },
+        "eraName": "順義"
+      },
+      "archivedDate": {
+        "date": "0921-02",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "武義二年（920年）六月に呉王位に即いて"
+      }
+    },
+    "suimo-liqui.eraChangeCount.e001": {
+      "emperor": "suimo-liqui",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          618,
+          619
+        ]
+      ],
+      "phase": "河西大凉王期",
+      "event": {
+        "id": "suimo-liqui.eraChangeCount.e001",
+        "date": "0617",
+        "datePrecision": "month",
+        "note": "【皇帝即位前】大業十三年（617年）七月丙辰、李軌は武威で挙兵し「河西大凉王」（凉王）を自称すると同時に建元して「安楽」とした。隋書帝紀「丙辰、武威人李軌舉兵反、攻陷河西諸郡、自称凉王、建元安樂」、旧唐書列伝「軌自称河西大凉王、建元安樂、署置官属、並擬開皇故事」で一致。武徳元年（618年）冬に「僭称尊号」（皇帝を自称）した際には新たな建元の記載がなく、「安楽」の年号がそのまま皇帝在位中も継続使用されたとみられる（旧唐書「武德元年冬、軌僭称尊号、以其子伯玉為皇太子、長史曹珍為左僕射」に建元の言及なし）。なお新唐書列伝は「会軌僭帝号、建元安樂」と記し、文面上は帝号僭称と建元を同時の出来事のように叙述するが、隋書帝紀・旧唐書列伝という独立した二史料が共に「凉王」自称時点での建元と明記しており、新唐書の記述は要約的な文飾と判断した。合計で建元は1回のみとカウント。",
+        "source": {
+          "page": "隋書帝紀第四／旧唐書列伝第五（巻五十五）",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0617-08",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "【皇帝即位前】大業十三年（617年）七月"
+      }
+    },
+    "suimo-xiaoxian.eraChangeCount.e001": {
+      "emperor": "suimo-xiaoxian",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          618,
+          621
+        ]
+      ],
+      "phase": "梁王期",
+      "event": {
+        "id": "suimo-xiaoxian.eraChangeCount.e001",
+        "date": "0617",
+        "datePrecision": "month",
+        "note": "大業十三年（617年）十月丙申、岳州の董景珍らに推戴された蕭銑が城南に壇を築いて天を祀り「梁王」を称し、異鳥出現の瑞祥により「鳳鳴」（『資治通鑑』は「鳴鳳」と表記、旧唐書・新唐書は「鳳鳴」）と建元した。この時点ではまだ皇帝ではなく諸侯王（梁王）の身分であったため【皇帝即位前】の建元として1回カウント。翌年（義寧2年/618年、data/emperors.json既存verification.notesによれば5月頃と推定・月精度）に皇帝を称した（『資治通鑑』巻185「蕭銑即皇帝位，置百官，準梁室故事」、『旧唐書』巻56「僭稱皇帝」）が、その際に新たな年号を建てた記録は『旧唐書』『新唐書』『資治通鑑』いずれにも見当たらず、即位後も引き続き「鳳鳴（鳴鳳）」の年号を用いたとみられるため、皇帝即位に伴う別途の改元イベントは計上しない。在位終了（武徳4年/621年、江陵開城降伏）まで年号の変更は他に確認できない。なお、data/emperors.json中の既存reign note（大業13年10月19日「梁公」、12月20日「王」を称し改元、との記述）と、本調査で確認した一次史料（『隋書』煬帝紀下「冬十月…丙申，羅令蕭銑以縣反…號爲梁王」／『資治通鑑』巻184／『北史』隋本紀）が示す「十月丙申」との間に日付の齟齬がある（本調査で確認した範囲の一次史料はいずれも十月説を支持）。改元の回数（1回）そのものへの影響はないが、日付精度について要再確認の余地がある。",
+        "source": {
+          "page": "隋書 帝紀第四（煬帝下）／資治通鑑 巻一百八十四・巻一百八十五／旧唐書 巻五十六（蕭銑伝）／新唐書 巻八十七（蕭銑伝）",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "0617-11",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "大業十三年（617年）十月丙申、岳州の董"
+      }
+    },
+    "tangmo-huangchao.eraChangeCount.e001": {
+      "emperor": "tangmo-huangchao",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          881,
+          884
+        ]
+      ],
+      "phase": "沖天大将軍・王を自称した期",
+      "event": {
+        "id": "tangmo-huangchao.eraChangeCount.e001",
+        "date": "0878",
+        "datePrecision": "year",
+        "note": "王仙芝が敗死した乾符五年（878年）八月以降、その残党を吸収した黄巢を尚讓ら群盗が「王」に推戴し「冲天大將軍」と号させ、「王霸」と建元した。新唐書「推巢為王，號冲天大將軍，署拜官屬，驅河南、山南之民十餘萬掠淮南，建元王霸」。【皇帝即位前】皇帝ではなく自称「王」の身分での改元。旧唐書列伝にも「尚讓乃與群盜推巢為王，號冲天大將軍，仍署官屬」とあるが、旧唐書側には「王霸」の年号名自体の明記は見られず（新唐書のみ明記）、正確な建元月日も両書とも記載がない。",
+        "source": {
+          "page": "新唐書巻二百二十五下（逆臣下・黄巢伝）；旧唐書巻二百下（黄巢伝、参考）",
+          "lang": "zh"
+        }
+      }
+    },
+    "tangmo-huangchao.personalCampaignCount.e001": {
+      "emperor": "tangmo-huangchao",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          881,
+          884
+        ]
+      ],
+      "phase": "沖天大将軍・王を自称した期",
+      "event": {
+        "id": "tangmo-huangchao.personalCampaignCount.e001",
+        "startDate": "0878",
+        "endDate": "0879",
+        "datePrecision": "year",
+        "target": "張璘軍撃破・嶺南（交州・広州）占領",
+        "outcome": "success",
+        "note": "尚讓らに「王（沖天大将軍）」として推戴された後、淮河を渡って高駢配下の張璘軍と交戦しこれを撃破・虜にし（「巢擒璘殺之，因虜其眾」）、南下して湖南・嶺南（交州・広州）一帯を占領し根拠地とした。軍中に疫病が流行し北帰を余儀なくされるまで在地。"
+      }
+    },
+    "tangmo-huangchao.personalCampaignCount.e002": {
+      "emperor": "tangmo-huangchao",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          881,
+          884
+        ]
+      ],
+      "phase": "沖天大将軍・王を自称した期",
+      "event": {
+        "id": "tangmo-huangchao.personalCampaignCount.e002",
+        "startDate": "0880",
+        "endDate": "0880",
+        "datePrecision": "year",
+        "target": "東都洛陽・西京長安（唐朝両京）攻略",
+        "outcome": "success",
+        "note": "疫病により嶺南から北帰を決意し、広明元年に五嶺を越えて湖南・江浙を経て広陵に迫り、淮河を渡って東都洛陽を陥落、潼関を突破して華州を落とし西京長安を陥落させ、同日皇帝に即位（国号「大齊」建国）した一連の北伐（「巢……北逾五嶺，犯湖、湘、江、浙……」）。"
+      },
+      "archivedDate": {
+        "endDate": "0880-12-13",
+        "datePrecision": "year",
+        "reason": "out-of-scope",
+        "noteHead": "疫病により嶺南から北帰を決意し、広明元年"
+      }
+    },
+    "wang-mang.eraChangeCount.e001": {
+      "emperor": "wang-mang",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          9,
+          23
+        ]
+      ],
+      "phase": "摂皇帝期（居摂三年の初始改元は即真天子位より前）",
+      "event": {
+        "id": "wang-mang.eraChangeCount.e001",
+        "date": "0008",
+        "datePrecision": "month",
+        "note": "居摂三年（8年）十一月、「初始」に改元。同月内の戊辰の日に高廟で金匱を受け「即真天子位」に即いた（本データの在位開始時点）。原文:「以居攝三年為初始元年,漏刻以百二十為度,用應天命...戊辰,莽至高廟拜受金匱神嬗。御王冠,謁太后,還坐未央宮前殿...即真天子位」（漢書・王莽伝上）",
+        "eraName": "初始"
+      },
+      "archivedDate": {
+        "date": "0008-12-01",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "居摂三年（8年）十一月、「初始」に改元。"
+      }
+    },
+    "wu-dadi.capitalRelocationCount.e001": {
+      "emperor": "wu-dadi",
+      "container": "capitalRelocationCount",
+      "reigns": [
+        [
+          229,
+          252
+        ]
+      ],
+      "phase": "呉王冊命より前",
+      "event": {
+        "id": "wu-dadi.capitalRelocationCount.e001",
+        "date": "0221",
+        "datePrecision": "month",
+        "from": "公安",
+        "to": "武昌（鄂）",
+        "note": "『三国志』呉書・呉主伝（黄初二年四月の条）に「權自公安都鄂、改名武昌」とあり、出発地として名を挙げるのは公安。孫権は劉備の侵攻（夷陵の戦い）に備えて本拠を鄂県へ移し武昌と改名、八月に武昌に築城した。この時点で孫権はまだ呉王に封じられておらず（呉王冊命は同年11月）、恒久的な主拠を移した正式な遷都と判断。旧値の from は「建業（秣陵）」だったが、原文が書く出発地は公安なので訂正した（2026-08-07・Issue #89）。（出典: 三国志 呉書 巻二 呉主伝）"
+      },
+      "archivedDate": {
+        "date": "0221-05-01",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "『三国志』呉書・呉主伝：「（黄初）二年四"
+      }
+    },
+    "xia-helianbobo.amnestyCount.e001": {
+      "emperor": "xia-helianbobo",
+      "container": "amnestyCount",
+      "reigns": [
+        [
+          419,
+          425
+        ]
+      ],
+      "phase": "天王・大単于期",
+      "event": {
+        "id": "xia-helianbobo.amnestyCount.e001",
+        "date": "0407",
+        "datePrecision": "year",
+        "note": "義熙三年、朔方にて天王・大単于を僭称し「赦其境内」（境内=夏の支配領域全体への大赦）、建元して龍昇とした。",
+        "source": {
+          "page": "晋書載記第三十（赫連勃勃）",
+          "lang": "zh"
+        }
+      }
+    },
+    "xia-helianbobo.eraChangeCount.e001": {
+      "emperor": "xia-helianbobo",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          419,
+          425
+        ]
+      ],
+      "phase": "天王・大単于期",
+      "event": {
+        "id": "xia-helianbobo.eraChangeCount.e001",
+        "date": "0407",
+        "datePrecision": "year",
+        "note": "【皇帝即位前】義熙三年、朔方にて天王・大単于を僭称し、建元して龍昇とした（即位に伴う最初の建元）。",
+        "source": {
+          "page": "晋書載記第三十（赫連勃勃）",
+          "lang": "zh"
+        },
+        "eraName": "龍昇"
+      }
+    },
+    "xia-helianbobo.personalCampaignCount.e001": {
+      "emperor": "xia-helianbobo",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          419,
+          425
+        ]
+      ],
+      "phase": "天王・大単于期",
+      "event": {
+        "id": "xia-helianbobo.personalCampaignCount.e001",
+        "outcome": "自ら討伐して撃破し、部衆一万数千を降した。",
+        "note": "天王を僭称し龍升と建元した義熙3年(407)のことと記載。",
+        "startDate": "0407",
+        "endDate": null,
+        "datePrecision": "year",
+        "target": "鮮卑薛干等三部"
+      }
+    },
+    "xia-helianbobo.personalCampaignCount.e002": {
+      "emperor": "xia-helianbobo",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          419,
+          425
+        ]
+      ],
+      "phase": "天王・大単于期",
+      "event": {
+        "id": "xia-helianbobo.personalCampaignCount.e002",
+        "outcome": "三城以北の後秦諸拠点を攻め、将の楊丕・姚石生等を斬った。",
+        "note": "前項と同年(407)内の連続記述だが、対象(鮮卑vs後秦)が異なるため別項とした。",
+        "startDate": "0407",
+        "endDate": null,
+        "datePrecision": "year",
+        "target": "姚興（後秦）三城以北諸戍"
+      }
+    },
+    "xia-helianbobo.personalCampaignCount.e003": {
+      "emperor": "xia-helianbobo",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          419,
+          425
+        ]
+      ],
+      "phase": "天王・大単于期",
+      "event": {
+        "id": "xia-helianbobo.personalCampaignCount.e003",
+        "outcome": "求婚を拒絶されたことに怒り2万騎で自ら親征、陽武の戦いで大破し80余里追撃、大将十余人を斬って「髑髏台」を築いた。傉檀は南山へ敗走。",
+        "note": "『晋書』安帝紀「冬十一月、赫連勃勃大敗秃發傉檀、傉檀奔于南山」と対応し月精度とした。",
+        "startDate": "0407",
+        "endDate": null,
+        "datePrecision": "month",
+        "target": "秃髮傉檀（南涼）"
+      },
+      "archivedDate": {
+        "startDate": "0407-12",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "『晋書』安帝紀「冬十一月、赫連勃勃大敗秃"
+      }
+    },
+    "xia-helianbobo.personalCampaignCount.e009": {
+      "emperor": "xia-helianbobo",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          419,
+          425
+        ]
+      ],
+      "phase": "天王・大単于期",
+      "event": {
+        "id": "xia-helianbobo.personalCampaignCount.e009",
+        "outcome": "上邽（秦州）・陰密・雍城・郿城と転戦して後秦領を席巻。降附した安定は一時的に離反したが、後秦の全面崩壊とともに嶺北諸鎮戍がことごとく降り、嶺北全域を制圧した。",
+        "note": "『晋書』安帝紀「夏六月、赫連勃勃攻姚泓秦州、陷之」と対応し月精度とした。",
+        "startDate": "0416",
+        "endDate": null,
+        "datePrecision": "month",
+        "target": "姚泓（後秦、姚興没後の後継君主）"
+      },
+      "archivedDate": {
+        "startDate": "0416-07",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "『晋書』安帝紀「夏六月、赫連勃勃攻姚泓秦"
+      }
+    },
+    "xia-helianbobo.personalCampaignCount.e010": {
+      "emperor": "xia-helianbobo",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          419,
+          425
+        ]
+      ],
+      "phase": "天王・大単于期",
+      "event": {
+        "id": "xia-helianbobo.personalCampaignCount.e010",
+        "outcome": "子の璝を都督前鋒諸軍事として先発させ、自らも大軍を率いて南伐。青泥で東晋軍を大破し咸陽を占拠、劉義真は長安を放棄して東走、長安の民が硃齡石を逐って勃勃を迎え入れた。璝は劉義真を追撃してさらに晋軍を破った。長安占領後、灞上で皇帝に即位した。",
+        "note": "『晋書』安帝紀「十一月、赫連勃勃大敗王師于青泥北」と対応し月精度とした。",
+        "startDate": "0418",
+        "endDate": null,
+        "datePrecision": "month",
+        "target": "東晋（劉裕勢力、長安守将・硃齡石／劉義真）"
+      },
+      "archivedDate": {
+        "startDate": "0418-12",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "『晋書』安帝紀「十一月、赫連勃勃大敗王師"
+      }
+    },
+    "xixia-jingzong.amnestyCount.e001": {
+      "emperor": "xixia-jingzong",
+      "container": "amnestyCount",
+      "reigns": [
+        [
+          1038,
+          1048
+        ]
+      ],
+      "phase": "西平王期",
+      "event": {
+        "id": "xixia-jingzong.amnestyCount.e001",
+        "date": "1034",
+        "datePrecision": "month",
+        "note": "策士楊守素の建言により顕道三年を開運元年に改元した際、『大赦国中』を実施。原文：「元昊乃下諭改顯道三年為開運元年、大赦国中」。全国規模の大赦と明記されている確度の高い1回。",
+        "source": {
+          "page": "西夏書事 卷十一",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "1034-01",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "策士楊守素の建言により顕道三年を開運元年"
+      }
+    },
+    "xixia-jingzong.eraChangeCount.e001": {
+      "emperor": "xixia-jingzong",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          1038,
+          1048
+        ]
+      ],
+      "phase": "西平王期",
+      "event": {
+        "id": "xixia-jingzong.eraChangeCount.e001",
+        "date": "1033",
+        "datePrecision": "year",
+        "note": "【皇帝即位前】父・徳明の死去（1031年）後、定難軍節度使・西平王として襲爵していた元昊が、宋の年号『明道』（明道二年＝1033年）を父の諱『徳明』に触れるとして避け、国内で独自に『顕道』と称した。原文：「明道二年、元昊改元『顯道』」「因避父諱、改中国『明道』元為『顯道』、称於国中」。『西夏書事』の按語に「此西夏改元之始」とあり、西夏独自の改元の起点とされる。国号変更ではなく年号のみの改称。",
+        "source": {
+          "page": "西夏書事 卷十一",
+          "lang": "zh"
+        }
+      }
+    },
+    "xixia-jingzong.eraChangeCount.e002": {
+      "emperor": "xixia-jingzong",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          1038,
+          1048
+        ]
+      ],
+      "phase": "西平王期",
+      "event": {
+        "id": "xixia-jingzong.eraChangeCount.e002",
+        "date": "1034",
+        "datePrecision": "month",
+        "note": "【皇帝即位前】策士楊守素の建言により、顕道三年を開運元年に改元（大赦国中を同時実施）。原文：「景元年、元昊開運元年春正月、改元」「元昊乃下諭改顯道三年為開運元年」。",
+        "source": {
+          "page": "西夏書事 卷十一",
+          "lang": "zh"
+        },
+        "eraName": "開運"
+      },
+      "archivedDate": {
+        "date": "1034-02",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "【皇帝即位前】策士楊守素の建言により、顕"
+      }
+    },
+    "xixia-jingzong.eraChangeCount.e003": {
+      "emperor": "xixia-jingzong",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          1038,
+          1048
+        ]
+      ],
+      "phase": "西平王期",
+      "event": {
+        "id": "xixia-jingzong.eraChangeCount.e003",
+        "date": "1035",
+        "datePrecision": "month",
+        "note": "【皇帝即位前】『開運』が後晋（石晋）滅亡時の年号と同一であることが判明したため、広運に改元。原文：「景二年春正月、元昊改元廣運」「或言『開運』乃石晋敗亡号、故改」。",
+        "source": {
+          "page": "西夏書事 卷十二",
+          "lang": "zh"
+        }
+      },
+      "archivedDate": {
+        "date": "1035-02",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "【皇帝即位前】『開運』が後晋（石晋）滅亡"
+      }
+    },
+    "xixia-jingzong.eraChangeCount.e004": {
+      "emperor": "xixia-jingzong",
+      "container": "eraChangeCount",
+      "reigns": [
+        [
+          1038,
+          1048
+        ]
+      ],
+      "phase": "西平王期",
+      "event": {
+        "id": "xixia-jingzong.eraChangeCount.e004",
+        "date": "1037",
+        "datePrecision": "month",
+        "note": "【皇帝即位前】西夏文字（蕃書）制定を機に、群臣の上表を受けて広運三年を大慶元年に改元。原文：「景四年、元昊大慶元年春正月、始制蕃書。改元」「遂改『廣運三年』為『大慶元年』」。",
+        "source": {
+          "page": "西夏書事 卷十二",
+          "lang": "zh"
+        },
+        "eraName": "大慶"
+      },
+      "archivedDate": {
+        "date": "1037-02",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "【皇帝即位前】西夏文字（蕃書）制定を機に"
+      }
+    },
+    "xixia-jingzong.personalCampaignCount.e001": {
+      "emperor": "xixia-jingzong",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          1038,
+          1048
+        ]
+      ],
+      "phase": "西平王期",
+      "event": {
+        "id": "xixia-jingzong.personalCampaignCount.e001",
+        "target": "西蕃（牦牛城、吐蕃部落）",
+        "startDate": "1034",
+        "endDate": "1034",
+        "datePrecision": "year",
+        "outcome": "勝利（苏奴儿の敗戦後、元昊自ら援軍を率いて再攻し牦牛城を攻略、住民を屠る）",
+        "note": "「元昊聞奴儿敗，自率兵赴援，復攻耗牛，經月不下……俟城開，入據之，大殺居民無遺」"
+      }
+    },
+    "xixia-jingzong.personalCampaignCount.e002": {
+      "emperor": "xixia-jingzong",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          1038,
+          1048
+        ]
+      ],
+      "phase": "西平王期",
+      "event": {
+        "id": "xixia-jingzong.personalCampaignCount.e002",
+        "target": "回鶻（瓜州・沙州・粛州）",
+        "startDate": "1036",
+        "endDate": "1036",
+        "datePrecision": "month",
+        "outcome": "勝利（三州を奪取、河西の地を尽く領有）",
+        "note": "「秋七月，攻回鶻，取瓜、沙、粛三州……元昊引兵攻之，求援於回鶻，不應，三州相繼沒」"
+      },
+      "archivedDate": {
+        "startDate": "1036-08",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "「秋七月，攻回鶻，取瓜、沙、粛三州……元",
+        "endDate": "1036-08"
+      }
+    },
+    "xixia-jingzong.personalCampaignCount.e003": {
+      "emperor": "xixia-jingzong",
+      "container": "personalCampaignCount",
+      "reigns": [
+        [
+          1038,
+          1048
+        ]
+      ],
+      "phase": "西平王期",
+      "event": {
+        "id": "xixia-jingzong.personalCampaignCount.e003",
+        "target": "吐蕃・唃厮囉（角厮羅）政権（蘭州諸羌〜宗哥河〜河湟）",
+        "startDate": "1035",
+        "endDate": "1036",
+        "datePrecision": "month",
+        "outcome": "混合（二百余日の対峙の末に安子羅を破るが、退却中の宗哥河で水攻めを受けて大潰し、翌月あらためて攻めた河湟でも唃厮囉軍に大敗して撤退）",
+        "note": "「十一月，自將攻西蕃，敗角厮羅將安子羅。師還，潰於宗哥河」「十二月，復攻西蕃，大敗於河湟」。10月の蘭州諸羌攻撃（挙兵循阿干河）も同一標的への一連の軍事行動として合算。日付を現行 1036-12 から 1035-12〜1036-02 へ訂正した（Issue #56）。西夏書事は景祐二年十一月に自ら出て安子羅を破り、同年十二月に再攻して河湟で大敗し、翌景祐三年正月に「春正月，还自西蕃」と帰還を記す。旧値は旧暦十二月を太陽暦の月欄へ直書きしたうえ、年を翌年に取り違えたものと見られる。あわせて outcome の勝敗を原文に当て直した（宗哥河で水攻めを受けて潰えたのは元昊の側）。"
+      },
+      "archivedDate": {
+        "startDate": "1035-12",
+        "datePrecision": "month",
+        "reason": "out-of-scope",
+        "noteHead": "「十一月，自將攻西蕃，敗角厮羅將安子羅。",
+        "endDate": "1036-02"
+      }
+    }
+  }
+}
