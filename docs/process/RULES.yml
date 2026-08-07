@@ -58,7 +58,10 @@ rules:
       data/emperors.json の判定コンテナ8つ（reign・deathCause・accessionRoute・ages・
       datedEventCount・capitalRelocationCountObject・campaignCountObject・rebellionCountObject）に
       **新しく書く note**。**既存 10,912件には遡及しない**（欄は任意）。events[] の各要素と
-      source は対象外 — 前者は構造フィールド自身が witness、後者は出典帰属の経緯であって値の主張ではない
+      source は対象外 — 前者は構造フィールド自身が witness、後者は出典帰属の経緯であって値の主張ではない。
+      **ただし `outcome` が witness の側に数えられるのは、主張範囲が原典に縛られているから**
+      （2026-08-07・Issue #97。自然文なので範囲の制約が外れると単独では何の witness にもならない。
+      制約は data/schema/ADDITIONAL_SCHEMA.md「`events[].outcome` の主張範囲」）
     enforcement: [L3, L4]
     detail: >-
       L3＝validate_emperors.py の `check_claim_fields`。claim を持つコンテナだけを評価し、

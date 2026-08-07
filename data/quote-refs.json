@@ -11164,6 +11164,41 @@
    ],
    "line": 8549
   },
+  "chenghan-lishou|personalCampaignCount[0].note|197ee92778ee": {
+   "id": "chenghan-lishou",
+   "path": "personalCampaignCount[0].note",
+   "span": "遂帅步骑万馀人自涪袭成都",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "遂帅步骑万馀人自涪袭"
+   ],
+   "line": 8242
+  },
+  "chenghan-lishou|personalCampaignCount[0].note|1c2983c78110": {
+   "id": "chenghan-lishou",
+   "path": "personalCampaignCount[0].note",
+   "span": "期不意其至，初不设备",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "期不意其至"
+   ],
+   "line": 1564
+  },
+  "chenghan-lishou|personalCampaignCount[0].note|6bb3d247430e": {
+   "id": "chenghan-lishou",
+   "path": "personalCampaignCount[0].note",
+   "span": "寿奏建宁王越、景骞、田褒、姚华、许涪及征西将军李遐、将军李西等怀奸乱政，皆收杀",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "寿奏建宁王越",
+    "许涪及征西将军李遐",
+    "将军李西等怀奸乱政"
+   ],
+   "line": 8242
+  },
   "chenghan-lishou|reigns[0].quote#0|a231c8ac385e": {
    "id": "chenghan-lishou",
    "path": "reigns[0].quote#0",
@@ -30707,13 +30742,6 @@
     "汉郭威弑其主自立"
    ],
    "line": 7
-  },
-  "liao-shizong|personalCampaignCount[1].note|fe999605a811": {
-   "id": "liao-shizong",
-   "path": "personalCampaignCount[1].note",
-   "span": "後漢（劉知遠政権）",
-   "status": "unresolved",
-   "nv": "f1546990"
   },
   "liao-shizong|rebellionSufferedCount[0].note|e3a02bc5ca8b": {
    "id": "liao-shizong",
