@@ -28,6 +28,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import profile_name  # noqa: E402  （本文で使う人物名。check_profile_fragment.py と共有）
+
 ROOT = Path(__file__).resolve().parent.parent
 EMPERORS = ROOT / "data" / "emperors.json"
 PROFILES = ROOT / "data" / "emperor-profiles.json"
@@ -129,6 +132,7 @@ def main() -> int:
     by_id = {e["id"]: e for e in emperors["emperors"]}
     data = json.loads(PROFILES.read_text(encoding="utf-8"))
     profiles = data["profiles"]
+    readings = profile_name.load_readings()
 
     leads: dict[str, str] = {}
     for emperor_id, profile in profiles.items():
@@ -170,6 +174,30 @@ def main() -> int:
                 f"「{emperor_id}」に basis がありません"
                 "（何を読んで書いたか。例: 史記 巻六 秦始皇本紀〔徐巿・阿房宮・焚書〕）"
             )
+
+        # 人物の指し方（2026-08-07 ユーザー指摘）。本紀の原文は諱1字で人物を指すので、
+        # そのまま持ってくると「垂は」「勒は」になる。日本語では通用しないので、本文では
+        # **現代での通用名**を使う。既存148本のうち91本・延べ922箇所を
+        # scripts/fix_profile_bare_name.py で直したうえで、ここを CI に足した。
+        # 何という名前かは scripts/profile_name.py の1実装が決める（書き手に選ばせない）。
+        if profile.get("lead") or profile.get("body"):
+            resolved = profile_name.resolve(record, readings)
+            joined = f"{profile.get('lead') or ''}\n{profile.get('body') or ''}"
+            hits = profile_name.bare_hits(strip_ruby(joined), record, resolved)
+            if hits:
+                errors.append(
+                    f"「{emperor_id}」が諱「{record['name']['personalName']}」だけで"
+                    f"人物を指しています（{len(hits)}箇所・…{hits[0]}…）"
+                    f" → {resolved['annotated']} に直す"
+                    "（`python3 scripts/fix_profile_bare_name.py --for "
+                    f"{emperor_id} --dry-run`）"
+                )
+            if resolved["annotated"] != resolved["plain"] and resolved["plain"] in RUBY.sub("", joined):
+                errors.append(
+                    f"「{emperor_id}」の本人の名前「{resolved['plain']}」にルビがありません"
+                    f" → {resolved['annotated']}"
+                    "（`python3 scripts/reapply_profile_ruby.py --write`）"
+                )
 
         description = profile.get("description") or ""
         if any(c in description for c in "｜《》"):

@@ -118,6 +118,31 @@ Web は**差分検出器であって根拠ではない**（`R-PRIMARY-SOURCE` �
    素材コマンドの末尾で配る。ゲートは**エラー行に直し方を書く**（落ちたエージェントが
    `check_profile_fragment.py` を全文 Read していた）
 
+## 人物名は「現代での通用名」（2026-08-07 ユーザー決定）
+
+原文は諱1字で人物を指すので、そのまま持ってくると「垂は」「勒は」になる。日本語では
+通用しない（既存148本のうち**91本・延べ922箇所**がそうで、同日まとめて直した）。
+**姓を繋げれば済む話でもない**ので、書き手に選ばせず解決器から引く:
+
+```bash
+python3 scripts/profile_name.py <皇帝id>      # 本文で使う名前とルビ
+python3 scripts/profile_name.py --all         # default 349／ethnic 13／courtesy 2／override 1
+```
+
+既定は姓＋諱（｜嬴《えい》｜政《せい》・劉邦・石勒）で、例外は3種だけ — 音写名が通用する
+元12人と清太宗（クビライ・ホンタイジ）、字で知られる2人（耶律阿保機・完顔阿骨打）、
+名指しの1人（武則天）。**契丹名・女真名は例外に入れない**（通用するのは漢名の
+「耶律徳光」のほう）。`extract_profile_material.py` が冒頭で1行配るので、エージェントに
+引かせる必要はない。**本人の名前にもルビを振る**（`reapply_profile_ruby.py` が写す）。
+
+例外は**諱そのものを話題にしている文**だけ（「諱は禅、字は公嗣」「石を姓とし勒を名として
+与えた」）。ゲートも数えない。既存の本が落ちたら書き直さず:
+
+```bash
+python3 scripts/fix_profile_bare_name.py --for <皇帝id> --dry-run
+python3 scripts/fix_profile_bare_name.py --expect <件数> --write
+```
+
 ## ルビは難読語だけ・ただし2回目以降にも振る
 
 **総ルビはやめた（2026-08-05）。** 振るのは固有名詞と中国史の語（人名・**帝号・廟号**・
@@ -156,8 +181,8 @@ CI も落ちる。新しい難読語に振ったら**2冊以上に出る語だ�
 断片のうちに（本体へ入れる前に）:
 
 ```bash
-python3 scripts/reapply_profile_ruby.py   <断片.json> --write    # ルビを全出現へ写す
-python3 scripts/check_profile_fragment.py <断片.json> --strict   # claims 必須・引用の実在照合
+python3 scripts/reapply_profile_ruby.py   <断片.json> --write    # ルビを全出現へ写す（本人の名前も）
+python3 scripts/check_profile_fragment.py <断片.json> --strict   # claims 必須・引用の実在照合・人物の指し方
 python3 scripts/check_profile_ngram.py    <断片.json>            # 12-gram重複（既存本＋兄弟断片）
 ```
 

@@ -45,6 +45,7 @@ from difflib import SequenceMatcher
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import profile_name  # noqa: E402  （本文で使う人物名。諱1字で指していないか）
 import profile_prose  # noqa: E402  （ルビ漏れ・訓読調。validate_readings.py と共有）
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -189,6 +190,43 @@ def check_prose(emperor_id: str, lead: str, body: str, lexicon: dict) -> None:
             f"{how} に書き換える。**現代の日本語で書く** — 原文の言い回しを"
             "訓読しただけの語は使わない（史書の語そのものを話題にするときは"
             "「薨」のようにカギ括弧に入れる。そこは数えない）",
+        )
+
+
+def check_person_name(emperor_id: str, lead: str, body: str) -> None:
+    """人物の指し方（2026-08-07 ユーザー指摘・実装は scripts/profile_name.py）。
+
+    本紀の原文は諱1字で人物を指すので、そのまま持ってくると「垂は」「勒は」に
+    なる。日本語では通用しないので、本文では**現代での通用名**を使う。既存148本の
+    うち91本が該当していた。
+
+    もう1つ、**本人の名前にルビが無い本**があった（「劉邦」5箇所・「楊堅」4箇所）。
+    こちらは reapply_profile_ruby.py が機械で付けるので、ここでは付いていない
+    ことだけを言う。
+    """
+    try:
+        resolved = profile_name.resolve_id(emperor_id)
+    except SystemExit as e:  # 未知の id・読みの穴。ここで落とさず報告に回す
+        notices.append(str(e))
+        return
+    emperor = profile_name.load_emperors()[emperor_id]
+    text = strip_ruby(f"{lead}\n{body}")
+    hits = profile_name.bare_hits(text, emperor, resolved)
+    if hits:
+        shown = "／".join(f"…{h}…" for h in hits[:3])
+        err(
+            f"{emperor_id}: 諱「{emperor['name']['personalName']}」だけで人物を指している"
+            f"（{len(hits)}箇所）{shown}",
+            f"{resolved['annotated']} に直す（規則: {resolved['rule']}）。"
+            "原文は諱1字で書くが、日本語では姓を落とした呼び方は通用しない。"
+            "名前は `python3 scripts/profile_name.py <皇帝id>` から引く"
+            "（既存の本は `scripts/fix_profile_bare_name.py` で機械的に直せる）",
+        )
+    if resolved["annotated"] != resolved["plain"] and resolved["plain"] in RUBY.sub("", f"{lead}\n{body}"):
+        err(
+            f"{emperor_id}: 本人の名前「{resolved['plain']}」にルビがありません",
+            f"{resolved['annotated']} の形で全出現に振る。"
+            "`python3 scripts/reapply_profile_ruby.py <断片.json> --write` が機械で写す",
         )
 
 
@@ -632,6 +670,8 @@ def main() -> int:
         if profile.get("lead") or profile.get("body"):
             check_prose(emperor_id, profile.get("lead") or "",
                         profile.get("body") or "", lexicon)
+            check_person_name(emperor_id, profile.get("lead") or "",
+                              profile.get("body") or "")
 
         desc = profile.get("description", "")
         if RUBY.search(desc) or "｜" in desc or "《" in desc:
