@@ -13865,6 +13865,28 @@
    ],
    "line": 23
   },
+  "han-aidi|eraChangeCount[3].note|372603b5a57e": {
+   "id": "han-aidi",
+   "path": "eraChangeCount[3].note",
+   "span": "元壽元年春正月辛丑朔，日有蝕之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/han-aidi.txt",
+   "frags": [
+    "元壽元年春正月辛丑朔"
+   ],
+   "line": 38
+  },
+  "han-aidi|eraChangeCount[3].note|5b84dadffe73": {
+   "id": "han-aidi",
+   "path": "eraChangeCount[3].note",
+   "span": "哀帝建平四年，元壽二年，著《紀》，即位六年",
+   "status": "corpus",
+   "corpusFile": "china-history/汉书/志/第二章-律历志下-原文.html",
+   "frags": [
+    "哀帝建平四年"
+   ],
+   "line": 23
+  },
   "han-aidi|reigns[0].quote#0|3154ceadb18e": {
    "id": "han-aidi",
    "path": "reigns[0].quote#0",
