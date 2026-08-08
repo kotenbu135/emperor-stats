@@ -13,6 +13,18 @@ description: 皇帝の紹介文（GitHub Issue #16）を書く入口。原文1�
 > キャッシュされる。実測では9体すべてがこの2枚（23.5KB）を全文 Read して以降20ターンぶん
 > 運んでおり、キャッシュ読みの17%がそれだった。**この2枚は人向け。**
 
+## ★母集団を数える前に `git fetch`（2026-08-08）
+
+**並行セッションが同じ人物を先に書いて main へマージしている。** ローカルの
+`data/emperor-profiles.json` から未執筆を数えて8人ぶんのバッチを起動したところ、
+**8人全員が origin/main に既にあった**（同日 PR #115 で別セッションが40本をマージ済み）。
+`git status -sb` の `behind 1` は出ていたのに読み飛ばしている。
+
+```bash
+git fetch && git log --oneline origin/main -3
+git show origin/main:data/emperor-profiles.json | python3 -c "…"   # 未執筆はこちらから数える
+```
+
 見本は `data/emperor-profiles.json` の8本。**原文が300倍違っても本文は7倍しか違わない。**
 執筆エージェントには `extract_profile_material.py` の末尾に**1本だけ**出る
 （3本引き直させない）。
