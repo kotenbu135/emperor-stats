@@ -1,0 +1,16 @@
+{"text": "西魏廃帝は文帝の長子で、母は乙皇后", "quote": "废帝讳钦，文皇帝之长子也。母曰乙皇后。", "src": "_corpus_cache/xiwei-feidi-yuanqin.txt:1"}
+{"text": "大統元年正月乙卯に皇太子に立てられた", "quote": "大统元年正月乙卯，立为皇太子。", "src": "_corpus_cache/xiwei-feidi-yuanqin.txt:1"}
+{"text": "大統17年（551年）3月に即位した", "quote": "十七年三月，即皇帝位。", "src": "_corpus_cache/xiwei-feidi-yuanqin.txt:1"}
+{"text": "即位した月に梁の邵陵王蕭綸が安陸に侵攻し、大将軍の楊忠が討って捕らえた", "quote": "是月，梁邵陵王萧纶侵安陆，大将军杨忠讨禽之。", "src": "_corpus_cache/xiwei-feidi-yuanqin.txt:1"}
+{"text": "元年冬11月、梁の湘東王蕭繹が侯景を討って捕らえ、舎人の魏彦を派遣して知らせ、江陵で帝位に就いた", "quote": "元年冬十一月，梁湘东王萧绎讨侯景，禽之。遣其舍人魏彦来告，仍嗣位于江陵。", "src": "_corpus_cache/xiwei-feidi-yuanqin.txt:2"}
+{"text": "二年秋8月、大将軍の尉遅迥が成都を攻め落とし、剣南が平定された", "quote": "二年秋八月，大将军尉迟迥克成都，剑南平。", "src": "_corpus_cache/xiwei-feidi-yuanqin.txt:3"}
+{"text": "二年冬11月、安定公の宇文泰が尚書の元烈を殺した", "quote": "冬十一月，安定公宇文泰杀尚书元烈。", "src": "_corpus_cache/xiwei-feidi-yuanqin.txt:3"}
+{"text": "三年春正月、宇文泰が帝を廃位し斉王元廓を立てた", "quote": "三年春正月，安定公宇文泰废帝而立齐王廓。", "src": "_corpus_cache/xiwei-feidi-yuanqin.txt:4"}
+{"text": "元烈が殺されて以来、帝には恨みの言葉があった", "quote": "帝自元烈之诛，有怨言。", "src": "_corpus_cache/xiwei-feidi-yuanqin.txt:4"}
+{"text": "淮安王元育・広平王元賛らが涙を流して諫めたが帝は聞き入れず、そのため辱めを受けるに至った", "quote": "淮安王育、广平王赞等并垂泣谏，帝不听，故及于辱。", "src": "_corpus_cache/xiwei-feidi-yuanqin.txt:4"}
+{"text": "北史は在位期間を年号ではなく元年・二年・三年と数える", "quote": "元年冬十一月", "src": "_corpus_cache/xiwei-feidi-yuanqin.txt:2"}
+{"text": "父の文帝が死んだのを受けて皇太子の欽が立った（資治通鑑）", "quote": "庚戌，魏文帝殂，太子欽立。", "src": "extract_profile_material.py xiwei-feidi-yuanqin（reigns 第1期 典拠・資治通鑑 巻一六四）"}
+{"text": "廃位ののち雍州に幽閉され、554年4月に宇文泰によって毒殺されたとデータは採る（死因は暗殺）", "quote": "廃位され雍州に幽閉、同年4月（資治通鑑：夏四月庚戌）宇文泰により鴆殺された", "src": "extract_profile_material.py xiwei-feidi-yuanqin（events xiwei-feidi-yuanqin.rebellionSufferedCount.e001・deathCause: assassination）"}
+{"text": "廟号も諡号も伝わらず、通用名は廃帝", "quote": "名: 姓 元／諱 欽／通用名 廃帝／廟号 —／諡号 —", "src": "extract_profile_material.py xiwei-feidi-yuanqin（名）"}
+{"text": "生年・没年も即位時・没時の年齢も伝わらない", "quote": "年齢: 即位 None／没 None（生 None／没 None・数え年）", "src": "extract_profile_material.py xiwei-feidi-yuanqin（年齢）"}
+{"text": "本文には入れない（Web差分を採らなかった根拠）: 北史 于翼伝は于翼が文帝の娘平原公主を娶り禁中の宿衛を領したことまでで、元欽の宇文泰暗殺計画も密告も書かない", "quote": "年十一，尚文帝女平原公主，拜员外散骑常侍，封安平县公。大统十六年，进爵郡公，加大都督，领文帝帐下左右，禁中宿卫。", "src": "daizhigev20/史藏/正史/北史.txt:3290"}
