@@ -9,9 +9,11 @@ Gemini へ渡したところ、写しが6箇所で途中欠けし、レビュー
 
 対策は3つ入れてある。
 
-1. **ファイルを渡す**（貼り付けない）。Gemini のウェブ画面にはファイルを添付できる
-2. **先頭に行数と本文字数を書く。** 受け取った側が「行数が合わない＝途中で切れている」と
-   気づけるようにする。レビュー依頼文の中でもそう指示している
+1. **ファイルを渡す**（会話へ手で写さない）。添付でも貼り付けでもよい
+2. **先頭に段落数と通し番号の範囲を書く。** 受け取った側が「番号が飛んでいる・最後の番号で
+   終わっていない＝途中で切れている」と気づけるようにする。依頼文の中でもそう指示している。
+   **行数では見ない**（2026-08-09） — 添付なら保たれるが、チャットへ貼ると折り返しで必ず
+   変わるので、貼った瞬間に誤検知する
 3. **リライト案を求めない。** 指摘だけを表で返させる。上の誤りは「欠けた箇所を埋めた
    リライト案」として出てきたもので、書き直しを頼まなければ混入しない
    （このリポジトリの「レビュー依頼は報告のみ」と同じ扱い。加えて、返ってきた文を
@@ -29,7 +31,7 @@ Gemini へ渡したところ、写しが6箇所で途中欠けし、レビュー
 使い方:
     python3 scripts/export_profile_review.py tangmo-huangchao
     python3 scripts/export_profile_review.py tangmo-anlushan tangmo-shisiming --name tangmo
-    python3 scripts/export_profile_review.py --section 唐末群雄        # researchSection で選ぶ
+    python3 scripts/export_profile_review.py --section 唐              # researchSection で選ぶ
     python3 scripts/export_profile_review.py tangmo-huangchao --with-source  # 原文を同梱
     python3 scripts/export_profile_review.py tangmo-anlushan tangmo-zhuci --split  # 1人1ファイル
 
@@ -80,9 +82,10 @@ BRIEF = """\
 
 ## 途中で切れていないかの確認
 
-このファイルは全 {lines} 行・本文 {chars} 字です。**受け取った内容がこれと合わない場合は
-途中で欠けているので、レビューせずにその旨を教えてください。**「文章が中抜けしている」
-という指摘は、こちらの原稿ではなく受け渡しの問題です。
+本文は {chars} 字・{blocks} 段落で、段落には **[{first}] から [{last}] まで通し番号**が
+付いています（番号は飛びません）。**受け取った内容で番号が飛んでいる・[{last}] で
+終わっていない場合は途中で欠けているので、レビューせずにその旨を教えてください。**
+「文章が中抜けしている」という指摘は、こちらの原稿ではなく受け渡しの問題です。
 
 ## 見てほしい観点
 
@@ -171,7 +174,9 @@ def display_name(emperor_id: str, record: dict) -> str:
 
         return resolve_id(emperor_id)["plain"]
     except Exception:
-        return (record.get("name") or {}).get("commonName") or emperor_id
+        # commonName には尊号が入る（「雄武皇帝安禄山」）ので落とし所にしない。
+        name = record.get("name") or {}
+        return f"{name.get('familyName') or ''}{name.get('personalName') or ''}" or emperor_id
 
 
 def label_maps(catalogs: dict) -> dict[str, dict[str, str]]:
@@ -311,14 +316,21 @@ def build(
     count = f"{len(items)}本" if multi else "1本"
     cross = CROSS.format(count=len(items)) if multi else ""
     text = "\n".join(parts)
-    # 行数は**依頼文を差し込んだあとの全体**で数える。差し込む前の数を書くと、
-    # 受け取った側の「行数が合わない＝途中で切れている」という判定が常に誤検知になる
-    # ——この行数はファイルが欠けたことを見つけるためだけに置いてあるので、
-    # 合わないのが既定では意味が無い。差し込みで行数は変わらないので2回に分ける。
-    filled = BRIEF.format(lines=0, chars=chars, count=count, cross=cross)
-    lines = text.replace("{{BRIEF}}", filled, 1).count("\n") + 1
+    # 欠けの検出は**行数ではなく段落番号**でやる（2026-08-09）。行数は添付なら保たれるが、
+    # チャットへ貼ると折り返しで必ず変わるので、貼った瞬間に「切れている」と誤検知する。
+    # 番号の飛びと最後の番号なら、貼っても添付しても同じように効く。
+    tags = re.findall(r"^\[([0-9-]+)\]", text, re.M)
     return text.replace(
-        "{{BRIEF}}", BRIEF.format(lines=lines, chars=chars, count=count, cross=cross), 1
+        "{{BRIEF}}",
+        BRIEF.format(
+            chars=chars,
+            blocks=len(tags),
+            first=tags[0] if tags else "1",
+            last=tags[-1] if tags else "1",
+            count=count,
+            cross=cross,
+        ),
+        1,
     )
 
 
@@ -368,7 +380,7 @@ def main() -> int:
         shown = path.relative_to(ROOT) if path.is_relative_to(ROOT) else path
         print(f"{shown}  {len(group)}人 / {len(text):,}字 / {text.count(chr(10)) + 1}行")
 
-    print("\nGemini のウェブ画面へは**ファイルとして添付**する（貼り付けない）。")
+    print("\nGemini へはこのファイルを添付するか、中身をそのまま貼り付ける（手で写さない）。")
     return 0
 
 
