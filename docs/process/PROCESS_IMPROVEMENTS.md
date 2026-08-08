@@ -1680,5 +1680,5 @@
 
 ### 2026-08-08 紹介文バッチは母集団を origin/main から数える（実装済み） <!-- auto:c8aedcc4bff8 -->
 - **気づいた場面**: 北朝の残りとしてバッチを起動した直後（2026-08-08）
-- **提案**: ローカルの data/emperor-profiles.json から未執筆8人を数えてワークフローを起動したが、8人全員が既に origin/main にあった（同日 PR #115 で別セッションが40本＝北魏末〜東魏／北斉／西魏・北周／隋／隋末群雄／初唐をマージ済み）。git status -sb は behind 1 と出ていたが「未コミット1件＝他セッションが編集中」の方だけを読み、fetch しないまま母集団を確定した。8体が執筆段を終えた時点で気づいて停止（丸ごと無駄）。**実装済み**: .claude/skills/write-profile/SKILL.md の冒頭に「母集団を数える前に git fetch し、未執筆は git show origin/main:data/emperor-profiles.json から数える」を足した。同種の悉皆作業（name-block・research-block）にも同じ穴がある。
+- **提案**: ローカルの data/emperor-profiles.json から未執筆8人を数えてワークフローを起動したが、8人全員が既に origin/main にあった（PR #115 の40本＝北魏末〜東魏／北斉／西魏・北周／隋／隋末群雄／初唐がリモートに入っていた）。git status -sb は behind 1 と出ていたのに読み飛ばし、git fetch もしないまま母集団を確定した。8体が執筆段を終えた時点で気づいて停止（丸ごと無駄）。**原因は作業ツリーの最新化を怠ったことで、「並行セッションが先に書いていた」ではない**（当日そう書いてユーザーに訂正された）。原因を他所に置くと対策が「セッション間の調整」になり、実際に要る「着手前に fetch する」が出てこない。**実装済み**: .claude/skills/write-profile/SKILL.md の冒頭に「母集団を数える前に git fetch し、未執筆は git show origin/main:data/emperor-profiles.json から数える」を足した。同種の悉皆作業（name-block・research-block）にも同じ穴がある。
 - **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
