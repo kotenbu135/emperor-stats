@@ -1,0 +1,23 @@
+{"text": "殤帝（李重茂）は中宗の第四子", "quote": "殇皇帝重茂，中宗第四子也", "src": "_corpus_cache/tang-shangdi.txt:1"}
+{"text": "聖暦三年に北海王に封じられた", "quote": "圣历三年，封北海王", "src": "_corpus_cache/tang-shangdi.txt:1"}
+{"text": "神龍のはじめに温王へ進封され、右衛大将軍を授けられた", "quote": "神龙初，进封温王，授右 卫大将军", "src": "_corpus_cache/tang-shangdi.txt:1"}
+{"text": "并州大都督を名目上兼ねたが、宮を出て任地に赴かないままだった", "quote": "兼遥领并州大都督，未出閤", "src": "_corpus_cache/tang-shangdi.txt:1"}
+{"text": "景龍四年に中宗が死に、韋庶人が重茂を帝に立てた", "quote": "景龙四年，中宗崩，韦庶人立重茂为帝", "src": "_corpus_cache/tang-shangdi.txt:1"}
+{"text": "韋庶人は自ら朝廷に臨んで称制した", "quote": "而自临朝称制", "src": "_corpus_cache/tang-shangdi.txt:1"}
+{"text": "韋氏が敗れると重茂は位を退き、叔父の相王に譲って別の場所に退いた", "quote": "及韦氏败，重茂遂逊位，让叔父相王，退居别所", "src": "_corpus_cache/tang-shangdi.txt:1"}
+{"text": "景雲二年に襄王へ改封され、集州へ移された", "quote": "襄王，迁于集州", "src": "_corpus_cache/tang-shangdi.txt:1"}
+{"text": "中郎将が兵五百人を率いて重茂を守衛した", "quote": "令中郎将率兵五百人守卫", "src": "_corpus_cache/tang-shangdi.txt:1"}
+{"text": "開元二年に房州刺史へ移り、まもなく死んだ", "quote": "开元二年，转房州刺史。寻薨", "src": "_corpus_cache/tang-shangdi.txt:1"}
+{"text": "没年は十七歳、諡は殤皇帝、武功の西原に葬られた", "quote": "谥曰殇皇帝，葬于武功西原", "src": "_corpus_cache/tang-shangdi.txt:1"}
+{"text": "史臣は、天が乱れた気を洗い流そうとしているとき、重茂に支えられるものではなかったと結ぶ", "quote": "天将涤荡昏氛，非重茂所能枝也", "src": "_corpus_cache/tang-shangdi.txt:2"}
+{"text": "史臣の評は中宗の家の女たちを論じ、重茂本人の行いには触れない", "quote": "孝和母嚣，妇傲女暴，如置身群魅之中，安有保其终吉哉", "src": "_corpus_cache/tang-shangdi.txt:2"}
+{"text": "史臣は高宗の八子のうち四人が武后に殺されたことを挙げる", "quote": "高宗八 子，二王早世，为武后所毙者四人", "src": "_corpus_cache/tang-shangdi.txt:2"}
+{"text": "中宗は六月壬午に毒に遇い神龍殿で死んだ", "quote": "六月壬午，帝遇毒，崩於神龍殿", "src": "data/emperors.json:tang-shangdi.reigns[0].source.quote（旧唐書 本紀第七 中宗睿宗）"}
+{"text": "甲申に太極殿で喪を発し、遺制が宣べられた", "quote": "甲申，發喪於太極殿，宣遺制", "src": "data/emperors.json:tang-shangdi.reigns[0].source.quote（旧唐書 本紀第七 中宗睿宗）"}
+{"text": "皇太后（韋后）が朝廷に臨み、大赦して唐隆と改元した", "quote": "皇太后臨朝，大赦天下，改元為唐隆", "src": "data/emperors.json:tang-shangdi.reigns[0].source.quote（旧唐書 本紀第七 中宗睿宗）"}
+{"text": "丁亥に皇太子が柩の前で即位した。ときに十六歳", "quote": "丁亥，皇太子即帝位於柩前，時年十六", "src": "data/emperors.json:tang-shangdi.reigns[0].source.quote（旧唐書 本紀第七 中宗睿宗）"}
+{"text": "庚子の夜、臨淄王（李隆基）が兵を挙げて韋氏・武氏の一党を殺した", "quote": "庚子夜，臨淄王…舉兵誅諸韋、武", "src": "data/emperors.json:tang-shangdi.reigns[0].source.quote（旧唐書 本紀第七 中宗睿宗）"}
+{"text": "甲辰、少帝の詔が出て、叔父の相王に即位を願い、自分は旧邸へ退くと述べた", "quote": "甲辰，少帝詔曰「…請叔父相王即皇帝位。朕退守本籓，歸於舊邸…」", "src": "data/emperors.json:tang-shangdi.reigns[0].source.quote（旧唐書 本紀第七 中宗睿宗）"}
+{"text": "相王は上表して辞退したが、制答は前の旨に従い譲るなと述べ、少帝は別宮へ退いた。相王はその日に即位した", "quote": "相王上表讓，制答曰「…請遵前旨，勿或推讓。」於是少帝遜於別宮。是日即皇帝位", "src": "data/emperors.json:tang-shangdi.reigns[0].source.quote（旧唐書 本紀第七 中宗睿宗）"}
+{"text": "太平公主も李隆基の挙兵の計画に加わり、子の崇簡を従わせた", "quote": "公主又预其谋，令男崇简从之", "src": "daizhigev20/史藏/正史/旧唐书.txt:15453"}
+{"text": "温王が立って数日で人の心は相王の府へ向いたが言い出せる者がなく、太平公主は幼主のもとへ入って王室に事が多いから年長の者を君主にと述べ、幼主を座から引き下ろして玄宗・大臣とともに睿宗を立てた", "quote": "及立温王，数日，天下之心归于相府，难为其议。公主入启幼主，以王室多故，资于长君，乃提下幼主，因与玄宗、大臣尊立睿宗", "src": "daizhigev20/史藏/正史/旧唐书.txt:15453"}
