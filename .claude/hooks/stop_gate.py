@@ -91,6 +91,24 @@ def changed_data_files(root):
     return files
 
 
+def uncommitted_capture(root):
+    """suggestion_capture.py が追記したまま置き去りになっている採取差分の件数。
+
+    フックは primary（main）へ直接書くので、書かせたセッションがコミットせずに
+    終わると差分だけが main に残る。実際に29件ぶんが4日にわたって溜まり、
+    次のセッションが `git pull` できなくなった（2026-08-08 ユーザー指摘）。
+    """
+    target = "docs/process/PROCESS_IMPROVEMENTS.md"
+    rc, out = run(["git", "status", "--porcelain", "--", target], root, timeout=30)
+    if rc != 0 or not out.strip():
+        return 0
+    rc, diff = run(["git", "diff", "HEAD", "--", target], root, timeout=30)
+    if rc != 0:
+        return 0
+    return len([ln for ln in diff.splitlines()
+                if ln.startswith("+### ") and "auto:" in ln])
+
+
 def quote_gate_needed(root, changed):
     """引用・日付を触ったか（触っていなければ照合ゲートは要らない）。"""
     if not any(f in ("data/emperors.json", "data/quote-refs.json") for f in changed):
@@ -114,8 +132,23 @@ def main():
     if not (Path(root) / "data").is_dir():
         sys.exit(0)
 
+    captured = uncommitted_capture(root)
+    capture_msg = (
+        f"docs/process/PROCESS_IMPROVEMENTS.md に未コミットの採取が{captured}件あります"
+        "（suggestion_capture.py が turn の終わりに書いたもの）。"
+        "`git add docs/process/PROCESS_IMPROVEMENTS.md` で今回の変更と一緒にコミットしてください"
+        "（パスは明示・R-GIT-ADDALL）。溜めると次のセッションが pull できなくなります。"
+    ) if captured else None
+
     changed = changed_data_files(root)
     if not changed:
+        if capture_msg:
+            log(root, {"decision": "block", "tool": "Stop", "actor": "main",
+                       "detail": f"採取{captured}件が未コミット"})
+            print(capture_msg +
+                  "\n\n意図的に残すなら、その旨を述べてもう一度終えてください"
+                  "（2回目は止めません）。", file=sys.stderr)
+            sys.exit(2)
         sys.exit(0)
 
     scripts, why = [], {}
@@ -163,6 +196,9 @@ def main():
                             "note が名乗る書に引用が無いユニットがあります。書名の誤りなら note を直し、"
                             "コーパス側の欠陥なら quote-refs.json の bookAllow に理由を書いてください。\n"
                             + tail)
+    if capture_msg:
+        failures.append("■ 手順の提案の採取が未コミット\n" + capture_msg)
+
     log(root, {
         "decision": "block" if failures else ("note" if note else "pass"),
         "tool": "Stop", "actor": "main",
@@ -170,8 +206,11 @@ def main():
     })
 
     if failures:
-        print("データに未コミットの差分があり、ゲートが落ちています。"
-              "訂正してからもう一度終えてください。\n\n" + "\n\n".join(failures) +
+        head = ("コミット前に片付ける項目があります。\n\n"
+                if len(failures) == 1 and capture_msg else
+                "データに未コミットの差分があり、ゲートが落ちています。"
+                "訂正してからもう一度終えてください。\n\n")
+        print(head + "\n\n".join(failures) +
               (f"\n\n【あわせて】{note}" if note else "") +
               "\n\nこの差分が意図的に途中の状態なら、その旨を述べてもう一度終えてください"
               "（2回目は止めません）。", file=sys.stderr)
