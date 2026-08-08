@@ -338,6 +338,9 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="紹介文を外部レビュー用の1ファイルに書き出す")
     ap.add_argument("ids", nargs="*", help="皇帝id")
     ap.add_argument("--section", help="researchSection で選ぶ（紹介文のある人だけ）")
+    ap.add_argument("--all", action="store_true", help="紹介文のある全員（データ順）")
+    ap.add_argument("--exclude", nargs="*", default=[], help="外す皇帝id（レビュー済みなど）")
+    ap.add_argument("--chunk", type=int, help="この人数ごとにファイルを分ける（例: 10）")
     ap.add_argument("--with-source", action="store_true", help="本紀の原文キャッシュを同梱")
     ap.add_argument("--split", action="store_true", help="1人1ファイルに分ける")
     ap.add_argument("--name", help="まとめて出すときのファイル名（既定: review-<最初のid>）")
@@ -356,8 +359,11 @@ def main() -> int:
             for e in emperors["emperors"]
             if e.get("researchSection") == args.section and e["id"] in profiles and e["id"] not in ids
         ]
+    if args.all:
+        ids += [e["id"] for e in emperors["emperors"] if e["id"] in profiles and e["id"] not in ids]
+    ids = [i for i in ids if i not in set(args.exclude)]
     if not ids:
-        ap.error("皇帝id か --section が要ります")
+        ap.error("皇帝id か --section か --all が要ります")
 
     items: list[tuple[str, dict, dict]] = []
     for emperor_id in ids:
@@ -371,10 +377,22 @@ def main() -> int:
 
     out_dir = ROOT / args.out
     out_dir.mkdir(parents=True, exist_ok=True)
-    groups = [[it] for it in items] if args.split else [items]
-    for group in groups:
+    if args.split:
+        groups = [[it] for it in items]
+    elif args.chunk:
+        groups = [items[i : i + args.chunk] for i in range(0, len(items), args.chunk)]
+    else:
+        groups = [items]
+    width = len(str(len(groups)))
+    for n, group in enumerate(groups, start=1):
         text = build(group, labels, args.with_source)
-        stem = group[0][0] if len(group) == 1 else (args.name or f"review-{group[0][0]}")
+        if len(group) == 1 and args.split:
+            stem = group[0][0]
+        elif len(groups) > 1:
+            # 連番を先頭に置く。ファイル名の並び順＝渡す順序にしておく
+            stem = f"{args.name or 'review'}-{n:0{width}d}-{group[0][0]}"
+        else:
+            stem = args.name or f"review-{group[0][0]}"
         path = out_dir / f"{stem}.md"
         path.write_text(text + "\n", encoding="utf-8")
         shown = path.relative_to(ROOT) if path.is_relative_to(ROOT) else path
