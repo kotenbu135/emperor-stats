@@ -1,0 +1,76 @@
+{
+  "id": "tang-xuanzong-2",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xuanzong-2.txt",
+      "line": 1,
+      "quote": "宣宗圣武献文孝皇帝讳忱，宪宗第十三子，母曰孝明皇后郑氏"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xuanzong-2.txt",
+      "line": 1,
+      "quote": "长庆元年三月，封光王，名怡"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xuanzong-2.txt",
+      "line": 1,
+      "quote": "柩前即帝位，改今名，时年三十七"
+    },
+    {
+      "cid": "c4",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xuanzong-2.txt",
+      "line": 80,
+      "quote": "群臣上谥曰圣武献文孝皇帝，庙号宣宗"
+    },
+    {
+      "cid": "c5",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xuanzong-2.txt",
+      "line": 80,
+      "quote": "是日，崩于大明宫，圣寿五十"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "宣宗",
+      "basis": ["c1", "c4"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "聖武献文孝皇帝",
+      "basis": ["c1", "c4"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": ["c4"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "忱",
+      "basis": ["c1"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.aliases",
+      "value": ["怡"],
+      "basis": ["c2", "c3"],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "政権慣行（舊唐書・唐）の保存形に従い、諡号は全長形だけを posthumousNameFull へ入れ、posthumousName は空のままとした。別枝（両欄へ同値）は殤帝『殇皇帝』・哀帝『哀皇帝』のように廟号が無く諡だけが呼称になる人物に掛かると読み、本紀が『庙号宣宗』と廟号を立てる本人はその別枝に当たらないと判断した（加諡の段数ではなく廟号の有無を判別条件に採った）。値は既存レコードの表記（日本語新字体）へ倒し『圣→聖』とした（献・武・孝は新字体で同形）。引用は底本の簡体のまま。冒頭は慣行が異形として挙げた『讳の前に読点が無い』形（宣宗圣武献文孝皇帝讳忱）で、書式そのものは慣行どおりだった。別称『怡』は光王時代の名で、即位時に『改今名』として忱へ改めたもの。aliases 欄はこの段の投入対象外なので参考として残す。",
+  "discrepancies": "既存の構造フィールドとの食い違いは無し。内訳: name.personalName の現行値『忱』は原文『讳忱』と一致（c1）。name.templeName・name.posthumousName・name.posthumousNameFull はいずれも現行 null で、今回の値は食い違いではなく欠落の補充。reigns[0] は 846〜859 で、会昌六年（846年）三月の柩前即位（c3）および大中十三年（859年）八月の崩御・聖寿五十（c5）と整合する。",
+  "processSuggestion": "唐の保存形の記述が『加諡が1段しか無い人物は別枝＝両欄へ同値』と『短縮の欄が空になるのは廟号で呼ばれるようになった皇帝だけ』の2つの判別条件を併記しており、単段の諡を持ちつつ廟号でも呼ばれる中晩唐の皇帝（宣宗など）でどちらを採るかが人物単位の判断に落ちている。判別条件を『廟号の有無』の1本に整理して regime-conventions へ書き直すことを提案する。残量表 唐の中晩唐・単段諡の保存形確認 7件（未読 7・穆宗/敬宗/文宗/武宗/懿宗/僖宗/昭宗は未走査）"
+}

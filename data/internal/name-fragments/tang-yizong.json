@@ -1,0 +1,114 @@
+{
+  "id": "tang-yizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-yizong.txt",
+      "line": 2,
+      "quote": "懿宗昭圣恭惠孝皇帝漼，宣宗长子，母曰元昭皇太后晁氏"
+    },
+    {
+      "cid": "c2",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-yizong.txt",
+      "line": 2,
+      "quote": "会昌六年十月，封郓王，本名温。大中十三年八月七日，宣遗诏立为皇太子监国，改今名"
+    },
+    {
+      "cid": "c3",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-yizong.txt",
+      "line": 74,
+      "quote": "是日，崩于咸宁殿，圣寿四十一。百僚上谥曰睿文昭圣恭惠孝皇帝，庙号懿宗"
+    },
+    {
+      "cid": "c4",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-yizong.txt",
+      "line": 75,
+      "quote": "史臣曰：臣常接咸通耆老，言恭惠皇帝故事"
+    },
+    {
+      "cid": "c5",
+      "book": "新唐書",
+      "file": "china-history/新唐书/本纪/第九章-卷九·懿宗 僖宗-原文.html",
+      "line": 23,
+      "quote": "懿宗昭圣恭惠孝皇帝讳漼，宣宗长子也"
+    },
+    {
+      "cid": "c6",
+      "book": "新唐書",
+      "file": "china-history/新唐书/本纪/第九章-卷九·懿宗 僖宗-原文.html",
+      "line": 41,
+      "quote": "乾符元年二月甲午，葬昭圣恭惠孝皇帝于简陵"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "懿宗",
+      "basis": [
+        "c1",
+        "c3",
+        "c5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "漼",
+      "basis": [
+        "c1",
+        "c2",
+        "c5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "昭聖恭恵孝皇帝",
+      "basis": [
+        "c1",
+        "c5",
+        "c6"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c3"
+      ],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "name.posthumousNameFull",
+      "adopted": {
+        "value": "昭聖恭恵孝皇帝",
+        "source": {
+          "page": "旧唐書 本紀第十九上 懿宗"
+        },
+        "quote": "懿宗昭圣恭惠孝皇帝漼，宣宗长子，母曰元昭皇太后晁氏"
+      },
+      "alternatives": [
+        {
+          "value": "睿文昭聖恭恵孝皇帝",
+          "source": {
+            "page": "旧唐書 本紀第十九上 懿宗（咸通十四年七月 崩御条）"
+          },
+          "quote": "是日，崩于咸宁殿，圣寿四十一。百僚上谥曰睿文昭圣恭惠孝皇帝，庙号懿宗",
+          "note": "崩御条の上諡だけが「睿文」を冠する。舊唐書の冒頭は「睿文」を落とした形を掲げる"
+        }
+      ],
+      "reason": "政権慣行（regime-conventions・唐）が全長形は本紀冒頭が掲げる形を採ると定めており、新唐書も冒頭「懿宗昭圣恭惠孝皇帝讳漼」・葬記事「葬昭圣恭惠孝皇帝于简陵」の双方で同じ形を用いるため冒頭形を採用した。ただし慣行が前提とする「冒頭＝最終の加諡形」は懿宗では成り立たず（崩御条のほうが長い）、前提の破れとして報告する。冒頭行は china-history/旧唐书/本纪/第十九章-卷十九-原文.html の生ファイルでも「懿宗昭圣恭惠孝皇帝漼，宣宗长子」で、キャッシュ生成による脱落ではないことを確認した"
+    }
+  ],
+  "noteLog": "引用は底本の簡体字のまま保存し、findings の値だけを既存レコードに合わせて新字体へ倒した（昭圣恭惠孝皇帝→昭聖恭恵孝皇帝。恵は han-huidi・ming-huizong の表記に合わせた）。posthumousName（短縮呼称）は唐の慣行の既定に従って空のままとしたが、舊唐書の史臣曰は「恭惠皇帝」「恭惠始承丕构」と二字＋皇帝の形で呼んでおり、短縮呼称の候補として捨てた側を記録する（廟号で呼ばれる皇帝は空、という慣行を人物単位で覆さない）。",
+  "discrepancies": "なし（構造フィールドとの照合結果）。既存 name.personalName「漼」は冒頭「懿宗昭圣恭惠孝皇帝漼」と一致。reigns 859〜873 は「大中十三年八月…柩前即帝位」（859年）と咸通十四年（873年）の崩御条と整合。name.templeName・name.posthumousNameFull が null なのは食い違いではなく今回の転記対象（screenings の templeName:transcribe と一致）。",
+  "processSuggestion": "残量表 唐 本紀冒頭形と上諡の食い違い 24件（未読 23）（懿宗で1件検出。舊唐書の冒頭が最終加諡形という慣行の前提が破れる型。母数24は regimeId=tang のレコード数で、本紀冒頭行を持たない人物を含む）"
+}

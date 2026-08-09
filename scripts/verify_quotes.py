@@ -1302,7 +1302,7 @@ def cmd_check_childhood_names():
 #
 # 床は転記のたびに上げる。**減ったら落ちる**ので、字体を直したつもりで底本に
 # 当たらない形へ動かす訂正はここに出る。
-POSTHUMOUS_FULL_FLOOR = 17  # 2026-08-10 の実測（明16人 ＋ tang-shunzong。転記が進んだら上げる）
+POSTHUMOUS_FULL_FLOOR = 36  # 2026-08-10 の実測（明16人＋唐20人。転記が進んだら上げる）
 # 底本側の事情で当たらない人物と理由（現在なし・仕組みは COURTESY_ALLOW と同じ）。
 POSTHUMOUS_FULL_ALLOW = {}
 

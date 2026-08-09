@@ -1205,6 +1205,16 @@ FAMILY_VALUE_RE = re.compile(r"^[㐀-鿿]{1,4}$")
 # 未記入ではないので、宣言した政権は**全員 null**であることまで見る。
 FAMILY_NULL_REGIMES = {"yuan", "northern-yuan"}
 # 政権内で姓が割れてよい所（ゲートD の例外）。**理由が要る**ので集合ではなく表にする。
+
+# 分割の後で**諱そのものを訂正した**人物。凍結標本は「分割の前に何が入っていたか」の
+# 証人なので書き換えず（書き換えると分割を検証できなくなる）、訂正後の連結形をここへ
+# 別に置いて B の比較先にする。**訂正の理由が要る**ので集合ではなく表にする。
+FAMILY_CORRECTED = {
+    "tang-wuzong": ("李炎", "2026-08-10・Issue #37 唐ブロック。舊唐書・新唐書の本紀冒頭は"
+                            "ともに「讳炎」で、「瀍」は会昌六年三月「制改御名炎」以前の名。"
+                            "改名が記録される唐の他6人（中宗・代宗・穆宗・文宗・宣宗・懿宗）は"
+                            "いずれも改名後の諱で立っており、武宗だけが逸脱していた"),
+}
 FAMILY_MIXED_REGIMES = {
     "northern-wei": "孝文帝の改姓（拓跋→元）",
     "western-wei": "北魏から続く拓跋と元",
@@ -1268,9 +1278,12 @@ def check_family_names(data):
         orig = (originals.get(e["id"]) or {}).get("personalName")
         if orig:
             rebuilt = f"{family or ''}{given}"
-            if rebuilt != orig:
-                err(f"[family-name] {e['id']}: 連結すると {rebuilt!r} で、移行前の"
-                    f"{orig!r} に戻らない（分ける以外のことをしている）")
+            fixed = FAMILY_CORRECTED.get(e["id"])
+            want = fixed[0] if fixed else orig
+            if rebuilt != want:
+                err(f"[family-name] {e['id']}: 連結すると {rebuilt!r} で、"
+                    f"{'訂正後の' if fixed else '移行前の'}{want!r} に戻らない"
+                    f"（分ける以外のことをしている）")
     # D
     for regime, families in sorted(by_regime.items()):
         if len(families) > 1 and regime not in FAMILY_MIXED_REGIMES:
@@ -1474,6 +1487,13 @@ def check_posthumous_name_full(data):
                   ＝ゲートFでは落ちない。ここでしか落ちない）
     C 短縮形との整合 … `posthumousName` があるとき、その字が全長形の**部分列**である。
                   別人の全長形を写した形・短縮形と噛み合わない形がここで落ちる
+    **「廟号が無いなら両欄同値」は足さなかった。** 明16人・唐20人では例外なく成り立ち、
+    規約の枝もこの条件で書き直した（2026-08-10）が、ゲートにすると次の政権で誤って
+    落ちる: 漢景帝は廟号を持たないのに短縮呼称「景帝」と全長形「孝景皇帝」が違い、
+    魏武帝は廟号（太祖）を持つのに諡が「武皇帝」の1形しかなく両欄が同値になる。
+    **短縮の欄に何を入れるかは書ごとの慣行**なので、人物の属性（廟号の有無）からは
+    機械で導けない。規則 R-REGIME-FIRST どおり `data/regime-conventions.json` の
+    「保存形」が正で、ここは形の検査だけに留める
 
     **底本照合はここには無い**（ローカルコーパスが要るため
     verify_quotes.py --check-posthumous-name-full に置いた＝ゲートF）。

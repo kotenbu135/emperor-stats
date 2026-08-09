@@ -1,0 +1,114 @@
+{
+  "id": "tang-wenzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wenzong.txt",
+      "line": 1,
+      "quote": "文宗元圣昭献孝皇帝讳昂，穆宗第二子，母曰贞献皇后萧氏。元和四年十月十日生。"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wenzong.txt",
+      "line": 1,
+      "quote": "长庆元年封江王。初名涵。"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wenzong.txt",
+      "line": 131,
+      "quote": "群臣谥曰元圣昭献皇帝，庙号文宗。其年八月十七日，葬于章陵。"
+    },
+    {
+      "cid": "c4",
+      "book": "新唐書",
+      "file": "china-history/新唐书/本纪/第八章-卷八·穆宗 敬宗 文-原文.html",
+      "line": 33,
+      "quote": "文宗元圣昭献孝皇帝讳昂，穆宗第二子也。母曰贞献皇太后萧氏。始封江王。"
+    },
+    {
+      "cid": "c5",
+      "book": "新唐書",
+      "file": "china-history/新唐书/本纪/第八章-卷八·穆宗 敬宗 文-原文.html",
+      "line": 49,
+      "quote": "葬元圣昭献孝皇帝于章陵"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "文宗",
+      "basis": [
+        "c1",
+        "c3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "元聖昭献孝皇帝",
+      "basis": [
+        "c1",
+        "c4",
+        "c5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "昂",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.aliases",
+      "value": [
+        "涵"
+      ],
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "name.posthumousNameFull",
+      "adopted": {
+        "value": "元聖昭献孝皇帝",
+        "source": {
+          "page": "旧唐書 本紀第十七上 文宗上"
+        },
+        "quote": "文宗元圣昭献孝皇帝讳昂，穆宗第二子，母曰贞献皇后萧氏。"
+      },
+      "alternatives": [
+        {
+          "value": "元聖昭献皇帝",
+          "source": {
+            "page": "旧唐書 本紀第十七下 文宗下"
+          },
+          "quote": "群臣谥曰元圣昭献皇帝，庙号文宗。",
+          "note": "同じ舊唐書でも崩御の条は「孝」を欠く4字形で書く"
+        }
+      ],
+      "reason": "唐の慣行（政権単位で確定済み）は全長形を本紀冒頭が掲げる形から採る。舊唐書の冒頭が「元圣昭献孝皇帝」で、新唐書も冒頭（c4）と葬送記事（c5）の2箇所でともに「元圣昭献孝皇帝」と書く。「孝」を欠く形は舊唐書崩御条の1箇所だけ"
+    }
+  ],
+  "noteLog": "引用は底本のまま簡体で保存し、findings の値だけ既存レコードの表記（日本語新字体・tang-shunzong の「至徳大聖大安孝皇帝」に合わせる）へ倒した（元圣昭献孝皇帝 → 元聖昭献孝皇帝）。posthumousName（短縮呼称）は空にした — 唐の慣行どおり、本文が「庙号文宗」と書き廟号で呼ばれる皇帝で、諡の末字による短縮呼称は本紀に現れないため。「初名涵」は即位前の名で、欄への投入対象外だが原文に在るので claims と findings に残した。",
+  "discrepancies": "なし（既存の構造フィールドと原文の食い違いは無い。name.personalName「昂」・commonName「文宗」・reigns 827〜840 はいずれも原文と整合する。name.templeName と諡号の欄は現在 null だが、これは本作業で埋める対象であって食い違いではない）",
+  "processSuggestion": "残量表 唐の posthumousNameFull 転記 24件（未読 未走査） — 唐の全長形は本紀冒頭に在るのに現状 tang-shunzong の1件しか入っておらず、他23人ぶんは同じ1行の転記で取れる見込み。ただし本セッションで走査したのは tang-wenzong の1件だけなので、残りは未走査。"
+}

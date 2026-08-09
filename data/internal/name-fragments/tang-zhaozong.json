@@ -1,0 +1,90 @@
+{
+  "id": "tang-zhaozong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhaozong.txt",
+      "line": 2,
+      "quote": "昭宗圣穆景文孝皇帝讳晔，懿宗第七子，母曰惠安太后王氏"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhaozong.txt",
+      "line": 106,
+      "quote": "群臣上谥曰圣穆景文孝皇帝，庙号昭宗"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhaozong.txt",
+      "line": 2,
+      "quote": "十三年四月，封寿王，名杰"
+    },
+    {
+      "cid": "c4",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhaozong.txt",
+      "line": 11,
+      "quote": "将有事于圆丘。改御名曰晔"
+    },
+    {
+      "cid": "c5",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhaozong.txt",
+      "line": 12,
+      "quote": "宰臣百僚上徽号曰圣文睿德光武弘孝皇帝"
+    },
+    {
+      "cid": "c6",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-shunzong.txt",
+      "line": 10,
+      "quote": "皇帝率群臣上大行太上皇谥曰至德大圣大安孝皇帝，庙号顺宗"
+    },
+    {
+      "cid": "c7",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhaozong.txt",
+      "line": 106,
+      "quote": "帝殂，年三十八"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "昭宗",
+      "basis": ["c1", "c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "聖穆景文孝皇帝",
+      "basis": ["c1", "c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": ["c2", "c6"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "曄",
+      "basis": ["c1", "c4"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.aliases",
+      "value": ["傑"],
+      "basis": ["c3", "c4"],
+      "confidence": "medium"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "政権慣行（舊唐書・唐）に従い、本紀冒頭1行と崩御条の加諡記事の2箇所から読んだ。posthumousName（短縮呼称）を空にしたのは、唐の既定が「posthumousNameFull だけを入れる」であり、昭宗は加諡が1段（c2）でありながら本紀本文が終始「昭宗」＝廟号で呼ぶため（「废昭宗」「弑昭宗于椒殿」）、掲げられた全長形が通用呼称になっていないから。同じ書式・同じ1段加諡の順宗（c6）が既に templeName=順宗／短縮空／全長=至徳大聖大安孝皇帝で入っており、先例が一致する。c5「上徽号曰圣文睿德光武弘孝皇帝」（大順元年正月）は生前の徽号であり諡号ではないので、〜孝皇帝の形が同じでも findings には入れない。aliases の「傑」は c3（寿王時の名「杰」）と c4（龍紀元年の改名「改御名曰晔」）から。新唐書系の「敏」はこの底本に無いので採らない。引用は底本の簡体字のまま保存し、findings の値だけ既存レコードに合わせて新字体へ倒した（圣穆景文孝皇帝→聖穆景文孝皇帝・晔→曄・杰→傑）。",
+  "discrepancies": "なし（templeName・posthumousNameFull は現行 null で未記入。値の食い違いではなく screenings の transcribe 側の取りこぼし）。personalName は現行「曄」で c1「讳晔」と一致、familyName「李」・commonName「昭宗」も原文と矛盾しない。reigns の 888〜900／901〜904 と c7「帝殂，年三十八」（咸通八年＝867年生・天祐元年＝904年崩御で数え38）も矛盾しない。",
+  "processSuggestion": "check_regime_conventions の唐の「保存形」節に、殤帝・哀帝型（両欄同値）と昭宗・順宗型（短縮空・加諡1段だが廟号呼称）の分岐条件が文中に埋もれている。判定条件を「本紀本文が当人を諡で呼ぶか廟号で呼ぶか」の1行として明示すると、加諡段数だけを見て別枝へ倒す誤りが減る。"
+}

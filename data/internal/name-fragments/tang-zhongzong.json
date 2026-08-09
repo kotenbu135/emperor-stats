@@ -1,0 +1,101 @@
+{
+  "id": "tang-zhongzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 2,
+      "quote": "中宗大和圣昭孝皇帝讳显，高宗第七子，母曰则天顺圣皇后"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 25,
+      "quote": "九月丁卯，百官上谥曰孝和皇帝，庙号中宗。十一月己酉，葬于定陵。天宝十三载二月，改谥曰大和大圣大昭孝皇帝。"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 2,
+      "quote": "仪凤二年，徙封英王，改名哲"
+    },
+    {
+      "cid": "c4",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 382,
+      "quote": "中宗大和大圣大昭孝皇帝讳显，高宗第七子也"
+    },
+    {
+      "cid": "c5",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 388,
+      "quote": "谥曰孝和皇帝天宝十三年，加谥大和大圣大昭孝皇帝"
+    },
+    {
+      "cid": "c6",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 2,
+      "quote": "圣历元年，召还东都，立为皇太子，依旧名显"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "中宗",
+      "basis": ["c2", "c1"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "顕",
+      "basis": ["c1", "c6"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "大和大聖大昭孝皇帝",
+      "basis": ["c2", "c4", "c5"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": ["c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.aliases",
+      "value": ["哲"],
+      "basis": ["c3"],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "name.posthumousNameFull",
+      "adopted": {
+        "value": "大和大聖大昭孝皇帝",
+        "source": { "page": "旧唐書 本紀第七 中宗" },
+        "quote": "天宝十三载二月，改谥曰大和大圣大昭孝皇帝"
+      },
+      "alternatives": [
+        {
+          "value": "大和聖昭孝皇帝",
+          "source": { "page": "旧唐書 本紀第七 中宗" },
+          "quote": "中宗大和圣昭孝皇帝讳显，高宗第七子，母曰则天顺圣皇后",
+          "note": "舊唐書 本紀の冒頭が掲げる形。電子底本（china-history 旧唐书/本纪 卷七 と daizhigev20 旧唐书.txt:503）は同じ祖本を共有するので独立した2証人ではない"
+        }
+      ],
+      "reason": "舊唐書 本紀の冒頭が掲げる形が、同じ本紀が記す加諡の行為そのもの（天宝十三載の改諡）と食い違う。加諡の条は諡を授けた行為を直接記す側で、新唐書の冒頭（c4）と加諡記事（c5）もともに大和大圣大昭孝皇帝とする。さらに同じ卷七の睿宗『玄真大圣大兴孝皇帝』・卷五の高宗『天皇大圣大弘孝皇帝』と、天宝十三載の加諡は『大聖大〇孝』の形をとるので、冒頭の『大和圣昭孝』は自巻の中でも異例。冒頭側は大の脱字と判断して加諡形を採る"
+    }
+  ],
+  "noteLog": "字体の倒し方: claims の quote は底本（簡体）のまま保存し、findings の値だけデータセットの表記（日本語新字体）へ倒した（圣→聖・显→顕）。／舊唐書 志（daizhigev20/史藏/正史/旧唐书.txt:2148 礼仪志『中宗大圣大昭孝皇帝』）も大の字を持つが、志は本紀・列伝ではなく和の字も落ちるため basis には使わず参考にとどめた。／初諡『孝和皇帝』は加諡前の別の諡であり短縮呼称ではないので posthumousName へは入れない（政権慣行の指示どおり）。加諡が2段（孝和皇帝→大和大聖大昭孝皇帝）積み上がり本文・贊が廟号で呼ぶ型なので、唐の既定どおり posthumousName は空。／aliases の『哲』は儀鳳2年の改名で、聖暦元年に『依旧名显』と戻る（c6）。欄への投入対象外と理解しているので参考として残す。",
+  "discrepancies": "値の食い違いは なし（既存 name.personalName『顕』は本紀冒頭の『讳显』と一致、name.commonName『中宗』は廟号と一致）。ただし構造上の指摘が2点: (1) 既存レコードの name には posthumousNameFull というキーが存在しない（jq 出力の name は familyName/personalName/commonName/aliases/posthumousName/templeName/regnalTitle のみ）ので、今回の値は新規キーへの投入になる。(2) name.templeName は現在 null だが原文は『庙号中宗』と明記する（screenings の templeName:transcribe と一致）。name.posthumousName の null は原文と矛盾しない（唐の慣行で空が正）。",
+  "processSuggestion": "残量表 唐の本紀冒頭が加諡記事と食い違う型 未走査（中宗で1件検出。政権慣行が『冒頭＝最終の加諡形』を前提にしているため、冒頭側に脱字がある人物では慣行がそのまま使えない。唐22人ぶんの冒頭と加諡記事の突き合わせは未走査）。慣行の『保存形』に、冒頭形と加諡記事が食い違ったときどちらを採るかの1行を足すと、人物ごとに判断しなくて済む。"
+}

@@ -1822,3 +1822,18 @@
 - **気づいた場面**: Issue #37 単位1（諡号の全長形 posthumousNameFull を新設・2026-08-10）。COUPLINGS の1行（配布 CSV の COLUMNS）以外は、どれも人が思い出して直した
 - **提案**: 今回 posthumousNameFull を足すのに触った場所は7つ: (1) data/schema/emperors.schema.json の properties〔足さないと validate_emperors が additionalProperties で落ちる＝ここだけは機械が教えてくれる〕 (2) scripts/validate_emperors.py の check_* と main と summary の3箇所 (3) scripts/verify_quotes.py の hit 関数・cmd_・argparse・分岐の4箇所 (4) scripts/test_*.py (5) data/schema/SCHEMA_CHANGE_CHECKLIST.md の表 (6) scripts/patch_emperor.py の GATES (7) site/scripts/build-data-distribution.mjs の COLUMNS と scripts/coverage.py の FIELDS。このうち黙って抜けるのは (6)(7) で、(7) の CSV 列は COUPLINGS.md に『2026-08-03 に2回続けて手で思い出した』と書かれた行がまだ生きている（今回で3回目）。提案は2択のどちらか: (a) 『emperors.schema.json の properties に在るのに coverage.py の FIELDS／build-data-distribution.mjs の COLUMNS／patch_emperor.py の GATES のどれかに名前が無い name.* 欄』を落とす検査を check_rules.py へ足す〔名前の一致だけを見るので実装は10行程度〕 (b) name 欄の雛形を作る生成器を置く。(a) のほうが安く、COUPLINGS の『無い。ビルドは通ってしまう』が『有る』に変わる。なお ethnicName・courtesyName・childhoodName・familyName・posthumousNameFull の5欄が既に同じ型で並んでおり、検査の母集団はもう5件ある
 - **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
+
+### 2026-08-10 「加諡が1段か」は本人の本紀だけでは決まらない（後継帝の本紀まで読む） <!-- auto:55901af4977e -->
+- **気づいた場面**: Issue #37 名前ブロック・tang-zhaozong の検証段（facts 観点）
+- **提案**: 唐の保存形の分岐は「加諡が1段しか無い人物は別枝」で決まるが、昭宗の改諡（恭霊荘閔孝皇帝・廟号 襄宗）は本人の本紀ではなく後継帝である哀帝の本紀（旧唐書 巻二十下・天祐二年十月甲午条）に載る。加諡の段数を根拠に posthumousName/posthumousNameFull の欄を割るときは、本人の本紀冒頭と崩御条に加えて後継帝の本紀の該当条まで読む手順にする。
+- **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
+
+### 2026-08-10 china-history の html は CR 改行なので grep -n / sed / wc -l の行番号が使えない <!-- auto:470e180b0802 -->
+- **気づいた場面**: tang-ruizong の名前データを反証中、claims の c4 が china-history/旧唐书/本纪/第七章-卷七-原文.html:49 を典拠に挙げていた。wc -l は 0 行、sed -n '49p' は空を返すので「実在しない行」として誤指摘しかけた。実際にはこのファイルは LF が 0・CR が 72 で、Python の universal newlines（や Read ツール）で開くと当該断片はちょうど 49 行目にある。
+- **提案**: china-history 配下の html を file:line で引くとき、行番号の意味が読み手のツールで割れる（CR のみ改行）。CORPUS_NOTES.md の「コーパス検索」節に『china-history の html は CR 改行。行番号は CR を改行として数えた値であり、grep -n / sed / awk / wc -l は 1 行としか見ない。行を当てるときは Python で開くか tr '\r' '\n' を通す』の1行を足したい。検証段が同じ落とし穴で偽陽性を出す（今回1件出しかけた）。
+- **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
+
+### 2026-08-10 規約に枝を足すときは、その条件の反例を1件探してから書く <!-- auto:cca4be99e80a -->
+- **気づいた場面**: Issue #37 単位1・唐バッチA（2026-08-10）
+- **提案**: 保存形の規約に「加諡が1段しか無い人物は両方の欄へ同じ値を入れる」という枝を足したが、これは明の3人（恭閔恵皇帝・恭仁康定景皇帝・荘烈愍皇帝）が**たまたま共有していた属性**で書いた条件で、効いていたのは「廟号を持たないので諡がそのまま呼称になる」ほうだった。唐には廟号を持ちながら上諡が1段で終わる人物（徳宗・敬宗）が居て、どちらの枝にも読める。検証段が2人ぶん別々に同じ指摘を挙げて初めて分かった。同じ日に「冒頭が掲げる形＝最終の加諡形」という等号も書いており、これも唐20人のうち5人で偽だった。どちらも、枝を書いた時点で手元にあった政権（明）の中では反例が無い。**枝の条件を書いたら、その条件を満たさないが同じ扱いになるはずの人物を1人、別の政権から探す**（今回なら明を見て枝を書いた時点で唐の徳宗を引けば済んだ）。R-SWEEP-DETECTION が走査結果に対して要求しているのと同じことを、規約の条件文に対してやる形。
+- **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する

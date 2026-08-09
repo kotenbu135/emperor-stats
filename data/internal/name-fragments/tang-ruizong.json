@@ -1,0 +1,89 @@
+{
+  "id": "tang-ruizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-ruizong.txt",
+      "line": 1,
+      "quote": "睿宗玄真大圣大兴孝皇帝，讳旦，高宗第八子，中宗母弟"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-ruizong.txt",
+      "line": 20,
+      "quote": "秋七月己亥，上尊谥曰大圣贞皇帝，庙曰睿宗"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-ruizong.txt",
+      "line": 20,
+      "quote": "天宝十三载二月，改谥曰玄真大圣大兴孝皇帝"
+    },
+    {
+      "cid": "c4",
+      "book": "旧唐書",
+      "file": "china-history/旧唐书/本纪/第七章-卷七-原文.html",
+      "line": 49,
+      "quote": "睿宗玄真大圣大兴孝皇帝"
+    },
+    {
+      "cid": "c5",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-ruizong.txt",
+      "line": 1,
+      "quote": "上初名旭轮，至是去“旭”字"
+    },
+    {
+      "cid": "c6",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-ruizong.txt",
+      "line": 1,
+      "quote": "迁洛牧；改名旦，徙封豫王"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "睿宗",
+      "basis": [
+        "c2",
+        "c1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "玄真大聖大興孝皇帝",
+      "basis": [
+        "c3",
+        "c1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c2",
+        "c3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "旦",
+      "basis": [
+        "c1",
+        "c6"
+      ],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "引用は底本（china-history 旧唐书・簡体）の字体のまま保存し、findings の値だけ既存レコードに揃えて新字体へ倒した（玄真大圣大兴孝皇帝 → 玄真大聖大興孝皇帝）。posthumousName を空としたのは唐の保存形の既定に従ったもので、初諡「大圣贞皇帝」（c2）は加諡前の別の諡なので短縮呼称の欄には入れない。諱は幼名「旭轮」→「轮」→「旦」→（革命時に）「轮」→「旦」と変転するが（c5・c6）、冒頭が名乗りとして掲げる讳は「旦」。aliases 相当の別名（旭輪・輪）は欄への投入対象外なので claims に残すだけにした。",
+  "discrepancies": "なし。照合した構造フィールドは name.personalName（既存「旦」＝c1「讳旦」と一致）、name.commonName（既存「睿宗」＝c2「庙曰睿宗」と一致）、name.familyName（既存「李」・本紀冒頭は姓を掲げないので反証も裏付けも無し）、reigns の 684-690 / 710-712（c1〜c3 は在位年に触れないので食い違い無し。c3 直前の「开元四年夏六月甲子，太上皇帝崩」は太上皇としての崩御=716年であり、712年の譲位＝在位終了と矛盾しない）。既存の name.posthumousName・name.templeName はいずれも null で、今回 templeName に値が立ち posthumousName は空のままとなる。",
+  "processSuggestion": "残量表 唐の posthumousNameFull/personalName 系 未走査（check_screenings の name-fields-issue37 は name.templeName・name.posthumousName しか覆っておらず、posthumousNameFull と personalName にはバケットが立たない。この2欄は「バケット無し＝未走査」であって0件ではない旨を絞り込み記録側に1行明記したい）"
+}

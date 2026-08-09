@@ -1,0 +1,49 @@
+{
+  "id": "tang-dezong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-dezong.txt",
+      "line": 2,
+      "quote": "德宗神武孝文皇帝讳适，代宗长子，母曰睿真皇后沈氏"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-dezong.txt",
+      "line": 190,
+      "quote": "永贞元年九月丁卯，群臣上谥曰神武孝文，庙号德宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "徳宗",
+      "basis": ["c1", "c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "神武孝文皇帝",
+      "basis": ["c1"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": ["c1", "c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "适",
+      "basis": ["c1"],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "字体の倒し方: claims の引用は底本（china-history 旧唐书 本纪 卷十二・_corpus_cache/tang-dezong.txt）の簡体のまま置き、findings の値だけ既存レコードの新字体表記へ倒した（德宗→徳宗）。諱「适」は簡体化ではなく別字（适 kuò・「適」の簡体ではない）なので変換せず底本の字のまま採り、既存 name.personalName「适」と一致する。posthumousName を空のままにしたのは screening の unknown を理由にしたのではなく、政権慣行の保存形（唐では廟号で呼ばれる皇帝の短縮呼称欄は空・短縮呼称が入るのは殤帝「殇皇帝」・哀帝「哀皇帝」のように廟号を持たず諡がそのまま通用する別枝だけ）に従ったため。徳宗は廟号「德宗」を持ち commonName も「徳宗」で、本紀に末字＋皇帝の短縮形は出ない。posthumousNameFull は慣行どおり冒頭が掲げる形（c1）から採り、崩御条の加諡記事「上谥曰神武孝文」（c2）とも一致する（c2 に「皇帝」を継ぎ足して作った値ではない）。",
+  "discrepancies": "既存 name.templeName が null だが原文（c1・c2）は廟号「德宗」を明記する — screening が transcribe と予告した取りこぼしで、「徳宗」を補充する。既存 name.personalName「适」は原文（c1「讳适」）と一致。既存 name.posthumousName が null なのは食い違いではなく政権慣行の保存形どおりの一致（唐で廟号により呼ばれる皇帝は短縮呼称欄が空）。既存 name.posthumousNameFull は欄そのものが無く、新規に「神武孝文皇帝」を投入する。reigns（779〜805）・regimeId は今回の判定対象外で原文との突き合わせをしていない。",
+  "processSuggestion": "残量表 唐の名前欄転記 24件（未読 23・徳宗以外は未走査）"
+}

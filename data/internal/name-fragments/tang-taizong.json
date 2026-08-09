@@ -1,0 +1,63 @@
+{
+  "id": "tang-taizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-taizong.txt",
+      "line": 2,
+      "quote": "太宗文武大圣大广孝皇帝讳世民，高祖第二子也"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-taizong.txt",
+      "line": 93,
+      "quote": "八月丙子，百僚上谥曰文皇帝，庙号太宗"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-taizong.txt",
+      "line": 93,
+      "quote": "上元元年八月，改上尊号曰文武圣皇帝。天宝十三载二月，改上尊号为文武大圣大广孝皇帝"
+    },
+    {
+      "cid": "c4",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-taizong.txt",
+      "line": 94,
+      "quote": "臣观文皇帝发迹多奇"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "太宗",
+      "basis": ["c1", "c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "世民",
+      "basis": ["c1"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "文武大聖大広孝皇帝",
+      "basis": ["c1", "c3"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": ["c2", "c3"],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "引用は底本（china-history 旧唐书 由来の _corpus_cache）の簡体字のまま保存し、findings の値だけを既存レコードの表記（日本語新字体）へ倒した（「文武大圣大广孝皇帝」→「文武大聖大広孝皇帝」）。posthumousName を空（null）にしたのは政権慣行の指示による: 舊唐書 本紀は初諡「文皇帝」（c2）から上元元年「文武聖皇帝」・天宝十三載「文武大聖大広孝皇帝」（c3）へ加諡を書き継いでおり、加諡が積み上がって廟号で呼ばれるようになった皇帝は短縮呼称の欄を空にする（初諡は短縮呼称ではなく別の諡なので posthumousName へは入れない）。史臣曰の「文皇帝」（c4）も初諡による呼び方で、末字＋皇帝型の短縮呼称ではない。既存レコードに posthumousNameFull の欄は無く、今回が新規投入。冒頭の「因采『济世安民』之义以为名焉」は諱の由来説明で別称ではないため aliases には採らない。",
+  "discrepancies": "なし（既存の構造フィールド name.templeName「太宗」・name.personalName「世民」・name.posthumousName null はいずれも原文および政権慣行と一致。name.posthumousNameFull は既存レコードに欄自体が無く、食い違いではなく新規追加）",
+  "processSuggestion": "check_screenings.py の出力バケットが posthumousName だけを名乗るため、--field templeName で引いても廟号側の絞り込み結果が読めない。--field で指定した欄のバケットが無いときは「この欄の絞り込みは無い」と明示すると、unknown を欄違いで読む事故が減る。"
+}

@@ -1,0 +1,60 @@
+{
+  "id": "tang-jingzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-jingzong.txt",
+      "line": 2,
+      "quote": "敬宗睿武昭愍孝皇帝讳湛，穆宗长子"
+    },
+    {
+      "cid": "c2",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-jingzong.txt",
+      "line": 27,
+      "quote": "群臣上谥曰睿武昭愍孝皇帝，庙号敬宗"
+    },
+    {
+      "cid": "c3",
+      "book": "舊唐書 本紀第十七上（卷十七）",
+      "file": "china-history/旧唐书/本纪/第十七章-卷十七-原文.html",
+      "line": 1,
+      "quote": "敬宗睿武昭愍孝皇帝讳湛，穆宗长子…群臣上谥曰睿武昭愍孝皇帝，庙号敬宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "敬宗",
+      "basis": ["c1", "c2", "c3"],
+      "confidence": "high",
+      "note": "本紀冒頭が「敬宗〈諡号〉皇帝，讳湛」と廟号を先頭に掲げ、崩御条も「庙号敬宗」と明記する。底本は簡体（敬宗）で、値も同字形。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "睿武昭愍孝皇帝",
+      "basis": ["c1", "c2", "c3"],
+      "confidence": "high",
+      "note": "底本の「睿武昭愍孝皇帝」を新字体へ倒して値とした（この7字は簡体・新字体で字形が一致）。冒頭が掲げる全長形と崩御条の「上谥曰」が同一形で一致し、加諡はこの1段のみ。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": ["c1", "c2"],
+      "confidence": "medium",
+      "note": "唐の既定（政権慣行）どおり短縮呼称の欄は空。舊唐書は敬宗を廟号で呼び、末字＋皇帝型の短縮呼称は本紀に現れない。既に確定済みの順宗（加諡1段・廟号あり）が posthumousName 空・posthumousNameFull のみで保存されているのと同型。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "湛",
+      "basis": ["c1", "c3"],
+      "confidence": "high",
+      "note": "「讳湛」。姓は本紀冒頭に現れないため familyName は現行値（李）に触れない。"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "政権慣行の「別枝」条件（加諡が1段しか無い人物は両欄に同じ値）を敬宗へ当てる案を検討したが採らなかった。慣行が挙げる別枝の実例は殤帝「殇皇帝」・哀帝「哀皇帝」で、いずれも廟号を持たず諡そのものが通用呼称になっている人物。敬宗は廟号を持ち、諡は5字＋皇帝の全長形で通用呼称ではない。同じ形（加諡1段・廟号あり）の順宗が既に posthumousName 空・posthumousNameFull のみで保存されている前例に揃えた。字体は底本が簡体、findings の値は既存レコードに合わせた新字体（本件は該当7字＋敬宗＋湛が両字形で一致するため差は出ていない）。c3 の底本 HTML は巻全体が1行のファイルで、grep のツール出力どおり行番号1を記録した（check_claims の行索引とは体系が違うため REPORT が出ることがあるが、引用そのものは同一巻内で一致している）。",
+  "discrepancies": "なし。既存の構造フィールドと原文の食い違いは見当たらない（personalName「湛」は冒頭の「讳湛」と一致、commonName「敬宗」は「庙号敬宗」と一致、reigns 824〜827 は長慶四年正月即位・宝暦二年十二月の崩御〔太陽暦では827年初〕と矛盾しない）。templeName・posthumousNameFull が null なのは値の食い違いではなく未記入（本作業で埋める対象）。",
+  "processSuggestion": "残量表 唐の名前欄（templeName・posthumousNameFull）24件（未読 未走査）。check_regime_conventions の唐の「保存形」節は、短縮欄が空になる条件を「加諡が積み上がった皇帝」と「加諡が1段しか無い人物は別枝」の2通りで述べており、加諡1段＋廟号ありの敬宗・穆宗型でどちらに落ちるかが読み取れない。慣行側に「廟号を持つ皇帝は短縮欄を空にする」と1行足すと人物単位の判断が消える。"
+}

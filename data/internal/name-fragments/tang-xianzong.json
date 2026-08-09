@@ -1,0 +1,74 @@
+{
+  "id": "tang-xianzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xianzong.txt",
+      "line": 1,
+      "quote": "宪宗圣神章武孝皇帝讳纯，顺宗长子也，母曰庄宪王太后"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xianzong.txt",
+      "line": 131,
+      "quote": "五月丁酉，群臣上谥曰圣神章武孝皇帝，庙号宪宗。庚申，葬于景陵。"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "china-history/旧唐书/本纪/第十八章-卷十八-原文.html",
+      "line": 122,
+      "quote": "十二月，追谥顺宗曰至德大圣大安孝皇帝，宪宗曰昭文章武大圣孝皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "憲宗",
+      "basis": ["c1", "c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "聖神章武孝皇帝",
+      "basis": ["c1", "c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": ["c1", "c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "純",
+      "basis": ["c1"],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "name.posthumousNameFull",
+      "adopted": {
+        "value": "聖神章武孝皇帝",
+        "source": { "page": "旧唐書 本紀第十四・第十五" },
+        "quote": "五月丁酉，群臣上谥曰圣神章武孝皇帝，庙号宪宗。庚申，葬于景陵。"
+      },
+      "alternatives": [
+        {
+          "value": "昭文章武大聖孝皇帝",
+          "source": { "page": "旧唐書 本紀第十八下" },
+          "quote": "十二月，追谥顺宗曰至德大圣大安孝皇帝，宪宗曰昭文章武大圣孝皇帝",
+          "note": "宣宗大中三年十二月の追諡。同じ舊唐書の中で、憲宗本紀の冒頭が掲げる形より後の加諡にあたる"
+        }
+      ],
+      "reason": "唐の政権慣行（check_regime_conventions の保存形）が「全長形は本紀冒頭が掲げる形を採る」と定めており、憲宗本紀の冒頭（c1）も崩御後の上諡条（c2）も『圣神章武孝皇帝』で一致する。追諡『昭文章武大圣孝皇帝』は憲宗本紀ではなく宣宗本紀に載る後代の加諡で、冒頭の名乗りには反映されていないため対立値として記録する"
+    }
+  ],
+  "noteLog": "引用は底本（简体・china-history 旧唐书 原文）の字体のまま保存し、findings の値だけを既存レコードの表記（日本語新字体）へ倒した（圣神章武孝皇帝→聖神章武孝皇帝・宪宗→憲宗・纯→純）。posthumousName（短縮呼称）を空にしたのは、唐の慣行で『加諡が積み上がって廟号で呼ばれるようになった皇帝は短縮の欄が空』とされ、憲宗は commonName が廟号形『憲宗』であり、末字＋皇帝の短縮形は舊唐書 本紀に現れないため。憲宗本紀の白話版（china-history/旧唐书-白话/…）は使わず、原文版から生成された _corpus_cache を読んだ。",
+  "discrepancies": "なし。既存の構造フィールドとの照合結果: name.personalName『純』は c1 の『讳纯』と一致、name.commonName『憲宗』は c2 の『庙号宪宗』と一致。name.templeName・name.posthumousName は現在 null だが、これは今回埋める対象の空欄であって原文との食い違いではない。reigns の 805〜820 は本フィールドの担当外のため照合していない。",
+  "processSuggestion": "残量表 唐の追諡（本紀冒頭の形と後代の加諡が割れる型） 24件（未読 23）— 憲宗で舊唐書 本紀第十八下の追諡記事と冒頭の形が割れた。同じ割れが順宗にも同条で現れており（『追谥顺宗曰至德大圣大安孝皇帝』）、他の唐皇帝は未走査。"
+}

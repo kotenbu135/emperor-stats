@@ -62909,7 +62909,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": "高祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "神堯大聖大光孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -63263,7 +63264,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": "太宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "文武大聖大広孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -63731,7 +63733,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": "高宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "天皇大聖大弘孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -64357,8 +64360,9 @@
     "commonName": "中宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "中宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "大和大聖大昭孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -64759,8 +64763,9 @@
     "commonName": "睿宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "睿宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "玄真大聖大興孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -65453,7 +65458,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": "玄宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "至道大聖大明孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -66080,8 +66086,9 @@
     "commonName": "粛宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "粛宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "文明武徳大聖大宣孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -66484,8 +66491,9 @@
     "commonName": "代宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "代宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "睿文孝武皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -66915,8 +66923,9 @@
     "commonName": "徳宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "徳宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "神武孝文皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -67685,8 +67694,9 @@
     "commonName": "憲宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "憲宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "聖神章武孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -68142,8 +68152,9 @@
     "commonName": "穆宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "穆宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "睿聖文恵孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -68470,8 +68481,9 @@
     "commonName": "敬宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "敬宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "睿武昭愍孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -68714,8 +68726,9 @@
     "commonName": "文宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "文宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "元聖昭献孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -68988,12 +69001,13 @@
    "id": "tang-wuzong",
    "name": {
     "familyName": "李",
-    "personalName": "瀍",
+    "personalName": "炎",
     "commonName": "武宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "武宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "至道昭粛孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -69337,8 +69351,9 @@
     "commonName": "宣宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "宣宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "聖武献文孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -69624,8 +69639,9 @@
     "commonName": "懿宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "懿宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "昭聖恭恵孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -69930,8 +69946,9 @@
     "commonName": "僖宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "僖宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "恵聖恭定孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -70319,8 +70336,9 @@
     "commonName": "昭宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "昭宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "聖穆景文孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -70857,7 +70875,8 @@
     "aliases": [],
     "posthumousName": "哀皇帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "哀皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",

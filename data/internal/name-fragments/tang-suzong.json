@@ -1,0 +1,76 @@
+{
+  "id": "tang-suzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-suzong.txt",
+      "line": 1,
+      "quote": "肃宗文明武德大圣大宣孝皇帝讳亨，玄宗第三子，母曰元献皇后杨氏"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-suzong.txt",
+      "line": 36,
+      "quote": "群臣上谥曰文明武德大圣大宣孝皇帝，庙号肃宗"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-suzong.txt",
+      "line": 1,
+      "quote": "初名嗣升，二岁封陕王"
+    },
+    {
+      "cid": "c4",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-suzong.txt",
+      "line": 2,
+      "quote": "二十三年，改名玙。二十五年，皇太子瑛得罪。二十六年六月庚子，立上为皇太子，改名绍"
+    },
+    {
+      "cid": "c5",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-suzong.txt",
+      "line": 2,
+      "quote": "开元十五年正月，封忠王，改名浚"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "粛宗",
+      "basis": ["c1", "c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "文明武徳大聖大宣孝皇帝",
+      "basis": ["c1", "c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": ["c1", "c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "亨",
+      "basis": ["c1"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.aliases",
+      "value": ["嗣升", "浚", "璵", "紹"],
+      "basis": ["c3", "c4", "c5"],
+      "confidence": "medium"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "舊唐書 本紀第十の冒頭が掲げる名乗り（c1）と、崩御の条の加諡記事（c2）が同一形で一致する。冒頭は「讳」の直前に読点が無い異形だが、廟号＋諡号＋諱の書式は政権慣行どおり。値は既存レコードの表記（日本語新字体）へ倒し、引用は底本の簡体のまま残した（肃宗→粛宗・文明武德大圣大宣孝皇帝→文明武徳大聖大宣孝皇帝）。posthumousName（短縮呼称）は唐の既定に従い空のままにした — 舊唐書 本紀が掲げるのは全長形（諡9字＋皇帝）だけで、末字＋皇帝の短縮呼称は現れない。両欄へ同じ値を入れる別枝（唐 殤帝「殇皇帝」・哀帝「哀皇帝」、明史 恭閔恵皇帝・恭仁康定景皇帝・荘烈愍皇帝）はいずれも廟号を持たず諡で呼ばれる皇帝だが、粛宗は c2 が「庙号肃宗」と明記するとおり廟号を持ち、廟号で呼ばれる側に当たる。aliases は欄への投入対象外だが、冒頭に初名「嗣升」（c3）、以後「浚」（c5）・「玙（璵）」「绍（紹）」（c4）への改名が並ぶので記録だけ残す。",
+  "discrepancies": "既存の構造フィールドとの食い違いはなし。name.personalName「亨」・name.commonName「粛宗」は原文（c1・c2）と一致する。name.templeName・name.posthumousName は現行 null だが、これは未記入であって原文との食い違いではない（本作業で templeName「粛宗」・posthumousNameFull「文明武徳大聖大宣孝皇帝」を埋め、posthumousName は唐の既定どおり空のまま）。",
+  "processSuggestion": "check_screenings.py は posthumousNameFull を覆う絞り込みが無く R-SCREEN-FIRST のエラー文で止まる。欄を2つに割った 2026-08-10 の決定に合わせ、既存の name-fields-issue37 の記録へ posthumousNameFull を覆うフィールドとして追記しておくと、人物単位の作業が毎回そのエラーを踏まずに済む。"
+}

@@ -1,0 +1,49 @@
+{
+  "id": "tang-xuanzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xuanzong.txt",
+      "line": 2,
+      "quote": "玄宗至道大圣大明孝皇帝讳隆基，睿宗第三子也，母曰昭成顺圣皇后窦氏"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xuanzong.txt",
+      "line": 136,
+      "quote": "群臣上谥曰至道大圣大明孝皇帝，庙号玄宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "玄宗",
+      "basis": ["c2", "c1"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "至道大聖大明孝皇帝",
+      "basis": ["c2", "c1"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": ["c2"],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "隆基",
+      "basis": ["c1"],
+      "confidence": "high"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "引用は底本（china-history 旧唐书・簡体）の字体のまま保存し、findings の値だけ既存レコードに合わせて新字体へ倒した（大圣大明孝皇帝 → 大聖大明孝皇帝）。posthumousName を空にしたのは証拠の不在ではなく、唐の慣行（政権単位の確定・Issue #37）による判定。舊唐書 本紀冒頭が掲げる「至道大圣大明孝皇帝」は通用する短縮呼称ではなく全長形で、玄宗は廟号で呼ばれる側なので短縮の欄は空のまま全長の欄だけに入れる。全長形が廟号「玄宗」を含まないことは、崩御条が「群臣上谥曰至道大圣大明孝皇帝，庙号玄宗」と諡と廟号を別に書き分けていることで確定した。冒頭行は「玄宗至道大圣大明孝皇帝讳隆基」で、慣行の書式説明にある「，讳」の読点が無い異形。",
+  "discrepancies": "なし。既存の構造フィールドと照合した範囲は name.templeName（既存「玄宗」＝原文一致）・name.personalName（既存「隆基」＝原文一致）・name.posthumousName（既存 null ＝今回の判定と一致）で、name.posthumousNameFull は既存レコードに欄そのものが無く新規に立てる値。",
+  "processSuggestion": "この単位の指示は check_regime_conventions.py を --field 無しで走らせるよう書かれているが、CLAUDE.md では --field 必須。指示側のコマンド例に --field を付けて揃えたい（今回は --field templeName を補って実行した）。"
+}

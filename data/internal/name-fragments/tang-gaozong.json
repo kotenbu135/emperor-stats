@@ -1,0 +1,71 @@
+{
+  "id": "tang-gaozong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-gaozong.txt",
+      "line": 2,
+      "quote": "高宗天皇大圣大弘孝皇帝，讳治，太宗第九子也"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-gaozong.txt",
+      "line": 99,
+      "quote": "群臣上谥曰天皇大帝，庙号高宗"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-gaozong.txt",
+      "line": 99,
+      "quote": "天宝十三载，改谥曰天皇大弘孝皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "高宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "卷五の崩御条が「庙号高宗」と明記し、卷四冒頭の名乗りも廟号を頭に置く。底本は簡体（高宗）だが新字体でも同形"
+    },
+    {
+      "field": "name.personalName",
+      "value": "治",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭書式「〈廟号〉〈諡号〉皇帝，讳〈諱〉」の讳の位置。姓は本紀冒頭に出ないので familyName は扱わない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "天皇大聖大弘孝皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "底本「高宗天皇大圣大弘孝皇帝」から廟号「高宗」を除いた全長形。値は既存レコードの表記（日本語新字体）へ倒した（底本 大圣大弘孝 → 値 大聖大弘孝）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "唐の慣行（regime-conventions）に従い空。初諡「天皇大帝」→天宝十三載「天皇大弘孝皇帝」→冒頭が掲げる「天皇大聖大弘孝皇帝」と加諡が積み上がる型で、本紀本文が呼ぶのは廟号（高宗）。初諡は短縮呼称ではなく別の諡なのでこの欄へ入れない"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "posthumousNameFull の値表記は「天皇大聖大弘孝皇帝」。底本は簡体（天皇大圣大弘孝皇帝）で、引用は底本のまま保存し、値だけ既存レコードに合わせて日本語新字体へ倒した。捨てた候補: 初諡「天皇大帝」と中間の加諡「天皇大弘孝皇帝」は posthumousName（短縮呼称）にも Full にも採らない（前者は別の諡、後者は最終形でない）。廟号を含む「高宗天皇大聖大弘孝皇帝」も採らない（廟号は templeName 側）。大聖の加諡そのものの条は高宗本紀（卷四・卷五）には無く、卷四冒頭の名乗りが最終形として掲げているのを根拠にした。",
+  "discrepancies": "なし。既存の構造フィールド（name.templeName=\"高宗\"・name.personalName=\"治\"・name.posthumousName=null・name.commonName=\"高宗\"・regimeId=\"tang\"・reigns 649-683）と原文の食い違いは無い。name.posthumousNameFull は既存レコードに欄自体が無く、新規投入となる。",
+  "processSuggestion": "残量表 唐の posthumousNameFull 投入 24件（未読 23件・実測 jq: regimeId==\"tang\" が24人、うち posthumousNameFull を持たないのが23人。高宗以外は未走査） — 高宗のように「冒頭の全長形＝最終の加諡形」が本紀冒頭1行で閉じる型と、加諡の条が当人の本紀に無く後代帝の本紀にしか無い型が混じる。加諡の追認まで求めるなら別走査になる。"
+}
