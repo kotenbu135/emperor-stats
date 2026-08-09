@@ -28,6 +28,7 @@
       "fields": [
         "templeName",
         "posthumousName",
+        "posthumousNameFull",
         "personalName"
       ],
       "locator": "本紀 卷1〜20 各帝の冒頭1行（china-history 旧唐书/本纪。複数皇帝が同居する巻はマーカー分割・SOURCE_MAPPING.md 参照）",
@@ -73,7 +74,8 @@
           "note": "独立伝が見当たらず僖宗紀の当該期間で代替。他の事件記事が混在する"
         }
       ],
-      "surveyedAt": "2026-08-02"
+      "surveyedAt": "2026-08-02",
+      "storageForm": "諡号は**2つの欄に割る**（2026-08-10 のユーザー決定・Issue #37）。`posthumousName` は通用する短縮呼称、`posthumousNameFull` は本紀冒頭が名乗りとして掲げる全長形。**全長形の指す先は「その書の冒頭が掲げる形」で決まる** — 加諡・増諡が何段あっても冒頭は1形しか掲げないので、人物単位で「三段のどれか」を決める必要が無い（明太祖は初諡「高皇帝」・永楽加諡・嘉靖増諡の三段を持つが、明史 本紀冒頭が掲げるのは嘉靖増諡の形）。**短縮呼称は書が別の場所で使う呼び方から採る**（明史は「葬章皇帝于景陵」のように本文で末字＋皇帝の形を使う）。短縮呼称を原典が与えない政権では `posthumousName` が空のまま `posthumousNameFull` だけが入る。"
     },
     {
       "book": "明史",
@@ -83,6 +85,7 @@
       "fields": [
         "templeName",
         "posthumousName",
+        "posthumousNameFull",
         "personalName"
       ],
       "locator": "本紀 各帝の冒頭1行（china-history 明史・章単位HTML）",
@@ -102,7 +105,8 @@
         }
       ],
       "exceptions": [],
-      "surveyedAt": "2026-08-02"
+      "surveyedAt": "2026-08-02",
+      "storageForm": "諡号は**2つの欄に割る**（2026-08-10 のユーザー決定・Issue #37）。`posthumousName` は通用する短縮呼称、`posthumousNameFull` は本紀冒頭が名乗りとして掲げる全長形。**全長形の指す先は「その書の冒頭が掲げる形」で決まる** — 加諡・増諡が何段あっても冒頭は1形しか掲げないので、人物単位で「三段のどれか」を決める必要が無い（明太祖は初諡「高皇帝」・永楽加諡・嘉靖増諡の三段を持つが、明史 本紀冒頭が掲げるのは嘉靖増諡の形）。**短縮呼称は書が別の場所で使う呼び方から採る**（明史は「葬章皇帝于景陵」のように本文で末字＋皇帝の形を使う）。短縮呼称を原典が与えない政権では `posthumousName` が空のまま `posthumousNameFull` だけが入る。"
     },
     {
       "book": "漢書",

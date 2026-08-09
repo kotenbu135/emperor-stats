@@ -63,6 +63,9 @@ Issue #69 で洗ったところ、再調査が終わらなくなった系統は*
 | （同上・底本照合） | その字が**本人の原文に「字〈値〉」の形で**在る。**隣接まで見る**ので、小字（幼名）を字の欄へ入れた形はここで落ちる | `verify_quotes.py::cmd_check_courtesy_names` | `test_courtesy_name.py` |
 | `name.childhoodName` | この人物の幼名（原文の語は「小字」）は値のとおりである（**任意・遡及しない** — 欄が無いのは「小字が無い」ではない。小字を冒頭定型に載せる書が字よりさらに少なく30人で止まる。**民族名と同値でも誤りではない**ので分離検査は字の欄と非対称） | `validate_emperors.py::check_childhood_names` | `test_childhood_name.py` |
 | （同上・底本照合） | その幼名が**本人の原文に「小字〈値〉」の形で**在る。**隣接を要求する代償**として、動詞をはさむ書き方（南漢劉玢の「小字曰：寿」）は欄に入れられない | `verify_quotes.py::cmd_check_childhood_names` | `test_childhood_name.py` |
+| `name.posthumousNameFull` | 諡号の**全長形**＝名乗る原典が本人の名乗りとして掲げる形（本紀・載記の冒頭定型「〈廟号〉〈全長諡〉，讳〈諱〉」の1形。加諡・増諡が何段あってもその書が掲げる形に決まる）。**任意・遡及しない**。`posthumousName` は別の主張（通用する短縮呼称） | `validate_emperors.py::check_posthumous_name_full` | `test_posthumous_name_full.py` |
+| （同上・短縮形との整合） | 短縮呼称が全長形の**部分列**で、かつ諡の実字（「皇帝」を落とした末尾1字）が一致する＝**別人の全長形を写した形**を落とす | `validate_emperors.py::check_posthumous_name_full` | `test_posthumous_name_full.py` |
+| （同上・底本照合） | 全長形が**本人の原文に連続文字列で**在る（**ラチェット**・実在数が減ったら落ちる。名乗る書の巻がキャッシュに無い人物が居るので強制はできない） | `verify_quotes.py::cmd_check_posthumous_name_full` | `test_posthumous_name_full.py` |
 | `source.bookId`／`volume` | 出典はこの書のこの巻（カタログに実在し、巻の索引を持つ書だけ） | `validate_emperors.py::check_quote_containers` | `test_quote_containers.py` |
 | （同上・実体照合） | 名乗る巻がコーパスに実在し、引用が**その巻の中**に在る | `verify_quotes.py::cmd_check_volumes` | `test_quote_containers.py` |
 | `quotes[]` | この断片が底本に実在する（`bookId` ＋ 任意の `volume` を持つ） | `verify_quotes.py::cmd_check` | `test_quote_containers.py` |

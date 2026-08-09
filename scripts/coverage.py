@@ -223,7 +223,12 @@ FIELDS = [
     ("ages.accessionAge", "即位時年齢", "人", "ages", lambda c: m_ages(c, "accessionAge")),
     ("ages.deathAge", "没年齢", "人", "ages", lambda c: m_ages(c, "deathAge")),
     ("name.templeName", "廟号（Issue #37）", "人", None, lambda c: m_name(c, "templeName")),
-    ("name.posthumousName", "諡号（Issue #37）", "人", None, lambda c: m_name(c, "posthumousName")),
+    ("name.posthumousName", "諡号（短縮呼称・Issue #37）", "人", None, lambda c: m_name(c, "posthumousName")),
+    # 2026-08-10 に諡号を2欄へ割った（Issue #37 単位1）。短縮呼称と全長形は**別の主張**で、
+    # 唐のように原典が短縮形を与えない政権では前者が空のまま後者だけ入る。だから
+    # 1行にまとめず両方を測る（合算すると「どちらか在れば埋まっている」に見えてしまう）
+    ("name.posthumousNameFull", "諡号の全長形（Issue #37）", "人", None,
+     lambda c: m_name(c, "posthumousNameFull")),
     ("reigns.dynastyOrder", "第N代（Issue #24）", "在位", None, m_dynasty_order),
     ("profiles", "紹介文（Issue #16）", "人", None, m_profile),
     ("kinship.birthMother", "生母（kinship）", "人", None, m_mother),

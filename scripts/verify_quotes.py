@@ -1294,6 +1294,81 @@ def cmd_check_childhood_names():
     return 1 if bad else 0
 
 
+# --- 諡号の全長形 name.posthumousNameFull（Issue #37 単位1・ゲートF）-----------
+# 全長形は**名乗る原典が掲げる形**なので、値がそのまま本人の原文に連続で在る。
+# 字・小字のゲートと違って隣接する定型（「字」「小字」）を要求しないのは、
+# 全長形が十数字あって本文のどこにでも当たる断片ではないため。ただし
+# **短い全長形（「孝文皇帝」4字）も在る**ので、床（ラチェット）で守る。
+#
+# 床は転記のたびに上げる。**減ったら落ちる**ので、字体を直したつもりで底本に
+# 当たらない形へ動かす訂正はここに出る。
+POSTHUMOUS_FULL_FLOOR = 16  # 2026-08-10 の実測（明16人。転記が進んだら上げる）
+# 底本側の事情で当たらない人物と理由（現在なし・仕組みは COURTESY_ALLOW と同じ）。
+POSTHUMOUS_FULL_ALLOW = {}
+
+
+def posthumous_full_hit(value, hay):
+    """全長形が本人の原文に**連続文字列で**在るか。当たった前後を返す（無ければ None）。"""
+    v = norm_for_match(value)
+    if not v:
+        return None
+    i = hay.find(v)
+    return hay[max(0, i - 6):i + len(v) + 6] if i != -1 else None
+
+
+def cmd_check_posthumous_name_full():
+    """諡号の全長形が本人の原文キャッシュに在るか（ゲートF・ラチェット）。
+
+    **当たらないこと自体は誤りではない** — 名乗る原典の巻が `_corpus_cache` に無い
+    人物が居る。見ているのは「当たっていた人物が当たらなくなること」で、
+    `hanzi_norm` の差分表に無い字を新字体へ書き換える訂正がここに出る
+    （`寛`→ 底本の `宽` に当たらない。だから表に無い字は底本の字体で保存する）。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    checked = ok = 0
+    skipped = []
+    missed = []
+    allowed = []
+    for e in data["emperors"]:
+        value = (e.get("name") or {}).get("posthumousNameFull")
+        if not value:
+            continue
+        cache = CORPUS_ROOT / "_corpus_cache" / f"{e['id']}.txt"
+        if not cache.is_file():
+            skipped.append(e["id"])
+            continue
+        checked += 1
+        hay = norm_for_match(cache.read_text(encoding="utf-8"))
+        if posthumous_full_hit(value, hay):
+            ok += 1
+            if e["id"] in POSTHUMOUS_FULL_ALLOW:
+                print(f"NOTICE {e['id']}: 免除に挙げてあるが当たった（免除を消せる）")
+            continue
+        if e["id"] in POSTHUMOUS_FULL_ALLOW:
+            allowed.append(e["id"])
+            continue
+        missed.append((e["id"], value))
+    if skipped:
+        print(f"NOTICE 原文キャッシュが無いため未照合: {len(skipped)}人 {skipped}")
+    for eid, value in missed:
+        print(f"NOTICE {eid}: 全長形「{value}」が本人の原文キャッシュに現れない"
+              f"（名乗る書の巻がキャッシュに無いか、字体が差分表を通らない）")
+    for eid in allowed:
+        print(f"NOTICE {eid}: 底本側の事情で免除 — {POSTHUMOUS_FULL_ALLOW[eid]}")
+    bad = 0
+    if POSTHUMOUS_FULL_FLOOR is None:
+        print("NOTICE 床が未設定のため合否を出していない"
+              "（POSTHUMOUS_FULL_FLOOR に下の実測を書く）")
+    elif ok < POSTHUMOUS_FULL_FLOOR:
+        bad = 1
+        print(f"ERROR 全長形が本人の原文に当たる人物が {ok}人で床 "
+              f"{POSTHUMOUS_FULL_FLOOR} を下回った")
+    print(f"---\n{bad} errors / posthumousNameFull を持つ {checked}人のうち "
+          f"{ok}人が本人の原文に実在（当たらない {len(missed)}人・免除 {len(allowed)}人・"
+          f"床 {POSTHUMOUS_FULL_FLOOR}）")
+    return bad
+
+
 # --- 姓 name.familyName（Issue #37 単位6・ゲートE）-----------------------------
 # 分けた切れ目そのものを本人の原文へ当てる。**ラチェット**（充足数が減ったら落ちる）で、
 # 「本人の原文に姓も諱も出て来ない人物」は正しくても在る（漢書は前漢の諱を冒頭に
@@ -1679,6 +1754,10 @@ def main():
                     help="name.familyName と諱の切れ目を本人の原文キャッシュに当てる"
                          "（Issue #37 単位6・要コーパス。「姓〈姓〉氏」「讳〈諱〉」の"
                          "充足数が減ったら落ちるラチェット）")
+    ap.add_argument("--check-posthumous-name-full", action="store_true",
+                    help="name.posthumousNameFull を本人の原文キャッシュに当てる"
+                         "（Issue #37 単位1・要コーパス。連続文字列で当て、"
+                         "実在数が減ったら落ちるラチェット）")
     ap.add_argument("--rebuild", action="store_true",
                     help="--backfill と併用。照合器を変えたとき機械判定を作り直す"
                          "（manual/external/defect の curation は残す）")
@@ -1721,6 +1800,8 @@ def main():
         return cmd_check_childhood_names()
     if args.check_family_names:
         return cmd_check_family_names()
+    if args.check_posthumous_name_full:
+        return cmd_check_posthumous_name_full()
     if args.backfill:
         return cmd_backfill(rebuild=args.rebuild, retry_unresolved=args.retry_unresolved)
     return cmd_check()

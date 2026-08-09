@@ -108301,7 +108301,8 @@
     "posthumousName": "高皇帝",
     "templeName": "太祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "国瑞"
+    "courtesyName": "国瑞",
+    "posthumousNameFull": "開天行道肇紀立極大聖至神仁文義武俊徳成功高皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -109199,7 +109200,8 @@
     "aliases": [],
     "posthumousName": "恭閔恵皇帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "恭閔恵皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -109413,7 +109415,8 @@
     "aliases": [],
     "posthumousName": "文皇帝",
     "templeName": "成祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "啓天弘道高明肇運聖武神功純仁至孝文皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -109846,7 +109849,8 @@
     "aliases": [],
     "posthumousName": "昭皇帝",
     "templeName": "仁宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "敬天体道純誠至徳弘文欽武章聖達孝昭皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -110059,7 +110063,8 @@
     "aliases": [],
     "posthumousName": "章皇帝",
     "templeName": "宣宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "憲天崇道英明神聖欽文昭武寬仁純孝章皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -110548,7 +110553,8 @@
     "aliases": [],
     "posthumousName": "睿皇帝",
     "templeName": "英宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "法天立道仁明誠敬昭文憲武至徳広孝睿皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -111145,7 +111151,8 @@
     "aliases": [],
     "posthumousName": "恭仁康定景皇帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "恭仁康定景皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -111443,7 +111450,8 @@
     "aliases": [],
     "posthumousName": "純皇帝",
     "templeName": "憲宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "継天凝道誠明仁敬崇文粛武宏徳聖孝純皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -111850,7 +111858,8 @@
     "aliases": [],
     "posthumousName": "敬皇帝",
     "templeName": "孝宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "達天明道純誠中正聖文神武至仁大徳敬皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -112146,7 +112155,8 @@
     "aliases": [],
     "posthumousName": "毅皇帝",
     "templeName": "武宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "承天達道英粛睿哲昭徳顕功弘文思孝毅皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -112476,7 +112486,8 @@
     "aliases": [],
     "posthumousName": "粛皇帝",
     "templeName": "世宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "欽天履道英毅神聖宣文広武洪仁大孝粛皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -113052,7 +113063,8 @@
     "aliases": [],
     "posthumousName": "荘皇帝",
     "templeName": "穆宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "契天隆道淵懿寬仁顕文光武純徳弘孝荘皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -113301,7 +113313,8 @@
     "aliases": [],
     "posthumousName": "顕皇帝",
     "templeName": "神宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "範天合道哲粛敦簡光文章武安仁止孝顕皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -114015,7 +114028,8 @@
     "aliases": [],
     "posthumousName": "貞皇帝",
     "templeName": "光宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "崇天契道英睿恭純憲文景武淵仁懿孝貞皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -114189,7 +114203,8 @@
     "aliases": [],
     "posthumousName": "悊皇帝",
     "templeName": "熹宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "達天闡道敦孝篤友章文襄武靖穆荘勤悊皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",
@@ -114487,7 +114502,8 @@
     "aliases": [],
     "posthumousName": "荘烈愍皇帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "荘烈愍皇帝"
    },
    "eraId": "ming",
    "regimeId": "ming",

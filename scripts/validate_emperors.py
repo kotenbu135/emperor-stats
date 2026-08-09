@@ -1421,6 +1421,111 @@ def check_childhood_names(data):
     return named
 
 
+# --- 諡号の全長形 name.posthumousNameFull（Issue #37 単位1・2026-08-10）--------
+# 主張は「この人物の諡号の全長形は value である」。全長形とは**名乗る原典が本人の
+# 名乗りとして掲げる形**（本紀・載記の冒頭定型「〈廟号〉〈全長諡〉，讳〈諱〉」）で、
+# 加諡・増諡が何段あってもその書が掲げる1つに決まる。
+#
+# **この定義でないと欄が作れなかった。** 明太祖は初諡「高皇帝」・永楽加諡
+# 「聖神文武欽明啓運俊徳成功統天大孝高皇帝」・嘉靖増諡「開天行道…成功高皇帝」の
+# 三段を持ち、「全長形」を素朴に「贈られた諡の長い形」と定義すると人物単位で
+# どれを指すか決まらない（Issue #37 のコメント・2026-08-06 に SCHEMA_CHANGE_CHECKLIST
+# 手順1で止まった経路がこれ）。「その書の冒頭が掲げる形」なら原文の1箇所で決まる。
+#
+# `posthumousName` は**通用する短縮呼称**（「文帝」「高皇帝」）で、別の主張。
+# 両方が入るときは短縮形が全長形から字を落としたもの＝**部分列**になる（C）。
+# 漢の「文帝」は全長形「孝文皇帝」の連続部分ではない（皇を落とす）ので、
+# 部分文字列ではなく部分列で見る。
+#
+# **値の字体**: 既定は新字体だが、`hanzi_norm` の差分表に無い字（`寛`↔`寬`）は
+# 底本の字体のまま置く。表に無い字を新字体で書くと底本照合（verify_quotes.py
+# --check-posthumous-name-full）が当たらなくなり、「保存はできるが証拠が付かない」
+# 値になる。表の穴そのものは docs/process/RESIDUAL.md の行。
+POSTHUMOUS_FULL_RE = re.compile(r"^[㐀-鿿]{2,30}$")
+# 値に含まれていたら定型ごと写した印になる字（「谥曰…」「庙号…」を一緒に取った形）。
+POSTHUMOUS_FULL_BAD = ("諱", "讳", "諡", "谥", "廟", "庙", "號", "号", "曰")
+
+
+def _is_subsequence(short, full):
+    """short の字が full に順序を保って現れるか（連続でなくてよい）。"""
+    it = iter(full)
+    return all(ch in it for ch in short)
+
+
+def _posthumous_core(value):
+    """諡号から結びの「皇帝」「帝」を落とした最後の1字（＝諡の実字）。
+
+    「文帝」→ 文・「孝文皇帝」→ 文・「昭皇帝」→ 昭・「憲天崇道…孝章皇帝」→ 章。
+    短縮呼称と全長形はここが一致する（同じ諡を短く呼んだものだから）。
+    """
+    for tail in ("皇帝", "帝"):
+        if value.endswith(tail) and len(value) > len(tail):
+            return value[: -len(tail)][-1]
+    return value[-1] if value else ""
+
+
+def check_posthumous_name_full(data):
+    """諡号の全長形 name.posthumousNameFull（Issue #37 単位1）。
+
+    A 形        … 漢字2〜30字で「谥」「庙号」などの定型を含まず、「皇帝」で結ぶ
+    B 廟号の混入 … `templeName` で始まらない。**この欄の最大の事故**で、本紀冒頭は
+                  「太祖开天行道…高皇帝」と廟号を頭に置くため、行ごと写すと廟号が
+                  値に食い込む（底本照合は連続文字列で当てるので、廟号込みでも当たる
+                  ＝ゲートFでは落ちない。ここでしか落ちない）
+    C 短縮形との整合 … `posthumousName` があるとき、その字が全長形の**部分列**である。
+                  別人の全長形を写した形・短縮形と噛み合わない形がここで落ちる
+
+    **底本照合はここには無い**（ローカルコーパスが要るため
+    verify_quotes.py --check-posthumous-name-full に置いた＝ゲートF）。
+    """
+    named = 0
+    for e in data["emperors"]:
+        name = e.get("name") or {}
+        value = name.get("posthumousNameFull")
+        if value is None:
+            continue
+        if not isinstance(value, str) or not value.strip():
+            err(f"[posthumous-full] {e['id']}: posthumousNameFull が空")
+            continue
+        named += 1
+        # A 形
+        if not POSTHUMOUS_FULL_RE.match(value):
+            err(f"[posthumous-full] {e['id']}: posthumousNameFull {value!r} が"
+                f"漢字2〜30字でない")
+        if not value.endswith("皇帝"):
+            err(f"[posthumous-full] {e['id']}: posthumousNameFull {value!r} が"
+                f"「皇帝」で終わらない（全長形は〈…〉皇帝の形。短縮呼称は"
+                f"posthumousName の側）")
+        for bad in POSTHUMOUS_FULL_BAD:
+            if bad in value:
+                err(f"[posthumous-full] {e['id']}: posthumousNameFull {value!r} に "
+                    f"{bad!r} が入っている（原文の定型ごと写した形）")
+        # B 廟号の混入
+        temple = name.get("templeName")
+        if temple and value.startswith(temple):
+            err(f"[posthumous-full] {e['id']}: posthumousNameFull {value!r} が廟号 "
+                f"{temple!r} で始まる（本紀冒頭の「〈廟号〉〈全長諡〉」を行ごと写した形。"
+                f"廟号は templeName の側）")
+        # C 短縮形との整合
+        short = name.get("posthumousName")
+        if short and not _is_subsequence(short, value):
+            err(f"[posthumous-full] {e['id']}: 短縮呼称 {short!r} の字が全長形 "
+                f"{value!r} に順序どおり現れない（別人の全長形を写した疑い）")
+        elif short:
+            # 部分列だけでは弱い。3字の短縮呼称「昭皇帝」は宣宗の全長形
+            # 「憲天崇道…寬仁純孝章皇帝」にも部分列として当たってしまう
+            # （昭は「昭武」の昭を拾う）。**諡の実字は末尾に来る**ので、
+            # 「皇帝」「帝」を落とした最後の1字が一致することまで見る。
+            if _posthumous_core(short) != _posthumous_core(value):
+                err(f"[posthumous-full] {e['id']}: 短縮呼称 {short!r} と全長形 "
+                    f"{value!r} で諡の実字（末尾の1字）が違う"
+                    f"（別人の全長形を写した疑い）")
+    info(f"[posthumous-full] posthumousNameFull を持つ人物 {named}人"
+         f"（**任意・遡及しない** — 欄が無いのは「全長形が無い」ではない。"
+         f"残りは docs/process/RESIDUAL.md の行）")
+    return named
+
+
 # --- claim（主張）欄 ---------------------------------------------------------
 # note は**作業ログ**で、訂正の経緯として「現行 X → Y に訂正」のように**捨てた側の値**が
 # 本文に残る。だからフィールドとの突合は向きが反転し、散文は witness にならない
@@ -2243,6 +2348,7 @@ def main() -> int:
     family_n = check_family_names(data)
     courtesy_n = check_courtesy_names(data)
     childhood_n = check_childhood_names(data)
+    posthumous_full_n = check_posthumous_name_full(data)
     archive_n = check_event_date_archive(data)
     claimed_n, witnessed_n = check_event_date_claim_residual(data)
     floor, legacy_quote_n, floor_total_n = check_quote_containers(data)
@@ -2286,6 +2392,7 @@ def main() -> int:
           f"／ethnicName {ethnic_n}人・括弧が残る personalName {ethnic_paren_n}人"
           f"／familyName {family_n}人"
           f"／courtesyName {courtesy_n}人・childhoodName {childhood_n}人"
+          f"／posthumousNameFull {posthumous_full_n}人"
           f"／構造化引用を持つ床の容器 {sum(floor.values())}/{floor_total_n}件"
           f"（旧い器 source.quote は {legacy_quote_n}件）)")
     return 1 if errors else 0

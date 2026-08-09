@@ -33,8 +33,8 @@ ROOT = Path(__file__).resolve().parent.parent
 CONVENTIONS = ROOT / "data" / "regime-conventions.json"
 EMPERORS = ROOT / "data" / "emperors.json"
 
-FIELDS = {"templeName", "posthumousName", "familyName", "personalName", "commonName", "aliases",
-          "eraName", "dynastyOrder"}
+FIELDS = {"templeName", "posthumousName", "posthumousNameFull", "familyName", "personalName",
+          "commonName", "aliases", "eraName", "dynastyOrder"}
 # verdict → 人物単位の作業。対応が1対1なので、片方だけ書き換えた記録を落とせる
 SCOPE_OF = {
     "form-found": "transcribe",

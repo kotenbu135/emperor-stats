@@ -76,6 +76,9 @@ const COLUMNS = [
   ["childhoodName", (e) => e.name?.childhoodName],
   ["templeName", (e) => e.name?.templeName],
   ["posthumousName", (e) => e.name?.posthumousName],
+  // 諡号は 2026-08-10 に2欄へ割った（Issue #37 単位1）。短縮呼称と全長形は別の主張で、
+  // 唐のように原典が短縮形を与えない政権では posthumousName 側が空のまま全長形だけ入る。
+  ["posthumousNameFull", (e) => e.name?.posthumousNameFull],
   ["regimeId", (e) => e.regimeId],
   ["dynastyName", (e) => regimeOf(e).name],
   ["regimeLabel", (e) => regimeOf(e).label],

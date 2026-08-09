@@ -126,6 +126,15 @@ HINTS = [
      "Issue #37 単位4）。**値だけを本文に探す形では実在検査にならず、小字を字の欄へ"
      "入れた取り違えが素通りする**（遼太祖は「字阿保機，小字啜里只」で両方を持つ）。"
      "サイトの名前チップに出るので data/name-readings.json への追記も要る"),
+    (re.compile(r"^name\.posthumousNameFull"),
+     "python3 scripts/verify_quotes.py --check-posthumous-name-full",
+     "諡号の全長形は**名乗る原典の冒頭が掲げる形**（R-CLAIM-GATED・Issue #37 単位1）。"
+     "**廟号を頭に付けたまま写す事故**は底本照合では落ちない（本紀冒頭がまさに"
+     "「〈廟号〉〈全長諡〉」の並びなので連続で当たってしまう）ので、"
+     "validate_emperors.py::check_posthumous_name_full の側が落とす。"
+     "短縮呼称 `posthumousName` とは**別の主張**で、両方が入るときは部分列かつ"
+     "諡の実字（末尾1字）が一致する。**字体は新字体だが hanzi_norm の差分表に無い字"
+     "（`寛`↔`寬`）は底本の字体のまま置く** — 新字体で書くと底本照合が当たらなくなる"),
     (re.compile(r"^name\.childhoodName"),
      "python3 scripts/verify_quotes.py --check-childhood-names",
      "幼名（小字）は本人の原文で「小字〈値〉」と隣り合うことまで見る（R-CLAIM-GATED・"
