@@ -9,7 +9,10 @@
 
   空セル
    ├ institution-skip … data/regime-conventions.json が原典の明文つきで
-   │                    personScope=skip と確定した政権（秦の諡号）。kind=corroborated
+   │                    personScope=skip と確定した政権。kind=corroborated
+   │                    **verdict は2種類ある**（バケット名は初出の verdict のまま）:
+   │                    absent-by-institution＝制度そのものが無い（秦の諡号）／
+   │                    absent-by-book＝制度はあるがその書がその形を使わない（唐の短縮呼称）
    ├ transcribe       … commonName が廟号形（〜祖／〜宗）・諡号形（〜帝）なのに
    │                    当該フィールドが空。**取りこぼしと言い切れる**側。kind=read
    └ unknown          … 機械が何も見つけなかっただけ。kind=absent

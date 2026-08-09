@@ -5,8 +5,12 @@
 「政権単位の主張に原典の裏が付いているか」「その裏が本当にその行にあるか」だけを見る。
 
 この記録の役目は人物単位の調査対象を絞ることなので、**間違った絞り込みが一番高くつく**。
-特に打ち切り側（absent-by-institution・biography-only）は、その政権の空欄を全件まとめて
-「正しい」と結論させるため、対象政権それぞれに原典の裏を要求する。
+特に打ち切り側（absent-by-institution・absent-by-book・biography-only）は、その政権の空欄を
+全件まとめて「正しい」と結論させるため、対象政権それぞれに原典の裏を要求する。
+
+`absent-by-institution`（制度そのものが無い）と `absent-by-book`（制度はあるが**その書が
+その形を本文で使わない**）は別物。前者を誤ると史実を消し、後者を誤ると「別の書なら取れる値」を
+取りこぼす。どちらも personScope は `skip` で、coverage.py はこの2つだけを「不在確定」に数える。
 
     python3 scripts/check_regime_conventions.py            # ゲート
     python3 scripts/check_regime_conventions.py --scope    # 母集団 N → 要調査 M の内訳
@@ -39,11 +43,14 @@ FIELDS = {"templeName", "posthumousName", "posthumousNameFull", "familyName", "p
 SCOPE_OF = {
     "form-found": "transcribe",
     "absent-by-institution": "skip",
+    "absent-by-book": "skip",
     "biography-only": "other-source",
     "no-form": "per-person",
 }
 # 打ち切り・別所在へ振る判定。誤ると空欄を全件まとめて「正しい」と結論するので裏を厚く取る
-NARROWING = {"absent-by-institution", "biography-only"}
+NARROWING = {"absent-by-institution", "absent-by-book", "biography-only"}
+# 打ち切りのうち「制度／書式が無い」と言い切る側。1件の引用では言い切らせない
+NEEDS_TWO = {"absent-by-institution", "absent-by-book"}
 REQUIRED = ("book", "regimeIds", "fields", "locator", "verdict", "personScope",
             "form", "evidence", "surveyedAt")
 
@@ -215,8 +222,8 @@ def main():
 
         # 打ち切り側は対象政権それぞれに裏を要求する
         if verdict in NARROWING:
-            if len(evidence) < 2 and verdict == "absent-by-institution":
-                errors.append(f"{tag}: absent-by-institution は制度の明文と書式の2件以上が要ります"
+            if len(evidence) < 2 and verdict in NEEDS_TWO:
+                errors.append(f"{tag}: {verdict} は明文と書式の2件以上が要ります"
                               f"（現在 {len(evidence)}件）")
             backed = {persons.get(Path(str(ev.get('file', ''))).stem) for ev in evidence}
             for rid in rec.get("regimeIds") or []:

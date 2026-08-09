@@ -45,7 +45,7 @@
         {
           "name": "posthumousName:institution-skip",
           "kind": "corroborated",
-          "count": 2,
+          "count": 24,
           "means": "秦の2人。regime-conventions.json が史記の明文（「自今已来，除谥法」）で personScope=skip と確定済み",
           "establishes": "諡法そのものが廃止されたという原典の明文がある。ここは空欄が正しい",
           "notEstablished": "秦の templeName については何も言っていない（別レコード扱い）"
@@ -106,7 +106,7 @@
         {
           "name": "posthumousName:unknown",
           "kind": "absent",
-          "count": 189,
+          "count": 167,
           "means": "commonName が諡号形で立っていないだけ。**「諡号が無い」ではない**",
           "notEstablished": "値の不在。廟号で呼ばれる皇帝（〜祖／〜宗）は諡号を別に持つのが普通なので、ここには取りこぼしが厚く残る",
           "audit": {
