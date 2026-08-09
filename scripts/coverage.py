@@ -229,6 +229,12 @@ FIELDS = [
     # 1行にまとめず両方を測る（合算すると「どちらか在れば埋まっている」に見えてしまう）
     ("name.posthumousNameFull", "諡号の全長形（Issue #37）", "人", None,
      lambda c: m_name(c, "posthumousNameFull")),
+    # 2026-08-10 に諡号の段を足した（ユーザー決定「案B」）。スカラ2欄では加諡が
+    # 積み上がる過程を保存できず、方針「Wikipedia 並み」の諡号欄を満たせなかった。
+    # **不在確定は出ない** — 「段が1つしか無い」と「まだ読んでいない」は
+    # regime-conventions では割れないので、全員が値あり／判別不能のどちらかに落ちる
+    ("name.posthumousNames", "諡号の段（Issue #37）", "人", None,
+     lambda c: m_name(c, "posthumousNames")),
     ("reigns.dynastyOrder", "第N代（Issue #24）", "在位", None, m_dynasty_order),
     ("profiles", "紹介文（Issue #16）", "人", None, m_profile),
     ("kinship.birthMother", "生母（kinship）", "人", None, m_mother),

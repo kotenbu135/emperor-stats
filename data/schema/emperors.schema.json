@@ -369,6 +369,29 @@
           "description": "諡号の**全長形**（例:「開天行道肇紀立極大聖至神仁文義武俊徳成功高皇帝」）。定義は「名乗る原典が本人の名乗りとして掲げる形」＝本紀・載記の冒頭定型「〈廟号〉〈全長諡〉，讳〈諱〉」が示す1形で、加諡・増諡が何段あってもその書が掲げる形に決まる（明太祖は初諡・永楽加諡・嘉靖増諡の三段を持つが、明史 本紀冒頭が掲げるのは嘉靖増諡の形1つ）。**任意で、遡及しない** — 欄が無いことは「全長形が無い」ではなく「まだ読んでいない」を含む。廟号は含めない（`templeName` の側）。**字体は新字体だが、hanzi_norm の差分表に無い字（`寛`↔`寬`）は底本の字体のまま置く** — 表に無い字を新字体で書くと底本照合が当たらなくなるため。底本照合は連続文字列で当てるラチェット（verify_quotes.py --check-posthumous-name-full）。2026-08-10・Issue #37 単位1。",
           "$comment": "短縮呼称との整合は「部分列 ＋ 諡の実字（末尾1字）の一致」で見る。部分列だけだと3字の「昭皇帝」が別人（明宣宗）の全長形にも当たってしまう。"
         },
+        "posthumousNames": {
+          "type": "array",
+          "minItems": 1,
+          "description": "諡号の**段**を、名乗る原典が記す順（授けられた順）に並べたもの。`posthumousName`（通用する短縮呼称）と `posthumousNameFull`（原典の冒頭形）はどちらもスカラなので、**加諡が積み上がる過程を保存できない** — 唐太宗は舊唐書だけでも「文皇帝 →〔上元元年〕文武聖皇帝 →〔天宝十三載〕文武大聖大広孝皇帝」の3段を持つ。**任意で、遡及しない**（欄が無いのは「段が1つ」ではなく「まだ読んでいない」を含む）。**出典はこの欄に持たせない** — 名前系の欄と同じく provenance は `data/internal/name-fragments/` の断片が持ち、機械の裏づけは底本照合（verify_quotes.py --check-posthumous-names・ラチェット）で取る。2026-08-10・Issue #37（ユーザー決定「案B」）。",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["form"],
+            "properties": {
+              "form": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 30,
+                "description": "その段の諡の形（「皇帝」または「大帝」で終わる。廟号は含めない）。字体の扱いは posthumousNameFull と同じ。"
+              },
+              "year": {
+                "type": "integer",
+                "description": "その段が授けられた西暦年。**任意** — 原文がその段に紀年を与えている場合だけ書く（初諡は崩御条の中に在り、条そのものが年を名乗らないことが多い）。並び順に対して逆行してはならない。"
+              }
+            }
+          },
+          "$comment": "冒頭形（posthumousNameFull）が段のどれとも一致しない人物が居る（舊唐書 高宗は崩御条「天皇大弘孝皇帝」に対し冒頭「天皇大聖大弘孝皇帝」）。書の内部差なので validate_emperors.py の POSTHUMOUS_STAGE_FULL_MISMATCH に理由を書いた人物だけ通す。"
+        },
         "regnalTitle": {
           "type": ["string", "null"],
           "description": "称した君主号（原則「皇帝」。収録基準の根拠となる）。"

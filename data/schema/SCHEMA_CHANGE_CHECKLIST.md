@@ -66,6 +66,9 @@ Issue #69 で洗ったところ、再調査が終わらなくなった系統は*
 | `name.posthumousNameFull` | 諡号の**全長形**＝名乗る原典が本人の名乗りとして掲げる形（本紀・載記の冒頭定型「〈廟号〉〈全長諡〉，讳〈諱〉」の1形。加諡・増諡が何段あってもその書が掲げる形に決まる）。**任意・遡及しない**。`posthumousName` は別の主張（通用する短縮呼称） | `validate_emperors.py::check_posthumous_name_full` | `test_posthumous_name_full.py` |
 | （同上・短縮形との整合） | 短縮呼称が全長形の**部分列**で、かつ諡の実字（「皇帝」を落とした末尾1字）が一致する＝**別人の全長形を写した形**を落とす | `validate_emperors.py::check_posthumous_name_full` | `test_posthumous_name_full.py` |
 | （同上・底本照合） | 全長形が**本人の原文に連続文字列で**在る（**ラチェット**・実在数が減ったら落ちる。名乗る書の巻がキャッシュに無い人物が居るので強制はできない） | `verify_quotes.py::cmd_check_posthumous_name_full` | `test_posthumous_name_full.py` |
+| `name.posthumousNames` | 諡号の**段**を、名乗る原典が記す順（授けられた順）に並べたもの。`posthumousName`（短縮呼称）・`posthumousNameFull`（冒頭形）はスカラなので**加諡が積み上がる過程を保存できない**（唐太宗は舊唐書だけで3段）。**任意・遡及しない** — 年は原文がその段に紀年を与えている場合だけ。**出典はこの欄に持たせない**（provenance は `data/internal/name-fragments/`） | `validate_emperors.py::check_posthumous_names` | `test_posthumous_names.py` |
+| （同上・冒頭形との関係） | `posthumousNameFull` が段のどれかと一致する。一致しない人物は `POSTHUMOUS_STAGE_FULL_MISMATCH` に**理由つきで**挙げる＝転記ミスと書の内部差を人が区別した証拠が残る（舊唐書 高宗は崩御条「天皇大弘孝皇帝」／冒頭「天皇大聖大弘孝皇帝」） | `validate_emperors.py::check_posthumous_names` | `test_posthumous_names.py` |
+| （同上・底本照合） | 各段が**本人の原文に連続文字列で**在る（**ラチェット**・**段ごとに数える**。人物単位で数えると3段のうち1段が捏造でも「当たった人物」に入り、この欄でいちばん危ない失敗が見えない） | `verify_quotes.py::cmd_check_posthumous_names` | `test_posthumous_names.py` |
 | `source.bookId`／`volume` | 出典はこの書のこの巻（カタログに実在し、巻の索引を持つ書だけ） | `validate_emperors.py::check_quote_containers` | `test_quote_containers.py` |
 | （同上・実体照合） | 名乗る巻がコーパスに実在し、引用が**その巻の中**に在る | `verify_quotes.py::cmd_check_volumes` | `test_quote_containers.py` |
 | `quotes[]` | この断片が底本に実在する（`bookId` ＋ 任意の `volume` を持つ） | `verify_quotes.py::cmd_check` | `test_quote_containers.py` |

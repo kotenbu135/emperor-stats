@@ -62910,7 +62910,20 @@
     "posthumousName": null,
     "templeName": "高祖",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "神堯大聖大光孝皇帝"
+    "posthumousNameFull": "神堯大聖大光孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "大武皇帝"
+     },
+     {
+      "form": "神堯皇帝",
+      "year": 674
+     },
+     {
+      "form": "神堯大聖大光孝皇帝",
+      "year": 754
+     }
+    ]
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -63265,7 +63278,20 @@
     "posthumousName": null,
     "templeName": "太宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "文武大聖大広孝皇帝"
+    "posthumousNameFull": "文武大聖大広孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "文皇帝"
+     },
+     {
+      "form": "文武聖皇帝",
+      "year": 674
+     },
+     {
+      "form": "文武大聖大広孝皇帝",
+      "year": 754
+     }
+    ]
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -63734,7 +63760,16 @@
     "posthumousName": null,
     "templeName": "高宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "天皇大聖大弘孝皇帝"
+    "posthumousNameFull": "天皇大聖大弘孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "天皇大帝"
+     },
+     {
+      "form": "天皇大弘孝皇帝",
+      "year": 754
+     }
+    ]
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -64362,7 +64397,16 @@
     "posthumousName": null,
     "templeName": "中宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "大和大聖大昭孝皇帝"
+    "posthumousNameFull": "大和大聖大昭孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "孝和皇帝"
+     },
+     {
+      "form": "大和大聖大昭孝皇帝",
+      "year": 754
+     }
+    ]
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -64765,7 +64809,16 @@
     "posthumousName": null,
     "templeName": "睿宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "玄真大聖大興孝皇帝"
+    "posthumousNameFull": "玄真大聖大興孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "大聖貞皇帝"
+     },
+     {
+      "form": "玄真大聖大興孝皇帝",
+      "year": 754
+     }
+    ]
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -68729,7 +68782,12 @@
     "posthumousName": null,
     "templeName": "文宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "元聖昭献孝皇帝"
+    "posthumousNameFull": "元聖昭献孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "元聖昭献皇帝"
+     }
+    ]
    },
    "eraId": "sui-tang",
    "regimeId": "tang",

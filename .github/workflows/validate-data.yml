@@ -98,6 +98,13 @@ jobs:
           python3 scripts/test_quote_containers.py
           python3 scripts/test_era_name.py
           python3 scripts/test_ethnic_name.py
+          # 名前系（Issue #37）。チェックリストが検出力テストの列に名前を挙げているのに
+          # CI から漏れていた4本を 2026-08-10 に足した（表に在る＝走っている、ではなかった）
+          python3 scripts/test_family_name.py
+          python3 scripts/test_courtesy_name.py
+          python3 scripts/test_childhood_name.py
+          python3 scripts/test_posthumous_name_full.py
+          python3 scripts/test_posthumous_names.py
 
       # ふりがな（Issue #20）。記法・親文字一致に加えて、紹介文の**総ルビ充足**と
       # 固有名詞整合はこのスクリプトにしか無い（サイトのビルドは name-readings.json

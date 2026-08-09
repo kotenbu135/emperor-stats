@@ -1550,6 +1550,113 @@ def check_posthumous_name_full(data):
     return named
 
 
+# --- 諡号の段（加諡の列） -----------------------------------------------------
+# `posthumousNameFull` は「名乗る原典が**冒頭で掲げる1形**」で、`posthumousName` は
+# 「通用する短縮呼称」。どちらもスカラなので、**加諡が積み上がる過程は保存できない**。
+# 唐太宗は舊唐書だけでも 文皇帝 →〔上元元年〕文武聖皇帝 →〔天宝十三載〕文武大聖大広孝皇帝
+# の3段があり、保存していたのは最後の1段だけだった（2026-08-10・ユーザー決定で欄を足す）。
+#
+# **この欄が主張するのは「名乗る原典が記す諡の形を、授けられた順に並べたもの」**。
+# 年は**任意** — 原文がその段に紀年を与えている場合だけ書く（初諡は崩御条の中に在り、
+# 条そのものは年を名乗らないことが多い）。出典は**この欄に持たせない** — 名前系の欄は
+# すべて `data/internal/name-fragments/` の断片が provenance を持つ既存の作りに揃える。
+#
+# **冒頭形が列に現れない人物が居る。** 舊唐書 高宗は崩御条が「天皇大弘孝皇帝」なのに
+# 冒頭は「天皇大聖大弘孝皇帝」で、大聖の2字が食い違う（文宗も孝の1字が食い違う）。
+# これは書の内部差なので、**理由を書いた人物だけ**を下の表で通す（黙って通さない）。
+POSTHUMOUS_STAGE_FULL_MISMATCH = {
+    "tang-gaozong": "崩御条（天宝十三載の改諡）は「天皇大弘孝皇帝」だが冒頭形は"
+                    "「天皇大聖大弘孝皇帝」で、大聖の2字が舊唐書の中で食い違う",
+    "tang-wenzong": "崩御条は「元聖昭献皇帝」だが冒頭形は「元聖昭献孝皇帝」で、"
+                    "孝の1字が舊唐書の中で食い違う",
+}
+# 充足のラチェット。転記は各ブロックの中で進むので強制はせず、**減ったら落ちる**
+# （SCHEMA_CHANGE_CHECKLIST.md 手順5）。実測を書く
+POSTHUMOUS_STAGES_FLOOR = 6
+
+
+def check_posthumous_names(data):
+    """諡号の段 name.posthumousNames（Issue #37・2026-08-10 のユーザー決定「案B」）。
+
+    A 形        … 各段が漢字2〜30字で「谥」「庙号」などの定型を含まず「皇帝」「大帝」で結ぶ
+    B 廟号の混入 … どの段も `templeName` で始まらない（`posthumousNameFull` と同じ事故）
+    C 列の形    … 1件以上・段の重複なし・年が在るものは**並び順に非減少**
+                  （この欄の主張は「授けられた順」なので、順序が壊れていたら嘘）
+    D 冒頭形との関係 … `posthumousNameFull` が在るならそれは段のどれかと一致する。
+                  一致しない人物は POSTHUMOUS_STAGE_FULL_MISMATCH に理由つきで挙げる
+    E ラチェット … 充足人数が床を割ったら落ちる（呼び出し側で判定）
+
+    **底本照合はここには無い**（コーパスが要るので
+    verify_quotes.py --check-posthumous-names へ置いた＝ゲートF）。
+    """
+    named = 0
+    for e in data["emperors"]:
+        name = e.get("name") or {}
+        stages = name.get("posthumousNames")
+        if stages is None:
+            continue
+        if not isinstance(stages, list) or not stages:
+            err(f"[posthumous-stages] {e['id']}: posthumousNames が空の配列")
+            continue
+        named += 1
+        temple = name.get("templeName")
+        forms = []
+        years = []
+        for i, st in enumerate(stages):
+            tag = f"[posthumous-stages] {e['id']}.posthumousNames[{i}]"
+            if not isinstance(st, dict):
+                err(f"{tag}: 要素がオブジェクトでない: {st!r}")
+                continue
+            extra = set(st) - {"form", "year"}
+            if extra:
+                err(f"{tag}: 未知のキー {sorted(extra)}（form と任意の year だけ）")
+            form = st.get("form")
+            if not isinstance(form, str) or not form.strip():
+                err(f"{tag}: form が空")
+                continue
+            forms.append(form)
+            # A 形
+            if not POSTHUMOUS_FULL_RE.match(form):
+                err(f"{tag}: form {form!r} が漢字2〜30字でない")
+            if not (form.endswith("皇帝") or form.endswith("大帝")):
+                err(f"{tag}: form {form!r} が「皇帝」「大帝」で終わらない"
+                    f"（諡の形だけを段に置く。廟号は templeName の側）")
+            for bad in POSTHUMOUS_FULL_BAD:
+                if bad in form:
+                    err(f"{tag}: form {form!r} に {bad!r} が入っている"
+                        f"（原文の定型ごと写した形）")
+            # B 廟号の混入
+            if temple and form.startswith(temple):
+                err(f"{tag}: form {form!r} が廟号 {temple!r} で始まる"
+                    f"（「〈廟号〉〈諡〉」を行ごと写した形）")
+            year = st.get("year")
+            if year is not None:
+                if not isinstance(year, int) or isinstance(year, bool):
+                    err(f"{tag}: year が整数でない: {year!r}")
+                else:
+                    years.append((i, year))
+        # C 列の形
+        dup = sorted({f for f in forms if forms.count(f) > 1})
+        if dup:
+            err(f"[posthumous-stages] {e['id']}: 同じ段が2回出ている: {dup}")
+        for (ia, ya), (ib, yb) in zip(years, years[1:]):
+            if yb < ya:
+                err(f"[posthumous-stages] {e['id']}: year が並び順に対して逆行している"
+                    f"（[{ia}]={ya} → [{ib}]={yb}）。この欄は**授けられた順**を主張する")
+        # D 冒頭形との関係
+        full = name.get("posthumousNameFull")
+        if full and forms and full not in forms:
+            reason = POSTHUMOUS_STAGE_FULL_MISMATCH.get(e["id"])
+            if not reason:
+                err(f"[posthumous-stages] {e['id']}: posthumousNameFull {full!r} が"
+                    f"段のどれとも一致しない（{forms}）。書の内部差なら "
+                    f"POSTHUMOUS_STAGE_FULL_MISMATCH に理由を書く")
+        elif full and e["id"] in POSTHUMOUS_STAGE_FULL_MISMATCH:
+            err(f"[posthumous-stages] {e['id']}: 冒頭形が段に在るのに "
+                f"POSTHUMOUS_STAGE_FULL_MISMATCH へ挙がっている（免除を消せる）")
+    return named
+
+
 # --- claim（主張）欄 ---------------------------------------------------------
 # note は**作業ログ**で、訂正の経緯として「現行 X → Y に訂正」のように**捨てた側の値**が
 # 本文に残る。だからフィールドとの突合は向きが反転し、散文は witness にならない
@@ -2373,6 +2480,10 @@ def main() -> int:
     courtesy_n = check_courtesy_names(data)
     childhood_n = check_childhood_names(data)
     posthumous_full_n = check_posthumous_name_full(data)
+    posthumous_stages_n = check_posthumous_names(data)
+    if posthumous_stages_n < POSTHUMOUS_STAGES_FLOOR:
+        err(f"[posthumous-stages] posthumousNames を持つ人物が {posthumous_stages_n}人で"
+            f"床 {POSTHUMOUS_STAGES_FLOOR}人を割った（欄を消した訂正が入っている）")
     archive_n = check_event_date_archive(data)
     claimed_n, witnessed_n = check_event_date_claim_residual(data)
     floor, legacy_quote_n, floor_total_n = check_quote_containers(data)
@@ -2417,6 +2528,7 @@ def main() -> int:
           f"／familyName {family_n}人"
           f"／courtesyName {courtesy_n}人・childhoodName {childhood_n}人"
           f"／posthumousNameFull {posthumous_full_n}人"
+          f"／posthumousNames（諡の段）{posthumous_stages_n}人"
           f"／構造化引用を持つ床の容器 {sum(floor.values())}/{floor_total_n}件"
           f"（旧い器 source.quote は {legacy_quote_n}件）)")
     return 1 if errors else 0

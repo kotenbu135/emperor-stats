@@ -1369,6 +1369,68 @@ def cmd_check_posthumous_name_full():
     return bad
 
 
+POSTHUMOUS_STAGES_FLOOR = 13  # 2026-08-10 の実測（唐6人・延べ13段が13件とも当たる）
+# 底本側の事情で当たらない段と理由（現在なし）。鍵は (皇帝id, 段の形)
+POSTHUMOUS_STAGES_ALLOW = {}
+
+
+def cmd_check_posthumous_names():
+    """諡号の各段が本人の原文キャッシュに在るか（ゲートF・ラチェット）。
+
+    **段ごとに数える。** 人物単位で数えると、3段のうち1段が捏造でも「当たった人物」に
+    入ってしまい、この欄でいちばん危ない失敗（在りもしない段を並べる）が見えない。
+
+    **当たらないこと自体は誤りではない** — 加諡が別巻に在って本人のキャッシュへ
+    入っていない段がある。見ているのは「当たっていた段が当たらなくなること」。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    checked = ok = 0
+    skipped = []
+    missed = []
+    allowed = []
+    for e in data["emperors"]:
+        stages = (e.get("name") or {}).get("posthumousNames")
+        if not stages:
+            continue
+        cache = CORPUS_ROOT / "_corpus_cache" / f"{e['id']}.txt"
+        if not cache.is_file():
+            skipped.append(e["id"])
+            continue
+        hay = norm_for_match(cache.read_text(encoding="utf-8"))
+        for st in stages:
+            form = st.get("form")
+            if not form:
+                continue
+            checked += 1
+            key = (e["id"], form)
+            if posthumous_full_hit(form, hay):
+                ok += 1
+                if key in POSTHUMOUS_STAGES_ALLOW:
+                    print(f"NOTICE {e['id']}／{form}: 免除に挙げてあるが当たった（免除を消せる）")
+                continue
+            if key in POSTHUMOUS_STAGES_ALLOW:
+                allowed.append(key)
+                continue
+            missed.append(key)
+    if skipped:
+        print(f"NOTICE 原文キャッシュが無いため未照合: {len(skipped)}人 {skipped}")
+    for eid, form in missed:
+        print(f"NOTICE {eid}: 段「{form}」が本人の原文キャッシュに現れない"
+              f"（加諡が別巻に在るか、字体が差分表を通らない）")
+    for eid, form in allowed:
+        print(f"NOTICE {eid}／{form}: 底本側の事情で免除 — "
+              f"{POSTHUMOUS_STAGES_ALLOW[(eid, form)]}")
+    bad = 0
+    if ok < POSTHUMOUS_STAGES_FLOOR:
+        bad = 1
+        print(f"ERROR 本人の原文に当たる段が {ok}件で床 "
+              f"{POSTHUMOUS_STAGES_FLOOR} を下回った")
+    print(f"---\n{bad} errors / posthumousNames の段 {checked}件のうち "
+          f"{ok}件が本人の原文に実在（当たらない {len(missed)}件・免除 {len(allowed)}件・"
+          f"床 {POSTHUMOUS_STAGES_FLOOR}）")
+    return bad
+
+
 # --- 姓 name.familyName（Issue #37 単位6・ゲートE）-----------------------------
 # 分けた切れ目そのものを本人の原文へ当てる。**ラチェット**（充足数が減ったら落ちる）で、
 # 「本人の原文に姓も諱も出て来ない人物」は正しくても在る（漢書は前漢の諱を冒頭に
@@ -1758,6 +1820,10 @@ def main():
                     help="name.posthumousNameFull を本人の原文キャッシュに当てる"
                          "（Issue #37 単位1・要コーパス。連続文字列で当て、"
                          "実在数が減ったら落ちるラチェット）")
+    ap.add_argument("--check-posthumous-names", action="store_true",
+                    help="name.posthumousNames の各段を本人の原文キャッシュに当てる"
+                         "（Issue #37・要コーパス。**段ごと**に数え、実在数が減ったら"
+                         "落ちるラチェット）")
     ap.add_argument("--rebuild", action="store_true",
                     help="--backfill と併用。照合器を変えたとき機械判定を作り直す"
                          "（manual/external/defect の curation は残す）")
@@ -1802,6 +1868,8 @@ def main():
         return cmd_check_family_names()
     if args.check_posthumous_name_full:
         return cmd_check_posthumous_name_full()
+    if args.check_posthumous_names:
+        return cmd_check_posthumous_names()
     if args.backfill:
         return cmd_backfill(rebuild=args.rebuild, retry_unresolved=args.retry_unresolved)
     return cmd_check()
