@@ -2335,13 +2335,6 @@
       "reason": "out-of-scope",
       "noteHead": "和平元年正月甲子朔「大赦、改元」。元号を"
     },
-    "beiwei-wenchengdi.rebellionSufferedCount.e001": {
-      "startDate": "0452-11-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "鎮圧回数と同一事件。隴西の服属胡族・屠各",
-      "endDate": "0452-11-01"
-    },
     "beiwei-wenchengdi.rebellionSufferedCount.e002": {
       "startDate": "0456-02-01",
       "datePrecision": "month",
@@ -4613,20 +4606,6 @@
       "reason": "out-of-scope",
       "noteHead": "太建十一年十一月辛卯、詔に「可大赦天下」"
     },
-    "chen-xuandi.rebellionSufferedCount.e001": {
-      "startDate": "0569-10-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "rebellionSuppression",
-      "endDate": "0570-02-01"
-    },
-    "chen-xuandi.rebellionSufferedCount.e002": {
-      "startDate": "0578-12-01",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "rebellionSuppression",
-      "endDate": "0578-12-01"
-    },
     "chen-xuandi.rebellionSuppressionCount.e001": {
       "startDate": "0569-11-01",
       "datePrecision": "month",
@@ -5043,13 +5022,6 @@
       "reason": "out-of-scope",
       "noteHead": "帝の近臣公乗雄・冉曾が殺害され、帝自身も",
       "endDate": "0324-08-01"
-    },
-    "dongjin-mingdi.rebellionSufferedCount.e003": {
-      "startDate": "0324-12-01",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "王敦・沈充の乱の残党による散発的挙兵。鎮",
-      "endDate": "0324-12-01"
     },
     "dongjin-mingdi.rebellionSufferedCount.e004": {
       "startDate": "0323-03-01",
@@ -16674,13 +16646,6 @@
       "reason": "out-of-scope",
       "noteHead": "rebellionSuppression",
       "endDate": "0490-01-01"
-    },
-    "qi-wudi.rebellionSufferedCount.e004": {
-      "startDate": "0493-03-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "rebellionSuppression",
-      "endDate": "0493-03-01"
     },
     "qi-wudi.rebellionSuppressionCount.e001": {
       "startDate": "0486-02-01",

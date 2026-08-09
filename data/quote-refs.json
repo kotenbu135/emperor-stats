@@ -6790,6 +6790,19 @@
    ],
    "line": 19
   },
+  "beiwei-wenchengdi|rebellionSufferedCount[0].note|bf34ac30d714": {
+   "id": "beiwei-wenchengdi",
+   "path": "rebellionSufferedCount[0].note",
+   "span": "陇西屠各王景文叛，诏统万镇将、南阳王惠寿讨平之。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beiwei-wenchengdi.txt",
+   "frags": [
+    "陇西屠各王景文叛",
+    "诏统万镇将",
+    "南阳王惠寿讨平之"
+   ],
+   "line": 3
+  },
   "beiwei-wenchengdi|rebellionSuppressionCount[0].note|bf34ac30d714": {
    "id": "beiwei-wenchengdi",
    "path": "rebellionSuppressionCount[0].note",
@@ -10610,6 +10623,42 @@
    ],
    "line": 3
   },
+  "chen-xuandi|rebellionSufferedCount[0].note|18e5bde67f43": {
+   "id": "chen-xuandi",
+   "path": "rebellionSufferedCount[0].note",
+   "span": "二月癸未，仪同章昭达擒欧阳纥送都，斩于建康市，广州平。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chen-xuandi.txt",
+   "frags": [
+    "仪同章昭达擒欧阳纥送",
+    "斩于建康市"
+   ],
+   "line": 4
+  },
+  "chen-xuandi|rebellionSufferedCount[0].note|487985f9196c": {
+   "id": "chen-xuandi",
+   "path": "rebellionSufferedCount[0].note",
+   "span": "冬十月，新除左卫将军欧阳纥据广州举兵反。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chen-xuandi.txt",
+   "frags": [
+    "新除左卫将军欧阳纥据"
+   ],
+   "line": 3
+  },
+  "chen-xuandi|rebellionSufferedCount[1].note|4f4946c7bbd6": {
+   "id": "chen-xuandi",
+   "path": "rebellionSufferedCount[1].note",
+   "span": "十二月乙亥，合州庐江蛮田伯兴出寇枞阳，刺史鲁广达讨平之。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/chen-xuandi.txt",
+   "frags": [
+    "十二月乙亥",
+    "合州庐江蛮田伯兴出寇",
+    "刺史鲁广达讨平之"
+   ],
+   "line": 12
+  },
   "chen-xuandi|reigns[0].quote#0|1d1151625489": {
    "id": "chen-xuandi",
    "path": "reigns[0].quote#0",
@@ -12725,6 +12774,18 @@
     "新昌太守梁碩起兵反"
    ],
    "line": 33
+  },
+  "dongjin-mingdi|rebellionSufferedCount[2].note|efa87763751d": {
+   "id": "dongjin-mingdi",
+   "path": "rebellionSufferedCount[2].note",
+   "span": "沈充故将顾飏反于武康，攻烧城邑，州县讨斩之。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/dongjin-mingdi.txt",
+   "frags": [
+    "沈充故将顾飏反于武康",
+    "州县讨斩之"
+   ],
+   "line": 5
   },
   "dongjin-mingdi|rebellionSufferedCount[3].note|f0339b337545": {
    "id": "dongjin-mingdi",
@@ -24484,6 +24545,47 @@
     "上自将三十二总管兵伐"
    ],
    "line": 72
+  },
+  "jin-hailingwang|rebellionSufferedCount[1].note|6a852397e118": {
+   "id": "jin-hailingwang",
+   "path": "rebellionSufferedCount[1].note",
+   "span": "契丹诸部反，遣右卫将军萧秃剌等讨之。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-hailingwang.txt",
+   "frags": [
+    "契丹诸部反",
+    "遣右卫将军萧秃剌等讨"
+   ],
+   "line": 68
+  },
+  "jin-hailingwang|rebellionSufferedCount[2].note|01eb5d13d74e": {
+   "id": "jin-hailingwang",
+   "path": "rebellionSufferedCount[2].note",
+   "span": "八月壬寅，单州贼杜奎据城叛，遣都点检耶律湛、右骁骑副都指挥大磐讨之。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-hailingwang.txt",
+   "frags": [
+    "单州贼杜奎据城叛",
+    "遣都点检耶律湛",
+    "右骁骑副都指挥大磐讨"
+   ],
+   "line": 70
+  },
+  "jin-hailingwang|rebellionSufferedCount[3].note|e76b78c62641": {
+   "id": "jin-hailingwang",
+   "path": "rebellionSufferedCount[3].note",
+   "span": "庚寅，大名府贼王九据城叛，众至数万，所至盗贼峰起，大者连城邑，小者保山泽，或以十",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/jin-hailingwang.txt",
+   "frags": [
+    "大名府贼王九据城叛",
+    "所至盗贼峰起",
+    "大者连城邑",
+    "小者保山泽",
+    "或以十数骑张旗帜而行",
+    "官军莫敢近"
+   ],
+   "line": 71
   },
   "jin-hailingwang|rebellionSufferedCount[4].note|d7b011b9f416": {
    "id": "jin-hailingwang",
@@ -43188,6 +43290,17 @@
    ],
    "line": 3
   },
+  "qi-wudi|rebellionSufferedCount[3].note|6413e3f98da8": {
+   "id": "qi-wudi",
+   "path": "rebellionSufferedCount[3].note",
+   "span": "三月，乙亥，雍州刺史王奂伏诛。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qi-wudi.txt",
+   "frags": [
+    "雍州刺史王奂伏诛"
+   ],
+   "line": 37
+  },
   "qi-wudi|rebellionSuppressionCount[1].note|df4b192f7930": {
    "id": "qi-wudi",
    "path": "rebellionSuppressionCount[1].note",
@@ -60613,6 +60726,19 @@
     "校獵白鹿原"
    ],
    "line": 24
+  },
+  "tang-wuzong|rebellionSuppressionCount[0].note|28e74358a231": {
+   "id": "tang-wuzong",
+   "path": "rebellionSuppressionCount[0].note",
+   "span": "易定军乱，逐节度使陈君赏。君赏鸠合豪杰数百人，复入城，尽诛谋乱兵士，军城复安。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-wuzong.txt",
+   "frags": [
+    "逐节度使陈君赏",
+    "君赏鸠合豪杰数百人",
+    "尽诛谋乱兵士"
+   ],
+   "line": 7
   },
   "tang-wuzong|rebellionSuppressionCount[3].note|e7dda26de271": {
    "id": "tang-wuzong",
