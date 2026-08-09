@@ -28,12 +28,12 @@
       ],
       "script": "scripts/screens/name_fields.py",
       "population": "365人 × {templeName, posthumousName} のうち**値が空のセル**（埋まっているセルの訂正は別作業）",
-      "n": 530,
+      "n": 528,
       "buckets": [
         {
           "name": "templeName:transcribe",
           "kind": "read",
-          "count": 101,
+          "count": 100,
           "means": "commonName が廟号形（〜祖／〜宗）なのに templeName が空。**取りこぼしと言い切れる**ので、本紀冒頭の1行を転記する作業に落ちる"
         },
         {
@@ -106,7 +106,7 @@
         {
           "name": "posthumousName:unknown",
           "kind": "absent",
-          "count": 189,
+          "count": 188,
           "means": "commonName が諡号形で立っていないだけ。**「諡号が無い」ではない**",
           "notEstablished": "値の不在。廟号で呼ばれる皇帝（〜祖／〜宗）は諡号を別に持つのが普通なので、ここには取りこぼしが厚く残る",
           "audit": {
@@ -330,7 +330,7 @@
       ],
       "script": "scripts/screens/lunar_date_as_iso.py",
       "population": "すべての count グループの events のうち、date / startDate / endDate が**日精度**（datePrecision が day）で**記録されている**フィールド。2026-08-03（Issue #69）に主張範囲を絞ってからは、配布物の値が年へ丸まっていても data/internal/event-date-archive.json の退避値を戻して数える（**記録に対する検出器**であって、配布物が主張する日付だけを見る道具ではない）。同日に走査の穴を1つ塞いだ — COUNT_GROUPS に存在しない容器名 crownPrinceChangeCount が入っており、皇太子廃立の34 events・日精度15値が母集団から黙って外れていた（母集団 1,336 → 1,351 の増分はこれ）",
-      "n": 1348,
+      "n": 1350,
       "buckets": [
         {
           "name": "ganzhi-mismatch",
@@ -347,7 +347,7 @@
         {
           "name": "no-witness",
           "kind": "absent",
-          "count": 1324,
+          "count": 1326,
           "means": "機械が照合相手を見つけられなかった側。event の記述に干支も旧暦の日付も無いので、ISO 日付を否定する材料がレコードの中に存在しない",
           "notEstablished": "この1307件の日付が正しいということ。**2026-08-03 の標本監査で反例2件が出ている**（北宋仁宗の被反乱開始日・元英宗の反乱鎮圧開始日）。2件とも同じ機序で、日干支は合っているが旧暦の月・年の同定を欠いたまま換算した**60日周期の別解**であり、**現在の検出器A・Bは原理的にこの型を拾えない**（記述の干支と ISO の干支が一致してしまうため）。したがってこのバケットの取りこぼし率は、検出器の設計上ここに残り続ける欠陥の率である。もう1つの限界として、監査は event 側に識別情報が乏しいとき**現行値を旧暦へ逆換算して原典の記事を探す**経路をとっており、記事の内容で裏を取ってはいるが「現行値が誤っていれば誤った場所を探す」向きなので、一致側の判定は反例側より弱い",
           "audit": {
