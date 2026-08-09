@@ -28,18 +28,18 @@
       ],
       "script": "scripts/screens/name_fields.py",
       "population": "365人 × {templeName, posthumousName} のうち**値が空のセル**（埋まっているセルの訂正は別作業）",
-      "n": 528,
+      "n": 514,
       "buckets": [
         {
           "name": "templeName:transcribe",
           "kind": "read",
-          "count": 100,
+          "count": 86,
           "means": "commonName が廟号形（〜祖／〜宗）なのに templeName が空。**取りこぼしと言い切れる**ので、本紀冒頭の1行を転記する作業に落ちる"
         },
         {
           "name": "posthumousName:transcribe",
           "kind": "read",
-          "count": 58,
+          "count": 57,
           "means": "commonName が諡号形（〜帝）なのに posthumousName が空。同上。ただし「天順帝（通称）」のように元号由来の通称が混じるので、転記先の判定は人が行う"
         },
         {
@@ -106,7 +106,7 @@
         {
           "name": "posthumousName:unknown",
           "kind": "absent",
-          "count": 188,
+          "count": 189,
           "means": "commonName が諡号形で立っていないだけ。**「諡号が無い」ではない**",
           "notEstablished": "値の不在。廟号で呼ばれる皇帝（〜祖／〜宗）は諡号を別に持つのが普通なので、ここには取りこぼしが厚く残る",
           "audit": {
@@ -768,14 +768,14 @@
         {
           "name": "hui",
           "kind": "corroborated",
-          "count": 164,
+          "count": 165,
           "means": "本人の原文キャッシュに「讳〈諱候補〉」が在る＝**原文が切れ目を名指ししている**",
           "establishes": "「姓耶律氏，讳德光」のように、姓を除いた側が原文の諱と一致する"
         },
         {
           "name": "xing",
           "kind": "corroborated",
-          "count": 189,
+          "count": 188,
           "means": "姓候補が「姓〈姓〉氏」の形でコーパスに実在する（複姓を1字で切った形はここで落ちる）",
           "notEstablished": "この人物がその姓であること。姓の実在だけで、帰属は政権の姓に寄りかかっている",
           "audit": {
