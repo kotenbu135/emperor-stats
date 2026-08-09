@@ -483,6 +483,21 @@
    ],
    "line": 22
   },
+  "beiqi-houzhu|deathCause.note|e3c8f60af1f3": {
+   "id": "beiqi-houzhu",
+   "path": "deathCause.note",
+   "span": "周人诬温公高纬与宜州刺史穆提婆谋反，并其宗族皆赐死。众人多自陈无之，高延宗独攘袂",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "周人诬温公高纬与宜州",
+    "并其宗族皆赐死",
+    "众人多自陈无之",
+    "高延宗独攘袂泣而不言",
+    "以椒塞口而死"
+   ],
+   "line": 16753
+  },
   "beiqi-houzhu|empressInstallationCount[0].note|c5b68002481a": {
    "id": "beiqi-houzhu",
    "path": "empressInstallationCount[0].note",
@@ -34589,6 +34604,29 @@
    ],
    "line": 97
   },
+  "liu-song-wudi|ages.note|acd8678a232e": {
+   "id": "liu-song-wudi",
+   "path": "ages.note",
+   "span": "高祖以晋哀帝兴宁元年岁次癸亥三月壬寅夜生",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/liu-song-wudi.txt",
+   "frags": [
+    "高祖以晋哀帝兴宁元年"
+   ],
+   "line": 2
+  },
+  "liu-song-wudi|ages.note|b9953dd91888": {
+   "id": "liu-song-wudi",
+   "path": "ages.note",
+   "span": "晋哀帝興寧元年三月壬寅",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/子藏/类书/册府元龟.txt",
+   "frags": [
+    "晋哀帝興寧元",
+    "興寧元年三月"
+   ],
+   "line": 14650
+  },
   "liu-song-wudi|deathCause.note|9a3b26059bd5": {
    "id": "liu-song-wudi",
    "path": "deathCause.note",
@@ -55473,6 +55511,29 @@
    ],
    "line": 47
   },
+  "suimo-wangshichong|personalCampaignCount.quotes[0]|892872b78c5d": {
+   "id": "suimo-wangshichong",
+   "path": "personalCampaignCount.quotes[0]",
+   "span": "五月己未，秦王大破窦建德之众于武牢，擒建德，河北悉平。丙寅，王世充举东都降，河南",
+   "status": "corpus",
+   "corpusFile": "china-history/旧唐书/本纪/第一章-卷一-原文.html",
+   "frags": [
+    "秦王大破窦建德之众于",
+    "王世充举东都降"
+   ],
+   "line": 48
+  },
+  "suimo-wangshichong|personalCampaignCount.quotes[1]|094f3a3e989a": {
+   "id": "suimo-wangshichong",
+   "path": "personalCampaignCount.quotes[1]",
+   "span": "乃率其将吏诣军门请降",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-wangshichong.txt",
+   "frags": [
+    "乃率其将吏诣军门请降"
+   ],
+   "line": 9
+  },
   "suimo-wangshichong|personalCampaignCount[0].note|1215758832c6": {
    "id": "suimo-wangshichong",
    "path": "personalCampaignCount[0].note",
@@ -55484,6 +55545,29 @@
     "仍以兵臨黎陽"
    ],
    "line": 7
+  },
+  "suimo-wangshichong|personalCampaignCount[1].note|094f3a3e989a": {
+   "id": "suimo-wangshichong",
+   "path": "personalCampaignCount[1].note",
+   "span": "乃率其将吏诣军门请降",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/suimo-wangshichong.txt",
+   "frags": [
+    "乃率其将吏诣军门请降"
+   ],
+   "line": 9
+  },
+  "suimo-wangshichong|personalCampaignCount[1].note|892872b78c5d": {
+   "id": "suimo-wangshichong",
+   "path": "personalCampaignCount[1].note",
+   "span": "五月己未，秦王大破窦建德之众于武牢，擒建德，河北悉平。丙寅，王世充举东都降，河南",
+   "status": "corpus",
+   "corpusFile": "china-history/旧唐书/本纪/第一章-卷一-原文.html",
+   "frags": [
+    "秦王大破窦建德之众于",
+    "王世充举东都降"
+   ],
+   "line": 48
   },
   "suimo-wangshichong|personalCampaignCount[1].note|a3fdefb5b0e9": {
    "id": "suimo-wangshichong",
@@ -61512,6 +61596,17 @@
    ],
    "line": 136
   },
+  "tang-xuanzong|ages.note|797d12a0e579": {
+   "id": "tang-xuanzong",
+   "path": "ages.note",
+   "span": "上元二年四月甲寅",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xuanzong.txt",
+   "frags": [
+    "上元二年四月甲寅"
+   ],
+   "line": 136
+  },
   "tang-xuanzong|ages.note|83d850577778": {
    "id": "tang-xuanzong",
    "path": "ages.note",
@@ -61522,6 +61617,31 @@
     "垂拱元年秋八月戊寅"
    ],
    "line": 2
+  },
+  "tang-xuanzong|ages.note|ab397a227a80": {
+   "id": "tang-xuanzong",
+   "path": "ages.note",
+   "span": "建巳月庚戌朔",
+   "status": "corpus",
+   "corpusFile": "china-history/旧唐书/本纪/第十章-卷十-原文.html",
+   "frags": [
+    "建巳月庚戌朔"
+   ],
+   "line": 58
+  },
+  "tang-xuanzong|ages.note|b6ae842ce0d3": {
+   "id": "tang-xuanzong",
+   "path": "ages.note",
+   "span": "其元年宜改为宝应，建巳月为四月，余月并依常数，仍依旧以正月一日为岁首",
+   "status": "corpus",
+   "corpusFile": "china-history/旧唐书/本纪/第十章-卷十-原文.html",
+   "frags": [
+    "其元年宜改为宝应",
+    "建巳月为四月",
+    "余月并依常数",
+    "仍依旧以正月一日为岁"
+   ],
+   "line": 58
   },
   "tang-xuanzong|amnestyCount.note|798582f1f22e": {
    "id": "tang-xuanzong",
