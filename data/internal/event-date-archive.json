@@ -10,13 +10,14 @@
       "datePrecision": "退避した時点の datePrecision（原典が何を言っているか。移行では触っていない）",
       "noteHead": "人が突き合わせるための note の先頭20字（機械は id で引く）"
     },
-    "events": 4097,
-    "values": 6144,
+    "events": 4094,
+    "values": 6138,
     "removed": [
       "2026-08-07・Issue #82: han-gaozu の親征・鎮圧・被反乱 16 event を退避側から消した。配布物側を原表記 startDateRaw/endDateRaw と source.conversion 付きで訂正したので、埋め草だけの退避値（-01 を足した形）は原表記に置き換わっている／同日・Issue #89: shuhan-zhaoliedi.rebellionSufferedCount.e001 も同じ理由で削除",
       "2026-08-07（Issue #91）: 皇帝即位前の event 53件ぶんの鍵を削除した。event 自体を data/internal/preaccession-events.json へ退避したため、退避していた月日もそちらの archivedDate に移してある。",
       "2026-08-07・Issue #91: beiqi-andewang-gaoyanzong.personalCampaignCount.e001（0576-01-01 の埋め草）と jin-hailingwang.empressInstallationCount.e001（1149-10-18）を削除した。どちらも配布物側の年が誤りで、0577-01（隆化元年十二月の多数月）・1150-10-13（天德二年九月甲午）へ原表記と conversion 付きで訂正したため、退避していた値は上書きされている。",
-      "2026-08-07・Issue #91 の追走査: 皇帝即位前の event 1件ぶんの鍵を削除した（event 自体は data/internal/preaccession-events.json へ退避）。"
+      "2026-08-07・Issue #91 の追走査: 皇帝即位前の event 1件ぶんの鍵を削除した（event 自体は data/internal/preaccession-events.json へ退避）。",
+      "2026-08-09・A1 訂正: beizhou-wudi.rebellionSufferedCount.e006／beizhou-xuandi.rebellionSufferedCount.e002・e003 の3 event を削除（訂正後の値が在位境界年の月精度になり、配布物が月まで主張するようになったため退避が不要）。あわせて xiwei-wendi.rebellionSufferedCount.e003・tang-gaozong の綏州稽胡2件・tang-suzong.rebellionSufferedCount.e007・tang-daizong の李霊曜の乱2件の退避値を、原典で確定し直した年へ訂正した（配布物は年精度のまま）"
     ]
   },
   "events": {
@@ -4344,13 +4345,6 @@
       "noteHead": "鎮圧回数の同事例参照。",
       "endDate": "0577-11-01"
     },
-    "beizhou-wudi.rebellionSufferedCount.e006": {
-      "startDate": "0577-12-01",
-      "datePrecision": "month",
-      "reason": "out-of-scope",
-      "noteHead": "鎮圧回数の同事例参照。",
-      "endDate": "0577-12-01"
-    },
     "beizhou-wudi.rebellionSufferedCount.e007": {
       "startDate": "0578-01-01",
       "datePrecision": "month",
@@ -4405,20 +4399,6 @@
       "reason": "filler",
       "noteHead": "rebellionSuppression",
       "endDate": "0578-07-01"
-    },
-    "beizhou-xuandi.rebellionSufferedCount.e002": {
-      "startDate": "0578-09-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "rebellionSuppression",
-      "endDate": "0578-09-01"
-    },
-    "beizhou-xuandi.rebellionSufferedCount.e003": {
-      "startDate": "0580-03-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "rebellionSuppression",
-      "endDate": "0580-03-01"
     },
     "beizhou-xuandi.rebellionSuppressionCount.e001": {
       "startDate": "0578-07-01",
@@ -20905,11 +20885,11 @@
       "endDate": "0776-12-31"
     },
     "tang-daizong.rebellionSufferedCount.e007": {
-      "startDate": "0777-01-01",
+      "startDate": "0776-01-01",
       "datePrecision": "year",
       "reason": "out-of-scope",
       "noteHead": "rebellionSuppression",
-      "endDate": "0777-12-31"
+      "endDate": "0776-12-31"
     },
     "tang-daizong.rebellionSuppressionCount.e001": {
       "startDate": "0762-01-01",
@@ -20947,11 +20927,11 @@
       "endDate": "0776-12-31"
     },
     "tang-daizong.rebellionSuppressionCount.e006": {
-      "startDate": "0777-01-01",
+      "startDate": "0776-01-01",
       "datePrecision": "year",
       "reason": "out-of-scope",
       "noteHead": "汴州刺史李霊曜が濮州刺史孟鑑を専殺し詔を",
-      "endDate": "0777-12-31"
+      "endDate": "0776-12-31"
     },
     "tang-dezong.rebellionSufferedCount.e001": {
       "startDate": "0780-05",
@@ -21223,7 +21203,7 @@
       "endDate": "0681-10"
     },
     "tang-gaozong.rebellionSufferedCount.e004": {
-      "startDate": "0682-04",
+      "startDate": "0683-05",
       "datePrecision": "month",
       "reason": "out-of-scope",
       "noteHead": "永淳元年4月、綏州の部落稽（稽胡）白鉄余"
@@ -21256,7 +21236,7 @@
       "endDate": "0681-10"
     },
     "tang-gaozong.rebellionSuppressionCount.e004": {
-      "startDate": "0682-04",
+      "startDate": "0683-05",
       "datePrecision": "month",
       "reason": "out-of-scope",
       "noteHead": "永淳元年4月、綏州の部落稽（稽胡）白鉄余"
@@ -21635,7 +21615,7 @@
       "endDate": "0761-05-01"
     },
     "tang-suzong.rebellionSufferedCount.e007": {
-      "startDate": "0762-03-01",
+      "startDate": "0760-05",
       "datePrecision": "month",
       "reason": "filler",
       "noteHead": "旧唐書巻十：（上元三年/宝応元年）四月戊"
@@ -25115,7 +25095,7 @@
       "noteHead": "rebellionSuppression"
     },
     "xiwei-wendi.rebellionSufferedCount.e003": {
-      "startDate": "0537-12-01",
+      "startDate": "0538-01",
       "datePrecision": "month",
       "reason": "out-of-scope",
       "noteHead": "rebellionSuppression"
