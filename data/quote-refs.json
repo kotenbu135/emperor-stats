@@ -9417,6 +9417,30 @@
    ],
    "line": 201
   },
+  "beizhou-wudi|rebellionSufferedCount[5].note|264d37376182": {
+   "id": "beizhou-wudi",
+   "path": "rebellionSufferedCount[5].note",
+   "span": "己未，东寿阳土人反，率众五千袭并州城，刺史东平公宇文神举破平之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beizhou-wudi.txt",
+   "frags": [
+    "东寿阳土人反",
+    "率众五千袭并州城",
+    "刺史东平公宇文神举破"
+   ],
+   "line": 235
+  },
+  "beizhou-wudi|rebellionSufferedCount[5].note|790189344c3d": {
+   "id": "beizhou-wudi",
+   "path": "rebellionSufferedCount[5].note",
+   "span": "宣政元年春正月癸酉",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beizhou-wudi.txt",
+   "frags": [
+    "宣政元年春正月癸酉"
+   ],
+   "line": 236
+  },
   "beizhou-wudi|reigns[0].note|7a98fbd1d3ff": {
    "id": "beizhou-wudi",
    "path": "reigns[0].note",
@@ -9656,6 +9680,32 @@
     "改大成元年為大象元年"
    ],
    "line": 18
+  },
+  "beizhou-xuandi|rebellionSufferedCount[1].note|53148df64411": {
+   "id": "beizhou-xuandi",
+   "path": "rebellionSufferedCount[1].note",
+   "span": "汾州稽胡帅刘受逻千举兵反，诏上柱国、越王盛为行军元帅，率众讨平之",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beizhou-xuandi.txt",
+   "frags": [
+    "汾州稽胡帅刘受逻千举",
+    "越王盛为行军元帅",
+    "率众讨平之"
+   ],
+   "line": 8
+  },
+  "beizhou-xuandi|rebellionSufferedCount[2].note|7746eb7a133b": {
+   "id": "beizhou-xuandi",
+   "path": "rebellionSufferedCount[2].note",
+   "span": "戊子，行军总管、杞国公亮举兵反，袭行军元帅、郧国公韦孝宽于豫州",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/beizhou-xuandi.txt",
+   "frags": [
+    "杞国公亮举兵反",
+    "袭行军元帅",
+    "郧国公韦孝宽于豫州"
+   ],
+   "line": 32
   },
   "beizhou-xuandi|rebellionSuppressionCount.note|95ccae2516e1": {
    "id": "beizhou-xuandi",
@@ -56447,6 +56497,50 @@
    ],
    "line": 6
   },
+  "tang-daizong|rebellionSuppressionCount[5].note|371128f15cf9": {
+   "id": "tang-daizong",
+   "path": "rebellionSuppressionCount[5].note",
+   "span": "李灵耀据汴叛",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-daizong.txt",
+   "frags": [
+    "李灵耀据汴叛"
+   ],
+   "line": 90
+  },
+  "tang-daizong|rebellionSuppressionCount[5].note|89eb7be56de3": {
+   "id": "tang-daizong",
+   "path": "rebellionSuppressionCount[5].note",
+   "span": "十一年春正月庚寅朔",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-daizong.txt",
+   "frags": [
+    "十一年春正月庚寅朔"
+   ],
+   "line": 88
+  },
+  "tang-daizong|rebellionSuppressionCount[5].note|8f7ad124b251": {
+   "id": "tang-daizong",
+   "path": "rebellionSuppressionCount[5].note",
+   "span": "汴州平。丁未，滑将杜如江生擒灵耀而献。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-daizong.txt",
+   "frags": [
+    "滑将杜如江生擒灵耀而"
+   ],
+   "line": 91
+  },
+  "tang-daizong|rebellionSuppressionCount[5].note|b7a78ca079cc": {
+   "id": "tang-daizong",
+   "path": "rebellionSuppressionCount[5].note",
+   "span": "十二年春正月甲寅朔",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-daizong.txt",
+   "frags": [
+    "十二年春正月甲寅朔"
+   ],
+   "line": 92
+  },
   "tang-daizong|reigns[0].quote#0|09de5c7cc4ec": {
    "id": "tang-daizong",
    "path": "reigns[0].quote#0",
@@ -57611,6 +57705,54 @@
     "亲讲武于许"
    ],
    "line": 28
+  },
+  "tang-gaozong|rebellionSufferedCount[3].note|e3e6152d5cd4": {
+   "id": "tang-gaozong",
+   "path": "rebellionSufferedCount[3].note",
+   "span": "二年春正月甲午朔",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-gaozong.txt",
+   "frags": [
+    "二年春正月甲午朔"
+   ],
+   "line": 98
+  },
+  "tang-gaozong|rebellionSufferedCount[3].note|f01f8d56ff4a": {
+   "id": "tang-gaozong",
+   "path": "rebellionSufferedCount[3].note",
+   "span": "夏四月己巳，还东都。甲申，绥州部落稽白铁余据城平县反，命将军程务挺将兵讨之。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-gaozong.txt",
+   "frags": [
+    "夏四月己巳",
+    "绥州部落稽白铁余据城",
+    "命将军程务挺将兵讨之"
+   ],
+   "line": 5
+  },
+  "tang-gaozong|rebellionSuppressionCount[3].note|e3e6152d5cd4": {
+   "id": "tang-gaozong",
+   "path": "rebellionSuppressionCount[3].note",
+   "span": "二年春正月甲午朔",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-gaozong.txt",
+   "frags": [
+    "二年春正月甲午朔"
+   ],
+   "line": 98
+  },
+  "tang-gaozong|rebellionSuppressionCount[3].note|f01f8d56ff4a": {
+   "id": "tang-gaozong",
+   "path": "rebellionSuppressionCount[3].note",
+   "span": "夏四月己巳，还东都。甲申，绥州部落稽白铁余据城平县反，命将军程务挺将兵讨之。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-gaozong.txt",
+   "frags": [
+    "夏四月己巳",
+    "绥州部落稽白铁余据城",
+    "命将军程务挺将兵讨之"
+   ],
+   "line": 5
   },
   "tang-gaozong|reigns[0].quote#0|73613c6eb277": {
    "id": "tang-gaozong",
@@ -59170,6 +59312,17 @@
    ],
    "line": 28
   },
+  "tang-suzong|rebellionSufferedCount[6].note|ecb655492908": {
+   "id": "tang-suzong",
+   "path": "rebellionSufferedCount[6].note",
+   "span": "三年春正月癸亥朔",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-suzong.txt",
+   "frags": [
+    "三年春正月癸亥朔"
+   ],
+   "line": 27
+  },
   "tang-suzong|rebellionSuppressionCount[1].note|40be09a8ee27": {
    "id": "tang-suzong",
    "path": "rebellionSuppressionCount[1].note",
@@ -60549,6 +60702,31 @@
    ],
    "line": 76
   },
+  "tang-xianzong|rebellionSuppressionCount[5].note|10acb6b1c51d": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[5].note",
+   "span": "率师入蔡州，执吴元济以献，淮西平",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "率师入蔡州",
+    "执吴元济以献"
+   ],
+   "line": 110
+  },
+  "tang-xianzong|rebellionSuppressionCount[5].note|3dda705388a3": {
+   "id": "tang-xianzong",
+   "path": "rebellionSuppressionCount[5].note",
+   "span": "御兴安门受淮西之俘。以吴元济徇两市，斩于独柳树",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/tang-xianzong.txt",
+   "frags": [
+    "御兴安门受淮西之俘",
+    "以吴元济徇两市",
+    "斩于独柳树"
+   ],
+   "line": 110
+  },
   "tang-xianzong|rebellionSuppressionCount[5].note|9b916af9dc7f": {
    "id": "tang-xianzong",
    "path": "rebellionSuppressionCount[5].note",
@@ -61157,6 +61335,14 @@
    "nv": "1fb6738b"
   },
   "tang-xuanzong-2|reigns[0].quote#1|1140c94109e2": {
+   "id": "tang-xuanzong-2",
+   "path": "reigns[0].quote#1",
+   "span": "即位:「會昌六年，武宗疾大漸，左神策軍護軍中尉馬元贄立光王為皇太叔。三月甲子，即",
+   "status": "unresolved",
+   "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
+   "nv": "1fb6738b"
+  },
+  "tang-xuanzong-2|reigns[0].quote#1|607c7ee70cd4": {
    "id": "tang-xuanzong-2",
    "path": "reigns[0].quote#1",
    "span": "即位:「會昌六年，武宗疾大漸，左神策軍護軍中尉馬元贄立光王為皇太叔。三月甲子，即",
