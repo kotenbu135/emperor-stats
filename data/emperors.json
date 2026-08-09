@@ -67499,9 +67499,10 @@
     "personalName": "誦",
     "commonName": "順宗",
     "aliases": [],
-    "posthumousName": "至徳大聖大安孝皇帝",
+    "posthumousName": null,
     "templeName": "順宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "至徳大聖大安孝皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
