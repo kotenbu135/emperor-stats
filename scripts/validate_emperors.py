@@ -381,6 +381,11 @@ def check_bce_event_years(data):
       （即位年の大赦・崩御年の遺詔大赦も同一 ISO 年に落ちることを全件で確認済み）
     - 歴史年直記の検出: note に「前n年」の明記があるのに date の年がどの n とも
       -(n-1) で一致せず、いずれかの n と -n で一致する場合は旧規約（歴史年直記）の疑い
+
+    在位範囲は startDate/endDate（天文年）と startYear/endYear（歴史年→天文年）の双方から
+    取る。ISO 日付が片端しか無いレコードで範囲が1年に縮退し、正しい年の event を範囲外と
+    言う穴があった（2026-08-09・qin-er-shi は startDate が null で範囲が [-206,-206] だった）。
+    CE 側の check_event_reign_range は元から双方を見ている。
     """
     for e in data["emperors"]:
         reign_years = []
@@ -389,6 +394,10 @@ def check_bce_event_years(data):
                 t = parse_date(r.get(k))
                 if t:
                     reign_years.append(t[0])
+            for yk in ("startYear", "endYear"):
+                y = r.get(yk)
+                if isinstance(y, int):
+                    reign_years.append(y if y > 0 else y + 1)
         for g in COUNT_GROUPS:
             o = e.get(g)
             if not isinstance(o, dict):
