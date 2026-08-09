@@ -15581,6 +15581,17 @@
    ],
    "line": 77
   },
+  "han-wendi|amnestyCount.events[1].quotes[0]|5b7d203f085b": {
+   "id": "han-wendi",
+   "path": "amnestyCount.events[1].quotes[0]",
+   "span": "夏四月，赦天下",
+   "status": "corpus",
+   "corpusFile": "china-history/汉书/纪/第七章-武帝纪-段译.html",
+   "frags": [
+    "夏四月赦天下"
+   ],
+   "line": 23
+  },
   "han-wendi|amnestyCount[0].note|cfa88447b2b3": {
    "id": "han-wendi",
    "path": "amnestyCount[0].note",
@@ -15605,9 +15616,43 @@
    ],
    "line": 61
   },
+  "han-wendi|amnestyCount[1].note|5b7d203f085b": {
+   "id": "han-wendi",
+   "path": "amnestyCount[1].note",
+   "span": "夏四月，赦天下",
+   "status": "corpus",
+   "corpusFile": "china-history/汉书/纪/第七章-武帝纪-段译.html",
+   "frags": [
+    "夏四月赦天下"
+   ],
+   "line": 23
+  },
+  "han-wendi|amnestyCount[2].note|0dd01c5aa774": {
+   "id": "han-wendi",
+   "path": "amnestyCount[2].note",
+   "span": "赦天下，修名山大川嘗祀而絕者，有司以歲時致禮",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/han-wendi.txt",
+   "frags": [
+    "修名山大川嘗祀而絕者",
+    "有司以歲時致禮"
+   ],
+   "line": 61
+  },
   "han-wendi|amnestyCount[2].note|3a07d68c951f": {
    "id": "han-wendi",
    "path": "amnestyCount[2].note",
+   "span": "五月，赦天下。免官奴婢為庶人",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/han-wendi.txt",
+   "frags": [
+    "免官奴婢為庶人"
+   ],
+   "line": 72
+  },
+  "han-wendi|amnestyCount[3].note|3a07d68c951f": {
+   "id": "han-wendi",
+   "path": "amnestyCount[3].note",
    "span": "五月，赦天下。免官奴婢為庶人",
    "status": "cache",
    "corpusFile": "_corpus_cache/han-wendi.txt",
@@ -19287,6 +19332,30 @@
    "status": "external",
    "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
   },
+  "hou-han-shaodi-yi|amnestyCount.events[0].quotes[0]|c958db5661c8": {
+   "id": "hou-han-shaodi-yi",
+   "path": "amnestyCount.events[0].quotes[0]",
+   "span": "六月乙巳，大赦天下。诏先帝巡狩所幸，皆半入今年田租",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-shaodi-yi.txt",
+   "frags": [
+    "诏先帝巡狩所幸",
+    "皆半入今年田租"
+   ],
+   "line": 3
+  },
+  "hou-han-shaodi-yi|amnestyCount[0].note|c958db5661c8": {
+   "id": "hou-han-shaodi-yi",
+   "path": "amnestyCount[0].note",
+   "span": "六月乙巳，大赦天下。诏先帝巡狩所幸，皆半入今年田租",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-shaodi-yi.txt",
+   "frags": [
+    "诏先帝巡狩所幸",
+    "皆半入今年田租"
+   ],
+   "line": 3
+  },
   "hou-han-shaodi-yi|deathCause.note|e443a32defe4": {
    "id": "hou-han-shaodi-yi",
    "path": "deathCause.note",
@@ -20836,9 +20905,44 @@
    ],
    "line": 26
   },
+  "hou-han-zhidi|amnestyCount.events[0].quotes[0]|23ce3388ffaf": {
+   "id": "hou-han-zhidi",
+   "path": "amnestyCount.events[0].quotes[0]",
+   "span": "乙酉，大赦天下。赐人爵及粟、帛各有差",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-zhidi.txt",
+   "frags": [
+    "赐人爵及粟"
+   ],
+   "line": 5
+  },
+  "hou-han-zhidi|amnestyCount[0].note|0a5f14e27b21": {
+   "id": "hou-han-zhidi",
+   "path": "amnestyCount[0].note",
+   "span": "二月，豫章太守虞续坐赃，下狱死。乙酉，大赦天下。赐人爵及粟、帛各有差。还王侯所削",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-zhidi.txt",
+   "frags": [
+    "豫章太守虞续坐赃",
+    "赐人爵及粟",
+    "还王侯所削户"
+   ],
+   "line": 5
+  },
   "hou-han-zhidi|amnestyCount[0].note|68b79cd26e12": {
    "id": "hou-han-zhidi",
    "path": "amnestyCount[0].note",
+   "span": "大赦天下，賜民爵及粟帛各有差",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-zhidi.txt",
+   "frags": [
+    "賜民爵及粟帛各有差"
+   ],
+   "line": 25
+  },
+  "hou-han-zhidi|amnestyCount[1].note|68b79cd26e12": {
+   "id": "hou-han-zhidi",
+   "path": "amnestyCount[1].note",
    "span": "大赦天下，賜民爵及粟帛各有差",
    "status": "cache",
    "corpusFile": "_corpus_cache/hou-han-zhidi.txt",
@@ -45404,6 +45508,30 @@
     "二世皇帝享国三年"
    ],
    "line": 64
+  },
+  "qin-er-shi|amnestyCount.events[0].quotes[0]|cf2d20a8f78c": {
+   "id": "qin-er-shi",
+   "path": "amnestyCount.events[0].quotes[0]",
+   "span": "二世乃大赦天下，使章邯将，击破周章军而走",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qin-er-shi.txt",
+   "frags": [
+    "二世乃大赦天下",
+    "击破周章军而走"
+   ],
+   "line": 7
+  },
+  "qin-er-shi|amnestyCount[0].note|cf2d20a8f78c": {
+   "id": "qin-er-shi",
+   "path": "amnestyCount[0].note",
+   "span": "二世乃大赦天下，使章邯将，击破周章军而走",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qin-er-shi.txt",
+   "frags": [
+    "二世乃大赦天下",
+    "击破周章军而走"
+   ],
+   "line": 7
   },
   "qin-er-shi|crownPrinceDepositionCount.note|d59ad8d3594f": {
    "id": "qin-er-shi",
