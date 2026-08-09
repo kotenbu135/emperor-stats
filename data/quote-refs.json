@@ -16976,6 +16976,18 @@
    ],
    "line": 183
   },
+  "hou-han-chongdi|eraChangeCount[0].note|625ff961d3a2": {
+   "id": "hou-han-chongdi",
+   "path": "eraChangeCount[0].note",
+   "span": "永憙元年春正月戊戌，帝崩于玉堂前殿，年三岁。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-chongdi.txt",
+   "frags": [
+    "永憙元年春正月戊戌",
+    "帝崩于玉堂前殿"
+   ],
+   "line": 9
+  },
   "hou-han-chongdi|eraChangeCount[0].note|f92f1c0435cc": {
    "id": "hou-han-chongdi",
    "path": "eraChangeCount[0].note",
@@ -17815,6 +17827,30 @@
     "尊皇后曰皇太后"
    ],
    "line": 2
+  },
+  "hou-han-hedi|eraChangeCount[0].note|03a30de6b1ca": {
+   "id": "hou-han-hedi",
+   "path": "eraChangeCount[0].note",
+   "span": "章和二年二月壬辰，即皇帝位，年十岁。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-hedi.txt",
+   "frags": [
+    "章和二年二月壬辰"
+   ],
+   "line": 2
+  },
+  "hou-han-hedi|eraChangeCount[0].note|6a8fec92f924": {
+   "id": "hou-han-hedi",
+   "path": "eraChangeCount[0].note",
+   "span": "永元元年春三月甲辰，初令郎官诏除者得占丞、尉，以比秩为真。",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-hedi.txt",
+   "frags": [
+    "永元元年春三月甲辰",
+    "初令郎官诏除者得占丞",
+    "以比秩为真"
+   ],
+   "line": 11
   },
   "hou-han-hedi|eraChangeCount[0].note|90f12b70f6ad": {
    "id": "hou-han-hedi",
@@ -21026,6 +21062,17 @@
     "賜民爵及粟帛各有差"
    ],
    "line": 25
+  },
+  "hou-han-zhidi|eraChangeCount[0].note|6e3c6d92cdee": {
+   "id": "hou-han-zhidi",
+   "path": "eraChangeCount[0].note",
+   "span": "本初元年春正月丙申，诏曰",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-zhidi.txt",
+   "frags": [
+    "本初元年春正月丙申"
+   ],
+   "line": 19
   },
   "hou-han-zhidi|rebellionSuppressionCount[0].note|cf21a22185c3": {
    "id": "hou-han-zhidi",
@@ -45638,6 +45685,17 @@
    ],
    "line": 8988
   },
+  "qin-er-shi|ages.note|6c4adc80cf3b": {
+   "id": "qin-er-shi",
+   "path": "ages.note",
+   "span": "改年始，朝贺皆自十月朔",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/史记.txt",
+   "frags": [
+    "朝贺皆自十月朔"
+   ],
+   "line": 512
+  },
   "qin-er-shi|ages.note|8cd1b06a47f3": {
    "id": "qin-er-shi",
    "path": "ages.note",
@@ -56365,6 +56423,29 @@
    ],
    "line": 1
   },
+  "suimo-zhucan|reigns[0].note|0846a0cddb34": {
+   "id": "suimo-zhucan",
+   "path": "reigns[0].note",
+   "span": "散骑常侍段确，性嗜酒，奉诏慰劳硃粲于菊潭。辛丑",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "散骑常侍段确",
+    "奉诏慰劳硃粲于菊潭"
+   ],
+   "line": 18125
+  },
+  "suimo-zhucan|reigns[0].note|a2c4ae98268d": {
+   "id": "suimo-zhucan",
+   "path": "reigns[0].note",
+   "span": "遂屠菊潭，奔王世充，世充以为龙骧大将军",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "世充以为龙骧大将军"
+   ],
+   "line": 18125
+  },
   "suimo-zhucan|reigns[0].quote#0|fc6e6e0871e9": {
    "id": "suimo-zhucan",
    "path": "reigns[0].quote#0",
@@ -62848,23 +62929,23 @@
   "tang-zhongzong|capitalRelocationCount[0].note|8b01b4b13139": {
    "id": "tang-zhongzong",
    "path": "capitalRelocationCount[0].note",
-   "span": "冬十月己卯，車駕還京師。戊戌，至自東都",
+   "span": "冬十月己卯，车驾还京师。戊戌，至自东都",
    "status": "cache",
    "corpusFile": "_corpus_cache/tang-zhongzong.txt",
    "frags": [
     "冬十月己卯",
-    "車駕還京師"
+    "车驾还京师"
    ],
    "line": 12
   },
   "tang-zhongzong|capitalRelocationCount[0].note|f1cd7712748f": {
    "id": "tang-zhongzong",
    "path": "capitalRelocationCount[0].note",
-   "span": "神都依舊為東都",
+   "span": "神都依旧为东都",
    "status": "cache",
    "corpusFile": "_corpus_cache/tang-zhongzong.txt",
    "frags": [
-    "神都依舊為東都"
+    "神都依旧为东都"
    ],
    "line": 4
   },

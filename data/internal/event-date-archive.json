@@ -17,7 +17,8 @@
       "2026-08-07（Issue #91）: 皇帝即位前の event 53件ぶんの鍵を削除した。event 自体を data/internal/preaccession-events.json へ退避したため、退避していた月日もそちらの archivedDate に移してある。",
       "2026-08-07・Issue #91: beiqi-andewang-gaoyanzong.personalCampaignCount.e001（0576-01-01 の埋め草）と jin-hailingwang.empressInstallationCount.e001（1149-10-18）を削除した。どちらも配布物側の年が誤りで、0577-01（隆化元年十二月の多数月）・1150-10-13（天德二年九月甲午）へ原表記と conversion 付きで訂正したため、退避していた値は上書きされている。",
       "2026-08-07・Issue #91 の追走査: 皇帝即位前の event 1件ぶんの鍵を削除した（event 自体は data/internal/preaccession-events.json へ退避）。",
-      "2026-08-09・A1 訂正: beizhou-wudi.rebellionSufferedCount.e006／beizhou-xuandi.rebellionSufferedCount.e002・e003 の3 event を削除（訂正後の値が在位境界年の月精度になり、配布物が月まで主張するようになったため退避が不要）。あわせて xiwei-wendi.rebellionSufferedCount.e003・tang-gaozong の綏州稽胡2件・tang-suzong.rebellionSufferedCount.e007・tang-daizong の李霊曜の乱2件の退避値を、原典で確定し直した年へ訂正した（配布物は年精度のまま）"
+      "2026-08-09・A1 訂正: beizhou-wudi.rebellionSufferedCount.e006／beizhou-xuandi.rebellionSufferedCount.e002・e003 の3 event を削除（訂正後の値が在位境界年の月精度になり、配布物が月まで主張するようになったため退避が不要）。あわせて xiwei-wendi.rebellionSufferedCount.e003・tang-gaozong の綏州稽胡2件・tang-suzong.rebellionSufferedCount.e007・tang-daizong の李霊曜の乱2件の退避値を、原典で確定し直した年へ訂正した（配布物は年精度のまま）",
+      "2026-08-10・C 群: han-gaozu の大赦 e001・e002 と立后 e001、tang-zhongzong の遷都 e001 を退避側から消した。配布物側を原表記 dateRaw と source.conversion 付きで訂正し、大赦 e002 と立后 e001 は日精度へ、遷都 e001 は移動の年（0706）へ動かしたので、退避してあった埋め草（-01 を足した形）は接頭辞の関係を失った"
     ]
   },
   "events": {
@@ -6025,18 +6026,6 @@
       "reason": "out-of-scope",
       "noteHead": "永始三年（前14年）十二月、山陽郡の鉄官"
     },
-    "han-gaozu.amnestyCount.e001": {
-      "date": "-0201-01-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "高帝五年（前202年）正月、皇帝即位に先"
-    },
-    "han-gaozu.amnestyCount.e002": {
-      "date": "-0201-06-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "高帝五年（前202年）六月壬辰、「大赦天"
-    },
     "han-gaozu.amnestyCount.e003": {
       "date": "-0197-01-01",
       "datePrecision": "month",
@@ -6048,12 +6037,6 @@
       "datePrecision": "year",
       "reason": "filler",
       "noteHead": "高帝十一年（前196年）、群臣の議により"
-    },
-    "han-gaozu.empressInstallationCount.e001": {
-      "date": "-0201-02-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "高帝五年（前202年）二月甲午、氾水の陽"
     },
     "han-gaozu.personalCampaignCount.e003": {
       "startDate": "-0200-10-01",
@@ -22851,12 +22834,6 @@
       "datePrecision": "day",
       "reason": "out-of-scope",
       "noteHead": "【第2次在位】景龍三年十一月乙丑、南郊に"
-    },
-    "tang-zhongzong.capitalRelocationCount.e001": {
-      "date": "0705-03-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "神龍元年（705年）二月甲寅、神龍革命に"
     },
     "tang-zhongzong.eraChangeCount.e001": {
       "date": "0684-01-23",
