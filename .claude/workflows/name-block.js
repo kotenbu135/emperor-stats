@@ -99,12 +99,16 @@ log(`${ids.length}人ぶんの名前データを調査します（${section || '
 const results = await pipeline(
   ids,
   (id) => agent(
-    `皇帝 id \`${id}\` の名前データ（廟号 templeName・諡号 posthumousName・別称 aliases・元号）を` +
+    `皇帝 id \`${id}\` の名前データ（廟号 templeName・諡号の短縮呼称 posthumousName・\n` +
+    `諡号の全長形 posthumousNameFull・諱 personalName）を` +
     `正史の本紀から確定してください。返す JSON の id は \`${id}\` を一字一句そのまま使うこと。\n\n` +
     `- **最初に \`python3 scripts/check_regime_conventions.py --for ${id}\` を走らせる。**\n` +
     `  廟号を立てるか・どの位置にどんな書式で載るかは人物の属性ではなく**政権の慣行**なので、\n` +
     `  政権単位で先に確定してあります。出力の「所在」「書式」に従って読み、\n` +
     `  使った慣行（書名・判定・所在）を regimeConvention にそのまま書いてください。\n` +
+    `  **出力に「保存形」の行があれば、それが「読めた形をどちらの欄へ入れるか」の正です。**\n` +
+    `  諡号の欄は2つに割れており（2026-08-10・Issue #37）、原文に見えた1つの形を\n` +
+    `  そのまま両方へ入れてよい政権と、片方が空になる政権があります。自分で決めないこと\n` +
     `  **1 で終わったらその政権は慣行が未確定です。人物単位の調査に入らず、\n` +
     `  regimeConvention に \`blocked: <政権id>\` と書いて claims を空のまま返してください**\n` +
     `- 判定が \`skip\` / \`other-source\` の項目は、この書の冒頭では取れません。無理に埋めない\n` +
@@ -119,7 +123,12 @@ const results = await pipeline(
     `- 本紀冒頭の1行（「太宗孝武惠文皇帝，讳德光」形式）でほぼ取れます。取れない場合は無理に埋めず\n` +
     `  「調査済みだが不明」として unknown に入れてください。**空欄が正しい場合があります**\n` +
     `  （始皇帝に諡号は無い、漢は廟号を持つ皇帝が限られる、など）\n` +
+    `- **引用は底本の字体のまま**（簡体の底本なら簡体のまま）。一方で findings の\n` +
+    `  **値は既存レコードの表記に揃える**（このデータセットは日本語の新字体。例:\n` +
+    `  底本「大圣大广孝皇帝」→ 値「大聖大広孝皇帝」）。どちらへ倒したかを note に1行残すこと\n` +
     `- **民族名（西夏のタングート名・北魏の鮮卑名など）を推測で補わない**\n` +
+    `- 元号（単位2）と民族名（単位3）は 2026-08-03 に完了済みなので**この段では扱わない**。\n` +
+    `  別称 aliases は欄への投入対象外だが、冒頭・贊に出たら claims と findings に残してよい\n` +
     `- 出力は docs/process/CLAIMS_CONTRACT.md の形で \`${workDir}/claims/${id}.json\` へ Write し、\n` +
     `  \`python3 scripts/check_claims.py ${workDir}/claims/${id}.json\` をエラー0にしてから返すこと`,
     { label: `name:${id}`, phase: '調査', agentType: 'corpus-researcher', schema: RESEARCH_SCHEMA },
@@ -132,7 +141,9 @@ const results = await pipeline(
     return parallel(lenses.map((lens) => () => agent(
       `皇帝 id \`${id}\` の名前データを**原文から独立に**確かめてください。\n\n` +
       `先に \`_corpus_cache/${id}.txt\`（無ければ本紀の該当箇所）を読んで、` +
-      `その人物の**廟号・諡号・諱・元号を原文が何と書いているか**を自分で書き出してから、` +
+      `その人物の**廟号・諡号・諱を原文が何と書いているか**を自分で書き出してから、` +
+      `（諡号は**短縮呼称 posthumousName と全長形 posthumousNameFull の2欄に割れている**ので、` +
+      `どちらの欄へ入っているかも見る。正は check_regime_conventions の「保存形」の行）` +
       `\`${workDir}/claims/${id}.json\` を開いて突き合わせてください（順序を逆にしないこと）。\n` +
       `- **あなたの観点は「${lens}」です。ここだけを見てください**: ${LENSES[lens]}\n` +
       `- 他の観点の指摘は他のエージェントが担当します。手を広げないこと\n` +

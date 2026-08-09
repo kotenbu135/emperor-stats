@@ -134,6 +134,11 @@ def brief_for(eid, field=None):
         print(f"- 書式: {r['form']}")
         if r.get("variants"):
             print(f"- 異形: {r['variants']}")
+        # 「原文がどう書いてあるか」（form）と「欄へ何を入れるか」（storageForm）は別物で、
+        # 同じ書式から2つの欄へ割れる場合がある（諡号の短縮呼称と全長形・2026-08-10）。
+        # 出さないと、この出力を唯一の入口にしている調査エージェントには届かない
+        if r.get("storageForm"):
+            print(f"- 保存形: {r['storageForm']}")
         if ex and ex.get("note"):
             print(f"- 例外の注: {ex['note']}")
         if r.get("note"):
