@@ -1281,9 +1281,13 @@ def check_family_names(data):
             fixed = FAMILY_CORRECTED.get(e["id"])
             want = fixed[0] if fixed else orig
             if rebuilt != want:
+                hint = ("" if fixed else
+                        "。**諱そのものを訂正したのなら FAMILY_CORRECTED へ"
+                        "訂正後の連結形と理由を足す**（凍結標本は分割の証人なので"
+                        "書き換えない）")
                 err(f"[family-name] {e['id']}: 連結すると {rebuilt!r} で、"
                     f"{'訂正後の' if fixed else '移行前の'}{want!r} に戻らない"
-                    f"（分ける以外のことをしている）")
+                    f"（分ける以外のことをしている）{hint}")
     # D
     for regime, families in sorted(by_regime.items()):
         if len(families) > 1 and regime not in FAMILY_MIXED_REGIMES:
