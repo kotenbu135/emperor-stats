@@ -1,0 +1,24 @@
+{
+  "id": "dongjin-mingdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/dongjin-mingdi.txt",
+      "line": 1,
+      "quote": "明皇帝讳绍，字道畿"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "明皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "本紀の冒頭1行の第1スロット。晉書 帝紀の定型は「〈諡〉皇帝讳〈諱〉，字〈字〉」で**廟号を含まない**（廟号は崩御条の側）"
+    }
+  ],
+  "discrepancies": "食い違いなし"
+}

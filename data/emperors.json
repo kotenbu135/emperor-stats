@@ -21882,7 +21882,8 @@
     "posthumousName": "元帝",
     "templeName": "中宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "景文"
+    "courtesyName": "景文",
+    "posthumousNameFull": "元皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "eastern-jin",
@@ -22225,7 +22226,8 @@
     "posthumousName": "明帝",
     "templeName": "粛祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "道畿"
+    "courtesyName": "道畿",
+    "posthumousNameFull": "明皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "eastern-jin",
@@ -22541,7 +22543,8 @@
     "posthumousName": "成帝",
     "templeName": "顕宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "世根"
+    "courtesyName": "世根",
+    "posthumousNameFull": "成皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "eastern-jin",
@@ -22917,7 +22920,8 @@
     "posthumousName": "康帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "世同"
+    "courtesyName": "世同",
+    "posthumousNameFull": "康皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "eastern-jin",
@@ -23122,7 +23126,8 @@
     "posthumousName": "穆帝",
     "templeName": "孝宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "彭子"
+    "courtesyName": "彭子",
+    "posthumousNameFull": "穆皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "eastern-jin",
@@ -23538,7 +23543,8 @@
     "posthumousName": "哀帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "千齢"
+    "courtesyName": "千齢",
+    "posthumousNameFull": "哀皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "eastern-jin",
@@ -24100,7 +24106,8 @@
     "posthumousName": "簡文帝",
     "templeName": "太宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "道万"
+    "courtesyName": "道万",
+    "posthumousNameFull": "簡文皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "eastern-jin",
@@ -24306,7 +24313,8 @@
     "posthumousName": "孝武帝",
     "templeName": "烈宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "昌明"
+    "courtesyName": "昌明",
+    "posthumousNameFull": "孝武皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "eastern-jin",
@@ -24892,7 +24900,8 @@
     "posthumousName": "安帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "徳宗"
+    "courtesyName": "徳宗",
+    "posthumousNameFull": "安皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "eastern-jin",
@@ -25449,7 +25458,8 @@
     "posthumousName": "恭帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "徳文"
+    "courtesyName": "徳文",
+    "posthumousNameFull": "恭皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "eastern-jin",
