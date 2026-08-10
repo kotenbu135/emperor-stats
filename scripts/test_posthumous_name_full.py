@@ -138,18 +138,19 @@ for label, value, want in F_CASES:
     bad += 0 if ok else 1
     print(f"{'OK ' if ok else 'NG '} {label}  (hit={hit!r})")
 
-# **差分表に無い字は新字体で書くと当たらない。** `寛`↔`寬` は hanzi_norm の
-# SHINJITAI_TO_TRAD に無く、norm_for_match が `寛` をそのまま残すため底本の `宽` に
-# 当たらない。だから穆宗・宣宗の全長形は底本の字体（寬）で保存している。
-# これは仕様であって取りこぼしではない、ということをここで固定する（残量表の行）。
+# **差分表に無い字は新字体で書くと当たらない。** 2026-08-10 まで `寛`↔`寬` が
+# hanzi_norm の SHINJITAI_TO_TRAD に無く、norm_for_match が `寛` をそのまま残すため
+# 底本の `宽` に当たらなかった（穆宗・宣宗の全長形だけ底本の字体で保存していた）。
+# **同日に表へ足して、新字体・繁体のどちらでも当たる**ようにし、保存値も新字体へ揃えた。
+# 表の穴は「当たらない側」に倒れる＝正しい値が底本に無いと判定されるので、
+# ここでは**両方の字体が当たること**を固定する（穴が戻れば下の1本目が落ちる）。
 HAY2 = norm_for_match("穆宗契天隆道渊懿宽仁显文光武纯德弘孝庄皇帝，讳载垕，世宗第三子也")
+ok = bool(Q.posthumous_full_hit("契天隆道淵懿寛仁顕文光武純徳弘孝荘皇帝", HAY2))
+bad += 0 if ok else 1
+print(f"{'OK ' if ok else 'NG '} **新字体の `寛` で当たる**（差分表に足した字）")
 ok = bool(Q.posthumous_full_hit("契天隆道淵懿寬仁顕文光武純徳弘孝荘皇帝", HAY2))
 bad += 0 if ok else 1
-print(f"{'OK ' if ok else 'NG '} 差分表に在る字は新字体で当たる（明穆宗）")
-ok = not Q.posthumous_full_hit("契天隆道淵懿寛仁顕文光武純徳弘孝荘皇帝", HAY2)
-bad += 0 if ok else 1
-print(f"{'OK ' if ok else 'NG '} **差分表に無い `寛` を使うと当たらない**"
-      f"（だから底本の字体で保存する・残量表の行）")
+print(f"{'OK ' if ok else 'NG '} 繁体の `寬` でも当たる（表を足しても旧い保存値は落ちない）")
 
 total = len(CASES) + len(F_CASES) + 3
 print(f"\n{'全件一致' if not bad else str(bad) + '件 不一致'} / {total}件")
