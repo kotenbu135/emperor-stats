@@ -1029,8 +1029,7 @@
         "posthumousNameFull",
         "personalName",
         "courtesyName",
-        "childhoodName",
-        "familyName"
+        "childhoodName"
       ],
       "locator": "舊五代史 本紀（china-history 旧五代史/<王朝>/第○章-○○紀○-原文.html）各帝の**冒頭1行**",
       "verdict": "form-found",
@@ -1072,7 +1071,7 @@
           "note": "郢王友珪。弑逆と即位の記事だけが載る"
         }
       ],
-      "note": "十国20人は**新五代史 世家**に載るので所在が違う（この記録は五代の本朝だけ）。後周太祖の条はキャッシュの先頭に「讳威」が重複して入っている（切り出しのアーティファクトで、書式そのものは他帝と同じ）",
+      "note": "十国20人は**新五代史 世家**に載るので所在が違う（この記録は五代の本朝だけ）。後周太祖の条はキャッシュの先頭に「讳威」が重複して入っている（切り出しのアーティファクトで、書式そのものは他帝と同じ）\n**姓は別レコードに割った**（2026-08-10 の訂正）— 後唐の冒頭1行には姓が並ばず、この記録に familyName を含めると沙陀の賜姓を「書式から取れる」と誤って宣言する。",
       "surveyedAt": "2026-08-10",
       "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない。**諡の段 `posthumousNames` もこの記録の対象外**（段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定＝残量表の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず `commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
     },
@@ -1281,6 +1280,1090 @@
         }
       ],
       "note": "**「その書に無い」と言い切ってはいない** — 前涼張祚のキャッシュは全4行で記事の途中で切れており（死去の条が入っていない）、定型の不在がキャッシュの行範囲のせいである可能性が残る。打ち切り側（`absent-by-book`）に倒さず `no-form` にしてあるのはこのため。人物単位で当たるときは `SOURCE_MAPPING.md` の行範囲から見直す",
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "舊五代史",
+      "regimeIds": [
+        "later-liang",
+        "later-jin",
+        "later-han",
+        "later-zhou"
+      ],
+      "fields": [
+        "familyName"
+      ],
+      "locator": "舊五代史 本紀 **各王朝の創業者の条**の冒頭1行（「姓〈姓〉氏」）",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，姓〈姓〉氏，讳〈諱〉，〈本貫〉」の姓の位置。**後唐（`later-tang`）はこの記録に入らない** — 荘宗・明宗の冒頭に姓が並ばず、李姓は唐からの賜姓（明宗紀「世事武皇，及其锡姓也，遂编于属籍」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/wudai-houliang-taizu.txt",
+          "line": 1,
+          "quote": "姓硃氏，讳晃"
+        },
+        {
+          "file": "_corpus_cache/wudai-houjin-gaozu.txt",
+          "line": 1,
+          "quote": "姓石氏，讳敬瑭"
+        },
+        {
+          "file": "_corpus_cache/wudai-houhan-gaozu.txt",
+          "line": 1,
+          "quote": "姓刘氏，讳暠"
+        },
+        {
+          "file": "_corpus_cache/wudai-houzhou-taizu.txt",
+          "line": 1,
+          "quote": "姓郭氏，讳威"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "舊五代史",
+      "regimeIds": [
+        "later-tang"
+      ],
+      "fields": [
+        "familyName"
+      ],
+      "locator": "舊五代史 唐書 本紀。**冒頭1行に姓の位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "冒頭は「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」で姓を挟まない。李姓は唐からの賜姓であることが本文に書かれる（明宗紀）。絞り込めないので姓は人物単位で判定する",
+      "evidence": [
+        {
+          "file": "_corpus_cache/wudai-houtang-mingzong.txt",
+          "line": 1,
+          "quote": "世事武皇，及其锡姓也，遂编于属籍"
+        },
+        {
+          "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+          "line": 1,
+          "quote": "庄宗光圣神闵孝皇帝，讳存勖，武皇帝之长子也"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "新五代史",
+      "regimeIds": [
+        "southern-han",
+        "northern-han",
+        "min",
+        "southern-tang",
+        "later-shu",
+        "former-shu",
+        "yang-wu"
+      ],
+      "fields": [
+        "familyName",
+        "personalName",
+        "courtesyName"
+      ],
+      "locator": "新五代史 世家（china-history 新五代史/世家）各君主の記事**冒頭1行**。1つの世家に複数の君主が同居するので `_corpus_cache/<id>.txt` は開始マーカーで切ってある",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈姓〉〈名〉，字〈字〉，〈本貫〉也」。**同じ政権の2人目以降は姓を省く**（「昶，知祥第三子也」「衍字化源」）",
+      "variants": "**即位後の改名を冒頭で書き継ぐ**条が多い（「玢，初名洪度」「景，初名景通，昪长子也。既立，又改名璟」「继鹏，鏻长子也。既立，更名昶」）。本文がどちらの名で通すかは条によって違うので、諱の欄に入れる形は人物単位で決める",
+      "evidence": [
+        {
+          "file": "_corpus_cache/shiguo-nantang-libian.txt",
+          "line": 1,
+          "quote": "李昪，字正伦，徐州人也"
+        },
+        {
+          "file": "_corpus_cache/shiguo-qianshu-wangjian.txt",
+          "line": 1,
+          "quote": "王建，字光图，许州舞阳人也"
+        },
+        {
+          "file": "_corpus_cache/shiguo-houshu-mengzhixiang.txt",
+          "line": 1,
+          "quote": "孟知祥，字保胤，邢州龙冈人也"
+        },
+        {
+          "file": "_corpus_cache/shiguo-beihan-liuchong.txt",
+          "line": 1,
+          "quote": "刘旻，汉高祖母弟也。初名崇"
+        },
+        {
+          "file": "_corpus_cache/shiguo-min-wangyanjun.txt",
+          "line": 1,
+          "quote": "鏻，审知次子也"
+        },
+        {
+          "file": "_corpus_cache/shiguo-nanhan-liubin.txt",
+          "line": 1,
+          "quote": "玢，初名洪度，封秦王"
+        },
+        {
+          "file": "_corpus_cache/shiguo-wu-yangpu.txt",
+          "line": 1,
+          "quote": "溥，行密第四子也"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "新五代史",
+      "regimeIds": [
+        "southern-han",
+        "min",
+        "southern-tang",
+        "later-shu",
+        "yang-wu"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "新五代史 世家 各君主の記事**末尾**1行。冒頭ではない（晉書 載記と同じ形で、所在が冒頭と末尾に割れる）",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「卒，年〈享年〉，谥〈諡〉，庙号〈廟号〉，陵曰〈陵名〉」。諡号と廟号が同じ1行から同時に取れる",
+      "variants": "諡が1字だけの条がある（楊呉の楊溥「谥曰睿」）。「谥」と「谥曰」の両形がある。廟号を伴わない条もある",
+      "evidence": [
+        {
+          "file": "_corpus_cache/shiguo-nanhan-liuyan.txt",
+          "line": 18,
+          "quote": "谥天皇大帝，庙号高祖，陵曰康陵"
+        },
+        {
+          "file": "_corpus_cache/shiguo-min-wangyanjun.txt",
+          "line": 7,
+          "quote": "谥曰惠皇帝，庙号太宗"
+        },
+        {
+          "file": "_corpus_cache/shiguo-nantang-libian.txt",
+          "line": 15,
+          "quote": "谥曰光文肃武孝高皇帝，庙号烈祖，陵曰永陵"
+        },
+        {
+          "file": "_corpus_cache/shiguo-houshu-mengzhixiang.txt",
+          "line": 16,
+          "quote": "谥为文武圣德英烈明孝皇帝，庙号高祖，陵曰和陵"
+        },
+        {
+          "file": "_corpus_cache/shiguo-wu-yangpu.txt",
+          "line": 10,
+          "quote": "谥曰睿"
+        }
+      ],
+      "note": "**在位中に亡国した君主には定型が付かない**（南漢の劉鋹・閩の王延政ほか）。空欄を「諡が無い」と読まず人物単位で当たり直す",
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "新五代史",
+      "regimeIds": [
+        "former-shu",
+        "northern-han"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "新五代史 世家。**記事末尾の定型がこの2政権には及ばない** — 前蜀2人・北漢4人の全行に「谥」「庙号」の語が1件も無い",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "冒頭は他の世家と同じ「〈姓〉〈名〉，字〈字〉」だが、諡・廟号が入る位置が記事に無い。絞り込めないので人物単位で判定する",
+      "evidence": [
+        {
+          "file": "_corpus_cache/shiguo-qianshu-wangjian.txt",
+          "line": 1,
+          "quote": "王建，字光图"
+        },
+        {
+          "file": "_corpus_cache/shiguo-beihan-liuchong.txt",
+          "line": 1,
+          "quote": "刘旻，汉高祖母弟也"
+        }
+      ],
+      "note": "**「その書に無い」と言い切ってはいない**（打ち切り側の `absent-by-book` に倒していない）。十国春秋など別史料には諡が在りうる",
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "舊唐書",
+      "regimeIds": [
+        "anshi-yan",
+        "xiqin",
+        "zhuci-qin",
+        "zhucan-chu",
+        "zheng",
+        "xiaoxian-liang",
+        "suimo-wu",
+        "suimo-song",
+        "suimo-chu",
+        "liguigui-liang",
+        "liangshidu-liang",
+        "dingyang"
+      ],
+      "fields": [
+        "familyName",
+        "personalName",
+        "courtesyName"
+      ],
+      "locator": "舊唐書 列傳（china-history 旧唐书/列传）各人の**冒頭1行**",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈姓〉〈名〉，字〈字〉／〈本貫〉人也」。列傳の定型なので姓と名は取れるが、**廟号・諡が入る位置は無い**（別レコードで no-form）",
+      "variants": "**姓を持たない人物・冒姓の人物がいる**（安禄山「本无姓氏，名轧荦山」・王世充「本姓支，西域胡人也…因冒姓焉」）。同じ列傳の2人目以降は姓を省く（安慶緒「庆绪，禄山第二子也」・史朝義「朝义，思明孽子也」・薛仁杲「举死，仁杲立于折墌城」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/suimo-liuwuzhou.txt",
+          "line": 1,
+          "quote": "刘武周，河间景城人"
+        },
+        {
+          "file": "_corpus_cache/suimo-wangshichong.txt",
+          "line": 1,
+          "quote": "王世充，字行满，本姓支，西域胡人也"
+        },
+        {
+          "file": "_corpus_cache/tangmo-anlushan.txt",
+          "line": 1,
+          "quote": "安禄山，营州柳城杂种胡人也，本无姓氏，名轧荦山"
+        },
+        {
+          "file": "_corpus_cache/suimo-xueju.txt",
+          "line": 1,
+          "quote": "薛举，河东汾阴人也"
+        },
+        {
+          "file": "_corpus_cache/suimo-liqui.txt",
+          "line": 1,
+          "quote": "李轨，字处则，武威姑臧人也"
+        },
+        {
+          "file": "_corpus_cache/suimo-xiaoxian.txt",
+          "line": 1,
+          "quote": "萧铣，后梁宣帝曾孙也"
+        },
+        {
+          "file": "_corpus_cache/tangmo-zhuci.txt",
+          "line": 1,
+          "quote": "硃泚，幽州昌平人"
+        },
+        {
+          "file": "_corpus_cache/suimo-zhucan.txt",
+          "line": 1,
+          "quote": "硃粲者，亳州城父人也"
+        },
+        {
+          "file": "_corpus_cache/suimo-lizitong.txt",
+          "line": 1,
+          "quote": "李子通，东海丞人也"
+        },
+        {
+          "file": "_corpus_cache/suimo-fugongshi.txt",
+          "line": 1,
+          "quote": "辅公祏，齐州临济人"
+        },
+        {
+          "file": "_corpus_cache/suimo-linshihong.txt",
+          "line": 1,
+          "quote": "林士弘者，饶州鄱阳人也"
+        },
+        {
+          "file": "_corpus_cache/suimo-liangshidu.txt",
+          "line": 1,
+          "quote": "梁师都，夏州朔方人也"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "舊唐書",
+      "regimeIds": [
+        "anshi-yan",
+        "xiqin",
+        "zhuci-qin",
+        "zhucan-chu",
+        "zheng",
+        "xiaoxian-liang",
+        "suimo-wu",
+        "suimo-song",
+        "suimo-chu",
+        "liguigui-liang",
+        "liangshidu-liang",
+        "dingyang"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "舊唐書 列傳。**列傳の定型に廟号・諡が入る位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "「〈姓〉〈名〉，〈本貫〉人也」で始まり、末尾も誅殺・敗死の記事で終わる。唐が僭称者として扱う政権なので唐側の書が諡を与えない場合と、自らの政権内で贈った諡が在る場合の両方がありうる。絞り込めないので人物単位で判定する",
+      "evidence": [
+        {
+          "file": "_corpus_cache/tangmo-anlushan.txt",
+          "line": 1,
+          "quote": "安禄山，营州柳城杂种胡人也"
+        },
+        {
+          "file": "_corpus_cache/suimo-liuwuzhou.txt",
+          "line": 1,
+          "quote": "刘武周，河间景城人"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "西夏書事",
+      "regimeIds": [
+        "western-xia"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName",
+        "personalName"
+      ],
+      "locator": "西夏書事（daizhigev20 史藏/别史/西夏书事.txt）は**編年体**なので冒頭の定型が無い。君主の諡・廟号は**その君主が死んだ年の条**に在り、`_corpus_cache` は君主ごとに切ってあるが**前後が1条ぶん重なっている**ので、**Xの諡は X 自身のファイルの末尾と、Xの後継者のファイルの3行目の両方に在る**（崇宗乾順の諡は `xixia-chongzong.txt:1419` と `xixia-renzong.txt:3`）",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「年〈享年〉，在位〈年数〉，改元〈回数〉，谥曰〈諡〉，庙号〈廟号〉，墓号〈陵名〉」。諡号・廟号・陵号が同じ1行から取れる",
+      "variants": "「谥曰」と「谥」の両形。廃位された君主の条にはこの定型が付かず、「〈廃位者〉废其主〈名〉自立」の形になる（襄宗安全）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/xixia-huizong.txt",
+          "line": 3,
+          "quote": "谥曰昭英皇帝，庙号毅宗，墓号安陵"
+        },
+        {
+          "file": "_corpus_cache/xixia-chongzong.txt",
+          "line": 3,
+          "quote": "谥曰康靖皇帝，庙号惠宗，墓号献陵"
+        },
+        {
+          "file": "_corpus_cache/xixia-renzong.txt",
+          "line": 3,
+          "quote": "谥曰圣文皇帝，庙号崇宗，墓号显陵"
+        },
+        {
+          "file": "_corpus_cache/xixia-huanzong.txt",
+          "line": 3,
+          "quote": "谥曰圣德皇帝，庙号仁宗，墓号寿陵"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "xixia-jingzong",
+          "locator": "西夏書事。景宗元昊の死の条には定型が付かない（`xixia-yizong.txt` の冒頭は「国人讨宁令哥，诛之。没藏讹庞立谅祚」）",
+          "personScope": "per-person",
+          "note": "弑逆による死なので定型が及ばない"
+        },
+        {
+          "id": "xixia-xiangzong",
+          "locator": "西夏書事。廃位の条（`xixia-shenzong.txt` 側）に定型が付かない",
+          "personScope": "per-person",
+          "note": "廃位された君主。同上"
+        }
+      ],
+      "note": "**この書は china-history に無く daizhigev20 の別史にだけ在る**（`meta.catalogs.books` に在るかを `--check-books` で先に見る）。最後の3人（神宗・献宗・末帝）は西夏の滅亡まで書が続かないので定型が及ぶかどうかを人物単位で見る",
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "三國志",
+      "regimeIds": [
+        "shu-han",
+        "eastern-wu"
+      ],
+      "fields": [
+        "familyName",
+        "personalName",
+        "courtesyName"
+      ],
+      "locator": "三國志 蜀書 先主伝・後主伝／吳書 呉主伝ほか（china-history 三国志/蜀书・吴书）各君主の**冒頭1行**。**魏書の帝紀とは所在も書式も違う**ので別レコード",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "蜀書は「先主姓〈姓〉，讳〈諱〉，字〈字〉，〈本貫〉」／吳書は「〈姓〉〈名〉字〈字〉，〈続柄〉」。**位号（先主・後主）で立ち、諡・廟号は冒頭に無い**",
+      "variants": "吳書は「讳」を使わず姓名をそのまま書く（「孙权字仲谋」）。別名を並べる条がある（孫皓「一名彭祖，字皓宗」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/shuhan-zhaoliedi.txt",
+          "line": 1,
+          "quote": "先主姓刘，讳备，字玄德，涿郡涿县人"
+        },
+        {
+          "file": "_corpus_cache/shuhan-liushan.txt",
+          "line": 1,
+          "quote": "后主讳禅，字公嗣，先主子也"
+        },
+        {
+          "file": "_corpus_cache/wu-dadi.txt",
+          "line": 1,
+          "quote": "孙权字仲谋"
+        },
+        {
+          "file": "_corpus_cache/wu-modi.txt",
+          "line": 1,
+          "quote": "孙皓字元宗，权孙，和子也，一名彭祖，字皓宗"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "三國志",
+      "regimeIds": [
+        "shu-han",
+        "eastern-wu"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "三國志 蜀書・吳書。**冒頭の定型に廟号・諡が入る位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "位号（先主・後主・大帝）で立つので、諡・廟号は冒頭から取れない。本文中の追諡の条を人物単位で探す",
+      "evidence": [
+        {
+          "file": "_corpus_cache/shuhan-zhaoliedi.txt",
+          "line": 1,
+          "quote": "先主姓刘，讳备"
+        },
+        {
+          "file": "_corpus_cache/wu-dadi.txt",
+          "line": 1,
+          "quote": "孙权字仲谋"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "明史",
+      "regimeIds": [
+        "ming-xia",
+        "chen-han",
+        "xi",
+        "tianwan",
+        "shun",
+        "hanlin-song"
+      ],
+      "fields": [
+        "familyName",
+        "personalName"
+      ],
+      "locator": "明史 列傳（china-history 明史/列传。元末群雄は絶対巻122・123、李自成・張献忠は「流賊」列傳）各人の**冒頭1行**。**1つの列傳に複数人が同居する**ので、`_corpus_cache` は伝の全体を持つ（李自成は `shun-lichengzheng.txt:6`）",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈姓〉〈名〉，〈本貫〉人」。列傳の定型なので姓と名は取れるが、**字が並ばない**（元末群雄・流賊はいずれも字を記さない）",
+      "variants": "冒姓を書く条がある（陳友諒「本谢氏，祖赘于陈，因从其姓」・韓林児「或言李氏子也」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/yuanmo-mingyuzhen.txt",
+          "line": 1,
+          "quote": "明玉珍，随州人"
+        },
+        {
+          "file": "_corpus_cache/yuanmo-chenyouliang.txt",
+          "line": 2,
+          "quote": "陈友谅，沔阳渔家子也。本谢氏"
+        },
+        {
+          "file": "_corpus_cache/yuanmo-hanlin-er.txt",
+          "line": 1,
+          "quote": "韩林儿，栾城人，或言李氏子也"
+        },
+        {
+          "file": "_corpus_cache/shun-lichengzheng.txt",
+          "line": 6,
+          "quote": "李自成，米脂人"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "yuanmo-xushouhui",
+          "locator": "明史 列傳（陳友諒伝）の中。独立した伝が無い",
+          "personScope": "per-person",
+          "note": "徐寿輝。陳友諒伝の記事として現れるだけで冒頭の定型を持たない"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "明史",
+      "regimeIds": [
+        "ming-xia"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "明史 列傳（明玉珍伝）の**嗣立の条**（`_corpus_cache/yuanmo-mingsheng.txt:1`）",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「葬〈陵地〉，号〈陵名〉，庙号〈廟号〉」。**元末群雄でこの形を持つのは大夏だけ**（他の5政権は別レコードで no-form）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/yuanmo-mingsheng.txt",
+          "line": 1,
+          "quote": "号永昌陵，庙号太祖"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "明史",
+      "regimeIds": [
+        "chen-han",
+        "xi",
+        "tianwan",
+        "shun",
+        "hanlin-song"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "明史 列傳。**列傳の定型に廟号・諡が入る位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "「〈姓〉〈名〉，〈本貫〉人」で始まり、末尾も敗死・誅殺の記事で終わる。絞り込めないので人物単位で判定する",
+      "evidence": [
+        {
+          "file": "_corpus_cache/yuanmo-chenyouliang.txt",
+          "line": 2,
+          "quote": "陈友谅，沔阳渔家子也"
+        },
+        {
+          "file": "_corpus_cache/yuanmo-hanlin-er.txt",
+          "line": 1,
+          "quote": "韩林儿，栾城人"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "小腆紀傳",
+      "regimeIds": [
+        "southern-ming"
+      ],
+      "fields": [
+        "personalName",
+        "childhoodName"
+      ],
+      "locator": "小腆紀傳（daizhigev20 史藏/传记/小腆纪传.txt）紀第一〜第四。各帝の**冒頭1行**（巻の見出しと年号の見出しの下、`_corpus_cache` の7行目）",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈年号呼称〉帝，〈続柄〉。讳〈諱〉，母〈母〉」。**名乗りが年号呼称**（弘光帝・隆武帝・永暦帝）で、廟号・諡はこの位置に無い",
+      "variants": "紹武帝は独立した紀を持たず「绍武讳聿■〈金粤〉，隆武帝之第四弟也」の形で立つ。**諱に欠字（■〈金粤〉）が入る**ので、値をどう保存するかは人物単位で決める",
+      "evidence": [
+        {
+          "file": "_corpus_cache/nanming-anzong.txt",
+          "line": 7,
+          "quote": "弘光帝，神宗之孙、福恭王之长子也。讳由崧"
+        },
+        {
+          "file": "_corpus_cache/nanming-zongzong.txt",
+          "line": 7,
+          "quote": "隆武帝，太祖九世孙也。讳聿键，小字长寿"
+        },
+        {
+          "file": "_corpus_cache/nanming-shaowudi.txt",
+          "line": 1,
+          "quote": "绍武讳聿"
+        },
+        {
+          "file": "_corpus_cache/nanming-zhaozong.txt",
+          "line": 7,
+          "quote": "永历帝，神宗之孙、桂端王常瀛少子也；讳由榔"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "小腆紀傳",
+      "regimeIds": [
+        "southern-ming"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "小腆紀傳 紀第一〜第四。**冒頭の定型に廟号・諡が入る位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "名乗りが年号呼称なので、安宗・紹宗・昭宗といった廟号は冒頭から取れない。追尊の条を人物単位で探す",
+      "evidence": [
+        {
+          "file": "_corpus_cache/nanming-anzong.txt",
+          "line": 7,
+          "quote": "弘光帝，神宗之孙"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "資治通鑑",
+      "regimeIds": [
+        "western-yan"
+      ],
+      "fields": [
+        "familyName",
+        "personalName",
+        "courtesyName",
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "資治通鑑（daizhigev20 史藏/编年/资治通鉴.txt）の該当年の条。**編年体なので人物ごとの立項そのものが無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "「〈月〉，〈事件〉」の年代記で、君主は事件の主語として現れる（「平阳太守慕容冲起兵河东」「乃推慕容永为使持节」）。名前の欄に対応する位置が無いので、絞り込めない。人物単位で判定する",
+      "evidence": [
+        {
+          "file": "_corpus_cache/xiyan-murongchong.txt",
+          "line": 1,
+          "quote": "平阳太守慕容冲起兵河东"
+        },
+        {
+          "file": "_corpus_cache/xiyan-murongyong.txt",
+          "line": 1,
+          "quote": "乃推慕容永为使持节"
+        }
+      ],
+      "note": "西燕は晉書に載記が立たず（十六国のうち西燕だけ）、`_corpus_cache` も資治通鑑から切ってある。十六国春秋（daizhigev20 史藏/载记）に当たる余地が残る",
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "周書",
+      "regimeIds": [
+        "western-liang"
+      ],
+      "fields": [
+        "personalName",
+        "courtesyName"
+      ],
+      "locator": "周書 列傳（蕭詧伝）各人の**冒頭1行**。西梁の3人は同じ伝に同居する",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈姓〉〈名〉字〈字〉，〈本貫〉人也」。2人目以降は姓を省く（「岿字仁远，察之第三子也」「琮字温文」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/houliang-xuandi.txt",
+          "line": 1,
+          "quote": "萧察字理孙，兰陵人也"
+        },
+        {
+          "file": "_corpus_cache/houliang-houzhu.txt",
+          "line": 1,
+          "quote": "琮字温文"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "周書",
+      "regimeIds": [
+        "western-liang"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "周書 列傳（蕭詧伝）各人の記事**末尾**1行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「在位〈年数〉，年〈享年〉，…薨。其群臣葬之于〈陵〉，谥曰〈諡〉，庙号〈廟号〉」",
+      "evidence": [
+        {
+          "file": "_corpus_cache/houliang-xuandi.txt",
+          "line": 41,
+          "quote": "谥曰宣皇帝，庙号中宗"
+        },
+        {
+          "file": "_corpus_cache/houliang-mingdi.txt",
+          "line": 15,
+          "quote": "庙号世宗"
+        }
+      ],
+      "note": "後主蕭琮は隋に降って亡国したので末尾の定型が付かない（人物単位で当たる）",
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "遼史",
+      "regimeIds": [
+        "western-liao"
+      ],
+      "fields": [
+        "personalName",
+        "courtesyName",
+        "templeName"
+      ],
+      "locator": "遼史 天祚帝紀の**附録**（西遼の3代）。冒頭1行が姓名・字、記事末尾が廟号",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "冒頭は「〈姓名〉者，世号为西辽。〈名〉字〈字〉，〈続柄〉」、末尾は「在位〈年数〉殁，庙号〈廟号〉」。**諡は書かれない**",
+      "variants": "2代目以降は姓も名も省いて「子夷列年幼」の形で始まり、**廟号だけが末尾に出る**（「在位十三年殁，庙号仁宗」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/xiliao-dezong.txt",
+          "line": 1,
+          "quote": "大石字重德，太祖八代孙也"
+        },
+        {
+          "file": "_corpus_cache/xiliao-dezong.txt",
+          "line": 6,
+          "quote": "在位二十年，庙号德宗"
+        },
+        {
+          "file": "_corpus_cache/xiliao-renzong.txt",
+          "line": 1,
+          "quote": "在位十三年殁，庙号仁宗"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "遼史",
+      "regimeIds": [
+        "western-liao"
+      ],
+      "fields": [
+        "posthumousName"
+      ],
+      "locator": "遼史 天祚帝紀の附録。**諡を書く位置が無い**（廟号だけが出る）",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "末尾が「庙号〈廟号〉」で終わり諡が続かない。絞り込めないので人物単位で判定する",
+      "evidence": [
+        {
+          "file": "_corpus_cache/xiliao-dezong.txt",
+          "line": 6,
+          "quote": "庙号德宗"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "宋史",
+      "regimeIds": [
+        "zhangbangchang-chu",
+        "liuyu-qi"
+      ],
+      "fields": [
+        "familyName",
+        "personalName",
+        "courtesyName"
+      ],
+      "locator": "宋史 列傳（絶対巻475）各人の**冒頭1行**。**底本は繁体字**",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈姓〉〈名〉字〈字〉，〈本貫〉人也」",
+      "evidence": [
+        {
+          "file": "_corpus_cache/beisongmo-zhangbangchang.txt",
+          "line": 3,
+          "quote": "張邦昌字子能，永靜軍東光人也"
+        },
+        {
+          "file": "_corpus_cache/beisongmo-liuyu.txt",
+          "line": 1,
+          "quote": "劉豫字彥游，景州阜城人也"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "宋史",
+      "regimeIds": [
+        "zhangbangchang-chu",
+        "liuyu-qi"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "宋史 列傳（絶対巻475）。**列傳の定型に廟号・諡が入る位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "金の立てた傀儡として列傳に置かれ、廃位・誅死の記事で終わる。人物単位で判定する",
+      "evidence": [
+        {
+          "file": "_corpus_cache/beisongmo-liuyu.txt",
+          "line": 1,
+          "quote": "劉豫字彥游"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "清史稿",
+      "regimeIds": [
+        "wu-zhou-sanfan"
+      ],
+      "fields": [
+        "familyName",
+        "personalName",
+        "courtesyName"
+      ],
+      "locator": "清史稿 列傳二百六十一（呉三桂伝）。呉周の2人は同じ伝に同居する",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈姓〉〈名〉，字〈字〉，〈本貫〉人，籍〈本籍〉」",
+      "evidence": [
+        {
+          "file": "_corpus_cache/wuzhou-wusangui.txt",
+          "line": 3,
+          "quote": "吴三桂，字长伯，江南高邮人，籍辽东"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "清史稿",
+      "regimeIds": [
+        "wu-zhou-sanfan"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "清史稿 列傳二百六十一。**列傳の定型に廟号・諡が入る位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "清が叛臣として列傳に置くので廟号・諡を書かない。人物単位で判定する",
+      "evidence": [
+        {
+          "file": "_corpus_cache/wuzhou-wusangui.txt",
+          "line": 3,
+          "quote": "吴三桂，字长伯"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "後漢書",
+      "regimeIds": [
+        "liuyong-liang",
+        "chimei-han"
+      ],
+      "fields": [
+        "familyName",
+        "personalName"
+      ],
+      "locator": "後漢書 列傳 各人の**冒頭1行**",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈姓〉〈名〉者，〈本貫〉人，〈出自〉也」。字は並ばない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/liu-yong-liang.txt",
+          "line": 1,
+          "quote": "刘永者，梁郡睢阳人，梁孝王八世孙也"
+        },
+        {
+          "file": "_corpus_cache/liu-penzi.txt",
+          "line": 1,
+          "quote": "刘盆子者，太山式人，城阳景王章之后也"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "後漢書",
+      "regimeIds": [
+        "liuyong-liang",
+        "chimei-han"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "後漢書 列傳。**列傳の定型に廟号・諡が入る位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "後漢が僭号者として列傳に置くので廟号・諡を書かない。人物単位で判定する",
+      "evidence": [
+        {
+          "file": "_corpus_cache/liu-penzi.txt",
+          "line": 1,
+          "quote": "刘盆子者，太山式人"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "舊唐書",
+      "regimeIds": [
+        "lixilie-chu",
+        "huangchao-qi",
+        "wu-zhou"
+      ],
+      "fields": [
+        "familyName",
+        "personalName"
+      ],
+      "locator": "舊唐書。李希烈・黄巣は**列傳**の冒頭1行、則天武后は**本紀（則天皇后紀）**の冒頭1行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "列傳は「〈姓〉〈名〉，〈本貫〉人」、本紀は「則天皇后〈姓〉氏，讳〈諱〉，〈本貫〉人也」。どちらも姓と名がこの1行に並ぶ",
+      "evidence": [
+        {
+          "file": "_corpus_cache/tangmo-lixilie.txt",
+          "line": 1,
+          "quote": "李希烈，辽西人"
+        },
+        {
+          "file": "_corpus_cache/tangmo-huangchao.txt",
+          "line": 1,
+          "quote": "黄巢，曹州冤句人"
+        },
+        {
+          "file": "_corpus_cache/tang-wuzetian.txt",
+          "line": 2,
+          "quote": "则天皇后武氏，讳曌，并州文水人也"
+        }
+      ],
+      "note": "**李希烈・黄巣は `source.page` が新唐書を名乗るが、`_corpus_cache` の本文は舊唐書 列傳の体裁**（他の唐末群雄と同じ整形）。この記録は引用の出どころに合わせて舊唐書を名乗っている。配布物の `source.page` 側と食い違うので、人物単位で当たるときに確かめる",
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "舊唐書",
+      "regimeIds": [
+        "lixilie-chu",
+        "huangchao-qi",
+        "wu-zhou"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "舊唐書。**廟号・諡が冒頭1行に入る位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "列傳の2人は僭号者として置かれ廟号・諡を書かない。則天武后は本紀に立つが**諡が「皇后」で結ぶ**（崩御条「谥曰則天大聖皇后」）ので、皇帝の諡号欄へ入れるかどうかが人物単位の判断になる（残量表の行）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/tangmo-huangchao.txt",
+          "line": 1,
+          "quote": "黄巢，曹州冤句人"
+        },
+        {
+          "file": "_corpus_cache/tang-wuzetian.txt",
+          "line": 2,
+          "quote": "则天皇后武氏，讳曌"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "晉書",
+      "regimeIds": [
+        "huan-chu"
+      ],
+      "fields": [
+        "familyName",
+        "personalName",
+        "courtesyName"
+      ],
+      "locator": "晉書 列傳（桓玄伝）の**冒頭1行**",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈姓〉〈名〉，字〈字〉，一名〈別名〉，〈続柄〉也」",
+      "evidence": [
+        {
+          "file": "_corpus_cache/huan-xuan.txt",
+          "line": 1,
+          "quote": "桓玄，字敬道，一名灵宝，大司马温之孽子也"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "梁書",
+      "regimeIds": [
+        "houjing-han"
+      ],
+      "fields": [
+        "familyName",
+        "personalName",
+        "courtesyName"
+      ],
+      "locator": "梁書 列傳（侯景伝）の**冒頭1行**",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈姓〉〈名〉，字〈字〉，〈本貫〉人」",
+      "evidence": [
+        {
+          "file": "_corpus_cache/liang-houjing.txt",
+          "line": 1,
+          "quote": "侯景，字万景，朔方人"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "隋書",
+      "regimeIds": [
+        "xu"
+      ],
+      "fields": [
+        "familyName",
+        "personalName"
+      ],
+      "locator": "隋書 列傳（宇文化及伝）の**冒頭1行**",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈姓名〉，〈父の官〉之子也」。字は並ばない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/suimo-yuwenhuaji.txt",
+          "line": 1,
+          "quote": "宇文化及，左翊卫大将军述之子也"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "新五代史",
+      "regimeIds": [
+        "jie-yan"
+      ],
+      "fields": [
+        "familyName",
+        "personalName"
+      ],
+      "locator": "新五代史 列傳（劉守光伝）の**冒頭1行**。十国の**世家**とは所在が違う（世家は別レコード）",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈姓〉〈名〉，〈本貫〉人也」。字は並ばない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/shiguo-jieyan-liushouguang.txt",
+          "line": 1,
+          "quote": "刘守光，深州乐寿人也"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "新元史",
+      "regimeIds": [
+        "northern-yuan"
+      ],
+      "fields": [
+        "familyName",
+        "personalName",
+        "courtesyName",
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "新元史（daizhigev20 史藏/正史/新元史.txt）の該当年の条。元史に本紀が無いので新元史で補う",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "`_corpus_cache/beiyuan-zhaozong.txt` は「十二月丁酉，帝不豫」から始まる**編年の記事**で、名前を並べる冒頭の定型が無い。絞り込めないので人物単位で判定する",
+      "evidence": [
+        {
+          "file": "_corpus_cache/beiyuan-zhaozong.txt",
+          "line": 1,
+          "quote": "十二月丁酉，帝不豫"
+        }
+      ],
       "surveyedAt": "2026-08-10"
     }
   ]
