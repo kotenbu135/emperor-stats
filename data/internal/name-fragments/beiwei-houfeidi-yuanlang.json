@@ -1,0 +1,33 @@
+{
+  "id": "beiwei-houfeidi-yuanlang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-houfeidi-yuanlang.txt",
+      "line": 1,
+      "quote": "后废帝，讳朗，字仲哲，章武王融第三子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書は元朗を「後廢帝」の位号で立てる（c1）。走査でも諡・廟号の条は出ない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書は元朗を「後廢帝」の位号で立てる（c1）。走査でも諡・廟号の条は出ない"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

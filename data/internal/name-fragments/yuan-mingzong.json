@@ -1,0 +1,42 @@
+{
+  "id": "yuan-mingzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "元史",
+      "file": "_corpus_cache/yuan-mingzong.txt",
+      "line": 2,
+      "quote": "明宗翼献景孝皇帝，讳和世〈王束〉，武宗长子也"
+    },
+    {
+      "cid": "c2",
+      "book": "元史",
+      "file": "daizhigev20/史藏/正史/元史.txt",
+      "line": 1958,
+      "quote": "十二月乙巳，知枢密院事臣也不伦等议请上尊谥曰翼献景孝皇帝，庙号明宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "明宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上尊諡の条が「庙号」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "翼献景孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

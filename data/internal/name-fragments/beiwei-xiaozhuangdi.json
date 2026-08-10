@@ -1,0 +1,32 @@
+{
+  "id": "beiwei-xiaozhuangdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-xiaozhuangdi.txt",
+      "line": 2,
+      "quote": "孝庄皇帝，讳子攸，彭城王勰之第三子"
+    },
+    {
+      "cid": "c2",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 824,
+      "quote": "中兴二年谥为武怀皇帝，太昌元年又谥孝庄皇帝，庙号敬宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝荘皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）。中興二年の初諡「武懐皇帝」を太昌元年に「孝荘皇帝」へ改めた条で、冒頭形は改諡後の形（c2）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

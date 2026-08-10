@@ -1,0 +1,33 @@
+{
+  "id": "dongwei-xiaojingdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "_corpus_cache/dongwei-xiaojingdi.txt",
+      "line": 2,
+      "quote": "孝静皇帝，讳善见，清河文宣王亶之世子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝静皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。魏書は東魏孝静帝の諡を廟号なしで冒頭に立てる"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "東魏孝静帝は廟号を持たない。魏書の冒頭は諡から始まり（c1）、走査でも元善見に廟号を与える条は出ない"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

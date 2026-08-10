@@ -1,0 +1,42 @@
+{
+  "id": "yuan-ningzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "元史",
+      "file": "_corpus_cache/yuan-ningzong.txt",
+      "line": 2,
+      "quote": "宁宗冲圣嗣孝皇帝，讳懿璘质班，明宗第二子也"
+    },
+    {
+      "cid": "c2",
+      "book": "元史",
+      "file": "daizhigev20/史藏/正史/元史.txt",
+      "line": 2120,
+      "quote": "至元四年三月辛酉，谥曰冲圣嗣孝，庙号宁宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "寧宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上尊諡の条が「庙号」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "冲聖嗣孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

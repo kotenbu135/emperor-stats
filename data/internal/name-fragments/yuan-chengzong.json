@@ -1,0 +1,42 @@
+{
+  "id": "yuan-chengzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "元史",
+      "file": "_corpus_cache/yuan-chengzong.txt",
+      "line": 2,
+      "quote": "成宗钦明广孝皇帝，讳铁穆耳，世祖之孙，裕宗真金第三子也"
+    },
+    {
+      "cid": "c2",
+      "book": "元史",
+      "file": "daizhigev20/史藏/正史/元史.txt",
+      "line": 1400,
+      "quote": "是年九月乙丑，谥曰钦明广孝皇帝，庙号成宗，国语曰完泽笃皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "成宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上尊諡の条が「庙号」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "欽明広孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

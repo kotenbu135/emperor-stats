@@ -1,0 +1,42 @@
+{
+  "id": "yuan-yingzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "元史",
+      "file": "_corpus_cache/yuan-yingzong.txt",
+      "line": 2,
+      "quote": "英宗睿圣文孝皇帝，讳硕德八剌，仁宗嫡子也"
+    },
+    {
+      "cid": "c2",
+      "book": "元史",
+      "file": "daizhigev20/史藏/正史/元史.txt",
+      "line": 1822,
+      "quote": "泰定元年二月，上尊谥曰睿圣文孝皇帝，庙号英宗。四月，上国语庙号曰格坚"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "英宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上尊諡の条が「庙号」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "睿聖文孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

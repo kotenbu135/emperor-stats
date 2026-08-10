@@ -1,0 +1,32 @@
+{
+  "id": "beiwei-xiandi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-xiandi.txt",
+      "line": 2,
+      "quote": "显祖献文皇帝，讳弘，高宗文成皇帝之长子也"
+    },
+    {
+      "cid": "c2",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 557,
+      "quote": "上尊谥曰献文皇帝，庙号显祖"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "献文皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

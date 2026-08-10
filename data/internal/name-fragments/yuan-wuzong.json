@@ -1,0 +1,42 @@
+{
+  "id": "yuan-wuzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "元史",
+      "file": "_corpus_cache/yuan-wuzong.txt",
+      "line": 2,
+      "quote": "武宗仁惠宣孝皇帝，讳海山，顺宗答剌麻八剌之长子也"
+    },
+    {
+      "cid": "c2",
+      "book": "元史",
+      "file": "daizhigev20/史藏/正史/元史.txt",
+      "line": 1508,
+      "quote": "夏四月乙未，文武百官也先铁木儿等上尊谥曰仁惠宣孝皇帝，庙号武宗，国语曰曲律皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "武宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上尊諡の条が「庙号」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "仁恵宣孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

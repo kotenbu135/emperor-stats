@@ -46305,7 +46305,8 @@
     "aliases": [],
     "posthumousName": "道武帝",
     "templeName": "太祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "道武皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -46633,7 +46634,8 @@
     "aliases": [],
     "posthumousName": "明元帝",
     "templeName": "太宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "明元皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -47067,7 +47069,8 @@
     "aliases": [],
     "posthumousName": "太武帝",
     "templeName": "世祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "太武皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -48162,7 +48165,8 @@
     "aliases": [],
     "posthumousName": "文成帝",
     "templeName": "高宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "文成皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -48568,7 +48572,8 @@
     "aliases": [],
     "posthumousName": "献文帝",
     "templeName": "顕祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "献文皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -48913,7 +48918,8 @@
     "aliases": [],
     "posthumousName": "孝文帝",
     "templeName": "高祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝文皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -49788,7 +49794,8 @@
     "aliases": [],
     "posthumousName": "宣武帝",
     "templeName": "世宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "宣武皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -50445,7 +50452,8 @@
     "aliases": [],
     "posthumousName": "孝明帝",
     "templeName": "粛宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝明皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -51599,7 +51607,8 @@
     "aliases": [],
     "posthumousName": "孝荘帝",
     "templeName": "敬宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝荘皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -52810,7 +52819,7 @@
     "commonName": "孝武帝（出帝）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": "出帝",
+    "templeName": null,
     "regnalTitle": "皇帝",
     "courtesyName": "孝則"
    },
@@ -53770,7 +53779,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝静皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "eastern-wei",
@@ -102383,12 +102393,13 @@
     "commonName": "世祖",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "世祖",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "mongol",
      "value": "クビライ"
-    }
+    },
+    "posthumousNameFull": "聖徳神功文武皇帝"
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -103081,12 +103092,13 @@
     "commonName": "成宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "成宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "mongol",
      "value": "テムル"
-    }
+    },
+    "posthumousNameFull": "欽明広孝皇帝"
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -103484,12 +103496,13 @@
     "commonName": "武宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "武宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "mongol",
      "value": "カイシャン"
-    }
+    },
+    "posthumousNameFull": "仁恵宣孝皇帝"
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -103817,12 +103830,13 @@
     "commonName": "仁宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "仁宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "mongol",
      "value": "アユルバルワダ"
-    }
+    },
+    "posthumousNameFull": "聖文欽孝皇帝"
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -104190,12 +104204,13 @@
     "commonName": "英宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "英宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "mongol",
      "value": "シデバラ"
-    }
+    },
+    "posthumousNameFull": "睿聖文孝皇帝"
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -105386,12 +105401,13 @@
     "commonName": "文宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "文宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "mongol",
      "value": "トク・テムル"
-    }
+    },
+    "posthumousNameFull": "聖明元孝皇帝"
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -105765,12 +105781,13 @@
     "commonName": "明宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "明宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "mongol",
      "value": "コシラ"
-    }
+    },
+    "posthumousNameFull": "翼献景孝皇帝"
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -105928,12 +105945,13 @@
     "commonName": "寧宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "寧宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "mongol",
      "value": "イリンジバル"
-    }
+    },
+    "posthumousNameFull": "冲聖嗣孝皇帝"
    },
    "eraId": "yuan",
    "regimeId": "yuan",

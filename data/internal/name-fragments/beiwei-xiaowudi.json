@@ -1,0 +1,33 @@
+{
+  "id": "beiwei-xiaowudi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-xiaowudi.txt",
+      "line": 1,
+      "quote": "出帝，讳修，字孝则，广平武穆王怀之第三子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書は元脩を「出帝」の位号で立てる（c1）。走査でも諡・廟号の条は出ない。**現行の templeName「出帝」は位号を廟号の欄へ入れたもので、この訂正で null に戻した**（孝武帝の呼称は北史・通鑑側で、commonName が既に持つ）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書は元脩を「出帝」の位号で立てる（c1）。走査でも諡・廟号の条は出ない。**現行の templeName「出帝」は位号を廟号の欄へ入れたもので、この訂正で null に戻した**（孝武帝の呼称は北史・通鑑側で、commonName が既に持つ）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

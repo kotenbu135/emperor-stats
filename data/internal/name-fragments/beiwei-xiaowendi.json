@@ -1,0 +1,32 @@
+{
+  "id": "beiwei-xiaowendi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-xiaowendi.txt",
+      "line": 2,
+      "quote": "高祖孝文皇帝，讳宏，显祖献文皇帝之长子"
+    },
+    {
+      "cid": "c2",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 673,
+      "quote": "上谥曰孝文皇帝，庙曰高祖"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝文皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

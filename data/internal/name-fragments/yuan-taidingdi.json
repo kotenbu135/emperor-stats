@@ -1,0 +1,33 @@
+{
+  "id": "yuan-taidingdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "元史",
+      "file": "_corpus_cache/yuan-taidingdi.txt",
+      "line": 2,
+      "quote": "泰定皇帝，讳也孙铁木儿，显宗甘麻剌之长子，裕宗之嫡孙也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "元史は也孫鉄木児を「泰定皇帝」の位号（元号由来）で立てる（c1）。書全体を走査しても諡・廟号の条は出ない。**「〈X〉皇帝，讳〈諱〉」の形は満たすが X は諡ではない**ので転記しない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "元史は也孫鉄木児を「泰定皇帝」の位号（元号由来）で立てる（c1）。書全体を走査しても諡・廟号の条は出ない。**「〈X〉皇帝，讳〈諱〉」の形は満たすが X は諡ではない**ので転記しない"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

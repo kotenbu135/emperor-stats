@@ -1,0 +1,33 @@
+{
+  "id": "beiwei-jiemindi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-jiemindi.txt",
+      "line": 2,
+      "quote": "前废帝，讳恭，字修业，广陵惠王羽之子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書は元恭を「前廢帝」の位号で立て、諱・字は挙げるが諡も廟号も与えない（c1）。書全体を「庙号・庙曰・庙称・尊谥・上谥」で走査しても元恭の条は出ない。位号は諡ではないので posthumousNameFull へは入れない（節閔帝の諡は北史側の名乗り）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書は元恭を「前廢帝」の位号で立て、諱・字は挙げるが諡も廟号も与えない（c1）。書全体を「庙号・庙曰・庙称・尊谥・上谥」で走査しても元恭の条は出ない。位号は諡ではないので posthumousNameFull へは入れない（節閔帝の諡は北史側の名乗り）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "yuan-huizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "元史",
+      "file": "_corpus_cache/yuan-huizong.txt",
+      "line": 2,
+      "quote": "顺帝名妥欢帖睦尔，明宗之长子"
+    },
+    {
+      "cid": "c2",
+      "book": "元史",
+      "file": "daizhigev20/史藏/正史/元史.txt",
+      "line": 2916,
+      "quote": "大明皇帝以帝知顺天命，退避而去，特加其号曰顺帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "元史は妥懽帖睦爾を「順帝」で立て、諱ではなく「名」を使う（c1）。順帝は明が与えた号だと元史自身が明記する（c2）ので諡の欄には入れない。元朝側の廟号「惠宗」は北元での追尊で元史には無い（absent-by-book・新元史ほかが持つ）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "元史は妥懽帖睦爾を「順帝」で立て、諱ではなく「名」を使う（c1）。順帝は明が与えた号だと元史自身が明記する（c2）ので諡の欄には入れない。元朝側の廟号「惠宗」は北元での追尊で元史には無い（absent-by-book・新元史ほかが持つ）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+}
