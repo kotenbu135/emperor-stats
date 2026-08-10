@@ -8346,7 +8346,8 @@
     "posthumousName": "光武帝",
     "templeName": "世祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "文叔"
+    "courtesyName": "文叔",
+    "posthumousNameFull": "光武皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -9018,7 +9019,8 @@
     "aliases": [],
     "posthumousName": "明帝",
     "templeName": "顕宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝明皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -9255,7 +9257,8 @@
     "aliases": [],
     "posthumousName": "章帝",
     "templeName": "粛宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝章皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -9573,7 +9576,8 @@
     "aliases": [],
     "posthumousName": "和帝",
     "templeName": "穆宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝和皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -10060,7 +10064,8 @@
     "aliases": [],
     "posthumousName": "殤帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝殤皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -10238,7 +10243,8 @@
     "aliases": [],
     "posthumousName": "安帝",
     "templeName": "恭宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝安皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -11008,7 +11014,8 @@
     "aliases": [],
     "posthumousName": "順帝",
     "templeName": "敬宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝順皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -11712,7 +11719,8 @@
     "aliases": [],
     "posthumousName": "沖帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝沖皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -11958,7 +11966,8 @@
     "aliases": [],
     "posthumousName": "質帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝質皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -12303,7 +12312,8 @@
     "aliases": [],
     "posthumousName": "桓帝",
     "templeName": "威宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝桓皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -13243,7 +13253,8 @@
     "aliases": [],
     "posthumousName": "霊帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝霊皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -14193,7 +14204,8 @@
     "aliases": [],
     "posthumousName": "献帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝献皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -82324,8 +82336,9 @@
     "commonName": "太祖",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "太祖",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "啓運立極英武睿文神徳聖功至明大孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -82772,8 +82785,9 @@
     "commonName": "太宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "太宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "神功聖徳文武皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -83279,8 +83293,9 @@
     "commonName": "真宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "真宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "応符稽古神功譲徳文明武定章聖元孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -83767,8 +83782,9 @@
     "commonName": "仁宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "仁宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "体天法道極功全徳神文聖武睿哲明孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -84629,8 +84645,9 @@
     "commonName": "英宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "英宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "体乾応暦隆功盛徳憲文粛武睿聖宣孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -84845,8 +84862,9 @@
     "commonName": "神宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "神宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "紹天法古運徳建功英文烈武欽仁聖孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -85311,8 +85329,9 @@
     "commonName": "哲宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "哲宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "憲元継道顕徳定功欽文睿武斉聖昭孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -85619,8 +85638,9 @@
     "commonName": "徽宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "徽宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "体神合道駿烈遜功聖文仁徳憲慈顕孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -86258,8 +86278,9 @@
     "commonName": "欽宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "欽宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "恭文順徳仁孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -86484,9 +86505,10 @@
     "commonName": "高宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "高宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "徳基"
+    "courtesyName": "徳基",
+    "posthumousNameFull": "受命中興全功至徳聖神武文昭仁憲孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "southern-song",
@@ -88912,9 +88934,10 @@
     "commonName": "孝宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "孝宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "元永"
+    "courtesyName": "元永",
+    "posthumousNameFull": "紹統同道冠徳昭功哲文神武明聖成孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "southern-song",
@@ -89691,8 +89714,9 @@
     "commonName": "光宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "光宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "循道憲仁明功茂徳温文順武聖哲慈孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "southern-song",
@@ -89976,8 +90000,9 @@
     "commonName": "寧宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "寧宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "法天備道純徳茂功仁文哲武聖睿恭孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "southern-song",
@@ -90635,8 +90660,9 @@
     "commonName": "理宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "理宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "建道備徳大功復興烈文仁武聖明安孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "southern-song",
@@ -91337,8 +91363,9 @@
     "commonName": "度宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "度宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "端文明武景孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "southern-song",

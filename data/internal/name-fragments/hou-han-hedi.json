@@ -1,0 +1,33 @@
+{
+  "id": "hou-han-hedi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "後漢書",
+      "file": "_corpus_cache/hou-han-hedi.txt",
+      "line": 1,
+      "quote": "孝和皇帝讳肇，肃宗第四子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝和皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行が名乗りとして掲げる形（c1）。後漢書は光武帝を除き「孝」を冠して立てる"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
+    }
+  ],
+  "discrepancies": "なし。現行の templeName は冒頭1行に無い（後漢書は献帝紀の除尊号条でこの帝の宗号に触れる）ので今回は触らない"
+}

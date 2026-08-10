@@ -19,7 +19,7 @@
       "cid": "c3",
       "book": "舊唐書 本紀第十七上（卷十七）",
       "file": "china-history/旧唐书/本纪/第十七章-卷十七-原文.html",
-      "line": 1,
+      "line": 23,
       "quote": "敬宗睿武昭愍孝皇帝讳湛，穆宗长子…群臣上谥曰睿武昭愍孝皇帝，庙号敬宗"
     }
   ],
@@ -27,28 +27,42 @@
     {
       "field": "name.templeName",
       "value": "敬宗",
-      "basis": ["c1", "c2", "c3"],
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
       "confidence": "high",
       "note": "本紀冒頭が「敬宗〈諡号〉皇帝，讳湛」と廟号を先頭に掲げ、崩御条も「庙号敬宗」と明記する。底本は簡体（敬宗）で、値も同字形。"
     },
     {
       "field": "name.posthumousNameFull",
       "value": "睿武昭愍孝皇帝",
-      "basis": ["c1", "c2", "c3"],
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
       "confidence": "high",
       "note": "底本の「睿武昭愍孝皇帝」を新字体へ倒して値とした（この7字は簡体・新字体で字形が一致）。冒頭が掲げる全長形と崩御条の「上谥曰」が同一形で一致し、加諡はこの1段のみ。"
     },
     {
       "field": "name.posthumousName",
       "value": null,
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "medium",
       "note": "唐の既定（政権慣行）どおり短縮呼称の欄は空。舊唐書は敬宗を廟号で呼び、末字＋皇帝型の短縮呼称は本紀に現れない。既に確定済みの順宗（加諡1段・廟号あり）が posthumousName 空・posthumousNameFull のみで保存されているのと同型。"
     },
     {
       "field": "name.personalName",
       "value": "湛",
-      "basis": ["c1", "c3"],
+      "basis": [
+        "c1",
+        "c3"
+      ],
       "confidence": "high",
       "note": "「讳湛」。姓は本紀冒頭に現れないため familyName は現行値（李）に触れない。"
     }

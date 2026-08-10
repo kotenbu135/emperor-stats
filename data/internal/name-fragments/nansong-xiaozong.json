@@ -1,0 +1,51 @@
+{
+  "id": "nansong-xiaozong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "_corpus_cache/nansong-xiaozong.txt",
+      "line": 1,
+      "quote": "孝宗紹統同道冠德昭功哲文神武明聖成孝皇帝，諱眘，字元永，太祖七世孫也"
+    },
+    {
+      "cid": "c2",
+      "book": "宋史",
+      "file": "china-history/宋史/本纪/第三十五章-卷三十五-原文.html",
+      "line": 22,
+      "quote": "謚曰哲文神武成孝皇帝，廟號孝宗。十一月乙卯，權欑于永阜陵。十二月甲戌，祔于太廟。慶元三年十一月辛丑，加謚紹統同道冠德昭功哲文神武明聖成孝皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "孝宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上諡の条が「廟號」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "紹統同道冠徳昭功哲文神武明聖成孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の上諡条は初諡を記し、冒頭形はその後の加諡にあたる（c2）。この欄が主張するのは冒頭形であって最終形ではない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "元永",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭に「字」が並ぶ（c1）。現行値と一致（追認）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName 趙・personalName と整合）"
+}

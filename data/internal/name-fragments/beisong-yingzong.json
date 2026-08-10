@@ -1,0 +1,51 @@
+{
+  "id": "beisong-yingzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "_corpus_cache/beisong-yingzong.txt",
+      "line": 1,
+      "quote": "英宗體乾應曆隆功盛德憲文肅武睿聖宣孝皇帝，諱曙，濮安懿王允讓第十三子"
+    },
+    {
+      "cid": "c2",
+      "book": "宋史",
+      "file": "china-history/宋史/本纪/第十三章-卷十三-原文.html",
+      "line": 22,
+      "quote": "謚曰憲文肅武宣孝皇帝，廟號英宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "英宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上諡の条が「廟號」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "体乾応暦隆功盛徳憲文粛武睿聖宣孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。上諡条の初諡（c2）より長く、間の加諡の条は本紀に無い（諡の段は残量表の行）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "宋史の本紀で字を挙げるのは高宗・孝宗の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName 趙・personalName と整合）"
+}

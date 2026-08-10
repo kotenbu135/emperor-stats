@@ -1,0 +1,42 @@
+{
+  "id": "nansong-gongdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "_corpus_cache/nansong-gongdi.txt",
+      "line": 1,
+      "quote": "瀛國公名〈濕，去氵〉，度宗皇帝子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロットに立つのは位号「瀛國公」で廟号ではない（c1）。廃位のまま元へ降ったので宗号が立たない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "位号は諡ではないので全長形の欄には入れない（宋史の規約・commonName 側の名乗り）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭は諱の直後に続柄が来る。宋史はこの帝の字を載せない"
+    }
+  ],
+  "discrepancies": "なし（底本は諱を欠字の説明で書くが、名前欄は今回どれも空のままなので影響しない）"
+}

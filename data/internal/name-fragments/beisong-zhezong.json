@@ -1,0 +1,51 @@
+{
+  "id": "beisong-zhezong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "_corpus_cache/beisong-zhezong.txt",
+      "line": 1,
+      "quote": "哲宗憲元繼道顯德定功欽文睿武齊聖昭孝皇帝，諱煦，神宗第六子也"
+    },
+    {
+      "cid": "c2",
+      "book": "宋史",
+      "file": "china-history/宋史/本纪/第十八章-卷十八-原文.html",
+      "line": 22,
+      "quote": "上謚曰欽文睿武昭孝皇帝，廟號曰哲宗。七月丁卯，以謚號冊寶奏告天地、宗廟、社稷。八月壬寅，葬于永泰陵。癸亥，祔太廟。崇寧三年七月，加謚曰憲元繼道世德揚功欽文睿武齊聖昭孝皇帝。政和三年，改謚憲元繼道顯德定功欽文睿武齊聖昭孝皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "哲宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上諡の条が「廟號」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "憲元継道顕徳定功欽文睿武斉聖昭孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の上諡条は初諡を記し、冒頭形はその後の加諡にあたる（c2）。この欄が主張するのは冒頭形であって最終形ではない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "宋史の本紀で字を挙げるのは高宗・孝宗の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName 趙・personalName と整合）"
+}

@@ -28,12 +28,12 @@
       ],
       "script": "scripts/screens/name_fields.py",
       "population": "365人 × {templeName, posthumousName} のうち**値が空のセル**（埋まっているセルの訂正は別作業）",
-      "n": 498,
+      "n": 483,
       "buckets": [
         {
           "name": "templeName:transcribe",
           "kind": "read",
-          "count": 72,
+          "count": 57,
           "means": "commonName が廟号形（〜祖／〜宗）なのに templeName が空。**取りこぼしと言い切れる**ので、本紀冒頭の1行を転記する作業に落ちる"
         },
         {
@@ -188,7 +188,7 @@
       "notEstablished": "unknown の389セルが空でよいということ。監査のとおり取りこぼしが混じる。**171 は作業量の下限であって総量ではない**",
       "screenedAt": "2026-08-02",
       "recountedAt": "2026-08-10",
-      "recountNote": "遼9人・金10人・西遼3人の廟号を転記したぶん母集団が縮んだ（514→498・templeName:transcribe 86→72・templeName:unknown 180→178）。**この記録は空セルを母集団に取るので、転記が進むたびに件数が動く** — 引き直しを忘れると CI の check_screenings.py が落ちる（2026-08-10 に実際に落ちた）。templeName:unknown が2件だけ減ったのは、西遼の徳宗・仁宗が commonName 側に廟号を畳み込んだ形（「徳宗天祐皇帝」）で unknown に落ちていたため。"
+      "recountNote": "2026-08-10 に2回引き直した。(1) 遼9人・金10人・西遼3人の廟号（514→498・templeName:transcribe 86→72・templeName:unknown 180→178）。(2) 宋史の15人の廟号（498→483・templeName:transcribe 72→57。後漢書12人ぶんは posthumousNameFull だけなのでこの記録の欄には掛からない）。**この記録は空セルを母集団に取るので、転記が進むたびに件数が動く** — 引き直しを忘れると CI の check_screenings.py が落ちる（2026-08-10 に実際に落ちた）。templeName:unknown が (1) で2件だけ減ったのは、西遼の徳宗・仁宗が commonName 側に廟号を畳み込んだ形（「徳宗天祐皇帝」）で unknown に落ちていたため。(2) では unknown は動いていない（宋の15人はどれも commonName が廟号形＝transcribe 側に居た）。"
     },
     {
       "id": "campaign-span-issue56",

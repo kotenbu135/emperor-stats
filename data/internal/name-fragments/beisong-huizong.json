@@ -1,0 +1,51 @@
+{
+  "id": "beisong-huizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "_corpus_cache/beisong-huizong.txt",
+      "line": 1,
+      "quote": "徽宗體神合道駿烈遜功聖文仁德憲慈顯孝皇帝，諱佶，神宗第十一子也"
+    },
+    {
+      "cid": "c2",
+      "book": "宋史",
+      "file": "china-history/宋史/本纪/第二十二章-卷二十二-原文.html",
+      "line": 22,
+      "quote": "遙上尊謚曰聖文仁德顯孝皇帝，廟號徽宗。十二年八月乙酉，梓宮還臨安。十月丙寅，權欑于永祐陵。十二月丁卯，祔太廟第十一室。十三年正月己亥，加上尊謚曰體神合道駿烈遜功聖文仁德憲慈顯孝皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "徽宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上諡の条が「廟號」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "体神合道駿烈遜功聖文仁徳憲慈顕孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の上諡条は初諡を記し、冒頭形はその後の加諡にあたる（c2）。この欄が主張するのは冒頭形であって最終形ではない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "宋史の本紀で字を挙げるのは高宗・孝宗の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName 趙・personalName と整合）"
+}

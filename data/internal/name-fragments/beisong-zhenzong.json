@@ -1,0 +1,65 @@
+{
+  "id": "beisong-zhenzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "_corpus_cache/beisong-zhenzong.txt",
+      "line": 1,
+      "quote": "真宗應符稽古神功讓德文明武定章聖元孝皇帝，諱恒，太宗第三子也"
+    },
+    {
+      "cid": "c2",
+      "book": "宋史",
+      "file": "china-history/宋史/本纪/第八章-卷八-原文.html",
+      "line": 22,
+      "quote": "上尊謚曰文明武定章聖元孝皇帝，廟號真宗。慶曆七年，加謚膺符稽古神功讓德文明武定章聖元孝皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "真宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上諡の条が「廟號」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "応符稽古神功譲徳文明武定章聖元孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の上諡条は初諡を記し、冒頭形はその後の加諡にあたる（c2）。この欄が主張するのは冒頭形であって最終形ではない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "宋史の本紀で字を挙げるのは高宗・孝宗の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
+    }
+  ],
+  "discrepancies": "冒頭形と加諡条で「應符」／「膺符」が割れる（conflicts に残した）",
+  "conflicts": [
+    {
+      "field": "name.posthumousNameFull",
+      "taken": "応符稽古神功譲徳文明武定章聖元孝皇帝",
+      "alternatives": [
+        "膺符稽古神功譲徳文明武定章聖元孝皇帝"
+      ],
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "reason": "冒頭は「應符」・加諡の条は「膺符」で1字割れる（c1／c2）。差し替えの2条件のうち (b)「同じ条に並ぶ他帝の形が冒頭形と一致する」が満たせない（この条は真宗1帝しか記さない）ので、規約どおり冒頭形を採り、加諡側の形をここに残す"
+    }
+  ]
+}

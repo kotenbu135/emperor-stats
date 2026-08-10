@@ -1,0 +1,42 @@
+{
+  "id": "hou-han-andi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "後漢書",
+      "file": "_corpus_cache/hou-han-andi.txt",
+      "line": 1,
+      "quote": "恭宗孝安皇帝讳祜，肃宗孙也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝安皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行が名乗りとして掲げる形（c1）。後漢書は光武帝を除き「孝」を冠して立てる"
+    },
+    {
+      "field": "name.templeName",
+      "value": "恭宗",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。現行値と一致（追認）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の personalName・posthumousName と整合）"
+}

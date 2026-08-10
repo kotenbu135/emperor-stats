@@ -1,0 +1,51 @@
+{
+  "id": "beisong-taizu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "_corpus_cache/beisong-taizu.txt",
+      "line": 1,
+      "quote": "太祖啟運立極英武睿文神德聖功至明大孝皇帝，諱匡胤，姓趙氏，涿郡人也"
+    },
+    {
+      "cid": "c2",
+      "book": "宋史",
+      "file": "china-history/宋史/本纪/第三章-卷三-原文.html",
+      "line": 22,
+      "quote": "謚曰英武聖文神德皇帝，廟號太祖。太平興國二年四月乙卯，葬永昌陵。大中祥符元年，加上尊謚曰啟運立極英武睿文神德聖功至明大孝皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "太祖",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上諡の条が「廟號」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "啓運立極英武睿文神徳聖功至明大孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の上諡条は初諡を記し、冒頭形はその後の加諡にあたる（c2）。この欄が主張するのは冒頭形であって最終形ではない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "宋史の本紀で字を挙げるのは高宗・孝宗の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の familyName 趙・personalName と整合）"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "hou-han-guangwudi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "後漢書",
+      "file": "_corpus_cache/hou-han-guangwudi.txt",
+      "line": 1,
+      "quote": "世祖光武皇帝讳秀，字文叔"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "光武皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行が名乗りとして掲げる形（c1）。後漢書は光武帝を除き「孝」を冠して立てる"
+    },
+    {
+      "field": "name.templeName",
+      "value": "世祖",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。現行値と一致（追認）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "文叔",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭「字文叔」。現行値と一致（追認）"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の personalName・posthumousName と整合）"
+}

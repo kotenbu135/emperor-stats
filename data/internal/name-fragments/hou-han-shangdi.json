@@ -1,0 +1,50 @@
+{
+  "id": "hou-han-shangdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "後漢書",
+      "file": "_corpus_cache/hou-han-shangdi.txt",
+      "line": 1,
+      "quote": "孝殇皇帝讳隆，和帝少子也"
+    },
+    {
+      "cid": "c2",
+      "book": "後漢書",
+      "file": "china-history/后汉书/本纪/第十章-孝献帝纪-原文.html",
+      "line": 40,
+      "quote": "有司奏，和、安、顺、桓四帝无功德，不宜称宗，又恭怀、敬隐、恭愍三皇后并非正嫡，不合称后，皆请除尊号"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝殤皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行が名乗りとして掲げる形（c1）。後漢書は光武帝を除き「孝」を冠して立てる"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロットが諡から始まり廟号が無い（c1）。後漢書は宗号を「称宗」の語で扱い、書全体で該当条は献帝紀の除尊号1件だけ（c2）。そこに挙がる4帝にも冒頭で宗号を立てる4帝にも本人は入らないので、この書でこの人物に宗号は立たない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
+    }
+  ],
+  "discrepancies": "なし（冒頭1行は現行の personalName・posthumousName と整合）"
+}
