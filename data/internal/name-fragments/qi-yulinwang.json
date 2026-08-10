@@ -1,0 +1,50 @@
+{
+  "id": "qi-yulinwang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "南齊書",
+      "file": "_corpus_cache/qi-yulinwang.txt",
+      "line": 2,
+      "quote": "郁林王昭业，字元尚，文惠太子长子也。小名法身"
+    },
+    {
+      "cid": "c2",
+      "book": "南齊書",
+      "file": "daizhigev20/史藏/正史/南齐书.txt",
+      "line": 254,
+      "quote": "太祖高皇帝肇基骏命，膺录受图，世祖武皇帝系明下武，高宗明皇帝重隆景业"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.childhoodName",
+      "value": "法身",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "**この人だけ「小名」**。冒頭に「讳」を挟まない格（位号で立つ）と揃っており、南齊書の中で語が割れる境目がここに出る"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が「郁林王」＝位号で立つ。南齊書の齊の廟の在庫は太祖・世祖・世宗（追尊の文帝）・高宗の4つで閉じており（樂志の神室歌・宣徳太后令 c2）、この人はどこにも入らない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由。位号は諡ではないのでこの欄には入らない"
+    }
+  ],
+  "discrepancies": "なし"
+}

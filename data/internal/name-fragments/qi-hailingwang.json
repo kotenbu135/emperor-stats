@@ -1,0 +1,57 @@
+{
+  "id": "qi-hailingwang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "南齊書",
+      "file": "_corpus_cache/qi-hailingwang.txt",
+      "line": 2,
+      "quote": "海陵恭王昭文，字季尚，文惠太子第二子也"
+    },
+    {
+      "cid": "c2",
+      "book": "南齊書",
+      "file": "_corpus_cache/qi-hailingwang.txt",
+      "line": 6,
+      "quote": "依东海王故事。谥曰恭王"
+    },
+    {
+      "cid": "c3",
+      "book": "南齊書",
+      "file": "daizhigev20/史藏/正史/南齐书.txt",
+      "line": 3154,
+      "quote": "宫人许氏生海陵恭王昭文"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "**諡は受けているが王級**（c2「谥曰恭王」）で、皇帝の全長諡ではないのでこの欄には入らない。冒頭形「海陵恭王」もその王諡を含んだ呼称（c3 が列傳で同じ形を使う）"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "廟に入らない（齊の廟の在庫4つに含まれない）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭は諱と字だけで幼名の欄を持たない。南齊書は7人中4人に幼名を挙げるので、これは人物側の欠落"
+    }
+  ],
+  "discrepancies": "**慣行の記録が「諡を受けなかった廃位者」に数えていたのは誤り** — 鬱林王・東昏侯とは違い、この人には「谥曰恭王」の条がある。王級の諡を置く欄は `posthumousName` 側にあり（前涼張祚「威王」・成漢李期「幽公」・前秦苻生「厲王」の3件が先例）、南齊書の`posthumousName` の所在は未走査なので今回は入れず、残量表に量として置く"
+}

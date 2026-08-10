@@ -10,9 +10,10 @@
 
   A 形           validate_emperors.py::check_childhood_names（漢字1〜4字・定型を含まない）
   B 名乗りの分離  同上（諱・字・廟号・諡号のどれかを写した形を落とす）
-  C 底本         verify_quotes.py::childhood_hit（本人の原文に「小字〈値〉」または
-                 「小名〈値〉」の形で在るか。**2語なのは書の中で語が割れるため** —
-                 宋書は武帝だけ「小名寄奴」で他の8人は「小字」）
+  C 底本         verify_quotes.py::childhood_hit（本人の原文に「小字〈値〉」「小名〈値〉」
+                 「小讳〈値〉」のいずれかの形で在るか。**3語なのは書の中で語が割れるため** —
+                 宋書は武帝だけ「小名寄奴」で他の8人は「小字」、南齊書は帝が「小讳」で
+                 位号で立つ郁林王だけ「小名」）
 
 **B は民族名と突き合わせない。** 契丹・女真の名は本紀が「小字」として載せる形があり
 （遼史「讳德光，字德谨，小字尧骨」・金史「讳璟，小字麻达葛」）、同値であることが
@@ -189,6 +190,20 @@ ok = not Q.childhood_hit("寿", HAY4)
 bad += 0 if ok else 1
 print(f"{'OK ' if ok else 'NG '} 動詞をはさむ形は当たらない（南漢劉玢・取りこぼす側に倒した）")
 
-total = len(CASES) + len(B_CASES) + len(C_CASES) + 7
+# **3語目。** 南齊書は帝を「小讳」で書く（太祖「小讳斗将」・世祖「小讳龙儿」・
+# 高宗「小讳玄度」）。宋書と違って割れ方が**帝の格と揃っている** — 諡を受けず位号で
+# 立つ郁林王だけが「小名法身」で、冒頭に「讳」を持たない側と一致する。
+# 2026-08-11 に足す前は南斉3人が全員ゲートCで落ちていた。
+HAY6 = norm_for_match("太祖高皇帝讳道成，字绍伯，姓萧氏，小讳斗将，汉相国萧何二十四世孙也")
+ok = bool(Q.childhood_hit("斗将", HAY6))
+bad += 0 if ok else 1
+print(f"{'OK ' if ok else 'NG '} 「小讳〈値〉」も当たる（齊高帝 斗将・帝の格は小讳）")
+
+# 「小讳」でも隣接は要る。同じ1行に在る字が幼名の欄へ滑り込まないことを測る。
+ok = not Q.childhood_hit("紹伯", HAY6)
+bad += 0 if ok else 1
+print(f"{'OK ' if ok else 'NG '} 「小讳」を足しても字は当たらない（齊高帝 紹伯）")
+
+total = len(CASES) + len(B_CASES) + len(C_CASES) + 9
 print(f"\n{'全件一致' if not bad else str(bad) + '件 不一致'} / {total}件")
 sys.exit(1 if bad else 0)

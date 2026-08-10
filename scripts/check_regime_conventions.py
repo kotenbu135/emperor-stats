@@ -26,6 +26,7 @@
 """
 import argparse
 import json
+import re
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -159,6 +160,42 @@ def brief_for(eid, field=None):
     return 0
 
 
+# 慣行の記録が幼名の欄について書く語。ここに挙がった語が
+# `verify_quotes.CHILDHOOD_LABELS` に無いと、その書の幼名を転記した瞬間に底本照合が
+# 「定型でない」で落ちる。**2日続けてそれが起きた**（2026-08-10 宋書の「小名」・
+# 2026-08-11 南齊書の「小讳」）。どちらも**慣行の記録には書いてあった**ので、
+# 人が思い出す代わりに機械で突き合わせる。
+CHILDHOOD_LABEL_PATTERN = re.compile(r"小[字名諱讳]")
+
+
+def check_childhood_labels(records, errors, counters):
+    """慣行が名乗る幼名のラベル語が、底本照合のゲート側にも入っているか。
+
+    **別名の語（「一名」「初名」「本名」）は対象外** — 幼名ではないので照合の語に
+    足してはいけない。ここが見るのは「小」で始まる4語だけ。
+    """
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import verify_quotes
+    except Exception as exc:                      # 照合器が無い環境では黙って抜ける
+        print(f"NOTICE 幼名ラベルの突き合わせを飛ばしました（{exc}）")
+        return
+    known = set(verify_quotes.CHILDHOOD_LABELS)
+    for rec in records:
+        if "childhoodName" not in (rec.get("fields") or []):
+            continue
+        text = " ".join(str(rec.get(k) or "") for k in ("form", "variants", "storageForm", "note"))
+        for ev in rec.get("evidence") or []:
+            text += " " + str(ev.get("quote") or "")
+        for label in sorted(set(CHILDHOOD_LABEL_PATTERN.findall(text))):
+            counters["childhood_labels"] += 1
+            if label not in known:
+                errors.append(
+                    f"{rec.get('book')}: 慣行が幼名を「{label}」で書くと述べているのに、"
+                    f"verify_quotes.CHILDHOOD_LABELS に無い（現在 {'・'.join(known)}）。"
+                    f"この書の幼名を転記するとゲートCが落ちる")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--scope", action="store_true", help="母集団 N → 要調査 M の内訳を出す")
@@ -257,6 +294,8 @@ def main():
                 for f in rec.get("fields") or []:
                     ex_scope[(ex["id"], f)] = ex["personScope"]
 
+    check_childhood_labels(records, errors, counters)
+
     for e in errors:
         print(f"ERROR  {e}")
 
@@ -267,7 +306,8 @@ def main():
           f"引用 {counters['quote_checked']}件を原文と照合"
           + (f"（コーパスが無く {counters['quote_skipped']}件は未照合）"
              if counters["quote_skipped"] else "")
-          + f"・例外 {counters['exceptions']}人")
+          + f"・例外 {counters['exceptions']}人"
+          + f"・幼名のラベル語 {counters['childhood_labels']}件をゲートの語リストと照合")
     print(f"確定済みの政権: {len({rid for rid, _ in covered})} / {len(person_count)}政権"
           f"（{surveyed_persons} / {total}人）")
 

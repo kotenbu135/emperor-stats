@@ -1,0 +1,49 @@
+{
+  "id": "qi-mingdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "南齊書",
+      "file": "_corpus_cache/qi-mingdi.txt",
+      "line": 2,
+      "quote": "高宗明皇帝讳鸾，字景栖，始安贞王道生子也。小讳玄度"
+    },
+    {
+      "cid": "c2",
+      "book": "南齊書",
+      "file": "daizhigev20/史藏/正史/南齐书.txt",
+      "line": 254,
+      "quote": "高宗明皇帝重隆景业"
+    },
+    {
+      "cid": "c3",
+      "book": "南齊書",
+      "file": "daizhigev20/史藏/正史/南齐书.txt",
+      "line": 493,
+      "quote": "高宗明皇帝神室奏《明德凯容之乐》歌辞"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "明皇帝",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第2スロット。上諡の条は無いが、宣徳太后令（c2）と樂志の廟の神室歌（c3）が独立に全長形を挙げる"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": "玄度",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が「小讳」で書く（帝の格）"
+    }
+  ],
+  "discrepancies": "なし（廟号「高宗」・字「景栖」は既に保存済み）"
+}

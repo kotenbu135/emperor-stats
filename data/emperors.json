@@ -39334,7 +39334,9 @@
     "posthumousName": "高帝",
     "templeName": "太祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "紹伯"
+    "courtesyName": "紹伯",
+    "posthumousNameFull": "高皇帝",
+    "childhoodName": "斗将"
    },
    "eraId": "northern-southern",
    "regimeId": "southern-qi",
@@ -39539,7 +39541,9 @@
     "posthumousName": "武帝",
     "templeName": "世祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "宣遠"
+    "courtesyName": "宣遠",
+    "posthumousNameFull": "武皇帝",
+    "childhoodName": "龍児"
    },
    "eraId": "northern-southern",
    "regimeId": "southern-qi",
@@ -39851,7 +39855,8 @@
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "元尚"
+    "courtesyName": "元尚",
+    "childhoodName": "法身"
    },
    "eraId": "northern-southern",
    "regimeId": "southern-qi",
@@ -40279,7 +40284,9 @@
     "posthumousName": "明帝",
     "templeName": "高宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "景栖"
+    "courtesyName": "景栖",
+    "posthumousNameFull": "明皇帝",
+    "childhoodName": "玄度"
    },
    "eraId": "northern-southern",
    "regimeId": "southern-qi",

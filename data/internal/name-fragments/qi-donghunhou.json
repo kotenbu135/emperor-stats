@@ -1,0 +1,42 @@
+{
+  "id": "qi-donghunhou",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "南齊書",
+      "file": "_corpus_cache/qi-donghunhou.txt",
+      "line": 2,
+      "quote": "东昏侯宝卷，字智藏，高宗第二子也。本名明贤，高宗辅政后改焉"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が「东昏侯」＝位号で立つ。齊の廟の在庫に入らない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由。位号は諡ではない"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭の「本名明贤」は**改名前の名**であって幼名ではない（南齊書が幼名を立てるときは「小讳」「小名」の語を使う）。人物側の欠落"
+    }
+  ],
+  "discrepancies": "なし"
+}
