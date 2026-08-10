@@ -1561,18 +1561,27 @@ def check_posthumous_name_full(data):
 # 条そのものは年を名乗らないことが多い）。出典は**この欄に持たせない** — 名前系の欄は
 # すべて `data/internal/name-fragments/` の断片が provenance を持つ既存の作りに揃える。
 #
-# **冒頭形が列に現れない人物が居る。** 舊唐書 高宗は崩御条が「天皇大弘孝皇帝」なのに
-# 冒頭は「天皇大聖大弘孝皇帝」で、大聖の2字が食い違う（文宗も孝の1字が食い違う）。
-# これは書の内部差なので、**理由を書いた人物だけ**を下の表で通す（黙って通さない）。
+# **同じ書の中で形が割れる。** 舊唐書は高宗の754年の改諡を崩御条で「天皇大弘孝皇帝」、
+# 加諡の条そのもの（玄宗紀・天宝十三載二月）と冒頭で「天皇大聖大弘孝皇帝」と書く。
+# **割れたら証人の多い形を採る**（この場合は条＋冒頭の2証人）。それでも冒頭形が
+# 列に現れない人物は残るので、**理由を書いた人物だけ**を下の表で通す（黙って通さない）。
 POSTHUMOUS_STAGE_FULL_MISMATCH = {
-    "tang-gaozong": "崩御条（天宝十三載の改諡）は「天皇大弘孝皇帝」だが冒頭形は"
-                    "「天皇大聖大弘孝皇帝」で、大聖の2字が舊唐書の中で食い違う",
     "tang-wenzong": "崩御条は「元聖昭献皇帝」だが冒頭形は「元聖昭献孝皇帝」で、"
                     "孝の1字が舊唐書の中で食い違う",
+    "tang-yizong": "諡を授けた崩御条は「睿文昭聖恭恵孝皇帝」だが冒頭形は"
+                   "「昭聖恭恵孝皇帝」で、睿文の2字が舊唐書の中で食い違う"
+                   "（段には授けた条の形を採る）",
+}
+# **「皇帝」で結ばない諡が在る。** 明代宗は郕王へ落とされて王諡「戾」を与えられ、
+# 成化十一年に帝号を復して「恭仁康定景皇帝」を追諡された。列は**授けられた順**を
+# 主張するので王諡の段も落とせない。鍵は (皇帝id, 段の形) で、理由を書いた段だけ通す。
+POSTHUMOUS_STAGE_NON_IMPERIAL = {
+    ("ming-daizong", "戾"): "郕王へ落として与えた王諡なので皇帝号で結ばない"
+                            "（成化十一年に帝号を復し「恭仁康定景皇帝」を追諡）",
 }
 # 充足のラチェット。転記は各ブロックの中で進むので強制はせず、**減ったら落ちる**
 # （SCHEMA_CHANGE_CHECKLIST.md 手順5）。実測を書く
-POSTHUMOUS_STAGES_FLOOR = 6
+POSTHUMOUS_STAGES_FLOOR = 37
 
 
 def check_posthumous_names(data):
@@ -1590,6 +1599,7 @@ def check_posthumous_names(data):
     verify_quotes.py --check-posthumous-names へ置いた＝ゲートF）。
     """
     named = 0
+    used_non_imperial = set()
     for e in data["emperors"]:
         name = e.get("name") or {}
         stages = name.get("posthumousNames")
@@ -1615,12 +1625,17 @@ def check_posthumous_names(data):
                 err(f"{tag}: form が空")
                 continue
             forms.append(form)
-            # A 形
-            if not POSTHUMOUS_FULL_RE.match(form):
-                err(f"{tag}: form {form!r} が漢字2〜30字でない")
-            if not (form.endswith("皇帝") or form.endswith("大帝")):
-                err(f"{tag}: form {form!r} が「皇帝」「大帝」で終わらない"
-                    f"（諡の形だけを段に置く。廟号は templeName の側）")
+            # A 形（皇帝号で結ばない王諡だけ、理由つきの表で通す）
+            imperial = form.endswith("皇帝") or form.endswith("大帝")
+            excused = (e["id"], form) in POSTHUMOUS_STAGE_NON_IMPERIAL
+            used_non_imperial.add((e["id"], form))
+            if not excused:
+                if not POSTHUMOUS_FULL_RE.match(form):
+                    err(f"{tag}: form {form!r} が漢字2〜30字でない")
+                if not imperial:
+                    err(f"{tag}: form {form!r} が「皇帝」「大帝」で終わらない"
+                        f"（諡の形だけを段に置く。廟号は templeName の側）。"
+                        f"王諡なら POSTHUMOUS_STAGE_NON_IMPERIAL に理由を書く")
             for bad in POSTHUMOUS_FULL_BAD:
                 if bad in form:
                     err(f"{tag}: form {form!r} に {bad!r} が入っている"
@@ -1654,6 +1669,15 @@ def check_posthumous_names(data):
         elif full and e["id"] in POSTHUMOUS_STAGE_FULL_MISMATCH:
             err(f"[posthumous-stages] {e['id']}: 冒頭形が段に在るのに "
                 f"POSTHUMOUS_STAGE_FULL_MISMATCH へ挙がっている（免除を消せる）")
+    # 免除の腐り止め。段を訂正して形が変わると、表の行だけが残って「読んで通した」ように
+    # 見え続ける（皇帝号で結ばない側なので、当たり直しの側からは検出できない）。
+    # **列を持つ人物についてだけ**見る（まだ転記していない人物の行は腐りではない）。
+    ids_with_stages = {e["id"] for e in data["emperors"]
+                       if (e.get("name") or {}).get("posthumousNames")}
+    for key in sorted(set(POSTHUMOUS_STAGE_NON_IMPERIAL) - used_non_imperial):
+        if key[0] in ids_with_stages:
+            err(f"[posthumous-stages] {key[0]}: POSTHUMOUS_STAGE_NON_IMPERIAL の"
+                f"「{key[1]}」がどの段にも無い（訂正で形が変わったなら行を消す）")
     return named
 
 

@@ -1369,19 +1369,33 @@ def cmd_check_posthumous_name_full():
     return bad
 
 
-POSTHUMOUS_STAGES_FLOOR = 13  # 2026-08-10 の実測（唐6人・延べ13段が13件とも当たる）
-# 底本側の事情で当たらない段と理由（現在なし）。鍵は (皇帝id, 段の形)
-POSTHUMOUS_STAGES_ALLOW = {}
+POSTHUMOUS_STAGES_FLOOR = 48  # 2026-08-10 の実測（唐21人・明16人＝延べ51段のうち48件）
+# 本人の原文キャッシュに当たらない段と理由。鍵は (皇帝id, 段の形)。
+# **段は本人が名乗る底本からだけ採る**（他書にしか無い加諡は採らない）ので、当たらない
+# のは「同じ書の別巻に条が在ってキャッシュの行範囲へ入っていない」場合に限られる。
+# キャッシュの行範囲を足せば免除は消せる（残量表に行がある）。
+POSTHUMOUS_STAGES_ALLOW = {
+    ("tang-xianzong", "昭文章武大聖孝皇帝"):
+        "大中三年の追諡の条は舊唐書 卷十八下（宣宗紀）に在り、憲宗のキャッシュ"
+        "（卷十四下・卷十五）へ入っていない",
+    ("tang-xuanzong-2", "元聖至明成武献文睿智章仁神聡懿道大孝皇帝"):
+        "咸通十三年の追諡の条は舊唐書 卷十九上（懿宗紀）に在り、宣宗のキャッシュ"
+        "（卷十八下）へ入っていない",
+    ("tang-zhaozong", "恭霊荘閔孝皇帝"):
+        "天祐二年に張廷範が改諡した条は舊唐書 卷二十下（哀帝紀）に在り、昭宗の"
+        "キャッシュ（卷二十上）へ入っていない",
+}
 
 
 def cmd_check_posthumous_names():
-    """諡号の各段が本人の原文キャッシュに在るか（ゲートF・ラチェット）。
+    """諡号の各段が本人の原文キャッシュに在るか（ゲートF）。
 
     **段ごとに数える。** 人物単位で数えると、3段のうち1段が捏造でも「当たった人物」に
     入ってしまい、この欄でいちばん危ない失敗（在りもしない段を並べる）が見えない。
 
-    **当たらないこと自体は誤りではない** — 加諡が別巻に在って本人のキャッシュへ
-    入っていない段がある。見ているのは「当たっていた段が当たらなくなること」。
+    **当たらない段は落とす。** 段は本人が名乗る底本からだけ採る規約なので、当たらない
+    段は原則として誤り。同じ書の別巻に条が在ってキャッシュへ入っていない場合だけ、
+    巻を名指しした理由つきで POSTHUMOUS_STAGES_ALLOW を通す（床のラチェットも残す）。
     """
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     checked = ok = 0
@@ -1414,15 +1428,17 @@ def cmd_check_posthumous_names():
             missed.append(key)
     if skipped:
         print(f"NOTICE 原文キャッシュが無いため未照合: {len(skipped)}人 {skipped}")
+    bad = 0
     for eid, form in missed:
-        print(f"NOTICE {eid}: 段「{form}」が本人の原文キャッシュに現れない"
-              f"（加諡が別巻に在るか、字体が差分表を通らない）")
+        bad += 1
+        print(f"ERROR {eid}: 段「{form}」が本人の原文キャッシュに現れない"
+              f"（字体が差分表を通らないか、在りもしない段。同じ書の別巻に条が在るなら"
+              f" POSTHUMOUS_STAGES_ALLOW に巻を名指しした理由を書く）")
     for eid, form in allowed:
         print(f"NOTICE {eid}／{form}: 底本側の事情で免除 — "
               f"{POSTHUMOUS_STAGES_ALLOW[(eid, form)]}")
-    bad = 0
     if ok < POSTHUMOUS_STAGES_FLOOR:
-        bad = 1
+        bad += 1
         print(f"ERROR 本人の原文に当たる段が {ok}件で床 "
               f"{POSTHUMOUS_STAGES_FLOOR} を下回った")
     print(f"---\n{bad} errors / posthumousNames の段 {checked}件のうち "

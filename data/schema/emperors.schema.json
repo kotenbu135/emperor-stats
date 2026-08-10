@@ -380,17 +380,17 @@
             "properties": {
               "form": {
                 "type": "string",
-                "minLength": 2,
+                "minLength": 1,
                 "maxLength": 30,
-                "description": "その段の諡の形（「皇帝」または「大帝」で終わる。廟号は含めない）。字体の扱いは posthumousNameFull と同じ。"
+                "description": "その段の諡の形（原則「皇帝」または「大帝」で終わる。廟号は含めない）。字体の扱いは posthumousNameFull と同じ。**皇帝号で結ばない王諡が例外として在る**（明代宗の「戾」）ので長さの下限は1字にしてあり、形の判定は validate_emperors.py の POSTHUMOUS_STAGE_NON_IMPERIAL（理由つきの表）が受け持つ。"
               },
               "year": {
                 "type": "integer",
-                "description": "その段が授けられた西暦年。**任意** — 原文がその段に紀年を与えている場合だけ書く（初諡は崩御条の中に在り、条そのものが年を名乗らないことが多い）。並び順に対して逆行してはならない。"
+                "description": "その段が授けられた**元号年に対応する西暦年**。**任意** — 原文がその段に紀年を与えている場合だけ書く（初諡は崩御条の中に在り、条そのものが年を名乗らないことが多い）。**月日は主張しない**ので、旧暦十二月の条のように西暦では翌年へまたぐ場合も元号年の側を採る（大中三年十二月＝849）。並び順に対して逆行してはならない。"
               }
             }
           },
-          "$comment": "冒頭形（posthumousNameFull）が段のどれとも一致しない人物が居る（舊唐書 高宗は崩御条「天皇大弘孝皇帝」に対し冒頭「天皇大聖大弘孝皇帝」）。書の内部差なので validate_emperors.py の POSTHUMOUS_STAGE_FULL_MISMATCH に理由を書いた人物だけ通す。"
+          "$comment": "冒頭形（posthumousNameFull）が段のどれとも一致しない人物が居る（舊唐書 懿宗は諡を授けた崩御条「睿文昭聖恭恵孝皇帝」に対し冒頭「昭聖恭恵孝皇帝」）。書の内部差なので validate_emperors.py の POSTHUMOUS_STAGE_FULL_MISMATCH に理由を書いた人物だけ通す。同じ書の中で形が割れたときは証人の多い形を採る。"
         },
         "regnalTitle": {
           "type": ["string", "null"],
