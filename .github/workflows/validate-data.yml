@@ -20,6 +20,9 @@ on:
       # ここに無いと、ルビ・文体の規則を変えたコミットで CI が黙ってスキップする
       # （2026-08-06 に実際に踏んだ）
       - "scripts/profile_prose.py"
+      # 検出力テスト本体。ここに無いと、テストだけを直したコミットで CI が
+      # 走らず、直前の失敗が main に赤のまま残る（2026-08-10 に実際に踏んだ）
+      - "scripts/test_*.py"
       - "docs/process/RULES.yml"
       - ".claude/hooks/**"
       - "scripts/check_rules.py"
@@ -45,6 +48,9 @@ on:
       # ここに無いと、ルビ・文体の規則を変えたコミットで CI が黙ってスキップする
       # （2026-08-06 に実際に踏んだ）
       - "scripts/profile_prose.py"
+      # 検出力テスト本体。ここに無いと、テストだけを直したコミットで CI が
+      # 走らず、直前の失敗が main に赤のまま残る（2026-08-10 に実際に踏んだ）
+      - "scripts/test_*.py"
       - "docs/process/RULES.yml"
       - ".claude/hooks/**"
       - "scripts/check_rules.py"
