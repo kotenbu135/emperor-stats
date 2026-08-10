@@ -114,6 +114,9 @@ def main():
         coverage = {e["id"]: [buckets[e["regimeId"]]] for e in data["emperors"]
                     if e["regimeId"] in buckets}
         print(json.dumps({
+            # コーパスが無い環境（CI）では全政権が head-none へ落ちて記録と必ずずれるので、
+            # 件数の突合を飛ばす旗を出す（check_screenings.py が読む）
+            "corpus": CACHE.is_dir() and any(CACHE.glob("*.txt")),
             "unit": "regime",
             "n": len(buckets),
             "buckets": {k: len(v) for k, v in sorted(by_bucket.items())},
