@@ -7,6 +7,13 @@
       "file": "_corpus_cache/hou-han-zhangdi.txt",
       "line": 1,
       "quote": "肃宗孝章皇帝讳炟，显宗第五子也"
+    },
+    {
+      "cid": "c2",
+      "book": "後漢書",
+      "file": "daizhigev20/史藏/正史/后汉书.txt",
+      "line": 867,
+      "quote": "请上尊庙曰肃宗"
     }
   ],
   "findings": [
@@ -23,10 +30,11 @@
       "field": "name.templeName",
       "value": "粛宗",
       "basis": [
-        "c1"
+        "c1",
+        "c2"
       ],
       "confidence": "high",
-      "note": "冒頭の第1スロット（c1）。現行値と一致（追認）"
+      "note": "冒頭の第1スロット（c1）。宗号を奉る条が「庙曰〈廟号〉」と書いて裏を取る（c2）。現行値と一致（追認）"
     },
     {
       "field": "name.courtesyName",
