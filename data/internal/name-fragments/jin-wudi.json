@@ -1,0 +1,24 @@
+{
+  "id": "jin-wudi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/jin-wudi.txt",
+      "line": 1,
+      "quote": "武皇帝讳炎，字安世"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "武皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "本紀の冒頭1行の第1スロット。**西晋では「孝」を冠さない帝と冠す帝が混在する**（武は「武皇帝」・惠懷愍は「孝〜皇帝」）ので、冠の有無は人物ごとに冒頭1行から読む"
+    }
+  ],
+  "discrepancies": "食い違いなし"
+}

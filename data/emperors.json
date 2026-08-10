@@ -19607,7 +19607,8 @@
     "posthumousName": "武帝",
     "templeName": "世祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "安世"
+    "courtesyName": "安世",
+    "posthumousNameFull": "武皇帝"
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "western-jin",
@@ -20084,7 +20085,8 @@
     "posthumousName": "恵帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "正度"
+    "courtesyName": "正度",
+    "posthumousNameFull": "孝恵皇帝"
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "western-jin",
@@ -21113,7 +21115,8 @@
     "posthumousName": "懐帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "豊度"
+    "courtesyName": "豊度",
+    "posthumousNameFull": "孝懐皇帝"
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "western-jin",
@@ -21579,7 +21582,8 @@
     "posthumousName": "愍帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "彦旗"
+    "courtesyName": "彦旗",
+    "posthumousNameFull": "孝愍皇帝"
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "western-jin",
