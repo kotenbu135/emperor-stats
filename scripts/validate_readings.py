@@ -87,7 +87,14 @@ def check_notation(text: str, label: str) -> None:
 
 
 def displayed_strings(emperors: dict) -> set[str]:
-    """画面に出る名称（皇帝の表示名・諱・廟号・諡号＋政権ラベル＋時代ラベル）。"""
+    """画面に出る名称（皇帝の名前欄＋政権ラベル＋時代ラベル）。
+
+    **欄の一覧は site/src/lib/display-name.ts の `emperorNameEntries` が正。**
+    ここが1欄でも遅れると、その欄に新しい値が入った日にサイトのビルドが
+    「ふりがな未登録の表示名です」で落ちる（2026-08-10・西遼徳宗の字「重徳」で
+    実際に落ちた。当時この関数は諱・廟号・短縮諡の3欄しか見ていなかった）。
+    `posthumousNameFull` は hero が描かないので入れない。
+    """
     out: set[str] = set()
     for e in emperors["emperors"]:
         n = e["name"]
@@ -97,9 +104,20 @@ def displayed_strings(emperors: dict) -> set[str]:
             or n.get("templeName")
             or n.get("posthumousName")
         )
-        for s in (display, n.get("personalName"), n.get("templeName"), n.get("posthumousName")):
+        for s in (
+            display,
+            n.get("familyName"),
+            n.get("personalName"),
+            n.get("courtesyName"),
+            n.get("childhoodName"),
+            n.get("templeName"),
+            n.get("posthumousName"),
+            (n.get("ethnicName") or {}).get("value"),
+        ):
             if s:
                 out.add(s)
+        for alias in n.get("aliases") or []:
+            out.add(alias)
     for r in emperors["meta"]["catalogs"]["regimes"]:
         out.add(r["label"])
     for era in emperors["meta"]["catalogs"]["eras"]:
