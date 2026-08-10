@@ -10,7 +10,9 @@
 
   A 形           validate_emperors.py::check_childhood_names（漢字1〜4字・定型を含まない）
   B 名乗りの分離  同上（諱・字・廟号・諡号のどれかを写した形を落とす）
-  C 底本         verify_quotes.py::childhood_hit（本人の原文に「小字〈値〉」の形で在るか）
+  C 底本         verify_quotes.py::childhood_hit（本人の原文に「小字〈値〉」または
+                 「小名〈値〉」の形で在るか。**2語なのは書の中で語が割れるため** —
+                 宋書は武帝だけ「小名寄奴」で他の8人は「小字」）
 
 **B は民族名と突き合わせない。** 契丹・女真の名は本紀が「小字」として載せる形があり
 （遼史「讳德光，字德谨，小字尧骨」・金史「讳璟，小字麻达葛」）、同値であることが
@@ -166,6 +168,19 @@ ok = not Q.childhood_hit("駒", HAY3)
 bad += 0 if ok else 1
 print(f"{'OK ' if ok else 'NG '} 注釈「〈人〉小字也」からは値が取れない（劉裕紀の形）")
 
+# **同じ書が同じ位置を2語で書く。** 宋書は9人のうち武帝だけ「小名寄奴」で、他の8人は
+# 「小字〈値〉」（少帝「小字车兵」・文帝「小字车兒」）。2026-08-11 に「小名」を足す前は
+# 武帝の寄奴だけがゲートCで落ちていた。**語が書の中で割れる**ことをここで固定する。
+HAY5 = norm_for_match("高祖武皇帝讳裕，字德舆，小名寄奴，彭城县绥舆里人")
+ok = bool(Q.childhood_hit("寄奴", HAY5))
+bad += 0 if ok else 1
+print(f"{'OK ' if ok else 'NG '} 「小名〈値〉」も当たる（宋武帝 寄奴・同じ書が2語を使う）")
+
+# 「小名」でも隣接は要る。字を幼名の欄へ入れた形が素通りしないことを測る。
+ok = not Q.childhood_hit("徳輿", HAY5)
+bad += 0 if ok else 1
+print(f"{'OK ' if ok else 'NG '} 「小名」を足しても字は当たらない（宋武帝 徳輿）")
+
 # **動詞をはさむ形は当たらない＝入れられない。** 南漢の劉玢は高祖の遺言が
 # 「呼洪度、洪熙小字曰：『寿、俊虽长…』」で、読めば小字が「寿」と分かるが
 # 隣接にならない。取りこぼす側に倒したことを明示して測る（残量表の行）。
@@ -174,6 +189,6 @@ ok = not Q.childhood_hit("寿", HAY4)
 bad += 0 if ok else 1
 print(f"{'OK ' if ok else 'NG '} 動詞をはさむ形は当たらない（南漢劉玢・取りこぼす側に倒した）")
 
-total = len(CASES) + len(B_CASES) + len(C_CASES) + 5
+total = len(CASES) + len(B_CASES) + len(C_CASES) + 7
 print(f"\n{'全件一致' if not bad else str(bad) + '件 不一致'} / {total}件")
 sys.exit(1 if bad else 0)

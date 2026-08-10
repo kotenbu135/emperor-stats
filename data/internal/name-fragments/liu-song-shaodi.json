@@ -1,0 +1,42 @@
+{
+  "id": "liu-song-shaodi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋書",
+      "file": "_corpus_cache/liu-song-shaodi.txt",
+      "line": 2,
+      "quote": "少帝讳义符，小字车兵"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が「少帝」＝位号で立つ。宋書は少帝に廟号を与えず、書中でも廟号で呼ばない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由。位号は諡ではないのでこの欄には入らない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭は諱と小字だけで字の欄を持たない。宋書は10人中7人に字を挙げるので、これは人物側の欠落"
+    }
+  ],
+  "discrepancies": "なし"
+}

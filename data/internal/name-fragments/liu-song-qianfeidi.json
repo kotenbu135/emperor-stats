@@ -1,0 +1,42 @@
+{
+  "id": "liu-song-qianfeidi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋書",
+      "file": "_corpus_cache/liu-song-qianfeidi.txt",
+      "line": 2,
+      "quote": "前废帝讳子业，小字法师"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が「前廃帝」＝位号で立つ。宋書は廟号を与えない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由。位号は諡ではない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭は諱と小字だけで字の欄を持たない"
+    }
+  ],
+  "discrepancies": "なし"
+}

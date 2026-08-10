@@ -1,0 +1,42 @@
+{
+  "id": "liu-song-shundi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋書",
+      "file": "_corpus_cache/liu-song-shundi.txt",
+      "line": 2,
+      "quote": "顺皇帝讳准，字仲谋，小字智观"
+    },
+    {
+      "cid": "c2",
+      "book": "宋書",
+      "file": "daizhigev20/史藏/正史/宋书.txt",
+      "line": 322,
+      "quote": "殂于丹阳宫，时年十三。谥曰顺帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "順皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロットが「順皇帝」で、廟号の位置に何も無い。斉が立てた諡の条（c2）が短縮形「順帝」で裏を取る"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭にも c2 にも廟号が無い。禅譲後に斉が諡だけを贈った形で、宋書は書中でも順帝を廟号で呼ばない"
+    }
+  ],
+  "discrepancies": "なし（c2 は「順帝」で冒頭形より2字短いが、これは短縮呼称であって別の段ではない）"
+}

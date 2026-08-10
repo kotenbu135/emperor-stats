@@ -1,0 +1,42 @@
+{
+  "id": "liu-song-liuzixun",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋書",
+      "file": "_corpus_cache/liu-song-liuzixun.txt",
+      "line": 1,
+      "quote": "晋安王子勋，字孝德，孝武帝第三子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "本紀に立たず列傳（孝武十四王）の定型で始まる。政権の慣行が指す冒頭1行が掛からない人物"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由。義嘉の号は元号で、宋書は子勛に諡を与えない"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "列傳の定型は姓名と字だけで小字の欄を持たない"
+    }
+  ],
+  "discrepancies": "なし（字「孝徳」は既に保存済みで、同じ1行が裏になる）"
+}

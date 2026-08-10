@@ -1,0 +1,33 @@
+{
+  "id": "liu-song-houfeidi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋書",
+      "file": "_corpus_cache/liu-song-houfeidi.txt",
+      "line": 2,
+      "quote": "废帝讳昱，字德融，小字慧震"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が「廃帝」＝位号で立つ。宋書は廟号を与えない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由。位号は諡ではない"
+    }
+  ],
+  "discrepancies": "なし（字「徳融」・小字「慧震」は既に保存済み）"
+}

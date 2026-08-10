@@ -1,0 +1,48 @@
+{
+  "id": "liu-song-wendi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋書",
+      "file": "_corpus_cache/liu-song-wendi.txt",
+      "line": 2,
+      "quote": "太祖文皇帝讳义隆，小字车兒"
+    },
+    {
+      "cid": "c2",
+      "book": "宋書",
+      "file": "daizhigev20/史藏/正史/宋书.txt",
+      "line": 254,
+      "quote": "谥曰景皇帝，庙曰中宗。三月癸巳，葬长宁陵。世祖践阼，追改谥及庙号"
+    },
+    {
+      "cid": "c3",
+      "book": "宋書",
+      "file": "daizhigev20/史藏/正史/宋书.txt",
+      "line": 259,
+      "quote": "崇改太祖号谥"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "文皇帝",
+      "basis": [
+        "c1",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第2スロット。元凶が立てた初諡（c2）を孝武帝が改めた条（c3）が裏で、改めた先の値は冒頭形にしか出ない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭は諱と小字だけで字の欄を持たない"
+    }
+  ],
+  "discrepancies": "初諡と冒頭形が食い違う（c2 は「景皇帝」・廟号「中宗」）。ただし c2 自身が「世祖践阼，追改谥及庙号」と改めたことを書き、c3 が改めた条なので、冒頭形が後段であることは書の中で閉じている"
+}

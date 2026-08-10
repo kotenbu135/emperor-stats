@@ -36625,7 +36625,9 @@
     "posthumousName": "武帝",
     "templeName": "高祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "徳輿"
+    "courtesyName": "徳輿",
+    "posthumousNameFull": "武皇帝",
+    "childhoodName": "寄奴"
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -37106,7 +37108,8 @@
     "posthumousName": "文帝",
     "templeName": "太祖",
     "regnalTitle": "皇帝",
-    "childhoodName": "車児"
+    "childhoodName": "車児",
+    "posthumousNameFull": "文皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -37688,7 +37691,8 @@
     "templeName": "世祖",
     "regnalTitle": "皇帝",
     "courtesyName": "休龍",
-    "childhoodName": "道民"
+    "childhoodName": "道民",
+    "posthumousNameFull": "孝武皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -38364,7 +38368,8 @@
     "templeName": "太宗",
     "regnalTitle": "皇帝",
     "courtesyName": "休炳",
-    "childhoodName": "栄期"
+    "childhoodName": "栄期",
+    "posthumousNameFull": "明皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -39058,7 +39063,8 @@
     "templeName": null,
     "regnalTitle": "皇帝",
     "courtesyName": "仲謀",
-    "childhoodName": "智観"
+    "childhoodName": "智観",
+    "posthumousNameFull": "順皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",

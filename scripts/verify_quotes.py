@@ -1235,18 +1235,31 @@ def cmd_check_courtesy_names():
 CHILDHOOD_ALLOW = {}
 
 
+# 幼名の欄を立てる語。**「小名」は 2026-08-11 に足した** — 宋書は同じ冒頭定型の
+# 同じ位置を帝によって書き分け、武帝だけ「小名寄奴」で他の8人は「小字〈値〉」
+# （少帝「小字车兵」・文帝「小字车兒」…）。1語だけで見ると武帝の寄奴が
+# 「定型でない」で落ちる。**語は書の中で割れる**（R-SWEEP-DETECTION と同じ形で、
+# 走査ではなくゲートの側に出た）。どちらも2字それ自体が名乗りの種類を決めるので、
+# 直前の1字を見ない扱いは変わらない。
+CHILDHOOD_LABELS = ("小字", "小名")
+
+
 def childhood_hit(value, hay):
     """幼名が本人の原文に**定型で**在るか。当たった前後を返す（無ければ None）。
 
-    見るのは「小字〈値〉」という並び。字のゲートCと違って直前の1字を見ない
-    （「小字」の2字がそれ自体で名乗りの種類を決めており、他の名乗りの後半に来ない）。
+    見るのは「小字〈値〉」「小名〈値〉」という並び。字のゲートCと違って直前の1字を
+    見ない（どちらの2字もそれ自体で名乗りの種類を決めており、他の名乗りの後半に
+    来ない）。
     """
     v = norm_for_match(value)
     if not v:
         return None
-    needle = "小字" + v
-    i = hay.find(needle)
-    return hay[max(0, i - 8):i + len(needle) + 6] if i != -1 else None
+    for label in CHILDHOOD_LABELS:
+        needle = label + v
+        i = hay.find(needle)
+        if i != -1:
+            return hay[max(0, i - 8):i + len(needle) + 6]
+    return None
 
 
 def cmd_check_childhood_names():
@@ -1283,14 +1296,15 @@ def cmd_check_childhood_names():
             continue
         bad += 1
         print(f"ERROR {e['id']}: 幼名「{value}」が本人の原文キャッシュに"
-              f"「小字{value}」の形で現れない（値だけが在っても定型でなければ"
-              f"小字の証拠にならない）")
+              f"「小字{value}」「小名{value}」のどちらの形でも現れない"
+              f"（値だけが在っても定型でなければ小字の証拠にならない）")
     if skipped:
         print(f"NOTICE 原文キャッシュが無いため未照合: {len(skipped)}人 {skipped}")
     for eid in allowed:
         print(f"NOTICE {eid}: 底本側の事情で免除 — {CHILDHOOD_ALLOW[eid]}")
     print(f"---\n{bad} errors / childhoodName を持つ {checked}人のうち "
-          f"{ok}人が本人の原文に「小字〈値〉」の形で実在（免除 {len(allowed)}人）")
+          f"{ok}人が本人の原文に「小字〈値〉」「小名〈値〉」の形で実在"
+          f"（免除 {len(allowed)}人）")
     return 1 if bad else 0
 
 

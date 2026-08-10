@@ -1,0 +1,24 @@
+{
+  "id": "liu-song-xiaowudi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋書",
+      "file": "_corpus_cache/liu-song-xiaowudi.txt",
+      "line": 2,
+      "quote": "世祖孝武皇帝讳骏，字休龙，小字道民"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝武皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第2スロット。宋書は孝武帝に上諡の条を持たない"
+    }
+  ],
+  "discrepancies": "なし（廟号「世祖」・字「休龍」・小字「道民」は既に保存済み）"
+}

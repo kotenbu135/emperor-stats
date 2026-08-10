@@ -1,0 +1,24 @@
+{
+  "id": "liu-song-mingdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋書",
+      "file": "_corpus_cache/liu-song-mingdi.txt",
+      "line": 2,
+      "quote": "太宗明皇帝讳彧，字休炳，小字荣期"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "明皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第2スロット。宋書は明帝に上諡の条を持たない"
+    }
+  ],
+  "discrepancies": "なし（廟号「太宗」・字「休炳」・小字「栄期」は既に保存済み）"
+}

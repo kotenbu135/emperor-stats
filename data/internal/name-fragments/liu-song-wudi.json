@@ -1,0 +1,33 @@
+{
+  "id": "liu-song-wudi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋書",
+      "file": "_corpus_cache/liu-song-wudi.txt",
+      "line": 2,
+      "quote": "高祖武皇帝讳裕，字德舆，小名寄奴"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "武皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第2スロット。宋書は武帝に上諡の条を持たず、この1行が唯一の名乗り"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": "寄奴",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が「小名」で書く。同じ欄を他の帝では「小字」で書く（語が割れるのは書式の中）"
+    }
+  ],
+  "discrepancies": "なし（廟号「高祖」・字「徳輿」は既に保存済みで、同じ1行が裏になる）"
+}
