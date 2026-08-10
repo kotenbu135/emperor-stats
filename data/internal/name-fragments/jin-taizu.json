@@ -1,0 +1,42 @@
+{
+  "id": "jin-taizu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "金史",
+      "file": "_corpus_cache/jin-taizu.txt",
+      "line": 2,
+      "quote": "太祖应乾兴运昭德定功仁明庄孝大圣武元皇帝，讳旻，本讳阿骨打，世祖第二子也"
+    },
+    {
+      "cid": "c2",
+      "book": "金史",
+      "file": "_corpus_cache/jin-taizu.txt",
+      "line": 83,
+      "quote": "三月，上尊谥曰武元皇帝，庙号太祖"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "太祖",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行の第1スロット（c1）。崩御条が「庙号太祖」と明記（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "応乾興運昭徳定功仁明荘孝大聖武元皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる加諡形（c1）。崩御条の初諡は「武元皇帝」（c2）で、冒頭形はその後の加諡。欄が主張するのは冒頭形であって最終形ではない"
+    }
+  ],
+  "discrepancies": "なし（templeName・posthumousNameFull はどちらも空だったので新規。既存の personalName 旻・ethnicName 阿骨打は冒頭1行と一致）"
+}

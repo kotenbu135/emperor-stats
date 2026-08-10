@@ -1,0 +1,33 @@
+{
+  "id": "liao-tianzuodi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-tianzuodi.txt",
+      "line": 2,
+      "quote": "天祚皇帝，讳延禧，字延宁，小字阿果。道宗之孙"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロットに立つのは位号「天祚皇帝」で廟号ではない。遼史は天祚帝に庙号を与えない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "位号は諡ではないので全長形の欄には入れない（空が正しい）"
+    }
+  ],
+  "discrepancies": "なし（既存の courtesyName 延寧・childhoodName 阿果と一致。commonName 天祚帝は原文の位号「天祚皇帝」の通用形）"
+}

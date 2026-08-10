@@ -1,0 +1,51 @@
+{
+  "id": "liao-shengzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-shengzong.txt",
+      "line": 2,
+      "quote": "圣宗文武大孝宣皇帝，讳隆绪，小字文殊奴。景宗皇帝长子"
+    },
+    {
+      "cid": "c2",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-shengzong.txt",
+      "line": 66,
+      "quote": "景福元年闰十月壬申，上尊谥曰文武大孝宣皇帝，庙号圣宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "聖宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行＋崩御条"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "文武大孝宣皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭形と上尊諡が一致する"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭は「讳隆绪，小字文殊奴」で字が無い（空が正しい）"
+    }
+  ],
+  "discrepancies": "なし（既存の childhoodName 文殊奴と一致）"
+}

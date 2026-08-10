@@ -1,0 +1,41 @@
+{
+  "id": "liao-taizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-taizong.txt",
+      "line": 2,
+      "quote": "太宗孝武惠文皇帝，讳德光，字德谨，小字尧骨，太祖第二子"
+    },
+    {
+      "cid": "c2",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-taizong.txt",
+      "line": 117,
+      "quote": "是岁九月壬子朔，葬于凤山，陵曰怀陵，庙号太宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "太宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行＋崩御条"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝武恵文皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形"
+    }
+  ],
+  "discrepancies": "なし（既存の courtesyName 徳謹・childhoodName 尭骨と一致）"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "jin-shizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "金史",
+      "file": "_corpus_cache/jin-shizong.txt",
+      "line": 2,
+      "quote": "世宗光天兴运文德武功圣明仁孝皇帝，讳雍，本讳乌禄，太祖孙，睿宗子也"
+    },
+    {
+      "cid": "c2",
+      "book": "金史",
+      "file": "_corpus_cache/jin-shizong.txt",
+      "line": 301,
+      "quote": "运文德武功圣明仁孝皇帝，庙号世宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "世宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行＋崩御条"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "光天興運文徳武功聖明仁孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭形と崩御条の上諡が一致する"
+    }
+  ],
+  "discrepancies": "なし"
+}

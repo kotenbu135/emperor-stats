@@ -1,0 +1,50 @@
+{
+  "id": "jin-weishaowang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "金史",
+      "file": "_corpus_cache/jin-weishaowang.txt",
+      "line": 2,
+      "quote": "卫绍王讳永济，小字兴胜，更讳允济"
+    },
+    {
+      "cid": "c2",
+      "book": "金史",
+      "file": "_corpus_cache/jin-weishaowang.txt",
+      "line": 47,
+      "quote": "贞祐四年，诏追复卫王谥曰绍"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "廃位者。冒頭に立つのは王位号「卫绍王」で廟号ではない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "追復された諡は王諡「绍」の1字（c2）で皇帝諡ではない。全長形の欄は空が正しい"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": "興勝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭「小字兴胜」。現行値の追認"
+    }
+  ],
+  "discrepancies": "**現行データは「興勝」を ethnicName と childhoodName の両方に入れている**（章宗と同じ形）。原文は「小字兴胜」の1箇所。あわせて冒頭は「讳永济…更讳允济，章宗时避显宗讳，诏改『允』为『永』」と改名を書くが、現行の personalName は改名後の「永済」で原文と整合する"
+}

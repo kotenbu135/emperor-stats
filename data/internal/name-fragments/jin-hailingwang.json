@@ -1,0 +1,50 @@
+{
+  "id": "jin-hailingwang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "金史",
+      "file": "_corpus_cache/jin-hailingwang.txt",
+      "line": 2,
+      "quote": "废帝海陵庶人亮，字元功，本讳迪古乃，辽王宗干第二子也"
+    },
+    {
+      "cid": "c2",
+      "book": "金史",
+      "file": "_corpus_cache/jin-hailingwang.txt",
+      "line": 75,
+      "quote": "大定二年，降封为海陵郡王，谥曰炀"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "廃位者なので廟号は無い。冒頭の第1スロットに立つのは位号「废帝海陵庶人」で、廟号ではない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "位号は諡ではないので全長形の欄には入れない。王としての諡は「炀」（c2）だが皇帝諡ではなく、金史の短縮呼称の慣行も未確定なので今回は置かない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "元功",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭「字元功」。現行値と一致（追認）"
+    }
+  ],
+  "discrepancies": "なし（既存の courtesyName 元功・commonName 海陵王・ethnicName 迪古乃はいずれも冒頭1行と整合）"
+}

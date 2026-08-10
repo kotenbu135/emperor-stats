@@ -1,0 +1,42 @@
+{
+  "id": "liao-xingzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-xingzong.txt",
+      "line": 2,
+      "quote": "兴宗神圣孝章皇帝，讳宗真，字夷不堇，小字只骨。圣宗长子"
+    },
+    {
+      "cid": "c2",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-xingzong.txt",
+      "line": 31,
+      "quote": "清宁元年十月庚子，上尊谥为神圣孝章皇帝，庙号兴宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "興宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行＋崩御条"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "神聖孝章皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭形と上尊諡が一致する"
+    }
+  ],
+  "discrepancies": "なし（既存の courtesyName 夷不菫・childhoodName 只骨と一致）"
+}

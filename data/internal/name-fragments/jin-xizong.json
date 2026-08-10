@@ -1,0 +1,33 @@
+{
+  "id": "jin-xizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "金史",
+      "file": "_corpus_cache/jin-xizong.txt",
+      "line": 2,
+      "quote": "熙宗弘基缵武庄靖孝成皇帝，讳亶，本讳合剌，太祖孙，景宣皇帝子"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "熙宗",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行。金史は世宗紀で「改闵宗庙号曰熙宗」と廟号の改称を書いており、熙宗が廟号であることは書の中で二重に見える"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "弘基纘武荘靖孝成皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形。「纘」は hanzi_norm の差分表に無いので底本の字体寄りで置いた（底本照合は通る）"
+    }
+  ],
+  "discrepancies": "なし。ただし金史は世宗紀で「追复东昏王帝号，谥武灵，庙号闵宗」→「改闵宗庙号曰熙宗」と廟号の変遷を書いており、熙宗の廟号は当初「閔宗」だった。現行データは変遷を持つ欄が無いので最終形だけを置いてある"
+}

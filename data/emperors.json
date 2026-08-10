@@ -92168,10 +92168,11 @@
      "耶律阿保機"
     ],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "太祖",
     "regnalTitle": "皇帝",
     "courtesyName": "阿保機",
-    "childhoodName": "啜里只"
+    "childhoodName": "啜里只",
+    "posthumousNameFull": "大聖大明神烈天皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -92555,14 +92556,15 @@
     "commonName": "太宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "太宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "khitan",
      "value": "耶律堯骨"
     },
     "courtesyName": "徳謹",
-    "childhoodName": "堯骨"
+    "childhoodName": "堯骨",
+    "posthumousNameFull": "孝武恵文皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -92885,13 +92887,14 @@
     "commonName": "世宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "世宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "khitan",
      "value": "耶律兀欲"
     },
-    "childhoodName": "兀欲"
+    "childhoodName": "兀欲",
+    "posthumousNameFull": "孝和荘憲皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -93122,13 +93125,14 @@
     "commonName": "穆宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "穆宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "khitan",
      "value": "耶律述律"
     },
-    "childhoodName": "述律"
+    "childhoodName": "述律",
+    "posthumousNameFull": "孝安敬正皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -93341,14 +93345,15 @@
     "commonName": "景宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "景宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "khitan",
      "value": "耶律明扆"
     },
     "courtesyName": "賢寧",
-    "childhoodName": "明扆"
+    "childhoodName": "明扆",
+    "posthumousNameFull": "孝成康靖皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -93623,13 +93628,14 @@
     "commonName": "聖宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "聖宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "khitan",
      "value": "耶律文殊奴"
     },
-    "childhoodName": "文殊奴"
+    "childhoodName": "文殊奴",
+    "posthumousNameFull": "文武大孝宣皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -94162,14 +94168,15 @@
     "commonName": "興宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "興宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "khitan",
      "value": "耶律只骨"
     },
     "courtesyName": "夷不堇",
-    "childhoodName": "只骨"
+    "childhoodName": "只骨",
+    "posthumousNameFull": "神聖孝章皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -94511,14 +94518,15 @@
     "commonName": "道宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "道宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "khitan",
      "value": "耶律査剌"
     },
     "courtesyName": "涅隣",
-    "childhoodName": "査剌"
+    "childhoodName": "査剌",
+    "posthumousNameFull": "孝文皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -95539,8 +95547,9 @@
     "commonName": "徳宗天祐皇帝",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "徳宗",
+    "regnalTitle": "皇帝",
+    "courtesyName": "重徳"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-liao",
@@ -95772,7 +95781,7 @@
     "commonName": "仁宗正徳皇帝",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "仁宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "song-liao-jin-xia",
@@ -96121,12 +96130,13 @@
      "完顔阿骨打"
     ],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "太祖",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "jurchen",
      "value": "阿骨打"
-    }
+    },
+    "posthumousNameFull": "応乾興運昭徳定功仁明荘孝大聖武元皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -96535,12 +96545,13 @@
     "commonName": "太宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "太宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "jurchen",
      "value": "呉乞買"
-    }
+    },
+    "posthumousNameFull": "体元応運世徳昭功哲恵仁聖文烈皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -96827,12 +96838,13 @@
     "commonName": "熙宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "熙宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "jurchen",
      "value": "合剌"
-    }
+    },
+    "posthumousNameFull": "弘基纘武荘靖孝成皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -97461,12 +97473,13 @@
     "commonName": "世宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "世宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "jurchen",
      "value": "烏禄"
-    }
+    },
+    "posthumousNameFull": "光天興運文徳武功聖明仁孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -97752,13 +97765,14 @@
     "commonName": "章宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "章宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "jurchen",
      "value": "麻達葛"
     },
-    "childhoodName": "麻達葛"
+    "childhoodName": "麻達葛",
+    "posthumousNameFull": "憲天光運仁文義武神聖英孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -98281,12 +98295,13 @@
     "commonName": "宣宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "宣宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "jurchen",
      "value": "吾睹補"
-    }
+    },
+    "posthumousNameFull": "継天興統述道勤仁英武聖孝皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",

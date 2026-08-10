@@ -1,0 +1,51 @@
+{
+  "id": "jin-zhangzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "金史",
+      "file": "_corpus_cache/jin-zhangzong.txt",
+      "line": 2,
+      "quote": "章宗宪天光运仁文义武神圣英孝皇帝，讳璟，小字麻达葛，显宗嫡子也"
+    },
+    {
+      "cid": "c2",
+      "book": "金史",
+      "file": "_corpus_cache/jin-zhangzong.txt",
+      "line": 209,
+      "quote": "运仁文义武神圣英孝皇帝，庙号章宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "章宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行＋崩御条"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "憲天光運仁文義武神聖英孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭形と崩御条が一致"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": "麻達葛",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭は「小字麻达葛」。政権慣行の記録はこれを女真名の異形と読んでおり、現行データは ethnicName と childhoodName の両方に入れてある。今回は現行値を追認しただけで、どちらか一方へ寄せる判断はしていない"
+    }
+  ],
+  "discrepancies": "**現行データは「麻達葛」を ethnicName と childhoodName の両方に入れている。** 原文は「小字麻达葛」の1箇所だけで、女真名と童名のどちらとして持つかは決めていない（今回は両方とも追認して触っていない）"
+}

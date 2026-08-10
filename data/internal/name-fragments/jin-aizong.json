@@ -1,0 +1,41 @@
+{
+  "id": "jin-aizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "金史",
+      "file": "_corpus_cache/jin-aizong.txt",
+      "line": 2,
+      "quote": "哀宗讳守绪，初讳守礼，又讳宁甲速，宣宗第三子"
+    },
+    {
+      "cid": "c2",
+      "book": "金史",
+      "file": "_corpus_cache/jin-aizong.txt",
+      "line": 71,
+      "quote": "末帝退保子城，闻帝崩，率群臣入哭，谥曰哀宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "**判断待ちなので空のまま置いた。** 冒頭の第1スロットには「哀宗」が立つ（c1）が、金史は他の帝では「庙号太祖」「庙号章宗」のように庙号の語で明示するのに対し、哀宗については崩御条で「谥曰哀宗」と諡の語で書く（c2）。同じ書の中で語彙が割れているので、廟号の欄に入れるか諡の欄に入れるかは規約の判断が要る"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "同上。「哀宗」は金史の他の諡（すべて「…皇帝」で終わる）と形が違うので、全長形の欄の形の主張にも合わない"
+    }
+  ],
+  "discrepancies": "**廟号か諡かで金史の語彙が割れる**（冒頭は廟号の位置に「哀宗」・崩御条は「谥曰哀宗」）。判断待ちなので両欄とも空のまま置いた。残量表に行を足してある"
+}

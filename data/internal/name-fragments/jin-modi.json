@@ -1,0 +1,33 @@
+{
+  "id": "jin-modi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "金史",
+      "file": "_corpus_cache/jin-modi.txt",
+      "line": 1,
+      "quote": "己酉，承麟即皇帝位。百官称贺"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "金史に末帝（承麟）の独立した本紀は無く、哀宗紀の末尾に即位と同日の敗死が書かれるだけで廟号の記事が無い"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同上。諡を与える主体が滅んでおり、金史は諡を書かない"
+    }
+  ],
+  "discrepancies": "なし（金史に独立した本紀が無く、名前欄は commonName 末帝・personalName 承麟のみで閉じる）"
+}

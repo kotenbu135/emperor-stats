@@ -1,0 +1,42 @@
+{
+  "id": "liao-daozong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-daozong.txt",
+      "line": 2,
+      "quote": "道宗孝文皇帝，讳洪基，字涅邻，小字查剌。兴宗皇帝长子"
+    },
+    {
+      "cid": "c2",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-daozong.txt",
+      "line": 59,
+      "quote": "六月庚子，上尊谥仁圣大孝文皇帝，庙号道宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "道宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行＋崩御条"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝文皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "**冒頭が上尊諡より短い唯一の例。** 冒頭は「道宗孝文皇帝」（c1）だが崩御条の上尊諡は「仁圣大孝文皇帝」（c2）。遼の他の7帝では冒頭形が上尊諡と同じか長い（加諡形）ので、道宗だけ向きが逆になる。欄の規約が主張するのは冒頭形なのでそちらを置いたが、通説は c2 の側を諡として挙げる。規約の見直し候補として残量表へ行を足した"
+    }
+  ],
+  "discrepancies": "**冒頭形と上尊諡が食い違う**（冒頭「孝文皇帝」／崩御条「仁圣大孝文皇帝」）。欄の規約は冒頭形を採るのでそちらを置いたが、遼の他の7帝は冒頭形が上尊諡と同じか長く、道宗だけ向きが逆。残量表に行を足してある"
+}

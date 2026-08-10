@@ -1,0 +1,51 @@
+{
+  "id": "liao-shizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-shizong.txt",
+      "line": 2,
+      "quote": "世宗孝和庄宪皇帝，讳阮，小字兀欲。让国皇帝长子"
+    },
+    {
+      "cid": "c2",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-shizong.txt",
+      "line": 7,
+      "quote": "二年，谥孝和皇帝，庙号世宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "世宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行＋崩御条"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝和荘憲皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の加諡形。初諡は「孝和皇帝」（c2）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭は「讳阮，小字兀欲」で字が無い。政権慣行が異形として名指す「字を持たず小字だけの帝」に当たる（空が正しい）"
+    }
+  ],
+  "discrepancies": "なし（既存の childhoodName 兀欲と一致。字は原文に無いので courtesyName は空のままが正しい）"
+}

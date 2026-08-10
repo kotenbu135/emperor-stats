@@ -1,0 +1,33 @@
+{
+  "id": "xiliao-renzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "遼史",
+      "file": "_corpus_cache/xiliao-renzong.txt",
+      "line": 1,
+      "quote": "子夷列年幼，遣命皇后权国。后名塔不烟，号感天皇后，称制，改元咸清，在位七年，子夷列即位，改元绍兴。籍民十八岁以上，得八万四千五百户。在位十三年殁，庙号仁宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "仁宗",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "附録の記事末尾「在位十三年殁，庙号仁宗」"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "2代目以降は姓も名も省く形で始まり、字を書く位置が無い（空が正しい）"
+    }
+  ],
+  "discrepancies": "現行の commonName は「仁宗正徳皇帝」で、遼史の附録には廟号「仁宗」しか無く「正徳」は元号（附録は「改元绍兴」までしか書かない）。**出所の異なる語の合成**だが commonName は今回の対象外"
+}

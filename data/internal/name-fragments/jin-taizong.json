@@ -1,0 +1,42 @@
+{
+  "id": "jin-taizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "金史",
+      "file": "_corpus_cache/jin-taizong.txt",
+      "line": 2,
+      "quote": "太宗体元应运世德昭功哲惠仁圣文烈皇帝，讳晟，本讳吴乞买，世祖第四子"
+    },
+    {
+      "cid": "c2",
+      "book": "金史",
+      "file": "_corpus_cache/jin-taizong.txt",
+      "line": 76,
+      "quote": "庚辰，上尊谥曰文烈皇帝，庙号太宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "太宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行（c1）＋崩御条「庙号太宗」（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "体元応運世徳昭功哲恵仁聖文烈皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の加諡形。初諡は「文烈皇帝」（c2）"
+    }
+  ],
+  "discrepancies": "なし（既存の personalName 晟・ethnicName 呉乞買は冒頭と一致）"
+}

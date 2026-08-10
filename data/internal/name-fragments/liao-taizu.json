@@ -1,0 +1,42 @@
+{
+  "id": "liao-taizu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-taizu.txt",
+      "line": 2,
+      "quote": "太祖大圣大明神烈天皇帝，姓耶律氏，讳亿，字阿保机，小字啜里只，契丹迭剌部霞濑益石烈耶律弥里人，德祖皇帝长子"
+    },
+    {
+      "cid": "c2",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-taizu.txt",
+      "line": 26,
+      "quote": "己巳，上谥升天皇帝，庙号太祖"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "太祖",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行＋崩御条「庙号太祖」"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "大聖大明神烈天皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる加諡形。崩御時の諡は「升天皇帝」（c2）。遼史の諡は「天皇帝」で結ぶ異形を持つ"
+    }
+  ],
+  "discrepancies": "なし（既存の courtesyName 阿保機・childhoodName 啜里只は冒頭1行と一致）"
+}

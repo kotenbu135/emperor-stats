@@ -1,0 +1,42 @@
+{
+  "id": "liao-jingzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-jingzong.txt",
+      "line": 2,
+      "quote": "景宗孝成康靖皇帝，讳贤，字贤宁，小字明扆。世宗皇帝第二子"
+    },
+    {
+      "cid": "c2",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-jingzong.txt",
+      "line": 24,
+      "quote": "统和元年正月壬戌，上尊谥孝成皇帝，庙号景宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "景宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行＋崩御条"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝成康靖皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の加諡形。上尊諡は「孝成皇帝」（c2）"
+    }
+  ],
+  "discrepancies": "なし（既存の courtesyName 賢寧・childhoodName 明扆と一致）"
+}
