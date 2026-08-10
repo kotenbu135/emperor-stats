@@ -771,6 +771,517 @@
       "note": "成漢（`cheng-han`）は同じ晉書でも**載記**に載るので所在が違い、別レコードになっている",
       "surveyedAt": "2026-08-10",
       "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない（唐で短縮呼称だけを別レコード（absent-by-book）に割ったのと同じ理由）。**諡の段 `posthumousNames` もこの記録の対象外** — 段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定（残量表の「諡の段の走査範囲」の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず、`commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "後漢書",
+      "regimeIds": [
+        "eastern-han"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName"
+      ],
+      "locator": "後漢書 本紀（china-history 后汉书/本纪）各帝の**冒頭1行**。`_corpus_cache/<id>.txt` の1行目がそのまま冒頭",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉孝〈諡〉皇帝讳〈諱〉，字〈字〉／〈続柄〉也」。**廟号を冒頭に持つのは一部の帝だけ**（世祖・顕宗・粛宗・恭宗）で、他は諡から始まる（「孝和皇帝讳肇，肃宗第四子也」）。**前漢（漢書）は同じ位置に諱を置かない**ので別レコード（no-form）",
+      "variants": "字が並ぶのは光武帝の条だけで、他の帝は諱の直後に続柄が来る",
+      "evidence": [
+        {
+          "file": "_corpus_cache/hou-han-guangwudi.txt",
+          "line": 1,
+          "quote": "世祖光武皇帝讳秀，字文叔，南阳蔡阳人"
+        },
+        {
+          "file": "_corpus_cache/hou-han-hedi.txt",
+          "line": 1,
+          "quote": "孝和皇帝讳肇，肃宗第四子也"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "hou-han-shaodi-yi",
+          "locator": "後漢書 卷5〜6 の当該期間。独立した紀が無い",
+          "personScope": "per-person",
+          "note": "北郷侯懿。即位の記事だけが載り、冒頭の定型を持たない"
+        },
+        {
+          "id": "hou-han-shaodi-bian",
+          "locator": "後漢書 卷8〜9 の当該期間。独立した紀が無い",
+          "personScope": "per-person",
+          "note": "少帝辯。同上"
+        }
+      ],
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない。**諡の段 `posthumousNames` もこの記録の対象外**（段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定＝残量表の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず `commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "宋史",
+      "regimeIds": [
+        "northern-song",
+        "southern-song"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName",
+        "familyName"
+      ],
+      "locator": "宋史 本紀（china-history 宋史/本纪。ファイル名の巻数＝絶対巻数）各帝の**冒頭1行**。**底本は繁体字**なので、引用は繁体のまま保存する",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，諱〈諱〉，字〈字〉／姓趙氏，〈続柄〉」。諡は10字を超える長い形で、**姓は太祖の条にだけ並ぶ**",
+      "variants": "諡を受けなかった帝は位号＋名（「瀛國公名〈濕，去氵〉」）。**この諱は底本が欠字の説明で書いており字そのものが無い**ので、値をどう保存するかは人物単位で決める。改名を1行に書く帝がある（太宗「初名匡乂，改賜光義，即位之二年，改今諱」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/beisong-taizu.txt",
+          "line": 1,
+          "quote": "太祖啟運立極英武睿文神德聖功至明大孝皇帝，諱匡胤，姓趙氏"
+        },
+        {
+          "file": "_corpus_cache/nansong-gaozong.txt",
+          "line": 1,
+          "quote": "高宗受命中興全功至德聖神武文昭仁憲孝皇帝，諱構，字德基"
+        },
+        {
+          "file": "_corpus_cache/nansong-gongdi.txt",
+          "line": 1,
+          "quote": "瀛國公名"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "nansong-duanzong",
+          "locator": "宋史 卷47（瀛國公・二王）の当該期間。独立した紀が無い",
+          "personScope": "per-person",
+          "note": "端宗昰。擁立の記事だけが載る"
+        },
+        {
+          "id": "nansong-weiwang",
+          "locator": "宋史 卷47（瀛國公・二王）の当該期間。独立した紀が無い",
+          "personScope": "per-person",
+          "note": "衞王昺。同上"
+        }
+      ],
+      "note": "北宋末の傀儡政権2人（`zhangbangchang-chu`・`liuyu-qi`）は宋史でも**列傳**に載るので所在が違う。この記録は覆っていない",
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない。**諡の段 `posthumousNames` もこの記録の対象外**（段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定＝残量表の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず `commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "遼史",
+      "regimeIds": [
+        "liao"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName",
+        "childhoodName",
+        "familyName"
+      ],
+      "locator": "遼史 本紀（china-history 辽史/本纪。ファイル名の巻数＝絶対巻数）各帝の**冒頭1行**。巻の見出し行（「太祖上」など）の次の行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，讳〈諱〉，字〈字〉，小字〈小字〉，〈続柄〉」。**姓は太祖の条にだけ並ぶ**（「姓耶律氏」）",
+      "variants": "諡が「天皇帝」で結ぶ帝がある（太祖「大圣大明神烈天皇帝」）。諡を受けなかった帝は位号（「天祚皇帝，讳延禧，字延宁，小字阿果」）。字を持たず小字だけの帝がある（世宗・穆宗）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/liao-taizu.txt",
+          "line": 2,
+          "quote": "太祖大圣大明神烈天皇帝，姓耶律氏，讳亿，字阿保机，小字啜里只"
+        },
+        {
+          "file": "_corpus_cache/liao-tianzuodi.txt",
+          "line": 2,
+          "quote": "天祚皇帝，讳延禧，字延宁，小字阿果"
+        }
+      ],
+      "note": "西遼（`western-liao`）は同じ遼史でも天祚帝紀の**附録**に載るので所在が違う。この記録は覆っていない",
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない。**諡の段 `posthumousNames` もこの記録の対象外**（段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定＝残量表の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず `commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "金史",
+      "regimeIds": [
+        "jin-jurchen"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName",
+        "childhoodName",
+        "ethnicName"
+      ],
+      "locator": "金史 本紀（china-history 金史/本纪。ファイル名の巻数＝絶対巻数）各帝の**冒頭1行**。巻の見出し行（「◎太祖」など）の次の行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，讳〈漢名〉，本讳〈女真名〉，〈続柄〉」。**「本讳」が同じ行に並ぶ**ので女真名もこの1行から取れる",
+      "variants": "女真名が「本讳」ではなく「小字」で書かれる帝がある（章宗「小字麻达葛」）。諡を受けなかった帝は位号＋名（「废帝海陵庶人亮，字元功，本讳迪古乃」）。哀宗は諡を持たず「哀宗讳守绪，初讳守礼，又讳宁甲速」と改名を書き継ぐ",
+      "evidence": [
+        {
+          "file": "_corpus_cache/jin-taizu.txt",
+          "line": 2,
+          "quote": "太祖应乾兴运昭德定功仁明庄孝大圣武元皇帝，讳旻，本讳阿骨打"
+        },
+        {
+          "file": "_corpus_cache/jin-hailingwang.txt",
+          "line": 2,
+          "quote": "废帝海陵庶人亮，字元功，本讳迪古乃"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "jin-modi",
+          "locator": "金史 卷18（哀宗紀下）の末尾。独立した紀が無い",
+          "personScope": "per-person",
+          "note": "末帝承麟。譲位の記事だけが載る"
+        }
+      ],
+      "note": "「本讳」が女真名（`ethnicName`）か改名前の諱（`personalName` の別形）かは人物単位で見る — 太祖は「旻／阿骨打」で漢名と女真名だが、哀宗の「守绪／守礼」は改名。**書式が示すのは「同じ位置に別の名が並ぶ」ことまで**",
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない。**諡の段 `posthumousNames` もこの記録の対象外**（段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定＝残量表の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず `commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "元史",
+      "regimeIds": [
+        "yuan"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName"
+      ],
+      "locator": "元史 本紀（china-history 元史/本纪。ファイル名の巻数＝絶対巻数）各帝の**冒頭1行**。巻の見出し行（「◎世祖一」など）の次の行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，讳〈モンゴル名の漢字音写〉，〈続柄〉」。**姓は並ばない**（この政権は `familyName` が全員 null で、並ばないのは書式の問題であって取りこぼしではない）",
+      "variants": "諡を受けなかった帝は位号＋名で立ち「讳」を使わない（泰定帝「泰定皇帝，讳也孙铁木儿」は讳・順帝「顺帝名妥欢帖睦尔」は名）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/yuan-shizu.txt",
+          "line": 2,
+          "quote": "世祖圣德神功文武皇帝，讳忽必烈，睿宗皇帝第四子"
+        },
+        {
+          "file": "_corpus_cache/yuan-huizong.txt",
+          "line": 2,
+          "quote": "顺帝名妥欢帖睦尔，明宗之长子"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "yuan-tianshundi",
+          "locator": "元史 卷30（泰定帝紀二）の当該期間。独立した紀が無い（補足は新元史）",
+          "personScope": "per-person",
+          "note": "天順帝阿速吉八。即位の記事だけが載る"
+        }
+      ],
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない。**諡の段 `posthumousNames` もこの記録の対象外**（段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定＝残量表の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず `commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "清史稿",
+      "regimeIds": [
+        "qing"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName"
+      ],
+      "locator": "清史稿（daizhigev20 史藏/正史/清史稿.txt。本紀は3〜3881行）各帝の**冒頭1行**。巻の見出し行（「本纪二  太宗本纪一」など）の次の行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」。諡は20字前後の長い形",
+      "variants": "諡を受けなかった宣統帝は位号＋名（「宣统皇帝名溥仪」）で「讳」を使わない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/qing-taizong.txt",
+          "line": 2,
+          "quote": "太宗应天兴国弘德彰武宽温仁圣睿孝敬敏昭定隆道显功文皇帝，讳皇太极"
+        },
+        {
+          "file": "_corpus_cache/qing-xuantong.txt",
+          "line": 2,
+          "quote": "宣统皇帝名溥仪，宣宗之曾孙"
+        }
+      ],
+      "note": "呉周（`wu-zhou-sanfan`）は同じ清史稿でも**列傳**（呉三桂伝）に載るので所在が違う。この記録は覆っていない",
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない。**諡の段 `posthumousNames` もこの記録の対象外**（段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定＝残量表の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず `commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "舊五代史",
+      "regimeIds": [
+        "later-liang",
+        "later-tang",
+        "later-jin",
+        "later-han",
+        "later-zhou"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName",
+        "childhoodName",
+        "familyName"
+      ],
+      "locator": "舊五代史 本紀（china-history 旧五代史/<王朝>/第○章-○○紀○-原文.html）各帝の**冒頭1行**",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，姓〈姓〉氏，讳〈諱〉，〈本貫〉」。**姓が同じ1行に並ぶ書**なので familyName もこの読みで取れる（並ぶのは各王朝の創業者の条）",
+      "variants": "廟号を持たない帝は位号から始まる（「闵帝，讳从厚，小字菩萨奴」「少帝，名重贵」「隐皇帝，讳承祐」「恭帝，讳宗训」）。改名を1行に書く帝がある（後漢高祖「讳暠，本名知远，及即位改今讳」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/wudai-houliang-taizu.txt",
+          "line": 1,
+          "quote": "太祖神武元圣孝皇帝，姓硃氏，讳晃，本名温"
+        },
+        {
+          "file": "_corpus_cache/wudai-houtang-mindi.txt",
+          "line": 1,
+          "quote": "闵帝，讳从厚，小字菩萨奴"
+        },
+        {
+          "file": "_corpus_cache/wudai-houjin-gaozu.txt",
+          "line": 1,
+          "quote": "高祖圣文章武明德孝皇帝，姓石氏，讳敬瑭"
+        },
+        {
+          "file": "_corpus_cache/wudai-houhan-yindi.txt",
+          "line": 1,
+          "quote": "隐皇帝，讳承祐，高祖第二子也"
+        },
+        {
+          "file": "_corpus_cache/wudai-houzhou-shizong.txt",
+          "line": 1,
+          "quote": "世宗睿武孝文皇帝，讳荣，太祖之养子"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "wudai-houliang-zhuyougui",
+          "locator": "舊五代史 梁書 太祖紀の末尾。独立した紀が無い",
+          "personScope": "per-person",
+          "note": "郢王友珪。弑逆と即位の記事だけが載る"
+        }
+      ],
+      "note": "十国20人は**新五代史 世家**に載るので所在が違う（この記録は五代の本朝だけ）。後周太祖の条はキャッシュの先頭に「讳威」が重複して入っている（切り出しのアーティファクトで、書式そのものは他帝と同じ）",
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない。**諡の段 `posthumousNames` もこの記録の対象外**（段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定＝残量表の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず `commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "三國志",
+      "regimeIds": [
+        "cao-wei"
+      ],
+      "fields": [
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName"
+      ],
+      "locator": "三國志 魏書 帝紀（china-history 三国志/魏书）各帝の**冒頭1行**。**卷4（三少帝紀）は3人が同居する**のでキャッシュの中の行位置が帝ごとに違う",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈諡〉皇帝讳〈諱〉，字〈字〉，〈続柄〉也」。**廟号は冒頭に並ばない** — 曹魏の廟号（太祖・世祖・烈祖）は本文の別の条に在るので、廟号はこの1行からは取れない",
+      "variants": "諡を受けなかった廃位者は位号で立つ（「齐王讳芳，字兰卿」「高贵乡公讳髦，字彦士」「陈留王讳奂，字景明」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/wei-wendi.txt",
+          "line": 1,
+          "quote": "文皇帝讳丕，字子桓，武帝太子也"
+        },
+        {
+          "file": "_corpus_cache/wei-caomao.txt",
+          "line": 1,
+          "quote": "高贵乡公讳髦，字彦士"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "wei-yuandi",
+          "locator": "三國志 卷4（三少帝紀）の陳留王の条（`_corpus_cache/wei-yuandi.txt` の5行目）",
+          "personScope": "transcribe",
+          "note": "書式は他帝と同じで、キャッシュの中の行位置だけが違う"
+        }
+      ],
+      "note": "蜀漢（`shu-han`）・孫呉（`eastern-wu`）は同じ三國志でも**列傳の形**（「孙权字仲谋」「先主姓刘，讳备，字玄德」）で立つので所在が違う。この記録は覆っていない",
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない。**諡の段 `posthumousNames` もこの記録の対象外**（段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定＝残量表の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず `commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "晉書",
+      "regimeIds": [
+        "later-zhao",
+        "later-yan",
+        "former-qin",
+        "former-yan",
+        "former-zhao",
+        "later-qin",
+        "southern-yan"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "晉書 載記 各君主の記事**末尾**1行（`_corpus_cache/<id>.txt` の最終段落）。**冒頭ではない**ので本紀型の書式で探すと当たらない。成漢（`cheng-han`）が同じ所在で先に確定しており、その書式がこの7政権にも及ぶ",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "在位年数・享年を述べたあとに「（伪）谥〈諡号〉，庙号〈廟号〉，墓号〈陵名〉」が並ぶ。諡号と廟号が同じ1行から同時に取れる",
+      "variants": "「庙号」「庙曰」・「墓号」「墓曰」「墓称」の揺れがある。**廟号を伴わず諡号だけを記す形**もある（南燕慕容徳「伪谥献武皇帝」）ので、廟号の欄が空でも書式から外れたわけではない。改諡を書き継ぐ条がある（前秦苻健「庙号世宗，后改曰高祖」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/houzhao-shile.txt",
+          "line": 130,
+          "quote": "伪谥明皇帝，庙号高祖"
+        },
+        {
+          "file": "_corpus_cache/houyan-murongchui.txt",
+          "line": 36,
+          "quote": "伪谥成武皇帝，庙号世祖，墓曰宣平陵"
+        },
+        {
+          "file": "_corpus_cache/qianqin-fujian.txt",
+          "line": 12,
+          "quote": "伪谥明皇帝，庙号世宗，后改曰高祖"
+        },
+        {
+          "file": "_corpus_cache/qianyan-murongjun.txt",
+          "line": 38,
+          "quote": "伪谥景昭皇帝，庙号烈祖，墓号龙陵"
+        },
+        {
+          "file": "_corpus_cache/qianzhao-liuyuan.txt",
+          "line": 15,
+          "quote": "伪谥光文皇帝，庙号高祖，墓号永光陵"
+        },
+        {
+          "file": "_corpus_cache/houqin-yaochang.txt",
+          "line": 34,
+          "quote": "伪谥武昭皇帝，庙号太祖，墓称原陵"
+        },
+        {
+          "file": "_corpus_cache/nanyan-murongde.txt",
+          "line": 21,
+          "quote": "伪谥献武皇帝"
+        }
+      ],
+      "note": "**在位中に廃された君主・降伏して他国で死んだ君主には定型が付かない**（後趙の石弘・石世・石遵・石鑑・石祗の各条に「谥」の語が無い）。空欄をそのまま「諡が無い」と読まず、人物単位で当たり直す（成漢の李班・李勢で同じ形が例外として登録済み）",
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "晉書",
+      "regimeIds": [
+        "later-zhao",
+        "later-yan",
+        "former-qin",
+        "former-yan",
+        "former-zhao",
+        "later-qin",
+        "southern-yan",
+        "cheng-han",
+        "hexia",
+        "former-liang"
+      ],
+      "fields": [
+        "familyName",
+        "personalName",
+        "courtesyName"
+      ],
+      "locator": "晉書 載記 各君主の記事**冒頭1行**（`_corpus_cache/<id>.txt` の1行目）。諡・廟号は**この位置には無い**（記事末尾＝別レコード）",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈姓〉〈名〉，字〈字〉，〈続柄〉也」。姓・諱・字が1行に並ぶので3項目が1回の読みで取れる。**同じ政権の2人目以降は姓を省く**（「盛字道运，宝之庶长子也」）",
+      "variants": "**諱が晉の廟諱に触れる人物は字で立てられ、その旨が同じ行に書かれる**（劉淵＝「刘元海…名犯高祖庙讳，故称其字焉」・石虎＝「石季龙…名犯太祖庙讳，故称字焉」）。この場合ここに出る「元海」「季龍」は**字であって諱ではない**。姓も名も省いて字から始まる条がある（前燕慕容暐「字景茂，俊第三子也」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/houzhao-shile.txt",
+          "line": 1,
+          "quote": "石勒字世龙"
+        },
+        {
+          "file": "_corpus_cache/qianzhao-liuyuan.txt",
+          "line": 1,
+          "quote": "刘元海，新兴匈奴人，冒顿之后也。名犯高祖庙讳，故称其字焉"
+        },
+        {
+          "file": "_corpus_cache/houyan-murongsheng.txt",
+          "line": 1,
+          "quote": "盛字道运，宝之庶长子也"
+        },
+        {
+          "file": "_corpus_cache/qianqin-fujian.txt",
+          "line": 1,
+          "quote": "苻健，字建业，洪第三子也"
+        },
+        {
+          "file": "_corpus_cache/qianyan-murongwei.txt",
+          "line": 1,
+          "quote": "字景茂，俊第三子也"
+        },
+        {
+          "file": "_corpus_cache/houqin-yaoxing.txt",
+          "line": 1,
+          "quote": "姚兴，字子略，苌之长子也"
+        },
+        {
+          "file": "_corpus_cache/nanyan-murongchao.txt",
+          "line": 1,
+          "quote": "慕容超字祖明"
+        },
+        {
+          "file": "_corpus_cache/chenghan-lixiong.txt",
+          "line": 1,
+          "quote": "李雄，字仲俊，特第三子也"
+        },
+        {
+          "file": "_corpus_cache/xia-helianbobo.txt",
+          "line": 1,
+          "quote": "赫连勃勃，字屈孑"
+        },
+        {
+          "file": "_corpus_cache/qianliang-zhangzuo.txt",
+          "line": 1,
+          "quote": "祚字太伯"
+        }
+      ],
+      "surveyedAt": "2026-08-10"
+    },
+    {
+      "book": "晉書",
+      "regimeIds": [
+        "hexia",
+        "former-liang"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousName"
+      ],
+      "locator": "晉書 載記。**記事末尾の定型（「谥〈諡〉，庙号〈廟号〉」）がこの2政権には及ばない** — `_corpus_cache` の赫連夏3人・前涼張祚の全行に「谥」の語が1件も無い",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "冒頭1行は他の載記と同じ「〈姓〉〈名〉，字〈字〉」だが、**諡・廟号が入る位置が記事に無い**。絞り込めないので人物単位で判定する",
+      "variants": "赫連昌・赫連定の条は句読点の無い別系統の本文で、他の載記とは体裁も違う",
+      "evidence": [
+        {
+          "file": "_corpus_cache/xia-helianbobo.txt",
+          "line": 1,
+          "quote": "赫连勃勃，字屈孑，匈奴右贤王去卑之后"
+        },
+        {
+          "file": "_corpus_cache/qianliang-zhangzuo.txt",
+          "line": 1,
+          "quote": "祚字太伯，博学雄武"
+        }
+      ],
+      "note": "**「その書に無い」と言い切ってはいない** — 前涼張祚のキャッシュは全4行で記事の途中で切れており（死去の条が入っていない）、定型の不在がキャッシュの行範囲のせいである可能性が残る。打ち切り側（`absent-by-book`）に倒さず `no-form` にしてあるのはこのため。人物単位で当たるときは `SOURCE_MAPPING.md` の行範囲から見直す",
+      "surveyedAt": "2026-08-10"
     }
   ]
 }
