@@ -1,0 +1,41 @@
+{
+  "id": "qing-dezong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "清史稿",
+      "file": "_corpus_cache/qing-dezong.txt",
+      "line": 2,
+      "quote": "德宗同天崇运大中至正经文纬武仁孝睿智端俭宽勤景皇帝，讳载湉"
+    },
+    {
+      "cid": "c2",
+      "book": "清史稿",
+      "file": "daizhigev20/史藏/正史/清史稿.txt",
+      "line": 3831,
+      "quote": "上尊谥曰同天崇运大中至正经文纬武仁孝睿智端俭宽勤景皇帝，庙号德宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "徳宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上尊諡の条が「庙号」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "同天崇運大中至正経文緯武仁孝睿智端倹寛勤景皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。この欄の主張は冒頭形で、c2 の上尊諡は加諡前の段"
+    }
+  ],
+  "discrepancies": "なし（冒頭形と上尊諡条〔c2〕が23字とも一致する）"
+}

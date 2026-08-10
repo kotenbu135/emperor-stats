@@ -1,0 +1,33 @@
+{
+  "id": "qing-xuantong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "清史稿",
+      "file": "_corpus_cache/qing-xuantong.txt",
+      "line": 2,
+      "quote": "宣统皇帝名溥仪"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が「宣统皇帝名溥仪」で、諡でも廟号でもない位号で立つ（讳を使わないのも他の10人と違う）。清史稿は1928年刊で、廟号「恭宗」は1967年の追尊なのでこの書には無い。commonName の「恭宗（宣統帝）」から埋めない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同上。位号は諡ではないのでこの欄には入れない"
+    }
+  ],
+  "discrepancies": "commonName は「恭宗（宣統帝）」だが、清史稿には廟号が無い。空が正しい（読んだうえでの空）"
+}

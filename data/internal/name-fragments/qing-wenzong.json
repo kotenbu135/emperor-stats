@@ -1,0 +1,41 @@
+{
+  "id": "qing-wenzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "清史稿",
+      "file": "_corpus_cache/qing-wenzong.txt",
+      "line": 2,
+      "quote": "文宗协天翊运执中垂谟懋德振武圣孝渊恭端仁宽敏显皇帝，讳奕蟭"
+    },
+    {
+      "cid": "c2",
+      "book": "清史稿",
+      "file": "daizhigev20/史藏/正史/清史稿.txt",
+      "line": 3163,
+      "quote": "尊谥曰协天翊运执中垂谟懋德振武圣孝渊恭谦仁宽敏显皇帝，庙号文宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "文宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上尊諡の条が「庙号」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "協天翊運執中垂謨懋徳振武聖孝淵恭端仁寛敏顕皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。この欄の主張は冒頭形で、c2 の上尊諡は加諡前の段"
+    }
+  ],
+  "discrepancies": "冒頭形と上尊諡条（c2）はどちらも23字だが、11字目が冒頭「端」・上尊諡条「謙」で1字だけ食い違う。字数が同じなので加諡ではなく、同じ書の中の異表記。この欄の規約どおり冒頭形を採り、c2 を台帳に残す"
+}

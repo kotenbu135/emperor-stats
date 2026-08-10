@@ -28,12 +28,12 @@
       ],
       "script": "scripts/screens/name_fields.py",
       "population": "365人 × {templeName, posthumousName} のうち**値が空のセル**（埋まっているセルの訂正は別作業）",
-      "n": 476,
+      "n": 466,
       "buckets": [
         {
           "name": "templeName:transcribe",
           "kind": "read",
-          "count": 49,
+          "count": 39,
           "means": "commonName が廟号形（〜祖／〜宗）なのに templeName が空。**取りこぼしと言い切れる**ので、本紀冒頭の1行を転記する作業に落ちる"
         },
         {
@@ -188,7 +188,7 @@
       "notEstablished": "unknown の389セルが空でよいということ。監査のとおり取りこぼしが混じる。**171 は作業量の下限であって総量ではない**",
       "screenedAt": "2026-08-02",
       "recountedAt": "2026-08-10",
-      "recountNote": "2026-08-10 に2回引き直した。(1) 遼9人・金10人・西遼3人の廟号（514→498・templeName:transcribe 86→72・templeName:unknown 180→178）。(2) 宋史の15人の廟号（498→483・templeName:transcribe 72→57。後漢書12人ぶんは posthumousNameFull だけなのでこの記録の欄には掛からない）。**この記録は空セルを母集団に取るので、転記が進むたびに件数が動く** — 引き直しを忘れると CI の check_screenings.py が落ちる（2026-08-10 に実際に落ちた）。templeName:unknown が (1) で2件だけ減ったのは、西遼の徳宗・仁宗が commonName 側に廟号を畳み込んだ形（「徳宗天祐皇帝」）で unknown に落ちていたため。(2) では unknown は動いていない（宋の15人はどれも commonName が廟号形＝transcribe 側に居た）。(3) 同日の3回目は元史の8人の廟号（483→476・templeName:transcribe 57→49）。**この回だけ母集団の減りが転記数と合わない**（8件埋めたのに7件しか減らない）のは、同じ変更で北魏孝武帝の templeName「出帝」を null へ訂正して空セルを1つ**増やした**ため。出帝は位号であって廟号ではなく、commonName「孝武帝（出帝）」は括弧を落とすと「孝武帝」なので、この1件は transcribe ではなく templeName:unknown（178→179）に入る。魏書・元史の posthumousNameFull 18件はこの記録の欄に掛からない。"
+      "recountNote": "2026-08-10 に2回引き直した。(1) 遼9人・金10人・西遼3人の廟号（514→498・templeName:transcribe 86→72・templeName:unknown 180→178）。(2) 宋史の15人の廟号（498→483・templeName:transcribe 72→57。後漢書12人ぶんは posthumousNameFull だけなのでこの記録の欄には掛からない）。**この記録は空セルを母集団に取るので、転記が進むたびに件数が動く** — 引き直しを忘れると CI の check_screenings.py が落ちる（2026-08-10 に実際に落ちた）。templeName:unknown が (1) で2件だけ減ったのは、西遼の徳宗・仁宗が commonName 側に廟号を畳み込んだ形（「徳宗天祐皇帝」）で unknown に落ちていたため。(2) では unknown は動いていない（宋の15人はどれも commonName が廟号形＝transcribe 側に居た）。(3) 同日の3回目は元史の8人の廟号（483→476・templeName:transcribe 57→49）。**この回だけ母集団の減りが転記数と合わない**（8件埋めたのに7件しか減らない）のは、同じ変更で北魏孝武帝の templeName「出帝」を null へ訂正して空セルを1つ**増やした**ため。出帝は位号であって廟号ではなく、commonName「孝武帝（出帝）」は括弧を落とすと「孝武帝」なので、この1件は transcribe ではなく templeName:unknown（178→179）に入る。魏書・元史の posthumousNameFull 18件はこの記録の欄に掛からない。(4) 同日の4回目は清史稿の10人の廟号（476→466・templeName:transcribe 49→39）。**宣統帝は転記できないと確かめた側なのに母集団に残る** — 清史稿の冒頭が「宣统皇帝名溥仪」で廟号を立てず（書は1928年刊・廟号「恭宗」は1967年の追尊）、commonName「恭宗（宣統帝）」は括弧を落とすと「恭宗」で廟号形なので transcribe に残り続ける。清の posthumousNameFull 10件はこの記録の欄に掛からない。"
     },
     {
       "id": "campaign-span-issue56",

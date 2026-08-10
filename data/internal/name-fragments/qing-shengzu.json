@@ -1,0 +1,48 @@
+{
+  "id": "qing-shengzu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "清史稿",
+      "file": "_corpus_cache/qing-shengzu.txt",
+      "line": 2,
+      "quote": "圣祖合天弘运文武睿哲恭俭宽裕孝敬诚信功德大成仁皇帝，讳玄烨"
+    },
+    {
+      "cid": "c2",
+      "book": "清史稿",
+      "file": "daizhigev20/史藏/正史/清史稿.txt",
+      "line": 1554,
+      "quote": "谥曰圣祖合天弘运文武睿哲恭俭宽裕孝敬诚信中和功德大成仁皇帝"
+    },
+    {
+      "cid": "c3",
+      "book": "清史稿",
+      "file": "daizhigev20/史藏/正史/清史稿.txt",
+      "line": 6983,
+      "quote": "雍正初元，遂上尊谥，庙号圣祖"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "聖祖",
+      "basis": [
+        "c1",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。本紀の上諡条（c2）は廟号と諡を続けて書き「庙号」の語を使わないので、裏は礼志の「庙号圣祖」（c3）から取る"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "合天弘運文武睿哲恭倹寛裕孝敬誠信功徳大成仁皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。本紀の上諡条（c2）は「誠信」と「功徳」の間に「中和」を含む2字長い形で、冒頭のほうが短い"
+    }
+  ],
+  "discrepancies": "冒頭形（c1・23字）と上諡条（c2・25字）が「中和」の2字だけ食い違う。この欄の規約は冒頭形なので c1 を採り、c2 は claims に残す"
+}

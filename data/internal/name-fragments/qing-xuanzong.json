@@ -1,0 +1,41 @@
+{
+  "id": "qing-xuanzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "清史稿",
+      "file": "_corpus_cache/qing-xuanzong.txt",
+      "line": 2,
+      "quote": "宣宗效天符运立中体正至文圣武智勇仁慈俭勤孝敏宽定成皇帝，讳旻宁"
+    },
+    {
+      "cid": "c2",
+      "book": "清史稿",
+      "file": "daizhigev20/史藏/正史/清史稿.txt",
+      "line": 2996,
+      "quote": "上尊谥曰效天符运立中体正至文圣武智勇仁慈俭勤孝敏成皇帝，庙号宣宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "宣宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上尊諡の条が「庙号」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "効天符運立中体正至文聖武智勇仁慈倹勤孝敏寛定成皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。この欄の主張は冒頭形で、c2 の上尊諡は加諡前の段"
+    }
+  ],
+  "discrepancies": "冒頭形（25字）は上尊諡条（c2・23字）に「寛定」2字を加えた形。加諡の条は宣宗本紀に無い（この書での加諡の所在は未走査）。この欄は冒頭形を採る"
+}

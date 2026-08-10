@@ -1,0 +1,49 @@
+{
+  "id": "qing-shizu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "清史稿",
+      "file": "_corpus_cache/qing-shizu.txt",
+      "line": 2,
+      "quote": "世祖体天隆运定统建极英睿钦文显武大德弘功至仁纯孝章皇帝，讳福临"
+    },
+    {
+      "cid": "c2",
+      "book": "清史稿",
+      "file": "daizhigev20/史藏/正史/清史稿.txt",
+      "line": 554,
+      "quote": "上尊谥曰体天隆运英睿钦文大德弘功至仁纯孝章皇帝，庙号世祖"
+    },
+    {
+      "cid": "c3",
+      "book": "清史稿",
+      "file": "daizhigev20/史藏/正史/清史稿.txt",
+      "line": 554,
+      "quote": "累上尊谥曰体天隆运定统建极英睿钦文显武大德弘功至仁纯孝章皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "世祖",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭の第1スロット（c1）。上尊諡の条が「庙号」と明記して裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "体天隆運定統建極英睿欽文顕武大徳弘功至仁純孝章皇帝",
+      "basis": [
+        "c1",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "冒頭が掲げる形（c1）。同じ書の累上尊諡（c3）が同じ形を書いて裏を取る。c2 はその前段の初諡"
+    }
+  ],
+  "discrepancies": "冒頭形（25字）は上尊諡条（c2・19字）に「定統建極」「顕武」6字を加えた形で、同じ条の後半に在る累上尊諡（c3）と一致する。この欄は冒頭形を採る"
+}
