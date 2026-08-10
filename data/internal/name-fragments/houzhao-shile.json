@@ -1,0 +1,31 @@
+{
+  "id": "houzhao-shile",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/houzhao-shile.txt",
+      "line": 1,
+      "quote": "石勒字世龙"
+    },
+    {
+      "cid": "c2",
+      "book": "晉書",
+      "file": "_corpus_cache/houzhao-shile.txt",
+      "line": 130,
+      "quote": "伪谥明皇帝，庙号高祖"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "世龍",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "載記の冒頭定型「〈姓〉〈名〉，字〈字〉」の第3スロット。政権の1人目なので姓が省かれていない"
+    }
+  ],
+  "discrepancies": "同じ冒頭に「初名〈PUA〉」が続くが、**初名は幼名でも字でもない別名**なので欄を立てない（`R-CLAIM-GATED`）。底本のその1字は daizhigev20 が私用領域（[C111]）で写しており、引用の断片は手前で切ってある"
+}

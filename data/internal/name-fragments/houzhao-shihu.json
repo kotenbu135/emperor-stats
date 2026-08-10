@@ -1,0 +1,31 @@
+{
+  "id": "houzhao-shihu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/houzhao-shihu.txt",
+      "line": 1,
+      "quote": "石季龙，勒之从子也，名犯太祖庙讳，故称字焉"
+    },
+    {
+      "cid": "c2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7903,
+      "quote": "伪谥武皇帝，庙号太祖"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "季龍",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "**「字〈値〉」の並びでは書かれない** — 諱（虎）が唐の廟諱に触れるため書が本人を字のほうで見出しに立て、「名犯太祖庙讳，故称字焉」とその旨を同じ条に書く。したがって見出しの「季龙」自体が字。同じ載記の劉元海が同型"
+    }
+  ],
+  "discrepancies": "崩御条 c2 は載記第七の本人の記事の外（冉閔の記事へ移ったあと）に在り、`_corpus_cache/houzhao-shihu.txt` の行範囲に入っていない。底本の行で挙げてある"
+}

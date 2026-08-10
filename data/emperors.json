@@ -29078,7 +29078,8 @@
     "aliases": [],
     "posthumousName": "明帝",
     "templeName": "高祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "世龍"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-zhao",
@@ -29301,7 +29302,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "大雅"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-zhao",
@@ -29637,7 +29639,8 @@
     "aliases": [],
     "posthumousName": "武帝",
     "templeName": "太祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "季龍"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-zhao",

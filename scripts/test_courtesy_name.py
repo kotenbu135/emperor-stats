@@ -154,6 +154,32 @@ ok = bool(Q.courtesy_hit("景茂", HAY4))
 bad += 0 if ok else 1
 print(f"{'OK ' if ok else 'NG '} 本文の先頭に来る字も当たる（前燕慕容暐の形）")
 
-total = len(CASES) + len(C_CASES) + 5
+# 避諱で**字のほうを見出しに立てた**形（晉書 載記）。この条には「字〈値〉」の並びが
+# 一度も出ない — 値そのものが見出しで、「字」は「故称字焉」の中にしか無い。
+# 2026-08-11 に足す前は石季龍がゲートCで落ちていた。**免除ではなくゲートで受ける**のは、
+# これが底本の事故ではなく書が明示している定型で、同じ載記の劉元海（未転記）にも及ぶため。
+HAY5 = norm_for_match("石季龙，勒之从子也，名犯太祖庙讳，故称字焉。祖曰乙邪，父曰寇觅。")
+HAY6 = norm_for_match("刘元海，新兴匈奴人，冒顿之后也。名犯高祖庙讳，故称其字焉。")
+TABOO_CASES = [
+    ("避諱で見出しに立った字が当たる（石季龍）", "季龍", HAY5, True),
+    ("「故称**其**字焉」の形でも当たる（劉元海）", "元海", HAY6, True),
+    ("**同じ条でも冒頭から離れた2字は当たらない**（見出しの位置を要求する）",
+     "寇覓", HAY5, False),
+    ("底本に無い名は当たらない", "季虎", HAY5, False),
+]
+for label, value, hay, want in TABOO_CASES:
+    hit = Q.courtesy_hit(value, hay)
+    ok = bool(hit) == want
+    bad += 0 if ok else 1
+    print(f"{'OK ' if ok else 'NG '} {label}  (hit={hit!r})")
+
+# **旗が無ければ冒頭でも当たらない**。この1件が無いと、上の緩和が「冒頭2字なら何でも
+# 通る」に化けたことを検出できない
+HAY7 = norm_for_match("石季龙，勒之从子也。祖曰乙邪，父曰寇觅。")
+ok = not Q.courtesy_hit("季龍", HAY7)
+bad += 0 if ok else 1
+print(f"{'OK ' if ok else 'NG '} 「故称字焉」が無ければ冒頭の名乗りでも当たらない")
+
+total = len(CASES) + len(C_CASES) + len(TABOO_CASES) + 6
 print(f"\n{'全件一致' if not bad else str(bad) + '件 不一致'} / {total}件")
 sys.exit(1 if bad else 0)
