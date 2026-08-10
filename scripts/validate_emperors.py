@@ -2206,9 +2206,13 @@ def check_event_ids(data):
 
     collect(json.loads(path.read_text(encoding="utf-8")))
     emperor_ids = {e["id"] for e in data["emperors"]}
+    # 絞り込みの単位は person-field だけではない。**政権**を単位に取る画面があり
+    # （regime-head-form-issue37・名前欄の所在は政権の属性なので）、その監査の id は
+    # 政権 id になる。2026-08-10 に追加
+    regime_ids = {r["id"] for r in data["meta"]["catalogs"]["regimes"]}
     for ref in refs:
-        if not isinstance(ref, str) or ref in emperor_ids:
-            continue    # person-field 単位の絞り込みは event を指していない
+        if not isinstance(ref, str) or ref in emperor_ids or ref in regime_ids:
+            continue    # person-field・regime 単位の絞り込みは event を指していない
         head, _, tail = ref.rpartition(".")
         target = head if tail in EVENT_REF_TAIL else ref
         if target not in seen:

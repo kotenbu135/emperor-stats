@@ -2,7 +2,7 @@
   "meta": {
     "purpose": "原典を読む前に機械で母集団を絞った記録（Issue #41 の実施順3・規則 R-SCREEN-FIRST）。ブロック着手時に「母集団 N → 要読解 M」を出してから読み始めるための簿記で、絞り込みの根拠と、その絞り込みがどこまで言えるかを残す",
     "notForBuild": "サイトのビルドもバリデータもこれを読まない。読むのは scripts/check_screenings.py と調査の段取りだけ。数字は記録ではなく scripts/screens/*.py の実行結果と突き合わせる（データが動けば数字も動くので、古い数字はゲートで落ちる）",
-    "updated": "2026-08-05",
+    "updated": "2026-08-10",
     "rule": "**絞り込みは読む順序と量を変えるだけ**で、判定を機械にさせるわけではない（規則 R-NO-AUTOGEN）。バケットに入れることは値を決めることではない",
     "kinds": {
       "read": "要読解。原典に当たる側。ここに余計に入れても損はトークンだけ",
@@ -1025,6 +1025,89 @@
           "kind": "read",
           "count": 0,
           "means": "原文キャッシュが無い。現在0人"
+        }
+      ]
+    },
+    {
+      "id": "regime-head-form-issue37",
+      "issue": 37,
+      "unit": "regime",
+      "fields": [
+        "name.templeName",
+        "name.posthumousNameFull",
+        "name.personalName",
+        "name.familyName",
+        "name.courtesyName"
+      ],
+      "script": "scripts/screens/regime_head_form.py",
+      "population": "89政権。その政権に属する人物の `_corpus_cache/<id>.txt` の**冒頭3行**を見て、名前が並ぶ定型に当たるかを政権ごとに数える。**人物ではなく政権が単位** — 名前の所在は政権（正確にはその政権を載せる書）の属性で、人物単位で365回決めるものではない（規則 R-REGIME-FIRST）",
+      "n": 89,
+      "establishes": "annal-head の15政権は、その政権の人物の過半が同じ位置に同じ定型を持つことを根拠に、**書式・所在の確定に読むのは代表2人ぶんで足りる**と言える（89政権を人物単位で365回読む形にしない）",
+      "notEstablished": "**どの政権の欄に何が入るかは1件も言っていない。**バケットは verdict でもなければ値でもなく、読む順序と量だけを変える。成漢が bio-head に入りながら判定は form-found であるのが実例",
+      "screenedAt": "2026-08-10",
+      "buckets": [
+        {
+          "name": "annal-head",
+          "kind": "read",
+          "count": 15,
+          "means": "過半が本紀冒頭の定型（「〈諡〉皇帝，讳〈諱〉」）に当たる。**代表2人の1行を読めば書式・所在が確定できる**側で、政権1件あたりの読解量が最も小さい"
+        },
+        {
+          "name": "annal-partial",
+          "kind": "read",
+          "count": 11,
+          "means": "定型に当たる人物と当たらない人物が混じる。当たらない側が**例外（所在が違う人物）の候補**なので、その人物ぶんだけ冒頭を追加で見る。実測では大半が例外ではなく、諡を受けなかった廃位者が同じ位置に**位号**で立つ形（「废帝讳昱」）で、書式は同じだった"
+        },
+        {
+          "name": "bio-head",
+          "kind": "read",
+          "count": 26,
+          "means": "定型はゼロだが列傳の定型（「〈姓名〉字〈字〉，〈本貫〉」）に当たる。biography-only の候補だが**打ち切り側なので原典2件で裏を取る**。成漢は晉書**載記**でこのバケットに入るが判定は form-found なので、このバケットは verdict を決めない"
+        },
+        {
+          "name": "head-none",
+          "kind": "absent",
+          "count": 37,
+          "means": "機械がどの定型も見つけなかった",
+          "notEstablished": "**その書に名前の書式が無いことは何も言っていない。**編年体（西夏書事・資治通鑑）・キャッシュの開始位置が紀の冒頭でない・列傳形でも字を伴わない書き出し（「安禄山，营州柳城杂种胡人也」）のどれでも同じ見え方になる。前漢14人が冒頭に「讳」を持たないのは廟号・諱が無いからではなく漢書がこの位置に並べないから、という失敗（R-REGIME-FIRST の evidence）と同じ形",
+          "audit": {
+            "seed": 37,
+            "size": 6,
+            "sampleKey": "regime-id",
+            "checkedAt": "2026-08-10",
+            "findings": [
+              {
+                "id": "anshi-yan",
+                "verdict": "一致",
+                "checked": "_corpus_cache/tangmo-anlushan.txt:1 は舊唐書 列傳の「安禄山，营州柳城杂种胡人也，本无姓氏，名轧荦山」で、諡・諱が並ぶ定型ではない（字も無いので bio-head にも入らなかった）"
+              },
+              {
+                "id": "dingyang",
+                "verdict": "一致",
+                "checked": "_corpus_cache/suimo-liuwuzhou.txt:1 は「刘武周，河间景城人」で列傳の書き出し。定型は無い"
+              },
+              {
+                "id": "liuyong-liang",
+                "verdict": "一致",
+                "checked": "_corpus_cache/liu-yong-liang.txt:1 は後漢書 列傳の「刘永者，梁郡睢阳人，梁孝王八世孙也」。定型は無い"
+              },
+              {
+                "id": "shun",
+                "verdict": "一致",
+                "checked": "_corpus_cache/shun-lichengzheng.txt:1 は明史「列传第一百九十七流贼」の総序から始まり、冒頭3行に人物の名前が並ぶ位置そのものが無い"
+              },
+              {
+                "id": "western-han",
+                "verdict": "一致",
+                "checked": "_corpus_cache/han-huidi.txt:1 は「孝惠皇帝，高祖太子也」で**諡は在るが諱が並ばない**。漢書はこの位置に諱を置かない（既存レコードの no-form と一致）"
+              },
+              {
+                "id": "western-liao",
+                "verdict": "一致",
+                "checked": "_corpus_cache/xiliao-dezong.txt:1 は遼史 天祚帝紀の附録「耶律大石者，世号为西辽。大石字重德，太祖八代孙也」で、諡・諱が並ぶ定型ではない"
+              }
+            ]
+          }
         }
       ]
     }

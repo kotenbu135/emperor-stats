@@ -313,6 +313,464 @@
       "surveyedAt": "2026-08-10",
       "storageForm": "**唐（舊唐書）**: 舊唐書 本紀が本文で使うのは**廟号**＋皇帝（「葬昭宗皇帝」「葬文宗皇帝」）で、末字＋皇帝の短縮形は本紀に無い。よって**廟号を持つ皇帝は `posthumousName` が空のまま `posthumousNameFull` だけが入る**（明史が「葬章皇帝于景陵」と諡の末字で書くのとは別）。初諡（高祖「大武皇帝」・中宗「孝和皇帝」・睿宗「大聖貞皇帝」・高宗「天皇大帝」）は短縮呼称ではなく加諡前の別の諡なので短縮の欄へ入れない（入れる場合は「初諡」という別の主張になり、欄とゲートを別に立てる）。\n**初諡は崩御条に在る（2026-08-10 に位置を明記）。** 舊唐書 本紀は各帝の崩御条で「群臣上谥曰〈初諡〉，庙号〈廟号〉」と書き、後代の加諡を続けて記す（高祖「大武皇帝」・太宗「文皇帝」・高宗「天皇大帝」・中宗「孝和皇帝」・睿宗「大聖貞皇帝」・文宗「元聖昭献皇帝」）。**初諡は短縮呼称ではなく加諡前の別の諡**なので短縮の欄へは入れない、というのが唐ブロックの判断で、この記録の打ち切りはその判断の上に立っている。**2026-08-10 に、その「別の主張」として `name.posthumousNames`（諡号の段）を立てた**（ユーザー決定「案B」）。初諡はそちらの1段目に入る。**この打ち切りは短縮呼称の欄`posthumousName` にだけ掛かる**もので、段の欄には掛からない — 段は舊唐書に在るので転記対象。**この6人の列挙は1語彙（`[谥諡][曰為为]`）の走査から出た下限**で、閉じた集合ではない（`R-SWEEP-DETECTION`）",
       "note": "**この打ち切りは「値が無い」ではなく「舊唐書では取れない」。** 新唐書・唐会要は同じ人物に別の形を与えることがある（唐会要 巻1 は殤帝に「追谥殇皇帝」）ので、別の書へ当たれば埋まる可能性は残る。**廟号を持たない人物は両欄同値の枝**（殤帝「殤皇帝」・哀帝「哀皇帝」）で、値が入るので coverage.py の skip 分岐には落ちない。李裕・李承宏・李熅は原文に諡そのものが無く両欄とも空"
+    },
+    {
+      "book": "魏書",
+      "regimeIds": [
+        "northern-wei",
+        "eastern-wei"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName"
+      ],
+      "locator": "魏書 帝紀（china-history 魏书/帝纪）各帝の**冒頭1行**。`_corpus_cache/<id>.txt` は紀ごとに切ってあり、巻の見出し行（「太祖纪」など）の次の行が冒頭。廟号・諡号・諱がこの1行に並ぶ",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉也」。廟号・諡号・諱が1行に並ぶので3項目が1回の読みで取れる。**東魏孝静帝のように廟号を持たない帝は諡から始まる**",
+      "variants": "諡を受けなかった廃位者は同じ位置に**位号**で立ち、「〈位号〉，讳〈諱〉，字〈字〉」となる（節閔帝＝前廃帝）。機械で「皇帝，讳」を当てると外れるが書式は同じ",
+      "evidence": [
+        {
+          "file": "_corpus_cache/beiwei-daowudi.txt",
+          "line": 2,
+          "quote": "太祖道武皇帝，讳珪，昭成皇帝之嫡孙"
+        },
+        {
+          "file": "_corpus_cache/beiwei-jiemindi.txt",
+          "line": 2,
+          "quote": "前废帝，讳恭，字修业"
+        },
+        {
+          "file": "_corpus_cache/dongwei-xiaojingdi.txt",
+          "line": 2,
+          "quote": "孝静皇帝，讳善见"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "beiwei-tuobayu",
+          "locator": "魏書 卷4下（世祖紀下）の末尾。独立した紀が無い",
+          "personScope": "per-person",
+          "note": "南安王余の即位・弑逆は世祖紀の記事として書かれ、冒頭の定型を持たない"
+        },
+        {
+          "id": "beiwei-youzhu-yuanzhao",
+          "locator": "魏書 卷9（肅宗紀）の末尾。独立した紀が無い",
+          "personScope": "per-person",
+          "note": "幼主。即位の記事だけが肅宗紀に載る"
+        },
+        {
+          "id": "beiwei-yuanye",
+          "locator": "魏書 卷11（前廢帝紀ほか）の当該期間。独立した紀が無い",
+          "personScope": "per-person",
+          "note": "長広王曄。擁立の記事だけが載る"
+        }
+      ],
+      "note": "崩御条は「上谥〈初諡〉…庙号〈廟号〉」に続けて後代の**改諡**を書き継ぐ（道武帝は初諡「宣武皇帝」→泰常五年「改谥曰道武」）。諡の段を採るときはこの2条を読む（この記録では段は扱わない）",
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない（唐で短縮呼称だけを別レコード（absent-by-book）に割ったのと同じ理由）。**諡の段 `posthumousNames` もこの記録の対象外** — 段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定（残量表の「諡の段の走査範囲」の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず、`commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "北史",
+      "regimeIds": [
+        "western-wei"
+      ],
+      "fields": [
+        "posthumousNameFull",
+        "personalName"
+      ],
+      "locator": "北史 帝紀（china-history 北史/原文版北史）魏本紀第五。西魏の3帝は同じ巻に同居し、各帝の**冒頭1行**に諡号と諱が並ぶ",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈諡〉皇帝讳〈諱〉，〈続柄〉也」。**廟号は並ばない** — 西魏の3帝は魏の帝室を継いだ形を取るが北史はこの位置に廟号を置かないので、廟号の欄はこの1行からは取れない",
+      "variants": "諡を受けなかった廃帝は「废帝讳钦」と位号で立つ",
+      "evidence": [
+        {
+          "file": "_corpus_cache/xiwei-wendi.txt",
+          "line": 1,
+          "quote": "文皇帝讳宝炬，孝文皇帝之孙"
+        },
+        {
+          "file": "_corpus_cache/xiwei-gongdi.txt",
+          "line": 1,
+          "quote": "恭皇帝讳廓，文皇之第四子也"
+        }
+      ],
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない（唐で短縮呼称だけを別レコード（absent-by-book）に割ったのと同じ理由）。**諡の段 `posthumousNames` もこの記録の対象外** — 段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定（残量表の「諡の段の走査範囲」の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず、`commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "北齊書",
+      "regimeIds": [
+        "northern-qi"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName"
+      ],
+      "locator": "北齊書 帝紀（china-history 北齐书/原文版北齐书）各帝の**冒頭1行**。巻の見出し行（「文宣」など）の次の行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，讳〈諱〉，字〈字〉，〈続柄〉」。廟号・諡号・諱・字が1行に並ぶので4項目が1回の読みで取れる",
+      "variants": "**「讳」を挟まず諱が直接続く異形**がある（孝昭帝「孝昭皇帝演，字延安」）。諡を受けなかった帝は位号で立ち（「废帝殷，字正道」）、幼主は「幼主名恒」と「名」を使う。機械で「讳」を当てると外れるが書式は同じ",
+      "evidence": [
+        {
+          "file": "_corpus_cache/beiqi-wenxuandi.txt",
+          "line": 2,
+          "quote": "显祖文宣皇帝，讳洋，字子进"
+        },
+        {
+          "file": "_corpus_cache/beiqi-xiaozhaodi.txt",
+          "line": 2,
+          "quote": "孝昭皇帝演，字延安"
+        },
+        {
+          "file": "_corpus_cache/beiqi-youzhu-gaoheng.txt",
+          "line": 1,
+          "quote": "幼主名恒，帝之长子也"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "beiqi-andewang-gaoyanzong",
+          "locator": "北齊書 列傳（安德王延宗伝）",
+          "personScope": "per-person",
+          "note": "帝紀に独立記述が無く、列傳の定型（「〈王号〉〈名〉，〈続柄〉」）で始まる"
+        },
+        {
+          "id": "beiqi-gaoxie",
+          "locator": "北齊書 列傳（范陽王紹義伝）",
+          "personScope": "per-person",
+          "note": "同上"
+        }
+      ],
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない（唐で短縮呼称だけを別レコード（absent-by-book）に割ったのと同じ理由）。**諡の段 `posthumousNames` もこの記録の対象外** — 段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定（残量表の「諡の段の走査範囲」の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず、`commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "周書",
+      "regimeIds": [
+        "northern-zhou"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName",
+        "childhoodName"
+      ],
+      "locator": "周書 帝紀（china-history 周书/原文版周书）各帝の**冒頭1行**。巻の見出し行（「明帝」など）の次の行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝讳〈諱〉，字〈字〉／小名〈小名〉，〈続柄〉也」。字と小名はどちらか一方だけが並ぶ帝がある（明帝は小名のみ・武帝は字のみ）",
+      "variants": "廟号を持たない帝は諡から始まる（宣帝「宣皇帝讳赟」・静帝「静皇帝讳衍」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/beizhou-mingdi.txt",
+          "line": 2,
+          "quote": "世宗明皇帝讳毓，小名统万突"
+        },
+        {
+          "file": "_corpus_cache/beizhou-wudi.txt",
+          "line": 2,
+          "quote": "高祖武皇帝讳邕，字祢罗突"
+        },
+        {
+          "file": "_corpus_cache/beizhou-jingdi.txt",
+          "line": 2,
+          "quote": "静皇帝讳衍，后改为阐"
+        }
+      ],
+      "note": "静帝の冒頭は「讳衍，后改为阐」と**改名まで1行に書く**。諱の欄に入れるのはどちらかを人物単位で決める（書式の問題ではない）",
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない（唐で短縮呼称だけを別レコード（absent-by-book）に割ったのと同じ理由）。**諡の段 `posthumousNames` もこの記録の対象外** — 段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定（残量表の「諡の段の走査範囲」の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず、`commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "宋書",
+      "regimeIds": [
+        "liu-song"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName",
+        "childhoodName"
+      ],
+      "locator": "宋書 本紀（china-history 宋书/本纪）各帝の**冒頭1行**。巻の見出し行（「武帝上」など）の次の行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝讳〈諱〉，字〈字〉，小名〈小名〉，〈本貫〉」",
+      "variants": "諡を受けなかった廃位者は位号で立つ（「少帝讳义符，小字车兵」「前废帝讳子业，小字法师」）。廟号も諡も無いので取れるのは諱・字・小名だけ",
+      "evidence": [
+        {
+          "file": "_corpus_cache/liu-song-wudi.txt",
+          "line": 2,
+          "quote": "高祖武皇帝讳裕，字德舆，小名寄奴"
+        },
+        {
+          "file": "_corpus_cache/liu-song-houfeidi.txt",
+          "line": 2,
+          "quote": "废帝讳昱，字德融，小字慧震"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "liu-song-liushao",
+          "locator": "宋書 卷99（二凶伝）",
+          "personScope": "per-person",
+          "note": "元凶劭。本紀に立たず列傳の定型（「元凶劭，字休远，文帝长子也」）で始まる"
+        }
+      ],
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない（唐で短縮呼称だけを別レコード（absent-by-book）に割ったのと同じ理由）。**諡の段 `posthumousNames` もこの記録の対象外** — 段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定（残量表の「諡の段の走査範囲」の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず、`commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "南齊書",
+      "regimeIds": [
+        "southern-qi"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName",
+        "childhoodName",
+        "familyName"
+      ],
+      "locator": "南齊書 本紀（china-history 南齐书/本纪）各帝の**冒頭1行**。巻の見出し行（「高帝上」など）の次の行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝讳〈諱〉，字〈字〉，姓〈姓〉氏，小讳〈小名〉，〈出自〉」。**姓がこの1行に並ぶ書**なので familyName も同じ読みで取れる（並ぶのは太祖の条）",
+      "variants": "諡を受けなかった廃位者は王号＋名で立ち（「郁林王昭业，字元尚」「东昏侯宝卷，字智藏」）、「讳」を挟まない。小名は「小讳」「小名」で揺れる",
+      "evidence": [
+        {
+          "file": "_corpus_cache/qi-gaodi.txt",
+          "line": 2,
+          "quote": "太祖高皇帝讳道成，字绍伯，姓萧氏，小讳斗将"
+        },
+        {
+          "file": "_corpus_cache/qi-yulinwang.txt",
+          "line": 2,
+          "quote": "郁林王昭业，字元尚"
+        },
+        {
+          "file": "_corpus_cache/qi-hedi.txt",
+          "line": 2,
+          "quote": "和帝讳宝融，字智昭"
+        }
+      ],
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない（唐で短縮呼称だけを別レコード（absent-by-book）に割ったのと同じ理由）。**諡の段 `posthumousNames` もこの記録の対象外** — 段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定（残量表の「諡の段の走査範囲」の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず、`commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "梁書",
+      "regimeIds": [
+        "southern-liang"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName",
+        "childhoodName"
+      ],
+      "locator": "梁書 本紀（china-history 梁书/原文版梁书）各帝の**冒頭1行**。巻の見出し行（「武帝上」など）の次の行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，讳〈諱〉，字〈字〉，小字〈小字〉，〈続柄〉」",
+      "variants": "廟号を持たない敬帝は諡から始まる（「敬皇帝，讳方智，字慧相，小字法真」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/liang-wudi.txt",
+          "line": 2,
+          "quote": "高祖武皇帝，讳衍，字叔达，小字练儿"
+        },
+        {
+          "file": "_corpus_cache/liang-jingdi.txt",
+          "line": 2,
+          "quote": "敬皇帝，讳方智，字慧相，小字法真"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "liang-yuzhangwang",
+          "locator": "梁書に独立した本紀が無い（南史 梁本紀へ当たる）",
+          "personScope": "per-person",
+          "note": "豫章王棟。**`_corpus_cache/liang-yuzhangwang.txt` は簡文帝紀と同一の内容**で、この人物の原文ではない（キャッシュの取り違え・残量表の行）"
+        },
+        {
+          "id": "liang-xiaozhengde",
+          "locator": "梁書 列傳（臨賀王正德伝）",
+          "personScope": "per-person",
+          "note": "本紀に立たず列傳の定型で始まる"
+        },
+        {
+          "id": "liang-xiaoji",
+          "locator": "梁書 列傳（武陵王紀伝）",
+          "personScope": "per-person",
+          "note": "同上"
+        },
+        {
+          "id": "liang-xiaoyuanming",
+          "locator": "北齊書（梁書に記述が無い）",
+          "personScope": "other-source",
+          "note": "貞陽侯淵明。キャッシュは北齊の側の記事で、冒頭の定型を持たない"
+        },
+        {
+          "id": "liang-xiaozhuang",
+          "locator": "北齊書（梁書に記述が無い）",
+          "personScope": "other-source",
+          "note": "永嘉王荘。同上"
+        }
+      ],
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない（唐で短縮呼称だけを別レコード（absent-by-book）に割ったのと同じ理由）。**諡の段 `posthumousNames` もこの記録の対象外** — 段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定（残量表の「諡の段の走査範囲」の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず、`commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "陳書",
+      "regimeIds": [
+        "chen"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName",
+        "childhoodName"
+      ],
+      "locator": "陳書 本紀（china-history 陈书/原文版陈书）各帝の**冒頭1行**。巻の見出し行（「世祖」など）の次の行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，讳〈諱〉，字〈字〉，小字〈小字〉，〈続柄〉」",
+      "variants": "諡を受けなかった廃帝は位号で立つ（「废帝，讳伯宗，字奉业，小字药王」）。後主も同じく位号（「后主，讳叔宝，字元秀，小字黄奴」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/chen-xuandi.txt",
+          "line": 2,
+          "quote": "高宗孝宣皇帝讳顼，字绍世，小字师利"
+        },
+        {
+          "file": "_corpus_cache/chen-feidi.txt",
+          "line": 2,
+          "quote": "废帝，讳伯宗，字奉业，小字药王"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "chen-wudi",
+          "locator": "陳書 卷1（高祖上）の冒頭1行",
+          "personScope": "transcribe",
+          "note": "**`_corpus_cache/chen-wudi.txt` は卷2（高祖下）から始まる**ので冒頭がキャッシュの外にある。書式は他帝と同じで、読む場所だけが違う"
+        }
+      ],
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない（唐で短縮呼称だけを別レコード（absent-by-book）に割ったのと同じ理由）。**諡の段 `posthumousNames` もこの記録の対象外** — 段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定（残量表の「諡の段の走査範囲」の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず、`commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "隋書",
+      "regimeIds": [
+        "sui"
+      ],
+      "fields": [
+        "templeName",
+        "posthumousNameFull",
+        "personalName",
+        "familyName"
+      ],
+      "locator": "隋書 帝紀（china-history 隋书/帝纪）各帝の**冒頭1行**。巻の見出し行（「高祖上」など）の次の行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，姓〈姓〉氏，讳〈諱〉，〈本貫〉」。**姓がこの1行に並ぶ書**なので familyName も同じ読みで取れる（並ぶのは高祖の条）",
+      "variants": "廟号を持たない帝は諡から始まる（「炀皇帝，讳广，一名英，小字阿摐」「恭皇帝，讳侑」）。煬帝の条は別名「一名英」も同じ位置に書く",
+      "evidence": [
+        {
+          "file": "_corpus_cache/sui-wendi.txt",
+          "line": 2,
+          "quote": "高祖文皇帝，姓杨氏，讳坚"
+        },
+        {
+          "file": "_corpus_cache/sui-yangdi.txt",
+          "line": 2,
+          "quote": "炀皇帝，讳广，一名英，小字阿摐"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "sui-gongdi-tong",
+          "locator": "隋書 列傳（越王侗伝）",
+          "personScope": "per-person",
+          "note": "皇泰主。帝紀に立たず列傳の定型（「越王侗字仁谨」）で始まる"
+        },
+        {
+          "id": "sui-yanghao",
+          "locator": "隋書 列傳（秦王浩の記事）",
+          "personScope": "per-person",
+          "note": "同上。独立した伝も無く記事のみ"
+        }
+      ],
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない（唐で短縮呼称だけを別レコード（absent-by-book）に割ったのと同じ理由）。**諡の段 `posthumousNames` もこの記録の対象外** — 段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定（残量表の「諡の段の走査範囲」の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず、`commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
+    },
+    {
+      "book": "晉書",
+      "regimeIds": [
+        "western-jin",
+        "eastern-jin"
+      ],
+      "fields": [
+        "posthumousNameFull",
+        "personalName",
+        "courtesyName",
+        "templeName"
+      ],
+      "locator": "晉書 帝紀（china-history 晋书/帝纪）**2箇所を読む**。(1) 各帝の**冒頭1行**＝諡号・諱・字／(2) その帝の**崩御条**（「葬〈陵〉，庙号〈廟号〉」形式）＝廟号。**廟号は冒頭に並ばない**ので、冒頭1行だけで閉じると廟号を全員ぶん取りこぼす",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "冒頭は「〈諡〉皇帝讳〈諱〉，字〈字〉，〈続柄〉也」で**廟号を含まない**。廟号は崩御条に「庙号〈廟号〉」と書かれる。**廟号を立てない帝が居る**（惠帝の紀には「庙号」の語が無い）ので、崩御条に無いことは取りこぼしではなく不在の側に読める",
+      "variants": "諡を受けなかった廃帝は位号で立つ（「废帝讳奕，字延龄」）。安帝・恭帝は諱と字が同値（「讳德宗，字德宗」）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/jin-wudi.txt",
+          "line": 1,
+          "quote": "武皇帝讳炎，字安世，文帝长子也"
+        },
+        {
+          "file": "_corpus_cache/jin-wudi.txt",
+          "line": 28,
+          "quote": "葬峻阳陵，庙号世祖"
+        },
+        {
+          "file": "_corpus_cache/dongjin-yuandi.txt",
+          "line": 1,
+          "quote": "元皇帝讳睿，字景文"
+        },
+        {
+          "file": "_corpus_cache/dongjin-yuandi.txt",
+          "line": 12,
+          "quote": "葬建平陵，庙号中宗"
+        }
+      ],
+      "exceptions": [
+        {
+          "id": "jin-simalun",
+          "locator": "晉書 卷4（孝惠帝紀）の当該期間。独立した紀が無い",
+          "personScope": "per-person",
+          "note": "趙王倫。篡位の記事が惠帝紀に載るだけで冒頭の定型を持たない"
+        },
+        {
+          "id": "dongjin-andi",
+          "locator": "晉書 卷10（安帝・恭帝紀）の冒頭。キャッシュは巻の見出し2行のあと3行目が冒頭",
+          "personScope": "transcribe",
+          "note": "書式は他帝と同じで、キャッシュの中の行位置だけが違う"
+        }
+      ],
+      "note": "成漢（`cheng-han`）は同じ晉書でも**載記**に載るので所在が違い、別レコードになっている",
+      "surveyedAt": "2026-08-10",
+      "storageForm": "冒頭1行が掲げる諡は `posthumousNameFull`（その書が名乗りとして立てる形）へ入れる。**短縮呼称 `posthumousName` はこの記録では確定していない** — 何を短縮形と見なすかはその書が本文で末字＋帝の形を使うかで決まり、冒頭1行では読めない（唐で短縮呼称だけを別レコード（absent-by-book）に割ったのと同じ理由）。**諡の段 `posthumousNames` もこの記録の対象外** — 段の所在は崩御条と加諡条を走査しないと言えず、走査範囲そのものが未確定（残量表の「諡の段の走査範囲」の行）。\n**諡を受けなかった廃位者は同じ位置に位号で立つ**（「〈位号〉，讳〈諱〉」）。位号は諡ではないので `posthumousNameFull` には入れず、`commonName` 側の名乗りになる — この分岐は人物単位で見る（書式は同じなので所在の判定は変わらない）。"
     }
   ]
 }

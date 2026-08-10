@@ -39,7 +39,10 @@ EMPERORS = ROOT / "data" / "emperors.json"
 
 FIELDS = {"templeName", "posthumousName", "posthumousNameFull", "posthumousNames",
           "familyName", "personalName",
-          "commonName", "aliases", "eraName", "dynastyOrder"}
+          "commonName", "aliases", "eraName", "dynastyOrder",
+          # 字・小名・民族名も**同じ冒頭1行に並ぶ**書があり（南齊書・周書・金史）、
+          # 並ぶかどうかは人物ではなく書の書式で決まる。2026-08-10 に追加
+          "courtesyName", "childhoodName", "ethnicName"}
 # verdict → 人物単位の作業。対応が1対1なので、片方だけ書き換えた記録を落とせる
 SCOPE_OF = {
     "form-found": "transcribe",
