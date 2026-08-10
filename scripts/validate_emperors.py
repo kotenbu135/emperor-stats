@@ -1599,6 +1599,7 @@ def check_posthumous_names(data):
     verify_quotes.py --check-posthumous-names へ置いた＝ゲートF）。
     """
     named = 0
+    tail_differs = []
     used_non_imperial = set()
     for e in data["emperors"]:
         name = e.get("name") or {}
@@ -1660,6 +1661,10 @@ def check_posthumous_names(data):
                     f"（[{ia}]={ya} → [{ib}]={yb}）。この欄は**授けられた順**を主張する")
         # D 冒頭形との関係
         full = name.get("posthumousNameFull")
+        if full and forms and full != forms[-1]:
+            # **最終段はその人物の諡ではない。** 後代の加諡・改諡が書に載っていても、
+            # その書が名乗りとして掲げ続ける形は冒頭形の側。件数を出して黙らせない
+            tail_differs.append(e["id"])
         if full and forms and full not in forms:
             reason = POSTHUMOUS_STAGE_FULL_MISMATCH.get(e["id"])
             if not reason:
@@ -1678,6 +1683,10 @@ def check_posthumous_names(data):
         if key[0] in ids_with_stages:
             err(f"[posthumous-stages] {key[0]}: POSTHUMOUS_STAGE_NON_IMPERIAL の"
                 f"「{key[1]}」がどの段にも無い（訂正で形が変わったなら行を消す）")
+    if tail_differs:
+        info(f"[posthumous-stages] 最終段が冒頭形と違う人物 {len(tail_differs)}人"
+             f"（{', '.join(tail_differs)}）— **最終段はその人物の諡ではない**。"
+             f"名乗りとして通る形は posthumousNameFull の側で、この欄が主張するのは順序")
     return named
 
 

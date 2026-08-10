@@ -145,7 +145,8 @@
         "qin"
       ],
       "fields": [
-        "posthumousName"
+        "posthumousName",
+        "posthumousNames"
       ],
       "locator": "秦始皇本紀（史記 卷六）",
       "verdict": "absent-by-institution",
@@ -165,7 +166,8 @@
       ],
       "exceptions": [],
       "note": "秦の templeName は別レコード扱い（この明文は諡法についてのみ述べている）。制度の明文があるのはこの1件だけなので、他政権へ横展開しないこと",
-      "surveyedAt": "2026-08-02"
+      "surveyedAt": "2026-08-02",
+      "storageForm": "\n**諡号の段 `posthumousNames`（2026-08-10 追加）**: 諡法そのものを廃した政権なので、段の列も立たない。短縮呼称と同じ打ち切りが掛かる（「まだ読んでいない」ではなく「制度が無いので在り得ない」）。"
     },
     {
       "book": "漢書・後漢書",

@@ -1402,6 +1402,7 @@ def cmd_check_posthumous_names():
     skipped = []
     missed = []
     allowed = []
+    stale = []
     for e in data["emperors"]:
         stages = (e.get("name") or {}).get("posthumousNames")
         if not stages:
@@ -1420,7 +1421,7 @@ def cmd_check_posthumous_names():
             if posthumous_full_hit(form, hay):
                 ok += 1
                 if key in POSTHUMOUS_STAGES_ALLOW:
-                    print(f"NOTICE {e['id']}／{form}: 免除に挙げてあるが当たった（免除を消せる）")
+                    stale.append(key)
                 continue
             if key in POSTHUMOUS_STAGES_ALLOW:
                 allowed.append(key)
@@ -1437,6 +1438,12 @@ def cmd_check_posthumous_names():
     for eid, form in allowed:
         print(f"NOTICE {eid}／{form}: 底本側の事情で免除 — "
               f"{POSTHUMOUS_STAGES_ALLOW[(eid, form)]}")
+    # 免除の腐り止め。キャッシュの行範囲を広げると免除は当たるようになるので、
+    # **黙って残さない**（残ると「読んで通した段」と「照合できていない段」が混ざる）
+    for eid, form in stale:
+        bad += 1
+        print(f"ERROR {eid}／{form}: 免除に挙げてあるが当たった"
+              f"（POSTHUMOUS_STAGES_ALLOW の行を消す）")
     if ok < POSTHUMOUS_STAGES_FLOOR:
         bad += 1
         print(f"ERROR 本人の原文に当たる段が {ok}件で床 "
