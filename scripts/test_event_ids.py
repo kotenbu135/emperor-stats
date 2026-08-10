@@ -38,10 +38,12 @@ def check(label, cond):
         fails.append(label)
 
 
-def run(events, screenings=None, field="amnestyCount", emperor="test-emperor"):
+def run(events, screenings=None, field="amnestyCount", emperor="test-emperor", regimes=()):
     """合成レコード1件で check_event_ids を回し、[event-id] のエラーだけ返す。"""
     VE.errors.clear()
     data = {"emperors": [{"id": emperor, field: {"count": len(events), "events": events}}]}
+    if regimes:
+        data["meta"] = {"catalogs": {"regimes": [{"id": r} for r in regimes]}}
     path = ROOT / "data" / "screenings.json"
     orig_read, orig_exists = type(path).read_text, type(path).exists
     if screenings is not None:
@@ -89,6 +91,12 @@ check("日付キーの付かない参照も解決する",
       run([OK], screenings=["test-emperor.amnestyCount.e001"]) == [])
 check("人物 id の参照（person-field 単位の絞り込み）は event 参照として見ない",
       run([OK], screenings=["test-emperor"]) == [])
+# 政権単位の絞り込み（regime-head-form-issue37・2026-08-10）。監査の id が政権 id になる
+check("政権 id の参照（政権単位の絞り込み）は event 参照として見ない",
+      run([OK], screenings=["test-regime"], regimes=["test-regime"]) == [])
+check("カタログに無い政権 id は素通りさせない",
+      any("解決しません" in e
+          for e in run([OK], screenings=["no-such-regime"], regimes=["test-regime"])))
 
 print()
 if fails:

@@ -2209,7 +2209,9 @@ def check_event_ids(data):
     # 絞り込みの単位は person-field だけではない。**政権**を単位に取る画面があり
     # （regime-head-form-issue37・名前欄の所在は政権の属性なので）、その監査の id は
     # 政権 id になる。2026-08-10 に追加
-    regime_ids = {r["id"] for r in data["meta"]["catalogs"]["regimes"]}
+    # 検出力テスト（test_event_ids.py）は meta を持たない合成データを渡すので .get で辿る
+    regime_ids = {r["id"] for r in
+                  ((data.get("meta") or {}).get("catalogs") or {}).get("regimes") or []}
     for ref in refs:
         if not isinstance(ref, str) or ref in emperor_ids or ref in regime_ids:
             continue    # person-field・regime 単位の絞り込みは event を指していない
