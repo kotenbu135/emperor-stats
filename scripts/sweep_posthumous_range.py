@@ -33,10 +33,13 @@ FORMS = [
     re.compile(r"谥[曰为][^，。]{1,3}[，,]\s*庙号"),
 ]
 
+# 巻の見出し。**「第」の有無も、序数と題の間に空白が入るかも書で違う** —
+# 舊唐書は「本纪第一 高祖」・明史は「本纪第一太祖一」（空白なし）・
+# 清史稿は「本纪一  太祖本纪」（第なし）。`第` を必須にすると清史稿が1冊まるごと
+# [序] に落ち、序数のあとに空白を必須にすると明史の本紀173巻が全部落ちる
+# （2026-08-10 に両方とも実際に出した）。序数の直後は `\s*` で結ぶ
 HEAD = re.compile(
-    r"^\s*(本纪第[一二三四五六七八九十]+[上下]?"
-    r"|志第[一二三四五六七八九十]+"
-    r"|列传第[一二三四五六七八九十百]+)\s*(.*)$")
+    r"^\s*(本纪|志|列传|表)第?[一二三四五六七八九十百]+[上下]?\s*(.*)$")
 
 
 def bucket_of(kind, title):
@@ -47,6 +50,8 @@ def bucket_of(kind, title):
         return "礼志" if ("礼仪" in title or title.startswith("礼")) else "他の志"
     if kind.startswith("列传"):
         return "列傳"
+    if kind.startswith("表"):
+        return "表"
     return "序"
 
 
@@ -109,7 +114,7 @@ def main():
             return 1
         counts, picked, dropped = scan(path)
         print(f"== {Path(path).name} ==")
-        for b in ("本紀", "礼志", "他の志", "列傳", "序"):
+        for b in ("本紀", "礼志", "他の志", "列傳", "表", "序"):
             n = sum(v for (bb, _), v in counts.items() if bb == b)
             if n:
                 print(f"  {b}: {n}")
