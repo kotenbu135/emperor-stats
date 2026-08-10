@@ -1,0 +1,33 @@
+{
+  "id": "beiwei-yuanhao",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-yuanhao.txt",
+      "line": 1,
+      "quote": "子颢，字子明，袭"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書は北海王顥を列傳（獻文六王）で扱い、冒頭は父の條からの続柄＋「字〈字〉」（c1）。帝紀の定型が掛からない。書全体の走査でも諡・廟号の条は出ない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書は北海王顥を列傳（獻文六王）で扱い、冒頭は父の條からの続柄＋「字〈字〉」（c1）。帝紀の定型が掛からない。書全体の走査でも諡・廟号の条は出ない"
+    }
+  ],
+  "discrepancies": "なし（列傳の冒頭は現行の familyName 元・personalName と整合）"
+}

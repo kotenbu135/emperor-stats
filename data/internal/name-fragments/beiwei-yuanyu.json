@@ -1,0 +1,33 @@
+{
+  "id": "beiwei-yuanyu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-yuanyu.txt",
+      "line": 1,
+      "quote": "京兆王愉，字宣德"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書は京兆王愉を列傳（孝文五王）で扱い、冒頭は「〈王号〉〈名〉，字〈字〉」（c1）。帝紀の定型が掛からないので廟号・諡の位置がそもそも無い。書全体を「庙号・庙曰・庙称・尊谥・上谥・谥曰・谥为」で走査しても元愉に諡・廟号を与える条は出ない（当たるのは同字の臣下の諡だけ）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書は京兆王愉を列傳（孝文五王）で扱い、冒頭は「〈王号〉〈名〉，字〈字〉」（c1）。帝紀の定型が掛からないので廟号・諡の位置がそもそも無い。書全体を「庙号・庙曰・庙称・尊谥・上谥・谥曰・谥为」で走査しても元愉に諡・廟号を与える条は出ない（当たるのは同字の臣下の諡だけ）"
+    }
+  ],
+  "discrepancies": "なし（列傳の冒頭は現行の familyName 元・personalName と整合）"
+}
