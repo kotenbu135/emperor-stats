@@ -99701,8 +99701,9 @@
     "commonName": "景宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "景宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "武烈皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -99943,8 +99944,9 @@
     "commonName": "毅宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "毅宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "昭英皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -100269,8 +100271,9 @@
     "commonName": "恵宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "恵宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "康靖皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -100480,8 +100483,9 @@
     "commonName": "崇宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "崇宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "聖文皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -100787,8 +100791,9 @@
     "commonName": "仁宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "仁宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "聖徳皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -101122,8 +101127,9 @@
     "commonName": "桓宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "桓宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "昭簡皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -101313,8 +101319,9 @@
     "commonName": "襄宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "襄宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "敬穆皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -101515,8 +101522,9 @@
     "commonName": "神宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "神宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "英文皇帝"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -101696,7 +101704,7 @@
     "commonName": "献宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "献宗",
     "regnalTitle": "皇帝"
    },
    "eraId": "song-liao-jin-xia",

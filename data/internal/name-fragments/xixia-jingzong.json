@@ -1,0 +1,42 @@
+{
+  "id": "xixia-jingzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "西夏書事",
+      "file": "_corpus_cache/xixia-jingzong.txt",
+      "line": 859,
+      "quote": "年四十六，僭号十七年，改元五，谥曰武烈皇帝，庙号景宗，墓号泰陵"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "景宗",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "この君主が死んだ年の条の定型「庙号〈廟号〉」（c1）。編年体なので冒頭定型は無く、定型はその君主自身のファイルの末尾側に在る"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "武烈皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ定型の「谥曰〈諡〉」（c1）。西夏書事はこの1形しか掲げない"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "短縮呼称の欄は空。西夏書事は本文で末字＋皇帝の形を使わない（書全体の「〈2字〉皇帝」を数えると、西夏の帝の諡形は崩御条の1回ずつしか出ない）"
+    }
+  ],
+  "discrepancies": "なし"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "xixia-shenzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "西夏書事",
+      "file": "_corpus_cache/xixia-shenzong.txt",
+      "line": 492,
+      "quote": "年六十四，在位十三年，改元一，谥曰英文皇帝，庙号神宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "神宗",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "この君主が死んだ年の条の定型「庙号〈廟号〉」（c1）。編年体なので冒頭定型は無く、定型はその君主自身のファイルの末尾側に在る"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "英文皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ定型の「谥曰〈諡〉」（c1）。西夏書事はこの1形しか掲げない"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "短縮呼称の欄は空。西夏書事は本文で末字＋皇帝の形を使わない（書全体の「〈2字〉皇帝」を数えると、西夏の帝の諡形は崩御条の1回ずつしか出ない）"
+    }
+  ],
+  "discrepancies": "なし"
+}

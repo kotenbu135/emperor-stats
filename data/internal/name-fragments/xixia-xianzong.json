@@ -1,0 +1,42 @@
+{
+  "id": "xixia-xianzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "西夏書事",
+      "file": "_corpus_cache/xixia-xianzong.txt",
+      "line": 107,
+      "quote": "年四十六，在位四年，改元一，庙号献宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "献宗",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "この君主が死んだ年の条の定型「庙号〈廟号〉」（c1）。編年体なので冒頭定型は無く、定型はその君主自身のファイルの末尾側に在る"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "定型に「谥曰」の節が無い（c1）。在庫は複合語「谥曰」（8件）ではなく単字「谥」（13出現）で数え直しても閉じる — L2121 の「谥祖保吉曰神武皇帝」（谥と曰が離れる）・「父德明曰光圣皇帝」（谥の字が無い）は「谥曰」に掛からないが、どちらも追尊で365人の外。残りは皇帝でない人物の諡（元孫=壮武・仁忠=恭顕・彦忠=忠武）で、この人物を諡する条は1件も無い"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "短縮呼称の欄は空。西夏書事は本文で末字＋皇帝の形を使わない（書全体の「〈2字〉皇帝」を数えると、西夏の帝の諡形は崩御条の1回ずつしか出ない）"
+    }
+  ],
+  "discrepancies": "なし"
+}
