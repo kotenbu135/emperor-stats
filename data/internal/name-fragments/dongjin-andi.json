@@ -29,6 +29,7 @@
     {
       "field": "name.templeName",
       "value": null,
+      "verdict": "read-absent",
       "basis": [
         "c2"
       ],

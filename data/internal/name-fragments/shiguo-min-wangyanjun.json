@@ -31,6 +31,7 @@
     {
       "field": "name.posthumousName",
       "value": null,
+      "verdict": "read-absent",
       "basis": [
         "c1"
       ],

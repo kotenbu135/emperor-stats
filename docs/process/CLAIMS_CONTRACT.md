@@ -37,7 +37,10 @@
     }
   ],
   "findings": [
-    { "field": "name.templeName", "value": "太宗", "basis": ["c1"], "confidence": "high" }
+    { "field": "name.templeName", "value": "太宗", "basis": ["c1"], "confidence": "high" },
+    { "field": "name.posthumousName", "value": null, "verdict": "read-absent",
+      "basis": ["c1"], "confidence": "high",
+      "note": "本紀は末字＋皇帝型の短縮呼称を使わない。冒頭も崩御条も全長形だけ" }
   ],
   "conflicts": [
     { "field": "ages.deathAge",
@@ -59,6 +62,7 @@
 | `id` | ○ | **指定された id を一字一句そのまま。**独自生成は禁止（別ブロックで35名中20件超が不一致になった） |
 | `claims[]` | ○ | 原文の引用。`quote` は grep / Read / `quote_helper.py` の**出力からコピー**し、字体変換・要約・語順変更をしない。`file` はリポジトリからの相対パス、`line` はその行番号 |
 | `findings[]` | ○ | 欄の**主張**。`basis` は `claims[].cid` の配列で、**空は許さない**。原文が言っていないことは書けない |
+| `findings[].verdict` | ○（`value: null` のときだけ） | **空の主張がどちら向きか。** `"read-absent"` = 原文を読んで「この人にこの名乗りは無い」と決めた／`"pending"` = 原文は読み終わったが値の扱いが判断待ち。`coverage.py` は前者だけを**不在確定**に数える（2026-08-11・オプトインなので付け忘れは過小報告に落ちる）。値のある主張には要らない。旧 `pending: true` の旗は廃止（`check_claims.py` が落とす） |
 | `conflicts[]` | ○（空配列可） | 史料同士の対立。採用値・対立値・**採否理由**を持つ。**`emperors.json` の `conflicts` と同じ形**（2026-08-03・Issue #51 P3）なので、そのままコンテナへ入る。`adopted` は `{value, source, quote}` のオブジェクト——採用側にも出典が要る（片側だけだと「採用した」と「書き忘れた」が区別できない）。`quote` には引用規約の全項が掛かる |
 | `noteLog` | — | 作業ログ。捨てた側の値・経緯・換算メモ。**主張はここに書かない** |
 | `discrepancies` | ○ | 既存の**構造フィールド**（数値・日付・enum）と原文の食い違い。**無ければ「なし」と明記する** — 無言を「照合した」と読まないため。**note との突き合わせは検証段の担当**（1段目には note を渡さない・2026-08-02〜） |

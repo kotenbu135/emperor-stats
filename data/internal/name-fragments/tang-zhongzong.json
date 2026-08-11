@@ -66,6 +66,7 @@
     {
       "field": "name.posthumousName",
       "value": null,
+      "verdict": "read-absent",
       "basis": ["c2"],
       "confidence": "high"
     },

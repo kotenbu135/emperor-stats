@@ -83,15 +83,15 @@ def read_absent_cells():
     """原文を読んで「この人にこの名乗りは無い」と決めた (人物, 項目)。
 
     証人は `data/internal/name-fragments/<id>.json` の
-    `findings[{field: "name.<項目>", value: null}]` で、**引用台帳に basis を持つ機械可読の欄**
-    （check_claims.py が basis の実在を突き合わせている）。note の散文は読まない。
+    `findings[{field: "name.<項目>", value: null, verdict: "read-absent"}]` で、
+    **引用台帳に basis を持つ機械可読の欄**（check_claims.py が basis の実在を
+    突き合わせている）。note の散文は読まない。
 
-    `pending: true` の主張は除く —— 原文の側は読み終わっていても値の扱いが判断待ちで、
-    「空でよい」とはまだ言えない。
-
-    **この旗は誰も検査していない。** 付け忘れた判断待ちは `read-absent` に数えられ、
-    「読み終わって空が正しい」の件数を黙って水増しする（`R-COVERAGE-MEASURED` が
-    防ごうとしている過大報告と同じ形）。判断待ちを断片へ書くときは旗を必ず付ける。
+    `verdict` は**オプトイン**で、無い・`"pending"`（値の扱いが判断待ち）の主張は
+    数えない。2026-08-11 までは `pending: true` のオプトアウトだったが、旗の付け忘れが
+    「読み終わって空が正しい」を黙って水増しする側（`R-COVERAGE-MEASURED` が防ごうと
+    している過大報告）に落ちるので裏返した。いまは付け忘れが過小報告に落ち、
+    check_claims.py が value: null に verdict の無い主張を落とす。
     """
     out = set()
     if not FRAGMENTS.exists():
@@ -102,7 +102,7 @@ def read_absent_cells():
             field = str(f.get("field") or "")
             if not field.startswith("name."):
                 continue
-            if "value" not in f or f["value"] is not None or f.get("pending"):
+            if f.get("value") is not None or f.get("verdict") != "read-absent":
                 continue
             out.add((data.get("id") or path.stem, field.split(".", 1)[1]))
     return out

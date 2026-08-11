@@ -27,6 +27,7 @@
     {
       "field": "name.posthumousName",
       "value": null,
+      "verdict": "read-absent",
       "basis": [
         "c1",
         "c2",
@@ -38,6 +39,7 @@
     {
       "field": "name.posthumousNameFull",
       "value": null,
+      "verdict": "read-absent",
       "basis": [
         "c1",
         "c2",

@@ -53,6 +53,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 EMPERORS = ROOT / "data" / "emperors.json"
 CONVENTIONS = ROOT / "data" / "regime-conventions.json"
+FRAGMENTS = ROOT / "data" / "internal" / "name-fragments"
 PROFILES = ROOT / "data" / "emperor-profiles.json"
 KINSHIP = ROOT / "data" / "kinship.json"
 STATUS = ROOT / "docs" / "PROJECT_STATUS.md"
@@ -70,6 +71,7 @@ class Ctx:
         regimes = (self.data.get("meta", {}).get("catalogs", {}) or {}).get("regimes") or []
         self.regimes = {r["id"]: r for r in regimes}
         self.skip = self._skip_cells()
+        self.read_absent = self._read_absent_cells()
         self.profiles = {}
         if PROFILES.exists():
             self.profiles = json.loads(PROFILES.read_text(encoding="utf-8")).get("profiles") or {}
@@ -104,6 +106,38 @@ class Ctx:
                         for k, v in ex.items():
                             if v == "skip":
                                 out.setdefault((rid, f), set()).add(k)
+        return out
+
+    def _read_absent_cells(self):
+        """原文を読んで「この人にこの名乗りは無い」と決めた (人物, 項目)。
+
+        証人は `data/internal/name-fragments/<id>.json` の
+        `findings[{field: "name.<項目>", value: null, verdict: "read-absent"}]`。
+        `basis` が引用台帳を指しているかは check_claims.py が見ている（引用が底本に
+        実在するかまで）ので、**note の散文は読まない**。`verdict` が無い・"pending" の
+        主張は数えない（付け忘れを過大報告ではなく過小報告に落とすため）。
+
+        **`_skip_cells` と違い、これは絞り込みとの突き合わせにならない。**
+        scripts/screens/name_fields.py も同じファイルを読むので、2つの実装が一致しても
+        それは同じ証人を2回読んだだけ。検査になっているのは check_claims.py の側。
+
+        空セルを母集団に取る絞り込みは、そのままでは 0 に到達できない（読んで「空が
+        正しい」と決めたセルも空のまま残る）。この欄はその出口で、2026-08-11 に
+        `read-absent` バケットと同時に入れた。
+        """
+        out = set()
+        if not FRAGMENTS.exists():
+            return out
+        for path in sorted(FRAGMENTS.glob("*.json")):
+            data = json.loads(path.read_text(encoding="utf-8"))
+            eid = data.get("id") or path.stem
+            for f in data.get("findings") or []:
+                field = str(f.get("field") or "")
+                if not field.startswith("name."):
+                    continue
+                if f.get("value") is not None or f.get("verdict") != "read-absent":
+                    continue
+                out.add((eid, field.split(".", 1)[1]))
         return out
 
     def skipped(self, regime_id, field, emperor_id):
@@ -170,7 +204,9 @@ def m_name(ctx, sub):
         v = (e.get("name") or {}).get(sub)
         if v:
             state = FILLED
-        elif ctx.skipped(e["regimeId"], sub, e["id"]):
+        elif ctx.skipped(e["regimeId"], sub, e["id"]) or (e["id"], sub) in ctx.read_absent:
+            # 政権ぐるみの打ち切り（原典の明文）と、人物ごとの読解結果の2本。
+            # 後者が無いと、読み終わったセルが未調査のセルと同じ判別不能に落ちる
             state = ABSENT
         else:
             state = UNKNOWN

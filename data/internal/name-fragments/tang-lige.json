@@ -61,18 +61,21 @@
     {
       "field": "name.templeName",
       "value": null,
+      "verdict": "read-absent",
       "basis": ["c1", "c3", "c6", "c7"],
       "confidence": "high"
     },
     {
       "field": "name.posthumousName",
       "value": null,
+      "verdict": "read-absent",
       "basis": ["c1", "c3", "c6", "c7"],
       "confidence": "high"
     },
     {
       "field": "name.posthumousNameFull",
       "value": null,
+      "verdict": "read-absent",
       "basis": ["c1", "c3", "c6", "c7"],
       "confidence": "high"
     }

@@ -48,6 +48,7 @@
     {
       "field": "name.posthumousName",
       "value": null,
+      "verdict": "read-absent",
       "basis": ["c1", "c4"],
       "confidence": "medium",
       "note": "唐の既定（短縮呼称の欄は空・全長形だけを入れる）に従う。舊唐書 代宗本紀には末字＋皇帝型の短縮呼称は無く、通用する呼称は廟号「代宗」。ただし政権慣行の別枝条件（加諡が1段しか無い人物）に形式上は該当するため conflicts 欄に判断の分岐を明記した"
