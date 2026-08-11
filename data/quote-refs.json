@@ -40209,6 +40209,30 @@
    ],
    "line": 15
   },
+  "nanming-zhaozong|reigns[0].note|3e6d4d2c53c0": {
+   "id": "nanming-zhaozong",
+   "path": "reigns[0].note",
+   "span": "吴三桂以上还云南，居故都督府",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/nanming-zhaozong.txt",
+   "frags": [
+    "吴三桂以上还云南",
+    "居故都督府"
+   ],
+   "line": 622
+  },
+  "nanming-zhaozong|reigns[0].note|df34033194dc": {
+   "id": "nanming-zhaozong",
+   "path": "reigns[0].note",
+   "span": "缅人绐上以定国兵至，即舁上暨太后、中宫以行",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/nanming-zhaozong.txt",
+   "frags": [
+    "缅人绐上以定国兵至",
+    "即舁上暨太后"
+   ],
+   "line": 618
+  },
   "nanming-zhaozong|reigns[0].quote#0|5a79ed7b301d": {
    "id": "nanming-zhaozong",
    "path": "reigns[0].quote#0",
@@ -48166,6 +48190,31 @@
    ],
    "line": 56
   },
+  "shiguo-beihan-liuchong|crownPrinceDepositionCount.note|0b07b0d26af9": {
+   "id": "shiguo-beihan-liuchong",
+   "path": "crownPrinceDepositionCount.note",
+   "span": "干祐三年隐帝遇弑…謬请立崇子赟为嗣",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "干祐三年隐帝遇弑",
+    "謬请立崇子赟为嗣"
+   ],
+   "line": 4329
+  },
+  "shiguo-beihan-liuchong|crownPrinceDepositionCount.note|d49e16d14b1f": {
+   "id": "shiguo-beihan-liuchong",
+   "path": "crownPrinceDepositionCount.note",
+   "span": "周太祖之自魏入也…乃白汉太后，立旻子赟为汉嗣",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-beihan-liuchong.txt",
+   "frags": [
+    "周太祖之自魏入也",
+    "乃白汉太后",
+    "立旻子赟为汉嗣"
+   ],
+   "line": 3
+  },
   "shiguo-beihan-liuchong|crownPrinceDepositionCount.note|fbce6a06f59d": {
    "id": "shiguo-beihan-liuchong",
    "path": "crownPrinceDepositionCount.note",
@@ -48524,6 +48573,21 @@
     "淳化二年十二月癸未"
    ],
    "line": 74
+  },
+  "shiguo-beihan-liujiyuan|crownPrinceDepositionCount.note|f71ada0b8945": {
+   "id": "shiguo-beihan-liujiyuan",
+   "path": "crownPrinceDepositionCount.note",
+   "span": "世祖自干祐四年称帝歴四主二十九年而亡",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "世祖自干祐四",
+    "干祐四年称帝",
+    "年称帝歴四主",
+    "歴四主二十九",
+    "二十九年而亡"
+   ],
+   "line": 4367
   },
   "shiguo-beihan-liujiyuan|empressInstallationCount[0].note|bc073716b329": {
    "id": "shiguo-beihan-liujiyuan",
@@ -49559,6 +49623,17 @@
     "帝兩娶劉氏皆美而無寵"
    ],
    "line": 3880
+  },
+  "shiguo-min-wangyanjun|empressInstallationCount[0].note|8affb1c50703": {
+   "id": "shiguo-min-wangyanjun",
+   "path": "empressInstallationCount[0].note",
+   "span": "未防岩卒…太祖入闽攻杀晖金鳯流落民间族人陈匡胜收养之",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "太祖入闽攻杀晖金鳯流"
+   ],
+   "line": 3958
   },
   "shiguo-min-wangyanjun|empressInstallationCount[0].note|932950b8e6ae": {
    "id": "shiguo-min-wangyanjun",
@@ -50879,6 +50954,17 @@
    ],
    "line": 7
   },
+  "shiguo-nantang-libian|ages.note|00d810e15be5": {
+   "id": "shiguo-nantang-libian",
+   "path": "ages.note",
+   "span": "光啓四年十二月二日",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "光啓四年十二月二日"
+   ],
+   "line": 1398
+  },
   "shiguo-nantang-libian|ages.note|5105d8a9d60b": {
    "id": "shiguo-nantang-libian",
    "path": "ages.note",
@@ -51357,6 +51443,28 @@
     "建卒年七十二"
    ],
    "line": 43
+  },
+  "shiguo-qianshu-wangjian|ages.note|7d27b89de077": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "ages.note",
+   "span": "光天元年六月",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-qianshu-wangjian.txt",
+   "frags": [
+    "光天元年六月"
+   ],
+   "line": 22
+  },
+  "shiguo-qianshu-wangjian|ages.note|aeee2f1b7e57": {
+   "id": "shiguo-qianshu-wangjian",
+   "path": "ages.note",
+   "span": "六月，壬寅…蜀主殂",
+   "status": "corpus",
+   "corpusFile": "china-history/宋书/志/第十九章-卷二十九-原文.html",
+   "frags": [
+    "六月壬寅"
+   ],
+   "line": 44
   },
   "shiguo-qianshu-wangjian|ages.note|d546086f2e61": {
    "id": "shiguo-qianshu-wangjian",
@@ -73045,6 +73153,18 @@
    ],
    "line": 6
   },
+  "xiliao-renzong|accessionRoute.note|25c126287766": {
+   "id": "xiliao-renzong",
+   "path": "accessionRoute.note",
+   "span": "后名塔不烟，号感天皇后",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-renzong.txt",
+   "frags": [
+    "后名塔不烟",
+    "号感天皇后"
+   ],
+   "line": 1
+  },
   "xiliao-renzong|accessionRoute.note|83fb5a1bd1c8": {
    "id": "xiliao-renzong",
    "path": "accessionRoute.note",
@@ -73177,6 +73297,17 @@
    "corpusFile": "_corpus_cache/xiliao-renzong.txt",
    "frags": [
     "在位十三年殁"
+   ],
+   "line": 1
+  },
+  "xiliao-renzong|reigns[0].note|8899187906b6": {
+   "id": "xiliao-renzong",
+   "path": "reigns[0].note",
+   "span": "在位七年，子夷列即位",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xiliao-renzong.txt",
+   "frags": [
+    "子夷列即位"
    ],
    "line": 1
   },
