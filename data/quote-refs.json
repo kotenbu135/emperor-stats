@@ -13682,6 +13682,30 @@
    ],
    "line": 6
   },
+  "gengshi-di|reigns[0].conversion|877772d3a44c": {
+   "id": "gengshi-di",
+   "path": "reigns[0].conversion",
+   "span": "十月更始遂随禄肉袒诣长乐宫，上玺绶于盆子",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/gengshi-di.txt",
+   "frags": [
+    "十月更始遂随禄肉袒诣",
+    "上玺绶于盆子"
+   ],
+   "line": 20
+  },
+  "gengshi-di|reigns[0].conversion|f68289b02e60": {
+   "id": "gengshi-di",
+   "path": "reigns[0].conversion",
+   "span": "十二月丙戌，至自怀。赤眉杀更始",
+   "status": "corpus",
+   "corpusFile": "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html",
+   "frags": [
+    "十二月丙戌",
+    "赤眉杀更始"
+   ],
+   "line": 63
+  },
   "gengshi-di|reigns[0].note|0ad9e96f31c4": {
    "id": "gengshi-di",
    "path": "reigns[0].note",
@@ -33402,6 +33426,19 @@
     "兵众遂各逾宫斩关"
    ],
    "line": 9
+  },
+  "liu-penzi|reigns[0].conversion|69852dda99b9": {
+   "id": "liu-penzi",
+   "path": "reigns[0].conversion",
+   "span": "丙午，赤眉君臣面缚，奉高皇帝玺绶，诏以属城门校尉",
+   "status": "corpus",
+   "corpusFile": "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html",
+   "frags": [
+    "赤眉君臣面缚",
+    "奉高皇帝玺绶",
+    "诏以属城门校尉"
+   ],
+   "line": 97
   },
   "liu-penzi|reigns[0].quote#0|0ed31e63277a": {
    "id": "liu-penzi",
@@ -72201,6 +72238,18 @@
    ],
    "line": 31
   },
+  "wuzhou-wushifan|reigns[0].conversion|6a61a13d5f81": {
+   "id": "wuzhou-wushifan",
+   "path": "reigns[0].conversion",
+   "span": "疏报王师于十月二十八日入云南城，吴世璠自杀",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/清史稿.txt",
+   "frags": [
+    "疏报王师于十月二十八",
+    "吴世璠自杀"
+   ],
+   "line": 827
+  },
   "wuzhou-wushifan|reigns[0].conversion|8efce09325fb": {
    "id": "wuzhou-wushifan",
    "path": "reigns[0].conversion",
@@ -72229,6 +72278,18 @@
     "吳世璠自殺"
    ],
    "line": 23403
+  },
+  "wuzhou-wushifan|reigns[0].quote#0|dbe3e55de3be": {
+   "id": "wuzhou-wushifan",
+   "path": "reigns[0].quote#0",
+   "span": "世璠，應熊庶子，留雲南，奔三桂之喪，至貴陽，其下擁稱帝，改號洪化",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/wuzhou-wushifan.txt",
+   "frags": [
+    "奔三桂之喪",
+    "其下擁稱帝"
+   ],
+   "line": 24
   },
   "xi-zhangxianzhong|accessionRoute.note|85491b0383f3": {
    "id": "xi-zhangxianzhong",
