@@ -1,0 +1,24 @@
+{
+  "id": "shiguo-beihan-liuchong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-beihan-liuchong.txt",
+      "line": 1,
+      "quote": "刘旻，汉高祖母弟也。初名崇"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**新五代史 東漢世家（北漢）には「谥」「庙号」が1件も無い**（政権慣行が verdict=no-form で記録済み）"
+    }
+  ],
+  "discrepancies": "なし"
+}

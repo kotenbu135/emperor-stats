@@ -48,29 +48,52 @@
     {
       "field": "name.posthumousName",
       "value": "荘烈愍皇帝",
-      "basis": ["c1", "c3"],
+      "basis": [
+        "c1",
+        "c3"
+      ],
       "confidence": "high",
       "note": "明史 本紀第二十三 冒頭1行が『庄烈愍皇帝，讳由检』と立て、巻二十四末が清による追諡を『谥曰庄烈愍皇帝，陵曰思陵』と記す。値は既存レコードの表記慣行（新字体）に合わせ莊→荘"
     },
     {
       "field": "name.personalName",
       "value": "由検",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.aliases",
-      "value": ["荘烈帝"],
-      "basis": ["c4"],
+      "value": [
+        "荘烈帝"
+      ],
+      "basis": [
+        "c4"
+      ],
       "confidence": "medium",
       "note": "明史 本紀第二十三・二十四の篇目が『庄烈帝一』『庄烈帝二』。諡の略称として書中で当人を指す呼称"
     },
     {
       "field": "eraNames（元号・emperors.json に欄なし）",
-      "value": ["崇禎"],
-      "basis": ["c2", "c6"],
+      "value": [
+        "崇禎"
+      ],
+      "basis": [
+        "c2",
+        "c6"
+      ],
       "confidence": "high",
       "note": "即位条に『以明年为崇祯元年』、翌条が『崇祯元年春正月辛巳』。在位中の元号は崇禎の1つのみ（巻二十四末まで崇禎十七年で通る）"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。明史 荘烈帝紀に「庙号」が0件で、清が与えた諡「庄烈愍皇帝」だけを書く。**`commonName` の「毅宗」は南明が追上した廟号**で明史には無い（明 代宗・恵宗と同じ型）"
     }
   ],
   "conflicts": [],

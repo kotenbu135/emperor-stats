@@ -5,29 +5,20 @@
       "cid": "c1",
       "book": "遼史",
       "file": "_corpus_cache/xiliao-tianxi.txt",
-      "line": 2,
-      "quote": "仁宗次子直鲁古即位，改元天禧，在位三十四年"
+      "line": 1,
+      "quote": "子幼，遗诏以妹普速完权国，称制，改元崇福，号承天太后"
     }
   ],
   "findings": [
     {
-      "field": "name.templeName",
+      "field": "name.posthumousName",
       "value": null,
       "basis": [
         "c1"
       ],
       "confidence": "high",
-      "note": "附録は直魯古に庙号を与えない。乃蛮の屈出律に位を奪われて遼が絶えるため、廟号を立てる主体が無い"
-    },
-    {
-      "field": "name.courtesyName",
-      "value": null,
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "字を書く位置が無い（空が正しい）"
+      "note": "読んだうえで空。**`commonName`「天禧皇帝」は元号「天禧」から作った通称**。附録は直魯古に諡も廟号も与えない（廟号が空であることは既存の主張）"
     }
   ],
-  "discrepancies": "現行の commonName は「天禧皇帝」で、遼史の附録は「改元天禧」と元号を書くだけで皇帝号の形では呼ばない。**元号からの通用呼称**だが commonName は今回の対象外"
+  "discrepancies": "なし"
 }

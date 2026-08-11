@@ -53,6 +53,10 @@ FIELDS = ("templeName", "posthumousName")
 # 括弧内（明清の元号呼称「太祖（洪武帝）」など）は別種の名乗りなので落とす。
 PAREN = re.compile(r"[（(].*?[)）]")
 FORM = {"templeName": re.compile(r"[祖宗]$"), "posthumousName": re.compile(r"帝$")}
+# **0件になったバケットも出す**。消えると「はじめから無かった」と見分けが付かず、
+# 記録側のゲート（check_screenings.py）も「実行結果にありません」で落ちる
+# （2026-08-11 に templeName:transcribe が 0 になって実際に落ちた）
+BUCKETS = ("institution-skip", "read-absent", "transcribe", "unknown")
 
 
 def skip_cells():
@@ -144,7 +148,7 @@ def main():
     args = ap.parse_args()
 
     cells = run()
-    buckets = {}
+    buckets = {f"{f}:{b}": [] for f in FIELDS for b in BUCKETS}
     for (eid, f), b in cells.items():
         buckets.setdefault(f"{f}:{b}", []).append(eid)
 

@@ -1,0 +1,33 @@
+{
+  "id": "shiguo-beihan-liujiyuan",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-beihan-liujiyuan.txt",
+      "line": 1,
+      "quote": "继元为人忍"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。北漢は「谥」「庙号」が0件。`commonName` の「英武帝」は他書由来"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由"
+    }
+  ],
+  "discrepancies": "なし"
+}

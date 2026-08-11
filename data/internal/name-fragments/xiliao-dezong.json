@@ -5,8 +5,8 @@
       "cid": "c1",
       "book": "遼史",
       "file": "_corpus_cache/xiliao-dezong.txt",
-      "line": 1,
-      "quote": "耶律大石者，世号为西辽。大石字重德，太祖八代孙也"
+      "line": 5,
+      "quote": "复上汉尊号曰天佑皇帝，改元延庆"
     },
     {
       "cid": "c2",
@@ -18,33 +18,15 @@
   ],
   "findings": [
     {
-      "field": "name.templeName",
-      "value": "徳宗",
-      "basis": [
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "西遼は天祚帝紀の附録に載り、廟号は記事末尾に出る（c2）"
-    },
-    {
-      "field": "name.courtesyName",
-      "value": "重徳",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "冒頭「大石字重德」（c1）"
-    },
-    {
-      "field": "name.posthumousNameFull",
+      "field": "name.posthumousName",
       "value": null,
       "basis": [
         "c1",
         "c2"
       ],
       "confidence": "high",
-      "note": "附録は諡を書く位置を持たない（政権慣行の判定が no-form）。空が正しい"
+      "note": "読んだうえで空。**`commonName`「徳宗天祐皇帝」の後半は生前の尊号**で（c1「复上汉尊号曰天佑皇帝」）、諡ではない。遼史 附録が耶律大石に与えるのは廟号「徳宗」だけ（c2）"
     }
   ],
-  "discrepancies": "現行の commonName は「徳宗天祐皇帝」で、遼史の附録は廟号「德宗」（記事末尾）と漢式尊号「天佑皇帝」（即位条）を別の箇所に書く。**合成された呼称**だが、この欄は今回の対象外なので触っていない"
+  "discrepancies": "なし"
 }

@@ -1,0 +1,42 @@
+{
+  "id": "gengshi-di",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "後漢書",
+      "file": "_corpus_cache/gengshi-di.txt",
+      "line": 4,
+      "quote": "诸将遂共议立更始为天子"
+    },
+    {
+      "cid": "c2",
+      "book": "後漢書",
+      "file": "_corpus_cache/gengshi-di.txt",
+      "line": 4,
+      "quote": "于是大赦天下，建元曰更始元年"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**`commonName` の「更始帝」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。後漢書 劉玄伝に單字「谥」が0件で、「更始」は建元した元号（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "同じ理由"
+    }
+  ],
+  "discrepancies": "なし"
+}

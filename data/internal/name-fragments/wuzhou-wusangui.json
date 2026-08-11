@@ -1,0 +1,33 @@
+{
+  "id": "wuzhou-wusangui",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "清史稿",
+      "file": "_corpus_cache/wuzhou-wusangui.txt",
+      "line": 24,
+      "quote": "遂以三月朔称帝，改元昭武，以衡州为定天府"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**`commonName` の「太祖昭武帝（呉三桂）」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。清史稿 呉三桂伝に單字「谥」が0件"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由"
+    }
+  ],
+  "discrepancies": "なし"
+}

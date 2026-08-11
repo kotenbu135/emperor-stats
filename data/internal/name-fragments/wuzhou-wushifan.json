@@ -1,0 +1,33 @@
+{
+  "id": "wuzhou-wushifan",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "清史稿",
+      "file": "_corpus_cache/wuzhou-wushifan.txt",
+      "line": 24,
+      "quote": "其下拥称帝，改号洪化"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**`commonName` の「洪化帝（呉世璠）」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。清史稿 呉三桂伝の附載に單字「谥」が0件"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由"
+    }
+  ],
+  "discrepancies": "なし"
+}

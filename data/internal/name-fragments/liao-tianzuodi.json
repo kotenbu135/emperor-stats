@@ -27,6 +27,15 @@
       ],
       "confidence": "high",
       "note": "位号は諡ではないので全長形の欄には入れない（空が正しい）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。冒頭の第1スロットに立つのは位号「天祚皇帝」で諡ではない。遼史は他帝には「谥曰〈諡〉皇帝，庙号〈廟号〉」を書くが（同じ紀の中に順宗・宣宗の例が在る）、天祚帝自身は金に捕らわれて紀が終わり、諡の条が無い"
     }
   ],
   "discrepancies": "なし（既存の courtesyName 延寧・childhoodName 阿果と一致。commonName 天祚帝は原文の位号「天祚皇帝」の通用形）"

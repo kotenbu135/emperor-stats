@@ -1,0 +1,24 @@
+{
+  "id": "shiguo-beihan-liujun",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-beihan-liujun.txt",
+      "line": 1,
+      "quote": "承钧，旻次子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。劉崇と同じ（北漢は0件）"
+    }
+  ],
+  "discrepancies": "なし"
+}

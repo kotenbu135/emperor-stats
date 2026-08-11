@@ -1,0 +1,33 @@
+{
+  "id": "yuan-tianshundi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "元史",
+      "file": "_corpus_cache/yuan-tianshundi.txt",
+      "line": 25,
+      "quote": "九月，倒剌沙立皇太子为皇帝，改元天顺，诏天下"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**`commonName` の「天順帝（通称）」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。元史はこの帝に独立の本紀を立てず泰定帝紀の中で扱い（c1）、その範囲に「庙号」が0件"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由"
+    }
+  ],
+  "discrepancies": "なし"
+}

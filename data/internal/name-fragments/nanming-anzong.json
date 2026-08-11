@@ -1,0 +1,42 @@
+{
+  "id": "nanming-anzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-anzong.txt",
+      "line": 459,
+      "quote": "永历帝上谥曰「安宗简皇帝」"
+    },
+    {
+      "cid": "c2",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-zhaozong.txt",
+      "line": 473,
+      "quote": "上弘光帝谥曰「安宗简皇帝」、后曰「简皇后」"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "安宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "追諡の条（c1）。**「安宗簡皇帝」は〈廟号〉〈諡〉皇帝の融合形**で、同じ条が皇后に「簡皇后」を与えている（c2）ことから諡の実字は「簡」・「安宗」が廟号と分かる。本紀冒頭の融合形を分けて写すのと同じ扱い"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "簡皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "同上。融合形から廟号を落とした側"
+    }
+  ],
+  "discrepancies": "なし"
+}

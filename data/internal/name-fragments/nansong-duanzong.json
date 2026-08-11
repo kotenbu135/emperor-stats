@@ -1,0 +1,24 @@
+{
+  "id": "nansong-duanzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "_corpus_cache/nansong-duanzong.txt",
+      "line": 26,
+      "quote": "四月戊辰，昰殂于碙洲，其臣號之曰端宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**宋史が書くのは「其臣號之曰端宗」＝臣下が奉った号**で（c1）、この書が他帝に使う「廟號〈X〉」の語ではない。**書が廟号と呼ばない語を廟号の欄へ入れない**（金 哀宗・閩 康宗と同じ扱い）。この紀に單字「謚」も0件"
+    }
+  ],
+  "discrepancies": "なし"
+}

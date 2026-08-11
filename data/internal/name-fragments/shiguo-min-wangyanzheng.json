@@ -1,0 +1,33 @@
+{
+  "id": "shiguo-min-wangyanzheng",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-min-wangyanzheng.txt",
+      "line": 1,
+      "quote": "延政乃以建州建国称殷，改元天德"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。新五代史 閩世家の王延政の記事に「谥」「庙号」が1件も無い。**`commonName` の「殷帝」は建てた国号「殷」から来た呼び名**（c1）であって諡ではない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由"
+    }
+  ],
+  "discrepancies": "なし"
+}

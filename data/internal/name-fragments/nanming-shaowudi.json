@@ -1,0 +1,33 @@
+{
+  "id": "nanming-shaowudi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-shaowudi.txt",
+      "line": 1,
+      "quote": "立为皇帝，称号绍武，以都司署为行宫"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**`commonName` の「紹武帝」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。小腆紀傳は紹武帝を隆武紀の附として扱い、單字「谥」が0件（c1）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由"
+    }
+  ],
+  "discrepancies": "なし"
+}

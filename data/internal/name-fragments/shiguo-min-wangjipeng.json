@@ -1,0 +1,33 @@
+{
+  "id": "shiguo-min-wangjipeng",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-min-wangjipeng.txt",
+      "line": 4,
+      "quote": "延义立，谥昶曰康宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**新五代史はこの語を「谥」と呼び「庙号」と呼ばない**（c1）。同じ書は2記事前の王延鈞に「谥曰惠皇帝，庙号太宗」と両方の語を書き分けるので、ここで谥を使うのは書の語彙の選択。形が〈2字〉宗であることを根拠に廟号の欄へ入れない"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "康宗",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "書が諡として掲げる形をそのまま入れる（c1）。**この形は書の本文に実在する**ので短縮呼称の欄の条件（その書が本文で使う形）を満たす"
+    }
+  ],
+  "discrepancies": "なし"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "shiguo-wu-yangpu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-wu-yangpu.txt",
+      "line": 10,
+      "quote": "十二月，溥卒于丹阳，年三十八，谥曰睿"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**諡は1字「睿」**（c1）で、**新五代史は「〈諡〉帝」の短縮呼称を使わない** — 1冊走査で「睿帝」「殇帝」「惠帝」いずれも0件。この書が世家の末尾に置くのは諡そのもの（1字・全長形・〈2字〉宗のいずれか）で、そこから帝を付けた形は書のどこにも出ない。`commonName` の「睿帝」は通用の呼び名"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "1字の諡は「皇帝」で終わらないのでこの欄にも入らない"
+    }
+  ],
+  "discrepancies": "なし"
+}

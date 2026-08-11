@@ -1,0 +1,33 @@
+{
+  "id": "shun-lichengzheng",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/shun-lichengzheng.txt",
+      "line": 35,
+      "quote": "十七年正月庚寅朔，自成称王于西安，僭国号曰大顺，改元永昌，改名自晟"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**`commonName` の「永昌帝（李自成）」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。明史 流賊伝は李自成に諡を与えず、同じ条の「加谥号」は本人ではなく追尊した先祖への諡（c1）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由"
+    }
+  ],
+  "discrepancies": "なし"
+}

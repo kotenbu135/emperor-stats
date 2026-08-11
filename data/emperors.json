@@ -78863,7 +78863,7 @@
     "commonName": "高祖（劉龑）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "高祖",
     "regnalTitle": "皇帝"
    },
    "eraId": "five-dynasties",
@@ -79337,8 +79337,9 @@
     "commonName": "中宗（劉晟）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "中宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "文武光聖明孝皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "southern-han",
@@ -79725,9 +79726,10 @@
     "commonName": "高祖（孟知祥）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "高祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "保胤"
+    "courtesyName": "保胤",
+    "posthumousNameFull": "文武聖徳英烈明孝皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-shu",
@@ -80126,9 +80128,10 @@
     "commonName": "烈祖（李昪）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "烈祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "正倫"
+    "courtesyName": "正倫",
+    "posthumousNameFull": "光文粛武孝高皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "southern-tang",
@@ -80341,8 +80344,9 @@
     "commonName": "元宗（李璟）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "元宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "明道崇徳文宣孝皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "southern-tang",
@@ -80628,8 +80632,9 @@
     "commonName": "恵宗（王延鈞）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "太宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "恵皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "min",
@@ -80855,7 +80860,7 @@
     "personalName": "継鵬",
     "commonName": "康宗（王継鵬）",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "康宗",
     "templeName": null,
     "regnalTitle": "皇帝"
    },
@@ -81073,7 +81078,7 @@
     "personalName": "延羲",
     "commonName": "景宗（王延羲）",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "景宗",
     "templeName": null,
     "regnalTitle": "皇帝"
    },
@@ -99177,7 +99182,7 @@
     "personalName": "守緒",
     "commonName": "哀宗",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "哀宗",
     "templeName": null,
     "regnalTitle": "皇帝",
     "ethnicName": {
@@ -107237,7 +107242,7 @@
     "commonName": "昭宗",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "昭宗",
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "mongol",
@@ -115391,8 +115396,9 @@
     "commonName": "安宗（弘光帝）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "安宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "簡皇帝"
    },
    "personalCampaignCount": {
     "count": 0,
@@ -115639,9 +115645,10 @@
     "commonName": "紹宗（隆武帝）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "紹宗",
     "regnalTitle": "皇帝",
-    "childhoodName": "長寿"
+    "childhoodName": "長寿",
+    "posthumousNameFull": "襄皇帝"
    },
    "personalCampaignCount": {
     "count": 1,

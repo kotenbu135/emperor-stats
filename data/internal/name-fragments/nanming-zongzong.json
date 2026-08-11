@@ -1,0 +1,42 @@
+{
+  "id": "nanming-zongzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-zongzong.txt",
+      "line": 161,
+      "quote": "上谥曰绍宗襄皇帝"
+    },
+    {
+      "cid": "c2",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-zhaozong.txt",
+      "line": 473,
+      "quote": "隆武帝谥曰「绍宗襄皇帝」、后曰「襄皇后」"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "紹宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "追諡の条（c1）。皇后の「襄皇后」（c2）から諡の実字は「襄」"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "襄皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "同上"
+    }
+  ],
+  "discrepancies": "なし"
+}

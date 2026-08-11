@@ -1,0 +1,42 @@
+{
+  "id": "shiguo-min-wangyanjun",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-min-wangyanjun.txt",
+      "line": 7,
+      "quote": "鏻立十年见杀，谥曰惠皇帝，庙号太宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "太宗",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "世家末尾の定型（c1）。**`commonName` の「恵宗（王延鈞）」と食い違う** — 新五代史が庙号として挙げるのは太宗で、恵は諡の側。commonName は他書由来の名乗り"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "恵皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ条の「谥曰」が掲げる形（c1）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "**新五代史は「〈諡〉帝」の短縮呼称を使わない** — 1冊走査で「睿帝」「殇帝」「惠帝」いずれも0件。この書が世家の末尾に置くのは諡そのもの（1字・全長形・〈2字〉宗のいずれか）で、そこから帝を付けた形は書のどこにも出ない。全長形「恵皇帝」は別欄に入れた"
+    }
+  ],
+  "discrepancies": "`commonName`「恵宗（王延鈞）」の廟号部分が新五代史の「庙号太宗」と食い違う（残量表の行）"
+}

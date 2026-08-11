@@ -1,0 +1,33 @@
+{
+  "id": "xi-zhangxianzhong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/xi-zhangxianzhong.txt",
+      "line": 64,
+      "quote": "献忠遂僭号大西国王，改元大顺，冬十一月庚寅，即伪位"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**`commonName` の「大順帝（張献忠）」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。明史 流賊伝は張献忠に諡を与えない（c1）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ理由"
+    }
+  ],
+  "discrepancies": "なし"
+}

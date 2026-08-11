@@ -1,0 +1,33 @@
+{
+  "id": "shiguo-nanhan-liuyan",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-nanhan-liuyan.txt",
+      "line": 18,
+      "quote": "卒，年五十四，谥天皇大帝，庙号高祖，陵曰康陵"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "高祖",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "世家末尾の定型（c1）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "**諡「天皇大帝」が「皇帝」で終わらないので全長形の欄に入らない**（欄の形ゲートA）。値そのものは c1 に在る（残量表の行）"
+    }
+  ],
+  "discrepancies": "なし"
+}

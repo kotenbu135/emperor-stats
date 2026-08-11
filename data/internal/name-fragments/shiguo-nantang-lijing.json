@@ -1,0 +1,33 @@
+{
+  "id": "shiguo-nantang-lijing",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-nantang-lijing.txt",
+      "line": 23,
+      "quote": "乃谥曰明道崇德文宣孝皇帝，庙号元宗，陵曰顺陵"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "元宗",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "世家末尾の定型（c1）。宋へ帝号の復を願って与えられた形"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "明道崇徳文宣孝皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ条の「谥曰」が掲げる形（c1）"
+    }
+  ],
+  "discrepancies": "なし"
+}

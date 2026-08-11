@@ -1,0 +1,33 @@
+{
+  "id": "shiguo-min-wangyanxi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-min-wangyanxi.txt",
+      "line": 4,
+      "quote": "重遇等遣壮士拉于马上而杀之，谥曰景宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。王継鵬と同じで、書が使う語は「谥」（c1）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "景宗",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "書が諡として掲げる形（c1）"
+    }
+  ],
+  "discrepancies": "なし"
+}

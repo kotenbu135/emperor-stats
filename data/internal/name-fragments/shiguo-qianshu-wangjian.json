@@ -1,0 +1,24 @@
+{
+  "id": "shiguo-qianshu-wangjian",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-qianshu-wangjian.txt",
+      "line": 1,
+      "quote": "王建，字光图，许州舞阳人也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**新五代史 前蜀世家には「谥」「庙号」が1件も無い**（政権慣行がverdict=no-form で記録済み）。`commonName` の「高祖（王建）」は他書由来の名乗り"
+    }
+  ],
+  "discrepancies": "なし"
+}

@@ -1,0 +1,51 @@
+{
+  "id": "tang-wuzetian",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 37,
+      "quote": "戊申，皇帝上尊号曰则天大圣皇帝"
+    },
+    {
+      "cid": "c2",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 37,
+      "quote": "遗制祔庙、归陵，令去帝号，称则天大圣皇后"
+    },
+    {
+      "cid": "c3",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 37,
+      "quote": "崩于上阳宫之仙居殿，年八十三，谥曰则天大圣皇后"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**舊唐書が与える諡は「則天大聖皇后」＝皇后の諡**で（c3）、自身の遺制が「令去帝号」と帝号を去ることを命じている（c2）。`commonName`「則天大聖皇帝」は退位の日の**尊号**（c1）であって諡ではない。**皇帝の諡でない諡はこの欄に入れない** — 南齊 海陵王の王諡「恭王」と同じ扱い"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "同じ理由（欄の形ゲートAも「皇帝」で終わることを要求する）"
+    }
+  ],
+  "discrepancies": "なし"
+}
