@@ -1,0 +1,24 @@
+{
+  "id": "qianzhao-liucan",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7614,
+      "quote": "粲字士光"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "士光",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "載記第二・劉粲の条の書き出し（姓を伴わない形）。絞り込みが冒頭の区切りを要求しなくなって出た1件"
+    }
+  ],
+  "discrepancies": "なし"
+}

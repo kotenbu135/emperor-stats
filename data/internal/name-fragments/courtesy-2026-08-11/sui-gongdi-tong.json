@@ -1,0 +1,24 @@
+{
+  "id": "sui-gongdi-tong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 6469,
+      "quote": "越王侗字仁谨"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "仁謹",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "卷五十九 煬三子伝の越王侗の条の書き出し。絞り込みが冒頭の区切りを要求しなくなって出た1件"
+    }
+  ],
+  "discrepancies": "なし"
+}

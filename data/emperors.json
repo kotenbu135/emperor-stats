@@ -17879,7 +17879,8 @@
     "aliases": [],
     "posthumousName": "大帝",
     "templeName": "太祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "仲謀"
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "eastern-wu",
@@ -18365,7 +18366,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "子明"
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "eastern-wu",
@@ -18697,7 +18699,8 @@
     "aliases": [],
     "posthumousName": "景帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "子烈"
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "eastern-wu",
@@ -26902,7 +26905,8 @@
     "aliases": [],
     "posthumousName": "隠帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "士光"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-zhao",
@@ -28296,7 +28300,8 @@
     "aliases": [],
     "posthumousName": "哀皇帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "世文"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "cheng-han",
@@ -42859,7 +42864,8 @@
     "aliases": [],
     "posthumousName": "宣帝",
     "templeName": "中宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "理孫"
    },
    "eraId": "northern-southern",
    "regimeId": "western-liang",
@@ -43045,7 +43051,8 @@
     "aliases": [],
     "posthumousName": "孝明皇帝",
     "templeName": "世宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "仁遠"
    },
    "eraId": "northern-southern",
    "regimeId": "western-liang",
@@ -60328,7 +60335,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "仁謹"
    },
    "eraId": "sui-tang",
    "regimeId": "sui",
@@ -78634,7 +78642,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "化源"
    },
    "eraId": "five-dynasties",
    "regimeId": "former-shu",
@@ -102133,7 +102142,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "子能"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "zhangbangchang-chu",

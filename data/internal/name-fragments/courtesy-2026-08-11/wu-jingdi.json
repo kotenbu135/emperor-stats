@@ -1,0 +1,24 @@
+{
+  "id": "wu-jingdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "三國志",
+      "file": "daizhigev20/史藏/正史/三国志.txt",
+      "line": 2598,
+      "quote": "孙休字子烈"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "子烈",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "呉書 三嗣主伝の孫休の条の書き出し。絞り込みが冒頭の区切りを要求しなくなって出た1件"
+    }
+  ],
+  "discrepancies": "なし"
+}

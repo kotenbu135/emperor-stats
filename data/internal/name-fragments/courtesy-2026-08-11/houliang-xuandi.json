@@ -1,0 +1,24 @@
+{
+  "id": "houliang-xuandi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 4228,
+      "quote": "萧察字理孙"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "理孫",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "卷四十八 蕭詧伝の書き出し。絞り込みが冒頭の区切りを要求しなくなって出た1件"
+    }
+  ],
+  "discrepancies": "なし"
+}

@@ -1,0 +1,24 @@
+{
+  "id": "wu-dadi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "三國志",
+      "file": "daizhigev20/史藏/正史/三国志.txt",
+      "line": 2494,
+      "quote": "孙权字仲谋"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "仲謀",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "呉書 呉主伝の書き出し。絞り込みが冒頭の区切りを要求しなくなって出た1件"
+    }
+  ],
+  "discrepancies": "なし"
+}

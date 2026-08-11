@@ -1,0 +1,24 @@
+{
+  "id": "chenghan-liban",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8542,
+      "quote": "班字世文"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "世文",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "載記第二十一・李班の条の書き出し（姓を伴わない形）。絞り込みが冒頭の区切りを要求しなくなって出た1件"
+    }
+  ],
+  "discrepancies": "なし"
+}

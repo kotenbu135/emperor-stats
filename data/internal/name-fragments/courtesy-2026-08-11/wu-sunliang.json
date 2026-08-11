@@ -1,0 +1,24 @@
+{
+  "id": "wu-sunliang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "三國志",
+      "file": "_corpus_cache/wu-sunliang.txt",
+      "line": 1,
+      "quote": "孙亮字子明"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "子明",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "呉書 三嗣主伝の孫亮の条の書き出し。絞り込みが冒頭の区切りを要求しなくなって出た1件"
+    }
+  ],
+  "discrepancies": "なし"
+}

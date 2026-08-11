@@ -1,0 +1,24 @@
+{
+  "id": "shiguo-qianshu-wangyan",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "daizhigev20/史藏/正史/新五代史.txt",
+      "line": 2157,
+      "quote": "衍字化源"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "化源",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "前蜀世家の王衍の条の書き出し（姓を伴わない形）。絞り込みが冒頭の区切りを要求しなくなって出た1件"
+    }
+  ],
+  "discrepancies": "なし"
+}

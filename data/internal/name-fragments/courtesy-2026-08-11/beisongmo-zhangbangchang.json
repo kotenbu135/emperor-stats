@@ -1,0 +1,24 @@
+{
+  "id": "beisongmo-zhangbangchang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-zhangbangchang.txt",
+      "line": 3,
+      "quote": "張邦昌字子能"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "子能",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "叛臣伝の書き出し。絞り込みが冒頭の区切りを要求しなくなって出た1件"
+    }
+  ],
+  "discrepancies": "なし"
+}
