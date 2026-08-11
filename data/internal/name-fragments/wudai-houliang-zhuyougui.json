@@ -14,6 +14,13 @@
    "file": "_corpus_cache/wudai-houliang-zhuyougui.txt",
    "line": 3,
    "quote": "庶人友珪弑逆，矫太祖诏"
+  },
+  {
+   "cid": "c3",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houzhou-shizong.txt",
+   "line": 64,
+   "quote": "梁末主之上有郢王友珪，篡弑居位，未有纪录，请依《宋书》刘劭例，书为“元凶友珪”"
   }
  ],
  "findings": [
@@ -22,10 +29,11 @@
    "value": null,
    "basis": [
     "c1",
-    "c2"
+    "c2",
+    "c3"
    ],
    "confidence": "high",
-   "note": "舊五代史はこの人物に本紀を立てず、太祖紀・末帝紀の中で「郢王友珪」（c1）「庶人友珪」（c2）と呼ぶ。廟号・諡のどちらの記事も無い"
+   "note": "舊五代史はこの人物に本紀を立てず、太祖紀・末帝紀の中で「郢王友珪」（c1）「庶人友珪」（c2）と呼ぶ。廟号・諡のどちらの記事も無い。**後周世宗紀の実録編纂の議も別の証人になる** — 《五代会要》を引いて「未有纪录」と述べ、宋書の劉劭の例に依って「元凶友珪」と書くよう請う（c3）"
   },
   {
    "field": "name.posthumousNameFull",

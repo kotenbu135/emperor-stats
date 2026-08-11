@@ -7,6 +7,13 @@
    "file": "_corpus_cache/wudai-houtang-modi2.txt",
    "line": 1,
    "quote": "末帝，讳从珂，本姓王氏，镇州人也"
+  },
+  {
+   "cid": "c2",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houzhou-shizong.txt",
+   "line": 64,
+   "quote": "其清泰帝实录，请书为废帝实录。”"
   }
  ],
  "findings": [
@@ -32,10 +39,11 @@
    "field": "name.posthumousName",
    "value": null,
    "basis": [
-    "c1"
+    "c1",
+    "c2"
    ],
    "confidence": "high",
-   "note": "「末帝」は位号。後周世宗紀は実録の書名を議して「清泰帝実録，請書為廃帝実録」と記し、書はこの帝を諡で呼んでいない"
+   "note": "「末帝」は位号。後周世宗紀に載る実録の書名の議は、この帝の実録を「廃帝実録」と書くよう請う（c2）。書はこの帝を諡で呼んでいない"
   }
  ],
  "discrepancies": "なし"
