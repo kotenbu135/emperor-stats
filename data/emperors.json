@@ -4164,7 +4164,8 @@
     ],
     "posthumousName": "高帝",
     "templeName": "太祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "高皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -4673,7 +4674,8 @@
     "aliases": [],
     "posthumousName": "恵帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝恵皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -5224,7 +5226,8 @@
     "aliases": [],
     "posthumousName": "文帝",
     "templeName": "太宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝文皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -5465,7 +5468,8 @@
     "aliases": [],
     "posthumousName": "景帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝景皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -5718,7 +5722,8 @@
     "aliases": [],
     "posthumousName": "武帝",
     "templeName": "世宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝武皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -6190,7 +6195,8 @@
     "aliases": [],
     "posthumousName": "昭帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝昭皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -6701,7 +6707,8 @@
     ],
     "posthumousName": "宣帝",
     "templeName": "中宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝宣皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -7014,7 +7021,8 @@
     "aliases": [],
     "posthumousName": "元帝",
     "templeName": "高宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝元皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -7303,7 +7311,8 @@
     "aliases": [],
     "posthumousName": "成帝",
     "templeName": "統宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝成皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -7651,7 +7660,8 @@
     "aliases": [],
     "posthumousName": "哀帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝哀皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -7875,7 +7885,8 @@
     "aliases": [],
     "posthumousName": "平帝",
     "templeName": "元宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝平皇帝"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",

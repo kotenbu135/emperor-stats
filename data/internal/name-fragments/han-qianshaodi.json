@@ -1,0 +1,24 @@
+{
+  "id": "han-qianshaodi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "漢書",
+      "file": "_corpus_cache/han-qianshaodi.txt",
+      "line": 1,
+      "quote": "惠帝崩，太子立为皇帝，年幼，太后临朝称制"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。漢書は独立の紀を立てず高后紀の中で「皇帝」「少帝」としか呼ばず、諡を与える条が無い（帝紀13ファイルの単字「谥」8出現はいずれも帝の諡ではなく、高后紀の2出現は昭霊夫人・武哀侯・宣夫人の尊号の議）。**`commonName` の「前少帝」は位号であって諡ではない**"
+    }
+  ],
+  "discrepancies": "なし"
+}

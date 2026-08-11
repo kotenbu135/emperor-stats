@@ -1,0 +1,24 @@
+{
+  "id": "han-houshaodi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "漢書",
+      "file": "_corpus_cache/han-houshaodi.txt",
+      "line": 1,
+      "quote": "五月丙辰，立恒山王弘为皇帝。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。前少帝と同じで高后紀の中の記事しか無く、諡を与える条が無い。**`commonName` の「後少帝」は位号**"
+    }
+  ],
+  "discrepancies": "なし"
+}

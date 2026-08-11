@@ -1,0 +1,24 @@
+{
+  "id": "han-yuandi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "漢書",
+      "file": "_corpus_cache/han-yuandi.txt",
+      "line": 1,
+      "quote": "孝元皇帝，宣帝太子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝元皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "漢書 帝紀の冒頭定型「孝〈諡字〉皇帝，〈続柄〉也」（c1）。**漢書は帝の上諡の条を紀に載せない**ので、この書が掲げる名乗りの形は冒頭1行の1形に決まる（霍光伝「汉之传谥常为孝者」が「孝」を冠する理由を書く）"
+    }
+  ],
+  "discrepancies": "なし"
+}
