@@ -27,6 +27,7 @@
     {
       "field": "name.templeName",
       "value": null,
+      "pending": true,
       "basis": [
         "c1",
         "c2",

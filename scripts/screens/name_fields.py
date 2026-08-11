@@ -13,10 +13,24 @@
    │                    **verdict は2種類ある**（バケット名は初出の verdict のまま）:
    │                    absent-by-institution＝制度そのものが無い（秦の諡号）／
    │                    absent-by-book＝制度はあるがその書がその形を使わない（唐の短縮呼称）
+   ├ read-absent      … **人物単位で原文を読み、この人にこの名乗りは無いと決めたセル**。
+   │                    kind=corroborated。証人は name-fragments の
+   │                    `findings[{field, value: null}]`（下の read_absent_cells）
    ├ transcribe       … commonName が廟号形（〜祖／〜宗）・諡号形（〜帝）なのに
-   │                    当該フィールドが空。**取りこぼしと言い切れる**側。kind=read
+   │                    当該フィールドが空で、まだ読んでいない。kind=read
    └ unknown          … 機械が何も見つけなかっただけ。kind=absent
                         （「値が無い」の証拠ではない。だから標本を原典で読む）
+
+**`read-absent` が要る理由**: この画面の母集団は空セルなので、原文を読んで「空が正しい」と
+決めたセルも `transcribe` に残り続ける。件数だけを見ると作業が終わらないように見え、
+「77件のうち何件かは読み終わっている」を散文で申し送るしかなくなる（規則
+R-COVERAGE-MEASURED の「note の散文からは確定を読み取らない」に反する側）。
+`findings[].value: null` は機械可読の証人なので、そこを見て別のバケットへ分ける。
+
+**`read-absent` は `transcribe` になるはずだったセルにだけ付ける。** 証人は `unknown` 側の
+セルにも在る（唐の短縮呼称など）が、そちらへ印を付けると absent バケットの母集団が動いて
+種つき標本が引き直しになる。**`unknown` に読み終わったセルが混じっていること自体は残る** —
+この画面はそれを測らない。
 
 出力:
     python3 scripts/screens/name_fields.py            # 人が読む形
@@ -32,6 +46,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent.parent
 EMPERORS = ROOT / "data" / "emperors.json"
 CONVENTIONS = ROOT / "data" / "regime-conventions.json"
+FRAGMENTS = ROOT / "data" / "internal" / "name-fragments"
 
 FIELDS = ("templeName", "posthumousName")
 # commonName が「その形」で立っている＝その名乗りが実在する、の印。
@@ -60,9 +75,35 @@ def skip_cells():
     return out
 
 
+def read_absent_cells():
+    """原文を読んで「この人にこの名乗りは無い」と決めた (人物, 項目)。
+
+    証人は `data/internal/name-fragments/<id>.json` の
+    `findings[{field: "name.<項目>", value: null}]` で、**引用台帳に basis を持つ機械可読の欄**
+    （check_claims.py が basis の実在を突き合わせている）。note の散文は読まない。
+
+    `pending: true` の主張は除く —— 原文の側は読み終わっていても値の扱いが判断待ちで、
+    「空でよい」とはまだ言えない（金 哀宗の廟号がこれ）。
+    """
+    out = set()
+    if not FRAGMENTS.exists():
+        return out
+    for path in sorted(FRAGMENTS.glob("*.json")):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        for f in data.get("findings") or []:
+            field = str(f.get("field") or "")
+            if not field.startswith("name."):
+                continue
+            if "value" not in f or f["value"] is not None or f.get("pending"):
+                continue
+            out.add((data.get("id") or path.stem, field.split(".", 1)[1]))
+    return out
+
+
 def run():
     data = json.loads(EMPERORS.read_text(encoding="utf-8"))
     skips = skip_cells()
+    read_absent = read_absent_cells()
     cells = {}      # (id, field) → bucket
     for e in data["emperors"]:
         name = e.get("name") or {}
@@ -75,7 +116,9 @@ def run():
             if skipped:
                 cells[(e["id"], f)] = "institution-skip"
             elif FORM[f].search(base):
-                cells[(e["id"], f)] = "transcribe"
+                # 読み終わったセルだけを外へ出す。unknown 側には印を付けない（上の docstring）
+                cells[(e["id"], f)] = ("read-absent" if (e["id"], f) in read_absent
+                                       else "transcribe")
             else:
                 cells[(e["id"], f)] = "unknown"
     return cells
