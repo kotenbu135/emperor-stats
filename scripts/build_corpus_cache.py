@@ -546,8 +546,14 @@ def build_jin():
 # 西夏書事（daizhigev20、china-history非収録のため唯一の一次コーパス）。
 # 編年体のため皇帝ごとの独立巻を持たず、行番号で範囲を切り出す（1-indexed, inclusive）。
 # 前後の皇帝と重複する区間を意図的に含む（摂政・譲位等の記述が隣接するため）。
+# 値は1区間 (start, end) か、離れた区間のリスト（**その人物の記事が父帝の紀年に
+# 割り込んで在る**ときに使う。下の元昊の生誕条）。
 XIXIA_RANGES = {
-    "xixia-jingzong": (1890, 2791),    # 元昊(景宗)。徳明卒〜嗣立・称帝〜元昊死(巻十八)
+    # 元昊(景宗)。本体は徳明卒〜嗣立・称帝〜元昊死(巻十八)。
+    # **生誕条だけ父徳明の紀年（景徳元年五月）に離れて在る**ので、そこだけ切って
+    # 前に足す — タングート名「德明爱之，字为嵬埋」はこの条にしか無く、本体だけを
+    # 切ると `verify_quotes.py --check-ethnic-names` が本人の原文に当てられない。
+    "xixia-jingzong": [(1247, 1251), (1890, 2791)],
     "xixia-yizong": (2752, 3292),      # 諒祚(毅宗)。没蔵訛龐による擁立〜死(巻二十一)
     "xixia-huizong": (3286, 4230),     # 秉常(恵宗)。嗣立〜死(巻二十七手前)
     "xixia-chongzong": (4201, 5789),   # 乾順(崇宗)。嗣立(3歳)〜死(巻三十五)
@@ -563,9 +569,11 @@ XIXIA_RANGES = {
 def build_xixia():
     lines = XIXIA_FILE.read_text(encoding="utf-8").splitlines()
     out = {}
-    for emperor_id, (start, end) in XIXIA_RANGES.items():
-        chunk = lines[start - 1:end]
-        out[emperor_id] = "\n".join(chunk).strip()
+    for emperor_id, spans in XIXIA_RANGES.items():
+        if isinstance(spans, tuple):
+            spans = [spans]
+        chunks = ["\n".join(lines[start - 1:end]).strip() for start, end in spans]
+        out[emperor_id] = "\n\n".join(c for c in chunks if c)
     return out
 
 

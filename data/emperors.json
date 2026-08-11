@@ -2292,6 +2292,18 @@
      "counterpartLabel": "諱",
      "order": "personal-first",
      "description": "満洲語の名のカナ表記。相手側の personalName は漢字の諱。"
+    },
+    {
+     "id": "tangut",
+     "label": "タングート名",
+     "labelEn": null,
+     "regimes": [
+      "western-xia"
+     ],
+     "script": "han",
+     "counterpartLabel": "漢風名",
+     "order": "personal-first",
+     "description": "西夏語（原文の語は「国語」）の名。西夏書事は元昊の生誕条で、父徳明が与えた名として「字为嵬埋」と載せ、その場で語義まで割る。相手側の personalName は唐・宋から賜った漢風の名（李元昊）で、同じ名前の音写ではない。**原文が「字」と呼んでいても name.courtesyName には入らない** — 字の欄の底本照合は「字〈値〉」の隣接を要求し、動詞「为」をはさむ書き方（南漢劉玢の「小字曰：寿」と同じ形）は欄に入れられない。"
     }
    ]
   },
@@ -99712,7 +99724,11 @@
     "posthumousName": null,
     "templeName": "景宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "武烈皇帝"
+    "posthumousNameFull": "武烈皇帝",
+    "ethnicName": {
+     "kind": "tangut",
+     "value": "嵬埋"
+    }
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",

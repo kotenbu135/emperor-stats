@@ -161,11 +161,14 @@ for label, value, want in D_CASES:
     print(f"{'OK ' if ok else 'NG '} {label}  (hit={hit!r})")
 
 # --- カタログそのもの ---------------------------------------------------------
-ok = {k["id"] for k in CATALOG} == {"khitan", "jurchen", "mongol", "manchu"} and all(
+ok = {k["id"] for k in CATALOG} == {
+    "khitan", "jurchen", "mongol", "manchu",
+    "tangut",   # 2026-08-11 追加（西夏 元昊の「嵬埋」）
+} and all(
     k["order"] in ("ethnic-first", "personal-first") and k["script"] in ("han", "kana")
     for k in CATALOG)
 bad += 0 if ok else 1
-print(f"{'OK ' if ok else 'NG '} カタログが4種類・order と script が既知の値")
+print(f"{'OK ' if ok else 'NG '} カタログが5種類・order と script が既知の値")
 
 total = len(CASES) + len(D_CASES) + 3
 print(f"\n{'全件一致' if not bad else str(bad) + '件 不一致'} / {total}件")
