@@ -1,0 +1,42 @@
+{
+ "id": "wudai-houjin-shaodi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houjin-shaodi.txt",
+   "line": 1,
+   "quote": "少帝，名重贵，高祖之从子也"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": null,
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "冒頭1行は「少帝，名重贵」（c1）で、他の帝の「讳」ではなく「名」を使う。契丹に連れ去られた帝で、五代本紀にこの帝への上諡の記事は無い"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "「少帝」は位号で諡ではない"
+  }
+ ],
+ "discrepancies": "なし"
+}

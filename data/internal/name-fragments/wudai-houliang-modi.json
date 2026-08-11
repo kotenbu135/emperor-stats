@@ -1,0 +1,42 @@
+{
+ "id": "wudai-houliang-modi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houliang-modi.txt",
+   "line": 1,
+   "quote": "末帝，讳瑱，初名友贞，及即位，改名锽，贞明中又改今讳。太祖第四子也"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": null,
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "冒頭1行は「末帝，讳瑱」で、廟号を持つ帝の「〈廟号〉〈諡〉皇帝」形と割れる。位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "「末帝」は位号で諡ではない。commonName 側の名乗り"
+  }
+ ],
+ "discrepancies": "なし"
+}

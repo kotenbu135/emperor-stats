@@ -1,0 +1,51 @@
+{
+ "id": "wudai-houtang-mingzong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houtang-mingzong.txt",
+   "line": 1,
+   "quote": "明宗圣德和武钦孝皇帝，讳亶，初名嗣源，及即位，改今讳，代北人也"
+  },
+  {
+   "cid": "c2",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houtang-mingzong.txt",
+   "line": 157,
+   "quote": "谥议曰圣智仁德钦孝皇帝，庙号明宗，宰臣冯道议请改“圣智仁德”四字，为圣德和武钦孝皇帝"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "明宗",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "冒頭1行（c1）と上諡記事（c2）"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "聖徳和武欽孝皇帝",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "上諡記事は太常卿の議「圣智仁德钦孝皇帝」を宰臣冯道が「圣德和武钦孝皇帝」へ改めた経緯まで書き（c2）、冒頭1行（c1）は改めた側を掲げる。保存するのは決まった側"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "短縮呼称の欄は空。舊五代史は廟号を持つ帝を廟号で呼び、諡から作った短縮形を本文で使わない（五代本紀61巻の巻名も「太祖紀」「庄宗紀」「明宗紀」「高祖紀」「世宗紀」で、短縮形が巻名に立つのは廟号を持たない闵帝・少帝・末帝・隐帝・恭帝の側だけ）"
+  }
+ ],
+ "discrepancies": "なし"
+}

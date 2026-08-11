@@ -1,0 +1,51 @@
+{
+ "id": "wudai-houzhou-gongdi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houzhou-gongdi.txt",
+   "line": 1,
+   "quote": "恭帝，讳宗训，世宗子也"
+  },
+  {
+   "cid": "c2",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houzhou-gongdi.txt",
+   "line": 8,
+   "quote": "诏有司定谥曰恭皇帝，陵曰顺陵"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": null,
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "廟号は無い。諡の記事（c2）に廟号が伴わない"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "恭皇帝",
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "禅譲して鄭王となったこの帝が没したとき「诏有司定谥曰恭皇帝，陵曰顺陵」（c2）。**贈ったのは宋だが、載せているのは舊五代史の恭帝紀**"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": "恭帝",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "諡「恭皇帝」（c2）を書が名乗りとして立てた形が冒頭1行の「恭帝」（c1）。巻名も「恭帝紀」"
+  }
+ ],
+ "discrepancies": "なし"
+}

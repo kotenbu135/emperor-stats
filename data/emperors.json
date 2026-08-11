@@ -73697,8 +73697,9 @@
     "commonName": "太祖（朱全忠）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "太祖",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "神武元聖孝皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-liang",
@@ -74607,8 +74608,9 @@
     "commonName": "荘宗（李存勗）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "荘宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "光聖神閔孝皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-tang",
@@ -74955,8 +74957,9 @@
     "commonName": "明宗（李嗣源）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "明宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "聖徳和武欽孝皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-tang",
@@ -75510,7 +75513,7 @@
     "personalName": "従厚",
     "commonName": "閔帝（李従厚）",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "閔帝",
     "templeName": null,
     "regnalTitle": "皇帝",
     "childhoodName": "菩薩奴"
@@ -75998,8 +76001,9 @@
     "commonName": "高祖（石敬瑭）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "高祖",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "聖文章武明徳孝皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-jin",
@@ -76716,8 +76720,9 @@
     "commonName": "高祖（劉知遠）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "高祖",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "睿文聖武昭粛孝皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-han",
@@ -76984,9 +76989,10 @@
     "personalName": "承祐",
     "commonName": "隠帝（劉承祐）",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "隠帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "隠皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-han",
@@ -77258,9 +77264,10 @@
     "commonName": "太祖（郭威）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "太祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "文仲"
+    "courtesyName": "文仲",
+    "posthumousNameFull": "聖神恭粛文武孝皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-zhou",
@@ -77517,8 +77524,9 @@
     "commonName": "世宗（柴栄）",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
-    "regnalTitle": "皇帝"
+    "templeName": "世宗",
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "睿武孝文皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-zhou",
@@ -77754,9 +77762,10 @@
     "personalName": "宗訓",
     "commonName": "恭帝（柴宗訓）",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "恭帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "恭皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-zhou",

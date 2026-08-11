@@ -1,0 +1,50 @@
+{
+ "id": "wudai-houliang-zhuyougui",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houliang-zhuyougui.txt",
+   "line": 1,
+   "quote": "次郢王友珪，其母亳州营倡也，为左右控鹤都指挥使"
+  },
+  {
+   "cid": "c2",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houliang-zhuyougui.txt",
+   "line": 3,
+   "quote": "庶人友珪弑逆，矫太祖诏"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": null,
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "舊五代史はこの人物に本紀を立てず、太祖紀・末帝紀の中で「郢王友珪」（c1）「庶人友珪」（c2）と呼ぶ。廟号・諡のどちらの記事も無い"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
+  }
+ ],
+ "discrepancies": "なし"
+}

@@ -1,0 +1,42 @@
+{
+ "id": "wudai-houtang-modi2",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houtang-modi2.txt",
+   "line": 1,
+   "quote": "末帝，讳从珂，本姓王氏，镇州人也"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": null,
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "冒頭1行は「末帝，讳从珂」（c1）。位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "「末帝」は位号。後周世宗紀は実録の書名を議して「清泰帝実録，請書為廃帝実録」と記し、書はこの帝を諡で呼んでいない"
+  }
+ ],
+ "discrepancies": "なし"
+}
