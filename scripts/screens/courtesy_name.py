@@ -54,6 +54,15 @@ HAN = r"[一-鿿㐀-䶿]"
 # 「，字〈1〜4字〉，」の定型。**直前に句読点を要求する**のが肝で、これが無いと
 # 「小字」「表字」「名字」「文字」のような複合語の後半に当たる（小字は別の名乗り）。
 FORMULA = re.compile(rf"(?:^|[，,。；;：:、\s])字({HAN}{{1,4}})(?=[，,。；;、])")
+# **冒頭だけは区切りを要求しない**（2026-08-11）。載記・列伝の書き出しには
+# 「寿字武考，骧之子也」のように**姓を伴わず諱の1字が直に「字」へ続く形**があり、
+# 上の定型では当たらない。標本監査の反例3件のうち2件（成漢 李寿・後梁 蕭琮）が
+# これで、本人のキャッシュの中に在るのに unknown へ落ちていた。
+# 直前の1字だけは見る（複合語の後半＝別の名乗り・一般語を落とす）。**この緩和を
+# 全文へ広げると「正字」「大字」「十字路」「漢字」が大量に当たる**ので冒頭に限る
+# （実測: 全文へ広げると56人が動き、そのうち冒頭の13人以外はほぼ全部が雑音）。
+HEAD_BAD_PREV = "小表别別名文番漢汉蕃正大十八"
+HEAD_FORMULA = re.compile(rf"(?<![{HEAD_BAD_PREV}])字({HAN}{{1,4}})(?=[，,。；;、])")
 SMALL_NAME = re.compile(rf"小字({HAN}{{1,4}})")
 HEAD = 300
 
@@ -66,7 +75,7 @@ def classify(eid):
     if not p.exists():
         return "no-corpus", None, None
     text = p.read_text(encoding="utf-8", errors="ignore")
-    m = FORMULA.search(text[:HEAD])
+    m = HEAD_FORMULA.search(text[:HEAD])
     if m:
         return "formula-head", m.group(1), m.start()
     m = FORMULA.search(text)
