@@ -10,15 +10,16 @@
       "datePrecision": "退避した時点の datePrecision（原典が何を言っているか。移行では触っていない）",
       "noteHead": "人が突き合わせるための note の先頭20字（機械は id で引く）"
     },
-    "events": 4094,
-    "values": 6138,
+    "events": 4080,
+    "values": 6117,
     "removed": [
       "2026-08-07・Issue #82: han-gaozu の親征・鎮圧・被反乱 16 event を退避側から消した。配布物側を原表記 startDateRaw/endDateRaw と source.conversion 付きで訂正したので、埋め草だけの退避値（-01 を足した形）は原表記に置き換わっている／同日・Issue #89: shuhan-zhaoliedi.rebellionSufferedCount.e001 も同じ理由で削除",
       "2026-08-07（Issue #91）: 皇帝即位前の event 53件ぶんの鍵を削除した。event 自体を data/internal/preaccession-events.json へ退避したため、退避していた月日もそちらの archivedDate に移してある。",
       "2026-08-07・Issue #91: beiqi-andewang-gaoyanzong.personalCampaignCount.e001（0576-01-01 の埋め草）と jin-hailingwang.empressInstallationCount.e001（1149-10-18）を削除した。どちらも配布物側の年が誤りで、0577-01（隆化元年十二月の多数月）・1150-10-13（天德二年九月甲午）へ原表記と conversion 付きで訂正したため、退避していた値は上書きされている。",
       "2026-08-07・Issue #91 の追走査: 皇帝即位前の event 1件ぶんの鍵を削除した（event 自体は data/internal/preaccession-events.json へ退避）。",
       "2026-08-09・A1 訂正: beizhou-wudi.rebellionSufferedCount.e006／beizhou-xuandi.rebellionSufferedCount.e002・e003 の3 event を削除（訂正後の値が在位境界年の月精度になり、配布物が月まで主張するようになったため退避が不要）。あわせて xiwei-wendi.rebellionSufferedCount.e003・tang-gaozong の綏州稽胡2件・tang-suzong.rebellionSufferedCount.e007・tang-daizong の李霊曜の乱2件の退避値を、原典で確定し直した年へ訂正した（配布物は年精度のまま）",
-      "2026-08-10・C 群: han-gaozu の大赦 e001・e002 と立后 e001、tang-zhongzong の遷都 e001 を退避側から消した。配布物側を原表記 dateRaw と source.conversion 付きで訂正し、大赦 e002 と立后 e001 は日精度へ、遷都 e001 は移動の年（0706）へ動かしたので、退避してあった埋め草（-01 を足した形）は接頭辞の関係を失った"
+      "2026-08-10・C 群: han-gaozu の大赦 e001・e002 と立后 e001、tang-zhongzong の遷都 e001 を退避側から消した。配布物側を原表記 dateRaw と source.conversion 付きで訂正し、大赦 e002 と立后 e001 は日精度へ、遷都 e001 は移動の年（0706）へ動かしたので、退避してあった埋め草（-01 を足した形）は接頭辞の関係を失った",
+      "2026-08-11・names-rest の検証段: shiguo-beihan-liuchong の親征2件・被反乱1件と shiguo-nantang-lijing の鎮圧1件（計4 event・6値）を退避側から消した。**退避していた月日は『旧暦の月番号に -01 を足した埋め草』で、配布物側の直書きと同じ誤りを写したもの**（例: 0951-10-01 は旧暦十月＝太陽暦0951-11-02〜12-01 とずれる）。配布物側を多数月へ換算し、原表記 startDateRaw/endDateRaw と source.conversion を付けたので、退避値は原表記に置き換わっている"
     ]
   },
   "events": {
@@ -19227,26 +19228,6 @@
       "noteHead": "捕誅。",
       "endDate": "1849-07"
     },
-    "shiguo-beihan-liuchong.personalCampaignCount.e001": {
-      "startDate": "0951-10-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "契丹の援軍(耶律述律が派遣した蕭禹厥率兵",
-      "endDate": "0951-12-01"
-    },
-    "shiguo-beihan-liuchong.personalCampaignCount.e002": {
-      "startDate": "0954-01-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "後周太祖(郭威)崩御の報を受け、契丹の援",
-      "endDate": "0954-06-01"
-    },
-    "shiguo-beihan-liuchong.rebellionSufferedCount.e001": {
-      "startDate": "0954-05-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "後周軍による太原包囲(954年4-6月)"
-    },
     "shiguo-beihan-liujun.amnestyCount.e001": {
       "date": "0957-02",
       "datePrecision": "month",
@@ -19482,12 +19463,6 @@
       "datePrecision": "year",
       "reason": "out-of-scope",
       "noteHead": "保大十年、前年に征服したばかりの楚（湖南"
-    },
-    "shiguo-nantang-lijing.rebellionSuppressionCount.e001": {
-      "startDate": "0943-10-01",
-      "datePrecision": "month",
-      "reason": "filler",
-      "noteHead": "景は洪州営屯虞候の厳思・通事舎人の辺鎬に"
     },
     "shiguo-nantang-lijing.rebellionSuppressionCount.e002": {
       "startDate": "0952-01-01",

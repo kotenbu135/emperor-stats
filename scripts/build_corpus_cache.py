@@ -362,8 +362,15 @@ def build_shiguo():
     out["shiguo-wu-yangpu"] = slice_from(wu, "溥，行密第四子也，隆演建国，封丹阳郡公。")
 
     # 前蜀世家第三: 王建/王衍の2分割
+    # **前蜀だけ順が逆**（2026-08-11 の検証段）— 他の世家は「先帝の諡・廟号 → 次帝の書き出し」の
+    # 順だが、ここは 王衍の書き出し「衍字化源。」が先で、王建の諡・廟号はその後の段落頭に来る。
+    # 開始マーカーで切ると王建の名乗りが王衍のキャッシュへ落ちるので、その1文だけ重ねる
+    # （キャッシュに無いことを「原文に記事が無い」と読んだ結果、廟号「高祖」と全長諡を2セル落とした）
     qianshu = read_html(XIN_WUDAI_SHIJIA_DIR / "第三章-前蜀世家第三-原文.html")
     wangjian, wangyan = split_at(qianshu, "衍字化源。")
+    posth = "建卒，衍立，谥建曰神武圣文孝德明惠皇帝，庙号高祖，陵曰永陵。"
+    if posth not in wangjian:
+        wangjian = wangjian.rstrip() + "\n" + posth
     out["shiguo-qianshu-wangjian"] = wangjian
     out["shiguo-qianshu-wangyan"] = wangyan
 
