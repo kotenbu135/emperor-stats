@@ -1,0 +1,24 @@
+{
+  "id": "houzhao-shile",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 5978,
+      "quote": "羯胡石勒，字世龙，小字匐勒"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.childhoodName",
+      "value": "匐勒",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "本人のキャッシュは晉書 載記で、載記は小字を書かない"
+    }
+  ],
+  "discrepancies": "なし"
+}

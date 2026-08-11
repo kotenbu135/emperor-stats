@@ -1,0 +1,24 @@
+{
+  "id": "wudai-houtang-mingzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊五代史",
+      "file": "daizhigev20/史藏/正史/旧五代史.txt",
+      "line": 557,
+      "quote": "邈佶烈，盖嗣源小字也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.childhoodName",
+      "value": "邈佶烈",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "**語順が逆で「小字〈値〉」の並びにならない**が、注が値と人物の両方を名指しする。新五代史 L824「呼其小字曰：『汝非邈佶烈乎？』」も同じ場面"
+    }
+  ],
+  "discrepancies": "なし"
+}

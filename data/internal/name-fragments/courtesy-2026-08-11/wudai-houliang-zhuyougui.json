@@ -1,0 +1,24 @@
+{
+  "id": "wudai-houliang-zhuyougui",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊五代史",
+      "file": "daizhigev20/史藏/正史/旧五代史.txt",
+      "line": 388,
+      "quote": "友珪，小字遥喜"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.childhoodName",
+      "value": "遥喜",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "列伝。同じ条に命名の由来「妓以生男来告，帝喜，故字之曰遥喜」も在る"
+    }
+  ],
+  "discrepancies": "なし"
+}

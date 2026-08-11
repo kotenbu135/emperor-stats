@@ -1,0 +1,24 @@
+{
+  "id": "liang-houjing",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 2387,
+      "quote": "侯景小字狗子"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.childhoodName",
+      "value": "狗子",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "五行志。志公の詩「兀尾狗子始著狂」の解釈として名を挙げる"
+    }
+  ],
+  "discrepancies": "なし"
+}

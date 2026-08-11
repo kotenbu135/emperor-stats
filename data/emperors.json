@@ -29131,7 +29131,8 @@
     "posthumousName": "明帝",
     "templeName": "高祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "世龍"
+    "courtesyName": "世龍",
+    "childhoodName": "匐勒"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-zhao",
@@ -43410,7 +43411,9 @@
     "aliases": [],
     "posthumousName": "武帝",
     "templeName": "高祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "興国",
+    "childhoodName": "法生"
    },
    "eraId": "northern-southern",
    "regimeId": "chen",
@@ -45566,7 +45569,8 @@
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "万景"
+    "courtesyName": "万景",
+    "childhoodName": "狗子"
    },
    "eraId": "northern-southern",
    "regimeId": "houjing-han",
@@ -55145,7 +55149,8 @@
     "posthumousName": "武成帝",
     "templeName": "世祖",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "武成皇帝"
+    "posthumousNameFull": "武成皇帝",
+    "childhoodName": "歩落稽"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-qi",
@@ -57223,7 +57228,8 @@
     "posthumousName": "明帝",
     "templeName": "世宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "明皇帝"
+    "posthumousNameFull": "明皇帝",
+    "childhoodName": "統万突"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-zhou",
@@ -58516,7 +58522,8 @@
     "posthumousName": "文帝",
     "templeName": "高祖",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "文皇帝"
+    "posthumousNameFull": "文皇帝",
+    "childhoodName": "那羅延"
    },
    "eraId": "sui-tang",
    "regimeId": "sui",
@@ -74091,7 +74098,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "childhoodName": "遥喜"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-liang",
@@ -75018,7 +75026,8 @@
     "posthumousName": null,
     "templeName": "明宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "聖徳和武欽孝皇帝"
+    "posthumousNameFull": "聖徳和武欽孝皇帝",
+    "childhoodName": "邈佶烈"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-tang",
@@ -99814,7 +99823,8 @@
     "ethnicName": {
      "kind": "tangut",
      "value": "嵬埋"
-    }
+    },
+    "childhoodName": "嵬理"
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",

@@ -1,0 +1,24 @@
+{
+  "id": "xixia-jingzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "daizhigev20/史藏/正史/宋史.txt",
+      "line": 102745,
+      "quote": "曩霄本名元昊，小字嵬理"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.childhoodName",
+      "value": "嵬理",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "夏国伝。続けて「国语谓惜为『嵬』，富贵为『理』」と語義を書く"
+    }
+  ],
+  "discrepancies": "なし"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "chen-wudi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "陳書",
+      "file": "daizhigev20/史藏/正史/陈书.txt",
+      "line": 44,
+      "quote": "讳霸先，字兴国，小字法生"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "興国",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "本紀第一の書き出し。**本人の原文キャッシュは卷2（高祖下）から始まる**ので冒頭が範囲の外にあり、ゲートC は免除で受ける（南史 卷9 L1279 が同文）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": "法生",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "本紀第一の書き出し。**本人の原文キャッシュは卷2（高祖下）から始まる**ので冒頭が範囲の外にあり、ゲートC は免除で受ける（南史 卷9 L1279 が同文）"
+    }
+  ],
+  "discrepancies": "なし"
+}

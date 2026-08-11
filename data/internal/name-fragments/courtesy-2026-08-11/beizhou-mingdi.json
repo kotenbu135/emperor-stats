@@ -1,0 +1,24 @@
+{
+  "id": "beizhou-mingdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 359,
+      "quote": "世宗明皇帝讳毓，小名统万突"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.childhoodName",
+      "value": "統万突",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "本紀の書き出し。統万城で生まれたことに因む（「太祖临夏州，生帝于统万城，因以名焉」）。**語は「小名」**"
+    }
+  ],
+  "discrepancies": "なし"
+}

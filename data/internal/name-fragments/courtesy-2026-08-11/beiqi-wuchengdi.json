@@ -1,0 +1,24 @@
+{
+  "id": "beiqi-wuchengdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "北齊書",
+      "file": "daizhigev20/史藏/正史/北齐书.txt",
+      "line": 622,
+      "quote": "盖指武成小字步落稽也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.childhoodName",
+      "value": "歩落稽",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "独孤永業伝の童謡「凫翁」の注。帝紀の書き出しには無い（高浚伝にも「呼长广小字曰：『步落稽，皇天见汝！』」）"
+    }
+  ],
+  "discrepancies": "なし"
+}
