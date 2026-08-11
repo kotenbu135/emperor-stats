@@ -13,6 +13,7 @@
     {
       "field": "name.templeName",
       "value": null,
+      "verdict": "read-absent",
       "basis": [
         "c1"
       ],
@@ -22,6 +23,7 @@
     {
       "field": "name.posthumousNameFull",
       "value": null,
+      "verdict": "read-absent",
       "basis": [
         "c1"
       ],
@@ -31,6 +33,7 @@
     {
       "field": "name.childhoodName",
       "value": null,
+      "verdict": "read-absent",
       "basis": [
         "c1"
       ],

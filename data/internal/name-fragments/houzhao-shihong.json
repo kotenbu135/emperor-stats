@@ -36,6 +36,7 @@
     {
       "field": "name.posthumousName",
       "value": null,
+      "verdict": "read-absent",
       "basis": [
         "c2",
         "c3"
@@ -46,6 +47,7 @@
     {
       "field": "name.templeName",
       "value": null,
+      "verdict": "read-absent",
       "basis": [
         "c3"
       ],

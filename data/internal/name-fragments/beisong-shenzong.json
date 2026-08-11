@@ -62,6 +62,7 @@
     {
       "field": "name.courtesyName",
       "value": null,
+      "verdict": "read-absent",
       "basis": [
         "c1"
       ],

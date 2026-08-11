@@ -83,6 +83,7 @@
     {
       "field": "name.posthumousName",
       "value": null,
+      "verdict": "read-absent",
       "basis": ["c1", "c4", "c6"],
       "confidence": "high",
       "note": "commonName「武宗」が諡ではなく廟号に由来する（c4「庙号武宗」）ため、政権慣行の既定どおり短縮呼称の欄は空。同型の先例は同データセットの tang-shunzong（commonName 順宗＝廟号／posthumousName 空・Full 至徳大聖大安孝皇帝）で、諡形の commonName を持つ tang-aidi（哀帝／哀皇帝）とは枝が違う。史臣曰は「昭肃」を2度用いるが（c6）いずれも裸の呼び方で「昭粛皇帝」の形では現れないので短縮呼称の証拠にならない"

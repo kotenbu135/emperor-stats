@@ -111,6 +111,20 @@ def check_one(path, errors, reports, counters):
     for i, f in enumerate(findings):
         if not f.get("field"):
             errors.append(f"{tag}: findings[{i}] に field がありません")
+        # 空の主張（value: null）は「読んで無いと決めた」と「値の扱いが判断待ち」の
+        # 2種類があり、coverage.py は前者だけを不在確定に数える。**オプトイン**にして
+        # あるので、キーの付け忘れは過小報告に落ちる（旗のオプトアウトだと過大報告に
+        # 落ちる。2026-08-11 に pending: true から入れ替えた）
+        if "value" in f and f["value"] is None:
+            v = f.get("verdict")
+            if v not in ("read-absent", "pending"):
+                errors.append(
+                    f"{tag}: findings[{i}]（{f.get('field')}）は value: null なので "
+                    f'verdict が要ります（"read-absent" = 原文を読んで無いと決めた／'
+                    f'"pending" = 値の扱いが判断待ち）: {v!r}')
+        if "pending" in f:
+            errors.append(f"{tag}: findings[{i}]（{f.get('field')}）の pending は廃止しました。"
+                          'verdict: "pending" を使ってください')
         basis = f.get("basis")
         if not isinstance(basis, list) or not basis:
             errors.append(f"{tag}: findings[{i}]（{f.get('field')}）の basis が空です。"
