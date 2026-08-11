@@ -82,8 +82,8 @@
           "notEstablished": "値の不在。commonName は名乗りの1つを写しただけなので、廟号が別の形で原典にある人物がここに残る",
           "audit": {
             "seed": 37,
-            "size": 6,
-            "checkedAt": "2026-08-02",
+            "size": 30,
+            "checkedAt": "2026-08-11",
             "findings": [
               {
                 "id": "chenghan-liqi",
@@ -123,8 +123,153 @@
                 "line": 1,
                 "quote": "在位十三年殁，庙号仁宗",
                 "note": "抽出方式を変える前の引きで見つけた反例。取りこぼし率の計算には入れない（今の種では標本に入らない）。commonName「仁宗正徳皇帝」は廟号＋諡号が続いた形で、末尾が「帝」なので廟号形の検査に当たらない"
+              },
+              {
+                "id": "beizhou-xuandi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/beizhou-xuandi.txt（全43行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "dongjin-andi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/dongjin-andi.txt（全26行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "gongsun-shu",
+                "verdict": "一致",
+                "checked": "_corpus_cache/gongsun-shu.txt（全20行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "han-huidi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/han-huidi.txt（全30行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "hou-han-shaodi-yi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/hou-han-shaodi-yi.txt（全5行）に本人の廟号の記述が無い。2行目「庙曰恭宗」は葬られた孝安皇帝（安帝）の廟号で、少帝懿のものではない",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "hou-han-zhidi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/hou-han-zhidi.txt（全27行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "houzhao-shihong",
+                "verdict": "一致",
+                "checked": "_corpus_cache/houzhao-shihong.txt（全7行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "houzhao-shizhi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/houzhao-shizhi.txt（全4行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "houzhao-shizun",
+                "verdict": "一致",
+                "checked": "_corpus_cache/houzhao-shizun.txt（全1行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "jin-modi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/jin-modi.txt（全1行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "qianzhao-liucan",
+                "verdict": "一致",
+                "checked": "_corpus_cache/qianzhao-liucan.txt（全3行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "qianzhao-liuhe",
+                "verdict": "一致",
+                "checked": "_corpus_cache/qianzhao-liuhe.txt（全1行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "shiguo-beihan-liujien",
+                "verdict": "一致",
+                "checked": "_corpus_cache/shiguo-beihan-liujien.txt（全3行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "shiguo-min-wangyanzheng",
+                "verdict": "一致",
+                "checked": "_corpus_cache/shiguo-min-wangyanzheng.txt（全5行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "shiguo-nanhan-liuchang",
+                "verdict": "一致",
+                "checked": "_corpus_cache/shiguo-nanhan-liuchang.txt（全9行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "sui-gongdi-tong",
+                "verdict": "一致",
+                "checked": "_corpus_cache/sui-gongdi-tong.txt（全8行）に本人の廟号の記述が無い。1行目「谥帝曰明，庙号世祖」は擁立時に煬帝へ贈った諡・廟号で、侗自身のものではない",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "suimo-yuwenhuaji",
+                "verdict": "一致",
+                "checked": "_corpus_cache/suimo-yuwenhuaji.txt（全8行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "tangmo-zhuci",
+                "verdict": "一致",
+                "checked": "_corpus_cache/tangmo-zhuci.txt（全18行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "wu-sunliang",
+                "verdict": "一致",
+                "checked": "_corpus_cache/wu-sunliang.txt（全11行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "wuzhou-wushifan",
+                "verdict": "一致",
+                "checked": "_corpus_cache/wuzhou-wushifan.txt（全61行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "xi-zhangxianzhong",
+                "verdict": "一致",
+                "checked": "_corpus_cache/xi-zhangxianzhong.txt（全67行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "xiliao-tianxi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/xiliao-tianxi.txt（全2行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "xiyan-murongzhong",
+                "verdict": "一致",
+                "checked": "_corpus_cache/xiyan-murongzhong.txt（全4行）に本人の廟号の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "yuanmo-mingsheng",
+                "verdict": "一致",
+                "checked": "_corpus_cache/yuanmo-mingsheng.txt（全7行）に本人の廟号の記述が無い。1行目「庙号太祖」は葬られた明玉珍（父）の廟号で、明昇のものではない",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
               }
-            ]
+            ],
+            "result": "標本30件のうち反例 0件（標本内・`outOfSample` は除く）。取りこぼし率 0/30"
           }
         },
         {
@@ -135,7 +280,7 @@
           "notEstablished": "値の不在。廟号で呼ばれる皇帝（〜祖／〜宗）は諡号を別に持つのが普通なので、ここには取りこぼしが厚く残る",
           "audit": {
             "seed": 37,
-            "size": 6,
+            "size": 30,
             "checkedAt": "2026-08-11",
             "findings": [
               {
@@ -209,9 +354,176 @@
                 "verdict": "一致",
                 "checked": "_corpus_cache/xiyan-murongzhong.txt（全4行・資治通鑑と晉書載記の抜き）に慕容忠自身の諡が無い。単字「谥」1件は**別人**（「谥冲曰威皇帝」＝慕容冲）で、「庙」は0件。忠は刁云に殺され、慕容永が推戴される記事で終わる",
                 "note": "2026-08-11 に母集団が 167→164 へ動いて標本に入ってきた分の監査"
+              },
+              {
+                "id": "beisong-yingzong",
+                "verdict": "反例",
+                "file": "_corpus_cache/beisong-yingzong.txt",
+                "line": 51,
+                "quote": "六。謚曰憲文肅武宣孝皇帝，廟號英宗。",
+                "note": "謚曰憲文肅武宣孝皇帝，廟號英宗／2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "gongsun-shu",
+                "verdict": "一致",
+                "checked": "_corpus_cache/gongsun-shu.txt（全20行）に本人の諡の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "houzhao-shihong",
+                "verdict": "一致",
+                "checked": "_corpus_cache/houzhao-shihong.txt（全7行）に本人の諡の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "houzhao-shizhi",
+                "verdict": "一致",
+                "checked": "_corpus_cache/houzhao-shizhi.txt（全4行）に本人の諡の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "houzhao-shizun",
+                "verdict": "一致",
+                "checked": "_corpus_cache/houzhao-shizun.txt（全1行）に本人の諡の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "jin-weishaowang",
+                "verdict": "反例",
+                "file": "_corpus_cache/jin-weishaowang.txt",
+                "line": 47,
+                "quote": "卫王谥曰绍。",
+                "note": "贞祐四年に追復して諡を「绍」とする条。帝号ではなく王としての諡／2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "liao-shengzong",
+                "verdict": "反例",
+                "file": "_corpus_cache/liao-shengzong.txt",
+                "line": 66,
+                "quote": "上尊谥曰文武大孝宣皇帝，庙号圣宗。",
+                "note": "上尊谥曰文武大孝宣皇帝，庙号圣宗／2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "liao-shizong",
+                "verdict": "反例",
+                "file": "_corpus_cache/liao-shizong.txt",
+                "line": 7,
+                "quote": "年，谥孝和皇帝，庙号世宗。统和二十六年七月，加谥孝和庄宪皇帝。",
+                "note": "二年に諡「孝和皇帝」・廟号世宗、統和二十六年に加諡して孝和荘憲皇帝／2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "qianzhao-liuhe",
+                "verdict": "一致",
+                "checked": "_corpus_cache/qianzhao-liuhe.txt（全1行）に本人の諡の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "qing-gaozong",
+                "verdict": "反例",
+                "file": "_corpus_cache/qing-gaozong.txt",
+                "line": 737,
+                "quote": "上尊谥曰法天隆运至诚先觉体元立极敷文奋武孝慈神圣纯皇帝，庙号高宗。九月庚午，葬裕陵。",
+                "note": "上尊谥曰…纯皇帝，庙号高宗／2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "qing-shizu",
+                "verdict": "反例",
+                "file": "_corpus_cache/qing-shizu.txt",
+                "line": 238,
+                "quote": "上尊谥曰体天隆运英睿钦文大德弘功至仁纯孝章皇帝，庙号世祖，葬孝陵。累上尊谥曰体天隆运",
+                "note": "上尊谥曰…章皇帝，庙号世祖／2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "shiguo-beihan-liujien",
+                "verdict": "一致",
+                "checked": "_corpus_cache/shiguo-beihan-liujien.txt（全3行）に本人の諡の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "shiguo-nanhan-liuchang",
+                "verdict": "一致",
+                "checked": "_corpus_cache/shiguo-nanhan-liuchang.txt（全9行）に本人の諡の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "sui-gongdi-tong",
+                "verdict": "反例",
+                "file": "_corpus_cache/sui-gongdi-tong.txt",
+                "line": 8,
+                "quote": "世充伪谥为恭皇帝。",
+                "note": "世充伪谥为恭皇帝（王世充が贈った諡なので採否は判断が要る）／2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "suimo-yuwenhuaji",
+                "verdict": "一致",
+                "checked": "_corpus_cache/suimo-yuwenhuaji.txt（全8行）に本人の諡の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "tangmo-huangchao",
+                "verdict": "一致",
+                "checked": "_corpus_cache/tangmo-huangchao.txt（全18行）に本人の諡の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "tangmo-zhuci",
+                "verdict": "一致",
+                "checked": "_corpus_cache/tangmo-zhuci.txt（全18行）に本人の諡の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "wu-sunliang",
+                "verdict": "一致",
+                "checked": "_corpus_cache/wu-sunliang.txt（全11行）に本人の諡の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "wudai-houhan-gaozu",
+                "verdict": "反例",
+                "file": "_corpus_cache/wudai-houhan-gaozu.txt",
+                "line": 21,
+                "quote": "昭上谥曰睿文圣武昭肃孝皇帝，庙号高祖。十一月壬申，葬于睿陵，宰臣苏禹珪撰谥册、哀册文",
+                "note": "上谥曰睿文圣武昭肃孝皇帝，庙号高祖／2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "wudai-houzhou-shizong",
+                "verdict": "反例",
+                "file": "_corpus_cache/wudai-houzhou-shizong.txt",
+                "line": 96,
+                "quote": "俨上谥曰睿武孝文皇帝，庙号世宗。十一月壬寅朔，葬于庆陵。宰臣魏仁浦撰谥册文，王溥撰哀",
+                "note": "上谥曰睿武孝文皇帝，庙号世宗／2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "xixia-chongzong",
+                "verdict": "反例",
+                "file": "_corpus_cache/xixia-chongzong.txt",
+                "line": 1419,
+                "quote": "八，谥曰圣文皇帝，庙号崇宗，墓号显陵。长子仁孝立，时年十六。中国以其属于金，遂废册命",
+                "note": "谥曰圣文皇帝，庙号崇宗（3行目の惠宗の条と混同しない）／2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "xixia-shenzong",
+                "verdict": "反例",
+                "file": "_corpus_cache/xixia-shenzong.txt",
+                "line": 492,
+                "quote": "一，谥曰英文皇帝，庙号神宗。",
+                "note": "谥曰英文皇帝，庙号神宗（8行目の襄宗の条と混同しない）／2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "xixia-xianzong",
+                "verdict": "一致",
+                "checked": "_corpus_cache/xixia-xianzong.txt（全109行）に本人の諡の記述が無い。107行目は「在位四年，改元一，庙号献宗」で廟号だけを記し、諡を記さない（94行目の諡は神宗のもの）",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
+              },
+              {
+                "id": "yuanmo-mingsheng",
+                "verdict": "一致",
+                "checked": "_corpus_cache/yuanmo-mingsheng.txt（全7行）に本人の諡の記述が無い",
+                "note": "2026-08-11 に標本を 6 → 30 へ積んだ（ユーザー指示。種は 37 のまま・ハッシュ順なので既存6件は先頭に残り、引き直しにならない）"
               }
             ],
-            "sampleShiftNote": "取りこぼし率が 67%（6件中4件）から下がって見えるのは新しい証拠が出たためではなく、**反例だった ming-xuanzong・ming-yingzong の諡号を 2026-08-06 の明ブロックで確定して母集団から外したため**（残る189件についての推定は6件中2件＝33%で、区間は依然として広い）"
+            "sampleShiftNote": "取りこぼし率が 67%（6件中4件）から下がって見えるのは新しい証拠が出たためではなく、**反例だった ming-xuanzong・ming-yingzong の諡号を 2026-08-06 の明ブロックで確定して母集団から外したため**（残る189件についての推定は6件中2件＝33%で、区間は依然として広い）",
+            "result": "標本30件のうち反例 12件（標本内・`outOfSample` は除く）。取りこぼし率 12/30"
           }
         }
       ],

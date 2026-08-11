@@ -85,11 +85,11 @@ KNOWN_DEATH_BEFORE_END = {
     # beiwei-tuobayu は 2026-08-03 に解消。deathDate は月精度なのに `0452-10-01` と
     # 埋め草を持っていたため endDate `0452-10-29` より前に見えていた（Issue #69 の7節の3で
     # `0452-10` へ切り詰め、月精度で比較すると一致する）。**矛盾ではなく埋め草の副作用だった**
-    "shiguo-qianshu-wangjian",  # 0918-06 < 0918-07-11
-    "shiguo-nanhan-liusheng",   # 0958-08-01 < 0958-09-18
+    # shiguo-qianshu-wangjian・shiguo-nanhan-liusheng・shun-lichengzheng は
+    # 2026-08-11 の names-rest 検証段で解消。3件とも deathDate が旧暦月をそのまま
+    # 太陽暦の欄へ書いた形で、換算し直したら endDate との逆転が消えた
     "liao-jingzong",          # 0982-09-24 < 0982-10-13
     "liao-daozong",           # 1101-01-13 < 1101-02-12
-    "shun-lichengzheng",      # 1645-09 < 1645-10-01
 }
 
 # confidence が空文字のまま（現状該当なし。2-1 スキーマ検証で判明した4セル
