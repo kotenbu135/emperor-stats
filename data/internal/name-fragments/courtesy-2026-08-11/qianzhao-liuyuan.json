@@ -1,0 +1,24 @@
+{
+  "id": "qianzhao-liuyuan",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7547,
+      "quote": "名犯高祖庙讳，故称其字焉"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "元海",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "載記第一は**諱ではなく字で見出しを立てる**（唐高祖 李淵の諱を避けたため）。冒頭は「劉元海，新興匈奴人」で、字であることはこの句が言う"
+    }
+  ],
+  "discrepancies": "なし"
+}

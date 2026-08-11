@@ -1,0 +1,24 @@
+{
+  "id": "houqin-yaochang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8315,
+      "quote": "苌字景茂"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "景茂",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "載記第十六・姚萇の条の書き出し。**十六国春秋別伝は「子茂」と書く**が、正史の側を採る"
+    }
+  ],
+  "discrepancies": "晉書 載記「苌字景茂」と十六国春秋別伝「李苌字子茂」で割れる。正史を採り景茂とした"
+}

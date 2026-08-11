@@ -1,0 +1,24 @@
+{
+  "id": "gengshi-di",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "後漢書",
+      "file": "daizhigev20/史藏/正史/后汉书.txt",
+      "line": 2623,
+      "quote": "刘玄字圣公"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "聖公",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "卷十一 劉玄劉盆子列伝の書き出し。更始帝は本紀が立たず列伝に載る"
+    }
+  ],
+  "discrepancies": "なし"
+}

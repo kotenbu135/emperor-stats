@@ -1,0 +1,24 @@
+{
+  "id": "gongsun-shu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "後漢書",
+      "file": "daizhigev20/史藏/正史/后汉书.txt",
+      "line": 2789,
+      "quote": "公孙述字子阳"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "子陽",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "公孫述列伝の書き出し"
+    }
+  ],
+  "discrepancies": "なし"
+}

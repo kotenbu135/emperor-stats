@@ -1,0 +1,24 @@
+{
+  "id": "nanyan-murongchao",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8843,
+      "quote": "慕容超字祖明"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "祖明",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "載記第二十八の書き出し"
+    }
+  ],
+  "discrepancies": "なし"
+}

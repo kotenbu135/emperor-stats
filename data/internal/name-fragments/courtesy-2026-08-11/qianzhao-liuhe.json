@@ -1,0 +1,24 @@
+{
+  "id": "qianzhao-liuhe",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7562,
+      "quote": "和字玄泰"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "玄泰",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "載記第一・劉和の条の書き出し。**本人の原文キャッシュの1字目から在る**のに絞り込みが落としていた（定型が字の直前に区切りを要求するため）"
+    }
+  ],
+  "discrepancies": "なし"
+}

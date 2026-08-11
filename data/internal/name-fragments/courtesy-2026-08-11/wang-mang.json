@@ -1,0 +1,24 @@
+{
+  "id": "wang-mang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 4309,
+      "quote": "王莽字巨君"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "巨君",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "卷九十九上 王莽伝の書き出し"
+    }
+  ],
+  "discrepancies": "なし"
+}

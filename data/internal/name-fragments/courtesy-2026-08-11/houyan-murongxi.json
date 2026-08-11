@@ -1,0 +1,24 @@
+{
+  "id": "houyan-murongxi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8680,
+      "quote": "熙字道文"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "道文",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "載記第二十四・慕容熙の条の書き出し"
+    }
+  ],
+  "discrepancies": "なし"
+}

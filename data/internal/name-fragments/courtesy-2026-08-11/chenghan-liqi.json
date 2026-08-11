@@ -1,0 +1,24 @@
+{
+  "id": "chenghan-liqi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8544,
+      "quote": "期字世运"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "世運",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "載記第二十一の李期の条の書き出し。**姓を伴わない「〈諱〉字〈字〉」の形**で、絞り込みの定型（字の直前に区切りを要求する）には当たらない"
+    }
+  ],
+  "discrepancies": "なし"
+}

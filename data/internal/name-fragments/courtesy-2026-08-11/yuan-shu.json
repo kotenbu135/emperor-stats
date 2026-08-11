@@ -1,0 +1,24 @@
+{
+  "id": "yuan-shu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "後漢書",
+      "file": "daizhigev20/史藏/正史/后汉书.txt",
+      "line": 7563,
+      "quote": "袁术字公路"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "公路",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "袁術列伝の書き出し"
+    }
+  ],
+  "discrepancies": "なし"
+}

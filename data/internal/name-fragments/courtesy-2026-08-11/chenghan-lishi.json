@@ -1,0 +1,24 @@
+{
+  "id": "chenghan-lishi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8558,
+      "quote": "势字子仁"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "子仁",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "載記第二十一・李勢の条の書き出し"
+    }
+  ],
+  "discrepancies": "なし"
+}

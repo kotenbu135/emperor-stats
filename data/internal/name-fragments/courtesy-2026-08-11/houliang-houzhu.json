@@ -1,0 +1,24 @@
+{
+  "id": "houliang-houzhu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 7123,
+      "quote": "琮字温文"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.courtesyName",
+      "value": "温文",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "卷七十九 外戚伝の蕭琮の条の書き出し（周書卷四十八・北史卷九十三も同文）。2026-08-11 の標本監査で反例として出た1件"
+    }
+  ],
+  "discrepancies": "なし"
+}

@@ -8112,7 +8112,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "聖公"
    },
    "eraId": "qin-han",
    "regimeId": "xuanhan",
@@ -14611,7 +14612,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "巨君"
    },
    "eraId": "qin-han",
    "regimeId": "xin",
@@ -15257,7 +15259,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "子陽"
    },
    "eraId": "qin-han",
    "regimeId": "chengjia",
@@ -19447,7 +19450,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "公路"
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "zhongjia",
@@ -25913,7 +25917,8 @@
     "aliases": [],
     "posthumousName": "威王",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "太伯"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-liang",
@@ -26111,7 +26116,8 @@
     "aliases": [],
     "posthumousName": "光文帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "元海"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-zhao",
@@ -26341,7 +26347,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "玄泰"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-zhao",
@@ -28457,7 +28464,8 @@
     "aliases": [],
     "posthumousName": "幽公",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "世運"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "cheng-han",
@@ -28662,7 +28670,8 @@
     "aliases": [],
     "posthumousName": "昭文帝",
     "templeName": "中宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "武考"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "cheng-han",
@@ -28866,7 +28875,8 @@
     "aliases": [],
     "posthumousName": "後主",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "子仁"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "cheng-han",
@@ -31037,7 +31047,8 @@
     "aliases": [],
     "posthumousName": "厲王",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "長生"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-qin",
@@ -31437,7 +31448,8 @@
     "aliases": [],
     "posthumousName": "高帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "文高"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-qin",
@@ -33556,7 +33568,8 @@
     "aliases": [],
     "posthumousName": "昭武帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "道運"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-yan",
@@ -33844,7 +33857,8 @@
     "aliases": [],
     "posthumousName": "昭文帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "道文"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-yan",
@@ -35174,7 +35188,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "祖明"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "southern-yan",
@@ -35407,7 +35422,8 @@
     "aliases": [],
     "posthumousName": "武昭帝",
     "templeName": "太祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "景茂"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-qin",
@@ -43200,7 +43216,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "温文"
    },
    "eraId": "northern-southern",
    "regimeId": "western-liang",
