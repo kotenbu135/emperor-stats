@@ -1,0 +1,32 @@
+{
+  "id": "beiqi-andewang-gaoyanzong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-andewang-gaoyanzong.txt",
+      "line": 1,
+      "quote": "安德王延宗，文襄第五子也"
+    },
+    {
+      "cid": "c2",
+      "book": "北齊書",
+      "file": "daizhigev20/史藏/正史/北齐书.txt",
+      "line": 438,
+      "quote": "及安德王称尊号于晋阳"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**`commonName`「安徳王高延宗」の末尾「宗」は諱の一部**であって廟号ではない（絞り込みの正規表現に当たるだけの偽陽性）。北齊書はこの人物を列傳で「〈王号〉〈名〉，〈続柄〉」の定型で立て（c1）、晋陽で尊号を称した記事にも廟号が伴わない（c2）。書の廟号記事18件はいずれも別人"
+    }
+  ],
+  "discrepancies": "なし"
+}

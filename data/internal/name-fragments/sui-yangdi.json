@@ -1,0 +1,41 @@
+{
+  "id": "sui-yangdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "隋書",
+      "file": "_corpus_cache/sui-yangdi.txt",
+      "line": 2,
+      "quote": "炀皇帝，讳广，一名英，小字阿摐，高祖第二子也"
+    },
+    {
+      "cid": "c2",
+      "book": "隋書",
+      "file": "_corpus_cache/sui-yangdi.txt",
+      "line": 35,
+      "quote": "史臣曰：炀帝爰在弱龄，早有令闻"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "煬皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行が掲げる形（c1）。**廟号を持たない帝は諡から始まる**（政権慣行の variants）。隋書はこの諡を与えた条を持たない（唐が与えた諡なので当然）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "煬帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "**短縮呼称は隋書が本文で使う形**。巻の見出しが「炀帝上」「炀帝下」で、史臣曰も「炀帝爰在弱龄」と書く（c2）"
+    }
+  ],
+  "discrepancies": "なし"
+}

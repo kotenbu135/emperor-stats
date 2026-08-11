@@ -1,0 +1,40 @@
+{
+  "id": "beiqi-feidi-gaoyin",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-feidi-gaoyin.txt",
+      "line": 2,
+      "quote": "废帝殷，字正道，文宣帝之长子也"
+    },
+    {
+      "cid": "c2",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-feidi-gaoyin.txt",
+      "line": 4,
+      "quote": "太皇太后令废帝为济南王"
+    },
+    {
+      "cid": "c3",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-feidi-gaoyin.txt",
+      "line": 4,
+      "quote": "皇建二年九月，殂于晋阳，年十七"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。冒頭1行が諡ではなく位号「废帝」で立ち（c1）、廃位後は済南王として殂した記事で紀が終わる（c2・c3）。**「廃帝」は位号であって諡ではない**（前漢の前少帝・五代の梁末帝と同じ型）。北齊書の「谥」は他の帝には崩御条で必ず付くので、書かれ方の問題ではない"
+    }
+  ],
+  "discrepancies": "なし"
+}

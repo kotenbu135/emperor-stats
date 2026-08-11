@@ -1,0 +1,50 @@
+{
+  "id": "xiwei-wendi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "北史",
+      "file": "_corpus_cache/xiwei-wendi.txt",
+      "line": 1,
+      "quote": "文皇帝讳宝炬，孝文皇帝之孙，京兆王愉之子也"
+    },
+    {
+      "cid": "c2",
+      "book": "北史",
+      "file": "_corpus_cache/xiwei-wendi.txt",
+      "line": 18,
+      "quote": "十七年春三月庚戌，帝崩于乾安殿，时年四十五。夏四月庚辰，葬于永陵，上谥曰文皇帝"
+    },
+    {
+      "cid": "c3",
+      "book": "北史",
+      "file": "daizhigev20/史藏/正史/北史.txt",
+      "line": 847,
+      "quote": "西魏文帝崩"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "文皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行（c1）と崩御条（c2）が一致する。**魏書は西魏の本紀を立てないので北史 卷五を使う**"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "文帝",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "**短縮呼称は北史が本文で使う形**。東魏側の紀が「西魏文帝崩」と書き（c3）、同じ書が「是岁，西魏文帝大统元年也」とも書く。東西の魏を区別するため王朝名を冠するが、名乗りの形は〈諡〉＋帝"
+    }
+  ],
+  "discrepancies": "なし"
+}

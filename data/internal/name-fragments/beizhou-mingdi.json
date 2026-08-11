@@ -1,0 +1,50 @@
+{
+  "id": "beizhou-mingdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-mingdi.txt",
+      "line": 2,
+      "quote": "世宗明皇帝讳毓，小名统万突，太祖长子也"
+    },
+    {
+      "cid": "c2",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-mingdi.txt",
+      "line": 36,
+      "quote": "谥曰明皇帝，庙称世宗"
+    },
+    {
+      "cid": "c3",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 1110,
+      "quote": "明帝独孤皇后，太保、卫国公信之长女"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "明皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行が掲げる形（c1）と崩御条（c2）が一致する。**崩御条の廟号の語は「庙称」**（魏書 明元帝・漢書 賈捐之伝と同じ語で、「庙号」だけで走査すると落ちる）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "明帝",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "**短縮呼称は周書が本文で使う形**。皇后伝は帝を「〈諡〉帝〈姓〉皇后」で並べ（「明帝独孤皇后」「武帝阿史那皇后」「宣帝杨皇后」）、史臣曰も「静帝越自幼冲」と書く。冒頭1行と崩御条が掲げるのは全長形"
+    }
+  ],
+  "discrepancies": "なし"
+}

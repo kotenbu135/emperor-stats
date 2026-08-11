@@ -1,0 +1,42 @@
+{
+  "id": "hou-han-shaodi-bian",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "後漢書",
+      "file": "_corpus_cache/hou-han-shaodi-bian.txt",
+      "line": 1,
+      "quote": "戊午，皇子辩即皇帝位，年十七"
+    },
+    {
+      "cid": "c2",
+      "book": "後漢書",
+      "file": "_corpus_cache/hou-han-shaodi-bian.txt",
+      "line": 9,
+      "quote": "九月甲戌，董卓废帝为弘农王"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。冒頭1行が諡ではなく位号で立ち、廃位後に王・侯へ降されて終わる。**位号は諡ではない**（前漢の前少帝・五代の梁末帝と同じ型）。後漢書は劉辯に独立の紀を立てず霊帝紀・献帝紀の中で「少帝」と呼ぶだけで（c1）、董卓が弘農王へ廃した記事で終わる（c2）。この範囲に単字「谥」が0件"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "同じ理由。位号は諡ではない"
+    }
+  ],
+  "discrepancies": "なし"
+}

@@ -1,0 +1,50 @@
+{
+  "id": "beizhou-xuandi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-xuandi.txt",
+      "line": 2,
+      "quote": "宣皇帝讳赟，字干伯，高祖长子也"
+    },
+    {
+      "cid": "c2",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-xuandi.txt",
+      "line": 36,
+      "quote": "谥曰宣皇帝"
+    },
+    {
+      "cid": "c3",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-jingdi.txt",
+      "line": 2,
+      "quote": "宣帝于邺宫传位授帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "宣皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行（c1）と崩御条（c2）。**廟号が伴わない**（周書は宣帝に廟号を与えない）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "宣帝",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "**短縮呼称は周書が本文で使う形**。皇后伝は帝を「〈諡〉帝〈姓〉皇后」で並べ（「明帝独孤皇后」「武帝阿史那皇后」「宣帝杨皇后」）、史臣曰も「静帝越自幼冲」と書く。冒頭1行と崩御条が掲げるのは全長形"
+    }
+  ],
+  "discrepancies": "なし"
+}

@@ -1,0 +1,50 @@
+{
+  "id": "beizhou-jingdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-jingdi.txt",
+      "line": 2,
+      "quote": "静皇帝讳衍，后改为阐，宣帝长子也"
+    },
+    {
+      "cid": "c2",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-jingdi.txt",
+      "line": 20,
+      "quote": "谥曰静皇帝，葬恭陵"
+    },
+    {
+      "cid": "c3",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 1088,
+      "quote": "史臣曰：静帝越自幼冲，绍兹衰绪"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "静皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行（c1）と崩御条（c2）。廟号は伴わない"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "静帝",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "**短縮呼称は周書が本文で使う形**。皇后伝は帝を「〈諡〉帝〈姓〉皇后」で並べ（「明帝独孤皇后」「武帝阿史那皇后」「宣帝杨皇后」）、史臣曰も「静帝越自幼冲」と書く。冒頭1行と崩御条が掲げるのは全長形"
+    }
+  ],
+  "discrepancies": "なし"
+}

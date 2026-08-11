@@ -1,0 +1,50 @@
+{
+  "id": "beiqi-wenxuandi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-wenxuandi.txt",
+      "line": 2,
+      "quote": "显祖文宣皇帝，讳洋，字子进"
+    },
+    {
+      "cid": "c2",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-wenxuandi.txt",
+      "line": 35,
+      "quote": "谥曰文宣皇帝，庙号威宗。武平初，又改为文宣，庙号显祖"
+    },
+    {
+      "cid": "c3",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-feidi-gaoyin.txt",
+      "line": 2,
+      "quote": "文宣帝之长子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "文宣皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行が掲げる形（c1）。崩御条も同じ形で、廟号だけが威宗→顕祖と改まっている（c2）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "文宣帝",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "**短縮呼称は北齊書が本文で使う形**。この書は「〈諡〉帝」で帝を指す条を持ち（廢帝紀の「文宣帝之长子也」・武明皇后伝の「孝昭帝崩…立武成帝」・神武紀の「追崇为献武帝」）、末字＋皇帝の形は使わない。冒頭1行が掲げるのは全長形"
+    }
+  ],
+  "discrepancies": "なし"
+}

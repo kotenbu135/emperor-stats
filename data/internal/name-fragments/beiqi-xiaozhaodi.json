@@ -1,0 +1,50 @@
+{
+  "id": "beiqi-xiaozhaodi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-xiaozhaodi.txt",
+      "line": 2,
+      "quote": "孝昭皇帝演，字延安"
+    },
+    {
+      "cid": "c2",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-xiaozhaodi.txt",
+      "line": 6,
+      "quote": "上谥曰孝昭皇帝"
+    },
+    {
+      "cid": "c3",
+      "book": "北齊書",
+      "file": "daizhigev20/史藏/正史/北齐书.txt",
+      "line": 384,
+      "quote": "孝昭帝崩，太后又下诏立武成帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝昭皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行が掲げる形（c1）。**「讳」を挟まず諱が直接続く異形**で、政権慣行の variants に記録済み"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "孝昭帝",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "**短縮呼称は北齊書が本文で使う形**。この書は「〈諡〉帝」で帝を指す条を持ち（廢帝紀の「文宣帝之长子也」・武明皇后伝の「孝昭帝崩…立武成帝」・神武紀の「追崇为献武帝」）、末字＋皇帝の形は使わない。冒頭1行が掲げるのは全長形"
+    }
+  ],
+  "discrepancies": "なし"
+}

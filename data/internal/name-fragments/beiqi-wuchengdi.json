@@ -1,0 +1,50 @@
+{
+  "id": "beiqi-wuchengdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-wuchengdi.txt",
+      "line": 2,
+      "quote": "世祖武成皇帝，讳湛"
+    },
+    {
+      "cid": "c2",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-wuchengdi.txt",
+      "line": 9,
+      "quote": "谥曰武成皇帝，庙号世祖"
+    },
+    {
+      "cid": "c3",
+      "book": "北齊書",
+      "file": "daizhigev20/史藏/正史/北齐书.txt",
+      "line": 384,
+      "quote": "孝昭帝崩，太后又下诏立武成帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "武成皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行が掲げる形（c1）と崩御条（c2）が一致する"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "武成帝",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "**短縮呼称は北齊書が本文で使う形**。この書は「〈諡〉帝」で帝を指す条を持ち（廢帝紀の「文宣帝之长子也」・武明皇后伝の「孝昭帝崩…立武成帝」・神武紀の「追崇为献武帝」）、末字＋皇帝の形は使わない。冒頭1行が掲げるのは全長形"
+    }
+  ],
+  "discrepancies": "なし"
+}

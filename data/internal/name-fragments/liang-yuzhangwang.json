@@ -1,0 +1,42 @@
+{
+  "id": "liang-yuzhangwang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "梁書",
+      "file": "_corpus_cache/liang-yuzhangwang.txt",
+      "line": 5,
+      "quote": "矫为太宗诏，禅于豫章嗣王栋，大赦改年"
+    },
+    {
+      "cid": "c2",
+      "book": "梁書",
+      "file": "_corpus_cache/liang-yuzhangwang.txt",
+      "line": 27,
+      "quote": "辛卯，宣猛将军硃买臣密害豫章嗣王栋，及其二弟桥、樛，世祖志也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**梁書はこの人物に独立した紀を立てない** — 侯景が簡文帝を廃して豫章嗣王栋に禅らせた記事（c1）と、殺害の記事（c2）が簡文帝紀・元帝紀の中に在るだけで、諡を与える条が無い。同じ巻の簡文帝には偽諡「谥曰明皇帝，庙称高宗」が書かれるので、書かれ方の問題ではない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "同じ理由"
+    }
+  ],
+  "discrepancies": "なし"
+}

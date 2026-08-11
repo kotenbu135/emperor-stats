@@ -7,6 +7,13 @@
       "file": "_corpus_cache/beiwei-xiaowudi.txt",
       "line": 1,
       "quote": "出帝，讳修，字孝则，广平武穆王怀之第三子也"
+    },
+    {
+      "cid": "c2",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 7229,
+      "quote": "复黜之，后更立武帝"
     }
   ],
   "findings": [
@@ -17,7 +24,7 @@
         "c1"
       ],
       "confidence": "high",
-      "note": "魏書は元脩を「出帝」の位号で立てる（c1）。走査でも諡・廟号の条は出ない。**現行の templeName「出帝」は位号を廟号の欄へ入れたもので、この訂正で null に戻した**（孝武帝の呼称は北史・通鑑側で、commonName が既に持つ）"
+      "note": "魏書は元脩を「出帝」の位号で立てる（c1）。走査でも廟号の条は出ない。**現行の templeName「出帝」は位号を廟号の欄へ入れたもので、2026-08-10 に null へ戻した**"
     },
     {
       "field": "name.posthumousNameFull",
@@ -26,8 +33,18 @@
         "c1"
       ],
       "confidence": "high",
-      "note": "魏書は元脩を「出帝」の位号で立てる（c1）。走査でも諡・廟号の条は出ない。**現行の templeName「出帝」は位号を廟号の欄へ入れたもので、この訂正で null に戻した**（孝武帝の呼称は北史・通鑑側で、commonName が既に持つ）"
+      "note": "位号は諡ではないのでこの欄には入らない"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**魏書に「孝武帝」は1件しか無く、それは漢の武帝**（「莫汉孝武帝东巡狩封禅」）。この書が元脩に使うのは位号「出帝」（131件）で、天象志が裸の「武帝」で指す条が1件在るだけ（c2）。`commonName` の「孝武帝（出帝）」の前半は北史・通鑑側の名乗り"
     }
   ],
-  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+  "discrepancies": "なし"
 }

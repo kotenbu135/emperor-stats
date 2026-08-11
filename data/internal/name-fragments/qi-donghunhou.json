@@ -7,6 +7,13 @@
       "file": "_corpus_cache/qi-donghunhou.txt",
       "line": 2,
       "quote": "东昏侯宝卷，字智藏，高宗第二子也。本名明贤，高宗辅政后改焉"
+    },
+    {
+      "cid": "c2",
+      "book": "南齊書",
+      "file": "_corpus_cache/qi-donghunhou.txt",
+      "line": 24,
+      "quote": "又令依汉海昏侯故事，追封东昏侯"
     }
   ],
   "findings": [
@@ -36,6 +43,16 @@
       ],
       "confidence": "high",
       "note": "冒頭の「本名明贤」は**改名前の名**であって幼名ではない（南齊書が幼名を立てるときは「小讳」「小名」の語を使う）。人物側の欠落"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。冒頭1行が諡ではなく位号で立ち、廃位後に王・侯へ降されて終わる。**位号は諡ではない**（前漢の前少帝・五代の梁末帝と同じ型）。追封は「漢の海昏侯の故事に依る」侯爵で（c4）、南齊書 東昏侯紀に単字「谥」が0件"
     }
   ],
   "discrepancies": "なし"

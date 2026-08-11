@@ -28,18 +28,18 @@
       ],
       "script": "scripts/screens/name_fields.py",
       "population": "365人 × {templeName, posthumousName} のうち**値が空のセル**（埋まっているセルの訂正は別作業）",
-      "n": 447,
+      "n": 435,
       "buckets": [
         {
           "name": "templeName:transcribe",
           "kind": "read",
-          "count": 19,
+          "count": 18,
           "means": "commonName が廟号形（〜祖／〜宗）なのに templeName が空。**取りこぼしと言い切れる**ので、本紀冒頭の1行を転記する作業に落ちる"
         },
         {
           "name": "templeName:read-absent",
           "kind": "corroborated",
-          "count": 4,
+          "count": 5,
           "means": "commonName が廟号形で立っていて `templeName` が空だが、**その人物の原文を読んで「この書はこの人に廟号を与えない」と決めたセル**（元 恵宗・明 代宗・明 恵宗・清 恭宗）。証人は name-fragments の `findings[{field, value: null}]` で、散文の note ではない",
           "establishes": "**この人物・この項目は読み終わっている**ということ。`transcribe` は空セルを数えるので、読んで「空が正しい」と決めたセルもそのまま残り、件数だけを見ると作業が終わらないように見える。**読み終わりを機械可読の証人（`findings[].value: null`）から数え直したのがこのバケット**",
           "notEstablished": "**他の書がその人物に廟号を与えていないこと**。証人が言うのはその書について読んだ結果までで、追尊・私諡の類は別の器（`posthumousNames` や紹介文）で扱う"
@@ -47,13 +47,13 @@
         {
           "name": "posthumousName:transcribe",
           "kind": "read",
-          "count": 48,
+          "count": 21,
           "means": "commonName が諡号形（〜帝）なのに posthumousName が空。同上。ただし「天順帝（通称）」のように元号由来の通称が混じるので、転記先の判定は人が行う"
         },
         {
           "name": "posthumousName:read-absent",
           "kind": "corroborated",
-          "count": 6,
+          "count": 21,
           "means": "commonName が諡号形で立っていて `posthumousName` が空だが、**読んだうえで空が正しいと決めたセル**（前漢の前少帝・後少帝・廃帝劉賀／五代の梁末帝・唐末帝・晋少帝）。いずれも「〈X〉帝」が位号であって諡ではない型",
           "establishes": "**この人物・この項目は読み終わっている**ということ。`transcribe` は空セルを数えるので、読んで「空が正しい」と決めたセルもそのまま残り、件数だけを見ると作業が終わらないように見える。**読み終わりを機械可読の証人（`findings[].value: null`）から数え直したのがこのバケット**",
           "notEstablished": "**他の書がその人物に廟号を与えていないこと**。証人が言うのはその書について読んだ結果までで、追尊・私諡の類は別の器（`posthumousNames` や紹介文）で扱う"

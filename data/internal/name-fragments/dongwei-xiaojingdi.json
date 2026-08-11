@@ -7,27 +7,34 @@
       "file": "_corpus_cache/dongwei-xiaojingdi.txt",
       "line": 2,
       "quote": "孝静皇帝，讳善见，清河文宣王亶之世子也"
+    },
+    {
+      "cid": "c2",
+      "book": "魏書",
+      "file": "_corpus_cache/dongwei-xiaojingdi.txt",
+      "line": 53,
+      "quote": "三年二月，奉谥曰孝静皇帝，葬于漳西山岗"
+    },
+    {
+      "cid": "c3",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 1214,
+      "quote": "孝静帝宴齐文襄王于华林园"
     }
   ],
   "findings": [
     {
-      "field": "name.posthumousNameFull",
-      "value": "孝静皇帝",
+      "field": "name.posthumousName",
+      "value": "孝静帝",
       "basis": [
-        "c1"
+        "c1",
+        "c2",
+        "c3"
       ],
       "confidence": "high",
-      "note": "冒頭が掲げる形（c1）。魏書は東魏孝静帝の諡を廟号なしで冒頭に立てる"
-    },
-    {
-      "field": "name.templeName",
-      "value": null,
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "東魏孝静帝は廟号を持たない。魏書の冒頭は諡から始まり（c1）、走査でも元善見に廟号を与える条は出ない"
+      "note": "**短縮呼称は魏書が本文で使う形**。列傳（孫紹伝の隣）が「孝静帝宴齐文襄王于华林園」と書く（c3）。冒頭1行（c1）と、北斉に禅った後の中山王としての上諡（c2）が掲げるのは全長形「孝静皇帝」で、こちらは既に `posthumousNameFull` に入っている"
     }
   ],
-  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+  "discrepancies": "なし"
 }

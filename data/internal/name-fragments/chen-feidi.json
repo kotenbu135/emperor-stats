@@ -1,0 +1,42 @@
+{
+  "id": "chen-feidi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-feidi.txt",
+      "line": 6,
+      "quote": "式稽故实，宜在流放，今可特降为临海郡王，送还籓邸"
+    },
+    {
+      "cid": "c2",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-feidi.txt",
+      "line": 9,
+      "quote": "史臣曰：临海虽继体之重，仁厚懦弱"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。冒頭1行が諡ではなく位号で立ち、廃位後に王・侯へ降されて終わる。**位号は諡ではない**（前漢の前少帝・五代の梁末帝と同じ型）。陳書 廢帝紀に単字「谥」が0件で、降されたのは臨海郡王（c1）。史臣曰も「临海」と位号で呼ぶ（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "同じ理由。位号は諡ではないのでこの欄にも入らない"
+    }
+  ],
+  "discrepancies": "なし"
+}

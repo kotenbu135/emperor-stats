@@ -7,6 +7,13 @@
       "file": "_corpus_cache/liu-song-shaodi.txt",
       "line": 2,
       "quote": "少帝讳义符，小字车兵"
+    },
+    {
+      "cid": "c2",
+      "book": "宋書",
+      "file": "_corpus_cache/liu-song-shaodi.txt",
+      "line": 5,
+      "quote": "今废为营阳王，一依汉昌邑、晋海西故事"
     }
   ],
   "findings": [
@@ -36,6 +43,16 @@
       ],
       "confidence": "high",
       "note": "冒頭は諱と小字だけで字の欄を持たない。宋書は10人中7人に字を挙げるので、これは人物側の欠落"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。冒頭1行が諡ではなく位号で立ち、廃位後に王・侯へ降されて終わる。**位号は諡ではない**（前漢の前少帝・五代の梁末帝と同じ型）。宋書 少帝紀に単字「谥」が0件で、廃位の詔は営陽王への降格を「漢の昌邑・晋の海西の故事に依る」と明言する（c4）"
     }
   ],
   "discrepancies": "なし"

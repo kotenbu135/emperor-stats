@@ -14,6 +14,13 @@
       "file": "daizhigev20/史藏/正史/南齐书.txt",
       "line": 254,
       "quote": "太祖高皇帝肇基骏命，膺录受图，世祖武皇帝系明下武，高宗明皇帝重隆景业"
+    },
+    {
+      "cid": "c3",
+      "book": "南齊書",
+      "file": "_corpus_cache/qi-yulinwang.txt",
+      "line": 10,
+      "quote": "史臣曰：郁林王风华外美，众所同惑"
     }
   ],
   "findings": [
@@ -44,6 +51,16 @@
       ],
       "confidence": "high",
       "note": "同じ理由。位号は諡ではないのでこの欄には入らない"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。冒頭1行が諡ではなく位号で立ち、廃位後に王・侯へ降されて終わる。**位号は諡ではない**（前漢の前少帝・五代の梁末帝と同じ型）。南齊書 鬱林王紀に単字「谥」が0件で、史臣曰も位号で呼ぶ（c3）"
     }
   ],
   "discrepancies": "なし"

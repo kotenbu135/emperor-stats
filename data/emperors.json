@@ -53830,7 +53830,7 @@
     "personalName": "善見",
     "commonName": "孝静帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "孝静帝",
     "templeName": null,
     "regnalTitle": "皇帝",
     "posthumousNameFull": "孝静皇帝"
@@ -54381,10 +54381,11 @@
     "personalName": "洋",
     "commonName": "文宣帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "文宣帝",
     "templeName": "顕祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "子進"
+    "courtesyName": "子進",
+    "posthumousNameFull": "文宣皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-qi",
@@ -54912,10 +54913,11 @@
     "personalName": "演",
     "commonName": "孝昭帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "孝昭帝",
     "templeName": "粛宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "延安"
+    "courtesyName": "延安",
+    "posthumousNameFull": "孝昭皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-qi",
@@ -55116,9 +55118,10 @@
     "personalName": "湛",
     "commonName": "武成帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "武成帝",
     "templeName": "世祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "武成皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-qi",
@@ -56385,9 +56388,10 @@
     "personalName": "宝炬",
     "commonName": "文帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "文帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "文皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "western-wei",
@@ -57017,9 +57021,10 @@
     "personalName": "廓",
     "commonName": "恭帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "恭帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "恭皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "western-wei",
@@ -57191,9 +57196,10 @@
     "personalName": "毓",
     "commonName": "明帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "明帝",
     "templeName": "世宗",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "明皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-zhou",
@@ -57388,10 +57394,11 @@
     "personalName": "邕",
     "commonName": "武帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "武帝",
     "templeName": "高祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "禰羅突"
+    "courtesyName": "禰羅突",
+    "posthumousNameFull": "武皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-zhou",
@@ -57854,10 +57861,11 @@
     "personalName": "贇",
     "commonName": "宣帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "宣帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "乾伯"
+    "courtesyName": "乾伯",
+    "posthumousNameFull": "宣皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-zhou",
@@ -58184,9 +58192,10 @@
     "personalName": "闡",
     "commonName": "静帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "静帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "静皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-zhou",
@@ -58480,9 +58489,10 @@
     "personalName": "堅",
     "commonName": "文帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "文帝",
     "templeName": "高祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "文皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "sui",
@@ -58917,10 +58927,11 @@
     "personalName": "広",
     "commonName": "煬帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "煬帝",
     "templeName": "世祖",
     "regnalTitle": "皇帝",
-    "childhoodName": "阿摐"
+    "childhoodName": "阿摐",
+    "posthumousNameFull": "煬皇帝"
    },
    "eraId": "sui-tang",
    "regimeId": "sui",

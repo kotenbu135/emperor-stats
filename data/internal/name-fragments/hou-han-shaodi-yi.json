@@ -1,0 +1,42 @@
+{
+  "id": "hou-han-shaodi-yi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "後漢書",
+      "file": "_corpus_cache/hou-han-shaodi-yi.txt",
+      "line": 1,
+      "quote": "立章帝孙济北惠王寿子北乡侯懿"
+    },
+    {
+      "cid": "c2",
+      "book": "後漢書",
+      "file": "_corpus_cache/hou-han-shaodi-yi.txt",
+      "line": 1,
+      "quote": "乙酉，北乡侯即皇帝位"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。冒頭1行が諡ではなく位号で立ち、廃位後に王・侯へ降されて終わる。**位号は諡ではない**（前漢の前少帝・五代の梁末帝と同じ型）。後漢書は劉懿を安帝紀・順帝紀の中で「北郷侯」と侯号で呼ぶだけで（c1・c2）、諡を与える条が無い。この範囲に単字「谥」が0件"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "同じ理由。侯号は諡ではない"
+    }
+  ],
+  "discrepancies": "なし"
+}

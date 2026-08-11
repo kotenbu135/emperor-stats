@@ -1,0 +1,50 @@
+{
+  "id": "beizhou-wudi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-wudi.txt",
+      "line": 2,
+      "quote": "高祖武皇帝讳邕，字祢罗突，太祖第四子也"
+    },
+    {
+      "cid": "c2",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-wudi.txt",
+      "line": 244,
+      "quote": "谥曰武皇帝，庙称高祖"
+    },
+    {
+      "cid": "c3",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 1110,
+      "quote": "武帝阿史那皇后，突厥木扞可汗俟斤之女"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "武皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行（c1）と崩御条（c2）が一致する。語は「庙称」"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "武帝",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "**短縮呼称は周書が本文で使う形**。皇后伝は帝を「〈諡〉帝〈姓〉皇后」で並べ（「明帝独孤皇后」「武帝阿史那皇后」「宣帝杨皇后」）、史臣曰も「静帝越自幼冲」と書く。冒頭1行と崩御条が掲げるのは全長形"
+    }
+  ],
+  "discrepancies": "なし"
+}

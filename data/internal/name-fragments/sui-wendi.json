@@ -1,0 +1,41 @@
+{
+  "id": "sui-wendi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "隋書",
+      "file": "_corpus_cache/sui-wendi.txt",
+      "line": 2,
+      "quote": "高祖文皇帝，姓杨氏，讳坚，弘农郡华阴人也"
+    },
+    {
+      "cid": "c2",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 212,
+      "quote": "大业元年，孟春祀感帝，孟冬祀神州，改以高祖文帝配"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "文皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行が掲げる形（c1）。**隋書は文帝自身の上諡の条を紀に持たない** — 帝紀の「谥曰」は父祖への追贈（桓・康・献）で、この書の名乗りは冒頭1行に閉じている"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "文帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "**短縮呼称は隋書が本文で使う形**。礼儀志が郊祀の配位を「高祖文帝配」と書く（c2）。冒頭1行が掲げるのは全長形"
+    }
+  ],
+  "discrepancies": "なし"
+}
