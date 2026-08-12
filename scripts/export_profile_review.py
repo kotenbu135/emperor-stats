@@ -33,11 +33,12 @@ Gemini へ渡したところ、写しが6箇所で途中欠けし、レビュー
     python3 scripts/export_profile_review.py tangmo-anlushan tangmo-shisiming --name tangmo
     python3 scripts/export_profile_review.py --section 唐              # researchSection で選ぶ
     python3 scripts/export_profile_review.py tangmo-huangchao --with-source  # 原文を同梱
-    python3 scripts/export_profile_review.py tangmo-anlushan tangmo-zhuci --split  # 1人1ファイル
+    python3 scripts/export_profile_review.py --all --split   # 1人1ファイル（`NNN-<id>.md`）
 
-**2人以上は既定で1ファイルにまとめる。** 同じ時代・同じ経路の人物が並ぶバッチでは
-「似た言い回し・同じ構成の反復」が最大の欠点になり、それは1本ずつ見ても出ない
-（文字どおりの重なりは `check_profile_ngram.py` が落とすが、構成の反復は落ちない）。
+**1人1ファイル（`--split`）が既定の渡し方**（2026-08-12）。まとめて出すのは
+「本どうしの型の反復」を見てもらうための器だったが、その観点は 2026-08-09 に落としたので
+束ねる理由が無くなった。1本ずつなら指摘の箇所も本文の切れも1人の中で閉じる。
+2人以上を1ファイルへ入れる `--chunk`／既定のまとめ出しは残してあるが、外部レビューには使わない。
 
 出力は `review/`（`.gitignore` 対象・`--out` で変更可）。`--with-source` は
 `_corpus_cache/<id>.txt` を末尾に付ける。原文を同梱すると「本文の事実が原文に在るか」まで
@@ -120,10 +121,16 @@ BRIEF = """\
    一般語なのに振っているもの（「皇太子」「儒学」のような語には振りません）、
    逆に**本文に出ているのに一覧に無く、読者が読めそうにない語**
 {cross}
-## 各本に付いている「確定値」
+## 本文の前に付いている「確定値」
 
 原典から確定させた調査結果です。**本文がこれと食い違っていたら指摘してください**
-（在位年・年齢・死因・即位経路。本文側が誤っている可能性が高い箇所です）。
+（在位年・年齢・死因・即位経路と、廟号・諡号・姓・諱・字・幼名などの呼称。本文側が
+誤っている可能性が高い箇所です）。
+
+ただし**本文が人物をどう呼ぶかは「現代で通っている呼び方」に揃えてあります**。
+廟号・諡号・諱のどれで呼ぶかが確定値の並びと違っていても、それは意図した表記なので
+指摘は要りません。見ていただきたいのは**中身の食い違い**です（廟号そのものが違う、
+別人の諱になっている、本文の字・幼名が確定値と別の字になっている、など）。
 
 ## 返し方
 
@@ -131,8 +138,8 @@ BRIEF = """\
 
 | 箇所 | 観点 | 指摘 |
 |---|---|---|
-| [3-2] | 2 | 「〜して〜した」が2つの出来事を1文にまとめている疑い |
-| [5-1] | 1 | 通説では即位は881年正月とされることが多い |
+| [{ex1}] | 2 | 「〜して〜した」が2つの出来事を1文にまとめている疑い |
+| [{ex2}] | 1 | 通説では即位は881年正月とされることが多い |
 
 書き直した文は載せないでください。
 """
@@ -202,9 +209,22 @@ def facts_of(record: dict, labels: dict[str, dict[str, str]]) -> list[str]:
     out.append(f"- 正式な呼称: {name.get('commonName')}")
     if name.get("familyName") or name.get("personalName"):
         out.append(f"- 姓: {name.get('familyName') or '—'} ／ 諱: {name.get('personalName') or '—'}")
-    for label, key in (("廟号", "templeName"), ("諡号", "posthumousName")):
+    # 名前系はすべて出す（2026-08-12）。本文に諱・字・幼名・廟号が地の文で出るので、
+    # 「誰の何の呼称か」がずれていれば外部からも当たる。regnalTitle は 228 人全員が
+    # 「皇帝」なので出さない（雑音にしかならない）。
+    for label, key in (
+        ("廟号", "templeName"),
+        ("諡号", "posthumousName"),
+        ("諡号（全長）", "posthumousNameFull"),
+        ("字", "courtesyName"),
+        ("幼名・小字", "childhoodName"),
+        ("民族名", "ethnicName"),
+    ):
         if name.get(key):
             out.append(f"- {label}: {name[key]}")
+    aliases = [a for a in (name.get("aliases") or []) if isinstance(a, str)]
+    if aliases:
+        out.append(f"- 別称: {'・'.join(aliases)}")
 
     def year(v):
         return f"前{-v}年" if isinstance(v, int) and v < 0 else (f"{v}年" if v else "—")
@@ -298,7 +318,7 @@ def one_profile(
 def build(
     items: list[tuple[str, dict, dict]], labels: dict[str, dict[str, str]], with_source: bool
 ) -> str:
-    """1人でも複数でも同じ器で組む（複数のときだけ通し番号と反復の観点が付く）。"""
+    """1人でも複数でも同じ器で組む（複数のときだけ [3-2] 形式の通し番号が付く）。"""
     multi = len(items) > 1
     parts: list[str] = ["{{BRIEF}}"]
     chars = 0
@@ -326,6 +346,10 @@ def build(
             last=tags[-1] if tags else "1",
             count=count,
             cross=cross,
+            # 返し方の例は実際に振った番号の形に合わせる（1人1ファイルなら [3]、
+            # まとめて出したときだけ [3-2]）。形の違う例を出すと指し先がずれる。
+            ex1="3-2" if multi else "3",
+            ex2="5-1" if multi else "5",
         ),
         1,
     )
@@ -384,7 +408,9 @@ def main() -> int:
     for n, group in enumerate(groups, start=1):
         text = build(group, labels, args.with_source)
         if len(group) == 1 and args.split:
-            stem = group[0][0]
+            # 1人1ファイル。2人以上を分けたときは連番を先頭に置いて、ファイル名の
+            # 並び順＝データの並び（おおむね時代順）＝渡す順序にする。
+            stem = f"{n:0{width}d}-{group[0][0]}" if len(groups) > 1 else group[0][0]
         elif len(groups) > 1:
             # 連番を先頭に置く。ファイル名の並び順＝渡す順序にしておく
             stem = f"{args.name or 'review'}-{n:0{width}d}-{group[0][0]}"
