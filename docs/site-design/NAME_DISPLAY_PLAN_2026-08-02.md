@@ -232,7 +232,7 @@
 括弧の中にしか無く、`searchTextOf` はそこから拾っていた。改名で `/emperors` の検索に載らなくなった
 （`posthumousName`・`templeName` は null、`aliases` は空）。**`aliases` へ逃がさない** — 個別ページで
 「別名」チップとして出てしまい種類が誤る。元号フィールドを立てる
-[Issue #37](https://github.com/kotenbu135/emperor-stats/issues/37) で回収する。
+[Issue #37](https://github.com/kotenbu135/emperor-stats/issues/37)（2026-08-12 に close・後継は [#126](https://github.com/kotenbu135/emperor-stats/issues/126)）で回収する。
 
 **`liang-houjing`（侯景）はこの5件に含まれない**（2026-08-02 訂正・ユーザー指摘）。
 `commonName` が政権名「漢」そのもので h1 が「漢」になっていたが、この人物は
