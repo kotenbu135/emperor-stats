@@ -9,7 +9,7 @@
 ## セルは3状態で数える（2状態にしない）
 
 「フィールドが在るか」で数えると全12項目が 365/365 で緑になり、いま分かっているだけでも
-Issue #37 の295＋267セル・紹介文の残り289本を1件も拾えない。数えるのは**確定したか**で、
+名前欄（Issue #126・旧 #37）の判別不能セル・紹介文の残りを1件も拾えない。数えるのは**確定したか**で、
 そのために状態を3つに割る。
 
   filled      値がある
@@ -258,18 +258,18 @@ FIELDS = [
     ("ages.deathDate", "没年月日", "人", "ages", lambda c: m_ages(c, "deathDate")),
     ("ages.accessionAge", "即位時年齢", "人", "ages", lambda c: m_ages(c, "accessionAge")),
     ("ages.deathAge", "没年齢", "人", "ages", lambda c: m_ages(c, "deathAge")),
-    ("name.templeName", "廟号（Issue #37）", "人", None, lambda c: m_name(c, "templeName")),
-    ("name.posthumousName", "諡号（短縮呼称・Issue #37）", "人", None, lambda c: m_name(c, "posthumousName")),
-    # 2026-08-10 に諡号を2欄へ割った（Issue #37 単位1）。短縮呼称と全長形は**別の主張**で、
+    ("name.templeName", "廟号（Issue #126）", "人", None, lambda c: m_name(c, "templeName")),
+    ("name.posthumousName", "諡号（短縮呼称・Issue #126）", "人", None, lambda c: m_name(c, "posthumousName")),
+    # 2026-08-10 に諡号を2欄へ割った（Issue #37 単位1・後継は #126）。短縮呼称と全長形は**別の主張**で、
     # 唐のように原典が短縮形を与えない政権では前者が空のまま後者だけ入る。だから
     # 1行にまとめず両方を測る（合算すると「どちらか在れば埋まっている」に見えてしまう）
-    ("name.posthumousNameFull", "諡号の全長形（Issue #37）", "人", None,
+    ("name.posthumousNameFull", "諡号の全長形（Issue #126）", "人", None,
      lambda c: m_name(c, "posthumousNameFull")),
     # 2026-08-10 に諡号の段を足した（ユーザー決定「案B」）。スカラ2欄では加諡が
     # 積み上がる過程を保存できず、方針「Wikipedia 並み」の諡号欄を満たせなかった。
     # **不在確定は出ない** — 「段が1つしか無い」と「まだ読んでいない」は
     # regime-conventions では割れないので、全員が値あり／判別不能のどちらかに落ちる
-    ("name.posthumousNames", "諡号の段（Issue #37）", "人", None,
+    ("name.posthumousNames", "諡号の段（Issue #126）", "人", None,
      lambda c: m_name(c, "posthumousNames")),
     ("reigns.dynastyOrder", "第N代（Issue #24）", "在位", None, m_dynasty_order),
     ("profiles", "紹介文（Issue #16）", "人", None, m_profile),

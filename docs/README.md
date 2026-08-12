@@ -32,7 +32,7 @@
 | [schema/SCHEMA_OVERVIEW.md](schema/SCHEMA_OVERVIEW.md) | `data/emperors.json` のスキーマ参照ガイド（フィールド詳細は [../data/schema/](../data/schema/)） |
 | [schema/V3_MIGRATION_PLAN.md](schema/V3_MIGRATION_PLAN.md) | **完了記録**（2026-07-29・Issue #22）。v3 の設計判断を確かめたいときだけ開く |
 | [schema/CLAIM_SCOPE_PLAN_2026-08-03.md](schema/CLAIM_SCOPE_PLAN_2026-08-03.md) | **未実施の計画**（Issue #69）。配布物が主張する範囲を絞る移行と、同梱するスキーマ改修。**新しい欄を足す前に読む**（規則案 `R-CLAIM-GATED`） |
-| [schema/NAME_FIELDS_PLAN_2026-08-03.md](schema/NAME_FIELDS_PLAN_2026-08-03.md) | **未実施の設計**（Issue #37 単位2・単位3）。改元 event の `eraName` と `name.ethnicName` の欄・検査・移行。**元号／民族名を触る前に読む** |
+| [schema/NAME_FIELDS_PLAN_2026-08-03.md](schema/NAME_FIELDS_PLAN_2026-08-03.md) | **実装済みの設計**（Issue #37 単位2・単位3。2026-08-03 に欄・ゲート・移行まで入った。後継 Issue は #126）。改元 event の `eraName` と `name.ethnicName` の欄・検査・移行。**元号／民族名を触る前に読む** |
 
 ## サイト（site-design/）
 

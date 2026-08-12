@@ -19,7 +19,7 @@
 |---|---|
 | [internal/event-date-archive.json](internal/event-date-archive.json) | `events[]` の日付を「年精度 ＋ 在位境界年の月日」へ絞ったときに**丸めた月日**（6,258値・4,170 events）。鍵は `events[].id` |
 | [internal/profile-fragments/](internal/profile-fragments/) | 紹介文（Issue #16）の断片と引用台帳。2026-08-06 のバッチから |
-| [internal/name-fragments/](internal/name-fragments/) | 名前欄（Issue #37 単位1）の調査断片。2026-08-06 の明16人から |
+| [internal/name-fragments/](internal/name-fragments/) | 名前欄（Issue #37 単位1・後継は #126）の調査断片。2026-08-06 の明16人から |
 
 **「内部」は隠す場所ではありません**（リポジトリは public でコミットもしています）。意味は
 **引用され得る配布物の主張に含めない**ことです。1ファイル目（`event-date-archive.json`）は
