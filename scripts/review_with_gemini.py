@@ -38,6 +38,7 @@ import json
 import os
 import re
 import sys
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -71,6 +72,28 @@ def api_key(args) -> str:
     )
 
 
+class DailyQuotaExceeded(RuntimeError):
+    """無料枠の**1日あたり**の上限に当たった（待っても今日は通らない）。
+
+    無料枠の上限は `GenerateRequestsPerDayPerProjectPerModel-FreeTier` の名のとおり
+    **モデルごと**に別勘定。2026-08-12 に gemini-3.6-flash が15本で日次上限に当たり、
+    そのまま投げ続けて82本を無駄に落とした。分・秒の上限と違って待っても回復しないので、
+    これだけは即座に全体を止める。
+    """
+
+
+def quota_violations(body: str) -> list[str]:
+    try:
+        err = json.loads(body)["error"]
+    except Exception:
+        return []
+    out = []
+    for detail in err.get("details") or []:
+        if detail.get("@type", "").endswith("QuotaFailure"):
+            out += [v.get("quotaId", "") for v in detail.get("violations") or []]
+    return out
+
+
 def post(url: str, payload: dict | None, timeout: int) -> dict:
     data = None if payload is None else json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
@@ -92,7 +115,11 @@ def call(key: str, model: str, text: str, timeout: int, retries: int) -> dict:
         try:
             return post(url, payload, timeout)
         except urllib.error.HTTPError as e:
-            body = e.read().decode("utf-8", "replace")[:300]
+            raw = e.read().decode("utf-8", "replace")
+            quotas = quota_violations(raw)
+            if any("PerDay" in q for q in quotas):
+                raise DailyQuotaExceeded(f"{model}: 無料枠の日次上限（{'・'.join(quotas)}）") from None
+            body = raw[:300]
             last = f"HTTP {e.code}: {body}"
             if e.code not in (408, 429, 500, 502, 503, 504) or attempt == retries:
                 raise RuntimeError(last) from None
@@ -182,15 +209,26 @@ def main() -> int:
     started = time.time()
     done: list[dict] = []
     fails: list[tuple[str, str]] = []
+    skipped: list[str] = []
+
+    stop = threading.Event()
 
     def work(p: Path):
+        if stop.is_set():
+            return p, None, None  # 日次上限に当たったあとは投げずに残す
         try:
             return p, review_one(p, out_dir, key, args), None
+        except DailyQuotaExceeded as e:
+            stop.set()
+            return p, None, str(e)
         except Exception as e:  # 1本の失敗で全体を止めない（残りは再実行で埋まる）
             return p, None, str(e)
 
     with ThreadPoolExecutor(max_workers=args.concurrency) as pool:
         for p, rec, err in pool.map(work, todo):
+            if rec is None and err is None:
+                skipped.append(p.name)
+                continue
             if err:
                 fails.append((p.name, err))
                 print(f"  × {p.name}  {err[:120]}", flush=True)
@@ -217,6 +255,11 @@ def main() -> int:
         print("失敗したファイル（そのまま再実行すれば未取得ぶんだけ投げ直す）:")
         for name, err in fails:
             print(f"  {name}: {err[:160]}")
+    if skipped:
+        print(
+            f"日次上限に当たったので {len(skipped)}本は投げていません"
+            "（日付が変わるか、別のモデル（--model）に替えれば続きから埋まります）"
+        )
     return 1 if fails else 0
 
 

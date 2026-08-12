@@ -83,9 +83,11 @@ BRIEF = """\
 
 ## 途中で切れていないかの確認
 
-本文は {chars} 字・{blocks} 段落で、段落には **[{first}] から [{last}] まで通し番号**が
-付いています（番号は飛びません）。**受け取った内容で番号が飛んでいる・[{last}] で
-終わっていない場合は途中で欠けているので、レビューせずにその旨を教えてください。**
+本文は {chars} 字・{blocks} 段落で、段落には **[{first}] から通し番号**が付いています
+（番号は飛びません）。**末尾の「検索結果に出る1文」にも続きの番号を振ってあり、
+最後の番号は [{last}] です。** ここへの指摘も同じように箇所で指してください。
+**受け取った内容で番号が飛んでいる・[{last}] で終わっていない場合は途中で欠けているので、
+レビューせずにその旨を教えてください。**
 「文章が中抜けしている」という指摘は、こちらの原稿ではなく受け渡しの問題です。
 
 ## 見てほしい観点
@@ -250,10 +252,11 @@ def facts_of(record: dict, labels: dict[str, dict[str, str]]) -> list[str]:
     return out
 
 
-def numbered(lead: str, body: str, prefix: str) -> tuple[list[str], int]:
+def numbered(lead: str, body: str, prefix: str) -> tuple[list[str], int, int]:
     """段落に [番号] を振る。レビューの指摘がどこを指すか一意にするため。
 
     節見出し（`## `）は 2026-08-05 の規範で禁止したので、残っていれば印を付けて出す。
+    返すのは（行, 字数, 段落数）で、段落数は**検索1文に続きの番号を振るため**に要る。
     """
     blocks: list[tuple[str, str]] = [("概要", strip_ruby(lead))]
     for raw in (body or "").split("\n\n"):
@@ -268,7 +271,7 @@ def numbered(lead: str, body: str, prefix: str) -> tuple[list[str], int]:
         tag = f"[{prefix}{i}]" if prefix else f"[{i}]"
         lines.append(f"{tag} 【{kind}】{text}" if kind == "見出し" else f"{tag} {text}")
         lines.append("")
-    return lines, chars
+    return lines, chars, len(blocks)
 
 
 def one_profile(
@@ -283,7 +286,7 @@ def one_profile(
     prefix = f"{index}-" if index else ""
     lead = profile.get("lead") or ""
     body = profile.get("body") or ""
-    body_lines, chars = numbered(lead, body, prefix)
+    body_lines, chars, blocks = numbered(lead, body, prefix)
 
     head = f"{index}. " if index else "対象: "
     parts = [f"# {head}{display_name(emperor_id, record)}（{emperor_id}）\n"]
@@ -297,9 +300,11 @@ def one_profile(
     parts.append("　".join(pairs) if pairs else "（なし）")
     parts.append("")
 
+    # 検索1文にも続きの番号を振る（2026-08-12）。番号が無いと、ここへの指摘を
+    # レビューアが箇所で指せない（実際「箇所を指せない」という但し書き付きで返ってきた）。
     description = profile.get("description") or ""
     parts.append(f"## 検索結果に出る1文（{len(description)}字・ルビなし）\n")
-    parts.append(description)
+    parts.append(f"[{prefix}{blocks + 1}] {description}")
 
     if with_source:
         path = cache_path(emperor_id)

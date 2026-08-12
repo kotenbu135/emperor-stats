@@ -59,3 +59,6 @@ site/tools/shots/
 # Claude Code フックの発火ログ（ローカル計測用・docs/process/RULES.yml の「測定」節）
 .claude/hook-log.jsonl
 review/
+
+# Gemini API キー（絶対にコミットしない）
+.gemini/
