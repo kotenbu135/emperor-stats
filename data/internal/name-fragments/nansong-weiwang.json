@@ -1,0 +1,24 @@
+{
+  "id": "nansong-weiwang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "china-history/宋史/本纪/第四十七章-卷四十七-原文.html",
+      "line": 22,
+      "quote": "癸丑，上度宗謚"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "宋史 卷四十七の二王の記事に諡の条が無い。衛王昺は崖山で崩じたのち宋の側に諡を上げる主体が残っていない"
+    }
+  ]
+}

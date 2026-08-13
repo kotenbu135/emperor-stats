@@ -7,6 +7,13 @@
       "file": "_corpus_cache/nansong-gongdi.txt",
       "line": 1,
       "quote": "瀛國公名〈濕，去氵〉，度宗皇帝子也"
+    },
+    {
+      "cid": "c2",
+      "book": "宋史",
+      "file": "china-history/宋史/本纪/第四十七章-卷四十七-原文.html",
+      "line": 22,
+      "quote": "癸丑，上度宗謚"
     }
   ],
   "findings": [
@@ -49,6 +56,16 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。冒頭の第1スロットに立つのは位号「瀛國公」で（c1）、宋史はこの帝に諡を与えない（廃位のまま元へ送られる）。既存の全長形・廟号の主張と同じ根拠"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "宋史 卷四十七は瀛國公を位号で立て、元へ降ったあとの記事にも諡の条が無い。**同じ巻に度宗・濟王・史嵩之らの諡の条は在る**ので、走査に掛からなかったのではなく宋史がこの人物に諡を与えていない"
     }
   ],
   "discrepancies": "なし（底本は諱を欠字の説明で書くが、名前欄は今回どれも空のままなので影響しない）"

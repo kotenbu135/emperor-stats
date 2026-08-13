@@ -82559,7 +82559,21 @@
     "posthumousName": null,
     "templeName": "太祖",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "啓運立極英武睿文神徳聖功至明大孝皇帝"
+    "posthumousNameFull": "啓運立極英武睿文神徳聖功至明大孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "英武聖文神徳皇帝",
+      "year": 977
+     },
+     {
+      "form": "啓運立極英武聖文神徳玄功大孝皇帝",
+      "year": 1008
+     },
+     {
+      "form": "啓運立極英武睿文神徳聖功至明大孝皇帝",
+      "year": 1017
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -83008,7 +83022,21 @@
     "posthumousName": null,
     "templeName": "太宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "神功聖徳文武皇帝"
+    "posthumousNameFull": "神功聖徳文武皇帝",
+    "posthumousNames": [
+     {
+      "form": "神功聖徳文武皇帝",
+      "year": 997
+     },
+     {
+      "form": "至仁応道神功聖徳文武大明広孝皇帝",
+      "year": 1008
+     },
+     {
+      "form": "至仁応道神功聖徳睿烈大明広孝皇帝",
+      "year": 1017
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -83516,7 +83544,17 @@
     "posthumousName": null,
     "templeName": "真宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "応符稽古神功譲徳文明武定章聖元孝皇帝"
+    "posthumousNameFull": "応符稽古神功譲徳文明武定章聖元孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "文明武定章聖元孝皇帝",
+      "year": 1024
+     },
+     {
+      "form": "膺符稽古神功譲徳文明武定章聖元孝皇帝",
+      "year": 1047
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -84005,7 +84043,17 @@
     "posthumousName": null,
     "templeName": "仁宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "体天法道極功全徳神文聖武睿哲明孝皇帝"
+    "posthumousNameFull": "体天法道極功全徳神文聖武睿哲明孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "神文聖武明孝皇帝",
+      "year": 1063
+     },
+     {
+      "form": "体天法道極功全徳神文聖武睿哲明孝皇帝",
+      "year": 1083
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -84868,7 +84916,17 @@
     "posthumousName": null,
     "templeName": "英宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "体乾応暦隆功盛徳憲文粛武睿聖宣孝皇帝"
+    "posthumousNameFull": "体乾応暦隆功盛徳憲文粛武睿聖宣孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "憲文粛武宣孝皇帝",
+      "year": 1067
+     },
+     {
+      "form": "体乾応暦隆功盛徳憲文粛武睿神宣孝皇帝",
+      "year": 1083
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -85085,7 +85143,25 @@
     "posthumousName": null,
     "templeName": "神宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "紹天法古運徳建功英文烈武欽仁聖孝皇帝"
+    "posthumousNameFull": "紹天法古運徳建功英文烈武欽仁聖孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "英文烈武聖孝皇帝",
+      "year": 1085
+     },
+     {
+      "form": "紹天法古運徳建功英文烈武欽仁聖孝皇帝",
+      "year": 1095
+     },
+     {
+      "form": "体元顕道帝徳王功英文烈武欽仁聖孝皇帝",
+      "year": 1104
+     },
+     {
+      "form": "体元顕道法古立憲帝徳王功英文烈武欽仁聖孝皇帝",
+      "year": 1113
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -85552,7 +85628,21 @@
     "posthumousName": null,
     "templeName": "哲宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "憲元継道顕徳定功欽文睿武斉聖昭孝皇帝"
+    "posthumousNameFull": "憲元継道顕徳定功欽文睿武斉聖昭孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "欽文睿武昭孝皇帝",
+      "year": 1100
+     },
+     {
+      "form": "憲元継道顕徳定功欽文睿武斉聖昭孝皇帝",
+      "year": 1104
+     },
+     {
+      "form": "憲元継道世徳揚功欽文睿武斉聖昭孝皇帝",
+      "year": 1113
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -85861,7 +85951,17 @@
     "posthumousName": null,
     "templeName": "徽宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "体神合道駿烈遜功聖文仁徳憲慈顕孝皇帝"
+    "posthumousNameFull": "体神合道駿烈遜功聖文仁徳憲慈顕孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "聖文仁徳顕孝皇帝",
+      "year": 1137
+     },
+     {
+      "form": "体神合道駿烈遜功聖文仁徳憲慈顕孝皇帝",
+      "year": 1143
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -86501,7 +86601,13 @@
     "posthumousName": null,
     "templeName": "欽宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "恭文順徳仁孝皇帝"
+    "posthumousNameFull": "恭文順徳仁孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "恭文順徳仁孝皇帝",
+      "year": 1161
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "northern-song",
@@ -86729,7 +86835,17 @@
     "templeName": "高宗",
     "regnalTitle": "皇帝",
     "courtesyName": "徳基",
-    "posthumousNameFull": "受命中興全功至徳聖神武文昭仁憲孝皇帝"
+    "posthumousNameFull": "受命中興全功至徳聖神武文昭仁憲孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "聖神武文憲孝皇帝",
+      "year": 1188
+     },
+     {
+      "form": "受命中興全功至徳聖神武文昭仁憲孝皇帝",
+      "year": 1191
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "southern-song",
@@ -89158,7 +89274,17 @@
     "templeName": "孝宗",
     "regnalTitle": "皇帝",
     "courtesyName": "元永",
-    "posthumousNameFull": "紹統同道冠徳昭功哲文神武明聖成孝皇帝"
+    "posthumousNameFull": "紹統同道冠徳昭功哲文神武明聖成孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "哲文神武成孝皇帝",
+      "year": 1194
+     },
+     {
+      "form": "紹統同道冠徳昭功哲文神武明聖成孝皇帝",
+      "year": 1197
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "southern-song",
@@ -89937,7 +90063,17 @@
     "posthumousName": null,
     "templeName": "光宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "循道憲仁明功茂徳温文順武聖哲慈孝皇帝"
+    "posthumousNameFull": "循道憲仁明功茂徳温文順武聖哲慈孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "憲仁聖哲慈孝皇帝",
+      "year": 1200
+     },
+     {
+      "form": "循道憲仁明功茂徳温文順武聖哲慈孝皇帝",
+      "year": 1203
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "southern-song",
@@ -90223,7 +90359,17 @@
     "posthumousName": null,
     "templeName": "寧宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "法天備道純徳茂功仁文哲武聖睿恭孝皇帝"
+    "posthumousNameFull": "法天備道純徳茂功仁文哲武聖睿恭孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "仁文哲武恭孝皇帝",
+      "year": 1225
+     },
+     {
+      "form": "法天備道純徳茂功仁文哲武聖睿恭孝皇帝",
+      "year": 1227
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "southern-song",
@@ -90883,7 +91029,13 @@
     "posthumousName": null,
     "templeName": "理宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "建道備徳大功復興烈文仁武聖明安孝皇帝"
+    "posthumousNameFull": "建道備徳大功復興烈文仁武聖明安孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "建道備徳大功復興烈文仁武聖明安孝皇帝",
+      "year": 1266
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "southern-song",
@@ -91586,7 +91738,13 @@
     "posthumousName": null,
     "templeName": "度宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "端文明武景孝皇帝"
+    "posthumousNameFull": "端文明武景孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "端文明武景孝皇帝",
+      "year": 1274
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "southern-song",

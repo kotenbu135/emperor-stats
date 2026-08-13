@@ -14,6 +14,13 @@
       "file": "china-history/宋史/本纪/第二十三章-卷二十三-原文.html",
       "line": 22,
       "quote": "上尊謚曰恭文順德仁孝皇帝，廟號欽宗"
+    },
+    {
+      "cid": "c3",
+      "book": "宋史",
+      "file": "china-history/宋史/本纪/第三十二章-卷三十二-原文.html",
+      "line": 22,
+      "quote": "甲午，冊謚大行皇帝曰恭文順德仁孝皇帝，廟號欽宗"
     }
   ],
   "findings": [
@@ -36,6 +43,22 @@
       ],
       "confidence": "high",
       "note": "冒頭が掲げる形（c1）。上諡条の初諡と同じ形で、本紀にこれ以降の加諡の条は無い（c2）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "恭文順徳仁孝皇帝",
+          "year": 1161
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "紹興三十一年五月に崩問が至り、同年七月己丑に諡を上げた1段だけ（c2・本人の紀の末尾、c3・高宗紀の冊謚条）。加諡は宋史のどこにも無い"
     },
     {
       "field": "name.courtesyName",

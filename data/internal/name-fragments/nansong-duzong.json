@@ -38,6 +38,21 @@
       "note": "冒頭が掲げる形（c1）。上諡条の初諡と同じ形で、本紀にこれ以降の加諡の条は無い（c2）"
     },
     {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "端文明武景孝皇帝",
+          "year": 1274
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "咸淳十年八月己酉の1段だけ（c2・本人の紀の末尾に置かれた瀛國公即位年の条）。加諡は無い"
+    },
+    {
       "field": "name.courtesyName",
       "value": null,
       "verdict": "read-absent",

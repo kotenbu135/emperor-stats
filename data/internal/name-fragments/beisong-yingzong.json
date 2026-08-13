@@ -46,6 +46,26 @@
       "note": "冒頭が掲げる形（c1）。上諡条の初諡（c2）より長く、その間の加諡の条が本紀に在る（c3）。ただし加諡の条は「睿神宣孝」で、冒頭の「睿聖宣孝」と1字食い違う。規約どおり冒頭形を採る"
     },
     {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "憲文粛武宣孝皇帝",
+          "year": 1067
+        },
+        {
+          "form": "体乾応暦隆功盛徳憲文粛武睿神宣孝皇帝",
+          "year": 1083
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "治平四年の崩御条が初諡（c2）。加諡は仁宗と同じ元豐六年十一月癸卯の条（c3）。**冒頭形は「睿聖」で加諡条は「睿神」と1字割れる** — 加諡条と礼志の2証人が睿神なので条の側を採り、POSTHUMOUS_STAGE_FULL_MISMATCH に理由を置いた"
+    },
+    {
       "field": "name.courtesyName",
       "value": null,
       "verdict": "read-absent",

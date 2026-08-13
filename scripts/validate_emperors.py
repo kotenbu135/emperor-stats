@@ -1571,6 +1571,10 @@ POSTHUMOUS_STAGE_FULL_MISMATCH = {
     "tang-yizong": "諡を授けた崩御条は「睿文昭聖恭恵孝皇帝」だが冒頭形は"
                    "「昭聖恭恵孝皇帝」で、睿文の2字が舊唐書の中で食い違う"
                    "（段には授けた条の形を採る）",
+    "beisong-zhenzong": "冒頭形は「應符稽古」だが慶曆七年の加諡条は「膺符稽古」で、"
+                        "應／膺の1字が宋史の中で食い違う（加諡条と礼志の2証人が膺符）",
+    "beisong-yingzong": "冒頭形は「睿聖宣孝」だが元豐六年の加諡条は「睿神宣孝」で、"
+                        "聖／神の1字が宋史の中で食い違う（加諡条と礼志の2証人が睿神）",
 }
 # **「皇帝」で結ばない諡が在る。** 明代宗は郕王へ落とされて王諡「戾」を与えられ、
 # 成化十一年に帝号を復して「恭仁康定景皇帝」を追諡された。列は**授けられた順**を
@@ -1581,7 +1585,7 @@ POSTHUMOUS_STAGE_NON_IMPERIAL = {
 }
 # 充足のラチェット。転記は各ブロックの中で進むので強制はせず、**減ったら落ちる**
 # （SCHEMA_CHANGE_CHECKLIST.md 手順5）。実測を書く
-POSTHUMOUS_STAGES_FLOOR = 37
+POSTHUMOUS_STAGES_FLOOR = 71
 
 
 def check_posthumous_names(data):
