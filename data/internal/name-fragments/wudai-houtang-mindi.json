@@ -1,63 +1,66 @@
 {
- "id": "wudai-houtang-mindi",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houtang-mindi.txt",
-   "line": 1,
-   "quote": "闵帝，讳从厚，小字菩萨奴，明宗第三子也"
-  },
-  {
-   "cid": "c2",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houtang-mindi.txt",
-   "line": 12,
-   "quote": "晋高祖即位，谥曰闵"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "廟号は無い。冒頭1行が位号から始まり（c1）、諡の記事も「谥曰闵」だけで廟号を伴わない（c2）"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": "閔帝",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "後晋高祖が贈った諡「閔」（c2）を書が名乗りとして立てた形が冒頭1行の「闵帝」（c1）。巻名も「闵帝紀」で、位号の末帝・少帝と違い諡に由来する"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "「〈諡〉皇帝」形は舊五代史に無い。諡は単字「闵」で、皇帝を付けた形を書が掲げないので補わない"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "pending",
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "舊五代史が書く諡は「谥曰闵」の1字だけで、「皇帝」「大帝」で結ぶ形でも王諡でもない。陳 後主「谥曰炀」と同じ枠で Issue #126 の判断待ち。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "wudai-houtang-mindi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houtang-mindi.txt",
+      "line": 1,
+      "quote": "闵帝，讳从厚，小字菩萨奴，明宗第三子也"
+    },
+    {
+      "cid": "c2",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houtang-mindi.txt",
+      "line": 12,
+      "quote": "晋高祖即位，谥曰闵"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "廟号は無い。冒頭1行が位号から始まり（c1）、諡の記事も「谥曰闵」だけで廟号を伴わない（c2）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "閔帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "後晋高祖が贈った諡「閔」（c2）を書が名乗りとして立てた形が冒頭1行の「闵帝」（c1）。巻名も「闵帝紀」で、位号の末帝・少帝と違い諡に由来する"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "「〈諡〉皇帝」形は舊五代史に無い。諡は単字「闵」で、皇帝を付けた形を書が掲げないので補わない"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "閔"
+        }
+      ],
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "**2026-08-13 のユーザー決定で `read-absent` から値ありへ移した**（偽諡も皇帝の諡でない諡も欄へ入れる）。後晋高祖が贈った諡1字「晋高祖即位，谥曰闵」（c2）。**`pending` から値ありへ移した**（12件のうちこの1件だけが`pending` だった）。冒頭形「闵帝」は書がこの諡から立てた名乗りで、短縮呼称の欄には既に入っている。年は条が「晋高祖即位」と相対で書くので入れない"
+    }
+  ],
+  "discrepancies": "なし"
 }

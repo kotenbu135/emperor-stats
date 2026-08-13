@@ -1,0 +1,45 @@
+{
+  "id": "sui-gongdi-tong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "隋書",
+      "file": "_corpus_cache/sui-gongdi-tong.txt",
+      "line": 8,
+      "quote": "世充伪谥为恭皇帝"
+    },
+    {
+      "cid": "c2",
+      "book": "隋書",
+      "file": "_corpus_cache/sui-gongdi-tong.txt",
+      "line": 1,
+      "quote": "越王侗字仁谨，美姿仪，性宽厚"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "恭皇帝"
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "**2026-08-13 のユーザー決定で `read-absent` から値ありへ移した**（偽諡も皇帝の諡でない諡も欄へ入れる）。**王世充が贈った偽諡**（c1）。隋書はこの人物に本紀を立てず卷五十九の越王侗伝で扱うので、諡を書く条はこの1条だけ。**同じ条が庙号を与えていない**（煬帝へ贈った「庙号世祖」は別条）。年は条が「月馀」と相対で書くので入れない"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**隋書はこの人物を「越王侗」「侗」としか呼ばず**（c2）、短縮呼称の形を本文で使わない。段には偽諡の全長形を置いたが、**書が使わない短縮形は作り出さない**（2026-08-13 の決定）"
+    }
+  ],
+  "discrepancies": "なし（諡の段と短縮呼称だけを読んだ）"
+}

@@ -28037,7 +28037,12 @@
     "posthumousName": "武帝",
     "templeName": "太宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "仲俊"
+    "courtesyName": "仲俊",
+    "posthumousNames": [
+     {
+      "form": "武帝"
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "cheng-han",
@@ -28530,7 +28535,12 @@
     "posthumousName": "幽公",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "世運"
+    "courtesyName": "世運",
+    "posthumousNames": [
+     {
+      "form": "幽公"
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "cheng-han",
@@ -28736,7 +28746,12 @@
     "posthumousName": "昭文帝",
     "templeName": "中宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "武考"
+    "courtesyName": "武考",
+    "posthumousNames": [
+     {
+      "form": "昭文帝"
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "cheng-han",
@@ -39260,7 +39275,13 @@
     "regnalTitle": "皇帝",
     "courtesyName": "仲謀",
     "childhoodName": "智観",
-    "posthumousNameFull": "順皇帝"
+    "posthumousNameFull": "順皇帝",
+    "posthumousNames": [
+     {
+      "form": "順帝",
+      "year": 479
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -40261,10 +40282,15 @@
     "personalName": "昭文",
     "commonName": "廃帝（海陵王）",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "恭王",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "季尚"
+    "courtesyName": "季尚",
+    "posthumousNames": [
+     {
+      "form": "恭王"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "southern-qi",
@@ -41988,7 +42014,15 @@
     "templeName": "太宗",
     "regnalTitle": "皇帝",
     "courtesyName": "世纘",
-    "childhoodName": "六通"
+    "childhoodName": "六通",
+    "posthumousNames": [
+     {
+      "form": "明皇帝"
+     },
+     {
+      "form": "簡文皇帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",
@@ -44768,11 +44802,17 @@
     "personalName": "叔宝",
     "commonName": "後主",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "煬",
     "templeName": null,
     "regnalTitle": "皇帝",
     "courtesyName": "元秀",
-    "childhoodName": "黄奴"
+    "childhoodName": "黄奴",
+    "posthumousNames": [
+     {
+      "form": "煬",
+      "year": 604
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "chen",
@@ -54998,10 +55038,16 @@
     "personalName": "殷",
     "commonName": "廃帝",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "閔悼王",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "正道"
+    "courtesyName": "正道",
+    "posthumousNames": [
+     {
+      "form": "閔悼王",
+      "year": 562
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-qi",
@@ -59248,7 +59294,12 @@
     "templeName": "世祖",
     "regnalTitle": "皇帝",
     "childhoodName": "阿摐",
-    "posthumousNameFull": "煬皇帝"
+    "posthumousNameFull": "煬皇帝",
+    "posthumousNames": [
+     {
+      "form": "明"
+     }
+    ]
    },
    "eraId": "sui-tang",
    "regimeId": "sui",
@@ -60629,7 +60680,12 @@
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "仁謹"
+    "courtesyName": "仁謹",
+    "posthumousNames": [
+     {
+      "form": "恭皇帝"
+     }
+    ]
    },
    "eraId": "sui-tang",
    "regimeId": "sui",
@@ -71762,9 +71818,14 @@
     "aliases": [
      "則天武后"
     ],
-    "posthumousName": null,
+    "posthumousName": "則天大聖皇后",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNames": [
+     {
+      "form": "則天大聖皇后"
+     }
+    ]
    },
    "eraId": "sui-tang",
    "regimeId": "wu-zhou",
@@ -75881,7 +75942,12 @@
     "posthumousName": "閔帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "childhoodName": "菩薩奴"
+    "childhoodName": "菩薩奴",
+    "posthumousNames": [
+     {
+      "form": "閔"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "later-tang",
@@ -98826,14 +98892,20 @@
     "personalName": "永済",
     "commonName": "衛紹王",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "紹",
     "templeName": null,
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "jurchen",
      "value": "興勝"
     },
-    "childhoodName": "興勝"
+    "childhoodName": "興勝",
+    "posthumousNames": [
+     {
+      "form": "紹",
+      "year": 1216
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -99858,7 +99930,15 @@
     "ethnicName": {
      "kind": "jurchen",
      "value": "寧甲速"
-    }
+    },
+    "posthumousNames": [
+     {
+      "form": "哀宗"
+     },
+     {
+      "form": "昭宗"
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",

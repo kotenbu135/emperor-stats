@@ -1,0 +1,47 @@
+{
+  "id": "liang-jianwendi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "梁書",
+      "file": "_corpus_cache/liang-jianwendi.txt",
+      "line": 5,
+      "quote": "贼伪谥曰明皇帝，庙称高宗"
+    },
+    {
+      "cid": "c2",
+      "book": "梁書",
+      "file": "_corpus_cache/liang-jianwendi.txt",
+      "line": 6,
+      "quote": "世祖追崇为简文皇帝，庙曰太宗"
+    },
+    {
+      "cid": "c3",
+      "book": "梁書",
+      "file": "_corpus_cache/liang-jianwendi.txt",
+      "line": 2,
+      "quote": "太宗简文皇帝，讳纲，字世缵，小字六通，高祖第三子"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "明皇帝"
+        },
+        {
+          "form": "簡文皇帝"
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "**2026-08-13 のユーザー決定で `read-absent` から値ありへ移した**（偽諡も皇帝の諡でない諡も欄へ入れる）。**2段**で、1段目は侯景が贈った偽諡「明皇帝」（c1）、2段目は元帝（世祖）が建康奪回後に追崇した「簡文皇帝」（c2）。**順序は条の順のまま**で、冒頭形「太宗简文皇帝」（c3）は2段目に一致する。年はどちらも入れない — 1段目は紀の年立て（大宝二年）に寄りかかり、2段目は「明年」と相対で書く（**条が年を名乗るときだけ入れる**規約）。**偽諡に付く庙号「高宗」は欄へ入れない**（決定の範囲は諡だけ）"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを読んだ。`posthumousNameFull` は空のままで、冒頭形「簡文皇帝」を入れるかは別の行）"
+}
