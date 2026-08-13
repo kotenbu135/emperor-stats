@@ -975,10 +975,27 @@ for (const key of Object.keys(emperorProfiles)) {
 }
 
 /**
+ * 紹介文のWeb公開を一時停止する旗（2026-08-13 ユーザー指示）。
+ *
+ * `true` の間は `getEmperorProfile` が全員 null を返し、**紹介文（lead・body・
+ * description）はサイトに1文字も出ない**。データ `../data/emperor-profiles.json`
+ * は消していないので、再開はこの定数を `false` に戻して再ビルド・再配信するだけ。
+ *
+ * 止め方をここ1箇所にしたのは、`profile === null` の経路が未執筆の137人で
+ * すでに使われている（＝表示側に新しい分岐を作らずに済む）ため。読み込み時の
+ * assert（存在しないid・ルビ記法）は**止めているあいだも効かせる**ので上に残す。
+ *
+ * **副作用**: 228人の `<meta name="description">` と Person JSON-LD の
+ * description が機械生成文（`descriptionOf`）に戻る。
+ */
+const PROFILES_PUBLISHING_PAUSED = true;
+
+/**
  * 紹介文。ヒーロー内の導入 lead ／「人物紹介」節の本文 body ／
  * metadata・JSON-LD 用の1文 description。未執筆はnull。
  */
 export function getEmperorProfile(id: string): EmperorProfile | null {
+  if (PROFILES_PUBLISHING_PAUSED) return null;
   const p = emperorProfiles[id];
   if (!p?.lead && !p?.body && !p?.description) return null;
   return {

@@ -119,7 +119,17 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 
 **`lead`・`body` は選択的ルビ・`description` は平文**（Issue #20 の T2／総ルビは 2026-08-05 に廃止）。
 ルビを振るのは難読語と中国史特有の語だけで、**同じ本の中では2回目以降の出現にも振る**
-（`data/profile-ruby-lexicon.json` に載る語は必須。振り漏れは `../scripts/validate_readings.py` が落とす）。`lead` は `<RubyText>` に通し、行送りは `leading-loose` ではなく **`leading-ruby`**（ルビのある行だけ高くなって段落の中で行間がばらつく）。**置き場所は導入 `lead` がヒーローの中**（`emperor-hero.tsx` の名前チップの下）・**逸話を含む `body` が「人物紹介」節**（ページ直書き・基本情報の上）で、**肖像は全幅で `float`**（長い紹介文が肖像の下へ回り込む・末尾の `clear-both` を消すとヒーローの下境界が肖像を跨いで縮む）。**480px 未満では紹介文だけ `clear-both min-[480px]:hidden` で肖像の下へ落とす**（128px の肖像の右に流すと1行13字になる。名前チップまでは回り込ませる — 2026-08-04 に縦積みをやめた理由が「肖像の右が空く」なので、ここを clear すると空白が戻る）。**この 480px という値をビューポート幅で書けるのは 640px 未満＝サイドバーが出ない帯だけ**（md 以上は240pxのサイドバーが挟まり、768pxの画面でもヒーロー内幅は448px＝200pxの肖像を引いた本文は224px。sm 以上の回り込みは 2026-08-01 からの据え置き）。**`lead` の段落区切りは空行（`\n\n`）で、ページ側が split して `<p>` に分ける** — 逸話を交えるようになって1本500字級になったため（`basis` はサイトに出さない編集メモ）。`description` は `<meta>` と Person JSON-LD にしか出ないのでルビを持たせず、**ルビ記法が混ざっていたら `emperors.ts` の読み込み時に throw する**（描画側で strip すると、呼び出し2箇所のうち片方を直し忘れる事故になる）。ゲートは `../scripts/validate_profiles.py`（文字数はルビを剥がした長さで数える）と `../scripts/validate_readings.py`。**執筆規約 `meta.policy` は 2026-08-04 に削除した**（既存の紹介文76本と `docs/process/profile-writing/` も同時に全削除・掲載する方針は変えていない）。**いま `profiles` は18本**で、残る347人は紹介文の節が出ず `description` は機械生成文に落ちる。
+（`data/profile-ruby-lexicon.json` に載る語は必須。振り漏れは `../scripts/validate_readings.py` が落とす）。`lead` は `<RubyText>` に通し、行送りは `leading-loose` ではなく **`leading-ruby`**（ルビのある行だけ高くなって段落の中で行間がばらつく）。**置き場所は導入 `lead` がヒーローの中**（`emperor-hero.tsx` の名前チップの下）・**逸話を含む `body` が「人物紹介」節**（ページ直書き・基本情報の上）で、**肖像は全幅で `float`**（長い紹介文が肖像の下へ回り込む・末尾の `clear-both` を消すとヒーローの下境界が肖像を跨いで縮む）。**480px 未満では紹介文だけ `clear-both min-[480px]:hidden` で肖像の下へ落とす**（128px の肖像の右に流すと1行13字になる。名前チップまでは回り込ませる — 2026-08-04 に縦積みをやめた理由が「肖像の右が空く」なので、ここを clear すると空白が戻る）。**この 480px という値をビューポート幅で書けるのは 640px 未満＝サイドバーが出ない帯だけ**（md 以上は240pxのサイドバーが挟まり、768pxの画面でもヒーロー内幅は448px＝200pxの肖像を引いた本文は224px。sm 以上の回り込みは 2026-08-01 からの据え置き）。**`lead` の段落区切りは空行（`\n\n`）で、ページ側が split して `<p>` に分ける** — 逸話を交えるようになって1本500字級になったため（`basis` はサイトに出さない編集メモ）。`description` は `<meta>` と Person JSON-LD にしか出ないのでルビを持たせず、**ルビ記法が混ざっていたら `emperors.ts` の読み込み時に throw する**（描画側で strip すると、呼び出し2箇所のうち片方を直し忘れる事故になる）。ゲートは `../scripts/validate_profiles.py`（文字数はルビを剥がした長さで数える）と `../scripts/validate_readings.py`。**執筆規約 `meta.policy` は 2026-08-04 に削除した**（既存の紹介文76本と `docs/process/profile-writing/` も同時に全削除・掲載する方針は変えていない）。**いま `profiles` は228本**で、残る137人は紹介文の節が出ず `description` は機械生成文に落ちる。
+
+**ただし 2026-08-13 から Web 公開を一時停止している**（ユーザー指示）。旗は `emperors.ts` の
+**`PROFILES_PUBLISHING_PAUSED`** 1つで、`true` の間は `getEmperorProfile` が全員 null を返し、
+**228本ぶんの `lead`・`body`・`description` がサイトに1文字も出ない**（＝365人全員が上の
+「未執筆」と同じ見え方になり、`<meta description>` と Person JSON-LD は機械生成文に落ちる）。
+**データ `../data/emperor-profiles.json` は消していない**・**執筆と各ゲートもそのまま**なので、
+再開はこの定数を `false` に戻して再ビルド・再配信するだけ。**表示側（`page.tsx`・
+`emperor-hero.tsx`）に停止用の分岐を足さないこと** — 止め方はこの1箇所に閉じてある。
+なお**止めているあいだも書体のサブセットは取り直さない**（紹介文の字が落ちて、再開時に
+`check-font-coverage.mjs` が落ちる）。
 
 ## ページを1枚足すときに揃える3箇所
 

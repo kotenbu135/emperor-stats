@@ -19,6 +19,7 @@
 | 2026-08-03 | 姓と諱を別の欄へ分けた（`name.familyName` 新設・`personalName` は諱だけ・365件／Issue #37 単位6）。同じ日の「分けない」決定を見直したもので、経緯と検査は [FAMILY_NAME_SPLIT_2026-08-03.md](schema/FAMILY_NAME_SPLIT_2026-08-03.md) |
 | 2026-08-04 | **紹介文（Issue #16）を白紙に戻した** — 既存76本・手順書 `docs/process/profile-writing/` 一式・執筆規約 `emperor-profiles.json` の `meta.policy` をすべて削除（ユーザー指示）。**サイトに掲載する方針は変えていない**ので、道具立て（`profile-*` エージェント・`/profile-block`・`validate_profiles.py`・サイト側の表示）は残してある。削除前の状態は git の `f1311ff`。**この行の「着手できない」は 2026-08-05 に解除済み**（下の行） |
 | 2026-08-05 | **紹介文の規範を立て直した** — 置き場所は [profile-writing/README.md](process/profile-writing/README.md) の1枚、入口は `/write-profile`（旧 `/profile-block` は削除）。**原文1巡＋Web差分の2段**・総ルビ廃止・`basis` はポインタ。まとめて進める段構成は `.claude/workflows/write-profile.js`。**執筆は再開している**（見本8本） |
+| 2026-08-13 | **紹介文（Issue #16）の Web 公開を一時停止した**（ユーザー指示）。旗は `site/src/lib/emperors.ts` の `PROFILES_PUBLISHING_PAUSED` 1つで、`true` の間は 228本すべてが**サイトに出ない**（`<meta description>`・Person JSON-LD も機械生成文に戻る）。**データ `data/emperor-profiles.json` は消していない**・**執筆も止めていない**ので、再開は定数を `false` にして再ビルド・再配信するだけ |
 | 2026-08-01 | 政権区分の軸を「中華を統一していたか」へ入れ替え（`統一王朝`／`分裂期の王朝`／`反乱・自称政権` ＝ 113／240／12人）。判定基準は [INCLUSION_CRITERIA.md](../data/schema/INCLUSION_CRITERIA.md) の「政権区分の判定基準」節 |
 
 v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調査」と「kinship persons の政権帰属（`regimeId`）」の2件。前者は 2026-08-03（Issue #69）に**未調査の欄を落として** [残量表](process/RESIDUAL.md) の行（198在位／190人／53政権）にした（旧 Issue #24 は close）。後者は別 Issue 扱いのまま。
