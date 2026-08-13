@@ -21,6 +21,13 @@
       "file": "daizhigev20/史藏/正史/周书.txt",
       "line": 1110,
       "quote": "明帝独孤皇后，太保、卫国公信之长女"
+    },
+    {
+      "cid": "c4",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-mingdi.txt",
+      "line": 36,
+      "quote": "辛丑，崩于延寿殿，时年二十七，谥曰明皇帝，庙称世宗"
     }
   ],
   "findings": [
@@ -33,6 +40,20 @@
       ],
       "confidence": "high",
       "note": "冒頭1行が掲げる形（c1）と崩御条（c2）が一致する。**崩御条の廟号の語は「庙称」**（魏書 明元帝・漢書 賈捐之伝と同じ語で、「庙号」だけで走査すると落ちる）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "明皇帝",
+          "year": 560
+        }
+      ],
+      "basis": [
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "武成二年四月辛丑の崩御条（c4）。周書は「谥曰〈諡〉，庙称〈廟号〉」で**「庙号」でなく「庙称」**と書く"
     },
     {
       "field": "name.posthumousName",

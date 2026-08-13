@@ -21,6 +21,13 @@
       "file": "_corpus_cache/beizhou-jingdi.txt",
       "line": 2,
       "quote": "宣帝于邺宫传位授帝"
+    },
+    {
+      "cid": "c4",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-xuandi.txt",
+      "line": 36,
+      "quote": "时年二十二，谥曰宣皇帝"
     }
   ],
   "findings": [
@@ -33,6 +40,20 @@
       ],
       "confidence": "high",
       "note": "冒頭1行（c1）と崩御条（c2）。**廟号が伴わない**（周書は宣帝に廟号を与えない）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "宣皇帝",
+          "year": 580
+        }
+      ],
+      "basis": [
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "大象二年五月の崩御条（c4）。宣帝には庙号が無い"
     },
     {
       "field": "name.posthumousName",

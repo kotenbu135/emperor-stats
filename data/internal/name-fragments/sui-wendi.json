@@ -14,6 +14,13 @@
       "file": "daizhigev20/史藏/正史/隋书.txt",
       "line": 212,
       "quote": "大业元年，孟春祀感帝，孟冬祀神州，改以高祖文帝配"
+    },
+    {
+      "cid": "c3",
+      "book": "隋書",
+      "file": "_corpus_cache/sui-wendi.txt",
+      "line": 1,
+      "quote": "高祖上"
     }
   ],
   "findings": [
@@ -25,6 +32,16 @@
       ],
       "confidence": "high",
       "note": "冒頭1行が掲げる形（c1）。**隋書は文帝自身の上諡の条を紀に持たない** — 帝紀の「谥曰」は父祖への追贈（桓・康・献）で、この書の名乗りは冒頭1行に閉じている"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "隋書 帝紀の「谥」3句を全数で読んだ（3句とも文帝の祖先へ贈る諡）。この人物には諡を授ける条が無い。**隋書は隋の帝に諡を授ける条を1つも書かない**（文帝・煬帝の諡は冒頭の名乗りにしか出ない）。"
     },
     {
       "field": "name.posthumousName",

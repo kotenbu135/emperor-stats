@@ -1,0 +1,29 @@
+{
+  "id": "qianqin-fupi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianqin-fupi.txt",
+      "line": 12,
+      "quote": "苻登称尊号，伪谥丕为哀平皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "哀平皇帝",
+          "year": 386
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "「苻登称尊号，伪谥丕为哀平皇帝」（c1）＝苻登の称帝（386年）に掛かる"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

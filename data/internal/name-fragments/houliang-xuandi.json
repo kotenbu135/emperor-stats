@@ -1,0 +1,29 @@
+{
+  "id": "houliang-xuandi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "周書",
+      "file": "_corpus_cache/houliang-xuandi.txt",
+      "line": 41,
+      "quote": "其群臣等葬之于平陵，谥曰宣皇帝，庙号中宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "宣皇帝",
+          "year": 562
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "保定二年二月の薨去条（c1）。**後梁3帝は周書の列傳（卷四十八）が底本**で帝紀を持たないが、諡の条の形は北周の帝紀と同じ"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

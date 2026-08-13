@@ -1,0 +1,33 @@
+{
+  "id": "chen-houzhu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-houzhu.txt",
+      "line": 10,
+      "quote": "追赠大将军，封长城县公，谥曰炀，葬河南洛阳之芒山"
+    },
+    {
+      "cid": "c2",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-houzhu.txt",
+      "line": 1,
+      "quote": "后主"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2",
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "陳書 本紀の「谥」12句を全数で読んだ。この人物には諡を授ける条が無い。陳書は「追赠大将军，封长城县公，谥曰炀」と書く（c1）。**隋が県公として贈った1字の諡**で、置くかは Issue #126 の判断待ち。"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+}

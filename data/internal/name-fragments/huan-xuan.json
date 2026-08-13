@@ -1,0 +1,29 @@
+{
+  "id": "huan-xuan",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/huan-xuan.txt",
+      "line": 33,
+      "quote": "桓谦亦聚众沮中，为玄举哀，立丧庭，伪谥为武悼皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "武悼皇帝",
+          "year": 404
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "元興三年、桓謙が沮中で挙哀して立てた諡（c1）。次の条が「義熙元年正月」なので元興三年。**魏書の列傳にも同じ諡が在る**が、桓玄が名乗る底本は晉書 卷九十九なのでこちらから採った"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

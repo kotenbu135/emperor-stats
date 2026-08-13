@@ -14,6 +14,13 @@
       "file": "_corpus_cache/liang-yuzhangwang.txt",
       "line": 27,
       "quote": "辛卯，宣猛将军硃买臣密害豫章嗣王栋，及其二弟桥、樛，世祖志也"
+    },
+    {
+      "cid": "c3",
+      "book": "梁書",
+      "file": "_corpus_cache/liang-yuzhangwang.txt",
+      "line": 1,
+      "quote": "简文帝"
     }
   ],
   "findings": [
@@ -38,6 +45,16 @@
       ],
       "confidence": "high",
       "note": "同じ理由"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "梁書 本紀の「谥」6句を全数で読んだ。この人物には諡を授ける条が無い。"
     }
   ],
   "discrepancies": "なし"

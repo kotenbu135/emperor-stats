@@ -27,6 +27,16 @@
       "note": "本紀の冒頭1行の第1スロット。懐帝と同じく**証人は冒頭1行だけ**（平陽で弑され崩御条に加諡が続かない）"
     },
     {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "晉書を1冊走査した（帝紀の「谥」11句・載記55句・帝紀と載記の外の候補6件）。この人物には諡を授ける条が無い。**晉書は帝紀16人で恭帝の1人、載記でも死去条の要約に「伪谥…」を書く帝だけ**が段を持つ。"
+    },
+    {
       "field": "name.templeName",
       "value": null,
       "verdict": "read-absent",

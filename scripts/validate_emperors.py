@@ -1599,6 +1599,19 @@ POSTHUMOUS_STAGE_FULL_MISMATCH = {
                  "「…昭徳定功**睿神荘孝仁明**大聖武元皇帝」で、**睿神の2字の増と字順の"
                  "入れ替えが同時に起きる**（長短だけでは型が決まらない4つめの形）。"
                  "礼志の册文も加諡条と同じ字順なので、段には条の側を採った",
+    # 宋書で出た5つめの型。**清史稿の型(b)と同じ「形を書かない回」だが、書かないのが"
+    # **初諡でなく改諡のほう**で、冒頭形はその改諡の結果を指す（向きが清史稿の聖祖と逆）
+    "liu-song-wendi": "元凶劉劭が立てた初諡「景皇帝，庙曰中宗」だけが形を持ち、"
+                      "孝武帝が改めた回は「世祖践阼，追改谥及庙号」で形を書かない。"
+                      "冒頭形「文皇帝」はその**書かれなかった改諡の結果**を指す",
+}
+# **同じ形が2回立つことが在る。** 諡を取り上げて別の形にし、また元へ戻す政変が
+# 起きた場合で、列は**授けられた順**を主張するので3段とも落とせない。理由を書いた
+# 人物だけ通す（`R-CLAIM-GATED`：新しい形を受けるなら理由の欄も同じ変更で足す）
+POSTHUMOUS_STAGE_REPEAT = {
+    "beiqi-wenxuandi": "乾明元年の「文宣皇帝」→天統元年に和士開・祖珽の議で"
+                       "「威宗景烈皇帝」へ改諡→武平元年に「顕祖文宣皇帝」へ復す。"
+                       "**収録365人で同じ形が2回立つのはこの1人だけ**",
 }
 # **「皇帝」で結ばない諡が在る。** 明代宗は郕王へ落とされて王諡「戾」を与えられ、
 # 成化十一年に帝号を復して「恭仁康定景皇帝」を追諡された。列は**授けられた順**を
@@ -1609,7 +1622,7 @@ POSTHUMOUS_STAGE_NON_IMPERIAL = {
 }
 # 充足のラチェット。転記は各ブロックの中で進むので強制はせず、**減ったら落ちる**
 # （SCHEMA_CHANGE_CHECKLIST.md 手順5）。実測を書く
-POSTHUMOUS_STAGES_FLOOR = 103
+POSTHUMOUS_STAGES_FLOOR = 140
 
 
 def check_posthumous_names(data):
@@ -1681,8 +1694,12 @@ def check_posthumous_names(data):
                     years.append((i, year))
         # C 列の形
         dup = sorted({f for f in forms if forms.count(f) > 1})
-        if dup:
-            err(f"[posthumous-stages] {e['id']}: 同じ段が2回出ている: {dup}")
+        if dup and e["id"] not in POSTHUMOUS_STAGE_REPEAT:
+            err(f"[posthumous-stages] {e['id']}: 同じ段が2回出ている: {dup}"
+                f"（諡を戻した政変なら POSTHUMOUS_STAGE_REPEAT に理由を書く）")
+        elif not dup and e["id"] in POSTHUMOUS_STAGE_REPEAT:
+            err(f"[posthumous-stages] {e['id']}: 重複が無いのに "
+                f"POSTHUMOUS_STAGE_REPEAT へ挙がっている（免除を消せる）")
         for (ia, ya), (ib, yb) in zip(years, years[1:]):
             if yb < ya:
                 err(f"[posthumous-stages] {e['id']}: year が並び順に対して逆行している"

@@ -1,0 +1,25 @@
+{
+  "id": "liang-wudi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "梁書",
+      "file": "_corpus_cache/liang-wudi.txt",
+      "line": 1,
+      "quote": "武帝上"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "梁書 本紀の「谥」6句を全数で読んだ。この人物には諡を授ける条が無い。"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+}

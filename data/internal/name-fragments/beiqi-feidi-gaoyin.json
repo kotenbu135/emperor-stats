@@ -21,6 +21,13 @@
       "file": "_corpus_cache/beiqi-feidi-gaoyin.txt",
       "line": 4,
       "quote": "皇建二年九月，殂于晋阳，年十七"
+    },
+    {
+      "cid": "c4",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-feidi-gaoyin.txt",
+      "line": 5,
+      "quote": "大宁二年，葬于武宁之西北，谥闵悼王"
     }
   ],
   "findings": [
@@ -35,6 +42,17 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。冒頭1行が諡ではなく位号「废帝」で立ち（c1）、廃位後は済南王として殂した記事で紀が終わる（c2・c3）。**「廃帝」は位号であって諡ではない**（前漢の前少帝・五代の梁末帝と同じ型）。北齊書の「谥」は他の帝には崩御条で必ず付くので、書かれ方の問題ではない"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "北齊書 帝紀（L1〜600）の「谥」18句を全数で読んだ。この人物には諡を授ける条が無い。北齊書は「谥闵悼王」と書く（c4）。**廃位して済南王へ落としたうえでの王諡**で、置くかは Issue #126 の判断待ち。"
     }
   ],
   "discrepancies": "なし"

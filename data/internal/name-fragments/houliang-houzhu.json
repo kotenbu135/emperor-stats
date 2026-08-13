@@ -1,0 +1,25 @@
+{
+  "id": "houliang-houzhu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "周書",
+      "file": "_corpus_cache/houliang-houzhu.txt",
+      "line": 1,
+      "quote": "琮字温文，性宽仁，有大度，倜傥不羁，博学有文义"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "周書 帝紀と後梁の列傳（L1〜1200）の「谥」17句を全数で読んだ。この人物には諡を授ける条が無い。隋に併合されて莒国公となり、諡の条が無い。"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+}

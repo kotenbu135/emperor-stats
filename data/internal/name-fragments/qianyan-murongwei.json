@@ -1,0 +1,29 @@
+{
+  "id": "qianyan-murongwei",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianyan-murongwei.txt",
+      "line": 27,
+      "quote": "及德僭称尊号，伪谥幽皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "幽皇帝",
+          "year": 400
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "**授けたのは南燕の慕容徳**で、条は「及德僭称尊号，伪谥幽皇帝」（c1）＝徳の称帝（400年）に掛かる。慕容暐の死（385年）より15年遅い"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

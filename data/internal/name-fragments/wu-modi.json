@@ -1,0 +1,33 @@
+{
+  "id": "wu-modi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "三國志",
+      "file": "_corpus_cache/wu-modi.txt",
+      "line": 2,
+      "quote": "九月，贬太后为景皇后，追谥父和曰文皇帝，尊母何为太后"
+    },
+    {
+      "cid": "c2",
+      "book": "三國志",
+      "file": "_corpus_cache/wu-modi.txt",
+      "line": 1,
+      "quote": "孙皓字元宗，权孙，和子也，一名彭祖，字皓宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2",
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "三國志の魏書帝紀・蜀書・呉書の「谥」13句を全数で読んだ。この人物には諡を授ける条が無い。三國志が諡を授ける条を書くのは劉備・孫権・孫休の3人だけ。孫皓紀の「追谥父和曰文皇帝」（c1）は**父の孫和へ贈った諡**で孫皓自身のものではない。"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+}

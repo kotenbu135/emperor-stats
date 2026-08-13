@@ -1,0 +1,28 @@
+{
+  "id": "qianqin-fujian",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianqin-fujian.txt",
+      "line": 12,
+      "quote": "伪谥明皇帝，庙号世宗，后改曰高祖"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "明皇帝"
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "「健死…伪谥明皇帝，庙号世宗，后改曰高祖」（c1）。**晉書が書く諡は「明皇帝」で、通用する短縮呼称「景明帝」の「景」を持たない**。条が年を書かないので年は入れていない"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

@@ -21,6 +21,13 @@
       "file": "daizhigev20/史藏/正史/南齐书.txt",
       "line": 493,
       "quote": "高宗明皇帝神室奏《明德凯容之乐》歌辞"
+    },
+    {
+      "cid": "c4",
+      "book": "南齊書",
+      "file": "_corpus_cache/qi-mingdi.txt",
+      "line": 1,
+      "quote": "明帝"
     }
   ],
   "findings": [
@@ -34,6 +41,16 @@
       ],
       "confidence": "high",
       "note": "冒頭の第2スロット。上諡の条は無いが、宣徳太后令（c2）と樂志の廟の神室歌（c3）が独立に全長形を挙げる"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "南齊書 本紀の「谥」4句を全数で読んだ。この人物には諡を授ける条が無い。南齊書が諡を授ける条を書くのは高帝だけ。"
     },
     {
       "field": "name.childhoodName",

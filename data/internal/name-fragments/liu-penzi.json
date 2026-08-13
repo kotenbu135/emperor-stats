@@ -7,6 +7,13 @@
       "file": "_corpus_cache/liu-penzi.txt",
       "line": 5,
       "quote": "六月，遂立盆子为帝，自号建世元年"
+    },
+    {
+      "cid": "c2",
+      "book": "後漢書",
+      "file": "_corpus_cache/liu-penzi.txt",
+      "line": 1,
+      "quote": "刘盆子者，太山式人，城阳景王章之后也"
     }
   ],
   "findings": [
@@ -29,6 +36,16 @@
       ],
       "confidence": "high",
       "note": "同じ理由"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "後漢書の帝紀を人物ごとに全数で読んだ。この人物には諡を授ける条が無い。**後漢書は諡を冒頭の名乗り（「〈廟号〉孝〈諡〉皇帝諱〈諱〉」）に置き、授ける条を書くのは献帝だけ**（授けたのは魏）。"
     }
   ],
   "discrepancies": "なし"

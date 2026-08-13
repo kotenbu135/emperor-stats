@@ -28,6 +28,13 @@
       "file": "daizhigev20/史藏/正史/南齐书.txt",
       "line": 254,
       "quote": "太祖高皇帝肇基骏命，膺录受图，世祖武皇帝系明下武，高宗明皇帝重隆景业"
+    },
+    {
+      "cid": "c5",
+      "book": "南齊書",
+      "file": "_corpus_cache/qi-gaodi.txt",
+      "line": 85,
+      "quote": "四月，庚寅，上谥曰太祖高皇帝"
     }
   ],
   "findings": [
@@ -41,6 +48,20 @@
       ],
       "confidence": "high",
       "note": "冒頭の第2スロット。崩御条 c2 が「上谥曰太祖高皇帝」と廟号ごと贈っており、南齊書で上諡の条を持つ帝はこの1人だけ。c4（宣徳太后令）が同じ全長形を独立に挙げる"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "高皇帝",
+          "year": 482
+        }
+      ],
+      "basis": [
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "建元四年四月庚寅の条（c5）。**条は「太祖高皇帝」と廟号を冠した形で書く**ので、段には諡の側だけを置いた（廟号は templeName）。南齊書 本紀の「谥」4句のうち帝の諡はこの1件だけ"
     },
     {
       "field": "name.childhoodName",

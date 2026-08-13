@@ -1,0 +1,29 @@
+{
+  "id": "qianzhao-liuyuan",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianzhao-liuyuan.txt",
+      "line": 15,
+      "quote": "以永嘉四年死，在位六年，伪谥光文皇帝，庙号高祖，墓号永光陵"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "光文皇帝",
+          "year": 310
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "永嘉四年の死去条（c1）。**晉書 載記は諡を「伪谥〈諡〉，庙号〈廟号〉，墓号〈陵〉」の順で載記の末尾にまとめて書く**"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

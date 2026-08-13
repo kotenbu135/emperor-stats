@@ -21,6 +21,13 @@
       "file": "daizhigev20/史藏/正史/北齐书.txt",
       "line": 384,
       "quote": "孝昭帝崩，太后又下诏立武成帝"
+    },
+    {
+      "cid": "c4",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-wuchengdi.txt",
+      "line": 9,
+      "quote": "天统四年十二月辛未，太上皇帝崩于邺宫乾寿堂，时年三十二，谥曰武成皇帝，庙号世祖"
     }
   ],
   "findings": [
@@ -33,6 +40,20 @@
       ],
       "confidence": "high",
       "note": "冒頭1行が掲げる形（c1）と崩御条（c2）が一致する"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "武成皇帝",
+          "year": 568
+        }
+      ],
+      "basis": [
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "天統四年十二月辛未の条（c4）"
     },
     {
       "field": "name.posthumousName",

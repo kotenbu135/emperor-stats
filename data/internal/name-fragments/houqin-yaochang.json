@@ -1,0 +1,29 @@
+{
+  "id": "houqin-yaochang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/houqin-yaochang.txt",
+      "line": 34,
+      "quote": "伪谥武昭皇帝，庙号太祖，墓称原陵"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "武昭皇帝",
+          "year": 393
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "「以太元十八年死…」（c1）"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

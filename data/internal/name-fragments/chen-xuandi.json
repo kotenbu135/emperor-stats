@@ -1,0 +1,29 @@
+{
+  "id": "chen-xuandi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-xuandi.txt",
+      "line": 16,
+      "quote": "”二月辛卯，上谥孝宣皇帝，庙号高宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "孝宣皇帝",
+          "year": 582
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "太建十四年二月辛卯の条（c1）。**陳書だけ「孝」を冠する**（武帝・文帝は冠さない）"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

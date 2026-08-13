@@ -21,6 +21,13 @@
       "file": "daizhigev20/史藏/正史/南齐书.txt",
       "line": 3154,
       "quote": "宫人许氏生海陵恭王昭文"
+    },
+    {
+      "cid": "c4",
+      "book": "南齊書",
+      "file": "_corpus_cache/qi-hailingwang.txt",
+      "line": 1,
+      "quote": "海陵王"
     }
   ],
   "findings": [
@@ -34,6 +41,17 @@
       ],
       "confidence": "high",
       "note": "**諡は受けているが王級**（c2「谥曰恭王」）で、皇帝の全長諡ではないのでこの欄には入らない。冒頭形「海陵恭王」もその王諡を含んだ呼称（c3 が列傳で同じ形を使う）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c4",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "南齊書 本紀の「谥」4句を全数で読んだ。この人物には諡を授ける条が無い。南齊書が諡を授ける条を書くのは高帝だけ。南齊書は「谥曰恭王」と書く（c2）。**廃位後の王諡**で、置くかは Issue #126 の判断待ち（この人物は判断待ちの行にもともと挙がっている）。"
     },
     {
       "field": "name.templeName",

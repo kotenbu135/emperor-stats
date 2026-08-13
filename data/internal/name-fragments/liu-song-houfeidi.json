@@ -14,6 +14,13 @@
       "file": "_corpus_cache/liu-song-houfeidi.txt",
       "line": 15,
       "quote": "可特追封苍梧郡王"
+    },
+    {
+      "cid": "c3",
+      "book": "宋書",
+      "file": "_corpus_cache/liu-song-houfeidi.txt",
+      "line": 1,
+      "quote": "后废帝"
     }
   ],
   "findings": [
@@ -36,6 +43,16 @@
       ],
       "confidence": "high",
       "note": "同じ理由。位号は諡ではない"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "宋書 本紀の「谥」6句を全数で読んだ（本紀の外の候補22件は王・后・北魏の帝）。この人物には諡を授ける条が無い。宋書は諡を冒頭の名乗りに置き、授ける条を書くのは文帝だけ。"
     },
     {
       "field": "name.posthumousName",

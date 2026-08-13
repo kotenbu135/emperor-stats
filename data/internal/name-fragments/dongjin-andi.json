@@ -14,6 +14,13 @@
       "file": "_corpus_cache/dongjin-andi.txt",
       "line": 25,
       "quote": "帝崩于东堂，时年三十七。葬休平陵"
+    },
+    {
+      "cid": "c3",
+      "book": "晉書",
+      "file": "_corpus_cache/dongjin-andi.txt",
+      "line": 1,
+      "quote": "帝纪第十"
     }
   ],
   "findings": [
@@ -25,6 +32,16 @@
       ],
       "confidence": "high",
       "note": "本紀の冒頭1行の第1スロット。晉書 帝紀の定型は「〈諡〉皇帝讳〈諱〉，字〈字〉」で**廟号を含まない**（廟号は崩御条の側）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "晉書を1冊走査した（帝紀の「谥」11句・載記55句・帝紀と載記の外の候補6件）。この人物には諡を授ける条が無い。**晉書は帝紀16人で恭帝の1人、載記でも死去条の要約に「伪谥…」を書く帝だけ**が段を持つ。"
     },
     {
       "field": "name.templeName",

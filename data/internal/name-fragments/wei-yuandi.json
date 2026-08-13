@@ -1,0 +1,25 @@
+{
+  "id": "wei-yuandi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "三國志",
+      "file": "_corpus_cache/wei-yuandi.txt",
+      "line": 1,
+      "quote": "使使持节行中护军中垒将军司马炎北迎常道乡公璜嗣明帝后"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "三國志の魏書帝紀・蜀書・呉書の「谥」13句を全数で読んだ。この人物には諡を授ける条が無い。三國志が諡を授ける条を書くのは劉備・孫権・孫休の3人だけ。晉に禅譲して陳留王となり、三國志に諡の条が無い。"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+}

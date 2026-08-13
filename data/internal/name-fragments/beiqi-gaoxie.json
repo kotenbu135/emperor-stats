@@ -1,0 +1,25 @@
+{
+  "id": "beiqi-gaoxie",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-gaoxie.txt",
+      "line": 1,
+      "quote": "范阳王绍义，文宣第三子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "北齊書 帝紀（L1〜600）の「谥」18句を全数で読んだ。この人物には諡を授ける条が無い。"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+}

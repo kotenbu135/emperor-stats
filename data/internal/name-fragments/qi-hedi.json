@@ -29,6 +29,16 @@
       "note": "**南齊書はこの人に全長形を与えない** — 冒頭が「和帝」（他の3帝のような「〈廟号〉〈諡〉皇帝」ではない）で、崩御条 c2 も「追尊为齐和帝」と短縮形で書く。書全体で「和皇帝」は0件。短縮呼称「和帝」は既に `posthumousName` に在るので、そちらへ重ねない"
     },
     {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "南齊書 本紀の「谥」4句を全数で読んだ。この人物には諡を授ける条が無い。南齊書が諡を授ける条を書くのは高帝だけ。"
+    },
+    {
       "field": "name.templeName",
       "value": null,
       "verdict": "read-absent",

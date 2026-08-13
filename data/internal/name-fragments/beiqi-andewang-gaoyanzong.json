@@ -27,6 +27,16 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。**`commonName`「安徳王高延宗」の末尾「宗」は諱の一部**であって廟号ではない（絞り込みの正規表現に当たるだけの偽陽性）。北齊書はこの人物を列傳で「〈王号〉〈名〉，〈続柄〉」の定型で立て（c1）、晋陽で尊号を称した記事にも廟号が伴わない（c2）。書の廟号記事18件はいずれも別人"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "北齊書 帝紀（L1〜600）の「谥」18句を全数で読んだ。この人物には諡を授ける条が無い。"
     }
   ],
   "discrepancies": "なし"

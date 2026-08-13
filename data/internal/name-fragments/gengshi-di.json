@@ -14,6 +14,13 @@
       "file": "_corpus_cache/gengshi-di.txt",
       "line": 4,
       "quote": "于是大赦天下，建元曰更始元年"
+    },
+    {
+      "cid": "c3",
+      "book": "漢書・後漢書",
+      "file": "_corpus_cache/gengshi-di.txt",
+      "line": 1,
+      "quote": "刘玄字圣公，光武族兄也"
     }
   ],
   "findings": [
@@ -38,6 +45,16 @@
       ],
       "confidence": "high",
       "note": "同じ理由"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "本人の列傳を全数で読んだ。この人物には諡が無い（列傳のみで立つ僭称の政権）。"
     }
   ],
   "discrepancies": "なし"

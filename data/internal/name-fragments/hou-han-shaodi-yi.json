@@ -38,6 +38,16 @@
       ],
       "confidence": "high",
       "note": "同じ理由。侯号は諡ではない"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "後漢書の帝紀を人物ごとに全数で読んだ。この人物には諡を授ける条が無い。**後漢書は諡を冒頭の名乗り（「〈廟号〉孝〈諡〉皇帝諱〈諱〉」）に置き、授ける条を書くのは献帝だけ**（授けたのは魏）。北郷侯懿は「不宜称谥」と議されて諡を受けていない。"
     }
   ],
   "discrepancies": "なし"

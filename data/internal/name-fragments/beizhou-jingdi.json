@@ -35,6 +35,20 @@
       "note": "冒頭1行（c1）と崩御条（c2）。廟号は伴わない"
     },
     {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "静皇帝",
+          "year": 581
+        }
+      ],
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "開皇元年五月壬申の条（c2）。**授けたのは禅譲を受けた隋**（同じ条が「隋志也」と書く）"
+    },
+    {
       "field": "name.posthumousName",
       "value": "静帝",
       "basis": [

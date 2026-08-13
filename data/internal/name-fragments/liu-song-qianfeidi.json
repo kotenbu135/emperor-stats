@@ -31,6 +31,16 @@
       "note": "同じ理由。位号は諡ではない"
     },
     {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "宋書 本紀の「谥」6句を全数で読んだ（本紀の外の候補22件は王・后・北魏の帝）。この人物には諡を授ける条が無い。宋書は諡を冒頭の名乗りに置き、授ける条を書くのは文帝だけ。"
+    },
+    {
       "field": "name.courtesyName",
       "value": null,
       "verdict": "read-absent",

@@ -1,0 +1,29 @@
+{
+  "id": "qianqin-fudeng",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianqin-fudeng.txt",
+      "line": 17,
+      "quote": "伪谥登曰高皇帝，庙号太宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "高皇帝",
+          "year": 394
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "「崇…僭称尊号，改元延初。伪谥登曰高皇帝，庙号太宗」（c1）＝苻崇の即位（394年）"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

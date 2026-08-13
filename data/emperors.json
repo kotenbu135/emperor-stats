@@ -14229,7 +14229,13 @@
     "posthumousName": "献帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "孝献皇帝"
+    "posthumousNameFull": "孝献皇帝",
+    "posthumousNames": [
+     {
+      "form": "孝献皇帝",
+      "year": 234
+     }
+    ]
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
@@ -17177,7 +17183,13 @@
     "posthumousName": "昭烈帝",
     "templeName": "烈祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "玄徳"
+    "courtesyName": "玄徳",
+    "posthumousNames": [
+     {
+      "form": "昭烈皇帝",
+      "year": 223
+     }
+    ]
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "shu-han",
@@ -17880,7 +17892,13 @@
     "posthumousName": "大帝",
     "templeName": "太祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "仲謀"
+    "courtesyName": "仲謀",
+    "posthumousNames": [
+     {
+      "form": "大皇帝",
+      "year": 252
+     }
+    ]
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "eastern-wu",
@@ -18700,7 +18718,13 @@
     "posthumousName": "景帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "子烈"
+    "courtesyName": "子烈",
+    "posthumousNames": [
+     {
+      "form": "景皇帝",
+      "year": 264
+     }
+    ]
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "eastern-wu",
@@ -25493,7 +25517,13 @@
     "templeName": null,
     "regnalTitle": "皇帝",
     "courtesyName": "徳文",
-    "posthumousNameFull": "恭皇帝"
+    "posthumousNameFull": "恭皇帝",
+    "posthumousNames": [
+     {
+      "form": "恭皇帝",
+      "year": 421
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "eastern-jin",
@@ -25688,7 +25718,13 @@
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "敬道"
+    "courtesyName": "敬道",
+    "posthumousNames": [
+     {
+      "form": "武悼皇帝",
+      "year": 404
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "huan-chu",
@@ -26120,7 +26156,13 @@
     "posthumousName": "光文帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "元海"
+    "courtesyName": "元海",
+    "posthumousNames": [
+     {
+      "form": "光文皇帝",
+      "year": 310
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-zhao",
@@ -26523,7 +26565,13 @@
     "posthumousName": "昭武帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "玄明"
+    "courtesyName": "玄明",
+    "posthumousNames": [
+     {
+      "form": "昭武皇帝",
+      "year": 318
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-zhao",
@@ -27484,7 +27532,13 @@
     "posthumousName": "景昭帝",
     "templeName": "烈祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "宣英"
+    "courtesyName": "宣英",
+    "posthumousNames": [
+     {
+      "form": "景昭皇帝",
+      "year": 360
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-yan",
@@ -27763,7 +27817,13 @@
     "posthumousName": "幽帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "景茂"
+    "courtesyName": "景茂",
+    "posthumousNames": [
+     {
+      "form": "幽皇帝",
+      "year": 400
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-yan",
@@ -29132,7 +29192,13 @@
     "templeName": "高祖",
     "regnalTitle": "皇帝",
     "courtesyName": "世龍",
-    "childhoodName": "匐勒"
+    "childhoodName": "匐勒",
+    "posthumousNames": [
+     {
+      "form": "明皇帝",
+      "year": 332
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-zhao",
@@ -29693,7 +29759,12 @@
     "posthumousName": "武帝",
     "templeName": "太祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "季龍"
+    "courtesyName": "季龍",
+    "posthumousNames": [
+     {
+      "form": "武皇帝"
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-zhao",
@@ -30727,7 +30798,12 @@
     "posthumousName": "景明帝",
     "templeName": "高祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "建業"
+    "courtesyName": "建業",
+    "posthumousNames": [
+     {
+      "form": "明皇帝"
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-qin",
@@ -31258,7 +31334,13 @@
     "posthumousName": "哀平帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "永叔"
+    "courtesyName": "永叔",
+    "posthumousNames": [
+     {
+      "form": "哀平皇帝",
+      "year": 386
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-qin",
@@ -31455,7 +31537,13 @@
     "posthumousName": "高帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "文高"
+    "courtesyName": "文高",
+    "posthumousNames": [
+     {
+      "form": "高皇帝",
+      "year": 394
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-qin",
@@ -32624,7 +32712,13 @@
     "posthumousName": "成武帝",
     "templeName": "世祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "道明"
+    "courtesyName": "道明",
+    "posthumousNames": [
+     {
+      "form": "成武皇帝",
+      "year": 396
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-yan",
@@ -32918,7 +33012,13 @@
     "posthumousName": "恵愍帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "道祐"
+    "courtesyName": "道祐",
+    "posthumousNames": [
+     {
+      "form": "恵愍皇帝",
+      "year": 399
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-yan",
@@ -33575,7 +33675,12 @@
     "posthumousName": "昭武帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "道運"
+    "courtesyName": "道運",
+    "posthumousNames": [
+     {
+      "form": "昭武皇帝"
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-yan",
@@ -33864,7 +33969,12 @@
     "posthumousName": "昭文帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "道文"
+    "courtesyName": "道文",
+    "posthumousNames": [
+     {
+      "form": "昭文皇帝"
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-yan",
@@ -34943,7 +35053,13 @@
     "posthumousName": "献武帝",
     "templeName": "世宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "玄明"
+    "courtesyName": "玄明",
+    "posthumousNames": [
+     {
+      "form": "献武皇帝",
+      "year": 405
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "southern-yan",
@@ -35429,7 +35545,13 @@
     "posthumousName": "武昭帝",
     "templeName": "太祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "景茂"
+    "courtesyName": "景茂",
+    "posthumousNames": [
+     {
+      "form": "武昭皇帝",
+      "year": 393
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-qin",
@@ -35750,7 +35872,13 @@
     "posthumousName": "文桓帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "子略"
+    "courtesyName": "子略",
+    "posthumousNames": [
+     {
+      "form": "文桓皇帝",
+      "year": 416
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-qin",
@@ -37171,7 +37299,13 @@
     "templeName": "太祖",
     "regnalTitle": "皇帝",
     "childhoodName": "車児",
-    "posthumousNameFull": "文皇帝"
+    "posthumousNameFull": "文皇帝",
+    "posthumousNames": [
+     {
+      "form": "景皇帝",
+      "year": 453
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "liu-song",
@@ -39398,7 +39532,13 @@
     "regnalTitle": "皇帝",
     "courtesyName": "紹伯",
     "posthumousNameFull": "高皇帝",
-    "childhoodName": "斗将"
+    "childhoodName": "斗将",
+    "posthumousNames": [
+     {
+      "form": "高皇帝",
+      "year": 482
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "southern-qi",
@@ -42508,7 +42648,13 @@
     "templeName": null,
     "regnalTitle": "皇帝",
     "courtesyName": "慧相",
-    "childhoodName": "法真"
+    "childhoodName": "法真",
+    "posthumousNames": [
+     {
+      "form": "敬皇帝",
+      "year": 558
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",
@@ -42866,7 +43012,13 @@
     "posthumousName": "宣帝",
     "templeName": "中宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "理孫"
+    "courtesyName": "理孫",
+    "posthumousNames": [
+     {
+      "form": "宣皇帝",
+      "year": 562
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "western-liang",
@@ -43053,7 +43205,13 @@
     "posthumousName": "孝明皇帝",
     "templeName": "世宗",
     "regnalTitle": "皇帝",
-    "courtesyName": "仁遠"
+    "courtesyName": "仁遠",
+    "posthumousNames": [
+     {
+      "form": "孝明皇帝",
+      "year": 585
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "western-liang",
@@ -43413,7 +43571,13 @@
     "templeName": "高祖",
     "regnalTitle": "皇帝",
     "courtesyName": "興国",
-    "childhoodName": "法生"
+    "childhoodName": "法生",
+    "posthumousNames": [
+     {
+      "form": "武皇帝",
+      "year": 559
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "chen",
@@ -43652,7 +43816,13 @@
     "posthumousName": "文帝",
     "templeName": "世祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "子華"
+    "courtesyName": "子華",
+    "posthumousNames": [
+     {
+      "form": "文皇帝",
+      "year": 566
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "chen",
@@ -44288,7 +44458,13 @@
     "templeName": "高宗",
     "regnalTitle": "皇帝",
     "courtesyName": "紹世",
-    "childhoodName": "師利"
+    "childhoodName": "師利",
+    "posthumousNames": [
+     {
+      "form": "孝宣皇帝",
+      "year": 582
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "chen",
@@ -54473,7 +54649,21 @@
     "templeName": "顕祖",
     "regnalTitle": "皇帝",
     "courtesyName": "子進",
-    "posthumousNameFull": "文宣皇帝"
+    "posthumousNameFull": "文宣皇帝",
+    "posthumousNames": [
+     {
+      "form": "文宣皇帝",
+      "year": 560
+     },
+     {
+      "form": "景烈皇帝",
+      "year": 565
+     },
+     {
+      "form": "文宣皇帝",
+      "year": 570
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-qi",
@@ -55005,7 +55195,13 @@
     "templeName": "粛宗",
     "regnalTitle": "皇帝",
     "courtesyName": "延安",
-    "posthumousNameFull": "孝昭皇帝"
+    "posthumousNameFull": "孝昭皇帝",
+    "posthumousNames": [
+     {
+      "form": "孝昭皇帝",
+      "year": 561
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-qi",
@@ -55210,7 +55406,13 @@
     "templeName": "世祖",
     "regnalTitle": "皇帝",
     "posthumousNameFull": "武成皇帝",
-    "childhoodName": "歩落稽"
+    "childhoodName": "歩落稽",
+    "posthumousNames": [
+     {
+      "form": "武成皇帝",
+      "year": 568
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-qi",
@@ -57289,7 +57491,13 @@
     "templeName": "世宗",
     "regnalTitle": "皇帝",
     "posthumousNameFull": "明皇帝",
-    "childhoodName": "統万突"
+    "childhoodName": "統万突",
+    "posthumousNames": [
+     {
+      "form": "明皇帝",
+      "year": 560
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-zhou",
@@ -57488,7 +57696,13 @@
     "templeName": "高祖",
     "regnalTitle": "皇帝",
     "courtesyName": "禰羅突",
-    "posthumousNameFull": "武皇帝"
+    "posthumousNameFull": "武皇帝",
+    "posthumousNames": [
+     {
+      "form": "武皇帝",
+      "year": 578
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-zhou",
@@ -57955,7 +58169,13 @@
     "templeName": null,
     "regnalTitle": "皇帝",
     "courtesyName": "乾伯",
-    "posthumousNameFull": "宣皇帝"
+    "posthumousNameFull": "宣皇帝",
+    "posthumousNames": [
+     {
+      "form": "宣皇帝",
+      "year": 580
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-zhou",
@@ -58285,7 +58505,13 @@
     "posthumousName": "静帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "静皇帝"
+    "posthumousNameFull": "静皇帝",
+    "posthumousNames": [
+     {
+      "form": "静皇帝",
+      "year": 581
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-zhou",

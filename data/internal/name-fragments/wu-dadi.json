@@ -1,0 +1,29 @@
+{
+  "id": "wu-dadi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "三國志",
+      "file": "_corpus_cache/wu-dadi.txt",
+      "line": 51,
+      "quote": "夏四月，权薨，时年七十一，谥曰大皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "大皇帝",
+          "year": 252
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "神鳳元年夏四月の条（c1）。**「皇帝」でなく「大皇帝」で結ぶ**（この欄が大帝を受けるのはこの1件）"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

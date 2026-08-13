@@ -21,6 +21,13 @@
       "file": "daizhigev20/史藏/正史/南齐书.txt",
       "line": 254,
       "quote": "世祖武皇帝系明下武，高宗明皇帝重隆景业"
+    },
+    {
+      "cid": "c4",
+      "book": "南齊書",
+      "file": "_corpus_cache/qi-wudi.txt",
+      "line": 1,
+      "quote": "武帝"
     }
   ],
   "findings": [
@@ -34,6 +41,16 @@
       ],
       "confidence": "high",
       "note": "冒頭の第2スロット。南齊書は武帝に上諡の条を持たないが、海陵王の即位詔（c2）と宣徳太后令（c3）が同時代の文書として全長形をそのまま並べる"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "南齊書 本紀の「谥」4句を全数で読んだ。この人物には諡を授ける条が無い。南齊書が諡を授ける条を書くのは高帝だけ。"
     },
     {
       "field": "name.childhoodName",

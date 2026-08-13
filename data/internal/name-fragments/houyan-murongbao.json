@@ -1,0 +1,29 @@
+{
+  "id": "houyan-murongbao",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/houyan-murongbao.txt",
+      "line": 9,
+      "quote": "盛僭位，伪谥宝惠愍皇帝，庙号烈宗"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "恵愍皇帝",
+          "year": 399
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "「即隆安三年也…盛僭位，伪谥宝惠愍皇帝，庙号烈宗」（c1）。**条は「伪谥〈諱〉〈諡〉」の形で諱「宝」を挟む**ので、段には諡の側だけを置いた"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

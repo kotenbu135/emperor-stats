@@ -55,6 +55,16 @@
       "note": "同じ理由。位号は諡ではないのでこの欄には入らない"
     },
     {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "南齊書 本紀の「谥」4句を全数で読んだ。この人物には諡を授ける条が無い。南齊書が諡を授ける条を書くのは高帝だけ。"
+    },
+    {
       "field": "name.posthumousName",
       "value": null,
       "verdict": "read-absent",

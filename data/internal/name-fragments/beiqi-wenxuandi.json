@@ -21,6 +21,27 @@
       "file": "_corpus_cache/beiqi-feidi-gaoyin.txt",
       "line": 2,
       "quote": "文宣帝之长子也"
+    },
+    {
+      "cid": "c4",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-wenxuandi.txt",
+      "line": 35,
+      "quote": "乾明元年二月丙申，葬于武宁陵，谥曰文宣皇帝，庙号威宗"
+    },
+    {
+      "cid": "c5",
+      "book": "北齊書",
+      "file": "daizhigev20/史藏/正史/北齐书.txt",
+      "line": 337,
+      "quote": "庚午，有司奏改「高祖文宣皇帝」为「威宗景烈皇帝"
+    },
+    {
+      "cid": "c6",
+      "book": "北齊書",
+      "file": "daizhigev20/史藏/正史/北齐书.txt",
+      "line": 347,
+      "quote": "己丑，复改威宗景烈皇帝谥号为「显祖文宣皇帝"
     }
   ],
   "findings": [
@@ -33,6 +54,31 @@
       ],
       "confidence": "high",
       "note": "冒頭1行が掲げる形（c1）。崩御条も同じ形で、廟号だけが威宗→顕祖と改まっている（c2）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "文宣皇帝",
+          "year": 560
+        },
+        {
+          "form": "景烈皇帝",
+          "year": 565
+        },
+        {
+          "form": "文宣皇帝",
+          "year": 570
+        }
+      ],
+      "basis": [
+        "c4",
+        "c2",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "**同じ形が2回立つ収録365人で唯一の人物。** 乾明元年二月丙申に「文宣皇帝，庙号威宗」（c4）、天統元年に和士開・祖珽の議で「威宗景烈皇帝」へ改められ（c5＝後主紀）、武平元年己丑に「顕祖文宣皇帝」へ戻る（c6＝同）。**本人の紀は戻した回を「武平初，又改为文宣」と書くだけで中の景烈を書かない**（c2）ので、2段目は後主紀の条からしか取れない"
     },
     {
       "field": "name.posthumousName",

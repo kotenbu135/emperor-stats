@@ -35,6 +35,20 @@
       "note": "冒頭1行（c1）と崩御条（c2）が一致する。語は「庙称」"
     },
     {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "武皇帝",
+          "year": 578
+        }
+      ],
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "宣政元年六月の崩御条（c2）"
+    },
+    {
       "field": "name.posthumousName",
       "value": "武帝",
       "basis": [

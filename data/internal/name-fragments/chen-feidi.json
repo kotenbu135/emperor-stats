@@ -14,6 +14,13 @@
       "file": "_corpus_cache/chen-feidi.txt",
       "line": 9,
       "quote": "史臣曰：临海虽继体之重，仁厚懦弱"
+    },
+    {
+      "cid": "c3",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-feidi.txt",
+      "line": 1,
+      "quote": "废帝"
     }
   ],
   "findings": [
@@ -38,6 +45,16 @@
       ],
       "confidence": "high",
       "note": "同じ理由。位号は諡ではないのでこの欄にも入らない"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "陳書 本紀の「谥」12句を全数で読んだ。この人物には諡を授ける条が無い。廃位されて臨海王となり諡が無い。"
     }
   ],
   "discrepancies": "なし"

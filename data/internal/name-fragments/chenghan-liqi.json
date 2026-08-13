@@ -1,0 +1,33 @@
+{
+  "id": "chenghan-liqi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/chenghan-liqi.txt",
+      "line": 4,
+      "quote": "谥曰幽公"
+    },
+    {
+      "cid": "c2",
+      "book": "晉書",
+      "file": "_corpus_cache/chenghan-liqi.txt",
+      "line": 1,
+      "quote": "期字世运，雄第四子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2",
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "晉書を1冊走査した（帝紀の「谥」11句・載記55句・帝紀と載記の外の候補6件）。この人物には諡を授ける条が無い。**晉書は帝紀16人で恭帝の1人、載記でも死去条の要約に「伪谥…」を書く帝だけ**が段を持つ。載記は「谥曰幽公」と書く（c1）が、**公諡は「皇帝」「大帝」で結ぶこの欄の形に合わない**。王級・公級の諡を置くかは Issue #126 の判断待ち（4書まとめて決める行）。"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+}

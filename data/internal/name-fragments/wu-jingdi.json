@@ -1,0 +1,29 @@
+{
+  "id": "wu-jingdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "三國志",
+      "file": "_corpus_cache/wu-jingdi.txt",
+      "line": 10,
+      "quote": "癸未，休薨，时年三十，谥曰景皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "景皇帝",
+          "year": 264
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "永安七年癸未の条（c1）"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

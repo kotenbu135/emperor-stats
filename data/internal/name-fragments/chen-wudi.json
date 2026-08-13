@@ -1,0 +1,29 @@
+{
+  "id": "chen-wudi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-wudi.txt",
+      "line": 4,
+      "quote": "秋八月甲午，群臣上谥曰武皇帝，庙号高祖"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "武皇帝",
+          "year": 559
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "永定三年秋八月甲午の条（c1）。陳書は3帝とも崩御の直後に1段だけ立て、加諡は1度も無い"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

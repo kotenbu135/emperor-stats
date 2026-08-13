@@ -1,0 +1,29 @@
+{
+  "id": "houyan-murongchui",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/houyan-murongchui.txt",
+      "line": 36,
+      "quote": "伪谥成武皇帝，庙号世祖，墓曰宣平陵"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "成武皇帝",
+          "year": 396
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "「以太元二十一年死…」（c1）"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

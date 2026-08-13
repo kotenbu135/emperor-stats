@@ -1,0 +1,25 @@
+{
+  "id": "xia-helianbobo",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/xia-helianbobo.txt",
+      "line": 1,
+      "quote": "赫连勃勃，字屈孑，匈奴右贤王去卑之后，刘元海之族也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "晉書を1冊走査した（帝紀の「谥」11句・載記55句・帝紀と載記の外の候補6件）。この人物には諡を授ける条が無い。**晉書は帝紀16人で恭帝の1人、載記でも死去条の要約に「伪谥…」を書く帝だけ**が段を持つ。**赫連勃勃の載記は「史臣曰」で終わり諡の条が無い**（通用する「武烈帝」は晉書の外）。"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+}

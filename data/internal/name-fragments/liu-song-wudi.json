@@ -7,6 +7,13 @@
       "file": "_corpus_cache/liu-song-wudi.txt",
       "line": 2,
       "quote": "高祖武皇帝讳裕，字德舆，小名寄奴"
+    },
+    {
+      "cid": "c2",
+      "book": "宋書",
+      "file": "_corpus_cache/liu-song-wudi.txt",
+      "line": 1,
+      "quote": "武帝上"
     }
   ],
   "findings": [
@@ -18,6 +25,16 @@
       ],
       "confidence": "high",
       "note": "冒頭の第2スロット。宋書は武帝に上諡の条を持たず、この1行が唯一の名乗り"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "宋書 本紀の「谥」6句を全数で読んだ（本紀の外の候補22件は王・后・北魏の帝）。この人物には諡を授ける条が無い。宋書は諡を冒頭の名乗りに置き、授ける条を書くのは文帝だけ。"
     },
     {
       "field": "name.childhoodName",

@@ -45,28 +45,45 @@ FORMS = [
 # 清史稿は「本纪一  太祖本纪」（第なし）。`第` を必須にすると清史稿が1冊まるごと
 # [序] に落ち、序数のあとに空白を必須にすると明史の本紀173巻が全部落ちる
 # （2026-08-10 に両方とも実際に出した）。序数の直後は `\s*` で結ぶ
+#
+# **2026-08-13 に3つ足した**（残る10書を流したら5書が丸ごと [序]・[列傳] へ落ちた）:
+#   1. `卷N` の前置き — 晉書「卷一 帝纪第一」・後漢書「卷一上 光武帝纪第一上」
+#   2. `本纪` 以外の帝の紀の名 — 晉書・周書・隋書「帝纪第N」、後漢書「光武帝纪第一上」
+#      のように**帝号が見出しの中に入る**形、北齊書の「补帝纪第一」（追尊帝のぶん）
+#   3. 晉書の `载记`（十六国の**本人の底本**。本紀の外ではない）
+# 見出しの前に付く字は `[^\s第]{0,8}?` で吸うが、**行の短さも条件に入れる**
+# （本文の途中に出る「…志第…」を見出しと誤認しないため。見出しは1行が短い）
 HEAD = re.compile(
-    r"^\s*(本纪|志|列传|表)第?[一二三四五六七八九十百]+[上下]?\s*(.*)$")
+    r"^\s*(?:卷[一二三四五六七八九十百]+[上下]?[\s　]+)?"
+    r"([^\s第]{0,8}?(?:本纪|帝纪|载记|志|列传|表))"
+    r"第?[一二三四五六七八九十百]+[上下]?\s*(.*)$")
+HEAD_MAX_LEN = 40  # 見出しとみなす行の上限（本文の巨大な1行を弾く）
+
+# 帝の紀にあたるバケット。**載記は「本紀の外」ではない** — 晉書 載記は十六国の
+# 皇帝が名乗る底本そのもので、そこに出る諡は候補ではなく段の本体になる
+ANNALS = ("本紀", "載記")
 
 
 def bucket_of(kind, title):
     """巻の見出しから、走査範囲の区分を決める。"""
-    if kind.startswith("本纪"):
+    if kind.endswith("本纪") or kind.endswith("帝纪"):
         return "本紀"
-    if kind.startswith("志"):
+    if kind.endswith("载记"):
+        return "載記"
+    if kind.endswith("志"):
         return "礼志" if ("礼仪" in title or title.startswith("礼")) else "他の志"
-    if kind.startswith("列传"):
+    if kind.endswith("列传"):
         return "列傳"
-    if kind.startswith("表"):
+    if kind.endswith("表"):
         return "表"
     return "序"
 
 
 def scan(path):
-    """1冊を走査して (バケット別の当たり数, 本紀の外の候補, 本紀の外で落とした当たり) を返す。"""
+    """1冊を走査して (バケット別の当たり数, 帝紀の外の候補, 落とした当たり, 見出し数) を返す。"""
     lines = Path(path).read_text(encoding="utf-8").splitlines()
     marks = [(i, m.group(1), m.group(2)) for i, ln in enumerate(lines, 1)
-             if (m := HEAD.match(ln))]
+             if len(ln.strip()) <= HEAD_MAX_LEN and (m := HEAD.match(ln))]
 
     cur, idx = ("序", ""), 0
     counts, picked, dropped = Counter(), [], []
@@ -79,7 +96,7 @@ def scan(path):
         b = bucket_of(*cur)
         for w in WORDS:
             counts[(b, w)] += ln.count(w)
-        if b == "本紀":
+        if b in ANNALS:
             continue
         spans = []
         for pat in FORMS:
@@ -97,7 +114,7 @@ def scan(path):
                 continue
             seen.add(text[:6])
             picked.append((i, b, text))
-    return counts, picked, dropped
+    return counts, picked, dropped, marks
 
 
 def sample(rows, size, seed):
@@ -119,13 +136,30 @@ def main():
         if not Path(path).exists():
             print(f"底本がありません: {path}（コーパスの symlink を確認）", file=sys.stderr)
             return 1
-        counts, picked, dropped = scan(path)
+        counts, picked, dropped, marks = scan(path)
         print(f"== {Path(path).name} ==")
-        for b in ("本紀", "礼志", "他の志", "列傳", "表", "序"):
+        # **見出しが取れているかを先に出す。** 0件を黙って [序] へ落とすのがこの道具の
+        # いちばん危ない壊れ方で、「本紀の外の候補 N件」がそのまま嘘になる（2026-08-13）
+        kinds = Counter(bucket_of(k, t) for _, k, t in marks)
+        nlines = sum(1 for _ in Path(path).open(encoding="utf-8"))
+        if not marks:
+            print("  !! 巻の見出しが1件も取れていない — バケットは信用できない。"
+                  "この書は範囲を人ごとの底本で測ること")
+        else:
+            print("  巻の見出し {}件（{}）".format(
+                len(marks), " ".join(f"{b}{n}" for b, n in kinds.most_common())))
+            # **見出しが冒頭に固まっていたら、それは目次であって本体の区切りではない。**
+            # 北齊書・周書・元史は目次だけを持ち本体に見出しが無く、最後の目次項目
+            # （たいてい列傳の末尾）が本体の全部に掛かる＝帝紀の当たりが列傳に化ける
+            # （2026-08-13。件数だけ見ていると気づけないのでここで止める）
+            if marks[-1][0] < nlines * 0.5:
+                print(f"  !! 見出しが冒頭 {marks[-1][0]}/{nlines} 行までに固まっている"
+                      "（目次だけで本体に区切りが無い）— バケットは信用できない")
+        for b in ("本紀", "載記", "礼志", "他の志", "列傳", "表", "序"):
             n = sum(v for (bb, _), v in counts.items() if bb == b)
             if n:
                 print(f"  {b}: {n}")
-        print(f"\n  本紀の外の候補 {len(picked)}件"
+        print(f"\n  帝紀（本紀・載記）の外の候補 {len(picked)}件"
               f"（落とした当たり {len(dropped)}件）")
         for i, b, s in picked:
             print(f"    {i} [{b}] {s}")

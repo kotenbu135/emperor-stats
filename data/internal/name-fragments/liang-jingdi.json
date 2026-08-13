@@ -1,0 +1,29 @@
+{
+  "id": "liang-jingdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "梁書",
+      "file": "_corpus_cache/liang-jingdi.txt",
+      "line": 7,
+      "quote": "陈王践阼，奉帝为江阴王，薨于外邸，时年十六，追谥敬皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "敬皇帝",
+          "year": 558
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "陳 永定二年の薨去条（c1）。**梁書 本紀の「谥」6句のうち、梁の帝に諡を授ける条はこれだけ**"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}

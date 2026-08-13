@@ -1,0 +1,29 @@
+{
+  "id": "qianyan-murongjun",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianyan-murongjun.txt",
+      "line": 38,
+      "quote": "伪谥景昭皇帝，庙号烈祖，墓号龙陵"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "景昭皇帝",
+          "year": 360
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "升平四年の死去条（c1）"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+}
