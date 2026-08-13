@@ -38,6 +38,16 @@
       ],
       "confidence": "high",
       "note": "短縮呼称の欄は空。西夏書事は本文で末字＋皇帝の形を使わない（書全体の「〈2字〉皇帝」を数えると、西夏の帝の諡形は崩御条の1回ずつしか出ない）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "西夏書事1冊（7,647行）の単字「谥」13出現を全数で読んだ走査（2026-08-11）にこの人物の諡は無く、崩御条も廟号だけを書いて諡を書かない。"
     }
   ],
   "discrepancies": "なし"

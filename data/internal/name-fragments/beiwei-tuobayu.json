@@ -1,0 +1,25 @@
+{
+  "id": "beiwei-tuobayu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-tuobayu.txt",
+      "line": 3,
+      "quote": "冬十月丙午朔，余为宗爱所贼"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書 帝紀12巻の「谥」25出現を全数で読んだ走査（2026-08-13）の当たりに、この人物へ諡を授ける条は無い。同じ紀に出る「谥」は他帝のもの。世祖紀下末尾の「上尊谥曰太武皇帝」は太武帝のもの。"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+}

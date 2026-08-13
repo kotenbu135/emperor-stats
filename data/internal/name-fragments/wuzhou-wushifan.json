@@ -7,6 +7,13 @@
       "file": "_corpus_cache/wuzhou-wushifan.txt",
       "line": 24,
       "quote": "其下拥称帝，改号洪化"
+    },
+    {
+      "cid": "c2",
+      "book": "清史稿",
+      "file": "_corpus_cache/wuzhou-wushifan.txt",
+      "line": 24,
+      "quote": "世璠，应熊庶子，留云南，奔三桂之丧"
     }
   ],
   "findings": [
@@ -29,6 +36,16 @@
       ],
       "confidence": "high",
       "note": "同じ理由"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "清史稿1冊の走査（sweep_posthumous_range.py・2026-08-10）で本紀の外の候補33件を見たが、帝の諡は太祖・世祖の初諡と明 崇禎帝への追諡の3件だけ。本人の伝にも「谥」は0出現。"
     }
   ],
   "discrepancies": "なし"

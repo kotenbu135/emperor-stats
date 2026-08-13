@@ -29,6 +29,16 @@
       ],
       "confidence": "high",
       "note": "魏書は北海王顥を列傳（獻文六王）で扱い、冒頭は父の條からの続柄＋「字〈字〉」（c1）。帝紀の定型が掛からない。書全体の走査でも諡・廟号の条は出ない"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書 列傳が底本の人物。1冊まるごとの走査（sweep_posthumous_range.py・2026-08-13）で本紀の外の候補81件を見たが、この人物の諡は1件も無い。本人の伝にも「谥」は0出現。"
     }
   ],
   "discrepancies": "なし（列傳の冒頭は現行の familyName 元・personalName と整合）"

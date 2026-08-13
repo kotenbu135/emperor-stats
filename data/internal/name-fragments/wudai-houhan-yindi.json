@@ -54,6 +54,20 @@
    ],
    "confidence": "high",
    "note": "書は本文でこの帝を「隐帝」「汉隐帝」と呼ぶ（五代本紀で44出現）。巻名も「隐帝紀」"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
+    {
+     "form": "隠皇帝"
+    }
+   ],
+   "basis": [
+    "c2",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "隠帝紀下は諡を定めよという詔まで（字だけで形が無い）で、形が立つのは周太祖紀二の「谥曰隐皇帝」の側。同じ1回の授諡なので1段。"
   }
  ],
  "discrepancies": "なし"

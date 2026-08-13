@@ -1622,7 +1622,7 @@ POSTHUMOUS_STAGE_NON_IMPERIAL = {
 }
 # 充足のラチェット。転記は各ブロックの中で進むので強制はせず、**減ったら落ちる**
 # （SCHEMA_CHANGE_CHECKLIST.md 手順5）。実測を書く
-POSTHUMOUS_STAGES_FLOOR = 140
+POSTHUMOUS_STAGES_FLOOR = 147
 
 
 def check_posthumous_names(data):

@@ -14,6 +14,13 @@
    "file": "_corpus_cache/wudai-houjin-gaozu.txt",
    "line": 102,
    "quote": "上谥曰圣文章武明德孝皇帝，庙号高祖。以其年十一月十日庚寅葬于显陵"
+  },
+  {
+   "cid": "c3",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houjin-gaozu.txt",
+   "line": 102,
+   "quote": "八月，太常卿崔棁上谥曰圣文章武明德孝皇帝，庙号高祖"
   }
  ],
  "findings": [
@@ -46,6 +53,19 @@
    ],
    "confidence": "high",
    "note": "短縮呼称の欄は空。舊五代史は廟号を持つ帝を廟号で呼び、諡から作った短縮形を本文で使わない（五代本紀61巻の巻名も「太祖紀」「庄宗紀」「明宗紀」「高祖紀」「世宗紀」で、短縮形が巻名に立つのは廟号を持たない闵帝・少帝・末帝・隐帝・恭帝の側だけ）"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
+    {
+     "form": "聖文章武明徳孝皇帝"
+    }
+   ],
+   "basis": [
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "少帝が天福七年（942）八月に上った初諡で、加諡は舊五代史に無い（1段）。少帝紀一の山陵記事は同じ回の儀礼で、別の段ではない。"
   }
  ],
  "discrepancies": "なし"

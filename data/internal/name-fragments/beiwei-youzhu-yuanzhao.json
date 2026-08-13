@@ -1,0 +1,25 @@
+{
+  "id": "beiwei-youzhu-yuanzhao",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-youzhu-yuanzhao.txt",
+      "line": 1,
+      "quote": "乙卯，幼主即位"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書 帝紀12巻の「谥」25出現を全数で読んだ走査（2026-08-13）の当たりに、この人物へ諡を授ける条は無い。同じ紀に出る「谥」は他帝のもの。粛宗紀末尾の「上尊谥曰孝明皇帝」は孝明帝のもの。"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+}

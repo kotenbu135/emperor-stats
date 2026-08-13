@@ -7,6 +7,13 @@
       "file": "_corpus_cache/wuzhou-wusangui.txt",
       "line": 24,
       "quote": "遂以三月朔称帝，改元昭武，以衡州为定天府"
+    },
+    {
+      "cid": "c2",
+      "book": "清史稿",
+      "file": "_corpus_cache/wuzhou-wusangui.txt",
+      "line": 3,
+      "quote": "吴三桂，字长伯，江南高邮人，籍辽东"
     }
   ],
   "findings": [
@@ -39,6 +46,16 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。**`commonName` の「太祖昭武帝」は廟号形「太祖」を含むが、清史稿はこの人物に廟号を与えない** — 書全体の「庙号太祖」8件はいずれも清の太祖ヌルハチで、伝のキャッシュには「谥」「庙号」「太祖」がいずれも0件。諡を与える側になる呉世璠の記事でも同様（2026-08-11 の検証段が1冊走査で確認）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "清史稿1冊の走査（sweep_posthumous_range.py・2026-08-10）で本紀の外の候補33件を見たが、帝の諡は太祖・世祖の初諡と明 崇禎帝への追諡の3件だけ。本人の伝にも「谥」は0出現。"
     }
   ],
   "noteLog": "2026-08-11 の検証段で `templeName` の read-absent を足した。清史稿の慣行レコードは templeName も対象に挙げているのに台帳には posthumousName 系の2件しか無く、**`commonName` に廟号形を含む人物が「未判定」のまま残っていた**（値は空で正しく、欠けていたのは記録）。",

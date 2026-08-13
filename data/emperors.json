@@ -74963,7 +74963,12 @@
     "posthumousName": null,
     "templeName": "荘宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "光聖神閔孝皇帝"
+    "posthumousNameFull": "光聖神閔孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "光聖神閔孝皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "later-tang",
@@ -76362,7 +76367,12 @@
     "posthumousName": null,
     "templeName": "高祖",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "聖文章武明徳孝皇帝"
+    "posthumousNameFull": "聖文章武明徳孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "聖文章武明徳孝皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "later-jin",
@@ -77081,7 +77091,12 @@
     "posthumousName": null,
     "templeName": "高祖",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "睿文聖武昭粛孝皇帝"
+    "posthumousNameFull": "睿文聖武昭粛孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "睿文聖武昭粛孝皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "later-han",
@@ -77351,7 +77366,12 @@
     "posthumousName": "隠帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "隠皇帝"
+    "posthumousNameFull": "隠皇帝",
+    "posthumousNames": [
+     {
+      "form": "隠皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "later-han",
@@ -77626,7 +77646,12 @@
     "templeName": "太祖",
     "regnalTitle": "皇帝",
     "courtesyName": "文仲",
-    "posthumousNameFull": "聖神恭粛文武孝皇帝"
+    "posthumousNameFull": "聖神恭粛文武孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "聖神恭粛文武孝皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "later-zhou",
@@ -77885,7 +77910,12 @@
     "posthumousName": null,
     "templeName": "世宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "睿武孝文皇帝"
+    "posthumousNameFull": "睿武孝文皇帝",
+    "posthumousNames": [
+     {
+      "form": "睿武孝文皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "later-zhou",
@@ -78124,7 +78154,12 @@
     "posthumousName": "恭帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "恭皇帝"
+    "posthumousNameFull": "恭皇帝",
+    "posthumousNames": [
+     {
+      "form": "恭皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "later-zhou",

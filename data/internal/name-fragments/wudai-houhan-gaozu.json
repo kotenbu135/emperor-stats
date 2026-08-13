@@ -14,6 +14,13 @@
    "file": "_corpus_cache/wudai-houhan-gaozu.txt",
    "line": 21,
    "quote": "上谥曰睿文圣武昭肃孝皇帝，庙号高祖。十一月壬申，葬于睿陵"
+  },
+  {
+   "cid": "c3",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houhan-gaozu.txt",
+   "line": 21,
+   "quote": "其年二月，太常卿张昭上谥曰睿文圣武昭肃孝皇帝，庙号高祖"
   }
  ],
  "findings": [
@@ -46,6 +53,19 @@
    ],
    "confidence": "high",
    "note": "短縮呼称の欄は空。舊五代史は廟号を持つ帝を廟号で呼び、諡から作った短縮形を本文で使わない（五代本紀61巻の巻名も「太祖紀」「庄宗紀」「明宗紀」「高祖紀」「世宗紀」で、短縮形が巻名に立つのは廟号を持たない闵帝・少帝・末帝・隐帝・恭帝の側だけ）"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
+    {
+     "form": "睿文聖武昭粛孝皇帝"
+    }
+   ],
+   "basis": [
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "隠帝が乾祐元年（948）二月に上った初諡で、加諡は舊五代史に無い（1段）。"
   }
  ],
  "discrepancies": "なし"

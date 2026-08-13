@@ -39,6 +39,16 @@
    ],
    "confidence": "high",
    "note": "「末帝」は位号で諡ではない。commonName 側の名乗り"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "舊五代史 本紀61ファイルの「谥」82出現を全数で読み直した（2026-08-13）。この人物に諡を授ける条は本紀に無い。舊五代史は志12巻がコーパスに無いので、閉域は「本紀＋列傳」で読む。末帝紀に「谥」は0出現。"
   }
  ],
  "discrepancies": "なし"

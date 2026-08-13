@@ -29,6 +29,16 @@
       ],
       "confidence": "high",
       "note": "魏書は京兆王愉を列傳（孝文五王）で扱い、冒頭は「〈王号〉〈名〉，字〈字〉」（c1）。帝紀の定型が掛からないので廟号・諡の位置がそもそも無い。書全体を「庙号・庙曰・庙称・尊谥・上谥・谥曰・谥为」で走査しても元愉に諡・廟号を与える条は出ない（当たるのは同字の臣下の諡だけ）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書 列傳が底本の人物。1冊まるごとの走査（sweep_posthumous_range.py・2026-08-13）で本紀の外の候補81件を見たが、この人物の諡は1件も無い。本人の伝にも「谥」は0出現。"
     }
   ],
   "discrepancies": "なし（列傳の冒頭は現行の familyName 元・personalName と整合）"

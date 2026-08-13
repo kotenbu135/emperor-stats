@@ -46,6 +46,19 @@
    ],
    "confidence": "high",
    "note": "諡「恭皇帝」（c2）を書が名乗りとして立てた形が冒頭1行の「恭帝」（c1）。巻名も「恭帝紀」"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
+    {
+     "form": "恭皇帝"
+    }
+   ],
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "宋 開宝六年（973）に鄭王として殂した後、宋が定めた諡（1段）。"
   }
  ],
  "discrepancies": "なし"

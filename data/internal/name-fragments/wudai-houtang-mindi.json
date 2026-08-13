@@ -47,6 +47,16 @@
    ],
    "confidence": "high",
    "note": "「〈諡〉皇帝」形は舊五代史に無い。諡は単字「闵」で、皇帝を付けた形を書が掲げないので補わない"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "pending",
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "舊五代史が書く諡は「谥曰闵」の1字だけで、「皇帝」「大帝」で結ぶ形でも王諡でもない。陳 後主「谥曰炀」と同じ枠で Issue #126 の判断待ち。"
   }
  ],
  "discrepancies": "なし"
