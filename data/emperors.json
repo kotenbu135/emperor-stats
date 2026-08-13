@@ -106046,9 +106046,11 @@
    "id": "yuan-tianshundi",
    "name": {
     "familyName": null,
-    "personalName": "阿剌吉八",
+    "personalName": "阿速吉八",
     "commonName": "天順帝（通称）",
-    "aliases": [],
+    "aliases": [
+     "阿剌吉八"
+    ],
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝",

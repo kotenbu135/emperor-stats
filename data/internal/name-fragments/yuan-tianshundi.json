@@ -7,9 +7,25 @@
       "file": "_corpus_cache/yuan-tianshundi.txt",
       "line": 25,
       "quote": "九月，倒剌沙立皇太子为皇帝，改元天顺，诏天下"
+    },
+    {
+      "cid": "c2",
+      "book": "元史",
+      "file": "daizhigev20/史藏/正史/元史.txt",
+      "line": 1850,
+      "quote": "册八八罕氏为皇后，皇子阿速吉八为皇太子"
     }
   ],
   "findings": [
+    {
+      "field": "name.personalName",
+      "value": "阿速吉八",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "**現行「阿剌吉八」→「阿速吉八」に訂正した**（2026-08-13）。元史はこの人物を独立の本紀に立てないので冒頭定型が無く、証人は泰定帝紀の立太子の条（c2・卷二十九）。正史コーパス全体で「阿剌吉八」は0件で、唯一の出現が元史の**白話訳**ファイル（`china-history/元史-白话/本纪/第二十九章-卷二十九-白话.html`）＝ CORPUS_NOTES の「原文ラベルなのに中身が白話訳」の型。捨てた側の「阿剌吉八」も中文維基が併記する通用の別訳なので `name.aliases` へ移した（ユーザー判断）。移行前の凍結標本2つ（`personal-name-originals.json`・`family-name-split-originals.json`）も同じ日に引き直し、理由を各ファイルの `corrections` に残してある"
+    },
     {
       "field": "name.posthumousName",
       "value": null,

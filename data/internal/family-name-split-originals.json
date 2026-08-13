@@ -1,6 +1,16 @@
 {
  "purpose": "姓と諱を分ける移行（Issue #37 単位6）の前の personalName（姓＋諱）。validate_emperors.py::check_family_names が familyName + personalName を連結してここへ戻ることを見る（ゲートB）",
  "migratedAt": "2026-08-03",
+ "correctionPolicy": "標本に取った文字列そのものが原典と食い違っていたときは引き直す（2026-08-13 ユーザー決定）。日付・理由・前後の値を `corrections` に残す。**理由を書かずに書き換えない**（この標本は分割が値を作り替えたことを落とすために在るため）",
+ "corrections": [
+  {
+   "id": "yuan-tianshundi",
+   "at": "2026-08-13",
+   "before": "阿剌吉八",
+   "after": "阿速吉八",
+   "why": "移行前の値の側が誤っていた。元史「皇子阿速吉八为皇太子」（daizhigev20/史藏/正史/元史.txt:1850）。正史コーパスで「阿剌吉八」は0件で、唯一の出現は元史の白話訳。詳細は data/internal/personal-name-originals.json の corrections"
+  }
+ ],
  "records": {
   "qin-shi-huang": {
    "personalName": "嬴政"
@@ -954,7 +964,7 @@
    "personalName": "也孫鉄木児"
   },
   "yuan-tianshundi": {
-   "personalName": "阿剌吉八"
+   "personalName": "阿速吉八"
   },
   "yuan-wenzong": {
    "personalName": "図帖睦爾"
