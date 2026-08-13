@@ -14,6 +14,20 @@
       "file": "daizhigev20/史藏/正史/元史.txt",
       "line": 1400,
       "quote": "是年九月乙丑，谥曰钦明广孝皇帝，庙号成宗，国语曰完泽笃皇帝"
+    },
+    {
+      "cid": "c3",
+      "book": "元史",
+      "file": "china-history/元史/本纪/第二十二章-卷二十二-原文.html",
+      "line": 30,
+      "quote": "今拟请谥皇考昭圣衍孝皇帝，庙号顺宗；大行皇帝曰钦明广孝皇帝，庙号成宗"
+    },
+    {
+      "cid": "c4",
+      "book": "元史",
+      "file": "china-history/元史/本纪/第二十二章-卷二十二-原文.html",
+      "line": 32,
+      "quote": "壬申，命塔剌海奉玉册、玉宝，上皇考及大行皇帝尊谥、庙号，又上先元妃弘吉烈氏尊谥，祔于成宗庙室"
     }
   ],
   "findings": [
@@ -36,6 +50,23 @@
       ],
       "confidence": "high",
       "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "欽明広孝皇帝",
+          "year": 1307
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "1段のみ。要約の「是年」は崩御の大德十一年（c2）。形は武宗紀の議（c3）に在り、同じ紀の条（c4）が奉册を記す"
     }
   ],
   "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"

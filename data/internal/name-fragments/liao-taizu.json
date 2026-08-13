@@ -14,6 +14,34 @@
       "file": "_corpus_cache/liao-taizu.txt",
       "line": 26,
       "quote": "己巳，上谥升天皇帝，庙号太祖"
+    },
+    {
+      "cid": "c3",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-taizu.txt",
+      "line": 26,
+      "quote": "统和二十六年七月，进谥大圣大明天皇帝"
+    },
+    {
+      "cid": "c4",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-taizu.txt",
+      "line": 26,
+      "quote": "重熙二十一年九月，加谥大圣大明神烈天皇帝"
+    },
+    {
+      "cid": "c5",
+      "book": "遼史",
+      "file": "china-history/辽史/本纪/第十四章-卷十四-原文.html",
+      "line": 33,
+      "quote": "秋七月，增太祖、太宗、让国皇帝、世宗谥，仍谥皇太弟李胡曰钦顺皇帝"
+    },
+    {
+      "cid": "c6",
+      "book": "遼史",
+      "file": "china-history/辽史/本纪/第二十章-卷二十-原文.html",
+      "line": 28,
+      "quote": "增太祖谥大圣大明神烈天皇帝，更谥贞烈皇后曰淳钦，恭顺皇帝曰章肃，后萧氏谥曰和敬"
     }
   ],
   "findings": [
@@ -36,6 +64,33 @@
       ],
       "confidence": "high",
       "note": "冒頭が掲げる加諡形。崩御時の諡は「升天皇帝」（c2）。遼史の諡は「天皇帝」で結ぶ異形を持つ"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "升天皇帝",
+          "year": 926
+        },
+        {
+          "form": "大聖大明天皇帝",
+          "year": 1008
+        },
+        {
+          "form": "大聖大明神烈天皇帝",
+          "year": 1052
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "帝紀末尾の要約が3段を年つきで並べる（c2〜c4）。**遼史でいちばん段が多いのがこの人**で（収録365人の最多は北宋神宗の4段）、後の2段は授けた側の帝の紀に条が在る（c5＝聖宗紀 統和二十六年秋七月・c6＝興宗紀 重熙二十一年九月甲子）。c5 は受け手を並べるだけで形を書かないが c6 は形を書く"
     }
   ],
   "discrepancies": "なし（既存の courtesyName 阿保機・childhoodName 啜里只は冒頭1行と一致）"

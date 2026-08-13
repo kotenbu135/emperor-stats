@@ -19,6 +19,16 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。**`commonName`「天禧皇帝」は元号「天禧」から作った通称**。附録は直魯古に諡も廟号も与えない（廟号が空であることは既存の主張）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "遼史の本紀30巻を全数で走査した（「谥」36件）。巻30の西遼の記事に直魯古（天禧帝）へ諡を授ける条が無い"
     }
   ],
   "discrepancies": "なし"

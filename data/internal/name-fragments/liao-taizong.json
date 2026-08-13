@@ -14,6 +14,27 @@
       "file": "_corpus_cache/liao-taizong.txt",
       "line": 117,
       "quote": "是岁九月壬子朔，葬于凤山，陵曰怀陵，庙号太宗"
+    },
+    {
+      "cid": "c3",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-taizong.txt",
+      "line": 117,
+      "quote": "统和二十六年七月，上尊谥孝武皇帝"
+    },
+    {
+      "cid": "c4",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-taizong.txt",
+      "line": 117,
+      "quote": "重熙二十一年九月，增谥孝武惠文皇帝"
+    },
+    {
+      "cid": "c5",
+      "book": "遼史",
+      "file": "china-history/辽史/本纪/第二十章-卷二十-原文.html",
+      "line": 28,
+      "quote": "庚申，追上嗣圣皇帝、天顺皇帝尊谥，及更谥彰德皇后曰靖安"
     }
   ],
   "findings": [
@@ -35,6 +56,27 @@
       ],
       "confidence": "high",
       "note": "冒頭が掲げる形"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "孝武皇帝",
+          "year": 1008
+        },
+        {
+          "form": "孝武恵文皇帝",
+          "year": 1052
+        }
+      ],
+      "basis": [
+        "c1",
+        "c3",
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "会同十年の崩御時は廟号だけで諡が無く、**初諡が61年後の統和二十六年に来る**（c3）。重熙二十一年の加諡は興宗紀の条（c5）にも在るが、条は受け手を**位号で呼ぶ**（「嗣聖皇帝」＝太宗・「天順皇帝」＝穆宗）ので廟号で当てると外れる。条は形を書かない"
     }
   ],
   "discrepancies": "なし（既存の courtesyName 徳謹・childhoodName 尭骨と一致）"

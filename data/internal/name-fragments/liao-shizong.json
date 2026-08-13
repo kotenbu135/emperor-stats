@@ -14,6 +14,20 @@
       "file": "_corpus_cache/liao-shizong.txt",
       "line": 7,
       "quote": "二年，谥孝和皇帝，庙号世宗"
+    },
+    {
+      "cid": "c3",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-shizong.txt",
+      "line": 7,
+      "quote": "统和二十六年七月，加谥孝和庄宪皇帝"
+    },
+    {
+      "cid": "c4",
+      "book": "遼史",
+      "file": "china-history/辽史/本纪/第十四章-卷十四-原文.html",
+      "line": 33,
+      "quote": "秋七月，增太祖、太宗、让国皇帝、世宗谥，仍谥皇太弟李胡曰钦顺皇帝"
     }
   ],
   "findings": [
@@ -36,6 +50,27 @@
       ],
       "confidence": "high",
       "note": "冒頭の加諡形。初諡は「孝和皇帝」（c2）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "孝和皇帝",
+          "year": 952
+        },
+        {
+          "form": "孝和荘憲皇帝",
+          "year": 1008
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "初諡の「二年」は**元号を落とした裸の数字**で、直前が「応暦元年，葬于顕州西山」なので応暦二年（c2）。加諡は聖宗紀の条（c4）に在るが形を書かない"
     },
     {
       "field": "name.courtesyName",

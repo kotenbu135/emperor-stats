@@ -36,6 +36,21 @@
       ],
       "confidence": "high",
       "note": "冒頭形と上尊諡が一致する"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "神聖孝章皇帝",
+          "year": 1055
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "1段のみ。道宗紀に対応する条が無く、証人は要約（c2）だけ"
     }
   ],
   "discrepancies": "なし（既存の courtesyName 夷不菫・childhoodName 只骨と一致）"

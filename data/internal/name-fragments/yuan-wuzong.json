@@ -14,6 +14,13 @@
       "file": "daizhigev20/史藏/正史/元史.txt",
       "line": 1508,
       "quote": "夏四月乙未，文武百官也先铁木儿等上尊谥曰仁惠宣孝皇帝，庙号武宗，国语曰曲律皇帝"
+    },
+    {
+      "cid": "c3",
+      "book": "元史",
+      "file": "china-history/元史/本纪/第二十四章-卷二十四-原文.html",
+      "line": 34,
+      "quote": "甲子，请大行皇帝谥于南郊，上尊谥曰仁惠宣孝皇帝，庙号武宗"
     }
   ],
   "findings": [
@@ -36,6 +43,22 @@
       ],
       "confidence": "high",
       "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "仁恵宣孝皇帝",
+          "year": 1311
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "1段のみ。要約（c2）と仁宗紀の条（c3）がどちらも至大四年四月"
     }
   ],
   "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"

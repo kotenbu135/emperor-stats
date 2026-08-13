@@ -92578,7 +92578,21 @@
     "regnalTitle": "皇帝",
     "courtesyName": "阿保機",
     "childhoodName": "啜里只",
-    "posthumousNameFull": "大聖大明神烈天皇帝"
+    "posthumousNameFull": "大聖大明神烈天皇帝",
+    "posthumousNames": [
+     {
+      "form": "升天皇帝",
+      "year": 926
+     },
+     {
+      "form": "大聖大明天皇帝",
+      "year": 1008
+     },
+     {
+      "form": "大聖大明神烈天皇帝",
+      "year": 1052
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -92970,7 +92984,17 @@
     },
     "courtesyName": "徳謹",
     "childhoodName": "堯骨",
-    "posthumousNameFull": "孝武恵文皇帝"
+    "posthumousNameFull": "孝武恵文皇帝",
+    "posthumousNames": [
+     {
+      "form": "孝武皇帝",
+      "year": 1008
+     },
+     {
+      "form": "孝武恵文皇帝",
+      "year": 1052
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -93300,7 +93324,17 @@
      "value": "耶律兀欲"
     },
     "childhoodName": "兀欲",
-    "posthumousNameFull": "孝和荘憲皇帝"
+    "posthumousNameFull": "孝和荘憲皇帝",
+    "posthumousNames": [
+     {
+      "form": "孝和皇帝",
+      "year": 952
+     },
+     {
+      "form": "孝和荘憲皇帝",
+      "year": 1008
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -93538,7 +93572,13 @@
      "value": "耶律述律"
     },
     "childhoodName": "述律",
-    "posthumousNameFull": "孝安敬正皇帝"
+    "posthumousNameFull": "孝安敬正皇帝",
+    "posthumousNames": [
+     {
+      "form": "孝安敬正皇帝",
+      "year": 1052
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -93759,7 +93799,17 @@
     },
     "courtesyName": "賢寧",
     "childhoodName": "明扆",
-    "posthumousNameFull": "孝成康靖皇帝"
+    "posthumousNameFull": "孝成康靖皇帝",
+    "posthumousNames": [
+     {
+      "form": "孝成皇帝",
+      "year": 983
+     },
+     {
+      "form": "孝成康靖皇帝",
+      "year": 1052
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -94041,7 +94091,13 @@
      "value": "耶律文殊奴"
     },
     "childhoodName": "文殊奴",
-    "posthumousNameFull": "文武大孝宣皇帝"
+    "posthumousNameFull": "文武大孝宣皇帝",
+    "posthumousNames": [
+     {
+      "form": "文武大孝宣皇帝",
+      "year": 1031
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -94582,7 +94638,13 @@
     },
     "courtesyName": "夷不堇",
     "childhoodName": "只骨",
-    "posthumousNameFull": "神聖孝章皇帝"
+    "posthumousNameFull": "神聖孝章皇帝",
+    "posthumousNames": [
+     {
+      "form": "神聖孝章皇帝",
+      "year": 1055
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -94932,7 +94994,13 @@
     },
     "courtesyName": "涅隣",
     "childhoodName": "査剌",
-    "posthumousNameFull": "孝文皇帝"
+    "posthumousNameFull": "孝文皇帝",
+    "posthumousNames": [
+     {
+      "form": "仁聖大孝文皇帝",
+      "year": 1101
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "liao",
@@ -96542,7 +96610,17 @@
      "kind": "jurchen",
      "value": "阿骨打"
     },
-    "posthumousNameFull": "応乾興運昭徳定功仁明荘孝大聖武元皇帝"
+    "posthumousNameFull": "応乾興運昭徳定功仁明荘孝大聖武元皇帝",
+    "posthumousNames": [
+     {
+      "form": "武元皇帝",
+      "year": 1125
+     },
+     {
+      "form": "応乾興運昭徳定功睿神荘孝仁明大聖武元皇帝",
+      "year": 1145
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -96957,7 +97035,17 @@
      "kind": "jurchen",
      "value": "呉乞買"
     },
-    "posthumousNameFull": "体元応運世徳昭功哲恵仁聖文烈皇帝"
+    "posthumousNameFull": "体元応運世徳昭功哲恵仁聖文烈皇帝",
+    "posthumousNames": [
+     {
+      "form": "文烈皇帝",
+      "year": 1135
+     },
+     {
+      "form": "体元応運世徳昭功哲恵仁聖文烈皇帝",
+      "year": 1145
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -97250,7 +97338,17 @@
      "kind": "jurchen",
      "value": "合剌"
     },
-    "posthumousNameFull": "弘基纘武荘靖孝成皇帝"
+    "posthumousNameFull": "弘基纘武荘靖孝成皇帝",
+    "posthumousNames": [
+     {
+      "form": "武霊皇帝",
+      "year": 1161
+     },
+     {
+      "form": "弘基纘武荘靖孝成皇帝",
+      "year": 1179
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -97885,7 +97983,13 @@
      "kind": "jurchen",
      "value": "烏禄"
     },
-    "posthumousNameFull": "光天興運文徳武功聖明仁孝皇帝"
+    "posthumousNameFull": "光天興運文徳武功聖明仁孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "光天興運文徳武功聖明仁孝皇帝",
+      "year": 1189
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -98178,7 +98282,13 @@
      "value": "麻達葛"
     },
     "childhoodName": "麻達葛",
-    "posthumousNameFull": "憲天光運仁文義武神聖英孝皇帝"
+    "posthumousNameFull": "憲天光運仁文義武神聖英孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "憲天光運仁文義武神聖英孝皇帝",
+      "year": 1209
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -98707,7 +98817,13 @@
      "kind": "jurchen",
      "value": "吾睹補"
     },
-    "posthumousNameFull": "継天興統述道勤仁英武聖孝皇帝"
+    "posthumousNameFull": "継天興統述道勤仁英武聖孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "継天興統述道勤仁英武聖孝皇帝",
+      "year": 1224
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",
@@ -102822,7 +102938,13 @@
      "kind": "mongol",
      "value": "クビライ"
     },
-    "posthumousNameFull": "聖徳神功文武皇帝"
+    "posthumousNameFull": "聖徳神功文武皇帝",
+    "posthumousNames": [
+     {
+      "form": "聖徳神功文武皇帝",
+      "year": 1294
+     }
+    ]
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -103521,7 +103643,13 @@
      "kind": "mongol",
      "value": "テムル"
     },
-    "posthumousNameFull": "欽明広孝皇帝"
+    "posthumousNameFull": "欽明広孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "欽明広孝皇帝",
+      "year": 1307
+     }
+    ]
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -103925,7 +104053,13 @@
      "kind": "mongol",
      "value": "カイシャン"
     },
-    "posthumousNameFull": "仁恵宣孝皇帝"
+    "posthumousNameFull": "仁恵宣孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "仁恵宣孝皇帝",
+      "year": 1311
+     }
+    ]
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -104259,7 +104393,13 @@
      "kind": "mongol",
      "value": "アユルバルワダ"
     },
-    "posthumousNameFull": "聖文欽孝皇帝"
+    "posthumousNameFull": "聖文欽孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "聖文欽孝皇帝",
+      "year": 1320
+     }
+    ]
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -104633,7 +104773,13 @@
      "kind": "mongol",
      "value": "シデバラ"
     },
-    "posthumousNameFull": "睿聖文孝皇帝"
+    "posthumousNameFull": "睿聖文孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "睿聖文孝皇帝",
+      "year": 1324
+     }
+    ]
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -105833,7 +105979,13 @@
      "kind": "mongol",
      "value": "トク・テムル"
     },
-    "posthumousNameFull": "聖明元孝皇帝"
+    "posthumousNameFull": "聖明元孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "聖明元孝皇帝",
+      "year": 1333
+     }
+    ]
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -106213,7 +106365,13 @@
      "kind": "mongol",
      "value": "コシラ"
     },
-    "posthumousNameFull": "翼献景孝皇帝"
+    "posthumousNameFull": "翼献景孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "翼献景孝皇帝",
+      "year": 1329
+     }
+    ]
    },
    "eraId": "yuan",
    "regimeId": "yuan",
@@ -106377,7 +106535,13 @@
      "kind": "mongol",
      "value": "イリンジバル"
     },
-    "posthumousNameFull": "冲聖嗣孝皇帝"
+    "posthumousNameFull": "冲聖嗣孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "冲聖嗣孝皇帝",
+      "year": 1337
+     }
+    ]
    },
    "eraId": "yuan",
    "regimeId": "yuan",

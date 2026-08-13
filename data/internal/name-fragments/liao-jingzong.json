@@ -14,6 +14,20 @@
       "file": "_corpus_cache/liao-jingzong.txt",
       "line": 24,
       "quote": "统和元年正月壬戌，上尊谥孝成皇帝，庙号景宗"
+    },
+    {
+      "cid": "c3",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-jingzong.txt",
+      "line": 24,
+      "quote": "重熙二十一年，加谥孝成康靖皇帝"
+    },
+    {
+      "cid": "c4",
+      "book": "遼史",
+      "file": "china-history/辽史/本纪/第二十章-卷二十-原文.html",
+      "line": 28,
+      "quote": "丁未，增孝成皇帝谥曰孝成康靖皇帝，更谥圣神宣献皇后为睿智"
     }
   ],
   "findings": [
@@ -36,6 +50,27 @@
       ],
       "confidence": "high",
       "note": "冒頭の加諡形。上尊諡は「孝成皇帝」（c2）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "孝成皇帝",
+          "year": 983
+        },
+        {
+          "form": "孝成康靖皇帝",
+          "year": 1052
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "2段とも要約が年を名乗り（c2・c3）、加諡は興宗紀の条（c4・重熙二十一年十一月丁未）が**形まで書いて**裏を取る"
     }
   ],
   "discrepancies": "なし（既存の courtesyName 賢寧・childhoodName 明扆と一致）"

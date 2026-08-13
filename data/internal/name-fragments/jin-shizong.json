@@ -14,6 +14,20 @@
       "file": "_corpus_cache/jin-shizong.txt",
       "line": 301,
       "quote": "运文德武功圣明仁孝皇帝，庙号世宗"
+    },
+    {
+      "cid": "c3",
+      "book": "金史",
+      "file": "_corpus_cache/jin-shizong.txt",
+      "line": 301,
+      "quote": "三月辛卯朔，上尊谥曰光天兴运文德武功圣明仁孝皇帝，庙号世宗"
+    },
+    {
+      "cid": "c4",
+      "book": "金史",
+      "file": "china-history/金史/志/第十三章-卷十三-原文.html",
+      "line": 34,
+      "quote": "大定二十九年四月乙丑，谥大行皇帝曰光天兴运文德武功圣明仁孝皇帝，庙号世宗"
     }
   ],
   "findings": [
@@ -36,6 +50,22 @@
       ],
       "confidence": "high",
       "note": "冒頭形と崩御条の上諡が一致する"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "光天興運文徳武功聖明仁孝皇帝",
+          "year": 1189
+        }
+      ],
+      "basis": [
+        "c1",
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "1段のみ。要約は大定二十九年三月辛卯朔（c3）、礼志は同年四月乙丑（c4）で**月が割れる**が年は揃う"
     }
   ],
   "discrepancies": "なし"

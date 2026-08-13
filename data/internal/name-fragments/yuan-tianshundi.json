@@ -29,6 +29,16 @@
       ],
       "confidence": "high",
       "note": "同じ理由"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "元史の本紀47巻を全数で走査した（「谥」78件）。天順帝に諡を授ける条が無い"
     }
   ],
   "discrepancies": "なし"

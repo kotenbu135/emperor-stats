@@ -14,6 +14,20 @@
       "file": "_corpus_cache/jin-zhangzong.txt",
       "line": 209,
       "quote": "运仁文义武神圣英孝皇帝，庙号章宗"
+    },
+    {
+      "cid": "c3",
+      "book": "金史",
+      "file": "_corpus_cache/jin-zhangzong.txt",
+      "line": 209,
+      "quote": "大安元年春正月，谥曰宪天光运仁文义武神圣英孝皇帝，庙号章宗"
+    },
+    {
+      "cid": "c4",
+      "book": "金史",
+      "file": "china-history/金史/志/第十三章-卷十三-原文.html",
+      "line": 34,
+      "quote": "大定元年二月丁卯，谥大行皇帝曰宪天光运仁文义武神圣英孝皇帝，庙号章宗"
     }
   ],
   "findings": [
@@ -36,6 +50,22 @@
       ],
       "confidence": "high",
       "note": "冒頭形と崩御条が一致"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "憲天光運仁文義武神聖英孝皇帝",
+          "year": 1209
+        }
+      ],
+      "basis": [
+        "c1",
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "1段のみ。要約は大安元年正月（c3）。**礼志は同じ回を「大定元年二月丁卯」と書くが大定元年は1161年で章宗の生前より前**なので採らない（c4）。daizhigev20 の金史も同じ字なのでコーパスの破損ではなく受け継がれた誤り"
     },
     {
       "field": "name.childhoodName",

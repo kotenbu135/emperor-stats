@@ -7,6 +7,13 @@
       "file": "_corpus_cache/liao-tianzuodi.txt",
       "line": 2,
       "quote": "天祚皇帝，讳延禧，字延宁，小字阿果。道宗之孙"
+    },
+    {
+      "cid": "c2",
+      "book": "遼史",
+      "file": "china-history/辽史/本纪/第三十章-卷三十-原文.html",
+      "line": 24,
+      "quote": "百官伪谥曰孝章皇帝，庙号宣宗，葬燕西香山永安陵"
     }
   ],
   "findings": [
@@ -39,6 +46,17 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。冒頭の第1スロットに立つのは位号「天祚皇帝」で諡ではない。遼史は他帝には「谥曰〈諡〉皇帝，庙号〈廟号〉」を書くが（同じ紀の中に順宗・宣宗の例が在る）、天祚帝自身は金に捕らわれて紀が終わり、諡の条が無い"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "遼史の本紀30巻を全数で走査した（「谥」36件）。天祚帝は諡を受けず、冒頭も位号「天祚皇帝」で立つ。巻30に「百官伪谥曰孝章皇帝，庙号宣宗」が在るが**これは耶律淳（北遼宣宗）**で天祚帝ではない（c2）"
     }
   ],
   "discrepancies": "なし（既存の courtesyName 延寧・childhoodName 阿果と一致。commonName 天祚帝は原文の位号「天祚皇帝」の通用形）"

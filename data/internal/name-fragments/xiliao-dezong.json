@@ -14,6 +14,13 @@
       "file": "_corpus_cache/xiliao-dezong.txt",
       "line": 6,
       "quote": "康国十年殁，在位二十年，庙号德宗"
+    },
+    {
+      "cid": "c3",
+      "book": "遼史",
+      "file": "china-history/辽史/本纪/第三十章-卷三十-原文.html",
+      "line": 30,
+      "quote": "追谥祖父为嗣元皇帝，祖母为宣义皇后，册元妃萧氏为昭德皇后"
     }
   ],
   "findings": [
@@ -27,6 +34,17 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。**`commonName`「徳宗天祐皇帝」の後半は生前の尊号**で（c1「复上汉尊号曰天佑皇帝」）、諡ではない。遼史 附録が耶律大石に与えるのは廟号「徳宗」だけ（c2）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "遼史 巻30の西遼の記事を読んだ。徳宗（耶律大石）に諡を授ける条が無い（同じ巻の「追谥祖父为嗣元皇帝」は大石が祖父へ授けた側＝c3）"
     }
   ],
   "discrepancies": "なし"

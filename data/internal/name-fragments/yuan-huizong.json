@@ -38,6 +38,16 @@
       ],
       "confidence": "high",
       "note": "元史は妥懽帖睦爾を「順帝」で立て、諱ではなく「名」を使う（c1）。順帝は明が与えた号だと元史自身が明記する（c2）ので諡の欄には入れない。元朝側の廟号「惠宗」は北元での追尊で元史には無い（absent-by-book・新元史ほかが持つ）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "元史の本紀47巻を全数で走査した（「谥」78件）。順帝に諡を授ける条が無く、冒頭も「順帝名妥欢帖睦尔」と名で立つ（元史は明初の編纂で、北元側の諡は載らない）"
     }
   ],
   "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"

@@ -38,6 +38,21 @@
       "note": "冒頭形と上尊諡が一致する"
     },
     {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "文武大孝宣皇帝",
+          "year": 1031
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "1段のみ。興宗紀に対応する条が無く、証人は要約（c2）だけ"
+    },
+    {
       "field": "name.courtesyName",
       "value": null,
       "verdict": "read-absent",

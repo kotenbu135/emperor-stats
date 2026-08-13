@@ -39,6 +39,16 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。**`commonName` の「泰定帝（通称）」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。元史は也孫鉄木児を「泰定皇帝」の位号（元号由来）で立て、書全体を走査しても本人への諡・廟号の条が出ない（既存の主張と同じ根拠）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "元史の本紀47巻を全数で走査した（「谥」78件）。泰定帝に諡を授ける条が無く、冒頭も位号「泰定皇帝」で立つ"
     }
   ],
   "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"

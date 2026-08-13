@@ -14,6 +14,20 @@
       "file": "_corpus_cache/liao-muzong.txt",
       "line": 23,
       "quote": "帝遇弑，年三十九，庙号穆宗"
+    },
+    {
+      "cid": "c3",
+      "book": "遼史",
+      "file": "_corpus_cache/liao-muzong.txt",
+      "line": 23,
+      "quote": "重熙二十一年，谥曰孝安敬正皇帝"
+    },
+    {
+      "cid": "c4",
+      "book": "遼史",
+      "file": "china-history/辽史/本纪/第二十章-卷二十-原文.html",
+      "line": 28,
+      "quote": "庚申，追上嗣圣皇帝、天顺皇帝尊谥，及更谥彰德皇后曰靖安"
     }
   ],
   "findings": [
@@ -35,6 +49,22 @@
       ],
       "confidence": "high",
       "note": "冒頭が掲げる形"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "孝安敬正皇帝",
+          "year": 1052
+        }
+      ],
+      "basis": [
+        "c1",
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "応暦十九年の弑逆時は廟号だけで、諡は83年後の重熙二十一年（c3）。興宗紀の条（c4）は穆宗を位号「天順皇帝」で呼び、形を書かない"
     },
     {
       "field": "name.courtesyName",

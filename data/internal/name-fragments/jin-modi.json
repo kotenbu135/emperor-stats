@@ -39,6 +39,16 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。金史に末帝（承麟）の独立した本紀は無く、哀宗紀の末尾に即位と同日の敗死が書かれるだけ（c1）。**諡を与える主体が滅んでおり、金史は諡を書かない**。`commonName` の「末帝」は位号"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "金史の本紀19巻を全数で走査した（「谥」59件）。末帝（完顔承麟）に諡を授ける条が無い（哀宗の崩御と同じ条が「末帝为乱兵所害，金亡」で終わる）"
     }
   ],
   "discrepancies": "なし（金史に独立した本紀が無く、名前欄は commonName 末帝・personalName 承麟のみで閉じる）"

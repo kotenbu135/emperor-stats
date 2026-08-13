@@ -14,6 +14,13 @@
       "file": "daizhigev20/史藏/正史/元史.txt",
       "line": 1822,
       "quote": "泰定元年二月，上尊谥曰睿圣文孝皇帝，庙号英宗。四月，上国语庙号曰格坚"
+    },
+    {
+      "cid": "c3",
+      "book": "元史",
+      "file": "china-history/元史/本纪/第二十九章-卷二十九-原文.html",
+      "line": 31,
+      "quote": "壬申，请上大行皇帝谥于南郊，曰睿圣文孝皇帝，庙号英宗"
     }
   ],
   "findings": [
@@ -36,6 +43,22 @@
       ],
       "confidence": "high",
       "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "睿聖文孝皇帝",
+          "year": 1324
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "1段のみ。要約（c2）と泰定帝紀の条（c3）が泰定元年で揃う"
     }
   ],
   "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"

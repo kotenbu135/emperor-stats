@@ -14,6 +14,13 @@
       "file": "daizhigev20/史藏/正史/元史.txt",
       "line": 1958,
       "quote": "十二月乙巳，知枢密院事臣也不伦等议请上尊谥曰翼献景孝皇帝，庙号明宗"
+    },
+    {
+      "cid": "c3",
+      "book": "元史",
+      "file": "china-history/元史/本纪/第三十三章-卷三十三-原文.html",
+      "line": 34,
+      "quote": "臣等谨集枢密院、御史台、翰林、集贤院、奎章阁、太常礼仪院、礼部诸臣僚，议上大行皇帝尊谥曰翼献景孝皇帝，庙号明宗，国言谥号曰护都笃皇帝"
     }
   ],
   "findings": [
@@ -36,6 +43,22 @@
       ],
       "confidence": "high",
       "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "翼献景孝皇帝",
+          "year": 1329
+        }
+      ],
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "1段のみ。要約は天暦二年十二月乙巳（c2）、文宗紀の条は同年冬十月丙申（c3）で**月が割れる**が年は揃う"
     }
   ],
   "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"

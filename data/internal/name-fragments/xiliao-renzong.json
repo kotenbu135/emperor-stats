@@ -19,6 +19,16 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。附録が与えるのは廟号「仁宗」だけで（c1）、諡の条が無い。`commonName`「仁宗正徳皇帝」の後半は他書由来の名乗り"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "遼史の本紀30巻を全数で走査した（「谥」36件）。巻30の西遼の記事に仁宗へ諡を授ける条が無い"
     }
   ],
   "discrepancies": "なし"

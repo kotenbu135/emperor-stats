@@ -14,6 +14,20 @@
       "file": "_corpus_cache/jin-xuanzong.txt",
       "line": 125,
       "quote": "统述道勤仁英武圣孝皇帝，庙号宣宗"
+    },
+    {
+      "cid": "c3",
+      "book": "金史",
+      "file": "_corpus_cache/jin-xuanzong.txt",
+      "line": 125,
+      "quote": "正月戊戌朔，改元正大，谥大行曰继天兴统述道勤仁英武圣孝皇帝，庙号宣宗"
+    },
+    {
+      "cid": "c4",
+      "book": "金史",
+      "file": "china-history/金史/志/第十三章-卷十三-原文.html",
+      "line": 34,
+      "quote": "正大元年正月戊戌，谥大行皇帝曰继天兴统述道勤仁英武圣孝皇帝，庙号宣宗"
     }
   ],
   "findings": [
@@ -36,6 +50,22 @@
       ],
       "confidence": "high",
       "note": "冒頭は「皇帝讳珣」と読点を挟まない異形だが書式は同じ"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "継天興統述道勤仁英武聖孝皇帝",
+          "year": 1224
+        }
+      ],
+      "basis": [
+        "c1",
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "1段のみ。要約（c3）と礼志（c4）が正大元年正月戊戌で揃う"
     }
   ],
   "discrepancies": "なし。冒頭が「本讳」ではなく「本名吾睹补」の語で書く点だけ他の帝と違う（政権慣行の異形に未記載）"
