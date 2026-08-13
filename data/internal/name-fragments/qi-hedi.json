@@ -1,63 +1,73 @@
 {
-  "id": "qi-hedi",
-  "claims": [
+ "id": "qi-hedi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "南齊書",
+   "file": "_corpus_cache/qi-hedi.txt",
+   "line": 2,
+   "quote": "和帝讳宝融，字智昭，高宗第八子也"
+  },
+  {
+   "cid": "c2",
+   "book": "南齊書",
+   "file": "_corpus_cache/qi-hedi.txt",
+   "line": 10,
+   "quote": "戊辰，薨，年十五。追尊为齐和帝，葬恭安陵"
+  },
+  {
+   "cid": "c3",
+   "book": "南齊書",
+   "file": "_corpus_cache/qi-hedi.txt",
+   "line": 10,
+   "quote": "追尊为齐和帝，葬恭安陵"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "**南齊書はこの人に全長形を与えない** — 冒頭が「和帝」（他の3帝のような「〈廟号〉〈諡〉皇帝」ではない）で、崩御条 c2 も「追尊为齐和帝」と短縮形で書く。書全体で「和皇帝」は0件。短縮呼称「和帝」は既に `posthumousName` に在るので、そちらへ重ねない"
+  },
+  {
+   "field": "name.templeName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "冒頭に廟号のスロットが無い。齊の廟の在庫4つに入らない（禅譲の翌月に薨じている）"
+  },
+  {
+   "field": "name.childhoodName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "冒頭は諱と字だけで幼名の欄を持たない。人物側の欠落"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "南齊書",
-      "file": "_corpus_cache/qi-hedi.txt",
-      "line": 2,
-      "quote": "和帝讳宝融，字智昭，高宗第八子也"
-    },
-    {
-      "cid": "c2",
-      "book": "南齊書",
-      "file": "_corpus_cache/qi-hedi.txt",
-      "line": 10,
-      "quote": "戊辰，薨，年十五。追尊为齐和帝，葬恭安陵"
+     "form": "和帝"
     }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "**南齊書はこの人に全長形を与えない** — 冒頭が「和帝」（他の3帝のような「〈廟号〉〈諡〉皇帝」ではない）で、崩御条 c2 も「追尊为齐和帝」と短縮形で書く。書全体で「和皇帝」は0件。短縮呼称「和帝」は既に `posthumousName` に在るので、そちらへ重ねない"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "南齊書 本紀の「谥」4句を全数で読んだ。この人物には諡を授ける条が無い。南齊書が諡を授ける条を書くのは高帝だけ。"
-    },
-    {
-      "field": "name.templeName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "冒頭に廟号のスロットが無い。齊の廟の在庫4つに入らない（禅譲の翌月に薨じている）"
-    },
-    {
-      "field": "name.childhoodName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "冒頭は諱と字だけで幼名の欄を持たない。人物側の欠落"
-    }
-  ],
-  "discrepancies": "なし"
+   ],
+   "basis": [
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "南齊書の「戊辰，薨，年十五。追尊为齐和帝，葬恭安陵」。**書は「齊和帝」と王朝名を冠して書く**（梁の側から書いているため。梁書 武帝紀も「追谥为齐和帝」と同じ形）ので、諡そのものは「和」＝「和帝」。**「〈諡〉帝」で結ぶ略形**なので `POSTHUMOUS_STAGE_NON_IMPERIAL` に理由を書いて通した。2026-08-13 の当て直しで `read-absent` から移した"
+  }
+ ],
+ "discrepancies": "なし／**2026-08-13**: 諡の段を `read-absent` から値ありへ訂正した（「谥」の語彙だけで走査したための取りこぼし）"
 }

@@ -1,25 +1,35 @@
 {
-  "id": "liang-wudi",
-  "claims": [
+ "id": "liang-wudi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "梁書",
+   "file": "_corpus_cache/liang-wudi.txt",
+   "line": 1,
+   "quote": "武帝上"
+  },
+  {
+   "cid": "c2",
+   "book": "梁書",
+   "file": "_corpus_cache/liang-wudi.txt",
+   "line": 141,
+   "quote": "冬十一月，追尊为武皇帝，庙曰高祖"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "梁書",
-      "file": "_corpus_cache/liang-wudi.txt",
-      "line": 1,
-      "quote": "武帝上"
+     "form": "武皇帝"
     }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "梁書 本紀の「谥」6句を全数で読んだ。この人物には諡を授ける条が無い。"
-    }
-  ],
-  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+   ],
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "**梁書は諡を授ける条を「谥」ではなく「追尊」で書く**（崩御条の続き「冬十一月，追尊为武皇帝，庙曰高祖」）。2026-08-13 の「谥」6句の全数走査ではこの形に当たらず `read-absent` と書いていたが、同日の漢書の走査で**同じ型（「谥」を使わない授与）**が見つかったので当て直した。条は月までしか名乗らず年は紀の年立てに寄りかかるので年は入れない"
+  }
+ ],
+ "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）／**2026-08-13**: 諡の段を `read-absent` から値ありへ訂正した（「谥」の語彙だけで走査したための取りこぼし）"
 }

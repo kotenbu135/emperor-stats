@@ -41095,7 +41095,12 @@
     "posthumousName": "和帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "智昭"
+    "courtesyName": "智昭",
+    "posthumousNames": [
+     {
+      "form": "和帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "southern-qi",
@@ -41283,7 +41288,12 @@
     "templeName": "高祖",
     "regnalTitle": "皇帝",
     "courtesyName": "叔達",
-    "childhoodName": "練児"
+    "childhoodName": "練児",
+    "posthumousNames": [
+     {
+      "form": "武皇帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",
@@ -42445,7 +42455,12 @@
     "templeName": "世祖",
     "regnalTitle": "皇帝",
     "courtesyName": "世誠",
-    "childhoodName": "七符"
+    "childhoodName": "七符",
+    "posthumousNames": [
+     {
+      "form": "孝元皇帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",

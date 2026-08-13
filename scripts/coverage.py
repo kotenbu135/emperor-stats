@@ -267,8 +267,12 @@ FIELDS = [
      lambda c: m_name(c, "posthumousNameFull")),
     # 2026-08-10 に諡号の段を足した（ユーザー決定「案B」）。スカラ2欄では加諡が
     # 積み上がる過程を保存できず、方針「Wikipedia 並み」の諡号欄を満たせなかった。
-    # **不在確定は出ない** — 「段が1つしか無い」と「まだ読んでいない」は
-    # regime-conventions では割れないので、全員が値あり／判別不能のどちらかに落ちる
+    # **2026-08-11 まで不在確定は出なかった** — 「段が1つしか無い」と「まだ読んで
+    # いない」は regime-conventions では割れないため。`read-absent` の証人
+    # （`_read_absent_cells`）を入れて割れるようにしたので、いまは3状態とも出る
+    # （2026-08-13 時点で 177／146／42）。**証人は人物単位で、政権記録では代わりに
+    # ならない** — 書がその欄そのものを持たない場合しか政権では打ち切れず、
+    # 段は同じ書の中でも人によって条の有無が割れる
     ("name.posthumousNames", "諡号の段（Issue #126）", "人", None,
      lambda c: m_name(c, "posthumousNames")),
     ("reigns.dynastyOrder", "第N代（Issue #24）", "在位", None, m_dynasty_order),
