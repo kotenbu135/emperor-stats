@@ -1,33 +1,53 @@
 {
-  "id": "shiguo-nantang-lijing",
-  "claims": [
+ "id": "shiguo-nantang-lijing",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-nantang-lijing.txt",
+   "line": 23,
+   "quote": "乃谥曰明道崇德文宣孝皇帝，庙号元宗，陵曰顺陵"
+  },
+  {
+   "cid": "c2",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-nantang-lijing.txt",
+   "line": 23,
+   "quote": "从嘉嗣立，以丧归金陵，遣使入朝，愿复景帝号，太祖皇帝许之，乃谥曰明道崇德文宣孝皇帝，庙号元宗，陵曰顺陵"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "元宗",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "世家末尾の定型（c1）。宋へ帝号の復を願って与えられた形"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "明道崇徳文宣孝皇帝",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "同じ条の「谥曰」が掲げる形（c1）"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "新五代史",
-      "file": "_corpus_cache/shiguo-nantang-lijing.txt",
-      "line": 23,
-      "quote": "乃谥曰明道崇德文宣孝皇帝，庙号元宗，陵曰顺陵"
+     "form": "明道崇徳文宣孝皇帝"
     }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": "元宗",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "世家末尾の定型（c1）。宋へ帝号の復を願って与えられた形"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": "明道崇徳文宣孝皇帝",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "同じ条の「谥曰」が掲げる形（c1）"
-    }
-  ],
-  "discrepancies": "なし"
+   ],
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "卒去条「乃谥曰明道崇德文宣孝皇帝，庙号元宗」。**贈ったのは宋**で、李従嘉が帝号の回復を願い出て太祖が許した形。現行の全長形と一致（追認）"
+  }
+ ],
+ "discrepancies": "なし"
 }

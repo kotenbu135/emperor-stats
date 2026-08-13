@@ -1,33 +1,46 @@
 {
-  "id": "shiguo-nantang-libian",
-  "claims": [
+ "id": "shiguo-nantang-libian",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-nantang-libian.txt",
+   "line": 15,
+   "quote": "七年，昪卒，年五十六，谥曰光文肃武孝高皇帝，庙号烈祖，陵曰永陵"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "烈祖",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "世家末尾の定型（c1）"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "光文粛武孝高皇帝",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "同じ条の「谥曰」が掲げる形（c1）"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "新五代史",
-      "file": "_corpus_cache/shiguo-nantang-libian.txt",
-      "line": 15,
-      "quote": "七年，昪卒，年五十六，谥曰光文肃武孝高皇帝，庙号烈祖，陵曰永陵"
+     "form": "光文粛武孝高皇帝"
     }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": "烈祖",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "世家末尾の定型（c1）"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": "光文粛武孝高皇帝",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "同じ条の「谥曰」が掲げる形（c1）"
-    }
-  ],
-  "discrepancies": "なし"
+   ],
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "卒去条「谥曰光文肃武孝高皇帝，庙号烈祖」。現行の全長形と一致（追認）"
+  }
+ ],
+ "discrepancies": "なし"
 }

@@ -1,24 +1,41 @@
 {
-  "id": "han-huidi",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "漢書",
-      "file": "_corpus_cache/han-huidi.txt",
-      "line": 1,
-      "quote": "孝惠皇帝，高祖太子也"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNameFull",
-      "value": "孝恵皇帝",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "漢書 帝紀の冒頭定型「孝〈諡字〉皇帝，〈続柄〉也」（c1）。**漢書は帝の上諡の条を紀に載せない**ので、この書が掲げる名乗りの形は冒頭1行の1形に決まる（霍光伝「汉之传谥常为孝者」が「孝」を冠する理由を書く）"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "han-huidi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "漢書",
+   "file": "_corpus_cache/han-huidi.txt",
+   "line": 1,
+   "quote": "孝惠皇帝，高祖太子也"
+  },
+  {
+   "cid": "c2",
+   "book": "漢書",
+   "file": "_corpus_cache/han-huidi.txt",
+   "line": 1,
+   "quote": "孝惠皇帝，高祖太子也，母曰吕皇后"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNameFull",
+   "value": "孝恵皇帝",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "漢書 帝紀の冒頭定型「孝〈諡字〉皇帝，〈続柄〉也」（c1）。**漢書は帝の上諡の条を紀に載せない**ので、この書が掲げる名乗りの形は冒頭1行の1形に決まる（霍光伝「汉之传谥常为孝者」が「孝」を冠する理由を書く）"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "漢書 紀（卷一〜卷十二）の「谥」「尊号」「庙号」「追尊」を全数で読んだ（2026-08-13）。**この書が帝の諡を授ける条を持つのは高帝の1人だけ**で（「上尊号曰高皇帝」）、他の帝の諡は冒頭の名乗り「孝○皇帝」にしか出ない。この人物には授ける条が無い。"
+  }
+ ],
+ "discrepancies": "なし"
 }

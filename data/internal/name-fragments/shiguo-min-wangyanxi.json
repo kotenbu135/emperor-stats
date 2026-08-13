@@ -1,34 +1,54 @@
 {
-  "id": "shiguo-min-wangyanxi",
-  "claims": [
+ "id": "shiguo-min-wangyanxi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-min-wangyanxi.txt",
+   "line": 4,
+   "quote": "重遇等遣壮士拉于马上而杀之，谥曰景宗"
+  },
+  {
+   "cid": "c2",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-min-wangyanxi.txt",
+   "line": 4,
+   "quote": "六年三月，曦出游，醉归，重遇等遣壮士拉于马上而杀之，谥曰景宗"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。王継鵬と同じで、書が使う語は「谥」（c1）"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": "景宗",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "書が諡として掲げる形（c1）"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "新五代史",
-      "file": "_corpus_cache/shiguo-min-wangyanxi.txt",
-      "line": 4,
-      "quote": "重遇等遣壮士拉于马上而杀之，谥曰景宗"
+     "form": "景宗"
     }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "読んだうえで空。王継鵬と同じで、書が使う語は「谥」（c1）"
-    },
-    {
-      "field": "name.posthumousName",
-      "value": "景宗",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "書が諡として掲げる形（c1）"
-    }
-  ],
-  "discrepancies": "なし"
+   ],
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "弑逆の条「谥曰景宗」。閩は2代続けて廟号型2字を「谥」と書く（前代 康宗と同じ形）"
+  }
+ ],
+ "discrepancies": "なし"
 }

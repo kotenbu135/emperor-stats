@@ -1,39 +1,56 @@
 {
-  "id": "han-liuhe",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "漢書",
-      "file": "_corpus_cache/han-liuhe.txt",
-      "line": 1,
-      "quote": "光奏王贺淫乱，请废"
-    },
-    {
-      "cid": "c2",
-      "book": "漢書",
-      "file": "china-history/汉书/传/第三十四章-武五子传-原文.html",
-      "quote": "其封故昌邑王贺为海昏侯，食邑四千户"
-    },
-    {
-      "cid": "c3",
-      "book": "漢書",
-      "file": "china-history/汉书/传/第三十四章-武五子传-原文.html",
-      "quote": "海昏侯贺死，上当为后者子充国"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1",
-        "c2",
-        "c3"
-      ],
-      "confidence": "high",
-      "note": "読んだうえで空。**紀だけでは決められないので伝まで見た** — 本人のキャッシュは60字の断片（廃位の記事だけ）で、廃位後の生涯は武五子伝に在る。伝は海昏侯に封じられたこと（c2）と死（c3）を書くが諡を与えず、同じ伝が戾太子「戾」・燕剌王旦「刺」・広陵厲王胥「厲」には「谥曰〈X〉」で諡を与える（＝この伝は諡を書く伝であって、賀に無いのは書かれ方の問題ではない）。**`commonName` の「廃帝（昌邑王）」は位号**"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "han-liuhe",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "漢書",
+   "file": "_corpus_cache/han-liuhe.txt",
+   "line": 1,
+   "quote": "光奏王贺淫乱，请废"
+  },
+  {
+   "cid": "c2",
+   "book": "漢書",
+   "file": "china-history/汉书/传/第三十四章-武五子传-原文.html",
+   "quote": "其封故昌邑王贺为海昏侯，食邑四千户"
+  },
+  {
+   "cid": "c3",
+   "book": "漢書",
+   "file": "china-history/汉书/传/第三十四章-武五子传-原文.html",
+   "quote": "海昏侯贺死，上当为后者子充国"
+  },
+  {
+   "cid": "c4",
+   "book": "漢書",
+   "file": "_corpus_cache/han-liuhe.txt",
+   "line": 1,
+   "quote": "元平元年四月，昭帝崩，毋嗣"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "c2",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。**紀だけでは決められないので伝まで見た** — 本人のキャッシュは60字の断片（廃位の記事だけ）で、廃位後の生涯は武五子伝に在る。伝は海昏侯に封じられたこと（c2）と死（c3）を書くが諡を与えず、同じ伝が戾太子「戾」・燕剌王旦「刺」・広陵厲王胥「厲」には「谥曰〈X〉」で諡を与える（＝この伝は諡を書く伝であって、賀に無いのは書かれ方の問題ではない）。**`commonName` の「廃帝（昌邑王）」は位号**"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c4"
+   ],
+   "confidence": "high",
+   "note": "漢書 紀（卷一〜卷十二）の「谥」「尊号」「庙号」「追尊」を全数で読んだ（2026-08-13）。**この書が帝の諡を授ける条を持つのは高帝の1人だけ**で（「上尊号曰高皇帝」）、他の帝の諡は冒頭の名乗り「孝○皇帝」にしか出ない。この人物には授ける条が無い。在位27日で廃され、諡そのものが無い。"
+  }
+ ],
+ "discrepancies": "なし"
 }

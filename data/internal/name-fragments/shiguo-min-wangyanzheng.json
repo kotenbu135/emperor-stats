@@ -1,35 +1,52 @@
 {
-  "id": "shiguo-min-wangyanzheng",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "新五代史",
-      "file": "_corpus_cache/shiguo-min-wangyanzheng.txt",
-      "line": 1,
-      "quote": "延政乃以建州建国称殷，改元天德"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "読んだうえで空。新五代史 閩世家の王延政の記事に「谥」「庙号」が1件も無い。**`commonName` の「殷帝」は建てた国号「殷」から来た呼び名**（c1）であって諡ではない"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "同じ理由"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "shiguo-min-wangyanzheng",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-min-wangyanzheng.txt",
+   "line": 1,
+   "quote": "延政乃以建州建国称殷，改元天德"
+  },
+  {
+   "cid": "c2",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-min-wangyanzheng.txt",
+   "line": 1,
+   "quote": "延政，审知子也"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。新五代史 閩世家の王延政の記事に「谥」「庙号」が1件も無い。**`commonName` の「殷帝」は建てた国号「殷」から来た呼び名**（c1）であって諡ではない"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "同じ理由"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "新五代史のうち収録365人が立つ7世家（吳・南唐・前蜀・後蜀・南漢・閩・東漢）の「谥」17句と、各人のキャッシュの「尊号」「庙号」「追尊」「追封」を全数で読んだ（2026-08-13）。**この書は十国の君主に授けた諡を世家の卒去条に書く**が、この人物にはその条が無い。南唐に降ったのちの記事に諡・尊号・廟号のいずれも無い"
+  }
+ ],
+ "discrepancies": "なし"
 }

@@ -1,35 +1,45 @@
 {
-  "id": "shiguo-beihan-liujiyuan",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "新五代史",
-      "file": "_corpus_cache/shiguo-beihan-liujiyuan.txt",
-      "line": 1,
-      "quote": "继元为人忍"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "読んだうえで空。北漢は「谥」「庙号」が0件。`commonName` の「英武帝」は他書由来"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "同じ理由"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "shiguo-beihan-liujiyuan",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-beihan-liujiyuan.txt",
+   "line": 1,
+   "quote": "继元为人忍"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。北漢は「谥」「庙号」が0件。`commonName` の「英武帝」は他書由来"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "同じ理由"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "新五代史のうち収録365人が立つ7世家（吳・南唐・前蜀・後蜀・南漢・閩・東漢）の「谥」17句と、各人のキャッシュの「尊号」「庙号」「追尊」「追封」を全数で読んだ（2026-08-13）。**この書は十国の君主に授けた諡を世家の卒去条に書く**が、この人物にはその条が無い。東漢世家は「谥」を1句も持たない。宋へ降ったのちの記事にも無い"
+  }
+ ],
+ "discrepancies": "なし"
 }

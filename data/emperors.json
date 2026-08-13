@@ -4165,7 +4165,12 @@
     "posthumousName": "高帝",
     "templeName": "太祖",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "高皇帝"
+    "posthumousNameFull": "高皇帝",
+    "posthumousNames": [
+     {
+      "form": "高皇帝"
+     }
+    ]
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -78409,7 +78414,12 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNames": [
+     {
+      "form": "睿"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "yang-wu",
@@ -78660,7 +78670,12 @@
     "templeName": "高祖",
     "regnalTitle": "皇帝",
     "courtesyName": "光図",
-    "posthumousNameFull": "神武聖文孝徳明恵皇帝"
+    "posthumousNameFull": "神武聖文孝徳明恵皇帝",
+    "posthumousNames": [
+     {
+      "form": "神武聖文孝徳明恵皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "former-shu",
@@ -79296,7 +79311,12 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": "高祖",
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNames": [
+     {
+      "form": "天皇大帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "southern-han",
@@ -79564,7 +79584,12 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNames": [
+     {
+      "form": "殤"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "southern-han",
@@ -79771,7 +79796,12 @@
     "posthumousName": null,
     "templeName": "中宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "文武光聖明孝皇帝"
+    "posthumousNameFull": "文武光聖明孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "文武光聖明孝皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "southern-han",
@@ -80162,7 +80192,12 @@
     "templeName": "高祖",
     "regnalTitle": "皇帝",
     "courtesyName": "保胤",
-    "posthumousNameFull": "文武聖徳英烈明孝皇帝"
+    "posthumousNameFull": "文武聖徳英烈明孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "文武聖徳英烈明孝皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "later-shu",
@@ -80564,7 +80599,12 @@
     "templeName": "烈祖",
     "regnalTitle": "皇帝",
     "courtesyName": "正倫",
-    "posthumousNameFull": "光文粛武孝高皇帝"
+    "posthumousNameFull": "光文粛武孝高皇帝",
+    "posthumousNames": [
+     {
+      "form": "光文粛武孝高皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "southern-tang",
@@ -80780,7 +80820,12 @@
     "posthumousName": null,
     "templeName": "元宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "明道崇徳文宣孝皇帝"
+    "posthumousNameFull": "明道崇徳文宣孝皇帝",
+    "posthumousNames": [
+     {
+      "form": "明道崇徳文宣孝皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "southern-tang",
@@ -81075,7 +81120,12 @@
     "posthumousName": null,
     "templeName": "太宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "恵皇帝"
+    "posthumousNameFull": "恵皇帝",
+    "posthumousNames": [
+     {
+      "form": "恵皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "min",
@@ -81303,7 +81353,12 @@
     "aliases": [],
     "posthumousName": "康宗",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNames": [
+     {
+      "form": "康宗"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "min",
@@ -81521,7 +81576,12 @@
     "aliases": [],
     "posthumousName": "景宗",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNames": [
+     {
+      "form": "景宗"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "min",

@@ -1,33 +1,46 @@
 {
-  "id": "shiguo-nanhan-liusheng",
-  "claims": [
+ "id": "shiguo-nanhan-liusheng",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-nanhan-liusheng.txt",
+   "line": 11,
+   "quote": "是秋卒，年三十九，谥曰文武光圣明孝皇帝，庙号中宗，陵曰昭陵"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "中宗",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "世家末尾の定型（c1）"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "文武光聖明孝皇帝",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "同じ条の「谥曰」が掲げる形（c1）"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "新五代史",
-      "file": "_corpus_cache/shiguo-nanhan-liusheng.txt",
-      "line": 11,
-      "quote": "是秋卒，年三十九，谥曰文武光圣明孝皇帝，庙号中宗，陵曰昭陵"
+     "form": "文武光聖明孝皇帝"
     }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": "中宗",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "世家末尾の定型（c1）"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": "文武光聖明孝皇帝",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "同じ条の「谥曰」が掲げる形（c1）"
-    }
-  ],
-  "discrepancies": "なし"
+   ],
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "卒去条「谥曰文武光圣明孝皇帝，庙号中宗」。現行の全長形と一致（追認）"
+  }
+ ],
+ "discrepancies": "なし"
 }

@@ -1,25 +1,42 @@
 {
-  "id": "shiguo-beihan-liuchong",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "新五代史",
-      "file": "_corpus_cache/shiguo-beihan-liuchong.txt",
-      "line": 1,
-      "quote": "刘旻，汉高祖母弟也。初名崇"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "読んだうえで空。**新五代史 東漢世家（北漢）には「谥」「庙号」が1件も無い**（政権慣行が verdict=no-form で記録済み）"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "shiguo-beihan-liuchong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-beihan-liuchong.txt",
+   "line": 1,
+   "quote": "刘旻，汉高祖母弟也。初名崇"
+  },
+  {
+   "cid": "c2",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-beihan-liuchong.txt",
+   "line": 1,
+   "quote": "刘旻，汉高祖母弟也"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。**新五代史 東漢世家（北漢）には「谥」「庙号」が1件も無い**（政権慣行が verdict=no-form で記録済み）"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "新五代史のうち収録365人が立つ7世家（吳・南唐・前蜀・後蜀・南漢・閩・東漢）の「谥」17句と、各人のキャッシュの「尊号」「庙号」「追尊」「追封」を全数で読んだ（2026-08-13）。**この書は十国の君主に授けた諡を世家の卒去条に書く**が、この人物にはその条が無い。**東漢世家は「谥」を1句も持たない**（4人とも同じ）"
+  }
+ ],
+ "discrepancies": "なし"
 }

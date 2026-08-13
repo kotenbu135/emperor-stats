@@ -1,0 +1,25 @@
+{
+ "id": "shiguo-nanhan-liuchang",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-nanhan-liuchang.txt",
+   "line": 1,
+   "quote": "鋹，初名继兴，封卫王"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "新五代史のうち収録365人が立つ7世家（吳・南唐・前蜀・後蜀・南漢・閩・東漢）の「谥」17句と、各人のキャッシュの「尊号」「庙号」「追尊」「追封」を全数で読んだ（2026-08-13）。**この書は十国の君主に授けた諡を世家の卒去条に書く**が、この人物にはその条が無い。宋へ降って恩赦侯となり、南漢世家は諡・尊号・廟号のいずれも書かない"
+  }
+ ],
+ "discrepancies": "なし（**2026-08-13 に諡の段の走査で新設した断片**で、読んだのは name.posthumousNames の1欄だけ。既存の名前欄との突き合わせはしていないので、他の欄について「照合済み」を意味しない）"
+}

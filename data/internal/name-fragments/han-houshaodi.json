@@ -1,25 +1,42 @@
 {
-  "id": "han-houshaodi",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "漢書",
-      "file": "_corpus_cache/han-houshaodi.txt",
-      "line": 1,
-      "quote": "五月丙辰，立恒山王弘为皇帝。"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "読んだうえで空。前少帝と同じで高后紀の中の記事しか無く、諡を与える条が無い。**`commonName` の「後少帝」は位号**"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "han-houshaodi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "漢書",
+   "file": "_corpus_cache/han-houshaodi.txt",
+   "line": 1,
+   "quote": "五月丙辰，立恒山王弘为皇帝。"
+  },
+  {
+   "cid": "c2",
+   "book": "漢書",
+   "file": "_corpus_cache/han-houshaodi.txt",
+   "line": 1,
+   "quote": "五月丙辰，立恒山王弘为皇帝"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。前少帝と同じで高后紀の中の記事しか無く、諡を与える条が無い。**`commonName` の「後少帝」は位号**"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "漢書 紀（卷一〜卷十二）の「谥」「尊号」「庙号」「追尊」を全数で読んだ（2026-08-13）。**この書が帝の諡を授ける条を持つのは高帝の1人だけ**で（「上尊号曰高皇帝」）、他の帝の諡は冒頭の名乗り「孝○皇帝」にしか出ない。この人物には授ける条が無い。廃殺された帝で、諡そのものが無い。"
+  }
+ ],
+ "discrepancies": "なし"
 }
