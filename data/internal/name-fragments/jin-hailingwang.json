@@ -14,6 +14,13 @@
       "file": "_corpus_cache/jin-hailingwang.txt",
       "line": 75,
       "quote": "大定二年，降封为海陵郡王，谥曰炀"
+    },
+    {
+      "cid": "c3",
+      "book": "金史",
+      "file": "_corpus_cache/jin-hailingwang.txt",
+      "line": 1,
+      "quote": "◎海陵"
     }
   ],
   "findings": [
@@ -37,6 +44,17 @@
       ],
       "confidence": "high",
       "note": "位号は諡ではないので全長形の欄には入れない。王としての諡は「炀」（c2）だが皇帝諡ではなく、金史の短縮呼称の慣行も未確定なので今回は置かない"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "金史1冊の段は 2026-08-13 に走査済み（本紀19巻の「谥」59当たり）。海陵王には皇帝としての諡を授ける条が無く、書が与えるのは**廃位して郡王へ落としたあとの1字の王諡**「谥曰炀」（c2）。この欄は「皇帝」「大帝」で結ぶ形を求め王諡だけを理由つきで通す作り（`POSTHUMOUS_STAGE_NON_IMPERIAL`）なので、置くかは Issue #126 の判断待ち（11件まとめて決める行）。**同じ金史の哀宗と揃えて `read-absent` にした**（2026-08-13）"
     },
     {
       "field": "name.courtesyName",

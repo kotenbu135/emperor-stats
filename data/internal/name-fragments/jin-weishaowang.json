@@ -14,6 +14,13 @@
       "file": "_corpus_cache/jin-weishaowang.txt",
       "line": 47,
       "quote": "贞祐四年，诏追复卫王谥曰绍"
+    },
+    {
+      "cid": "c3",
+      "book": "金史",
+      "file": "_corpus_cache/jin-weishaowang.txt",
+      "line": 1,
+      "quote": "◎卫绍王"
     }
   ],
   "findings": [
@@ -37,6 +44,17 @@
       ],
       "confidence": "high",
       "note": "追復された諡は王諡「绍」の1字（c2）で皇帝諡ではない。全長形の欄は空が正しい"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "金史1冊の段は 2026-08-13 に走査済み（本紀19巻の「谥」59当たり）。衛紹王には皇帝としての諡を授ける条が無く、書が与えるのは貞祐四年に旧封を復したうえでの**王としての諡**「诏追复卫王谥曰绍」（c2）。置くかは Issue #126 の判断待ち。**同じ金史の哀宗・海陵王と揃えて `read-absent` にした**（2026-08-13）"
     },
     {
       "field": "name.childhoodName",
