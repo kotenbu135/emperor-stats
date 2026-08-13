@@ -26,6 +26,19 @@
       ],
       "confidence": "high",
       "note": "冒頭が掲げる形（c1）。同じ書の崩御条が上諡と廟号を並べて裏を取る（c2）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "献文皇帝"
+        }
+      ],
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "崩御条の定型「上（尊）谥曰〈諡〉皇帝」1段（c2）。魏書帝紀12巻を単字「谥」で全数走査（25出現・2026-08-13）した結果、この帝には加諡・改諡の条が無い"
     }
   ],
   "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"

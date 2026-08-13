@@ -46387,7 +46387,17 @@
     "posthumousName": "道武帝",
     "templeName": "太祖",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "道武皇帝"
+    "posthumousNameFull": "道武皇帝",
+    "posthumousNames": [
+     {
+      "form": "宣武皇帝",
+      "year": 410
+     },
+     {
+      "form": "道武皇帝",
+      "year": 420
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -46716,7 +46726,12 @@
     "posthumousName": "明元帝",
     "templeName": "太宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "明元皇帝"
+    "posthumousNameFull": "明元皇帝",
+    "posthumousNames": [
+     {
+      "form": "明元皇帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -47151,7 +47166,12 @@
     "posthumousName": "太武帝",
     "templeName": "世祖",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "太武皇帝"
+    "posthumousNameFull": "太武皇帝",
+    "posthumousNames": [
+     {
+      "form": "太武皇帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -48247,7 +48267,12 @@
     "posthumousName": "文成帝",
     "templeName": "高宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "文成皇帝"
+    "posthumousNameFull": "文成皇帝",
+    "posthumousNames": [
+     {
+      "form": "文成皇帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -48654,7 +48679,12 @@
     "posthumousName": "献文帝",
     "templeName": "顕祖",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "献文皇帝"
+    "posthumousNameFull": "献文皇帝",
+    "posthumousNames": [
+     {
+      "form": "献文皇帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -49000,7 +49030,12 @@
     "posthumousName": "孝文帝",
     "templeName": "高祖",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "孝文皇帝"
+    "posthumousNameFull": "孝文皇帝",
+    "posthumousNames": [
+     {
+      "form": "孝文皇帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -49876,7 +49911,12 @@
     "posthumousName": "宣武帝",
     "templeName": "世宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "宣武皇帝"
+    "posthumousNameFull": "宣武皇帝",
+    "posthumousNames": [
+     {
+      "form": "宣武皇帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -50534,7 +50574,12 @@
     "posthumousName": "孝明帝",
     "templeName": "粛宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "孝明皇帝"
+    "posthumousNameFull": "孝明皇帝",
+    "posthumousNames": [
+     {
+      "form": "孝明皇帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -51689,7 +51734,17 @@
     "posthumousName": "孝荘帝",
     "templeName": "敬宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "孝荘皇帝"
+    "posthumousNameFull": "孝荘皇帝",
+    "posthumousNames": [
+     {
+      "form": "武懐皇帝",
+      "year": 532
+     },
+     {
+      "form": "孝荘皇帝",
+      "year": 532
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -53861,7 +53916,12 @@
     "posthumousName": "孝静帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "孝静皇帝"
+    "posthumousNameFull": "孝静皇帝",
+    "posthumousNames": [
+     {
+      "form": "孝静皇帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "eastern-wei",
