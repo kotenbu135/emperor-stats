@@ -29,6 +29,19 @@
       "note": "同じ定型の「谥曰〈諡〉」（c1）。西夏書事はこの1形しか掲げない"
     },
     {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "聖徳皇帝"
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "崩御条の定型「谥曰〈諡〉皇帝」1段で閉じる（c1）。西夏書事 7,647行を単字「谥」で全数走査した結果（2026-08-11）、加諡・改諡の条はこの政権に1件も無い"
+    },
+    {
       "field": "name.posthumousName",
       "value": null,
       "verdict": "read-absent",

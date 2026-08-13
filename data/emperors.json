@@ -75027,7 +75027,12 @@
     "templeName": "明宗",
     "regnalTitle": "皇帝",
     "posthumousNameFull": "聖徳和武欽孝皇帝",
-    "childhoodName": "邈佶烈"
+    "childhoodName": "邈佶烈",
+    "posthumousNames": [
+     {
+      "form": "聖徳和武欽孝皇帝"
+     }
+    ]
    },
    "eraId": "five-dynasties",
    "regimeId": "later-tang",
@@ -99824,7 +99829,12 @@
      "kind": "tangut",
      "value": "嵬埋"
     },
-    "childhoodName": "嵬理"
+    "childhoodName": "嵬理",
+    "posthumousNames": [
+     {
+      "form": "武烈皇帝"
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -100067,7 +100077,12 @@
     "posthumousName": null,
     "templeName": "毅宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "昭英皇帝"
+    "posthumousNameFull": "昭英皇帝",
+    "posthumousNames": [
+     {
+      "form": "昭英皇帝"
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -100394,7 +100409,12 @@
     "posthumousName": null,
     "templeName": "恵宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "康靖皇帝"
+    "posthumousNameFull": "康靖皇帝",
+    "posthumousNames": [
+     {
+      "form": "康靖皇帝"
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -100606,7 +100626,12 @@
     "posthumousName": null,
     "templeName": "崇宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "聖文皇帝"
+    "posthumousNameFull": "聖文皇帝",
+    "posthumousNames": [
+     {
+      "form": "聖文皇帝"
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -100914,7 +100939,12 @@
     "posthumousName": null,
     "templeName": "仁宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "聖徳皇帝"
+    "posthumousNameFull": "聖徳皇帝",
+    "posthumousNames": [
+     {
+      "form": "聖徳皇帝"
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -101250,7 +101280,12 @@
     "posthumousName": null,
     "templeName": "桓宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "昭簡皇帝"
+    "posthumousNameFull": "昭簡皇帝",
+    "posthumousNames": [
+     {
+      "form": "昭簡皇帝"
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -101442,7 +101477,12 @@
     "posthumousName": null,
     "templeName": "襄宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "敬穆皇帝"
+    "posthumousNameFull": "敬穆皇帝",
+    "posthumousNames": [
+     {
+      "form": "敬穆皇帝"
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
@@ -101645,7 +101685,12 @@
     "posthumousName": null,
     "templeName": "神宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "英文皇帝"
+    "posthumousNameFull": "英文皇帝",
+    "posthumousNames": [
+     {
+      "form": "英文皇帝"
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "western-xia",
