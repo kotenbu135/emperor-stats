@@ -102,6 +102,26 @@
       ],
       "confidence": "high",
       "note": "初諡の形は**書の中で割れる** — 本紀の要約は「武元皇帝」（c3）、礼志の上尊諡節は「大聖武元皇帝」で日も十二月二十五日とする（c7）。**「大聖」は生前の尊号**で、同じ本紀が「上尊号曰大聖皇帝」と書く（c5）。尊号を含まない側を段に採った。加諡は皇統五年十月で、熙宗紀の条（c6）と礼志の册文（c8）が形まで揃える"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "金史の本紀の冒頭定型は「讳〈漢名〉，本讳〈女真名〉，〈続柄〉」で字の位置を持たない（字を挟むのは海陵王の条の「字元功」だけ）。この帝の冒頭（c1）にも字は無い（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "金史が小字を立てるときは冒頭に挟む（章宗「小字麻达葛」・衛紹王「小字兴胜」）。この帝の冒頭（c1）にはその位置が無く、女真名は「本讳」で立って ethnicName が受けている（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
     }
   ],
   "discrepancies": "なし（templeName・posthumousNameFull はどちらも空だったので新規。既存の personalName 旻・ethnicName 阿骨打は冒頭1行と一致）"

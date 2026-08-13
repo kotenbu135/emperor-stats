@@ -49,6 +49,26 @@
       ],
       "confidence": "high",
       "note": "金史の本紀19巻を全数で走査した（「谥」59件）。末帝（完顔承麟）に諡を授ける条が無い（哀宗の崩御と同じ条が「末帝为乱兵所害，金亡」で終わる）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "金史の本紀の冒頭定型は「讳〈漢名〉，本讳〈女真名〉，〈続柄〉」で字の位置を持たない（字を挟むのは海陵王の条の「字元功」だけ）。この帝の冒頭（c1）にも字は無い（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "金史が小字を立てるときは冒頭に挟む（章宗「小字麻达葛」・衛紹王「小字兴胜」）。この帝の冒頭（c1）にはその位置が無く、女真名は「本讳」で立って ethnicName が受けている（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
     }
   ],
   "discrepancies": "なし（金史に独立した本紀が無く、名前欄は commonName 末帝・personalName 承麟のみで閉じる）"

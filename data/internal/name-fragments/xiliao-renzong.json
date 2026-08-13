@@ -29,6 +29,16 @@
       ],
       "confidence": "high",
       "note": "遼史の本紀30巻を全数で走査した（「谥」36件）。巻30の西遼の記事に仁宗へ諡を授ける条が無い"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "遼史は冒頭に小字を挟む書式（穆宗「小字述律」・興宗「小字只骨」）だが、この人物の冒頭（c1）にはその位置が無い（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
     }
   ],
   "discrepancies": "なし"

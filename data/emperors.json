@@ -97933,14 +97933,20 @@
     "personalName": "亮",
     "commonName": "海陵王",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "煬",
     "templeName": null,
     "regnalTitle": "皇帝",
     "ethnicName": {
      "kind": "jurchen",
      "value": "迪古乃"
     },
-    "courtesyName": "元功"
+    "courtesyName": "元功",
+    "posthumousNames": [
+     {
+      "form": "煬",
+      "year": 1162
+     }
+    ]
    },
    "eraId": "song-liao-jin-xia",
    "regimeId": "jin-jurchen",

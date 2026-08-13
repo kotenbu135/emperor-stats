@@ -48,6 +48,17 @@
       ],
       "confidence": "high",
       "note": "元史の本紀47巻を全数で走査した（「谥」78件）。順帝に諡を授ける条が無く、冒頭も「順帝名妥欢帖睦尔」と名で立つ（元史は明初の編纂で、北元側の諡は載らない）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "**2026-08-13 に元史の `posthumousName` を `absent-by-book` で打ち切ったが、この人物はその例外**（打ち切りの主張は「元史が諡の短縮形を使わない」で、この人物の空はもっと強い理由＝**諡そのものが元史に無い**）。元史は「順帝名妥欢帖睦尔」と名で立て（c1）、「順帝」は明が与えた号だと書自身が明記する（c2）。北元の廟号「惠宗」は元史に無い"
     }
   ],
   "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
