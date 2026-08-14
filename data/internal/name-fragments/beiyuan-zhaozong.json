@@ -21,6 +21,20 @@
    "file": "_corpus_cache/beiyuan-zhaozong.txt",
    "line": 27,
    "quote": "八年夏四月，帝崩于金山，群臣上庙号曰昭宗皇帝"
+  },
+  {
+   "cid": "c4",
+   "book": "新元史",
+   "file": "_corpus_cache/beiyuan-zhaozong.txt",
+   "line": 1,
+   "quote": "十二月丁酉，帝不豫"
+  },
+  {
+   "cid": "c5",
+   "book": "新元史",
+   "file": "_corpus_cache/beiyuan-zhaozong.txt",
+   "line": 7,
+   "quote": "，退避而去，上尊谥曰顺帝。"
   }
  ],
  "findings": [
@@ -68,6 +82,30 @@
     "庙称",
     "贈"
    ]
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c4",
+    "c5"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。本人のキャッシュに在る諡の条は先帝の恵宗（「上尊谥曰顺帝」）への授与で、この人物への授与ではない。新元史1冊を走査し、諡の条665件・別語彙140件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
   }
  ],
  "discrepancies": "なし"

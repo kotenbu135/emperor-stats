@@ -1,25 +1,55 @@
 {
-  "id": "sui-yanghao",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "隋書",
-      "file": "_corpus_cache/sui-yanghao.txt",
-      "line": 1,
-      "quote": "炀帝即位，立浩为秦王，以奉孝王嗣"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "隋書 帝紀の「谥」3句を全数で読んだ（3句とも文帝の祖先へ贈る諡）。この人物には諡を授ける条が無い。**隋書は隋の帝に諡を授ける条を1つも書かない**（文帝・煬帝の諡は冒頭の名乗りにしか出ない）。"
-    }
-  ],
-  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+ "id": "sui-yanghao",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "隋書",
+   "file": "_corpus_cache/sui-yanghao.txt",
+   "line": 1,
+   "quote": "炀帝即位，立浩为秦王，以奉孝王嗣"
+  },
+  {
+   "cid": "c2",
+   "book": "隋書",
+   "file": "_corpus_cache/sui-yanghao.txt",
+   "line": 1,
+   "quote": "炀帝即位，立浩为秦王，以奉孝王嗣。封湛为济北侯"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "隋書 帝紀の「谥」3句を全数で読んだ（3句とも文帝の祖先へ贈る諡）。この人物には諡を授ける条が無い。**隋書は隋の帝に諡を授ける条を1つも書かない**（文帝・煬帝の諡は冒頭の名乗りにしか出ない）。"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。隋書1冊を走査し、諡の条109件・別語彙25件のいずれもこの人物と同じ窓に立たない。この書がこの人物を呼ぶのは位号・封爵の「秦王」で、**位号は諡ではない**。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
 }

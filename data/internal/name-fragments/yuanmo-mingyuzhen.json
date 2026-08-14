@@ -14,6 +14,13 @@
    "file": "_corpus_cache/yuanmo-mingsheng.txt",
    "line": 1,
    "quote": "葬玉珍于江水之北，号永昌陵，庙号太祖"
+  },
+  {
+   "cid": "c3",
+   "book": "明史",
+   "file": "_corpus_cache/yuanmo-mingyuzhen.txt",
+   "line": 1,
+   "quote": "明玉珍，随州人。身长八尺余，目重瞳子"
   }
  ],
  "findings": [
@@ -49,6 +56,29 @@
    ],
    "confidence": "high",
    "note": "明史 列傳（明玉珍傳）の嗣立の条（c2）。**証人は子 明昇のキャッシュ**に在る。政権慣行（ming-xia／明史・`templeName` は form-found・transcribe）が2026-08-12 の時点で所在まで書いていた欄の未転記ぶん。**同じ条は諡を書かない**ので `posthumousNames` は read-absent のまま。"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。明史1冊を走査し、諡の条1135件・別語彙195件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
   }
  ],
  "discrepancies": "なし"

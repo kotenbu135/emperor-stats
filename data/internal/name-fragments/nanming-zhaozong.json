@@ -14,6 +14,20 @@
    "file": "_corpus_cache/nanming-zhaozong.txt",
    "line": 624,
    "quote": "辇上及太子出，以弓弦绞于市"
+  },
+  {
+   "cid": "c3",
+   "book": "小腆紀傳",
+   "file": "_corpus_cache/nanming-zhaozong.txt",
+   "line": 1,
+   "quote": "纪第四"
+  },
+  {
+   "cid": "c4",
+   "book": "小腆紀傳",
+   "file": "_corpus_cache/nanming-zhaozong.txt",
+   "line": 207,
+   "quote": "。赠腾蛟中湘王，谥「忠烈」；成栋宁夏王、声桓南昌王；设坛致祭。"
   }
  ],
  "findings": [
@@ -50,6 +64,30 @@
     "庙称",
     "贈"
    ]
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c3",
+    "c4"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。本人のキャッシュに在る諡の条は弘光帝・隆武帝ら（「上弘光帝谥曰『安宗简皇帝』」）への授与で、この人物への授与ではない。小腆紀傳1冊を走査し、諡の条357件・別語彙57件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
   }
  ],
  "discrepancies": "なし"

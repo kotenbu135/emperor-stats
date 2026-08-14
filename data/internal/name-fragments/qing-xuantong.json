@@ -1,45 +1,83 @@
 {
-  "id": "qing-xuantong",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "清史稿",
-      "file": "_corpus_cache/qing-xuantong.txt",
-      "line": 2,
-      "quote": "宣统皇帝名溥仪"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "冒頭が「宣统皇帝名溥仪」で、諡でも廟号でもない位号で立つ（讳を使わないのも他の10人と違う）。清史稿は1928年刊で、廟号「恭宗」は1967年の追尊なのでこの書には無い。commonName の「恭宗（宣統帝）」から埋めない"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "同上。位号は諡ではないのでこの欄には入れない"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "清史稿は宣統帝を位号で立てて「宣统皇帝名溥仪」と書き（c1）、本紀にも諡の条が無い。**清の他の10人はすべて崩御条か後継者の紀に条が在る**ので、走査に掛からなかったのではなく清史稿がこの人物に諡を与えていない（退位して清朝が終わり、諡を上げる主体が残っていない）"
-    }
-  ],
-  "discrepancies": "commonName は「恭宗（宣統帝）」だが、清史稿には廟号が無い。空が正しい（読んだうえでの空）"
+ "id": "qing-xuantong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "清史稿",
+   "file": "_corpus_cache/qing-xuantong.txt",
+   "line": 2,
+   "quote": "宣统皇帝名溥仪"
+  },
+  {
+   "cid": "c2",
+   "book": "清史稿",
+   "file": "_corpus_cache/qing-xuantong.txt",
+   "line": 1,
+   "quote": "本纪二十五  宣统皇帝本纪"
+  },
+  {
+   "cid": "c3",
+   "book": "清史稿",
+   "file": "_corpus_cache/qing-xuantong.txt",
+   "line": 8,
+   "quote": "后、孝哲毅皇后尊谥。颁宣统元年时宪书。甲寅，立禁卫军，命贝勒载"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "冒頭が「宣统皇帝名溥仪」で、諡でも廟号でもない位号で立つ（讳を使わないのも他の10人と違う）。清史稿は1928年刊で、廟号「恭宗」は1967年の追尊なのでこの書には無い。commonName の「恭宗（宣統帝）」から埋めない"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "同上。位号は諡ではないのでこの欄には入れない"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "清史稿は宣統帝を位号で立てて「宣统皇帝名溥仪」と書き（c1）、本紀にも諡の条が無い。**清の他の10人はすべて崩御条か後継者の紀に条が在る**ので、走査に掛からなかったのではなく清史稿がこの人物に諡を与えていない（退位して清朝が終わり、諡を上げる主体が残っていない）"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c2",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。本人のキャッシュに在る諡の条は先帝・皇太后ら（「上大行太皇太后尊谥」「上尊谥曰同天崇运…」）への授与で、この人物への授与ではない。清史稿1冊を走査し、諡の条1673件・別語彙288件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "commonName は「恭宗（宣統帝）」だが、清史稿には廟号が無い。空が正しい（読んだうえでの空）"
 }

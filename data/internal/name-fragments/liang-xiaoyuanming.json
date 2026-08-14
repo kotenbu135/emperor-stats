@@ -1,25 +1,75 @@
 {
-  "id": "liang-xiaoyuanming",
-  "claims": [
+ "id": "liang-xiaoyuanming",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "梁書",
+   "file": "_corpus_cache/liang-xiaoyuanming.txt",
+   "line": 1,
+   "quote": "七月辛丑，僧辩纳贞阳侯萧明，自采石济江"
+  },
+  {
+   "cid": "c2",
+   "book": "梁書",
+   "file": "_corpus_cache/liang-xiaoyuanming.txt",
+   "line": 5,
+   "quote": "戊寅，大赦。追赠諡简文帝诸子。封故永安侯确子后爲邵陵王，奉携王"
+  },
+  {
+   "cid": "c3",
+   "book": "南史",
+   "file": "daizhigev20/史藏/正史/南史.txt",
+   "line": 4511,
+   "quote": "齐文宣遣兵纳永嘉王庄主梁祀，追諡明曰闵皇帝"
+  },
+  {
+   "cid": "c4",
+   "book": "北齊書",
+   "file": "daizhigev20/史藏/正史/北齐书.txt",
+   "line": 1774,
+   "quote": "王琳总其军国，追谥明曰闵皇帝"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "梁書",
-      "file": "_corpus_cache/liang-xiaoyuanming.txt",
-      "line": 1,
-      "quote": "七月辛丑，僧辩纳贞阳侯萧明，自采石济江"
+     "form": "閔皇帝"
     }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "梁書 本紀の「谥」6句を全数で読んだ。この人物には諡を授ける条が無い。"
-    }
-  ],
-  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+   ],
+   "basis": [
+    "c1",
+    "c3",
+    "c4"
+   ],
+   "confidence": "high",
+   "note": "**2026-08-14 に訂正した（前は read-absent）。** 梁書 本紀の「谥」6句を全数で読んで空と決めていたが、**閉域が梁書1冊だった** — この人物の諡は梁が贈ったものではなく、王琳が永嘉王莊を立てて梁の祀を継がせたときに追贈したもので、南史（c3「追諡明曰闵皇帝」）と北齊書（c4）に在る。南史の字形は異体「諡」で、簡体「谥」だけを持つ語彙では当たらない。亡国・廃位の君主は諡を贈る主体が別政権になるので、**その政権の書1冊で閉じると取りこぼす**。"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "**諡そのものは在る**（閔皇帝（南史・北齊書）。段の欄 `posthumousNames` が受ける）が、**この欄に入るのは書が本文で使う形**で、梁書はこの人物を「贞阳侯萧明」と封爵で呼び、諡の末字＋帝の形で呼ぶ条が無い。授与の条が在ることと、書がその形で呼ぶことは別（東吳 大帝が「大皇帝」の授与と「大帝」の呼称で欄が分かれるのと同じ）。梁書1冊を走査し、諡の条143件・別語彙23件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
 }

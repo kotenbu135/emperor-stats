@@ -1,29 +1,67 @@
 {
-  "id": "huan-xuan",
-  "claims": [
+ "id": "huan-xuan",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "晉書",
+   "file": "_corpus_cache/huan-xuan.txt",
+   "line": 33,
+   "quote": "桓谦亦聚众沮中，为玄举哀，立丧庭，伪谥为武悼皇帝"
+  },
+  {
+   "cid": "c2",
+   "book": "晉書",
+   "file": "_corpus_cache/huan-xuan.txt",
+   "line": 1,
+   "quote": "桓玄，字敬道，一名灵宝，大司马温之孽子也"
+  },
+  {
+   "cid": "c3",
+   "book": "晉書",
+   "file": "_corpus_cache/huan-xuan.txt",
+   "line": 33,
+   "quote": "举哀，立丧庭，伪谥为武悼皇帝。毅等传送玄首，枭于大桁，百姓观者"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "晉書",
-      "file": "_corpus_cache/huan-xuan.txt",
-      "line": 33,
-      "quote": "桓谦亦聚众沮中，为玄举哀，立丧庭，伪谥为武悼皇帝"
+     "form": "武悼皇帝",
+     "year": 404
     }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNames",
-      "value": [
-        {
-          "form": "武悼皇帝",
-          "year": 404
-        }
-      ],
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "元興三年、桓謙が沮中で挙哀して立てた諡（c1）。次の条が「義熙元年正月」なので元興三年。**魏書の列傳にも同じ諡が在る**が、桓玄が名乗る底本は晉書 卷九十九なのでこちらから採った"
-    }
-  ],
-  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+   ],
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "元興三年、桓謙が沮中で挙哀して立てた諡（c1）。次の条が「義熙元年正月」なので元興三年。**魏書の列傳にも同じ諡が在る**が、桓玄が名乗る底本は晉書 卷九十九なのでこちらから採った"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c2",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "**諡そのものは在る**（武悼皇帝。段の欄 `posthumousNames` が受ける）が、**この欄に入るのは書が本文で使う形**で、晉書はこの人物を一貫して「玄」と呼び、諡の末字＋帝の形で呼ぶ条が無い。授与の条が在ることと、書がその形で呼ぶことは別（東吳 大帝が「大皇帝」の授与と「大帝」の呼称で欄が分かれるのと同じ）。晉書1冊を走査し、諡の条397件・別語彙199件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
 }

@@ -7,6 +7,13 @@
    "file": "_corpus_cache/suimo-liangshidu.txt",
    "line": 2,
    "quote": "诣绍降，拜洛仁为右骁卫将军，封朔方郡公"
+  },
+  {
+   "cid": "c2",
+   "book": "舊唐書",
+   "file": "_corpus_cache/suimo-liangshidu.txt",
+   "line": 1,
+   "quote": "梁师都，夏州朔方人也"
   }
  ],
  "findings": [
@@ -33,6 +40,29 @@
     "庙称",
     "贈"
    ]
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。舊唐書1冊を走査し、諡の条605件・別語彙211件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
   }
  ],
  "discrepancies": "なし"

@@ -1,25 +1,63 @@
 {
-  "id": "beiwei-yuanye",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "魏書",
-      "file": "_corpus_cache/beiwei-yuanye.txt",
-      "line": 21,
-      "quote": "甲辰，安定王朗及东海王晔坐事死"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "魏書 帝紀12巻の「谥」25出現を全数で読んだ走査（2026-08-13）の当たりに、この人物へ諡を授ける条は無い。同じ紀に出る「谥」は他帝のもの。同じ範囲に出る「上孝庄皇帝谥曰武怀皇帝」「改谥武怀皇帝曰孝庄」はいずれも孝荘帝のもの。"
-    }
-  ],
-  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+ "id": "beiwei-yuanye",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "魏書",
+   "file": "_corpus_cache/beiwei-yuanye.txt",
+   "line": 21,
+   "quote": "甲辰，安定王朗及东海王晔坐事死"
+  },
+  {
+   "cid": "c2",
+   "book": "魏書",
+   "file": "_corpus_cache/beiwei-yuanye.txt",
+   "line": 1,
+   "quote": "壬申，尔朱世隆停建兴之高都，尔朱兆自晋阳来会之"
+  },
+  {
+   "cid": "c3",
+   "book": "魏書",
+   "file": "_corpus_cache/beiwei-yuanye.txt",
+   "line": 14,
+   "quote": "辛亥，上孝庄皇帝谥曰武怀皇帝。甲子，以齐献武王为大丞相、柱国大"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "魏書 帝紀12巻の「谥」25出現を全数で読んだ走査（2026-08-13）の当たりに、この人物へ諡を授ける条は無い。同じ紀に出る「谥」は他帝のもの。同じ範囲に出る「上孝庄皇帝谥曰武怀皇帝」「改谥武怀皇帝曰孝庄」はいずれも孝荘帝のもの。"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c2",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。本人のキャッシュに在る諡の条は孝荘帝（「上孝庄皇帝谥曰武怀皇帝」）への授与で、この人物への授与ではない。魏書1冊を走査し、諡の条698件・別語彙111件のいずれもこの人物と同じ窓に立たない。この書がこの人物を呼ぶのは位号・封爵の「東海王」で、**位号は諡ではない**。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
 }

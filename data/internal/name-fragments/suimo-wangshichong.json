@@ -7,6 +7,20 @@
    "file": "_corpus_cache/suimo-wangshichong.txt",
    "line": 10,
    "quote": "世充自篡位，凡三年而灭"
+  },
+  {
+   "cid": "c2",
+   "book": "舊唐書",
+   "file": "_corpus_cache/suimo-wangshichong.txt",
+   "line": 1,
+   "quote": "王世充，字行满，本姓支，西域胡人也。寓居新丰"
+  },
+  {
+   "cid": "c3",
+   "book": "舊唐書",
+   "file": "_corpus_cache/suimo-wangshichong.txt",
+   "line": 7,
+   "quote": "其侄行本鸩杀侗，谥曰恭皇帝。其将军罗士信率其众千余人来降。 十"
   }
  ],
  "findings": [
@@ -33,6 +47,30 @@
     "庙称",
     "贈"
    ]
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c2",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。本人のキャッシュに在る諡の条は隋の皇泰主 楊侗（「遣其侄行本鸩杀侗，谥曰恭皇帝」）への授与で、この人物への授与ではない。舊唐書1冊を走査し、諡の条605件・別語彙211件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
   }
  ],
  "discrepancies": "なし"

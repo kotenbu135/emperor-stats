@@ -1,25 +1,59 @@
 {
-  "id": "houliang-houzhu",
-  "claims": [
+ "id": "houliang-houzhu",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "周書",
+   "file": "_corpus_cache/houliang-houzhu.txt",
+   "line": 1,
+   "quote": "琮字温文，性宽仁，有大度，倜傥不羁，博学有文义"
+  },
+  {
+   "cid": "c2",
+   "book": "舊唐書",
+   "file": "daizhigev20/史藏/正史/旧唐书.txt",
+   "line": 9829,
+   "quote": "伪谥其从父琮为孝靖帝"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "周書",
-      "file": "_corpus_cache/houliang-houzhu.txt",
-      "line": 1,
-      "quote": "琮字温文，性宽仁，有大度，倜傥不羁，博学有文义"
+     "form": "孝靖帝"
     }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "周書 帝紀と後梁の列傳（L1〜1200）の「谥」17句を全数で読んだ。この人物には諡を授ける条が無い。隋に併合されて莒国公となり、諡の条が無い。"
-    }
-  ],
-  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+   ],
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "**2026-08-14 に訂正した（前は read-absent）。** 周書 帝紀と後梁の列傳の「谥」17句を全数で読んで空と決めていたが、**閉域が周書1冊だった** — この人物の諡は隋に併合されたのちに從子の蕭銑が贈ったもので、舊唐書 蕭銑伝が「伪谥其从父琮为孝靖帝」（c2）と記す。形が「皇帝」で結ばないので `POSTHUMOUS_STAGE_NON_IMPERIAL` に理由を置いた。"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "**諡そのものは在る**（孝靖帝（舊唐書 蕭銑伝）。段の欄 `posthumousNames` が受ける）が、**この欄に入るのは書が本文で使う形**で、周書はこの人物を「琮」と諱で呼び、諡の末字＋帝の形で呼ぶ条が無い。授与の条が在ることと、書がその形で呼ぶことは別（東吳 大帝が「大皇帝」の授与と「大帝」の呼称で欄が分かれるのと同じ）。周書1冊を走査し、諡の条143件・別語彙30件のいずれもこの人物と同じ窓に立たない。この書がこの人物を呼ぶのは位号・封爵の「莒國公」で、**位号は諡ではない**。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
 }

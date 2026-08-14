@@ -43442,7 +43442,12 @@
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "温文"
+    "courtesyName": "温文",
+    "posthumousNames": [
+     {
+      "form": "孝靖帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "western-liang",
@@ -46229,7 +46234,12 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNames": [
+     {
+      "form": "閔皇帝"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",
@@ -60501,7 +60511,7 @@
     "personalName": "侑",
     "commonName": "恭帝侑",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "恭帝",
     "templeName": null,
     "regnalTitle": "皇帝"
    },

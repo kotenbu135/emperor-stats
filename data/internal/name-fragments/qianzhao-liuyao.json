@@ -1,25 +1,63 @@
 {
-  "id": "qianzhao-liuyao",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "晉書",
-      "file": "_corpus_cache/qianzhao-liuyao.txt",
-      "line": 1,
-      "quote": "刘曜，字永明，元海之族子也"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "晉書を1冊走査した（帝紀の「谥」11句・載記55句・帝紀と載記の外の候補6件）。この人物には諡を授ける条が無い。**晉書は帝紀16人で恭帝の1人、載記でも死去条の要約に「伪谥…」を書く帝だけ**が段を持つ。劉曜の載記には「伪谥」が4件出るがいずれも皇后・皇太后のもので、劉曜自身の諡は書かれない（後趙に捕らわれて殺されたため）。"
-    }
-  ],
-  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+ "id": "qianzhao-liuyao",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "晉書",
+   "file": "_corpus_cache/qianzhao-liuyao.txt",
+   "line": 1,
+   "quote": "刘曜，字永明，元海之族子也"
+  },
+  {
+   "cid": "c2",
+   "book": "晉書",
+   "file": "_corpus_cache/qianzhao-liuyao.txt",
+   "line": 1,
+   "quote": "刘曜，字永明，元海之族子也。少孤，见养于元海"
+  },
+  {
+   "cid": "c3",
+   "book": "晉書",
+   "file": "_corpus_cache/qianzhao-liuyao.txt",
+   "line": 4,
+   "quote": "邑，墓号阳陵，伪谥宣明皇太后。僭尊高祖父亮为景皇帝，曾祖父广为"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "晉書を1冊走査した（帝紀の「谥」11句・載記55句・帝紀と載記の外の候補6件）。この人物には諡を授ける条が無い。**晉書は帝紀16人で恭帝の1人、載記でも死去条の要約に「伪谥…」を書く帝だけ**が段を持つ。劉曜の載記には「伪谥」が4件出るがいずれも皇后・皇太后のもので、劉曜自身の諡は書かれない（後趙に捕らわれて殺されたため）。"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c2",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。本人のキャッシュに在る諡の条は后妃（「伪谥宣明皇太后」「伪谥献文皇后」「追谥前妻卜氏为元悼皇后」）への授与で、この人物への授与ではない。晉書1冊を走査し、諡の条397件・別語彙199件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
 }

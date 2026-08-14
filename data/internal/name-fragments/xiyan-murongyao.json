@@ -7,6 +7,20 @@
    "file": "_corpus_cache/xiyan-murongyao.txt",
    "line": 1,
    "quote": "众皆去瑶奔永，永执瑶，杀之"
+  },
+  {
+   "cid": "c2",
+   "book": "資治通鑑",
+   "file": "_corpus_cache/xiyan-murongyao.txt",
+   "line": 1,
+   "quote": "西燕左仆射慕容恒、尚书慕容永袭段随"
+  },
+  {
+   "cid": "c3",
+   "book": "資治通鑑",
+   "file": "_corpus_cache/xiyan-murongyao.txt",
+   "line": 1,
+   "quote": "为帝，改元建平，谥冲曰威皇帝。众皆去瑶奔永，永执瑶，杀之，立慕"
   }
  ],
  "findings": [
@@ -33,6 +47,30 @@
     "庙称",
     "贈"
    ]
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c2",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。本人のキャッシュに在る諡の条は慕容沖（「谥冲曰威皇帝」）への授与で、この人物への授与ではない。資治通鑑1冊を走査し、諡の条321件・別語彙400件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
   }
  ],
  "discrepancies": "なし"

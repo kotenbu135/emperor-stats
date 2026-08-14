@@ -1,35 +1,65 @@
 {
-  "id": "liu-yong-liang",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "後漢書",
-      "file": "_corpus_cache/liu-yong-liang.txt",
-      "line": 1,
-      "quote": "刘永者，梁郡睢阳人，梁孝王八世孙也"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "後漢書の帝紀を人物ごとに全数で読んだ。この人物には諡を授ける条が無い。**後漢書は諡を冒頭の名乗り（「〈廟号〉孝〈諡〉皇帝諱〈諱〉」）に置き、授ける条を書くのは献帝だけ**（授けたのは魏）。"
-    },
-    {
-      "field": "name.courtesyName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
-    }
-  ],
-  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+ "id": "liu-yong-liang",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "後漢書",
+   "file": "_corpus_cache/liu-yong-liang.txt",
+   "line": 1,
+   "quote": "刘永者，梁郡睢阳人，梁孝王八世孙也"
+  },
+  {
+   "cid": "c2",
+   "book": "後漢書",
+   "file": "_corpus_cache/liu-yong-liang.txt",
+   "line": 1,
+   "quote": "刘永者，梁郡睢阳人，梁孝王八世孙也。传国至父立"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "後漢書の帝紀を人物ごとに全数で読んだ。この人物には諡を授ける条が無い。**後漢書は諡を冒頭の名乗り（「〈廟号〉孝〈諡〉皇帝諱〈諱〉」）に置き、授ける条を書くのは献帝だけ**（授けたのは魏）。"
+  },
+  {
+   "field": "name.courtesyName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。後漢書1冊を走査し、諡の条103件・別語彙116件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
 }

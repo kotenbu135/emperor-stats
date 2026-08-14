@@ -1,45 +1,76 @@
 {
-  "id": "beiwei-houfeidi-yuanlang",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "魏書",
-      "file": "_corpus_cache/beiwei-houfeidi-yuanlang.txt",
-      "line": 1,
-      "quote": "后废帝，讳朗，字仲哲，章武王融第三子也"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "魏書は元朗を「後廢帝」の位号で立てる（c1）。走査でも諡・廟号の条は出ない"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "魏書は元朗を「後廢帝」の位号で立てる（c1）。走査でも諡・廟号の条は出ない"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "魏書 帝紀12巻の「谥」25出現を全数で読んだ走査（2026-08-13）の当たりに、この人物へ諡を授ける条は無い。同じ紀に出る「谥」は他帝のもの。後廢帝紀の「上孝庄皇帝谥曰武怀皇帝」は孝荘帝のもの。"
-    }
-  ],
-  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+ "id": "beiwei-houfeidi-yuanlang",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "魏書",
+   "file": "_corpus_cache/beiwei-houfeidi-yuanlang.txt",
+   "line": 1,
+   "quote": "后废帝，讳朗，字仲哲，章武王融第三子也"
+  },
+  {
+   "cid": "c2",
+   "book": "魏書",
+   "file": "_corpus_cache/beiwei-houfeidi-yuanlang.txt",
+   "line": 3,
+   "quote": "辛亥，上孝庄皇帝谥曰武怀皇帝。甲子，以齐献武王为大丞相、柱国大"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "魏書は元朗を「後廢帝」の位号で立てる（c1）。走査でも諡・廟号の条は出ない"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "魏書は元朗を「後廢帝」の位号で立てる（c1）。走査でも諡・廟号の条は出ない"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "魏書 帝紀12巻の「谥」25出現を全数で読んだ走査（2026-08-13）の当たりに、この人物へ諡を授ける条は無い。同じ紀に出る「谥」は他帝のもの。後廢帝紀の「上孝庄皇帝谥曰武怀皇帝」は孝荘帝のもの。"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。本人のキャッシュに在る諡の条は孝荘帝（「上孝庄皇帝谥曰武怀皇帝」）への授与で、この人物への授与ではない。魏書1冊を走査し、諡の条698件・別語彙111件のいずれもこの人物と同じ窓に立たない。この書がこの人物を呼ぶのは位号・封爵の「安定王」で、**位号は諡ではない**。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
 }

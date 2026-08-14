@@ -1,33 +1,64 @@
 {
-  "id": "liu-song-liushao",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "宋書",
-      "file": "_corpus_cache/liu-song-liushao.txt",
-      "line": 12,
-      "quote": "礼官希旨，谥太祖不敢尽美称，上谥曰中宗景皇帝"
-    },
-    {
-      "cid": "c2",
-      "book": "宋書",
-      "file": "_corpus_cache/liu-song-liushao.txt",
-      "line": 1,
-      "quote": "元凶劭，字休远，文帝长子也"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c2",
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "宋書 本紀の「谥」6句を全数で読んだ（本紀の外の候補22件は王・后・北魏の帝）。この人物には諡を授ける条が無い。宋書は諡を冒頭の名乗りに置き、授ける条を書くのは文帝だけ。劉劭の伝に出る「上谥曰中宗景皇帝」（c1）は**弑した文帝へ贈った諡**で劉劭自身のものではない。"
-    }
-  ],
-  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+ "id": "liu-song-liushao",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "宋書",
+   "file": "_corpus_cache/liu-song-liushao.txt",
+   "line": 12,
+   "quote": "礼官希旨，谥太祖不敢尽美称，上谥曰中宗景皇帝"
+  },
+  {
+   "cid": "c2",
+   "book": "宋書",
+   "file": "_corpus_cache/liu-song-liushao.txt",
+   "line": 1,
+   "quote": "元凶劭，字休远，文帝长子也"
+  },
+  {
+   "cid": "c3",
+   "book": "宋書",
+   "file": "_corpus_cache/liu-song-liushao.txt",
+   "line": 12,
+   "quote": "狱死。礼官希旨，谥太祖不敢尽美称，上谥曰中宗景皇帝。以雍州刺史"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c2",
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "宋書 本紀の「谥」6句を全数で読んだ（本紀の外の候補22件は王・后・北魏の帝）。この人物には諡を授ける条が無い。宋書は諡を冒頭の名乗りに置き、授ける条を書くのは文帝だけ。劉劭の伝に出る「上谥曰中宗景皇帝」（c1）は**弑した文帝へ贈った諡**で劉劭自身のものではない。"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c2",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。本人のキャッシュに在る諡の条は父の文帝（「上谥曰中宗景皇帝」）への授与で、この人物への授与ではない。宋書1冊を走査し、諡の条143件・別語彙65件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
 }

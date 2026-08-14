@@ -1,55 +1,78 @@
 {
-  "id": "liu-song-liuzixun",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "宋書",
-      "file": "_corpus_cache/liu-song-liuzixun.txt",
-      "line": 1,
-      "quote": "晋安王子勋，字孝德，孝武帝第三子也"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "本紀に立たず列傳（孝武十四王）の定型で始まる。政権の慣行が指す冒頭1行が掛からない人物"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "同じ理由。義嘉の号は元号で、宋書は子勛に諡を与えない"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "宋書 本紀の「谥」6句を全数で読んだ（本紀の外の候補22件は王・后・北魏の帝）。この人物には諡を授ける条が無い。宋書は諡を冒頭の名乗りに置き、授ける条を書くのは文帝だけ。"
-    },
-    {
-      "field": "name.childhoodName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "列傳の定型は姓名と字だけで小字の欄を持たない"
-    }
-  ],
-  "discrepancies": "なし（字「孝徳」は既に保存済みで、同じ1行が裏になる）"
+ "id": "liu-song-liuzixun",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "宋書",
+   "file": "_corpus_cache/liu-song-liuzixun.txt",
+   "line": 1,
+   "quote": "晋安王子勋，字孝德，孝武帝第三子也"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "本紀に立たず列傳（孝武十四王）の定型で始まる。政権の慣行が指す冒頭1行が掛からない人物"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "同じ理由。義嘉の号は元号で、宋書は子勛に諡を与えない"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "宋書 本紀の「谥」6句を全数で読んだ（本紀の外の候補22件は王・后・北魏の帝）。この人物には諡を授ける条が無い。宋書は諡を冒頭の名乗りに置き、授ける条を書くのは文帝だけ。"
+  },
+  {
+   "field": "name.childhoodName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "列傳の定型は姓名と字だけで小字の欄を持たない"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。宋書1冊を走査し、諡の条143件・別語彙65件のいずれもこの人物と同じ窓に立たない。この書がこの人物を呼ぶのは位号・封爵の「晉安王」で、**位号は諡ではない**。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし（字「孝徳」は既に保存済みで、同じ1行が裏になる）"
 }

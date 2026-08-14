@@ -1,25 +1,63 @@
 {
-  "id": "liang-xiaozhuang",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "梁書",
-      "file": "_corpus_cache/liang-xiaozhuang.txt",
-      "line": 1,
-      "quote": "梁将王琳在江上与霸先相抗，显祖遣兵纳梁永嘉王萧庄主梁祀"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "梁書 本紀の「谥」6句を全数で読んだ。この人物には諡を授ける条が無い。"
-    }
-  ],
-  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+ "id": "liang-xiaozhuang",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "梁書",
+   "file": "_corpus_cache/liang-xiaozhuang.txt",
+   "line": 1,
+   "quote": "梁将王琳在江上与霸先相抗，显祖遣兵纳梁永嘉王萧庄主梁祀"
+  },
+  {
+   "cid": "c2",
+   "book": "梁書",
+   "file": "_corpus_cache/liang-xiaozhuang.txt",
+   "line": 1,
+   "quote": "梁将王琳在江上与霸先相抗"
+  },
+  {
+   "cid": "c3",
+   "book": "梁書",
+   "file": "_corpus_cache/liang-xiaozhuang.txt",
+   "line": 1,
+   "quote": "王琳总其军国，追谥明曰闵皇帝。明年庄为陈人所败，遂入朝，封为侯"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "梁書 本紀の「谥」6句を全数で読んだ。この人物には諡を授ける条が無い。"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c2",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。本人のキャッシュに在る諡の条は蕭淵明（「追谥明曰闵皇帝」）への授与で、この人物への授与ではない。梁書1冊を走査し、諡の条143件・別語彙23件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
 }

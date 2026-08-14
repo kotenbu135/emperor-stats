@@ -1,25 +1,63 @@
 {
-  "id": "beiwei-tuobayu",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "魏書",
-      "file": "_corpus_cache/beiwei-tuobayu.txt",
-      "line": 3,
-      "quote": "冬十月丙午朔，余为宗爱所贼"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "魏書 帝紀12巻の「谥」25出現を全数で読んだ走査（2026-08-13）の当たりに、この人物へ諡を授ける条は無い。同じ紀に出る「谥」は他帝のもの。世祖紀下末尾の「上尊谥曰太武皇帝」は太武帝のもの。"
-    }
-  ],
-  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+ "id": "beiwei-tuobayu",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "魏書",
+   "file": "_corpus_cache/beiwei-tuobayu.txt",
+   "line": 3,
+   "quote": "冬十月丙午朔，余为宗爱所贼"
+  },
+  {
+   "cid": "c2",
+   "book": "魏書",
+   "file": "_corpus_cache/beiwei-tuobayu.txt",
+   "line": 1,
+   "quote": "中常侍宗爱矫皇后令，杀东平王翰"
+  },
+  {
+   "cid": "c3",
+   "book": "魏書",
+   "file": "_corpus_cache/beiwei-tuobayu.txt",
+   "line": 1,
+   "quote": "。三月辛卯，上尊谥曰太武皇帝，葬于云中金陵，庙号世祖。夏六月，"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "魏書 帝紀12巻の「谥」25出現を全数で読んだ走査（2026-08-13）の当たりに、この人物へ諡を授ける条は無い。同じ紀に出る「谥」は他帝のもの。世祖紀下末尾の「上尊谥曰太武皇帝」は太武帝のもの。"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c2",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。本人のキャッシュに在る諡の条は先帝の太武帝（「上尊谥曰太武皇帝」）への授与で、この人物への授与ではない。魏書1冊を走査し、諡の条698件・別語彙111件のいずれもこの人物と同じ窓に立たない。この書がこの人物を呼ぶのは位号・封爵の「南安王」で、**位号は諡ではない**。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
 }

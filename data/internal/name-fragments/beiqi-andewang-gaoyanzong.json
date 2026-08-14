@@ -1,43 +1,73 @@
 {
-  "id": "beiqi-andewang-gaoyanzong",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "北齊書",
-      "file": "_corpus_cache/beiqi-andewang-gaoyanzong.txt",
-      "line": 1,
-      "quote": "安德王延宗，文襄第五子也"
-    },
-    {
-      "cid": "c2",
-      "book": "北齊書",
-      "file": "daizhigev20/史藏/正史/北齐书.txt",
-      "line": 438,
-      "quote": "及安德王称尊号于晋阳"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "読んだうえで空。**`commonName`「安徳王高延宗」の末尾「宗」は諱の一部**であって廟号ではない（絞り込みの正規表現に当たるだけの偽陽性）。北齊書はこの人物を列傳で「〈王号〉〈名〉，〈続柄〉」の定型で立て（c1）、晋陽で尊号を称した記事にも廟号が伴わない（c2）。書の廟号記事18件はいずれも別人"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "北齊書 帝紀（L1〜600）の「谥」18句を全数で読んだ。この人物には諡を授ける条が無い。"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "beiqi-andewang-gaoyanzong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "北齊書",
+   "file": "_corpus_cache/beiqi-andewang-gaoyanzong.txt",
+   "line": 1,
+   "quote": "安德王延宗，文襄第五子也"
+  },
+  {
+   "cid": "c2",
+   "book": "北齊書",
+   "file": "daizhigev20/史藏/正史/北齐书.txt",
+   "line": 438,
+   "quote": "及安德王称尊号于晋阳"
+  },
+  {
+   "cid": "c3",
+   "book": "北齊書",
+   "file": "_corpus_cache/beiqi-andewang-gaoyanzong.txt",
+   "line": 1,
+   "quote": "安德王延宗，文襄第五子也。母陈氏，广阳王妓也"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。**`commonName`「安徳王高延宗」の末尾「宗」は諱の一部**であって廟号ではない（絞り込みの正規表現に当たるだけの偽陽性）。北齊書はこの人物を列傳で「〈王号〉〈名〉，〈続柄〉」の定型で立て（c1）、晋陽で尊号を称した記事にも廟号が伴わない（c2）。書の廟号記事18件はいずれも別人"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "北齊書 帝紀（L1〜600）の「谥」18句を全数で読んだ。この人物には諡を授ける条が無い。"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "諡",
+    "偽諡",
+    "私諡",
+    "上諡",
+    "追尊",
+    "追號",
+    "號曰",
+    "上尊號",
+    "廟號",
+    "尊為",
+    "追封為"
+   ],
+   "basis": [
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。北齊書1冊を走査し、諡の条82件・別語彙36件のいずれもこの人物と同じ窓に立たない。この書がこの人物を呼ぶのは位号・封爵の「安徳王」で、**位号は諡ではない**。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+  }
+ ],
+ "discrepancies": "なし"
 }
