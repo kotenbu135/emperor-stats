@@ -1,44 +1,75 @@
 {
-  "id": "xiwei-feidi-yuanqin",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "北史",
-      "file": "_corpus_cache/xiwei-feidi-yuanqin.txt",
-      "line": 1,
-      "quote": "废帝讳钦，文皇帝之长子也"
-    },
-    {
-      "cid": "c2",
-      "book": "北史",
-      "file": "_corpus_cache/xiwei-feidi-yuanqin.txt",
-      "line": 4,
-      "quote": "三年春正月，安定公宇文泰废帝而立齐王廓。帝自元烈之诛，有怨言"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "読んだうえで空。冒頭1行が諡ではなく位号「废帝」で立ち（c1）、廃位の記事で紀が終わる（c2）。**「廃帝」は位号であって諡ではない**。同じ書の文帝・恭帝は冒頭が「〈諡〉皇帝讳〈諱〉」で立つので、書かれ方の問題ではない"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "同じ理由。位号は諡ではないのでこの欄にも入らない"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "xiwei-feidi-yuanqin",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "北史",
+   "file": "_corpus_cache/xiwei-feidi-yuanqin.txt",
+   "line": 1,
+   "quote": "废帝讳钦，文皇帝之长子也"
+  },
+  {
+   "cid": "c2",
+   "book": "北史",
+   "file": "_corpus_cache/xiwei-feidi-yuanqin.txt",
+   "line": 4,
+   "quote": "三年春正月，安定公宇文泰废帝而立齐王廓。帝自元烈之诛，有怨言"
+  },
+  {
+   "cid": "c3",
+   "book": "北史",
+   "file": "_corpus_cache/xiwei-feidi-yuanqin.txt",
+   "line": 4,
+   "quote": "三年春正月，安定公宇文泰废帝而立齐王廓"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。冒頭1行が諡ではなく位号「废帝」で立ち（c1）、廃位の記事で紀が終わる（c2）。**「廃帝」は位号であって諡ではない**。同じ書の文帝・恭帝は冒頭が「〈諡〉皇帝讳〈諱〉」で立つので、書かれ方の問題ではない"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "同じ理由。位号は諡ではないのでこの欄にも入らない"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "北史 魏本紀第五（西魏3帝）を同じ10語で全数で読んだ（2026-08-14）。**上谥の条を持つのは文帝だけ**で、廃帝・恭帝の諡は冒頭の名乗りにしか出ない。",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "追尊",
+    "追崇",
+    "追号",
+    "上尊号",
+    "尊号曰",
+    "尊号为",
+    "庙号",
+    "庙曰",
+    "庙称",
+    "贈"
+   ]
+  }
+ ],
+ "discrepancies": "なし"
 }

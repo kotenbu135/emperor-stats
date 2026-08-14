@@ -1,42 +1,63 @@
 {
-  "id": "nanming-anzong",
-  "claims": [
+ "id": "nanming-anzong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "小腆紀傳",
+   "file": "_corpus_cache/nanming-anzong.txt",
+   "line": 459,
+   "quote": "永历帝上谥曰「安宗简皇帝」"
+  },
+  {
+   "cid": "c2",
+   "book": "小腆紀傳",
+   "file": "_corpus_cache/nanming-zhaozong.txt",
+   "line": 473,
+   "quote": "上弘光帝谥曰「安宗简皇帝」、后曰「简皇后」"
+  },
+  {
+   "cid": "c3",
+   "book": "小腆紀傳",
+   "file": "_corpus_cache/nanming-anzong.txt",
+   "line": 459,
+   "quote": "隆武帝立，遥上尊号曰「圣安皇帝」。明年五月，殂于北京；永历帝上谥曰「安宗简皇帝」"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "安宗",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "追諡の条（c1）。**「安宗簡皇帝」は〈廟号〉〈諡〉皇帝の融合形**で、同じ条が皇后に「簡皇后」を与えている（c2）ことから諡の実字は「簡」・「安宗」が廟号と分かる。本紀冒頭の融合形を分けて写すのと同じ扱い"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "簡皇帝",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "同上。融合形から廟号を落とした側"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "小腆紀傳",
-      "file": "_corpus_cache/nanming-anzong.txt",
-      "line": 459,
-      "quote": "永历帝上谥曰「安宗简皇帝」"
-    },
-    {
-      "cid": "c2",
-      "book": "小腆紀傳",
-      "file": "_corpus_cache/nanming-zhaozong.txt",
-      "line": 473,
-      "quote": "上弘光帝谥曰「安宗简皇帝」、后曰「简皇后」"
+     "form": "簡皇帝",
+     "year": 1657
     }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": "安宗",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "追諡の条（c1）。**「安宗簡皇帝」は〈廟号〉〈諡〉皇帝の融合形**で、同じ条が皇后に「簡皇后」を与えている（c2）ことから諡の実字は「簡」・「安宗」が廟号と分かる。本紀冒頭の融合形を分けて写すのと同じ扱い"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": "簡皇帝",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "同上。融合形から廟号を落とした側"
-    }
-  ],
-  "discrepancies": "なし"
+   ],
+   "basis": [
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "小腆紀傳 紀第一の末尾（c1）。**「圣安皇帝」は段に入れない** — 隆武帝が遥かに上ったのは弘光帝がまだ北京で存命のうち（「明年五月，殂于北京」が後）で、生前の尊号だから（2026-08-13 の楊溥・王衍と同じ扱い）。「安宗简皇帝」は廟号を冠した形なので段には諡の側だけを置く（南齊 高帝と同じ）。年は永暦帝紀の丁酉（一六五七）四月癸酉朔の条から。"
+  }
+ ],
+ "discrepancies": "なし"
 }

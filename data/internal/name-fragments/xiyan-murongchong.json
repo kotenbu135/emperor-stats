@@ -1,0 +1,28 @@
+{
+ "id": "xiyan-murongchong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "資治通鑑",
+   "file": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "line": 9414,
+   "quote": "恒立西燕主冲之子瑶为帝，改元建平，谥冲曰威皇帝"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": [
+    {
+     "form": "威皇帝"
+    }
+   ],
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "資治通鑑の該当条（c1）。**証人は本人のキャッシュではなく子 慕容瑤の擁立条**にあり、`_corpus_cache/xiyan-murongchong.txt` には語彙の当たりが1件も無い。現行の短縮呼称「威帝」に対応する全長形。**年は条が名乗らない**ので入れない。"
+  }
+ ],
+ "discrepancies": "なし"
+}

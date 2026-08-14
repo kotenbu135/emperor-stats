@@ -1,25 +1,56 @@
 {
-  "id": "nanming-zhaozong",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "小腆紀傳",
-      "file": "_corpus_cache/nanming-zhaozong.txt",
-      "line": 473,
-      "quote": "夏四月癸酉朔，上弘光帝谥曰「安宗简皇帝」、后曰「简皇后」"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "読んだうえで空。**小腆紀傳 1冊（7,009行）に「昭宗」が0件**。この書の「庙号」8件はいずれも弘光帝が明の帝に追復した廟号（思宗・興宗・恵宗・代宗）で、永暦帝自身に廟号を与える条は無い（永暦帝は他の2帝へ追諡する側に立つ・c1）。`commonName` の「昭宗」は他書由来の名乗り"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "nanming-zhaozong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "小腆紀傳",
+   "file": "_corpus_cache/nanming-zhaozong.txt",
+   "line": 473,
+   "quote": "夏四月癸酉朔，上弘光帝谥曰「安宗简皇帝」、后曰「简皇后」"
+  },
+  {
+   "cid": "c2",
+   "book": "小腆紀傳",
+   "file": "_corpus_cache/nanming-zhaozong.txt",
+   "line": 624,
+   "quote": "辇上及太子出，以弓弦绞于市"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。**小腆紀傳 1冊（7,009行）に「昭宗」が0件**。この書の「庙号」8件はいずれも弘光帝が明の帝に追復した廟号（思宗・興宗・恵宗・代宗）で、永暦帝自身に廟号を与える条は無い（永暦帝は他の2帝へ追諡する側に立つ・c1）。`commonName` の「昭宗」は他書由来の名乗り"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "小腆紀傳 紀第一〜第四を同じ10語で全数で読んだ（2026-08-14）。**永暦帝が丁酉（1657）に弘光帝・隆武帝へ諡を上る条はあるが、紹武帝と永暦帝自身に授ける条は無い**。",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "追尊",
+    "追崇",
+    "追号",
+    "上尊号",
+    "尊号曰",
+    "尊号为",
+    "庙号",
+    "庙曰",
+    "庙称",
+    "贈"
+   ]
+  }
+ ],
+ "discrepancies": "なし"
 }

@@ -1,35 +1,66 @@
 {
-  "id": "nanming-shaowudi",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "小腆紀傳",
-      "file": "_corpus_cache/nanming-shaowudi.txt",
-      "line": 1,
-      "quote": "立为皇帝，称号绍武，以都司署为行宫"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "読んだうえで空。**`commonName` の「紹武帝」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。小腆紀傳は紹武帝を隆武紀の附として扱い、單字「谥」が0件（c1）"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "同じ理由"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "nanming-shaowudi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "小腆紀傳",
+   "file": "_corpus_cache/nanming-shaowudi.txt",
+   "line": 1,
+   "quote": "立为皇帝，称号绍武，以都司署为行宫"
+  },
+  {
+   "cid": "c2",
+   "book": "小腆紀傳",
+   "file": "_corpus_cache/nanming-shaowudi.txt",
+   "line": 5,
+   "quote": "遂投缳死"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。**`commonName` の「紹武帝」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。小腆紀傳は紹武帝を隆武紀の附として扱い、單字「谥」が0件（c1）"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "同じ理由"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "小腆紀傳 紀第一〜第四を同じ10語で全数で読んだ（2026-08-14）。**永暦帝が丁酉（1657）に弘光帝・隆武帝へ諡を上る条はあるが、紹武帝と永暦帝自身に授ける条は無い**。",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "追尊",
+    "追崇",
+    "追号",
+    "上尊号",
+    "尊号曰",
+    "尊号为",
+    "庙号",
+    "庙曰",
+    "庙称",
+    "贈"
+   ]
+  }
+ ],
+ "discrepancies": "なし"
 }

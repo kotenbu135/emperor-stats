@@ -1,0 +1,39 @@
+{
+ "id": "suimo-xiaoxian",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "舊唐書",
+   "file": "_corpus_cache/suimo-xiaoxian.txt",
+   "line": 5,
+   "quote": "竟斩于都市，年三十九"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "舊唐書 列傳（隋末群雄 卷53〜56 相当・安史・硃泚・黄巣・李希烈の各傳）を「谥／諡・追尊・追崇・追号・上尊号・尊号曰／为・庙号・庙曰・庙称・贈」の10語で全数で読んだ（2026-08-14）。**この書が隋末・唐末の群雄へ諡を授ける条を持つのは薛舉の1人だけ**（子 仁杲が贈った「伪谥举为武皇帝」）。この人物には授ける条が無い。",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "追尊",
+    "追崇",
+    "追号",
+    "上尊号",
+    "尊号曰",
+    "尊号为",
+    "庙号",
+    "庙曰",
+    "庙称",
+    "贈"
+   ]
+  }
+ ],
+ "discrepancies": "なし"
+}

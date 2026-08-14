@@ -1,42 +1,66 @@
 {
-  "id": "nanming-zongzong",
-  "claims": [
+ "id": "nanming-zongzong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "小腆紀傳",
+   "file": "_corpus_cache/nanming-zongzong.txt",
+   "line": 161,
+   "quote": "上谥曰绍宗襄皇帝"
+  },
+  {
+   "cid": "c2",
+   "book": "小腆紀傳",
+   "file": "_corpus_cache/nanming-zhaozong.txt",
+   "line": 473,
+   "quote": "隆武帝谥曰「绍宗襄皇帝」、后曰「襄皇后」"
+  },
+  {
+   "cid": "c3",
+   "book": "小腆紀傳",
+   "file": "_corpus_cache/nanming-zongzong.txt",
+   "line": 161,
+   "quote": "永历帝立，遥上尊号曰思文皇帝。丁酉（一六五七）春，上谥曰绍宗襄皇帝"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "紹宗",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "追諡の条（c1）。皇后の「襄皇后」（c2）から諡の実字は「襄」"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "襄皇帝",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "同上"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "小腆紀傳",
-      "file": "_corpus_cache/nanming-zongzong.txt",
-      "line": 161,
-      "quote": "上谥曰绍宗襄皇帝"
+     "form": "思文皇帝"
     },
     {
-      "cid": "c2",
-      "book": "小腆紀傳",
-      "file": "_corpus_cache/nanming-zhaozong.txt",
-      "line": 473,
-      "quote": "隆武帝谥曰「绍宗襄皇帝」、后曰「襄皇后」"
+     "form": "襄皇帝",
+     "year": 1657
     }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": "紹宗",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "追諡の条（c1）。皇后の「襄皇后」（c2）から諡の実字は「襄」"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": "襄皇帝",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "同上"
-    }
-  ],
-  "discrepancies": "なし"
+   ],
+   "basis": [
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "小腆紀傳 紀第二の末尾（c1）。**「思文皇帝」は段に入れる** — 隆武帝は丙戌（1646）に汀州で遇害しており、永暦帝の即位はその後なので**没後の上尊号**（漢書 高帝の「上尊号曰高皇帝」と同じ型）。弘光帝の「圣安皇帝」が生前なのと向きが逆。**思文皇帝の年は条が名乗らない**ので入れない。「绍宗襄皇帝」は廟号を冠した形。"
+  }
+ ],
+ "discrepancies": "なし"
 }

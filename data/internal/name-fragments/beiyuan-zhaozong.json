@@ -1,43 +1,74 @@
 {
-  "id": "beiyuan-zhaozong",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "新元史",
-      "file": "_corpus_cache/beiyuan-zhaozong.txt",
-      "line": 9,
-      "quote": "昭宗皇帝，讳爱猷识理达腊，惠宗长子也"
-    },
-    {
-      "cid": "c2",
-      "book": "新元史",
-      "file": "_corpus_cache/beiyuan-zhaozong.txt",
-      "line": 27,
-      "quote": "八年夏四月，帝崩于金山，群臣上庙号曰昭宗皇帝，国语曰必里克图汗"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": "昭宗",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "崩御条が「群臣上庙号曰昭宗皇帝」と廟号の語で明示する（c2）。冒頭も同じ形（c1）。**「昭宗皇帝」は廟号に皇帝を付けた形**なので、欄には廟号の部分だけを入れる"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "**諡の条が無い** — 新元史が与えるのは廟号と国語（モンゴル語）の号「必里克図汗」だけで、「谥曰〈X〉皇帝」の形が出ない"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "beiyuan-zhaozong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "新元史",
+   "file": "_corpus_cache/beiyuan-zhaozong.txt",
+   "line": 9,
+   "quote": "昭宗皇帝，讳爱猷识理达腊，惠宗长子也"
+  },
+  {
+   "cid": "c2",
+   "book": "新元史",
+   "file": "_corpus_cache/beiyuan-zhaozong.txt",
+   "line": 27,
+   "quote": "八年夏四月，帝崩于金山，群臣上庙号曰昭宗皇帝，国语曰必里克图汗"
+  },
+  {
+   "cid": "c3",
+   "book": "新元史",
+   "file": "_corpus_cache/beiyuan-zhaozong.txt",
+   "line": 27,
+   "quote": "八年夏四月，帝崩于金山，群臣上庙号曰昭宗皇帝"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "昭宗",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "崩御条が「群臣上庙号曰昭宗皇帝」と廟号の語で明示する（c2）。冒頭も同じ形（c1）。**「昭宗皇帝」は廟号に皇帝を付けた形**なので、欄には廟号の部分だけを入れる"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "**諡の条が無い** — 新元史が与えるのは廟号と国語（モンゴル語）の号「必里克図汗」だけで、「谥曰〈X〉皇帝」の形が出ない"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "新元史 本紀（北元）を同じ10語で全数で読んだ（2026-08-14）。**この書が昭宗へ与えるのは廟号だけ**（「群臣上庙号曰昭宗皇帝」）で、諡を授ける条は無い。",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "追尊",
+    "追崇",
+    "追号",
+    "上尊号",
+    "尊号曰",
+    "尊号为",
+    "庙号",
+    "庙曰",
+    "庙称",
+    "贈"
+   ]
+  }
+ ],
+ "discrepancies": "なし"
 }

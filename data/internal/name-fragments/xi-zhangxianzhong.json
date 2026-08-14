@@ -1,35 +1,66 @@
 {
-  "id": "xi-zhangxianzhong",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "明史",
-      "file": "_corpus_cache/xi-zhangxianzhong.txt",
-      "line": 64,
-      "quote": "献忠遂僭号大西国王，改元大顺，冬十一月庚寅，即伪位"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "読んだうえで空。**`commonName` の「大順帝（張献忠）」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。明史 流賊伝は張献忠に諡を与えない（c1）"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "同じ理由"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "xi-zhangxianzhong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "明史",
+   "file": "_corpus_cache/xi-zhangxianzhong.txt",
+   "line": 64,
+   "quote": "献忠遂僭号大西国王，改元大顺，冬十一月庚寅，即伪位"
+  },
+  {
+   "cid": "c2",
+   "book": "明史",
+   "file": "_corpus_cache/xi-zhangxianzhong.txt",
+   "line": 66,
+   "quote": "于是我兵擒献忠出，斩之"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "読んだうえで空。**`commonName` の「大順帝（張献忠）」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。明史 流賊伝は張献忠に諡を与えない（c1）"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "同じ理由"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "明史 列傳（元末群雄 卷122〜123・流賊）を同じ10語で全数で読んだ（2026-08-14）。**この書が元末群雄へ与えるのは廟号だけ**（明玉珍の「庙号太祖」1件）で、諡を授ける条は8人のいずれにも無い。",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "追尊",
+    "追崇",
+    "追号",
+    "上尊号",
+    "尊号曰",
+    "尊号为",
+    "庙号",
+    "庙曰",
+    "庙称",
+    "贈"
+   ]
+  }
+ ],
+ "discrepancies": "なし"
 }

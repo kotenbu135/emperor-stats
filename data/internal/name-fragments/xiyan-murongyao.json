@@ -1,0 +1,39 @@
+{
+ "id": "xiyan-murongyao",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "資治通鑑",
+   "file": "_corpus_cache/xiyan-murongyao.txt",
+   "line": 1,
+   "quote": "众皆去瑶奔永，永执瑶，杀之"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "資治通鑑の西燕の条（daizhigev20 资治通鉴.txt）を同じ10語で全数で読んだ（2026-08-14）。**編年体のこの書が西燕の君主へ諡を授ける条を持つのは慕容沖の1件だけ**（「谥冲曰威皇帝」）。この人物には授ける条が無い。",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "追尊",
+    "追崇",
+    "追号",
+    "上尊号",
+    "尊号曰",
+    "尊号为",
+    "庙号",
+    "庙曰",
+    "庙称",
+    "贈"
+   ]
+  }
+ ],
+ "discrepancies": "なし"
+}

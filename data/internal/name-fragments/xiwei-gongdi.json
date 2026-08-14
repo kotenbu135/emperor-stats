@@ -1,49 +1,73 @@
 {
-  "id": "xiwei-gongdi",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "北史",
-      "file": "_corpus_cache/xiwei-gongdi.txt",
-      "line": 1,
-      "quote": "恭皇帝讳廓，文皇之第四子也"
-    },
-    {
-      "cid": "c2",
-      "book": "北史",
-      "file": "_corpus_cache/xiwei-gongdi.txt",
-      "line": 4,
-      "quote": "十二月庚子，帝逊位于周。周闵帝元年正月，封帝为宋公，寻殂"
-    },
-    {
-      "cid": "c3",
-      "book": "北史",
-      "file": "daizhigev20/史藏/正史/北史.txt",
-      "line": 853,
-      "quote": "周文帝废西魏帝而立齐王廓，是为恭帝"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNameFull",
-      "value": "恭皇帝",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "冒頭1行が掲げる形（c1）。**この帝には上諡の条が無い** — 紀は禅位と宋公への封、そして「寻殂」で終わる（c2）。全長形の定義は「名乗る原典が本人の名乗りとして掲げる形」なので、冒頭1行から採る"
-    },
-    {
-      "field": "name.posthumousName",
-      "value": "恭帝",
-      "basis": [
-        "c1",
-        "c3"
-      ],
-      "confidence": "high",
-      "note": "**短縮呼称は北史が本文で使う形**。北齊本紀が「是为恭帝」と書き（c3）、同じ書に「西魏恭帝元年」も在る"
-    }
-  ],
-  "discrepancies": "なし"
+ "id": "xiwei-gongdi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "北史",
+   "file": "_corpus_cache/xiwei-gongdi.txt",
+   "line": 1,
+   "quote": "恭皇帝讳廓，文皇之第四子也"
+  },
+  {
+   "cid": "c2",
+   "book": "北史",
+   "file": "_corpus_cache/xiwei-gongdi.txt",
+   "line": 4,
+   "quote": "十二月庚子，帝逊位于周。周闵帝元年正月，封帝为宋公，寻殂"
+  },
+  {
+   "cid": "c3",
+   "book": "北史",
+   "file": "daizhigev20/史藏/正史/北史.txt",
+   "line": 853,
+   "quote": "周文帝废西魏帝而立齐王廓，是为恭帝"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNameFull",
+   "value": "恭皇帝",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "冒頭1行が掲げる形（c1）。**この帝には上諡の条が無い** — 紀は禅位と宋公への封、そして「寻殂」で終わる（c2）。全長形の定義は「名乗る原典が本人の名乗りとして掲げる形」なので、冒頭1行から採る"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": "恭帝",
+   "basis": [
+    "c1",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "**短縮呼称は北史が本文で使う形**。北齊本紀が「是为恭帝」と書き（c3）、同じ書に「西魏恭帝元年」も在る"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "北史 魏本紀第五（西魏3帝）を同じ10語で全数で読んだ（2026-08-14）。**上谥の条を持つのは文帝だけ**で、廃帝・恭帝の諡は冒頭の名乗りにしか出ない。",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "追尊",
+    "追崇",
+    "追号",
+    "上尊号",
+    "尊号曰",
+    "尊号为",
+    "庙号",
+    "庙曰",
+    "庙称",
+    "贈"
+   ]
+  }
+ ],
+ "discrepancies": "なし"
 }

@@ -135,6 +135,15 @@ def check_one(path, errors, reports, counters):
                 errors.append(f"{tag}: findings[{i}]（{f.get('field')}）の basis が"
                               f"未定義の cid を指しています: {b}")
         counters["findings"] += 1
+        # `read-absent` は「どの語彙で閉じたか」を欄に持つ（PROCESS_IMPROVEMENTS 2026-08-13 の
+        # 採用済み提案）。**エラーにしない** — 2026-08-14 より前に書いた証人には遡及しないので、
+        # 落とすと過去の作業が全部赤くなる。代わりに**語彙を持つ側と持たない側を数えて出す**：
+        # 語彙が足りないと後から分かったとき、当て直す母集団を機械で引けるかがこの数で分かる。
+        if f.get("verdict") == "read-absent":
+            if isinstance(f.get("sweptWords"), list) and f["sweptWords"]:
+                counters["swept_words"] += 1
+            else:
+                counters["swept_words_missing"] += 1
 
     for i, cf in enumerate(data.get("conflicts") or []):
         if not str(cf.get("reason") or "").strip():
@@ -160,7 +169,8 @@ def main():
 
     errors, reports = [], []
     counters = {"checked": 0, "unresolved": 0, "glyph": 0, "spliced": 0,
-                "line_off": 0, "findings": 0, "conflicts": 0, "suggestions": 0}
+                "line_off": 0, "findings": 0, "conflicts": 0, "suggestions": 0,
+                "swept_words": 0, "swept_words_missing": 0}
     for p in paths:
         check_one(p, errors, reports, counters)
 
@@ -172,7 +182,9 @@ def main():
           f"断片 {len(paths)}件・引用 {counters['checked']}件を照合"
           f"（主張 {counters['findings']}・対立 {counters['conflicts']}／"
           f"未解決 {counters['unresolved']}・字体 {counters['glyph']}・"
-          f"合成疑い {counters['spliced']}・行ズレ {counters['line_off']}）")
+          f"合成疑い {counters['spliced']}・行ズレ {counters['line_off']}／"
+          f"read-absent の証人 {counters['swept_words'] + counters['swept_words_missing']}件"
+          f"のうち走査語彙 sweptWords を持つのは {counters['swept_words']}件）")
     if counters["suggestions"]:
         print(f"手順の改善提案が {counters['suggestions']}件あります。"
               f"ユーザーへ上げ、採否を docs/process/PROCESS_IMPROVEMENTS.md に残してください")

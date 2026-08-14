@@ -34272,7 +34272,12 @@
     "aliases": [],
     "posthumousName": "威帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNames": [
+     {
+      "form": "威皇帝"
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "western-yan",
@@ -56748,7 +56753,13 @@
     "posthumousName": "文帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "文皇帝"
+    "posthumousNameFull": "文皇帝",
+    "posthumousNames": [
+     {
+      "form": "文皇帝",
+      "year": 551
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "western-wei",
@@ -61874,7 +61885,12 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNames": [
+     {
+      "form": "武皇帝"
+     }
+    ]
    },
    "eraId": "sui-tang",
    "regimeId": "xiqin",
@@ -109168,7 +109184,7 @@
     "commonName": "明玉珍",
     "aliases": [],
     "posthumousName": null,
-    "templeName": null,
+    "templeName": "太祖",
     "regnalTitle": "皇帝"
    },
    "eraId": "yuan",
@@ -116324,7 +116340,13 @@
     "posthumousName": null,
     "templeName": "安宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "簡皇帝"
+    "posthumousNameFull": "簡皇帝",
+    "posthumousNames": [
+     {
+      "form": "簡皇帝",
+      "year": 1657
+     }
+    ]
    },
    "personalCampaignCount": {
     "count": 0,
@@ -116576,7 +116598,16 @@
     "templeName": "紹宗",
     "regnalTitle": "皇帝",
     "childhoodName": "長寿",
-    "posthumousNameFull": "襄皇帝"
+    "posthumousNameFull": "襄皇帝",
+    "posthumousNames": [
+     {
+      "form": "思文皇帝"
+     },
+     {
+      "form": "襄皇帝",
+      "year": 1657
+     }
+    ]
    },
    "personalCampaignCount": {
     "count": 1,
