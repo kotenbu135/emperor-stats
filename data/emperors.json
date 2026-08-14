@@ -31150,7 +31150,12 @@
     "posthumousName": "厲王",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "長生"
+    "courtesyName": "長生",
+    "posthumousNames": [
+     {
+      "form": "厲王"
+     }
+    ]
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-qin",
@@ -32290,7 +32295,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "還国"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "hexia",
@@ -34845,7 +34851,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "叔明"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "western-yan",

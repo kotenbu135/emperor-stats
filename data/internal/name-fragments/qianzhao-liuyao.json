@@ -1,63 +1,241 @@
 {
- "id": "qianzhao-liuyao",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "晉書",
-   "file": "_corpus_cache/qianzhao-liuyao.txt",
-   "line": 1,
-   "quote": "刘曜，字永明，元海之族子也"
-  },
-  {
-   "cid": "c2",
-   "book": "晉書",
-   "file": "_corpus_cache/qianzhao-liuyao.txt",
-   "line": 1,
-   "quote": "刘曜，字永明，元海之族子也。少孤，见养于元海"
-  },
-  {
-   "cid": "c3",
-   "book": "晉書",
-   "file": "_corpus_cache/qianzhao-liuyao.txt",
-   "line": 4,
-   "quote": "邑，墓号阳陵，伪谥宣明皇太后。僭尊高祖父亮为景皇帝，曾祖父广为"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "晉書を1冊走査した（帝紀の「谥」11句・載記55句・帝紀と載記の外の候補6件）。この人物には諡を授ける条が無い。**晉書は帝紀16人で恭帝の1人、載記でも死去条の要約に「伪谥…」を書く帝だけ**が段を持つ。劉曜の載記には「伪谥」が4件出るがいずれも皇后・皇太后のもので、劉曜自身の諡は書かれない（後趙に捕らわれて殺されたため）。"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。本人のキャッシュに在る諡の条は后妃（「伪谥宣明皇太后」「伪谥献文皇后」「追谥前妻卜氏为元悼皇后」）への授与で、この人物への授与ではない。晉書1冊を走査し、諡の条397件・別語彙199件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+  "id": "qianzhao-liuyao",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianzhao-liuyao.txt",
+      "line": 1,
+      "quote": "刘曜，字永明，元海之族子也"
+    },
+    {
+      "cid": "c2",
+      "book": "晉書",
+      "file": "_corpus_cache/qianzhao-liuyao.txt",
+      "line": 1,
+      "quote": "刘曜，字永明，元海之族子也。少孤，见养于元海"
+    },
+    {
+      "cid": "c3",
+      "book": "晉書",
+      "file": "_corpus_cache/qianzhao-liuyao.txt",
+      "line": 4,
+      "quote": "邑，墓号阳陵，伪谥宣明皇太后。僭尊高祖父亮为景皇帝，曾祖父广为"
+    },
+    {
+      "cid": "block4-c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7621,
+      "quote": "刘曜，字永明，元海之族子也"
+    },
+    {
+      "cid": "block4-c2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7662,
+      "quote": "勒览而恶之，后为勒所杀"
+    },
+    {
+      "cid": "block4-c3",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7663,
+      "quote": "曜在位十年而败。始，元海以怀帝永嘉四年僭位，至曜三世，凡二十有七载，以成帝咸和四年灭"
+    },
+    {
+      "cid": "c4",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7666,
+      "quote": "曜则天资虓勇，运偶时艰，用兵则王翦之伦"
+    },
+    {
+      "cid": "c5",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7561,
+      "quote": "以永嘉四年死，在位六年，伪谥光文皇帝，庙号高祖，墓号永光陵"
+    },
+    {
+      "cid": "c6",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7613,
+      "quote": "太兴元年，聪死，在位九年，伪谥曰昭武皇帝，庙号烈宗"
+    },
+    {
+      "cid": "c7",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7621,
+      "quote": "惟聪每曰：“永明，世祖、魏武之流，何数公足道哉！”"
+    },
+    {
+      "cid": "c8",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7624,
+      "quote": "僭尊高祖父亮为景皇帝，曾祖父广为献皇帝，祖防懿皇帝，考曰宣成皇帝"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block4-c3",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "諡の段に入れる授与が1件も無い。空配列 [] は『値がある』と読めてしまうので null で返す",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "廟號",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追谥",
+        "赠谥",
+        "尊曰",
+        "上尊"
+      ],
+      "sweptScope": [
+        "晉書 全文（daizhigev20/史藏/正史/晋书.txt・帝紀・志・列傳・載記。載記第三の巻見出し「载记第三／刘曜」・記事末尾・史臣曰・贊を目視）",
+        "魏書 全文（daizhigev20/史藏/正史/魏书.txt・刘曜 14 箇所を含む。卷四 序紀「石勒擒刘曜」・卷九十五 匈奴劉聰／羯胡石勒の記事を含む）",
+        "未走査: 北史・十六国春秋（別本・別伝）・その他の書"
+      ]
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block4-c3",
+        "block4-c2",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "廟号と同じ末尾1行から取る欄で、その行そのものが立たない。晉書全文の走査で「谥」が劉曜の周辺に出るのは母 胡氏（伪谥宣明皇太后）・妻 羊氏（伪谥献文皇后）・妻 劉氏（伪谥献烈皇后）・前妻 卜氏（追谥元悼皇后）と、彼が他人へ贈った諡（司馬保「谥曰元」・孝烈貞婦）だけで、劉曜本人への授与条は晉書にも魏書にも無い。走査語・範囲は templeName の note と同一",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "廟號",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追谥",
+        "赠谥",
+        "尊曰",
+        "上尊"
+      ],
+      "sweptScope": [
+        "晉書 全文（daizhigev20/史藏/正史/晋书.txt・帝紀・志・列傳・載記。載記第三の巻見出し「载记第三／刘曜」・記事末尾・史臣曰・贊を目視）",
+        "魏書 全文（daizhigev20/史藏/正史/魏书.txt・刘曜 14 箇所を含む。卷四 序紀「石勒擒刘曜」・卷九十五 匈奴劉聰／羯胡石勒の記事を含む）",
+        "未走査: 北史・十六国春秋（別本・別伝）・その他の書"
+      ]
+    },
+    {
+      "field": "name.personalName",
+      "value": "曜",
+      "basis": [
+        "block4-c1"
+      ],
+      "confidence": "high",
+      "note": "晉書 載記第三の冒頭定型「〈姓〉〈名〉，字〈字〉，〈続柄〉也」から。姓は劉・諱は曜・字は永明。劉淵（元海）や石虎（季龍）のような『名犯廟諱，故称其字焉』の断りは無いので、ここに出る「曜」は字ではなく諱。底本は簡体（刘曜／永明）で、値は既存レコードの表記に合わせ新字体（劉・曜・永明）へ倒した"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block4-c3",
+        "block4-c2",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "晉書 載記の廟号は記事末尾の「（伪）谥〈諡〉，庙号〈廟号〉，墓号〈陵〉」1行に出る（政権慣行 form-found）。同じ書・同じ政権の劉淵 c5・劉聰 c6 ではこの定型が現に発火しているのに、劉曜の記事は c3「曜在位十年而败」で終わり定型が立たない（c2 のとおり石勒に捕らえられ襄国で殺されたため。慣行の注も『降伏して他国で死んだ君主には定型が付かない』とする）。史臣曰・贊 c4 も彼を「曜」としか呼ばない。閉域4軸: (1)同書キャッシュ外＝晉書全文（帝紀・志・列傳・載記）を正規化して走査、載記第三の巻見出し「载记第三／刘曜」・史臣曰・贊まで目視、(2)本紀外の列傳＝晉書は載記が本体で全文走査に含む、(3)別政権の書＝魏書全文（刘曜 14 箇所を含む・卷四 序紀「石勒擒刘曜」、卷九十五 匈奴劉聰／羯胡石勒の記事を含む）を同じ語彙で走査して0件、(4)語彙＝hanzi_norm.norm_for_match を通した 谥／諡／庙号／庙曰／庙称／廟號／追尊／尊号／号曰／追谥／赠谥／尊曰／上尊 の13語。sweptScope: 晉書全文＋魏書全文。北史・十六国春秋（別本・別伝を含む）は未走査。絞り込み zong-token（Issue #126）が拾う本人キャッシュ内の「〈X〉祖／〈X〉宗」型2字語は、c7 の「世祖」＝後漢光武帝を引いた劉聰の評語（他人の廟号）と、c8 の「高祖父」「曾祖父」＝続柄語（追尊された景皇帝・献皇帝・懿皇帝・宣成皇帝は劉曜の父祖であって本人ではない）だけで、劉曜自身の廟号を指す2字語は無い",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "廟號",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追谥",
+        "赠谥",
+        "尊曰",
+        "上尊"
+      ],
+      "sweptScope": [
+        "晉書 全文（daizhigev20/史藏/正史/晋书.txt・帝紀・志・列傳・載記。載記第三の巻見出し「载记第三／刘曜」・記事末尾・史臣曰・贊を目視）",
+        "魏書 全文（daizhigev20/史藏/正史/魏书.txt・刘曜 14 箇所を含む。卷四 序紀「石勒擒刘曜」・卷九十五 匈奴劉聰／羯胡石勒の記事を含む）",
+        "未走査: 北史・十六国春秋（別本・別伝）・その他の書"
+      ]
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block4-c3",
+        "block4-c2",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "この欄は晉書載記の政権慣行に記録が無い（check_regime_conventions.py --field posthumousNameFull は未確定で終わる）が、未確定なのは『読めた形をどちらの欄へ入れるか』の振り分けであって、走査の結果そのものが0件なので振り分けの判断を要しない。値の不在は欄の割り方ではなく走査（templeName の note と同一の語彙・範囲）に依る",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "廟號",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追谥",
+        "赠谥",
+        "尊曰",
+        "上尊"
+      ],
+      "sweptScope": [
+        "晉書 全文（daizhigev20/史藏/正史/晋书.txt・帝紀・志・列傳・載記。載記第三の巻見出し「载记第三／刘曜」・記事末尾・史臣曰・贊を目視）",
+        "魏書 全文（daizhigev20/史藏/正史/魏书.txt・刘曜 14 箇所を含む。卷四 序紀「石勒擒刘曜」・卷九十五 匈奴劉聰／羯胡石勒の記事を含む）",
+        "未走査: 北史・十六国春秋（別本・別伝）・その他の書"
+      ]
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "永明",
+      "basis": [
+        "block4-c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭定型の「字永明」。既存レコードと同値（照合のために残す）"
+    }
+  ],
+  "discrepancies": "なし（既存の構造フィールド name.personalName=\"曜\"・name.familyName=\"劉\"・name.courtesyName=\"永明\"・name.templeName=null・name.posthumousName=null はいずれも晉書 載記第三の記述と一致した）",
+  "conflicts": [],
+  "noteLog": "既存の構造フィールドは name.templeName・name.posthumousName とも null で、原文の読解結果と一致する。捨てた値は無い。 既存レコードの name には posthumousNameFull・posthumousNames のキー自体が無い（familyName・personalName・commonName・aliases・posthumousName・templeName・regnalTitle・courtesyName のみ）ので、この2件は既存 null との一致ではなく新しい容器への read-absent。",
+  "processSuggestion": "残量表 晉書載記 posthumousNameFull の政権慣行 未走査（templeName・posthumousName・posthumousNames の3項目には (晉書, 記事末尾) の慣行記録があるが posthumousNameFull だけ記録が無く、--field posthumousNameFull は政権単位で未確定のまま止まる。値が在る人物に当たったときに欄の振り分けが人物単位の判断へ落ちる）"
 }

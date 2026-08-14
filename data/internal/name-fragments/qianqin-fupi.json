@@ -7,6 +7,48 @@
       "file": "_corpus_cache/qianqin-fupi.txt",
       "line": 12,
       "quote": "苻登称尊号，伪谥丕为哀平皇帝"
+    },
+    {
+      "cid": "block4-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianqin-fupi.txt",
+      "line": 1,
+      "quote": "苻丕，字永叔，坚之长庶子也。少而聪彗好学，博综经史。"
+    },
+    {
+      "cid": "c2",
+      "book": "晉書",
+      "file": "_corpus_cache/qianqin-fupi.txt",
+      "line": 12,
+      "quote": "苻登称尊号，伪谥丕为哀平皇帝。"
+    },
+    {
+      "cid": "c3",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8297,
+      "quote": "苻丕承乱僭窃，寻及倾败，斯可谓天之所废，人不能支。"
+    },
+    {
+      "cid": "c4",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8298,
+      "quote": "丕、登僭假，沦胥以亡。"
+    },
+    {
+      "cid": "c5",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8275,
+      "quote": "登于是以太元十一年僭即皇帝位，大赦境内，改元曰太初。"
+    },
+    {
+      "cid": "c6",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 6025,
+      "quote": "永以苻丕至平阳，恐不能自固，乃遣使求丕假道还东。"
     }
   ],
   "findings": [
@@ -19,11 +61,91 @@
         }
       ],
       "basis": [
-        "c1"
+        "c2",
+        "c5"
       ],
       "confidence": "high",
-      "note": "「苻登称尊号，伪谥丕为哀平皇帝」（c1）＝苻登の称帝（386年）に掛かる"
+      "note": "載記末尾の定型「伪谥〈諡号〉」から1段のみ。後代の加諡・改諡の条は晉書に無い。year は西暦386 — 諡の文（c2）自体は紀年を持たず、同じ文が諡を「苻登称尊号」と結び付け、その苻登の即位を同巻が「太元十一年」（c5＝386年）と記す合成である点を明記する。同じ書式の同政権群（前燕 幽皇帝400・前燕 景昭皇帝360・後趙 明皇帝332・前秦 高皇帝394）も同じ読み方で年を持つ。値は日本語新字体（底本は簡体「哀平皇帝」で字形は同じ）"
+    },
+    {
+      "field": "name.familyName",
+      "value": "苻",
+      "basis": [
+        "block4-c1"
+      ],
+      "confidence": "high",
+      "note": "載記の冒頭定型「〈姓名〉，字〈字〉，〈続柄〉」から。政権慣行（晉書・載記冒頭・form-found）の転記"
+    },
+    {
+      "field": "name.personalName",
+      "value": "丕",
+      "basis": [
+        "block4-c1"
+      ],
+      "confidence": "high",
+      "note": "諱のみ。姓は familyName へ分離"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "永叔",
+      "basis": [
+        "block4-c1"
+      ],
+      "confidence": "high",
+      "note": "字。今回の指定4欄の外だが冒頭定型から同時に取れるので残す"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "哀平帝",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "medium",
+      "note": "原文が出す形は全長形「哀平皇帝」で、短縮呼称そのものは原文に無い。政権慣行の出力に「保存形」の行が無いため、同じ慣行が掛かる同政権・同書式の既存レコード（前燕 景昭帝・後趙 明帝・前燕 幽帝＝いずれも原文は〈X〉皇帝形）と同じ短縮で揃えた転記。短縮の当否は保存形の行が立ったら見直す"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "low",
+      "note": "原文の全長形は「哀平皇帝」だが、政権 former-qin の posthumousNameFull は政権慣行が未確定（check_regime_conventions --field posthumousNameFull が未確定の1行を返す。確定済みの記録が覆うのは templeName・posthumousName・posthumousNames と familyName・personalName・courtesyName だけ）。形は読めており不在ではないので read-absent にはしない。全長形をこの欄へ入れるか posthumousNames だけに置くかは政権単位の決めごとなので保留"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2",
+        "c3",
+        "c4",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "載記末尾の定型は「伪谥丕为哀平皇帝」で終わり、廟号・墓号を伴わない（南燕 慕容徳「伪谥献武皇帝」と同じ諡のみの形）。閉域4軸: (1) 同じ書のキャッシュ外＝晉書 載記第十五の巻頭見出し（8260行「苻丕　苻登」）・史臣曰（8294〜8297）・贊曰（8298）はいずれも「苻丕」「丕」と呼び廟号を出さない。(2) 本人の記事の外＝晉書全体で「苻丕」を含む19行を確認、廟号語彙に掛かるのは載記第十四の慕容暐条（他人の諡「幽皇帝」）だけ。(3) 別政権の書＝魏書8件・北史6件・旧晉書九家輯本3件のいずれも人名呼びで諡・廟号を与えない（魏書2313行・北史3450行の「谥曰」は王憲の諡「康」）。(4) 語彙の割れ＝hanzi_norm.norm_for_match を通して庙号・庙曰・庙称・尊庙・谥曰・谥为・伪谥・追尊・号曰・尊为・初谥・改谥・上谥・私谥 の14語で走査。なお載記第十五に出る「庙」は「立坚行庙」「社稷宗庙」「坚神主」の類で廟号ではない",
+      "sweptWords": [
+        "庙号",
+        "庙曰",
+        "庙称",
+        "尊庙",
+        "谥曰",
+        "谥为",
+        "伪谥",
+        "追尊",
+        "号曰",
+        "尊为",
+        "初谥",
+        "改谥",
+        "上谥",
+        "私谥"
+      ],
+      "sweptScope": "_corpus_cache/qianqin-fupi.txt 全文／daizhigev20/史藏/正史/晋书.txt の載記第十五 全体（8259〜8298行・史臣曰・贊曰を含む）と同書で「苻丕」「哀平」「永叔」を含む全行／daizhigev20/史藏/正史/魏书.txt・北史.txt・旧晋书九家辑本.txt で「苻丕」「哀平」「永叔」を含む全行（正史コーパス全体を rg -c で当て、この3書以外に「苻丕」の出現は無い）"
     }
   ],
-  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+  "discrepancies": "既存の構造フィールドとの食い違いはなし。照合内訳: name.templeName=null（一致・read-absent）／name.familyName=苻（一致）／name.personalName=丕（一致）／name.courtesyName=永叔（一致）／name.posthumousName=哀平帝（一致）／name.posthumousNames=[{哀平皇帝,386}]（一致）／reigns 385〜386 は苻登の即位を太元十一年（386）とする c5 と矛盾しない。name.posthumousNameFull は欄自体が無く、今回も pending なので食い違いではない。1点だけ明記しておく: posthumousNames[0].year=386 は諡の文（c2）ではなく同巻の苻登即位条（c5）からの合成なので、dates 観点で見えるようにしておく。",
+  "conflicts": [],
+  "noteLog": "諡の授与年の出どころ: 諡の文（c2）は「苻登称尊号，伪谥丕为哀平皇帝」とだけ書き紀年を持たない。386 は同巻の苻登即位条「登于是以太元十一年僭即皇帝位」（c5）から来る合成値で、同じ載記書式の同政権群（幽皇帝400・景昭皇帝360・明皇帝332・高皇帝394）と同じ読み方。既存値と同じ 386 を維持し、合成である旨だけを検証段（dates 観点）へ渡す。当初は「段に紀年が無い」として year を落とす案も検討したが、同書式の兄弟レコードの読み方と割れるため採らなかった。",
+  "processSuggestion": "晉書 載記系10政権（former-qin ほか）の政権慣行は templeName・posthumousName・posthumousNames と familyName・personalName・courtesyName を覆うが posthumousNameFull を覆わないため、原文に全長形「〈X〉皇帝」が読めても人物単位では欄へ入れられず pending になる。載記系は諡を全長形でしか書かないので、この書に「保存形」の行（全長形は posthumousNames と posthumousNameFull のどちらへ入れるか）を1本立てれば39人ぶんが転記に落ちる。残量表 晉書載記系10政権の posthumousNameFull 政権慣行 39件（未読 39・本ブロックでは未走査）"
 }
