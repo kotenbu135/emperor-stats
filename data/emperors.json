@@ -26159,7 +26159,7 @@
     "commonName": "光文帝",
     "aliases": [],
     "posthumousName": "光文帝",
-    "templeName": null,
+    "templeName": "高祖",
     "regnalTitle": "皇帝",
     "courtesyName": "元海",
     "posthumousNames": [
@@ -26568,7 +26568,7 @@
     "commonName": "昭武帝",
     "aliases": [],
     "posthumousName": "昭武帝",
-    "templeName": null,
+    "templeName": "烈宗",
     "regnalTitle": "皇帝",
     "courtesyName": "玄明",
     "posthumousNames": [
@@ -31555,7 +31555,7 @@
     "commonName": "高帝",
     "aliases": [],
     "posthumousName": "高帝",
-    "templeName": null,
+    "templeName": "太宗",
     "regnalTitle": "皇帝",
     "courtesyName": "文高",
     "posthumousNames": [
@@ -31826,7 +31826,7 @@
     "personalName": "崇",
     "commonName": "末帝",
     "aliases": [],
-    "posthumousName": "末帝",
+    "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝"
    },
@@ -33030,7 +33030,7 @@
     "commonName": "恵愍帝",
     "aliases": [],
     "posthumousName": "恵愍帝",
-    "templeName": null,
+    "templeName": "烈宗",
     "regnalTitle": "皇帝",
     "courtesyName": "道祐",
     "posthumousNames": [
@@ -33693,7 +33693,7 @@
     "commonName": "昭武帝",
     "aliases": [],
     "posthumousName": "昭武帝",
-    "templeName": null,
+    "templeName": "中宗",
     "regnalTitle": "皇帝",
     "courtesyName": "道運",
     "posthumousNames": [
@@ -35895,7 +35895,7 @@
     "commonName": "文桓帝",
     "aliases": [],
     "posthumousName": "文桓帝",
-    "templeName": null,
+    "templeName": "高祖",
     "regnalTitle": "皇帝",
     "courtesyName": "子略",
     "posthumousNames": [
@@ -42248,7 +42248,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "元吉"
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",
@@ -60718,7 +60719,7 @@
     "personalName": "侗",
     "commonName": "恭帝侗（皇泰主）",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "恭帝",
     "templeName": null,
     "regnalTitle": "皇帝",
     "courtesyName": "仁謹",
