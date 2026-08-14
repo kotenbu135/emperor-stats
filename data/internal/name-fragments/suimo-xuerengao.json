@@ -1,69 +1,216 @@
 {
- "id": "suimo-xuerengao",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊唐書",
-   "file": "_corpus_cache/suimo-xuerengao.txt",
-   "line": 2,
-   "quote": "举父子相继伪位至灭，凡五年，陇西平"
-  },
-  {
-   "cid": "c2",
-   "book": "舊唐書",
-   "file": "_corpus_cache/suimo-xuerengao.txt",
-   "line": 1,
-   "quote": "举死，仁杲立于折墌城，与诸将帅 素多有隙"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "舊唐書 列傳（隋末群雄 卷53〜56 相当・安史・硃泚・黄巣・李希烈の各傳）を「谥／諡・追尊・追崇・追号・上尊号・尊号曰／为・庙号・庙曰・庙称・贈」の10語で全数で読んだ（2026-08-14）。**この書が隋末・唐末の群雄へ諡を授ける条を持つのは薛舉の1人だけ**（子 仁杲が贈った「伪谥举为武皇帝」）。この人物には授ける条が無い。",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "追尊",
-    "追崇",
-    "追号",
-    "上尊号",
-    "尊号曰",
-    "尊号为",
-    "庙号",
-    "庙曰",
-    "庙称",
-    "贈"
-   ]
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。舊唐書1冊を走査し、諡の条605件・別語彙211件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "suimo-xuerengao",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-xuerengao.txt",
+      "line": 2,
+      "quote": "举父子相继伪位至灭，凡五年，陇西平"
+    },
+    {
+      "cid": "c2",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-xuerengao.txt",
+      "line": 1,
+      "quote": "举死，仁杲立于折墌城，与诸将帅 素多有隙"
+    },
+    {
+      "cid": "block3-c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/suimo-xueju.txt",
+      "line": 4,
+      "quote": "仁杲，举长子也，多力善骑射，军中号为万人敌。"
+    },
+    {
+      "cid": "block3-c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/suimo-xueju.txt",
+      "line": 1,
+      "quote": "自称西秦霸王，建元为秦兴，封仁杲为齐公，少子仁越为晋公。"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/suimo-xueju.txt",
+      "line": 3,
+      "quote": "仁杲代董其众，伪谥举为武皇帝，未葬而仁杲灭。"
+    },
+    {
+      "cid": "c4",
+      "book": "旧唐書",
+      "file": "_corpus_cache/suimo-xuerengao.txt",
+      "line": 1,
+      "quote": "举死，仁杲立于折墌城，与诸将帅"
+    },
+    {
+      "cid": "c5",
+      "book": "旧唐書",
+      "file": "_corpus_cache/suimo-xuerengao.txt",
+      "line": 1,
+      "quote": "及嗣位，众咸猜惧。"
+    },
+    {
+      "cid": "c6",
+      "book": "旧唐書",
+      "file": "_corpus_cache/suimo-xuerengao.txt",
+      "line": 2,
+      "quote": "仁杲穷蹙，率伪百官开门降，太宗纳之。"
+    },
+    {
+      "cid": "c7",
+      "book": "旧唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9823,
+      "quote": "史臣曰：薛举父子勇悍绝伦，性皆好杀，仁杲尤甚，无恩众叛，虽猛何为？"
+    },
+    {
+      "cid": "c8",
+      "book": "旧唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 233,
+      "quote": "八月壬午，薛举死，其子仁杲复僭称帝，命秦王为元帅以讨之。"
+    },
+    {
+      "cid": "c9",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10913,
+      "quote": "仁杲代立，伪谥举武皇帝，未葬而仁杲灭。"
+    },
+    {
+      "cid": "c10",
+      "book": "旧唐書",
+      "file": "_corpus_cache/suimo-xueju.txt",
+      "line": 1,
+      "quote": "薛举，河东汾阴人也。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c6",
+        "c7",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "諡の段も0段。旧唐書 列傳の政権慣行レコード（posthumousNames・form-found）が「この書の隋末・唐末群雄20人で授ける条を持つのは薛舉の1人だけで、残る19人は断片の read-absent 側で受けた」と明記しており、薛仁杲はその19人の1人。後代の加諡・改諡の条も両唐書に無い。",
+      "sweptWords": [
+        "谥",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "追谥",
+        "尊号",
+        "号曰",
+        "追封",
+        "赠",
+        "葬"
+      ],
+      "sweptScope": "旧唐書: china-history の 仁杲/仁果 を含む全ファイル（本紀 卷一・卷二／志 卷十八／列傳 卷五十五・五十七・五十八・五十九・六十一・六十六・卷一百八十七上・一百九十三・一百九十六に相当する9巻）＋ daizhigev20/史藏/正史/旧唐书.txt 全文。新唐書: daizhigev20/史藏/正史/新唐书.txt 全文。隋書: china-history/隋书 に 仁杲/仁果 は0件（rg -l）。卷五十五の史臣曰・贊は語彙走査でなく直読。資治通鑑・編年類・類書は未走査（正史でないため段の対象外）。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c6",
+        "c7",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "短縮呼称の諡も無い。旧唐書・新唐書のどちらも仁杲を「仁杲」「其子仁杲」としか呼ばず、諡を授ける条は父 薛舉の1件だけ（c3・c9）。唐に降って京師で斬られた僭称者で、諡を贈りうる主体（父の政権＝西秦は本人の代で滅亡、唐は僭偽として扱う）が存在しない。走査語・範囲は templeName の finding と同一。",
+      "sweptWords": [
+        "谥",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "追谥",
+        "尊号",
+        "号曰",
+        "追封",
+        "赠",
+        "葬"
+      ],
+      "sweptScope": "旧唐書: china-history の 仁杲/仁果 を含む全ファイル（本紀 卷一・卷二／志 卷十八／列傳 卷五十五・五十七・五十八・五十九・六十一・六十六・卷一百八十七上・一百九十三・一百九十六に相当する9巻）＋ daizhigev20/史藏/正史/旧唐书.txt 全文。新唐書: daizhigev20/史藏/正史/新唐书.txt 全文。隋書: china-history/隋书 に 仁杲/仁果 は0件（rg -l）。卷五十五の史臣曰・贊は語彙走査でなく直読。資治通鑑・編年類・類書は未走査（正史でないため段の対象外）。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "仁杲",
+      "basis": [
+        "block3-c1",
+        "c4",
+        "c5",
+        "c10"
+      ],
+      "confidence": "high",
+      "note": "旧唐書 列傳 卷五十五 薛舉伝の中に立つ2人目の伝で、政権慣行どおり姓を省いて「仁杲，举长子也」と書き出す（familyName 薛は父 薛舉の冒頭1行から）。底本は簡体だが値はデータセットの表記（新字体）へ倒した — 「仁杲」は簡体・新字体で同形。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c6",
+        "c7",
+        "c8",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "旧唐書は薛仁杲に廟号を一切与えない。伝は開門降伏・京師での斬首で閉じ（c6）、巻末の史臣曰・贊も「仁杲尤甚」と評するだけ（c7）。同じ伝で諡を授ける条は父 薛舉への「伪谥举为武皇帝」1件のみで、仁杲は授ける側（c3）。閉域4軸: (1) 同書のキャッシュ外＝旧唐書 本紀 卷一(c8)・卷二、志 卷十八、卷五十五の史臣曰・贊(c7) を直読、(2) 列傳＝仁杲を含む列傳9巻すべて、(3) 別政権の書＝諡を贈りうる主体は滅ぼした唐自身なので新唐書 全文(c9 を含む)を走査・隋書は該当0件、(4) 語彙＝norm_for_match を通したうえで下記 sweptWords で走査。いずれも仁杲へ授ける条は0件。",
+      "sweptWords": [
+        "谥",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "追谥",
+        "尊号",
+        "号曰",
+        "追封",
+        "赠",
+        "葬"
+      ],
+      "sweptScope": "旧唐書: china-history の 仁杲/仁果 を含む全ファイル（本紀 卷一・卷二／志 卷十八／列傳 卷五十五・五十七・五十八・五十九・六十一・六十六・卷一百八十七上・一百九十三・一百九十六に相当する9巻）＋ daizhigev20/史藏/正史/旧唐书.txt 全文。新唐書: daizhigev20/史藏/正史/新唐书.txt 全文。隋書: china-history/隋书 に 仁杲/仁果 は0件（rg -l）。卷五十五の史臣曰・贊は語彙走査でなく直読。資治通鑑・編年類・類書は未走査（正史でないため段の対象外）。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c6",
+        "c7",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "全長形も無い。原文に諡の形が1つも見えないので、短縮呼称と全長形のどちらの欄へ入れるかという振り分け自体が起きない。なお `check_regime_conventions.py --for suimo-xuerengao --field posthumousNameFull` は xiqin について慣行未確定を返すが、これは「読めた形をどちらの欄へ入れるか」の規約であり、形が0件の null には掛からない。走査語・範囲は templeName の finding と同一。",
+      "sweptWords": [
+        "谥",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "追谥",
+        "尊号",
+        "号曰",
+        "追封",
+        "赠",
+        "葬"
+      ],
+      "sweptScope": "旧唐書: china-history の 仁杲/仁果 を含む全ファイル（本紀 卷一・卷二／志 卷十八／列傳 卷五十五・五十七・五十八・五十九・六十一・六十六・卷一百八十七上・一百九十三・一百九十六に相当する9巻）＋ daizhigev20/史藏/正史/旧唐书.txt 全文。新唐書: daizhigev20/史藏/正史/新唐书.txt 全文。隋書: china-history/隋书 に 仁杲/仁果 は0件（rg -l）。卷五十五の史臣曰・贊は語彙走査でなく直読。資治通鑑・編年類・類書は未走査（正史でないため段の対象外）。"
+    }
+  ],
+  "discrepancies": "既存の構造フィールドとの食い違いはなし。`name.templeName: null`・`name.posthumousName: null`・`name.personalName: \"仁杲\"`・`name.familyName: \"薛\"` は原文と一致する。報告する事項が1つ: `check_regime_conventions.py --field posthumousNameFull` が政権 xiqin について慣行未確定を返す（templeName・posthumousName は no-form、personalName は form-found、posthumousNames は form-found で確定済み）。今回は原文に諡の形が0件で振り分けが発生しないため null で閉じたが、同政権で諡の形が見つかる人物が出た場合は先に慣行を確定する必要がある。",
+  "conflicts": [],
+  "noteLog": "aliases 欄は投入対象外だが、旧唐書は「军中号为万人敌」という軍中の呼び名を記す（c1）。号であって諡・廟号ではないので findings の名前欄には入れない。新唐書は同じ人物を「仁杲」と書き（daizhigev20 版）、字体差・別字（仁果）による表記ゆれはこの底本では出なかった。引用は底本（簡体）のまま保存し、findings の値はデータセットの表記（新字体）に揃えた。",
+  "processSuggestion": "残量表 舊唐書列傳の群雄・他書に嗣立の条がある疑い 1件（未走査 19） — 薛仁杲は舊唐書が「举死，仁杲立于折墌城」「及嗣位」としか書かないのに対し、新唐書 卷八十六は「十三年，僭帝号于兰州，以妻鞠为后，仁杲为太子」と立太子を記す。名前欄の外（accessionRoute 系）の疑いで、同じ列傳の残り19人は未走査。"
 }

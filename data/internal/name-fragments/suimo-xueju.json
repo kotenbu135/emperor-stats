@@ -1,66 +1,195 @@
 {
- "id": "suimo-xueju",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊唐書",
-   "file": "_corpus_cache/suimo-xueju.txt",
-   "line": 3,
-   "quote": "仁杲代董其众，伪谥举为武皇帝，未葬而仁杲灭"
-  },
-  {
-   "cid": "c2",
-   "book": "舊唐書",
-   "file": "_corpus_cache/suimo-xueju.txt",
-   "line": 1,
-   "quote": "薛举，河东汾阴人也。其父汪，徙居金城"
-  },
-  {
-   "cid": "c3",
-   "book": "舊唐書",
-   "file": "_corpus_cache/suimo-xueju.txt",
-   "line": 3,
-   "quote": "仁杲代董其众，伪谥举为武皇帝，未葬而仁杲灭。"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "suimo-xueju",
+  "claims": [
     {
-     "form": "武皇帝"
+      "cid": "c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-xueju.txt",
+      "line": 3,
+      "quote": "仁杲代董其众，伪谥举为武皇帝，未葬而仁杲灭"
+    },
+    {
+      "cid": "c2",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-xueju.txt",
+      "line": 1,
+      "quote": "薛举，河东汾阴人也。其父汪，徙居金城"
+    },
+    {
+      "cid": "c3",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-xueju.txt",
+      "line": 3,
+      "quote": "仁杲代董其众，伪谥举为武皇帝，未葬而仁杲灭。"
+    },
+    {
+      "cid": "block3-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-xueju.txt",
+      "line": 1,
+      "quote": "薛举，河东汾阴人也"
+    },
+    {
+      "cid": "block3-c3",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9802,
+      "quote": "仁杲代董其众，伪谥举为武皇帝，未葬而仁杲灭"
+    },
+    {
+      "cid": "c4",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 61,
+      "quote": "卷五十五 列传第五"
+    },
+    {
+      "cid": "c5",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10913,
+      "quote": "仁杲代立，伪谥举武皇帝，未葬而仁杲灭"
+    },
+    {
+      "cid": "c6",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-xueju.txt",
+      "line": 2,
+      "quote": "立庙于城南。其月，举陈兵数万，出拜墓，礼毕大会"
+    },
+    {
+      "cid": "c7",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9799,
+      "quote": "○薛举 子仁杲"
     }
-   ],
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "舊唐書 列傳の死去条（c1）。**子 薛仁杲が贈った偽諡**で、書は「伪谥」と呼ぶが、2026-08-13 の決定どおり「伪」は書き手の立場を表す語なので値は入れる。**年は条が名乗らない**ので入れない（薛舉の死は武徳元年＝618年だが、条は「未葬而仁杲灭」としか書かない）。全長形・短縮呼称の欄は別の走査の母集団なのでここでは触らない。"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "**諡そのものは在る**（武皇帝。段の欄 `posthumousNames` が受ける）が、**この欄に入るのは書が本文で使う形**で、舊唐書はこの人物を一貫して「举」と呼び、諡の末字＋帝の形で呼ぶ条が無い。授与の条が在ることと、書がその形で呼ぶことは別（東吳 大帝が「大皇帝」の授与と「大帝」の呼称で欄が分かれるのと同じ）。舊唐書1冊を走査し、諡の条605件・別語彙211件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "武皇帝"
+        }
+      ],
+      "basis": [
+        "c1",
+        "block3-c3"
+      ],
+      "confidence": "high",
+      "note": "段は1段。政権慣行の保存形（舊唐書 列傳・posthumousNames・form-found／transcribe）どおり、授ける条の形をそのまま入れ、年は入れない（条は「未葬而仁杲灭」と続くだけで紀年を名乗らない）。既存値と一致する"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "武皇帝",
+      "basis": [
+        "c1",
+        "block3-c3",
+        "c5",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 卷五十五 薛舉伝の死去条「伪谥举为武皇帝」。授けた主体は子の薛仁杲で、書が「伪谥」と呼ぶが2026-08-13 の決定どおり値は入れる。**授与の条が本人の名乗る底本（舊唐書 列傳第五）の本人の伝の中に在る**ので、条が他人の伝に在って空のままの後梁 後主（舊唐書 蕭銑伝の「伪谥其从父琮为孝靖帝」）とは別の枝になる。形は条が書いている形をそのまま採り「武帝」へ縮めない。値は新字体「武皇帝」（底本も同字形）／【2026-08-15・親セッション】basis に c7（巻五十五の目次行「○薛举 子仁杲」）を足した — note が「授けた主体は子の薛仁杲」と続柄を述べているのに、もとの basis 3件はいずれも仁杲が誰かを述べない条だった"
+    },
+    {
+      "field": "name.familyName",
+      "value": "薛",
+      "basis": [
+        "block3-c1",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 卷五十五 列傳第五の冒頭定型「〈姓〉〈名〉，〈本貫〉人也」から。政権慣行（舊唐書 列傳・form-found／transcribe）どおりの転記で、既存値と一致する"
+    },
+    {
+      "field": "name.personalName",
+      "value": "挙",
+      "basis": [
+        "block3-c1",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "諱は「举」。値は既存レコードの表記（日本語の新字体）へ揃えて「挙」、引用は底本（簡体）の字のまま残した"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "block3-c1",
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "この政権（xiqin）は posthumousNameFull の政権慣行が未確定（check_regime_conventions --field posthumousNameFull が「未確定」を返す）。加えて全長形の定義は「名乗る原典が本人の名乗りとして掲げる形（本紀・載記の冒頭定型）」だが、舊唐書 列傳の冒頭は「薛举，河东汾阴人也」で諡を掲げる位置が無い。慣行が立つまで read-absent にはしない"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c4",
+        "c6"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙",
+        "廟",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "追崇",
+        "追号",
+        "追谥",
+        "尊号",
+        "尊为",
+        "号曰",
+        "追封",
+        "赠",
+        "葬",
+        "皇帝",
+        "帝号"
+      ],
+      "sweptScope": "(1) 本人のキャッシュ _corpus_cache/suimo-xueju.txt 全4行。(2) 同じ書の同じ巻の全数＝daizhigev20/史藏/正史/旧唐书.txt L9798〜9824（舊唐書 卷五十五 列傳第五の本文。薛舉伝は L9800〜9802・巻末の史臣曰・贊曰を含む・hanzi_norm の norm_for_match を通して上記19語で全数走査）。(3) 同じ書の巻の外＝旧唐书.txt 全17,443行のうち「薛举」を含む行（高祖本紀 L232・233 ほか）を同じ19語で当てた。(4) 別政権の書＝新唐书.txt の薛舉伝 L10909〜10922 と「薛举」を含む全行、隋书.txt・北史.txt の「薛举」を含む全行（各4件）。いずれにも廟号の授与記事は無い／【2026-08-15・親セッション】宣言した範囲を底本に当て直した — 贊曰は L9824 で「L9798〜9823」の外だった（L9824「赞曰：国无纪纲，盗兴草泽。不有隋乱，焉知唐德？」・次の巻の見出しは L9825）。旧唐书.txt は17,443行。走査語のどれも贊曰の行には掛からないので判定は動かないが、「贊曰まで全数走査した」という主張は宣言した範囲では成り立っていなかった",
+      "note": "巻内で当たる「庙」は L9801（キャッシュ2行目）の「立庙于城南」1件のみで、これは大業十三年秋七月に蘭州で僭号したさいの造営記事＝生前の記事であり廟号ではない（【2026-08-15・親セッション】もとの note は「先祖のために建てた廟」と書いていたが、舊唐書の条は「起坟茔，置陵邑，立庙于城南」と書くだけで**誰のための廟かを述べていない**。新唐書の「即其先墓置陵邑，立庙城南」も「即其先墓」が掛かるのは置陵邑のほうなので、原文の述べていない目的を落とした。廟号でない根拠は「生前・僭号時の造営記事である」ことで足りる）。死去条は「伪谥举为武皇帝」で諡だけを記し、庙号／庙曰／庙称・追尊はいずれも本人へ掛からない。新唐書も同じ条を「伪谥举武皇帝」とのみ書く"
+    }
+  ],
+  "discrepancies": "既存の構造フィールドとの食い違い1件。name.posthumousName が null のままだが、原文（舊唐書 卷五十五 薛舉伝の死去条「伪谥举为武皇帝」）は諡「武皇帝」を記す＝誤りではなく未転記。name.familyName「薛」・name.personalName「挙」・name.templeName（null）・name.posthumousNames（[{form:\"武皇帝\"}]）は原文と一致。name.posthumousNameFull は null で、慣行未確定のため pending のまま（食い違いではない）。なお reigns の 617〜618 は本件の判定範囲外なので照合していない。",
+  "conflicts": [
+    {
+      "field": "name.posthumousName",
+      "adopted": {
+        "value": "武皇帝",
+        "source": {
+          "page": "舊唐書 列傳第五（卷五十五）"
+        },
+        "quote": "仁杲代董其众，伪谥举为武皇帝，未葬而仁杲灭"
+      },
+      "alternatives": [
+        {
+          "value": "武皇帝",
+          "source": {
+            "page": "新唐書 列傳第十一（卷八十六・薛李二劉高徐）"
+          },
+          "quote": "仁杲代立，伪谥举武皇帝，未葬而仁杲灭",
+          "note": "同じ形。対立ではなく第二の証人"
+        },
+        {
+          "value": "武帝",
+          "source": {
+            "page": "資治通鑑 卷一百八十六（唐紀二・武德元年八月）"
+          },
+          "quote": "太子仁果立，居于折墌城，谥举曰武帝",
+          "note": "同じ出来事を短縮形で書く。通鑑は子の名も「仁果」で舊唐書の「仁杲」と割れる"
+        }
+      ],
+      "reason": "【2026-08-15・親セッション】底本（舊唐書 列傳第五）の形「武皇帝」を採る。もとの断片は conflicts を空にし、noteLog で「『武帝』へ縮めない」と**自分の書式判断だけ**を理由に挙げていたが、実際に「武帝」と書く史料（資治通鑑）が在る。値は動かないが、短縮呼称と全長形の欄割りを後で見直すときの根拠になるので対立として立てる"
+    }
+  ],
+  "noteLog": "舊唐書の底本は china-history 旧唐书/列传/第五章-卷五-原文.html（相対巻数のラベル「卷五」）で、daizhigev20 の1冊版 L9798「列传第五」・目次 L61「卷五十五 列传第五」と本文が一致することを確かめ、実巻を舊唐書 卷五十五 列傳第五と同定した。文体は文言文で白話訳の取り違えは無い。posthumousName に「武帝」を入れる案は採らなかった（舊唐書は末字＋帝の形を使わず、条が書く形は「武皇帝」）。",
+  "processSuggestion": "残量表 舊唐書 列傳型政権の posthumousNameFull 慣行 14政権（未走査 14）— posthumousNames（conventions/74）と templeName・posthumousName（conventions/38）は舊唐書 列傳で記録済みだが、posthumousNameFull の行が無いため check_regime_conventions が「未確定」を返し、人物側は pending でしか閉じられない。あわせて、read-absent の走査語彙は同じ人物の中でも範囲ごとに割れやすいので、sweptWords を1つのリストに固定して全範囲へ同じ語で当てる小道具（範囲と語彙を引数に取る走査スクリプト）を scripts/screens/ に置くと、狭い範囲ほど語彙が薄くなる事故を防げる。"
 }

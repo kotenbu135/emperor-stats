@@ -1,69 +1,190 @@
 {
- "id": "tangmo-anqingxu",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tangmo-anqingxu.txt",
-   "line": 7,
-   "quote": "即牵出，并其四弟及高尚、孙孝哲、崔乾祐，皆缢杀之"
-  },
-  {
-   "cid": "c2",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tangmo-anqingxu.txt",
-   "line": 1,
-   "quote": "立庆绪于户外，庄持刀领竖李猪兒同入禄山帐内"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "舊唐書 列傳（隋末群雄 卷53〜56 相当・安史・硃泚・黄巣・李希烈の各傳）を「谥／諡・追尊・追崇・追号・上尊号・尊号曰／为・庙号・庙曰・庙称・贈」の10語で全数で読んだ（2026-08-14）。**この書が隋末・唐末の群雄へ諡を授ける条を持つのは薛舉の1人だけ**（子 仁杲が贈った「伪谥举为武皇帝」）。この人物には授ける条が無い。",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "追尊",
-    "追崇",
-    "追号",
-    "上尊号",
-    "尊号曰",
-    "尊号为",
-    "庙号",
-    "庙曰",
-    "庙称",
-    "贈"
-   ]
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。舊唐書1冊を走査し、諡の条605件・別語彙211件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "tangmo-anqingxu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tangmo-anqingxu.txt",
+      "line": 7,
+      "quote": "即牵出，并其四弟及高尚、孙孝哲、崔乾祐，皆缢杀之"
+    },
+    {
+      "cid": "c2",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tangmo-anqingxu.txt",
+      "line": 1,
+      "quote": "立庆绪于户外，庄持刀领竖李猪兒同入禄山帐内"
+    },
+    {
+      "cid": "block3-c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tangmo-anqingxu.txt",
+      "line": 3,
+      "quote": "庆绪，禄山第二子也。母康氏，禄山糟糠之妻。"
+    },
+    {
+      "cid": "block3-c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tangmo-anqingxu.txt",
+      "line": 3,
+      "quote": "初名仁执，玄宗赐名庆绪，为禄山都知兵马使。"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 679,
+      "quote": "乙丑，贼将安庆绪犯潼关，哥舒翰击退之。"
+    },
+    {
+      "cid": "c4",
+      "book": "旧唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 17364,
+      "quote": "即牵出，并其四弟及高尚、孙孝哲、崔乾祐，皆缢杀之。",
+      "note": "【2026-08-15・親セッション】行番号を 17365 から底本の 17364 へ直した（17365 は「禄山父子僭逆三年而灭」で始まる次段（c5 の行）。縊殺の条は 17364）。"
+    },
+    {
+      "cid": "c5",
+      "book": "旧唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 17365,
+      "quote": "禄山父子僭逆三年而灭。"
+    },
+    {
+      "cid": "c6",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 18316,
+      "quote": "乃并四弟缢。又诛尚、孝哲、乾佑，殊而膊之。思明改葬禄山以王礼，伪谥燕剌王。禄山父子僭位凡三年而灭。"
+    },
+    {
+      "cid": "c7",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tangmo-anqingxu.txt",
+      "line": 1,
+      "quote": "庄即宣言于外，言禄山传位于晋王庆绪，尊禄山为太上皇。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "basis": [
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "諡の段は0段。舊唐書・新唐書とも当人に初諡も加諡も記さない（新唐書が同じ条で記す「伪谥燕剌王」は父安禄山への追諡で、当人の段ではない）。生前の「晋王」は諡ではないので段に入れない。段が0であることは諡の列の割り方に依存しない（形が1つも無いのでどちらの欄へ入れるかという話にならない）",
+      "verdict": "read-absent"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "廟号と同じ走査・同じ閉域。舊唐書 列傳の定型には諡の入る位置が無く（政権慣行 no-form）、当人の死は縊殺で終わり諡を記す条が無い。新唐書 逆臣伝も同じ場面で父禄山にだけ「伪谥燕剌王」を与え、慶緒には何も与えない。授諡の主体になりえた史思明が当人を「为人子杀父求位」として誅した文脈と整合する",
+      "sweptWords": [
+        "諡",
+        "謚",
+        "廟",
+        "廟號",
+        "廟曰",
+        "廟稱",
+        "尊號",
+        "追尊",
+        "追諡",
+        "追號",
+        "尊為",
+        "冊曰",
+        "號曰",
+        "贈諡",
+        "偽諡",
+        "私諡",
+        "稱帝",
+        "即位",
+        "僭號",
+        "葬",
+        "贈"
+      ],
+      "sweptScope": "name.templeName と同一（daizhige 正史40冊＋_corpus_cache 全文＋china-history 旧唐书 列传 相対150）。正史外は未走査"
+    },
+    {
+      "field": "name.personalName",
+      "value": "慶緒",
+      "basis": [
+        "block3-c1",
+        "block3-c2"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 列傳の書き出し「庆绪，禄山第二子也」（父安禄山伝の2人目なので姓を省く形）。同じ条が「初名仁执，玄宗赐名庆绪」と改名を記すので、名乗りは慶緒。底本は簡体「庆绪」で、値はこのデータセットの表記（新字体）に揃えて「慶緒」とした。旧名「仁執」は別称であってこの欄の値ではない（aliases は本作業の投入対象外なので欄へは入れない）"
+    },
+    {
+      "field": "name.familyName",
+      "value": "安",
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 玄宗紀が「贼将安庆绪犯潼关」と姓付きで呼ぶ。父安禄山は同書列傳で「本无姓氏」（冒姓）と断られるが、本紀・列傳とも当人を安姓で呼ぶので安を採る。既存値と同じで変更なし"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 列傳（逆臣・安禄山伝の付伝）は当人の最期を「即牵出，并其四弟及高尚、孙孝哲、崔乾祐，皆缢杀之」「禄山父子僭逆三年而灭」で閉じ、廟号を立てる条を持たない。史思明に縊殺された当人には号を贈る主体が無く、同じ場面で新唐書が記す追贈は父禄山への「伪谥燕剌王」だけで当人には及ばない。閉域4軸: (1) 舊唐書1冊全体（本紀・志・列傳）を走査し庆绪67件のいずれも諡・廟語彙の窓に立たない、(2) 本人の記事はそもそも列傳（本紀は無い）、(3) 別政権の書として daizhige 正史40冊全部へ同じ走査を掛け、慶緒191件のうち語彙窓に立つのは新唐書5件のみでいずれも父禄山ないし唐の粛宗の尊号、(4) 走査語は hanzi_norm.norm_for_match を通して当てた。絞り込み zong-token（kind=read）の指す「〈X〉祖／〈X〉宗」型2字語は、当人の記事では玄宗（「玄宗赐名庆绪」「玄宗宠禄山」）と粛宗（「肃宗南幸凤翔郡」）＝いずれも唐の皇帝の廟号であって当人のものではない",
+      "sweptWords": [
+        "諡",
+        "謚",
+        "廟",
+        "廟號",
+        "廟曰",
+        "廟稱",
+        "尊號",
+        "追尊",
+        "追諡",
+        "追號",
+        "尊為",
+        "冊曰",
+        "號曰",
+        "贈諡",
+        "偽諡",
+        "私諡",
+        "稱帝",
+        "即位",
+        "僭號",
+        "葬",
+        "贈"
+      ],
+      "sweptScope": "daizhigev20/史藏/正史/*.txt 全40冊（正史）を「慶緒」で全件走査し前後80〜100字の窓に上記語を当てた（舊唐書・新唐書には広い語彙一覧、他38冊には諡・廟系の語彙一覧）。_corpus_cache/tangmo-anqingxu.txt は全文を通読。china-history/旧唐书/列传/第一百五十章 も語彙数を確認（諡・廟号とも0件）。資治通鑑・安禄山事迹などの正史外は未走査"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "confidence": "medium",
+      "note": "原文は読み終わっており、諡の全長形に当たる語も上記の閉域走査で1件も出ない。ただし政権 anshi-yan は posthumousNameFull の保存形慣行が未記録（check_regime_conventions --field posthumousNameFull が未確定を返す）で、「読めた形をどちらの欄へ入れるか／片方を空にするか」を人物単位で決めないという指示に従い read-absent には落とさない。慣行が確定した時点で read-absent へ移せる見込み"
+    }
+  ],
+  "discrepancies": "なし（既存の構造フィールド name.templeName: null・name.posthumousName: null は原文の読解と一致。name.familyName「安」・name.personalName「慶緒」も本紀・列傳の表記と一致し、変更なし）",
+  "conflicts": [],
+  "noteLog": "捨てた読み: 新唐書 逆臣伝 卷二百二十五上の「思明改葬禄山以王礼，伪谥燕剌王」を当人の諡と読みかけたが、直前の主語は史思明・目的語は禄山であり当人ではない。舊唐書側にこの追諡の条は無い（『光烈』で舊唐書・新唐書を走査しても皇帝諡としては当たらない）。また舊唐書冒頭の「晋王庆绪」は禄山生前の王号で、諡でも廟号でもない。値の表記は既存レコードに合わせて新字体（慶緒）へ倒し、claims の引用は底本の簡体のまま置いた。",
+  "processSuggestion": "残量表 安史燕（燕）政権の諡・廟号走査 4件（未読 3・走査したのは安慶緒のみ。安禄山・史思明・史朝義は未走査）— ただし安禄山は「名乗る底本」が舊唐書なのに諡『燕剌王』が新唐書 逆臣伝にしか無い（他書にしか無い加諡）ため、posthumousNames の「底本の中からだけ採る」規約と衝突する候補が1件ある。check_regime_conventions は --field posthumousNameFull だけ未確定を返し templeName/posthumousName は確定という分裂状態なので、慣行レコードが覆うフィールド一覧を出力の先頭に列挙してほしい（どのフィールドが認可済みかを1回で読めない）。"
 }

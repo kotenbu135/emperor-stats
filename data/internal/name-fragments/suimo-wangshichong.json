@@ -1,77 +1,295 @@
 {
- "id": "suimo-wangshichong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊唐書",
-   "file": "_corpus_cache/suimo-wangshichong.txt",
-   "line": 10,
-   "quote": "世充自篡位，凡三年而灭"
-  },
-  {
-   "cid": "c2",
-   "book": "舊唐書",
-   "file": "_corpus_cache/suimo-wangshichong.txt",
-   "line": 1,
-   "quote": "王世充，字行满，本姓支，西域胡人也。寓居新丰"
-  },
-  {
-   "cid": "c3",
-   "book": "舊唐書",
-   "file": "_corpus_cache/suimo-wangshichong.txt",
-   "line": 7,
-   "quote": "其侄行本鸩杀侗，谥曰恭皇帝。其将军罗士信率其众千余人来降。 十"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "舊唐書 列傳（隋末群雄 卷53〜56 相当・安史・硃泚・黄巣・李希烈の各傳）を「谥／諡・追尊・追崇・追号・上尊号・尊号曰／为・庙号・庙曰・庙称・贈」の10語で全数で読んだ（2026-08-14）。**この書が隋末・唐末の群雄へ諡を授ける条を持つのは薛舉の1人だけ**（子 仁杲が贈った「伪谥举为武皇帝」）。この人物には授ける条が無い。",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "追尊",
-    "追崇",
-    "追号",
-    "上尊号",
-    "尊号曰",
-    "尊号为",
-    "庙号",
-    "庙曰",
-    "庙称",
-    "贈"
-   ]
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。本人のキャッシュに在る諡の条は隋の皇泰主 楊侗（「遣其侄行本鸩杀侗，谥曰恭皇帝」）への授与で、この人物への授与ではない。舊唐書1冊を走査し、諡の条605件・別語彙211件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "suimo-wangshichong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-wangshichong.txt",
+      "line": 10,
+      "quote": "世充自篡位，凡三年而灭"
+    },
+    {
+      "cid": "c2",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-wangshichong.txt",
+      "line": 1,
+      "quote": "王世充，字行满，本姓支，西域胡人也。寓居新丰"
+    },
+    {
+      "cid": "c3",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-wangshichong.txt",
+      "line": 7,
+      "quote": "其侄行本鸩杀侗，谥曰恭皇帝。其将军罗士信率其众千余人来降。 十"
+    },
+    {
+      "cid": "block3-c1",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9773,
+      "quote": "王世充，字行满，本姓支，西域胡人也。寓居新丰。祖支颓耨，早死。父收，随母嫁霸城王氏，因冒姓焉，仕至汴州长史。"
+    },
+    {
+      "cid": "block3-c2",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9782,
+      "quote": "与兄苪、妻、子同徙于蜀，将行，为仇人定州刺史独孤修所杀。子玄应及兄世伟等在路谋叛，伏诛。世充自篡位，凡三年而灭。"
+    },
+    {
+      "cid": "block3-c3",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9796,
+      "quote": "史臣曰：世充奸人，遭逢昏主，上则谀佞诡俗以取荣名，下则强辩饰非以制群论。终行篡逆，自恣陆梁，安忍杀人，矫情驭众，凡所委任，多是叛亡，出降秦王，不致显戮，其为幸也多矣。"
+    },
+    {
+      "cid": "c4",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9797,
+      "quote": "赞曰：世充篡逆，建德愎谏，二凶即诛，中原弭乱。"
+    },
+    {
+      "cid": "c5",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9779,
+      "quote": "世充遣其侄行本鸩杀侗，谥曰恭皇帝。"
+    },
+    {
+      "cid": "c6",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 237,
+      "quote": "夏四月乙巳，王世充篡越王侗位，僭称天子，国号郑"
+    },
+    {
+      "cid": "c7",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 7332,
+      "quote": "王充，字行满，本西域人也。祖支颓辱，徙居新丰。"
+    },
+    {
+      "cid": "c8",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 6476,
+      "quote": "世充伪谥为恭皇帝"
+    },
+    {
+      "cid": "c9",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10868,
+      "quote": "王世充字行满。祖西域胡，号支颓耨，后徙新丰"
+    },
+    {
+      "cid": "c10",
+      "book": "北史",
+      "file": "daizhigev20/史藏/正史/北史.txt",
+      "line": 11241,
+      "quote": "世充伪谥曰恭皇帝"
+    },
+    {
+      "cid": "c12",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 7331,
+      "quote": "○王世充　段达"
+    },
+    {
+      "cid": "c13",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9778,
+      "quote": "世充僭即皇帝位，建元曰开明，国号郑。"
+    },
+    {
+      "cid": "c14",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 236,
+      "quote": "二年春正月乙卯，初令文官遭父母丧者听去职。"
+    },
+    {
+      "cid": "c15",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9781,
+      "quote": "三月，秦王擒建德并王琬、长孙安世等于武牢，回至东都城下以示之，且遣安世入城，使言败状。世充惶惑，不知所为，将溃围而出，南走襄阳，谋于诸将，皆不答，乃率其将吏诣军门请降。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block3-c2",
+        "block3-c3",
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "初諡も加諡も無いので段は0。彼が名乗る底本（舊唐書 列傳第四）の外にしか無い諡も見つからなかった（隋書・新唐書・北史の該当箇所はいずれも楊侗の諡）。",
+      "sweptWords": [
+        "谥",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追谥",
+        "上尊谥",
+        "赠",
+        "世充",
+        "王充"
+      ],
+      "sweptScope": "daizhigev20/史藏/正史/旧唐书.txt 全17443行（本紀・志・列傳を1ファイルで含む）／同 新唐书.txt 全文／同 隋书.txt 全文／同 北史.txt 全文。いずれも hanzi_norm.norm_for_match で正規化してから照合。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block3-c2",
+        "block3-c3",
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "諡を贈る条が4書のいずれにも無い。彼の巻に立つ唯一の「谥曰」は c5「世充遣其侄行本鸩杀侗，谥曰恭皇帝」で、これは彼が弑した皇泰主 楊侗へ贈った諡であって彼自身のものではない（隋書 c8・北史 c10 も同じ出来事を「伪谥」と書く）。走査語彙・範囲は templeName と同じ。",
+      "sweptWords": [
+        "谥",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追谥",
+        "上尊谥",
+        "赠",
+        "世充",
+        "王充"
+      ],
+      "sweptScope": "daizhigev20/史藏/正史/旧唐书.txt 全17443行（本紀・志・列傳を1ファイルで含む）／同 新唐书.txt 全文／同 隋书.txt 全文／同 北史.txt 全文。いずれも hanzi_norm.norm_for_match で正規化してから照合。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "世充",
+      "basis": [
+        "block3-c1",
+        "c9",
+        "c7",
+        "c12"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 列傳第四の冒頭定型「〈姓名〉，字〈字〉，〈本貫〉人也」が諱「世充」を出す（c1）。新唐書 列傳第十も同形（c9）。隋書 卷八十五は避諱で本文を「王充」と書く（c7）が、同じ巻の目録行は諱をそのまま掲げる（c12）。値は既存レコードの表記（新字体）に揃え、引用は底本のまま簡体。"
+    },
+    {
+      "field": "name.familyName",
+      "value": "王",
+      "basis": [
+        "block3-c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭が「本姓支，西域胡人也」「随母嫁霸城王氏，因冒姓焉」と述べる通り、王は父・収が継父王氏を冒した姓で、本姓は支。書がこの人物を掲げる姓は「王」なので値は王のまま。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "行満",
+      "basis": [
+        "block3-c1",
+        "c7",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "舊唐書・隋書・新唐書の3書がそろって「字行满」。値は新字体「行満」、引用は底本のまま簡体「行满」。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block3-c2",
+        "block3-c3",
+        "c4",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "王世充は洛陽で降伏したのち長安で赦され、蜀へ移される途上で私怨により独孤修に殺された（c2）。廟号を立てる主体（後継の鄭朝廷）が存在せず、唐側の書も彼を篡逆者として扱い（c3・c4）、廟号を一切与えない。閉域4軸: (1) 同じ書のキャッシュ外＝舊唐書1ファイル全17443行（本紀・志第一〜三十・列傳を含む）を走査し、巻の見出し行（9771〜9772行「列传第四／○王世充　窦建德」＝この2行は句読点を落とすと巻頭目録側の別記事と衝突するため claims には載せていない）・史臣曰（c3）・赞曰（c4）まで読んだが廟号語彙は彼に掛からない。(2) 本紀の外＝本人は本紀を持たず列傳のみで、その全文（daizhige 9773〜9782行）を通読。本紀側の言及は c6・c14 の武徳二年条など僭称の記事だけ。(3) 別政権の書＝隋書・新唐書・北史の全文へ同じ検出器を掛け、名と諡・廟号語彙が同一文に立つ箇所は c5・c8・c10（いずれも彼が皇泰主 楊侗へ贈った諡「恭皇帝」）と、隋書 6817行／北史 9010行（部下の諡「壮武」）だけだった。(4) 語彙＝hanzi_norm.norm_for_match を通したうえで下記 sweptWords を当てた。なお絞り込みの zong-token バケットを立てた「〈X〉祖／〈X〉宗」型の2字語は、彼の列傳10段では「高祖」3件・「太宗」2件しかなく、いずれも唐の高祖 李淵・太宗 李世民を指す地の文であって彼の廟号ではない。",
+      "sweptWords": [
+        "谥",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追谥",
+        "上尊谥",
+        "赠",
+        "世充",
+        "王充"
+      ],
+      "sweptScope": "daizhigev20/史藏/正史/旧唐书.txt 全17443行（本紀・志・列傳を1ファイルで含む）／同 新唐书.txt 全文／同 隋书.txt 全文／同 北史.txt 全文。いずれも hanzi_norm.norm_for_match で正規化してから照合。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block3-c1",
+        "block3-c2",
+        "block3-c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "政権慣行の判定は no-form（舊唐書 列傳・「〈姓〉〈名〉，〈本貫〉人也」で始まり誅殺・敗死の記事で終わる）で、廟号・諡が入る位置が定型に無い。実際に冒頭（c1）は諱と字と本貫だけを掲げ、末尾（c2）は他殺で閉じ、史臣曰・赞曰（c3・c4）も諡を出さない。全長形も存在しない。なお政権 zheng の慣行記録が覆うのは templeName・posthumousName の2欄で、posthumousNameFull は`check_regime_conventions.py --field posthumousNameFull` が「未確定」を返す。ただしこの人物は4書のいずれにも諡の形が1つも無いため、「読めた形をどちらの欄へ入れるか」という保存形の問いが立たず、慣行の未確定は判定を保留する理由にならない。",
+      "sweptWords": [
+        "谥",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追谥",
+        "上尊谥",
+        "赠",
+        "世充",
+        "王充"
+      ],
+      "sweptScope": "daizhigev20/史藏/正史/旧唐书.txt 全17443行（本紀・志・列傳を1ファイルで含む）／同 新唐书.txt 全文／同 隋书.txt 全文／同 北史.txt 全文。いずれも hanzi_norm.norm_for_match で正規化してから照合。"
+    },
+    {
+      "field": "name.aliases",
+      "value": [
+        "王充"
+      ],
+      "basis": [
+        "c7"
+      ],
+      "confidence": "medium",
+      "note": "欄への投入対象外だが記録として残す。隋書 卷八十五は唐太宗の諱「世民」を避けて本文を一貫して「王充」と書く（冒頭 c7）。別人ではなく避諱形。既存レコードの aliases は空配列で、これは食い違いではなく追加候補。"
+    },
+    {
+      "field": "name.regnalTitle",
+      "value": "皇帝",
+      "basis": [
+        "c6",
+        "c13"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 本紀（高祖 武德二年夏四月乙巳条・c6）が僭称天子・国号郑と記し、列傳（c13）が皇帝位に即いたことを記す。既存レコードの regnalTitle「皇帝」と一致。"
+    }
+  ],
+  "discrepancies": "既存の構造フィールドとの食い違いはなし。照合したのは regimeId=zheng（国号郑・c6／c13 と一致）、reigns[0].startYear=619（舊唐書 本紀の武德二年〔c14 の「二年春正月乙卯」が年を立て、同じ年の条として c6 の「夏四月乙巳，王世充篡越王侗位」が続く〕。武德元年＝618 は同紀の「改隋义宁二年为唐武德元年」による）、reigns[0].endYear=621（列傳の武德四年三月に降伏・c15。列傳の締め「世充自篡位，凡三年而灭」・c2 とも整合）、name.regnalTitle=皇帝（c6・c13 と一致）、name.personalName=世充・name.familyName=王・name.courtesyName=行満（c1 と一致）、name.templeName=null・name.posthumousName=null（本調査も read-absent で一致）。name.aliases は既存が空配列で、隋書の避諱形「王充」は食い違いではなく追加候補。posthumousNameFull・posthumousNames は既存レコードに欄そのものが無い。",
+  "conflicts": [],
+  "noteLog": "候補として posthumousName を pending に置く案を検討したが、政権慣行が no-form（人物単位で判定）である以上、判定を保留する理由は所在の未確定ではなく値の有無になる。4書の全文走査で彼へ諡・廟号を贈る条が1件も無く、殺害が私怨による移送途上の殺害で追諡の主体も存在しないため read-absent を採り、pending 案を捨てた側としてここに残す。なお c5・c8・c10 の「谥曰恭皇帝／伪谥」は彼が贈った側の諡で、名の欄に取り違えて入れやすいので明記しておく。",
+  "processSuggestion": "残量表 隋末群雄・唐側の書が僭称者として扱う政権の名前欄 母集団未計測（未走査） — 舊唐書 列傳の逆臣・僭偽の巻に立つ人物は冒頭定型に諡・廟号の位置が無く、判定は「4書を全文走査して0件」の形になる。同じ検出器を1回書けば隋末群雄をまとめて掛けられるが、対象が何人かは未走査。"
 }

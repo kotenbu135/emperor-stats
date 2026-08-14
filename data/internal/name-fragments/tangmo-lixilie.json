@@ -1,69 +1,222 @@
 {
- "id": "tangmo-lixilie",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tangmo-lixilie.txt",
-   "line": 4,
-   "quote": "置药以毒之而死。妻男骨肉兄弟共一十七人，并诛之"
-  },
-  {
-   "cid": "c2",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tangmo-lixilie.txt",
-   "line": 1,
-   "quote": "李希烈，辽西人。父大定"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "舊唐書 列傳（隋末群雄 卷53〜56 相当・安史・硃泚・黄巣・李希烈の各傳）を「谥／諡・追尊・追崇・追号・上尊号・尊号曰／为・庙号・庙曰・庙称・贈」の10語で全数で読んだ（2026-08-14）。**この書が隋末・唐末の群雄へ諡を授ける条を持つのは薛舉の1人だけ**（子 仁杲が贈った「伪谥举为武皇帝」）。この人物には授ける条が無い。",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "追尊",
-    "追崇",
-    "追号",
-    "上尊号",
-    "尊号曰",
-    "尊号为",
-    "庙号",
-    "庙曰",
-    "庙称",
-    "贈"
-   ]
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。舊唐書1冊を走査し、諡の条605件・別語彙211件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "tangmo-lixilie",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tangmo-lixilie.txt",
+      "line": 4,
+      "quote": "置药以毒之而死。妻男骨肉兄弟共一十七人，并诛之"
+    },
+    {
+      "cid": "c2",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tangmo-lixilie.txt",
+      "line": 1,
+      "quote": "李希烈，辽西人。父大定"
+    },
+    {
+      "cid": "block3-c1",
+      "book": "旧唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 12968,
+      "quote": "李希烈，辽西人。父大定。"
+    },
+    {
+      "cid": "block3-c2",
+      "book": "旧唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 12971,
+      "quote": "既入汴州，于是僭号曰武成"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 12971,
+      "quote": "贞元二年三月，因食牛肉遇疾，其将陈仙奇令医人陈仙甫置药以毒之而死。"
+    },
+    {
+      "cid": "c4",
+      "book": "旧唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 12990,
+      "quote": "而元济效希烈之狂悖"
+    },
+    {
+      "cid": "c5",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tangmo-lixilie.txt",
+      "line": 1,
+      "quote": "李希烈，辽西人。父大定。"
+    },
+    {
+      "cid": "c6",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 18342,
+      "quote": "李希烈，燕州辽西人。少籍平卢军"
+    },
+    {
+      "cid": "c7",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 18346,
+      "quote": "希烈已据汴，僭即皇帝位，国号楚，建元武成"
+    },
+    {
+      "cid": "c8",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 18348,
+      "quote": "啖牛肉而病，亲将陈仙奇阴令医毒之以死。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "諡の段は0段。授けられた諡が無いので入れる要素が無い（請われただけの諡・生前の尊号も原文に無い）",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追谥"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/旧唐书.txt（旧唐書 全文・本紀/志/列傳/史臣曰/贊曰）",
+        "daizhigev20/史藏/正史/新唐书.txt（新唐書 全文）",
+        "china-history 旧唐书/列传/第九十五章-卷九十五-原文.html（＝絶対 卷145 全巻）",
+        "_corpus_cache/tangmo-lixilie.txt"
+      ]
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block3-c1",
+        "c3",
+        "c4",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "諡を授ける条が両書に無い。崩御にあたる条は旧唐書 c3「贞元二年三月，因食牛肉遇疾，其将陈仙奇令医人陈仙甫置药以毒之而死」・新唐書 c8「啖牛肉而病，亲将陈仙奇阴令医毒之以死」で、いずれも上諡・立廟の記事を伴わず「妻男骨肉兄弟共一十七人，并诛之」と続く。走査語と範囲は templeName の note と同じ4軸",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追谥"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/旧唐书.txt（旧唐書 全文・本紀/志/列傳/史臣曰/贊曰）",
+        "daizhigev20/史藏/正史/新唐书.txt（新唐書 全文）",
+        "china-history 旧唐书/列传/第九十五章-卷九十五-原文.html（＝絶対 卷145 全巻）",
+        "_corpus_cache/tangmo-lixilie.txt"
+      ]
+    },
+    {
+      "field": "name.familyName",
+      "value": "李",
+      "basis": [
+        "block3-c1",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "旧唐書 卷145（china-history 列傳 相対95）・新唐書 逆臣傳の伝首がともに姓名を「李希烈」と掲げる。列傳形なので「讳」の定型は無い。底本は簡体だが姓字は新字体でも同形"
+    },
+    {
+      "field": "name.personalName",
+      "value": "希烈",
+      "basis": [
+        "block3-c1",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "伝首「李希烈，辽西人」「李希烈，燕州辽西人」から姓を除いた諱。以後の地の文も一貫して「希烈」と呼び、字（あざな）は両書とも記さない"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block3-c1",
+        "block3-c2",
+        "c3",
+        "c4",
+        "c7",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "旧唐書は李希烈を卷145 列傳の僭号者として置き、廟号を立てない（政権慣行 no-form と一致）。閉域4軸: (1) 同書キャッシュ外＝旧唐書 全巻（本紀・志・列傳・史臣曰・贊曰）を走査。卷145 の史臣曰・贊曰も「希烈」とだけ呼ぶ。(2) 本紀外の列傳＝彼の伝そのものが列傳で、他人の列傳（顔真卿伝・陳少游伝・張建封伝など）の言及も「希烈」「希烈僭伪号」止まり。(3) 別政権の書＝討伐側である唐の正史2書（旧唐書・新唐書）を両方走査。彼は部将 陳仙奇に毒殺され、陳仙奇は唐へ帰順したので追尊・追諡の主体が存在しない。(4) 語彙＝hanzi_norm.norm_for_match を通したうえで 谥・庙号・庙曰・庙称・追尊・尊号・号曰・追谥 を当て、「希烈」の前後120字の窓に入る事例を全件目視した（旧唐書15件・新唐書18件はすべて陳希烈や顔真卿ら他人の諡・玄宗の尊号で、李希烈のものは0件）。旧唐書 c2「僭号曰武成」は新唐書 c7「国号楚，建元武成」が示すとおり国号・年号の記事で、廟号・諡ではない。sweptWords: 谥／諡／庙号／庙曰／庙称／追尊／尊号／号曰／追谥。sweptScope: 旧唐書 全文（daizhigev20）・新唐書 全文（daizhigev20）・china-history 旧唐書 列傳 相対95（＝絶対 卷145）全巻テキスト",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追谥"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/旧唐书.txt（旧唐書 全文・本紀/志/列傳/史臣曰/贊曰）",
+        "daizhigev20/史藏/正史/新唐书.txt（新唐書 全文）",
+        "china-history 旧唐书/列传/第九十五章-卷九十五-原文.html（＝絶対 卷145 全巻）",
+        "_corpus_cache/tangmo-lixilie.txt"
+      ]
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block3-c1",
+        "c3",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "旧唐書は列傳の僭号者として立てるので冒頭に加諡形を掲げる位置が無く（政権慣行の「所在」と一致）、崩御条にも初諡が無い。全長形の候補が原文に1つも現れない",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追谥"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/旧唐书.txt（旧唐書 全文・本紀/志/列傳/史臣曰/贊曰）",
+        "daizhigev20/史藏/正史/新唐书.txt（新唐書 全文）",
+        "china-history 旧唐书/列传/第九十五章-卷九十五-原文.html（＝絶対 卷145 全巻）",
+        "_corpus_cache/tangmo-lixilie.txt"
+      ]
+    }
+  ],
+  "discrepancies": "なし。既存の構造フィールドは name.familyName=「李」・name.personalName=「希烈」・name.templeName=null・name.posthumousName=null・name.regnalTitle=「皇帝」で、原文と食い違いは無い（regnalTitle は新唐書 c7「僭即皇帝位」が支える）。reigns の endYear=786 は旧唐書 c3 の「贞元二年三月」（＝786年）と整合する。startYear=784 は今回読んだ範囲では紀年が付いておらず（c2 は年を書かない）、否定する記述も無いので食い違いとしては挙げない。",
+  "conflicts": [],
+  "noteLog": "旧唐書 c2「于是僭号曰武成」を名乗り（号）と読むと諡号欄へ誤って入りうるが、新唐書 c7「僭即皇帝位，国号楚，建元武成」が同じ事件を国号「楚」・年号「武成」と書き分けるので、名前欄の値としては採らなかった。元号（単位2）はこの段の対象外。引用は底本の簡体のまま保存し、findings の値は既存レコードの表記（新字体）に揃えた（李・希烈はいずれも両者同形）。",
+  "processSuggestion": "残量表 唐末僭号者の名前欄 7件（未走査 6件・安禄山／安慶緒／史思明／史朝義／朱泚／黄巣。本セッションで読んだのは李希烈1件のみ）。加えて、旧唐書の僭号者列傳では「僭号曰〈X〉」が国号・年号・王号のいずれにも掛かるため、名前欄の走査語彙に「号曰」を入れると必ず当たって毎回目視で捨てることになる。僭号者政権では「号曰」に当たったら新唐書の対応条で国号／建元／王号のどれかを確認する、という分岐を手順に書いておくと読む量が減る。"
 }

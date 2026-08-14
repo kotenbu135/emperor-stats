@@ -1,69 +1,314 @@
 {
- "id": "suimo-lizitong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊唐書",
-   "file": "_corpus_cache/suimo-lizitong.txt",
-   "line": 3,
-   "quote": "至蓝田关，为吏所获，与伯通俱伏诛"
-  },
-  {
-   "cid": "c2",
-   "book": "舊唐書",
-   "file": "_corpus_cache/suimo-lizitong.txt",
-   "line": 1,
-   "quote": "李子通，东海丞人也。少贫贱，以鱼猎为事"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "舊唐書 列傳（隋末群雄 卷53〜56 相当・安史・硃泚・黄巣・李希烈の各傳）を「谥／諡・追尊・追崇・追号・上尊号・尊号曰／为・庙号・庙曰・庙称・贈」の10語で全数で読んだ（2026-08-14）。**この書が隋末・唐末の群雄へ諡を授ける条を持つのは薛舉の1人だけ**（子 仁杲が贈った「伪谥举为武皇帝」）。この人物には授ける条が無い。",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "追尊",
-    "追崇",
-    "追号",
-    "上尊号",
-    "尊号曰",
-    "尊号为",
-    "庙号",
-    "庙曰",
-    "庙称",
-    "贈"
-   ]
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。舊唐書1冊を走査し、諡の条605件・別語彙211件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "suimo-lizitong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-lizitong.txt",
+      "line": 3,
+      "quote": "至蓝田关，为吏所获，与伯通俱伏诛"
+    },
+    {
+      "cid": "c2",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-lizitong.txt",
+      "line": 1,
+      "quote": "李子通，东海丞人也。少贫贱，以鱼猎为事"
+    },
+    {
+      "cid": "block3-c1",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9843,
+      "quote": "李子通，东海丞人也。少贫贱，以鱼猎为事。"
+    },
+    {
+      "cid": "block3-c2",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9843,
+      "quote": "子通入据江都，尽虏其众，因僭即皇帝位，国称吴，建元为明政。"
+    },
+    {
+      "cid": "c3",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9845,
+      "quote": "遂相与亡，至蓝田关，为吏所获，与伯通俱伏诛。"
+    },
+    {
+      "cid": "c4",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9856,
+      "quote": "子通修仁驭众，终怀贰以伏诛"
+    },
+    {
+      "cid": "c5",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9826,
+      "quote": "王雄诞　沈法兴　李子通"
+    },
+    {
+      "cid": "c6",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 238,
+      "quote": "九月辛未，贼帅李子通据江都，僭称天子，国号吴。"
+    },
+    {
+      "cid": "c7",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 9802,
+      "quote": "仁杲代董其众，伪谥举为武皇帝，未葬而仁杲灭。"
+    },
+    {
+      "cid": "c8",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10956,
+      "quote": "李子通，沂州承人。少贫，以渔猎为生。"
+    },
+    {
+      "cid": "c9",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10959,
+      "quote": "遂皆亡。及蓝田，为关吏所获，并伏诛。"
+    },
+    {
+      "cid": "c10",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-lizitong.txt",
+      "line": 1,
+      "quote": "李子通，东海丞人也。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c4",
+        "c7",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "諡の段に入れる授与条が底本（舊唐書）に1件も無い。後代の加諡・改諡も5書の走査で0件",
+      "sweptWords": [
+        "上尊",
+        "号为",
+        "号曰",
+        "尊为",
+        "尊号",
+        "庙",
+        "庙号",
+        "庙曰",
+        "改谥",
+        "私谥",
+        "谥",
+        "谥为",
+        "谥曰",
+        "赠",
+        "追号",
+        "追封",
+        "追尊",
+        "追谥",
+        "追赠"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/旧唐书.txt（全文・「子通」を含む46行を hanzi_norm.norm_for_match で正規化して語彙照合）",
+        "daizhigev20/史藏/正史/新唐书.txt（全文・同上34行）",
+        "daizhigev20/史藏/正史/隋书.txt（全文・同上）",
+        "daizhigev20/史藏/正史/北史.txt（全文・同上）",
+        "daizhigev20/史藏/正史/南史.txt（全文・同上）",
+        "舊唐書 卷五十六 列傳第六 全体（L9825-9857・巻頭目録・李子通伝 L9843-9845・王雄誕伝 L9839・沈法興伝 L9842・史臣曰 L9856・贊曰 L9857）を通読",
+        "舊唐書 高祖本紀 L238（武德二年九月条）・地理志 L4790-4858（李子通に触れる条）を通読",
+        "新唐書 卷八十七 李子通伝 L10956-10959 を通読",
+        "_corpus_cache/suimo-lizitong.txt 全3行"
+      ]
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c4",
+        "c7",
+        "c9",
+        "c10"
+      ],
+      "confidence": "high",
+      "note": "同じ舊唐書 卷五十六の中で諡を授ける条は薛舉の「伪谥举为武皇帝」（c7）の形で立つが、李子通伝にはこの形の条が無く伏誅で閉じる。政権慣行（舊唐書／posthumousNames・form-found）の注記どおり、隋末唐末群雄20人のうち授与条を持つのは薛舉1人で、李子通は残る19人の側。走査範囲・語彙は templeName の note と同じ",
+      "sweptWords": [
+        "上尊",
+        "号为",
+        "号曰",
+        "尊为",
+        "尊号",
+        "庙",
+        "庙号",
+        "庙曰",
+        "改谥",
+        "私谥",
+        "谥",
+        "谥为",
+        "谥曰",
+        "赠",
+        "追号",
+        "追封",
+        "追尊",
+        "追谥",
+        "追赠"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/旧唐书.txt（全文・「子通」を含む46行を hanzi_norm.norm_for_match で正規化して語彙照合）",
+        "daizhigev20/史藏/正史/新唐书.txt（全文・同上34行）",
+        "daizhigev20/史藏/正史/隋书.txt（全文・同上）",
+        "daizhigev20/史藏/正史/北史.txt（全文・同上）",
+        "daizhigev20/史藏/正史/南史.txt（全文・同上）",
+        "舊唐書 卷五十六 列傳第六 全体（L9825-9857・巻頭目録・李子通伝 L9843-9845・王雄誕伝 L9839・沈法興伝 L9842・史臣曰 L9856・贊曰 L9857）を通読",
+        "舊唐書 高祖本紀 L238（武德二年九月条）・地理志 L4790-4858（李子通に触れる条）を通読",
+        "新唐書 卷八十七 李子通伝 L10956-10959 を通読",
+        "_corpus_cache/suimo-lizitong.txt 全3行"
+      ]
+    },
+    {
+      "field": "name.familyName",
+      "value": "李",
+      "basis": [
+        "block3-c1",
+        "c10",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 卷五十六 列傳第六の冒頭定型「〈姓〉〈名〉，〈本貫〉人也」。政権慣行 familyName・personalName・courtesyName は form-found（transcribe）で、字は書かれない"
+    },
+    {
+      "field": "name.personalName",
+      "value": "子通",
+      "basis": [
+        "block3-c1",
+        "c10",
+        "c4",
+        "c6",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行は「李子通」で、史臣曰・本文中はすべて名のみ「子通」で受ける。新唐書 卷八十七の冒頭も「李子通」で一致（本貫だけ東海丞／沂州承と割れる）。字（courtesyName）は舊唐書・新唐書とも記さない"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block3-c1",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c9",
+        "c10"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 卷五十六 列傳第六の李子通伝は冒頭から末尾まで廟号を持たず、伝は「与伯通俱伏诛」で閉じる。列傳の巻頭目録も史臣曰も名「李子通／子通」でのみ呼ぶ。閉域4軸: (1) 同書のキャッシュ外＝巻の見出し・目録（L9825-9826）・史臣曰（L9856）・贊曰（L9857）・高祖本紀（L238）・地理志（L4790-4858）を確認、(2) 本紀/列傳の別位置＝同巻の王雄誕伝（L9839）・沈法興伝（L9842）、(3) 別政権の書＝新唐書 卷八十七（L10956-10959）・隋書・北史・南史を走査（呉は唐に滅ぼされ本人も長安で伏誅しており、号を追贈しうる後継主体が無い）、(4) 語彙＝繁簡36異形を hanzi_norm.norm_for_match で畳んだ19語（sweptWords）で5書を走査し、李子通に掛かる授与条は0件",
+      "sweptWords": [
+        "上尊",
+        "号为",
+        "号曰",
+        "尊为",
+        "尊号",
+        "庙",
+        "庙号",
+        "庙曰",
+        "改谥",
+        "私谥",
+        "谥",
+        "谥为",
+        "谥曰",
+        "赠",
+        "追号",
+        "追封",
+        "追尊",
+        "追谥",
+        "追赠"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/旧唐书.txt（全文・「子通」を含む46行を hanzi_norm.norm_for_match で正規化して語彙照合）",
+        "daizhigev20/史藏/正史/新唐书.txt（全文・同上34行）",
+        "daizhigev20/史藏/正史/隋书.txt（全文・同上）",
+        "daizhigev20/史藏/正史/北史.txt（全文・同上）",
+        "daizhigev20/史藏/正史/南史.txt（全文・同上）",
+        "舊唐書 卷五十六 列傳第六 全体（L9825-9857・巻頭目録・李子通伝 L9843-9845・王雄誕伝 L9839・沈法興伝 L9842・史臣曰 L9856・贊曰 L9857）を通読",
+        "舊唐書 高祖本紀 L238（武德二年九月条）・地理志 L4790-4858（李子通に触れる条）を通読",
+        "新唐書 卷八十七 李子通伝 L10956-10959 を通読",
+        "_corpus_cache/suimo-lizitong.txt 全3行"
+      ]
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c4",
+        "c7",
+        "c9",
+        "c10"
+      ],
+      "confidence": "high",
+      "note": "諡がどの形でも1件も無いので、短縮呼称・全長形のどちらの欄も空になる（保存形の振り分けは形が見つかったときだけ効く）。ただし政権 suimo-wu の慣行レコードは項目名に posthumousNameFull を含まず、`check_regime_conventions.py --for suimo-lizitong --field posthumousNameFull` は未確定で止まる。値が無い側なので振り分けの判断が要らないと見て read-absent で閉じた",
+      "sweptWords": [
+        "上尊",
+        "号为",
+        "号曰",
+        "尊为",
+        "尊号",
+        "庙",
+        "庙号",
+        "庙曰",
+        "改谥",
+        "私谥",
+        "谥",
+        "谥为",
+        "谥曰",
+        "赠",
+        "追号",
+        "追封",
+        "追尊",
+        "追谥",
+        "追赠"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/旧唐书.txt（全文・「子通」を含む46行を hanzi_norm.norm_for_match で正規化して語彙照合）",
+        "daizhigev20/史藏/正史/新唐书.txt（全文・同上34行）",
+        "daizhigev20/史藏/正史/隋书.txt（全文・同上）",
+        "daizhigev20/史藏/正史/北史.txt（全文・同上）",
+        "daizhigev20/史藏/正史/南史.txt（全文・同上）",
+        "舊唐書 卷五十六 列傳第六 全体（L9825-9857・巻頭目録・李子通伝 L9843-9845・王雄誕伝 L9839・沈法興伝 L9842・史臣曰 L9856・贊曰 L9857）を通読",
+        "舊唐書 高祖本紀 L238（武德二年九月条）・地理志 L4790-4858（李子通に触れる条）を通読",
+        "新唐書 卷八十七 李子通伝 L10956-10959 を通読",
+        "_corpus_cache/suimo-lizitong.txt 全3行"
+      ]
+    },
+    {
+      "field": "name.regnalTitle",
+      "value": "皇帝",
+      "basis": [
+        "block3-c2",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "列傳は「因僭即皇帝位，国称吴」、高祖本紀は「僭称天子，国号吴」。既存レコードの regnalTitle「皇帝」と一致（照合として記録するだけで、この段の投入対象外）"
+    }
+  ],
+  "discrepancies": "なし。既存の構造フィールド（name.familyName=李・name.personalName=子通・name.commonName=李子通・name.posthumousName=null・name.templeName=null・name.regnalTitle=皇帝・regimeId=suimo-wu）はいずれも原文と食い違わない。reigns[0].startYear=619 は高祖本紀 武德二年九月辛未の「僭称天子，国号吴」（c6）と整合する。endYear=622 は列傳・本紀のこの2条からは年が読めず（列傳は年を書かない）、否定も肯定もしていない＝食い違いではなく未照合。",
+  "conflicts": [],
+  "noteLog": "本貫の表記は舊唐書「东海丞人也」と新唐書「沂州承人」で割れるが、名前欄の判定には掛からないので conflicts に立てていない。引用は底本（daizhigev20 の簡体）の字体のまま保存し、findings の値は既存レコードの表記（李・子通）に揃えた（この2字は簡体・新字体で差が出ない）。",
+  "processSuggestion": "同じ書・同じ所在型なのに `--field posthumousName` は no-form を返し `--field posthumousNameFull` は「慣行が未確定」で止まる（suimo-wu）。慣行レコードの項目名リストに posthumousNameFull を含めるか、諡系3欄を1レコードで覆う別名を張ると、値が無い人物で判断が割れなくなる。残量表 舊唐書 列傳型政権の posthumousNameFull 慣行未登録 1政権（suimo-wu・他政権は未走査）"
 }
