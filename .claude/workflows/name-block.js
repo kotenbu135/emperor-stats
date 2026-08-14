@@ -257,12 +257,13 @@ return {
   next: `断片は ${workDir}/claims/ にあります。親セッションが check_claims.py でまとめて確認し、` +
         `指摘を潰してから投入してください。**指摘のうち実欠陥だった件数を数えて ` +
         `data/verification.json の blocks へ記録**（raised=${raised}）。` +
-        `投入が済んだら断片を data/internal/name-fragments/ へ保存する ` +
-        `— workDir は /tmp なので、諡号の全長形や加諡の経緯（保存値に入らない部分）は保存しないと消える。` +
+        `投入が済んだら **python3 scripts/save_name_fragments.py ${workDir}/claims --tag <ブロック名>**` +
+        `（まず --apply 無しで下見）で断片を保存する — workDir は /tmp なので、` +
+        `諡号の全長形や加諡の経緯（保存値に入らない部分）は保存しないと消える。` +
         `**cp で上書きしないこと**（同じ人物の断片が別のブロックで既に在ることがあり、` +
         `上書きすると前回の read-absent・別項目の findings が消える）。` +
-        `1人ずつ読み込んでマージする: (1) 旧側にしか無い欄を持ち越す、` +
+        `スクリプトが持つ規約は4つ: (1) 旧側にしか無い欄を持ち越す、` +
         `(2) 空配列は null ＋ read-absent へ正規化する、` +
         `(3) **既存の read-absent を pending へ後退させない**、` +
-        `(4) 検証段が守った値は残す`,
+        `(4) 旧側の値を新側の空で消さない（要判断として出す）`,
 }
