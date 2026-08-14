@@ -28,7 +28,7 @@
       ],
       "script": "scripts/screens/name_fields.py",
       "population": "365人 × {templeName, posthumousName} のうち**値が空のセル**（埋まっているセルの訂正は別作業）",
-      "n": 406,
+      "n": 405,
       "buckets": [
         {
           "name": "templeName:transcribe",
@@ -77,8 +77,8 @@
         {
           "name": "templeName:unknown",
           "kind": "absent",
-          "count": 179,
-          "means": "commonName が廟号形で立っていないだけ。**「廟号が無い」ではない**",
+          "count": 178,
+          "means": "commonName が廟号形で立っていないだけ。**「廟号が無い」ではない** **2026-08-14 に母集団が1減った**（406→405・`templeName:unknown` 179→178）— 明玉珍の廟号「太祖」を明史 列傳の嗣立条から転記して空セルでなくなったため。**標本の引き直しにはならない** — 抜けた人物は種つき標本31件に入っておらず、入ってきた人物も居ない（値を埋める向きの変更は絞り込みへ人を足さない）。",
           "notEstablished": "値の不在。commonName は名乗りの1つを写しただけなので、廟号が別の形で原典にある人物がここに残る",
           "audit": {
             "seed": 37,
