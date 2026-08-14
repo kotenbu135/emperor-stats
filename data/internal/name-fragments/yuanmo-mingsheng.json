@@ -1,69 +1,159 @@
 {
- "id": "yuanmo-mingsheng",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "明史",
-   "file": "_corpus_cache/yuanmo-mingsheng.txt",
-   "line": 5,
-   "quote": "升面缚衔璧舆榇，与母彭及官属降于军门"
-  },
-  {
-   "cid": "c2",
-   "book": "明史",
-   "file": "_corpus_cache/yuanmo-mingsheng.txt",
-   "line": 1,
-   "quote": "子升嗣，改元开熙，葬玉珍于江水之北，号永昌陵"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "明史 列傳（元末群雄 卷122〜123・流賊）を同じ10語で全数で読んだ（2026-08-14）。**この書が元末群雄へ与えるのは廟号だけ**（明玉珍の「庙号太祖」1件）で、諡を授ける条は8人のいずれにも無い。",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "追尊",
-    "追崇",
-    "追号",
-    "上尊号",
-    "尊号曰",
-    "尊号为",
-    "庙号",
-    "庙曰",
-    "庙称",
-    "贈"
-   ]
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。明史1冊を走査し、諡の条1135件・別語彙195件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "yuanmo-mingsheng",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-mingsheng.txt",
+      "line": 1,
+      "quote": "子升嗣，改元开熙，葬玉珍于江水之北，号永昌陵，庙号太祖。尊母彭氏为皇太后，同听政。升甫十岁"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "china-history/明史/列传/第十一章-卷十一-原文.html",
+      "line": 58,
+      "quote": "明玉珍，随州人。身长八尺余，目重瞳子。"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-mingsheng.txt",
+      "line": 5,
+      "quote": "是日授升爵归义侯，赐第京师。"
+    },
+    {
+      "cid": "c4",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-mingsheng.txt",
+      "line": 5,
+      "quote": "升等悉送京师，礼臣奏言"
+    },
+    {
+      "cid": "c5",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-mingsheng.txt",
+      "line": 6,
+      "quote": "明年徙升于高丽。"
+    },
+    {
+      "cid": "c6",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-mingsheng.txt",
+      "line": 7,
+      "quote": "玉珍乘势，割据一隅，僣号二世，皆不可谓非幸也。"
+    },
+    {
+      "cid": "c7",
+      "book": "明史",
+      "file": "china-history/明史/本纪/第二章-卷二-原文.html",
+      "line": 26,
+      "quote": "乙丑，明升至京师，封归义侯。"
+    },
+    {
+      "cid": "c8",
+      "book": "明史",
+      "file": "china-history/明史/本纪/第二章-卷二-原文.html",
+      "line": 27,
+      "quote": "乙丑，徙陈理、明升于高丽。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.personalName",
+      "value": "昇",
+      "basis": [
+        "c1",
+        "c2",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "父 明玉珍伝の続きに「子升嗣」とあり、諱は「升」。底本（china-history 明史・簡体）は 昇 を 升 に統合して書くため、値は既存レコードと同じ繁体/新字体側の「昇」に揃えた（引用は底本のまま 升／明升）。姓は c2 の「明玉珍」および本紀の「明升」から 明。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "政権慣行が指す形「葬〈陵地〉，号〈陵名〉，庙号〈廟号〉」は c1 の嗣立条に在るが、そこで廟号「太祖」を受けているのは父 明玉珍（「葬玉珍于江水之北」）で、明昇のものではない。明昇には後継者が無く（降伏して京師へ送られ高麗へ徙された・賛「僣号二世」）、同じ形の条が立つ余地が無い。明史は明昇の卒も記さず、崩御条そのものが底本に存在しない。明史全体（本紀・列傳・志）を「明升」で走査しても出るのは降伏・封侯・高麗への移徙だけで、廟号は現れない。 【2026-08-14・検証段の指摘を受けて追記】走査語「明升」に掛からない本人の記事が明史 本紀に在る（卷一は彼を「子升」としか書かない）。値は動かないが、**人名1語で書1冊を走査して0件を悉皆性の根拠にしない**（同じ人物が別の呼び方で立つ）。",
+      "sweptWords": [
+        "明升",
+        "庙号",
+        "谥",
+        "諡",
+        "尊号",
+        "追尊",
+        "追谥",
+        "崩",
+        "薨",
+        "卒于"
+      ]
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "明史の明昇に関する記述に諡・尊諡の語が1つも無い。降伏後は明朝の臣（归义侯）として高麗へ徙されており、明史はその後を記さない。底本が出す唯一の別の名乗りは爵位「归义侯」で、諡でも廟号でもない。 【2026-08-14・検証段の指摘を受けて追記】走査語「明升」に掛からない本人の記事が明史 本紀に在る（卷一は彼を「子升」としか書かない）。値は動かないが、**人名1語で書1冊を走査して0件を悉皆性の根拠にしない**（同じ人物が別の呼び方で立つ）。",
+      "sweptWords": [
+        "明升",
+        "庙号",
+        "谥",
+        "諡",
+        "尊号",
+        "追尊",
+        "追谥",
+        "崩",
+        "薨",
+        "卒于"
+      ]
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "basis": [
+        "c1",
+        "c3",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "諡の段は0件（読解の結果であって未読ではない）。c1 の「庙号太祖」は父 明玉珍の廟号、「号永昌陵」は陵名で、どちらも明昇の諡ではないので段に入れない。 【2026-08-14・親セッション】空配列ではなく null + read-absent の形へ揃えた（既存の断片と同じ書き方。空配列は「値がある」と読まれうる）。",
+      "verdict": "read-absent"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "c1",
+        "c4",
+        "c5"
+      ],
+      "confidence": "medium",
+      "note": "原文（明史 卷123 列傳第11 の明昇部分と、明史全体の「明升」走査）は読み終えており全長形は見当たらないが、政権 ming-xia は posthumousNameFull の政権慣行が未確定（check_regime_conventions.py --field posthumousNameFull が1行で終了）。R-REGIME-FIRST により人物単位でこの欄を確定しない。"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "字体の扱い: 底本 china-history/明史 は簡体で「明升」と書き、繁体の「昇」を持たない。引用は底本のまま 升 を残し、findings の値は既存レコードの表記（昇）へ揃えた。爵位「归义侯」（洪武4年）と移徙先「高丽」（洪武5年）は名前欄の対象外なので findings には立てず claims にだけ残した。",
+  "discrepancies": "なし（既存の構造フィールドは reigns 1366-1371 と regimeId=ming-xia のみで、原文と食い違わない。name.templeName・name.posthumousName はいずれも既存 null で、原文の読解結果〔read-absent〕と一致する）",
+  "processSuggestion": "残量表 元末群雄の政権慣行（posthumousNameFull）6件（未読 5） — ming-xia は未確定であることを確認済み、他5政権は未走査。"
 }

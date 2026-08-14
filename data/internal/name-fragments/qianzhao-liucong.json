@@ -4,12 +4,46 @@
     {
       "cid": "c1",
       "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7613,
+      "quote": "太兴元年，聪死，在位九年，伪谥曰昭武皇帝，庙号烈宗。"
+    },
+    {
+      "cid": "c2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7566,
+      "quote": "刘聪，字玄明，一名载，元海第四子也。"
+    },
+    {
+      "cid": "c3",
+      "book": "晉書",
       "file": "_corpus_cache/qianzhao-liucong.txt",
       "line": 48,
-      "quote": "太兴元年，聪死，在位九年，伪谥曰昭武皇帝，庙号烈宗"
+      "quote": "太兴元年，聪死，在位九年，伪谥曰昭武皇帝，庙号烈宗。"
     }
   ],
   "findings": [
+    {
+      "field": "name.templeName",
+      "value": "烈宗",
+      "basis": [
+        "c1",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "晉書 載記第二 の記事末尾定型「（伪）谥〈諡〉，庙号〈廟号〉」から。底本は簡体「庙号烈宗」で、値はデータセットの新字体に揃えて「烈宗」とした。既存レコードは null なので埋める向きの訂正。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "昭武帝",
+      "basis": [
+        "c1",
+        "c3"
+      ],
+      "confidence": "medium",
+      "note": "原文が掲げる形は「昭武皇帝」1つだけで、短縮呼称「昭武帝」は原文にこの字面では出ない（同定型からの短縮）。既存値と一致。底本の簡体「昭武皇帝」→ 値は新字体へ倒した。"
+    },
     {
       "field": "name.posthumousNames",
       "value": [
@@ -19,11 +53,63 @@
         }
       ],
       "basis": [
-        "c1"
+        "c1",
+        "c3"
       ],
       "confidence": "high",
-      "note": "太興元年の死去条（c1）"
+      "note": "諡の段は1段のみ。晉書 全巻で「昭武」は6件だが劉聰に掛かるのはこの1件だけで、加諡・改諡・尊号の条は無い。year は同じ条が名乗る「太兴元年」＝318年（東晉 元帝 太興元年。月日は主張しない）。既存値と一致。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "聡",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "載記の冒頭定型「〈姓〉〈名〉，字〈字〉，〈続柄〉也」から。底本は簡体「刘聪」で、値はデータセットの新字体「聡」に揃えた（避諱で字を見出しに立てる形＝劉淵「刘元海」型ではなく、諱がそのまま立っている）。既存値と一致。"
+    },
+    {
+      "field": "name.familyName",
+      "value": "劉",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "同じ冒頭定型の「刘」。底本の簡体→新字体「劉」。既存値と一致。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "玄明",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "同じ冒頭定型の「字玄明」。既存値と一致。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "low",
+      "note": "政権 former-zhao は posthumousNameFull の政権慣行が未確定（`check_regime_conventions.py --for qianzhao-liucong --field posthumousNameFull` が exit 1・登録済みの2レコードの fields にこの欄が無い）。晉書 載記が掲げる形は「昭武皇帝」1つだけで、これを全長形の欄へも入れるか片方を空にするかは政権単位の保存形の決定なので人物単位で決めない。"
+    },
+    {
+      "field": "name.aliases",
+      "value": [
+        "載"
+      ],
+      "basis": [
+        "c2"
+      ],
+      "confidence": "medium",
+      "note": "冒頭定型に「一名载」とある（欄への投入対象外と指示されているので記録のみ）。底本の簡体「载」→ 新字体「載」。既存 aliases は空配列。"
     }
   ],
-  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+  "conflicts": [],
+  "noteLog": "既存の name.templeName は null だったが、晉書 載記第二の記事末尾に「庙号烈宗」がある。捨てた側の値は null（未確定の空欄）で、原文を採って「烈宗」とした。読んだのは _corpus_cache/qianzhao-liucong.txt の最終段落（48行目）と、その底本にあたる daizhigev20 晉書 L7613・L7566 の2箇所で、キャッシュだけでは閉じていない。",
+  "discrepancies": "既存の構造フィールド name.templeName が null だが、原文（晉書 載記第二 L7613）は「庙号烈宗」と記す。原文を採って「烈宗」とした。他の対象欄（personalName「聡」・familyName「劉」・courtesyName「玄明」・posthumousName「昭武帝」・posthumousNames [{昭武皇帝, 318}]）は既存値と一致し、食い違いなし。posthumousNameFull は既存レコードにキー自体が無く、政権慣行が未確定のため pending。",
+  "processSuggestion": "残量表 晉書載記系10政権の name.templeName 39件（未読 28） — 本人の1件を確定した時点で name.templeName が null のまま残るのは28件で、うち劉淵（qianzhao-liuyuan）は政権慣行の evidence 自身が「伪谥光文皇帝，庙号高祖」を引いているのに欄が null。未走査の28件には廟号を持たない君主（在位中に廃された者など）も含まれるので、28件すべてが取りこぼしという意味ではない。あわせて、check_regime_conventions が posthumousNameFull で exit 1 を返す政権では『他の3欄は form-found なのに1欄だけ未確定』という中間状態になり、指示の「1 で終わったら claims を空で返す」がそのまま当てはまらない。フィールド単位で blocked を返せる旨を手順に書き足すとよい。"
 }

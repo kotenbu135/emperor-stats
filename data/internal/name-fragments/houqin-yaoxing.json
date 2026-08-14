@@ -4,12 +4,44 @@
     {
       "cid": "c1",
       "book": "晉書",
-      "file": "_corpus_cache/houqin-yaoxing.txt",
-      "line": 114,
-      "quote": "伪谥文桓皇帝，庙号高祖，墓曰偶陵"
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8351,
+      "quote": "姚兴，字子略，苌之长子也"
+    },
+    {
+      "cid": "c2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8464,
+      "quote": "义熙十二年，兴死，时年五十一，在位二十二年。伪谥文桓皇帝，庙号高祖，墓曰偶陵"
+    },
+    {
+      "cid": "c3",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8372,
+      "quote": "兴以日月薄蚀，灾眚屡见，降号称王"
     }
   ],
   "findings": [
+    {
+      "field": "name.templeName",
+      "value": "高祖",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "晉書 載記第十八（卷一百十八・行8464）の末尾定型「伪谥文桓皇帝，庙号高祖，墓曰偶陵」から転記。政権慣行 later-qin（晉書 載記の記事末尾1行・form-found → transcribe）に一致。現行レコードは null なので埋まる向きの訂正。底本は簡体だが値はデータセットの新字体表記へ倒した（高祖は字体差なし）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "文桓帝",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "原文が記す形は「文桓皇帝」の1形のみで、載記型の政権には冒頭の加諡形／崩御条の初諡という2箇所の別れが無い（記事末尾1行に諡・廟号・墓号が並ぶ書式）。短縮呼称は同じ慣行群の兄弟レコード（houqin-yaochang 武昭帝・houzhao-shile 明帝・houyan-murongchui 成武帝・qianyan-murongjun 景昭帝・qianzhao-liuyuan 光文帝）と同じく「皇帝」→「帝」の短縮形で、現行値と一致。値はデータセットの新字体表記（文桓帝）へ倒した"
+    },
     {
       "field": "name.posthumousNames",
       "value": [
@@ -19,11 +51,51 @@
         }
       ],
       "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "諡の段は1段のみ。晉書 載記のこの記事に改諡・加諡・追尊の条は無い（キャッシュ121行を谥・庙号・庙曰・墓号・墓曰・墓称・尊号・追尊・追谥・改谥の語で走査し、当人への加諡記事は0件）。year の 416 は同じ一文が諡の段に与える紀年「义熙十二年」（東晋 義熙12年＝416年）で、月日は主張しない。値は新字体表記（文桓皇帝）へ倒した"
+    },
+    {
+      "field": "name.personalName",
+      "value": "興",
+      "basis": [
         "c1"
       ],
       "confidence": "high",
-      "note": "「义熙十二年，兴死…」（c1）"
+      "note": "列傳型の冒頭定型「姚兴，字子略，苌之长子也」。姓「姚」を除いた諱は「兴」で、値はデータセットの新字体表記「興」へ倒した。父は姚苌（houqin-yaochang）＝「兴 は 苌 の長子」"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "子略",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭定型の「字子略」。現行値と一致（欄への投入対象外だが読めたので記録）"
+    },
+    {
+      "field": "name.familyName",
+      "value": "姚",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭定型の「姚兴」。現行値と一致（欄への投入対象外だが読めたので記録）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "low",
+      "note": "政権 later-qin は posthumousNameFull の慣行が未確定（check_regime_conventions.py --field posthumousNameFull が「政権単位の慣行が未確定」で終了）。読み終えた結果として原文にある諡は「文桓皇帝」の1形だけだが、載記型でこの形を全長形の欄へ入れるか短縮呼称だけに留めるかは政権単位の保存形の決定であって人物単位で決めない。よって read-absent ではなく pending。慣行群の兄弟レコード6件はいずれも posthumousNameFull が null"
     }
   ],
-  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+  "conflicts": [],
+  "noteLog": "既存 name.templeName は null だったが、晉書 載記第十八 行8464 の末尾定型に「庙号高祖」があるので高祖を主張する（捨てた側の値: null）。posthumousName・posthumousNames・personalName・courtesyName・familyName は現行値と一致し、変更なし。段の走査語彙: 谥・庙号・庙曰・墓号・墓曰・墓称・尊号・追尊・追谥・改谥・讳（キャッシュ 121行全体）。当人の廟号・諡を扱う条は行114（＝晋书.txt 8464）の1箇所のみで、行8（「兴追尊其庶母孙氏为皇太后」）は生母への追尊で当人の諡ではないため段に入れない。",
+  "discrepancies": "1件あり。reigns[0].endYear = 399 と原文が食い違う。晉書 載記第十八 行8464 は「义熙十二年，兴死，时年五十一，在位二十二年」と記し、在位22年・没年は義熙12年（416年）で、394年即位から数えると在位の終わりは416年になる。現行の 399 は行8372「兴以日月薄蚀，灾眚屡见，降号称王」（皇帝号を降ろして天王を称した年）で切っているものと読めるが、原文の「在位二十二年」とは別の数え方なので報告する（reigns はこの段の担当外なので値は変更していない）。name 系の構造フィールドとの食い違いは templeName の null → 高祖 の1件のみで、posthumousName「文桓帝」・posthumousNames[0]{文桓皇帝, 416}・personalName「興」・familyName「姚」・courtesyName「子略」は原文と一致。",
+  "processSuggestion": "残量表 晉書載記型政権の posthumousNameFull 慣行 7政権（未読 未走査） — later-qin は posthumousNameFull だけ慣行が未確定で、同じ「載記 記事末尾1行」の慣行を共有する政権群（前趙・後趙・前燕・後燕・南燕・前秦・後秦）でも同じ欄が空のまま残っている可能性が高いが、本件では他政権を走査していない。check_regime_conventions.py は同じ政権でもフィールドごとに確定・未確定が割れるので、--field を1つずつ当てないと未確定の欄に気づけない（本件は templeName で form-found が出たため、posthumousNameFull も確定済みと読み違えかけた）。"
 }

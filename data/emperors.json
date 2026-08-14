@@ -48320,9 +48320,14 @@
     "personalName": "余",
     "commonName": "拓跋余（南安王）",
     "aliases": [],
-    "posthumousName": null,
+    "posthumousName": "隠",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNames": [
+     {
+      "form": "隠"
+     }
+    ]
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",

@@ -4,12 +4,61 @@
     {
       "cid": "c1",
       "book": "晉書",
-      "file": "_corpus_cache/qianqin-fudeng.txt",
-      "line": 17,
-      "quote": "伪谥登曰高皇帝，庙号太宗"
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8273,
+      "quote": "登字文高，坚之族孙也"
+    },
+    {
+      "cid": "c2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8289,
+      "quote": "在位九年，时年五十二。崇奔于湟中，僭称尊号，改元延初。伪谥登曰高皇帝，庙号太宗。"
+    },
+    {
+      "cid": "c3",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8290,
+      "quote": "健以穆帝永和七年僭立，至登五世，凡四十有四岁，以孝武帝太元十九年灭"
+    },
+    {
+      "cid": "c4",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 117,
+      "quote": "卷一百十五 载记第十五"
     }
   ],
   "findings": [
+    {
+      "field": "name.templeName",
+      "value": "太宗",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "晉書 卷一百十五 載記第十五（苻丕・苻登合巻）の記事末尾定型「伪谥登曰高皇帝，庙号太宗」から廟号を転記。所在は政権慣行（載記の記事末尾1行）どおり。底本は簡体だが値は本データセットの表記（新字体）へ倒した（太宗は字体差なし）。巻の同定は c4 の目次行（卷一百十五＝載記第十五）と、本文側の載記第十五の塊に本記事（行8273〜8290）が含まれることによる"
+    },
+    {
+      "field": "name.personalName",
+      "value": "登",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭「登字文高，坚之族孙也」および末尾「伪谥登曰」から諱は登。姓は本記事が「坚之族孙」とするのみで苻姓は他条に依るため、この段では諱だけを主張する"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "文高",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭「登字文高」。担当欄ではないが同じ引用から取れるので併せて記録する"
+    },
     {
       "field": "name.posthumousNames",
       "value": [
@@ -19,11 +68,33 @@
         }
       ],
       "basis": [
-        "c1"
+        "c2"
       ],
       "confidence": "high",
-      "note": "「崇…僭称尊号，改元延初。伪谥登曰高皇帝，庙号太宗」（c1）＝苻崇の即位（394年）"
+      "note": "諡の段は末尾定型の1段のみ。「伪谥登曰高皇帝」＝苻崇が湟中で僭称した直後に贈った初諡で、改諡・加諡を書き継ぐ条（前秦苻健の「后改曰高祖」型）はこの記事に無い。year は当段に紀年が無いので付けない（次段 c3 の「以孝武帝太元十九年灭」＝394年は前秦滅亡の紀年であって諡授与の段の紀年ではない） 【2026-08-14・親セッション】2026-08-14 の調査段が year 394 を「隣接段からの導出」として落とす案を出したが、導出経路の特定が推定であること（リポジトリ側の provenance に記録が無い）を検証段が指摘したため**据え置く**。十六国 posthumousNames の段外導出 year は残量表の行。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "高帝",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "medium",
+      "note": "底本の形は「高皇帝」で、短縮呼称としては「皇」を落とした高帝。晉書載記は末尾定型に全長形（X皇帝）だけを掲げ、短縮形そのものは原文に現れない。値は既存レコードの表記（新字体・X帝）へ倒した。原文の形をそのまま採るなら高皇帝で、短縮は本データセットの表記規約に拠る"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "low",
+      "note": "政権 former-qin は posthumousNameFull の政権慣行が未確定（check_regime_conventions.py --field posthumousNameFull が blocked を返す）。読めた形は「高皇帝」1つで、これを短縮欄と全長欄のどちらへ・両方へ入れるかは政権単位の保存形が決まってから。人物単位で決めないため pending"
     }
   ],
-  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+  "conflicts": [],
+  "noteLog": "既存 name.templeName は null だったが、晉書載記の末尾定型に「庙号太宗」が在るため太宗を主張する。screenings の templeName:unknown は commonName が廟号形で立っていないことを示すだけで、値の不在ではなかった（取りこぼし側の実例）。",
+  "discrepancies": "2件。(1) name.templeName は既存 null だが、晉書 卷一百十五 行8289 に「庙号太宗」が在る（原文を採り太宗とする）。(2) name.posthumousNames[0].year は既存 394 だが、諡の段（行8289）に紀年は無く、394 は次段（行8290）の「以孝武帝太元十九年灭」＝孝武帝太元十九年から導いた値で、段外からの合成。原文を採るなら year は空。ただし同じ書式の兄弟レコード（qianqin-fupi の year 386 も「苻登称尊号，伪谥丕为哀平皇帝」の段に紀年が無い）と同型なので、削除の可否は人物単位でなく十六国ブロック単位で決めるべきものとして報告に留める。name.personalName（登）・name.courtesyName（文高）・name.posthumousName（高帝、底本は高皇帝）は原文と一致。",
+  "processSuggestion": "残量表 十六国 posthumousNames の段外導出 year 前秦5件中2件が該当（他6政権は未走査）。諡の段の year を「段に紀年がある場合だけ」と定めた規約に対し、晉書載記は諡授与の段にほぼ紀年を置かないため、既存値の year が全て隣接段からの導出になっている可能性が高い。"
 }

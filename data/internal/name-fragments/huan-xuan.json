@@ -1,67 +1,142 @@
 {
- "id": "huan-xuan",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "晉書",
-   "file": "_corpus_cache/huan-xuan.txt",
-   "line": 33,
-   "quote": "桓谦亦聚众沮中，为玄举哀，立丧庭，伪谥为武悼皇帝"
-  },
-  {
-   "cid": "c2",
-   "book": "晉書",
-   "file": "_corpus_cache/huan-xuan.txt",
-   "line": 1,
-   "quote": "桓玄，字敬道，一名灵宝，大司马温之孽子也"
-  },
-  {
-   "cid": "c3",
-   "book": "晉書",
-   "file": "_corpus_cache/huan-xuan.txt",
-   "line": 33,
-   "quote": "举哀，立丧庭，伪谥为武悼皇帝。毅等传送玄首，枭于大桁，百姓观者"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "huan-xuan",
+  "claims": [
     {
-     "form": "武悼皇帝",
-     "year": 404
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/huan-xuan.txt",
+      "line": 1,
+      "quote": "桓玄，字敬道，一名灵宝，大司马温之孽子也"
+    },
+    {
+      "cid": "c2",
+      "book": "晉書",
+      "file": "_corpus_cache/huan-xuan.txt",
+      "line": 33,
+      "quote": "桓谦亦聚众沮中，为玄举哀，立丧庭，伪谥为武悼皇帝"
+    },
+    {
+      "cid": "c3",
+      "book": "晉書",
+      "file": "_corpus_cache/huan-xuan.txt",
+      "line": 22,
+      "quote": "元兴三年，玄之永始二年也"
+    },
+    {
+      "cid": "c4",
+      "book": "晉書",
+      "file": "_corpus_cache/huan-xuan.txt",
+      "line": 31,
+      "quote": "遂斩之，时年三十六"
+    },
+    {
+      "cid": "c5",
+      "book": "晉書",
+      "file": "_corpus_cache/huan-xuan.txt",
+      "line": 35,
+      "quote": "义熙元年正月，南阳太守鲁宗之起义兵袭襄阳"
+    },
+    {
+      "cid": "c6",
+      "book": "晉書",
+      "file": "_corpus_cache/huan-xuan.txt",
+      "line": 21,
+      "quote": "追尊其父温宣武皇帝，庙称太庙"
+    },
+    {
+      "cid": "c7",
+      "book": "晉書",
+      "file": "_corpus_cache/huan-xuan.txt",
+      "line": 22,
+      "quote": "既不追尊祖曾，疑其礼义，问于群臣"
+    },
+    {
+      "cid": "c8",
+      "book": "晉書",
+      "file": "_corpus_cache/huan-xuan.txt",
+      "line": 21,
+      "quote": "百官到姑孰劝玄僭伪位，玄伪让，朝臣固请，玄乃于城南七里立郊，登坛篡位"
     }
-   ],
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "元興三年、桓謙が沮中で挙哀して立てた諡（c1）。次の条が「義熙元年正月」なので元興三年。**魏書の列傳にも同じ諡が在る**が、桓玄が名乗る底本は晉書 卷九十九なのでこちらから採った"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "**諡そのものは在る**（武悼皇帝。段の欄 `posthumousNames` が受ける）が、**この欄に入るのは書が本文で使う形**で、晉書はこの人物を一貫して「玄」と呼び、諡の末字＋帝の形で呼ぶ条が無い。授与の条が在ることと、書がその形で呼ぶことは別（東吳 大帝が「大皇帝」の授与と「大帝」の呼称で欄が分かれるのと同じ）。晉書1冊を走査し、諡の条397件・別語彙199件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+  ],
+  "findings": [
+    {
+      "field": "name.personalName",
+      "value": "玄",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "政権慣行 form-found（晉書 列傳の冒頭1行「〈姓〉〈名〉，字〈字〉，一名〈別名〉，〈続柄〉也」）からの転記。姓は桓・字は敬道で、諱は玄。底本は簡体だが値は既存レコードの表記（新字体）へ揃えた（この字は簡繁で同形）"
+    },
+    {
+      "field": "name.aliases",
+      "value": [
+        "霊宝"
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "欄への投入対象外だが冒頭1行に「一名灵宝」と在るので記録として残す。底本「灵宝」→ 値は新字体「霊宝」へ倒した"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "政権慣行 no-form（晉書 列傳には短縮呼称が入る位置が構造上ない・保存形「この欄に入るのはその書が本文で使う形だけ」）。伝の全36行を通読したが、晉書は桓玄を一貫して「玄」と呼び、諡の形で呼ぶ本文が1箇所も無い。武悼皇帝は授与の条（c2）が書く形なので段の欄が受ける。走査は「谥／諡」「庙号／廟號」および素の「庙」「尊号」「追」を伝の全36行へ当て、諡・廟に関わる条を全部読んだ（当該条は c2・c6・c7 の3件のみ）",
+      "sweptWords": [
+        "谥",
+        "庙",
+        "尊号",
+        "追"
+      ]
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "c6",
+        "c7"
+      ],
+      "confidence": "medium",
+      "note": "政権 huan-chu の templeName の慣行が未確定（check_regime_conventions --field templeName が blocked）なので、読解結果ではなく手続き上の空欄として pending に置く。伝の本文では「庙」8行を素の grep で走査したが、廟に関わる条は父 桓温の追尊（c6）と桓玄が祖曾を追尊しなかった記事（c7）で、桓玄自身の廟号を立てた条は伝の中に無い"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "medium",
+      "note": "政権 huan-chu の posthumousNameFull の慣行が未確定（check_regime_conventions --field posthumousNameFull が blocked）。晉書 列傳の冒頭1行は「〈姓〉〈名〉，字〈字〉，一名〈別名〉，〈続柄〉也」で全長形を掲げる位置が無いが、慣行が確定していないため read-absent に倒さず pending に置く"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "武悼皇帝",
+          "year": 404
+        }
+      ],
+      "basis": [
+        "c2",
+        "c3",
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "授けられた諡は1段だけ。年は伝が段そのものに紀年を与えていないので、紀年の連鎖から西暦を当てた — 篡位の年を「元兴三年，玄之永始二年也」（c3）とし、桓玄は同年に斬られ（c4）、次の紀年標識が「义熙元年正月」（c5）なので、c2 の「是月」は元興三年＝404年に入る。「伪」は晉書の貶称で諡の一部ではないので値から落とした。武悼皇帝は簡体・新字体で同形なので字体変換は不要"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "既存レコードの posthumousNames[0] は {form: 武悼皇帝, year: 404} で、原文の紀年連鎖と一致したため訂正なし。捨てた値は無い。templeName・posthumousNameFull は「原文に無いから空」ではなく「政権慣行が未確定で欄の受け方が決まっていないから空」なので、read-absent ではなく pending として残した。",
+  "discrepancies": "なし（構造フィールドを1つずつ照合した）。name.personalName「玄」＝冒頭1行と一致。name.posthumousName null ＝晉書本文に諡形の呼称が無く一致。name.templeName null ＝原文に桓玄自身の廟号を立てた条が無く値としては一致（ただし慣行未確定のため確定扱いにしない）。name.posthumousNames[0].form「武悼皇帝」＝授与の条と一致。同 year 404 ＝紀年連鎖（元興三年…義熙元年正月）と一致。name.posthumousNameFull はレコードにキーが存在せず、原文にも全長形が無いので食い違いなし。",
+  "processSuggestion": "残量表 桓楚（政権 huan-chu・晉書 列傳のみで帝紀なし）1件（未読 0・ただし templeName と posthumousNameFull の政権慣行が未登録のため値を確定できない）。同じく列傳だけで立つ僭偽政権の templeName 慣行は未走査。"
 }
