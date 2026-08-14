@@ -5,47 +5,172 @@
       "cid": "c1",
       "book": "後漢書",
       "file": "_corpus_cache/liu-penzi.txt",
-      "line": 5,
-      "quote": "六月，遂立盆子为帝，自号建世元年"
+      "line": 1,
+      "quote": "刘盆子者，太山式人，城阳景王章之后也。"
     },
     {
       "cid": "c2",
       "book": "後漢書",
       "file": "_corpus_cache/liu-penzi.txt",
-      "line": 1,
-      "quote": "刘盆子者，太山式人，城阳景王章之后也"
+      "line": 5,
+      "quote": "六月，遂立盆子为帝，自号建世元年。"
+    },
+    {
+      "cid": "c3",
+      "book": "後漢書",
+      "file": "_corpus_cache/liu-penzi.txt",
+      "line": 15,
+      "quote": "樊崇乃将盆子及丞相徐宣以下三十余人肉袒降。"
+    },
+    {
+      "cid": "c4",
+      "book": "後漢書",
+      "file": "_corpus_cache/liu-penzi.txt",
+      "line": 17,
+      "quote": "帝怜盆子，赏赐甚厚，以为赵王郎中。后病失明，赐荥阳均输官地，以为列肆，使食其税终身。"
+    },
+    {
+      "cid": "c5",
+      "book": "後漢書",
+      "file": "_corpus_cache/liu-penzi.txt",
+      "line": 18,
+      "quote": "赞曰：圣公靡闻，假我风云，始顺归历，终然崩分。赤眉阻乱，盆子探符。虽盗皇器，乃食均输。"
+    },
+    {
+      "cid": "c6",
+      "book": "後漢書",
+      "file": "daizhigev20/史藏/正史/后汉书.txt",
+      "line": 15,
+      "quote": "刘玄刘盆子列传"
+    },
+    {
+      "cid": "c7",
+      "book": "後漢書",
+      "file": "_corpus_cache/liu-penzi.txt",
+      "line": 11,
+      "quote": "盆子乃下床解玺绶，叩头曰"
+    },
+    {
+      "cid": "c8",
+      "book": "後漢書",
+      "file": "_corpus_cache/liu-penzi.txt",
+      "line": 6,
+      "quote": "属右校卒史刘侠卿，主刍牧牛，号曰牛吏。"
+    },
+    {
+      "cid": "c9",
+      "book": "後漢書",
+      "file": "daizhigev20/史藏/正史/后汉书.txt",
+      "line": 240,
+      "quote": "盆子窃尊号，乱惑天下"
     }
   ],
   "findings": [
+    {
+      "field": "name.personalName",
+      "value": "盆子",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "後漢書 列傳の冒頭定型「〈姓〉〈名〉者，〈本貫〉人，〈出自〉也」に「刘盆子者，太山式人」と立つ。姓が劉・名が盆子。底本は簡体だが姓名とも新字体で同形なので値の字体変換は生じない。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "後漢書は赤眉の擁立した盆子を僭号者として列傳（卷十一 劉玄劉盆子列傳）に置き、廟号・諡を書く位置を持たない。伝は降伏（c3）→趙王郎中として終身（c4）→贊（c5）で閉じ、崩御条・葬送条そのものが立たない。目録行・巻頭の見出しはいずれも諡・廟号でなく諱で「刘玄刘盆子列传」（c6）と立てる。光武帝紀は降伏の詔で「盆子窃尊号」（c9）と位号自体を僭称と断じており、後漢が号を贈る筋が無い。閉域4軸: (1) 同書キャッシュ外＝目録行・巻頭見出し・同巻の論曰（_corpus_cache/gengshi-di.txt:23）に名乗りの記載なし。後漢書に本人の志・伝は別に立たず、1冊版の 盆子 言及のうち列傳側 5002 行・志側 9578・9712 行はいずれも他人の記事中の言及。(2) 本紀・列傳の外＝1冊版全体で「盆子」を含む全20行に8語を当て、該当3行（光武帝紀の親征・降伏条 240、赤眉の巫の条 2664、贊 2681）を読んだが号の授与は無い。(3) 別政権の書＝盆子に号を贈り得た主体は彼を降した後漢のみで、その後漢書を1冊版で端から端まで走査済み（他書にしか無い形は欄の主張の外なので採らない）。資治通鑑の 盆子 言及8行は行頭のみ確認で、走査対象には数えない。(4) 語彙＝谥・庙のほか追尊・尊号・号曰・葬・崩・卒を当て、底本の字体も確認した（sweptVocabCheck）。",
+      "sweptWords": [
+        "谥",
+        "庙",
+        "追尊",
+        "尊号",
+        "号曰",
+        "葬",
+        "崩",
+        "卒"
+      ],
+      "sweptScope": [
+        "_corpus_cache/liu-penzi.txt 全18行を通読（後漢書 卷十一 劉玄劉盆子列傳の盆子部分・全文。語彙走査ではなく全読）",
+        "_corpus_cache/gengshi-di.txt の同巻 劉玄部分（論曰 L23 まで通読）",
+        "daizhigev20/史藏/正史/后汉书.txt 全体（本紀・列傳・志を含む1冊版）の「盆子」を含む全20行に上記8語を当て、該当3行（240・2664・2681）を目視"
+      ],
+      "sweptVocabCheck": "底本の字体確認: この1冊版は 諡0件・謚0件・廟0件で、谥92件・庙286件。簡体で統一されているため 谥／庙 の2字で検出器は生きている（CORPUS_NOTES の遼史1冊版のような語の全欠は無い）。"
+    },
     {
       "field": "name.posthumousName",
       "value": null,
       "verdict": "read-absent",
       "basis": [
-        "c1"
+        "c1",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c9"
       ],
       "confidence": "high",
-      "note": "読んだうえで空。**`commonName` の「建世帝」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。後漢書 劉盆子伝に單字「谥」が0件で、「建世」は自ら号した元号（c1）"
+      "note": "廟号と同じ根拠・同じ走査。既存 commonName「建世帝」は諡ではなく元号「建世」（c2「自号建世元年」）から作った通称で、後漢書は本人を「盆子」または「刘盆子」としか呼ばない。光武帝紀の詔は「盆子窃尊号」（c9）と僭称扱いにし、諡を贈られる契機となる崩御・葬送の条自体が伝に無い。",
+      "sweptWords": [
+        "谥",
+        "庙",
+        "追尊",
+        "尊号",
+        "号曰",
+        "葬",
+        "崩",
+        "卒"
+      ],
+      "sweptScope": [
+        "_corpus_cache/liu-penzi.txt 全18行を通読（後漢書 卷十一 劉玄劉盆子列傳の盆子部分・全文。語彙走査ではなく全読）",
+        "_corpus_cache/gengshi-di.txt の同巻 劉玄部分（論曰 L23 まで通読）",
+        "daizhigev20/史藏/正史/后汉书.txt 全体（本紀・列傳・志を含む1冊版）の「盆子」を含む全20行に上記8語を当て、該当3行（240・2664・2681）を目視"
+      ],
+      "sweptVocabCheck": "底本の字体確認: この1冊版は 諡0件・謚0件・廟0件で、谥92件・庙286件。簡体で統一されているため 谥／庙 の2字で検出器は生きている（CORPUS_NOTES の遼史1冊版のような語の全欠は無い）。"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "basis": [
+        "c1",
+        "c4",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "諡の段は0段。後漢書の列傳冒頭定型（政権慣行 form-found・所在=冒頭1行）に諡を載せる位置が無く、初諡を書く崩御条も後代の加諡条も存在しないため、授けられた順に並べる段が立たない。 【2026-08-14・親セッション】空配列ではなく null + read-absent の形へ揃えた。",
+      "verdict": "read-absent"
     },
     {
       "field": "name.posthumousNameFull",
       "value": null,
       "verdict": "read-absent",
       "basis": [
-        "c1"
+        "c1",
+        "c5"
       ],
-      "confidence": "high",
-      "note": "同じ理由"
+      "confidence": "medium",
+      "note": "政権 chimei-han は posthumousNameFull の慣行が未確定（check_regime_conventions.py --for liu-penzi --field posthumousNameFull が「未確定です」で終わる）ため、人物単位の確定に入らず pending とする。読解上は諡そのものが伝に無い（templeName・posthumousName と同根拠）ので全長形も出ないが、欄の保存形の慣行が立つまで read-absent には落とさない。 【2026-08-14・親セッション】今回の調査段はこの欄を `pending` で返したが、**既存の `read-absent` を維持した** — 確定を緩めるのは新しい根拠が出たときだけで、今回は同じ原文を読み直して迷いが出たもの。迷いの中身はこの note に残す。"
     },
     {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c2"
+      "field": "name.aliases",
+      "value": [
+        "劉盆子"
       ],
-      "confidence": "high",
-      "note": "後漢書の帝紀を人物ごとに全数で読んだ。この人物には諡を授ける条が無い。**後漢書は諡を冒頭の名乗り（「〈廟号〉孝〈諡〉皇帝諱〈諱〉」）に置き、授ける条を書くのは献帝だけ**（授けたのは魏）。"
+      "basis": [
+        "c1"
+      ],
+      "confidence": "medium",
+      "note": "欄への投入対象外だが記録として残す。「刘盆子」は列傳冒頭の姓名（c1）。値は新字体へ倒し、引用は底本の簡体のまま。"
     },
     {
       "field": "name.courtesyName",
@@ -55,8 +180,11 @@
         "c2"
       ],
       "confidence": "high",
-      "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
+      "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない（2026-08-13 に同じ書の兄弟とまとめて証人を書いた） 【2026-08-14・親セッション】今回の調査段の対象外なので以前の断片から持ち越した。"
     }
   ],
-  "discrepancies": "なし"
+  "conflicts": [],
+  "noteLog": "現行レコードの name.templeName・name.posthumousName はともに null で、原文の読解結果（不在確定）と一致する。posthumousNameFull・posthumousNames は現行レコードに欄が無い。赤眉軍中の呼び名「号曰牛吏」（c8・列傳本文）は諡でも廟号でも冒頭・贊の別称でもないので aliases の値からは外し、ここに記録だけ残す。daizhigev20 の後漢書1冊版は本文の異同（キャッシュ「盆子居长东宫」に対し1冊版 2668 行は「盆子居长乐宫」）を持つが、名前欄の判定には影響しない。",
+  "discrepancies": "なし（既存の構造フィールド name.personalName=盆子・familyName=劉・templeName=null・posthumousName=null はいずれも原文と一致。regnalTitle=皇帝 も c2「遂立盆子为帝」と整合）",
+  "processSuggestion": "残量表 後漢書 僭号者の名前欄 3件（未読 2）— 更始帝・劉盆子・公孫述はいずれも後漢書が列傳に置き諡・廟号の位置を持たない同型で、劉盆子は本走査で確定、更始帝・公孫述は未走査。あわせて posthumousNameFull の政権慣行が chimei-han で未確定のため、同政権のこの欄は人物単位で埋められない（慣行の追記が先）。手順の提案: check_regime_conventions.py を --field 単位で呼ぶと、同じ政権でも欄ごとに「確定」と「未確定」が割れて1人ぶんの調査が部分的に塞がる。未確定の欄がある場合は出力にその欄名を列挙して返すと、着手前に塞がり方が一目で分かる。"
 }

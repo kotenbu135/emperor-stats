@@ -1,56 +1,184 @@
 {
- "id": "han-liuhe",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "漢書",
-   "file": "_corpus_cache/han-liuhe.txt",
-   "line": 1,
-   "quote": "光奏王贺淫乱，请废"
-  },
-  {
-   "cid": "c2",
-   "book": "漢書",
-   "file": "china-history/汉书/传/第三十四章-武五子传-原文.html",
-   "quote": "其封故昌邑王贺为海昏侯，食邑四千户"
-  },
-  {
-   "cid": "c3",
-   "book": "漢書",
-   "file": "china-history/汉书/传/第三十四章-武五子传-原文.html",
-   "quote": "海昏侯贺死，上当为后者子充国"
-  },
-  {
-   "cid": "c4",
-   "book": "漢書",
-   "file": "_corpus_cache/han-liuhe.txt",
-   "line": 1,
-   "quote": "元平元年四月，昭帝崩，毋嗣"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。**紀だけでは決められないので伝まで見た** — 本人のキャッシュは60字の断片（廃位の記事だけ）で、廃位後の生涯は武五子伝に在る。伝は海昏侯に封じられたこと（c2）と死（c3）を書くが諡を与えず、同じ伝が戾太子「戾」・燕剌王旦「刺」・広陵厲王胥「厲」には「谥曰〈X〉」で諡を与える（＝この伝は諡を書く伝であって、賀に無いのは書かれ方の問題ではない）。**`commonName` の「廃帝（昌邑王）」は位号**"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c4"
-   ],
-   "confidence": "high",
-   "note": "漢書 紀（卷一〜卷十二）の「谥」「尊号」「庙号」「追尊」を全数で読んだ（2026-08-13）。**この書が帝の諡を授ける条を持つのは高帝の1人だけ**で（「上尊号曰高皇帝」）、他の帝の諡は冒頭の名乗り「孝○皇帝」にしか出ない。この人物には授ける条が無い。在位27日で廃され、諡そのものが無い。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "han-liuhe",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "漢書",
+      "file": "china-history/汉书/传/第三十四章-武五子传-原文.html",
+      "line": 23,
+      "quote": "昌邑哀王髆，天汉四年立，十一年薨，子贺嗣。立十三年，昭帝崩，无嗣，大将军霍光征王贺典丧。"
+    },
+    {
+      "cid": "c2",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 4168,
+      "quote": "迎昌邑王贺。贺者，武帝孙，昌邑哀王子也。既至，即位，行淫乱。"
+    },
+    {
+      "cid": "c3",
+      "book": "漢書",
+      "file": "china-history/汉书/传/第三十四章-武五子传-原文.html",
+      "line": 23,
+      "quote": "王受皇帝玺绶，袭尊号。即位二十七日，行淫乱。大将军光与群臣议，白孝昭皇后，废贺归故国，赐汤沐邑二千户"
+    },
+    {
+      "cid": "c4",
+      "book": "漢書",
+      "file": "china-history/汉书/传/第三十四章-武五子传-原文.html",
+      "line": 23,
+      "quote": "其封故昌邑王贺为海昏侯，食邑四千户。"
+    },
+    {
+      "cid": "c5",
+      "book": "漢書",
+      "file": "china-history/汉书/传/第三十四章-武五子传-原文.html",
+      "line": 23,
+      "quote": "海昏侯贺死，上当为后者子充国；充国死，复上弟奉亲；奉亲复死，是天绝之也。"
+    },
+    {
+      "cid": "c6",
+      "book": "漢書",
+      "file": "china-history/汉书/传/第三十四章-武五子传-原文.html",
+      "line": 23,
+      "quote": "天子加恩，赦王太子建为庶人，赐旦谥曰刺王。"
+    },
+    {
+      "cid": "c7",
+      "book": "漢書",
+      "file": "china-history/汉书/传/第三十四章-武五子传-原文.html",
+      "line": 23,
+      "quote": "天子加恩，赦王诸子皆为庶人，赐谥曰厉王。"
+    },
+    {
+      "cid": "c8",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 864,
+      "quote": "元平元年四月，昭帝崩，毋嗣。大将军霍光请皇后征昌邑王。六月丙寅，王受皇帝玺、绶，尊皇后曰皇太后。癸已，光奏王贺淫乱，请废。语在贺及光《传》。"
+    },
+    {
+      "cid": "c9",
+      "book": "漢書",
+      "file": "china-history/汉书/纪/第九章-宣帝纪-原文.html",
+      "line": 23,
+      "quote": "孝宣皇帝，武帝曾孙，戾太子孙也。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.personalName",
+      "value": "賀",
+      "basis": [
+        "c1",
+        "c2",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "漢書はこの人物に紀を立てないので冒頭の「讳〈X〉」形が無く、諱は伝の地の文から採る。武五子伝が父の昌邑哀王髆の条で「子贺嗣」、霍光伝が「贺者，武帝孙，昌邑哀王子也」と本人を名で指す。底本は簡体「贺」で、保存値はこのデータセットの表記（日本語新字体）に揃えて「賀」とした"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "海昏",
+        "昌邑王",
+        "王贺",
+        "贺谥",
+        "贺薨",
+        "谥曰"
+      ],
+      "sweptScope": "daizhigev20/史藏/正史/汉书.txt を1冊まるごと（紀・表・志・列傳）走査し、本人に当たる条を全件（海昏 6件・昌邑王 53件）読んだ。china-history/汉书/传/第三十四章-武五子传-原文.html と daizhigev20 の霍光伝の該当条は通読。別政権の書として daizhigev20/史藏/正史/后汉书.txt の「海昏」も引いたが 0件（賀は前59年に前漢の海昏侯として没しており、号を贈りうる後継・敵対政権が存在しない）",
+      "note": "在位27日で廃され、諸侯（海昏侯）として没した人物なので廟は立たない。漢書は廟号を「庙为」「庙曰」「庙称」で7人にだけ与える書だが、そのどの条にも賀は現れない。走査は語彙側でなく人物側（海昏・昌邑王・王贺）に錨を打ったので、授与の動詞が何であっても本人の条は落ちない"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c5",
+        "c6",
+        "c7"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "海昏",
+        "昌邑王",
+        "王贺",
+        "贺谥",
+        "贺薨",
+        "谥曰"
+      ],
+      "sweptScope": "daizhigev20/史藏/正史/汉书.txt を1冊まるごと（紀・表・志・列傳）走査し、本人に当たる条を全件（海昏 6件・昌邑王 53件）読んだ。china-history/汉书/传/第三十四章-武五子传-原文.html と daizhigev20 の霍光伝の該当条は通読。別政権の書として daizhigev20/史藏/正史/后汉书.txt の「海昏」も引いたが 0件（賀は前59年に前漢の海昏侯として没しており、号を贈りうる後継・敵対政権が存在しない）",
+      "note": "同じ武五子伝が兄弟には「赐旦谥曰刺王」「赐谥曰厉王」と諡を与え、戾太子にも「谥曰戾」を与えるのに、賀については「海昏侯贺死」とだけ書いて諡を与えない＝書かれ方の問題ではなく諡が無い。commonName「廃帝（昌邑王）」は諡でなく位号。**罠**: 漢書には「追赐贺谥曰阳都哀侯」（宣帝紀・張安世伝）という条が在るが、これは宣帝の恩人 張賀であって劉賀ではない。「贺谥」で機械走査すると必ずここに当たる"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c5",
+        "c6",
+        "c7",
+        "c9"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "海昏",
+        "昌邑王",
+        "王贺",
+        "贺谥",
+        "贺薨",
+        "谥曰"
+      ],
+      "sweptScope": "daizhigev20/史藏/正史/汉书.txt を1冊まるごと（紀・表・志・列傳）走査し、本人に当たる条を全件（海昏 6件・昌邑王 53件）読んだ。china-history/汉书/传/第三十四章-武五子传-原文.html と daizhigev20 の霍光伝の該当条は通読。別政権の書として daizhigev20/史藏/正史/后汉书.txt の「海昏」も引いたが 0件（賀は前59年に前漢の海昏侯として没しており、号を贈りうる後継・敵対政権が存在しない）",
+      "note": "漢書の全長形は帝紀冒頭の「孝〈X〉皇帝，〈続柄〉也」（宣帝紀＝孝宣皇帝，武帝曾孙，戾太子孙也）が唯一の名乗りの形だが、賀には帝紀そのものが無く、在位の記事は宣帝紀の冒頭に埋め込まれた廃立の条だけ。諡が無い以上「孝〈X〉皇帝」形も立たない"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c5",
+        "c6",
+        "c7"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "海昏",
+        "昌邑王",
+        "王贺",
+        "贺谥",
+        "贺薨",
+        "谥曰"
+      ],
+      "sweptScope": "daizhigev20/史藏/正史/汉书.txt を1冊まるごと（紀・表・志・列傳）走査し、本人に当たる条を全件（海昏 6件・昌邑王 53件）読んだ。china-history/汉书/传/第三十四章-武五子传-原文.html と daizhigev20 の霍光伝の該当条は通読。別政権の書として daizhigev20/史藏/正史/后汉书.txt の「海昏」も引いたが 0件（賀は前59年に前漢の海昏侯として没しており、号を贈りうる後継・敵対政権が存在しない）",
+      "note": "初諡も加諡も無いので段が1つも立たない。空配列でなく null＋read-absent で返す（読んだうえで段が無いという主張）"
+    },
+    {
+      "field": "name.aliases",
+      "value": [
+        "海昏侯"
+      ],
+      "basis": [
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "欄への投入対象外だが原文で確認できたので残す。宣帝 元康三年の詔「其封故昌邑王贺为海昏侯，食邑四千户」で列侯に封じられ、以後は「海昏侯贺」と呼ばれる。廃位前の位号は「昌邑王」"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "既存レコードの4欄（personalName=賀／posthumousName=null／templeName=null／aliases=[海昏侯]）はいずれも原文の読解と一致したため、捨てた値は無い。posthumousNameFull・posthumousNames は今回 read-absent として確定させた（従来は未読と区別が付かなかった）。読解の範囲: 漢書 武五子伝（全文）・霍光伝の廃立条・宣帝紀の該当条。_corpus_cache/han-liuhe.txt は180バイトの断片（宣帝紀からの切り出し）なので、SOURCE_MAPPING.md の指示どおり列伝へ回った。",
+  "discrepancies": "なし（既存の構造フィールドと原文の食い違いは無い。personalName「賀」は武五子伝・霍光伝と一致、posthumousName・templeName の null は原文の読解と一致、reigns の startYear/endYear = -74/-74 は「元平元年四月，昭帝崩…六月丙寅，王受皇帝玺、绶」「即位二十七日」＝紀元前74年内に収まる在位と一致）",
+  "processSuggestion": "残量表 漢書の政権慣行（posthumousName の索引欠落）1件（未走査 前漢14人ぶんの引き直し）— `check_regime_conventions.py --for han-liuhe --field posthumousName` は「未確定」1行で終わるが、実際の慣行は posthumousNameFull の記録の「保存形」行に書かれており（短縮呼称は漢書の冒頭からは決まらない・位号の3人は読んだうえで空）、フィールド索引に posthumousName が張られていないだけ。指示どおり blocked を返すと、慣行が確定している人物の作業が止まる。regime-conventions.json の covers に posthumousName を足すか、--field が空振りしたとき同じ政権の他フィールドの記録を併記して出すとよい。"
 }

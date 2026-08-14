@@ -1,34 +1,179 @@
 {
- "id": "han-aidi",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "漢書",
-   "file": "_corpus_cache/han-aidi.txt",
-   "line": 1,
-   "quote": "孝哀皇帝，元帝庶孙，定陶恭王子也"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNameFull",
-   "value": "孝哀皇帝",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "漢書 帝紀の冒頭定型「孝〈諡字〉皇帝，〈続柄〉也」（c1）。**漢書は帝の上諡の条を紀に載せない**ので、この書が掲げる名乗りの形は冒頭1行の1形に決まる（霍光伝「汉之传谥常为孝者」が「孝」を冠する理由を書く）"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "漢書 紀（卷一〜卷十二）の「谥」「尊号」「庙号」「追尊」を全数で読んだ（2026-08-13）。**この書が帝の諡を授ける条を持つのは高帝の1人だけ**で（「上尊号曰高皇帝」）、他の帝の諡は冒頭の名乗り「孝○皇帝」にしか出ない。この人物には授ける条が無い。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "han-aidi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "漢書",
+      "file": "_corpus_cache/han-aidi.txt",
+      "line": 1,
+      "quote": "孝哀皇帝，元帝庶孙，定陶恭王子也。母曰丁姬。"
+    },
+    {
+      "cid": "c2",
+      "book": "漢書",
+      "file": "_corpus_cache/han-chengdi.txt",
+      "line": 128,
+      "quote": "定陶王欣于朕为子，慈仁孝顺，可以承天序，继祭祀。其立欣为皇太子。"
+    },
+    {
+      "cid": "c3",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 16,
+      "quote": "哀帝纪第十一"
+    },
+    {
+      "cid": "c4",
+      "book": "漢書",
+      "file": "_corpus_cache/han-aidi.txt",
+      "line": 46,
+      "quote": "六月戊午，帝崩于未央宫。秋九月壬寅，葬义陵。"
+    },
+    {
+      "cid": "c5",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 1327,
+      "quote": "尊孝宣庙为中宗，孝元庙为高宗，天子世世献祭。"
+    },
+    {
+      "cid": "c6",
+      "book": "後漢書",
+      "file": "daizhigev20/史藏/正史/后汉书.txt",
+      "line": 462,
+      "quote": "追尊孝宣皇帝曰中宗。始祠昭帝、元帝于太庙，成帝、哀帝、平帝于长安"
+    },
+    {
+      "cid": "c7",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 4216,
+      "quote": "十九年薨，子欣嗣。十五年，成帝无子，征入为皇太子。"
+    },
+    {
+      "cid": "c8",
+      "book": "漢書",
+      "file": "_corpus_cache/han-aidi.txt",
+      "line": 47,
+      "quote": "赞曰：孝哀自为籓王及充太子之宫，文辞博敏，幼有令闻。"
+    },
+    {
+      "cid": "c9",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 4309,
+      "quote": "奏尊孝成庙曰统宗，孝平庙曰元宗。"
+    },
+    {
+      "cid": "c10",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 878,
+      "quote": "六月庚午，尊孝武庙为世宗庙"
+    },
+    {
+      "cid": "c11",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 4188,
+      "quote": "至惠帝尊高帝庙为太祖庙，景帝尊孝文庙为太宗庙"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝哀皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "政権慣行（漢書・form-found・transcribe）どおり帝紀冒頭1行の「孝〈諡字〉皇帝」を転記した。底本は簡体「孝哀皇帝」で、保存値も同字（新字体へ倒す差が出ない）。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "哀帝",
+      "basis": [
+        "c1",
+        "c3",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "冒頭の全長形「孝哀皇帝」から諡字は「哀」。巻の見出しが「哀帝纪第十一」、賛が「孝哀」と呼ぶので、短縮呼称は諡字＋帝の形。前少帝・後少帝・廃帝（昌邑王）のような位号ではない。値は既存レコードの表記（新字体）に合わせて「哀帝」。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c4",
+        "c5",
+        "c6",
+        "c9",
+        "c10",
+        "c11"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "庙号",
+        "庙曰",
+        "庙称",
+        "庙为",
+        "称宗",
+        "尊孝",
+        "追尊",
+        "尊号",
+        "号曰",
+        "谥曰",
+        "曰宗",
+        "为宗"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/汉书.txt（漢書1冊まるごと・紀／志／列傳／敘傳を含む。scripts/hanzi_norm.norm_for_match を通して照合）",
+        "daizhigev20/史藏/正史/后汉书.txt（後漢書1冊まるごと・別政権の書。光武帝が前漢諸帝の廟を定め直す条を含む）",
+        "_corpus_cache/han-aidi.txt（哀帝紀 全46行＋賛）"
+      ],
+      "note": "廟号語彙の走査が漢書から拾う廟号は太祖・太宗（c11・韋玄成伝）、世宗（c10・宣帝紀 本始二年）、中宗・高宗（c5・平帝紀 元始四年）、統宗・元宗（c9・王莽伝）の7つで、いずれも哀帝ではない。哀帝紀は崩御・葬送の条（c4）に号の授与記事を持たず、冒頭1行（c1）にも賛にも廟号が出ない。別政権の書でも後漢書 光武帝紀 建武十九年の条が成帝・哀帝・平帝を廟号なしで並べる（c6・同じ条で宣帝には中宗を追尊しており、廟号を持つ帝と持たない帝を書き分けている）。閉域4軸: (1) 同書のキャッシュ外＝漢書1冊走査で志・敘傳・賛まで見た (2) 列傳＝同じ1冊走査に韋玄成伝（c11）・賈捐之伝・陳湯伝・王莽伝（c9）のヒットが入る。c9 は平帝の加諡が本人の巻でなく王莽伝に在る例で、検出器が本人の巻の外の授与条を拾えることの証拠 (3) 別政権の書＝後漢書1冊を走査（c6） (4) 語彙の割れ＝庙号／庙曰／庙称／庙为／称宗に加え追尊・尊号・号曰・谥曰・为宗も当て、哀を含む行を全部読んだが哀帝への号の授与は無い。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "欣",
+      "basis": [
+        "c2",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "漢書は帝紀冒頭に諱を並べない書式（政権慣行 no-form・per-person）なので、成帝紀 綏和元年の立太子詔（c2）と宣元六王伝 定陶恭王康の条（c7）から諱「欣」を取った。"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥曰",
+        "尊号",
+        "号曰",
+        "追尊",
+        "庙曰",
+        "庙为",
+        "庙号",
+        "庙称"
+      ],
+      "sweptScope": [
+        "_corpus_cache/han-aidi.txt（哀帝紀 全46行＋賛）",
+        "daizhigev20/史藏/正史/汉书.txt（漢書1冊まるごと・scripts/hanzi_norm.norm_for_match 経由）",
+        "daizhigev20/史藏/正史/后汉书.txt（後漢書1冊まるごと・孝哀／哀帝で当て、加諡・改諡の条が無いことを確かめた）"
+      ],
+      "note": "政権慣行（漢書・posthumousNames）が言うとおり、諡を授ける条を持つのは高帝1人だけで、哀帝の崩御・葬送の条（c4）には諡の授与記事が無い。諡の形は冒頭の名乗り（c1）にしか出ないので、授けられた順を並べる段は立たない。後代の加諡・改諡も漢書・後漢書のどちらにも無い。"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "既存の構造フィールド（personalName 欣・posthumousName 哀帝・posthumousNameFull 孝哀皇帝・templeName null）は原文と一致したので、捨てた値は無い。走査は scripts/sweep_keyword.py が字体正規化を持たないため、scripts/hanzi_norm.norm_for_match を通す自前スクリプトで当て直した（結果は同じ）。 政権慣行の問い合わせは posthumousName だけレコードが無く exit 1 だったが、posthumousNameFull レコードの保存形の行がこの欄の扱い（短縮呼称は冒頭からは決まらない・既に埋まっている11人は諡字形・空の3人は位号）を明記しているので、blocked にせず人物単位で読んだ。",
+  "discrepancies": "なし（既存の構造フィールドと原文の食い違いは無い。name.personalName「欣」＝漢書 成帝紀の立太子詔・宣元六王伝、name.posthumousName「哀帝」＝巻見出し「哀帝纪第十一」、name.posthumousNameFull「孝哀皇帝」＝帝紀冒頭1行、name.templeName null＝漢書・後漢書の廟号語彙走査で該当なし）",
+  "processSuggestion": "scripts/sweep_keyword.py が hanzi_norm.norm_for_match を通していないので、read-absent の4軸走査のたびに自前の正規化スクリプトを書き直すことになる。sweep_keyword.py に --norm 旗（既定で on）を足すと、走査語の字体割れによる取りこぼしを道具の側で塞げる。残量表 前漢の名前欄の政権慣行（未走査） — western-han は posthumousName の慣行レコードが無く check_regime_conventions.py --for han-aidi --field posthumousName が exit 1 で止まる。前漢14人の未読件数は数えていない（未走査）。"
 }

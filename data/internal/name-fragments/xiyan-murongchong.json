@@ -1,28 +1,148 @@
 {
- "id": "xiyan-murongchong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "資治通鑑",
-   "file": "daizhigev20/史藏/编年/资治通鉴.txt",
-   "line": 9414,
-   "quote": "恒立西燕主冲之子瑶为帝，改元建平，谥冲曰威皇帝"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "xiyan-murongchong",
+  "claims": [
     {
-     "form": "威皇帝"
+      "cid": "c1",
+      "book": "資治通鑑",
+      "file": "daizhigev20/史藏/编年/资治通鉴.txt",
+      "line": 9339,
+      "quote": "慕容冲即皇帝位于阿房，改元更始。"
+    },
+    {
+      "cid": "c2",
+      "book": "資治通鑑",
+      "file": "daizhigev20/史藏/编年/资治通鉴.txt",
+      "line": 9399,
+      "quote": "太元十一年（丙戌，公元三八六年）"
+    },
+    {
+      "cid": "c3",
+      "book": "資治通鑑",
+      "file": "daizhigev20/史藏/编年/资治通鉴.txt",
+      "line": 9406,
+      "quote": "左将军韩延因众心不悦，攻冲，杀之，立冲将段随为燕王，改元昌平。"
+    },
+    {
+      "cid": "c4",
+      "book": "資治通鑑",
+      "file": "daizhigev20/史藏/编年/资治通鉴.txt",
+      "line": 9414,
+      "quote": "恒立西燕主冲之子瑶为帝，改元建平，谥冲曰威皇帝。"
+    },
+    {
+      "cid": "c5",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 809,
+      "quote": "恒立冲之子瑶[一作望]为帝改元建平谥冲曰威皇帝"
+    },
+    {
+      "cid": "c6",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 434,
+      "quote": "以车骑将军中山王冲为大司马冲暐之弟也"
+    },
+    {
+      "cid": "c7",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8221,
+      "quote": "冲小字凤皇，至是，终为坚贼，入止阿房城焉。"
     }
-   ],
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "資治通鑑の該当条（c1）。**証人は本人のキャッシュではなく子 慕容瑤の擁立条**にあり、`_corpus_cache/xiyan-murongchong.txt` には語彙の当たりが1件も無い。現行の短縮呼称「威帝」に対応する全長形。**年は条が名乗らない**ので入れない。"
-  }
- ],
- "discrepancies": "なし"
+  ],
+  "findings": [
+    {
+      "field": "name.personalName",
+      "value": "沖",
+      "basis": [
+        "c1",
+        "c4",
+        "c6",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "資治通鑑・十六国春秋・晉書がいずれも諱を「冲」とし、晉書は小字を別に「凤皇」と記す（＝冲が諱）。底本は簡体「冲」だが、値は既存レコードの表記（新字体側）に揃えて「沖」とした。姓は c1 の「慕容冲」。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c4",
+        "c5"
+      ],
+      "confidence": "medium",
+      "note": "諡を授けた条（c4・c5）は「谥冲曰威皇帝」で終わり、廟号を立てていない。閉域4軸: (1) 同じ書のキャッシュ外＝資治通鑑全巻を走査、(2) 列伝形＝十六国春秋 慕容永伝（西燕の事績はこの伝に入る）・別本十六国春秋・十六国春秋別伝、(3) 別政権の書＝晉書・魏書・北史・宋書・南史・旧晋書九家輯本と資治通鑑四庫本・資治通鑑注・通鑑紀事本末、(4) 語彙は hanzi_norm.norm_for_match を通した 庙号・庙曰・庙称・尊庙・追尊・尊号・号曰・谥・讳・入庙・祔庙・庙。慕容冲を主語に含む行で廟号系は0件（同じ走査で苻丕の「追谥坚曰宣昭皇帝，庙号世祖」・馮跋の「庙号太祖」は掛かっており、検出器は生きている）。",
+      "sweptWords": [
+        "庙号",
+        "庙曰",
+        "庙称",
+        "尊庙",
+        "追尊",
+        "尊号",
+        "号曰",
+        "谥",
+        "諡",
+        "讳",
+        "入庙",
+        "祔庙",
+        "庙"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/编年/资治通鉴.txt（全文）",
+        "daizhigev20/史藏/编年/资治通鉴四库.txt（全文）",
+        "daizhigev20/史藏/编年/资治通鉴注.txt（全文）",
+        "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt（全文）",
+        "daizhigev20/史藏/载记/十六国春秋.txt（全文）",
+        "daizhigev20/史藏/载记/别本十六国春秋.txt（全文）",
+        "daizhigev20/史藏/载记/十六国春秋别传.txt（全文）",
+        "daizhigev20/史藏/正史/晋书.txt（全文）",
+        "daizhigev20/史藏/正史/魏书.txt（全文）",
+        "daizhigev20/史藏/正史/北史.txt（全文）",
+        "daizhigev20/史藏/正史/宋书.txt（全文）",
+        "daizhigev20/史藏/正史/南史.txt（全文）",
+        "daizhigev20/史藏/正史/旧晋书九家辑本.txt（全文）"
+      ]
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "威帝",
+      "basis": [
+        "c4",
+        "c5"
+      ],
+      "confidence": "medium",
+      "note": "原文の形は「威皇帝」で、「威帝」という3字形はどの書にも出ない（資治通鑑・十六国春秋3種・晉書・魏書・北史を走査して0件）。短縮呼称は西燕を含む燕系レコードの保存形（短縮＝末字＋帝／全長＝posthumousNames の X皇帝）に沿った導出値。政権単位の「保存形」行が慣行に無いため confidence は medium。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "c4",
+        "c5"
+      ],
+      "confidence": "medium",
+      "note": "原文に見える全長形は「威皇帝」だが、check_regime_conventions は western-yan の posthumousNameFull を慣行未確定と返す。全長形を posthumousNameFull へ入れるか posthumousNames の段だけに置くかは政権単位の決めごとなので、人物単位では確定させない（値の不在を主張するものではない）。"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "威皇帝"
+        }
+      ],
+      "basis": [
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "386年（c2 の年条の下）に子の瑤を立てた慕容恒が贈った初諡の1段のみ。以後の加諡・改諡は資治通鑑・十六国春秋のいずれにも無い（追尊・尊号・改谥の語でも0件）。初諡なので year は置かない。値は既存レコードの表記に合わせ新字体側で書いたが、字面は底本と同一。"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "西燕は晉書に載記が立たず、慕容冲の事績は資治通鑑の年条と十六国春秋の慕容永伝に散る。晉書 卷一百十四（苻堅載記）は「冲小字凤皇」とだけ記し、諡・廟号には触れない。別称候補として小字「凤皇」（晉書）・「凤凰」（十六国春秋 583行）があるが、aliases は本段の投入対象外なので findings には立てていない。",
+  "discrepancies": "既存の構造フィールドとの食い違いは実質的になし（personalName 沖・templeName null・posthumousNames [威皇帝] はいずれも原文と整合）。1点だけ形の差を報告する: posthumousName の保存値「威帝」は原文に1件も現れず、原文形は「威皇帝」。燕系12レコードの保存形（短縮＝X帝／全長形は posthumousNames）と一致するため訂正は要さないと判断したが、原文そのものではない導出値である。",
+  "processSuggestion": "残量表 西燕の名前欄 4件（未読 0・ただし西燕録を立てる十六国春秋輯補〔湯球〕がコーパスに無く、走査できたのは資治通鑑・十六国春秋3種・正史のみ＝この範囲では未走査の書が残る）"
 }
