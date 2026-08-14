@@ -1,128 +1,154 @@
 {
-  "id": "jin-taizu",
-  "claims": [
+ "id": "jin-taizu",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "金史",
+   "file": "_corpus_cache/jin-taizu.txt",
+   "line": 2,
+   "quote": "太祖应乾兴运昭德定功仁明庄孝大圣武元皇帝，讳旻，本讳阿骨打，世祖第二子也"
+  },
+  {
+   "cid": "c2",
+   "book": "金史",
+   "file": "_corpus_cache/jin-taizu.txt",
+   "line": 83,
+   "quote": "三月，上尊谥曰武元皇帝，庙号太祖"
+  },
+  {
+   "cid": "c3",
+   "book": "金史",
+   "file": "_corpus_cache/jin-taizu.txt",
+   "line": 83,
+   "quote": "天会三年三月，上尊谥曰武元皇帝，庙号太祖，立原庙于西京"
+  },
+  {
+   "cid": "c4",
+   "book": "金史",
+   "file": "_corpus_cache/jin-taizu.txt",
+   "line": 83,
+   "quote": "五年十月，增谥应乾兴运昭德定功睿神庄孝仁明大圣武元皇帝"
+  },
+  {
+   "cid": "c5",
+   "book": "金史",
+   "file": "_corpus_cache/jin-taizu.txt",
+   "line": 20,
+   "quote": "十二月庚申朔，谙班勃极烈吴乞买及群臣上尊号曰大圣皇帝，改明年为天辅元年"
+  },
+  {
+   "cid": "c6",
+   "book": "金史",
+   "file": "china-history/金史/本纪/第四章-卷四-原文.html",
+   "line": 61,
+   "quote": "十月辛卯，增谥太祖"
+  },
+  {
+   "cid": "c7",
+   "book": "金史",
+   "file": "china-history/金史/志/第十三章-卷十三-原文.html",
+   "line": 24,
+   "quote": "十二月二十五日，奉玉册、玉宝，恭上尊谥曰大圣武元皇帝，庙号太祖"
+  },
+  {
+   "cid": "c8",
+   "book": "金史",
+   "file": "china-history/金史/志/第十三章-卷十三-原文.html",
+   "line": 27,
+   "quote": "孝孙嗣皇帝臣某，谨拜手稽首奉玉册玉宝，恭上尊谥曰应乾兴运昭德定功睿神庄孝仁明大圣武元皇帝"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "太祖",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "冒頭1行の第1スロット（c1）。崩御条が「庙号太祖」と明記（c2）"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "応乾興運昭徳定功仁明荘孝大聖武元皇帝",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "冒頭が掲げる加諡形（c1）。崩御条の初諡は「武元皇帝」（c2）で、冒頭形はその後の加諡。欄が主張するのは冒頭形であって最終形ではない"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "金史",
-      "file": "_corpus_cache/jin-taizu.txt",
-      "line": 2,
-      "quote": "太祖应乾兴运昭德定功仁明庄孝大圣武元皇帝，讳旻，本讳阿骨打，世祖第二子也"
+     "form": "武元皇帝",
+     "year": 1125
     },
     {
-      "cid": "c2",
-      "book": "金史",
-      "file": "_corpus_cache/jin-taizu.txt",
-      "line": 83,
-      "quote": "三月，上尊谥曰武元皇帝，庙号太祖"
-    },
-    {
-      "cid": "c3",
-      "book": "金史",
-      "file": "_corpus_cache/jin-taizu.txt",
-      "line": 83,
-      "quote": "天会三年三月，上尊谥曰武元皇帝，庙号太祖，立原庙于西京"
-    },
-    {
-      "cid": "c4",
-      "book": "金史",
-      "file": "_corpus_cache/jin-taizu.txt",
-      "line": 83,
-      "quote": "五年十月，增谥应乾兴运昭德定功睿神庄孝仁明大圣武元皇帝"
-    },
-    {
-      "cid": "c5",
-      "book": "金史",
-      "file": "_corpus_cache/jin-taizu.txt",
-      "line": 20,
-      "quote": "十二月庚申朔，谙班勃极烈吴乞买及群臣上尊号曰大圣皇帝，改明年为天辅元年"
-    },
-    {
-      "cid": "c6",
-      "book": "金史",
-      "file": "china-history/金史/本纪/第四章-卷四-原文.html",
-      "line": 61,
-      "quote": "十月辛卯，增谥太祖"
-    },
-    {
-      "cid": "c7",
-      "book": "金史",
-      "file": "china-history/金史/志/第十三章-卷十三-原文.html",
-      "line": 24,
-      "quote": "十二月二十五日，奉玉册、玉宝，恭上尊谥曰大圣武元皇帝，庙号太祖"
-    },
-    {
-      "cid": "c8",
-      "book": "金史",
-      "file": "china-history/金史/志/第十三章-卷十三-原文.html",
-      "line": 27,
-      "quote": "孝孙嗣皇帝臣某，谨拜手稽首奉玉册玉宝，恭上尊谥曰应乾兴运昭德定功睿神庄孝仁明大圣武元皇帝"
+     "form": "応乾興運昭徳定功睿神荘孝仁明大聖武元皇帝",
+     "year": 1145
     }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": "太祖",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "冒頭1行の第1スロット（c1）。崩御条が「庙号太祖」と明記（c2）"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": "応乾興運昭徳定功仁明荘孝大聖武元皇帝",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "冒頭が掲げる加諡形（c1）。崩御条の初諡は「武元皇帝」（c2）で、冒頭形はその後の加諡。欄が主張するのは冒頭形であって最終形ではない"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": [
-        {
-          "form": "武元皇帝",
-          "year": 1125
-        },
-        {
-          "form": "応乾興運昭徳定功睿神荘孝仁明大聖武元皇帝",
-          "year": 1145
-        }
-      ],
-      "basis": [
-        "c1",
-        "c3",
-        "c4",
-        "c5",
-        "c6",
-        "c7",
-        "c8"
-      ],
-      "confidence": "high",
-      "note": "初諡の形は**書の中で割れる** — 本紀の要約は「武元皇帝」（c3）、礼志の上尊諡節は「大聖武元皇帝」で日も十二月二十五日とする（c7）。**「大聖」は生前の尊号**で、同じ本紀が「上尊号曰大聖皇帝」と書く（c5）。尊号を含まない側を段に採った。加諡は皇統五年十月で、熙宗紀の条（c6）と礼志の册文（c8）が形まで揃える"
-    },
-    {
-      "field": "name.courtesyName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "金史の本紀の冒頭定型は「讳〈漢名〉，本讳〈女真名〉，〈続柄〉」で字の位置を持たない（字を挟むのは海陵王の条の「字元功」だけ）。この帝の冒頭（c1）にも字は無い（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
-    },
-    {
-      "field": "name.childhoodName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "金史が小字を立てるときは冒頭に挟む（章宗「小字麻达葛」・衛紹王「小字兴胜」）。この帝の冒頭（c1）にはその位置が無く、女真名は「本讳」で立って ethnicName が受けている（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
-    }
-  ],
-  "discrepancies": "なし（templeName・posthumousNameFull はどちらも空だったので新規。既存の personalName 旻・ethnicName 阿骨打は冒頭1行と一致）"
+   ],
+   "basis": [
+    "c1",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8"
+   ],
+   "confidence": "high",
+   "note": "初諡の形は**書の中で割れる** — 本紀の要約は「武元皇帝」（c3）、礼志の上尊諡節は「大聖武元皇帝」で日も十二月二十五日とする（c7）。**「大聖」は生前の尊号**で、同じ本紀が「上尊号曰大聖皇帝」と書く（c5）。尊号を含まない側を段に採った。加諡は皇統五年十月で、熙宗紀の条（c6）と礼志の册文（c8）が形まで揃える"
+  },
+  {
+   "field": "name.courtesyName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "金史の本紀の冒頭定型は「讳〈漢名〉，本讳〈女真名〉，〈続柄〉」で字の位置を持たない（字を挟むのは海陵王の条の「字元功」だけ）。この帝の冒頭（c1）にも字は無い（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
+  },
+  {
+   "field": "name.childhoodName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "金史が小字を立てるときは冒頭に挟む（章宗「小字麻达葛」・衛紹王「小字兴胜」）。この帝の冒頭（c1）にはその位置が無く、女真名は「本讳」で立って ethnicName が受けている（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "謚",
+    "谥曰",
+    "庙号",
+    "廟號",
+    "〈諡字〉帝",
+    "〈諡字〉王",
+    "〈諡字〉公"
+   ],
+   "basis": [
+    "c2",
+    "c3",
+    "c4",
+    "c6",
+    "c7",
+    "c8"
+   ],
+   "confidence": "high",
+   "note": "金史は帝を廟号で呼ぶ（政権慣行の記録が `no-form`／`per-person` としている欄）。諡は「谥大行皇帝曰〈全長形〉，庙号〈廟号〉」の1形（c2・c3・c4・c6・c7・c8）。金史1冊を「谥／諡＋4字以内＋帝／王／公」で全数走査した当たり35件はすべて「〈諡〉皇帝」型で、**「〈諡字〉帝」型の短縮呼称は在位した金の帝に1件も無い**（同型が出るのは追尊された遠祖の「德帝」「安帝」だけで、これは在位していない）。本人の紀を全長諡の各字＋「帝」で当て直しても、出るのは梁武帝・漢明帝など他朝の帝だけ。**海陵王「煬」・衛紹王「紹」・哀宗「哀宗」が欄に値を持つのは、金史がその3人にだけ廟号を与えず諡の側で呼ぶため**で、廟号を持つこの6人には掛からない。**閉域は「書1冊の授与条」と「本人の紀の本文」の2本**"
+  }
+ ],
+ "discrepancies": "なし（templeName・posthumousNameFull はどちらも空だったので新規。既存の personalName 旻・ethnicName 阿骨打は冒頭1行と一致）"
 }

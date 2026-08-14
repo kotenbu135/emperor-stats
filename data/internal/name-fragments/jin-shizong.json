@@ -1,92 +1,114 @@
 {
-  "id": "jin-shizong",
-  "claims": [
+ "id": "jin-shizong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "金史",
+   "file": "_corpus_cache/jin-shizong.txt",
+   "line": 2,
+   "quote": "世宗光天兴运文德武功圣明仁孝皇帝，讳雍，本讳乌禄，太祖孙，睿宗子也"
+  },
+  {
+   "cid": "c2",
+   "book": "金史",
+   "file": "_corpus_cache/jin-shizong.txt",
+   "line": 301,
+   "quote": "运文德武功圣明仁孝皇帝，庙号世宗"
+  },
+  {
+   "cid": "c3",
+   "book": "金史",
+   "file": "_corpus_cache/jin-shizong.txt",
+   "line": 301,
+   "quote": "三月辛卯朔，上尊谥曰光天兴运文德武功圣明仁孝皇帝，庙号世宗"
+  },
+  {
+   "cid": "c4",
+   "book": "金史",
+   "file": "china-history/金史/志/第十三章-卷十三-原文.html",
+   "line": 34,
+   "quote": "大定二十九年四月乙丑，谥大行皇帝曰光天兴运文德武功圣明仁孝皇帝，庙号世宗"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "世宗",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "冒頭1行＋崩御条"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "光天興運文徳武功聖明仁孝皇帝",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "冒頭形と崩御条の上諡が一致する"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "金史",
-      "file": "_corpus_cache/jin-shizong.txt",
-      "line": 2,
-      "quote": "世宗光天兴运文德武功圣明仁孝皇帝，讳雍，本讳乌禄，太祖孙，睿宗子也"
-    },
-    {
-      "cid": "c2",
-      "book": "金史",
-      "file": "_corpus_cache/jin-shizong.txt",
-      "line": 301,
-      "quote": "运文德武功圣明仁孝皇帝，庙号世宗"
-    },
-    {
-      "cid": "c3",
-      "book": "金史",
-      "file": "_corpus_cache/jin-shizong.txt",
-      "line": 301,
-      "quote": "三月辛卯朔，上尊谥曰光天兴运文德武功圣明仁孝皇帝，庙号世宗"
-    },
-    {
-      "cid": "c4",
-      "book": "金史",
-      "file": "china-history/金史/志/第十三章-卷十三-原文.html",
-      "line": 34,
-      "quote": "大定二十九年四月乙丑，谥大行皇帝曰光天兴运文德武功圣明仁孝皇帝，庙号世宗"
+     "form": "光天興運文徳武功聖明仁孝皇帝",
+     "year": 1189
     }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": "世宗",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "冒頭1行＋崩御条"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": "光天興運文徳武功聖明仁孝皇帝",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "冒頭形と崩御条の上諡が一致する"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": [
-        {
-          "form": "光天興運文徳武功聖明仁孝皇帝",
-          "year": 1189
-        }
-      ],
-      "basis": [
-        "c1",
-        "c3",
-        "c4"
-      ],
-      "confidence": "high",
-      "note": "1段のみ。要約は大定二十九年三月辛卯朔（c3）、礼志は同年四月乙丑（c4）で**月が割れる**が年は揃う"
-    },
-    {
-      "field": "name.courtesyName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "金史の本紀の冒頭定型は「讳〈漢名〉，本讳〈女真名〉，〈続柄〉」で字の位置を持たない（字を挟むのは海陵王の条の「字元功」だけ）。この帝の冒頭（c1）にも字は無い（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
-    },
-    {
-      "field": "name.childhoodName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "金史が小字を立てるときは冒頭に挟む（章宗「小字麻达葛」・衛紹王「小字兴胜」）。この帝の冒頭（c1）にはその位置が無く、女真名は「本讳」で立って ethnicName が受けている（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
-    }
-  ],
-  "discrepancies": "なし"
+   ],
+   "basis": [
+    "c1",
+    "c3",
+    "c4"
+   ],
+   "confidence": "high",
+   "note": "1段のみ。要約は大定二十九年三月辛卯朔（c3）、礼志は同年四月乙丑（c4）で**月が割れる**が年は揃う"
+  },
+  {
+   "field": "name.courtesyName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "金史の本紀の冒頭定型は「讳〈漢名〉，本讳〈女真名〉，〈続柄〉」で字の位置を持たない（字を挟むのは海陵王の条の「字元功」だけ）。この帝の冒頭（c1）にも字は無い（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
+  },
+  {
+   "field": "name.childhoodName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "金史が小字を立てるときは冒頭に挟む（章宗「小字麻达葛」・衛紹王「小字兴胜」）。この帝の冒頭（c1）にはその位置が無く、女真名は「本讳」で立って ethnicName が受けている（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "謚",
+    "谥曰",
+    "庙号",
+    "廟號",
+    "〈諡字〉帝",
+    "〈諡字〉王",
+    "〈諡字〉公"
+   ],
+   "basis": [
+    "c3",
+    "c4"
+   ],
+   "confidence": "high",
+   "note": "金史は帝を廟号で呼ぶ（政権慣行の記録が `no-form`／`per-person` としている欄）。諡は「谥大行皇帝曰〈全長形〉，庙号〈廟号〉」の1形（c3・c4）。金史1冊を「谥／諡＋4字以内＋帝／王／公」で全数走査した当たり35件はすべて「〈諡〉皇帝」型で、**「〈諡字〉帝」型の短縮呼称は在位した金の帝に1件も無い**（同型が出るのは追尊された遠祖の「德帝」「安帝」だけで、これは在位していない）。本人の紀を全長諡の各字＋「帝」で当て直しても、出るのは梁武帝・漢明帝など他朝の帝だけ。**海陵王「煬」・衛紹王「紹」・哀宗「哀宗」が欄に値を持つのは、金史がその3人にだけ廟号を与えず諡の側で呼ぶため**で、廟号を持つこの6人には掛からない。**閉域は「書1冊の授与条」と「本人の紀の本文」の2本**"
+  }
+ ],
+ "discrepancies": "なし"
 }

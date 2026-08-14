@@ -1,25 +1,57 @@
 {
-  "id": "nansong-weiwang",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "宋史",
-      "file": "china-history/宋史/本纪/第四十七章-卷四十七-原文.html",
-      "line": 22,
-      "quote": "癸丑，上度宗謚"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "宋史 卷四十七の二王の記事に諡の条が無い。衛王昺は崖山で崩じたのち宋の側に諡を上げる主体が残っていない"
-    }
-  ],
-  "discrepancies": "なし。宋史 卷四十七は二王（端宗・衛王）を1巻にまとめ、端宗には「其臣號之曰端宗」の呼び名を書くが衛王にはそれも無い。他書の諡との食い違いはこの書の外の話なので残量表の行"
+ "id": "nansong-weiwang",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "宋史",
+   "file": "china-history/宋史/本纪/第四十七章-卷四十七-原文.html",
+   "line": 22,
+   "quote": "癸丑，上度宗謚"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "宋史 卷四十七の二王の記事に諡の条が無い。衛王昺は崖山で崩じたのち宋の側に諡を上げる主体が残っていない"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "追尊",
+    "追崇",
+    "追號",
+    "追号",
+    "上尊號",
+    "上尊号",
+    "尊號曰",
+    "尊号曰",
+    "尊號為",
+    "尊号为",
+    "廟號",
+    "庙号",
+    "廟曰",
+    "庙曰",
+    "廟稱",
+    "庙称",
+    "贈",
+    "赠"
+   ],
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "宋史は衛王（帝昺）に諡・廟号のどちらも与えない — 本人のキャッシュ（`_corpus_cache/nansong-weiwang.txt`）を「谥／諡・追尊・追崇・追号・上尊号・尊号曰／为・庙号・庙曰・庙称・贈」の10語で全数で読んで**当たり0件**。同じ紀に載る恭帝（瀛國公）・端宗も諡を持たない（どちらも既に `read-absent`）。**閉域はキャッシュ1本**で、書1冊の授与条の全数走査（当たり27件）にも衛王に掛かる条は無い"
+  }
+ ],
+ "discrepancies": "なし。宋史 卷四十七は二王（端宗・衛王）を1巻にまとめ、端宗には「其臣號之曰端宗」の呼び名を書くが衛王にはそれも無い。他書の諡との食い違いはこの書の外の話なので残量表の行"
 }

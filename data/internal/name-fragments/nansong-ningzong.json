@@ -1,87 +1,109 @@
 {
-  "id": "nansong-ningzong",
-  "claims": [
+ "id": "nansong-ningzong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "宋史",
+   "file": "_corpus_cache/nansong-ningzong.txt",
+   "line": 1,
+   "quote": "寧宗法天備道純德茂功仁文哲武聖睿恭孝皇帝，諱擴，光宗第二子也"
+  },
+  {
+   "cid": "c2",
+   "book": "宋史",
+   "file": "china-history/宋史/本纪/第四十章-卷四十-原文.html",
+   "line": 22,
+   "quote": "謚曰仁文哲武恭孝皇帝，廟號寧宗。三月癸酉，葬于會稽之永茂陵。三年九月，加謚法天備道純德茂功仁文哲武聖睿恭孝皇帝"
+  },
+  {
+   "cid": "c3",
+   "book": "宋史",
+   "file": "china-history/宋史/本纪/第四十一章-卷四十一-原文.html",
+   "line": 22,
+   "quote": "辛酉，請大行皇帝謚號于南郊，謚曰仁文哲武恭孝皇帝，廟號曰寧宗"
+  },
+  {
+   "cid": "c4",
+   "book": "宋史",
+   "file": "china-history/宋史/本纪/第四十一章-卷四十一-原文.html",
+   "line": 22,
+   "quote": "丙午，追上寧宗徽號曰法天備道純德茂功仁文哲武聖睿恭孝皇帝"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "寧宗",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "冒頭の第1スロット（c1）。上諡の条が「廟號」と明記して裏を取る（c2）"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "法天備道純徳茂功仁文哲武聖睿恭孝皇帝",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "冒頭が掲げる形（c1）。同じ書の上諡条は初諡を記し、冒頭形はその後の加諡にあたる（c2）。この欄が主張するのは冒頭形であって最終形ではない"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "宋史",
-      "file": "_corpus_cache/nansong-ningzong.txt",
-      "line": 1,
-      "quote": "寧宗法天備道純德茂功仁文哲武聖睿恭孝皇帝，諱擴，光宗第二子也"
+     "form": "仁文哲武恭孝皇帝",
+     "year": 1225
     },
     {
-      "cid": "c2",
-      "book": "宋史",
-      "file": "china-history/宋史/本纪/第四十章-卷四十-原文.html",
-      "line": 22,
-      "quote": "謚曰仁文哲武恭孝皇帝，廟號寧宗。三月癸酉，葬于會稽之永茂陵。三年九月，加謚法天備道純德茂功仁文哲武聖睿恭孝皇帝"
-    },
-    {
-      "cid": "c3",
-      "book": "宋史",
-      "file": "china-history/宋史/本纪/第四十一章-卷四十一-原文.html",
-      "line": 22,
-      "quote": "辛酉，請大行皇帝謚號于南郊，謚曰仁文哲武恭孝皇帝，廟號曰寧宗"
-    },
-    {
-      "cid": "c4",
-      "book": "宋史",
-      "file": "china-history/宋史/本纪/第四十一章-卷四十一-原文.html",
-      "line": 22,
-      "quote": "丙午，追上寧宗徽號曰法天備道純德茂功仁文哲武聖睿恭孝皇帝"
+     "form": "法天備道純徳茂功仁文哲武聖睿恭孝皇帝",
+     "year": 1227
     }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": "寧宗",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "冒頭の第1スロット（c1）。上諡の条が「廟號」と明記して裏を取る（c2）"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": "法天備道純徳茂功仁文哲武聖睿恭孝皇帝",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "冒頭が掲げる形（c1）。同じ書の上諡条は初諡を記し、冒頭形はその後の加諡にあたる（c2）。この欄が主張するのは冒頭形であって最終形ではない"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": [
-        {
-          "form": "仁文哲武恭孝皇帝",
-          "year": 1225
-        },
-        {
-          "form": "法天備道純徳茂功仁文哲武聖睿恭孝皇帝",
-          "year": 1227
-        }
-      ],
-      "basis": [
-        "c1",
-        "c2",
-        "c3",
-        "c4"
-      ],
-      "confidence": "high",
-      "note": "寶慶元年正月己丑の初諡と寶慶三年九月の加諡（本人の紀の末尾 c2 が両方を年つきで書き、理宗紀の条 c3・c4 が裏を取る）。加諡の形が冒頭形"
-    },
-    {
-      "field": "name.courtesyName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "宋史の本紀で字を挙げるのは高宗・孝宗の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
-    }
-  ],
-  "discrepancies": "なし（冒頭1行は現行の familyName 趙・personalName と整合）"
+   ],
+   "basis": [
+    "c1",
+    "c2",
+    "c3",
+    "c4"
+   ],
+   "confidence": "high",
+   "note": "寶慶元年正月己丑の初諡と寶慶三年九月の加諡（本人の紀の末尾 c2 が両方を年つきで書き、理宗紀の条 c3・c4 が裏を取る）。加諡の形が冒頭形"
+  },
+  {
+   "field": "name.courtesyName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "宋史の本紀で字を挙げるのは高宗・孝宗の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "謚",
+    "谥曰",
+    "庙号",
+    "廟號",
+    "〈諡字〉帝",
+    "〈諡字〉王",
+    "〈諡字〉公"
+   ],
+   "basis": [
+    "c2",
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "宋史は帝を廟号で呼び、諡は本人の紀の崩御条に「謚曰〈全長形〉皇帝，廟號〈廟号〉」の1形だけを置く（c2・c3）。**短縮呼称の形はこの書に無い** — 宋史1冊を「谥／諡＋4字以内＋帝／王／公」で全数走査したところ、帝に短い諡を与える条は**後周恭帝の「谥曰恭帝」1件だけ**で（`daizhigev20/史藏/正史/宋史.txt:377`）、宋の帝には1件も無い。あわせて本人の紀（`_corpus_cache/nansong-ningzong.txt`）を全長諡の各字＋「帝」で全数で当て直したが、出るのは他朝の帝（梁武帝・西魏文帝など）と**生前に上る尊号「壽皇聖帝」**（孝宗）だけで、本人を指す短縮呼称は出ない。2026-08-13 の決定「全長形しか無い政権では短縮呼称を作らない」に当たる。**閉域は「書1冊の授与条」と「本人の紀の本文」の2本**で、他書がこの帝を短縮形で呼ぶかは見ていない"
+  }
+ ],
+ "discrepancies": "なし（冒頭1行は現行の familyName 趙・personalName と整合）"
 }
