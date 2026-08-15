@@ -1,55 +1,214 @@
 {
- "id": "beisongmo-zhangbangchang",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "宋史",
-   "file": "_corpus_cache/beisongmo-zhangbangchang.txt",
-   "line": 14,
-   "quote": "詔數邦昌罪，賜死潭州"
-  },
-  {
-   "cid": "c2",
-   "book": "宋史",
-   "file": "_corpus_cache/beisongmo-zhangbangchang.txt",
-   "line": 1,
-   "quote": "張邦昌　劉豫　苗傳劉正彥附　杜充　吳曦"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "宋史1冊の走査（sweep_posthumous_range.py・2026-08-10）は列傳の当たり301件まで数えており、この人物の諡は1件も無い。本人の伝にも「谥」は0出現。"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。宋史1冊を走査し、諡の条1245件・別語彙347件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+  "id": "beisongmo-zhangbangchang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-zhangbangchang.txt",
+      "line": 14,
+      "quote": "詔數邦昌罪，賜死潭州"
+    },
+    {
+      "cid": "c2",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-zhangbangchang.txt",
+      "line": 1,
+      "quote": "張邦昌　劉豫　苗傳劉正彥附　杜充　吳曦"
+    },
+    {
+      "cid": "block10-c1",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-zhangbangchang.txt",
+      "line": 3,
+      "quote": "張邦昌字子能，永靜軍東光人也。"
+    },
+    {
+      "cid": "block10-c2",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-zhangbangchang.txt",
+      "line": 8,
+      "quote": "適金人奉冊寶至，邦昌北向拜舞受冊，即偽位，僭號大楚，擬都金陵。"
+    },
+    {
+      "cid": "c4",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-zhangbangchang.txt",
+      "line": 2,
+      "quote": "扶綱常，遏亂略，作叛臣傳。"
+    },
+    {
+      "cid": "c5",
+      "book": "宋史",
+      "file": "daizhigev20/史藏/正史/宋史.txt",
+      "line": 3809,
+      "quote": "三月丁酉，金人立张邦昌为帝，称大楚。"
+    },
+    {
+      "cid": "c6",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-zhangbangchang.txt",
+      "line": 13,
+      "quote": "王即皇帝位，相李綱，徙邦昌太保、奉國軍節度使，封同安郡王。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c1",
+        "c1",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "諡の段（授けられた順の [{form, year?}]）に入れるべき授与が1件も無い。生前の封爵（同安郡王・c6）は諡ではないので段に入れない。",
+      "sweptWords": [
+        "諡",
+        "謚",
+        "谥",
+        "廟",
+        "庙",
+        "追尊",
+        "追封",
+        "追諡",
+        "號曰",
+        "号曰",
+        "尊為",
+        "尊为",
+        "贈",
+        "赠"
+      ],
+      "sweptScope": [
+        "宋史 全巻 daizhigev20/史藏/正史/宋史.txt の「邦昌」を含む全行（本紀・志・列傳を含む・段落単位の行）",
+        "本人の列傳 卷475 全文 china-history/宋史/列传/第二百三十四章-卷二百三十四-原文.html（諡系0件）",
+        "巻の見出し行と叛臣傳序 _corpus_cache/beisongmo-zhangbangchang.txt:1-2",
+        "別政権の書 金史 全巻 daizhigev20/史藏/正史/金史.txt の「邦昌」を含む12行",
+        "未走査: 遼史・宋史以外の別史（三朝北盟会編など正史外）"
+      ]
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c1",
+        "block10-c2",
+        "c1",
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "諡を授けた条が宋史・金史のどこにも無い。宋史は高宗即位後に「徙邦昌太保、奉國軍節度使，封同安郡王」（c6）と生前の官爵だけを記し、最後は罪を数えて賜死（c3）。sweptWords・sweptScope は name.templeName の note と同じ。",
+      "sweptWords": [
+        "諡",
+        "謚",
+        "谥",
+        "廟",
+        "庙",
+        "追尊",
+        "追封",
+        "追諡",
+        "號曰",
+        "号曰",
+        "尊為",
+        "尊为",
+        "贈",
+        "赠"
+      ],
+      "sweptScope": [
+        "宋史 全巻 daizhigev20/史藏/正史/宋史.txt の「邦昌」を含む全行（本紀・志・列傳を含む・段落単位の行）",
+        "本人の列傳 卷475 全文 china-history/宋史/列传/第二百三十四章-卷二百三十四-原文.html（諡系0件）",
+        "巻の見出し行と叛臣傳序 _corpus_cache/beisongmo-zhangbangchang.txt:1-2",
+        "別政権の書 金史 全巻 daizhigev20/史藏/正史/金史.txt の「邦昌」を含む12行",
+        "未走査: 遼史・宋史以外の別史（三朝北盟会編など正史外）"
+      ]
+    },
+    {
+      "field": "name.personalName",
+      "value": "邦昌",
+      "basis": [
+        "block10-c1"
+      ],
+      "confidence": "high",
+      "note": "宋史 列傳第二百三十四（絶対巻475・叛臣上）の伝首が「張邦昌字子能」と姓・諱・字を挙げる。姓は張、諱は邦昌、字は子能。値は既存レコードの表記（日本語新字体）に揃えたが、この3語は底本の字体と同形。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c1",
+        "block10-c2",
+        "c1",
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "宋史は張邦昌を本紀に立てず叛臣傳（c4）に置き、伝首は皇帝の定型（廟号＋諡＋諱）ではなく列傳の定型「〈姓名〉字〈字〉，〈本貫〉」で始まる（c1）。即位は「即偽位，僭號大楚」（c2）と偽位として書かれ、末は「詔數邦昌罪，賜死潭州」（c3）で終わり、廟を立てた記事は無い。sweptWords: 諡・謚・谥・廟・庙・追尊・追封・追諡・號曰・号曰・尊為・尊为・贈・赠（scripts/hanzi_norm.norm_for_match を通して照合）。sweptScope: (1) 宋史 全巻（daizhigev20/史藏/正史/宋史.txt）の「邦昌」を含む全行＝本紀・志・列傳を含む・巻の見出し行と叛臣傳序（キャッシュ 1〜2行）、(2) 本人の列傳 卷475 の全文（china-history/宋史/列传/第二百三十四章-卷二百三十四-原文.html は諡系0件・廟は他伝の語）、(3) 別政権の書として金史 全巻（daizhigev20/史藏/正史/金史.txt）の「邦昌」を含む12行＝授与語ゼロ。高宗紀も「金人立张邦昌为帝，称大楚」（c5）と記すだけで号を与えない。遼史は1125年に滅んだ政権の書なので走査していない（未走査）。",
+      "sweptWords": [
+        "諡",
+        "謚",
+        "谥",
+        "廟",
+        "庙",
+        "追尊",
+        "追封",
+        "追諡",
+        "號曰",
+        "号曰",
+        "尊為",
+        "尊为",
+        "贈",
+        "赠"
+      ],
+      "sweptScope": [
+        "宋史 全巻 daizhigev20/史藏/正史/宋史.txt の「邦昌」を含む全行（本紀・志・列傳を含む・段落単位の行）",
+        "本人の列傳 卷475 全文 china-history/宋史/列传/第二百三十四章-卷二百三十四-原文.html（諡系0件）",
+        "巻の見出し行と叛臣傳序 _corpus_cache/beisongmo-zhangbangchang.txt:1-2",
+        "別政権の書 金史 全巻 daizhigev20/史藏/正史/金史.txt の「邦昌」を含む12行",
+        "未走査: 遼史・宋史以外の別史（三朝北盟会編など正史外）"
+      ]
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c1",
+        "block10-c2",
+        "c1",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "伝首（c1）は加諡形を掲げない列傳の定型で、崩御にあたる条（c3）も諡を出さない。全長形の主張になりうる箇所が原文に無い。",
+      "sweptWords": [
+        "諡",
+        "謚",
+        "谥",
+        "廟",
+        "庙",
+        "追尊",
+        "追封",
+        "追諡",
+        "號曰",
+        "号曰",
+        "尊為",
+        "尊为",
+        "贈",
+        "赠"
+      ],
+      "sweptScope": [
+        "宋史 全巻 daizhigev20/史藏/正史/宋史.txt の「邦昌」を含む全行（本紀・志・列傳を含む・段落単位の行）",
+        "本人の列傳 卷475 全文 china-history/宋史/列传/第二百三十四章-卷二百三十四-原文.html（諡系0件）",
+        "巻の見出し行と叛臣傳序 _corpus_cache/beisongmo-zhangbangchang.txt:1-2",
+        "別政権の書 金史 全巻 daizhigev20/史藏/正史/金史.txt の「邦昌」を含む12行",
+        "未走査: 遼史・宋史以外の別史（三朝北盟会編など正史外）"
+      ]
+    }
+  ],
+  "discrepancies": "なし。既存の構造フィールド（familyName「張」・personalName「邦昌」・courtesyName「子能」・regnalTitle「皇帝」・reigns 1127〜1127・templeName null・posthumousName null）はいずれも原文と食い違わない。姓名字は c1 と一致、皇帝を称した年は高宗紀 建炎元年（1127年）三月丁酉の「金人立张邦昌为帝，称大楚」（c5）と一致する。",
+  "conflicts": [],
+  "noteLog": "既存レコードの name.templeName・name.posthumousName はいずれも null で、原文の読解結果と同じ向き。捨てた値は無い。posthumousNameFull は現行レコードに欄が無く、今回 null（read-absent）として新たに主張する。",
+  "processSuggestion": "残量表 宋史 叛臣傳の傀儡政権（張邦昌の楚・劉豫の齊）2件（未読 1＝beisongmo-liuyu は本セッションでは未走査）。列傳しか原典が無い政権は閉域4軸の (3) 別政権の書（金史）まで当てないと read-absent が閉じないので、check_regime_conventions の「所在」行に対向政権の書名を1つ添えると走査範囲の取りこぼしが減る。"
 }
