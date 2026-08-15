@@ -47,7 +47,7 @@
         {
           "name": "templeName:read-absent",
           "kind": "corroborated",
-          "count": 13,
+          "count": 11,
           "means": "commonName が廟号形で立っていて `templeName` が空だが、**その人物の原文を読んで「この書はこの人に廟号を与えない」と決めたセル**（14件）。証人は name-fragments の`findings[{field, value: null}]` で、散文の note ではない。型は3つ — 位号・爵位で立つ廃位者／`commonName` の末尾が廟号ではない（北斉 安徳王高延宗の「宗」は諱の一部）／その書が廟号と呼ばない語（宋史 端宗の「其臣號之曰端宗」・金史 哀宗と閩の康宗・景宗は「谥」）",
           "establishes": "**この人物・この項目は読み終わっている**ということ。`transcribe` は空セルを数えるので、読んで「空が正しい」と決めたセルもそのまま残り、件数だけを見ると作業が終わらないように見える。**読み終わりを機械可読の証人（`findings[].value: null`）から数え直したのがこのバケット**",
           "notEstablished": "**他の書がその人物に廟号を与えていないこと**。証人が言うのはその書について読んだ結果までで、追尊・私諡の類は別の器（`posthumousNames` や紹介文）で扱う"
@@ -275,7 +275,7 @@
         {
           "name": "posthumousName:unknown",
           "kind": "absent",
-          "count": 130,
+          "count": 132,
           "means": "commonName が諡号形で立っていないだけ。**「諡号が無い」ではない**",
           "notEstablished": "値の不在。廟号で呼ばれる皇帝（〜祖／〜宗）は諡号を別に持つのが普通なので、ここには取りこぼしが厚く残る",
           "audit": {

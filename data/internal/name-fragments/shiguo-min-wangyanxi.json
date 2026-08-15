@@ -1,54 +1,83 @@
 {
- "id": "shiguo-min-wangyanxi",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "新五代史",
-   "file": "_corpus_cache/shiguo-min-wangyanxi.txt",
-   "line": 4,
-   "quote": "重遇等遣壮士拉于马上而杀之，谥曰景宗"
-  },
-  {
-   "cid": "c2",
-   "book": "新五代史",
-   "file": "_corpus_cache/shiguo-min-wangyanxi.txt",
-   "line": 4,
-   "quote": "六年三月，曦出游，醉归，重遇等遣壮士拉于马上而杀之，谥曰景宗"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。王継鵬と同じで、書が使う語は「谥」（c1）"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": "景宗",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "書が諡として掲げる形（c1）"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "shiguo-min-wangyanxi",
+  "claims": [
     {
-     "form": "景宗"
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-min-wangyanxi.txt",
+      "line": 4,
+      "quote": "重遇等遣壮士拉于马上而杀之，谥曰景宗"
+    },
+    {
+      "cid": "c2",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-min-wangyanxi.txt",
+      "line": 4,
+      "quote": "六年三月，曦出游，醉归，重遇等遣壮士拉于马上而杀之，谥曰景宗"
+    },
+    {
+      "cid": "outside-canon-c1",
+      "book": "十国春秋",
+      "file": "daizhigev20/史藏/载记/十国春秋.txt",
+      "line": 3906,
+      "quote": "葬帝于福州之城北諡曰睿文广武明圣元德隆道大孝皇帝庙号景宗"
+    },
+    {
+      "cid": "min-fix-c2",
+      "book": "新五代史",
+      "file": "daizhigev20/史藏/正史/新五代史.txt",
+      "line": 2330,
+      "quote": "鏻立十年见杀，谥曰惠皇帝，庙号太宗"
     }
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "弑逆の条「谥曰景宗」。閩は2代続けて廟号型2字を「谥」と書く（前代 康宗と同じ形）"
-  }
- ],
- "discrepancies": "なし"
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "景宗",
+      "basis": [
+        "outside-canon-c1"
+      ],
+      "confidence": "high",
+      "note": "十国春秋の葬送条が**同じ句の中で諡と庙号を並べる**（c1「…大孝皇帝庙号景宗」）。新五代史は「谥曰景宗」と諡の位置に書くが、同じ書が王鏻には「谥曰惠皇帝，庙号太宗」と書き分ける（c2）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**廟号を短縮諡の欄へ入れていたのを外した（2026-08-15）。** 十国春秋 L3906「葬帝于福州之城北諡曰睿文广武明圣元德隆道大孝皇帝庙号景宗」が同じ句で諡と庙号を並べる。新五代史は「谥曰景宗」と諡の位置に書くが、同じ書が王鏻には「谥曰惠皇帝，庙号太宗」と書き分ける。短縮呼称を書く条は無い",
+      "verdict": "read-absent",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "謚",
+        "庙号"
+      ]
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "睿文広武明聖元徳隆道大孝皇帝"
+        }
+      ],
+      "basis": [
+        "outside-canon-c1"
+      ],
+      "confidence": "high",
+      "note": "段は1段。授与の条が書く長い形をそのまま採る。**廟号を段に入れていたのを差し替えた**（2026-08-15）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "睿文広武明聖元徳隆道大孝皇帝",
+      "basis": [
+        "outside-canon-c1"
+      ],
+      "confidence": "high",
+      "note": "**新五代史は「谥曰景宗」と廟号を諡の位置に書く**。十国春秋 卷九十四（閩五）の葬送条が〈X〉皇帝の形を持つ唯一の当たり／2026-08-15 のユーザー決定で、**輯本・私撰（十六国春秋・同別伝・華陽国志・十国春秋）と編年・注（資治通鑑・胡三省注・裴松之注引書）を名前欄の witness に採る**ことになった。この値はその決定で入る"
+    }
+  ],
+  "discrepancies": "なし"
 }
