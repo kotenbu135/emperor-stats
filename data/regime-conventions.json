@@ -5497,8 +5497,7 @@
     {
       "book": "魏書",
       "regimeIds": [
-        "northern-wei",
-        "eastern-wei"
+        "northern-wei"
       ],
       "fields": [
         "courtesyName"
@@ -5518,11 +5517,6 @@
           "file": "_corpus_cache/beiwei-xiaowendi.txt",
           "line": 2,
           "quote": "高祖孝文皇帝，讳宏，显祖献文皇帝之长子。"
-        },
-        {
-          "file": "_corpus_cache/dongwei-xiaojingdi.txt",
-          "line": 2,
-          "quote": "孝静皇帝，讳善见，清河文宣王亶之世子也。"
         }
       ],
       "surveyedAt": "2026-08-16"
@@ -5700,6 +5694,28 @@
           "file": "_corpus_cache/nanming-shaowudi.txt",
           "line": 1,
           "quote": "隆武帝之第四弟也。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "魏書",
+      "regimeIds": [
+        "eastern-wei"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "魏書 孝静紀 の**冒頭1行**（「〈諡〉皇帝，讳〈諱〉，〈続柄〉」）に字の位置が無い。**北魏を form-found にした所在（帝紀本文の封皇子条）はこの政権には無い** — 孝静帝は清河王亶の世子で皇子ではなく、封皇子条に立たない。魏書1冊を「善见」で走査しても、前後25字に「字」を含む窓は0件",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "字の位置が無い（諱の次が続柄）",
+      "note": "**北魏と同じ書だが所在型が違うので別レコードにした**（2026-08-16）。同居させると、次に読む人が存在しない所在を掃いて `read-absent` を書く",
+      "evidence": [
+        {
+          "file": "_corpus_cache/dongwei-xiaojingdi.txt",
+          "line": 2,
+          "quote": "孝静皇帝，讳善见，清河文宣王亶之世子也。"
         }
       ],
       "surveyedAt": "2026-08-16"
