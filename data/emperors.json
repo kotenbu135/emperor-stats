@@ -15639,7 +15639,8 @@
         "posthumousName": "文帝",
         "templeName": "高祖",
         "regnalTitle": "皇帝",
-        "courtesyName": "子桓"
+        "courtesyName": "子桓",
+        "posthumousNameFull": "文皇帝"
       },
       "eraId": "three-kingdoms-jin",
       "regimeId": "cao-wei",
@@ -15904,7 +15905,8 @@
         "posthumousName": "明帝",
         "templeName": "烈祖",
         "regnalTitle": "皇帝",
-        "courtesyName": "元仲"
+        "courtesyName": "元仲",
+        "posthumousNameFull": "明皇帝"
       },
       "eraId": "three-kingdoms-jin",
       "regimeId": "cao-wei",
@@ -17200,7 +17202,8 @@
             "form": "昭烈皇帝",
             "year": 223
           }
-        ]
+        ],
+        "posthumousNameFull": "昭烈皇帝"
       },
       "eraId": "three-kingdoms-jin",
       "regimeId": "shu-han",
@@ -17909,7 +17912,8 @@
             "form": "大皇帝",
             "year": 252
           }
-        ]
+        ],
+        "posthumousNameFull": "大皇帝"
       },
       "eraId": "three-kingdoms-jin",
       "regimeId": "eastern-wu",
@@ -18735,7 +18739,8 @@
             "form": "景皇帝",
             "year": 264
           }
-        ]
+        ],
+        "posthumousNameFull": "景皇帝"
       },
       "eraId": "three-kingdoms-jin",
       "regimeId": "eastern-wu",
@@ -26173,7 +26178,8 @@
             "form": "光文皇帝",
             "year": 310
           }
-        ]
+        ],
+        "posthumousNameFull": "光文皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "former-zhao",
@@ -26582,7 +26588,8 @@
             "form": "昭武皇帝",
             "year": 318
           }
-        ]
+        ],
+        "posthumousNameFull": "昭武皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "former-zhao",
@@ -27549,7 +27556,8 @@
             "form": "景昭皇帝",
             "year": 360
           }
-        ]
+        ],
+        "posthumousNameFull": "景昭皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "former-yan",
@@ -29224,7 +29232,8 @@
             "form": "明皇帝",
             "year": 332
           }
-        ]
+        ],
+        "posthumousNameFull": "明皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "later-zhao",
@@ -29790,7 +29799,8 @@
           {
             "form": "武皇帝"
           }
-        ]
+        ],
+        "posthumousNameFull": "武皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "later-zhao",
@@ -31371,7 +31381,8 @@
             "form": "哀平皇帝",
             "year": 386
           }
-        ]
+        ],
+        "posthumousNameFull": "哀平皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "former-qin",
@@ -31574,7 +31585,8 @@
             "form": "高皇帝",
             "year": 394
           }
-        ]
+        ],
+        "posthumousNameFull": "高皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "former-qin",
@@ -32750,7 +32762,8 @@
             "form": "成武皇帝",
             "year": 396
           }
-        ]
+        ],
+        "posthumousNameFull": "成武皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "later-yan",
@@ -33050,7 +33063,8 @@
             "form": "恵愍皇帝",
             "year": 399
           }
-        ]
+        ],
+        "posthumousNameFull": "恵愍皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "later-yan",
@@ -33712,7 +33726,8 @@
           {
             "form": "昭武皇帝"
           }
-        ]
+        ],
+        "posthumousNameFull": "昭武皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "later-yan",
@@ -34006,7 +34021,8 @@
           {
             "form": "昭文皇帝"
           }
-        ]
+        ],
+        "posthumousNameFull": "昭文皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "later-yan",
@@ -35097,7 +35113,8 @@
             "form": "献武皇帝",
             "year": 405
           }
-        ]
+        ],
+        "posthumousNameFull": "献武皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "southern-yan",
@@ -35589,7 +35606,8 @@
             "form": "武昭皇帝",
             "year": 393
           }
-        ]
+        ],
+        "posthumousNameFull": "武昭皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "later-qin",
@@ -35916,7 +35934,8 @@
             "form": "文桓皇帝",
             "year": 416
           }
-        ]
+        ],
+        "posthumousNameFull": "文桓皇帝"
       },
       "eraId": "eastern-jin-sixteen",
       "regimeId": "later-qin",
@@ -41311,7 +41330,8 @@
           {
             "form": "武皇帝"
           }
-        ]
+        ],
+        "posthumousNameFull": "武皇帝"
       },
       "eraId": "northern-southern",
       "regimeId": "southern-liang",
@@ -42055,7 +42075,8 @@
           {
             "form": "簡文皇帝"
           }
-        ]
+        ],
+        "posthumousNameFull": "簡文皇帝"
       },
       "eraId": "northern-southern",
       "regimeId": "southern-liang",
@@ -42479,7 +42500,8 @@
           {
             "form": "孝元皇帝"
           }
-        ]
+        ],
+        "posthumousNameFull": "孝元皇帝"
       },
       "eraId": "northern-southern",
       "regimeId": "southern-liang",
@@ -43092,7 +43114,8 @@
             "form": "宣皇帝",
             "year": 562
           }
-        ]
+        ],
+        "posthumousNameFull": "宣皇帝"
       },
       "eraId": "northern-southern",
       "regimeId": "western-liang",
@@ -43656,7 +43679,8 @@
             "form": "武皇帝",
             "year": 559
           }
-        ]
+        ],
+        "posthumousNameFull": "武皇帝"
       },
       "eraId": "northern-southern",
       "regimeId": "chen",
@@ -43901,7 +43925,8 @@
             "form": "文皇帝",
             "year": 566
           }
-        ]
+        ],
+        "posthumousNameFull": "文皇帝"
       },
       "eraId": "northern-southern",
       "regimeId": "chen",
@@ -44543,7 +44568,8 @@
             "form": "孝宣皇帝",
             "year": 582
           }
-        ]
+        ],
+        "posthumousNameFull": "孝宣皇帝"
       },
       "eraId": "northern-southern",
       "regimeId": "chen",
@@ -60749,7 +60775,8 @@
           {
             "form": "恭皇帝"
           }
-        ]
+        ],
+        "posthumousNameFull": "恭皇帝"
       },
       "eraId": "sui-tang",
       "regimeId": "sui",
@@ -61923,7 +61950,8 @@
           {
             "form": "武皇帝"
           }
-        ]
+        ],
+        "posthumousNameFull": "武皇帝"
       },
       "eraId": "sui-tang",
       "regimeId": "xiqin",

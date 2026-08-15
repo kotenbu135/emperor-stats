@@ -28,6 +28,13 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 117,
       "quote": "卷一百十五 载记第十五"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianqin-fudeng.txt",
+      "line": 17,
+      "quote": "伪谥登曰高皇帝，庙号太宗"
     }
   ],
   "findings": [
@@ -84,13 +91,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "pending",
+      "value": "高皇帝",
       "basis": [
-        "c2"
+        "posthumous-full-c1"
       ],
-      "confidence": "low",
-      "note": "政権 former-qin は posthumousNameFull の政権慣行が未確定（check_regime_conventions.py --field posthumousNameFull が blocked を返す）。読めた形は「高皇帝」1つで、これを短縮欄と全長欄のどちらへ・両方へ入れるかは政権単位の保存形が決まってから。人物単位で決めないため pending"
+      "confidence": "high",
+      "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型に本人の諱が挟まる異形（「伪谥〈諱〉曰〈X〉皇帝」）／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
     }
   ],
   "conflicts": [],

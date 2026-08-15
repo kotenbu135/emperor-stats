@@ -23,6 +23,15 @@
       ],
       "confidence": "high",
       "note": "升平四年の死去条（c1）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "景昭皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型。同じ記事の L18「伪谥献怀」は太子のもので本人ではない"
     }
   ],
   "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"

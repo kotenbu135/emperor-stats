@@ -56,6 +56,13 @@
       "file": "daizhigev20/史藏/正史/隋书.txt",
       "line": 6795,
       "quote": "会越王侗称尊号，遣使者授密太尉、尚书令、东南道大行"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "隋書",
+      "file": "_corpus_cache/sui-gongdi-tong.txt",
+      "line": 8,
+      "quote": "世充伪谥为恭皇帝"
     }
   ],
   "findings": [
@@ -103,15 +110,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
+      "value": "恭皇帝",
       "basis": [
-        "c3",
-        "c1",
-        "c5"
+        "posthumous-full-c1"
       ],
-      "confidence": "medium",
-      "note": "この人物は帝紀を持たない例外で、冒頭1行は位号「越王侗」＝諡ではないので、政権慣行 storageForm が言う「冒頭1行が掲げる諡」はこの人物には存在しない。全長形として原文に在るのは死去条の「世充伪谥为恭皇帝」だけ（c3）で、書自身が「伪谥」と呼ぶ（授けたのは鄭を僭称した王世充）。偽諡をこの欄へ入れるかは Issue #126 の判断待ちなので pending とし、形そのものは posthumousNames の段に入れる。配布物の同政権・同型の扱いもこれに揃っている（隋 煬帝は冒頭形「煬皇帝」が posthumousNameFull で、侗の贈った偽諡「明」は段だけ）。同じ書は異母兄弟の侑にも「恭皇帝」を使う（c5）ので、この形だけでは人物が決まらない点にも注意",
-      "verdict": "pending"
+      "confidence": "high",
+      "note": "崩御・葬送の授与の条（この書はこの人物に名乗り形の位置を持たない）が掲げる全長形。隋書は越王侗を列傳に立てるので冒頭1行の名乗り形が無い（慣行の例外扱い・per-person）。王世充が贈った偽諡がこの位置に在る／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
     },
     {
       "field": "name.posthumousNames",

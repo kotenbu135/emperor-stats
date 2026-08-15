@@ -56,6 +56,13 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 7547,
       "quote": "故其子孙遂冒姓刘氏"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianzhao-liuyuan.txt",
+      "line": 15,
+      "quote": "伪谥光文皇帝，庙号高祖，墓号永光陵"
     }
   ],
   "findings": [
@@ -117,13 +124,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "pending",
+      "value": "光文皇帝",
       "basis": [
-        "c1"
+        "posthumous-full-c1"
       ],
-      "confidence": "low",
-      "note": "blocked: former-zhao。check_regime_conventions.py --field posthumousNameFull が未確定（終了 1）で返るため、原文に見えた「光文皇帝」をこの欄へ入れてよいかを人物単位で決めない。読解は済んでおり、載記末尾の形は c1 が唯一。"
+      "confidence": "high",
+      "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型が庙号・墓号まで揃う型。キャッシュ内の他の〈X〉皇帝は漢の歴代への追尊で本人のものではない／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
     },
     {
       "field": "name.courtesyName",

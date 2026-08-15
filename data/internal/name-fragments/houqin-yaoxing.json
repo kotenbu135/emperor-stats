@@ -21,6 +21,13 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 8372,
       "quote": "兴以日月薄蚀，灾眚屡见，降号称王"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/houqin-yaoxing.txt",
+      "line": 114,
+      "quote": "伪谥文桓皇帝，庙号高祖，墓曰偶陵"
     }
   ],
   "findings": [
@@ -85,13 +92,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "pending",
+      "value": "文桓皇帝",
       "basis": [
-        "c2"
+        "posthumous-full-c1"
       ],
-      "confidence": "low",
-      "note": "政権 later-qin は posthumousNameFull の慣行が未確定（check_regime_conventions.py --field posthumousNameFull が「政権単位の慣行が未確定」で終了）。読み終えた結果として原文にある諡は「文桓皇帝」の1形だけだが、載記型でこの形を全長形の欄へ入れるか短縮呼称だけに留めるかは政権単位の保存形の決定であって人物単位で決めない。よって read-absent ではなく pending。慣行群の兄弟レコード6件はいずれも posthumousNameFull が null"
+      "confidence": "high",
+      "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型。墓は「墓曰」で書かれる異形。同じキャッシュの L119「谥曰忠成侯」は臣下 尹緯のもの／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
     }
   ],
   "conflicts": [],

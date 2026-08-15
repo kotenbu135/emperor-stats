@@ -1,35 +1,51 @@
 {
- "id": "liang-yuandi",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "梁書",
-   "file": "_corpus_cache/liang-yuandi.txt",
-   "line": 1,
-   "quote": "元帝"
-  },
-  {
-   "cid": "c2",
-   "book": "梁書",
-   "file": "_corpus_cache/liang-yuandi.txt",
-   "line": 25,
-   "quote": "明年四月，追尊为孝元皇帝，庙曰世祖"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "liang-yuandi",
+  "claims": [
     {
-     "form": "孝元皇帝"
+      "cid": "c1",
+      "book": "梁書",
+      "file": "_corpus_cache/liang-yuandi.txt",
+      "line": 1,
+      "quote": "元帝"
+    },
+    {
+      "cid": "c2",
+      "book": "梁書",
+      "file": "_corpus_cache/liang-yuandi.txt",
+      "line": 25,
+      "quote": "明年四月，追尊为孝元皇帝，庙曰世祖"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "梁書",
+      "file": "_corpus_cache/liang-yuandi.txt",
+      "line": 2,
+      "quote": "世祖孝元皇帝，讳绎，字世诚，小字七符"
     }
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "同じく梁書の「追尊」型（「明年四月，追尊为孝元皇帝，庙曰世祖」）。**江陵陥落で殺されたあと、翌年に贈られた**形。2026-08-13 の当て直しで `read-absent` から移した"
-  }
- ],
- "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）／**2026-08-13**: 諡の段を `read-absent` から値ありへ訂正した（「谥」の語彙だけで走査したための取りこぼし）"
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "孝元皇帝"
+        }
+      ],
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "同じく梁書の「追尊」型（「明年四月，追尊为孝元皇帝，庙曰世祖」）。**江陵陥落で殺されたあと、翌年に贈られた**形。2026-08-13 の当て直しで `read-absent` から移した"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝元皇帝",
+      "basis": [
+        "posthumous-full-c1"
+      ],
+      "confidence": "high",
+      "note": "書が本人の名乗りとして掲げる冒頭1行が掲げる全長形。冒頭1行。キャッシュに「谥」の字が1件も無い人物で、授与は「追尊为孝元皇帝」の形（段の欄が受ける）"
+    }
+  ],
+  "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）／**2026-08-13**: 諡の段を `read-absent` から値ありへ訂正した（「谥」の語彙だけで走査したための取りこぼし）"
 }

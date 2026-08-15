@@ -23,6 +23,15 @@
       ],
       "confidence": "high",
       "note": "「即义熙元年也…」（c1）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "献武皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型が**1句で終わる型**（庙号・墓号が付かない）"
     }
   ],
   "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"

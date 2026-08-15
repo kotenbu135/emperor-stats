@@ -35,6 +35,13 @@
       "file": "_corpus_cache/houyan-murongbao.txt",
       "line": 2,
       "quote": "垂死，其年宝嗣伪位，大赦境内，改元为永康。"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/houyan-murongbao.txt",
+      "line": 9,
+      "quote": "伪谥宝惠愍皇帝，庙号烈宗"
     }
   ],
   "findings": [
@@ -69,14 +76,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "pending",
+      "value": "恵愍皇帝",
       "basis": [
-        "c2",
-        "c4"
+        "posthumous-full-c1"
       ],
-      "confidence": "medium",
-      "note": "原文が掲げる全長形は「惠愍皇帝」で、名乗り自体は在るので read-absent ではない。check_regime_conventions は --field posthumousNameFull に対し「政権単位の慣行が未確定」と応答し（later-yan）、掛かる慣行記録の fields も templeName・posthumousName・posthumousNames の3つだけで posthumousNameFull を含まない。皇帝形をこの欄へ複写するか空のままかは政権側の保存形が決まるまで人物単位では決められないため pending。この政権の既存10レコードはいずれも当欄が空で、皇帝形は posthumousNames 側に入っている"
+      "confidence": "high",
+      "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型に本人の諱「宝」が挟まる異形。贈ったのは蘭汗を討って即位した慕容盛／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
     },
     {
       "field": "name.posthumousNames",

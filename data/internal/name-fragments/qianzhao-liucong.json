@@ -21,6 +21,13 @@
       "file": "_corpus_cache/qianzhao-liucong.txt",
       "line": 48,
       "quote": "太兴元年，聪死，在位九年，伪谥曰昭武皇帝，庙号烈宗。"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianzhao-liucong.txt",
+      "line": 48,
+      "quote": "伪谥曰昭武皇帝，庙号烈宗"
     }
   ],
   "findings": [
@@ -88,13 +95,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "pending",
+      "value": "昭武皇帝",
       "basis": [
-        "c1"
+        "posthumous-full-c1"
       ],
-      "confidence": "low",
-      "note": "政権 former-zhao は posthumousNameFull の政権慣行が未確定（`check_regime_conventions.py --for qianzhao-liucong --field posthumousNameFull` が exit 1・登録済みの2レコードの fields にこの欄が無い）。晉書 載記が掲げる形は「昭武皇帝」1つだけで、これを全長形の欄へも入れるか片方を空にするかは政権単位の保存形の決定なので人物単位で決めない。"
+      "confidence": "high",
+      "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型。「伪谥**曰**」と助辞が入る異形／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
     },
     {
       "field": "name.aliases",
