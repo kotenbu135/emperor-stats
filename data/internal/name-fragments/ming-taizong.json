@@ -70,44 +70,82 @@
       "file": "_corpus_cache/ming-taizong.txt",
       "line": 19,
       "quote": "秋七月壬午朔，大祀天地于南郊，奉太祖配"
+    },
+    {
+      "book": "明史",
+      "file": "_corpus_cache/ming-taizong.txt",
+      "line": 2,
+      "quote": "成祖启天弘道高明肇运圣武神功纯仁至孝文皇帝讳棣，太祖第四子也。",
+      "cid": "zi3-c1"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "成祖",
-      "basis": ["c1", "c3"],
+      "basis": [
+        "c1",
+        "c3"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousName",
       "value": "启天弘道高明肇运圣武神功纯仁至孝文皇帝",
-      "basis": ["c1", "c3"],
+      "basis": [
+        "c1",
+        "c3"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.aliases",
-      "value": ["太宗", "体天弘道高明广运圣武神功纯仁至孝文皇帝", "燕王"],
-      "basis": ["c2", "c3"],
+      "value": [
+        "太宗",
+        "体天弘道高明广运圣武神功纯仁至孝文皇帝",
+        "燕王"
+      ],
+      "basis": [
+        "c2",
+        "c3"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.personalName",
       "value": "棣",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.familyName",
       "value": "朱",
-      "basis": ["c1", "c6"],
+      "basis": [
+        "c1",
+        "c6"
+      ],
       "confidence": "high"
     },
     {
       "field": "eraChangeCount.events[0].eraName",
       "value": "永乐",
-      "basis": ["c4", "c5"],
+      "basis": [
+        "c4",
+        "c5"
+      ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1"
+      ],
+      "confidence": "high",
+      "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

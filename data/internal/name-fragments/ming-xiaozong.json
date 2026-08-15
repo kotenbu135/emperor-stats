@@ -28,6 +28,13 @@
       "file": "daizhigev20/史藏/正史/明史.txt",
       "line": 659,
       "quote": "孝宗达天明道纯诚中正圣文神武至仁大德敬皇帝，讳祐堂，宪宗第三子也"
+    },
+    {
+      "book": "明史",
+      "file": "_corpus_cache/ming-xiaozong.txt",
+      "line": 2,
+      "quote": "孝宗达天明道纯诚中正圣文神武至仁大德敬皇帝，讳祐堂，宪宗第三子也。",
+      "cid": "zi3-c1"
     }
   ],
   "findings": [
@@ -70,6 +77,16 @@
       ],
       "confidence": "high",
       "note": "在位中の元号は弘治のみ。即位条に「以明年为弘治元年」と立ち、以後の紀年は弘治元年〜十八年で連続する（崩御は弘治十八年五月辛卯）。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1"
+      ],
+      "confidence": "high",
+      "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

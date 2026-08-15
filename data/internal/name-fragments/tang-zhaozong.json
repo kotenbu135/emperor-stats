@@ -49,39 +49,81 @@
       "file": "_corpus_cache/tang-zhaozong.txt",
       "line": 106,
       "quote": "帝殂，年三十八"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 628,
+      "quote": "昭宗圣穆景文孝皇帝讳晔，懿宗第七子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-zhaozong.txt",
+      "line": 2,
+      "quote": "昭宗圣穆景文孝皇帝讳晔，懿宗第七子，母曰惠安太后王氏。",
+      "cid": "zi3-c2"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "昭宗",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousNameFull",
       "value": "聖穆景文孝皇帝",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousName",
       "value": null,
       "verdict": "read-absent",
-      "basis": ["c2", "c6"],
+      "basis": [
+        "c2",
+        "c6"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.personalName",
       "value": "曄",
-      "basis": ["c1", "c4"],
+      "basis": [
+        "c1",
+        "c4"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.aliases",
-      "value": ["傑"],
-      "basis": ["c3", "c4"],
+      "value": [
+        "傑"
+      ],
+      "basis": [
+        "c3",
+        "c4"
+      ],
       "confidence": "medium"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

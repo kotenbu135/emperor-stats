@@ -14,33 +14,68 @@
       "file": "_corpus_cache/tang-dezong.txt",
       "line": 190,
       "quote": "永贞元年九月丁卯，群臣上谥曰神武孝文，庙号德宗"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 486,
+      "quote": "德宗神武圣文皇帝讳适，代宗长子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-dezong.txt",
+      "line": 2,
+      "quote": "德宗神武孝文皇帝讳适，代宗长子，母曰睿真皇后沈氏。",
+      "cid": "zi3-c2"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "徳宗",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousNameFull",
       "value": "神武孝文皇帝",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousName",
       "value": null,
       "verdict": "read-absent",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.personalName",
       "value": "适",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

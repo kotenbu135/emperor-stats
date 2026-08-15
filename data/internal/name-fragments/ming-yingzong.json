@@ -42,32 +42,66 @@
       "file": "_corpus_cache/ming-yingzong.txt",
       "line": 110,
       "quote": "庚午，崩，年三十有八。二月乙未，上尊谥，庙号英宗，葬裕陵。"
+    },
+    {
+      "book": "明史",
+      "file": "_corpus_cache/ming-yingzong.txt",
+      "line": 2,
+      "quote": "英宗法天立道仁明诚敬昭文宪武至德广孝睿皇帝，讳祁镇，宣宗长子也。",
+      "cid": "zi3-c1"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "英宗",
-      "basis": ["c1", "c2", "c6"],
+      "basis": [
+        "c1",
+        "c2",
+        "c6"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousName",
       "value": "法天立道仁明誠敬昭文憲武至徳広孝睿皇帝",
-      "basis": ["c1", "c2", "c6"],
+      "basis": [
+        "c1",
+        "c2",
+        "c6"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.personalName",
       "value": "祁鎮",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "eraNames",
-      "value": ["正統", "天順"],
-      "basis": ["c3", "c5"],
+      "value": [
+        "正統",
+        "天順"
+      ],
+      "basis": [
+        "c3",
+        "c5"
+      ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1"
+      ],
+      "confidence": "high",
+      "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

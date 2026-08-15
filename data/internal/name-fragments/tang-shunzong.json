@@ -21,33 +21,69 @@
       "file": "china-history/新唐书/本纪/第七章-卷七·德宗 顺宗 宪-原文.html",
       "line": 58,
       "quote": "谥曰至德大圣大安孝皇帝。大中三年，增谥至德弘道大圣大安孝皇帝"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 516,
+      "quote": "顺宗至德弘道大圣大安孝皇帝讳诵，德宗长子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-shunzong.txt",
+      "line": 2,
+      "quote": "顺宗至德大圣大安孝丘帝讳诵，德宗长子，母昭德皇后王氏。",
+      "cid": "zi3-c2"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "順宗",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousNameFull",
       "value": "至徳大聖大安孝皇帝",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousName",
       "value": null,
       "verdict": "read-absent",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.personalName",
       "value": "誦",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [
@@ -55,13 +91,17 @@
       "field": "name.posthumousNameFull",
       "adopted": {
         "value": "至徳大聖大安孝皇帝",
-        "source": { "page": "旧唐書 本紀第十四" },
+        "source": {
+          "page": "旧唐書 本紀第十四"
+        },
         "quote": "六月乙卯，皇帝率群臣上大行太上皇谥曰至德大圣大安孝皇帝，庙号顺宗"
       },
       "alternatives": [
         {
           "value": "至徳弘道大聖大安孝皇帝",
-          "source": { "page": "新唐書 本紀第七" },
+          "source": {
+            "page": "新唐書 本紀第七"
+          },
           "quote": "谥曰至德大圣大安孝皇帝。大中三年，增谥至德弘道大圣大安孝皇帝",
           "note": "新唐書は大中3年（849年）の増諡として弘道を加えた形を記す"
         }

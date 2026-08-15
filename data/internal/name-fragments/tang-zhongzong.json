@@ -42,39 +42,80 @@
       "file": "_corpus_cache/tang-zhongzong.txt",
       "line": 2,
       "quote": "圣历元年，召还东都，立为皇太子，依旧名显"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 382,
+      "quote": "中宗大和大圣大昭孝皇帝讳显，高宗第七子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 2,
+      "quote": "中宗大和圣昭孝皇帝讳显，高宗第七子，母曰则天顺圣皇后。",
+      "cid": "zi3-c2"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "中宗",
-      "basis": ["c2", "c1"],
+      "basis": [
+        "c2",
+        "c1"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.personalName",
       "value": "顕",
-      "basis": ["c1", "c6"],
+      "basis": [
+        "c1",
+        "c6"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousNameFull",
       "value": "大和大聖大昭孝皇帝",
-      "basis": ["c2", "c4", "c5"],
+      "basis": [
+        "c2",
+        "c4",
+        "c5"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousName",
       "value": null,
       "verdict": "read-absent",
-      "basis": ["c2"],
+      "basis": [
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.aliases",
-      "value": ["哲"],
-      "basis": ["c3"],
+      "value": [
+        "哲"
+      ],
+      "basis": [
+        "c3"
+      ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [
@@ -82,13 +123,17 @@
       "field": "name.posthumousNameFull",
       "adopted": {
         "value": "大和大聖大昭孝皇帝",
-        "source": { "page": "旧唐書 本紀第七 中宗" },
+        "source": {
+          "page": "旧唐書 本紀第七 中宗"
+        },
         "quote": "天宝十三载二月，改谥曰大和大圣大昭孝皇帝"
       },
       "alternatives": [
         {
           "value": "大和聖昭孝皇帝",
-          "source": { "page": "旧唐書 本紀第七 中宗" },
+          "source": {
+            "page": "旧唐書 本紀第七 中宗"
+          },
           "quote": "中宗大和圣昭孝皇帝讳显，高宗第七子，母曰则天顺圣皇后",
           "note": "舊唐書 本紀の冒頭が掲げる形。電子底本（china-history 旧唐书/本纪 卷七 と daizhigev20 旧唐书.txt:503）は同じ祖本を共有するので独立した2証人ではない"
         }

@@ -49,6 +49,13 @@
       "file": "_corpus_cache/ming-muzong.txt",
       "line": 8,
       "quote": "庚戌，崩于乾清宫，年三十有六"
+    },
+    {
+      "book": "明史",
+      "file": "_corpus_cache/ming-muzong.txt",
+      "line": 2,
+      "quote": "穆宗契天隆道渊懿宽仁显文光武纯德弘孝庄皇帝，讳载垕，世宗第三子也。",
+      "cid": "zi3-c1"
     }
   ],
   "findings": [
@@ -79,6 +86,16 @@
         "c5"
       ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1"
+      ],
+      "confidence": "high",
+      "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

@@ -49,6 +49,13 @@
       "file": "_corpus_cache/ming-daizong.txt",
       "line": 43,
       "quote": "赞曰：景帝当倥偬之时，奉命居摄"
+    },
+    {
+      "book": "明史",
+      "file": "_corpus_cache/ming-daizong.txt",
+      "line": 2,
+      "quote": "恭仁康定景皇帝，讳祁钰，宣宗次子也。",
+      "cid": "zi3-c1"
     }
   ],
   "findings": [
@@ -103,6 +110,16 @@
       ],
       "confidence": "high",
       "note": "正統十四年九月癸未の即位条に「以明年为景泰元年」（c2）、翌年から「景泰元年」（c3）。在位中の元号は景泰のみで count=1 と整合"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1"
+      ],
+      "confidence": "high",
+      "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],
