@@ -5317,6 +5317,392 @@
       "storageForm": "授与の条が書く〈X〉皇帝を `posthumousNameFull` に入れる。**2026-08-16 のユーザー決定**で、授与の条（「谥曰〈X〉皇帝」型）が書く形も `posthumousNameFull` が受けることになった。2026-08-15 の実測（配布物177件のうち21件は授与の条にしか無い形）で他政権20人へ当てた扱いを、打ち切り済みの記録へも遡及させる。同じ条は段の欄 `posthumousNames` も受ける（2欄が同じ文字列を持つのは既存の扱いで、段と全長形の両方が入っている134人のうち121人がこの形）",
       "note": "**このレコードは 2026-08-16 に、同じ書・同じ政権の `templeName` のレコード（`biography-only`・打ち切り）から欄を割って立てた。** 判定が割れるのは、列傳に名乗り形の欄が無いことは廟号にはそのまま効くが、全長諡は授与の条という別の位置を持つため",
       "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "史記・漢書",
+      "regimeIds": [
+        "western-han"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "**字の位置を持つのは史記の側**。史記 高祖本紀（daizhigev20/史藏/正史/史记.txt L714）の冒頭が「〈呼称〉，〈籍貫〉人，姓〈姓〉氏，字〈字〉。」で、字が姓の直後に並ぶ。**漢書 帝紀の冒頭1行には字の位置が無い** — 同じ人物の漢書 高帝紀の冒頭は「高祖，沛丰邑中阳里人也，姓刘氏。」で、史記が持つ「字季」をそこで落とす。`_corpus_cache/<id>.txt` は漢書なので、**前漢はキャッシュを見るかぎり字が出ない**。漢書側の所在は**紀の外**で、成帝の字は元后傳（卷九十八・汉书.txt L4303 の巻）に在る",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈呼称〉，〈籍貫〉人，姓〈姓〉氏，字〈字〉。」（史記 本紀の冒頭1行）",
+      "variants": "漢書 帝紀の冒頭は「孝〈X〉皇帝，〈続柄〉，母曰〈母〉」で字を挟まない。**これは書式の記述であって「前漢で字を持つのは何人」という人物単位の主張ではない**（`R-SWEEP-DETECTION`）",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/史记.txt",
+          "line": 714,
+          "quote": "高祖，沛丰邑中阳里人，姓刘氏，字季。"
+        },
+        {
+          "file": "_corpus_cache/han-gaozu.txt",
+          "line": 1,
+          "quote": "高祖，沛丰邑中阳里人也，姓刘氏。"
+        },
+        {
+          "file": "_corpus_cache/han-wendi.txt",
+          "line": 1,
+          "quote": "孝文皇帝，高祖中子也，母曰薄姬。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "史記",
+      "regimeIds": [
+        "qin"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "史記 秦始皇本紀（卷六）。冒頭は「秦始皇帝者，秦庄襄王子也」と続柄で始まり、諱は本文の誕生条「及生，名为政，姓赵氏」に出る。**どちらにも字の位置が無い**。二世は冒頭からして即位年の紀年（「二世皇帝元年，年二十一」）で名乗りを掲げない",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "字の位置が無い（名は「名为〈諱〉，姓〈姓〉氏」で本文に出る）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/qin-shi-huang.txt",
+          "line": 1,
+          "quote": "秦始皇帝者，秦庄襄王子也。"
+        },
+        {
+          "file": "_corpus_cache/qin-er-shi.txt",
+          "line": 1,
+          "quote": "二世皇帝元年，年二十一。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "新唐書",
+      "regimeIds": [
+        "tang"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "新唐書 本紀 卷一〜卷十（daizhigev20/史藏/正史/新唐书.txt。目次行 L3「卷一 本纪第一」・本文見出し L255「本纪第一　高祖」・本紀の終わりは L627「本纪第十　昭宗　哀帝」の巻）各帝の**冒頭1行**に「讳〈諱〉，字〈字〉」の位置が在る。**舊唐書 本紀の冒頭1行には字の位置が無い**（24人ぜんぶが「〈廟号〉〈諡〉皇帝〔，〕讳〈諱〉，〈続柄〉」で閉じる）ので、`_corpus_cache/<id>.txt` は舊唐書＝唐は**キャッシュを見るかぎり1人も当たらない**",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝讳〈諱〉，字〈字〉，〈姓／続柄〉」（新唐書 本紀の冒頭1行）",
+      "variants": "冒頭に字が立つのは高祖（L256「字叔德」）と高宗（L317「字为善」）で、**残りの帝の冒頭は字を挟まない**。**書式の記述であって「唐で字を持つのは2人」という人物単位の主張ではない**（`R-SWEEP-DETECTION`。本紀の外＝列傳・志は未走査）",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/新唐书.txt",
+          "line": 256,
+          "quote": "高祖神尧大圣大光孝皇帝讳渊，字叔德，姓李氏，陇西成纪人也。"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/新唐书.txt",
+          "line": 317,
+          "quote": "高宗天皇大圣大弘孝皇帝讳治，字为善，太宗第九子也。"
+        },
+        {
+          "file": "_corpus_cache/tang-taizong.txt",
+          "line": 2,
+          "quote": "太宗文武大圣大广孝皇帝讳世民，高祖第二子也。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "舊唐書",
+      "regimeIds": [
+        "wu-zhou",
+        "lixilie-chu",
+        "huangchao-qi"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "舊唐書。則天武后は**本紀（則天皇后紀）**の冒頭1行、李希烈・黄巣は**列傳**の冒頭1行。どちらも「〈姓〉〈名〉，〈籍貫〉人」「〈諡〉〈姓〉氏，讳〈諱〉，〈籍貫〉人也」で**字の位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "字の位置が無い（籍貫が直に続く）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/tang-wuzetian.txt",
+          "line": 2,
+          "quote": "则天皇后武氏，讳曌，并州文水人也。"
+        },
+        {
+          "file": "_corpus_cache/tangmo-huangchao.txt",
+          "line": 1,
+          "quote": "黄巢，曹州冤句人，本以贩盐为事。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "明史",
+      "regimeIds": [
+        "ming"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "明史 本紀 各帝の**冒頭1行**（`_corpus_cache/<id>.txt` の2行目）。「讳〈諱〉，字〈字〉，姓〈姓〉氏」の位置が在る",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝，讳〈諱〉，字〈字〉，姓〈姓〉氏」（本紀の冒頭1行）",
+      "variants": "冒頭に字が立つのは太祖で、成祖以降は「讳〈諱〉，〈続柄〉也。母〈母〉」と続柄へ移る。**書式の記述であって人物単位の主張ではない**（`R-SWEEP-DETECTION`）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/ming-taizu.txt",
+          "line": 2,
+          "quote": "讳元璋，字国瑞，姓朱氏。"
+        },
+        {
+          "file": "_corpus_cache/ming-taizong.txt",
+          "line": 2,
+          "quote": "文皇帝讳棣，太祖第四子也。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "明史",
+      "regimeIds": [
+        "chen-han",
+        "hanlin-song",
+        "tianwan",
+        "ming-xia",
+        "shun",
+        "xi"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "明史 列傳（元末群雄＝絶対巻122・123、李自成・張献忠＝「流賊」列傳）各人の**冒頭1行**。「〈姓名〉，〈籍貫〉人」で**字の位置が無く籍貫が直に続く**。**書に位置が無いのではない** — 明史の列傳は官僚の伝では「〈名〉，字〈X〉，〈籍貫〉人」の形を採るので、この群の伝がその形を採らない、が正しい",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "字の位置が無い（籍貫・出自が直に続く）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/yuanmo-chenyouliang.txt",
+          "line": 2,
+          "quote": "陈友谅，沔阳渔家子也。"
+        },
+        {
+          "file": "_corpus_cache/shun-lichengzheng.txt",
+          "line": 2,
+          "quote": "至明末李自成、张献忠极矣。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "魏書",
+      "regimeIds": [
+        "northern-wei",
+        "eastern-wei"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "魏書。**帝紀の冒頭1行には字の位置が無い**（「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」）。字が立つのは**帝紀本文の封皇子条**で、太宗紀（卷三・daizhigev20/史藏/正史/魏书.txt L379）「封皇子焘为泰平王，焘，字佛厘」がその形。**父の紀に在って本人の紀には無い**ので、`_corpus_cache/<id>.txt`（紀ごとの切り出し）には出ない",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「封皇子〈諱〉为〈王号〉，〈諱〉，字〈字〉」（帝紀本文の封皇子条）",
+      "note": "南朝の2書は北魏の君主を鮮卑名の音写で「字〈X〉」と呼ぶ（宋書 索虜傳・南齊書 魏虜傳）。**これを `courtesyName` に採るかは判断待ち**で、道武帝「涉圭」・文成帝「烏雷直勤」・献文帝「萬民」の3人が掛かる（Issue #126 の4節・docs/process/RESIDUAL.md）。太武帝だけは魏書自身が字を書くので 2026-08-16 に転記した",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/魏书.txt",
+          "line": 379,
+          "quote": "封皇子焘为泰平王，焘，字佛厘"
+        },
+        {
+          "file": "_corpus_cache/beiwei-xiaowendi.txt",
+          "line": 2,
+          "quote": "高祖孝文皇帝，讳宏，显祖献文皇帝之长子。"
+        },
+        {
+          "file": "_corpus_cache/dongwei-xiaojingdi.txt",
+          "line": 2,
+          "quote": "孝静皇帝，讳善见，清河文宣王亶之世子也。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "北史",
+      "regimeIds": [
+        "western-wei"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "北史 卷五 魏本紀第五（`daizhigev20/史藏/正史/北史.txt` 本文見出し L598「魏本纪第五」）。西魏の3帝は同じ巻に同居し、各帝の冒頭1行は「〈諡〉皇帝讳〈諱〉，〈続柄〉」で**字の位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "字の位置が無い（諡＋諱の次が続柄）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/xiwei-wendi.txt",
+          "line": 1,
+          "quote": "文皇帝讳宝炬，孝文皇帝之孙，京兆王愉之子也。"
+        },
+        {
+          "file": "_corpus_cache/xiwei-gongdi.txt",
+          "line": 1,
+          "quote": "恭皇帝讳廓，文皇之第四子也。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "隋書",
+      "regimeIds": [
+        "sui"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "隋書 帝紀 各帝の**冒頭1行**（巻の見出し行の次の行）。「〈廟号〉〈諡〉皇帝，姓〈姓〉氏，讳〈諱〉，〈籍貫〉人也」で**字の位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "字の位置が無い（姓・諱の次が籍貫または続柄）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/sui-wendi.txt",
+          "line": 2,
+          "quote": "高祖文皇帝，姓杨氏，讳坚，弘农郡华阴人也。"
+        },
+        {
+          "file": "_corpus_cache/sui-gongdi-you.txt",
+          "line": 2,
+          "quote": "恭皇帝，讳侑，元德太子之子也。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "隋書",
+      "regimeIds": [
+        "xu"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "隋書 卷八十五 列傳第五十（宇文化及伝・本文見出し行 `daizhigev20/史藏/正史/隋书.txt` L7321）の**冒頭1行**。「〈姓名〉，〈父〉之子也」で**字の位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "字の位置が無い（父の官と続柄が直に続く）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/suimo-yuwenhuaji.txt",
+          "line": 1,
+          "quote": "宇文化及，左翊卫大将军述之子也。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "元史",
+      "regimeIds": [
+        "yuan"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "元史 本紀 各帝の**冒頭1行**（巻の見出し行「◎世祖一」などの次の行）。「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」で**字の位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "字の位置が無い（諱の次が続柄）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/yuan-shizu.txt",
+          "line": 2,
+          "quote": "世祖圣德神功文武皇帝，讳忽必烈，睿宗皇帝第四子。"
+        },
+        {
+          "file": "_corpus_cache/yuan-chengzong.txt",
+          "line": 2,
+          "quote": "成宗钦明广孝皇帝，讳铁穆耳，世祖之孙，裕宗真金第三子也。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "清史稿",
+      "regimeIds": [
+        "qing"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "清史稿 本紀（daizhigev20/史藏/正史/清史稿.txt の L3〜L3881）各帝の**冒頭1行**。「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」で**字の位置が無い**。本紀の全域を「〈句読点〉字〈1〜4字〉〈句読点〉」で走査しても名乗りの字は0件（当たる1件は L1093 の「字句多误」＝一般語）",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "字の位置が無い（諱の次が続柄）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/qing-shizu.txt",
+          "line": 2,
+          "quote": "讳福临，太宗第九子。"
+        },
+        {
+          "file": "_corpus_cache/qing-gaozong.txt",
+          "line": 2,
+          "quote": "讳弘历，世宗第四子"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "西夏書事",
+      "regimeIds": [
+        "western-xia"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "西夏書事（daizhigev20/史藏/别史/西夏书事.txt）は**編年体**なので冒頭の定型が無い。字の語が出るのは景宗の誕生条（`_corpus_cache/xixia-jingzong.txt` L3）の「德明爱之，字为嵬埋」だけで、これは**「字〈値〉」の隣接を採らない動詞用法**。しかもこの名は宋史 夏国傳が「小字嵬理」と呼ぶので、**幼名の欄が持つ**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "字の位置が無い（編年体で名乗りを掲げる冒頭そのものが無い）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/xixia-jingzong.txt",
+          "line": 3,
+          "quote": "德明爱之，字为嵬埋。"
+        },
+        {
+          "file": "_corpus_cache/xixia-renzong.txt",
+          "line": 1,
+          "quote": "六月，国主乾顺卒，子仁孝立。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "小腆紀傳",
+      "regimeIds": [
+        "southern-ming"
+      ],
+      "fields": [
+        "courtesyName"
+      ],
+      "locator": "小腆紀傳（daizhigev20/史藏/传记/小腆纪传.txt）紀第一〜第四 各帝の**冒頭1行**（`_corpus_cache/<id>.txt` の7行目、または伝の1行目）。「〈年号〉帝，〈続柄〉也。讳〈諱〉，母〈母〉」で**字の位置が無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "字の位置が無い（続柄と諱が並び、次が母）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/nanming-anzong.txt",
+          "line": 7,
+          "quote": "弘光帝，神宗之孙、福恭王之长子也。讳由崧，母邹妃。"
+        },
+        {
+          "file": "_corpus_cache/nanming-shaowudi.txt",
+          "line": 1,
+          "quote": "隆武帝之第四弟也。"
+        }
+      ],
+      "surveyedAt": "2026-08-16"
     }
   ]
 }

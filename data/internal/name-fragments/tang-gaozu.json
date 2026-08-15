@@ -28,43 +28,82 @@
       "file": "_corpus_cache/tang-gaozu.txt",
       "line": 47,
       "quote": "是日，崩于太安宫之垂拱前殿，年七十"
+    },
+    {
+      "cid": "zi2-c1",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 256,
+      "quote": "高祖神尧大圣大光孝皇帝讳渊，字叔德，姓李氏，陇西成纪人也。"
+    },
+    {
+      "cid": "zi2-c2",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-gaozu.txt",
+      "line": 2,
+      "quote": "高祖神尧大圣大光孝皇帝姓李氏，讳渊。"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "高祖",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousNameFull",
       "value": "神堯大聖大光孝皇帝",
-      "basis": ["c1", "c3"],
+      "basis": [
+        "c1",
+        "c3"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousName",
       "value": null,
       "verdict": "read-absent",
-      "basis": ["c1", "c2", "c3"],
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.personalName",
       "value": "淵",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.familyName",
       "value": "李",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "叔徳",
+      "basis": [
+        "zi2-c1",
+        "zi2-c2"
+      ],
+      "confidence": "high",
+      "verdict": "confirmed",
+      "note": "**本人のキャッシュ（舊唐書 高祖本紀）の外に在る** — 字を掲げるのは新唐書 卷一 本紀第一（目次行 L3「卷一 本纪第一」・本文見出し L255「本纪第一　高祖」）の冒頭 L256 で、**舊唐書は同じ位置を「姓李氏，讳渊。」で閉じて字を挟まない**（c2）。値は書の字体（叔德）を日本語の新字体へ寄せて叔徳（2026-08-16・字ブロック2）"
     }
   ],
   "conflicts": [],
   "noteLog": "底本は簡体（china-history 旧唐书 本纪 由来の _corpus_cache/tang-gaozu.txt）。claims の引用は底本の字体のまま簡体で保存し、findings の値だけデータセットの表記（日本語新字体・人名は正字寄り）へ倒した（「神尧大圣大光孝皇帝」→「神堯大聖大光孝皇帝」・「讳渊」→「淵」）。堯／尭 は既存レコードの名前欄が 堯 側（liao-taizong の name.value「耶律堯骨」）なのでそれに揃えた。posthumousName（短縮呼称）は唐の慣行どおり空にした側の記録: 旧唐書 本紀は冒頭で全長形のみを掲げ、崩御条は初諡「大武皇帝」→上元元年「神尧皇帝」→天宝十三載「神尧大圣大光孝皇帝」と加諡を書き継ぐ。初諡・中間諡は加諡前の別の諡であって短縮呼称ではないため、政権慣行の指示に従い posthumousName へは入れていない。なお sui-yangdi レコードが引く資治通鑑巻百八十五の見出しは「高祖神堯大聖光孝皇帝」で「大光孝」の「大」を欠くが、当段で読んだのは旧唐書のみなので史料対立としては立てず、ここに記録だけ残す。",
-  "discrepancies": "既存の構造フィールドとの食い違いはなし（name.templeName「高祖」・name.personalName「淵」・name.familyName「李」・name.posthumousName null はいずれも原文と一致。posthumousNameFull は既存レコードに欄が無く新規）。1点だけ報告: check_regime_conventions.py の唐の慣行文が高祖の初諡を「太武皇帝」と書いているが、旧唐書 本紀の原文は c2 のとおり「群臣上谥曰大武皇帝」で「大武皇帝」。慣行文側の表記の誤りと見られる（欄の値には影響しない）。",
+  "discrepancies": "なし（新唐書の冒頭は現行の familyName 李・personalName 淵と整合）",
   "processSuggestion": "残量表 唐 本紀の諡号2欄分割 24件（未読 未走査） — check_regime_conventions.py の慣行文に個別人物の値（高祖の初諡「太武皇帝」など）が例示として書かれており、原文と1字違っていた。慣行文には書式と所在だけを置き、人物単位の値は例示でも載せないほうが誤りの伝播が起きない。"
 }

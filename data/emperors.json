@@ -4170,7 +4170,8 @@
      {
       "form": "高皇帝"
      }
-    ]
+    ],
+    "courtesyName": "季"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -63497,7 +63498,8 @@
       "form": "神堯大聖大光孝皇帝",
       "year": 754
      }
-    ]
+    ],
+    "courtesyName": "叔徳"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
@@ -64343,7 +64345,8 @@
       "form": "天皇大聖大弘孝皇帝",
       "year": 754
      }
-    ]
+    ],
+    "courtesyName": "為善"
    },
    "eraId": "sui-tang",
    "regimeId": "tang",
