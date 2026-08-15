@@ -52575,7 +52575,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "華興"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -54183,7 +54184,8 @@
     "posthumousNameFull": "孝静皇帝",
     "posthumousNames": [
      {
-      "form": "孝静皇帝"
+      "form": "孝静皇帝",
+      "year": 552
      }
     ]
    },
