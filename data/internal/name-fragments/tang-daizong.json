@@ -28,20 +28,40 @@
       "file": "_corpus_cache/tang-daizong.txt",
       "line": 102,
       "quote": "八月庚申，群臣上尊谥曰睿文孝武皇帝，庙号代宗"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 463,
+      "quote": "代宗睿文孝武皇帝讳豫，肃宗长子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-daizong.txt",
+      "line": 2,
+      "quote": "代宗睿文孝武皇帝讳豫，肃宗长子，母曰章敬皇太后吴氏。",
+      "cid": "zi3-c2"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "代宗",
-      "basis": ["c1", "c4"],
+      "basis": [
+        "c1",
+        "c4"
+      ],
       "confidence": "high",
       "note": "本紀冒頭が「代宗睿文孝武皇帝讳豫」と掲げ、崩御条も「庙号代宗」と明記する。底本は簡体だが値は既存レコードに合わせ新字体（この字は同形）"
     },
     {
       "field": "name.posthumousNameFull",
       "value": "睿文孝武皇帝",
-      "basis": ["c1", "c4"],
+      "basis": [
+        "c1",
+        "c4"
+      ],
       "confidence": "high",
       "note": "冒頭の掲げる全長形と、大暦十四年八月庚申の「群臣上尊谥曰睿文孝武皇帝」が一致する。底本「睿文孝武皇帝」→ 値は新字体（同形）"
     },
@@ -49,23 +69,44 @@
       "field": "name.posthumousName",
       "value": null,
       "verdict": "read-absent",
-      "basis": ["c1", "c4"],
+      "basis": [
+        "c1",
+        "c4"
+      ],
       "confidence": "medium",
       "note": "唐の既定（短縮呼称の欄は空・全長形だけを入れる）に従う。舊唐書 代宗本紀には末字＋皇帝型の短縮呼称は無く、通用する呼称は廟号「代宗」。ただし政権慣行の別枝条件（加諡が1段しか無い人物）に形式上は該当するため conflicts 欄に判断の分岐を明記した"
     },
     {
       "field": "name.personalName",
       "value": "豫",
-      "basis": ["c1", "c3"],
+      "basis": [
+        "c1",
+        "c3"
+      ],
       "confidence": "high",
       "note": "冒頭「讳豫」。乾元元年四月庚寅の立太子時に「改名豫」で、初名は俶（c2）。既存レコードの値と一致"
     },
     {
       "field": "name.aliases",
-      "value": ["俶"],
-      "basis": ["c2"],
+      "value": [
+        "俶"
+      ],
+      "basis": [
+        "c2"
+      ],
       "confidence": "high",
       "note": "参考。冒頭に「初名俶」と在る初名。欄への投入対象外だが原文に在るので残す"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [
@@ -73,13 +114,17 @@
       "field": "name.posthumousName",
       "adopted": {
         "value": null,
-        "source": { "page": "旧唐書 本紀第十一（代宗）" },
+        "source": {
+          "page": "旧唐書 本紀第十一（代宗）"
+        },
         "quote": "八月庚申，群臣上尊谥曰睿文孝武皇帝，庙号代宗"
       },
       "alternatives": [
         {
           "value": "睿文孝武皇帝",
-          "source": { "page": "旧唐書 本紀第十一（代宗）" },
+          "source": {
+            "page": "旧唐書 本紀第十一（代宗）"
+          },
           "quote": "代宗睿文孝武皇帝讳豫，肃宗长子，母曰章敬皇太后吴氏",
           "note": "政権慣行の別枝『加諡が1段しか無い人物は両方の欄へ同じ値を入れる』を字面どおり当てるとこちら。代宗は加諡が大暦十四年の1段のみで積み上がっていない"
         }

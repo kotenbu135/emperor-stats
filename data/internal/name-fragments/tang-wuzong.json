@@ -63,20 +63,40 @@
       "file": "_corpus_cache/tang-zhaozong.txt",
       "line": 2,
       "quote": "昭宗圣穆景文孝皇帝讳晔，懿宗第七子"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 567,
+      "quote": "武宗至道昭肃孝皇帝讳炎，穆宗第五子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-wuzong.txt",
+      "line": 2,
+      "quote": "武宗至道昭肃孝皇帝讳炎，穆宗第五子，母曰宣懿皇后韦氏。",
+      "cid": "zi3-c2"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "武宗",
-      "basis": ["c1", "c4"],
+      "basis": [
+        "c1",
+        "c4"
+      ],
       "confidence": "high",
       "note": "本紀冒頭の名乗りと崩御条「庙号武宗」が一致。底本は簡体だが値はデータセットの表記（新字体）へ倒した（武宗は字体差なし）"
     },
     {
       "field": "name.posthumousNameFull",
       "value": "至道昭粛孝皇帝",
-      "basis": ["c1", "c4"],
+      "basis": [
+        "c1",
+        "c4"
+      ],
       "confidence": "high",
       "note": "底本「至道昭肃孝皇帝」→ 値は新字体「至道昭粛孝皇帝」（肃→粛）。倒す向きの根拠は同データセット内の tang-suzong が「粛宗」で立っていること。冒頭の名乗りと崩御条の「谥曰」が同一形で、加諡の書き継ぎは無い"
     },
@@ -84,23 +104,47 @@
       "field": "name.posthumousName",
       "value": null,
       "verdict": "read-absent",
-      "basis": ["c1", "c4", "c6"],
+      "basis": [
+        "c1",
+        "c4",
+        "c6"
+      ],
       "confidence": "high",
       "note": "commonName「武宗」が諡ではなく廟号に由来する（c4「庙号武宗」）ため、政権慣行の既定どおり短縮呼称の欄は空。同型の先例は同データセットの tang-shunzong（commonName 順宗＝廟号／posthumousName 空・Full 至徳大聖大安孝皇帝）で、諡形の commonName を持つ tang-aidi（哀帝／哀皇帝）とは枝が違う。史臣曰は「昭肃」を2度用いるが（c6）いずれも裸の呼び方で「昭粛皇帝」の形では現れないので短縮呼称の証拠にならない"
     },
     {
       "field": "name.personalName",
       "value": "炎",
-      "basis": ["c1", "c3", "c5"],
+      "basis": [
+        "c1",
+        "c3",
+        "c5"
+      ],
       "confidence": "high",
       "note": "本紀冒頭の書式「〈廟号〉〈諡号〉皇帝讳〈諱〉」が掲げる諱は「炎」で、新唐書も同じ（c5）。会昌6年3月壬寅に「制改御名炎」（c3）とあり、改名前の本名は「瀍」（c2）。改名した唐の他3人（穆宗 初名宥→讳恒 c7・宣宗 名怡→讳忱 c8・昭宗 名杰→讳晔 c9）は既存レコードがいずれも改名後の諱（恒・忱・晔）で立っており、武宗だけが改名前の名で立っている"
     },
     {
       "field": "name.aliases",
-      "value": ["李瀍"],
-      "basis": ["c2", "c3"],
+      "value": [
+        "李瀍"
+      ],
+      "basis": [
+        "c2",
+        "c3"
+      ],
       "confidence": "high",
       "note": "本作業の投入対象外の欄だが、personalName を改名後の「炎」にすると改名前の名が落ちるので記録として残す。既存データも改名前の名を aliases に置く例がある（han-xuandi の「劉病已」）。姓は既存 familyName「李」を冠した形"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

@@ -41,38 +41,63 @@
     {
       "field": "name.templeName",
       "value": "宣宗",
-      "basis": ["c1", "c3"],
+      "basis": [
+        "c1",
+        "c3"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousName",
       "value": "憲天崇道英明神聖欽文昭武寛仁純孝章皇帝",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.aliases",
-      "value": ["章皇帝"],
-      "basis": ["c4"],
+      "value": [
+        "章皇帝"
+      ],
+      "basis": [
+        "c4"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.personalName",
       "value": "瞻基",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
     },
     {
       "field": "eraName",
       "value": "宣徳",
-      "basis": ["c2"],
+      "basis": [
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "ages.deathAge",
       "value": 38,
-      "basis": ["c5"],
+      "basis": [
+        "c5"
+      ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

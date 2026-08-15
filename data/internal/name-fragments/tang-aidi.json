@@ -35,6 +35,20 @@
       "file": "_corpus_cache/tang-aidi.txt",
       "line": 25,
       "quote": "明宗时就故陵置园邑，有司请谥曰昭宣光烈孝皇帝，庙号“景宗”。中书覆奏少帝行事，不合称宗，存谥而已。知礼者亦以宣、景之谥非宜，今只取本谥，载之于纪。"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 646,
+      "quote": "昭宣光烈孝皇帝讳祝，昭宗第九子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-aidi.txt",
+      "line": 1,
+      "quote": "哀皇帝讳柷，昭宗第九子，母曰积善太后何氏。",
+      "cid": "zi3-c2"
     }
   ],
   "findings": [
@@ -42,37 +56,65 @@
       "field": "name.templeName",
       "value": null,
       "verdict": "read-absent",
-      "basis": ["c1", "c5"],
+      "basis": [
+        "c1",
+        "c5"
+      ],
       "confidence": "high",
       "comment": "本紀冒頭は廟号を置かず「哀皇帝讳柷」から始まる（他帝は「高宗天皇大圣大弘孝皇帝，讳治」形）。さらに後唐明宗期に有司が庙号「景宗」を請うたのを中書が『不合称宗，存谥而已』として退け、書自身が『今只取本谥，载之于纪』と述べる。値の不明ではなく、原文が廟号の不在を積極的に述べている"
     },
     {
       "field": "name.posthumousNameFull",
       "value": "哀皇帝",
-      "basis": ["c1", "c4"],
+      "basis": [
+        "c1",
+        "c4"
+      ],
       "confidence": "high",
       "comment": "本紀冒頭が掲げる名乗りが「哀皇帝」で、崩御条も『仍谥曰哀皇帝』。加諡が1段しか無い（政権慣行の別枝）"
     },
     {
       "field": "name.posthumousName",
       "value": "哀皇帝",
-      "basis": ["c1", "c4"],
+      "basis": [
+        "c1",
+        "c4"
+      ],
       "confidence": "high",
       "comment": "政権慣行の保存形『加諡が1段しか無い人物は別枝（殤帝「殇皇帝」・哀帝「哀皇帝」）。書が掲げる形がそのまま通用する呼称なので、両方の欄へ同じ値を入れる』に従い、全長形と同じ値を短縮欄にも入れる"
     },
     {
       "field": "name.personalName",
       "value": "柷",
-      "basis": ["c1", "c3"],
+      "basis": [
+        "c1",
+        "c3"
+      ],
       "confidence": "high",
       "comment": "冒頭『哀皇帝讳柷』。天祐元年の遺詔で『仍改名柷』と改名した後の諱"
     },
     {
       "field": "name.aliases",
-      "value": ["祚"],
-      "basis": ["c2", "c3"],
+      "value": [
+        "祚"
+      ],
+      "basis": [
+        "c2",
+        "c3"
+      ],
       "confidence": "high",
       "comment": "初名（乾寧四年に輝王に封ぜられたときの名『祚』）で、天祐元年に柷へ改めた。aliases 欄への投入可否はこの段の判断対象外なので、証拠として残すだけ"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

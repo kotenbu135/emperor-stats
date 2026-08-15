@@ -63,43 +63,77 @@
       "file": "_corpus_cache/ming-wuzong.txt",
       "line": 18,
       "quote": "丙寅，崩于豹房，年三十有一。"
+    },
+    {
+      "book": "明史",
+      "file": "_corpus_cache/ming-wuzong.txt",
+      "line": 2,
+      "quote": "武宗承天达道英肃睿哲昭德显功弘文思孝毅皇帝，讳厚照，孝宗长子也。",
+      "cid": "zi3-c1"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "武宗",
-      "basis": ["c1", "c3"],
+      "basis": [
+        "c1",
+        "c3"
+      ],
       "confidence": "high",
       "comment": "本紀冒頭1行の廟号部分と、崩後の「上尊谥，庙号武宗」が一致する"
     },
     {
       "field": "name.posthumousName",
       "value": "承天達道英粛睿哲昭徳顕功弘文思孝毅皇帝",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high",
       "comment": "本紀冒頭「武宗〈諡〉皇帝，讳厚照」の廟号を除いた全部。短縮形は賛の「毅皇」（c8）で、通用形は毅皇帝。値は既存レコードの表記慣行（新字体）に合わせた"
     },
     {
       "field": "name.personalName",
       "value": "厚照",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high",
       "comment": "「讳厚照」。既存値と一致（姓 朱 は武宗の本紀冒頭には出ない）"
     },
     {
       "field": "name.aliases",
-      "value": ["朱寿"],
-      "basis": ["c5", "c6", "c7"],
+      "value": [
+        "朱寿"
+      ],
+      "basis": [
+        "c5",
+        "c6",
+        "c7"
+      ],
       "confidence": "medium",
       "comment": "自ら「総督軍務威武大将軍総兵官」を称し、勅では自身を「朱寿」と呼ばせている（十三年・十四年の2条）。のちに名乗った名として aliases に当たるが、称号部分（威武大将軍・鎮国公・太師）は名ではないので入れていない"
     },
     {
       "field": "eraNames",
-      "value": ["正徳"],
-      "basis": ["c2"],
+      "value": [
+        "正徳"
+      ],
+      "basis": [
+        "c2"
+      ],
       "confidence": "high",
       "comment": "即位の翌年を正徳元年とし、以後正徳十六年の崩御まで改元記事は本紀に無い。在位中の元号は正徳の1つ。なお現行レコードに元号名の欄は無く、eraId は王朝区分の catalog 値"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1"
+      ],
+      "confidence": "high",
+      "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

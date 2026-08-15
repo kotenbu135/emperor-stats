@@ -57,6 +57,16 @@
         "c3"
       ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

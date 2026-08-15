@@ -35,6 +35,13 @@
       "file": "china-history/明史/本纪/第十四章-卷十四-原文.html",
       "line": 79,
       "quote": "九月乙卯，上尊谥，庙号宪宗，葬茂陵。"
+    },
+    {
+      "book": "明史",
+      "file": "_corpus_cache/ming-xianzong.txt",
+      "line": 2,
+      "quote": "宪宗继天凝道诚明仁敬崇文肃武宏德圣孝纯皇帝，讳见深，英宗长子也。",
+      "cid": "zi3-c1"
     }
   ],
   "findings": [
@@ -84,6 +91,16 @@
         "c2"
       ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1"
+      ],
+      "confidence": "high",
+      "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

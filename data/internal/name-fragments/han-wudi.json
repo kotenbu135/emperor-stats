@@ -1,41 +1,66 @@
 {
- "id": "han-wudi",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "漢書",
-   "file": "_corpus_cache/han-wudi.txt",
-   "line": 1,
-   "quote": "孝武皇帝，景帝中子也"
-  },
-  {
-   "cid": "c2",
-   "book": "漢書",
-   "file": "_corpus_cache/han-wudi.txt",
-   "line": 1,
-   "quote": "孝武皇帝，景帝中子也，母曰王美人"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNameFull",
-   "value": "孝武皇帝",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "漢書 帝紀の冒頭定型「孝〈諡字〉皇帝，〈続柄〉也」（c1）。**漢書は帝の上諡の条を紀に載せない**ので、この書が掲げる名乗りの形は冒頭1行の1形に決まる（霍光伝「汉之传谥常为孝者」が「孝」を冠する理由を書く）"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "漢書 紀（卷一〜卷十二）の「谥」「尊号」「庙号」「追尊」を全数で読んだ（2026-08-13）。**この書が帝の諡を授ける条を持つのは高帝の1人だけ**で（「上尊号曰高皇帝」）、他の帝の諡は冒頭の名乗り「孝○皇帝」にしか出ない。この人物には授ける条が無い。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "han-wudi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "漢書",
+      "file": "_corpus_cache/han-wudi.txt",
+      "line": 1,
+      "quote": "孝武皇帝，景帝中子也"
+    },
+    {
+      "cid": "c2",
+      "book": "漢書",
+      "file": "_corpus_cache/han-wudi.txt",
+      "line": 1,
+      "quote": "孝武皇帝，景帝中子也，母曰王美人"
+    },
+    {
+      "book": "史記",
+      "file": "daizhigev20/史藏/正史/史记.txt",
+      "line": 967,
+      "quote": "孝武皇帝者，孝景中子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "漢書",
+      "file": "_corpus_cache/han-wudi.txt",
+      "line": 1,
+      "quote": "孝武皇帝，景帝中子也，母曰王美人。",
+      "cid": "zi3-c2"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝武皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "漢書 帝紀の冒頭定型「孝〈諡字〉皇帝，〈続柄〉也」（c1）。**漢書は帝の上諡の条を紀に載せない**ので、この書が掲げる名乗りの形は冒頭1行の1形に決まる（霍光伝「汉之传谥常为孝者」が「孝」を冠する理由を書く）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "漢書 紀（卷一〜卷十二）の「谥」「尊号」「庙号」「追尊」を全数で読んだ（2026-08-13）。**この書が帝の諡を授ける条を持つのは高帝の1人だけ**で（「上尊号曰高皇帝」）、他の帝の諡は冒頭の名乗り「孝○皇帝」にしか出ない。この人物には授ける条が無い。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "字の位置を持つのは史記の側だが、この帝の本紀の冒頭は諱を立てずに続柄から入る（c1）。漢書の帝紀も冒頭1行に字の位置が無い（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+    }
+  ],
+  "discrepancies": "なし"
 }

@@ -35,6 +35,20 @@
       "file": "china-history/新唐书/本纪/第八章-卷八·穆宗 敬宗 文-原文.html",
       "line": 49,
       "quote": "葬元圣昭献孝皇帝于章陵"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 552,
+      "quote": "文宗元圣昭献孝皇帝讳昂，穆宗第二子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-wenzong.txt",
+      "line": 1,
+      "quote": "文宗元圣昭献孝皇帝讳昂，穆宗第二子，母曰贞献皇后萧氏。",
+      "cid": "zi3-c2"
     }
   ],
   "findings": [
@@ -84,6 +98,17 @@
         "c2"
       ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [

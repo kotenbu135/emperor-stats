@@ -28,33 +28,69 @@
       "file": "_corpus_cache/tang-taizong.txt",
       "line": 94,
       "quote": "臣观文皇帝发迹多奇"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 279,
+      "quote": "太宗文武大圣大广孝皇帝讳世民，高祖次子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-taizong.txt",
+      "line": 2,
+      "quote": "太宗文武大圣大广孝皇帝讳世民，高祖第二子也。",
+      "cid": "zi3-c2"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "太宗",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.personalName",
       "value": "世民",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousNameFull",
       "value": "文武大聖大広孝皇帝",
-      "basis": ["c1", "c3"],
+      "basis": [
+        "c1",
+        "c3"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousName",
       "value": null,
       "verdict": "read-absent",
-      "basis": ["c2", "c3"],
+      "basis": [
+        "c2",
+        "c3"
+      ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

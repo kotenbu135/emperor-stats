@@ -78,6 +78,16 @@
       ],
       "confidence": "high",
       "note": "即位条に「以明年为洪熙元年」、翌年正月朔条が「洪熙元年春正月壬申朔」。既存値 洪熙 と一致（食い違いなし）。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [],

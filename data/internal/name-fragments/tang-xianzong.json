@@ -21,33 +21,69 @@
       "file": "china-history/旧唐书/本纪/第十八章-卷十八-原文.html",
       "line": 122,
       "quote": "十二月，追谥顺宗曰至德大圣大安孝皇帝，宪宗曰昭文章武大圣孝皇帝"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 522,
+      "quote": "宪宗昭文章武大圣至神孝皇帝讳纯，顺宗长子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-xianzong.txt",
+      "line": 1,
+      "quote": "宪宗圣神章武孝皇帝讳纯，顺宗长子也，母曰庄宪王太后。",
+      "cid": "zi3-c2"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "憲宗",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousNameFull",
       "value": "聖神章武孝皇帝",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousName",
       "value": null,
       "verdict": "read-absent",
-      "basis": ["c1", "c2"],
+      "basis": [
+        "c1",
+        "c2"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.personalName",
       "value": "純",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
     }
   ],
   "conflicts": [
@@ -55,13 +91,17 @@
       "field": "name.posthumousNameFull",
       "adopted": {
         "value": "聖神章武孝皇帝",
-        "source": { "page": "旧唐書 本紀第十四・第十五" },
+        "source": {
+          "page": "旧唐書 本紀第十四・第十五"
+        },
         "quote": "五月丁酉，群臣上谥曰圣神章武孝皇帝，庙号宪宗。庚申，葬于景陵。"
       },
       "alternatives": [
         {
           "value": "昭文章武大聖孝皇帝",
-          "source": { "page": "旧唐書 本紀第十八下" },
+          "source": {
+            "page": "旧唐書 本紀第十八下"
+          },
           "quote": "十二月，追谥顺宗曰至德大圣大安孝皇帝，宪宗曰昭文章武大圣孝皇帝",
           "note": "宣宗大中三年十二月の追諡。同じ舊唐書の中で、憲宗本紀の冒頭が掲げる形より後の加諡にあたる"
         }
