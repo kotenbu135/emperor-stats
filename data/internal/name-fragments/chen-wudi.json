@@ -7,6 +7,13 @@
       "file": "_corpus_cache/chen-wudi.txt",
       "line": 4,
       "quote": "秋八月甲午，群臣上谥曰武皇帝，庙号高祖"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "陳書",
+      "file": "daizhigev20/史藏/正史/陈书.txt",
+      "line": 44,
+      "quote": "高祖武皇帝，讳霸先，字兴国，小字法生"
     }
   ],
   "findings": [
@@ -23,6 +30,15 @@
       ],
       "confidence": "high",
       "note": "永定三年秋八月甲午の条（c1）。陳書は3帝とも崩御の直後に1段だけ立て、加諡は1度も無い"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "武皇帝",
+      "basis": [
+        "posthumous-full-c1"
+      ],
+      "confidence": "high",
+      "note": "書が本人の名乗りとして掲げる冒頭1行が掲げる全長形。**本人のキャッシュ（巻二 高祖下から始まる）には冒頭1行が入っていない**。慣行が指す位置は巻一 本紀第一の冒頭で、底本の行で挙げた。キャッシュ内の「群臣上谥曰武皇帝，庙号高祖」は授与の条で、そちらは段の欄が受ける"
     }
   ],
   "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"

@@ -7,6 +7,13 @@
       "file": "_corpus_cache/chen-wendi.txt",
       "line": 10,
       "quote": "”六月甲子，群臣上谥曰文皇帝，庙号世祖"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-wendi.txt",
+      "line": 2,
+      "quote": "世祖文皇帝，讳蒨，字子华，始兴昭烈王长子也"
     }
   ],
   "findings": [
@@ -23,6 +30,15 @@
       ],
       "confidence": "high",
       "note": "天康元年六月甲子の条（c1）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "文皇帝",
+      "basis": [
+        "posthumous-full-c1"
+      ],
+      "confidence": "high",
+      "note": "書が本人の名乗りとして掲げる冒頭1行が掲げる全長形。陳書 本紀の冒頭1行（見出し行「世祖」の次）。慣行の書式どおり〈廟号〉〈諡〉皇帝で立つ"
     }
   ],
   "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"

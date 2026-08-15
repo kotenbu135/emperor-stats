@@ -5106,6 +5106,184 @@
       "storageForm": "この書からは全長形の材料が出ないので欄は空のまま閉じる（skip）。慕容沖の「威皇帝」は段の欄 `posthumousNames` に既に入っており、こちらへ二重には入れない — `posthumousNameFull` の定義は「名乗る原典が本人の名乗りとして掲げる形」（本紀・載記の冒頭定型が示す1形）で、授与の条が書く形ではない",
       "note": "決め手の計数: 資治通鑑1冊で「威皇帝」は1件（L9414 の授与の条のみ）・「威帝」は0件。**ゲートは (政権, 欄) に1つの verdict しか許さない**ので、この skip は底本が資治通鑑でない慕容永も覆う — 慕容永の名乗りが載る他の3書も全長諡の位置を持たない（十六国春秋 `daizhigev20/史藏/载记/十六国春秋.txt` L809 の「改元建平谥冲曰威皇帝」も授与の条1件だけ・晉書は「威皇帝」0件で、L3571「持尺威帝」は賛の別語）。**この記録が覆わないのは**西燕の他の欄（同じ書の templeName・posthumousName は `no-form`、`posthumousNames` は `form-found`）と、**正史・十六国春秋の外（未走査。0件ではない）**／**western-yan の裏として本人のキャッシュ（xiyan-murongchong）の冒頭を1件足した**（2026-08-15・親セッション。打ち切り側の記録は政権ごとにその人物の原文が要る）",
       "surveyedAt": "2026-08-15"
+    },
+    {
+      "book": "晉書",
+      "regimeIds": [
+        "former-qin",
+        "former-yan",
+        "former-zhao",
+        "later-zhao",
+        "southern-yan"
+      ],
+      "fields": [
+        "posthumousNameFull"
+      ],
+      "locator": "晉書 載記 各君主の記事**末尾の定型ブロック**（`_corpus_cache/<id>.txt` の最終段落）。「以〈年号〉〈年〉死，時年〈歳〉，在位〈年数〉，**伪谥〈X〉皇帝**，庙号〈廟号〉，墓号〈陵〉」と並ぶ位置で、廟号・短縮諡が form-found で確定しているのと**同じ所在**（2026-08-14 のレコード）。全長形だけが未記録だった",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "**核は「伪谥〈X〉皇帝」**（2〜3字＋皇帝）で、**庙号・墓号は付く場合と付かない場合がある** — 石勒「伪谥明皇帝，庙号高祖」・劉淵「伪谥光文皇帝，庙号高祖，墓号永光陵」に対し、慕容德は「伪谥献武皇帝。」の1句で終わる。載記は本紀と違って**冒頭が「〈名〉字〈字〉，〈本貫〉人也」で諡を掲げない**ので、全長形の所在は巻頭ではなく末尾になる。この非対称が、廟号の絞り込みで使った巻頭定型の見立てを十六国で外す原因",
+      "variants": "**同じ載記でも短縮形しか書かない君主が居る** — 成漢 李雄は「伪谥武帝，庙曰太宗」（晉書 L8540・十六国春秋 L1442・華陽国志 L583 の3書とも〈諡字〉帝）。だから form-found が言うのは**位置が在ること**までで、その位置に全長形が立つかどうかは人物ごとに読む。／**「伪谥」は記事の途中にも出る** — 后妃・臣下・太子への諡が同じ語で書かれる（慕容儁 L18「伪谥献怀」は太子・慕容熙 L8「伪谥愍皇后」は皇后で、本人のものはそれぞれ L38・記事末尾）。**最初の当たりを本人のものと読まない**。／**字体は割れていない** — この10政権のキャッシュに出る諡の字は延べ25件すべて「谥」で、繁体「諡」「謚」は0件（魏書が1冊の中で庙号／庙曰／庙称に割れたのとは違う）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/houzhao-shile.txt",
+          "line": 130,
+          "quote": "伪谥明皇帝，庙号高祖。"
+        },
+        {
+          "file": "_corpus_cache/qianqin-fudeng.txt",
+          "line": 17,
+          "quote": "伪谥登曰高皇帝，庙号太宗。崇为乾归所逐，崇、定皆死。"
+        },
+        {
+          "file": "_corpus_cache/qianzhao-liuyuan.txt",
+          "line": 15,
+          "quote": "伪谥光文皇帝，庙号高祖，墓号永光陵。子和立。"
+        },
+        {
+          "file": "_corpus_cache/qianyan-murongjun.txt",
+          "line": 38,
+          "quote": "伪谥景昭皇帝，庙号烈祖，墓号龙陵。"
+        },
+        {
+          "file": "_corpus_cache/nanyan-murongde.txt",
+          "line": 21,
+          "quote": "伪谥献武皇帝。"
+        }
+      ],
+      "storageForm": "末尾定型が掲げる〈X〉皇帝を `name.posthumousNameFull` に入れる。**授与の条の形を全長形の欄が受けるのは既存の扱い**で、配布物の177件のうち21件（漢 高祖「高皇帝」・東晉 恭帝・後周 恭帝・十国5人・西夏8人・南明2人）は授与の条にしか無い形が入っている（2026-08-15 実測）。「授与の条が書く形は全長形ではない」と読める西燕（資治通鑑）のレコードは、**編年体で人物ごとの立項が無い書**についての判断であって、君主ごとの定型ブロックを持つ載記には及ばない",
+      "surveyedAt": "2026-08-15"
+    },
+    {
+      "book": "晉書",
+      "regimeIds": [
+        "hexia"
+      ],
+      "fields": [
+        "posthumousNameFull"
+      ],
+      "locator": "晉書 載記（赫連夏3人）。**上の末尾定型ブロックがこの政権には及ばない** — `_corpus_cache` の赫連勃勃27行・赫連昌5行・赫連定の全行に「谥」の語が1件も無く、廟号・短縮諡の側でも同じ理由で 2026-08-14 に `no-form` になっている",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "**この書に赫連夏の君主へ諡を贈る条が無い。** 赫連勃勃の記事に在る〈X〉皇帝は**父祖への追尊**（高祖 訓兒＝元皇帝・曾祖 武＝景皇帝・祖 豹子＝宣皇帝・父 衛辰＝桓皇帝）で、本人のものではない。短縮諡「武烈帝」が配布物に在るので**別の書（魏書・十六国春秋）に witness が在る見込み**で、閉域の3軸目（別政権の書）から人物ごとに読む",
+      "evidence": [
+        {
+          "file": "_corpus_cache/xia-helianbobo.txt",
+          "line": 26,
+          "quote": "追尊其高祖训兒曰元皇帝，曾祖武曰景皇帝，祖豹子曰宣皇帝，父卫辰曰桓皇帝，庙号太祖"
+        },
+        {
+          "file": "_corpus_cache/xia-helianchang.txt",
+          "line": 1,
+          "quote": "赫连昌"
+        }
+      ],
+      "storageForm": "この書からは材料が出ないので、人物ごとに別の書を当ててから欄を埋める",
+      "surveyedAt": "2026-08-15"
+    },
+    {
+      "book": "史記",
+      "regimeIds": [
+        "qin"
+      ],
+      "fields": [
+        "posthumousNameFull"
+      ],
+      "locator": "秦始皇本紀（史記 卷六）。始皇26年の帝号制定の条に**諡法を廃する明文**が立ち、以後の呼称は「始皇帝」「二世皇帝」と数で数える号になる。廟号・短縮諡・諡の段は同じ理由で 2026-08-14 に `absent-by-institution` で閉じている",
+      "verdict": "absent-by-institution",
+      "personScope": "skip",
+      "form": "**諡そのものが制度として無い。** 「朕聞太古有號毋謚…自今已來，除謚法」と書いたうえで「朕為始皇帝，後世以計數，二世三世至於萬世」と定めるので、「始皇帝」「二世皇帝」は**諡ではなく号**。絞り込みの `head-form` が2人に渡す候補（秦始皇帝・二世皇帝）は、この条があるので諡として採らない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/qin-shi-huang.txt",
+          "line": 14,
+          "quote": "除谥法。朕为始皇帝。後世以计数，二世三世至于万世，传之无穷。"
+        },
+        {
+          "file": "_corpus_cache/qin-er-shi.txt",
+          "line": 1,
+          "quote": "二世皇帝元年，年二十一。赵高为郎中令，任用事。二世下诏，增始皇寝庙牺"
+        }
+      ],
+      "storageForm": "欄は空のまま閉じる（skip）。号は `commonName` が受ける",
+      "surveyedAt": "2026-08-15"
+    },
+    {
+      "book": "舊唐書",
+      "regimeIds": [
+        "xiqin"
+      ],
+      "fields": [
+        "posthumousNameFull"
+      ],
+      "locator": "舊唐書 列傳の**本文中の死去条**（1冊版は daizhigev20/史藏/正史/旧唐书.txt）。諡の段 `posthumousNames` が同じ所在で form-found（2026-08-14）で、全長形もそこに立つ",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「伪谥〈人名〉為〈X〉皇帝」。薛舉は子の仁杲が贈った形がこの位置に在る",
+      "evidence": [
+        {
+          "file": "_corpus_cache/suimo-xueju.txt",
+          "line": 3,
+          "quote": "伪谥举为武皇帝，未葬而仁杲灭。"
+        }
+      ],
+      "storageForm": "死去条の〈X〉皇帝を `name.posthumousNameFull` に入れる",
+      "surveyedAt": "2026-08-15"
+    },
+    {
+      "book": "舊唐書",
+      "regimeIds": [
+        "anshi-yan",
+        "liguigui-liang"
+      ],
+      "fields": [
+        "posthumousNameFull"
+      ],
+      "locator": "舊唐書 列傳（逆臣傳・群雄傳）。**死去条に諡を書く位置はあるが、この2政権ではそこに全長形が立たない** — 廟号・短縮諡が同じ書で `no-form` になっているのと同じ理由（2026-08-14）",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "**燕の3人（安禄山・安慶緒・史思明）に諡の条が無い。** 安禄山の記事に在るのは年号「聖武」で、史思明の記事の「孝感皇帝」は**唐 粛宗の尊号**（「光天文武大聖孝感皇帝」・新唐書 卷六 L18316 近傍）を指す語。安禄山に諡らしきものが在るのは新唐書 卷225上の「伪谥燕剌王」で、**王諡であって皇帝諡ではない**。李軌の「大凉皇帝」は上表の**自称**（「表称皇從弟大涼皇帝臣軌」）で諡ではない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/tangmo-anlushan.txt",
+          "line": 12,
+          "quote": "窃号燕国，立年圣武，达奚珣已下署为丞相，五月，南"
+        },
+        {
+          "file": "_corpus_cache/suimo-liqui.txt",
+          "line": 4,
+          "quote": "大凉皇帝臣轨而不受官。时 有"
+        }
+      ],
+      "storageForm": "この書からは全長形が出ないので、人物ごとに閉域（新唐書・資治通鑑）を当ててから決める。**自称の位号・年号を全長形の欄へ入れない**",
+      "surveyedAt": "2026-08-15"
+    },
+    {
+      "book": "明史",
+      "regimeIds": [
+        "ming-xia"
+      ],
+      "fields": [
+        "posthumousNameFull"
+      ],
+      "locator": "明史 列傳（明玉珍伝・元末群雄は絶対巻122・123）の**嗣立の条**（`_corpus_cache/yuanmo-mingsheng.txt:1`）。廟号・短縮諡が同じ位置でform-found（2026-08-14）だが、**全長形はこの位置に無い**",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "嗣立の条は「子升嗣，改元開熙，葬玉珍於江水之北，號永昌陵，**庙号太祖**」と**廟号と陵号だけを書き、諡を書かない**。諡の段 `posthumousNames` が同じ書で`no-form` なのと同じ形で、全長形も明史からは出ない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/yuanmo-mingsheng.txt",
+          "line": 1,
+          "quote": "子升嗣，改元开熙，葬玉珍于江水之北，号永昌陵，庙号太祖。尊母彭氏为皇"
+        },
+        {
+          "file": "_corpus_cache/yuanmo-mingyuzhen.txt",
+          "line": 4,
+          "quote": "僣即皇帝位于重庆，国号夏，建元天统。立妻彭氏为皇"
+        }
+      ],
+      "storageForm": "明史からは材料が出ない。**コーパスにも witness が無い** — 「钦文昭武」で当たるのは明 宣宗の全長諡「憲天崇道英明神聖欽文昭武寛仁純孝章皇帝」（明史 L329・明実録宣宗実録・御定資治通鑑綱目三編 L1969）で、明玉珍のものではない。したがって明夏の2人は**人物ごとに `read-absent` になる見込み**で、「正史外だけが witness」の判断待ちには入らない（2026-08-15 に確認）",
+      "surveyedAt": "2026-08-15"
     }
   ]
 }

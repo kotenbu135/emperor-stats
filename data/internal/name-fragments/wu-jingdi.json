@@ -105,6 +105,13 @@
       "file": "china-history/三国志/吴书/第十四章-吴主五子传-原文.html",
       "line": 23,
       "quote": "有司奏言宜立庙京邑"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "三國志",
+      "file": "_corpus_cache/wu-jingdi.txt",
+      "line": 10,
+      "quote": "谥曰景皇帝"
     }
   ],
   "findings": [
@@ -146,16 +153,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "pending",
+      "value": "景皇帝",
       "basis": [
-        "c4",
-        "c5",
-        "c6",
-        "c12"
+        "posthumous-full-c1"
       ],
-      "confidence": "medium",
-      "note": "全長形「景皇帝」の在書用例は薨去条の授与句1件だけ（c4・c5）。政権慣行（三國志・eastern-wu・posthumousNameFull・no-form）の storageForm は、この欄が受けるのは『書が本人の名乗りとして掲げる全長形』で、授与の条そのものは段の欄 posthumousNames が受けると定め、2欄を同じ句から同時に確定してよいかは人物単位の判断とする。孫權には別傳の「大皇帝末年」という独立の呼称用例があるが、孫休には吳書 原文20篇のどこにも同型の用例が無く、書が地の文で掲げる呼称は「休」（c12 の評曰）である。派生形の景皇后（c6・c8）は皇后の号であって本人の名乗りではない。よって授与句から全長形へ自動で倒さず pending とする。独立の呼称用例が1件でも出れば「景皇帝」で確定できる。"
+      "confidence": "high",
+      "note": "崩御・葬送の授与の条（この書はこの人物に名乗り形の位置を持たない）が掲げる全長形。三嗣主傳の孫休の崩御条。所在は先主・吳主と同型／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
     },
     {
       "field": "name.templeName",

@@ -7,6 +7,13 @@
       "file": "_corpus_cache/chen-xuandi.txt",
       "line": 16,
       "quote": "”二月辛卯，上谥孝宣皇帝，庙号高宗"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-xuandi.txt",
+      "line": 2,
+      "quote": "高宗孝宣皇帝讳顼，字绍世，小字师利"
     }
   ],
   "findings": [
@@ -23,6 +30,15 @@
       ],
       "confidence": "high",
       "note": "太建十四年二月辛卯の条（c1）。**陳書だけ「孝」を冠する**（武帝・文帝は冠さない）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝宣皇帝",
+      "basis": [
+        "posthumous-full-c1"
+      ],
+      "confidence": "high",
+      "note": "書が本人の名乗りとして掲げる冒頭1行が掲げる全長形。冒頭1行。**短縮呼称「宣帝」に「孝」が付く形**で、短縮形から導いた候補がそのまま当たった例"
     }
   ],
   "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"

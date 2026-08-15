@@ -49,6 +49,13 @@
       "file": "daizhigev20/史藏/正史/魏书.txt",
       "line": 6025,
       "quote": "永以苻丕至平阳，恐不能自固，乃遣使求丕假道还东。"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianqin-fupi.txt",
+      "line": 12,
+      "quote": "伪谥丕为哀平皇帝"
     }
   ],
   "findings": [
@@ -105,13 +112,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "pending",
+      "value": "哀平皇帝",
       "basis": [
-        "c2"
+        "posthumous-full-c1"
       ],
-      "confidence": "low",
-      "note": "原文の全長形は「哀平皇帝」だが、政権 former-qin の posthumousNameFull は政権慣行が未確定（check_regime_conventions --field posthumousNameFull が未確定の1行を返す。確定済みの記録が覆うのは templeName・posthumousName・posthumousNames と familyName・personalName・courtesyName だけ）。形は読めており不在ではないので read-absent にはしない。全長形をこの欄へ入れるか posthumousNames だけに置くかは政権単位の決めごとなので保留"
+      "confidence": "high",
+      "note": "記事末尾の定型ブロックが掲げる全長形。同じく諱が挟まる異形（「伪谥〈諱〉为〈X〉皇帝」）。苻登が贈った形／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
     },
     {
       "field": "name.templeName",

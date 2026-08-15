@@ -16,6 +16,13 @@
       "line": 1,
       "quote": "盛字道运，宝之庶长子也。",
       "note": "底本アンカー: daizhigev20/史藏/正史/晋书.txt:8666（載記の記事冒頭1行）"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/houyan-murongsheng.txt",
+      "line": 13,
+      "quote": "伪谥昭武皇帝，墓号兴平陵，庙号中宗"
     }
   ],
   "findings": [
@@ -52,13 +59,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "pending",
+      "value": "昭武皇帝",
       "basis": [
-        "c1"
+        "posthumous-full-c1"
       ],
-      "confidence": "low",
-      "note": "原文が記す諡は「昭武皇帝」の1形のみ。政権 later-yan は posthumousNameFull の慣行が未確定（check_regime_conventions が 1 で終了）で、この1形を全長形の欄へ入れるか短縮呼称の欄だけに置くかは人物単位で決めない。読解は済んでおり不在ではないので read-absent にはしない"
+      "confidence": "high",
+      "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型。**墓号が庙号より前に来る**順の異形／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
     },
     {
       "field": "name.personalName",

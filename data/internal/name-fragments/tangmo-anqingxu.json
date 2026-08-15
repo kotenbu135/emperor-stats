@@ -64,6 +64,13 @@
       "file": "_corpus_cache/tangmo-anqingxu.txt",
       "line": 1,
       "quote": "庄即宣言于外，言禄山传位于晋王庆绪，尊禄山为太上皇。"
+    },
+    {
+      "cid": "posthumous-full-rest-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tangmo-anqingxu.txt",
+      "line": 1,
+      "quote": "庄即宣言于外，言禄山传位于晋王庆绪，尊禄山为太上皇"
     }
   ],
   "findings": [
@@ -174,15 +181,19 @@
     {
       "field": "name.posthumousNameFull",
       "value": null,
-      "verdict": "pending",
-      "basis": [
-        "c4",
-        "c5",
-        "c6"
+      "verdict": "read-absent",
+      "sweptWords": [
+        "皇帝",
+        "谥",
+        "諡",
+        "謚",
+        "尊号"
       ],
-      "confidence": "medium",
-      "note": "原文は読み終わっており、諡の全長形に当たる語も上記の閉域走査で1件も出ない。ただし政権 anshi-yan は posthumousNameFull の保存形慣行が未記録（check_regime_conventions --field posthumousNameFull が未確定を返す）で、「読めた形をどちらの欄へ入れるか／片方を空にするか」を人物単位で決めないという指示に従い read-absent には落とさない。慣行が確定した時点で read-absent へ移せる見込み",
-      "sweptScope": "【2026-08-15・親セッション】**人名キーが底本の句読で割れる**（`R-SWEEP-DETECTION`）— 新唐書 L18315 は「遇伏而溃庆。绪走，获其弟庆和」と**「庆绪」の間に句点が入り**、人名キー「庆绪」では当人の敗走の条に当たらない。この条に諡・廟号の語は無いので判定は動かないが、**文字列走査は底本の句読で破れる**ことが実例で示された"
+      "basis": [
+        "posthumous-full-rest-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。史思明に殺され、諡を贈る条が無い。走査255ファイルで本人に掛かる諡の当たり0件／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
     }
   ],
   "discrepancies": "なし（既存の構造フィールド name.templeName: null・name.posthumousName: null は原文の読解と一致。name.familyName「安」・name.personalName「慶緒」も本紀・列傳の表記と一致し、変更なし）",

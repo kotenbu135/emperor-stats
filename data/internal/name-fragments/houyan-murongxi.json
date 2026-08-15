@@ -49,6 +49,13 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 8699,
       "quote": "熙极骄淫，人怀愤惋。"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/houyan-murongxi.txt",
+      "line": 13,
+      "quote": "伪谥昭文皇帝"
     }
   ],
   "findings": [
@@ -119,13 +126,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "pending",
+      "value": "昭文皇帝",
       "basis": [
-        "c2"
+        "posthumous-full-c1"
       ],
-      "confidence": "low",
-      "note": "判定せず。scripts/check_regime_conventions.py --for houyan-murongxi --field posthumousNameFull は later-yan の慣行が未確定と返す（form-found のレコードが覆うのは templeName・posthumousName・posthumousNames の3欄）。原文で読めた形は「昭文皇帝」の1つだけで、これを全長形の欄へも入れるかは政権単位の保存形の決定が要るため人物側では決めない。同政権・成漢の既存レコードが一様に null であることは構造からの推測なので根拠にしない。"
+      "confidence": "high",
+      "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型が1句で終わる型。同じ記事の L8「伪谥愍皇后」は昭儀苻氏のもので本人ではない／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
     }
   ],
   "discrepancies": "既存の構造フィールド4件と原文を照合した — name.templeName = null（原文も廟号を記さない・一致）／name.posthumousName = 「昭文帝」（原文「伪谥昭文皇帝」の短縮形・慣行どおりで一致）／name.posthumousNames = [{form: 「昭文皇帝」}]（原文と一致・year 無しも原文が紀年を与えないことと一致）／name.personalName = 「熙」（原文「熙字道文」と一致）。食い違いなし。name.posthumousNameFull は既存レコードにキーが無く、今回も政権慣行未確定のため pending としたので照合対象外。",

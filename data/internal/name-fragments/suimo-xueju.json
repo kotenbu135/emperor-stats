@@ -63,6 +63,13 @@
       "file": "daizhigev20/史藏/正史/旧唐书.txt",
       "line": 9799,
       "quote": "○薛举 子仁杲"
+    },
+    {
+      "cid": "posthumous-full-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-xueju.txt",
+      "line": 3,
+      "quote": "伪谥举为武皇帝"
     }
   ],
   "findings": [
@@ -114,14 +121,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "pending",
+      "value": "武皇帝",
       "basis": [
-        "block3-c1",
-        "c1"
+        "posthumous-full-c1"
       ],
       "confidence": "high",
-      "note": "この政権（xiqin）は posthumousNameFull の政権慣行が未確定（check_regime_conventions --field posthumousNameFull が「未確定」を返す）。加えて全長形の定義は「名乗る原典が本人の名乗りとして掲げる形（本紀・載記の冒頭定型）」だが、舊唐書 列傳の冒頭は「薛举，河东汾阴人也」で諡を掲げる位置が無い。慣行が立つまで read-absent にはしない"
+      "note": "崩御・葬送の授与の条（この書はこの人物に名乗り形の位置を持たない）が掲げる全長形。舊唐書 列傳の死去条。2026-08-15 に立てた西秦の慣行（form-found・「伪谥〈人名〉為〈X〉皇帝」）の位置／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
     },
     {
       "field": "name.templeName",

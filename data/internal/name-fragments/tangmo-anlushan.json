@@ -196,13 +196,19 @@
     {
       "field": "name.posthumousNameFull",
       "value": null,
-      "verdict": "pending",
+      "verdict": "read-absent",
+      "sweptWords": [
+        "皇帝",
+        "谥",
+        "諡",
+        "謚",
+        "尊号"
+      ],
       "basis": [
         "c8"
       ],
-      "confidence": "low",
-      "note": "check_regime_conventions.py --for tangmo-anlushan --field posthumousNameFull が「政権単位の慣行が未確定」で終了する（慣行記録が覆うのは templeName・posthumousName の2欄のみ）。この欄については政権の書式・所在が未確定なので人物単位で値を立てない",
-      "sweptScope": "【2026-08-15・親セッション】**走査語の届かない条が本人に在る**（`R-SWEEP-DETECTION`）— 舊唐書 L17358 の「庄即宣言于外，言禄山传位于晋王庆绪，尊禄山为太上皇」は**「尊」と「为」の間に人名が入る分離形**で、走査語（尊为・尊為・追尊・尊号）はいずれも連続形なので当たらない。太上皇は生前の位号であって廟号・諡ではないため判定は動かないが、**この語彙では追号の条を取りこぼす**ことが実例で示された"
+      "confidence": "high",
+      "note": "読んだうえで空。**諡は在るが「燕剌王」で王諡**（史思明が王の礼で改葬したときの偽諡）。皇帝形で結ばないので全長形の欄には入らない。通称に入っている「雄武皇帝」は**生前に自ら称した号**で諡ではない／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
     }
   ],
   "discrepancies": "なし。既存レコードの構造フィールド（reigns 756-757・regimeId anshi-yan）と原文の間に食い違いは無く、name.templeName・name.posthumousName が null であることも本調査の判定（templeName は不在確定・posthumousName は判断待ち）と整合する。",

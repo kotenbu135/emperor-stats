@@ -84,6 +84,13 @@
       "file": "daizhigev20/史藏/正史/宋书.txt",
       "line": 2957,
       "quote": "晋成帝咸康四年三月壬辰，成都大风发屋折木。四月，李寿袭杀李期"
+    },
+    {
+      "cid": "posthumous-full-rest-c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8547,
+      "quote": "时年二十五，在位三年。谥曰幽公"
     }
   ],
   "findings": [
@@ -134,14 +141,19 @@
     {
       "field": "name.posthumousNameFull",
       "value": null,
-      "verdict": "pending",
-      "basis": [
-        "c3",
-        "c5",
-        "c6"
+      "verdict": "read-absent",
+      "sweptWords": [
+        "皇帝",
+        "谥",
+        "諡",
+        "謚",
+        "尊号"
       ],
-      "confidence": "medium",
-      "note": "成漢の慣行記録（posthumousNameFull）は「記事末尾の条が掲げる文字列そのもの」を材料としつつ、同じ文字列を短縮呼称と二重に入れないこと・〈X〉公〈X〉王 の形は位号なのでこの欄に入れないことを定め、扱いを Issue #126 の判断待ちとしている。原文に在る形は「幽公」1つだけで、成漢は〈諡〉皇帝で結ぶ条を1件も持たない（李雄「伪谥武帝」・李寿「伪谥昭文帝」も帝で結ぶ）。原文は読み終わっているが欄の扱いが判断待ちなので pending"
+      "basis": [
+        "posthumous-full-rest-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**諡は在るが「幽公」で公諡**（邛都県公に落とされたあと自殺）。皇帝形ではないので入らない／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
     },
     {
       "field": "name.templeName",

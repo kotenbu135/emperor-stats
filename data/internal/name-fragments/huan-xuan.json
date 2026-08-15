@@ -105,6 +105,13 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 7446,
       "quote": "于是大赦，改元永始"
+    },
+    {
+      "cid": "posthumous-full-rest-c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7458,
+      "quote": "为玄举哀，立丧庭，伪谥为武悼皇帝"
     }
   ],
   "findings": [
@@ -184,13 +191,12 @@
     {
       "field": "name.posthumousNameFull",
       "value": null,
-      "verdict": "pending",
       "basis": [
-        "block9-c1",
-        "block9-c2"
+        "posthumous-full-rest-c1"
       ],
-      "confidence": "medium",
-      "note": "政権慣行の判定は biography-only → other-source で、列傳の冒頭定型には全長諡を置く欄が無い（c1）。晉書・宋書・南史・魏書・北史のどこにも桓玄を全長諡の形で掲げる箇所は無かった。ただし授与された形「武悼皇帝」自体は存在し（c2）、それをこの欄が受けるか段の欄だけが受けるかは値の扱いの判断（慣行は段の欄と定める）なので、不在確定ではなく pending にした"
+      "confidence": "high",
+      "note": "判定せず。晉書 卷九十九 列傳 L7458「为玄举哀，立丧庭，伪谥为武悼皇帝」が唯一の授与の条で、**形そのものは正史に在る**（「武悼皇帝」は晉書全体でこの1件・他の「武悼」は武悼楊皇后と冉閔の武悼天王）。**入れないのは政権慣行の判定が `biography-only`（`personScope: other-source`）だから** — 2026-08-15 に他政権では授与の条を全長欄が受けると決めたが、打ち切り側のレコードを人物単位で覆すのは `R-REGIME-FIRST` に反する。判定を動かすかはユーザーの判断で、残量表の「授与の条を全長欄が受けるかが記録ごとに割れている」の行に置いた（2026-08-15）",
+      "verdict": "pending"
     },
     {
       "field": "name.posthumousNames",
