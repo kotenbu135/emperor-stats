@@ -1,48 +1,237 @@
 {
- "id": "houqin-yaohong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "晉書",
-   "file": "_corpus_cache/houqin-yaohong.txt",
-   "line": 1,
-   "quote": "姚泓，字元子，兴之长子也"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "晉書を1冊走査した（帝紀の「谥」11句・載記55句・帝紀と載記の外の候補6件）。この人物には諡を授ける条が無い。**晉書は帝紀16人で恭帝の1人、載記でも死去条の要約に「伪谥…」を書く帝だけ**が段を持つ。劉裕に降って斬られ、載記に諡の条が無い。"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。晉書1冊を走査し、諡の条397件・別語彙199件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+  "id": "houqin-yaohong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "晉書",
+      "file": "_corpus_cache/houqin-yaohong.txt",
+      "line": 1,
+      "quote": "姚泓，字元子，兴之长子也"
+    },
+    {
+      "cid": "block9-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/houqin-yaohong.txt",
+      "line": 1,
+      "quote": "姚泓，字元子，兴之长子也。"
+    },
+    {
+      "cid": "c2",
+      "book": "晉書",
+      "file": "_corpus_cache/houqin-yaohong.txt",
+      "line": 3,
+      "quote": "泓发丧，以义熙十二年僭即帝位，大赦殊死已下，改元永和"
+    },
+    {
+      "cid": "c3",
+      "book": "晉書",
+      "file": "_corpus_cache/houqin-yaohong.txt",
+      "line": 22,
+      "quote": "送泓于建康市斩之，时年三十，在位二年。"
+    },
+    {
+      "cid": "c4",
+      "book": "晉書",
+      "file": "_corpus_cache/houqin-yaohong.txt",
+      "line": 23,
+      "quote": "姚苌以孝武太元九年僭立，至泓三世，以安帝义熙十三年而灭，凡三十二年。"
+    },
+    {
+      "cid": "c5",
+      "book": "晉書",
+      "file": "_corpus_cache/houqin-yaochang.txt",
+      "line": 34,
+      "quote": "伪谥武昭皇帝，庙号太祖，墓称原陵。"
+    },
+    {
+      "cid": "c6",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 8472,
+      "quote": "姚泓，字元子，兴之长子也。"
+    },
+    {
+      "cid": "c7",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 121,
+      "quote": "卷一百十九 载记第十九"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "諡の段を作る材料（初諡・加諡・改諡）が底本に1件も無い。後秦の他の2人（姚萇 c5・姚興）には定型が在るので、書がこの政権で諡を書かないわけではない",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "谥曰",
+        "谥为",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "廟號",
+        "追尊",
+        "追谥",
+        "追赠",
+        "尊号",
+        "尊为",
+        "号曰"
+      ],
+      "sweptScope": [
+        "_corpus_cache/houqin-yaohong.txt 全28行（晉書 載記第十九の全文・史臣曰・贊を含む）",
+        "daizhigev20/史藏/正史/晋书.txt 全文（巻目・巻見出し・本紀・列傳・志を含む。「姚泓」を含む18行を目視）",
+        "daizhigev20/史藏/正史/宋书.txt 全文",
+        "daizhigev20/史藏/正史/魏书.txt 全文",
+        "daizhigev20/史藏/正史/南史.txt 全文",
+        "daizhigev20/史藏/正史/北史.txt 全文",
+        "未走査: 十六国春秋・資治通鑑などの非正史"
+      ]
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c4",
+        "c5",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "廟号と同じ1行の定型（c5）から同時に取れる欄で、その定型が姚泓の記事末尾に無い。走査語・走査範囲は name.templeName の note と同一。長安陥落後に建康の市で斬られており（c3）、諡を贈る主体（後秦の朝廷）が既に無い",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "谥曰",
+        "谥为",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "廟號",
+        "追尊",
+        "追谥",
+        "追赠",
+        "尊号",
+        "尊为",
+        "号曰"
+      ],
+      "sweptScope": [
+        "_corpus_cache/houqin-yaohong.txt 全28行（晉書 載記第十九の全文・史臣曰・贊を含む）",
+        "daizhigev20/史藏/正史/晋书.txt 全文（巻目・巻見出し・本紀・列傳・志を含む。「姚泓」を含む18行を目視）",
+        "daizhigev20/史藏/正史/宋书.txt 全文",
+        "daizhigev20/史藏/正史/魏书.txt 全文",
+        "daizhigev20/史藏/正史/南史.txt 全文",
+        "daizhigev20/史藏/正史/北史.txt 全文",
+        "未走査: 十六国春秋・資治通鑑などの非正史"
+      ]
+    },
+    {
+      "field": "name.personalName",
+      "value": "泓",
+      "basis": [
+        "block9-c1",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "載記の書き起こしが「姚泓，字元子」で姓＋諱＋字を並べる。諱は泓（姓 姚は別欄）。底本は簡体だが値は既存レコードの表記（新字体側）に揃えた（この字は同形）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "元子",
+      "basis": [
+        "block9-c1",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "既存レコードの courtesyName「元子」と一致。冒頭の「字元子」から。欄への投入対象外だが確認として残す"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c4",
+        "c5",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "政権慣行（晉書 載記の記事末尾に『伪谥〈諡〉，庙号〈廟号〉，墓号〈陵〉』が並ぶ）に対し、姚泓の記事末尾は c3『送泓于建康市斩之，时年三十，在位二年。』→ c4 の後秦滅亡の総括で閉じ、定型が立たない。同じ書・同じ政権の姚萇には c5 の定型が在る（慣行が『降伏して他国で死んだ君主には定型が付かない』と登録している型に一致）。閉域4軸: (1) 同じ書のキャッシュ外＝巻目 c7『卷一百十九 载记第十九』・本文の巻見出し行（8470行）と直後の名の掲出行（8471行「姚泓」）はいずれも号を伴わない素の名のみ、史臣曰・贊（キャッシュ 24〜28行）にも号は無い／(2) 本紀・帝紀・列傳＝晉書全体で「姚泓」を含む18行を読み、安帝紀・恭帝紀・列傳・志のいずれにも追号記事は無い／(3) 別政権の書＝宋書・魏書・南史・北史を走査（姚泓を含む行 13/29/10/24 と、晉書を含めた『泓』と諡系語の近接照合）。当たったのは司馬休之・王世弼・姚黄眉・孫小の父・慕容泓の子など別人の記事のみ／(4) 語彙は scripts/hanzi_norm.norm_for_match を通して当てた。sweptWords: 谥・諡・谥曰・谥为・庙号・庙曰・庙称・廟號・追尊・追谥・追赠・尊号・尊为・号曰。sweptScope: _corpus_cache/houqin-yaohong.txt 全28行（載記第十九の全文・史臣曰・贊を含む）／daizhigev20 晋书.txt 全文（巻見出しを含む）／daizhigev20 宋书.txt・魏书.txt・南史.txt・北史.txt 全文。sweptScope 外（未走査）: 十六国春秋・資治通鑑などの非正史",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "谥曰",
+        "谥为",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "廟號",
+        "追尊",
+        "追谥",
+        "追赠",
+        "尊号",
+        "尊为",
+        "号曰"
+      ],
+      "sweptScope": [
+        "_corpus_cache/houqin-yaohong.txt 全28行（晉書 載記第十九の全文・史臣曰・贊を含む）",
+        "daizhigev20/史藏/正史/晋书.txt 全文（巻目・巻見出し・本紀・列傳・志を含む。「姚泓」を含む18行を目視）",
+        "daizhigev20/史藏/正史/宋书.txt 全文",
+        "daizhigev20/史藏/正史/魏书.txt 全文",
+        "daizhigev20/史藏/正史/南史.txt 全文",
+        "daizhigev20/史藏/正史/北史.txt 全文",
+        "未走査: 十六国春秋・資治通鑑などの非正史"
+      ]
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c4",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "載記の書き起こし（c1・c6）は本紀型の加諡形を掲げず素の姓名＋字で始まる形式なので、全長形を載せる位置そのものが無い。走査語・走査範囲は name.templeName の note と同一",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "谥曰",
+        "谥为",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "廟號",
+        "追尊",
+        "追谥",
+        "追赠",
+        "尊号",
+        "尊为",
+        "号曰"
+      ],
+      "sweptScope": [
+        "_corpus_cache/houqin-yaohong.txt 全28行（晉書 載記第十九の全文・史臣曰・贊を含む）",
+        "daizhigev20/史藏/正史/晋书.txt 全文（巻目・巻見出し・本紀・列傳・志を含む。「姚泓」を含む18行を目視）",
+        "daizhigev20/史藏/正史/宋书.txt 全文",
+        "daizhigev20/史藏/正史/魏书.txt 全文",
+        "daizhigev20/史藏/正史/南史.txt 全文",
+        "daizhigev20/史藏/正史/北史.txt 全文",
+        "未走査: 十六国春秋・資治通鑑などの非正史"
+      ]
+    }
+  ],
+  "discrepancies": "構造フィールドとの食い違いは無い。照合した内訳: (1) reigns[0].startYear=416 / endYear=417 に対し原文は c2『以义熙十二年僭即帝位』（義熙12年＝416年）と c4『以安帝义熙十三年而灭』（義熙13年＝417年）で一致。(2) ages.deathAge=30 に対し c3『时年三十』で一致。(3) reignSummary.reignCount=1 は c2・c4 の1期間と一致。なお reignSummary.totalReignDuration.displayYears=1.0（approxDays 366）と原文『在位二年』は数え年方式と実日数方式の単位差で、食い違いではない。",
+  "conflicts": [],
+  "noteLog": "既存レコードは templeName・posthumousName ともに null で、今回の読解でも同じ結論（値の変更なし・空欄の向きを read-absent として確定させた）。posthumousNameFull・posthumousNames は既存レコードに欄そのものが無く、新たに不在確定として記録する。値の字体は既存レコードに合わせる規約だが、確定した値が諱「泓」1件のみで底本（簡体）と新字体で同形のため、変換は発生していない。",
+  "processSuggestion": "残量表 晉書載記・降伏／廃位により追号定型を欠く君主 未走査（後趙5人・成漢2人が既登録の同型。載記系117人のうち何人が同型かは未走査）。手順の提案: 既存の構造フィールド照合のために jq で ages を抜くと ages.note が一緒に出てしまう（今回実際に目に入った）。extract_event_material.py と同じく note を既定で落とす『構造フィールド抽出』のワンライナーを scripts 側に用意し、プロンプトの jq 例をそれに差し替えたい。"
 }
