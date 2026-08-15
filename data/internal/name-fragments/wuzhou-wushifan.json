@@ -77,6 +77,13 @@
       "file": "daizhigev20/史藏/正史/清史稿.txt",
       "line": 23440,
       "quote": "论曰：圣祖初亲政，举大事书殿柱"
+    },
+    {
+      "cid": "zi1-c1",
+      "book": "清史稿",
+      "file": "_corpus_cache/wuzhou-wushifan.txt",
+      "line": 3,
+      "quote": "吴三桂，字长伯，江南高邮人，籍辽东"
     }
   ],
   "findings": [
@@ -240,6 +247,19 @@
         "稱帝"
       ],
       "sweptScope": "清史稿（daizhigev20/史藏/正史/清史稿.txt）の全文から「世璠」を含む55行を抽出しその全文＋列傳二百六十一の全域（23378〜23444行・巻の見出し行 23380 と論曰 23440 を含む）。照合は scripts/hanzi_norm.py の norm_for_match を通した。正史外のコーパス（伝記・地理・紀事本末・詩集で rg が挙げた諸書）は未走査。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "字"
+      ],
+      "basis": [
+        "zi1-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**キャッシュの当たりは祖父 呉三桂の字**（長伯）で本人のものではない。清史稿・明史の2冊を走査して「世璠」が「字」の前後20字に来る当たりは0件"
     }
   ],
   "discrepancies": "構造フィールドとの照合結果: 食い違いなし。reigns[0].startYear=1678 は c3（三桂の死。是岁＝康熙十七年＝1678年）に続く c4「其下拥称帝，改号洪化」と整合し、reigns[0].endYear=1681 は c6「二十年春」（康熙二十年＝1681年）の年内に置かれた c7「世璠与壮图皆自杀。十月戊申，緎等以城降」と整合する。name.personalName=\"世璠\"・name.familyName=\"呉\" も c4・c5 と一致（familyName は本紀の「吴世璠」）。name.templeName=null・name.posthumousName=null は原文と一致。",

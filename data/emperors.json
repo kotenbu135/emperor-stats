@@ -7317,7 +7317,8 @@
     "posthumousName": "成帝",
     "templeName": "統宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "孝成皇帝"
+    "posthumousNameFull": "孝成皇帝",
+    "courtesyName": "太孫"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -47478,7 +47479,8 @@
      {
       "form": "太武皇帝"
      }
-    ]
+    ],
+    "courtesyName": "佛厘"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",

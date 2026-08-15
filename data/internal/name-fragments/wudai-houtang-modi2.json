@@ -1,63 +1,84 @@
 {
- "id": "wudai-houtang-modi2",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houtang-modi2.txt",
-   "line": 1,
-   "quote": "末帝，讳从珂，本姓王氏，镇州人也"
-  },
-  {
-   "cid": "c2",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houzhou-shizong.txt",
-   "line": 64,
-   "quote": "其清泰帝实录，请书为废帝实录。”"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "冒頭1行は「末帝，讳从珂」（c1）。位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "「末帝」は位号。後周世宗紀に載る実録の書名の議は、この帝の実録を「廃帝実録」と書くよう請う（c2）。書はこの帝を諡で呼んでいない"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "舊五代史 本紀61ファイルの「谥」82出現を全数で読み直した（2026-08-13）。この人物に諡を授ける条は本紀に無い。舊五代史は志12巻がコーパスに無いので、閉域は「本紀＋列傳」で読む。末帝紀の「谥」は皇妣宣憲皇太后への追諡だけ。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "wudai-houtang-modi2",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houtang-modi2.txt",
+      "line": 1,
+      "quote": "末帝，讳从珂，本姓王氏，镇州人也"
+    },
+    {
+      "cid": "c2",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-shizong.txt",
+      "line": 64,
+      "quote": "其清泰帝实录，请书为废帝实录。”"
+    },
+    {
+      "cid": "zi1-c2",
+      "book": "新五代史",
+      "file": "daizhigev20/史藏/正史/新五代史.txt",
+      "line": 168,
+      "quote": "庄宗呼其小字曰：“阿三不徒与我同年"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行は「末帝，讳从珂」（c1）。位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "「末帝」は位号。後周世宗紀に載る実録の書名の議は、この帝の実録を「廃帝実録」と書くよう請う（c2）。書はこの帝を諡で呼んでいない"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "舊五代史 本紀61ファイルの「谥」82出現を全数で読み直した（2026-08-13）。この人物に諡を授ける条は本紀に無い。舊五代史は志12巻がコーパスに無いので、閉域は「本紀＋列傳」で読む。末帝紀の「谥」は皇妣宣憲皇太后への追諡だけ。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "字"
+      ],
+      "basis": [
+        "c1",
+        "zi1-c2"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。舊五代史の冒頭は姓・諱・出自で字が無く（**小字は同じ行の後半に「小字二十三」**）、新五代史の当たりも庄宗が呼んだ**小字**（阿三）。字は1件も無い"
+    }
+  ],
+  "discrepancies": "なし"
 }

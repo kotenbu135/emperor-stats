@@ -1,34 +1,58 @@
 {
- "id": "han-chengdi",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "漢書",
-   "file": "_corpus_cache/han-chengdi.txt",
-   "line": 1,
-   "quote": "孝成皇帝，元帝太子也"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNameFull",
-   "value": "孝成皇帝",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "漢書 帝紀の冒頭定型「孝〈諡字〉皇帝，〈続柄〉也」（c1）。**漢書は帝の上諡の条を紀に載せない**ので、この書が掲げる名乗りの形は冒頭1行の1形に決まる（霍光伝「汉之传谥常为孝者」が「孝」を冠する理由を書く）"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "漢書 紀（卷一〜卷十二）の「谥」「尊号」「庙号」「追尊」を全数で読んだ（2026-08-13）。**この書が帝の諡を授ける条を持つのは高帝の1人だけ**で（「上尊号曰高皇帝」）、他の帝の諡は冒頭の名乗り「孝○皇帝」にしか出ない。この人物には授ける条が無い。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "han-chengdi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "漢書",
+      "file": "_corpus_cache/han-chengdi.txt",
+      "line": 1,
+      "quote": "孝成皇帝，元帝太子也"
+    },
+    {
+      "cid": "zi1-c1",
+      "book": "漢書",
+      "file": "_corpus_cache/han-chengdi.txt",
+      "line": 1,
+      "quote": "宣帝爱之，字曰太孙，常置左右"
+    },
+    {
+      "cid": "c2",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 4305,
+      "quote": "宣帝爱之，自名曰骜，字太孙，常置左右"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNameFull",
+      "value": "孝成皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "漢書 帝紀の冒頭定型「孝〈諡字〉皇帝，〈続柄〉也」（c1）。**漢書は帝の上諡の条を紀に載せない**ので、この書が掲げる名乗りの形は冒頭1行の1形に決まる（霍光伝「汉之传谥常为孝者」が「孝」を冠する理由を書く）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "漢書 紀（卷一〜卷十二）の「谥」「尊号」「庙号」「追尊」を全数で読んだ（2026-08-13）。**この書が帝の諡を授ける条を持つのは高帝の1人だけ**で（「上尊号曰高皇帝」）、他の帝の諡は冒頭の名乗り「孝○皇帝」にしか出ない。この人物には授ける条が無い。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "太孫",
+      "basis": [
+        "zi1-c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "**漢書が2箇所で「字」と呼ぶ** — 本紀（卷十 成帝紀第十）は「字曰太孙」・元后傳（卷九十八・本文見出し L4303）は「自名曰骜，字太孙」。**隣接の有無では決まらない** — 元后傳の側も「〈人〉爱之，…字〈X〉」という同じ枠で、西夏 景宗の西夏書事「德明爱之，字为嵬埋」と形が並ぶ。**決め手は名の行き先が他にあるかどうか**で、嵬理は正史（宋史）が「小字」と呼ぶので幼名の欄が持つのに対し、**太孫を小字と呼ぶ書は無い**（漢書1冊に「小字」の語そのものが0件）。**絞り込みの docstring はこれを偽陽性として挙げていたが、第二の証人を読んで転記に改めた**（2026-08-16）"
+    }
+  ],
+  "discrepancies": "なし"
 }
