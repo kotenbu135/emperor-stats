@@ -49,6 +49,13 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 8221,
       "quote": "冲小字凤皇，至是，终为坚贼，入止阿房城焉。"
+    },
+    {
+      "cid": "award-clause-c1",
+      "book": "資治通鑑",
+      "file": "daizhigev20/史藏/编年/资治通鉴.txt",
+      "line": 9414,
+      "quote": "恒立西燕主冲之子瑶为帝，改元建平，谥冲曰威皇帝"
     }
   ],
   "findings": [
@@ -117,14 +124,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "pending",
+      "value": "威皇帝",
       "basis": [
-        "c4",
-        "c5"
+        "award-clause-c1"
       ],
-      "confidence": "medium",
-      "note": "原文に見える全長形は「威皇帝」だが、check_regime_conventions は western-yan の posthumousNameFull を慣行未確定と返す。全長形を posthumousNameFull へ入れるか posthumousNames の段だけに置くかは政権単位の決めごとなので、人物単位では確定させない（値の不在を主張するものではない）。"
+      "confidence": "high",
+      "note": "資治通鑑 卷第一百六の授与の条（贈ったのは慕容恒が立てた慕容瑤の政権）。十六国春秋 L809「改元建平谥冲曰威皇帝」が第二の証人。**2026-08-16 のユーザー決定**で、授与の条（「谥曰〈X〉皇帝」型）が書く形も全長形の欄が受けることになり、2026-08-15 に打ち切っていた記録へ遡及した — 西燕の慣行を `absent-by-book`（skip）から `form-found` へ変えた。**編年体なので名乗り形を掲げる位置は最後まで現れない**"
     },
     {
       "field": "name.posthumousNames",
