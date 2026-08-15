@@ -63,6 +63,13 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 8308,
       "quote": "苌僭位，追谥曰景元皇帝，庙号始祖"
+    },
+    {
+      "cid": "posthumous-full-rest-c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/编年/资治通鉴注.txt",
+      "line": 10053,
+      "quote": "苻生废为越王，谥曰厉"
     }
   ],
   "findings": [
@@ -111,12 +118,19 @@
     {
       "field": "name.posthumousNameFull",
       "value": null,
-      "verdict": "pending",
-      "basis": [
-        "block4-c2"
+      "verdict": "read-absent",
+      "sweptWords": [
+        "皇帝",
+        "谥",
+        "諡",
+        "謚",
+        "尊号"
       ],
-      "confidence": "medium",
-      "note": "政権慣行の出力が覆う項目は templeName・posthumousName・posthumousNames の3つで「保存形」の行が無く、読めた1形『厲王』を短縮側・全長側のどちらへ入れるかが政権単位で未確定のため保留（自分で決めない）。参考として成漢・前秦の10レコードはいずれも posthumousNameFull が null。『全長形が原文に無い』という読解上の不在ではない"
+      "basis": [
+        "posthumous-full-rest-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**諡は在るが「厲」の1字で、越王に落とされたあとの王諡**。皇帝形ではないので全長形の欄に入らない（`posthumousName`・段は「厲王」）／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
     },
     {
       "field": "name.templeName",

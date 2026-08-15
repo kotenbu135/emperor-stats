@@ -49,6 +49,13 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 7723,
       "quote": "使裴宪、石会修复元海、聪二墓，收刘粲已下百余尸葬之，徙浑仪、乐器于襄国。"
+    },
+    {
+      "cid": "posthumous-full-rest-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianzhao-liucan.txt",
+      "line": 1,
+      "quote": "粲字士光。少而俊杰，才兼文武"
     }
   ],
   "findings": [
@@ -132,13 +139,19 @@
     {
       "field": "name.posthumousNameFull",
       "value": null,
-      "verdict": "pending",
-      "basis": [
-        "c3",
-        "c6"
+      "verdict": "read-absent",
+      "sweptWords": [
+        "皇帝",
+        "谥",
+        "諡",
+        "謚",
+        "尊号"
       ],
-      "confidence": "medium",
-      "note": "この政権（former-zhao）は posthumousNameFull の慣行が data/regime-conventions.json に未登録（check_regime_conventions.py --for qianzhao-liucan --field posthumousNameFull が未確定で exit 1）。加えて原文側にも全長形が無い——通鑑は「隐帝」の2字だけで、前趙の他の君主に付く「〈X〉皇帝」型（劉淵「光文皇帝」・劉聰「昭武皇帝」＝c2）の形を粲には与えない。慣行が未確定なので read-absent には倒さず pending。"
+      "basis": [
+        "posthumous-full-rest-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。劉聰載記の末尾定型は父 劉聰のもの（「伪谥曰昭武皇帝，庙号烈宗」）。**劉粲自身は靳準に殺されて授与の条が無い**（十六国春秋 L38 も同じ位置で聰の諡だけを書く）／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
     },
     {
       "field": "name.posthumousNames",

@@ -1,94 +1,118 @@
 {
- "id": "nanming-zhaozong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "小腆紀傳",
-   "file": "_corpus_cache/nanming-zhaozong.txt",
-   "line": 473,
-   "quote": "夏四月癸酉朔，上弘光帝谥曰「安宗简皇帝」、后曰「简皇后」"
-  },
-  {
-   "cid": "c2",
-   "book": "小腆紀傳",
-   "file": "_corpus_cache/nanming-zhaozong.txt",
-   "line": 624,
-   "quote": "辇上及太子出，以弓弦绞于市"
-  },
-  {
-   "cid": "c3",
-   "book": "小腆紀傳",
-   "file": "_corpus_cache/nanming-zhaozong.txt",
-   "line": 1,
-   "quote": "纪第四"
-  },
-  {
-   "cid": "c4",
-   "book": "小腆紀傳",
-   "file": "_corpus_cache/nanming-zhaozong.txt",
-   "line": 207,
-   "quote": "。赠腾蛟中湘王，谥「忠烈」；成栋宁夏王、声桓南昌王；设坛致祭。"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。**小腆紀傳 1冊（7,009行）に「昭宗」が0件**。この書の「庙号」8件はいずれも弘光帝が明の帝に追復した廟号（思宗・興宗・恵宗・代宗）で、永暦帝自身に廟号を与える条は無い（永暦帝は他の2帝へ追諡する側に立つ・c1）。`commonName` の「昭宗」は他書由来の名乗り"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "小腆紀傳の南明4人ぶん（`_corpus_cache` の計1,264行）を「谥／諡・追尊・追崇・追号・上尊号・尊号曰／为・庙号・庙曰・庙称・贈」の10語で全数で読んだ（2026-08-14）。**閉域はキャッシュ4本で、書の紀第一〜第四を行範囲で読み直してはいない** — 1冊まるごとの `sweep_posthumous_range.py` の候補27件と突き合わせて漏れが無いことは確かめてある。**永暦帝が丁酉（1657）に弘光帝・隆武帝へ諡を上る条はあるが、紹武帝と永暦帝自身に授ける条は無い**。",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "追尊",
-    "追崇",
-    "追号",
-    "上尊号",
-    "尊号曰",
-    "尊号为",
-    "庙号",
-    "庙曰",
-    "庙称",
-    "贈"
-   ]
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c3",
-    "c4"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。本人のキャッシュに在る諡の条は弘光帝・隆武帝ら（「上弘光帝谥曰『安宗简皇帝』」）への授与で、この人物への授与ではない。小腆紀傳1冊を走査し、諡の条357件・別語彙57件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "nanming-zhaozong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-zhaozong.txt",
+      "line": 473,
+      "quote": "夏四月癸酉朔，上弘光帝谥曰「安宗简皇帝」、后曰「简皇后」"
+    },
+    {
+      "cid": "c2",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-zhaozong.txt",
+      "line": 624,
+      "quote": "辇上及太子出，以弓弦绞于市"
+    },
+    {
+      "cid": "c3",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-zhaozong.txt",
+      "line": 1,
+      "quote": "纪第四"
+    },
+    {
+      "cid": "c4",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-zhaozong.txt",
+      "line": 207,
+      "quote": "。赠腾蛟中湘王，谥「忠烈」；成栋宁夏王、声桓南昌王；设坛致祭。"
+    },
+    {
+      "cid": "posthumous-full-rest-c1",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-zhaozong.txt",
+      "line": 473,
+      "quote": "上弘光帝谥曰「安宗简皇帝」、后曰「简皇后」，隆武帝谥曰「绍宗襄皇帝」"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**小腆紀傳 1冊（7,009行）に「昭宗」が0件**。この書の「庙号」8件はいずれも弘光帝が明の帝に追復した廟号（思宗・興宗・恵宗・代宗）で、永暦帝自身に廟号を与える条は無い（永暦帝は他の2帝へ追諡する側に立つ・c1）。`commonName` の「昭宗」は他書由来の名乗り"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "小腆紀傳の南明4人ぶん（`_corpus_cache` の計1,264行）を「谥／諡・追尊・追崇・追号・上尊号・尊号曰／为・庙号・庙曰・庙称・贈」の10語で全数で読んだ（2026-08-14）。**閉域はキャッシュ4本で、書の紀第一〜第四を行範囲で読み直してはいない** — 1冊まるごとの `sweep_posthumous_range.py` の候補27件と突き合わせて漏れが無いことは確かめてある。**永暦帝が丁酉（1657）に弘光帝・隆武帝へ諡を上る条はあるが、紹武帝と永暦帝自身に授ける条は無い**。",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "追尊",
+        "追崇",
+        "追号",
+        "上尊号",
+        "尊号曰",
+        "尊号为",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "贈"
+      ]
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "諡",
+        "偽諡",
+        "私諡",
+        "上諡",
+        "追尊",
+        "追號",
+        "號曰",
+        "上尊號",
+        "廟號",
+        "尊為",
+        "追封為"
+      ],
+      "basis": [
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。本人のキャッシュに在る諡の条は弘光帝・隆武帝ら（「上弘光帝谥曰『安宗简皇帝』」）への授与で、この人物への授与ではない。小腆紀傳1冊を走査し、諡の条357件・別語彙57件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "皇帝",
+        "谥",
+        "諡",
+        "謚",
+        "尊号"
+      ],
+      "basis": [
+        "posthumous-full-rest-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**この人物が他者へ諡を授ける条はあるが、本人の諡がコーパスに無い** — 「匡皇帝」で255ファイルを引いて0件（2026-08-15）。安宗「簡皇帝」・紹宗「襄皇帝」はこの条から既に配布物へ入っている／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
+    }
+  ],
+  "discrepancies": "なし"
 }

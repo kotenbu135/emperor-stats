@@ -1,85 +1,109 @@
 {
- "id": "yuanmo-mingyuzhen",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "明史",
-   "file": "_corpus_cache/yuanmo-mingyuzhen.txt",
-   "line": 7,
-   "quote": "遂卒。凡立五年，年三十六"
-  },
-  {
-   "cid": "c2",
-   "book": "明史",
-   "file": "_corpus_cache/yuanmo-mingsheng.txt",
-   "line": 1,
-   "quote": "葬玉珍于江水之北，号永昌陵，庙号太祖"
-  },
-  {
-   "cid": "c3",
-   "book": "明史",
-   "file": "_corpus_cache/yuanmo-mingyuzhen.txt",
-   "line": 1,
-   "quote": "明玉珍，随州人。身长八尺余，目重瞳子"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "明史 列傳（元末群雄 卷122〜123・流賊）を同じ10語で全数で読んだ（2026-08-14）。**この書が元末群雄へ与えるのは廟号だけ**（明玉珍の「庙号太祖」1件）で、諡を授ける条は8人のいずれにも無い。",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "追尊",
-    "追崇",
-    "追号",
-    "上尊号",
-    "尊号曰",
-    "尊号为",
-    "庙号",
-    "庙曰",
-    "庙称",
-    "贈"
-   ]
-  },
-  {
-   "field": "name.templeName",
-   "value": "太祖",
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "明史 列傳（明玉珍傳）の嗣立の条（c2）。**証人は子 明昇のキャッシュ**に在る。政権慣行（ming-xia／明史・`templeName` は form-found・transcribe）が2026-08-12 の時点で所在まで書いていた欄の未転記ぶん。**同じ条は諡を書かない**ので `posthumousNames` は read-absent のまま。"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。明史1冊を走査し、諡の条1135件・別語彙195件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "yuanmo-mingyuzhen",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-mingyuzhen.txt",
+      "line": 7,
+      "quote": "遂卒。凡立五年，年三十六"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-mingsheng.txt",
+      "line": 1,
+      "quote": "葬玉珍于江水之北，号永昌陵，庙号太祖"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-mingyuzhen.txt",
+      "line": 1,
+      "quote": "明玉珍，随州人。身长八尺余，目重瞳子"
+    },
+    {
+      "cid": "posthumous-full-rest-c1",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-mingyuzhen.txt",
+      "line": 1,
+      "quote": "明玉珍，随州人"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "明史 列傳（元末群雄 卷122〜123・流賊）を同じ10語で全数で読んだ（2026-08-14）。**この書が元末群雄へ与えるのは廟号だけ**（明玉珍の「庙号太祖」1件）で、諡を授ける条は8人のいずれにも無い。",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "追尊",
+        "追崇",
+        "追号",
+        "上尊号",
+        "尊号曰",
+        "尊号为",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "贈"
+      ]
+    },
+    {
+      "field": "name.templeName",
+      "value": "太祖",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "明史 列傳（明玉珍傳）の嗣立の条（c2）。**証人は子 明昇のキャッシュ**に在る。政権慣行（ming-xia／明史・`templeName` は form-found・transcribe）が2026-08-12 の時点で所在まで書いていた欄の未転記ぶん。**同じ条は諡を書かない**ので `posthumousNames` は read-absent のまま。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "諡",
+        "偽諡",
+        "私諡",
+        "上諡",
+        "追尊",
+        "追號",
+        "號曰",
+        "上尊號",
+        "廟號",
+        "尊為",
+        "追封為"
+      ],
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。明史1冊を走査し、諡の条1135件・別語彙195件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "皇帝",
+        "谥",
+        "諡",
+        "謚",
+        "尊号"
+      ],
+      "basis": [
+        "posthumous-full-rest-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。明史 列傳に諡の条が無い（慣行 `no-form`）。**「欽文昭武皇帝」はコーパスに無い** — 「钦文昭武」で当たるのは明 宣宗の全長諡（明史 L329ほか）で明玉珍のものではない（2026-08-15 実測）／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
+    }
+  ],
+  "discrepancies": "なし"
 }

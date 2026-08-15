@@ -56,6 +56,13 @@
       "file": "china-history/明史/本纪/第二章-卷二-原文.html",
       "line": 27,
       "quote": "乙丑，徙陈理、明升于高丽。"
+    },
+    {
+      "cid": "posthumous-full-rest-c1",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-mingsheng.txt",
+      "line": 1,
+      "quote": "子升嗣，改元开熙，葬玉珍于江水之北，号永昌陵，庙号太祖"
     }
   ],
   "findings": [
@@ -142,14 +149,19 @@
     {
       "field": "name.posthumousNameFull",
       "value": null,
-      "verdict": "pending",
-      "basis": [
-        "c1",
-        "c4",
-        "c5"
+      "verdict": "read-absent",
+      "sweptWords": [
+        "皇帝",
+        "谥",
+        "諡",
+        "謚",
+        "尊号"
       ],
-      "confidence": "medium",
-      "note": "原文（明史 卷123 列傳第11 の明昇部分と、明史全体の「明升」走査）は読み終えており全長形は見当たらないが、政権 ming-xia は posthumousNameFull の政権慣行が未確定（check_regime_conventions.py --field posthumousNameFull が1行で終了）。R-REGIME-FIRST により人物単位でこの欄を確定しない。"
+      "basis": [
+        "posthumous-full-rest-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。明史が書くのは父 明玉珍への「号永昌陵，庙号太祖」だけで、高麗へ徙された明昇本人の諡は中国正史の閉域に無い（残量表の「高麗史は閉域の外」の行と同じ形）／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
     }
   ],
   "conflicts": [],
