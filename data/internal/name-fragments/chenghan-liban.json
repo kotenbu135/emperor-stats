@@ -152,15 +152,12 @@
     },
     {
       "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "pending",
+      "value": "哀皇帝",
       "basis": [
-        "c3",
-        "c7",
         "c9"
       ],
-      "confidence": "medium",
-      "note": "晉書 載記第二十一の記事末尾条（この欄の材料になる位置）が李班には付かない（c3）。成漢は同僚4人ともこの欄が null で、末尾条の文字列は posthumousName 側へ入る扱いなので、正史外の「哀皇帝」（c7・c9）もこの欄へは重ねず pending とした（欄の扱いは Issue #126 側）。"
+      "confidence": "high",
+      "note": "**晉書 載記の成漢の巻に李班の諡の条が無い**（同巻の「谥」3件は李雄・李期・李寿）。華陽国志 L585「期伪谥班曰戾太子，寿追谥曰哀皇帝」が第二の証人で、**この形は既に `posthumousName` へ入っている**（欄の間で扱いが揃った）／2026-08-15 のユーザー決定で、**輯本・私撰（十六国春秋・同別伝・華陽国志・十国春秋）と編年・注（資治通鑑・胡三省注・裴松之注引書）を名前欄の witness に採る**ことになった。この値はその決定で入る"
     }
   ],
   "discrepancies": "既存の name.templeName（null）と name.personalName（\"班\"）は原文と一致（それぞれ read-absent・c1/c2/c10）。既存の name.posthumousName \"哀皇帝\" は華陽国志 卷九 L585（c7）・十六国春秋 卷七十八 L1447（c9）と一致し、本調査も同値を主張するので食い違いなし。ただし**この文字列は正史（晉書 載記第二十一・成帝紀）には1件も出ない**という性質の差があり、保存値は政権慣行が例外として指す正史外の証言に依っている。これは削除・null 化を提案するものではない。既存の name.posthumousNameFull（null）も本調査の pending と食い違わない。",

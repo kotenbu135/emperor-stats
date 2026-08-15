@@ -1,47 +1,83 @@
 {
- "id": "shiguo-min-wangjipeng",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "新五代史",
-   "file": "_corpus_cache/shiguo-min-wangjipeng.txt",
-   "line": 4,
-   "quote": "延义立，谥昶曰康宗"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。**新五代史はこの語を「谥」と呼び「庙号」と呼ばない**（c1）。同じ書は2記事前の王延鈞に「谥曰惠皇帝，庙号太宗」と両方の語を書き分けるので、ここで谥を使うのは書の語彙の選択。形が〈2字〉宗であることを根拠に廟号の欄へ入れない"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": "康宗",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "書が諡として掲げる形をそのまま入れる（c1）。**この形は書の本文に実在する**ので短縮呼称の欄の条件（その書が本文で使う形）を満たす"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "shiguo-min-wangjipeng",
+  "claims": [
     {
-     "form": "康宗"
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-min-wangjipeng.txt",
+      "line": 4,
+      "quote": "延义立，谥昶曰康宗"
+    },
+    {
+      "cid": "outside-canon-c1",
+      "book": "資治通鑑",
+      "file": "daizhigev20/史藏/编年/资治通鉴.txt",
+      "line": 28915,
+      "quote": "谥闽主曰圣神英睿文明广武应道大弘孝皇帝，庙号康宗"
+    },
+    {
+      "cid": "c2",
+      "book": "十国春秋",
+      "file": "daizhigev20/史藏/载记/十国春秋.txt",
+      "line": 3885,
+      "quote": "庙号康宗"
+    },
+    {
+      "cid": "c3",
+      "book": "新五代史",
+      "file": "daizhigev20/史藏/正史/新五代史.txt",
+      "line": 2330,
+      "quote": "鏻立十年见杀，谥曰惠皇帝，庙号太宗"
     }
-   ],
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "弑逆の条「延义立，谥昶曰康宗」。**形は廟号型2字だが書は「谥」と書く**ので諡の欄で受ける（金 哀宗と同じ扱い）。現行の短縮呼称「康宗」もこの条から来ている"
-  }
- ],
- "discrepancies": "なし"
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "康宗",
+      "basis": [
+        "outside-canon-c1"
+      ],
+      "confidence": "high",
+      "note": "**2書が同じ条で「庙号康宗」と書く**（資治通鑑 c1・十国春秋 c2）。新五代史 閩世家は「谥昶曰康宗」と諡の位置に書くが、**同じ書は父 王鏻には「谥曰惠皇帝，庙号太宗」と諡と廟号を書き分けており**（c3）、継鵬の条だけ諡を書かずに廟号を「谥」で受けている。証人の多い側（2書）を採る"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**廟号を短縮諡の欄へ入れていたのを外した（2026-08-15）。** 新五代史 閩世家の「谥昶曰康宗」だけを根拠に「康宗」が入っていたが、資治通鑑 L28915「谥闽主曰圣神英睿文明广武应道大弘孝皇帝，庙号康宗」と十国春秋 L3885 が同じ条で**康宗を庙号として書き、諡は別に長い形を書く**。新五代史自身も父 王鏻には「谥曰惠皇帝，庙号太宗」と書き分けており、継鵬の条だけ諡を書かずに廟号を「谥」で受けている。短縮呼称（〈諡字〉帝）を書く条はどの書にも無い",
+      "verdict": "read-absent",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "謚",
+        "庙号"
+      ]
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "聖神英睿文明広武応道大弘孝皇帝"
+        }
+      ],
+      "basis": [
+        "outside-canon-c1"
+      ],
+      "confidence": "high",
+      "note": "段は1段。授与の条が書く長い形をそのまま採る。**廟号を段に入れていたのを差し替えた**（2026-08-15）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "聖神英睿文明広武応道大弘孝皇帝",
+      "basis": [
+        "outside-canon-c1"
+      ],
+      "confidence": "high",
+      "note": "**新五代史は「谥昶曰康宗」と廟号を諡の位置に書く**ので正史からは取れない。十国春秋 L3885 も同じ形を持つが「大〔PUA U+EA1F〕孝皇帝」と**私用領域の字**で、通鑑側が「大弘孝皇帝」と読める。**2026-08-15 の絞り込み監査ではこの PUA を落として「…応道大孝皇帝」と記録していた**（弘の1字が抜けていた）ので、通鑑の形で当て直した／2026-08-15 のユーザー決定で、**輯本・私撰（十六国春秋・同別伝・華陽国志・十国春秋）と編年・注（資治通鑑・胡三省注・裴松之注引書）を名前欄の witness に採る**ことになった。この値はその決定で入る"
+    }
+  ],
+  "discrepancies": "なし"
 }

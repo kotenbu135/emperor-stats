@@ -16942,7 +16942,8 @@
     "posthumousName": "元帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "景明"
+    "courtesyName": "景明",
+    "posthumousNameFull": "元皇帝"
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "cao-wei",
@@ -28062,7 +28063,8 @@
      {
       "form": "武帝"
      }
-    ]
+    ],
+    "posthumousNameFull": "武皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "cheng-han",
@@ -28386,7 +28388,8 @@
     "posthumousName": "哀皇帝",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "世文"
+    "courtesyName": "世文",
+    "posthumousNameFull": "哀皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "cheng-han",
@@ -28771,7 +28774,8 @@
      {
       "form": "昭文帝"
      }
-    ]
+    ],
+    "posthumousNameFull": "昭文皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "cheng-han",
@@ -30839,8 +30843,12 @@
     "posthumousNames": [
      {
       "form": "明皇帝"
+     },
+     {
+      "form": "景明皇帝"
      }
-    ]
+    ],
+    "posthumousNameFull": "景明皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-qin",
@@ -32035,7 +32043,8 @@
     "posthumousName": "武烈帝",
     "templeName": "世祖",
     "regnalTitle": "皇帝",
-    "courtesyName": "屈孑"
+    "courtesyName": "屈孑",
+    "posthumousNameFull": "武烈皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "hexia",
@@ -78517,7 +78526,8 @@
      {
       "form": "睿"
      }
-    ]
+    ],
+    "posthumousNameFull": "睿皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "yang-wu",
@@ -81449,14 +81459,15 @@
     "personalName": "継鵬",
     "commonName": "康宗（王継鵬）",
     "aliases": [],
-    "posthumousName": "康宗",
-    "templeName": null,
+    "posthumousName": null,
+    "templeName": "康宗",
     "regnalTitle": "皇帝",
     "posthumousNames": [
      {
-      "form": "康宗"
+      "form": "聖神英睿文明広武応道大弘孝皇帝"
      }
-    ]
+    ],
+    "posthumousNameFull": "聖神英睿文明広武応道大弘孝皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "min",
@@ -81672,14 +81683,15 @@
     "personalName": "延羲",
     "commonName": "景宗（王延羲）",
     "aliases": [],
-    "posthumousName": "景宗",
-    "templeName": null,
+    "posthumousName": null,
+    "templeName": "景宗",
     "regnalTitle": "皇帝",
     "posthumousNames": [
      {
-      "form": "景宗"
+      "form": "睿文広武明聖元徳隆道大孝皇帝"
      }
-    ]
+    ],
+    "posthumousNameFull": "睿文広武明聖元徳隆道大孝皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "min",
@@ -82306,7 +82318,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "孝和皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "northern-han",
