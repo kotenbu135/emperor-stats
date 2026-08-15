@@ -91,6 +91,13 @@
       "file": "daizhigev20/史藏/正史/北史.txt",
       "line": 13938,
       "quote": "慕容永僭号长子，以跋父安为将。永为垂所灭"
+    },
+    {
+      "cid": "award-clause-c1",
+      "book": "資治通鑑",
+      "file": "daizhigev20/史藏/编年/资治通鉴.txt",
+      "line": 9642,
+      "quote": "西燕主永困急，遣其子常山公弘等求救于雍州刺史郗恢"
     }
   ],
   "findings": [
@@ -223,39 +230,18 @@
     {
       "field": "name.posthumousNameFull",
       "value": null,
-      "verdict": "pending",
-      "basis": [
-        "block4-c3",
-        "c4",
-        "c5",
-        "c6"
-      ],
-      "confidence": "high",
-      "note": "短縮呼称と同じ根拠で、全長形（〜皇帝）を掲げる位置（立項冒頭・滅亡条）がどちらも諡を出さない。ただし western-yan の政権慣行には「保存形」の行が無く（覆うフィールドの列挙も familyName・personalName・courtesyName・templeName・posthumousName で posthumousNameFull を含まない）、現行レコードにもこのキーが存在しない。欄の成立自体が未確定なので read-absent ではなく pending にする",
+      "verdict": "read-absent",
       "sweptWords": [
         "谥",
         "諡",
         "謚",
-        "庙",
-        "廟",
-        "庙号",
-        "追尊",
-        "尊号",
-        "号曰",
-        "称制",
-        "僭即帝位",
-        "戮"
+        "皇帝"
       ],
-      "sweptScope": [
-        "daizhigev20/史藏/载记/十六国春秋.txt 行809（卷五十 后燕録八「慕容永」立項）の全文を精読＋同書の慕容永 出現18件（18行）を行単位で確認",
-        "daizhigev20/史藏/载记/别本十六国春秋.txt 出現2件（1行）を行単位で確認",
-        "daizhigev20/史藏/载记/十六国春秋别传.txt 出現2件（1行）を行単位で確認",
-        "daizhigev20/史藏/正史/晋书.txt 出現19件（19行）を行単位で確認（うち行8649 慕容垂載記の長子攻略条と、行8268・8271・8272 の載記十五を精読。他は行頭120字で主体を確認）",
-        "daizhigev20/史藏/编年/资治通鉴.txt 慕容永 出現5件（5行）＋「西燕主永」出現13件（13行）を行単位で確認（行9637〜9642 の滅亡条を精読）",
-        "daizhigev20/史藏/正史/魏书.txt 出現24件（23行）を前後40字の窓で確認",
-        "daizhigev20/史藏/正史/北史.txt 出現15件（13行）を前後35字の窓で確認",
-        "_corpus_cache/xiyan-murongyong.txt 全4行を精読"
-      ]
+      "basis": [
+        "award-clause-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**西燕の慣行が 2026-08-16 に `form-found`（transcribe）へ変わったので人物単位で読み直した。**授与の条が在るのは慕容沖だけで、資治通鑑1冊の「威皇帝」1件・「威帝」0件のほかに西燕の君主へ諡を授ける条は無い（十六国春秋 L809 も同じ1条）。慕容永は長子城で後燕に滅ぼされ、諡を贈る主体が残っていない"
     }
   ],
   "discrepancies": "既存の構造フィールドと原文の食い違いは なし。name.posthumousName・name.templeName はいずれも null で、原文の読解結果（read-absent）と一致する。reigns の 386〜394 も十六国春秋・晋書・資治通鑑の記述（386年に長子で僭即帝位、394年に慕容垂に誅殺）と矛盾しない。別の観察として、name には courtesyName・posthumousNameFull のキーが存在せず、原文が示す字「叔明」（十六国春秋 卷五十「慕容永字叔明」）を入れる場所が無い。これは値の食い違いではなく欄の不在なので、上の「なし」を取り消すものではない。",

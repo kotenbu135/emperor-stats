@@ -25742,7 +25742,8 @@
       "form": "武悼皇帝",
       "year": 404
      }
-    ]
+    ],
+    "posthumousNameFull": "武悼皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "huan-chu",
@@ -27844,7 +27845,8 @@
       "form": "幽皇帝",
       "year": 400
      }
-    ]
+    ],
+    "posthumousNameFull": "幽皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-yan",
@@ -34315,7 +34317,8 @@
      {
       "form": "威皇帝"
      }
-    ]
+    ],
+    "posthumousNameFull": "威皇帝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "western-yan",
@@ -46291,7 +46294,8 @@
      {
       "form": "閔皇帝"
      }
-    ]
+    ],
+    "posthumousNameFull": "閔皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",
@@ -82096,7 +82100,8 @@
     ],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "神武皇帝"
    },
    "eraId": "five-dynasties",
    "regimeId": "northern-han",

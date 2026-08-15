@@ -1,65 +1,81 @@
 {
- "id": "shiguo-beihan-liuchong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "新五代史",
-   "file": "_corpus_cache/shiguo-beihan-liuchong.txt",
-   "line": 1,
-   "quote": "刘旻，汉高祖母弟也。初名崇"
-  },
-  {
-   "cid": "c2",
-   "book": "新五代史",
-   "file": "_corpus_cache/shiguo-beihan-liuchong.txt",
-   "line": 1,
-   "quote": "刘旻，汉高祖母弟也"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。**新五代史 東漢世家（北漢）には「谥」「庙号」が1件も無い**（政権慣行が verdict=no-form で記録済み）"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "新五代史のうち収録365人が立つ7世家（吳・南唐・前蜀・後蜀・南漢・閩・東漢）の「谥」17句と、各人のキャッシュの「尊号」「庙号」「追尊」「追封」を全数で読んだ（2026-08-13）。**この書は十国の君主に授けた諡を世家の卒去条に書く**が、この人物にはその条が無い。**東漢世家は「谥」を1句も持たない**（4人とも同じ）"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。新五代史1冊を走査し、諡の条104件・別語彙77件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "shiguo-beihan-liuchong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-beihan-liuchong.txt",
+      "line": 1,
+      "quote": "刘旻，汉高祖母弟也。初名崇"
+    },
+    {
+      "cid": "c2",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-beihan-liuchong.txt",
+      "line": 1,
+      "quote": "刘旻，汉高祖母弟也"
+    },
+    {
+      "cid": "award-clause-c1",
+      "book": "十国春秋",
+      "file": "daizhigev20/史藏/载记/十国春秋.txt",
+      "line": 4344,
+      "quote": "神武皇帝于交城北山上庙号"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**新五代史 東漢世家（北漢）には「谥」「庙号」が1件も無い**（政権慣行が verdict=no-form で記録済み）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "新五代史のうち収録365人が立つ7世家（吳・南唐・前蜀・後蜀・南漢・閩・東漢）の「谥」17句と、各人のキャッシュの「尊号」「庙号」「追尊」「追封」を全数で読んだ（2026-08-13）。**この書は十国の君主に授けた諡を世家の卒去条に書く**が、この人物にはその条が無い。**東漢世家は「谥」を1句も持たない**（4人とも同じ）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "諡",
+        "偽諡",
+        "私諡",
+        "上諡",
+        "追尊",
+        "追號",
+        "號曰",
+        "上尊號",
+        "廟號",
+        "尊為",
+        "追封為"
+      ],
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。新五代史1冊を走査し、諡の条104件・別語彙77件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "神武皇帝",
+      "basis": [
+        "award-clause-c1"
+      ],
+      "confidence": "high",
+      "note": "**2026-08-16 のユーザー決定**で、遼が生前に冊命した号を諡として採ることになった。十国春秋 L4329「册命帝为大汉神武皇帝」（干祐年間・遼の冊命）で与えられた号を、同書が**葬送の条（L4344・干祐九年四月）で本人の名乗りとして使う**（この行の直前は底本の私用領域字で「葬」に当たる）。新五代史 東漢世家は諡の条を持たず「旻自败于高平…明年十一月卒」で終わる。**西遼 徳宗「天祐皇帝」との違いは死後に使われるかどうか** — 遼史は徳宗を死後「庙号德宗」としか呼ばない（残量表の行）"
+    }
+  ],
+  "discrepancies": "なし"
 }
