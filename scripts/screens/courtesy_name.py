@@ -151,7 +151,10 @@ def main():
             "buckets": {b: len(buckets.get(b, [])) for b in BUCKETS},
             "samples": ({"unknown": sample(buckets.get("unknown", []), args.seed, args.sample)}
                         if args.sample else {}),
-            "coverage": {eid: b for eid, (b, _, _) in sorted(rows.items())},
+            # **値はバケット名の配列**（1要素でも配列）。素の文字列で出していたので
+            # `check_screenings.py --for` が文字ごとに回し、「バケット: u（kind=None）」
+            # のような読めない出力になっていた（2026-08-16 に修正・childhood_name も同型）
+            "coverage": {eid: [b] for eid, (b, _, _) in sorted(rows.items())},
         }, ensure_ascii=False))
         return 0
 
