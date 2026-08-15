@@ -1,48 +1,280 @@
 {
- "id": "beisongmo-liuyu",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "宋史",
-   "file": "_corpus_cache/beisongmo-liuyu.txt",
-   "line": 1,
-   "quote": "劉豫字彥游，景州阜城人也"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "宋史1冊の走査（sweep_posthumous_range.py・2026-08-10）は列傳の当たり301件まで数えており、この人物の諡は1件も無い。本人の伝にも「谥」は0出現。"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。宋史1冊を走査し、諡の条1245件・別語彙347件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+  "id": "beisongmo-liuyu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-liuyu.txt",
+      "line": 1,
+      "quote": "劉豫字彥游，景州阜城人也"
+    },
+    {
+      "cid": "block10-c1",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-liuyu.txt",
+      "line": 1,
+      "quote": "劉豫字彥游，景州阜城人也。"
+    },
+    {
+      "cid": "c2",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-liuyu.txt",
+      "line": 3,
+      "quote": "金人遣大同尹高慶裔、知制誥韓昉冊豫為皇帝，國號大齊，都大名府。"
+    },
+    {
+      "cid": "c3",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-liuyu.txt",
+      "line": 9,
+      "quote": "尊其祖曰徽祖毅文皇帝，父為衍祖睿仁皇帝。"
+    },
+    {
+      "cid": "c4",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-liuyu.txt",
+      "line": 23,
+      "quote": "十一月丙午，廢豫為蜀王。"
+    },
+    {
+      "cid": "c5",
+      "book": "宋史",
+      "file": "_corpus_cache/beisongmo-liuyu.txt",
+      "line": 25,
+      "quote": "封豫為曹王，賜田以居之。紹興十三年六月卒，是年金皇統三年也。"
+    },
+    {
+      "cid": "c6",
+      "book": "金史",
+      "file": "_corpus_cache/beisongmo-liuyu.txt",
+      "line": 29,
+      "quote": "刘豫，字彦游，景州阜城人。宋宣和末，仕为河北西路提刑。"
+    },
+    {
+      "cid": "c7",
+      "book": "金史",
+      "file": "_corpus_cache/beisongmo-liuyu.txt",
+      "line": 36,
+      "quote": "皇统元年，赐豫钱一万贯、田五十顷、牛五十头。二年，进封曹王。六年，薨。子麟。"
+    },
+    {
+      "cid": "c8",
+      "book": "宋史",
+      "file": "daizhigev20/史藏/正史/宋史.txt",
+      "line": 101495,
+      "quote": "◎叛臣上"
+    },
+    {
+      "cid": "c9",
+      "book": "金史",
+      "file": "daizhigev20/史藏/正史/金史.txt",
+      "line": 5960,
+      "quote": "金人效尤，而张邦昌、刘豫之事出焉。"
+    },
+    {
+      "cid": "c10",
+      "book": "金史",
+      "file": "daizhigev20/史藏/正史/金史.txt",
+      "line": 400,
+      "quote": "改封蜀王刘豫为曹王。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c4",
+        "c5",
+        "c7",
+        "c10"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙号",
+        "廟號",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "追崇",
+        "追谥",
+        "追封",
+        "追赠",
+        "追贈",
+        "上尊",
+        "尊为",
+        "赠",
+        "贈",
+        "号曰",
+        "號曰",
+        "号为",
+        "册为",
+        "立为",
+        "封"
+      ],
+      "sweptScope": "templeName と同一。",
+      "note": "諡の段は1段も立たない。転記の際は欄ごと作らないこと（空配列も置かない＝政権慣行の保存形の指示）。走査窓に入る囮は3種で、(1) 追尊の受け手は祖父・父（c3）、(2) 本人が受けるのは位号「蜀王」「曹王」だけ（c4・c10・c7）、(3) 同巻 苗傅伝の「号帝为睿圣仁孝皇帝」は受け手が宋高宗。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c4",
+        "c5",
+        "c7",
+        "c8",
+        "c9",
+        "c10"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙号",
+        "廟號",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "追崇",
+        "追谥",
+        "追封",
+        "追赠",
+        "追贈",
+        "上尊",
+        "尊为",
+        "赠",
+        "贈",
+        "号曰",
+        "號曰",
+        "号为",
+        "册为",
+        "立为",
+        "封"
+      ],
+      "sweptScope": "templeName と同一（キャッシュ全38行の通読＋金史・宋史の全文を人名で行抽出してから語彙照合＋宋史 卷475 の見出し／巻末と金史 卷77 の贊）。",
+      "note": "廢位後に蜀王→曹王と封じ替えられて卒し（c4・c5・c7・c10）、諡を授ける条が宋史・金史のどちらにも無い。同じ伝に立つ追尊の条は受け手が劉豫の祖父・父で（c3「尊其祖曰徽祖毅文皇帝，父為衍祖睿仁皇帝」）、本人が受け手になる条ではない。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "豫",
+      "basis": [
+        "block10-c1",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "宋史 卷475 叛臣上の冒頭「劉豫字彥游」（繁体）と金史 卷77 の冒頭「刘豫，字彦游」（簡体）が一致。値は既存レコードの新字体表記に揃え、引用は底本のまま（宋史部分＝繁体・金史部分＝簡体）残した。"
+    },
+    {
+      "field": "name.familyName",
+      "value": "劉",
+      "basis": [
+        "block10-c1",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "同じ冒頭1行から。政権慣行（宋史・列傳冒頭「〈姓〉〈名〉字〈字〉，〈本貫〉人也」・form-found）の転記で、既存値と一致。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "彦游",
+      "basis": [
+        "block10-c1",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "底本は繁体「彥游」・金史は簡体「彦游」。値は既存レコードの新字体表記「彦游」に揃えた。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c1",
+        "c2",
+        "c4",
+        "c5",
+        "c7",
+        "c8",
+        "c9",
+        "c10"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙号",
+        "廟號",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "追崇",
+        "追谥",
+        "追封",
+        "追赠",
+        "追贈",
+        "上尊",
+        "尊为",
+        "赠",
+        "贈",
+        "号曰",
+        "號曰",
+        "号为",
+        "册为",
+        "立为",
+        "封"
+      ],
+      "sweptScope": "_corpus_cache/beisongmo-liuyu.txt 全38行（宋史 卷475 劉豫部分1〜27・金史 卷77 部分29〜38）を通読。daizhigev20/史藏/正史/金史.txt 全文と daizhigev20/史藏/正史/宋史.txt 全文を「刘豫／豫」で行抽出したうえで上記語彙に掛けた（scripts/hanzi_norm.py の norm_for_match を通して照合）。宋史 卷475 の巻見出し L101493・L101495 と巻末 L101671〜101677（論曰・史臣曰は無し）、金史 卷77 の贊曰 L5960 も確認。",
+      "note": "劉豫は本紀を持たず、宋史 卷475 叛臣上と金史 卷77 の2伝でしか立たない。どちらの伝も冒頭は姓名字の定型で廟号を掲げる位置が無く（c1・c6）、末尾は金による廢位・封爵・卒去で終わる（c4・c5・c7）。齊は劉豫の廢位で滅び、宗廟に列する後継者がいない。掲げられる号は「蜀王」「曹王」の位号だけで（c4・c10）、位号は廟号ではない。閉域4軸: (1) 同書のキャッシュ外＝巻見出し「◎叛臣上」と巻末に論賛が無いことを確認、(2) 本紀・帝紀の外＝そもそも本紀を持たず列傳のみ、(3) 別政権の書＝廢位した側の金史を全文走査、(4) 語の割れ＝上記 sweptWords を正規化して照合。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c1",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙号",
+        "廟號",
+        "庙曰",
+        "庙称",
+        "追尊",
+        "追崇",
+        "追谥",
+        "追封",
+        "追赠",
+        "追贈",
+        "上尊",
+        "尊为",
+        "赠",
+        "贈",
+        "号曰",
+        "號曰",
+        "号为",
+        "册为",
+        "立为",
+        "封"
+      ],
+      "sweptScope": "templeName と同一。政権慣行が第二の所在として挙げた金史 卷77 は通読済み（キャッシュ29〜38行）。",
+      "note": "政権慣行では宋史から取れない欄（biography-only → other-source）で、第二の所在とされた金史 卷77 を通読し、さらに金史・宋史の全文を「刘豫」＋諡系語彙で走査したが本人を受け手とする全長諡は0件。宋史 卷475 の見出しは「◎叛臣上」だけで名乗りを掲げず（c8）、同巻に論曰・史臣曰は無い。金史 卷77 の贊も劉豫を「豫」と呼ぶのみ（c9）。"
+    }
+  ],
+  "discrepancies": "なし。既存の構造フィールド（name.templeName = null・name.posthumousName = null・name.personalName = \"豫\"・name.familyName = \"劉\"・name.courtesyName = \"彦游\"）はいずれも原文と食い違わない。",
+  "conflicts": [],
+  "noteLog": "未走査として残したもの: 宋史 卷475 全域の逐語走査（これは政権慣行レコード側で実施済みの走査であって本セッションのものではない）と、正史以外の書（建炎以来繋年要録など）。本セッションの走査は人名で行を絞ってから語彙に掛ける形なので、劉豫の名を出さずに諡を授ける条があれば掛からない — ただし宋史側は卷475 を通読、金史側は卷77 を通読しており、伝の外で無名のまま諡を授ける形は正史の書式に無い。",
+  "processSuggestion": "残量表 傀儡政権の没年が宋史と金史で割れる系統 1件（未走査 — 劉豫は宋史 卷475「紹興十三年六月卒，是年金皇統三年也」に対し金史 卷77 は「六年，薨」＝皇統六年で3年ずれる。同巻に立つ張邦昌ほか同型の傀儡は本セッションでは未走査）。"
 }

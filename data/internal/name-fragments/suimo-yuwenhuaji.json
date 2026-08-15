@@ -1,48 +1,217 @@
 {
- "id": "suimo-yuwenhuaji",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "隋書",
-   "file": "_corpus_cache/suimo-yuwenhuaji.txt",
-   "line": 1,
-   "quote": "宇文化及，左翊卫大将军述之子也"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "隋書 帝紀の「谥」3句を全数で読んだ（3句とも文帝の祖先へ贈る諡）。この人物には諡を授ける条が無い。**隋書は隋の帝に諡を授ける条を1つも書かない**（文帝・煬帝の諡は冒頭の名乗りにしか出ない）。"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。舊唐書1冊を走査し、諡の条605件・別語彙211件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+  "id": "suimo-yuwenhuaji",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "隋書",
+      "file": "_corpus_cache/suimo-yuwenhuaji.txt",
+      "line": 1,
+      "quote": "宇文化及，左翊卫大将军述之子也"
+    },
+    {
+      "cid": "c2",
+      "book": "隋書",
+      "file": "_corpus_cache/suimo-yuwenhuaji.txt",
+      "line": 4,
+      "quote": "于是鸩杀浩，僭皇帝位于魏县，国号许，建元为天寿，署置百官"
+    },
+    {
+      "cid": "c3",
+      "book": "隋書",
+      "file": "_corpus_cache/suimo-yuwenhuaji.txt",
+      "line": 4,
+      "quote": "乃以轞车载化及之河间，数以杀君之罪，并二子承基、承趾皆斩之，传首于突厥义成公主，枭于虏庭"
+    },
+    {
+      "cid": "c4",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 7323,
+      "quote": "○宇文化及弟智及　司马德戡　裴虔通"
+    },
+    {
+      "cid": "c5",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 7340,
+      "quote": "史臣曰：化及庸芃下才，负恩累叶"
+    },
+    {
+      "cid": "c6",
+      "book": "旧唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 234,
+      "quote": "宇文化及至魏州，鸩杀秦王浩，僭称天子，国号许"
+    },
+    {
+      "cid": "c7",
+      "book": "北史",
+      "file": "daizhigev20/史藏/正史/北史.txt",
+      "line": 11993,
+      "quote": "并二子承基、承趾皆斩之，传首于突厥"
+    },
+    {
+      "cid": "c8",
+      "book": "旧唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 11490,
+      "quote": "○宇文融　韦坚　杨慎矜　王鉷"
+    },
+    {
+      "cid": "c9",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 6469,
+      "quote": "谥帝曰明，庙号世祖"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2",
+        "c3",
+        "c5",
+        "c6",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "諡の段（授諡・加諡の連なり）が1段も立たない。初諡の条（崩御条にあたる位置）は c3 の斬首記事で、諡を贈る主体そのものが無い。後代の加諡も隋書・旧唐書・新唐書・北史・資治通鑑のいずれにも無い。走査語・範囲は name.templeName の note と同じ",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "謚",
+        "庙号",
+        "廟號",
+        "庙曰",
+        "庙称",
+        "廟曰",
+        "追尊",
+        "追谥",
+        "追諡",
+        "尊号",
+        "尊號",
+        "号曰",
+        "號曰"
+      ],
+      "sweptScope": "_corpus_cache/suimo-yuwenhuaji.txt 全7行（隋書 卷八十五 列傳第五十 宇文化及傳の全文）／daizhigev20/史藏/正史/隋书.txt・旧唐书.txt・新唐书.txt・北史.txt・daizhigev20/史藏/编年/资治通鉴.txt の全行を hanzi_norm.norm_for_match 正規化のうえ「化及」の各出現の前後80字窓で走査。加えて 隋书.txt L7323 の巻の人名見出し行と L7340 の史臣曰を目視。検出器の生存確認: 谥 の件数は 隋书 109・旧唐书 605・新唐书 713・北史 950・资治通鉴 321"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "同じ走査で短縮呼称も0件。唐側の書も僭称者として扱い（c6「僭称天子，国号许」）諡を与えない。同じ隋書の中では煬帝へ「谥帝曰明，庙号世祖」（c9）と諡・廟号を明記するので、書がこの語を持たないのではなく化及に条が無い。sweptWords・sweptScope は name.templeName の note と同じ",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "謚",
+        "庙号",
+        "廟號",
+        "庙曰",
+        "庙称",
+        "廟曰",
+        "追尊",
+        "追谥",
+        "追諡",
+        "尊号",
+        "尊號",
+        "号曰",
+        "號曰"
+      ],
+      "sweptScope": "_corpus_cache/suimo-yuwenhuaji.txt 全7行（隋書 卷八十五 列傳第五十 宇文化及傳の全文）／daizhigev20/史藏/正史/隋书.txt・旧唐书.txt・新唐书.txt・北史.txt・daizhigev20/史藏/编年/资治通鉴.txt の全行を hanzi_norm.norm_for_match 正規化のうえ「化及」の各出現の前後80字窓で走査。加えて 隋书.txt L7323 の巻の人名見出し行と L7340 の史臣曰を目視。検出器の生存確認: 谥 の件数は 隋书 109・旧唐书 605・新唐书 713・北史 950・资治通鉴 321"
+    },
+    {
+      "field": "name.personalName",
+      "value": "化及",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "政権慣行（隋書・列傳冒頭1行「〈姓名〉，〈父の官〉之子也」・personScope=transcribe）に従って冒頭1行から転記。姓「宇文」＋諱「化及」で、字は並ばない。底本は簡体だが値の字体は既存レコードに揃え、この2字は新字体でも同形なので変換なし"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "隋書 卷八十五 列傳第五十の宇文化及傳を全文読解。名乗りは冒頭の「宇文化及」だけで、位号は「僭皇帝位于魏县，国号许」（c2）＝位号・国号であり廟号ではない。竇建德に生擒され斬首・首を突厥へ送られて終わる（c3・c7）ので、廟を立てる主体が無い。閉域4軸: (1)同じ書のキャッシュ外＝巻の人名見出し行 c4 と巻末の史臣曰 c5 に廟号の語が立たない・隋書1冊の全行を走査（谥109件で検出器は生存・c9 は煬帝への追諡で別人）、(2)本紀の外の列傳＝本件そのものが列傳で、隋書に化及の紀は無い、(3)別政権の書＝旧唐書（谥605件）・新唐書（713件）・北史 卷七十九（950件）・資治通鑑（321件）を走査し、化及の前後80字に廟号・諡の語が立つ箇所は0件、(4)語彙＝scripts/hanzi_norm.norm_for_match を通してから当てた。sweptWords: 谥・諡・謚・庙号・廟號・庙曰・庙称・廟曰・追尊・追谥・追諡・尊号・尊號・号曰・號曰。sweptScope: _corpus_cache/suimo-yuwenhuaji.txt 全7行／daizhigev20 の 隋书.txt・旧唐书.txt・新唐书.txt・北史.txt・资治通鉴.txt の全行（「化及」の各出現の前後80字窓）\n【親セッションが原文へ当て直した 2026-08-15・廟号ブロック9】「化及の前後80字に廟号・諡の語が立つ箇所は0件」が実測と合わない（5書で22出現が窓に掛かり、うち1つは自分の c6 の行）。また「北史 卷七十九の谥は950件」は書1冊全体の数で、卷七十九の範囲では1件（宇文述の「谥曰恭」）。判定は動かない。",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "謚",
+        "庙号",
+        "廟號",
+        "庙曰",
+        "庙称",
+        "廟曰",
+        "追尊",
+        "追谥",
+        "追諡",
+        "尊号",
+        "尊號",
+        "号曰",
+        "號曰"
+      ],
+      "sweptScope": "_corpus_cache/suimo-yuwenhuaji.txt 全7行（隋書 卷八十五 列傳第五十 宇文化及傳の全文）／daizhigev20/史藏/正史/隋书.txt・旧唐书.txt・新唐书.txt・北史.txt・daizhigev20/史藏/编年/资治通鉴.txt の全行を hanzi_norm.norm_for_match 正規化のうえ「化及」の各出現の前後80字窓で走査。加えて 隋书.txt L7323 の巻の人名見出し行と L7340 の史臣曰を目視。検出器の生存確認: 谥 の件数は 隋书 109・旧唐书 605・新唐书 713・北史 950・资治通鉴 321"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2",
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "政権慣行（隋書・posthumousNameFull・biography-only／personScope=other-source）の保存形どおり、この書の名乗りからは全長形を取れない。隋書は帝紀の冒頭でこの形を使う（「高祖文皇帝，姓杨氏，讳坚」）が、化及に紀が無いので欄が立たない。列傳の冒頭は c1 の「〈姓名〉，〈父の官〉之子也」で諡が入る位置が無く、僭号の条 c2 は位号・国号であって諡ではない。他書を含む走査でも全長形は0件",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "謚",
+        "庙号",
+        "廟號",
+        "庙曰",
+        "庙称",
+        "廟曰",
+        "追尊",
+        "追谥",
+        "追諡",
+        "尊号",
+        "尊號",
+        "号曰",
+        "號曰"
+      ],
+      "sweptScope": "_corpus_cache/suimo-yuwenhuaji.txt 全7行（隋書 卷八十五 列傳第五十 宇文化及傳の全文）／daizhigev20/史藏/正史/隋书.txt・旧唐书.txt・新唐书.txt・北史.txt・daizhigev20/史藏/编年/资治通鉴.txt の全行を hanzi_norm.norm_for_match 正規化のうえ「化及」の各出現の前後80字窓で走査。加えて 隋书.txt L7323 の巻の人名見出し行と L7340 の史臣曰を目視。検出器の生存確認: 谥 の件数は 隋书 109・旧唐书 605・新唐书 713・北史 950・资治通鉴 321"
+    }
+  ],
+  "discrepancies": "既存の構造フィールド（name.templeName=null・name.posthumousName=null・name.personalName=\"化及\"・name.familyName=\"宇文\"・regimeId=\"xu\"・regnalTitle=\"皇帝\"・reigns 618〜619）と原文の食い違いは無し。ただし構造記録側に1件ずれがある: data/regime-conventions.json の conventions[38]（書=舊唐書・fields=templeName/posthumousName・2026-08-14 に xu を追加）は所在を「舊唐書 列傳」とするが、舊唐書に宇文化及の列傳は無い（傳主見出し「○宇文」で当たるのは宇文融の傳だけ＝c8。化及は高祖本紀 c6 ほかの言及と他人の傳の中にしか出ない）。同ファイルの conventions[114]（2026-08-15・書=隋書）が既にこれを注記しており、実際の所在は隋書 卷八十五 列傳第五十（c4）。判定 no-form → per-person の結論自体は変わらない。**直し方は所在の注記を足す側で、regimeIds から xu を外してはいけない** — conventions[38] は xu の templeName・posthumousName を覆う唯一の記録なので、外すと check_regime_conventions --field templeName が1行になり、同じ政権の次の人物が「慣行未確定」で止まる。",
+  "conflicts": [],
+  "noteLog": "冒頭に「由是长安谓之轻薄公子」という当時の綽名が出るが、諡・廟号ではなく名乗りの欄の対象でもないので findings に入れない（別称の欄への投入対象外という指示に従い記録のみ）。値の字体は既存レコードに合わせる方針だが、諱「化及」は簡体底本と新字体で同形なので変換していない。",
+  "processSuggestion": "残量表 政権慣行の所在ずれ 1件（未走査）— conventions[38] は舊唐書 列傳を所在として13政権を束ねるが、xu（宇文化及）は舊唐書に列傳が無く隋書 卷八十五が実体だった。同じ束の他12政権（anshi-yan・xiqin・zhuci-qin・zhucan-chu・zheng・xiaoxian-liang・suimo-wu・suimo-song・suimo-chu・liguigui-liang・liangshidu-liang・dingyang）について舊唐書に実際に列傳が立つかは未走査。check_regime_conventions.py に「その政権の人物の _corpus_cache が名乗る底本ファイルと、慣行記録の book が一致するか」を出す行を足すと、この型のずれが着手時に見える。"
 }

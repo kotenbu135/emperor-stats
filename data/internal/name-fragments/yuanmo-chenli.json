@@ -1,69 +1,195 @@
 {
- "id": "yuanmo-chenli",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "明史",
-   "file": "_corpus_cache/yuanmo-chenli.txt",
-   "line": 2,
-   "quote": "洪武五年，理及归义侯明升并徙高丽"
-  },
-  {
-   "cid": "c2",
-   "book": "明史",
-   "file": "_corpus_cache/yuanmo-chenli.txt",
-   "line": 1,
-   "quote": "子理既还武昌，嗣伪位，改元德寿"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "明史 列傳（元末群雄 卷122〜123・流賊）を同じ10語で全数で読んだ（2026-08-14）。**この書が元末群雄へ与えるのは廟号だけ**（明玉珍の「庙号太祖」1件）で、諡を授ける条は8人のいずれにも無い。",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "追尊",
-    "追崇",
-    "追号",
-    "上尊号",
-    "尊号曰",
-    "尊号为",
-    "庙号",
-    "庙曰",
-    "庙称",
-    "贈"
-   ]
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。明史1冊を走査し、諡の条1135件・別語彙195件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "yuanmo-chenli",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-chenli.txt",
+      "line": 2,
+      "quote": "洪武五年，理及归义侯明升并徙高丽"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-chenli.txt",
+      "line": 1,
+      "quote": "子理既还武昌，嗣伪位，改元德寿"
+    },
+    {
+      "cid": "block10-c1",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 11630,
+      "quote": "子理既还武昌，嗣伪位，改元德寿"
+    },
+    {
+      "cid": "block10-c2",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 11630,
+      "quote": "理遂降，入军门，俯伏不敢视"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 11630,
+      "quote": "旋应天，授爵归德侯"
+    },
+    {
+      "cid": "c4",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 33,
+      "quote": "徙陈理、明升于高丽"
+    },
+    {
+      "cid": "c5",
+      "book": "新元史",
+      "file": "daizhigev20/史藏/正史/新元史.txt",
+      "line": 3932,
+      "quote": "伪汉主陈理降于朱元璋"
+    },
+    {
+      "cid": "c6",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 20,
+      "quote": "二月乙未，复自将征武昌，陈理降"
+    },
+    {
+      "cid": "c7",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-chenli.txt",
+      "line": 2,
+      "quote": "理居京师，邑邑出怨望语"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "授けられた諡が1つも無いため段は空。冒頭形も無いので1段も立てない。",
+      "sweptWords": [
+        "陈理",
+        "陳理",
+        "归德侯",
+        "伪汉",
+        "陈汉",
+        "陳漢"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/明史.txt 全24601行（本紀・志・表・列傳）: 陈理／陳理・归德侯・伪汉／陈汉／陳漢",
+        "daizhigev20/史藏/正史/新元史.txt 全巻: 陈理／陳理のみ",
+        "daizhigev20/史藏/正史/元史.txt 全巻: 陈理／陳理のみ",
+        "_corpus_cache/yuanmo-chenli.txt 全2行: 全文通読"
+      ],
+      "sweptCooccurrence": "授与語彙（谥・諡・庙号・庙曰・追尊・尊号・号曰）は単独走査ではなく、明史.txt の中で 归德侯／明升 と同一行に共起するかだけを見た。明史.txt は本紀1行が1年ぶんの記事に相当する長行なので、同一行共起は緩い（広い）フィルタであり、共起0件は強い否定証拠になる。新元史・元史へは授与語彙を当てていない。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c2",
+        "c3",
+        "c4",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "廟号と同じ理由。降伏後も生存し明の列侯として高麗へ徙されたため諡を贈られていない。走査範囲・語彙は name.templeName の note と同じ。",
+      "sweptWords": [
+        "陈理",
+        "陳理",
+        "归德侯",
+        "伪汉",
+        "陈汉",
+        "陳漢"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/明史.txt 全24601行（本紀・志・表・列傳）: 陈理／陳理・归德侯・伪汉／陈汉／陳漢",
+        "daizhigev20/史藏/正史/新元史.txt 全巻: 陈理／陳理のみ",
+        "daizhigev20/史藏/正史/元史.txt 全巻: 陈理／陳理のみ",
+        "_corpus_cache/yuanmo-chenli.txt 全2行: 全文通読"
+      ],
+      "sweptCooccurrence": "授与語彙（谥・諡・庙号・庙曰・追尊・尊号・号曰）は単独走査ではなく、明史.txt の中で 归德侯／明升 と同一行に共起するかだけを見た。明史.txt は本紀1行が1年ぶんの記事に相当する長行なので、同一行共起は緩い（広い）フィルタであり、共起0件は強い否定証拠になる。新元史・元史へは授与語彙を当てていない。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "理",
+      "basis": [
+        "block10-c1",
+        "c5",
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "明史 列傳は「讳〈名〉」の定型を持たず、地の文で「子理」「陈理」と呼ぶ。新元史 順帝紀も「伪汉主陈理」と姓名で書く。底本は簡体だが「理」は新字体でも同形なので値もそのまま。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c2",
+        "c3",
+        "c4",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "陳理は1364年に降伏して生存し歸德侯に封ぜられ、洪武5年（1372）に高麗へ徙された。陳漢は滅びており廟号を立てる主体が存在しない。閉域4軸: (1)(2) 明史全24601行（本紀・志・列傳）を「陈理／陳理」で走査し該当7行（本紀 卷一〜二、地理志、常遇春伝・廖永忠伝・羅復仁伝、陳友諒伝）を確認、いずれも廟号の語を伴わない。(3) 元史・新元史も走査し「伪汉主陈理」の降伏記事1件のみ。滅ぼした側が明なので底本は明史が正しい。(4) 明史全巻で「归德侯」は line 11630 の1件のみ、「伪汉」「陈汉」は2件で、いずれも谥・諡・庙号・庙曰・追尊・尊号・号曰のいずれとも同一行に共起しない。 絞り込み zong-token の層について: 本人のキャッシュに現れる2字語「太祖」（「太祖亲征武昌」「太祖见理幼弱」「太祖平武昌」）はいずれも明太祖朱元璋を指し、陳理の廟号ではない（ブロック3・4と同型）。",
+      "sweptWords": [
+        "陈理",
+        "陳理",
+        "归德侯",
+        "伪汉",
+        "陈汉",
+        "陳漢"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/明史.txt 全24601行（本紀・志・表・列傳）: 陈理／陳理・归德侯・伪汉／陈汉／陳漢",
+        "daizhigev20/史藏/正史/新元史.txt 全巻: 陈理／陳理のみ",
+        "daizhigev20/史藏/正史/元史.txt 全巻: 陈理／陳理のみ",
+        "_corpus_cache/yuanmo-chenli.txt 全2行: 全文通読"
+      ],
+      "sweptCooccurrence": "授与語彙（谥・諡・庙号・庙曰・追尊・尊号・号曰）は単独走査ではなく、明史.txt の中で 归德侯／明升 と同一行に共起するかだけを見た。明史.txt は本紀1行が1年ぶんの記事に相当する長行なので、同一行共起は緩い（広い）フィルタであり、共起0件は強い否定証拠になる。新元史・元史へは授与語彙を当てていない。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c2",
+        "c3",
+        "c4",
+        "c7"
+      ],
+      "confidence": "high",
+      "note": "明史 列傳は冒頭に「〈廟号〉〈諡〉皇帝讳〈名〉」型の掲名を持たず（政権慣行 no-form）、陳理の条は「子理既还武昌」で始まり敗降の記事で終わる。全長形も存在しない。",
+      "sweptWords": [
+        "陈理",
+        "陳理",
+        "归德侯",
+        "伪汉",
+        "陈汉",
+        "陳漢"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/明史.txt 全24601行（本紀・志・表・列傳）: 陈理／陳理・归德侯・伪汉／陈汉／陳漢",
+        "daizhigev20/史藏/正史/新元史.txt 全巻: 陈理／陳理のみ",
+        "daizhigev20/史藏/正史/元史.txt 全巻: 陈理／陳理のみ",
+        "_corpus_cache/yuanmo-chenli.txt 全2行: 全文通読"
+      ],
+      "sweptCooccurrence": "授与語彙（谥・諡・庙号・庙曰・追尊・尊号・号曰）は単独走査ではなく、明史.txt の中で 归德侯／明升 と同一行に共起するかだけを見た。明史.txt は本紀1行が1年ぶんの記事に相当する長行なので、同一行共起は緩い（広い）フィルタであり、共起0件は強い否定証拠になる。新元史・元史へは授与語彙を当てていない。"
+    }
+  ],
+  "discrepancies": "なし（既存の構造フィールド name.templeName=null・name.posthumousName=null・name.personalName=\"理\"・name.familyName=\"陳\"・reigns 1363〜1364 と原文の間に食い違いは無い。明史 本紀 卷一が至正23年（1363）に「张定边以其子理奔武昌」、卷一が至正24年＝甲辰（1364）二月に「陈理降」と記し、在位年と整合する）",
+  "conflicts": [],
+  "noteLog": "既存レコードの name.templeName・name.posthumousName はいずれも null、name.personalName は「理」で、原文の読解結果と一致した。捨てた値は無い。走査に使った語は 陈理／陳理／归德侯／伪汉／陈汉／陳漢 と、授与語彙 谥・諡・庙号・庙曰・追尊・尊号・号曰。走査範囲は 明史.txt 全24601行（本紀・志・列傳）・新元史.txt 全巻・元史.txt 全巻。 授与語彙は単独では走査しておらず、明史.txt 内で 归德侯／明升 と同一行に共起するかだけを見た（共起0件）。新元史・元史へ当てたのは人名のみ。",
+  "processSuggestion": "残量表 元末群雄・高麗へ徙された降伏君主 2件（未走査）— 陳理と明升は洪武5年に高麗へ徙されており、その後の事跡は高麗史に在るが中国正史コーパスの外なので閉域4軸の(3)を当てきれない。走査していないので0件ではなく未走査として上げる。"
 }

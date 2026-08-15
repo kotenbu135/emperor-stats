@@ -1,69 +1,223 @@
 {
- "id": "yuanmo-chenyouliang",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "明史",
-   "file": "_corpus_cache/yuanmo-chenyouliang.txt",
-   "line": 10,
-   "quote": "骤中流矢，贯晴及颅死"
-  },
-  {
-   "cid": "c2",
-   "book": "明史",
-   "file": "_corpus_cache/yuanmo-chenyouliang.txt",
-   "line": 1,
-   "quote": "陈友谅张士诚方国珍明玉珍"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "明史 列傳（元末群雄 卷122〜123・流賊）を同じ10語で全数で読んだ（2026-08-14）。**この書が元末群雄へ与えるのは廟号だけ**（明玉珍の「庙号太祖」1件）で、諡を授ける条は8人のいずれにも無い。",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "追尊",
-    "追崇",
-    "追号",
-    "上尊号",
-    "尊号曰",
-    "尊号为",
-    "庙号",
-    "庙曰",
-    "庙称",
-    "贈"
-   ]
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。明史1冊を走査し、諡の条1135件・別語彙195件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "yuanmo-chenyouliang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-chenyouliang.txt",
+      "line": 10,
+      "quote": "骤中流矢，贯晴及颅死"
+    },
+    {
+      "cid": "c2",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-chenyouliang.txt",
+      "line": 1,
+      "quote": "陈友谅张士诚方国珍明玉珍"
+    },
+    {
+      "cid": "block10-c1",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-chenyouliang.txt",
+      "line": 2,
+      "quote": "陈友谅，沔阳渔家子也。本谢氏，祖赘于陈，因从其姓。"
+    },
+    {
+      "cid": "block10-c2",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-chenyouliang.txt",
+      "line": 7,
+      "quote": "寿辉既死，以采石五通庙为行殿，即皇帝位，国号汉，改元大义，太师邹普胜以下皆仍故官。"
+    },
+    {
+      "cid": "c3",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-chenyouliang.txt",
+      "line": 10,
+      "quote": "友谅从舟中引首出，有所指捴，骤中流矢，贯晴及颅死。"
+    },
+    {
+      "cid": "c4",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-chenyouliang.txt",
+      "line": 10,
+      "quote": "太尉张定边夜挟友谅次子理，载其尸遁还武昌。"
+    },
+    {
+      "cid": "c5",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-chenyouliang.txt",
+      "line": 10,
+      "quote": "友谅僣号凡四年。"
+    },
+    {
+      "cid": "c6",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-chenli.txt",
+      "line": 1,
+      "quote": "子理既还武昌，嗣伪位，改元德寿。"
+    },
+    {
+      "cid": "c7",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-mingsheng.txt",
+      "line": 1,
+      "quote": "子升嗣，改元开熙，葬玉珍于江水之北，号永昌陵，庙号太祖。"
+    },
+    {
+      "cid": "c8",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-mingsheng.txt",
+      "line": 7,
+      "quote": "赞曰：友谅、士诚起刀笔负贩，因乱僣窃，恃其富强，而卒皆败于其所恃。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c4",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "谥曰",
+        "追谥",
+        "尊谥",
+        "上尊谥",
+        "追尊",
+        "尊号",
+        "号曰",
+        "庙号"
+      ],
+      "sweptScope": "name.templeName と同一",
+      "note": "諡の段が0段。初諡・加諡のいずれの条も明史に無く、他書（明実録太祖実録・国初群雄事略）にも陳友諒の諡は出なかったので、段へ足す候補も無い。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c1",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "谥曰",
+        "追谥",
+        "尊谥",
+        "上尊谥",
+        "追尊",
+        "尊号",
+        "号曰",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "陵"
+      ],
+      "sweptScope": "name.templeName と同一（明史 絶対巻123 全文・明史全書の『友谅』38箇所・元史・明実録太祖実録・国初群雄事略）",
+      "note": "諡を上る条が無い。死去の記事は『骤中流矢，贯晴及颅死』（c3）と『载其尸遁还武昌』（c4）で終わり、葬礼・上諡の記載が続かない。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "友諒",
+      "basis": [
+        "block10-c1"
+      ],
+      "confidence": "high",
+      "note": "明史 列傳（絶対巻123）の伝首が『陈友谅』と姓名で立てる。列傳形なので『讳』は付かない。底本は簡体（引用は簡体のまま）で、値は既存レコードの新字体表記に揃えた（友谅→友諒）。"
+    },
+    {
+      "field": "name.familyName",
+      "value": "陳",
+      "basis": [
+        "block10-c1"
+      ],
+      "confidence": "high",
+      "note": "『本谢氏，祖赘于陈，因从其姓』＝もとは謝氏で、祖父が陳家に入婿してその姓に従った。明史が名乗りとして掲げるのは『陈』なので陳を採る。謝は改姓前の氏であって別称欄の対象にしない。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c1",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "庙号",
+        "庙曰",
+        "庙称",
+        "庙",
+        "谥",
+        "谥曰",
+        "追谥",
+        "尊谥",
+        "上尊谥",
+        "追尊",
+        "尊号",
+        "号曰",
+        "陵"
+      ],
+      "sweptScope": "明史 列傳 絶対巻123 の全文（_corpus_cache の陳友諒・陳理・明昇の各区間＋タグを剥がした 列传/第十一章-卷十一-原文.html 全体）／明史 全書で『友谅』を含む全38箇所の前後45字／元史 で『友谅』を含む箇所／daizhigev20 明実録太祖実録・国初群雄事略 の『友諒／友谅』全出現。走査前に scripts/hanzi_norm.norm_for_match を通した",
+      "note": "陳友諒は戦死してその子の陳理が『嗣伪位，改元德寿』としか記されず（c6）、廟号を立てた条が明史のどこにも無い。同じ巻の明玉珍には『葬玉珍于江水之北，号永昌陵，庙号太祖』（c7）という定型が在るので、この巻が廟号を書かない書式なのではなく、陳友諒に廟号の記事が無い。巻末の贊も『友谅』と諱で呼ぶだけ（c8）。閉域の4軸: (1)同書のキャッシュ外＝志・本紀・他列傳を含む明史全体の『友谅』38箇所を当てたが授号の記事は無い、(2)本紀外の列傳＝この伝自体が列傳、(3)別政権の書＝元史は『寿辉伪将陈友谅』と賊将として書くのみ、後継政権の書は明史そのもの、(4)語彙＝上記 sweptWords を正規化して当てた。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c1",
+        "c3",
+        "c4",
+        "c6",
+        "c8"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "谥曰",
+        "追谥",
+        "尊谥",
+        "上尊谥",
+        "追尊",
+        "尊号",
+        "号曰",
+        "皇帝"
+      ],
+      "sweptScope": "name.templeName と同一。列傳形なので冒頭の加諡形（『〈廟号〉〈諡〉皇帝，讳〈諱〉』）の位置そのものが無い（政権慣行 no-form）",
+      "note": "明史が陳友諒に与える名乗りは『陈友谅』の一形のみで、『…皇帝』型の全長形は出ない。即位の記事も『即皇帝位，国号汉，改元大义』（c2）と位号だけを述べる。"
+    },
+    {
+      "field": "name.regnalTitle",
+      "value": "皇帝",
+      "basis": [
+        "block10-c2"
+      ],
+      "confidence": "high",
+      "note": "『即皇帝位，国号汉，改元大义』。既存レコードの regnalTitle『皇帝』と一致（照合のみ・変更の主張ではない）。"
+    }
+  ],
+  "discrepancies": "なし。既存レコードの構造フィールド（name.familyName『陳』・name.personalName『友諒』・name.commonName『陳友諒』・name.templeName null・name.posthumousName null・name.regnalTitle『皇帝』・reigns 1360〜1363）はいずれも明史 列傳の原文と食い違わない。在位年も『友谅僣号凡四年』（c5・1360年即位〜1363年戦死の数え4年）と整合する。",
+  "conflicts": [],
+  "noteLog": "廟号・諡の不在を『キャッシュ0件』で閉じないため、(a) 明史 列传/第十一章-卷十一-原文.html をタグ剥がしして巻全体を走査、(b) 明史全書で『友谅』を含む38箇所の前後45字を出して授号語彙で絞り込み、(c) 元史・明実録太祖実録（『友谅』出現537窓）・国初群雄事略まで広げた。国初群雄事略には明玉珍の『群臣尊上庙号曰太祖文武至圣皇帝』が在るが陳友諒には該当条が無い（＝この系統の史料が授号を書かないわけではない、という対照）。",
+  "processSuggestion": "残量表 元末群雄の名前欄 6件（未読 5・yuanmo-chenyouliang のみ読了、xushouhui/chenli/mingyuzhen/mingsheng/hanlin-er は未走査）。あわせて: china-history の明史 HTML は1ファイル＝1行なので rg / grep の行番号が使えず、_corpus_cache の区間外（同巻の他人物・志・贊）を読むには毎回タグ剥がしの自作スクリプトが要る。build_corpus_cache.py に『指定巻の全文をプレーンテキストで出す』サブコマンドを足せば、閉域4軸の (1) を全員ぶん同じ手で当てられる。"
 }

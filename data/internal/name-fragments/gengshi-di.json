@@ -21,6 +21,76 @@
       "file": "_corpus_cache/gengshi-di.txt",
       "line": 1,
       "quote": "刘玄字圣公，光武族兄也"
+    },
+    {
+      "cid": "block8-c1",
+      "book": "後漢書",
+      "file": "_corpus_cache/gengshi-di.txt",
+      "line": 1,
+      "quote": "刘玄字圣公，光武族兄也。"
+    },
+    {
+      "cid": "block8-c2",
+      "book": "後漢書",
+      "file": "_corpus_cache/gengshi-di.txt",
+      "line": 4,
+      "quote": "更始即帝位，南面立，朝群臣。"
+    },
+    {
+      "cid": "block8-c3",
+      "book": "後漢書",
+      "file": "_corpus_cache/gengshi-di.txt",
+      "line": 4,
+      "quote": "于是大赦天下，建元曰更始元年。"
+    },
+    {
+      "cid": "c4",
+      "book": "後漢書",
+      "file": "_corpus_cache/gengshi-di.txt",
+      "line": 20,
+      "quote": "乃赦更始，封为畏威侯。刘恭复为固请，竟得封长沙王。"
+    },
+    {
+      "cid": "c5",
+      "book": "後漢書",
+      "file": "_corpus_cache/gengshi-di.txt",
+      "line": 21,
+      "quote": "刘恭夜往收臧其尸。光武闻而伤焉。诏大司徒邓禹葬之于霸陵。"
+    },
+    {
+      "cid": "c6",
+      "book": "後漢書",
+      "file": "_corpus_cache/gengshi-di.txt",
+      "line": 22,
+      "quote": "明年夏，求兄弟与母东诣洛阳，帝封求为襄邑侯，奉更始祀"
+    },
+    {
+      "cid": "c7",
+      "book": "後漢書",
+      "file": "_corpus_cache/gengshi-di.txt",
+      "line": 23,
+      "quote": "论曰：周武王观兵孟津，退而还师，以为纣未可伐，斯时有未至者也。"
+    },
+    {
+      "cid": "c8",
+      "book": "後漢書",
+      "file": "daizhigev20/史藏/正史/后汉书.txt",
+      "line": 2622,
+      "quote": "后汉书卷十一 刘玄刘盆子列传 第一"
+    },
+    {
+      "cid": "c9",
+      "book": "後漢書",
+      "file": "daizhigev20/史藏/正史/后汉书.txt",
+      "line": 2623,
+      "quote": "刘玄字圣公，光武族兄也，弟为人所杀，"
+    },
+    {
+      "cid": "c10",
+      "book": "後漢書",
+      "file": "daizhigev20/史藏/正史/后汉书.txt",
+      "line": 3057,
+      "quote": "异遂与诸将定议上尊号。"
     }
   ],
   "findings": [
@@ -29,33 +99,193 @@
       "value": null,
       "verdict": "read-absent",
       "basis": [
-        "c1",
-        "c2"
+        "block8-c2",
+        "block8-c3",
+        "c4",
+        "c5",
+        "c8"
       ],
       "confidence": "high",
-      "note": "読んだうえで空。**`commonName` の「更始帝」は元号から作った通称であって諡ではない**（元 泰定帝・天順帝と同じ型）。この書はこの人物に諡を与える条を持たない。後漢書 劉玄伝に單字「谥」が0件で、「更始」は建元した元号（c2）"
+      "note": "全長形が無い以上、縮める元も無い。既存レコードの commonName「更始帝」は諡由来ではなく元号由来で、伝が「建元曰更始元年」（c3）と立てた年号を後世が呼称にしたもの（絞り込み posthumousName:read-absent の型「元号から作った通称」に一致する）。後漢書が没後にこの人物へ与えた呼称は「更始」だけで、生前の爵は赤眉が与えた畏威侯・長沙王（c4）＝諡ではない。走査は templeName と同じ4軸・同じ語彙。",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙",
+        "廟",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "尊庙",
+        "追尊",
+        "追号",
+        "追封",
+        "追谥",
+        "号曰",
+        "號曰",
+        "尊为",
+        "尊為",
+        "上尊",
+        "上尊号",
+        "上尊谥",
+        "尊谥",
+        "称曰",
+        "赠"
+      ],
+      "sweptScope": "(1) 通読: _corpus_cache/gengshi-di.txt 全23行。(2) 語彙走査: daizhigev20/史藏/正史/后汉书.txt 全文（志を含む）。(3) 別書: 汉书.txt・东观汉记.txt・资治通鉴.txt、daizhigev20/史藏/正史 全書の「刘玄」76行。未走査: china-history 側の後漢書 HTML・正史外の地方志。"
     },
     {
       "field": "name.posthumousNameFull",
       "value": null,
       "verdict": "read-absent",
       "basis": [
-        "c1",
-        "c2"
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
       ],
       "confidence": "high",
-      "note": "同じ理由"
+      "note": "後漢書の全長形の所在は帝紀冒頭だが、この人物には帝紀が無く列傳冒頭が「刘玄字圣公」＝姓名＋字で立つ（c1・c9）。伝は縊殺・霸陵への埋葬（c5）で結び、諡を授ける条が1件も無い。走査は templeName と同じ4軸・同じ語彙。",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙",
+        "廟",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "尊庙",
+        "追尊",
+        "追号",
+        "追封",
+        "追谥",
+        "号曰",
+        "號曰",
+        "尊为",
+        "尊為",
+        "上尊",
+        "上尊号",
+        "上尊谥",
+        "尊谥",
+        "称曰",
+        "赠"
+      ],
+      "sweptScope": "(1) 通読: _corpus_cache/gengshi-di.txt 全23行。(2) 語彙走査: daizhigev20/史藏/正史/后汉书.txt 全文（志を含む）。(3) 別書: 汉书.txt・东观汉记.txt・资治通鉴.txt、daizhigev20/史藏/正史 全書の「刘玄」76行。未走査: china-history 側の後漢書 HTML・正史外の地方志。"
     },
     {
       "field": "name.posthumousNames",
       "value": null,
       "verdict": "read-absent",
       "basis": [
-        "c3"
+        "c4",
+        "c5",
+        "c6",
+        "c7"
       ],
       "confidence": "high",
-      "note": "本人の列傳を全数で読んだ。この人物には諡が無い（列傳のみで立つ僭称の政権）。"
+      "note": "諡の段は0段。初諡の条（群臣上谥曰…）も後代の加諡（改上尊号曰…）も、後漢書のこの伝・他巻・志のいずれにも無い。光武帝が出したのは葬礼の詔だけ（c5）、子の襄邑侯が継いだのは祀であって諡ではない（c6）。論曰も呼称を与えない（c7）。",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙",
+        "廟",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "尊庙",
+        "追尊",
+        "追号",
+        "追封",
+        "追谥",
+        "号曰",
+        "號曰",
+        "尊为",
+        "尊為",
+        "上尊",
+        "上尊号",
+        "上尊谥",
+        "尊谥",
+        "称曰",
+        "赠"
+      ],
+      "sweptScope": "(1) 通読: _corpus_cache/gengshi-di.txt 全23行。(2) 語彙走査: daizhigev20/史藏/正史/后汉书.txt 全文（志を含む）。(3) 別書: 汉书.txt・东观汉记.txt・资治通鉴.txt、daizhigev20/史藏/正史 全書の「刘玄」76行。未走査: china-history 側の後漢書 HTML・正史外の地方志。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "玄",
+      "basis": [
+        "block8-c1",
+        "c8",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "後漢書は帝紀を立てず列傳の定型「〈姓〉〈名〉字〈字〉，〈続柄〉也」で立てる（c1・c9）。巻の見出しも「刘玄刘盆子列传」（c8）で、姓が劉・諱が玄。「讳〈諱〉」の定型は取らないので、諱は姓名から分けて読んだ。値は既存レコードの表記（日本語新字体）に揃え、引用は底本の簡体のまま置いた。"
+    },
+    {
+      "field": "name.familyName",
+      "value": "劉",
+      "basis": [
+        "block8-c1",
+        "c8",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "同上。列傳冒頭・巻見出しがともに「刘玄」。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "聖公",
+      "basis": [
+        "block8-c1",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "「刘玄字圣公」。伝中も一貫して「圣公」と呼ぶ（本文の地の文は即位後「更始」）。値は新字体、引用は簡体のまま。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block8-c2",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c10"
+      ],
+      "confidence": "high",
+      "note": "玄漢（更始）は後漢書に帝紀を持たず列傳で立つ政権で、廟号を記す欄が構造上ない（政権慣行 biography-only）。更始は赤眉に降って畏威侯・長沙王に封じられたのち縊殺され（c4）、光武帝が葬礼を出しただけで廟を立てた条は無い（c5）。子の劉求が襄邑侯として「奉更始祀」＝私祀を継いだのみで（c6）、宗廟に列した記事ではない。閉域4軸: (1) 同じ書のキャッシュ外＝巻見出し（c8）と論曰（c7）を読み、(2) 本紀・帝紀の外の列傳＝後漢書全巻（志を含む）を語彙走査、(3) 別政権の書＝漢書（王莽伝。ただし記述が23年で終わり没年25年に届かない構造）・東觀漢記・資治通鑑、(4) 語彙は hanzi_norm.norm_for_match で正規化して当てた。後漢書全体で「更始／圣公／刘玄」と諡・廟の語彙が同じ行に来るのは3件で、いずれも別事（赤眉の名の由来「号曰赤眉」・劉盆子の「号曰牛吏」・光武帝自身への c10「上尊号」）。",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "庙",
+        "廟",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "尊庙",
+        "追尊",
+        "追号",
+        "追封",
+        "追谥",
+        "号曰",
+        "號曰",
+        "尊为",
+        "尊為",
+        "上尊",
+        "上尊号",
+        "上尊谥",
+        "尊谥",
+        "称曰",
+        "赠"
+      ],
+      "sweptScope": "(1) 通読: _corpus_cache/gengshi-di.txt 全23行（後漢書 卷十一 劉玄劉盆子列傳の劉玄部分・冒頭から論曰まで）。(2) 語彙走査: daizhigev20/史藏/正史/后汉书.txt 全文（本紀・列傳・志を含む・「更始」205行）を hanzi_norm.norm_for_match で正規化して上記語を当て、3件（L2661・L2664・L3057）はいずれも別事。(3) 別書: daizhigev20/史藏/正史/汉书.txt・daizhigev20/史藏/别史/东观汉记.txt（該当0）・daizhigev20/史藏/编年/资治通鉴.txt（「更始」×諡・追尊・追封で0件）、および daizhigev20/史藏/正史 の全書について「刘玄」を含む76行を走査（諡・贈の語に掛かった21件はいずれも唐代の劉玄佐ら別人）。未走査: china-history 側の後漢書 HTML（列傳は同一本文・白話版は判定に使わない）・十六国春秋など後漢と無関係の書・地方志。"
     }
   ],
-  "discrepancies": "なし"
+  "discrepancies": "なし（既存の構造フィールドと原文は一致する。name.personalName「玄」・name.familyName「劉」・name.courtesyName「聖公」は c1／c9 と一致、name.templeName null・name.posthumousName null は今回の read-absent と一致、name.regnalTitle「皇帝」は c2「更始即帝位，南面立，朝群臣」が裏付ける。reigns の 23〜25年も c3「建元曰更始元年」・c5 の縊殺と矛盾しない）",
+  "conflicts": [],
+  "noteLog": "政権慣行の記録（data/regime-conventions.json 由来・check_regime_conventions.py の出力）が2026-08-11に撤回した例示（「後漢が更始に諡を与えた記事が列伝側にある」）を、今回あらためて原文で確かめた。後漢書に該当記事は無く、撤回は妥当。走査の副産物として、daizhigev20/史藏/正史 を「圣公」で走査すると金史・清史稿の「衍圣公」（孔子の裔の封爵）が大量に混じるため、この人物の字で他書を当たるときは「刘玄」を主語にする必要がある。",
+  "processSuggestion": "残量表 玄漢・新末群雄の名前欄 6件（未読 5）— 今回読んだのは gengshi-di 1件のみで、同じ後漢書 列傳に立つ liu-penzi・gongsun-shu・liu-yong-liang・yuan-shu と漢書の wang-mang は未走査。いずれも biography-only 慣行で帝紀を持たず、閉域(3)（別政権の書）の当たり先が人ごとに違う（劉盆子は後漢書 同巻、公孫述は後漢書 卷十三、王莽は漢書 傳）。"
 }

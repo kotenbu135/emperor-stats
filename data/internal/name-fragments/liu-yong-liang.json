@@ -1,65 +1,219 @@
 {
- "id": "liu-yong-liang",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "後漢書",
-   "file": "_corpus_cache/liu-yong-liang.txt",
-   "line": 1,
-   "quote": "刘永者，梁郡睢阳人，梁孝王八世孙也"
-  },
-  {
-   "cid": "c2",
-   "book": "後漢書",
-   "file": "_corpus_cache/liu-yong-liang.txt",
-   "line": 1,
-   "quote": "刘永者，梁郡睢阳人，梁孝王八世孙也。传国至父立"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "後漢書の帝紀を人物ごとに全数で読んだ。この人物には諡を授ける条が無い。**後漢書は諡を冒頭の名乗り（「〈廟号〉孝〈諡〉皇帝諱〈諱〉」）に置き、授ける条を書くのは献帝だけ**（授けたのは魏）。"
-  },
-  {
-   "field": "name.courtesyName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。後漢書1冊を走査し、諡の条103件・別語彙116件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+  "id": "liu-yong-liang",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "後漢書",
+      "file": "_corpus_cache/liu-yong-liang.txt",
+      "line": 1,
+      "quote": "刘永者，梁郡睢阳人，梁孝王八世孙也"
+    },
+    {
+      "cid": "c2",
+      "book": "後漢書",
+      "file": "_corpus_cache/liu-yong-liang.txt",
+      "line": 1,
+      "quote": "刘永者，梁郡睢阳人，梁孝王八世孙也。传国至父立"
+    },
+    {
+      "cid": "block8-c1",
+      "book": "後漢書",
+      "file": "_corpus_cache/liu-yong-liang.txt",
+      "line": 1,
+      "quote": "刘永者，梁郡睢阳人，梁孝王八世孙也。"
+    },
+    {
+      "cid": "block8-c2",
+      "book": "後漢書",
+      "file": "_corpus_cache/liu-yong-liang.txt",
+      "line": 2,
+      "quote": "及更始败，永自称天子。"
+    },
+    {
+      "cid": "c3",
+      "book": "後漢書",
+      "file": "_corpus_cache/liu-yong-liang.txt",
+      "line": 4,
+      "quote": "永将庆吾斩永首降，封吾为列侯。"
+    },
+    {
+      "cid": "c4",
+      "book": "後漢書",
+      "file": "china-history/后汉书/列传/第二章-王刘张李彭卢列传-原文.html",
+      "line": 61,
+      "quote": "赞曰：天地闭革，野战群龙。昌、芳僣诈，梁、齐连锋。"
+    },
+    {
+      "cid": "c5",
+      "book": "後漢書",
+      "file": "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html",
+      "line": 62,
+      "quote": "刘永自称天子。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block8-c1",
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "追尊",
+        "尊为",
+        "号曰",
+        "赠",
+        "庙",
+        "庙曰",
+        "尊庙"
+      ],
+      "sweptScope": [
+        "_corpus_cache/liu-yong-liang.txt 全10行（後漢書 列傳第二 劉永傳の全文）",
+        "china-history/后汉书/列传/第二章-王刘张李彭卢列传-原文.html の論曰・贊曰",
+        "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html の劉永関連条8箇所",
+        "daizhigev20/史藏/正史/后汉书.txt 全文（志を含む・正規化後に劉永ほか4錨で走査）"
+      ],
+      "note": "諡の段（授けられた順の [{form, year?}]）に入れる形が原典に1つも無い。初諡も後代の加諡も条が立たないので段は空。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない（2026-08-13 に同じ書の兄弟とまとめて証人を書いた）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block8-c1",
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "追尊",
+        "尊为",
+        "号曰",
+        "赠",
+        "庙",
+        "庙曰",
+        "尊庙",
+        "讳"
+      ],
+      "sweptScope": [
+        "_corpus_cache/liu-yong-liang.txt 全10行（後漢書 列傳第二 劉永傳の全文）",
+        "china-history/后汉书/列传/第二章-王刘张李彭卢列传-原文.html の論曰・贊曰",
+        "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html の劉永関連条8箇所",
+        "daizhigev20/史藏/正史/后汉书.txt 全文（志を含む・正規化後に劉永ほか4錨で走査）",
+        "daizhigev20/史藏/别史/东观汉记.txt の劉永11箇所"
+      ],
+      "note": "同じ走査で「谥」が劉永の周辺に1件も出ない。列傳の書き出しは加諡形を掲げず（c1）、崩御にあたる条も「永将庆吾斩永首降」＝斬首と受降の記事で、群臣が諡を上る条が立たない（c3）。政権慣行の判定 no-form（後漢書は僭号者を列傳に置き廟号・諡を書かない）とも一致する。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "永",
+      "basis": [
+        "block8-c1"
+      ],
+      "confidence": "high",
+      "note": "後漢書は僭号者を列傳に置くため「〈姓〉〈諱〉者，〈本貫〉人」形で書き出す。冒頭が「刘永者，梁郡睢阳人」なので姓は刘・諱は永。底本は簡体（刘永）だが、値は既存レコードの表記（日本語新字体）に揃えて「永」とした。"
+    },
+    {
+      "field": "name.familyName",
+      "value": "劉",
+      "basis": [
+        "block8-c1"
+      ],
+      "confidence": "high",
+      "note": "同じ冒頭形から。底本「刘」→値は新字体側の「劉」（既存レコードと同表記）。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block8-c1",
+        "block8-c2",
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "庙",
+        "庙号",
+        "庙曰",
+        "尊庙",
+        "谥",
+        "追尊",
+        "尊为",
+        "号曰",
+        "讳",
+        "赠"
+      ],
+      "sweptScope": [
+        "_corpus_cache/liu-yong-liang.txt 全10行（後漢書 列傳第二 劉永傳の全文）",
+        "china-history/后汉书/列传/第二章-王刘张李彭卢列传-原文.html の論曰・贊曰",
+        "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html の劉永関連条8箇所",
+        "daizhigev20/史藏/正史/后汉书.txt 全文（志を含む・hanzi_norm.norm_for_match で正規化してから劉永・梁王永・永子纡・劉纡を錨に前後80字窓で語彙を当てた）",
+        "daizhigev20/史藏/别史/东观汉记.txt の劉永11箇所"
+      ],
+      "note": "閉域4軸。(1) 同じ書のキャッシュ外＝daizhige 版 後漢書全文（礼儀志・祭祀志・輿服志・郡国志を含むことを確認）を正規化して走査。錨に掛かった「庙」は高庙・園庙・高祖庙・高原庙＝前漢の宗廟の祭祀記事のみで、廟号の授与ではない。(2) 本紀外の列傳＝劉永傳そのものを全文読了、論曰・贊曰も廟号・諡に触れない。(3) 別政権の書＝諡を贈りうる主体が存在しない。劉永は配下の庆吾に斬られて首を降し（c3）、その政権は後漢に吸収されたので、追諡の主体になりうるのは後漢だけで、その後漢書が名乗りを与えていない（東觀漢記も同様に与えない）。(4) 語彙＝後漢書は「庙号」を使わず「庙曰」「尊庙曰」で書く書なので裸の「庙」を含めて当てた。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block8-c1",
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "追尊",
+        "尊为",
+        "号曰",
+        "赠",
+        "庙",
+        "庙曰",
+        "尊庙",
+        "讳"
+      ],
+      "sweptScope": [
+        "_corpus_cache/liu-yong-liang.txt 全10行（後漢書 列傳第二 劉永傳の全文）",
+        "china-history/后汉书/列传/第二章-王刘张李彭卢列传-原文.html の論曰・贊曰",
+        "china-history/后汉书/本纪/第一章-光武帝纪上-原文.html の劉永関連条8箇所",
+        "daizhigev20/史藏/正史/后汉书.txt 全文（志を含む・正規化後に劉永ほか4錨で走査）",
+        "daizhigev20/史藏/别史/东观汉记.txt の劉永11箇所"
+      ],
+      "note": "全長形の載る位置（列傳冒頭の加諡形・崩御条の初諡）がどちらも形を出さない。短縮呼称と同じ根拠で不在確定。posthumousNameFull の政権慣行記録（判定 biography-only）は保存形として「冒頭1行からは取れないので posthumousNameFull へ転記する形が無い。人物単位で列傳本文を読み、値が出なければ read-absent として閉じる」と指示しており、本件はその指示どおりに閉じた。"
+    },
+    {
+      "field": "name.aliases",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "block8-c2",
+        "c5"
+      ],
+      "confidence": "medium",
+      "note": "冒頭・贊に別称の記載は無い。位号については本紀・列傳とも「自称天子」（c2・c5）で、更始からの封は「梁王」だが、これは名乗りではなく王号なので aliases への投入は判断待ちとした（欄への投入対象外でもある）。"
+    }
+  ],
+  "discrepancies": "構造フィールドとの食い違いは無し。照合したのは次の2点。(1) reigns 25〜27年 — 原文は「及更始败，永自称天子」（更始の敗＝25年）で始まり、「三年春…永将庆吾斩永首降」（建武三年＝27年）で終わるので整合。(2) name.regnalTitle「皇帝」 — 原文は本紀・列傳とも「自称天子」で「皇帝」の語は劉永に対して使われないが、位号欄の規約上の表記であり値の食い違いとは判断しなかった（原文の語は天子であることを記録に残す）。",
+  "conflicts": [],
+  "noteLog": "既存レコードの name.templeName・name.posthumousName は null。今回の走査でその null を read-absent（読んで不在と決めた側）へ格上げしたのみで、値の訂正は無い。捨てた候補も無し。",
+  "processSuggestion": "残量表 後漢書 僭号者列傳の名前欄（王郎・劉玄・劉盆子・盧芳・彭寵・李憲ら） 未走査（今回読んだのは劉永1件のみ）。あわせて担当外の疑い1件: 後漢書 光武帝紀上は建武三年条を「盖延拔睢阳，获刘永」（捕獲）とし、同書 列傳第二の劉永傳は「永将庆吾斩永首降」（配下による斬首）とするので、死因・没年の欄が本紀側の記述に依っていないかの確認が要る（名前欄の担当外につき未走査）。"
 }
