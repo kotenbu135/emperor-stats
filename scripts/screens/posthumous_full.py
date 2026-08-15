@@ -78,7 +78,25 @@
 
 「孝」を足す形を導出に入れる前は 46/52 で、外れの半分が前漢10・後漢11・西晋3の
 **「孝」付き**だった。外れ方は人物ごとの偶然ではなく**政権ごとの書式**なので、
-残る23人（明13・清3・金1 ほか）も政権で説明が付く。
+残る23人も政権で説明が付く。
+
+### バケットそのものの外し方＝**偽の `derived-hit`**（同じく `--audit`）
+
+導出規則の正誤ではなく「`derived-hit` に落ちたとき読み手へ渡す候補が保存値かどうか」を
+測ると **23人**が外れる。**23人とも明13・清10**で、短い形（「高皇帝」）がキャッシュに
+在るのに保存値は加上（「開天行道…成功高皇帝」）という型だけだった。
+**今回の68人には明清が1人も居ない**（三国・十六国・南朝・十国・隋末唐初）ので、
+この型の偽陽性はこの母集団では出ない見込み — ただし**渡す候補は候補であって値ではない**。
+陳 宣帝のように「宣皇帝」と「孝宣皇帝」の両方が当たる人物が28人の中に居るので、
+条の主語と授与の形を読んでから転記する。
+
+### この絞り込みは `emperors.json` の**別の欄**を読む（`temple_name.py` との違い）
+
+`derived_forms` が `name.posthumousName`（短縮諡）を読むので、**短縮諡を直すと
+バケットが動く**。残量表に挙げた閩の2人（`shiguo-min-wangjipeng`「康宗」・
+`shiguo-min-wangyanxi`「景宗」＝どちらも実体は廟号）を直すと、この2人の導出形が
+変わって `check_screenings.py` が「件数が違います」で落ちる。**直したら
+`python3 scripts/check_screenings.py --update` を同じ turn で流す。**
 
 外れ方は人物ごとの偶然ではなく**政権ごとの書式**なので、`check_regime_conventions.py
 --for <id> --field name.posthumousNameFull` を先に引く（この欄は政権慣行の層で
@@ -249,6 +267,7 @@ def audit():
     silent, derived_ok, derived_bad, tail = [], [], [], {}
     total = 0
     not_in_candidates = []
+    false_hit = []
     for e in data["emperors"]:
         full = (e.get("name") or {}).get("posthumousNameFull")
         if not full:
@@ -259,9 +278,12 @@ def audit():
         if text is None:
             silent.append((e["id"], "no-cache"))
             continue
-        if not RUN.search(text):
+        cand = candidates(text)
+        # **絞り込みが使うのと同じ判定で数える**（RUN.search では「即皇帝位」しか
+        # 持たない人物を非沈黙と数えてしまい、classify の cache-silent と食い違う）
+        if not cand:
             silent.append((e["id"], "silent"))
-        elif _hn.norm_for_match(full) not in candidates(text):
+        elif _hn.norm_for_match(full) not in cand:
             not_in_candidates.append((e["id"], full))
         short = (e.get("name") or {}).get("posthumousName") or ""
         forms = derived_forms(short)
@@ -269,7 +291,12 @@ def audit():
             continue
         (derived_ok if _hn.norm_for_match(full) in forms else derived_bad).append(
             (e["id"], short, full))
-    return total, tail, silent, derived_ok, derived_bad, not_in_candidates
+        # バケットの当たり方そのものを測る（導出規則の正誤ではなく、
+        # 「derived-hit に落ちたとき渡す候補が保存値かどうか」）
+        hit = forms & set(cand)
+        if hit and _hn.norm_for_match(full) not in hit:
+            false_hit.append((e["id"], e["regimeId"], short, sorted(hit), full))
+    return total, tail, silent, derived_ok, derived_bad, not_in_candidates, false_hit
 
 
 def sample(ids, seed, size):
@@ -289,7 +316,7 @@ def main():
     args = ap.parse_args()
 
     if args.audit:
-        total, tail, silent, ok, bad, missed = audit()
+        total, tail, silent, ok, bad, missed, false_hit = audit()
         print(f"母集団 {total}人（`posthumousNameFull` に値がある人物＝答えが分かっている側）")
         print(f"  保存値の末尾2字: {sorted(tail.items(), key=lambda kv: -kv[1])}")
         print(f"\n■ 「皇帝」型が本人のキャッシュに1つも無い人物: {len(silent)}人  {silent}")
@@ -300,6 +327,10 @@ def main():
         print(f"\n■ 導出規則「短縮諡 → 全長形」の正答率: 当たり {len(ok)} / 外れ {len(bad)}")
         for eid, s, f in bad:
             print(f"    {eid:28s} {s:12s} → 実際は {f}")
+        print(f"\n■ **偽の derived-hit**（導ける形がキャッシュに在るのに、それが保存値ではない）"
+              f": {len(false_hit)}人")
+        for eid, rid, s, hit, f in false_hit:
+            print(f"    {eid:28s} {rid:16s} 短縮={s:10s} 渡す候補={'・'.join(hit)} → 実際は {f}")
         return 0
 
     result = run()
