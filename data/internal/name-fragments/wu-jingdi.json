@@ -7,6 +7,104 @@
       "file": "_corpus_cache/wu-jingdi.txt",
       "line": 10,
       "quote": "癸未，休薨，时年三十，谥曰景皇帝"
+    },
+    {
+      "cid": "block8-c1",
+      "book": "三國志",
+      "file": "_corpus_cache/wu-jingdi.txt",
+      "line": 1,
+      "quote": "孙休字子烈，权第六子"
+    },
+    {
+      "cid": "c2",
+      "book": "三國志",
+      "file": "_corpus_cache/wu-jingdi.txt",
+      "line": 1,
+      "quote": "是岁，於魏甘露三年也"
+    },
+    {
+      "cid": "c3",
+      "book": "三國志",
+      "file": "_corpus_cache/wu-jingdi.txt",
+      "line": 10,
+      "quote": "七年春正月，大赦"
+    },
+    {
+      "cid": "c4",
+      "book": "三國志",
+      "file": "_corpus_cache/wu-jingdi.txt",
+      "line": 10,
+      "quote": "休薨，时年三十，谥曰景皇帝"
+    },
+    {
+      "cid": "c5",
+      "book": "三國志",
+      "file": "china-history/三国志/吴书/第三章-三嗣主传-原文.html",
+      "line": 23,
+      "quote": "癸未，休薨，时年三十，谥曰景皇帝"
+    },
+    {
+      "cid": "c6",
+      "book": "三國志",
+      "file": "china-history/三国志/吴书/第三章-三嗣主传-原文.html",
+      "line": 23,
+      "quote": "九月，贬太后为景皇后，追谥父和曰文皇帝，尊母何为太后"
+    },
+    {
+      "cid": "c7",
+      "book": "三國志",
+      "file": "china-history/三国志/吴书/第十六章-潘浚陆凯传-原文.html",
+      "line": 23,
+      "quote": "昔景帝时，交阯反乱，实由兹起，是为遵景帝之阙"
+    },
+    {
+      "cid": "c8",
+      "book": "三國志",
+      "file": "china-history/三国志/吴书/第五章-妃嫔传-原文.html",
+      "line": 23,
+      "quote": "孙皓即位月馀，贬为景皇后，称安定宫"
+    },
+    {
+      "cid": "c9",
+      "book": "三國志",
+      "file": "daizhigev20/史藏/正史/三国志.txt",
+      "line": 2454,
+      "quote": "吴录曰尊坚庙曰始祖墓曰高陵"
+    },
+    {
+      "cid": "c10",
+      "book": "三國志",
+      "file": "daizhigev20/史藏/正史/三国志.txt",
+      "line": 2595,
+      "quote": "呉歴曰正月为权立庙称太祖庙"
+    },
+    {
+      "cid": "c11",
+      "book": "三國志",
+      "file": "daizhigev20/史藏/正史/三国志.txt",
+      "line": 2601,
+      "quote": "葛洪抱朴子曰呉景帝时"
+    },
+    {
+      "cid": "c12",
+      "book": "三國志",
+      "file": "china-history/三国志/吴书/第三章-三嗣主传-原文.html",
+      "line": 23,
+      "quote": "评曰：孙亮童孺而无贤辅，其替位不终，必然之势也。休以旧爱宿恩，任用兴、布"
+    },
+    {
+      "cid": "c13",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 2799,
+      "quote": "孙休永安五年二月，城西门北楼灾"
+    },
+    {
+      "cid": "c14",
+      "book": "三國志",
+      "file": "china-history/三国志/吴书/第十四章-吴主五子传-原文.html",
+      "line": 23,
+      "quote": "有司奏言宜立庙京邑"
     }
   ],
   "findings": [
@@ -19,11 +117,82 @@
         }
       ],
       "basis": [
-        "c1"
+        "c4",
+        "c3",
+        "c2"
       ],
       "confidence": "high",
-      "note": "永安七年癸未の条（c1）"
+      "note": "授けられた諡は「谥曰景皇帝」の1段のみ。年は原文が段に紀年を与えている場合だけ入れる規約に従い、この条が永安七年の記事群にあること（c3）と永安元年＝魏甘露三年＝258年（c2）から永安七年＝264年。後代の加諡・改諡はこの書に無い（吳書 原文20篇と daizhigev20 三国志.txt 全篇＝裴注込みを走査して、孫休に掛かる追諡・尊号の条は0件）。生前の尊号は無い。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "休",
+      "basis": [
+        "block8-c1"
+      ],
+      "confidence": "high",
+      "note": "吳書は冒頭で「讳」を使わず姓名を連記する（政権慣行 no-form／列傳の形）。「孙休字子烈」から姓 孫・諱 休・字 子烈 を読む。底本は簡体だが「休」は新字体と同形なので変換不要。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "景帝",
+      "basis": [
+        "c7",
+        "c11",
+        "c4"
+      ],
+      "confidence": "medium",
+      "note": "諡の全長形は「景皇帝」（c4）。末字＋帝の短縮呼称「景帝」は三國志の中に在るが、所在は陳壽が引く陸凱の上疏の中（c7）と裴松之注が引く抱朴子（c11）で、書が地の文で掲げる名乗りではない。posthumousNameFull ではこの種の証拠（引用文書内の呼称）を退けているので、同じ材料を短縮呼称の側では採るという非対称をここに明記する。短縮呼称は「その書が本文で末字＋帝の形を使うか」で決まる規約に照らし、書の中に現に用例がある側を採った。値は新字体（景帝は底本と同形）。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "c4",
+        "c5",
+        "c6",
+        "c12"
+      ],
+      "confidence": "medium",
+      "note": "全長形「景皇帝」の在書用例は薨去条の授与句1件だけ（c4・c5）。政権慣行（三國志・eastern-wu・posthumousNameFull・no-form）の storageForm は、この欄が受けるのは『書が本人の名乗りとして掲げる全長形』で、授与の条そのものは段の欄 posthumousNames が受けると定め、2欄を同じ句から同時に確定してよいかは人物単位の判断とする。孫權には別傳の「大皇帝末年」という独立の呼称用例があるが、孫休には吳書 原文20篇のどこにも同型の用例が無く、書が地の文で掲げる呼称は「休」（c12 の評曰）である。派生形の景皇后（c6・c8）は皇后の号であって本人の名乗りではない。よって授与句から全長形へ自動で倒さず pending とする。独立の呼称用例が1件でも出れば「景皇帝」で確定できる。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c9",
+        "c10",
+        "c14",
+        "c13",
+        "c4",
+        "c12"
+      ],
+      "confidence": "high",
+      "note": "閉域4軸を当てたうえでの不在確定。(1) 同じ書のキャッシュの外＝吳書 原文20篇全体と三嗣主傳の評曰（c12）まで読み、三國志には志（礼志・楽志）が構造上存在しないのでその枝は該当なし。(2) 本紀外の列傳＝妃嬪傳（c8）・潘濬陸凱傳（c7）・吳主五子傳（c14）を含む吳書 全篇。(3) 別政権の書＝晉書は孫休を諱で呼び（c13）廟号を与えない。孫休は在位中に死去し諡は同政権の孫皓が授けているので、後継・敵対政権が号を与える型ではない。(4) 語彙＝hanzi_norm.norm_for_match を通したうえで庙号・庙曰・庙称・尊庙・立庙・休庙・尊休・谥休・追谥を走査。三國志には「庙号」の語が1件も無く、この書の廟号は庙曰／庙称／立庙で書かれる（陽性対照: 孫堅「尊坚庙曰始祖」c9・孫権「为权立庙称太祖庙」c10 — どちらも裴注の中に在る）。同じ検出器が孫休には1件も当たらず、孫皓が立てた清庙も父の孫和のためのもの（c14）。よって三國志（裴注含む）は孫休に廟号を伝えない。sweptWords: 庙号／庙曰／庙称／尊庙／立庙／休庙／尊休／谥休／追谥／景帝／景皇帝／景皇后／景陵／孙休／吴景帝（すべて norm_for_match 適用後）。sweptScope: china-history 三国志/吴书 原文HTML 20篇・daizhigev20/史藏/正史/三国志.txt 全篇（裴松之注込み）・daizhigev20/史藏/正史/晋书.txt（孙休・吴景帝の語のみ）。魏書・蜀書は走査していない（未走査）。",
+      "sweptWords": [
+        "庙号",
+        "庙曰",
+        "庙称",
+        "尊庙",
+        "立庙",
+        "休庙",
+        "尊休",
+        "谥休",
+        "追谥",
+        "景帝",
+        "景皇帝",
+        "景皇后",
+        "景陵",
+        "孙休",
+        "吴景帝"
+      ],
+      "sweptScope": "china-history/三国志/吴书 の原文HTML 20篇（全篇）／daizhigev20/史藏/正史/三国志.txt 全篇（裴松之注込み・四庫本）／daizhigev20/史藏/正史/晋书.txt（孙休・吴景帝の語のみ）。走査は scripts/hanzi_norm.py の norm_for_match を掛けた本文と検索語で照合。三國志には志（礼志・楽志）が無いのでその枝は構造上該当なし。魏書・蜀書は未走査。"
     }
   ],
-  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+  "discrepancies": "なし（照合した構造フィールド: name.personalName=休・name.posthumousName=景帝・name.templeName=null・name.posthumousNames=[{景皇帝,264}]・reigns 258〜264 と永安元年＝魏甘露三年〔258〕・永安七年〔264〕の記事。いずれも原文と食い違わない）。name.posthumousNameFull は既存レコードに欄が無いだけで、値の食い違いではない。",
+  "conflicts": [],
+  "noteLog": "既存の構造フィールド（posthumousNames = [{景皇帝, 264}]・templeName = null・personalName = 休・posthumousName = 景帝）は原文の読解と一致したため、捨てた値は無い。posthumousNameFull は既存レコードに欄そのものが無く（未転記）、今回は pending として値を入れないと判断した。引用は底本の字体のまま（china-history は簡体・daizhigev20 の三国志は注入りの四庫本で異体字を含む）、findings の値は新字体へ揃えたが、休・景帝・景皇帝はいずれも両者で同形なので実質の変換は発生していない。",
+  "processSuggestion": "regime-conventions の三國志・蜀漢/孫呉の templeName+posthumousName レコード（verdict: no-form・personScope: per-person）には storageForm の行が無く、同じ書の posthumousNameFull レコードだけが storageForm を持つ。人物単位の作業者は短縮呼称の保存規約を、その政権を覆っていない曹魏レコードから推測することになるので、no-form のレコードにも保存形の1行（短縮呼称は書が地の文で末字＋帝を使うか／引用文書内の呼称をどう扱うか）を足したい。残量表 三國志 posthumousNameFull 11件（未読 10）。"
 }

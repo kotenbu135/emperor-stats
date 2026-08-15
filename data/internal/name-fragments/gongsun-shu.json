@@ -1,48 +1,218 @@
 {
- "id": "gongsun-shu",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "漢書・後漢書",
-   "file": "_corpus_cache/gongsun-shu.txt",
-   "line": 1,
-   "quote": "公孙述字子阳，扶风茂陵人也"
-  }
- ],
- "findings": [
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "本人の列傳を全数で読んだ。この人物には諡が無い（列傳のみで立つ僭称の政権）。"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。後漢書1冊を走査し、諡の条103件・別語彙116件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし（諡の段だけを読んだ。他の名前欄は触っていない）"
+  "id": "gongsun-shu",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "漢書・後漢書",
+      "file": "_corpus_cache/gongsun-shu.txt",
+      "line": 1,
+      "quote": "公孙述字子阳，扶风茂陵人也"
+    },
+    {
+      "cid": "c2",
+      "book": "後漢書",
+      "file": "_corpus_cache/gongsun-shu.txt",
+      "line": 4,
+      "quote": "建武元年四月，遂自立为天子，号成家。色尚白。建元曰龙兴元年"
+    },
+    {
+      "cid": "c3",
+      "book": "後漢書",
+      "file": "_corpus_cache/gongsun-shu.txt",
+      "line": 4,
+      "quote": "述以为符瑞，因刻其掌，文曰\"公孙帝\""
+    },
+    {
+      "cid": "c4",
+      "book": "後漢書",
+      "file": "_corpus_cache/gongsun-shu.txt",
+      "line": 8,
+      "quote": "署曰\"公孙皇帝\"。述不答。"
+    },
+    {
+      "cid": "c5",
+      "book": "後漢書",
+      "file": "_corpus_cache/gongsun-shu.txt",
+      "line": 15,
+      "quote": "十二年，述弟恢及子婿史兴"
+    },
+    {
+      "cid": "c6",
+      "book": "後漢書",
+      "file": "_corpus_cache/gongsun-shu.txt",
+      "line": 17,
+      "quote": "十一月，臧宫军至咸门"
+    },
+    {
+      "cid": "c7",
+      "book": "後漢書",
+      "file": "_corpus_cache/gongsun-shu.txt",
+      "line": 17,
+      "quote": "述以兵属延岑，其夜死。明旦，岑降吴汉。乃夷述妻子，尽灭公孙氏，并族延岑"
+    },
+    {
+      "cid": "c8",
+      "book": "後漢書",
+      "file": "_corpus_cache/gongsun-shu.txt",
+      "line": 18,
+      "quote": "帝下诏追赠少为太常，隆为光禄勋，以礼改葬之"
+    },
+    {
+      "cid": "c9",
+      "book": "後漢書",
+      "file": "_corpus_cache/gongsun-shu.txt",
+      "line": 19,
+      "quote": "公孙亦窃帝蜀汉"
+    },
+    {
+      "cid": "c10",
+      "book": "後漢書",
+      "file": "_corpus_cache/gongsun-shu.txt",
+      "line": 20,
+      "quote": "公孙习吏，隗王得士"
+    },
+    {
+      "cid": "c11",
+      "book": "後漢書",
+      "file": "daizhigev20/史藏/正史/后汉书.txt",
+      "line": 17,
+      "quote": "卷十三 隗嚣公孙述列传第三"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c7",
+        "c8",
+        "c9",
+        "c11"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "庙",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追号",
+        "上尊",
+        "册谥",
+        "私谥"
+      ],
+      "sweptScope": "name.templeName と同一の5範囲・同一語彙。加えて崩御条に当たる箇所（c7）とその直後の後日談（c8）を通読した。",
+      "note": "初諡も後代の加諡も無いので段は空。崩御条に当たる箇所は「其夜死」のあと一族誅滅を書くだけで、諡・廟号・葬礼のいずれも記さない"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "c4",
+        "c7",
+        "c8",
+        "c9"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "庙",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追号",
+        "上尊",
+        "册谥",
+        "私谥"
+      ],
+      "sweptScope": "name.templeName と同一の5範囲（後漢書の当該列傳全文・daizhige 后汉书.txt 全体〔志を含む〕・china-history 后汉书 本纪列传・正史48書・正史外4書〔华阳国志・东观汉记・后汉纪・资治通鉴〕）を同じ正規化語彙で走査した。",
+      "note": "諡の記事は0件。帝号を含む呼称は生前のもの2つだけで、掌の文「公孙帝」（c3・自ら符瑞として刻んだもの）と光武帝の書簡の署名「公孙皇帝」（c4）であり、いずれも諡ではない。論曰も「公孙亦窃帝蜀汉」と呼ぶだけで諡を挙げない（c9）"
+    },
+    {
+      "field": "name.familyName",
+      "value": "公孫",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "列傳冒頭の定型「〈姓名〉字〈字〉，〈本貫〉也」。引用は底本の簡体のまま保存し、値は既存レコードの表記（繁体・新字体）へ倒した"
+    },
+    {
+      "field": "name.personalName",
+      "value": "述",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "諱は「述」。冒頭以外も本文は一貫して「述」と呼び、改名・避諱の記事は無い"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "子陽",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "字は「子阳」。値は既存レコードの表記に合わせて「子陽」"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c7",
+        "c8",
+        "c9",
+        "c10",
+        "c11"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "庙",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追号",
+        "上尊",
+        "册谥",
+        "私谥"
+      ],
+      "sweptScope": "走査語はいずれも scripts/hanzi_norm.py の norm_for_match を通した正規化後の形で、走査される側も同じ関数を通してから当てた。範囲は5つ。(1) _corpus_cache/gongsun-shu.txt 全20行（後漢書 卷十三 隗囂公孫述列傳第三の公孫述部分・論曰・贊曰まで）— 廟号・諡の条は0件。(2) daizhigev20/史藏/正史/后汉书.txt 全体（本紀・列傳に加え志を含む。「志第」60・礼仪志・祭祀志・百官志の本文が在ることを確認済み）— 「公孙述」74箇所、語彙と同一窓（前後50字）は5件でいずれも郊庙・高庙・宗庙の祭祀記事。(3) china-history/后汉书/ の 本纪・列传 全HTML — 同型の窓4件で内容は同じ。(4) daizhigev20/史藏/正史/*.txt 48書を全走査（三国志8・北齐书1・南史1・宋书1・宋史2・新唐书2・明史1・晋书3・梁书1・隋书1・清史稿1・汉书1・前汉书1・史记系3・后汉书四库89・后汉书八家辑注11 ほか計203箇所）— 追尊・廟号の記事は0件。(5) 正史外でこの政権を専門に扱う書として 华阳国志（載記・「公孙述」64箇所）、および 东观汉记 91・后汉纪 27・资治通鉴 37 — 語彙と同一窓に出るのは岑彭「谥曰壮侯」・来歙「谥曰节侯」・王稚「谥曰宪父」など他人の諡と「郊庙乐器」だけ。",
+      "note": "成家には帝紀が立たず後漢書 卷十三 列傳にしか伝が無い（c11・政権慣行の判定は biography-only）。閉域4軸: 軸(1) 同じ書のキャッシュ外＝志・論曰・贊曰まで含めて0件、軸(2) 本紀外の列傳＝後漢書 列傳全章で0件、軸(3) 別政権の書＝正史48書と正史外4書で0件（人名ヒット数を先に測り、沈黙が無意味にならないことを確認した）、軸(4) 語彙＝正規化後の9語。積極的な裏付けとして、後漢は述の死後に一族を皆殺しにしており（c7「乃夷述妻子，尽灭公孙氏」）追尊しうる主体が残らず、光武帝は述に降伏を勧めて死んだ敵側の常少・張隆にだけ追贈している（c8）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c7",
+        "c8",
+        "c9",
+        "c11"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "谥",
+        "庙",
+        "追尊",
+        "尊号",
+        "号曰",
+        "追号",
+        "上尊",
+        "册谥",
+        "私谥"
+      ],
+      "sweptScope": "name.templeName と同一の5範囲・同一語彙。",
+      "note": "全長形の加諡も0件。政権慣行の出力に「保存形」の行が無いので、短縮呼称側から全長形を導く操作はしていない"
+    }
+  ],
+  "discrepancies": "既存の構造フィールドを原文と照合した。一致: reigns[0].startYear=25 ← 「建武元年四月，遂自立为天子」（c2・建武元年＝25年）。reigns[0].endYear=36 ← 「十二年」（c5）以下の建武十二年紀事のうち「十一月，臧宫军至咸门」（c6）に続く「其夜死」（c7）＝建武十二年十一月＝36年。name.familyName=公孫・name.personalName=述・name.courtesyName=子陽 は c1 と一致。name.posthumousName=null・name.templeName=null は原文と一致（本調査で read-absent として確定）。報告する食い違い1件: name.regnalTitle の既存値は「皇帝」だが、原文が即位を書く語は「自立为天子」（c2）で「天子」。「皇帝」の語は光武帝の書簡の署「公孙皇帝」（c4）にしか出ない。位号の主張としては矛盾しないと判断して既存値を覆さなかったが、原文の語と保存値の語が一致しないことは食い違いとして挙げる（この欄は本タスクの担当4欄の外なので findings には立てていない）。",
+  "conflicts": [],
+  "noteLog": "別称として掌文「公孙帝」（c3）と光武帝書簡の署名「公孙皇帝」（c4）を採取した。どちらも冒頭・贊ではなく本文中の生前の呼称なので aliases 欄へは入れず claims に残すだけにした。字体の倒し方: 引用は底本（简体）のまま、findings の値は既存レコードに合わせた繁体・新字体（公孙→公孫、子阳→子陽）。",
+  "processSuggestion": "残量表 後漢書に列伝しか立たない僭称政権の名前欄 5件（未読 4）。内訳は更始帝・劉盆子・劉永・袁術が未読で、gongsun-shu のみ読了。いずれも帝紀が無く廟号・諡号の欄が構造上無い biography-only。 手順の提案（残量とは別件）: 閉域4軸の軸(3)「別政権の書」を正史48書へ一括で当てる走査は python で1分未満で終わるので、scripts/screens/ に「人名＋正規化語彙＋範囲」を引数に取る共通スクリプトを置くと、人物ごとに書き下ろす sweptWords が範囲ごとに薄くなる事故を防げる。"
 }

@@ -21,6 +21,62 @@
       "file": "_corpus_cache/chen-feidi.txt",
       "line": 1,
       "quote": "废帝"
+    },
+    {
+      "cid": "block8-c2",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-feidi.txt",
+      "line": 2,
+      "quote": "废帝，讳伯宗，字奉业，小字药王，世祖嫡长子也。"
+    },
+    {
+      "cid": "block8-c3",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-feidi.txt",
+      "line": 6,
+      "quote": "今可特降为临海郡王，送还籓邸。"
+    },
+    {
+      "cid": "c4",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-feidi.txt",
+      "line": 7,
+      "quote": "是日，出居别第。太建二年四月薨，时年十九。"
+    },
+    {
+      "cid": "c5",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-feidi.txt",
+      "line": 9,
+      "quote": "史臣曰：临海虽继体之重，仁厚懦弱，混一是非，不惊得丧，盖帝挚、汉惠之流也。"
+    },
+    {
+      "cid": "c6",
+      "book": "陳書",
+      "file": "_corpus_cache/chen-xuandi.txt",
+      "line": 4,
+      "quote": "夏四月乙卯，临海王伯宗薨。"
+    },
+    {
+      "cid": "c7",
+      "book": "陳書",
+      "file": "daizhigev20/史藏/正史/陈书.txt",
+      "line": 141,
+      "quote": "废帝为临海王，后为临海王妃。"
+    },
+    {
+      "cid": "c8",
+      "book": "南史",
+      "file": "daizhigev20/史藏/正史/南史.txt",
+      "line": 1389,
+      "quote": "废帝讳伯宗，字奉业，小字药王，文帝嫡长子也。"
+    },
+    {
+      "cid": "c9",
+      "book": "南史",
+      "file": "daizhigev20/史藏/正史/南史.txt",
+      "line": 1423,
+      "quote": "夏四月乙卯，临海王伯宗薨。"
     }
   ],
   "findings": [
@@ -29,33 +85,162 @@
       "value": null,
       "verdict": "read-absent",
       "basis": [
-        "c1",
-        "c2"
+        "block8-c2",
+        "block8-c3",
+        "c4",
+        "c6",
+        "c9"
       ],
       "confidence": "high",
-      "note": "読んだうえで空。冒頭1行が諡ではなく位号で立ち、廃位後に王・侯へ降されて終わる。**位号は諡ではない**（前漢の前少帝・五代の梁末帝と同じ型）。陳書 廢帝紀に単字「谥」が0件で、降されたのは臨海郡王（c1）。史臣曰も「临海」と位号で呼ぶ（c2）"
+      "note": "第一の根拠は書の側の判定で、陳書の posthumousName 欄は政権慣行が no-form（この書は末字＋帝型の短縮呼称をどの帝にも使わない）。第二に、この帝には諡そのものが贈られていない（c2 の冒頭1行が位号「废帝」で立ち、c4・c6・c9 の崩御記事に上諡条が無い）。2026-08-13 に欄へ入ることになった「皇帝の諡ではない諡」（南齊 海陵王の王諡『恭王』・北齊廃帝の『閔悼王』）は諡字＋王の形で崩御後に贈られたものだが、伯宗の「临海郡王」は在世中の光大二年十一月に慈訓太后令で降格・封じられた爵位（c3「今可特降为临海郡王」）で型が違うため、この型には当たらないと判断した。",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "追谥",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "庙",
+        "廟",
+        "追尊",
+        "号曰",
+        "尊为",
+        "尊曰",
+        "上尊号",
+        "赠",
+        "葬"
+      ],
+      "sweptScope": "陳書 全36巻（本紀6＋列傳30・daizhigev20/史藏/正史/陈书.txt）と 南史 全巻（daizhigev20/史藏/正史/南史.txt）のうち「伯宗」「临海」「废帝」を含む行の全数。加えて _corpus_cache/chen-feidi.txt（陳書 本紀第四 全文）と _corpus_cache/chen-xuandi.txt（陳書 本紀第五 宣帝紀）を通読。志・表は陳書に存在しないため走査対象に無い（未走査ではなく不存在）。"
     },
     {
       "field": "name.posthumousNameFull",
       "value": null,
       "verdict": "read-absent",
       "basis": [
-        "c1",
-        "c2"
+        "c3",
+        "block8-c2",
+        "block8-c3",
+        "c4",
+        "c6",
+        "c9"
       ],
       "confidence": "high",
-      "note": "同じ理由。位号は諡ではないのでこの欄にも入らない"
+      "note": "陳書の書式「〈廟号〉〈諡〉皇帝，讳〈諱〉…」に対し、この帝の冒頭1行は諡を持たず位号「废帝」で立つ（政権慣行の異形どおり）。「临海郡王」は生前の光大二年十一月に慈訓太后令で降格・封じられた爵位（c3「今可特降为临海郡王」）であって、崩御後に贈られた諡ではない。位号は posthumousNameFull へ入れず commonName 側の名乗りになる（政権慣行の保存形）。",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "追谥",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "庙",
+        "廟",
+        "追尊",
+        "号曰",
+        "尊为",
+        "尊曰",
+        "上尊号",
+        "赠",
+        "葬"
+      ],
+      "sweptScope": "陳書 全36巻（本紀6＋列傳30・daizhigev20/史藏/正史/陈书.txt）と 南史 全巻（daizhigev20/史藏/正史/南史.txt）のうち「伯宗」「临海」「废帝」を含む行の全数。加えて _corpus_cache/chen-feidi.txt（陳書 本紀第四 全文）と _corpus_cache/chen-xuandi.txt（陳書 本紀第五 宣帝紀）を通読。志・表は陳書に存在しないため走査対象に無い（未走査ではなく不存在）。"
     },
     {
       "field": "name.posthumousNames",
       "value": null,
       "verdict": "read-absent",
       "basis": [
-        "c3"
+        "c4",
+        "c6",
+        "c9"
       ],
       "confidence": "high",
-      "note": "陳書 本紀の「谥」12句を全数で読んだ。この人物には諡を授ける条が無い。廃位されて臨海王となり諡が無い。"
+      "note": "諡の段が1つも立たない。本人の巻の崩御記事（c4「太建二年四月薨，时年十九」）・宣帝紀の薨去条（c6）・南史 卷十の同文（c9）のいずれにも上諡や立廟の条が続かず、後代の加諡・改諡も陳書・南史ともに記さない。",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "追谥",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "庙",
+        "廟",
+        "追尊",
+        "号曰",
+        "尊为",
+        "尊曰",
+        "上尊号",
+        "赠",
+        "葬"
+      ],
+      "sweptScope": "陳書 全36巻（本紀6＋列傳30・daizhigev20/史藏/正史/陈书.txt）と 南史 全巻（daizhigev20/史藏/正史/南史.txt）のうち「伯宗」「临海」「废帝」を含む行の全数。加えて _corpus_cache/chen-feidi.txt（陳書 本紀第四 全文）と _corpus_cache/chen-xuandi.txt（陳書 本紀第五 宣帝紀）を通読。志・表は陳書に存在しないため走査対象に無い（未走査ではなく不存在）。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "伯宗",
+      "basis": [
+        "block8-c2",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "陳書 本紀第四の冒頭「废帝，讳伯宗」・南史 卷十も同形。既存レコードの personalName「伯宗」と一致（字体は底本＝簡体、値はデータセットの新字体に揃えたが同字）。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "奉業",
+      "basis": [
+        "block8-c2",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行「字奉业」。値はデータセットの新字体「奉業」へ倒した（引用は底本の簡体のまま）。"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": "薬王",
+      "basis": [
+        "block8-c2",
+        "c8"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行「小字药王」。値はデータセットの新字体「薬王」へ倒した（引用は底本の簡体のまま）。"
+    },
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3",
+        "block8-c2",
+        "c4",
+        "c5",
+        "c6",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "陳書の慣行（form-found・所在＝各帝の冒頭1行）では廟号は冒頭1行の先頭に立つが、本人の巻の見出しも冒頭1行も位号「废帝」で始まり廟号が無い。崩御記事は3箇所（本人の巻の「太建二年四月薨，时年十九」／宣帝紀の「临海王伯宗薨」／南史 卷十の同文）いずれも上諡・立廟の条を持たない。閉域4軸: (1) 同書のキャッシュ外＝陳書は本紀6巻＋列傳30巻のみで志・表を持たない構造なので志の裏は無い、巻見出し（c1）と史臣曰（c5）も位号で呼ぶ／(2) 列傳＝陳書 全列傳を daizhige 版で走査し、后妃傳も「废帝为临海王」と位号で書く（c7）／(3) 別政権の書＝南史を全巻走査（c8・c9）。伯宗の廃位・薨去はいずれも陳の宣帝治下（570年）の出来事で、贈る主体は陳自身にあたる／(4) 語彙＝下記 sweptWords を hanzi_norm.norm_for_match に通して当てた。",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "追谥",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "庙",
+        "廟",
+        "追尊",
+        "号曰",
+        "尊为",
+        "尊曰",
+        "上尊号",
+        "赠",
+        "葬"
+      ],
+      "sweptScope": "陳書 全36巻（本紀6＋列傳30・daizhigev20/史藏/正史/陈书.txt）と 南史 全巻（daizhigev20/史藏/正史/南史.txt）のうち「伯宗」「临海」「废帝」を含む行の全数。加えて _corpus_cache/chen-feidi.txt（陳書 本紀第四 全文）と _corpus_cache/chen-xuandi.txt（陳書 本紀第五 宣帝紀）を通読。志・表は陳書に存在しないため走査対象に無い（未走査ではなく不存在）。"
     }
   ],
-  "discrepancies": "なし"
+  "discrepancies": "なし。既存の構造フィールドと原文の食い違いは無い — personalName「伯宗」・courtesyName「奉業」・childhoodName「薬王」・familyName「陳」は冒頭1行と一致し、reigns の startYear 566 は天康元年四月癸酉の即位、endYear 568 は光大二年十一月甲寅の慈訓太后令による廃位と一致する。templeName・posthumousName は現行 null で、原文の読解結果（read-absent）とも一致する。",
+  "conflicts": [],
+  "noteLog": "陳書 卷四の巻見出し・冒頭1行・史臣曰、南史 卷十のいずれも位号（废帝／临海）で呼び、諡・廟号を出さない。commonName の「廃帝（臨海王）」はこの位号に対応する名乗りで、諡号欄には入れていない。値の字体はデータセットの新字体へ倒し（奉業・薬王）、claims の引用は底本（簡体）のまま残した。",
+  "processSuggestion": "SOURCE_MAPPING.md に「陳書の列傳（卷七〜三十六）は china-history/陈书/原文版陈书 に無く（同ディレクトリは卷一〜六の本紀のみ）、daizhigev20/史藏/正史/陈书.txt へ行く」を1行足したい。閉域4軸の (2) 列傳を当てるたびに陳の各人物で同じ確認をすることになるため。"
 }

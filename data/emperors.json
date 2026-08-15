@@ -14033,9 +14033,15 @@
      "少帝弁",
      "弘農懐王"
     ],
-    "posthumousName": null,
+    "posthumousName": "懐王",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNames": [
+     {
+      "form": "懐王",
+      "year": 190
+     }
+    ]
    },
    "eraId": "qin-han",
    "regimeId": "eastern-han",
