@@ -119,6 +119,13 @@
       "file": "daizhigev20/史藏/载记/十国春秋.txt",
       "line": 1025,
       "quote": "齐主废朝二十七日追谥曰睿皇帝葬平陵"
+    },
+    {
+      "cid": "zi1-c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-wu-yangpu.txt",
+      "line": 1,
+      "quote": "溥，行密第四子也，隆演建国，封丹阳郡公"
     }
   ],
   "findings": [
@@ -216,6 +223,19 @@
         "新唐書 全巻: 杨溥"
       ],
       "sweptScope": "daizhigev20/史藏/正史/新五代史.txt 全2468行／daizhigev20/史藏/正史/旧五代史.txt 全1606行／daizhigev20/史藏/正史/旧五代史四库.txt 全5985行（うち卷134 僭偽列傳第一 5226-5255行は Read で全文）／daizhigev20/史藏/正史/宋史.txt・新唐书.txt 全巻／_corpus_cache/shiguo-wu-yangpu.txt 全18行。**未走査: 旧五代史四庫本 卷135・136（僭偽列傳二・三）**（走査はすべて scripts/hanzi_norm.py の norm_for_match を通してから当てた）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "字"
+      ],
+      "basis": [
+        "zi1-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。冒頭の名乗りは「溥，行密第四子也」で字の欄が無い。**当たりはすべて別人** — 新五代史 L1141 は劉知俊「字希贤」・十国春秋 L1810 は何溥「字令通」・L2214 は同じ劉知俊で、いずれも「溥」の字ではない"
     }
   ],
   "discrepancies": "なし（名前欄）。照合した構造フィールドは reigns[0].startYear=927・endYear=937 と name.familyName「楊」・personalName「溥」・posthumousNames[{form:睿}] で、いずれも原文と一致する（順義七年十一月庚戌に文明殿で即位＝927年・天祚三年冬十月に齊王へ禪位＝937年）。報告1件（名前欄の外・訂正はしていない）: ages.deathDate は「0938-11」で典拠が十国春秋（コーパスに無く正史でもない）だが、今回読んだ正史側は卒の位置が2つに割れる — 新五代史 卷六十一 呉世家は「十二月，溥卒于丹阳，年三十八」（天祚三年十二月）、同書 卷六十二 南唐世家は昇元二年四月に潤州へ遷したあとの条に「杨溥卒于丹阳宫」を置き、旧五代史四庫本 卷134 は「年余以幽死」とする。ages は担当外なので値には触れていない。",

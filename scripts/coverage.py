@@ -275,6 +275,13 @@ FIELDS = [
     # 段は同じ書の中でも人によって条の有無が割れる
     ("name.posthumousNames", "諡号の段（Issue #126）", "人", None,
      lambda c: m_name(c, "posthumousNames")),
+    # 2026-08-16 に字・幼名も測り始めた。**それまで進捗の数字が残量表の行にしか無く**、
+    # 「365人中いくつ確定したか」を欄そのものから引き直せなかった（R-COVERAGE-MEASURED）。
+    # 諡・廟号の4欄と同じ `m_name` を通すので、`read-absent` の証人と政権ぐるみの
+    # 打ち切りが不在確定に立つ。**低い確定率は欠陥ではなく未読**（字も幼名も、
+    # 持たない人物が普通に居るぶん `read-absent` を書かないと判別不能に落ちる）
+    ("name.courtesyName", "字（Issue #126）", "人", None, lambda c: m_name(c, "courtesyName")),
+    ("name.childhoodName", "幼名（Issue #126）", "人", None, lambda c: m_name(c, "childhoodName")),
     ("reigns.dynastyOrder", "第N代（Issue #24）", "在位", None, m_dynasty_order),
     ("profiles", "紹介文（Issue #16）", "人", None, m_profile),
     ("kinship.birthMother", "生母（kinship）", "人", None, m_mother),

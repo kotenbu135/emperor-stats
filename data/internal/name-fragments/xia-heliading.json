@@ -77,6 +77,13 @@
       "file": "daizhigev20/史藏/正史/宋书.txt",
       "line": 7143,
       "quote": "慕璝距击，大破之，生擒定。焘遣使求，慕璝以定与之。"
+    },
+    {
+      "cid": "zi1-c1",
+      "book": "十六国春秋",
+      "file": "_corpus_cache/xia-heliading.txt",
+      "line": 2,
+      "quote": "赫连定小字直獖勃勃之第五子也"
     }
   ],
   "findings": [
@@ -304,6 +311,19 @@
       ],
       "confidence": "high",
       "note": "「遂僣即皇帝位大赦境内殊死已下改承光四年为胜光元年」。既存値と一致（照合のみ・変更なし）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "字"
+      ],
+      "basis": [
+        "zi1-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。在るのは**小字**（直獖）だけ。晉書・十六国春秋の当たりは安定・平定のような地名／語の一部と他人の字（皇甫真「字楚季」ほか）で、赫連定の字は無い"
     }
   ],
   "discrepancies": "なし。既存の構造フィールド（familyName 赫連・personalName 定・childhoodName 直獖・commonName 赫連定・posthumousName null・templeName null・regnalTitle 皇帝・reigns 428-431）はいずれも原文と食い違わない。在位年も c4（承光四年＝428年に胜光元年へ改元）と c5（胜光四年＝431年に擒えられ、翌年 魏延和元年＝432年に殺害）と整合する。",

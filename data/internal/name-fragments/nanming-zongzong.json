@@ -1,89 +1,109 @@
 {
- "id": "nanming-zongzong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "小腆紀傳",
-   "file": "_corpus_cache/nanming-zongzong.txt",
-   "line": 161,
-   "quote": "上谥曰绍宗襄皇帝"
-  },
-  {
-   "cid": "c2",
-   "book": "小腆紀傳",
-   "file": "_corpus_cache/nanming-zhaozong.txt",
-   "line": 473,
-   "quote": "隆武帝谥曰「绍宗襄皇帝」、后曰「襄皇后」"
-  },
-  {
-   "cid": "c3",
-   "book": "小腆紀傳",
-   "file": "_corpus_cache/nanming-zongzong.txt",
-   "line": 161,
-   "quote": "永历帝立，遥上尊号曰思文皇帝。丁酉（一六五七）春，上谥曰绍宗襄皇帝"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": "紹宗",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "追諡の条（c1）。皇后の「襄皇后」（c2）から諡の実字は「襄」"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": "襄皇帝",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "同上"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "nanming-zongzong",
+  "claims": [
     {
-     "form": "思文皇帝"
+      "cid": "c1",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-zongzong.txt",
+      "line": 161,
+      "quote": "上谥曰绍宗襄皇帝"
     },
     {
-     "form": "襄皇帝",
-     "year": 1657
+      "cid": "c2",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-zhaozong.txt",
+      "line": 473,
+      "quote": "隆武帝谥曰「绍宗襄皇帝」、后曰「襄皇后」"
+    },
+    {
+      "cid": "c3",
+      "book": "小腆紀傳",
+      "file": "_corpus_cache/nanming-zongzong.txt",
+      "line": 161,
+      "quote": "永历帝立，遥上尊号曰思文皇帝。丁酉（一六五七）春，上谥曰绍宗襄皇帝"
+    },
+    {
+      "cid": "zi1-c1",
+      "book": "小腆紀年",
+      "file": "daizhigev20/史藏/编年/小腆纪年.txt",
+      "line": 1514,
+      "quote": "聿键，太祖九世孙，小字长寿"
     }
-   ],
-   "basis": [
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "小腆紀傳 紀第二の末尾（c1）。**「思文皇帝」は段に入れる** — 隆武帝は丙戌（1646）に汀州で遇害しており、永暦帝の即位はその後なので**没後の上尊号**（漢書 高帝の「上尊号曰高皇帝」と同じ型）。弘光帝の「圣安皇帝」が生前なのと向きが逆。**思文皇帝の年は条が名乗らない**ので入れない。「绍宗襄皇帝」は廟号を冠した形。"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "謚",
-    "谥曰",
-    "庙号",
-    "廟號",
-    "〈諡字〉帝",
-    "〈諡字〉王",
-    "〈諡字〉公"
-   ],
-   "basis": [
-    "c1",
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "小腆紀傳は永暦帝が上る諡を「上谥曰「〈廟号〉〈諡〉皇帝」」の形で書き、廟号と諡が同じ1条に入る（c1・c2・c3）。**短縮呼称の形はこの書に無い** — 1冊を「谥／諡＋6字以内＋帝／王／公」で全数走査した当たりは「上谥曰绍宗襄皇帝」の1件だけで、「簡帝」「襄帝」のような形は書のどこにも出ない。本人のキャッシュを諡字＋「帝」で当て直しても当たり0件。政権慣行の記録も `no-form`／`per-person`。**全長形そのものが「〈諡字〉皇帝」の3字**なので「全長形しか無い」の言い方は当たらないが、**書が短縮形を使わない**点は宋史・金史と同じで、2026-08-13 の決定の射程に入る"
-  }
- ],
- "discrepancies": "なし"
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "紹宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "追諡の条（c1）。皇后の「襄皇后」（c2）から諡の実字は「襄」"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "襄皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "同上"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "思文皇帝"
+        },
+        {
+          "form": "襄皇帝",
+          "year": 1657
+        }
+      ],
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "小腆紀傳 紀第二の末尾（c1）。**「思文皇帝」は段に入れる** — 隆武帝は丙戌（1646）に汀州で遇害しており、永暦帝の即位はその後なので**没後の上尊号**（漢書 高帝の「上尊号曰高皇帝」と同じ型）。弘光帝の「圣安皇帝」が生前なのと向きが逆。**思文皇帝の年は条が名乗らない**ので入れない。「绍宗襄皇帝」は廟号を冠した形。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "謚",
+        "谥曰",
+        "庙号",
+        "廟號",
+        "〈諡字〉帝",
+        "〈諡字〉王",
+        "〈諡字〉公"
+      ],
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "小腆紀傳は永暦帝が上る諡を「上谥曰「〈廟号〉〈諡〉皇帝」」の形で書き、廟号と諡が同じ1条に入る（c1・c2・c3）。**短縮呼称の形はこの書に無い** — 1冊を「谥／諡＋6字以内＋帝／王／公」で全数走査した当たりは「上谥曰绍宗襄皇帝」の1件だけで、「簡帝」「襄帝」のような形は書のどこにも出ない。本人のキャッシュを諡字＋「帝」で当て直しても当たり0件。政権慣行の記録も `no-form`／`per-person`。**全長形そのものが「〈諡字〉皇帝」の3字**なので「全長形しか無い」の言い方は当たらないが、**書が短縮形を使わない**点は宋史・金史と同じで、2026-08-13 の決定の射程に入る"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "字"
+      ],
+      "basis": [
+        "zi1-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。**在るのは小字（長寿）だけ**で字は無い。小腆紀年1冊の走査で「聿键」が「字」の窓に来る当たりはこの1件（小字）のみ・明史は0件"
+    }
+  ],
+  "discrepancies": "なし"
 }

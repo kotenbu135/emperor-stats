@@ -14,6 +14,13 @@
       "file": "daizhigev20/史藏/正史/魏书.txt",
       "line": 384,
       "quote": "十有二月庚子，上谥曰明元皇帝，葬于云中金陵，庙称太宗"
+    },
+    {
+      "cid": "zi1-c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-mingyuandi.txt",
+      "line": 2,
+      "quote": "太宗明元皇帝，讳嗣，太祖长子也，母曰刘贵人"
     }
   ],
   "findings": [
@@ -39,6 +46,19 @@
       ],
       "confidence": "high",
       "note": "崩御条の定型「上（尊）谥曰〈諡〉皇帝」1段（c2）。魏書帝紀12巻を単字「谥」で全数走査（25出現・2026-08-13）した結果、この帝には加諡・改諡の条が無い"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "字"
+      ],
+      "basis": [
+        "zi1-c1"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。冒頭の名乗りは「讳嗣」で止まり字の欄が無い。**魏書1冊を走査して0件** — 「嗣」が「字」の前後20字の窓に来る当たりが魏書に1件も無い（同じ走査で太武帝の「字佛厘」＝魏書 L379 は当たっている）。南齊書 魏虜傳は明元帝を「木末」と呼ぶが**字とは書かない**（L3461「木末始土著居」）"
     }
   ],
   "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
