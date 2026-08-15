@@ -21,6 +21,13 @@
       "file": "_corpus_cache/tang-gaozong.txt",
       "line": 99,
       "quote": "天宝十三载，改谥曰天皇大弘孝皇帝"
+    },
+    {
+      "cid": "zi2-c1",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 317,
+      "quote": "高宗天皇大圣大弘孝皇帝讳治，字为善，太宗第九子也。"
     }
   ],
   "findings": [
@@ -63,10 +70,21 @@
       ],
       "confidence": "high",
       "note": "唐の慣行（regime-conventions）に従い空。初諡「天皇大帝」→天宝十三載「天皇大弘孝皇帝」→冒頭が掲げる「天皇大聖大弘孝皇帝」と加諡が積み上がる型で、本紀本文が呼ぶのは廟号（高宗）。初諡は短縮呼称ではなく別の諡なのでこの欄へ入れない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "為善",
+      "basis": [
+        "zi2-c1",
+        "c1"
+      ],
+      "confidence": "high",
+      "verdict": "confirmed",
+      "note": "**本人のキャッシュ（舊唐書 高宗本紀）の外に在る** — 字を掲げるのは新唐書 卷三 本紀第三（目次行 L5「卷三 本纪第三」・本文見出し L316「本纪第三　高宗」）の冒頭 L317 で、**舊唐書は同じ位置で諱の次に続柄が来て字が入らない**（c2）。値は書の字体（为善）を日本語の新字体へ寄せて為善（2026-08-16・字ブロック2）"
     }
   ],
   "conflicts": [],
   "noteLog": "posthumousNameFull の値表記は「天皇大聖大弘孝皇帝」。底本は簡体（天皇大圣大弘孝皇帝）で、引用は底本のまま保存し、値だけ既存レコードに合わせて日本語新字体へ倒した。捨てた候補: 初諡「天皇大帝」と中間の加諡「天皇大弘孝皇帝」は posthumousName（短縮呼称）にも Full にも採らない（前者は別の諡、後者は最終形でない）。廟号を含む「高宗天皇大聖大弘孝皇帝」も採らない（廟号は templeName 側）。大聖の加諡そのものの条は高宗本紀（卷四・卷五）には無く、卷四冒頭の名乗りが最終形として掲げているのを根拠にした。",
-  "discrepancies": "なし。既存の構造フィールド（name.templeName=\"高宗\"・name.personalName=\"治\"・name.posthumousName=null・name.commonName=\"高宗\"・regimeId=\"tang\"・reigns 649-683）と原文の食い違いは無い。name.posthumousNameFull は既存レコードに欄自体が無く、新規投入となる。",
+  "discrepancies": "なし（新唐書の冒頭は現行の familyName 李・personalName 治と整合）",
   "processSuggestion": "残量表 唐の posthumousNameFull 投入 24件（未読 23件・実測 jq: regimeId==\"tang\" が24人、うち posthumousNameFull を持たないのが23人。高宗以外は未走査） — 高宗のように「冒頭の全長形＝最終の加諡形」が本紀冒頭1行で閉じる型と、加諡の条が当人の本紀に無く後代帝の本紀にしか無い型が混じる。加諡の追認まで求めるなら別走査になる。"
 }
