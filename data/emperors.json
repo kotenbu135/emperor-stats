@@ -42709,7 +42709,7 @@
    "name": {
     "familyName": "蕭",
     "personalName": "方智",
-    "commonName": "敬帝（孝敬帝）",
+    "commonName": "敬帝",
     "aliases": [],
     "posthumousName": "敬帝",
     "templeName": null,
@@ -42721,7 +42721,8 @@
       "form": "敬皇帝",
       "year": 558
      }
-    ]
+    ],
+    "posthumousNameFull": "敬皇帝"
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",
@@ -42782,7 +42783,7 @@
    "verification": {
     "emperorTitleConfirmed": true,
     "confidence": "high",
-    "notes": "梁皇帝。敬帝（孝敬帝）。"
+    "notes": "梁皇帝。敬帝。**2026-08-15 に「孝敬帝」を落とした** — 梁書・南史・陳書のいずれにも0件で、「孝敬皇帝」は唐 高宗の太子 李弘の追諡（旧唐書に5件）。原文が支えるのは「敬帝／敬皇帝」だけ。"
    },
    "deathCause": {
     "category": "assassination",
@@ -60528,7 +60529,13 @@
     "aliases": [],
     "posthumousName": "恭帝",
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "posthumousNameFull": "恭皇帝",
+    "posthumousNames": [
+     {
+      "form": "恭皇帝"
+     }
+    ]
    },
    "eraId": "sui-tang",
    "regimeId": "sui",
