@@ -84,6 +84,13 @@
       "file": "daizhigev20/史藏/正史/辽史.txt",
       "line": 1435,
       "quote": "汉刘继元嗣立，遣使乞封册。辛酉，遣韩知范册为皇帝。"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-beihan-liujiyuan.txt",
+      "line": 1,
+      "quote": "继元为人忍。"
     }
   ],
   "findings": [
@@ -203,6 +210,16 @@
         "讳"
       ],
       "sweptScope": "新五代史 東漢世家（daizhigev20/史藏/正史/新五代史.txt 2363–2390）全文＋新五代史 全体の「继元」走査／宋史 卷482 世家五 北漢劉氏（102355–102402）全文／旧五代史 全体の「继元」走査（0件）／辽史 全体の「继元」走査（10件・諡廟語彙との共起1件＝册为皇帝）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "新五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし。既存の構造フィールド（reigns 968–979）と原文は整合する（新五代史・宋史とも太平興国四年＝979 の降伏で北漢滅亡、宋史は「历四主二十九年而亡」）。name.templeName・name.posthumousName はいずれも既存が null で、原文の読解結果（不在確定）と一致する。",

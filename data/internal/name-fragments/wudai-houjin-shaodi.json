@@ -1,55 +1,72 @@
 {
- "id": "wudai-houjin-shaodi",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houjin-shaodi.txt",
-   "line": 1,
-   "quote": "少帝，名重贵，高祖之从子也"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "冒頭1行は「少帝，名重贵」（c1）で、他の帝の「讳」ではなく「名」を使う。契丹に連れ去られた帝で、五代本紀にこの帝への上諡の記事は無い"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "「少帝」は位号で諡ではない"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "舊五代史 本紀61ファイルの「谥」82出現を全数で読み直した（2026-08-13）。この人物に諡を授ける条は本紀に無い。舊五代史は志12巻がコーパスに無いので、閉域は「本紀＋列傳」で読む。少帝紀の「谥」はすべて高祖の尊諡宝冊のもの。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "wudai-houjin-shaodi",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houjin-shaodi.txt",
+      "line": 1,
+      "quote": "少帝，名重贵，高祖之从子也"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houjin-shaodi.txt",
+      "line": 1,
+      "quote": "少帝，名重贵，高祖之从子也。"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行は「少帝，名重贵」（c1）で、他の帝の「讳」ではなく「名」を使う。契丹に連れ去られた帝で、五代本紀にこの帝への上諡の記事は無い"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "「少帝」は位号で諡ではない"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "舊五代史 本紀61ファイルの「谥」82出現を全数で読み直した（2026-08-13）。この人物に諡を授ける条は本紀に無い。舊五代史は志12巻がコーパスに無いので、閉域は「本紀＋列傳」で読む。少帝紀の「谥」はすべて高祖の尊諡宝冊のもの。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "舊五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    }
+  ],
+  "discrepancies": "なし"
 }

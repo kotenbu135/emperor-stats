@@ -119,6 +119,13 @@
       "file": "daizhigev20/史藏/载记/十国春秋.txt",
       "line": 4342,
       "quote": "睿宗名钧初名承钧世祖次子也"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-beihan-liujien.txt",
+      "line": 1,
+      "quote": "继恩本姓薛氏，父钊为卒，旻以女妻之，生继恩。"
     }
   ],
   "findings": [
@@ -269,6 +276,16 @@
       ],
       "sweptScope": "name.templeName と同じ6範囲",
       "note": "冒頭に加諡形を掲げる書式そのものが東漢世家に無く（世家は「〈姓〉〈名〉，〈続柄〉」で始まる）、全長形は1件も現れない。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "新五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし。既存の構造フィールドは reigns[0].startYear=968・endYear=968 で、十国春秋が即位を「时天会十二年七月也」（c14・天会元年=957 なので天会十二年=968）、弑殺を同年九月とし、宋史 世家も開宝元年（968）八月の詔伐（c12）に続けて弑殺を記すため、年に食い違いは無い。name.templeName・name.posthumousName の現行 null も原文と一致する。",

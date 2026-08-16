@@ -21,6 +21,13 @@
       "file": "_corpus_cache/beiqi-andewang-gaoyanzong.txt",
       "line": 1,
       "quote": "安德王延宗，文襄第五子也。母陈氏，广阳王妓也"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-andewang-gaoyanzong.txt",
+      "line": 1,
+      "quote": "安德王延宗，文襄第五子也。"
     }
   ],
   "findings": [
@@ -84,6 +91,16 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。北齊書1冊の走査（諡の条82件）でこの人物と同じ窓に立つ条が無いことは 2026-08-14 に`posthumousName` で確かめてある。今回は閉域を255ファイルへ広げても本人の諡は出ない（当たりは北魏の高延宗＝別人の父 高金龍の「谥康王」など）／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "北齊書 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし"

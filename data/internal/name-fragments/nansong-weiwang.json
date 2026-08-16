@@ -217,6 +217,20 @@
         "china-history/明史・辽史・金史 の「昺」（いずれも同名異人）",
         "_corpus_cache/nansong-weiwang.txt 全10行"
       ]
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "confidence": "high",
+      "sweptWords": [
+        "昺",
+        "字"
+      ],
+      "note": "**本人の名乗り行がキャッシュに無い**ので書の側を走査した — 宋史1冊を「昺」で走査して隣接形は0件。キャッシュはこの人物を扱う地の文（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）",
+      "basis": [
+        "block7-c1"
+      ]
     }
   ],
   "discrepancies": "なし（既存の構造フィールド name.personalName「昺」・name.templeName null・name.posthumousName null・reigns 1278〜1279 はいずれも宋史 卷47 の記述と一致する。祥興改元は五月癸未朔、崖山での入水は十六年二月）",

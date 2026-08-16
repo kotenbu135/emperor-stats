@@ -1,74 +1,91 @@
 {
- "id": "wudai-houzhou-shizong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houzhou-shizong.txt",
-   "line": 1,
-   "quote": "世宗睿武孝文皇帝，讳荣，太祖之养子"
-  },
-  {
-   "cid": "c2",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houzhou-shizong.txt",
-   "line": 96,
-   "quote": "其年八月，翰林学士、判太常寺事窦俨上谥曰睿武孝文皇帝，庙号世宗。十一月壬寅朔，葬于庆陵"
-  },
-  {
-   "cid": "c3",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houzhou-gongdi.txt",
-   "line": 3,
-   "quote": "尊谥曰睿武孝文皇帝，庙号世宗，从之"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": "世宗",
-   "basis": [
-    "c1",
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "冒頭1行（c1）と、世宗紀の末尾に在る上諡記事「上谥曰睿武孝文皇帝，庙号世宗」（c2）。**同じ上諡が次帝の紀にも重ねて載る**（恭帝紀の显徳六年八月乙亥条・c3）ので証人は3つ。2026-08-11 の検証段（facts）の指摘で直した — 当初この断片は「上諡は本人のキャッシュに無く次帝側に在る」と書いていたが**誤り**で、`_corpus_cache/wudai-houzhou-shizong.txt:96` に在る。`grep` の一致行を先頭140字だけ見て、見えている範囲に語が無かったので不在と読んだ"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": "睿武孝文皇帝",
-   "basis": [
-    "c1",
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "上諡記事「上谥曰睿武孝文皇帝」（c2・重出は c3）と冒頭1行（c1）が一致"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "短縮呼称の欄は空。舊五代史は廟号を持つ帝を廟号で呼び、諡から作った短縮形を本文で使わない（五代本紀61巻の巻名も「太祖紀」「庄宗紀」「明宗紀」「高祖紀」「世宗紀」で、短縮形が巻名に立つのは廟号を持たない闵帝・少帝・末帝・隐帝・恭帝の側だけ）"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "wudai-houzhou-shizong",
+  "claims": [
     {
-     "form": "睿武孝文皇帝"
+      "cid": "c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-shizong.txt",
+      "line": 1,
+      "quote": "世宗睿武孝文皇帝，讳荣，太祖之养子"
+    },
+    {
+      "cid": "c2",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-shizong.txt",
+      "line": 96,
+      "quote": "其年八月，翰林学士、判太常寺事窦俨上谥曰睿武孝文皇帝，庙号世宗。十一月壬寅朔，葬于庆陵"
+    },
+    {
+      "cid": "c3",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-gongdi.txt",
+      "line": 3,
+      "quote": "尊谥曰睿武孝文皇帝，庙号世宗，从之"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-shizong.txt",
+      "line": 1,
+      "quote": "世宗睿武孝文皇帝，讳荣，太祖之养子，盖圣穆皇后之侄也。"
     }
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "恭帝が顕徳六年（959）八月に上った初諡で、加諡は舊五代史に無い（1段）。恭帝紀の「撰进大行皇帝尊谥曰睿武孝文皇帝」は同じ回の奏上。"
-  }
- ],
- "discrepancies": "なし"
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "世宗",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行（c1）と、世宗紀の末尾に在る上諡記事「上谥曰睿武孝文皇帝，庙号世宗」（c2）。**同じ上諡が次帝の紀にも重ねて載る**（恭帝紀の显徳六年八月乙亥条・c3）ので証人は3つ。2026-08-11 の検証段（facts）の指摘で直した — 当初この断片は「上諡は本人のキャッシュに無く次帝側に在る」と書いていたが**誤り**で、`_corpus_cache/wudai-houzhou-shizong.txt:96` に在る。`grep` の一致行を先頭140字だけ見て、見えている範囲に語が無かったので不在と読んだ"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "睿武孝文皇帝",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "上諡記事「上谥曰睿武孝文皇帝」（c2・重出は c3）と冒頭1行（c1）が一致"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "短縮呼称の欄は空。舊五代史は廟号を持つ帝を廟号で呼び、諡から作った短縮形を本文で使わない（五代本紀61巻の巻名も「太祖紀」「庄宗紀」「明宗紀」「高祖紀」「世宗紀」で、短縮形が巻名に立つのは廟号を持たない闵帝・少帝・末帝・隐帝・恭帝の側だけ）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "睿武孝文皇帝"
+        }
+      ],
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "恭帝が顕徳六年（959）八月に上った初諡で、加諡は舊五代史に無い（1段）。恭帝紀の「撰进大行皇帝尊谥曰睿武孝文皇帝」は同じ回の奏上。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "舊五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    }
+  ],
+  "discrepancies": "なし"
 }

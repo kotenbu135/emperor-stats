@@ -163,6 +163,16 @@
         "_corpus_cache/shiguo-houshu-mengchang.txt 全15行",
         "旧五代史 全文の「昶」該当行（孟昶の伝は無く言及のみ）"
       ]
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block10-c1"
+      ],
+      "confidence": "high",
+      "note": "新五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし。既存の構造フィールド（name.personalName「昶」・name.templeName null・name.posthumousName null）はいずれも原文の読解結果と一致した。reigns の startYear 934／endYear 965 は今回の走査範囲（名前欄）では扱っていない。",

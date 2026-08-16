@@ -91,6 +91,13 @@
       "file": "daizhigev20/史藏/正史/隋书.txt",
       "line": 2259,
       "quote": "静帝大定元年正月乙酉，岁星逆行，守右执法，荧惑掩房北第一星。"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-jingdi.txt",
+      "line": 2,
+      "quote": "静皇帝讳衍，后改为阐，宣帝长子也。"
     }
   ],
   "findings": [
@@ -182,6 +189,16 @@
       ],
       "confidence": "high",
       "note": "冒頭1行は「讳衍，后改为阐」（北史は「讳衍，后改名阐」）で、諱は初名「衍」から「阐」へ改められた。欄には改名後の形を採り、値は新字体表記「闡」にした（底本は簡体「阐」）。初名「衍」は別称に当たるので諱の欄には入れない。\n【親セッションが原文へ当て直した 2026-08-15・廟号ブロック7】初名「衍」を「別称なので諱の欄に入れない」と述べながら、それを受ける finding も配布物側の `aliases` も空のままで、**原文で裏の取れた事実が取りこぼしになっている**（周書・北史とも改名を明示）。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "周書 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし（既存の構造フィールド templeName=null・posthumousName「静帝」・posthumousNameFull「静皇帝」・personalName「闡」・posthumousNames[{静皇帝,581}]・reigns 579〜581 はいずれも原文と一致した。reigns は周書 大象元年二月の受禅と大定元年二月の逊位に対応する）。",

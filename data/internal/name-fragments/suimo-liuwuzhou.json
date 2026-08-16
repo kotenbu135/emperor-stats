@@ -63,6 +63,13 @@
       "file": "daizhigev20/史藏/正史/新唐书.txt",
       "line": 10922,
       "quote": "刘武周，瀛州景城人。父匡，徙马邑。"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-liuwuzhou.txt",
+      "line": 1,
+      "quote": "刘武周，河间景城人。"
     }
   ],
   "findings": [
@@ -206,6 +213,16 @@
         "daizhigev20/史藏/正史/新唐书.txt 10906-10974行（劉武周伝を含む巻域）",
         "daizhigev20/史藏/正史/新唐书.txt・隋书.txt・北史.txt 全行のうち「刘武周」を含む行"
       ]
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 列傳は「李轨，字处则」のように冒頭で字の位置を使うが、この条は姓名の次に籍貫・続柄が来て字が入らない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし。既存レコードの構造フィールド（regimeId=dingyang・reigns 617-622・name.regnalTitle=皇帝）と原文に食い違いは無い。皇帝号は「因僭称皇帝」（c2）で裏付く。",

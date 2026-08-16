@@ -305,6 +305,16 @@
       ],
       "confidence": "high",
       "note": "列傳は「因僭即皇帝位，国称吴」、高祖本紀は「僭称天子，国号吴」。既存レコードの regnalTitle「皇帝」と一致（照合として記録するだけで、この段の投入対象外）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c10"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 列傳は「李轨，字处则」のように冒頭で字の位置を使うが、この条は姓名の次に籍貫・続柄が来て字が入らない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし。既存の構造フィールド（name.familyName=李・name.personalName=子通・name.commonName=李子通・name.posthumousName=null・name.templeName=null・name.regnalTitle=皇帝・regimeId=suimo-wu）はいずれも原文と食い違わない。reigns[0].startYear=619 は高祖本紀 武德二年九月辛未の「僭称天子，国号吴」（c6）と整合する。endYear=622 は列傳・本紀のこの2条からは年が読めず（列傳は年を書かない）、否定も肯定もしていない＝食い違いではなく未照合。",

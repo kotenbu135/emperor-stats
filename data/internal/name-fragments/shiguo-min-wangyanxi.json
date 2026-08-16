@@ -28,6 +28,13 @@
       "file": "daizhigev20/史藏/正史/新五代史.txt",
       "line": 2330,
       "quote": "鏻立十年见杀，谥曰惠皇帝，庙号太宗"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-min-wangyanxi.txt",
+      "line": 1,
+      "quote": "延义，审知少子也。"
     }
   ],
   "findings": [
@@ -77,6 +84,16 @@
       ],
       "confidence": "high",
       "note": "**新五代史は「谥曰景宗」と廟号を諡の位置に書く**。十国春秋 卷九十四（閩五）の葬送条が〈X〉皇帝の形を持つ唯一の当たり／2026-08-15 のユーザー決定で、**輯本・私撰（十六国春秋・同別伝・華陽国志・十国春秋）と編年・注（資治通鑑・胡三省注・裴松之注引書）を名前欄の witness に採る**ことになった。この値はその決定で入る"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "新五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし"

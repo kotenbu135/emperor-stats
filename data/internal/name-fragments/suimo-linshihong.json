@@ -56,6 +56,13 @@
       "file": "daizhigev20/史藏/正史/隋书.txt",
       "line": 185,
       "quote": "壬辰，鄱阳人林士弘自称皇帝，国号楚，建元太平，攻陷九江、庐陵郡。"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-linshihong.txt",
+      "line": 1,
+      "quote": "林士弘者，饶州鄱阳人也。"
     }
   ],
   "findings": [
@@ -195,6 +202,16 @@
         "庙称",
         "贈"
       ]
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 列傳は「李轨，字处则」のように冒頭で字の位置を使うが、この条は姓名の次に籍貫・続柄が来て字が入らない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "conflicts": [],

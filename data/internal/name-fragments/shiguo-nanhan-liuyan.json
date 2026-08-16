@@ -1,92 +1,109 @@
 {
- "id": "shiguo-nanhan-liuyan",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "新五代史",
-   "file": "_corpus_cache/shiguo-nanhan-liuyan.txt",
-   "line": 18,
-   "quote": "卒，年五十四，谥天皇大帝，庙号高祖，陵曰康陵"
-  },
-  {
-   "cid": "c2",
-   "book": "新五代史",
-   "file": "_corpus_cache/shiguo-nanhan-liuyan.txt",
-   "line": 18,
-   "quote": "十五年，卒，年五十四，谥天皇大帝，庙号高祖，陵曰康陵"
-  },
-  {
-   "cid": "c3",
-   "book": "新五代史",
-   "file": "_corpus_cache/shiguo-nanhan-liuyan.txt",
-   "line": 1,
-   "quote": "初名岩，谦庶子也。其母段氏生于外舍"
-  },
-  {
-   "cid": "c4",
-   "book": "新五代史",
-   "file": "_corpus_cache/shiguo-nanhan-liuyan.txt",
-   "line": 18,
-   "quote": "卒，年五十四，谥天皇大帝，庙号高祖，陵曰康陵。子玢立。"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": "高祖",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "世家末尾の定型（c1）"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "**諡「天皇大帝」が「皇帝」で終わらないので全長形の欄に入らない**（欄の形ゲートA）。値そのものは c1 に在る（残量表の行）"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "shiguo-nanhan-liuyan",
+  "claims": [
     {
-     "form": "天皇大帝"
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-nanhan-liuyan.txt",
+      "line": 18,
+      "quote": "卒，年五十四，谥天皇大帝，庙号高祖，陵曰康陵"
+    },
+    {
+      "cid": "c2",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-nanhan-liuyan.txt",
+      "line": 18,
+      "quote": "十五年，卒，年五十四，谥天皇大帝，庙号高祖，陵曰康陵"
+    },
+    {
+      "cid": "c3",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-nanhan-liuyan.txt",
+      "line": 1,
+      "quote": "初名岩，谦庶子也。其母段氏生于外舍"
+    },
+    {
+      "cid": "c4",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-nanhan-liuyan.txt",
+      "line": 18,
+      "quote": "卒，年五十四，谥天皇大帝，庙号高祖，陵曰康陵。子玢立。"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-nanhan-liuyan.txt",
+      "line": 1,
+      "quote": "初名岩，谦庶子也。"
     }
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "卒去条「谥天皇大帝，庙号高祖」。**「皇帝」ではなく「大帝」で結ぶ**がゲートAは大帝を認める。全長形の欄は空のままにした（新五代史 南漢世家はこの人物の名乗りを立てない）"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c3",
-    "c4"
-   ],
-   "confidence": "high",
-   "note": "**諡そのものは在る**（天皇大帝。段の欄 `posthumousNames` が受ける）が、**この欄に入るのは書が本文で使う形**で、新五代史はこの人物を世家の本文で「龑」と呼び、諡の末字＋帝の形で呼ぶ条が無い。授与の条が在ることと、書がその形で呼ぶことは別（東吳 大帝が「大皇帝」の授与と「大帝」の呼称で欄が分かれるのと同じ）。新五代史1冊を走査し、諡の条104件・別語彙77件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "高祖",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "世家末尾の定型（c1）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "**諡「天皇大帝」が「皇帝」で終わらないので全長形の欄に入らない**（欄の形ゲートA）。値そのものは c1 に在る（残量表の行）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "天皇大帝"
+        }
+      ],
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "卒去条「谥天皇大帝，庙号高祖」。**「皇帝」ではなく「大帝」で結ぶ**がゲートAは大帝を認める。全長形の欄は空のままにした（新五代史 南漢世家はこの人物の名乗りを立てない）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "諡",
+        "偽諡",
+        "私諡",
+        "上諡",
+        "追尊",
+        "追號",
+        "號曰",
+        "上尊號",
+        "廟號",
+        "尊為",
+        "追封為"
+      ],
+      "basis": [
+        "c3",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "**諡そのものは在る**（天皇大帝。段の欄 `posthumousNames` が受ける）が、**この欄に入るのは書が本文で使う形**で、新五代史はこの人物を世家の本文で「龑」と呼び、諡の末字＋帝の形で呼ぶ条が無い。授与の条が在ることと、書がその形で呼ぶことは別（東吳 大帝が「大皇帝」の授与と「大帝」の呼称で欄が分かれるのと同じ）。新五代史1冊を走査し、諡の条104件・別語彙77件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "新五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    }
+  ],
+  "discrepancies": "なし"
 }

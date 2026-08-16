@@ -77,6 +77,13 @@
       "file": "daizhigev20/史藏/志存记录/安禄山事迹.txt",
       "line": 135,
       "quote": "谥禄山曰光烈皇帝，降庆绪为进刺王"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tangmo-anlushan.txt",
+      "line": 1,
+      "quote": "安禄山，营州柳城杂种胡人也，本无姓氏，名轧荦山。"
     }
   ],
   "findings": [
@@ -209,6 +216,16 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。**諡は在るが「燕剌王」で王諡**（史思明が王の礼で改葬したときの偽諡）。皇帝形で結ばないので全長形の欄には入らない。通称に入っている「雄武皇帝」は**生前に自ら称した号**で諡ではない／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 列傳は「李轨，字处则」のように冒頭で字の位置を使うが、この条は姓名の次に籍貫・続柄が来て字が入らない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし。既存レコードの構造フィールド（reigns 756-757・regimeId anshi-yan）と原文の間に食い違いは無く、name.templeName・name.posthumousName が null であることも本調査の判定（templeName は不在確定・posthumousName は判断待ち）と整合する。",

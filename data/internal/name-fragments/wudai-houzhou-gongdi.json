@@ -1,65 +1,82 @@
 {
- "id": "wudai-houzhou-gongdi",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houzhou-gongdi.txt",
-   "line": 1,
-   "quote": "恭帝，讳宗训，世宗子也"
-  },
-  {
-   "cid": "c2",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houzhou-gongdi.txt",
-   "line": 8,
-   "quote": "诏有司定谥曰恭皇帝，陵曰顺陵"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "廟号は無い。諡の記事（c2）に廟号が伴わない"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": "恭皇帝",
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "禅譲して鄭王となったこの帝が没したとき「诏有司定谥曰恭皇帝，陵曰顺陵」（c2）。**贈ったのは宋だが、載せているのは舊五代史の恭帝紀**"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": "恭帝",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "諡「恭皇帝」（c2）を書が名乗りとして立てた形が冒頭1行の「恭帝」（c1）。巻名も「恭帝紀」"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "wudai-houzhou-gongdi",
+  "claims": [
     {
-     "form": "恭皇帝"
+      "cid": "c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-gongdi.txt",
+      "line": 1,
+      "quote": "恭帝，讳宗训，世宗子也"
+    },
+    {
+      "cid": "c2",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-gongdi.txt",
+      "line": 8,
+      "quote": "诏有司定谥曰恭皇帝，陵曰顺陵"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-gongdi.txt",
+      "line": 1,
+      "quote": "恭帝，讳宗训，世宗子也。"
     }
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "宋 開宝六年（973）に鄭王として殂した後、宋が定めた諡（1段）。**条が立つのは恭帝紀に引かれた《續資治通鑑長編》の中**で、舊五代史の地の文ではない（この紀は諡・崩御を長編の引用で書く）。年は同じ引用が「开宝六年」を名乗り「以其年十月」がそこを指すので入れた。"
-  }
- ],
- "discrepancies": "なし"
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "廟号は無い。諡の記事（c2）に廟号が伴わない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "恭皇帝",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "禅譲して鄭王となったこの帝が没したとき「诏有司定谥曰恭皇帝，陵曰顺陵」（c2）。**贈ったのは宋だが、載せているのは舊五代史の恭帝紀**"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "恭帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "諡「恭皇帝」（c2）を書が名乗りとして立てた形が冒頭1行の「恭帝」（c1）。巻名も「恭帝紀」"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "恭皇帝"
+        }
+      ],
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "宋 開宝六年（973）に鄭王として殂した後、宋が定めた諡（1段）。**条が立つのは恭帝紀に引かれた《續資治通鑑長編》の中**で、舊五代史の地の文ではない（この紀は諡・崩御を長編の引用で書く）。年は同じ引用が「开宝六年」を名乗り「以其年十月」がそこを指すので入れた。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "舊五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    }
+  ],
+  "discrepancies": "なし"
 }

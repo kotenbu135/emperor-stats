@@ -92,6 +92,13 @@
       "file": "daizhigev20/史藏/正史/旧唐书.txt",
       "line": 9853,
       "quote": "贞观二年，太宗遣右卫大将军柴绍、殿中少监薛万均讨之"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-liangshidu.txt",
+      "line": 1,
+      "quote": "梁师都，夏州朔方人也。"
     }
   ],
   "findings": [
@@ -245,6 +252,16 @@
       ],
       "confidence": "medium",
       "note": "欄への投入対象外だが記録として残す。突厥の始毕可汗が狼頭纛とともに与えた号が「大度毗伽可汗」、同じ始毕が劉武周を定楊天子・郭子和を平楊天子としたのと並べて梁師都に与えた号が「解事天子」。ほかに自称として「自称大丞相」がある。いずれも生前の称号で諡・廟号ではないため段には入れない。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 列傳は「李轨，字处则」のように冒頭で字の位置を使うが、この条は姓名の次に籍貫・続柄が来て字が入らない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし。既存レコードの構造フィールドと照合した: name.personalName=\"師都\"・name.familyName=\"梁\" は原文の伝首と一致、name.templeName=null・name.posthumousName=null は原文の読解（read-absent）と一致。name.posthumousNameFull はレコードにキー自体が存在しないので一致・不一致の対象にならない。reigns の startYear=617／endYear=628 は、終年が「贞观二年」（628年）の敗死と一致し、始年は原文が「大业末」としか書かないため直接の記載は無いが「师都自起至灭，凡十二岁」（628年から数え12年で617年）と整合するので食い違いではない。name.aliases=[] に対し原文には称号2件があるが、これは列挙の欠落であって数値・日付・enum の食い違いではないため discrepancy には数えない。",

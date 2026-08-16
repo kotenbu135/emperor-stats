@@ -49,6 +49,13 @@
       "file": "_corpus_cache/beiqi-youzhu-gaoheng.txt",
       "line": 1,
       "quote": "并太后、幼主、诸王俱送长安，封帝温国公"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-youzhu-gaoheng.txt",
+      "line": 1,
+      "quote": "幼主名恒，帝之长子也。"
     }
   ],
   "findings": [
@@ -213,6 +220,16 @@
         "守國天王"
       ],
       "sweptScope": "北齊書 卷八（daizhigev20/史藏/正史/北齐书.txt 331〜377行・見出し行333行を含む）を hanzi_norm.norm_for_match を通して全行走査／北齊書 全巻の「幼主」ヒット（289行・550行）と「高恒／高恆」を確認（北齊書は帝紀8巻＋列傳42巻のみで志・表が無い。3314行が第五十卷＝補列傳第四十二）／北史 952行（卷八 齊本紀下 の幼主の条）と 8466行（列傳・後主諸子の条）を全文読解／周書・隋書・陳書・北史・北齊書へ「高恒／高恆」を横断走査（当たりは北齊書の見出し行1件のみ）／周書1860行・2706行・隋書99行・6828行の「幼主」は前後を読んで別人と確認。未走査: 魏書ほかの他書、および北齊書の志・表（この書には存在しない）。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "北齊書 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし。既存レコードの構造フィールド（name.personalName=恒・name.familyName=高・name.commonName=幼主・name.posthumousName=null・name.templeName=null・reigns startYear=577／endYear=577）を原文と照合したが食い違いは無い。即位は隆化二年春正月乙亥に承光へ改元した条で577年、同年のうちに禅位して亡国している。",
