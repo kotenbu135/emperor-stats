@@ -63,6 +63,27 @@
       "file": "china-history/汉书/纪/第九章-宣帝纪-原文.html",
       "line": 23,
       "quote": "孝宣皇帝，武帝曾孙，戾太子孙也。"
+    },
+    {
+      "cid": "zi8-c1",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 4144,
+      "quote": "李夫人生昌邑哀王髆"
+    },
+    {
+      "cid": "zi8-c2",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 4144,
+      "quote": "严延年字长孙，女罗紨，前为故王妻"
+    },
+    {
+      "cid": "zi8-p1",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 4305,
+      "quote": "自名曰骜，字太孙，常置左右"
     }
   ],
   "findings": [
@@ -175,10 +196,26 @@
       ],
       "confidence": "high",
       "note": "欄への投入対象外だが原文で確認できたので残す。宣帝 元康三年の詔「其封故昌邑王贺为海昏侯，食邑四千户」で列侯に封じられ、以後は「海昏侯贺」と呼ばれる。廃位前の位号は「昌邑王」"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi8-c1",
+        "zi8-c2",
+        "zi8-p1"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "贺字",
+        "贺，字"
+      ],
+      "note": "**この書はこの人物の字を載せない**。廃位された昌邑王なので帝紀が立たず、**本人の条は漢書 卷六十三 武五子傳**（L4144・8,125字）にある。(1) その条を通しで読むと「字」は1回だけで、それは張敞の上奏に引かれた別人「严延年字长孙」（zi8-c2）、(2) 漢書1冊を諱「贺」で走査した241回のうち隣接形は3件で、公孙贺・梁丘贺・王翁孺（元后の祖父）といずれも別人だった。**陽性対照は同じ漢書が同じ政権の皇帝に紀の外で字を書くこと**（元后傳 L4305 の成帝＝zi8-p1）（2026-08-16・字ブロック8）"
     }
   ],
   "conflicts": [],
   "noteLog": "既存レコードの4欄（personalName=賀／posthumousName=null／templeName=null／aliases=[海昏侯]）はいずれも原文の読解と一致したため、捨てた値は無い。posthumousNameFull・posthumousNames は今回 read-absent として確定させた（従来は未読と区別が付かなかった）。読解の範囲: 漢書 武五子伝（全文）・霍光伝の廃立条・宣帝紀の該当条。_corpus_cache/han-liuhe.txt は180バイトの断片（宣帝紀からの切り出し）なので、SOURCE_MAPPING.md の指示どおり列伝へ回った。",
-  "discrepancies": "なし（既存の構造フィールドと原文の食い違いは無い。personalName「賀」は武五子伝・霍光伝と一致、posthumousName・templeName の null は原文の読解と一致、reigns の startYear/endYear = -74/-74 は「元平元年四月，昭帝崩…六月丙寅，王受皇帝玺、绶」「即位二十七日」＝紀元前74年内に収まる在位と一致）",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 漢書の政権慣行（posthumousName の索引欠落）1件（未走査 前漢14人ぶんの引き直し）— `check_regime_conventions.py --for han-liuhe --field posthumousName` は「未確定」1行で終わるが、実際の慣行は posthumousNameFull の記録の「保存形」行に書かれており（短縮呼称は漢書の冒頭からは決まらない・位号の3人は読んだうえで空）、フィールド索引に posthumousName が張られていないだけ。指示どおり blocked を返すと、慣行が確定している人物の作業が止まる。regime-conventions.json の covers に posthumousName を足すか、--field が空振りしたとき同じ政権の他フィールドの記録を併記して出すとよい。"
 }
