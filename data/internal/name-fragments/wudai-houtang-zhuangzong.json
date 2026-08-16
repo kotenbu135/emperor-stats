@@ -28,6 +28,27 @@
       "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
       "line": 1,
       "quote": "庄宗光圣神闵孝皇帝，讳存勖，武皇帝之长子也。"
+    },
+    {
+      "cid": "yo4-c1",
+      "book": "新五代史",
+      "file": "daizhigev20/史藏/正史/新五代史.txt",
+      "line": 933,
+      "quote": "其小字亚子，当时人或谓之亚次"
+    },
+    {
+      "cid": "yo4-c2",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+      "line": 1,
+      "quote": "庄宗光圣神闵孝皇帝，讳存勖，武皇帝之长子也。母曰"
+    },
+    {
+      "cid": "p1",
+      "book": "舊五代史",
+      "file": "daizhigev20/史藏/正史/旧五代史.txt",
+      "line": 1050,
+      "quote": "讳从厚，小字菩萨奴"
     }
   ],
   "findings": [
@@ -83,6 +104,17 @@
       ],
       "confidence": "high",
       "note": "舊五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": "亜子",
+      "basis": [
+        "yo4-c1",
+        "yo4-c2",
+        "p1"
+      ],
+      "confidence": "high",
+      "note": "新五代史 卷37 伶官傳（新五代史.txt L933）が「其小字亚子，当时人或谓之亚次」と明示する。**舊五代史の荘宗紀（本人のキャッシュ）は小字を書かない**ので、値は書の外に在る（ゲートCは免除で受ける）。舊五代史も同じ書式を持たないわけではなく、閔帝には冒頭1行に「讳从厚，小字菩萨奴」を置く。**「亜次」は当時の人の呼び方**なので欄には採らない（2026-08-16・幼名ブロック3）"
     }
   ],
   "discrepancies": "なし"

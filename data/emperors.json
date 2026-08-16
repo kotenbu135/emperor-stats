@@ -75163,7 +75163,8 @@
       "form": "光聖神閔孝皇帝",
       "year": 926
      }
-    ]
+    ],
+    "childhoodName": "亜子"
    },
    "eraId": "five-dynasties",
    "regimeId": "later-tang",
@@ -79718,7 +79719,8 @@
      {
       "form": "殤"
      }
-    ]
+    ],
+    "childhoodName": "寿"
    },
    "eraId": "five-dynasties",
    "regimeId": "southern-han",
@@ -79930,7 +79932,8 @@
      {
       "form": "文武光聖明孝皇帝"
      }
-    ]
+    ],
+    "childhoodName": "俊"
    },
    "eraId": "five-dynasties",
    "regimeId": "southern-han",

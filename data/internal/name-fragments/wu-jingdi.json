@@ -112,6 +112,27 @@
       "file": "_corpus_cache/wu-jingdi.txt",
       "line": 10,
       "quote": "谥曰景皇帝"
+    },
+    {
+      "cid": "yo4-c1",
+      "book": "三國志",
+      "file": "_corpus_cache/wu-jingdi.txt",
+      "line": 1,
+      "quote": "孙休字子烈，权第六子。年十三，从中书郎射慈、郎中盛冲"
+    },
+    {
+      "cid": "p1",
+      "book": "三國志",
+      "file": "daizhigev20/史藏/正史/三国志.txt",
+      "line": 301,
+      "quote": "太祖一名吉利小字阿瞒"
+    },
+    {
+      "cid": "p2",
+      "book": "三國志",
+      "file": "daizhigev20/史藏/正史/三国志.txt",
+      "line": 1556,
+      "quote": "楚王小字朱虎"
     }
   ],
   "findings": [
@@ -192,9 +213,29 @@
         "吴景帝"
       ],
       "sweptScope": "china-history/三国志/吴书 の原文HTML 20篇（全篇）／daizhigev20/史藏/正史/三国志.txt 全篇（裴松之注込み・四庫本）／daizhigev20/史藏/正史/晋书.txt（孙休・吴景帝の語のみ）。走査は scripts/hanzi_norm.py の norm_for_match を掛けた本文と検索語で照合。三國志には志（礼志・楽志）が無いのでその枝は構造上該当なし。魏書・蜀書は未走査。"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo4-c1",
+        "p1",
+        "p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**三國志はこの人物の幼名を書かない**。(1) 三國志1冊（3,358行）を6語で悉皆走査し11件を1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は2つとも曹氏** — 武帝紀の裴松之注が曹操に「太祖一名吉利小字阿瞒」、王淩傳が楚王 曹彪に「楚王小字朱虎」を書く。**三國志は本文の冒頭定型に小字の位置を持たない書**（冒頭は「〈諡〉皇帝讳〈諱〉，字〈字〉，〈続柄〉」で閉じる）で、小字が立つのは裴注と本文中の説明の側。帝室にも立つことはこの2件で確かめられるので、沈黙はこの人物についての所見になる（2026-08-16・幼名ブロック3）"
     }
   ],
-  "discrepancies": "なし（照合した構造フィールド: name.personalName=休・name.posthumousName=景帝・name.templeName=null・name.posthumousNames=[{景皇帝,264}]・reigns 258〜264 と永安元年＝魏甘露三年〔258〕・永安七年〔264〕の記事。いずれも原文と食い違わない）。name.posthumousNameFull は既存レコードに欄が無いだけで、値の食い違いではない。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "既存の構造フィールド（posthumousNames = [{景皇帝, 264}]・templeName = null・personalName = 休・posthumousName = 景帝）は原文の読解と一致したため、捨てた値は無い。posthumousNameFull は既存レコードに欄そのものが無く（未転記）、今回は pending として値を入れないと判断した。引用は底本の字体のまま（china-history は簡体・daizhigev20 の三国志は注入りの四庫本で異体字を含む）、findings の値は新字体へ揃えたが、休・景帝・景皇帝はいずれも両者で同形なので実質の変換は発生していない。",
   "processSuggestion": "regime-conventions の三國志・蜀漢/孫呉の templeName+posthumousName レコード（verdict: no-form・personScope: per-person）には storageForm の行が無く、同じ書の posthumousNameFull レコードだけが storageForm を持つ。人物単位の作業者は短縮呼称の保存規約を、その政権を覆っていない曹魏レコードから推測することになるので、no-form のレコードにも保存形の1行（短縮呼称は書が地の文で末字＋帝を使うか／引用文書内の呼称をどう扱うか）を足したい。残量表 三國志 posthumousNameFull 11件（未読 10）。"

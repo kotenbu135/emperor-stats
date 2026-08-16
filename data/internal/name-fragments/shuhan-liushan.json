@@ -63,6 +63,27 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 7554,
       "quote": "且可称汉追尊后主以怀人望"
+    },
+    {
+      "cid": "yo4-c1",
+      "book": "三國志",
+      "file": "_corpus_cache/shuhan-liushan.txt",
+      "line": 1,
+      "quote": "后主讳禅，字公嗣，先主子也。建安二十四年，先主为汉中"
+    },
+    {
+      "cid": "p1",
+      "book": "三國志",
+      "file": "daizhigev20/史藏/正史/三国志.txt",
+      "line": 301,
+      "quote": "太祖一名吉利小字阿瞒"
+    },
+    {
+      "cid": "p2",
+      "book": "三國志",
+      "file": "daizhigev20/史藏/正史/三国志.txt",
+      "line": 1556,
+      "quote": "楚王小字朱虎"
     }
   ],
   "findings": [
@@ -150,9 +171,29 @@
       ],
       "confidence": "high",
       "note": "欄への投入対象外だが原文に出たので残す。三國志 蜀書は位号「后主」で立て（c1）、魏の策命で「安乐县公」＝略して「安乐公」に封ぜられる（c5・c6）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo4-c1",
+        "p1",
+        "p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**三國志はこの人物の幼名を書かない**。(1) 三國志1冊（3,358行）を6語で悉皆走査し11件を1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は2つとも曹氏** — 武帝紀の裴松之注が曹操に「太祖一名吉利小字阿瞒」、王淩傳が楚王 曹彪に「楚王小字朱虎」を書く。**三國志は本文の冒頭定型に小字の位置を持たない書**（冒頭は「〈諡〉皇帝讳〈諱〉，字〈字〉，〈続柄〉」で閉じる）で、小字が立つのは裴注と本文中の説明の側。帝室にも立つことはこの2件で確かめられるので、沈黙はこの人物についての所見になる（2026-08-16・幼名ブロック3）"
     }
   ],
-  "discrepancies": "なし。既存の構造フィールドと原文の食い違いは検出されなかった — name.personalName「禅」は c1「后主讳禅字公嗣」と一致、name.templeName の null は閉域4軸の走査結果（read-absent）と一致、name.posthumousName「懐帝」は c4「孝怀皇帝」の短縮形として整合、reigns 223〜263 も蜀書 後主傳の「三年夏四月，先主殂于永安宫。五月，后主袭位於成都」（章武三年＝223年）と炎興元年の降伏条（263年）に整合する。posthumousNameFull・posthumousNames は現行レコードに欄が無いため食い違いではなく追加提案。",
+  "discrepancies": "なし",
   "conflicts": [
     {
       "field": "name.posthumousName",
