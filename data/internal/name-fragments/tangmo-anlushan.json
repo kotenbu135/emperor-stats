@@ -84,6 +84,41 @@
       "file": "_corpus_cache/tangmo-anlushan.txt",
       "line": 1,
       "quote": "安禄山，营州柳城杂种胡人也，本无姓氏，名轧荦山。"
+    },
+    {
+      "cid": "yo5-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tangmo-anlushan.txt",
+      "line": 1,
+      "quote": "安禄山，营州柳城杂种胡人也，本无姓氏，名轧荦山。母阿史德氏，"
+    },
+    {
+      "cid": "p1",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 17369,
+      "quote": "阿浩，乾真小字也"
+    },
+    {
+      "cid": "p2",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10278,
+      "quote": "隐太子建成小字毘沙门"
+    },
+    {
+      "cid": "p3",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10361,
+      "quote": "雉奴，高宗小字"
+    },
+    {
+      "cid": "p4",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 11524,
+      "quote": "哥奴，林甫小字"
     }
   ],
   "findings": [
@@ -226,9 +261,31 @@
       ],
       "confidence": "high",
       "note": "舊唐書 列傳は「李轨，字处则」のように冒頭で字の位置を使うが、この条は姓名の次に籍貫・続柄が来て字が入らない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo5-c1",
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**両唐書ともこの人物の幼名を書かない**。(1) 舊唐書1冊（17,444行）で9行、新唐書1冊で11行を6語で悉皆走査し1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は3つの層に立つ** — 逆臣傳の側では舊唐書の安禄山の条そのものが「阿浩，乾真小字也」と部将の小字を注し、唐の帝室では新唐書 諸子傳が「隐太子建成小字毘沙门」・「雉奴，高宗小字」と書き、臣下では「哥奴，林甫小字」がある。**両唐書とも本紀の冒頭定型には小字の位置が無い**（「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」）（2026-08-16・幼名ブロック4）"
     }
   ],
-  "discrepancies": "なし。既存レコードの構造フィールド（reigns 756-757・regimeId anshi-yan）と原文の間に食い違いは無く、name.templeName・name.posthumousName が null であることも本調査の判定（templeName は不在確定・posthumousName は判断待ち）と整合する。",
+  "discrepancies": "なし",
   "conflicts": [
     {
       "field": "name.posthumousName",

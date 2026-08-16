@@ -14,6 +14,34 @@
       "file": "_corpus_cache/wuzhou-wusangui.txt",
       "line": 3,
       "quote": "吴三桂，字长伯，江南高邮人，籍辽东"
+    },
+    {
+      "cid": "yo5-c1",
+      "book": "清史稿",
+      "file": "_corpus_cache/wuzhou-wusangui.txt",
+      "line": 3,
+      "quote": "吴三桂，字长伯，江南高邮人，籍辽东。父襄，明崇祯初官锦州总兵"
+    },
+    {
+      "cid": "p1",
+      "book": "清史稿",
+      "file": "daizhigev20/史藏/正史/清史稿.txt",
+      "line": 26059,
+      "quote": "李芳巇，小字葵生"
+    },
+    {
+      "cid": "p2",
+      "book": "清史稿",
+      "file": "daizhigev20/史藏/正史/清史稿.txt",
+      "line": 25575,
+      "quote": "张士义，乳名鸦头"
+    },
+    {
+      "cid": "p3",
+      "book": "清史稿",
+      "file": "daizhigev20/史藏/正史/清史稿.txt",
+      "line": 26216,
+      "quote": "忽有老妇呼其小字曰"
     }
   ],
   "findings": [
@@ -56,6 +84,27 @@
       ],
       "confidence": "high",
       "note": "清史稿1冊の走査（sweep_posthumous_range.py・2026-08-10）で本紀の外の候補33件を見たが、帝の諡は太祖・世祖の初諡と明 崇禎帝への追諡の3件だけ。本人の伝にも「谥」は0出現。"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo5-c1",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**清史稿はこの人物の幼名を書かない**。(1) 清史稿1冊（29,068行）を6語で悉皆走査して8行を1件ずつ帰属させた。(2) **本人の傳まるごと**（`_corpus_cache/<id>.txt` の列傳二百六十一）を通しで読み、小字の位置が無い。**陽性対照は漢人の列傳に立つ** — 李芳巇「小字葵生」・張士義「乳名鸦头」・遺民の元辰を「忽有老妇呼其小字曰」と呼ぶ条。**この人物は満洲の帝室ではなく漢人の列傳（逆臣伝）に立つ**ので、同じ層に対照がそろう（清の皇帝11人が `pending` のままなのとは別）（2026-08-16・幼名ブロック4）"
     }
   ],
   "noteLog": "2026-08-11 の検証段で `templeName` の read-absent を足した。清史稿の慣行レコードは templeName も対象に挙げているのに台帳には posthumousName 系の2件しか無く、**`commonName` に廟号形を含む人物が「未判定」のまま残っていた**（値は空で正しく、欠けていたのは記録）。",

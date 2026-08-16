@@ -99,6 +99,41 @@
       "file": "_corpus_cache/suimo-liangshidu.txt",
       "line": 1,
       "quote": "梁师都，夏州朔方人也。"
+    },
+    {
+      "cid": "yo5-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-liangshidu.txt",
+      "line": 1,
+      "quote": "梁师都，夏州朔方人也。代为本郡豪族，仕隋鹰扬郎将。大业末，罢"
+    },
+    {
+      "cid": "p1",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 17369,
+      "quote": "阿浩，乾真小字也"
+    },
+    {
+      "cid": "p2",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10278,
+      "quote": "隐太子建成小字毘沙门"
+    },
+    {
+      "cid": "p3",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10361,
+      "quote": "雉奴，高宗小字"
+    },
+    {
+      "cid": "p4",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 11524,
+      "quote": "哥奴，林甫小字"
     }
   ],
   "findings": [
@@ -262,9 +297,31 @@
       ],
       "confidence": "high",
       "note": "舊唐書 列傳は「李轨，字处则」のように冒頭で字の位置を使うが、この条は姓名の次に籍貫・続柄が来て字が入らない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo5-c1",
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**両唐書ともこの人物の幼名を書かない**。(1) 舊唐書1冊（17,444行）で9行、新唐書1冊で11行を6語で悉皆走査し1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は3つの層に立つ** — 逆臣傳の側では舊唐書の安禄山の条そのものが「阿浩，乾真小字也」と部将の小字を注し、唐の帝室では新唐書 諸子傳が「隐太子建成小字毘沙门」・「雉奴，高宗小字」と書き、臣下では「哥奴，林甫小字」がある。**両唐書とも本紀の冒頭定型には小字の位置が無い**（「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」）（2026-08-16・幼名ブロック4）"
     }
   ],
-  "discrepancies": "なし。既存レコードの構造フィールドと照合した: name.personalName=\"師都\"・name.familyName=\"梁\" は原文の伝首と一致、name.templeName=null・name.posthumousName=null は原文の読解（read-absent）と一致。name.posthumousNameFull はレコードにキー自体が存在しないので一致・不一致の対象にならない。reigns の startYear=617／endYear=628 は、終年が「贞观二年」（628年）の敗死と一致し、始年は原文が「大业末」としか書かないため直接の記載は無いが「师都自起至灭，凡十二岁」（628年から数え12年で617年）と整合するので食い違いではない。name.aliases=[] に対し原文には称号2件があるが、これは列挙の欠落であって数値・日付・enum の食い違いではないため discrepancy には数えない。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "本人のキャッシュ（_corpus_cache/suimo-liangshidu.txt・china-history の HTML 由来）は行内に空白が入り「刘ＧＣ成」のような PUA 破損もあるため、引用は daizhigev20 の1冊版 旧唐书.txt から /usr/bin/grep -n -o の出力で採った。china-history 側のファイル名は「第六章-卷六」だが列傳の相対巻数で、絶対巻は五十六（daizhi 側の見出し「列传第六」が 9825 行目に立つことで確認）。",
   "processSuggestion": "残量表 舊唐書 列傳の僭偽政権主 aliases 未投入（突厥授与号・自称号）1件（未走査）。check_screenings の zong-token バケットは kind=read だが、拾った2語が当人のものか他帝のものかは出力に出ないので、所在（行・語）まで出せば読み手が同じ走査を繰り返さずに済む。"

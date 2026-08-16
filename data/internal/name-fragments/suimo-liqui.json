@@ -77,6 +77,41 @@
       "file": "_corpus_cache/suimo-liqui.txt",
       "line": 1,
       "quote": "轨自称河西大凉王，建元安乐"
+    },
+    {
+      "cid": "yo5-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-liqui.txt",
+      "line": 1,
+      "quote": "李轨，字处则，武威姑臧人也。有机辩，颇窥书籍，家富于财，赈穷"
+    },
+    {
+      "cid": "p1",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 17369,
+      "quote": "阿浩，乾真小字也"
+    },
+    {
+      "cid": "p2",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10278,
+      "quote": "隐太子建成小字毘沙门"
+    },
+    {
+      "cid": "p3",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10361,
+      "quote": "雉奴，高宗小字"
+    },
+    {
+      "cid": "p4",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 11524,
+      "quote": "哥奴，林甫小字"
     }
   ],
   "findings": [
@@ -232,9 +267,31 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。**自称の号は在るが諡が無い** — 「大涼皇帝」は自称（慣行レコードが `no-form` の根拠に挙げた形）で、長安へ送られて斬られたあとの授与の条が無い／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo5-c1",
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**両唐書ともこの人物の幼名を書かない**。(1) 舊唐書1冊（17,444行）で9行、新唐書1冊で11行を6語で悉皆走査し1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は3つの層に立つ** — 逆臣傳の側では舊唐書の安禄山の条そのものが「阿浩，乾真小字也」と部将の小字を注し、唐の帝室では新唐書 諸子傳が「隐太子建成小字毘沙门」・「雉奴，高宗小字」と書き、臣下では「哥奴，林甫小字」がある。**両唐書とも本紀の冒頭定型には小字の位置が無い**（「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」）（2026-08-16・幼名ブロック4）"
     }
   ],
-  "discrepancies": "なし。既存の構造フィールド（name.familyName=李・name.personalName=軌・name.courtesyName=処則・name.templeName=null・name.posthumousName=null・reigns 618〜619）はいずれも原文と一致する（僭称尊号が武徳元年冬＝618・伏誅が武徳二年＝619）。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "本人の自称位号として「自称河西大凉王，建元安乐」（舊唐書 卷五十五）と「表称皇从弟大凉皇帝臣轨」（同）が在るが、いずれも生前の自称で諡・廟号ではないので名前欄には入れない。舊唐書 高祖本紀 武徳二年四月の同じ条には「酅国公薨，追崇为隋帝，谥曰恭」が並ぶが、これは隋 恭帝侑への追諡で李軌のものではない（同一行に諡の語が出るため取り違えに注意）。値は新字体へ、引用は底本の簡体のまま保存した。",
   "processSuggestion": "残量表 舊唐書 列傳（隋末唐初群雄）の posthumousNameFull 慣行 20件（未走査 20） — regime-conventions.json の liguigui-liang には templeName・posthumousName・posthumousNames の行は在るが posthumousNameFull の行が無く、--field posthumousNameFull がエラーで止まる。同じ所在型（舊唐書 列傳）の他の群雄でも同じ位置で止まるはず。"

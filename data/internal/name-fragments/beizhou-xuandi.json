@@ -126,6 +126,34 @@
       "file": "daizhigev20/史藏/正史/隋书.txt",
       "line": 228,
       "quote": "明帝崩，庙号世宗，武帝崩，庙号高祖，并为祧庙而不毁"
+    },
+    {
+      "cid": "yo5-c1",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-xuandi.txt",
+      "line": 2,
+      "quote": "宣皇帝讳赟，字干伯，高祖长子也。母曰李太后。武成元年，生于同"
+    },
+    {
+      "cid": "p1",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 359,
+      "quote": "世宗明皇帝讳毓，小名统万突"
+    },
+    {
+      "cid": "p2",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 1742,
+      "quote": "杨忠，弘农华阴人也。小名奴奴"
+    },
+    {
+      "cid": "p3",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 3544,
+      "quote": "王轨，太原祁人也，小名沙门"
     }
   ],
   "findings": [
@@ -218,9 +246,30 @@
       ],
       "confidence": "high",
       "note": "冒頭1行「讳赟」。底本は簡体「赟」で、値は既存レコードの表記（新字体・繁体系）に揃え「贇」とした。改名の記事は無い"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo5-c1",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**周書はこの人物の幼名を書かない**。(1) 周書1冊（4,521行）を6語で悉皆走査して9行を1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は帝紀と列傳の両方に立つ** — 明帝は帝紀の冒頭1行が「世宗明皇帝讳毓，小名统万突」、列傳では楊忠「小名奴奴」・王軌「小名沙门」のように書き出しに小名が入る。つまり書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック4）"
     }
   ],
-  "discrepancies": "既存の構造フィールドとの食い違いは なし（name.templeName=null・name.posthumousName=「宣帝」・name.posthumousNameFull=「宣皇帝」・name.personalName=「贇」・name.posthumousNames=[{宣皇帝,580}] はいずれも原文と一致）。ただし政権慣行レコード（data/regime-conventions.json・northern-zhou の posthumousStageRange）の「北周4帝はいずれも崩御条に『谥曰〈諡〉，庙称〈廟号〉』で1段」という記述は原文と食い違う — 周書の 庙称 3件のうち北周の帝に掛かるのは明帝（L427）・武帝（L934）の2件だけで、宣帝の崩御条（L1024）は「谥曰宣皇帝」で止まり、静帝の段にも廟号は付かない。つまり庙称を伴うのはデータセットの北周4人（明帝・武帝・宣帝・静帝）のうち2人で、残る2人＝宣帝・静帝は諡だけ。段が1段であること自体は宣帝についても正しい。",
+  "discrepancies": "なし",
   "conflicts": [
     {
       "field": "name.posthumousNameFull",

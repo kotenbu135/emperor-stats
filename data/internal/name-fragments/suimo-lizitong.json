@@ -84,6 +84,41 @@
       "file": "_corpus_cache/suimo-lizitong.txt",
       "line": 1,
       "quote": "李子通，东海丞人也。"
+    },
+    {
+      "cid": "yo5-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-lizitong.txt",
+      "line": 1,
+      "quote": "李子通，东海丞人也。少贫贱，以鱼猎为事。居乡里，见班白提挈者"
+    },
+    {
+      "cid": "p1",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 17369,
+      "quote": "阿浩，乾真小字也"
+    },
+    {
+      "cid": "p2",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10278,
+      "quote": "隐太子建成小字毘沙门"
+    },
+    {
+      "cid": "p3",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10361,
+      "quote": "雉奴，高宗小字"
+    },
+    {
+      "cid": "p4",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 11524,
+      "quote": "哥奴，林甫小字"
     }
   ],
   "findings": [
@@ -315,9 +350,31 @@
       ],
       "confidence": "high",
       "note": "舊唐書 列傳は「李轨，字处则」のように冒頭で字の位置を使うが、この条は姓名の次に籍貫・続柄が来て字が入らない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo5-c1",
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**両唐書ともこの人物の幼名を書かない**。(1) 舊唐書1冊（17,444行）で9行、新唐書1冊で11行を6語で悉皆走査し1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は3つの層に立つ** — 逆臣傳の側では舊唐書の安禄山の条そのものが「阿浩，乾真小字也」と部将の小字を注し、唐の帝室では新唐書 諸子傳が「隐太子建成小字毘沙门」・「雉奴，高宗小字」と書き、臣下では「哥奴，林甫小字」がある。**両唐書とも本紀の冒頭定型には小字の位置が無い**（「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」）（2026-08-16・幼名ブロック4）"
     }
   ],
-  "discrepancies": "なし。既存の構造フィールド（name.familyName=李・name.personalName=子通・name.commonName=李子通・name.posthumousName=null・name.templeName=null・name.regnalTitle=皇帝・regimeId=suimo-wu）はいずれも原文と食い違わない。reigns[0].startYear=619 は高祖本紀 武德二年九月辛未の「僭称天子，国号吴」（c6）と整合する。endYear=622 は列傳・本紀のこの2条からは年が読めず（列傳は年を書かない）、否定も肯定もしていない＝食い違いではなく未照合。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "本貫の表記は舊唐書「东海丞人也」と新唐書「沂州承人」で割れるが、名前欄の判定には掛からないので conflicts に立てていない。引用は底本（daizhigev20 の簡体）の字体のまま保存し、findings の値は既存レコードの表記（李・子通）に揃えた（この2字は簡体・新字体で差が出ない）。",
   "processSuggestion": "同じ書・同じ所在型なのに `--field posthumousName` は no-form を返し `--field posthumousNameFull` は「慣行が未確定」で止まる（suimo-wu）。慣行レコードの項目名リストに posthumousNameFull を含めるか、諡系3欄を1レコードで覆う別名を張ると、値が無い人物で判断が割れなくなる。残量表 舊唐書 列傳型政権の posthumousNameFull 慣行未登録 1政権（suimo-wu・他政権は未走査）"

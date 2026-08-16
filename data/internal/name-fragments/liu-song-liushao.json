@@ -84,6 +84,34 @@
       "file": "daizhigev20/史藏/正史/宋书.txt",
       "line": 7251,
       "quote": "改元嘉三十年为太初元年"
+    },
+    {
+      "cid": "yo5-c1",
+      "book": "宋書",
+      "file": "daizhigev20/史藏/正史/宋书.txt",
+      "line": 107,
+      "quote": "高祖武皇帝讳裕，字德舆，小名寄奴"
+    },
+    {
+      "cid": "p1",
+      "book": "宋書",
+      "file": "daizhigev20/史藏/正史/宋书.txt",
+      "line": 7266,
+      "quote": "浚小名虎头"
+    },
+    {
+      "cid": "p2",
+      "book": "宋書",
+      "file": "daizhigev20/史藏/正史/宋书.txt",
+      "line": 217,
+      "quote": "少帝讳义符，小字车兵"
+    },
+    {
+      "cid": "p3",
+      "book": "宋書",
+      "file": "daizhigev20/史藏/正史/宋书.txt",
+      "line": 273,
+      "quote": "前废帝讳子业，小字法师"
     }
   ],
   "findings": [
@@ -263,9 +291,30 @@
         "宋書 全書: 「劭」を含む全90行と上記語彙の積（全文の悉皆走査ではない）",
         "南史 卷14 の元凶劭伝: daizhigev20/史藏/正史/南史.txt 1688-1710（次条は 1711「南平穆王铄」・正規化して全行走査）"
       ]
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo5-c1",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**宋書はこの人物の幼名を書かない**。(1) 宋書1冊（7,320行）を6語で悉皆走査して34行を1件ずつ帰属させた。(2) **本人の傳まるごと**（`_corpus_cache/liu-song-liushao.txt` 28行＝卷99 二凶）を通しで読んだ。**陽性対照は同じ傳の中に在る** — 同じ二凶の始興王 濬に「浚小名虎头」と書き、劭には書かない。宋書は帝紀の冒頭定型にも小字を置く書（武帝「小名寄奴」・少帝「小字车兵」・前廃帝「小字法师」など9帝）なので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック4）"
     }
   ],
-  "discrepancies": "なし。照合した構造フィールド: name.personalName「劭」＝原文 c1 と一致／name.courtesyName「休遠」＝原文「字休远」の新字体で一致／name.commonName「元凶劭」＝原文 c1 の立て方と一致／name.posthumousName・name.templeName ＝ ともに null で原文の読解結果と一致／reigns[0] startYear 453・endYear 453 ＝ c9「改元嘉三十年为太初元年」（元嘉30年＝453）に即位し、同年5月に斬られる（c4）ので一致。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "南史 c8 は同じ条の被授与者を「文帝」、宋書 c3 は「太祖」と書く（同一人物の別呼称）。いずれも劭の諡ではないので findings には落とさない。当初 name.posthumousNames を空配列で返すことを検討したが、空配列は verdict を持てず不在確定に数えられないため null + read-absent へ変えた。",
   "processSuggestion": "残量表 宋書 posthumousNames の他人物段 1件（未読 1）— 宋書 卷99 の「上谥曰中宗景皇帝」は文帝（liu-song-wendi）の初諡で、同じ底本にある段の候補だが担当外（劉宋の他8人は未走査）。あわせて check_verification.py --for liu-song-liushao の根拠行が「宋書 本紀 — china-history/宋书/本纪」を挙げるが、この人物は本紀に立たず列傳 卷99（二凶伝）にしか無い。政権単位の根拠行が人物単位の例外を写していないので、tier の根拠に例外の所在を差し込めると読み違えが減る。"

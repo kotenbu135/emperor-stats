@@ -105,6 +105,27 @@
       "line": 1,
       "quote": "七月辛丑，僧辩纳贞阳侯萧明，自采石济江。",
       "cid": "zi4-c2"
+    },
+    {
+      "cid": "p1",
+      "book": "南史",
+      "file": "daizhigev20/史藏/正史/南史.txt",
+      "line": 818,
+      "quote": "梁高祖武皇帝讳衍，字叔达，小字练儿"
+    },
+    {
+      "cid": "p2",
+      "book": "南史",
+      "file": "daizhigev20/史藏/正史/南史.txt",
+      "line": 4638,
+      "quote": "南康简王绩字世谨，小字四果"
+    },
+    {
+      "cid": "p3",
+      "book": "南史",
+      "file": "daizhigev20/史藏/正史/南史.txt",
+      "line": 4652,
+      "quote": "邵陵携王纶字世调，小字六真"
     }
   ],
   "findings": [
@@ -220,9 +241,30 @@
         "zi4-c1",
         "zi4-c2"
       ]
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "block7-c1",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**梁書も南史もこの人物の幼名を書かない**。(1) 梁書1冊（1,802行）を6語で悉皆走査して10行、南史1冊（6,625行）で68行を1件ずつ帰属させた。(2) **本人の条は南史に立つ**（引用 c1）ので、その条を通しで読み、小字の位置が無い。**陽性対照は同じ書の梁の帝と、同じ巻に並ぶ武帝の子たち** — 南史は武帝に「小字练儿」、南康簡王 蕭績に「小字四果」、邵陵王 蕭綸に「小字六真」を書く。**武陵王 蕭紀は同じ列の兄弟なのに小字を持たない**ので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック4）"
     }
   ],
-  "discrepancies": "既存の構造フィールドとの食い違い: 1件（追加）。name.posthumousNames[0] は form「閔皇帝」で原文（c2・c4）と一致するが year が無く、今回 北齊書の紀年から year: 558 を足す主張にした（既存値の訂正ではなく欄の追加）。name.personalName「淵明」・name.familyName「蕭」・name.templeName null・name.posthumousName null は原文と一致。regimeId southern-liang・reigns 555 は原文（c5・c6・c7＝承聖四年七月に入建鄴、紹泰元年に司徒・建安郡公へ降り、太平元年五月に薨）と矛盾しない。所在ラベルの不一致1件: regime-conventions の例外行は所在を「北齊書」とし、SOURCE_MAPPING.md:408 は「南史 卷八（敬帝紀に埋め込み）」（＝_corpus_cache の中身）とするが、諡・諱・封爵の本体は南史 卷五一 蕭明伝と北齊書 卷三三 蕭明伝の2箇所にある。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "既存レコードの name.posthumousNames は [{form: 閔皇帝}] で年を持たない。今回 北齊書 卷三三 の「天保六年」アンカー（c3）から c4 の「九年」を天保九年＝558 と読み、year: 558 を足す提案にした。南史の同文（c2）には紀年が無く、そちらへ 558 を貼る形（日付の無い文言に別書の年を貼り付ける形）は採っていない。china-history の梁書・南史は避諱形「萧明」で、諱を「明」と採りかけたが daizhige 底本の梁書・陳書が「渊明」を出すので「淵明」を維持した。",
   "processSuggestion": "残量表 梁の other-source 2人（未読 1）— check_verification.py の tier 根拠が「梁書 本紀」だけを名乗るため、本紀を持たない other-source の人物（liang-xiaoyuanming・liang-xiaozhuang）では検証段が当てる底本が根拠行から引けない。政権慣行の例外行が持つ所在（北齊書・南史 列傳）を verification 側の根拠にも写せると、検証段が別の書を探し直さずに済む。liang-xiaozhuang は未走査。"

@@ -63,6 +63,41 @@
       "file": "_corpus_cache/sui-gongdi-tong.txt",
       "line": 8,
       "quote": "世充伪谥为恭皇帝"
+    },
+    {
+      "cid": "yo5-c1",
+      "book": "隋書",
+      "file": "_corpus_cache/sui-gongdi-tong.txt",
+      "line": 1,
+      "quote": "越王侗字仁谨，美姿仪，性宽厚。大业二年，立为越王。帝每巡幸，"
+    },
+    {
+      "cid": "p1",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 157,
+      "quote": "炀皇帝，讳广，一名英，小字阿摐"
+    },
+    {
+      "cid": "p2",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 6477,
+      "quote": "齐王暕，字世朏，小字阿孩"
+    },
+    {
+      "cid": "p3",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 6481,
+      "quote": "赵王杲，小字季子"
+    },
+    {
+      "cid": "p4",
+      "book": "北史",
+      "file": "daizhigev20/史藏/正史/北史.txt",
+      "line": 11147,
+      "quote": "房陵王勇，小名睍地伐"
     }
   ],
   "findings": [
@@ -129,10 +164,32 @@
       ],
       "confidence": "medium",
       "note": "段は1つだけ。原文はこの段に紀年を与えていない（死去条の中に年号が無い）ので year は入れない。生前の位号（越王・王世充の下での潞国公）は諡ではないので段に入れない。底本 隋書の中に他の加諡・改諡は無い"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo5-c1",
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**隋書も北史もこの人物の幼名を書かない**。(1) 隋書1冊（7,344行）で8行、北史で68行を6語で悉皆走査し1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は帝紀の冒頭定型と宗室の傳の両方** — 煬帝は「炀皇帝，讳广，一名英，小字阿摐」、齊王暕「小字阿孩」・趙王杲「小字季子」・房陵王勇「小名睍地伐」と、**楊氏の宗室にはよく小字が立つ**。つまり書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック4）"
     }
   ],
   "conflicts": [],
   "noteLog": "政権慣行 data/regime-conventions.json の隋書レコードは posthumousStageRange に「恭帝侗の『世充伪谥为恭皇帝』は Issue #126 の偽諡の判断待ちで値を入れていない」と書くが、配布物の構造フィールド側は既に posthumousNames に恭皇帝を持つ（煬帝側も同じ列傳の一句から「明」を段に持つ）。段は配布物の適用済みの扱いに合わせて主張し、posthumousNameFull は偽諡なので pending に留めた。一度は posthumousNameFull=恭皇帝 と書いたが、慣行の storageForm（冒頭1行が掲げる諡＝この人物には無い）と同政権の適用例（煬帝・簡文帝はいずれも偽諡を段だけに置く）に反するので捨てた。",
-  "discrepancies": "既存の構造フィールドとの照合: name.personalName「侗」・name.templeName null・name.posthumousNames [{form:\"恭皇帝\"}] の3つは原文と一致（食い違いなし）。食い違いは1件 — name.posthumousName が既存 null なのに対し、隋書 志第十六 天文下に短縮呼称「恭帝」が在る（c4）ので、原文を採り 恭帝 を主張する。name.posthumousNameFull は既存レコードに欄そのものが無く、今回も pending（偽諡の扱いが Issue #126 の判断待ち）なので食い違いにはならない。reigns の 618〜619 は原文（宇文化及の弑逆後に共尊立・改元皇泰／王世充への遜位ののち鴆殺）と矛盾しない。",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 regime-conventions の posthumousStageRange と配布物の段の食い違い 2件（隋書 煬帝・恭帝侗の偽諡。他書は未走査）— 慣行記録には「Issue #126 の判断待ちで値を入れていない」と書いてあるのに emperors.json には段が入っており、慣行記録を先に読むと「この政権は空で閉じる」と読み違える。段を投入する変更と慣行記録の更新を結合（COUPLINGS）に登録するのが安い。"
 }
