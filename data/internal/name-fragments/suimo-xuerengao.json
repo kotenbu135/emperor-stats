@@ -91,6 +91,34 @@
       "line": 1,
       "quote": "举死，仁杲立于折墌城，与诸将帅 素多有隙，及嗣位，众咸猜惧。",
       "cid": "zi4-c1"
+    },
+    {
+      "cid": "p1",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 17369,
+      "quote": "阿浩，乾真小字也"
+    },
+    {
+      "cid": "p2",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10278,
+      "quote": "隐太子建成小字毘沙门"
+    },
+    {
+      "cid": "p3",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10361,
+      "quote": "雉奴，高宗小字"
+    },
+    {
+      "cid": "p4",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 11524,
+      "quote": "哥奴，林甫小字"
     }
   ],
   "findings": [
@@ -228,9 +256,31 @@
       "basis": [
         "zi4-c1"
       ]
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1",
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**両唐書ともこの人物の幼名を書かない**。(1) 舊唐書1冊（17,444行）で9行、新唐書1冊で11行を6語で悉皆走査し1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は3つの層に立つ** — 逆臣傳の側では舊唐書の安禄山の条そのものが「阿浩，乾真小字也」と部将の小字を注し、唐の帝室では新唐書 諸子傳が「隐太子建成小字毘沙门」・「雉奴，高宗小字」と書き、臣下では「哥奴，林甫小字」がある。**両唐書とも本紀の冒頭定型には小字の位置が無い**（「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」）（2026-08-16・幼名ブロック4）"
     }
   ],
-  "discrepancies": "既存の構造フィールドとの食い違いはなし。`name.templeName: null`・`name.posthumousName: null`・`name.personalName: \"仁杲\"`・`name.familyName: \"薛\"` は原文と一致する。報告する事項が1つ: `check_regime_conventions.py --field posthumousNameFull` が政権 xiqin について慣行未確定を返す（templeName・posthumousName は no-form、personalName は form-found、posthumousNames は form-found で確定済み）。今回は原文に諡の形が0件で振り分けが発生しないため null で閉じたが、同政権で諡の形が見つかる人物が出た場合は先に慣行を確定する必要がある。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "aliases 欄は投入対象外だが、旧唐書は「军中号为万人敌」という軍中の呼び名を記す（c1）。号であって諡・廟号ではないので findings の名前欄には入れない。新唐書は同じ人物を「仁杲」と書き（daizhigev20 版）、字体差・別字（仁果）による表記ゆれはこの底本では出なかった。引用は底本（簡体）のまま保存し、findings の値はデータセットの表記（新字体）に揃えた。",
   "processSuggestion": "残量表 舊唐書列傳の群雄・他書に嗣立の条がある疑い 1件（未走査 19） — 薛仁杲は舊唐書が「举死，仁杲立于折墌城」「及嗣位」としか書かないのに対し、新唐書 卷八十六は「十三年，僭帝号于兰州，以妻鞠为后，仁杲为太子」と立太子を記す。名前欄の外（accessionRoute 系）の疑いで、同じ列傳の残り19人は未走査。"

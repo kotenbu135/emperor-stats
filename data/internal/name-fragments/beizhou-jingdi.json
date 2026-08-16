@@ -98,6 +98,34 @@
       "file": "_corpus_cache/beizhou-jingdi.txt",
       "line": 2,
       "quote": "静皇帝讳衍，后改为阐，宣帝长子也。"
+    },
+    {
+      "cid": "yo5-c1",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-jingdi.txt",
+      "line": 2,
+      "quote": "静皇帝讳衍，后改为阐，宣帝长子也。母曰朱皇后。建德二年六月，"
+    },
+    {
+      "cid": "p1",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 359,
+      "quote": "世宗明皇帝讳毓，小名统万突"
+    },
+    {
+      "cid": "p2",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 1742,
+      "quote": "杨忠，弘农华阴人也。小名奴奴"
+    },
+    {
+      "cid": "p3",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 3544,
+      "quote": "王轨，太原祁人也，小名沙门"
     }
   ],
   "findings": [
@@ -199,9 +227,30 @@
       ],
       "confidence": "high",
       "note": "周書 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo5-c1",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**周書はこの人物の幼名を書かない**。(1) 周書1冊（4,521行）を6語で悉皆走査して9行を1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は帝紀と列傳の両方に立つ** — 明帝は帝紀の冒頭1行が「世宗明皇帝讳毓，小名统万突」、列傳では楊忠「小名奴奴」・王軌「小名沙门」のように書き出しに小名が入る。つまり書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック4）"
     }
   ],
-  "discrepancies": "なし（既存の構造フィールド templeName=null・posthumousName「静帝」・posthumousNameFull「静皇帝」・personalName「闡」・posthumousNames[{静皇帝,581}]・reigns 579〜581 はいずれも原文と一致した。reigns は周書 大象元年二月の受禅と大定元年二月の逊位に対応する）。",
+  "discrepancies": "なし",
   "conflicts": [
     {
       "field": "name.posthumousNames",

@@ -6138,6 +6138,498 @@
       "exceptions": [],
       "surveyedAt": "2026-08-16",
       "note": "**2026-08-16 の幼名ブロック3で11人を人物単位に閉じた**。**陽性対照が帝室に立つ**（曹操・楚王曹彪）ので、明史・元史・清史稿のような「臣下にしか無い」形とは別で、沈黙が人物単位の所見になる"
+    },
+    {
+      "book": "北齊書",
+      "regimeIds": [
+        "northern-qi"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "北齊書 帝紀の冒頭1行には小字・小名の位置が無い。**立つのは列傳の書き出しと本文中の説明の側**（3,394行を6語で悉皆走査して15行）。帝室に掛かるのは童謡の注2件（北齐书.txt L622「盖指武成小字步落稽也」「道人，济南王小名」）と高浚伝の呼びかけ（L414）",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "帝紀の冒頭は「〈諡〉，讳〈諱〉，字〈字〉，〈続柄〉」で小字を挟まない。列傳の書き出しは「〈名〉，字〈字〉，小名〈小名〉」",
+      "variants": "同じ人物の小字を**北史のほうが冒頭定型に置く**ことがある（北史.txt L878「废帝殷，字正道，小名道人」）",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/北齐书.txt",
+          "line": 622,
+          "quote": "盖指武成小字步落稽也"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/北齐书.txt",
+          "line": 566,
+          "quote": "睿小名须拔"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/北史.txt",
+          "line": 878,
+          "quote": "废帝殷，字正道，小名道人"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック4で6人を人物単位に閉じた**。陽性対照はこの政権の帝（武成帝・廃帝）と宗室（高睿）"
+    },
+    {
+      "book": "南史",
+      "regimeIds": [
+        "southern-liang"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "南史 梁本紀 各帝の**冒頭1行**と、卷51〜53 梁宗室・武帝諸子の列傳の書き出し。梁書に紀・傳が立たない人物（廃帝 蕭棟・臨賀王 正徳・貞陽侯 淵明）の条はこちらに在る",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈廟号〉〈諡〉皇帝讳〈諱〉，字〈字〉，小字〈小字〉，〈続柄〉」。列傳も「〈位号〉〈名〉字〈字〉，小字〈小字〉，〈続柄〉」",
+      "variants": "**同じ列に並ぶ兄弟でも小字を持たない人物がある**（武陵王 蕭紀は「纪字世询，武帝第八子也」で止まる）",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/南史.txt",
+          "line": 818,
+          "quote": "梁高祖武皇帝讳衍，字叔达，小字练儿"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/南史.txt",
+          "line": 4638,
+          "quote": "南康简王绩字世谨，小字四果"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/南史.txt",
+          "line": 4667,
+          "quote": "武陵王纪字世询，武帝第八子也"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "梁書の記録（同じ政権・本紀の側）と同じ verdict。**2026-08-16 の幼名ブロック4で4人を人物単位に閉じた**"
+    },
+    {
+      "book": "舊唐書・新唐書",
+      "regimeIds": [
+        "anshi-yan",
+        "xiqin",
+        "xu",
+        "zheng",
+        "dingyang",
+        "liangshidu-liang",
+        "liguigui-liang",
+        "xiaoxian-liang",
+        "suimo-wu",
+        "suimo-chu",
+        "suimo-song",
+        "zhucan-chu",
+        "wu-zhou",
+        "zhuci-qin",
+        "lixilie-chu",
+        "huangchao-qi"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "両唐書とも本紀・列傳の冒頭1行には小字の位置が無い。舊唐書9行・新唐書11行を6語で悉皆走査した。**逆臣傳の中でも小字は使われる**（旧唐书.txt L17369 の安禄山の条「阿浩，乾真小字也」）",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "列傳の書き出しは「〈名〉，〈本貫〉人也」または「〈名〉，字〈字〉，〈本貫〉人也」で小字を挟まない",
+      "variants": "小字が立つのは (1) 新唐書 諸子傳の書き出し（「隐太子建成小字毘沙门」）、(2) 本文中の説明（「雉奴，高宗小字」「哥奴，林甫小字」「阿浩，乾真小字也」）、(3) 会話（「各言小字，君羡自陈曰『五娘子』」）",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/旧唐书.txt",
+          "line": 17369,
+          "quote": "阿浩，乾真小字也"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/新唐书.txt",
+          "line": 10278,
+          "quote": "隐太子建成小字毘沙门"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/新唐书.txt",
+          "line": 10361,
+          "quote": "雉奴，高宗小字"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "tang の記録（同じ2書・本紀の側）と同じ verdict。**2026-08-16 の幼名ブロック4で20人を人物単位に閉じた** — 安史の燕4・隋末唐初の群雄14・西秦の薛挙父子2"
+    },
+    {
+      "book": "周書",
+      "regimeIds": [
+        "western-liang"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "周書 卷48 蕭詧傳（西梁3代をまとめて載せる列傳）。書き出しは「〈名〉字〈字〉，〈本貫〉人也」",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "周書は帝紀の冒頭にも列傳の書き出しにも小名を置く形を持つ（「〈名〉，〈本貫〉人也。小名〈小名〉」）",
+      "variants": "西梁の3人（蕭詧・蕭巋・蕭琮）はいずれもこの位置に小名を持たない",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/周书.txt",
+          "line": 359,
+          "quote": "世宗明皇帝讳毓，小名统万突"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/周书.txt",
+          "line": 1742,
+          "quote": "杨忠，弘农华阴人也。小名奴奴"
+        },
+        {
+          "file": "_corpus_cache/houliang-xuandi.txt",
+          "line": 1,
+          "quote": "萧察字理孙，兰陵人也，梁武帝之孙，昭明太子统之第三子。幼而好学，善属文，尤长佛义。特为梁"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック4で3人を人物単位に閉じた**。northern-zhou の記録（同じ書・帝紀の側）と同じ verdict"
+    },
+    {
+      "book": "北史",
+      "regimeIds": [
+        "western-wei"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "北史 卷5 魏本紀第五（西魏の3帝）。冒頭1行に小字の位置が無い。北史1冊（15,165行）を6語で悉皆走査して68行",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "冒頭は「〈諡〉皇帝讳〈諱〉，〈続柄〉也」で小字を挟まない",
+      "variants": "**北史の魏本紀は北魏の帝にも小字を置かない**。元氏で小字を持つのは列傳の側（長広王 元曄「小字盆子」・元叉「小字夜叉」）。**同じ北史でも周本紀・隋本紀は冒頭に小名を置く**（「世宗明皇帝讳毓，小名统万突」「隋高祖文皇帝…讳坚，小名那罗延」）",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/北史.txt",
+          "line": 2319,
+          "quote": "肃弟晔，字华兴，小字盆子"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/北史.txt",
+          "line": 1164,
+          "quote": "隋高祖文皇帝姓杨氏，讳坚，小名那罗延"
+        },
+        {
+          "file": "_corpus_cache/xiwei-wendi.txt",
+          "line": 1,
+          "quote": "文皇帝讳宝炬，孝文皇帝之孙，京兆王愉之子也。母曰杨氏。帝正始初坐父愉罪，兄弟皆幽宗正寺。"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック4で3人を人物単位に閉じた**"
+    },
+    {
+      "book": "隋書",
+      "regimeIds": [
+        "sui"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "隋書 帝紀の**冒頭1行**と、卷45・59 の宗室諸王の列傳の書き出し。7,344行を6語で悉皆走査して8行",
+      "verdict": "form-found",
+      "personScope": "transcribe",
+      "form": "「〈諡〉皇帝，讳〈諱〉，一名〈別名〉，小字〈小字〉，〈続柄〉」。列傳も「〈位号〉，字〈字〉，小字〈小字〉」",
+      "variants": "文帝の小名「那羅延」は隋書には無く北史 卷11（北史.txt L1164）が書く。恭帝侑・皇泰主・秦王浩の3人はどちらの書にも小字が無い",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/隋书.txt",
+          "line": 157,
+          "quote": "炀皇帝，讳广，一名英，小字阿摐"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/隋书.txt",
+          "line": 6477,
+          "quote": "齐王暕，字世朏，小字阿孩"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/北史.txt",
+          "line": 11147,
+          "quote": "房陵王勇，小名睍地伐"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック4で3人を人物単位に閉じた**"
+    },
+    {
+      "book": "魏書",
+      "regimeIds": [
+        "eastern-wei"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "魏書 卷12 孝静紀。冒頭1行に小字の位置が無い。11,546行を6語で悉皆走査して55行",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "帝紀の冒頭は「〈諡〉皇帝，讳〈諱〉，〈続柄〉」で小字を挟まない。列傳の書き出しは「〈諱〉字〈字〉，小字〈小字〉」",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/魏书.txt",
+          "line": 1433,
+          "quote": "晔字华兴，小字盆子"
+        },
+        {
+          "file": "_corpus_cache/dongwei-xiaojingdi.txt",
+          "line": 2,
+          "quote": "孝静皇帝，讳善见，清河文宣王亶之世子也。母曰胡妃。永熙三年，拜通直散骑侍郎。八月，为骠骑"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "northern-wei の記録（同じ書）と同じ verdict。**2026-08-16 の幼名ブロック4で1人を閉じた**"
+    },
+    {
+      "book": "明史",
+      "regimeIds": [
+        "chen-han",
+        "ming-xia",
+        "hanlin-song",
+        "tianwan",
+        "shun",
+        "xi"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "明史 卷122〜123（元末の群雄）・卷309（流賊傳）の列傳。24,602行を6語で悉皆走査して12行",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "列傳の書き出しは「〈名〉，〈本貫〉人」で小字を挟まない。小字を持つ人物は「〈名〉，小字〈小字〉，〈本貫〉人」",
+      "variants": "**同じ巻・同じ類の僭号者に小字が立つ**（張士誠「小字九四」・弟の士德「小字九六」・擴廓帖木児「小字保保」）。明の皇帝（本紀）には1件も無い",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/明史.txt",
+          "line": 11635,
+          "quote": "张士诚，小字九四"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/明史.txt",
+          "line": 11638,
+          "quote": "士德，小字九六"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/明史.txt",
+          "line": 11673,
+          "quote": "扩廓帖木儿，沈丘人。本王姓，小字保保"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック4で8人を人物単位に閉じた**。**ming の記録（同じ書・本紀の側）は `pending` のまま** — 皇帝には対照が立たないが、群雄の列傳には立つので所見の重みが違う"
+    },
+    {
+      "book": "清史稿",
+      "regimeIds": [
+        "wu-zhou-sanfan"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "清史稿 卷474 列傳261（呉三桂・呉世璠）。29,068行を6語で悉皆走査して8行",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "列傳の書き出しは「〈名〉，〈本貫〉人」で小字を挟まない",
+      "variants": "小字・乳名が立つのは漢人の列傳と列女傳（李芳巇「小字葵生」・張士義「乳名鸦头」）。満洲の帝室・宗室には1件も無い",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/清史稿.txt",
+          "line": 26059,
+          "quote": "李芳巇，小字葵生"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/清史稿.txt",
+          "line": 25575,
+          "quote": "张士义，乳名鸦头"
+        },
+        {
+          "file": "_corpus_cache/wuzhou-wusangui.txt",
+          "line": 3,
+          "quote": "吴三桂，字长伯，江南高邮人，籍辽东。父襄，明崇祯初官锦州总兵。三桂以武举承父廕，初授都督"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック4で2人を人物単位に閉じた**。**qing の記録は `pending` のまま** — この2人は漢人の列傳に立つので同じ層に対照がそろう"
+    },
+    {
+      "book": "新元史",
+      "regimeIds": [
+        "northern-yuan"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "新元史 昭宗紀。39,701行を6語で悉皆走査して15行、いずれも漢人・女真人の臣下",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "本紀の冒頭に小字の位置が無い",
+      "variants": "小字が立つのは臣下の列傳だけ（李庭「小字劳山」・崔彧「小字拜帖木儿」・擴廓帖木児「小字保保」）",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/新元史.txt",
+          "line": 29688,
+          "quote": "李庭，小字劳山"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/新元史.txt",
+          "line": 32038,
+          "quote": "崔彧，字文卿，小字拜帖木儿"
+        },
+        {
+          "file": "_corpus_cache/beiyuan-zhaozong.txt",
+          "line": 3,
+          "quote": "三十年春正月壬辰，帝疾瘳。癸巳，明将徐达、李文忠、汤和分三道来伐，三宝奴赍手诏征扩廓帖木"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック4では閉じていない**（`verdict: \"pending\"`）— yuan の11人と同じ形で、書が帝室に1件も小字を与えないので沈黙が人物単位の所見にならない"
+    },
+    {
+      "book": "晉書・十六国春秋",
+      "regimeIds": [
+        "western-yan"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "**西燕には載記も本紀も立たない**。晉書は西燕の君主に載記を与えず、十六国春秋にも西燕録が無い。名乗りは他者の載記・編年の中にしか現れない。**`_corpus_cache` の実体は3人で割れる** — 慕容永だけ晉書 卷一百十四（晋书.txt L8268）から、慕容瑤・慕容忠は資治通鑑（コーパスに入っていない）から切られている（2026-08-16 実測。同じ政権の他の記録が「資治通鑑から切ってある」と一律に書いているのは正確でない）",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "条が無いので名乗りの定型そのものが無い",
+      "variants": "**同じ西燕でも慕容沖には小字がある**（晋书.txt L8221「冲小字凤皇」・十六国春秋.txt L809「冲小字凤凰」）。苻堅載記の落ちとして書かれるため",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/晋书.txt",
+          "line": 8221,
+          "quote": "冲小字凤皇"
+        },
+        {
+          "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+          "line": 809,
+          "quote": "冲小字凤凰"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック4では慕容瑤・慕容忠・慕容永の3人を閉じていない**（`verdict: \"pending\"`）— 条が無いので沈黙が所見にならない。字の欄も同じ理由で打ち切ってある"
+    },
+    {
+      "book": "史記",
+      "regimeIds": [
+        "qin"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "史記 秦始皇本紀。**小字・小名・乳名・幼名・小讳・儿名が書全体で0件**（6,009行）",
+      "verdict": "absent-by-book",
+      "personScope": "skip",
+      "form": "小字・小名の欄が無い。本紀の冒頭は「秦始皇帝者，秦庄襄王子也」で名乗りは諱だけで閉じる",
+      "evidence": [
+        {
+          "file": "_corpus_cache/qin-shi-huang.txt",
+          "line": 1,
+          "quote": "秦始皇帝者，秦庄襄王子也。庄襄王为秦质子於赵，见吕不韦姬，悦而取之，生始皇。以秦昭王四十"
+        },
+        {
+          "file": "_corpus_cache/qin-er-shi.txt",
+          "line": 1,
+          "quote": "二世皇帝元年，年二十一。赵高为郎中令，任用事。二世下诏，增始皇寝庙牺牲及山川百祀之礼。令"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "漢書・史記／western-han の記録（2026-08-16 以前の幼名ブロック1）と同じ形。**この書だけを見るかぎり秦の君主に幼名は書かれない**"
+    },
+    {
+      "book": "漢書・後漢書",
+      "regimeIds": [
+        "xin"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "漢書 卷99 王莽傳。**漢書は書全体で0件（4,330行）・後漢書は1件だけ**（后汉书.txt L6133 蓋勲伝の呼びかけ「呼干小字曰」＝名乗りの欄ではない）",
+      "verdict": "absent-by-book",
+      "personScope": "skip",
+      "form": "列傳の書き出しは「王莽字巨君，孝元皇后之弟子也」で名乗りは諱と字で閉じる",
+      "evidence": [
+        {
+          "file": "_corpus_cache/wang-mang.txt",
+          "line": 1,
+          "quote": "王莽字巨君，孝元皇后之弟子也。元后父及兄弟皆以元、成世封侯，居位辅政，家凡九侯、五大司马"
+        },
+        {
+          "file": "daizhigev20/史藏/正史/后汉书.txt",
+          "line": 6133,
+          "quote": "呼干小字曰"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "western-han の記録と同じ形（同じ2書）"
+    },
+    {
+      "book": "後漢書",
+      "regimeIds": [
+        "xuanhan",
+        "chimei-han",
+        "chengjia",
+        "liuyong-liang",
+        "zhongjia"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "後漢書 卷11〜13（劉玄・劉盆子・劉永・公孫述）と卷75（袁術）。**書全体で名乗りの形は0件・呼び名の用例が1件**（11,267行）",
+      "verdict": "absent-by-book",
+      "personScope": "skip",
+      "form": "列傳の書き出しは「〈名〉字〈字〉，〈続柄〉／〈本貫〉人也」で小字・小名の位置が無い",
+      "variants": "**袁術は三國志にも傳が立つ**が、三國志で小字が立つのは裴松之注の曹氏（曹操・楚王曹彪）と臣下だけで、袁術には無い",
+      "evidence": [
+        {
+          "file": "daizhigev20/史藏/正史/后汉书.txt",
+          "line": 6133,
+          "quote": "呼干小字曰"
+        },
+        {
+          "file": "_corpus_cache/gengshi-di.txt",
+          "line": 1,
+          "quote": "刘玄字圣公，光武族兄也。弟为人所杀，圣公结客欲报之。客犯法，圣公避吏于平林。吏系圣公父子"
+        },
+        {
+          "file": "_corpus_cache/yuan-shu.txt",
+          "line": 1,
+          "quote": "袁术字公路，汝南汝阳人，司空逢之子也。少以侠气闻，数与诸公子飞鹰走狗，后颇折节。举孝廉，"
+        },
+        {
+          "file": "_corpus_cache/liu-penzi.txt",
+          "line": 1,
+          "quote": "刘盆子者，太山式人，城阳景王章之后也。祖父宪，元帝时封为式侯，父萌嗣。王莽篡位，国除，因"
+        },
+        {
+          "file": "_corpus_cache/gongsun-shu.txt",
+          "line": 1,
+          "quote": "公孙述字子阳，扶风茂陵人也。哀帝时，以父任为郎，后父仁为河南都尉，而述补清水长。仁以述年"
+        },
+        {
+          "file": "_corpus_cache/liu-yong-liang.txt",
+          "line": 1,
+          "quote": "刘永者，梁郡睢阳人，梁孝王八世孙也。传国至父立。元始中，立与平帝外家卫氏交通，为王莽所诛"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "eastern-han の記録（同じ書）と同じ形"
     }
   ]
 }

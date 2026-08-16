@@ -91,6 +91,41 @@
       "file": "_corpus_cache/beiqi-gaoxie.txt",
       "line": 1,
       "quote": "范阳王绍义，文宣第三子也。"
+    },
+    {
+      "cid": "yo5-c1",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-gaoxie.txt",
+      "line": 1,
+      "quote": "范阳王绍义，文宣第三子也。初封广阳，徙封范阳。历位侍中、清都"
+    },
+    {
+      "cid": "p1",
+      "book": "北齊書",
+      "file": "daizhigev20/史藏/正史/北齐书.txt",
+      "line": 622,
+      "quote": "盖指武成小字步落稽也"
+    },
+    {
+      "cid": "p2",
+      "book": "北齊書",
+      "file": "daizhigev20/史藏/正史/北齐书.txt",
+      "line": 622,
+      "quote": "道人，济南王小名"
+    },
+    {
+      "cid": "p3",
+      "book": "北齊書",
+      "file": "daizhigev20/史藏/正史/北齐书.txt",
+      "line": 566,
+      "quote": "睿小名须拔"
+    },
+    {
+      "cid": "p4",
+      "book": "北史",
+      "file": "daizhigev20/史藏/正史/北史.txt",
+      "line": 878,
+      "quote": "废帝殷，字正道，小名道人"
     }
   ],
   "findings": [
@@ -249,9 +284,31 @@
       ],
       "confidence": "high",
       "note": "北齊書 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo5-c1",
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**北齊書も北史もこの人物の幼名を書かない**。(1) 北齊書1冊（3,394行）を6語で悉皆走査して15行、北史1冊（15,165行）で68行を1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照はこの政権の帝と宗室に立つ** — 北齊書は童謡の注で武成帝を「盖指武成小字步落稽也」・済南王（廃帝）を「道人，济南王小名」と名指しし、北史は廃帝の冒頭1行に「废帝殷，字正道，小名道人」を置く。宗室の趙郡王 高睿にも「睿小名须拔」がある。**北齊書の帝紀の冒頭定型には小字の位置が無く**（「〈諡〉，讳〈諱〉，字〈字〉，〈続柄〉」）、小字が立つのは列傳の書き出しと本文中の説明の側（2026-08-16・幼名ブロック4）"
     }
   ],
-  "discrepancies": "なし（既存の構造フィールド name.personalName「紹義」・name.familyName「高」・name.posthumousName null・name.templeName null・name.regnalTitle「皇帝」は、いずれも原文と一致する。regnalTitle は c2「绍义遂即皇帝位，称武平元年」・c8「他钵立绍义为齐帝」が裏付ける）",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "所在の記録に食い違いがある。data/regime-conventions.json の例外行はこの人物の所在を「北齊書 列傳（范陽王紹義伝）」とするが、_corpus_cache/beiqi-gaoxie.txt の本文は北史 卷五十二（daizhigev20/史藏/正史/北史.txt L8408・L8410）と一致し、SOURCE_MAPPING.md の行も「daizhi 北史 卷五十二」である（北齊書側は「初封广阳，后封范阳」「擅置内参」、北史側は「徙封范阳」「擅致内参」と本文が割れる）。今回は両書を読んで判定が変わらないことを確認したうえで、両方を claims に置いた。",
   "processSuggestion": "残量表 政権慣行の例外行の所在ずれ 1件（北齊書 列傳と記録された beiqi-gaoxie の実所在は北史 卷五十二・北齊書 卷十二にも同伝あり。他の例外行 beiqi-andewang-gaoyanzong 等は未走査）"

@@ -14,6 +14,34 @@
       "file": "_corpus_cache/houliang-xuandi.txt",
       "line": 41,
       "quote": "谥曰宣皇帝，庙号中宗"
+    },
+    {
+      "cid": "yo5-c1",
+      "book": "周書",
+      "file": "_corpus_cache/houliang-xuandi.txt",
+      "line": 1,
+      "quote": "萧察字理孙，兰陵人也，梁武帝之孙，昭明太子统之第三子。幼而好"
+    },
+    {
+      "cid": "p1",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 359,
+      "quote": "世宗明皇帝讳毓，小名统万突"
+    },
+    {
+      "cid": "p2",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 1742,
+      "quote": "杨忠，弘农华阴人也。小名奴奴"
+    },
+    {
+      "cid": "p3",
+      "book": "周書",
+      "file": "daizhigev20/史藏/正史/周书.txt",
+      "line": 3544,
+      "quote": "王轨，太原祁人也，小名沙门"
     }
   ],
   "findings": [
@@ -39,7 +67,28 @@
       ],
       "confidence": "high",
       "note": "崩御・葬送の授与の条（この書はこの人物に名乗り形の位置を持たない）が掲げる全長形。周書 卷四十八 蕭詧伝は列傳型で冒頭に名乗り形が無い（慣行 no-form・per-person）。全長形は伝の末尾の授与の条にだけ在る"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo5-c1",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**周書はこの人物の幼名を書かない**。(1) 周書1冊（4,521行）を6語で悉皆走査して9行を1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は帝紀と列傳の両方に立つ** — 明帝は帝紀の冒頭1行が「世宗明皇帝讳毓，小名统万突」、列傳では楊忠「小名奴奴」・王軌「小名沙门」のように書き出しに小名が入る。つまり書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック4）"
     }
   ],
-  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+  "discrepancies": "なし"
 }
