@@ -28,6 +28,27 @@
       "line": 2,
       "quote": "德宗神武孝文皇帝讳适，代宗长子，母曰睿真皇后沈氏。",
       "cid": "zi3-c2"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-dezong.txt",
+      "line": 1,
+      "quote": "德宗上"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10278,
+      "quote": "隐太子建成小字毘沙门"
+    },
+    {
+      "cid": "yo1-p2",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10291,
+      "quote": "巢刺王元吉小字三胡"
     }
   ],
   "findings": [
@@ -76,10 +97,28 @@
       ],
       "confidence": "high",
       "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo1-c1",
+        "yo1-p1",
+        "yo1-p2"
+      ],
+      "confidence": "high",
+      "note": "**どちらの唐書もこの人物の幼名を書かない**。(1) 舊唐書・新唐書の2冊を諱「适」で走査して隣接が0件（当たった0件は別人）、(2) **本人の本紀まるごと**（`_corpus_cache/tang-dezong.txt` 192行・舊唐書）に「小字」「小名」が0回。**陽性対照は新唐書 高祖諸子が皇子に小字を書くこと** — 「隐太子建成小字毘沙门」（yo1-p1）・「巢刺王元吉小字三胡」（yo1-p2）。**舊唐書の側は書全体で4件しか無く**（張易之の契苾・安慶緒の阿浩・高祖が太宗の小名を呼ぶ条・一般語）、唐で幼名を拾うなら新唐書の諸子傳が所在（2026-08-16・幼名ブロック1）",
+      "sweptWords": [
+        "小字适",
+        "小名适",
+        "小字",
+        "小名"
+      ]
     }
   ],
   "conflicts": [],
   "noteLog": "字体の倒し方: claims の引用は底本（china-history 旧唐书 本纪 卷十二・_corpus_cache/tang-dezong.txt）の簡体のまま置き、findings の値だけ既存レコードの新字体表記へ倒した（德宗→徳宗）。諱「适」は簡体化ではなく別字（适 kuò・「適」の簡体ではない）なので変換せず底本の字のまま採り、既存 name.personalName「适」と一致する。posthumousName を空のままにしたのは screening の unknown を理由にしたのではなく、政権慣行の保存形（唐では廟号で呼ばれる皇帝の短縮呼称欄は空・短縮呼称が入るのは殤帝「殇皇帝」・哀帝「哀皇帝」のように廟号を持たず諡がそのまま通用する別枝だけ）に従ったため。徳宗は廟号「德宗」を持ち commonName も「徳宗」で、本紀に末字＋皇帝の短縮形は出ない。posthumousNameFull は慣行どおり冒頭が掲げる形（c1）から採り、崩御条の加諡記事「上谥曰神武孝文」（c2）とも一致する（c2 に「皇帝」を継ぎ足して作った値ではない）。",
-  "discrepancies": "既存 name.templeName が null だが原文（c1・c2）は廟号「德宗」を明記する — screening が transcribe と予告した取りこぼしで、「徳宗」を補充する。既存 name.personalName「适」は原文（c1「讳适」）と一致。既存 name.posthumousName が null なのは食い違いではなく政権慣行の保存形どおりの一致（唐で廟号により呼ばれる皇帝は短縮呼称欄が空）。既存 name.posthumousNameFull は欄そのものが無く、新規に「神武孝文皇帝」を投入する。reigns（779〜805）・regimeId は今回の判定対象外で原文との突き合わせをしていない。",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 唐の名前欄転記 24件（未読 23・徳宗以外は未走査）"
 }

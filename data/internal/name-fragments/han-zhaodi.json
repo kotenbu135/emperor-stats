@@ -1,185 +1,199 @@
 {
-  "id": "han-zhaodi",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "漢書",
-      "file": "_corpus_cache/han-zhaodi.txt",
-      "line": 1,
-      "quote": "孝昭皇帝，武帝少子也"
-    },
-    {
-      "cid": "c2",
-      "book": "漢書",
-      "file": "_corpus_cache/han-zhaodi.txt",
-      "line": 2,
-      "quote": "遂立昭帝为太子，年八岁"
-    },
-    {
-      "cid": "c3",
-      "book": "漢書",
-      "file": "_corpus_cache/han-zhaodi.txt",
-      "line": 80,
-      "quote": "夏四月癸未，帝崩于未央宫"
-    },
-    {
-      "cid": "c4",
-      "book": "漢書",
-      "file": "_corpus_cache/han-zhaodi.txt",
-      "line": 81,
-      "quote": "六月壬申，葬平陵"
-    },
-    {
-      "cid": "c5",
-      "book": "漢書",
-      "file": "_corpus_cache/han-zhaodi.txt",
-      "line": 82,
-      "quote": "尊号曰“昭”，不亦宜乎"
-    },
-    {
-      "cid": "c6",
-      "book": "漢書",
-      "file": "_corpus_cache/han-zhaodi.txt",
-      "line": 36,
-      "quote": "五年春正月，追尊皇太后父为顺成侯"
-    },
-    {
-      "cid": "c7",
-      "book": "漢書",
-      "file": "daizhigev20/史藏/正史/汉书.txt",
-      "line": 770,
-      "quote": "立皇子弗陵为皇太子"
-    },
-    {
-      "cid": "c8",
-      "book": "漢書",
-      "file": "_corpus_cache/han-wudi.txt",
-      "line": 268,
-      "quote": "乙丑，立皇子弗陵为皇太子"
-    },
-    {
-      "cid": "c9",
-      "book": "漢書",
-      "file": "daizhigev20/史藏/正史/汉书.txt",
-      "line": 878,
-      "quote": "六月庚午，尊孝武庙为世宗庙"
-    },
-    {
-      "cid": "c10",
-      "book": "後漢書",
-      "file": "daizhigev20/史藏/正史/后汉书.txt",
-      "line": 462,
-      "quote": "追尊孝宣皇帝曰中宗。始祠昭帝、元帝于太庙"
-    },
-    {
-      "cid": "zi8-p1",
-      "book": "漢書",
-      "file": "daizhigev20/史藏/正史/汉书.txt",
-      "line": 4305,
-      "quote": "自名曰骜，字太孙，常置左右"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.personalName",
-      "value": "弗陵",
-      "basis": [
-        "c7",
-        "c8",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "漢書は帝紀の冒頭に諱を並べない（政権慣行 no-form）ので、諱は他の帝の紀から取る。武帝紀 後元二年二月の条が「立皇子弗陵为皇太子」（c7・c8）と書き、昭帝紀の同じ出来事が「遂立昭帝为太子，年八岁」（c2）で、同一人物と決まる。**1冊走査で「弗陵」は漢書全体に1出現のみ**（daizhigev20 汉书.txt・外戚伝は繰り返さない）。底本は簡体だが「弗陵」は新字体と同形＝字体差なし"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": "孝昭皇帝",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "漢書 帝紀の冒頭定型「孝〈諡字〉皇帝，〈続柄〉也」（c1）。この書が名乗りとして掲げる唯一の形。底本「孝昭皇帝」は新字体と同形＝字体差なし"
-    },
-    {
-      "field": "name.posthumousName",
-      "value": "昭帝",
-      "basis": [
-        "c1",
-        "c2",
-        "c5"
-      ],
-      "confidence": "medium",
-      "note": "漢書は本文中で短縮呼称「昭帝」を地の文に使う（c2「遂立昭帝为太子」）。冒頭の全長形「孝昭皇帝」（c1）から「孝」と「皇」を落とした諡字の形で、贊も諡字を「昭」と名指す（c5）。**位号ではなく諡から作った呼称**である点が、commonName が「前少帝」「後少帝」「廃帝」＝位号で posthumousName が空になる3人との違い。ただし漢書は帝の上諡の条を紀に持たないため、短縮呼称そのものを授ける条は無い（confidence を medium にした理由）。底本「昭帝」は新字体と同形＝字体差なし"
-    },
-    {
-      "field": "name.templeName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1",
-        "c3",
-        "c4",
-        "c5",
-        "c9",
-        "c10"
-      ],
-      "confidence": "high",
-      "note": "閉域4軸を当てた。(1) **同じ書のキャッシュの外**: daizhigev20 の1冊版 汉书.txt を全数走査（志・列傳・贊を含む）— 廟号を立てる条は7件で、太祖（高帝）・太宗（文帝）・世宗（武帝・c9）・中宗（宣帝）・高宗（元帝）・統宗（成帝）・元宗（平帝）のみ。昭帝を対象にした条は0件。(2) **列傳**: 韋玄成伝・賈捐之伝・陳湯伝の廟制記事（「庙称」型を含む）にも昭帝は現れない。(3) **別政権の書**: 後漢書 光武帝紀 建武十九年の条が「追尊孝宣皇帝曰中宗。始祠昭帝、元帝于太庙」（c10）— **同じ条が宣帝には廟号を追尊し、昭帝は太廟に祠るだけ**で号を与えない＝第二の証人。(4) **語彙**: 庙号/庙曰/庙为/庙称/尊庙/庙宜为/追尊/称宗/宗曰 を当て、`hanzi_norm.norm_for_match` を通した正規化本文でも計数した（庙号 0・庙曰 7・庙为 16・庙称 4・尊庙 0・称宗 1〔「不称」＋「宗室」の偽陽性〕・追尊 16）。昭帝紀の唯一の「追尊」は皇太后の父への侯位（c6）。崩・葬の条（c3・c4）と贊（c5）も廟号を与えない。**漢が廟号を限られた帝にしか立てなかったための空欄**であって、取りこぼしではない",
-      "sweptWords": [
-        "庙号",
-        "庙曰",
-        "庙为",
-        "庙称",
-        "尊庙",
-        "庙宜为",
-        "追尊",
-        "称宗",
-        "宗曰"
-      ],
-      "sweptScope": "daizhigev20/史藏/正史/汉书.txt（1冊まるごと・紀/表/志/列傳/敘傳を含む）と _corpus_cache/han-zhaodi.txt 全82行、加えて daizhigev20/史藏/正史/后汉书.txt を「孝昭」「昭帝」で走査。語は素の本文と `hanzi_norm.norm_for_match` を通した正規化本文の両方に当てた"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1",
-        "c3",
-        "c4",
-        "c5",
-        "c6"
-      ],
-      "confidence": "high",
-      "note": "漢書が帝の諡を**授ける**条を持つのは高帝の1人だけ（「上尊号曰高皇帝」）で、他13人の諡は冒頭の名乗りにしか出ない（政権慣行 posthumousNames・2026-08-13 の1冊走査）。昭帝も崩（c3）・葬（c4）に続けて諡を授ける条を持たない。**贊の「尊号曰“昭”，不亦宜乎」（c5）は班固の評**で、授与の主体も日付も持たないので段にしない。後代の加諡・改諡も漢書・後漢書のいずれにも無い（c10 は祠るだけ）。**冒頭形で1段を立てない**のは、この書では冒頭形が授与の記録ではないため（13人の兄弟帝と同じ扱い）",
-      "sweptWords": [
-        "谥",
-        "谥曰",
-        "谥为",
-        "上谥",
-        "尊号",
-        "庙号",
-        "追尊"
-      ],
-      "sweptScope": "daizhigev20/史藏/正史/汉书.txt（1冊まるごと。正規化本文で 谥曰 92・谥为 5・上谥 0・尊号 44・庙号 0・追尊 16）と _corpus_cache/han-zhaodi.txt 全82行。後代の加諡の有無は daizhigev20/史藏/正史/后汉书.txt を「孝昭」「昭帝」で走査して確かめた"
-    },
-    {
-      "field": "name.courtesyName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1",
-        "zi8-p1"
-      ],
-      "confidence": "high",
-      "sweptWords": [
-        "弗陵字",
-        "弗陵，字"
-      ],
-      "note": "**この書はこの人物の字を載せない**。漢書の帝紀の冒頭1行は続柄と母から始まって**字の位置が無い**が、それは政権単位の書式なので人物単位の証拠にならない — そこで(1) 漢書1冊を諱「弗陵」で走査し（漢書1冊に1回しか出ない（武帝紀 L770 の立太子の条））、(2) **本人の帝紀まるごと**（`_corpus_cache/han-zhaodi.txt` 82行）に「字」が0回、の2つを確かめた。**陽性対照は同じ漢書が同じ政権の皇帝に紀の外で字を書くこと** — 元后傳 L4305 が成帝を「自名曰骜，字太孙」と書く（zi8-p1）ので、書に字の書式が無いのではなくこの人物に書いていない（2026-08-16・字ブロック8）"
-    }
-  ],
-  "conflicts": [],
-  "noteLog": "既存の断片 data/internal/name-fragments/han-zhaodi.json は posthumousNameFull と posthumousNames の2欄だけを持つ（2026-08-13）。今回はそれと同じ判断のまま、templeName・posthumousName・personalName の3欄を足した超集合を返す。捨てた値は無い。",
-  "discrepancies": "なし",
-  "processSuggestion": "check_regime_conventions.py --field posthumousName が western-han で「未確定」を返すが、実体は posthumousNameFull レコードの storageForm 側に書かれている（fields 配列に posthumousName が入っていないだけ）。**慣行が在るのに blocked と誤読させる形**なので、storageForm が他欄に言及している場合はその欄も fields に載せるか、スクリプト側で「別レコードの storageForm が覆う」と出したい。もう1点、この段のプロンプトの「崩御条が形を出さない書は冒頭形の1段になる」は、漢書の慣行「冒頭形は授与の記録ではないので段にしない（13/14人が空）」と向きが逆で、書ごとの慣行が勝つことを明記したい。残量表 漢書・前漢の廟号（templeName）14件（未読 6）— 値あり7人は転記済み、値なし7人のうち read-absent の断片を持つのは本セッションの昭帝1人だけで、惠帝・前少帝・後少帝・景帝・劉賀・哀帝の6人は data/internal/name-fragments に templeName の主張が1件も無い（未走査）"
+ "id": "han-zhaodi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "漢書",
+   "file": "_corpus_cache/han-zhaodi.txt",
+   "line": 1,
+   "quote": "孝昭皇帝，武帝少子也"
+  },
+  {
+   "cid": "c2",
+   "book": "漢書",
+   "file": "_corpus_cache/han-zhaodi.txt",
+   "line": 2,
+   "quote": "遂立昭帝为太子，年八岁"
+  },
+  {
+   "cid": "c3",
+   "book": "漢書",
+   "file": "_corpus_cache/han-zhaodi.txt",
+   "line": 80,
+   "quote": "夏四月癸未，帝崩于未央宫"
+  },
+  {
+   "cid": "c4",
+   "book": "漢書",
+   "file": "_corpus_cache/han-zhaodi.txt",
+   "line": 81,
+   "quote": "六月壬申，葬平陵"
+  },
+  {
+   "cid": "c5",
+   "book": "漢書",
+   "file": "_corpus_cache/han-zhaodi.txt",
+   "line": 82,
+   "quote": "尊号曰“昭”，不亦宜乎"
+  },
+  {
+   "cid": "c6",
+   "book": "漢書",
+   "file": "_corpus_cache/han-zhaodi.txt",
+   "line": 36,
+   "quote": "五年春正月，追尊皇太后父为顺成侯"
+  },
+  {
+   "cid": "c7",
+   "book": "漢書",
+   "file": "daizhigev20/史藏/正史/汉书.txt",
+   "line": 770,
+   "quote": "立皇子弗陵为皇太子"
+  },
+  {
+   "cid": "c8",
+   "book": "漢書",
+   "file": "_corpus_cache/han-wudi.txt",
+   "line": 268,
+   "quote": "乙丑，立皇子弗陵为皇太子"
+  },
+  {
+   "cid": "c9",
+   "book": "漢書",
+   "file": "daizhigev20/史藏/正史/汉书.txt",
+   "line": 878,
+   "quote": "六月庚午，尊孝武庙为世宗庙"
+  },
+  {
+   "cid": "c10",
+   "book": "後漢書",
+   "file": "daizhigev20/史藏/正史/后汉书.txt",
+   "line": 462,
+   "quote": "追尊孝宣皇帝曰中宗。始祠昭帝、元帝于太庙"
+  },
+  {
+   "cid": "zi8-p1",
+   "book": "漢書",
+   "file": "daizhigev20/史藏/正史/汉书.txt",
+   "line": 4305,
+   "quote": "自名曰骜，字太孙，常置左右"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.personalName",
+   "value": "弗陵",
+   "basis": [
+    "c7",
+    "c8",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "漢書は帝紀の冒頭に諱を並べない（政権慣行 no-form）ので、諱は他の帝の紀から取る。武帝紀 後元二年二月の条が「立皇子弗陵为皇太子」（c7・c8）と書き、昭帝紀の同じ出来事が「遂立昭帝为太子，年八岁」（c2）で、同一人物と決まる。**1冊走査で「弗陵」は漢書全体に1出現のみ**（daizhigev20 汉书.txt・外戚伝は繰り返さない）。底本は簡体だが「弗陵」は新字体と同形＝字体差なし"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "孝昭皇帝",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "漢書 帝紀の冒頭定型「孝〈諡字〉皇帝，〈続柄〉也」（c1）。この書が名乗りとして掲げる唯一の形。底本「孝昭皇帝」は新字体と同形＝字体差なし"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": "昭帝",
+   "basis": [
+    "c1",
+    "c2",
+    "c5"
+   ],
+   "confidence": "medium",
+   "note": "漢書は本文中で短縮呼称「昭帝」を地の文に使う（c2「遂立昭帝为太子」）。冒頭の全長形「孝昭皇帝」（c1）から「孝」と「皇」を落とした諡字の形で、贊も諡字を「昭」と名指す（c5）。**位号ではなく諡から作った呼称**である点が、commonName が「前少帝」「後少帝」「廃帝」＝位号で posthumousName が空になる3人との違い。ただし漢書は帝の上諡の条を紀に持たないため、短縮呼称そのものを授ける条は無い（confidence を medium にした理由）。底本「昭帝」は新字体と同形＝字体差なし"
+  },
+  {
+   "field": "name.templeName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "c3",
+    "c4",
+    "c5",
+    "c9",
+    "c10"
+   ],
+   "confidence": "high",
+   "note": "閉域4軸を当てた。(1) **同じ書のキャッシュの外**: daizhigev20 の1冊版 汉书.txt を全数走査（志・列傳・贊を含む）— 廟号を立てる条は7件で、太祖（高帝）・太宗（文帝）・世宗（武帝・c9）・中宗（宣帝）・高宗（元帝）・統宗（成帝）・元宗（平帝）のみ。昭帝を対象にした条は0件。(2) **列傳**: 韋玄成伝・賈捐之伝・陳湯伝の廟制記事（「庙称」型を含む）にも昭帝は現れない。(3) **別政権の書**: 後漢書 光武帝紀 建武十九年の条が「追尊孝宣皇帝曰中宗。始祠昭帝、元帝于太庙」（c10）— **同じ条が宣帝には廟号を追尊し、昭帝は太廟に祠るだけ**で号を与えない＝第二の証人。(4) **語彙**: 庙号/庙曰/庙为/庙称/尊庙/庙宜为/追尊/称宗/宗曰 を当て、`hanzi_norm.norm_for_match` を通した正規化本文でも計数した（庙号 0・庙曰 7・庙为 16・庙称 4・尊庙 0・称宗 1〔「不称」＋「宗室」の偽陽性〕・追尊 16）。昭帝紀の唯一の「追尊」は皇太后の父への侯位（c6）。崩・葬の条（c3・c4）と贊（c5）も廟号を与えない。**漢が廟号を限られた帝にしか立てなかったための空欄**であって、取りこぼしではない",
+   "sweptWords": [
+    "庙号",
+    "庙曰",
+    "庙为",
+    "庙称",
+    "尊庙",
+    "庙宜为",
+    "追尊",
+    "称宗",
+    "宗曰"
+   ],
+   "sweptScope": "daizhigev20/史藏/正史/汉书.txt（1冊まるごと・紀/表/志/列傳/敘傳を含む）と _corpus_cache/han-zhaodi.txt 全82行、加えて daizhigev20/史藏/正史/后汉书.txt を「孝昭」「昭帝」で走査。語は素の本文と `hanzi_norm.norm_for_match` を通した正規化本文の両方に当てた"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "c3",
+    "c4",
+    "c5",
+    "c6"
+   ],
+   "confidence": "high",
+   "note": "漢書が帝の諡を**授ける**条を持つのは高帝の1人だけ（「上尊号曰高皇帝」）で、他13人の諡は冒頭の名乗りにしか出ない（政権慣行 posthumousNames・2026-08-13 の1冊走査）。昭帝も崩（c3）・葬（c4）に続けて諡を授ける条を持たない。**贊の「尊号曰“昭”，不亦宜乎」（c5）は班固の評**で、授与の主体も日付も持たないので段にしない。後代の加諡・改諡も漢書・後漢書のいずれにも無い（c10 は祠るだけ）。**冒頭形で1段を立てない**のは、この書では冒頭形が授与の記録ではないため（13人の兄弟帝と同じ扱い）",
+   "sweptWords": [
+    "谥",
+    "谥曰",
+    "谥为",
+    "上谥",
+    "尊号",
+    "庙号",
+    "追尊"
+   ],
+   "sweptScope": "daizhigev20/史藏/正史/汉书.txt（1冊まるごと。正規化本文で 谥曰 92・谥为 5・上谥 0・尊号 44・庙号 0・追尊 16）と _corpus_cache/han-zhaodi.txt 全82行。後代の加諡の有無は daizhigev20/史藏/正史/后汉书.txt を「孝昭」「昭帝」で走査して確かめた"
+  },
+  {
+   "field": "name.courtesyName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "zi8-p1"
+   ],
+   "confidence": "high",
+   "sweptWords": [
+    "弗陵字",
+    "弗陵，字"
+   ],
+   "note": "**この書はこの人物の字を載せない**。漢書の帝紀の冒頭1行は続柄と母から始まって**字の位置が無い**が、それは政権単位の書式なので人物単位の証拠にならない — そこで(1) 漢書1冊を諱「弗陵」で走査し（漢書1冊に1回しか出ない（武帝紀 L770 の立太子の条））、(2) **本人の帝紀まるごと**（`_corpus_cache/han-zhaodi.txt` 82行）に「字」が0回、の2つを確かめた。**陽性対照は同じ漢書が同じ政権の皇帝に紀の外で字を書くこと** — 元后傳 L4305 が成帝を「自名曰骜，字太孙」と書く（zi8-p1）ので、書に字の書式が無いのではなくこの人物に書いていない（2026-08-16・字ブロック8）"
+  },
+  {
+   "field": "name.childhoodName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "**書の側で打ち切れた**（2026-08-16・幼名ブロック1）。漢書・史記とも「小字」「小名」が**全文で0回**で、書がこの欄そのものを持たない（政権慣行に `absent-by-book` で記録した）。本人の本紀にも0回。以下は当初の記録: **書がそもそも小字の欄を持たない** — 漢書は「小字」「小名」が**書全体で0回**、史記も0回で、誰一人として幼名を書かれていない。したがってこの人物の沈黙は書の作りの言い換えにしかならず `read-absent` にできない（西夏書事で字が閉じられなかったのと同じ型・2026-08-16 の字ブロック7）。本人の本紀（`_corpus_cache/han-zhaodi.txt` 82行）にも0回",
+   "sweptWords": [
+    "小字",
+    "小名"
+   ]
+  }
+ ],
+ "conflicts": [],
+ "noteLog": "既存の断片 data/internal/name-fragments/han-zhaodi.json は posthumousNameFull と posthumousNames の2欄だけを持つ（2026-08-13）。今回はそれと同じ判断のまま、templeName・posthumousName・personalName の3欄を足した超集合を返す。捨てた値は無い。",
+ "discrepancies": "なし",
+ "processSuggestion": "check_regime_conventions.py --field posthumousName が western-han で「未確定」を返すが、実体は posthumousNameFull レコードの storageForm 側に書かれている（fields 配列に posthumousName が入っていないだけ）。**慣行が在るのに blocked と誤読させる形**なので、storageForm が他欄に言及している場合はその欄も fields に載せるか、スクリプト側で「別レコードの storageForm が覆う」と出したい。もう1点、この段のプロンプトの「崩御条が形を出さない書は冒頭形の1段になる」は、漢書の慣行「冒頭形は授与の記録ではないので段にしない（13/14人が空）」と向きが逆で、書ごとの慣行が勝つことを明記したい。残量表 漢書・前漢の廟号（templeName）14件（未読 6）— 値あり7人は転記済み、値なし7人のうち read-absent の断片を持つのは本セッションの昭帝1人だけで、惠帝・前少帝・後少帝・景帝・劉賀・哀帝の6人は data/internal/name-fragments に templeName の主張が1件も無い（未走査）"
 }

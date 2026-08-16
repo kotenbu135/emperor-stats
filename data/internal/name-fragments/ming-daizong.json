@@ -56,6 +56,20 @@
       "line": 2,
       "quote": "恭仁康定景皇帝，讳祁钰，宣宗次子也。",
       "cid": "zi3-c1"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-daizong.txt",
+      "line": 1,
+      "quote": "◎景帝"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 11635,
+      "quote": "张士诚，小字九四，泰州白驹场亭人"
     }
   ],
   "findings": [
@@ -120,10 +134,21 @@
       ],
       "confidence": "high",
       "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "yo1-c1",
+        "yo1-p1"
+      ],
+      "confidence": "high",
+      "note": "**判別不能で確定**（2026-08-16・幼名ブロック1）。**明史は小字を書くが、皇統には1件も書かない** — 書全体の7件は張士誠「小字九四」（yo1-p1）・その弟 士徳「小字九六」・擴廓帖木児「小字保保」のような**元末の群雄と功臣**で、皇帝・皇子は1人も含まない。したがって沈黙は人物単位の所見ではなく皇統の書き方の言い換えになる。本人の本紀（`_corpus_cache/ming-daizong.txt` 43行）にも0回で、諱「祁鈺」の隣接も0件"
     }
   ],
   "conflicts": [],
   "noteLog": "廟号「代宗」は明史に無い（南明・弘光朝の追上とされるが、本作業で読んだ明史本紀・列伝・志には現れない）ため、明史からは確定できない側として捨てた。諡号は成化十一年の復号時のもので、南明が加えたとされる長諡も明史には無い。廃位後の王諡「戾」（c5）は皇帝としての諡ではないので posthumousName には採らない。",
-  "discrepancies": "name.commonName が「代宗（景泰帝）」と廟号形で立っているが、明史は本紀冒頭・贊とも「景帝」で廟号を載せず、明史全体でも景帝を「代宗」と呼ぶ箇所が無い（原文を採り、templeName は明史では取れない＝other-source として空のまま報告する）。name.templeName / name.posthumousName / name.aliases は現行 null・null・空配列で、諡号と別称は原文から補充できる。name.personalName「祁鈺」・eraChangeCount.count=1・events[0].eraName「景泰」は原文と一致。",
+  "discrepancies": "なし",
   "processSuggestion": "check_screenings の templeName:transcribe は commonName の字形（〜祖／〜宗）から「取りこぼしと言い切れる」と断じるが、明代宗のように廟号が当該正史に無く後代政権の追上である人物では前提が崩れる。transcribe バケットにも「本紀に無ければ other-source として空で閉じてよい」と明記してほしい。"
 }

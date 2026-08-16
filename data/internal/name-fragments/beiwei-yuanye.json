@@ -91,6 +91,27 @@
       "file": "daizhigev20/史藏/正史/魏书.txt",
       "line": 7229,
       "quote": "及氽朱兆作乱，奉长广王为主，号年建明。明年二月，又废之而立节闵。"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 1433,
+      "quote": "晔字华兴，小字盆子"
+    },
+    {
+      "cid": "yo1-c2",
+      "book": "北史",
+      "file": "daizhigev20/史藏/正史/北史.txt",
+      "line": 2319,
+      "quote": "肃弟晔，字华兴，小字盆子"
+    },
+    {
+      "cid": "yo1-c3",
+      "book": "北史",
+      "file": "daizhigev20/史藏/正史/北史.txt",
+      "line": 7944,
+      "quote": "晔小名盆子，闻者皆以为事类赤眉"
     }
   ],
   "findings": [
@@ -289,9 +310,20 @@
         "北史 全文 daizhigev20/史藏/正史/北史.txt（人物語彙 长广王・东海王晔・盆子 と、「晔」60件の前後60字）",
         "北史 卷五（帝紀第五・daizhigev20 L596-733 の孝武帝紀部分）"
       ]
+    },
+    {
+      "field": "name.childhoodName",
+      "value": "盆子",
+      "basis": [
+        "yo1-c1",
+        "yo1-c2",
+        "yo1-c3"
+      ],
+      "confidence": "high",
+      "note": "**3つの証人がそろう** — 魏書 卷十九下（景穆十二王下）の本人伝「晔字华兴，小字盆子」（yo1-c1）、北史 卷十八の同じ伝（yo1-c2）、さらに北史 卷四十八 爾朱世隆伝が擁立の条で「晔小名盆子」と繰り返す（yo1-c3）。**3つ目は帝としての彼を指す文脈**（「与度律等共推长广王晔为主」の直後）なので、同名の別人ではないことがここで決まる。**この値は 2026-08-14 の諡のブロックが既に読んでいたのに欄へ入れていなかった** — 当時の note は「小字『盆子』は別称なので欄には入れていない」と書いており、`childhoodName` の欄が立った後も遡って拾われないままだった。ゲートCは免除で受けた（値は本人の帝紀ではなく列傳に在るため）（2026-08-16・幼名ブロック1）"
     }
   ],
-  "discrepancies": "なし。既存の構造フィールド（reigns 530〜531・reignSummary firstStartYear 530／lastEndYear 531・reignCount 1、name.templeName=null、name.posthumousName=null）は原文と食い違わない。原文でも建明元年十月の擁立（孝荘紀）から普泰元年二月己巳の禅譲（卷十一）までで、年の範囲は一致する。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "書名・巻の同定: 本人伝の在る china-history/魏书/列传/第七章-卷七-原文.html は相対巻数のディレクトリで、daizhigev20/史藏/正史/魏书.txt の見出し（L1389「列传第七下 景穆十二王」）と内容（南安王楨・城陽王長壽）が一致するので実体は魏書 列傳第七下＝卷十九下。帝紀側は daizhige L802「帝纪第十 孝庄纪」・L827「帝纪第十一 前废帝广陵王…出帝平阳王」で、曄の擁立記事は孝荘紀末、廃位・死去は卷十一に在る（本人の紀は無い）。引用は底本の簡体のまま保存し、findings の値だけ既存レコードに合わせて新字体へ倒した。 政権慣行は2件引いた: templeName の記録（form-found だがこの人物は例外＝独立した紀が無い）と、posthumousName の記録（no-form・所在は魏書本文の任意の位置〔志・列傳〕・書式「〈諡〉帝」・「廃位者は位号で立ち、この形では出ない」）。どちらも per-person。",
   "processSuggestion": "残量表 北魏の位号で立つ廃位者・僭立者の名前欄 6件（未読 未走査）＝beiwei-youzhu-yuanzhao・beiwei-jiemindi・beiwei-houfeidi-yuanlang・beiwei-yuanyu・beiwei-yuanfasheng・beiwei-yuanhao（commonName が位号形で templeName・posthumousName とも空の同型。本人が読めたかどうかはこの段では未走査）。手順の提案: 政権慣行の『保存形』に位号型の分岐（位号は posthumousNameFull へ入れず commonName 側）を1行足すと人物単位の判断が減る。あわせて china-history/魏书/列传/ はディレクトリ名の卷Nが実際の巻と一致しないので、claims の巻を機械照合するときは daizhigev20 側の見出し行（例 L1389『列传第七下 景穆十二王』）で当て直す必要がある。"

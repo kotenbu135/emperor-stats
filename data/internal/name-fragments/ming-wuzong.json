@@ -70,6 +70,20 @@
       "line": 2,
       "quote": "武宗承天达道英肃睿哲昭德显功弘文思孝毅皇帝，讳厚照，孝宗长子也。",
       "cid": "zi3-c1"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-wuzong.txt",
+      "line": 1,
+      "quote": "◎武宗"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 11635,
+      "quote": "张士诚，小字九四，泰州白驹场亭人"
     }
   ],
   "findings": [
@@ -134,10 +148,21 @@
       ],
       "confidence": "high",
       "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "yo1-c1",
+        "yo1-p1"
+      ],
+      "confidence": "high",
+      "note": "**判別不能で確定**（2026-08-16・幼名ブロック1）。**明史は小字を書くが、皇統には1件も書かない** — 書全体の7件は張士誠「小字九四」（yo1-p1）・その弟 士徳「小字九六」・擴廓帖木児「小字保保」のような**元末の群雄と功臣**で、皇帝・皇子は1人も含まない。したがって沈黙は人物単位の所見ではなく皇統の書き方の言い換えになる。本人の本紀（`_corpus_cache/ming-wuzong.txt` 19行）にも0回で、諱「厚照」の隣接も0件"
     }
   ],
   "conflicts": [],
   "noteLog": "五年六月の「帝自号大庆法王」（c4）は自ら称した法王号で、名（別名・異表記）ではないと判断し aliases から外した。十三年九月の「镇国公」・十四年二月の「太师」も同様に自封の官爵として外している。判断の材料として claims には残す。",
-  "discrepancies": "なし。既存の構造フィールドと原文は次のとおり一致する — reigns[0].startYear 1505 は「（弘治）十八年五月，孝宗崩…即皇帝位」、endYear 1521 は「（正徳）十六年…三月…丙寅，崩于豹房」に対応。eraChangeCount.count 1 は在位中の元号が正徳のみ（c2・以後の改元記事なし）と整合。name.personalName 厚照 は「讳厚照」と一致。name.templeName・name.posthumousName は現行 null で、値の食い違いではなく未転記。",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 明史 本紀 templeName/posthumousName 未転記 16件（未読 15）— 明の16人は全員 commonName が廟号形で、本紀冒頭1行の書式も同一なので、同じ書の中は1人ずつでなくまとめて読むほうが安い。"
 }

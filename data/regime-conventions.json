@@ -5732,6 +5732,212 @@
         }
       ],
       "surveyedAt": "2026-08-16"
+    },
+    {
+      "book": "漢書・史記",
+      "regimeIds": [
+        "western-han"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "漢書 帝紀・史記 本紀の各帝の冒頭1行。**小字・小名の位置がそもそも無い** — 冒頭は「孝〈X〉皇帝，〈続柄〉，母曰〈母〉」で名乗りは諱だけで閉じる。**書の側で数えても0件**（daizhigev20 の漢書・史記とも「小字」「小名」が全文で0回）",
+      "verdict": "absent-by-book",
+      "personScope": "skip",
+      "form": "小字・小名の欄が無い（漢書・史記とも書全体で0件）。この2書だけを見るかぎり前漢の君主に幼名は書かれない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/han-huidi.txt",
+          "line": 1,
+          "quote": "孝惠皇帝，高祖太子也，母曰吕皇后"
+        },
+        {
+          "file": "_corpus_cache/han-wudi.txt",
+          "line": 1,
+          "quote": "孝武皇帝，景帝中子也，母曰王美人"
+        },
+        {
+          "file": "_corpus_cache/han-xuandi.txt",
+          "line": 1,
+          "quote": "孝宣皇帝，武帝曾孙，戾太子孙也"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック1で記録した。** 字の側とは対照の立ち方が違う — 漢書は元后傳 L4305 が成帝に「字太孙」を与えるので字は人物単位で閉じられたが、小字・小名は書全体で1件も無いので**書の側で打ち切る**（`absent-by-book`）。14人ぶんの断片にも同じ理由を書いた"
+    },
+    {
+      "book": "後漢書",
+      "regimeIds": [
+        "eastern-han"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "後漢書 帝紀の各帝の冒頭1行。**小字・小名の位置が無い**。**書の側で数えると「小字」は1回だけ**で、それは蓋勲伝の呼びかけ「呼干小字曰」＝名乗りの欄ではなく呼び名としての用例",
+      "verdict": "absent-by-book",
+      "personScope": "skip",
+      "form": "小字・小名の欄が無い（書全体で名乗りの形は0件・呼び名の用例が1件）",
+      "evidence": [
+        {
+          "file": "_corpus_cache/hou-han-mingdi.txt",
+          "line": 1,
+          "quote": "显宗孝明皇帝讳庄，光武第四子也"
+        },
+        {
+          "file": "_corpus_cache/hou-han-hedi.txt",
+          "line": 1,
+          "quote": "孝和皇帝讳肇，肃宗第四子也"
+        },
+        {
+          "file": "_corpus_cache/hou-han-huandi.txt",
+          "line": 1,
+          "quote": "孝桓皇帝讳志，肃宗曾孙也"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック1で記録した。** 14人ぶんの断片にも同じ理由を書いた"
+    },
+    {
+      "book": "魏書",
+      "regimeIds": [
+        "northern-wei"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "魏書 帝紀の冒頭1行には小字・小名の位置が無い。**小字が立つのは列傳の側**で、卷十九下 景穆十二王下（魏书.txt L1433）「晔字华兴，小字盆子」のように宗室の伝の書き出しに並ぶ。書全体で54件",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "帝紀の冒頭は「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」で小字を挟まない。列傳の書き出しは「〈諱〉字〈字〉，小字〈小字〉」",
+      "evidence": [
+        {
+          "file": "_corpus_cache/beiwei-xiaowendi.txt",
+          "line": 1,
+          "quote": "高祖纪上"
+        },
+        {
+          "file": "_corpus_cache/beiwei-xuanwudi.txt",
+          "line": 1,
+          "quote": "世宗纪"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック1で17人を人物単位に閉じた**（魏書・北史を諱で走査＋本人の帝紀を通しで読む）。**陽性対照はこの政権の君主本人** — 東海王 元曄は帝紀が立たず列傳に「小字盆子」を持ち、同じ日にその値を転記した"
+    },
+    {
+      "book": "舊唐書・新唐書",
+      "regimeIds": [
+        "tang"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "両唐書とも本紀の冒頭1行には小字の位置が無い。**小字が立つのは新唐書 諸子傳**で、卷七十九 高祖諸子（新唐书.txt L10278・L10291）「隐太子建成小字毘沙门」「巢刺王元吉小字三胡」の形。**舊唐書は書全体で4件しか無く**、いずれも臣下の呼び名か一般語",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "本紀の冒頭は「〈廟号〉〈諡〉皇帝〔，〕讳〈諱〉，〈続柄〉」で小字を挟まない。新唐書 諸子傳の書き出しは「〈位号〉〈諱〉小字〈小字〉」",
+      "evidence": [
+        {
+          "file": "_corpus_cache/tang-taizong.txt",
+          "line": 1,
+          "quote": "太宗上"
+        },
+        {
+          "file": "_corpus_cache/tang-xuanzong.txt",
+          "line": 1,
+          "quote": "玄宗上"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック1で24人を人物単位に閉じた**"
+    },
+    {
+      "book": "明史",
+      "regimeIds": [
+        "ming"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "明史 本紀の冒頭1行には小字の位置が無い。**書は小字を書くが皇統には書かない** — 全体7件は張士誠「小字九四」（明史.txt L11635）・擴廓帖木児「小字保保」のような元末の群雄と功臣で、皇帝・皇子を1人も含まない",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "本紀の冒頭は「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」で小字を挟まない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/ming-taizu.txt",
+          "line": 2,
+          "quote": "太祖开天行道肇纪立极大圣至神仁文义武俊德成功高皇帝，讳元璋，字国瑞，姓朱氏"
+        },
+        {
+          "file": "_corpus_cache/ming-taizong.txt",
+          "line": 2,
+          "quote": "成祖启天弘道高明肇运圣武神功纯仁至孝文皇帝讳棣，太祖第四子也"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック1では16人を閉じていない**（`verdict: \"pending\"`）— 書が皇統に1件も小字を与えないので、沈黙は人物単位の所見にならない"
+    },
+    {
+      "book": "元史・新元史",
+      "regimeIds": [
+        "yuan"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "元史 本紀の冒頭1行には小字の位置が無い。**書は小字を書くが帝室には書かない** — 元史14件・新元史17件はいずれも漢人・高麗人の臣下（元史.txt L22518「俊奇，小字茶丘」など）",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "本紀の冒頭は「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」で小字を挟まない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/yuan-shizu.txt",
+          "line": 2,
+          "quote": "世祖圣德神功文武皇帝，讳忽必烈，睿宗皇帝第四子"
+        },
+        {
+          "file": "_corpus_cache/yuan-chengzong.txt",
+          "line": 2,
+          "quote": "成宗钦明广孝皇帝，讳铁穆耳，世祖之孙，裕宗真金第三子也"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック1では11人を閉じていない**（`verdict: \"pending\"`）— 帝室は諱そのものがモンゴル語名で、幼名の欄が立つ形になっていない"
+    },
+    {
+      "book": "清史稿",
+      "regimeIds": [
+        "qing"
+      ],
+      "fields": [
+        "childhoodName"
+      ],
+      "locator": "清史稿 本紀の冒頭1行には小字の位置が無い。**書は小字を書くが宗室には書かない** — 全体6件は臣下と列女（清史稿.txt L26059「李芳巇，小字葵生」など）で、1件は書名「花药小名录」",
+      "verdict": "no-form",
+      "personScope": "per-person",
+      "form": "本紀の冒頭は「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」で小字を挟まない",
+      "evidence": [
+        {
+          "file": "_corpus_cache/qing-shengzu.txt",
+          "line": 2,
+          "quote": "　　圣祖合天弘运文武睿哲恭俭宽裕孝敬诚信功德大成仁皇帝，讳玄烨，世祖第三子也"
+        },
+        {
+          "file": "_corpus_cache/qing-gaozong.txt",
+          "line": 2,
+          "quote": "　　高宗法天隆运至诚先觉体元立极敷文奋武钦明孝慈神圣纯皇帝，讳弘历，世宗第四子，"
+        }
+      ],
+      "exceptions": [],
+      "surveyedAt": "2026-08-16",
+      "note": "**2026-08-16 の幼名ブロック1では11人を閉じていない**（`verdict: \"pending\"`）— 字では宗室載齡「字鹤峰」が対照になって人物単位で閉じられたが、小字にはその対照が無い"
     }
   ]
 }

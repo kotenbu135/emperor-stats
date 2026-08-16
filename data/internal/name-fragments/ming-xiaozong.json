@@ -35,6 +35,20 @@
       "line": 2,
       "quote": "孝宗达天明道纯诚中正圣文神武至仁大德敬皇帝，讳祐堂，宪宗第三子也。",
       "cid": "zi3-c1"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-xiaozong.txt",
+      "line": 1,
+      "quote": "◎孝宗"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 11635,
+      "quote": "张士诚，小字九四，泰州白驹场亭人"
     }
   ],
   "findings": [
@@ -87,10 +101,21 @@
       ],
       "confidence": "high",
       "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "yo1-c1",
+        "yo1-p1"
+      ],
+      "confidence": "high",
+      "note": "**判別不能で確定**（2026-08-16・幼名ブロック1）。**明史は小字を書くが、皇統には1件も書かない** — 書全体の7件は張士誠「小字九四」（yo1-p1）・その弟 士徳「小字九六」・擴廓帖木児「小字保保」のような**元末の群雄と功臣**で、皇帝・皇子は1人も含まない。したがって沈黙は人物単位の所見ではなく皇統の書き方の言い換えになる。本人の本紀（`_corpus_cache/ming-xiaozong.txt` 26行）にも0回で、諱「祐樘」の隣接も0件"
     }
   ],
   "conflicts": [],
   "noteLog": "諡号の全字「達天明道純誠中正聖文神武至仁大徳敬皇帝」は原文の attestation だが、既存100件が全て短縮形（2〜4字）なので値としては捨て、短縮形「敬皇帝」を採る。personalName（本作業の対象外）について、両コーパスとも「讳祐堂」と作る一方レコードは「祐樘」。両コーパスは同じ简体デジタル化に由来し独立の証人ではないため、字形崩れとして扱い変更は提案しない。",
-  "discrepancies": "(1) name.templeName・name.posthumousName は現行 null。原文に値が在るので空欄の埋め戻しになる（値の食い違いではない）。(2) eraChangeCount.count=1・events[0].eraName=\"弘治\"・events[0].date=\"1487-09-22\" は原文と一致（c3 の即位条＝成化二十三年九月壬寅と同条で改元宣言）。(3) name.aliases=[] は原文と一致。(4) 対象外の欄だが name.personalName=\"祐樘\" に対し china-history 明史 本纪 卷十五・daizhigev20 明史.txt:659 とも「讳祐堂」と作る。两者は同一の简体デジタル化由来で独立の証人ではなく、稀用字「樘」の字形崩れと判断。原文優先の対象とせず変更は提案しない。",
+  "discrepancies": "なし",
   "processSuggestion": "元号名は人物レコードに欄が無く eraChangeCount.events[].eraName にしか置けないため、名前ブロックの出力契約に「元号は改元 event の欄へ返す」と1行書いておくと、findings の field パスを発明せずに済む。"
 }
