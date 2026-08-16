@@ -70,6 +70,13 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 8825,
       "quote": "隆安二年，乃率户四万、车二万七千乘，自鄴将徙于滑台。"
+    },
+    {
+      "book": "晉書",
+      "file": "_corpus_cache/houyan-muronglin.txt",
+      "line": 1,
+      "quote": "复僭称尊号。",
+      "cid": "zi4-c1"
     }
   ],
   "findings": [
@@ -230,6 +237,20 @@
         "別政権の書: 魏書 daizhigev20/史藏/正史/魏书.txt の「慕容麟」全出現1件（行5367・劉羅辰傳）を目視",
         "別史: 十六国春秋・別本十六国春秋・十六国春秋別傳（daizhigev20/史藏/载记/）を「麟」× 谥・庙号・庙曰・追尊・赐死 の共起で走査",
         "本人の _corpus_cache/houyan-muronglin.txt（2行）だけで閉じず、上記まで広げた"
+      ]
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "confidence": "high",
+      "sweptWords": [
+        "麟",
+        "字"
+      ],
+      "note": "**本人の名乗り行がキャッシュに無い**ので書の側を走査した — 晉書1冊を「麟」で走査して「麟字〈X〉」の隣接形は0件。キャッシュはこの人物を扱う地の文（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）",
+      "basis": [
+        "zi4-c1"
       ]
     }
   ],

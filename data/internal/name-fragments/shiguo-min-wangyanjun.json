@@ -1,87 +1,104 @@
 {
- "id": "shiguo-min-wangyanjun",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "新五代史",
-   "file": "_corpus_cache/shiguo-min-wangyanjun.txt",
-   "line": 7,
-   "quote": "鏻立十年见杀，谥曰惠皇帝，庙号太宗"
-  },
-  {
-   "cid": "c2",
-   "book": "十国春秋",
-   "file": "daizhigev20/史藏/载记/十国春秋.txt",
-   "line": 3880,
-   "quote": "諡曰齐肃明孝皇帝庙号恵宗【欧史作諡恵皇帝庙号太宗今从通鉴】"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": "太宗",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "世家末尾の定型（c1）。**`commonName` の「恵宗（王延鈞）」と食い違う** — 新五代史が庙号として挙げるのは太宗で、恵は諡の側。commonName は他書由来の名乗り"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": "恵皇帝",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "同じ条の「谥曰」が掲げる形（c1）"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "**新五代史は十国の帝に「〈諡の実字〉帝」の短縮呼称を使わない** — 「惠帝」は書のどこにも出ない（2026-08-11 の検証段が `(.)帝` の直前1字を全数で数え直した）。この書が世家の末尾に置くのは諡そのもの（1字・全長形・〈2字〉宗のいずれか）。全長形「恵皇帝」は別欄に入れた。**「この書は〈諡〉＋帝を使わない」という書全体への言い方は誤り**で、唐 李柷を一貫して「哀帝」と呼ぶ（掛かるのは十国世家の範囲だけ）"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "shiguo-min-wangyanjun",
+  "claims": [
     {
-     "form": "恵皇帝"
-    }
-   ],
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "弑逆の条「鏻立十年见杀，谥曰惠皇帝，庙号太宗」。現行の全長形と一致（追認）"
-  }
- ],
- "conflicts": [
-  {
-   "field": "name.templeName",
-   "adopted": {
-    "value": "太宗",
-    "source": {
-     "page": "新五代史 巻六十八 閩世家"
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-min-wangyanjun.txt",
+      "line": 7,
+      "quote": "鏻立十年见杀，谥曰惠皇帝，庙号太宗"
     },
-    "quote": "鏻立十年见杀，谥曰惠皇帝，庙号太宗"
-   },
-   "alternatives": [
     {
-     "value": "恵宗",
-     "source": {
-      "page": "十国春秋 巻九十一 恵宗本紀"
-     },
-     "quote": "諡曰齐肃明孝皇帝庙号恵宗【欧史作諡恵皇帝庙号太宗今从通鉴】",
-     "note": "**十国春秋は夾注で対立そのものを明示する**（「欧史作…今从通鉴」）。この系統では諡が「齊肅明孝皇帝」・廟号が「恵宗」で、欧史系とは組が入れ替わる"
+      "cid": "c2",
+      "book": "十国春秋",
+      "file": "daizhigev20/史藏/载记/十国春秋.txt",
+      "line": 3880,
+      "quote": "諡曰齐肃明孝皇帝庙号恵宗【欧史作諡恵皇帝庙号太宗今从通鉴】"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-min-wangyanjun.txt",
+      "line": 1,
+      "quote": "鏻，审知次子也。"
     }
-   ],
-   "reason": "名前欄が名乗る書は新五代史（十国の政権慣行レコード）なので欧史系を採る。`commonName`「恵宗（王延鈞）」は通鑑・十国春秋系から来ており、**1レコードの中で系統が割れている**"
-  }
- ],
- "noteLog": "2026-08-11 の検証段で `conflicts` を足した。値は動かない。前の断片は `discrepancies` の散文で「commonName と食い違う」と書くだけで、**十国春秋が夾注で2系統の対立を明示していること**が台帳に無かった。2系統は排他（欧史＝諡 恵皇帝／廟号 太宗、通鑑・十国春秋＝諡 齊肅明孝皇帝／廟号 恵宗）。",
- "discrepancies": "`commonName`「恵宗（王延鈞）」の廟号部分が新五代史の「庙号太宗」と食い違う（残量表の行・上の conflicts のとおり系統差）"
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "太宗",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "世家末尾の定型（c1）。**`commonName` の「恵宗（王延鈞）」と食い違う** — 新五代史が庙号として挙げるのは太宗で、恵は諡の側。commonName は他書由来の名乗り"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "恵皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ条の「谥曰」が掲げる形（c1）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "**新五代史は十国の帝に「〈諡の実字〉帝」の短縮呼称を使わない** — 「惠帝」は書のどこにも出ない（2026-08-11 の検証段が `(.)帝` の直前1字を全数で数え直した）。この書が世家の末尾に置くのは諡そのもの（1字・全長形・〈2字〉宗のいずれか）。全長形「恵皇帝」は別欄に入れた。**「この書は〈諡〉＋帝を使わない」という書全体への言い方は誤り**で、唐 李柷を一貫して「哀帝」と呼ぶ（掛かるのは十国世家の範囲だけ）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "恵皇帝"
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "弑逆の条「鏻立十年见杀，谥曰惠皇帝，庙号太宗」。現行の全長形と一致（追認）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "新五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "name.templeName",
+      "adopted": {
+        "value": "太宗",
+        "source": {
+          "page": "新五代史 巻六十八 閩世家"
+        },
+        "quote": "鏻立十年见杀，谥曰惠皇帝，庙号太宗"
+      },
+      "alternatives": [
+        {
+          "value": "恵宗",
+          "source": {
+            "page": "十国春秋 巻九十一 恵宗本紀"
+          },
+          "quote": "諡曰齐肃明孝皇帝庙号恵宗【欧史作諡恵皇帝庙号太宗今从通鉴】",
+          "note": "**十国春秋は夾注で対立そのものを明示する**（「欧史作…今从通鉴」）。この系統では諡が「齊肅明孝皇帝」・廟号が「恵宗」で、欧史系とは組が入れ替わる"
+        }
+      ],
+      "reason": "名前欄が名乗る書は新五代史（十国の政権慣行レコード）なので欧史系を採る。`commonName`「恵宗（王延鈞）」は通鑑・十国春秋系から来ており、**1レコードの中で系統が割れている**"
+    }
+  ],
+  "noteLog": "2026-08-11 の検証段で `conflicts` を足した。値は動かない。前の断片は `discrepancies` の散文で「commonName と食い違う」と書くだけで、**十国春秋が夾注で2系統の対立を明示していること**が台帳に無かった。2系統は排他（欧史＝諡 恵皇帝／廟号 太宗、通鑑・十国春秋＝諡 齊肅明孝皇帝／廟号 恵宗）。",
+  "discrepancies": "`commonName`「恵宗（王延鈞）」の廟号部分が新五代史の「庙号太宗」と食い違う（残量表の行・上の conflicts のとおり系統差）"
 }

@@ -1,74 +1,91 @@
 {
- "id": "wudai-houhan-yindi",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houhan-yindi.txt",
-   "line": 1,
-   "quote": "隐皇帝，讳承祐，高祖第二子也"
-  },
-  {
-   "cid": "c2",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houhan-yindi.txt",
-   "line": 51,
-   "quote": "又诏太常定谥曰“隐”"
-  },
-  {
-   "cid": "c3",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houzhou-taizu.txt",
-   "line": 29,
-   "quote": "太常少卿刘悦上汉少帝谥曰隐皇帝，陵曰颖陵，从之"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "廟号は無い。諡の記事（c2）にも廟号が伴わず、冒頭1行は諡から始まる（c1）"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": "隠皇帝",
-   "basis": [
-    "c1",
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "冒頭1行「隐皇帝，讳承祐」（c1）。諡は単字「隐」と定められ（c2）、後周太祖紀が「上汉少帝谥曰隐皇帝」と皇帝を付けた形で載せる（c3）"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": "隠帝",
-   "basis": [
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "書は本文でこの帝を「隐帝」「汉隐帝」と呼ぶ（五代本紀で44出現）。巻名も「隐帝紀」"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "wudai-houhan-yindi",
+  "claims": [
     {
-     "form": "隠皇帝"
+      "cid": "c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houhan-yindi.txt",
+      "line": 1,
+      "quote": "隐皇帝，讳承祐，高祖第二子也"
+    },
+    {
+      "cid": "c2",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houhan-yindi.txt",
+      "line": 51,
+      "quote": "又诏太常定谥曰“隐”"
+    },
+    {
+      "cid": "c3",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-taizu.txt",
+      "line": 29,
+      "quote": "太常少卿刘悦上汉少帝谥曰隐皇帝，陵曰颖陵，从之"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houhan-yindi.txt",
+      "line": 1,
+      "quote": "隐皇帝，讳承祐，高祖第二子也。"
     }
-   ],
-   "basis": [
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "隠帝紀下は諡を定めよという詔まで（字だけで形が無い）で、形が立つのは周太祖紀二の「谥曰隐皇帝」の側。同じ1回の授諡なので1段。"
-  }
- ],
- "discrepancies": "なし"
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "廟号は無い。諡の記事（c2）にも廟号が伴わず、冒頭1行は諡から始まる（c1）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "隠皇帝",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行「隐皇帝，讳承祐」（c1）。諡は単字「隐」と定められ（c2）、後周太祖紀が「上汉少帝谥曰隐皇帝」と皇帝を付けた形で載せる（c3）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": "隠帝",
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "書は本文でこの帝を「隐帝」「汉隐帝」と呼ぶ（五代本紀で44出現）。巻名も「隐帝紀」"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "隠皇帝"
+        }
+      ],
+      "basis": [
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "隠帝紀下は諡を定めよという詔まで（字だけで形が無い）で、形が立つのは周太祖紀二の「谥曰隐皇帝」の側。同じ1回の授諡なので1段。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "舊五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    }
+  ],
+  "discrepancies": "なし"
 }

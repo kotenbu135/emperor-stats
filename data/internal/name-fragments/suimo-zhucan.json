@@ -92,6 +92,13 @@
       "line": 360,
       "quote": "百僚上谥曰文皇帝，庙号太宗",
       "note": "【2026-08-15・親セッション】行番号を 361 から底本の 360 へ直した（361 は太宗本紀の「史臣曰」の段。陽性対照に掲げた廟号の定型「百僚上谥曰文皇帝，庙号太宗」が在るのは崩御条の 360）。"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-zhucan.txt",
+      "line": 1,
+      "quote": "硃粲者，亳州城父人也。"
     }
   ],
   "findings": [
@@ -238,6 +245,16 @@
         "葬"
       ],
       "sweptScope": "templeName と同じ4軸（旧唐書 卷五十六 の目次・章頭・立伝・史臣曰・贊／旧唐書 全文／daizhige 全蔵48正史ほか／hanzi_norm.norm_for_match による正規化）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 列傳は「李轨，字处则」のように冒頭で字の位置を使うが、この条は姓名の次に籍貫・続柄が来て字が入らない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし。照合した構造フィールドは name.personalName「粲」（原文の立伝冒頭「硃粲者」と一致）・name.familyName「朱」（底本の「硃」は版面全体の置換で、姓の実体は朱。食い違いではない）・name.templeName null・name.posthumousName null（いずれも原文と一致）・name.regnalTitle「皇帝」（原文は「僭称楚帝于冠军」で楚帝を称したと記す・一致）。reigns 618〜619 の年は今回の走査対象外（原文は「义宁中」「建元为昌达」とのみ記し、僭称の年を直接与えない）。",

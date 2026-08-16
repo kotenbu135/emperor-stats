@@ -70,6 +70,13 @@
       "file": "china-history/隋书/帝纪/第四章-卷四-原文.html",
       "line": 32,
       "quote": "萧铣以县反"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-xiaoxian.txt",
+      "line": 1,
+      "quote": "萧铣，后梁宣帝曾孙也。"
     }
   ],
   "findings": [
@@ -188,6 +195,16 @@
       ],
       "sweptScope": "同上",
       "note": "短縮呼称と同じ理由で全長形も無い。列傳の定型に廟号・諡が入る位置が無いという政権慣行（舊唐書・no-form）と一致する。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 列傳は「李轨，字处则」のように冒頭で字の位置を使うが、この条は姓名の次に籍貫・続柄が来て字が入らない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし。既存レコードの構造フィールド（name.familyName「蕭」・name.personalName「銑」・reigns 618〜621）はいずれも原文と一致した — 義寧二年（618）の僭称（c2）と武徳四年（621）の荊州平定・捕縛（c6）に対応する。name.templeName・name.posthumousName は現行 null で、原文の読解結果（read-absent）とも一致する。",

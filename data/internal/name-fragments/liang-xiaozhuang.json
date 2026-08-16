@@ -70,6 +70,13 @@
       "file": "daizhigev20/史藏/正史/陈书.txt",
       "line": 399,
       "quote": "萧庄伪署御史中丞，随庄入齐，终于鄴中。"
+    },
+    {
+      "book": "南史",
+      "file": "_corpus_cache/liang-xiaozhuang.txt",
+      "line": 1,
+      "quote": "梁将王琳在江上与霸先相抗，显祖遣兵纳梁永嘉王萧庄主梁祀。",
+      "cid": "zi4-c1"
     }
   ],
   "findings": [
@@ -217,6 +224,20 @@
       ],
       "sweptScope": "templeName と同一（北齐书・北史・南史・陈书・隋书・梁书・周书 の全文と本人キャッシュ・全出現を目視）。",
       "note": "政権慣行（southern-liang）の分岐どおり、この人物は諡を受けず位号で立つ側。原文が掲げる名乗りは「永嘉王」（梁の封爵）と「梁王」（北齊 武平元年の封）で、いずれも位号なので posthumousNameFull には入れず commonName 側の名乗りになる。全長形は原文に無い。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "confidence": "high",
+      "sweptWords": [
+        "庄",
+        "字"
+      ],
+      "note": "**本人の名乗り行がキャッシュに無い**ので書の側を走査した — 梁書・南史・陳書を「庄」で走査して隣接形は3件出たが、いずれも別人（謝莊「庄字希逸」・蕭大莊「大庄字仁礼」・陳莊「庄字承肃」）。キャッシュはこの人物を扱う地の文（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）",
+      "basis": [
+        "zi4-c1"
+      ]
     }
   ],
   "discrepancies": "なし。既存の構造フィールド（name.familyName「蕭」・name.personalName「荘」・name.templeName null・name.posthumousName null・reigns 558〜560）は原文と食い違わない。諱は北齊書・南史の「萧庄／庄」に一致、廟号・諡号は原文に無く null のまま、在位年も北齊書「九年二月…三月，即帝位于郢州」（天保九年＝558）と陳書 世祖紀 天嘉元年（560）の敗走に一致する。",

@@ -63,6 +63,13 @@
       "file": "daizhigev20/史藏/正史/宋史.txt",
       "line": 361,
       "quote": "封刘鋹为恩赦侯。"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-nanhan-liuchang.txt",
+      "line": 1,
+      "quote": "鋹，初名继兴，封卫王。"
     }
   ],
   "findings": [
@@ -214,6 +221,16 @@
       ],
       "sweptScope": "templeName と同じ4軸。新五代史 南漢世家は父 劉晟に「谥曰文武光圣明孝皇帝」の全長形を与えるが、劉鋹の条には「谥」の語が1件も無い。宋史側も「追封南越王」のみ",
       "note": "既存レコードには posthumousNameFull のキー自体が無い（値の対立ではなくキーの不在）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "新五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし。既存レコードの name.personalName「鋹」・name.templeName null・name.posthumousName null はいずれも原文と一致する。ただし name.posthumousNameFull はキー自体がレコードに無く（値の食い違いではなくキーの不在）、原文側も不在確定なので訂正は生じない。",

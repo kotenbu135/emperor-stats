@@ -98,6 +98,13 @@
       "file": "_corpus_cache/tangmo-shisiming.txt",
       "line": 1,
       "quote": "史思明，本名窣干"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tangmo-shisiming.txt",
+      "line": 1,
+      "quote": "史思明，本名窣干。"
     }
   ],
   "findings": [
@@ -220,6 +227,16 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。**自称の号は在るが諡が無い** — 「応天皇帝」は生前の号で、子の史朝義に殺されたあとの授与の条が無い（本人のキャッシュに「谥」0件）／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 列傳は「李轨，字处则」のように冒頭で字の位置を使うが、この条は姓名の次に籍貫・続柄が来て字が入らない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし（構造フィールドとの照合結果）。reigns の startYear 759・endYear 761 は原文と一致する — 舊唐書 卷二百上 は「既乾元二年正月一日也…四月，僭称大号」（乾元二年＝759）で皇帝号を称し、次段が「上元二年」（＝761）の敗死条、末尾が「思明乾元二年僭号，至朝义宝应元年灭，凡四年」。name.personalName「思明」・name.familyName「史」も冒頭定型と一致。name.templeName・name.posthumousName が現行 null なのも原文の読解結果と一致する。",

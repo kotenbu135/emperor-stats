@@ -21,6 +21,13 @@
       "file": "daizhigev20/史藏/载记/十国春秋.txt",
       "line": 4354,
       "quote": "养子继恩立上諡曰孝和皇帝庙号睿宗"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-beihan-liujun.txt",
+      "line": 1,
+      "quote": "承钧，旻次子也。"
     }
   ],
   "findings": [
@@ -75,6 +82,16 @@
       ],
       "confidence": "high",
       "note": "**新五代史 東漢世家は北漢の君主に諡の条を持たない**（劉鈞は「承钧立十三年病卒」で終わる）。十国春秋 卷百五 睿宗本紀の崩御条が唯一の当たり／2026-08-15 のユーザー決定で、**輯本・私撰（十六国春秋・同別伝・華陽国志・十国春秋）と編年・注（資治通鑑・胡三省注・裴松之注引書）を名前欄の witness に採る**ことになった。この値はその決定で入る"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "新五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし"

@@ -84,6 +84,13 @@
       "file": "daizhigev20/史藏/正史/北齐书.txt",
       "line": 2411,
       "quote": "范阳王绍义在突厥中，上表劝进，范阳署保宁为丞相。"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-gaoxie.txt",
+      "line": 1,
+      "quote": "范阳王绍义，文宣第三子也。"
     }
   ],
   "findings": [
@@ -232,6 +239,16 @@
         "称曰"
       ],
       "sweptScope": "(1) 通読: 北齊書 卷十二 文宣四王 daizhigev20/史藏/正史/北齐书.txt L505-527／北齊書 卷四 文宣紀の当該条 L249／北齊書 高保宁伝 L2411、北史 卷五十二 daizhigev20/史藏/正史/北史.txt L8400-8414／北史 高宝宁伝 L8671、_corpus_cache/beiqi-gaoxie.txt 全文。(2) 語彙走査: daizhigev20/史藏/正史 の全書について「绍义」を含む行 22件（北史 10・北齐书 7・周书 3・隋书 1・旧五代史系 2＝別人の李绍义）を hanzi_norm.norm_for_match で正規化して上記語を当てた。未走査: china-history 側の北齐书原文版（列傳非収録）・資治通鑑などの正史外。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "北齊書 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし（既存の構造フィールド name.personalName「紹義」・name.familyName「高」・name.posthumousName null・name.templeName null・name.regnalTitle「皇帝」は、いずれも原文と一致する。regnalTitle は c2「绍义遂即皇帝位，称武平元年」・c8「他钵立绍义为齐帝」が裏付ける）",

@@ -91,6 +91,20 @@
       "file": "daizhigev20/史藏/正史/南史.txt",
       "line": 4509,
       "quote": "北人怀其不侵掠，谓之义王"
+    },
+    {
+      "book": "南史",
+      "file": "daizhigev20/史藏/正史/南史.txt",
+      "line": 4506,
+      "quote": "朗弟明字靖通，少被武帝亲爱，封贞阳侯。",
+      "cid": "zi4-c1"
+    },
+    {
+      "book": "梁書",
+      "file": "_corpus_cache/liang-xiaoyuanming.txt",
+      "line": 1,
+      "quote": "七月辛丑，僧辩纳贞阳侯萧明，自采石济江。",
+      "cid": "zi4-c2"
     }
   ],
   "findings": [
@@ -195,6 +209,17 @@
       ],
       "confidence": "medium",
       "note": "欄への投入対象外だが記録として残す。南史 卷五一が寒山の敗戦後の捕囚時の呼び名として「北人怀其不侵掠，谓之义王」と記す。名乗り・諡ではない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": "靖通",
+      "verdict": "confirmed",
+      "confidence": "high",
+      "note": "南史 が「朗弟明字靖通，少被武帝亲爱，封贞阳侯」と隣接形で書く（c1）。**南史は唐の避諱で「淵」を落として「明」と書く**ので鍵は諱の下1字になり、貞陽侯の封が同定を裏付ける。**本人のキャッシュは梁書 敬帝紀の即位の条**で字を持たない（c2）。ゲートCは `COURTESY_ALLOW` で受けた（2026-08-16・字ブロック4）",
+      "basis": [
+        "zi4-c1",
+        "zi4-c2"
+      ]
     }
   ],
   "discrepancies": "既存の構造フィールドとの食い違い: 1件（追加）。name.posthumousNames[0] は form「閔皇帝」で原文（c2・c4）と一致するが year が無く、今回 北齊書の紀年から year: 558 を足す主張にした（既存値の訂正ではなく欄の追加）。name.personalName「淵明」・name.familyName「蕭」・name.templeName null・name.posthumousName null は原文と一致。regimeId southern-liang・reigns 555 は原文（c5・c6・c7＝承聖四年七月に入建鄴、紹泰元年に司徒・建安郡公へ降り、太平元年五月に薨）と矛盾しない。所在ラベルの不一致1件: regime-conventions の例外行は所在を「北齊書」とし、SOURCE_MAPPING.md:408 は「南史 卷八（敬帝紀に埋め込み）」（＝_corpus_cache の中身）とするが、諡・諱・封爵の本体は南史 卷五一 蕭明伝と北齊書 卷三三 蕭明伝の2箇所にある。",

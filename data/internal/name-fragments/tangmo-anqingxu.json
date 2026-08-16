@@ -71,6 +71,13 @@
       "file": "_corpus_cache/tangmo-anqingxu.txt",
       "line": 1,
       "quote": "庄即宣言于外，言禄山传位于晋王庆绪，尊禄山为太上皇"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tangmo-anqingxu.txt",
+      "line": 3,
+      "quote": "庆绪，禄山第二子也。"
     }
   ],
   "findings": [
@@ -194,6 +201,16 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。史思明に殺され、諡を贈る条が無い。走査255ファイルで本人に掛かる諡の当たり0件／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "舊唐書 列傳は「李轨，字处则」のように冒頭で字の位置を使うが、この条は姓名の次に籍貫・続柄が来て字が入らない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし（既存の構造フィールド name.templeName: null・name.posthumousName: null は原文の読解と一致。name.familyName「安」・name.personalName「慶緒」も本紀・列傳の表記と一致し、変更なし）",

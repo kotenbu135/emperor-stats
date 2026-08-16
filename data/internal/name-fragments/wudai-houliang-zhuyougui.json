@@ -1,71 +1,92 @@
 {
- "id": "wudai-houliang-zhuyougui",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houliang-zhuyougui.txt",
-   "line": 1,
-   "quote": "次郢王友珪，其母亳州营倡也，为左右控鹤都指挥使"
-  },
-  {
-   "cid": "c2",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houliang-zhuyougui.txt",
-   "line": 3,
-   "quote": "庶人友珪弑逆，矫太祖诏"
-  },
-  {
-   "cid": "c3",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houzhou-shizong.txt",
-   "line": 64,
-   "quote": "梁末主之上有郢王友珪，篡弑居位，未有纪录，请依《宋书》刘劭例，书为“元凶友珪”"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "舊五代史はこの人物に本紀を立てず、太祖紀・末帝紀の中で「郢王友珪」（c1）「庶人友珪」（c2）と呼ぶ。廟号・諡のどちらの記事も無い。**後周世宗紀の実録編纂の議も別の証人になる** — 《五代会要》を引いて「未有纪录」と述べ、宋書の劉劭の例に依って「元凶友珪」と書くよう請う（c3）"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "舊五代史 本紀61ファイルの「谥」82出現を全数で読み直した（2026-08-13）。この人物に諡を授ける条は本紀に無い。舊五代史は志12巻がコーパスに無いので、閉域は「本紀＋列傳」で読む。本人の紀が立たず（太祖紀七末尾＋末帝紀上冒頭）、その2箇所に「谥」は0出現。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "wudai-houliang-zhuyougui",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houliang-zhuyougui.txt",
+      "line": 1,
+      "quote": "次郢王友珪，其母亳州营倡也，为左右控鹤都指挥使"
+    },
+    {
+      "cid": "c2",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houliang-zhuyougui.txt",
+      "line": 3,
+      "quote": "庶人友珪弑逆，矫太祖诏"
+    },
+    {
+      "cid": "c3",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-shizong.txt",
+      "line": 64,
+      "quote": "梁末主之上有郢王友珪，篡弑居位，未有纪录，请依《宋书》刘劭例，书为“元凶友珪”"
+    },
+    {
+      "book": "舊五代史",
+      "file": "daizhigev20/史藏/正史/旧五代史.txt",
+      "line": 388,
+      "quote": "友珪，小字遥喜，母失其姓，本亳州营妓也。",
+      "cid": "zi4-c1"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "舊五代史はこの人物に本紀を立てず、太祖紀・末帝紀の中で「郢王友珪」（c1）「庶人友珪」（c2）と呼ぶ。廟号・諡のどちらの記事も無い。**後周世宗紀の実録編纂の議も別の証人になる** — 《五代会要》を引いて「未有纪录」と述べ、宋書の劉劭の例に依って「元凶友珪」と書くよう請う（c3）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "位号であって諡ではない。五代本紀を1冊走査しても、この帝に「谥曰」「庙号」の記事は無い（単字「谥」82出現・「庙号」40出現を全部読んだ）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "舊五代史 本紀61ファイルの「谥」82出現を全数で読み直した（2026-08-13）。この人物に諡を授ける条は本紀に無い。舊五代史は志12巻がコーパスに無いので、閉域は「本紀＋列傳」で読む。本人の紀が立たず（太祖紀七末尾＋末帝紀上冒頭）、その2箇所に「谥」は0出現。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "confidence": "high",
+      "sweptWords": [
+        "友珪",
+        "字"
+      ],
+      "note": "舊五代史の彼の書き出しは「友珪，小字遥喜，母失其姓，本亳州营妓也」で、**同じ位置が持つのは小字であって字ではない**（c1・小字「遥喜」は既に `childhoodName` に入っている）。**本人のキャッシュは太祖紀・末帝紀の地の文**で書き出しを含まない。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）",
+      "basis": [
+        "zi4-c1"
+      ]
+    }
+  ],
+  "discrepancies": "なし"
 }

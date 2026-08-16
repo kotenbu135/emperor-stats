@@ -20970,7 +20970,8 @@
     "aliases": [],
     "posthumousName": null,
     "templeName": null,
-    "regnalTitle": "皇帝"
+    "regnalTitle": "皇帝",
+    "courtesyName": "子彝"
    },
    "eraId": "three-kingdoms-jin",
    "regimeId": "western-jin",
@@ -46297,7 +46298,8 @@
       "form": "閔皇帝"
      }
     ],
-    "posthumousNameFull": "閔皇帝"
+    "posthumousNameFull": "閔皇帝",
+    "courtesyName": "靖通"
    },
    "eraId": "northern-southern",
    "regimeId": "southern-liang",

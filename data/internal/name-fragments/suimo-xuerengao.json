@@ -84,6 +84,13 @@
       "file": "_corpus_cache/suimo-xueju.txt",
       "line": 1,
       "quote": "薛举，河东汾阴人也。"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/suimo-xuerengao.txt",
+      "line": 1,
+      "quote": "举死，仁杲立于折墌城，与诸将帅 素多有隙，及嗣位，众咸猜惧。",
+      "cid": "zi4-c1"
     }
   ],
   "findings": [
@@ -207,6 +214,20 @@
         "葬"
       ],
       "sweptScope": "旧唐書: china-history の 仁杲/仁果 を含む全ファイル（本紀 卷一・卷二／志 卷十八／列傳 卷五十五・五十七・五十八・五十九・六十一・六十六・卷一百八十七上・一百九十三・一百九十六に相当する9巻）＋ daizhigev20/史藏/正史/旧唐书.txt 全文。新唐書: daizhigev20/史藏/正史/新唐书.txt 全文。隋書: china-history/隋书 に 仁杲/仁果 は0件（rg -l）。卷五十五の史臣曰・贊は語彙走査でなく直読。資治通鑑・編年類・類書は未走査（正史でないため段の対象外）。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "confidence": "high",
+      "sweptWords": [
+        "仁杲",
+        "字"
+      ],
+      "note": "**本人の名乗り行がキャッシュに無い**ので書の側を走査した — 舊唐書・新唐書を「仁杲」で走査して隣接形は0件。舊唐書 薛舉傳は彼に独立した書き出しを与えず、「举死，仁杲立于折墌城」と地の文で続く。キャッシュはこの人物を扱う地の文（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）",
+      "basis": [
+        "zi4-c1"
+      ]
     }
   ],
   "discrepancies": "既存の構造フィールドとの食い違いはなし。`name.templeName: null`・`name.posthumousName: null`・`name.personalName: \"仁杲\"`・`name.familyName: \"薛\"` は原文と一致する。報告する事項が1つ: `check_regime_conventions.py --field posthumousNameFull` が政権 xiqin について慣行未確定を返す（templeName・posthumousName は no-form、personalName は form-found、posthumousNames は form-found で確定済み）。今回は原文に諡の形が0件で振り分けが発生しないため null で閉じたが、同政権で諡の形が見つかる人物が出た場合は先に慣行を確定する必要がある。",

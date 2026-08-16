@@ -28,6 +28,13 @@
       "file": "_corpus_cache/beizhou-mingdi.txt",
       "line": 36,
       "quote": "辛丑，崩于延寿殿，时年二十七，谥曰明皇帝，庙称世宗"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "周書",
+      "file": "_corpus_cache/beizhou-mingdi.txt",
+      "line": 2,
+      "quote": "世宗明皇帝讳毓，小名统万突，太祖长子也。"
     }
   ],
   "findings": [
@@ -65,6 +72,16 @@
       ],
       "confidence": "high",
       "note": "**短縮呼称は周書が本文で使う形**。皇后伝は帝を「〈諡〉帝〈姓〉皇后」で並べ（「明帝独孤皇后」「武帝阿史那皇后」「宣帝杨皇后」）、史臣曰も「静帝越自幼冲」と書く。冒頭1行と崩御条が掲げるのは全長形"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "周書 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし"

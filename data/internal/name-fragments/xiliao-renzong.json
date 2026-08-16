@@ -7,6 +7,13 @@
       "file": "_corpus_cache/xiliao-renzong.txt",
       "line": 1,
       "quote": "在位十三年殁，庙号仁宗"
+    },
+    {
+      "book": "遼史",
+      "file": "_corpus_cache/xiliao-renzong.txt",
+      "line": 1,
+      "quote": "子夷列年幼，遣命皇后权国。",
+      "cid": "zi4-c1"
     }
   ],
   "findings": [
@@ -56,6 +63,20 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。1行しかない記事で、書くのは「庙号仁宗」だけ。**「正徳皇帝」は生前の尊号**で諡ではない／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "confidence": "high",
+      "sweptWords": [
+        "夷列",
+        "字"
+      ],
+      "note": "**本人の名乗り行がキャッシュに無い**ので書の側を走査した — 遼史1冊を「夷列」で走査して隣接形は0件。キャッシュはこの人物を扱う地の文（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）",
+      "basis": [
+        "zi4-c1"
+      ]
     }
   ],
   "discrepancies": "なし"

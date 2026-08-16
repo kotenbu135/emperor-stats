@@ -28,6 +28,13 @@
       "file": "_corpus_cache/beiqi-wuchengdi.txt",
       "line": 9,
       "quote": "天统四年十二月辛未，太上皇帝崩于邺宫乾寿堂，时年三十二，谥曰武成皇帝，庙号世祖"
+    },
+    {
+      "cid": "zi4-c1",
+      "book": "北齊書",
+      "file": "_corpus_cache/beiqi-wuchengdi.txt",
+      "line": 2,
+      "quote": "世祖武成皇帝，讳湛，神武皇帝第九子，孝昭皇帝之母弟也。"
     }
   ],
   "findings": [
@@ -65,6 +72,16 @@
       ],
       "confidence": "high",
       "note": "**短縮呼称は北齊書が本文で使う形**。この書は「〈諡〉帝」で帝を指す条を持ち（廢帝紀の「文宣帝之长子也」・武明皇后伝の「孝昭帝崩…立武成帝」・神武紀の「追崇为献武帝」）、末字＋皇帝の形は使わない。冒頭1行が掲げるのは全長形"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi4-c1"
+      ],
+      "confidence": "high",
+      "note": "北齊書 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
     }
   ],
   "discrepancies": "なし"

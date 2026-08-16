@@ -63,6 +63,13 @@
       "file": "daizhigev20/史藏/正史/新元史.txt",
       "line": 26438,
       "quote": "事西辽主直鲁古，为柯散城八思哈长官"
+    },
+    {
+      "book": "遼史",
+      "file": "_corpus_cache/xiliao-tianxi.txt",
+      "line": 1,
+      "quote": "子幼，遗诏以妹普速完权国，称制，改元崇福，号承天太后。",
+      "cid": "zi4-c1"
     }
   ],
   "findings": [
@@ -205,6 +212,20 @@
         "daizhigev20/史藏/正史/金史.txt 全文（「直鲁古／直魯古」0件）",
         "daizhigev20/史藏/正史/新元史.txt（「直鲁古」6行を目視）",
         "china-history/辽史/本纪/第三十章-卷三十-原文.html・china-history/辽史/列传/第三十八章-卷三十八-原文.html（簡体別底本での突き合わせ）"
+      ]
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "confidence": "high",
+      "sweptWords": [
+        "直鲁古",
+        "字"
+      ],
+      "note": "**本人の名乗り行がキャッシュに無い**ので書の側を走査した — 遼史1冊を「直鲁古」で走査して隣接形は0件。キャッシュはこの人物を扱う地の文（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）",
+      "basis": [
+        "zi4-c1"
       ]
     }
   ],

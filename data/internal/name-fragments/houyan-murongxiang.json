@@ -63,6 +63,13 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 8668,
       "quote": "追尊伯考献庄太子全为献庄皇帝，尊宝后段氏为皇太后，全妃丁氏为献庄皇后，谥太子策为献哀太子"
+    },
+    {
+      "book": "晉書",
+      "file": "_corpus_cache/houyan-murongxiang.txt",
+      "line": 1,
+      "quote": "详僭称尊号，置百官，改年号。",
+      "cid": "zi4-c1"
     }
   ],
   "findings": [
@@ -198,6 +205,20 @@
       ],
       "sweptScope": "templeName と同一（上の sweptScope の (1)〜(5)）",
       "note": "全長形は記事末尾の条の〈諡〉皇帝の位置から取る欄だが、その条自体が無い。短縮形も全長形も原文のどこにも無いので不在。ただし政権慣行の記録（posthumousNameFull）は注記で慕容詳を「この記録が覆わないもの」に挙げており、慣行からの転記ではなく本セッションの走査だけが根拠なので confidence は medium。陽性対照: 慕容盛が僭位後にまとめて追尊・追諡を行う条（c8・L8668）が同じ載記第二十四の中に在り、そこに慕容詳は入っていない（授与の仕組みは在るのに彼を飛ばしている）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "confidence": "high",
+      "sweptWords": [
+        "详",
+        "字"
+      ],
+      "note": "**本人の名乗り行がキャッシュに無い**ので書の側を走査した — 晉書1冊を「详」で走査して「详字〈X〉」の隣接形は0件。キャッシュはこの人物を扱う地の文（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）",
+      "basis": [
+        "zi4-c1"
+      ]
     }
   ],
   "discrepancies": "なし。既存レコードの構造フィールド（name.personalName=詳・name.familyName=慕容・name.posthumousName=null・name.templeName=null・regimeId=later-yan・reigns 397〜397）はいずれも原文と一致する（397年＝隆安元年の僭号は c1、同年内の誅殺は c4）。",
