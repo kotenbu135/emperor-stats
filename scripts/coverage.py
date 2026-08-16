@@ -62,6 +62,11 @@ BEGIN = "<!-- coverage:begin -->"
 END = "<!-- coverage:end -->"
 
 FILLED, ABSENT, UNKNOWN = "filled", "absent", "unknown"
+# 2026-08-16 に4つ目を足した（ユーザー決定）。**調査そのものを打ち切ったセル**で、
+# `absent` に混ぜない — 混ぜると「読んだうえで空」を読んでいないセルに主張することになり、
+# 2026-08-11 の決定（verdict を fail-closed にした理由）に反する。率の分母から外すので、
+# 打ち切りが残っているせいで項目が永久に 100% に届かない、という数え方を避けられる
+OUTSCOPE = "out-of-scope"
 
 
 class Ctx:
@@ -72,6 +77,7 @@ class Ctx:
         self.regimes = {r["id"]: r for r in regimes}
         self.skip = self._skip_cells()
         self.read_absent = self._read_absent_cells()
+        self.out_of_scope = self._out_of_scope_cells()
         self.profiles = {}
         if PROFILES.exists():
             self.profiles = json.loads(PROFILES.read_text(encoding="utf-8")).get("profiles") or {}
@@ -140,6 +146,31 @@ class Ctx:
                 out.add((eid, field.split(".", 1)[1]))
         return out
 
+    def _out_of_scope_cells(self):
+        """**調査を打ち切った** (人物, 項目)。証人は断片の
+
+        `findings[{field: "name.<項目>", value: null, verdict: "out-of-scope", reason: ...}]`。
+
+        `read-absent` と違い**原文を読んでいない**ので引用台帳を持たない（check_claims.py は
+        代わりに `reason` を必須にしている）。率の分母から外すため、**打ち切りを増やせば率は
+        上がる** — だから機械が付けてよい旗ではなく、ユーザーの決定を写す場所として使う
+        （2026-08-16・袁世凱＝正史のコーパスが無い1人が最初の例）。
+        """
+        out = set()
+        if not FRAGMENTS.exists():
+            return out
+        for path in sorted(FRAGMENTS.glob("*.json")):
+            data = json.loads(path.read_text(encoding="utf-8"))
+            eid = data.get("id") or path.stem
+            for f in data.get("findings") or []:
+                field = str(f.get("field") or "")
+                if not field.startswith("name."):
+                    continue
+                if f.get("value") is not None or f.get("verdict") != "out-of-scope":
+                    continue
+                out.add((eid, field.split(".", 1)[1]))
+        return out
+
     def skipped(self, regime_id, field, emperor_id):
         s = self.skip.get((regime_id, field))
         if not s:
@@ -204,6 +235,10 @@ def m_name(ctx, sub):
         v = (e.get("name") or {}).get(sub)
         if v:
             state = FILLED
+        elif (e["id"], sub) in ctx.out_of_scope:
+            # 調査を打ち切ったセル。**読んだうえで空ではない**ので absent に混ぜず、
+            # 率の分母から外す（2026-08-16 のユーザー決定）
+            state = OUTSCOPE
         elif ctx.skipped(e["regimeId"], sub, e["id"]) or (e["id"], sub) in ctx.read_absent:
             # 政権ぐるみの打ち切り（原典の明文）と、人物ごとの読解結果の2本。
             # 後者が無いと、読み終わったセルが未調査のセルと同じ判別不能に落ちる
@@ -297,6 +332,9 @@ def measure(ctx):
             "id": fid, "label": label, "unit": unit, "phase": phase,
             "cells": cells,
             "n": len(cells), "filled": c[FILLED], "absent": c[ABSENT], "unknown": c[UNKNOWN],
+            # 分母は打ち切りを除いた側。**総数 n は減らさない**ので
+            # 「何セルを外して率を出したか」が表の上で追える
+            "outscope": c[OUTSCOPE], "rateN": len(cells) - c[OUTSCOPE],
         })
     return out
 
@@ -325,12 +363,16 @@ def render_block(ctx, rows):
     out.append("（`--check` が実測とのずれで落ちます）。**「フィールドが在るか」ではなく「確定したか」**を数えており、")
     out.append("`判別不能` は構造だけでは確定と読めないセルです — 誤りではなく、**その項目の完了主張が機械では確かめられない**ことを表します。")
     out.append("")
-    out.append("| 項目 | 単位 | 総数 | 値あり | 不在確定 | 判別不能 | 確定率 |")
-    out.append("|------|------|-----:|------:|--------:|--------:|------:|")
+    out.append("| 項目 | 単位 | 総数 | 値あり | 不在確定 | 判別不能 | 対象外 | 確定率 |")
+    out.append("|------|------|-----:|------:|--------:|--------:|------:|------:|")
     for r in rows:
         det = r["filled"] + r["absent"]
         out.append(f"| {r['label']} | {r['unit']} | {r['n']} | {r['filled']} | {r['absent']} "
-                   f"| {r['unknown']} | {pct(det, r['n']):.1f}% |")
+                   f"| {r['unknown']} | {r['outscope']} | {pct(det, r['rateN']):.1f}% |")
+    out.append("")
+    out.append("`対象外` は**調査そのものを打ち切ったセル**で、確定率の分母から外しています"
+               "（`不在確定` とは別 — こちらは原文を読んでいません）。総数は減らしていないので、"
+               "何セルを外して率を出したかは表の上で追えます。")
     out.append("")
     claimed = [r for r in rows if phase_status(ctx, r["phase"]) == "completed" and r["unknown"]]
     if claimed:
@@ -359,11 +401,12 @@ def print_report(ctx, rows, worst):
           f"**{u} セル（{pct(u, n):.1f}%）**")
     print()
     print("=== 項目別（データ本体からの実測。単位は人物または在位） ===")
-    print(f"{'項目':<24} {'総数':>5} {'値あり':>6} {'不在確定':>8} {'判別不能':>8}  確定率")
+    print(f"{'項目':<24} {'総数':>5} {'値あり':>6} {'不在確定':>8} {'判別不能':>8} "
+          f"{'対象外':>6}  確定率")
     for r in rows:
         det = r["filled"] + r["absent"]
         print(f"{r['label']:<24} {r['n']:>5} {r['filled']:>6} {r['absent']:>8} "
-              f"{r['unknown']:>8}  {pct(det, r['n']):5.1f}%")
+              f"{r['unknown']:>8} {r['outscope']:>6}  {pct(det, r['rateN']):5.1f}%")
 
     print()
     print("=== 完了と称している項目のうち、構造だけでは確定と読めないセル ===")
@@ -406,6 +449,10 @@ def regime_worst(ctx, rows, limit=12):
     agg = collections.defaultdict(lambda: [0, 0])  # rid -> [確定, 総数]
     for r in rows:
         for _, rid, state in r["cells"]:
+            if state == OUTSCOPE:
+                # 打ち切ったセルは分子にも分母にも入れない（入れると
+                # 打ち切りの多い政権ほど率が上がる）
+                continue
             agg[rid][1] += 1
             if state != UNKNOWN:
                 agg[rid][0] += 1
@@ -426,6 +473,10 @@ def show_field(rows, fid):
     print(f"{r['label']}（{r['id']}）: 判別不能 {len(ids)} / {r['n']}")
     for i in ids:
         print(" ", i)
+    out = [s for s, _, st in r["cells"] if st == OUTSCOPE]
+    if out:
+        print(f"対象外（調査を打ち切ったので確定率の分母から外す） {len(out)}件: "
+              + " ".join(out))
     return 0
 
 

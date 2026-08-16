@@ -57,6 +57,25 @@ def counted(finding):
     return ("t-emperor", "templeName") in cells
 
 
+def outscoped(finding):
+    """coverage.py の打ち切りローダが、この主張を対象外として拾うか。
+
+    **不在確定と同じバケツに落ちないこと**を測るために別で見る（落ちると
+    「読んだうえで空」を読んでいないセルに主張してしまう）。
+    """
+    with tempfile.TemporaryDirectory() as d:
+        p = Path(d)
+        (p / "t-emperor.json").write_text(
+            json.dumps(fragment(finding), ensure_ascii=False), encoding="utf-8")
+        orig = COV.FRAGMENTS
+        COV.FRAGMENTS = p
+        try:
+            cells = COV.Ctx._out_of_scope_cells(object())
+        finally:
+            COV.FRAGMENTS = orig
+    return ("t-emperor", "templeName") in cells
+
+
 def gate_errors(finding):
     """check_claims.py が verdict について出すエラーの数（引用側の指摘は数えない）。"""
     with tempfile.TemporaryDirectory() as d:
@@ -64,7 +83,8 @@ def gate_errors(finding):
         p.write_text(json.dumps(fragment(finding), ensure_ascii=False), encoding="utf-8")
         errors, reports = [], []
         counters = {"checked": 0, "unresolved": 0, "glyph": 0, "spliced": 0,
-                    "line_off": 0, "findings": 0, "conflicts": 0, "suggestions": 0}
+                    "line_off": 0, "findings": 0, "conflicts": 0, "suggestions": 0,
+                    "out_of_scope": 0}
         try:
             CC.check_one(p, errors, reports, counters)
         except Exception as e:      # コーパス不在で引用照合が落ちても verdict は測れる
@@ -73,7 +93,7 @@ def gate_errors(finding):
 
 
 CASES = [
-    # (名前, finding, coverage が数えるか, ゲートのエラー件数)
+    # (名前, finding, coverage が不在確定に数えるか, ゲートのエラー件数, 対象外に数えるか)
     ("読んで無いと決めた主張は数える",
      {"field": "name.templeName", "value": None, "verdict": "read-absent"}, True, 0),
     ("verdict の付け忘れは数えない（過小報告に落ちる）",
@@ -88,16 +108,30 @@ CASES = [
      {"field": "name.templeName", "value": "太宗"}, False, 0),
     ("name 以外の空の主張は名前欄に数えない",
      {"field": "ages.birthDate", "value": None, "verdict": "read-absent"}, False, 0),
+    # 2026-08-16 に足した4つ目の状態。**不在確定と混ざらないこと**が要点で、
+    # 混ざると読んでいないセルに「読んだうえで空」を主張することになる
+    ("打ち切りは不在確定に数えず、対象外として拾う",
+     {"field": "name.templeName", "value": None, "verdict": "out-of-scope",
+      "reason": "コーパスに書が無い"}, False, 0, True),
+    ("理由の無い打ち切りは落ちる（率の分母から外れるので言い値にしない）",
+     {"field": "name.templeName", "value": None, "verdict": "out-of-scope"}, False, 1, True),
+    ("読んで無いと決めた主張は対象外には数えない",
+     {"field": "name.templeName", "value": None, "verdict": "read-absent"}, True, 0, False),
 ]
 
 bad = 0
-for name, finding, want_counted, want_errors in CASES:
+for case in CASES:
+    name, finding, want_counted, want_errors = case[:4]
+    want_outscope = case[4] if len(case) > 4 else False
     got_counted = counted(finding)
+    got_outscope = outscoped(finding)
     errs = gate_errors(finding)
-    ok = got_counted == want_counted and len(errs) == want_errors
+    ok = (got_counted == want_counted and len(errs) == want_errors
+          and got_outscope == want_outscope)
     bad += 0 if ok else 1
     print(f"{'OK ' if ok else 'NG '} {name}  "
-          f"(数える {got_counted} / want {want_counted}・エラー {len(errs)} / want {want_errors})")
+          f"(数える {got_counted} / want {want_counted}・エラー {len(errs)} / want {want_errors}"
+          f"・対象外 {got_outscope} / want {want_outscope})")
     if not ok:
         for e in errs:
             print(f"       {e[:160]}")
