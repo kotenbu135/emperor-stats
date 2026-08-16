@@ -21,6 +21,20 @@
       "file": "china-history/元史/本纪/第二十七章-卷二十七-原文.html",
       "line": 30,
       "quote": "乙未，请大行皇帝谥于南郊"
+    },
+    {
+      "cid": "zi5-p1",
+      "book": "元史",
+      "file": "daizhigev20/史藏/正史/元史.txt",
+      "line": 21484,
+      "quote": "脱脱，字大用，生而岐嶷，异于常儿"
+    },
+    {
+      "cid": "zi5-p2",
+      "book": "元史",
+      "file": "daizhigev20/史藏/正史/元史.txt",
+      "line": 21612,
+      "quote": "铁木儿塔识，字九龄，国王脱脱之子"
     }
   ],
   "findings": [
@@ -59,7 +73,28 @@
       ],
       "confidence": "high",
       "note": "1段のみ。要約（c2）は延祐七年五月乙未。英宗紀の条（c3）は同年の南郊請諡で形を書かない"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "zi5-p1",
+        "zi5-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "字",
+        "小字",
+        "爱育黎拔力八达"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/元史.txt（元史1冊。諱「爱育黎拔力八达」の全出現）",
+        "_corpus_cache/yuan-renzong.txt（本人の本紀 104行・「字」3箇所を全読）"
+      ],
+      "note": "**この書はこの人物の字を載せない**。元史の名乗りは「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」で**字の位置が無い**（政権慣行が no-form）が、no-form は政権単位の事実なので**冒頭1行の読解では人物単位の証拠にならない** — そこで (1) 元史 1冊を諱「爱育黎拔力八达」で走査し字が続く隣接形の当たりが0件、(2) **本人の本紀まるごと**（`_corpus_cache/yuan-renzong.txt` 104行）で出る「字」3箇所を全部読んで名の字が0件（出るのは蒙古字・国字・銀字圓符のような一般語）、の2つを確かめた。**陽性対照** — 同じ書がモンゴル人（丞相脱脱・鉄木児塔識）には字を書く（zi5-p1・zi5-p2）ので、書に字の書式が無いのではなくこの人物に書いていない（2026-08-16・字ブロック5）"
     }
   ],
-  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+  "discrepancies": "なし"
 }
