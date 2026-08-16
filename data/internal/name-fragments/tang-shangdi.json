@@ -42,6 +42,27 @@
       "file": "daizhigev20/史藏/正史/旧唐书.txt",
       "line": 10598,
       "quote": "中宗四男：章庶人生懿德太子重润，后宫生庶人重福、节愍太子重俊、殇帝重茂"
+    },
+    {
+      "cid": "zi8-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-shangdi.txt",
+      "line": 1,
+      "quote": "殇皇帝重茂，中宗第四子也"
+    },
+    {
+      "cid": "zi8-p1",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 10574,
+      "quote": "燕王忠，字正本，高宗长子也"
+    },
+    {
+      "cid": "zi8-p2",
+      "book": "舊唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 10589,
+      "quote": "章怀太子贤，字明允，高宗第六子也"
     }
   ],
   "findings": [
@@ -87,6 +108,22 @@
       ],
       "confidence": "high",
       "note": "冒頭形は「讳」を挟まず諱が直接続く異形（懿宗と同型）。姓は本箇所に出ないので諱のみ。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi8-c1",
+        "zi8-p1",
+        "zi8-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "重茂字",
+        "重茂，字"
+      ],
+      "note": "**この書はこの人物の字を載せない**。新唐書 本紀 卷一〜十に条が立たないので字ブロック3では閉じなかったが、**本人の条は舊唐書 卷八十六 高宗中宗諸子**に在る（`_corpus_cache/tang-shangdi.txt` 3行・「字」0回）。**陽性対照が同じ巻の中に立つ** — 同じ卷八十六が燕王忠に字を書き（zi8-p1）、章懐太子賢にも書く（zi8-p2）。走査も両唐書で当てて（舊唐書14回・新唐書7回）隣接形は0件で、新唐書 三宗諸子 L10391 の重福の条に出る言及にも字は無い（2026-08-16・字ブロック8）"
     }
   ],
   "conflicts": [
@@ -121,6 +158,6 @@
     }
   ],
   "noteLog": "引用は底本（簡体の daizhigev20 旧唐书）の字体のまま保存し、findings の値だけを既存レコードの表記（日本語新字体・commonName「殤帝」に揃う）へ倒した（殇→殤）。_corpus_cache/tang-shangdi.txt は折り返し由来の空白が入る（「授右 卫大将军」）ので、引用は daizhigev20 の原文行から採った。廟号は「調査したが記載が無い」ではなく「舊唐書が諡だけを挙げる＝廟号を持たない枝」として空欄を採っている。 出典ラベルの書式は既存の唐レコード（「旧唐書 巻八十六（殤皇帝重茂伝）」）に揃えた。discrepancies の根拠にした行（巻七の「时年十六」・巻八十六の「时年十七」）は、既存レコードの ages を見るより前に走らせた「重茂」の grep 出力から採っている。",
-  "discrepancies": "既存の構造フィールドと原文の食い違いは なし。照合した内容: reigns 710–710 は「景龙四年，中宗崩，韦庶人立重茂为帝」「及韦氏败，重茂遂逊位」（景龍四年＝710年）と整合。ages.accessionAge 16 は中宗本紀「丁亥，皇太子即帝位于柩前，时年十六」（c5）と一致。ages.deathAge 17 は列傳「寻薨，时年十七」（c2）と一致。ages.deathDate 0714-09-05 の年は「开元二年」＝714年と整合（月日は玄宗本紀の当該条の範囲内で、日の当否はこの段では検証していない）。name.personalName「重茂」は冒頭形と一致。name.posthumousName・name.templeName は現状 null だが、これは本作業が埋める未調査の空欄であり食い違いではない（templeName は null のままが正しいという判定）。",
+  "discrepancies": "なし",
   "processSuggestion": "既存の構造フィールドと原文を照合するために ages などを見るとき、指定された jq は name/reigns しか出さないので自分で jq を書き足すことになり、そこで note が混じって出た（今回 ages.note が画面に出た）。1段目の照合用に note を落とす構造フィールド抽出コマンド（例: extract_structural_material.py <id> --fields ages,reigns）を用意すると、その場書きの jq が要らなくなる。"
 }

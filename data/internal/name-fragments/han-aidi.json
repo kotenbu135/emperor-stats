@@ -77,6 +77,20 @@
       "file": "daizhigev20/史藏/正史/汉书.txt",
       "line": 4188,
       "quote": "至惠帝尊高帝庙为太祖庙，景帝尊孝文庙为太宗庙"
+    },
+    {
+      "cid": "zi8-c1",
+      "book": "漢書",
+      "file": "_corpus_cache/han-aidi.txt",
+      "line": 1,
+      "quote": "孝哀皇帝，元帝庶孙，定陶恭王子也"
+    },
+    {
+      "cid": "zi8-p1",
+      "book": "漢書",
+      "file": "daizhigev20/史藏/正史/汉书.txt",
+      "line": 4305,
+      "quote": "自名曰骜，字太孙，常置左右"
     }
   ],
   "findings": [
@@ -170,10 +184,25 @@
         "daizhigev20/史藏/正史/后汉书.txt（後漢書1冊まるごと・孝哀／哀帝で当て、加諡・改諡の条が無いことを確かめた）"
       ],
       "note": "政権慣行（漢書・posthumousNames）が言うとおり、諡を授ける条を持つのは高帝1人だけで、哀帝の崩御・葬送の条（c4）には諡の授与記事が無い。諡の形は冒頭の名乗り（c1）にしか出ないので、授けられた順を並べる段は立たない。後代の加諡・改諡も漢書・後漢書のどちらにも無い。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi8-c1",
+        "zi8-p1"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "欣字",
+        "欣，字"
+      ],
+      "note": "**この書はこの人物の字を載せない**。漢書の帝紀の冒頭1行は続柄と母から始まって**字の位置が無い**が、それは政権単位の書式なので人物単位の証拠にならない — そこで(1) 漢書1冊を諱「欣」で走査し（漢書1冊に39回出るがすべて別人か一般語で、隣接形は0件）、(2) **本人の帝紀まるごと**（`_corpus_cache/han-aidi.txt` 47行）に「字」が0回、の2つを確かめた。**陽性対照は同じ漢書が同じ政権の皇帝に紀の外で字を書くこと** — 元后傳 L4305 が成帝を「自名曰骜，字太孙」と書く（zi8-p1）ので、書に字の書式が無いのではなくこの人物に書いていない（2026-08-16・字ブロック8）"
     }
   ],
   "conflicts": [],
   "noteLog": "既存の構造フィールド（personalName 欣・posthumousName 哀帝・posthumousNameFull 孝哀皇帝・templeName null）は原文と一致したので、捨てた値は無い。走査は scripts/sweep_keyword.py が字体正規化を持たないため、scripts/hanzi_norm.norm_for_match を通す自前スクリプトで当て直した（結果は同じ）。 政権慣行の問い合わせは posthumousName だけレコードが無く exit 1 だったが、posthumousNameFull レコードの保存形の行がこの欄の扱い（短縮呼称は冒頭からは決まらない・既に埋まっている11人は諡字形・空の3人は位号）を明記しているので、blocked にせず人物単位で読んだ。",
-  "discrepancies": "なし（既存の構造フィールドと原文の食い違いは無い。name.personalName「欣」＝漢書 成帝紀の立太子詔・宣元六王伝、name.posthumousName「哀帝」＝巻見出し「哀帝纪第十一」、name.posthumousNameFull「孝哀皇帝」＝帝紀冒頭1行、name.templeName null＝漢書・後漢書の廟号語彙走査で該当なし）",
+  "discrepancies": "なし",
   "processSuggestion": "scripts/sweep_keyword.py が hanzi_norm.norm_for_match を通していないので、read-absent の4軸走査のたびに自前の正規化スクリプトを書き直すことになる。sweep_keyword.py に --norm 旗（既定で on）を足すと、走査語の字体割れによる取りこぼしを道具の側で塞げる。残量表 前漢の名前欄の政権慣行（未走査） — western-han は posthumousName の慣行レコードが無く check_regime_conventions.py --for han-aidi --field posthumousName が exit 1 で止まる。前漢14人の未読件数は数えていない（未走査）。"
 }
