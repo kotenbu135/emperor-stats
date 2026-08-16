@@ -1,121 +1,129 @@
 {
-  "id": "wudai-houtang-zhuangzong",
-  "claims": [
+ "id": "wudai-houtang-zhuangzong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+   "line": 1,
+   "quote": "庄宗光圣神闵孝皇帝，讳存勖，武皇帝之长子也"
+  },
+  {
+   "cid": "c2",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+   "line": 182,
+   "quote": "上谥曰光圣神闵孝皇帝，庙号庄宗。是月丙子，葬于雍陵"
+  },
+  {
+   "cid": "c3",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+   "line": 182,
+   "quote": "天成元年七月丁卯，有司上谥曰光圣神闵孝皇帝，庙号庄宗"
+  },
+  {
+   "cid": "zi4-c1",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+   "line": 1,
+   "quote": "庄宗光圣神闵孝皇帝，讳存勖，武皇帝之长子也。"
+  },
+  {
+   "cid": "yo4-c1",
+   "book": "新五代史",
+   "file": "daizhigev20/史藏/正史/新五代史.txt",
+   "line": 933,
+   "quote": "其小字亚子，当时人或谓之亚次"
+  },
+  {
+   "cid": "yo4-c2",
+   "book": "舊五代史",
+   "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
+   "line": 1,
+   "quote": "庄宗光圣神闵孝皇帝，讳存勖，武皇帝之长子也。母曰"
+  },
+  {
+   "cid": "p1",
+   "book": "舊五代史",
+   "file": "daizhigev20/史藏/正史/旧五代史.txt",
+   "line": 1050,
+   "quote": "讳从厚，小字菩萨奴"
+  },
+  {
+   "cid": "zztj1",
+   "book": "資治通鑑",
+   "file": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "line": 27252,
+   "quote": "亚子，存勖小名也"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "荘宗",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "冒頭1行（c1）と崩御の翌年の上諡記事「庙号庄宗」（c2）の2証人"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "光聖神閔孝皇帝",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "上諡記事「上谥曰光圣神闵孝皇帝」（c2）と冒頭1行（c1）が一致"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "短縮呼称の欄は空。舊五代史は廟号を持つ帝を廟号で呼び、諡から作った短縮形を本文で使わない（五代本紀61巻の巻名も「太祖紀」「庄宗紀」「明宗紀」「高祖紀」「世宗紀」で、短縮形が巻名に立つのは廟号を持たない闵帝・少帝・末帝・隐帝・恭帝の側だけ）"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "舊五代史",
-      "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
-      "line": 1,
-      "quote": "庄宗光圣神闵孝皇帝，讳存勖，武皇帝之长子也"
-    },
-    {
-      "cid": "c2",
-      "book": "舊五代史",
-      "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
-      "line": 182,
-      "quote": "上谥曰光圣神闵孝皇帝，庙号庄宗。是月丙子，葬于雍陵"
-    },
-    {
-      "cid": "c3",
-      "book": "舊五代史",
-      "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
-      "line": 182,
-      "quote": "天成元年七月丁卯，有司上谥曰光圣神闵孝皇帝，庙号庄宗"
-    },
-    {
-      "cid": "zi4-c1",
-      "book": "舊五代史",
-      "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
-      "line": 1,
-      "quote": "庄宗光圣神闵孝皇帝，讳存勖，武皇帝之长子也。"
-    },
-    {
-      "cid": "yo4-c1",
-      "book": "新五代史",
-      "file": "daizhigev20/史藏/正史/新五代史.txt",
-      "line": 933,
-      "quote": "其小字亚子，当时人或谓之亚次"
-    },
-    {
-      "cid": "yo4-c2",
-      "book": "舊五代史",
-      "file": "_corpus_cache/wudai-houtang-zhuangzong.txt",
-      "line": 1,
-      "quote": "庄宗光圣神闵孝皇帝，讳存勖，武皇帝之长子也。母曰"
-    },
-    {
-      "cid": "p1",
-      "book": "舊五代史",
-      "file": "daizhigev20/史藏/正史/旧五代史.txt",
-      "line": 1050,
-      "quote": "讳从厚，小字菩萨奴"
+     "form": "光聖神閔孝皇帝"
     }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": "荘宗",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "冒頭1行（c1）と崩御の翌年の上諡記事「庙号庄宗」（c2）の2証人"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": "光聖神閔孝皇帝",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "上諡記事「上谥曰光圣神闵孝皇帝」（c2）と冒頭1行（c1）が一致"
-    },
-    {
-      "field": "name.posthumousName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "短縮呼称の欄は空。舊五代史は廟号を持つ帝を廟号で呼び、諡から作った短縮形を本文で使わない（五代本紀61巻の巻名も「太祖紀」「庄宗紀」「明宗紀」「高祖紀」「世宗紀」で、短縮形が巻名に立つのは廟号を持たない闵帝・少帝・末帝・隐帝・恭帝の側だけ）"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": [
-        {
-          "form": "光聖神閔孝皇帝"
-        }
-      ],
-      "basis": [
-        "c3"
-      ],
-      "confidence": "high",
-      "note": "明宗が天成元年（926）に上った初諡で、加諡は舊五代史に無い（1段）。"
-    },
-    {
-      "field": "name.courtesyName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "zi4-c1"
-      ],
-      "confidence": "high",
-      "note": "舊五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
-    },
-    {
-      "field": "name.childhoodName",
-      "value": "亜子",
-      "basis": [
-        "yo4-c1",
-        "yo4-c2",
-        "p1"
-      ],
-      "confidence": "high",
-      "note": "新五代史 卷37 伶官傳（新五代史.txt L933）が「其小字亚子，当时人或谓之亚次」と明示する。**舊五代史の荘宗紀（本人のキャッシュ）は小字を書かない**ので、値は書の外に在る（ゲートCは免除で受ける）。舊五代史も同じ書式を持たないわけではなく、閔帝には冒頭1行に「讳从厚，小字菩萨奴」を置く。**「亜次」は当時の人の呼び方**なので欄には採らない（2026-08-16・幼名ブロック3）"
-    }
-  ],
-  "discrepancies": "なし"
+   ],
+   "basis": [
+    "c3"
+   ],
+   "confidence": "high",
+   "note": "明宗が天成元年（926）に上った初諡で、加諡は舊五代史に無い（1段）。"
+  },
+  {
+   "field": "name.courtesyName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "zi4-c1"
+   ],
+   "confidence": "high",
+   "note": "舊五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+  },
+  {
+   "field": "name.childhoodName",
+   "value": "亜子",
+   "basis": [
+    "yo4-c1",
+    "yo4-c2",
+    "p1",
+    "zztj1"
+   ],
+   "confidence": "high",
+   "note": "新五代史 卷37 伶官傳（新五代史.txt L933）が「其小字亚子，当时人或谓之亚次」と明示する。**舊五代史の荘宗紀（本人のキャッシュ）は小字を書かない**ので、値は書の外に在る（ゲートCは免除で受ける）。舊五代史も同じ書式を持たないわけではなく、閔帝には冒頭1行に「讳从厚，小字菩萨奴」を置く。**「亜次」は当時の人の呼び方**なので欄には採らない（2026-08-16・幼名ブロック3）。**2026-08-16 に第2証人が出た** — 資治通鑑 卷266（资治通鉴.txt L27252）が李克用の遺言の条で「以亚子累汝」と言わせ「亚子，存勖小名也」と注する。新五代史とは別系統の書なので、値は1書に依らない"
+  }
+ ],
+ "discrepancies": "なし"
 }

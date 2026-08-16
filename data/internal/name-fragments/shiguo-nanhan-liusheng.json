@@ -1,116 +1,116 @@
 {
-  "id": "shiguo-nanhan-liusheng",
-  "claims": [
+ "id": "shiguo-nanhan-liusheng",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-nanhan-liusheng.txt",
+   "line": 11,
+   "quote": "是秋卒，年三十九，谥曰文武光圣明孝皇帝，庙号中宗，陵曰昭陵"
+  },
+  {
+   "cid": "zi4-c1",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-nanhan-liusheng.txt",
+   "line": 1,
+   "quote": "晟，初名洪熙，封晋王。"
+  },
+  {
+   "cid": "yo4-c1",
+   "book": "新五代史",
+   "file": "daizhigev20/史藏/正史/新五代史.txt",
+   "line": 2229,
+   "quote": "呼洪度、洪熙小字曰：“寿、俊虽长，然皆不足任吾事"
+  },
+  {
+   "cid": "c2",
+   "book": "新五代史",
+   "file": "_corpus_cache/shiguo-nanhan-liusheng.txt",
+   "line": 1,
+   "quote": "晟，初名洪熙，封晋王。既弑玢，遂自立，改元曰应乾"
+  },
+  {
+   "cid": "p1",
+   "book": "新五代史",
+   "file": "daizhigev20/史藏/正史/新五代史.txt",
+   "line": 407,
+   "quote": "小字冯六"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "中宗",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "世家末尾の定型（c1）"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "文武光聖明孝皇帝",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "同じ条の「谥曰」が掲げる形（c1）"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": [
     {
-      "cid": "c1",
-      "book": "新五代史",
-      "file": "_corpus_cache/shiguo-nanhan-liusheng.txt",
-      "line": 11,
-      "quote": "是秋卒，年三十九，谥曰文武光圣明孝皇帝，庙号中宗，陵曰昭陵"
-    },
-    {
-      "cid": "zi4-c1",
-      "book": "新五代史",
-      "file": "_corpus_cache/shiguo-nanhan-liusheng.txt",
-      "line": 1,
-      "quote": "晟，初名洪熙，封晋王。"
-    },
-    {
-      "cid": "yo4-c1",
-      "book": "新五代史",
-      "file": "daizhigev20/史藏/正史/新五代史.txt",
-      "line": 2229,
-      "quote": "呼洪度、洪熙小字曰：“寿、俊虽长，然皆不足任吾事"
-    },
-    {
-      "cid": "c2",
-      "book": "新五代史",
-      "file": "_corpus_cache/shiguo-nanhan-liusheng.txt",
-      "line": 1,
-      "quote": "晟，初名洪熙，封晋王。既弑玢，遂自立，改元曰应乾"
-    },
-    {
-      "cid": "p1",
-      "book": "新五代史",
-      "file": "daizhigev20/史藏/正史/新五代史.txt",
-      "line": 407,
-      "quote": "小字冯六"
+     "form": "文武光聖明孝皇帝"
     }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": "中宗",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "世家末尾の定型（c1）"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": "文武光聖明孝皇帝",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "同じ条の「谥曰」が掲げる形（c1）"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": [
-        {
-          "form": "文武光聖明孝皇帝"
-        }
-      ],
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "卒去条「谥曰文武光圣明孝皇帝，庙号中宗」。現行の全長形と一致（追認）"
-    },
-    {
-      "field": "name.posthumousName",
-      "value": null,
-      "verdict": "read-absent",
-      "sweptWords": [
-        "谥",
-        "諡",
-        "謚",
-        "谥曰",
-        "庙号",
-        "廟號",
-        "〈諡字〉帝",
-        "〈諡字〉王",
-        "〈諡字〉公"
-      ],
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "**新五代史は十国の帝に「〈諡の実字〉帝」の短縮呼称を使わない** — 2026-08-11 の検証段が`(.)帝` の直前1字を全数で数え直しており、閩 王延鈞（`shiguo-min-wangyanjun`）のユニットに同じ判断が在る。この人物の諡は世家末尾の「谥〈全長形〉，庙号〈廟号〉」（c1）。2026-08-14 にあらためて新五代史1冊を「谥／諡＋5字以内＋帝／王／公」で全数走査したが、当たり8件はいずれも「〈諡〉皇帝」型か唐哀帝（少帝）への追諡で、十国の帝へ短縮呼称を与える条は無い。本人の世家を全長諡の各字＋「帝」で当て直しても当たり0件。**「この書は〈諡〉＋帝を使わない」という書全体への言い方は誤り**で、唐 李柷を一貫して「哀帝」と呼ぶ（掛かるのは十国世家の範囲だけ）"
-    },
-    {
-      "field": "name.courtesyName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "zi4-c1"
-      ],
-      "confidence": "high",
-      "note": "新五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
-    },
-    {
-      "field": "name.childhoodName",
-      "value": "俊",
-      "basis": [
-        "yo4-c1",
-        "c2",
-        "p1"
-      ],
-      "confidence": "medium",
-      "note": "新五代史 卷65 南漢世家（新五代史.txt L2229）で高祖 劉龑が臨終に「呼洪度、洪熙小字曰：『寿、俊虽长…』」と2人を小字で呼ぶ。**対応は語順による** — 呼ぶ側が「洪度、洪熙」、答える側が「寿、俊」の並びなので 洪熙（のちの晟） が「俊」、洪度（のちの玢） がもう一方。**「小字」が値の後ろに来る語順**なので隣接のゲートには掛からず、免除で受ける。confidence を medium にしたのは対応が語順の推定に依るためで、値そのものは書が「小字」と明示している（2026-08-16・幼名ブロック3）"
-    }
-  ],
-  "discrepancies": "対応の根拠が語順1本で、別証人になる書（十国春秋・九国志）はこのコーパスに無い"
+   ],
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "卒去条「谥曰文武光圣明孝皇帝，庙号中宗」。現行の全長形と一致（追認）"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "sweptWords": [
+    "谥",
+    "諡",
+    "謚",
+    "谥曰",
+    "庙号",
+    "廟號",
+    "〈諡字〉帝",
+    "〈諡字〉王",
+    "〈諡字〉公"
+   ],
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "**新五代史は十国の帝に「〈諡の実字〉帝」の短縮呼称を使わない** — 2026-08-11 の検証段が`(.)帝` の直前1字を全数で数え直しており、閩 王延鈞（`shiguo-min-wangyanjun`）のユニットに同じ判断が在る。この人物の諡は世家末尾の「谥〈全長形〉，庙号〈廟号〉」（c1）。2026-08-14 にあらためて新五代史1冊を「谥／諡＋5字以内＋帝／王／公」で全数走査したが、当たり8件はいずれも「〈諡〉皇帝」型か唐哀帝（少帝）への追諡で、十国の帝へ短縮呼称を与える条は無い。本人の世家を全長諡の各字＋「帝」で当て直しても当たり0件。**「この書は〈諡〉＋帝を使わない」という書全体への言い方は誤り**で、唐 李柷を一貫して「哀帝」と呼ぶ（掛かるのは十国世家の範囲だけ）"
+  },
+  {
+   "field": "name.courtesyName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "zi4-c1"
+   ],
+   "confidence": "high",
+   "note": "新五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+  },
+  {
+   "field": "name.childhoodName",
+   "value": "俊",
+   "basis": [
+    "yo4-c1",
+    "c2",
+    "p1"
+   ],
+   "confidence": "medium",
+   "note": "新五代史 卷65 南漢世家（新五代史.txt L2229）で高祖 劉龑が臨終に「呼洪度、洪熙小字曰：『寿、俊虽长…』」と2人を小字で呼ぶ。**対応は語順による** — 呼ぶ側が「洪度、洪熙」、答える側が「寿、俊」の並びなので 洪熙（のちの晟） が「俊」、洪度（のちの玢） がもう一方。**「小字」が値の後ろに来る語順**なので隣接のゲートには掛からず、免除で受ける。confidence を medium にしたのは対応が語順の推定に依るためで、値そのものは書が「小字」と明示している（2026-08-16・幼名ブロック3）"
+  }
+ ],
+ "discrepancies": "対応の根拠が語順1本で、第2証人が取れない。**2026-08-16 に候補の書を実測した** — 十国春秋（daizhigev20 史藏/载记/十国春秋.txt）は**コーパスに在る**が幼名の語20行に「寿」「俊」は無く、資治通鑑（史藏/编年/资治通鉴.txt）の15行にも南漢の条は無い。九国志は 15,694 の txt を数え直しても在らない"
 }
