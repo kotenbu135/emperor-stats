@@ -6714,7 +6714,8 @@
     "posthumousName": "宣帝",
     "templeName": "中宗",
     "regnalTitle": "皇帝",
-    "posthumousNameFull": "孝宣皇帝"
+    "posthumousNameFull": "孝宣皇帝",
+    "courtesyName": "次卿"
    },
    "eraId": "qin-han",
    "regimeId": "western-han",
@@ -80958,7 +80959,8 @@
      {
       "form": "明道崇徳文宣孝皇帝"
      }
-    ]
+    ],
+    "courtesyName": "伯玉"
    },
    "eraId": "five-dynasties",
    "regimeId": "southern-tang",
