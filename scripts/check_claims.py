@@ -46,7 +46,12 @@ def check_one(path, errors, reports, counters):
                       "食い違いが無いなら「なし」と明記する（無言を照合済みと読まないため）")
 
     claims = data.get("claims")
-    if not isinstance(claims, list) or not claims:
+    # **打ち切りだけの断片は台帳を持てない** — 読む原文が無いという判断そのものなので、
+    # 空の claims を要求すると「何か引いて埋める」ほうへ圧が掛かる。findings の側で
+    # reason を必須にして受ける（2026-08-16・袁世凱が最初の例）
+    only_out = bool(data.get("findings")) and all(
+        f.get("verdict") == "out-of-scope" for f in data.get("findings") or [])
+    if (not isinstance(claims, list) or not claims) and not only_out:
         errors.append(f"{tag}: claims が空です。原文の引用台帳を先に作る")
         claims = []
 
@@ -117,14 +122,26 @@ def check_one(path, errors, reports, counters):
         # 落ちる。2026-08-11 に pending: true から入れ替えた）
         if "value" in f and f["value"] is None:
             v = f.get("verdict")
-            if v not in ("read-absent", "pending"):
+            if v not in ("read-absent", "pending", "out-of-scope"):
                 errors.append(
                     f"{tag}: findings[{i}]（{f.get('field')}）は value: null なので "
                     f'verdict が要ります（"read-absent" = 原文を読んで無いと決めた／'
-                    f'"pending" = 値の扱いが判断待ち）: {v!r}')
+                    f'"pending" = 値の扱いが判断待ち／'
+                    f'"out-of-scope" = 調査そのものを打ち切った）: {v!r}')
         if "pending" in f:
             errors.append(f"{tag}: findings[{i}]（{f.get('field')}）の pending は廃止しました。"
                           'verdict: "pending" を使ってください')
+        # **打ち切り（out-of-scope）は原文の主張ではない**ので引用台帳を要求しない
+        # （読んでいないものに witness を求めると、無理に何かを引くほうへ圧が掛かる）。
+        # 代わりに**誰がいつ打ち切ったか**を `reason` に必須で書かせる。
+        # coverage.py はこのセルを分母から外すので、根拠の無い打ち切りは率を持ち上げる
+        if f.get("verdict") == "out-of-scope":
+            if not str(f.get("reason") or "").strip():
+                errors.append(f"{tag}: findings[{i}]（{f.get('field')}）は "
+                              'verdict: "out-of-scope" なので reason が要ります'
+                              "（誰がいつ打ち切ったか。coverage.py はこのセルを分母から外す）")
+            counters["out_of_scope"] += 1
+            continue
         basis = f.get("basis")
         if not isinstance(basis, list) or not basis:
             errors.append(f"{tag}: findings[{i}]（{f.get('field')}）の basis が空です。"
@@ -170,7 +187,7 @@ def main():
     errors, reports = [], []
     counters = {"checked": 0, "unresolved": 0, "glyph": 0, "spliced": 0,
                 "line_off": 0, "findings": 0, "conflicts": 0, "suggestions": 0,
-                "swept_words": 0, "swept_words_missing": 0}
+                "swept_words": 0, "swept_words_missing": 0, "out_of_scope": 0}
     for p in paths:
         check_one(p, errors, reports, counters)
 
@@ -184,7 +201,8 @@ def main():
           f"未解決 {counters['unresolved']}・字体 {counters['glyph']}・"
           f"合成疑い {counters['spliced']}・行ズレ {counters['line_off']}／"
           f"read-absent の証人 {counters['swept_words'] + counters['swept_words_missing']}件"
-          f"のうち走査語彙 sweptWords を持つのは {counters['swept_words']}件）")
+          f"のうち走査語彙 sweptWords を持つのは {counters['swept_words']}件"
+          f"／打ち切り out-of-scope {counters['out_of_scope']}件）")
     if counters["suggestions"]:
         print(f"手順の改善提案が {counters['suggestions']}件あります。"
               f"ユーザーへ上げ、採否を docs/process/PROCESS_IMPROVEMENTS.md に残してください")
