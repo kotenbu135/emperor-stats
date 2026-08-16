@@ -136,10 +136,19 @@ def check_one(path, errors, reports, counters):
         # 代わりに**誰がいつ打ち切ったか**を `reason` に必須で書かせる。
         # coverage.py はこのセルを分母から外すので、根拠の無い打ち切りは率を持ち上げる
         if f.get("verdict") == "out-of-scope":
-            if not str(f.get("reason") or "").strip():
+            reason = str(f.get("reason") or "").strip()
+            if not reason:
                 errors.append(f"{tag}: findings[{i}]（{f.get('field')}）は "
                               'verdict: "out-of-scope" なので reason が要ります'
                               "（誰がいつ打ち切ったか。coverage.py はこのセルを分母から外す）")
+            elif not re.search(r"\d{4}-\d{2}-\d{2}", reason):
+                # **形だけの検査**（打ち切りが本当にユーザーの判断だったかは機械では見られない）。
+                # 日付を要求するのは、率を上げる唯一の verdict を**いつ誰が決めたか**へ
+                # 遡れるようにするため。これ以上は信用に依る状態だと承知して置いている
+                errors.append(f"{tag}: findings[{i}]（{f.get('field')}）の reason に"
+                              "決定の日付（YYYY-MM-DD）がありません。"
+                              "**この verdict だけが確定率を上げる**ので、"
+                              "いつ誰が打ち切ったかを遡れる形で書く")
             counters["out_of_scope"] += 1
             continue
         basis = f.get("basis")
