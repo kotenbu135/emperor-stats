@@ -84,6 +84,27 @@
       "file": "china-history/明史/列传/第十一章-卷十一-原文.html",
       "line": 65,
       "quote": "子升嗣，改元开熙，葬玉珍于江水之北，号永昌陵，庙号太祖"
+    },
+    {
+      "cid": "zi6-c1",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-xushouhui.txt",
+      "line": 3,
+      "quote": "寿辉，罗田人，又名真一，业贩布"
+    },
+    {
+      "cid": "zi6-p1",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 3,
+      "quote": "讳元璋，字国瑞，姓硃氏"
+    },
+    {
+      "cid": "zi6-p2",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 21538,
+      "quote": "徐献忠，字伯臣"
     }
   ],
   "findings": [
@@ -303,9 +324,30 @@
         "天完"
       ],
       "sweptMethod": "scripts/hanzi_norm.py の norm_for_match で底本と語彙を正規化し、対象語の前後200字の窓に走査語が入るものだけを目視した"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi6-c1",
+        "zi6-p1",
+        "zi6-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "字",
+        "小字",
+        "徐寿辉"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/明史.txt（明史1冊。鍵「徐寿辉」の全出現）",
+        "_corpus_cache/yuanmo-xushouhui.txt（本人の条 10行・「字」0箇所を全読）"
+      ],
+      "note": "**この書はこの人物の字を載せない**。所在は陳友諒伝の中に置かれた徐寿輝の記事の書き出しで、字の位置が無い（c1）。政権慣行は no-form／字の位置なしだが**それは政権単位の事実**なので、(1) 明史1冊を鍵「徐寿辉」で走査して字が続く隣接形の当たりが0件、(2) **本人の条まるごと**を読んで`_corpus_cache/yuanmo-xushouhui.txt`（10行）に「字」の語そのものが1度も出ない、の2つを確かめた。**陽性対照**は同じ書の本紀（太祖の冒頭「讳元璋，字国瑞」）と列傳で、書に字の書式が無いのではなくこの人物に書いていない（2026-08-16・字ブロック6）"
     }
   ],
-  "discrepancies": "なし。既存の構造フィールドと原文の食い違いは無い — name.personalName「寿輝」・name.familyName「徐」・name.commonName「徐寿輝」は c1・c6・c8 と一致し、templeName・posthumousName が null であることも原文の読解結果（read-absent）と一致する。reigns[0] の startYear 1351・endYear 1360 も、至正十一年の即位（c7・元史 卷42 至正十一年条）と至正二十年の採石での弑殺（c9・新元史 卷226「二十年五月」条）に一致する。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "既存 note は読んでいない（1段目の契約どおり）。作業ログとしては、俗説にある「應天啓運獻武皇帝」の類の諡を確かめるため、正規化文字列「应天启运献武」で daizhigev20 全体を走査したが0件で、正史側にはその形が存在しないことを確認した（採らなかった側の記録）。",
   "processSuggestion": "残量表 元末群雄（明史 列傳のみで本紀を持たない政権＝天完・陳漢・夏・宋）6件（未読 4・yuanmo-xushouhui は本件で読了・yuanmo-mingyuzhen は 2026-08-14 に廟号「太祖」を転記済み・残り4人は未走査）。手順の提案: check_regime_conventions の判定が no-form の政権では出力に「保存形」の行が出ず、読めた1形をどちらの諡欄へ入れるかの正が示されない。no-form のときは「値が取れた場合の既定の保存先」を1行出すと、人物単位に落ちた後の迷いが消える。"

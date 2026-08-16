@@ -63,6 +63,20 @@
       "file": "_corpus_cache/yuanmo-mingsheng.txt",
       "line": 1,
       "quote": "子升嗣，改元开熙，葬玉珍于江水之北，号永昌陵，庙号太祖"
+    },
+    {
+      "cid": "zi6-p1",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 3,
+      "quote": "讳元璋，字国瑞，姓硃氏"
+    },
+    {
+      "cid": "zi6-p2",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 21538,
+      "quote": "徐献忠，字伯臣"
     }
   ],
   "findings": [
@@ -162,10 +176,31 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。明史が書くのは父 明玉珍への「号永昌陵，庙号太祖」だけで、高麗へ徙された明昇本人の諡は中国正史の閉域に無い（残量表の「高麗史は閉域の外」の行と同じ形）／daizhigev20 の 史藏/正史48・载记42・编年50・别史115＝**255ファイル**を、本人を名指す語（諱・通称。簡体と繁体の両方）で走査し、「皇帝／谥・諡・謚／尊号」と同じ窓（前後55字）に来た当たりを全部読んだ（2026-08-15）"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "posthumous-full-rest-c1",
+        "zi6-p1",
+        "zi6-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "字",
+        "小字",
+        "明升"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/明史.txt（明史1冊。鍵「明升」の全出現）",
+        "_corpus_cache/yuanmo-mingsheng.txt（本人の条 7行・「字」0箇所を全読）"
+      ],
+      "note": "**この書はこの人物の字を載せない**。所在は明玉珍伝の末尾に子として立つ形で、字の位置が無い（c1）。政権慣行は no-form／字の位置なしだが**それは政権単位の事実**なので、(1) 明史1冊を鍵「明升」で走査して字が続く隣接形の当たりが0件、(2) **本人の条まるごと**を読んで`_corpus_cache/yuanmo-mingsheng.txt`（7行）に「字」の語そのものが1度も出ない、の2つを確かめた。**陽性対照**は同じ書の本紀（太祖の冒頭「讳元璋，字国瑞」）と列傳で、書に字の書式が無いのではなくこの人物に書いていない（2026-08-16・字ブロック6）"
     }
   ],
   "conflicts": [],
   "noteLog": "字体の扱い: 底本 china-history/明史 は簡体で「明升」と書き、繁体の「昇」を持たない。引用は底本のまま 升 を残し、findings の値は既存レコードの表記（昇）へ揃えた。爵位「归义侯」（洪武4年）と移徙先「高丽」（洪武5年）は名前欄の対象外なので findings には立てず claims にだけ残した。",
-  "discrepancies": "なし（既存の構造フィールドは reigns 1366-1371 と regimeId=ming-xia のみで、原文と食い違わない。name.templeName・name.posthumousName はいずれも既存 null で、原文の読解結果〔read-absent〕と一致する）",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 元末群雄の政権慣行（posthumousNameFull）6件（未読 5） — ming-xia は未確定であることを確認済み、他5政権は未走査。"
 }
