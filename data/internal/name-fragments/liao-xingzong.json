@@ -14,6 +14,13 @@
       "file": "_corpus_cache/liao-xingzong.txt",
       "line": 31,
       "quote": "清宁元年十月庚子，上尊谥为神圣孝章皇帝，庙号兴宗"
+    },
+    {
+      "cid": "dx-c1",
+      "book": "契丹國志",
+      "file": "daizhigev20/史藏/别史/契丹国志.txt",
+      "line": 516,
+      "quote": "兴宗皇帝讳宗真，番名木不孤[一]，圣宗第八子，顺圣元妃所生。帝生于显州东锥子"
     }
   ],
   "findings": [
@@ -53,5 +60,5 @@
       "note": "1段のみ。道宗紀に対応する条が無く、証人は要約（c2）だけ"
     }
   ],
-  "discrepancies": "なし（既存の courtesyName 夷不菫・childhoodName 只骨と一致）"
+  "discrepancies": "なし（既存の courtesyName 夷不菫・childhoodName 只骨と一致） ── **契丹國志が別綴り（2026-08-17 の検証段が検出）**。遼史（china-history `第十八章-卷十八-原文.html` L23）「讳宗真，字夷不堇，小字只骨」に対し、**契丹國志 L23・L516 は「讳宗真，番名木不孤」**で、同書 L563 の校勘が「『木』当作『朮』。辽史兴宗纪小字只骨，即此朮不孤」と自ら遼史へ突き合わせる。**daizhige の `辽史.txt` L3239 は「字夷不」で切れて「堇」を落とす**ので、字の側の典拠は china-history か辽史拾遺を当てる（対立側の引用は claim `dx-c1`）"
 }
