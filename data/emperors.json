@@ -25746,7 +25746,8 @@
       "year": 404
      }
     ],
-    "posthumousNameFull": "武悼皇帝"
+    "posthumousNameFull": "武悼皇帝",
+    "childhoodName": "霊宝"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "huan-chu",
@@ -27564,7 +27565,8 @@
       "year": 360
      }
     ],
-    "posthumousNameFull": "景昭皇帝"
+    "posthumousNameFull": "景昭皇帝",
+    "childhoodName": "賀頼跋"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-yan",
@@ -32779,7 +32781,8 @@
       "year": 396
      }
     ],
-    "posthumousNameFull": "成武皇帝"
+    "posthumousNameFull": "成武皇帝",
+    "childhoodName": "阿六敦"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-yan",
@@ -33080,7 +33083,8 @@
       "year": 399
      }
     ],
-    "posthumousNameFull": "恵愍皇帝"
+    "posthumousNameFull": "恵愍皇帝",
+    "childhoodName": "庫勾"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-yan",
@@ -34038,7 +34042,8 @@
       "form": "昭文皇帝"
      }
     ],
-    "posthumousNameFull": "昭文皇帝"
+    "posthumousNameFull": "昭文皇帝",
+    "childhoodName": "長生"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "later-yan",

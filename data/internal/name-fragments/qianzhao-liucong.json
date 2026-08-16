@@ -28,6 +28,27 @@
       "file": "_corpus_cache/qianzhao-liucong.txt",
       "line": 48,
       "quote": "伪谥曰昭武皇帝，庙号烈宗"
+    },
+    {
+      "cid": "yo3-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianzhao-liucong.txt",
+      "line": 1,
+      "quote": "刘聪，字玄明，一名载，元海第四子也"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
+    },
+    {
+      "cid": "yo3-p2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7426,
+      "quote": "故小名灵宝"
     }
   ],
   "findings": [
@@ -112,10 +133,28 @@
       ],
       "confidence": "medium",
       "note": "冒頭定型に「一名载」とある（欄への投入対象外と指示されているので記録のみ）。底本の簡体「载」→ 新字体「載」。既存 aliases は空配列。"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo3-c1",
+        "yo3-p1",
+        "yo3-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字聡",
+        "小名聡",
+        "小字",
+        "小名"
+      ],
+      "note": "**この2書はこの人物の幼名を書かない**。(1) 晉書1冊と十六国春秋1冊を諱「聡」で走査し（字体は `hanzi_norm.norm_for_match` で正規化）小字・小名の隣接が0件、(2) **本人の紀・載記まるごと**（`_corpus_cache/qianzhao-liucong.txt` 48行）を通しで読んだ。**陽性対照は2つとも同じ一帯の君主** — 十六国春秋は慕容儁に「小字贺赖跋」を書き（yo3-p1）、晉書は桓玄の誕生の条に「故小名灵宝」を書く（yo3-p2）。どちらも 2026-08-16 に同じブロックで転記した側なので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック2）"
     }
   ],
   "conflicts": [],
   "noteLog": "既存の name.templeName は null だったが、晉書 載記第二の記事末尾に「庙号烈宗」がある。捨てた側の値は null（未確定の空欄）で、原文を採って「烈宗」とした。読んだのは _corpus_cache/qianzhao-liucong.txt の最終段落（48行目）と、その底本にあたる daizhigev20 晉書 L7613・L7566 の2箇所で、キャッシュだけでは閉じていない。",
-  "discrepancies": "既存の構造フィールド name.templeName が null だが、原文（晉書 載記第二 L7613）は「庙号烈宗」と記す。原文を採って「烈宗」とした。他の対象欄（personalName「聡」・familyName「劉」・courtesyName「玄明」・posthumousName「昭武帝」・posthumousNames [{昭武皇帝, 318}]）は既存値と一致し、食い違いなし。posthumousNameFull は既存レコードにキー自体が無く、政権慣行が未確定のため pending。",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 晉書載記系10政権の name.templeName 39件（未読 28） — 本人の1件を確定した時点で name.templeName が null のまま残るのは28件で、うち劉淵（qianzhao-liuyuan）は政権慣行の evidence 自身が「伪谥光文皇帝，庙号高祖」を引いているのに欄が null。未走査の28件には廟号を持たない君主（在位中に廃された者など）も含まれるので、28件すべてが取りこぼしという意味ではない。あわせて、check_regime_conventions が posthumousNameFull で exit 1 を返す政権では『他の3欄は form-found なのに1欄だけ未確定』という中間状態になり、指示の「1 で終わったら claims を空で返す」がそのまま当てはまらない。フィールド単位で blocked を返せる旨を手順に書き足すとよい。"
 }

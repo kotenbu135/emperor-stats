@@ -28,6 +28,27 @@
       "file": "_corpus_cache/houqin-yaoxing.txt",
       "line": 114,
       "quote": "伪谥文桓皇帝，庙号高祖，墓曰偶陵"
+    },
+    {
+      "cid": "yo3-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/houqin-yaoxing.txt",
+      "line": 1,
+      "quote": "姚兴，字子略，苌之长子也"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
+    },
+    {
+      "cid": "yo3-p2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7426,
+      "quote": "故小名灵宝"
     }
   ],
   "findings": [
@@ -98,10 +119,28 @@
       ],
       "confidence": "high",
       "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型。墓は「墓曰」で書かれる異形。同じキャッシュの L119「谥曰忠成侯」は臣下 尹緯のもの／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo3-c1",
+        "yo3-p1",
+        "yo3-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字興",
+        "小名興",
+        "小字",
+        "小名"
+      ],
+      "note": "**この2書はこの人物の幼名を書かない**。(1) 晉書1冊と十六国春秋1冊を諱「興」で走査し（字体は `hanzi_norm.norm_for_match` で正規化）小字・小名の隣接が0件、(2) **本人の紀・載記まるごと**（`_corpus_cache/houqin-yaoxing.txt` 122行）を通しで読んだ。**陽性対照は2つとも同じ一帯の君主** — 十六国春秋は慕容儁に「小字贺赖跋」を書き（yo3-p1）、晉書は桓玄の誕生の条に「故小名灵宝」を書く（yo3-p2）。どちらも 2026-08-16 に同じブロックで転記した側なので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック2）"
     }
   ],
   "conflicts": [],
   "noteLog": "既存 name.templeName は null だったが、晉書 載記第十八 行8464 の末尾定型に「庙号高祖」があるので高祖を主張する（捨てた側の値: null）。posthumousName・posthumousNames・personalName・courtesyName・familyName は現行値と一致し、変更なし。段の走査語彙: 谥・庙号・庙曰・墓号・墓曰・墓称・尊号・追尊・追谥・改谥・讳（キャッシュ 121行全体）。当人の廟号・諡を扱う条は行114（＝晋书.txt 8464）の1箇所のみで、行8（「兴追尊其庶母孙氏为皇太后」）は生母への追尊で当人の諡ではないため段に入れない。",
-  "discrepancies": "1件あり。reigns[0].endYear = 399 と原文が食い違う。晉書 載記第十八 行8464 は「义熙十二年，兴死，时年五十一，在位二十二年」と記し、在位22年・没年は義熙12年（416年）で、394年即位から数えると在位の終わりは416年になる。現行の 399 は行8372「兴以日月薄蚀，灾眚屡见，降号称王」（皇帝号を降ろして天王を称した年）で切っているものと読めるが、原文の「在位二十二年」とは別の数え方なので報告する（reigns はこの段の担当外なので値は変更していない）。name 系の構造フィールドとの食い違いは templeName の null → 高祖 の1件のみで、posthumousName「文桓帝」・posthumousNames[0]{文桓皇帝, 416}・personalName「興」・familyName「姚」・courtesyName「子略」は原文と一致。",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 晉書載記型政権の posthumousNameFull 慣行 7政権（未読 未走査） — later-qin は posthumousNameFull だけ慣行が未確定で、同じ「載記 記事末尾1行」の慣行を共有する政権群（前趙・後趙・前燕・後燕・南燕・前秦・後秦）でも同じ欄が空のまま残っている可能性が高いが、本件では他政権を走査していない。check_regime_conventions.py は同じ政権でもフィールドごとに確定・未確定が割れるので、--field を1つずつ当てないと未確定の欄に気づけない（本件は templeName で form-found が出たため、posthumousNameFull も確定済みと読み違えかけた）。"
 }

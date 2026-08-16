@@ -70,6 +70,20 @@
       "line": 1,
       "quote": "详僭称尊号，置百官，改年号。",
       "cid": "zi4-c1"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
+    },
+    {
+      "cid": "yo3-p2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7426,
+      "quote": "故小名灵宝"
     }
   ],
   "findings": [
@@ -219,9 +233,27 @@
       "basis": [
         "zi4-c1"
       ]
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "yo3-p1",
+        "yo3-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字詳",
+        "小名詳",
+        "小字",
+        "小名"
+      ],
+      "note": "**この2書はこの人物の幼名を書かない**。(1) 晉書1冊と十六国春秋1冊を諱「詳」で走査し（字体は `hanzi_norm.norm_for_match` で正規化）小字・小名の隣接が0件、(2) **本人の紀・載記まるごと**（`_corpus_cache/houyan-murongxiang.txt` 1行）を通しで読んだ。**陽性対照は2つとも同じ一帯の君主** — 十六国春秋は慕容儁に「小字贺赖跋」を書き（yo3-p1）、晉書は桓玄の誕生の条に「故小名灵宝」を書く（yo3-p2）。どちらも 2026-08-16 に同じブロックで転記した側なので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック2）"
     }
   ],
-  "discrepancies": "なし。既存レコードの構造フィールド（name.personalName=詳・name.familyName=慕容・name.posthumousName=null・name.templeName=null・regimeId=later-yan・reigns 397〜397）はいずれも原文と一致する（397年＝隆安元年の僭号は c1、同年内の誅殺は c4）。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "字体の向き: claims の引用は底本の简体のまま、findings の値は既存レコードに合わせた新字体（详→詳）。走査で当たった非正史（資治通鑑・十六国春秋別伝・通志ほか）は claims に入れず走査範囲としてだけ記録した（いずれも諡・廟号を記さず、資治通鑑は「發慕容详冢，斩其尸」）。政権慣行の記録（posthumousNameFull・data/regime-conventions.json:3879）は「(2) 慕容祥・慕容麟」と書くが、同じ注が引く原文は L8663「详僭称尊号」なので指しているのは慕容詳（祥は誤字と思われる）。",
   "processSuggestion": "残量表 晉書載記型政権・冒頭/末尾の定型が掛かっていない君主の名前欄 既知6件（未読5・慕容詳のみ読了）— 後趙 石世・石遵・石鑑・石祗、後燕 慕容麟、後燕 慕容詳。母集団（載記型8政権の全君主）は未走査。あわせて data/regime-conventions.json:3879 の「慕容祥」は「慕容詳」の誤字と思われる（同じ注が引く原文は L8663「详僭称尊号」）。"

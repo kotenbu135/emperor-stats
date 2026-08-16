@@ -35,6 +35,27 @@
       "file": "_corpus_cache/qianqin-fudeng.txt",
       "line": 17,
       "quote": "伪谥登曰高皇帝，庙号太宗"
+    },
+    {
+      "cid": "yo3-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianqin-fudeng.txt",
+      "line": 1,
+      "quote": "登字文高，坚之族孙也"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
+    },
+    {
+      "cid": "yo3-p2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7426,
+      "quote": "故小名灵宝"
     }
   ],
   "findings": [
@@ -97,10 +118,28 @@
       ],
       "confidence": "high",
       "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型に本人の諱が挟まる異形（「伪谥〈諱〉曰〈X〉皇帝」）／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo3-c1",
+        "yo3-p1",
+        "yo3-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字登",
+        "小名登",
+        "小字",
+        "小名"
+      ],
+      "note": "**この2書はこの人物の幼名を書かない**。(1) 晉書1冊と十六国春秋1冊を諱「登」で走査し（字体は `hanzi_norm.norm_for_match` で正規化）小字・小名の隣接が0件、(2) **本人の紀・載記まるごと**（`_corpus_cache/qianqin-fudeng.txt` 18行）を通しで読んだ。**陽性対照は2つとも同じ一帯の君主** — 十六国春秋は慕容儁に「小字贺赖跋」を書き（yo3-p1）、晉書は桓玄の誕生の条に「故小名灵宝」を書く（yo3-p2）。どちらも 2026-08-16 に同じブロックで転記した側なので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック2）"
     }
   ],
   "conflicts": [],
   "noteLog": "既存 name.templeName は null だったが、晉書載記の末尾定型に「庙号太宗」が在るため太宗を主張する。screenings の templeName:unknown は commonName が廟号形で立っていないことを示すだけで、値の不在ではなかった（取りこぼし側の実例）。",
-  "discrepancies": "2件。(1) name.templeName は既存 null だが、晉書 卷一百十五 行8289 に「庙号太宗」が在る（原文を採り太宗とする）。(2) name.posthumousNames[0].year は既存 394 だが、諡の段（行8289）に紀年は無く、394 は次段（行8290）の「以孝武帝太元十九年灭」＝孝武帝太元十九年から導いた値で、段外からの合成。原文を採るなら year は空。ただし同じ書式の兄弟レコード（qianqin-fupi の year 386 も「苻登称尊号，伪谥丕为哀平皇帝」の段に紀年が無い）と同型なので、削除の可否は人物単位でなく十六国ブロック単位で決めるべきものとして報告に留める。name.personalName（登）・name.courtesyName（文高）・name.posthumousName（高帝、底本は高皇帝）は原文と一致。",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 十六国 posthumousNames の段外導出 year 前秦5件中2件が該当（他6政権は未走査）。諡の段の year を「段に紀年がある場合だけ」と定めた規約に対し、晉書載記は諡授与の段にほぼ紀年を置かないため、既存値の year が全て隣接段からの導出になっている可能性が高い。"
 }

@@ -56,6 +56,27 @@
       "file": "_corpus_cache/qianqin-fupi.txt",
       "line": 12,
       "quote": "伪谥丕为哀平皇帝"
+    },
+    {
+      "cid": "yo3-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianqin-fupi.txt",
+      "line": 1,
+      "quote": "苻丕，字永叔，坚之长庶子也"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
+    },
+    {
+      "cid": "yo3-p2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7426,
+      "quote": "故小名灵宝"
     }
   ],
   "findings": [
@@ -148,9 +169,27 @@
         "私谥"
       ],
       "sweptScope": "_corpus_cache/qianqin-fupi.txt 全文／daizhigev20/史藏/正史/晋书.txt の載記第十五 全体（8259〜8298行・史臣曰・贊曰を含む）と同書で「苻丕」「哀平」「永叔」を含む全行／daizhigev20/史藏/正史/魏书.txt・北史.txt・旧晋书九家辑本.txt で「苻丕」「哀平」「永叔」を含む全行（正史コーパス全体を rg -c で当て、この3書以外に「苻丕」の出現は無い）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo3-c1",
+        "yo3-p1",
+        "yo3-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字丕",
+        "小名丕",
+        "小字",
+        "小名"
+      ],
+      "note": "**この2書はこの人物の幼名を書かない**。(1) 晉書1冊と十六国春秋1冊を諱「丕」で走査し（字体は `hanzi_norm.norm_for_match` で正規化）小字・小名の隣接が0件、(2) **本人の紀・載記まるごと**（`_corpus_cache/qianqin-fupi.txt` 12行）を通しで読んだ。**陽性対照は2つとも同じ一帯の君主** — 十六国春秋は慕容儁に「小字贺赖跋」を書き（yo3-p1）、晉書は桓玄の誕生の条に「故小名灵宝」を書く（yo3-p2）。どちらも 2026-08-16 に同じブロックで転記した側なので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック2）"
     }
   ],
-  "discrepancies": "既存の構造フィールドとの食い違いはなし。照合内訳: name.templeName=null（一致・read-absent）／name.familyName=苻（一致）／name.personalName=丕（一致）／name.courtesyName=永叔（一致）／name.posthumousName=哀平帝（一致）／name.posthumousNames=[{哀平皇帝,386}]（一致）／reigns 385〜386 は苻登の即位を太元十一年（386）とする c5 と矛盾しない。name.posthumousNameFull は欄自体が無く、今回も pending なので食い違いではない。1点だけ明記しておく: posthumousNames[0].year=386 は諡の文（c2）ではなく同巻の苻登即位条（c5）からの合成なので、dates 観点で見えるようにしておく。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "諡の授与年の出どころ: 諡の文（c2）は「苻登称尊号，伪谥丕为哀平皇帝」とだけ書き紀年を持たない。386 は同巻の苻登即位条「登于是以太元十一年僭即皇帝位」（c5）から来る合成値で、同じ載記書式の同政権群（幽皇帝400・景昭皇帝360・明皇帝332・高皇帝394）と同じ読み方。既存値と同じ 386 を維持し、合成である旨だけを検証段（dates 観点）へ渡す。当初は「段に紀年が無い」として year を落とす案も検討したが、同書式の兄弟レコードの読み方と割れるため採らなかった。",
   "processSuggestion": "晉書 載記系10政権（former-qin ほか）の政権慣行は templeName・posthumousName・posthumousNames と familyName・personalName・courtesyName を覆うが posthumousNameFull を覆わないため、原文に全長形「〈X〉皇帝」が読めても人物単位では欄へ入れられず pending になる。載記系は諡を全長形でしか書かないので、この書に「保存形」の行（全長形は posthumousNames と posthumousNameFull のどちらへ入れるか）を1本立てれば39人ぶんが転記に落ちる。残量表 晉書載記系10政権の posthumousNameFull 政権慣行 39件（未読 39・本ブロックでは未走査）"

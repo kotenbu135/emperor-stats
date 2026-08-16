@@ -91,6 +91,20 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 8547,
       "quote": "时年二十五，在位三年。谥曰幽公"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
+    },
+    {
+      "cid": "yo3-p2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7426,
+      "quote": "故小名灵宝"
     }
   ],
   "findings": [
@@ -189,9 +203,27 @@
         "同じ走査で「幽公」「邛都县公」も全書に当て、李期に掛かるのは晋书8547のみ",
         "未走査: 正史外（華陽国志・十六国春秋）"
       ]
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2",
+        "yo3-p1",
+        "yo3-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字期",
+        "小名期",
+        "小字",
+        "小名"
+      ],
+      "note": "**この2書はこの人物の幼名を書かない**。(1) 晉書1冊と十六国春秋1冊を諱「期」で走査し（字体は `hanzi_norm.norm_for_match` で正規化）小字・小名の隣接が0件、(2) **本人の紀・載記まるごと**（`_corpus_cache/chenghan-liqi.txt` 5行）を通しで読んだ。**陽性対照は2つとも同じ一帯の君主** — 十六国春秋は慕容儁に「小字贺赖跋」を書き（yo3-p1）、晉書は桓玄の誕生の条に「故小名灵宝」を書く（yo3-p2）。どちらも 2026-08-16 に同じブロックで転記した側なので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック2）"
     }
   ],
-  "discrepancies": "構造フィールドとの食い違いは名前欄には無い（familyName 李・personalName 期・courtesyName 世運・posthumousName 幽公・posthumousNames [幽公]・templeName null はいずれも原文と一致）。名前欄の外で1件: reigns[0].endYear=338 に対し晉書 載記は「咸康三年，自缢而死」（337年）と書く。帝紀・宋書が338年で一致するため既存値のままでよいが、載記単独の異伝として conflicts に残した。",
+  "discrepancies": "なし",
   "conflicts": [
     {
       "field": "reigns[0].endYear",

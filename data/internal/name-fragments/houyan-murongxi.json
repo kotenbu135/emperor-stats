@@ -56,6 +56,20 @@
       "file": "_corpus_cache/houyan-murongxi.txt",
       "line": 13,
       "quote": "伪谥昭文皇帝"
+    },
+    {
+      "cid": "yo3-c1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 793,
+      "quote": "慕容熙字道文小字长生垂之少子也燕二年生于长山"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
     }
   ],
   "findings": [
@@ -132,9 +146,18 @@
       ],
       "confidence": "high",
       "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型が1句で終わる型。同じ記事の L8「伪谥愍皇后」は昭儀苻氏のもので本人ではない／前のブロックはこの欄を `pending` で残していた（理由は「政権単位の慣行が未確定」）。2026-08-15 に慣行が立ったので差し替える"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": "長生",
+      "basis": [
+        "yo3-c1"
+      ],
+      "confidence": "high",
+      "note": "十六国春秋 卷四十八の書き出し（yo3-c1）。晉書 載記は小字を書かないのでゲートCは免除で受けた（2026-08-16・幼名ブロック2）"
     }
   ],
-  "discrepancies": "既存の構造フィールド4件と原文を照合した — name.templeName = null（原文も廟号を記さない・一致）／name.posthumousName = 「昭文帝」（原文「伪谥昭文皇帝」の短縮形・慣行どおりで一致）／name.posthumousNames = [{form: 「昭文皇帝」}]（原文と一致・year 無しも原文が紀年を与えないことと一致）／name.personalName = 「熙」（原文「熙字道文」と一致）。食い違いなし。name.posthumousNameFull は既存レコードにキーが無く、今回も政権慣行未確定のため pending としたので照合対象外。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "読んだ範囲: _corpus_cache/houyan-murongxi.txt（全13行）＝ daizhigev20/史藏/正史/晋书.txt L8680-8692、およびキャッシュの外の同巻 L8654-8679・L8693-8699（巻見出し・見出し行・慕容宝/慕容盛/慕容雲の条・史臣曰・賛曰）。閉域の4軸: (1) 同書キャッシュ外＝載記第二十四の全体を走査、(2) 本紀・列傳の外＝晉書は十六国に志を持たず慕容熙の列傳も無い、(3) 別政権の書＝魏書・北史ほか正史全冊を正規化走査し慕容熙への諡・廟号の授与記事は0件（魏書 L6161・北史 L13940 の馮跋伝は熙の弑逆を述べるだけ）、(4) 走査語の割れ＝庙号/庙曰/庙称/追尊/号曰/尊号を hanzi_norm.norm_for_match 経由で当てた。「云葬之于苻氏墓」の云は慕容雲（同巻 L8696 で「伪谥惠懿皇帝」を贈られる人物）。",
   "processSuggestion": "check_regime_conventions.py --field に未確定のフィールドを渡すと、同じ政権の別フィールドが form-found で確定していても「人物単位の調査に入る前に…」の全面停止メッセージだけが返り、人物ごと放棄しかねない。確定済みの姉妹フィールドがある場合はその旨（「この政権は templeName・posthumousName・posthumousNames は form-found・この欄だけ未確定」）を併記してほしい。"
