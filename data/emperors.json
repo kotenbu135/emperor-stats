@@ -25979,7 +25979,8 @@
     "posthumousName": "威王",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "太伯"
+    "courtesyName": "太伯",
+    "childhoodName": "螽斯"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-liang",
@@ -34321,7 +34322,8 @@
       "form": "威皇帝"
      }
     ],
-    "posthumousNameFull": "威皇帝"
+    "posthumousNameFull": "威皇帝",
+    "childhoodName": "鳳皇"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "western-yan",
@@ -55152,7 +55154,8 @@
       "form": "閔悼王",
       "year": 562
      }
-    ]
+    ],
+    "childhoodName": "道人"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-qi",
