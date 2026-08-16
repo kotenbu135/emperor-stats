@@ -7,7 +7,7 @@ import { BreadcrumbJsonLd, buildMetadata, StatsPageJsonLd } from "@/lib/seo";
 // ナビは短いままが正しく、検索結果に出るのはこちら。JSON-LDにも同じ定数を渡す。
 const PAGE_TITLE = "データベース";
 const PAGE_DESCRIPTION =
-  "皇帝を名乗った365人を1つの表にまとめたデータベースです。在位年数・即位経路・死因・即位年齢・没年齢などの列で並べ替え、時代・王朝で絞り込めます。";
+  "皇帝を名乗った365人を1つの表にまとめたデータベースです。在位年数・即位経路・死因・即位年齢・没年齢などの列で並べ替え、時代・王朝・即位経路・死因で絞り込めます。";
 
 export const metadata = buildMetadata({
   path: "/database",

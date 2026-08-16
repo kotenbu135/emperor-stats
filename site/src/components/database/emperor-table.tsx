@@ -94,7 +94,9 @@ import {
   StickyBar,
 } from "@/components/layout/sticky-bar";
 import {
+  accessionRouteCategoryOrder,
   DATABASE_COLUMN_COUNT,
+  deathCauseCategoryOrder,
   eraOrder,
   shortCategoryLabel,
   type DynastyOption,
@@ -315,23 +317,34 @@ if (COLUMNS.length !== DATABASE_COLUMN_COUNT) {
 }
 
 /**
- * 時代の絞り込み。**帯（1行）と絞り込みパネル（縦積み）の2箇所に出る**ので、
+ * 単一選択の絞り込みセレクト。**時代・死因・即位経路の3つが同じ形**を使う。
+ * 時代だけは**帯（1行）と絞り込みパネル（縦積み）の2箇所に出る**ので、
  * 見た目の違いは幅だけにして中身をここに1本化する。
  *
- * 帯にはラベルが無いので、「すべて」ではなく**「すべての時代」**と出す
- * （/emperors の区分セレクトと同じ理由）。読み上げ名は aria-label が持つが、
- * 2箇所に同じ名前が同時に出ることになるため、パネル側は語尾を変える。
+ * 帯にはラベルが無いので、「すべて」ではなく**「すべての時代」**のように
+ * 対象を含めて出す（/emperors の区分セレクトと同じ理由）。読み上げ名は
+ * aria-label が持つが、同じ名前が2箇所に同時に出ることになるため、
+ * パネル側は語尾を変える。
+ *
+ * **選択肢はデータに実在する値だけを渡すこと**（呼び出し側の memo）。定数の
+ * 並び順をそのまま出すと、必ず0件になる区分が選べてしまう。
  */
-function EraSelect({
-  eras,
+function FacetSelect({
+  options,
   value,
   onChange,
+  allLabel,
+  ariaLabel,
   className,
   inPanel = false,
 }: {
-  eras: string[];
+  options: string[];
   value: string;
   onChange: (value: string) => void;
+  /** 未選択のときの表示。「すべての時代」のように対象を含める。 */
+  allLabel: string;
+  /** 読み上げ名。「時代で絞り込み」のように動詞まで入れる。 */
+  ariaLabel: string;
   className?: string;
   inPanel?: boolean;
 }) {
@@ -339,15 +352,15 @@ function EraSelect({
     <Select value={value} onValueChange={onChange}>
       <SelectTrigger
         className={className}
-        aria-label={inPanel ? "時代で絞り込み（絞り込みパネル）" : "時代で絞り込み"}
+        aria-label={inPanel ? `${ariaLabel}（絞り込みパネル）` : ariaLabel}
       >
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="all">すべての時代</SelectItem>
-        {eras.map((e) => (
-          <SelectItem key={e} value={e}>
-            {e}
+        <SelectItem value="all">{allLabel}</SelectItem>
+        {options.map((o) => (
+          <SelectItem key={o} value={o}>
+            {o}
           </SelectItem>
         ))}
       </SelectContent>
@@ -413,6 +426,12 @@ export function EmperorTable({
   const [eraValue, setEraValue] = useState("all");
   const [dynastyValue, setDynastyValue] = useState("all");
   const [reignFilter, setReignFilter] = useState<"all" | "restoration">("all");
+  // 死因・即位経路のファセット（2026-08-17・Issue #94）。値は**カタログの区分名を
+  // そのまま**持つ（"all" が未選択）。表では「受禅（易姓）」を短縮して描いているが、
+  // 絞り込みは括弧つきの全文で完全一致する — 短縮形を値にすると、同じ語が
+  // 2つの意味（表示と絞り込みの鍵）を持ってしまう。
+  const [deathValue, setDeathValue] = useState("all");
+  const [accessionValue, setAccessionValue] = useState("all");
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   /** 帯に入りきらない絞り込みを畳むポップオーバー（狭い帯でだけ出る）。 */
@@ -422,8 +441,15 @@ export function EmperorTable({
   // （皇帝一覧のグリッドと同じ方針・2026-08-01 に検索語だけでなく4条件まとめへ広げた）。
   // コントロールの表示は生の state（即時）、表は deferred（後追い）。
   const filters = useMemo(
-    () => ({ query, eraValue, dynastyValue, reignFilter }),
-    [query, eraValue, dynastyValue, reignFilter],
+    () => ({
+      query,
+      eraValue,
+      dynastyValue,
+      reignFilter,
+      deathValue,
+      accessionValue,
+    }),
+    [query, eraValue, dynastyValue, reignFilter, deathValue, accessionValue],
   );
   const deferredFilters = useDeferredValue(filters);
   /** 表が1つ前の条件の結果であるあいだ true。 */
@@ -433,6 +459,8 @@ export function EmperorTable({
     setEraValue("all");
     setDynastyValue("all");
     setReignFilter("all");
+    setDeathValue("all");
+    setAccessionValue("all");
   }, []);
 
   // 時代を変えたら、その時代に属さない王朝の選択は落とす（残すと必ず0件になる）。
@@ -454,6 +482,20 @@ export function EmperorTable({
   const eras = useMemo(() => {
     const present = new Set(records.map((r) => r.eraLabel));
     return eraOrder.filter((e) => present.has(e));
+  }, [records]);
+
+  // 死因・即位経路の候補も**データに実在する区分だけ**にする（時代と同じ作り）。
+  // 並びは定数の順（deathCauseCategoryOrder / accessionRouteCategoryOrder）で、
+  // これは概要ダッシュボードの内訳帯と同じ順序 — 図から来た利用者が同じ並びを見る。
+  const deathOptions = useMemo(() => {
+    const present = new Set<string>(records.map((r) => r.deathCauseCategory));
+    return deathCauseCategoryOrder.filter((c) => present.has(c));
+  }, [records]);
+  const accessionOptions = useMemo(() => {
+    const present = new Set<string>(
+      records.map((r) => r.accessionRouteCategory),
+    );
+    return accessionRouteCategoryOrder.filter((c) => present.has(c));
   }, [records]);
 
   // 王朝の候補は選択中の時代に絞る。89件から探すコンボボックスなので、
@@ -489,12 +531,26 @@ export function EmperorTable({
   );
 
   const filtered = useMemo(() => {
-    const { query, eraValue, dynastyValue, reignFilter } = deferredFilters;
+    const {
+      query,
+      eraValue,
+      dynastyValue,
+      reignFilter,
+      deathValue,
+      accessionValue,
+    } = deferredFilters;
     const tokens = query.normalize("NFKC").trim().split(/\s+/).filter(Boolean);
     return records.filter((r, i) => {
       if (eraValue !== "all" && r.eraLabel !== eraValue) return false;
       if (dynastyValue !== "all" && r.dynastyKey !== dynastyValue) return false;
       if (reignFilter === "restoration" && r.reignCount < 2) return false;
+      // 死因・即位経路は**カタログの区分名で完全一致**。検索語（上の tokens）と
+      // 違って NFKC 正規化を通さない — 正規化すると「受禅（易姓）」の全角括弧が
+      // 半角へ畳まれ、レコード側の生の値と一致しなくなる。
+      if (deathValue !== "all" && r.deathCauseCategory !== deathValue)
+        return false;
+      if (accessionValue !== "all" && r.accessionRouteCategory !== accessionValue)
+        return false;
       if (tokens.length === 0) return true;
       return tokens.every((t) => searchTargets[i].includes(t));
     });
@@ -531,6 +587,23 @@ export function EmperorTable({
       onRemove: () => setReignFilter("all"),
     });
   }
+  // 括弧つきの区分（「受禅（易姓）」「継承（経緯記載なし）」）はチップでも
+  // 全文で出す。表では列幅のために短縮しているが、チップは「なぜこの行が
+  // 残っているか」の説明なので、分類の根拠にあたる括弧の中身を落とさない。
+  if (deathValue !== "all") {
+    chips.push({
+      key: "death",
+      label: `死因: ${deathValue}`,
+      onRemove: () => setDeathValue("all"),
+    });
+  }
+  if (accessionValue !== "all") {
+    chips.push({
+      key: "accession",
+      label: `即位経路: ${accessionValue}`,
+      onRemove: () => setAccessionValue("all"),
+    });
+  }
 
   // 絞り込みと並べ替えを URL クエリ（?q=&era=&dynasty=&reign=&sort=&order=）と同期する。
   // 共有・リロード・戻るで状態が消えないようにするためと、**旧 `/reign` の2本のリンクの
@@ -550,6 +623,20 @@ export function EmperorTable({
       setDynastyValue(dynasty);
     }
     if (params.get("reign") === "restoration") setReignFilter("restoration");
+    // 死因・即位経路は**カタログの区分名と完全一致**したときだけ採る（時代と同じ形）。
+    // **概要ダッシュボードの図から来るリンクは短縮形ではなく全文を渡すこと**
+    // （内訳帯は「受禅」と描くが、値は「受禅（易姓）」）。一致しない値は黙って捨てる。
+    const death = params.get("death");
+    if (death && (deathCauseCategoryOrder as string[]).includes(death)) {
+      setDeathValue(death);
+    }
+    const accession = params.get("accession");
+    if (
+      accession &&
+      (accessionRouteCategoryOrder as string[]).includes(accession)
+    ) {
+      setAccessionValue(accession);
+    }
     // 実在しない列 id を state に入れると TanStack が無言で並べ替えを落とすので、
     // COLUMNS 側で照合してから入れる（id 未指定の列は accessorKey がそのまま id になる）。
     const sort = params.get("sort");
@@ -571,6 +658,10 @@ export function EmperorTable({
       params.set("dynasty", deferredFilters.dynastyValue);
     if (deferredFilters.reignFilter !== "all")
       params.set("reign", deferredFilters.reignFilter);
+    if (deferredFilters.deathValue !== "all")
+      params.set("death", deferredFilters.deathValue);
+    if (deferredFilters.accessionValue !== "all")
+      params.set("accession", deferredFilters.accessionValue);
     if (sorting.length > 0) {
       params.set("sort", sorting[0].id);
       params.set("order", sorting[0].desc ? "desc" : "asc");
@@ -702,9 +793,21 @@ export function EmperorTable({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtered.length]);
 
-  /** 「絞り込み」ボタンに添える効いている条件の数。**生の state から数える**
-   *  （deferred から数えると、外した直後に数字だけ残って見える）。 */
-  const activeFilterCount = chips.length;
+  /**
+   * 「絞り込み」ボタンに添える効いている条件の数。**生の state から数える**
+   * （deferred から数えると、外した直後に数字だけ残って見える）。
+   *
+   * **数えるのはポップオーバーに載っている5つだけで、検索語は入れない** —
+   * 検索窓はどの幅でも帯に出ているので、これを数に入れるとボタンを開いても
+   * 該当する条件が見つからない（2026-08-17・ボタンが全幅で出るようになった時点の直し）。
+   */
+  const activeFilterCount = [
+    eraValue !== "all",
+    dynastyValue !== "all",
+    reignFilter !== "all",
+    deathValue !== "all",
+    accessionValue !== "all",
+  ].filter(Boolean).length;
 
   // 帯に載せる絞り込み一式（2026-08-04 ユーザー指示・/emperors と同じ移動）。
   // それまでは表の上に置いていて、365行を少し送ると条件を変える手段が画面から
@@ -716,8 +819,14 @@ export function EmperorTable({
   // 実効幅が狭く、768pxの画面でも帯の内幅は438pxしかないため。
   //   〜@4xl(56rem)  : 時代・王朝・在位回数をすべてポップオーバーへ
   //   @4xl〜@5xl     : 時代・王朝は帯へ、在位回数はポップオーバー
-  //   @5xl(64rem)〜  : すべて帯に並ぶ（ポップオーバーのボタンは消える）
+  //   @5xl(64rem)〜  : 時代・王朝・在位回数が帯に並ぶ
   // 検索・列・件数はどの幅でも帯に出す（狭い側では文字を落としてアイコンだけにする）。
+  //
+  // **死因・即位経路（2026-08-17・Issue #94）はどの幅でもポップオーバーの中だけ**に置く。
+  // 帯は1行48pxが契約で、@5xl の時点で既に検索・時代・王朝・在位回数・列・件数が
+  // 並んでいる（1920pxの画面でも余りは321px＝セレクト2つでほぼ使い切る）。
+  // そのぶん**「絞り込み」ボタンはどの幅でも消さない** — 消すと広い画面から
+  // この2つへ到達できなくなる（以前は @5xl で隠していた）。
   const filterControls = (
     <>
       {/* 縮む側は検索窓ひとつなので、**幅の下限を置く** — 条件が効くと右側が
@@ -735,10 +844,12 @@ export function EmperorTable({
         />
       </div>
       <div className="hidden shrink-0 items-center gap-2 @4xl/bar:flex">
-        <EraSelect
-          eras={eras}
+        <FacetSelect
+          options={eras}
           value={eraValue}
           onChange={onEraChange}
+          allLabel="すべての時代"
+          ariaLabel="時代で絞り込み"
           className="w-[9rem]"
         />
         <DynastyCombobox
@@ -758,7 +869,7 @@ export function EmperorTable({
             // 狭い帯では文字を落としてアイコンだけにする。残すと縮み代が
             // 検索窓からしか出せない。読み上げ名は aria-label が持つ。
             aria-label="絞り込み"
-            className="shrink-0 @5xl/bar:hidden"
+            className="shrink-0"
           >
             <SlidersHorizontal data-icon="inline-start" />
             <span className="hidden @xl/bar:inline">絞り込み</span>
@@ -770,15 +881,20 @@ export function EmperorTable({
           </Button>
         </PopoverTrigger>
         {/* **ポップオーバーはポータルで帯の外に出る**ので @container/bar の変種は
-            効かない。中身は幅にかかわらず3つとも載せる（@4xl〜@5xl では時代・王朝が
-            帯とここの2箇所に出るが、同じ state を指しているので食い違わない）。 */}
+            効かない。中身は幅にかかわらず5つとも載せる（@4xl 以上では時代・王朝・
+            在位回数が帯とここの2箇所に出るが、同じ state を指しているので食い違わない）。
+            並びは表の列と同じ順（時代→王朝→在位回数→即位経路→死因）ではなく、
+            **絞り込みの粒度が粗い順**に置く — 時代・王朝で母集団を切ってから
+            人物の属性で切るのが実際の使い方。 */}
         <PopoverContent align="end" className="w-[17rem] space-y-3">
           <FilterField label="時代">
-            <EraSelect
+            <FacetSelect
               inPanel
-              eras={eras}
+              options={eras}
               value={eraValue}
               onChange={onEraChange}
+              allLabel="すべての時代"
+              ariaLabel="時代で絞り込み"
               className="w-full"
             />
           </FilterField>
@@ -797,6 +913,32 @@ export function EmperorTable({
               onChange={setReignFilter}
               className="w-full"
               itemClassName="flex-1"
+            />
+          </FilterField>
+          {/* 死因・即位経路（2026-08-17・Issue #94）。**表に出ている2列と同じ値**を
+              選ぶファセットで、検索窓に区分名を打つのと結果は同じだが、
+              「どの区分があるか」が開く前から見える点が違う。区分名は括弧つきの
+              全文のまま出す（列と違って幅の制約が無く、括弧の中身が分類の根拠）。 */}
+          <FilterField label="即位経路">
+            <FacetSelect
+              inPanel
+              options={accessionOptions}
+              value={accessionValue}
+              onChange={setAccessionValue}
+              allLabel="すべての即位経路"
+              ariaLabel="即位経路で絞り込み"
+              className="w-full"
+            />
+          </FilterField>
+          <FilterField label="死因">
+            <FacetSelect
+              inPanel
+              options={deathOptions}
+              value={deathValue}
+              onChange={setDeathValue}
+              allLabel="すべての死因"
+              ariaLabel="死因で絞り込み"
+              className="w-full"
             />
           </FilterField>
         </PopoverContent>
