@@ -77,6 +77,20 @@
       "line": 1,
       "quote": "复僭称尊号。",
       "cid": "zi4-c1"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
+    },
+    {
+      "cid": "yo3-p2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7426,
+      "quote": "故小名灵宝"
     }
   ],
   "findings": [
@@ -252,9 +266,27 @@
       "basis": [
         "zi4-c1"
       ]
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "yo3-p1",
+        "yo3-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字麟",
+        "小名麟",
+        "小字",
+        "小名"
+      ],
+      "note": "**この2書はこの人物の幼名を書かない**。(1) 晉書1冊と十六国春秋1冊を諱「麟」で走査し（字体は `hanzi_norm.norm_for_match` で正規化）小字・小名の隣接が0件、(2) **本人の紀・載記まるごと**（`_corpus_cache/houyan-muronglin.txt` 3行）を通しで読んだ。**陽性対照は2つとも同じ一帯の君主** — 十六国春秋は慕容儁に「小字贺赖跋」を書き（yo3-p1）、晉書は桓玄の誕生の条に「故小名灵宝」を書く（yo3-p2）。どちらも 2026-08-16 に同じブロックで転記した側なので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック2）"
     }
   ],
-  "discrepancies": "なし。既存の構造フィールド（name.familyName「慕容」・name.personalName「麟」・name.commonName「慕容麟」・name.templeName null・name.posthumousName null）は原文と一致する。reigns の endYear 398 は c8「隆安二年」＝398 の滑台移徙の直後に c2 の賜死が置かれる並びと合う。startYear 397 は c1（慕容詳を斬って復た尊号を僭称）に年を記す断片が無く、この段では年を witness する引用を取っていない（在位開始年は照合していない）。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "既存レコードの name.templeName・name.posthumousName は既に null で、原文の読解結果と一致したため捨てた値は無い。posthumousNameFull・posthumousNames は既存レコードに欄自体が無く（jq 抽出では null）、今回 read-absent として確定させた。",
   "processSuggestion": "check_regime_conventions の後燕（晉書 載記型）の出力には「保存形」の行が無く、載記末尾の1形を posthumousName と posthumousNameFull のどちらへ入れるかが政権単位で未指定のまま人物単位に降りてくる。載記型7政権にも保存形の行を足したい。あわせて、晉書 載記には独立した記事を持たず他者の載記に同居する君主（慕容詳・慕容麟・後趙の石弘ら）が居り、この群には末尾定型が構造的に付かない。残量表 晉書載記の同居君主（独立した載記を持たない君主）: 母集団は未走査（今回確認したのは houyan-muronglin 1件のみ）。"

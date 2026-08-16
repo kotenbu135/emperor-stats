@@ -63,6 +63,27 @@
       "file": "_corpus_cache/qianzhao-liuyuan.txt",
       "line": 15,
       "quote": "伪谥光文皇帝，庙号高祖，墓号永光陵"
+    },
+    {
+      "cid": "yo3-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianzhao-liuyuan.txt",
+      "line": 1,
+      "quote": "刘元海，新兴匈奴人，冒顿之后也"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
+    },
+    {
+      "cid": "yo3-p2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7426,
+      "quote": "故小名灵宝"
     }
   ],
   "findings": [
@@ -148,10 +169,28 @@
       ],
       "confidence": "high",
       "note": "欄への投入対象外の参考。冒頓の子孫が漢の宗女を母系とすることから劉姓を冒したと載記が述べる。"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo3-c1",
+        "yo3-p1",
+        "yo3-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字淵",
+        "小名淵",
+        "小字",
+        "小名"
+      ],
+      "note": "**この2書はこの人物の幼名を書かない**。(1) 晉書1冊と十六国春秋1冊を諱「淵」で走査し（字体は `hanzi_norm.norm_for_match` で正規化）小字・小名の隣接が0件、(2) **本人の紀・載記まるごと**（`_corpus_cache/qianzhao-liuyuan.txt` 15行）を通しで読んだ。**陽性対照は2つとも同じ一帯の君主** — 十六国春秋は慕容儁に「小字贺赖跋」を書き（yo3-p1）、晉書は桓玄の誕生の条に「故小名灵宝」を書く（yo3-p2）。どちらも 2026-08-16 に同じブロックで転記した側なので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック2）"
     }
   ],
   "conflicts": [],
   "noteLog": "諡の段の year を測ってから決めた: 当初は「永嘉四年」が『死』に掛かる語なので year を落とす案（＝捨てた側）だったが、晉書載記に拠る同政権群を実測すると19人中12人が同じ結びの紀年を year に持ち、持たない7人は結びに紀年が無い側だった。1件だけ外れ値を作ることになるため原文の紀年をそのまま採り、year=310 を維持した。墓号「永光陵」は今回の4欄の対象外なので findings に置かず c1 の引用に残すだけとした。",
-  "discrepancies": "1件。name.templeName が既存レコードで null だが、晋書 載記第一（卷一百一）の記事末尾は「庙号高祖」と明記し、劉聡載記の詔も「我高祖光文皇帝」と呼ぶ。原文を採り「高祖」とした。name.posthumousName（光文帝）・name.personalName（淵）・name.posthumousNames（光文皇帝・year 310）は既存レコードと一致（year は同政権群19人中12人と同じ形なので食い違いとしない）。name.posthumousNameFull は既存レコードに欄そのものが無く、政権慣行が未確定（check_regime_conventions が終了1）のため pending。",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 晉書載記で諱が唐の廟諱に触れ字で立てられる君主 既知2件（未読 未走査）— 劉淵（元海）・石虎（季龍）は政権慣行の出力に名が挙がっており、この2件は諱が底本に無いので他の正史（魏書など）へ当たらないと personalName が埋まらない。十六国の他の君主を同じ観点で走査していないので件数は未測定。"
 }

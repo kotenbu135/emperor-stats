@@ -112,6 +112,20 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 7458,
       "quote": "为玄举哀，立丧庭，伪谥为武悼皇帝"
+    },
+    {
+      "cid": "yo3-c1",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7426,
+      "quote": "及生玄，有光照室，占者奇之，故小名灵宝"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
     }
   ],
   "findings": [
@@ -231,10 +245,19 @@
       ],
       "confidence": "high",
       "note": "「字敬道」。既存レコードの「敬道」と一致（担当外だが台帳に残す）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": "霊宝",
+      "basis": [
+        "yo3-c1"
+      ],
+      "confidence": "high",
+      "note": "晉書 卷九十九 桓玄傳が誕生の条で「及生玄，有光照室，占者奇之，故小名灵宝」と書く（yo3-c1）。**本人のキャッシュの中に在る**ので免除は要らない。冒頭は「桓玄，字敬道，一名灵宝」と**一名**の形でも同じ語を出す（2026-08-16・幼名ブロック2）"
     }
   ],
   "conflicts": [],
   "noteLog": "既存レコードの posthumousNames[0] は {form: 武悼皇帝, year: 404} で、原文の紀年連鎖と一致したため訂正なし。捨てた値は無い。templeName・posthumousNameFull は「原文に無いから空」ではなく「政権慣行が未確定で欄の受け方が決まっていないから空」なので、read-absent ではなく pending として残した。\n既存の構造フィールド（personalName 玄・familyName 桓・courtesyName 敬道・templeName null・posthumousName null・posthumousNames [武悼皇帝 / 404]）はいずれも原文と一致したので、捨てた側の値は無い。templeName は政権慣行が other-source（材料が出ない側）としていたが、正史6書への走査で廟号の授与条が1件も無いことを確かめたうえで read-absent に置いた。posthumousNameFull は同じ慣行の指す通り材料が出ず、かつ「武悼皇帝」を全長形として受けるかが慣行側で段の欄に割り当てられているため pending に留めた。",
-  "discrepancies": "なし（既存の構造フィールドと原文の食い違いは無し。posthumousNames[0].year=404 は元兴三年＝玄の永始二年という原文の紀年と整合し、posthumousNames[0].form=武悼皇帝 も授与の条と一致する）",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 桓楚・十六国期の非正史加諡 1件（未読 1）— 政権慣行の記録が「正史外（資治通鑑・建康実録）は未走査」と明記しているのに、その未走査分を数える器が無い。走査していない範囲は「未走査」として残量表に行を持たせたい。"
 }

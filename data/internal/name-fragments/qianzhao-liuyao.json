@@ -77,6 +77,20 @@
       "file": "daizhigev20/史藏/正史/晋书.txt",
       "line": 7624,
       "quote": "僭尊高祖父亮为景皇帝，曾祖父广为献皇帝，祖防懿皇帝，考曰宣成皇帝"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
+    },
+    {
+      "cid": "yo3-p2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7426,
+      "quote": "故小名灵宝"
     }
   ],
   "findings": [
@@ -232,9 +246,27 @@
       ],
       "confidence": "high",
       "note": "冒頭定型の「字永明」。既存レコードと同値（照合のために残す）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "yo3-p1",
+        "yo3-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字曜",
+        "小名曜",
+        "小字",
+        "小名"
+      ],
+      "note": "**この2書はこの人物の幼名を書かない**。(1) 晉書1冊と十六国春秋1冊を諱「曜」で走査し（字体は `hanzi_norm.norm_for_match` で正規化）小字・小名の隣接が0件、(2) **本人の紀・載記まるごと**（`_corpus_cache/qianzhao-liuyao.txt` 43行）を通しで読んだ。**陽性対照は2つとも同じ一帯の君主** — 十六国春秋は慕容儁に「小字贺赖跋」を書き（yo3-p1）、晉書は桓玄の誕生の条に「故小名灵宝」を書く（yo3-p2）。どちらも 2026-08-16 に同じブロックで転記した側なので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック2）"
     }
   ],
-  "discrepancies": "なし（既存の構造フィールド name.personalName=\"曜\"・name.familyName=\"劉\"・name.courtesyName=\"永明\"・name.templeName=null・name.posthumousName=null はいずれも晉書 載記第三の記述と一致した）",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "既存の構造フィールドは name.templeName・name.posthumousName とも null で、原文の読解結果と一致する。捨てた値は無い。 既存レコードの name には posthumousNameFull・posthumousNames のキー自体が無い（familyName・personalName・commonName・aliases・posthumousName・templeName・regnalTitle・courtesyName のみ）ので、この2件は既存 null との一致ではなく新しい容器への read-absent。",
   "processSuggestion": "残量表 晉書載記 posthumousNameFull の政権慣行 未走査（templeName・posthumousName・posthumousNames の3項目には (晉書, 記事末尾) の慣行記録があるが posthumousNameFull だけ記録が無く、--field posthumousNameFull は政権単位で未確定のまま止まる。値が在る人物に当たったときに欄の振り分けが人物単位の判断へ落ちる）"

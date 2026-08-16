@@ -7,6 +7,20 @@
       "file": "_corpus_cache/houyan-murongchui.txt",
       "line": 36,
       "quote": "伪谥成武皇帝，庙号世祖，墓曰宣平陵"
+    },
+    {
+      "cid": "yo3-c1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 753,
+      "quote": "慕容垂字叔仁[一作道明]小字阿六敦皝第五子母兰淑仪所"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
     }
   ],
   "findings": [
@@ -32,7 +46,16 @@
       ],
       "confidence": "high",
       "note": "記事末尾の定型ブロックが掲げる全長形。末尾定型"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": "阿六敦",
+      "basis": [
+        "yo3-c1"
+      ],
+      "confidence": "high",
+      "note": "十六国春秋 卷四十一の書き出し（yo3-c1）。**晉書 載記は小字を書かない**のでゲートCは免除で受けた。**字が書で割れる** — 晉書は「道明」、十六国春秋は「叔仁」を本文に置いて「道明」を割注にする。同定は続柄「皝第五子」による（2026-08-16・幼名ブロック2）"
     }
   ],
-  "discrepancies": "なし（諡の段だけを足した。他の名前欄は触っていない）"
+  "discrepancies": "なし"
 }

@@ -56,6 +56,27 @@
       "file": "_corpus_cache/qianzhao-liucan.txt",
       "line": 1,
       "quote": "粲字士光。少而俊杰，才兼文武"
+    },
+    {
+      "cid": "yo3-c1",
+      "book": "晉書",
+      "file": "_corpus_cache/qianzhao-liucan.txt",
+      "line": 1,
+      "quote": "粲字士光"
+    },
+    {
+      "cid": "yo3-p1",
+      "book": "十六国春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 408,
+      "quote": "慕容儁字宣英小字贺赖跋皝之第二子也母"
+    },
+    {
+      "cid": "yo3-p2",
+      "book": "晉書",
+      "file": "daizhigev20/史藏/正史/晋书.txt",
+      "line": 7426,
+      "quote": "故小名灵宝"
     }
   ],
   "findings": [
@@ -163,6 +184,24 @@
       ],
       "confidence": "medium",
       "note": "諡の段は「その人物が名乗る底本」＝晉書 卷一百二 載記第二 の中からだけ採る規約だが、晉書はこの人物に諡を1つも与えない（c3）。通鑑の「隐帝」は他書なので段に入れられない。段を空のまま閉じるか通鑑の1段を入れるかは規約の判断待ちなので pending（残量表へ回す）。 【2026-08-14・親セッション】**既存の `read-absent` を維持する。** 検証段が示したとおり十六国春秋 L39 に「谥曰隠帝」という授与の条は在るが、**段 `posthumousNames` は「その人物が名乗る底本」の中からだけ採る**規約（他書にしか無い加諡は入れない）で、この人物の底本は晉書 載記第二であり、晉書は劉粲に諡を置かない（父 劉聰には L7613 で「伪谥曰昭武皇帝，庙号烈宗」と定型を置くのに、粲には置かずに条が終わる）。他書にしか無い諡は残量表の「他書にしか無い加諡（`posthumousNames` の外）」の行。"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo3-c1",
+        "yo3-p1",
+        "yo3-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字粲",
+        "小名粲",
+        "小字",
+        "小名"
+      ],
+      "note": "**この2書はこの人物の幼名を書かない**。(1) 晉書1冊と十六国春秋1冊を諱「粲」で走査し（字体は `hanzi_norm.norm_for_match` で正規化）小字・小名の隣接が0件、(2) **本人の紀・載記まるごと**（`_corpus_cache/qianzhao-liucan.txt` 3行）を通しで読んだ。**陽性対照は2つとも同じ一帯の君主** — 十六国春秋は慕容儁に「小字贺赖跋」を書き（yo3-p1）、晉書は桓玄の誕生の条に「故小名灵宝」を書く（yo3-p2）。どちらも 2026-08-16 に同じブロックで転記した側なので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック2）"
     }
   ],
   "conflicts": [
@@ -189,6 +228,6 @@
     }
   ],
   "noteLog": "既存 note は読んでいない（1段目の契約どおり）。読んだ構造フィールドは name.familyName=劉・name.personalName=粲・name.commonName=隠帝・name.posthumousName=隠帝・name.templeName=null・name.courtesyName=士光・reigns 318〜318。現行値の訂正は提案していない（posthumousName は pending なので配布値「隠帝」はそのまま）。字体の扱い: claims の quote は底本の簡体のまま、findings の値は既存レコードに揃えて新字体（隐→隠）で論じた。当初 posthumousName を通鑑を根拠に「隠帝」で確定しかけたが、通鑑を代替に立てる先例が「正史に独立記述が無い人物」に限られることを docs/process/CORPUS_NOTES.md の79〜88行で確認し、pending へ落とした（捨てた側の判断の記録）。",
-  "discrepancies": "なし。既存の構造フィールドと原文は一致する — personalName「粲」は c1「粲字士光」・c4「其子粲嗣伪位」と一致、courtesyName「士光」は c1 と一致、templeName=null は晉書・魏書・北史・資治通鑑のいずれにも廟号が無いことと一致、reigns 318〜318 は c4・c5 が同じ太興元年（318）の条に「聪死，其子粲嗣伪位」と「靳准弑刘粲」を置くことと一致。posthumousName「隠帝」は値としては原文（資治通鑑 卷第九十）と一致するが、その形が正史の晉書に無く通鑑にしか無い点を conflicts に記録した（値の食い違いではなく出典の所在の問題）。",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 十六国・諡が正史（晉書載記）に無く資治通鑑にのみ在る君主 1件（未走査 — 同型が他の十六国君主に何件あるかは未走査）。あわせて former-zhao は posthumousNameFull の政権慣行が regime-conventions.json に未登録で、check_regime_conventions.py が exit 1 で止まる（templeName／posthumousName／posthumousNames は登録済み）。フィールドによって慣行の有無が割れる政権があるので、着手前チェックの出力に「この政権で登録済みのフィールド一覧」を1行足すと、未登録フィールドを人物単位で埋めに行く事故が防げる。"
 }
