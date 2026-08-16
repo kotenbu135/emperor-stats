@@ -1,61 +1,83 @@
 {
-  "id": "hou-han-andi",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "後漢書",
-      "file": "_corpus_cache/hou-han-andi.txt",
-      "line": 1,
-      "quote": "恭宗孝安皇帝讳祜，肃宗孙也"
-    },
-    {
-      "cid": "c2",
-      "book": "後漢書",
-      "file": "daizhigev20/史藏/正史/后汉书.txt",
-      "line": 1402,
-      "quote": "葬孝安皇帝于恭陵。庙曰恭宗"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNameFull",
-      "value": "孝安皇帝",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "冒頭1行が名乗りとして掲げる形（c1）。後漢書は光武帝を除き「孝」を冠して立てる"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "後漢書の帝紀を人物ごとに全数で読んだ。この人物には諡を授ける条が無い。**後漢書は諡を冒頭の名乗り（「〈廟号〉孝〈諡〉皇帝諱〈諱〉」）に置き、授ける条を書くのは献帝だけ**（授けたのは魏）。"
-    },
-    {
-      "field": "name.templeName",
-      "value": "恭宗",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "冒頭の第1スロット（c1）。宗号を奉る条が「庙曰〈廟号〉」と書いて裏を取る（c2）。現行値と一致（追認）"
-    },
-    {
-      "field": "name.courtesyName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
-    }
-  ],
-  "discrepancies": "なし（冒頭1行は現行の personalName・posthumousName と整合）"
+ "id": "hou-han-andi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "後漢書",
+   "file": "_corpus_cache/hou-han-andi.txt",
+   "line": 1,
+   "quote": "恭宗孝安皇帝讳祜，肃宗孙也"
+  },
+  {
+   "cid": "c2",
+   "book": "後漢書",
+   "file": "daizhigev20/史藏/正史/后汉书.txt",
+   "line": 1402,
+   "quote": "葬孝安皇帝于恭陵。庙曰恭宗"
+  },
+  {
+   "cid": "yo1-p1",
+   "book": "後漢書",
+   "file": "daizhigev20/史藏/正史/后汉书.txt",
+   "line": 6133,
+   "quote": "呼干小字曰：“别成，汝知吾必死邪"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNameFull",
+   "value": "孝安皇帝",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "冒頭1行が名乗りとして掲げる形（c1）。後漢書は光武帝を除き「孝」を冠して立てる"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "後漢書の帝紀を人物ごとに全数で読んだ。この人物には諡を授ける条が無い。**後漢書は諡を冒頭の名乗り（「〈廟号〉孝〈諡〉皇帝諱〈諱〉」）に置き、授ける条を書くのは献帝だけ**（授けたのは魏）。"
+  },
+  {
+   "field": "name.templeName",
+   "value": "恭宗",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "冒頭の第1スロット（c1）。宗号を奉る条が「庙曰〈廟号〉」と書いて裏を取る（c2）。現行値と一致（追認）"
+  },
+  {
+   "field": "name.courtesyName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
+  },
+  {
+   "field": "name.childhoodName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "yo1-p1"
+   ],
+   "confidence": "high",
+   "note": "**書の側で打ち切れた**（2026-08-16・幼名ブロック1）。後漢書で「小字」が出るのは蓋勲伝の呼びかけ1回だけで、名乗りの欄としては**全文で0件**（政権慣行に `absent-by-book` で記録した）。本人の本紀にも0回。以下は当初の記録: **書が小字の欄を持たない** — 後漢書で「小字」が出るのは1回だけで、それは蓋勲が部下を呼ぶ条「呼干小字曰」（yo1-p1）＝**呼び名としての用例**であって名乗りの欄ではない。書が誰にも幼名の欄を与えていないので、この人物の沈黙は書の作りの言い換えにしかならない。本人の本紀（`_corpus_cache/hou-han-andi.txt` 216行）にも0回",
+   "sweptWords": [
+    "小字",
+    "小名"
+   ]
+  }
+ ],
+ "discrepancies": "なし"
 }

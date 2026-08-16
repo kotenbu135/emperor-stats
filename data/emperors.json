@@ -25979,7 +25979,8 @@
     "posthumousName": "威王",
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "太伯"
+    "courtesyName": "太伯",
+    "childhoodName": "螽斯"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "former-liang",
@@ -34321,7 +34322,8 @@
       "form": "威皇帝"
      }
     ],
-    "posthumousNameFull": "威皇帝"
+    "posthumousNameFull": "威皇帝",
+    "childhoodName": "鳳皇"
    },
    "eraId": "eastern-jin-sixteen",
    "regimeId": "western-yan",
@@ -52630,7 +52632,8 @@
     "posthumousName": null,
     "templeName": null,
     "regnalTitle": "皇帝",
-    "courtesyName": "華興"
+    "courtesyName": "華興",
+    "childhoodName": "盆子"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-wei",
@@ -55151,7 +55154,8 @@
       "form": "閔悼王",
       "year": 562
      }
-    ]
+    ],
+    "childhoodName": "道人"
    },
    "eraId": "northern-southern",
    "regimeId": "northern-qi",
@@ -124318,7 +124322,8 @@
       "source": {
        "page": "近現代の学術的に信頼できる複数情報源（正史範囲外）",
        "lang": "zh"
-      }
+      },
+      "eraName": "洪憲"
      }
     ],
     "confidence": "high",

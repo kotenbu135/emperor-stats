@@ -35,6 +35,20 @@
       "file": "_corpus_cache/ming-xizong.txt",
       "line": 3,
       "quote": "己丑，以是年八月以后称泰昌元年。"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-xizong.txt",
+      "line": 1,
+      "quote": "◎熹宗"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 11635,
+      "quote": "张士诚，小字九四，泰州白驹场亭人"
     }
   ],
   "findings": [
@@ -89,9 +103,20 @@
       ],
       "confidence": "high",
       "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "yo1-c1",
+        "yo1-p1"
+      ],
+      "confidence": "high",
+      "note": "**判別不能で確定**（2026-08-16・幼名ブロック1）。**明史は小字を書くが、皇統には1件も書かない** — 書全体の7件は張士誠「小字九四」（yo1-p1）・その弟 士徳「小字九六」・擴廓帖木児「小字保保」のような**元末の群雄と功臣**で、皇帝・皇子は1人も含まない。したがって沈黙は人物単位の所見ではなく皇統の書き方の言い換えになる。本人の本紀（`_corpus_cache/ming-xizong.txt` 11行）にも0回で、諱「由校」の隣接も0件"
     }
   ],
   "conflicts": [],
   "noteLog": "底本は china-history 明史 本纪 第二十二章-卷二十二-原文.html（簡体字）で、_corpus_cache/ming-xizong.txt はその抽出。冒頭1行・上尊謚条ともHTML側（23行目・31行目）と一致することを確認した。諡号の値は底本の字体のまま返しているので、データセット側の新字体表記への字体正規化は転記段の判断に委ねる。元号について: c5「己丑，以是年八月以后称泰昌元年。」は万暦48年8月以降を光宗の泰昌元年と追号した措置で、熹宗自身の元号ではない。熹宗の元号は c2 の天启（天啓）1つのみ。",
-  "discrepancies": "既存の構造フィールドとの食い違いは、判定対象である name.templeName・name.posthumousName がいずれも null になっている点のみ（原文は廟号「熹宗」・諡号「达天阐道敦孝笃友章文襄武靖穆庄勤悊皇帝」を明記する）。その他は一致 — name.personalName「由校」＝c1「讳由校」、reigns[0].startYear 1620＝万暦48年即位（c2）、reigns[0].endYear 1627＝天啓7年崩御（c4）、ages.deathAge 23＝c4「年二十三」。name.familyName「朱」は熹宗紀の冒頭に姓の記載が無く、本紀からは肯定も否定もできない（食い違いではない）。"
+  "discrepancies": "なし"
 }

@@ -1,62 +1,84 @@
 {
-  "id": "hou-han-shangdi",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "後漢書",
-      "file": "_corpus_cache/hou-han-shangdi.txt",
-      "line": 1,
-      "quote": "孝殇皇帝讳隆，和帝少子也"
-    },
-    {
-      "cid": "c2",
-      "book": "後漢書",
-      "file": "china-history/后汉书/本纪/第十章-孝献帝纪-原文.html",
-      "line": 40,
-      "quote": "有司奏，和、安、顺、桓四帝无功德，不宜称宗，又恭怀、敬隐、恭愍三皇后并非正嫡，不合称后，皆请除尊号"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousNameFull",
-      "value": "孝殤皇帝",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "冒頭1行が名乗りとして掲げる形（c1）。後漢書は光武帝を除き「孝」を冠して立てる"
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "後漢書の帝紀を人物ごとに全数で読んだ。この人物には諡を授ける条が無い。**後漢書は諡を冒頭の名乗り（「〈廟号〉孝〈諡〉皇帝諱〈諱〉」）に置き、授ける条を書くのは献帝だけ**（授けたのは魏）。"
-    },
-    {
-      "field": "name.templeName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "冒頭の第1スロットが諡から始まり廟号が無い（c1）。後漢書が宗号を奉る条で使う語は「庙曰」／「尊庙曰」で、1冊走査すると**7帝ぶんだけ**が並ぶ（世祖・顕宗・粛宗・穆宗・恭宗・敬宗・威宗。ほかの当たりは高廟・宗廟の一般語と、追尊された皇考・皇祖の廟号）。この人物はその7帝に入らず、除尊号の条（c2）が挙げる4帝にも入らないので、この書でこの人物に宗号は立たない"
-    },
-    {
-      "field": "name.courtesyName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high",
-      "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
-    }
-  ],
-  "discrepancies": "なし（冒頭1行は現行の personalName・posthumousName と整合）"
+ "id": "hou-han-shangdi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "後漢書",
+   "file": "_corpus_cache/hou-han-shangdi.txt",
+   "line": 1,
+   "quote": "孝殇皇帝讳隆，和帝少子也"
+  },
+  {
+   "cid": "c2",
+   "book": "後漢書",
+   "file": "china-history/后汉书/本纪/第十章-孝献帝纪-原文.html",
+   "line": 40,
+   "quote": "有司奏，和、安、顺、桓四帝无功德，不宜称宗，又恭怀、敬隐、恭愍三皇后并非正嫡，不合称后，皆请除尊号"
+  },
+  {
+   "cid": "yo1-p1",
+   "book": "後漢書",
+   "file": "daizhigev20/史藏/正史/后汉书.txt",
+   "line": 6133,
+   "quote": "呼干小字曰：“别成，汝知吾必死邪"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousNameFull",
+   "value": "孝殤皇帝",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "冒頭1行が名乗りとして掲げる形（c1）。後漢書は光武帝を除き「孝」を冠して立てる"
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "後漢書の帝紀を人物ごとに全数で読んだ。この人物には諡を授ける条が無い。**後漢書は諡を冒頭の名乗り（「〈廟号〉孝〈諡〉皇帝諱〈諱〉」）に置き、授ける条を書くのは献帝だけ**（授けたのは魏）。"
+  },
+  {
+   "field": "name.templeName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "冒頭の第1スロットが諡から始まり廟号が無い（c1）。後漢書が宗号を奉る条で使う語は「庙曰」／「尊庙曰」で、1冊走査すると**7帝ぶんだけ**が並ぶ（世祖・顕宗・粛宗・穆宗・恭宗・敬宗・威宗。ほかの当たりは高廟・宗廟の一般語と、追尊された皇考・皇祖の廟号）。この人物はその7帝に入らず、除尊号の条（c2）が挙げる4帝にも入らないので、この書でこの人物に宗号は立たない"
+  },
+  {
+   "field": "name.courtesyName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high",
+   "note": "後漢書の本紀で字を挙げるのは光武帝の条だけで、この条は諱の直後に続柄が来る（c1）。この書はこの帝の字を載せない"
+  },
+  {
+   "field": "name.childhoodName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "yo1-p1"
+   ],
+   "confidence": "high",
+   "note": "**書の側で打ち切れた**（2026-08-16・幼名ブロック1）。後漢書で「小字」が出るのは蓋勲伝の呼びかけ1回だけで、名乗りの欄としては**全文で0件**（政権慣行に `absent-by-book` で記録した）。本人の本紀にも0回。以下は当初の記録: **書が小字の欄を持たない** — 後漢書で「小字」が出るのは1回だけで、それは蓋勲が部下を呼ぶ条「呼干小字曰」（yo1-p1）＝**呼び名としての用例**であって名乗りの欄ではない。書が誰にも幼名の欄を与えていないので、この人物の沈黙は書の作りの言い換えにしかならない。本人の本紀（`_corpus_cache/hou-han-shangdi.txt` 11行）にも0回",
+   "sweptWords": [
+    "小字",
+    "小名"
+   ]
+  }
+ ],
+ "discrepancies": "なし"
 }

@@ -105,6 +105,20 @@
       "file": "daizhigev20/史藏/正史/魏书.txt",
       "line": 6324,
       "quote": "蒙逊死，遣使监护丧事，谥曰武宣王。"
+    },
+    {
+      "cid": "yo2-c1",
+      "book": "十六國春秋",
+      "file": "daizhigev20/史藏/载记/十六国春秋.txt",
+      "line": 1286,
+      "quote": "张祚字太伯小字螽斯骏之庶长子也博学雄"
+    },
+    {
+      "cid": "yo2-c2",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 6300,
+      "quote": "螽斯是祚小字，今乃逆行，灾之大者"
     }
   ],
   "findings": [
@@ -216,9 +230,19 @@
       ],
       "confidence": "high",
       "note": "小字（幼名）「螽斯」。十六国春秋 L1286「张祚字太伯小字螽斯」・魏書 L6300「螽斯是祚小字」の2書一致。欄への投入対象外だが台帳に残す"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": "螽斯",
+      "basis": [
+        "yo2-c1",
+        "yo2-c2"
+      ],
+      "confidence": "high",
+      "note": "**2つの書が独立して書く** — 十六国春秋 卷七十三の書き出し（yo2-c1）と、魏書 卷九十九が張重華末年の凶兆の条で「螽斯是祚小字」と名指しで説明する（yo2-c2・門に集まった虫の螽斯を都尉常據が張祚の小字に掛けて諫めた条）。キャッシュは晉書 載記で、載記は小字を書かないのでゲートCは免除で受けた（2026-08-16・幼名ブロック1の後追い）"
     }
   ],
-  "discrepancies": "既存の構造フィールドとの食い違いは なし。name.personalName=祚・name.courtesyName=太伯・name.posthumousName=威王・name.templeName=null はいずれも原文と一致した（威王の出典は十六国春秋 卷七十三 L1288 で、底本の晉書 卷八十六 はこの追諡を載せない＝対立ではなく沈黙）。name.regnalTitle=皇帝 も底本の晉書「僭称帝位」と一致するが、十六国春秋・魏書は「王位」「凉王」と書くので conflicts に記録した。name.posthumousNameFull・name.posthumousNames は政権慣行の保存形（〈X〉王は位号なので入れない）に掛かるため空のまま pending で返す。",
+  "discrepancies": "なし",
   "conflicts": [
     {
       "field": "name.regnalTitle",

@@ -21,6 +21,27 @@
       "file": "_corpus_cache/beiwei-mingyuandi.txt",
       "line": 2,
       "quote": "太宗明元皇帝，讳嗣，太祖长子也，母曰刘贵人"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-mingyuandi.txt",
+      "line": 1,
+      "quote": "太宗纪"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 1433,
+      "quote": "晔字华兴，小字盆子"
+    },
+    {
+      "cid": "yo1-p2",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 2255,
+      "quote": "穆弟叡，字哲，小字男季"
     }
   ],
   "findings": [
@@ -59,7 +80,25 @@
       ],
       "confidence": "high",
       "note": "読んだうえで空。冒頭の名乗りは「讳嗣」で止まり字の欄が無い。**魏書1冊を走査して0件** — 「嗣」が「字」の前後20字の窓に来る当たりが魏書に1件も無い（同じ走査で太武帝の「字佛厘」＝魏書 L379 は当たっている）。南齊書 魏虜傳は明元帝を「木末」と呼ぶが**字とは書かない**（L3461「木末始土著居」）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo1-c1",
+        "yo1-p1",
+        "yo1-p2"
+      ],
+      "confidence": "high",
+      "note": "**この書はこの人物の幼名を書かない**。(1) 魏書1冊と北史1冊を諱「嗣」で走査し「小字〈X〉」「小名〈X〉」の隣接が0件（当たった2件はいずれも別人）、(2) **本人の帝紀まるごと**（`_corpus_cache/beiwei-mingyuandi.txt` 49行）に「小字」「小名」が0回。**陽性対照は同じ魏書が宗室に小字を書くこと** — 卷十九下の東海王 元曄に「晔字华兴，小字盆子」（yo1-p1・**この政権の君主本人**）、卷十五に「穆弟叡，字哲，小字男季」（yo1-p2）。魏書は書全体で54件の小字・小名の欄を持つので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック1）",
+      "sweptWords": [
+        "小字嗣",
+        "小名嗣",
+        "小字",
+        "小名"
+      ]
     }
   ],
-  "discrepancies": "なし（冒頭1行は現行の familyName・personalName と整合）"
+  "discrepancies": "なし"
 }

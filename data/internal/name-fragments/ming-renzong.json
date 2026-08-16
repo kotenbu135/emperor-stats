@@ -35,6 +35,20 @@
       "file": "_corpus_cache/ming-renzong.txt",
       "line": 10,
       "quote": "洪熙元年春正月壬申朔，御奉天门受朝，不举乐。"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-renzong.txt",
+      "line": 1,
+      "quote": "◎仁宗"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 11635,
+      "quote": "张士诚，小字九四，泰州白驹场亭人"
     }
   ],
   "findings": [
@@ -88,10 +102,21 @@
       ],
       "confidence": "high",
       "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "yo1-c1",
+        "yo1-p1"
+      ],
+      "confidence": "high",
+      "note": "**判別不能で確定**（2026-08-16・幼名ブロック1）。**明史は小字を書くが、皇統には1件も書かない** — 書全体の7件は張士誠「小字九四」（yo1-p1）・その弟 士徳「小字九六」・擴廓帖木児「小字保保」のような**元末の群雄と功臣**で、皇帝・皇子は1人も含まない。したがって沈黙は人物単位の所見ではなく皇統の書き方の言い換えになる。本人の本紀（`_corpus_cache/ming-renzong.txt` 13行）にも0回で、諱「高熾」の隣接も0件"
     }
   ],
   "conflicts": [],
   "noteLog": "",
-  "discrepancies": "なし。原文と既存の構造フィールドの食い違いは見つからなかった（name.personalName「高熾」＝底本「讳高炽」、eraChangeCount.events[0].eraName「洪熙」＝底本「以明年为洪熙元年」）。name.templeName・name.posthumousName は現行 null で、値の対立ではなく未記入。reigns の年（1424〜1425）は今回の照合対象外。 別件で1つ: eraChangeCount.events[0] は datePrecision=\"day\" なのに date が null。原文は同じ条に日を持つ（「丁巳，即皇帝位。大赦天下，以明年为洪熙元年」・c4）ので enum と保存値が噛み合っていない。名前の作業範囲外なので日付は算出しない。",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 明史本紀の名前欄（templeName・posthumousName） 未走査"
 }

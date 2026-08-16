@@ -1,115 +1,154 @@
 {
-  "id": "tang-shunzong",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "旧唐書",
-      "file": "_corpus_cache/tang-shunzong.txt",
-      "line": 2,
-      "quote": "顺宗至德大圣大安孝丘帝讳诵，德宗长子"
+ "id": "tang-shunzong",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "旧唐書",
+   "file": "_corpus_cache/tang-shunzong.txt",
+   "line": 2,
+   "quote": "顺宗至德大圣大安孝丘帝讳诵，德宗长子"
+  },
+  {
+   "cid": "c2",
+   "book": "旧唐書",
+   "file": "_corpus_cache/tang-shunzong.txt",
+   "line": 10,
+   "quote": "六月乙卯，皇帝率群臣上大行太上皇谥曰至德大圣大安孝皇帝，庙号顺宗"
+  },
+  {
+   "cid": "c3",
+   "book": "新唐書",
+   "file": "china-history/新唐书/本纪/第七章-卷七·德宗 顺宗 宪-原文.html",
+   "line": 58,
+   "quote": "谥曰至德大圣大安孝皇帝。大中三年，增谥至德弘道大圣大安孝皇帝"
+  },
+  {
+   "book": "新唐書",
+   "file": "daizhigev20/史藏/正史/新唐书.txt",
+   "line": 516,
+   "quote": "顺宗至德弘道大圣大安孝皇帝讳诵，德宗长子也。",
+   "cid": "zi3-c1"
+  },
+  {
+   "book": "舊唐書",
+   "file": "_corpus_cache/tang-shunzong.txt",
+   "line": 2,
+   "quote": "顺宗至德大圣大安孝丘帝讳诵，德宗长子，母昭德皇后王氏。",
+   "cid": "zi3-c2"
+  },
+  {
+   "cid": "yo1-c1",
+   "book": "舊唐書",
+   "file": "_corpus_cache/tang-shunzong.txt",
+   "line": 1,
+   "quote": "顺宗宪宗上"
+  },
+  {
+   "cid": "yo1-p1",
+   "book": "新唐書",
+   "file": "daizhigev20/史藏/正史/新唐书.txt",
+   "line": 10278,
+   "quote": "隐太子建成小字毘沙门"
+  },
+  {
+   "cid": "yo1-p2",
+   "book": "新唐書",
+   "file": "daizhigev20/史藏/正史/新唐书.txt",
+   "line": 10291,
+   "quote": "巢刺王元吉小字三胡"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.templeName",
+   "value": "順宗",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high"
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": "至徳大聖大安孝皇帝",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high"
+  },
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c1",
+    "c2"
+   ],
+   "confidence": "high"
+  },
+  {
+   "field": "name.personalName",
+   "value": "誦",
+   "basis": [
+    "c1"
+   ],
+   "confidence": "high"
+  },
+  {
+   "field": "name.courtesyName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "zi3-c1",
+    "zi3-c2"
+   ],
+   "confidence": "high",
+   "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+  },
+  {
+   "field": "name.childhoodName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "yo1-c1",
+    "yo1-p1",
+    "yo1-p2"
+   ],
+   "confidence": "high",
+   "note": "**どちらの唐書もこの人物の幼名を書かない**。(1) 舊唐書・新唐書の2冊を諱「誦」で走査して隣接が0件（当たった0件は別人）、(2) **本人の本紀まるごと**（`_corpus_cache/tang-shunzong.txt` 11行・舊唐書）に「小字」「小名」が0回。**陽性対照は新唐書 高祖諸子が皇子に小字を書くこと** — 「隐太子建成小字毘沙门」（yo1-p1）・「巢刺王元吉小字三胡」（yo1-p2）。**舊唐書の側は書全体で4件しか無く**（張易之の契苾・安慶緒の阿浩・高祖が太宗の小名を呼ぶ条・一般語）、唐で幼名を拾うなら新唐書の諸子傳が所在（2026-08-16・幼名ブロック1）／**巻の単位で見ると弱い側**: 唐の帝が住む**本紀の巻には両唐書とも小字が0件**で、対照が立つのは新唐書 諸子傳の側だけ。德王裕・李煴の字を閉じたときと同じ形の caveat で、書の側の対照（魏書型ではなく genre 型）に寄せて閉じている",
+   "sweptWords": [
+    "小字誦",
+    "小名誦",
+    "小字",
+    "小名"
+   ]
+  }
+ ],
+ "conflicts": [
+  {
+   "field": "name.posthumousNameFull",
+   "adopted": {
+    "value": "至徳大聖大安孝皇帝",
+    "source": {
+     "page": "旧唐書 本紀第十四"
     },
+    "quote": "六月乙卯，皇帝率群臣上大行太上皇谥曰至德大圣大安孝皇帝，庙号顺宗"
+   },
+   "alternatives": [
     {
-      "cid": "c2",
-      "book": "旧唐書",
-      "file": "_corpus_cache/tang-shunzong.txt",
-      "line": 10,
-      "quote": "六月乙卯，皇帝率群臣上大行太上皇谥曰至德大圣大安孝皇帝，庙号顺宗"
-    },
-    {
-      "cid": "c3",
-      "book": "新唐書",
-      "file": "china-history/新唐书/本纪/第七章-卷七·德宗 顺宗 宪-原文.html",
-      "line": 58,
-      "quote": "谥曰至德大圣大安孝皇帝。大中三年，增谥至德弘道大圣大安孝皇帝"
-    },
-    {
-      "book": "新唐書",
-      "file": "daizhigev20/史藏/正史/新唐书.txt",
-      "line": 516,
-      "quote": "顺宗至德弘道大圣大安孝皇帝讳诵，德宗长子也。",
-      "cid": "zi3-c1"
-    },
-    {
-      "book": "舊唐書",
-      "file": "_corpus_cache/tang-shunzong.txt",
-      "line": 2,
-      "quote": "顺宗至德大圣大安孝丘帝讳诵，德宗长子，母昭德皇后王氏。",
-      "cid": "zi3-c2"
+     "value": "至徳弘道大聖大安孝皇帝",
+     "source": {
+      "page": "新唐書 本紀第七"
+     },
+     "quote": "谥曰至德大圣大安孝皇帝。大中三年，增谥至德弘道大圣大安孝皇帝",
+     "note": "新唐書は大中3年（849年）の増諡として弘道を加えた形を記す"
     }
-  ],
-  "findings": [
-    {
-      "field": "name.templeName",
-      "value": "順宗",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": "至徳大聖大安孝皇帝",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "field": "name.posthumousName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c1",
-        "c2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "field": "name.personalName",
-      "value": "誦",
-      "basis": [
-        "c1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "field": "name.courtesyName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "zi3-c1",
-        "zi3-c2"
-      ],
-      "confidence": "high",
-      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
-    }
-  ],
-  "conflicts": [
-    {
-      "field": "name.posthumousNameFull",
-      "adopted": {
-        "value": "至徳大聖大安孝皇帝",
-        "source": {
-          "page": "旧唐書 本紀第十四"
-        },
-        "quote": "六月乙卯，皇帝率群臣上大行太上皇谥曰至德大圣大安孝皇帝，庙号顺宗"
-      },
-      "alternatives": [
-        {
-          "value": "至徳弘道大聖大安孝皇帝",
-          "source": {
-            "page": "新唐書 本紀第七"
-          },
-          "quote": "谥曰至德大圣大安孝皇帝。大中三年，增谥至德弘道大圣大安孝皇帝",
-          "note": "新唐書は大中3年（849年）の増諡として弘道を加えた形を記す"
-        }
-      ],
-      "reason": "政権 tang の慣行は舊唐書 本紀冒頭が名乗りとして掲げる全長形を採る。舊唐書は冒頭・崩御条ともに至德大圣大安孝皇帝で、大中3年の増諡を採らない。新唐書の増諡形は舊唐書には現れないため、書の別として conflicts に残し採用しない"
-    }
-  ],
-  "noteLog": "底本（china-history 旧唐书 卷十四）の冒頭は「顺宗至德大圣大安孝丘帝讳诵」で、皇帝の「皇」が「丘」に化けている（原本の誤字ではなくコーパス側の字形崩れ）。同巻の崩御条「谥曰至德大圣大安孝皇帝，庙号顺宗」で全長形と廟号がそのまま確認できるため、値の根拠はそちらに置いた。引用は底本の簡体字のまま保存し、findings の値は既存レコードに揃えて日本語新字体（至德大圣大安孝皇帝 → 至徳大聖大安孝皇帝、讳诵 → 誦、顺宗 → 順宗）へ倒した。posthumousName を空にしたのは政権 tang の保存形（廟号で呼ばれる皇帝は短縮呼称の欄を空にする）に従ったもので、原文に短縮呼称が見えなかったためではない。",
-  "discrepancies": "なし（既存の構造フィールド name.templeName=順宗・name.personalName=誦・name.posthumousNameFull=至徳大聖大安孝皇帝・name.posthumousName=null はいずれも原文と一致）。付随して、底本 _corpus_cache/tang-shunzong.txt:2 の「上元二年正月生」直後の在位開始条が3行目で「上元二十一年正月癸巳，德宗崩」となっており、貞元21年（805年）を指すはずの年号が「上元」に化けている（担当項目外・reigns の startYear 805 とは矛盾しない）。",
-  "processSuggestion": "残量表 旧唐書本紀の年号・字形崩れ N件（未走査） — 卷十四だけで「皇帝→丘帝」「贞元→上元」の2箇所が出た。名前欄は同巻の崩御条という第二の証人で拾えたが、年号が単独で出る項目（改元・在位境界）では化けが素通りする恐れがある。"
+   ],
+   "reason": "政権 tang の慣行は舊唐書 本紀冒頭が名乗りとして掲げる全長形を採る。舊唐書は冒頭・崩御条ともに至德大圣大安孝皇帝で、大中3年の増諡を採らない。新唐書の増諡形は舊唐書には現れないため、書の別として conflicts に残し採用しない"
+  }
+ ],
+ "noteLog": "底本（china-history 旧唐书 卷十四）の冒頭は「顺宗至德大圣大安孝丘帝讳诵」で、皇帝の「皇」が「丘」に化けている（原本の誤字ではなくコーパス側の字形崩れ）。同巻の崩御条「谥曰至德大圣大安孝皇帝，庙号顺宗」で全長形と廟号がそのまま確認できるため、値の根拠はそちらに置いた。引用は底本の簡体字のまま保存し、findings の値は既存レコードに揃えて日本語新字体（至德大圣大安孝皇帝 → 至徳大聖大安孝皇帝、讳诵 → 誦、顺宗 → 順宗）へ倒した。posthumousName を空にしたのは政権 tang の保存形（廟号で呼ばれる皇帝は短縮呼称の欄を空にする）に従ったもので、原文に短縮呼称が見えなかったためではない。",
+ "discrepancies": "なし",
+ "processSuggestion": "残量表 旧唐書本紀の年号・字形崩れ N件（未走査） — 卷十四だけで「皇帝→丘帝」「贞元→上元」の2箇所が出た。名前欄は同巻の崩御条という第二の証人で拾えたが、年号が単独で出る項目（改元・在位境界）では化けが素通りする恐れがある。"
 }

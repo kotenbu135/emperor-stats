@@ -21,6 +21,20 @@
       "file": "_corpus_cache/ming-shizong.txt",
       "line": 3,
       "quote": "以明年为嘉靖元年，大赦天下。"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-shizong.txt",
+      "line": 1,
+      "quote": "◎世宗一"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 11635,
+      "quote": "张士诚，小字九四，泰州白驹场亭人"
     }
   ],
   "findings": [
@@ -67,10 +81,21 @@
       ],
       "confidence": "high",
       "note": "明史 本紀の冒頭1行で字を挙げるのは太祖の条だけで、この条は諱の次に続柄が来る（c1）。**この書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "yo1-c1",
+        "yo1-p1"
+      ],
+      "confidence": "high",
+      "note": "**判別不能で確定**（2026-08-16・幼名ブロック1）。**明史は小字を書くが、皇統には1件も書かない** — 書全体の7件は張士誠「小字九四」（yo1-p1）・その弟 士徳「小字九六」・擴廓帖木児「小字保保」のような**元末の群雄と功臣**で、皇帝・皇子は1人も含まない。したがって沈黙は人物単位の所見ではなく皇統の書き方の言い換えになる。本人の本紀（`_corpus_cache/ming-shizong.txt` 51行）にも0回で、諱「厚熜」の隣接も0件"
     }
   ],
   "conflicts": [],
   "noteLog": "諡号の形について: 明史本紀冒頭は「〈廟号〉〈諡号〉皇帝，讳〈諱〉」の書式（政権慣行 form-found）で、廟号「世宗」を除いた残りが諡号にあたる。データセット既存の posthumousName 100件はいずれも短形（高帝・恵帝・文帝…）なので、全形で格納するか短形へ落とすかは親の判断。こちらは原文が言う全形をそのまま返し、短縮はしない。/ 廟号の第2証人（c2）は「上尊谥，庙号世宗」とのみ記して諡号の字面を挙げないので、諡号の全文は c1 のみに依る。/ コーパスの字体メモ: 冒頭の諱の2字目が U+E407（PUA）で入っており Read の表示では脱落する。諱は本作業の対象外なので値の主張はしない。/ 同じ本紀の「芝生睿宗原庙柱」（四十四年六月）の睿宗は追尊された父・献皇帝であって当人ではない。/ 元号「嘉靖」は c3 で確認できるが、name の下位キーは aliases・childhoodName・commonName・courtesyName・ethnicName・familyName・personalName・posthumousName・regnalTitle・templeName の10種で元号を置く欄が無く、top-level の eraId は政権id（ming）。欄を新設するかは親の判断（R-CLAIM-GATED）。",
-  "discrepancies": "なし（既存の構造フィールド〔reigns 1521〜1567・eraId=ming・regimeId=ming〕と原文に食い違いは無い。name.templeName・name.posthumousName はいずれも null だが、これは絞り込みが transcribe／unknown として挙げた空欄であって値の対立ではない）",
+  "discrepancies": "なし",
   "processSuggestion": "Read ツールの出力は PUA 文字（明史本紀の諱に実在）を黙って落とすので、PUA を含む巻では引用をファイルから python でスライスして JSON を組むと、手打ちと脱落の両方を同時に避けられる。"
 }

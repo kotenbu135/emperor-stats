@@ -21,54 +21,95 @@
       "file": "_corpus_cache/ming-taizu.txt",
       "line": 149,
       "quote": "辛卯，葬孝陵。谥曰高皇帝，庙号太祖。永乐元年，谥圣神文武钦明启运俊德成功统天大孝高皇帝。嘉靖十七年，增谥开天行道肇纪立极大圣至神仁文义武俊德成功高皇帝"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "明史",
+      "file": "_corpus_cache/ming-taizu.txt",
+      "line": 1,
+      "quote": "◎太祖一"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 11635,
+      "quote": "张士诚，小字九四，泰州白驹场亭人"
     }
   ],
   "findings": [
     {
       "field": "name.templeName",
       "value": "太祖",
-      "basis": ["c1", "c3"],
+      "basis": [
+        "c1",
+        "c3"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.posthumousName",
       "value": "高皇帝",
-      "basis": ["c3", "c1"],
+      "basis": [
+        "c3",
+        "c1"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.familyName",
       "value": "朱",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.personalName",
       "value": "元璋",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.courtesyName",
       "value": "国瑞",
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "high"
     },
     {
       "field": "name.aliases",
       "value": [],
-      "basis": ["c1"],
+      "basis": [
+        "c1"
+      ],
       "confidence": "medium"
     },
     {
       "field": "eraChangeCount.events[id=ming-taizu.eraChangeCount.e001].eraName",
       "value": "洪武",
-      "basis": ["c2"],
+      "basis": [
+        "c2"
+      ],
       "confidence": "high"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "pending",
+      "basis": [
+        "yo1-c1",
+        "yo1-p1"
+      ],
+      "confidence": "high",
+      "note": "**判別不能で確定**（2026-08-16・幼名ブロック1）。**明史は小字を書くが、皇統には1件も書かない** — 書全体の7件は張士誠「小字九四」（yo1-p1）・その弟 士徳「小字九六」・擴廓帖木児「小字保保」のような**元末の群雄と功臣**で、皇帝・皇子は1人も含まない。したがって沈黙は人物単位の所見ではなく皇統の書き方の言い換えになる。本人の本紀（`_corpus_cache/ming-taizu.txt` 151行）にも0回で、諱「元璋」の隣接も0件"
     }
   ],
   "conflicts": [],
   "noteLog": "諡号は明史 本紀が三段で書く。崩御・葬孝陵の条で「谥曰高皇帝，庙号太祖」、永楽元年に加諡、嘉靖十七年に増諡して本紀冒頭の全称になる（全称は c1・c3 に原文のまま置いた。ここで打ち直さない）。posthumousName に全称を採らず初諡「高皇帝」を採ったのは、既存98件が「孝明皇帝」「献武帝」のような短縮形で揃っているため。全称・永楽加諡は捨てた側の値として記録する。廟号「太祖」は冒頭1行と葬送条の双方が同じ語で立てるので追諡による揺れが無い。別称は本紀冒頭が「讳元璋，字国瑞，姓朱氏」までしか挙げず、明史 本紀からは別名・異表記が取れないため空のままとした（朱重八・朱興宗の類は本紀に無い）。",
-  "discrepancies": "なし。既存の構造フィールドと原文の食い違いは検出しなかった。照合したもの: name.templeName「太祖」＝c1・c3 と一致／name.familyName「朱」・name.personalName「元璋」・name.courtesyName「国瑞」＝c1 と一致／eraChangeCount.count=1・events の eraName「洪武」＝c2 と一致（在位中の改元記事は太祖一〜三を通じて建元洪武の1件のみ）。name.posthumousName は現在 null で、これは食い違いではなく欠落（本調査の補充対象）。eraChangeCount.events[0].date「1368-02」（月精度）は c2 の洪武元年春正月乙亥（sxtwl.fromLunar(1368,1,4,False)=1368-01-23）と一見ずれるが、正月朔 fromLunar(1368,1,1)=1368-01-20 から晦 30日=1368-02-18 までのうち18日がグレゴリオ2月に入るため多数月方式では1368-02となり、月精度の規約と整合する（矛盾ではない）。",
+  "discrepancies": "なし",
   "processSuggestion": "残量表 明の廟号・諡号 16件（未読 15）— ming-taizu 以外の15人は templeName・posthumousName とも null のまま（未走査）。check_regime_conventions の判定は明政権全体で transcribe（本紀冒頭1行）なので、同じ書式でまとめて取れる見込み。"
 }

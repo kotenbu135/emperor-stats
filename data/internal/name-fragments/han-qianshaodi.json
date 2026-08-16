@@ -1,208 +1,222 @@
 {
-  "id": "han-qianshaodi",
-  "claims": [
-    {
-      "cid": "c1",
-      "book": "漢書",
-      "file": "_corpus_cache/han-qianshaodi.txt",
-      "line": 1,
-      "quote": "惠帝崩，太子立为皇帝，年幼，太后临朝称制"
-    },
-    {
-      "cid": "c2",
-      "book": "漢書",
-      "file": "_corpus_cache/han-qianshaodi.txt",
-      "line": 1,
-      "quote": "高皇后吕氏，生惠帝"
-    },
-    {
-      "cid": "block8-c1",
-      "book": "漢書",
-      "file": "_corpus_cache/han-qianshaodi.txt",
-      "line": 1,
-      "quote": "太后立帝姊鲁元公主女为皇后，无子，取后宫美人子名之以为太子。惠帝崩，太子立为皇帝，年幼，太后临朝称制，大赦天下。"
-    },
-    {
-      "cid": "block8-c2",
-      "book": "漢書",
-      "file": "_corpus_cache/han-qianshaodi.txt",
-      "line": 6,
-      "quote": "四年夏，少帝自知非皇后子，出怨言，皇太后幽之永巷。"
-    },
-    {
-      "cid": "c3",
-      "book": "漢書",
-      "file": "daizhigev20/史藏/正史/汉书.txt",
-      "line": 330,
-      "quote": "大臣相与阴谋，以为少帝及三弟为王者皆非孝惠子，复共诛之，尊立文帝。语在周勃、高五王《传》。"
-    },
-    {
-      "cid": "c4",
-      "book": "漢書",
-      "file": "daizhigev20/史藏/正史/汉书.txt",
-      "line": 4297,
-      "quote": "太后下诏废之，语在《高后纪》。遂幽死，更立恒山王弘为皇帝，而以吕禄女为皇后。"
-    },
-    {
-      "cid": "c5",
-      "book": "漢書",
-      "file": "daizhigev20/史藏/正史/汉书.txt",
-      "line": 2561,
-      "quote": "惠帝崩，嗣子立，有怨言，太后废之，更立吕氏子弘为少帝。赖大臣共诛诸吕而立文帝，惠后幽废。"
-    },
-    {
-      "cid": "c6",
-      "book": "漢書",
-      "file": "daizhigev20/史藏/正史/汉书.txt",
-      "line": 1327,
-      "quote": "安汉公奏立明堂、辟雍。尊孝宣庙为中宗，孝元庙为高宗，天子世世献祭。"
-    },
-    {
-      "cid": "c7",
-      "book": "史記",
-      "file": "china-history/史记/十二本纪/第九章-吕太后本纪-原文.html",
-      "line": 23,
-      "quote": "夜，有司分部诛灭梁、淮阳、常山王及少帝於邸。代王立为天子。"
-    },
-    {
-      "cid": "zi8-p1",
-      "book": "漢書",
-      "file": "daizhigev20/史藏/正史/汉书.txt",
-      "line": 4305,
-      "quote": "自名曰骜，字太孙，常置左右"
-    }
-  ],
-  "findings": [
-    {
-      "field": "name.posthumousName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "block8-c2",
-        "c3",
-        "c4",
-        "c5"
-      ],
-      "confidence": "high",
-      "note": "政権慣行（書=漢書／項目=posthumousName・判定 form-found）の保存形が「巻見出し・本文が使う〈X〉帝を新字体で入れる／本文の呼称が位号でしかない人物は短縮呼称を持たないので空が正しい（read-absent）」と定め、覆わない3人（前少帝・後少帝・劉賀）を人物単位の read-absent で閉じるよう指示している。この人物は巻見出しを持たず（高后紀の中に置かれる）、本文・列傳・志のいずれでも「少帝」＝位号で呼ばれるだけで（c2・c3・c4・c5）、諡を授ける条が無い。廃位ののち「非孝惠子」として誅殺されたため上諡の対象にならない",
-      "sweptWords": [
-        "少帝"
-      ],
-      "sweptScope": [
-        "_corpus_cache/han-qianshaodi.txt（全6行）",
-        "china-history/汉书/**/*-原文.html（紀・傳・志の原文ファイル全部）",
-        "daizhigev20/史藏/正史/汉书.txt",
-        "daizhigev20/史藏/正史/前汉书.txt（顏師古注つき四庫本）",
-        "china-history/史记/十二本纪/第九章-吕太后本纪-原文.html",
-        "daizhigev20/史藏/正史/史记集解.txt",
-        "daizhigev20/史藏/正史/史记索隐.txt",
-        "daizhigev20/史藏/编年/资治通鉴注.txt・daizhigev20/史藏/别史/通志.txt（『名恭』『讳恭』の当たりのみ）"
-      ]
-    },
-    {
-      "field": "name.posthumousNames",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "c2"
-      ],
-      "confidence": "high",
-      "note": "漢書 紀（卷一〜卷十二）の「谥」「尊号」「庙号」「追尊」を全数で読んだ（2026-08-13）。**この書が帝の諡を授ける条を持つのは高帝の1人だけ**で（「上尊号曰高皇帝」）、他の帝の諡は冒頭の名乗り「孝○皇帝」にしか出ない。この人物には授ける条が無い。廃殺された帝で、諡そのものが無い。"
-    },
-    {
-      "field": "name.templeName",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "block8-c2",
-        "c3",
-        "c6"
-      ],
-      "confidence": "high",
-      "note": "漢書は廟号を「尊〈X〉庙为〈廟号〉」型の個別の条で立てる書で（c6 が平帝紀の中宗・高宗）、政権慣行の記録（data/regime-conventions.json・書=漢書／項目=templeName）が1冊走査で立った7人を列挙する（太祖・太宗・世宗・中宗・高宗・統宗・元宗＝高帝・文帝・武帝・宣帝・元帝・成帝・平帝）。前少帝はその中に無く、原文でも「非孝惠子」として廃されて誅殺され（c2・c3）、宗廟に列される条が無い。sweptScope: 本人のキャッシュ _corpus_cache/han-qianshaodi.txt 全6行、china-history/汉书/**/*-原文.html（紀・傳・志の全ファイル）、daizhigev20/史藏/正史/汉书.txt・前汉书.txt（顏師古注つき四庫本）、china-history/史记/十二本纪/第九章-吕太后本纪-原文.html、daizhigev20/史藏/正史/史记集解.txt・史记索隐.txt。sweptWords: 少帝（この人物は独立した紀を持たず本文でも位号「少帝」でしか呼ばれないため、名乗り語彙ではなく人物指示語で走査した）。廟号語彙（庙曰／庙为／庙称／庙宜为）の側は政権慣行の記録の1冊走査が覆う",
-      "sweptWords": [
-        "少帝"
-      ],
-      "sweptScope": [
-        "_corpus_cache/han-qianshaodi.txt（全6行）",
-        "china-history/汉书/**/*-原文.html（紀・傳・志の原文ファイル全部）",
-        "daizhigev20/史藏/正史/汉书.txt",
-        "daizhigev20/史藏/正史/前汉书.txt（顏師古注つき四庫本）",
-        "china-history/史记/十二本纪/第九章-吕太后本纪-原文.html",
-        "daizhigev20/史藏/正史/史记集解.txt",
-        "daizhigev20/史藏/正史/史记索隐.txt",
-        "daizhigev20/史藏/编年/资治通鉴注.txt・daizhigev20/史藏/别史/通志.txt（『名恭』『讳恭』の当たりのみ）"
-      ]
-    },
-    {
-      "field": "name.posthumousNameFull",
-      "value": null,
-      "verdict": "read-absent",
-      "basis": [
-        "block8-c1",
-        "block8-c2",
-        "c3",
-        "c4"
-      ],
-      "confidence": "high",
-      "note": "政権慣行（書=漢書／項目=posthumousNameFull）は「冒頭1行の〈孝X皇帝，続柄也〉を入れる」だが、この人物は判定が per-person（例外）で、独立した紀を持たず冒頭の定型が無い。高后紀は彼を「太子立为皇帝，年幼」（c1）と書くだけで名乗りを掲げず、四年夏の廢（c2）と八月の誅殺（c3）まで諡を与える条が無い。外戚傳も「遂幽死」（c4）で閉じる。posthumousNames の段は0段（授けられた諡が1つも無い）",
-      "sweptWords": [
-        "少帝"
-      ],
-      "sweptScope": [
-        "_corpus_cache/han-qianshaodi.txt（全6行）",
-        "china-history/汉书/**/*-原文.html（紀・傳・志の原文ファイル全部）",
-        "daizhigev20/史藏/正史/汉书.txt",
-        "daizhigev20/史藏/正史/前汉书.txt（顏師古注つき四庫本）",
-        "china-history/史记/十二本纪/第九章-吕太后本纪-原文.html",
-        "daizhigev20/史藏/正史/史记集解.txt",
-        "daizhigev20/史藏/正史/史记索隐.txt",
-        "daizhigev20/史藏/编年/资治通鉴注.txt・daizhigev20/史藏/别史/通志.txt（『名恭』『讳恭』の当たりのみ）"
-      ]
-    },
-    {
-      "field": "name.personalName",
-      "value": null,
-      "verdict": "pending",
-      "basis": [
-        "block8-c1",
-        "block8-c2",
-        "c4"
-      ],
-      "confidence": "medium",
-      "note": "漢書は彼の諱を1度も書かない。高后紀は「取后宫美人子名之以为太子」（c1）と、名を伏せたまま太子に立てた経緯だけを記し、以後は「少帝」（c2）で通す。外戚傳も「立所名子为太子…遂幽死」（c4）で諱を出さず、顏師古注つき四庫本 前汉书.txt にも諱の注が無い（呂后には「师古曰吕后名雉字娥姁」の注が付くのに、この人物には付かない）。史記 呂太后本紀・史記集解も同じく「少帝」のみ（c7）。したがって「諱が無い」のではなく「担当の正史がこの人物の諱を記録していない」ので read-absent にはせず pending。既存値『恭』は本走査の範囲では原文に当たらない（discrepancies 参照）。sweptScope・sweptWords は templeName の note と同じ範囲・同じ語\n【親セッションが原文へ当て直した 2026-08-15・廟号ブロック8】**既存値「恭」は消さない**（2026-08-15）。指摘のとおり漢書・史記の正文にも顏師古注にも当たらないが、**値を消すのは「読んだうえで空が正しい」と決めることと同じ**で、この段の判定範囲（原文が何と書いているか）を越える。断片は `pending` のまま置き、**扱いは残量表の行にした**（配布物は無変更）。",
-      "sweptWords": [
-        "少帝",
-        "名恭",
-        "讳恭",
-        "諱恭",
-        "少帝恭"
-      ],
-      "sweptScope": [
-        "_corpus_cache/han-qianshaodi.txt（全6行）",
-        "china-history/汉书/**/*-原文.html（紀・傳・志の原文ファイル全部）",
-        "daizhigev20/史藏/正史/汉书.txt",
-        "daizhigev20/史藏/正史/前汉书.txt（顏師古注つき四庫本）",
-        "china-history/史记/十二本纪/第九章-吕太后本纪-原文.html",
-        "daizhigev20/史藏/正史/史记集解.txt",
-        "daizhigev20/史藏/正史/史记索隐.txt",
-        "daizhigev20/史藏/编年/资治通鉴注.txt・daizhigev20/史藏/别史/通志.txt（『名恭』『讳恭』の当たりのみ）"
-      ]
-    },
-    {
-      "field": "name.courtesyName",
-      "value": null,
-      "verdict": "pending",
-      "basis": [
-        "c2",
-        "zi8-p1"
-      ],
-      "confidence": "high",
-      "note": "**判別不能で確定**（2026-08-16・字ブロック8）。**本人の条がどの書にも無い** — 漢書は高后紀の中に「少帝」として書くだけで、史記も呂太后本紀の中に置くだけで、どちらも本人の立項を持たない。諱「恭」で漢書1冊を走査した165回はすべて別人（定陶恭王・宦者の弘恭・諡の恭侯・恭倹のような別人と一般語）。**同じ漢書は皇帝に紀の外で字を書く**（元后傳 L4305 の成帝＝zi8-p1）ので、書式の不在ではなく**本人の条の不在**。字ブロック7で西燕の慕容瑤・慕容忠を打ち切ったのと同じ型で、この沈黙は書の作りの言い換えにしかならない"
-    }
-  ],
-  "discrepancies": "なし",
-  "conflicts": [],
-  "noteLog": "後少帝の諱『弘』は china-history 版の漢書（高后紀「五月丙辰，立恒山王弘为皇帝」・五行志 c5・外戚傳 c4）に在るが、daizhigev20/史藏/正史/前汉书.txt（四庫本）では同じ箇所が「更立恒山王为皇帝」「更立吕氏子为少帝」と『弘』を落としている（清の避諱と見られる）。前少帝の欄には影響しないが、底本によって諱が消える例として記録する。引用は底本の字体（簡体）のまま採り、findings の値は空欄なので新字体への直しは発生していない。",
-  "processSuggestion": "残量表 前漢の位号のみで呼ばれる帝（前少帝・後少帝・劉賀）の諱の典拠 3件（未読 2）— 前少帝の『恭』・後少帝の『弘』・劉賀の名の出所が正史のどこかを人物ごとに確定する必要がある（前少帝は本セッションで走査済みで漢書・史記に無し、残り2人は未走査）。あわせて、位号でしか呼ばれない人物の personalName は『諱が無い』ではなく『底本が記録しない』型なので、read-absent と pending の中間として『source-silent』のような verdict が要るのではないか（いまは pending に落ちるため、判断待ちと区別が付かない）。"
+ "id": "han-qianshaodi",
+ "claims": [
+  {
+   "cid": "c1",
+   "book": "漢書",
+   "file": "_corpus_cache/han-qianshaodi.txt",
+   "line": 1,
+   "quote": "惠帝崩，太子立为皇帝，年幼，太后临朝称制"
+  },
+  {
+   "cid": "c2",
+   "book": "漢書",
+   "file": "_corpus_cache/han-qianshaodi.txt",
+   "line": 1,
+   "quote": "高皇后吕氏，生惠帝"
+  },
+  {
+   "cid": "block8-c1",
+   "book": "漢書",
+   "file": "_corpus_cache/han-qianshaodi.txt",
+   "line": 1,
+   "quote": "太后立帝姊鲁元公主女为皇后，无子，取后宫美人子名之以为太子。惠帝崩，太子立为皇帝，年幼，太后临朝称制，大赦天下。"
+  },
+  {
+   "cid": "block8-c2",
+   "book": "漢書",
+   "file": "_corpus_cache/han-qianshaodi.txt",
+   "line": 6,
+   "quote": "四年夏，少帝自知非皇后子，出怨言，皇太后幽之永巷。"
+  },
+  {
+   "cid": "c3",
+   "book": "漢書",
+   "file": "daizhigev20/史藏/正史/汉书.txt",
+   "line": 330,
+   "quote": "大臣相与阴谋，以为少帝及三弟为王者皆非孝惠子，复共诛之，尊立文帝。语在周勃、高五王《传》。"
+  },
+  {
+   "cid": "c4",
+   "book": "漢書",
+   "file": "daizhigev20/史藏/正史/汉书.txt",
+   "line": 4297,
+   "quote": "太后下诏废之，语在《高后纪》。遂幽死，更立恒山王弘为皇帝，而以吕禄女为皇后。"
+  },
+  {
+   "cid": "c5",
+   "book": "漢書",
+   "file": "daizhigev20/史藏/正史/汉书.txt",
+   "line": 2561,
+   "quote": "惠帝崩，嗣子立，有怨言，太后废之，更立吕氏子弘为少帝。赖大臣共诛诸吕而立文帝，惠后幽废。"
+  },
+  {
+   "cid": "c6",
+   "book": "漢書",
+   "file": "daizhigev20/史藏/正史/汉书.txt",
+   "line": 1327,
+   "quote": "安汉公奏立明堂、辟雍。尊孝宣庙为中宗，孝元庙为高宗，天子世世献祭。"
+  },
+  {
+   "cid": "c7",
+   "book": "史記",
+   "file": "china-history/史记/十二本纪/第九章-吕太后本纪-原文.html",
+   "line": 23,
+   "quote": "夜，有司分部诛灭梁、淮阳、常山王及少帝於邸。代王立为天子。"
+  },
+  {
+   "cid": "zi8-p1",
+   "book": "漢書",
+   "file": "daizhigev20/史藏/正史/汉书.txt",
+   "line": 4305,
+   "quote": "自名曰骜，字太孙，常置左右"
+  }
+ ],
+ "findings": [
+  {
+   "field": "name.posthumousName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "block8-c2",
+    "c3",
+    "c4",
+    "c5"
+   ],
+   "confidence": "high",
+   "note": "政権慣行（書=漢書／項目=posthumousName・判定 form-found）の保存形が「巻見出し・本文が使う〈X〉帝を新字体で入れる／本文の呼称が位号でしかない人物は短縮呼称を持たないので空が正しい（read-absent）」と定め、覆わない3人（前少帝・後少帝・劉賀）を人物単位の read-absent で閉じるよう指示している。この人物は巻見出しを持たず（高后紀の中に置かれる）、本文・列傳・志のいずれでも「少帝」＝位号で呼ばれるだけで（c2・c3・c4・c5）、諡を授ける条が無い。廃位ののち「非孝惠子」として誅殺されたため上諡の対象にならない",
+   "sweptWords": [
+    "少帝"
+   ],
+   "sweptScope": [
+    "_corpus_cache/han-qianshaodi.txt（全6行）",
+    "china-history/汉书/**/*-原文.html（紀・傳・志の原文ファイル全部）",
+    "daizhigev20/史藏/正史/汉书.txt",
+    "daizhigev20/史藏/正史/前汉书.txt（顏師古注つき四庫本）",
+    "china-history/史记/十二本纪/第九章-吕太后本纪-原文.html",
+    "daizhigev20/史藏/正史/史记集解.txt",
+    "daizhigev20/史藏/正史/史记索隐.txt",
+    "daizhigev20/史藏/编年/资治通鉴注.txt・daizhigev20/史藏/别史/通志.txt（『名恭』『讳恭』の当たりのみ）"
+   ]
+  },
+  {
+   "field": "name.posthumousNames",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "漢書 紀（卷一〜卷十二）の「谥」「尊号」「庙号」「追尊」を全数で読んだ（2026-08-13）。**この書が帝の諡を授ける条を持つのは高帝の1人だけ**で（「上尊号曰高皇帝」）、他の帝の諡は冒頭の名乗り「孝○皇帝」にしか出ない。この人物には授ける条が無い。廃殺された帝で、諡そのものが無い。"
+  },
+  {
+   "field": "name.templeName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "block8-c2",
+    "c3",
+    "c6"
+   ],
+   "confidence": "high",
+   "note": "漢書は廟号を「尊〈X〉庙为〈廟号〉」型の個別の条で立てる書で（c6 が平帝紀の中宗・高宗）、政権慣行の記録（data/regime-conventions.json・書=漢書／項目=templeName）が1冊走査で立った7人を列挙する（太祖・太宗・世宗・中宗・高宗・統宗・元宗＝高帝・文帝・武帝・宣帝・元帝・成帝・平帝）。前少帝はその中に無く、原文でも「非孝惠子」として廃されて誅殺され（c2・c3）、宗廟に列される条が無い。sweptScope: 本人のキャッシュ _corpus_cache/han-qianshaodi.txt 全6行、china-history/汉书/**/*-原文.html（紀・傳・志の全ファイル）、daizhigev20/史藏/正史/汉书.txt・前汉书.txt（顏師古注つき四庫本）、china-history/史记/十二本纪/第九章-吕太后本纪-原文.html、daizhigev20/史藏/正史/史记集解.txt・史记索隐.txt。sweptWords: 少帝（この人物は独立した紀を持たず本文でも位号「少帝」でしか呼ばれないため、名乗り語彙ではなく人物指示語で走査した）。廟号語彙（庙曰／庙为／庙称／庙宜为）の側は政権慣行の記録の1冊走査が覆う",
+   "sweptWords": [
+    "少帝"
+   ],
+   "sweptScope": [
+    "_corpus_cache/han-qianshaodi.txt（全6行）",
+    "china-history/汉书/**/*-原文.html（紀・傳・志の原文ファイル全部）",
+    "daizhigev20/史藏/正史/汉书.txt",
+    "daizhigev20/史藏/正史/前汉书.txt（顏師古注つき四庫本）",
+    "china-history/史记/十二本纪/第九章-吕太后本纪-原文.html",
+    "daizhigev20/史藏/正史/史记集解.txt",
+    "daizhigev20/史藏/正史/史记索隐.txt",
+    "daizhigev20/史藏/编年/资治通鉴注.txt・daizhigev20/史藏/别史/通志.txt（『名恭』『讳恭』の当たりのみ）"
+   ]
+  },
+  {
+   "field": "name.posthumousNameFull",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "block8-c1",
+    "block8-c2",
+    "c3",
+    "c4"
+   ],
+   "confidence": "high",
+   "note": "政権慣行（書=漢書／項目=posthumousNameFull）は「冒頭1行の〈孝X皇帝，続柄也〉を入れる」だが、この人物は判定が per-person（例外）で、独立した紀を持たず冒頭の定型が無い。高后紀は彼を「太子立为皇帝，年幼」（c1）と書くだけで名乗りを掲げず、四年夏の廢（c2）と八月の誅殺（c3）まで諡を与える条が無い。外戚傳も「遂幽死」（c4）で閉じる。posthumousNames の段は0段（授けられた諡が1つも無い）",
+   "sweptWords": [
+    "少帝"
+   ],
+   "sweptScope": [
+    "_corpus_cache/han-qianshaodi.txt（全6行）",
+    "china-history/汉书/**/*-原文.html（紀・傳・志の原文ファイル全部）",
+    "daizhigev20/史藏/正史/汉书.txt",
+    "daizhigev20/史藏/正史/前汉书.txt（顏師古注つき四庫本）",
+    "china-history/史记/十二本纪/第九章-吕太后本纪-原文.html",
+    "daizhigev20/史藏/正史/史记集解.txt",
+    "daizhigev20/史藏/正史/史记索隐.txt",
+    "daizhigev20/史藏/编年/资治通鉴注.txt・daizhigev20/史藏/别史/通志.txt（『名恭』『讳恭』の当たりのみ）"
+   ]
+  },
+  {
+   "field": "name.personalName",
+   "value": null,
+   "verdict": "pending",
+   "basis": [
+    "block8-c1",
+    "block8-c2",
+    "c4"
+   ],
+   "confidence": "medium",
+   "note": "漢書は彼の諱を1度も書かない。高后紀は「取后宫美人子名之以为太子」（c1）と、名を伏せたまま太子に立てた経緯だけを記し、以後は「少帝」（c2）で通す。外戚傳も「立所名子为太子…遂幽死」（c4）で諱を出さず、顏師古注つき四庫本 前汉书.txt にも諱の注が無い（呂后には「师古曰吕后名雉字娥姁」の注が付くのに、この人物には付かない）。史記 呂太后本紀・史記集解も同じく「少帝」のみ（c7）。したがって「諱が無い」のではなく「担当の正史がこの人物の諱を記録していない」ので read-absent にはせず pending。既存値『恭』は本走査の範囲では原文に当たらない（discrepancies 参照）。sweptScope・sweptWords は templeName の note と同じ範囲・同じ語\n【親セッションが原文へ当て直した 2026-08-15・廟号ブロック8】**既存値「恭」は消さない**（2026-08-15）。指摘のとおり漢書・史記の正文にも顏師古注にも当たらないが、**値を消すのは「読んだうえで空が正しい」と決めることと同じ**で、この段の判定範囲（原文が何と書いているか）を越える。断片は `pending` のまま置き、**扱いは残量表の行にした**（配布物は無変更）。",
+   "sweptWords": [
+    "少帝",
+    "名恭",
+    "讳恭",
+    "諱恭",
+    "少帝恭"
+   ],
+   "sweptScope": [
+    "_corpus_cache/han-qianshaodi.txt（全6行）",
+    "china-history/汉书/**/*-原文.html（紀・傳・志の原文ファイル全部）",
+    "daizhigev20/史藏/正史/汉书.txt",
+    "daizhigev20/史藏/正史/前汉书.txt（顏師古注つき四庫本）",
+    "china-history/史记/十二本纪/第九章-吕太后本纪-原文.html",
+    "daizhigev20/史藏/正史/史记集解.txt",
+    "daizhigev20/史藏/正史/史记索隐.txt",
+    "daizhigev20/史藏/编年/资治通鉴注.txt・daizhigev20/史藏/别史/通志.txt（『名恭』『讳恭』の当たりのみ）"
+   ]
+  },
+  {
+   "field": "name.courtesyName",
+   "value": null,
+   "verdict": "pending",
+   "basis": [
+    "c2",
+    "zi8-p1"
+   ],
+   "confidence": "high",
+   "note": "**判別不能で確定**（2026-08-16・字ブロック8）。**本人の条がどの書にも無い** — 漢書は高后紀の中に「少帝」として書くだけで、史記も呂太后本紀の中に置くだけで、どちらも本人の立項を持たない。諱「恭」で漢書1冊を走査した165回はすべて別人（定陶恭王・宦者の弘恭・諡の恭侯・恭倹のような別人と一般語）。**同じ漢書は皇帝に紀の外で字を書く**（元后傳 L4305 の成帝＝zi8-p1）ので、書式の不在ではなく**本人の条の不在**。字ブロック7で西燕の慕容瑤・慕容忠を打ち切ったのと同じ型で、この沈黙は書の作りの言い換えにしかならない"
+  },
+  {
+   "field": "name.childhoodName",
+   "value": null,
+   "verdict": "read-absent",
+   "basis": [
+    "c2"
+   ],
+   "confidence": "high",
+   "note": "**書の側で打ち切れた**（2026-08-16・幼名ブロック1）。漢書・史記とも「小字」「小名」が**全文で0回**で、書がこの欄そのものを持たない（政権慣行に `absent-by-book` で記録した）。本人の本紀にも0回。以下は当初の記録: **書がそもそも小字の欄を持たない** — 漢書は「小字」「小名」が**書全体で0回**、史記も0回で、誰一人として幼名を書かれていない。したがってこの人物の沈黙は書の作りの言い換えにしかならず `read-absent` にできない（西夏書事で字が閉じられなかったのと同じ型・2026-08-16 の字ブロック7）。本人の本紀（`_corpus_cache/han-qianshaodi.txt` 6行）にも0回",
+   "sweptWords": [
+    "小字",
+    "小名"
+   ]
+  }
+ ],
+ "discrepancies": "なし",
+ "conflicts": [],
+ "noteLog": "後少帝の諱『弘』は china-history 版の漢書（高后紀「五月丙辰，立恒山王弘为皇帝」・五行志 c5・外戚傳 c4）に在るが、daizhigev20/史藏/正史/前汉书.txt（四庫本）では同じ箇所が「更立恒山王为皇帝」「更立吕氏子为少帝」と『弘』を落としている（清の避諱と見られる）。前少帝の欄には影響しないが、底本によって諱が消える例として記録する。引用は底本の字体（簡体）のまま採り、findings の値は空欄なので新字体への直しは発生していない。",
+ "processSuggestion": "残量表 前漢の位号のみで呼ばれる帝（前少帝・後少帝・劉賀）の諱の典拠 3件（未読 2）— 前少帝の『恭』・後少帝の『弘』・劉賀の名の出所が正史のどこかを人物ごとに確定する必要がある（前少帝は本セッションで走査済みで漢書・史記に無し、残り2人は未走査）。あわせて、位号でしか呼ばれない人物の personalName は『諱が無い』ではなく『底本が記録しない』型なので、read-absent と pending の中間として『source-silent』のような verdict が要るのではないか（いまは pending に落ちるため、判断待ちと区別が付かない）。"
 }
