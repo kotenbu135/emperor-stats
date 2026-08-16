@@ -1,112 +1,147 @@
 {
- "id": "beiyuan-zhaozong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "新元史",
-   "file": "_corpus_cache/beiyuan-zhaozong.txt",
-   "line": 9,
-   "quote": "昭宗皇帝，讳爱猷识理达腊，惠宗长子也"
-  },
-  {
-   "cid": "c2",
-   "book": "新元史",
-   "file": "_corpus_cache/beiyuan-zhaozong.txt",
-   "line": 27,
-   "quote": "八年夏四月，帝崩于金山，群臣上庙号曰昭宗皇帝，国语曰必里克图汗"
-  },
-  {
-   "cid": "c3",
-   "book": "新元史",
-   "file": "_corpus_cache/beiyuan-zhaozong.txt",
-   "line": 27,
-   "quote": "八年夏四月，帝崩于金山，群臣上庙号曰昭宗皇帝"
-  },
-  {
-   "cid": "c4",
-   "book": "新元史",
-   "file": "_corpus_cache/beiyuan-zhaozong.txt",
-   "line": 1,
-   "quote": "十二月丁酉，帝不豫"
-  },
-  {
-   "cid": "c5",
-   "book": "新元史",
-   "file": "_corpus_cache/beiyuan-zhaozong.txt",
-   "line": 7,
-   "quote": "，退避而去，上尊谥曰顺帝。"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": "昭宗",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "崩御条が「群臣上庙号曰昭宗皇帝」と廟号の語で明示する（c2）。冒頭も同じ形（c1）。**「昭宗皇帝」は廟号に皇帝を付けた形**なので、欄には廟号の部分だけを入れる"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "**諡の条が無い** — 新元史が与えるのは廟号と国語（モンゴル語）の号「必里克図汗」だけで、「谥曰〈X〉皇帝」の形が出ない"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "新元史の北元 昭宗の本紀ぶん（`_corpus_cache` の31行）を上の10語で全数で読んだ（2026-08-14・当たり3件、うち2件は先帝 順帝の廟号と諡）。**閉域はキャッシュ1本**で、1冊まるごとの候補28件（皇后・漢代人物への加諡）に北元に掛かるものが無いことは別に確かめてある。**この書が昭宗へ与えるのは廟号だけ**（「群臣上庙号曰昭宗皇帝」）で、諡を授ける条は無い。",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "追尊",
-    "追崇",
-    "追号",
-    "上尊号",
-    "尊号曰",
-    "尊号为",
-    "庙号",
-    "庙曰",
-    "庙称",
-    "贈"
-   ]
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c4",
-    "c5"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。本人のキャッシュに在る諡の条は先帝の恵宗（「上尊谥曰顺帝」）への授与で、この人物への授与ではない。新元史1冊を走査し、諡の条665件・別語彙140件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし"
+  "id": "beiyuan-zhaozong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "新元史",
+      "file": "_corpus_cache/beiyuan-zhaozong.txt",
+      "line": 9,
+      "quote": "昭宗皇帝，讳爱猷识理达腊，惠宗长子也"
+    },
+    {
+      "cid": "c2",
+      "book": "新元史",
+      "file": "_corpus_cache/beiyuan-zhaozong.txt",
+      "line": 27,
+      "quote": "八年夏四月，帝崩于金山，群臣上庙号曰昭宗皇帝，国语曰必里克图汗"
+    },
+    {
+      "cid": "c3",
+      "book": "新元史",
+      "file": "_corpus_cache/beiyuan-zhaozong.txt",
+      "line": 27,
+      "quote": "八年夏四月，帝崩于金山，群臣上庙号曰昭宗皇帝"
+    },
+    {
+      "cid": "c4",
+      "book": "新元史",
+      "file": "_corpus_cache/beiyuan-zhaozong.txt",
+      "line": 1,
+      "quote": "十二月丁酉，帝不豫"
+    },
+    {
+      "cid": "c5",
+      "book": "新元史",
+      "file": "_corpus_cache/beiyuan-zhaozong.txt",
+      "line": 7,
+      "quote": "，退避而去，上尊谥曰顺帝。"
+    },
+    {
+      "cid": "zi6-p1",
+      "book": "新元史",
+      "file": "daizhigev20/史藏/正史/新元史.txt",
+      "line": 25420,
+      "quote": "朵儿直班，字惟中"
+    },
+    {
+      "cid": "zi6-p2",
+      "book": "新元史",
+      "file": "daizhigev20/史藏/正史/新元史.txt",
+      "line": 25034,
+      "quote": "不花的斤，字苍崖，倜傥好学"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "昭宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "崩御条が「群臣上庙号曰昭宗皇帝」と廟号の語で明示する（c2）。冒頭も同じ形（c1）。**「昭宗皇帝」は廟号に皇帝を付けた形**なので、欄には廟号の部分だけを入れる"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "**諡の条が無い** — 新元史が与えるのは廟号と国語（モンゴル語）の号「必里克図汗」だけで、「谥曰〈X〉皇帝」の形が出ない"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "新元史の北元 昭宗の本紀ぶん（`_corpus_cache` の31行）を上の10語で全数で読んだ（2026-08-14・当たり3件、うち2件は先帝 順帝の廟号と諡）。**閉域はキャッシュ1本**で、1冊まるごとの候補28件（皇后・漢代人物への加諡）に北元に掛かるものが無いことは別に確かめてある。**この書が昭宗へ与えるのは廟号だけ**（「群臣上庙号曰昭宗皇帝」）で、諡を授ける条は無い。",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "追尊",
+        "追崇",
+        "追号",
+        "上尊号",
+        "尊号曰",
+        "尊号为",
+        "庙号",
+        "庙曰",
+        "庙称",
+        "贈"
+      ]
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "諡",
+        "偽諡",
+        "私諡",
+        "上諡",
+        "追尊",
+        "追號",
+        "號曰",
+        "上尊號",
+        "廟號",
+        "尊為",
+        "追封為"
+      ],
+      "basis": [
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。本人のキャッシュに在る諡の条は先帝の恵宗（「上尊谥曰顺帝」）への授与で、この人物への授与ではない。新元史1冊を走査し、諡の条665件・別語彙140件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "zi6-p1",
+        "zi6-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "字",
+        "小字",
+        "爱猷识理达腊"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/新元史.txt（新元史1冊。鍵「爱猷识理达腊」の全出現）",
+        "_corpus_cache/beiyuan-zhaozong.txt（本人の条 31行・「字」0箇所を全読）"
+      ],
+      "note": "**この書はこの人物の字を載せない**。所在は新元史 本紀の冒頭1行で、字の位置が無い（c1）。政権慣行は no-form／字の位置なしだが**それは政権単位の事実**なので、(1) 新元史1冊を鍵「爱猷识理达腊」で走査して字が続く隣接形の当たりが0件、(2) **本人の条まるごと**を読んで`_corpus_cache/beiyuan-zhaozong.txt`（31行）に「字」の語そのものが1度も出ない、の2つを確かめた。**陽性対照**は同じ書の列傳（朵児直班「字惟中」・不花的斤「字苍崖」）で、書に字の書式が無いのではなくこの人物に書いていない（2026-08-16・字ブロック6）"
+    }
+  ],
+  "discrepancies": "なし"
 }

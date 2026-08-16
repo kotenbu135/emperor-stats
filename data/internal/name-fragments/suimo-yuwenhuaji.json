@@ -63,6 +63,20 @@
       "file": "daizhigev20/史藏/正史/隋书.txt",
       "line": 6469,
       "quote": "谥帝曰明，庙号世祖"
+    },
+    {
+      "cid": "zi6-p1",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 6094,
+      "quote": "秦孝王俊，字阿祗，高祖第三子也"
+    },
+    {
+      "cid": "zi6-p2",
+      "book": "隋書",
+      "file": "daizhigev20/史藏/正史/隋书.txt",
+      "line": 6077,
+      "quote": "房陵王勇，字睍地伐，高祖长子也"
     }
   ],
   "findings": [
@@ -208,9 +222,30 @@
         "號曰"
       ],
       "sweptScope": "_corpus_cache/suimo-yuwenhuaji.txt 全7行（隋書 卷八十五 列傳第五十 宇文化及傳の全文）／daizhigev20/史藏/正史/隋书.txt・旧唐书.txt・新唐书.txt・北史.txt・daizhigev20/史藏/编年/资治通鉴.txt の全行を hanzi_norm.norm_for_match 正規化のうえ「化及」の各出現の前後80字窓で走査。加えて 隋书.txt L7323 の巻の人名見出し行と L7340 の史臣曰を目視。検出器の生存確認: 谥 の件数は 隋书 109・旧唐书 605・新唐书 713・北史 950・资治通鉴 321"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "zi6-p1",
+        "zi6-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "字",
+        "小字",
+        "宇文化及"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/隋书.txt（隋書1冊。鍵「宇文化及」の全出現）",
+        "_corpus_cache/suimo-yuwenhuaji.txt（本人の条 8行・「字」0箇所を全読）"
+      ],
+      "note": "**この書はこの人物の字を載せない**。所在は隋書 列傳の冒頭1行で、字の位置が無い（c1）。政権慣行は no-form／字の位置なしだが**それは政権単位の事実**なので、(1) 隋書1冊を鍵「宇文化及」で走査して字が続く隣接形の当たりが0件、(2) **本人の条まるごと**を読んで`_corpus_cache/suimo-yuwenhuaji.txt`（8行）に「字」の語そのものが1度も出ない、の2つを確かめた。**陽性対照**は同じ列傳の文四子（房陵王勇「字睍地伐」・秦孝王俊「字阿祗」）で、書に字の書式が無いのではなくこの人物に書いていない（2026-08-16・字ブロック6）"
     }
   ],
-  "discrepancies": "既存の構造フィールド（name.templeName=null・name.posthumousName=null・name.personalName=\"化及\"・name.familyName=\"宇文\"・regimeId=\"xu\"・regnalTitle=\"皇帝\"・reigns 618〜619）と原文の食い違いは無し。ただし構造記録側に1件ずれがある: data/regime-conventions.json の conventions[38]（書=舊唐書・fields=templeName/posthumousName・2026-08-14 に xu を追加）は所在を「舊唐書 列傳」とするが、舊唐書に宇文化及の列傳は無い（傳主見出し「○宇文」で当たるのは宇文融の傳だけ＝c8。化及は高祖本紀 c6 ほかの言及と他人の傳の中にしか出ない）。同ファイルの conventions[114]（2026-08-15・書=隋書）が既にこれを注記しており、実際の所在は隋書 卷八十五 列傳第五十（c4）。判定 no-form → per-person の結論自体は変わらない。**直し方は所在の注記を足す側で、regimeIds から xu を外してはいけない** — conventions[38] は xu の templeName・posthumousName を覆う唯一の記録なので、外すと check_regime_conventions --field templeName が1行になり、同じ政権の次の人物が「慣行未確定」で止まる。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "冒頭に「由是长安谓之轻薄公子」という当時の綽名が出るが、諡・廟号ではなく名乗りの欄の対象でもないので findings に入れない（別称の欄への投入対象外という指示に従い記録のみ）。値の字体は既存レコードに合わせる方針だが、諱「化及」は簡体底本と新字体で同形なので変換していない。",
   "processSuggestion": "残量表 政権慣行の所在ずれ 1件（未走査）— conventions[38] は舊唐書 列傳を所在として13政権を束ねるが、xu（宇文化及）は舊唐書に列傳が無く隋書 卷八十五が実体だった。同じ束の他12政権（anshi-yan・xiqin・zhuci-qin・zhucan-chu・zheng・xiaoxian-liang・suimo-wu・suimo-song・suimo-chu・liguigui-liang・liangshidu-liang・dingyang）について舊唐書に実際に列傳が立つかは未走査。check_regime_conventions.py に「その政権の人物の _corpus_cache が名乗る底本ファイルと、慣行記録の book が一致するか」を出す行を足すと、この型のずれが着手時に見える。"

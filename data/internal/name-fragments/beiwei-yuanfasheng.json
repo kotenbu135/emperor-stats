@@ -1,93 +1,128 @@
 {
- "id": "beiwei-yuanfasheng",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "魏書",
-   "file": "_corpus_cache/beiwei-yuanfasheng.txt",
-   "line": 1,
-   "quote": "法寿弟法僧，自太尉行参军稍转通直郎，宁远将军，司徒、司马掾，龙骧将军，益州刺史"
-  },
-  {
-   "cid": "c2",
-   "book": "魏書",
-   "file": "daizhigev20/史藏/正史/魏书.txt",
-   "line": 1125,
-   "quote": "孝昌元年，法僧杀行台高谅，反于彭城，自称尊号，号年天启"
-  },
-  {
-   "cid": "c3",
-   "book": "魏書",
-   "file": "daizhigev20/史藏/正史/魏书.txt",
-   "line": 780,
-   "quote": "徐州刺史元法僧据城反，害行台高谅，自称宋王，号年天启"
-  },
-  {
-   "cid": "c4",
-   "book": "魏書",
-   "file": "_corpus_cache/beiwei-yuanfasheng.txt",
-   "line": 1,
-   "quote": "法寿弟法僧，自太尉行参军稍转通直郎，宁远将军"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "魏書は元法僧を父 元鍾葵（L1120）の條に兄 元法寿（L1121）と並べて附し、冒頭は続柄から始まる（c1）。列傳の定型（〈姓名〉字〈字〉）ですらないので字も諡も廟号も位置が無い。**兄の名が「法寿」なので房法壽の附伝と紛れる**が、彭城で自称尊号して梁へ奔る記事（c2）が帝紀の元法僧の記事（c3）と一致するので同定は付く。書全体の走査でも諡・廟号の条は出ない"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "c2",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "魏書は元法僧を父 元鍾葵（L1120）の條に兄 元法寿（L1121）と並べて附し、冒頭は続柄から始まる（c1）。列傳の定型（〈姓名〉字〈字〉）ですらないので字も諡も廟号も位置が無い。**兄の名が「法寿」なので房法壽の附伝と紛れる**が、彭城で自称尊号して梁へ奔る記事（c2）が帝紀の元法僧の記事（c3）と一致するので同定は付く。書全体の走査でも諡・廟号の条は出ない"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "魏書 列傳が底本の人物。1冊まるごとの走査（sweep_posthumous_range.py・2026-08-13）で本紀の外の候補81件を見たが、この人物の諡は1件も無い。本人の伝にも「谥」は0出現。"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "諡",
-    "偽諡",
-    "私諡",
-    "上諡",
-    "追尊",
-    "追號",
-    "號曰",
-    "上尊號",
-    "廟號",
-    "尊為",
-    "追封為"
-   ],
-   "basis": [
-    "c4"
-   ],
-   "confidence": "high",
-   "note": "読んだうえで空。魏書1冊を走査し、諡の条698件・別語彙111件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
-  }
- ],
- "discrepancies": "なし（列傳の冒頭は現行の familyName 元・personalName と整合）"
+  "id": "beiwei-yuanfasheng",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-yuanfasheng.txt",
+      "line": 1,
+      "quote": "法寿弟法僧，自太尉行参军稍转通直郎，宁远将军，司徒、司马掾，龙骧将军，益州刺史"
+    },
+    {
+      "cid": "c2",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 1125,
+      "quote": "孝昌元年，法僧杀行台高谅，反于彭城，自称尊号，号年天启"
+    },
+    {
+      "cid": "c3",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 780,
+      "quote": "徐州刺史元法僧据城反，害行台高谅，自称宋王，号年天启"
+    },
+    {
+      "cid": "c4",
+      "book": "魏書",
+      "file": "_corpus_cache/beiwei-yuanfasheng.txt",
+      "line": 1,
+      "quote": "法寿弟法僧，自太尉行参军稍转通直郎，宁远将军"
+    },
+    {
+      "cid": "zi6-p1",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 828,
+      "quote": "前废帝，讳恭，字修业，广陵惠王羽之子也"
+    },
+    {
+      "cid": "zi6-p2",
+      "book": "魏書",
+      "file": "daizhigev20/史藏/正史/魏书.txt",
+      "line": 841,
+      "quote": "出帝，讳修，字孝则，广平武穆王怀之第三子也"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "魏書は元法僧を父 元鍾葵（L1120）の條に兄 元法寿（L1121）と並べて附し、冒頭は続柄から始まる（c1）。列傳の定型（〈姓名〉字〈字〉）ですらないので字も諡も廟号も位置が無い。**兄の名が「法寿」なので房法壽の附伝と紛れる**が、彭城で自称尊号して梁へ奔る記事（c2）が帝紀の元法僧の記事（c3）と一致するので同定は付く。書全体の走査でも諡・廟号の条は出ない"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "魏書は元法僧を父 元鍾葵（L1120）の條に兄 元法寿（L1121）と並べて附し、冒頭は続柄から始まる（c1）。列傳の定型（〈姓名〉字〈字〉）ですらないので字も諡も廟号も位置が無い。**兄の名が「法寿」なので房法壽の附伝と紛れる**が、彭城で自称尊号して梁へ奔る記事（c2）が帝紀の元法僧の記事（c3）と一致するので同定は付く。書全体の走査でも諡・廟号の条は出ない"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "魏書 列傳が底本の人物。1冊まるごとの走査（sweep_posthumous_range.py・2026-08-13）で本紀の外の候補81件を見たが、この人物の諡は1件も無い。本人の伝にも「谥」は0出現。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "諡",
+        "偽諡",
+        "私諡",
+        "上諡",
+        "追尊",
+        "追號",
+        "號曰",
+        "上尊號",
+        "廟號",
+        "尊為",
+        "追封為"
+      ],
+      "basis": [
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "読んだうえで空。魏書1冊を走査し、諡の条698件・別語彙111件のいずれもこの人物と同じ窓に立たない。走査語は `scripts/hanzi_norm.py::norm_for_match` で走査する側もされる側も正規化してから当てた（谥・諡・謚は1語として扱う）。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "zi6-p1",
+        "zi6-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "字",
+        "小字",
+        "法僧"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/魏书.txt（魏書1冊。鍵「法僧」の全出現）",
+        "_corpus_cache/beiwei-yuanfasheng.txt（本人の条 1行・「字」0箇所を全読）"
+      ],
+      "note": "**この書はこの人物の字を載せない**。所在は魏書 列傳の中に弟として立つ形で、字の位置が無い（c1）。政権慣行は no-form／字の位置なしだが**それは政権単位の事実**なので、(1) 魏書1冊を鍵「法僧」で走査して字が続く隣接形の当たりが0件、(2) **本人の条まるごと**を読んで`_corpus_cache/beiwei-yuanfasheng.txt`（1行）に「字」の語そのものが1度も出ない、の2つを確かめた。**陽性対照**は**同じ帝紀の中**（前廢帝 元恭「字修业」・出帝 元修「字孝则」）で、書に字の書式が無いのではなくこの人物に書いていない（2026-08-16・字ブロック6）"
+    }
+  ],
+  "discrepancies": "なし"
 }

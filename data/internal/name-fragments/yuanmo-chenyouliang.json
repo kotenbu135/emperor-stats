@@ -70,6 +70,27 @@
       "file": "_corpus_cache/yuanmo-mingsheng.txt",
       "line": 7,
       "quote": "赞曰：友谅、士诚起刀笔负贩，因乱僣窃，恃其富强，而卒皆败于其所恃。"
+    },
+    {
+      "cid": "zi6-c1",
+      "book": "明史",
+      "file": "_corpus_cache/yuanmo-chenyouliang.txt",
+      "line": 2,
+      "quote": "陈友谅，沔阳渔家子也"
+    },
+    {
+      "cid": "zi6-p1",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 3,
+      "quote": "讳元璋，字国瑞，姓硃氏"
+    },
+    {
+      "cid": "zi6-p2",
+      "book": "明史",
+      "file": "daizhigev20/史藏/正史/明史.txt",
+      "line": 21538,
+      "quote": "徐献忠，字伯臣"
     }
   ],
   "findings": [
@@ -214,9 +235,30 @@
       ],
       "confidence": "high",
       "note": "『即皇帝位，国号汉，改元大义』。既存レコードの regnalTitle『皇帝』と一致（照合のみ・変更の主張ではない）。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi6-c1",
+        "zi6-p1",
+        "zi6-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "字",
+        "小字",
+        "陈友谅"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/明史.txt（明史1冊。鍵「陈友谅」の全出現）",
+        "_corpus_cache/yuanmo-chenyouliang.txt（本人の条 10行・「字」0箇所を全読）"
+      ],
+      "note": "**この書はこの人物の字を載せない**。所在は明史 列傳（元末群雄）の立項で、字の位置が無い（c1）。政権慣行は no-form／字の位置なしだが**それは政権単位の事実**なので、(1) 明史1冊を鍵「陈友谅」で走査して字が続く隣接形の当たりが0件、(2) **本人の条まるごと**を読んで`_corpus_cache/yuanmo-chenyouliang.txt`（10行）に「字」の語そのものが1度も出ない、の2つを確かめた。**陽性対照**は同じ書の本紀（太祖の冒頭「讳元璋，字国瑞」）と列傳で、書に字の書式が無いのではなくこの人物に書いていない（2026-08-16・字ブロック6）"
     }
   ],
-  "discrepancies": "なし。既存レコードの構造フィールド（name.familyName『陳』・name.personalName『友諒』・name.commonName『陳友諒』・name.templeName null・name.posthumousName null・name.regnalTitle『皇帝』・reigns 1360〜1363）はいずれも明史 列傳の原文と食い違わない。在位年も『友谅僣号凡四年』（c5・1360年即位〜1363年戦死の数え4年）と整合する。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "廟号・諡の不在を『キャッシュ0件』で閉じないため、(a) 明史 列传/第十一章-卷十一-原文.html をタグ剥がしして巻全体を走査、(b) 明史全書で『友谅』を含む38箇所の前後45字を出して授号語彙で絞り込み、(c) 元史・明実録太祖実録（『友谅』出現537窓）・国初群雄事略まで広げた。国初群雄事略には明玉珍の『群臣尊上庙号曰太祖文武至圣皇帝』が在るが陳友諒には該当条が無い（＝この系統の史料が授号を書かないわけではない、という対照）。",
   "processSuggestion": "残量表 元末群雄の名前欄 6件（未読 5・yuanmo-chenyouliang のみ読了、xushouhui/chenli/mingyuzhen/mingsheng/hanlin-er は未走査）。あわせて: china-history の明史 HTML は1ファイル＝1行なので rg / grep の行番号が使えず、_corpus_cache の区間外（同巻の他人物・志・贊）を読むには毎回タグ剥がしの自作スクリプトが要る。build_corpus_cache.py に『指定巻の全文をプレーンテキストで出す』サブコマンドを足せば、閉域4軸の (1) を全員ぶん同じ手で当てられる。"

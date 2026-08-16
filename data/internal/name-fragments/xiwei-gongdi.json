@@ -112,6 +112,20 @@
       "file": "daizhigev20/史藏/正史/隋书.txt",
       "line": 2851,
       "quote": "太祖以魏恭帝三年始命行之"
+    },
+    {
+      "cid": "zi6-p1",
+      "book": "北史",
+      "file": "daizhigev20/史藏/正史/北史.txt",
+      "line": 611,
+      "quote": "节闵皇帝讳恭，字修业，广陵惠王羽之子也"
+    },
+    {
+      "cid": "zi6-p2",
+      "book": "北史",
+      "file": "daizhigev20/史藏/正史/北史.txt",
+      "line": 623,
+      "quote": "孝武皇帝讳修，字孝则，广平武穆王怀之第三子也"
     }
   ],
   "findings": [
@@ -204,9 +218,30 @@
         "北齊書の『恭帝』1件・隋書の『恭帝』11件を全件目視",
         "未走査: 資治通鑑・冊府元龜など正史外の書"
       ]
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "zi6-p1",
+        "zi6-p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "字",
+        "小字",
+        "讳廓"
+      ],
+      "sweptScope": [
+        "daizhigev20/史藏/正史/北史.txt（北史1冊。鍵「讳廓」の全出現）",
+        "_corpus_cache/xiwei-gongdi.txt（本人の条 4行・「字」0箇所を全読）"
+      ],
+      "note": "**この書はこの人物の字を載せない**。所在は北史 卷五 魏本紀第五の冒頭1行で、字の位置が無い（c1）。政権慣行は no-form／字の位置なしだが**それは政権単位の事実**なので、(1) 北史1冊を鍵「讳廓」で走査して字が続く隣接形の当たりが0件、(2) **本人の条まるごと**を読んで`_corpus_cache/xiwei-gongdi.txt`（4行）に「字」の語そのものが1度も出ない、の2つを確かめた。**陽性対照**は**同じ卷五の中**（節閔帝「字修业」・孝武帝「字孝则」）で、書に字の書式が無いのではなくこの人物に書いていない（2026-08-16・字ブロック6）"
     }
   ],
-  "discrepancies": "なし（personalName 廓・posthumousName 恭帝・posthumousNameFull 恭皇帝・templeName null のいずれも原文の読解結果と既存の構造フィールドが一致した）",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "既存の構造フィールド（familyName 拓跋・personalName 廓・commonName 恭帝・posthumousName 恭帝・templeName null・posthumousNameFull 恭皇帝）は照合のためだけに jq で取得し、note は読んでいない。familyName は本ブロックの対象外なので判定していない（北史・周書・北齊書はいずれも諱「廓」だけで姓を書かない）。隋書 L6519「谥曰恭帝令黄门侍郎裴矩祭以太牢」は正規化窓で拾ったが宇文述の諡「恭」＋次文の「帝令…」の切れ目で、本人とは無関係。北史 L11241「世充伪谥曰恭皇帝」は隋の皇泰主（楊侗）で別人。",
   "processSuggestion": "残量表 諡の段（posthumousNames）の走査範囲 — 政権慣行レコードが『段の所在は崩御条と加諡条を走査しないと言えず走査範囲そのものが未確定』としており、西魏3人は未走査（今回の恭帝1人のみ読解済み・未読2）。"
