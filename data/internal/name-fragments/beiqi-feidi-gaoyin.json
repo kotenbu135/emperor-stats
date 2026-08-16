@@ -59,10 +59,11 @@
     },
     {
       "cid": "posthumous-full-rest-c1",
-      "book": "北齊書",
+      "book": "北史",
       "file": "daizhigev20/史藏/正史/北史.txt",
       "line": 884,
-      "quote": "葬于武宁之西北，谥闵悼王"
+      "quote": "葬于武宁之西北，谥闵悼王",
+      "note": "**2026-08-17 に「北齊書」から直した** — `file` が指すのは`daizhigev20/史藏/正史/北史.txt` L884。同文は北齊書 L273 にも在るが、**名乗る書と file が食い違っていた**ので file の側に合わせた"
     }
   ],
   "findings": [

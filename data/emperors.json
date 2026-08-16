@@ -39619,7 +39619,7 @@
     "regnalTitle": "皇帝",
     "courtesyName": "紹伯",
     "posthumousNameFull": "高皇帝",
-    "childhoodName": "斗将",
+    "childhoodName": "闘将",
     "posthumousNames": [
      {
       "form": "高皇帝",
@@ -80738,7 +80738,8 @@
      {
       "form": "光文粛武孝高皇帝"
      }
-    ]
+    ],
+    "childhoodName": "彭奴"
    },
    "eraId": "five-dynasties",
    "regimeId": "southern-tang",
