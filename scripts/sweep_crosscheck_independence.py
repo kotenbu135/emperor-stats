@@ -18,15 +18,22 @@ claim を並べることがある。**書が2つ並んでいることは独立�
   shared-text    … 書をまたぐ引用が閾値以上の同文を共有する。引用の位置から前後
                    50字の窓を取り、`norm_for_match` を通してから最長共通部分列を測る。
                    **引用そのものではなく窓で測る**のは、諱や字は3〜5字しかなく
-                   「同じ事実」と「同じ文」を区別できないため（助言）
-  supplemented   … 引用が**補巻**に落ちる。daizhige の北齊書は本文の巻見出しが
-                   「第五卷　　补帝纪第五」の形で、校勘記に「此卷原缺…以北史補」と
-                   明記されている。北史と別の証人には数えられない
-  no-shared-text … 上のどれにも掛からなかった側
+                   「同じ事実」と「同じ文」を区別できないため
+  no-shared-text … 上のどちらにも掛からなかった側
+
+これとは別に、引用が**補巻**に落ちる finding へ旗を立てる（`supplemented`）。
+daizhige の北齊書は本文の巻見出しが「第五卷　　补帝纪第五」の形で、卷三十一以降は
+校勘記が「此卷原缺，後人以北史卷四三邢卲傳補」と**補入元まで**書いている。
+**旗は層にしない** — 補巻だと分かっても、その finding の2冊目が補入元だとは限らない
+（実測では、補入元を名指しできる卷三十三の5件は相手が南史・陳書で北史ではなかった）。
+**補入元が同じ finding の他の書に居るときだけ**「その2冊は独立でない」と言える。
 
 **`no-shared-text` は「独立している」の証拠ではない。** 引用が別々の条を指していれば
 同文は出ないし、書き換えを伴う襲用（新唐書が旧唐書の記事を書き直す形）も出ない。
 この道具が出すのは**陽性側だけ**で、陰性側は何も言っていない（規則 R-SWEEP-DETECTION）。
+
+**母集団は候補の上限**で、「2冊で裏を取った」と主張した件数ではない。基礎に2冊が
+並んでいても、2冊目が名前とは別の事実のために引かれていることがある。
 
 **この道具は絞り込みではない**（`data/screenings.json` に記録を持たない）。母集団は
 台帳が動けば動くので、数字は残量表に日付つきで置く。
@@ -53,7 +60,7 @@ EMPERORS = ROOT / "data/emperors.json"
 ZHENGSHI = ROOT / "daizhigev20/史藏/正史"
 PAD = 50
 MIN_SHARED = 15
-STRATA = ("label-only", "supplemented", "shared-text", "no-shared-text")
+STRATA = ("label-only", "shared-text", "no-shared-text")
 
 # 書の中の篇名が別の正史と同名になる組。`source.page` の書名走査はここで必ず誤る
 # （「三国志 魏書 武帝紀」は魏書を名乗っていない・「舊五代史 漢書 高祖紀」も同じ）。
@@ -85,28 +92,43 @@ def make_canon(books):
     return canon
 
 
-def supplemented_spans():
-    """本文の巻見出しに「补」を持つ巻の行範囲（書ファイル名 → [(始, 終)]）。
+def supplemented_spans(books):
+    """本文の巻見出しに「补」を持つ巻の行範囲と、校勘記が名指しする補入元。
 
-    目次側の「补列传第一」ではなく**本文の見出し**を見る。daizhige の北齊書は
-    冒頭に目次を持っていて、そこにも同じ語が並ぶ。
+    書ファイル名 → [(始, 終, 見出し, 巻番号, {補入元の書})]。
+
+    **目次側の「补列传第一」ではなく本文の見出しを見る**（daizhige の北齊書は冒頭に
+    目次を持っていて、そこにも同じ語が並ぶ）。補入元は校勘記の行「北齐书卷三十六　按此卷
+    原缺，後人以北史卷四三邢卲傳補」から拾う。**校勘記は卷三十一以降にしか無い**ので、
+    それより前の補巻は「補巻だとは分かるが補入元は名指しできない」になる。
     """
-    head_re = re.compile(r"^第[一二三四五六七八九十百零〇\d]{1,6}卷")
+    head_re = re.compile(r"^第([一二三四五六七八九十百零〇\d]{1,6})卷")
+    known = sorted(books, key=len, reverse=True)
     out = {}
     if not ZHENGSHI.is_dir():
         return out
     for p in sorted(ZHENGSHI.glob("*.txt")):
-        heads = []
+        stem = to_simplified(p.stem)
+        kan_re = re.compile(re.escape(stem) + r"卷([一二三四五六七八九十百零〇\d]{1,6})")
+        heads, sources = [], collections.defaultdict(set)
         with p.open(encoding="utf-8", errors="replace") as fh:
             for i, s in enumerate(fh, 1):
                 s = s.strip()
                 if len(s) <= 40 and head_re.match(s):
-                    heads.append((i, s))
+                    heads.append((i, s, head_re.match(s).group(1)))
+                if "补" in s and len(s) > 40:
+                    for m in kan_re.finditer(s):
+                        rest = s
+                        for b in known:
+                            if b in rest:
+                                if b != stem:
+                                    sources[m.group(1)].add(b)
+                                rest = rest.replace(b, "〓" * len(b))
         spans = []
-        for k, (i, s) in enumerate(heads):
+        for k, (i, s, num) in enumerate(heads):
             if "补" in s:
                 end = heads[k + 1][0] - 1 if k + 1 < len(heads) else 10 ** 9
-                spans.append((i, end, s))
+                spans.append((i, end, s, num, sorted(sources.get(num, ()))))
         if spans:
             out[p.name] = spans
     return out
@@ -115,9 +137,9 @@ def supplemented_spans():
 def in_supplemented(spans, relpath, line):
     if not relpath.startswith("daizhigev20/史藏/正史/"):
         return None
-    for lo, hi, head in spans.get(relpath.rsplit("/", 1)[-1], []):
+    for lo, hi, head, num, src in spans.get(relpath.rsplit("/", 1)[-1], []):
         if lo <= line <= hi:
-            return head
+            return {"head": head, "volume": num, "sources": src}
     return None
 
 
@@ -175,14 +197,21 @@ def read_lines(need):
 
 
 def window(lines, claim):
+    """引用の前後 PAD 字の窓。(窓, 引用が行の中に見つかったか) を返す。
+
+    見つからないときに行の前方をそのまま使うと、同じ体裁のファイル
+    （china-history の HTML など）どうしが**本文でない文字列**で同文になりうる。
+    2026-08-17 の実測では 2,127 引用すべてが行の中で見つかっており取りこぼしは
+    0 だが、**黙って混ざらないよう旗を返して集計に出す**。
+    """
     s = lines.get((claim["file"], claim["line"]))
     if s is None:
-        return None
+        return None, False
     text, frag = norm_for_match(s), norm_for_match(claim["quote"])
     i = text.find(frag)
     if i < 0:
-        return text[:400]
-    return text[max(0, i - PAD):i + len(frag) + PAD]
+        return text[:400], False
+    return text[max(0, i - PAD):i + len(frag) + PAD], True
 
 
 def run(min_shared=MIN_SHARED):
@@ -190,22 +219,27 @@ def run(min_shared=MIN_SHARED):
     canon = make_canon(books)
     units, need = load_units(canon)
     lines = read_lines(need)
-    spans = supplemented_spans()
-    rows = []
+    spans = supplemented_spans(books)
+    rows, missed = [], 0
     for u in units:
-        row = {"id": u["id"], "field": u["field"], "books": u["books"],
-               "raw": u["raw"], "shared": 0, "text": "", "pair": None, "head": None}
+        row = {"id": u["id"], "field": u["field"], "books": u["books"], "raw": u["raw"],
+               "shared": 0, "text": "", "pair": None, "sup": None, "supMatched": False,
+               "windowMissed": 0}
         if len(u["books"]) < 2:
             row["stratum"] = "label-only"
             rows.append(row)
             continue
-        head = next((h for h in (in_supplemented(spans, c["file"], c["line"])
-                                 for c in u["claims"]) if h), None)
+        sup = next((h for h in (in_supplemented(spans, c["file"], c["line"])
+                                for c in u["claims"]) if h), None)
         by_book = collections.defaultdict(list)
         for c in u["claims"]:
-            w = window(lines, c)
-            if w:
-                by_book[canon(c["book"])].append((c["cid"], w))
+            w, found = window(lines, c)
+            if w is None:
+                continue
+            if not found:
+                row["windowMissed"] += 1
+                missed += 1
+            by_book[canon(c["book"])].append((c["cid"], w))
         names = sorted(by_book)
         for x in range(len(names)):
             for y in range(x + 1, len(names)):
@@ -215,14 +249,13 @@ def run(min_shared=MIN_SHARED):
                         if n > row["shared"]:
                             row.update(shared=n, text=sub,
                                        pair=[f"{names[x]}:{cid1}", f"{names[y]}:{cid2}"])
-        if head:
-            row["stratum"], row["head"] = "supplemented", head
-        elif row["shared"] >= min_shared:
-            row["stratum"] = "shared-text"
-        else:
-            row["stratum"] = "no-shared-text"
+        if sup:
+            row["sup"] = sup
+            # **補入元が同じ finding の他の書に居るときだけ**「その2冊は独立でない」
+            row["supMatched"] = any(to_simplified(s) in u["books"] for s in sup["sources"])
+        row["stratum"] = "shared-text" if row["shared"] >= min_shared else "no-shared-text"
         rows.append(row)
-    return rows
+    return rows, missed
 
 
 def pages():
@@ -292,32 +325,47 @@ def main():
             print(f"  {v:4d} {'／'.join(k)}")
         return 0
 
-    rows = run(args.min_shared)
+    rows, missed = run(args.min_shared)
     if args.json:
         print(json.dumps({"n": len(rows), "minShared": args.min_shared,
+                          "windowMissed": missed,
                           "strata": collections.Counter(r["stratum"] for r in rows),
+                          "supplemented": sum(1 for r in rows if r["sup"]),
+                          "supplementedMatched": sum(1 for r in rows if r["supMatched"]),
                           "rows": rows}, ensure_ascii=False))
         return 0
     if args.list:
         sel = [r for r in rows if r["stratum"] == args.list]
         for r in sorted(sel, key=lambda x: -x["shared"]):
             print(f'{r["shared"]:3d} {r["id"]:30s} {r["field"]:28s} {"／".join(r["books"])}')
-            if r["head"]:
-                print(f'      補巻 {r["head"]}')
+            if r["sup"]:
+                print(f'      補巻 {r["sup"]["head"]}  補入元'
+                      f'{"／".join(r["sup"]["sources"]) or "＝校勘記なし"}'
+                      f'{"（この finding の他の書に居る）" if r["supMatched"] else ""}')
             if r["text"]:
                 print(f'      共有「{r["text"]}」')
         print(f"\n{args.list}: {len(sel)}件 / 人物 {len({r['id'] for r in sel})}")
         return 0
 
     cnt = collections.Counter(r["stratum"] for r in rows)
-    print(f"母集団 {len(rows)} finding（基礎が2つ以上の書ラベルにまたがるもの）"
+    print(f"母集団 {len(rows)} finding（基礎が2つ以上の書ラベルにまたがるもの"
+          f"＝候補の上限であって、crosscheck を主張した件数ではない）"
           f" / 閾値 {args.min_shared}字\n")
     for s in STRATA:
         sel = [r for r in rows if r["stratum"] == s]
         print(f"  {s:15s} {len(sel):4d}  人物 {len({r['id'] for r in sel}):3d}")
-    print(f"\n陽性（label-only・supplemented・shared-text）: "
-          f"{len(rows) - cnt['no-shared-text']} / 人物 "
-          f"{len({r['id'] for r in rows if r['stratum'] != 'no-shared-text'})}")
+    pos = [r for r in rows if r["stratum"] != "no-shared-text"]
+    print(f"\n陽性（label-only・shared-text）: {len(pos)} / 人物 "
+          f"{len({r['id'] for r in pos})}")
+    sup = [r for r in rows if r["sup"]]
+    named = [r for r in sup if r["sup"]["sources"]]
+    print(f"補巻の旗: {len(sup)} finding / 人物 {len({r['id'] for r in sup})}"
+          f"（校勘記が補入元を名指しできるのは {len(named)}件・"
+          f"その補入元が同じ finding の他の書に居るのは "
+          f"{sum(1 for r in sup if r['supMatched'])}件）")
+    if missed:
+        print(f"WARN  引用が行の中に見つからず前方400字を窓に使った: {missed}件"
+              f"（同文の判定が本文でない文字列で立つおそれ・実測時は0件）")
     return 0
 
 
