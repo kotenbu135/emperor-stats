@@ -112,9 +112,12 @@ CASES = [
     # 混ざると読んでいないセルに「読んだうえで空」を主張することになる
     ("打ち切りは不在確定に数えず、対象外として拾う",
      {"field": "name.templeName", "value": None, "verdict": "out-of-scope",
-      "reason": "コーパスに書が無い"}, False, 0, True),
+      "reason": "2026-08-16 のユーザー決定。コーパスに書が無い"}, False, 0, True),
     ("理由の無い打ち切りは落ちる（率の分母から外れるので言い値にしない）",
      {"field": "name.templeName", "value": None, "verdict": "out-of-scope"}, False, 1, True),
+    ("日付の無い理由も落ちる（いつ誰が打ち切ったかへ遡れる形を要る）",
+     {"field": "name.templeName", "value": None, "verdict": "out-of-scope",
+      "reason": "コーパスに書が無い"}, False, 1, True),
     ("読んで無いと決めた主張は対象外には数えない",
      {"field": "name.templeName", "value": None, "verdict": "read-absent"}, True, 0, False),
 ]
