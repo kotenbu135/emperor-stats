@@ -3,10 +3,11 @@
   "claims": [
     {
       "cid": "c1",
-      "book": "晉書",
+      "book": "十六国春秋",
       "file": "_corpus_cache/xia-heliading.txt",
       "line": 1,
-      "quote": "赫连定"
+      "quote": "赫连定",
+      "note": "**2026-08-17 に「晉書」から直した** — キャッシュは`build_corpus_cache.py:897` が**十六国春秋 卷六十八 夏録三**から切ったもの。同じ台帳の `zi1-c1` は最初から正しく十六国春秋を名乗っており、**同じファイル・同じ人物でラベルが割れていた**"
     },
     {
       "cid": "block4-c1",
