@@ -1,72 +1,113 @@
 {
- "id": "wudai-houzhou-taizu",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houzhou-taizu.txt",
-   "line": 1,
-   "quote": "太祖圣神恭肃文武孝皇帝，姓郭氏，讳威，字文仲，邢州尧山人也"
-  },
-  {
-   "cid": "c2",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houzhou-taizu.txt",
-   "line": 64,
-   "quote": "上尊谥曰圣神恭肃文武孝皇帝，庙号太祖。四月乙巳，葬于嵩陵"
-  },
-  {
-   "cid": "c3",
-   "book": "舊五代史",
-   "file": "_corpus_cache/wudai-houzhou-taizu.txt",
-   "line": 64,
-   "quote": "二月甲子，太常卿田敏上尊谥曰圣神恭肃文武孝皇帝，庙号太祖"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": "太祖",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "冒頭1行（c1）と上諡記事（c2）"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": "聖神恭粛文武孝皇帝",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "上諡記事「上尊谥曰圣神恭肃文武孝皇帝」（c2）と冒頭1行（c1）が一致。キャッシュ先頭の「讳威」の重複は切り出しのアーティファクトで、引用は重複を含めない位置から取った"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "短縮呼称の欄は空。舊五代史は廟号を持つ帝を廟号で呼び、諡から作った短縮形を本文で使わない（五代本紀61巻の巻名も「太祖紀」「庄宗紀」「明宗紀」「高祖紀」「世宗紀」で、短縮形が巻名に立つのは廟号を持たない闵帝・少帝・末帝・隐帝・恭帝の側だけ）"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "wudai-houzhou-taizu",
+  "claims": [
     {
-     "form": "聖神恭粛文武孝皇帝"
+      "cid": "c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-taizu.txt",
+      "line": 1,
+      "quote": "太祖圣神恭肃文武孝皇帝，姓郭氏，讳威，字文仲，邢州尧山人也"
+    },
+    {
+      "cid": "c2",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-taizu.txt",
+      "line": 64,
+      "quote": "上尊谥曰圣神恭肃文武孝皇帝，庙号太祖。四月乙巳，葬于嵩陵"
+    },
+    {
+      "cid": "c3",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-taizu.txt",
+      "line": 64,
+      "quote": "二月甲子，太常卿田敏上尊谥曰圣神恭肃文武孝皇帝，庙号太祖"
+    },
+    {
+      "cid": "yo4-c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-taizu.txt",
+      "line": 1,
+      "quote": "讳威太祖圣神恭肃文武孝皇帝，姓郭氏，讳威，字文仲，邢"
+    },
+    {
+      "cid": "p1",
+      "book": "舊五代史",
+      "file": "daizhigev20/史藏/正史/旧五代史.txt",
+      "line": 1050,
+      "quote": "讳从厚，小字菩萨奴"
+    },
+    {
+      "cid": "p2",
+      "book": "舊五代史",
+      "file": "daizhigev20/史藏/正史/旧五代史.txt",
+      "line": 388,
+      "quote": "友珪，小字遥喜"
     }
-   ],
-   "basis": [
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "世宗が顕徳元年（954）二月に上った初諡で、加諡は舊五代史に無い（1段）。"
-  }
- ],
- "discrepancies": "なし"
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "太祖",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行（c1）と上諡記事（c2）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "聖神恭粛文武孝皇帝",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "上諡記事「上尊谥曰圣神恭肃文武孝皇帝」（c2）と冒頭1行（c1）が一致。キャッシュ先頭の「讳威」の重複は切り出しのアーティファクトで、引用は重複を含めない位置から取った"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "短縮呼称の欄は空。舊五代史は廟号を持つ帝を廟号で呼び、諡から作った短縮形を本文で使わない（五代本紀61巻の巻名も「太祖紀」「庄宗紀」「明宗紀」「高祖紀」「世宗紀」で、短縮形が巻名に立つのは廟号を持たない闵帝・少帝・末帝・隐帝・恭帝の側だけ）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "聖神恭粛文武孝皇帝"
+        }
+      ],
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "世宗が顕徳元年（954）二月に上った初諡で、加諡は舊五代史に無い（1段）。"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo4-c1",
+        "p1",
+        "p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**舊五代史はこの人物の幼名を書かない**。(1) 舊五代史1冊（1,607行）を6語で悉皆走査し14件を1件ずつ帰属させた。(2) **本人の紀まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は同じ書の帝紀に2つ** — 後唐 閔帝は冒頭1行に「闵帝，讳从厚，小字菩萨奴」、後梁 朱友珪も「友珪，小字遥喜」で帝紀の書き出しに小字が入る。つまり書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック3）"
+    }
+  ],
+  "discrepancies": "なし"
 }

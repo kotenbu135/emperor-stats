@@ -21,6 +21,27 @@
       "file": "_corpus_cache/wudai-houzhou-gongdi.txt",
       "line": 1,
       "quote": "恭帝，讳宗训，世宗子也。"
+    },
+    {
+      "cid": "yo4-c1",
+      "book": "舊五代史",
+      "file": "_corpus_cache/wudai-houzhou-gongdi.txt",
+      "line": 1,
+      "quote": "恭帝，讳宗训，世宗子也。广顺三年，岁在癸丑，八月四日"
+    },
+    {
+      "cid": "p1",
+      "book": "舊五代史",
+      "file": "daizhigev20/史藏/正史/旧五代史.txt",
+      "line": 1050,
+      "quote": "讳从厚，小字菩萨奴"
+    },
+    {
+      "cid": "p2",
+      "book": "舊五代史",
+      "file": "daizhigev20/史藏/正史/旧五代史.txt",
+      "line": 388,
+      "quote": "友珪，小字遥喜"
     }
   ],
   "findings": [
@@ -76,6 +97,26 @@
       ],
       "confidence": "high",
       "note": "舊五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo4-c1",
+        "p1",
+        "p2"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**舊五代史はこの人物の幼名を書かない**。(1) 舊五代史1冊（1,607行）を6語で悉皆走査し14件を1件ずつ帰属させた。(2) **本人の紀まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は同じ書の帝紀に2つ** — 後唐 閔帝は冒頭1行に「闵帝，讳从厚，小字菩萨奴」、後梁 朱友珪も「友珪，小字遥喜」で帝紀の書き出しに小字が入る。つまり書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック3）"
     }
   ],
   "discrepancies": "なし"

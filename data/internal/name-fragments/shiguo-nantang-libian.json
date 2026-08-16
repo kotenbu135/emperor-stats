@@ -1,67 +1,116 @@
 {
- "id": "shiguo-nantang-libian",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "新五代史",
-   "file": "_corpus_cache/shiguo-nantang-libian.txt",
-   "line": 15,
-   "quote": "七年，昪卒，年五十六，谥曰光文肃武孝高皇帝，庙号烈祖，陵曰永陵"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": "烈祖",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "世家末尾の定型（c1）"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": "光文粛武孝高皇帝",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "同じ条の「谥曰」が掲げる形（c1）"
-  },
-  {
-   "field": "name.posthumousNames",
-   "value": [
+  "id": "shiguo-nantang-libian",
+  "claims": [
     {
-     "form": "光文粛武孝高皇帝"
+      "cid": "c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-nantang-libian.txt",
+      "line": 15,
+      "quote": "七年，昪卒，年五十六，谥曰光文肃武孝高皇帝，庙号烈祖，陵曰永陵"
+    },
+    {
+      "cid": "yo4-c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-nantang-libian.txt",
+      "line": 1,
+      "quote": "李昪，字正伦，徐州人也。世本微贱，父荣，遇唐末之乱，"
+    },
+    {
+      "cid": "p1",
+      "book": "新五代史",
+      "file": "daizhigev20/史藏/正史/新五代史.txt",
+      "line": 407,
+      "quote": "小字冯六"
+    },
+    {
+      "cid": "p2",
+      "book": "新五代史",
+      "file": "daizhigev20/史藏/正史/新五代史.txt",
+      "line": 933,
+      "quote": "其小字亚子"
+    },
+    {
+      "cid": "p3",
+      "book": "新五代史",
+      "file": "daizhigev20/史藏/正史/新五代史.txt",
+      "line": 2229,
+      "quote": "呼洪度、洪熙小字曰"
     }
-   ],
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "卒去条「谥曰光文肃武孝高皇帝，庙号烈祖」。現行の全長形と一致（追認）"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "sweptWords": [
-    "谥",
-    "諡",
-    "謚",
-    "谥曰",
-    "庙号",
-    "廟號",
-    "〈諡字〉帝",
-    "〈諡字〉王",
-    "〈諡字〉公"
-   ],
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high",
-   "note": "**新五代史は十国の帝に「〈諡の実字〉帝」の短縮呼称を使わない** — 2026-08-11 の検証段が`(.)帝` の直前1字を全数で数え直しており、閩 王延鈞（`shiguo-min-wangyanjun`）のユニットに同じ判断が在る。この人物の諡は世家末尾の「谥〈全長形〉，庙号〈廟号〉」（c1）。2026-08-14 にあらためて新五代史1冊を「谥／諡＋5字以内＋帝／王／公」で全数走査したが、当たり8件はいずれも「〈諡〉皇帝」型か唐哀帝（少帝）への追諡で、十国の帝へ短縮呼称を与える条は無い。本人の世家を全長諡の各字＋「帝」で当て直しても当たり0件。**「この書は〈諡〉＋帝を使わない」という書全体への言い方は誤り**で、唐 李柷を一貫して「哀帝」と呼ぶ（掛かるのは十国世家の範囲だけ）"
-  }
- ],
- "discrepancies": "なし"
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "烈祖",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "世家末尾の定型（c1）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "光文粛武孝高皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "同じ条の「谥曰」が掲げる形（c1）"
+    },
+    {
+      "field": "name.posthumousNames",
+      "value": [
+        {
+          "form": "光文粛武孝高皇帝"
+        }
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "卒去条「谥曰光文肃武孝高皇帝，庙号烈祖」。現行の全長形と一致（追認）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "sweptWords": [
+        "谥",
+        "諡",
+        "謚",
+        "谥曰",
+        "庙号",
+        "廟號",
+        "〈諡字〉帝",
+        "〈諡字〉王",
+        "〈諡字〉公"
+      ],
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high",
+      "note": "**新五代史は十国の帝に「〈諡の実字〉帝」の短縮呼称を使わない** — 2026-08-11 の検証段が`(.)帝` の直前1字を全数で数え直しており、閩 王延鈞（`shiguo-min-wangyanjun`）のユニットに同じ判断が在る。この人物の諡は世家末尾の「谥〈全長形〉，庙号〈廟号〉」（c1）。2026-08-14 にあらためて新五代史1冊を「谥／諡＋5字以内＋帝／王／公」で全数走査したが、当たり8件はいずれも「〈諡〉皇帝」型か唐哀帝（少帝）への追諡で、十国の帝へ短縮呼称を与える条は無い。本人の世家を全長諡の各字＋「帝」で当て直しても当たり0件。**「この書は〈諡〉＋帝を使わない」という書全体への言い方は誤り**で、唐 李柷を一貫して「哀帝」と呼ぶ（掛かるのは十国世家の範囲だけ）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo4-c1",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**新五代史はこの人物の幼名を書かない**。(1) 新五代史1冊（2,469行）を6語で悉皆走査し11件を1件ずつ帰属させた。(2) **本人の世家・列傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は3つとも君主側** — 後晋 高祖の幼子 陳王重杲「陈王重杲，高祖幼子也。小字冯六」（家人傳）、後唐 荘宗「其小字亚子」（伶官傳）、南漢 高祖が子の劉玢・劉晟を「呼洪度、洪熙小字曰」と呼ぶ条（南漢世家）。**十国の君主にも小字は立つ**ので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック3）"
+    }
+  ],
+  "discrepancies": "なし"
 }

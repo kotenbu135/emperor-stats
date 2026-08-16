@@ -70,6 +70,34 @@
       "file": "_corpus_cache/shiguo-nanhan-liuchang.txt",
       "line": 1,
       "quote": "鋹，初名继兴，封卫王。"
+    },
+    {
+      "cid": "yo4-c1",
+      "book": "新五代史",
+      "file": "_corpus_cache/shiguo-nanhan-liuchang.txt",
+      "line": 1,
+      "quote": "鋹，初名继兴，封卫王。晟卒，以长子立，改元曰大宝。晟"
+    },
+    {
+      "cid": "p1",
+      "book": "新五代史",
+      "file": "daizhigev20/史藏/正史/新五代史.txt",
+      "line": 407,
+      "quote": "小字冯六"
+    },
+    {
+      "cid": "p2",
+      "book": "新五代史",
+      "file": "daizhigev20/史藏/正史/新五代史.txt",
+      "line": 933,
+      "quote": "其小字亚子"
+    },
+    {
+      "cid": "p3",
+      "book": "新五代史",
+      "file": "daizhigev20/史藏/正史/新五代史.txt",
+      "line": 2229,
+      "quote": "呼洪度、洪熙小字曰"
     }
   ],
   "findings": [
@@ -231,9 +259,30 @@
       ],
       "confidence": "high",
       "note": "新五代史 は同じ位置に字を書く条を持つ（政権慣行が form-found）が、この条は名乗りの直後に字の位置を置かない（c1）。**この書はこの人物の字を載せない**（2026-08-16・字ブロック4）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo4-c1",
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "confidence": "high",
+      "sweptWords": [
+        "小字",
+        "小名",
+        "乳名",
+        "幼名",
+        "小讳",
+        "儿名"
+      ],
+      "note": "**新五代史はこの人物の幼名を書かない**。(1) 新五代史1冊（2,469行）を6語で悉皆走査し11件を1件ずつ帰属させた。(2) **本人の世家・列傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は3つとも君主側** — 後晋 高祖の幼子 陳王重杲「陈王重杲，高祖幼子也。小字冯六」（家人傳）、後唐 荘宗「其小字亚子」（伶官傳）、南漢 高祖が子の劉玢・劉晟を「呼洪度、洪熙小字曰」と呼ぶ条（南漢世家）。**十国の君主にも小字は立つ**ので、書式の不在ではなくこの人物に書いていない（2026-08-16・幼名ブロック3）"
     }
   ],
-  "discrepancies": "なし。既存レコードの name.personalName「鋹」・name.templeName null・name.posthumousName null はいずれも原文と一致する。ただし name.posthumousNameFull はキー自体がレコードに無く（値の食い違いではなくキーの不在）、原文側も不在確定なので訂正は生じない。",
+  "discrepancies": "なし",
   "conflicts": [],
   "noteLog": "既存 note は読んでいない。捨てた値は無い（原文からは4欄のうち personalName だけが埋まり、他は不在確定）。",
   "processSuggestion": "残量表 名前欄の走査で人名 grep が偏旁分解で沈黙する系統 未走査（宋史361行は「刘鋹」を「刘钅长」と分解して収録しており、素の人名 grep でも norm_for_match でも当たらない。人名で母集団を絞る走査は全系統でこの穴を持つが、何件が該当するかは未走査）"
