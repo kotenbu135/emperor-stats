@@ -149,5 +149,25 @@ saved9, _ = run(old_note, new_note)
 check("noteLog を積む",
       "ブロックAの経緯" in saved9["noteLog"] and "ブロックBの経緯" in saved9["noteLog"])
 
+# conflicts は上書きせず重ねる（2026-08-17。素の代入だったため、元号名のブロックを
+# 重ねたときに名前欄のブロックが記録した対立が唐の5断片で黙って消えた）
+old_cf = dict(old_ra, conflicts=[{"field": "name.posthumousNames", "reason": "旧の採否",
+                                  "alternatives": [{"value": "A"}]}])
+new_cf = dict(new_pending, conflicts=[{"field": "eraChangeCount.events[0].eraName",
+                                       "reason": "新の採否", "alternatives": [{"value": "B"}]}])
+saved10, _ = run(old_cf, new_cf)
+check("conflicts: 旧側の対立が残る",
+      any(c["field"] == "name.posthumousNames" for c in saved10.get("conflicts") or []))
+check("conflicts: 新側の対立も入る",
+      any(c["field"].startswith("eraChangeCount") for c in saved10.get("conflicts") or []))
+
+# **新側が空配列でも消さない**（元号名の断片は conflicts を持たないことが多い）
+saved11, _ = run(old_cf, dict(new_pending, conflicts=[]))
+check("conflicts: 新側が空でも旧を消さない", len(saved11.get("conflicts") or []) == 1)
+
+# 同じ対立を2度重ねても増えない
+saved12, _ = run(old_cf, dict(new_pending, conflicts=list(old_cf["conflicts"])))
+check("conflicts: 同じ対立は重複しない", len(saved12.get("conflicts") or []) == 1)
+
 print(f"\n{'失敗 ' + '・'.join(FAILED) if FAILED else 'すべて通りました'}")
 raise SystemExit(1 if FAILED else 0)

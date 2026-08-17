@@ -151,6 +151,21 @@ for name, era, want_hit in RECAST_CASES:
     bad += 0 if ok else 1
     print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
 
+# 新字体と底本が1対1にならない字（2026-08-17）。`歳` は AMBIGUOUS_JP なので
+# norm_for_match の1形では底本の `岁` に当たらず、武則天の3元号がまるごと落ちた
+GLYPH = [norm_for_match("加尊號天冊金輪聖神皇帝、大赦天下、改元為天冊萬歲"),
+         norm_for_match("萬歲登封元年臘月甲申、上登封于嵩岳、大赦天下、改元")]
+GLYPH_CASES = [
+    ("新字体の歳を含む元号が底本の岁に当たる", "天冊万歳", True),
+    ("年ラベルの側（◯◯元年）でも歳が当たる", "万歳登封", True),
+    ("同じ行に無い元号は当たらない", "万歳通天", False),
+]
+for name, era, want_hit in GLYPH_CASES:
+    hit = Q.era_anchor_hit(norm_for_match(era), GLYPH)
+    ok = bool(hit) == want_hit
+    bad += 0 if ok else 1
+    print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
+
 # 元号名だけが在る行（「天启三年」）を当たりに数えないこと。D の主力はこの区別
 hit = Q.era_anchor_hit(norm_for_match("天啓"), [LINES[1]])
 ok = hit is None

@@ -63615,7 +63615,8 @@
       "source": {
        "page": "旧唐書 巻一 本紀第一（高祖）",
        "lang": "zh"
-      }
+      },
+      "eraName": "武徳"
      }
     ],
     "confidence": "high",
@@ -65135,7 +65136,8 @@
       "source": {
        "page": "旧唐書 巻七（中宗睿宗）",
        "lang": "zh"
-      }
+      },
+      "eraName": "嗣聖"
      },
      {
       "id": "tang-zhongzong.eraChangeCount.e002",
@@ -65548,7 +65550,8 @@
       "source": {
        "page": "旧唐書本紀第六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "文明"
      },
      {
       "id": "tang-ruizong.eraChangeCount.e002",
@@ -65558,7 +65561,8 @@
       "source": {
        "page": "旧唐書本紀第六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "光宅"
      },
      {
       "id": "tang-ruizong.eraChangeCount.e003",
@@ -65568,7 +65572,8 @@
       "source": {
        "page": "旧唐書本紀第六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "垂拱"
      },
      {
       "id": "tang-ruizong.eraChangeCount.e004",
@@ -65578,7 +65583,8 @@
       "source": {
        "page": "旧唐書本紀第六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "永昌"
      },
      {
       "id": "tang-ruizong.eraChangeCount.e005",
@@ -65588,7 +65594,8 @@
       "source": {
        "page": "旧唐書本紀第六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "載初"
      },
      {
       "id": "tang-ruizong.eraChangeCount.e006",
@@ -65598,7 +65605,8 @@
       "source": {
        "page": "旧唐書本紀第七（睿宗紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "景雲"
      },
      {
       "id": "tang-ruizong.eraChangeCount.e007",
@@ -65608,7 +65616,8 @@
       "source": {
        "page": "旧唐書本紀第七（睿宗紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "太極"
      },
      {
       "id": "tang-ruizong.eraChangeCount.e008",
@@ -65618,7 +65627,8 @@
       "source": {
        "page": "旧唐書本紀第七（睿宗紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "延和"
      }
     ],
     "note": "第一次在位（684-690年、傀儡皇帝期）5回（文明・光宅・垂拱・永昌・載初）、第二次在位（710-712年）3回（景雲・太極・延和）、合計8回。第一次在位中の改元は全て武太后（則天）主導で本人の意思によるものではないが、実際にその治世で使用された年号として計上し、各eventに傀儡であった旨を明記した。載初元年九月九日の天授改元（武周革命・皇嗣降格と同日）、および延和元年八月の先天改元（玄宗への譲位後）は、それぞれ在位の境界を跨ぐ出来事であり実質的に武則天・玄宗の治世に属すると判断し除外した。"
@@ -66001,7 +66011,8 @@
       "source": {
        "page": "旧唐書本紀第七（中宗睿宗）",
        "lang": "zh"
-      }
+      },
+      "eraName": "唐隆"
      }
     ]
    },
@@ -67272,7 +67283,8 @@
       "source": {
        "page": "旧唐書 巻十一（代宗紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "広徳"
      },
      {
       "id": "tang-daizong.eraChangeCount.e002",
@@ -69290,7 +69302,8 @@
       "source": {
        "page": "旧唐書本紀第十七上（敬宗）",
        "lang": "zh"
-      }
+      },
+      "eraName": "宝暦"
      }
     ],
     "confidence": "high",
@@ -70474,7 +70487,8 @@
       "source": {
        "page": "旧唐書 本紀第十九（懿宗）／新唐書 本紀第九（懿宗・僖宗）／資治通鑑 巻250（唐紀66・咸通元年）",
        "lang": "zh"
-      }
+      },
+      "eraName": "咸通"
      }
     ],
     "confidence": "high",
@@ -72078,7 +72092,8 @@
       "source": {
        "page": "旧唐書巻六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "天授"
      },
      {
       "id": "tang-wuzetian.eraChangeCount.e002",
@@ -72088,7 +72103,8 @@
       "source": {
        "page": "旧唐書巻六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "如意"
      },
      {
       "id": "tang-wuzetian.eraChangeCount.e003",
@@ -72098,7 +72114,8 @@
       "source": {
        "page": "旧唐書巻六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "長寿"
      },
      {
       "id": "tang-wuzetian.eraChangeCount.e004",
@@ -72108,7 +72125,8 @@
       "source": {
        "page": "旧唐書巻六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "延載"
      },
      {
       "id": "tang-wuzetian.eraChangeCount.e005",
@@ -72129,7 +72147,8 @@
       "source": {
        "page": "旧唐書巻六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "天冊万歳"
      },
      {
       "id": "tang-wuzetian.eraChangeCount.e007",
@@ -72139,7 +72158,8 @@
       "source": {
        "page": "旧唐書巻六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "万歳登封"
      },
      {
       "id": "tang-wuzetian.eraChangeCount.e008",
@@ -72149,7 +72169,8 @@
       "source": {
        "page": "旧唐書巻六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "万歳通天"
      },
      {
       "id": "tang-wuzetian.eraChangeCount.e009",
@@ -72159,7 +72180,8 @@
       "source": {
        "page": "旧唐書巻六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "神功"
      },
      {
       "id": "tang-wuzetian.eraChangeCount.e010",
@@ -72169,7 +72191,8 @@
       "source": {
        "page": "旧唐書巻六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "聖暦"
      },
      {
       "id": "tang-wuzetian.eraChangeCount.e011",
@@ -72179,7 +72202,8 @@
       "source": {
        "page": "旧唐書巻六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "久視"
      },
      {
       "id": "tang-wuzetian.eraChangeCount.e012",
@@ -72200,7 +72224,8 @@
       "source": {
        "page": "旧唐書巻六（則天皇后紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "長安"
      },
      {
       "id": "tang-wuzetian.eraChangeCount.e014",

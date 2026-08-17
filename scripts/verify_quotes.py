@@ -1008,21 +1008,54 @@ def era_anchor_hit(key, lines):
     当たった形を返す（無ければ None）。**コーパスを読まずに判定だけを試せるよう
     切り出してある**（scripts/test_era_name.py がここを直接呼ぶ）。
     """
-    forms = [p + key for p in ERA_ANCHOR_PREFIX] + [key + s for s in ERA_ANCHOR_SUFFIX]
+    # **1つの正規化形で当てない**（2026-08-17）。`norm_for_match` は日本語の新字体と
+    # 底本の簡体が1対1にならない字を畳みきれず、`歳`（AMBIGUOUS_JP）を含む元号
+    # ——天冊万歳・万歳登封・万歳通天—— が底本の `岁` に当たらずに落ちた。
+    # 断片（数字）にだけ掛かる `norm_variants` を通し、どれかが当たれば一致とみなす
+    keys = [k for k in dict.fromkeys((key,) + norm_variants(key)) if k]
+    forms = [p + k for k in keys for p in ERA_ANCHOR_PREFIX] \
+        + [k + s for k in keys for s in ERA_ANCHOR_SUFFIX]
     hit = next((f for ln in lines for f in forms if f in ln), None)
     if hit:
         return hit
     for ln in lines:
-        start = 0
-        while True:
-            i = ln.find(key, start)
-            if i < 0:
-                break
-            m = ERA_ANCHOR_RECAST.search(ln[:i])
-            if m:
-                return m.group(0) + key
-            start = i + 1
+        for k in keys:
+            start = 0
+            while True:
+                i = ln.find(k, start)
+                if i < 0:
+                    break
+                m = ERA_ANCHOR_RECAST.search(ln[:i])
+                if m:
+                    return m.group(0) + k
+                start = i + 1
     return None
+
+
+# **改元条が本人の紀に無い event**（2026-08-17 に足した）。免除ではなく**証人の引っ越し**で、
+# 挙げた人物のキャッシュで同じ定型句の隣接を見る（見つからなければ落ちる）。理由は2型:
+#   (1) 傀儡の改元 — 睿宗の第一次在位（684〜690）の改元は武太后が主導し、条は則天皇后紀に立つ
+#   (2) 帝紀が立たない人物 — 殤帝 重茂は列傳しか無く、唐隆の改元条は中宗紀（巻七）に在る
+# **1件ずつ理由を書く**（まとめて外すと「本人の紀に無い」を理由に何でも通る器になる）
+ERA_NAME_WITNESS_IN = {
+    "tang-ruizong.eraChangeCount.e001": ("tang-wuzetian", "文明への改元は武太后主導。条は則天皇后紀"),
+    "tang-ruizong.eraChangeCount.e002": ("tang-wuzetian", "光宅。同上"),
+    "tang-ruizong.eraChangeCount.e003": ("tang-wuzetian", "垂拱。同上"),
+    "tang-ruizong.eraChangeCount.e004": ("tang-wuzetian", "永昌。同上"),
+    "tang-ruizong.eraChangeCount.e005": ("tang-wuzetian", "載初。同上"),
+    "tang-shangdi.eraChangeCount.e001": ("tang-zhongzong", "殤帝は列傳のみ。唐隆の条は中宗紀 巻七"),
+}
+_WITNESS_CACHE = {}
+
+
+def _witness_lines(eid):
+    """証人として挙げた別人物のキャッシュ（正規化済み・無ければ空）。"""
+    if eid not in _WITNESS_CACHE:
+        p = CORPUS_ROOT / "_corpus_cache" / f"{eid}.txt"
+        _WITNESS_CACHE[eid] = ([norm_for_match(ln) for ln in
+                                p.read_text(encoding="utf-8").splitlines()]
+                               if p.is_file() else [])
+    return _WITNESS_CACHE[eid]
 
 
 def cmd_check_era_names():
@@ -1043,6 +1076,7 @@ def cmd_check_era_names():
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     checked = ok = 0
     skipped = []
+    moved = []
     bad = 0
     for e in data["emperors"]:
         o = e.get("eraChangeCount")
@@ -1064,6 +1098,11 @@ def cmd_check_era_names():
             if era_anchor_hit(key, lines):
                 ok += 1
                 continue
+            via = ERA_NAME_WITNESS_IN.get(where)
+            if via and era_anchor_hit(key, _witness_lines(via[0])):
+                ok += 1
+                moved.append(f"{where}→{via[0]}")
+                continue
             bare = sum(1 for ln in lines if key in ln)
             bad += 1
             print(f"ERROR {where}: eraName「{ev['eraName']}」が本人の原文キャッシュに"
@@ -1072,8 +1111,11 @@ def cmd_check_era_names():
     if skipped:
         print(f"NOTICE 原文キャッシュが無いため未照合: {len(skipped)}人 {skipped}"
               f"（キャッシュを作れない政権はこのゲートの外にある）")
+    if moved:
+        print(f"NOTICE 改元条が本人の紀に無く別人物の紀で照合した: {len(moved)}件 {moved}"
+              f"（傀儡の改元・帝紀が立たない人物。ERA_NAME_WITNESS_IN に理由が在る）")
     print(f"---\n{bad} errors / eraName を持つ改元 event {checked}件のうち "
-          f"{ok}件が本人の原文で定型句と隣り合って実在")
+          f"{ok}件が原文で定型句と隣り合って実在（うち {len(moved)}件は別人物の紀が証人）")
     return 1 if bad else 0
 
 

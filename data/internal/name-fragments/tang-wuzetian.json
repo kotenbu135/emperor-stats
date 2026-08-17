@@ -203,6 +203,111 @@
       "file": "daizhigev20/史藏/正史/旧唐书.txt",
       "line": 11524,
       "quote": "哥奴，林甫小字"
+    },
+    {
+      "cid": "era-name-wuzetian-c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 14,
+      "quote": "革唐命，改国号为周。改元为天授，大赦天下，赐酺七日"
+    },
+    {
+      "cid": "era-name-wuzetian-c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 17,
+      "quote": "四月，大赦天下，改元为如意，禁断天下屠杀"
+    },
+    {
+      "cid": "era-name-wuzetian-c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 17,
+      "quote": "九月，大赦天下，改元为长寿"
+    },
+    {
+      "cid": "era-name-wuzetian-c4",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 19,
+      "quote": "大赦天下，改元为延载，大酺七日"
+    },
+    {
+      "cid": "era-name-wuzetian-c5",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 20,
+      "quote": "加尊号天册金轮圣神皇帝，大赦天下，改元为天册万岁"
+    },
+    {
+      "cid": "era-name-wuzetian-c6",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 21,
+      "quote": "万岁登封元年腊月甲申，上登封于嵩岳，大赦天下，改元，大酺九日"
+    },
+    {
+      "cid": "era-name-wuzetian-c7",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 21,
+      "quote": "夏四月，亲享明堂，大赦天下，改元为万岁通天，大酺七日"
+    },
+    {
+      "cid": "era-name-wuzetian-c8",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 24,
+      "quote": "以契丹李尽灭等平，大赦天下，改元为神功，大酺七日"
+    },
+    {
+      "cid": "era-name-wuzetian-c9",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 24,
+      "quote": "圣历元年正月，亲享明堂，大赦天下，改元，大酺九日"
+    },
+    {
+      "cid": "era-name-wuzetian-c10",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 30,
+      "quote": "上以所疾康复，大赦天下，改元为久视，停金轮等尊号"
+    },
+    {
+      "cid": "era-name-wuzetian-c11",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 32,
+      "quote": "冬十月，幸京师，大赦天下，改元为长安"
+    },
+    {
+      "cid": "era-name-wuzetian-c12",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 20,
+      "quote": "证圣元年春一月，上加尊号曰慈氏越古金轮圣神皇帝，大赦天下，改元，大酺七日"
+    },
+    {
+      "cid": "era-name-wuzetian-c13",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 31,
+      "quote": "大足元年春正月，制改元"
+    },
+    {
+      "cid": "era-name-wuzetian-c14",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 37,
+      "quote": "神龙元年春正月，大赦，改元"
+    },
+    {
+      "cid": "era-name-wuzetian-c15",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-wuzetian.txt",
+      "line": 13,
+      "quote": "依周制建子月为正月，改永昌元年十一月为载初元年正月，十二月为腊月"
     }
   ],
   "findings": [
@@ -326,6 +431,105 @@
         "儿名"
       ],
       "note": "**両唐書ともこの人物の幼名を書かない**。(1) 舊唐書1冊（17,444行）で9行、新唐書1冊で11行を6語で悉皆走査し1件ずつ帰属させた。(2) **本人の紀・傳まるごと**（`_corpus_cache/<id>.txt`）を通しで読み、小字の位置が無い。**陽性対照は3つの層に立つ** — 逆臣傳の側では舊唐書の安禄山の条そのものが「阿浩，乾真小字也」と部将の小字を注し、唐の帝室では新唐書 諸子傳が「隐太子建成小字毘沙门」・「雉奴，高宗小字」と書き、臣下では「哥奴，林甫小字」がある。**両唐書とも本紀の冒頭定型には小字の位置が無い**（「〈廟号〉〈諡〉皇帝，讳〈諱〉，〈続柄〉」）（2026-08-16・幼名ブロック4）"
+    },
+    {
+      "field": "eraChangeCount.events[0].eraName",
+      "value": "天授",
+      "basis": [
+        "era-name-wuzetian-c1"
+      ],
+      "confidence": "high",
+      "note": "event id tang-wuzetian.eraChangeCount.e001（date 0690-10-16）。「改元为天授」＝建てた側だけを名指す形で、捨てた側（載初）は同じ条に無い。値は底本「天授」と同形"
+    },
+    {
+      "field": "eraChangeCount.events[1].eraName",
+      "value": "如意",
+      "basis": [
+        "era-name-wuzetian-c2"
+      ],
+      "confidence": "high",
+      "note": "e002（0692）。天授三年四月条「改元为如意」。建てた側のみ（検証段の指摘で紀年を訂正。長寿はこの条の5か月後・同年九月に建つ次の元号で、旧唐書はこの年を天授三年と紀年する）"
+    },
+    {
+      "field": "eraChangeCount.events[2].eraName",
+      "value": "長寿",
+      "basis": [
+        "era-name-wuzetian-c3"
+      ],
+      "confidence": "high",
+      "note": "e003（0692）。同年九月条「改元为长寿」。建てた側のみ。値は底本「长寿」を新字体へ倒した"
+    },
+    {
+      "field": "eraChangeCount.events[3].eraName",
+      "value": "延載",
+      "basis": [
+        "era-name-wuzetian-c4"
+      ],
+      "confidence": "high",
+      "note": "e004（0694）。「改元为延载」。建てた側のみ。値は底本「延载」を新字体へ倒した"
+    },
+    {
+      "field": "eraChangeCount.events[5].eraName",
+      "value": "天冊万歳",
+      "basis": [
+        "era-name-wuzetian-c5"
+      ],
+      "confidence": "high",
+      "note": "e006（0695）。証聖元年九月条「改元为天册万岁」。建てた側のみ。値は底本「天册万岁」を新字体へ倒した（冊は wu-modi「天冊」の先例と同形・歳は新字体）"
+    },
+    {
+      "field": "eraChangeCount.events[6].eraName",
+      "value": "万歳登封",
+      "basis": [
+        "era-name-wuzetian-c6"
+      ],
+      "confidence": "high",
+      "note": "e007（0696）。改元条は名を挙げない「大赦天下，改元」で、名は同じ条の年ラベル「万岁登封元年腊月甲申」から取る（既に値が入っている証聖・大足・神龍と同じ形）。捨てた側の名は条に無い"
+    },
+    {
+      "field": "eraChangeCount.events[7].eraName",
+      "value": "万歳通天",
+      "basis": [
+        "era-name-wuzetian-c7"
+      ],
+      "confidence": "high",
+      "note": "e008（0696）。「改元为万岁通天」。建てた側のみ"
+    },
+    {
+      "field": "eraChangeCount.events[8].eraName",
+      "value": "神功",
+      "basis": [
+        "era-name-wuzetian-c8"
+      ],
+      "confidence": "high",
+      "note": "e009（0697）。「改元为神功」。建てた側のみ"
+    },
+    {
+      "field": "eraChangeCount.events[9].eraName",
+      "value": "聖暦",
+      "basis": [
+        "era-name-wuzetian-c9"
+      ],
+      "confidence": "high",
+      "note": "e010（0697）。改元条は名を挙げず、年ラベル「圣历元年正月」から取る。周正（建子月為正月）のため聖暦元年正月は西暦697年内で、神功（697年九月）の後に来る＝レコードの並びと順序が合う。値は底本「圣历」を新字体へ倒した"
+    },
+    {
+      "field": "eraChangeCount.events[10].eraName",
+      "value": "久視",
+      "basis": [
+        "era-name-wuzetian-c10"
+      ],
+      "confidence": "high",
+      "note": "e011（0700）。「改元为久视」。建てた側のみ"
+    },
+    {
+      "field": "eraChangeCount.events[12].eraName",
+      "value": "長安",
+      "basis": [
+        "era-name-wuzetian-c11"
+      ],
+      "confidence": "high",
+      "note": "e013（0701）。「改元为长安」。建てた側のみ。値は底本「长安」を新字体へ倒した"
     }
   ],
   "conflicts": [
@@ -384,9 +588,23 @@
         }
       ],
       "reason": "舊唐書は同じ条の中で「谥曰则天大圣皇后」と「号为天后／追尊为大圣天后／改号为则天皇太后」を書き分けており（c3 と c6）、書自身が諡と号の線を引いている。710年の3形は「依上元年故事」＝高宗朝の号への復帰と位号（皇太后）で、睿宗紀も「依旧号为天后」と書く（c7）。712年の「天后聖帝」も授与語は「追奠…曰」で、礼儀志はこれを「帝号」「帝名」と呼び開元初に削っている（c14・c15）。ただし『大聖天后』（追尊）と『天后聖帝』（追奠・神主題）を諡の段に数えるかは書の語彙だけでは決め切れないため、段からは外したうえで判断待ちとして記録する"
+    },
+    {
+      "field": "eraChangeCount.events[13].eraName",
+      "alternatives": [
+        {
+          "value": "神龍（武則天の改元として数える）",
+          "source": "旧唐書 巻六 則天皇后紀「神龙元年春正月，大赦，改元」（癸亥の政変より前に置く）"
+        },
+        {
+          "value": "神龍（中宗の改元として数える）",
+          "source": "新唐書 巻四。則天皇后紀の当該年は「五年正月壬午，大赦」だけで改元を載せず、中宗紀の側が「甲辰，皇太子监国，大赦，改元」と書く。旧唐書 巻七 中宗紀にも改元記事は無い"
+        }
+      ],
+      "reason": "旧唐書 巻六を採る（値は据え置き）。この event の `source.page` が名乗るのが巻六で、**証人と主張の出どころを揃える**ため。新唐書に従うと同じ改元が中宗側の1件になり、両帝の `eraChangeCount.count` が動くので、元号名の転記の範囲では動かさない。この対立は 2026-08-17 の検証段（facts）の指摘で記録した。値そのものは今回の転記ではなく既存値"
     }
   ],
-  "noteLog": "2026-08-11 の検証段で `conflicts` を足した。値（両欄とも空）は動かない。前の断片は本人の名乗りを冒頭・崩御条の3件（c1〜c3）だけで閉じており、**同じ書の睿宗紀と礼儀志にある後代の追奠・改題2件が台帳に無かった**。\n引用は底本（簡体）のまま保存し、findings の値だけを既存レコードに合わせて新字体へ倒した（则天皇后→則天皇后・则天大圣皇后→則天大聖皇后・则天顺圣皇后→則天順聖皇后）。捨てた側: (a) posthumousNameFull に崩御条の「則天大聖皇后」を入れる案 — 政権慣行の保存形が「冒頭1行の形」を指定しているので冒頭形を採った。(b) posthumousNames に710年・712年の号形（天后・大聖天后・則天皇太后・天后聖帝）を並べる案 — 上記 conflicts の理由で外した。(c) 生前尊号「则天大圣皇帝」（705年、譲位後に上られたもの・c4）は慣行が諡の両欄から除いているため、どの欄にも入れていない。",
-  "discrepancies": "なし",
-  "processSuggestion": "残量表 皇后結びの諡を皇帝の諡号欄へ入れるかの扱い 1件（未走査）— 政権慣行 wu-zhou の no-form 記録が「人物単位の判断」として残している論点で、本ブロックで原文まで当てたのは tang-wuzetian の1件のみ。同型（諡が「皇后」「王」など皇帝で結ばない君主）が他政権にどれだけ居るかは未走査。あわせて、check_regime_conventions の「保存形」行が posthumousNameFull の入れ先だけを指定し posthumousNames（諡の段）の作り方を持たないため、段に入れる／入れないの線引きが人物単位で割れる。段の受け皿も政権慣行側に1行持たせたい。"
+  "noteLog": "2026-08-11 の検証段で `conflicts` を足した。値（両欄とも空）は動かない。前の断片は本人の名乗りを冒頭・崩御条の3件（c1〜c3）だけで閉じており、**同じ書の睿宗紀と礼儀志にある後代の追奠・改題2件が台帳に無かった**。\n引用は底本（簡体）のまま保存し、findings の値だけを既存レコードに合わせて新字体へ倒した（则天皇后→則天皇后・则天大圣皇后→則天大聖皇后・则天顺圣皇后→則天順聖皇后）。捨てた側: (a) posthumousNameFull に崩御条の「則天大聖皇后」を入れる案 — 政権慣行の保存形が「冒頭1行の形」を指定しているので冒頭形を採った。(b) posthumousNames に710年・712年の号形（天后・大聖天后・則天皇太后・天后聖帝）を並べる案 — 上記 conflicts の理由で外した。(c) 生前尊号「则天大圣皇帝」（705年、譲位後に上られたもの・c4）は慣行が諡の両欄から除いているため、どの欄にも入れていない。\n並びの固定: 既に値を持つ3件（e005 証聖・e012 大足・e014 神龍）が、本紀の改元条を年代順に並べたときの5番目・12番目・14番目にちょうど当たる。前・中・後の3点で配列と本紀の対応が留められるので、残る11件は推定ではなく決まる。既存3件の値は c12・c13・c14 で原文側も確認した（証聖元年／大足元年／神龍元年がいずれもキャッシュに在る）。\n走査（R-SWEEP-DETECTION）: 改元 のほか 建元・改年・改号・纪元 を素の行単位 grep で当てた（建元0・改年0・纪元0・改号1＝「改号为则天皇太后」で元号ではない）。「元年」の走査は悉皆性の根拠にならない（検証段の指摘で訂正）— キャッシュ全体の「元年」ヒットは14だが、計上済み14元号に当たるのは5件だけ（証聖・万歳登封・聖暦・大足・神龍）で、残る9件は弘道・嗣聖・文明・垂拱・永昌・載初（2形）・上元＝**他帝の元号**だった。逆に天授・如意・長寿・延載・天冊万歳・万歳通天・神功・久視・長安の9元号は「元年」ラベルを持たない。ヒット数14と count=14 の一致は偶然（R-SWEEP-DETECTION）。11件を支えているのは各条の「改元为X」型の引用であって、この走査ではない。\n捨てた側との区別: この紀で「改〈捨〉为〈建〉」型は c15 の「改永昌元年十一月为载初元年正月」1か所だけで、これは690年の革命より前（載初）＝14件の母集団の外。同じく嗣聖・文明・光宅・垂拱・永昌の改元条もすべて称制期で母集団外なので採らなかった。\n字体: evidence（claims の quote）は底本の簡体のまま、保存値 eraName は既存レコード（証聖・大足・神龍）に合わせて日本語の新字体へ倒した。",
+  "discrepancies": "照合したのは (1) count=14 と本紀の改元条14件、(2) events の**並び**が本紀の順序と一致すること、(3) 既に値のある eraName 3件（証聖・大足・神龍）が原文に在ること — いずれも一致（c12・c13・c14）。日付の**値**は照合対象外だが、1件だけ原文と食い違って見えるので報告する。\n【報告1・日付／この段では触らない】e005（証聖）の date は 0694 だが、旧唐書の改元条は c12「证圣元年春一月」。武周の改元暦では 証聖元年は 正月(子)→腊月(丑)→春一月(寅) の順なので、春一月は同年九月の天冊万歳（e006・0695）より前の西暦695年初にあたり、旧唐書だけで読むと 0695 になる。ただし資治通鑑は同じ改元を「證聖元年春正月辛巳朔，日南至…改元」＝冬至を含む子月に置いており、そちらを採れば 0694 で正しい。どちらの書を採ったかで割れるので、**この段では値を変えず、日付を扱う段への申し送りとして残す**。\n【報告2・ゲート】提出した3件（天冊万歳・万歳登封・万歳通天）は現状 scripts/verify_quotes.py --check-era-names を通らない。era_anchor_hit が norm_for_match しか使わず、hanzi_norm の新字体表に 歳→歲 が無いため（歳のまま止まり底本の 岁 に当たらない）。実測: era_anchor_hit('天冊万歳')=None／era_anchor_hit('天冊万歲')='改元为天册万岁'（万歳登封・万歳通天も同型）。**eraNameRaw では逃げられない** — patch_emperor.py の案内には出るが、verify_quotes.py の --check-era-names は eraNameRaw を読まず、validate_emperors.py の B は norm_for_match(eraName)==norm_for_match(eraNameRaw) を要求するので 『天冊万歳 + 天册万岁』は逆に落ちる（既存データの eraNameRaw は0件）。**推奨は新字体の値を維持し、道具側を直すこと**: 歳 は AMBIGUOUS_JP（str.maketrans({'歳':'歲'})）に既に登録済みなので era_anchor_hit を norm_variants 側へ寄せれば通り、scripts/test_era_name.py が era_anchor_hit を直接呼ぶので試験も書ける。投入前にこれを直さないと、この3件でゲートが落ちる。",
+  "processSuggestion": "eraName の字体方針に割れが1件ある — 既存 451件のうち ming-shenzong だけが「萬曆」で、他は寿5/壽1・長2・龍10・聖4・暦3/曆1 と新字体側。歳を含む元号（武則天に3件）を入れる前に、この1件を新字体へ寄せるか例外として台帳に記すかを決めておくと、同じ判断を政権ごとに繰り返さずに済む。あわせて --check-era-names が norm_variants を使っていない件は、歳を含む元号（天冊万歳・万歳登封・万歳通天ほか歳字を含むもの）を持つ他政権にも同型で効く可能性がある。残量表 元号名の歳字ゲート未通過 3件（未読 0・他政権は未走査）"
 }
