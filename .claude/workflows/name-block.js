@@ -160,7 +160,11 @@ const results = await pipeline(
     `  読んだが決められないなら \`pending\`。**迷ったら pending**（read-absent は不在確定として\n` +
     `  数えられるので、迷いを過大報告に落とさない）。**推測で埋めない**（原典に無いものは空のまま）\n` +
     `- Web は「先に読むか後回しにするか」「どの名で grep するか」を決める道具には使ってよいが、\n` +
-    `  **値は必ずコーパスの grep 出力から取る**・**Web の沈黙で \`read-absent\` にしない**\n\n` +
+    `  **値は必ずコーパスの grep 出力から取る**・**Web の沈黙で \`read-absent\` にしない**\n` +
+    `- **分担**: この段が扱うのは**原文から取れる側**だけです。既存 note を証人にする転記\n` +
+    `  （note に元号名が書いてあるが本人の原文キャッシュに無い側）は、\`--notes on\` が\n` +
+    `  この段では使えない以上ここでは閉じられません。**\`pending\` にして evidence に\n` +
+    `  「原文側に無い・走査した語と範囲」を書いて返す**と、親セッションが note と別の書で引き取ります\n\n` +
     `## 返し方\n` +
     `- 出力は docs/process/CLAIMS_CONTRACT.md の形で \`${workDir}/claims/${id}.json\` へ Write し、\n` +
     `  \`python3 scripts/check_claims.py ${workDir}/claims/${id}.json\` をエラー0にしてから返すこと\n` +
@@ -236,7 +240,10 @@ return {
   verification: { people: ok.length, verifiers: verifierTotal, thickTierPeople: thick,
                   raised, rawIssues },
   processSuggestions: suggestions,
-  next: `断片は ${workDir}/claims/ にあります。親セッションが check_claims.py でまとめて確認し、` +
+  next: `**pending で返った件は親セッションの仕事です** — この段は原文から取れる側しか扱わず、` +
+        `既存 note を証人にする転記（note-only で本人のキャッシュに無い側）と別の書からの回収は` +
+        `\`--notes on\` が使えないぶんここで閉じられません。` +
+        `断片は ${workDir}/claims/ にあります。親セッションが check_claims.py でまとめて確認し、` +
         `指摘を潰してから **python3 scripts/patch_emperor.py <皇帝id> --set ...**（まず --dry-run）で投入。` +
         `投入後は **python3 scripts/validate_emperors.py**（末尾の [era-name] 行が転記のラチェット。` +
         `増えた数だけ ERA_NAME_BASELINE を上げる）と ` +
