@@ -205,124 +205,272 @@ inferYears()
 for (const [k, b] of [...boxes]) if (b.y0 == null) boxes.delete(k)   // 手がかりが無い人は出さない
 
 // ---------------------------------------------------------------- 横位置ソルバ
-// Sugiyama の分離のうち「座標割り当て」に当たる部分。貪欲パッカーとの違いは2つ:
-//   - 部分木ごとに輪郭（占有矩形の集合）を持ち、兄弟をずらす量は輪郭どうしの衝突から出す
-//     （＝時間が重ならない部分木は同じ x を自然に共有し、左の空きポケットへは滑り込まない）
-//   - 置いたあとに親を子の中心へ引き寄せる（線を直線化する）
-const px = new Map()          // key -> x（箱の左端）
+//
+// 1本目は「部分木ごと左詰め・衝突したら右へ送る」で組み、南北朝が6,029px（下限の3.13倍）
+// になった。原因は2つあって、どちらもこの版で直してある。
+//
+//   (1) 衝突判定に縦の余白（LINK_GAP_Y）を入れていたので、**父の退位年＝子の即位年**が
+//       「重なっている」と判定され、直系の親子が横に並んでいた。王朝が縦の柱ではなく
+//       横の鎖になるので、幅がそのまま代数に比例して伸びる。縦の余白は 0 にする
+//       （垂下線の room は描画側の話で、置き方の制約ではない）
+//   (2) 部分木を丸ごと動かしていたので、200年に伸びた部分木がどこか1箇所で衝突すると
+//       全体が右端の外へ送られていた。**人（unit）ごとに、望む x のいちばん近くの空きへ
+//       置く**形に変える。時間が重ならない箱は自然に同じ x を共有する
+//
+// unit ＝ 1人ぶんのまとまり（複数在位のカプセル ＋ 脇に付く妃）。x はこの単位で決める。
 const yTop = (b) => b.y0
 const yBot = (b) => b.y1
 
-function rectsOf(id, dx = 0) {
-  // id を根とする部分木が占める矩形（年単位の y・px の x）
-  const out = []
-  const seen = new Set()
-  const walk = (nid) => {
-    if (seen.has(nid)) return
-    seen.add(nid)
-    const b = boxes.get(primaryKey.get(nid))
-    if (!b) return
-    out.push({ x0: px.get(b.key) + dx, x1: px.get(b.key) + dx + attachedWidth(nid), y0: yTop(b), y1: yBot(b) })
-    for (const u of unionsOfParent.get(nid) || []) for (const k of u.kids) walk(k)
+const headOf = (id) => spouseOf.get(id) ?? id
+const SPOUSE_GAP = 14
+const CORRIDOR_GAP = 8        // 線の通り道と箱の間に空ける最小の隙間
+// 通り道を避けるために遠回りしてよい上限（px）。幅と横切りの交換レートそのものなので
+// 値を決め打ちせず、YIELD=... で振って測れるようにしてある。
+const CORRIDOR_YIELD = Number(process.env.YIELD ?? 420)
+const spouseAnchor = new Map() // 妃の箱 key -> 上端の年（夫カプセルの上部に整列する）
+
+/** unit を組む: 局所座標（左端=0）での占有矩形と、妃の相対位置 */
+const units = new Map()
+for (const b of boxes.values()) {
+  const head = headOf(b.id)
+  if (spouseOf.has(b.id)) continue           // 妃は夫の unit の中で扱う
+  if (!units.has(head)) units.set(head, { id: head, own: [], spouses: [], rects: [] })
+  if (b.id === head) units.get(head).own.push(b)
+}
+for (const u of unions.values()) {
+  if (u.parents.length < 2) continue
+  const unit = units.get(headOf(u.parents[0]))
+  if (!unit) continue
+  const s = boxes.get(primaryKey.get(u.parents[1]))
+  if (s && !unit.spouses.includes(s)) unit.spouses.push(s)
+}
+for (const u of units.values()) {
+  const headW = Math.max(...u.own.map((b) => b.w))
+  const anchor = u.own.reduce((a, b) => (a && a.y0 <= b.y0 ? a : b), null)
+  u.rects = u.own.map((b) => ({ dx0: 0, dx1: b.w, y0: yTop(b), y1: yBot(b), box: b }))
+  let off = headW
+  for (const s of u.spouses) {
+    // 妃が複数いる夫では、外側の妃への連結線は**内側の妃の外縁**が始点になる
+    // （夫の右端から引くと、線が内側の妃のピルを突き抜ける。2026-07-26 の承認済み規則）
+    s.tieDx = off
+    off += SPOUSE_GAP
+    // 妃は夫カプセルの上部に整列する（承認済み・子は必ず夫の下端より後に来る）
+    s.spouseDx = off
+    spouseAnchor.set(s.key, anchor.y0)
+    u.rects.push({ dx0: off, dx1: off + s.w, y0: anchor.y0, y1: anchor.y0 + PERSON_H / PX_PER_YEAR, box: s })
+    off += s.w
   }
-  walk(id)
-  return out
+  u.w = off
+  u.headW = headW      // 線が着くのは本人の箱の中心で、妃を含めた unit の中心ではない
 }
 
-const hits = (a, b) =>
-  a.x0 < b.x1 + COL_GAP && b.x0 < a.x1 + COL_GAP &&
-  a.y0 < b.y1 + LINK_GAP_Y / PX_PER_YEAR && b.y0 < a.y1 + LINK_GAP_Y / PX_PER_YEAR
+// 衝突判定。縦の余白は 0（父の退位年＝子の即位年で同じ列に置けるようにする）
+const hits = (a, b, gap = COL_GAP) =>
+  a.x0 < b.x1 + gap && b.x0 < a.x1 + gap && a.y0 < b.y1 && b.y0 < a.y1
 
-function shift(id, dx) {
-  const seen = new Set()
-  const walk = (nid) => {
-    if (seen.has(nid)) return
-    seen.add(nid)
-    const b = boxes.get(primaryKey.get(nid))
-    if (b) px.set(b.key, px.get(b.key) + dx)
-    for (const u of unionsOfParent.get(nid) || []) for (const k of u.kids) walk(k)
-  }
-  walk(id)
+const placedRects = []                       // 置き終わった箱（絶対座標）
+let corridorRects = []                       // 線の通り道（＝箱を置いてはいけない場所）
+const ux = new Map()                          // unit id -> x
+
+const absRects = (u, X) => u.rects.map((r) => ({ x0: X + r.dx0, x1: X + r.dx1, y0: r.y0, y1: r.y1, u: u.id }))
+
+const boxClear = (u, X) => {
+  const rs = absRects(u, X)
+  return !rs.some((r) => placedRects.some((p) => p.u !== u.id && hits(r, p)))
 }
+// 線の通り道は「当事者以外」だけを弾く（自分の親子線は自分を通ってよい）
+const corridorClear = (u, X) => {
+  const rs = absRects(u, X)
+  return !rs.some((r) => corridorRects.some((c) => !c.own.has(u.id) && hits(r, c, CORRIDOR_GAP)))
+}
+const feasible = (u, X) => boxClear(u, X) && corridorClear(u, X)
 
-/** 部分木を仮に x=0 起点で組み、占有矩形を返す */
-function layoutSubtree(id, seen = new Set()) {
-  if (seen.has(id)) return []
-  seen.add(id)
-  const b = boxes.get(primaryKey.get(id))
-  if (!b) return []
-  px.set(b.key, 0)
-  let placed = [{ x0: 0, x1: attachedWidth(id), y0: yTop(b), y1: yBot(b) }]
-
-  const kids = (unionsOfParent.get(id) || []).flatMap((u) => u.kids)
-  for (const kid of kids) {
-    const kr = layoutSubtree(kid, seen)
-    if (!kr.length) continue
-    // 置ける最小の dx を探す（左詰め・ただし既に置いた矩形と時間が重なるものの右へ）
-    let dx = 0
-    for (let guard = 0; guard < 400; guard++) {
-      const moved = kr.map((r) => ({ ...r, x0: r.x0 + dx, x1: r.x1 + dx }))
-      const bad = moved.find((m) => placed.some((p) => hits(m, p)))
-      if (!bad) break
-      const blocker = placed.filter((p) => moved.some((m) => hits(m, p)))
-        .reduce((a, p) => Math.max(a, p.x1), -Infinity)
-      dx = blocker + COL_GAP - Math.min(...kr.map((r) => r.x0))
+/** 望む x のいちばん近くにある空きへ置く */
+function bestX(u, desired) {
+  const cands = new Set([Math.max(0, desired)])
+  for (const p of [...placedRects, ...corridorRects]) {
+    const gap = p.own ? CORRIDOR_GAP : COL_GAP
+    for (const r of u.rects) {
+      cands.add(p.x1 + gap - r.dx0)          // その矩形のすぐ右
+      cands.add(p.x0 - gap - r.dx1)          // すぐ左
     }
-    shift(kid, dx)
-    placed = placed.concat(kr.map((r) => ({ ...r, x0: r.x0 + dx, x1: r.x1 + dx })))
   }
-
-  // 親を子の中心へ寄せる（線を直線化する。子の側は動かさない）
-  if (kids.length) {
-    const cs = kids.map((k) => boxes.get(primaryKey.get(k))).filter(Boolean)
-    if (cs.length) {
-      const mid = cs.reduce((a, c) => a + px.get(c.key) + c.w / 2, 0) / cs.length
-      const want = mid - attachedWidth(id) / 2
-      const cur = px.get(b.key)
-      const self = { x0: want, x1: want + attachedWidth(id), y0: yTop(b), y1: yBot(b) }
-      const clash = placed.filter((p) => !(p.x0 === cur && p.y0 === yTop(b))).some((p) => hits(self, p))
-      if (!clash && want > cur) px.set(b.key, want)
-    }
+  // 通り道は**避けたい制約**であって、絶対の制約ではない。
+  // 硬い制約にすると、避け場所が無い人が図の右端の外まで飛んで幅が破裂する
+  // （南北朝で 2,630px → 17,775px になった）。近くに空きが無ければ通り道は譲る。
+  let strict = null, loose = null
+  for (const c of cands) {
+    const X = Math.max(0, Math.round(c))
+    if (!boxClear(u, X)) continue
+    const d = Math.abs(X - desired)
+    if (loose === null || d < loose.d) loose = { X, d }
+    if (corridorClear(u, X) && (strict === null || d < strict.d)) strict = { X, d }
   }
-  return placed
+  if (strict && (!loose || strict.d <= loose.d + CORRIDOR_YIELD)) return strict.X
+  if (loose) return loose.X
+  return Math.max(0, ...placedRects.map((p) => p.x1 + COL_GAP))
 }
 
-// 根を左から順に、時間が重なるものだけ右へ送る
-let occupied = []
-for (const r of roots.sort((a, b) => birthOf(a) - birthOf(b))) {
-  const rects = layoutSubtree(r)
-  if (!rects.length) continue
-  let dx = 0
-  for (let guard = 0; guard < 400; guard++) {
-    const moved = rects.map((x) => ({ ...x, x0: x.x0 + dx, x1: x.x1 + dx }))
-    const bad = moved.some((m) => occupied.some((p) => hits(m, p)))
-    if (!bad) break
-    dx = occupied.filter((p) => moved.some((m) => hits(m, p)))
-      .reduce((a, p) => Math.max(a, p.x1), 0) + COL_GAP
+// --- 置く順序: 親が先（トポロジカル）・同順位は年代順 --------------------------
+const parentUnionOf = new Map()               // child id -> union
+for (const u of unions.values()) for (const k of u.kids) parentUnionOf.set(k, u)
+
+const order = []
+{
+  const seen = new Set()
+  const visit = (id) => {
+    const h = headOf(id)
+    if (seen.has(h) || !units.has(h)) return
+    const pu = parentUnionOf.get(h)
+    if (pu) for (const p of pu.parents) if (!seen.has(headOf(p))) visit(p)
+    if (seen.has(h)) return
+    seen.add(h)
+    order.push(units.get(h))
   }
-  shift(r, dx)
-  occupied = occupied.concat(rects.map((x) => ({ ...x, x0: x.x0 + dx, x1: x.x1 + dx })))
+  for (const id of [...units.keys()].sort((a, b) => birthOf(a) - birthOf(b))) visit(id)
 }
+
+/** その union の垂下点（＝子が下りてくる x） */
+function junctionOf(u) {
+  const bs = u.parents.map((p) => boxes.get(primaryKey.get(p))).filter((b) => b && b.X0 != null)
+  if (!bs.length) return null
+  if (bs.length === 2 && bs[1].tieX != null) return (bs[1].tieX + bs[1].X0) / 2
+  if (bs.length === 2) return (bs[0].X0 + bs[0].w + bs[1].X0) / 2
+  return bs[0].X0 + bs[0].w / 2
+}
+
+// 妃は「生没の中点」ではなく夫カプセルの上部に整列して描かれるので、
+// 線と通り道の計算では**描かれる位置**を使う（生の y を使うと線と箱がずれる）。
+const topYear = (b) => spouseAnchor.get(b.key) ?? b.y0
+const botYear = (b) => (spouseAnchor.has(b.key)
+  ? spouseAnchor.get(b.key) + PERSON_H / PX_PER_YEAR
+  : b.y1)
+
+/** 兄弟バーの高さ（年）。全ての子で共有するので getSmoothStepPath には centerY で渡す */
+function barYearOf(u) {
+  const bs = u.parents.map((p) => boxes.get(primaryKey.get(p))).filter(Boolean)
+  if (!bs.length) return null
+  return Math.max(...bs.map(botYear)) + LINK_GAP_Y / PX_PER_YEAR
+}
+
+/**
+ * その union の線が通る場所を矩形にする。
+ * 旧実装のレビュー③で確立した「子ごとの垂下コリドーをパッキングに予約」に当たる段で、
+ * これが無いと箱を詰めた分だけ線が箱を横切る（1本目は幅を詰めたら横切りが63件に増えた）。
+ */
+function corridorsOf(un) {
+  const ps = un.parents.map((p) => boxes.get(primaryKey.get(p))).filter((b) => b && b.X0 != null)
+  const kids = un.kids.map((k) => boxes.get(primaryKey.get(k))).filter((b) => b && b.X0 != null)
+  if (!ps.length || !kids.length) return []
+  const jx = junctionOf(un)
+  const jy = Math.max(...ps.map(botYear))
+  const barY = barYearOf(un)
+  const own = new Set([...un.parents, ...un.kids].map(headOf))
+  const xs = [jx, ...kids.map((k) => k.X0 + k.w / 2)]
+  const out = [
+    { x0: Math.min(...xs) - 2, x1: Math.max(...xs) + 2, y0: barY - 0.5, y1: barY + 0.5, own },
+    { x0: jx - 2, x1: jx + 2, y0: jy, y1: barY, own },
+  ]
+  for (const k of kids) {
+    if (topYear(k) <= barY) continue          // 親より上に置かれた子は垂下できない（別扱い）
+    out.push({ x0: k.X0 + k.w / 2 - 2, x1: k.X0 + k.w / 2 + 2, y0: barY, y1: topYear(k), own })
+  }
+  return out.filter((r) => r.y1 > r.y0)
+}
+
+const rebuildCorridors = () => {
+  corridorRects = [...unions.values()].flatMap(corridorsOf)
+}
+
+/** いまの位置が（自分の矩形を除いて）成立しているか */
+function feasibleIgnoringSelf(u, X) {
+  const rs = absRects(u, X)
+  if (rs.some((r) => placedRects.some((p) => p.u !== u.id && hits(r, p)))) return false
+  return !rs.some((r) => corridorRects.some((c) => !c.own.has(u.id) && hits(r, c, CORRIDOR_GAP)))
+}
+const setX = (u, X) => {
+  ux.set(u.id, X)
+  for (const r of u.rects) r.box.X0 = X + r.dx0
+  for (const s of u.spouses) s.tieX = X + s.tieDx      // 連結線の始点（内側の隣の外縁）
+}
+
+/** 望む x: 親の垂下点の下・兄弟は左右に振る */
+function desiredOf(u) {
+  const pu = parentUnionOf.get(u.id)
+  if (!pu) return 0
+  const j = junctionOf(pu)
+  if (j == null) return 0
+  const i = pu.kids.indexOf(u.id)
+  const n = pu.kids.length
+  const step = u.w + COL_GAP
+  // 垂下線が着くのは本人の箱の中心なので、unit ではなく**本人の箱**を垂下点の下へ置く
+  // （unit の中心をそろえると、妃のピルがちょうど親からの垂下線の下に来て突き抜ける）
+  return j + (i - (n - 1) / 2) * step - u.headW / 2
+}
+
+for (const u of order) {
+  const X = bestX(u, Math.round(desiredOf(u)))
+  setX(u, X)
+  placedRects.push(...absRects(u, X))
+  rebuildCorridors()            // 置いた瞬間に、その人へ下りる線の通り道を予約する
+}
+
+// --- 仕上げ: 線が短くなる向きへ動かせるだけ動かす -----------------------------
+// Sugiyama の「座標割り当て」に当たる段。親は子の中央へ、子は親の垂下点へ寄る。
+// 動かすのは空きがあるときだけなので、重なりは増えない。
+function idealOf(u) {
+  const targets = []
+  const pu = parentUnionOf.get(u.id)
+  if (pu) { const j = junctionOf(pu); if (j != null) targets.push(j) }
+  for (const cu of unionsOfParent.get(u.id) || []) {
+    const cs = cu.kids.map((k) => boxes.get(primaryKey.get(k))).filter((b) => b && b.X0 != null)
+    if (cs.length) targets.push(cs.reduce((a, c) => a + c.X0 + c.w / 2, 0) / cs.length)
+  }
+  if (!targets.length) return null
+  const mid = targets.reduce((a, b) => a + b, 0) / targets.length
+  return Math.round(mid - u.headW / 2)
+}
+
+for (let pass = 0; pass < 6; pass++) {
+  const seq = pass % 2 ? [...order].reverse() : order
+  for (const u of seq) {
+    const cur = ux.get(u.id)
+    // 通り道は「後から置いた線」の側にしか効かない（先に置かれた箱はそのまま線の下に残る）。
+    // ここで自分の現在地が通り道を塞いでいないかを見て、塞いでいたら必ず動かす。
+    const blocking = !boxClear(u, cur)
+    const want = idealOf(u)
+    if (want == null && !blocking) continue
+    if (want === cur && !blocking) continue
+    // いったん自分の矩形を外してから、望む x のいちばん近くの空きを探す
+    for (let i = placedRects.length - 1; i >= 0; i--) if (placedRects[i].u === u.id) placedRects.splice(i, 1)
+    const X = bestX(u, Math.max(0, want ?? cur))
+    setX(u, X)
+    placedRects.push(...absRects(u, X))
+    rebuildCorridors()
+  }
+}
+
+// 左端を 0 へ寄せ直す
+const minX = Math.min(...[...boxes.values()].map((b) => b.X0 ?? 0))
+for (const b of boxes.values()) if (b.X0 != null) b.X0 -= minX
 
 // ---------------------------------------------------------------- px 座標へ
 const years = [...boxes.values()].flatMap((b) => [b.y0, b.y1])
 const Y0 = Math.floor(Math.min(...years) / 25) * 25
 const toY = (y) => PAD_TOP + (y - Y0) * PX_PER_YEAR
-for (const b of boxes.values()) {
-  b.X = PAD_X + (px.get(b.key) ?? 0)
-  b.Y = toY(b.y0)
-  b.H = Math.max(b.kind === 'emperor' ? MIN_CAPSULE_H : PERSON_H, (b.y1 - b.y0) * PX_PER_YEAR)
+// 妃の x・y はソルバが unit の中で決めている（あとから脇へずらすと重なりが生まれる）
+const spouseAnchorY = new Map()
+for (const u of units.values()) {
+  const anchor = u.own.reduce((a, b) => (a && a.y0 <= b.y0 ? a : b), null)
+  for (const s of u.spouses) spouseAnchorY.set(s.key, anchor.y0)
 }
-// 妃を夫の右脇・上端そろえで置く
-for (const u of unions.values()) {
-  if (u.parents.length < 2) continue
-  const h = boxes.get(primaryKey.get(u.parents[0]))
-  const s = boxes.get(primaryKey.get(u.parents[1]))
-  if (!h || !s) continue
-  s.X = h.X + h.w + 14
-  s.Y = h.Y
-  s.H = PERSON_H
-  s.attached = true
+for (const b of boxes.values()) {
+  b.X = PAD_X + (b.X0 ?? 0)
+  const isSpouse = spouseAnchorY.has(b.key)
+  b.Y = toY(isSpouse ? spouseAnchorY.get(b.key) : b.y0)
+  b.H = isSpouse ? PERSON_H
+    : Math.max(b.kind === 'emperor' ? MIN_CAPSULE_H : PERSON_H, (b.y1 - b.y0) * PX_PER_YEAR)
+  b.attached = isSpouse
 }
 
 const W = Math.ceil(Math.max(...[...boxes.values()].map((b) => b.X + b.w)) + PAD_X)
@@ -337,14 +485,19 @@ for (const u of unions.values()) {
   const ps = u.parents.map((p) => boxes.get(primaryKey.get(p))).filter(Boolean)
   if (!ps.length) continue
   const head = ps[0]
+  // 垂下点は連結線の実区間の中点（外側の妃では内側の妃の外縁が始点になる）
   const junctionX = ps.length === 2
-    ? (head.X + head.w + (ps[1].X)) / 2               // 夫婦連結線の中点
+    ? ((ps[1].tieX != null ? PAD_X + ps[1].tieX : head.X + head.w) + ps[1].X) / 2
     : head.X + head.w / 2
   const junctionY = Math.max(...ps.map((p) => p.Y + p.H))
+  // 兄弟バーは全ての子で共有する（centerY を渡さないと、子ごとに source と target の
+  // 中点へ横区間が来て、バーが階段状にばらける）
+  const barY = toY(barYearOf(u))
 
-  if (ps.length === 2) {                              // 夫婦連結線（二重線）
+  if (ps.length === 2) {                              // 夫婦連結線
     const y = ps[1].Y + PERSON_H / 2
-    edgesSvg.push(`<path class="tie" d="M${head.X + head.w} ${y}H${ps[1].X}"/>`)
+    const from = ps[1].tieX != null ? PAD_X + ps[1].tieX : head.X + head.w
+    edgesSvg.push(`<path class="tie" d="M${from} ${y}H${ps[1].X}"/>`)
   }
 
   for (const kid of u.kids) {
@@ -355,7 +508,7 @@ for (const u of unions.values()) {
       sourceX: junctionX, sourceY: junctionY,
       targetX: kb.X + kb.w / 2, targetY: kb.Y,
       sourcePosition: 'bottom', targetPosition: 'top',
-      borderRadius: CORNER, offset: LINK_GAP_Y,
+      borderRadius: CORNER, offset: LINK_GAP_Y, centerY: barY,
     })
     edgesSvg.push(`<path class="link${adoptive ? ' adopt' : ''}" d="${d}"/>`)
   }
@@ -461,7 +614,9 @@ for (const u of unions.values()) {
   const ps = u.parents.map((p) => boxes.get(primaryKey.get(p))).filter(Boolean)
   if (!ps.length) continue
   const head = ps[0]
-  const jx = ps.length === 2 ? (head.X + head.w + ps[1].X) / 2 : head.X + head.w / 2
+  const jx = ps.length === 2
+    ? ((ps[1].tieX != null ? PAD_X + ps[1].tieX : head.X + head.w) + ps[1].X) / 2
+    : head.X + head.w / 2
   const jy = Math.max(...ps.map((p) => p.Y + p.H))
   for (const kid of u.kids) {
     const kb = boxes.get(primaryKey.get(kid))
@@ -469,10 +624,19 @@ for (const u of unions.values()) {
     const [d] = getSmoothStepPath({
       sourceX: jx, sourceY: jy, targetX: kb.X + kb.w / 2, targetY: kb.Y,
       sourcePosition: 'bottom', targetPosition: 'top',
-      borderRadius: CORNER, offset: LINK_GAP_Y,
+      borderRadius: CORNER, offset: LINK_GAP_Y, centerY: toY(barYearOf(u)),
     })
     for (const seg of segsOf(d)) {
-      for (const r of bs) if (!partyIds.has(r.key) && segHitsRect(seg, r)) { cross++; break }
+      for (const r of bs) {
+        if (partyIds.has(r.key) || !segHitsRect(seg, r)) continue
+        cross++
+        if (process.env.DIAG) {
+          const horiz = Math.abs(seg[0][1] - seg[1][1]) < 1
+          console.error(`  横切り: ${u.parents.map(nameOf).join('＝')} → ${nameOf(kid)}`
+            + ` が「${r.label}」を${horiz ? '横' : '縦'}に横切る`)
+        }
+        break
+      }
     }
   }
 }
