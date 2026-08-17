@@ -659,18 +659,24 @@ p.note{margin:10px 0 0;font-size:13px;color:var(--muted-foreground);line-height:
 svg{display:block}
 .tick{stroke:var(--border);stroke-width:1;stroke-dasharray:2 6}
 .ticklab{fill:var(--muted-foreground);font-size:11px}
-.node rect{fill:color-mix(in oklch, var(--c) 7%, var(--card));
-  stroke:color-mix(in oklch, var(--c) 42%, var(--border));stroke-width:1}
+/* 混色は **in srgb**。oklch で混ぜると --card（oklch(1 0 0)）の色相 0 に引かれて、
+   93%の白が青も緑も色相 0（＝桃色）へ寄せてしまう（powerless hue は none のときだけの
+   規則で、明示された 0 には効かない）。実測で緑の政権の面が色相 9.97、青が 352 だった
+   ＝ **どの王朝の箱も同じ桃色**になっていて、図がのっぺり見えていた主因がこれ。
+   サイト側は dynasty-colors.ts の mixHex が最初から in srgb で、そこから外れていた。 */
+.node rect{fill:color-mix(in srgb, var(--c) 8%, var(--card));
+  stroke:color-mix(in srgb, var(--c) 45%, var(--border));stroke-width:1}
 .node.per rect{fill:var(--card);stroke:var(--border);stroke-dasharray:4 3}
 .node.guess rect{opacity:.72}
 .node .mark{fill:var(--c);stroke:none}
 .node text{fill:var(--foreground);font-size:13px}
 .node.per text{fill:var(--muted-foreground);font-size:12px}
 .node text.sub{fill:var(--muted-foreground);font-size:11px}
-.link{fill:none;stroke:color-mix(in oklch, var(--foreground) 34%, transparent);stroke-width:1.5;
+/* 線も同じ理由で in srgb。34%は全体を引いたときにほとんど消えていたので上げた。 */
+.link{fill:none;stroke:color-mix(in srgb, var(--foreground) 55%, var(--background));stroke-width:1.5;
   stroke-linecap:round;stroke-linejoin:round}
 .link.adopt{stroke-dasharray:5 4}
-.tie{stroke:color-mix(in oklch, var(--foreground) 30%, transparent);stroke-width:1.5}
+.tie{stroke:color-mix(in srgb, var(--foreground) 45%, var(--background));stroke-width:1.5}
 </style>
 <header>
   <h1>${eraName}｜縦軸＝実時間（1年 = ${PX_PER_YEAR}px）</h1>
