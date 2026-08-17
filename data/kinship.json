@@ -691,6 +691,13 @@
         "emperors": 9,
         "edges": 11,
         "persons": 9
+      },
+      {
+        "phase": "maternalLineage",
+        "block": "ブロック19（遼9人）",
+        "emperors": 9,
+        "edges": 14,
+        "persons": 9
       }
     ],
     "confirmedRootless": [
@@ -12505,6 +12512,283 @@
       "aliases": [
         "兪修容"
       ]
+    },
+    {
+      "id": "p-xiaoshi-yelu-saladi",
+      "name": "蕭氏（宣簡皇后）",
+      "kana": "しょうし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": 933,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "德祖耶律撒剌的の妻で、遼太祖耶律阿保機の生母。遼史 巻七十一 后妃に条が立ち「德祖宣简皇后萧氏，小字岩母斤。遥辇氏宰相剔剌之女。男、女六人，太祖长子也」とあり、小字は巖母斤・父は遙輦氏の宰相 剔剌で、6人の子を生みその長子が太祖だと記す。巻六十四 皇子表も「德祖六子：宣简皇后萧氏生五子，太祖第一」と、**5子を生みその第一が太祖**であることを別の位置から重ねる。没年は同条の「天显八年崩」から933年。**この年次は底本の校勘を経ている** — 巻七十一の校勘記が「天显八年崩　八年，原误「十一年」。按纪天显八年十一月辛丑「太皇太后崩」，此误以「十一月」为「十一年」，今改」と、本紀の天顯8年11月辛丑の太皇太后崩に合わせて改めた経緯を明記する。**婚姻エッジは張らない** — 夫の德祖は在世中に帝位に即いておらず（太祖の即位後に追尊された）、「重熙二十一年，追尊宣简皇后」のとおり皇后号も追尊。諱は原典に記載がなく姓氏と小字のみ。なお太祖本紀は「祖母简献皇后异之，鞠为己子」と、太祖が祖母の簡獻皇后に養われたことを記すが、生母はこの宣簡皇后である。",
+      "wikidata": null,
+      "source": {
+        "page": "遼史 巻七十一 列伝第一 后妃",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "宣簡皇后",
+        "巖母斤"
+      ],
+      "posthumous": {
+        "dynasty": "遼",
+        "templeName": null,
+        "posthumousName": "宣簡皇后"
+      }
+    },
+    {
+      "id": "p-shulyu-ping",
+      "name": "述律平（淳欽皇后）",
+      "kana": "じゅつりつへい",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": 879,
+      "deathYear": 953,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "遼太祖耶律阿保機の皇后で、太宗耶律德光の生母。遼史 巻七十一 后妃に条が立ち「太祖淳钦皇后述律氏，讳平，小字月理朵。其先回鹘人糯思」とあり、**諱は平・小字は月理朵で、先祖は回鶻人の糯思**だと出自を記す。同じ巻の序が「后族唯乙室、拨里氏，而世任其国事。太祖慕汉高皇帝，故耶律兼称刘氏；以乙室、拨里比萧相国，遂为萧氏」と、遼の后族が漢の蕭相国になぞらえて蕭氏を名乗った由来を説明しており、本紀が太宗の生母を「淳钦皇后萧氏」と書くのと后妃伝の「述律氏」は同一人物の別の名乗りである。巻六十四 皇子表は「太祖四子：淳钦皇后萧氏生三子，太宗第二」と、3子を生みその第二が太宗だと記す。没年は「应历三年崩，年七十五」から953年で、数え75からの逆算で生年879年（逆算のため yearsApproximate を立てる）。諡は当初「貞烈」で重熙21年に改められた。**婚姻エッジを張る** — 巻一 太祖本紀上の即位条に「即皇帝位。尊母萧氏为皇太后，立皇后萧氏」と**太祖の即位と同日の生前の立后**があり、后妃伝も「太祖即位，群臣上尊号曰地皇后。神册元年，大册，加号应天大明地皇后」と重ねる。太祖の没後は「后称制，摄军国事」と称制し、殉死の代わりに右腕を断って柩に納めた（「欲以身殉，亲戚百官力谏，因断右腕纳于柩」）。",
+      "wikidata": null,
+      "source": {
+        "page": "遼史 巻七十一 列伝第一 后妃",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "淳欽皇后",
+        "蕭氏",
+        "述律氏",
+        "月理朵",
+        "應天皇太后",
+        "地皇后",
+        "貞烈皇后"
+      ],
+      "posthumous": {
+        "dynasty": "遼",
+        "templeName": null,
+        "posthumousName": "淳欽皇后"
+      }
+    },
+    {
+      "id": "p-xiaoshi-yelu-bei",
+      "name": "蕭氏（柔貞皇后）",
+      "kana": "しょうし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "讓國皇帝耶律倍（義宗）の妃で、遼世宗耶律阮の生母。遼史 巻五 世宗本紀の冒頭が「让国皇帝长子，母柔贞皇后萧氏」と生母を名指す。巻七十二 宗室の義宗倍伝は「世宗即位，让国皇帝，陵曰显陵。统和中，更文献。重熙二十年，增文献钦义皇帝，庙号义宗，及二后曰端顺，曰柔贞」と、**倍の2人の后に端順・柔貞の諡が贈られた**ことを記し、柔貞が倍の妃であることを裏づける。**巻七十一 后妃に条は立たない**（同巻が条を立てるのは肅祖から天祚までの帝の后妃で、追尊帝である義宗の后は入らない）。巻六十四 皇子表の世宗の行も母を挙げない。同じ義宗倍伝は他の子について「平王隆先，字团隐，母大氏」「晋王道隐，字留隐，母高氏」と母を書き分けており、世宗が別の母から出たことと矛盾しない。**婚姻エッジは張らない** — 夫の耶律倍は東丹国の人皇王どまりで帝位に即いておらず、柔貞の皇后号も重熙20年の追諡。諱は原典に記載がなく姓氏のみ。生没年も記事が無い。",
+      "wikidata": null,
+      "source": {
+        "page": "遼史 巻五 本紀第五 世宗",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "柔貞皇后"
+      ],
+      "posthumous": {
+        "dynasty": "遼",
+        "templeName": null,
+        "posthumousName": "柔貞皇后"
+      }
+    },
+    {
+      "id": "p-xiaoshi-liao-taizong",
+      "name": "蕭氏（靖安皇后）",
+      "kana": "しょうし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": 935,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "遼太宗耶律德光の皇后で、穆宗耶律璟の生母。遼史 巻七十一 后妃に条が立ち「太宗靖安皇后萧氏，小字温，淳钦皇后弟室室鲁之女。帝为大元帅，纳为妃，生穆宗。及即位，立为皇后」とあり、淳欽皇后の弟 室魯の女で、太宗がまだ大元帥だった時に妃として納れられ穆宗を生んだと記す。巻六十四 皇子表も「太宗五子：靖安皇后萧氏生二子，穆宗第一」と重ねる。没年は同条の「天显十年崩」から935年。諡は当初「彰德」で重熙21年に改められた。**婚姻エッジを張る** — 「及即位，立为皇后」と**太宗の即位に伴う生前の皇后冊立**が明記されており、本フェーズの基準を満たす。巻六十七 外戚表も「太宗靖安皇后父室鲁：驸马都尉室鲁」と父を挙げる。諱は原典に記載がなく姓氏と小字のみ。",
+      "wikidata": null,
+      "source": {
+        "page": "遼史 巻七十一 列伝第一 后妃",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "靖安皇后",
+        "彰德皇后"
+      ],
+      "posthumous": {
+        "dynasty": "遼",
+        "templeName": null,
+        "posthumousName": "靖安皇后"
+      }
+    },
+    {
+      "id": "p-xiaoshi-liao-shizong",
+      "name": "蕭氏（懷節皇后）",
+      "kana": "しょうし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": 951,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "遼世宗耶律阮の皇后で、景宗耶律賢の生母。遼史 巻七十一 后妃に条が立ち「世宗怀节皇后萧氏，小字撒葛只，淳钦皇后弟阿古只之女。帝为永康王，纳之，生景宗。天禄末，立为皇后」とあり、淳欽皇后の弟 阿古只の女で、世宗がまだ永康王だった時に納れられ景宗を生んだと記す。天祿5年（951年）の察割の乱で世宗とともに殺された（「在蓐，察割作乱，弑太后及帝。后乘步辇，直诣察割，请毕收殓。明日遇害」）ので没年は951年。諡は当初「孝烈」で重熙21年に改められた。**婚姻エッジを張る** — 「天禄末，立为皇后」と**世宗の在位中（天祿は世宗の元号）の生前の皇后冊立**が明記されており、本フェーズの基準を満たす。なお世宗にはもう一人「世宗妃甄氏」があり、こちらも「及即位，立为皇后」と生前に皇后へ立てられているが、その所生は寧王只沒で景宗ではない。諱は原典に記載がなく姓氏と小字のみ。",
+      "wikidata": null,
+      "source": {
+        "page": "遼史 巻七十一 列伝第一 后妃",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "懷節皇后",
+        "撒葛只",
+        "孝烈皇后"
+      ],
+      "posthumous": {
+        "dynasty": "遼",
+        "templeName": null,
+        "posthumousName": "懷節皇后"
+      }
+    },
+    {
+      "id": "p-xiao-chuo",
+      "name": "蕭綽（睿智皇后）",
+      "kana": "しょうしゃく",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": 1009,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "遼景宗耶律賢の皇后で、聖宗耶律隆緒の生母。遼史 巻七十一 后妃に条が立ち「景宗睿智皇后萧氏，讳绰，小字燕燕，北府宰相思温女。早慧」とあり、**諱は綽・小字は燕燕**で、北府宰相 蕭思温の女だと記す。「帝即位，选为贵妃。寻册为皇后，生圣宗」と、景宗の即位後に貴妃から皇后へ立てられ聖宗を生んだ経緯を記す。巻六十四 皇子表も「景宗四子：睿智皇后萧氏生三子，圣宗第一」と重ねる。景宗の没後は「尊为皇太后，摄国政」と摂政し、統和元年に承天皇太后の尊号を受けた。没年は「二十七年崩」＝統和27年から1009年。諡は当初「聖神宣獻皇后」で重熙21年に「睿智」へ改められた。**婚姻エッジを張る** — 「帝即位，选为贵妃。寻册为皇后」と**景宗の在位中の生前の皇后冊立**が明記されており、本フェーズの基準を満たす。澶淵の役で「亲御戎车，指麾三军」と自ら軍を率いたことを同巻の論賛が「承天之御戎澶渊」として遼の后妃の特徴の例に挙げる。",
+      "wikidata": null,
+      "source": {
+        "page": "遼史 巻七十一 列伝第一 后妃",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "睿智皇后",
+        "燕燕",
+        "承天皇太后",
+        "聖神宣獻皇后"
+      ],
+      "posthumous": {
+        "dynasty": "遼",
+        "templeName": null,
+        "posthumousName": "睿智皇后"
+      }
+    },
+    {
+      "id": "p-xiaoshi-liao-shengzong",
+      "name": "蕭氏（欽哀皇后）",
+      "kana": "しょうし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "遼聖宗耶律隆緒の宮人・元妃で、興宗耶律宗真の生母。遼史 巻七十一 后妃に条が立ち「圣宗钦哀皇后萧氏，小字耨斤，淳钦皇后弟阿古只五世孙」とあり、小字は耨斤で淳欽皇后の弟 阿古只の五世孫だと記す。「久之，入宫。尝拂承天太后榻，获金鸡，吞之，肤色光泽胜常。太后惊异曰：「是必有奇子！」已而生兴宗」と興宗を生んだ経緯を記し、**同じ巻の仁德皇后条も「开泰五年，宫人耨斤生兴宗，后养为子」と、生母が耨斤・養母が仁德皇后（齊天皇后）であることを別の条から重ねる**。興宗本紀の冒頭も「圣宗长子，母曰钦哀皇后萧氏。上始生，齐天皇后取养之」と生母と養母を並べて書く。**婚姻エッジは張らない** — 生前の位は宮人・元妃どまりで、興宗本紀の即位条も「尊母元妃萧氏为皇太后」と元妃から皇太后への尊号で、聖宗の在位中に皇后へ冊立された記事は無い（聖宗の生前の皇后は仁德皇后蕭菩薩哥）。諱は原典に記載がなく姓氏と小字のみ。没年は「清宁初，尊为太皇太后」の後に崩御と諡を記すだけで年次が書かれていないため null。",
+      "wikidata": null,
+      "source": {
+        "page": "遼史 巻七十一 列伝第一 后妃",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "欽哀皇后",
+        "耨斤",
+        "法天皇太后"
+      ],
+      "posthumous": {
+        "dynasty": "遼",
+        "templeName": null,
+        "posthumousName": "欽哀皇后"
+      }
+    },
+    {
+      "id": "p-xiaoshi-liao-xingzong",
+      "name": "蕭氏（仁懿皇后）",
+      "kana": "しょうし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": 1076,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "遼興宗耶律宗真の皇后で、道宗耶律洪基の生母。遼史 巻七十一 后妃に条が立ち「兴宗仁懿皇后萧氏，小字挞里，钦哀皇后弟孝穆之长女。性宽容，姿貌端丽。帝即位，入宫，生道宗。重熙四年，立为皇后」とあり、小字は撻里で欽哀皇后の弟 蕭孝穆の長女、興宗の即位後に入宮して道宗を生んだと記す。巻六十四 皇子表も「兴宗三子：仁懿皇后萧氏生三子，道宗第一」と重ねる。没年は「大康二年崩」から1076年。清寧9年の重元の乱では「太后亲督卫士，破逆党」と自ら衛士を率いて逆党を破り、同巻の論賛も「仁懿之亲破重元」を遼の后妃の特徴の例に挙げる。**婚姻エッジを張る** — 「重熙四年，立为皇后」と**興宗の在位中（重熙は興宗の元号）の生前の皇后冊立**が明記されており、本フェーズの基準を満たす。諱は原典に記載がなく姓氏と小字のみ。",
+      "wikidata": null,
+      "source": {
+        "page": "遼史 巻七十一 列伝第一 后妃",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "仁懿皇后",
+        "撻里"
+      ],
+      "posthumous": {
+        "dynasty": "遼",
+        "templeName": null,
+        "posthumousName": "仁懿皇后"
+      }
+    },
+    {
+      "id": "p-xiaoshi-yelu-jun",
+      "name": "蕭氏（貞順皇后）",
+      "kana": "しょうし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "順宗耶律濬（昭懷太子）の妃で、天祚帝耶律延禧の生母。遼史 巻二十七 天祚皇帝本紀一の冒頭が「道宗之孙，父顺宗大孝顺圣皇帝，母贞顺皇后萧氏」と生母を名指す。同じ本紀の乾統元年条が「上皇考昭怀太子曰大孝顺圣皇帝，庙号顺宗，皇妣曰贞顺皇后」と、**父と母への追尊を同じ条で記す**。巻七十二 宗室の順宗濬の記事も「乾统初，追尊大孝顺圣皇帝，庙号顺宗，妃萧氏贞顺皇后。一子，延禧，即天祚皇帝」と、貞順皇后が濬の妃であること・その一子が天祚帝であることを重ねる。**巻七十一 后妃に条は立たない**（同巻が条を立てるのは帝の后妃で、追尊帝である順宗の妃は入らない）。**婚姻エッジは張らない** — 夫の耶律濬は皇太子のまま耶律乙辛に誣告されて殺されており帝位に即いておらず、貞順の皇后号も乾統初の追尊。諱は原典に記載がなく姓氏のみ。生没年も記事が無い。",
+      "wikidata": null,
+      "source": {
+        "page": "遼史 巻二十七 本紀第二十七 天祚皇帝一",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "貞順皇后"
+      ],
+      "posthumous": {
+        "dynasty": "遼",
+        "templeName": null,
+        "posthumousName": "貞順皇后"
+      }
     }
   ],
   "edges": [
@@ -28078,6 +28362,183 @@
       "note": "宋史 巻四十七 二王の冒頭に「季永国公昺，母修容俞氏」とあり生母を名指す。巻二百四十三 后妃下の楊淑妃条も「昺，修容俞氏所生也」と、衞王昺が兪氏の所生であることを明記し、本紀と后妃伝の2箇所で一致する。衞王本人の本紀（祥興の記事）には母の記載が無く、兄の端宗と並べた二王の記事が生母の証人になる。",
       "source": {
         "page": "宋史 巻四十七 本紀第四十七 瀛国公二王附",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-xiaoshi-yelu-saladi",
+      "to": "liao-taizu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "遼史 巻一 太祖本紀上の冒頭に「德祖皇帝长子，母曰宣简皇后萧氏」とあり生母を名指し、続けて「初，母梦日堕怀中，有娠。及生，室有神光异香」と懐妊と出生の記事を載せる。巻七十一 后妃の宣簡皇后条も「男、女六人，太祖长子也」、巻六十四 皇子表も「德祖六子：宣简皇后萧氏生五子，太祖第一」と、太祖を所生の長子に数える点で3箇所が一致する。",
+      "source": {
+        "page": "遼史 巻一 本紀第一 太祖上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-shulyu-ping",
+      "to": "liao-taizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "遼史 巻三 太宗本紀上の冒頭に「太祖第二子，母淳钦皇后萧氏」とあり生母を名指す。巻六十四 皇子表も「太祖四子：淳钦皇后萧氏生三子，太宗第二」と、太宗を所生の第二子に数える。巻七十二 宗室の義宗倍伝も「义宗，名倍，小字图欲，太祖长子，母淳钦皇后萧氏」と、兄の耶律倍が同じ母から出たことを記す。",
+      "source": {
+        "page": "遼史 巻三 本紀第三 太宗上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "liao-taizu",
+      "to": "p-shulyu-ping",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "太祖と淳欽皇后の婚姻。遼史 巻一 太祖本紀上の即位条に「即皇帝位。尊母萧氏为皇太后，立皇后萧氏」とあり、**太祖の即位と同じ条で生前に皇后へ立てられている**。巻七十一 后妃も「太祖即位，群臣上尊号曰地皇后。神册元年，大册，加号应天大明地皇后」と、太祖の在位中の尊号を重ねて記す。追尊の皇后号ではなく生前の立后を根拠とするので、本フェーズの婚姻エッジの基準を満たす。",
+      "source": {
+        "page": "遼史 巻一 本紀第一 太祖上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-xiaoshi-yelu-bei",
+      "to": "liao-shizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "遼史 巻五 世宗本紀の冒頭に「让国皇帝长子，母柔贞皇后萧氏」とあり生母を名指す。巻七十二 宗室の義宗倍伝が「重熙二十年，增文献钦义皇帝，庙号义宗，及二后曰端顺，曰柔贞」と、柔貞を耶律倍の后の一人として挙げるので、本紀の「让国皇帝长子」と整合する。同伝は他の子の母を「母大氏」「母高氏」と書き分けており、世宗の母を蕭氏とすることと矛盾しない。",
+      "source": {
+        "page": "遼史 巻五 本紀第五 世宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-xiaoshi-liao-taizong",
+      "to": "liao-muzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "遼史 巻六 穆宗本紀上の冒頭に「太宗皇帝长子，母曰靖安皇后萧氏」とあり生母を名指す。巻七十一 后妃の靖安皇后条も「帝为大元帅，纳为妃，生穆宗」と穆宗を生んだことを明記し、巻六十四 皇子表も「太宗五子：靖安皇后萧氏生二子，穆宗第一」と所生の第一子に数える。3箇所が一致する。",
+      "source": {
+        "page": "遼史 巻六 本紀第六 穆宗上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "liao-taizong",
+      "to": "p-xiaoshi-liao-taizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "太宗と靖安皇后の婚姻。遼史 巻七十一 后妃に「帝为大元帅，纳为妃，生穆宗。及即位，立为皇后」とあり、大元帥時代に妃として納れ、**即位に伴って生前に皇后へ立てた**ことを明記する。追尊の皇后号ではなく生前の立后を根拠とするので、本フェーズの婚姻エッジの基準を満たす。",
+      "source": {
+        "page": "遼史 巻七十一 列伝第一 后妃",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-xiaoshi-liao-shizong",
+      "to": "liao-jingzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "遼史 巻八 景宗本紀上の冒頭に「世宗皇帝第二子，母曰怀节皇后萧氏」とあり生母を名指す。巻七十一 后妃の懷節皇后条も「帝为永康王，纳之，生景宗」と景宗を生んだことを明記し、巻六十五 公主表も「世宗三女：怀节皇后生」と同じ后を所生の親に挙げる。",
+      "source": {
+        "page": "遼史 巻八 本紀第八 景宗上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "liao-shizong",
+      "to": "p-xiaoshi-liao-shizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "世宗と懷節皇后の婚姻。遼史 巻七十一 后妃に「帝为永康王，纳之，生景宗。天禄末，立为皇后」とあり、永康王時代に納れ、**天祿年間の末（天祿は世宗の元号）に生前に皇后へ立てた**ことを明記する。追尊の皇后号ではなく生前の立后を根拠とするので、本フェーズの婚姻エッジの基準を満たす。",
+      "source": {
+        "page": "遼史 巻七十一 列伝第一 后妃",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-xiao-chuo",
+      "to": "liao-shengzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "遼史 巻十 聖宗本紀一の冒頭に「景宗皇帝长子，母曰睿智皇后萧氏」とあり生母を名指す。巻七十一 后妃の睿智皇后条も「寻册为皇后，生圣宗」と聖宗を生んだことを明記し、巻六十四 皇子表も「景宗四子：睿智皇后萧氏生三子，圣宗第一」と所生の第一子に数える。3箇所が一致する。",
+      "source": {
+        "page": "遼史 巻十 本紀第十 聖宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "liao-jingzong",
+      "to": "p-xiao-chuo",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "景宗と睿智皇后の婚姻。遼史 巻七十一 后妃に「帝即位，选为贵妃。寻册为皇后，生圣宗」とあり、**景宗の即位後に貴妃から生前に皇后へ冊立された**ことを明記する。追尊の皇后号ではなく生前の立后を根拠とするので、本フェーズの婚姻エッジの基準を満たす。",
+      "source": {
+        "page": "遼史 巻七十一 列伝第一 后妃",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-xiaoshi-liao-shengzong",
+      "to": "liao-xingzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "遼史 巻十八 興宗本紀一の冒頭に「圣宗长子，母曰钦哀皇后萧氏。上始生，齐天皇后取养之」とあり、生母（欽哀皇后）と養母（齊天皇后）を書き分けて生母を名指す。巻七十一 后妃の欽哀皇后条も「已而生兴宗」と生んだことを明記し、同じ巻の仁德皇后条も「开泰五年，宫人耨斤生兴宗，后养为子」と、耨斤が生み仁德皇后が養ったことを別の条から重ねる。巻六十四 皇子表も「圣宗六子：钦哀皇后萧氏生二子，兴宗第一」と所生の第一子に数える。",
+      "source": {
+        "page": "遼史 巻十八 本紀第十八 興宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-xiaoshi-liao-xingzong",
+      "to": "liao-daozong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "遼史 巻二十一 道宗本紀一の冒頭に「兴宗皇帝长子，母曰仁懿皇后萧氏」とあり生母を名指す。巻七十一 后妃の仁懿皇后条も「帝即位，入宫，生道宗」と道宗を生んだことを明記し、巻六十四 皇子表も「兴宗三子：仁懿皇后萧氏生三子，道宗第一」と所生の第一子に数える。",
+      "source": {
+        "page": "遼史 巻二十一 本紀第二十一 道宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "liao-xingzong",
+      "to": "p-xiaoshi-liao-xingzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "興宗と仁懿皇后の婚姻。遼史 巻七十一 后妃に「帝即位，入宫，生道宗。重熙四年，立为皇后」とあり、**興宗の在位中（重熙4年＝1035年）に生前に皇后へ立てられた**ことを明記する。追尊の皇后号ではなく生前の立后を根拠とするので、本フェーズの婚姻エッジの基準を満たす。",
+      "source": {
+        "page": "遼史 巻七十一 列伝第一 后妃",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-xiaoshi-yelu-jun",
+      "to": "liao-tianzuodi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "遼史 巻二十七 天祚皇帝本紀一の冒頭に「道宗之孙，父顺宗大孝顺圣皇帝，母贞顺皇后萧氏」とあり生母を名指す。同じ本紀の乾統元年条が「上皇考昭怀太子曰大孝顺圣皇帝，庙号顺宗，皇妣曰贞顺皇后」と父母への追尊を並べて記し、巻七十二 宗室の順宗濬の記事も「妃萧氏贞顺皇后。一子，延禧，即天祚皇帝」と、貞順皇后の一子が天祚帝であることを明記する。3箇所が一致する。",
+      "source": {
+        "page": "遼史 巻二十七 本紀第二十七 天祚皇帝一",
         "lang": "zh-classical"
       }
     }
