@@ -2659,6 +2659,11 @@
 - **提案**: worktree のコーパスは symlink なので `find` は既定で中へ入らず、**エラーを出さずに0件**を返す。`find -L` を使うか `/usr/bin/grep -rlF "語" daizhigev20/` で当てる。2026-08-17 に CORPUS_NOTES へ1行足した（実装済み）
 - **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
 
+### 2026-08-17 サイトの実測スクリプトが動く前提（playwright）を setup_worktree.sh で見に行く <!-- auto:6e481739d266 -->
+- **気づいた場面**: /database のファセット実装（Issue #94）。worktree で bar-audit.mjs を流したら ERR_MODULE_NOT_FOUND: playwright で止まり、張り直したら今度は chromium の revision 不一致（入っているのは 1234・キャッシュの playwright は 1232 まで）でもう一度止まった。AGENTS.md は「setup_worktree.sh のハードリンク複製で symlink も複製されるので capture-site.mjs が動く」と書いているが、複製元の primary 側に symlink が無いので何も来ない。
+- **提案**: 帯・hover・ヘッダーの実測は「触ったら必ず流し直す」契約になっているのに、worktree では既定で動かない状態が2段ある。setup_worktree.sh --site の最後に (1) node_modules/playwright{,-core} の解決可否 (2) ~/.cache/ms-playwright の revision と playwright-core の browsers.json の突合、を見て、欠けていれば張り直すか警告を出すのが安い。黙って落ちるのではなく着手前に分かるだけでも違う（実測を諦めてコミットする方向に倒れやすい）。
+- **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
+
 ### 2026-08-17 断片台帳の book ラベルをカタログに照らすゲートを足す <!-- auto:75bd5eb2bdd0 -->
 - **気づいた場面**: 残量表102の実測（2026-08-17）。書ラベルが自由語彙で、65ラベルが書としては55しかなかった
 - **提案**: data/internal/name-fragments/ の claims[].book には「舊唐書 卷十六 本紀第十六」「漢書（本紀キャッシュ）」のように書名でない文字列が入り込む（3件を実測して訂正）。さらに簡繁の揺れが9群あり、2 finding が同じ書を2冊と数えていた。check_claims.py に「book を to_simplified して meta.catalogs.books に無ければ落とす」検査を足す。寄せ先の字体（台帳は繁体が多数・カタログは簡体）を決める判断が要るので、まず警告だけ出す形から。
