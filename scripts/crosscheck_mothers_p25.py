@@ -14,9 +14,14 @@ usage: python3 crosscheck_mothers_p25.py <皇帝id カンマ区切り>
   BOTH-NONE    双方とも母なし
 """
 import json, sys, os, subprocess, urllib.parse
+from pathlib import Path
 
-sys.path.insert(0, os.path.join(os.getcwd(), "scripts"))
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
 from hanzi_norm import norm_for_match
+
+# v3 の relation は ID（`実母`・`養母` は 2026-08-17 まで残っていた v2 の語）
+MOTHER_RELATIONS = ("birth-mother", "adoptive-mother")
 
 # hanzi_norm が吸収しない異体（姬/姫・媪/媼 等）と括弧類を潰す照合用の追加正規化。
 # 名前照合の当たり判定を広げるだけで、判定そのものは常に原典に戻して行う。
@@ -55,8 +60,8 @@ SELECT ?e ?m ?mLabelZh ?mLabelJa ?mLabelEn WHERE {{
 
 def main():
     ids = sys.argv[1].split(",")
-    kin = json.load(open("data/kinship.json", encoding="utf-8"))
-    emp = json.load(open("data/emperors.json", encoding="utf-8"))
+    kin = json.loads((ROOT / "data" / "kinship.json").read_text(encoding="utf-8"))
+    emp = json.loads((ROOT / "data" / "emperors.json").read_text(encoding="utf-8"))
     qid_by_id, name_by_id = {}, {}
     for e in emp["emperors"]:
         if e["id"] in ids:
@@ -65,7 +70,7 @@ def main():
     persons = {p["id"]: p for p in kin["persons"]}
     mothers = {}
     for edge in kin["edges"]:
-        if edge["type"] == "kinship" and edge.get("relation") in ("実母", "養母"):
+        if edge["type"] == "kinship" and edge.get("relation") in MOTHER_RELATIONS:
             mothers.setdefault(edge["to"], []).append(edge["from"])
     unknown = {c["id"] for c in kin["meta"].get("confirmedMotherUnknown", [])}
 
