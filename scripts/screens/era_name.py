@@ -150,6 +150,79 @@ def run():
     return out
 
 
+# ── 上限の数え分け（Issue #161 の2節）─────────────────────────────
+# **バケットとは別の軸**。バケットは「どう読むか」を決めるが、こちらは
+# 「そもそも埋まる件なのか」を数える。残 221 を均質な転記待ちの行列と読むと、
+# 元号名が存在しない改元（前漢の前元・中元・後元、西魏恭帝）や底本の字が
+# 壊れている件まで「埋める」目標に入り、達成不能な分母になる（R-COVERAGE-MEASURED）。
+AUDIT_NAME = r"[一-鿿㐀-䶿]{2,4}"
+AUDIT_PATS = [
+    re.compile(r"(?:改元|建元|改年|改號|改号|年號|年号|號年|号年|紀元)"
+               r"(?:為|为|曰|是)?[「『]?(" + AUDIT_NAME + r")[」』]?"),
+    re.compile(r"[「『]?(" + AUDIT_NAME + r")[」』]?(?:に|へ|と|を)"
+               r"(?:改元|建元|改める|改めた|改称|定めた|改め)"),
+    re.compile(r"(?:元号|年号|年號)(?:を|は|の)?[「『](" + AUDIT_NAME + r")[」』]"),
+    re.compile(r"(?<![一-鿿])(" + AUDIT_NAME + r")元年"),
+    re.compile(r"(?:から|より)(" + AUDIT_NAME + r")(?:へ|に)"),
+]
+AUDIT_NOISE = NOISE | {"年號", "皇太子", "皇太后", "太上皇", "新元号", "旧元号", "先代",
+                       "独自", "実質", "正式", "改称", "紀年", "年間", "使用", "継続",
+                       "制定", "布告", "元号名", "翌々年", "十二月"}
+AUDIT_TAIL_NG = set("年月日春夏秋冬詔崩薨帝王号號位礼禮")
+# note が「底本の字が取れていない」と自分で言っている形。**機械で字の欠けは見分けられない**
+# （神䴥 の 䴥 は実在字なので PUA 走査には掛からず、抽出後の原文には字そのものが無い）
+GLYPH_BROKEN = re.compile(r"判読困難|脱字|欠字|文字化け|抽出上|表示できな|外字|原典表記は")
+
+
+def note_names(note):
+    """note が名乗る元号名の候補。**値を決める道具ではない**（数え分けのためだけ）。"""
+    out, seen = [], set()
+    for p in AUDIT_PATS:
+        for m in p.finditer(note):
+            v = m.group(1)
+            if v in AUDIT_NOISE or v in seen or v[-1] in AUDIT_TAIL_NG:
+                continue
+            if len(v) == 2 and v[-1] in DIGITS:
+                continue
+            seen.add(v)
+            out.append(v)
+    return out
+
+
+def audit():
+    """event id → (到達可能性のクラス, 皇帝id, 候補)。"""
+    data = json.loads(EMPERORS.read_text(encoding="utf-8"))
+    bodies, out = {}, {}
+    for e in data["emperors"]:
+        o = e.get("eraChangeCount")
+        if not isinstance(o, dict):
+            continue
+        for ev in (o.get("events") or []):
+            if not isinstance(ev, dict) or ev.get("eraName"):
+                continue
+            eid = e["id"]
+            if eid not in bodies:
+                p = CACHE_DIR / f"{eid}.txt"
+                bodies[eid] = (norm_for_match(p.read_text(encoding="utf-8"))
+                               if p.is_file() else None)
+            evid = ev.get("id") or f"{eid}.eraChangeCount.?"
+            note = ev.get("note") or ""
+            cands = note_names(note)
+            body = bodies[eid]
+            if GLYPH_BROKEN.search(note):
+                cls = "glyph-broken"      # 底本の字が壊れている自己申告。別の書から取り直す
+            elif body is None:
+                cls = "no-cache"
+            elif any(norm_for_match(v) in body for v in cands):
+                cls = "in-own-corpus"     # 本人のキャッシュに字が在る＝grep 出力からコピーできる
+            elif cands:
+                cls = "other-source"      # note は名乗るが本人のキャッシュに無い（別の書・別巻）
+            else:
+                cls = "unnamed?"          # 抽出器が名を立てられなかった。**人が読む側**
+            out[evid] = (cls, eid, cands)
+    return out
+
+
 def sample(ids, seed, size):
     """種つきの無作為抽出（name_fields.py と同じハッシュ順）。
 
@@ -167,7 +240,31 @@ def main():
     ap.add_argument("--sample", type=int, default=0, help="absent 系バケットから引く標本数")
     ap.add_argument("--sample-key", default="event-id")
     ap.add_argument("--list", metavar="バケット", help="そのバケットの event を並べる")
+    ap.add_argument("--audit", action="store_true",
+                    help="上限の数え分け（到達可能性のクラス。バケットとは別の軸）")
     args = ap.parse_args()
+
+    if args.audit:
+        cells = audit()
+        klass = {}
+        for evid, (c, _eid, _cands) in cells.items():
+            klass.setdefault(c, []).append(evid)
+        if args.list:
+            for evid in sorted(klass.get(args.list, [])):
+                print(evid, "\t", "・".join(cells[evid][2]))
+            return 0
+        print(f"上限の数え分け（母集団 {len(cells)} event）")
+        for k, v in sorted(klass.items(), key=lambda kv: -len(kv[1])):
+            print(f"  {k}: {len(v)}")
+        print("  ※ unnamed? は「抽出器が名を立てられなかった」だけ。"
+              "**値が無いことの証拠ではない** — 一覧を人が読んで数え分ける")
+        if args.sample:
+            pool = [e for e in cells if cells[e][0] != "in-own-corpus"] \
+                if args.list is None else klass.get(args.list, [])
+            print(f"\n標本（seed={args.seed}・{args.sample}件）:")
+            for evid in sample(pool, args.seed, args.sample):
+                print(" ", evid, "\t", cells[evid][0], "\t", "・".join(cells[evid][2]))
+        return 0
 
     cells = run()
     buckets = {}
