@@ -387,7 +387,16 @@ def brief_for(eid, records, field=None):
     for rec, bucket, unit in hits:
         grouped.setdefault((rec["id"], bucket), (rec, bucket, []))[2].append(unit)
     for rec, bucket, units in grouped.values():
-        b = next((x for x in rec.get("buckets") or [] if x.get("name") == bucket), {})
+        # coverage の値は `<フィールド>:<バケット名>` の形を取ることがある（1つの記録が
+        # 複数フィールドを覆う絞り込み。era-name-issue37 など）。素の名前で引くと必ず外れ、
+        # **kind=None・意味: None** が出る。これを読んだ調査エージェントが「絞り込みは
+        # この人物に適用外」と解釈する余地があるので、後ろ側の名前でも引き直す
+        bname = bucket
+        b = next((x for x in rec.get("buckets") or [] if x.get("name") == bname), None)
+        if b is None and ":" in bucket:
+            bname = bucket.rsplit(":", 1)[-1]
+            b = next((x for x in rec.get("buckets") or [] if x.get("name") == bname), None)
+        b = b or {}
         named = [u for u in units if u]
         print(f"\n- 記録: {rec['id']}（Issue #{rec.get('issue')}）"
               f"／覆うフィールド: {'・'.join(rec.get('fields') or [])}")
