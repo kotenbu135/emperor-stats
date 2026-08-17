@@ -6,7 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 `../data/emperors.json`（中国皇帝365人・全12項目）を可視化する統計サイト。Next.js 16（App Router / Turbopack）+ Tailwind v4 + shadcn/ui + Tremor（vendored）+ Recharts + TanStack Table。`output: "export"` で `out/` に静的書き出しし、GitHub Pages + カスタムドメイン **emperorstats.com**（`public/CNAME`）のルート直下で配信する。
 
-**2026-07-31 に作り替えて一旦完成した。** 構成は**4ページ**（概要ダッシュボード `/`・皇帝一覧 `/emperors`・データベース `/database`・このサイトについて `/about`）＋皇帝個別 `/emperors/[id]` の365ページ。ただし**外側のシェル（サイドバー・ヘッダー・フッター）・`/emperors/[id]` は旧実装のまま**残っている（申し送りの全文は SITE_DESIGN.md の「2. ページ構成」節）。**詳細ダイアログは 2026-08-01 に廃止**し、一覧カードは個別ページへ直接遷移する。**廃止した8ページ**（`/timeline`・`/kinship`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`・`/reign`）はファイルごと削除済みで、**公開済みURLは無言で 404 に着地させる**（リダイレクト・410 は設けない）。`/reign` の2節はデータベースの状態が担い、リンクは `/database?sort=reignApproxDays&order=desc`（在位年数ランキング）と `/database?reign=restoration`（復位者一覧）へ付け替えてある。**チャートは Recharts（vendored Tremor 経由）だけ**（`@nivo/*` はこの削除で消えた）。なお `/lab` はチャート候補の見比べ用に残してあるが、`SITE_SECTIONS`・`sitemap.xml`・ナビのいずれにも載せていない**非公開の作業ページ**。
+**2026-07-31 に作り替えて一旦完成した。** 構成は**5ページ**（概要ダッシュボード `/`・皇帝一覧 `/emperors`・データベース `/database`・**系譜図 `/kinship`**・このサイトについて `/about`）＋皇帝個別 `/emperors/[id]` の365ページ。ただし**外側のシェル（サイドバー・ヘッダー・フッター）・`/emperors/[id]` は旧実装のまま**残っている（申し送りの全文は SITE_DESIGN.md の「2. ページ構成」節）。**詳細ダイアログは 2026-08-01 に廃止**し、一覧カードは個別ページへ直接遷移する。**廃止した8ページ**（`/timeline`・`/kinship`・`/death-accession`・`/court-events`・`/military`・`/ages`・`/dynasties`・`/reign`）はファイルごと削除済みで、**公開済みURLは無言で 404 に着地させる**（リダイレクト・410 は設けない）。**ただし `/kinship` だけは 2026-08-17 に作り直して復活した**（Issue #174・下の「系譜図」節）ので、この8ページのうち 404 なのはいま7つ。`/reign` の2節はデータベースの状態が担い、リンクは `/database?sort=reignApproxDays&order=desc`（在位年数ランキング）と `/database?reign=restoration`（復位者一覧）へ付け替えてある。**チャートは Recharts（vendored Tremor 経由）だけ**（`@nivo/*` はこの削除で消えた）。なお `/lab` はチャート候補の見比べ用に残してあるが、`SITE_SECTIONS`・`sitemap.xml`・ナビのいずれにも載せていない**非公開の作業ページ**。
 
 このファイルには**崩すとビルドが落ちる契約**だけを置いてある。ページ構成・スタックの使い分け・配色の考え方・各ページの設計判断・決着済みで再提案しないことは [../docs/site-design/SITE_DESIGN.md](../docs/site-design/SITE_DESIGN.md) が正。旧サイトの設計記録・実装ログ・デザイン契約は同日すべて削除したので、**この2本以外から方針を引かないこと**。
 
@@ -130,6 +130,40 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 `emperor-hero.tsx`）に停止用の分岐を足さないこと** — 止め方はこの1箇所に閉じてある。
 なお**止めているあいだも書体のサブセットは取り直さない**（紹介文の字が落ちて、再開時に
 `check-font-coverage.mjs` が落ちる）。
+
+## 系譜図（`/kinship`）はクライアント JS を持たない
+
+2026-08-17 に作り直した（Issue #174）。**座標も線の path もビルド時に解いて静的 SVG へ焼く。**
+レイアウトは `src/lib/kinship/layout.ts`・描画は `src/components/kinship/chapter-figure.tsx` で、
+**どちらにも `"use client"` を付けない**。旧実装はクライアント描画だったため皇帝個別ページへの
+`<a>` が静的HTMLに載らず、それが廃止の理由の1つだった（いまは6章で259本載っている）。
+
+- **縦軸は実時間**（1年 = 8px の完全等間隔・箱の上辺が即位年・下辺が退位年）。
+  2026-08-01 に「世代の段へ変える」と決めたことがあるが**却下された**（やってみて満足の
+  いくものにならなかった）。段のグラフ向けに測った候補比較（ELK・dagre）は前提ごと失効している
+- **淡彩は `dynastyColorHex`（＝`in srgb` の混色）で作る。** `color-mix(in oklch, 色 8%, 白)` に
+  すると `--card` の色相 0 に引かれて**どの王朝の箱も同じ桃色になる**（powerless hue の規則は
+  `none` のときだけ効き、明示された 0 には効かない）。スパイクで実際にこれを踏み、
+  「配色がのっぺりしている」の主因がここだった
+- **`layout.ts` から `emperors.ts` を import しない**（`getOgFacts` があちらからこちらを呼ぶので
+  循環参照になる）。表示名は `display-name.ts`・政権キーは `regimeId` から直接引く
+- **`@xyflow/system` は経路生成器（`getSmoothStepPath`・MIT）をビルド時に呼ぶためだけの依存**。
+  純関数なので DOM が要らない。`out/` に入っていないことを確かめること（`grep -rl xyflow out/`）
+- 章は**秦・漢から五代十国までの6章**（2026-08-17 ユーザー決定）。章の id は
+  `meta.catalogs.eras` に実在することを `getKinshipChapters` が検査する
+
+## 紹介文を止めている間に書体のサブセットを取り直すときの手順
+
+`PROFILES_PUBLISHING_PAUSED` が `true` のあいだ、素直に
+`python3 tools/build-font-subset.py` を流すと**紹介文の字が `out/` に出ていないので
+サブセットから落ちる**（再開したときに `check-font-coverage.mjs` が落ちる）。
+新しいページを足して字が増えたときは、次の順で回す:
+
+1. `PROFILES_PUBLISHING_PAUSED = false` にする
+2. `npm run build`（postbuild のフォント検査は落ちてよい。`out/` はもう書けている）
+3. `python3 tools/build-font-subset.py`
+4. `PROFILES_PUBLISHING_PAUSED = true` に戻す
+5. `npm run build`
 
 ## ページを1枚足すときに揃える3箇所
 
