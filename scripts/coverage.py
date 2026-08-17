@@ -82,10 +82,16 @@ class Ctx:
         if PROFILES.exists():
             self.profiles = json.loads(PROFILES.read_text(encoding="utf-8")).get("profiles") or {}
         self.mothers = set()
+        self.mother_absent = set()
         if KINSHIP.exists():
-            for e in json.loads(KINSHIP.read_text(encoding="utf-8")).get("edges") or []:
+            kin = json.loads(KINSHIP.read_text(encoding="utf-8"))
+            for e in kin.get("edges") or []:
                 if e.get("type") == "kinship" and e.get("relation") == "birth-mother":
                     self.mothers.add(e.get("to"))
+            # 原典を読んだうえで「生母の記載が無い」と確定したセル（理由つき）。
+            # 名前6欄の read-absent と同じ扱いで不在確定に立てる（2026-08-17 のユーザー決定）
+            for c in kin.get("meta", {}).get("confirmedMotherUnknown") or []:
+                self.mother_absent.add(c.get("id"))
 
     def _skip_cells(self):
         """regime-conventions.json が原典の明文で打ち切った (政権, 項目, 例外id集合)。
@@ -272,7 +278,15 @@ def m_profile(ctx):
 
 def m_mother(ctx):
     for e in ctx.emperors:
-        yield cell(e["id"], e["regimeId"], FILLED if e["id"] in ctx.mothers else UNKNOWN)
+        if e["id"] in ctx.mothers:
+            state = FILLED
+        elif e["id"] in ctx.mother_absent:
+            # kinship.json の meta.confirmedMotherUnknown。**読んだ結果の沈黙**なので
+            # 未読（判別不能）と混ぜない。后妃伝そのものが立たない政権が母集団に多い
+            state = ABSENT
+        else:
+            state = UNKNOWN
+        yield cell(e["id"], e["regimeId"], state)
 
 
 # id・ラベル・単位・「完了」と称しているか（meta.status の実値から引く）
