@@ -239,6 +239,10 @@ for (const b of boxes.values()) {
 }
 for (const u of unions.values()) {
   if (u.parents.length < 2) continue
+  // 同じ人が2つの union で「妃」に立つことがある（南漢の劉氏など）。両方の unit へ
+  // 付けると片方が予約した場所と実際に描く場所が食い違い、**箱が重なる**。
+  // spouseOf が持っている1人だけを正とする（もう一方の線は夫の箱の右端から引かれる）。
+  if (spouseOf.get(u.parents[1]) !== u.parents[0]) continue
   const unit = units.get(headOf(u.parents[0]))
   if (!unit) continue
   const s = boxes.get(primaryKey.get(u.parents[1]))
@@ -416,7 +420,7 @@ function planSiblings(h) {
 
   const items = []
   for (const un of us) {
-    const j = junctionOf(un)
+    const j = anchorOf(un)
     if (j == null) continue
     const kus = un.kids.map((k) => units.get(headOf(k))).filter(Boolean)
     if (!kus.length) continue
@@ -482,6 +486,22 @@ function bandBaseOf(rid) {
   return x
 }
 
+/**
+ * 子を置くときに寄せる先。**線の始点（垂下点）とは別物**。
+ *
+ * 垂下点は夫婦連結線の中点なので、夫の箱の右端より右にある。そこへ子を寄せると
+ * 世代ごとに「夫の幅の半分＋隙間」だけ右へずれ、王朝が縦の柱ではなく**斜めの帯**になる。
+ * 実測では唐27人が3,566px（図の幅の85%）・北魏18人が2,571px に散っていた。
+ * 置く先は**本人の箱の中心**にして、垂下点から兄弟バーまでの横のずれは線側で吸収する。
+ */
+const anchorOf = (un) => {
+  if (NO_ANCHOR) return junctionOf(un)
+  const b = boxes.get(primaryKey.get(un.parents[0]))
+  if (!b || b.X0 == null) return junctionOf(un)
+  return b.X0 + (units.get(headOf(un.parents[0]))?.headW ?? b.w) / 2
+}
+
+const NO_ANCHOR = !!process.env.NOANCHOR  // 子を垂下点（＝夫婦連結線の中点）へ寄せる旧挙動
 const NO_BAND = !!process.env.NOBAND      // 政権の帯を取らない（噛み合わせを許す）
 const NO_PLAN = !process.env.PLAN       // 兄弟の並びを使わず union ごとに垂下点の下へ振る
 const NO_BLOCK = !!process.env.NOBLOCK    // 仕上げ段で通り道の塞ぎを見ない
@@ -491,7 +511,7 @@ function desiredOf(u) {
   const pu = parentUnionOf.get(u.id)
   if (!pu) return NO_BAND ? 0 : bandBaseOf(regimeIdOf(u.id))
   if (NO_PLAN) {
-    const j0 = junctionOf(pu)
+    const j0 = anchorOf(pu)
     if (j0 == null) return 0
     const i = pu.kids.indexOf(u.id)
     return j0 + (i - (pu.kids.length - 1) / 2) * (u.w + COL_GAP) - u.headW / 2
@@ -500,7 +520,7 @@ function desiredOf(u) {
   const plan = sibPlan.get(h) ?? planSiblings(h)
   const x = plan.get(u.id)
   if (x != null) return x
-  const j = junctionOf(pu)
+  const j = anchorOf(pu)
   return j == null ? 0 : j - u.headW / 2
 }
 
@@ -522,7 +542,7 @@ for (const u of order) {
 function idealOf(u) {
   const targets = []
   const pu = parentUnionOf.get(u.id)
-  if (pu) { const j = junctionOf(pu); if (j != null) targets.push(j) }
+  if (pu) { const j = anchorOf(pu); if (j != null) targets.push(j) }
   for (const cu of unionsOfParent.get(u.id) || []) {
     const cs = cu.kids.map((k) => boxes.get(primaryKey.get(k))).filter((b) => b && b.X0 != null)
     if (cs.length) targets.push(cs.reduce((a, c) => a + c.X0 + c.w / 2, 0) / cs.length)
@@ -699,7 +719,10 @@ let overlap = 0
 for (let i = 0; i < bs.length; i++) {
   for (let j = i + 1; j < bs.length; j++) {
     const a = bs[i], b = bs[j]
-    if (a.X < b.X + b.w && b.X < a.X + a.w && a.Y < b.Y + b.H && b.Y < a.Y + a.H) overlap++
+    if (a.X < b.X + b.w && b.X < a.X + a.w && a.Y < b.Y + b.H && b.Y < a.Y + a.H) {
+      overlap++
+      if (process.env.DIAG) console.error(`  重なり: 「${a.label}」(${a.key}) × 「${b.label}」(${b.key})`)
+    }
   }
 }
 
@@ -771,6 +794,19 @@ for (const u of unions.values()) {
   }
 }
 
+// 政権の流れ幅 ＝ その政権の皇帝の箱の中心が x 方向にどれだけ散っているか。
+// 図が右下へ流れていく（世代ごとに右へ寄る）と、王朝が柱ではなく斜めの帯に見える。
+// 件数のゲートはこれに反応しないので別に測る。
+const driftRows = []
+for (const [rid, s] of regimeSpan) {
+  const cs = bs.filter((b) => b.regimeId === rid).map((b) => b.X + b.w / 2)
+  if (cs.length < 3) continue
+  driftRows.push({ rid, n: cs.length, drift: Math.round(Math.max(...cs) - Math.min(...cs)), y: s.y0 })
+}
+driftRows.sort((a, b) => b.drift - a.drift)
+const driftAvg = driftRows.length
+  ? Math.round(driftRows.reduce((a, r) => a + r.drift, 0) / driftRows.length) : 0
+
 // 幅の下限（measure_time_axis_width.py と同じ数え方）
 const ev = bs.flatMap((b) => [[b.Y, 1], [b.Y + b.H, -1]]).sort((a, b) => a[0] - b[0] || b[1] - a[1])
 let cur = 0, peak = 0
@@ -781,3 +817,5 @@ const floor = Math.round(peak * (avgW + COL_GAP))
 console.error(`[${ERA}] 箱=${bs.length} 推定年=${inferred.size}`)
 console.error(`  幅 ${W}px（下限 ${floor}px・超過 ${(W / floor).toFixed(2)}倍）／高さ ${H}px`)
 console.error(`  箱の重なり ${overlap}件／線が当事者以外を横切る ${cross}件（うち別の政権の箱 ${crossOther}件）`)
+console.error(`  政権の流れ幅 平均${driftAvg}px（${driftRows.length}政権）`
+  + `／最大 ${driftRows.slice(0, 3).map((r) => `${r.rid} ${r.drift}px(${r.n}人)`).join('・')}`)
