@@ -446,13 +446,50 @@ function planSiblings(h) {
 // 三国西晋は 20 → 3 件と大きく効いたが、東晋十六国と南北朝では逆に増え、
 // **どの変種も他を支配しない**（幅と横切りはほぼ常に逆に動く）。
 // 効く章と効かない章の切り分けが付くまでは旗のままにして、既定は塞ぎ検出だけにする。
-const NO_PLAN = !process.env.PLAN         // 兄弟の並びを使わず union ごとに垂下点の下へ振る
+// ---------------------------------------------------------------- 政権の帯
+//
+// 章ごとの横切りの多寡は解き方ではなく**同時に走る政権の数**で説明が付いた
+// （隋唐 92箱で3件・南北朝 167箱で73件。うち半分が「宋の線が北魏の箱を突き抜ける」型）。
+// 同時代の政権が x 方向に噛み合っていると、線は必ず他家の箱を通る。
+// そこで**政権ごとに帯を取る** — ただし帯の幅を決め打ちすると、時代の重ならない政権にも
+// 場所を取ってしまう。帯の起点は「その政権の在位年に重なる、すでに置いた箱の右端」から
+// その場で引く（＝重ならない政権は同じ x を共有し、同時代の政権だけが横に並ぶ）。
+const regimeIdOf = (id) => {
+  const b = boxes.get(primaryKey.get(id))
+  if (b?.regimeId) return b.regimeId
+  const h = headOf(id)
+  if (h !== id) return boxes.get(primaryKey.get(h))?.regimeId ?? null
+  for (const un of unionsOfParent.get(id) || []) {
+    for (const k of un.kids) { const r = boxes.get(primaryKey.get(k))?.regimeId; if (r) return r }
+  }
+  return null
+}
+const regimeSpan = new Map()
+for (const b of boxes.values()) {
+  if (!b.regimeId) continue
+  const s = regimeSpan.get(b.regimeId) || { y0: Infinity, y1: -Infinity }
+  s.y0 = Math.min(s.y0, b.y0); s.y1 = Math.max(s.y1, b.y1)
+  regimeSpan.set(b.regimeId, s)
+}
+const bandBase = new Map()
+function bandBaseOf(rid) {
+  if (rid == null) return 0
+  if (bandBase.has(rid)) return bandBase.get(rid)
+  const s = regimeSpan.get(rid)
+  let x = 0
+  if (s) for (const p of placedRects) if (p.y0 < s.y1 && s.y0 < p.y1) x = Math.max(x, p.x1 + COL_GAP)
+  bandBase.set(rid, x)
+  return x
+}
+
+const NO_BAND = !!process.env.NOBAND      // 政権の帯を取らない（噛み合わせを許す）
+const NO_PLAN = !process.env.PLAN       // 兄弟の並びを使わず union ごとに垂下点の下へ振る
 const NO_BLOCK = !!process.env.NOBLOCK    // 仕上げ段で通り道の塞ぎを見ない
 
 /** 望む x: 父ひとりぶんの兄弟の並びから引く（母グループは連続した帯になる） */
 function desiredOf(u) {
   const pu = parentUnionOf.get(u.id)
-  if (!pu) return 0
+  if (!pu) return NO_BAND ? 0 : bandBaseOf(regimeIdOf(u.id))
   if (NO_PLAN) {
     const j0 = junctionOf(pu)
     if (j0 == null) return 0
