@@ -677,6 +677,13 @@
         "emperors": 7,
         "edges": 2,
         "persons": 2
+      },
+      {
+        "phase": "maternalLineage",
+        "block": "maternalLineage ブロック18a（北宋9・北宋末傀儡2）",
+        "emperors": 11,
+        "edges": 12,
+        "persons": 9
       }
     ],
     "confirmedRootless": [
@@ -1143,6 +1150,10 @@
       {
         "id": "tangmo-huangchao",
         "reason": "旧唐書 巻二百下 黄巣伝（17405〜17426行）・新唐書 巻二百二十五下 逆臣下（18380〜18399行）を読み直したが、黄巣の母の記載は無い。両書とも出自記事は「黄巢，曹州冤句人，本以贩盐为事」（旧唐書）・「黄巢，曹州冤句人。世鬻盐，富于赀」（新唐書）と本貫と家業のみを記し、父の名すら挙げない。伝の範囲に「母」の字が1件も現れない。黄巣の斉は后妃伝を持たない。"
+      },
+      {
+        "id": "beisongmo-zhangbangchang",
+        "reason": "宋史 巻四百七十五 列伝第二百三十四 叛臣上の張邦昌伝（daizhigev20/史藏/正史/宋史.txt 101501〜101524行＝次の劉豫伝の先頭 101525行の手前まで）を伝の範囲で読んだが、**「母」の字が1件も現れない**。出自記事は「张邦昌，字子能，永静军东光人也。举进士，累官大司成」と本貫と科挙の経歴のみで、父祖の名すら挙げない。楚（張邦昌）は33日で終わった傀儡政権で后妃伝を持たず、張邦昌は宋史の叛臣伝に立つのみ。金史側にも張邦昌の独立の伝は無い。"
       }
     ]
   },
@@ -11992,6 +12003,263 @@
       "wikidata": null,
       "source": {
         "page": "旧唐書 巻二百上 列伝第一百五十 逆臣上 安慶緒",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-dushi-zhaohongyin",
+      "name": "杜氏",
+      "kana": "とし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": 902,
+      "deathYear": 961,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "宋の宣祖趙弘殷の妻で、太祖趙匡胤・太宗趙炅の生母。宋史 巻二百四十二 后妃上が冒頭に条を立て「太祖母昭宪杜太后，定州安喜人也。父爽，赠太师。母范氏，生五子三女，太后居长。既笄归于宣祖」とし、定州安喜の人・父は杜爽と出自を記したうえで「生邕王光济、太祖、太宗、秦王廷美、夔王光赞、燕国陈国二长公主」と**太祖と太宗の双方を生んだ**ことを明記する。太祖本紀も「太祖，宣祖仲子也，母杜氏」、太宗本紀も「宣祖第三子也，母曰昭憲皇后杜氏」で一致する。諱は原典に記載がなく姓氏のみ。没年は「建隆二年，太后不豫」（961年）と「太后崩于滋德殿，年六十」から数え60で、生年902年は逆算（数え年からの逆算のため yearsApproximate を立てる）。諡は当初「明憲」で、乾徳二年に「昭憲」へ改められた（「谥曰明宪…乾德二年，更谥昭宪」）。**婚姻エッジは張らない** — 夫の宣祖趙弘殷は在世中に帝位に即いておらず（太祖の即位後に追尊された）、本フェーズの基準である生前の皇后・王后への冊立が無い。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十二 列伝第一 后妃上",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "昭憲皇后",
+        "昭憲杜太后",
+        "明憲皇后"
+      ],
+      "posthumous": {
+        "dynasty": "北宋",
+        "templeName": null,
+        "posthumousName": "昭憲皇后"
+      }
+    },
+    {
+      "id": "p-lishi-yuande",
+      "name": "李氏",
+      "kana": "りし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": 944,
+      "deathYear": 977,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "太宗趙炅の妃で、真宗趙恒の生母。宋史 巻二百四十二 后妃上に独立の条が立ち「李贤妃，真定人，乾州防御使英之女也」と真定の人・父は乾州防禦使の李英と記す。「太祖闻妃有容德，为太宗聘之。开宝中，封陇西郡君。太宗即位，进夫人。生皇女二人，皆早亡，次生楚王元佐。妃尝梦日轮逼己，以裾承之，光耀遍休，惊而悟，遂生真宗。太平兴国二年薨，年三十四」とあり、楚王元佐と真宗を生んだ。没年は太平興国二年（977年）で数え34、生年944年は逆算（yearsApproximate を立てる）。諱は原典に記載がなく姓氏のみ。**婚姻エッジは張らない** — 「真宗即位，追封贤妃，又进上尊号为皇太后。有司上谥曰元德」と、皇后号も皇太后号も**真宗の即位後の追封**で、生前は陇西郡君・夫人・（没後の）賢妃どまり。太宗の生前の皇后は明徳李皇后（別人の李氏）で、同じ李姓だが「潞州上党人。淄州刺史处耘第二女」と出自が異なる。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十二 列伝第一 后妃上",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "元德皇后",
+        "李賢妃"
+      ],
+      "posthumous": {
+        "dynasty": "北宋",
+        "templeName": null,
+        "posthumousName": "元德皇后"
+      }
+    },
+    {
+      "id": "p-lishi-chenfei",
+      "name": "李氏",
+      "kana": "りし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "真宗趙恒の宸妃で、仁宗趙禎の生母。宋史 巻二百四十二 后妃上に条が立ち「李宸妃，杭州人也。祖延嗣，仕钱氏，为金华县主簿；父仁德，终左班殿直」と杭州の人・祖は李延嗣・父は李仁徳と出自を記す。もと章献明粛劉皇后の侍児で真宗の司寝となり、「已而生仁宗，封崇阳县君；复生一女，不育。进才人，后为婉仪」。諱は原典に記載がなく姓氏と位号のみ。**婚姻エッジは張らない** — 生前の位は崇陽県君・才人・婉儀・（仁宗即位後の）順容で、皇后への冊立は無い。**仁宗を養育したのは章献明粛劉皇后**で（「初，仁宗在襁褓，章献以为己子，使杨淑妃保视之」）、仁宗自身は劉太后の在世中は自分が宸妃の所生であることを知らされなかった（「终太后世，仁宗不自知为妃所出也」）。劉皇后は嫡母かつ養育者で生母ではないため、生母エッジは李宸妃にのみ張る。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十二 列伝第一 后妃上",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "李宸妃",
+        "章懿皇后"
+      ],
+      "posthumous": {
+        "dynasty": "北宋",
+        "templeName": null,
+        "posthumousName": "章懿皇后"
+      }
+    },
+    {
+      "id": "p-renshi-zhaoyunrang",
+      "name": "任氏",
+      "kana": "じんし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "濮安懿王趙允譲の妻で、英宗趙曙の生母。宋史 巻十三 英宗本紀の冒頭が「濮安懿王允讓第十三子，母曰仙遊縣君任氏」と、県君の位号つきで生母を名指す。諱は原典に記載がなく姓氏と位号のみ。**婚姻エッジは張らない** — 夫の濮安懿王允譲は帝位に即いておらず（英宗の実父として濮議の対象になったのみ）、任氏の生前の位は仙遊県君で皇后・王后への冊立が無い。英宗の即位後、治平年間の濮議では「议濮安懿王及谯国夫人王氏、襄国夫人韩氏、仙游县君任氏合行典礼」と、允譲の3人の妻の1人として典礼の対象に挙げられている（宋史 礼志）。英宗は4歳から仁宗に宮中で養われており（英宗本紀「四歲，仁宗養於內」）、仁宗との関係は既存の養父エッジが持つ。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻十三 本紀第十三 英宗",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "仙遊縣君"
+      ]
+    },
+    {
+      "id": "p-gaoshi-yingzong",
+      "name": "高氏",
+      "kana": "こうし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "英宗趙曙の皇后で、神宗趙頊の生母。宋史 巻二百四十二 后妃上に条が立ち「英宗宣仁圣烈高皇后，亳州蒙城人。曾祖琼，祖继勋，皆有勋王室，至节度使。母曹氏，慈圣光献后姊也，故后少鞠宫中」と、亳州蒙城の人・曾祖は高瓊・祖は高継勲、母は慈聖光献曹皇后の姉にあたる曹氏と出自を記す。仁宗の意向で英宗と結ばれ（「时英宗亦在帝所，与后年同，仁宗谓慈圣，异日必以为配。既长，遂成昏濮邸」）、「生神宗皇帝、岐王颢、嘉王頵、寿康公主」。**婚姻エッジを張る** — 「治平二年册为皇后」と英宗の在位中（治平2年＝1065年）に皇后へ冊立されており、本フェーズの基準である生前の冊立を満たす。諱は原典に記載がなく姓氏のみ。哲宗の初年に太皇太后として垂簾聴政したことは巻十七 哲宗本紀一が記す。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十二 列伝第一 后妃上",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "宣仁聖烈皇后",
+        "宣仁聖烈高皇后"
+      ],
+      "posthumous": {
+        "dynasty": "北宋",
+        "templeName": null,
+        "posthumousName": "宣仁聖烈皇后"
+      }
+    },
+    {
+      "id": "p-zhushi-shenzong",
+      "name": "朱氏",
+      "kana": "しゅし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "神宗趙頊の德妃で、哲宗趙煦の生母。宋史 巻二百四十三 后妃下に条が立ち「钦成朱皇后，开封人。父崔杰，早世；母李，更嫁朱士安。后鞠于所亲任氏。熙宁初，入宫为御侍，进才人、婕妤，生哲宗及蔡王似、徐国公主，累进德妃」とあり、開封の人・実父は崔傑で、母の再嫁先の朱士安の姓を名乗ったと出自を記す。**諡号が宋史の中で割れている** — 巻十七 哲宗本紀一は「母曰欽聖皇后朱氏」と書くが、「欽聖」は神宗の皇后である欽聖憲粛向皇后の諡で、后妃下は同じ朱氏を「欽成朱皇后」として独立の条を立てる。**姓（朱氏）は両所で一致する**ので生母の同定には影響しない。諡は条を立てる后妃下の「欽成」を採り、本紀の「欽聖」は書の内部の食い違いとして記録する。**婚姻エッジは張らない** — 生前の位は御侍・才人・婕妤・德妃で、皇后への冊立は無い（皇太后・皇后号はいずれも没後・哲宗即位後の追尊）。諱は原典に記載がなく姓氏のみ。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "欽成皇后",
+        "欽成朱皇后"
+      ],
+      "posthumous": {
+        "dynasty": "北宋",
+        "templeName": null,
+        "posthumousName": "欽成皇后"
+      }
+    },
+    {
+      "id": "p-chenshi-shenzong",
+      "name": "陳氏",
+      "kana": "ちんし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "神宗趙頊の美人で、徽宗趙佶の生母。宋史 巻二百四十三 后妃下に条が立ち「钦慈陈皇后，开封人。幼颖悟庄重，选入掖庭，为御侍。生徽宗，进美人」とあり、開封の人で掖庭に選ばれて御侍となり、徽宗を生んで美人に進んだと記す。神宗の没後は陵殿を守り、「未几薨，年三十二」と32歳（数え）で没した。「建中靖国元年，追册为皇太后，上尊谥，陪葬永裕陵」とあり、皇太后号も諡（欽慈）も**徽宗の即位後の追冊**。**婚姻エッジは張らない** — 生前の位は御侍・美人で皇后への冊立が無い。諱は原典に記載がなく姓氏のみ。没年は建中靖国元年（1101年）の追冊より前としか原文から取れないため null とし、数え32からの逆算も行わない。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "欽慈皇后",
+        "欽慈陳皇后"
+      ],
+      "posthumous": {
+        "dynasty": "北宋",
+        "templeName": null,
+        "posthumousName": "欽慈皇后"
+      }
+    },
+    {
+      "id": "p-wangshi-huizong",
+      "name": "王氏",
+      "kana": "おうし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": 1084,
+      "deathYear": 1108,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "徽宗趙佶の皇后で、欽宗趙桓の生母。宋史 巻二百四十三 后妃下に条が立ち「徽宗显恭王皇后，开封人，德州刺史藻之女也。元符二年六月，归于端邸，封顺国夫人。徽宗即位，册为皇后。生钦宗及崇国公主」とあり、開封の人・父は德州刺史の王藻と出自を記す。**婚姻エッジを張る** — 「徽宗即位，册为皇后」と徽宗の在位中に皇后へ冊立されており、本フェーズの基準である生前の冊立を満たす。大観二年（1108年）に25歳（数え）で崩じ、初諡は「静和」、紹興年間に徽宗の廟室へ祔されたときに「顯恭」へ改諡された（「谥曰静和…绍兴中，始附微宗庙室，改上今谥云」）。生年1084年は数え25からの逆算。**諡の語順が宋史の中で割れている** — 巻二十三 欽宗本紀は「母曰恭顯皇后王氏」と書くが、后妃下は条の見出しも目録も「顯恭王皇后」。姓（王氏）は両所で一致する。諱は原典に記載がなく姓氏のみ。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "顯恭皇后",
+        "顯恭王皇后",
+        "静和皇后"
+      ],
+      "posthumous": {
+        "dynasty": "北宋",
+        "templeName": null,
+        "posthumousName": "顯恭皇后"
+      }
+    },
+    {
+      "id": "p-zhaishi-liuyu",
+      "name": "翟氏",
+      "kana": "てきし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "偽斉の皇帝・劉豫の生母。金史 巻七十七 列伝第十五 劉豫伝の冊立記事に「张孝纯等为宰相，弟益为北京留守，母翟氏为皇太后，妾钱氏为皇后」とあり、天会八年（1130年）に劉豫が大斉皇帝に立てられた際、母の翟氏が皇太后に立てられたことが記される。諱・出自・生没年はいずれも原典に記載がなく姓氏のみ。**婚姻エッジは張らない** — 夫（劉豫の父）は金史・宋史とも名を記さず、翟氏自身も皇后・王后に冊立された記事が無い（皇太后は子の即位に伴う尊号）。",
+      "wikidata": null,
+      "source": {
+        "page": "金史 巻七十七 列伝第十五 劉豫",
         "lang": "zh-classical"
       }
     }
@@ -27272,6 +27540,160 @@
       "note": "旧唐書 巻二百上 逆臣上の安慶緒条が冒頭で「庆绪，禄山第二子也。母康氏，禄山糟糠之妻」と生母を名指す。安禄山の妻としての記載であり嫡母・養母を指す文脈ではない。同条は続けて「庆绪善骑射，禄山偏爱之」と実子としての寵愛を記す。",
       "source": {
         "page": "旧唐書 巻二百上 列伝第一百五十 逆臣上 安慶緒",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-dushi-zhaohongyin",
+      "to": "beisong-taizu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻一 太祖本紀一の冒頭に「太祖，宣祖仲子也，母杜氏」とあり生母を名指す。巻二百四十二 后妃上の昭憲杜太后条も「生邕王光济、太祖、太宗、秦王廷美、夔王光赞、燕国陈国二长公主」と太祖を所生の子に数える。太后は太祖の即位後に皇太后となった生母で、嫡母・養母の関係ではない。",
+      "source": {
+        "page": "宋史 巻一 本紀第一 太祖一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-dushi-zhaohongyin",
+      "to": "beisong-taizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻四 太宗本紀一の冒頭に「宣祖第三子也，母曰昭憲皇后杜氏」とあり生母を名指す。巻二百四十二 后妃上の昭憲杜太后条も「生邕王光济、太祖、太宗…」と太宗を所生の子に数え、太祖と同母であることが両所で一致する。",
+      "source": {
+        "page": "宋史 巻四 本紀第四 太宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-lishi-yuande",
+      "to": "beisong-zhenzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻六 真宗本紀一の冒頭に「太宗第三子也，母曰元德皇后李氏」とあり生母を名指す。巻二百四十二 后妃上の李賢妃条も「妃尝梦日轮逼己，以裾承之，光耀遍休，惊而悟，遂生真宗」と真宗を生んだことを明記し、同条末の「有司上谥曰元德」により本紀の「元德皇后李氏」と同一人物であることが確定する。",
+      "source": {
+        "page": "宋史 巻二百四十二 列伝第一 后妃上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-lishi-chenfei",
+      "to": "beisong-renzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻九 仁宗本紀一の冒頭に「真宗第六子，母李宸妃也」とあり生母を名指す。巻二百四十二 后妃上の李宸妃条も「已而生仁宗，封崇阳县君」と明記する。同巻の章献明粛劉皇后条は「李宸妃生仁宗，后以为己子」と**劉皇后が己の子とした**経緯を書いており、劉皇后は嫡母かつ養育者で生母ではないことが原文の側で分かれている。",
+      "source": {
+        "page": "宋史 巻九 本紀第九 仁宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-renshi-zhaoyunrang",
+      "to": "beisong-yingzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻十三 英宗本紀の冒頭に「濮安懿王允讓第十三子，母曰仙遊縣君任氏」とあり生母を名指す。仁宗が英宗を宮中で養ったのは4歳からで（同紀「四歲，仁宗養於內」）、任氏が生母・仁宗が養父という分担が同じ紀の中で分かれている。",
+      "source": {
+        "page": "宋史 巻十三 本紀第十三 英宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-gaoshi-yingzong",
+      "to": "beisong-shenzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻十四 神宗本紀一の冒頭に「英宗長子，母曰宣仁聖烈皇后高氏」とあり生母を名指す。巻二百四十二 后妃上の宣仁聖烈高皇后条も「生神宗皇帝、岐王颢、嘉王頵、寿康公主」と神宗を所生の子の筆頭に挙げる。",
+      "source": {
+        "page": "宋史 巻十四 本紀第十四 神宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "beisong-yingzong",
+      "to": "p-gaoshi-yingzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "英宗と宣仁聖烈高皇后の婚姻。宋史 巻二百四十二 后妃上に「既长，遂成昏濮邸」と濮邸での成婚を記し、**「治平二年册为皇后」と英宗の在位中（治平2年＝1065年）に皇后へ冊立された**ことを明記する。追尊の皇后号ではなく生前の立后を根拠とするので、本フェーズの婚姻エッジの基準を満たす。同条は神宗の生母でもあることを「生神宗皇帝」と記す。",
+      "source": {
+        "page": "宋史 巻二百四十二 列伝第一 后妃上",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-zhushi-shenzong",
+      "to": "beisong-zhezong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻二百四十三 后妃下の欽成朱皇后条に「生哲宗及蔡王似、徐国公主」とあり、哲宗を所生の子の筆頭に挙げる。巻十七 哲宗本紀一の冒頭も「神宗第六子也，母曰欽聖皇后朱氏」と**朱氏**を生母とする点で一致する（諡号だけが本紀「欽聖」対 后妃下「欽成」で割れており、「欽聖」は神宗の皇后 欽聖憲粛向皇后の諡。姓が一致するので生母の同定は動かない）。",
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-chenshi-shenzong",
+      "to": "beisong-huizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻十九 徽宗本紀一の冒頭に「神宗第十一子也，母曰欽慈皇后陳氏」とあり生母を名指す。巻二百四十三 后妃下の欽慈陳皇后条も「生徽宗，进美人」と徽宗を生んだことを明記し、諡（欽慈）も両所で一致する。",
+      "source": {
+        "page": "宋史 巻十九 本紀第十九 徽宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-wangshi-huizong",
+      "to": "beisong-qinzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻二百四十三 后妃下の顯恭王皇后条に「生钦宗及崇国公主」とあり欽宗を所生の子に挙げる。巻二十三 欽宗本紀の冒頭も「徽宗皇帝長子，母曰恭顯皇后王氏」と**王氏**を生母とする点で一致する（諡の語順だけが本紀「恭顯」対 后妃下「顯恭」で割れている）。",
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "beisong-huizong",
+      "to": "p-wangshi-huizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "徽宗と顯恭王皇后の婚姻。宋史 巻二百四十三 后妃下に「元符二年六月，归于端邸，封顺国夫人。徽宗即位，册为皇后」とあり、端王邸への降嫁のあと徽宗の在位中に皇后へ冊立されたことを明記する。追尊の皇后号ではなく生前の立后を根拠とするので、本フェーズの婚姻エッジの基準を満たす。同条は欽宗の生母でもあることを「生钦宗及崇国公主」と記す。",
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-zhaishi-liuyu",
+      "to": "beisongmo-liuyu",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "金史 巻七十七 劉豫伝の大斉皇帝冊立記事に「母翟氏为皇太后，妾钱氏为皇后」とあり、皇太后に立てられた翟氏が劉豫の母、皇后に立てられた銭氏が妻と**同じ条の中で書き分けられている**。皇太后は子の即位に伴う尊号なので嫡母・養母ではなく生母と読む。",
+      "source": {
+        "page": "金史 巻七十七 列伝第十五 劉豫",
         "lang": "zh-classical"
       }
     }

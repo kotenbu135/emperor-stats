@@ -82,7 +82,7 @@ v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調
 | 幼名（Issue #126） | 人 | 365 | 58 | 306 | 0 | 1 | 100.0% |
 | 第N代（Issue #24） | 在位 | 374 | 162 | 14 | 198 | 0 | 47.1% |
 | 紹介文（Issue #16） | 人 | 365 | 228 | 0 | 137 | 0 | 62.5% |
-| 生母（kinship） | 人 | 365 | 180 | 79 | 106 | 0 | 71.0% |
+| 生母（kinship） | 人 | 365 | 190 | 80 | 95 | 0 | 74.0% |
 
 `対象外` は**調査そのものを打ち切ったセル**で、確定率の分母から外しています（`不在確定` とは別 — こちらは原文を読んでいません）。総数は減らしていないので、何セルを外して率を出したかは表の上で追えます。
 
@@ -111,7 +111,7 @@ v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調
 | 5 | 改元 event の元号名 `eraName` の転記 | **221 event**（要読解 202） | [Issue #161](https://github.com/kotenbu135/emperor-stats/issues/161)（量は残量表） | 659 event 中 438 が転記済み。**着手前に残 221 の上限を数え分ける**（元号名がそもそも無い／底本の字が壊れている／袁世凱の3種が混じる） |
 | 6 | 名前欄の検証段（別コンテキスト） | 134人＋2026-08-13 の欄＋**2026-08-14 の43人＋29人＋79人** | 残量表 | `R-VERIFY-TIER`。**行が無いブロックは黙って未検証のまま残る**ので、ブロック行を立ててから回す。2026-08-14 のぶんは厚みが書で割れる（本紀が独立する北史3・新元史1・宋史16・金史6・隋書2・宋書2は1体、列傳・紀傳・編年・世家に依存する舊唐書23＋19・明史8＋6・小腆紀傳4＋2＋1・資治通鑑4＋3・新五代史5＋7・魏書7・北齊書4・晉書10・梁書5・三國志3・漢書1・後漢書3は3体） |
 | 7 | 紹介文の残り | 137本 | **器が無い** — Issue #16 は 2026-08-13 に COMPLETED で close 済み | **同じ日に Web 公開も一時停止した**（上の節目の表・`PROFILES_PUBLISHING_PAUSED = true`）。執筆を続けるかは**ユーザーの判断待ち**で、続けるなら後継 Issue が要る（規範は [profile-writing](process/profile-writing/README.md)・入口は `/write-profile`） |
-| 8 | 生母（`kinship.json`） | **106人** | [Issue #171](https://github.com/kotenbu135/emperor-stats/issues/171)（量は残量表） | 宋遼西夏金52・元18・明22・清14。**187人→113人は読んだからではなく数え方を変えたから** — 原典を読んで「記載が無い」と確定した74人（`meta.confirmedMotherUnknown`）を 2026-08-17 のユーザー決定で不在確定に立てた（確定率 48.8%→69.0%）。**113人→106人は読んだぶん**（同日のブロック17＝唐末群雄7人。確定率 71.0%）。Wikidata P25 の再突合も同じ単位 |
+| 8 | 生母（`kinship.json`） | **95人** | [Issue #171](https://github.com/kotenbu135/emperor-stats/issues/171)（量は残量表） | 南宋9・遼西夏金32・元18・明22・清14。**187人→113人は読んだからではなく数え方を変えたから** — 原典を読んで「記載が無い」と確定した74人（`meta.confirmedMotherUnknown`）を 2026-08-17 のユーザー決定で不在確定に立てた（確定率 48.8%→69.0%）。**113人→95人は読んだぶん**（同日のブロック17＝唐末群雄7人・18a＝北宋9＋北宋末傀儡2。確定率 74.0%）。Wikidata P25 の再突合も同じ単位 |
 | 9 | 「完了」と称している項目の判別不能 | 635セル | 残量表・第N代は Issue #24（close 済み） | 生年月日195・第N代198・即位時年齢189・没年齢96・没年月日76・即位日45・退位日34。**誤りではなく「完了の主張が機械では確かめられない」** |
 | 10 | サイト | — | Issue #94（モバイル回遊）・#81（肖像画が無い211人） | データ作業と独立に進められる |
 
@@ -228,7 +228,7 @@ v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調
 - **スキーマ**: [KINSHIP_SCHEMA.md](../data/schema/KINSHIP_SCHEMA.md)（エッジ3種・veracity 区分・復位/建国の規約）。**凍結済みで原則変更しない**
 - **CI**: `scripts/validate_kinship.py`。succession エッジの category は `accessionRoute` との整合を機械検証する
 - **引用照合**: `python3 scripts/check_kinship_quotes.py`（note の「」が底本に実在するかを当てる・約2分）。**`verify_quotes.py` は `emperors.json` 固定でこのファイルを見ない**ので、kinship.json を触ったらこちらを回す。**2026-08-17 に `scripts/` へ恒久化した**（それまではセッションの scratchpad にしか無く、消えるたびに作り直していた）。同じ日にマージ補助の `merge_kinship_mother.py`・`crosscheck_mothers_p25.py` も入れた
-- **生母（maternalLineage）の残り106人は [Issue #171](https://github.com/kotenbu135/emperor-stats/issues/171)**（宋遼西夏金・元・明・清）。**ブロック17（唐末群雄7人）まで完了**（2026-08-17）。着手前の絞り込みは `scripts/screens/birth_mother.py`（`birth-mother-issue171`）で、**ブロック17の3体検証は未実施**
+- **生母（maternalLineage）の残り95人は [Issue #171](https://github.com/kotenbu135/emperor-stats/issues/171)**（南宋・遼西夏金・元・明・清）。**ブロック18a（北宋9＋北宋末傀儡2）まで完了**（2026-08-17）。着手前の絞り込みは `scripts/screens/birth_mother.py`（`birth-mother-issue171`）で、**ブロック17・18a の3体検証はいずれも未実施**
 - **進捗管理**: kinship.json 側の `meta.status.phases`／`meta.completedBlocks`（emperors.json 側とは別管理）
 - **コーパス下見**: 系譜「表」は china-history に無く daizhigev20 側にのみ在る（遼史皇族表・金史宗室表・明史諸王世表・元史/宋史の宗室世系表）。新唐書宗室世系表は完全収録が未確認なので着手時に確認する
 
