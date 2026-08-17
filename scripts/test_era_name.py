@@ -166,6 +166,26 @@ for name, era, want_hit in GLYPH_CASES:
     bad += 0 if ok else 1
     print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
 
+# 底本が字を PUA・分解表記で持つ形（2026-08-17・西夏）。**目には脱字に見えるが在る**ので、
+# 写像が無いと han_only が黙って落とし、正しい値が D で落ちる。
+# 行は西夏書事の年見出しそのまま。**PUA は  のエスケープで書く** — 生の字で貼ると
+# 編集の途中で黙って落ちる（この検査を書くとき実際に落ちて、当たるはずのケースが外れた）
+PUA = [norm_for_match("皇二年、夏天垂圣元年春正月，使献契丹捷。"),
+       norm_for_match("嘉二年、夏<奢单>都元年春三月，以国母遗物入献。"),
+       norm_for_match("绍兴五年、夏大德元年春正月，金使来告哀及报即位。")]
+PUA_CASES = [
+    ("PUA の祐を含む元号が当たる（天祐垂聖）", "天祐垂聖", True),
+    ("角括弧の分解表記が1字に戻る（奲都）", "奲都", True),
+    ("同じ行の PUA を含まない元号は当たらない", "天祐民安", False),
+    ("分解の部品そのものは元号として当たらない", "奢单", False),
+    ("写像を足しても素の行の判定は変わらない", "大德", True),
+]
+for name, era, want_hit in PUA_CASES:
+    hit = Q.era_anchor_hit(norm_for_match(era), PUA)
+    ok = bool(hit) == want_hit
+    bad += 0 if ok else 1
+    print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
+
 # 元号名だけが在る行（「天启三年」）を当たりに数えないこと。D の主力はこの区別
 hit = Q.era_anchor_hit(norm_for_match("天啓"), [LINES[1]])
 ok = hit is None
@@ -187,6 +207,7 @@ ok = any("改元 event 1件のうち eraName を持つのは 0件" in i for i in
 bad += 0 if ok else 1
 print(f"{'OK ' if ok else 'NG '} 評価件数（分母）を出す")
 
-total = len(CASES) + len(D_CASES) + 5
+total = (len(CASES) + len(D_CASES) + len(RECAST_CASES) + len(GLYPH_CASES)
+         + len(PUA_CASES) + 5)   # 5 = 大赦容器・C の限界・元号名だけの行・E・分母
 print(f"\n{'全件一致' if not bad else str(bad) + '件 不一致'} / {total}件")
 sys.exit(1 if bad else 0)
