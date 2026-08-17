@@ -211,6 +211,41 @@ ok = hit is None
 bad += 0 if ok else 1
 print(f"{'OK ' if ok else 'NG '} 元号名が在るだけの行は D の当たりにしない  (hit={hit!r})")
 
+# --- C 単独語と文中で正規化が割れる字（2026-08-17・五代十国ブロック）-----------
+# opencc は文脈で変換先を変えるので、「応乾」は単独だと 应干・文中の「応乾元年」は
+# 应乾 のまま。norm_for_match 同士では当たらず、2026-08-05 の転記はここで撤回された
+YINGQIAN_NOTE = ("光天二年の元号を「応乾元年」と改めた。"
+                 "「即皇帝位更今名改光天二年為応乾元年」（十国春秋・中宗本紀）")
+CW_CASES = [
+    ("文中で乾が畳まれない元号も C を通る（応乾）", {"eraName": "応乾", "note": YINGQIAN_NOTE}, 0),
+    ("同じ note に出ない元号は C で落ちる（乾和）", {"eraName": "乾和", "note": YINGQIAN_NOTE}, 1),
+]
+for name, ev, want in CW_CASES:
+    errs = run(ev)
+    ok = len(errs) == want
+    bad += 0 if ok else 1
+    print(f"{'OK ' if ok else 'NG '} {name}  ({len(errs)}件 / want {want})")
+
+# --- D 書を証人にする引っ越し（行範囲つき）------------------------------------
+# 十国は本紀が立たずキャッシュが新五代史の世家なので、改元条は十国春秋の側に在る。
+# **書ごと当てると同じ書の他国の改元に当たる**ので行範囲まで絞れているかを見る
+BOOK_SPEC = "book:daizhigev20/史藏/载记/十国春秋.txt#1409-1431"
+if (Q.CORPUS_ROOT / "daizhigev20/史藏/载记/十国春秋.txt").is_file():
+    wl = Q._witness_lines(BOOK_SPEC)
+    BOOK_CASES = [
+        ("行範囲の中の改元条が証人になる（中興）", "中興", True),
+        ("同じ書の別の巻にしか無い元号は当たらない（広政）", "広政", False),
+    ]
+    for name, era, want_hit in BOOK_CASES:
+        hit = Q.era_anchor_hit(norm_for_match(era), wl)
+        ok = bool(hit) == want_hit
+        bad += 0 if ok else 1
+        print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
+    n_book = len(BOOK_CASES)
+else:
+    print("SKIP 十国春秋がコーパスに無いので書の証人は測っていない")
+    n_book = 0
+
 # --- E ラチェット -------------------------------------------------------------
 V.ERA_NAME_BASELINE = 3
 errs = run({"eraName": "義嘉", "note": NOTE})
@@ -227,6 +262,7 @@ bad += 0 if ok else 1
 print(f"{'OK ' if ok else 'NG '} 評価件数（分母）を出す")
 
 total = (len(CASES) + len(D_CASES) + len(RECAST_CASES) + len(GLYPH_CASES)
-         + len(PUA_CASES) + len(HAOYEAR_CASES) + 5)   # 5 = 大赦容器・C の限界・元号名だけの行・E・分母
+         + len(PUA_CASES) + len(HAOYEAR_CASES) + len(CW_CASES) + n_book + 5)
+#          5 = 大赦容器・C の限界・元号名だけの行・E・分母
 print(f"\n{'全件一致' if not bad else str(bad) + '件 不一致'} / {total}件")
 sys.exit(1 if bad else 0)

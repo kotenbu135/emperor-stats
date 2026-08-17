@@ -975,7 +975,7 @@ def check_event_date_format(data):
 # 転記を消したのではなく母集団そのものが 681 → 662 に減ったぶんの引き下げ。
 # 同日の追走査（日付欄が空の即位前 event）でさらに 662 → 658 に減り 437 → 436。
 # 2026-08-07（Issue #86）: 436 → 437。哀帝に元寿（eraName つき）を1件足したぶん。
-ERA_NAME_BASELINE = 525
+ERA_NAME_BASELINE = 546
 
 # 元号の名だけを書く欄なので、記事の一節を丸ごと入れた形（「改元康熙」「為天啓元年」）を弾く。
 # **「建元」は実在する元号**（漢武帝の最初の元号・東晋康帝・前秦苻堅・南斉高帝）なので、
@@ -1062,7 +1062,15 @@ def check_era_names(data):
                 for q in ev.get("quotes") or []:
                     if isinstance(q, dict):
                         hay.append(q.get("text") or "")
-                if key not in norm_for_match("　".join(hay)):
+                # 単独語と文中で正規化が割れる字がある（opencc は文脈で変換先を変える）。
+                # 「応乾」は単独だと 应干・文中の「応乾元年」は 应乾 のままで、norm_for_match
+                # 同士では当たらない（2026-08-05 に転記して撤回した15件のうちの1件）。
+                # 文字単位の変換を通した本文も候補に並べる（判定は緩む向きだが、
+                # 掛かるのは「同じ字の別の畳み方」だけで、別の元号には当たらない）
+                blob = "　".join(hay)
+                cw = hanzi_norm.to_simplified_charwise(
+                    hanzi_norm.han_only(blob)).translate(hanzi_norm.T2S_VARIANTS)
+                if key not in norm_for_match(blob) and key not in cw:
                     err(f"[era-name] {where}: eraName {name!r} が同じ event の note・quotes に"
                         f"見当たらない（原典を読んで根拠と一緒に入れる）")
     if not can_norm:
