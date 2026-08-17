@@ -107,7 +107,15 @@ export function ChapterFigure({ chapter }: { chapter: KinshipChapter }) {
           return (
             // 素の <a href>。静的HTMLに載ることが目的なので next/link にしない
             // （出力は同じだが、この面はクライアント JS をまったく持たない）。
-            <a key={b.key} href={b.href} className="[&_rect]:hover:stroke-seal">
+            // hover を足したら focus も足す（--ring は白地で 2.59:1 しかないので使わない）。
+            <a
+              key={b.key}
+              href={b.href}
+              // 変種の順序に注意: `hover:[&_rect]:` は「リンクを hover したときの rect」で、
+              // `[&_rect]:hover:` だと「rect 自身の hover」になり、線や余白では効かない。
+              className="cursor-pointer outline-none hover:[&_rect]:stroke-seal
+                focus-visible:[&_rect]:stroke-seal focus-visible:[&_rect]:[stroke-width:2]"
+            >
               <title>{`${b.label}${b.sub ? `（${b.sub}）` : ""}の個別ページ`}</title>
               {body}
             </a>
