@@ -2796,3 +2796,8 @@
 - **気づいた場面**: 遼道宗 eraName の検証（寿昌/寿隆）
 - **提案**: china-history だけを見ると『本紀は寿昌・志表列伝は寿隆』に見えるが、daizhigev20 の辽史は本紀本文が寿隆で、校勘記が『「隆」当作「昌」』と正す構造。異表記のある元号は china-history と daizhigev20 の両方を走査し、対立軸が『本紀 vs 他部門』なのか『底本の異同＋校勘記』なのかを確かめてから conflicts の reason を書く。
 - **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
+
+### 2026-08-17 datePrecision が date より深いのは仕様なので、調査エージェントに毎回 discrepancy として挙げさせない <!-- auto:b62203367a28 -->
+- **気づいた場面**: 元号名の第7ブロック（遼元清）。yuan-chengzong.e002 が datePrecision=day・date="1297"（年精度）で食い違うと報告されたが、EMPERORS_SCHEMA.md は datePrecision を「原典が何を言っているか」の欄と定めており、date の深さは datePrecision 以下であればよい（浅い側は主張を弱めるだけ）。実測すると date と datePrecision を両方持つ 1,862 event のうち 1,121 件（60%）がこの形で、Issue #69 で月日を内部側へ退避したぶんがそのまま残っている。
+- **提案**: 調査エージェントが毎ブロック同じ形を「構造フィールド同士の食い違い」として報告してくるので、CLAIMS_CONTRACT.md か抽出コマンドの出力に1行「datePrecision は原典の精度・date は配布物が主張する深さで、date の深さ ≤ datePrecision は正常」と書く。逆向き（date のほうが深い）だけが欠陥で、それは validate_emperors.py の check_event_date_format が既に見ている。
+- **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
