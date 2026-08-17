@@ -186,6 +186,25 @@ for name, era, want_hit in PUA_CASES:
     bad += 0 if ok else 1
     print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
 
+# --- 「號年〈元号〉」型（2026-08-17・北魏ブロックで足した） --------------------
+# 魏書は**自ら帝号を称した側**の建元をこの語順で書く。`年号` の逆で、`号` 単独では
+# `号建明` にならないため隣接形から漏れ、値が正しいのに D で2件落ちた。
+# **建てた側にだけ当たること**を主張する（同じ紀の「改建明二年為普泰元年」は捨てた側）
+HAOYEAR = [norm_for_match("共推太原太守、行并州刺史长广王晔为主，大赦所部，号年建明，普泛四级。"),
+           norm_for_match("孝昌元年，法僧杀行台高谅，反于彭城，自称尊号，号年天启。"),
+           norm_for_match("诏曰：朕以寡薄，抚临万邦。可大赦天下，改建明二年为普泰元年。")]
+HAOYEAR_CASES = [
+    ("號年で建てた側が当たる（建明）", "建明", True),
+    ("號年で建てた側が当たる（天啓）", "天啓", True),
+    ("改〈旧〉為〈新〉の新しい側も当たる（普泰）", "普泰", True),
+    ("號年の語に掛からない別の元号は当たらない", "永安", False),
+]
+for name, era, want_hit in HAOYEAR_CASES:
+    hit = Q.era_anchor_hit(norm_for_match(era), HAOYEAR)
+    ok = bool(hit) == want_hit
+    bad += 0 if ok else 1
+    print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
+
 # 元号名だけが在る行（「天启三年」）を当たりに数えないこと。D の主力はこの区別
 hit = Q.era_anchor_hit(norm_for_match("天啓"), [LINES[1]])
 ok = hit is None
@@ -208,6 +227,6 @@ bad += 0 if ok else 1
 print(f"{'OK ' if ok else 'NG '} 評価件数（分母）を出す")
 
 total = (len(CASES) + len(D_CASES) + len(RECAST_CASES) + len(GLYPH_CASES)
-         + len(PUA_CASES) + 5)   # 5 = 大赦容器・C の限界・元号名だけの行・E・分母
+         + len(PUA_CASES) + len(HAOYEAR_CASES) + 5)   # 5 = 大赦容器・C の限界・元号名だけの行・E・分母
 print(f"\n{'全件一致' if not bad else str(bad) + '件 不一致'} / {total}件")
 sys.exit(1 if bad else 0)
