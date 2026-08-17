@@ -17,19 +17,25 @@
 22人が `mother-formula` へ移った）。
 
   人物
-   ├ mother-formula    … 母を名指す定型（母曰・生母・其母・所生）が在る 81人。kind=read
+   ├ mother-formula    … 母を名指す定型（母曰・生母・其母・所生・**母＋姓＋氏**）が在る
+   │                     93人。kind=read
    │                     **その母が生母とは限らない** — 嫡母・養母・祖母を同じ語で書く条が
    │                     ある（後漢 殤帝の和熹鄧皇后が実例で、既存の
    │                     `confirmedMotherUnknown` の理由文に残っている）
-   ├ taihou-only       … 定型は無く「太后」「母弟」だけが在る 19人。kind=read
+   ├ taihou-only       … 定型は無く「太后」「母弟」だけが在る 10人。kind=read
    │                     尊号・追尊・同母弟の記事で出るだけのことが多く、母の名を与えない
-   ├ consort-volume    … どちらも沈黙で、**その政権自身の正史に后妃伝・皇后紀が立つ** 3人
-   │                     （金 末帝・明 太祖・明 仁宗）。kind=read。裏取りの本命はその巻
-   ├ no-consort-volume … どちらも沈黙で、**その政権自身の后妃伝が無い** 10人。kind=read
-   │                     （唐末群雄2・西夏3・元末群雄3・順1・西1）。読む先は
+   ├ consort-volume    … どちらも沈黙で、**その政権自身の正史に后妃伝・皇后紀が立つ** 2人
+   │                     （金 末帝・明 仁宗）。kind=read。裏取りの本命はその巻
+   ├ no-consort-volume … どちらも沈黙で、**その政権自身の后妃伝が無い** 8人。kind=read
+   │                     （唐末群雄1・西夏2・元末群雄3・順1・西1）。読む先は
    │                     他政権の書の列伝（旧唐書・明史）と別史（西夏書事）で、
    │                     `confirmedMotherUnknown` になりやすいのはこの層
    └ no-cache          … どちらのファイルも無い 0人
+
+**2026-08-17 に `母＋姓＋氏` を足して仕分けが動いた**（81/19/3/10 → 93/10/2/8）。
+最初の版は語の列挙だけで、ブロック17の安慶緒が旧唐書 逆臣伝に「母康氏，禄山糟糠之妻」と
+母を名指されているのに `no-consort-volume` へ落ちていた。**同じ書き方が宋史・遼史・
+金史・元史でも主流**なので、残り106人の仕分けにそのまま効く。
 
 ## この検出器がどれだけ沈黙するか（2026-08-17・`--audit`・標本ではなく全数）
 
@@ -37,11 +43,12 @@
 **生母フェーズが後から追記した `(mother)` の節は落として測る** — 落とさないと
 「自分の答案を読み返して98.9%当たった」という循環した数字になる（実測した）。
 
-    mother-formula      110人（61.8%）
-    taihou-only          47人（26.4%）
-    no-consort-volume    21人（11.8%）
+    mother-formula      131人（73.6%）
+    taihou-only          36人（20.2%）
+    no-consort-volume    11人（ 6.2%）
 
-**母の名が実際に分かっている人物の 38.2% が、母の定型では沈黙する。**
+**母の名が実際に分かっている人物の 26.4% が、母の定型では沈黙する。**
+（`母＋姓＋氏` を足す前は 38.2% で、この監査が語彙の穴を測る役にも立った）
 だから沈黙側のバケットを「母の記載が無い」と読んではいけない（`R-SCREEN-FIRST`）。
 **ただしこの178人は唐以前の書**（漢書・後漢書・晋書・南北朝の各書…）で、これから読む
 113人の書（宋史・遼史・金史・元史・明史・清史稿）とは后妃の書き方が違う。率はあくまで
@@ -61,6 +68,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -77,6 +85,11 @@ _spec.loader.exec_module(_hn)
 
 # 母を名指す定型。正規化を通すので字形（曰／曰・其／其）は1つ書けば足りる
 MOTHER_WORDS = ("母曰", "生母", "其母", "所生")
+# 「母＋姓＋氏」型。**2026-08-17 のブロック17で足した** — 旧唐書 逆臣伝の安慶緒は
+# 「母康氏，禄山糟糠之妻」と母を名指しているのに、上の4語のどれにも掛からず沈黙側の
+# バケットへ落ちていた。宋史・遼史・金史・元史でも主流の書き方なので、
+# 語の列挙ではなく形で当てる（姓は1〜3字＝阿史德氏のような複姓まで）
+MOTHER_PATTERNS = (re.compile(r"母[一-鿿]{1,3}氏"),)
 # 母への手掛かりではあるが名を与えない語。尊号・追尊・同母弟の記事で出る
 WEAK_WORDS = ("太后", "母弟")
 
@@ -169,9 +182,26 @@ def _cache_text(eid, drop_mother_section=False):
     if not parts:
         return None
     text = "\n".join(parts)
+    # **生母フェーズ自身が追記した節は母集団の仕分けでも常に落とす。**
+    # `merge_kinship_mother.py` はブロックを1つ流すたびに読んだ原文を
+    # `## maternalLineage 生母調査時の原文パッセージ (mother)` として同じファイルへ
+    # 追記する。落とさないと、読み進めるほど手元のバケットが動いて
+    # `check_screenings.py`（この script を再実行して件数を突合する）が落ちる。
+    text = _without_section(text, "maternalLineage")
     if drop_mother_section:
         text = _without_mother_section(text)
     return _hn.norm_for_match(text)
+
+
+def _without_section(text, marker):
+    """`## ` 見出しに `marker` を含む節を落とす。"""
+    out, skipping = [], False
+    for line in text.split("\n"):
+        if line.startswith("## "):
+            skipping = marker in line
+        if not skipping:
+            out.append(line)
+    return "\n".join(out)
 
 
 def _without_mother_section(text):
@@ -195,6 +225,8 @@ def classify(eid, regime_id, drop_mother_section=False):
     if text is None:
         return "no-cache"
     if any(_hn.norm_for_match(w) in text for w in MOTHER_WORDS):
+        return "mother-formula"
+    if any(p.search(text) for p in MOTHER_PATTERNS):
         return "mother-formula"
     if any(_hn.norm_for_match(w) in text for w in WEAK_WORDS):
         return "taihou-only"
