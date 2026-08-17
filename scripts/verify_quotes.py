@@ -1048,18 +1048,43 @@ ERA_NAME_WITNESS_IN = {
     "tang-ruizong.eraChangeCount.e004": ("tang-wuzetian", "永昌。同上"),
     "tang-ruizong.eraChangeCount.e005": ("tang-wuzetian", "載初。同上"),
     "tang-shangdi.eraChangeCount.e001": ("tang-zhongzong", "殤帝は列傳のみ。唐隆の条は中宗紀 巻七"),
+    # 十国は本紀が立たず、`_corpus_cache` は新五代史の世家から作ってある（5〜32行）。
+    # 世家は改元を書かないことがあり、条が在るのは十国春秋の本紀の側。
+    # **書ごと当てると同じ書の他国の改元に当たる**ので、その人物の巻の行範囲まで絞る
+    # （`book:<コーパス相対パス>#<開始>-<終了>`・1始まり・両端を含む）。
+    "shiguo-wu-yangpu.eraChangeCount.e003": (
+        "book:daizhigev20/史藏/载记/十国春秋.txt#1008-1040",
+        "太和。呉睿帝本紀は十国春秋 巻三。キャッシュの新五代史 呉世家は同じ元号を「大和」と書き改元条を立てない"),
+    "shiguo-nantang-lijing.eraChangeCount.e002": (
+        "book:daizhigev20/史藏/载记/十国春秋.txt#1409-1431",
+        "中興。南唐元宗本紀は十国春秋 巻十六。キャッシュの新五代史 南唐世家に958年正月の改元条が無い"),
+    "shiguo-houshu-mengchang.eraChangeCount.e001": (
+        "book:daizhigev20/史藏/载记/十国春秋.txt#2406-2453",
+        "広政。後蜀後主本紀は十国春秋 巻四十八。キャッシュの新五代史 後蜀世家は「庆政」と刻む"),
 }
 _WITNESS_CACHE = {}
 
 
-def _witness_lines(eid):
-    """証人として挙げた別人物のキャッシュ（正規化済み・無ければ空）。"""
-    if eid not in _WITNESS_CACHE:
-        p = CORPUS_ROOT / "_corpus_cache" / f"{eid}.txt"
-        _WITNESS_CACHE[eid] = ([norm_for_match(ln) for ln in
-                                p.read_text(encoding="utf-8").splitlines()]
-                               if p.is_file() else [])
-    return _WITNESS_CACHE[eid]
+def _witness_lines(spec):
+    """証人として挙げた側の本文（正規化済み・無ければ空）。
+
+    `<皇帝id>` なら別人物の原文キャッシュ、`book:<相対パス>#<開始>-<終了>` なら
+    コーパスの書のその行範囲。**書は行範囲まで絞る**（十国春秋のように1書へ
+    10政権が入る書では、書ごと当てると別国の改元が証人になってしまう）。
+    """
+    if spec not in _WITNESS_CACHE:
+        if spec.startswith("book:"):
+            ref = spec[len("book:"):]
+            rel, _, rng = ref.partition("#")
+            a, _, b = rng.partition("-")
+            p = CORPUS_ROOT / rel
+            body = p.read_text(encoding="utf-8").splitlines() if p.is_file() else []
+            lines = body[int(a) - 1:int(b)] if a and b else body
+        else:
+            p = CORPUS_ROOT / "_corpus_cache" / f"{spec}.txt"
+            lines = p.read_text(encoding="utf-8").splitlines() if p.is_file() else []
+        _WITNESS_CACHE[spec] = [norm_for_match(ln) for ln in lines]
+    return _WITNESS_CACHE[spec]
 
 
 def cmd_check_era_names():
