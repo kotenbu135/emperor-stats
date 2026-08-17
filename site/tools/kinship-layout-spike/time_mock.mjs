@@ -394,18 +394,77 @@ const setX = (u, X) => {
   for (const s of u.spouses) s.tieX = X + s.tieDx      // 連結線の始点（内側の隣の外縁）
 }
 
-/** 望む x: 親の垂下点の下・兄弟は左右に振る */
+// ---------------------------------------------------------------- 並び順（交差最小化）
+//
+// 診断（DIAG=1）で南北朝の横切り79件の内訳を出すと **76件が垂下線**で、
+// 中身は「文帝 → 劉休範 が『元凶劭』を縦に横切る」型だった。
+// 元凶劭も劉休範も文帝の子だが、**母が違うので別の union になり、互いに当事者ではない**。
+// union ごとに独立して垂下点の下へ寄せていたので、母の違う子の帯が入れ子になっていた。
+//
+// 承認済みの規則「兄弟は母別グループで連続配置」がこれに当たる。
+// 父ひとりぶんの子を**1本の並び**として扱い、母グループへ連続した x の帯を割り当てる。
+// グループの左右の順は**妃が夫の脇に付く順**と同じにする（母グループの垂下点は妃の位置で
+// 決まるので、順序をそろえないと帯と垂下点の左右が食い違って必ず交差する）。
+const sibPlan = new Map()          // 父の head id -> Map(子の head id -> 望む x)
+
+function planSiblings(h) {
+  const plan = new Map()
+  const us = [...(unionsOfParent.get(h) || [])]
+  // 父ひとりの union（母が図に無い子）がいちばん左。あとは妃の並び順
+  const rank = (un) => (un.parents.length < 2 ? -1 : (boxes.get(primaryKey.get(un.parents[1]))?.spouseDx ?? 0))
+  us.sort((a, b) => rank(a) - rank(b))
+
+  const items = []
+  for (const un of us) {
+    const j = junctionOf(un)
+    if (j == null) continue
+    const kus = un.kids.map((k) => units.get(headOf(k))).filter(Boolean)
+    if (!kus.length) continue
+    if (kus.length === 1) {
+      // 子が1人なら垂下線をまっすぐ下ろす（本人の箱の中心を垂下点にそろえる）
+      items.push({ u: kus[0], x: j - kus[0].headW / 2 })
+      continue
+    }
+    const total = kus.reduce((a, k) => a + k.w, 0) + (kus.length - 1) * COL_GAP
+    let cur = j - total / 2
+    for (const k of kus) { items.push({ u: k, x: cur }); cur += k.w + COL_GAP }
+  }
+  // グループどうしが食い込んだら左から押し出す（帯の連続性を壊さない）
+  items.sort((a, b) => a.x - b.x || a.u.id.localeCompare(b.u.id))
+  let right = -Infinity
+  for (const it of items) {
+    it.x = Math.max(it.x, right)
+    right = it.x + it.u.w + COL_GAP
+    plan.set(it.u.id, Math.round(it.x))
+  }
+  sibPlan.set(h, plan)
+  return plan
+}
+
+// 兄弟の並び（母グループの帯）は **既定では使わない**。組んで測った結果が下で、
+// 6章を通した横切りの合計は 163（無し）→ 155（並びのみ）→ 152（塞ぎ検出のみ）→ 168（両方）。
+// 三国西晋は 20 → 3 件と大きく効いたが、東晋十六国と南北朝では逆に増え、
+// **どの変種も他を支配しない**（幅と横切りはほぼ常に逆に動く）。
+// 効く章と効かない章の切り分けが付くまでは旗のままにして、既定は塞ぎ検出だけにする。
+const NO_PLAN = !process.env.PLAN         // 兄弟の並びを使わず union ごとに垂下点の下へ振る
+const NO_BLOCK = !!process.env.NOBLOCK    // 仕上げ段で通り道の塞ぎを見ない
+
+/** 望む x: 父ひとりぶんの兄弟の並びから引く（母グループは連続した帯になる） */
 function desiredOf(u) {
   const pu = parentUnionOf.get(u.id)
   if (!pu) return 0
+  if (NO_PLAN) {
+    const j0 = junctionOf(pu)
+    if (j0 == null) return 0
+    const i = pu.kids.indexOf(u.id)
+    return j0 + (i - (pu.kids.length - 1) / 2) * (u.w + COL_GAP) - u.headW / 2
+  }
+  const h = headOf(pu.parents[0])
+  const plan = sibPlan.get(h) ?? planSiblings(h)
+  const x = plan.get(u.id)
+  if (x != null) return x
   const j = junctionOf(pu)
-  if (j == null) return 0
-  const i = pu.kids.indexOf(u.id)
-  const n = pu.kids.length
-  const step = u.w + COL_GAP
-  // 垂下線が着くのは本人の箱の中心なので、unit ではなく**本人の箱**を垂下点の下へ置く
-  // （unit の中心をそろえると、妃のピルがちょうど親からの垂下線の下に来て突き抜ける）
-  return j + (i - (n - 1) / 2) * step - u.headW / 2
+  return j == null ? 0 : j - u.headW / 2
 }
 
 for (const u of order) {
@@ -418,6 +477,11 @@ for (const u of order) {
 // --- 仕上げ: 線が短くなる向きへ動かせるだけ動かす -----------------------------
 // Sugiyama の「座標割り当て」に当たる段。親は子の中央へ、子は親の垂下点へ寄る。
 // 動かすのは空きがあるときだけなので、重なりは増えない。
+// 仕上げ段では**兄弟の並び（sibPlan）を引き直さない**。
+// 引き直す版を1度組んで測ったが、6章のうち幅は5章・横切りは4章で悪くなった。
+// pass の途中で親が動くと、その pass の後半の unit だけが新しい親位置で組んだ枠を見る一方、
+// 親の側は子の重心に引かれる ＝ 双方向の引きが pass をまたいで振動する。
+// 並び順は初回配置で決めて、ここでは動かさない。
 function idealOf(u) {
   const targets = []
   const pu = parentUnionOf.get(u.id)
@@ -437,7 +501,8 @@ for (let pass = 0; pass < 6; pass++) {
     const cur = ux.get(u.id)
     // 通り道は「後から置いた線」の側にしか効かない（先に置かれた箱はそのまま線の下に残る）。
     // ここで自分の現在地が通り道を塞いでいないかを見て、塞いでいたら必ず動かす。
-    const blocking = !boxClear(u, cur)
+    // **箱だけを見ていると通り道を塞いだままの人が一度も動かない**（1本目の取りこぼし）。
+    const blocking = !boxClear(u, cur) || (!NO_BLOCK && !corridorClear(u, cur))
     const want = idealOf(u)
     if (want == null && !blocking) continue
     if (want === cur && !blocking) continue
@@ -608,9 +673,27 @@ const segHitsRect = ([[x1, y1], [x2, y2]], r) => {
   const hi = { x: Math.max(x1, x2), y: Math.max(y1, y2) }
   return lo.x < r.X + r.w && hi.x > r.X && lo.y < r.Y + r.H && hi.y > r.Y
 }
+// 数え方に3つ穴があったので直した（どれも件数を水増しする向き）:
+//   - 1本の線が1つの箱を突き抜けると、折れ線の区間ごとに 3 件まで数えていた（見た目の欠陥は1件）
+//   - 当事者を**箱の key** で持っていたので、複数在位の皇帝の 2 期目のカプセルが
+//     自分の子の線に対して「当事者でない箱」になっていた（南北朝は廃位・復位が多い）
+//   - 区間が別々の箱を跨いだとき、break で1件しか数えていなかった（過小の向き）
 let cross = 0
+let crossOther = 0        // うち「別の政権の箱」を横切ったもの
+const crossSeen = new Set()
+// 妃・非皇帝は政権を持たないので、夫か子から借りて数える
+const regimeOfId = (id) => {
+  const b = boxes.get(primaryKey.get(id))
+  if (b?.regimeId) return b.regimeId
+  const h = headOf(id)
+  if (h !== id) return boxes.get(primaryKey.get(h))?.regimeId ?? null
+  for (const un of unionsOfParent.get(id) || []) {
+    for (const k of un.kids) { const r = boxes.get(primaryKey.get(k))?.regimeId; if (r) return r }
+  }
+  return null
+}
 for (const u of unions.values()) {
-  const partyIds = new Set([...u.parents, ...u.kids].map((i) => primaryKey.get(i)))
+  const partyIds = new Set([...u.parents, ...u.kids])     // 人物 id で見る
   const ps = u.parents.map((p) => boxes.get(primaryKey.get(p))).filter(Boolean)
   if (!ps.length) continue
   const head = ps[0]
@@ -628,14 +711,18 @@ for (const u of unions.values()) {
     })
     for (const seg of segsOf(d)) {
       for (const r of bs) {
-        if (partyIds.has(r.key) || !segHitsRect(seg, r)) continue
+        if (partyIds.has(r.id) || !segHitsRect(seg, r)) continue
+        const k = `${u.key}|${kid}|${r.key}`
+        if (crossSeen.has(k)) continue
+        crossSeen.add(k)
         cross++
+        const ra = regimeOfId(kid), rb = regimeOfId(r.id)
+        if (ra && rb && ra !== rb) crossOther++
         if (process.env.DIAG) {
           const horiz = Math.abs(seg[0][1] - seg[1][1]) < 1
           console.error(`  横切り: ${u.parents.map(nameOf).join('＝')} → ${nameOf(kid)}`
-            + ` が「${r.label}」を${horiz ? '横' : '縦'}に横切る`)
+            + ` が「${r.label}」(${r.key}) を${horiz ? '横' : '縦'}に横切る`)
         }
-        break
       }
     }
   }
@@ -650,4 +737,4 @@ const floor = Math.round(peak * (avgW + COL_GAP))
 
 console.error(`[${ERA}] 箱=${bs.length} 推定年=${inferred.size}`)
 console.error(`  幅 ${W}px（下限 ${floor}px・超過 ${(W / floor).toFixed(2)}倍）／高さ ${H}px`)
-console.error(`  箱の重なり ${overlap}件／線が当事者以外を横切る ${cross}件`)
+console.error(`  箱の重なり ${overlap}件／線が当事者以外を横切る ${cross}件（うち別の政権の箱 ${crossOther}件）`)
