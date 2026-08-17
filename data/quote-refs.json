@@ -75787,6 +75787,17 @@
    ],
    "line": 22
   },
+  "xixia-renzong|eraChangeCount[0].note|05a62556d825": {
+   "id": "xixia-renzong",
+   "path": "eraChangeCount[0].note",
+   "span": "绍兴十年、夏大庆元年春正月",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-renzong.txt",
+   "frags": [
+    "夏大庆元年春正月"
+   ],
+   "line": 21
+  },
   "xixia-renzong|eraChangeCount[1].note|16b25c90d8e1": {
    "id": "xixia-renzong",
    "path": "eraChangeCount[1].note",
@@ -75798,6 +75809,77 @@
     "宜改元應之"
    ],
    "line": 165
+  },
+  "xixia-renzong|eraChangeCount[2].note|cbc037bd3004": {
+   "id": "xixia-renzong",
+   "path": "eraChangeCount[2].note",
+   "span": "绍兴十九年、夏天盛元年春正月",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-renzong.txt",
+   "frags": [
+    "绍兴十九年",
+    "夏天盛元年春正月"
+   ],
+   "line": 238
+  },
+  "xixia-renzong|eraChangeCount[2].note|cdcc3ac38158": {
+   "id": "xixia-renzong",
+   "path": "eraChangeCount[2].note",
+   "span": "绍兴十八年、夏人庆五年春正月",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-renzong.txt",
+   "frags": [
+    "绍兴十八年",
+    "夏人庆五年春正月"
+   ],
+   "line": 218
+  },
+  "xixia-renzong|eraChangeCount[3].note|069f48ca8342": {
+   "id": "xixia-renzong",
+   "path": "eraChangeCount[3].note",
+   "span": "乾道五年、夏天盛二十一年春正月",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-renzong.txt",
+   "frags": [
+    "夏天盛二十一年春正月"
+   ],
+   "line": 619
+  },
+  "xixia-renzong|eraChangeCount[3].note|885994539dae": {
+   "id": "xixia-renzong",
+   "path": "eraChangeCount[3].note",
+   "span": "在位五十五年，改元大慶四年，人慶五年，天盛二十一年，乾祐二十四年",
+   "status": "corpus",
+   "corpusFile": "china-history/宋史/列传/第二百四十五章-卷二百四十五-原文.html",
+   "frags": [
+    "在位五十五年",
+    "改元大慶四年",
+    "天盛二十一年",
+    "乾祐二十四年"
+   ],
+   "line": 22
+  },
+  "xixia-renzong|eraChangeCount[3].note|97f2354b7aa6": {
+   "id": "xixia-renzong",
+   "path": "eraChangeCount[3].note",
+   "span": "乾道六年、夏乾元年春正月",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-renzong.txt",
+   "frags": [
+    "夏乾祐元年春正月"
+   ],
+   "line": 647
+  },
+  "xixia-renzong|eraChangeCount[3].note|d44c6559d68f": {
+   "id": "xixia-renzong",
+   "path": "eraChangeCount[3].note",
+   "span": "四年，夏改元乾祐",
+   "status": "corpus",
+   "corpusFile": "china-history/宋史/列传/第二百四十五章-卷二百四十五-原文.html",
+   "frags": [
+    "夏改元乾祐"
+   ],
+   "line": 22
   },
   "xixia-renzong|rebellionSuppressionCount[1].note|de00261c993d": {
    "id": "xixia-renzong",
@@ -76282,6 +76364,17 @@
    "triage": "2026-08-02 引用の全件再照合で底本に確認できず。原典の再調査が要る（RESEARCH_QA_PLAN_2026-08-02 の3-0節）",
    "nv": "2d9b946f"
   },
+  "xixia-xiangzong|eraChangeCount[0].note|b93ce4ced055": {
+   "id": "xixia-xiangzong",
+   "path": "eraChangeCount[0].note",
+   "span": "鎮夷郡王安全廢其主純佑自立，改元應天",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-xiangzong.txt",
+   "frags": [
+    "鎮夷郡王安全廢其主純"
+   ],
+   "line": 1
+  },
   "xixia-xiangzong|eraChangeCount[0].note|cbd45f13df52": {
    "id": "xixia-xiangzong",
    "path": "eraChangeCount[0].note",
@@ -76292,6 +76385,20 @@
     "鎮夷郡王安全廢其主純"
    ],
    "line": 1
+  },
+  "xixia-xiangzong|eraChangeCount[0].note|d9b185bbc541": {
+   "id": "xixia-xiangzong",
+   "path": "eraChangeCount[0].note",
+   "span": "安全久專國政，是月二十日，与純佑母羅氏廢純佑自立，改天慶十三年為應天元年",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xixia-xiangzong.txt",
+   "frags": [
+    "安全久專國政",
+    "是月二十日",
+    "与純佑母羅氏廢純佑自",
+    "改天慶十三年為應天元"
+   ],
+   "line": 3
   },
   "xixia-xiangzong|eraChangeCount[1].note|2b90321891c1": {
    "id": "xixia-xiangzong",
