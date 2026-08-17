@@ -106,6 +106,18 @@ def merge(old, new, tag, reports, conflicts):
     for k, v in (new or {}).items():                          # 規約1 の top-level 側
         if k in ("claims", "findings"):
             continue
+        if k == "conflicts":
+            # **上書きしない**（2026-08-17 に直した）。ここが素の代入だったため、
+            # 別項目のブロックを重ねるたびに前の対立が消えていた（唐の5断片で実測 —
+            # 元号名の断片は conflicts を持たない／1件しか持たないので、名前欄の段が
+            # 記録した「諡の段の対立」が黙って落ちた）。claims と同じく重ねる
+            same = {json.dumps(c, ensure_ascii=False, sort_keys=True) for c in (v or [])}
+            keep = [c for c in (old.get("conflicts") or [])
+                    if json.dumps(c, ensure_ascii=False, sort_keys=True) not in same]
+            merged["conflicts"] = keep + list(v or [])
+            if keep:
+                reports.append(f"  conflicts: 旧側の {len(keep)}件を持ち越した")
+            continue
         if k == "noteLog":
             merged["noteLog"] = ((old.get("noteLog") or "").rstrip() + "\n" + str(v)).strip()
         else:

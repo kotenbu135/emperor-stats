@@ -1,177 +1,216 @@
 {
- "id": "tang-daizong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "旧唐書",
-   "file": "_corpus_cache/tang-daizong.txt",
-   "line": 2,
-   "quote": "代宗睿文孝武皇帝讳豫，肃宗长子，母曰章敬皇太后吴氏"
-  },
-  {
-   "cid": "c2",
-   "book": "旧唐書",
-   "file": "_corpus_cache/tang-daizong.txt",
-   "line": 2,
-   "quote": "初名俶，年十五封广平王"
-  },
-  {
-   "cid": "c3",
-   "book": "旧唐書",
-   "file": "_corpus_cache/tang-daizong.txt",
-   "line": 4,
-   "quote": "四月庚寅，立为皇太子，改名豫"
-  },
-  {
-   "cid": "c4",
-   "book": "旧唐書",
-   "file": "_corpus_cache/tang-daizong.txt",
-   "line": 102,
-   "quote": "八月庚申，群臣上尊谥曰睿文孝武皇帝，庙号代宗"
-  },
-  {
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 463,
-   "quote": "代宗睿文孝武皇帝讳豫，肃宗长子也。",
-   "cid": "zi3-c1"
-  },
-  {
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-daizong.txt",
-   "line": 2,
-   "quote": "代宗睿文孝武皇帝讳豫，肃宗长子，母曰章敬皇太后吴氏。",
-   "cid": "zi3-c2"
-  },
-  {
-   "cid": "yo1-c1",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-daizong.txt",
-   "line": 1,
-   "quote": "代宗"
-  },
-  {
-   "cid": "yo1-p1",
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 10278,
-   "quote": "隐太子建成小字毘沙门"
-  },
-  {
-   "cid": "yo1-p2",
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 10291,
-   "quote": "巢刺王元吉小字三胡"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": "代宗",
-   "basis": [
-    "c1",
-    "c4"
-   ],
-   "confidence": "high",
-   "note": "本紀冒頭が「代宗睿文孝武皇帝讳豫」と掲げ、崩御条も「庙号代宗」と明記する。底本は簡体だが値は既存レコードに合わせ新字体（この字は同形）"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": "睿文孝武皇帝",
-   "basis": [
-    "c1",
-    "c4"
-   ],
-   "confidence": "high",
-   "note": "冒頭の掲げる全長形と、大暦十四年八月庚申の「群臣上尊谥曰睿文孝武皇帝」が一致する。底本「睿文孝武皇帝」→ 値は新字体（同形）"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "c4"
-   ],
-   "confidence": "medium",
-   "note": "唐の既定（短縮呼称の欄は空・全長形だけを入れる）に従う。舊唐書 代宗本紀には末字＋皇帝型の短縮呼称は無く、通用する呼称は廟号「代宗」。ただし政権慣行の別枝条件（加諡が1段しか無い人物）に形式上は該当するため conflicts 欄に判断の分岐を明記した"
-  },
-  {
-   "field": "name.personalName",
-   "value": "豫",
-   "basis": [
-    "c1",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "冒頭「讳豫」。乾元元年四月庚寅の立太子時に「改名豫」で、初名は俶（c2）。既存レコードの値と一致"
-  },
-  {
-   "field": "name.aliases",
-   "value": [
-    "俶"
-   ],
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high",
-   "note": "参考。冒頭に「初名俶」と在る初名。欄への投入対象外だが原文に在るので残す"
-  },
-  {
-   "field": "name.courtesyName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "zi3-c1",
-    "zi3-c2"
-   ],
-   "confidence": "high",
-   "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
-  },
-  {
-   "field": "name.childhoodName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "yo1-c1",
-    "yo1-p1",
-    "yo1-p2"
-   ],
-   "confidence": "high",
-   "note": "**どちらの唐書もこの人物の幼名を書かない**。(1) 舊唐書・新唐書の2冊を諱「豫」で走査して隣接が0件（当たった0件は別人）、(2) **本人の本紀まるごと**（`_corpus_cache/tang-daizong.txt` 104行・舊唐書）に「小字」「小名」が0回。**陽性対照は新唐書 高祖諸子が皇子に小字を書くこと** — 「隐太子建成小字毘沙门」（yo1-p1）・「巢刺王元吉小字三胡」（yo1-p2）。**舊唐書の側は書全体で4件しか無く**（張易之の契苾・安慶緒の阿浩・高祖が太宗の小名を呼ぶ条・一般語）、唐で幼名を拾うなら新唐書の諸子傳が所在（2026-08-16・幼名ブロック1）／**巻の単位で見ると弱い側**: 唐の帝が住む**本紀の巻には両唐書とも小字が0件**で、対照が立つのは新唐書 諸子傳の側だけ。德王裕・李煴の字を閉じたときと同じ形の caveat で、書の側の対照（魏書型ではなく genre 型）に寄せて閉じている",
-   "sweptWords": [
-    "小字豫",
-    "小名豫",
-    "小字",
-    "小名"
-   ]
-  }
- ],
- "conflicts": [
-  {
-   "field": "name.posthumousName",
-   "adopted": {
-    "value": null,
-    "source": {
-     "page": "旧唐書 本紀第十一（代宗）"
-    },
-    "quote": "八月庚申，群臣上尊谥曰睿文孝武皇帝，庙号代宗"
-   },
-   "alternatives": [
+  "id": "tang-daizong",
+  "claims": [
     {
-     "value": "睿文孝武皇帝",
-     "source": {
-      "page": "旧唐書 本紀第十一（代宗）"
-     },
-     "quote": "代宗睿文孝武皇帝讳豫，肃宗长子，母曰章敬皇太后吴氏",
-     "note": "政権慣行の別枝『加諡が1段しか無い人物は両方の欄へ同じ値を入れる』を字面どおり当てるとこちら。代宗は加諡が大暦十四年の1段のみで積み上がっていない"
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-daizong.txt",
+      "line": 2,
+      "quote": "代宗睿文孝武皇帝讳豫，肃宗长子，母曰章敬皇太后吴氏"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-daizong.txt",
+      "line": 2,
+      "quote": "初名俶，年十五封广平王"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-daizong.txt",
+      "line": 4,
+      "quote": "四月庚寅，立为皇太子，改名豫"
+    },
+    {
+      "cid": "c4",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-daizong.txt",
+      "line": 102,
+      "quote": "八月庚申，群臣上尊谥曰睿文孝武皇帝，庙号代宗"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 463,
+      "quote": "代宗睿文孝武皇帝讳豫，肃宗长子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-daizong.txt",
+      "line": 2,
+      "quote": "代宗睿文孝武皇帝讳豫，肃宗长子，母曰章敬皇太后吴氏。",
+      "cid": "zi3-c2"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-daizong.txt",
+      "line": 1,
+      "quote": "代宗"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10278,
+      "quote": "隐太子建成小字毘沙门"
+    },
+    {
+      "cid": "yo1-p2",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10291,
+      "quote": "巢刺王元吉小字三胡"
+    },
+    {
+      "cid": "era-name-tang-b-c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-daizong.txt",
+      "line": 11,
+      "quote": "壬子，御宣政殿宣制，改元曰广德，大赦天下"
+    },
+    {
+      "cid": "era-name-tang-b-c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-daizong.txt",
+      "line": 8,
+      "quote": "二年春正月丁亥朔"
+    },
+    {
+      "cid": "era-name-tang-b-c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-daizong.txt",
+      "line": 19,
+      "quote": "可大赦天下，改广德三年为永泰元年"
+    },
+    {
+      "cid": "era-name-tang-b-c4",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-daizong.txt",
+      "line": 35,
+      "quote": "下制大赦天下，改永泰二年为大历元年"
     }
-   ],
-   "reason": "慣行の別枝は殤帝『殇皇帝』・哀帝『哀皇帝』のように廟号を持たず諡形がそのまま通用呼称になる人物を例に挙げており、その趣旨は『書が掲げる形がそのまま通用する呼称』であること。代宗は同じ条で庙号代宗が立ち、通用呼称は廟号側なので短縮呼称の欄は空とする。同じ唐で既に埋まっている tang-shunzong（posthumousName 空・posthumousNameFull 至徳大聖大安孝皇帝）とも揃う。加諡の段数だけで機械判定すると廟号を持つ唐の大半が別枝に落ちるため、段数ではなく通用呼称で切った"
-  }
- ],
- "noteLog": "既存の name.templeName・posthumousNameFull は null（未記入）だったので新規に埋める。personalName『豫』は既存値と一致し変更なし。familyName『李』は本紀冒頭には現れないため今回の主張に含めない（既存値は据え置き）。底本 china-history 旧唐书/本纪/卷十一 は簡体字なので引用は簡体のまま保存し、findings の値だけ既存レコードに合わせて新字体側へ倒した。",
- "discrepancies": "なし",
- "processSuggestion": "check_regime_conventions の唐の『保存形』は別枝の条件を『加諡が1段しか無い人物』と段数で書いているが、挙げられた例（殤帝・哀帝）はいずれも廟号を持たない人物で、代宗のように加諡1段かつ廟号ありの人物がどちらに落ちるか字面では決まらない。条件を『廟号を持たず諡形が通用呼称になる人物』へ書き直すと人物単位の判断が要らなくなる。"
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "代宗",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "本紀冒頭が「代宗睿文孝武皇帝讳豫」と掲げ、崩御条も「庙号代宗」と明記する。底本は簡体だが値は既存レコードに合わせ新字体（この字は同形）"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "睿文孝武皇帝",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "冒頭の掲げる全長形と、大暦十四年八月庚申の「群臣上尊谥曰睿文孝武皇帝」が一致する。底本「睿文孝武皇帝」→ 値は新字体（同形）"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "medium",
+      "note": "唐の既定（短縮呼称の欄は空・全長形だけを入れる）に従う。舊唐書 代宗本紀には末字＋皇帝型の短縮呼称は無く、通用する呼称は廟号「代宗」。ただし政権慣行の別枝条件（加諡が1段しか無い人物）に形式上は該当するため conflicts 欄に判断の分岐を明記した"
+    },
+    {
+      "field": "name.personalName",
+      "value": "豫",
+      "basis": [
+        "c1",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "冒頭「讳豫」。乾元元年四月庚寅の立太子時に「改名豫」で、初名は俶（c2）。既存レコードの値と一致"
+    },
+    {
+      "field": "name.aliases",
+      "value": [
+        "俶"
+      ],
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high",
+      "note": "参考。冒頭に「初名俶」と在る初名。欄への投入対象外だが原文に在るので残す"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo1-c1",
+        "yo1-p1",
+        "yo1-p2"
+      ],
+      "confidence": "high",
+      "note": "**どちらの唐書もこの人物の幼名を書かない**。(1) 舊唐書・新唐書の2冊を諱「豫」で走査して隣接が0件（当たった0件は別人）、(2) **本人の本紀まるごと**（`_corpus_cache/tang-daizong.txt` 104行・舊唐書）に「小字」「小名」が0回。**陽性対照は新唐書 高祖諸子が皇子に小字を書くこと** — 「隐太子建成小字毘沙门」（yo1-p1）・「巢刺王元吉小字三胡」（yo1-p2）。**舊唐書の側は書全体で4件しか無く**（張易之の契苾・安慶緒の阿浩・高祖が太宗の小名を呼ぶ条・一般語）、唐で幼名を拾うなら新唐書の諸子傳が所在（2026-08-16・幼名ブロック1）／**巻の単位で見ると弱い側**: 唐の帝が住む**本紀の巻には両唐書とも小字が0件**で、対照が立つのは新唐書 諸子傳の側だけ。德王裕・李煴の字を閉じたときと同じ形の caveat で、書の側の対照（魏書型ではなく genre 型）に寄せて閉じている",
+      "sweptWords": [
+        "小字豫",
+        "小名豫",
+        "小字",
+        "小名"
+      ]
+    },
+    {
+      "field": "eraChangeCount.events[0].eraName",
+      "value": "広徳",
+      "basis": [
+        "era-name-tang-b-c1",
+        "era-name-tang-b-c2",
+        "era-name-tang-b-c3"
+      ],
+      "confidence": "high",
+      "note": "旧唐書代宗紀の宝応二年（763年）秋七月条「改元曰广德」で新しく建った側は広徳。同条は捨てた側の元号名（宝応）を挙げず、直前の年立てが「二年春正月丁亥朔」（宝応二年＝763年）である点と、次の改元条が「改广德三年为永泰元年」と広徳を捨てる形である点から、この条で建った元号が広徳であることが原文内で閉じる。同条の「群臣上尊号曰宝应元圣文武皇帝」は尊号であって元号ではない。保存値は既存レコードの表記（日本語新字体・例 tang-daizong の「大暦」、tang-xizong の「広明」）に揃えて「広徳」とし、引用 evidence は底本の簡体字（广德）のまま置いた"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "name.posthumousName",
+      "adopted": {
+        "value": null,
+        "source": {
+          "page": "旧唐書 本紀第十一（代宗）"
+        },
+        "quote": "八月庚申，群臣上尊谥曰睿文孝武皇帝，庙号代宗"
+      },
+      "alternatives": [
+        {
+          "value": "睿文孝武皇帝",
+          "source": {
+            "page": "旧唐書 本紀第十一（代宗）"
+          },
+          "quote": "代宗睿文孝武皇帝讳豫，肃宗长子，母曰章敬皇太后吴氏",
+          "note": "政権慣行の別枝『加諡が1段しか無い人物は両方の欄へ同じ値を入れる』を字面どおり当てるとこちら。代宗は加諡が大暦十四年の1段のみで積み上がっていない"
+        }
+      ],
+      "reason": "慣行の別枝は殤帝『殇皇帝』・哀帝『哀皇帝』のように廟号を持たず諡形がそのまま通用呼称になる人物を例に挙げており、その趣旨は『書が掲げる形がそのまま通用する呼称』であること。代宗は同じ条で庙号代宗が立ち、通用呼称は廟号側なので短縮呼称の欄は空とする。同じ唐で既に埋まっている tang-shunzong（posthumousName 空・posthumousNameFull 至徳大聖大安孝皇帝）とも揃う。加諡の段数だけで機械判定すると廟号を持つ唐の大半が別枝に落ちるため、段数ではなく通用呼称で切った"
+    }
+  ],
+  "noteLog": "既存の name.templeName・posthumousNameFull は null（未記入）だったので新規に埋める。personalName『豫』は既存値と一致し変更なし。familyName『李』は本紀冒頭には現れないため今回の主張に含めない（既存値は据え置き）。底本 china-history 旧唐书/本纪/卷十一 は簡体字なので引用は簡体のまま保存し、findings の値だけ既存レコードに合わせて新字体側へ倒した。\n走査語: 改元・建元・改年・改號・改号・紀元・元年を _corpus_cache/tang-daizong.txt に行単位 grep（/usr/bin/grep）で当て、改元条は11行（改元曰广德）・19行（改广德三年为永泰元年）・35行（改永泰二年为大历元年）の3件。既存 events は3件で、eraName 未設定は index 0（date 0763）のみ。index 1（永泰）・2（大暦）は既に値があるため触っていない。字体の倒し方: 引用は底本の簡体字のまま（广德）、保存値は新字体（広徳）。なお既存データセットの eraName 全体では「徳」7件・「德」8件、「広」1件・「廣」1件と割れているが、本件は指示どおり日本語新字体側へ倒した。底本の巻は china-history/旧唐书/本纪/第十一章-卷十一-原文.html に同文を確認済みで、既存 source.page「旧唐書 巻十一（代宗紀）」と一致する。",
+  "discrepancies": "なし（構造フィールドとの食い違いは無い。events[0].date \"0763\" は該当条が「二年春正月丁亥朔」＝宝応二年（763年）の「秋七月」条にあることと年精度で整合し、count=3 も原文で確認した改元条3件と一致する。日付・回数はこの段の対象外なので月日の精度までは検証していない）",
+  "processSuggestion": "extract_event_material.py は eraName の有無を「（この抽出が知らない欄）」の列挙で間接的にしか示さないため、未設定の index を数えるのに一段の推測が要る。eraName 転記の段だけは「eraName: 未設定/設定済み」の旗を素材側に出すと母集団の取り違えが減る。"
 }

@@ -1,186 +1,226 @@
 {
- "id": "tang-zhongzong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "旧唐書",
-   "file": "_corpus_cache/tang-zhongzong.txt",
-   "line": 2,
-   "quote": "中宗大和圣昭孝皇帝讳显，高宗第七子，母曰则天顺圣皇后"
-  },
-  {
-   "cid": "c2",
-   "book": "旧唐書",
-   "file": "_corpus_cache/tang-zhongzong.txt",
-   "line": 25,
-   "quote": "九月丁卯，百官上谥曰孝和皇帝，庙号中宗。十一月己酉，葬于定陵。天宝十三载二月，改谥曰大和大圣大昭孝皇帝。"
-  },
-  {
-   "cid": "c3",
-   "book": "旧唐書",
-   "file": "_corpus_cache/tang-zhongzong.txt",
-   "line": 2,
-   "quote": "仪凤二年，徙封英王，改名哲"
-  },
-  {
-   "cid": "c4",
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 382,
-   "quote": "中宗大和大圣大昭孝皇帝讳显，高宗第七子也"
-  },
-  {
-   "cid": "c5",
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 388,
-   "quote": "谥曰孝和皇帝天宝十三年，加谥大和大圣大昭孝皇帝"
-  },
-  {
-   "cid": "c6",
-   "book": "旧唐書",
-   "file": "_corpus_cache/tang-zhongzong.txt",
-   "line": 2,
-   "quote": "圣历元年，召还东都，立为皇太子，依旧名显"
-  },
-  {
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 382,
-   "quote": "中宗大和大圣大昭孝皇帝讳显，高宗第七子也。",
-   "cid": "zi3-c1"
-  },
-  {
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-zhongzong.txt",
-   "line": 2,
-   "quote": "中宗大和圣昭孝皇帝讳显，高宗第七子，母曰则天顺圣皇后。",
-   "cid": "zi3-c2"
-  },
-  {
-   "cid": "yo1-c1",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-zhongzong.txt",
-   "line": 1,
-   "quote": "中宗睿宗"
-  },
-  {
-   "cid": "yo1-p1",
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 10278,
-   "quote": "隐太子建成小字毘沙门"
-  },
-  {
-   "cid": "yo1-p2",
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 10291,
-   "quote": "巢刺王元吉小字三胡"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": "中宗",
-   "basis": [
-    "c2",
-    "c1"
-   ],
-   "confidence": "high"
-  },
-  {
-   "field": "name.personalName",
-   "value": "顕",
-   "basis": [
-    "c1",
-    "c6"
-   ],
-   "confidence": "high"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": "大和大聖大昭孝皇帝",
-   "basis": [
-    "c2",
-    "c4",
-    "c5"
-   ],
-   "confidence": "high"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c2"
-   ],
-   "confidence": "high"
-  },
-  {
-   "field": "name.aliases",
-   "value": [
-    "哲"
-   ],
-   "basis": [
-    "c3"
-   ],
-   "confidence": "high"
-  },
-  {
-   "field": "name.courtesyName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "zi3-c1",
-    "zi3-c2"
-   ],
-   "confidence": "high",
-   "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
-  },
-  {
-   "field": "name.childhoodName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "yo1-c1",
-    "yo1-p1",
-    "yo1-p2"
-   ],
-   "confidence": "high",
-   "note": "**どちらの唐書もこの人物の幼名を書かない**。(1) 舊唐書・新唐書の2冊を諱「顕」で走査して隣接が0件（当たった0件は別人）、(2) **本人の本紀まるごと**（`_corpus_cache/tang-zhongzong.txt` 26行・舊唐書）に「小字」「小名」が0回。**陽性対照は新唐書 高祖諸子が皇子に小字を書くこと** — 「隐太子建成小字毘沙门」（yo1-p1）・「巢刺王元吉小字三胡」（yo1-p2）。**舊唐書の側は書全体で4件しか無く**（張易之の契苾・安慶緒の阿浩・高祖が太宗の小名を呼ぶ条・一般語）、唐で幼名を拾うなら新唐書の諸子傳が所在（2026-08-16・幼名ブロック1）／**巻の単位で見ると弱い側**: 唐の帝が住む**本紀の巻には両唐書とも小字が0件**で、対照が立つのは新唐書 諸子傳の側だけ。德王裕・李煴の字を閉じたときと同じ形の caveat で、書の側の対照（魏書型ではなく genre 型）に寄せて閉じている",
-   "sweptWords": [
-    "小字顕",
-    "小名顕",
-    "小字",
-    "小名"
-   ]
-  }
- ],
- "conflicts": [
-  {
-   "field": "name.posthumousNameFull",
-   "adopted": {
-    "value": "大和大聖大昭孝皇帝",
-    "source": {
-     "page": "旧唐書 本紀第七 中宗"
-    },
-    "quote": "天宝十三载二月，改谥曰大和大圣大昭孝皇帝"
-   },
-   "alternatives": [
+  "id": "tang-zhongzong",
+  "claims": [
     {
-     "value": "大和聖昭孝皇帝",
-     "source": {
-      "page": "旧唐書 本紀第七 中宗"
-     },
-     "quote": "中宗大和圣昭孝皇帝讳显，高宗第七子，母曰则天顺圣皇后",
-     "note": "舊唐書 本紀の冒頭が掲げる形。電子底本（china-history 旧唐书/本纪 卷七 と daizhigev20 旧唐书.txt:503）は同じ祖本を共有するので独立した2証人ではない"
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 2,
+      "quote": "中宗大和圣昭孝皇帝讳显，高宗第七子，母曰则天顺圣皇后"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 25,
+      "quote": "九月丁卯，百官上谥曰孝和皇帝，庙号中宗。十一月己酉，葬于定陵。天宝十三载二月，改谥曰大和大圣大昭孝皇帝。"
+    },
+    {
+      "cid": "c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 2,
+      "quote": "仪凤二年，徙封英王，改名哲"
+    },
+    {
+      "cid": "c4",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 382,
+      "quote": "中宗大和大圣大昭孝皇帝讳显，高宗第七子也"
+    },
+    {
+      "cid": "c5",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 388,
+      "quote": "谥曰孝和皇帝天宝十三年，加谥大和大圣大昭孝皇帝"
+    },
+    {
+      "cid": "c6",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 2,
+      "quote": "圣历元年，召还东都，立为皇太子，依旧名显"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 382,
+      "quote": "中宗大和大圣大昭孝皇帝讳显，高宗第七子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 2,
+      "quote": "中宗大和圣昭孝皇帝讳显，高宗第七子，母曰则天顺圣皇后。",
+      "cid": "zi3-c2"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 1,
+      "quote": "中宗睿宗"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10278,
+      "quote": "隐太子建成小字毘沙门"
+    },
+    {
+      "cid": "yo1-p2",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10291,
+      "quote": "巢刺王元吉小字三胡"
+    },
+    {
+      "cid": "era-name-tang-b-c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 2,
+      "quote": "弘道元年十二月，高宗崩，遗诏皇太子柩前即帝位。皇太后临朝称制，改元嗣圣。"
+    },
+    {
+      "cid": "era-name-tang-b-c2",
+      "book": "旧唐書",
+      "file": "china-history/旧唐书/本纪/第六章-卷六-原文.html",
+      "line": 25,
+      "quote": "嗣圣元年春正月甲申朔，改元。"
+    },
+    {
+      "cid": "era-name-tang-b-c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-zhongzong.txt",
+      "line": 15,
+      "quote": "大赦天下，改元为景龙。"
     }
-   ],
-   "reason": "舊唐書 本紀の冒頭が掲げる形が、同じ本紀が記す加諡の行為そのもの（天宝十三載の改諡）と食い違う。加諡の条は諡を授けた行為を直接記す側で、新唐書の冒頭（c4）と加諡記事（c5）もともに大和大圣大昭孝皇帝とする。さらに同じ卷七の睿宗『玄真大圣大兴孝皇帝』・卷五の高宗『天皇大圣大弘孝皇帝』と、天宝十三載の加諡は『大聖大〇孝』の形をとるので、冒頭の『大和圣昭孝』は自巻の中でも異例。冒頭側は大の脱字と判断して加諡形を採る"
-  }
- ],
- "noteLog": "字体の倒し方: claims の quote は底本（簡体）のまま保存し、findings の値だけデータセットの表記（日本語新字体）へ倒した（圣→聖・显→顕）。／舊唐書 志（daizhigev20/史藏/正史/旧唐书.txt:2148 礼仪志『中宗大圣大昭孝皇帝』）も大の字を持つが、志は本紀・列伝ではなく和の字も落ちるため basis には使わず参考にとどめた。／初諡『孝和皇帝』は加諡前の別の諡であり短縮呼称ではないので posthumousName へは入れない（政権慣行の指示どおり）。加諡が2段（孝和皇帝→大和大聖大昭孝皇帝）積み上がり本文・贊が廟号で呼ぶ型なので、唐の既定どおり posthumousName は空。／aliases の『哲』は儀鳳2年の改名で、聖暦元年に『依旧名显』と戻る（c6）。欄への投入対象外と理解しているので参考として残す。",
- "discrepancies": "なし",
- "processSuggestion": "残量表 唐の本紀冒頭が加諡記事と食い違う型 未走査（中宗で1件検出。政権慣行が『冒頭＝最終の加諡形』を前提にしているため、冒頭側に脱字がある人物では慣行がそのまま使えない。唐22人ぶんの冒頭と加諡記事の突き合わせは未走査）。慣行の『保存形』に、冒頭形と加諡記事が食い違ったときどちらを採るかの1行を足すと、人物ごとに判断しなくて済む。"
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "中宗",
+      "basis": [
+        "c2",
+        "c1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "顕",
+      "basis": [
+        "c1",
+        "c6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "大和大聖大昭孝皇帝",
+      "basis": [
+        "c2",
+        "c4",
+        "c5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.aliases",
+      "value": [
+        "哲"
+      ],
+      "basis": [
+        "c3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo1-c1",
+        "yo1-p1",
+        "yo1-p2"
+      ],
+      "confidence": "high",
+      "note": "**どちらの唐書もこの人物の幼名を書かない**。(1) 舊唐書・新唐書の2冊を諱「顕」で走査して隣接が0件（当たった0件は別人）、(2) **本人の本紀まるごと**（`_corpus_cache/tang-zhongzong.txt` 26行・舊唐書）に「小字」「小名」が0回。**陽性対照は新唐書 高祖諸子が皇子に小字を書くこと** — 「隐太子建成小字毘沙门」（yo1-p1）・「巢刺王元吉小字三胡」（yo1-p2）。**舊唐書の側は書全体で4件しか無く**（張易之の契苾・安慶緒の阿浩・高祖が太宗の小名を呼ぶ条・一般語）、唐で幼名を拾うなら新唐書の諸子傳が所在（2026-08-16・幼名ブロック1）／**巻の単位で見ると弱い側**: 唐の帝が住む**本紀の巻には両唐書とも小字が0件**で、対照が立つのは新唐書 諸子傳の側だけ。德王裕・李煴の字を閉じたときと同じ形の caveat で、書の側の対照（魏書型ではなく genre 型）に寄せて閉じている",
+      "sweptWords": [
+        "小字顕",
+        "小名顕",
+        "小字",
+        "小名"
+      ]
+    },
+    {
+      "field": "eraChangeCount.events[0].eraName",
+      "value": "嗣聖",
+      "basis": [
+        "era-name-tang-b-c1",
+        "era-name-tang-b-c2"
+      ],
+      "confidence": "high",
+      "note": "旧唐書 巻七（中宗本紀）の弘道元年十二月の即位条に続けて「改元嗣圣」。建った側が嗣聖、捨てた側は同じ条が挙げる弘道。巻六（則天皇后本紀）も「嗣圣元年春正月甲申朔，改元」と同じ改元を載せ、684年正月であることを裏づける。底本は簡体（嗣圣）なので、保存値は既存の兄弟要素 景龍 と同じ日本語新字体・正字表記へ倒して 嗣聖 とした。"
+    },
+    {
+      "field": "eraChangeCount.events[1].eraName",
+      "value": "景龍",
+      "basis": [
+        "era-name-tang-b-c3"
+      ],
+      "confidence": "high",
+      "note": "既存値の再確認のみ（この段の母集団外）。巻七の神龍三年（707年）九月庚子条に「大赦天下，改元为景龙」とあり、建った側は景龍、捨てた側は同条に見える神龍。（検証段の指摘で訂正。神龍元年は705年で、その年の記事は同じ紀の別の場所に在る）"
+    }
+  ],
+  "conflicts": [
+    {
+      "field": "name.posthumousNameFull",
+      "adopted": {
+        "value": "大和大聖大昭孝皇帝",
+        "source": {
+          "page": "旧唐書 本紀第七 中宗"
+        },
+        "quote": "天宝十三载二月，改谥曰大和大圣大昭孝皇帝"
+      },
+      "alternatives": [
+        {
+          "value": "大和聖昭孝皇帝",
+          "source": {
+            "page": "旧唐書 本紀第七 中宗"
+          },
+          "quote": "中宗大和圣昭孝皇帝讳显，高宗第七子，母曰则天顺圣皇后",
+          "note": "舊唐書 本紀の冒頭が掲げる形。電子底本（china-history 旧唐书/本纪 卷七 と daizhigev20 旧唐书.txt:503）は同じ祖本を共有するので独立した2証人ではない"
+        }
+      ],
+      "reason": "舊唐書 本紀の冒頭が掲げる形が、同じ本紀が記す加諡の行為そのもの（天宝十三載の改諡）と食い違う。加諡の条は諡を授けた行為を直接記す側で、新唐書の冒頭（c4）と加諡記事（c5）もともに大和大圣大昭孝皇帝とする。さらに同じ卷七の睿宗『玄真大圣大兴孝皇帝』・卷五の高宗『天皇大圣大弘孝皇帝』と、天宝十三載の加諡は『大聖大〇孝』の形をとるので、冒頭の『大和圣昭孝』は自巻の中でも異例。冒頭側は大の脱字と判断して加諡形を採る"
+    }
+  ],
+  "noteLog": "字体の倒し方: claims の quote は底本（簡体）のまま保存し、findings の値だけデータセットの表記（日本語新字体）へ倒した（圣→聖・显→顕）。／舊唐書 志（daizhigev20/史藏/正史/旧唐书.txt:2148 礼仪志『中宗大圣大昭孝皇帝』）も大の字を持つが、志は本紀・列伝ではなく和の字も落ちるため basis には使わず参考にとどめた。／初諡『孝和皇帝』は加諡前の別の諡であり短縮呼称ではないので posthumousName へは入れない（政権慣行の指示どおり）。加諡が2段（孝和皇帝→大和大聖大昭孝皇帝）積み上がり本文・贊が廟号で呼ぶ型なので、唐の既定どおり posthumousName は空。／aliases の『哲』は儀鳳2年の改名で、聖暦元年に『依旧名显』と戻る（c6）。欄への投入対象外と理解しているので参考として残す。\n走査は _corpus_cache/tang-zhongzong.txt に対し 改元・建元・改年・改號/改号・元年 の行単位 grep で実施。当たったのは嗣聖（684・本人の即位）・景龍（707）のほか、神龍元年（705・則天の側で立った元号）と唐隆（710・崩御後に韋后が立てた元号）だが、後2者は count=2 の母集団外なので eraName の主張はしていない。",
+  "discrepancies": "eraName 欄そのものと原文の食い違いは なし（events[0] が空欄だったところへ嗣聖を主張、events[1] の景龍は原文と一致）。担当外だが構造フィールドで1点: events[1] は datePrecision が \"day\" なのに date は年精度の \"0707\" で、深さが食い違う。原文（巻七）は「九月丁酉…庚子，上皇帝尊号曰应天神龙…大赦天下，改元为景龙」と日まで書いており、原文側は日精度を支えている。events[0] の date \"0684-01\"（月精度）は巻六の「嗣圣元年春正月甲申朔，改元」と整合する。",
+  "processSuggestion": "残量表 唐の改元 eraName 未転記（未走査）: この段で読んだのは tang-zhongzong 1人のみで、唐24人のうち他23人は未走査。check_regime_conventions.py に 'eraChangeCount.events[].eraName' を渡すと「適用外」と正しく返るが、'eraName' とだけ渡すと名前欄の慣行として未確定エラーになり作業が止まりかける。フィールド名の前方一致で名前欄と誤認しないよう、指示側でフルパスを既定にすると安全。"
 }
