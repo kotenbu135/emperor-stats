@@ -1,124 +1,196 @@
 {
- "id": "tang-dezong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "旧唐書",
-   "file": "_corpus_cache/tang-dezong.txt",
-   "line": 2,
-   "quote": "德宗神武孝文皇帝讳适，代宗长子，母曰睿真皇后沈氏"
-  },
-  {
-   "cid": "c2",
-   "book": "旧唐書",
-   "file": "_corpus_cache/tang-dezong.txt",
-   "line": 190,
-   "quote": "永贞元年九月丁卯，群臣上谥曰神武孝文，庙号德宗"
-  },
-  {
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 486,
-   "quote": "德宗神武圣文皇帝讳适，代宗长子也。",
-   "cid": "zi3-c1"
-  },
-  {
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-dezong.txt",
-   "line": 2,
-   "quote": "德宗神武孝文皇帝讳适，代宗长子，母曰睿真皇后沈氏。",
-   "cid": "zi3-c2"
-  },
-  {
-   "cid": "yo1-c1",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-dezong.txt",
-   "line": 1,
-   "quote": "德宗上"
-  },
-  {
-   "cid": "yo1-p1",
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 10278,
-   "quote": "隐太子建成小字毘沙门"
-  },
-  {
-   "cid": "yo1-p2",
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 10291,
-   "quote": "巢刺王元吉小字三胡"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": "徳宗",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": "神武孝文皇帝",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "c2"
-   ],
-   "confidence": "high"
-  },
-  {
-   "field": "name.personalName",
-   "value": "适",
-   "basis": [
-    "c1"
-   ],
-   "confidence": "high"
-  },
-  {
-   "field": "name.courtesyName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "zi3-c1",
-    "zi3-c2"
-   ],
-   "confidence": "high",
-   "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
-  },
-  {
-   "field": "name.childhoodName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "yo1-c1",
-    "yo1-p1",
-    "yo1-p2"
-   ],
-   "confidence": "high",
-   "note": "**どちらの唐書もこの人物の幼名を書かない**。(1) 舊唐書・新唐書の2冊を諱「适」で走査して隣接が0件（当たった0件は別人）、(2) **本人の本紀まるごと**（`_corpus_cache/tang-dezong.txt` 192行・舊唐書）に「小字」「小名」が0回。**陽性対照は新唐書 高祖諸子が皇子に小字を書くこと** — 「隐太子建成小字毘沙门」（yo1-p1）・「巢刺王元吉小字三胡」（yo1-p2）。**舊唐書の側は書全体で4件しか無く**（張易之の契苾・安慶緒の阿浩・高祖が太宗の小名を呼ぶ条・一般語）、唐で幼名を拾うなら新唐書の諸子傳が所在（2026-08-16・幼名ブロック1）／**巻の単位で見ると弱い側**: 唐の帝が住む**本紀の巻には両唐書とも小字が0件**で、対照が立つのは新唐書 諸子傳の側だけ。德王裕・李煴の字を閉じたときと同じ形の caveat で、書の側の対照（魏書型ではなく genre 型）に寄せて閉じている",
-   "sweptWords": [
-    "小字适",
-    "小名适",
-    "小字",
-    "小名"
-   ]
-  }
- ],
- "conflicts": [],
- "noteLog": "字体の倒し方: claims の引用は底本（china-history 旧唐书 本纪 卷十二・_corpus_cache/tang-dezong.txt）の簡体のまま置き、findings の値だけ既存レコードの新字体表記へ倒した（德宗→徳宗）。諱「适」は簡体化ではなく別字（适 kuò・「適」の簡体ではない）なので変換せず底本の字のまま採り、既存 name.personalName「适」と一致する。posthumousName を空のままにしたのは screening の unknown を理由にしたのではなく、政権慣行の保存形（唐では廟号で呼ばれる皇帝の短縮呼称欄は空・短縮呼称が入るのは殤帝「殇皇帝」・哀帝「哀皇帝」のように廟号を持たず諡がそのまま通用する別枝だけ）に従ったため。徳宗は廟号「德宗」を持ち commonName も「徳宗」で、本紀に末字＋皇帝の短縮形は出ない。posthumousNameFull は慣行どおり冒頭が掲げる形（c1）から採り、崩御条の加諡記事「上谥曰神武孝文」（c2）とも一致する（c2 に「皇帝」を継ぎ足して作った値ではない）。",
- "discrepancies": "なし",
- "processSuggestion": "残量表 唐の名前欄転記 24件（未読 23・徳宗以外は未走査）"
+  "id": "tang-dezong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-dezong.txt",
+      "line": 2,
+      "quote": "德宗神武孝文皇帝讳适，代宗长子，母曰睿真皇后沈氏"
+    },
+    {
+      "cid": "c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-dezong.txt",
+      "line": 190,
+      "quote": "永贞元年九月丁卯，群臣上谥曰神武孝文，庙号德宗"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 486,
+      "quote": "德宗神武圣文皇帝讳适，代宗长子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-dezong.txt",
+      "line": 2,
+      "quote": "德宗神武孝文皇帝讳适，代宗长子，母曰睿真皇后沈氏。",
+      "cid": "zi3-c2"
+    },
+    {
+      "cid": "yo1-c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-dezong.txt",
+      "line": 1,
+      "quote": "德宗上"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10278,
+      "quote": "隐太子建成小字毘沙门"
+    },
+    {
+      "cid": "yo1-p2",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10291,
+      "quote": "巢刺王元吉小字三胡"
+    },
+    {
+      "cid": "era-name-tang-a-c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-dezong.txt",
+      "line": 8,
+      "quote": "建中元年春正月丁卯朔，御含元殿，政元建中，群臣上尊号曰圣神文武皇帝"
+    },
+    {
+      "cid": "era-name-tang-a-c2",
+      "book": "旧唐書",
+      "file": "daizhigev20/史藏/正史/旧唐书.txt",
+      "line": 839,
+      "quote": "建中元年春正月丁卯朔，御含元殿，政元建中，群臣上尊号曰圣神文武皇帝"
+    },
+    {
+      "cid": "c3",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 490,
+      "quote": "建中元年正月丁卯，改元。群臣上尊号曰圣神文武皇帝"
+    },
+    {
+      "cid": "c4",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-dezong.txt",
+      "line": 39,
+      "quote": "宜革纪年之号，式敷在宥之泽，可大赦天下，改建中五年为兴元元年"
+    },
+    {
+      "cid": "c5",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-dezong.txt",
+      "line": 37,
+      "quote": "兴元元年春正月癸酉朔，上在奉天行宫受朝贺"
+    },
+    {
+      "cid": "c6",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-dezong.txt",
+      "line": 52,
+      "quote": "贞元元年正月丁酉朔，御含元殿受朝贺，礼毕，宣制大赦天下，改元贞元"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "徳宗",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "神武孝文皇帝",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.personalName",
+      "value": "适",
+      "basis": [
+        "c1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "yo1-c1",
+        "yo1-p1",
+        "yo1-p2"
+      ],
+      "confidence": "high",
+      "note": "**どちらの唐書もこの人物の幼名を書かない**。(1) 舊唐書・新唐書の2冊を諱「适」で走査して隣接が0件（当たった0件は別人）、(2) **本人の本紀まるごと**（`_corpus_cache/tang-dezong.txt` 192行・舊唐書）に「小字」「小名」が0回。**陽性対照は新唐書 高祖諸子が皇子に小字を書くこと** — 「隐太子建成小字毘沙门」（yo1-p1）・「巢刺王元吉小字三胡」（yo1-p2）。**舊唐書の側は書全体で4件しか無く**（張易之の契苾・安慶緒の阿浩・高祖が太宗の小名を呼ぶ条・一般語）、唐で幼名を拾うなら新唐書の諸子傳が所在（2026-08-16・幼名ブロック1）／**巻の単位で見ると弱い側**: 唐の帝が住む**本紀の巻には両唐書とも小字が0件**で、対照が立つのは新唐書 諸子傳の側だけ。德王裕・李煴の字を閉じたときと同じ形の caveat で、書の側の対照（魏書型ではなく genre 型）に寄せて閉じている",
+      "sweptWords": [
+        "小字适",
+        "小名适",
+        "小字",
+        "小名"
+      ]
+    },
+    {
+      "field": "eraChangeCount.events[0].eraName",
+      "value": "建中",
+      "basis": [
+        "era-name-tang-a-c1",
+        "era-name-tang-a-c2",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "素材 tang-dezong#0（date 0780）に対応。舊唐書 徳宗紀上の建中元年正月丁卯朔の条が建てた側の元号名を挙げる（この条は捨てた側＝大暦を名で挙げていない）。底本は「改元」の位置が「政元」に崩れているが、崩れているのは動詞側で元号名 建中 は同じ行に2度（年号ラベル「建中元年春正月」と「政元建中」）そのまま在り、china-history 由来のキャッシュと daizhigev20 の舊唐書がともに同じ「政元」を持つ（底本系統の異同で局所的な破損ではない）。新唐書 本紀第七も同じ丁卯に改元の行為を記す。値は底本の簡体「建中」＝新字体でも同形"
+    },
+    {
+      "field": "eraChangeCount.events[1].eraName",
+      "value": "興元",
+      "basis": [
+        "c4",
+        "c5"
+      ],
+      "confidence": "high",
+      "note": "素材 tang-dezong#1（date 0784）に対応。奉天行宮での詔に「改建中五年为兴元元年」とあり、建てた側が兴元・捨てた側が建中（建中五年）。同じ紀の年号ラベルも「兴元元年春正月癸酉朔」。保存値は既存レコードの表記（日本語新字体）に揃えて 兴元 → 興元"
+    },
+    {
+      "field": "eraChangeCount.events[2].eraName",
+      "value": "貞元",
+      "basis": [
+        "c6"
+      ],
+      "confidence": "high",
+      "note": "素材 tang-dezong#2（date 0785）に対応。「宣制大赦天下，改元贞元」で建てた側の名だけを挙げる条（捨てた側＝興元は名で挙げていない）。保存値は新字体に揃えて 贞元 → 貞元"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "字体の倒し方: claims の引用は底本（china-history 旧唐书 本纪 卷十二・_corpus_cache/tang-dezong.txt）の簡体のまま置き、findings の値だけ既存レコードの新字体表記へ倒した（德宗→徳宗）。諱「适」は簡体化ではなく別字（适 kuò・「適」の簡体ではない）なので変換せず底本の字のまま採り、既存 name.personalName「适」と一致する。posthumousName を空のままにしたのは screening の unknown を理由にしたのではなく、政権慣行の保存形（唐では廟号で呼ばれる皇帝の短縮呼称欄は空・短縮呼称が入るのは殤帝「殇皇帝」・哀帝「哀皇帝」のように廟号を持たず諡がそのまま通用する別枝だけ）に従ったため。徳宗は廟号「德宗」を持ち commonName も「徳宗」で、本紀に末字＋皇帝の短縮形は出ない。posthumousNameFull は慣行どおり冒頭が掲げる形（c1）から採り、崩御条の加諡記事「上谥曰神武孝文」（c2）とも一致する（c2 に「皇帝」を継ぎ足して作った値ではない）。\n既存 note は読んでいない（R-CLAIMS-FIRST）。走査は _corpus_cache/tang-dezong.txt（191行・舊唐書 巻十二・十三 徳宗紀）に対して 改元・建元・改年・改号／改號・号年・紀元・改明年元 の8語で行い、当たったのは 改元（1件・貞元）と「改建中五年为兴元元年」の形（1件）で、他の6語は0件。建中は改元語ではなく年号ラベルと崩れた「政元建中」から取った。字体の倒し方: 引用 evidence は底本の簡体のまま（兴元・贞元・政元）、保存する eraName は既存レコードの表記＝日本語新字体（興元・貞元・建中）へ倒した。",
+  "discrepancies": "なし。既存の構造フィールドは eraChangeCount.count=3・events 3件（date 0780 / 0784 / 0785・いずれも datePrecision year・source.page 旧唐書 巻十二）で、原文側も建中元年=780年・興元元年=784年・貞元元年=785年の3回で一致する。底本の「政元建中」（本来「改元建中」の位置）は底本系統の異同であって構造フィールドとの食い違いではないので、ここではなく findings の note に記録した。",
+  "processSuggestion": "(1) check_regime_conventions.py --for tang-dezong --field 'eraChangeCount.events[].eraName' は未確定（exit 1）を返すが、data/regime-conventions.json の記録が覆うのは名前6欄だけで eraName を覆う記録は1件も無い。「覆う記録が無いフィールド」と「政権の慣行が未確定」を同じ出口で返すと、名前系以外の作業が毎回この停止条件に当たる。(2) extract_event_material.py は events の実 id を『（この抽出が知らない欄）: [\"id\"]』として落とすため、調査側は tang-dezong#N の索引しか返せない。索引→id の対応付けは親セッション側の責任になるので、抽出側で id を表示するほうが安全。"
 }

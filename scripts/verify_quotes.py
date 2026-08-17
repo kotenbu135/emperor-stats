@@ -995,6 +995,11 @@ def _probe_volume_index(catalog):
 # 条件にする（同じ行に在るだけでは、その帝が使っただけの前帝の元号と区別できない）。
 ERA_ANCHOR_PREFIX = ("改元", "建元", "改年", "年号", "号", "曰")
 ERA_ANCHOR_SUFFIX = ("元年",)
+# 「改〈捨てる側〉为〈建てる側〉」型（2026-08-17 に足した）。唐の本紀はこの形を多用し、
+# 上の隣接形では拾えない — 「改乾元为上元」「其元年宜改为宝应」「改元为显庆」は
+# いずれも 为 が挟まる。**建てた側だけに当たる**のが要点で、捨てた側は 改 の直後に立つ。
+# 間に入るのは旧元号名や「〈元号〉五年」なので6字まで見る（「改天福九年为开运元年」）。
+ERA_ANCHOR_RECAST = re.compile(r"改[^，。；、]{0,6}[为為]$")
 
 
 def era_anchor_hit(key, lines):
@@ -1004,7 +1009,20 @@ def era_anchor_hit(key, lines):
     切り出してある**（scripts/test_era_name.py がここを直接呼ぶ）。
     """
     forms = [p + key for p in ERA_ANCHOR_PREFIX] + [key + s for s in ERA_ANCHOR_SUFFIX]
-    return next((f for ln in lines for f in forms if f in ln), None)
+    hit = next((f for ln in lines for f in forms if f in ln), None)
+    if hit:
+        return hit
+    for ln in lines:
+        start = 0
+        while True:
+            i = ln.find(key, start)
+            if i < 0:
+                break
+            m = ERA_ANCHOR_RECAST.search(ln[:i])
+            if m:
+                return m.group(0) + key
+            start = i + 1
+    return None
 
 
 def cmd_check_era_names():

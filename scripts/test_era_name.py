@@ -133,6 +133,24 @@ for name, era, want_hit in D_CASES:
     bad += 0 if ok else 1
     print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
 
+# 「改〈捨てる側〉为〈建てる側〉」型（2026-08-17 に足した。唐の本紀が多用する形で、
+# 隣接形だけだと粛宗の乾元→上元・宝応が落ちた）。**建てた側にだけ当たること**が要点で、
+# 捨てた側は 改 の直後に立つので当たってはいけない
+RECAST = [norm_for_match("上御明鳳門、大赦天下、改乾元為上元"),
+          norm_for_match("其元年宜改為寶應、建巳月為四月"),
+          norm_for_match("壬申、大赦、改元為顯慶")]
+RECAST_CASES = [
+    ("改〈旧〉为〈新〉の新しい側は D に当たる", "上元", True),
+    ("改为〈新〉（旧を挟まない形）も当たる", "宝応", True),
+    ("改元为〈新〉も当たる", "顕慶", True),
+    ("【要】改の直後に立つ捨てた側は当たらない", "乾元", False),
+]
+for name, era, want_hit in RECAST_CASES:
+    hit = Q.era_anchor_hit(norm_for_match(era), RECAST)
+    ok = bool(hit) == want_hit
+    bad += 0 if ok else 1
+    print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
+
 # 元号名だけが在る行（「天启三年」）を当たりに数えないこと。D の主力はこの区別
 hit = Q.era_anchor_hit(norm_for_match("天啓"), [LINES[1]])
 ok = hit is None

@@ -64476,7 +64476,8 @@
       "source": {
        "page": "旧唐書本紀第四（高宗上）",
        "lang": "zh"
-      }
+      },
+      "eraName": "顕慶"
      },
      {
       "id": "tang-gaozong.eraChangeCount.e003",
@@ -64486,7 +64487,8 @@
       "source": {
        "page": "旧唐書本紀第四（高宗上）",
        "lang": "zh"
-      }
+      },
+      "eraName": "龍朔"
      },
      {
       "id": "tang-gaozong.eraChangeCount.e004",
@@ -64540,7 +64542,8 @@
       "source": {
        "page": "旧唐書本紀第五（高宗下）",
        "lang": "zh"
-      }
+      },
+      "eraName": "上元"
      },
      {
       "id": "tang-gaozong.eraChangeCount.e009",
@@ -66230,7 +66233,8 @@
       "source": {
        "page": "旧唐書 巻八（玄宗紀上）",
        "lang": "zh"
-      }
+      },
+      "eraName": "開元"
      },
      {
       "id": "tang-xuanzong.eraChangeCount.e003",
@@ -66865,7 +66869,8 @@
       "source": {
        "page": "旧唐書 巻十（粛宗紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "乾元"
      },
      {
       "id": "tang-suzong.eraChangeCount.e003",
@@ -66875,7 +66880,8 @@
       "source": {
        "page": "旧唐書 巻十（粛宗紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "上元"
      },
      {
       "id": "tang-suzong.eraChangeCount.e004",
@@ -66885,7 +66891,8 @@
       "source": {
        "page": "旧唐書 巻十（粛宗紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "宝応"
      }
     ],
     "confidence": "high",
@@ -67698,7 +67705,8 @@
       "source": {
        "page": "旧唐書 巻十二（徳宗紀上）",
        "lang": "zh"
-      }
+      },
+      "eraName": "建中"
      },
      {
       "id": "tang-dezong.eraChangeCount.e002",
@@ -67708,7 +67716,8 @@
       "source": {
        "page": "旧唐書 巻十二（徳宗紀上）",
        "lang": "zh"
-      }
+      },
+      "eraName": "興元"
      },
      {
       "id": "tang-dezong.eraChangeCount.e003",
@@ -67718,7 +67727,8 @@
       "source": {
        "page": "旧唐書 巻十二（徳宗紀上）",
        "lang": "zh"
-      }
+      },
+      "eraName": "貞元"
      }
     ],
     "confidence": "high",
@@ -70788,7 +70798,8 @@
       "source": {
        "page": "旧唐書 巻十九下（僖宗）",
        "lang": "zh"
-      }
+      },
+      "eraName": "広明"
      },
      {
       "id": "tang-xizong.eraChangeCount.e003",
@@ -70809,7 +70820,8 @@
       "source": {
        "page": "旧唐書 巻十九下（僖宗）",
        "lang": "zh"
-      }
+      },
+      "eraName": "光啓"
      },
      {
       "id": "tang-xizong.eraChangeCount.e005",
@@ -70819,7 +70831,8 @@
       "source": {
        "page": "旧唐書 巻十九下（僖宗）",
        "lang": "zh"
-      }
+      },
+      "eraName": "文徳"
      }
     ],
     "confidence": "high",

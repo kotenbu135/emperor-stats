@@ -1,180 +1,277 @@
 {
- "id": "tang-xizong",
- "claims": [
-  {
-   "cid": "c1",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-xizong.txt",
-   "line": 1,
-   "quote": "僖宗惠圣恭定孝皇帝讳儇，懿宗第五子，母曰惠安皇后王氏"
-  },
-  {
-   "cid": "c2",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-xizong.txt",
-   "line": 1,
-   "quote": "初封普王，名俨"
-  },
-  {
-   "cid": "c3",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-xizong.txt",
-   "line": 1,
-   "quote": "第五男普王俨改名儇"
-  },
-  {
-   "cid": "c4",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-xizong.txt",
-   "line": 101,
-   "quote": "崩于武德殿，圣寿二十七，群臣上谥曰惠圣恭定孝皇帝，庙号僖宗"
-  },
-  {
-   "cid": "c5",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-xizong.txt",
-   "line": 100,
-   "quote": "宰臣韦昭度率文武百僚上徽号曰圣文睿德光武弘孝皇帝"
-  },
-  {
-   "cid": "c6",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-xizong.txt",
-   "line": 102,
-   "quote": "史臣曰：恭帝冲年缵历，政在宦臣"
-  },
-  {
-   "cid": "c7",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-xizong.txt",
-   "line": 102,
-   "quote": "非僖皇失道之过"
-  },
-  {
-   "cid": "c8",
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-xizong.txt",
-   "line": 101,
-   "quote": "其年十二月，葬于靖陵"
-  },
-  {
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 609,
-   "quote": "僖宗惠圣恭定孝皇帝讳儇，懿宗第五子也。",
-   "cid": "zi3-c1"
-  },
-  {
-   "book": "舊唐書",
-   "file": "_corpus_cache/tang-xizong.txt",
-   "line": 1,
-   "quote": "僖宗惠圣恭定孝皇帝讳儇，懿宗第五子，母曰惠安皇后王氏。",
-   "cid": "zi3-c2"
-  },
-  {
-   "cid": "yo1-p1",
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 10278,
-   "quote": "隐太子建成小字毘沙门"
-  },
-  {
-   "cid": "yo1-p2",
-   "book": "新唐書",
-   "file": "daizhigev20/史藏/正史/新唐书.txt",
-   "line": 10291,
-   "quote": "巢刺王元吉小字三胡"
-  }
- ],
- "findings": [
-  {
-   "field": "name.templeName",
-   "value": "僖宗",
-   "basis": [
-    "c1",
-    "c4"
-   ],
-   "confidence": "high",
-   "note": "冒頭1行が「僖宗惠圣恭定孝皇帝讳儇」と廟号＋諡号＋諱の順で掲げ、崩御条が「庙号僖宗」と明記する。値は既存レコードの表記（日本語新字体）へ倒し、引用は底本の簡体のまま残した。"
-  },
-  {
-   "field": "name.posthumousNameFull",
-   "value": "恵聖恭定孝皇帝",
-   "basis": [
-    "c1",
-    "c4"
-   ],
-   "confidence": "high",
-   "note": "崩御条「群臣上谥曰惠圣恭定孝皇帝」＝加諡は1段のみで、冒頭が掲げる全長形と一致する。底本「惠圣恭定孝皇帝」→ 値は新字体「恵聖恭定孝皇帝」（同じ唐の tang-shunzong「至徳大聖大安孝皇帝」の表記に揃えた）。"
-  },
-  {
-   "field": "name.posthumousName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "c4"
-   ],
-   "confidence": "high",
-   "note": "唐の既定どおり空。原文が掲げるのは6字の全長形だけで、末字＋皇帝型の短縮呼称は本紀に現れない。慣行が「両方の欄へ同じ値」とする別枝（殤帝「殇皇帝」・哀帝「哀皇帝」）はいずれも廟号を持たないため諡形が通用呼称になる人物であり、僖宗は「庙号僖宗」を持ち廟号で呼ばれる側なので既定に従う。既存データでも別枝の tang-aidi は templeName 空・posthumousName「哀皇帝」で保存されており、廟号の有無で分岐している。"
-  },
-  {
-   "field": "name.personalName",
-   "value": "儇",
-   "basis": [
-    "c1",
-    "c3"
-   ],
-   "confidence": "high",
-   "note": "冒頭「讳儇」。初名は普王時代の「俨」で、皇太子立太子の制に「第五男普王俨改名儇」とあり改名後の諱が儇であることを裏づける。既存値と一致。"
-  },
-  {
-   "field": "name.aliases",
-   "value": [
-    "圣文睿德光武弘孝皇帝",
-    "恭帝",
-    "僖皇"
-   ],
-   "basis": [
-    "c5",
-    "c6",
-    "c7"
-   ],
-   "confidence": "medium",
-   "note": "いずれも欄への投入対象外なので、値は底本の字体のまま置いた（欄へ入れる4項目だけ新字体へ倒した）。圣文睿德光武弘孝皇帝は文徳元年2月に百僚が上った徽号（生前の尊号）で、崩御後の諡「惠圣恭定孝皇帝」とは別物。「〜弘孝皇帝」形のため全長諡号と誤読されうるので明示的に記録する。恭帝・僖皇は巻末の史論が地の文で用いる呼称で名乗りではなく、諡の中字から短縮形を組み立てるのは生成にあたるため posthumousName には入れない。"
-  },
-  {
-   "field": "name.courtesyName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "zi3-c1",
-    "zi3-c2"
-   ],
-   "confidence": "high",
-   "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
-  },
-  {
-   "field": "name.childhoodName",
-   "value": null,
-   "verdict": "read-absent",
-   "basis": [
-    "c1",
-    "yo1-p1",
-    "yo1-p2"
-   ],
-   "confidence": "high",
-   "note": "**どちらの唐書もこの人物の幼名を書かない**。(1) 舊唐書・新唐書の2冊を諱「儇」で走査して隣接が0件（当たった0件は別人）、(2) **本人の本紀まるごと**（`_corpus_cache/tang-xizong.txt` 103行・舊唐書）に「小字」「小名」が0回。**陽性対照は新唐書 高祖諸子が皇子に小字を書くこと** — 「隐太子建成小字毘沙门」（yo1-p1）・「巢刺王元吉小字三胡」（yo1-p2）。**舊唐書の側は書全体で4件しか無く**（張易之の契苾・安慶緒の阿浩・高祖が太宗の小名を呼ぶ条・一般語）、唐で幼名を拾うなら新唐書の諸子傳が所在（2026-08-16・幼名ブロック1）／**巻の単位で見ると弱い側**: 唐の帝が住む**本紀の巻には両唐書とも小字が0件**で、対照が立つのは新唐書 諸子傳の側だけ。德王裕・李煴の字を閉じたときと同じ形の caveat で、書の側の対照（魏書型ではなく genre 型）に寄せて閉じている",
-   "sweptWords": [
-    "小字儇",
-    "小名儇",
-    "小字",
-    "小名"
-   ]
-  }
- ],
- "conflicts": [],
- "noteLog": "既存レコードは name.templeName・name.posthumousNameFull ともに null だったので補充した（現行 null → 僖宗／恵聖恭定孝皇帝）。posthumousName は null のまま据え置き。字体は「引用は底本の簡体のまま・値は既存データセットの新字体」へ倒した（惠圣恭定孝皇帝 → 恵聖恭定孝皇帝）。familyName「李」は今回読んだ冒頭行が言っていない（冒頭は「懿宗第五子」のみ）ので witness していない（担当外・未走査）。",
- "discrepancies": "なし",
- "processSuggestion": "残量表 唐の名前欄（templeName/posthumousNameFull 転記）23件（未読 22）。母集団は regimeId=tang の24人のうち templeName または posthumousNameFull が空の者で、埋まっているのは tang-shunzong のみ（tang-shangdi・tang-aidi は廟号を持たないので templeName の空は欠落ではなく posthumousNameFull だけが残る）。あわせて、政権慣行の保存形は末尾が「加諡の段数」で分岐を書いているのに例示（殤帝・哀帝）は「廟号の有無」でテストしており、1段加諡かつ廟号ありの唐後半（穆宗以降）で同じ迷いが全員に再発する。慣行の文面を『短縮の欄が空になるのは廟号を持つ皇帝』の側で言い直すことを提案する。"
+  "id": "tang-xizong",
+  "claims": [
+    {
+      "cid": "c1",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 1,
+      "quote": "僖宗惠圣恭定孝皇帝讳儇，懿宗第五子，母曰惠安皇后王氏"
+    },
+    {
+      "cid": "c2",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 1,
+      "quote": "初封普王，名俨"
+    },
+    {
+      "cid": "c3",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 1,
+      "quote": "第五男普王俨改名儇"
+    },
+    {
+      "cid": "c4",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 101,
+      "quote": "崩于武德殿，圣寿二十七，群臣上谥曰惠圣恭定孝皇帝，庙号僖宗"
+    },
+    {
+      "cid": "c5",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 100,
+      "quote": "宰臣韦昭度率文武百僚上徽号曰圣文睿德光武弘孝皇帝"
+    },
+    {
+      "cid": "c6",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 102,
+      "quote": "史臣曰：恭帝冲年缵历，政在宦臣"
+    },
+    {
+      "cid": "c7",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 102,
+      "quote": "非僖皇失道之过"
+    },
+    {
+      "cid": "c8",
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 101,
+      "quote": "其年十二月，葬于靖陵"
+    },
+    {
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 609,
+      "quote": "僖宗惠圣恭定孝皇帝讳儇，懿宗第五子也。",
+      "cid": "zi3-c1"
+    },
+    {
+      "book": "舊唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 1,
+      "quote": "僖宗惠圣恭定孝皇帝讳儇，懿宗第五子，母曰惠安皇后王氏。",
+      "cid": "zi3-c2"
+    },
+    {
+      "cid": "yo1-p1",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10278,
+      "quote": "隐太子建成小字毘沙门"
+    },
+    {
+      "cid": "yo1-p2",
+      "book": "新唐書",
+      "file": "daizhigev20/史藏/正史/新唐书.txt",
+      "line": 10291,
+      "quote": "巢刺王元吉小字三胡"
+    },
+    {
+      "cid": "era-name-tang-a-c1",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 8,
+      "quote": "改元为乾符"
+    },
+    {
+      "cid": "era-name-tang-a-c2",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 40,
+      "quote": "广明元年春正月乙卯朔"
+    },
+    {
+      "cid": "era-name-tang-a-c3",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 41,
+      "quote": "可改乾符七年为广明元年"
+    },
+    {
+      "cid": "era-name-tang-a-c4",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 51,
+      "quote": "改广明二年为中和元年"
+    },
+    {
+      "cid": "era-name-tang-a-c5",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 75,
+      "quote": "光启元年春正月丁巳朔"
+    },
+    {
+      "cid": "era-name-tang-a-c6",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 77,
+      "quote": "己巳，御宣政殿，大赦，改元光启"
+    },
+    {
+      "cid": "era-name-tang-a-c7",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 99,
+      "quote": "文德元年春正月己亥朔"
+    },
+    {
+      "cid": "era-name-tang-a-c8",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 100,
+      "quote": "二月己巳朔"
+    },
+    {
+      "cid": "c9",
+      "book": "旧唐書",
+      "file": "_corpus_cache/tang-xizong.txt",
+      "line": 100,
+      "quote": "戊子，上御承天门，大赦，改元文德"
+    }
+  ],
+  "findings": [
+    {
+      "field": "name.templeName",
+      "value": "僖宗",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "冒頭1行が「僖宗惠圣恭定孝皇帝讳儇」と廟号＋諡号＋諱の順で掲げ、崩御条が「庙号僖宗」と明記する。値は既存レコードの表記（日本語新字体）へ倒し、引用は底本の簡体のまま残した。"
+    },
+    {
+      "field": "name.posthumousNameFull",
+      "value": "恵聖恭定孝皇帝",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "崩御条「群臣上谥曰惠圣恭定孝皇帝」＝加諡は1段のみで、冒頭が掲げる全長形と一致する。底本「惠圣恭定孝皇帝」→ 値は新字体「恵聖恭定孝皇帝」（同じ唐の tang-shunzong「至徳大聖大安孝皇帝」の表記に揃えた）。"
+    },
+    {
+      "field": "name.posthumousName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "c4"
+      ],
+      "confidence": "high",
+      "note": "唐の既定どおり空。原文が掲げるのは6字の全長形だけで、末字＋皇帝型の短縮呼称は本紀に現れない。慣行が「両方の欄へ同じ値」とする別枝（殤帝「殇皇帝」・哀帝「哀皇帝」）はいずれも廟号を持たないため諡形が通用呼称になる人物であり、僖宗は「庙号僖宗」を持ち廟号で呼ばれる側なので既定に従う。既存データでも別枝の tang-aidi は templeName 空・posthumousName「哀皇帝」で保存されており、廟号の有無で分岐している。"
+    },
+    {
+      "field": "name.personalName",
+      "value": "儇",
+      "basis": [
+        "c1",
+        "c3"
+      ],
+      "confidence": "high",
+      "note": "冒頭「讳儇」。初名は普王時代の「俨」で、皇太子立太子の制に「第五男普王俨改名儇」とあり改名後の諱が儇であることを裏づける。既存値と一致。"
+    },
+    {
+      "field": "name.aliases",
+      "value": [
+        "圣文睿德光武弘孝皇帝",
+        "恭帝",
+        "僖皇"
+      ],
+      "basis": [
+        "c5",
+        "c6",
+        "c7"
+      ],
+      "confidence": "medium",
+      "note": "いずれも欄への投入対象外なので、値は底本の字体のまま置いた（欄へ入れる4項目だけ新字体へ倒した）。圣文睿德光武弘孝皇帝は文徳元年2月に百僚が上った徽号（生前の尊号）で、崩御後の諡「惠圣恭定孝皇帝」とは別物。「〜弘孝皇帝」形のため全長諡号と誤読されうるので明示的に記録する。恭帝・僖皇は巻末の史論が地の文で用いる呼称で名乗りではなく、諡の中字から短縮形を組み立てるのは生成にあたるため posthumousName には入れない。"
+    },
+    {
+      "field": "name.courtesyName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "zi3-c1",
+        "zi3-c2"
+      ],
+      "confidence": "high",
+      "note": "新唐書 本紀の冒頭1行で字を挙げるのは高祖・高宗の条だけで、この条は諱の次に続柄が来る（c1）。舊唐書はそもそも冒頭に字の位置を持たない（c2）。**この2書はこの帝の字を載せない**（2026-08-16・字ブロック3）"
+    },
+    {
+      "field": "name.childhoodName",
+      "value": null,
+      "verdict": "read-absent",
+      "basis": [
+        "c1",
+        "yo1-p1",
+        "yo1-p2"
+      ],
+      "confidence": "high",
+      "note": "**どちらの唐書もこの人物の幼名を書かない**。(1) 舊唐書・新唐書の2冊を諱「儇」で走査して隣接が0件（当たった0件は別人）、(2) **本人の本紀まるごと**（`_corpus_cache/tang-xizong.txt` 103行・舊唐書）に「小字」「小名」が0回。**陽性対照は新唐書 高祖諸子が皇子に小字を書くこと** — 「隐太子建成小字毘沙门」（yo1-p1）・「巢刺王元吉小字三胡」（yo1-p2）。**舊唐書の側は書全体で4件しか無く**（張易之の契苾・安慶緒の阿浩・高祖が太宗の小名を呼ぶ条・一般語）、唐で幼名を拾うなら新唐書の諸子傳が所在（2026-08-16・幼名ブロック1）／**巻の単位で見ると弱い側**: 唐の帝が住む**本紀の巻には両唐書とも小字が0件**で、対照が立つのは新唐書 諸子傳の側だけ。德王裕・李煴の字を閉じたときと同じ形の caveat で、書の側の対照（魏書型ではなく genre 型）に寄せて閉じている",
+      "sweptWords": [
+        "小字儇",
+        "小名儇",
+        "小字",
+        "小名"
+      ]
+    },
+    {
+      "field": "eraChangeCount.events[1].eraName",
+      "eventId": "tang-xizong.eraChangeCount.e002",
+      "value": "廣明",
+      "basis": [
+        "era-name-tang-a-c2",
+        "era-name-tang-a-c3"
+      ],
+      "confidence": "high",
+      "note": "乾符七年正月乙卯朔の制に「可改乾符七年为广明元年」。建てた側は广明で、捨てた側の乾符も同じ条に在る。保存値は既存レコードの字体（廣 1件・広 0件）に揃えて廣明"
+    },
+    {
+      "field": "eraChangeCount.events[3].eraName",
+      "eventId": "tang-xizong.eraChangeCount.e004",
+      "value": "光啓",
+      "basis": [
+        "era-name-tang-a-c5",
+        "era-name-tang-a-c6"
+      ],
+      "confidence": "high",
+      "note": "光启元年三月己巳の条「大赦，改元光启」。条は捨てた側（中和）を挙げない。保存値は既存レコードの字体（啓 1件・启 0件）に揃えて光啓"
+    },
+    {
+      "field": "eraChangeCount.events[4].eraName",
+      "eventId": "tang-xizong.eraChangeCount.e005",
+      "value": "文德",
+      "basis": [
+        "era-name-tang-a-c7",
+        "era-name-tang-a-c8",
+        "c9"
+      ],
+      "confidence": "high",
+      "note": "文德元年二月己巳朔の戊子の条「大赦，改元文德」。条は捨てた側（光啓）を挙げない。德は底本のままで字体変換なし"
+    }
+  ],
+  "conflicts": [],
+  "noteLog": "既存レコードは name.templeName・name.posthumousNameFull ともに null だったので補充した（現行 null → 僖宗／恵聖恭定孝皇帝）。posthumousName は null のまま据え置き。字体は「引用は底本の簡体のまま・値は既存データセットの新字体」へ倒した（惠圣恭定孝皇帝 → 恵聖恭定孝皇帝）。familyName「李」は今回読んだ冒頭行が言っていない（冒頭は「懿宗第五子」のみ）ので witness していない（担当外・未走査）。\n既存の eraName は e001 乾符・e003 中和の2件。本人の原文キャッシュに在る改元条は L8 改元为乾符・L41 可改乾符七年为广明元年・L51 改广明二年为中和元年・L77 改元光启・L100 改元文德 の5条で、eraChangeCount.count=5 および events 5件と一致し、L8/L51 は既存値と一致する。したがって残る3件は順に广明・光启・文德。走査語は 改元・建元・改年・改號／改号・號年／号年・紀元・元年 の行単位 grep（/usr/bin/grep）。字体の倒し方: 引用は底本（簡体）のまま、保存値は既存レコードの表記に倒した（廣明・光啓は既存 438件の用例に 廣 1／広 0・啓 1／启 0 があるため繁体側、文德 は底本と同字なので変換不要）。verify_quotes.py の norm_for_match では 廣明／広明・光啓／光启・文德／文徳 のいずれも同値に落ちるので、ゲート --check-era-names はどちらの字体でも通る＝選択は house style の問題。",
+  "discrepancies": "eraName に関する食い違いは なし（既存 e001 乾符・e003 中和も原文の改元条と一致）。手続き上の食い違いを1件報告: check_regime_conventions.py --for tang-xizong --field 'eraChangeCount.events[].eraName' が exit 1（政権慣行が未確定）で返るが、data/regime-conventions.json の fields は名前9欄のみで eraName を持つ記録は 170件中0件。全政権で同じ結果になる構造なので、これを理由に人物単位の調査を止めなかった。なお events[].date は e002=0880・e004=0885 と年精度の値に datePrecision:\"day\" が付くが、これは在位境界年でない日付を年へ丸める既存規約（R-DATE-CLAIM-SCOPE）どおりで、原文（e002 は正月乙卯朔の制・e004 は三月己巳）と矛盾しない。e005 は 0888-04-05 で、原文「二月己巳朔」＋「戊子」＝二月二十日と整合する。",
+  "processSuggestion": "残量表 元号名 eraName の転記 221件（未読 未走査 — 本セッションは tang-xizong の改元 event 5件のみ走査し、未充足3件を確定した。他の人物は走査していない）。check_regime_conventions.py が eraName を名前系フィールドとして扱い全政権で未確定（exit 1）を返すため、着手手順の 0 をそのまま守ると eraName の作業はどの人物でも着手できない。同スクリプトに eraName を「適用外（0）」として扱う分岐を足すか、手順側に例外を1行書くのが良い。"
 }
