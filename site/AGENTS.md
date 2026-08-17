@@ -278,6 +278,15 @@ npm run build && node tools/bar-audit.mjs   # 高さ48px・横溢れ・縮む側
 
 **受け入れ確認はクリック（ソフトナビゲーション）でとる。** `page.goto('?death=…')` は
 ハードナビゲーションで、復元 effect が `window.location.search` を読む経路しか見ない。
+導線・件数・鍵の3つをまとめて見る道具がある（**凡例やカードを触ったら流し直す**）:
+
+```bash
+npm run dev -- --port 3100     # 別のターミナルで
+node tools/nav-audit.mjs       # 件数の一致・区分名の全文・クリックでの復元 → NG: 0
+```
+
+区分を増減したら `nav-audit.mjs` 冒頭の `DEATH` / `ACCESSION` も直す（古いままだと
+「カタログ外の鍵」で落ちる）。
 
 ## 「次に見る」を置くのは `/` と皇帝個別ページだけ
 
@@ -291,8 +300,8 @@ npm run build && node tools/bar-audit.mjs   # 高さ48px・横溢れ・縮む側
 - **カードに書く件数と着地先の件数を必ず一致させる。** 個別ページの3枚は
   `getAllEmperorRecords()` の `deathCauseCategory` / `accessionRouteCategory` / `dynastyKey` で
   数えている — `/database` の `EmperorTableRecord` が写しているのと同じフィールドなので
-  一致するが、**別の集計に差し替えると「162名」のカードが161名の一覧へ着地する。
-  これを見る機械のゲートは無い**
+  一致するが、**別の集計に差し替えると「162名」のカードが161名の一覧へ着地する**
+  （見るのは `tools/nav-audit.mjs` だけで、tsc・lint・build はどれも落ちない）
 - 王朝で絞ると自分1人になる政権が34ある。**2名以上のときだけ王朝カードを出し**、
   それ未満は全員の一覧へ落とす（パンくずの王朝の項と同じ条件）
 

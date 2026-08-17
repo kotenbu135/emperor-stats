@@ -124,8 +124,11 @@ export function BreakdownBar({
             </>
           );
           // sr-only（絶対配置）の基準を枠にするため relative は枠側に置く。
+          // **`h-full` を外さないこと** — 枠が `<li>` そのものだった頃は grid の
+          // stretch が2列の高さを揃えていたが、中の要素になったぶん自分では伸びない
+          // （区分名が折り返す幅で片方の枠だけ低くなる）。
           const boxClass =
-            "relative flex items-baseline gap-2 rounded-md border border-border px-2.5 py-1.5";
+            "relative flex h-full items-baseline gap-2 rounded-md border border-border px-2.5 py-1.5";
           return (
             <li key={d.name}>
               {href ? (
