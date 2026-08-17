@@ -230,7 +230,8 @@ for name, ev, want in CW_CASES:
 # 十国は本紀が立たずキャッシュが新五代史の世家なので、改元条は十国春秋の側に在る。
 # **書ごと当てると同じ書の他国の改元に当たる**ので行範囲まで絞れているかを見る
 BOOK_SPEC = "book:daizhigev20/史藏/载记/十国春秋.txt#1409-1431"
-if (Q.CORPUS_ROOT / "daizhigev20/史藏/载记/十国春秋.txt").is_file():
+# CI にはコーパスが無く CORPUS_ROOT は None（`None / "…"` で落ちるので先に見る）
+if Q.CORPUS_ROOT and (Q.CORPUS_ROOT / "daizhigev20/史藏/载记/十国春秋.txt").is_file():
     wl = Q._witness_lines(BOOK_SPEC)
     BOOK_CASES = [
         ("行範囲の中の改元条が証人になる（中興）", "中興", True),

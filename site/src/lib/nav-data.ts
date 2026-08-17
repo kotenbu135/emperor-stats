@@ -22,6 +22,9 @@ export const navCategories: NavCategory[] = [
   { label: "概要ダッシュボード", href: "/", shortLabel: "概要" },
   { label: "皇帝一覧", href: "/emperors", shortLabel: "皇帝一覧" },
   { label: "データベース", href: "/database", shortLabel: "データベース" },
+  // 2026-08-17 に系譜図を作り直して復活させた（Issue #174）。**shortLabel は付けない** —
+  // モバイルヘッダーの 320px は3項目でほぼ埋まっており、4項目目を足すと溢れる。
+  { label: "系譜図", href: "/kinship" },
   { label: "このサイトについて", href: "/about" },
 ];
 

@@ -62,3 +62,9 @@ review/
 
 # Gemini API キー（絶対にコミットしない）
 .gemini/
+
+# 系譜図レイアウトのスパイク（elkjs は --no-save で入れる・生成物は再現できる）
+site/tools/kinship-layout-spike/node_modules/
+site/tools/kinship-layout-spike/graph-*.json
+site/tools/kinship-layout-spike/groups-*.json
+site/tools/kinship-layout-spike/pos-*.json
