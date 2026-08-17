@@ -489,7 +489,8 @@ function displayName(e: RawEmperor): string {
  *  `commonName` を政権名から人物名へ直したとき、括弧の中にしか無かった元号
  *  （義嘉・正平・天正・天成・天啓）が検索から落ちた。`aliases` へ逃がすと
  *  個別ページで「別称」チップとして出て名前の種類が合わないので、この欄で受ける。
- *  **転記は途中**（681件中5件）なので、元号で引ける皇帝は転記が進んだぶんだけ増える。 */
+ *  **転記は途中**（2026-08-17 実測で 659 event 中 438 件・残り 221 は Issue #161）なので、
+ *  元号で引ける皇帝は転記が進んだぶんだけ増える。 */
 function searchTextOf(e: RawEmperor, dynastyLabelText: string, era: string): string {
   return [
     displayName(e),
