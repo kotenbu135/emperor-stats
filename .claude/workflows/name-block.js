@@ -1,7 +1,7 @@
 export const meta = {
   name: 'name-block',
-  description: '廟号・諡号・元号を本紀から悉皆補充する（Issue #126・旧 #37）。1人1エージェントで claims-first、直後に別コンテキストで検証',
-  whenToUse: 'Issue #126（旧 #37）の名前データ補充を1ブロック（10〜20人程度）進めるとき。args に {ids, workDir, section} を渡す',
+  description: '元号名（と必要なら名前欄）を本紀から悉皆補充する（Issue #161・旧 #126 → #37）。1人1エージェントで claims-first、直後に別コンテキストで検証',
+  whenToUse: 'Issue #161（元号名 eraName の転記）を1ブロック（10〜20人程度）進めるとき。args に {ids, workDir, section} を渡す。名前6欄は 2026-08-16 に読み切って #126 を close したので、この段が名前欄で動くのは訂正のときだけ',
   phases: [
     { title: '調査', detail: '1人1エージェント・本紀冒頭から claims を作る' },
     { title: '検証', detail: '別コンテキストで原文へ当て直す（体数は政権の史料形態で1体か3体・報告のみ）' },

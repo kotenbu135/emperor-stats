@@ -17,7 +17,7 @@
 | データ誤りの訂正 | `/correct-record` |
 | 新しい調査ブロックの着手 | `/research-block`（着手前の罠は `python3 scripts/brief_block.py <書名>`） |
 | 紹介文（Issue #16） | `/write-profile`（規範は [docs/process/profile-writing/README.md](docs/process/profile-writing/README.md) の1枚が正）。2026-08-04 に既存76本と旧手順書を全削除し、**2026-08-05 に原文1巡＋Web差分の2段で立て直した**。まとめて進めるときは `.claude/workflows/write-profile.js`。見本は書き上げた8本（原文234B〜90,320B・出典の型もばらしてある）で、**削除済みの76本（git `f1311ff`）は見本にしない** |
-| 名前データの補充（Issue #126・旧 #37） | `/name-block` |
+| 元号名 `eraName` の転記（Issue #161・旧 #126 → #37） | `.claude/workflows/name-block.js`（名前6欄は 2026-08-16 に読み切って #126 を close した。第N代は残量表の行と [#24](https://github.com/kotenbu135/emperor-stats/issues/24)） |
 | サイトを触る | [site/AGENTS.md](site/AGENTS.md)（崩すとビルドが落ちる契約）と [docs/site-design/SITE_DESIGN.md](docs/site-design/SITE_DESIGN.md)（決着済み・再提案しない）を先に読む |
 
 原典調査（データ訂正・新規ブロック着手）に入る前に [CORPUS_NOTES.md](docs/process/CORPUS_NOTES.md) と [RESEARCH_PROCESS.md](docs/process/RESEARCH_PROCESS.md) を読む — 「china-history の相対巻数」「原文ラベルなのに中身が白話訳」のような、読まずに進むと誤った巻・誤った日付を採用する罠が記録されている（読まずに調査エージェントを起動して手戻りした事故が複数回ある）。担当ブロックの書名・巻・行範囲は [SOURCE_MAPPING.md](docs/process/SOURCE_MAPPING.md) から引く。
