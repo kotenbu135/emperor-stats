@@ -25,7 +25,9 @@ import { EmperorFacts } from "@/components/emperors/emperor-facts";
 import { EmperorVideosSection } from "@/components/emperors/emperor-videos";
 import { EmperorEventTimeline } from "@/components/emperors/emperor-event-timeline";
 import { EmperorSources } from "@/components/emperors/emperor-sources";
+import { NextUp } from "@/components/layout/next-up";
 import { RubyText } from "@/components/ui/ruby-text";
+import { databaseFilterHref } from "@/lib/emperor-types";
 import {
   dynastyContextLabel,
   getAllEmperorRecords,
@@ -124,6 +126,17 @@ export default async function EmperorPage({
   // （1名の王朝＝自分だけの一覧に飛ばしても回遊にならない）。
   const dynastyPeerCount = records.filter(
     (r) => r.dynastyKey === record.dynastyKey,
+  ).length;
+  // ⑦「次に見る」3枚（2026-08-17・Issue #94 の案4）の件数。
+  // **/database の絞り込みと同じ母集団・同じフィールドで数えること** — 表側の
+  // EmperorTableRecord は EmperorRecord の同名フィールドをそのまま写している
+  // （emperors.ts の getEmperorTableRecords）ので、ここを別の集計に差し替えると
+  // 「162名」と書いたカードが161名の一覧へ着地する。機械で見るゲートは無い。
+  const deathPeerCount = records.filter(
+    (r) => r.deathCauseCategory === record.deathCauseCategory,
+  ).length;
+  const accessionPeerCount = records.filter(
+    (r) => r.accessionRouteCategory === record.accessionRouteCategory,
   ).length;
   const structuredDates = getEmperorStructuredDates(id);
   const sources = getEmperorSources(id);
@@ -245,6 +258,39 @@ export default async function EmperorPage({
           )}
           {/* 関連動画は外部チャンネルの制作物なので、本文（経緯・出来事）より後ろ。 */}
           <EmperorVideosSection record={record} />
+          {/* ⑦「次に見る」（2026-08-17・Issue #94 の案4）。前後ナビより**上**に置く —
+              前後ナビは収録順の隣どうしを結ぶ細かい移動で、フッターに接した位置で
+              実測済み（そこは動かさない）。3枚とも 2026-08-17 に入れた /database の
+              ファセット（Issue #94 の判断2）に乗っている。 */}
+          <NextUp
+            items={[
+              {
+                title: "同じ死因の皇帝",
+                description: `「${record.deathCauseCategory}」の${deathPeerCount}名をデータベースで見る`,
+                href: databaseFilterHref({ death: record.deathCauseCategory }),
+              },
+              {
+                title: "同じ即位経路の皇帝",
+                description: `「${record.accessionRouteCategory}」の${accessionPeerCount}名をデータベースで見る`,
+                href: databaseFilterHref({
+                  accession: record.accessionRouteCategory,
+                }),
+              },
+              // 王朝で絞った一覧は自分1人になることがあるので、そのときだけ全員の
+              // 一覧へ落とす（パンくずの王朝の項を出す条件と同じ 2名以上）。
+              dynastyPeerCount >= 2
+                ? {
+                    title: "同じ王朝の皇帝",
+                    description: `「${record.dynastyLabel}」の${dynastyPeerCount}名を皇帝一覧で見る`,
+                    href: `/emperors?dynasty=${encodeURIComponent(record.dynastyKey)}`,
+                  }
+                : {
+                    title: "皇帝一覧",
+                    description: `${records.length}名を肖像つきのカードで見る`,
+                    href: "/emperors",
+                  },
+            ]}
+          />
           <nav
             aria-label="前後の皇帝"
             className="mt-2 flex justify-between gap-4 border-t border-border pt-4 text-sm"

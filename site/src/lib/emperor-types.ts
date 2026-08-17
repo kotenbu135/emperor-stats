@@ -516,6 +516,36 @@ export function shortCategoryLabel(name: string): string {
   return name.replace(/（[^）]*）$/, "");
 }
 
+/**
+ * `/database` の絞り込みを URL で渡すときの**唯一の組み立て場所**
+ * （2026-08-17・GitHub Issue #94 の案5）。
+ *
+ * **区分名は全文を渡す。** 表の列も内訳帯の凡例も `shortCategoryLabel` を掛けて
+ * 「受禅（易姓）」を「受禅」と短く描くが、`emperor-table.tsx` の復元は
+ * `deathCauseCategoryOrder` / `accessionRouteCategoryOrder` への完全一致で検査するため、
+ * 短縮形を渡すと**エラーにならずに黙って捨てられ、絞り込みなしの365名が出る**。
+ * だから呼び出し側では `shortCategoryLabel` の**戻り値ではなく元の区分名**を渡すこと。
+ *
+ * パラメータ名の持ち主は `emperor-table.tsx` の復元 effect（`q`・`era`・`dynasty`・
+ * `reign`・`death`・`accession`・`sort`・`order`）。増減したら両方直す。
+ */
+export function databaseFilterHref(filters: {
+  /** 王朝は表示ラベルではなく `DynastyOption.value`（＝政権 ID）。 */
+  dynasty?: string;
+  death?: string;
+  accession?: string;
+  reign?: "restoration";
+  sort?: string;
+  order?: "asc" | "desc";
+}): string {
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(filters)) {
+    if (value) params.set(key, value);
+  }
+  const query = params.toString();
+  return query ? `/database?${query}` : "/database";
+}
+
 export const accessionRouteDescriptions: Record<AccessionRouteCategory, string> = {
   世襲: "同一政権の前代君主から位を継ぎ、先帝自身が後継を定めていた（遺詔・立太子等）",
   擁立: "同一政権の前代君主から位を継いだが、決めたのは臣下・軍・宦官・外戚・母后・宗室",
