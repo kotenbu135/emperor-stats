@@ -2801,3 +2801,8 @@
 - **気づいた場面**: 元号名の第7ブロック（遼元清）。yuan-chengzong.e002 が datePrecision=day・date="1297"（年精度）で食い違うと報告されたが、EMPERORS_SCHEMA.md は datePrecision を「原典が何を言っているか」の欄と定めており、date の深さは datePrecision 以下であればよい（浅い側は主張を弱めるだけ）。実測すると date と datePrecision を両方持つ 1,862 event のうち 1,121 件（60%）がこの形で、Issue #69 で月日を内部側へ退避したぶんがそのまま残っている。
 - **提案**: 調査エージェントが毎ブロック同じ形を「構造フィールド同士の食い違い」として報告してくるので、CLAIMS_CONTRACT.md か抽出コマンドの出力に1行「datePrecision は原典の精度・date は配布物が主張する深さで、date の深さ ≤ datePrecision は正常」と書く。逆向き（date のほうが深い）だけが欠陥で、それは validate_emperors.py の check_event_date_format が既に見ている。
 - **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
+
+### 2026-08-17 kinship の引用はマージ前に journal の段階で照合する <!-- auto:a329e09fcf6a -->
+- **気づいた場面**: 生母フェーズ ブロック19（遼9人）。journal を書いて merge_kinship_mother.py へ流したあとに check_kinship_quotes.py が落ち、kinship.json を直接書き換えて直す往復が起きていた（ブロック18b の成穆郭皇后で実際に3件）。
+- **提案**: check_kinship_quotes.py の照合部（hanzi_norm.norm_for_match・…での分割・4字未満は参考扱い）を journal の note へ当てるだけの小さな script を、マージの前に流す。落ちる断片が persons と edges のどちらの note に在るかまで出るので、書き込む前に直せる。ブロック19では底本の重複字（弟室室鲁之女）と欠字を挟む句（崩，曰钦哀皇后）の2件をこれで事前に潰し、マージ後のゲートは一発で notfound 0 になった。恒久化するなら check_kinship_quotes.py 自身に --journal <path> のモードを足して、同じ照合部を2箇所に書かない形にするのがよい。
+- **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**未実装** — 次にその工程へ触るときに反映する
