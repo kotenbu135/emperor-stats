@@ -4,6 +4,13 @@
 [site/AGENTS.md](../../site/AGENTS.md) の2本が正で、このファイルから方針を引かないこと。
 決着した時点で結論を SITE_DESIGN へ畳み、このファイルと `site/tools/kinship-layout-spike/` は削除する。
 
+> **⚠️ 2026-08-17 に3箇所が上書きされた。決定は [Issue #174](https://github.com/kotenbu135/emperor-stats/issues/174) が正で、以下から引かないこと。**
+>
+> - **7節 #1（章スコープ）→ (a) 五代十国までの6章**（ユーザー決定）
+> - **6-2節（見た目）→ このモックの方向で進める**（ユーザーが実物を見て承認）
+> - **2節の章ごとの表 → 2026-08-17 に測り直した**（`site/tools/kinship-layout-spike/measure_today.py`）。結論は同じで宋以降の実母は0のままだが、**`meta.confirmedMotherUnknown` の74人は全員が6章側**なので、宋以降の0は「読んだうえで記載が無い」ではなく未読
+> - **6-2節「見た目の残課題」の色不足 → 南北朝だけの話ではなかった**（`measure_regimes.py`。6章のうち4章が8色を超え、隋唐は18政権）
+
 本文が引く数値はすべて `site/tools/kinship-layout-spike/` の4本のスクリプトで実測した値
 （再現手順は最終節）。推測値・カタログスペックは1つも含まない。
 
