@@ -153,6 +153,13 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 静的 `<a>` がクローラに要るのは事実だが、それは「JS を1バイトも積まない」までは要求しない
 （本文を静的HTMLに載せたうえで操作を JS で足す形はこのサイトの他の面がすでにやっている）。
 
+**`data-source.ts` の `loadKinshipJson()` と `assertLabels("kinship*")` の4行は、消費者が
+1つも無い状態のまま意図的に残してある** — 作り直すときに `kinship.json` の読み込みは形が
+どうなっても要るため。**「消し忘れた死んだ export」ではない**（`grep -rn "loadKinshipJson" src/`
+が定義1件しか出さないのはそのため）。
+
+前の実装は `c69fb81`（`git show c69fb81:site/src/lib/kinship/layout.ts`）で丸ごと引き出せる。
+
 ## 紹介文を止めている間に書体のサブセットを取り直すときの手順
 
 `PROFILES_PUBLISHING_PAUSED` が `true` のあいだ、素直に
