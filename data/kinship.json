@@ -684,6 +684,13 @@
         "emperors": 11,
         "edges": 12,
         "persons": 9
+      },
+      {
+        "phase": "maternalLineage",
+        "block": "ブロック18b（南宋9人）",
+        "emperors": 9,
+        "edges": 11,
+        "persons": 9
       }
     ],
     "confirmedRootless": [
@@ -12262,6 +12269,242 @@
         "page": "金史 巻七十七 列伝第十五 劉豫",
         "lang": "zh-classical"
       }
+    },
+    {
+      "id": "p-weishi-huizong",
+      "name": "韋氏",
+      "kana": "いし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "徽宗趙佶の賢妃で、高宗趙構の生母。宋史 巻二百四十三 后妃下に条が立ち「韦贤妃，开封人，高宗母也。初入宫，为侍御。崇宁末，封平昌郡君。大观初，进婕妤，累迁婉容。高宗在康邸出使，进封龙德宫贤妃。从上皇北迁。建炎改元，遥尊为宣和皇后」とあり、開封の人で侍御から婕妤・婉容・賢妃へ進んだ経歴と、靖康の変で徽宗に従って北へ遷されたことを記す。高宗本紀の冒頭も「徽宗第九子，母曰顯仁皇后韋氏」で一致する。**婚姻エッジは張らない** — 生前の位は平昌郡君・婕妤・婉容・賢妃どまりで、皇后への冊立が無い。「宣和皇后」は高宗の即位後の遥尊、「顯仁」は諡で、いずれも本フェーズの基準（在位中の夫による生前の皇后冊立）を満たさない。紹興12年に金から送還され慈寧宮に入った（「八月，至临安，入居慈宁宫」）。諱は原典に記載がなく姓氏のみ。生没年は今回読んだ本紀・后妃下の範囲に数え年も没年の記事も無いため null に置く。諡「顯仁」を贈ったのは高宗＝南宋なので posthumous.dynasty は南宋に置く（生前に仕えたのは徽宗＝北宋だが、この欄は追尊した王朝を指す）。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "顯仁皇后",
+        "韋賢妃",
+        "宣和皇后"
+      ],
+      "posthumous": {
+        "dynasty": "南宋",
+        "templeName": null,
+        "posthumousName": "顯仁皇后"
+      }
+    },
+    {
+      "id": "p-zhangshi-zhaozicheng",
+      "name": "張氏",
+      "kana": "ちょうし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": 1167,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "秀王趙子偁の夫人で、孝宗趙昚の生母。宋史 巻三十三 孝宗本紀一の冒頭が「令譮生子偁，是為秀王。王夫人張氏夢人擁一羊遺之曰：「以此為識。」已而有娠，以建炎元年十月戊寅生帝于秀州青杉牐之官舍，紅光滿室，如日正中」と、**懐妊から出産までを一続きに記して生母であることを確定させる**。孝宗は高宗の後嗣として禁中に育てられたため（巻二十七 高宗本紀四「選宗室子偁之子伯琮育于禁中」）、実父の子偁は皇伯・その夫人は皇伯母として遇された。没年は孝宗本紀の乾道3年3月「壬戌，伯母秀王夫人張氏薨」と、巻一百二十三 礼志の「孝宗乾道三年四月一日，太常寺言：「皇伯母秀王夫人薨，辍朝五日，内二日不视事」」の2箇所から1167年。**婚姻エッジは張らない** — 夫の子偁は帝位に即いておらず（秀王は追封で、没後さらに秀安僖王とされた）、生前の皇后・王后への冊立が無い。諱は原典に記載がなく姓氏のみ。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻三十三 本紀第三十三 孝宗一",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "秀王夫人張氏"
+      ]
+    },
+    {
+      "id": "p-guoshi-xiaozong",
+      "name": "郭氏",
+      "kana": "かくし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": 1126,
+      "deathYear": 1156,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "孝宗趙昚の妃で、光宗趙惇の生母。宋史 巻二百四十三 后妃下に条が立ち「孝宗成穆郭皇后，开封祥符人。奉直大夫直卿之女孙，其六世祖为章穆皇后外家。孝宗为普安郡王时纳郭氏，封咸宁郡夫人。生光守及庄文太子、魏惠宪王恺、邵悼肃王恪」とあり、開封祥符の人で、孝宗がまだ普安郡王だったときに納れられ、**光宗を含む4子を生んだ**ことを明記する。「紹興二十六年薨，年三十一」から没年1156年・数え31による逆算で生年1126年（逆算のため yearsApproximate を立てる）。**婚姻エッジは張らない** — 「既建太子，追封皇太子妃。及受禪，追冊為皇后」と、皇太子妃も皇后もいずれも没後の追封・追冊で、生前の位は咸寧郡夫人どまり。諡は恭懷 → 安穆 → 成穆と2度改められた（「謚恭懷，尋改安穆。及營阜陵，又改成穆」）。諱は原典に記載がなく姓氏のみ。**底本による字の異同がある** — 引用した daizhigev20 の簡体は所生の子の筆頭を「光守」と作るが、china-history の繁体本文は同じ位置を光宗の廟号で書き、続く荘文太子にも諱の愭を添える。照合台帳が引けるのは daizhigev20 側だけなので引用は簡体を採り、繁体の読みは引用せずここに記す。光宗本紀が「母曰成穆皇后郭氏」と書くので、どちらの底本でも同定には影響しない。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "成穆皇后",
+        "成穆郭皇后"
+      ],
+      "posthumous": {
+        "dynasty": "南宋",
+        "templeName": null,
+        "posthumousName": "成穆皇后"
+      }
+    },
+    {
+      "id": "p-lishi-guangzong",
+      "name": "李氏",
+      "kana": "りし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": 1145,
+      "deathYear": 1200,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "光宗趙惇の皇后で、寧宗趙拡の生母。宋史 巻二百四十三 后妃下に条が立ち「光宗慈懿李皇后，安阳人，庆远军节度使、赠太尉道之中女。初，后生，有黑凤集道营前石上，道心异之，遂字后曰凤娘」とあり、安陽の人・父は慶遠軍節度使の李道で、字を鳳娘といったと記す。「坦言于高宗，遂聘为恭王妃，封荣国夫人，进定国夫人。乾道四年，生嘉王。七年，立为皇太子妃」と、恭王妃として迎えられ乾道4年に嘉王（寧宗）を生んだ経緯を記す。「庆元六年崩，年五十六，谥慈懿」から没年1200年・数え56による逆算で生年1145年（逆算のため yearsApproximate を立てる）。**婚姻エッジを張る** — 「及太子即位，册为皇后」と、**光宗の即位に伴う生前の皇后冊立**が明記されており、本フェーズの基準を満たす。后妃下は黄貴妃の殺害（「绍熙二年冬十一月，为皇后李氏所杀」）や三宮の離間など、光宗の在位を左右した記事を多く載せる。諱は原典に記載がなく姓氏と字のみ。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "慈懿皇后",
+        "慈懿李皇后",
+        "李鳳娘"
+      ],
+      "posthumous": {
+        "dynasty": "南宋",
+        "templeName": null,
+        "posthumousName": "慈懿皇后"
+      }
+    },
+    {
+      "id": "p-quanshi-zhaoxilu",
+      "name": "全氏",
+      "kana": "ぜんし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "栄王趙希瓐の妻で、理宗趙昀の生母。宋史 巻四十一 理宗本紀一の冒頭が「太祖十世孫。父希瓐，追封榮王，家于紹興府山陰縣，母全氏」と、紹興府山陰県に住んだ宗室の家で、父は追封栄王の趙希瓐、母は全氏だと記す。巻二百四十三 后妃下の度宗全皇后条も「度宗全皇后，会稽人，理宗母慈宪夫人侄孙女也」と**理宗の母を「慈憲夫人」の号で呼び、会稽の全氏の一族であることを示す**。**婚姻エッジは張らない** — 夫の趙希瓐は帝位に即いておらず（栄王は理宗の即位後の追封）、生前の皇后・王后への冊立が無い。慈憲夫人も国夫人号であって皇后号ではない。諱は原典に記載がなく姓氏のみ。生没年は本紀・后妃下のいずれにも記事が無いため null。**度宗の生母ではない** — 度宗の皇后である全氏（p-quanshi-duzong）はこの人物の姪孫女にあたる別人で、同じ会稽の全氏の一族である。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻四十一 本紀第四十一 理宗一",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "慈憲夫人"
+      ]
+    },
+    {
+      "id": "p-huangshi-zhaoyurui",
+      "name": "黄氏",
+      "kana": "こうし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "嗣栄王趙与芮の側室で、度宗趙禥の生母。宋史 巻四十五 度宗本紀の冒頭が「父嗣榮王與芮，理宗母弟也。嘉熙四年四月九日生于紹興府榮邸。初，榮文恭王夫人全氏夢神言：「帝命汝孫，然非汝家所有。」嗣榮王夫人錢氏夢日光照東室，是夕，齊國夫人黃氏亦夢神人采衣擁一龍納懷中，已而有娠。及生，室有赤光」と、祖母（栄文恭王夫人全氏）・嫡母（嗣栄王夫人銭氏）・生母（齊國夫人黄氏）の3人の夢を並べたうえで、**懐妊したのは黄氏だと「已而有娠。及生，室有赤光」で明示する**。同じ黄氏とみられる「隆国夫人」が巻四百二十二 列伝の陳楙の条に「封還隆國夫人從子黃進觀察使錄黃」として現れ、度宗の在位中に国夫人号を帯びて外戚が官を得ていたことが窺えるが、条が立たないため生母の証人としては本紀の1箇所を採る。**婚姻エッジは張らない** — 夫の趙与芮は帝位に即いておらず、黄氏の生前の位も国夫人号であって皇后・王后への冊立ではない。諱は原典に記載がなく姓氏のみ。生没年は原文に記事が無いため null。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻四十五 本紀第四十五 度宗",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "齊國夫人"
+      ]
+    },
+    {
+      "id": "p-quanshi-duzong",
+      "name": "全氏",
+      "kana": "ぜんし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "度宗趙禥の皇后で、恭帝（瀛国公）趙㬎の生母。宋史 巻二百四十三 后妃下に条が立ち「度宗全皇后，会稽人，理宗母慈宪夫人侄孙女也。略涉书史，幼从父昭孙知岳州」とあり、会稽の人で**理宗の生母である慈憲夫人全氏の姪孫女**、父は全昭孫だと記す。宝祐年間に父が王事に殉じたことから理宗に召され、「全氏女言辞甚令，宜配冢嫡，以承祭祀」の詔で皇太子妃に選ばれた（「景定二年十一月，诏封永嘉郡夫人。十二月，册为皇太子妃」）。「后生子不育，次生瀛国公」と、最初の子を失ったのち恭帝を生んだことを明記する。**婚姻エッジを張る** — 「度宗立，咸淳三年正月，册为皇后」と、**度宗の在位中（咸淳3年＝1267年）の生前の皇后冊立**が明記されており基準を満たす。宋の滅亡後は恭帝に従って燕京へ移り、「后为尼正智寺而终」と正智寺で尼となって没した。諱は原典に記載がなく姓氏のみ。生没年も記事が無いため null。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "度宗全皇后"
+      ]
+    },
+    {
+      "id": "p-yangshi-duzong",
+      "name": "楊氏",
+      "kana": "ようし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": 1279,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "度宗趙禥の淑妃で、端宗趙昰の生母。宋史 巻二百四十三 后妃下の末尾に条が立ち「杨淑妃，初选入宫为美人。咸淳三年，进封淑妃。推恩亲属幼节等三十四人进秩有差。生建国公昰」とあり、美人として入宮し咸淳3年に淑妃へ進んで建国公昰（端宗）を生んだと記す。巻四十七 二王の記事も「長建國公昰，母淑妃楊氏」で一致する。端宗の即位に際して「册杨淑妃为太后，同听政」と皇太后となり垂簾した。祥興2年に衞王昺が海に投じた報を聞き「妃闻之大恸…遂赴海死。其将张世杰葬之海滨」と自ら入水して没した（至元16年＝1279年）。**婚姻エッジは張らない** — 生前の位は美人・淑妃どまりで皇后への冊立が無く、皇太后号は端宗の即位後のもの。諱は原典に記載がなく姓氏のみ。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "楊淑妃"
+      ]
+    },
+    {
+      "id": "p-yushi-duzong",
+      "name": "兪氏",
+      "kana": "ゆし",
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "first-degree"
+      ],
+      "note": "度宗趙禥の修容で、衞王（祥興帝）趙昺の生母。宋史 巻四十七 二王の冒頭が「二王者，度宗庶子也。长建国公昰，母淑妃杨氏；季永国公昺，母修容俞氏」と端宗と衞王の生母を並べて名指し、巻二百四十三 后妃下の楊淑妃条も末尾で「昺，修容俞氏所生也」と**衞王が兪氏の所生であることを補って記す**。後者は楊淑妃の条の中で、太后となった楊氏と衞王との関係を区別するために置かれた一文で、兪氏には独立の条が立たない。二王の記事には提挙として「俞如珪」が現れ（「以駙馬都尉楊鎮及楊亮節、俞如珪為提舉」）、楊亮節と並ぶ外戚とみられるが、兪氏との続柄は原文に書かれていないため関係づけない。**婚姻エッジは張らない** — 生前の位は修容どまりで皇后への冊立が無い。諱は原典に記載がなく姓氏のみ。生没年も記事が無いため null。",
+      "wikidata": null,
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      },
+      "aliases": [
+        "兪修容"
+      ]
     }
   ],
   "edges": [
@@ -27694,6 +27937,147 @@
       "note": "金史 巻七十七 劉豫伝の大斉皇帝冊立記事に「母翟氏为皇太后，妾钱氏为皇后」とあり、皇太后に立てられた翟氏が劉豫の母、皇后に立てられた銭氏が妻と**同じ条の中で書き分けられている**。皇太后は子の即位に伴う尊号なので嫡母・養母ではなく生母と読む。",
       "source": {
         "page": "金史 巻七十七 列伝第十五 劉豫",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-weishi-huizong",
+      "to": "nansong-gaozong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻二十四 高宗本紀一の冒頭に「徽宗第九子，母曰顯仁皇后韋氏」とあり生母を名指す。巻二百四十三 后妃下の韋賢妃条も「韦贤妃，开封人，高宗母也」と**高宗の母であることを条の冒頭で明言**しており、本紀と后妃伝の2箇所で一致する。",
+      "source": {
+        "page": "宋史 巻二十四 本紀第二十四 高宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-zhangshi-zhaozicheng",
+      "to": "nansong-xiaozong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻三十三 孝宗本紀一の冒頭に「王夫人張氏夢人擁一羊遺之曰：「以此為識。」已而有娠，以建炎元年十月戊寅生帝于秀州青杉牐之官舍」とあり、秀王趙子偁の夫人 張氏が懐妊して孝宗を生んだと記す。孝宗の本紀には母を名指す「母曰」の定型が無く、この出生記事が唯一かつ直接の証人。孝宗は高宗の後嗣として禁中に育てられたため、乾道3年の薨去記事では「伯母秀王夫人張氏薨」と皇伯母の呼称で現れるが、これは高宗の子として即位したことに伴う礼制上の呼称で、生母である事実とは矛盾しない。",
+      "source": {
+        "page": "宋史 巻三十三 本紀第三十三 孝宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-guoshi-xiaozong",
+      "to": "nansong-guangzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻三十六 光宗本紀の冒頭に「孝宗第三子也。母曰成穆皇后郭氏」とあり生母を名指す。巻二百四十三 后妃下の成穆郭皇后条も「生光守及庄文太子、魏惠宪王恺、邵悼肃王恪」（「光守」は光宗の廟号の誤刻）と光宗を所生の子の筆頭に挙げ、本紀と一致する。郭氏は光宗の即位より前（紹興26年）に没しており、追冊された皇后である。",
+      "source": {
+        "page": "宋史 巻三十六 本紀第三十六 光宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-lishi-guangzong",
+      "to": "nansong-ningzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻三十七 寧宗本紀一の冒頭に「光宗第二子也，母曰慈懿皇后李氏」とあり生母を名指し、続けて「光宗為恭王，慈懿夢日墜于庭，以手承之，已而有娠」と懐妊の記事まで載せる。巻二百四十三 后妃下の慈懿李皇后条も「乾道四年，生嘉王」と、寧宗の封号である嘉王を生んだことを明記する。",
+      "source": {
+        "page": "宋史 巻三十七 本紀第三十七 寧宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "nansong-guangzong",
+      "to": "p-lishi-guangzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "光宗と慈懿李皇后の婚姻。宋史 巻二百四十三 后妃下に「坦言于高宗，遂聘为恭王妃，封荣国夫人，进定国夫人」と恭王妃として聘された経緯を記し、**「及太子即位，册为皇后」と光宗の即位に伴う生前の皇后冊立**を明記する。追尊の皇后号ではなく生前の立后を根拠とするので、本フェーズの婚姻エッジの基準を満たす。",
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-quanshi-zhaoxilu",
+      "to": "nansong-lizong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻四十一 理宗本紀一の冒頭に「父希瓐，追封榮王，家于紹興府山陰縣，母全氏」とあり生母を名指す。巻二百四十三 后妃下の度宗全皇后条も「理宗母慈宪夫人侄孙女也」と理宗の母を慈憲夫人の号で挙げ、同条の「理宗以母慈宪故，乃诏后入宫」により、理宗の在位中も生母として遇されていたことが確かめられる。",
+      "source": {
+        "page": "宋史 巻四十一 本紀第四十一 理宗一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-huangshi-zhaoyurui",
+      "to": "nansong-duzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻四十五 度宗本紀の冒頭に「齊國夫人黃氏亦夢神人采衣擁一龍納懷中，已而有娠。及生，室有赤光」とあり、**懐妊したのが黄氏であることを明示する**。同じ文には嗣栄王の夫人である銭氏も夢を見た者として現れるが、「已而有娠」が掛かるのは直前の黄氏で、銭氏は嫡母にあたる。度宗の本紀には母を名指す「母曰」の定型が無く、この出生記事が唯一の証人。",
+      "source": {
+        "page": "宋史 巻四十五 本紀第四十五 度宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-quanshi-duzong",
+      "to": "nansong-gongdi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻四十七 瀛国公・二王附の冒頭に「度宗皇帝子也，母曰全皇后」とあり生母を名指す。巻二百四十三 后妃下の度宗全皇后条も「后生子不育，次生瀛国公」と、恭帝（瀛国公）を生んだことを明記し、本紀と后妃伝の2箇所で一致する。",
+      "source": {
+        "page": "宋史 巻四十七 本紀第四十七 瀛国公二王附",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "nansong-duzong",
+      "to": "p-quanshi-duzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "度宗と全皇后の婚姻。宋史 巻二百四十三 后妃下に「景定二年十一月，诏封永嘉郡夫人。十二月，册为皇太子妃」と皇太子妃としての冊立を記したうえで、**「度宗立，咸淳三年正月，册为皇后」と度宗の在位中の生前の皇后冊立**を明記する。追尊の皇后号ではなく生前の立后を根拠とするので、本フェーズの婚姻エッジの基準を満たす。",
+      "source": {
+        "page": "宋史 巻二百四十三 列伝第二 后妃下",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-yangshi-duzong",
+      "to": "nansong-duanzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻四十七 二王の冒頭に「二王者，度宗庶子也。长建国公昰，母淑妃杨氏」とあり生母を名指す。巻二百四十三 后妃下の楊淑妃条も「生建国公昰」と、端宗の封号である建国公を生んだことを明記し、本紀と后妃伝の2箇所で一致する。",
+      "source": {
+        "page": "宋史 巻四十七 本紀第四十七 瀛国公二王附",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-mother",
+      "from": "p-yushi-duzong",
+      "to": "nansong-weiwang",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "宋史 巻四十七 二王の冒頭に「季永国公昺，母修容俞氏」とあり生母を名指す。巻二百四十三 后妃下の楊淑妃条も「昺，修容俞氏所生也」と、衞王昺が兪氏の所生であることを明記し、本紀と后妃伝の2箇所で一致する。衞王本人の本紀（祥興の記事）には母の記載が無く、兄の端宗と並べた二王の記事が生母の証人になる。",
+      "source": {
+        "page": "宋史 巻四十七 本紀第四十七 瀛国公二王附",
         "lang": "zh-classical"
       }
     }
