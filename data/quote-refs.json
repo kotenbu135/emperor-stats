@@ -49051,14 +49051,25 @@
    "status": "manual",
    "note": "2026-07-22 note全件検証のトリアージ判定（docs/qa/note-verification-2026-07-22/REPORT.md）"
   },
+  "shiguo-houshu-mengchang|eraChangeCount.note|a04595be9d16": {
+   "id": "shiguo-houshu-mengchang",
+   "path": "eraChangeCount.note",
+   "span": "昶立，不改元，仍称明德，至五年始改元曰庆政",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-houshu-mengchang.txt",
+   "frags": [
+    "至五年始改元曰庆政"
+   ],
+   "line": 1
+  },
   "shiguo-houshu-mengchang|eraChangeCount.note|a19faf11f66e": {
    "id": "shiguo-houshu-mengchang",
    "path": "eraChangeCount.note",
-   "span": "昶立、不改元、仍称明徳、至五年始改元曰廣政",
+   "span": "昶立不改元仍称明徳至五年始改元曰广政",
    "status": "corpus",
    "corpusFile": "daizhigev20/史藏/别史/钦定续通志.txt",
    "frags": [
-    "至五年始改元曰廣政"
+    "昶立不改元仍称明徳至"
    ],
    "line": 27367
   },
@@ -51934,6 +51945,29 @@
     "大军入成都"
    ],
    "line": 4560
+  },
+  "shiguo-wu-yangpu|eraChangeCount[2].note|01c379e77a69": {
+   "id": "shiguo-wu-yangpu",
+   "path": "eraChangeCount[2].note",
+   "span": "丙申大赦改太和七年为天祚元年",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十国春秋.txt",
+   "frags": [
+    "丙申大赦改太和七年为"
+   ],
+   "line": 1023
+  },
+  "shiguo-wu-yangpu|eraChangeCount[2].note|5af76b04ad95": {
+   "id": "shiguo-wu-yangpu",
+   "path": "eraChangeCount[2].note",
+   "span": "睿圣文明光孝应天〈弘〉道广德皇帝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/shiguo-wu-yangpu.txt",
+   "frags": [
+    "睿圣文明光孝应天",
+    "道广德皇帝"
+   ],
+   "line": 10
   },
   "shiguo-wu-yangpu|reigns[0].conversion|1e3aacb77d9d": {
    "id": "shiguo-wu-yangpu",
