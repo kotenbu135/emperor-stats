@@ -248,19 +248,32 @@ export function OverviewBoard({
             ランキングと下端を揃えつつ余った高さを2枚の「間」へ逃がすためで、
             カードの中には空白を作らない。 */}
         <div className="grid gap-4 lg:col-span-5 lg:grid-cols-2 xl:col-span-2 xl:h-full xl:grid-cols-1 xl:content-between">
+          {/* 凡例の1区分がそのまま /database の絞り込みへの導線（2026-08-17・Issue #94 の
+              案5）。押せることは見た目だけでは伝わらないので、説明文の側で言う
+              （「詳しく →」の行を足すと行き先が区分ごとに違うことを言えない）。
+              **「その他」だけは押せない** — 畳んだ3区分は1つの絞り込みに落ちないため。 */}
           <Card>
-            <PanelHeading title="死因" description="正史の記述を元に分類しています" />
+            <PanelHeading
+              title="死因"
+              description="正史の記述を元に分類しています。区分を押すと該当する皇帝の一覧が開きます"
+            />
             <div className="mt-5">
-              <BreakdownBar slices={deathData} />
+              <BreakdownBar
+                slices={deathData}
+                facet={{ param: "death", label: "死因" }}
+              />
             </div>
           </Card>
           <Card>
             <PanelHeading
               title="即位経路"
-              description="皇帝位に就いた経緯の区分です"
+              description="皇帝位に就いた経緯の区分です。区分を押すと該当する皇帝の一覧が開きます"
             />
             <div className="mt-5">
-              <BreakdownBar slices={accessionData} />
+              <BreakdownBar
+                slices={accessionData}
+                facet={{ param: "accession", label: "即位経路" }}
+              />
             </div>
           </Card>
         </div>
@@ -347,6 +360,9 @@ function foldRest(slices: HomeBreakdownSlice[], limit: number) {
     count: s.count,
     share: s.share,
     percentLabel: s.percentLabel,
+    // 絞り込みの鍵は**カタログの区分名そのまま**（表示用に括弧を落とした短縮形では
+    // /database の復元が一致しない。emperor-types.ts の databaseFilterHref を見る）。
+    filterValue: s.category,
   }));
   const rest = slices.slice(limit);
   if (rest.length === 0) return head;

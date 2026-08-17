@@ -1,5 +1,7 @@
 import { PageHeader } from "@/components/layout/page-header";
+import { NextUp } from "@/components/layout/next-up";
 import { OverviewBoard } from "@/components/home-v2/overview-board";
+import { databaseFilterHref } from "@/lib/emperor-types";
 import {
   getConcurrentReigns,
   getHomeHighlights,
@@ -65,6 +67,32 @@ export default function Home() {
             centuries={highlights.centuries}
             concurrent={concurrent}
             survival={survival}
+          />
+          {/* 2026-08-17・Issue #94 の案4。行き先3つのうち**ナビにそのまま在るのは
+              「皇帝一覧」だけ**にしてある — ランキングは /database の並べ替え済み URL、
+              「このサイトについて」はモバイルヘッダーの3項目に入らない面（4項目目を
+              足さない決定があるため、フッター以外の出口がここしか無い）。 */}
+          <NextUp
+            items={[
+              {
+                title: "皇帝一覧",
+                description: `${stats.emperorCount}名を肖像つきのカードで見る`,
+                href: "/emperors",
+              },
+              {
+                title: "在位年数ランキング",
+                description: `最長は${stats.longestReign.durationLabel}。在位が長い順に全員を並べる`,
+                href: databaseFilterHref({
+                  sort: "reignApproxDays",
+                  order: "desc",
+                }),
+              },
+              {
+                title: "このサイトについて",
+                description: "収録基準・全12項目の数え方・出典の扱い",
+                href: "/about",
+              },
+            ]}
           />
         </div>
       </div>

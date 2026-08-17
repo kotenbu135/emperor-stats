@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { CategoryBar } from "@/components/tremor/CategoryBar";
-import { shortCategoryLabel } from "@/lib/emperor-types";
+import { databaseFilterHref, shortCategoryLabel } from "@/lib/emperor-types";
 
 /**
  * 内訳パネルが受け取る1区分。emperors.ts の HomeBreakdownSlice を
@@ -12,6 +13,23 @@ export interface BreakdownRow {
   percentLabel: string;
   /** 「その他」に畳んだ区分名など、短い表示では落ちる情報（title に出す）。 */
   detail?: string;
+  /**
+   * `/database` の絞り込みへ渡す区分名の**全文**（`shortCategoryLabel` を掛ける前）。
+   * これを持つ行だけがリンクになる — 「その他（3区分）」は1つの絞り込みに落ちないので
+   * 持たせない（畳まれた区分へは絞り込みパネルのセレクトから届く）。
+   */
+  filterValue?: string;
+}
+
+/**
+ * 凡例から `/database` の絞り込みへ飛ばすときの軸（2026-08-17・Issue #94 の案5）。
+ * 渡さなければ凡例はただの表示になる（`/lab` の見比べはこちら）。
+ */
+export interface BreakdownFacet {
+  /** `/database` のクエリパラメータ名。 */
+  param: "death" | "accession";
+  /** 読み上げ用の軸名（「死因」「即位経路」）。可視ラベルには出さない。 */
+  label: string;
 }
 
 export const BREAKDOWN_SERIES = [
@@ -44,7 +62,13 @@ export const BREAKDOWN_SERIES_BG = [
  * 畳んだ全区分を渡すこと）。凡例は帯の並び順と1対1で、名前・実数・割合を必ず併記する
  * （細い区分は帯の中では読めないため、色だけが手掛かりの区分を作らない）。
  */
-export function BreakdownBar({ slices }: { slices: BreakdownRow[] }) {
+export function BreakdownBar({
+  slices,
+  facet,
+}: {
+  slices: BreakdownRow[];
+  facet?: BreakdownFacet;
+}) {
   return (
     // 凡例の列数は**この箱の幅**で決める（@container）。盤面は lg で 3:2 に割れるため、
     // ビューポート幅と凡例が使える幅は比例しない（1024px 幅ではむしろ 768px 幅より狭い）。
@@ -71,13 +95,12 @@ export function BreakdownBar({ slices }: { slices: BreakdownRow[] }) {
         {slices.map((d, i) => {
           const label = shortCategoryLabel(d.name);
           const title = d.detail ?? (label === d.name ? undefined : d.name);
-          return (
-            <li
-              key={d.name}
-              // sr-only（絶対配置）の基準をこの枠にする。
-              className="relative flex items-baseline gap-2 rounded-md border border-border px-2.5 py-1.5"
-              title={title}
-            >
+          const href =
+            facet && d.filterValue
+              ? databaseFilterHref({ [facet.param]: d.filterValue })
+              : undefined;
+          const row = (
+            <>
               <span
                 className={`size-2.5 shrink-0 translate-y-px rounded-xs ${
                   BREAKDOWN_SERIES_BG[i % BREAKDOWN_SERIES_BG.length]
@@ -88,14 +111,44 @@ export function BreakdownBar({ slices }: { slices: BreakdownRow[] }) {
               {/* 畳んだ区分名・省いた括弧は title だけに置かない（title は
                   キーボード・タッチ・読み上げのどれでも出ない）。可視の区分名は
                   そのまま — **`--series-*` の 3:1 未満の免除条件は「可視ラベル」**
-                  なので、ここを sr-only へ移し替えないこと（AGENTS.md）。 */}
-              {title && <span className="sr-only">（{title}）</span>}
+                  なので、ここを sr-only へ移し替えないこと（AGENTS.md）。
+                  **リンクの行では出さない** — aria-label が中身の読み上げを
+                  上書きするので、括弧つきの全文はそちらへ入れてある。 */}
+              {title && !href && <span className="sr-only">（{title}）</span>}
               <span className="ml-auto shrink-0 text-sm font-medium tabular-nums text-foreground">
                 {d.count}名
               </span>
               <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
                 {d.percentLabel}
               </span>
+            </>
+          );
+          // sr-only（絶対配置）の基準を枠にするため relative は枠側に置く。
+          // **`h-full` を外さないこと** — 枠が `<li>` そのものだった頃は grid の
+          // stretch が2列の高さを揃えていたが、中の要素になったぶん自分では伸びない
+          // （区分名が折り返す幅で片方の枠だけ低くなる）。
+          const boxClass =
+            "relative flex h-full items-baseline gap-2 rounded-md border border-border px-2.5 py-1.5";
+          return (
+            <li key={d.name}>
+              {href ? (
+                // 面がわずかに沈む側の hover（AGENTS.md の「操作の反応で守ること」）。
+                // 可視ラベルは text-foreground のまま — 区分名は `--series-*` が
+                // コントラスト 3:1 未満であることの免除条件そのものなので、
+                // 休止状態の色を hover 用に落とさない。
+                <Link
+                  href={href}
+                  title={title}
+                  aria-label={`${facet!.label}が${d.name}の皇帝${d.count}名をデータベースで見る`}
+                  className={`${boxClass} transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-seal`}
+                >
+                  {row}
+                </Link>
+              ) : (
+                <div className={boxClass} title={title}>
+                  {row}
+                </div>
+              )}
             </li>
           );
         })}
