@@ -96,7 +96,17 @@ def field_matches(declared, query):
     """
     segs = [s for s in query.replace("[]", "").replace("[", ".").replace("]", "")
             .split(".") if s]
-    return declared == query or declared in segs
+    if declared == query:
+        return True
+    if declared not in segs:
+        return False
+    # **葉の一致だけで通さない**（2026-08-17）。`eraChangeCount.events[].eraName` は
+    # 葉が `eraName` なので名前欄の `eraName` に当たり、Issue #161 の全員で
+    # 「政権の慣行が未確定」＝人物単位の調査に入るなを返して着手を止めていた
+    # （regime-conventions.json に eraName の記録は0件で、改元 event の元号名は
+    # 政権の書式ではなく人物単位の事実なので、そもそも台帳の対象外）。
+    # 通すのは素の名前と、名前の容器の下に在る形だけにする
+    return all(s == "name" for s in segs[:segs.index(declared)])
 
 
 def brief_for(eid, field=None):
