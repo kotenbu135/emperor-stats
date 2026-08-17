@@ -29,8 +29,6 @@ import {
 export * from "@/lib/emperor-types";
 import { kanaExpansionsOf } from "@/lib/kana-readings";
 // 系譜図の件数は図の実結果から引く（章を増減したら OGP の数も自動で動く）。
-// kinship/layout.ts はこのファイルを import しない（循環参照になるため・向きは一方通行）。
-import { getKinshipChapters } from "@/lib/kinship/layout";
 import { rubyOf } from "@/lib/name-readings";
 import { assertValidRubySource } from "@/lib/ruby";
 import {
@@ -2183,7 +2181,7 @@ export interface OgFact {
 }
 
 /** OGP画像に事実カードを出すページ。値は各ルートのパスと一致させる。 */
-export type OgFactPage = "/" | "/emperors" | "/database" | "/about" | "/kinship";
+export type OgFactPage = "/" | "/emperors" | "/database" | "/about";
 
 export function getOgFacts(page: OgFactPage): OgFact[] {
   const stats = getOverviewStats();
@@ -2233,23 +2231,6 @@ export function getOgFacts(page: OgFactPage): OgFact[] {
           label: "表の列",
           value: `${DATABASE_COLUMN_COUNT}列`,
           sub: "在位年数・死因・即位経路・年齢ほか",
-        },
-      ];
-    }
-    case "/kinship": {
-      // 系譜図の面なので「どれだけの血縁が図になっているか」を伝える2枚。
-      // 数はレイアウトの実結果から引く（章を増減したら自動で動く）。
-      const chapters = getKinshipChapters();
-      return [
-        {
-          label: "図にした皇帝",
-          value: `${chapters.reduce((a, c) => a + c.emperorCount, 0)}名`,
-          sub: `秦・漢から五代十国までの${chapters.length}章`,
-        },
-        {
-          label: "縦軸",
-          value: "実時間",
-          sub: "1年 = 8px の等間隔・上辺が即位年",
         },
       ];
     }
