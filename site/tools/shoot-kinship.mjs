@@ -102,22 +102,25 @@ const SPOTS = [
   ["p-fanshi-liu-qin", "10-cross-fan"],
   ["p-liu-qing", "11-cross-liuqing"],
   ["han-xuandi", "12-cross-xuandi"],
+  // **指摘のスクリーンショットと同じ寄り**（2.8倍）。同じ枠で撮らないと比べられない。
+  ["hou-han-zhangdi", "13-zhangdi-x28", 2.8],
+  ["p-ruzi-ying", "14-shanrang", 2.0],
+  ["hou-han-guangwudi", "15-guangwu"],
 ];
-for (const [id, name] of SPOTS) {
+for (const [id, name, zoom] of SPOTS) {
   await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
   await sleep(1800);
-  const ok = await page.evaluate((nodeId) => {
+  const ok = await page.evaluate(({ nodeId, scale }) => {
     const el = document.querySelector(`.react-flow__node[data-id="${nodeId}"]`);
     const vp = document.querySelector(".react-flow__viewport");
     const pane = document.querySelector(".react-flow");
     if (!el || !vp || !pane) return false;
     const m = /translate\((-?[\d.]+)px,\s*(-?[\d.]+)px\)/.exec(el.style.transform);
     if (!m) return false;
-    const scale = 1.4;
     const r = pane.getBoundingClientRect();
     vp.style.transform = `translate(${r.width / 2 - Number(m[1]) * scale}px, ${r.height / 2 - Number(m[2]) * scale}px) scale(${scale})`;
     return true;
-  }, id);
+  }, { nodeId: id, scale: zoom ?? 1.4 });
   if (!ok) {
     console.log(`  (${id} が見つからず撮れなかった)`);
     continue;

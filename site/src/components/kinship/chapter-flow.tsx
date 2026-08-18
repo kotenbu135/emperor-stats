@@ -74,13 +74,17 @@ export interface KinshipUnion {
   kind: "parents" | "marriage" | "disputed";
 }
 
-/** 線1本。`busY` は「同じ親から出る線をまとめる横棒の高さ」で、レイアウト側が決める。 */
+/**
+ * 線1本。**形はレイアウト側が折れ線 `points` で決め切る**（図の座標系そのまま）。
+ * ここで曲げ方を決めると、線がカードを突き抜けても機械で見られない — バスの共有・
+ * 廊下・カードとの交差の勘定は build-kinship-layout.mjs 側にまとまっている。
+ */
 export interface KinshipEdge {
   id: string;
   kind: "father" | "mother" | "child" | "adoptive" | "second" | "disputed" | "succession";
   from: string;
   to: string;
-  busY: number | null;
+  points: [number, number][];
   categoryId?: string | null;
 }
 
@@ -116,11 +120,24 @@ const SUCCESSION_LABEL: Record<string, string> = {
   "succession-unspecified": "継承",
 };
 
-function yearLabel(from: number | null, to: number | null): string {
+/**
+ * カードの2行目。**皇帝は在位年・それ以外は生没年**という別物を同じ形で出していて
+ * 「在位なのか生没なのか分からない」と言われた（2026-08-18）。皇帝側に「在位」を付け、
+ * 片方しか分かっていない人には**生／没のどちらなのか1字で添える**。
+ */
+function yearLine(p: KinshipPerson): string {
   const f = (y: number) => (y < 0 ? `前${-y}` : `${y}`);
-  if (from == null && to == null) return "";
-  if (from != null && to != null) return `${f(from)}–${f(to)}`;
-  return f((from ?? to) as number);
+  if (p.isEmperor) {
+    if (p.reignFrom == null && p.reignTo == null) return "";
+    if (p.reignFrom != null && p.reignTo != null)
+      return `在位 ${f(p.reignFrom)}–${f(p.reignTo)}`;
+    return `在位 ${f((p.reignFrom ?? p.reignTo) as number)}`;
+  }
+  if (p.birthYear != null && p.deathYear != null)
+    return `${f(p.birthYear)}–${f(p.deathYear)}`;
+  if (p.birthYear != null) return `${f(p.birthYear)}生`;
+  if (p.deathYear != null) return `${f(p.deathYear)}没`;
+  return "";
 }
 
 /** カード下帯の色。皇帝は政権色、それ以外は性別で分ける（2026-08-18 ユーザー指示）。 */
@@ -128,6 +145,27 @@ function bandOf(p: KinshipPerson): string {
   if (p.isEmperor) return regimeBandColor(p.regimeId);
   if (p.gender === "female") return "var(--kinship-kin-band-female)";
   return "var(--kinship-kin-band)";
+}
+
+/**
+ * カードの4つの口。**上下だけでは足りない** — 継承（禅譲など）は段が同じ2人を結ぶことが
+ * あり、上下の口でつなぐと線が必ずどちらかのカードを潜る（2026-08-18「禅譲の線がなるべく
+ * 線やカードを横切らないように」）。`ports()` が返すサーバー描画用の配列と対で動かすこと。
+ */
+function CardPorts() {
+  const hide = "!bg-transparent !border-0";
+  return (
+    <>
+      <Handle id="t" type="target" position={Position.Top} className={hide} />
+      <Handle id="b" type="source" position={Position.Bottom} className={hide} />
+      {/* 左右は継承の線が出入りする。**向きが決まらないので source と target を両方置く**
+          （片方だけだと、行き先が左にある禅譲で「source の口が無い」となって線が消える）。 */}
+      <Handle id="ls" type="source" position={Position.Left} className={hide} />
+      <Handle id="lt" type="target" position={Position.Left} className={hide} />
+      <Handle id="rs" type="source" position={Position.Right} className={hide} />
+      <Handle id="rt" type="target" position={Position.Right} className={hide} />
+    </>
+  );
 }
 
 function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
@@ -149,7 +187,7 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
         className="truncate text-[10px] tabular-nums"
         style={{ color: p.isEmperor ? "#fff" : "var(--foreground)" }}
       >
-        {p.isEmperor ? yearLabel(p.reignFrom, p.reignTo) : yearLabel(p.birthYear, p.deathYear)}
+        {yearLine(p)}
       </div>
     </div>
   );
@@ -187,12 +225,7 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
 
   // **Handle が無いと線が1本も描かれない。** サーバー描画のときはノードの `handles`
   // プロパティが位置を代行するが、クライアントで hydrate したあとは実要素の位置を測る。
-  const ports = (
-    <>
-      <Handle type="target" position={Position.Top} className="!bg-transparent !border-0" />
-      <Handle type="source" position={Position.Bottom} className="!bg-transparent !border-0" />
-    </>
-  );
+  const ports = <CardPorts />;
 
   if (!p.emperorId)
     return (
@@ -220,8 +253,7 @@ function UnionDot({ data }: NodeProps<Node<{ kind: KinshipUnion["kind"] }>>) {
         border: disputed ? "1.6px solid var(--kinship-line)" : undefined,
       }}
     >
-      <Handle type="target" position={Position.Top} className="!bg-transparent !border-0" />
-      <Handle type="source" position={Position.Bottom} className="!bg-transparent !border-0" />
+      <CardPorts />
     </div>
   );
 }
@@ -234,14 +266,40 @@ function UnionDot({ data }: NodeProps<Node<{ kind: KinshipUnion["kind"] }>>) {
  * ここは `busY`（＝兄弟で共有する横棒の高さ・レイアウト側が決める）を通る折れ線を
  * 直角のまま引くだけにする。同じ親の線は分岐点まで完全に重なるので、本物の T 字になる。
  */
-function combPath(sx: number, sy: number, tx: number, ty: number, busY: number): string {
-  if (Math.abs(sx - tx) < 0.5) return `M${sx},${sy} L${sx},${ty}`;
-  return `M${sx},${sy} L${sx},${busY} L${tx},${busY} L${tx},${ty}`;
-}
-
-function FamilyEdge({ id, sourceX, sourceY, targetX, targetY, data, style }: EdgeProps) {
-  const busY = (data?.busY as number | undefined) ?? (sourceY + targetY) / 2;
-  return <BaseEdge id={id} path={combPath(sourceX, sourceY, targetX, targetY, busY)} style={style} />;
+/**
+ * レイアウトが決めた折れ線をそのまま引く。**角丸を付けない**
+ * （2026-08-18「不要な曲がりが発生していてキモい」）。
+ */
+function FamilyEdge({
+  id,
+  data,
+  style,
+  markerEnd,
+  label,
+  labelStyle,
+  labelShowBg,
+  labelBgStyle,
+  labelBgPadding,
+}: EdgeProps) {
+  const pts = (data?.points as [number, number][] | undefined) ?? [];
+  if (pts.length < 2) return null;
+  const d = pts.map(([x, y], i) => `${i ? "L" : "M"}${x},${y}`).join(" ");
+  const mid = pts[Math.floor(pts.length / 2)];
+  return (
+    <BaseEdge
+      id={id}
+      path={d}
+      style={style}
+      markerEnd={markerEnd}
+      label={label}
+      labelX={mid[0]}
+      labelY={mid[1]}
+      labelStyle={labelStyle}
+      labelShowBg={labelShowBg}
+      labelBgStyle={labelBgStyle}
+      labelBgPadding={labelBgPadding}
+    />
+  );
 }
 
 const nodeTypes = { person: PersonCard, union: UnionDot };
@@ -271,10 +329,17 @@ const EDGE_STYLE: Record<KinshipEdge["kind"], { dash?: string; color?: string }>
  */
 function buildGraph(layout: KinshipLayout): { nodes: Node[]; edges: Edge[] } {
   // `handles` はサーバー描画のためにある（クライアントでは実要素を測るので不要）。
+  // **`CardPorts` と同じ4つ・同じ id で並べること** — 片方だけ増やすと、静的 HTML と
+  // クライアントで線の出入り口が変わる。
   const ports = (w: number, h: number) => [
-    { type: "target" as const, position: Position.Top, x: w / 2, y: 0 },
-    { type: "source" as const, position: Position.Bottom, x: w / 2, y: h },
+    { id: "t", type: "target" as const, position: Position.Top, x: w / 2, y: 0 },
+    { id: "b", type: "source" as const, position: Position.Bottom, x: w / 2, y: h },
+    { id: "ls", type: "source" as const, position: Position.Left, x: 0, y: h / 2 },
+    { id: "lt", type: "target" as const, position: Position.Left, x: 0, y: h / 2 },
+    { id: "rs", type: "source" as const, position: Position.Right, x: w, y: h / 2 },
+    { id: "rt", type: "target" as const, position: Position.Right, x: w, y: h / 2 },
   ];
+  const at = new Map(layout.nodes.map((n) => [n.id, n]));
   const nodes: Node[] = layout.nodes.map((p) => ({
     id: p.id,
     type: "person",
@@ -310,24 +375,26 @@ function buildGraph(layout: KinshipLayout): { nodes: Node[]; edges: Edge[] } {
       strokeDasharray: s.dash,
       opacity: 0.85,
     };
-    if (e.kind !== "succession") {
-      return {
-        id: e.id,
-        type: "family",
-        source: e.from,
-        target: e.to,
-        data: { busY: e.busY },
-        style,
-      } satisfies Edge;
-    }
-    // 継承だけは行き先が段の順に並ばない（禅譲は下から上へも走る）ので、
-    // バスを決めずに React Flow の直角ルータへ渡す。
-    return {
+    const base = {
       id: e.id,
-      type: "smoothstep",
+      type: "family",
       source: e.from,
       target: e.to,
+      data: { points: e.points },
       style,
+    };
+    if (e.kind !== "succession") {
+      return { ...base, sourceHandle: "b", targetHandle: "t" } satisfies Edge;
+    }
+    // 横向き（継承）はカードの左右の口を使う。**行き先が右なら右の口から出る** —
+    // 逆に取ると線が出どころのカードを一周する。
+    const a = at.get(e.from);
+    const b = at.get(e.to);
+    const rightward = a && b ? b.x + b.w / 2 > a.x + a.w / 2 : true;
+    return {
+      ...base,
+      sourceHandle: rightward ? "rs" : "ls",
+      targetHandle: rightward ? "lt" : "rt",
       label: SUCCESSION_LABEL[e.categoryId ?? ""] ?? "継承",
       labelShowBg: true,
       labelBgPadding: [3, 1] as [number, number],

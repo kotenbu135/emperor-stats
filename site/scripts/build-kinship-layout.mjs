@@ -292,10 +292,23 @@ for (const u of unions.values()) {
 }
 for (const x of extra) elkEdges.push({ id: `e${ei++}`, sources: [x.from], targets: [x.to] });
 
-const elk = new ELK();
-const graph = await elk.layout({
-  id: "root",
-  layoutOptions: {
+// **段を2回に分けて解く。**
+//
+// elk の段は世代であって時代ではない。しかも世代の深さは記録に残った親族の数で決まるので、
+// 6世代の後漢の祖先鎖（劉発→劉買→劉外→劉回→劉欽→光武帝）は8世代の前漢本流より**13段も
+// 上**に来ていた（光武帝 25 が王莽 9・哀帝 前7 より上・2026-08-18「前漢末、新、後漢初の
+// 人物の配置を時代感を考慮した配置に」）。
+//
+// 1回目は**年の背骨**（見えない鎖 T0→T1→… を BUCKET 年ごとに立て、年 y の人物へ
+// T_k → 人物 の辺を張る）を足して解き、**段の番号だけ**を取る。背骨は層の制約としては
+// 効くが、そのまま描くと横の置き方まで背骨に引っ張られて図が崩れる（実測で横棒の総延長
+// +78%・高さ +57%・夫婦の隔たり最大 262→548px）。
+//
+// そこで2回目は背骨を捨て、代わりに**辺の途中へ見えないスペーサを挟んで段差だけを再現する**。
+// スペーサは辺の上に乗るので、elk はそれを1本の線分として素直に縦へ通す — 横の置き方は
+// 1回目の背骨に引っ張られない。
+const BUCKET = Number(process.env.KINSHIP_BUCKET ?? 20);
+const LAYOUT_OPTIONS = {
     "elk.algorithm": "layered",
     "elk.direction": "DOWN",
     "elk.layered.layering.strategy": "NETWORK_SIMPLEX",
@@ -313,15 +326,135 @@ const graph = await elk.layout({
     "elk.layered.nodePlacement.strategy":
       process.env.KINSHIP_NODE_PLACEMENT ?? "LINEAR_SEGMENTS",
     "elk.spacing.nodeNode": "14",
-    "elk.layered.spacing.nodeNodeBetweenLayers": "40",
+    "elk.layered.spacing.nodeNodeBetweenLayers": process.env.KINSHIP_LAYER_GAP ?? "32",
     "elk.spacing.edgeNode": "12",
     "elk.edgeRouting": "ORTHOGONAL",
-  },
-  children: elkNodes,
-  edges: elkEdges,
-});
+};
+
+const elk = new ELK();
+const solve = (children, edges) =>
+  elk.layout({ id: "root", layoutOptions: LAYOUT_OPTIONS, children, edges });
+
+// --- 1回目: 年の背骨つき。段の番号だけを取る
+const layerOf = new Map();
+{
+  const spine = new Set();
+  const nodesA = [...elkNodes];
+  const edgesA = [...elkEdges];
+  const years = [...cards.values()].map(yearOf).filter((v) => v != null);
+  const lo = Math.min(...years);
+  const hi = Math.max(...years);
+  for (let k = 0; k <= Math.floor((hi - lo) / BUCKET); k += 1) {
+    const id = `t-${k}`;
+    spine.add(id);
+    nodesA.push({ id, width: 0, height: 0 });
+    if (k > 0) edgesA.push({ id: `a${ei++}`, sources: [`t-${k - 1}`], targets: [id] });
+  }
+  // **家族の単位で同じ枡に入れる。** 人ごとの年でそのまま縛ると、高帝（前202）と
+  // 呂雉（前179）のように年が離れた夫婦が別の段へ割れ、父から結び目へ下ろす線が
+  // 母のカードを突き抜ける（実測で交差19件のうち12件がこれだった）。兄弟も同じで、
+  // 同じ親の子は1段に並べたい。**下限だけを揃える**ので、時代の前後は保たれる。
+  const bucket = new Map();
+  for (const c of cards.values()) {
+    const y = yearOf(c);
+    if (y != null) bucket.set(c.id, Math.floor((y - lo) / BUCKET));
+  }
+  const pull = (group) => {
+    const vals = group.map((id) => bucket.get(id)).filter((v) => v != null);
+    if (vals.length < 2) return;
+    const b = Math.min(...vals);
+    for (const id of group) if (bucket.has(id)) bucket.set(id, b);
+  };
+  for (const u of unions.values()) {
+    pull([u.father, u.mother]);
+    pull(u.children);
+  }
+  for (const [id, k] of bucket) {
+    edgesA.push({ id: `a${ei++}`, sources: [`t-${k}`], targets: [id] });
+  }
+  const gA = await solve(nodesA, edgesA);
+  const real = gA.children.filter((n) => !spine.has(n.id));
+  const rank = new Map(
+    [...new Set(real.map((n) => n.y))].sort((a, b) => a - b).map((y, i) => [y, i]),
+  );
+  for (const n of real) layerOf.set(n.id, rank.get(n.y));
+}
+
+// **段の番号を家族の単位で揃える。** 年で縛ると夫婦・兄弟が別の段へ割れ、父から結び目へ
+// 下ろす線が母のカードを、親から子へ下ろす線が別の子のカードを突き抜ける（実測15本のうち
+// 12本がこれ）。**下げる方向にだけ動かす**ので必ず収束する。
+{
+  const kids = new Map(); // 親 -> 子[]（結び目をまたいだ兄弟も同じ段に並べる）
+  const addKid = (p, c) => {
+    const cur = kids.get(p);
+    if (cur) cur.push(c);
+    else kids.set(p, [c]);
+  };
+  for (const u of unions.values())
+    for (const c of u.children) {
+      addKid(u.father, c);
+      addKid(u.mother, c);
+    }
+  for (const x of extra) addKid(x.from, x.to);
+
+  for (let it = 0; it < 12; it += 1) {
+    let changed = false;
+    const bump = (id, v) => {
+      if (v > layerOf.get(id)) {
+        layerOf.set(id, v);
+        changed = true;
+      }
+    };
+    for (const u of unions.values()) {
+      const m = Math.max(layerOf.get(u.father), layerOf.get(u.mother));
+      bump(u.father, m);
+      bump(u.mother, m);
+    }
+    for (const cs of kids.values()) {
+      const m = Math.max(...cs.map((c) => layerOf.get(c)));
+      for (const c of cs) bump(c, m);
+    }
+    for (const e of elkEdges) bump(e.targets[0], layerOf.get(e.sources[0]) + 1);
+    if (!changed) break;
+  }
+  // 空いた段は詰める（スペーサは段差の下限しか決めないので、詰めても順序は変わらない）
+  const packed = new Map(
+    [...new Set(layerOf.values())].sort((a, b) => a - b).map((v, i) => [v, i]),
+  );
+  for (const [id, v] of layerOf) layerOf.set(id, packed.get(v));
+}
+
+// --- 2回目: 背骨は捨て、段差をスペーサで固定して解く
+const nodesB = [...elkNodes];
+const edgesB = [];
+const spacers = new Set();
+// 「どの2点を結ぶ線が、どの見えない点を通るか」。**この x が線を通す廊下になる** —
+// elk はスペーサの周りに間隔を空けるので、そこを通せばカードを突き抜けない。
+const corridorOf = new Map(); // `${from}>${to}` -> [spacer id...]
+let si = 0;
+for (const e of elkEdges) {
+  const gap = layerOf.get(e.targets[0]) - layerOf.get(e.sources[0]);
+  if (!(gap > 1)) {
+    edgesB.push(e);
+    continue;
+  }
+  const chain = [];
+  let prev = e.sources[0];
+  for (let k = 1; k < gap; k += 1) {
+    const id = `s-${si++}`;
+    spacers.add(id);
+    chain.push(id);
+    nodesB.push({ id, width: 0, height: 0 });
+    edgesB.push({ id: `b${ei++}`, sources: [prev], targets: [id] });
+    prev = id;
+  }
+  edgesB.push({ id: `b${ei++}`, sources: [prev], targets: [e.targets[0]] });
+  corridorOf.set(`${e.sources[0]}>${e.targets[0]}`, chain);
+}
+const graph = await solve(nodesB, edgesB);
 
 const pos = new Map(graph.children.map((n) => [n.id, { x: n.x, y: n.y }]));
+console.log(`  段のスペーサ: ${si}個`);
 
 // ---------------------------------------------------------------- 時代で縦を整える
 //
@@ -511,93 +644,78 @@ const unionNodes = [...unions.values()].map((u) => {
   };
 });
 
-// ---------------------------------------------------------------- 線（バスの高さまで決める）
+// ---------------------------------------------------------------- 線
 //
-// **同じ親から出る線は1本の横棒（バス）にまとめる。** React Flow の smoothstep は
-// 2点ごとに中点で折るので、兄弟が3人いれば3本の横棒が少しずつ違う高さに並び、
-// 分岐点では角丸どうしが逆向きに剥がれて瘤になった（2026-08-18「不要な曲がり」）。
-// バスを共有すれば分岐点は本物の T 字になり、角も直角のまま済む。
+// **線は折れ線（points）で持つ。** 描画側は M/L で引くだけにして、形はここで決め切る
+// （部品側で決めると、線がカードを突き抜けても機械で見られない）。
 //
-// **高さは行き先の側から採る**（`min(行き先の上端) - 16`）。出どころの側から
-// 「下端 + 16」で採ると、同じ段に高さ 140 の皇帝カードと 38 の帯が混在するため、
-// 帯から出たバスが隣の皇帝カードを突き抜ける。
-// **高さは候補から選ぶ。** 行き先の側（`min(上端) - 16`）に寄せるといちばん櫛らしく
-// 見えるが、それだと出どころから下ろす縦線が途中のカードを突き抜けることがある
-// （樊嫻都→結び目が宣帝の中を通っていた）。出どころの側（`max(下端) + 16`）に寄せると
-// 今度は同じ段の背の高い皇帝カードを横棒が突き抜ける。**どちらが当たるかは場所による**
-// ので、候補を並べてカードとの交差を数え、いちばん少ないものを採る。
+// 形は3段構え:
+//   1. 出どころの下の**横棒（busA）は同じ親から出る線で共有する** — 兄弟が4人いれば
+//      横棒が4本並んで分岐点に瘤ができていた（2026-08-18「不要な曲がり」）。共有すれば
+//      分岐点は本物の T 字になり、角は直角のまま済む。
+//   2. 段をいくつも跨ぐ線は**廊下（elk が空けたスペーサの x）を通す**。まっすぐ下ろすと
+//      途中の段のカードを突き抜ける（実測24本）。
+//   3. 行き先の上の横棒（busB）で寄せる。
+//
+// busA・busB の高さは候補から選ぶ。カードとの交差を4倍・線どうしの交差を1倍で数えて、
+// いちばん悪くない組み合わせを何回かなめて決める。
 const BUS_GAP = 16;
 const boxes = new Map();
 for (const n of nodes) boxes.set(n.id, n);
 for (const n of unionNodes) boxes.set(n.id, n);
 
-/** 折れ線（縦・横・縦）がカードと交わる回数。両端のカード自身は数えない。 */
-const crossings = (pairs, busY) => {
-  let n = 0;
-  for (const [from, to] of pairs) {
-    const a = boxes.get(from);
-    const b = boxes.get(to);
-    const sx = a.x + a.w / 2;
-    const tx = b.x + b.w / 2;
-    const segs = [
-      [Math.min(sx, tx), Math.max(sx, tx), busY, busY],
-      [sx, sx, Math.min(a.y + a.h, busY), Math.max(a.y + a.h, busY)],
-      [tx, tx, Math.min(busY, b.y), Math.max(busY, b.y)],
-    ];
-    for (const c of nodes) {
-      if (c.id === from || c.id === to) continue;
-      for (const [x0, x1, y0, y1] of segs) {
-        if (x0 < c.x + c.w && c.x < x1 && y0 < c.y + c.h && c.y < y1) {
-          n += 1;
-          break;
-        }
-      }
-    }
-  }
-  return n;
-};
-
-const busFor = (sources, targets) => {
-  const top = Math.min(...targets.map((t) => boxes.get(t).y));
-  const bottom = Math.max(...sources.map((s) => boxes.get(s).y + boxes.get(s).h));
-  const pairs = [];
-  for (const s of sources) for (const t of targets) pairs.push([s, t]);
-  if (top - bottom < 12) return Math.round((bottom + top) / 2);
-  // 行き先寄り → 真ん中 → 出どころ寄り の順に見て、交差がいちばん少ない最初のものを採る
-  // （同点なら櫛が締まって見える行き先寄りが勝つ）。
-  const candidates = [
-    top - BUS_GAP,
-    (bottom + top) / 2,
-    bottom + BUS_GAP,
-    top - 6,
-    bottom + 6,
-  ].map((y) => Math.round(Math.min(Math.max(y, bottom + 6), top - 6)));
-  let best = candidates[0];
-  let bestScore = Infinity;
-  for (const y of candidates) {
-    const score = crossings(pairs, y);
-    if (score < bestScore) {
-      bestScore = score;
-      best = y;
-      if (score === 0) break;
-    }
-  }
-  return best;
+const midOf = (id) => boxes.get(id).x + boxes.get(id).w / 2;
+const medianX = (a) => (a.length ? [...a].sort((x, y) => x - y)[Math.floor(a.length / 2)] : null);
+const corridorX = (from, to) => {
+  if (process.env.KINSHIP_NO_CORRIDOR) return null;
+  const chain = corridorOf.get(`${from}>${to}`);
+  if (!chain || !chain.length) return null;
+  return Math.round(medianX(chain.map((id) => pos.get(id).x)));
 };
 
 const lines = [];
 let li = 0;
-for (const u of unionNodes) {
-  const parentBus = busFor([u.father, u.mother], [u.id]);
-  // 実親の結び目は「実父＝実線／実母＝破線」で書き分ける。異説の結び目は両方とも点線。
-  const pk = u.kind === "disputed" ? "disputed" : null;
-  lines.push({ id: `l${li++}`, kind: pk ?? "father", from: u.father, to: u.id, busY: parentBus });
-  lines.push({ id: `l${li++}`, kind: pk ?? "mother", from: u.mother, to: u.id, busY: parentBus });
-  if (!u.children.length) continue;
-  const childBus = busFor([u.id], u.children);
-  for (const c of u.children) {
-    lines.push({ id: `l${li++}`, kind: "child", from: u.id, to: c, busY: childBus });
+const knobs = []; // バスの高さを振るつまみ（{edges, candidates, set}）
+
+const levels = (bottom, top) => {
+  const lo = Math.min(bottom + 6, top - 6);
+  const hi = Math.max(bottom + 6, top - 6);
+  const c = (y) => Math.round(Math.min(Math.max(y, lo), hi));
+  return [...new Set([c(top - BUS_GAP), c((bottom + top) / 2), c(bottom + BUS_GAP), c(top - 6), c(bottom + 6)])];
+};
+
+const addGroup = (sources, targets, made) => {
+  const top = Math.min(...targets.map((t) => boxes.get(t).y));
+  const bottom = Math.max(...sources.map((s) => boxes.get(s).y + boxes.get(s).h));
+  const candidates = levels(bottom, top);
+  for (const e of made) {
+    e.busA = candidates[0];
+    const b = boxes.get(e.to);
+    e.corridor = corridorX(e.from, e.to);
+    e.busB = b.y - BUS_GAP;
+    lines.push(e);
   }
+  // 出どころ側の横棒は束で共有する
+  knobs.push({ edges: made, candidates, set: (e, v) => { e.busA = v; } });
+  // 行き先側の横棒は線ごと（廊下を通る線だけ意味がある）
+  for (const e of made) {
+    if (e.corridor == null) continue;
+    const a = boxes.get(e.from);
+    const cs = levels(a.y + a.h, boxes.get(e.to).y);
+    e.busB = cs[0];
+    knobs.push({ edges: [e], candidates: cs, set: (x, v) => { x.busB = v; } });
+  }
+};
+
+for (const u of unionNodes) {
+  const pk = u.kind === "disputed" ? "disputed" : null;
+  addGroup([u.father, u.mother], [u.id], [
+    { id: `l${li++}`, kind: pk ?? "father", from: u.father, to: u.id, axis: "v" },
+    { id: `l${li++}`, kind: pk ?? "mother", from: u.mother, to: u.id, axis: "v" },
+  ]);
+  if (!u.children.length) continue;
+  addGroup([u.id], u.children,
+    u.children.map((c) => ({ id: `l${li++}`, kind: "child", from: u.id, to: c, axis: "v" })));
 }
 {
   const byParent = new Map();
@@ -607,55 +725,176 @@ for (const u of unionNodes) {
     else byParent.set(x.from, [x]);
   }
   for (const [from, xs] of byParent) {
-    const busY = busFor([from], xs.map((x) => x.to));
-    for (const x of xs) lines.push({ id: `l${li++}`, kind: x.kind, from, to: x.to, busY });
+    addGroup([from], xs.map((x) => x.to),
+      xs.map((x) => ({ id: `l${li++}`, kind: x.kind, from, to: x.to, axis: "v" })));
   }
 }
+// 継承は横向き（カードの左右の口）。段が同じ2人を上下の口でつなぐと、線が必ずどちらかの
+// カードを潜る（2026-08-18「禅譲の線がなるべく線やカードを横切らないように」）。
 for (const s of succession) {
-  lines.push({
+  const a = midOf(s.from);
+  const b = midOf(s.to);
+  const candidates = [...new Set([0.5, 0.15, 0.85, 0.35, 0.65].map((t) => Math.round(a + (b - a) * t)))];
+  const e = {
     id: `l${li++}`,
     kind: "succession",
     from: s.from,
     to: s.to,
     categoryId: s.categoryId,
-    busY: null,
-  });
+    axis: "h",
+    busA: candidates[0],
+  };
+  lines.push(e);
+  knobs.push({ edges: [e], candidates, set: (x, v) => { x.busA = v; } });
 }
 
-// バスと縦棒がカードを突き抜けていないかを測る。**tsc も lint も build も落ちない**ので、
-// ここで数えて出す以外に気づく手立てが無い。
-{
-  const cardBoxes = nodes.map((n) => ({
-    id: n.id,
-    x0: n.x,
-    x1: n.x + n.w,
-    y0: n.y,
-    y1: n.y + n.h,
-    l: n.label,
-  }));
-  const hits = [];
-  for (const e of lines) {
-    if (e.busY == null) continue;
-    const a = boxes.get(e.from);
-    const b = boxes.get(e.to);
+/** 線1本の折れ線（重複点は落とす）。 */
+const pointsOf = (e) => {
+  const a = boxes.get(e.from);
+  const b = boxes.get(e.to);
+  let pts;
+  if (e.axis === "v") {
     const sx = a.x + a.w / 2;
+    const sy = a.y + a.h;
     const tx = b.x + b.w / 2;
-    const segs = [
-      { x0: Math.min(sx, tx), x1: Math.max(sx, tx), y0: e.busY, y1: e.busY },
-      { x0: sx, x1: sx, y0: Math.min(a.y + a.h, e.busY), y1: Math.max(a.y + a.h, e.busY) },
-      { x0: tx, x1: tx, y0: Math.min(e.busY, b.y), y1: Math.max(e.busY, b.y) },
-    ];
-    for (const c of cardBoxes) {
-      if (c.id === e.from || c.id === e.to) continue;
-      for (const s of segs) {
-        if (s.x0 < c.x1 && c.x0 < s.x1 && s.y0 < c.y1 && c.y0 < s.y1) {
-          hits.push(`${a.label ?? a.id}→${b.label ?? b.id} が ${c.l} を横切る`);
-          break;
-        }
+    const ty = b.y;
+    const cx = e.corridor ?? tx;
+    pts = [[sx, sy]];
+    if (Math.abs(cx - sx) > 0.5) pts.push([sx, e.busA], [cx, e.busA]);
+    if (Math.abs(cx - tx) > 0.5) pts.push([cx, e.busB], [tx, e.busB]);
+    else if (Math.abs(cx - sx) <= 0.5) pts.push([sx, e.busA], [tx, e.busA]);
+    pts.push([tx, ty]);
+  } else {
+    const rightward = b.x + b.w / 2 > a.x + a.w / 2;
+    const sx = rightward ? a.x + a.w : a.x;
+    const sy = a.y + a.h / 2;
+    const tx = rightward ? b.x : b.x + b.w;
+    const ty = b.y + b.h / 2;
+    pts = [[sx, sy], [e.busA, sy], [e.busA, ty], [tx, ty]];
+  }
+  const out = [];
+  for (const p of pts) {
+    const q = out[out.length - 1];
+    if (!q || Math.abs(q[0] - p[0]) > 0.5 || Math.abs(q[1] - p[1]) > 0.5) out.push(p);
+  }
+  return out;
+};
+
+const segmentsOf = (e) => {
+  const pts = pointsOf(e);
+  const segs = [];
+  for (let i = 1; i < pts.length; i += 1) {
+    const [x0, y0] = pts[i - 1];
+    const [x1, y1] = pts[i];
+    if (Math.abs(x0 - x1) < 0.5) segs.push(["v", x0, Math.min(y0, y1), Math.max(y0, y1)]);
+    else segs.push(["h", y0, Math.min(x0, x1), Math.max(x0, x1)]);
+  }
+  return segs;
+};
+
+const cardHits = (e) => {
+  let n = 0;
+  const segs = segmentsOf(e);
+  for (const c of nodes) {
+    if (c.id === e.from || c.id === e.to) continue;
+    for (const s of segs) {
+      const x0 = s[0] === "v" ? s[1] : s[2];
+      const x1 = s[0] === "v" ? s[1] : s[3];
+      const y0 = s[0] === "v" ? s[2] : s[1];
+      const y1 = s[0] === "v" ? s[3] : s[1];
+      if (x0 < c.x + c.w && c.x < x1 && y0 < c.y + c.h && c.y < y1) {
+        n += 1;
+        break;
       }
     }
   }
-  console.log(`  カードを横切る線: ${hits.length}本` + (hits.length ? ` — ${hits.slice(0, 6).join("・")}` : ""));
+  return n;
+};
+
+/** 直交する2区間が**内側で**交わるか。端で接するだけの T 字は数えない（束ねた分岐点）。 */
+const crosses = (p, q) => {
+  if (p[0] === q[0]) return false;
+  const h = p[0] === "h" ? p : q;
+  const v = p[0] === "v" ? p : q;
+  return v[1] > h[2] && v[1] < h[3] && h[1] > v[2] && h[1] < v[3];
+};
+
+const edgeHits = (e) => {
+  let n = 0;
+  const segs = segmentsOf(e);
+  for (const o of lines) {
+    if (o === e) continue;
+    for (const s of segs) for (const t of segmentsOf(o)) if (crosses(s, t)) n += 1;
+  }
+  return n;
+};
+
+for (let pass = 0; pass < 3; pass += 1) {
+  let moved = 0;
+  for (const k of knobs) {
+    let best = null;
+    let bestScore = Infinity;
+    for (const v of k.candidates) {
+      for (const e of k.edges) k.set(e, v);
+      let sc = 0;
+      for (const e of k.edges) sc += cardHits(e) * 4 + edgeHits(e);
+      if (sc < bestScore) {
+        bestScore = sc;
+        best = v;
+      }
+    }
+    for (const e of k.edges) k.set(e, best);
+    moved += 1;
+  }
+  if (!moved) break;
+}
+
+const edgeOut = lines.map((e) => ({
+  id: e.id,
+  kind: e.kind,
+  from: e.from,
+  to: e.to,
+  categoryId: e.categoryId ?? null,
+  points: pointsOf(e).map(([x, y]) => [Math.round(x), Math.round(y)]),
+}));
+
+{
+  let hitCards = 0;
+  let pairs = 0;
+  let run = 0;
+  for (let i = 0; i < lines.length; i += 1) {
+    hitCards += cardHits(lines[i]);
+    const si2 = segmentsOf(lines[i]);
+    for (const g of si2) if (g[0] === "h") run += g[3] - g[2];
+    for (let j = i + 1; j < lines.length; j += 1) {
+      for (const s of si2) for (const t of segmentsOf(lines[j])) if (crosses(s, t)) pairs += 1;
+    }
+  }
+  console.log(
+    `  カードを横切る線: ${hitCards}本 / 線どうしの交差: ${pairs}箇所 / 横棒の総延長: ${Math.round(run)}px`,
+  );
+  if (process.env.KINSHIP_DEBUG) {
+    for (const e of lines) {
+      const n = cardHits(e);
+      if (!n) continue;
+      const a = boxes.get(e.from);
+      const b = boxes.get(e.to);
+      const hit = nodes.filter((c) => {
+        if (c.id === e.from || c.id === e.to) return false;
+        return segmentsOf(e).some((s) => {
+          const x0 = s[0] === "v" ? s[1] : s[2];
+          const x1 = s[0] === "v" ? s[1] : s[3];
+          const y0 = s[0] === "v" ? s[2] : s[1];
+          const y1 = s[0] === "v" ? s[3] : s[1];
+          return x0 < c.x + c.w && c.x < x1 && y0 < c.y + c.h && c.y < y1;
+        });
+      });
+      console.log(
+        `    ${(a.label ?? e.from)}(${a.y})→${(b.label ?? e.to)}(${b.y}) 廊下=${e.corridor} tx=${b.x + b.w / 2} : ` +
+          hit.map((c) => c.label).join("・"),
+      );
+    }
+  }
 }
 
 const width = Math.round(Math.max(...nodes.map((n) => n.x + n.w)));
@@ -684,7 +923,7 @@ const out = {
   unions: unionNodes,
   // **描画はこの1本だけを見る。** union / extraParent / succession の3つの器を
   // 部品側でほどき直すと、バスの高さ（＝線の形）が図の外で決まってしまう。
-  edges: lines,
+  edges: edgeOut,
 };
 
 const destDir = path.join(process.cwd(), "src", "lib", "kinship");
