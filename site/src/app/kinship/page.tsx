@@ -127,11 +127,14 @@ export default function KinshipPage() {
       <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
         <li>—— 実父</li>
         <li>- - - 実母</li>
-        <li>‥‥ 異説の父</li>
         <li>– – 養親</li>
+        {/* 実父が2人記録されている人物（秦の始皇帝＝荘襄王と呂不韋）は、子へ2本目の線を
+            引かずに**もう一方の実親と点線の結び目で組ませる**。婚姻の主張ではない
+            （kinship.json に呂不韋・趙姫の婚姻エッジは無い）。 */}
+        <li>‥‥ 実父の異説（結び目が白抜き）</li>
         <li style={{ color: "var(--kinship-succession)" }}>
           →&nbsp;禅譲・擁立など、親子では説明が付かない継承（
-          {layout.succession.length} 本）
+          {layout.edges.filter((e) => e.kind === "succession").length} 本）
         </li>
       </ul>
 

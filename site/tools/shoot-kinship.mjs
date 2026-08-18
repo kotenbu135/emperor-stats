@@ -90,6 +90,38 @@ if (await jump.count()) {
   await page.screenshot({ path: `${OUT}/kinship-04-jump.png` });
 }
 
+// 指摘の出た場所を等倍で撮る。React Flow の viewport の transform を直に書き換えて
+// 目的の人物を画面中央に置く（撮るためだけの操作なので、この後は再読み込みする）。
+const SPOTS = [
+  ["han-huidi", "05-huidi"],
+  ["han-wudi", "06-wudi"],
+  ["han-yuandi", "07-yuandi"],
+  ["qin-shi-huang", "08-qin"],
+  ["hou-han-zhangdi", "09-zhangdi"],
+];
+for (const [id, name] of SPOTS) {
+  await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+  await sleep(1800);
+  const ok = await page.evaluate((nodeId) => {
+    const el = document.querySelector(`.react-flow__node[data-id="${nodeId}"]`);
+    const vp = document.querySelector(".react-flow__viewport");
+    const pane = document.querySelector(".react-flow");
+    if (!el || !vp || !pane) return false;
+    const m = /translate\((-?[\d.]+)px,\s*(-?[\d.]+)px\)/.exec(el.style.transform);
+    if (!m) return false;
+    const scale = 1.4;
+    const r = pane.getBoundingClientRect();
+    vp.style.transform = `translate(${r.width / 2 - Number(m[1]) * scale}px, ${r.height / 2 - Number(m[2]) * scale}px) scale(${scale})`;
+    return true;
+  }, id);
+  if (!ok) {
+    console.log(`  (${id} が見つからず撮れなかった)`);
+    continue;
+  }
+  await sleep(500);
+  await page.screenshot({ path: `${OUT}/kinship-${name}.png` });
+}
+
 // 地のままの面積を測る（キャンバスの地の色に一致するピクセルの割合）
 const stat = await page.evaluate(async () => {
   const el = document.querySelector(".react-flow");

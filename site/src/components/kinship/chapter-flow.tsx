@@ -22,6 +22,7 @@ import { useCallback, useMemo, useState } from "react";
 import {
   Background,
   BackgroundVariant,
+  BaseEdge,
   Controls,
   Handle,
   MarkerType,
@@ -31,6 +32,7 @@ import {
   ReactFlowProvider,
   useReactFlow,
   type Edge,
+  type EdgeProps,
   type Node,
   type NodeProps,
 } from "@xyflow/react";
@@ -68,6 +70,18 @@ export interface KinshipUnion {
   father: string;
   mother: string;
   children: string[];
+  /** parents = 子がいる実の両親／marriage = 婚姻だけ／disputed = 実父の異説 */
+  kind: "parents" | "marriage" | "disputed";
+}
+
+/** 線1本。`busY` は「同じ親から出る線をまとめる横棒の高さ」で、レイアウト側が決める。 */
+export interface KinshipEdge {
+  id: string;
+  kind: "father" | "mother" | "child" | "single" | "adoptive" | "second" | "disputed" | "succession";
+  from: string;
+  to: string;
+  busY: number | null;
+  categoryId?: string | null;
 }
 
 export interface KinshipLayout {
@@ -79,13 +93,7 @@ export interface KinshipLayout {
   layers: number;
   nodes: KinshipPerson[];
   unions: KinshipUnion[];
-  extraParent: { from: string; to: string; kind: "single" | "second" | "adoptive" }[];
-  succession: {
-    from: string;
-    to: string;
-    categoryId: string | null;
-    relation: string | null;
-  }[];
+  edges: KinshipEdge[];
 }
 
 export interface KinshipJump {
@@ -201,16 +209,143 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
   );
 }
 
-function UnionDot() {
+function UnionDot({ data }: NodeProps<Node<{ kind: KinshipUnion["kind"] }>>) {
+  // 実父の異説の結び目は**中を抜く**（実の夫婦の塗り潰しと同じ形にしない）。
+  const disputed = data.kind === "disputed";
   return (
-    <div className="h-full w-full rounded-full" style={{ background: "var(--kinship-line)" }}>
+    <div
+      className="h-full w-full rounded-full"
+      style={{
+        background: disputed ? "var(--kinship-canvas)" : "var(--kinship-line)",
+        border: disputed ? "1.6px solid var(--kinship-line)" : undefined,
+      }}
+    >
       <Handle type="target" position={Position.Top} className="!bg-transparent !border-0" />
       <Handle type="source" position={Position.Bottom} className="!bg-transparent !border-0" />
     </div>
   );
 }
 
+/**
+ * 直角の線を1本引く。**角丸を付けない**（2026-08-18「不要な曲がりが発生していてキモい」）。
+ *
+ * React Flow の `smoothstep` は2点ごとに中点で折るので、同じ親から出る線が兄弟の数だけ
+ * 違う高さの横棒になり、しかも分岐点では角丸どうしが逆向きに剥がれて瘤ができていた。
+ * ここは `busY`（＝兄弟で共有する横棒の高さ・レイアウト側が決める）を通る折れ線を
+ * 直角のまま引くだけにする。同じ親の線は分岐点まで完全に重なるので、本物の T 字になる。
+ */
+function combPath(sx: number, sy: number, tx: number, ty: number, busY: number): string {
+  if (Math.abs(sx - tx) < 0.5) return `M${sx},${sy} L${sx},${ty}`;
+  return `M${sx},${sy} L${sx},${busY} L${tx},${busY} L${tx},${ty}`;
+}
+
+function FamilyEdge({ id, sourceX, sourceY, targetX, targetY, data, style }: EdgeProps) {
+  const busY = (data?.busY as number | undefined) ?? (sourceY + targetY) / 2;
+  return <BaseEdge id={id} path={combPath(sourceX, sourceY, targetX, targetY, busY)} style={style} />;
+}
+
 const nodeTypes = { person: PersonCard, union: UnionDot };
+const edgeTypes = { family: FamilyEdge };
+
+/** 線の見た目。**種別ごとに1箇所**で、凡例（page.tsx）と対で動かす。 */
+const EDGE_STYLE: Record<KinshipEdge["kind"], { dash?: string; color?: string }> = {
+  father: {},
+  mother: { dash: "3 3" },
+  child: {},
+  single: {},
+  adoptive: { dash: "6 3" },
+  second: { dash: "1 3" },
+  disputed: { dash: "1 3" },
+  succession: { dash: "5 4", color: "var(--kinship-succession)" },
+};
+
+/**
+ * レイアウトを React Flow の nodes/edges に写す。
+ *
+ * **`ChapterFlow`（Provider の外側）で1回だけ呼ぶ。** `ReactFlowProvider` を自分で置くと
+ * React Flow 内部の `Wrapper` が「もう Provider がある」と見て素通りするので、
+ * `<ReactFlow nodes=… edges=… fitView>` は**サーバー描画には一切届かない**。
+ * initialNodes / initialEdges / initialWidth / initialHeight / fitView を Provider へ
+ * 直接渡すのが唯一の経路で、渡し忘れると静的 HTML からカードも線も `<a>` も全部消える
+ * （2026-08-18 に実際に消えていた。受け入れ確認は out/kinship.html の
+ * `href="/emperors/` と `react-flow__edge-path` の件数を数えること）。
+ */
+function buildGraph(layout: KinshipLayout): { nodes: Node[]; edges: Edge[] } {
+  // `handles` はサーバー描画のためにある（クライアントでは実要素を測るので不要）。
+  const ports = (w: number, h: number) => [
+    { type: "target" as const, position: Position.Top, x: w / 2, y: 0 },
+    { type: "source" as const, position: Position.Bottom, x: w / 2, y: h },
+  ];
+  const nodes: Node[] = layout.nodes.map((p) => ({
+    id: p.id,
+    type: "person",
+    position: { x: p.x, y: p.y },
+    width: p.w,
+    height: p.h,
+    handles: ports(p.w, p.h),
+    draggable: false,
+    connectable: false,
+    selectable: false,
+    data: { person: p },
+  }));
+  for (const un of layout.unions) {
+    nodes.push({
+      id: un.id,
+      type: "union",
+      position: { x: un.x, y: un.y },
+      width: un.w,
+      height: un.h,
+      handles: ports(un.w, un.h),
+      draggable: false,
+      connectable: false,
+      selectable: false,
+      data: { kind: un.kind },
+    });
+  }
+
+  const edges: Edge[] = layout.edges.map((e) => {
+    const s = EDGE_STYLE[e.kind];
+    const style = {
+      stroke: s.color ?? "var(--kinship-line)",
+      strokeWidth: 1.6,
+      strokeDasharray: s.dash,
+      opacity: 0.85,
+    };
+    if (e.kind !== "succession") {
+      return {
+        id: e.id,
+        type: "family",
+        source: e.from,
+        target: e.to,
+        data: { busY: e.busY },
+        style,
+      } satisfies Edge;
+    }
+    // 継承だけは行き先が段の順に並ばない（禅譲は下から上へも走る）ので、
+    // バスを決めずに React Flow の直角ルータへ渡す。
+    return {
+      id: e.id,
+      type: "smoothstep",
+      source: e.from,
+      target: e.to,
+      style,
+      label: SUCCESSION_LABEL[e.categoryId ?? ""] ?? "継承",
+      labelShowBg: true,
+      labelBgPadding: [3, 1] as [number, number],
+      labelBgStyle: { fill: "var(--kinship-canvas)" },
+      labelStyle: { fill: "var(--kinship-succession)", fontSize: 10 },
+      markerEnd: { type: MarkerType.ArrowClosed, color: "var(--kinship-succession)" },
+      zIndex: 5,
+    } satisfies Edge;
+  });
+
+  return { nodes, edges };
+}
+
+/** 入口は前漢の高祖。**始皇帝ではない** — 秦の一族だけを見せても章の系譜が読めない。 */
+const FIT_VIEW = { nodes: [{ id: "han-gaozu" }], minZoom: 0.7, maxZoom: 0.7 };
+const MIN_ZOOM = 0.08;
+const MAX_ZOOM = 2;
 
 /** 図の中を動かすので Provider の内側に置く（`useReactFlow` は Provider が要る）。 */
 export function ChapterFlow({
@@ -220,9 +355,19 @@ export function ChapterFlow({
   layout: KinshipLayout;
   jumps: KinshipJump[];
 }) {
+  const graph = useMemo(() => buildGraph(layout), [layout]);
   return (
-    <ReactFlowProvider>
-      <ChapterFlowInner layout={layout} jumps={jumps} />
+    <ReactFlowProvider
+      initialNodes={graph.nodes}
+      initialEdges={graph.edges}
+      initialWidth={layout.width}
+      initialHeight={layout.height}
+      fitView
+      initialFitViewOptions={FIT_VIEW}
+      initialMinZoom={MIN_ZOOM}
+      initialMaxZoom={MAX_ZOOM}
+    >
+      <ChapterFlowInner layout={layout} jumps={jumps} graph={graph} />
     </ReactFlowProvider>
   );
 }
@@ -230,97 +375,13 @@ export function ChapterFlow({
 function ChapterFlowInner({
   layout,
   jumps,
+  graph,
 }: {
   layout: KinshipLayout;
   jumps: KinshipJump[];
+  graph: { nodes: Node[]; edges: Edge[] };
 }) {
-  const nodes: Node[] = useMemo(() => {
-    // `handles` はサーバー描画のためにある（クライアントでは実要素を測るので不要）。
-    // これが無いと **静的 HTML に親子の線が1本も出ない**。
-    const ports = (w: number, h: number) => [
-      { type: "target" as const, position: Position.Top, x: w / 2, y: 0 },
-      { type: "source" as const, position: Position.Bottom, x: w / 2, y: h },
-    ];
-    const out: Node[] = layout.nodes.map((p) => ({
-      id: p.id,
-      type: "person",
-      position: { x: p.x, y: p.y },
-      width: p.w,
-      height: p.h,
-      handles: ports(p.w, p.h),
-      draggable: false,
-      connectable: false,
-      selectable: false,
-      data: { person: p },
-    }));
-    for (const un of layout.unions) {
-      out.push({
-        id: un.id,
-        type: "union",
-        position: { x: un.x, y: un.y },
-        width: un.w,
-        height: un.h,
-        handles: ports(un.w, un.h),
-        draggable: false,
-        connectable: false,
-        selectable: false,
-        data: {},
-      });
-    }
-    return out;
-  }, [layout]);
-
-  const edges: Edge[] = useMemo(() => {
-    const line = (dash?: string, color = "var(--kinship-line)") => ({
-      stroke: color,
-      strokeWidth: 1.6,
-      strokeDasharray: dash,
-      opacity: 0.85,
-    });
-    // **すべて直角の線にする**（2026-08-18「線のぐちゃぐちゃ感を徹底的に改善」）。
-    // 既定の bezier は2点を最短で結ぶので、段をまたぐ線が斜めに走ってカードの裏を通り、
-    // 図全体が曲線の束に見えていた。系図は直角に折れる線が読みやすい。
-    const ORTH = "smoothstep" as const;
-    const out: Edge[] = [];
-    for (const un of layout.unions) {
-      out.push({ id: `${un.id}-f`, type: ORTH, source: un.father, target: un.id, style: line() });
-      out.push({
-        id: `${un.id}-m`,
-        type: ORTH,
-        source: un.mother,
-        target: un.id,
-        style: line("3 3"),
-      });
-      for (const c of un.children) {
-        out.push({ id: `${un.id}-${c}`, type: ORTH, source: un.id, target: c, style: line() });
-      }
-    }
-    layout.extraParent.forEach((e, i) => {
-      // single = 片親しか分かっていない子／second = 実父が2人記録されている（史料の異説）／
-      // adoptive = 養親。**どれも「1本の親子線」ではないので見た目を分ける。**
-      const dash = e.kind === "single" ? undefined : e.kind === "adoptive" ? "6 3" : "1 3";
-      out.push({ id: `x${i}`, type: ORTH, source: e.from, target: e.to, style: line(dash) });
-    });
-    layout.succession.forEach((s, i) => {
-      out.push({
-        id: `s${i}`,
-        source: s.from,
-        target: s.to,
-        // **カードの上を横切らせない。** 既定の bezier は2点を最短で結ぶので箱の裏を通る。
-        // 直角に折れる smoothstep のほうが、段の隙間を縫って回り込む。
-        type: "smoothstep",
-        style: line("5 4", "var(--kinship-succession)"),
-        label: SUCCESSION_LABEL[s.categoryId ?? ""] ?? "継承",
-        labelShowBg: true,
-        labelBgPadding: [3, 1],
-        labelBgStyle: { fill: "var(--kinship-canvas)" },
-        labelStyle: { fill: "var(--kinship-succession)", fontSize: 10 },
-        markerEnd: { type: MarkerType.ArrowClosed, color: "var(--kinship-succession)" },
-        zIndex: 5,
-      });
-    });
-    return out;
-  }, [layout]);
+  const { nodes, edges } = graph;
 
   // 政権へ飛ぶ（A = Die Welt der Habsburger の上端ナビに当たる）。図は1画面に収まらないので、
   // **行き先を図の外に文字で出す**のがここでの「全体の把握」。
@@ -366,18 +427,17 @@ function ChapterFlowInner({
           width={layout.width}
           height={layout.height}
           nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
           nodesDraggable={false}
           nodesConnectable={false}
           elementsSelectable={false}
-          minZoom={0.08}
-          maxZoom={2}
+          minZoom={MIN_ZOOM}
+          maxZoom={MAX_ZOOM}
           // **全体を1画面に収めない。** 2981×4082px を 1156px 幅に収めると倍率 0.28 で
           // 字が読めなくなる（前回の取り下げ理由「俯瞰すると字が読めない」そのもの）。
           // 見本の A も1画面に収めていない — 図の入口へ寄せて開き、全体は MiniMap で見る。
           fitView
-          // 入口は前漢の高祖。**始皇帝ではない** — 秦の一族は左上に固まっていて、
-          // そこを最初に見せても章全体の系譜が読めない。
-          fitViewOptions={{ nodes: [{ id: "han-gaozu" }], minZoom: 0.7, maxZoom: 0.7 }}
+          fitViewOptions={FIT_VIEW}
           proOptions={{ hideAttribution: false }}
         >
           <Background

@@ -152,14 +152,49 @@ for (const child of cards.keys()) {
   if (bf && bm) {
     const key = `${bf.id}|${bm.id}`;
     if (!unions.has(key)) {
-      unions.set(key, { id: `u-${unions.size}`, father: bf.id, mother: bm.id, children: [] });
+      unions.set(key, {
+        id: `u-${unions.size}`,
+        father: bf.id,
+        mother: bm.id,
+        children: [],
+        kind: "parents",
+      });
     }
     unions.get(key).children.push(child);
   } else if (bf) extra.push({ from: bf.id, to: child, kind: "single" });
   else if (bm) extra.push({ from: bm.id, to: child, kind: "single" });
   for (const x of [...fs, ...ms]) {
     if (x === bf || x === bm) continue;
-    extra.push({ from: x.id, to: child, kind: x.kind === "adoptive" ? "adoptive" : "second" });
+    if (x.kind === "adoptive") {
+      extra.push({ from: x.id, to: child, kind: "adoptive" });
+      continue;
+    }
+    // **2人目の実父・実母（史料の異説）は子へ直線を引かない**（2026-08-18 ユーザー指示
+    // 「呂不韋は趙姫と結婚していた線にする。ただし始皇帝は荘襄王の子である」）。
+    // 直線を引くと「父が2人いる」図になり、線が図を横切る。代わりに**もう一方の実親と
+    // 組ませて結び目を立てる** — 系図でよくある「母にもう1人の相手が並ぶ」形になり、
+    // 子の系統は確定している側（荘襄王×趙姫）からだけ下りる。
+    // **これは婚姻の主張ではない。** kinship.json に呂不韋と趙姫の marriage エッジは無く、
+    // 趙姫の note は「荘襄王の正妻であったことは原典で確認できないため婚姻エッジは張らない」
+    // と明記している。だから結び目は点線で描き、凡例も「実父の異説」と名乗る。
+    const isFather = fs.includes(x);
+    const mate = isFather ? bm : bf;
+    if (mate && cards.has(mate.id) && cards.has(x.id)) {
+      const father = isFather ? x.id : mate.id;
+      const mother = isFather ? mate.id : x.id;
+      const key = `${father}|${mother}`;
+      if (!unions.has(key)) {
+        unions.set(key, {
+          id: `u-${unions.size}`,
+          father,
+          mother,
+          children: [],
+          kind: "disputed",
+        });
+      }
+    } else {
+      extra.push({ from: x.id, to: child, kind: "second" });
+    }
   }
 }
 // 夫婦だが子が（この章に）いない組も、横に並べたいので union を立てる
@@ -176,6 +211,7 @@ for (const key of spouses.keys()) {
     father: male,
     mother: female,
     children: [],
+    kind: "marriage",
   });
 }
 
@@ -468,8 +504,104 @@ const unionNodes = [...unions.values()].map((u) => {
     father: u.father,
     mother: u.mother,
     children: u.children,
+    kind: u.kind,
   };
 });
+
+// ---------------------------------------------------------------- 線（バスの高さまで決める）
+//
+// **同じ親から出る線は1本の横棒（バス）にまとめる。** React Flow の smoothstep は
+// 2点ごとに中点で折るので、兄弟が3人いれば3本の横棒が少しずつ違う高さに並び、
+// 分岐点では角丸どうしが逆向きに剥がれて瘤になった（2026-08-18「不要な曲がり」）。
+// バスを共有すれば分岐点は本物の T 字になり、角も直角のまま済む。
+//
+// **高さは行き先の側から採る**（`min(行き先の上端) - 16`）。出どころの側から
+// 「下端 + 16」で採ると、同じ段に高さ 140 の皇帝カードと 38 の帯が混在するため、
+// 帯から出たバスが隣の皇帝カードを突き抜ける。
+const BUS_GAP = 16;
+const boxes = new Map();
+for (const n of nodes) boxes.set(n.id, n);
+for (const n of unionNodes) boxes.set(n.id, n);
+
+const busFor = (sources, targets) => {
+  const top = Math.min(...targets.map((t) => boxes.get(t).y));
+  const bottom = Math.max(...sources.map((s) => boxes.get(s).y + boxes.get(s).h));
+  const y = top - BUS_GAP;
+  return Math.round(y > bottom + 4 ? y : (bottom + top) / 2);
+};
+
+const lines = [];
+let li = 0;
+for (const u of unionNodes) {
+  const parentBus = busFor([u.father, u.mother], [u.id]);
+  // 実親の結び目は「実父＝実線／実母＝破線」で書き分ける。異説の結び目は両方とも点線。
+  const pk = u.kind === "disputed" ? "disputed" : null;
+  lines.push({ id: `l${li++}`, kind: pk ?? "father", from: u.father, to: u.id, busY: parentBus });
+  lines.push({ id: `l${li++}`, kind: pk ?? "mother", from: u.mother, to: u.id, busY: parentBus });
+  if (!u.children.length) continue;
+  const childBus = busFor([u.id], u.children);
+  for (const c of u.children) {
+    lines.push({ id: `l${li++}`, kind: "child", from: u.id, to: c, busY: childBus });
+  }
+}
+{
+  const byParent = new Map();
+  for (const x of extra) {
+    const cur = byParent.get(x.from);
+    if (cur) cur.push(x);
+    else byParent.set(x.from, [x]);
+  }
+  for (const [from, xs] of byParent) {
+    const busY = busFor([from], xs.map((x) => x.to));
+    for (const x of xs) lines.push({ id: `l${li++}`, kind: x.kind, from, to: x.to, busY });
+  }
+}
+for (const s of succession) {
+  lines.push({
+    id: `l${li++}`,
+    kind: "succession",
+    from: s.from,
+    to: s.to,
+    categoryId: s.categoryId,
+    busY: null,
+  });
+}
+
+// バスと縦棒がカードを突き抜けていないかを測る。**tsc も lint も build も落ちない**ので、
+// ここで数えて出す以外に気づく手立てが無い。
+{
+  const cardBoxes = nodes.map((n) => ({
+    id: n.id,
+    x0: n.x,
+    x1: n.x + n.w,
+    y0: n.y,
+    y1: n.y + n.h,
+    l: n.label,
+  }));
+  const hits = [];
+  for (const e of lines) {
+    if (e.busY == null) continue;
+    const a = boxes.get(e.from);
+    const b = boxes.get(e.to);
+    const sx = a.x + a.w / 2;
+    const tx = b.x + b.w / 2;
+    const segs = [
+      { x0: Math.min(sx, tx), x1: Math.max(sx, tx), y0: e.busY, y1: e.busY },
+      { x0: sx, x1: sx, y0: Math.min(a.y + a.h, e.busY), y1: Math.max(a.y + a.h, e.busY) },
+      { x0: tx, x1: tx, y0: Math.min(e.busY, b.y), y1: Math.max(e.busY, b.y) },
+    ];
+    for (const c of cardBoxes) {
+      if (c.id === e.from || c.id === e.to) continue;
+      for (const s of segs) {
+        if (s.x0 < c.x1 && c.x0 < s.x1 && s.y0 < c.y1 && c.y0 < s.y1) {
+          hits.push(`${a.label ?? a.id}→${b.label ?? b.id} が ${c.l} を横切る`);
+          break;
+        }
+      }
+    }
+  }
+  console.log(`  カードを横切る線: ${hits.length}本` + (hits.length ? ` — ${hits.slice(0, 6).join("・")}` : ""));
+}
 
 const width = Math.round(Math.max(...nodes.map((n) => n.x + n.w)));
 const height = Math.round(Math.max(...nodes.map((n) => n.y + n.h)));
@@ -495,8 +627,9 @@ const out = {
   layers: layerYs.length,
   nodes,
   unions: unionNodes,
-  extraParent: extra,
-  succession,
+  // **描画はこの1本だけを見る。** union / extraParent / succession の3つの器を
+  // 部品側でほどき直すと、バスの高さ（＝線の形）が図の外で決まってしまう。
+  edges: lines,
 };
 
 const destDir = path.join(process.cwd(), "src", "lib", "kinship");
