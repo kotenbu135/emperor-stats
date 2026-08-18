@@ -84,8 +84,9 @@ export default function KinshipPage() {
         <h1 className="font-heading text-xl font-semibold">秦・漢の系譜</h1>
         <p className="text-sm text-muted-foreground">
           皇帝 {layout.nodes.filter((n) => n.isEmperor).length} 人と、その親族{" "}
-          {layout.nodes.filter((n) => !n.isEmperor).length} 人。縦は世代の段で、
-          別系統は時代がおおよそ合う高さへ寄せてある。
+          {layout.nodes.filter((n) => !n.isEmperor).length} 人。縦は親子の段だが、
+          段の割り当ては時代の順にも合わせてある（在位年・生没年を制約に使っている）。
+          皇帝の数字は在位年、親族の数字は生没年。
         </p>
       </header>
 

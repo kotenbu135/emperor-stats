@@ -58,7 +58,6 @@ export interface KinshipPerson {
   y: number;
   w: number;
   h: number;
-  crossEra: { label: string; era: string | null }[];
 }
 
 export interface KinshipUnion {

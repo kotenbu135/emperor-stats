@@ -103,7 +103,7 @@ const SPOTS = [
   ["p-liu-qing", "11-cross-liuqing"],
   ["han-xuandi", "12-cross-xuandi"],
   // **指摘のスクリーンショットと同じ寄り**（2.8倍）。同じ枠で撮らないと比べられない。
-  ["hou-han-zhangdi", "13-zhangdi-x28", 2.8],
+  ["p-liu-qing", "13-zhangdi-x28", 1.8],
   ["p-ruzi-ying", "14-shanrang", 2.0],
   ["hou-han-guangwudi", "15-guangwu"],
 ];
@@ -118,7 +118,7 @@ for (const [id, name, zoom] of SPOTS) {
     const m = /translate\((-?[\d.]+)px,\s*(-?[\d.]+)px\)/.exec(el.style.transform);
     if (!m) return false;
     const r = pane.getBoundingClientRect();
-    vp.style.transform = `translate(${r.width / 2 - Number(m[1]) * scale}px, ${r.height / 2 - Number(m[2]) * scale}px) scale(${scale})`;
+    vp.style.transform = `translate(${r.width / 2 - (Number(m[1]) + el.offsetWidth / 2) * scale}px, ${r.height / 2 - (Number(m[2]) + el.offsetHeight / 2) * scale}px) scale(${scale})`;
     return true;
   }, { nodeId: id, scale: zoom ?? 1.4 });
   if (!ok) {

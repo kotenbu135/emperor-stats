@@ -623,10 +623,6 @@ for (const c of cards.values()) {
     y: Math.round(p.y),
     w: CARD_W,
     h: heightOf(c),
-    // 章の外に子がいる人物（この章では線が引けない）
-    crossEra: crossEra
-      .filter((x) => x.from === c.id)
-      .map((x) => ({ label: x.toLabel, era: x.toEra })),
   });
 }
 const unionNodes = [...unions.values()].map((u) => {
