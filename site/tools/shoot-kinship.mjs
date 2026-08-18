@@ -11,7 +11,16 @@ import fs from "node:fs";
 import path from "node:path";
 
 const ROOT = path.resolve("out");
-const OUT = process.env.SHOT_DIR ?? "tools/shots";
+// **撮ったものは毎回まっさらな1フォルダに入れ直す。** 前の版の画像が混ざったまま外へ
+// 渡してしまった事故があるため（2026-08-18）。中は用途ごとの小分けにして、順番に見れば
+// いいだけの名前にする。
+const OUT = process.env.SHOT_DIR ?? "tools/shots/kinship";
+const DIR = {
+  full: `${OUT}/1-全体`,
+  tiles: `${OUT}/2-通し（上から順）`,
+  close: `${OUT}/3-寄り`,
+  screen: `${OUT}/4-ブラウザ画面`,
+};
 const PORT = Number(process.env.PORT ?? 4601);
 
 const MIME = {
@@ -58,7 +67,8 @@ function serveExport(root, port) {
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const server = await serveExport(ROOT, PORT);
-fs.mkdirSync(OUT, { recursive: true });
+fs.rmSync(OUT, { recursive: true, force: true });
+for (const d of Object.values(DIR)) fs.mkdirSync(d, { recursive: true });
 const browser = await chromium.launch();
 const ctx = await browser.newContext({
   viewport: { width: 1440, height: 900 },
@@ -69,7 +79,7 @@ const page = await ctx.newPage();
 await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
 await sleep(2500);
 
-await page.screenshot({ path: `${OUT}/kinship-01-fit.png` });
+await page.screenshot({ path: `${DIR.screen}/1-初期表示（開いた直後）.png` });
 
 // 拡大して字が読める状態（React Flow はホイールでズームする）
 await page.mouse.move(900, 500);
@@ -78,7 +88,7 @@ for (let i = 0; i < 14; i += 1) {
   await sleep(80);
 }
 await sleep(900);
-await page.screenshot({ path: `${OUT}/kinship-02-zoom.png` });
+await page.screenshot({ path: `${DIR.screen}/2-拡大したところ.png` });
 
 // 政権ジャンプ（A の上端ナビに当たる操作）が効いているか
 await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
@@ -87,32 +97,28 @@ const jump = page.locator('nav[aria-label="政権へジャンプ"] button', { ha
 if (await jump.count()) {
   await jump.click();
   await sleep(1400);
-  await page.screenshot({ path: `${OUT}/kinship-04-jump.png` });
+  await page.screenshot({ path: `${DIR.screen}/3-「後漢」へ移動したところ.png` });
 }
 
 // 指摘の出た場所を等倍で撮る。React Flow の viewport の transform を直に書き換えて
 // 目的の人物を画面中央に置く（撮るためだけの操作なので、この後は再読み込みする）。
 const SPOTS = [
-  ["han-huidi", "05-huidi"],
-  ["han-wudi", "06-wudi"],
-  ["han-yuandi", "07-yuandi"],
-  ["qin-shi-huang", "08-qin"],
-  ["hou-han-zhangdi", "09-zhangdi"],
-  // build-kinship-layout.mjs の「カードを横切る線」が名指しした出どころ（測ったら見る）
-  ["p-fanshi-liu-qin", "10-cross-fan"],
-  ["p-liu-qing", "11-cross-liuqing"],
-  ["han-xuandi", "12-cross-xuandi"],
-  // **指摘のスクリーンショットと同じ寄り**（2.8倍）。同じ枠で撮らないと比べられない。
-  ["p-liu-qing", "13-zhangdi-x28", 1.8],
-  ["p-ruzi-ying", "14-shanrang", 2.0],
-  ["hou-han-guangwudi", "15-guangwu"],
-  // 2026-08-18 の指摘6件の現場（王政君・劉囂・竇氏・廃帝・劉利・劉嬰）
-  ["p-wang-zhengjun", "16-wangzhengjun", 2.2],
-  ["p-liu-xiao", "17-liuxiao", 2.2],
-  ["p-doushi-han-wendi", "18-doushi", 2.2],
-  ["han-liuhe", "19-feidi", 2.2],
-  ["p-liu-li", "20-liuli", 2.2],
-  ["p-ruzi-ying", "21-ruziying", 1.6],
+  ["qin-shi-huang", "01-秦（異説の結び目）"],
+  ["han-gaozu", "02-高帝と2人の后"],
+  ["han-huidi", "03-恵帝と2人の子"],
+  ["han-wudi", "04-武帝"],
+  ["han-xuandi", "05-宣帝"],
+  ["han-yuandi", "06-元帝"],
+  ["p-ruzi-ying", "07-禅譲（劉嬰→王莽）", 1.6],
+  ["hou-han-guangwudi", "08-光武帝"],
+  ["hou-han-zhangdi", "09-章帝"],
+  ["p-liu-qing", "10-章帝の子4人（櫛）", 1.8],
+  // 過去に指摘の出た現場（王政君・劉囂・竇氏・廃帝・劉利）
+  ["p-wang-zhengjun", "11-王政君", 2.2],
+  ["p-liu-xiao", "12-劉囂", 2.2],
+  ["p-doushi-han-wendi", "13-竇氏", 2.2],
+  ["han-liuhe", "14-廃帝（昌邑王）", 2.2],
+  ["p-liu-li", "15-劉利", 2.2],
 ];
 for (const [id, name, zoom] of SPOTS) {
   await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
@@ -133,7 +139,7 @@ for (const [id, name, zoom] of SPOTS) {
     continue;
   }
   await sleep(500);
-  await page.screenshot({ path: `${OUT}/kinship-${name}.png` });
+  await page.screenshot({ path: `${DIR.close}/${name}.png` });
 }
 
 // **図の全面をタイルに割って撮る。** 寄って撮った数枚では見落とす（2026-08-18 に
@@ -168,7 +174,7 @@ for (const [id, name, zoom] of SPOTS) {
       { scale, i, ph: info.ph },
     );
     await sleep(400);
-    await tile.screenshot({ path: `${OUT}/kinship-tile-${String(i + 1).padStart(2, "0")}.png` });
+    await tile.screenshot({ path: `${DIR.tiles}/${String(i + 1).padStart(2, "0")}（全${rows}枚）.png` });
   }
   console.log(`タイル: ${rows}枚（倍率 ${scale.toFixed(2)} / 図 ${Math.round(info.w)}×${Math.round(info.h)}）`);
   await tile.close();
@@ -203,7 +209,7 @@ for (const [id, name, zoom] of SPOTS) {
   await sleep(600);
   const pane = await full.locator(".react-flow").boundingBox();
   await full.screenshot({
-    path: `${OUT}/kinship-full.png`,
+    path: `${DIR.full}/図の全体.png`,
     clip: { x: pane.x, y: pane.y, width: Math.min(pane.width, size.w + PAD * 2), height: Math.min(pane.height, size.h + PAD * 2) },
   });
   console.log(`全体1枚: ${size.w + PAD * 2}×${size.h + PAD * 2}px`);
@@ -222,8 +228,8 @@ server.close();
 
 // PNG を読んで地の割合を出す（sharp は devDependencies に入っている）
 const sharp = (await import("sharp")).default;
-for (const f of ["kinship-01-fit.png", "kinship-02-zoom.png"]) {
-  const { data, info } = await sharp(`${OUT}/${f}`)
+for (const f of ["1-初期表示（開いた直後）.png", "2-拡大したところ.png"]) {
+  const { data, info } = await sharp(`${DIR.screen}/${f}`)
     .raw()
     .toBuffer({ resolveWithObject: true });
   const counts = new Map();
@@ -238,4 +244,20 @@ for (const f of ["kinship-01-fit.png", "kinship-02-zoom.png"]) {
       top.map(([k, n]) => `${k} ${((100 * n) / px).toFixed(1)}%`).join(" / "),
   );
 }
+fs.writeFileSync(
+  `${OUT}/00-この中身.txt`,
+  [
+    `秦・漢の系譜（/kinship）のスクリーンショット`,
+    `撮り直すたびにこのフォルダごと作り直す（前の版が混ざらないように）。`,
+    ``,
+    `1-全体/          図の全体を等倍で1枚に。通しの構造を見る用`,
+    `2-通し（上から順）/ 図を上から順に等倍で割ったもの。文字と線の細部が読める`,
+    `3-寄り/           個別の場所。ファイル名が場所`,
+    `4-ブラウザ画面/    実際にブラウザで開いたときの見え方`,
+    ``,
+    `凡例・読み方は画面上部に出ている。`,
+  ].join("\n"),
+  "utf8",
+);
 console.log("canvas:", stat);
+console.log(`保存先: ${OUT}`);
