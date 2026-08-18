@@ -98,6 +98,10 @@ const SPOTS = [
   ["han-yuandi", "07-yuandi"],
   ["qin-shi-huang", "08-qin"],
   ["hou-han-zhangdi", "09-zhangdi"],
+  // build-kinship-layout.mjs の「カードを横切る線」が名指しした出どころ（測ったら見る）
+  ["p-fanshi-liu-qin", "10-cross-fan"],
+  ["p-liu-qing", "11-cross-liuqing"],
+  ["han-xuandi", "12-cross-xuandi"],
 ];
 for (const [id, name] of SPOTS) {
   await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });

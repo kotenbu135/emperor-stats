@@ -77,7 +77,7 @@ export interface KinshipUnion {
 /** 線1本。`busY` は「同じ親から出る線をまとめる横棒の高さ」で、レイアウト側が決める。 */
 export interface KinshipEdge {
   id: string;
-  kind: "father" | "mother" | "child" | "single" | "adoptive" | "second" | "disputed" | "succession";
+  kind: "father" | "mother" | "child" | "adoptive" | "second" | "disputed" | "succession";
   from: string;
   to: string;
   busY: number | null;
@@ -252,7 +252,6 @@ const EDGE_STYLE: Record<KinshipEdge["kind"], { dash?: string; color?: string }>
   father: {},
   mother: { dash: "3 3" },
   child: {},
-  single: {},
   adoptive: { dash: "6 3" },
   second: { dash: "1 3" },
   disputed: { dash: "1 3" },

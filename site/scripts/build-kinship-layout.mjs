@@ -161,8 +161,11 @@ for (const child of cards.keys()) {
       });
     }
     unions.get(key).children.push(child);
-  } else if (bf) extra.push({ from: bf.id, to: child, kind: "single" });
-  else if (bm) extra.push({ from: bm.id, to: child, kind: "single" });
+    // 片親しか分かっていない子。**結び目は立てず直接つなぐ**が、線は実父・実母の
+    // 書き分けをそのまま使う（凡例が「実父＝実線／実母＝破線」と名乗っているので、
+    // ここだけ母を実線で描くと凡例が嘘になる）。
+  } else if (bf) extra.push({ from: bf.id, to: child, kind: "father" });
+  else if (bm) extra.push({ from: bm.id, to: child, kind: "mother" });
   for (const x of [...fs, ...ms]) {
     if (x === bf || x === bm) continue;
     if (x.kind === "adoptive") {
@@ -518,16 +521,68 @@ const unionNodes = [...unions.values()].map((u) => {
 // **高さは行き先の側から採る**（`min(行き先の上端) - 16`）。出どころの側から
 // 「下端 + 16」で採ると、同じ段に高さ 140 の皇帝カードと 38 の帯が混在するため、
 // 帯から出たバスが隣の皇帝カードを突き抜ける。
+// **高さは候補から選ぶ。** 行き先の側（`min(上端) - 16`）に寄せるといちばん櫛らしく
+// 見えるが、それだと出どころから下ろす縦線が途中のカードを突き抜けることがある
+// （樊嫻都→結び目が宣帝の中を通っていた）。出どころの側（`max(下端) + 16`）に寄せると
+// 今度は同じ段の背の高い皇帝カードを横棒が突き抜ける。**どちらが当たるかは場所による**
+// ので、候補を並べてカードとの交差を数え、いちばん少ないものを採る。
 const BUS_GAP = 16;
 const boxes = new Map();
 for (const n of nodes) boxes.set(n.id, n);
 for (const n of unionNodes) boxes.set(n.id, n);
 
+/** 折れ線（縦・横・縦）がカードと交わる回数。両端のカード自身は数えない。 */
+const crossings = (pairs, busY) => {
+  let n = 0;
+  for (const [from, to] of pairs) {
+    const a = boxes.get(from);
+    const b = boxes.get(to);
+    const sx = a.x + a.w / 2;
+    const tx = b.x + b.w / 2;
+    const segs = [
+      [Math.min(sx, tx), Math.max(sx, tx), busY, busY],
+      [sx, sx, Math.min(a.y + a.h, busY), Math.max(a.y + a.h, busY)],
+      [tx, tx, Math.min(busY, b.y), Math.max(busY, b.y)],
+    ];
+    for (const c of nodes) {
+      if (c.id === from || c.id === to) continue;
+      for (const [x0, x1, y0, y1] of segs) {
+        if (x0 < c.x + c.w && c.x < x1 && y0 < c.y + c.h && c.y < y1) {
+          n += 1;
+          break;
+        }
+      }
+    }
+  }
+  return n;
+};
+
 const busFor = (sources, targets) => {
   const top = Math.min(...targets.map((t) => boxes.get(t).y));
   const bottom = Math.max(...sources.map((s) => boxes.get(s).y + boxes.get(s).h));
-  const y = top - BUS_GAP;
-  return Math.round(y > bottom + 4 ? y : (bottom + top) / 2);
+  const pairs = [];
+  for (const s of sources) for (const t of targets) pairs.push([s, t]);
+  if (top - bottom < 12) return Math.round((bottom + top) / 2);
+  // 行き先寄り → 真ん中 → 出どころ寄り の順に見て、交差がいちばん少ない最初のものを採る
+  // （同点なら櫛が締まって見える行き先寄りが勝つ）。
+  const candidates = [
+    top - BUS_GAP,
+    (bottom + top) / 2,
+    bottom + BUS_GAP,
+    top - 6,
+    bottom + 6,
+  ].map((y) => Math.round(Math.min(Math.max(y, bottom + 6), top - 6)));
+  let best = candidates[0];
+  let bestScore = Infinity;
+  for (const y of candidates) {
+    const score = crossings(pairs, y);
+    if (score < bestScore) {
+      bestScore = score;
+      best = y;
+      if (score === 0) break;
+    }
+  }
+  return best;
 };
 
 const lines = [];
