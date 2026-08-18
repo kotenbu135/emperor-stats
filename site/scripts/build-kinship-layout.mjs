@@ -31,7 +31,9 @@ const KIN_H = 38;
 // 105 人中 5 人（全部「竇氏〔孝文竇皇后〕」型）で、幅で解くと図の総幅が全員ぶん太る
 // （2026-08-18 の外部レビュー「テキストの省略」）。
 const KIN_ANNOT_H = 50;
-const UNION_SIZE = 12;
+// 夫婦の点。**線より明らかに太い**こと（2026-08-18 の外部レビュー2巡目「線と同化して
+// 見落とす」）。線が 1.9px なので 14px＝7倍強。
+const UNION_SIZE = 14;
 const heightOf = (c) => (c.isEmperor ? EMPEROR_H : c.annot ? KIN_ANNOT_H : KIN_H);
 
 /**

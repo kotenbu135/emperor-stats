@@ -106,17 +106,20 @@ export default function KinshipPage() {
           **既定は開く** — 線の意味を知らずに開いた図は読めない。畳んだ状態でも
           `<details>` なので中身は静的HTMLに残る（`ui/accordion.tsx` を使わない理由）。 */}
       <details open className="rounded-md border bg-card px-3 py-2">
-        <summary className="text-xs font-semibold text-muted-foreground">
+        <summary className="text-[13px] font-semibold text-muted-foreground">
           凡例（カードの色・線の意味・時代の帯）
         </summary>
-        <div className="mt-2 flex flex-wrap items-start gap-x-8 gap-y-2">
-        <section className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-          <h2 className="mr-1 font-semibold text-muted-foreground">カードの色</h2>
+        {/* **見出しを左の1列に揃える。** 3つの別々の flex を横に並べていたので、
+            どこまでが「カードの色」でどこからが「線の意味」なのか行の途中で切れていた
+            （2026-08-18 の外部レビュー2巡目「横一列に詰め込まれて羅列」）。 */}
+        <dl className="mt-2 grid grid-cols-[max-content_1fr] items-baseline gap-x-4 gap-y-2.5 text-[13px]">
+        <dt className="font-semibold text-muted-foreground">カードの色</dt>
+        <dd className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5">
           {regimes.map(([id, n]) => (
             <span key={id} className="flex items-center gap-1.5">
               <span
                 aria-hidden
-                className="inline-block h-3 w-3 rounded-[2px]"
+                className="inline-block size-3.5 rounded-[2px]"
                 style={{ background: regimeBandColor(id) }}
               />
               <span>
@@ -128,7 +131,7 @@ export default function KinshipPage() {
           <span className="flex items-center gap-1.5">
             <span
               aria-hidden
-              className="inline-block h-3 w-3 rounded-[2px]"
+              className="inline-block size-3.5 rounded-[2px]"
               style={{ background: "var(--kinship-kin-band)" }}
             />
             <span>親族（男性）</span>
@@ -136,27 +139,27 @@ export default function KinshipPage() {
           <span className="flex items-center gap-1.5">
             <span
               aria-hidden
-              className="inline-block h-3 w-3 rounded-[2px]"
+              className="inline-block size-3.5 rounded-[2px]"
               style={{ background: "var(--kinship-kin-band-female)" }}
             />
             <span>親族（女性）</span>
           </span>
-        </section>
+        </dd>
 
         {/* **見本は図と同じ dasharray で引く。** 文字（—— や - - -）で代用すると
             線種を変えたときに凡例だけ古いままになる。 */}
-        <section className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-          <h2 className="mr-1 font-semibold text-muted-foreground">線の意味</h2>
+        <dt className="font-semibold text-muted-foreground">線の意味</dt>
+        <dd className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5">
           {LINE_LEGEND.map((l) => (
             <span key={l.label} className="flex items-center gap-1.5">
-              <svg aria-hidden width="26" height="10" className="shrink-0">
+              <svg aria-hidden width="30" height="10" className="shrink-0">
                 <line
                   x1="1"
                   y1="5"
-                  x2="25"
+                  x2="29"
                   y2="5"
                   stroke={l.color ?? "var(--kinship-line)"}
-                  strokeWidth={l.width ?? 1.6}
+                  strokeWidth={l.width ?? 1.9}
                   strokeDasharray={l.dash}
                   strokeLinecap="round"
                 />
@@ -167,7 +170,7 @@ export default function KinshipPage() {
           <span className="flex items-center gap-1.5">
             <span
               aria-hidden
-              className="inline-block h-3.5 w-3.5 shrink-0 rounded-full"
+              className="inline-block size-4 shrink-0 rounded-full"
               style={{ background: "var(--kinship-line)" }}
             />
             <span>夫婦（ここから子が下りる）</span>
@@ -175,7 +178,7 @@ export default function KinshipPage() {
           <span className="flex items-center gap-1.5">
             <span
               aria-hidden
-              className="inline-block h-3.5 w-3.5 shrink-0 rounded-full"
+              className="inline-block size-4 shrink-0 rounded-full"
               style={{
                 background: "var(--kinship-canvas)",
                 border: "2.5px dotted var(--kinship-line)",
@@ -183,13 +186,13 @@ export default function KinshipPage() {
             />
             <span>実父の異説</span>
           </span>
-        </section>
+        </dd>
 
         {/* 時代の帯は**目盛りではない**と本文で名乗る。段は世代の順なので、上下に
             並ぶカードの年は 4% ほど前後する（実測 3,320 組中 135 組）。精度を名乗って
             数値の軸を引くと、そのずれが1件ずつ突き合わせられる嘘になる。 */}
-        <section className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-          <h2 className="mr-1 font-semibold text-muted-foreground">左端の年</h2>
+        <dt className="font-semibold text-muted-foreground">左端の年</dt>
+        <dd>
           {/* **「年が前後することがある」だけでは足りない。** 読者が見るのは帯の中で
               隣り合う2枚（元帝 前49 と 樊嫻都 22没）で、そこに丸めの話は効かない。
               **どういう人がずれるのかを名指しする** — ずれの上位12人は后妃と傍系に
@@ -201,8 +204,8 @@ export default function KinshipPage() {
             段は世代の順に決めてあるので、后妃や傍系のカードは帯の年と数十年ずれることがある
             （とくに前漢末〜後漢初は、新・玄漢・後漢が同じ世代に重なる）
           </span>
-        </section>
-        </div>
+        </dd>
+        </dl>
       </details>
 
       <ChapterFlow layout={layout} jumps={jumpTargets(layout)} />

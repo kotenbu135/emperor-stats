@@ -237,14 +237,18 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
           // **肖像は35人中15人にしかない。** 残り20枚を薄い箱＋灰色の1字にしていたので
           // 「サイズの不統一」「下部エリアのコントラスト不足」と読まれた（2026-08-18 の
           // 外部レビュー）。政権色をごく薄く敷き、字をその色で大きく出す。
+          // **一文字をただ大きく置くと間延びする**（2026-08-18 の外部レビュー）。
+          // 肖像の代わりだと分かる形＝印章の面にして、余白ではなく図形で埋める。
           <span
-            className="flex h-full w-full items-center justify-center font-heading text-[34px] leading-none"
-            style={{
-              background: `color-mix(in srgb, ${fill} 12%, var(--kinship-portrait-bg))`,
-              color: `color-mix(in srgb, ${fill} 78%, var(--foreground))`,
-            }}
+            className="flex h-full w-full items-center justify-center"
+            style={{ background: `color-mix(in srgb, ${fill} 9%, var(--kinship-portrait-bg))` }}
           >
-            {p.main.charAt(0)}
+            <span
+              className="flex h-[54px] w-[54px] items-center justify-center rounded-[7px] font-heading text-[26px] leading-none text-white"
+              style={{ background: fill, boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.45)" }}
+            >
+              {p.main.charAt(0)}
+            </span>
           </span>
         )}
       </div>
@@ -254,8 +258,10 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
     band
   );
 
+  // 縁は `--kinship-card-edge`（地に対して 3.02:1）。`border-black/25` だと下地が
+  // 透けて実効 1.9:1 まで落ち、カードが地に溶けていた（2026-08-18 の外部レビュー）。
   const shell =
-    "flex h-full w-full flex-col overflow-hidden rounded-[3px] border border-black/25 bg-card shadow-sm";
+    "flex h-full w-full flex-col overflow-hidden rounded-[3px] border-[1.5px] border-[var(--kinship-card-edge)] bg-card shadow-sm";
 
   // **Handle が無いと線が1本も描かれない。** サーバー描画のときはノードの `handles`
   // プロパティが位置を代行するが、クライアントで hydrate したあとは実要素の位置を測る。
@@ -269,7 +275,7 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
       </div>
     );
   return (
-    <a href={`/emperors/${p.emperorId}`} className={`${shell} hover:border-black/40`}>
+    <a href={`/emperors/${p.emperorId}`} className={`${shell} hover:border-[var(--kinship-line)]`}>
       {ports}
       {body}
     </a>
@@ -288,7 +294,7 @@ function UnionDot({ data }: NodeProps<Node<{ kind: KinshipUnion["kind"] }>>) {
         className="h-full w-full rounded-full"
         style={{
           background: "var(--kinship-line)",
-          boxShadow: "0 0 0 2px var(--kinship-canvas)",
+          boxShadow: "0 0 0 2.5px var(--kinship-canvas)",
         }}
       >
         <CardPorts />
@@ -300,8 +306,8 @@ function UnionDot({ data }: NodeProps<Node<{ kind: KinshipUnion["kind"] }>>) {
         aria-hidden
         className="absolute left-1/2 top-1/2 block -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
-          width: 20,
-          height: 20,
+          width: 22,
+          height: 22,
           background: "var(--kinship-canvas)",
           border: "2.5px dotted var(--kinship-line)",
         }}
@@ -442,7 +448,7 @@ function buildGraph(layout: KinshipLayout): { nodes: Node[]; edges: Edge[] } {
     const s = EDGE_STYLE[e.kind];
     const style = {
       stroke: s.color ?? "var(--kinship-line)",
-      strokeWidth: s.width ?? 1.6,
+      strokeWidth: s.width ?? 1.9,
       strokeDasharray: s.dash,
       strokeLinecap: "round" as const,
       opacity: 0.9,
@@ -546,12 +552,12 @@ function EraBandRuler({ bands }: { bands: KinshipEraBand[] }) {
               style={{
                 top: Math.max(top, -20),
                 height: Math.max(0, Math.min(bottom, paneH + 20) - Math.max(top, -20)),
-                background: "color-mix(in srgb, var(--kinship-line) 32%, transparent)",
+                background: "color-mix(in srgb, var(--kinship-line) 55%, transparent)",
               }}
             />
             {visible < 56 ? null : (
             <span
-              className="absolute left-[18px] -translate-y-1/2 rounded-sm border px-1.5 py-0.5 text-[11px] tabular-nums whitespace-nowrap"
+              className="absolute left-[18px] -translate-y-1/2 rounded-sm border px-1.5 py-0.5 text-[11px] font-semibold tabular-nums whitespace-nowrap"
               style={{
                 // 左下は拡大縮小のボタンが居るので、そこへは降ろさない
                 // （2026-08-18 に「前125年ごろ」がボタンの裏に隠れた写真を撮った）。
@@ -559,9 +565,11 @@ function EraBandRuler({ bands }: { bands: KinshipEraBand[] }) {
                   Math.max((Math.max(top, 0) + Math.min(bottom, paneH + 20)) / 2, 16),
                   Math.max(16, paneH - 104),
                 ),
-                background: "color-mix(in srgb, var(--kinship-canvas) 85%, white)",
-                borderColor: "var(--kinship-grid)",
-                color: "var(--muted-foreground)",
+                // muted は地に対して 4.06:1 で小さい字の基準を割る（2026-08-18 の
+                // 外部レビュー）。図の線と同じ濃さ（4.63:1）に上げる。
+                background: "color-mix(in srgb, var(--kinship-canvas) 60%, white)",
+                borderColor: "var(--kinship-card-edge)",
+                color: "var(--kinship-line)",
               }}
             >
               {b.label}
@@ -604,7 +612,8 @@ function PersonSearch({
         onChange={(e) => setQ(e.target.value)}
         placeholder="人物を名前で探す"
         aria-label="人物を名前で探す"
-        className="w-full rounded-md border bg-background px-2 py-1 text-sm shadow-sm outline-none focus-visible:outline-2 focus-visible:outline-seal"
+        // 地がベージュなので既定の border では枠が見えない（2026-08-18 の外部レビュー）。
+        className="w-full rounded-md border-[1.5px] border-[var(--kinship-card-edge)] bg-background px-2 py-1 text-sm shadow-md outline-none placeholder:text-foreground/65 focus-visible:outline-2 focus-visible:outline-seal"
       />
       {hits.length ? (
         <ul className="mt-1 overflow-hidden rounded-md border bg-background shadow-md">
@@ -728,6 +737,13 @@ function ChapterFlowInner({
             aria-pressed={here === j.regimeId}
             onClick={() => jumpTo(j)}
           >
+            {/* **図と同じ政権色の点**を頭に付ける。ただの枠付き文字に見えて押せると
+                思われなかった（2026-08-18 の外部レビュー2巡目）。凡例の色見本と同じ形。 */}
+            <span
+              aria-hidden
+              className="inline-block size-2.5 shrink-0 rounded-[2px]"
+              style={{ background: regimeBandColor(j.regimeId) }}
+            />
             {j.label}
             <span className="tabular-nums text-muted-foreground">{j.count}人</span>
           </Button>
@@ -766,10 +782,20 @@ function ChapterFlowInner({
           <MiniMap
             pannable
             zoomable
+            // 105 個の点が一様な灰色だと全体の構造が読めず、ただの模様になる
+            // （2026-08-18 の外部レビュー2巡目）。図と同じ政権色で塗って、
+            // 「どの帯がどの王朝か」が縮小しても分かるようにする。
+            nodeColor={(n) => {
+              const d = n.data as { person?: KinshipPerson } | undefined;
+              if (!d?.person) return "var(--kinship-line)";
+              return bandOf(d.person);
+            }}
+            nodeStrokeWidth={0}
+            nodeBorderRadius={1}
             className="!rounded-md !border !border-black/20 !shadow-md"
             // 図は 1:4.9 の縦長なので、既定寸法だと 1 本の細い棒になって現在地が読めない
             // （2026-08-18 の外部レビュー）。高さを決めて枠と影で浮かせる。
-            style={{ background: "var(--background)", width: 88, height: 260 }}
+            style={{ background: "var(--background)", width: 104, height: 300 }}
             maskColor="color-mix(in srgb, var(--kinship-canvas) 70%, transparent)"
           />
           <Controls showInteractive={false} />
