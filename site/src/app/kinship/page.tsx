@@ -91,19 +91,25 @@ export default function KinshipPage() {
   const regimes = regimesInChapter(layout);
   return (
     <main className="flex h-[calc(100vh-4rem)] flex-col gap-3 p-4">
-      <header className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h1 className="font-heading text-xl font-semibold">秦・漢の系譜</h1>
         <p className="text-sm text-muted-foreground">
           皇帝 {layout.nodes.filter((n) => n.isEmperor).length} 人と、その親族{" "}
-          {layout.nodes.filter((n) => !n.isEmperor).length} 人。縦は親子の段だが、
-          段の割り当ては時代の順にも合わせてある（在位年・生没年を制約に使っている）。
+          {layout.nodes.filter((n) => !n.isEmperor).length} 人。縦は親子の段。
           皇帝の数字は在位年、親族の数字は生没年。
         </p>
       </header>
 
       {/* 凡例は**2つの別の情報**（政権の色分けと線の意味）なので、見出しを付けて
-          ブロックを分ける（2026-08-18 の外部レビュー: 同じ行にベタ打ちで過密）。 */}
-      <div className="flex flex-wrap items-start gap-x-8 gap-y-2 rounded-md border bg-card px-3 py-2">
+          ブロックを分ける（2026-08-18 の外部レビュー: 同じ行にベタ打ちで過密）。
+          そのうえで**畳めるようにする**（同レビュー: ヘッダーが図の面積を圧迫している）。
+          **既定は開く** — 線の意味を知らずに開いた図は読めない。畳んだ状態でも
+          `<details>` なので中身は静的HTMLに残る（`ui/accordion.tsx` を使わない理由）。 */}
+      <details open className="rounded-md border bg-card px-3 py-2">
+        <summary className="text-xs font-semibold text-muted-foreground">
+          凡例（カードの色・線の意味・時代の帯）
+        </summary>
+        <div className="mt-2 flex flex-wrap items-start gap-x-8 gap-y-2">
         <section className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
           <h2 className="mr-1 font-semibold text-muted-foreground">カードの色</h2>
           {regimes.map(([id, n]) => (
@@ -178,7 +184,19 @@ export default function KinshipPage() {
             <span>実父の異説</span>
           </span>
         </section>
-      </div>
+
+        {/* 時代の帯は**目盛りではない**と本文で名乗る。段は世代の順なので、上下に
+            並ぶカードの年は 4% ほど前後する（実測 3,320 組中 135 組）。精度を名乗って
+            数値の軸を引くと、そのずれが1件ずつ突き合わせられる嘘になる。 */}
+        <section className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+          <h2 className="mr-1 font-semibold text-muted-foreground">左端の年</h2>
+          <span>
+            その辺りの段の<strong className="font-semibold">おおよその</strong>時代。
+            段は世代の順なので、離れた系統どうしでは年が前後することがある
+          </span>
+        </section>
+        </div>
+      </details>
 
       <ChapterFlow layout={layout} jumps={jumpTargets(layout)} />
     </main>

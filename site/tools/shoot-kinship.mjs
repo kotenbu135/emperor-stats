@@ -100,8 +100,31 @@ if (await jump.count()) {
   await page.screenshot({ path: `${DIR.screen}/3-「後漢」へ移動したところ.png` });
 }
 
-// 指摘の出た場所を等倍で撮る。React Flow の viewport の transform を直に書き換えて
-// 目的の人物を画面中央に置く（撮るためだけの操作なので、この後は再読み込みする）。
+// 人物検索（2026-08-18 の外部レビュー「6,000px の図に探す手段が無い」への答え）が
+// 効いているか。**候補が出ているところと、選んで着地したところの2枚**を撮る。
+{
+  await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+  await sleep(2000);
+  const box = page.getByLabel("人物を名前で探す");
+  await box.fill("光武");
+  await sleep(600);
+  await page.screenshot({ path: `${DIR.screen}/4-名前で探しているところ.png` });
+  const hit = page.locator("li button", { hasText: "光武帝" }).first();
+  if (await hit.count()) {
+    await hit.click();
+    await sleep(1400);
+    await page.screenshot({ path: `${DIR.screen}/5-探して着地したところ.png` });
+  } else {
+    console.log("  (検索の候補に光武帝が出なかった)");
+  }
+}
+
+// 指摘の出た場所を等倍で撮る。
+//
+// **図を動かすときは `window.__kinshipSetViewport`（chapter-flow.tsx が出している口）を
+// 通す。** `.react-flow__viewport` の CSS transform を直に書き換えると React Flow の
+// store が更新されず、store を読んでいる部品（時代の帯・左端の年）だけが動かない写真に
+// なる。2026-08-18 に実際にそれを撮って「帯の年がでたらめ」と読み違えた。
 const SPOTS = [
   ["qin-shi-huang", "01-秦（異説の結び目）"],
   ["han-gaozu", "02-高帝と2人の后"],
@@ -125,13 +148,17 @@ for (const [id, name, zoom] of SPOTS) {
   await sleep(1800);
   const ok = await page.evaluate(({ nodeId, scale }) => {
     const el = document.querySelector(`.react-flow__node[data-id="${nodeId}"]`);
-    const vp = document.querySelector(".react-flow__viewport");
     const pane = document.querySelector(".react-flow");
-    if (!el || !vp || !pane) return false;
+    const set = window.__kinshipSetViewport;
+    if (!el || !pane || !set) return false;
     const m = /translate\((-?[\d.]+)px,\s*(-?[\d.]+)px\)/.exec(el.style.transform);
     if (!m) return false;
     const r = pane.getBoundingClientRect();
-    vp.style.transform = `translate(${r.width / 2 - (Number(m[1]) + el.offsetWidth / 2) * scale}px, ${r.height / 2 - (Number(m[2]) + el.offsetHeight / 2) * scale}px) scale(${scale})`;
+    set({
+      x: r.width / 2 - (Number(m[1]) + el.offsetWidth / 2) * scale,
+      y: r.height / 2 - (Number(m[2]) + el.offsetHeight / 2) * scale,
+      zoom: scale,
+    });
     return true;
   }, { nodeId: id, scale: zoom ?? 1.4 });
   if (!ok) {
@@ -140,6 +167,29 @@ for (const [id, name, zoom] of SPOTS) {
   }
   await sleep(500);
   await page.screenshot({ path: `${DIR.close}/${name}.png` });
+}
+
+// **カードの中で字が切り詰められていないか数える。** 「名前が途中で切れている」は
+// 2026-08-18 の外部レビューで出た指摘で、既存の6項目（カード貫通・交差…）では
+// 1件も拾えない。目で全カードを見るのは無理なので機械で見る。
+{
+  const probe = await ctx.newPage();
+  await probe.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+  await sleep(1800);
+  const over = await probe.evaluate(() => {
+    const bad = [];
+    for (const n of document.querySelectorAll(".react-flow__node-person")) {
+      for (const d of n.querySelectorAll("div.truncate")) {
+        if (d.scrollWidth > d.clientWidth + 1) bad.push(`${d.textContent}(${d.scrollWidth}>${d.clientWidth})`);
+      }
+    }
+    return bad;
+  });
+  console.log(
+    `  カードで切り詰められている字: ${over.length}件` +
+      (over.length ? ` — ${over.slice(0, 8).join(" / ")}` : "（ゼロ）"),
+  );
+  await probe.close();
 }
 
 // **図の全面をタイルに割って撮る。** 寄って撮った数枚では見落とす（2026-08-18 に
@@ -168,8 +218,7 @@ for (const [id, name, zoom] of SPOTS) {
   for (let i = 0; i < rows; i += 1) {
     await tile.evaluate(
       ({ scale: sc, i: idx, ph }) => {
-        const vp = document.querySelector(".react-flow__viewport");
-        vp.style.transform = `translate(20px, ${20 - idx * (ph - 40)}px) scale(${sc})`;
+        window.__kinshipSetViewport({ x: 20, y: 20 - idx * (ph - 40), zoom: sc });
       },
       { scale, i, ph: info.ph },
     );
@@ -203,8 +252,7 @@ for (const [id, name, zoom] of SPOTS) {
   });
   await sleep(1200);
   await full.evaluate((pad) => {
-    const vp = document.querySelector(".react-flow__viewport");
-    vp.style.transform = `translate(${pad}px, ${pad}px) scale(1)`;
+    window.__kinshipSetViewport({ x: pad, y: pad, zoom: 1 });
   }, PAD);
   await sleep(600);
   const pane = await full.locator(".react-flow").boundingBox();
@@ -253,7 +301,7 @@ fs.writeFileSync(
     `1-全体/          図の全体を等倍で1枚に。通しの構造を見る用`,
     `2-通し（上から順）/ 図を上から順に等倍で割ったもの。文字と線の細部が読める`,
     `3-寄り/           個別の場所。ファイル名が場所`,
-    `4-ブラウザ画面/    実際にブラウザで開いたときの見え方`,
+    `4-ブラウザ画面/    実際にブラウザで開いたときの見え方（移動・検索の操作も含む）`,
     ``,
     `凡例・読み方は画面上部に出ている。`,
   ].join("\n"),

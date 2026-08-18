@@ -27,8 +27,22 @@ const CARD_W = 112;
 // 名前と年の帯だけに縮めた）。図が縦にも横にも詰まり、親子の線が短くなる副次効果がある。
 const EMPEROR_H = 140;
 const KIN_H = 38;
-const UNION_SIZE = 10;
-const heightOf = (c) => (c.isEmperor ? EMPEROR_H : KIN_H);
+// 名前の補足を2行目に落とすぶんだけ親族の箱を高くする。**幅は広げない** — 長い名前は
+// 105 人中 5 人（全部「竇氏〔孝文竇皇后〕」型）で、幅で解くと図の総幅が全員ぶん太る
+// （2026-08-18 の外部レビュー「テキストの省略」）。
+const KIN_ANNOT_H = 50;
+const UNION_SIZE = 12;
+const heightOf = (c) => (c.isEmperor ? EMPEROR_H : c.annot ? KIN_ANNOT_H : KIN_H);
+
+/**
+ * 表示名を「主部」と「補足」に割る。`竇氏〔孝文竇皇后〕` → `竇氏` ＋ `孝文竇皇后`。
+ * 括弧は史料側の表記ゆれで〔〕と（）の2種類あるので両方見る。
+ */
+function splitLabel(label) {
+  const m = /^(.+?)[（〔(]([^）〕)]+)[）〕)]$/.exec(label);
+  if (!m) return { main: label, annot: null };
+  return { main: m[1], annot: m[2] };
+}
 
 const root = path.join(process.cwd(), "..");
 const emperors = JSON.parse(readFileSync(path.join(root, "data", "emperors.json"), "utf8"));
@@ -66,6 +80,7 @@ for (const e of emp) {
   cards.set(e.id, {
     id: e.id,
     emperorId: e.id,
+    ...splitLabel(e.name?.commonName ?? e.id),
     label: e.name?.commonName ?? e.id,
     regimeId: e.regimeId,
     isEmperor: true,
@@ -83,6 +98,7 @@ for (const p of per) {
   cards.set(p.id, {
     id: p.id,
     emperorId: null,
+    ...splitLabel(p.name ?? p.id),
     label: p.name ?? p.id,
     regimeId: null,
     isEmperor: false,
@@ -1055,6 +1071,87 @@ const width = Math.round(Math.max(...nodes.map((n) => n.x + n.w)));
 const height = Math.round(Math.max(...nodes.map((n) => n.y + n.h)));
 const layerYs = [...new Set(nodes.map((n) => n.y))].sort((a, b) => a - b);
 
+/**
+ * 図の縦に敷く「おおよその時代」の帯。
+ *
+ * **年の目盛りにはしない。** 段は世代の順なので、上下関係にあるカード 3,320 組のうち
+ * 135 組（4.1%）は年が前後している（劉立 3年 が 王政君 前70年 の上、など）。数値の軸を
+ * 引くと読者がその 4% を1件ずつ突き合わせられてしまい、**いままで見えなかった段の
+ * ずれが「見える嘘」に変わる**（2026-08-18 の外部レビュー「年代の基準線が不明確」への
+ * 答えは、精度を上げることではなく精度を名乗らないこと）。
+ *
+ * 境目は**どのカードも跨がない横の切れ目**からしか選ばない。代表年が前へ戻る帯は隣と
+ * 併合する（戻る帯が1つでも出ると帯そのものが嘘になる）。
+ */
+function buildEraBands(ns, totalH) {
+  const yr = (n) =>
+    n.isEmperor
+      ? (n.reignFrom ?? n.birthYear ?? n.deathYear ?? null)
+      : (n.birthYear ?? n.deathYear ?? null);
+  const iv = ns.map((n) => [n.y, n.y + n.h]).sort((a, b) => a[0] - b[0]);
+  const free = [];
+  let end = -Infinity;
+  for (const [a, b] of iv) {
+    if (a > end && end > -Infinity) free.push((end + a) / 2);
+    end = Math.max(end, b);
+  }
+  const TARGET = 6;
+  const cuts = [];
+  for (let i = 1; i < TARGET; i += 1) {
+    const want = (totalH * i) / TARGET;
+    let best = null;
+    let bd = Infinity;
+    for (const f of free) {
+      const d = Math.abs(f - want);
+      if (d < bd && !cuts.includes(f)) {
+        bd = d;
+        best = f;
+      }
+    }
+    if (best != null) cuts.push(best);
+  }
+  cuts.sort((a, b) => a - b);
+  let bounds = [0, ...cuts, totalH];
+  const yearOf = (y0, y1) => {
+    const v = ns
+      .filter((n) => n.y + n.h / 2 >= y0 && n.y + n.h / 2 < y1)
+      .map(yr)
+      .filter((x) => x != null)
+      .sort((a, b) => a - b);
+    return v.length ? Math.round(v[Math.floor(v.length / 2)] / 25) * 25 : null;
+  };
+  for (let pass = 0; pass < 12; pass += 1) {
+    let merged = false;
+    for (let i = 1; i < bounds.length - 1; i += 1) {
+      const a = yearOf(bounds[i - 1], bounds[i]);
+      const b = yearOf(bounds[i], bounds[i + 1]);
+      if (a == null || b == null || b <= a) {
+        bounds = [...bounds.slice(0, i), ...bounds.slice(i + 1)];
+        merged = true;
+        break;
+      }
+    }
+    if (!merged) break;
+  }
+  const bandsOut = [];
+  for (let i = 0; i < bounds.length - 1; i += 1) {
+    const year = yearOf(bounds[i], bounds[i + 1]);
+    if (year == null) continue;
+    bandsOut.push({
+      y0: Math.round(bounds[i]),
+      y1: Math.round(bounds[i + 1]),
+      year,
+      label: year < 0 ? `前${-year}年ごろ` : `${year}年ごろ`,
+    });
+  }
+  return bandsOut;
+}
+
+const eraBands = buildEraBands(nodes, height);
+console.log(
+  `  時代の帯: ${eraBands.length}本 — ${eraBands.map((b) => b.label).join(" → ")}`,
+);
+
 const out = {
   eraId: ERA_ID,
   generatedFrom: {
@@ -1073,6 +1170,7 @@ const out = {
   cardH: EMPEROR_H,
   kinH: KIN_H,
   layers: layerYs.length,
+  eraBands,
   nodes,
   unions: unionNodes,
   // **描画はこの1本だけを見る。** union / extraParent / succession の3つの器を

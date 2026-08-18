@@ -18,7 +18,7 @@
 //
 // **ホバーで系統を絞る仕掛けは 2026-08-18 に不要と判断されて外した**（C = Royal
 // Constellations から採る予定だった作法）。戻さないこと。
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import {
   Background,
   BackgroundVariant,
@@ -27,10 +27,12 @@ import {
   Handle,
   MarkerType,
   MiniMap,
+  Panel,
   Position,
   ReactFlow,
   ReactFlowProvider,
   useReactFlow,
+  useStore,
   type Edge,
   type EdgeProps,
   type Node,
@@ -44,7 +46,11 @@ import { regimeBandColor } from "@/lib/kinship/band-color";
 export interface KinshipPerson {
   id: string;
   emperorId: string | null;
+  /** 表示名の全文（検索と読み上げに使う）。カードは `main` と `annot` に割って描く。 */
   label: string;
+  main: string;
+  /** 「竇氏〔孝文竇皇后〕」の〔〕の中。カードでは2行目に小さく出す。 */
+  annot: string | null;
   regimeId: string | null;
   isEmperor: boolean;
   gender: string | null;
@@ -87,6 +93,17 @@ export interface KinshipEdge {
   categoryId?: string | null;
 }
 
+/**
+ * 図の縦に敷く「おおよその時代」の帯。**年の目盛りではない** — 段は世代の順なので
+ * 年は 4% ほど前後する。作り方と、数値の軸にしない理由は build-kinship-layout.mjs 側。
+ */
+export interface KinshipEraBand {
+  y0: number;
+  y1: number;
+  year: number;
+  label: string;
+}
+
 export interface KinshipLayout {
   eraId: string;
   width: number;
@@ -94,6 +111,7 @@ export interface KinshipLayout {
   cardW: number;
   cardH: number;
   layers: number;
+  eraBands: KinshipEraBand[];
   nodes: KinshipPerson[];
   unions: KinshipUnion[];
   edges: KinshipEdge[];
@@ -172,20 +190,28 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
   const fill = bandOf(p);
   // **皇帝以外は名前と年の帯だけ**（2026-08-18 ユーザー指示）。肖像アセットは皇帝にしか
   // 無いので、縦長の枠を用意しても中身は姓一文字のモノグラムにしかならなかった。
+  const ink = p.isEmperor ? "#fff" : "var(--foreground)";
+  // **親族カードでは帯が箱いっぱいまで伸びる。** 生没年がどちらも分かっていない人が
+  // 70 人中 22 人いて、帯を内容ぶんの高さにすると下が地色のまま残る（＝カードが
+  // 半分だけ塗られた別種の箱に見えた）。
   const band = (
-    <div className="px-1.5 py-1 text-center leading-tight" style={{ background: fill }}>
-      <div
-        className="truncate text-[13px] font-semibold"
-        style={{ color: p.isEmperor ? "#fff" : "var(--foreground)" }}
-      >
-        {p.label}
+    <div
+      className={`px-1.5 py-1 text-center leading-tight ${p.isEmperor ? "" : "flex flex-1 flex-col justify-center"}`}
+      style={{ background: fill }}
+    >
+      <div className="truncate text-[13px] font-semibold" style={{ color: ink }}>
+        {p.main}
       </div>
+      {/* 補足（「竇氏〔孝文竇皇后〕」の〔〕の中）は2行目へ。**1行に詰めると切り詰めが出る**
+          — 幅を広げると全員ぶん図が太るので、高さで解く（2026-08-18 の外部レビュー）。 */}
+      {p.annot ? (
+        <div className="truncate text-[9.5px] leading-[1.15]" style={{ color: ink, opacity: 0.92 }}>
+          {p.annot}
+        </div>
+      ) : null}
       {/* **年は白のまま落とさない。** 帯の色は「白文字が 4.5:1」で決めてあるので、
-          82% に薄めると 10px の小さな字だけがその基準を割る。 */}
-      <div
-        className="truncate text-[10px] tabular-nums"
-        style={{ color: p.isEmperor ? "#fff" : "var(--foreground)" }}
-      >
+          薄めると小さい字だけがその基準を割る。字は 10px では読めないと言われたので 11px。 */}
+      <div className="truncate text-[11px] tabular-nums" style={{ color: ink }}>
         {yearLine(p)}
       </div>
     </div>
@@ -208,8 +234,17 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
             style={{ objectPosition: `50% ${((p.focusY ?? 0.25) * 100).toFixed(0)}%` }}
           />
         ) : (
-          <span className="flex h-full w-full items-center justify-center font-heading text-2xl text-muted-foreground">
-            {p.label.charAt(0)}
+          // **肖像は35人中15人にしかない。** 残り20枚を薄い箱＋灰色の1字にしていたので
+          // 「サイズの不統一」「下部エリアのコントラスト不足」と読まれた（2026-08-18 の
+          // 外部レビュー）。政権色をごく薄く敷き、字をその色で大きく出す。
+          <span
+            className="flex h-full w-full items-center justify-center font-heading text-[34px] leading-none"
+            style={{
+              background: `color-mix(in srgb, ${fill} 12%, var(--kinship-portrait-bg))`,
+              color: `color-mix(in srgb, ${fill} 78%, var(--foreground))`,
+            }}
+          >
+            {p.main.charAt(0)}
           </span>
         )}
       </div>
@@ -248,7 +283,14 @@ function UnionDot({ data }: NodeProps<Node<{ kind: KinshipUnion["kind"] }>>) {
   const disputed = data.kind === "disputed";
   if (!disputed)
     return (
-      <div className="h-full w-full rounded-full" style={{ background: "var(--kinship-line)" }}>
+      // 線に埋もれると言われたので、地色の縁を1周付けて浮かせる（2026-08-18 の外部レビュー）。
+      <div
+        className="h-full w-full rounded-full"
+        style={{
+          background: "var(--kinship-line)",
+          boxShadow: "0 0 0 2px var(--kinship-canvas)",
+        }}
+      >
         <CardPorts />
       </div>
     );
@@ -258,8 +300,8 @@ function UnionDot({ data }: NodeProps<Node<{ kind: KinshipUnion["kind"] }>>) {
         aria-hidden
         className="absolute left-1/2 top-1/2 block -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
-          width: 18,
-          height: 18,
+          width: 20,
+          height: 20,
           background: "var(--kinship-canvas)",
           border: "2.5px dotted var(--kinship-line)",
         }}
@@ -337,7 +379,9 @@ const EDGE_STYLE: Record<KinshipEdge["kind"], { dash?: string; color?: string; w
   father: {},
   mother: { dash: "5 4" },
   child: {},
-  adoptive: { dash: "14 5" },
+  // 一点鎖線。**実母の「5 4」と刻みの長さで区別しない** — 2026-08-18 の外部レビューで
+  // 「長さ違いの破線は判別できない」と言われたので、形そのものを変えている。
+  adoptive: { dash: "12 4 2 4" },
   second: { dash: "1 4", width: 2 },
   disputed: { dash: "1 4", width: 2 },
   succession: { dash: "6 4", color: "var(--kinship-succession)" },
@@ -438,6 +482,150 @@ function buildGraph(layout: KinshipLayout): { nodes: Node[]; edges: Edge[] } {
   return { nodes, edges };
 }
 
+/**
+ * 「おおよその時代」の帯を図の地に敷く。
+ *
+ * **2枚に分けてある。** 塗りは図の座標系（＝拡大縮小に付いていく）だが、年の見出しは
+ * **画面の左端に原寸で貼り付ける** — 図は 1229×5996px で縦にしか動かさないので、
+ * 図の中に置くと画面外へ流れて「いま何年あたりを見ているか」が分からなくなる。
+ */
+function EraBandFill({ bands, width }: { bands: KinshipEraBand[]; width: number }) {
+  const [tx, ty, zoom] = useStore((st) => st.transform);
+  return (
+    <svg className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden>
+      <g transform={`translate(${tx},${ty}) scale(${zoom})`}>
+        {bands.map((b, i) =>
+          i % 2 ? null : (
+            <rect
+              key={b.y0}
+              x={-2000}
+              y={b.y0}
+              width={width + 4000}
+              height={b.y1 - b.y0}
+              fill="var(--kinship-era-band)"
+            />
+          ),
+        )}
+        {bands.slice(1).map((b) => (
+          <line
+            key={b.y0}
+            x1={-2000}
+            x2={width + 2000}
+            y1={b.y0}
+            y2={b.y0}
+            stroke="var(--kinship-grid)"
+            strokeWidth={1 / zoom}
+          />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
+function EraBandRuler({ bands }: { bands: KinshipEraBand[] }) {
+  const [, ty, zoom] = useStore((st) => st.transform);
+  // 画面に見えている高さ。**帯は画面より長い**ので、見出しは見えている範囲の
+  // 真ん中へ寄せないと画面外へ出る。
+  const paneH = useStore((st) => st.height);
+  return (
+    <div className="pointer-events-none absolute inset-y-0 left-0 w-[112px] overflow-hidden">
+      {bands.map((b) => {
+        const top = ty + b.y0 * zoom;
+        const bottom = ty + b.y1 * zoom;
+        return (
+          <div key={b.y0}>
+            {/* **範囲であることを形で言う。** ただの吹き出しだと「この一点が前200年」と
+                読まれるが、帯が主張しているのは「この範囲がだいたいその辺り」。 */}
+            <span
+              aria-hidden
+              className="absolute left-2 w-[3px] rounded-full"
+              style={{
+                top: Math.max(top, -20),
+                height: Math.max(0, Math.min(bottom, paneH + 20) - Math.max(top, -20)),
+                background: "color-mix(in srgb, var(--kinship-line) 32%, transparent)",
+              }}
+            />
+            <span
+              className="absolute left-[18px] -translate-y-1/2 rounded-sm border px-1.5 py-0.5 text-[11px] tabular-nums whitespace-nowrap"
+              style={{
+                // 左下は拡大縮小のボタンが居るので、そこへは降ろさない
+                // （2026-08-18 に「前125年ごろ」がボタンの裏に隠れた写真を撮った）。
+                top: Math.min(
+                  Math.max((Math.max(top, 0) + Math.min(bottom, paneH + 20)) / 2, 16),
+                  Math.max(16, paneH - 104),
+                ),
+                background: "color-mix(in srgb, var(--kinship-canvas) 85%, white)",
+                borderColor: "var(--kinship-grid)",
+                color: "var(--muted-foreground)",
+              }}
+            >
+              {b.label}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/**
+ * 人物を名前で探して図をそこへ寄せる。**図が 6,000px 近くあるのに探す手段が無い**
+ * （2026-08-18 の外部レビュー）。105 人しか居ないので素の部分一致で足りる。
+ * 置き場所は図の中（`Panel`）— 上の帯へ足すと 1440px で折り返して、同じレビューの
+ * 「ヘッダーが図を圧迫している」を悪化させる。
+ */
+function PersonSearch({
+  people,
+  onPick,
+}: {
+  people: KinshipPerson[];
+  onPick: (p: KinshipPerson) => void;
+}) {
+  const [q, setQ] = useState("");
+  const deferred = useDeferredValue(q);
+  const box = useRef<HTMLInputElement>(null);
+  const hits = useMemo(() => {
+    const k = deferred.trim();
+    if (!k) return [];
+    return people.filter((p) => p.label.includes(k)).slice(0, 8);
+  }, [deferred, people]);
+  return (
+    <div className="w-56">
+      <input
+        ref={box}
+        type="search"
+        value={q}
+        onChange={(e) => setQ(e.target.value)}
+        placeholder="人物を名前で探す"
+        aria-label="人物を名前で探す"
+        className="w-full rounded-md border bg-background px-2 py-1 text-sm shadow-sm outline-none focus-visible:outline-2 focus-visible:outline-seal"
+      />
+      {hits.length ? (
+        <ul className="mt-1 overflow-hidden rounded-md border bg-background shadow-md">
+          {hits.map((p) => (
+            <li key={p.id}>
+              <button
+                type="button"
+                className="flex w-full items-baseline gap-2 px-2 py-1 text-left text-sm hover:bg-accent focus-visible:outline-2 focus-visible:outline-seal"
+                onClick={() => {
+                  onPick(p);
+                  setQ("");
+                  box.current?.blur();
+                }}
+              >
+                <span className="truncate">{p.label}</span>
+                <span className="ml-auto shrink-0 text-[11px] tabular-nums text-muted-foreground">
+                  {yearLine(p)}
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
 /** 入口は前漢の高祖。**始皇帝ではない** — 秦の一族だけを見せても章の系譜が読めない。 */
 const FIT_VIEW = { nodes: [{ id: "han-gaozu" }], minZoom: 0.7, maxZoom: 0.7 };
 const MIN_ZOOM = 0.08;
@@ -481,21 +669,41 @@ function ChapterFlowInner({
 
   // 政権へ飛ぶ（A = Die Welt der Habsburger の上端ナビに当たる）。図は1画面に収まらないので、
   // **行き先を図の外に文字で出す**のがここでの「全体の把握」。
-  const { setCenter } = useReactFlow();
+  const { setCenter, setViewport } = useReactFlow();
+  // **撮影の道具（tools/shoot-kinship.mjs）が図を動かすための口。**
+  // 道具は `.react-flow__viewport` の CSS transform を直に書き換えていて、それだと
+  // React Flow の store が更新されない — 結果、store を読んでいる「時代の帯」と
+  // 「左端の年」だけが動かない写真が撮れる（2026-08-18 に実際に撮った。図の欠陥に
+  // 見えるが図は正しく、嘘をついていたのは道具のほう）。**消すと同じ写真に戻る。**
+  useEffect(() => {
+    const w = window as unknown as { __kinshipSetViewport?: typeof setViewport };
+    w.__kinshipSetViewport = setViewport;
+    return () => {
+      delete w.__kinshipSetViewport;
+    };
+  }, [setViewport]);
   const [here, setHere] = useState<string | null>(null);
+  const centerOn = useCallback(
+    (n: KinshipPerson) => {
+      void setCenter(n.x + n.w / 2, n.y + n.h / 2, { zoom: 0.7, duration: 600 });
+    },
+    [setCenter],
+  );
   const jumpTo = useCallback(
     (j: KinshipJump) => {
       const n = layout.nodes.find((p) => p.id === j.nodeId);
       if (!n) return;
       setHere(j.regimeId);
-      void setCenter(n.x + n.w / 2, n.y + n.h / 2, { zoom: 0.7, duration: 600 });
+      centerOn(n);
     },
-    [layout, setCenter],
+    [layout, centerOn],
   );
 
   return (
     <div
-      className="relative flex h-[calc(100vh-9rem)] w-full flex-col overflow-hidden rounded-lg border"
+      // **高さを直値で持たない。** 凡例を畳めるようにしたので、畳んだぶんはそのまま
+      // 図の面積になる（外側の main が `h-[calc(100vh-4rem)] flex-col`）。
+      className="relative flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-lg border"
       style={{ background: "var(--kinship-canvas)" }}
     >
       <nav
@@ -539,19 +747,23 @@ function ChapterFlowInner({
           fitViewOptions={FIT_VIEW}
           proOptions={{ hideAttribution: false }}
         >
-          <Background
-            variant={BackgroundVariant.Lines}
-            gap={[layout.cardW + 14, layout.cardH + 40]}
-            lineWidth={1}
-            color="var(--kinship-grid)"
-          />
+          {/* 縦横の方眼は**時代の帯に置き換えた**（2026-08-18 の外部レビュー: 方眼が濃い・
+              縦軸の基準が無い）。方眼は意味を持たないうえ線と紛れるので、地は点だけにする。 */}
+          <Background variant={BackgroundVariant.Dots} gap={26} size={1} color="var(--kinship-grid)" />
+          <EraBandFill bands={layout.eraBands} width={layout.width} />
+          <EraBandRuler bands={layout.eraBands} />
+          <Panel position="top-right">
+            <PersonSearch people={layout.nodes} onPick={centerOn} />
+          </Panel>
           {/* 地と同色だとどこからがミニマップか分からない（2026-08-18 の外部レビュー）。
               枠と影で浮かせる。 */}
           <MiniMap
             pannable
             zoomable
             className="!rounded-md !border !border-black/20 !shadow-md"
-            style={{ background: "var(--background)" }}
+            // 図は 1:4.9 の縦長なので、既定寸法だと 1 本の細い棒になって現在地が読めない
+            // （2026-08-18 の外部レビュー）。高さを決めて枠と影で浮かせる。
+            style={{ background: "var(--background)", width: 88, height: 260 }}
             maskColor="color-mix(in srgb, var(--kinship-canvas) 70%, transparent)"
           />
           <Controls showInteractive={false} />
