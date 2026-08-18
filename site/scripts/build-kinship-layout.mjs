@@ -22,8 +22,13 @@ const ERA_ID = "qin-han";
 
 // 寸法と間隔は probe-kinship-layout.mjs で測って選んだ。
 const CARD_W = 112;
-const CARD_H = 140;
+// 皇帝のカードだけが縦長（上半分が肖像）。**皇帝以外は肖像アセットが1枚も無い**ので、
+// 縦長の枠を用意しても中身は姓一文字のモノグラムにしかならない（2026-08-18 ユーザー指示で
+// 名前と年の帯だけに縮めた）。図が縦にも横にも詰まり、親子の線が短くなる副次効果がある。
+const EMPEROR_H = 140;
+const KIN_H = 38;
 const UNION_SIZE = 10;
+const heightOf = (c) => (c.isEmperor ? EMPEROR_H : KIN_H);
 
 const root = path.join(process.cwd(), "..");
 const emperors = JSON.parse(readFileSync(path.join(root, "data", "emperors.json"), "utf8"));
@@ -236,7 +241,7 @@ for (const ed of kinship.edges) {
 
 // ---------------------------------------------------------------- elk
 const elkNodes = [];
-for (const c of cards.values()) elkNodes.push({ id: c.id, width: CARD_W, height: CARD_H });
+for (const c of cards.values()) elkNodes.push({ id: c.id, width: CARD_W, height: heightOf(c) });
 for (const u of unions.values()) elkNodes.push({ id: u.id, width: UNION_SIZE, height: UNION_SIZE });
 
 const elkEdges = [];
@@ -380,7 +385,11 @@ for (const comp of components.slice(1)) {
     x0: Math.min(...comp.map((id) => pos.get(id).x)),
     x1: Math.max(...comp.map((id) => pos.get(id).x + (cards.has(id) ? CARD_W : UNION_SIZE))),
     y0: Math.min(...comp.map((id) => pos.get(id).y)),
-    y1: Math.max(...comp.map((id) => pos.get(id).y + (cards.has(id) ? CARD_H : UNION_SIZE))),
+    y1: Math.max(
+      ...comp.map((id) =>
+        pos.get(id).y + (cards.has(id) ? heightOf(cards.get(id)) : UNION_SIZE),
+      ),
+    ),
   };
 
   // 年がいちばん近い段。**物差しの最古より古い成分は、その上へ押し出す**
@@ -441,7 +450,7 @@ for (const c of cards.values()) {
     x: Math.round(p.x),
     y: Math.round(p.y),
     w: CARD_W,
-    h: CARD_H,
+    h: heightOf(c),
     // 章の外に子がいる人物（この章では線が引けない）
     crossEra: crossEra
       .filter((x) => x.from === c.id)
@@ -481,7 +490,8 @@ const out = {
   width,
   height,
   cardW: CARD_W,
-  cardH: CARD_H,
+  cardH: EMPEROR_H,
+  kinH: KIN_H,
   layers: layerYs.length,
   nodes,
   unions: unionNodes,

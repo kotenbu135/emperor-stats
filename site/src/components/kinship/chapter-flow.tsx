@@ -125,7 +125,28 @@ function bandOf(p: KinshipPerson): string {
 function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
   const p = data.person;
   const fill = bandOf(p);
-  const body = (
+  // **皇帝以外は名前と年の帯だけ**（2026-08-18 ユーザー指示）。肖像アセットは皇帝にしか
+  // 無いので、縦長の枠を用意しても中身は姓一文字のモノグラムにしかならなかった。
+  const band = (
+    <div className="px-1.5 py-1 text-center leading-tight" style={{ background: fill }}>
+      <div
+        className="truncate text-[13px] font-semibold"
+        style={{ color: p.isEmperor ? "#fff" : "var(--foreground)" }}
+      >
+        {p.label}
+      </div>
+      {/* **年は白のまま落とさない。** 帯の色は「白文字が 4.5:1」で決めてあるので、
+          82% に薄めると 10px の小さな字だけがその基準を割る。 */}
+      <div
+        className="truncate text-[10px] tabular-nums"
+        style={{ color: p.isEmperor ? "#fff" : "var(--foreground)" }}
+      >
+        {p.isEmperor ? yearLabel(p.reignFrom, p.reignTo) : yearLabel(p.birthYear, p.deathYear)}
+      </div>
+    </div>
+  );
+
+  const body = p.isEmperor ? (
     <>
       <div
         className="relative flex-1 overflow-hidden"
@@ -147,23 +168,10 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
           </span>
         )}
       </div>
-      <div className="px-1.5 py-1 text-center leading-tight" style={{ background: fill }}>
-        <div
-          className="truncate text-[13px] font-semibold"
-          style={{ color: p.isEmperor ? "#fff" : "var(--foreground)" }}
-        >
-          {p.label}
-        </div>
-        {/* **年は白のまま落とさない。** 帯の色は「白文字が 4.5:1」で決めてあるので、
-            82% に薄めると 10px の小さな字だけがその基準を割る。 */}
-        <div
-          className="truncate text-[10px] tabular-nums"
-          style={{ color: p.isEmperor ? "#fff" : "var(--foreground)" }}
-        >
-          {p.isEmperor ? yearLabel(p.reignFrom, p.reignTo) : yearLabel(p.birthYear, p.deathYear)}
-        </div>
-      </div>
+      {band}
     </>
+  ) : (
+    band
   );
 
   const shell =
@@ -269,19 +277,29 @@ function ChapterFlowInner({
       strokeDasharray: dash,
       opacity: 0.85,
     });
+    // **すべて直角の線にする**（2026-08-18「線のぐちゃぐちゃ感を徹底的に改善」）。
+    // 既定の bezier は2点を最短で結ぶので、段をまたぐ線が斜めに走ってカードの裏を通り、
+    // 図全体が曲線の束に見えていた。系図は直角に折れる線が読みやすい。
+    const ORTH = "smoothstep" as const;
     const out: Edge[] = [];
     for (const un of layout.unions) {
-      out.push({ id: `${un.id}-f`, source: un.father, target: un.id, style: line() });
-      out.push({ id: `${un.id}-m`, source: un.mother, target: un.id, style: line("3 3") });
+      out.push({ id: `${un.id}-f`, type: ORTH, source: un.father, target: un.id, style: line() });
+      out.push({
+        id: `${un.id}-m`,
+        type: ORTH,
+        source: un.mother,
+        target: un.id,
+        style: line("3 3"),
+      });
       for (const c of un.children) {
-        out.push({ id: `${un.id}-${c}`, source: un.id, target: c, style: line() });
+        out.push({ id: `${un.id}-${c}`, type: ORTH, source: un.id, target: c, style: line() });
       }
     }
     layout.extraParent.forEach((e, i) => {
       // single = 片親しか分かっていない子／second = 実父が2人記録されている（史料の異説）／
       // adoptive = 養親。**どれも「1本の親子線」ではないので見た目を分ける。**
       const dash = e.kind === "single" ? undefined : e.kind === "adoptive" ? "6 3" : "1 3";
-      out.push({ id: `x${i}`, source: e.from, target: e.to, style: line(dash) });
+      out.push({ id: `x${i}`, type: ORTH, source: e.from, target: e.to, style: line(dash) });
     });
     layout.succession.forEach((s, i) => {
       out.push({
