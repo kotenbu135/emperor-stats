@@ -6,21 +6,25 @@
 // ビルド前に確定したものを props で受け取るだけ。`site/AGENTS.md` の「クライアント側から
 // emperors.ts を import しない」を守るため、渡ってくるのは表示に要る欄だけの軽い型。
 //
-// **静的 HTML に `<a href="/emperors/[id]">` が出ることは検査済み**（out/kinship.html を
-// grep して確認。React Flow は "use client" だが、static export ではプリレンダーされる）。
+// **静的 HTML に `<a href="/emperors/[id]">` と親子の線が出ることは検査済み**
+// （out/kinship.html を grep して確認。React Flow は "use client" だが static export では
+// プリレンダーされる。線を出すにはノードに `handles` を渡す必要がある）。
 //
 // 見た目の出どころ（Issue #174・2026-08-18 のユーザー決定）:
 // - A = Die Welt der Habsburger の系図面 … 肖像を主役にしたカード／地を白にしない／
 //   空きセルにも薄い箱を敷く／上端に章のナビ
 // - B = UsefulCharts の East Asian Royal Family Trees … 政権を**濃い彩度の帯＋白文字**で
 //   出す（前回の淡彩8%は箱1個の面積では白としか読めなかった）
-// - C = Royal Constellations … ホバーで**関係するものだけ残して他を沈める**
+//
+// **ホバーで系統を絞る仕掛けは 2026-08-18 に不要と判断されて外した**（C = Royal
+// Constellations から採る予定だった作法）。戻さないこと。
 import { useCallback, useMemo, useState } from "react";
 import {
   Background,
   BackgroundVariant,
   Controls,
   Handle,
+  MarkerType,
   MiniMap,
   Position,
   ReactFlow,
@@ -32,6 +36,7 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
+import { Button } from "@/components/ui/button";
 import { regimeBandColor } from "@/lib/kinship/band-color";
 
 export interface KinshipPerson {
@@ -40,6 +45,7 @@ export interface KinshipPerson {
   label: string;
   regimeId: string | null;
   isEmperor: boolean;
+  gender: string | null;
   reignFrom: number | null;
   reignTo: number | null;
   birthYear: number | null;
@@ -50,6 +56,7 @@ export interface KinshipPerson {
   y: number;
   w: number;
   h: number;
+  crossEra: { label: string; era: string | null }[];
 }
 
 export interface KinshipUnion {
@@ -72,9 +79,34 @@ export interface KinshipLayout {
   layers: number;
   nodes: KinshipPerson[];
   unions: KinshipUnion[];
-  directParent: { from: string; to: string; relation: string }[];
+  extraParent: { from: string; to: string; kind: "single" | "second" | "adoptive" }[];
+  succession: {
+    from: string;
+    to: string;
+    categoryId: string | null;
+    relation: string | null;
+  }[];
 }
 
+export interface KinshipJump {
+  regimeId: string;
+  label: string;
+  nodeId: string;
+  count: number;
+}
+
+/** 継承の区分ラベル（図の線に添える）。data/emperors.json の catalogs と同じ語を使う。 */
+const SUCCESSION_LABEL: Record<string, string> = {
+  enthroned: "擁立",
+  hereditary: "世襲",
+  usurpation: "簒奪",
+  "abdication-received": "禅譲",
+  "inner-abdication": "内禅",
+  restoration: "復位",
+  acclamation: "推戴",
+  "self-established": "自立",
+  "succession-unspecified": "継承",
+};
 
 function yearLabel(from: number | null, to: number | null): string {
   const f = (y: number) => (y < 0 ? `前${-y}` : `${y}`);
@@ -83,14 +115,16 @@ function yearLabel(from: number | null, to: number | null): string {
   return f((from ?? to) as number);
 }
 
-interface CardData extends Record<string, unknown> {
-  person: KinshipPerson;
-  dimmed: boolean;
+/** カード下帯の色。皇帝は政権色、それ以外は性別で分ける（2026-08-18 ユーザー指示）。 */
+function bandOf(p: KinshipPerson): string {
+  if (p.isEmperor) return regimeBandColor(p.regimeId);
+  if (p.gender === "female") return "var(--kinship-kin-band-female)";
+  return "var(--kinship-kin-band)";
 }
 
-function PersonCard({ data }: NodeProps<Node<CardData>>) {
+function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
   const p = data.person;
-  const fill = regimeBandColor(p.regimeId);
+  const fill = bandOf(p);
   const body = (
     <>
       <div
@@ -112,11 +146,14 @@ function PersonCard({ data }: NodeProps<Node<CardData>>) {
             {p.label.charAt(0)}
           </span>
         )}
+        {p.crossEra.length > 0 ? (
+          // 子がこの章の外にいる人物（章の切り方のせいで、ここでは線が引けない）。
+          <span className="absolute inset-x-0 bottom-0 truncate bg-black/55 px-1 py-0.5 text-[9px] text-white">
+            子 {p.crossEra.map((c) => c.label).join("・")} は別章
+          </span>
+        ) : null}
       </div>
-      <div
-        className="px-1.5 py-1 text-center leading-tight"
-        style={{ background: p.isEmperor ? fill : "var(--kinship-kin-band)" }}
-      >
+      <div className="px-1.5 py-1 text-center leading-tight" style={{ background: fill }}>
         <div
           className="truncate text-[13px] font-semibold"
           style={{ color: p.isEmperor ? "#fff" : "var(--foreground)" }}
@@ -124,28 +161,22 @@ function PersonCard({ data }: NodeProps<Node<CardData>>) {
           {p.label}
         </div>
         {/* **年は白のまま落とさない。** 帯の色は「白文字が 4.5:1」で決めてあるので、
-            82% に薄めると 10px の小さな字だけがその基準を割る。親族カードの副行も
-            --muted-foreground（--muted/--background に対して調整した値）ではなく
-            地の文の色にする — --kinship-kin-band の上での比は測っていないため。 */}
+            82% に薄めると 10px の小さな字だけがその基準を割る。 */}
         <div
           className="truncate text-[10px] tabular-nums"
           style={{ color: p.isEmperor ? "#fff" : "var(--foreground)" }}
         >
-          {p.isEmperor
-            ? yearLabel(p.reignFrom, p.reignTo)
-            : yearLabel(p.birthYear, p.deathYear)}
+          {p.isEmperor ? yearLabel(p.reignFrom, p.reignTo) : yearLabel(p.birthYear, p.deathYear)}
         </div>
       </div>
     </>
   );
 
-  const shell = `flex h-full w-full flex-col overflow-hidden rounded-[3px] border border-black/15 bg-card shadow-sm transition-opacity ${
-    data.dimmed ? "opacity-20" : "opacity-100"
-  }`;
+  const shell =
+    "flex h-full w-full flex-col overflow-hidden rounded-[3px] border border-black/15 bg-card shadow-sm";
 
   // **Handle が無いと線が1本も描かれない。** サーバー描画のときはノードの `handles`
   // プロパティが位置を代行するが、クライアントで hydrate したあとは実要素の位置を測る。
-  // 図では触らせないので見た目は消す（`opacity-0` ではなく寸法ごと潰すと測れなくなる）。
   const ports = (
     <>
       <Handle type="target" position={Position.Top} className="!bg-transparent !border-0" />
@@ -168,15 +199,9 @@ function PersonCard({ data }: NodeProps<Node<CardData>>) {
   );
 }
 
-function UnionDot({ data }: NodeProps<Node<{ dimmed: boolean }>>) {
+function UnionDot() {
   return (
-    <div
-      className="h-full w-full rounded-full transition-opacity"
-      style={{
-        background: "var(--kinship-line)",
-        opacity: data.dimmed ? 0.15 : 1,
-      }}
-    >
+    <div className="h-full w-full rounded-full" style={{ background: "var(--kinship-line)" }}>
       <Handle type="target" position={Position.Top} className="!bg-transparent !border-0" />
       <Handle type="source" position={Position.Bottom} className="!bg-transparent !border-0" />
     </div>
@@ -184,13 +209,6 @@ function UnionDot({ data }: NodeProps<Node<{ dimmed: boolean }>>) {
 }
 
 const nodeTypes = { person: PersonCard, union: UnionDot };
-
-export interface KinshipJump {
-  regimeId: string;
-  label: string;
-  nodeId: string;
-  count: number;
-}
 
 /** 図の中を動かすので Provider の内側に置く（`useReactFlow` は Provider が要る）。 */
 export function ChapterFlow({
@@ -214,57 +232,9 @@ function ChapterFlowInner({
   layout: KinshipLayout;
   jumps: KinshipJump[];
 }) {
-  const [focusId, setFocusId] = useState<string | null>(null);
-
-  // ホバーした人物の祖先と子孫（C の作法）。107 人ぶんなので毎回辿って構わない。
-  const { up, down } = useMemo(() => {
-    const u = new Map<string, string[]>();
-    const d = new Map<string, string[]>();
-    const link = (m: Map<string, string[]>, a: string, b: string) => {
-      const cur = m.get(a);
-      if (cur) cur.push(b);
-      else m.set(a, [b]);
-    };
-    for (const un of layout.unions) {
-      link(d, un.father, un.id);
-      link(d, un.mother, un.id);
-      link(u, un.id, un.father);
-      link(u, un.id, un.mother);
-      for (const c of un.children) {
-        link(d, un.id, c);
-        link(u, c, un.id);
-      }
-    }
-    for (const e of layout.directParent) {
-      link(d, e.from, e.to);
-      link(u, e.to, e.from);
-    }
-    return { up: u, down: d };
-  }, [layout]);
-
-  const related = useMemo(() => {
-    if (!focusId) return null;
-    const seen = new Set<string>([focusId]);
-    // **辿りをヘルパー関数に切り出さない** — `up`/`down` を引数で渡す形は
-    // react-hooks/immutability が「この値は変更できない」で落とす（lint エラー）。
-    for (const m of [up, down]) {
-      const stack = [focusId];
-      while (stack.length) {
-        const cur = stack.pop() as string;
-        for (const nx of m.get(cur) ?? []) {
-          if (seen.has(nx)) continue;
-          seen.add(nx);
-          stack.push(nx);
-        }
-      }
-    }
-    return seen;
-  }, [focusId, up, down]);
-
   const nodes: Node[] = useMemo(() => {
     // `handles` はサーバー描画のためにある（クライアントでは実要素を測るので不要）。
-    // これが無いと **静的 HTML に親子の線が1本も出ない**（`<a>` は出るので SEO の要件は
-    // 満たすが、JS が動かない環境では点だけが並ぶ）。
+    // これが無いと **静的 HTML に親子の線が1本も出ない**。
     const ports = (w: number, h: number) => [
       { type: "target" as const, position: Position.Top, x: w / 2, y: 0 },
       { type: "source" as const, position: Position.Bottom, x: w / 2, y: h },
@@ -279,7 +249,7 @@ function ChapterFlowInner({
       draggable: false,
       connectable: false,
       selectable: false,
-      data: { person: p, dimmed: related ? !related.has(p.id) : false },
+      data: { person: p },
     }));
     for (const un of layout.unions) {
       out.push({
@@ -292,60 +262,53 @@ function ChapterFlowInner({
         draggable: false,
         connectable: false,
         selectable: false,
-        data: { dimmed: related ? !related.has(un.id) : false },
+        data: {},
       });
     }
     return out;
-  }, [layout, related]);
+  }, [layout]);
 
   const edges: Edge[] = useMemo(() => {
-    const out: Edge[] = [];
-    const dim = (a: string, b: string) =>
-      related ? !(related.has(a) && related.has(b)) : false;
-    const style = (a: string, b: string, dashed: boolean) => ({
-      stroke: "var(--kinship-line)",
+    const line = (dash?: string, color = "var(--kinship-line)") => ({
+      stroke: color,
       strokeWidth: 1.6,
-      strokeDasharray: dashed ? "3 3" : undefined,
-      opacity: dim(a, b) ? 0.12 : 0.85,
+      strokeDasharray: dash,
+      opacity: 0.85,
     });
+    const out: Edge[] = [];
     for (const un of layout.unions) {
-      out.push({
-        id: `${un.id}-f`,
-        source: un.father,
-        target: un.id,
-        style: style(un.father, un.id, false),
-      });
-      out.push({
-        id: `${un.id}-m`,
-        source: un.mother,
-        target: un.id,
-        style: style(un.mother, un.id, true),
-      });
+      out.push({ id: `${un.id}-f`, source: un.father, target: un.id, style: line() });
+      out.push({ id: `${un.id}-m`, source: un.mother, target: un.id, style: line("3 3") });
       for (const c of un.children) {
-        out.push({
-          id: `${un.id}-${c}`,
-          source: un.id,
-          target: c,
-          style: style(un.id, c, false),
-        });
+        out.push({ id: `${un.id}-${c}`, source: un.id, target: c, style: line() });
       }
     }
-    layout.directParent.forEach((e, i) => {
+    layout.extraParent.forEach((e, i) => {
+      // single = 片親しか分かっていない子／second = 実父が2人記録されている（史料の異説）／
+      // adoptive = 養親。**どれも「1本の親子線」ではないので見た目を分ける。**
+      const dash = e.kind === "single" ? undefined : e.kind === "adoptive" ? "6 3" : "1 3";
+      out.push({ id: `x${i}`, source: e.from, target: e.to, style: line(dash) });
+    });
+    layout.succession.forEach((s, i) => {
       out.push({
-        id: `d${i}`,
-        source: e.from,
-        target: e.to,
-        style: style(e.from, e.to, e.relation === "mother"),
+        id: `s${i}`,
+        source: s.from,
+        target: s.to,
+        style: line("5 4", "var(--kinship-succession)"),
+        label: SUCCESSION_LABEL[s.categoryId ?? ""] ?? "継承",
+        labelShowBg: true,
+        labelBgPadding: [3, 1],
+        labelBgStyle: { fill: "var(--kinship-canvas)" },
+        labelStyle: { fill: "var(--kinship-succession)", fontSize: 10 },
+        markerEnd: { type: MarkerType.ArrowClosed, color: "var(--kinship-succession)" },
+        zIndex: 5,
       });
     });
     return out;
-  }, [layout, related]);
+  }, [layout]);
 
-  const onEnter = useCallback((_: unknown, node: Node) => setFocusId(node.id), []);
-  const onLeave = useCallback(() => setFocusId(null), []);
-
-  // 政権へ飛ぶ（A = Die Welt der Habsburger の上端ナビに当たる）。図は 3023×4144px あって
-  // 1画面には収まらないので、**行き先を図の外に文字で出す**のがここでの「全体の把握」。
+  // 政権へ飛ぶ（A = Die Welt der Habsburger の上端ナビに当たる）。図は1画面に収まらないので、
+  // **行き先を図の外に文字で出す**のがここでの「全体の把握」。
   const { setCenter } = useReactFlow();
   const [here, setHere] = useState<string | null>(null);
   const jumpTo = useCallback(
@@ -365,56 +328,52 @@ function ChapterFlowInner({
     >
       <nav
         aria-label="政権へジャンプ"
-        className="flex shrink-0 flex-wrap items-center gap-1 border-b px-2 py-1.5"
-        style={{ background: "var(--kinship-kin-band)" }}
+        className="flex shrink-0 flex-wrap items-center gap-1.5 border-b bg-background px-2 py-1.5"
       >
         {jumps.map((j) => (
-          <button
+          <Button
             key={j.regimeId}
             type="button"
+            size="sm"
+            variant={here === j.regimeId ? "secondary" : "outline"}
+            aria-pressed={here === j.regimeId}
             onClick={() => jumpTo(j)}
-            className={`rounded-[3px] px-2 py-0.5 text-xs transition-colors hover:bg-black/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal ${
-              here === j.regimeId ? "text-seal font-semibold" : ""
-            }`}
           >
             {j.label}
-            <span className="ml-1 tabular-nums opacity-60">{j.count}</span>
-          </button>
+            <span className="tabular-nums text-muted-foreground">{j.count}</span>
+          </Button>
         ))}
       </nav>
       <div className="relative min-h-0 flex-1">
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        width={layout.width}
-        height={layout.height}
-        nodeTypes={nodeTypes}
-        nodesDraggable={false}
-        nodesConnectable={false}
-        elementsSelectable={false}
-        minZoom={0.08}
-        maxZoom={2}
-        // **全体を1画面に収めない。** 3023×4144px を 1156px 幅に収めると倍率 0.28 で
-        // 字が読めなくなる（前回の取り下げ理由「俯瞰すると字が読めない」そのもの）。
-        // 見本の A（Die Welt der Habsburger）も1画面に収めていない — 図の入口
-        // （この章では始皇帝）へ寄せて開き、全体は右下の MiniMap で把握させる。
-        fitView
-        // 入口は前漢の高祖。**始皇帝ではない** — elk の最上段には「親が分からない人」が
-        // 並ぶだけで、そこを最初に見せても系譜として読めない（秦の2人は左上にいる）。
-        fitViewOptions={{ nodes: [{ id: "han-gaozu" }], minZoom: 0.7, maxZoom: 0.7 }}
-        proOptions={{ hideAttribution: false }}
-        onNodeMouseEnter={onEnter}
-        onNodeMouseLeave={onLeave}
-      >
-        <Background
-          variant={BackgroundVariant.Lines}
-          gap={[layout.cardW + 14, layout.cardH + 40]}
-          lineWidth={1}
-          color="var(--kinship-grid)"
-        />
-        <MiniMap pannable zoomable className="!bg-transparent" />
-        <Controls showInteractive={false} />
-      </ReactFlow>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          width={layout.width}
+          height={layout.height}
+          nodeTypes={nodeTypes}
+          nodesDraggable={false}
+          nodesConnectable={false}
+          elementsSelectable={false}
+          minZoom={0.08}
+          maxZoom={2}
+          // **全体を1画面に収めない。** 2981×4082px を 1156px 幅に収めると倍率 0.28 で
+          // 字が読めなくなる（前回の取り下げ理由「俯瞰すると字が読めない」そのもの）。
+          // 見本の A も1画面に収めていない — 図の入口へ寄せて開き、全体は MiniMap で見る。
+          fitView
+          // 入口は前漢の高祖。**始皇帝ではない** — 秦の一族は左上に固まっていて、
+          // そこを最初に見せても章全体の系譜が読めない。
+          fitViewOptions={{ nodes: [{ id: "han-gaozu" }], minZoom: 0.7, maxZoom: 0.7 }}
+          proOptions={{ hideAttribution: false }}
+        >
+          <Background
+            variant={BackgroundVariant.Lines}
+            gap={[layout.cardW + 14, layout.cardH + 40]}
+            lineWidth={1}
+            color="var(--kinship-grid)"
+          />
+          <MiniMap pannable zoomable className="!bg-transparent" />
+          <Controls showInteractive={false} />
+        </ReactFlow>
       </div>
     </div>
   );

@@ -84,8 +84,8 @@ export default function KinshipPage() {
         <h1 className="font-heading text-xl font-semibold">秦・漢の系譜</h1>
         <p className="text-sm text-muted-foreground">
           皇帝 {layout.nodes.filter((n) => n.isEmperor).length} 人と、その親族{" "}
-          {layout.nodes.filter((n) => !n.isEmperor).length} 人。縦は世代の段（実年ではない）。
-          カードにカーソルを乗せると、その人の祖先と子孫だけが残る。
+          {layout.nodes.filter((n) => !n.isEmperor).length} 人。縦は世代の段で、
+          別系統は時代がおおよそ合う高さへ寄せてある。
         </p>
       </header>
 
@@ -112,7 +112,26 @@ export default function KinshipPage() {
             className="inline-block h-3 w-3 rounded-[2px]"
             style={{ background: "var(--kinship-kin-band)" }}
           />
-          <span>皇帝以外の親族</span>
+          <span>親族（男性）</span>
+        </li>
+        <li className="flex items-center gap-1.5">
+          <span
+            aria-hidden
+            className="inline-block h-3 w-3 rounded-[2px]"
+            style={{ background: "var(--kinship-kin-band-female)" }}
+          />
+          <span>親族（女性）</span>
+        </li>
+      </ul>
+
+      <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+        <li>—— 実父</li>
+        <li>- - - 実母</li>
+        <li>‥‥ 異説の父</li>
+        <li>– – 養親</li>
+        <li style={{ color: "var(--kinship-succession)" }}>
+          →&nbsp;禅譲・擁立など、親子では説明が付かない継承（
+          {layout.succession.length} 本）
         </li>
       </ul>
 

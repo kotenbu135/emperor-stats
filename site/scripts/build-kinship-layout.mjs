@@ -6,19 +6,21 @@
 // 「レイアウト = elkjs（ビルド時のみ・devDependencies・配布物 out/ に混ぜない）」は
 // 2026-08-01 のユーザー決定（Issue #174）。
 //
-// **縦軸は世代の段**（実時間スケールではない）。elk の LONGEST_PATH レイヤ割り当てが
+// **縦軸は世代の段**（実時間スケールではない）。elk の NETWORK_SIMPLEX レイヤ割り当てが
 // そのまま世代になる。前回の版は在位年数で箱の高さを伸ばしていて、在位の長い皇帝が
 // 「名前だけ書かれた空の縦棒」になった — その形はここでは作らない（カードは固定寸法）。
+//
+// **ただし世代の段は時代順とは限らない。** 別々の系統は世代が独立なので、elk に任せると
+// 「親が分からない人」が時代を無視して最上段に横一列に並ぶ（呂不韋 前290 と 明德馬皇后 40 が
+// 同じ段に出ていた）。そこで**巨大成分の段から「段→年」の対応を作り、小さい成分を
+// その年に合う段まで平行移動する**（2026-08-18 のユーザー指示「ある程度の時代感は反映したい」）。
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import ELK from "elkjs/lib/elk.bundled.js";
 
 const ERA_ID = "qin-han";
 
-// カードの寸法。肖像の有無で変えない（A: Die Welt der Habsburger の作法。肖像が無い人は
-// 同じ寸法の色板になるだけで、図の格子は崩れない）。
-// 寸法と間隔は probe-kinship-layout.mjs で6通り測って選んだ（外寸 3023×4144px・
-// 段24）。LONGEST_PATH は直系の鎖に引きずられて 4798×5002px まで広がるので採らない。
+// 寸法と間隔は probe-kinship-layout.mjs で測って選んだ。
 const CARD_W = 112;
 const CARD_H = 140;
 const UNION_SIZE = 10;
@@ -29,12 +31,22 @@ const kinship = JSON.parse(readFileSync(path.join(root, "data", "kinship.json"),
 const portraits = JSON.parse(
   readFileSync(path.join(root, "data", "images", "portraits", "manifest.json"), "utf8"),
 );
-
 const portraitById = new Map(portraits.map((p) => [p.id, p]));
 
 const emp = emperors.emperors.filter((e) => e.eraId === ERA_ID);
 const per = kinship.persons.filter((p) => p.eraId === ERA_ID);
 const ids = new Set([...emp.map((e) => e.id), ...per.map((p) => p.id)]);
+
+// 章の外にいる人物も名前だけ引けるようにする（章をまたぐ親子を出すため）。
+const outsideEra = new Map();
+for (const e of emperors.emperors) if (e.eraId !== ERA_ID) outsideEra.set(e.id, e);
+for (const p of kinship.persons) if (p.eraId !== ERA_ID) outsideEra.set(p.id, p);
+const labelOf = (id) => {
+  const o = outsideEra.get(id);
+  if (!o) return id;
+  return o.name?.commonName ?? o.name ?? id;
+};
+const eraOf = (id) => outsideEra.get(id)?.eraId ?? null;
 
 // ---------------------------------------------------------------- ノード
 const cards = new Map();
@@ -43,8 +55,7 @@ for (const e of emp) {
   const s = reigns.length ? reigns[0].startYear : null;
   const t = reigns.length ? reigns[reigns.length - 1].endYear : null;
   // 配信されるのは public/portraits/<id>.webp（manifest の localFile は元画像の .jpg で、
-  // サイトに出るファイル名ではない）。**実在で判定する** — manifest にあってサイトに無い
-  // 人物を「肖像あり」にすると、カードの上半分が壊れた画像になる。
+  // サイトに出るファイル名ではない）。**実在で判定する**。
   const hasPortrait = existsSync(path.join(process.cwd(), "public", "portraits", `${e.id}.webp`));
   const portrait = hasPortrait ? portraitById.get(e.id) : null;
   cards.set(e.id, {
@@ -53,6 +64,7 @@ for (const e of emp) {
     label: e.name?.commonName ?? e.id,
     regimeId: e.regimeId,
     isEmperor: true,
+    gender: "male",
     reignFrom: s,
     reignTo: t,
     birthYear: e.ages?.birthYear ?? null,
@@ -69,57 +81,79 @@ for (const p of per) {
     label: p.name ?? p.id,
     regimeId: null,
     isEmperor: false,
+    gender: p.gender ?? null,
     reignFrom: null,
     reignTo: null,
     birthYear: p.birthYear ?? null,
     deathYear: p.deathYear ?? null,
-    kind: p.kind ?? null,
-    gender: p.gender ?? null,
     portrait: null,
     focusY: null,
   });
 }
 
+/** カードの代表年（時代の並べ替えに使う）。在位開始 → 生年 → 没年の順。 */
+const yearOf = (c) => c.reignFrom ?? c.birthYear ?? c.deathYear ?? null;
+
 // ---------------------------------------------------------------- 親子・夫婦
-// **実親を養親より必ず優先する**（先に出てきた辺が勝つ書き方にしない）。
-// データは 実父/養父 を区別しているので、JSON の並び順で養父が実父を押しのけると
-// 図だけが別の親子関係を主張することになる。2周して実親を先に確定させる。
-const father = new Map(); // child -> parent id
-const mother = new Map();
-for (const pass of [["birth-father", "birth-mother"], ["adoptive-father", "adoptive-mother"]]) {
-  const [f, m] = pass;
-  for (const ed of kinship.edges) {
-    if (ed.type !== "kinship") continue;
-    if (!ids.has(ed.from) || !ids.has(ed.to)) continue;
-    if (ed.relation === f && !father.has(ed.to)) father.set(ed.to, ed.from);
-    if (ed.relation === m && !mother.has(ed.to)) mother.set(ed.to, ed.from);
+//
+// **親を1人に絞らない。** 絞ると (a) 始皇帝のように実父が2人記録されている人物
+// （荘襄王と呂不韋＝史料の異説）で片方が図から消え、(b) 養母しか結び付きが無い人物
+// （明德馬皇后＝章帝の養母）が誰ともつながらない人になる。実際 2026-08-18 の
+// 「誰とも線がつながっていない人物」の2件はどちらもこれが原因だった。
+const FATHER = { "birth-father": "birth", "adoptive-father": "adoptive" };
+const MOTHER = { "birth-mother": "birth", "adoptive-mother": "adoptive" };
+
+const fathers = new Map(); // child -> [{id, kind}]
+const mothers = new Map();
+const crossEra = []; // 章をまたぐ親子（子が章外）
+const pushTo = (m, k, v) => {
+  const cur = m.get(k);
+  if (cur) cur.push(v);
+  else m.set(k, [v]);
+};
+
+for (const ed of kinship.edges) {
+  if (ed.type !== "kinship") continue;
+  const fk = FATHER[ed.relation];
+  const mk = MOTHER[ed.relation];
+  if (!fk && !mk) continue; // remote-ancestor（遠祖）は段が飛ぶので引かない
+  const inFrom = ids.has(ed.from);
+  const inTo = ids.has(ed.to);
+  if (inFrom && inTo) {
+    pushTo(fk ? fathers : mothers, ed.to, { id: ed.from, kind: fk ?? mk });
+  } else if (inFrom && !inTo) {
+    // 親が章内・子が章外（劉弘→昭烈帝、袁逢→袁術）。**図から消さずに行き先を出す**。
+    crossEra.push({ from: ed.from, toLabel: labelOf(ed.to), toEra: eraOf(ed.to), toId: ed.to });
   }
 }
-// remote-ancestor（遠祖）は段が飛ぶので図には引かない
 
-const spouses = new Map(); // "a|b" -> true
+const spouses = new Set();
 for (const ed of kinship.edges) {
   if (ed.type !== "marriage") continue;
   if (!ids.has(ed.from) || !ids.has(ed.to)) continue;
-  spouses.set([ed.from, ed.to].sort().join("|"), true);
+  spouses.add([ed.from, ed.to].sort().join("|"));
 }
 
-// 両親が揃う子は union（夫婦の結び目）から下ろす。片親しか分からない子は親から直接。
-const unions = new Map(); // key -> {id, father, mother, children[]}
-const directParent = []; // {from, to, relation}
+// 実父と実母が揃う子は union（夫婦の結び目）から下ろす。**union に使うのは実親だけ**で、
+// 2人目の実父・養親は「直接の線」として別に引く（線の見た目で区別する）。
+const unions = new Map();
+const extra = []; // {from, to, kind:"second-father"|"adoptive"|"single"}
 for (const child of cards.keys()) {
-  const f = father.get(child);
-  const m = mother.get(child);
-  if (f && m) {
-    const key = `${f}|${m}`;
+  const fs = fathers.get(child) ?? [];
+  const ms = mothers.get(child) ?? [];
+  const bf = fs.find((x) => x.kind === "birth");
+  const bm = ms.find((x) => x.kind === "birth");
+  if (bf && bm) {
+    const key = `${bf.id}|${bm.id}`;
     if (!unions.has(key)) {
-      unions.set(key, { id: `u-${unions.size}`, father: f, mother: m, children: [] });
+      unions.set(key, { id: `u-${unions.size}`, father: bf.id, mother: bm.id, children: [] });
     }
     unions.get(key).children.push(child);
-  } else if (f) {
-    directParent.push({ from: f, to: child, relation: "father" });
-  } else if (m) {
-    directParent.push({ from: m, to: child, relation: "mother" });
+  } else if (bf) extra.push({ from: bf.id, to: child, kind: "single" });
+  else if (bm) extra.push({ from: bm.id, to: child, kind: "single" });
+  for (const x of [...fs, ...ms]) {
+    if (x === bf || x === bm) continue;
+    extra.push({ from: x.id, to: child, kind: x.kind === "adoptive" ? "adoptive" : "second" });
   }
 }
 // 夫婦だが子が（この章に）いない組も、横に並べたいので union を立てる
@@ -128,9 +162,7 @@ for (const key of spouses.keys()) {
   const ca = cards.get(a);
   const cb = cards.get(b);
   if (!ca || !cb) continue;
-  const k1 = `${a}|${b}`;
-  const k2 = `${b}|${a}`;
-  if (unions.has(k1) || unions.has(k2)) continue;
+  if (unions.has(`${a}|${b}`) || unions.has(`${b}|${a}`)) continue;
   const male = ca.gender === "female" ? b : a;
   const female = male === a ? b : a;
   unions.set(`${male}|${female}`, {
@@ -141,27 +173,46 @@ for (const key of spouses.keys()) {
   });
 }
 
-// ---------------------------------------------------------------- elk へ
-const elkNodes = [];
-for (const c of cards.values()) {
-  elkNodes.push({ id: c.id, width: CARD_W, height: CARD_H });
-}
+// ---------------------------------------------------------------- 継承（家族関係以外）
+//
+// succession の辺は**親子で既に描かれているものを除いて**引く（`relationToPredecessor`
+// が `son` の分は父子の線と同じ2人を結ぶので、重ねると線が二重になるだけ）。
+// 残るのが禅譲・簒奪・傍系継承といった「家族の線では説明が付かない継ぎ方」。
+const parentPairs = new Set();
 for (const u of unions.values()) {
-  elkNodes.push({ id: u.id, width: UNION_SIZE, height: UNION_SIZE });
+  for (const c of u.children) {
+    parentPairs.add(`${u.father}>${c}`);
+    parentPairs.add(`${u.mother}>${c}`);
+  }
 }
+for (const x of extra) parentPairs.add(`${x.from}>${x.to}`);
+
+const succession = [];
+for (const ed of kinship.edges) {
+  if (ed.type !== "succession") continue;
+  if (!ids.has(ed.from) || !ids.has(ed.to)) continue;
+  if (parentPairs.has(`${ed.from}>${ed.to}`)) continue;
+  succession.push({
+    from: ed.from,
+    to: ed.to,
+    categoryId: ed.categoryId ?? null,
+    relation: ed.relationToPredecessor ?? null,
+  });
+}
+
+// ---------------------------------------------------------------- elk
+const elkNodes = [];
+for (const c of cards.values()) elkNodes.push({ id: c.id, width: CARD_W, height: CARD_H });
+for (const u of unions.values()) elkNodes.push({ id: u.id, width: UNION_SIZE, height: UNION_SIZE });
 
 const elkEdges = [];
 let ei = 0;
 for (const u of unions.values()) {
   elkEdges.push({ id: `e${ei++}`, sources: [u.father], targets: [u.id] });
   elkEdges.push({ id: `e${ei++}`, sources: [u.mother], targets: [u.id] });
-  for (const ch of u.children) {
-    elkEdges.push({ id: `e${ei++}`, sources: [u.id], targets: [ch] });
-  }
+  for (const ch of u.children) elkEdges.push({ id: `e${ei++}`, sources: [u.id], targets: [ch] });
 }
-for (const d of directParent) {
-  elkEdges.push({ id: `e${ei++}`, sources: [d.from], targets: [d.to] });
-}
+for (const x of extra) elkEdges.push({ id: `e${ei++}`, sources: [x.from], targets: [x.to] });
 
 const elk = new ELK();
 const graph = await elk.layout({
@@ -169,7 +220,6 @@ const graph = await elk.layout({
   layoutOptions: {
     "elk.algorithm": "layered",
     "elk.direction": "DOWN",
-    // 世代の段。LONGEST_PATH は「親より必ず下の段」を最短ではなく最長経路で置く。
     "elk.layered.layering.strategy": "NETWORK_SIMPLEX",
     "elk.layered.crossingMinimization.strategy": "LAYER_SWEEP",
     "elk.layered.nodePlacement.strategy": "BRANDES_KOEPF",
@@ -184,16 +234,115 @@ const graph = await elk.layout({
 
 const pos = new Map(graph.children.map((n) => [n.id, { x: n.x, y: n.y }]));
 
+// ---------------------------------------------------------------- 時代で縦を整える
+//
+// elk の段は世代であって時代ではない。**いちばん大きい連結成分の「段→年」を物差しにして、
+// 小さい成分を年の合う段まで平行移動する。** 物差しに使うのは中央値（外れ値に強い）。
+const adjacency = new Map();
+const link = (a, b) => {
+  const cur = adjacency.get(a);
+  if (cur) cur.add(b);
+  else adjacency.set(a, new Set([b]));
+};
+for (const u of unions.values()) {
+  link(u.father, u.id);
+  link(u.id, u.father);
+  link(u.mother, u.id);
+  link(u.id, u.mother);
+  for (const c of u.children) {
+    link(u.id, c);
+    link(c, u.id);
+  }
+}
+for (const x of extra) {
+  link(x.from, x.to);
+  link(x.to, x.from);
+}
+
+const allNodeIds = [...cards.keys(), ...[...unions.values()].map((u) => u.id)];
+const seen = new Set();
+const components = [];
+for (const id of allNodeIds) {
+  if (seen.has(id)) continue;
+  const stack = [id];
+  seen.add(id);
+  const comp = [];
+  while (stack.length) {
+    const cur = stack.pop();
+    comp.push(cur);
+    for (const nx of adjacency.get(cur) ?? []) {
+      if (seen.has(nx)) continue;
+      seen.add(nx);
+      stack.push(nx);
+    }
+  }
+  components.push(comp);
+}
+components.sort((a, b) => b.length - a.length);
+
+const median = (arr) => {
+  const v = [...arr].sort((a, b) => a - b);
+  return v.length ? v[Math.floor(v.length / 2)] : null;
+};
+
+// 物差し: 巨大成分の段ごとの年（中央値）
+const ruler = [];
+{
+  const rows = new Map();
+  for (const id of components[0]) {
+    const c = cards.get(id);
+    if (!c) continue;
+    const y = Math.round(pos.get(id).y);
+    const v = yearOf(c);
+    if (v == null) continue;
+    const cur = rows.get(y);
+    if (cur) cur.push(v);
+    else rows.set(y, [v]);
+  }
+  for (const [y, vals] of [...rows.entries()].sort((a, b) => a[0] - b[0])) {
+    ruler.push({ y, year: median(vals) });
+  }
+  // 年は前後の段で行き来する（別系統の枝）ので、単調になるようにならす。
+  for (let i = 1; i < ruler.length; i += 1) {
+    if (ruler[i].year < ruler[i - 1].year) ruler[i].year = ruler[i - 1].year;
+  }
+}
+
+const shifted = [];
+for (const comp of components.slice(1)) {
+  const years = comp.map((id) => cards.get(id)).filter(Boolean).map(yearOf).filter((v) => v != null);
+  const y0 = Math.min(...comp.map((id) => pos.get(id).y));
+  if (!years.length || !ruler.length) continue;
+  const want = median(years);
+  // 年がいちばん近い段
+  let best = ruler[0];
+  for (const r of ruler) if (Math.abs(r.year - want) < Math.abs(best.year - want)) best = r;
+  const dy = best.y - y0;
+  if (dy === 0) continue;
+  for (const id of comp) pos.get(id).y += dy;
+  shifted.push({ size: comp.length, year: want, dy });
+}
+
 // ---------------------------------------------------------------- 出力
+const minY = Math.min(...[...pos.values()].map((p) => p.y));
+if (minY < 0) for (const p of pos.values()) p.y -= minY;
+
 const nodes = [];
 for (const c of cards.values()) {
   const p = pos.get(c.id);
-  nodes.push({ ...c, x: Math.round(p.x), y: Math.round(p.y), w: CARD_W, h: CARD_H });
+  nodes.push({
+    ...c,
+    x: Math.round(p.x),
+    y: Math.round(p.y),
+    w: CARD_W,
+    h: CARD_H,
+    // 章の外に子がいる人物（この章では線が引けない）
+    crossEra: crossEra.filter((x) => x.from === c.id).map((x) => ({ label: x.toLabel, era: x.toEra })),
+  });
 }
-const unionNodes = [];
-for (const u of unions.values()) {
+const unionNodes = [...unions.values()].map((u) => {
   const p = pos.get(u.id);
-  unionNodes.push({
+  return {
     id: u.id,
     x: Math.round(p.x),
     y: Math.round(p.y),
@@ -202,13 +351,11 @@ for (const u of unions.values()) {
     father: u.father,
     mother: u.mother,
     children: u.children,
-  });
-}
+  };
+});
 
-const width = Math.round(graph.width);
-const height = Math.round(graph.height);
-
-// 段（世代）— elk が置いた y をそのまま段の代表値として使う
+const width = Math.round(Math.max(...nodes.map((n) => n.x + n.w)));
+const height = Math.round(Math.max(...nodes.map((n) => n.y + n.h)));
 const layerYs = [...new Set(nodes.map((n) => n.y))].sort((a, b) => a - b);
 
 const out = {
@@ -217,7 +364,10 @@ const out = {
     emperors: emp.length,
     persons: per.length,
     unions: unionNodes.length,
-    parentEdges: elkEdges.length,
+    extraParent: extra.length,
+    succession: succession.length,
+    crossEra: crossEra.length,
+    shiftedComponents: shifted.length,
   },
   width,
   height,
@@ -226,7 +376,8 @@ const out = {
   layers: layerYs.length,
   nodes,
   unions: unionNodes,
-  directParent,
+  extraParent: extra,
+  succession,
 };
 
 const destDir = path.join(process.cwd(), "src", "lib", "kinship");
@@ -234,5 +385,5 @@ mkdirSync(destDir, { recursive: true });
 writeFileSync(path.join(destDir, "layout.qin-han.json"), JSON.stringify(out), "utf8");
 
 console.log(
-  `kinship layout: ${nodes.length} 人 / union ${unionNodes.length} / 段 ${layerYs.length} / ${width}×${height}px`,
+  `kinship layout: ${nodes.length}人 / union ${unionNodes.length} / 追加の親子 ${extra.length} / 継承 ${succession.length} / 章またぎ ${crossEra.length} / 時代で下げた成分 ${shifted.length} / 段 ${layerYs.length} / ${width}×${height}px`,
 );

@@ -80,17 +80,6 @@ for (let i = 0; i < 14; i += 1) {
 await sleep(900);
 await page.screenshot({ path: `${OUT}/kinship-02-zoom.png` });
 
-// ホバーで系統を絞った状態（C の作法が効いているか）
-await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
-await sleep(2000);
-// 入口の viewport に入っている人物を選ぶ（画面外のカードには hover できない）。
-const card = page.locator('a[href="/emperors/han-wendi"]').first();
-if (await card.count()) {
-  await card.hover();
-  await sleep(900);
-  await page.screenshot({ path: `${OUT}/kinship-03-hover.png` });
-}
-
 // 政権ジャンプ（A の上端ナビに当たる操作）が効いているか
 await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
 await sleep(2000);
