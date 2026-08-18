@@ -325,7 +325,9 @@ const LAYOUT_OPTIONS = {
     // 押しやっていた。図の幅も 3 割縮む。
     "elk.layered.nodePlacement.strategy":
       process.env.KINSHIP_NODE_PLACEMENT ?? "LINEAR_SEGMENTS",
-    "elk.spacing.nodeNode": "14",
+    // カード同士の横の間隔。14px だと「ノードと線が密集して関係が分かりにくい」と
+    // 外部レビューで言われた（2026-08-18）。20px で図の幅は 1193→1225px しか増えない。
+    "elk.spacing.nodeNode": process.env.KINSHIP_NODE_GAP ?? "20",
     "elk.layered.spacing.nodeNodeBetweenLayers": process.env.KINSHIP_LAYER_GAP ?? "32",
     "elk.spacing.edgeNode": process.env.KINSHIP_EDGE_NODE ?? "12",
     // 段と段のあいだで線がカードに寄る距離（既定10px だと夫婦の横棒がカードの真下を

@@ -242,16 +242,28 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
 }
 
 function UnionDot({ data }: NodeProps<Node<{ kind: KinshipUnion["kind"] }>>) {
-  // 実父の異説の結び目は**中を抜く**（実の夫婦の塗り潰しと同じ形にしない）。
+  // 実父の異説の結び目は**中を抜いて一回り大きくする**（2026-08-18 の外部レビュー:
+  // 10px の点では塗り潰しと白抜きの区別が付かない）。大きさはレイアウトの箱より
+  // はみ出させる — 箱を大きくすると elk の間隔まで動いてしまう。
   const disputed = data.kind === "disputed";
+  if (!disputed)
+    return (
+      <div className="h-full w-full rounded-full" style={{ background: "var(--kinship-line)" }}>
+        <CardPorts />
+      </div>
+    );
   return (
-    <div
-      className="h-full w-full rounded-full"
-      style={{
-        background: disputed ? "var(--kinship-canvas)" : "var(--kinship-line)",
-        border: disputed ? "1.6px solid var(--kinship-line)" : undefined,
-      }}
-    >
+    <div className="relative h-full w-full">
+      <span
+        aria-hidden
+        className="absolute left-1/2 top-1/2 block -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{
+          width: 18,
+          height: 18,
+          background: "var(--kinship-canvas)",
+          border: "2.5px dotted var(--kinship-line)",
+        }}
+      />
       <CardPorts />
     </div>
   );
@@ -279,6 +291,7 @@ function FamilyEdge({
   labelShowBg,
   labelBgStyle,
   labelBgPadding,
+  labelBgBorderRadius,
 }: EdgeProps) {
   const pts = (data?.points as [number, number][] | undefined) ?? [];
   if (pts.length < 2) return null;
@@ -306,6 +319,7 @@ function FamilyEdge({
       labelShowBg={labelShowBg}
       labelBgStyle={labelBgStyle}
       labelBgPadding={labelBgPadding}
+      labelBgBorderRadius={labelBgBorderRadius}
     />
   );
 }
@@ -313,15 +327,20 @@ function FamilyEdge({
 const nodeTypes = { person: PersonCard, union: UnionDot };
 const edgeTypes = { family: FamilyEdge };
 
-/** 線の見た目。**種別ごとに1箇所**で、凡例（page.tsx）と対で動かす。 */
-const EDGE_STYLE: Record<KinshipEdge["kind"], { dash?: string; color?: string }> = {
+/**
+ * 線の見た目。**種別ごとに1箇所**で、凡例（page.tsx）と対で動かす。
+ *
+ * 破線の刻みは**互いに倍以上**離す（2026-08-18 の外部レビュー: 実母の「3 3」と養親の
+ * 「6 3」がぱっと見で区別できない）。いまは 実線 / 中破線 / 長破線 / 点 の4段。
+ */
+const EDGE_STYLE: Record<KinshipEdge["kind"], { dash?: string; color?: string; width?: number }> = {
   father: {},
-  mother: { dash: "3 3" },
+  mother: { dash: "5 4" },
   child: {},
-  adoptive: { dash: "6 3" },
-  second: { dash: "1 3" },
-  disputed: { dash: "1 3" },
-  succession: { dash: "5 4", color: "var(--kinship-succession)" },
+  adoptive: { dash: "14 5" },
+  second: { dash: "1 4", width: 2 },
+  disputed: { dash: "1 4", width: 2 },
+  succession: { dash: "6 4", color: "var(--kinship-succession)" },
 };
 
 /**
@@ -379,9 +398,10 @@ function buildGraph(layout: KinshipLayout): { nodes: Node[]; edges: Edge[] } {
     const s = EDGE_STYLE[e.kind];
     const style = {
       stroke: s.color ?? "var(--kinship-line)",
-      strokeWidth: 1.6,
+      strokeWidth: s.width ?? 1.6,
       strokeDasharray: s.dash,
-      opacity: 0.85,
+      strokeLinecap: "round" as const,
+      opacity: 0.9,
     };
     const base = {
       id: e.id,
@@ -404,10 +424,12 @@ function buildGraph(layout: KinshipLayout): { nodes: Node[]; edges: Edge[] } {
       sourceHandle: rightward ? "rs" : "ls",
       targetHandle: rightward ? "lt" : "rt",
       label: SUCCESSION_LABEL[e.categoryId ?? ""] ?? "継承",
+      // ラベルの下に地色の板を敷いて方眼と線を隠す（2026-08-18 の外部レビュー）。
       labelShowBg: true,
-      labelBgPadding: [3, 1] as [number, number],
-      labelBgStyle: { fill: "var(--kinship-canvas)" },
-      labelStyle: { fill: "var(--kinship-succession)", fontSize: 10 },
+      labelBgPadding: [6, 3] as [number, number],
+      labelBgBorderRadius: 3,
+      labelBgStyle: { fill: "var(--kinship-canvas)", stroke: "var(--kinship-succession)", strokeWidth: 0.75, strokeOpacity: 0.5 },
+      labelStyle: { fill: "var(--kinship-succession)", fontSize: 11, fontWeight: 600 },
       markerEnd: { type: MarkerType.ArrowClosed, color: "var(--kinship-succession)" },
       zIndex: 5,
     } satisfies Edge;
@@ -480,6 +502,9 @@ function ChapterFlowInner({
         aria-label="政権へジャンプ"
         className="flex shrink-0 flex-wrap items-center gap-1.5 border-b bg-background px-2 py-1.5"
       >
+        {/* 「集計表なのかボタンなのか分からない」と外部レビューで言われたので、
+            何をする並びなのかを頭に書く（2026-08-18）。 */}
+        <span className="mr-0.5 shrink-0 text-xs text-muted-foreground">政権へ移動</span>
         {jumps.map((j) => (
           <Button
             key={j.regimeId}
@@ -490,7 +515,7 @@ function ChapterFlowInner({
             onClick={() => jumpTo(j)}
           >
             {j.label}
-            <span className="tabular-nums text-muted-foreground">{j.count}</span>
+            <span className="tabular-nums text-muted-foreground">{j.count}人</span>
           </Button>
         ))}
       </nav>
@@ -520,7 +545,15 @@ function ChapterFlowInner({
             lineWidth={1}
             color="var(--kinship-grid)"
           />
-          <MiniMap pannable zoomable className="!bg-transparent" />
+          {/* 地と同色だとどこからがミニマップか分からない（2026-08-18 の外部レビュー）。
+              枠と影で浮かせる。 */}
+          <MiniMap
+            pannable
+            zoomable
+            className="!rounded-md !border !border-black/20 !shadow-md"
+            style={{ background: "var(--background)" }}
+            maskColor="color-mix(in srgb, var(--kinship-canvas) 70%, transparent)"
+          />
           <Controls showInteractive={false} />
         </ReactFlow>
       </div>

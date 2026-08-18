@@ -57,7 +57,7 @@ const toHex = ([r, g, b]) =>
     .map((c) => Math.round(Math.min(1, Math.max(0, c)) * 255).toString(16).padStart(2, "0"))
     .join("");
 
-const TARGET = 4.5;
+const TARGET = Number(process.env.KINSHIP_BAND_TARGET ?? 4.5);
 
 /** L を固定し、色相を保ったまま sRGB に収まる最大の彩度を返す（oklch の gamut clip）。 */
 function fitChroma(L, C, H) {

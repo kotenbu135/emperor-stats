@@ -65,6 +65,17 @@ function jumpTargets(l: KinshipLayout): KinshipJump[] {
     .map(({ from: _from, ...j }) => j);
 }
 
+/**
+ * 凡例の線見本。**`chapter-flow.tsx` の `EDGE_STYLE` と同じ値**を書く
+ * （文字で代用すると線種を変えたときに凡例だけ古いままになる）。
+ */
+const LINE_LEGEND: { label: string; dash?: string; color?: string; width?: number }[] = [
+  { label: "実父" },
+  { label: "実母", dash: "5 4" },
+  { label: "養親", dash: "14 5" },
+  { label: "禅譲・擁立など、親子では説明が付かない継承", dash: "6 4", color: "var(--kinship-succession)" },
+];
+
 const REGIME_LABEL: Record<string, string> = {
   qin: "秦",
   "western-han": "前漢",
@@ -90,54 +101,84 @@ export default function KinshipPage() {
         </p>
       </header>
 
-      <ul className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-        {regimes.map(([id, n]) => {
-          const color = regimeBandColor(id);
-          return (
-            <li key={id} className="flex items-center gap-1.5">
+      {/* 凡例は**2つの別の情報**（政権の色分けと線の意味）なので、見出しを付けて
+          ブロックを分ける（2026-08-18 の外部レビュー: 同じ行にベタ打ちで過密）。 */}
+      <div className="flex flex-wrap items-start gap-x-8 gap-y-2 rounded-md border bg-card px-3 py-2">
+        <section className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+          <h2 className="mr-1 font-semibold text-muted-foreground">カードの色</h2>
+          {regimes.map(([id, n]) => (
+            <span key={id} className="flex items-center gap-1.5">
               <span
                 aria-hidden
                 className="inline-block h-3 w-3 rounded-[2px]"
-                style={{ background: color }}
+                style={{ background: regimeBandColor(id) }}
               />
               <span>
                 {REGIME_LABEL[id] ?? id}
-                <span className="ml-1 tabular-nums text-muted-foreground">{n}</span>
+                <span className="ml-1 tabular-nums text-muted-foreground">{n}人</span>
               </span>
-            </li>
-          );
-        })}
-        <li className="flex items-center gap-1.5">
-          <span
-            aria-hidden
-            className="inline-block h-3 w-3 rounded-[2px]"
-            style={{ background: "var(--kinship-kin-band)" }}
-          />
-          <span>親族（男性）</span>
-        </li>
-        <li className="flex items-center gap-1.5">
-          <span
-            aria-hidden
-            className="inline-block h-3 w-3 rounded-[2px]"
-            style={{ background: "var(--kinship-kin-band-female)" }}
-          />
-          <span>親族（女性）</span>
-        </li>
-      </ul>
+            </span>
+          ))}
+          <span className="flex items-center gap-1.5">
+            <span
+              aria-hidden
+              className="inline-block h-3 w-3 rounded-[2px]"
+              style={{ background: "var(--kinship-kin-band)" }}
+            />
+            <span>親族（男性）</span>
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span
+              aria-hidden
+              className="inline-block h-3 w-3 rounded-[2px]"
+              style={{ background: "var(--kinship-kin-band-female)" }}
+            />
+            <span>親族（女性）</span>
+          </span>
+        </section>
 
-      <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
-        <li>—— 実父</li>
-        <li>- - - 実母</li>
-        <li>– – 養親</li>
-        {/* 実父が2人記録されている人物（秦の始皇帝＝荘襄王と呂不韋）は、子へ2本目の線を
-            引かずに**もう一方の実親と点線の結び目で組ませる**。婚姻の主張ではない
-            （kinship.json に呂不韋・趙姫の婚姻エッジは無い）。 */}
-        <li>‥‥ 実父の異説（結び目が白抜き）</li>
-        <li style={{ color: "var(--kinship-succession)" }}>
-          →&nbsp;禅譲・擁立など、親子では説明が付かない継承（
-          {layout.edges.filter((e) => e.kind === "succession").length} 本）
-        </li>
-      </ul>
+        {/* **見本は図と同じ dasharray で引く。** 文字（—— や - - -）で代用すると
+            線種を変えたときに凡例だけ古いままになる。 */}
+        <section className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+          <h2 className="mr-1 font-semibold text-muted-foreground">線の意味</h2>
+          {LINE_LEGEND.map((l) => (
+            <span key={l.label} className="flex items-center gap-1.5">
+              <svg aria-hidden width="26" height="10" className="shrink-0">
+                <line
+                  x1="1"
+                  y1="5"
+                  x2="25"
+                  y2="5"
+                  stroke={l.color ?? "var(--kinship-line)"}
+                  strokeWidth={l.width ?? 1.6}
+                  strokeDasharray={l.dash}
+                  strokeLinecap="round"
+                />
+              </svg>
+              <span style={l.color ? { color: l.color } : undefined}>{l.label}</span>
+            </span>
+          ))}
+          <span className="flex items-center gap-1.5">
+            <span
+              aria-hidden
+              className="inline-block h-3.5 w-3.5 shrink-0 rounded-full"
+              style={{ background: "var(--kinship-line)" }}
+            />
+            <span>夫婦（ここから子が下りる）</span>
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span
+              aria-hidden
+              className="inline-block h-3.5 w-3.5 shrink-0 rounded-full"
+              style={{
+                background: "var(--kinship-canvas)",
+                border: "2.5px dotted var(--kinship-line)",
+              }}
+            />
+            <span>実父の異説</span>
+          </span>
+        </section>
+      </div>
 
       <ChapterFlow layout={layout} jumps={jumpTargets(layout)} />
     </main>
