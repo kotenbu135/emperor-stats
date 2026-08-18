@@ -91,6 +91,16 @@ if (await card.count()) {
   await page.screenshot({ path: `${OUT}/kinship-03-hover.png` });
 }
 
+// 政権ジャンプ（A の上端ナビに当たる操作）が効いているか
+await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+await sleep(2000);
+const jump = page.locator('nav[aria-label="政権へジャンプ"] button', { hasText: "後漢" }).first();
+if (await jump.count()) {
+  await jump.click();
+  await sleep(1400);
+  await page.screenshot({ path: `${OUT}/kinship-04-jump.png` });
+}
+
 // 地のままの面積を測る（キャンバスの地の色に一致するピクセルの割合）
 const stat = await page.evaluate(async () => {
   const el = document.querySelector(".react-flow");

@@ -9,7 +9,11 @@
 // 登録していないことは検索エンジンに出ないことを意味しない。
 import type { Metadata } from "next";
 
-import { ChapterFlow, type KinshipLayout } from "@/components/kinship/chapter-flow";
+import {
+  ChapterFlow,
+  type KinshipJump,
+  type KinshipLayout,
+} from "@/components/kinship/chapter-flow";
 import { buildMetadata } from "@/lib/seo";
 import { regimeBandColor } from "@/lib/kinship/band-color";
 import layoutJson from "@/lib/kinship/layout.qin-han.json";
@@ -33,6 +37,32 @@ function regimesInChapter(l: KinshipLayout) {
     seen.set(n.regimeId, (seen.get(n.regimeId) ?? 0) + 1);
   }
   return [...seen.entries()].sort((a, b) => b[1] - a[1]);
+}
+
+/** 政権ジャンプの行き先。**時代順**（凡例の人数順とは別）で、各政権の最初の皇帝へ飛ぶ。 */
+function jumpTargets(l: KinshipLayout): KinshipJump[] {
+  const byRegime = new Map<string, KinshipLayout["nodes"]>();
+  for (const n of l.nodes) {
+    if (!n.isEmperor || !n.regimeId) continue;
+    const cur = byRegime.get(n.regimeId);
+    if (cur) cur.push(n);
+    else byRegime.set(n.regimeId, [n]);
+  }
+  return [...byRegime.entries()]
+    .map(([regimeId, ns]) => {
+      const sorted = [...ns].sort(
+        (a, b) => (a.reignFrom ?? 9999) - (b.reignFrom ?? 9999),
+      );
+      return {
+        regimeId,
+        label: REGIME_LABEL[regimeId] ?? regimeId,
+        nodeId: sorted[0].id,
+        count: ns.length,
+        from: sorted[0].reignFrom ?? 9999,
+      };
+    })
+    .sort((a, b) => a.from - b.from)
+    .map(({ from: _from, ...j }) => j);
 }
 
 const REGIME_LABEL: Record<string, string> = {
@@ -86,7 +116,7 @@ export default function KinshipPage() {
         </li>
       </ul>
 
-      <ChapterFlow layout={layout} />
+      <ChapterFlow layout={layout} jumps={jumpTargets(layout)} />
     </main>
   );
 }

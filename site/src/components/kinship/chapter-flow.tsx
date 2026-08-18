@@ -24,6 +24,8 @@ import {
   MiniMap,
   Position,
   ReactFlow,
+  ReactFlowProvider,
+  useReactFlow,
   type Edge,
   type Node,
   type NodeProps,
@@ -183,7 +185,35 @@ function UnionDot({ data }: NodeProps<Node<{ dimmed: boolean }>>) {
 
 const nodeTypes = { person: PersonCard, union: UnionDot };
 
-export function ChapterFlow({ layout }: { layout: KinshipLayout }) {
+export interface KinshipJump {
+  regimeId: string;
+  label: string;
+  nodeId: string;
+  count: number;
+}
+
+/** 図の中を動かすので Provider の内側に置く（`useReactFlow` は Provider が要る）。 */
+export function ChapterFlow({
+  layout,
+  jumps,
+}: {
+  layout: KinshipLayout;
+  jumps: KinshipJump[];
+}) {
+  return (
+    <ReactFlowProvider>
+      <ChapterFlowInner layout={layout} jumps={jumps} />
+    </ReactFlowProvider>
+  );
+}
+
+function ChapterFlowInner({
+  layout,
+  jumps,
+}: {
+  layout: KinshipLayout;
+  jumps: KinshipJump[];
+}) {
   const [focusId, setFocusId] = useState<string | null>(null);
 
   // ホバーした人物の祖先と子孫（C の作法）。107 人ぶんなので毎回辿って構わない。
@@ -314,11 +344,45 @@ export function ChapterFlow({ layout }: { layout: KinshipLayout }) {
   const onEnter = useCallback((_: unknown, node: Node) => setFocusId(node.id), []);
   const onLeave = useCallback(() => setFocusId(null), []);
 
+  // 政権へ飛ぶ（A = Die Welt der Habsburger の上端ナビに当たる）。図は 3023×4144px あって
+  // 1画面には収まらないので、**行き先を図の外に文字で出す**のがここでの「全体の把握」。
+  const { setCenter } = useReactFlow();
+  const [here, setHere] = useState<string | null>(null);
+  const jumpTo = useCallback(
+    (j: KinshipJump) => {
+      const n = layout.nodes.find((p) => p.id === j.nodeId);
+      if (!n) return;
+      setHere(j.regimeId);
+      void setCenter(n.x + n.w / 2, n.y + n.h / 2, { zoom: 0.7, duration: 600 });
+    },
+    [layout, setCenter],
+  );
+
   return (
     <div
-      className="relative h-[calc(100vh-9rem)] w-full overflow-hidden rounded-lg border"
+      className="relative flex h-[calc(100vh-9rem)] w-full flex-col overflow-hidden rounded-lg border"
       style={{ background: "var(--kinship-canvas)" }}
     >
+      <nav
+        aria-label="政権へジャンプ"
+        className="flex shrink-0 flex-wrap items-center gap-1 border-b px-2 py-1.5"
+        style={{ background: "var(--kinship-kin-band)" }}
+      >
+        {jumps.map((j) => (
+          <button
+            key={j.regimeId}
+            type="button"
+            onClick={() => jumpTo(j)}
+            className={`rounded-[3px] px-2 py-0.5 text-xs transition-colors hover:bg-black/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal ${
+              here === j.regimeId ? "text-seal font-semibold" : ""
+            }`}
+          >
+            {j.label}
+            <span className="ml-1 tabular-nums opacity-60">{j.count}</span>
+          </button>
+        ))}
+      </nav>
+      <div className="relative min-h-0 flex-1">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -351,6 +415,7 @@ export function ChapterFlow({ layout }: { layout: KinshipLayout }) {
         <MiniMap pannable zoomable className="!bg-transparent" />
         <Controls showInteractive={false} />
       </ReactFlow>
+      </div>
     </div>
   );
 }
