@@ -81,25 +81,21 @@ for (const p of per) {
 }
 
 // ---------------------------------------------------------------- 親子・夫婦
-const FATHER = new Set(["birth-father", "adoptive-father"]);
-const MOTHER = new Set(["birth-mother", "adoptive-mother"]);
-
+// **実親を養親より必ず優先する**（先に出てきた辺が勝つ書き方にしない）。
+// データは 実父/養父 を区別しているので、JSON の並び順で養父が実父を押しのけると
+// 図だけが別の親子関係を主張することになる。2周して実親を先に確定させる。
 const father = new Map(); // child -> parent id
 const mother = new Map();
-const parentEdges = []; // {from, to, relation}
-for (const ed of kinship.edges) {
-  if (ed.type !== "kinship") continue;
-  if (!ids.has(ed.from) || !ids.has(ed.to)) continue;
-  const rel = ed.relation;
-  if (FATHER.has(rel)) {
-    if (!father.has(ed.to)) father.set(ed.to, ed.from);
-    parentEdges.push({ from: ed.from, to: ed.to, relation: rel });
-  } else if (MOTHER.has(rel)) {
-    if (!mother.has(ed.to)) mother.set(ed.to, ed.from);
-    parentEdges.push({ from: ed.from, to: ed.to, relation: rel });
+for (const pass of [["birth-father", "birth-mother"], ["adoptive-father", "adoptive-mother"]]) {
+  const [f, m] = pass;
+  for (const ed of kinship.edges) {
+    if (ed.type !== "kinship") continue;
+    if (!ids.has(ed.from) || !ids.has(ed.to)) continue;
+    if (ed.relation === f && !father.has(ed.to)) father.set(ed.to, ed.from);
+    if (ed.relation === m && !mother.has(ed.to)) mother.set(ed.to, ed.from);
   }
-  // remote-ancestor（遠祖）は段が飛ぶので図には引かない
 }
+// remote-ancestor（遠祖）は段が飛ぶので図には引かない
 
 const spouses = new Map(); // "a|b" -> true
 for (const ed of kinship.edges) {

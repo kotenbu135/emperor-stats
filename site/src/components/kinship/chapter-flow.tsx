@@ -121,9 +121,13 @@ function PersonCard({ data }: NodeProps<Node<CardData>>) {
         >
           {p.label}
         </div>
+        {/* **年は白のまま落とさない。** 帯の色は「白文字が 4.5:1」で決めてあるので、
+            82% に薄めると 10px の小さな字だけがその基準を割る。親族カードの副行も
+            --muted-foreground（--muted/--background に対して調整した値）ではなく
+            地の文の色にする — --kinship-kin-band の上での比は測っていないため。 */}
         <div
           className="truncate text-[10px] tabular-nums"
-          style={{ color: p.isEmperor ? "rgba(255,255,255,.82)" : "var(--muted-foreground)" }}
+          style={{ color: p.isEmperor ? "#fff" : "var(--foreground)" }}
         >
           {p.isEmperor
             ? yearLabel(p.reignFrom, p.reignTo)
