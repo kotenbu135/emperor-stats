@@ -174,6 +174,42 @@ for (const [id, name, zoom] of SPOTS) {
   await tile.close();
 }
 
+// **図の全体を1枚に。** 外部レビューへ渡すときはタイルより1枚のほうが見てもらいやすい。
+{
+  const full = await ctx.newPage();
+  await full.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+  await sleep(1500);
+  const size = await full.evaluate(() => {
+    let w = 0;
+    let h = 0;
+    for (const n of document.querySelectorAll(".react-flow__node")) {
+      const m = /translate\((-?[\d.]+)px,\s*(-?[\d.]+)px\)/.exec(n.style.transform);
+      if (!m) continue;
+      w = Math.max(w, Number(m[1]) + n.offsetWidth);
+      h = Math.max(h, Number(m[2]) + n.offsetHeight);
+    }
+    return { w: Math.ceil(w), h: Math.ceil(h) };
+  });
+  const PAD = 24;
+  await full.setViewportSize({
+    width: Math.min(4000, size.w + 300 + PAD * 2),
+    height: Math.min(12000, size.h + 320 + PAD * 2),
+  });
+  await sleep(1200);
+  await full.evaluate((pad) => {
+    const vp = document.querySelector(".react-flow__viewport");
+    vp.style.transform = `translate(${pad}px, ${pad}px) scale(1)`;
+  }, PAD);
+  await sleep(600);
+  const pane = await full.locator(".react-flow").boundingBox();
+  await full.screenshot({
+    path: `${OUT}/kinship-full.png`,
+    clip: { x: pane.x, y: pane.y, width: Math.min(pane.width, size.w + PAD * 2), height: Math.min(pane.height, size.h + PAD * 2) },
+  });
+  console.log(`全体1枚: ${size.w + PAD * 2}×${size.h + PAD * 2}px`);
+  await full.close();
+}
+
 // 地のままの面積を測る（キャンバスの地の色に一致するピクセルの割合）
 const stat = await page.evaluate(async () => {
   const el = document.querySelector(".react-flow");
