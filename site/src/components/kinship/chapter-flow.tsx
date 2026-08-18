@@ -532,6 +532,10 @@ function EraBandRuler({ bands }: { bands: KinshipEraBand[] }) {
       {bands.map((b) => {
         const top = ty + b.y0 * zoom;
         const bottom = ty + b.y1 * zoom;
+        // **端に少しだけ覗いている帯には年を出さない。** 画面へ引き戻す clamp と
+        // 合わさると、ほとんど画面外の帯の年が、別の帯のカードの真横に出る
+        // （2026-08-18 に「前50年ごろ」が公孫述 25–36 の隣に出た写真を撮った）。
+        const visible = Math.min(bottom, paneH) - Math.max(top, 0);
         return (
           <div key={b.y0}>
             {/* **範囲であることを形で言う。** ただの吹き出しだと「この一点が前200年」と
@@ -545,6 +549,7 @@ function EraBandRuler({ bands }: { bands: KinshipEraBand[] }) {
                 background: "color-mix(in srgb, var(--kinship-line) 32%, transparent)",
               }}
             />
+            {visible < 56 ? null : (
             <span
               className="absolute left-[18px] -translate-y-1/2 rounded-sm border px-1.5 py-0.5 text-[11px] tabular-nums whitespace-nowrap"
               style={{
@@ -561,6 +566,7 @@ function EraBandRuler({ bands }: { bands: KinshipEraBand[] }) {
             >
               {b.label}
             </span>
+            )}
           </div>
         );
       })}
