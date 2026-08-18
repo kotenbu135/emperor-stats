@@ -136,6 +136,44 @@ for (const [id, name, zoom] of SPOTS) {
   await page.screenshot({ path: `${OUT}/kinship-${name}.png` });
 }
 
+// **図の全面をタイルに割って撮る。** 寄って撮った数枚では見落とす（2026-08-18 に
+// 「軽く指摘しただけでこれだけ出てきた」と差し戻された）。上から順に全部見る。
+{
+  const tile = await ctx.newPage();
+  await tile.setViewportSize({ width: 1500, height: 1200 });
+  await tile.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+  await sleep(2200);
+  const info = await tile.evaluate(() => {
+    const pane = document.querySelector(".react-flow");
+    const nodes = [...document.querySelectorAll(".react-flow__node")];
+    let w = 0;
+    let h = 0;
+    for (const n of nodes) {
+      const m = /translate\((-?[\d.]+)px,\s*(-?[\d.]+)px\)/.exec(n.style.transform);
+      if (!m) continue;
+      w = Math.max(w, Number(m[1]) + n.offsetWidth);
+      h = Math.max(h, Number(m[2]) + n.offsetHeight);
+    }
+    const r = pane.getBoundingClientRect();
+    return { w, h, pw: r.width, ph: r.height };
+  });
+  const scale = Math.min(1, (info.pw - 40) / info.w);
+  const rows = Math.ceil((info.h * scale) / (info.ph - 40));
+  for (let i = 0; i < rows; i += 1) {
+    await tile.evaluate(
+      ({ scale: sc, i: idx, ph }) => {
+        const vp = document.querySelector(".react-flow__viewport");
+        vp.style.transform = `translate(20px, ${20 - idx * (ph - 40)}px) scale(${sc})`;
+      },
+      { scale, i, ph: info.ph },
+    );
+    await sleep(400);
+    await tile.screenshot({ path: `${OUT}/kinship-tile-${String(i + 1).padStart(2, "0")}.png` });
+  }
+  console.log(`タイル: ${rows}枚（倍率 ${scale.toFixed(2)} / 図 ${Math.round(info.w)}×${Math.round(info.h)}）`);
+  await tile.close();
+}
+
 // 地のままの面積を測る（キャンバスの地の色に一致するピクセルの割合）
 const stat = await page.evaluate(async () => {
   const el = document.querySelector(".react-flow");

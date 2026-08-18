@@ -328,6 +328,9 @@ const LAYOUT_OPTIONS = {
     "elk.spacing.nodeNode": "14",
     "elk.layered.spacing.nodeNodeBetweenLayers": process.env.KINSHIP_LAYER_GAP ?? "32",
     "elk.spacing.edgeNode": process.env.KINSHIP_EDGE_NODE ?? "12",
+    // 段と段のあいだで線がカードに寄る距離（既定10px だと夫婦の横棒がカードの真下を
+    // かすめる）。2026-08-18「線とカードが近すぎる」への対応。
+    "elk.layered.spacing.edgeNodeBetweenLayers": process.env.KINSHIP_EDGE_NODE_LAYER ?? "14",
     "elk.edgeRouting": "ORTHOGONAL",
     // 同じ親から出る線を1本のバスにまとめる（櫛の形になる）
     // mergeEdges は測って外した（線の交差 1→8・夫婦の隔たり最大 324→482px）。
@@ -665,17 +668,20 @@ for (const comp of components.slice(1)) {
 }
 
 // ---------------------------------------------------------------- 出力
-// **線も一緒に動かす。** ノードだけ原点を寄せて線を置き去りにすると、端が宙に浮く。
+// **原点へ必ず寄せる。** 負のときだけ寄せていたので、elk が左に 633px の余白を空けた
+// ぶんが図の幅にそのまま残り、画面の3分の1が地のままになっていた（2026-08-18）。
+// **線も一緒に動かす** — ノードだけ動かすと端が宙に浮く。
 const minY = Math.min(...[...pos.values()].map((p) => p.y));
-if (minY < 0) {
-  for (const p of pos.values()) p.y -= minY;
-  for (const pts of routeOf.values()) for (const q of pts) q[1] -= minY;
-}
 const minX = Math.min(...[...pos.values()].map((p) => p.x));
-if (minX < 0) {
-  for (const p of pos.values()) p.x -= minX;
-  for (const pts of routeOf.values()) for (const q of pts) q[0] -= minX;
+for (const p of pos.values()) {
+  p.x -= minX;
+  p.y -= minY;
 }
+for (const pts of routeOf.values())
+  for (const q of pts) {
+    q[0] -= minX;
+    q[1] -= minY;
+  }
 
 const nodes = [];
 for (const c of cards.values()) {
@@ -940,7 +946,8 @@ const setFirstBusY = (e, y) => {
         }
       }
       movable.forEach((e, i) => {
-        e.points = setFirstBusY({ points: before[i] }, best);
+        // 揃えた結果、長さ0の区間ができることがあるので必ず掃除する
+        e.points = cleanPolyline(setFirstBusY({ points: before[i] }, best));
       });
     }
   }

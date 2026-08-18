@@ -283,7 +283,16 @@ function FamilyEdge({
   const pts = (data?.points as [number, number][] | undefined) ?? [];
   if (pts.length < 2) return null;
   const d = pts.map(([x, y], i) => `${i ? "L" : "M"}${x},${y}`).join(" ");
-  const mid = pts[Math.floor(pts.length / 2)];
+  // ラベルはいちばん長い区間の真ん中に置く（折れ点に置くとカードの角に重なる）。
+  let mid = pts[0];
+  let best = -1;
+  for (let i = 1; i < pts.length; i += 1) {
+    const len = Math.abs(pts[i][0] - pts[i - 1][0]) + Math.abs(pts[i][1] - pts[i - 1][1]);
+    if (len > best) {
+      best = len;
+      mid = [(pts[i][0] + pts[i - 1][0]) / 2, (pts[i][1] + pts[i - 1][1]) / 2];
+    }
+  }
   return (
     <BaseEdge
       id={id}
