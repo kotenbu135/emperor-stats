@@ -146,12 +146,6 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
             {p.label.charAt(0)}
           </span>
         )}
-        {p.crossEra.length > 0 ? (
-          // 子がこの章の外にいる人物（章の切り方のせいで、ここでは線が引けない）。
-          <span className="absolute inset-x-0 bottom-0 truncate bg-black/55 px-1 py-0.5 text-[9px] text-white">
-            子 {p.crossEra.map((c) => c.label).join("・")} は別章
-          </span>
-        ) : null}
       </div>
       <div className="px-1.5 py-1 text-center leading-tight" style={{ background: fill }}>
         <div
@@ -173,7 +167,7 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
   );
 
   const shell =
-    "flex h-full w-full flex-col overflow-hidden rounded-[3px] border border-black/15 bg-card shadow-sm";
+    "flex h-full w-full flex-col overflow-hidden rounded-[3px] border border-black/25 bg-card shadow-sm";
 
   // **Handle が無いと線が1本も描かれない。** サーバー描画のときはノードの `handles`
   // プロパティが位置を代行するが、クライアントで hydrate したあとは実要素の位置を測る。
@@ -294,6 +288,9 @@ function ChapterFlowInner({
         id: `s${i}`,
         source: s.from,
         target: s.to,
+        // **カードの上を横切らせない。** 既定の bezier は2点を最短で結ぶので箱の裏を通る。
+        // 直角に折れる smoothstep のほうが、段の隙間を縫って回り込む。
+        type: "smoothstep",
         style: line("5 4", "var(--kinship-succession)"),
         label: SUCCESSION_LABEL[s.categoryId ?? ""] ?? "継承",
         labelShowBg: true,
