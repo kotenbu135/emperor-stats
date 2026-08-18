@@ -106,6 +106,13 @@ const SPOTS = [
   ["p-liu-qing", "13-zhangdi-x28", 1.8],
   ["p-ruzi-ying", "14-shanrang", 2.0],
   ["hou-han-guangwudi", "15-guangwu"],
+  // 2026-08-18 の指摘6件の現場（王政君・劉囂・竇氏・廃帝・劉利・劉嬰）
+  ["p-wang-zhengjun", "16-wangzhengjun", 2.2],
+  ["p-liu-xiao", "17-liuxiao", 2.2],
+  ["p-doushi-han-wendi", "18-doushi", 2.2],
+  ["han-liuhe", "19-feidi", 2.2],
+  ["p-liu-li", "20-liuli", 2.2],
+  ["p-ruzi-ying", "21-ruziying", 1.6],
 ];
 for (const [id, name, zoom] of SPOTS) {
   await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });

@@ -327,8 +327,12 @@ const LAYOUT_OPTIONS = {
       process.env.KINSHIP_NODE_PLACEMENT ?? "LINEAR_SEGMENTS",
     "elk.spacing.nodeNode": "14",
     "elk.layered.spacing.nodeNodeBetweenLayers": process.env.KINSHIP_LAYER_GAP ?? "32",
-    "elk.spacing.edgeNode": "12",
+    "elk.spacing.edgeNode": process.env.KINSHIP_EDGE_NODE ?? "12",
     "elk.edgeRouting": "ORTHOGONAL",
+    // 同じ親から出る線を1本のバスにまとめる（櫛の形になる）
+    // mergeEdges は測って外した（線の交差 1→8・夫婦の隔たり最大 324→482px）。
+    // 兄弟のバスは下で自前に揃えるので、elk に束ねさせる必要がない。
+    "elk.layered.mergeEdges": process.env.KINSHIP_MERGE ?? "false",
 };
 
 const elk = new ELK();
@@ -425,36 +429,66 @@ const layerOf = new Map();
 }
 
 // --- 2回目: 背骨は捨て、段差をスペーサで固定して解く
+//
+// **線の形も elk に引かせる。** 自前でバスを選んでいた版は、カードとの交差・線どうしの
+// 交差しか数えていなかったので「カードに寄りすぎ」「短い折れ」「行って戻る余分な棒」
+// （2026-08-18 の指摘6件）が全部素通りした。elk の直交ルータはノードを避け、同じ親から
+// 出る線を1本のバスにまとめ（`mergeEdges`）、交差も減らす。返ってくる `sections` を
+// そのまま折れ線として使う。
+//
+// 段をいくつも跨ぐ線はスペーサで刻んであるので、鎖の区間をつなぎ直して1本にする。
 const nodesB = [...elkNodes];
 const edgesB = [];
 const spacers = new Set();
-// 「どの2点を結ぶ線が、どの見えない点を通るか」。**この x が線を通す廊下になる** —
-// elk はスペーサの周りに間隔を空けるので、そこを通せばカードを突き抜けない。
-const corridorOf = new Map(); // `${from}>${to}` -> [spacer id...]
+const chainOf = new Map(); // `${from}>${to}` -> [elk の辺 id...]（つなぎ直す順）
 let si = 0;
-for (const e of elkEdges) {
-  const gap = layerOf.get(e.targets[0]) - layerOf.get(e.sources[0]);
-  if (!(gap > 1)) {
-    edgesB.push(e);
-    continue;
-  }
+const addChain = (from, to, extra) => {
+  const gap = layerOf.get(to) - layerOf.get(from);
   const chain = [];
-  let prev = e.sources[0];
+  let prev = from;
   for (let k = 1; k < gap; k += 1) {
     const id = `s-${si++}`;
     spacers.add(id);
-    chain.push(id);
     nodesB.push({ id, width: 0, height: 0 });
-    edgesB.push({ id: `b${ei++}`, sources: [prev], targets: [id] });
+    const eid = `b${ei++}`;
+    edgesB.push({ id: eid, sources: [prev], targets: [id], ...extra });
+    chain.push(eid);
     prev = id;
   }
-  edgesB.push({ id: `b${ei++}`, sources: [prev], targets: [e.targets[0]] });
-  corridorOf.set(`${e.sources[0]}>${e.targets[0]}`, chain);
+  const eid = `b${ei++}`;
+  edgesB.push({ id: eid, sources: [prev], targets: [to], ...extra });
+  chain.push(eid);
+  chainOf.set(`${from}>${to}`, chain);
+};
+for (const e of elkEdges) addChain(e.sources[0], e.targets[0]);
+// **継承も elk に引かせる。** 段の差はスペーサで固定してあるので、辺を足しても段は動かない
+// （逆向き＝行き先が上にある継承だけは足さず、後で自前で引く）。
+const succRouted = new Set();
+for (const s of succession) {
+  if (!(layerOf.get(s.to) > layerOf.get(s.from))) continue;
+  addChain(s.from, s.to);
+  succRouted.add(`${s.from}>${s.to}`);
 }
 const graph = await solve(nodesB, edgesB);
 
 const pos = new Map(graph.children.map((n) => [n.id, { x: n.x, y: n.y }]));
-console.log(`  段のスペーサ: ${si}個`);
+
+// elk の区間を折れ線に戻す
+const sectionsById = new Map(graph.edges.map((e) => [e.id, e.sections?.[0]]));
+const routeOf = new Map();
+for (const [key, chain] of chainOf) {
+  const pts = [];
+  for (const eid of chain) {
+    const s = sectionsById.get(eid);
+    if (!s) continue;
+    for (const p of [s.startPoint, ...(s.bendPoints ?? []), s.endPoint]) {
+      const q = pts[pts.length - 1];
+      if (!q || Math.abs(q[0] - p.x) > 0.5 || Math.abs(q[1] - p.y) > 0.5) pts.push([p.x, p.y]);
+    }
+  }
+  if (pts.length >= 2) routeOf.set(key, pts);
+}
+console.log(`  段のスペーサ: ${si}個 / elk が引いた線: ${routeOf.size}本`);
 
 // ---------------------------------------------------------------- 時代で縦を整える
 //
@@ -584,13 +618,27 @@ for (const comp of components.slice(1)) {
   let targetX = anchor ? anchor.lo : box.x0;
   if (want >= ruler[0].year && anchor) targetX = anchor.lo - width - GAP;
 
-  // 既に置いた小さい成分と重なるならさらに左へ
-  const overlaps = (x0, y0) =>
-    placed.some(
-      (r) =>
-        x0 < r.x1 + GAP && x0 + width > r.x0 - GAP && y0 < r.y1 + GAP && y0 + (box.y1 - box.y0) > r.y0 - GAP,
-    );
-  while (overlaps(targetX, targetY)) targetX -= width + GAP;
+  // 既に置いた小さい成分・**巨大成分から伸びている線**と重なるならさらに左へ。
+  // 線を見ないと、成分を寄せた先に他人の線が走っていて図の上で交差する
+  // （2026-08-18「線とカードの重なり」— 王莽から出た線が公孫述のカードを通っていた）。
+  const inComp = new Set(comp);
+  const others = [];
+  for (const [key, pts] of routeOf) {
+    if (inComp.has(key.split(">")[0])) continue;
+    for (let i = 1; i < pts.length; i += 1) {
+      others.push({
+        x0: Math.min(pts[i - 1][0], pts[i][0]),
+        x1: Math.max(pts[i - 1][0], pts[i][0]),
+        y0: Math.min(pts[i - 1][1], pts[i][1]),
+        y1: Math.max(pts[i - 1][1], pts[i][1]),
+      });
+    }
+  }
+  const h = box.y1 - box.y0;
+  const hits = (x0, y0, list, pad) =>
+    list.some((r) => x0 < r.x1 + pad && x0 + width > r.x0 - pad && y0 < r.y1 + pad && y0 + h > r.y0 - pad);
+  while (hits(targetX, targetY, placed, GAP) || hits(targetX, targetY, others, 12))
+    targetX -= width + GAP;
 
   const dx = targetX - box.x0;
   const dy = targetY - box.y0;
@@ -598,6 +646,14 @@ for (const comp of components.slice(1)) {
   for (const id of comp) {
     pos.get(id).x += dx;
     pos.get(id).y += dy;
+  }
+  // 線も一緒に動かす（置いていくと、線だけ元の位置へ向かって走る）。
+  for (const [key, pts] of routeOf) {
+    if (!inComp.has(key.split(">")[0])) continue;
+    for (const q of pts) {
+      q[0] += dx;
+      q[1] += dy;
+    }
   }
   placed.push({
     x0: targetX,
@@ -609,10 +665,17 @@ for (const comp of components.slice(1)) {
 }
 
 // ---------------------------------------------------------------- 出力
+// **線も一緒に動かす。** ノードだけ原点を寄せて線を置き去りにすると、端が宙に浮く。
 const minY = Math.min(...[...pos.values()].map((p) => p.y));
-if (minY < 0) for (const p of pos.values()) p.y -= minY;
+if (minY < 0) {
+  for (const p of pos.values()) p.y -= minY;
+  for (const pts of routeOf.values()) for (const q of pts) q[1] -= minY;
+}
 const minX = Math.min(...[...pos.values()].map((p) => p.x));
-if (minX < 0) for (const p of pos.values()) p.x -= minX;
+if (minX < 0) {
+  for (const p of pos.values()) p.x -= minX;
+  for (const pts of routeOf.values()) for (const q of pts) q[0] -= minX;
+}
 
 const nodes = [];
 for (const c of cards.values()) {
@@ -642,207 +705,294 @@ const unionNodes = [...unions.values()].map((u) => {
 
 // ---------------------------------------------------------------- 線
 //
-// **線は折れ線（points）で持つ。** 描画側は M/L で引くだけにして、形はここで決め切る
-// （部品側で決めると、線がカードを突き抜けても機械で見られない）。
-//
-// 形は3段構え:
-//   1. 出どころの下の**横棒（busA）は同じ親から出る線で共有する** — 兄弟が4人いれば
-//      横棒が4本並んで分岐点に瘤ができていた（2026-08-18「不要な曲がり」）。共有すれば
-//      分岐点は本物の T 字になり、角は直角のまま済む。
-//   2. 段をいくつも跨ぐ線は**廊下（elk が空けたスペーサの x）を通す**。まっすぐ下ろすと
-//      途中の段のカードを突き抜ける（実測24本）。
-//   3. 行き先の上の横棒（busB）で寄せる。
-//
-// busA・busB の高さは候補から選ぶ。カードとの交差を4倍・線どうしの交差を1倍で数えて、
-// いちばん悪くない組み合わせを何回かなめて決める。
-const BUS_GAP = 16;
+// **形は elk が引いた折れ線をそのまま使う。** 自前でバスの高さを選んでいた版は、
+// カードとの交差と線どうしの交差しか数えていなかったので、2026-08-18 に指摘された
+// 「線の飛び出し」「線とカードの重なり」「線とカードが近すぎる」「不要な曲がり」
+// 「線の重なり」がどれも素通りした。**見えている欠陥はすべて数える**（下の audit）。
 const boxes = new Map();
 for (const n of nodes) boxes.set(n.id, n);
 for (const n of unionNodes) boxes.set(n.id, n);
 
-const midOf = (id) => boxes.get(id).x + boxes.get(id).w / 2;
-const medianX = (a) => (a.length ? [...a].sort((x, y) => x - y)[Math.floor(a.length / 2)] : null);
-const corridorX = (from, to) => {
-  if (process.env.KINSHIP_NO_CORRIDOR) return null;
-  const chain = corridorOf.get(`${from}>${to}`);
-  if (!chain || !chain.length) return null;
-  return Math.round(medianX(chain.map((id) => pos.get(id).x)));
+/** 重複点・一直線上の中継点・行って戻る折り返しを落とす。 */
+const cleanPolyline = (input) => {
+  // **先に丸める。** 丸める前に重複を落とすと、0.6px 離れた2点が生き残って
+  // 丸めたあとに長さ0の区間になる（それが「不要な折れ 0px」として出ていた）。
+  let pts = [];
+  for (const raw of input) {
+    const p = [Math.round(raw[0]), Math.round(raw[1])];
+    const q = pts[pts.length - 1];
+    if (!q || q[0] !== p[0] || q[1] !== p[1]) pts.push(p);
+  }
+  for (let again = true; again; ) {
+    again = false;
+    for (let i = 1; i + 1 < pts.length; i += 1) {
+      const [ax, ay] = pts[i - 1];
+      const [bx, by] = pts[i];
+      const [cx, cy] = pts[i + 1];
+      const collinear =
+        (Math.abs(ax - bx) < 0.5 && Math.abs(bx - cx) < 0.5) ||
+        (Math.abs(ay - by) < 0.5 && Math.abs(by - cy) < 0.5);
+      if (collinear) {
+        pts.splice(i, 1);
+        again = true;
+        break;
+      }
+    }
+  }
+  return pts;
+};
+
+/** 行き先が上にある継承だけ elk に渡していない。段の隙間を選んで自前で引く。 */
+const sideRoute = (from, to) => {
+  const a = boxes.get(from);
+  const b = boxes.get(to);
+  const rightward = b.x + b.w / 2 > a.x + a.w / 2;
+  const sx = rightward ? a.x + a.w : a.x;
+  const sy = a.y + a.h / 2;
+  const tx = rightward ? b.x : b.x + b.w;
+  const ty = b.y + b.h / 2;
+  const bus = Math.round((sx + tx) / 2);
+  return cleanPolyline([
+    [sx, sy],
+    [bus, sy],
+    [bus, ty],
+    [tx, ty],
+  ]);
+};
+
+/**
+ * **1〜6px の「折れ」を吸収する。** elk は稀に数 px だけ横へずらして下ろす経路を返し、
+ * それが図では「不要な曲がり」に見える（2026-08-18 の指摘）。短い区間の左右どちらか
+ * 短い側を、もう一方の座標へ寄せて消す。端点はカードの縁の内側に収まる範囲で動かす。
+ */
+const absorbJogs = (input, fromId, toId) => {
+  const JOG_SNAP = 10;
+  let pts = input.map(([x, y]) => [x, y]);
+  const inside = (i, x, y) => {
+    const b = boxes.get(i);
+    return x >= b.x + 2 && x <= b.x + b.w - 2 && y >= b.y - 1 && y <= b.y + b.h + 1;
+  };
+  for (let guard = 0; guard < 20; guard += 1) {
+    let hit = -1;
+    for (let i = 1; i + 2 < pts.length; i += 1) {
+      const len = Math.abs(pts[i + 1][0] - pts[i][0]) + Math.abs(pts[i + 1][1] - pts[i][1]);
+      if (len > 0 && len < JOG_SNAP) {
+        hit = i;
+        break;
+      }
+    }
+    if (hit < 0) break;
+    const axis = Math.abs(pts[hit + 1][0] - pts[hit][0]) > 0 ? 0 : 1;
+    const head = hit + 1; // 前側の点数
+    const tail = pts.length - (hit + 1);
+    const moveHead = head <= tail;
+    const target = moveHead ? pts[hit + 1][axis] : pts[hit][axis];
+    const next = pts.map(([x, y]) => [x, y]);
+    if (moveHead) for (let i = 0; i <= hit; i += 1) next[i][axis] = target;
+    else for (let i = hit + 1; i < next.length; i += 1) next[i][axis] = target;
+    if (
+      !inside(fromId, next[0][0], next[0][1]) ||
+      !inside(toId, next[next.length - 1][0], next[next.length - 1][1])
+    )
+      break;
+    pts = cleanPolyline(next);
+  }
+  return pts;
 };
 
 const lines = [];
 let li = 0;
-const knobs = []; // バスの高さを振るつまみ（{edges, candidates, set}）
-
-const levels = (bottom, top) => {
-  const lo = Math.min(bottom + 6, top - 6);
-  const hi = Math.max(bottom + 6, top - 6);
-  const c = (y) => Math.round(Math.min(Math.max(y, lo), hi));
-  return [...new Set([c(top - BUS_GAP), c((bottom + top) / 2), c(bottom + BUS_GAP), c(top - 6), c(bottom + 6)])];
+const push = (kind, from, to, extra) => {
+  const pts = routeOf.get(`${from}>${to}`);
+  if (!pts) return;
+  lines.push({ id: `l${li++}`, kind, from, to, points: absorbJogs(cleanPolyline(pts), from, to), ...extra });
 };
-
-const addGroup = (sources, targets, made) => {
-  const top = Math.min(...targets.map((t) => boxes.get(t).y));
-  const bottom = Math.max(...sources.map((s) => boxes.get(s).y + boxes.get(s).h));
-  const candidates = levels(bottom, top);
-  for (const e of made) {
-    e.busA = candidates[0];
-    const b = boxes.get(e.to);
-    e.corridor = corridorX(e.from, e.to);
-    e.busB = b.y - BUS_GAP;
-    lines.push(e);
-  }
-  // 出どころ側の横棒は束で共有する
-  knobs.push({ edges: made, candidates, set: (e, v) => { e.busA = v; } });
-  // 行き先側の横棒は線ごと（廊下を通る線だけ意味がある）
-  for (const e of made) {
-    if (e.corridor == null) continue;
-    const a = boxes.get(e.from);
-    const cs = levels(a.y + a.h, boxes.get(e.to).y);
-    e.busB = cs[0];
-    knobs.push({ edges: [e], candidates: cs, set: (x, v) => { x.busB = v; } });
-  }
-};
-
 for (const u of unionNodes) {
   const pk = u.kind === "disputed" ? "disputed" : null;
-  addGroup([u.father, u.mother], [u.id], [
-    { id: `l${li++}`, kind: pk ?? "father", from: u.father, to: u.id, axis: "v" },
-    { id: `l${li++}`, kind: pk ?? "mother", from: u.mother, to: u.id, axis: "v" },
-  ]);
-  if (!u.children.length) continue;
-  addGroup([u.id], u.children,
-    u.children.map((c) => ({ id: `l${li++}`, kind: "child", from: u.id, to: c, axis: "v" })));
+  push(pk ?? "father", u.father, u.id);
+  push(pk ?? "mother", u.mother, u.id);
+  for (const c of u.children) push("child", u.id, c);
 }
-{
-  const byParent = new Map();
-  for (const x of extra) {
-    const cur = byParent.get(x.from);
-    if (cur) cur.push(x);
-    else byParent.set(x.from, [x]);
-  }
-  for (const [from, xs] of byParent) {
-    addGroup([from], xs.map((x) => x.to),
-      xs.map((x) => ({ id: `l${li++}`, kind: x.kind, from, to: x.to, axis: "v" })));
-  }
-}
-// 継承は横向き（カードの左右の口）。段が同じ2人を上下の口でつなぐと、線が必ずどちらかの
-// カードを潜る（2026-08-18「禅譲の線がなるべく線やカードを横切らないように」）。
+for (const x of extra) push(x.kind, x.from, x.to);
 for (const s of succession) {
-  const a = midOf(s.from);
-  const b = midOf(s.to);
-  const candidates = [...new Set([0.5, 0.15, 0.85, 0.35, 0.65].map((t) => Math.round(a + (b - a) * t)))];
-  const e = {
+  const key = `${s.from}>${s.to}`;
+  const pts = succRouted.has(key) ? routeOf.get(key) : sideRoute(s.from, s.to);
+  if (!pts) continue;
+  lines.push({
     id: `l${li++}`,
     kind: "succession",
     from: s.from,
     to: s.to,
     categoryId: s.categoryId,
-    axis: "h",
-    busA: candidates[0],
-  };
-  lines.push(e);
-  knobs.push({ edges: [e], candidates, set: (x, v) => { x.busA = v; } });
+    points: absorbJogs(cleanPolyline(pts), s.from, s.to),
+  });
 }
 
-/** 線1本の折れ線（重複点は落とす）。 */
-const pointsOf = (e) => {
-  const a = boxes.get(e.from);
-  const b = boxes.get(e.to);
-  let pts;
-  if (e.axis === "v") {
-    const sx = a.x + a.w / 2;
-    const sy = a.y + a.h;
-    const tx = b.x + b.w / 2;
-    const ty = b.y;
-    const cx = e.corridor ?? tx;
-    pts = [[sx, sy]];
-    if (Math.abs(cx - sx) > 0.5) pts.push([sx, e.busA], [cx, e.busA]);
-    if (Math.abs(cx - tx) > 0.5) pts.push([cx, e.busB], [tx, e.busB]);
-    else if (Math.abs(cx - sx) <= 0.5) pts.push([sx, e.busA], [tx, e.busA]);
-    pts.push([tx, ty]);
-  } else {
-    const rightward = b.x + b.w / 2 > a.x + a.w / 2;
-    const sx = rightward ? a.x + a.w : a.x;
-    const sy = a.y + a.h / 2;
-    const tx = rightward ? b.x : b.x + b.w;
-    const ty = b.y + b.h / 2;
-    pts = [[sx, sy], [e.busA, sy], [e.busA, ty], [tx, ty]];
-  }
+// ---------------------------------------------------------------- 見た目の検査
+//
+// **指摘された欠陥はすべてここで数える。** 目で見て見つかるものを機械で見つけられない
+// 状態で「直った」と報告して3度差し戻された（2026-08-18）。
+const CLEAR = Number(process.env.KINSHIP_CLEAR ?? 12); // カード・結び目から最低これだけ離す
+const JOG = 8; // これより短い折れは「不要な曲がり」
+
+const segsOf = (e) => {
   const out = [];
-  for (const p of pts) {
-    const q = out[out.length - 1];
-    if (!q || Math.abs(q[0] - p[0]) > 0.5 || Math.abs(q[1] - p[1]) > 0.5) out.push(p);
+  for (let i = 1; i < e.points.length; i += 1) {
+    const [x0, y0] = e.points[i - 1];
+    const [x1, y1] = e.points[i];
+    out.push([Math.min(x0, x1), Math.min(y0, y1), Math.max(x0, x1), Math.max(y0, y1)]);
   }
   return out;
 };
-
-const segmentsOf = (e) => {
-  const pts = pointsOf(e);
-  const segs = [];
-  for (let i = 1; i < pts.length; i += 1) {
-    const [x0, y0] = pts[i - 1];
-    const [x1, y1] = pts[i];
-    if (Math.abs(x0 - x1) < 0.5) segs.push(["v", x0, Math.min(y0, y1), Math.max(y0, y1)]);
-    else segs.push(["h", y0, Math.min(x0, x1), Math.max(x0, x1)]);
+/** 区間と矩形の距離（0 = 触れている・負にはしない）。 */
+const gap = (s, b) => {
+  const dx = Math.max(b.x - s[2], s[0] - (b.x + b.w), 0);
+  const dy = Math.max(b.y - s[3], s[1] - (b.y + b.h), 0);
+  return Math.max(dx, dy);
+};
+const overlapLen = (p, q) => {
+  const hp = p[1] === p[3];
+  if (hp !== (q[1] === q[3])) return 0;
+  if (hp) {
+    if (Math.abs(p[1] - q[1]) > 0.5) return 0;
+    return Math.max(0, Math.min(p[2], q[2]) - Math.max(p[0], q[0]));
   }
-  return segs;
+  if (Math.abs(p[0] - q[0]) > 0.5) return 0;
+  return Math.max(0, Math.min(p[3], q[3]) - Math.max(p[1], q[1]));
+};
+const crossAt = (p, q) => {
+  const ph = p[1] === p[3];
+  if (ph === (q[1] === q[3])) return false;
+  const h = ph ? p : q;
+  const v = ph ? q : p;
+  return v[0] > h[0] && v[0] < h[2] && h[1] > v[1] && h[1] < v[3];
 };
 
-const cardHits = (e) => {
-  let n = 0;
-  const segs = segmentsOf(e);
-  for (const c of nodes) {
-    if (c.id === e.from || c.id === e.to) continue;
-    for (const s of segs) {
-      const x0 = s[0] === "v" ? s[1] : s[2];
-      const x1 = s[0] === "v" ? s[1] : s[3];
-      const y0 = s[0] === "v" ? s[2] : s[1];
-      const y1 = s[0] === "v" ? s[3] : s[1];
-      if (x0 < c.x + c.w && c.x < x1 && y0 < c.y + c.h && c.y < y1) {
-        n += 1;
-        break;
-      }
-    }
+/** 線1本の「悪さ」。バスを揃えるときの選択にも、最後の集計にも同じ数え方を使う。 */
+const costOf = (e) => {
+  let c = 0;
+  const segs = segsOf(e);
+  for (const b of boxes.values()) {
+    if (b.id === e.from || b.id === e.to) continue;
+    let worst = Infinity;
+    for (const seg of segs) worst = Math.min(worst, gap(seg, b));
+    if (worst <= 0) c += 10;
+    else if (worst < CLEAR) c += 3;
   }
-  return n;
-};
-
-/** 直交する2区間が**内側で**交わるか。端で接するだけの T 字は数えない（束ねた分岐点）。 */
-const crosses = (p, q) => {
-  if (p[0] === q[0]) return false;
-  const h = p[0] === "h" ? p : q;
-  const v = p[0] === "v" ? p : q;
-  return v[1] > h[2] && v[1] < h[3] && h[1] > v[2] && h[1] < v[3];
-};
-
-const edgeHits = (e) => {
-  let n = 0;
-  const segs = segmentsOf(e);
   for (const o of lines) {
-    if (o === e) continue;
-    for (const s of segs) for (const t of segmentsOf(o)) if (crosses(s, t)) n += 1;
+    if (o === e || o.from === e.from || o.to === e.to) continue;
+    for (const seg of segs)
+      for (const t of segsOf(o)) {
+        if (crossAt(seg, t)) c += 2;
+        if (overlapLen(seg, t) > 2) c += 1;
+      }
   }
-  return n;
+  return c;
 };
 
-for (let pass = 0; pass < 3; pass += 1) {
-  let moved = 0;
-  for (const k of knobs) {
-    let best = null;
-    let bestScore = Infinity;
-    for (const v of k.candidates) {
-      for (const e of k.edges) k.set(e, v);
-      let sc = 0;
-      for (const e of k.edges) sc += cardHits(e) * 4 + edgeHits(e);
-      if (sc < bestScore) {
-        bestScore = sc;
-        best = v;
-      }
-    }
-    for (const e of k.edges) k.set(e, best);
-    moved += 1;
+// ---------------------------------------------------------------- 兄弟のバスを揃える
+//
+// elk は線を1本ずつ引くので、同じ親から出る4本が少しずつ違う高さの横棒になることがある
+// （2026-08-18「線がぐちゃぐちゃ」の正体）。**elk が選んだ廊下はそのままに、親から出て
+// 最初の横棒の高さだけを束で揃える。** 揃えた結果カードや他の線とぶつかるなら採らない
+// （下の検査と同じ数え方で点数を付けて選ぶ）。
+
+/** 親から出て最初の横棒の高さ（縦→横 の並びのときだけ）。 */
+function firstBusY(e) {
+  const p = e.points;
+  if (p.length < 3) return null;
+  if (p[0][0] !== p[1][0]) return null; // 最初が縦でない
+  if (p[1][1] !== p[2][1]) return null; // 次が横でない
+  return p[1][1];
+}
+const setFirstBusY = (e, y) => {
+  const p = e.points.map(([x, yy]) => [x, yy]);
+  p[1][1] = y;
+  p[2][1] = y;
+  return p;
+};
+
+{
+  const byParent = new Map();
+  for (const e of lines) {
+    if (e.kind === "succession") continue;
+    const cur = byParent.get(e.from);
+    if (cur) cur.push(e);
+    else byParent.set(e.from, [e]);
   }
-  if (!moved) break;
+  for (let pass = 0; pass < 2; pass += 1) {
+    for (const es of byParent.values()) {
+      const movable = es.filter((e) => firstBusY(e) != null);
+      if (movable.length < 2) continue;
+      const cands = [...new Set(movable.map(firstBusY))];
+      if (cands.length < 2) continue;
+      const before = movable.map((e) => e.points);
+      let best = null;
+      let bestScore = Infinity;
+      for (const y of cands) {
+        movable.forEach((e, i) => {
+          e.points = setFirstBusY({ points: before[i] }, y);
+        });
+        const sc = movable.reduce((a, e) => a + costOf(e), 0);
+        if (sc < bestScore) {
+          bestScore = sc;
+          best = y;
+        }
+      }
+      movable.forEach((e, i) => {
+        e.points = setFirstBusY({ points: before[i] }, best);
+      });
+    }
+  }
+}
+
+const faults = {
+  カードの中を通る: [],
+  カードに近すぎる: [],
+  線どうしの交差: [],
+  線どうしの重なり: [],
+  端が浮いている: [],
+  不要な折れ: [],
+};
+for (const e of lines) {
+  const segs = segsOf(e);
+  for (const b of boxes.values()) {
+    if (b.id === e.from || b.id === e.to) continue;
+    let worst = Infinity;
+    for (const s of segs) worst = Math.min(worst, gap(s, b));
+    if (worst <= 0) faults.カードの中を通る.push(`${e.from}→${e.to} / ${b.label ?? b.id}`);
+    else if (worst < CLEAR) faults.カードに近すぎる.push(`${e.from}→${e.to} / ${b.label ?? b.id} ${worst}px`);
+  }
+  // 端はカードの縁に付いているか
+  for (const [pt, id] of [[e.points[0], e.from], [e.points[e.points.length - 1], e.to]]) {
+    const b = boxes.get(id);
+    const d = gap([pt[0], pt[1], pt[0], pt[1]], b);
+    if (d > 1) faults.端が浮いている.push(`${e.from}→${e.to} ${JSON.stringify(pt)} が ${b.label ?? id} から ${d}px`);
+  }
+  // 短い折れ（前後が直交している短い区間）
+  for (let i = 0; i < segs.length; i += 1) {
+    const len = Math.max(segs[i][2] - segs[i][0], segs[i][3] - segs[i][1]);
+    if (i > 0 && i + 1 < segs.length && len < JOG) {
+      faults.不要な折れ.push(`${e.from}→${e.to} ${len}px`);
+    }
+  }
+}
+for (let i = 0; i < lines.length; i += 1) {
+  const a = segsOf(lines[i]);
+  for (let j = i + 1; j < lines.length; j += 1) {
+    const b = segsOf(lines[j]);
+    // 同じ親から出た兄弟はバスを共有するので、重なりは意図どおり
+    // 同じ親から出た兄弟・同じ結び目へ入る夫婦は棒を共有するので、重なりは意図どおり
+    const sameBus = lines[i].from === lines[j].from || lines[i].to === lines[j].to;
+    for (const p of a)
+      for (const q of b) {
+        if (crossAt(p, q)) faults.線どうしの交差.push(`${lines[i].from}→${lines[i].to} × ${lines[j].from}→${lines[j].to}`);
+        if (!sameBus && overlapLen(p, q) > 2)
+          faults.線どうしの重なり.push(
+            `${lines[i].from}→${lines[i].to} と ${lines[j].from}→${lines[j].to} が ${Math.round(overlapLen(p, q))}px`,
+          );
+      }
+  }
 }
 
 const edgeOut = lines.map((e) => ({
@@ -851,45 +1001,44 @@ const edgeOut = lines.map((e) => ({
   from: e.from,
   to: e.to,
   categoryId: e.categoryId ?? null,
-  points: pointsOf(e).map(([x, y]) => [Math.round(x), Math.round(y)]),
+  points: e.points,
 }));
 
+// **兄弟の線が1本の横棒にまとまっているか。** 「線がぐちゃぐちゃ」の正体は、同じ親から
+// 出る線が少しずつ違う高さの横棒になって帯に何本も並ぶことだった。親ごとに横棒の高さが
+// いくつあるかを数える（1なら櫛・2以上だと段違いの棒が並ぶ）。
 {
-  let hitCards = 0;
-  let pairs = 0;
-  let run = 0;
-  for (let i = 0; i < lines.length; i += 1) {
-    hitCards += cardHits(lines[i]);
-    const si2 = segmentsOf(lines[i]);
-    for (const g of si2) if (g[0] === "h") run += g[3] - g[2];
-    for (let j = i + 1; j < lines.length; j += 1) {
-      for (const s of si2) for (const t of segmentsOf(lines[j])) if (crosses(s, t)) pairs += 1;
+  const byParent = new Map();
+  for (const e of lines) {
+    if (e.kind === "succession") continue;
+    const cur = byParent.get(e.from);
+    if (cur) cur.push(e);
+    else byParent.set(e.from, [e]);
+  }
+  let split = 0;
+  let groups = 0;
+  const worst = [];
+  for (const [from, es] of byParent) {
+    if (es.length < 2) continue;
+    groups += 1;
+    const ys = new Set(es.map(firstBusY).filter((v) => v != null));
+    if (ys.size > 1) {
+      split += 1;
+      worst.push(`${boxes.get(from)?.label ?? from}:${ys.size}本`);
     }
   }
   console.log(
-    `  カードを横切る線: ${hitCards}本 / 線どうしの交差: ${pairs}箇所 / 横棒の総延長: ${Math.round(run)}px`,
+    `  兄弟の横棒が1本にまとまっていない親: ${split}/${groups}` +
+      (worst.length ? ` — ${worst.slice(0, 6).join(" / ")}` : ""),
   );
-  if (process.env.KINSHIP_DEBUG) {
-    for (const e of lines) {
-      const n = cardHits(e);
-      if (!n) continue;
-      const a = boxes.get(e.from);
-      const b = boxes.get(e.to);
-      const hit = nodes.filter((c) => {
-        if (c.id === e.from || c.id === e.to) return false;
-        return segmentsOf(e).some((s) => {
-          const x0 = s[0] === "v" ? s[1] : s[2];
-          const x1 = s[0] === "v" ? s[1] : s[3];
-          const y0 = s[0] === "v" ? s[2] : s[1];
-          const y1 = s[0] === "v" ? s[3] : s[1];
-          return x0 < c.x + c.w && c.x < x1 && y0 < c.y + c.h && c.y < y1;
-        });
-      });
-      console.log(
-        `    ${(a.label ?? e.from)}(${a.y})→${(b.label ?? e.to)}(${b.y}) 廊下=${e.corridor} tx=${b.x + b.w / 2} : ` +
-          hit.map((c) => c.label).join("・"),
-      );
-    }
+}
+
+{
+  const total = Object.values(faults).reduce((a, v) => a + v.length, 0);
+  console.log(`  線の欠陥: ${total}件` + (total ? "" : "（ゼロ）"));
+  for (const [k, v] of Object.entries(faults)) {
+    if (!v.length) continue;
+    console.log(`    ${k}: ${v.length}件 — ${v.slice(0, 4).join(" / ")}`);
   }
 }
 
