@@ -11,7 +11,7 @@ export const metadata: Metadata = buildMetadata({
   path: "/kinship/ming",
   title: PAGE_TITLE,
   description:
-    "明と南明・明末の順（李自成）・西（張献忠）の皇帝とその親族の家系図。全9章の第9章。",
+    "明と南明・明末の順（李自成）・西（張献忠）の皇帝とその親族の家系図。全10章の第9章。",
 });
 
 export default function KinshipMingPage() {

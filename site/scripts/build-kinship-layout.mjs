@@ -98,6 +98,16 @@ const CHAPTERS = [
   // 章内に線が1本も無いが、皇帝なので線ゼロの1人ブロックのまま出す（隋末唐末の群雄と同じ）。
   // bucket は 10〜40 を一巡した最少（交差2件・他0。10〜22 が同数で、22/t100 が最小の図）。
   { eraId: "ming", guests: [], bucket: 22, thoroughness: 100 },
+  // 最終章。明→清は禅譲ではなく、前章で線ゼロ落ちした親も居ない。客人は (c) 型＝
+  // **章を持たない時代（近代）の袁世凱とその父2人**（1人のために第10章は立てない。
+  // 清と線は無い独立成分で、時代合わせで 1915 の段に置かれる）。溥儀の復位2回は
+  // 先行君主が居ない（from=null）ので継承の線にならない（取り込みで落ちる）。
+  // bucket は 10〜40 を一巡してどれも欠陥0（この章だけ）。縦が最短の 25 を採る。
+  {
+    eraId: "qing",
+    guests: ["zhonghuadiguo-yuanshikai", "p-yuan-baozhong", "p-yuan-baoqing"],
+    bucket: 25,
+  },
 ];
 
 async function buildChapter({ eraId: ERA_ID, guests, bucket, thoroughness }) {

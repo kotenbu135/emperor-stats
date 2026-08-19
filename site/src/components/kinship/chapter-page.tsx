@@ -153,6 +153,9 @@ const REGIME_LABEL: Record<string, string> = {
   "southern-ming": "南明",
   shun: "順（李自成）",
   xi: "西（張献忠）",
+  qing: "清",
+  "wu-zhou-sanfan": "周（呉三桂）",
+  "empire-of-china": "中華帝国",
 };
 
 export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {
