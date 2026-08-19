@@ -68,4 +68,4 @@ site/tools/kinship-layout-spike/node_modules/
 site/tools/kinship-layout-spike/graph-*.json
 site/tools/kinship-layout-spike/groups-*.json
 site/tools/kinship-layout-spike/pos-*.json
-site/src/lib/kinship/layout.qin-han.json
+site/src/lib/kinship/layout.*.json
