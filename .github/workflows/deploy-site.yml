@@ -50,6 +50,13 @@ jobs:
         working-directory: site
         run: npm ci
 
+      # 系譜図のレイアウト JSON（src/lib/kinship/layout.*.json）は gitignore 対象の
+      # 生成物で、無いと chapters.ts の import が typecheck で TS2307 になる。
+      # 本来は prebuild（npm run build）が作るが、それはこの後の Build 段なので先に作る。
+      - name: Generate kinship layouts (needed by typecheck)
+        working-directory: site
+        run: npm run build-kinship-layout
+
       - name: Lint & typecheck
         working-directory: site
         run: |
