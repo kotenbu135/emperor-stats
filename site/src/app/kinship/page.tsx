@@ -11,6 +11,7 @@ import type { Metadata } from "next";
 
 import {
   ChapterFlow,
+  EDGE_STYLE,
   type KinshipJump,
   type KinshipLayout,
 } from "@/components/kinship/chapter-flow";
@@ -66,14 +67,15 @@ function jumpTargets(l: KinshipLayout): KinshipJump[] {
 }
 
 /**
- * 凡例の線見本。**`chapter-flow.tsx` の `EDGE_STYLE` と同じ値**を書く
- * （文字で代用すると線種を変えたときに凡例だけ古いままになる）。
+ * 凡例の線見本。**図と同じ `EDGE_STYLE` から引く**（値を書き写すと線種を変えたときに
+ * 凡例だけ古いままになる — 実際に養親の刻みが凡例だけ古い値で残っていた）。
  */
 const LINE_LEGEND: { label: string; dash?: string; color?: string; width?: number }[] = [
-  { label: "実父" },
-  { label: "実母", dash: "5 4" },
-  { label: "養親", dash: "14 5" },
-  { label: "禅譲・擁立など、親子では説明が付かない継承", dash: "6 4", color: "var(--kinship-succession)" },
+  { label: "夫婦と実の親子（子は夫婦の横棒から下りる）", ...EDGE_STYLE.child },
+  { label: "実母（母だけ確定）", ...EDGE_STYLE.mother },
+  { label: "養親", ...EDGE_STYLE.adoptive },
+  { label: "禅譲・擁立など、親子では説明が付かない継承", ...EDGE_STYLE.succession },
+  { label: "実父の異説", ...EDGE_STYLE.disputed },
 ];
 
 const REGIME_LABEL: Record<string, string> = {
@@ -167,25 +169,6 @@ export default function KinshipPage() {
               <span style={l.color ? { color: l.color } : undefined}>{l.label}</span>
             </span>
           ))}
-          <span className="flex items-center gap-1.5">
-            <span
-              aria-hidden
-              className="inline-block size-4 shrink-0 rounded-full"
-              style={{ background: "var(--kinship-line)" }}
-            />
-            <span>夫婦（ここから子が下りる）</span>
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span
-              aria-hidden
-              className="inline-block size-4 shrink-0 rounded-full"
-              style={{
-                background: "var(--kinship-canvas)",
-                border: "2.5px dotted var(--kinship-line)",
-              }}
-            />
-            <span>実父の異説</span>
-          </span>
         </dd>
 
         {/* 時代の帯は**目盛りではない**と本文で名乗る。段は世代の順なので、上下に

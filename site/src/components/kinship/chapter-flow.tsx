@@ -86,7 +86,7 @@ export interface KinshipUnion {
  */
 export interface KinshipEdge {
   id: string;
-  kind: "father" | "mother" | "child" | "adoptive" | "second" | "disputed" | "succession";
+  kind: "marriage" | "father" | "mother" | "child" | "adoptive" | "second" | "disputed" | "succession";
   from: string;
   to: string;
   points: [number, number][];
@@ -275,43 +275,28 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
       </div>
     );
   return (
-    <a href={`/emperors/${p.emperorId}`} className={`${shell} hover:border-[var(--kinship-line)]`}>
+    // **`pointer-events-auto` を外さないこと。** ノードは draggable/selectable とも false
+    // なので React Flow がラッパーに `pointer-events: none` を敷き、クリックが <a> に
+    // 届かない（2026-08-19「クリックしたら個別ページに遷移するようにする」が効かなかった
+    // 原因）。リンクだけ明示的に受け直す。ドラッグでのパンは mousedown が pane まで
+    // バブルするので生きていて、パン後のクリックは d3-zoom が抑止する（実測済み）。
+    <a
+      href={`/emperors/${p.emperorId}`}
+      className={`${shell} pointer-events-auto hover:border-[var(--kinship-line)]`}
+    >
       {ports}
       {body}
     </a>
   );
 }
 
-function UnionDot({ data }: NodeProps<Node<{ kind: KinshipUnion["kind"] }>>) {
-  // 実父の異説の結び目は**中を抜いて一回り大きくする**（2026-08-18 の外部レビュー:
-  // 10px の点では塗り潰しと白抜きの区別が付かない）。大きさはレイアウトの箱より
-  // はみ出させる — 箱を大きくすると elk の間隔まで動いてしまう。
-  const disputed = data.kind === "disputed";
-  if (!disputed)
-    return (
-      // 線に埋もれると言われたので、地色の縁を1周付けて浮かせる（2026-08-18 の外部レビュー）。
-      <div
-        className="h-full w-full rounded-full"
-        style={{
-          background: "var(--kinship-line)",
-          boxShadow: "0 0 0 2.5px var(--kinship-canvas)",
-        }}
-      >
-        <CardPorts />
-      </div>
-    );
+function UnionDot(_props: NodeProps<Node<{ kind: KinshipUnion["kind"] }>>) {
+  // 夫婦の横棒の中点に置く**見えない結節点**。線（夫婦の横棒・子の下ろし線）の端を
+  // つなぐためだけにあり、一般的な家系図に倣って点は描かない（2026-08-19 ユーザー指示
+  // 「一般的な家系図みたいなつなぎ方にして」で、結び目の黒点は横棒に置き換えた。
+  // 実父の異説＝呂不韋も、点線の夫婦線そのものが異説を名乗るので記号は重ねない）。
   return (
     <div className="relative h-full w-full">
-      <span
-        aria-hidden
-        className="absolute left-1/2 top-1/2 block -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{
-          width: 22,
-          height: 22,
-          background: "var(--kinship-canvas)",
-          border: "2.5px dotted var(--kinship-line)",
-        }}
-      />
       <CardPorts />
     </div>
   );
@@ -381,7 +366,8 @@ const edgeTypes = { family: FamilyEdge };
  * 破線の刻みは**互いに倍以上**離す（2026-08-18 の外部レビュー: 実母の「3 3」と養親の
  * 「6 3」がぱっと見で区別できない）。いまは 実線 / 中破線 / 長破線 / 点 の4段。
  */
-const EDGE_STYLE: Record<KinshipEdge["kind"], { dash?: string; color?: string; width?: number }> = {
+export const EDGE_STYLE: Record<KinshipEdge["kind"], { dash?: string; color?: string; width?: number }> = {
+  marriage: {},
   father: {},
   mother: { dash: "5 4" },
   child: {},
@@ -645,6 +631,8 @@ function PersonSearch({
 const FIT_VIEW = { nodes: [{ id: "han-gaozu" }], minZoom: 0.7, maxZoom: 0.7 };
 const MIN_ZOOM = 0.08;
 const MAX_ZOOM = 2;
+/** このキーを押しながらのホイールだけ拡大縮小（WSL/Windows は Control・Mac は Meta）。 */
+const ZOOM_KEYS = ["Meta", "Control"];
 
 /** 図の中を動かすので Provider の内側に置く（`useReactFlow` は Provider が要る）。 */
 export function ChapterFlow({
@@ -762,6 +750,12 @@ function ChapterFlowInner({
           elementsSelectable={false}
           minZoom={MIN_ZOOM}
           maxZoom={MAX_ZOOM}
+          // **ホイールは移動・拡大縮小は Ctrl/⌘＋ホイールかピンチ**（2026-08-19 ユーザー指示
+          // 「スクロールしたら下に移動するようにする、拡大縮小は直感的な操作に反する」）。
+          // 図は縦 5,000px 超なので、ホイール＝縦移動が地図系ツールの既定と同じ手触りになる。
+          zoomOnScroll={false}
+          panOnScroll
+          zoomActivationKeyCode={ZOOM_KEYS}
           // **全体を1画面に収めない。** 2981×4082px を 1156px 幅に収めると倍率 0.28 で
           // 字が読めなくなる（前回の取り下げ理由「俯瞰すると字が読めない」そのもの）。
           // 見本の A も1画面に収めていない — 図の入口へ寄せて開き、全体は MiniMap で見る。

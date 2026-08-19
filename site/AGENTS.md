@@ -146,12 +146,15 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 - **`scripts/build-kinship-layout.mjs`** — `prebuild` で elkjs を回して
   `src/lib/kinship/layout.qin-han.json` を吐く（elkjs は devDependencies・`out/` に混ざらない）。
   **線の折れ線 `points` までここで確定する。** 描画側で曲げ方を決めると、線がカードを
-  突き抜けても機械で見られない
+  突き抜けても機械で見られない。**夫婦は1つの「家族ブロック」に固めて elk へ渡す**
+  （2026-08-19「一般的な家系図みたいなつなぎ方に」）— 夫婦を別ノードで渡すと隣に並ぶ
+  保証が無い。子の線は FIXED_POS ポートで「夫婦の間の下ろし点」から出し、
+  `mergeEdges: true` で兄弟を1本の幹にまとめる（旧 union 方式では逆効果だった設定）
 - **`src/components/kinship/chapter-flow.tsx`** — React Flow v12 の描画層。位置は props で
   受け取るだけ
 - **`src/app/kinship/page.tsx`** — 見出しと凡例
 
-### 崩すとサイレントに壊れる4つ
+### 崩すとサイレントに壊れる5つ
 
 - **`ReactFlowProvider` に `initialNodes`/`initialEdges`/`initialWidth`/`initialHeight`/
   `fitView` を渡す。** 自分で Provider を置くと React Flow 内部の `Wrapper` が
@@ -166,6 +169,11 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
   `.react-flow__viewport` の CSS transform を直に書き換えると React Flow の store が
   更新されず、**store を読んでいる部品（時代の帯・左端の年）だけが動かない写真**が撮れる
   （2026-08-18 に実際に撮って「帯の年がでたらめ」と読み違えた）
+- **カードの `<a>` の `pointer-events-auto` を外さない。** ノードは draggable/selectable
+  とも false なので React Flow がラッパーに `pointer-events: none` を敷く。この1クラスが
+  無いと**クリックしても個別ページへ遷移しない**（2026-08-19 に実測でだけ発見。tsc・lint・
+  build はどれも落ちない）。ホイール＝縦パン・Ctrl/⌘＋ホイール＝拡大縮小も 2026-08-19 の
+  ユーザー指示なので `zoomOnScroll={false} panOnScroll` を外さないこと
 - **`regimeBandColor` は `--kinship-minor` を返さない。** あれは無彩色の識別色で白文字との
   コントラストが **2.58:1**。カードの帯は8色とも「白文字が 5.2:1」で作ってあり、
   割拠政権（スロット0）用に `--kinship-band-0` を同じ目標で足してある

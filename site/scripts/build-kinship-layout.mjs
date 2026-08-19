@@ -296,19 +296,158 @@ for (const ed of kinship.edges) {
   }
 }
 
-// ---------------------------------------------------------------- elk
-const elkNodes = [];
-for (const c of cards.values()) elkNodes.push({ id: c.id, width: CARD_W, height: heightOf(c) });
-for (const u of unions.values()) elkNodes.push({ id: u.id, width: UNION_SIZE, height: UNION_SIZE });
+// ---------------------------------------------------------------- 家族ブロック
+//
+// **一般的な家系図の形にする**（2026-08-19 ユーザー指示「この線のつなぎ方がキモい、
+// 一般的な家系図みたいなつなぎ方にして」）。夫婦は必ず隣に並べて中央の高さの横棒で結び、
+// 子はその横棒の中点から下ろす。elk に夫婦を別々のノードで渡すと隣に置く保証が無い
+// （旧実装の実測で最大 267px 離れ、結び目が1段下にぶら下がる Y 字になっていた）ので、
+// **夫婦の鎖ごと1つのブロックに固めて elk へ渡し、ブロックの中の並びは自前で決める**。
+// 複数婚は鎖（呂雉—高帝—薄姫）になる。この章で1人が持つ相手は最大2人 — 3人以上は
+// 鎖にならないので、データが増えたとき黙って崩れないよう throw する。
+const SPOUSE_GAP = 24;
 
-const elkEdges = [];
-let ei = 0;
+const spouseLinks = new Map(); // person -> 相手[]（union で隣り合う）
 for (const u of unions.values()) {
-  elkEdges.push({ id: `e${ei++}`, sources: [u.father], targets: [u.id] });
-  elkEdges.push({ id: `e${ei++}`, sources: [u.mother], targets: [u.id] });
-  for (const ch of u.children) elkEdges.push({ id: `e${ei++}`, sources: [u.id], targets: [ch] });
+  pushTo(spouseLinks, u.father, u.mother);
+  pushTo(spouseLinks, u.mother, u.father);
 }
-for (const x of extra) elkEdges.push({ id: `e${ei++}`, sources: [x.from], targets: [x.to] });
+for (const [pid, mates] of spouseLinks)
+  if (new Set(mates).size > 2)
+    throw new Error(`家族ブロックが鎖にならない（相手が3人以上）: ${pid}`);
+
+const blocks = [];
+const blockOf = new Map(); // personId -> block
+{
+  const seenP = new Set();
+  const mkBlock = (memberIds) => {
+    const h = Math.max(...memberIds.map((id) => heightOf(cards.get(id))));
+    const members = [];
+    let x = 0;
+    for (const id of memberIds) {
+      const mh = heightOf(cards.get(id));
+      // 縦はブロックの中央に揃える。全員の中央が同じ高さになるので、夫婦の横棒が
+      // どの組み合わせ（皇帝×親族・親族×親族）でも水平の1本線で引ける。
+      members.push({ id, x, y: (h - mh) / 2, w: CARD_W, h: mh });
+      x += CARD_W + SPOUSE_GAP;
+    }
+    const b = { id: `blk-${blocks.length}`, members, w: x - SPOUSE_GAP, h, unions: [] };
+    blocks.push(b);
+    for (const id of memberIds) blockOf.set(id, b);
+    return b;
+  };
+  for (const id of cards.keys()) {
+    if (seenP.has(id)) continue;
+    const mates = [...new Set(spouseLinks.get(id) ?? [])].filter((m) => cards.has(m));
+    if (!mates.length) {
+      seenP.add(id);
+      mkBlock([id]);
+      continue;
+    }
+    const comp = new Set([id]);
+    const stack = [id];
+    while (stack.length) {
+      const cur = stack.pop();
+      for (const nx of spouseLinks.get(cur) ?? []) {
+        if (!cards.has(nx) || comp.has(nx)) continue;
+        comp.add(nx);
+        stack.push(nx);
+      }
+    }
+    const ends = [...comp].filter((p) => new Set(spouseLinks.get(p) ?? []).size < 2);
+    if (comp.size > 1 && ends.length !== 2)
+      throw new Error(`夫婦の鎖が輪になっている: ${[...comp].join("・")}`);
+    // 並びの向き: 2人なら父を左に。3人の鎖なら年の古い端を左に（決め打ちの規則が
+    // 要るだけで、どちら向きでも図としては読める）。
+    let head = ends[0];
+    if (comp.size === 2) {
+      const u = [...unions.values()].find((x) => comp.has(x.father) && comp.has(x.mother));
+      head = u ? u.father : ends[0];
+    } else {
+      const y0 = yearOf(cards.get(ends[0])) ?? 9999;
+      const y1 = yearOf(cards.get(ends[1])) ?? 9999;
+      head = y0 <= y1 ? ends[0] : ends[1];
+    }
+    const ordered = [head];
+    while (ordered.length < comp.size) {
+      const cur = ordered[ordered.length - 1];
+      const nx = [...new Set(spouseLinks.get(cur) ?? [])].find(
+        (p) => comp.has(p) && !ordered.includes(p),
+      );
+      ordered.push(nx);
+    }
+    for (const p of ordered) seenP.add(p);
+    mkBlock(ordered);
+  }
+}
+
+// union の下ろし点（ブロック内の相対座標）。夫婦は構成上必ず隣にいる。
+const unionGeo = new Map(); // unionId -> {block, dropX, midY}
+for (const u of unions.values()) {
+  const b = blockOf.get(u.father);
+  const fi = b.members.findIndex((m) => m.id === u.father);
+  const mi = b.members.findIndex((m) => m.id === u.mother);
+  if (b !== blockOf.get(u.mother) || Math.abs(fi - mi) !== 1)
+    throw new Error(`夫婦が隣に並んでいない: ${u.father}×${u.mother}`);
+  const left = b.members[Math.min(fi, mi)];
+  unionGeo.set(u.id, { block: b, dropX: left.x + left.w + SPOUSE_GAP / 2, midY: b.h / 2 });
+  b.unions.push(u.id);
+}
+
+// ---------------------------------------------------------------- elk
+//
+// ブロックがノード。線の出入り口は FIXED_POS のポートで決め打ちする —
+// **子へ下りる線は夫婦の間の下ろし点から出る**・**人へ入る線はそのカードの真上に入る**。
+// ポートを使わないと elk はブロックの縁の好きな場所から線を出すので、
+// 「夫婦の間から下りる」という家系図の文法が座標に残らない。
+const portsOf = (b) => [
+  ...b.members.flatMap((m) => [
+    { id: `Pt-${m.id}`, x: m.x + m.w / 2, y: 0, width: 0, height: 0 },
+    { id: `Pb-${m.id}`, x: m.x + m.w / 2, y: b.h, width: 0, height: 0 },
+  ]),
+  ...b.unions.map((uid) => ({
+    id: `Pu-${uid}`,
+    x: unionGeo.get(uid).dropX,
+    y: b.h,
+    width: 0,
+    height: 0,
+  })),
+];
+const elkNodes = blocks.map((b) => ({
+  id: b.id,
+  width: b.w,
+  height: b.h,
+  layoutOptions: { "elk.portConstraints": "FIXED_POS" },
+  ports: portsOf(b),
+}));
+
+// 論理の辺。from/to は「union か 人 → 人」のまま持ち、elk へはブロック＋ポートで渡す。
+const logical = []; // {from, to, srcPort, tgtPort, srcBlk, tgtBlk}
+for (const u of unions.values())
+  for (const ch of u.children)
+    logical.push({
+      from: u.id,
+      to: ch,
+      srcPort: `Pu-${u.id}`,
+      tgtPort: `Pt-${ch}`,
+      srcBlk: unionGeo.get(u.id).block.id,
+      tgtBlk: blockOf.get(ch).id,
+    });
+for (const x of extra)
+  logical.push({
+    from: x.from,
+    to: x.to,
+    srcPort: `Pb-${x.from}`,
+    tgtPort: `Pt-${x.to}`,
+    srcBlk: blockOf.get(x.from).id,
+    tgtBlk: blockOf.get(x.to).id,
+  });
+// 親子が同じブロック（子が親の配偶者の鎖にいる）は elk に渡せない。この章には無いが、
+// 出たら線が消えるので必ず声を出す。
+for (const e of logical.filter((e) => e.srcBlk === e.tgtBlk))
+  console.warn(`  ⚠ 同じブロック内の親子は引けない: ${e.from}→${e.to}`);
+
+let ei = 0;
 
 // **段を2回に分けて解く。**
 //
@@ -317,45 +456,28 @@ for (const x of extra) elkEdges.push({ id: `e${ei++}`, sources: [x.from], target
 // 上**に来ていた（光武帝 25 が王莽 9・哀帝 前7 より上・2026-08-18「前漢末、新、後漢初の
 // 人物の配置を時代感を考慮した配置に」）。
 //
-// 1回目は**年の背骨**（見えない鎖 T0→T1→… を BUCKET 年ごとに立て、年 y の人物へ
-// T_k → 人物 の辺を張る）を足して解き、**段の番号だけ**を取る。背骨は層の制約としては
-// 効くが、そのまま描くと横の置き方まで背骨に引っ張られて図が崩れる（実測で横棒の総延長
-// +78%・高さ +57%・夫婦の隔たり最大 262→548px）。
-//
-// そこで2回目は背骨を捨て、代わりに**辺の途中へ見えないスペーサを挟んで段差だけを再現する**。
-// スペーサは辺の上に乗るので、elk はそれを1本の線分として素直に縦へ通す — 横の置き方は
-// 1回目の背骨に引っ張られない。
+// 1回目は**年の背骨**（見えない鎖 T0→T1→… を BUCKET 年ごとに立て、年 y のブロックへ
+// T_k → ブロック の辺を張る）を足して解き、**段の番号だけ**を取る。
+// 2回目は背骨を捨て、代わりに**辺の途中へ見えないスペーサを挟んで段差だけを再現する**。
 const BUCKET = Number(process.env.KINSHIP_BUCKET ?? 20);
 const LAYOUT_OPTIONS = {
     "elk.algorithm": "layered",
     "elk.direction": "DOWN",
     "elk.layered.layering.strategy": "NETWORK_SIMPLEX",
     "elk.layered.crossingMinimization.strategy": "LAYER_SWEEP",
-    // 夫婦（union の父と母）がどれだけ近く並ぶかはこの戦略で決まる。2026-08-18 に
-    // 「竇氏と文帝の間が広がりすぎ」と指摘されて4通り測った（KINSHIP_NODE_PLACEMENT で
-    // 差し替えられる）:
-    //
-    //   BRANDES_KOEPF   夫婦の隔たり 最大 1550px / 3枚ぶん以上 5組 / 幅 2717px
-    //   NETWORK_SIMPLEX             688px /            2組 /     2056px
-    //   LINEAR_SEGMENTS             430px /            1組 /     1886px  ← 採用
-    //
-    // 直線性を優先する BRANDES_KOEPF は、親子の柱をまっすぐ通すために夫婦を遠くへ
-    // 押しやっていた。図の幅も 3 割縮む。
     "elk.layered.nodePlacement.strategy":
       process.env.KINSHIP_NODE_PLACEMENT ?? "LINEAR_SEGMENTS",
     // カード同士の横の間隔。14px だと「ノードと線が密集して関係が分かりにくい」と
-    // 外部レビューで言われた（2026-08-18）。20px で図の幅は 1193→1225px しか増えない。
+    // 外部レビューで言われた（2026-08-18）。
     "elk.spacing.nodeNode": process.env.KINSHIP_NODE_GAP ?? "20",
-    "elk.layered.spacing.nodeNodeBetweenLayers": process.env.KINSHIP_LAYER_GAP ?? "32",
+    "elk.layered.spacing.nodeNodeBetweenLayers": process.env.KINSHIP_LAYER_GAP ?? "36",
     "elk.spacing.edgeNode": process.env.KINSHIP_EDGE_NODE ?? "12",
-    // 段と段のあいだで線がカードに寄る距離（既定10px だと夫婦の横棒がカードの真下を
-    // かすめる）。2026-08-18「線とカードが近すぎる」への対応。
     "elk.layered.spacing.edgeNodeBetweenLayers": process.env.KINSHIP_EDGE_NODE_LAYER ?? "14",
     "elk.edgeRouting": "ORTHOGONAL",
-    // 同じ親から出る線を1本のバスにまとめる（櫛の形になる）
-    // mergeEdges は測って外した（線の交差 1→8・夫婦の隔たり最大 324→482px）。
-    // 兄弟のバスは下で自前に揃えるので、elk に束ねさせる必要がない。
-    "elk.layered.mergeEdges": process.env.KINSHIP_MERGE ?? "false",
+    // 同じ下ろし点から出る兄弟の線を1本の幹にまとめる（本物の櫛になる）。旧 union 方式では
+    // 交差が増えて外していたが、ポート付きの家族ブロックでは逆で、交差 3→2・図の高さ
+    // 5338→4856px・「行って戻る」ジグザグ（章帝→劉寿）も消えた（2026-08-19 実測）。
+    "elk.layered.mergeEdges": process.env.KINSHIP_MERGE ?? "true",
 };
 
 const elk = new ELK();
@@ -363,11 +485,13 @@ const solve = (children, edges) =>
   elk.layout({ id: "root", layoutOptions: LAYOUT_OPTIONS, children, edges });
 
 // --- 1回目: 年の背骨つき。段の番号だけを取る
-const layerOf = new Map();
+const layerOf = new Map(); // blockId -> 段
 {
   const spine = new Set();
-  const nodesA = [...elkNodes];
-  const edgesA = [...elkEdges];
+  const nodesA = blocks.map((b) => ({ id: b.id, width: b.w, height: b.h }));
+  const edgesA = logical
+    .filter((e) => e.srcBlk !== e.tgtBlk)
+    .map((e) => ({ id: `a${ei++}`, sources: [e.srcBlk], targets: [e.tgtBlk] }));
   const years = [...cards.values()].map(yearOf).filter((v) => v != null);
   const lo = Math.min(...years);
   const hi = Math.max(...years);
@@ -377,14 +501,12 @@ const layerOf = new Map();
     nodesA.push({ id, width: 0, height: 0 });
     if (k > 0) edgesA.push({ id: `a${ei++}`, sources: [`t-${k - 1}`], targets: [id] });
   }
-  // **家族の単位で同じ枡に入れる。** 人ごとの年でそのまま縛ると、高帝（前202）と
-  // 呂雉（前179）のように年が離れた夫婦が別の段へ割れ、父から結び目へ下ろす線が
-  // 母のカードを突き抜ける（実測で交差19件のうち12件がこれだった）。兄弟も同じで、
-  // 同じ親の子は1段に並べたい。**下限だけを揃える**ので、時代の前後は保たれる。
+  // ブロックの枡は構成員の最古の年。夫婦を同じ枡に入れる問題はブロック化で消えている
+  // （高帝 前202 と 呂雉 前179 は同じブロック）。兄弟はここで下限を揃える。
   const bucket = new Map();
-  for (const c of cards.values()) {
-    const y = yearOf(c);
-    if (y != null) bucket.set(c.id, Math.floor((y - lo) / BUCKET));
+  for (const b of blocks) {
+    const ys = b.members.map((m) => yearOf(cards.get(m.id))).filter((v) => v != null);
+    if (ys.length) bucket.set(b.id, Math.floor((Math.min(...ys) - lo) / BUCKET));
   }
   const pull = (group) => {
     const vals = group.map((id) => bucket.get(id)).filter((v) => v != null);
@@ -392,10 +514,7 @@ const layerOf = new Map();
     const b = Math.min(...vals);
     for (const id of group) if (bucket.has(id)) bucket.set(id, b);
   };
-  for (const u of unions.values()) {
-    pull([u.father, u.mother]);
-    pull(u.children);
-  }
+  for (const u of unions.values()) pull(u.children.map((c) => blockOf.get(c).id));
   for (const [id, k] of bucket) {
     edgesA.push({ id: `a${ei++}`, sources: [`t-${k}`], targets: [id] });
   }
@@ -407,22 +526,15 @@ const layerOf = new Map();
   for (const n of real) layerOf.set(n.id, rank.get(n.y));
 }
 
-// **段の番号を家族の単位で揃える。** 年で縛ると夫婦・兄弟が別の段へ割れ、父から結び目へ
-// 下ろす線が母のカードを、親から子へ下ろす線が別の子のカードを突き抜ける（実測15本のうち
-// 12本がこれ）。**下げる方向にだけ動かす**ので必ず収束する。
+// **段の番号を家族の単位で揃える。** 兄弟（同じ union の子）が別の段へ割れると、
+// 親から下ろす横棒が段違いになって別の子のカードを突き抜ける。**下げる方向にだけ
+// 動かす**ので必ず収束する。夫婦はブロックが1つなので最初から同じ段。
 {
-  const kids = new Map(); // 親 -> 子[]（結び目をまたいだ兄弟も同じ段に並べる）
-  const addKid = (p, c) => {
-    const cur = kids.get(p);
-    if (cur) cur.push(c);
-    else kids.set(p, [c]);
-  };
+  const kids = new Map(); // 親（union か 人）-> 子ブロック[]
   for (const u of unions.values())
-    for (const c of u.children) {
-      addKid(u.father, c);
-      addKid(u.mother, c);
-    }
-  for (const x of extra) addKid(x.from, x.to);
+    if (u.children.length)
+      kids.set(u.id, u.children.map((c) => blockOf.get(c).id));
+  for (const x of extra) pushTo(kids, x.from, blockOf.get(x.to).id);
 
   for (let it = 0; it < 12; it += 1) {
     let changed = false;
@@ -432,19 +544,15 @@ const layerOf = new Map();
         changed = true;
       }
     };
-    for (const u of unions.values()) {
-      const m = Math.max(layerOf.get(u.father), layerOf.get(u.mother));
-      bump(u.father, m);
-      bump(u.mother, m);
-    }
     for (const cs of kids.values()) {
       const m = Math.max(...cs.map((c) => layerOf.get(c)));
       for (const c of cs) bump(c, m);
     }
-    for (const e of elkEdges) bump(e.targets[0], layerOf.get(e.sources[0]) + 1);
+    for (const e of logical)
+      if (e.srcBlk !== e.tgtBlk) bump(e.tgtBlk, layerOf.get(e.srcBlk) + 1);
     if (!changed) break;
   }
-  // 空いた段は詰める（スペーサは段差の下限しか決めないので、詰めても順序は変わらない）
+  // 空いた段は詰める
   const packed = new Map(
     [...new Set(layerOf.values())].sort((a, b) => a - b).map((v, i) => [v, i]),
   );
@@ -453,48 +561,60 @@ const layerOf = new Map();
 
 // --- 2回目: 背骨は捨て、段差をスペーサで固定して解く
 //
-// **線の形も elk に引かせる。** 自前でバスを選んでいた版は、カードとの交差・線どうしの
-// 交差しか数えていなかったので「カードに寄りすぎ」「短い折れ」「行って戻る余分な棒」
-// （2026-08-18 の指摘6件）が全部素通りした。elk の直交ルータはノードを避け、同じ親から
-// 出る線を1本のバスにまとめ（`mergeEdges`）、交差も減らす。返ってくる `sections` を
-// そのまま折れ線として使う。
-//
-// 段をいくつも跨ぐ線はスペーサで刻んであるので、鎖の区間をつなぎ直して1本にする。
+// **線の形も elk に引かせる。** 段をいくつも跨ぐ線はスペーサで刻んであるので、
+// 鎖の区間をつなぎ直して1本にする。
 const nodesB = [...elkNodes];
 const edgesB = [];
 const spacers = new Set();
 const chainOf = new Map(); // `${from}>${to}` -> [elk の辺 id...]（つなぎ直す順）
 let si = 0;
-const addChain = (from, to, extra) => {
-  const gap = layerOf.get(to) - layerOf.get(from);
+const addChain = (key, srcPort, tgtPort, srcBlk, tgtBlk) => {
+  const gap = layerOf.get(tgtBlk) - layerOf.get(srcBlk);
   const chain = [];
-  let prev = from;
+  let prev = srcPort;
   for (let k = 1; k < gap; k += 1) {
     const id = `s-${si++}`;
     spacers.add(id);
     nodesB.push({ id, width: 0, height: 0 });
     const eid = `b${ei++}`;
-    edgesB.push({ id: eid, sources: [prev], targets: [id], ...extra });
+    edgesB.push({ id: eid, sources: [prev], targets: [id] });
     chain.push(eid);
     prev = id;
   }
   const eid = `b${ei++}`;
-  edgesB.push({ id: eid, sources: [prev], targets: [to], ...extra });
+  edgesB.push({ id: eid, sources: [prev], targets: [tgtPort] });
   chain.push(eid);
-  chainOf.set(`${from}>${to}`, chain);
+  chainOf.set(key, chain);
 };
-for (const e of elkEdges) addChain(e.sources[0], e.targets[0]);
-// **継承も elk に引かせる。** 段の差はスペーサで固定してあるので、辺を足しても段は動かない
-// （逆向き＝行き先が上にある継承だけは足さず、後で自前で引く）。
+for (const e of logical)
+  if (e.srcBlk !== e.tgtBlk) addChain(`${e.from}>${e.to}`, e.srcPort, e.tgtPort, e.srcBlk, e.tgtBlk);
+// **継承も elk に引かせる**（逆向き＝行き先が上にある継承だけは足さず、後で自前で引く）。
 const succRouted = new Set();
 for (const s of succession) {
-  if (!(layerOf.get(s.to) > layerOf.get(s.from))) continue;
-  addChain(s.from, s.to);
+  const sb = blockOf.get(s.from).id;
+  const tb = blockOf.get(s.to).id;
+  if (sb === tb) continue;
+  if (!(layerOf.get(tb) > layerOf.get(sb))) continue;
+  addChain(`${s.from}>${s.to}`, `Pb-${s.from}`, `Pt-${s.to}`, sb, tb);
   succRouted.add(`${s.from}>${s.to}`);
 }
 const graph = await solve(nodesB, edgesB);
 
-const pos = new Map(graph.children.map((n) => [n.id, { x: n.x, y: n.y }]));
+// ブロックの座標を人と union（下ろし点）の絶対座標へほどく。**以降の工程はすべて
+// 人・union の座標で進める**（時代で動かす・原点へ寄せる・出力）。
+const blockPos = new Map(graph.children.map((n) => [n.id, { x: n.x, y: n.y }]));
+const pos = new Map();
+for (const b of blocks) {
+  const p = blockPos.get(b.id);
+  for (const m of b.members) pos.set(m.id, { x: p.x + m.x, y: p.y + m.y });
+}
+for (const [uid, g] of unionGeo) {
+  const p = blockPos.get(g.block.id);
+  pos.set(uid, {
+    x: p.x + g.dropX - UNION_SIZE / 2,
+    y: p.y + g.midY - UNION_SIZE / 2,
+  });
+}
 
 // elk の区間を折れ線に戻す
 const sectionsById = new Map(graph.edges.map((e) => [e.id, e.sections?.[0]]));
@@ -512,6 +632,27 @@ for (const [key, chain] of chainOf) {
   if (pts.length >= 2) routeOf.set(key, pts);
 }
 console.log(`  段のスペーサ: ${si}個 / elk が引いた線: ${routeOf.size}本`);
+
+// **端をポートの位置から実際の付け根へ伸ばす。** elk の線はブロックの縁で始まり終わる。
+// カードはブロックの中で上下中央に置くので、背の低いカードは縁との間に段差がある。
+// union の線は夫婦の横棒の中点（ブロックの中の高さ）まで引き上げる。
+for (const [key, pts] of routeOf) {
+  const [from, to] = key.split(">");
+  const head = pts[0];
+  const tail = pts[pts.length - 1];
+  if (unionGeo.has(from)) {
+    const p = pos.get(from);
+    pts.unshift([p.x + UNION_SIZE / 2, p.y + UNION_SIZE / 2]);
+  } else if (cards.has(from)) {
+    const p = pos.get(from);
+    const bottom = p.y + heightOf(cards.get(from));
+    if (head[1] > bottom + 0.5) pts.unshift([head[0], bottom]);
+  }
+  if (cards.has(to)) {
+    const p = pos.get(to);
+    if (tail[1] < p.y - 0.5) pts.push([tail[0], p.y]);
+  }
+}
 
 // ---------------------------------------------------------------- 時代で縦を整える
 //
@@ -739,6 +880,14 @@ const boxes = new Map();
 for (const n of nodes) boxes.set(n.id, n);
 for (const n of unionNodes) boxes.set(n.id, n);
 
+// 同じ家族ブロックの中は「近い」のが正しい（夫婦の間 24px を下ろし点の線が通る）。
+// 距離の検査からは家族ブロック内の組み合わせを除く。
+const blockKeyOf = (id) => blockOf.get(id)?.id ?? unionGeo.get(id)?.block.id ?? null;
+const sameBlock = (a, b) => {
+  const ka = blockKeyOf(a);
+  return ka != null && ka === blockKeyOf(b);
+};
+
 /** 重複点・一直線上の中継点・行って戻る折り返しを落とす。 */
 const cleanPolyline = (input) => {
   // **先に丸める。** 丸める前に重複を落とすと、0.6px 離れた2点が生き残って
@@ -787,41 +936,71 @@ const sideRoute = (from, to) => {
 };
 
 /**
- * **1〜6px の「折れ」を吸収する。** elk は稀に数 px だけ横へずらして下ろす経路を返し、
- * それが図では「不要な曲がり」に見える（2026-08-18 の指摘）。短い区間の左右どちらか
- * 短い側を、もう一方の座標へ寄せて消す。端点はカードの縁の内側に収まる範囲で動かす。
+ * **数 px の「折れ」を吸収する。** elk は稀に数 px だけ横へずらして下ろす経路を返し、
+ * それが図では「不要な曲がり」に見える（2026-08-18 の指摘）。折れの前後の
+ * 「まっすぐな区間」のうち短い側を、もう一方の座標へ寄せて消す。旧実装は線の
+ * 前半分・後半分を丸ごと動かしていたので、途中に別の曲がりがある線では付け根が
+ * 箱から出て諦めていた（7px の折れが2件残っていた）。
+ * 区間が線の端に届くときは付け根の箱の中に収まる範囲でだけ動かす —
+ * **union（下ろし点）は夫婦の横棒の上ならどこでもよい**（横棒の幅 SPOUSE_GAP ぶん動ける。
+ * 一般的な家系図でも子の線は横棒の中央からとは限らない）。
  */
+const JOG_SNAP = 10;
+const endWindow = (id, x, y) => {
+  const b = boxes.get(id);
+  if (!cards.has(id)) {
+    const cx = b.x + b.w / 2;
+    const cy = b.y + b.h / 2;
+    return Math.abs(x - cx) <= SPOUSE_GAP / 2 - 2 && Math.abs(y - cy) <= b.h;
+  }
+  return x >= b.x + 2 && x <= b.x + b.w - 2 && y >= b.y - 1 && y <= b.y + b.h + 1;
+};
 const absorbJogs = (input, fromId, toId) => {
-  const JOG_SNAP = 10;
-  let pts = input.map(([x, y]) => [x, y]);
-  const inside = (i, x, y) => {
-    const b = boxes.get(i);
-    return x >= b.x + 2 && x <= b.x + b.w - 2 && y >= b.y - 1 && y <= b.y + b.h + 1;
-  };
+  let pts = cleanPolyline(input);
   for (let guard = 0; guard < 20; guard += 1) {
-    let hit = -1;
-    for (let i = 1; i + 2 < pts.length; i += 1) {
-      const len = Math.abs(pts[i + 1][0] - pts[i][0]) + Math.abs(pts[i + 1][1] - pts[i][1]);
-      if (len > 0 && len < JOG_SNAP) {
-        hit = i;
+    let done = true;
+    for (let i = 0; i + 1 < pts.length; i += 1) {
+      const dx = Math.abs(pts[i + 1][0] - pts[i][0]);
+      const dy = Math.abs(pts[i + 1][1] - pts[i][1]);
+      const len = dx + dy;
+      if (len === 0 || len >= JOG_SNAP) continue;
+      const axis = dx > 0 ? 0 : 1; // 折れで揃え直す軸
+      // 折れの前後の「まっすぐな区間」（axis 座標が一定の連続点）
+      let a = i;
+      while (a > 0 && pts[a - 1][axis] === pts[i][axis]) a -= 1;
+      let b = i + 1;
+      while (b + 1 < pts.length && pts[b + 1][axis] === pts[i + 1][axis]) b += 1;
+      const lenOf = (s, t) => {
+        let v = 0;
+        for (let k = s; k < t; k += 1)
+          v += Math.abs(pts[k + 1][0] - pts[k][0]) + Math.abs(pts[k + 1][1] - pts[k][1]);
+        return v;
+      };
+      const tryMove = (s, t, target) => {
+        const next = pts.map((q) => [...q]);
+        for (let k = s; k <= t; k += 1) next[k][axis] = target;
+        if (s === 0 && !endWindow(fromId, next[0][0], next[0][1])) return null;
+        if (t === pts.length - 1 && !endWindow(toId, next[next.length - 1][0], next[next.length - 1][1]))
+          return null;
+        return cleanPolyline(next);
+      };
+      // 短い側を長い側へ寄せる。動かせなければ逆側を試す
+      const order =
+        lenOf(a, i) <= lenOf(i + 1, b)
+          ? [[a, i, pts[i + 1][axis]], [i + 1, b, pts[i][axis]]]
+          : [[i + 1, b, pts[i][axis]], [a, i, pts[i + 1][axis]]];
+      let moved = null;
+      for (const [s, t, target] of order) {
+        moved = tryMove(s, t, target);
+        if (moved) break;
+      }
+      if (moved) {
+        pts = moved;
+        done = false;
         break;
       }
     }
-    if (hit < 0) break;
-    const axis = Math.abs(pts[hit + 1][0] - pts[hit][0]) > 0 ? 0 : 1;
-    const head = hit + 1; // 前側の点数
-    const tail = pts.length - (hit + 1);
-    const moveHead = head <= tail;
-    const target = moveHead ? pts[hit + 1][axis] : pts[hit][axis];
-    const next = pts.map(([x, y]) => [x, y]);
-    if (moveHead) for (let i = 0; i <= hit; i += 1) next[i][axis] = target;
-    else for (let i = hit + 1; i < next.length; i += 1) next[i][axis] = target;
-    if (
-      !inside(fromId, next[0][0], next[0][1]) ||
-      !inside(toId, next[next.length - 1][0], next[next.length - 1][1])
-    )
-      break;
-    pts = cleanPolyline(next);
+    if (done) break;
   }
   return pts;
 };
@@ -834,9 +1013,18 @@ const push = (kind, from, to, extra) => {
   lines.push({ id: `l${li++}`, kind, from, to, points: absorbJogs(cleanPolyline(pts), from, to), ...extra });
 };
 for (const u of unionNodes) {
-  const pk = u.kind === "disputed" ? "disputed" : null;
-  push(pk ?? "father", u.father, u.id);
-  push(pk ?? "mother", u.mother, u.id);
+  // **夫婦の横棒**（一般的な家系図の結び方・2026-08-19）。左の配偶者の右辺から
+  // 右の配偶者の左辺まで、カードの中央の高さを水平に1本。React Flow の辺は
+  // 2点をつなぐ器なので、下ろし点（union）を挟んで2本に割って持つ。
+  // 実父の異説（呂不韋）は点線にして、確定した夫婦と見た目で分ける。
+  const f = boxes.get(u.father);
+  const m = boxes.get(u.mother);
+  const kind = u.kind === "disputed" ? "disputed" : "marriage";
+  const y = Math.round(u.y + u.h / 2);
+  const cx = Math.round(u.x + u.w / 2);
+  const [L, R] = f.x < m.x ? [f, m] : [m, f];
+  lines.push({ id: `l${li++}`, kind, from: L.id, to: u.id, points: [[L.x + L.w, y], [cx, y]] });
+  lines.push({ id: `l${li++}`, kind, from: u.id, to: R.id, points: [[cx, y], [R.x, y]] });
   for (const c of u.children) push("child", u.id, c);
 }
 for (const x of extra) push(x.kind, x.from, x.to);
@@ -900,6 +1088,8 @@ const costOf = (e) => {
   const segs = segsOf(e);
   for (const b of boxes.values()) {
     if (b.id === e.from || b.id === e.to) continue;
+    if (!cards.has(b.id)) continue; // union は見えない結節点なので距離を見ない
+    if (sameBlock(e.from, b.id) || sameBlock(e.to, b.id)) continue;
     let worst = Infinity;
     for (const seg of segs) worst = Math.min(worst, gap(seg, b));
     if (worst <= 0) c += 10;
@@ -973,7 +1163,91 @@ const setFirstBusY = (e, y) => {
   }
 }
 
+// ---------------------------------------------------------------- 廊下の重なりをほどく
+//
+// 別々の親の線が同じ高さの横の廊下を選ぶと、重なった区間が「1本の線が途中で分岐した」
+// ように読める（2026-08-19「線がいっぱい出ていてキモい」の一因。王禁→王政君と
+// 劉囂→劉勛が 30px 重なっていた）。横の区間が重なった組は、**兄弟バスを持たない側・
+// 短い側の区間を数 px 上下へずらして分離する** — 区間の両端は縦の区間なので、伸縮する
+// だけで新しい折れは生まれない。ずらした先がカードや別の線に寄るなら諦める（残りは
+// 監査が数える）。
+{
+  const fromCount = new Map();
+  for (const e of lines) fromCount.set(e.from, (fromCount.get(e.from) ?? 0) + 1);
+  const hRuns = (e) => {
+    const out = [];
+    for (let i = 1; i + 1 < e.points.length; i += 1) {
+      if (e.points[i][1] !== e.points[i + 1][1]) continue;
+      if (i + 1 === e.points.length - 1) continue; // 端の区間は付け根が動くので触らない
+      out.push(i);
+    }
+    return out;
+  };
+  const segAt = (e, i) => {
+    const [x0, y] = e.points[i];
+    const [x1] = e.points[i + 1];
+    return [Math.min(x0, x1), y, Math.max(x0, x1), y];
+  };
+  const clearAt = (e, i, newY) => {
+    const [x0, , x1] = segAt(e, i);
+    for (const bx of boxes.values()) {
+      if (!cards.has(bx.id)) continue;
+      if (bx.id === e.from || bx.id === e.to) continue;
+      if (sameBlock(e.from, bx.id) || sameBlock(e.to, bx.id)) continue;
+      if (gap([x0, newY, x1, newY], bx) <= 10) return false;
+    }
+    for (const o of lines) {
+      if (o === e || o.from === e.from) continue;
+      for (const j of hRuns(o)) {
+        const [ox0, oy, ox1] = segAt(o, j);
+        if (Math.abs(oy - newY) <= 4 && Math.min(x1, ox1) - Math.max(x0, ox0) > 2) return false;
+      }
+    }
+    return true;
+  };
+  for (let pass = 0; pass < 4; pass += 1) {
+    // いま重なっている組を1つ拾う
+    let pair = null;
+    outer: for (const e of lines) {
+      for (const i of hRuns(e)) {
+        const [x0, y, x1] = segAt(e, i);
+        for (const o of lines) {
+          if (o === e || o.from === e.from) continue;
+          for (const j of hRuns(o)) {
+            const [ox0, oy, ox1] = segAt(o, j);
+            if (Math.abs(oy - y) <= 1 && Math.min(x1, ox1) - Math.max(x0, ox0) > 2) {
+              pair = [
+                { e, i, len: x1 - x0 },
+                { e: o, i: j, len: ox1 - ox0 },
+              ];
+              break outer;
+            }
+          }
+        }
+      }
+    }
+    if (!pair) break;
+    // 動かす候補: 兄弟バスを持たない（＝子が1人の）側を先に、次に短い側
+    pair.sort((a, b) => (fromCount.get(a.e.from) - fromCount.get(b.e.from)) || (a.len - b.len));
+    let moved = false;
+    for (const cand of pair) {
+      const y = cand.e.points[cand.i][1];
+      for (const d of [-6, 6, -12, 12]) {
+        if (!clearAt(cand.e, cand.i, y + d)) continue;
+        cand.e.points[cand.i][1] = y + d;
+        cand.e.points[cand.i + 1][1] = y + d;
+        cand.e.points = cleanPolyline(cand.e.points);
+        moved = true;
+        break;
+      }
+      if (moved) break;
+    }
+    if (!moved) break; // どちらも動かせない重なりは監査に任せる
+  }
+}
+
 const faults = {
+  カードどうしの重なり: [],
   カードの中を通る: [],
   カードに近すぎる: [],
   線どうしの交差: [],
@@ -981,10 +1255,25 @@ const faults = {
   端が浮いている: [],
   不要な折れ: [],
 };
+// カードが被っていないか（2026-08-19 ユーザー指摘。elk はブロックを重ねないはずだが、
+// 時代で動かした成分の置き直しは自前なので、機械で見ないと黙って重なる）。
+{
+  const ns = [...boxes.values()].filter((b) => cards.has(b.id));
+  for (let i = 0; i < ns.length; i += 1)
+    for (let j = i + 1; j < ns.length; j += 1) {
+      const a = ns[i];
+      const b = ns[j];
+      if (a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y)
+        faults.カードどうしの重なり.push(`${a.label} × ${b.label}`);
+    }
+}
+
 for (const e of lines) {
   const segs = segsOf(e);
   for (const b of boxes.values()) {
     if (b.id === e.from || b.id === e.to) continue;
+    if (!cards.has(b.id)) continue; // union は見えない結節点
+    if (sameBlock(e.from, b.id) || sameBlock(e.to, b.id)) continue;
     let worst = Infinity;
     for (const s of segs) worst = Math.min(worst, gap(s, b));
     if (worst <= 0) faults.カードの中を通る.push(`${e.from}→${e.to} / ${b.label ?? b.id}`);
@@ -1183,23 +1472,6 @@ const out = {
 const destDir = path.join(process.cwd(), "src", "lib", "kinship");
 mkdirSync(destDir, { recursive: true });
 writeFileSync(path.join(destDir, "layout.qin-han.json"), JSON.stringify(out), "utf8");
-
-// 夫婦がどれだけ離れて置かれているか（指摘の出どころを数で見る）
-{
-  const gaps = unionNodes
-    .map((u) => {
-      const f = nodes.find((n) => n.id === u.father);
-      const m = nodes.find((n) => n.id === u.mother);
-      if (!f || !m) return null;
-      return Math.abs(f.x - m.x);
-    })
-    .filter((v) => v != null)
-    .sort((a, b) => a - b);
-  const far = gaps.filter((g) => g > CARD_W * 3).length;
-  console.log(
-    `  夫婦の横の隔たり: 中央値 ${gaps[Math.floor(gaps.length / 2)]}px / 最大 ${gaps[gaps.length - 1]}px / カード3枚ぶん以上 ${far}/${gaps.length}`,
-  );
-}
 
 console.log(
   `kinship layout: ${nodes.length}人（除外 ${dropped.length}: ${dropped.map((d) => d.label).join("・")}） / union ${unionNodes.length} / 追加の親子 ${extra.length} / 継承 ${succession.length} / 時代で動かした成分 ${shifted.length} / 段 ${layerYs.length} / ${width}×${height}px`,
