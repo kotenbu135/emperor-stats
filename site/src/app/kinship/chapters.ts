@@ -8,6 +8,7 @@ import layoutEasternJinSixteen from "@/lib/kinship/layout.eastern-jin-sixteen.js
 import layoutNorthernSouthern from "@/lib/kinship/layout.northern-southern.json";
 import layoutSuiTang from "@/lib/kinship/layout.sui-tang.json";
 import layoutFiveDynasties from "@/lib/kinship/layout.five-dynasties.json";
+import layoutSongLiaoJinXia from "@/lib/kinship/layout.song-liao-jin-xia.json";
 
 export type KinshipChapter = {
   /** ページの URL（章ナビの行き先） */
@@ -65,6 +66,13 @@ export const KINSHIP_CHAPTERS: KinshipChapter[] = [
     entryId: "wudai-houliang-taizu",
     layout: layoutFiveDynasties as unknown as KinshipLayout,
     note: "唐の哀帝は、後梁（太祖）への禅譲を示すためこの章にも出している。",
+  },
+  {
+    path: "/kinship/song-liao-jin-xia",
+    heading: "宋・遼・西夏・金",
+    entryId: "beisong-taizu",
+    layout: layoutSongLiaoJinXia as unknown as KinshipLayout,
+    note: "後周の恭帝は、宋（太祖）への禅譲を示すためこの章にも出している。",
   },
 ];
 

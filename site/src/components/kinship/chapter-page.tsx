@@ -135,6 +135,14 @@ const REGIME_LABEL: Record<string, string> = {
   "southern-tang": "南唐",
   "northern-han": "北漢",
   "jie-yan": "燕（劉守光）",
+  "northern-song": "北宋",
+  "southern-song": "南宋",
+  liao: "遼",
+  "western-liao": "西遼",
+  "jin-jurchen": "金",
+  "western-xia": "西夏",
+  "zhangbangchang-chu": "楚（張邦昌）",
+  "liuyu-qi": "斉（劉豫）",
 };
 
 export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {
