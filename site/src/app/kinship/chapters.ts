@@ -7,6 +7,7 @@ import layoutThreeKingdomsJin from "@/lib/kinship/layout.three-kingdoms-jin.json
 import layoutEasternJinSixteen from "@/lib/kinship/layout.eastern-jin-sixteen.json";
 import layoutNorthernSouthern from "@/lib/kinship/layout.northern-southern.json";
 import layoutSuiTang from "@/lib/kinship/layout.sui-tang.json";
+import layoutFiveDynasties from "@/lib/kinship/layout.five-dynasties.json";
 
 export type KinshipChapter = {
   /** ページの URL（章ナビの行き先） */
@@ -57,5 +58,12 @@ export const KINSHIP_CHAPTERS: KinshipChapter[] = [
     entryId: "sui-wendi",
     layout: layoutSuiTang as unknown as KinshipLayout,
     note: "北周の静帝は、隋（文帝）への禅譲を示すためこの章にも出している。",
+  },
+  {
+    path: "/kinship/five-dynasties",
+    heading: "五代十国",
+    entryId: "wudai-houliang-taizu",
+    layout: layoutFiveDynasties as unknown as KinshipLayout,
+    note: "唐の哀帝は、後梁（太祖）への禅譲を示すためこの章にも出している。",
   },
 ];

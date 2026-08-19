@@ -132,6 +132,19 @@ const REGIME_LABEL: Record<string, string> = {
   "zhuci-qin": "秦（朱泚）",
   "lixilie-chu": "楚（李希烈）",
   "huangchao-qi": "斉（黄巣）",
+  "later-liang": "後梁",
+  "later-tang": "後唐",
+  "later-jin": "後晋",
+  "later-han": "後漢（五代）",
+  "later-zhou": "後周",
+  "yang-wu": "呉（楊呉）",
+  "former-shu": "前蜀",
+  "later-shu": "後蜀",
+  "southern-han": "南漢",
+  min: "閩",
+  "southern-tang": "南唐",
+  "northern-han": "北漢",
+  "jie-yan": "燕（劉守光）",
 };
 
 export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {

@@ -77,6 +77,8 @@ const CHAPTERS = [
   { eraId: "northern-southern", guests: ["dongjin-gongdi"], bucket: 20, thoroughness: 30 },
   // 客人＝禅譲の前帝（北周の静帝→隋の文帝）。
   { eraId: "sui-tang", guests: ["beizhou-jingdi"], bucket: 10, thoroughness: 100 },
+  // 客人＝禅譲の前帝（唐の哀帝→後梁の太祖）。
+  { eraId: "five-dynasties", guests: ["tang-aidi"], bucket: 15 },
 ];
 
 async function buildChapter({ eraId: ERA_ID, guests, bucket, thoroughness }) {

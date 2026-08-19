@@ -145,9 +145,9 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 [../docs/site-design/KINSHIP_RULES.md](../docs/site-design/KINSHIP_RULES.md)** が正。
 
 構成は4つ。**レイアウト（＝座標と線の形）を描画側で決めないこと**が全体の設計。
-章は5つ（秦・漢 `/kinship`・三国・西晋 `/kinship/three-kingdoms-jin`・
+章は6つ（秦・漢 `/kinship`・三国・西晋 `/kinship/three-kingdoms-jin`・
 東晋・十六国 `/kinship/eastern-jin-sixteen`・南北朝 `/kinship/northern-southern`・
-隋・唐 `/kinship/sui-tang`・2026-08-19）。
+隋・唐 `/kinship/sui-tang`・五代十国 `/kinship/five-dynasties`・2026-08-19）。
 
 - **`scripts/build-kinship-layout.mjs`** — `prebuild` で elkjs を回して章ごとに
   `src/lib/kinship/layout.<eraId>.json` を吐く（elkjs は devDependencies・`out/` に混ざらない）。
@@ -176,7 +176,8 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
   三国・西晋は `out/kinship/three-kingdoms-jin.html` で同じ2本（18・74）、
   東晋・十六国は `out/kinship/eastern-jin-sixteen.html`（55・145）、
   南北朝は `out/kinship/northern-southern.html`（70・234）、
-  隋・唐は `out/kinship/sui-tang.html`（50・109）
+  隋・唐は `out/kinship/sui-tang.html`（50・109）、
+  五代十国は `out/kinship/five-dynasties.html`（35・93）
 - **`CardPorts` の6ハンドルと `buildGraph` の `ports()` は同じ id・同じ数で並べる。**
   片方だけ増やすと静的 HTML とクライアントで線の出入り口が変わる
 - **`window.__kinshipSetViewport` を消さない。** `tools/shoot-kinship.mjs` が図を動かす口。
