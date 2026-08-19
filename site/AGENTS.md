@@ -162,7 +162,7 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 - **`src/components/kinship/chapter-page.tsx`** — 見出し・章ナビ・凡例。
   `src/app/kinship/**/page.tsx` はこれに章を渡すだけ
 
-### 崩すとサイレントに壊れる5つ
+### 崩すとサイレントに壊れる6つ
 
 - **`ReactFlowProvider` に `initialNodes`/`initialEdges`/`initialWidth`/`initialHeight`/
   `fitView` を渡す。** 自分で Provider を置くと React Flow 内部の `Wrapper` が
@@ -183,6 +183,13 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
   無いと**クリックしても個別ページへ遷移しない**（2026-08-19 に実測でだけ発見。tsc・lint・
   build はどれも落ちない）。ホイール＝縦パン・Ctrl/⌘＋ホイール＝拡大縮小も 2026-08-19 の
   ユーザー指示なので `zoomOnScroll={false} panOnScroll` を外さないこと
+- **図を動かすコードは `clampViewport` を通す（`setCenter` を直接呼ばない）。**
+  React Flow の `setCenter`/`fitView` は `translateExtent` の制約を**通らない**。制約の外の
+  座標に置くと、**次のドラッグ・ホイールの開始時に d3-zoom が補正して画面がぱっと飛ぶ**
+  （2026-08-19 ユーザー指摘「後漢を押してからドラッグすると画面が切り替わる」。とくに
+  余白込みの図が画面より狭い軸は d3 が中央へ固定するので、ずれが必ず出る）。ジャンプ・
+  検索は `clampViewport`、初期表示は `onInit={clampNow}`、アニメ中に掴んだときは
+  `finishAnim`（即完了）が受け持つ — どれも外すと tsc・lint・build は落ちないまま戻る
 - **`regimeBandColor` は `--kinship-minor` を返さない。** あれは無彩色の識別色で白文字との
   コントラストが **2.58:1**。カードの帯は8色とも「白文字が 5.2:1」で作ってあり、
   割拠政権（スロット0）用に `--kinship-band-0` を同じ目標で足してある

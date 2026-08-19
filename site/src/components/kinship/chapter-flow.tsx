@@ -719,7 +719,8 @@ function ChapterFlowInner({
 
   // 政権へ飛ぶ（A = Die Welt der Habsburger の上端ナビに当たる）。図は1画面に収まらないので、
   // **行き先を図の外に文字で出す**のがここでの「全体の把握」。
-  const { setCenter, setViewport } = useReactFlow();
+  const { setViewport, getViewport } = useReactFlow();
+  const paneRef = useRef<HTMLDivElement>(null);
   // **撮影の道具（tools/shoot-kinship.mjs）が図を動かすための口。**
   // 道具は `.react-flow__viewport` の CSS transform を直に書き換えていて、それだと
   // React Flow の store が更新されない — 結果、store を読んでいる「時代の帯」と
@@ -740,12 +741,67 @@ function ChapterFlowInner({
     [layout.width, layout.height],
   );
   const [here, setHere] = useState<string | null>(null);
+  /**
+   * d3-zoom が translateExtent に掛ける制約と同じ式で1軸を丸める。
+   * **余白込みの図が画面より狭い軸は、位置に自由が無く中央へ固定される**（d3 の仕様）。
+   * `setCenter` はこの制約を通らないので、制約の外の座標へ動かすと**次のドラッグ・
+   * ホイールの開始時に d3 が補正し、画面がぱっと飛ぶ**（2026-08-19 ユーザー指摘。
+   * 秦・漢の図が 1260px に縮み、0.7倍で画面より狭くなって顕在化した）。
+   * ジャンプ・検索・初期表示の側で先に同じ制約を適用して、飛びの余地を消す。
+   */
+  const clampAxis = useCallback(
+    (t: number, k: number, pane: number, e0: number, e1: number) => {
+      const tMin = pane - e1 * k;
+      const tMax = -e0 * k;
+      if (tMin > tMax) return (tMin + tMax) / 2; // 自由が無い軸は d3 と同じく中央固定
+      return Math.min(Math.max(t, tMin), tMax);
+    },
+    [],
+  );
+  const clampViewport = useCallback(
+    (v: { x: number; y: number; zoom: number }) => {
+      const rect = paneRef.current?.getBoundingClientRect();
+      if (!rect) return v;
+      return {
+        x: clampAxis(v.x, v.zoom, rect.width, -PAN_MARGIN, layout.width + PAN_MARGIN),
+        y: clampAxis(v.y, v.zoom, rect.height, -PAN_MARGIN, layout.height + PAN_MARGIN),
+        zoom: v.zoom,
+      };
+    },
+    [clampAxis, layout.width, layout.height],
+  );
   const centerOn = useCallback(
     (n: KinshipPerson) => {
-      void setCenter(n.x + n.w / 2, n.y + n.h / 2, { zoom: 0.7, duration: 600 });
+      const rect = paneRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const k = 0.7;
+      const to = clampViewport({
+        x: rect.width / 2 - (n.x + n.w / 2) * k,
+        y: rect.height / 2 - (n.y + n.h / 2) * k,
+        zoom: k,
+      });
+      anim.current = { until: Date.now() + 650, to };
+      void setViewport(to, { duration: 600 });
     },
-    [setCenter],
+    [setViewport, clampViewport],
   );
+  // 初期表示（fitView）も d3 の制約を通っていないので、最初の操作で同じ飛びが出る。
+  // **onInit（React Flow が初期 fitView を終えた後）で一度だけ丸める** — マウントの
+  // effect では早すぎて、直後の fitView が丸めた値を上書きして戻した（実測）。
+  const clampNow = useCallback(() => {
+    const v = getViewport();
+    const c = clampViewport(v);
+    if (Math.abs(c.x - v.x) > 0.5 || Math.abs(c.y - v.y) > 0.5) void setViewport(c);
+  }, [getViewport, setViewport, clampViewport]);
+  // ジャンプのアニメ（600ms）の途中で掴むと、d3 の interpolateZoom が描く弧の上の
+  // 未補正な座標から制約が掛かってやはり飛ぶ。**掴んだ瞬間にジャンプを完了させる**。
+  const anim = useRef<{ until: number; to: { x: number; y: number; zoom: number } } | null>(null);
+  const finishAnim = useCallback(() => {
+    if (anim.current && Date.now() < anim.current.until) {
+      void setViewport(anim.current.to);
+      anim.current = null;
+    }
+  }, [setViewport]);
   const jumpTo = useCallback(
     (j: KinshipJump) => {
       const n = layout.nodes.find((p) => p.id === j.nodeId);
@@ -791,7 +847,12 @@ function ChapterFlowInner({
           </Button>
         ))}
       </nav>
-      <div className="relative min-h-0 flex-1">
+      <div
+        ref={paneRef}
+        className="relative min-h-0 flex-1"
+        onPointerDownCapture={finishAnim}
+        onWheelCapture={finishAnim}
+      >
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -816,6 +877,7 @@ function ChapterFlowInner({
           // 見本の A も1画面に収めていない — 図の入口へ寄せて開き、全体は MiniMap で見る。
           fitView
           fitViewOptions={fitView}
+          onInit={clampNow}
           proOptions={{ hideAttribution: false }}
         >
           {/* 縦横の方眼は**時代の帯に置き換えた**（2026-08-18 の外部レビュー: 方眼が濃い・
