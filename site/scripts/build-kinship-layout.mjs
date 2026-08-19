@@ -86,6 +86,9 @@ const CHAPTERS = [
   { eraId: "sui-tang", guests: ["beizhou-jingdi"], bucket: 10, thoroughness: 100 },
   // 客人＝禅譲の前帝（唐の哀帝→後梁の太祖）。
   { eraId: "five-dynasties", guests: ["tang-aidi"], bucket: 15 },
+  // 客人＝禅譲の前帝（後周の恭帝→宋の太祖）。bucket は 10〜40 を一巡した最少
+  // （交差3件・他0。18/t100 も同数だが 25 のほうが縦が 400px 短い）。
+  { eraId: "song-liao-jin-xia", guests: ["wudai-houzhou-gongdi"], bucket: 25, thoroughness: 100 },
 ];
 
 async function buildChapter({ eraId: ERA_ID, guests, bucket, thoroughness }) {

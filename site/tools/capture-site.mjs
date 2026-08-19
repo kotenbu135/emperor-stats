@@ -47,6 +47,7 @@ const SHOTS = [
   { name: "14-kinship-northern-southern", path: "/kinship/northern-southern" },
   { name: "15-kinship-sui-tang", path: "/kinship/sui-tang" },
   { name: "16-kinship-five-dynasties", path: "/kinship/five-dynasties" },
+  { name: "17-kinship-song-liao-jin-xia", path: "/kinship/song-liao-jin-xia" },
 ];
 
 const MIME = {
