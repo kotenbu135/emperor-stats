@@ -729,28 +729,28 @@
       },
       {
         "phase": "maternalLineage",
-        "block": "maternal-lineage-b23a",
+        "block": "ブロック23a（明の在位16人）",
         "emperors": 16,
         "edges": 23,
         "persons": 16
       },
       {
         "phase": "maternalLineage",
-        "block": "maternal-lineage-b23b",
+        "block": "ブロック23b（南明4＋順1＋西1）",
         "emperors": 6,
         "edges": 2,
         "persons": 2
       },
       {
         "phase": "maternalLineage",
-        "block": "maternal-lineage-b24a",
+        "block": "ブロック24a（清の在位11人）",
         "emperors": 11,
         "edges": 15,
         "persons": 11
       },
       {
         "phase": "maternalLineage",
-        "block": "maternal-lineage-b24b",
+        "block": "ブロック24b（呉周2＋中華帝国1）",
         "emperors": 3,
         "edges": 0,
         "persons": 0
