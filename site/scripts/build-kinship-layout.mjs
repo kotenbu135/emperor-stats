@@ -73,9 +73,13 @@ const CHAPTERS = [
   // 元帝の父・司馬覲は前の章に線を持って出ているので、章をまたぐ親子（crossEra）として
   // 前の章の側に記録されるだけでよい。
   { eraId: "eastern-jin-sixteen", guests: [], bucket: 10 },
+  // 客人＝禅譲の前帝（東晋の恭帝→宋の武帝）。家族は連れて来ない（献帝と同じ）。
+  { eraId: "northern-southern", guests: ["dongjin-gongdi"], bucket: 20, thoroughness: 30 },
+  // 客人＝禅譲の前帝（北周の静帝→隋の文帝）。
+  { eraId: "sui-tang", guests: ["beizhou-jingdi"], bucket: 10, thoroughness: 100 },
 ];
 
-async function buildChapter({ eraId: ERA_ID, guests, bucket }) {
+async function buildChapter({ eraId: ERA_ID, guests, bucket, thoroughness }) {
 const guestSet = new Set(guests);
 const emp = emperors.emperors.filter((e) => e.eraId === ERA_ID || guestSet.has(e.id));
 const per = kinship.persons.filter((p) => p.eraId === ERA_ID || guestSet.has(p.id));
@@ -281,8 +285,19 @@ for (const key of spouses.keys()) {
     );
   for (const [pid, us] of partnerUnions) {
     if (us.length <= 2) continue;
+    // 相手が別の誰かとも夫婦の鎖を持つ union は残さない（partnerCount 昇順を2番目の鍵に）。
+    // 唐の太宗（長孫氏・武則天・楊妃）で、武則天（相手2人＝太宗と高宗）を鎖に残すと
+    // 鎖が 長孫氏—太宗—武則天—高宗 と伸び、高宗が実の両親（太宗×長孫氏）と同じ
+    // ブロックに入って親子の線が引けなくなる。楊妃（相手1人）を残せば鎖は閉じる。
+    // 代償として太宗×武則天の婚姻線は図から消える（demote された union に子が無いと
+    // 引く線が無い）— 下の warn がそれを声に出す。
+    const other = (u) => (u.father === pid ? u.mother : u.father);
+    const partnerCount = (u) => partnerUnions.get(other(u))?.length ?? 0;
     const ranked = [...us].sort(
-      (a, b) => b.children.length - a.children.length || oldestChildYear(a) - oldestChildYear(b),
+      (a, b) =>
+        b.children.length - a.children.length ||
+        partnerCount(a) - partnerCount(b) ||
+        oldestChildYear(a) - oldestChildYear(b),
     );
     for (const u of ranked.slice(2)) {
       for (const c of u.children) {
@@ -292,7 +307,9 @@ for (const key of spouses.keys()) {
       const key = [...unions.entries()].find(([, v]) => v === u)?.[0];
       unions.delete(key);
       console.warn(
-        `  ⚠ 相手が3人以上: ${pid} — union ${u.father}×${u.mother}（子 ${u.children.join("・")}）を直線2本に落とした`,
+        u.children.length
+          ? `  ⚠ 相手が3人以上: ${pid} — union ${u.father}×${u.mother}（子 ${u.children.join("・")}）を直線2本に落とした`
+          : `  ⚠ 相手が3人以上: ${pid} — 子の無い union ${u.father}×${u.mother} を落とした（この婚姻は図に出ない）`,
       );
     }
   }
@@ -384,11 +401,14 @@ for (const ed of kinship.edges) {
     linked.add(s.to);
   }
   for (const id of [...cards.keys()]) {
-    if (!linked.has(id)) {
-      dropped.push({ id, label: cards.get(id).label, reason: "章内に線が1本も無い" });
-      cards.delete(id);
-      ids.delete(id);
-    }
+    if (linked.has(id)) continue;
+    // **皇帝は外さない。** 隋末・唐末の群雄（輔公祏・李軌・黄巣ら8人）は家族も
+    // 引ける継承も一切データに無いが、章の皇帝が図から消えるのは章の嘘になる。
+    // 線ゼロの1人ブロックとして残し、小成分の時代合わせがその在位年の段へ置く。
+    if (cards.get(id).isEmperor) continue;
+    dropped.push({ id, label: cards.get(id).label, reason: "章内に線が1本も無い" });
+    cards.delete(id);
+    ids.delete(id);
   }
 }
 
@@ -573,6 +593,10 @@ const LAYOUT_OPTIONS = {
     "elk.spacing.edgeNode": process.env.KINSHIP_EDGE_NODE ?? "12",
     "elk.layered.spacing.edgeNodeBetweenLayers": process.env.KINSHIP_EDGE_NODE_LAYER ?? "14",
     "elk.edgeRouting": "ORTHOGONAL",
+    // LAYER_SWEEP の反復数。既定 7。南北朝（172人・блок間の婚姻が多い）は 7 だと
+    // 交差 15〜20 件で頭打ちだった — 大きい章では上げる価値がある（ビルド時のみの
+    // コストなので遅くなってよい）。
+    "elk.layered.thoroughness": process.env.KINSHIP_THOROUGHNESS ?? String(thoroughness ?? 7),
     // 同じ下ろし点から出る兄弟の線を1本の幹にまとめる（本物の櫛になる）。旧 union 方式では
     // 交差が増えて外していたが、ポート付きの家族ブロックでは逆で、交差 3→2・図の高さ
     // 5338→4856px・「行って戻る」ジグザグ（章帝→劉寿）も消えた（2026-08-19 実測）。
@@ -982,10 +1006,37 @@ for (const comp of components.slice(1)) {
     targetY = ruler[0].y - (box.y1 - box.y0) - GAP;
     anchor = mainSpan.get(ruler[0].y);
   } else {
-    let best = ruler[0];
-    for (const r of ruler) if (Math.abs(r.year - want) < Math.abs(best.year - want)) best = r;
-    targetY = best.y;
-    anchor = mainSpan.get(best.y);
+    // **成分の上端を「成分全体の年の中央値」の段に置かない。** 縦に長い成分では上端が
+    // 中央値の年の段へ沈む — 南北朝の実測: 北朝の成分（道武帝386〜北斉577・12世代）の
+    // 上端が年500ごろの段に置かれ、道武帝が劉裕（420）より2400px下に出た。
+    // 代わりに**構成員ごとに「自分の年の段」との差を測り、その中央値で平行移動する**
+    // （成分は1枚の板として動かすので、ずれの合計が最小になる寄せ方）。
+    const dys = [];
+    for (const id of comp) {
+      const c = cards.get(id);
+      if (!c) continue;
+      const v = yearOf(c);
+      if (v == null) continue;
+      let best = ruler[0];
+      for (const r of ruler) if (Math.abs(r.year - v) < Math.abs(best.year - v)) best = r;
+      dys.push(best.y - pos.get(id).y);
+    }
+    if (dys.length) {
+      targetY = box.y0 + median(dys);
+      // x の寄せ先は、動かした後に縦で重なる巨大成分の段の左端の最小（1段だけ見ると
+      // 下の段が左へ張り出している場合にカードへ重なる）。
+      let lo = null;
+      for (const [y, span] of mainSpan) {
+        if (y + 200 < targetY || y > targetY + (box.y1 - box.y0)) continue;
+        lo = lo == null ? span.lo : Math.min(lo, span.lo);
+      }
+      anchor = lo == null ? null : { lo };
+    } else {
+      let best = ruler[0];
+      for (const r of ruler) if (Math.abs(r.year - want) < Math.abs(best.year - want)) best = r;
+      targetY = best.y;
+      anchor = mainSpan.get(best.y);
+    }
   }
 
   // 横は寄せ先の段の左端に合わせる。上へ押し出した成分は柱の真上に置けるが、

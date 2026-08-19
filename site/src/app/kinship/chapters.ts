@@ -5,6 +5,8 @@ import type { KinshipLayout } from "@/components/kinship/chapter-flow";
 import layoutQinHan from "@/lib/kinship/layout.qin-han.json";
 import layoutThreeKingdomsJin from "@/lib/kinship/layout.three-kingdoms-jin.json";
 import layoutEasternJinSixteen from "@/lib/kinship/layout.eastern-jin-sixteen.json";
+import layoutNorthernSouthern from "@/lib/kinship/layout.northern-southern.json";
+import layoutSuiTang from "@/lib/kinship/layout.sui-tang.json";
 
 export type KinshipChapter = {
   /** ページの URL（章ナビの行き先） */
@@ -41,5 +43,19 @@ export const KINSHIP_CHAPTERS: KinshipChapter[] = [
     // 章の切れ目の但し書き。東晋の元帝は西晋の宗室（司馬懿の曾孫）で、
     // 父の司馬覲は前の章にいる — 禅譲ではないので客人としては連れて来ない。
     note: "東晋の元帝は西晋の一族（司馬懿の曾孫）で、父の司馬覲は「三国・西晋」の章に出ている。",
+  },
+  {
+    path: "/kinship/northern-southern",
+    heading: "南北朝",
+    entryId: "liu-song-wudi",
+    layout: layoutNorthernSouthern as unknown as KinshipLayout,
+    note: "東晋の恭帝は、宋（武帝）への禅譲を示すためこの章にも出している。",
+  },
+  {
+    path: "/kinship/sui-tang",
+    heading: "隋・唐",
+    entryId: "sui-wendi",
+    layout: layoutSuiTang as unknown as KinshipLayout,
+    note: "北周の静帝は、隋（文帝）への禅譲を示すためこの章にも出している。",
   },
 ];
