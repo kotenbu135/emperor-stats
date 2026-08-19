@@ -10,7 +10,7 @@ const PAGE_TITLE = "系譜図（東晋・十六国）";
 export const metadata: Metadata = buildMetadata({
   path: "/kinship/eastern-jin-sixteen",
   title: PAGE_TITLE,
-  description: "東晋と十六国（前趙・後趙・前燕・前秦・後燕・後秦など）の皇帝とその親族の家系図。全7章の第3章。",
+  description: "東晋と十六国（前趙・後趙・前燕・前秦・後燕・後秦など）の皇帝とその親族の家系図。全8章の第3章。",
 });
 
 export default function KinshipEasternJinSixteenPage() {

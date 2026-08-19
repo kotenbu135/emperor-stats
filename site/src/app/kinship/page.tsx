@@ -16,7 +16,7 @@ export const metadata: Metadata = buildMetadata({
   path: "/kinship",
   title: PAGE_TITLE,
   description:
-    "始皇帝から後漢まで、秦・漢の皇帝とその親族のつながりを描いた家系図。全7章の第1章。",
+    "始皇帝から後漢まで、秦・漢の皇帝とその親族のつながりを描いた家系図。全8章の第1章。",
 });
 
 export default function KinshipPage() {

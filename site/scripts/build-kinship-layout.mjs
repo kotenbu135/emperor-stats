@@ -89,6 +89,11 @@ const CHAPTERS = [
   // 客人＝禅譲の前帝（後周の恭帝→宋の太祖）。bucket は 10〜40 を一巡した最少
   // （交差3件・他0。18/t100 も同数だが 25 のほうが縦が 400px 短い）。
   { eraId: "song-liao-jin-xia", guests: ["wudai-houzhou-gongdi"], bucket: 25, thoroughness: 100 },
+  // 客人なし。宋→元は禅譲ではなく（南宋は征服・succession エッジは章内の p-monke→世祖だけで、
+  // これは擁立＝引かない線。2人は兄弟として家族の線で結ばれる）、前章で線ゼロ落ちした親も居ない。
+  // bucket は 10〜40 を一巡した最少（交差1件・他0。10/12/18 も同数だが 20 が縦最短）。
+  // thoroughness は 7〜200 で欠陥が変わらないので既定7のまま（五代十国と同じ）。
+  { eraId: "yuan", guests: [], bucket: 20 },
 ];
 
 async function buildChapter({ eraId: ERA_ID, guests, bucket, thoroughness }) {
