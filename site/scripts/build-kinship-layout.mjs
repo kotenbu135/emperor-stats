@@ -1824,6 +1824,133 @@ const setFirstBusY = (e, y) => {
   }
 }
 
+// ---------------------------------------------------------------- 単独カードの中心合わせ
+//
+// 親の下ろし点と子カードの中心が数十 px ずれているとき、線の端をカードの縁に
+// 沿ってずらすと直線にはなるが「カードの端から線が出る」形になり、それが不格好
+// （2026-08-19 ユーザー指摘「線の出ている場所がきもい」— 始皇帝の底の左端から
+// 二世皇帝へ降りていた）。**線ではなくカードのほうを平行移動して、線がカードの
+// 中心から中心へ落ちる形にする。** 動かすのは1人だけのブロックで、上から入る
+// 家族の線が1本のカードだけ（夫婦ブロックを動かすと横棒と下ろし点が連鎖する）。
+// 動かした先で隣と 24px を切る・触っている線の悪さ（costOf）が増えるなら諦める。
+{
+  const FAMILY_IN = new Set(["father", "mother", "child", "adoptive", "remote"]);
+  const cxOf = (b) => b.x + b.w / 2;
+  for (const c of cards.values()) {
+    const blk = blockOf.get(c.id);
+    if (!blk || blk.members.length !== 1) continue;
+    const box = boxes.get(c.id);
+    const incoming = lines.filter((e) => e.to === c.id && FAMILY_IN.has(e.kind));
+    if (incoming.length !== 1) continue;
+    const e0 = incoming[0];
+    const dx = Math.round(e0.points[0][0] - cxOf(box));
+    if (dx === 0 || Math.abs(dx) > 56) continue;
+    // 移動後の水平クリアランス（y が重なる相手と 24px）
+    const nx = box.x + dx;
+    let clear = true;
+    for (const b of boxes.values()) {
+      if (b.id === box.id || sameBlock(box.id, b.id)) continue;
+      if (b.y < box.y + box.h && box.y < b.y + b.h) {
+        const gapX = Math.max(b.x - (nx + box.w), nx - (b.x + b.w));
+        if (gapX < 24) {
+          clear = false;
+          break;
+        }
+      }
+    }
+    if (!clear) continue;
+    const touched = lines.filter((e) => e.from === c.id || e.to === c.id);
+    // 鏡写しの対（簒奪⇄復位）に関わるカードは動かさない — 下向き側の形を変えると
+    // 最後の作り直し（mirrorRoute）が対を平行に保てず、重なり・浮いた端になった
+    // （司馬倫 +19px の実測）。
+    const mirrorKeys = new Set(lines.filter((e) => e.mirrorOf).map((e) => e.mirrorOf));
+    if (touched.some((e) => e.mirrorOf || mirrorKeys.has(`${e.from}>${e.to}`))) continue;
+    // **採否は最終監査と同じ物差しで見る**（costOf の合計だけだと、+1 の重なりが
+    // -2 の交差改善に相殺されて must-zero の欠陥が紛れ込む — 実際に紛れ込んだ）。
+    const worstGapToCards = (e) => {
+      let w = Infinity;
+      for (const b of boxes.values()) {
+        if (!cards.has(b.id)) continue;
+        if (b.id === e.from || b.id === e.to) continue;
+        if (sameBlock(e.from, b.id) || sameBlock(e.to, b.id)) continue;
+        for (const sg of segsOf(e)) w = Math.min(w, gap(sg, b));
+      }
+      return w;
+    };
+    const endsAttached = (e) => {
+      const chk = (pt, id) => {
+        const b = boxes.get(id);
+        return b && gap([pt[0], pt[1], pt[0], pt[1]], b) <= 1;
+      };
+      return chk(e.points[0], e.from) && chk(e.points[e.points.length - 1], e.to);
+    };
+    const overlapsOf = (e) => {
+      let n = 0;
+      for (const o of lines) {
+        if (o === e || o.from === e.from || o.to === e.to) continue;
+        for (const sg of segsOf(e)) for (const t of segsOf(o)) if (overlapLen(sg, t) > 2) n += 1;
+      }
+      return n;
+    };
+    const crossingsOf = (e) => {
+      let n = 0;
+      for (const o of lines) {
+        if (o === e) continue;
+        for (const sg of segsOf(e)) for (const t of segsOf(o)) if (crossAt(sg, t)) n += 1;
+      }
+      return n;
+    };
+    const nearMovedBox = () => {
+      let n = 0;
+      const touchedSet = new Set(touched);
+      for (const o of lines) {
+        if (touchedSet.has(o)) continue;
+        if (sameBlock(o.from, c.id) || sameBlock(o.to, c.id)) continue;
+        let w = Infinity;
+        for (const sg of segsOf(o)) w = Math.min(w, gap(sg, box));
+        if (w < CLEAR) n += 1;
+      }
+      return n;
+    };
+    const beforePts = new Map(touched.map((e) => [e, e.points]));
+    const beforeCost = touched.reduce((v, e) => v + costOf(e), 0);
+    const beforeGaps = new Map(touched.map((e) => [e, worstGapToCards(e)]));
+    const beforeOverlaps = touched.reduce((v, e) => v + overlapsOf(e), 0);
+    const beforeCrossings = touched.reduce((v, e) => v + crossingsOf(e), 0);
+    const beforeNear = nearMovedBox();
+    box.x = nx; // costOf・endWindow は boxes を見るので先に動かす
+    for (const e of touched) {
+      const pts = e.points.map((q) => [...q]);
+      if (e === e0) {
+        // 錨の線は入り口を下ろし点の真下（＝新しい中心）へ
+        pts[pts.length - 1][0] = e0.points[0][0];
+      } else {
+        if (e.to === c.id) pts[pts.length - 1][0] += dx;
+        if (e.from === c.id) pts[0][0] += dx;
+      }
+      e.points = absorbJogs(cleanPolyline(pts), e.from, e.to);
+    }
+    const afterCost = touched.reduce((v, e) => v + costOf(e), 0);
+    const bad =
+      afterCost > beforeCost ||
+      e0.points.length > beforePts.get(e0).length ||
+      touched.some((e) => !endsAttached(e)) ||
+      touched.some((e) => {
+        const w = worstGapToCards(e);
+        return w < CLEAR && w < beforeGaps.get(e);
+      }) ||
+      touched.reduce((v, e) => v + overlapsOf(e), 0) > beforeOverlaps ||
+      touched.reduce((v, e) => v + crossingsOf(e), 0) > beforeCrossings ||
+      nearMovedBox() > beforeNear;
+    if (bad) {
+      box.x = nx - dx;
+      for (const e of touched) e.points = beforePts.get(e);
+    } else if (process.env.KINSHIP_DEBUG) {
+      console.log(`    [中心合わせ] ${c.label ?? c.id} を ${dx}px`);
+    }
+  }
+}
+
 // ---------------------------------------------------------------- 大きめの折れの直線化
 //
 // absorbJogs が消すのは 10px 未満の折れだけで、始皇帝→二世皇帝のような
@@ -1868,19 +1995,39 @@ const setFirstBusY = (e, y) => {
           if (sIdx === 0 && !endWindow(e.from, next[0][0], next[0][1])) return null;
           if (tIdx === pts.length - 1 && !endWindow(e.to, next[next.length - 1][0], next[next.length - 1][1]))
             return null;
+          // カードの端点はカードの中心から 10px までしかずらさない — それ以上は
+          // 「カードの端から線が出る」不格好になる（直線化はカード側の平行移動
+          // ＝上の中心合わせの持ち場。union の端は横棒の上ならどこでもよいので従来通り）
+          const offCenter = (id, x) => {
+            const b = boxes.get(id);
+            return cards.has(id) && Math.abs(x - (b.x + b.w / 2)) > 10;
+          };
+          if (axis === 0 && sIdx === 0 && offCenter(e.from, target)) return null;
+          if (axis === 0 && tIdx === pts.length - 1 && offCenter(e.to, target)) return null;
           return cleanPolyline(next);
         };
         const order =
           lenOf(a, i) <= lenOf(i + 1, b)
             ? [[a, i, pts[i + 1][axis]], [i + 1, b, pts[i][axis]]]
             : [[i + 1, b, pts[i][axis]], [a, i, pts[i + 1][axis]]];
+        const overlapsOf = () => {
+          let n = 0;
+          for (const o of lines) {
+            if (o === e || o.from === e.from || o.to === e.to) continue;
+            for (const sg of segsOf(e)) for (const t of segsOf(o)) if (overlapLen(sg, t) > 2) n += 1;
+          }
+          return n;
+        };
         const before = e.points;
         const beforeCost = costOf(e);
+        const beforeOverlaps = overlapsOf();
         for (const [sIdx, tIdx, target] of order) {
           const cand = tryMove(sIdx, tIdx, target);
           if (!cand || cand.length >= before.length) continue;
           e.points = cand;
-          if (costOf(e) <= beforeCost) {
+          // 重なりは must-zero の欄なので、コストの相殺（交差 -2 と重なり +1 など）に
+          // 紛れさせず単独で見る（明帝→順帝が禅譲の線と 18px 重なった実測）。
+          if (costOf(e) <= beforeCost && overlapsOf() <= beforeOverlaps) {
             applied = true;
             break;
           }

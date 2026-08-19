@@ -703,10 +703,13 @@ export function ChapterFlow({
   layout,
   jumps,
   entryId,
+  legend,
 }: {
   layout: KinshipLayout;
   jumps: KinshipJump[];
   entryId: string;
+  /** ツールバー右端に出す凡例のポップオーバー（中身は chapter-page.tsx が組む） */
+  legend?: React.ReactNode;
 }) {
   const graph = useMemo(() => buildGraph(layout), [layout]);
   const fitView = useMemo(() => fitViewFor(entryId), [entryId]);
@@ -721,7 +724,7 @@ export function ChapterFlow({
       initialMinZoom={MIN_ZOOM}
       initialMaxZoom={MAX_ZOOM}
     >
-      <ChapterFlowInner layout={layout} jumps={jumps} graph={graph} fitView={fitView} />
+      <ChapterFlowInner layout={layout} jumps={jumps} graph={graph} fitView={fitView} legend={legend} />
     </ReactFlowProvider>
   );
 }
@@ -731,11 +734,13 @@ function ChapterFlowInner({
   jumps,
   graph,
   fitView,
+  legend,
 }: {
   layout: KinshipLayout;
   jumps: KinshipJump[];
   graph: { nodes: Node[]; edges: Edge[] };
   fitView: ReturnType<typeof fitViewFor>;
+  legend?: React.ReactNode;
 }) {
   const { nodes, edges } = graph;
 
@@ -872,6 +877,9 @@ function ChapterFlowInner({
             <span className="tabular-nums text-muted-foreground">{j.count}人</span>
           </Button>
         ))}
+        {/* 凡例はこの帯の右端から <details> のポップオーバーで開く（既定は閉じる・
+            開いても図を押し下げない）。中身は chapter-page.tsx が組んで渡す。 */}
+        {legend ? <div className="ml-auto">{legend}</div> : null}
       </nav>
       <div
         ref={paneRef}
