@@ -28,12 +28,15 @@ const CARD_W = 112;
 // 皇帝のカードだけが縦長（上半分が肖像）。**皇帝以外は肖像アセットが1枚も無い**ので、
 // 縦長の枠を用意しても中身は姓一文字のモノグラムにしかならない（2026-08-18 ユーザー指示で
 // 名前と年の帯だけに縮めた）。図が縦にも横にも詰まり、親子の線が短くなる副次効果がある。
-const EMPEROR_H = 140;
-const KIN_H = 38;
+// 2026-08-19: ふりがな（rt ≈ 名前の半分の字高）と皇帝カードの「第N代」の行が入るぶん
+// 高くした（140/38/50 → 164/48/62）。ふりがな OFF のときの余りは、皇帝カードは肖像
+// （flex-1）が、親族カードは中央寄せ（justify-center）が吸収する。
+const EMPEROR_H = 164;
+const KIN_H = 48;
 // 名前の補足を2行目に落とすぶんだけ親族の箱を高くする。**幅は広げない** — 長い名前は
 // 105 人中 5 人（全部「竇氏〔孝文竇皇后〕」型）で、幅で解くと図の総幅が全員ぶん太る
 // （2026-08-18 の外部レビュー「テキストの省略」）。
-const KIN_ANNOT_H = 50;
+const KIN_ANNOT_H = 62;
 // 夫婦の点。**線より明らかに太い**こと（2026-08-18 の外部レビュー2巡目「線と同化して
 // 見落とす」）。線が 1.9px なので 14px＝7倍強。
 const UNION_SIZE = 14;
@@ -108,6 +111,13 @@ for (const e of emp) {
   const reigns = e.reigns ?? [];
   const s = reigns.length ? reigns[0].startYear : null;
   const t = reigns.length ? reigns[reigns.length - 1].endYear : null;
+  // 王朝内の代数（第N代）。**dynastyOrder が確定している在位だけ**から引く — 欄が無い
+  // 政権（隋・唐・五代十国など dynastyOrderSurveyed: false の53政権）は未調査なので
+  // 出さないし、在位順から推論もしない（EMPERORS_SCHEMA.md・Issue #69）。
+  // 復位（晋恵帝の第2・4代など）は在位ごとに別カウントなので全部並べる。
+  const ordinal = [
+    ...new Set(reigns.map((r) => r.dynastyOrder).filter((n) => typeof n === "number")),
+  ].sort((a, b) => a - b);
   // 配信されるのは public/portraits/<id>.webp（manifest の localFile は元画像の .jpg で、
   // サイトに出るファイル名ではない）。**実在で判定する**。
   const hasPortrait = existsSync(path.join(process.cwd(), "public", "portraits", `${e.id}.webp`));
@@ -131,6 +141,7 @@ for (const e of emp) {
     emperorId: e.id,
     main: dn,
     annot: sub,
+    ordinal: ordinal.length ? ordinal : null,
     label: sub ? `${dn}（${sub}）` : dn,
     regimeId: e.regimeId,
     isEmperor: true,

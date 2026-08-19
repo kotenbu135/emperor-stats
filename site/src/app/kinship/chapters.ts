@@ -67,3 +67,14 @@ export const KINSHIP_CHAPTERS: KinshipChapter[] = [
     note: "唐の哀帝は、後梁（太祖）への禅譲を示すためこの章にも出している。",
   },
 ];
+
+/**
+ * 系譜図のカードに出る名前の一覧。ふりがな被覆レポート（reportReadingCoverage →
+ * .ruby-displayed.json）に載せるためのもので、読みの解決そのものは chapter-page の
+ * rubyOf が行う（未登録ならそちらでビルドが落ちる）。
+ */
+export function kinshipDisplayNames(): string[] {
+  return KINSHIP_CHAPTERS.flatMap((c) =>
+    c.layout.nodes.flatMap((n) => (n.annot ? [n.main, n.annot] : [n.main])),
+  );
+}

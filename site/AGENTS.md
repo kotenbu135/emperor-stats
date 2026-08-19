@@ -149,6 +149,10 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 章は6つ（秦・漢 `/kinship`・三国・西晋 `/kinship/three-kingdoms-jin`・
 東晋・十六国 `/kinship/eastern-jin-sixteen`・南北朝 `/kinship/northern-southern`・
 隋・唐 `/kinship/sui-tang`・五代十国 `/kinship/five-dynasties`・2026-08-19）。
+**系譜図に人物を足すと `../data/name-readings.json` の読みも要る**（2026-08-19 にカードの
+名前へふりがなを付けた。親族の名前は emperors.json に無いので、皇帝追加のチェックリスト
+だけでは拾えない — 未登録は chapter-page の `rubyOf` でビルドが落ちる）。皇帝カードの
+「第N代」は `reigns[].dynastyOrder` が確定している政権だけに出る（在位順から推論しない）。
 
 - **`scripts/build-kinship-layout.mjs`** — `prebuild` で elkjs を回して章ごとに
   `src/lib/kinship/layout.<eraId>.json` を吐く（elkjs は devDependencies・`out/` に混ざらない）。
