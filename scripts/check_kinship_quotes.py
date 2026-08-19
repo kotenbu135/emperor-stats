@@ -19,6 +19,14 @@ sys.path.insert(0, os.path.join(os.getcwd(), "scripts"))
 from hanzi_norm import norm_for_match
 
 FALLBACKS = [
+    # フェーズ2b（maternalLineage）ブロック22b の検証段（2026-08-19）: 元末群雄の家族記事は
+    # 正史の外に在る。明実録太祖実録＝武昌開城の条の「慰谕友谅父母」、国初群雄事略 巻四＝
+    # 俞本『紀事録』引の「陈理祖父及所生母」と巻三の徐寿輝、平漢録＝童承叙の陳漢専史で
+    # 祖父「謝千一」。3書とも emperors.json の meta.catalogs.books に登録済み。
+    # **僭偽扱いの政権では正史3書だけを読んで悉皆を宣言しない**（検証段が5件の指摘を出した）
+    "daizhigev20/史藏/别史/明实录太祖实录.txt",
+    "daizhigev20/史藏/志存记录/国初群雄事略.txt",
+    "daizhigev20/史藏/志存记录/平汉录.txt",
     # フェーズ2ブロック22: 明史巻120諸王五（神宗諸子=福王常洵・桂王常瀛。daizhi 側は外字分解で
     # 字面が合わない箇所あり）・小腆纪传（陳奇瑜伝の器墭毒殺異説）
     "china-history/明史/列传/第八章-卷八-原文.html",
