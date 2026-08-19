@@ -3,8 +3,18 @@
 
 _corpus_cache/*.txt 全部＋必要な china-history フォールバックを正規化して突合する。
 中略（……）は断片に分割し、各断片が単体でヒットすることを要求する（引用規約3項）。
+
+usage:
+    python3 scripts/check_kinship_quotes.py                    # data/kinship.json を見る
+    python3 scripts/check_kinship_quotes.py --journal <パス>   # マージ前の調査結果を見る
+
+`--journal` はエージェントの結果（`{id, persons, edges, passage, …}` 形の JSON）を、
+**kinship.json へ書き込む前に**同じ照合部へ通す。パスはファイル1つでも
+ディレクトリでも journal.jsonl でもよい。2026-08-17 のブロック19で「書いてから直す」
+往復が起きたのを受けた口（PROCESS_IMPROVEMENTS の同日の提案）。照合部を2箇所に
+書かないため、コーパスの一覧も SKIP_SPANS もこのファイルの1つを共有する。
 """
-import json, re, sys, glob, os
+import argparse, hashlib, json, re, sys, glob, os
 sys.path.insert(0, os.path.join(os.getcwd(), "scripts"))
 from hanzi_norm import norm_for_match
 
@@ -183,45 +193,147 @@ SKIP_SPANS = {
     "十四年，併其子世霖皆誅死",
 }
 
-corpus = []
-for path in sorted(glob.glob("_corpus_cache/*.txt")) + FALLBACKS:
-    try:
-        with open(path, encoding="utf-8") as f:
-            corpus.append((path, norm_for_match(f.read())))
-    except FileNotFoundError:
-        print(f"WARN: corpus missing {path}")
-
-with open("data/kinship.json", encoding="utf-8") as f:
-    kin = json.load(f)
-
-spans = []  # (owner, span)
-for e in kin["edges"]:
-    for m in re.findall(r"「([^」]+)」", e.get("note", "")):
-        spans.append((f"edge {e['from']}→{e['to']}", m))
-for p in kin["persons"]:
-    for m in re.findall(r"「([^」]+)」", p.get("note", "")):
-        spans.append((f"person {p['id']}", m))
-for c in kin.get("genealogicalClaims", []):
-    for field in (c.get("note", ""), c.get("claimedAncestry", "")):
-        for m in re.findall(r"「([^」]+)」", field):
-            spans.append((f"claim {c['claimant']}", m))
-
 KANA_RE = re.compile(r"[ぁ-んァ-ン]")
-ok = nf = skip = 0
-for owner, span in spans:
-    if span in SKIP_SPANS or KANA_RE.search(span):
-        skip += 1  # 日本語の説明文・enum参照は原文引用ではない
-        continue
-    frags = [x for x in re.split(r"…+|\.{3,}", span) if x]
-    for frag in frags:
-        n = norm_for_match(frag)
-        if len(n) < 4:  # 短すぎる断片（語単位）は偽陰性が多いので参考扱い
-            skip += 1
+
+
+NORM_CACHE_DIR = os.path.join("_norm_cache", "kinship")
+
+
+def _norm_signature():
+    """正規化の版。**鍵に入れないと表を直しても古い正規化が生き残る**（2026-08-02 の教訓）。
+
+    hanzi_norm.py の中身そのものを署名にするので、新字体表・PUA 表・分解表のどれを
+    足しても鍵が変わる。opencc の辞書版までは見ていない。
+    """
+    with open(os.path.join("scripts", "hanzi_norm.py"), "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:12]
+
+
+def load_corpus():
+    """コーパスを正規化して返す（正規化結果はディスクに寝かせる）。
+
+    正規化は opencc を約100MBに掛けるので素で5〜10分かかり、ブロック1本で何度も回す
+    マージ前照合には重すぎた（2026-08-19・ブロック22a）。鍵は
+    (パス, mtime, サイズ, 正規化の版) で、どれが動いても作り直す。
+    消しても次の実行が作り直す（そのぶん遅くなるだけ）。
+    """
+    sig = _norm_signature()
+    os.makedirs(NORM_CACHE_DIR, exist_ok=True)
+    corpus = []
+    for path in sorted(glob.glob("_corpus_cache/*.txt")) + FALLBACKS:
+        try:
+            st = os.stat(path)
+        except FileNotFoundError:
+            print(f"WARN: corpus missing {path}")
             continue
-        if any(n in text for _, text in corpus):
-            ok += 1
+        key = hashlib.sha1(
+            f"{path}|{st.st_mtime_ns}|{st.st_size}|{sig}".encode("utf-8")).hexdigest()
+        cached = os.path.join(NORM_CACHE_DIR, key + ".txt")
+        try:
+            with open(cached, encoding="utf-8") as f:
+                corpus.append((path, f.read()))
+            continue
+        except FileNotFoundError:
+            pass
+        with open(path, encoding="utf-8") as f:
+            text = norm_for_match(f.read())
+        tmp = cached + ".part"  # 途中で落ちた書きかけを鍵つきの名前で残さない
+        with open(tmp, "w", encoding="utf-8") as f:
+            f.write(text)
+        os.replace(tmp, cached)
+        corpus.append((path, text))
+    return corpus
+
+
+def spans_from_kinship():
+    with open("data/kinship.json", encoding="utf-8") as f:
+        kin = json.load(f)
+    spans = []  # (owner, span)
+    for e in kin["edges"]:
+        for m in re.findall(r"「([^」]+)」", e.get("note", "")):
+            spans.append((f"edge {e['from']}→{e['to']}", m))
+    for p in kin["persons"]:
+        for m in re.findall(r"「([^」]+)」", p.get("note", "")):
+            spans.append((f"person {p['id']}", m))
+    for c in kin.get("genealogicalClaims", []):
+        for field in (c.get("note", ""), c.get("claimedAncestry", "")):
+            for m in re.findall(r"「([^」]+)」", field):
+                spans.append((f"claim {c['claimant']}", m))
+    return spans
+
+
+def _journal_records(path):
+    """ファイル1つ・ディレクトリ・journal.jsonl のいずれからも結果オブジェクトを拾う。"""
+    paths = []
+    if os.path.isdir(path):
+        paths = sorted(glob.glob(os.path.join(path, "*.json"))
+                       + glob.glob(os.path.join(path, "*.jsonl")))
+    else:
+        paths = [path]
+    for p in paths:
+        with open(p, encoding="utf-8") as f:
+            text = f.read().strip()
+        if not text:
+            continue
+        if p.endswith(".jsonl"):
+            for line in text.splitlines():
+                if not line.strip():
+                    continue
+                ev = json.loads(line)
+                val = ev.get("result", ev.get("value", ev))
+                if isinstance(val, dict) and "id" in val:
+                    yield p, val
         else:
-            nf += 1
-            print(f"NOT FOUND [{owner}]: {frag}")
-print(f"---\nspans={len(spans)} fragments ok={ok} notfound={nf} short-skip={skip}")
-sys.exit(1 if nf else 0)
+            yield p, json.loads(text)
+
+
+def spans_from_journal(path):
+    """マージ前の調査結果から、kinship.json へ入る予定の引用スパンを拾う。
+
+    落ちる断片が persons と edges のどちらの note に在るかまで出す（書き込む前に直せる）。
+
+    見るのは **kinship.json へ実際に入る欄だけ**（persons と edges の note）。
+    `passage` は原文の写し、`flags`・`discrepancies` はマージされない作業メモで、
+    そこの「」は書名ラベルや節見出しであることが多い（2026-08-19 のブロック22a で
+    実際に3件出た）。落ちない断片を落として見せると、この口ごと信用されなくなる。
+    """
+    spans = []
+    for src, r in _journal_records(path):
+        eid = r.get("id", os.path.basename(src))
+        for e in r.get("edges") or []:
+            for m in re.findall(r"「([^」]+)」", e.get("note", "")):
+                spans.append((f"{eid} edge {e.get('from')}→{e.get('to')}", m))
+        for p in r.get("persons") or []:
+            for m in re.findall(r"「([^」]+)」", p.get("note", "")):
+                spans.append((f"{eid} person {p.get('id')}", m))
+    return spans
+
+
+def collate(spans, corpus):
+    ok = nf = skip = 0
+    for owner, span in spans:
+        if span in SKIP_SPANS or KANA_RE.search(span):
+            skip += 1  # 日本語の説明文・enum参照は原文引用ではない
+            continue
+        frags = [x for x in re.split(r"…+|\.{3,}", span) if x]
+        for frag in frags:
+            n = norm_for_match(frag)
+            if len(n) < 4:  # 短すぎる断片（語単位）は偽陰性が多いので参考扱い
+                skip += 1
+                continue
+            if any(n in text for _, text in corpus):
+                ok += 1
+            else:
+                nf += 1
+                print(f"NOT FOUND [{owner}]: {frag}")
+    print(f"---\nspans={len(spans)} fragments ok={ok} notfound={nf} short-skip={skip}")
+    return nf
+
+
+ap = argparse.ArgumentParser()
+ap.add_argument("--journal", metavar="パス",
+                help="マージ前の調査結果（JSON ファイル・ディレクトリ・journal.jsonl）を照合する")
+args = ap.parse_args()
+
+spans = spans_from_journal(args.journal) if args.journal else spans_from_kinship()
+sys.exit(1 if collate(spans, load_corpus()) else 0)
