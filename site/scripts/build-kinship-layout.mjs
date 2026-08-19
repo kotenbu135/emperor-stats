@@ -17,6 +17,10 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import ELK from "elkjs/lib/elk.bundled.js";
+// **皇帝の表示名はサイト共通の唯一の場所（display-name.ts）を通す**（2026-08-19
+// ユーザー指摘「一覧では高祖なのに系譜図では高帝」— このスクリプトだけが
+// commonName を生で出していた）。Node 26 の type stripping で .ts を直接 import できる。
+import { emperorDisplayName, emperorSubtitle } from "../src/lib/display-name.ts";
 
 
 // 寸法と間隔は probe-kinship-layout.mjs で測って選んだ。
@@ -108,11 +112,26 @@ for (const e of emp) {
   // サイトに出るファイル名ではない）。**実在で判定する**。
   const hasPortrait = existsSync(path.join(process.cwd(), "public", "portraits", `${e.id}.webp`));
   const portrait = hasPortrait ? portraitById.get(e.id) : null;
+  // 一覧・個別ページと同じ通用名（高帝→高祖・則天大聖皇帝→武則天）＋補助名（諱）。
+  // splitLabel（括弧を2行目へ割る素朴な方式）は親族カード専用に残す。
+  const dn = emperorDisplayName(e.id, e.name?.commonName ?? e.id, e.regimeId);
+  const fullPersonal = e.name?.personalName
+    ? `${e.name?.familyName ?? ""}${e.name.personalName}`
+    : null;
+  const sub = emperorSubtitle(
+    e.id,
+    fullPersonal,
+    e.name?.personalName ?? null,
+    e.regimeId,
+    dn,
+    e.name?.ethnicName ?? null,
+  );
   cards.set(e.id, {
     id: e.id,
     emperorId: e.id,
-    ...splitLabel(e.name?.commonName ?? e.id),
-    label: e.name?.commonName ?? e.id,
+    main: dn,
+    annot: sub,
+    label: sub ? `${dn}（${sub}）` : dn,
     regimeId: e.regimeId,
     isEmperor: true,
     gender: "male",
