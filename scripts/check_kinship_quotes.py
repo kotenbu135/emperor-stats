@@ -327,6 +327,13 @@ def spans_from_journal(path):
     `passage` は原文の写し、`flags`・`discrepancies` はマージされない作業メモで、
     そこの「」は書名ラベルや節見出しであることが多い（2026-08-19 のブロック22a で
     実際に3件出た）。落ちない断片を落として見せると、この口ごと信用されなくなる。
+
+    **例外は `motherStatus` が `unknown-confirmed` のとき**（2026-08-19 のブロック23b・24 で
+    調査者3人が独立に指摘した）。この結果は persons も edges も空なので、上の規則だと
+    **spans=0 で必ず緑になる**。しかし `flags` はそのまま
+    `meta.confirmedMotherUnknown[].reason` になり、そこでは照合される。
+    不在確定こそ「どこを読んで無かったか」を引用で述べる欄なので、
+    書き込む前に見ておく価値がここだけ逆転する。
     """
     spans = []
     for src, r in _journal_records(path):
@@ -337,6 +344,9 @@ def spans_from_journal(path):
         for p in r.get("persons") or []:
             for m in re.findall(r"「([^」]+)」", p.get("note", "")):
                 spans.append((f"{eid} person {p.get('id')}", m))
+        if r.get("motherStatus") == "unknown-confirmed":
+            for m in re.findall(r"「([^」]+)」", r.get("flags") or ""):
+                spans.append((f"{eid} flags→reason", m))
     return spans
 
 
