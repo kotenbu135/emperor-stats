@@ -27,6 +27,9 @@ FALLBACKS = [
     "daizhigev20/史藏/别史/明实录太祖实录.txt",
     "daizhigev20/史藏/志存记录/国初群雄事略.txt",
     "daizhigev20/史藏/志存记录/平汉录.txt",
+    # 同日: confirmedMotherUnknown の reason を照合対象に入れて必要になった。
+    # 隋末群雄の不在確定は旧唐書（キャッシュ）と新唐書の両方を読んで書かれている
+    "daizhigev20/史藏/正史/新唐书.txt",
     # フェーズ2ブロック22: 明史巻120諸王五（神宗諸子=福王常洵・桂王常瀛。daizhi 側は外字分解で
     # 字面が合わない箇所あり）・小腆纪传（陳奇瑜伝の器墭毒殺異説）
     "china-history/明史/列传/第八章-卷八-原文.html",
@@ -267,6 +270,14 @@ def spans_from_kinship():
         for field in (c.get("note", ""), c.get("claimedAncestry", "")):
             for m in re.findall(r"「([^」]+)」", field):
                 spans.append((f"claim {c['claimant']}", m))
+    # meta の「読んだうえで記載が無い」の理由文。**2026-08-19 まで照合されていなかった** —
+    # 不在確定の reason は原文の引用で「どこを読んで無かったか」を述べる欄なので、
+    # ここが素通りすると不在の主張だけが検査されないまま配布物に載る。
+    # 実際、ブロック22b で書いた reason の1断片が別の条から来ていたのをここで拾えなかった。
+    for key in ("confirmedMotherUnknown", "confirmedFatherUnknown", "confirmedRootless"):
+        for c in kin["meta"].get(key, []):
+            for m in re.findall(r"「([^」]+)」", c.get("reason", "")):
+                spans.append((f"{key} {c['id']}", m))
     return spans
 
 
