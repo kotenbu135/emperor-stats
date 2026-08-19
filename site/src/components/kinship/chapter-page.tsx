@@ -9,6 +9,7 @@ import {
   type KinshipLayout,
 } from "@/components/kinship/chapter-flow";
 import { KINSHIP_CHAPTERS, type KinshipChapter } from "@/app/kinship/chapters";
+import { rubyOf } from "@/lib/name-readings";
 
 /** 政権ジャンプの行き先。**時代順**（凡例の人数順とは別）で、各政権の最初の皇帝へ飛ぶ。 */
 function jumpTargets(l: KinshipLayout): KinshipJump[] {
@@ -137,7 +138,18 @@ const REGIME_LABEL: Record<string, string> = {
 };
 
 export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {
-  const layout = chapter.layout;
+  // 名前へのふりがな（Issue #20）。レイアウト JSON は平文のまま持ち、ルビ記法は
+  // ここ（サーバー側）で rubyOf が付ける — 未登録の名前はビルドが落ちるので、
+  // 系譜図に人を足したら data/name-readings.json にも読みを足すこと。
+  // 表示 ON/OFF はサイト共通のトグル（サイドバー最下部・モバイルヘッダーの「字」）。
+  const layout: KinshipLayout = {
+    ...chapter.layout,
+    nodes: chapter.layout.nodes.map((n) => ({
+      ...n,
+      mainRuby: rubyOf(n.main),
+      annotRuby: n.annot ? rubyOf(n.annot) : null,
+    })),
+  };
   const kindsInChapter = new Set(layout.edges.map((e) => e.kind));
   const lineLegend = LINE_LEGEND.filter((l) => l.kinds.some((k) => kindsInChapter.has(k as never)));
   // 凡例は図のツールバー右端の「凡例」ボタンから **JS なしのポップオーバー**

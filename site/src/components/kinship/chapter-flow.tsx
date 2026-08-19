@@ -41,6 +41,7 @@ import {
 import "@xyflow/react/dist/style.css";
 
 import { Button } from "@/components/ui/button";
+import { RubyText } from "@/components/ui/ruby-text";
 import { regimeBandColor } from "@/lib/kinship/band-color";
 
 export interface KinshipPerson {
@@ -51,6 +52,15 @@ export interface KinshipPerson {
   main: string;
   /** 「竇氏〔孝文竇皇后〕」の〔〕の中。カードでは2行目に小さく出す。 */
   annot: string | null;
+  /**
+   * 王朝内の代数（第N代・皇帝カードのみ）。復位は在位ごとに別カウントなので配列
+   * （晋恵帝= [2, 4] → 「第2・4代」）。dynastyOrder 未調査の政権（隋・唐・五代十国
+   * など）は null — **在位順から推論しない**（Issue #69）。
+   */
+  ordinal?: number[] | null;
+  /** ルビ記法つきの main / annot。サーバー側（chapter-page）が rubyOf で付ける。 */
+  mainRuby?: string;
+  annotRuby?: string | null;
   regimeId: string | null;
   isEmperor: boolean;
   gender: string | null;
@@ -221,14 +231,21 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
       className={`px-1.5 py-1 text-center leading-tight ${p.isEmperor ? "" : "flex flex-1 flex-col justify-center"}`}
       style={{ background: fill, boxShadow: stripe }}
     >
+      {/* 王朝内の代数。dynastyOrder が確定している政権だけに出る（隋・唐・五代十国は
+          未調査で出ない — 在位順から推論しない・Issue #69）。 */}
+      {p.ordinal?.length ? (
+        <div className="text-[9px] leading-tight tabular-nums" style={{ color: ink, opacity: 0.85 }}>
+          第{p.ordinal.join("・")}代
+        </div>
+      ) : null}
       <div className="truncate text-[13px] font-semibold" style={{ color: ink }}>
-        {p.main}
+        <RubyText source={p.mainRuby ?? p.main} />
       </div>
       {/* 補足（「竇氏〔孝文竇皇后〕」の〔〕の中）は2行目へ。**1行に詰めると切り詰めが出る**
           — 幅を広げると全員ぶん図が太るので、高さで解く（2026-08-18 の外部レビュー）。 */}
       {p.annot ? (
         <div className="truncate text-[9.5px] leading-[1.15]" style={{ color: ink, opacity: 0.92 }}>
-          {p.annot}
+          <RubyText source={p.annotRuby ?? p.annot} />
         </div>
       ) : null}
       {/* **年は白のまま落とさない。** 帯の色は「白文字が 4.5:1」で決めてあるので、

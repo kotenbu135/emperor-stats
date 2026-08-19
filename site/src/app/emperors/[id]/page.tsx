@@ -37,6 +37,7 @@ import {
   getEmperorStructuredDates,
 } from "@/lib/emperors";
 import { reportReadingCoverage } from "@/lib/name-readings";
+import { kinshipDisplayNames } from "@/app/kinship/chapters";
 import { emperorNameEntries } from "@/lib/display-name";
 import {
   absoluteUrl,
@@ -65,7 +66,10 @@ export function generateStaticParams(): { id: string }[] {
       r.posthumousName ?? "",
       r.dynastyLabel,
       r.eraLabel,
-    ]),
+    ]).concat(
+      // 系譜図のカードに出る名前（親族名は emperors.json に無い）も同じ帳面に載せる。
+      kinshipDisplayNames(),
+    ),
   );
   return records.map((r) => ({ id: r.id }));
 }
