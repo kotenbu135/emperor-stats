@@ -131,34 +131,96 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 なお**止めているあいだも書体のサブセットは取り直さない**（紹介文の字が落ちて、再開時に
 `check-font-coverage.mjs` が落ちる）。
 
-## 系譜図（`/kinship`）は 2026-08-17 に非公開へ戻した
+## 系譜図（`/kinship`）— 2026-08-19 に全6章そろえて**公開済み**
 
-同日に作り直して配信したが（Issue #174・PR #185）、**出来が公開に耐えないとユーザーが判断し、
-数時間後に取り下げた**。ページ・レイアウト・部品・`@xyflow/system` 依存はすべて削除してあり、
-`/kinship` は他の廃止済み7ページと同じく**無言の 404**。作り直す方針は Issue #174 で検討中。
+2026-08-17 に一度作り直して配信したが、出来が公開に耐えないとユーザーが判断し数時間後に
+取り下げた（Issue #174・PR #185）。2026-08-19 に「一般的な家系図のつなぎ方」で作り直し、
+全6章そろえてユーザー指示で公開した — `SITE_SECTIONS`・`nav-data.ts`（shortLabel なし＝
+モバイルヘッダーには出さない・モバイルの出口はトップの「次に見る」カード）・`sitemap`
+（第2章以降は sitemap.ts が `KINSHIP_CHAPTERS` から導出）・`capture-site.mjs` の4箇所に
+登録済みで、`robots` の noindex も外した。取り下げた前の版の失敗（面積の8割が白・淡彩8%・
+在位の長い皇帝が空の縦棒・小さな塊が図幅の2/3・線の交差）は SITE_DESIGN.md と Issue #174 に
+残してあるので、同じ形へ戻さない。
 
-**復活させるときに前回の版から引き継がないこと**（取り下げの理由そのもの）:
+**章を増やすときの規範（図の文法・検査・チェックリスト）は
+[../docs/site-design/KINSHIP_RULES.md](../docs/site-design/KINSHIP_RULES.md)** が正。
 
-- 秦・漢の章が 1,540 × **4,419px**、隋・唐が 3,153 × 3,196px。**面積の8割が白**で、
-  1画面に皇帝が5人しか入らなかった
-- 政権の淡彩を 8% で敷いていた。**箱1個ぶんの面積では白としか読めない**（`in oklch` の
-  色相事故は直したが、直したあとも「地味」の指摘は消えなかった）
-- 在位の長い皇帝が「名前だけ書かれた**空の縦棒**」になっていた（下辺＝退位年まで色板が伸びる）
-- 隋末の群雄のように**2〜3人で閉じる小さな塊**が連結成分の大半（隋唐は21個中18個）で、
-  それが図幅の 2/3 を占めていた
-- 親子の線が長距離を引き回されて**交差が多く**、特定の人物の親子を目で追えなかった
-- 静止した SVG なので**折りたたみ・ホバー詳細・検索・凡例**のどれも無い
+構成は4つ。**レイアウト（＝座標と線の形）を描画側で決めないこと**が全体の設計。
+章は6つ（秦・漢 `/kinship`・三国・西晋 `/kinship/three-kingdoms-jin`・
+東晋・十六国 `/kinship/eastern-jin-sixteen`・南北朝 `/kinship/northern-southern`・
+隋・唐 `/kinship/sui-tang`・五代十国 `/kinship/five-dynasties`・2026-08-19）。
 
-**「クライアント JS を持たない」は前回**私が**自分で置いた制約で、ユーザーの要求ではない。**
-静的 `<a>` がクローラに要るのは事実だが、それは「JS を1バイトも積まない」までは要求しない
-（本文を静的HTMLに載せたうえで操作を JS で足す形はこのサイトの他の面がすでにやっている）。
+- **`scripts/build-kinship-layout.mjs`** — `prebuild` で elkjs を回して章ごとに
+  `src/lib/kinship/layout.<eraId>.json` を吐く（elkjs は devDependencies・`out/` に混ざらない）。
+  章の一覧・客人（章の eraId でない人物: 献帝など）・枡の幅 `bucket` は冒頭の `CHAPTERS`。
+  **線の折れ線 `points` までここで確定する。** 描画側で曲げ方を決めると、線がカードを
+  突き抜けても機械で見られない。**夫婦は1つの「家族ブロック」に固めて elk へ渡す**
+  （2026-08-19「一般的な家系図みたいなつなぎ方に」）— 夫婦を別ノードで渡すと隣に並ぶ
+  保証が無い。子の線は FIXED_POS ポートで「夫婦の間の下ろし点」から出し、
+  `mergeEdges: true` で兄弟を1本の幹にまとめる（旧 union 方式では逆効果だった設定）
+- **`src/components/kinship/chapter-flow.tsx`** — React Flow v12 の描画層。位置は props で
+  受け取るだけ
+- **`src/app/kinship/chapters.ts`** — 章の表（URL・見出し・入口の皇帝・レイアウト JSON）。
+  スクリプト側 `CHAPTERS` と1対1で、章を足すときは両方へ足す
+- **`src/components/kinship/chapter-page.tsx`** — 見出し・章ナビ・凡例。
+  `src/app/kinship/**/page.tsx` はこれに章を渡すだけ
 
-**`data-source.ts` の `loadKinshipJson()` と `assertLabels("kinship*")` の4行は、消費者が
-1つも無い状態のまま意図的に残してある** — 作り直すときに `kinship.json` の読み込みは形が
-どうなっても要るため。**「消し忘れた死んだ export」ではない**（`grep -rn "loadKinshipJson" src/`
-が定義1件しか出さないのはそのため）。
+### 崩すとサイレントに壊れる6つ
 
-前の実装は `c69fb81`（`git show c69fb81:site/src/lib/kinship/layout.ts`）で丸ごと引き出せる。
+- **`ReactFlowProvider` に `initialNodes`/`initialEdges`/`initialWidth`/`initialHeight`/
+  `fitView` を渡す。** 自分で Provider を置くと React Flow 内部の `Wrapper` が
+  「もう Provider がある」と見て素通りするので、`<ReactFlow nodes= edges= fitView>` は
+  **サーバー描画に一切届かない**。渡し忘れると静的 HTML からカードも線も `<a>` も全部消え、
+  **tsc・lint・build はどれも落ちない**。受け入れ確認は
+  `grep -o 'href="/emperors/' out/kinship.html | wc -l`（35）と
+  `grep -o 'react-flow__edge-path' out/kinship.html | wc -l`（132）。
+  三国・西晋は `out/kinship/three-kingdoms-jin.html` で同じ2本（18・74）、
+  東晋・十六国は `out/kinship/eastern-jin-sixteen.html`（55・145）、
+  南北朝は `out/kinship/northern-southern.html`（70・234）、
+  隋・唐は `out/kinship/sui-tang.html`（50・109）、
+  五代十国は `out/kinship/five-dynasties.html`（35・93）
+- **`CardPorts` の6ハンドルと `buildGraph` の `ports()` は同じ id・同じ数で並べる。**
+  片方だけ増やすと静的 HTML とクライアントで線の出入り口が変わる
+- **`window.__kinshipSetViewport` を消さない。** `tools/shoot-kinship.mjs` が図を動かす口。
+  `.react-flow__viewport` の CSS transform を直に書き換えると React Flow の store が
+  更新されず、**store を読んでいる部品（時代の帯・左端の年）だけが動かない写真**が撮れる
+  （2026-08-18 に実際に撮って「帯の年がでたらめ」と読み違えた）
+- **カードの `<a>` の `pointer-events-auto` を外さない。** ノードは draggable/selectable
+  とも false なので React Flow がラッパーに `pointer-events: none` を敷く。この1クラスが
+  無いと**クリックしても個別ページへ遷移しない**（2026-08-19 に実測でだけ発見。tsc・lint・
+  build はどれも落ちない）。ホイール＝縦パン・Ctrl/⌘＋ホイール＝拡大縮小も 2026-08-19 の
+  ユーザー指示なので `zoomOnScroll={false} panOnScroll` を外さないこと
+- **図を動かすコードは `clampViewport` を通す（`setCenter` を直接呼ばない）。**
+  React Flow の `setCenter`/`fitView` は `translateExtent` の制約を**通らない**。制約の外の
+  座標に置くと、**次のドラッグ・ホイールの開始時に d3-zoom が補正して画面がぱっと飛ぶ**
+  （2026-08-19 ユーザー指摘「後漢を押してからドラッグすると画面が切り替わる」。とくに
+  余白込みの図が画面より狭い軸は d3 が中央へ固定するので、ずれが必ず出る）。ジャンプ・
+  検索は `clampViewport`、初期表示は `onInit={clampNow}`、アニメ中に掴んだときは
+  `finishAnim`（即完了）が受け持つ — どれも外すと tsc・lint・build は落ちないまま戻る
+- **`regimeBandColor` は `--kinship-minor` を返さない。** あれは無彩色の識別色で白文字との
+  コントラストが **2.58:1**。カードの帯は8色とも「白文字が 5.2:1」で作ってあり、
+  割拠政権（スロット0）用に `--kinship-band-0` を同じ目標で足してある
+
+### 時代の帯に**数値の目盛りを引かない**
+
+縦は世代の段で、時代順はそこに寄せてあるだけ。上下に並ぶカード 3,320 組のうち **135 組
+（4.1%）は年が前後する**（劉立 3年 が 王政君 前70年 の上、など）。数値の軸を引くと読者が
+その 4% を1件ずつ突き合わせられてしまい、**いままで見えなかった段のずれが「見える嘘」に
+変わる**。だから帯は「前200年ごろ」の丸めた6本で、境目は**どのカードも跨がない切れ目**
+からしか選ばず、代表年が前へ戻る帯は隣と併合する（`buildEraBands`）。
+凡例にも「おおよそ」と明記してある。**精度を上げる方向で直さないこと。**
+
+### 触ったら流し直す
+
+```bash
+node scripts/build-kinship-layout.mjs     # 全章ぶん。欠陥＋兄弟の横棒＋時代の帯を数える
+npm run build && node tools/shoot-kinship.mjs   # 字の切り詰め件数＋図の全面をタイルで撮る
+# 章を選んで撮る: SHOT_DIR=tools/shots/kinship-3kj KINSHIP_PATH=/kinship/three-kingdoms-jin node tools/shoot-kinship.mjs
+```
+
+**「監査 0件」を見た目の根拠にしないこと。** 2026-08-18 の外部レビュー13件のうち、既存の
+監査項目に当たったのは0件だった（字の大きさ・切り詰め・凡例・検索の不在・帯の
+コントラストは、どれも幾何の検査では拾えない）。**撮ったタイルを最後まで自分で見る。**
 
 ## 紹介文を止めている間に書体のサブセットを取り直すときの手順
 
@@ -398,3 +460,13 @@ node tools/nav-audit.mjs       # 件数の一致・区分名の全文・クリ�
 - **`tools/capture-site.mjs` は npm の依存操作のたびに動かなくなる** — playwright は site の依存に入れておらず、`node_modules/playwright{,-core}` へ npx キャッシュから張った symlink で動いている。`npm install`/`uninstall` がこの symlink を消すため、`ERR_MODULE_NOT_FOUND: playwright` が出たら張り直す（`ln -sfn ~/.npm/_npx/<hash>/node_modules/playwright{,-core} node_modules/`・版は `~/.cache/ms-playwright` の chromium と合わせる）。
 - **`.next` キャッシュ残存でハイドレーションが静かに失敗する**（コンソールエラーなし・画像404・フィルタ無反応）。設定変更後は `rm -rf .next` してから dev サーバーを再起動する。
 - **Recharts は 2.15.4 に固定**。3.x では vendored した Tremor のチャートが動かない。**shadcn の `chart` レジストリ項目は `recharts@3.8.0` を要求する**ので、Tremor のチャートを残したまま shadcn の `Chart` を足すことはできない（二者択一）。
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

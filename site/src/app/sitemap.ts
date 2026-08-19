@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { datasetGeneratedAt, getAllEmperorRecords } from "@/lib/emperors";
+import { KINSHIP_CHAPTERS } from "@/app/kinship/chapters";
 import { SITE_SECTIONS, SITE_URL } from "@/lib/seo";
 
 export const dynamic = "force-static";
@@ -15,6 +16,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified,
         changeFrequency: "weekly",
         priority: 0.8,
+      }),
+    ),
+    // 系譜図の第2章以降（第1章 /kinship は SITE_SECTIONS 側に入っている）。
+    ...KINSHIP_CHAPTERS.filter((c) => c.path !== "/kinship").map(
+      (c): MetadataRoute.Sitemap[number] => ({
+        url: `${SITE_URL}${c.path}`,
+        lastModified,
+        changeFrequency: "monthly",
+        priority: 0.7,
       }),
     ),
     {

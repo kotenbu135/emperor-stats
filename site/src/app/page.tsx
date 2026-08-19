@@ -1,7 +1,6 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { NextUp } from "@/components/layout/next-up";
 import { OverviewBoard } from "@/components/home-v2/overview-board";
-import { databaseFilterHref } from "@/lib/emperor-types";
 import {
   getConcurrentReigns,
   getHomeHighlights,
@@ -68,10 +67,11 @@ export default function Home() {
             concurrent={concurrent}
             survival={survival}
           />
-          {/* 2026-08-17・Issue #94 の案4。行き先3つのうち**ナビにそのまま在るのは
-              「皇帝一覧」だけ**にしてある — ランキングは /database の並べ替え済み URL、
-              「このサイトについて」はモバイルヘッダーの3項目に入らない面（4項目目を
-              足さない決定があるため、フッター以外の出口がここしか無い）。 */}
+          {/* 2026-08-17・Issue #94 の案4。3枚は段組みの決定（next-up.tsx）なので
+              増やさない。**モバイルヘッダーの3項目に入らない面**（フッター以外の出口が
+              ここしか無い面）を優先して選ぶ — 系譜図・このサイトについてがそれ。
+              「在位年数ランキング」（/database の並べ替え済み URL）は 2026-08-19 の
+              系譜図公開時に譲った（/database 自体はモバイルヘッダーから届く）。 */}
           <NextUp
             items={[
               {
@@ -80,12 +80,9 @@ export default function Home() {
                 href: "/emperors",
               },
               {
-                title: "在位年数ランキング",
-                description: `最長は${stats.longestReign.durationLabel}。在位が長い順に全員を並べる`,
-                href: databaseFilterHref({
-                  sort: "reignApproxDays",
-                  order: "desc",
-                }),
+                title: "系譜図",
+                description: "秦から五代十国まで、皇帝と親族のつながりを家系図で見る",
+                href: "/kinship",
               },
               {
                 title: "このサイトについて",
