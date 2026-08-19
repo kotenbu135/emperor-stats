@@ -1280,7 +1280,19 @@ const absorbJogs = (input, fromId, toId) => {
         if (s === 0 && !endWindow(fromId, next[0][0], next[0][1])) return null;
         if (t === pts.length - 1 && !endWindow(toId, next[next.length - 1][0], next[next.length - 1][1]))
           return null;
-        return cleanPolyline(next);
+        const cleaned = cleanPolyline(next);
+        // **縦だった端の区間を横へ変える寄せは不採用** — 12px の垂直の入りを「折れ」と
+        // 見なして潰すと、線がカードの縁と同じ高さを横に走る（文帝→劉武で顕在化。
+        // 自分の from/to との距離検査は除外されているので監査も素通りした）
+        const horiz = (a, b) => a && b && a[1] === b[1];
+        const vert = (a, b) => a && b && a[0] === b[0];
+        if (vert(pts[0], pts[1]) && horiz(cleaned[0], cleaned[1])) return null;
+        if (
+          vert(pts[pts.length - 2], pts[pts.length - 1]) &&
+          horiz(cleaned[cleaned.length - 2], cleaned[cleaned.length - 1])
+        )
+          return null;
+        return cleaned;
       };
       // 短い側を長い側へ寄せる。動かせなければ逆側を試す
       const order =
@@ -1824,6 +1836,54 @@ const setFirstBusY = (e, y) => {
   }
 }
 
+// ---------------------------------------------------------------- 端の横入りを直す
+//
+// 家族・継承の線はカードへ**必ず縦で**出入りする。elk と後処理の組み合わせが稀に
+// 「カードの縁と同じ高さを横に走って端へ届く」形を残し（文帝→劉武 —
+// [[790,876],[790,1088],[716,1088]] が劉武の上辺 y=1088 を横に走る）、監査は自分の
+// from/to カードとの距離を除外しているので素通りしていた（2026-08-19 ユーザー指摘
+// 「線と箱が重ならないように」）。横向きの端の区間を、カードの CLEAR(12px) 手前の
+// 廊下＋垂直の出入りへ曲げ直す。折れは1つ増えるが、縁を走るよりよい。
+{
+  const skip = new Set(["marriage", "disputed", "second"]);
+  for (const e of lines) {
+    if (skip.has(e.kind) || e.mirrorOf) continue;
+    for (let guard = 0; guard < 2; guard += 1) {
+      const pts = e.points;
+      if (pts.length < 2) break;
+      let cand = null;
+      const last = pts[pts.length - 1];
+      const prev = pts[pts.length - 2];
+      if (prev[1] === last[1]) {
+        // 端が横向き（入り）。カードのどちらの縁かで廊下を上下に振る
+        const b = boxes.get(e.to);
+        const yC = Math.abs(last[1] - b.y) <= Math.abs(last[1] - (b.y + b.h)) ? last[1] - CLEAR : last[1] + CLEAR;
+        cand = [...pts.slice(0, -2), [prev[0], yC], [last[0], yC], last];
+      } else {
+        const first = pts[0];
+        const second = pts[1];
+        if (first[1] === second[1]) {
+          const b = boxes.get(e.from);
+          const yC = Math.abs(first[1] - b.y) <= Math.abs(first[1] - (b.y + b.h)) ? first[1] - CLEAR : first[1] + CLEAR;
+          cand = [first, [first[0], yC], [second[0], yC], ...pts.slice(2)];
+        }
+      }
+      if (!cand) break;
+      const before = e.points;
+      const beforeCost = costOf(e);
+      e.points = cleanPolyline(cand);
+      if (costOf(e) > beforeCost) {
+        if (process.env.KINSHIP_DEBUG)
+          console.log(`    [横入り直し却下] ${e.from}→${e.to} cost ${beforeCost}→${costOf(e)}`);
+        e.points = before;
+        break;
+      } else if (process.env.KINSHIP_DEBUG) {
+        console.log(`    [横入り直し] ${e.from}→${e.to}`);
+      }
+    }
+  }
+}
+
 // ---------------------------------------------------------------- 単独カードの中心合わせ
 //
 // 親の下ろし点と子カードの中心が数十 px ずれているとき、線の端をカードの縁に
@@ -2004,7 +2064,18 @@ const setFirstBusY = (e, y) => {
           };
           if (axis === 0 && sIdx === 0 && offCenter(e.from, target)) return null;
           if (axis === 0 && tIdx === pts.length - 1 && offCenter(e.to, target)) return null;
-          return cleanPolyline(next);
+          const cleaned = cleanPolyline(next);
+          // 縦だった端の区間を横へ変える寄せは不採用（absorbJogs と同じ理由 — 垂直の
+          // 入りを潰すとカードの縁を横に走る線になる）
+          const horiz = (a, b) => a && b && a[1] === b[1];
+          const vert = (a, b) => a && b && a[0] === b[0];
+          if (vert(pts[0], pts[1]) && horiz(cleaned[0], cleaned[1])) return null;
+          if (
+            vert(pts[pts.length - 2], pts[pts.length - 1]) &&
+            horiz(cleaned[cleaned.length - 2], cleaned[cleaned.length - 1])
+          )
+            return null;
+          return cleaned;
         };
         const order =
           lenOf(a, i) <= lenOf(i + 1, b)
@@ -2083,8 +2154,20 @@ const faults = {
   線どうしの交差: [],
   線どうしの重なり: [],
   端が浮いている: [],
+  端の区間が横向き: [],
   不要な折れ: [],
 };
+// 家族・継承の線はカードへ縦で出入りする（横向きの端はカードの縁を走る形＝
+// from/to 自身との距離検査の除外をすり抜けるので、向きそのものを数える）。
+for (const e of lines) {
+  if (e.kind === "marriage" || e.kind === "disputed" || e.kind === "second") continue;
+  const pts = e.points;
+  if (pts.length < 2) continue;
+  if (pts[0][1] === pts[1][1])
+    faults.端の区間が横向き.push(`${e.from}→${e.to} 出が横`);
+  if (pts[pts.length - 2][1] === pts[pts.length - 1][1])
+    faults.端の区間が横向き.push(`${e.from}→${e.to} 入りが横`);
+}
 // 別の親の縦の区間が近くを長く並走していないか（同じ親は幹の共有なので除く）。
 {
   const runs = [];
