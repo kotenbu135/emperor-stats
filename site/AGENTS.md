@@ -141,6 +141,9 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 在位の長い皇帝が空の縦棒・小さな塊が図幅の2/3・線の交差）は SITE_DESIGN.md と Issue #174 に
 残してあるので、作り直すときはそちらを先に読む。
 
+**章を増やすときの規範（図の文法・検査・チェックリスト）は
+[../docs/site-design/KINSHIP_RULES.md](../docs/site-design/KINSHIP_RULES.md)** が正。
+
 構成は3つ。**レイアウト（＝座標と線の形）を描画側で決めないこと**が全体の設計。
 
 - **`scripts/build-kinship-layout.mjs`** — `prebuild` で elkjs を回して

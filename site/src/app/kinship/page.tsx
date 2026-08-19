@@ -146,6 +146,17 @@ export default function KinshipPage() {
             />
             <span>親族（女性）</span>
           </span>
+          <span className="flex items-center gap-1.5">
+            <span
+              aria-hidden
+              className="inline-block h-3.5 w-5 rounded-[2px]"
+              style={{
+                background: "var(--kinship-kin-band)",
+                boxShadow: `inset 3px 0 0 0 ${regimeBandColor(regimes[0]?.[0] ?? "")}`,
+              }}
+            />
+            <span>親族の左端の色＝その家の政権</span>
+          </span>
         </dd>
 
         {/* **見本は図と同じ dasharray で引く。** 文字（—— や - - -）で代用すると

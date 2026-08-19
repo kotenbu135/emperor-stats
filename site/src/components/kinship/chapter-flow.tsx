@@ -60,6 +60,8 @@ export interface KinshipPerson {
   deathYear: number | null;
   portrait: string | null;
   focusY: number | null;
+  /** 親族カードだけが持つ「その家の政権」（家族の線で最寄りの皇帝から写す）。 */
+  familyRegimeId?: string | null;
   x: number;
   y: number;
   w: number;
@@ -194,10 +196,17 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
   // **親族カードでは帯が箱いっぱいまで伸びる。** 生没年がどちらも分かっていない人が
   // 70 人中 22 人いて、帯を内容ぶんの高さにすると下が地色のまま残る（＝カードが
   // 半分だけ塗られた別種の箱に見えた）。
+  // 親族カードの左端に「その家の政権」の色を 4px 立てる（2026-08-19 ユーザー指示
+  // 「同じ王朝の人物をわかりやすく表示したい」）。帯の色そのものを政権色に混ぜると
+  // 男女の区別（帯2色）と白文字のコントラスト基準が崩れるので、縁の1本にとどめる。
+  const stripe =
+    !p.isEmperor && p.familyRegimeId
+      ? `inset 4px 0 0 0 ${regimeBandColor(p.familyRegimeId)}`
+      : undefined;
   const band = (
     <div
       className={`px-1.5 py-1 text-center leading-tight ${p.isEmperor ? "" : "flex flex-1 flex-col justify-center"}`}
-      style={{ background: fill }}
+      style={{ background: fill, boxShadow: stripe }}
     >
       <div className="truncate text-[13px] font-semibold" style={{ color: ink }}>
         {p.main}
@@ -448,7 +457,26 @@ function buildGraph(layout: KinshipLayout): { nodes: Node[]; edges: Edge[] } {
       style,
     };
     if (e.kind !== "succession") {
-      return { ...base, sourceHandle: "b", targetHandle: "t" } satisfies Edge;
+      const plain = { ...base, sourceHandle: "b", targetHandle: "t" };
+      if (e.kind !== "adoptive") return plain satisfies Edge;
+      // 養親の線は1章に1本しか無いうえ、一点鎖線だけでは「なぜこの2人がつながるのか」
+      // が読めない（2026-08-19「明德馬皇后の関係性がわかりにくい」）。継承の線と同じ
+      // 作法で、線の上に関係を1語だけ載せる。
+      const a = at.get(e.from);
+      return {
+        ...plain,
+        label: a?.gender === "female" ? "養母" : "養父",
+        labelShowBg: true,
+        labelBgPadding: [5, 2] as [number, number],
+        labelBgBorderRadius: 3,
+        labelBgStyle: {
+          fill: "var(--kinship-canvas)",
+          stroke: "var(--kinship-line)",
+          strokeWidth: 0.75,
+          strokeOpacity: 0.4,
+        },
+        labelStyle: { fill: "var(--kinship-line)", fontSize: 10.5, fontWeight: 600 },
+      } satisfies Edge;
     }
     // 横向き（継承）はカードの左右の口を使う。**行き先が右なら右の口から出る** —
     // 逆に取ると線が出どころのカードを一周する。
@@ -633,6 +661,8 @@ const MIN_ZOOM = 0.08;
 const MAX_ZOOM = 2;
 /** このキーを押しながらのホイールだけ拡大縮小（WSL/Windows は Control・Mac は Meta）。 */
 const ZOOM_KEYS = ["Meta", "Control"];
+/** 図の縁からこれ以上は外へ動かせない（2026-08-19「どこまでも下に動かせてしまう」）。 */
+const PAN_MARGIN = 160;
 
 /** 図の中を動かすので Provider の内側に置く（`useReactFlow` は Provider が要る）。 */
 export function ChapterFlow({
@@ -685,6 +715,13 @@ function ChapterFlowInner({
       delete w.__kinshipSetViewport;
     };
   }, [setViewport]);
+  const extent = useMemo<[[number, number], [number, number]]>(
+    () => [
+      [-PAN_MARGIN, -PAN_MARGIN],
+      [layout.width + PAN_MARGIN, layout.height + PAN_MARGIN],
+    ],
+    [layout.width, layout.height],
+  );
   const [here, setHere] = useState<string | null>(null);
   const centerOn = useCallback(
     (n: KinshipPerson) => {
@@ -756,6 +793,7 @@ function ChapterFlowInner({
           zoomOnScroll={false}
           panOnScroll
           zoomActivationKeyCode={ZOOM_KEYS}
+          translateExtent={extent}
           // **全体を1画面に収めない。** 2981×4082px を 1156px 幅に収めると倍率 0.28 で
           // 字が読めなくなる（前回の取り下げ理由「俯瞰すると字が読めない」そのもの）。
           // 見本の A も1画面に収めていない — 図の入口へ寄せて開き、全体は MiniMap で見る。

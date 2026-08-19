@@ -700,6 +700,36 @@ for (const id of allNodeIds) {
 }
 components.sort((a, b) => b.length - a.length);
 
+// 親族カードへ「その家の政権」を写す（2026-08-19 ユーザー指示「同じ王朝の人物を
+// わかりやすく表示したい」）。**家族の線（union・追加の親子）だけをたどって最寄りの
+// 皇帝の政権を採る** — 継承の線は家族ではないのでたどらない。同じ近さで政権が
+// 割れたら多数決 → 政権 id 順で決め打ち（決定的にするためだけの規則）。
+for (const c of cards.values()) {
+  if (c.isEmperor) continue;
+  let frontier = [c.id];
+  const seenB = new Set(frontier);
+  let found = null;
+  for (let depth = 0; depth < 16 && frontier.length && !found; depth += 1) {
+    const next = [];
+    const hits = [];
+    for (const cur of frontier)
+      for (const nx of adjacency.get(cur) ?? []) {
+        if (seenB.has(nx)) continue;
+        seenB.add(nx);
+        const cc = cards.get(nx);
+        if (cc?.isEmperor && cc.regimeId) hits.push(cc.regimeId);
+        next.push(nx);
+      }
+    if (hits.length) {
+      const tally = new Map();
+      for (const r of hits) tally.set(r, (tally.get(r) ?? 0) + 1);
+      found = [...tally.entries()].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))[0][0];
+    }
+    frontier = next;
+  }
+  c.familyRegimeId = found;
+}
+
 const median = (arr) => {
   const v = [...arr].sort((a, b) => a - b);
   return v.length ? v[Math.floor(v.length / 2)] : null;
@@ -1163,6 +1193,141 @@ const setFirstBusY = (e, y) => {
   }
 }
 
+// ---------------------------------------------------------------- 行って戻る折り返しを消す
+//
+// elk はスペーサの段を律儀に経由するので、目的の廊下を**通り過ぎてから戻る U 字**が
+// 稀に出る（武帝→劉髆が y1606 まで下りてから y1438 へ戻っていた＝並走する縦線が
+// 増えて「二重線」に見える一因）。縦→横→縦 の並びで2本目の縦が逆向きなら:
+//   形B: 戻りが1本目の付け根を越えて進む → 1本目の縦は丸ごと迂回。枝ごと落として
+//        横棒を付け根の高さに引き直す（兄弟のバスの高さが保たれるので先に試す）
+//   形A: 戻り先が1本目の縦の途中 → 横棒を戻り先の高さへ引き上げる
+// どちらも、引き直した線がカードに寄るなら諦める。
+{
+  const clearSeg = (e, xa, ya, xb, yb) => {
+    const s = [Math.min(xa, xb), Math.min(ya, yb), Math.max(xa, xb), Math.max(ya, yb)];
+    for (const bx of boxes.values()) {
+      if (!cards.has(bx.id)) continue;
+      if (bx.id === e.from || bx.id === e.to) continue;
+      if (sameBlock(e.from, bx.id) || sameBlock(e.to, bx.id)) continue;
+      if (gap(s, bx) <= 6) return false;
+    }
+    return true;
+  };
+  for (const e of lines) {
+    for (let guard = 0; guard < 8; guard += 1) {
+      const p = e.points;
+      let changed = false;
+      const detect = (i) => {
+        const v1 = p[i - 1][0] === p[i][0] && p[i][1] !== p[i - 1][1];
+        const h = p[i][1] === p[i + 1][1] && p[i][0] !== p[i + 1][0];
+        const v2 = p[i + 1][0] === p[i + 2][0] && p[i + 2][1] !== p[i + 1][1];
+        if (!v1 || !h || !v2) return null;
+        const d1 = Math.sign(p[i][1] - p[i - 1][1]);
+        if (Math.sign(p[i + 2][1] - p[i + 1][1]) === d1) return null;
+        return d1;
+      };
+      // 形B
+      for (let i = 1; i + 2 < p.length; i += 1) {
+        const d1 = detect(i);
+        if (d1 == null) continue;
+        const P = p[i - 1];
+        const R = p[i + 1];
+        const S = p[i + 2];
+        if (Math.sign(S[1] - P[1]) === d1 || S[1] === P[1]) continue; // 付け根を越えていない
+        if (!clearSeg(e, P[0], P[1], R[0], P[1])) continue;
+        if (!clearSeg(e, R[0], P[1], R[0], S[1])) continue;
+        e.points = cleanPolyline([...p.slice(0, i), [R[0], P[1]], ...p.slice(i + 2)]);
+        changed = true;
+        break;
+      }
+      if (changed) continue;
+      // 形A
+      for (let i = 1; i + 2 < p.length; i += 1) {
+        const d1 = detect(i);
+        if (d1 == null) continue;
+        const yTurn = p[i + 2][1];
+        if (Math.sign(yTurn - p[i - 1][1]) !== d1) continue;
+        if (Math.sign(p[i][1] - yTurn) !== d1) continue;
+        if (!clearSeg(e, p[i][0], yTurn, p[i + 1][0], yTurn)) continue;
+        e.points = cleanPolyline([
+          ...p.slice(0, i),
+          [p[i][0], yTurn],
+          [p[i + 1][0], yTurn],
+          ...p.slice(i + 2),
+        ]);
+        changed = true;
+        break;
+      }
+      if (!changed) break;
+    }
+  }
+}
+
+// ---------------------------------------------------------------- 兄弟の幹を束ねる
+//
+// 同じ親から出た線は elk 上では別々のスペーサ鎖なので、段をまたぐ幹が数 px ずれて
+// 並走し「二重線」に見える（2026-08-19 ユーザー指摘。武帝→劉髆と武帝→劉拠が
+// 7px ずれで 414px 並走していた）。**同じ親の縦の区間が近くを並走していたら同じ x に
+// 束ねる** — 同じ親の線の重なりは T 字の幹として意図どおりで、監査も sameBus として
+// 除外している。束ねた先がカードに寄るなら諦める。
+{
+  const vRuns = (e) => {
+    const out = [];
+    for (let i = 1; i < e.points.length; i += 1) {
+      if (e.points[i - 1][0] !== e.points[i][0]) continue;
+      if (Math.abs(e.points[i][1] - e.points[i - 1][1]) < 20) continue;
+      out.push(i - 1);
+    }
+    return out;
+  };
+  const clearV = (e, x, y0, y1) => {
+    for (const bx of boxes.values()) {
+      if (!cards.has(bx.id)) continue;
+      if (bx.id === e.from || bx.id === e.to) continue;
+      if (sameBlock(e.from, bx.id) || sameBlock(e.to, bx.id)) continue;
+      if (gap([x, Math.min(y0, y1), x, Math.max(y0, y1)], bx) <= 4) return false;
+    }
+    return true;
+  };
+  const byParent = new Map();
+  for (const e of lines) {
+    if (e.kind === "succession") continue;
+    pushTo(byParent, e.from, e);
+  }
+  for (const es of byParent.values()) {
+    if (es.length < 2) continue;
+    for (let pass = 0; pass < 4; pass += 1) {
+      let moved = false;
+      for (const ea of es)
+        for (const eb of es) {
+          if (ea === eb) continue;
+          for (const i of vRuns(ea))
+            for (const j of vRuns(eb)) {
+              const xa = ea.points[i][0];
+              const xb = eb.points[j][0];
+              const d = Math.abs(xa - xb);
+              if (d === 0 || d > 12) continue;
+              const ya = [ea.points[i][1], ea.points[i + 1][1]].sort((p, q) => p - q);
+              const yb = [eb.points[j][1], eb.points[j + 1][1]].sort((p, q) => p - q);
+              if (Math.min(ya[1], yb[1]) - Math.max(ya[0], yb[0]) < 40) continue;
+              const next = eb.points.map((q) => [...q]);
+              next[j][0] = xa;
+              next[j + 1][0] = xa;
+              const okHead = j > 0 || endWindow(eb.from, next[0][0], next[0][1]);
+              const okTail =
+                j + 1 < next.length - 1 ||
+                endWindow(eb.to, next[next.length - 1][0], next[next.length - 1][1]);
+              if (!okHead || !okTail) continue;
+              if (!clearV(eb, xa, yb[0], yb[1])) continue;
+              eb.points = cleanPolyline(next);
+              moved = true;
+            }
+        }
+      if (!moved) break;
+    }
+  }
+}
+
 // ---------------------------------------------------------------- 廊下の重なりをほどく
 //
 // 別々の親の線が同じ高さの横の廊下を選ぶと、重なった区間が「1本の線が途中で分岐した」
@@ -1248,6 +1413,7 @@ const setFirstBusY = (e, y) => {
 
 const faults = {
   カードどうしの重なり: [],
+  二重線に見える並走: [],
   カードの中を通る: [],
   カードに近すぎる: [],
   線どうしの交差: [],
@@ -1255,6 +1421,29 @@ const faults = {
   端が浮いている: [],
   不要な折れ: [],
 };
+// 別の親の縦の区間が近くを長く並走していないか（同じ親は幹の共有なので除く）。
+{
+  const runs = [];
+  for (const e of lines)
+    for (let i = 1; i < e.points.length; i += 1) {
+      if (e.points[i - 1][0] !== e.points[i][0]) continue;
+      if (Math.abs(e.points[i][1] - e.points[i - 1][1]) < 20) continue;
+      runs.push({ e, x: e.points[i][0], y0: Math.min(e.points[i - 1][1], e.points[i][1]), y1: Math.max(e.points[i - 1][1], e.points[i][1]) });
+    }
+  for (let a = 0; a < runs.length; a += 1)
+    for (let b = a + 1; b < runs.length; b += 1) {
+      const A = runs[a];
+      const B = runs[b];
+      if (A.e === B.e || A.e.from === B.e.from) continue;
+      const d = Math.abs(A.x - B.x);
+      if (d === 0 || d > 10) continue;
+      if (Math.min(A.y1, B.y1) - Math.max(A.y0, B.y0) < 60) continue;
+      faults.二重線に見える並走.push(
+        `${A.e.from}→${A.e.to} と ${B.e.from}→${B.e.to} が x差${d}px`,
+      );
+    }
+}
+
 // カードが被っていないか（2026-08-19 ユーザー指摘。elk はブロックを重ねないはずだが、
 // 時代で動かした成分の置き直しは自前なので、機械で見ないと黙って重なる）。
 {
