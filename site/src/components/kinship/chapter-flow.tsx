@@ -93,6 +93,8 @@ export interface KinshipEdge {
   to: string;
   points: [number, number][];
   categoryId?: string | null;
+  /** ラベルの置き場所（往復の継承だけレイアウト側が指定。無ければ最長区間の中点） */
+  labelAt?: [number, number] | null;
 }
 
 /**
@@ -339,6 +341,9 @@ function FamilyEdge({
   if (pts.length < 2) return null;
   const d = pts.map(([x, y], i) => `${i ? "L" : "M"}${x},${y}`).join(" ");
   // ラベルはいちばん長い区間の真ん中に置く（折れ点に置くとカードの角に重なる）。
+  // **往復の継承（簒奪⇄復位）だけはレイアウト側の指定（labelAt）** — 2本の最長区間が
+  // 12px 差で並走するので、中点に置くとチップが重なって読めない。
+  const labelAt = data?.labelAt as [number, number] | null | undefined;
   let mid = pts[0];
   let best = -1;
   for (let i = 1; i < pts.length; i += 1) {
@@ -355,8 +360,8 @@ function FamilyEdge({
       style={style}
       markerEnd={markerEnd}
       label={label}
-      labelX={mid[0]}
-      labelY={mid[1]}
+      labelX={labelAt?.[0] ?? mid[0]}
+      labelY={labelAt?.[1] ?? mid[1]}
       labelStyle={labelStyle}
       labelShowBg={labelShowBg}
       labelBgStyle={labelBgStyle}
@@ -453,7 +458,7 @@ function buildGraph(layout: KinshipLayout): { nodes: Node[]; edges: Edge[] } {
       type: "family",
       source: e.from,
       target: e.to,
-      data: { points: e.points },
+      data: { points: e.points, labelAt: e.labelAt ?? null },
       style,
     };
     if (e.kind !== "succession") {
@@ -655,8 +660,15 @@ function PersonSearch({
   );
 }
 
-/** 入口は前漢の高祖。**始皇帝ではない** — 秦の一族だけを見せても章の系譜が読めない。 */
-const FIT_VIEW = { nodes: [{ id: "han-gaozu" }], minZoom: 0.7, maxZoom: 0.7 };
+/**
+ * 入口の皇帝は章ごとに決める（page 側の章の表が持つ）。秦・漢は前漢の高祖 —
+ * **始皇帝ではない**（秦の一族だけを見せても章の系譜が読めない）。
+ */
+const fitViewFor = (entryId: string) => ({
+  nodes: [{ id: entryId }],
+  minZoom: 0.7,
+  maxZoom: 0.7,
+});
 const MIN_ZOOM = 0.08;
 const MAX_ZOOM = 2;
 /** このキーを押しながらのホイールだけ拡大縮小（WSL/Windows は Control・Mac は Meta）。 */
@@ -668,11 +680,14 @@ const PAN_MARGIN = 160;
 export function ChapterFlow({
   layout,
   jumps,
+  entryId,
 }: {
   layout: KinshipLayout;
   jumps: KinshipJump[];
+  entryId: string;
 }) {
   const graph = useMemo(() => buildGraph(layout), [layout]);
+  const fitView = useMemo(() => fitViewFor(entryId), [entryId]);
   return (
     <ReactFlowProvider
       initialNodes={graph.nodes}
@@ -680,11 +695,11 @@ export function ChapterFlow({
       initialWidth={layout.width}
       initialHeight={layout.height}
       fitView
-      initialFitViewOptions={FIT_VIEW}
+      initialFitViewOptions={fitView}
       initialMinZoom={MIN_ZOOM}
       initialMaxZoom={MAX_ZOOM}
     >
-      <ChapterFlowInner layout={layout} jumps={jumps} graph={graph} />
+      <ChapterFlowInner layout={layout} jumps={jumps} graph={graph} fitView={fitView} />
     </ReactFlowProvider>
   );
 }
@@ -693,10 +708,12 @@ function ChapterFlowInner({
   layout,
   jumps,
   graph,
+  fitView,
 }: {
   layout: KinshipLayout;
   jumps: KinshipJump[];
   graph: { nodes: Node[]; edges: Edge[] };
+  fitView: ReturnType<typeof fitViewFor>;
 }) {
   const { nodes, edges } = graph;
 
@@ -798,7 +815,7 @@ function ChapterFlowInner({
           // 字が読めなくなる（前回の取り下げ理由「俯瞰すると字が読めない」そのもの）。
           // 見本の A も1画面に収めていない — 図の入口へ寄せて開き、全体は MiniMap で見る。
           fitView
-          fitViewOptions={FIT_VIEW}
+          fitViewOptions={fitView}
           proOptions={{ hideAttribution: false }}
         >
           {/* 縦横の方眼は**時代の帯に置き換えた**（2026-08-18 の外部レビュー: 方眼が濃い・

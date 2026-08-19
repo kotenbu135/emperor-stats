@@ -22,6 +22,8 @@ const DIR = {
   screen: `${OUT}/4-ブラウザ画面`,
 };
 const PORT = Number(process.env.PORT ?? 4601);
+// 撮る章。KINSHIP_PATH=/kinship/three-kingdoms-jin のように章の URL を渡す。
+const PAGE_PATH = process.env.KINSHIP_PATH ?? "/kinship";
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -76,7 +78,7 @@ const ctx = await browser.newContext({
   locale: "ja-JP",
 });
 const page = await ctx.newPage();
-await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+await page.goto(`http://localhost:${PORT}${PAGE_PATH}`, { waitUntil: "networkidle" });
 await sleep(2500);
 
 await page.screenshot({ path: `${DIR.screen}/1-初期表示（開いた直後）.png` });
@@ -91,7 +93,7 @@ await sleep(900);
 await page.screenshot({ path: `${DIR.screen}/2-拡大したところ.png` });
 
 // 政権ジャンプ（A の上端ナビに当たる操作）が効いているか
-await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+await page.goto(`http://localhost:${PORT}${PAGE_PATH}`, { waitUntil: "networkidle" });
 await sleep(2000);
 const jump = page.locator('nav[aria-label="政権へジャンプ"] button', { hasText: "後漢" }).first();
 if (await jump.count()) {
@@ -103,7 +105,7 @@ if (await jump.count()) {
 // 人物検索（2026-08-18 の外部レビュー「6,000px の図に探す手段が無い」への答え）が
 // 効いているか。**候補が出ているところと、選んで着地したところの2枚**を撮る。
 {
-  await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+  await page.goto(`http://localhost:${PORT}${PAGE_PATH}`, { waitUntil: "networkidle" });
   await sleep(2000);
   const box = page.getByLabel("人物を名前で探す");
   await box.fill("光武");
@@ -144,7 +146,7 @@ const SPOTS = [
   ["p-liu-li", "15-劉利", 2.2],
 ];
 for (const [id, name, zoom] of SPOTS) {
-  await page.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+  await page.goto(`http://localhost:${PORT}${PAGE_PATH}`, { waitUntil: "networkidle" });
   await sleep(1800);
   const ok = await page.evaluate(({ nodeId, scale }) => {
     const el = document.querySelector(`.react-flow__node[data-id="${nodeId}"]`);
@@ -174,7 +176,7 @@ for (const [id, name, zoom] of SPOTS) {
 // 1件も拾えない。目で全カードを見るのは無理なので機械で見る。
 {
   const probe = await ctx.newPage();
-  await probe.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+  await probe.goto(`http://localhost:${PORT}${PAGE_PATH}`, { waitUntil: "networkidle" });
   await sleep(1800);
   const over = await probe.evaluate(() => {
     const bad = [];
@@ -197,7 +199,7 @@ for (const [id, name, zoom] of SPOTS) {
 {
   const tile = await ctx.newPage();
   await tile.setViewportSize({ width: 1500, height: 1200 });
-  await tile.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+  await tile.goto(`http://localhost:${PORT}${PAGE_PATH}`, { waitUntil: "networkidle" });
   await sleep(2200);
   const info = await tile.evaluate(() => {
     const pane = document.querySelector(".react-flow");
@@ -232,7 +234,7 @@ for (const [id, name, zoom] of SPOTS) {
 // **図の全体を1枚に。** 外部レビューへ渡すときはタイルより1枚のほうが見てもらいやすい。
 {
   const full = await ctx.newPage();
-  await full.goto(`http://localhost:${PORT}/kinship`, { waitUntil: "networkidle" });
+  await full.goto(`http://localhost:${PORT}${PAGE_PATH}`, { waitUntil: "networkidle" });
   await sleep(1500);
   const size = await full.evaluate(() => {
     let w = 0;
@@ -295,7 +297,7 @@ for (const f of ["1-初期表示（開いた直後）.png", "2-拡大したと�
 fs.writeFileSync(
   `${OUT}/00-この中身.txt`,
   [
-    `秦・漢の系譜（/kinship）のスクリーンショット`,
+    `系譜図（${PAGE_PATH}）のスクリーンショット`,
     `撮り直すたびにこのフォルダごと作り直す（前の版が混ざらないように）。`,
     ``,
     `1-全体/          図の全体を等倍で1枚に。通しの構造を見る用`,

@@ -18,7 +18,6 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import ELK from "elkjs/lib/elk.bundled.js";
 
-const ERA_ID = "qin-han";
 
 // 寸法と間隔は probe-kinship-layout.mjs で測って選んだ。
 const CARD_W = 112;
@@ -54,14 +53,34 @@ const portraits = JSON.parse(
 );
 const portraitById = new Map(portraits.map((p) => [p.id, p]));
 
-const emp = emperors.emperors.filter((e) => e.eraId === ERA_ID);
-const per = kinship.persons.filter((p) => p.eraId === ERA_ID);
+// ---------------------------------------------------------------- 章
+//
+// 章ごとに独立して解いて layout.<eraId>.json に落とす。**guests は「章の eraId では
+// ないが、この章に出す人物」** —
+//   (a) 禅譲の前帝: 後漢の献帝（2026-08-19 ユーザー指示「後漢の献帝だけいれて
+//       禅譲がわかるようにする」。継承の線だけでつながる。妻の曹節ら後漢の家族は
+//       この章には出さない — 献「だけ」入れる指示）
+//   (b) 前の章で「章内に線が1本も無い」として外した親: 袁逢（子＝袁術）・劉弘
+//       （子＝昭烈帝）。子がこの章にいるので、ここで初めて線を持てる
+const CHAPTERS = [
+  { eraId: "qin-han", guests: [], bucket: 20 },
+  {
+    eraId: "three-kingdoms-jin",
+    guests: ["hou-han-xiandi", "p-yuan-feng", "p-liu-hong-shu"],
+    bucket: 12,
+  },
+];
+
+async function buildChapter({ eraId: ERA_ID, guests, bucket }) {
+const guestSet = new Set(guests);
+const emp = emperors.emperors.filter((e) => e.eraId === ERA_ID || guestSet.has(e.id));
+const per = kinship.persons.filter((p) => p.eraId === ERA_ID || guestSet.has(p.id));
 const ids = new Set([...emp.map((e) => e.id), ...per.map((p) => p.id)]);
 
 // 章の外にいる人物も名前だけ引けるようにする（章をまたぐ親子を出すため）。
 const outsideEra = new Map();
-for (const e of emperors.emperors) if (e.eraId !== ERA_ID) outsideEra.set(e.id, e);
-for (const p of kinship.persons) if (p.eraId !== ERA_ID) outsideEra.set(p.id, p);
+for (const e of emperors.emperors) if (!ids.has(e.id)) outsideEra.set(e.id, e);
+for (const p of kinship.persons) if (!ids.has(p.id)) outsideEra.set(p.id, p);
 const labelOf = (id) => {
   const o = outsideEra.get(id);
   if (!o) return id;
@@ -459,7 +478,10 @@ let ei = 0;
 // 1回目は**年の背骨**（見えない鎖 T0→T1→… を BUCKET 年ごとに立て、年 y のブロックへ
 // T_k → ブロック の辺を張る）を足して解き、**段の番号だけ**を取る。
 // 2回目は背骨を捨て、代わりに**辺の途中へ見えないスペーサを挟んで段差だけを再現する**。
-const BUCKET = Number(process.env.KINSHIP_BUCKET ?? 20);
+// **枡の幅は章ごとに選ぶ**（BUCKET=20 の全章一律だと、章の年代の密度で密集の
+// ほどけ方が大きく違った — 2026-08-19 の実測: 三国西晋は 12 で交差 10→1、
+// 秦・漢は 20 が最少）。値は章の表（CHAPTERS）が持つ。
+const BUCKET = Number(process.env.KINSHIP_BUCKET ?? bucket ?? 20);
 const LAYOUT_OPTIONS = {
     "elk.algorithm": "layered",
     "elk.direction": "DOWN",
@@ -492,7 +514,13 @@ const layerOf = new Map(); // blockId -> 段
   const edgesA = logical
     .filter((e) => e.srcBlk !== e.tgtBlk)
     .map((e) => ({ id: `a${ei++}`, sources: [e.srcBlk], targets: [e.tgtBlk] }));
-  const years = [...cards.values()].map(yearOf).filter((v) => v != null);
+  // **背骨に繋ぐ年は在位開始年か生年だけ。没年では繋がない** — 没年しか無い人は
+  // 「長生きした年」に世代ごと引きずり下ろされる。三国西晋の実測: 曹宇（278没・生年
+  // 不明）が孫の世代の段に落ち、兄弟の段揃えで曹彰も道連れ、その子孫（曹楷・曹芳・
+  // 元帝）が図の最下段へ玉突きした。没年しか無い人は背骨に繋がず、家族の制約だけで
+  // 段が決まる。
+  const spineYearOf = (c) => c.reignFrom ?? c.birthYear ?? null;
+  const years = [...cards.values()].map(spineYearOf).filter((v) => v != null);
   const lo = Math.min(...years);
   const hi = Math.max(...years);
   for (let k = 0; k <= Math.floor((hi - lo) / BUCKET); k += 1) {
@@ -505,7 +533,7 @@ const layerOf = new Map(); // blockId -> 段
   // （高帝 前202 と 呂雉 前179 は同じブロック）。兄弟はここで下限を揃える。
   const bucket = new Map();
   for (const b of blocks) {
-    const ys = b.members.map((m) => yearOf(cards.get(m.id))).filter((v) => v != null);
+    const ys = b.members.map((m) => spineYearOf(cards.get(m.id))).filter((v) => v != null);
     if (ys.length) bucket.set(b.id, Math.floor((Math.min(...ys) - lo) / BUCKET));
   }
   const pull = (group) => {
@@ -552,6 +580,22 @@ const layerOf = new Map(); // blockId -> 段
       if (e.srcBlk !== e.tgtBlk) bump(e.tgtBlk, layerOf.get(e.srcBlk) + 1);
     if (!changed) break;
   }
+  // **家族の線を1本も持たないブロック（客人の前帝＝献帝）は、継承の行き先の1段上へ。**
+  // 年の背骨にしかつながれていないので、段が行き先と同じ・下になることがあり、そうなると
+  // 継承の辺を elk に渡せず（下りの辺しか渡さない）、phase B で孤立して図の隅に置かれる。
+  {
+    const hasFamily = new Set();
+    for (const e of logical) {
+      hasFamily.add(e.srcBlk);
+      hasFamily.add(e.tgtBlk);
+    }
+    for (const s of succession) {
+      const sb = blockOf.get(s.from).id;
+      const tb = blockOf.get(s.to).id;
+      if (hasFamily.has(sb)) continue;
+      layerOf.set(sb, Math.min(layerOf.get(sb), layerOf.get(tb) - 1));
+    }
+  }
   // 空いた段は詰める
   const packed = new Map(
     [...new Set(layerOf.values())].sort((a, b) => a - b).map((v, i) => [v, i]),
@@ -588,15 +632,51 @@ const addChain = (key, srcPort, tgtPort, srcBlk, tgtBlk) => {
 };
 for (const e of logical)
   if (e.srcBlk !== e.tgtBlk) addChain(`${e.from}>${e.to}`, e.srcPort, e.tgtPort, e.srcBlk, e.tgtBlk);
-// **継承も elk に引かせる**（逆向き＝行き先が上にある継承だけは足さず、後で自前で引く）。
+// **継承も elk に引かせる。** 下向き（行き先が下の段）はそのまま。
+// **上向きは向きを逆にして elk に渡し、出力時に折れ線を反転して戻す** — 旧実装は
+// 中点へまっすぐ引く sideRoute だけで、三国西晋の元帝→晋武帝（禅譲）が司馬家の
+// カード2枚を突き抜けた。逆向きなら elk が空きを縫って引く。
+// **両方向の対（恵帝⇄司馬倫＝簒奪と復位）だけは逆向きを足さない** — 同じポート対の
+// 2本になって完全に重なる。対の上向き側は sideRoute で別の廊下に引く。
 const succRouted = new Set();
+const succReversed = new Set();
+const succPairKeys = new Set(succession.map((s) => `${s.from}>${s.to}`));
+// 継承専用のポート。**Pb/Pt を使い回すと mergeEdges が家族の線と同じ幹に
+// 束ねてしまい**、朱の破線が実の親子の幹の上へ 70px 重なった（三国西晋の実測）。
+// カード中央から +18px ずらした口を、要るブロックにだけ足す。ずらしてあるので
+// 親からの下ろし線と同じ点に刺さらず、継承と家族の線が入口で見分けられる。
+const succPort = (personId, side) => {
+  const b = blockOf.get(personId);
+  const m = b.members.find((x) => x.id === personId);
+  const id = `${side === "bottom" ? "Psb" : "Pst"}-${personId}`;
+  const node = elkNodes.find((n) => n.id === b.id);
+  if (!node.ports.some((pt) => pt.id === id))
+    node.ports.push({
+      id,
+      x: m.x + m.w / 2 + 18,
+      y: side === "bottom" ? b.h : 0,
+      width: 0,
+      height: 0,
+    });
+  return id;
+};
 for (const s of succession) {
   const sb = blockOf.get(s.from).id;
   const tb = blockOf.get(s.to).id;
   if (sb === tb) continue;
-  if (!(layerOf.get(tb) > layerOf.get(sb))) continue;
-  addChain(`${s.from}>${s.to}`, `Pb-${s.from}`, `Pt-${s.to}`, sb, tb);
-  succRouted.add(`${s.from}>${s.to}`);
+  const key = `${s.from}>${s.to}`;
+  // **同段（＝別々の家で背骨の枡がたまたま同じ）も下向き扱いで渡す** — elk の layered は
+  // 辺の向きに1段割って置き直すので、前帝が上・後帝が下という時代の向きに揃う。
+  // 元帝→晋武帝（ともに枡5）を同段のまま残すと sideRoute になり、武帝の横腹へ
+  // 夫婦の横棒と重なって刺さった（実測 2026-08-19）。
+  if (layerOf.get(tb) >= layerOf.get(sb)) {
+    addChain(key, succPort(s.from, "bottom"), succPort(s.to, "top"), sb, tb);
+    succRouted.add(key);
+  } else if (!succPairKeys.has(`${s.to}>${s.from}`)) {
+    addChain(key, succPort(s.to, "bottom"), succPort(s.from, "top"), tb, sb);
+    succRouted.add(key);
+    succReversed.add(key);
+  }
 }
 const graph = await solve(nodesB, edgesB);
 
@@ -633,6 +713,12 @@ for (const [key, chain] of chainOf) {
 }
 console.log(`  段のスペーサ: ${si}個 / elk が引いた線: ${routeOf.size}本`);
 
+// 逆向きに引かせた継承を from→to の向きへ戻す（矢印・ラベルは to 側に付く）
+for (const key of succReversed) {
+  if (!routeOf.get(key)) console.warn(`  ⚠ 逆向き継承の経路が elk から返らなかった: ${key}`);
+  routeOf.get(key)?.reverse();
+}
+
 // **端をポートの位置から実際の付け根へ伸ばす。** elk の線はブロックの縁で始まり終わる。
 // カードはブロックの中で上下中央に置くので、背の低いカードは縁との間に段差がある。
 // union の線は夫婦の横棒の中点（ブロックの中の高さ）まで引き上げる。
@@ -647,10 +733,13 @@ for (const [key, pts] of routeOf) {
     const p = pos.get(from);
     const bottom = p.y + heightOf(cards.get(from));
     if (head[1] > bottom + 0.5) pts.unshift([head[0], bottom]);
+    else if (head[1] < p.y - 0.5) pts.unshift([head[0], p.y]);
   }
   if (cards.has(to)) {
     const p = pos.get(to);
+    const bottom = p.y + heightOf(cards.get(to));
     if (tail[1] < p.y - 0.5) pts.push([tail[0], p.y]);
+    else if (tail[1] > bottom + 0.5) pts.push([tail[0], bottom]);
   }
 }
 
@@ -678,6 +767,22 @@ for (const x of extra) {
   link(x.from, x.to);
   link(x.to, x.from);
 }
+// **図に引く継承の線は、成分の判定にだけ入れる。** 禅譲でつながる王朝（献帝→魏→晋）を
+// 別成分として時代側へ平行移動すると、elk が引いた継承の線の端が浮く。ただし
+// familyRegimeId の BFS は家族の線だけを見る（継承は家族ではない）ので adjacency 本体には
+// 足さず、写しに足す。
+const compAdj = new Map([...adjacency].map(([k, v]) => [k, new Set(v)]));
+{
+  const linkC = (a, b) => {
+    const cur = compAdj.get(a);
+    if (cur) cur.add(b);
+    else compAdj.set(a, new Set([b]));
+  };
+  for (const s of succession) {
+    linkC(s.from, s.to);
+    linkC(s.to, s.from);
+  }
+}
 
 const allNodeIds = [...cards.keys(), ...[...unions.values()].map((u) => u.id)];
 const seen = new Set();
@@ -690,7 +795,7 @@ for (const id of allNodeIds) {
   while (stack.length) {
     const cur = stack.pop();
     comp.push(cur);
-    for (const nx of adjacency.get(cur) ?? []) {
+    for (const nx of compAdj.get(cur) ?? []) {
       if (seen.has(nx)) continue;
       seen.add(nx);
       stack.push(nx);
@@ -947,7 +1052,11 @@ const cleanPolyline = (input) => {
   return pts;
 };
 
-/** 行き先が上にある継承だけ elk に渡していない。段の隙間を選んで自前で引く。 */
+/**
+ * elk に渡さなかった継承（両方向の対の上向き側・同じ段どうし）を自前で引く。
+ * **縦の廊下はカードにぶつからない x を探して選ぶ** — 中点固定だと、三国西晋の
+ * 簒奪・復位の対で廊下が司馬穎のカードへ 8px まで寄った。
+ */
 const sideRoute = (from, to) => {
   const a = boxes.get(from);
   const b = boxes.get(to);
@@ -956,7 +1065,36 @@ const sideRoute = (from, to) => {
   const sy = a.y + a.h / 2;
   const tx = rightward ? b.x : b.x + b.w;
   const ty = b.y + b.h / 2;
-  const bus = Math.round((sx + tx) / 2);
+  // 検査側の gap() は宣言がまだ先なのでここでは使えない（TDZ）。同じ式の局所版。
+  const gp = (s, bx) => {
+    const dx = Math.max(bx.x - s[2], s[0] - (bx.x + bx.w), 0);
+    const dy = Math.max(bx.y - s[3], s[1] - (bx.y + bx.h), 0);
+    return Math.max(dx, dy);
+  };
+  const clearBus = (x) => {
+    const segs = [
+      [Math.min(sx, x), sy, Math.max(sx, x), sy],
+      [x, Math.min(sy, ty), x, Math.max(sy, ty)],
+      [Math.min(x, tx), ty, Math.max(x, tx), ty],
+    ];
+    for (const bx of boxes.values()) {
+      if (!cards.has(bx.id) || bx.id === from || bx.id === to) continue;
+      for (const s of segs) if (gp(s, bx) < 12) return false;
+    }
+    return true;
+  };
+  const mid = Math.round((sx + tx) / 2);
+  let bus = mid;
+  for (let d = 0; d <= 120; d += 4) {
+    if (clearBus(mid - d)) {
+      bus = mid - d;
+      break;
+    }
+    if (clearBus(mid + d)) {
+      bus = mid + d;
+      break;
+    }
+  }
   return cleanPolyline([
     [sx, sy],
     [bus, sy],
@@ -1035,6 +1173,47 @@ const absorbJogs = (input, fromId, toId) => {
   return pts;
 };
 
+/**
+ * 両方向の対（簒奪→復位）の上向き側。**下向き側（elk が引いた線）を 12px 平行に
+ * ずらして逆順にする** — 別の廊下を探すと2本が図の別々の場所を走って「同じ2人の
+ * 往復」に見えない。ずらすのは各区間の直交方向（縦は x・横は y）。端の点は区間の
+ * 向きに沿ってだけ動くのでカードの縁から外れない。ずらす向きは**カードから遠くなる
+ * 側**を選ぶ（+12 固定だと、下向き側が愍帝の上端 14px を通っていたとき、ずらした側が
+ * 上端の中へ入った）。下向き側は後処理で形が変わるので、**これは後処理の最後に
+ * もう一度作り直す**（途中の形から作ると対が平行でなくなる）。
+ */
+const mirrorRoute = (down, fromId, toId) => {
+  const rev = [...down].reverse();
+  const isV = [];
+  for (let i = 1; i < rev.length; i += 1) isV.push(rev[i - 1][0] === rev[i][0]);
+  const shifted = (d) =>
+    rev.map(([x, y], i) => [
+      isV[i - 1] || isV[i] ? x + d : x,
+      (i > 0 && !isV[i - 1]) || (i < isV.length && !isV[i]) ? y + d : y,
+    ]);
+  const clearance = (cand) => {
+    let worst = Infinity;
+    for (let i = 1; i < cand.length; i += 1) {
+      const s0 = [
+        Math.min(cand[i - 1][0], cand[i][0]),
+        Math.min(cand[i - 1][1], cand[i][1]),
+        Math.max(cand[i - 1][0], cand[i][0]),
+        Math.max(cand[i - 1][1], cand[i][1]),
+      ];
+      for (const bx of boxes.values()) {
+        if (!cards.has(bx.id) || bx.id === fromId || bx.id === toId) continue;
+        const dx = Math.max(bx.x - s0[2], s0[0] - (bx.x + bx.w), 0);
+        const dy = Math.max(bx.y - s0[3], s0[1] - (bx.y + bx.h), 0);
+        worst = Math.min(worst, Math.max(dx, dy));
+      }
+    }
+    return worst;
+  };
+  const a = shifted(12);
+  const b = shifted(-12);
+  return clearance(a) >= clearance(b) ? a : b;
+};
+
 const lines = [];
 let li = 0;
 const push = (kind, from, to, extra) => {
@@ -1060,7 +1239,18 @@ for (const u of unionNodes) {
 for (const x of extra) push(x.kind, x.from, x.to);
 for (const s of succession) {
   const key = `${s.from}>${s.to}`;
-  const pts = succRouted.has(key) ? routeOf.get(key) : sideRoute(s.from, s.to);
+  let pts = succRouted.has(key) ? routeOf.get(key) : null;
+  if (!pts && succPairKeys.has(`${s.to}>${s.from}`)) {
+    // **両方向の対（簒奪→復位）は同じ廊下を往復で見せる。** 下向き側（elk が引いた線）を
+    // 12px 平行にずらして逆順にする — 別の廊下を探すと2本が図の別々の場所を走って
+    // 「同じ2人の往復」に見えない。12px は二重線の監査（10px 以下）に掛からない間隔。
+    // **ずらすのは各区間の直交方向**（縦は x・横は y。x だけずらすと横の区間が
+    // そのまま重なる — 実測 487px）。端の点は区間の向きに沿ってだけ動くので
+    // カードの縁から外れない。
+    const down = routeOf.get(`${s.to}>${s.from}`);
+    if (down) pts = mirrorRoute(down, s.from, s.to);
+  }
+  if (!pts) pts = sideRoute(s.from, s.to);
   if (!pts) continue;
   lines.push({
     id: `l${li++}`,
@@ -1068,6 +1258,8 @@ for (const s of succession) {
     from: s.from,
     to: s.to,
     categoryId: s.categoryId,
+    // 鏡写しの線は後処理の最後に下向き側から作り直す（その印）
+    mirrorOf: succRouted.has(key) ? null : succPairKeys.has(`${s.to}>${s.from}`) ? `${s.to}>${s.from}` : null,
     points: absorbJogs(cleanPolyline(pts), s.from, s.to),
   });
 }
@@ -1126,12 +1318,28 @@ const costOf = (e) => {
     else if (worst < CLEAR) c += 3;
   }
   for (const o of lines) {
-    if (o === e || o.from === e.from || o.to === e.to) continue;
+    if (o === e) continue;
+    // 同じ親のバス・同じ子へ入る線の**重なり**は共有であって欠陥ではない。
+    // **交差は誰が相手でも欠陥**（最後の監査と同じ数え方。ここで除くと、簡略化が
+    // 「親の下ろし線を2回またぐ継承」を同点と誤認して採ってしまった）。
+    const sameEnd = o.from === e.from || o.to === e.to;
     for (const seg of segs)
       for (const t of segsOf(o)) {
         if (crossAt(seg, t)) c += 2;
-        if (overlapLen(seg, t) > 2) c += 1;
+        if (!sameEnd && overlapLen(seg, t) > 2) c += 1;
       }
+    // 二重線に見える並走（監査と同じ: 別親・x差10px以内・60px以上）も悪さに数える
+    if (o.from !== e.from) {
+      for (const seg of segs) {
+        if (seg[0] !== seg[2]) continue;
+        for (const t of segsOf(o)) {
+          if (t[0] !== t[2]) continue;
+          const d = Math.abs(seg[0] - t[0]);
+          if (d === 0 || d > 10) continue;
+          if (Math.min(seg[3], t[3]) - Math.max(seg[1], t[1]) >= 60) c += 2;
+        }
+      }
+    }
   }
   return c;
 };
@@ -1260,6 +1468,81 @@ const setFirstBusY = (e, y) => {
       }
       if (!changed) break;
     }
+  }
+}
+
+// ---------------------------------------------------------------- 兄弟の櫛を組み直す
+//
+// elk は段のスペーサを律儀に経由するので、兄弟の1人だけが「早く曲がって階段状に
+// 下りる」経路になることがある（章帝→劉開が兄弟3人のバス y3468 に乗らず y3282 で
+// 曲がった・司馬懿→司馬伷が3段の階段になり司馬亮の線と交差した）。同じ親から
+// 2本以上出ていたら、**多数派のバスに乗る「幹→バス→垂下」の櫛へ組み直せるか試す**。
+// 悪さ（costOf）が増えるなら1本ずつ諦める。
+{
+  const byParent = new Map();
+  for (const e of lines) {
+    if (e.kind === "succession" || e.kind === "marriage" || e.kind === "disputed") continue;
+    pushTo(byParent, e.from, e);
+  }
+  for (const es of byParent.values()) {
+    if (es.length < 2) continue;
+    const busYs = es.map(firstBusY).filter((v) => v != null);
+    if (!busYs.length) continue;
+    // 多数派のバスへ。同数なら深い方（付け根から遠いほど、途中のカードを跨ぎにくい）
+    const tally = new Map();
+    for (const y of busYs) tally.set(y, (tally.get(y) ?? 0) + 1);
+    const bus = [...tally.entries()].sort((a, b) => b[1] - a[1] || b[0] - a[0])[0][0];
+    for (const e of es) {
+      const head = e.points[0];
+      const tail = e.points[e.points.length - 1];
+      if (!(head[1] < bus && bus < tail[1])) continue; // バスが幹と垂下の間に無い形は組めない
+      const cand = cleanPolyline([head, [head[0], bus], [tail[0], bus], tail]);
+      if (JSON.stringify(cand) === JSON.stringify(e.points)) continue;
+      const before = e.points;
+      const costBefore = costOf(e);
+      e.points = cand;
+      if (costOf(e) > costBefore) e.points = before;
+    }
+  }
+}
+
+// ---------------------------------------------------------------- ひとり線の遠回りをほどく
+//
+// 兄弟を持たない線（子が1人・継承）も、elk のスペーサ経由で「右へ大回りしてから
+// 戻る」廊下になることがある（司馬懿×柏夫人→司馬倫が x1513 まで出て 382px 戻る・
+// 恵帝→司馬倫が左へ 80px 出てから戻る）。既に通っている横の廊下それぞれを候補に、
+// **「幹→廊下→垂下」の3折れに組み直して悪さが増えないなら採る**。兄弟のいる線は
+// 上の櫛の組み直しが持ち場（ここで1本ずつ触るとバスが割れる）。
+{
+  const familyFrom = new Map();
+  for (const e of lines) {
+    if (e.kind === "succession" || e.kind === "marriage" || e.kind === "disputed") continue;
+    familyFrom.set(e.from, (familyFrom.get(e.from) ?? 0) + 1);
+  }
+  for (const e of lines) {
+    if (e.kind === "marriage" || e.kind === "disputed" || e.mirrorOf) continue;
+    if (e.kind !== "succession" && (familyFrom.get(e.from) ?? 0) > 1) continue;
+    const p = e.points;
+    if (p.length <= 4) continue;
+    const head = p[0];
+    const tail = p[p.length - 1];
+    if (!(tail[1] > head[1])) continue;
+    const busYs = [...new Set(p.slice(1).filter((q, i) => p[i][1] === q[1]).map((q) => q[1]))];
+    let best = null;
+    let bestCost = costOf(e);
+    const before = e.points;
+    for (const bus of busYs) {
+      if (!(head[1] < bus && bus < tail[1])) continue;
+      const cand = cleanPolyline([head, [head[0], bus], [tail[0], bus], tail]);
+      e.points = cand;
+      const c = costOf(e);
+      if (c < bestCost || (c === bestCost && cand.length < before.length)) {
+        bestCost = c;
+        best = cand;
+      }
+      e.points = before;
+    }
+    if (best) e.points = best;
   }
 }
 
@@ -1411,6 +1694,41 @@ const setFirstBusY = (e, y) => {
   }
 }
 
+// 鏡写し（復位など）は、後処理で形が変わった下向き側からここで作り直す
+for (const e of lines) {
+  if (!e.mirrorOf) continue;
+  const down = lines.find((o) => `${o.from}>${o.to}` === e.mirrorOf);
+  if (!down) continue;
+  e.points = mirrorRoute(down.points, e.from, e.to);
+  // **往復のラベルは線の上に置けない**（2本は 12px 差で並走し、どこに置いても
+  // チップどうしが重なる — 出発点寄り 30% でも重なった）。**最長区間の中点から、
+  // 相手の線と反対側へ 26px 離して**左右（横の廊下なら上下）に振り分ける。
+  const longestMid = (pts) => {
+    let best = -1;
+    let seg = null;
+    for (let i = 1; i < pts.length; i += 1) {
+      const len = Math.abs(pts[i][0] - pts[i - 1][0]) + Math.abs(pts[i][1] - pts[i - 1][1]);
+      if (len > best) {
+        best = len;
+        seg = [pts[i - 1], pts[i]];
+      }
+    }
+    return {
+      mid: [(seg[0][0] + seg[1][0]) / 2, (seg[0][1] + seg[1][1]) / 2],
+      vertical: seg[0][0] === seg[1][0],
+    };
+  };
+  const md = longestMid(down.points);
+  const me = longestMid(e.points);
+  const axis = md.vertical ? 0 : 1;
+  const side = Math.sign(md.mid[axis] - me.mid[axis]) || -1; // 相手と反対側へ
+  const OFF = 26;
+  down.labelAt = [...md.mid];
+  e.labelAt = [...me.mid];
+  down.labelAt[axis] = Math.round(md.mid[axis] + side * OFF);
+  e.labelAt[axis] = Math.round(me.mid[axis] - side * OFF);
+}
+
 const faults = {
   カードどうしの重なり: [],
   二重線に見える並走: [],
@@ -1506,6 +1824,7 @@ const edgeOut = lines.map((e) => ({
   from: e.from,
   to: e.to,
   categoryId: e.categoryId ?? null,
+  labelAt: e.labelAt ?? null,
   points: e.points,
 }));
 
@@ -1543,7 +1862,7 @@ const edgeOut = lines.map((e) => ({
   console.log(`  線の欠陥: ${total}件` + (total ? "" : "（ゼロ）"));
   for (const [k, v] of Object.entries(faults)) {
     if (!v.length) continue;
-    console.log(`    ${k}: ${v.length}件 — ${v.slice(0, 4).join(" / ")}`);
+    console.log(`    ${k}: ${v.length}件 — ${v.slice(0, 8).join(" / ")}`);
   }
 }
 
@@ -1641,6 +1960,7 @@ const out = {
     extraParent: extra.length,
     succession: succession.length,
     crossEra: crossEra.length,
+    guests,
     shiftedComponents: shifted.length,
     dropped,
   },
@@ -1660,8 +1980,14 @@ const out = {
 
 const destDir = path.join(process.cwd(), "src", "lib", "kinship");
 mkdirSync(destDir, { recursive: true });
-writeFileSync(path.join(destDir, "layout.qin-han.json"), JSON.stringify(out), "utf8");
+writeFileSync(path.join(destDir, `layout.${ERA_ID}.json`), JSON.stringify(out), "utf8");
 
 console.log(
-  `kinship layout: ${nodes.length}人（除外 ${dropped.length}: ${dropped.map((d) => d.label).join("・")}） / union ${unionNodes.length} / 追加の親子 ${extra.length} / 継承 ${succession.length} / 時代で動かした成分 ${shifted.length} / 段 ${layerYs.length} / ${width}×${height}px`,
+  `kinship layout[${ERA_ID}]: ${nodes.length}人（除外 ${dropped.length}: ${dropped.map((d) => d.label).join("・")}） / union ${unionNodes.length} / 追加の親子 ${extra.length} / 継承 ${succession.length} / 時代で動かした成分 ${shifted.length} / 段 ${layerYs.length} / ${width}×${height}px`,
 );
+}
+
+for (const chapter of CHAPTERS) {
+  console.log(`--- ${chapter.eraId} ---`);
+  await buildChapter(chapter);
+}

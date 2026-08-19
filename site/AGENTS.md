@@ -144,10 +144,12 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 **章を増やすときの規範（図の文法・検査・チェックリスト）は
 [../docs/site-design/KINSHIP_RULES.md](../docs/site-design/KINSHIP_RULES.md)** が正。
 
-構成は3つ。**レイアウト（＝座標と線の形）を描画側で決めないこと**が全体の設計。
+構成は4つ。**レイアウト（＝座標と線の形）を描画側で決めないこと**が全体の設計。
+章は2つ（秦・漢 `/kinship`・三国・西晋 `/kinship/three-kingdoms-jin`・2026-08-19）。
 
-- **`scripts/build-kinship-layout.mjs`** — `prebuild` で elkjs を回して
-  `src/lib/kinship/layout.qin-han.json` を吐く（elkjs は devDependencies・`out/` に混ざらない）。
+- **`scripts/build-kinship-layout.mjs`** — `prebuild` で elkjs を回して章ごとに
+  `src/lib/kinship/layout.<eraId>.json` を吐く（elkjs は devDependencies・`out/` に混ざらない）。
+  章の一覧・客人（章の eraId でない人物: 献帝など）・枡の幅 `bucket` は冒頭の `CHAPTERS`。
   **線の折れ線 `points` までここで確定する。** 描画側で曲げ方を決めると、線がカードを
   突き抜けても機械で見られない。**夫婦は1つの「家族ブロック」に固めて elk へ渡す**
   （2026-08-19「一般的な家系図みたいなつなぎ方に」）— 夫婦を別ノードで渡すと隣に並ぶ
@@ -155,7 +157,10 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
   `mergeEdges: true` で兄弟を1本の幹にまとめる（旧 union 方式では逆効果だった設定）
 - **`src/components/kinship/chapter-flow.tsx`** — React Flow v12 の描画層。位置は props で
   受け取るだけ
-- **`src/app/kinship/page.tsx`** — 見出しと凡例
+- **`src/app/kinship/chapters.ts`** — 章の表（URL・見出し・入口の皇帝・レイアウト JSON）。
+  スクリプト側 `CHAPTERS` と1対1で、章を足すときは両方へ足す
+- **`src/components/kinship/chapter-page.tsx`** — 見出し・章ナビ・凡例。
+  `src/app/kinship/**/page.tsx` はこれに章を渡すだけ
 
 ### 崩すとサイレントに壊れる5つ
 
@@ -165,7 +170,8 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
   **サーバー描画に一切届かない**。渡し忘れると静的 HTML からカードも線も `<a>` も全部消え、
   **tsc・lint・build はどれも落ちない**。受け入れ確認は
   `grep -o 'href="/emperors/' out/kinship.html | wc -l`（35）と
-  `grep -o 'react-flow__edge-path' out/kinship.html | wc -l`（132）
+  `grep -o 'react-flow__edge-path' out/kinship.html | wc -l`（132）。
+  三国・西晋は `out/kinship/three-kingdoms-jin.html` で同じ2本（18・74）
 - **`CardPorts` の6ハンドルと `buildGraph` の `ports()` は同じ id・同じ数で並べる。**
   片方だけ増やすと静的 HTML とクライアントで線の出入り口が変わる
 - **`window.__kinshipSetViewport` を消さない。** `tools/shoot-kinship.mjs` が図を動かす口。
@@ -193,8 +199,9 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 ### 触ったら流し直す
 
 ```bash
-node scripts/build-kinship-layout.mjs     # 欠陥6項目＋兄弟の横棒＋時代の帯を数える
+node scripts/build-kinship-layout.mjs     # 全章ぶん。欠陥＋兄弟の横棒＋時代の帯を数える
 npm run build && node tools/shoot-kinship.mjs   # 字の切り詰め件数＋図の全面をタイルで撮る
+# 章を選んで撮る: SHOT_DIR=tools/shots/kinship-3kj KINSHIP_PATH=/kinship/three-kingdoms-jin node tools/shoot-kinship.mjs
 ```
 
 **「監査 0件」を見た目の根拠にしないこと。** 2026-08-18 の外部レビュー13件のうち、既存の
