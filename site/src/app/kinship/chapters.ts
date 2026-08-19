@@ -4,6 +4,7 @@
 import type { KinshipLayout } from "@/components/kinship/chapter-flow";
 import layoutQinHan from "@/lib/kinship/layout.qin-han.json";
 import layoutThreeKingdomsJin from "@/lib/kinship/layout.three-kingdoms-jin.json";
+import layoutEasternJinSixteen from "@/lib/kinship/layout.eastern-jin-sixteen.json";
 
 export type KinshipChapter = {
   /** ページの URL（章ナビの行き先） */
@@ -31,5 +32,14 @@ export const KINSHIP_CHAPTERS: KinshipChapter[] = [
     layout: layoutThreeKingdomsJin as unknown as KinshipLayout,
     // 客人（章の eraId ではない人物）を出す唯一の章なので、誰なのかを本文で名乗る。
     note: "後漢の献帝は、魏（文帝）への禅譲を示すためこの章にも出している。",
+  },
+  {
+    path: "/kinship/eastern-jin-sixteen",
+    heading: "東晋・十六国",
+    entryId: "dongjin-yuandi",
+    layout: layoutEasternJinSixteen as unknown as KinshipLayout,
+    // 章の切れ目の但し書き。東晋の元帝は西晋の宗室（司馬懿の曾孫）で、
+    // 父の司馬覲は前の章にいる — 禅譲ではないので客人としては連れて来ない。
+    note: "東晋の元帝は西晋の一族（司馬懿の曾孫）で、父の司馬覲は「三国・西晋」の章に出ている。",
   },
 ];

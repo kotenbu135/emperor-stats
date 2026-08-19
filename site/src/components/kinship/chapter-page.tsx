@@ -51,12 +51,28 @@ function jumpTargets(l: KinshipLayout): KinshipJump[] {
  * 凡例の線見本。**図と同じ `EDGE_STYLE` から引く**（値を書き写すと線種を変えたときに
  * 凡例だけ古いままになる — 実際に養親の刻みが凡例だけ古い値で残っていた）。
  */
-const LINE_LEGEND: { label: string; dash?: string; color?: string; width?: number }[] = [
-  { label: "夫婦と実の親子（子は夫婦の横棒から下りる）", ...EDGE_STYLE.child },
-  { label: "実母（母だけ確定）", ...EDGE_STYLE.mother },
-  { label: "養親", ...EDGE_STYLE.adoptive },
-  { label: "禅譲・簒奪など、親子では説明が付かない継承", ...EDGE_STYLE.succession },
-  { label: "実父の異説", ...EDGE_STYLE.disputed },
+const LINE_LEGEND: {
+  label: string;
+  /** この線種が図に実在するときだけ凡例に出す（無い章に「実父の異説」を出さない） */
+  kinds: string[];
+  dash?: string;
+  color?: string;
+  width?: number;
+}[] = [
+  {
+    label: "夫婦と実の親子（子は夫婦の横棒から下りる）",
+    kinds: ["marriage", "father", "child"],
+    ...EDGE_STYLE.child,
+  },
+  { label: "実母", kinds: ["mother"], ...EDGE_STYLE.mother },
+  { label: "養親", kinds: ["adoptive"], ...EDGE_STYLE.adoptive },
+  { label: "遠い祖先（実父が史料に無い人）", kinds: ["remote"], ...EDGE_STYLE.remote },
+  {
+    label: "禅譲・簒奪など、親子では説明が付かない継承",
+    kinds: ["succession"],
+    ...EDGE_STYLE.succession,
+  },
+  { label: "実父の異説", kinds: ["disputed", "second"], ...EDGE_STYLE.disputed },
 ];
 
 /** 図に出す短い政権名（data の label は「魏（曹魏）」型で図では長い）。 */
@@ -74,11 +90,26 @@ const REGIME_LABEL: Record<string, string> = {
   "eastern-wu": "呉",
   zhongjia: "仲家（袁術）",
   "western-jin": "西晋",
+  "eastern-jin": "東晋",
+  "huan-chu": "楚（桓玄）",
+  "former-liang": "前涼",
+  "former-zhao": "前趙",
+  "cheng-han": "成漢",
+  "later-zhao": "後趙",
+  "former-yan": "前燕",
+  "former-qin": "前秦",
+  "later-yan": "後燕",
+  "western-yan": "西燕",
+  "southern-yan": "南燕",
+  "later-qin": "後秦",
+  hexia: "夏（赫連）",
 };
 
 export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {
   const layout = chapter.layout;
   const regimes = regimesInChapter(layout);
+  const kindsInChapter = new Set(layout.edges.map((e) => e.kind));
+  const lineLegend = LINE_LEGEND.filter((l) => l.kinds.some((k) => kindsInChapter.has(k as never)));
   return (
     <main className="flex h-[calc(100vh-4rem)] flex-col gap-3 p-4">
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -174,7 +205,7 @@ export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {
             線種を変えたときに凡例だけ古いままになる。 */}
         <dt className="font-semibold text-muted-foreground">線の意味</dt>
         <dd className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5">
-          {LINE_LEGEND.map((l) => (
+          {lineLegend.map((l) => (
             <span key={l.label} className="flex items-center gap-1.5">
               <svg aria-hidden width="30" height="10" className="shrink-0">
                 <line

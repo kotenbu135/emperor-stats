@@ -88,11 +88,22 @@ export interface KinshipUnion {
  */
 export interface KinshipEdge {
   id: string;
-  kind: "marriage" | "father" | "mother" | "child" | "adoptive" | "second" | "disputed" | "succession";
+  kind:
+    | "marriage"
+    | "father"
+    | "mother"
+    | "child"
+    | "adoptive"
+    | "second"
+    | "disputed"
+    | "remote"
+    | "succession";
   from: string;
   to: string;
   points: [number, number][];
   categoryId?: string | null;
+  /** 線上に出す続柄（遠祖の「祖父」「曾祖父」だけレイアウト側が入れる） */
+  label?: string | null;
   /** ラベルの置き場所（往復の継承だけレイアウト側が指定。無ければ最長区間の中点） */
   labelAt?: [number, number] | null;
 }
@@ -388,6 +399,11 @@ export const EDGE_STYLE: Record<KinshipEdge["kind"], { dash?: string; color?: st
   // 一点鎖線。**実母の「5 4」と刻みの長さで区別しない** — 2026-08-18 の外部レビューで
   // 「長さ違いの破線は判別できない」と言われたので、形そのものを変えている。
   adoptive: { dash: "12 4 2 4" },
+  // 遠祖（実父が史料に無い人の、祖父などへの線）。**養親と同じ一点鎖線を使う** —
+  // どちらも「実の父子ではない特別な線」で、必ず線上に続柄のラベル（養父／祖父）が
+  // 載るのでラベルで見分ける。刻み違いの破線を増やしても判別できない
+  // （2026-08-18 の外部レビュー）。
+  remote: { dash: "12 4 2 4" },
   second: { dash: "1 4", width: 2 },
   disputed: { dash: "1 4", width: 2 },
   succession: { dash: "6 4", color: "var(--kinship-succession)" },
@@ -463,14 +479,20 @@ function buildGraph(layout: KinshipLayout): { nodes: Node[]; edges: Edge[] } {
     };
     if (e.kind !== "succession") {
       const plain = { ...base, sourceHandle: "b", targetHandle: "t" };
-      if (e.kind !== "adoptive") return plain satisfies Edge;
-      // 養親の線は1章に1本しか無いうえ、一点鎖線だけでは「なぜこの2人がつながるのか」
-      // が読めない（2026-08-19「明德馬皇后の関係性がわかりにくい」）。継承の線と同じ
-      // 作法で、線の上に関係を1語だけ載せる。
+      if (e.kind !== "adoptive" && e.kind !== "remote") return plain satisfies Edge;
+      // 養親と遠祖の線は章に数本しか無いうえ、一点鎖線だけでは「なぜこの2人が
+      // つながるのか」が読めない（2026-08-19「明德馬皇后の関係性がわかりにくい」）。
+      // 継承の線と同じ作法で、線の上に関係を1語だけ載せる（遠祖の語はレイアウト側が
+      // relationDetail から決めて e.label に入れてくる）。
       const a = at.get(e.from);
       return {
         ...plain,
-        label: a?.gender === "female" ? "養母" : "養父",
+        label:
+          e.kind === "remote"
+            ? (e.label ?? "遠祖")
+            : a?.gender === "female"
+              ? "養母"
+              : "養父",
         labelShowBg: true,
         labelBgPadding: [5, 2] as [number, number],
         labelBgBorderRadius: 3,
@@ -770,6 +792,10 @@ function ChapterFlowInner({
     },
     [clampAxis, layout.width, layout.height],
   );
+  // ジャンプのアニメ（600ms）の途中で掴むと、d3 の interpolateZoom が描く弧の上の
+  // 未補正な座標から制約が掛かってやはり飛ぶ。finishAnim で**掴んだ瞬間にジャンプを
+  // 完了させる**ための「進行中のアニメの行き先」。
+  const anim = useRef<{ until: number; to: { x: number; y: number; zoom: number } } | null>(null);
   const centerOn = useCallback(
     (n: KinshipPerson) => {
       const rect = paneRef.current?.getBoundingClientRect();
@@ -795,11 +821,11 @@ function ChapterFlowInner({
   }, [getViewport, setViewport, clampViewport]);
   // ジャンプのアニメ（600ms）の途中で掴むと、d3 の interpolateZoom が描く弧の上の
   // 未補正な座標から制約が掛かってやはり飛ぶ。**掴んだ瞬間にジャンプを完了させる**。
-  const anim = useRef<{ until: number; to: { x: number; y: number; zoom: number } } | null>(null);
   const finishAnim = useCallback(() => {
-    if (anim.current && Date.now() < anim.current.until) {
-      void setViewport(anim.current.to);
+    const a = anim.current;
+    if (a && Date.now() < a.until) {
       anim.current = null;
+      void setViewport(a.to);
     }
   }, [setViewport]);
   const jumpTo = useCallback(

@@ -69,6 +69,10 @@ const CHAPTERS = [
     guests: ["hou-han-xiandi", "p-yuan-feng", "p-liu-hong-shu"],
     bucket: 12,
   },
+  // 客人なし。西晋→東晋は禅譲ではなく（愍帝→元帝の succession エッジはデータに無い）、
+  // 元帝の父・司馬覲は前の章に線を持って出ているので、章をまたぐ親子（crossEra）として
+  // 前の章の側に記録されるだけでよい。
+  { eraId: "eastern-jin-sixteen", guests: [], bucket: 10 },
 ];
 
 async function buildChapter({ eraId: ERA_ID, guests, bucket }) {
@@ -255,6 +259,45 @@ for (const key of spouses.keys()) {
   });
 }
 
+// **相手が3人以上いる人は、夫婦の鎖に入れるのを2人までにする。** 鎖（呂雉—高帝—薄姫）は
+// 両隣の2枠しか無いので、3人目の union は結び目を解いて「父の実線＋母の破線」の
+// 2本の直線に落とす（片親しか確定していない子と同じ描き方の器に乗せる）。
+// 残す2人は「子の多い union」優先・同数なら子の年が古い側 — 家の本流が鎖に残る。
+// この章では慕容皝（段氏・蘭氏・公孫氏）だけで、demote されるのは公孫氏（子＝南燕の
+// 慕容徳1人・3人の中で最も遅い）。
+{
+  const partnerUnions = new Map(); // person -> union[]
+  for (const u of unions.values()) {
+    pushTo(partnerUnions, u.father, u);
+    pushTo(partnerUnions, u.mother, u);
+  }
+  const oldestChildYear = (u) =>
+    Math.min(
+      ...u.children.map((c) => {
+        const cc = cards.get(c);
+        return cc?.birthYear ?? cc?.reignFrom ?? 9999;
+      }),
+      9999,
+    );
+  for (const [pid, us] of partnerUnions) {
+    if (us.length <= 2) continue;
+    const ranked = [...us].sort(
+      (a, b) => b.children.length - a.children.length || oldestChildYear(a) - oldestChildYear(b),
+    );
+    for (const u of ranked.slice(2)) {
+      for (const c of u.children) {
+        extra.push({ from: u.father, to: c, kind: "father" });
+        extra.push({ from: u.mother, to: c, kind: "mother" });
+      }
+      const key = [...unions.entries()].find(([, v]) => v === u)?.[0];
+      unions.delete(key);
+      console.warn(
+        `  ⚠ 相手が3人以上: ${pid} — union ${u.father}×${u.mother}（子 ${u.children.join("・")}）を直線2本に落とした`,
+      );
+    }
+  }
+}
+
 // ---------------------------------------------------------------- 継承（家族関係以外）
 //
 // succession の辺は**親子で既に描かれているものを除いて**引く（`relationToPredecessor`
@@ -286,6 +329,40 @@ for (const ed of kinship.edges) {
     categoryId: ed.categoryId ?? null,
     relation: ed.relationToPredecessor ?? null,
   });
+}
+
+// **遠祖（remote-ancestor）は原則引かないが、これを引かないと章内に線が1本も
+// 無くなる人だけは例外として引く。** 西燕の慕容永は実父が史料に無く（晋書載記・
+// 十六国春秋とも欠字）祖父＝慕容運までしか判明しない。原則のまま外すと**章の皇帝が
+// 図から消える**。曾祖父しか判らない慕容詳は簒奪の線で章につながるので例外に
+// 掛からない — 段が3つ飛ぶ線をむやみに増やさないための「線が無い人だけ」。
+{
+  const linked0 = new Set();
+  for (const u of unions.values()) {
+    linked0.add(u.father);
+    linked0.add(u.mother);
+    for (const c of u.children) linked0.add(c);
+  }
+  for (const x of extra) {
+    linked0.add(x.from);
+    linked0.add(x.to);
+  }
+  for (const s of succession) {
+    linked0.add(s.from);
+    linked0.add(s.to);
+  }
+  const REMOTE_LABEL = { grandfather: "祖父", "great-grandfather": "曾祖父" };
+  for (const ed of kinship.edges) {
+    if (ed.type !== "kinship" || ed.relation !== "remote-ancestor") continue;
+    if (!ids.has(ed.from) || !ids.has(ed.to)) continue;
+    if (linked0.has(ed.to)) continue;
+    extra.push({
+      from: ed.from,
+      to: ed.to,
+      kind: "remote",
+      label: REMOTE_LABEL[ed.relationDetail] ?? "遠祖",
+    });
+  }
 }
 
 // **この章の誰ともつながらない人物は図から外す**（2026-08-18 ユーザー指示）。
@@ -1236,7 +1313,7 @@ for (const u of unionNodes) {
   lines.push({ id: `l${li++}`, kind, from: u.id, to: R.id, points: [[cx, y], [R.x, y]] });
   for (const c of u.children) push("child", u.id, c);
 }
-for (const x of extra) push(x.kind, x.from, x.to);
+for (const x of extra) push(x.kind, x.from, x.to, x.label ? { label: x.label } : undefined);
 for (const s of succession) {
   const key = `${s.from}>${s.to}`;
   let pts = succRouted.has(key) ? routeOf.get(key) : null;
@@ -1824,6 +1901,7 @@ const edgeOut = lines.map((e) => ({
   from: e.from,
   to: e.to,
   categoryId: e.categoryId ?? null,
+  label: e.label ?? null,
   labelAt: e.labelAt ?? null,
   points: e.points,
 }));
@@ -1987,7 +2065,11 @@ console.log(
 );
 }
 
+// KINSHIP_ONLY=<eraId> で1章だけ解く（bucket の走査中に他の章の JSON を
+// 別の bucket で上書きしないため。KINSHIP_BUCKET は全章に掛かる）。
+const only = process.env.KINSHIP_ONLY;
 for (const chapter of CHAPTERS) {
+  if (only && chapter.eraId !== only) continue;
   console.log(`--- ${chapter.eraId} ---`);
   await buildChapter(chapter);
 }
