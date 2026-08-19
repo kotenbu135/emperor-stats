@@ -10,6 +10,7 @@ import layoutSuiTang from "@/lib/kinship/layout.sui-tang.json";
 import layoutFiveDynasties from "@/lib/kinship/layout.five-dynasties.json";
 import layoutSongLiaoJinXia from "@/lib/kinship/layout.song-liao-jin-xia.json";
 import layoutYuan from "@/lib/kinship/layout.yuan.json";
+import layoutMing from "@/lib/kinship/layout.ming.json";
 
 export type KinshipChapter = {
   /** ページの URL（章ナビの行き先） */
@@ -84,6 +85,13 @@ export const KINSHIP_CHAPTERS: KinshipChapter[] = [
     // （世祖の在位起点 1260 の判断は data 側・INCLUSION_CRITERIA）ので、
     // 図に出るトルイ・モンケは親族カードになる。
     note: "モンゴル帝国のカアン（チンギス・カン〜モンケ）は皇帝として収録していないため、世祖の父トルイと兄モンケは親族として出している。",
+  },
+  {
+    path: "/kinship/ming",
+    heading: "明",
+    entryId: "ming-taizu",
+    layout: layoutMing as unknown as KinshipLayout,
+    note: "張献忠（西）は、家系のつながりも引ける継承も伝わっていないため単独で置いている。",
   },
 ];
 
