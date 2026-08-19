@@ -135,7 +135,7 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 なお**止めているあいだも書体のサブセットは取り直さない**（紹介文の字が落ちて、再開時に
 `check-font-coverage.mjs` が落ちる）。
 
-## 系譜図（`/kinship`）— 2026-08-19 に全6章そろえて**公開済み**（同日、第7章 宋・遼・西夏・金／2026-08-20 に第8章 元・第9章 明を追加）
+## 系譜図（`/kinship`）— 2026-08-19 に全6章そろえて**公開済み**（2026-08-20 に第10章 清まで揃い**全時代完結**）
 
 2026-08-17 に一度作り直して配信したが、出来が公開に耐えないとユーザーが判断し数時間後に
 取り下げた（Issue #174・PR #185）。2026-08-19 に「一般的な家系図のつなぎ方」で作り直し、
@@ -150,10 +150,11 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 [../docs/site-design/KINSHIP_RULES.md](../docs/site-design/KINSHIP_RULES.md)** が正。
 
 構成は4つ。**レイアウト（＝座標と線の形）を描画側で決めないこと**が全体の設計。
-章は9つ（秦・漢 `/kinship`・三国・西晋 `/kinship/three-kingdoms-jin`・
+章は10で完結（秦・漢 `/kinship`・三国・西晋 `/kinship/three-kingdoms-jin`・
 東晋・十六国 `/kinship/eastern-jin-sixteen`・南北朝 `/kinship/northern-southern`・
 隋・唐 `/kinship/sui-tang`・五代十国 `/kinship/five-dynasties`・
-宋・遼・西夏・金 `/kinship/song-liao-jin-xia`・元 `/kinship/yuan`・明 `/kinship/ming`）。
+宋・遼・西夏・金 `/kinship/song-liao-jin-xia`・元 `/kinship/yuan`・明 `/kinship/ming`・
+清 `/kinship/qing`。近代は袁世凱1人のため章を立てず清の章の客人 — 365人全員がいずれかの章に居る）。
 **系譜図に人物を足すと `../data/name-readings.json` の読みも要る**（2026-08-19 にカードの
 名前へふりがなを付けた。親族の名前は emperors.json に無いので、皇帝追加のチェックリスト
 だけでは拾えない — 未登録は chapter-page の `rubyOf` でビルドが落ちる）。皇帝カードの
@@ -190,7 +191,8 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
   五代十国は `out/kinship/five-dynasties.html`（35・93）、
   宋・遼・西夏・金は `out/kinship/song-liao-jin-xia.html`（53・160）、
   元は `out/kinship/yuan.html`（18・49）、
-  明は `out/kinship/ming.html`（22・75）
+  明は `out/kinship/ming.html`（22・75）、
+  清は `out/kinship/qing.html`（14・43）
 - **`CardPorts` の6ハンドルと `buildGraph` の `ports()` は同じ id・同じ数で並べる。**
   片方だけ増やすと静的 HTML とクライアントで線の出入り口が変わる
 - **`window.__kinshipSetViewport` を消さない。** `tools/shoot-kinship.mjs` が図を動かす口。

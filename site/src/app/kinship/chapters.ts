@@ -11,6 +11,7 @@ import layoutFiveDynasties from "@/lib/kinship/layout.five-dynasties.json";
 import layoutSongLiaoJinXia from "@/lib/kinship/layout.song-liao-jin-xia.json";
 import layoutYuan from "@/lib/kinship/layout.yuan.json";
 import layoutMing from "@/lib/kinship/layout.ming.json";
+import layoutQing from "@/lib/kinship/layout.qing.json";
 
 export type KinshipChapter = {
   /** ページの URL（章ナビの行き先） */
@@ -92,6 +93,14 @@ export const KINSHIP_CHAPTERS: KinshipChapter[] = [
     entryId: "ming-taizu",
     layout: layoutMing as unknown as KinshipLayout,
     note: "張献忠（西）は、家系のつながりも引ける継承も伝わっていないため単独で置いている。",
+  },
+  {
+    path: "/kinship/qing",
+    heading: "清",
+    entryId: "qing-taizong",
+    layout: layoutQing as unknown as KinshipLayout,
+    // 客人 (c) 型: 近代（中華帝国）は袁世凱1人のため章を立てず、最終章のここに出す。
+    note: "近代の洪憲帝（袁世凱）は1人のため章を分けず、この章に父の袁保中・袁保慶とともに出している（清の皇室とのつながりは無い）。",
   },
 ];
 
