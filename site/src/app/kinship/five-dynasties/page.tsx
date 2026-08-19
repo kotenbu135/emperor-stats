@@ -1,19 +1,23 @@
-// 系譜図の第6章（五代十国）。非公開・noindex の理由は ../page.tsx の頭のコメント。
+// 系譜図の第6章（五代十国）。公開の経緯と登録先は ../page.tsx の頭のコメント。
 import type { Metadata } from "next";
 
 import { KinshipChapterPage } from "@/components/kinship/chapter-page";
-import { buildMetadata } from "@/lib/seo";
+import { BreadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import { KINSHIP_CHAPTERS } from "../chapters";
 
-export const metadata: Metadata = {
-  ...buildMetadata({
-    path: "/kinship/five-dynasties",
-    title: "系譜図（試作・五代十国）",
-    description: "五代十国の系譜図の試作（非公開・検索エンジンには出さない）",
-  }),
-  robots: { index: false, follow: false },
-};
+const PAGE_TITLE = "系譜図（五代十国）";
+
+export const metadata: Metadata = buildMetadata({
+  path: "/kinship/five-dynasties",
+  title: PAGE_TITLE,
+  description: "五代（後梁・後唐・後晋・後漢・後周）と十国の皇帝とその親族の家系図。唐からの禅譲もたどれる。全6章の第6章。",
+});
 
 export default function KinshipFiveDynastiesPage() {
-  return <KinshipChapterPage chapter={KINSHIP_CHAPTERS[5]} />;
+  return (
+    <>
+      <BreadcrumbJsonLd label={PAGE_TITLE} path="/kinship/five-dynasties" />
+      <KinshipChapterPage chapter={KINSHIP_CHAPTERS[5]} />
+    </>
+  );
 }

@@ -9,17 +9,6 @@ import {
   type KinshipLayout,
 } from "@/components/kinship/chapter-flow";
 import { KINSHIP_CHAPTERS, type KinshipChapter } from "@/app/kinship/chapters";
-import { regimeBandColor } from "@/lib/kinship/band-color";
-
-/** 凡例に出す政権（この章に実在するものだけ・図に出る順）。 */
-function regimesInChapter(l: KinshipLayout) {
-  const seen = new Map<string, number>();
-  for (const n of l.nodes) {
-    if (!n.isEmperor || !n.regimeId) continue;
-    seen.set(n.regimeId, (seen.get(n.regimeId) ?? 0) + 1);
-  }
-  return [...seen.entries()].sort((a, b) => b[1] - a[1]);
-}
 
 /** 政権ジャンプの行き先。**時代順**（凡例の人数順とは別）で、各政権の最初の皇帝へ飛ぶ。 */
 function jumpTargets(l: KinshipLayout): KinshipJump[] {
@@ -149,13 +138,17 @@ const REGIME_LABEL: Record<string, string> = {
 
 export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {
   const layout = chapter.layout;
-  const regimes = regimesInChapter(layout);
   const kindsInChapter = new Set(layout.edges.map((e) => e.kind));
   const lineLegend = LINE_LEGEND.filter((l) => l.kinds.some((k) => kindsInChapter.has(k as never)));
   return (
     <main className="flex h-[calc(100vh-4rem)] flex-col gap-3 p-4">
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h1 className="font-heading text-xl font-semibold">{chapter.heading}の系譜</h1>
+        {/* 他ページの PageHeader と同じ「印章の朱のアクセントバー＋font-heading」。
+            バーごと py-section の帯にすると図の縦を食うので、意匠だけ写す。 */}
+        <span aria-hidden className="h-5 w-1 shrink-0 self-center rounded-full bg-seal" />
+        <h1 className="font-heading text-xl font-semibold text-foreground">
+          {chapter.heading}の系譜
+        </h1>
         {/* 章ナビ。h1 の隣に置く（時代の帯・凡例と別行にすると縦を1行ぶん食う）。 */}
         <nav aria-label="章" className="flex items-center gap-1">
           {KINSHIP_CHAPTERS.map((c) =>
@@ -186,63 +179,19 @@ export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {
         </p>
       </header>
 
-      {/* 凡例は**2つの別の情報**（政権の色分けと線の意味）なので、見出しを付けて
-          ブロックを分ける（2026-08-18 の外部レビュー: 同じ行にベタ打ちで過密）。
-          そのうえで**畳めるようにする**（同レビュー: ヘッダーが図の面積を圧迫している）。
+      {/* 凡例は**畳める**（2026-08-18 の外部レビュー: ヘッダーが図の面積を圧迫している）。
           **既定は開く** — 線の意味を知らずに開いた図は読めない。畳んだ状態でも
-          `<details>` なので中身は静的HTMLに残る（`ui/accordion.tsx` を使わない理由）。 */}
+          `<details>` なので中身は静的HTMLに残る（`ui/accordion.tsx` を使わない理由）。
+          **政権ごとのカードの色見本は置かない** — 図の上の「政権へ移動」ボタン列が
+          同じ色の点＋政権名を出しており、丸ごと重複だった（2026-08-19 ユーザー指示）。 */}
       <details open className="rounded-md border bg-card px-3 py-2">
         <summary className="text-[13px] font-semibold text-muted-foreground">
-          凡例（カードの色・線の意味・時代の帯）
+          凡例（線の意味・左端の年）
         </summary>
         {/* **見出しを左の1列に揃える。** 3つの別々の flex を横に並べていたので、
             どこまでが「カードの色」でどこからが「線の意味」なのか行の途中で切れていた
             （2026-08-18 の外部レビュー2巡目「横一列に詰め込まれて羅列」）。 */}
         <dl className="mt-2 grid grid-cols-[max-content_1fr] items-baseline gap-x-4 gap-y-2.5 text-[13px]">
-        <dt className="font-semibold text-muted-foreground">カードの色</dt>
-        <dd className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5">
-          {regimes.map(([id, n]) => (
-            <span key={id} className="flex items-center gap-1.5">
-              <span
-                aria-hidden
-                className="inline-block size-3.5 rounded-[2px]"
-                style={{ background: regimeBandColor(id) }}
-              />
-              <span>
-                {REGIME_LABEL[id] ?? id}
-                <span className="ml-1 tabular-nums text-muted-foreground">{n}人</span>
-              </span>
-            </span>
-          ))}
-          <span className="flex items-center gap-1.5">
-            <span
-              aria-hidden
-              className="inline-block size-3.5 rounded-[2px]"
-              style={{ background: "var(--kinship-kin-band)" }}
-            />
-            <span>親族（男性）</span>
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span
-              aria-hidden
-              className="inline-block size-3.5 rounded-[2px]"
-              style={{ background: "var(--kinship-kin-band-female)" }}
-            />
-            <span>親族（女性）</span>
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span
-              aria-hidden
-              className="inline-block h-3.5 w-5 rounded-[2px]"
-              style={{
-                background: "var(--kinship-kin-band)",
-                boxShadow: `inset 3px 0 0 0 ${regimeBandColor(regimes[0]?.[0] ?? "")}`,
-              }}
-            />
-            <span>親族の左端の色＝その家の政権</span>
-          </span>
-        </dd>
-
         {/* **見本は図と同じ dasharray で引く。** 文字（—— や - - -）で代用すると
             線種を変えたときに凡例だけ古いままになる。 */}
         <dt className="font-semibold text-muted-foreground">線の意味</dt>

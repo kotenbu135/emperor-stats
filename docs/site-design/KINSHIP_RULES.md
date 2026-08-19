@@ -147,8 +147,8 @@ A = ハプスブルクは肖像カードと章ナビの見本）。
    判断（数が二桁になるなら配置から見直す）
 5. 全タイル目視 → 操作の実測 → その章の `out/kinship/<eraId>.html` の `href="/emperors/`
    と `react-flow__edge-path` の件数を site/AGENTS.md の検収値として更新
-6. 公開段になるまで `SITE_SECTIONS`・`nav-data.ts`・`sitemap`・`capture-site.mjs` には
-   載せない（`robots` は `index: false` のまま）
+6. 公開登録は済んでいる（2026-08-19 ユーザー指示）。新しい章は `sitemap` へは
+   `KINSHIP_CHAPTERS` 経由で自動で載るが、`capture-site.mjs` の `SHOTS` へは手で1行足す
 
 ## 7. 決着済み・再提案しないこと
 

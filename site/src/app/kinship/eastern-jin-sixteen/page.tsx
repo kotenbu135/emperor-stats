@@ -1,19 +1,23 @@
-// 系譜図の第3章（東晋・十六国）。非公開・noindex の理由は ../page.tsx の頭のコメント。
+// 系譜図の第3章（東晋・十六国）。公開の経緯と登録先は ../page.tsx の頭のコメント。
 import type { Metadata } from "next";
 
 import { KinshipChapterPage } from "@/components/kinship/chapter-page";
-import { buildMetadata } from "@/lib/seo";
+import { BreadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import { KINSHIP_CHAPTERS } from "../chapters";
 
-export const metadata: Metadata = {
-  ...buildMetadata({
-    path: "/kinship/eastern-jin-sixteen",
-    title: "系譜図（試作・東晋十六国）",
-    description: "東晋・十六国の系譜図の試作（非公開・検索エンジンには出さない）",
-  }),
-  robots: { index: false, follow: false },
-};
+const PAGE_TITLE = "系譜図（東晋・十六国）";
+
+export const metadata: Metadata = buildMetadata({
+  path: "/kinship/eastern-jin-sixteen",
+  title: PAGE_TITLE,
+  description: "東晋と十六国（前趙・後趙・前燕・前秦・後燕・後秦など）の皇帝とその親族の家系図。全6章の第3章。",
+});
 
 export default function KinshipEasternJinSixteenPage() {
-  return <KinshipChapterPage chapter={KINSHIP_CHAPTERS[2]} />;
+  return (
+    <>
+      <BreadcrumbJsonLd label={PAGE_TITLE} path="/kinship/eastern-jin-sixteen" />
+      <KinshipChapterPage chapter={KINSHIP_CHAPTERS[2]} />
+    </>
+  );
 }

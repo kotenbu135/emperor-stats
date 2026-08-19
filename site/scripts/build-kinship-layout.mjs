@@ -1824,6 +1824,75 @@ const setFirstBusY = (e, y) => {
   }
 }
 
+// ---------------------------------------------------------------- 大きめの折れの直線化
+//
+// absorbJogs が消すのは 10px 未満の折れだけで、始皇帝→二世皇帝のような
+// 「親と子のカードが数十 px ずれているだけ」の Z 字クランクは残っていた
+// （2026-08-19 ユーザー指摘「不要な折り曲げがなるべくなくなるように」）。
+// 端の点はカードの縁に沿って動かせる（endWindow・子の入りはカードの真上なら
+// 中央でなくてよい）ので、**56px（カード半幅）までの折れを、costOf が悪化しない
+// ときだけ**同じ寄せ方で消す。兄弟のいる線は触らない（幹・バスの共有が割れて
+// 「同じ親から2本の幹」に見える。単独子・継承・実母・養親の線だけが持ち場）。
+{
+  const BIG_JOG = 56;
+  const familyFrom = new Map();
+  for (const e of lines) {
+    if (e.kind === "succession" || e.kind === "marriage" || e.kind === "disputed") continue;
+    familyFrom.set(e.from, (familyFrom.get(e.from) ?? 0) + 1);
+  }
+  for (const e of lines) {
+    if (e.kind === "marriage" || e.kind === "disputed" || e.mirrorOf) continue;
+    if (e.kind !== "succession" && (familyFrom.get(e.from) ?? 0) > 1) continue;
+    for (let guard = 0; guard < 6; guard += 1) {
+      const pts = e.points;
+      let applied = false;
+      for (let i = 0; i + 1 < pts.length; i += 1) {
+        const dx = Math.abs(pts[i + 1][0] - pts[i][0]);
+        const dy = Math.abs(pts[i + 1][1] - pts[i][1]);
+        const len = dx + dy;
+        if (len === 0 || len > BIG_JOG) continue;
+        const axis = dx > 0 ? 0 : 1;
+        let a = i;
+        while (a > 0 && pts[a - 1][axis] === pts[i][axis]) a -= 1;
+        let b = i + 1;
+        while (b + 1 < pts.length && pts[b + 1][axis] === pts[i + 1][axis]) b += 1;
+        const lenOf = (sIdx, tIdx) => {
+          let v = 0;
+          for (let k = sIdx; k < tIdx; k += 1)
+            v += Math.abs(pts[k + 1][0] - pts[k][0]) + Math.abs(pts[k + 1][1] - pts[k][1]);
+          return v;
+        };
+        const tryMove = (sIdx, tIdx, target) => {
+          const next = pts.map((q) => [...q]);
+          for (let k = sIdx; k <= tIdx; k += 1) next[k][axis] = target;
+          if (sIdx === 0 && !endWindow(e.from, next[0][0], next[0][1])) return null;
+          if (tIdx === pts.length - 1 && !endWindow(e.to, next[next.length - 1][0], next[next.length - 1][1]))
+            return null;
+          return cleanPolyline(next);
+        };
+        const order =
+          lenOf(a, i) <= lenOf(i + 1, b)
+            ? [[a, i, pts[i + 1][axis]], [i + 1, b, pts[i][axis]]]
+            : [[i + 1, b, pts[i][axis]], [a, i, pts[i + 1][axis]]];
+        const before = e.points;
+        const beforeCost = costOf(e);
+        for (const [sIdx, tIdx, target] of order) {
+          const cand = tryMove(sIdx, tIdx, target);
+          if (!cand || cand.length >= before.length) continue;
+          e.points = cand;
+          if (costOf(e) <= beforeCost) {
+            applied = true;
+            break;
+          }
+          e.points = before;
+        }
+        if (applied) break;
+      }
+      if (!applied) break;
+    }
+  }
+}
+
 // 鏡写し（復位など）は、後処理で形が変わった下向き側からここで作り直す
 for (const e of lines) {
   if (!e.mirrorOf) continue;

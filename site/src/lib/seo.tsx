@@ -26,6 +26,11 @@ export const SITE_SECTIONS: SiteSection[] = [
     label: "データベース",
     description: "全365名を1つの表で。並べ替え・検索・絞り込みができる",
   },
+  {
+    href: "/kinship",
+    label: "系譜図",
+    description: "秦から五代十国まで、皇帝と親族のつながりを時代ごとの家系図で見る",
+  },
 ];
 
 /**
