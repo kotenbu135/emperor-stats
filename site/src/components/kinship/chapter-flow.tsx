@@ -703,10 +703,15 @@ function PersonSearch({
  * 入口の皇帝は章ごとに決める（page 側の章の表が持つ）。秦・漢は前漢の高祖 —
  * **始皇帝ではない**（秦の一族だけを見せても章の系譜が読めない）。
  */
+/**
+ * 初期表示・ジャンプ・検索で寄るときの倍率。0.7 から1段階（ズームボタンの1押し＝
+ * ×1.2）寄せた値（2026-08-19 ユーザー指示「1段階ズームした状態をデフォルトに」）。
+ */
+const ENTRY_ZOOM = 0.84;
 const fitViewFor = (entryId: string) => ({
   nodes: [{ id: entryId }],
-  minZoom: 0.7,
-  maxZoom: 0.7,
+  minZoom: ENTRY_ZOOM,
+  maxZoom: ENTRY_ZOOM,
 });
 const MIN_ZOOM = 0.08;
 const MAX_ZOOM = 2;
@@ -822,7 +827,7 @@ function ChapterFlowInner({
     (n: KinshipPerson) => {
       const rect = paneRef.current?.getBoundingClientRect();
       if (!rect) return;
-      const k = 0.7;
+      const k = ENTRY_ZOOM;
       const to = clampViewport({
         x: rect.width / 2 - (n.x + n.w / 2) * k,
         y: rect.height / 2 - (n.y + n.h / 2) * k,
