@@ -140,23 +140,89 @@ export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {
   const layout = chapter.layout;
   const kindsInChapter = new Set(layout.edges.map((e) => e.kind));
   const lineLegend = LINE_LEGEND.filter((l) => l.kinds.some((k) => kindsInChapter.has(k as never)));
+  // 凡例は図のツールバー右端の「凡例」ボタンから **JS なしのポップオーバー**
+  // （<details> ＋ absolute）で開く。ヘッダーの独立行に置くと畳んでいても1行ぶん
+  // 図の縦を食い、開いたときに図全体が押し下がる（2026-08-19「凡例はデフォルトで
+  // 閉じる」）。<details> なので中身は静的 HTML に残る（ui/accordion.tsx を使わない理由）。
+  // **政権ごとのカードの色見本は置かない** — 「政権へ移動」ボタン列が同じ色の点＋
+  // 政権名を出しており、丸ごと重複だった（2026-08-19 ユーザー指示）。
+  const legend = (
+    <details className="relative">
+      <summary className="inline-flex h-8 cursor-pointer list-none items-center rounded-md border border-border bg-background px-2.5 text-xs font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-seal [&::-webkit-details-marker]:hidden">
+        凡例
+      </summary>
+      <div className="absolute right-0 top-full z-20 mt-1.5 w-[min(30rem,85vw)] rounded-md border border-border bg-card p-3 shadow-md">
+        <dl className="grid grid-cols-[max-content_1fr] items-baseline gap-x-4 gap-y-2.5 text-[13px]">
+          {/* **見本は図と同じ dasharray で引く。** 文字（—— や - - -）で代用すると
+              線種を変えたときに凡例だけ古いままになる。 */}
+          <dt className="font-semibold text-muted-foreground">線の意味</dt>
+          <dd className="flex flex-col gap-1.5">
+            {lineLegend.map((l) => (
+              <span key={l.label} className="flex items-center gap-2">
+                <svg aria-hidden width="30" height="10" className="shrink-0">
+                  <line
+                    x1="1"
+                    y1="5"
+                    x2="29"
+                    y2="5"
+                    stroke={l.color ?? "var(--kinship-line)"}
+                    strokeWidth={l.width ?? 1.9}
+                    strokeDasharray={l.dash}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <span style={l.color ? { color: l.color } : undefined}>{l.label}</span>
+              </span>
+            ))}
+          </dd>
+
+          {/* 時代の帯は**目盛りではない**と本文で名乗る。段は世代の順なので、上下に
+              並ぶカードの年は 4% ほど前後する（実測 3,320 組中 135 組）。精度を名乗って
+              数値の軸を引くと、そのずれが1件ずつ突き合わせられる嘘になる。 */}
+          <dt className="font-semibold text-muted-foreground">左端の年</dt>
+          <dd>
+            その辺りの段の<strong className="font-semibold">おおよその</strong>時代。
+            段は世代の順に決めてあるので、后妃や傍系のカードは帯の年と数十年ずれることがある
+          </dd>
+
+          <dt className="font-semibold text-muted-foreground">カードの数字</dt>
+          <dd>皇帝は在位年、親族は生没年</dd>
+
+          {chapter.note ? (
+            <>
+              <dt className="font-semibold text-muted-foreground">注記</dt>
+              <dd>{chapter.note}</dd>
+            </>
+          ) : null}
+        </dl>
+      </div>
+    </details>
+  );
   return (
     <main className="flex h-[calc(100vh-4rem)] flex-col gap-3 p-4">
-      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        {/* 他ページの PageHeader と同じ「印章の朱のアクセントバー＋font-heading」。
-            バーごと py-section の帯にすると図の縦を食うので、意匠だけ写す。 */}
-        <span aria-hidden className="h-5 w-1 shrink-0 self-center rounded-full bg-seal" />
-        <h1 className="font-heading text-xl font-semibold text-foreground">
-          {chapter.heading}の系譜
-        </h1>
-        {/* 章ナビ。h1 の隣に置く（時代の帯・凡例と別行にすると縦を1行ぶん食う）。 */}
-        <nav aria-label="章" className="flex items-center gap-1">
+      {/* ヘッダーは1行だけ。**h1 は全章共通の「系譜図」** — 章名を h1 にすると
+          その幅でタブ列の開始位置がページごとにずれる（2026-08-19「ページを
+          切り替えたときにボタンの配置がかわってキモい」）。章名は隣のタブの
+          押下状態と <title> が名乗る。 */}
+      <header className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <div className="flex items-center gap-3">
+          {/* 他ページの PageHeader と同じ「印章の朱のアクセントバー＋font-heading」。
+              帯ごと py-section にすると図の縦を食うので、意匠だけ写す。 */}
+          <span aria-hidden className="h-6 w-1 shrink-0 rounded-full bg-seal" />
+          <h1 className="font-heading text-xl font-semibold text-foreground">系譜図</h1>
+        </div>
+        {/* 章ナビ＝セグメントコントロール。**全タブ同寸で、現在章は色だけ変える**
+            （寸法や枠が変わるとページ切り替えで並びが動く）。 */}
+        <nav
+          aria-label="章"
+          className="flex flex-wrap items-center gap-0.5 rounded-lg border border-border bg-secondary/60 p-0.5"
+        >
           {KINSHIP_CHAPTERS.map((c) =>
             c.path === chapter.path ? (
               <span
                 key={c.path}
                 aria-current="page"
-                className="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-semibold"
+                className="whitespace-nowrap rounded-md bg-seal px-3 py-1 font-heading text-[13px] font-semibold text-seal-foreground shadow-sm"
               >
                 {c.heading}
               </span>
@@ -164,78 +230,21 @@ export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {
               <Link
                 key={c.path}
                 href={c.path}
-                className="rounded-full border px-2.5 py-0.5 text-xs text-muted-foreground hover:border-[var(--kinship-line)] hover:text-foreground"
+                className="whitespace-nowrap rounded-md px-3 py-1 font-heading text-[13px] font-medium text-muted-foreground transition-colors hover:bg-background hover:text-foreground focus-visible:outline-2 focus-visible:outline-seal"
               >
                 {c.heading}
               </Link>
             ),
           )}
         </nav>
-        <p className="text-sm text-muted-foreground">
-          皇帝 {layout.nodes.filter((n) => n.isEmperor).length} 人と、その親族{" "}
-          {layout.nodes.filter((n) => !n.isEmperor).length} 人。縦は親子の段。
-          皇帝の数字は在位年、親族の数字は生没年。
-          {chapter.note ? <> {chapter.note}</> : null}
-        </p>
       </header>
 
-      {/* 凡例は**畳める**（2026-08-18 の外部レビュー: ヘッダーが図の面積を圧迫している）。
-          **既定は開く** — 線の意味を知らずに開いた図は読めない。畳んだ状態でも
-          `<details>` なので中身は静的HTMLに残る（`ui/accordion.tsx` を使わない理由）。
-          **政権ごとのカードの色見本は置かない** — 図の上の「政権へ移動」ボタン列が
-          同じ色の点＋政権名を出しており、丸ごと重複だった（2026-08-19 ユーザー指示）。 */}
-      <details open className="rounded-md border bg-card px-3 py-2">
-        <summary className="text-[13px] font-semibold text-muted-foreground">
-          凡例（線の意味・左端の年）
-        </summary>
-        {/* **見出しを左の1列に揃える。** 3つの別々の flex を横に並べていたので、
-            どこまでが「カードの色」でどこからが「線の意味」なのか行の途中で切れていた
-            （2026-08-18 の外部レビュー2巡目「横一列に詰め込まれて羅列」）。 */}
-        <dl className="mt-2 grid grid-cols-[max-content_1fr] items-baseline gap-x-4 gap-y-2.5 text-[13px]">
-        {/* **見本は図と同じ dasharray で引く。** 文字（—— や - - -）で代用すると
-            線種を変えたときに凡例だけ古いままになる。 */}
-        <dt className="font-semibold text-muted-foreground">線の意味</dt>
-        <dd className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5">
-          {lineLegend.map((l) => (
-            <span key={l.label} className="flex items-center gap-1.5">
-              <svg aria-hidden width="30" height="10" className="shrink-0">
-                <line
-                  x1="1"
-                  y1="5"
-                  x2="29"
-                  y2="5"
-                  stroke={l.color ?? "var(--kinship-line)"}
-                  strokeWidth={l.width ?? 1.9}
-                  strokeDasharray={l.dash}
-                  strokeLinecap="round"
-                />
-              </svg>
-              <span style={l.color ? { color: l.color } : undefined}>{l.label}</span>
-            </span>
-          ))}
-        </dd>
-
-        {/* 時代の帯は**目盛りではない**と本文で名乗る。段は世代の順なので、上下に
-            並ぶカードの年は 4% ほど前後する（実測 3,320 組中 135 組）。精度を名乗って
-            数値の軸を引くと、そのずれが1件ずつ突き合わせられる嘘になる。 */}
-        <dt className="font-semibold text-muted-foreground">左端の年</dt>
-        <dd>
-          {/* **「年が前後することがある」だけでは足りない。** 読者が見るのは帯の中で
-              隣り合う2枚（元帝 前49 と 樊嫻都 22没）で、そこに丸めの話は効かない。
-              **どういう人がずれるのかを名指しする** — ずれの上位12人は后妃と傍系に
-              偏っていて、しかも前漢末〜後漢初に固まっている（新・玄漢・後漢が同じ
-              世代に重なる区間）。上位8人を外しても 74/135 残るので、機械で寄せて
-              消せる種類のずれではない。 */}
-          <span>
-            その辺りの段の<strong className="font-semibold">おおよその</strong>時代。
-            段は世代の順に決めてあるので、后妃や傍系のカードは帯の年と数十年ずれることがある
-            （別々の王朝が同じ世代に重なる区間ではとくに）
-          </span>
-        </dd>
-        </dl>
-      </details>
-
-      <ChapterFlow layout={layout} jumps={jumpTargets(layout)} entryId={chapter.entryId} />
+      <ChapterFlow
+        layout={layout}
+        jumps={jumpTargets(layout)}
+        entryId={chapter.entryId}
+        legend={legend}
+      />
     </main>
   );
 }
