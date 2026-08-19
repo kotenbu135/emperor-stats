@@ -13,6 +13,7 @@
 | 2026-07-18 | 全12項目・364人の調査完了 |
 | 2026-07-20 | 唐哀帝（`tang-aidi`）の収録漏れを発見・追加調査（**364→365人**。以下のチェックリスト内の「364人」表記はこの訂正前の記録） |
 | 2026-07-24 | 系譜グラフ（`data/kinship.json`）の4フェーズ完了。生母（maternalLineage）は継続中 |
+| 2026-08-19 | 系譜グラフの生母（maternalLineage）を365人読み切り、**5フェーズすべて完了**（`meta.status.overall: "completed"`。生母エッジ266・不在確定99・判別不能0） |
 | 2026-07-26 | 即位経路を単一 enum 9値から「4軸＋2補助」の多軸構造へ全面移行（旧判定22件を訂正） |
 | 2026-07-29 | スキーマ v3 へ移行（Issue #22）。時代・政権カタログ新設、全 enum の ID 化、`dynasty`／`flags.selfProclaimed` の廃止。**判定内容は変更なし**。記録は [V3_MIGRATION_PLAN.md](schema/V3_MIGRATION_PLAN.md) |
 | 2026-07-31 | サイト再構築（Next 16 + Tailwind v4 + shadcn/ui + vendored Tremor）。7ページ削除・旧サイトの設計記録を全削除・`/database` を新規実装 |
@@ -82,7 +83,7 @@ v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調
 | 幼名（Issue #126） | 人 | 365 | 58 | 306 | 0 | 1 | 100.0% |
 | 第N代（Issue #24） | 在位 | 374 | 162 | 14 | 198 | 0 | 47.1% |
 | 紹介文（Issue #16） | 人 | 365 | 228 | 0 | 137 | 0 | 62.5% |
-| 生母（kinship） | 人 | 365 | 223 | 88 | 54 | 0 | 85.2% |
+| 生母（kinship） | 人 | 365 | 266 | 99 | 0 | 0 | 100.0% |
 
 `対象外` は**調査そのものを打ち切ったセル**で、確定率の分母から外しています（`不在確定` とは別 — こちらは原文を読んでいません）。総数は減らしていないので、何セルを外して率を出したかは表の上で追えます。
 
@@ -219,7 +220,7 @@ v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調
 
 ## 系譜・即位経路グラフ（`data/kinship.json`）
 
-全皇帝365人を親子・養子・婚姻・即位経路のエッジで結ぶグラフ。**4調査フェーズ（succession／parentage／interdynastic／crosscheck）は 2026-07-24 に完了**（succession 365本・parentage 222人・genealogicalClaims 62件・Wikidata 外部照合は訂正ゼロ）。**生母（maternalLineage）の全域追加調査が進行中**。
+全皇帝365人を親子・養子・婚姻・即位経路のエッジで結ぶグラフ。**4調査フェーズ（succession／parentage／interdynastic／crosscheck）は 2026-07-24 に完了**（succession 365本・parentage 222人・genealogicalClaims 62件・Wikidata 外部照合は訂正ゼロ）。**生母（maternalLineage）も 2026-08-19 に読み切り、5フェーズすべてが completed になった**（`meta.status.overall: "completed"`）。
 
 **可視化ページ `/kinship` は 2026-07-31 に廃止決定（ユーザー判断）。データ調査はそのまま継続する** — 可視化が無くても `data/kinship.json` はデータセットとして完成させる。「全章そろったら公開する」という段階的公開の計画は失効している。
 
@@ -228,9 +229,9 @@ v3 で持ち越した宿題は「`dynastyOrder`（第N代）が53政権で未調
 - **スキーマ**: [KINSHIP_SCHEMA.md](../data/schema/KINSHIP_SCHEMA.md)（エッジ3種・veracity 区分・復位/建国の規約）。**凍結済みで原則変更しない**
 - **CI**: `scripts/validate_kinship.py`。succession エッジの category は `accessionRoute` との整合を機械検証する
 - **引用照合**: `python3 scripts/check_kinship_quotes.py`（note の「」が底本に実在するかを当てる・約2分）。**`verify_quotes.py` は `emperors.json` 固定でこのファイルを見ない**ので、kinship.json を触ったらこちらを回す。**2026-08-17 に `scripts/` へ恒久化した**（それまではセッションの scratchpad にしか無く、消えるたびに作り直していた）。同じ日にマージ補助の `merge_kinship_mother.py`・`crosscheck_mothers_p25.py` も入れた
-- **生母（maternalLineage）の残り54人は [Issue #171](https://github.com/kotenbu135/emperor-stats/issues/171)**（元・明・清）。**ブロック21（西夏10人＋西遼3人）まで完了**（2026-08-17）。着手前の絞り込みは `scripts/screens/birth_mother.py`（`birth-mother-issue171`）で、**ブロック17・18a・18b・19・20・21 の検証はいずれも未実施**（南宋・遼・金は `check_verification.py` が own-annals＝1体を返すが、**西夏・西遼は dependent＝3体を返す側**）
+- **生母（maternalLineage）は 2026-08-19 に365人を読み切った**（[Issue #171](https://github.com/kotenbu135/emperor-stats/issues/171)・生母エッジ266・`confirmedMotherUnknown` 99・判別不能0）。着手前の絞り込みは `scripts/screens/birth_mother.py`（`birth-mother-issue171`）。**フェーズ完了後の Wikidata P25 全域再突合も同日に実施して新しい信号ゼロ**（MATCH 227／MISMATCH 23／OURS-NONE 12／WD-NONE 16／BOTH-NONE 87。MISMATCH は全件が表記型の違い、OURS-NONE は全件すでに reason が WD の候補を名指して退けている）。**ただし検証段は12ブロック中10ブロックが未実施のまま completed にした**（ユーザー判断。量は [RESIDUAL.md](process/RESIDUAL.md) の生母の行）
 - **進捗管理**: kinship.json 側の `meta.status.phases`／`meta.completedBlocks`（emperors.json 側とは別管理）
-- **コーパス下見**: 系譜「表」は china-history に無く daizhigev20 側にのみ在る（遼史皇族表・金史宗室表・明史諸王世表・元史/宋史の宗室世系表）。新唐書宗室世系表は完全収録が未確認なので着手時に確認する
+- **コーパス下見**: 系譜「表」は china-history に無く daizhigev20 側にのみ在る（遼史皇族表・金史宗室表）。**元史 卷106〜108・明史の表13巻・清史稿の皇子世表は両コーパスとも「（表略）」の空スタブ**（2026-08-19 実測）で、代わりに母別を直書きするのは**諸王伝**（明史 巻116〜120・清史稿 巻215〜221）。新唐書宗室世系表は完全収録が未確認なので着手時に確認する
 
 ## 重要なファイル
 

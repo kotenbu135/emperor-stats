@@ -3,12 +3,33 @@
 
 _corpus_cache/*.txt 全部＋必要な china-history フォールバックを正規化して突合する。
 中略（……）は断片に分割し、各断片が単体でヒットすることを要求する（引用規約3項）。
+
+usage:
+    python3 scripts/check_kinship_quotes.py                    # data/kinship.json を見る
+    python3 scripts/check_kinship_quotes.py --journal <パス>   # マージ前の調査結果を見る
+
+`--journal` はエージェントの結果（`{id, persons, edges, passage, …}` 形の JSON）を、
+**kinship.json へ書き込む前に**同じ照合部へ通す。パスはファイル1つでも
+ディレクトリでも journal.jsonl でもよい。2026-08-17 のブロック19で「書いてから直す」
+往復が起きたのを受けた口（PROCESS_IMPROVEMENTS の同日の提案）。照合部を2箇所に
+書かないため、コーパスの一覧も SKIP_SPANS もこのファイルの1つを共有する。
 """
-import json, re, sys, glob, os
+import argparse, hashlib, json, re, sys, glob, os
 sys.path.insert(0, os.path.join(os.getcwd(), "scripts"))
 from hanzi_norm import norm_for_match
 
 FALLBACKS = [
+    # フェーズ2b（maternalLineage）ブロック22b の検証段（2026-08-19）: 元末群雄の家族記事は
+    # 正史の外に在る。明実録太祖実録＝武昌開城の条の「慰谕友谅父母」、国初群雄事略 巻四＝
+    # 俞本『紀事録』引の「陈理祖父及所生母」と巻三の徐寿輝、平漢録＝童承叙の陳漢専史で
+    # 祖父「謝千一」。3書とも emperors.json の meta.catalogs.books に登録済み。
+    # **僭偽扱いの政権では正史3書だけを読んで悉皆を宣言しない**（検証段が5件の指摘を出した）
+    "daizhigev20/史藏/别史/明实录太祖实录.txt",
+    "daizhigev20/史藏/志存记录/国初群雄事略.txt",
+    "daizhigev20/史藏/志存记录/平汉录.txt",
+    # 同日: confirmedMotherUnknown の reason を照合対象に入れて必要になった。
+    # 隋末群雄の不在確定は旧唐書（キャッシュ）と新唐書の両方を読んで書かれている
+    "daizhigev20/史藏/正史/新唐书.txt",
     # フェーズ2ブロック22: 明史巻120諸王五（神宗諸子=福王常洵・桂王常瀛。daizhi 側は外字分解で
     # 字面が合わない箇所あり）・小腆纪传（陳奇瑜伝の器墭毒殺異説）
     "china-history/明史/列传/第八章-卷八-原文.html",
@@ -143,6 +164,24 @@ FALLBACKS = [
     # いずれもローカル daizhigev20 に逐語存在（norm_for_match 完全一致確認済み）。
     "daizhigev20/史藏/政书/文献通考.txt",
     "daizhigev20/史藏/史评/廿二史札记.txt",
+    # 生母ブロック23b: 順（李自成）の不在確定の reason。明史 巻309 流賊伝は父だけを名指して
+    # 母を書かないが、**正史の外に「金氏」の伝承が在る**ことを述べるのに要る3書。
+    # 綏寇紀略と鹿樵紀聞は同一著者（呉偉業）で、小腆紀年はその系統。母と明言するのは
+    # 鹿樵紀聞だけの実質1系統で、値には採らない（R-PRIMARY-SOURCE）。
+    "daizhigev20/史藏/纪事本末/绥寇纪略.txt",
+    "daizhigev20/史藏/志存记录/鹿樵纪闻.txt",
+    "daizhigev20/史藏/编年/小腆纪年.txt",
+    # 生母ブロック23b: 西（張献忠）の不在確定の reason。明史 巻309 流賊伝の張献忠条は
+    # 籍貫で打ち切って母字が1度も出ないが、**正史の外で母を名指すのはこの稗史1書だけ**。
+    # 値には採らない（R-PRIMARY-SOURCE）が、「1書だけが名を伝える」ことを reason で
+    # 引用して示すために要る。
+    "daizhigev20/史藏/志存记录/甲申朝事小纪.txt",
+    # 生母ブロック24: 呉周（呉三桂）の不在確定の reason。清史稿 巻474 呉三桂伝は
+    # 恤典請願の条を「父襄、母祖氏、弟三辅」と縮めるが、**同じ上奏の全文を録する
+    # 順治朝実録は「臣之父母」と「继母祖氏」を書き分けており**、祖氏を継母とする。
+    # 値には採らない（R-PRIMARY-SOURCE）が、正史の「母」が生母を指さない証拠として
+    # reason で引用するのに要る（綏寇紀略・甲申朝事小紀と同じ扱い）。
+    "daizhigev20/史藏/别史/清实录顺治朝实录.txt",
 ]
 
 # 原文引用ではない「」スパン（日本語の語句参照・スキーマenum参照）。照合対象外。
@@ -183,45 +222,165 @@ SKIP_SPANS = {
     "十四年，併其子世霖皆誅死",
 }
 
-corpus = []
-for path in sorted(glob.glob("_corpus_cache/*.txt")) + FALLBACKS:
-    try:
-        with open(path, encoding="utf-8") as f:
-            corpus.append((path, norm_for_match(f.read())))
-    except FileNotFoundError:
-        print(f"WARN: corpus missing {path}")
-
-with open("data/kinship.json", encoding="utf-8") as f:
-    kin = json.load(f)
-
-spans = []  # (owner, span)
-for e in kin["edges"]:
-    for m in re.findall(r"「([^」]+)」", e.get("note", "")):
-        spans.append((f"edge {e['from']}→{e['to']}", m))
-for p in kin["persons"]:
-    for m in re.findall(r"「([^」]+)」", p.get("note", "")):
-        spans.append((f"person {p['id']}", m))
-for c in kin.get("genealogicalClaims", []):
-    for field in (c.get("note", ""), c.get("claimedAncestry", "")):
-        for m in re.findall(r"「([^」]+)」", field):
-            spans.append((f"claim {c['claimant']}", m))
-
 KANA_RE = re.compile(r"[ぁ-んァ-ン]")
-ok = nf = skip = 0
-for owner, span in spans:
-    if span in SKIP_SPANS or KANA_RE.search(span):
-        skip += 1  # 日本語の説明文・enum参照は原文引用ではない
-        continue
-    frags = [x for x in re.split(r"…+|\.{3,}", span) if x]
-    for frag in frags:
-        n = norm_for_match(frag)
-        if len(n) < 4:  # 短すぎる断片（語単位）は偽陰性が多いので参考扱い
-            skip += 1
+
+
+NORM_CACHE_DIR = os.path.join("_norm_cache", "kinship")
+
+
+def _norm_signature():
+    """正規化の版。**鍵に入れないと表を直しても古い正規化が生き残る**（2026-08-02 の教訓）。
+
+    hanzi_norm.py の中身そのものを署名にするので、新字体表・PUA 表・分解表のどれを
+    足しても鍵が変わる。opencc の辞書版までは見ていない。
+    """
+    with open(os.path.join("scripts", "hanzi_norm.py"), "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:12]
+
+
+def load_corpus():
+    """コーパスを正規化して返す（正規化結果はディスクに寝かせる）。
+
+    正規化は opencc を約100MBに掛けるので素で5〜10分かかり、ブロック1本で何度も回す
+    マージ前照合には重すぎた（2026-08-19・ブロック22a）。鍵は
+    (パス, mtime, サイズ, 正規化の版) で、どれが動いても作り直す。
+    消しても次の実行が作り直す（そのぶん遅くなるだけ）。
+    """
+    sig = _norm_signature()
+    os.makedirs(NORM_CACHE_DIR, exist_ok=True)
+    corpus = []
+    for path in sorted(glob.glob("_corpus_cache/*.txt")) + FALLBACKS:
+        try:
+            st = os.stat(path)
+        except FileNotFoundError:
+            print(f"WARN: corpus missing {path}")
             continue
-        if any(n in text for _, text in corpus):
-            ok += 1
+        key = hashlib.sha1(
+            f"{path}|{st.st_mtime_ns}|{st.st_size}|{sig}".encode("utf-8")).hexdigest()
+        cached = os.path.join(NORM_CACHE_DIR, key + ".txt")
+        try:
+            with open(cached, encoding="utf-8") as f:
+                corpus.append((path, f.read()))
+            continue
+        except FileNotFoundError:
+            pass
+        with open(path, encoding="utf-8") as f:
+            text = norm_for_match(f.read())
+        tmp = cached + ".part"  # 途中で落ちた書きかけを鍵つきの名前で残さない
+        with open(tmp, "w", encoding="utf-8") as f:
+            f.write(text)
+        os.replace(tmp, cached)
+        corpus.append((path, text))
+    return corpus
+
+
+def spans_from_kinship():
+    with open("data/kinship.json", encoding="utf-8") as f:
+        kin = json.load(f)
+    spans = []  # (owner, span)
+    for e in kin["edges"]:
+        for m in re.findall(r"「([^」]+)」", e.get("note", "")):
+            spans.append((f"edge {e['from']}→{e['to']}", m))
+    for p in kin["persons"]:
+        for m in re.findall(r"「([^」]+)」", p.get("note", "")):
+            spans.append((f"person {p['id']}", m))
+    for c in kin.get("genealogicalClaims", []):
+        for field in (c.get("note", ""), c.get("claimedAncestry", "")):
+            for m in re.findall(r"「([^」]+)」", field):
+                spans.append((f"claim {c['claimant']}", m))
+    # meta の「読んだうえで記載が無い」の理由文。**2026-08-19 まで照合されていなかった** —
+    # 不在確定の reason は原文の引用で「どこを読んで無かったか」を述べる欄なので、
+    # ここが素通りすると不在の主張だけが検査されないまま配布物に載る。
+    # 実際、ブロック22b で書いた reason の1断片が別の条から来ていたのをここで拾えなかった。
+    for key in ("confirmedMotherUnknown", "confirmedFatherUnknown", "confirmedRootless"):
+        for c in kin["meta"].get(key, []):
+            for m in re.findall(r"「([^」]+)」", c.get("reason", "")):
+                spans.append((f"{key} {c['id']}", m))
+    return spans
+
+
+def _journal_records(path):
+    """ファイル1つ・ディレクトリ・journal.jsonl のいずれからも結果オブジェクトを拾う。"""
+    paths = []
+    if os.path.isdir(path):
+        paths = sorted(glob.glob(os.path.join(path, "*.json"))
+                       + glob.glob(os.path.join(path, "*.jsonl")))
+    else:
+        paths = [path]
+    for p in paths:
+        with open(p, encoding="utf-8") as f:
+            text = f.read().strip()
+        if not text:
+            continue
+        if p.endswith(".jsonl"):
+            for line in text.splitlines():
+                if not line.strip():
+                    continue
+                ev = json.loads(line)
+                val = ev.get("result", ev.get("value", ev))
+                if isinstance(val, dict) and "id" in val:
+                    yield p, val
         else:
-            nf += 1
-            print(f"NOT FOUND [{owner}]: {frag}")
-print(f"---\nspans={len(spans)} fragments ok={ok} notfound={nf} short-skip={skip}")
-sys.exit(1 if nf else 0)
+            yield p, json.loads(text)
+
+
+def spans_from_journal(path):
+    """マージ前の調査結果から、kinship.json へ入る予定の引用スパンを拾う。
+
+    落ちる断片が persons と edges のどちらの note に在るかまで出す（書き込む前に直せる）。
+
+    見るのは **kinship.json へ実際に入る欄だけ**（persons と edges の note）。
+    `passage` は原文の写し、`flags`・`discrepancies` はマージされない作業メモで、
+    そこの「」は書名ラベルや節見出しであることが多い（2026-08-19 のブロック22a で
+    実際に3件出た）。落ちない断片を落として見せると、この口ごと信用されなくなる。
+
+    **例外は `motherStatus` が `unknown-confirmed` のとき**（2026-08-19 のブロック23b・24 で
+    調査者3人が独立に指摘した）。この結果は persons も edges も空なので、上の規則だと
+    **spans=0 で必ず緑になる**。しかし `flags` はそのまま
+    `meta.confirmedMotherUnknown[].reason` になり、そこでは照合される。
+    不在確定こそ「どこを読んで無かったか」を引用で述べる欄なので、
+    書き込む前に見ておく価値がここだけ逆転する。
+    """
+    spans = []
+    for src, r in _journal_records(path):
+        eid = r.get("id", os.path.basename(src))
+        for e in r.get("edges") or []:
+            for m in re.findall(r"「([^」]+)」", e.get("note", "")):
+                spans.append((f"{eid} edge {e.get('from')}→{e.get('to')}", m))
+        for p in r.get("persons") or []:
+            for m in re.findall(r"「([^」]+)」", p.get("note", "")):
+                spans.append((f"{eid} person {p.get('id')}", m))
+        if r.get("motherStatus") == "unknown-confirmed":
+            for m in re.findall(r"「([^」]+)」", r.get("flags") or ""):
+                spans.append((f"{eid} flags→reason", m))
+    return spans
+
+
+def collate(spans, corpus):
+    ok = nf = skip = 0
+    for owner, span in spans:
+        if span in SKIP_SPANS or KANA_RE.search(span):
+            skip += 1  # 日本語の説明文・enum参照は原文引用ではない
+            continue
+        frags = [x for x in re.split(r"…+|\.{3,}", span) if x]
+        for frag in frags:
+            n = norm_for_match(frag)
+            if len(n) < 4:  # 短すぎる断片（語単位）は偽陰性が多いので参考扱い
+                skip += 1
+                continue
+            if any(n in text for _, text in corpus):
+                ok += 1
+            else:
+                nf += 1
+                print(f"NOT FOUND [{owner}]: {frag}")
+    print(f"---\nspans={len(spans)} fragments ok={ok} notfound={nf} short-skip={skip}")
+    return nf
+
+
+ap = argparse.ArgumentParser()
+ap.add_argument("--journal", metavar="パス",
+                help="マージ前の調査結果（JSON ファイル・ディレクトリ・journal.jsonl）を照合する")
+args = ap.parse_args()
+
+spans = spans_from_journal(args.journal) if args.journal else spans_from_kinship()
+sys.exit(1 if collate(spans, load_corpus()) else 0)
