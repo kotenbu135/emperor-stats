@@ -40,6 +40,13 @@ const SHOTS = [
   // グラフ候補の検討面（noindex・ナビにもサイトマップにも出さない）。採否が決まったら
   // ページごと畳むので、そのときこの行も落とす。
   { name: "10-lab", path: "/lab" },
+  // 系譜図（2026-08-19 公開・全6章）。図は 100vh に収まる作りなので fullPage でも1画面分。
+  { name: "11-kinship", path: "/kinship" },
+  { name: "12-kinship-three-kingdoms-jin", path: "/kinship/three-kingdoms-jin" },
+  { name: "13-kinship-eastern-jin-sixteen", path: "/kinship/eastern-jin-sixteen" },
+  { name: "14-kinship-northern-southern", path: "/kinship/northern-southern" },
+  { name: "15-kinship-sui-tang", path: "/kinship/sui-tang" },
+  { name: "16-kinship-five-dynasties", path: "/kinship/five-dynasties" },
 ];
 
 const MIME = {
