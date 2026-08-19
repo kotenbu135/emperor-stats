@@ -11,7 +11,7 @@ export const metadata: Metadata = buildMetadata({
   path: "/kinship/song-liao-jin-xia",
   title: PAGE_TITLE,
   description:
-    "北宋・南宋と遼・西遼・金・西夏の皇帝とその親族の家系図。後周からの禅譲もたどれる。全7章の第7章。",
+    "北宋・南宋と遼・西遼・金・西夏の皇帝とその親族の家系図。後周からの禅譲もたどれる。全8章の第7章。",
 });
 
 export default function KinshipSongLiaoJinXiaPage() {

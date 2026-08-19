@@ -143,6 +143,12 @@ const REGIME_LABEL: Record<string, string> = {
   "western-xia": "西夏",
   "zhangbangchang-chu": "楚（張邦昌）",
   "liuyu-qi": "斉（劉豫）",
+  yuan: "元",
+  "northern-yuan": "北元",
+  "hanlin-song": "宋（韓林児）",
+  tianwan: "天完（徐寿輝）",
+  "chen-han": "陳漢",
+  "ming-xia": "夏（明玉珍）",
 };
 
 export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {

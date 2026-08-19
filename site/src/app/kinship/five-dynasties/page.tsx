@@ -10,7 +10,7 @@ const PAGE_TITLE = "系譜図（五代十国）";
 export const metadata: Metadata = buildMetadata({
   path: "/kinship/five-dynasties",
   title: PAGE_TITLE,
-  description: "五代（後梁・後唐・後晋・後漢・後周）と十国の皇帝とその親族の家系図。唐からの禅譲もたどれる。全7章の第6章。",
+  description: "五代（後梁・後唐・後晋・後漢・後周）と十国の皇帝とその親族の家系図。唐からの禅譲もたどれる。全8章の第6章。",
 });
 
 export default function KinshipFiveDynastiesPage() {
