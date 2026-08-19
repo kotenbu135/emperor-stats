@@ -94,6 +94,10 @@ const CHAPTERS = [
   // bucket は 10〜40 を一巡した最少（交差1件・他0。10/12/18 も同数だが 20 が縦最短）。
   // thoroughness は 7〜200 で欠陥が変わらないので既定7のまま（五代十国と同じ）。
   { eraId: "yuan", guests: [], bucket: 20 },
+  // 客人なし。元→明は禅譲ではなく、前章で線ゼロ落ちした親も居ない。張献忠（西）は
+  // 章内に線が1本も無いが、皇帝なので線ゼロの1人ブロックのまま出す（隋末唐末の群雄と同じ）。
+  // bucket は 10〜40 を一巡した最少（交差2件・他0。10〜22 が同数で、22/t100 が最小の図）。
+  { eraId: "ming", guests: [], bucket: 22, thoroughness: 100 },
 ];
 
 async function buildChapter({ eraId: ERA_ID, guests, bucket, thoroughness }) {

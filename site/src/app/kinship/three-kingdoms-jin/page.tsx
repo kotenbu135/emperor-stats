@@ -10,7 +10,7 @@ const PAGE_TITLE = "系譜図（三国・西晋）";
 export const metadata: Metadata = buildMetadata({
   path: "/kinship/three-kingdoms-jin",
   title: PAGE_TITLE,
-  description: "魏・蜀漢・呉と西晋の皇帝とその親族の家系図。後漢の献帝から魏への禅譲もたどれる。全8章の第2章。",
+  description: "魏・蜀漢・呉と西晋の皇帝とその親族の家系図。後漢の献帝から魏への禅譲もたどれる。全9章の第2章。",
 });
 
 export default function KinshipThreeKingdomsJinPage() {

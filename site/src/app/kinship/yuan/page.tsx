@@ -11,7 +11,7 @@ export const metadata: Metadata = buildMetadata({
   path: "/kinship/yuan",
   title: PAGE_TITLE,
   description:
-    "元・北元と元末の韓宋・天完・陳漢・明夏の皇帝とその親族の家系図。全8章の第8章。",
+    "元・北元と元末の韓宋・天完・陳漢・明夏の皇帝とその親族の家系図。全9章の第8章。",
 });
 
 export default function KinshipYuanPage() {

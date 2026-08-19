@@ -149,6 +149,10 @@ const REGIME_LABEL: Record<string, string> = {
   tianwan: "天完（徐寿輝）",
   "chen-han": "陳漢",
   "ming-xia": "夏（明玉珍）",
+  ming: "明",
+  "southern-ming": "南明",
+  shun: "順（李自成）",
+  xi: "西（張献忠）",
 };
 
 export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {
