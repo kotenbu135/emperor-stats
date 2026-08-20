@@ -61438,7 +61438,8 @@
       "source": {
        "page": "隋書巻八十五 列伝第五十（宇文化及伝）／資治通鑑巻一百八十六",
        "lang": "zh"
-      }
+      },
+      "eraName": "天寿"
      }
     ],
     "confidence": "high",
@@ -61839,7 +61840,8 @@
       "source": {
        "page": "旧唐書列傳第五（巻五十五・薛舉李軌劉武周列伝）",
        "lang": "zh"
-      }
+      },
+      "eraName": "天興"
      }
     ],
     "confidence": "high",
@@ -62040,7 +62042,8 @@
       "source": {
        "page": "旧唐書巻五十六(列伝六)梁師都伝／新唐書巻八十七(列伝十三)梁師都伝",
        "lang": "zh"
-      }
+      },
+      "eraName": "永隆"
      }
     ],
     "confidence": "medium",
@@ -62955,7 +62958,8 @@
       "source": {
        "page": "旧唐書 巻五十六（李子通伝）／新唐書 列傳第十二（李子通伝）／隋書 本紀 巻四（煬帝紀下）",
        "lang": "zh"
-      }
+      },
+      "eraName": "明政"
      }
     ],
     "confidence": "medium",
@@ -63557,7 +63561,8 @@
       "source": {
        "page": "旧唐書列傳第六（巻五十六・硃粲伝）",
        "lang": "zh"
-      }
+      },
+      "eraName": "昌達"
      }
     ],
     "confidence": "high",
@@ -109387,7 +109392,8 @@
       "source": {
        "page": "明史 巻一百二十三（陳友諒傳）／元史 巻四十五（本紀第四十五）",
        "lang": "zh-classical"
-      }
+      },
+      "eraName": "大義"
      }
     ],
     "confidence": "high",
@@ -117273,7 +117279,8 @@
       "source": {
        "page": "小腆紀傳 巻三（隆武紀・附紹武）",
        "lang": "zh"
-      }
+      },
+      "eraName": "紹武"
      }
     ],
     "confidence": "medium",
@@ -117505,7 +117512,8 @@
       "source": {
        "page": "小腆紀傳 紀第四",
        "lang": "zh"
-      }
+      },
+      "eraName": "永暦"
      }
     ],
     "confidence": "high",
@@ -117751,7 +117759,8 @@
       "source": {
        "page": "明史 列传一百九十七 流贼",
        "lang": "zh"
-      }
+      },
+      "eraName": "永昌"
      }
     ],
     "confidence": "high",
@@ -117924,7 +117933,8 @@
        "lang": "zh",
        "conversion": "sxtwl で fromLunar(1644,11,1)→1644-12（多数月）。日を採るなら fromLunar(1644,11,6)→1644-12-04（庚寅）"
       },
-      "dateRaw": "崇禎十七年冬十一月庚寅（旧暦）"
+      "dateRaw": "崇禎十七年冬十一月庚寅（旧暦）",
+      "eraName": "大順"
      }
     ],
     "confidence": "medium",
@@ -124519,7 +124529,8 @@
       "source": {
        "page": "清史稿 列传二百六十一",
        "lang": "zh"
-      }
+      },
+      "eraName": "洪化"
      }
     ],
     "confidence": "high",
