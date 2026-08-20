@@ -161,6 +161,13 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 「第N代」は `reigns[].dynastyOrder` が**数値の在位だけ**に出る（在位順から推論しない）。
 2026-08-20 に 89/89政権を読み切った（Issue #24）ので `dynastyOrderSurveyed: false` の
 政権はもう無く、出ないのは「調べた上で歴代に数えない」と判定した並立・僭称の21在位だけ。
+2026-08-21 から皇帝カードの1行目は**「政権名 第N代」**（政権の短い名前は
+`src/lib/kinship/regime-label.ts` の `REGIME_LABEL` — chapter-page の政権ジャンプと同源。
+null の在位は政権名だけになる）。**皇帝を称さなかった歴代君主**（欠番の第N代・ヌルハチ・
+チンギス〜モンケなど）は親族カードにも同じ行が出る — 出どころはレイアウトスクリプトの
+`RULER_ORDINALS`（emperors.json の欠番と突き合わせる assert つき・この表の人物は
+線ゼロでも図から外さない）。**カードの名前の行は `nopan select-text` でコピーできる**
+（ドラッグ選択で遷移しない・実測は `tools/kinship-select-test.mjs`）。
 
 - **`scripts/build-kinship-layout.mjs`** — `prebuild` で elkjs を回して章ごとに
   `src/lib/kinship/layout.<eraId>.json` を吐く（elkjs は devDependencies・`out/` に混ざらない）。
@@ -187,12 +194,12 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
   `grep -o 'href="/emperors/' out/kinship.html | wc -l`（35）と
   `grep -o 'react-flow__edge-path' out/kinship.html | wc -l`（132）。
   三国・西晋は `out/kinship/three-kingdoms-jin.html` で同じ2本（18・74）、
-  東晋・十六国は `out/kinship/eastern-jin-sixteen.html`（55・145）、
+  東晋・十六国は `out/kinship/eastern-jin-sixteen.html`（55・148）、
   南北朝は `out/kinship/northern-southern.html`（70・234）、
   隋・唐は `out/kinship/sui-tang.html`（50・109）、
-  五代十国は `out/kinship/five-dynasties.html`（35・93）、
-  宋・遼・西夏・金は `out/kinship/song-liao-jin-xia.html`（53・160）、
-  元は `out/kinship/yuan.html`（18・49）、
+  五代十国は `out/kinship/five-dynasties.html`（35・97）、
+  宋・遼・西夏・金は `out/kinship/song-liao-jin-xia.html`（53・162）、
+  元は `out/kinship/yuan.html`（18・54）、
   明は `out/kinship/ming.html`（22・75）、
   清は `out/kinship/qing.html`（14・43）
 - **`CardPorts` の6ハンドルと `buildGraph` の `ports()` は同じ id・同じ数で並べる。**

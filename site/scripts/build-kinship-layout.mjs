@@ -40,7 +40,102 @@ const KIN_ANNOT_H = 62;
 // 夫婦の点。**線より明らかに太い**こと（2026-08-18 の外部レビュー2巡目「線と同化して
 // 見落とす」）。線が 1.9px なので 14px＝7倍強。
 const UNION_SIZE = 14;
-const heightOf = (c) => (c.isEmperor ? EMPEROR_H : c.annot ? KIN_ANNOT_H : KIN_H);
+// 歴代君主（ruler）の親族カードは「政権名 第N代」の1行ぶん高くする（+14px）。
+const KIN_ORDINAL_EXTRA = 14;
+const heightOf = (c) =>
+  c.isEmperor
+    ? EMPEROR_H
+    : (c.annot ? KIN_ANNOT_H : KIN_H) + (c.ordinal ? KIN_ORDINAL_EXTRA : 0);
+
+/**
+ * 皇帝を称さなかったが王朝の歴代（第N代）に数えられる君主（kinship.json の
+ * inclusionReason "ruler"）の代数。emperors.json の reigns[].dynastyOrder の**欠番**に
+ * 対応する（数え方は Issue #24 で 89/89 政権を読み切った判定・KINSHIP_SCHEMA.md の
+ * スコープルール6）。**在位順から推論した値ではない** — 欠番との整合は下の
+ * assertRulerOrdinals が突き合わせる（重複したらビルドが落ちる）。
+ * 末尾の代（前涼の第8・9代など）は欠番検出に掛からないので、原典の総括句が根拠
+ * （張天錫の note の「自轨为凉州，至天锡，凡九世」など）。
+ */
+const RULER_ORDINALS = {
+  // 成漢（李雄=3 の前）
+  "p-li-te": { regimeId: "cheng-han", ordinal: [1] },
+  "p-li-liu": { regimeId: "cheng-han", ordinal: [2] },
+  // 前涼（称帝は張祚=7 のみ。晋書「凡九世」）
+  "p-zhang-gui": { regimeId: "former-liang", ordinal: [1] },
+  "p-zhang-shi": { regimeId: "former-liang", ordinal: [2] },
+  "p-zhang-mao": { regimeId: "former-liang", ordinal: [3] },
+  "p-zhang-jun": { regimeId: "former-liang", ordinal: [4] },
+  "p-zhang-chonghua": { regimeId: "former-liang", ordinal: [5] },
+  "p-zhang-yaoling": { regimeId: "former-liang", ordinal: [6] },
+  "p-zhang-xuanjing": { regimeId: "former-liang", ordinal: [8] },
+  "p-zhang-tianxi": { regimeId: "former-liang", ordinal: [9] },
+  // 前秦（苻堅は大秦天王のまま称帝せず）
+  "p-fuhong": { regimeId: "former-qin", ordinal: [1] },
+  "p-fu-jian": { regimeId: "former-qin", ordinal: [4] },
+  // 前燕・後燕・西燕
+  "p-murong-huang": { regimeId: "former-yan", ordinal: [1] },
+  "p-lan-han": { regimeId: "later-yan", ordinal: [5] },
+  "p-murong-hong": { regimeId: "western-yan", ordinal: [1] },
+  "p-duan-sui": { regimeId: "western-yan", ordinal: [3] },
+  "p-murong-yi": { regimeId: "western-yan", ordinal: [4] },
+  // 北周（孝閔帝は天王のまま）
+  "p-yuwen-jue": { regimeId: "northern-zhou", ordinal: [1] },
+  // 五代十国（呉・閩・南漢・南唐は書自身の総括句「二世四主」「凡七主」「歴三主」が裏づけ）
+  "p-yang-xingmi": { regimeId: "yang-wu", ordinal: [1] },
+  "p-yang-wo": { regimeId: "yang-wu", ordinal: [2] },
+  "p-yang-longyan": { regimeId: "yang-wu", ordinal: [3] },
+  "p-wang-chao": { regimeId: "min", ordinal: [1] },
+  "p-wang-shenzhi": { regimeId: "min", ordinal: [2] },
+  "p-wang-yanhan": { regimeId: "min", ordinal: [3] },
+  "p-liu-yin": { regimeId: "southern-han", ordinal: [1] },
+  "p-li-yu": { regimeId: "southern-tang", ordinal: [3] },
+  // 西遼（称制の后2人が2・4を消費する — 遼史の西遼付録が称制にも「在位」の語を使う）
+  "p-xiao-tabuyan": { regimeId: "western-liao", ordinal: [2] },
+  "p-yelu-pusuwan": { regimeId: "western-liao", ordinal: [4] },
+  // 元（太祖〜憲宗が1〜4を消費する — 旧五代史の「追尊册號之帝」論法は元では成立しない）
+  "p-chinggis": { regimeId: "yuan", ordinal: [1] },
+  "p-ogodei": { regimeId: "yuan", ordinal: [2] },
+  "p-guyuk": { regimeId: "yuan", ordinal: [3] },
+  "p-monke": { regimeId: "yuan", ordinal: [4] },
+  // 北元（天元帝は末尾の欠番。新元史「弟脱古思帖木儿嗣…在位十年」）
+  "p-togus-temur": { regimeId: "northern-yuan", ordinal: [2] },
+  // 清
+  "p-nurhachi": { regimeId: "qing", ordinal: [1] },
+};
+
+/**
+ * RULER_ORDINALS と emperors.json の dynastyOrder の整合を突き合わせる。
+ * (1) 同じ政権の中で番号が重複しない（皇帝の番号とも・表の中でも）
+ * (2) 表の person id が kinship.json に実在する
+ * 「欠番がすべて埋まっているか」は検査しない（新しい欠番が生まれたときに図が
+ * 落ちるべきではない — 埋まるまでその番号が出ないだけ）。
+ */
+function assertRulerOrdinals(allEmperors, allPersons) {
+  const personIds = new Set(allPersons.map((p) => p.id));
+  const used = new Map(); // regimeId -> Map(番号 -> 持ち主)
+  for (const e of allEmperors) {
+    for (const r of e.reigns ?? []) {
+      if (typeof r.dynastyOrder !== "number") continue;
+      const m = used.get(e.regimeId) ?? new Map();
+      m.set(r.dynastyOrder, e.id);
+      used.set(e.regimeId, m);
+    }
+  }
+  for (const [pid, { regimeId, ordinal }] of Object.entries(RULER_ORDINALS)) {
+    if (!personIds.has(pid))
+      throw new Error(`RULER_ORDINALS: ${pid} が kinship.json に居ません`);
+    const m = used.get(regimeId) ?? new Map();
+    for (const n of ordinal) {
+      const owner = m.get(n);
+      if (owner)
+        throw new Error(
+          `RULER_ORDINALS: ${regimeId} の第${n}代が重複（${pid} と ${owner}）`,
+        );
+      m.set(n, pid);
+    }
+    used.set(regimeId, m);
+  }
+}
 
 /**
  * 表示名を「主部」と「補足」に割る。`竇氏〔孝文竇皇后〕` → `竇氏` ＋ `孝文竇皇后`。
@@ -60,6 +155,8 @@ const portraits = JSON.parse(
 );
 const portraitById = new Map(portraits.map((p) => [p.id, p]));
 
+assertRulerOrdinals(emperors.emperors, kinship.persons);
+
 // ---------------------------------------------------------------- 章
 //
 // 章ごとに独立して解いて layout.<eraId>.json に落とす。**guests は「章の eraId では
@@ -76,24 +173,32 @@ const CHAPTERS = [
     guests: ["hou-han-xiandi", "p-yuan-feng", "p-liu-hong-shu"],
     bucket: 12,
   },
-  // 客人なし。西晋→東晋は禅譲ではなく（愍帝→元帝の succession エッジはデータに無い）、
-  // 元帝の父・司馬覲は前の章に線を持って出ているので、章をまたぐ親子（crossEra）として
-  // 前の章の側に記録されるだけでよい。
-  { eraId: "eastern-jin-sixteen", guests: [], bucket: 10 },
+  // 客人 (d) 型＝章の入口の皇帝の実親（前の章にも出ている）: 元帝の実父・司馬覲と
+  // 実母・夏侯光姫。西晋→東晋は禅譲ではないので継承の線が無く、crossEra の記録だけでは
+  // 「司馬睿と西晋の血のつながりが図に見えない」（2026-08-21 ユーザー指摘）。2人とも
+  // 前の章（三国・西晋）にも居るままで、この章では元帝の上に家族ブロックとして出る。
+  {
+    eraId: "eastern-jin-sixteen",
+    guests: ["p-sima-jin", "p-xiahou-guangji"],
+    bucket: 10,
+  },
   // 客人＝禅譲の前帝（東晋の恭帝→宋の武帝）。家族は連れて来ない（献帝と同じ）。
   { eraId: "northern-southern", guests: ["dongjin-gongdi"], bucket: 20, thoroughness: 30 },
   // 客人＝禅譲の前帝（北周の静帝→隋の文帝）。
   { eraId: "sui-tang", guests: ["beizhou-jingdi"], bucket: 10, thoroughness: 100 },
-  // 客人＝禅譲の前帝（唐の哀帝→後梁の太祖）。
-  { eraId: "five-dynasties", guests: ["tang-aidi"], bucket: 15 },
+  // 客人＝禅譲の前帝（唐の哀帝→後梁の太祖）。bucket は 2026-08-21 の歴代君主4人
+  // （王恁・王潮・楊渥・李煜）追加後に 10〜40 を再走査した最少（22 と 12 が欠陥2件で
+  // 並び、22 のほうが縦 460px 短い。旧 15 は追加後 4 件に増えた）。
+  { eraId: "five-dynasties", guests: ["tang-aidi"], bucket: 22 },
   // 客人＝禅譲の前帝（後周の恭帝→宋の太祖）。bucket は 10〜40 を一巡した最少
   // （交差3件・他0。18/t100 も同数だが 25 のほうが縦が 400px 短い）。
   { eraId: "song-liao-jin-xia", guests: ["wudai-houzhou-gongdi"], bucket: 25, thoroughness: 100 },
   // 客人なし。宋→元は禅譲ではなく（南宋は征服・succession エッジは章内の p-monke→世祖だけで、
   // これは擁立＝引かない線。2人は兄弟として家族の線で結ばれる）、前章で線ゼロ落ちした親も居ない。
-  // bucket は 10〜40 を一巡した最少（交差1件・他0。10/12/18 も同数だが 20 が縦最短）。
+  // bucket は 2026-08-21 の歴代君主4人（チンギス・オゴデイ・グユク・天元帝）追加後に
+  // 10〜40 を再走査した最少（10/12/40 が交差1件で並び、12 が最小の図）。
   // thoroughness は 7〜200 で欠陥が変わらないので既定7のまま（五代十国と同じ）。
-  { eraId: "yuan", guests: [], bucket: 20 },
+  { eraId: "yuan", guests: [], bucket: 12 },
   // 客人なし。元→明は禅譲ではなく、前章で線ゼロ落ちした親も居ない。張献忠（西）は
   // 章内に線が1本も無いが、皇帝なので線ゼロの1人ブロックのまま出す（隋末唐末の群雄と同じ）。
   // bucket は 10〜40 を一巡した最少（交差2件・他0。10〜22 が同数で、22/t100 が最小の図）。
@@ -179,12 +284,16 @@ for (const e of emp) {
 }
 for (const p of per) {
   if (cards.has(p.id)) continue;
+  // 歴代君主（皇帝を称さなかったが第N代に数えられる人）は「政権名 第N代」を出す。
+  const ruler = RULER_ORDINALS[p.id] ?? null;
   cards.set(p.id, {
     id: p.id,
     emperorId: null,
     ...splitLabel(p.name ?? p.id),
     label: p.name ?? p.id,
     regimeId: null,
+    ordinal: ruler ? ruler.ordinal : null,
+    ordinalRegime: ruler ? ruler.regimeId : null,
     isEmperor: false,
     gender: p.gender ?? null,
     reignFrom: null,
@@ -460,7 +569,10 @@ for (const ed of kinship.edges) {
     // **皇帝は外さない。** 隋末・唐末の群雄（輔公祏・李軌・黄巣ら8人）は家族も
     // 引ける継承も一切データに無いが、章の皇帝が図から消えるのは章の嘘になる。
     // 線ゼロの1人ブロックとして残し、小成分の時代合わせがその在位年の段へ置く。
-    if (cards.get(id).isEmperor) continue;
+    // **歴代君主（RULER_ORDINALS）も同じ理由で外さない**（2026-08-21「1代から
+    // すべての人物を表示したい」）— 蘭汗・段随は血縁がどの原典にも無い孤立の第N代で、
+    // 外すと代数が飛んで見える（KINSHIP_SCHEMA スコープルール6の孤立許容と同じ線）。
+    if (cards.get(id).isEmperor || RULER_ORDINALS[id]) continue;
     dropped.push({ id, label: cards.get(id).label, reason: "章内に線が1本も無い" });
     cards.delete(id);
     ids.delete(id);

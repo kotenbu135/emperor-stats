@@ -43,6 +43,7 @@ import "@xyflow/react/dist/style.css";
 import { Button } from "@/components/ui/button";
 import { RubyText } from "@/components/ui/ruby-text";
 import { EDGE_STYLE, type KinshipEdgeKind } from "@/lib/kinship/edge-style";
+import { REGIME_LABEL } from "@/lib/kinship/regime-label";
 import { regimeBandColor } from "@/lib/kinship/band-color";
 
 export interface KinshipPerson {
@@ -60,6 +61,12 @@ export interface KinshipPerson {
    * 「調べた上で歴代に数えない」在位（並立・僭称）は `dynastyOrder: null` なのでここも null。
    */
   ordinal?: number[] | null;
+  /**
+   * 歴代君主（皇帝を称さなかったが第N代に数えられる親族カード）の政権。
+   * 出どころはレイアウト側の RULER_ORDINALS（Issue #24 の欠番と突き合わせ済み）。
+   * 皇帝カードは `regimeId` を使うのでこの欄は持たない。
+   */
+  ordinalRegime?: string | null;
   /** ルビ記法つきの main / annot。サーバー側（chapter-page）が rubyOf で付ける。 */
   mainRuby?: string;
   annotRuby?: string | null;
@@ -229,20 +236,39 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
       className={`px-1.5 py-1 text-center leading-tight ${p.isEmperor ? "" : "flex flex-1 flex-col justify-center"}`}
       style={{ background: fill, boxShadow: stripe }}
     >
-      {/* 王朝内の代数。dynastyOrder が数値の在位だけに出る（並立・僭称と判定した在位は
-          null なので出ない — 在位順から推論しない・Issue #69／#24）。 */}
-      {p.ordinal?.length ? (
-        <div className="text-[9px] leading-tight tabular-nums" style={{ color: ink, opacity: 0.85 }}>
-          第{p.ordinal.join("・")}代
-        </div>
-      ) : null}
-      <div className="truncate text-[13px] font-semibold" style={{ color: ink }}>
+      {/* 政権名＋王朝内の代数。「どの王朝の人物か知らないと読めない」（2026-08-21
+          ユーザー指摘）ので、皇帝カードには政権名を常に出す。代数は dynastyOrder が
+          数値の在位だけ（並立・僭称と判定した在位は null なので政権名だけになる —
+          在位順から推論しない・Issue #69／#24）。歴代君主の親族カード（ordinalRegime）も
+          同じ行を出す。 */}
+      {(() => {
+        const regime = p.isEmperor ? p.regimeId : p.ordinalRegime;
+        if (!regime) return null;
+        const nth = p.ordinal?.length ? `第${p.ordinal.join("・")}代` : null;
+        const text = nth ? `${REGIME_LABEL[regime] ?? regime} ${nth}` : REGIME_LABEL[regime] ?? regime;
+        return (
+          <div
+            className="truncate text-[9px] leading-tight tabular-nums"
+            style={{ color: ink, opacity: 0.85 }}
+          >
+            {text}
+          </div>
+        );
+      })()}
+      {/* 名前の行は**コピーできる**（2026-08-21 ユーザー指摘「人物名を選択できない」）。
+          `nopan` で d3-zoom のパン開始をこの行の上だけ止め（React Flow の noPanClassName）、
+          `select-text` で pane の select-none を打ち消す。選択で終わったクリックの遷移は
+          <a> 側の onClick が抑止する。 */}
+      <div className="nopan select-text truncate text-[13px] font-semibold" style={{ color: ink }}>
         <RubyText source={p.mainRuby ?? p.main} />
       </div>
       {/* 補足（「竇氏〔孝文竇皇后〕」の〔〕の中）は2行目へ。**1行に詰めると切り詰めが出る**
           — 幅を広げると全員ぶん図が太るので、高さで解く（2026-08-18 の外部レビュー）。 */}
       {p.annot ? (
-        <div className="truncate text-[9.5px] leading-[1.15]" style={{ color: ink, opacity: 0.92 }}>
+        <div
+          className="nopan select-text truncate text-[9.5px] leading-[1.15]"
+          style={{ color: ink, opacity: 0.92 }}
+        >
           <RubyText source={p.annotRuby ?? p.annot} />
         </div>
       ) : null}
@@ -319,6 +345,18 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
     // バブルするので生きていて、パン後のクリックは d3-zoom が抑止する（実測済み）。
     <a
       href={`/emperors/${p.emperorId}`}
+      // draggable=false: 既定の<a>はドラッグで「リンクのドラッグ」が始まり、名前の
+      // テキスト選択（2026-08-21 ユーザー指摘）が成立しない。
+      draggable={false}
+      // 名前をドラッグで選択して指を離すと click が飛ぶブラウザがある。カード内に
+      // 畳まれていない選択が残っているときだけ遷移を止める（普通のクリックは選択が
+      // 空 or collapsed なので素通り）。
+      onClick={(e) => {
+        const sel = window.getSelection?.();
+        if (sel && !sel.isCollapsed && e.currentTarget.contains(sel.anchorNode)) {
+          e.preventDefault();
+        }
+      }}
       className={`${shell} pointer-events-auto hover:border-[var(--kinship-line)]`}
     >
       {ports}

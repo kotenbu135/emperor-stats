@@ -17,7 +17,7 @@
 | `edges[].category` → `categoryId`（succession） | emperors の `accessionCategory` 8 ID ＋ `restoration`（復位・kinship 側のみ） |
 | `edges[].relationToPredecessor` | emperors の `axes.relationToPredecessor` と同じ ID 語彙（`son`/`younger-brother`/… `other`） |
 
-凍結後の変更履歴（**既存データの再調査を伴わない加算的変更のみ**）：2026-07-24 スコープルール2の転換（実母の全域収録・フェーズ `maternalLineage` 追加）／2026-07-25 スコープルール5（政変当事者）と `inclusionReason` の同名値の追加（西晋八王の収録・ユーザー決定）／2026-07-25 スコープルール2の個別例外（司馬師・司馬昭の生母 張春華の収録・ユーザー決定）。／2026-07-26 スコープルール6（歴代君主）と `inclusionReason` の同名値の追加・`kinship` の relation に `遠祖`（＋任意フィールド `relationDetail`）を追加（いずれもユーザー決定）。
+凍結後の変更履歴（**既存データの再調査を伴わない加算的変更のみ**）：2026-07-24 スコープルール2の転換（実母の全域収録・フェーズ `maternalLineage` 追加）／2026-07-25 スコープルール5（政変当事者）と `inclusionReason` の同名値の追加（西晋八王の収録・ユーザー決定）／2026-07-25 スコープルール2の個別例外（司馬師・司馬昭の生母 張春華の収録・ユーザー決定）。／2026-07-26 スコープルール6（歴代君主）と `inclusionReason` の同名値の追加・`kinship` の relation に `遠祖`（＋任意フィールド `relationDetail`）を追加（いずれもユーザー決定）。／2026-08-21 スコープルール6の追補（Issue #24 の 89/89 読み切りで新たに確定した欠番の埋め戻し10人: チンギス・オゴデイ・グユク・蕭塔不煙・耶律普速完・王潮・王恁〔経路上〕・楊渥・李煜・トグス・テムル。ユーザー指示「皇帝を排出した王朝は1代からすべての人物を表示したい」）。あわせて2点を明文化: **歴代君主ノードを系図へ接続する同一政権内の marriage エッジは、スコープルール4の枠外でも許す**（蕭塔不煙═徳宗 — ルール6の人物を孤立させないための構造エッジ）。**実親の異説が正史級2書にまたがるときは、そのブロックの一次史料（SOURCE_MAPPING の指定）側を `verified`、他方を `disputed` として併記してよい**（トグス・テムル: 新元史「惠宗第二子」を採用・明史「昭宗の子」を disputed で併記）。`validate_kinship.py` の世代整合は `disputed` エッジを骨格に入れない（異説どうしは世代が食い違い得る — 同ファイルの build_generations の docstring が正）。
 
 **データは `data/emperors.json` とは別ファイル `data/kinship.json` に置く**（ユーザー決定）。理由：emperors.json の肥大化（既に約7MB）を避ける・並行セッションでの編集衝突面を減らす・グラフ構造（ノード＋エッジ）はレコード配列と設計思想が異なる。皇帝ノードの実体は emperors.json 側にあり、kinship.json からは `id` で参照する（人物情報の重複保持はしない）。
 
