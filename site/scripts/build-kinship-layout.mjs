@@ -133,9 +133,10 @@ for (const e of emp) {
   const reigns = e.reigns ?? [];
   const s = reigns.length ? reigns[0].startYear : null;
   const t = reigns.length ? reigns[reigns.length - 1].endYear : null;
-  // 王朝内の代数（第N代）。**dynastyOrder が確定している在位だけ**から引く — 欄が無い
-  // 政権（隋・唐・五代十国など dynastyOrderSurveyed: false の53政権）は未調査なので
-  // 出さないし、在位順から推論もしない（EMPERORS_SCHEMA.md・Issue #69）。
+  // 王朝内の代数（第N代）。**dynastyOrder が数値の在位だけ**から引く — 2026-08-20 に
+  // 89/89政権を読み切った（Issue #24）ので未調査の政権はもう無く、出ないのは「調べた上で
+  // 歴代に数えない」と判定した並立・僭称の21在位（`null`）だけ。在位順から推論はしない
+  // （EMPERORS_SCHEMA.md・Issue #69）。
   // 復位（晋恵帝の第2・4代など）は在位ごとに別カウントなので全部並べる。
   const ordinal = [
     ...new Set(reigns.map((r) => r.dynastyOrder).filter((n) => typeof n === "number")),
