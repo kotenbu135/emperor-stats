@@ -9,7 +9,7 @@ export function SiteFooter() {
       <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs leading-relaxed text-muted-foreground">
         <Link
           href="/about"
-          className="underline underline-offset-2 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+          className="underline underline-offset-2 transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
         >
           収録基準・数え方・出典の詳細
         </Link>
@@ -20,7 +20,7 @@ export function SiteFooter() {
             href={REPO_ISSUES_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline underline-offset-2 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+            className="underline underline-offset-2 transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
           >
             GitHubのIssue
           </a>

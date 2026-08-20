@@ -327,6 +327,19 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* ── motion トークン（transitions.dev の尺度・2026-08-21 導入） ──────────────
+ * 操作の反応で使う時間と easing の共通尺度（transitions.dev の motion-token scale
+ * から、いま参照している段だけを写した — 色は含まない・配色は @palette が唯一の正のまま）。
+ * 新しく motion を書くときは直値ではなくここを参照する。開く側は閉じる側より
+ * わずかに遅くするのが既定の対（--duration-slow で開き --duration-medium で閉じる）。
+ */
+:root {
+  --duration-quick: 150ms; /* 色の hover（Tailwind transition-colors の既定と同値） */
+  --duration-medium: 350ms; /* パネル・<details> を閉じる */
+  --duration-slow: 400ms; /* パネル・<details> を開く */
+  --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1); /* 開閉・位置・サイズの変化 */
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -473,4 +486,30 @@
   *::-webkit-scrollbar-thumb:hover {
     background-color: #707070;
   }
+}
+
+/* ── <details> の開閉を滑らかにする（transitions.dev の accordion を素の details へ） ──
+ * 対象は「本文が下へ伸びる」使い方の <details> に付ける .t-acc だけ
+ * （kinship の凡例・政権ジャンプはポップオーバー的な使い方なので対象外）。
+ * `::details-content` と `interpolate-size` を解釈するのは Chromium 129+ だけで、
+ * Firefox / Safari では従来どおり瞬間開閉に落ちる。**DOM も静的 HTML も不変**なので
+ * 「閉じていても本文が DOM に残る」契約（site/AGENTS.md）はこの装飾では崩れない。
+ * prefers-reduced-motion は @layer base の一括指定（transition-duration 0.01ms）が
+ * ここにも掛かるので個別の guard は書かない。
+ */
+:root {
+  interpolate-size: allow-keywords;
+}
+details.t-acc::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition:
+    block-size var(--duration-medium) var(--ease-smooth-out),
+    content-visibility var(--duration-medium) allow-discrete;
+}
+details.t-acc[open]::details-content {
+  block-size: auto;
+  /* 遷移は「行き先の状態」の transition が使われる — 開くときはこちら（slow）、
+     閉じるときは上の基底（medium）。開く側をわずかに遅くする対は motion トークンの節。 */
+  transition-duration: var(--duration-slow);
 }

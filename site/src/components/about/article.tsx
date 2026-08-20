@@ -191,7 +191,7 @@ export function DownloadCards({ items }: { items: DownloadItem[] }) {
               </span>
             </div>
             {/* ファイル名は等幅。押す対象がファイルであることを字面で示す。 */}
-            <span className="break-all font-mono text-sm text-foreground group-hover:text-seal">
+            <span className="break-all font-mono text-sm text-foreground transition-colors group-hover:text-seal">
               {item.file}
             </span>
             <span className="text-sm leading-6 text-muted-foreground">
@@ -239,7 +239,7 @@ export function ErrataList({ items }: { items: ErratumItem[] }) {
  */
 export function PortraitCredits({ credits }: { credits: PortraitCredit[] }) {
   return (
-    <details className="group rounded-md border border-border bg-card">
+    <details className="group t-acc rounded-md border border-border bg-card">
       {/* list-none だけでは Safari の三角（::-webkit-details-marker）が残り、
           自前の ▼ と二重に出る。 */}
       <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground [&::-webkit-details-marker]:hidden">
@@ -279,7 +279,7 @@ export function PortraitCredits({ credits }: { credits: PortraitCredit[] }) {
                     href={c.commonsPageUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground underline underline-offset-2 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+                    className="text-muted-foreground underline underline-offset-2 transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
                   >
                     Commons
                   </a>

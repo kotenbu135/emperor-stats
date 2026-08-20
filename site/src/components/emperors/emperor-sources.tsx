@@ -24,8 +24,8 @@ export function EmperorSources({ entries }: { entries: EmperorSourceEntry[] }) {
     <section>
       {/* 面は基本情報・年表と同じ --card。閉じている状態が既定なので上下の余白は
           他ブロック（p-5）より薄くし、畳まれた1行として見えるようにする。 */}
-      <details className="group rounded-[0.5rem] border border-border bg-card px-5 py-3">
-        <summary className="flex cursor-pointer list-none items-center gap-1.5 text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-seal [&::-webkit-details-marker]:hidden">
+      <details className="group t-acc rounded-[0.5rem] border border-border bg-card px-5 py-3">
+        <summary className="flex cursor-pointer list-none items-center gap-1.5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-seal [&::-webkit-details-marker]:hidden">
           <ChevronRight
             aria-hidden
             className="size-3.5 shrink-0 transition-transform group-open:rotate-90"

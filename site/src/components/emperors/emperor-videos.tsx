@@ -24,7 +24,7 @@ export function EmperorVideosSection({ record }: { record: EmperorRecord }) {
           href={VIDEO_CHANNEL.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline underline-offset-2 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+          className="underline underline-offset-2 transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
         >
           {VIDEO_CHANNEL.name}
         </a>

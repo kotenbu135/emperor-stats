@@ -127,7 +127,7 @@ const EmperorCard = memo(function EmperorCard({
         {/* ふりがな（Issue #20）。leading-ruby は ON/OFF で行の高さが動かないよう
             ルビの分の行間を先に確保するもの。カード外形は aspect-[3/4] のままで、
             伸びた文字ブロックのぶん肖像側が縮む。 */}
-        <div className="truncate text-sm font-medium leading-ruby text-foreground group-hover:text-seal">
+        <div className="truncate text-sm font-medium leading-ruby text-foreground transition-colors group-hover:text-seal">
           <RubyText source={record.nameRuby} />
           {/* 通用名だけでは誰か分かりにくい人物向けの補助名（諱）。
               導出規則・人物別上書きは lib/display-name.ts。 */}

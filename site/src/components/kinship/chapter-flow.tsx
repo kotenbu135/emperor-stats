@@ -696,7 +696,7 @@ function PersonSearch({
             <li key={p.id}>
               <button
                 type="button"
-                className="flex w-full items-baseline gap-2 px-2 py-1 text-left text-sm hover:bg-accent focus-visible:outline-2 focus-visible:outline-seal"
+                className="flex w-full items-baseline gap-2 px-2 py-1 text-left text-sm transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-seal"
                 onClick={() => {
                   onPick(p);
                   setQ("");
