@@ -13975,6 +13975,31 @@
    ],
    "line": 105
   },
+  "han-aidi|eraChangeCount.events[1].conflicts[0].adopted.quote|baa7a9f2b306": {
+   "id": "han-aidi",
+   "path": "eraChangeCount.events[1].conflicts[0].adopted.quote",
+   "span": "及前孝哀皇帝建平二年六月甲子下诏书，更为太初元将元年",
+   "status": "corpus",
+   "corpusFile": "china-history/汉书/传/第七十五章-王莽传上-原文.html",
+   "frags": [
+    "及前孝哀皇帝建平二年",
+    "更为太初元将元年"
+   ],
+   "line": 23
+  },
+  "han-aidi|eraChangeCount.events[1].conflicts[0].alternatives[0].quote|147873f53a28": {
+   "id": "han-aidi",
+   "path": "eraChangeCount.events[1].conflicts[0].alternatives[0].quote",
+   "span": "以建平二年为太初元年。号曰陈圣刘太平皇帝。漏刻以百二十为度",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/han-aidi.txt",
+   "frags": [
+    "以建平二年为太初元年",
+    "号曰陈圣刘太平皇帝",
+    "漏刻以百二十为度"
+   ],
+   "line": 21
+  },
   "han-aidi|eraChangeCount[0].note|5d74f4fa4110": {
    "id": "han-aidi",
    "path": "eraChangeCount[0].note",
@@ -13985,6 +14010,53 @@
     "建平元年春正月"
    ],
    "line": 12
+  },
+  "han-aidi|eraChangeCount[1].note|064f2864f8e0": {
+   "id": "han-aidi",
+   "path": "eraChangeCount[1].note",
+   "span": "陳聖劉太平皇帝",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/han-aidi.txt",
+   "frags": [
+    "陳聖劉太平皇帝"
+   ],
+   "line": 21
+  },
+  "han-aidi|eraChangeCount[1].note|147873f53a28": {
+   "id": "han-aidi",
+   "path": "eraChangeCount[1].note",
+   "span": "以建平二年为太初元年。号曰陈圣刘太平皇帝。漏刻以百二十为度",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/han-aidi.txt",
+   "frags": [
+    "以建平二年为太初元年",
+    "号曰陈圣刘太平皇帝",
+    "漏刻以百二十为度"
+   ],
+   "line": 21
+  },
+  "han-aidi|eraChangeCount[1].note|414bafd4efb0": {
+   "id": "han-aidi",
+   "path": "eraChangeCount[1].note",
+   "span": "当作太初元将元年后人不晓四字为号輙削去元将二字非是后得唐本元将字果存",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/前汉书.txt",
+   "frags": [
+    "当作太初元将元年后人"
+   ],
+   "line": 1195
+  },
+  "han-aidi|eraChangeCount[1].note|baa7a9f2b306": {
+   "id": "han-aidi",
+   "path": "eraChangeCount[1].note",
+   "span": "及前孝哀皇帝建平二年六月甲子下诏书，更为太初元将元年",
+   "status": "corpus",
+   "corpusFile": "china-history/汉书/传/第七十五章-王莽传上-原文.html",
+   "frags": [
+    "及前孝哀皇帝建平二年",
+    "更为太初元将元年"
+   ],
+   "line": 23
   },
   "han-aidi|eraChangeCount[1].note|f4cd0192e4cc": {
    "id": "han-aidi",
@@ -16167,6 +16239,17 @@
    ],
    "line": 80
   },
+  "han-xuandi|eraChangeCount[6].note|7cca1a5b648a": {
+   "id": "han-xuandi",
+   "path": "eraChangeCount[6].note",
+   "span": "举廉吏，诚欲得其真也",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/han-xuandi.txt",
+   "frags": [
+    "诚欲得其真也"
+   ],
+   "line": 143
+  },
   "han-xuandi|personalCampaignCount.note|0f7b0d8ead1a": {
    "id": "han-xuandi",
    "path": "personalCampaignCount.note",
@@ -17197,6 +17280,28 @@
     "立貴人陰氏為皇后"
    ],
    "line": 235
+  },
+  "hou-han-guangwudi|eraChangeCount.events[1].conflicts[0].adopted.quote|ed828a6acbaf": {
+   "id": "hou-han-guangwudi",
+   "path": "eraChangeCount.events[1].conflicts[0].adopted.quote",
+   "span": "己卯，大赦天下。复嬴、博、梁父、奉高，勿出今年田租刍稿",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/hou-han-guangwudi.txt",
+   "frags": [
+    "勿出今年田租刍稿"
+   ],
+   "line": 325
+  },
+  "hou-han-guangwudi|eraChangeCount.events[1].conflicts[0].alternatives[0].quote|4dd2f3437f36": {
+   "id": "hou-han-guangwudi",
+   "path": "eraChangeCount.events[1].conflicts[0].alternatives[0].quote",
+   "span": "四月己卯，大赦天下，以建武三十二年为建武中元元年",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/后汉书.txt",
+   "frags": [
+    "以建武三十二年为建武"
+   ],
+   "line": 9489
   },
   "hou-han-guangwudi|eraChangeCount[0].note|36b42c072409": {
    "id": "hou-han-guangwudi",
@@ -33418,12 +33523,12 @@
   "liu-penzi|eraChangeCount[0].note|0ed31e63277a": {
    "id": "liu-penzi",
    "path": "eraChangeCount[0].note",
-   "span": "六月，遂立盆子爲帝，自號建世元年",
+   "span": "六月，遂立盆子为帝，自号建世元年",
    "status": "cache",
    "corpusFile": "_corpus_cache/liu-penzi.txt",
    "frags": [
-    "遂立盆子爲帝",
-    "自號建世元年"
+    "遂立盆子为帝",
+    "自号建世元年"
    ],
    "line": 5
   },
