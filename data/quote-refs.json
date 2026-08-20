@@ -44394,6 +44394,17 @@
    ],
    "line": 3
   },
+  "qianqin-fujian|eraChangeCount.note|6ee94bd42d3d": {
+   "id": "qianqin-fujian",
+   "path": "eraChangeCount.note",
+   "span": "健僭即皇帝位於太極前殿",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/qianqin-fujian.txt",
+   "frags": [
+    "健僭即皇帝位於太極前"
+   ],
+   "line": 5
+  },
   "qianqin-fujian|eraChangeCount[0].note|6ee94bd42d3d": {
    "id": "qianqin-fujian",
    "path": "eraChangeCount[0].note",
