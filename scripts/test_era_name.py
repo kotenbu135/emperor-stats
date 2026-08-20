@@ -247,6 +247,21 @@ else:
     print("SKIP 十国春秋がコーパスに無いので書の証人は測っていない")
     n_book = 0
 
+# --- D note を証人にする引っ越し（note:self・2026-08-20 康徳）------------------
+# 正史の範囲外の改元（満洲国）はコーパスに底本が無い。event 自身の note に持つ
+# 引用へ同じ定型句の隣接を求める（免除ではない。引用が無ければ落ちる）
+KANGDE_NOTE = ("執政溥儀が皇帝に即位すると同時に「大同」から「康徳」に改元。即位詔書に"
+               "「以大同三年三月一日，即皇帝位，改为康德元年，仍用满洲国号」とある。")
+NOTESELF_CASES = [
+    ("note の即位詔書引用が証人になる（康徳）", "康徳", True),
+    ("note に無い元号は当たらない（大同単独）", "宣統", False),
+]
+for name, era, want_hit in NOTESELF_CASES:
+    hit = Q.era_anchor_hit(norm_for_match(era), [norm_for_match(KANGDE_NOTE)])
+    ok = bool(hit) == want_hit
+    bad += 0 if ok else 1
+    print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
+
 # --- E ラチェット -------------------------------------------------------------
 V.ERA_NAME_BASELINE = 3
 errs = run({"eraName": "義嘉", "note": NOTE})
@@ -263,7 +278,8 @@ bad += 0 if ok else 1
 print(f"{'OK ' if ok else 'NG '} 評価件数（分母）を出す")
 
 total = (len(CASES) + len(D_CASES) + len(RECAST_CASES) + len(GLYPH_CASES)
-         + len(PUA_CASES) + len(HAOYEAR_CASES) + len(CW_CASES) + n_book + 5)
+         + len(PUA_CASES) + len(HAOYEAR_CASES) + len(CW_CASES) + n_book
+         + len(NOTESELF_CASES) + 5)
 #          5 = 大赦容器・C の限界・元号名だけの行・E・分母
 print(f"\n{'全件一致' if not bad else str(bad) + '件 不一致'} / {total}件")
 sys.exit(1 if bad else 0)

@@ -1061,6 +1061,12 @@ ERA_NAME_WITNESS_IN = {
     "shiguo-houshu-mengchang.eraChangeCount.e001": (
         "book:daizhigev20/史藏/载记/十国春秋.txt#2406-2453",
         "広政。後蜀後主本紀は十国春秋 巻四十八。キャッシュの新五代史 後蜀世家は「庆政」と刻む"),
+    # (3) 正史の範囲外の改元 — コーパスに底本そのものが無い。`note:self` は event 自身の
+    # note に持つ引用へ同じ定型句の隣接を求める（免除ではない。引用が無ければ落ちる）
+    "qing-xuantong.eraChangeCount.e002": (
+        "note:self",
+        "康徳。満洲国期（1934）は清史稿の範囲外でコーパスに底本が無い。転記はユーザー決定"
+        "（Issue #161・2026-08-20）。証人は即位詔書の引用「改为康德元年」を持つ note"),
 }
 _WITNESS_CACHE = {}
 
@@ -1128,10 +1134,13 @@ def cmd_check_era_names():
                 ok += 1
                 continue
             via = ERA_NAME_WITNESS_IN.get(where)
-            if via and era_anchor_hit(key, _witness_lines(via[0])):
-                ok += 1
-                moved.append(f"{where}→{via[0]}")
-                continue
+            if via:
+                wl = ([norm_for_match(ev.get("note") or "")] if via[0] == "note:self"
+                      else _witness_lines(via[0]))
+                if era_anchor_hit(key, wl):
+                    ok += 1
+                    moved.append(f"{where}→{via[0]}")
+                    continue
             bare = sum(1 for ln in lines if key in ln)
             bad += 1
             print(f"ERROR {where}: eraName「{ev['eraName']}」が本人の原文キャッシュに"
