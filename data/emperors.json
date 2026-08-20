@@ -12510,7 +12510,7 @@
       "date": "0155",
       "datePrecision": "month",
       "note": "永壽に改元（原文「永壽元年春正月戊申，大赦天下，改元永壽」）。",
-      "eraName": "永壽"
+      "eraName": "永寿"
      },
      {
       "id": "hou-han-huandi.eraChangeCount.e006",
@@ -19189,7 +19189,7 @@
        "lang": "zh-classical"
       },
       "date": "0266",
-      "eraName": "寶鼎"
+      "eraName": "宝鼎"
      },
      {
       "id": "wu-modi.eraChangeCount.e004",
@@ -33375,7 +33375,7 @@
     "events": [
      {
       "id": "houyan-murongbao.rebellionSuppressionCount.e001",
-      "note": "『資治通鑑』晋紀三十一「平規収合餘党拠高唐，燕主宝遣高陽王隆将兵討之…隆進軍臨河，規棄高唐走。隆遣建威将軍慕容進等濟河追之，斬規於濟北」。規の反乱自体は垂治世下（太元年間）に始まり、垂自身の親征で一度敗走させられていたが、宝即位後に残党が再蜂起し、宝の命で最終的に討滅された経緯があるため、発端は先代治世にある点に留意（信頼度medium）。",
+      "note": "『資治通鑑』晋紀三十一「平規收合餘党据高唐，燕主宝遣高陽王隆将兵討之…隆進軍臨河，規棄高唐走。隆遣建威将軍慕容進等濟河追之，斬規於濟北」。規の反乱自体は垂治世下（太元年間）に始まり、垂自身の親征で一度敗走させられていたが、宝即位後に残党が再蜂起し、宝の命で最終的に討滅された経緯があるため、発端は先代治世にある点に留意（信頼度medium）。",
       "outcome": "鎮圧成功。宝が高陽王隆に討伐を命じ、隆が済北で規を斬殺した。",
       "name": "平規（旧燕将軍）残党の反乱・高唐拠守",
       "startDate": "0396-04",
@@ -43738,7 +43738,7 @@
        "page": "隋书卷79列传第44外戚萧岿传（附子琮）；隋书卷69礼仪志四（互证）",
        "lang": "zh"
       },
-      "eraName": "廣運"
+      "eraName": "広運"
      }
     ],
     "confidence": "high",
@@ -45137,7 +45137,7 @@
        "page": "陳書卷六 本紀第六 後主",
        "lang": "zh"
       },
-      "eraName": "至德"
+      "eraName": "至徳"
      },
      {
       "id": "chen-houzhu.eraChangeCount.e002",
@@ -51151,7 +51151,7 @@
        "page": "魏書 巻9 肅宗紀",
        "lang": "zh"
       },
-      "eraName": "神龜"
+      "eraName": "神亀"
      },
      {
       "id": "beiwei-xiaomingdi.eraChangeCount.e003",
@@ -58143,7 +58143,7 @@
        "page": "周書 巻五 武帝紀上",
        "lang": "zh"
       },
-      "eraName": "建德"
+      "eraName": "建徳"
      },
      {
       "id": "beizhou-wudi.eraChangeCount.e004",
@@ -63564,7 +63564,7 @@
       "id": "suimo-zhucan.eraChangeCount.e001",
       "date": null,
       "datePrecision": null,
-      "note": "冠軍県にて再挙兵し「楚帝」を僭称すると同時に「昌達」に建元。【皇帝即位（改元同時）】原文は「俄而収輯余衆，兵又大盛，僭称楚帝於冠軍，建元為昌達」（旧唐書）／「僭号楚帝，建元為昌達」（新唐書）。なお大業11年末に起兵し「迦楼羅王」を自称していた期間について、独自の年号を建てたとの記載は原典になく、この期間の建元はカウントしない。（旧 precision 記載: unknown（武徳元年〔618年〕、具体的な月日の記載なし））",
+      "note": "冠軍県にて再挙兵し「楚帝」を僭称すると同時に「昌達」に建元。【皇帝即位（改元同時）】原文は「俄而收輯余衆，兵又大盛，僭称楚帝於冠軍，建元為昌達」（旧唐書）／「僭号楚帝，建元為昌達」（新唐書）。なお大業11年末に起兵し「迦楼羅王」を自称していた期間について、独自の年号を建てたとの記載は原典になく、この期間の建元はカウントしない。（旧 precision 記載: unknown（武徳元年〔618年〕、具体的な月日の記載なし））",
       "source": {
        "page": "旧唐書列傳第六（巻五十六・硃粲伝）",
        "lang": "zh"
@@ -67052,7 +67052,7 @@
        "page": "旧唐書 巻十（粛宗紀）",
        "lang": "zh"
       },
-      "eraName": "至德"
+      "eraName": "至徳"
      },
      {
       "id": "tang-suzong.eraChangeCount.e002",
@@ -77102,7 +77102,7 @@
       "leader": "張従賓（東都巡検使、範延光と結託）",
       "name": "張従賓の乱",
       "outcome": "汜水関を攻め皇子重信・重乂を殺害したが、杜重威・侯益らに敗れ、残党とともに黄河に投じて死亡。",
-      "note": "旧五代史高祖紀三（天福三年六月「従宾亦叛」、七月「収下汜水関、破賊千人、張従宾及其残党奔投入河」）。（旧 precision 記載: month (天福三年六月挙兵〜七月鎮圧)）"
+      "note": "旧五代史高祖紀三（天福三年六月「従宾亦叛」、七月「收下汜水关、破賊千人、張从宾及其残党奔投入河」）。（旧 precision 記載: month (天福三年六月挙兵〜七月鎮圧)）"
      },
      {
       "id": "wudai-houjin-gaozu.rebellionSuppressionCount.e003",
@@ -83589,7 +83589,7 @@
        "page": "宋史 本紀一（太祖一）",
        "lang": "zh"
       },
-      "eraName": "乾德"
+      "eraName": "乾徳"
      },
      {
       "id": "beisong-taizu.eraChangeCount.e003",
@@ -83600,7 +83600,7 @@
        "page": "宋史 本紀二（太祖二）",
        "lang": "zh"
       },
-      "eraName": "開寶"
+      "eraName": "開宝"
      }
     ],
     "confidence": "high",
@@ -86182,7 +86182,7 @@
        "page": "宋史 本紀十五（神宗二）",
        "lang": "zh"
       },
-      "eraName": "元豐"
+      "eraName": "元豊"
      }
     ],
     "confidence": "high",
@@ -92064,7 +92064,7 @@
        "page": "宋史 本紀 巻四十一（理宗一）",
        "lang": "zh"
       },
-      "eraName": "寶慶"
+      "eraName": "宝慶"
      },
      {
       "id": "nansong-lizong.eraChangeCount.e002",
@@ -92119,7 +92119,7 @@
        "page": "宋史 本紀 巻四十三（理宗三）",
        "lang": "zh"
       },
-      "eraName": "寶祐"
+      "eraName": "宝祐"
      },
      {
       "id": "nansong-lizong.eraChangeCount.e007",
@@ -93638,7 +93638,7 @@
        "page": "遼史 巻二（太祖紀下）",
        "lang": "zh"
       },
-      "eraName": "天贊"
+      "eraName": "天賛"
      },
      {
       "id": "liao-taizu.eraChangeCount.e003",
@@ -93649,7 +93649,7 @@
        "page": "遼史 巻二（太祖紀下）",
        "lang": "zh"
       },
-      "eraName": "天顯"
+      "eraName": "天顕"
      }
     ],
     "confidence": "high",
@@ -97234,9 +97234,9 @@
       "end": "year"
      },
      "duration": {
-      "value": 4745,
+      "value": 4748,
       "unit": "day",
-      "approxDays": 4745,
+      "approxDays": 4748,
       "exactDays": null,
       "needsPreciseDays": true,
       "source": {
@@ -97252,7 +97252,7 @@
    ],
    "reignSummary": {
     "totalReignDuration": {
-     "approxDays": 4745,
+     "approxDays": 4748,
      "displayYears": 13.0,
      "needsPreciseDays": true,
      "isExact": false
@@ -97389,13 +97389,13 @@
    "reigns": [
     {
      "startYear": 1177,
-     "endYear": 1213,
+     "endYear": 1211,
      "isRestoration": false,
-     "note": "崇福14年(1177年、プスワン殺害後)、皇帝に即位、年号「天禧」(月日不詳)。1211年秋、屈出律のクーデターにより実権喪失し「太上皇」に。1213年、憤懣の中で死去(月日不詳)。",
+     "note": "崇福14年(1177年、プスワン殺害後)、皇帝に即位、年号「天禧」(月日不詳)。1211年秋、屈出律のクーデターにより捕縛されて「太上皇」に尊上され、在位はここで終わる。遼史巻三十は「在位三十四年」とし、1177年から数えて1211年で合う(西遼の他の3代の在位年数も同じ数え方で連鎖する)。1213年、憤懣の中で死去(月日不詳・没年は年齢の欄が持つ)。在位終了年は従来1213(没年)としていたが、2026-08-21に在位終期の1211へ訂正した。",
      "raw": null,
      "durationRaw": null,
      "startDate": "1177-01-01",
-     "endDate": "1213-01-01",
+     "endDate": "1211-01-01",
      "startDateRaw": null,
      "endDateRaw": null,
      "datePrecision": {
@@ -97403,9 +97403,9 @@
       "end": "year"
      },
      "duration": {
-      "value": 13140,
+      "value": 12418,
       "unit": "day",
-      "approxDays": 13140,
+      "approxDays": 12418,
       "exactDays": null,
       "needsPreciseDays": true,
       "source": {
@@ -97416,18 +97416,19 @@
        "note": "遼史の西遼末主に関する記述は本紀付録としてわずか2文のみで、他の遼・西遼皇帝と異なり具体的な年号紀年・月日を一切欠く。史料的性格上（元代編纂の遼史は西遼について情報が乏しく、Wittfogel & Feng『History of Chinese Society: Liao』や魏良弢『西遼史研究』等の近代研究がペルシア語史料等と照合して1177/1211/1213等の西暦年を確定している事情がある）、本原文のみでは day/month は元より year 精度の独立検証も限定的である。既存note中の「崇福14年」「1211年秋」等の記述も本キャッシュ原文には見当たらず、追加の一次史料（他の遼史巻や外部研究）を要する可能性が高い。"
       }
      },
-     "dynastyOrder": 5
+     "dynastyOrder": 5,
+     "claim": "在位は1177年から1211年まで。遼史巻三十が在位を34年と記し、1211年秋の屈出律による捕縛と太上皇への尊上をもって在位が終わる。太上皇としての1213年の死去は在位に含めない。"
     }
    ],
    "reignSummary": {
     "totalReignDuration": {
-     "approxDays": 13140,
-     "displayYears": 36.0,
+     "approxDays": 12418,
+     "displayYears": 34.0,
      "needsPreciseDays": true,
      "isExact": false
     },
     "firstStartYear": 1177,
-    "lastEndYear": 1213,
+    "lastEndYear": 1211,
     "reignCount": 1
    },
    "flags": {
@@ -97681,7 +97682,7 @@
        "page": "金史 巻二（太祖本紀）",
        "lang": "zh"
       },
-      "eraName": "收國"
+      "eraName": "収国"
      },
      {
       "id": "jin-taizu.eraChangeCount.e002",
@@ -98686,7 +98687,7 @@
        "page": "金史 巻五（海陵本紀）",
        "lang": "zh"
       },
-      "eraName": "天德"
+      "eraName": "天徳"
      },
      {
       "id": "jin-hailingwang.eraChangeCount.e002",
@@ -102133,7 +102134,7 @@
        "page": "西夏书事（崇宗紀、元德元年条）",
        "lang": "zh"
       },
-      "eraName": "元德"
+      "eraName": "元徳"
      },
      {
       "id": "xixia-chongzong.eraChangeCount.e007",
@@ -102144,7 +102145,7 @@
        "page": "西夏书事（崇宗紀、正德元年三月条）／宋史 巻486 列伝二百四十五 夏国下",
        "lang": "zh"
       },
-      "eraName": "正德"
+      "eraName": "正徳"
      },
      {
       "id": "xixia-chongzong.eraChangeCount.e008",
@@ -102155,7 +102156,7 @@
        "page": "西夏书事（崇宗紀、大德元年条）／宋史 巻486 列伝二百四十五 夏国下",
        "lang": "zh"
       },
-      "eraName": "大德"
+      "eraName": "大徳"
      }
     ],
     "confidence": "high",
@@ -111435,7 +111436,7 @@
       "datePrecision": "month",
       "date": "1402-08",
       "note": "建文四年（即位年）秋七月壬午朔、大祀天地於南郊の後に発せられた詔で建元。原文「詔：今年以洪武三十五年為紀，明年為永樂元年」。即位に伴う最初の建元としてカウント。以後、永楽帝の在位中（〜永楽二十二年/1424年）は改元の記載なし。",
-      "eraName": "永樂"
+      "eraName": "永楽"
      }
     ],
     "confidence": "high"
@@ -112090,7 +112091,7 @@
       "datePrecision": "day",
       "date": "1425-06-27",
       "note": "洪熙元年六月庚戌、仁宗崩御に伴い即位。「庚戌，即皇帝位。大赦天下，以明年为宣德元年」により翌年（1426年）より年号を「宣德」と定めた（即位に伴う最初の建元）。在位中この一度のみで、以後崩御（宣德十年）まで「宣德」の年号が継続使用された。",
-      "eraName": "宣德"
+      "eraName": "宣徳"
      }
     ],
     "confidence": "high"
@@ -114218,7 +114219,7 @@
       "datePrecision": "year",
       "date": "1506",
       "note": "弘治十八年五月孝宗崩、壬寅即皇帝位、践祚に伴い『以明年为正德元年』と建元（正徳）。武宗の在位中はこの一度のみで、以後改元の記事なし。",
-      "eraName": "正德"
+      "eraName": "正徳"
      }
     ],
     "confidence": "high"
@@ -115394,7 +115395,7 @@
       "datePrecision": "month",
       "date": "1573",
       "note": "隆慶六年六月甲子（1572年）に穆宗崩御を受け即位。原文「甲子，即皇帝位。以明年為萬曆元年，詔赦天下」。翌年（萬曆元年，1573年）正月より新元号「萬曆」を使用開始。以後、萬曆四十八年（1620年）の崩御まで改元は一度も行われず、在位中を通じて「萬曆」のみを使用した。",
-      "eraName": "萬曆"
+      "eraName": "万暦"
      }
     ],
     "confidence": "high"
@@ -116298,7 +116299,7 @@
       "datePrecision": "day",
       "date": "1620-10-01",
       "note": "萬曆四十八年九月庚辰、熹宗即位に伴う建元。原文「庚辰，即皇帝位。詔赦天下，以明年為天啟元年。」翌年（1621年）を天啟元年と定めた。なお同時に「己丑，以是年八月以後稱泰昌元年」とあるが、これは先帝（光宗）の年号「泰昌」を遡って定めたものであり、熹宗自身の改元ではないためカウントしない。",
-      "eraName": "天啟"
+      "eraName": "天啓"
      }
     ],
     "confidence": "high"
@@ -121968,7 +121969,7 @@
        "page": "清史稿 本紀二十 文宗本紀",
        "lang": "zh"
       },
-      "eraName": "咸豐"
+      "eraName": "咸豊"
      }
     ],
     "confidence": "high"
