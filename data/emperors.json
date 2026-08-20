@@ -83764,7 +83764,8 @@
       "source": {
        "page": "宋史 本紀四（太宗一）",
        "lang": "zh"
-      }
+      },
+      "eraName": "太平興国"
      },
      {
       "id": "beisong-taizong.eraChangeCount.e002",
@@ -84305,7 +84306,8 @@
       "source": {
        "page": "宋史 本紀七（真宗二）",
        "lang": "zh"
-      }
+      },
+      "eraName": "大中祥符"
      },
      {
       "id": "beisong-zhenzong.eraChangeCount.e004",
@@ -84813,7 +84815,8 @@
       "source": {
        "page": "宋史 本紀十（仁宗二）",
        "lang": "zh"
-      }
+      },
+      "eraName": "宝元"
      },
      {
       "id": "beisong-renzong.eraChangeCount.e005",
@@ -86693,7 +86696,8 @@
       "source": {
        "page": "宋史 本紀十九（徽宗一）",
        "lang": "zh"
-      }
+      },
+      "eraName": "建中靖国"
      },
      {
       "id": "beisong-huizong.eraChangeCount.e002",
@@ -86703,7 +86707,8 @@
       "source": {
        "page": "宋史 本紀十九（徽宗一）",
        "lang": "zh"
-      }
+      },
+      "eraName": "崇寧"
      },
      {
       "id": "beisong-huizong.eraChangeCount.e003",
@@ -86713,7 +86718,8 @@
       "source": {
        "page": "宋史 本紀二十（徽宗二）",
        "lang": "zh"
-      }
+      },
+      "eraName": "大観"
      },
      {
       "id": "beisong-huizong.eraChangeCount.e004",
@@ -86723,7 +86729,8 @@
       "source": {
        "page": "宋史 本紀二十（徽宗二）",
        "lang": "zh"
-      }
+      },
+      "eraName": "政和"
      },
      {
       "id": "beisong-huizong.eraChangeCount.e005",
@@ -91101,7 +91108,8 @@
       "source": {
        "page": "宋史 本紀 巻三十七（寧宗一）",
        "lang": "zh"
-      }
+      },
+      "eraName": "慶元"
      },
      {
       "id": "nansong-ningzong.eraChangeCount.e002",
@@ -91844,7 +91852,8 @@
       "source": {
        "page": "宋史 本紀 巻四十四（理宗四）",
        "lang": "zh"
-      }
+      },
+      "eraName": "景定"
      }
     ]
    },
@@ -92689,7 +92698,8 @@
       "source": {
        "page": "宋史 本紀四十七（瀛国公二王附）",
        "lang": "zh"
-      }
+      },
+      "eraName": "徳祐"
      }
     ],
     "confidence": "high",
@@ -93130,7 +93140,8 @@
       "source": {
        "page": "宋史 本紀四十七（瀛国公・二王附）",
        "lang": "zh"
-      }
+      },
+      "eraName": "祥興"
      }
     ],
     "confidence": "high",
@@ -96805,7 +96816,8 @@
        "page": "遼史 巻三十（天祚皇帝紀四附耶律大石伝）",
        "lang": "zh",
        "conversion": "年のみの主張。附録の延慶三年＝康国元年・康国十年殁・在位二十年から、崩御1143年・延慶元年1132年を逆算した。原文は1132年の即位に月日を与えていないので旧暦の原表記は無く、旧暦から太陽暦への換算も行っていない。"
-      }
+      },
+      "eraName": "延慶"
      },
      {
       "id": "xiliao-dezong.eraChangeCount.e002",
@@ -97374,7 +97386,8 @@
       "source": {
        "page": "金史 巻二（太祖本紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "天輔"
      }
     ],
     "confidence": "high",
@@ -98375,7 +98388,8 @@
       "source": {
        "page": "金史 巻五（海陵本紀）",
        "lang": "zh"
-      }
+      },
+      "eraName": "貞元"
      },
      {
       "id": "jin-hailingwang.eraChangeCount.e003",
@@ -99340,7 +99354,8 @@
       "source": {
        "page": "金史 巻十三（衛紹王本紀）",
        "lang": "zh-classical"
-      }
+      },
+      "eraName": "崇慶"
      },
      {
       "id": "jin-weishaowang.eraChangeCount.e003",
@@ -99350,7 +99365,8 @@
       "source": {
        "page": "金史 巻十三（衛紹王本紀）",
        "lang": "zh-classical"
-      }
+      },
+      "eraName": "至寧"
      }
     ],
     "confidence": "high",
@@ -99582,7 +99598,8 @@
       "source": {
        "page": "金史 巻十四（宣宗上）",
        "lang": "zh"
-      }
+      },
+      "eraName": "貞祐"
      },
      {
       "id": "jin-xuanzong.eraChangeCount.e002",
@@ -99603,7 +99620,8 @@
       "source": {
        "page": "金史 巻十六（宣宗下）",
        "lang": "zh"
-      }
+      },
+      "eraName": "元光"
      }
     ],
     "confidence": "high",
@@ -100370,7 +100388,8 @@
       "source": {
        "page": "金史 巻十七（哀宗本紀上）",
        "lang": "zh"
-      }
+      },
+      "eraName": "開興"
      },
      {
       "id": "jin-aizong.eraChangeCount.e003",
@@ -103513,7 +103532,8 @@
       "source": {
        "page": "宋史 巻475 列伝234（叛臣上・劉豫伝）／金史 巻77 列伝15（劉豫伝）",
        "lang": "zh"
-      }
+      },
+      "eraName": "阜昌"
      }
     ],
     "confidence": "high",
