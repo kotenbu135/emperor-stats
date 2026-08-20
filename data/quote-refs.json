@@ -21429,7 +21429,7 @@
   "houliang-mingdi|eraChangeCount[0].note|108dcbae1230": {
    "id": "houliang-mingdi",
    "path": "eraChangeCount[0].note",
-   "span": "高祖又命其太子岿嗣位，年號天保",
+   "span": "高祖又命其太子岿嗣位，年号天保",
    "status": "corpus",
    "corpusFile": "daizhigev20/史藏/正史/周书.txt",
    "frags": [
@@ -21437,15 +21437,26 @@
    ],
    "line": 4270
   },
+  "houliang-mingdi|eraChangeCount[0].note|799a098af9cb": {
+   "id": "houliang-mingdi",
+   "path": "eraChangeCount[0].note",
+   "span": "保定二年二月",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/周书.txt",
+   "frags": [
+    "保定二年二月"
+   ],
+   "line": 4268
+  },
   "houliang-mingdi|eraChangeCount[0].note|9e197785a388": {
    "id": "houliang-mingdi",
    "path": "eraChangeCount[0].note",
-   "span": "詧薨，岿嗣位，年號天保",
+   "span": "詧薨，岿嗣位，年号天保",
    "status": "corpus",
    "corpusFile": "daizhigev20/史藏/正史/隋书.txt",
    "frags": [
     "詧薨岿嗣位年",
-    "嗣位年號天保"
+    "嗣位年号天保"
    ],
    "line": 7122
   },
