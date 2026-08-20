@@ -55585,6 +55585,29 @@
    ],
    "line": 1
   },
+  "suimo-zhucan|reigns[0].conflicts[0].adopted.quote|d243c41e3386": {
+   "id": "suimo-zhucan",
+   "path": "reigns[0].conflicts[0].adopted.quote",
+   "span": "既而粲收集余众，兵复大振，自称楚帝于冠军，改元昌达",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "既而粲收集余众",
+    "自称楚帝于冠军"
+   ],
+   "line": 18030
+  },
+  "suimo-zhucan|reigns[0].conflicts[0].alternatives[0].quote|19dbe4f74c27": {
+   "id": "suimo-zhucan",
+   "path": "reigns[0].conflicts[0].alternatives[0].quote",
+   "span": "朱粲城父人以大业十一年乙亥据汉南称帝",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/政书/历代建元考.txt",
+   "frags": [
+    "朱粲城父人以大业十一"
+   ],
+   "line": 1382
+  },
   "suimo-zhucan|reigns[0].note|0846a0cddb34": {
    "id": "suimo-zhucan",
    "path": "reigns[0].note",
