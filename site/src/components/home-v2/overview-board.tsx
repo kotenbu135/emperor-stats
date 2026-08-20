@@ -127,7 +127,7 @@ function RankingPanel({ panel }: { panel: HomeRankingPanel }) {
         {panel.href && panel.linkLabel ? (
           <Link
             href={panel.href}
-            className="shrink-0 text-sm font-medium text-seal underline-offset-4 hover:underline"
+            className="-my-1 shrink-0 py-1 text-sm font-medium text-seal underline-offset-4 hover:underline"
           >
             {panel.linkLabel}
           </Link>
@@ -289,7 +289,7 @@ export function OverviewBoard({
             />
             <Link
               href="/emperors"
-              className="shrink-0 text-sm font-medium text-seal underline-offset-4 hover:underline"
+              className="-my-1 shrink-0 py-1 text-sm font-medium text-seal underline-offset-4 hover:underline"
             >
               皇帝を一覧で見る →
             </Link>

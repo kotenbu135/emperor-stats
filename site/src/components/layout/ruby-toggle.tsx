@@ -102,7 +102,10 @@ export function RubyToggle({
     >
       <Label
         htmlFor={id}
-        className="flex-1 text-xs font-normal text-muted-foreground transition-colors group-hover/ruby:text-foreground"
+        // -my-1.5/py-1.5 は WCAG 2.2 の 2.5.8（タップ領域 24px 最小）。Switch 本体は
+        // 32×18px のままだが、同じ操作を持つこの Label の当たり判定が 33px になり
+        // 「等価なターゲットが 24px 以上」の例外を満たす（見た目・行高は不変）。
+        className="-my-1.5 flex-1 py-1.5 text-xs font-normal text-muted-foreground transition-colors group-hover/ruby:text-foreground"
       >
         ふりがな
         {/* ラベル自身にルビを振って、何が起きるのかを見た目で示す。 */}

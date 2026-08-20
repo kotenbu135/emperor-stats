@@ -134,7 +134,10 @@ function BarListInner<T>(
                     href={item.href}
                     className={cx(
                       // base
-                      'truncate whitespace-nowrap rounded text-sm',
+                      // -my-1/py-1 は WCAG 2.2 の 2.5.8（タップ領域 24px 最小）。
+                      // 負マージンが padding を打ち消すので描画位置は変わらず、
+                      // 当たり判定だけ 20px → 28px に広がる。
+                      '-my-1 truncate whitespace-nowrap rounded py-1 text-sm',
                       // text color
                       'text-foreground',
                       // hover
