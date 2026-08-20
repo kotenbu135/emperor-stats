@@ -138,11 +138,22 @@ for name, era, want_hit in D_CASES:
 # 捨てた側は 改 の直後に立つので当たってはいけない
 RECAST = [norm_for_match("上御明鳳門、大赦天下、改乾元為上元"),
           norm_for_match("其元年宜改為寶應、建巳月為四月"),
-          norm_for_match("壬申、大赦、改元為顯慶")]
+          norm_for_match("壬申、大赦、改元為顯慶"),
+          # 「建元为〈新〉」型（2026-08-20・隋末群雄。旧唐書・隋書の列伝は僭称の建元を
+          # この形でしか書かない）。捨てた側を挟まないので 建元 の直後の 为 だけを許す
+          norm_for_match("僭皇帝位于魏县，国号许，建元为天寿，署置百官"),
+          norm_for_match("建康元年为太岁在申")]
 RECAST_CASES = [
     ("改〈旧〉为〈新〉の新しい側は D に当たる", "上元", True),
     ("改为〈新〉（旧を挟まない形）も当たる", "宝応", True),
     ("改元为〈新〉も当たる", "顕慶", True),
+    ("建元为〈新〉も当たる", "天寿", True),
+    ("【要】建元でない「〈元号〉元年为」には当たらない", "太歳", False),
+    # 既知の緩さ（2026-08-17 の遼元清ブロックで測った4例目）。`号` の隣接形は
+    # 「国号许」の 号许 にも当たるので、同じ条の国号・尊号・官名が候補になると通る。
+    # **直していない** — 条件をきつくすると改元の語が元号名を伴わない条で0件になる方向へ
+    # 効くため、読み手側の規則（name-block.js）で受けている。残量表の行に在る
+    ("【既知の緩さ】同じ条の国号も 号 の隣接形に当たってしまう", "許", True),
     ("【要】改の直後に立つ捨てた側は当たらない", "乾元", False),
 ]
 for name, era, want_hit in RECAST_CASES:
@@ -247,6 +258,35 @@ else:
     print("SKIP 十国春秋がコーパスに無いので書の証人は測っていない")
     n_book = 0
 
+# --- D 立年の語（2026-08-20・唐末群雄ブロック）---------------------------------
+# 旧唐書は自ら帝号を称した側の建元を「立年〈元号〉」と書く（安禄山「贼窃号燕国，立年圣武」）。
+# 北魏の「號年」と同じ向きの穴
+RITSUNEN = [norm_for_match("十五年正月，贼窃号燕国，立年圣武")]
+RITSUNEN_CASES = [
+    ("立年の直後の元号が当たる（聖武）", "聖武", True),
+    ("同じ行に無い元号は当たらない（順天）", "順天", False),
+]
+for name, era, want_hit in RITSUNEN_CASES:
+    hit = Q.era_anchor_hit(norm_for_match(era), RITSUNEN)
+    ok = bool(hit) == want_hit
+    bad += 0 if ok else 1
+    print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
+
+# --- D note を証人にする引っ越し（note:self・2026-08-20 康徳）------------------
+# 正史の範囲外の改元（満洲国）はコーパスに底本が無い。event 自身の note に持つ
+# 引用へ同じ定型句の隣接を求める（免除ではない。引用が無ければ落ちる）
+KANGDE_NOTE = ("執政溥儀が皇帝に即位すると同時に「大同」から「康徳」に改元。即位詔書に"
+               "「以大同三年三月一日，即皇帝位，改为康德元年，仍用满洲国号」とある。")
+NOTESELF_CASES = [
+    ("note の即位詔書引用が証人になる（康徳）", "康徳", True),
+    ("note に無い元号は当たらない（大同単独）", "宣統", False),
+]
+for name, era, want_hit in NOTESELF_CASES:
+    hit = Q.era_anchor_hit(norm_for_match(era), [norm_for_match(KANGDE_NOTE)])
+    ok = bool(hit) == want_hit
+    bad += 0 if ok else 1
+    print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
+
 # --- E ラチェット -------------------------------------------------------------
 V.ERA_NAME_BASELINE = 3
 errs = run({"eraName": "義嘉", "note": NOTE})
@@ -263,7 +303,8 @@ bad += 0 if ok else 1
 print(f"{'OK ' if ok else 'NG '} 評価件数（分母）を出す")
 
 total = (len(CASES) + len(D_CASES) + len(RECAST_CASES) + len(GLYPH_CASES)
-         + len(PUA_CASES) + len(HAOYEAR_CASES) + len(CW_CASES) + n_book + 5)
+         + len(PUA_CASES) + len(HAOYEAR_CASES) + len(CW_CASES) + n_book
+         + len(RITSUNEN_CASES) + len(NOTESELF_CASES) + 5)
 #          5 = 大赦容器・C の限界・元号名だけの行・E・分母
 print(f"\n{'全件一致' if not bad else str(bad) + '件 不一致'} / {total}件")
 sys.exit(1 if bad else 0)
