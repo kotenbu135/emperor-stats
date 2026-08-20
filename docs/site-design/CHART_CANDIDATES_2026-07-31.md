@@ -73,7 +73,7 @@
 |---|---|---|---|
 | 所属 | `eraId`（11区分）・`regimeId`（89政権）・`standing`（regular345/rival20）・`regimes[].category`（正統245/並立106/反乱14） | **0** | **カタログ由来で欠損ゼロ**。前版が一度も使わなかった層 |
 | 在位 | `reigns[]`（374在位）・`datePrecision`・`duration.approxDays`／`exactDays`・`isRestoration`（8名） | 日まで確定は **270/365** | 量子化に注意 |
-| 在位 | `dynastyOrder` | 51政権が未調査で全 null | **使えない**（在位順から推論するなと明記） |
+| 在位 | `dynastyOrder` | ~~51政権が未調査で全 null~~ **0**（2026-08-20 に読み切り） | ~~**使えない**（在位順から推論するなと明記）~~ → **使える**（374在位・数値353・並立と判定した `null` 21。Issue #24） |
 | 即位経路 | `categoryId`（8）＋ 軸6本（`throneSource`・`titleOrigin`・`decidedBy` 配列・`decidedByAgents`・`predecessorFate`・`relationToPredecessor`・`procedure`） | **0** | **いちばん厚い層**。ダッシュボードは `categoryId` の1本しか使っていない |
 | 死因 | `deathCause.category`（8値） | 0 | ダッシュボードで使用中 |
 | 回数系8指標 | `count` ＋ `events[]`（**総6,027件**） | count は0 | イベントの日付精度は month 主体 |
