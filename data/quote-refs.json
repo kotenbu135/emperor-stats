@@ -11357,12 +11357,12 @@
   "chenghan-lishou|eraChangeCount[0].note|fd647890f7c5": {
    "id": "chenghan-lishou",
    "path": "eraChangeCount[0].note",
-   "span": "遂以咸康四年僭即偽位、赦其境内、改元為漢興",
+   "span": "遂以咸康四年僭即伪位，赦其境内，改元为汉兴",
    "status": "cache",
    "corpusFile": "_corpus_cache/chenghan-lishou.txt",
    "frags": [
-    "遂以咸康四年僭即偽位",
-    "改元為漢興"
+    "遂以咸康四年僭即伪位",
+    "改元为汉兴"
    ],
    "line": 3
   },
@@ -22895,6 +22895,18 @@
    ],
    "line": 3
   },
+  "houyan-murongsheng|eraChangeCount[1].note|1001d92cb22b": {
+   "id": "houyan-murongsheng",
+   "path": "eraChangeCount[1].note",
+   "span": "癸未，燕大赦，改元长乐",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "癸未燕大赦改",
+    "大赦改元长乐"
+   ],
+   "line": 9868
+  },
   "houyan-murongsheng|eraChangeCount[1].note|bf10becc765c": {
    "id": "houyan-murongsheng",
    "path": "eraChangeCount[1].note",
@@ -22905,6 +22917,17 @@
     "慕容盛僭即皇帝位於黄"
    ],
    "line": 401
+  },
+  "houyan-murongsheng|eraChangeCount[1].note|c527d79fb61a": {
+   "id": "houyan-murongsheng",
+   "path": "eraChangeCount[1].note",
+   "span": "长乐元年春正月",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/载记/十六国春秋.txt",
+   "frags": [
+    "长乐元年春正月"
+   ],
+   "line": 786
   },
   "houyan-murongsheng|personalCampaignCount[0].note|c03dd322f4ad": {
    "id": "houyan-murongsheng",
@@ -23016,24 +23039,36 @@
   "houyan-murongxiang|eraChangeCount[0].note|331943e43284": {
    "id": "houyan-murongxiang",
    "path": "eraChangeCount[0].note",
-   "span": "慕容寶將慕容詳僭即皇帝位於中山，寶奔黃龍",
+   "span": "慕容宝将慕容详僭即皇帝位于中山，宝奔黄龙",
    "status": "corpus",
    "corpusFile": "daizhigev20/史藏/正史/晋书.txt",
    "frags": [
-    "慕容寶將慕容詳僭即皇"
+    "慕容宝将慕容详僭即皇"
    ],
    "line": 400
   },
   "houyan-murongxiang|eraChangeCount[0].note|882a0f04a95c": {
    "id": "houyan-murongxiang",
    "path": "eraChangeCount[0].note",
-   "span": "詳僭稱尊號，置百官，改年號",
+   "span": "详僭称尊号，置百官，改年号",
    "status": "cache",
    "corpusFile": "_corpus_cache/houyan-murongxiang.txt",
    "frags": [
-    "詳僭稱尊號"
+    "详僭称尊号"
    ],
    "line": 1
+  },
+  "houyan-murongxiang|eraChangeCount[0].note|e001c7889b9f": {
+   "id": "houyan-murongxiang",
+   "path": "eraChangeCount[0].note",
+   "span": "慕容详自谓能却魏兵，威德已振，乃即皇帝位，改元建始，置百官",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "慕容详自谓能却魏兵",
+    "乃即皇帝位"
+   ],
+   "line": 1758
   },
   "houyan-murongxiang|rebellionSufferedCount[0].note|f8f4bd759954": {
    "id": "houyan-murongxiang",
@@ -72812,6 +72847,50 @@
    ],
    "line": 80
   },
+  "xia-helianchang|eraChangeCount.events[0].conflicts[0].adopted.quote|b52ac9bb23dd": {
+   "id": "xia-helianchang",
+   "path": "eraChangeCount.events[0].conflicts[0].adopted.quote",
+   "span": "真兴七年秋八月勃勃死昌即伪位于永安殿大赦境内殊死已下改元承光",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xia-helianchang.txt",
+   "frags": [
+    "真兴七年秋八月勃勃死"
+   ],
+   "line": 2
+  },
+  "xia-helianchang|eraChangeCount.events[0].conflicts[0].alternatives[0].note|0bf1d2ffd15c": {
+   "id": "xia-helianchang",
+   "path": "eraChangeCount.events[0].conflicts[0].alternatives[0].note",
+   "span": "既僭位，改年承光。",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/北史.txt",
+   "frags": [
+    "既僭位改年承"
+   ],
+   "line": 13880
+  },
+  "xia-helianchang|eraChangeCount.events[0].conflicts[0].alternatives[0].quote|8db9ba7fca5b": {
+   "id": "xia-helianchang",
+   "path": "eraChangeCount.events[0].conflicts[0].alternatives[0].quote",
+   "span": "昌，字还国，一名折，屈孑之第三子也。既僭位，改年永光。",
+   "status": "corpus",
+   "corpusFile": "china-history/魏书/列传/第八十三章-卷八十三-原文.html",
+   "frags": [
+    "屈孑之第三子也"
+   ],
+   "line": 76
+  },
+  "xia-helianchang|eraChangeCount[0].note|0bf1d2ffd15c": {
+   "id": "xia-helianchang",
+   "path": "eraChangeCount[0].note",
+   "span": "既僭位，改年承光。",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/北史.txt",
+   "frags": [
+    "既僭位改年承"
+   ],
+   "line": 13880
+  },
   "xia-helianchang|eraChangeCount[0].note|8db9ba7fca5b": {
    "id": "xia-helianchang",
    "path": "eraChangeCount[0].note",
@@ -72820,6 +72899,28 @@
    "corpusFile": "china-history/魏书/列传/第八十三章-卷八十三-原文.html",
    "frags": [
     "屈孑之第三子也"
+   ],
+   "line": 76
+  },
+  "xia-helianchang|eraChangeCount[0].note|b52ac9bb23dd": {
+   "id": "xia-helianchang",
+   "path": "eraChangeCount[0].note",
+   "span": "真兴七年秋八月勃勃死昌即伪位于永安殿大赦境内殊死已下改元承光",
+   "status": "cache",
+   "corpusFile": "_corpus_cache/xia-helianchang.txt",
+   "frags": [
+    "真兴七年秋八月勃勃死"
+   ],
+   "line": 2
+  },
+  "xia-helianchang|eraChangeCount[0].note|e0e9a4ba1fc8": {
+   "id": "xia-helianchang",
+   "path": "eraChangeCount[0].note",
+   "span": "既僭位，改年永光。",
+   "status": "corpus",
+   "corpusFile": "china-history/魏书/列传/第八十三章-卷八十三-原文.html",
+   "frags": [
+    "既僭位改年永"
    ],
    "line": 76
   },
