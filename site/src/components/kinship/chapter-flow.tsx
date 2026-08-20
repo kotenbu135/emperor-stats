@@ -142,12 +142,17 @@ export interface KinshipJump {
   count: number;
 }
 
-/** 継承の区分ラベル（図の線に添える）。data/emperors.json の catalogs と同じ語を使う。 */
+/**
+ * 継承の区分ラベル（図の線に添える）。**語はすべて矢先の人（次の皇帝）の即位の仕方**で
+ * 統一する — 「禅譲」だけ根元の人（譲った側）の行為で、同じ向きの矢印に反対視点の語が
+ * 混在して「どっちが簒奪したのか」と読めなかった（2026-08-21 ユーザー指摘）。
+ * 「受禅」は /database の即位経路の区分「受禅（易姓）」と同じサイト既出の語。
+ */
 const SUCCESSION_LABEL: Record<string, string> = {
   enthroned: "擁立",
   hereditary: "世襲",
   usurpation: "簒奪",
-  "abdication-received": "禅譲",
+  "abdication-received": "受禅",
   "inner-abdication": "内禅",
   restoration: "復位",
   acclamation: "推戴",
@@ -511,7 +516,8 @@ function buildGraph(layout: KinshipLayout): { nodes: Node[]; edges: Edge[] } {
       labelBgBorderRadius: 3,
       labelBgStyle: { fill: "var(--kinship-canvas)", stroke: "var(--kinship-succession)", strokeWidth: 0.75, strokeOpacity: 0.5 },
       labelStyle: { fill: "var(--kinship-succession)", fontSize: 11, fontWeight: 600 },
-      markerEnd: { type: MarkerType.ArrowClosed, color: "var(--kinship-succession)" },
+      // 矢先は既定（12.5px）だと破線の中に埋もれて向きが読めない（2026-08-21 ユーザー指摘）。
+      markerEnd: { type: MarkerType.ArrowClosed, color: "var(--kinship-succession)", width: 20, height: 20 },
       zIndex: 5,
     } satisfies Edge;
   });

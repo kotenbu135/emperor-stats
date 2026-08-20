@@ -61,7 +61,7 @@ const LINE_LEGEND: {
   { label: "養親", kinds: ["adoptive"], ...EDGE_STYLE.adoptive },
   { label: "遠い祖先（実父が史料に無い人）", kinds: ["remote"], ...EDGE_STYLE.remote },
   {
-    label: "禅譲・簒奪など、親子では説明が付かない継承",
+    label: "受禅・簒奪など、親子では説明が付かない継承（矢印の先が次の皇帝・ラベルはその人がどう即位したか）",
     kinds: ["succession"],
     ...EDGE_STYLE.succession,
   },
