@@ -161,11 +161,11 @@ export function NavMenu({ onNavigate }: { onNavigate?: () => void }) {
                 <AccordionTrigger
                   asHeading={false}
                   aria-label={`${category.label}の項目を開閉`}
-                  className="flex-none rounded-md p-1.5 hover:bg-accent/70 hover:no-underline"
+                  className="flex-none rounded-md p-1.5 transition-colors hover:bg-accent/70 hover:no-underline"
                 />
               </div>
               {/* shadcn既定の [&_a]:underline を打ち消す（ナビは下線なしで色のみで示す） */}
-              <AccordionContent className="[&_a]:no-underline [&_a]:hover:text-seal">
+              <AccordionContent className="[&_a]:no-underline [&_a]:transition-colors [&_a]:hover:text-seal">
                 <div className="flex flex-col border-l border-border pl-3">
                   {category.items.map((item) => {
                     const [itemPath, itemHash] = item.href.split("#");

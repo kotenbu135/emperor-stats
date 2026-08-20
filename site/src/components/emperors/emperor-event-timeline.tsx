@@ -155,8 +155,8 @@ export function EmperorEventTimeline({ rows }: { rows: EmperorEventRow[] }) {
         ))}
       </div>
       {rest.length > 0 && (
-        <details className="group">
-          <summary className="flex cursor-pointer list-none items-center gap-1.5 py-1.5 text-sm text-muted-foreground hover:text-foreground [&::-webkit-details-marker]:hidden">
+        <details className="group t-acc">
+          <summary className="flex cursor-pointer list-none items-center gap-1.5 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground [&::-webkit-details-marker]:hidden">
             <ChevronRight
               aria-hidden
               className="size-3.5 shrink-0 transition-transform group-open:rotate-90"

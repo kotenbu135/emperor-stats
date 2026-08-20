@@ -302,11 +302,11 @@ export default async function EmperorPage({
             {prev ? (
               <Link
                 href={`/emperors/${prev.id}`}
-                className="group inline-flex min-w-0 items-center gap-1.5 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+                className="group inline-flex min-w-0 items-center gap-1.5 transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
               >
                 <ChevronLeft
                   aria-hidden
-                  className="size-4 shrink-0 text-muted-foreground group-hover:text-seal"
+                  className="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-seal"
                 />
                 <span className="min-w-0">
                   <span className="block truncate">{prev.name}</span>
@@ -321,7 +321,7 @@ export default async function EmperorPage({
             {next ? (
               <Link
                 href={`/emperors/${next.id}`}
-                className="group inline-flex min-w-0 items-center gap-1.5 text-right hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+                className="group inline-flex min-w-0 items-center gap-1.5 text-right transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
               >
                 <span className="min-w-0">
                   <span className="block truncate">{next.name}</span>
@@ -331,7 +331,7 @@ export default async function EmperorPage({
                 </span>
                 <ChevronRight
                   aria-hidden
-                  className="size-4 shrink-0 text-muted-foreground group-hover:text-seal"
+                  className="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-seal"
                 />
               </Link>
             ) : (
@@ -344,14 +344,14 @@ export default async function EmperorPage({
             収録基準・各項目の数え方・出典は
             <Link
               href="/about"
-              className="underline underline-offset-2 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+              className="underline underline-offset-2 transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
             >
               このサイトについて
             </Link>
             を、ほかの皇帝は
             <Link
               href="/emperors"
-              className="underline underline-offset-2 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+              className="underline underline-offset-2 transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
             >
               皇帝一覧
             </Link>

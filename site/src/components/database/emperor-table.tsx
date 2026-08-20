@@ -174,7 +174,7 @@ const COLUMNS: ColumnDef<EmperorTableRecord>[] = [
     cell: ({ row }) => (
       <Link
         href={`/emperors/${row.original.id}`}
-        className="font-medium leading-ruby text-foreground underline-offset-4 hover:text-seal hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+        className="font-medium leading-ruby text-foreground underline-offset-4 transition-colors hover:text-seal hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
       >
         {/* ふりがな（Issue #20）。並べ替え・検索は平文の name のままで、
             ルビは描画だけに使う。 */}
@@ -1139,7 +1139,7 @@ export function EmperorTable({
                                 type="button"
                                 onClick={header.column.getToggleSortingHandler()}
                                 className={cn(
-                                  "-mx-1 inline-flex items-center gap-1 rounded-md px-1 py-0.5 hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal",
+                                  "-mx-1 inline-flex items-center gap-1 rounded-md px-1 py-0.5 transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal",
                                   // 右寄せの列は矢印を見出しの左に置く（右端は数値の
                                   // 揃え位置なので、そこに記号を挟むと桁の縦線が濁る）。
                                   header.column.columnDef.meta?.align ===
@@ -1187,7 +1187,7 @@ export function EmperorTable({
                         // 右端の境界線は見出し側と同じく inset shadow で描く
                         // （border だと 2列目の文字が地色の下へ滑り込んで混ざる）。
                         index === 0 &&
-                          "sticky left-0 z-10 bg-card shadow-[inset_-1px_0_0_var(--border)] group-hover:bg-[color-mix(in_oklch,var(--muted)_50%,var(--card))]",
+                          "sticky left-0 z-10 bg-card shadow-[inset_-1px_0_0_var(--border)] transition-colors group-hover:bg-[color-mix(in_oklch,var(--muted)_50%,var(--card))]",
                       )}
                     >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}

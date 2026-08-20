@@ -54,7 +54,7 @@ export function NextUp({ items }: { items: NextUpItem[] }) {
               </span>
               <ChevronRight
                 aria-hidden
-                className="mt-0.5 size-4 shrink-0 text-muted-foreground group-hover:text-seal"
+                className="mt-0.5 size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-seal"
               />
             </Link>
           </li>
