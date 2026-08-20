@@ -58,7 +58,10 @@ export interface CatalogRegime {
   startYear?: number;
   endYear?: number;
   sortOrder: number;
-  /** reigns[].dynastyOrder（第N代）を個別調査済みか。false の政権は全て null。 */
+  /**
+   * reigns[].dynastyOrder（第N代）を個別調査済みか。false の政権は**欄そのものが無い**。
+   * 2026-08-20 に 89/89政権が true になった（Issue #24）ので、いまは全件 true。
+   */
   dynastyOrderSurveyed?: boolean;
 }
 

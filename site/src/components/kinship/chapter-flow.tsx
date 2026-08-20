@@ -55,8 +55,9 @@ export interface KinshipPerson {
   annot: string | null;
   /**
    * 王朝内の代数（第N代・皇帝カードのみ）。復位は在位ごとに別カウントなので配列
-   * （晋恵帝= [2, 4] → 「第2・4代」）。dynastyOrder 未調査の政権（隋・唐・五代十国
-   * など）は null — **在位順から推論しない**（Issue #69）。
+   * （晋恵帝= [2, 4] → 「第2・4代」）。**在位順から推論しない**（Issue #69）。
+   * 2026-08-20 に 89/89政権を読み切った（Issue #24）ので未調査の政権はもう無いが、
+   * 「調べた上で歴代に数えない」在位（並立・僭称）は `dynastyOrder: null` なのでここも null。
    */
   ordinal?: number[] | null;
   /** ルビ記法つきの main / annot。サーバー側（chapter-page）が rubyOf で付ける。 */
@@ -223,8 +224,8 @@ function PersonCard({ data }: NodeProps<Node<{ person: KinshipPerson }>>) {
       className={`px-1.5 py-1 text-center leading-tight ${p.isEmperor ? "" : "flex flex-1 flex-col justify-center"}`}
       style={{ background: fill, boxShadow: stripe }}
     >
-      {/* 王朝内の代数。dynastyOrder が確定している政権だけに出る（隋・唐・五代十国は
-          未調査で出ない — 在位順から推論しない・Issue #69）。 */}
+      {/* 王朝内の代数。dynastyOrder が数値の在位だけに出る（並立・僭称と判定した在位は
+          null なので出ない — 在位順から推論しない・Issue #69／#24）。 */}
       {p.ordinal?.length ? (
         <div className="text-[9px] leading-tight tabular-nums" style={{ color: ink, opacity: 0.85 }}>
           第{p.ordinal.join("・")}代
