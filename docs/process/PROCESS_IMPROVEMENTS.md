@@ -3022,3 +3022,8 @@
 - **気づいた場面**: 生母フェーズ（Issue #171）のマージ前に、kinship.json の変更でサイトのビルドが落ちないかを確かめようとして `python3 tools/build-font-subset.py && npm run build` を回した場面
 - **提案**: 収録字が1字も変わっていないのに fonts.css と woff2 84ファイルすべてが変更として出た（unicode-range の集合を HEAD と比べたら追加0・削除0・どちらも 3296 字）。バケットの切り方かサブセッタの出力が非決定的で、**そのままコミットすると『新出漢字を足した』ように見える無意味な差分が84ファイル入る**。ビルド確認だけが目的のときは、(1) 再生成 → (2) fonts.css の unicode-range を `git show HEAD:site/src/app/fonts.css` と集合比較 → (3) 差が無ければ `git checkout -- site/src/app/fonts.css site/src/app/fonts/` で捨てる、の順にする。この比較を `tools/check-font-coverage.mjs` の隣に小さなサブコマンドとして置けば毎回書き起こさずに済む。
 - **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**実装済み（2026-08-20）** — `site/tools/compare-font-subset.mjs`（系譜図の元の章でサブセットを取り直したときに実装。今回は追加1字〔拖〕で差分は有意だった。宣言が `;` でなく `}` で終わる形をパーサが落とすと偽の追加15字・削除12字が出る — 修正済み）
+
+### 2026-08-20 系譜図の操作の実測（KINSHIP_RULES 4節の5点）を tools/kinship-op-test.mjs に道具化 <!-- auto:83f994ed34b8 -->
+- **気づいた場面**: 系譜図ページ全体のレビュー（2026-08-20）。操作の確認をその場の Playwright ワンライナーで書いたところ、画面外カードの force クリックが章ナビに落ちる偽 NG を踏んだ
+- **提案**: クリック遷移・ホイール縦パン・Ctrl+ホイール拡大・ジャンプ後ドラッグの飛び・translateExtent の5点を全章まとめて実測するスクリプトを site/tools/kinship-op-test.mjs としてコミットする。pointer-events-auto や clampViewport の欠落は tsc・lint・build のどれでも落ちず実測でしか見えないため、章の追加・訂正のたびに書き直さない道具にする。採用済み（自動採用ポリシー 2026-08-06）・同日実装
+- **採否**: 採用（2026-08-06 ユーザー決定「今までの提案を自動採用」）。**実装済み（2026-08-20 同日）** — `site/tools/kinship-op-test.mjs`。KINSHIP_RULES 4節にも道具名を追記
