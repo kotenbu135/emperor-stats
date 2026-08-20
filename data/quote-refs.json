@@ -80482,6 +80482,17 @@
    ],
    "line": 40
   },
+  "yuanmo-chenli|reigns[0].conversion|3c588752dc62": {
+   "id": "yuanmo-chenli",
+   "path": "reigns[0].conversion",
+   "span": "二月乙未，复自将征武昌，陈理降",
+   "status": "corpus",
+   "corpusFile": "china-history/明史/本纪/第一章-卷一-原文.html",
+   "frags": [
+    "复自将征武昌"
+   ],
+   "line": 40
+  },
   "yuanmo-chenli|reigns[0].conversion|590bdaca1838": {
    "id": "yuanmo-chenli",
    "path": "reigns[0].conversion",
@@ -81054,7 +81065,7 @@
    ],
    "line": 1
   },
-  "yuanmo-mingsheng|reigns[0].quote#0|a37f865f6171": {
+  "yuanmo-mingsheng|reigns[0].quote#0|2e0aecd85b03": {
    "id": "yuanmo-mingsheng",
    "path": "reigns[0].quote#0",
    "span": "[即位] 二十六年春，玉珍病革，召寿等谕曰：「西蜀険固，若協力同心，左右嗣子，則",
