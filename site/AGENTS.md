@@ -158,7 +158,9 @@ v3 の `catalogs.eras`（11区分）は**使っていない**（サイトの時�
 **系譜図に人物を足すと `../data/name-readings.json` の読みも要る**（2026-08-19 にカードの
 名前へふりがなを付けた。親族の名前は emperors.json に無いので、皇帝追加のチェックリスト
 だけでは拾えない — 未登録は chapter-page の `rubyOf` でビルドが落ちる）。皇帝カードの
-「第N代」は `reigns[].dynastyOrder` が確定している政権だけに出る（在位順から推論しない）。
+「第N代」は `reigns[].dynastyOrder` が**数値の在位だけ**に出る（在位順から推論しない）。
+2026-08-20 に 89/89政権を読み切った（Issue #24）ので `dynastyOrderSurveyed: false` の
+政権はもう無く、出ないのは「調べた上で歴代に数えない」と判定した並立・僭称の21在位だけ。
 
 - **`scripts/build-kinship-layout.mjs`** — `prebuild` で elkjs を回して章ごとに
   `src/lib/kinship/layout.<eraId>.json` を吐く（elkjs は devDependencies・`out/` に混ざらない）。
