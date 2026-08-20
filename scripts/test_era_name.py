@@ -247,6 +247,20 @@ else:
     print("SKIP 十国春秋がコーパスに無いので書の証人は測っていない")
     n_book = 0
 
+# --- D 立年の語（2026-08-20・唐末群雄ブロック）---------------------------------
+# 旧唐書は自ら帝号を称した側の建元を「立年〈元号〉」と書く（安禄山「贼窃号燕国，立年圣武」）。
+# 北魏の「號年」と同じ向きの穴
+RITSUNEN = [norm_for_match("十五年正月，贼窃号燕国，立年圣武")]
+RITSUNEN_CASES = [
+    ("立年の直後の元号が当たる（聖武）", "聖武", True),
+    ("同じ行に無い元号は当たらない（順天）", "順天", False),
+]
+for name, era, want_hit in RITSUNEN_CASES:
+    hit = Q.era_anchor_hit(norm_for_match(era), RITSUNEN)
+    ok = bool(hit) == want_hit
+    bad += 0 if ok else 1
+    print(f"{'OK ' if ok else 'NG '} {name}  (hit={hit!r})")
+
 # --- D note を証人にする引っ越し（note:self・2026-08-20 康徳）------------------
 # 正史の範囲外の改元（満洲国）はコーパスに底本が無い。event 自身の note に持つ
 # 引用へ同じ定型句の隣接を求める（免除ではない。引用が無ければ落ちる）
@@ -279,7 +293,7 @@ print(f"{'OK ' if ok else 'NG '} 評価件数（分母）を出す")
 
 total = (len(CASES) + len(D_CASES) + len(RECAST_CASES) + len(GLYPH_CASES)
          + len(PUA_CASES) + len(HAOYEAR_CASES) + len(CW_CASES) + n_book
-         + len(NOTESELF_CASES) + 5)
+         + len(RITSUNEN_CASES) + len(NOTESELF_CASES) + 5)
 #          5 = 大赦容器・C の限界・元号名だけの行・E・分母
 print(f"\n{'全件一致' if not bad else str(bad) + '件 不一致'} / {total}件")
 sys.exit(1 if bad else 0)

@@ -63496,6 +63496,40 @@
    ],
    "line": 7
   },
+  "tangmo-anqingxu|eraChangeCount.events[1].conflicts[0].adopted.quote|e7e14396e31b": {
+   "id": "tangmo-anqingxu",
+   "path": "eraChangeCount.events[1].conflicts[0].adopted.quote",
+   "span": "安庆绪走保鄴郡，改鄴郡为安成府，改元天成",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
+   "frags": [
+    "安庆绪走保鄴郡",
+    "改鄴郡为安成府"
+   ],
+   "line": 3439
+  },
+  "tangmo-anqingxu|eraChangeCount.events[1].conflicts[0].alternatives[0].quote|dd4861090506": {
+   "id": "tangmo-anqingxu",
+   "path": "eraChangeCount.events[1].conflicts[0].alternatives[0].quote",
+   "span": "以相州为成安府，太守为尹，改元天和",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/新唐书.txt",
+   "frags": [
+    "以相州为成安府"
+   ],
+   "line": 18313
+  },
+  "tangmo-anqingxu|eraChangeCount.events[1].conflicts[0].alternatives[1].quote|03f489b8d644": {
+   "id": "tangmo-anqingxu",
+   "path": "eraChangeCount.events[1].conflicts[0].alternatives[1].quote",
+   "span": "通鉴考异曰唐厯曰改元天和蓟门纪乱曰改元至成与实录年号不同纪年通谱两存之今从实录",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/政书/历代建元考.txt",
+   "frags": [
+    "通鉴考异曰唐厯曰改元"
+   ],
+   "line": 1464
+  },
   "tangmo-anqingxu|eraChangeCount[0].note|6f061aa90c7c": {
    "id": "tangmo-anqingxu",
    "path": "eraChangeCount[0].note",
@@ -63510,12 +63544,12 @@
   "tangmo-anqingxu|eraChangeCount[1].note|e7e14396e31b": {
    "id": "tangmo-anqingxu",
    "path": "eraChangeCount[1].note",
-   "span": "安庆绪走保邺郡、改邺郡为安成府、改元天成",
+   "span": "安庆绪走保鄴郡、改鄴郡为安成府、改元天成",
    "status": "corpus",
    "corpusFile": "daizhigev20/史藏/纪事本末/通鉴纪事本末.txt",
    "frags": [
-    "安庆绪走保邺郡",
-    "改邺郡为安成府"
+    "安庆绪走保鄴郡",
+    "改鄴郡为安成府"
    ],
    "line": 3439
   },
