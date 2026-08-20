@@ -16772,7 +16772,8 @@
        "page": "三國志 魏書四 三少帝紀（高貴鄉公紀）",
        "lang": "zh"
       },
-      "date": "0254-11-02"
+      "date": "0254-11-02",
+      "eraName": "正元"
      },
      {
       "id": "wei-caomao.eraChangeCount.e002",
@@ -17050,7 +17051,8 @@
        "page": "三國志 魏書四 三少帝紀（陳留王紀）",
        "lang": "zh"
       },
-      "date": "0260-06-27"
+      "date": "0260-06-27",
+      "eraName": "景元"
      },
      {
       "id": "wei-yuandi.eraChangeCount.e002",
@@ -17589,7 +17591,8 @@
        "page": "三國志 蜀書 後主傳",
        "lang": "zh-classical"
       },
-      "date": "0263"
+      "date": "0263",
+      "eraName": "炎興"
      }
     ],
     "note": "在位中の建元・改元は4回：即位に伴う建元（建興・223年）、延熙への改元（238年）、景耀への改元（258年）、炎興への改元（263年）。評語部分に「經載十二而年名不易」とあるがこれは建興期間の記述に関する史書側の誤記（実際は15年）で、改元回数自体には影響しない。",
@@ -18054,7 +18057,8 @@
        "page": "三國志 吳書二 吳主傳",
        "lang": "zh"
       },
-      "date": "0251"
+      "date": "0251",
+      "eraName": "太元"
      },
      {
       "id": "wu-dadi.eraChangeCount.e005",
@@ -18064,7 +18068,8 @@
        "page": "三國志 吳書二 吳主傳",
        "lang": "zh"
       },
-      "date": "0252-03"
+      "date": "0252-03",
+      "eraName": "神鳳"
      }
     ],
     "note": "即位に伴う最初の建元（黄龍）を含め、在位期間中（229〜252）に黄龍→嘉禾→赤烏→太元→神鳳の計5回の改元があった。",
@@ -18507,7 +18512,8 @@
        "page": "三国志 呉書三 三嗣主伝",
        "lang": "zh-classical"
       },
-      "date": "0252-05"
+      "date": "0252-05",
+      "eraName": "建興"
      },
      {
       "id": "wu-sunliang.eraChangeCount.e002",
@@ -19097,7 +19103,8 @@
        "page": "三國志 吳書 三嗣主傳",
        "lang": "zh-classical"
       },
-      "date": "0264-09-03"
+      "date": "0264-09-03",
+      "eraName": "元興"
      },
      {
       "id": "wu-modi.eraChangeCount.e002",
@@ -19107,7 +19114,8 @@
        "page": "三國志 吳書 三嗣主傳",
        "lang": "zh-classical"
       },
-      "date": "0265"
+      "date": "0265",
+      "eraName": "甘露"
      },
      {
       "id": "wu-modi.eraChangeCount.e003",
@@ -20295,7 +20303,8 @@
       "source": {
        "page": "晋書帝紀第四",
        "lang": "zh"
-      }
+      },
+      "eraName": "永熙"
      },
      {
       "id": "jin-huidi.eraChangeCount.e002",
@@ -20316,7 +20325,8 @@
       "source": {
        "page": "晋書帝紀第四",
        "lang": "zh"
-      }
+      },
+      "eraName": "元康"
      },
      {
       "id": "jin-huidi.eraChangeCount.e004",
@@ -20348,7 +20358,8 @@
       "source": {
        "page": "晋書帝紀第四",
        "lang": "zh"
-      }
+      },
+      "eraName": "太安"
      },
      {
       "id": "jin-huidi.eraChangeCount.e007",
@@ -20358,7 +20369,8 @@
       "source": {
        "page": "晋書帝紀第四",
        "lang": "zh"
-      }
+      },
+      "eraName": "永安"
      },
      {
       "id": "jin-huidi.eraChangeCount.e008",
@@ -20368,7 +20380,8 @@
       "source": {
        "page": "晋書帝紀第四",
        "lang": "zh"
-      }
+      },
+      "eraName": "建武"
      },
      {
       "id": "jin-huidi.eraChangeCount.e009",
@@ -21075,7 +21088,8 @@
       "source": {
        "page": "晋書列傳第二十九（趙王倫傳・改元／大赦の典拠）／帝紀第四（惠帝紀・日付の典拠）",
        "lang": "zh"
-      }
+      },
+      "eraName": "建始"
      }
     ],
     "confidence": "high",
@@ -22069,7 +22083,8 @@
       "source": {
        "page": "晉書 帝紀第六 中宗元帝",
        "lang": "zh"
-      }
+      },
+      "eraName": "太興"
      },
      {
       "id": "dongjin-yuandi.eraChangeCount.e003",
@@ -23108,7 +23123,8 @@
       "source": {
        "page": "晉書 帝紀第七 康帝",
        "lang": "zh"
-      }
+      },
+      "eraName": "建元"
      }
     ],
     "confidence": "high",
@@ -24509,7 +24525,8 @@
       "source": {
        "page": "晉書 帝紀第九 烈宗孝武帝",
        "lang": "zh"
-      }
+      },
+      "eraName": "太元"
      }
     ],
     "confidence": "high",
