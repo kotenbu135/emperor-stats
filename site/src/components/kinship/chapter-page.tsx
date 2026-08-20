@@ -8,6 +8,7 @@ import {
   type KinshipLayout,
 } from "@/components/kinship/chapter-flow";
 import { EDGE_STYLE } from "@/lib/kinship/edge-style";
+import { REGIME_LABEL } from "@/lib/kinship/regime-label";
 import { KINSHIP_CHAPTERS, type KinshipChapter } from "@/app/kinship/chapters";
 import { rubyOf } from "@/lib/name-readings";
 
@@ -68,98 +69,7 @@ const LINE_LEGEND: {
   { label: "実父の異説", kinds: ["disputed", "second"], ...EDGE_STYLE.disputed },
 ];
 
-/** 図に出す短い政権名（data の label は「魏（曹魏）」型で図では長い）。 */
-const REGIME_LABEL: Record<string, string> = {
-  qin: "秦",
-  "western-han": "前漢",
-  xin: "新",
-  xuanhan: "玄漢",
-  "chimei-han": "赤眉漢",
-  chengjia: "成家",
-  "liuyong-liang": "梁（劉永）",
-  "eastern-han": "後漢",
-  "cao-wei": "魏",
-  "shu-han": "蜀漢",
-  "eastern-wu": "呉",
-  zhongjia: "仲家（袁術）",
-  "western-jin": "西晋",
-  "eastern-jin": "東晋",
-  "huan-chu": "楚（桓玄）",
-  "former-liang": "前涼",
-  "former-zhao": "前趙",
-  "cheng-han": "成漢",
-  "later-zhao": "後趙",
-  "former-yan": "前燕",
-  "former-qin": "前秦",
-  "later-yan": "後燕",
-  "western-yan": "西燕",
-  "southern-yan": "南燕",
-  "later-qin": "後秦",
-  hexia: "夏（赫連）",
-  "northern-wei": "北魏",
-  "liu-song": "宋（劉宋）",
-  "southern-qi": "南斉",
-  "southern-liang": "梁",
-  "eastern-wei": "東魏",
-  "western-wei": "西魏",
-  "northern-qi": "北斉",
-  "northern-zhou": "北周",
-  "houjing-han": "漢（侯景）",
-  "western-liang": "後梁（西梁）",
-  chen: "陳",
-  sui: "隋",
-  tang: "唐",
-  "wu-zhou": "周（武周）",
-  "anshi-yan": "燕（安史）",
-  xiqin: "秦（薛挙）",
-  dingyang: "定楊（劉武周）",
-  zheng: "鄭（王世充）",
-  xu: "許（宇文化及）",
-  "xiaoxian-liang": "梁（蕭銑）",
-  "liangshidu-liang": "梁（梁師都）",
-  "suimo-chu": "楚（林士弘）",
-  "zhucan-chu": "楚（朱粲）",
-  "liguigui-liang": "涼（李軌）",
-  "suimo-wu": "呉（李子通）",
-  "suimo-song": "宋（輔公祏）",
-  "zhuci-qin": "秦（朱泚）",
-  "lixilie-chu": "楚（李希烈）",
-  "huangchao-qi": "斉（黄巣）",
-  "later-liang": "後梁",
-  "later-tang": "後唐",
-  "later-jin": "後晋",
-  "later-han": "後漢（五代）",
-  "later-zhou": "後周",
-  "yang-wu": "呉（楊呉）",
-  "former-shu": "前蜀",
-  "later-shu": "後蜀",
-  "southern-han": "南漢",
-  min: "閩",
-  "southern-tang": "南唐",
-  "northern-han": "北漢",
-  "jie-yan": "燕（劉守光）",
-  "northern-song": "北宋",
-  "southern-song": "南宋",
-  liao: "遼",
-  "western-liao": "西遼",
-  "jin-jurchen": "金",
-  "western-xia": "西夏",
-  "zhangbangchang-chu": "楚（張邦昌）",
-  "liuyu-qi": "斉（劉豫）",
-  yuan: "元",
-  "northern-yuan": "北元",
-  "hanlin-song": "宋（韓林児）",
-  tianwan: "天完（徐寿輝）",
-  "chen-han": "陳漢",
-  "ming-xia": "夏（明玉珍）",
-  ming: "明",
-  "southern-ming": "南明",
-  shun: "順（李自成）",
-  xi: "西（張献忠）",
-  qing: "清",
-  "wu-zhou-sanfan": "周（呉三桂）",
-  "empire-of-china": "中華帝国",
-};
+// 政権の短い表示名は src/lib/kinship/regime-label.ts（共有・カードの「政権名 第N代」行と同源）。
 
 export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {
   // 名前へのふりがな（Issue #20）。レイアウト JSON は平文のまま持ち、ルビ記法は
@@ -222,7 +132,11 @@ export function KinshipChapterPage({ chapter }: { chapter: KinshipChapter }) {
           </dd>
 
           <dt className="font-semibold text-muted-foreground">カードの数字</dt>
-          <dd>皇帝は在位年、親族は生没年</dd>
+          <dd>
+            皇帝は在位年、親族は生没年。名前の上の小さい行は「政権名
+            第N代」（皇帝を称さなかった歴代君主にも出す。歴代に数えない並立・僭称の皇帝は
+            政権名だけ）
+          </dd>
 
           {chapter.note ? (
             <>

@@ -505,7 +505,16 @@ def build_generations(edges):
     ことがあり（石虎は実系では石勒の従子＝石弘と同世代だが、石勒の父・周曷朱の養子でも
     あるため養子系では石弘の一世代上になる。原典も「或称勒弟焉」と両様に記す）、
     実系を優先しないと原典どおりの続柄が矛盾に見える。
+
+    veracity=disputed のエッジは世代の骨格に入れない（2026-08-21）。disputed は
+    「採用しなかった側の異説」で、異説どうしは世代が食い違い得る — 天元帝
+    p-togus-temur は新元史が惠宗の子（採用・verified）・明史が昭宗の子（disputed）と
+    し、両方を骨格に入れると昭宗が父と兄弟の2世代に置かれて偽の矛盾になる。
+    呂不韋型（両説が同世代）はどちらを入れても矛盾しないので、この除外で
+    検出力が下がるのは「同一人物の実親の異説」だけ。
     """
+    edges = [e for e in edges
+             if not (e.get("type") == "kinship" and e.get("veracity") == "disputed")]
     has_birth = {e.get("to") for e in edges
                  if e.get("type") == "kinship" and e.get("relation") in BIRTH_PARENT_RELATIONS}
     adj: dict[str, list[tuple[str, int]]] = {}

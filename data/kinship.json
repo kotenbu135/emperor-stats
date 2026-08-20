@@ -3,7 +3,7 @@
     "title": "中国皇帝 系譜・即位経路グラフ",
     "description": "data/emperors.json 収録の全皇帝365人を親子・兄弟・養子・婚姻・即位経路のエッジで結んだ系譜グラフ。皇帝ノードの実体は emperors.json 側にあり id で参照する。非皇帝のブリッジ人物（追尊皇帝・宗室・婚姻当事者等）のみ persons 配列に実体を持つ。スキーマ・収録基準・調査計画は data/schema/KINSHIP_SCHEMA.md を参照。",
     "schemaVersion": "2.0.0",
-    "version": "2026.07",
+    "version": "2026.08",
     "generatedAt": "2026-07-29",
     "license": {
       "note": "emperors.json と同じ二重ライセンス構成（データ=CC BY 4.0／コード=MIT）。機械可読の詳細は emperors.json の meta.license を参照"
@@ -1879,7 +1879,8 @@
       "yearsApproximate": false,
       "inclusionReason": [
         "on-path",
-        "posthumous-emperor"
+        "posthumous-emperor",
+        "ruler"
       ],
       "posthumous": {
         "dynasty": "元",
@@ -14583,6 +14584,262 @@
       "posthumous": null,
       "source": {
         "page": "清史稿 本紀二十五 宣統皇帝本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-chinggis",
+      "name": "チンギス・カン（鉄木真）",
+      "kana": "ちんぎすかん",
+      "aliases": [
+        "成吉思皇帝",
+        "成吉思汗"
+      ],
+      "kind": "posthumous-emperor",
+      "gender": "male",
+      "researchSection": "元",
+      "eraId": "yuan",
+      "birthYear": 1162,
+      "deathYear": 1227,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "ruler",
+        "posthumous-emperor"
+      ],
+      "posthumous": {
+        "dynasty": "元",
+        "templeName": "太祖",
+        "posthumousName": "法天啓運聖武皇帝"
+      },
+      "note": "モンゴル帝国初代カアン（1206即位）。元史 太祖紀「太祖法天启运圣武皇帝，讳铁木真，姓奇渥温氏，蒙古部人。」。「元年丙寅，帝大会诸王群臣，建九斿白旗，即皇帝位于斡难河之源，诸王群臣共上尊号曰成吉思皇帝。是岁实金泰和之六年也。」（金泰和6年=1206年）。「二十二年丁亥春」（1227）の「秋七月壬午，不豫。己丑，崩于萨里川哈老徒之行宫。」で崩御し「寿六十六」→数え66からの逆算で生年1162（壬午。元史は生誕の年月を記さない）。追尊は「至元三年冬十月，追谥圣武皇帝。至大二年冬十一月庚辰，加谥法天启运圣武皇帝，庙号太祖。」、至元3年（1266）の太廟八室制定でも「太祖圣武皇帝、皇祖妣光献皇后第二室」（元史 祭祀志）→最終諡号は法天啓運聖武皇帝・廟号太祖。皇帝号＋廟号の追贈があるため kind=追尊皇帝。太宗オゴデイ（第3子）・睿宗トルイ（第4子）の実父。元 regime の第1代（dynastyOrder 1 を消費・世祖=第5代と整合）。",
+      "wikidata": "Q720",
+      "source": {
+        "page": "元史 巻一 太祖紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-ogodei",
+      "name": "オゴデイ（窩闊台）",
+      "kana": "おごでい",
+      "kind": "posthumous-emperor",
+      "gender": "male",
+      "researchSection": "元",
+      "eraId": "yuan",
+      "birthYear": 1186,
+      "deathYear": 1241,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "ruler",
+        "posthumous-emperor"
+      ],
+      "posthumous": {
+        "dynasty": "元",
+        "templeName": "太宗",
+        "posthumousName": "英文皇帝"
+      },
+      "note": "モンゴル帝国第2代カアン（1229即位）。元史 太宗紀「太宗英文皇帝，讳窝阔台，太祖第三子。母曰光献皇后，弘吉剌氏。」。「元年己丑」（1229）「秋八月己未，诸王百官大会于怯绿连河曲雕阿兰之地，以太祖遗诏即皇帝位于库铁乌阿剌里。」。「十三年辛丑」（1241）「辛卯迟明，帝崩于行殿。在位十三年，寿五十有六。」→数え56からの逆算で生年1186（丙午。太宗紀は生誕記事を持たない）。「追谥英文皇帝，庙号太宗。」（本紀は時期を書かず、至元3年〔1266〕の太廟八室制定で「太宗英文皇帝、皇伯妣昭慈皇后第三室」〔元史 祭祀志〕）。皇帝号＋廟号の追贈があるため kind=追尊皇帝。定宗グユク（長子）の実父。元 regime の第2代。",
+      "wikidata": "Q7519",
+      "source": {
+        "page": "元史 巻二 太宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-guyuk",
+      "name": "グユク（貴由）",
+      "kana": "ぐゆく",
+      "kind": "posthumous-emperor",
+      "gender": "male",
+      "researchSection": "元",
+      "eraId": "yuan",
+      "birthYear": 1206,
+      "deathYear": 1248,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "ruler",
+        "posthumous-emperor"
+      ],
+      "posthumous": {
+        "dynasty": "元",
+        "templeName": "定宗",
+        "posthumousName": "簡平皇帝"
+      },
+      "note": "モンゴル帝国第3代カアン（1246即位）。元史 定宗紀「定宗简平皇帝，讳贵由，太宗长子也。母曰六皇后，乃马真氏，以丙寅年生帝。」（丙寅=1206）。太宗の崩後は「太宗崩，皇后临朝」（乃馬真后の称制）を挟み、「元年丙午」（1246）「秋七月，即皇帝位于汪吉宿灭秃里之地。」で即位。「三年戊申春三月，帝崩于横相乙儿之地。在位三年，寿四十有三。」（戊申=1248・寿43は丙寅年生と閉じる）。「追谥简平皇帝，庙号定宗。」（至元3年〔1266〕の太廟八室制定で「定宗简平皇帝、钦淑皇后第七室」〔元史 祭祀志〕）。皇帝号＋廟号の追贈があるため kind=追尊皇帝。崩後は「定宗崩后，议所立未决。当是时，已三岁无君」の空位期を挟んで憲宗モンケ（p-monke・第4代）が推戴された。元 regime の第3代。",
+      "wikidata": "Q7520",
+      "source": {
+        "page": "元史 巻二 定宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-xiao-tabuyan",
+      "name": "蕭塔不煙",
+      "kana": "しょうとうふえん",
+      "aliases": [
+        "感天皇后",
+        "塔不煙"
+      ],
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "posthumous": null,
+      "inclusionReason": [
+        "ruler"
+      ],
+      "note": "西遼の第2代君主（称制1144-1150・咸清）。徳宗耶律大石の皇后。徳宗の死時に子の夷列（仁宗）が幼少だったため、遺命により権国し、称制して咸清と改元、感天皇后と号した。在位7年ののち夷列が即位した（遼史 巻三十 西遼付録「子夷列年幼，遣命皇后权国。后名塔不烟，号感天皇后，称制，改元咸清，在位七年，子夷列即位，改元绍兴」。daizhigev20 側の同条は「遗命皇后权国」と作る）。遼史は姓を記さず「后名塔不烟」とのみ書き、蕭は通行呼称。徳宗即位時の「册元妃萧氏为昭德皇后」の昭徳皇后蕭氏との同一性は遼史からは確認できない。夷列の生母かどうかも遼史は述べない（meta.confirmedMotherUnknown の既存判定と整合）。生没年は記載なし。称制の年代1144-1150は「在位七年」と仁宗の即位年1150（emperors.json）からの逆算。",
+      "wikidata": "Q6713105",
+      "source": {
+        "page": "遼史 巻三十 天祚皇帝紀四（西遼付録）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yelu-pusuwan",
+      "name": "耶律普速完",
+      "kana": "やりつふそくかん",
+      "aliases": [
+        "承天太后",
+        "普速完"
+      ],
+      "kind": "consort-princess",
+      "gender": "female",
+      "researchSection": "宋遼西夏金",
+      "eraId": "song-liao-jin-xia",
+      "birthYear": null,
+      "deathYear": 1177,
+      "yearsApproximate": true,
+      "posthumous": null,
+      "inclusionReason": [
+        "ruler"
+      ],
+      "note": "西遼の第4代君主（称制1164-1177・崇福）。仁宗耶律夷列の妹。仁宗の死時に子の直魯古が幼少だったため、遺詔により権国し、称制して崇福と改元、承天太后と号した（遼史 巻三十 西遼付録「子幼，遗诏以妹普速完权国，称制，改元崇福，号承天太后」）。駙馬蕭朵魯不の弟朴古只沙里と通じ、駙馬を東平王に出して罪に陥れて殺したため、駙馬の父斡里剌が兵で宮を囲み射殺された（「驸马父斡里剌以兵围其宫，射杀普速完及朴古只沙里。普速完在位十四年」）。徳宗の娘と読める記事は遼史に無く（「妹」のみ。遼史内の他の「普速完」は部族表の部族名）、親エッジは立てられないため仁宗との明示 sibling エッジで接続する。姓は遼史に無く、耶律は仁宗の妹であることに基づく通行呼称。生年は記載なし。没年1177は「在位十四年」と天禧帝の即位年1177（emperors.json）からの逆算。",
+      "wikidata": "Q8005268",
+      "source": {
+        "page": "遼史 巻三十 天祚皇帝紀四（西遼付録）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-wang-chao",
+      "name": "王潮",
+      "kana": "おうちょう",
+      "kind": "imperial-clan",
+      "gender": "male",
+      "researchSection": "五代十国",
+      "eraId": "five-dynasties",
+      "birthYear": null,
+      "deathYear": 898,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "ruler"
+      ],
+      "wikidata": "Q517036",
+      "note": "閩の第1代。新五代史十国世家年譜「王氏世次，曰潮、曰审知、曰延翰、曰璘、曰昶、曰曦、曰延政，凡七主。」の筆頭で、emperors.json の閩 dynastyOrder（延鈞4〜延政7）の欠番1に当たる。十国春秋司空世家「司空姓王名潮字信臣光州固始人也」。王緒軍から泉州刺史を経て「唐即以潮为福建观察使，潮以审知为副使。」（新五代史）。乾寧四年十二月丁未薨（十国春秋「十二月丁未潮薨表闻于朝赠司空开平时为潮立庙称曰水西大王」・資治通鑑「十二月，丁未，潮薨。」）。sxtwl.fromLunar(897,12,6) → 898-01-02 のため没年は898年。追贈は唐の司空と後梁開平時の立廟（水西大王）どまりで、皇帝号・廟号の追尊は新五代史・十国春秋のいずれにも確認できないため kind=宗室。生年は両書・通鑑とも享年の記載がなく null。跡は弟の審知が継いだ（「乾宁四年，潮卒，审知代立。」）。",
+      "source": {
+        "page": "新五代史 巻六十八 閩世家第八／十国春秋 司空世家",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-wang-ren",
+      "name": "王恁",
+      "kana": "おうじん",
+      "kind": "imperial-clan",
+      "gender": "male",
+      "researchSection": "五代十国",
+      "eraId": "five-dynasties",
+      "birthYear": null,
+      "deathYear": null,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "on-path"
+      ],
+      "wikidata": "Q10414256",
+      "note": "王潮・王審知兄弟の実父。新五代史閩世家「王审知，字信通，光州固始人也。父恁，世为农。兄潮，为县史。」、十国春秋司空世家「及父恁业农颇以赀显【按于兢忠懿王庙碑云曾祖友赠光禄卿王父蕴玉赠秘书少监父恁赠光州刺史继赠太尉】」。恵宗延鈞の称帝時に「追尊父祖立五庙」とあり祖（=恁）も追尊対象に含まれるが、恁への具体的な帝号・廟号は新五代史・十国春秋のいずれにも記録がないため kind=宗室（追贈は光州刺史→太尉どまり）。生没年は記載なし。王潮（歴代君主ブリッジ）と王審知（p-wang-shenzhi・収録皇帝3人の実父）を兄弟として図で繋ぐ経路上人物で、劉謙（p-liu-qian-nanhan）が劉隠・劉龑を繋ぐ先例と同型。父祖（友・蘊玉）への追贈記録は碑にあるが収録皇帝・既収録ブリッジに到達しないため祖先遡及は恁で止める。",
+      "source": {
+        "page": "新五代史 巻六十八 閩世家第八／十国春秋 司空世家",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-yang-wo",
+      "name": "楊渥",
+      "kana": "ようあく",
+      "kind": "posthumous-emperor",
+      "gender": "male",
+      "researchSection": "五代十国",
+      "eraId": "five-dynasties",
+      "birthYear": 886,
+      "deathYear": 908,
+      "yearsApproximate": false,
+      "posthumous": {
+        "dynasty": "呉",
+        "templeName": "烈祖",
+        "posthumousName": "景皇帝"
+      },
+      "inclusionReason": [
+        "ruler",
+        "posthumous-emperor"
+      ],
+      "wikidata": "Q5195385",
+      "note": "呉の第2代（新五代史呉世家「故二世四主垂五十年」の第2主）。「渥字承天，行密长子也。」（新五代史）・「烈祖名渥字承天太祖长子也」（十国春秋）。在位中は淮南節度使・弘農郡王で皇帝を称さず収録外。天祐五年（908年）五月戊寅、張顥・徐温の遣った刺客に弑された：「执渥缢杀之，时年二十三，谥曰景。」（新五代史）→数え23歳から生年886年。武義元年（919年・隆演の呉王即位時）「追尊行密孝武王，庙号太祖，渥景王，庙号烈祖。」、乾貞元年（927年・楊溥称帝時）「追尊行密武皇帝，渥景皇帝，隆演宣皇帝。」により皇帝号＋廟号の追贈があるため kind=追尊皇帝。新五代史の死没条の総括句「追尊渥为烈宗景皇帝，陵曰绍陵。」の「烈宗」は同書武義元年条・十国春秋「武义初改谥景王庙号烈祖干贞元年追尊为景皇帝陵曰绍陵」と食い違う孤立表記のため烈祖を採る。弑逆直後の初謚は新五代史「谥曰景」・十国春秋「谥曰威」と割れる（最終の景皇帝は両書一致）。",
+      "source": {
+        "page": "新五代史 巻六十一 呉世家第一／十国春秋 烈祖世家",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-li-yu",
+      "name": "李煜",
+      "kana": "りいく",
+      "aliases": [
+        "李従嘉",
+        "南唐後主"
+      ],
+      "kind": "imperial-clan",
+      "gender": "male",
+      "researchSection": "五代十国",
+      "eraId": "five-dynasties",
+      "birthYear": 937,
+      "deathYear": 978,
+      "yearsApproximate": false,
+      "inclusionReason": [
+        "ruler"
+      ],
+      "wikidata": "Q378528",
+      "note": "南唐の第3代（十国春秋「南唐自丁酉年烈祖改元升元至后主乙亥岁国灭历三主凡三十九年」の第3主＝末尾の欠番）。「煜字重光，初名从嘉，景第六子也。」（新五代史）。元宗李璟が後周への臣従で去帝号済みのため、建隆二年（961年）の嗣立以後も国主として立ち皇帝を称しておらず収録外。開宝八年（975年）金陵陥落、「九年，煜俘至京师，太祖赦之，封煜违命侯，拜左千牛卫将军。」、太宗即位で「始去违命侯加特进封陇西郡公」（十国春秋）。太平興国三年（978年）七月没：「太平兴国三年秋七月八日遘疾薨于京师里第享年四十有二」（十国春秋所引の徐鉉撰墓誌。十国春秋本文は「三年七月辛卯薨」「年四十二是日七夕也」と七月七日説を採る）→数え42歳から生年937年（「后主生于丁酉」=升元元年とも整合。「后主葢以是日生」により七夕生まれ）。没後は「赠太师封吴王葬洛阳北邙山」（宋の贈官・王爵）どまりで皇帝号・廟号の追尊はないため kind=宗室。母は鍾氏（光穆皇后）だがブリッジ人物の生母は収録対象外のため記録にとどめる。",
+      "source": {
+        "page": "新五代史 巻六十二 南唐世家第二／十国春秋 後主本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "id": "p-togus-temur",
+      "name": "トグス・テムル（脱古思帖木児）",
+      "kana": "とぐすてむる",
+      "aliases": [
+        "天元帝",
+        "烏薩爾汗"
+      ],
+      "kind": "imperial-clan",
+      "gender": "male",
+      "researchSection": "元",
+      "eraId": "yuan",
+      "birthYear": null,
+      "deathYear": 1388,
+      "yearsApproximate": true,
+      "inclusionReason": [
+        "ruler"
+      ],
+      "note": "北元の第2代君主（在位1378-1388・第2代は Issue #24 確定値の追認）。新元史巻二十六（本紀第二十六 惠宗四・昭宗）の昭宗本紀末尾に「弟脱古思帖木儿嗣，惠宗第二子也，改元天元，在位十年，国语曰乌萨尔汗。」とあり、昭宗の崩御（「八年夏四月，帝崩于金山」＝宣光8年・1378）を受けて弟として継承し天元と改元した。新元史の史臣曰は「昭宗以下，文献无征」と述べ、廟号・漢風諡号の記載はない（国語称号ウスハル・ハーン＝烏薩爾汗のみ）ため kind=宗室。365人の収録範囲（北元は昭宗まで）の外にあたるためスコープルール6（歴代君主）で収録。最期は明史巻三百二十七（韃靼伝）「行至土剌河，为其下也速迭儿所袭…也速迭儿兵猝至，缢杀之」により、洪武21年（1388）捕魚児海の敗走後にイェスデルに縊殺された。没年は明史太祖紀（巻三）が洪武22年（1389）の是年条に弑を載せるため yearsApproximate=true（採用値1388は韃靼伝の連続叙事と新元史「在位十年」との整合による）。続柄は明史（太祖紀・藍玉伝・韃靼伝）が昭宗の子（順帝の孫）とするのに対し新元史は昭宗の弟・惠宗第二子とし対立する（disputed エッジ併記）。生年は両書に記載なし。",
+      "wikidata": "Q8937",
+      "source": {
+        "page": "新元史 巻二十六 本紀第二十六 惠宗四・昭宗／明史 巻三百二十七 外国八 韃靼",
         "lang": "zh-classical"
       }
     }
@@ -31329,6 +31586,152 @@
       "note": "醇親王・監国摂政王載灃と蘇完瓜爾佳氏の婚姻。清史稿 本紀二十五 宣統皇帝本紀が溥儀の生母を「母摄政王嫡福晋苏完瓜尔佳氏」と記し、載灃の嫡福晋（正妻）と明示する。夫の載灃は清史稿 列伝八 諸王七の醇賢親王の条に「载沣，袭醇亲王，宣统皇帝即位，命为监国摄政王」と見える。清初以来、宗室の正妻は嫡福晋と称され側福晋・庶福晋と区別されるため、生前の嫡妻として婚姻エッジを立てる（冊立の記事は宗室妃には無い）。婚姻の年月は清史稿に記載が無い。",
       "source": {
         "page": "清史稿 本紀二十五 宣統皇帝本紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-father",
+      "from": "p-chinggis",
+      "to": "p-ogodei",
+      "childOrder": 3,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "太宗オゴデイの実父はチンギス・カン（太祖追尊）。元史 巻二 太宗紀の冒頭「太宗英文皇帝，讳窝阔台，太祖第三子。母曰光献皇后，弘吉剌氏。」で「太祖第三子」と明記（childOrder=3）。",
+      "source": {
+        "page": "元史 巻二 太宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-father",
+      "from": "p-chinggis",
+      "to": "p-tolui",
+      "childOrder": 4,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "トルイ（既存ブリッジ p-tolui）の実父もチンギス・カン。元史 巻一百十五 列伝第二の冒頭「睿宗景襄皇帝，讳拖雷，太祖第四子，太宗母弟也。」で「太祖第四子」と明記（childOrder=4）。太祖紀の末尾「戊子年。是岁，皇子拖雷监国。」も太祖側（本紀）からの裏づけ。",
+      "source": {
+        "page": "元史 巻一百十五 列伝第二 睿宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-father",
+      "from": "p-ogodei",
+      "to": "p-guyuk",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "定宗グユクの実父は太宗オゴデイ。元史 巻二 定宗紀の冒頭「定宗简平皇帝，讳贵由，太宗长子也。」で明記。「长子」は非数値表記のため childOrder は付さない（p-tolui→p-monke エッジと同じ規約）。",
+      "source": {
+        "page": "元史 巻二 定宗紀",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "marriage",
+      "from": "p-xiao-tabuyan",
+      "to": "xiliao-dezong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "感天皇后蕭塔不煙は徳宗耶律大石の皇后。徳宗の崩御条に続く「子夷列年幼，遣命皇后权国。后名塔不烟，号感天皇后」の「皇后」が塔不煙であることによる。徳宗即位時に立てられた「册元妃萧氏为昭德皇后」の昭徳皇后との同一性は遼史からは確認できない（婚姻の根拠には不要）。同一政権内で完結する婚姻だが、スコープルール6の歴代君主ノードを系図へ接続する構造エッジとして採用。",
+      "source": {
+        "page": "遼史 巻三十 天祚皇帝紀四（西遼付録）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "sibling",
+      "from": "p-yelu-pusuwan",
+      "to": "xiliao-renzong",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "承天太后耶律普速完は仁宗夷列の妹。仁宗の崩御条に続く「子幼，遗诏以妹普速完权国」の「妹」による。徳宗の娘と読める記事は遼史に無いため親エッジは立てられず、親が不明だが兄弟関係が原典に明記されている場合の型（蘭汗と同じ）で無向の明示兄弟姉妹エッジとする。",
+      "source": {
+        "page": "遼史 巻三十 天祚皇帝紀四（西遼付録）",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-father",
+      "from": "p-wang-ren",
+      "to": "p-wang-chao",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "十国春秋司空世家が王潮の条で「及父恁业农颇以赀显」と父を直接記す。新五代史閩世家は審知の条で「父恁，世为农。兄潮，为县史。」。排行は「与弟审邽审知以材气知名邑人号曰三龙」（十国春秋）の筆頭・審知が「潮季弟也」だが「第n子」の数値表記はないため childOrder は付けない。",
+      "source": {
+        "page": "新五代史 巻六十八 閩世家第八／十国春秋 司空世家",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-father",
+      "from": "p-wang-ren",
+      "to": "p-wang-shenzhi",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "新五代史閩世家「王审知，字信通，光州固始人也。父恁，世为农。」、十国春秋太祖世家「太祖名审知字信通【钱昱忠懿王庙碑又云字详卿】潮季弟也」、于兢忠懿王庙碑「父恁赠光州刺史继赠太尉公即太尉季子也」。「季弟」「季子」は数値の「第n子」表記でないため childOrder は付けない。このエッジ2本で王潮と審知（および審知の子の収録皇帝3人）が図で繋がる。",
+      "source": {
+        "page": "新五代史 巻六十八 閩世家第八／十国春秋 太祖世家",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-father",
+      "from": "p-yang-xingmi",
+      "to": "p-yang-wo",
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "新五代史呉世家「渥字承天，行密长子也。」、十国春秋烈祖世家「烈祖名渥字承天太祖长子也」。「長子」は数値の「第n子」表記でないため childOrder は付けない（既存の王延翰エッジと同じ処理）。",
+      "source": {
+        "page": "新五代史 巻六十一 呉世家第一",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-father",
+      "from": "shiguo-nantang-lijing",
+      "to": "p-li-yu",
+      "childOrder": 6,
+      "veracity": "verified",
+      "confidence": "high",
+      "note": "新五代史南唐世家「煜字重光，初名从嘉，景第六子也。」、十国春秋後主本紀「后主名煜字重光初名从嘉元宗第六子也」。両書とも「第六子」の数値表記のため childOrder=6。",
+      "source": {
+        "page": "新五代史 巻六十二 南唐世家第二",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-father",
+      "from": "yuan-huizong",
+      "to": "p-togus-temur",
+      "veracity": "verified",
+      "confidence": "medium",
+      "childOrder": 2,
+      "note": "新元史巻二十六（本紀第二十六 惠宗四・昭宗）の昭宗本紀末尾（本文側・行4098付近。目次側見出しではない）に「弟脱古思帖木儿嗣，惠宗第二子也」とあり、実父＝惠宗トゴンテムル（yuan-huizong）・排行「第二子」の数値表記により childOrder=2。昭宗（「惠宗长子也」）の弟。明史は太祖紀「子脱古思帖木儿嗣」・韃靼伝「子脱古思帖木儿继立」・藍玉伝「时顺帝孙脱古思帖木儿嗣立」と一貫して昭宗の子（順帝の孫）とし対立するため、北元ブロックの一次史料（新元史・既存の北元エッジと同源）を採用し confidence=medium、明史説は disputed エッジとして併記。",
+      "source": {
+        "page": "新元史 巻二十六 本紀第二十六 惠宗四・昭宗",
+        "lang": "zh-classical"
+      }
+    },
+    {
+      "type": "kinship",
+      "relation": "birth-father",
+      "from": "beiyuan-zhaozong",
+      "to": "p-togus-temur",
+      "veracity": "disputed",
+      "confidence": "medium",
+      "note": "明史説の併記。明史巻三百二十七（韃靼伝）「洪武十一年夏，故元太子爱猷识理达腊卒…子脱古思帖木儿继立」・太祖紀（巻二・洪武11年夏4月条）「元嗣君爱猷识理达腊殂，子脱古思帖木儿嗣」・藍玉伝（巻一百三十二）「时顺帝孙脱古思帖木儿嗣立」は一貫して昭宗の子＝順帝の孫とする。新元史巻二十六「弟脱古思帖木儿嗣，惠宗第二子也」（昭宗の弟説・採用側）と対立するため veracity=disputed。",
+      "source": {
+        "page": "明史 巻三百二十七 外国八 韃靼",
         "lang": "zh-classical"
       }
     }
