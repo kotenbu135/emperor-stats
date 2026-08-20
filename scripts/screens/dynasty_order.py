@@ -338,8 +338,15 @@ def main():
             rcounts[row["bucket"]] += row["reigns"]
 
     if args.json:
+        # coverage は「この人物はどのバケットか」の引き当て表。
+        # check_screenings.py --for <皇帝id> がこれを読むので、無いと調査エージェント側は
+        # 「絞り込みが未実施」と表示される（遼の1段目が実際にそう報告した・2026-08-20）
+        coverage = {}
+        for r in res.values():
+            for row in r["rows"]:
+                coverage[row["id"]] = [row["bucket"]]
         out = {"screen": SCREEN_ID, "n": sum(counts.values()),
-               "buckets": counts, "reigns": rcounts}
+               "buckets": counts, "reigns": rcounts, "coverage": coverage}
         # コーパスが無い環境（CI）では全員が no-annals に落ちて記録と必ずずれる。
         # 件数の突合を飛ばさせる旗を出す（check_screenings.py の corpus: false）。
         if not (CH.exists() and DZ.exists()):
