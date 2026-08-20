@@ -1066,6 +1066,12 @@ ERA_NAME_WITNESS_IN = {
     "shiguo-houshu-mengchang.eraChangeCount.e001": (
         "book:daizhigev20/史藏/载记/十国春秋.txt#2406-2453",
         "広政。後蜀後主本紀は十国春秋 巻四十八。キャッシュの新五代史 後蜀世家は「庆政」と刻む"),
+    # 元末 — 陳友諒のキャッシュは明史 陳友諒傳から作ってあるが、大定への改元条は
+    # 新元史の列伝の側にしか無い（明史・元史/新元史の本紀にも無い。2026-08-21 追加）
+    "yuanmo-chenyouliang.eraChangeCount.e002": (
+        "book:daizhigev20/史藏/正史/新元史.txt#35870-35880",
+        "大定。新元史 巻二百二十六 列傳第一百二十二「二十一年，友谅改元大定」。"
+        "キャッシュの明史 陳友諒傳に大定への改元条が無い"),
     # 唐末群雄 — 逆臣として立ち、キャッシュ（旧唐書の抜粋）に改元条が入っていない人物。
     # 十国と同じ型で、条は新唐書逆臣伝・資治通鑑・旧唐書の別巻に在る（2026-08-20）
     "tangmo-anqingxu.eraChangeCount.e001": (
@@ -2305,6 +2311,60 @@ def cmd_backfill(rebuild=False, retry_unresolved=False):
     return 0
 
 
+_exact_cache: dict[str, str] = {}
+
+
+def exact_file(relpath):
+    """底本本文を無変換（han_only の字面そのまま）で並べたもの（--scan-glyph-exact 用）。"""
+    if relpath not in _exact_cache:
+        _exact_cache[relpath] = _cached_norm(relpath, "exact", han_only)
+    return _exact_cache[relpath]
+
+
+def cmd_scan_glyph_exact(limit=30):
+    """引用断片を底本の字面そのまま（無変換）で当て直す走査。読み取り専用。
+
+    残量表「既存 note の引用が底本の字体で保存されていない」の母集団測定
+    （2026-08-21 新設）。--check の字体混入ゲート（norm_strict）は t2s を通すため、
+    簡体の底本を繁体・正字へ書き換えた引用（进→進 の向き）を検出できない。
+    ここでは字面の完全一致だけで当て、掛からなかったユニットを数える。
+    台帳・スタンプ・照合結果は一切書き換えない。既知の底本破損（glyphAllow）は除外。
+    掛かったものが全て欠陥とは限らない（歳/歲 のように底本内で字形が揺れる字・
+    行またぎは無いが異体字の正当な揺れが混ざる）— 数は上限として読む。
+    """
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    units = extract_units(data)
+    refs = load_refs()
+    known = refs["refs"]
+    glyph_allow = refs.get("glyphAllow", {})
+    total = 0
+    fails = []
+    per_person = Counter()
+    for eid, path, span in units:
+        ent = known.get(unit_key(eid, path, span))
+        if ent is None or ent.get("status") not in ("cache", "corpus"):
+            continue
+        if f"{eid}|{path}" in glyph_allow:
+            continue
+        rel = ent.get("corpusFile") or ""
+        text = exact_file(rel)
+        if not text:
+            continue
+        total += 1
+        bad = [f for f in (ent.get("frags") or []) if f not in text]
+        if bad:
+            fails.append((eid, path, bad[0], rel))
+            per_person[eid] += 1
+    print(f"走査対象（cache/corpus 解決済み・glyphAllow 除外）: {total} ユニット")
+    print(f"字面が底本と一致しないユニット: {len(fails)} 件 / 人物 {len(per_person)} 人")
+    for eid, n in per_person.most_common(15):
+        print(f"  {eid}: {n}")
+    print(f"--- 内訳（先頭 {limit} 件・全量は --scan-glyph-exact-all）")
+    for eid, path, frag, rel in fails[:limit]:
+        print(f"  {eid} {path}: {frag}  [{rel}]")
+    return 0
+
+
 def cmd_check(coverage_only=False):
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
     units = extract_units(data)
@@ -2452,6 +2512,12 @@ def main():
                          "（コーパスを入れ替えた・書を足したとき）")
     ap.add_argument("--prune-stale", action="store_true",
                     help="どの引用からも参照されなくなった台帳エントリを消す（引用を書き換えた後）")
+    ap.add_argument("--scan-glyph-exact", action="store_true",
+                    help="解決済み引用を底本の字面そのまま（無変換）で当て直す走査"
+                         "（残量表「既存 note の引用が底本の字体で保存されていない」の"
+                         "母集団測定・読み取り専用・要コーパス）")
+    ap.add_argument("--scan-glyph-exact-all", action="store_true",
+                    help="--scan-glyph-exact の全量一覧版（内訳を全件出す）")
     args = ap.parse_args()
     import hanzi_norm
     if hanzi_norm._T2S is None:
@@ -2472,6 +2538,8 @@ def main():
         return 0
     if args.prune_stale:
         return cmd_prune_stale()
+    if args.scan_glyph_exact or args.scan_glyph_exact_all:
+        return cmd_scan_glyph_exact(limit=10**9 if args.scan_glyph_exact_all else 30)
     if args.check_books:
         return cmd_check_books()
     if args.check_volumes:

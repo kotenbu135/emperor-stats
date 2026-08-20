@@ -55585,6 +55585,29 @@
    ],
    "line": 1
   },
+  "suimo-zhucan|reigns[0].conflicts[0].adopted.quote|d243c41e3386": {
+   "id": "suimo-zhucan",
+   "path": "reigns[0].conflicts[0].adopted.quote",
+   "span": "既而粲收集余众，兵复大振，自称楚帝于冠军，改元昌达",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/编年/资治通鉴.txt",
+   "frags": [
+    "既而粲收集余众",
+    "自称楚帝于冠军"
+   ],
+   "line": 18030
+  },
+  "suimo-zhucan|reigns[0].conflicts[0].alternatives[0].quote|19dbe4f74c27": {
+   "id": "suimo-zhucan",
+   "path": "reigns[0].conflicts[0].alternatives[0].quote",
+   "span": "朱粲城父人以大业十一年乙亥据汉南称帝",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/政书/历代建元考.txt",
+   "frags": [
+    "朱粲城父人以大业十一"
+   ],
+   "line": 1382
+  },
   "suimo-zhucan|reigns[0].note|0846a0cddb34": {
    "id": "suimo-zhucan",
    "path": "reigns[0].note",
@@ -80482,6 +80505,17 @@
    ],
    "line": 40
   },
+  "yuanmo-chenli|reigns[0].conversion|3c588752dc62": {
+   "id": "yuanmo-chenli",
+   "path": "reigns[0].conversion",
+   "span": "二月乙未，复自将征武昌，陈理降",
+   "status": "corpus",
+   "corpusFile": "china-history/明史/本纪/第一章-卷一-原文.html",
+   "frags": [
+    "复自将征武昌"
+   ],
+   "line": 40
+  },
   "yuanmo-chenli|reigns[0].conversion|590bdaca1838": {
    "id": "yuanmo-chenli",
    "path": "reigns[0].conversion",
@@ -80573,6 +80607,17 @@
    ],
    "line": 47
   },
+  "yuanmo-chenyouliang|eraChangeCount.note|0c6b883c7c18": {
+   "id": "yuanmo-chenyouliang",
+   "path": "eraChangeCount.note",
+   "span": "二十一年，友谅改元大定。",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/新元史.txt",
+   "frags": [
+    "友谅改元大定"
+   ],
+   "line": 35877
+  },
   "yuanmo-chenyouliang|eraChangeCount[0].note|31ebccb4b79f": {
    "id": "yuanmo-chenyouliang",
    "path": "eraChangeCount[0].note",
@@ -80606,6 +80651,17 @@
     "陈友谅杀其伪主徐寿辉"
    ],
    "line": 58
+  },
+  "yuanmo-chenyouliang|eraChangeCount[1].note|0c6b883c7c18": {
+   "id": "yuanmo-chenyouliang",
+   "path": "eraChangeCount[1].note",
+   "span": "二十一年，友谅改元大定。",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/新元史.txt",
+   "frags": [
+    "友谅改元大定"
+   ],
+   "line": 35877
   },
   "yuanmo-chenyouliang|personalCampaignCount[0].note|8af8c151855e": {
    "id": "yuanmo-chenyouliang",
@@ -81054,7 +81110,7 @@
    ],
    "line": 1
   },
-  "yuanmo-mingsheng|reigns[0].quote#0|a37f865f6171": {
+  "yuanmo-mingsheng|reigns[0].quote#0|2e0aecd85b03": {
    "id": "yuanmo-mingsheng",
    "path": "reigns[0].quote#0",
    "span": "[即位] 二十六年春，玉珍病革，召寿等谕曰：「西蜀険固，若協力同心，左右嗣子，則",
