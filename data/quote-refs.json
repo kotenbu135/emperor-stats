@@ -80584,6 +80584,17 @@
    ],
    "line": 47
   },
+  "yuanmo-chenyouliang|eraChangeCount.note|0c6b883c7c18": {
+   "id": "yuanmo-chenyouliang",
+   "path": "eraChangeCount.note",
+   "span": "二十一年，友谅改元大定。",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/新元史.txt",
+   "frags": [
+    "友谅改元大定"
+   ],
+   "line": 35877
+  },
   "yuanmo-chenyouliang|eraChangeCount[0].note|31ebccb4b79f": {
    "id": "yuanmo-chenyouliang",
    "path": "eraChangeCount[0].note",
@@ -80617,6 +80628,17 @@
     "陈友谅杀其伪主徐寿辉"
    ],
    "line": 58
+  },
+  "yuanmo-chenyouliang|eraChangeCount[1].note|0c6b883c7c18": {
+   "id": "yuanmo-chenyouliang",
+   "path": "eraChangeCount[1].note",
+   "span": "二十一年，友谅改元大定。",
+   "status": "corpus",
+   "corpusFile": "daizhigev20/史藏/正史/新元史.txt",
+   "frags": [
+    "友谅改元大定"
+   ],
+   "line": 35877
   },
   "yuanmo-chenyouliang|personalCampaignCount[0].note|8af8c151855e": {
    "id": "yuanmo-chenyouliang",
