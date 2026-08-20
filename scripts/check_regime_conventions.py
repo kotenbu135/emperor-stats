@@ -40,7 +40,15 @@ EMPERORS = ROOT / "data" / "emperors.json"
 
 FIELDS = {"templeName", "posthumousName", "posthumousNameFull", "posthumousNames",
           "familyName", "personalName",
-          "commonName", "aliases", "eraName", "dynastyOrder",
+          "commonName", "aliases", "eraName",
+          # `dynastyOrder` は 2026-08-20 に外した（Issue #24）。この欄は
+          # `reigns[].dynastyOrder` の形でしか存在せず、素の名前で問うと
+          # 「政権の慣行が未確定・止まれ」、パスで問うと「適用外・進め」と
+          # **同じ欄に逆の答え**が返っていた（89政権すべてで記録0件なので、
+          # 素の名前の側は必ず出る空振りの停止信号だった）。第N代の判定条文は
+          # data/schema/EMPERORS_SCHEMA.md の dynastyOrder 行が正で、
+          # 政権ごとの書式ではなく在位ごとの事実。eraName を容器の下では
+          # 通さない 2026-08-17 の判断と同じ形
           # 字・小名・民族名も**同じ冒頭1行に並ぶ**書があり（南齊書・周書・金史）、
           # 並ぶかどうかは人物ではなく書の書式で決まる。2026-08-10 に追加
           "courtesyName", "childhoodName", "ethnicName"}

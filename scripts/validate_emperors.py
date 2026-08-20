@@ -714,11 +714,25 @@ def check_dynasty_order(data):
     surveyed = {r["id"]: r.get("dynastyOrderSurveyed")
                 for r in (data["meta"].get("catalogs") or {}).get("regimes") or []}
     unsurveyed_reigns = 0
+    seen = {}          # (政権, 番号) → 最初に使った在位
     for e in data["emperors"]:
         s = surveyed.get(e.get("regimeId"))
         for i, r in enumerate(e.get("reigns") or []):
             where = f"{e['id']}.reigns[{i}]"
             has = "dynastyOrder" in r
+            # 同じ政権で同じ番号を2つの在位が持たない（2026-08-20・Issue #24）。
+            # 復位に元の番号を再利用した形が全ゲートを緑で通った（南宋 高宗）。
+            # **欠番は検査しない** — 本データ365人に収録の無い君主が並びに入る政権が
+            # 実際に8つあり（前涼は7だけ・清はヌルハチが第1・元は太祖〜憲宗が1〜4）、
+            # 連番性を要求すると正しいデータが落ちる
+            if has and isinstance(r.get("dynastyOrder"), int):
+                key = (e.get("regimeId"), r["dynastyOrder"])
+                if key in seen:
+                    err(f"[dynasty-order] {where}: 第{r['dynastyOrder']}代が"
+                        f"{seen[key]} と重複している（政権 {e.get('regimeId')}）。"
+                        f"復位も別カウントなので同じ番号を2在位に与えない・Issue #24")
+                else:
+                    seen[key] = where
             if s is False:
                 if has:
                     err(f"[dynasty-order] {where}: dynastyOrderSurveyed: false の政権"
