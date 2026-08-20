@@ -174,7 +174,9 @@ const COLUMNS: ColumnDef<EmperorTableRecord>[] = [
     cell: ({ row }) => (
       <Link
         href={`/emperors/${row.original.id}`}
-        className="font-medium leading-ruby text-foreground underline-offset-4 transition-colors hover:text-seal hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+        // py-1 は WCAG 2.2 の 2.5.8（タップ領域 24px 最小）。インライン要素の
+        // 縦 padding はレイアウトに影響せず、当たり判定だけ 20px → 28px に広がる。
+        className="py-1 font-medium leading-ruby text-foreground underline-offset-4 transition-colors hover:text-seal hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
       >
         {/* ふりがな（Issue #20）。並べ替え・検索は平文の name のままで、
             ルビは描画だけに使う。 */}

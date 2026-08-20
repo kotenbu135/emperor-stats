@@ -260,7 +260,9 @@ export function DynastyCategoryHint() {
         <button
           type="button"
           aria-label="王朝の区分について"
-          className="text-muted-foreground/70 hover:text-foreground"
+          // p-1.5/-m-1.5 は WCAG 2.2 の 2.5.8（タップ領域 24px 最小）。アイコンは
+          // 14px のままで、当たり判定だけを 26px へ広げる（見た目・レイアウト不変）。
+          className="-m-1.5 p-1.5 text-muted-foreground/70 transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-seal"
         >
           <Info className="size-3.5" />
         </button>

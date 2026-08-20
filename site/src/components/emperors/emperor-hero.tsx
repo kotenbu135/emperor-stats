@@ -117,7 +117,7 @@ function Breadcrumb({
             {item.href ? (
               <Link
                 href={item.href}
-                className="inline-block py-0.5 text-muted-foreground transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+                className="-my-0.5 inline-block py-1 text-muted-foreground transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
               >
                 {item.label}
               </Link>

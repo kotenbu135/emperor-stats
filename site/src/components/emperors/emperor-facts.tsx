@@ -31,7 +31,7 @@ function StatLink({
     <Link
       href={href}
       title={label}
-      className="underline decoration-dotted underline-offset-2 transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
+      className="py-1 underline decoration-dotted underline-offset-2 transition-colors hover:text-seal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-seal"
     >
       {children}
       <span className="sr-only">（{label}）</span>

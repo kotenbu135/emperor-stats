@@ -102,7 +102,9 @@ export function EmperorEventTimeline({ rows }: { rows: EmperorEventRow[] }) {
 
   const chipClass = (pressed: boolean) =>
     cn(
-      "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs transition-colors",
+      // py-1 は WCAG 2.2 の 2.5.8（タップ領域 24px 最小）— py-0.5 だとチップの
+      // 全高が 22px で届かない。高さ +2px だけの変更。
+      "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition-colors",
       pressed
         ? "border-seal/60 bg-seal/10 text-foreground hover:bg-seal/20"
         : "border-border text-muted-foreground hover:border-seal/40 hover:text-foreground",
