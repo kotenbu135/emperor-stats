@@ -37,7 +37,7 @@ export const KINSHIP_CHAPTERS: KinshipChapter[] = [
     heading: "三国・西晋",
     entryId: "wei-wendi",
     layout: layoutThreeKingdomsJin as unknown as KinshipLayout,
-    // 客人（章の eraId ではない人物）を出す唯一の章なので、誰なのかを本文で名乗る。
+    // 客人（章の eraId ではない人物）は誰なのかを本文で名乗る（KINSHIP_RULES 1節）。
     note: "後漢の献帝は、魏（文帝）への禅譲を示すためこの章にも出している。",
   },
   {
