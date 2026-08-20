@@ -4,10 +4,10 @@ import Link from "next/link";
 
 import {
   ChapterFlow,
-  EDGE_STYLE,
   type KinshipJump,
   type KinshipLayout,
 } from "@/components/kinship/chapter-flow";
+import { EDGE_STYLE } from "@/lib/kinship/edge-style";
 import { KINSHIP_CHAPTERS, type KinshipChapter } from "@/app/kinship/chapters";
 import { rubyOf } from "@/lib/name-readings";
 
@@ -40,6 +40,9 @@ function jumpTargets(l: KinshipLayout): KinshipJump[] {
 /**
  * 凡例の線見本。**図と同じ `EDGE_STYLE` から引く**（値を書き写すと線種を変えたときに
  * 凡例だけ古いままになる — 実際に養親の刻みが凡例だけ古い値で残っていた）。
+ * **引き元は `@/lib/kinship/edge-style`（"use client" なし）に限る** — ここは Server
+ * Component なので、"use client" の chapter-flow から import すると client reference に
+ * 化けてスプレッドが空になり、見本が全部同じ実線に落ちる（Issue #204 で実際に落ちていた）。
  */
 const LINE_LEGEND: {
   label: string;

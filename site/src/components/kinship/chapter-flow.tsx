@@ -42,6 +42,7 @@ import "@xyflow/react/dist/style.css";
 
 import { Button } from "@/components/ui/button";
 import { RubyText } from "@/components/ui/ruby-text";
+import { EDGE_STYLE, type KinshipEdgeKind } from "@/lib/kinship/edge-style";
 import { regimeBandColor } from "@/lib/kinship/band-color";
 
 export interface KinshipPerson {
@@ -98,16 +99,7 @@ export interface KinshipUnion {
  */
 export interface KinshipEdge {
   id: string;
-  kind:
-    | "marriage"
-    | "father"
-    | "mother"
-    | "child"
-    | "adoptive"
-    | "second"
-    | "disputed"
-    | "remote"
-    | "succession";
+  kind: KinshipEdgeKind;
   from: string;
   to: string;
   points: [number, number][];
@@ -402,29 +394,9 @@ function FamilyEdge({
 const nodeTypes = { person: PersonCard, union: UnionDot };
 const edgeTypes = { family: FamilyEdge };
 
-/**
- * 線の見た目。**種別ごとに1箇所**で、凡例（page.tsx）と対で動かす。
- *
- * 破線の刻みは**互いに倍以上**離す（2026-08-18 の外部レビュー: 実母の「3 3」と養親の
- * 「6 3」がぱっと見で区別できない）。いまは 実線 / 中破線 / 長破線 / 点 の4段。
- */
-export const EDGE_STYLE: Record<KinshipEdge["kind"], { dash?: string; color?: string; width?: number }> = {
-  marriage: {},
-  father: {},
-  mother: { dash: "5 4" },
-  child: {},
-  // 一点鎖線。**実母の「5 4」と刻みの長さで区別しない** — 2026-08-18 の外部レビューで
-  // 「長さ違いの破線は判別できない」と言われたので、形そのものを変えている。
-  adoptive: { dash: "12 4 2 4" },
-  // 遠祖（実父が史料に無い人の、祖父などへの線）。**養親と同じ一点鎖線を使う** —
-  // どちらも「実の父子ではない特別な線」で、必ず線上に続柄のラベル（養父／祖父）が
-  // 載るのでラベルで見分ける。刻み違いの破線を増やしても判別できない
-  // （2026-08-18 の外部レビュー）。
-  remote: { dash: "12 4 2 4" },
-  second: { dash: "1 4", width: 2 },
-  disputed: { dash: "1 4", width: 2 },
-  succession: { dash: "6 4", color: "var(--kinship-succession)" },
-};
+// 線の見た目 EDGE_STYLE は src/lib/kinship/edge-style.ts（"use client" なし）にある。
+// **この client モジュールから re-export しないこと** — Server Component の
+// chapter-page が import すると client reference に化けて中身が落ちる（Issue #204）。
 
 /**
  * レイアウトを React Flow の nodes/edges に写す。
