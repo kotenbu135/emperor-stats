@@ -33,9 +33,11 @@ const CARD_W = 112;
 // （flex-1）が、親族カードは中央寄せ（justify-center）が吸収する。
 const EMPEROR_H = 164;
 const KIN_H = 48;
-// 名前の補足を2行目に落とすぶんだけ親族の箱を高くする。**幅は広げない** — 長い名前は
-// 105 人中 5 人（全部「竇氏〔孝文竇皇后〕」型）で、幅で解くと図の総幅が全員ぶん太る
-// （2026-08-18 の外部レビュー「テキストの省略」）。
+// 名前の補足を2行目に落とすぶんだけ親族の箱を高くする。幅は **全員では広げない**
+// （幅の一律拡大は図の総幅が全員ぶん太る — 2026-08-18 の外部レビュー）。
+// **名前が入り切らないカードだけ widthOf が個別に広げる**（2026-08-21 ユーザー指示
+// 「名前が長い人物は箱の大きさを調整して…にならないようにする」。それまでは
+// 少数の切り詰めを許容していたが、この指示で個別拡幅に切り替えた）。
 const KIN_ANNOT_H = 62;
 // 夫婦の点。**線より明らかに太い**こと（2026-08-18 の外部レビュー2巡目「線と同化して
 // 見落とす」）。線が 1.9px なので 14px＝7倍強。
@@ -46,6 +48,47 @@ const heightOf = (c) =>
   c.isEmperor
     ? EMPEROR_H
     : (c.annot ? KIN_ANNOT_H : KIN_H) + (c.ordinal ? KIN_ORDINAL_EXTRA : 0);
+
+// ---------------------------------------------------------------- カード幅
+//
+// **名前が入り切らないカードだけ広げる**（2026-08-21 ユーザー指示。ヌルハチ
+// 〔愛新覚羅努爾哈赤〕などが「…」に切り詰められていた）。幅の一律拡大はしない —
+// 図の総幅が全員ぶん太る（2026-08-18 の判断のまま）。
+// 文字幅はビルド時の近似: 全角=1em・半角=0.55em。**ふりがな ON では rt（字高
+// 50%）が親文字より広いことがある**ので、name-readings.json の読みも勘定する
+// （rt は 0.6em/字＋ruby 要素ごとに 2px の余裕 — sui-tang の実測 133px に対し
+// 素朴な 0.5em модели が 117px と過小だった較正値）。
+// ※ name-readings.ts（src/lib）は `@/` エイリアス import を含み Node から直接
+//   読めないので、JSON と記法（｜親文字《ルビ》）だけをここで解く。
+const nameReadings = JSON.parse(
+  readFileSync(path.join(process.cwd(), "..", "data", "name-readings.json"), "utf8"),
+).names;
+const RUBY_RE = /｜([^｜《》]+)《([^｜《》]+)》/g;
+const emOf = (s) => {
+  let v = 0;
+  for (const ch of s) v += ch.codePointAt(0) <= 0xff ? 0.55 : 1;
+  return v;
+};
+const lineWidthPx = (plain, fontPx) => {
+  const annotated = nameReadings[plain];
+  if (!annotated) return emOf(plain) * fontPx;
+  let w = 0;
+  let cursor = 0;
+  for (const m of annotated.matchAll(RUBY_RE)) {
+    if (m.index > cursor) w += emOf(annotated.slice(cursor, m.index)) * fontPx;
+    w += Math.max(emOf(m[1]) * fontPx, emOf(m[2]) * fontPx * 0.6) + 2;
+    cursor = m.index + m[0].length;
+  }
+  if (cursor < annotated.length) w += emOf(annotated.slice(cursor)) * fontPx;
+  return w;
+};
+// 枠線 1.5px×2 ＋ 帯の左右 padding（px-1.5）6px×2 ＝ 15px が文字の外に要る。
+const CARD_PAD = 15;
+const widthOf = (c) => {
+  let need = lineWidthPx(c.main, 13);
+  if (c.annot) need = Math.max(need, lineWidthPx(c.annot, 9.5));
+  return Math.max(CARD_W, Math.ceil(need) + CARD_PAD + 2);
+};
 
 /**
  * 皇帝を称さなかったが王朝の歴代（第N代）に数えられる君主（kinship.json の
@@ -611,8 +654,9 @@ const blockOf = new Map(); // personId -> block
       const mh = heightOf(cards.get(id));
       // 縦はブロックの中央に揃える。全員の中央が同じ高さになるので、夫婦の横棒が
       // どの組み合わせ（皇帝×親族・親族×親族）でも水平の1本線で引ける。
-      members.push({ id, x, y: (h - mh) / 2, w: CARD_W, h: mh });
-      x += CARD_W + SPOUSE_GAP;
+      const mw = widthOf(cards.get(id));
+      members.push({ id, x, y: (h - mh) / 2, w: mw, h: mh });
+      x += mw + SPOUSE_GAP;
     }
     const b = { id: `blk-${blocks.length}`, members, w: x - SPOUSE_GAP, h, unions: [] };
     blocks.push(b);
@@ -981,6 +1025,23 @@ for (const [key, chain] of chainOf) {
 }
 console.log(`  段のスペーサ: ${si}個 / elk が引いた線: ${routeOf.size}本`);
 
+if (process.env.KINSHIP_DEBUG_DIAG) {
+  for (const [key, chain] of chainOf) {
+    const pts = routeOf.get(key);
+    if (!pts) continue;
+    let has = false;
+    for (let i = 1; i < pts.length; i += 1)
+      if (Math.abs(pts[i][0] - pts[i - 1][0]) > 0.5 && Math.abs(pts[i][1] - pts[i - 1][1]) > 0.5)
+        has = true;
+    if (!has) continue;
+    console.log(`  [diag-raw] ${key}: ${JSON.stringify(pts)}`);
+    for (const eid of chain) {
+      const s = sectionsById.get(eid);
+      if (s) console.log(`    section ${eid}: start=${JSON.stringify(s.startPoint)} bends=${JSON.stringify(s.bendPoints ?? [])} end=${JSON.stringify(s.endPoint)}`);
+    }
+  }
+}
+
 // 逆向きに引かせた継承を from→to の向きへ戻す（矢印・ラベルは to 側に付く）
 for (const key of succReversed) {
   if (!routeOf.get(key)) console.warn(`  ⚠ 逆向き継承の経路が elk から返らなかった: ${key}`);
@@ -1140,7 +1201,7 @@ for (const id of components[0]) {
   const y = Math.round(p.y);
   const cur = mainSpan.get(y);
   const lo = p.x;
-  const hi = p.x + CARD_W;
+  const hi = p.x + widthOf(c);
   if (cur) {
     cur.lo = Math.min(cur.lo, lo);
     cur.hi = Math.max(cur.hi, hi);
@@ -1156,7 +1217,7 @@ for (const comp of components.slice(1)) {
   const want = median(years);
   const box = {
     x0: Math.min(...comp.map((id) => pos.get(id).x)),
-    x1: Math.max(...comp.map((id) => pos.get(id).x + (cards.has(id) ? CARD_W : UNION_SIZE))),
+    x1: Math.max(...comp.map((id) => pos.get(id).x + (cards.has(id) ? widthOf(cards.get(id)) : UNION_SIZE))),
     y0: Math.min(...comp.map((id) => pos.get(id).y)),
     y1: Math.max(
       ...comp.map((id) =>
@@ -1281,7 +1342,7 @@ for (const c of cards.values()) {
     ...c,
     x: Math.round(p.x),
     y: Math.round(p.y),
-    w: CARD_W,
+    w: widthOf(c),
     h: heightOf(c),
   });
 }
@@ -2061,6 +2122,34 @@ const setFirstBusY = (e, y) => {
 {
   const FAMILY_IN = new Set(["father", "mother", "child", "adoptive", "remote"]);
   const cxOf = (b) => b.x + b.w / 2;
+  // **端の x を動かすときは、端と同じ x の縦の連続区間ごと動かす。** 端の1点だけを
+  // 横へずらすと、縦だった終端区間が斜めの線になる（全章で39箇所出ていた・
+  // 2026-08-21 ユーザー指摘「不要な斜め線」の正体）。端の区間が横なら端点の伸縮で
+  // 済む。線全体が1本の縦のときは中間に折れを入れて反対側の付け根を守る。
+  const shiftEndX = (pts, atStart, newX) => {
+    const idx = atStart ? 0 : pts.length - 1;
+    const step = atStart ? 1 : -1;
+    const oldX = pts[idx][0];
+    if (newX === oldX) return pts;
+    const nb = pts[idx + step];
+    if (nb && nb[1] === pts[idx][1]) {
+      pts[idx][0] = newX;
+      return pts;
+    }
+    let k = idx;
+    while (pts[k + step] && pts[k + step][0] === oldX) k += step;
+    if (k === (atStart ? pts.length - 1 : 0)) {
+      const ya = pts[idx][1];
+      const yb = pts[k][1];
+      const ym = Math.round((ya + yb) / 2);
+      const seg = [[newX, ya], [newX, ym], [oldX, ym], [oldX, yb]];
+      pts.length = 0;
+      pts.push(...(atStart ? seg : seg.reverse()));
+      return pts;
+    }
+    for (let i = idx; i !== k + step; i += step) pts[i][0] = newX;
+    return pts;
+  };
   for (const c of cards.values()) {
     const blk = blockOf.get(c.id);
     if (!blk || blk.members.length !== 1) continue;
@@ -2148,10 +2237,10 @@ const setFirstBusY = (e, y) => {
       const pts = e.points.map((q) => [...q]);
       if (e === e0) {
         // 錨の線は入り口を下ろし点の真下（＝新しい中心）へ
-        pts[pts.length - 1][0] = e0.points[0][0];
+        shiftEndX(pts, false, e0.points[0][0]);
       } else {
-        if (e.to === c.id) pts[pts.length - 1][0] += dx;
-        if (e.from === c.id) pts[0][0] += dx;
+        if (e.to === c.id) shiftEndX(pts, false, pts[pts.length - 1][0] + dx);
+        if (e.from === c.id) shiftEndX(pts, true, pts[0][0] + dx);
       }
       e.points = absorbJogs(cleanPolyline(pts), e.from, e.to);
     }
@@ -2320,8 +2409,18 @@ const faults = {
   線どうしの重なり: [],
   端が浮いている: [],
   端の区間が横向き: [],
+  斜めの区間: [],
   不要な折れ: [],
 };
+// 線はすべて直交の折れ線で持つ。斜めの区間は交差・重なりの検査（区間を h/v の
+// bounding box として見る）を静かにすり抜けるので、向きそのものを数える（0 を保つ）。
+for (const e of lines)
+  for (let i = 1; i < e.points.length; i += 1) {
+    const [x0, y0] = e.points[i - 1];
+    const [x1, y1] = e.points[i];
+    if (x0 !== x1 && y0 !== y1)
+      faults.斜めの区間.push(`${e.from}→${e.to} [${x0},${y0}]→[${x1},${y1}]`);
+  }
 // 家族・継承の線はカードへ縦で出入りする（横向きの端はカードの縁を走る形＝
 // from/to 自身との距離検査の除外をすり抜けるので、向きそのものを数える）。
 for (const e of lines) {
