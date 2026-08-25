@@ -119,6 +119,9 @@ export interface JsonLdPerson {
   alternateName?: string[];
   url: string;
   description: string;
+  jobTitle?: string;
+  affiliation?: { name: string };
+  additionalProperty?: { name: string; value: string }[];
   image?: string;
   birthDate?: string;
   deathDate?: string;
@@ -137,6 +140,24 @@ export function personJsonLd(p: JsonLdPerson): Record<string, unknown> {
       : {}),
     url: p.url,
     description: p.description,
+      ...(p.jobTitle ? { jobTitle: p.jobTitle } : {}),
+      ...(p.affiliation
+        ? {
+            affiliation: {
+              "@type": "Organization",
+              name: p.affiliation.name,
+            },
+          }
+        : {}),
+      ...(p.additionalProperty && p.additionalProperty.length
+        ? {
+            additionalProperty: p.additionalProperty.map((property) => ({
+              "@type": "PropertyValue",
+              name: property.name,
+              value: property.value,
+            })),
+          }
+        : {}),
     ...(p.image ? { image: p.image } : {}),
     ...(p.birthDate ? { birthDate: p.birthDate } : {}),
     ...(p.deathDate ? { deathDate: p.deathDate } : {}),

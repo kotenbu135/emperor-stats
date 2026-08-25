@@ -165,6 +165,13 @@ export default async function EmperorPage({
           description:
             profile?.description ??
             `${dynastyContextLabel(record)}の皇帝。在位${record.periodsLabel}（${record.reignDurationLabel}）。`,
+          jobTitle: "皇帝",
+          affiliation: { name: record.dynastyLabel },
+          additionalProperty: [
+            { name: "在位期間", value: record.reignDurationLabel },
+            { name: "死因", value: record.deathCauseCategory },
+            { name: "即位経路", value: record.accessionRouteCategory },
+          ],
           image: record.portraitUrl ? absoluteUrl(record.portraitUrl) : undefined,
           birthDate: structuredDates.birthDate ?? undefined,
           deathDate: structuredDates.deathDate ?? undefined,
