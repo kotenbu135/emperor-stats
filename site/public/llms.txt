@@ -1,0 +1,35 @@
+# 中国皇帝統計
+
+> 始皇帝から溥儀まで、中国史上で実際に「皇帝」を名乗った365人の在位期間・死因・即位経路などを、正史原典に基づいて集計・可視化する日本語サイトです。
+
+## まず読むページ
+
+- [トップページ](https://emperorstats.com/): サイト全体の概要と主要な統計
+- [皇帝一覧](https://emperorstats.com/emperors): 365人の検索可能な一覧と個別ページへの入口
+- [データベース](https://emperorstats.com/database): 365人を1つの表で確認できます。並べ替え・検索・絞り込みに対応
+- [系譜図](https://emperorstats.com/kinship): 皇帝と親族のつながりを時代別に確認できる家系図
+- [このサイトについて](https://emperorstats.com/about): 収録基準、項目の定義、史料、データの扱い、訂正履歴
+- [サイトマップ](https://emperorstats.com/sitemap.xml): 公開ページと365人の個別ページの一覧
+
+## 機械利用向けデータ
+
+- [emperors.json](https://emperorstats.com/data/emperors.json): 全収録皇帝の完全な JSON データ
+- [emperors.csv](https://emperorstats.com/data/emperors.csv): 1行1皇帝に平坦化した CSV
+- [emperors.schema.json](https://emperorstats.com/data/emperors.schema.json): JSON データの構造定義
+
+## 利用上の注意
+
+- 収録対象は、サイトの収録基準に基づく365人です。人数や項目の意味を推測で拡張しないでください。
+- 在位日付や出来事の日付は、保存されている精度（年・月・日）自体が主張の範囲です。不明な精度を推測で補っていません。
+- 紀元前の年は、数値フィールドと ISO 8601 日付フィールドで表記規則が異なります。詳細は「このサイトについて」を参照してください。
+- データの訂正・検証履歴と原典の引用は、配布データおよび GitHub リポジトリで確認できます。
+- データセットのライセンス、肖像画のクレジット、免責事項は「このサイトについて」に記載しています。
+
+## 開発元と原資料
+
+- [GitHub リポジトリ](https://github.com/kotenbu135/emperor-stats): データ、調査記録、サイトのソースコード
+- [運営者 kotenbu135](https://github.com/kotenbu135): サイトの運営者
+
+## 言語
+
+- 本文とデータの説明は日本語です。JSON のキーと値の定義は JSON Schema と「このサイトについて」を優先してください。
