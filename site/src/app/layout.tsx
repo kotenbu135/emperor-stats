@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { SiteShell } from "@/components/layout/site-shell";
 import { DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import "./globals.css";
@@ -58,6 +59,21 @@ export default function RootLayout({
             __html: `try{if(localStorage.getItem('emperor-stats:ruby')==='off')document.documentElement.dataset.ruby='off'}catch(e){}`,
           }}
         />
+        {/* Google アナリティクス（GA4・測定ID G-TV1R0XPJKW）。`afterInteractive` で
+            読み込む — 書体のレンダーブロッキングを 118KB → 31.5KB まで削った面（AGENTS.md
+            「書体は自前で配る」）なので、第三者スクリプトを `beforeInteractive` で
+            クリティカルパスへ戻さないこと。ページ遷移の計測は GA4 の拡張計測（履歴イベント）
+            が拾うので、router を購読する自前の pageview は足さない（二重計上になる）。 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-TV1R0XPJKW"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-TV1R0XPJKW');`}
+        </Script>
         <SiteShell>{children}</SiteShell>
       </body>
     </html>
