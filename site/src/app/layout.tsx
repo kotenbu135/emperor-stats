@@ -63,7 +63,13 @@ export default function RootLayout({
             読み込む — 書体のレンダーブロッキングを 118KB → 31.5KB まで削った面（AGENTS.md
             「書体は自前で配る」）なので、第三者スクリプトを `beforeInteractive` で
             クリティカルパスへ戻さないこと。ページ遷移の計測は GA4 の拡張計測（履歴イベント）
-            が拾うので、router を購読する自前の pageview は足さない（二重計上になる）。 */}
+            が拾うので、router を購読する自前の pageview は足さない（二重計上になる）。
+
+            `consent default` は同意モード v2（GDPR・ePrivacy 指令）。**同意バナーは出さない**
+            方針なので、EEA27か国＋英国・スイスからの閲覧では既定を denied のままにして
+            Cookie を置かせない（Cookie を使わない計測に落ちる）。日本を含むそれ以外の地域は
+            従来どおり。`region` を削ると全世界へ denied が掛かって計測が消えるので、
+            この配列を空にしないこと。/about の「アクセス解析について」の節と対で動かす。 */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-TV1R0XPJKW"
           strategy="afterInteractive"
@@ -72,6 +78,13 @@ export default function RootLayout({
           {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
+gtag('consent', 'default', {
+  ad_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+  analytics_storage: 'denied',
+  region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH']
+});
 gtag('config', 'G-TV1R0XPJKW');`}
         </Script>
         <SiteShell>{children}</SiteShell>

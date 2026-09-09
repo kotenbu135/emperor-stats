@@ -70,6 +70,7 @@ const JUMP_ITEMS: JumpItem[] = [
   { id: "portraits", label: "肖像画の出典" },
   { id: "videos", label: "関連動画" },
   { id: "operator", label: "運営者" },
+  { id: "analytics", label: "アクセス計測" },
   { id: "disclaimer", label: "免責事項" },
 ];
 
@@ -267,7 +268,7 @@ export default function AboutPage() {
         contained
         containedWidth={ARTICLE_WIDTH}
       />
-      {/* 9節・約5000pxの1本道なので、節へ飛ぶ索引を上に固定する。 */}
+      {/* 10節・約5000pxの1本道なので、節へ飛ぶ索引を上に固定する。 */}
       <SectionJumpNav
         items={JUMP_ITEMS}
         label="節へジャンプ"
@@ -556,6 +557,53 @@ export default function AboutPage() {
               Issue
             </A>
             へお願いします。
+          </p>
+        </Prose>
+      </Section>
+
+      {/* 改正電気通信事業法の外部送信規律（27条の12）に当たる送信が発生するので、
+          何が・どこへ・何のために送られるかを1節にまとめて置く。フッターは1行で
+          確定しているため、全ページ向けの注意書きはここに集める決定（2026-08-03）。
+          計測タグそのものは layout.tsx。GA4 を外す・別の計測に替えるときはこの節も対で動かす。
+          節名を「アクセス解析」にしないのは書体の都合で、「析」がサブセットに無いため
+          （紹介文の公開停止中はサブセットを取り直せない — site/AGENTS.md）。 */}
+      <Section
+        id="analytics"
+        title="アクセス計測について"
+        contained
+        containedWidth={ARTICLE_WIDTH}
+        scrollMt={BELOW_SECTION_NAV}
+      >
+        <Prose>
+          <p>
+            本サイトでは、どのページがどれくらい読まれているかを把握するために、Google
+            LLC の提供する
+            <strong>Google アナリティクス（GA4）</strong>
+            を利用しています。ページを開くと、閲覧されたページのURL・遷移元のページ・滞在時間・ブラウザやOSの種類・画面の大きさ・おおよその地域・IPアドレスといった情報が、Cookie
+            などを通じて同社へ送信されます。
+          </p>
+          <p>
+            送信された情報は
+            <strong>サイトの利用状況の把握と改善のためだけ</strong>
+            に使います。氏名・メールアドレスのような個人を特定する情報は送信しておらず、こちらから収集することもありません。運営者について述べたとおり広告掲載やアフィリエイトは行っておらず、収集した情報を広告配信に利用することもありません。
+          </p>
+          <p>
+            EU（EEA）・英国・スイスからのアクセスでは、EU一般データ保護規則（GDPR）とeプライバシー指令をふまえ、
+            <strong>Cookie を保存しない設定で計測しています</strong>
+            （Google の同意モードの既定値を「拒否」にしています）。この場合、個々の訪問者を識別しない形の集計だけが行われます。
+          </p>
+          <p>
+            送信を望まれない場合は、ご利用のブラウザで Cookie を無効にするか、Google
+            が配布している
+            <A href="https://tools.google.com/dlpage/gaoptout" external>
+              Google アナリティクス オプトアウト アドオン
+            </A>
+            をご利用ください。いずれの場合も、本サイトの閲覧そのものには支障ありません。Google
+            による情報の取り扱いについては
+            <A href="https://policies.google.com/privacy" external>
+              Google のプライバシーポリシー
+            </A>
+            をご覧ください。
           </p>
         </Prose>
       </Section>
