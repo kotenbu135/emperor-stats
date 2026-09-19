@@ -160,6 +160,42 @@ function CenturyTooltip({ active, payload }: TooltipProps) {
   );
 }
 
+/**
+ * 世紀ごとの棒グラフの読み上げ用の表。**画面には出さない**（`sr-only`）。
+ *
+ * 図そのものは `role="img"` で1つの画像として読まれるので、棒ごとの件数は
+ * ここでしか取れない。数字は図と同じ `centuries` から出していて、
+ * **この表のために新しく集計しない**（図と表が食い違わないように）。
+ */
+function CenturyTable({ rows, total }: { rows: HomeCenturyBand[]; total: number }) {
+  return (
+    // **`sr-only` は表そのものではなく囲みの div に当てる。** `sr-only` の
+    // `width:1px; height:1px` はテーブルの箱では効かず（中身の幅に広がる）、
+    // 絶対配置のまま 235×600px の箱が図の上に残る。いまは `clip-path` が
+    // 当たり判定ごと切っているので実害は出ていないが、図のホバーの上に
+    // 見えない箱が重なる形にはしない。
+    <div className="sr-only">
+      <table>
+        <caption>{`世紀ごとの即位人数（全${total}名）`}</caption>
+        <thead>
+          <tr>
+            <th scope="col">世紀</th>
+            <th scope="col">即位した人数</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.label}>
+              <th scope="row">{row.fullLabel}</th>
+              <td>{`${row.count}名`}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export function OverviewBoard({
   figures,
   rankings,
@@ -296,6 +332,11 @@ export function OverviewBoard({
           </div>
           {/* 横軸は時間なので、空の世紀も0本のまま残して間隔を保つ。
               目盛りラベルは「前3」「20」と短く、単位は xAxisLabel に出す。 */}
+          {/* **盤面でここだけ図に読み上げ名が無かった**（2026-09-19 の実測）。
+              「在位年数と死因」は帯1本ずつが aria-label で件数を持ち、線の2図は
+              LineChart の role="img"＋ariaLabel を持つが、この棒だけ素の div だった。
+              名前を足したうえで、棒ごとの件数は下の sr-only の表が持つ — 棒の値は
+              ツールチップにしか無く、ホバーできない側からは読む手段が1つも無い。 */}
           <BarChart
             className="mt-5 h-64"
             data={centuries}
@@ -308,7 +349,10 @@ export function OverviewBoard({
             tickGap={4}
             showLegend={false}
             customTooltip={CenturyTooltip}
+            role="img"
+            aria-label={`世紀ごとの即位人数。即位した年で数えた${centuryTotal}名の分布。`}
           />
+          <CenturyTable rows={centuries} total={centuryTotal} />
         </Card>
         {/* 世紀チャートの隣。時間軸を持たない図を置いて軸の重複を避けている。 */}
         <Card className="flex flex-col lg:col-span-2">

@@ -1081,6 +1081,15 @@ export function EmperorTable({
           )}
         >
           <table ref={tableRef} className="w-full caption-bottom text-sm">
+            {/* 表の名前。**画面には出さない**（見出し `<h1>データベース` と本文が
+                同じことを既に言っているので、見えるキャプションは重複になる）。
+                読み上げでは表に入った時点で名前と件数が要る — 365行の途中から
+                読み始めたときに、何の表なのかを取り直す手段がこれしか無い。 */}
+            <caption className="sr-only">
+              {filtered.length === records.length
+                ? `中国皇帝統計のデータベース。全${records.length}名。`
+                : `中国皇帝統計のデータベース。絞り込み中で、全${records.length}名のうち${filtered.length}名を表示。`}
+            </caption>
             {/* ツールチップを使うのは見出しの並べ替えボタン8つだけなので、
                 Provider は layout ではなくここに置く（全ページに client 境界を
                 1枚増やさない）。開くまでの待ちは既定の 0ms ではなく 300ms —
@@ -1102,6 +1111,9 @@ export function EmperorTable({
                         // 幅を測って既定の可視列を決めるとき（NARROW_COLUMN_PRIORITY）に
                         // th と列 id を対応づける。DOM の並び順に頼らない。
                         data-col-id={header.column.id}
+                        // 列の見出しであることを明示する。列を出し入れすると
+                        // 見出しは1行のまま本数だけ変わるので、暗黙の推定に任せない。
+                        scope="col"
                         style={
                           overflows ? undefined : { top: BELOW_STICKY_BAR }
                         }
